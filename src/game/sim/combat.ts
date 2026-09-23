@@ -29,6 +29,8 @@ export interface CombatHost extends World {
   onPickup(kind: PickupKind, value: number): void
   onPlayerHurt(amount: number): void
   onPlayerDown(): void
+  /** Breakable props (crates / barrels): true if the shot struck one. */
+  shotHitsProp?(x: number, y: number, z: number, r: number, dmg: number): boolean
 }
 
 const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: number }> = {
@@ -228,6 +230,11 @@ export class CombatSystem {
       }
 
       if (s.owner === 'player') {
+        if (h.shotHitsProp?.(s.x, s.y, s.z, s.radius, s.dmg)) {
+          h.fx.sparks(s.x, s.y, s.z, s.color, 6, 4)
+          if (s.pierce <= 0) { this.kill(s); continue }
+          s.pierce--
+        }
         for (const e of h.enemies) {
           if (e.state === 'dead' || s.hitIds.includes(e.id)) continue
           const ex = e.x - s.x

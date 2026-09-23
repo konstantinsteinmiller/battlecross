@@ -77,10 +77,10 @@ while bars and damage numbers get direct DOM writes.
   turret), AI state machines, lock-on, quick and charged shots with the perfect
   window, block and parry, slide, telegraph rings, damage numbers, hit flash,
   death orb bursts, drops. *Commit.*
-- [ ] **4. Progression and persistence.** Profile store, XP and levels,
+- [x] **4. Progression and persistence.** Profile store, XP and levels,
   attribute pick, the three circuit boards UI, Repair Tanks, the mid-mission
   snapshot and resume. *Commit.*
-- [ ] **5. Missions and hub.** Regions, story chain, job generator, objectives
+- [x] **5. Missions and hub.** Regions, story chain, job generator, objectives
   (kill, collect, rescue, elite, supply, purge), compass/tracker, beam-out,
   results screen, hub UI with sector map and job board. *Commit.*
 - [ ] **6. Loot and gear.** Item generation, chests with a loot burst, the

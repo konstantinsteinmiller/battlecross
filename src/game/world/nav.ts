@@ -30,6 +30,8 @@ export interface Nav {
   pathBlock: Uint8Array
   /** Closed doors: collide with bodies and block line of sight. */
   slabs: Slab[]
+  /** Chests / crates: collide with bodies (not with sight). */
+  props: Array<{ x: number; z: number; r: number; active: boolean }>
   w: number
   h: number
 }
@@ -37,7 +39,7 @@ export interface Nav {
 export const createNav = (map: MapData): Nav => {
   const solid = new Uint8Array(map.w * map.h)
   for (let k = 0; k < solid.length; k++) solid[k] = map.cell[k] === Cell.Void ? 1 : 0
-  return { map, solid, pathBlock: new Uint8Array(map.w * map.h), slabs: [], w: map.w, h: map.h }
+  return { map, solid, pathBlock: new Uint8Array(map.w * map.h), slabs: [], props: [], w: map.w, h: map.h }
 }
 
 export const setCellSolid = (nav: Nav, i: number, j: number, v: boolean): void => {
@@ -118,6 +120,19 @@ export const resolveCircle = (nav: Nav, x: number, z: number, r: number): [numbe
     }
   }
   for (const p of nav.map.pillars) {
+    const ddx = px - p.x
+    const ddz = pz - p.z
+    const rr = r + p.r
+    const d2 = ddx * ddx + ddz * ddz
+    if (d2 < rr * rr && d2 > 1e-8) {
+      const d = Math.sqrt(d2)
+      px = p.x + (ddx / d) * rr
+      pz = p.z + (ddz / d) * rr
+    }
+  }
+  // Dynamic props (chests, crates): solid until opened / broken.
+  for (const p of nav.props) {
+    if (!p.active) continue
     const ddx = px - p.x
     const ddz = pz - p.z
     const rr = r + p.r

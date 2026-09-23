@@ -12,7 +12,7 @@ import { buildLevel, doorFramePos, type LevelMeshes } from '../world/levelMesh'
 import { THEMES, type Theme, type SectorId } from '../world/themes'
 import { buildDoor, buildTeleporter, type DoorMesh, type PadMesh } from '../models/props'
 import { buildViewmodel, type Viewmodel } from '../models/hero'
-import { PAL } from '../models/palette'
+import { PAL, RARITY_COLOR as RARITY_HEX } from '../models/palette'
 import {
   EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, PITCH_MIN, PITCH_MAX,
   DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME
@@ -26,6 +26,15 @@ import { baseStats, chargeInfo, type PlayerStats } from './stats'
 import { Particles } from '../fx/particles'
 import { FloorMarkers, ShockRings } from '../fx/markers'
 import { sfx } from '../audio/sfx'
+import type { Quest } from '../data/quests'
+import { SECTOR_BY_ID } from '../data/regions'
+import { MissionObjects, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
+import {
+  profile, grantXp, saveProfile, computeStats, writeSnapshot, xp01, type MissionSnapshot
+} from '../state/profile'
+import { rollItem, type Item } from '../data/items'
+import { flow, finishMission } from '../flow'
+import { BEAM_OUT_TIME } from './constants'
 
 export interface MissionSetup {
   sector: SectorId
@@ -38,6 +47,25 @@ export interface MissionSetup {
   /** First mission: gentle first room, softer damage until the mini-boss. */
   tutorial?: boolean
   lookSens?: number
+  quest?: Quest
+  snapshot?: MissionSnapshot | null
+}
+
+/** Build a mission setup from a quest (sector theme, enemy table, level). */
+export const setupFromQuest = (quest: Quest, snapshot: MissionSnapshot | null): MissionSetup => {
+  const sector = SECTOR_BY_ID[quest.sector]
+  return {
+    sector: quest.sector,
+    seed: quest.seed,
+    rooms: quest.rooms,
+    boss: quest.template === 'boss' || quest.template === 'tutorial',
+    enemyLevel: quest.level,
+    encounters: sector.encounters,
+    stats: computeStats(),
+    tutorial: quest.template === 'tutorial',
+    quest,
+    snapshot
+  }
 }
 
 interface DoorState {
@@ -79,7 +107,7 @@ const angDiff = (a: number, b: number): number => {
   return d
 }
 
-export class Mission implements GameMode, CombatHost {
+export class Mission implements GameMode, CombatHost, ObjectiveHost {
   scene = new Scene()
   camera = new PerspectiveCamera(70, 1, 0.05, 260)
   vmScene = new Scene()
@@ -107,6 +135,14 @@ export class Mission implements GameMode, CombatHost {
   bolts = 0
   xp = 0
   kills = 0
+  chestsOpened = 0
+  itemsFound: Item[] = []
+  objects: MissionObjects
+  quest: Quest | null
+  private snapT = 0
+  private dirty = false
+  private interact: ReturnType<MissionObjects['nearestInteractable']> | { kind: 'door'; ref: DoorState } | null = null
+  private finished = false
   private raycaster = new Raycaster()
   private marker: Mesh
   private markerT = 0
@@ -190,9 +226,17 @@ export class Mission implements GameMode, CombatHost {
     this.scene.add(this.fx.points, this.markers.root, this.shocks.root)
     this.system = new CombatSystem(this)
 
-    // Enemies
+    // Mission objects + objective, then the cast (deterministic order: the
+    // resume snapshot refers to enemies by index).
+    this.quest = setup.quest ?? null
+    this.objects = new MissionObjects(this, setup.quest ?? {
+      id: 'dev', kind: 'job', template: 'purge', sector: setup.sector, seed: setup.seed, level: setup.enemyLevel,
+      target: null, count: 1, rooms: setup.rooms, reward: { xp: 0, bolts: 0, rarityBias: 0 }
+    })
     this.enemies = spawnEncounters(this.map, setup.encounters, setup.enemyLevel, { firstRoomsGentle: setup.tutorial })
+    this.objects.setupEnemyObjectives(this.enemies, (e) => this.enemies.push(e))
     for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
+    if (setup.snapshot) this.applySnapshot(setup.snapshot)
 
     // Viewmodel
     this.vm = buildViewmodel()
@@ -323,7 +367,97 @@ export class Mission implements GameMode, CombatHost {
   onEnemyKilled(e: Enemy, xp: number): void {
     this.xp += xp
     this.kills++
+    profile.stats.kills++
     if (this.combat.target === e) this.combat.target = null
+    this.objects.onEnemyKilled(e)
+    this.gainXp(xp)
+    this.dirty = true
+  }
+
+  /** Live XP → profile. A level-up mid-mission is a full repair + fanfare;
+   *  the attribute pick waits for a calm moment (see LevelUpModal). */
+  private gainXp(xp: number): void {
+    const gained = grantXp(xp)
+    if (gained > 0) {
+      const c = this.combat
+      this.stats = computeStats()
+      c.maxHp = this.stats.maxHp
+      c.maxWe = this.stats.maxWe
+      c.maxPower = this.stats.maxPower
+      c.hp = c.maxHp
+      c.we = c.maxWe
+      const p = this.player
+      this.fx.riseRing(p.x, 0.1, p.z, '#ffd84a', 1.1, 26)
+      pushHud({ t: 'flash', color: '#ffd84a', strength: 0.45 })
+      pushHud({ t: 'toast', key: 'progress.levelUp', params: { n: profile.level }, color: '#ffd84a' })
+      sfx('levelUp')
+    }
+  }
+
+  // ─── Objective host ─────────────────────────────────────────────────────────
+
+  onChestOpened(c: Chest): void {
+    this.chestsOpened++
+    profile.stats.chests++
+    const lvl = this.setup.enemyLevel
+    // Bolts burst out of every chest; an item drops by rarity chance.
+    const bolts = Math.round((12 + lvl * 6) * (c.supply ? 1.2 : 1) * this.stats.boltMul)
+    for (let k = 0; k < 5; k++) this.system.spawnPickup('bolt', Math.max(1, Math.round(bolts / 5)), c.x, 1.0, c.z)
+    const itemChance = c.rarity === 'standard' ? 0.45 : 1
+    const seed = (this.map.seed ^ (0x9e37 * (c.id + 1))) >>> 0
+    if (Math.random() < itemChance) {
+      const it = rollItem(seed, lvl, { rarity: c.rarity })
+      profile.inv.items.push(it)
+      profile.inv.fresh.push(it.id)
+      this.itemsFound.push(it)
+      pushHud({ t: 'toast', key: 'loot.found', params: { rarity: `rarity.${it.rarity}`, item: `item.${it.base}` }, color: RARITY_HEX[it.rarity] })
+    }
+    if (Math.random() < 0.18 && profile.inv.tanks < this.stats.tanksMax) {
+      profile.inv.tanks++
+      pushHud({ t: 'toast', key: 'loot.tank', color: '#8dff7a' })
+    }
+    sfx('chestOpen')
+    this.dirty = true
+  }
+
+  onCrateBroken(c: Crate): void {
+    const n = c.kind === 'barrel' ? 1 : 2
+    for (let k = 0; k < n; k++) this.system.spawnPickup('bolt', 2 + Math.floor(Math.random() * 3), c.x, 0.8, c.z)
+    if (Math.random() < 0.12) this.system.spawnPickup(Math.random() < 0.6 ? 'hp' : 'we', 0, c.x, 0.8, c.z)
+  }
+
+  onCoreTaken(_c: Core): void {
+    sfx('objective')
+    this.dirty = true
+  }
+
+  onObjectiveDone(): void {
+    hud.objectiveDone = true
+    pushHud({ t: 'toast', key: 'mission.objectiveDone', color: '#8dff7a' })
+    pushHud({ t: 'flash', color: '#8dff7a', strength: 0.3 })
+    sfx('objective')
+    this.dirty = true
+  }
+
+  shotHitsProp(x: number, y: number, z: number, r: number, dmg: number): boolean {
+    return this.objects.shotHitsCrate(x, y, z, r, dmg)
+  }
+
+  /** Barrel blast: hurts every machine (and crate) in the radius. */
+  explode(x: number, z: number, r: number, dmg: number): void {
+    for (const e of this.enemies) {
+      if (e.state === 'dead') continue
+      if (Math.hypot(e.x - x, e.z - z) < r + e.def.radius) {
+        this.system.damageEnemy(e, dmg, { crit: false, charge: 2, fromX: x, fromZ: z, x: e.x, y: e.y + e.def.aimY, z: e.z, color: '#ffb04a' })
+      }
+    }
+    for (const c of this.objects.crates) {
+      if (!c.broken && Math.hypot(c.x - x, c.z - z) < r) this.objects.breakCrate(c)
+    }
+    const p = this.player
+    if (Math.hypot(p.x - x, p.z - z) < r * 0.8) {
+      this.hitPlayer(null, Math.round(dmg * 0.25), { blockable: false, fromX: x, fromZ: z, kind: 'aoe' })
+    }
   }
 
   onPickup(kind: PickupKind, value: number): void {
@@ -331,6 +465,8 @@ export class Mission implements GameMode, CombatHost {
     switch (kind) {
       case 'bolt':
         this.bolts += value
+        profile.bolts += value
+        this.dirty = true
         sfx('bolt')
         break
       case 'hp':
@@ -362,7 +498,155 @@ export class Mission implements GameMode, CombatHost {
     hud.phase = 'dead'
     this.fx.orbBurst(this.player.x, EYE_H - 0.4, this.player.z, PAL.heroCyan, 1.3)
     sfx('death')
-    this.respawnT = 2.6
+    this.respawnT = 1.4
+    this.writeSnap()
+  }
+
+  /** Defeat modal → "Reboot": back on your feet where you fell, full repair. */
+  revive(): void {
+    const c = this.combat
+    c.dead = false
+    c.hp = c.maxHp
+    c.power = c.maxPower
+    c.iframes = 2.5
+    c.hurtT = 0
+    hud.phase = 'play'
+    this.phaseT = 0
+    this.fx.riseRing(this.player.x, 0.1, this.player.z, PAL.glowCyan, 1, 22)
+    // Push nearby machines back a step so a revive is not an instant re-death.
+    for (const e of this.enemies) {
+      if (e.state === 'dead') continue
+      const d = Math.hypot(e.x - this.player.x, e.z - this.player.z)
+      if (d < 4) {
+        e.state = 'stun'
+        e.st = 0
+        e.stunT = 1.2
+      }
+    }
+    sfx('beamIn')
+    flow.modal = ''
+  }
+
+  /** Retreat / abandon: keep what was earned, fail the quest, go home. */
+  retreat(): void {
+    if (this.finished) return
+    this.finished = true
+    finishMission(false, this.tally())
+  }
+
+  /** Objective done → beam out (the results follow the animation). */
+  beamOut(): void {
+    if (hud.phase !== 'play' || !this.objects.objective.done) return
+    hud.phase = 'beamOut'
+    this.phaseT = 0
+    this.combat.charging = false
+    this.fx.riseRing(this.player.x, 0.1, this.player.z, PAL.glowCyan, 0.9, 24)
+    sfx('beamOut')
+  }
+
+  useTank(): boolean {
+    const c = this.combat
+    if (profile.inv.tanks <= 0 || c.dead || c.hp >= c.maxHp || hud.phase !== 'play') {
+      sfx('denied')
+      return false
+    }
+    profile.inv.tanks--
+    c.hp = c.maxHp
+    c.power = c.maxPower
+    this.fx.riseRing(this.player.x, 0.1, this.player.z, '#8dff7a', 0.9, 20)
+    pushHud({ t: 'flash', color: '#8dff7a', strength: 0.35 })
+    sfx('tank')
+    this.dirty = true
+    return true
+  }
+
+  private tally() {
+    return { xp: this.xp, bolts: this.bolts, kills: this.kills, chests: this.chestsOpened, items: this.itemsFound, seconds: this.time }
+  }
+
+  // ─── Snapshot (resume) ──────────────────────────────────────────────────────
+
+  private writeSnap(): void {
+    if (!this.quest || this.finished) return
+    const killed: number[] = []
+    this.enemies.forEach((e, i) => { if (e.state === 'dead') killed.push(i) })
+    writeSnapshot({
+      quest: this.quest,
+      killed,
+      opened: this.objects.chests.filter(c => c.opened).map(c => c.id),
+      doors: this.doors.filter(d => d.opening).map(d => d.id),
+      collected: [
+        ...this.objects.cores.filter(c => c.taken).map(c => c.id),
+        ...(this.objects.npc?.rescued ? [-1] : [])
+      ],
+      progress: this.objects.objective.progress,
+      x: this.player.x,
+      z: this.player.z,
+      yaw: this.player.yaw,
+      hp: Math.max(1, Math.round(this.combat.hp)),
+      we: this.combat.we,
+      bolts: this.bolts,
+      xp: this.xp,
+      kills: this.kills,
+      t: this.time,
+      done: false
+    })
+  }
+
+  private applySnapshot(s: MissionSnapshot): void {
+    for (const i of s.killed) {
+      const e = this.enemies[i]
+      if (!e) continue
+      e.state = 'dead'
+      e.hp = 0
+      e.deathT = 10
+      e.root.visible = false
+      e.shadow.visible = false
+    }
+    for (const id of s.opened) {
+      const c = this.objects.chests[id]
+      if (!c) continue
+      c.opened = true
+      c.openT = 1
+      c.mesh.lid.rotation.x = -1.9
+      this.nav.props[c.navIdx]!.active = false
+    }
+    for (const id of s.collected) {
+      if (id === -1 && this.objects.npc) {
+        this.objects.npc.rescued = true
+        this.objects.npc.beamT = 1
+        this.objects.npc.root.visible = false
+        continue
+      }
+      const core = this.objects.cores[id]
+      if (core) {
+        core.taken = true
+        core.mesh.root.visible = false
+      }
+    }
+    for (const id of s.doors) {
+      const d = this.doors[id]
+      if (!d) continue
+      d.opening = true
+      d.locked = false
+      d.open = 0.99
+    }
+    const ob = this.objects.objective
+    ob.progress = Math.min(ob.count, s.progress)
+    if (ob.progress >= ob.count) {
+      ob.done = true
+      hud.objectiveDone = true
+    }
+    const p = this.player
+    p.x = p.px = s.x
+    p.z = p.pz = s.z
+    p.yaw = s.yaw
+    this.combat.hp = Math.min(this.combat.maxHp, s.hp)
+    this.combat.we = Math.min(this.combat.maxWe, s.we)
+    this.bolts = s.bolts
+    this.xp = s.xp
+    this.kills = s.kills
+    this.time = s.t
   }
 
   // ─── Update ────────────────────────────────────────────────────────────────
@@ -387,8 +671,16 @@ export class Mission implements GameMode, CombatHost {
       this.updatePlayer(dt, first)
     } else if (hud.phase === 'dead') {
       this.deathT += dt
-      this.respawnT -= rawDt
-      if (this.respawnT <= 0) this.respawn()
+      if (this.respawnT > 0) {
+        this.respawnT -= rawDt
+        if (this.respawnT <= 0) flow.modal = 'defeat'
+      }
+    } else if (hud.phase === 'beamOut') {
+      if (this.phaseT >= BEAM_OUT_TIME && !this.finished) {
+        this.finished = true
+        writeSnapshot(null)
+        finishMission(true, this.tally())
+      }
     }
 
     for (const e of this.enemies) updateEnemy(this, e, dt)
@@ -401,8 +693,29 @@ export class Mission implements GameMode, CombatHost {
     this.markerT = Math.max(0, this.markerT - dt)
     ;(this.marker.material as MeshBasicMaterial).opacity = p.path ? 0.55 + Math.sin(this.time * 8) * 0.25 : this.markerT * 2
     this.marker.scale.setScalar(p.path ? 1 + Math.sin(this.time * 6) * 0.08 : 1 + (0.5 - this.markerT) * 0.6)
-    this.pad.ringMat.opacity = hud.phase === 'beamIn' ? 0.85 : 0.18 + Math.sin(this.time * 2.4) * 0.08
+    this.pad.ringMat.opacity = hud.phase === 'beamIn' || hud.phase === 'beamOut' ? 0.85 : 0.18 + Math.sin(this.time * 2.4) * 0.08
     this.pad.ring.rotation.y += dt * 0.6
+    this.objects.update(dt, this.time)
+
+    // Interaction: the nearest chest / bot / sealed boss door in reach.
+    if (hud.phase === 'play') {
+      const near = this.objects.nearestInteractable(p.x, p.z, p.yaw)
+      const door = this.doors.find(d => d.locked && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
+      this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
+      if (first && this.input.interactQueued) this.doInteract()
+      if (first && this.input.tankQueued) this.useTank()
+    } else {
+      this.interact = null
+    }
+
+    // Checkpoints: persist profile + mission snapshot at most every 2 s.
+    this.snapT -= rawDt
+    if (this.dirty && this.snapT <= 0 && hud.phase === 'play') {
+      this.snapT = 2
+      this.dirty = false
+      saveProfile()
+      this.writeSnap()
+    }
 
     this.hudT -= rawDt
     if (this.hudT <= 0) {
@@ -416,22 +729,23 @@ export class Mission implements GameMode, CombatHost {
     }
   }
 
-  private respawn(): void {
-    // Temporary until the defeat flow (retreat / revive) lands with missions.
-    const c = this.combat
-    const p = this.player
-    c.dead = false
-    c.hp = c.maxHp
-    c.power = c.maxPower
-    c.iframes = 2
-    p.x = p.px = this.map.start.x
-    p.z = p.pz = this.map.start.z
-    p.vx = p.vz = 0
-    p.path = null
-    c.target = null
-    hud.phase = 'beamIn'
-    this.phaseT = 0
-    sfx('beamIn')
+  /** Act on the current interactable (button / E key / tapping it). */
+  doInteract(): void {
+    const it = this.interact
+    if (!it || hud.phase !== 'play') return
+    if (it.kind === 'chest') this.objects.openChest(it.ref as Chest)
+    else if (it.kind === 'npc') this.objects.rescue(it.ref as NonNullable<MissionObjects['npc']>)
+    else if (it.kind === 'door') {
+      const d = it.ref as DoorState
+      d.locked = false
+      d.opening = true
+      this.nav.pathBlock[d.cellJ * this.map.w + d.cellI] = 1
+      this.shake(0.2)
+      this.sfx('door', d.x, d.z)
+      pushHud({ t: 'toast', key: 'mission.bossDoor', color: '#ff7a7a' })
+    }
+    this.interact = null
+    this.dirty = true
   }
 
   private updatePlayer(dt: number, first: boolean): void {
@@ -758,6 +1072,19 @@ export class Mission implements GameMode, CombatHost {
     for (const tap of this.input.taps) {
       const w = getRenderer().domElement.clientWidth || 1
       const h = getRenderer().domElement.clientHeight || 1
+      // Tapped an object (chest / bot)? Open it if in reach, else walk to it.
+      const hit = this.tappedObject(tap.x, tap.y)
+      if (hit) {
+        const p = this.player
+        if (this.interact && this.interact.ref === hit.ref) this.doInteract()
+        else {
+          const dx = p.x - hit.x
+          const dz = p.z - hit.z
+          const d = Math.hypot(dx, dz) || 1
+          this.walkTo(hit.x + (dx / d) * 1.6, hit.z + (dz / d) * 1.6)
+        }
+        continue
+      }
       _v2.set((tap.x / w) * 2 - 1, -(tap.y / h) * 2 + 1)
       this.raycaster.setFromCamera(_v2, this.camera)
       const ray = this.raycaster.ray
@@ -767,6 +1094,25 @@ export class Mission implements GameMode, CombatHost {
       ray.at(t, _v3)
       this.walkTo(_v3.x, _v3.z)
     }
+  }
+
+  private tappedObject(sx: number, sy: number): { ref: unknown; x: number; z: number } | null {
+    const pt = { x: 0, y: 0, visible: false }
+    let best: { ref: unknown; x: number; z: number } | null = null
+    let bestD = 70
+    const p = this.player
+    const consider = (ref: unknown, x: number, y: number, z: number) => {
+      if (Math.hypot(x - p.x, z - p.z) > 26) return
+      this.project(x, y, z, pt)
+      if (!pt.visible) return
+      const d = Math.hypot(pt.x - sx, pt.y - sy)
+      if (d < bestD && hasLineOfSight(this.nav, p.x, p.z, x, z)) { bestD = d; best = { ref, x, z } }
+    }
+    for (const c of this.objects.chests) if (!c.opened) consider(c, c.x, 0.6, c.z)
+    const n = this.objects.npc
+    if (n && !n.rescued) consider(n, n.x, 0.8, n.z)
+    for (const d of this.doors) if (d.locked) consider(d, d.x, 1.6, d.z)
+    return best
   }
 
   walkTo(x: number, z: number): boolean {
@@ -802,9 +1148,31 @@ export class Mission implements GameMode, CombatHost {
     hud.maxWe = c.maxWe
     hud.power = c.power
     hud.maxPower = c.maxPower
-    hud.bolts = this.bolts
+    hud.bolts = profile.bolts
+    hud.level = profile.level
+    hud.xp01 = xp01()
+    hud.tanks = profile.inv.tanks
     hud.blockHeld = c.blocking
     hud.slideReady = c.slideCd <= 0 && c.power >= this.stats.slideCost
+    // Objective line + compass
+    const ob = this.objects.objective
+    hud.objectiveKey = `objective.${ob.template}`
+    hud.objectiveParams = {
+      n: ob.progress, total: ob.count,
+      target: this.quest?.target ? (ob.template === 'kill' ? `enemyPlural.${this.quest.target}` : `enemy.${this.quest.target}`) : ''
+    }
+    hud.objectiveDone = ob.done
+    const it = this.interact
+    hud.interactKey = !it ? '' : it.kind === 'chest' ? 'interact.chest' : it.kind === 'npc' ? 'interact.rescue' : 'interact.bossDoor'
+    const p = this.player
+    const marks: typeof hud.compass = []
+    for (const m of this.objects.compassTargets(this.enemies)) {
+      const bearing = angDiff(Math.atan2(-(m.x - p.x), -(m.z - p.z)), p.yaw)
+      marks.push({ bearing: -bearing, kind: m.kind, dist: Math.hypot(m.x - p.x, m.z - p.z) })
+      if (marks.length >= 6) break
+    }
+    if (ob.done) marks.push({ bearing: -angDiff(Math.atan2(-(this.map.start.x - p.x), -(this.map.start.z - p.z)), p.yaw), kind: 'exit', dist: Math.hypot(this.map.start.x - p.x, this.map.start.z - p.z) })
+    hud.compass = marks
     const t = c.target
     if (t && t.state !== 'dead') {
       hud.targetName = t.nameKey
@@ -854,6 +1222,9 @@ export class Mission implements GameMode, CombatHost {
       const k = Math.min(1, this.phaseT / BEAM_IN_TIME)
       const e = 1 - Math.pow(1 - k, 3)
       y = EYE_H + (1 - e) * 7
+    } else if (hud.phase === 'beamOut') {
+      const k = Math.min(1, this.phaseT / BEAM_OUT_TIME)
+      y = EYE_H + k * k * 9
     } else if (hud.phase === 'dead') {
       y = EYE_H - Math.min(1, this.deathT * 1.5) * 0.9
     }
@@ -894,7 +1265,9 @@ export class Mission implements GameMode, CombatHost {
     const p = this.player
     const c = this.combat
     const vm = this.vmRoot
-    const beam = hud.phase === 'beamIn' ? 1 - Math.min(1, this.phaseT / BEAM_IN_TIME) : hud.phase === 'dead' ? 1 : 0
+    const beam = hud.phase === 'beamIn' ? 1 - Math.min(1, this.phaseT / BEAM_IN_TIME)
+      : hud.phase === 'beamOut' ? Math.min(1, this.phaseT / BEAM_OUT_TIME)
+        : hud.phase === 'dead' ? 1 : 0
     const block = c.blocking ? 1 : 0
     // Portrait screens are narrow: tuck the arm in and shrink it so it never
     // eats the right third of the view.

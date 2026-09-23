@@ -22,7 +22,7 @@ const { t } = useI18n()
 .target
   position: absolute
   left: 50%
-  top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2vmin, 16px))
+  top: calc(env(safe-area-inset-top, 0px) + clamp(32px, 7vmin, 46px))
   transform: translateX(-50%)
   width: clamp(170px, 42vmin, 300px)
   pointer-events: none

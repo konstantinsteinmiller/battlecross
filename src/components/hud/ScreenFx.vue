@@ -5,7 +5,7 @@
     div.beam(ref="beam")
   div.toasts
     TransitionGroup(name="toast")
-      div.toast(v-for="tt in toasts" :key="tt.id" :style="{ color: tt.color }") {{ t(tt.key, tt.params) }}
+      div.toast(v-for="tt in toasts" :key="tt.id" :style="{ color: tt.color }") {{ t(tt.key, resolveParams(t, tt.params)) }}
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
 import { screenFx, toasts } from '@/game/state/screenFx'
+import { resolveParams } from '@/game/state/i18nParams'
 
 /** Red hurt vignette, colour flashes (parry, perfect, pickups), the beam-in
  *  white-out, and the toast stack. */

@@ -3,7 +3,7 @@ import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FTabs, { type TabOption } from '@/components/atoms/FTabs.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import useSounds from '@/use/useSound'
+import { sfx } from '@/game/audio/sfx'
 import { acquireModalOpen } from '@/use/useModalState'
 
 const { t } = useI18n()
@@ -27,7 +27,7 @@ const emit = defineEmits(['update:modelValue', 'update:activeTab'])
 // Vue warns about extraneous attrs. Opt out and forward $attrs explicitly.
 defineOptions({ inheritAttrs: false })
 
-const { playSound } = useSounds()
+
 
 // ─── Header / content overlap ───────────────────────────────────────────────
 //
@@ -74,7 +74,7 @@ const markOpen = (): void => { if (!releaseModalOpen) releaseModalOpen = acquire
 const markClosed = (): void => { releaseModalOpen?.(); releaseModalOpen = null }
 
 watch(() => props.modelValue, (open, prev) => {
-  if (open && !prev) playSound('modal-open', 0.07)
+  if (open && !prev) sfx('uiOpen')
   if (open) { markOpen(); void attachObserver() } else { markClosed(); observer?.disconnect() }
 })
 

@@ -17,6 +17,14 @@
       @pointerdown.prevent.stop="slide"
     )
       GameIcon(name="forward")
+    button.act.tank(
+      type="button"
+      :class="{ off: hud.tanks <= 0 || hud.hp >= hud.maxHp }"
+      :aria-label="t('combat.tank')"
+      @pointerdown.prevent.stop="tank"
+    )
+      GameIcon(name="flask")
+      span.count {{ hud.tanks }}
 </template>
 
 <script setup lang="ts">
@@ -44,6 +52,10 @@ const blockUp = () => {
 const slide = () => {
   input.touched = true
   input.slideQueued = true
+}
+const tank = () => {
+  input.touched = true
+  input.tankQueued = true
 }
 </script>
 
@@ -91,4 +103,28 @@ const slide = () => {
     transform: scale(0.9)
   &.off
     filter: grayscale(0.7) brightness(0.8)
+.tank
+  right: clamp(4px, 1vmin, 8px)
+  bottom: clamp(76px, 17.5vmin, 110px)
+  width: clamp(44px, 10vmin, 60px)
+  height: clamp(44px, 10vmin, 60px)
+  background: radial-gradient(circle at 40% 30%, #d4ffc8, #5fe07a 45%, #1f9a4a)
+  &:active
+    transform: scale(0.9)
+  &.off
+    filter: grayscale(0.8) brightness(0.75)
+  .count
+    position: absolute
+    right: -6px
+    bottom: -6px
+    min-width: 20px
+    height: 20px
+    padding: 0 4px
+    border-radius: 10px
+    background: #141a33
+    color: #fff
+    font-family: var(--font-pixel)
+    font-size: 9px
+    line-height: 20px
+    text-align: center
 </style>
