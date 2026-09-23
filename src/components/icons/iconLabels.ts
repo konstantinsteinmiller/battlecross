@@ -30,11 +30,9 @@ export const ICON_LABEL_KEYS: Partial<Record<GameIconName, string>> = {
   info: 'ui.info',
   // Named by the screens they open.
   settings: 'options.title',
-  shop: 'upgrades.title',
-  anvil: 'upgrades.title',
-  // The idle chest on the HUD, not the shop — it pays coins for waiting.
-  chest: 'chest.label',
-  leaderboard: 'leaderboard.title',
+  shop: 'hub.tab.workshop',
+  anvil: 'hub.tab.workshop',
+  chest: 'interact.chest',
   close: 'close',
   music: 'options.music',
   'music-off': 'options.music',

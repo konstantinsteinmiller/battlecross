@@ -301,6 +301,61 @@ export const computeStats = (): PlayerStats => {
   return s
 }
 
+export const isEquipped = (id: string): EquipSlot | null => {
+  for (const s of EQUIP_SLOTS) if (profile.inv.equipped[s] === id) return s
+  return null
+}
+
+/** Equip an item into its slot (chips: the free chip socket, else socket 1). */
+export const equipItem = (id: string, socket?: EquipSlot): EquipSlot | null => {
+  const it = itemById(id)
+  if (!it) return null
+  let slot: EquipSlot
+  if (it.slot === 'chip') {
+    const cur = isEquipped(id)
+    if (cur) return cur
+    slot = socket && (socket === 'chip1' || socket === 'chip2') ? socket
+      : !profile.inv.equipped.chip1 ? 'chip1' : !profile.inv.equipped.chip2 ? 'chip2' : 'chip1'
+  } else {
+    slot = it.slot
+  }
+  profile.inv.equipped[slot] = id
+  markSeen(id)
+  saveProfile()
+  return slot
+}
+
+export const unequipChip = (slot: 'chip1' | 'chip2'): void => {
+  profile.inv.equipped[slot] = null
+  saveProfile()
+}
+
+export const markSeen = (id: string): void => {
+  const i = profile.inv.fresh.indexOf(id)
+  if (i >= 0) profile.inv.fresh.splice(i, 1)
+}
+
+/** Break an item down for bolts. Equipped items cannot be salvaged. */
+export const salvageItem = (id: string, value: number): boolean => {
+  if (isEquipped(id)) return false
+  const i = profile.inv.items.findIndex(x => x.id === id)
+  if (i < 0) return false
+  profile.inv.items.splice(i, 1)
+  markSeen(id)
+  profile.bolts += value
+  saveProfile()
+  return true
+}
+
+export const upgradeItem = (id: string, cost: number, max: number): boolean => {
+  const it = itemById(id)
+  if (!it || it.upg >= max || profile.bolts < cost) return false
+  profile.bolts -= cost
+  it.upg++
+  saveProfile()
+  return true
+}
+
 /** The equipped armor total (for the Hero screen). */
 export const armorTotal = (): number => {
   let armor = 0

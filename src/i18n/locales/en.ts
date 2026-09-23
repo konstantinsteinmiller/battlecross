@@ -240,7 +240,11 @@ export default {
     'tanks': 'Supplies',
     'tankName': 'Repair Tank',
     'tankDesc': 'Fully restores health and power mid-mission.',
-    'owned': 'Carried: {n}/{max}'
+    'owned': 'Carried: {n}/{max}',
+    'upgrade': 'Upgrade gear',
+    'next': 'Next level',
+    'upgradeBtn': 'Upgrade',
+    'maxed': 'Fully upgraded'
   },
 
   // ─── Circuits (skills) ────────────────────────────────────────────────────
@@ -305,6 +309,41 @@ export default {
     'boots_titan': 'Titan Boots',
     'chip_logic': 'Logic Chip',
     'chip_quantum': 'Quantum Chip'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Helmet',
+    'chest': 'Frame',
+    'boots': 'Boots',
+    'chip': 'Chip'
+  },
+  'gear': {
+    'damage': 'Damage',
+    'armor': 'Armor',
+    'equip': 'Equip',
+    'unequip': 'Remove',
+    'equipped': 'Equipped',
+    'new': 'NEW',
+    'salvage': 'Salvage (+{n})',
+    'noAffixes': 'No bonus modules',
+    'emptySlot': 'Nothing for this socket yet — open chests and finish jobs.'
+  },
+  // `{v}` arrives already signed and formatted ("+12", "+4.5%").
+  'affix': {
+    'crit': '{v} critical chance',
+    'critDmg': '{v} critical damage',
+    'hp': '{v} max health',
+    'armor': '{v} armor',
+    'we': '{v} weapon energy',
+    'power': '{v} power',
+    'bolts': '{v} bolts found',
+    'chargeSpeed': '{v} charge speed',
+    'pelletDmg': '{v} pellet damage',
+    'chargeDmg': '{v} charge shot damage',
+    'moveSpeed': '{v} move speed',
+    'special': '{v} special weapon damage',
+    'regen': '{v} health regen / s (out of combat)',
+    'magnet': '{v} pickup reach'
   },
   'weapon': {
     'scrapBurst': { 'name': 'Scrap Burst' },

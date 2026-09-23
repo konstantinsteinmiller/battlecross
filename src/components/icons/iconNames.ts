@@ -51,7 +51,8 @@ export const GAME_ICON_NAMES = [
   // `IncomingWarning.vue` because that badge now asks `ArtIcon` for its mark,
   // and `ArtIcon`'s floor is a glyph from this list — see `game/uiArt.ts`,
   // which draws the same sign on a canvas for the reference sheet.
-  'warning'
+  'warning',
+  'buster', 'helmet', 'armor', 'boots', 'chip'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

@@ -83,7 +83,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **5. Missions and hub.** Regions, story chain, job generator, objectives
   (kill, collect, rescue, elite, supply, purge), compass/tracker, beam-out,
   results screen, hub UI with sector map and job board. *Commit.*
-- [ ] **6. Loot and gear.** Item generation, chests with a loot burst, the
+- [x] **6. Loot and gear.** Item generation, chests with a loot burst, the
   inventory/Hero tab with a 3D paper doll, gear recolouring the rig, the
   Workshop (upgrade, salvage, tanks). *Commit.*
 - [ ] **7. Bosses and special weapons.** Scrapper, Blaze, Frost, Volt and Gale

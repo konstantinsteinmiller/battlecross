@@ -62,7 +62,7 @@ const { t, locale } = useI18n()
 type Tab = 'missions' | 'hero' | 'circuits' | 'workshop'
 const TABS: Array<{ id: Tab; icon: GameIconName }> = [
   { id: 'missions', icon: 'play' },
-  { id: 'hero', icon: 'squad' },
+  { id: 'hero', icon: 'helmet' },
   { id: 'circuits', icon: 'chart' },
   { id: 'workshop', icon: 'anvil' }
 ]

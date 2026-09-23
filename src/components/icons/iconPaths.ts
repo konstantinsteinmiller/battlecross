@@ -510,5 +510,30 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M12 12.6c3.9 0 7-1.1 7-2.4S15.9 7.8 12 7.8 5 8.9 5 10.2s3.1 2.4 7 2.4Z',
     'M5 12.4c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4v2.3c0 1.3-3.1 2.4-7 2.4s-7-1.1-7-2.4v-2.3Zm0 4.5c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4v2.2c0 1.3-3.1 2.4-7 2.4s-7-1.1-7-2.4v-2.2Z',
     'M9.6 2.4a3.4 3.4 0 0 1 3.3 2.6l3.9 1.2-3.8 1a3.4 3.4 0 1 1-3.4-4.8Zm-.5 1.7a1 1 0 0 0 0 2 1 1 0 0 0 0-2Z'
+  ],
+  // ── Mega Adventure gear slots ─────────────────────────────────────────
+  // The arm cannon: a rounded barrel with a muzzle collar.
+  'buster': [
+    'M3.4 8.4h11.2a3.6 3.6 0 0 1 0 7.2H3.4A1.6 1.6 0 0 1 1.8 14v-4a1.6 1.6 0 0 1 1.6-1.6Z',
+    'M18.6 9.1h2.2a1.3 1.3 0 0 1 1.3 1.3v3.2a1.3 1.3 0 0 1-1.3 1.3h-2.2V9.1Z'
+  ],
+  // The round helmet with the face opening cut out of its lower middle.
+  'helmet': [
+    'M12 2.8a8.6 8.6 0 0 0-8.6 8.6V18a2 2 0 0 0 2 2h2.4v-6.4a4.2 4.2 0 0 1 8.4 0V20h2.4a2 2 0 0 0 2-2v-6.6A8.6 8.6 0 0 0 12 2.8Z',
+    'M10.8 3.2h2.4v5.2h-2.4V3.2Z'
+  ],
+  // Chest plate: shoulders, a waist and a tapering body.
+  'armor': [
+    'M6 4.4 9.2 3h5.6L18 4.4l2.6 3.1-2.1 3.3V19a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-8.2L3.4 7.5 6 4.4Z'
+  ],
+  // An oversized boot.
+  'boots': [
+    'M6 3h6v8.4l6.3 2.9A3 3 0 0 1 20 17v2.5a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3 19.5V17c0-.9.4-1.7 1-2.3V4.5A1.5 1.5 0 0 1 5.5 3H6Z'
+  ],
+  // A circuit chip with pins; the die is a punched hole.
+  'chip': [
+    'M7 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm2 4v6h6V9H9Z',
+    'M8 2h1.6v2.4H8V2Zm3.2 0h1.6v2.4h-1.6V2Zm3.2 0H16v2.4h-1.6V2ZM8 19.6h1.6V22H8v-2.4Zm3.2 0h1.6V22h-1.6v-2.4Zm3.2 0H16V22h-1.6v-2.4Z',
+    'M2 8h2.4v1.6H2V8Zm0 3.2h2.4v1.6H2v-1.6Zm0 3.2h2.4V16H2v-1.6ZM19.6 8H22v1.6h-2.4V8Zm0 3.2H22v1.6h-2.4v-1.6Zm0 3.2H22V16h-2.4v-1.6Z'
   ]
 }
