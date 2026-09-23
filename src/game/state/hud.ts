@@ -78,7 +78,7 @@ export const tickHud = (dt: number): void => {
 
 export type HudEvent =
   | { t: 'damage'; x: number; y: number; z: number; amount: number; crit: boolean; weak: boolean; toPlayer: boolean }
-  | { t: 'text'; x: number; y: number; z: number; key: string; color: string }
+  | { t: 'text'; x: number; y: number; z: number; key: string; color: string; params?: Record<string, string | number> }
   | { t: 'toast'; key: string; params?: Record<string, string | number>; color?: string; icon?: string }
   | { t: 'flash'; color: string; strength: number }
   | { t: 'hurt'; strength: number }

@@ -70,10 +70,10 @@ while bars and damage numbers get direct DOM writes.
   rename the state layer to `mega_adventure_state`, add a `GameScene` with a
   renderer and a test room, and keep the splash/loader working. Typecheck and
   build green. *Commit.*
-- [ ] **2. Exploration.** Level generator + meshes + theme, FP controller
+- [x] **2. Exploration.** Level generator + meshes + theme, FP controller
   (joystick, look, tap-to-move with A*), doors, collision, head-bob, the
   teleport beam-in, the Cobalt FP arm cannon. *Commit.*
-- [ ] **3. Combat.** Enemy rigs (hardhat, trooper, heli, hopper, roller, brute,
+- [x] **3. Combat.** Enemy rigs (hardhat, trooper, heli, hopper, roller, brute,
   turret), AI state machines, lock-on, quick and charged shots with the perfect
   window, block and parry, slide, telegraph rings, damage numbers, hit flash,
   death orb bursts, drops. *Commit.*

@@ -2,7 +2,7 @@ import { getRenderer } from './engine/renderer'
 import { createInput } from './engine/input'
 import { bakeTextures } from './world/textures'
 import { Mission, type MissionSetup } from './sim/mission'
-import type { GameMode } from './engine/app'
+import { app, type GameMode } from './engine/app'
 
 /**
  * ─── Boot priming ────────────────────────────────────────────────────────────
@@ -26,8 +26,19 @@ export const firstMissionSetup = (): MissionSetup => ({
   sector: 'scrapyard',
   seed: 20260923,
   rooms: 8,
-  boss: true
+  boss: true,
+  enemyLevel: 1,
+  tutorial: true,
+  encounters: {
+    kinds: [['hardhat', 3], ['trooper', 2], ['heli', 1.5], ['roller', 1], ['hopper', 0.8], ['turret', 0.8], ['brute', 0.5]],
+    element: 'none',
+    density: 0.85,
+    eliteChance: 0.05
+  }
 })
+
+/** The live mission, if the active mode is one (HUD components read it). */
+export const currentMission = (): Mission | null => (app.mode instanceof Mission ? app.mode : null)
 
 export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
   if (primed) return primed

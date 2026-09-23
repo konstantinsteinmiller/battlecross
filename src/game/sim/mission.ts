@@ -6,8 +6,8 @@ import type { GameMode } from '../engine/app'
 import { getRenderer } from '../engine/renderer'
 import type { Input } from '../engine/input'
 import { consumeEdges } from '../engine/input'
-import { generateMap, type MapData, CELL, cellCenter, roomCenter, WALL_H } from '../world/levelGen'
-import { createNav, moveCircle, findPath, smoothPath, isSolidAt, type Nav, type Slab } from '../world/nav'
+import { generateMap, type MapData, CELL, WALL_H } from '../world/levelGen'
+import { createNav, moveCircle, findPath, smoothPath, isSolidAt, hasLineOfSight, type Nav, type Slab } from '../world/nav'
 import { buildLevel, doorFramePos, type LevelMeshes } from '../world/levelMesh'
 import { THEMES, type Theme, type SectorId } from '../world/themes'
 import { buildDoor, buildTeleporter, type DoorMesh, type PadMesh } from '../models/props'
@@ -17,14 +17,26 @@ import {
   EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, PITCH_MIN, PITCH_MAX,
   DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME
 } from './constants'
-import { hud, tickHud } from '../state/hud'
+import { hud, tickHud, pushHud } from '../state/hud'
+import type { CombatPlayer, Enemy, PickupKind } from './world'
+import { CombatSystem, type CombatHost } from './combat'
+import { updateEnemy, syncEnemyVisual, PARRY_WINDOW, wake } from './enemies'
+import { spawnEncounters, type EncounterTable } from './spawn'
+import { baseStats, chargeInfo, type PlayerStats } from './stats'
+import { Particles } from '../fx/particles'
+import { FloorMarkers, ShockRings } from '../fx/markers'
+import { sfx } from '../audio/sfx'
 
 export interface MissionSetup {
   sector: SectorId
   seed: number
   rooms: number
   boss: boolean
-  /** Look sensitivity multiplier from settings. */
+  enemyLevel: number
+  encounters: EncounterTable
+  stats?: PlayerStats
+  /** First mission: gentle first room, softer damage until the mini-boss. */
+  tutorial?: boolean
   lookSens?: number
 }
 
@@ -40,6 +52,7 @@ interface DoorState {
   axis: 'x' | 'z'
   cellI: number
   cellJ: number
+  to: number
 }
 
 export interface PlayerState {
@@ -59,7 +72,14 @@ export interface PlayerState {
 const _v2 = new Vector2()
 const _v3 = new Vector3()
 
-export class Mission implements GameMode {
+const angDiff = (a: number, b: number): number => {
+  let d = a - b
+  while (d > Math.PI) d -= Math.PI * 2
+  while (d < -Math.PI) d += Math.PI * 2
+  return d
+}
+
+export class Mission implements GameMode, CombatHost {
   scene = new Scene()
   camera = new PerspectiveCamera(70, 1, 0.05, 260)
   vmScene = new Scene()
@@ -73,20 +93,47 @@ export class Mission implements GameMode {
   vm: Viewmodel
   player: PlayerState
   input: Input
+  setup: MissionSetup
+  stats: PlayerStats
+  combat: CombatPlayer
+  enemies: Enemy[] = []
+  fx: Particles
+  markers = new FloorMarkers()
+  shocks = new ShockRings()
+  system: CombatSystem
   time = 0
   phaseT = 0
+  hitStop = 0
+  bolts = 0
+  xp = 0
+  kills = 0
   private raycaster = new Raycaster()
   private marker: Mesh
   private markerT = 0
-  private shake = 0
+  private shakeAmt = 0
   private lookSens: number
   private vmRoot = new Group()
+  private hudT = 0
+  private aimCandidate = false
+  private targetLostT = 0
+  private respawnT = 0
+  private deathT = 0
+  private combatEndT = 0
   /** DEV: override the camera ([x,y,z, lookX,lookY,lookZ]) for inspection. */
   debugCam: [number, number, number, number, number, number] | null = null
 
   constructor(setup: MissionSetup, input: Input) {
+    this.setup = setup
     this.input = input
     this.lookSens = setup.lookSens ?? 1
+    this.stats = setup.stats ?? baseStats()
+    const s = this.stats
+    this.combat = {
+      hp: s.maxHp, maxHp: s.maxHp, we: s.maxWe, maxWe: s.maxWe, power: s.maxPower, maxPower: s.maxPower,
+      powerDelay: 0, charge: 0, charging: false, fireCd: 0, blocking: false, blockPressedAt: -10, guardBroken: 0,
+      slideT: 0, slideCd: 0, slideDX: 0, slideDZ: 0, iframes: 0, hurtT: 0, target: null, recoil: 0, dead: false,
+      lastStandUsed: false
+    }
     this.theme = THEMES[setup.sector]
     this.map = generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
@@ -94,8 +141,6 @@ export class Mission implements GameMode {
     this.scene.add(this.level.root)
     this.scene.add(this.level.sky)
 
-    // Lighting: a bright hemisphere for the flat toon fill plus one sun for
-    // the band edges. No shadow maps — blob shadows only (cheap, readable).
     const th = this.theme
     this.scene.background = new Color(th.skyBottom)
     this.scene.fog = new Fog(new Color(th.fog), th.fogNear, th.fogFar)
@@ -104,7 +149,6 @@ export class Mission implements GameMode {
     sun.position.set(0.45, 1, 0.3)
     this.scene.add(hemi, sun)
 
-    // Doors
     for (const d of this.map.doors) {
       const mesh = buildDoor(th, d.boss)
       const [fx, fz] = doorFramePos(d)
@@ -117,19 +161,17 @@ export class Mission implements GameMode {
         ? { minX: fx - thin, maxX: fx + thin, minZ: fz - half, maxZ: fz + half, active: true }
         : { minX: fx - half, maxX: fx + half, minZ: fz - thin, maxZ: fz + thin, active: true }
       this.nav.slabs.push(slab)
-      this.nav.pathBlock[d.j * this.map.w + d.i] = 1
+      this.nav.pathBlock[d.j * this.map.w + d.i] = d.boss ? 2 : 1
       this.doors.push({
-        id: d.id, mesh, open: 0, opening: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j
+        id: d.id, mesh, open: 0, opening: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, to: d.to
       })
     }
 
-    // Teleporter pad in the start room
     this.pad = buildTeleporter(th)
     const [sx, sz] = [this.map.start.x, this.map.start.z]
     this.pad.root.position.set(sx, 0, sz)
     this.scene.add(this.pad.root)
 
-    // Tap-to-move marker
     this.marker = new Mesh(
       new RingGeometry(0.34, 0.5, 32),
       new MeshBasicMaterial({ color: new Color(PAL.glowCyan), transparent: true, opacity: 0, blending: AdditiveBlending, depthWrite: false, side: DoubleSide, toneMapped: false })
@@ -143,8 +185,16 @@ export class Mission implements GameMode {
       path: null, bob: 0, bobAmp: 0
     }
 
-    // Viewmodel scene: its own camera and lights so the arm never clips into
-    // walls and is lit consistently regardless of the room.
+    // FX layers
+    this.fx = new Particles(1000)
+    this.scene.add(this.fx.points, this.markers.root, this.shocks.root)
+    this.system = new CombatSystem(this)
+
+    // Enemies
+    this.enemies = spawnEncounters(this.map, setup.encounters, setup.enemyLevel, { firstRoomsGentle: setup.tutorial })
+    for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
+
+    // Viewmodel
     this.vm = buildViewmodel()
     this.vmRoot.add(this.vm.root)
     this.vmScene.add(this.vmRoot)
@@ -152,15 +202,175 @@ export class Mission implements GameMode {
     const vmSun = new DirectionalLight(0xffffff, 1.1)
     vmSun.position.set(-0.4, 1, 0.6)
     this.vmScene.add(vmSun, new AmbientLight(0xffffff, 0.15))
-    this.vmCamera.position.set(0, 0, 0)
 
     hud.phase = 'beamIn'
     this.phaseT = 0
+    sfx('beamIn')
+  }
+
+  // ─── World interface ───────────────────────────────────────────────────────
+
+  fireEnemyShot(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): void {
+    this.system.spawnEnemyShot(e, x, y, z, dx, dy, dz, speed, dmg, blockable)
+  }
+
+  lobShell(e: Enemy, tx: number, tz: number, dur: number, dmg: number): void {
+    this.system.lobShell(e, tx, tz, dur, dmg)
+  }
+
+  shake(amount: number): void {
+    this.shakeAmt = Math.min(1, this.shakeAmt + amount)
+  }
+
+  sfx(name: string, x?: number, z?: number): void {
+    let pan = 0
+    let gain = 1
+    if (x !== undefined && z !== undefined) {
+      const dx = x - this.player.x
+      const dz = z - this.player.z
+      const d = Math.hypot(dx, dz)
+      const rx = Math.cos(this.player.yaw)
+      const rz = -Math.sin(this.player.yaw)
+      pan = d > 0.01 ? (dx * rx + dz * rz) / d : 0
+      gain = Math.max(0.15, Math.min(1, 1.2 - d / 26))
+    }
+    sfx(name, pan * 0.7, gain)
+  }
+
+  hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss' {
+    const c = this.combat
+    const p = this.player
+    if (c.dead || hud.phase !== 'play') return 'miss'
+    if (c.iframes > 0) return 'miss'
+    const toSrc = Math.atan2(-(o.fromX - p.x), -(o.fromZ - p.z))
+    const frontal = Math.abs(angDiff(toSrc, p.yaw)) < 1.35
+    if (o.blockable && c.blocking && frontal && c.guardBroken <= 0) {
+      if (this.time - c.blockPressedAt <= PARRY_WINDOW + this.stats.parryBonus) {
+        // ── PARRY ──
+        this.hitStop = Math.max(this.hitStop, 0.14)
+        this.shake(0.25)
+        pushHud({ t: 'flash', color: '#bff6ff', strength: 0.5 })
+        pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: EYE_H + 0.2, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.parry', color: '#7ff4ff' })
+        this.fx.sparks(p.x - Math.sin(p.yaw) * 0.8, EYE_H - 0.3, p.z - Math.cos(p.yaw) * 0.8, '#bff6ff', 18, 7, 0.2)
+        sfx('parry')
+        if (e && o.kind === 'melee') {
+          e.state = 'stun'
+          e.st = 0
+          e.stunT = 1.6 + this.stats.parryStunBonus
+          e.ring.visible = false
+          e.flash = 1
+        }
+        c.iframes = Math.max(c.iframes, 0.2)
+        return 'parry'
+      }
+      // ── BLOCK ──
+      const taken = Math.max(1, Math.round(dmg * 0.25 * this.stats.blockDmgMul))
+      c.power -= dmg * 0.45 * this.stats.blockCostMul
+      c.powerDelay = 0.9
+      c.hp -= taken
+      this.fx.sparks(p.x - Math.sin(p.yaw) * 0.7, EYE_H - 0.3, p.z - Math.cos(p.yaw) * 0.7, '#7ff4ff', 8, 5)
+      this.shake(0.1)
+      sfx('block')
+      pushHud({ t: 'damage', x: p.x - Math.sin(p.yaw) * 1.2, y: EYE_H - 0.1, z: p.z - Math.cos(p.yaw) * 1.2, amount: taken, crit: false, weak: false, toPlayer: true })
+      if (this.stats.reflectPct > 0 && e) {
+        this.system.damageEnemy(e, Math.round(dmg * this.stats.reflectPct), { crit: false, charge: 0, fromX: p.x, fromZ: p.z, x: e.x, y: e.y + e.def.aimY, z: e.z, color: '#7ff4ff' })
+      }
+      if (c.power <= 0) {
+        c.power = 0
+        c.guardBroken = 0.7
+        c.blocking = false
+        sfx('guardCrack')
+        pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: EYE_H + 0.1, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.guardCracked', color: '#ff8a5a' })
+      }
+      this.checkDown()
+      return 'block'
+    }
+    // ── HIT ──
+    let taken = dmg * this.stats.damageTakenMul
+    if (this.setup.tutorial) taken *= 0.6
+    taken = Math.max(1, Math.round(taken))
+    c.hp -= taken
+    c.iframes = 0.8
+    c.hurtT = 0.25
+    this.shake(0.35)
+    sfx('hurt')
+    pushHud({ t: 'hurt', strength: Math.min(1, taken / (c.maxHp * 0.25)) })
+    this.onPlayerHurt(taken)
+    // Knock the player back a touch
+    const kx = p.x - o.fromX
+    const kz = p.z - o.fromZ
+    const kl = Math.hypot(kx, kz) || 1
+    p.vx += (kx / kl) * 4
+    p.vz += (kz / kl) * 4
+    this.checkDown()
+    return 'hit'
+  }
+
+  private checkDown(): void {
+    const c = this.combat
+    if (c.hp > 0) return
+    if (this.stats.lastStand && !c.lastStandUsed) {
+      c.lastStandUsed = true
+      c.hp = 1
+      c.iframes = 1.5
+      pushHud({ t: 'toast', key: 'combat.lastStand', color: '#ffd84a' })
+      return
+    }
+    c.hp = 0
+    this.onPlayerDown()
+  }
+
+  onEnemyKilled(e: Enemy, xp: number): void {
+    this.xp += xp
+    this.kills++
+    if (this.combat.target === e) this.combat.target = null
+  }
+
+  onPickup(kind: PickupKind, value: number): void {
+    const c = this.combat
+    switch (kind) {
+      case 'bolt':
+        this.bolts += value
+        sfx('bolt')
+        break
+      case 'hp':
+      case 'hpBig': {
+        const amt = Math.round(c.maxHp * (kind === 'hp' ? 0.14 : 0.35))
+        c.hp = Math.min(c.maxHp, c.hp + amt)
+        sfx('heal')
+        pushHud({ t: 'flash', color: '#8dff7a', strength: 0.18 })
+        break
+      }
+      case 'we':
+      case 'weBig':
+        c.we = Math.min(c.maxWe, c.we + (kind === 'we' ? 6 : 14))
+        sfx('energy')
+        break
+    }
+  }
+
+  onPlayerHurt(_amount: number): void {
+    // Chunk hooks (tutorial tips, analytics) attach here.
+  }
+
+  onPlayerDown(): void {
+    const c = this.combat
+    if (c.dead) return
+    c.dead = true
+    c.charging = false
+    this.deathT = 0
+    hud.phase = 'dead'
+    this.fx.orbBurst(this.player.x, EYE_H - 0.4, this.player.z, PAL.heroCyan, 1.3)
+    sfx('death')
+    this.respawnT = 2.6
   }
 
   // ─── Update ────────────────────────────────────────────────────────────────
 
-  update(dt: number, first: boolean): void {
+  update(rawDt: number, first: boolean): void {
+    // Hit-stop: the world slows to a crawl for a few frames on crits/parries.
+    const dt = this.hitStop > 0 ? rawDt * 0.08 : rawDt
+    this.hitStop = Math.max(0, this.hitStop - rawDt)
     this.time += dt
     this.phaseT += dt
     const p = this.player
@@ -171,10 +381,21 @@ export class Mission implements GameMode {
       if (this.phaseT >= BEAM_IN_TIME) {
         hud.phase = 'play'
         this.phaseT = 0
+        this.fx.riseRing(p.x, 0.2, p.z, PAL.glowCyan, 0.9, 20)
       }
     } else if (hud.phase === 'play') {
-      this.updatePlayer(dt)
+      this.updatePlayer(dt, first)
+    } else if (hud.phase === 'dead') {
+      this.deathT += dt
+      this.respawnT -= rawDt
+      if (this.respawnT <= 0) this.respawn()
     }
+
+    for (const e of this.enemies) updateEnemy(this, e, dt)
+    this.system.update(dt)
+    this.fx.update(dt)
+    this.markers.update(dt, this.time)
+    this.shocks.update(dt)
     this.updateDoors(dt)
     this.updateRoomCulling()
     this.markerT = Math.max(0, this.markerT - dt)
@@ -183,15 +404,116 @@ export class Mission implements GameMode {
     this.pad.ringMat.opacity = hud.phase === 'beamIn' ? 0.85 : 0.18 + Math.sin(this.time * 2.4) * 0.08
     this.pad.ring.rotation.y += dt * 0.6
 
+    this.hudT -= rawDt
+    if (this.hudT <= 0) {
+      this.hudT = 1 / 15
+      this.writeHud()
+    }
+
     if (first) {
       this.handleTaps()
       consumeEdges(this.input)
     }
   }
 
-  private updatePlayer(dt: number): void {
+  private respawn(): void {
+    // Temporary until the defeat flow (retreat / revive) lands with missions.
+    const c = this.combat
     const p = this.player
+    c.dead = false
+    c.hp = c.maxHp
+    c.power = c.maxPower
+    c.iframes = 2
+    p.x = p.px = this.map.start.x
+    p.z = p.pz = this.map.start.z
+    p.vx = p.vz = 0
+    p.path = null
+    c.target = null
+    hud.phase = 'beamIn'
+    this.phaseT = 0
+    sfx('beamIn')
+  }
+
+  private updatePlayer(dt: number, first: boolean): void {
+    const p = this.player
+    const c = this.combat
     const inp = this.input
+    const st = this.stats
+
+    // ── Timers & regen ──
+    c.fireCd -= dt
+    c.iframes = Math.max(0, c.iframes - dt)
+    c.hurtT = Math.max(0, c.hurtT - dt)
+    c.slideCd -= dt
+    c.guardBroken = Math.max(0, c.guardBroken - dt)
+    c.recoil = Math.max(0, c.recoil - dt * 6)
+    if (!c.blocking) {
+      c.powerDelay -= dt
+      if (c.powerDelay <= 0) c.power = Math.min(c.maxPower, c.power + 26 * dt)
+    }
+    if (!hud.combat && st.regen > 0) c.hp = Math.min(c.maxHp, c.hp + c.maxHp * st.regen * dt)
+
+    // ── Targeting ──
+    this.updateTargeting(dt)
+
+    // ── Block ──
+    if (inp.blockPressed) c.blockPressedAt = this.time
+    c.blocking = inp.blockHeld && c.guardBroken <= 0 && c.slideT <= 0 && c.hurtT <= 0
+
+    // ── Fire / charge (MegaMan: shoot on press, charge while held) ──
+    const canAct = c.hurtT <= 0 && c.guardBroken <= 0 && c.slideT <= 0 && !c.blocking
+    if (first && inp.firePressed && canAct && this.input.fireHeld !== undefined) {
+      if (c.fireCd <= 0 && this.activePellets() < 3) this.firePellet()
+      c.charging = true
+      c.charge = 0
+    }
+    if (c.charging && inp.fireHeld) {
+      const before = chargeInfo(c.charge, st).level
+      c.charge += dt
+      const after = chargeInfo(c.charge, st).level
+      if (after > before) sfx(after === 1 ? 'charge1' : 'charge2')
+    }
+    if (first && inp.fireReleased && c.charging) {
+      const info = chargeInfo(c.charge, st)
+      if (info.level !== 0 && canAct) this.fireCharged(info.level, info.perfect)
+      c.charging = false
+      c.charge = 0
+    } else if (c.charging && !inp.fireHeld && !inp.fireReleased) {
+      // Lost the hold without a release edge (focus loss) — drop the charge.
+      c.charging = false
+      c.charge = 0
+    }
+
+    // ── Slide ──
+    if (first && inp.slideQueued && c.slideCd <= 0 && c.slideT <= 0 && c.power >= st.slideCost) {
+      let dx = 0
+      let dz = 0
+      const stick = Math.hypot(inp.moveX, inp.moveY)
+      const fwdX = -Math.sin(p.yaw)
+      const fwdZ = -Math.cos(p.yaw)
+      const rightX = Math.cos(p.yaw)
+      const rightZ = -Math.sin(p.yaw)
+      if (stick > 0.2) {
+        dx = fwdX * inp.moveY + rightX * inp.moveX
+        dz = fwdZ * inp.moveY + rightZ * inp.moveX
+      } else {
+        dx = -fwdX
+        dz = -fwdZ // no direction: hop back
+      }
+      const l = Math.hypot(dx, dz) || 1
+      c.slideDX = dx / l
+      c.slideDZ = dz / l
+      c.slideT = 0.28
+      c.slideCd = 0.7 * st.slideCdMul
+      c.iframes = Math.max(c.iframes, 0.22)
+      c.power -= st.slideCost
+      c.powerDelay = 0.6
+      p.path = null
+      sfx('slide')
+      this.fx.emit({ x: p.x, y: 0.2, z: p.z, color: '#dfefff', size: 0.9, sizeEnd: 1.6, life: 0.3 })
+    }
+
+    // ── Movement ──
     let tx = 0
     let tz = 0
     const fwdX = -Math.sin(p.yaw)
@@ -199,10 +521,17 @@ export class Mission implements GameMode {
     const rightX = Math.cos(p.yaw)
     const rightZ = -Math.sin(p.yaw)
     const stick = Math.hypot(inp.moveX, inp.moveY)
-    if (stick > 0.01) {
+    const speedMul = st.moveMul * (c.blocking ? 0.45 : 1) * (c.hurtT > 0 ? 0.5 : 1)
+    if (c.slideT > 0) {
+      c.slideT -= dt
+      const sp = 15
+      tx = c.slideDX * sp
+      tz = c.slideDZ * sp
+      if (Math.random() < 0.6) this.fx.emit({ x: p.x, y: 0.12, z: p.z, color: '#cfe0ff', size: 0.5, sizeEnd: 1.1, life: 0.25 })
+    } else if (stick > 0.01) {
       p.path = null
-      tx = (fwdX * inp.moveY + rightX * inp.moveX) * WALK_SPEED
-      tz = (fwdZ * inp.moveY + rightZ * inp.moveX) * WALK_SPEED
+      tx = (fwdX * inp.moveY + rightX * inp.moveX) * WALK_SPEED * speedMul
+      tz = (fwdZ * inp.moveY + rightZ * inp.moveX) * WALK_SPEED * speedMul
     } else if (p.path && p.path.length) {
       const [wx, wz] = p.path[0]!
       const dx = wx - p.x
@@ -212,37 +541,175 @@ export class Mission implements GameMode {
         p.path.shift()
         if (!p.path.length) p.path = null
       } else {
-        const sp = Math.min(PATH_SPEED, d * 6)
+        const sp = Math.min(PATH_SPEED * speedMul, d * 6)
         tx = (dx / d) * sp
         tz = (dz / d) * sp
-        // Turn the view gently toward the walking direction (Blades does
-        // this), but only while no stick input fights it.
-        const want = Math.atan2(-dx, -dz)
-        let dy = want - p.yaw
-        while (dy > Math.PI) dy -= Math.PI * 2
-        while (dy < -Math.PI) dy += Math.PI * 2
-        p.yaw += dy * Math.min(1, dt * 3.2)
+        if (!hud.combat) {
+          const want = Math.atan2(-dx, -dz)
+          p.yaw += angDiff(want, p.yaw) * Math.min(1, dt * 3.2)
+        }
       }
     }
-    const k = Math.min(1, dt * ACCEL)
+    const k = c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
     p.vx += (tx - p.vx) * k
     p.vz += (tz - p.vz) * k
     const out: [number, number] = [0, 0]
     moveCircle(this.nav, p.x, p.z, p.vx * dt, p.vz * dt, PLAYER_R, out)
-    // If a path step got blocked (door closing, crowding), drop the path.
     if (p.path && Math.hypot(out[0] - p.x, out[1] - p.z) < 0.002 && Math.hypot(tx, tz) > 1) p.path = null
     p.x = out[0]
     p.z = out[1]
     const speed = Math.hypot(p.vx, p.vz)
-    p.bobAmp += ((speed > 0.4 ? Math.min(1, speed / WALK_SPEED) : 0) - p.bobAmp) * Math.min(1, dt * 8)
+    p.bobAmp += ((speed > 0.4 && c.slideT <= 0 ? Math.min(1, speed / WALK_SPEED) : 0) - p.bobAmp) * Math.min(1, dt * 8)
     p.bob += dt * (4.2 + speed * 1.35)
+  }
+
+  private activePellets(): number {
+    let n = 0
+    for (const s of this.system.shots) if (s.active && s.kind === 'pellet') n++
+    return n
+  }
+
+  /** Muzzle position in world space (right-low of the eye). */
+  private muzzle(): [number, number, number] {
+    const p = this.player
+    const cam = this.camera
+    _v3.set(0.26, -0.22, -0.7).applyQuaternion(cam.quaternion)
+    return [p.x + _v3.x, EYE_H + _v3.y, p.z + _v3.z]
+  }
+
+  private aimDir(from: [number, number, number]): [number, number, number, Enemy | null] {
+    const t = this.combat.target
+    const p = this.player
+    if (t && t.state !== 'dead') {
+      const ax = t.x - from[0]
+      const ay = t.y + t.def.aimY * (t.elite ? 1.18 : 1) - from[1]
+      const az = t.z - from[2]
+      const toT = Math.atan2(-(t.x - p.x), -(t.z - p.z))
+      if (Math.abs(angDiff(toT, p.yaw)) < 1.1) {
+        const l = Math.hypot(ax, ay, az) || 1
+        return [ax / l, ay / l, az / l, t]
+      }
+    }
+    // Free aim: along the view, converging on the crosshair ~20 m out
+    _v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion)
+    const fx = p.x + _v3.x * 20
+    const fy = EYE_H + _v3.y * 20
+    const fz = p.z + _v3.z * 20
+    const dx = fx - from[0]
+    const dy = fy - from[1]
+    const dz = fz - from[2]
+    const l = Math.hypot(dx, dy, dz) || 1
+    return [dx / l, dy / l, dz / l, null]
+  }
+
+  private firePellet(): void {
+    const c = this.combat
+    const st = this.stats
+    const m = this.muzzle()
+    const [dx, dy, dz, tgt] = this.aimDir(m)
+    const crit = Math.random() < st.critChance
+    const dmg = Math.round(st.busterDmg * st.pelletMul * (crit ? st.critMul : 1))
+    this.system.spawnPlayerShot('pellet', m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt)
+    c.fireCd = 0.2
+    c.recoil = Math.min(1, c.recoil + 0.45)
+    this.fx.flash(m[0] + dx * 0.5, m[1] + dy * 0.5, m[2] + dz * 0.5, '#fff39a', 0.22, 0.06)
+    sfx('shoot')
+    // Shooting at a sleeping enemy in view wakes it.
+    if (tgt && !tgt.awake) wake(this, tgt)
+    this.makeNoise(10)
+  }
+
+  /** Gunfire is loud: machines within `r` metres that can hear it wake up. */
+  private makeNoise(r: number): void {
+    const p = this.player
+    for (const e of this.enemies) {
+      if (e.awake || e.state === 'dead') continue
+      if (Math.hypot(e.x - p.x, e.z - p.z) < r) wake(this, e)
+    }
+  }
+
+  private fireCharged(level: 1 | 2 | 3, perfect: boolean): void {
+    const c = this.combat
+    const st = this.stats
+    const m = this.muzzle()
+    const [dx, dy, dz, tgt] = this.aimDir(m)
+    const mul = level === 3 ? 7 : level === 2 ? 4 : 2.2
+    const crit = perfect || Math.random() < st.critChance
+    const dmg = Math.round(st.busterDmg * mul * st.chargeDmgMul * (crit ? st.critMul : 1))
+    const kind = level === 3 ? 'charge3' : level === 2 ? 'charge2' : 'charge1'
+    this.system.spawnPlayerShot(kind, m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt)
+    c.fireCd = 0.25
+    c.recoil = 1
+    this.shake(level >= 2 ? 0.16 : 0.06)
+    this.fx.flash(m[0] + dx * 0.6, m[1] + dy * 0.6, m[2] + dz * 0.6, level >= 2 ? '#7ff4ff' : '#c8ff7a', level >= 2 ? 0.5 : 0.32, 0.1)
+    if (perfect) {
+      pushHud({ t: 'flash', color: '#ffd84a', strength: 0.25 })
+      pushHud({ t: 'text', x: m[0] + dx * 3, y: m[1] + 0.4, z: m[2] + dz * 3, key: 'combat.perfect', color: '#ffd84a' })
+    }
+    sfx(level >= 2 ? 'chargeShotBig' : 'chargeShot')
+    if (tgt && !tgt.awake) wake(this, tgt)
+    this.makeNoise(12)
+  }
+
+  private updateTargeting(dt: number): void {
+    const c = this.combat
+    const p = this.player
+    let engaged = 0
+    this.aimCandidate = false
+    let best: Enemy | null = null
+    let bestScore = Infinity
+    for (const e of this.enemies) {
+      if (e.state === 'dead') continue
+      const d = Math.hypot(e.x - p.x, e.z - p.z)
+      const ang = Math.abs(angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw))
+      if (e.awake && d < 22) engaged++
+      if (d < 22 && ang < 0.5 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) this.aimCandidate = true
+      if ((e.awake && d < 22) || (d < 20 && ang < 0.45)) {
+        const score = ang * 2.2 + d / 10
+        if (score < bestScore && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) {
+          bestScore = score
+          best = e
+        }
+      }
+    }
+    const wasCombat = hud.combat
+    hud.combat = engaged > 0
+    if (wasCombat && !hud.combat) this.combatEndT = 0.6
+    if (this.combatEndT > 0) {
+      this.combatEndT -= dt
+      if (this.combatEndT <= 0) this.system.vacuum(16)
+    }
+    const t = c.target
+    const valid = t && t.state !== 'dead' && Math.hypot(t.x - p.x, t.z - p.z) < 24
+    if (valid && !hasLineOfSight(this.nav, p.x, p.z, t.x, t.z)) this.targetLostT += dt
+    else this.targetLostT = 0
+    if (!valid || this.targetLostT > 1.2) {
+      c.target = best && (best.awake || this.aimCandidate) ? best : null
+      this.targetLostT = 0
+    }
+    // Swipe / Tab: cycle to the next engaged enemy by bearing.
+    if (this.input.swipe !== 0) {
+      const list = this.enemies
+        .filter(e => e.state !== 'dead' && e.awake && Math.hypot(e.x - p.x, e.z - p.z) < 22 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z))
+        .map(e => ({ e, a: angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw) }))
+        .sort((a, b) => a.a - b.a)
+      if (list.length > 1) {
+        const i = Math.max(0, list.findIndex(o => o.e === c.target))
+        const next = list[(i + (this.input.swipe > 0 ? -1 : 1) + list.length) % list.length]!
+        c.target = next.e
+        sfx('uiClick')
+      }
+    }
   }
 
   private updateDoors(dt: number): void {
     const p = this.player
     for (const d of this.doors) {
       if (!d.opening && !d.locked) {
-        if (Math.hypot(p.x - d.x, p.z - d.z) < DOOR_OPEN_DIST) d.opening = true
+        if (Math.hypot(p.x - d.x, p.z - d.z) < DOOR_OPEN_DIST) {
+          d.opening = true
+          this.sfx('door', d.x, d.z)
+        }
       }
       if (d.opening && d.open < 1) {
         d.open = Math.min(1, d.open + dt * DOOR_OPEN_SPEED)
@@ -262,7 +729,6 @@ export class Mission implements GameMode {
     }
   }
 
-  /** Hide room groups that are well beyond the fog. */
   private updateRoomCulling(): void {
     const p = this.player
     const far = this.theme.fogFar + 6
@@ -272,6 +738,17 @@ export class Mission implements GameMode {
       const d = Math.hypot(bb.x - p.x, bb.z - p.z) - bb.r
       this.level.rooms[i]!.visible = d < far
     }
+    for (const e of this.enemies) {
+      const vis = e.state !== 'dead' || e.deathT < 0.2
+      const near = Math.hypot(e.x - p.x, e.z - p.z) < far
+      e.root.visible = vis && near
+      e.shadow.visible = e.root.visible
+    }
+  }
+
+  /** Right-side presses count as FIRE while in combat or an enemy is in the sights. */
+  wantsFire(): boolean {
+    return hud.phase === 'play' && (hud.combat || this.aimCandidate)
   }
 
   // ─── Taps: walk-to / interact ────────────────────────────────────────────
@@ -295,7 +772,6 @@ export class Mission implements GameMode {
   walkTo(x: number, z: number): boolean {
     const p = this.player
     if (isSolidAt(this.nav, x, z)) {
-      // Clamp to the last walkable point along the ray toward the tap.
       const dx = x - p.x
       const dz = z - p.z
       const len = Math.hypot(dx, dz)
@@ -307,7 +783,7 @@ export class Mission implements GameMode {
       }
       if (!found) return false
     }
-    const raw = findPath(this.nav, p.x, p.z, x, z)
+    const raw = findPath(this.nav, p.x, p.z, x, z, 1400, 1)
     if (!raw) return false
     p.path = smoothPath(this.nav, p.x, p.z, raw, PLAYER_R)
     this.marker.position.x = x
@@ -316,24 +792,61 @@ export class Mission implements GameMode {
     return true
   }
 
+  // ─── HUD mirror (≤ 15 Hz) ────────────────────────────────────────────────
+
+  private writeHud(): void {
+    const c = this.combat
+    hud.hp = Math.max(0, c.hp)
+    hud.maxHp = c.maxHp
+    hud.we = c.we
+    hud.maxWe = c.maxWe
+    hud.power = c.power
+    hud.maxPower = c.maxPower
+    hud.bolts = this.bolts
+    hud.blockHeld = c.blocking
+    hud.slideReady = c.slideCd <= 0 && c.power >= this.stats.slideCost
+    const t = c.target
+    if (t && t.state !== 'dead') {
+      hud.targetName = t.nameKey
+      hud.targetLevel = t.level
+      hud.targetHp01 = t.hp / t.maxHp
+      hud.targetElite = t.elite
+    } else {
+      hud.targetName = ''
+    }
+  }
+
   // ─── Render ──────────────────────────────────────────────────────────────
 
   render(alpha: number, dt: number): void {
     const p = this.player
+    const c = this.combat
     const inp = this.input
-    // Look is applied per rendered frame, not per logic step, so a 120 Hz
-    // screen gets 120 Hz look even though the sim runs at 60.
     if (hud.phase === 'play' && (inp.lookDX || inp.lookDY)) {
       const s = (inp.device === 'touch' ? LOOK_TOUCH : LOOK_MOUSE) * this.lookSens
-      p.yaw -= inp.lookDX * s
-      p.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, p.pitch - inp.lookDY * s))
-      if (Math.abs(inp.lookDX) + Math.abs(inp.lookDY) > 2) p.path = p.path // look never cancels a walk
+      // In combat the lock steers yaw; manual look still nudges it.
+      const k = hud.combat && c.target ? 0.35 : 1
+      p.yaw -= inp.lookDX * s * k
+      p.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, p.pitch - inp.lookDY * s * k))
     }
     inp.lookDX = 0
     inp.lookDY = 0
 
     const x = p.px + (p.x - p.px) * alpha
     const z = p.pz + (p.z - p.pz) * alpha
+
+    // Soft lock-on: ease the view toward the target (yaw + pitch).
+    const t = c.target
+    if (hud.phase === 'play' && t && t.state !== 'dead' && (hud.combat || c.charging)) {
+      const ty = t.y + t.def.aimY * (t.elite ? 1.18 : 1)
+      const want = Math.atan2(-(t.x - x), -(t.z - z))
+      const dist = Math.hypot(t.x - x, t.z - z)
+      const wantPitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, Math.atan2(ty - EYE_H, Math.max(0.5, dist)) * 0.85))
+      const rate = Math.min(1, dt * 5.5)
+      p.yaw += angDiff(want, p.yaw) * rate
+      p.pitch += (wantPitch - p.pitch) * Math.min(1, dt * 4)
+    }
+
     const bobY = Math.sin(p.bob * 2) * 0.042 * p.bobAmp
     const bobX = Math.cos(p.bob) * 0.028 * p.bobAmp
     let y = EYE_H + bobY
@@ -341,58 +854,105 @@ export class Mission implements GameMode {
       const k = Math.min(1, this.phaseT / BEAM_IN_TIME)
       const e = 1 - Math.pow(1 - k, 3)
       y = EYE_H + (1 - e) * 7
+    } else if (hud.phase === 'dead') {
+      y = EYE_H - Math.min(1, this.deathT * 1.5) * 0.9
     }
-    this.shake = Math.max(0, this.shake - dt * 1.8)
-    const sh = this.shake * this.shake
+    if (c.slideT > 0) y -= 0.35
+    this.shakeAmt = Math.max(0, this.shakeAmt - dt * 1.8)
+    const sh = this.shakeAmt * this.shakeAmt
     const cam = this.camera
     cam.position.set(
-      x + Math.cos(p.yaw) * bobX + (Math.random() - 0.5) * sh * 0.18,
-      y + (Math.random() - 0.5) * sh * 0.14,
+      x + Math.cos(p.yaw) * bobX + (Math.random() - 0.5) * sh * 0.2,
+      y + (Math.random() - 0.5) * sh * 0.16,
       z - Math.sin(p.yaw) * bobX
     )
     cam.rotation.order = 'YXZ'
-    cam.rotation.set(p.pitch, p.yaw, Math.cos(p.bob) * 0.006 * p.bobAmp + (Math.random() - 0.5) * sh * 0.05)
+    const hurtRoll = c.hurtT > 0 ? Math.sin(this.time * 40) * 0.02 : 0
+    cam.rotation.set(p.pitch, p.yaw, Math.cos(p.bob) * 0.006 * p.bobAmp + (Math.random() - 0.5) * sh * 0.05 + hurtRoll + (c.slideT > 0 ? -0.05 : 0))
     if (this.debugCam) {
       const d = this.debugCam
       cam.position.set(d[0], d[1], d[2])
       cam.lookAt(d[3], d[4], d[5])
     }
+    cam.updateMatrixWorld()
     this.level.sky.position.copy(cam.position)
 
-    // Viewmodel: bob + sway opposite the look, lowered during beam-in.
-    const vm = this.vmRoot
-    const beam = hud.phase === 'beamIn' ? 1 - Math.min(1, this.phaseT / BEAM_IN_TIME) : 0
-    vm.position.set(
-      0.25 + Math.cos(p.bob) * 0.012 * p.bobAmp,
-      -0.27 + Math.abs(Math.sin(p.bob)) * 0.014 * p.bobAmp - beam * 0.5,
-      -0.62
-    )
-    vm.rotation.set(0.05 + Math.sin(this.time * 1.6) * 0.006, 0.1, 0)
-    vm.scale.setScalar(0.82)
-    this.vm.core.scale.setScalar(1 + Math.sin(this.time * 5) * 0.08)
+    for (const e of this.enemies) if (e.root.visible || e.state === 'dead') syncEnemyVisual(e, alpha, this.time)
+    this.system.sync(alpha)
+
+    this.syncViewmodel(dt)
 
     const r = getRenderer()
     r.clear()
     r.render(this.scene, cam)
     r.clearDepth()
-    this.vmCamera.aspect = cam.aspect
-    this.vmCamera.updateProjectionMatrix()
     r.render(this.vmScene, this.vmCamera)
     tickHud(dt)
   }
 
-  resize(w: number, h: number): void {
-    this.vmCamera.aspect = w / h
-    // Keep the arm a similar screen size in portrait by widening its FOV.
-    this.vmCamera.fov = w < h ? 64 : 50
-    this.vmCamera.updateProjectionMatrix()
+  private syncViewmodel(dt: number): void {
+    const p = this.player
+    const c = this.combat
+    const vm = this.vmRoot
+    const beam = hud.phase === 'beamIn' ? 1 - Math.min(1, this.phaseT / BEAM_IN_TIME) : hud.phase === 'dead' ? 1 : 0
+    const block = c.blocking ? 1 : 0
+    // Portrait screens are narrow: tuck the arm in and shrink it so it never
+    // eats the right third of the view.
+    const portrait = this.camera.aspect < 1
+    const ax = portrait ? 0.15 : 0.25
+    const ay = portrait ? -0.3 : -0.27
+    vm.position.set(
+      ax + Math.cos(p.bob) * 0.012 * p.bobAmp - block * 0.05,
+      ay + Math.abs(Math.sin(p.bob)) * 0.014 * p.bobAmp - beam * 0.5 - block * 0.04,
+      -0.62 + c.recoil * 0.07
+    )
+    vm.rotation.set(0.05 + Math.sin(this.time * 1.6) * 0.006 + c.recoil * 0.12, portrait ? 0.16 : 0.1, 0)
+    vm.scale.setScalar(portrait ? 0.62 : 0.82)
+    // Charge glow: grows through lv1, flickers at full charge (the classic)
+    const info = chargeInfo(c.charging ? c.charge : 0, this.stats)
+    const coreMat = this.vm.coreMat
+    const haloMat = this.vm.haloMat
+    if (c.charging && info.toL1 > 0.25) {
+      const lv = info.level
+      const flick = lv >= 2 ? (Math.floor(this.time * 30) % 2 === 0 ? 1 : 0.55) : 1
+      coreMat.color.set(info.perfect ? '#ffd84a' : lv >= 2 ? '#7ff4ff' : lv === 1 ? '#c8ff7a' : PAL.glowCyan)
+      haloMat.color.copy(coreMat.color)
+      haloMat.opacity = (0.25 + 0.45 * (lv >= 1 ? 1 : info.toL1)) * flick
+      const sc = 1 + info.toL1 * 0.6 + info.toL2 * 0.9
+      this.vm.core.scale.setScalar(sc)
+      this.vm.halo.scale.setScalar(0.6 + info.toL1 * 0.6 + info.toL2 * 0.8 + (info.perfect ? 0.3 : 0))
+    } else {
+      coreMat.color.set(PAL.glowCyan)
+      haloMat.opacity = Math.max(0, haloMat.opacity - dt * 6)
+      this.vm.core.scale.setScalar(1 + Math.sin(this.time * 5) * 0.08)
+    }
+    // Barrier disc on block
+    const sh = this.vm.shield
+    sh.visible = c.blocking || this.vm.shieldMat.opacity > 0.01
+    this.vm.shieldMat.opacity += ((c.blocking ? 0.45 : 0) - this.vm.shieldMat.opacity) * Math.min(1, dt * 14)
+    sh.position.set(-0.42, 0.08, -0.25)
+    sh.rotation.set(0, 0.35, Math.PI / 6 + this.time * 0.8)
   }
 
-  addShake(amount: number): void {
-    this.shake = Math.min(1, this.shake + amount)
+  /** Project a world point to CSS pixels on the canvas (for the HUD). */
+  project(x: number, y: number, z: number, out: { x: number; y: number; visible: boolean }): void {
+    _v3.set(x, y, z).project(this.camera)
+    const el = getRenderer().domElement
+    out.visible = _v3.z < 1 && _v3.z > -1
+    out.x = (_v3.x * 0.5 + 0.5) * el.clientWidth
+    out.y = (-_v3.y * 0.5 + 0.5) * el.clientHeight
+  }
+
+  resize(w: number, h: number): void {
+    this.vmCamera.aspect = w / h
+    this.vmCamera.fov = w < h ? 58 : 50
+    this.vmCamera.updateProjectionMatrix()
+    const r = getRenderer()
+    this.fx.setScale(h * r.getPixelRatio(), this.camera.fov)
   }
 
   dispose(): void {
+    this.fx.dispose()
     this.scene.traverse((o) => {
       const m = o as Mesh
       if (m.geometry) m.geometry.dispose()
@@ -403,5 +963,3 @@ export class Mission implements GameMode {
     })
   }
 }
-
-export { roomCenter, cellCenter }

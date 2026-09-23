@@ -3,18 +3,29 @@
     div.canvas-host(ref="canvasHost")
     div.input-surface(ref="surface")
     div.hud-layer
+      ScreenFx
+      FloatingText
+      Crosshair
+      TargetFrame
+      HudBars
       Joystick
-      div.crosshair(aria-hidden="true")
+      ActionButtons
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
 import { attachInput } from '@/game/engine/input'
-import { input, takePreparedMode, firstMissionSetup } from '@/game/boot'
+import { input, takePreparedMode, firstMissionSetup, currentMission } from '@/game/boot'
 import { Mission } from '@/game/sim/mission'
 import { isGamePaused } from '@/use/useGamePause'
 import Joystick from '@/components/hud/Joystick.vue'
+import HudBars from '@/components/hud/HudBars.vue'
+import Crosshair from '@/components/hud/Crosshair.vue'
+import TargetFrame from '@/components/hud/TargetFrame.vue'
+import FloatingText from '@/components/hud/FloatingText.vue'
+import ScreenFx from '@/components/hud/ScreenFx.vue'
+import ActionButtons from '@/components/hud/ActionButtons.vue'
 
 const canvasHost = ref<HTMLElement | null>(null)
 const surface = ref<HTMLElement | null>(null)
@@ -25,10 +36,10 @@ onMounted(() => {
   app.attach(canvasHost.value)
   const mode = takePreparedMode() ?? new Mission(firstMissionSetup(), input)
   app.setMode(mode)
-  detachInput = attachInput(surface.value, input, { fireMode: () => false })
+  detachInput = attachInput(surface.value, input, { fireMode: () => currentMission()?.wantsFire() ?? false })
   app.setSuspended(isGamePaused.value)
   app.setWanted(true)
-  ;(window as unknown as Record<string, unknown>).__game = { app, input }
+  if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input }
 })
 
 watch(isGamePaused, (p) => app.setSuspended(p))
@@ -64,14 +75,4 @@ onUnmounted(() => {
   position: absolute
   inset: 0
   pointer-events: none
-.crosshair
-  position: absolute
-  left: 50%
-  top: 50%
-  width: 10px
-  height: 10px
-  margin: -5px 0 0 -5px
-  border-radius: 50%
-  border: 2px solid rgba(255, 255, 255, 0.85)
-  box-shadow: 0 0 0 2px rgba(20, 26, 51, 0.55)
 </style>

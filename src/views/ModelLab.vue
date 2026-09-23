@@ -20,9 +20,12 @@ import { buildDoor, buildTeleporter, buildCrate, buildBarrel, buildChest, buildB
 import { THEMES } from '@/game/world/themes'
 import { bakeTextures } from '@/game/world/textures'
 import type { Rig } from '@/game/models/kit'
+import { buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, type EnemyKind } from '@/game/models/enemies'
 
 const host = ref<HTMLElement | null>(null)
-const models = ['hero', 'viewmodel', 'props']
+const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret']
+const models = ['hero', 'viewmodel', 'props', 'enemies', ...ENEMIES]
+let enemyRigs: Array<{ kind: EnemyKind; rig: Rig }> = []
 const hashQuery = new URLSearchParams(location.hash.split('?')[1] ?? '')
 const current = ref(hashQuery.get('m') ?? 'hero')
 /** Fixed turntable angle in degrees (`#/models?m=hero&angle=0`); spins when absent. */
@@ -47,6 +50,7 @@ const t0 = performance.now()
 const show = (name: string) => {
   stage.clear()
   rig = null
+  enemyRigs = []
   const th = THEMES.scrapyard
   if (name === 'hero') {
     rig = buildHero()
@@ -60,6 +64,22 @@ const show = (name: string) => {
     stage.add(vm.root)
     camera.position.set(1.5, 1.6, 2.5)
     camera.lookAt(0, 1, 0)
+  } else if (name === 'enemies' || (ENEMIES as string[]).includes(name)) {
+    const kinds = name === 'enemies' ? ENEMIES : [name as EnemyKind]
+    kinds.forEach((kind, i) => {
+      const r = buildEnemyRig(kind)
+      r.root.position.set((i - (kinds.length - 1) / 2) * 2.1, kind === 'heli' ? 1.6 : 0, 0)
+      stage.add(r.root)
+      enemyRigs.push({ kind, rig: r })
+    })
+    if (kinds.length > 1) {
+      camera.position.set(0, 2.4, 11)
+      camera.lookAt(0, 1.0, 0)
+    } else {
+      const h = enemyRigs[0]!.rig.height
+      camera.position.set(0, h * 0.75 + 0.4, h * 2.2 + 1.2)
+      camera.lookAt(0, h * 0.5, 0)
+    }
   } else {
     const items: Object3D[] = [
       buildDoor(th, false).root, buildDoor(th, true).root, buildTeleporter(th).root, buildCrate(th).root,
@@ -79,7 +99,17 @@ const loop = () => {
   raf = requestAnimationFrame(loop)
   const t = (performance.now() - t0) / 1000
   if (rig) animateHeroIdle(rig, t)
-  if (current.value !== 'props') stage.rotation.y = fixedAngle ?? t * 0.6
+  for (const { kind, rig: r } of enemyRigs) {
+    if (kind === 'hardhat') poseHardhat(r, 0.5 + 0.5 * Math.sin(t * 1.5), t, 0)
+    else if (kind === 'trooper') poseTrooper(r, 0.5 + 0.5 * Math.sin(t), 0.5 - 0.5 * Math.sin(t), t, 0.3)
+    else if (kind === 'heli') poseHeli(r, t, 0.1, t * 25)
+    else if (kind === 'hopper') poseHopper(r, Math.sin(t * 2), t)
+    else if (kind === 'roller') poseRoller(r, t * 3, t, 0.4)
+    else if (kind === 'brute') poseBrute(r, t, 0.2, Math.sin(t) > 0 ? 1 : -1, Math.sin(t * 2), 0)
+    else if (kind === 'turret') poseTurret(r, 0.2 + Math.sin(t) * 0.2, 0)
+  }
+  if (enemyRigs.length > 1) stage.rotation.y = fixedAngle ?? Math.sin(t * 0.4) * 0.5
+  if (current.value !== 'props' && enemyRigs.length <= 1) stage.rotation.y = fixedAngle ?? t * 0.6
   const r = getRenderer()
   r.clear()
   r.render(scene, camera)

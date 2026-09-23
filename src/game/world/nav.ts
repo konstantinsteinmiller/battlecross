@@ -25,7 +25,8 @@ export interface Nav {
   map: MapData
   /** 1 = cannot be entered (void). */
   solid: Uint8Array
-  /** 1 = path-finding must not route through (closed door cells). */
+  /** Door cells for path-finding: 0 open, 1 closed (enemies stop, the player's
+   *  walk-to passes — doors open on approach), 2 locked (nobody passes). */
   pathBlock: Uint8Array
   /** Closed doors: collide with bodies and block line of sight. */
   slabs: Slab[]
@@ -219,7 +220,7 @@ export const hasLineOfSight = (nav: Nav, ax: number, az: number, bx: number, bz:
  * waypoints from the cell after `from` to `to`'s cell centre, or null when no
  * path exists. Grids are ≤ 44×44, so a binary-heap-free open list is plenty.
  */
-export const findPath = (nav: Nav, fx: number, fz: number, tx: number, tz: number, maxNodes = 1400): Array<[number, number]> | null => {
+export const findPath = (nav: Nav, fx: number, fz: number, tx: number, tz: number, maxNodes = 1400, through = 0): Array<[number, number]> | null => {
   const W = nav.w
   const si = Math.floor(fx / CELL)
   const sj = Math.floor(fz / CELL)
@@ -229,7 +230,7 @@ export const findPath = (nav: Nav, fx: number, fz: number, tx: number, tz: numbe
   const start = sj * W + si
   const goal = tj * W + ti
   if (start === goal) return [[tx, tz]]
-  const blocked = (i: number, j: number) => isSolidCell(nav, i, j) || nav.map.navBlock[j * W + i] === 1 || nav.pathBlock[j * W + i] === 1
+  const blocked = (i: number, j: number) => isSolidCell(nav, i, j) || nav.map.navBlock[j * W + i] === 1 || nav.pathBlock[j * W + i]! > through
   const g = new Map<number, number>()
   const came = new Map<number, number>()
   const open: number[] = [start]
@@ -278,7 +279,7 @@ export const findPath = (nav: Nav, fx: number, fz: number, tx: number, tz: numbe
         if (!di && !dj) continue
         const ni = ci + di
         const nj = cj + dj
-        if (blocked(ni, nj) && !(ni === ti && nj === tj && !isSolidCell(nav, ni, nj) && nav.pathBlock[nj * W + ni] !== 1)) continue
+        if (blocked(ni, nj) && !(ni === ti && nj === tj && !isSolidCell(nav, ni, nj) && nav.pathBlock[nj * W + ni]! <= through)) continue
         if (di && dj && (blocked(ci + di, cj) || blocked(ci, cj + dj))) continue
         const nk = nj * W + ni
         if (closed.has(nk)) continue

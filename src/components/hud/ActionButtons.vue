@@ -1,0 +1,94 @@
+<template lang="pug">
+  div.actions(v-show="hud.phase === 'play'")
+    button.act.block(
+      type="button"
+      :class="{ held: hud.blockHeld }"
+      :aria-label="t('combat.block')"
+      @pointerdown.prevent.stop="blockDown"
+      @pointerup.prevent.stop="blockUp"
+      @pointercancel.prevent.stop="blockUp"
+      @pointerleave="blockUp"
+    )
+      GameIcon(name="shield")
+    button.act.slide(
+      type="button"
+      :class="{ off: !hud.slideReady }"
+      :aria-label="t('combat.slide')"
+      @pointerdown.prevent.stop="slide"
+    )
+      GameIcon(name="forward")
+</template>
+
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { hud } from '@/game/state/hud'
+import { input } from '@/game/boot'
+import GameIcon from '@/components/icons/GameIcon.vue'
+
+/**
+ * Right-thumb cluster: BLOCK (hold; tap it as a ring closes to parry) and
+ * SLIDE. These sit above the input surface, so their presses never reach the
+ * fire/look gesture layer underneath.
+ */
+const { t } = useI18n()
+
+const blockDown = (e: PointerEvent) => {
+  input.touched = true
+  input.blockHeld = true
+  input.blockPressed = true
+  try { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId) } catch { /* ignore */ }
+}
+const blockUp = () => {
+  input.blockHeld = false
+}
+const slide = () => {
+  input.touched = true
+  input.slideQueued = true
+}
+</script>
+
+<style scoped lang="sass">
+.actions
+  position: absolute
+  right: calc(env(safe-area-inset-right, 0px) + clamp(12px, 3.5vmin, 28px))
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(14px, 4vmin, 32px))
+  width: clamp(130px, 32vmin, 210px)
+  height: clamp(110px, 26vmin, 170px)
+  pointer-events: none
+.act
+  position: absolute
+  pointer-events: auto
+  border-radius: 50%
+  border: 3px solid #141a33
+  color: #fff
+  display: grid
+  place-items: center
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), inset 0 -5px 0 rgba(0, 0, 0, 0.18), inset 0 4px 0 rgba(255, 255, 255, 0.35)
+  touch-action: none
+  -webkit-tap-highlight-color: transparent
+  transition: transform 0.06s
+  :deep(.game-icon)
+    width: 52%
+    height: 52%
+    filter: drop-shadow(0 2px 0 rgba(20, 26, 51, 0.6))
+.block
+  right: 0
+  bottom: 0
+  width: clamp(66px, 15vmin, 96px)
+  height: clamp(66px, 15vmin, 96px)
+  background: radial-gradient(circle at 40% 30%, #9fe6ff, #3cc8ff 45%, #1f7fd0)
+  &.held
+    transform: scale(0.92)
+    background: radial-gradient(circle at 40% 30%, #ffffff, #7ff4ff 50%, #3cc8ff)
+    box-shadow: 0 0 18px rgba(127, 244, 255, 0.8), inset 0 -3px 0 rgba(0, 0, 0, 0.15)
+.slide
+  right: clamp(72px, 17vmin, 108px)
+  bottom: clamp(8px, 2vmin, 14px)
+  width: clamp(48px, 11vmin, 68px)
+  height: clamp(48px, 11vmin, 68px)
+  background: radial-gradient(circle at 40% 30%, #c0d4ff, #6f8cff 45%, #3a4fc0)
+  &:active
+    transform: scale(0.9)
+  &.off
+    filter: grayscale(0.7) brightness(0.8)
+</style>
