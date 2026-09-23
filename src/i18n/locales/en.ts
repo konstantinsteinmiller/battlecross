@@ -268,7 +268,11 @@ export default {
     'upgrade': 'Upgrade gear',
     'next': 'Next level',
     'upgradeBtn': 'Upgrade',
-    'maxed': 'Fully upgraded'
+    'maxed': 'Fully upgraded',
+    'dropName': 'Supply Drop',
+    'dropDesc': 'A crate of spare bolts, beamed in from the lab.',
+    'dropAria': 'Watch a short video for {n} bolts',
+    'dropCooldown': 'Next drop in {t}'
   },
 
   // ─── Circuits (skills) ────────────────────────────────────────────────────

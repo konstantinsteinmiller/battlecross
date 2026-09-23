@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
@@ -34,6 +34,7 @@ import { hud } from '@/game/state/hud'
 import { currentMission } from '@/game/boot'
 import { profile, saveProfile } from '@/game/state/profile'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
+import { resumeMusicAfterAd } from '@/use/useSound'
 
 /**
  * "System down" — Blades' defeat choice, casual-friendly: reboot on the spot
@@ -43,6 +44,8 @@ import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 const { t } = useI18n()
 const open = computed(() => flow.modal === 'defeat')
 const revivedByAd = ref(false)
+// Once per MISSION, not per session: this modal lives as long as the scene.
+watch(() => flow.quest, () => { revivedByAd.value = false })
 const canAd = computed(() => canOfferReward.value)
 const tally = computed(() => {
   const m = currentMission()
@@ -56,11 +59,17 @@ const useTank = () => {
   currentMission()?.revive()
 }
 const rebootAd = async () => {
-  const ok = await claimReward(() => {
-    revivedByAd.value = true
-    currentMission()?.revive()
-  })
-  if (!ok) flow.modal = 'defeat'
+  try {
+    await claimReward(() => {
+      revivedByAd.value = true
+      currentMission()?.revive()
+    })
+  } finally {
+    // The ad hard-stopped the music AND its play intent (so nothing could
+    // sound under it). A revive puts the player straight back into the live
+    // mission, so bring the track back — on a no-fill or a throw too.
+    resumeMusicAfterAd()
+  }
 }
 const retreat = () => {
   flow.modal = ''

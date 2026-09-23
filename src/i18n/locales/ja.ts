@@ -256,7 +256,11 @@ export default {
     'upgrade': '装備強化',
     'next': '次のレベル',
     'upgradeBtn': '強化',
-    'maxed': '強化MAX'
+    'maxed': '強化MAX',
+    'dropName': '補給物資',
+    'dropDesc': 'ラボから転送される予備のネジ箱。',
+    'dropAria': '短い動画を見て{n}ネジを獲得',
+    'dropCooldown': '次の補給まで{t}'
   },
 
   'board': {

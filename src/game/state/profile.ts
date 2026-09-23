@@ -69,6 +69,8 @@ export interface StatsSave {
   missions: number
   playSeconds: number
   bestLevel: number
+  /** Epoch ms of the last claimed Workshop supply drop (rewarded). */
+  lastDropAt: number
 }
 
 export interface Profile {
@@ -107,7 +109,7 @@ const defaults = (): Profile => ({
   inv: defaultInv(),
   quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
   world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard' },
-  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1 },
+  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0 },
   tips: {}
 })
 

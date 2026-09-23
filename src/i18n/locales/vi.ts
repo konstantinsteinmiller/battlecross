@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Nâng cấp trang bị',
     'next': 'Cấp tiếp theo',
     'upgradeBtn': 'Nâng cấp',
-    'maxed': 'Đã nâng cấp tối đa'
+    'maxed': 'Đã nâng cấp tối đa',
+    'dropName': 'Tiếp tế',
+    'dropDesc': 'Một thùng bu lông dự phòng, dịch chuyển thẳng từ phòng thí nghiệm.',
+    'dropAria': 'Xem video ngắn để nhận {n} bu lông',
+    'dropCooldown': 'Lần tiếp tế sau: {t}'
   },
 
   'board': {

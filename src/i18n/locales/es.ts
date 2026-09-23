@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Mejorar equipo',
     'next': 'Siguiente nivel',
     'upgradeBtn': 'Mejorar',
-    'maxed': 'Mejorado al máximo'
+    'maxed': 'Mejorado al máximo',
+    'dropName': 'Suministros',
+    'dropDesc': 'Una caja de tornillos de repuesto, teletransportada desde el laboratorio.',
+    'dropAria': 'Mira un vídeo corto por {n} tornillos',
+    'dropCooldown': 'Próximo envío en {t}'
   },
 
   'board': {

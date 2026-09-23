@@ -4,7 +4,7 @@
       span.lv-num {{ hud.level }}
       div.xp
         div.xp-fill(:style="{ width: Math.min(100, hud.xp01 * 100) + '%' }")
-    div.bolts(:aria-label="t('hud.bolts')")
+    div.bolts(:aria-label="t('hud.bolts')" @pointerdown="registerQaAdTap()")
       span.bolt-icon
         GameIcon(name="bolt")
       span.bolt-num {{ fmt(hud.bolts) }}
@@ -17,6 +17,7 @@ import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { formatCount } from '@/utils/localeNumber'
+import { registerQaAdTap } from '@/use/useQaAdTrigger'
 
 defineEmits<{ pause: [] }>()
 const { t, locale } = useI18n()
@@ -63,6 +64,9 @@ const fmt = (n: number) => formatCount(Math.round(n), locale.value)
   background: linear-gradient(90deg, #9dff5a, #3cff9a)
   transition: width 0.3s ease-out
 .bolts
+  // Takes taps for the hidden QA ad trigger (useQaAdTrigger), so a tap here
+  // never turns the view either.
+  pointer-events: auto
   display: flex
   align-items: center
   gap: 4px

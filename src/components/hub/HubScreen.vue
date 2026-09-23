@@ -11,7 +11,7 @@
         GameIcon.pi(name="star")
         span {{ t('hub.levelUpReady') }}
       div.spacer
-      div.pill.bolts
+      div.pill.bolts(@pointerdown="registerQaAdTap()")
         GameIcon.pi(name="bolt")
         span {{ fmt(profile.bolts) }}
       button.pill.cog(type="button" :aria-label="t('options.title')" @click="$emit('options')")
@@ -50,6 +50,7 @@ import { profile, xp01, chipsAvailable } from '@/game/state/profile'
 import { flow } from '@/game/flow'
 import { formatCount } from '@/utils/localeNumber'
 import { sfx } from '@/game/audio/sfx'
+import { registerQaAdTap } from '@/use/useQaAdTrigger'
 
 /**
  * The hub: Gauss's lab behind, the menus in front. Missions is the home tab

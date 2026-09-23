@@ -7,34 +7,42 @@
 // bracket. So every reason the game is not being played has to close it, and a
 // missing one is invisible until a reviewer reads the SDK event log.
 //
-// The tab-away and portal-pause arms are here because they were MISSING: both
-// already halted the simulation via `isGamePaused`, so the game looked correct
-// while the portal was never told, and a player who switched tabs mid-run left
-// an open bracket behind them.
+// The tab-away and portal-pause arms are here because they were once MISSING:
+// both already halted the simulation via `isGamePaused`, so the game looked
+// correct while the portal was never told, and a player who switched tabs
+// mid-mission left an open bracket behind them.
 
 import { describe, expect, it } from 'vitest'
 import { isGameplayLive, type GameplayLiveInputs } from '@/use/useGameplayLifecycle'
 
-/** A player mid-run with nothing in the way. Each test negates one thing. */
+/** A player mid-mission with nothing in the way. Each test negates one thing. */
 const playing: GameplayLiveInputs = {
-  phase: 'run',
-  showResult: false,
+  screen: 'mission',
+  phase: 'play',
+  flowModal: false,
   anyModalOpen: false,
   adShowing: false,
   visibilityHidden: false,
-  platformPaused: false,
-  tutorialActive: false
+  platformPaused: false
 }
 
 describe('isGameplayLive', () => {
-  it('is live while a run or a boss fight is in progress', () => {
+  it('is live while the player has control in a mission', () => {
     expect(isGameplayLive(playing)).toBe(true)
-    expect(isGameplayLive({ ...playing, phase: 'boss' })).toBe(true)
   })
 
-  it('is not live in the terminal phases — the run is over either way', () => {
-    expect(isGameplayLive({ ...playing, phase: 'clear' })).toBe(false)
-    expect(isGameplayLive({ ...playing, phase: 'wipe' })).toBe(false)
+  it('is not live in the hub — that is menus, not play', () => {
+    expect(isGameplayLive({ ...playing, screen: 'hub', phase: 'hub' })).toBe(false)
+    expect(isGameplayLive({ ...playing, screen: 'boot' })).toBe(false)
+  })
+
+  it('is not live while the player has no control', () => {
+    // The beam-in, the beam-out and the defeat countdown are animations: a
+    // `gameplayStart` there opens a play nobody has begun, and on Poki
+    // inflates the very C2P number the web fit test grades.
+    expect(isGameplayLive({ ...playing, phase: 'beamIn' })).toBe(false)
+    expect(isGameplayLive({ ...playing, phase: 'beamOut' })).toBe(false)
+    expect(isGameplayLive({ ...playing, phase: 'dead' })).toBe(false)
   })
 
   // ─── The two that were missing ───────────────────────────────────────────
@@ -65,15 +73,8 @@ describe('isGameplayLive', () => {
     expect(isGameplayLive({ ...playing, adShowing: true })).toBe(false)
   })
 
-  it('STOPS while the result screen is up', () => {
-    expect(isGameplayLive({ ...playing, showResult: true })).toBe(false)
-  })
-
-  it('is not live during the onboarding hold', () => {
-    // The road is frozen and no stage is running. A `gameplayStart` here opens a
-    // session the player has not begun — and on Poki inflates the very C2P
-    // number the web fit test grades.
-    expect(isGameplayLive({ ...playing, tutorialActive: true })).toBe(false)
+  it('STOPS while a flow modal is up — pause, defeat, results, level-up', () => {
+    expect(isGameplayLive({ ...playing, flowModal: true })).toBe(false)
   })
 
   it('needs EVERY reason to clear before it reports live again', () => {

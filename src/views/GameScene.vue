@@ -26,13 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
 import { attachInput } from '@/game/engine/input'
 import { input, takePreparedMode, fallbackMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
-import { isGamePaused } from '@/use/useGamePause'
+import { chargeHum } from '@/game/audio/synth'
+import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
+import { isAnyModalOpen } from '@/use/useModalState'
+import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
 import Joystick from '@/components/hud/Joystick.vue'
 import HudBars from '@/components/hud/HudBars.vue'
@@ -91,9 +94,29 @@ onMounted(() => {
   if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow, startMission, storyFor, goHub }
 })
 
-watch(isGamePaused, (p) => app.setSuspended(p))
+watch(isGamePaused, (p) => {
+  app.setSuspended(p)
+  // The sim is frozen, so nothing re-pitches the buster's charge hum: silence
+  // it (audio itself keeps running under a modal — see `isAudioPaused`).
+  if (p) chargeHum(null)
+})
+
+// The portals' gameplay bracket (CrazyGames / Poki / Playgama). The rule is in
+// `isGameplayLive`; the Poki arm defers a start inside its 50 ms bad-event
+// window, so a modal closing in the same breath as an ad opening is safe.
+const live = computed(() => isGameplayLive({
+  screen: flow.screen,
+  phase: hud.phase,
+  flowModal: flow.modal !== '',
+  anyModalOpen: isAnyModalOpen.value,
+  adShowing: isAdShowing.value,
+  visibilityHidden: isVisibilityHidden.value,
+  platformPaused: isPlatformPaused.value
+}))
+watch(live, (v) => syncGameplayLifecycle(v), { immediate: true })
 
 onUnmounted(() => {
+  syncGameplayLifecycle(false)
   detachInput?.()
   window.removeEventListener('keydown', onKey)
   app.setWanted(false)

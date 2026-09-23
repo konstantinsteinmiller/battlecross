@@ -256,7 +256,11 @@ export default {
     'upgrade': '强化装备',
     'next': '下一级',
     'upgradeBtn': '强化',
-    'maxed': '已满级'
+    'maxed': '已满级',
+    'dropName': '补给空投',
+    'dropDesc': '从实验室直接传送来的一箱备用螺丝。',
+    'dropAria': '观看短视频获得 {n} 螺丝',
+    'dropCooldown': '下次补给：{t}'
   },
 
   'board': {

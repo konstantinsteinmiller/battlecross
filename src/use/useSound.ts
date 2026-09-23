@@ -1,7 +1,7 @@
 import { prependBaseUrl } from '@/utils/function'
 import useUser, { MUSIC_TRACK_FILES } from '@/use/useUser'
 import { getAudioContext, loadAudioBuffer, resourceCache, registerHtmlAudio, unregisterHtmlAudio, isAudioSuspended, registerOneShotSource } from '@/use/useAssets'
-import { isGamePaused } from '@/use/useGamePause'
+import { isAudioPaused } from '@/use/useGamePause'
 import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 
@@ -178,8 +178,10 @@ export const useMusic = () => {
   const currentTrackFile = (): string =>
     MUSIC_TRACK_FILES[userMusicTrack.value] ?? MUSIC_TRACK_FILES.trance
 
-  /** Gates shared by BOTH music paths: never start under an ad / pause / mute. */
-  const blocked = (): boolean => isGamePaused.value || isMobileAudioMuted.value || isPlatformAudioMuted.value
+  /** Gates shared by BOTH music paths: never start under an ad, a hidden tab,
+   *  a platform pause or a mute. A modal is not one: it freezes the game, not
+   *  the music (see `isAudioPaused`). */
+  const blocked = (): boolean => isAudioPaused.value || isMobileAudioMuted.value || isPlatformAudioMuted.value
 
   const loadAndPlayTrack = () => {
     if (!bgMusic.value) return
@@ -245,7 +247,7 @@ export const useMusic = () => {
       // Re-start on the FALSE edge of every gate: without these a player who
       // unpauses / unmutes gets a permanently silent game, because the intent
       // (`shouldPlay`) was already true and nothing calls the start again.
-      watch(isGamePaused, (paused) => { if (!paused) resumeIfWanted() })
+      watch(isAudioPaused, (paused) => { if (!paused) resumeIfWanted() })
       watch(isMobileAudioMuted, (muted) => { if (!muted) resumeIfWanted() })
       watch(isPlatformAudioMuted, (muted) => {
         if (muted) {

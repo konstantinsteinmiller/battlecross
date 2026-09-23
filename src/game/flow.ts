@@ -11,6 +11,10 @@ import {
 import { hud } from './state/hud'
 import { flushSaveNow } from '@/use/useSaveStatus'
 import { setMusicTrack, startGameMusic } from '@/use/useSound'
+import { showMidgameAd } from '@/use/useAds'
+import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
+import { isAdShowing } from '@/use/useGamePause'
+import { triggerHappytime } from '@/use/useCrazyGames'
 import { playJingle } from './audio/music'
 import type { SectorId } from './world/themes'
 
@@ -127,8 +131,9 @@ export interface MissionTally {
 }
 
 /** Mission over (success = objective done and beamed out). XP and bolts from
- *  kills were already granted live; this pays the QUEST reward on top. */
-export const finishMission = (success: boolean, tally: MissionTally): void => {
+ *  kills were already granted live; this pays the QUEST reward on top, saves,
+ *  runs the ad break if one is due and only then reveals the results. */
+export const finishMission = async (success: boolean, tally: MissionTally): Promise<void> => {
   const quest = flow.quest
   if (!quest) return
   const levelBefore = flow.levelAtStart
@@ -179,12 +184,42 @@ export const finishMission = (success: boolean, tally: MissionTally): void => {
   ensureJobs()
   saveProfile()
   void flushSaveNow()
-  flow.results = {
+  const results: ResultsData = {
     quest, success, xp, bolts, kills: tally.kills, chests: tally.chests, items, levelBefore,
     levelAfter: profile.level, seconds: tally.seconds, weapon, unlocked
   }
+  // Everything is paid and saved before the ad, so a player who closes the
+  // tab during it loses nothing.
+  await adBreakBeforeResults()
+  flow.results = results
+  if (success) triggerHappytime()
   playJingle(success ? 'victory' : 'defeat')
   flow.modal = 'results'
+}
+
+/** Longest we hold the result screen for an ad that another placement left
+ *  on screen. The provider caps its own waits; this only guards the gate. */
+const AD_GATE_WAIT_MS = 8000
+
+/**
+ * The interstitial comes BEFORE the result screen, never on top of it or a
+ * moment after it (portal QA). The world is frozen while it runs: the ad
+ * flips `isAdShowing`, which suspends the loop and the audio.
+ *
+ * Waits on the ad GATE, not only on its own request: an ad started by another
+ * placement (the QA trigger, the first-load ad) may still be up, and revealing
+ * the screen under it would put the ad back on top. The jingle plays after,
+ * so the ad never cuts it off.
+ */
+const adBreakBeforeResults = async (): Promise<void> => {
+  if (canShowInterstitial()) {
+    markInterstitialShown()
+    await showMidgameAd()
+  }
+  const t0 = Date.now()
+  while (isAdShowing.value && Date.now() - t0 < AD_GATE_WAIT_MS) {
+    await new Promise((r) => setTimeout(r, 100))
+  }
 }
 
 const grantWeapon = (id: WeaponId): WeaponId | null => {

@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Tingkatkan perlengkapan',
     'next': 'Level berikutnya',
     'upgradeBtn': 'Tingkatkan',
-    'maxed': 'Sudah maksimal'
+    'maxed': 'Sudah maksimal',
+    'dropName': 'Kiriman Pasokan',
+    'dropDesc': 'Sepeti baut cadangan, dikirim langsung dari lab.',
+    'dropAria': 'Tonton video singkat untuk {n} baut',
+    'dropCooldown': 'Kiriman berikutnya dalam {t}'
   },
 
   'board': {

@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Ausrüstung verbessern',
     'next': 'Nächste Stufe',
     'upgradeBtn': 'Verbessern',
-    'maxed': 'Maximal verbessert'
+    'maxed': 'Maximal verbessert',
+    'dropName': 'Nachschub',
+    'dropDesc': 'Eine Kiste Ersatz-Bolzen, direkt aus dem Labor gebeamt.',
+    'dropAria': 'Sieh dir ein kurzes Video an für {n} Bolzen',
+    'dropCooldown': 'Nächster Nachschub in {t}'
   },
 
   'board': {

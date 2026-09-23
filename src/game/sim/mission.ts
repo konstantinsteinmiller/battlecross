@@ -626,7 +626,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   retreat(): void {
     if (this.finished) return
     this.finished = true
-    finishMission(false, this.tally())
+    void finishMission(false, this.tally())
   }
 
   /** Objective done → beam out (the results follow the animation). */
@@ -774,7 +774,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       if (this.phaseT >= BEAM_OUT_TIME && !this.finished) {
         this.finished = true
         writeSnapshot(null)
-        finishMission(true, this.tally())
+        void finishMission(true, this.tally())
       }
     }
 

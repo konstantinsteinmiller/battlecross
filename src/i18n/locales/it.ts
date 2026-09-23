@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Potenzia equipaggiamento',
     'next': 'Livello successivo',
     'upgradeBtn': 'Potenzia',
-    'maxed': 'Al massimo'
+    'maxed': 'Al massimo',
+    'dropName': 'Rifornimento',
+    'dropDesc': 'Una cassa di bulloni di scorta, teletrasportata dal laboratorio.',
+    'dropAria': 'Guarda un breve video per {n} bulloni',
+    'dropCooldown': 'Prossimo rifornimento tra {t}'
   },
 
   'board': {

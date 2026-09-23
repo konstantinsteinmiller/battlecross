@@ -1,8 +1,8 @@
 // Unit tests for the central pause → audio + console-log orchestrator.
 //
 // This is the single audio-mute driver shared by EVERY build. It watches
-// the unified `isGamePaused` gate (the OR of ad-showing / tab-hidden /
-// platform-paused / app-modal) and:
+// the audio half of the pause gate (`isAudioPaused`: ad-showing / tab-hidden /
+// platform-paused — an app modal freezes the game but never silences it) and:
 //   • suspends audio on the false→true edge,
 //   • resumes it on the true→false edge,
 //   • owns exactly ONE ref-counted suspend slot (no drift on duplicate
@@ -124,13 +124,25 @@ describe('useGamePauseAudio orchestrator', () => {
     expect(__isAudioSlotHeld()).toBe(false)
   })
 
-  it('stays muted while a modal opens during an ad (refcounted app pause)', () => {
+  it('a modal freezes the game but never silences it', () => {
+    // The results fanfare and the Options sliders must be heard: an app-side
+    // modal pauses the simulation (isGamePaused) and not the audio.
+    const releaseModal = acquireAppPause()
+    expect(isGamePaused.value).toBe(true)
+    expect(suspendSpy).not.toHaveBeenCalled()
+    expect(__isAudioSlotHeld()).toBe(false)
+    releaseModal()
+    expect(resumeSpy).not.toHaveBeenCalled()
+  })
+
+  it('resumes audio when an ad ends even though a modal still freezes the game', () => {
     isAdShowing.value = true
     const releaseModal = acquireAppPause()
     expect(suspendSpy).toHaveBeenCalledTimes(1) // modal added no extra suspend
 
-    isAdShowing.value = false // ad ends but modal still holds the pause
-    expect(resumeSpy).not.toHaveBeenCalled()
+    isAdShowing.value = false // the ad is gone; the modal keeps only the sim paused
+    expect(resumeSpy).toHaveBeenCalledTimes(1)
+    expect(isGamePaused.value).toBe(true)
 
     releaseModal()
     expect(resumeSpy).toHaveBeenCalledTimes(1)

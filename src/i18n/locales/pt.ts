@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Melhorar equipamento',
     'next': 'Próximo nível',
     'upgradeBtn': 'Melhorar',
-    'maxed': 'Totalmente melhorado'
+    'maxed': 'Totalmente melhorado',
+    'dropName': 'Suprimentos',
+    'dropDesc': 'Uma caixa de parafusos extras, teletransportada do laboratório.',
+    'dropAria': 'Assista a um vídeo curto por {n} parafusos',
+    'dropCooldown': 'Próximo envio em {t}'
   },
 
   'board': {

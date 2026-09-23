@@ -95,7 +95,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **9. i18n and responsiveness.** Every string in en plus the 20 other
   locales, the i18n parity test, safe areas, portrait/landscape layouts, the
   320×658 check. *Commit.*
-- [ ] **10. Ads and lifecycle wiring.** Revive (rewarded), 2× bolts
+- [x] **10. Ads and lifecycle wiring.** Revive (rewarded), 2× bolts
   (rewarded), the interstitial before results, gameplayStart/Stop from the
   state machine, platform pause gating the loop. *Commit.*
 - [ ] **11. QA pass.** Typecheck, tests (sim unit tests, save round-trip,
@@ -125,3 +125,19 @@ while bars and damage numbers get direct DOM writes.
   gesture, or a context that came up running because the embed grants
   autoplay). A track requested before that waits in `music.ts` and starts on
   the first gesture. The console stays free of autoplay warnings.
+- Ads (playbook Phase 6): `finishMission` pays and saves, then runs
+  `adBreakBeforeResults` (the interstitial if pacing allows, then a wait on
+  the ad GATE capped at 8 s), and only then reveals the results and plays the
+  jingle. `tests/game/resultsAdOrder.test.ts` pins that order. Every ad that
+  interrupts live play or the hub restarts the music in `.finally()`
+  (`resumeMusicAfterAd`): the revive, the supply drop and the QA trigger.
+- Modals freeze the simulation (`isGamePaused`) but not the audio
+  (`isAudioPaused` = ad / hidden tab / platform pause). The charge hum is
+  silenced whenever the sim freezes.
+- Gameplay bracket: `isGameplayLive` = a mission in phase `play` with no flow
+  modal, modal, ad, hidden tab or platform pause (GameScene watches it).
+- Rewarded placements: revive (once per mission), 2× bolts on results, and
+  the Workshop supply drop (40 + 20·level bolts, 4-minute cooldown saved in
+  `ma_stats.lastDropAt`). All are hidden unless `canOfferReward`.
+- Hidden QA ad trigger: 30 taps on a bolts pill within 30 s
+  (`useQaAdTrigger`).

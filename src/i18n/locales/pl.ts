@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Ulepsz sprzęt',
     'next': 'Następny poziom',
     'upgradeBtn': 'Ulepsz',
-    'maxed': 'W pełni ulepszone'
+    'maxed': 'W pełni ulepszone',
+    'dropName': 'Zrzut zaopatrzenia',
+    'dropDesc': 'Skrzynia zapasowych śrub teleportowana prosto z laboratorium.',
+    'dropAria': 'Obejrzyj krótki film za {n} śrub',
+    'dropCooldown': 'Następny zrzut za {t}'
   },
 
   'board': {

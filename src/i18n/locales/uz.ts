@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Jihozlarni yaxshilash',
     'next': 'Keyingi daraja',
     'upgradeBtn': 'Yaxshilash',
-    'maxed': 'Toʻliq yaxshilangan'
+    'maxed': 'Toʻliq yaxshilangan',
+    'dropName': 'Taʼminot',
+    'dropDesc': 'Laboratoriyadan toʻgʻridan-toʻgʻri yuborilgan zaxira boltlar qutisi.',
+    'dropAria': 'Qisqa videoni koʻrib, {n} ta bolt oling',
+    'dropCooldown': 'Keyingi yetkazish: {t}'
   },
 
   'board': {

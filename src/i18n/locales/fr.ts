@@ -256,7 +256,11 @@ export default {
     'upgrade': "Améliorer l'équipement",
     'next': 'Niveau suivant',
     'upgradeBtn': 'Améliorer',
-    'maxed': 'Amélioration max'
+    'maxed': 'Amélioration max',
+    'dropName': 'Ravitaillement',
+    'dropDesc': 'Une caisse de boulons de rechange, téléportée depuis le labo.',
+    'dropAria': 'Regarde une courte vidéo pour {n} boulons',
+    'dropCooldown': 'Prochain ravitaillement dans {t}'
   },
 
   'board': {

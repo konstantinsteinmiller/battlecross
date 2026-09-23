@@ -5,11 +5,6 @@
 // decides which SDK events that becomes, because WHICH events to send is a
 // platform contract and not a view concern.
 //
-// Previously `GameScene.vue` imported `syncGameplayLifecycle` straight from
-// `useCrazyGames`, which made CrazyGames the implicit owner of a signal two
-// portals now need. The indirection is one hop and keeps the scene unaware of
-// how many platforms are listening.
-//
 // ⚠️ PLAYGAMA is loaded the way every other call site loads it — a DYNAMIC
 // import behind the env flag (`main.ts`, `FLogoProgress.vue`). It has no alias
 // stub, so a static import here would pull its SDK loader into every other
@@ -44,15 +39,18 @@ import { pokiGameplayStart, pokiGameplayStop } from '@/utils/pokiPlugin'
 // owns only the reactive wiring that feeds it. Pure and total, so the contract
 // can be asserted without mounting a canvas.
 //
-// The phase union is restated rather than imported from `useSurvivalGame` on
+// The phase is a plain string rather than the mission's own union type on
 // purpose: that module is the whole simulation, and a platform-contract module
 // must not drag it into anything that imports it.
 export interface GameplayLiveInputs {
-  /** The run's own state machine. Only `run` / `boss` are being PLAYED. */
-  phase: 'run' | 'boss' | 'clear' | 'wipe'
-  /** The result screen is up — the run is over and a decision is pending. */
-  showResult: boolean
-  /** Any blocking modal (shop, options, leaderboard). */
+  /** Which screen the flow is on. Only a mission is PLAYED; the hub is menus. */
+  screen: 'boot' | 'mission' | 'hub'
+  /** The mission's phase. Only 'play' is live: the beam-in / beam-out
+   *  animations and the defeat countdown hand the player no control. */
+  phase: string
+  /** A flow modal is up: pause, defeat, results or level-up. */
+  flowModal: boolean
+  /** Any other blocking modal (Options). */
   anyModalOpen: boolean
   /** A rewarded / interstitial ad is on screen. */
   adShowing: boolean
@@ -60,8 +58,6 @@ export interface GameplayLiveInputs {
   visibilityHidden: boolean
   /** The portal's SDK asked us to pause (its own overlay, chrome, ad frame). */
   platformPaused: boolean
-  /** The onboarding lightbox holds the road frozen before the first input. */
-  tutorialActive: boolean
 }
 
 /**
@@ -70,23 +66,22 @@ export interface GameplayLiveInputs {
  * Every input is a reason gameplay is NOT live, and each one is a real
  * requirement rather than a nicety:
  *
- *   • `visibilityHidden` / `platformPaused` were both missing here until the
- *     GamePix release pass. They already halt the simulation (they OR into
- *     `isGamePaused`), but halting the sim and TELLING the portal are two
- *     different things — without them a tab switch left an open gameplay
- *     bracket: CrazyGames kept counting the session, and Poki held the screen
- *     wake lock `gameplayStart()` takes on a page nobody was looking at.
- *   • `tutorialActive` — reporting a start for a run the player has not begun
- *     is the kind of thing portal moderation rejects.
+ *   • `visibilityHidden` / `platformPaused` already halt the simulation (they
+ *     OR into `isGamePaused`), but halting the sim and TELLING the portal are
+ *     two different things — without them a tab switch leaves an open
+ *     gameplay bracket: CrazyGames keeps counting the session, and Poki holds
+ *     the screen wake lock `gameplayStart()` takes on a page nobody is using.
+ *   • `phase` — reporting a start during the beam-in, before the player can
+ *     act, is the kind of thing portal moderation rejects.
  */
 export const isGameplayLive = (i: GameplayLiveInputs): boolean =>
-  (i.phase === 'run' || i.phase === 'boss')
-  && !i.showResult
+  i.screen === 'mission'
+  && i.phase === 'play'
+  && !i.flowModal
   && !i.anyModalOpen
   && !i.adShowing
   && !i.visibilityHidden
   && !i.platformPaused
-  && !i.tutorialActive
 
 /**
  * Report whether gameplay is live. Idempotent on every platform: each portal
@@ -105,11 +100,6 @@ let reported = false
 
 export const syncGameplayLifecycle = (live: boolean): void => {
   reported = live
-  // Sprite baking rides the same edge. A monster frame costs up to ~12 ms and
-  // cannot be sliced smaller, so it must never run while the player is playing;
-  // every break this signal reports — the result screen, a modal, an ad, the
-  // loading screen — is a moment nothing is animating and the baker is free.
-
   syncCrazyGameplay(live)
 
   if (import.meta.env.VITE_APP_POKI === 'true') {
@@ -152,26 +142,21 @@ const syncPlaygamaGameplay = (live: boolean): void => {
 export const __gameplayFanoutIdle = (): Promise<void> => playgamaChain
 
 /**
- * A new stage began while the player never stopped playing.
+ * A new play began while the player never stopped playing.
  *
- * The road does not reset between stages any more (see "The road goes on" in
- * `useSurvivalGame`): a cleared boss hands straight over to the next stage, and
- * `phase` passes 'boss' → 'clear' → 'run' inside ONE tick. Nothing watching the
- * live flag can see that, because it reads true on both sides — so the portals
- * heard neither the end of the play the player finished nor the start of the one
- * they are now in, and a career of twenty stages arrived as a single endless
- * play. CrazyGames counts plays and playtime off those brackets, Poki grades its
- * funnel on them, and a game that never sends a second start looks like a game
- * nobody finished a level of.
+ * For a handover with no screen in between, nothing watching the live flag
+ * can see the boundary, because it reads true on both sides. The portals
+ * would hear neither the end of the play the player finished nor the start of
+ * the next one. CrazyGames counts plays and playtime off those brackets, and
+ * Poki grades its funnel on them.
  *
- * So a handover says it by hand: close the bracket, open the next. Every arm
- * takes an immediate pair safely — CrazyGames' start/stop are idempotent off a
- * flag, and `pokiGameplayStart` DEFERS (never drops) a start landing inside the
- * SDK's 50 ms guard window rather than spending a bad event on it.
+ * So a seamless handover says it by hand: close the bracket, open the next.
+ * Every arm takes an immediate pair safely — CrazyGames' start/stop are
+ * idempotent off a flag, and `pokiGameplayStart` DEFERS (never drops) a start
+ * landing inside the SDK's 50 ms guard window.
  *
- * Only for a handover with no screen in between. Where a result screen, a gift
- * reveal or an ad separates the two stages the live flag really does change, and
- * `syncGameplayLifecycle` already sends both halves.
+ * Mega Adventure has no such handover today (every mission ends on the
+ * results screen); this stays as the tested seam for one.
  */
 export const restartGameplayBracket = (): void => {
   // Already closed — a result screen, a reveal, an ad or a hidden tab ended the

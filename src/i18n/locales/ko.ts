@@ -256,7 +256,11 @@ export default {
     'upgrade': '장비 강화',
     'next': '다음 레벨',
     'upgradeBtn': '강화',
-    'maxed': '최대 강화'
+    'maxed': '최대 강화',
+    'dropName': '보급품',
+    'dropDesc': '연구소에서 바로 전송되는 예비 나사 상자.',
+    'dropAria': '짧은 영상을 보고 나사 {n}개 받기',
+    'dropCooldown': '다음 보급까지 {t}'
   },
 
   'board': {

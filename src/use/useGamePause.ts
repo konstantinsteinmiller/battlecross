@@ -91,6 +91,19 @@ export const isGamePaused = computed(
   () => isAdShowing.value || isVisibilityHidden.value || isPlatformPaused.value || isAppPaused.value
 )
 
+/**
+ * The AUDIO half of the gate: every reason except an app-side modal.
+ *
+ * A modal freezes the simulation (the loop reads `isGamePaused`), but it must
+ * not silence the game: the results fanfare plays as that screen opens, the
+ * level-up sting rides its modal, and the Options volume sliders are useless
+ * if the music they adjust is suspended. Ads, a hidden tab and a platform
+ * pause still silence everything; `useGamePauseAudio` follows this gate.
+ */
+export const isAudioPaused = computed(
+  () => isAdShowing.value || isVisibilityHidden.value || isPlatformPaused.value
+)
+
 /** The distinct reasons the game can be halted, in the same order they
  *  OR into `isGamePaused`. Logged by the audio orchestrator so the QA
  *  console shows *why* audio + the render loop stopped. */
@@ -128,6 +141,24 @@ watch(isGamePaused, (paused) => {
   for (const sub of subscribers) {
     try { sub(paused) }
     catch (e) { console.warn('[pause] subscriber threw', e) }
+  }
+}, { flush: 'sync' })
+
+const audioSubscribers = new Set<PauseSubscriber>()
+
+/** Like `onPauseChange`, for the audio gate (`isAudioPaused`). Same
+ *  `flush: 'sync'` guarantee, so an ad is silent from its first frame. */
+export const onAudioPauseChange = (sub: PauseSubscriber): (() => void) => {
+  audioSubscribers.add(sub)
+  return (): void => {
+    audioSubscribers.delete(sub)
+  }
+}
+
+watch(isAudioPaused, (paused) => {
+  for (const sub of audioSubscribers) {
+    try { sub(paused) }
+    catch (e) { console.warn('[pause] audio subscriber threw', e) }
   }
 }, { flush: 'sync' })
 

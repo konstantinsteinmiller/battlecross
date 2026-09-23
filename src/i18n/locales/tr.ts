@@ -258,7 +258,11 @@ export default {
     'upgrade': 'Ekipmanı geliştir',
     'next': 'Sonraki seviye',
     'upgradeBtn': 'Geliştir',
-    'maxed': 'Tamamen geliştirildi'
+    'maxed': 'Tamamen geliştirildi',
+    'dropName': 'İkmal',
+    'dropDesc': 'Laboratuvardan doğrudan ışınlanan bir kasa yedek cıvata.',
+    'dropAria': 'Kısa bir video izle, {n} cıvata kazan',
+    'dropCooldown': 'Sonraki ikmal: {t}'
   },
 
   'board': {

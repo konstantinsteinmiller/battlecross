@@ -2,9 +2,10 @@
 //
 // ONE place, for EVERY build, that turns "the game is paused" into "all
 // audio is silenced and we said so in the console". Every reason the game
-// halts (rewarded / interstitial ad on screen, tab hidden, platform SDK
-// pause callback, an app-side modal) already OR's into `isGamePaused`
-// (see `useGamePause.ts`); this module subscribes to that single gate and:
+// halts OR's into `isGamePaused` (see `useGamePause.ts`). This module follows
+// its audio half, `isAudioPaused` — an ad on screen, a hidden tab, a platform
+// SDK pause — and deliberately NOT an app-side modal, which freezes the
+// simulation but keeps the results fanfare and the Options sliders audible:
 //
 //   • suspends ALL engine audio on the false→true edge (bg music + the
 //     Web Audio context + every registered HTMLAudio element), and
@@ -34,7 +35,7 @@
 // plays under the ad.
 
 import { ref } from 'vue'
-import { isGamePaused, getActivePauseReasons, onPauseChange } from '@/use/useGamePause'
+import { isAudioPaused, getActivePauseReasons, onAudioPauseChange } from '@/use/useGamePause'
 import { suspendAllAudio, resumeAllAudio, killOneShotSfx } from '@/use/useAssets'
 import { isDebug } from '@/use/useMatch'
 
@@ -59,7 +60,7 @@ const sync = (paused: boolean): void => {
   if (paused && !slotHeld) {
     slotHeld = true
     suspendAllAudio()
-    const reasons = getActivePauseReasons()
+    const reasons = getActivePauseReasons().filter((r) => r !== 'modal')
     dlog(
       `${TAG} ⏸ PAUSE  reasons=[${reasons.join(', ') || 'unknown'}]`
       + ' → music + SFX suspended, render loop halted'
@@ -86,8 +87,8 @@ export const installGamePauseAudio = (): (() => void) => {
   installed = true
   // Seed from the live gate so we don't miss a pause that is already
   // asserting at install time (e.g. booted in a backgrounded tab).
-  sync(isGamePaused.value)
-  unsubscribe = onPauseChange(sync)
+  sync(isAudioPaused.value)
+  unsubscribe = onAudioPauseChange(sync)
   return uninstallGamePauseAudio
 }
 

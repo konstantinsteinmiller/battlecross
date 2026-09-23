@@ -256,7 +256,11 @@ export default {
     'upgrade': 'Uitrusting upgraden',
     'next': 'Volgend niveau',
     'upgradeBtn': 'Upgraden',
-    'maxed': 'Volledig geüpgraded'
+    'maxed': 'Volledig geüpgraded',
+    'dropName': 'Bevoorrading',
+    'dropDesc': 'Een krat reservebouten, rechtstreeks uit het lab gestraald.',
+    'dropAria': 'Bekijk een korte video voor {n} bouten',
+    'dropCooldown': 'Volgende bevoorrading over {t}'
   },
 
   'board': {
