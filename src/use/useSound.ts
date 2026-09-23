@@ -6,6 +6,7 @@ import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 
 import { ref, onMounted, watch, onUnmounted } from 'vue'
+import { playMusic, stopMusic, type TrackId } from '@/game/audio/music'
 
 // We keep the audio instance outside the hook so it's a true Singleton
 const bgMusic = ref<HTMLAudioElement | null>(null)
@@ -32,6 +33,27 @@ const shouldPlay = ref(false)
  */
 /** Set by `useMusic()` — see the assignment there for why it exists. */
 let restartTrack: (() => void) | null = null
+let retrackSynth: (() => void) | null = null
+/** True while the synthesized score (not a drop-in file) is the music source. */
+let usingSynth = false
+/** Which part of the game is on screen — picks the synthesized track. */
+const gameTrack = ref<TrackId>('hub')
+const synthTrack = (): TrackId => {
+  const { userMusicTrack } = useUser()
+  // "Calm" option: the lab theme everywhere; otherwise the sector / boss theme.
+  return userMusicTrack.value === 'cozy' ? 'hub' : gameTrack.value
+}
+/** Start the game's music (sets the play intent). Safe to call repeatedly. */
+export const startGameMusic = (): void => {
+  restartTrack?.()
+}
+
+/** Called by the game on mode / sector / boss changes. */
+export const setMusicTrack = (id: TrackId): void => {
+  if (gameTrack.value === id) return
+  gameTrack.value = id
+  retrackSynth?.()
+}
 
 /**
  * Bring the battle music back after an ad that interrupted a LIVE run.
@@ -59,6 +81,7 @@ export const resumeMusicAfterAd = (): void => {
 
 export const forceStopMusic = (): void => {
   shouldPlay.value = false
+  stopMusic(0.02)
   try {
     bgMusic.value?.pause()
     if (bgMusic.value) {
@@ -146,42 +169,46 @@ export const useMusic = () => {
     bgMusic.value.volume = Math.max(0, Math.min(1, (userMusicVolume.value ?? 0.6) * 0.025))
   })
 
-  // Live-swap the background track when the player picks a different one in
-  // Options. Only reload if music is meant to be playing right now — otherwise
-  // the next `startBattleMusic()` naturally picks up the new choice.
   watch(userMusicTrack, () => {
-    if (!bgMusic.value || !shouldPlay.value) return
+    if (!shouldPlay.value) return
     isPlaying.value = false
     loadAndPlayTrack()
   })
 
-  // Resolve the active track's filename, falling back to the default.
   const currentTrackFile = (): string =>
     MUSIC_TRACK_FILES[userMusicTrack.value] ?? MUSIC_TRACK_FILES.trance
 
-  // Point the music element at the active track and fade it in — using the
-  // preloaded/decoded copy when available, otherwise fetching on demand.
+  /** Gates shared by BOTH music paths: never start under an ad / pause / mute. */
+  const blocked = (): boolean => isGamePaused.value || isMobileAudioMuted.value || isPlatformAudioMuted.value
+
   const loadAndPlayTrack = () => {
     if (!bgMusic.value) return
     const src = prependBaseUrl('audio/music/' + currentTrackFile())
     const cached = resourceCache.audio.get(src)
+    if (!cached) {
+      // No drop-in music file → the synthesized chiptune score.
+      usingSynth = true
+      bgMusic.value.pause()
+      if (blocked()) return
+      playMusic(synthTrack())
+      isPlaying.value = true
+      return
+    }
+    usingSynth = false
+    stopMusic(0.1)
     bgMusic.value.pause()
     bgMusic.value.volume = 0
-    if (cached) {
-      bgMusic.value.src = cached.src
-      isLoaded.value = true
-      playWithFade()
-    } else {
-      bgMusic.value.src = src
-      bgMusic.value.load()
-      bgMusic.value.addEventListener('canplaythrough', () => {
-        isLoaded.value = true
-        playWithFade()
-      }, { once: true })
-    }
+    bgMusic.value.src = cached.src
+    isLoaded.value = true
+    playWithFade()
   }
 
   const pauseMusic = () => {
+    if (usingSynth) {
+      stopMusic(0.1)
+      isPlaying.value = false
+      return
+    }
     if (bgMusic.value) {
       bgMusic.value.pause()
       isPlaying.value = false
@@ -189,9 +216,21 @@ export const useMusic = () => {
   }
 
   const continueMusic = () => {
-    if (bgMusic.value && shouldPlay.value) {
-      playWithFade()
+    if (!shouldPlay.value) return
+    if (usingSynth) {
+      if (!blocked()) {
+        playMusic(synthTrack())
+        isPlaying.value = true
+      }
+      return
     }
+    if (bgMusic.value) playWithFade()
+  }
+
+  const resumeIfWanted = () => {
+    if (!shouldPlay.value || isPlaying.value) return
+    if (usingSynth) continueMusic()
+    else if (bgMusic.value && bgMusic.value.paused) playWithFade()
   }
 
   const initMusic = () => {
@@ -202,45 +241,16 @@ export const useMusic = () => {
       audio.volume = 0
       audio.preload = 'auto'
       bgMusic.value = audio
-      // Register with the global suspend/resume registry so tab-hide
-      // and ad-show both halt the music track and resume it after.
       registerHtmlAudio(audio)
-
-      // Re-fire the music start when the pause gate clears. `playWithFade`
-      // refuses to play while `isGamePaused` is true (the ad/pause guard), so a
-      // `startBattleMusic()` that was issued mid-ad sets `shouldPlay=true` but
-      // doesn't actually sound. This watcher catches the false-edge (ad finished
-      // or failed to fill, modal closed, tab refocused) and resumes the track
-      // iff it's still wanted — the "resume only after the ad ends" half of the
-      // requirement. `initMusic` is called once (App.vue) so this is a single
-      // app-lifetime watcher.
-      watch(isGamePaused, (paused) => {
-        if (!paused && shouldPlay.value && bgMusic.value && bgMusic.value.paused) {
-          playWithFade()
-        }
-      })
-
-      // Same re-fire on the mobile hard-mute clearing: while muted, a
-      // `startBattleMusic()` set `shouldPlay=true` but `playWithFade` refused to
-      // sound. When the player unmutes, resume the track iff a battle is still
-      // running and it isn't already playing (the generic suspend resume may have
-      // already restarted it if it was mid-play when muted — hence the `paused`
-      // guard avoids a double start).
-      watch(isMobileAudioMuted, (muted) => {
-        if (!muted && shouldPlay.value && bgMusic.value && bgMusic.value.paused) {
-          playWithFade()
-        }
-      })
-
-      // And the same false-edge re-fire for the PORTAL mute. Without it a
-      // player who unmutes the portal chrome gets a permanently silent game:
-      // `shouldPlay` is already true, `resumeAllAudio` only restarts elements
-      // it actually paused (a track that never started isn't one of them), and
-      // nothing else would ever call the start again.
+      // Re-start on the FALSE edge of every gate: without these a player who
+      // unpauses / unmutes gets a permanently silent game, because the intent
+      // (`shouldPlay`) was already true and nothing calls the start again.
+      watch(isGamePaused, (paused) => { if (!paused) resumeIfWanted() })
+      watch(isMobileAudioMuted, (muted) => { if (!muted) resumeIfWanted() })
       watch(isPlatformAudioMuted, (muted) => {
-        if (!muted && shouldPlay.value && bgMusic.value && bgMusic.value.paused) {
-          playWithFade()
-        }
+        if (muted) {
+          if (usingSynth) { stopMusic(0.05); isPlaying.value = false }
+        } else resumeIfWanted()
       })
     })
     onUnmounted(() => {
@@ -248,31 +258,33 @@ export const useMusic = () => {
       bgMusic.value?.pause()
       bgMusic.value?.removeAttribute('src')
       bgMusic.value = null
+      stopMusic(0.05)
       shouldPlay.value = false
       isPlaying.value = false
       isLoaded.value = false
     })
   }
 
-  const isMusicPlaying = (): boolean => !!bgMusic.value && isPlaying.value
+  const isMusicPlaying = (): boolean => isPlaying.value
 
   const startBattleMusic = () => {
     if (!bgMusic.value) return
-    // Already playing a battle track — leave it alone so we don't restart
-    // mid-fight on extra calls.
     if (shouldPlay.value && isPlaying.value) return
     shouldPlay.value = true
     loadAndPlayTrack()
   }
-
-  // Publish the starter at module scope so a caller that is not a component —
-  // `useFirstLoadInterstitial`, which fires from the splash — can bring the
-  // music back after an ad. Every `useMusic()` call closes over the same
-  // module-level `bgMusic`, so a later overwrite is the same function.
   restartTrack = startBattleMusic
+  retrackSynth = () => {
+    if (usingSynth && shouldPlay.value && isPlaying.value) playMusic(synthTrack())
+  }
 
   const stopBattleMusic = () => {
     shouldPlay.value = false
+    if (usingSynth) {
+      stopMusic(0.4)
+      isPlaying.value = false
+      return
+    }
     if (!bgMusic.value) return
     fadeOut(() => {
       bgMusic.value?.pause()
@@ -282,46 +294,11 @@ export const useMusic = () => {
 
   const playWithFade = () => {
     if (!bgMusic.value) return
-
-    // HARD GUARD: never start bg music while the game is paused for ANY reason.
-    // `isGamePaused` ORs every pause source — a rewarded/interstitial ad on
-    // screen (`isAdShowing`, set by useAds), a Yandex auto-interstitial / tab-
-    // hide / purchase dialog (`isPlatformPaused`, set by the SDK pause bridge),
-    // or an app modal. The Yandex SDK fires transient pause/resume events around
-    // ad preload AND rejects frequency-capped interstitials synchronously; without
-    // this choke point a `startBattleMusic()` / `continueMusic()` call racing
-    // those events would start music UNDERNEATH the ad — the hard-requirement
-    // violation QA keeps flagging. `shouldPlay` stays true, so the
-    // `isGamePaused`-drop watcher in `initMusic` re-fires this the moment the
-    // gate clears (ad finished / failed to fill), satisfying "resume only after
-    // the ad has finished or failed".
-    if (isGamePaused.value) return
-
-    // Mobile hard-mute: the player silenced the game to play their own audio.
-    // Block the new start the same way the pause gate does; `shouldPlay` stays
-    // true so the `isMobileAudioMuted`-drop watcher in `initMusic` re-fires this
-    // the moment they unmute (if a battle is still running).
-    if (isMobileAudioMuted.value) return
-
-    // PORTAL hard-mute (GamePix `soundOff`, and every portal that mutes without
-    // pausing). This is NOT covered by `isGamePaused` — a portal mute is
-    // deliberately audio-only, gameplay carries on — so without this line the
-    // music start walks straight past it.
-    //
-    // It is the reload flow that makes this mandatory rather than tidy: QA mutes
-    // the portal chrome and reloads, the SDK reports "muted" during boot before
-    // this element exists, `setPlatformAudioMuted` suspends an audio layer that
-    // is still empty, and then the run's `startBattleMusic()` sounds. Reading
-    // the flag HERE is what closes that, and the watcher below restarts the
-    // track when the portal unmutes.
-    if (isPlatformAudioMuted.value) return
-
-    // Browsers block autoplay until user interaction
+    if (blocked()) return
     bgMusic.value.play().then(() => {
       isPlaying.value = true
       fadeIn()
     }).catch(() => {
-      // Attach a one-time listener to the window to play on first click
       window.addEventListener('click', () => {
         if (!isPlaying.value && shouldPlay.value) playWithFade()
       }, { once: true })
@@ -368,34 +345,8 @@ export const useMusic = () => {
     }, 50)
   }
 
-
   return { initMusic, isLoaded, isPlaying, isMusicPlaying, pauseMusic, continueMusic, startBattleMusic, stopBattleMusic }
 }
-
-// ─── SFX playback ──────────────────────────────────────────────────────────
-//
-// `playSound` has two paths:
-//
-//   1. Web Audio (fast path) — a preloaded AudioBuffer lives in
-//      resourceCache.audioBuffers. We spawn a fresh AudioBufferSourceNode
-//      + GainNode and start it. No fetch, no decode, no media-element
-//      allocation — typically <0.5 ms on the main thread.
-//
-//      If the buffer isn't cached yet (sound played before preload
-//      finished, or a sound not in the preload list), we kick off a
-//      fetch+decode in the background. The first call on that sound still
-//      pays the decode cost, but every subsequent call hits the fast path.
-//
-//   2. HTMLAudio fallback — only used when Web Audio is unavailable
-//      (extremely rare in 2025). We keep the old cloneNode() + new Audio()
-//      logic intact so nothing breaks.
-//
-// Return value: a minimal `SoundHandle` interface so existing callers that
-// do `audio.addEventListener('ended', ...)` keep working. The handle is
-// backed by either the source node (Web Audio) or the Audio element
-// (fallback). `error` events never fire in the Web Audio path — a source
-// that fails to start throws synchronously from `start()` and we map that
-// to an immediate 'ended' dispatch so caller cleanup logic still runs.
 
 export type SoundHandle = Pick<
   HTMLAudioElement,

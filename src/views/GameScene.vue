@@ -10,6 +10,7 @@
       TargetFrame(v-if="!hud.bossName")
       BossBar
       TitleCard
+      TipBubble
       HudBars
       ObjectiveTracker
       TopStatus(@pause="openPause")
@@ -32,6 +33,7 @@ import { input, takePreparedMode, fallbackMode, currentMission } from '@/game/bo
 import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { isGamePaused } from '@/use/useGamePause'
+import { startGameMusic } from '@/use/useSound'
 import Joystick from '@/components/hud/Joystick.vue'
 import HudBars from '@/components/hud/HudBars.vue'
 import Crosshair from '@/components/hud/Crosshair.vue'
@@ -45,6 +47,7 @@ import Compass from '@/components/hud/Compass.vue'
 import ContextButtons from '@/components/hud/ContextButtons.vue'
 import BossBar from '@/components/hud/BossBar.vue'
 import TitleCard from '@/components/hud/TitleCard.vue'
+import TipBubble from '@/components/hud/TipBubble.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
@@ -81,6 +84,9 @@ onMounted(() => {
   detachInput = attachInput(surface.value, input, { fireMode: () => currentMission()?.wantsFire() ?? false })
   app.setSuspended(isGamePaused.value)
   app.setWanted(true)
+  // Music intent from the first frame; the context itself unlocks on the
+  // first gesture (autoplay policy), and the gates keep it silent under ads.
+  startGameMusic()
   window.addEventListener('keydown', onKey)
   if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow, startMission, storyFor, goHub }
 })

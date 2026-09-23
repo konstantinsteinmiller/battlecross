@@ -89,7 +89,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **7. Bosses and special weapons.** Scrapper, Blaze, Frost, Volt and Gale
   Masters, boss door, name card, boss bar, weapon unlock, weakness, weapon
   slots, arm tint. *Commit.*
-- [ ] **8. Audio and juice.** Chiptune SFX synth and music sequencer (routed
+- [x] **8. Audio and juice.** Chiptune SFX synth and music sequencer (routed
   through the existing pause/mute gates), hit-stop, screenshake, level-up
   flash, loot beams, tutorial tips (Pip). *Commit.*
 - [ ] **9. i18n and responsiveness.** Every string in en plus the 20 other

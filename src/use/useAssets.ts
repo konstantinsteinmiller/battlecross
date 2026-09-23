@@ -120,11 +120,11 @@ export const resumeAllAudio = (): void => {
 // shared AudioContext and aren't HTMLAudio elements, so the suspend gate only
 // FREEZES them via `ctx.suspend()`. On an early gate-drop they'd resume and
 // tail audibly under an ad. We track them so an ad can hard-STOP them outright.
-const activeOneShotSources = new Set<AudioBufferSourceNode>()
+const activeOneShotSources = new Set<AudioScheduledSourceNode>()
 
 /** Register a one-shot Web Audio source so `killOneShotSfx()` can stop it.
  *  Auto-removes itself when the source finishes. */
-export const registerOneShotSource = (source: AudioBufferSourceNode): void => {
+export const registerOneShotSource = (source: AudioScheduledSourceNode): void => {
   activeOneShotSources.add(source)
   source.addEventListener('ended', () => activeOneShotSources.delete(source), { once: true })
 }

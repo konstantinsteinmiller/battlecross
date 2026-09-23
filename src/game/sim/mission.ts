@@ -26,6 +26,9 @@ import { baseStats, chargeInfo, type PlayerStats } from './stats'
 import { Particles } from '../fx/particles'
 import { FloorMarkers, ShockRings } from '../fx/markers'
 import { sfx } from '../audio/sfx'
+import { setMusicTrack } from '@/use/useSound'
+import { Tips } from './tips'
+import { chargeHum } from '../audio/synth'
 import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
 import { MissionObjects, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
@@ -155,6 +158,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private bossBarT = 0
   private vmFlash = 0
   private vmFlashColor = '#ffffff'
+  private tips = new Tips(true)
   private raycaster = new Raycaster()
   private marker: Mesh
   private markerT = 0
@@ -441,6 +445,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.bossBarT = 0
     this.combat.target = b
     sfx('bossIntro')
+    setMusicTrack('boss')
     this.shake(0.3)
   }
 
@@ -480,6 +485,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       pushHud({ t: 'flash', color: '#ffd84a', strength: 0.45 })
       pushHud({ t: 'toast', key: 'progress.levelUp', params: { n: profile.level }, color: '#ffd84a' })
       sfx('levelUp')
+      this.tips.levelUp(this.time)
     }
   }
 
@@ -817,6 +823,18 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
       if (first && this.input.tankQueued) this.useTank()
+      this.tips.update(dt, {
+        time: this.time,
+        combat: hud.combat,
+        enemies: this.enemies,
+        player: p,
+        hp01: this.combat.hp / this.combat.maxHp,
+        tanks: profile.inv.tanks,
+        interactKind: hud.interactKey,
+        objectiveDone: this.objects.objective.done,
+        hasWeapon: !!profile.hero.slots[0],
+        touch: this.input.device === 'touch'
+      })
     } else {
       this.interact = null
     }
@@ -1144,8 +1162,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
         if (d.mesh.boss) {
           d.mesh.panels[0]!.position.y = e * (WALL_H - 0.6)
         } else {
-          d.mesh.panels[0]!.position.x = -e * (CELL / 2 - 0.12)
-          d.mesh.panels[1]!.position.x = e * (CELL / 2 - 0.12)
+          // Halves part a little, then retract up into the lintel.
+          const part = Math.min(1, e * 2.5)
+          const lift = Math.max(0, (e - 0.25) / 0.75)
+          for (let k = 0; k < 2; k++) {
+            const pn = d.mesh.panels[k]!
+            pn.position.x = (k === 0 ? -1 : 1) * part * 0.35
+            pn.position.y = lift * (WALL_H - 1.1)
+            pn.scale.y = Math.max(0.05, 1 - lift * 0.95)
+          }
         }
         if (d.open > 0.55 && d.slab.active) {
           d.slab.active = false
@@ -1436,6 +1461,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     vm.scale.setScalar(portrait ? 0.62 : 0.82)
     // Charge glow: grows through lv1, flickers at full charge (the classic)
     const info = chargeInfo(c.charging ? c.charge : 0, this.stats)
+    if (c.charging && info.toL1 > 0.2 && hud.phase === 'play') chargeHum(info.toL1 * 0.5 + info.toL2 * 0.5, info.level >= 2)
+    else chargeHum(null)
     const coreMat = this.vm.coreMat
     const haloMat = this.vm.haloMat
     if (c.charging && info.toL1 > 0.25) {
@@ -1485,6 +1512,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   }
 
   dispose(): void {
+    chargeHum(null)
+    this.tips.clear()
     this.fx.dispose()
     this.scene.traverse((o) => {
       const m = o as Mesh

@@ -10,6 +10,8 @@ import {
 } from './state/profile'
 import { hud } from './state/hud'
 import { flushSaveNow } from '@/use/useSaveStatus'
+import { setMusicTrack, startGameMusic } from '@/use/useSound'
+import { playJingle } from './audio/music'
 import type { SectorId } from './world/themes'
 
 /**
@@ -74,10 +76,12 @@ export const createBootMode = () => {
     flow.quest = t.quest
     flow.screen = 'mission'
     flow.levelAtStart = profile.level
+    setMusicTrack(t.quest.sector)
     return missionFactory!(t.quest, t.snapshot)
   }
   flow.screen = 'hub'
   hud.phase = 'hub'
+  setMusicTrack('hub')
   return hubFactory!()
 }
 
@@ -88,6 +92,8 @@ export const startMission = (quest: Quest): void => {
   flow.results = null
   flow.levelAtStart = profile.level
   flow.screen = 'mission'
+  setMusicTrack(quest.sector)
+  startGameMusic()
   const m = missionFactory(quest, null)
   app.setMode(m)
   app.setWanted(true)
@@ -100,6 +106,9 @@ export const goHub = (): void => {
   hud.phase = 'hub'
   hud.combat = false
   hud.targetName = ''
+  hud.bossName = ''
+  setMusicTrack('hub')
+  startGameMusic()
   const h = hubFactory()
   app.setMode(h)
   app.setWanted(true)
@@ -174,6 +183,7 @@ export const finishMission = (success: boolean, tally: MissionTally): void => {
     quest, success, xp, bolts, kills: tally.kills, chests: tally.chests, items, levelBefore,
     levelAfter: profile.level, seconds: tally.seconds, weapon, unlocked
   }
+  playJingle(success ? 'victory' : 'defeat')
   flow.modal = 'results'
 }
 
