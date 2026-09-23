@@ -2,21 +2,10 @@ import { createRouter, createWebHashHistory, createMemoryHistory, type RouteReco
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'main', component: () => import('@/views/GameScene.vue') },
-  // Design bench for the monster art direction. Lazy, so it costs a player who
-  // never visits it nothing.
-  { path: '/monsters', name: 'monsters', component: () => import('@/views/MonsterLab.vue') },
-  // The art pipeline's two screens. DEV ONLY — the bench exists to get the
-  // procedural cast out to be painted and writes into the repo through a
-  // serve-only endpoint; the playground exists to check what came back against
-  // the drawing it replaces. Neither belongs in a portal build, and the
-  // `import.meta.env.DEV` guard lets Rollup drop both chunks entirely.
+  // DEV ONLY: every procedural model on a turntable, for art iteration. The
+  // `import.meta.env.DEV` guard lets Rollup drop the chunk from every build.
   ...(import.meta.env.DEV
-    ? [
-      { path: '/art-sheets', name: 'art-sheets', component: () => import('@/views/ArtSheets.vue') },
-      { path: '/playground', name: 'playground', component: () => import('@/views/Playground.vue') },
-      // Every boss wind-up as it was beside how it is now, on one clock.
-      { path: '/boss-motion', name: 'boss-motion', component: () => import('@/views/BossMotion.vue') }
-    ]
+    ? [{ path: '/models', name: 'models', component: () => import('@/views/ModelLab.vue') }]
     : []),
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
@@ -41,9 +30,9 @@ const routes: RouteRecordRaw[] = [
 // `<RouterLink>`. The router exists to mount one component and to keep the
 // dev-only benches reachable.
 //
-// Which is also why hash history is KEPT elsewhere: the benches at
-// `/monsters`, `/art-sheets` and `/playground` are navigated to by typing a
-// URL, and memory history would make them unreachable in dev. The other
+// Which is also why hash history is KEPT elsewhere: the dev bench at
+// `/models` is navigated to by typing a URL, and memory history would make it
+// unreachable in dev. The other
 // portals are shipping and working on hash history, so they are left alone —
 // this is a fix for a measured Playables failure, not a blanket change.
 const router = createRouter({

@@ -1,4 +1,4 @@
-import { getState, setState } from '@/use/useTowerState'
+import { getState, setState } from '@/use/useGameState'
 import { flushSaveNow } from '@/use/useSaveStatus'
 import {
   ANON_NAME_KEY, PLAYER_ID_KEY, PLAYER_NAME_KEY, SDK_NAME_KEY
@@ -34,8 +34,8 @@ export interface PlayerIdentity {
  * and the game would mint a second one, and the player would have two rows.
  * This copy exists to be the one thing a cloud round-trip cannot overwrite.
  */
-const DEVICE_UID_KEY = 'survivalist_uid'
-const DEVICE_NAME_KEY = 'survivalist_name'
+const DEVICE_UID_KEY = 'mega_adventure_uid'
+const DEVICE_NAME_KEY = 'mega_adventure_name'
 
 /** The shape the worker validates against. Keep the two in step. */
 const ID_RE = /^[a-zA-Z0-9_-]{8,64}$/

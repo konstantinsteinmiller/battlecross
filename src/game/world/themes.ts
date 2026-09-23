@@ -1,0 +1,89 @@
+/**
+ * Sector themes. Each sector reads as one bright, signature-coloured stage
+ * (the way every Robot-Master stage had its own palette), with enough contrast
+ * between floor, wall body and trim that the toon ramp keeps rooms legible on
+ * a small phone screen.
+ */
+export interface Theme {
+  id: SectorId
+  floor: string
+  floorAlt: string
+  corridor: string
+  wall: string
+  wallLow: string
+  trim: string
+  pilaster: string
+  accent: string // light strips / glowing details
+  hazard: string // floor stripes near doors
+  skyTop: string
+  skyBottom: string
+  fog: string
+  fogNear: number
+  fogFar: number
+  hemiSky: string
+  hemiGround: string
+  sun: string
+  sunIntensity: number
+  pipe: string
+  crate: string
+  crateTrim: string
+}
+
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'fortress'
+
+export const THEMES: Record<SectorId, Theme> = {
+  scrapyard: {
+    id: 'scrapyard',
+    floor: '#a39a8a', floorAlt: '#8e8676', corridor: '#7f7a70',
+    wall: '#6f8a5a', wallLow: '#4e6340', trim: '#e8b73c', pilaster: '#8e9aa3',
+    accent: '#ffcf5a', hazard: '#f2b21b',
+    skyTop: '#4aa6ff', skyBottom: '#bfe6ff', fog: '#bcdcf2', fogNear: 20, fogFar: 70,
+    hemiSky: '#e6f3ff', hemiGround: '#6b5f4f', sun: '#fff4dc', sunIntensity: 1.25,
+    pipe: '#c9763a', crate: '#c68a3e', crateTrim: '#5f4630'
+  },
+  blaze: {
+    id: 'blaze',
+    floor: '#7a4a3a', floorAlt: '#5e3a2e', corridor: '#56362b',
+    wall: '#c8502c', wallLow: '#7e2e1c', trim: '#ffcc33', pilaster: '#4a3a38',
+    accent: '#ff9a2e', hazard: '#ffcc33',
+    skyTop: '#ff6a3d', skyBottom: '#ffd08a', fog: '#f7b37a', fogNear: 18, fogFar: 64,
+    hemiSky: '#ffe2c4', hemiGround: '#5a2a1a', sun: '#fff0d0', sunIntensity: 1.2,
+    pipe: '#8c8f99', crate: '#8a5b3a', crateTrim: '#2f2622'
+  },
+  cryo: {
+    id: 'cryo',
+    floor: '#d6e8f2', floorAlt: '#bcd6e6', corridor: '#a9c6d9',
+    wall: '#4fa8d8', wallLow: '#2f78ad', trim: '#ffffff', pilaster: '#9fb8cc',
+    accent: '#8ff2ff', hazard: '#3fd0ff',
+    skyTop: '#6fc4ff', skyBottom: '#eaf8ff', fog: '#dff2ff', fogNear: 18, fogFar: 62,
+    hemiSky: '#ffffff', hemiGround: '#7da3bf', sun: '#ffffff', sunIntensity: 1.15,
+    pipe: '#6c7f99', crate: '#8fb6d0', crateTrim: '#2e4a66'
+  },
+  volt: {
+    id: 'volt',
+    floor: '#3a3f6e', floorAlt: '#2d3159', corridor: '#282b4d',
+    wall: '#7a4fd6', wallLow: '#4a2f8f', trim: '#ffe13d', pilaster: '#2b2e4a',
+    accent: '#ffe13d', hazard: '#ffe13d',
+    skyTop: '#1a1450', skyBottom: '#6a4fc0', fog: '#4e3f96', fogNear: 16, fogFar: 58,
+    hemiSky: '#c8c0ff', hemiGround: '#221c3f', sun: '#e6e0ff', sunIntensity: 1.1,
+    pipe: '#3aa0ff', crate: '#5a5f8a', crateTrim: '#1c1e33'
+  },
+  gale: {
+    id: 'gale',
+    floor: '#e8eef2', floorAlt: '#cfdbe3', corridor: '#bfcdd8',
+    wall: '#3fc0b0', wallLow: '#23867c', trim: '#ffffff', pilaster: '#dfe7ee',
+    accent: '#bffff2', hazard: '#ff7f5f',
+    skyTop: '#2f8cff', skyBottom: '#d8f0ff', fog: '#d0ecff', fogNear: 22, fogFar: 76,
+    hemiSky: '#ffffff', hemiGround: '#8aa3b5', sun: '#fffbe8', sunIntensity: 1.25,
+    pipe: '#ff9f5a', crate: '#d9c28a', crateTrim: '#6a5a3a'
+  },
+  fortress: {
+    id: 'fortress',
+    floor: '#4a4e5c', floorAlt: '#3a3d49', corridor: '#33363f',
+    wall: '#3c4050', wallLow: '#24262f', trim: '#ff3f5f', pilaster: '#5a5f70',
+    accent: '#ff3f5f', hazard: '#ff3f5f',
+    skyTop: '#2a0f1f', skyBottom: '#8a2f3f', fog: '#5a2530', fogNear: 16, fogFar: 56,
+    hemiSky: '#ffd0d8', hemiGround: '#1a1418', sun: '#ffe8e8', sunIntensity: 1.05,
+    pipe: '#8a8f99', crate: '#5a5f70', crateTrim: '#1a1c22'
+  }
+}

@@ -16,13 +16,11 @@ const reader = (snap: Record<string, string>): { get: (k: string) => string | nu
   get: (k: string) => (k in snap ? snap[k]! : null)
 })
 
-/** Upgrades are persisted as a flat `{ trackId: level }` record. */
-const upgradesJson = (levels: Record<string, unknown> = {}): string =>
-  JSON.stringify(levels)
-
-// Score formula under test:  bestStage × 500 + upgradeLevels × 150 + runs × 10
+// Score formula under test:
+//   story × 5000 + level × 1000 + missionsDone × 40 + floor(bolts / 100)
+// …and exactly 0 while the save shows no progress at all (level 1, nothing done).
 describe('SaveMergePolicy.computeMeta', () => {
-  it('returns score=0 for a fresh install (nothing survived, nothing bought)', () => {
+  it('returns score=0 for a fresh install (level 1, nothing done)', () => {
     const meta = computeMeta(reader({}), '2026-04-27T10:00:00Z')
     expect(meta).toEqual({
       savedAt: '2026-04-27T10:00:00Z',
@@ -30,63 +28,51 @@ describe('SaveMergePolicy.computeMeta', () => {
       schemaVersion: SCHEMA_VERSION,
       maxStage: 0
     })
+    expect(computeMeta(reader({ [SAVE_KEYS.LEVEL]: '1' })).progressScore).toBe(0)
   })
 
-  it('counts bestStage * 500', () => {
-    const meta = computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: '7' }))
-    expect(meta.progressScore).toBe(7 * 500)
+  it('counts story sectors at 5000 and level at 1000', () => {
+    const meta = computeMeta(reader({ [SAVE_KEYS.STORY]: '2', [SAVE_KEYS.LEVEL]: '7' }))
+    expect(meta.progressScore).toBe(2 * 5000 + 7 * 1000)
     expect(meta.maxStage).toBe(7)
   })
 
-  it('floors bestStage at 0 for negative / garbage values', () => {
-    expect(computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: '0' })).progressScore).toBe(0)
-    expect(computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: '-3' })).progressScore).toBe(0)
-    expect(computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: 'abc' })).progressScore).toBe(0)
+  it('floors garbage values instead of throwing', () => {
+    expect(computeMeta(reader({ [SAVE_KEYS.STORY]: '-3' })).progressScore).toBe(0)
+    expect(computeMeta(reader({ [SAVE_KEYS.STORY]: 'abc' })).progressScore).toBe(0)
+    expect(computeMeta(reader({ [SAVE_KEYS.LEVEL]: 'x' })).progressScore).toBe(0)
   })
 
-  it('counts every upgrade level at 150 each', () => {
-    const meta = computeMeta(reader({
-      [SAVE_KEYS.BEST_STAGE]: '1',
-      [SAVE_KEYS.UPGRADES]: upgradesJson({ power: 3, rate: 2, squad: 5 })
-    }))
-    // 1*500 + 10 levels * 150
-    expect(meta.progressScore).toBe(500 + 1500)
-  })
-
-  it('counts runs at 10 each so two equal-stage saves still break their tie', () => {
-    const a = computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: '4', [SAVE_KEYS.RUNS]: '12' }))
-    const b = computeMeta(reader({ [SAVE_KEYS.BEST_STAGE]: '4', [SAVE_KEYS.RUNS]: '3' }))
-    expect(a.progressScore).toBe(2000 + 120)
-    expect(b.progressScore).toBe(2000 + 30)
+  it('breaks ties between equal story/level saves on missions done', () => {
+    const a = computeMeta(reader({ [SAVE_KEYS.LEVEL]: '4', [SAVE_KEYS.QUESTS_DONE]: '12' }))
+    const b = computeMeta(reader({ [SAVE_KEYS.LEVEL]: '4', [SAVE_KEYS.QUESTS_DONE]: '3' }))
+    expect(a.progressScore).toBe(4000 + 480)
+    expect(b.progressScore).toBe(4000 + 120)
     expect(a.progressScore).toBeGreaterThan(b.progressScore)
   })
 
-  it('ignores negative / non-numeric upgrade values defensively', () => {
-    const meta = computeMeta(reader({
-      [SAVE_KEYS.UPGRADES]: upgradesJson({
-        power: -2, rate: 'broken', squad: 4, scavenge: NaN, extra: 3
-      })
-    }))
-    // Only `squad: 4` and `extra: 3` count → 7 * 150
-    expect(meta.progressScore).toBe(1050)
+  it('counts the wallet only by the hundred', () => {
+    const meta = computeMeta(reader({ [SAVE_KEYS.COINS]: '999' }))
+    // bolts alone are progress, so level 1 counts too
+    expect(meta.progressScore).toBe(1000 + 9)
   })
 
   it('combines every term per the formula', () => {
     const meta = computeMeta(reader({
-      [SAVE_KEYS.BEST_STAGE]: '12',
-      [SAVE_KEYS.RUNS]: '20',
-      [SAVE_KEYS.UPGRADES]: upgradesJson({ power: 5, rate: 5 })
+      [SAVE_KEYS.STORY]: '3',
+      [SAVE_KEYS.LEVEL]: '12',
+      [SAVE_KEYS.QUESTS_DONE]: '20',
+      [SAVE_KEYS.COINS]: '1250'
     }))
-    expect(meta.progressScore).toBe(6000 + 1500 + 200)
+    expect(meta.progressScore).toBe(15000 + 12000 + 800 + 12)
     expect(meta.maxStage).toBe(12)
   })
 
-  it('survives malformed JSON in the upgrades key', () => {
+  it('reads the fields out of the consolidated state blob', () => {
     const meta = computeMeta(reader({
-      [SAVE_KEYS.BEST_STAGE]: '3',
-      [SAVE_KEYS.UPGRADES]: '{not json'
+      mega_adventure_state: JSON.stringify({ [SAVE_KEYS.LEVEL]: 5, [SAVE_KEYS.STORY]: 1 })
     }))
-    expect(meta.progressScore).toBe(3 * 500)
+    expect(meta.progressScore).toBe(5000 + 5000)
   })
 })
 

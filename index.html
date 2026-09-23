@@ -33,22 +33,22 @@
   <!-- CSP meta tag injected by vite.config.ts at build time -->
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0a1224">
+  <meta name="theme-color" content="#12306e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Survivalist">
-  <meta name="description" content="Shoot the gates to grow them, run your crowd through, and turn three survivors into an army before the boss turns them into dust.">
+  <meta name="apple-mobile-web-app-title" content="Mega Adventure">
+  <meta name="description" content="Beam into machine-infested sectors as Cobalt, a blue combat android. Explore, blast rogue robots with your charge buster, loot chests, take on missions and upgrade your circuits.">
   <link rel="manifest" href="/manifest.json">
-  <title>Survivalist</title>
+  <title>Mega Adventure</title>
   <style>
-      /* The splash paints before any JS runs, so its colours are inlined here
-         rather than pulled from the app's stylesheet. They match the scene's
-         night-sky background so the handover to the canvas is seamless — no
-         flash of a differently-coloured page. */
+      /* The splash paints before any JS runs, so its styles are inlined here.
+         It is the same picture FLogoProgress.vue draws (helmet emblem, title,
+         the 28-cell bar) at the same size in the same place, so the handover
+         when Vue mounts does not move anything. Change one, change both. */
       body {
           margin: 0;
-          background-color: #0a1224;
+          background-color: #12306e;
           outline: none;
       }
 
@@ -59,11 +59,10 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          /* The tile layer below is one tile wider and taller than the screen;
-             without this it would hand the page a scrollbar. */
           overflow: hidden;
-          background: radial-gradient(circle at 50% 38%, #1b2b52 0%, #0a1224 70%);
+          background: radial-gradient(circle at 50% 36%, #2a63d8 0%, #12306e 55%, #0a1224 100%);
           transition: opacity 0.4s ease-out;
+          font-family: 'Segoe UI', system-ui, sans-serif;
       }
 
       #static-splash.hidden {
@@ -71,170 +70,80 @@
           pointer-events: none;
       }
 
-      /* The panning backdrop.
-         ------------------------------------------------------------------
-         Eight of the game's own things — the survivor, the boss, the chest,
-         the coin, a barrel, an anvil, a grenade, a rocket — as faint line
-         drawings on one seamless tile (public/images/bg/bg-tile.svg,
-         flattened out of the paintings themselves by `pnpm art:bg-tile`),
-         drifting down and to the right the way a Brawl Stars loading screen
-         does.
-
-         The layer is one tile bigger than the screen up and to the left, and
-         slides exactly one tile down-right before it loops, so the loop has
-         no seam. It moves by TRANSFORM, never background-position: a
-         transform runs on the compositor, so the drift stays smooth while the
-         main thread is busy booting the game — which is the whole time this
-         screen is up.
-
-         The URL is RELATIVE on purpose. Vite rewrites `src`/`href`
-         attributes against the build's base but leaves `url()` inside an
-         inline <style> alone, and `./` resolves against this document
-         wherever it is deployed — the site root, a `--base=./` portal zip, or
-         the `/survivalist/` GitHub path — where a leading slash would only
-         work for the first.
-
-         It is a file both splashes name, so it arrives a beat after the first
-         frame; the fade-in hides that. FLogoProgress draws the same layer and
-         adopts this one's clock at the handover. Change one, change both. */
-      .splash-tiles {
+      .s-grid {
           position: absolute;
-          top: -400px;
-          left: -400px;
-          right: 0;
-          bottom: 0;
-          background: url(./images/bg/bg-tile.svg) 0 0 / 400px 400px repeat;
-          opacity: 0.16;
-          will-change: transform;
-          animation: splash-tiles-in 0.6s ease-out both, splash-tiles-pan 40s linear infinite;
+          inset: -64px 0 0 -64px;
+          background-image: linear-gradient(rgba(120, 210, 255, 0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(120, 210, 255, 0.12) 2px, transparent 2px);
+          background-size: 64px 64px;
+          animation: s-pan 6s linear infinite;
       }
 
-      @keyframes splash-tiles-in {
-          from { opacity: 0; }
-      }
+      @keyframes s-pan { to { transform: translate3d(64px, 64px, 0); } }
 
-      @keyframes splash-tiles-pan {
-          to { transform: translate3d(400px, 400px, 0); }
-      }
-
-      /* The greeting card, minus its punchline.
-         ------------------------------------------------------------------
-         What stood here was Tower Siege's: three stacked blocks pulsing in
-         sequence, carried over with the splash flow. It is now the same
-         picture `FLogoProgress.vue` draws — the wispling floating over the
-         title — at the SAME size in the SAME place, so when Vue mounts and
-         this element fades out, nothing moves. The speech bubble is the only
-         thing that is not here, and it pops in on top of this once the fade
-         has finished (see `LURK_MS` in that component).
-
-         Duplicated rather than shared because this has to paint before any
-         stylesheet or module has been fetched. Change one, change both.
-
-         The two `<img>` sources are absolute public paths — Vite rewrites
-         them against the build's base, the same as the favicon and manifest
-         links above, so the relative-base portal builds resolve them too. */
-      .splash-greet {
+      .s-card {
           position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.55rem;
-          width: clamp(200px, 58vmin, 340px);
+          gap: clamp(0.4rem, 2vmin, 0.9rem);
+          width: min(88vw, 460px);
       }
 
-      .splash-stage {
+      .s-helm {
           position: relative;
-          width: 100%;
-          aspect-ratio: 340 / 200;
+          width: clamp(88px, 26vmin, 150px);
+          aspect-ratio: 1;
+          border-radius: 50% 50% 46% 46%;
+          background: radial-gradient(circle at 35% 28%, #7fb2ff 0%, #2f73f0 38%, #1f4fc0 100%);
+          border: 4px solid #141a33;
+          box-sizing: border-box;
+          box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+          animation: s-bob 2.4s ease-in-out infinite;
       }
 
-      /* One panel of the painted 8-panel walk strip. The strip inside is 8x as
-         wide, so a steps(8) slide of -100% of its own width lands on each panel
-         in turn. */
-      /* Solved for the ghost's INK, not the panel box it is padded inside —
-         see the long note on `.wisp` in FLogoProgress.vue. */
-      .splash-wisp {
+      .s-face {
           position: absolute;
-          left: -5.3%;
-          bottom: -5.8%;
-          height: 131.5%;
-          aspect-ratio: 228 / 256;
-          overflow: hidden;
-          animation: splash-float 2.6s ease-in-out infinite;
+          left: 17%; right: 17%; top: 38%; bottom: 6%;
+          border-radius: 38% 38% 48% 48%;
+          background: #ffd2a8;
+          border: 3px solid #141a33;
       }
 
-      /* max-width beats the app stylesheet's image reset once it lands, and the
-         height beats the tag's own width/height attributes — those are
-         presentational hints, and they are on the tag so this does not reflow
-         when the file decodes. */
-      .splash-wisp img {
-          display: block;
-          max-width: none;
-          width: 800%;
-          height: 100%;
-          animation: splash-walk 2.6s steps(8, end) infinite;
-      }
-
-      /* The wordmark's ink runs from y=216 to y=295 of the 512 icon; the rest
-         of the file is transparent padding. Crop to a band around it. */
-      .splash-logo {
-          width: 100%;
-          aspect-ratio: 512 / 103;
-          overflow: hidden;
-      }
-
-      .splash-logo img {
-          display: block;
-          width: 100%;
-          height: auto;
-          margin-top: -39.84%;
-      }
-
-      /* The loading read-out's placeholder. It is here for the SPACE as much as
-         the number: without it the card is one line shorter than the one
-         FLogoProgress draws, so the whole composition would jump upward at the
-         handover. The colour, size and shadow match `.percentage-text` +
-         `.text-shadow` + `.text-amber-500` in the app's stylesheet, which has
-         not loaded yet at this point. */
-      .splash-progress {
-          font-size: clamp(0.9rem, 4vw, 1.35rem);
+      .s-title {
+          margin: 0;
+          font-size: clamp(2.2rem, 11vmin, 4.2rem);
           font-weight: 900;
-          /* The app stylesheet's default, restated: the UA's own 'normal' is
-             tighter, and a line 7 px shorter here would centre the whole card
-             3 px lower than the one Vue draws. */
-          line-height: 1.5;
-          color: #fe9a00;
-          text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+          color: #fff;
+          text-shadow: 0 4px 0 #141a33;
+          letter-spacing: 0.02em;
       }
 
-      @keyframes splash-walk {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-100%); }
+      .s-bar {
+          width: 100%;
+          height: clamp(16px, 3.4vmin, 24px);
+          border: 3px solid #141a33;
+          border-radius: 6px;
+          background: #0b1433;
+          box-sizing: border-box;
       }
 
-      @keyframes splash-float {
-          0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-          50%      { transform: translateY(-6%) rotate(1.5deg); }
+      @keyframes s-bob {
+          0%, 100% { transform: translateY(0) rotate(-2deg); }
+          50% { transform: translateY(-6%) rotate(2deg); }
       }
 
       @media (prefers-reduced-motion: reduce) {
-          .splash-wisp, .splash-tiles { animation: none; }
+          .s-grid, .s-helm { animation: none; }
       }
   </style>
 </head>
 <body>
 <div id="static-splash">
-  <div class="splash-tiles" aria-hidden="true"></div>
-  <div class="splash-greet">
-    <div class="splash-stage">
-      <div class="splash-wisp">
-        <img src="/images/monsters/wispling.webp" alt="" width="1824" height="256" fetchpriority="high">
-      </div>
-    </div>
-    <div class="splash-logo">
-      <img src="/images/logo/logo_512x512.png" alt="Survivalist" width="512" height="512" fetchpriority="high">
-    </div>
-    <span class="splash-progress">0%</span>
+  <div class="s-grid" aria-hidden="true"></div>
+  <div class="s-card">
+    <div class="s-helm" aria-hidden="true"><div class="s-face"></div></div>
+    <p class="s-title">MEGA</p>
+    <div class="s-bar"></div>
   </div>
 </div>
 <!-- Load the SDK before your game code -->

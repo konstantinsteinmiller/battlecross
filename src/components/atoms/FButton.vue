@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import ArtIcon from '@/components/icons/ArtIcon.vue'
 import { resolveIconLabel } from '@/components/icons/iconLabels'
 import type { GameIconName } from '@/components/icons/iconNames'
 
@@ -224,8 +223,7 @@ const styleVars = computed(() => {
       //- Glyph-only. A separate `v-if` rather than a `v-else` on the label, so
       //- an icon-only button that was passed no icon still renders its slot
       //- instead of an empty box.
-      ArtIcon.f-button__glyph.is-solo(v-if="iconOnly && icon && art" kind="ui" :id="art" :fallback="icon")
-      GameIcon.f-button__glyph.is-solo(v-else-if="iconOnly && icon" :name="icon")
+      GameIcon.f-button__glyph.is-solo(v-if="iconOnly && icon" :name="icon")
       template(v-else)
         GameIcon.f-button__glyph(v-if="icon && iconPosition === 'left'" :name="icon")
         span.f-button__text

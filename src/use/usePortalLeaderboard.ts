@@ -1,5 +1,5 @@
 import { computed, ref, type ComputedRef } from 'vue'
-import { getState, setState } from '@/use/useTowerState'
+import { getState, setState } from '@/use/useGameState'
 import { PORTAL_JOINED_KEY, PORTAL_POSTED_STAGE_KEY } from '@/keys'
 
 /**

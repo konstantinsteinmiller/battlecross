@@ -1,0 +1,316 @@
+import {
+  BufferGeometry, Float32BufferAttribute, Group, Mesh, Color, BackSide, MeshBasicMaterial, SphereGeometry
+} from 'three'
+import { CELL, WALL_H, Cell, cellCenter, type MapData, type Door } from './levelGen'
+import type { Theme } from './themes'
+import { levelAtlas } from './textures'
+import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
+import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus, ell } from '../models/kit'
+import { mulberry32 } from './rng'
+
+/**
+ * ─── Static level geometry ───────────────────────────────────────────────────
+ *
+ * One Group per ROOM (its corridor included), each holding at most four draw
+ * calls: textured floor+walls, rounded decor (pilasters, caps, pipes, frames),
+ * decor outline, and glow strips. Per-room grouping gives three.js an accurate
+ * bounding sphere per group for frustum culling and lets the mission hide
+ * rooms beyond fog range outright.
+ *
+ * The walls are open to the sky — every sector is an outdoor "stage" under a
+ * bright gradient sky, which reads far better on a phone than a dark ceiling.
+ */
+
+export interface LevelMeshes {
+  root: Group
+  rooms: Group[]
+  sky: Mesh
+  /** Distance-cull info per room group: centre and radius. */
+  bounds: Array<{ x: number; z: number; r: number }>
+}
+
+class QuadBatch {
+  pos: number[] = []
+  nor: number[] = []
+  uv: number[] = []
+  col: number[] = []
+  idx: number[] = []
+
+  quad(
+    a: [number, number, number], b: [number, number, number], c: [number, number, number], d: [number, number, number],
+    n: [number, number, number], uvs: UV8,
+    ca: Color, cb: Color, cc: Color, cd: Color
+  ) {
+    const base = this.pos.length / 3
+    this.pos.push(...a, ...b, ...c, ...d)
+    for (let k = 0; k < 4; k++) this.nor.push(...n)
+    this.uv.push(...uvs)
+    for (const cl of [ca, cb, cc, cd]) this.col.push(cl.r, cl.g, cl.b)
+    this.idx.push(base, base + 1, base + 2, base, base + 2, base + 3)
+  }
+
+  build(): BufferGeometry | null {
+    if (!this.idx.length) return null
+    const g = new BufferGeometry()
+    g.setAttribute('position', new Float32BufferAttribute(this.pos, 3))
+    g.setAttribute('normal', new Float32BufferAttribute(this.nor, 3))
+    g.setAttribute('uv', new Float32BufferAttribute(this.uv, 2))
+    g.setAttribute('color', new Float32BufferAttribute(this.col, 3))
+    g.setIndex(this.idx)
+    return g
+  }
+}
+
+/** Which room group owns each walkable cell (corridors → the room their door leads into). */
+const cellOwners = (map: MapData): Int16Array => {
+  const owner = new Int16Array(map.w * map.h).fill(-1)
+  for (let k = 0; k < owner.length; k++) owner[k] = map.room[k]!
+  for (const d of map.doors) {
+    // Walk back from the door along the corridor to the parent room.
+    const di = d.axis === 'x' ? -d.dir : 0
+    const dj = d.axis === 'z' ? -d.dir : 0
+    let i = d.i
+    let j = d.j
+    let guard = 0
+    while (map.cell[j * map.w + i] === Cell.Corridor && guard++ < 20) {
+      owner[j * map.w + i] = d.to
+      i += di
+      j += dj
+    }
+  }
+  return owner
+}
+
+const doorKey = (i: number, j: number) => `${i},${j}`
+
+type UV8 = [number, number, number, number, number, number, number, number]
+/** Atlas UVs: floor cell on the left half, wall cell on the right. */
+const FLOOR_UV: UV8 = [0, 0, 0, 1, 0.5, 1, 0.5, 0]
+const WALL_UV: UV8 = [0.5, 0, 0.5, 1, 1, 1, 1, 0]
+/** A flat patch of the floor plate — for decals that should read as solid colour. */
+const PLAIN_UV: UV8 = [0.25, 0.5, 0.25, 0.5, 0.25, 0.5, 0.25, 0.5]
+
+export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
+  const rng = mulberry32(map.seed ^ 0x5eed)
+  const owner = cellOwners(map)
+  const nRooms = map.rooms.length
+  const batches = Array.from({ length: nRooms }, () => new QuadBatch())
+  const decor: BufferGeometry[][] = Array.from({ length: nRooms }, () => [])
+  const glows: BufferGeometry[][] = Array.from({ length: nRooms }, () => [])
+
+  const cFloor = new Color(theme.floor)
+  const cFloorAlt = new Color(theme.floorAlt)
+  const cCorr = new Color(theme.corridor)
+  const cWall = new Color(theme.wall)
+  const cWallLow = new Color(theme.wallLow)
+  const cHaz = new Color(theme.hazard)
+
+  const W = map.w
+  const walk = (i: number, j: number) => i >= 0 && j >= 0 && i < W && j < map.h && map.cell[j * W + i] !== Cell.Void
+
+  const doorCells = new Map<string, Door>()
+  for (const d of map.doors) doorCells.set(doorKey(d.i, d.j), d)
+
+  // Corner pilasters, deduplicated across the rooms that share them.
+  const corners = new Map<string, { x: number; z: number; owner: number }>()
+  const addCorner = (x: number, z: number, o: number) => {
+    const k = `${Math.round(x * 10)},${Math.round(z * 10)}`
+    if (!corners.has(k)) corners.set(k, { x, z, owner: o })
+  }
+
+  for (let j = 0; j < map.h; j++) {
+    for (let i = 0; i < W; i++) {
+      const k = j * W + i
+      const c = map.cell[k]
+      if (c === Cell.Void) continue
+      const o = owner[k]!
+      if (o < 0) continue
+      const b = batches[o]!
+      const x0 = i * CELL
+      const z0 = j * CELL
+      const x1 = x0 + CELL
+      const z1 = z0 + CELL
+      // Floor: checker the two floor tones in rooms, plain in corridors.
+      const fc = c === Cell.Corridor ? cCorr : ((i + j) & 1 ? cFloor : cFloorAlt)
+      b.quad([x0, 0, z0], [x0, 0, z1], [x1, 0, z1], [x1, 0, z0], [0, 1, 0], FLOOR_UV, fc, fc, fc, fc)
+
+      // Walls on every edge that faces the void.
+      const edges: Array<{ ni: number; nj: number; a: [number, number]; bb: [number, number]; n: [number, number, number] }> = [
+        { ni: i - 1, nj: j, a: [x0, z1], bb: [x0, z0], n: [1, 0, 0] },
+        { ni: i + 1, nj: j, a: [x1, z0], bb: [x1, z1], n: [-1, 0, 0] },
+        { ni: i, nj: j - 1, a: [x0, z0], bb: [x1, z0], n: [0, 0, 1] },
+        { ni: i, nj: j + 1, a: [x1, z1], bb: [x0, z1], n: [0, 0, -1] }
+      ]
+      for (const e of edges) {
+        if (walk(e.ni, e.nj)) continue
+        const [ax, az] = e.a
+        const [bx, bz] = e.bb
+        // Wound b→a so the face points along `e.n` (into the walkable cell).
+        b.quad(
+          [bx, 0, bz], [bx, WALL_H, bz], [ax, WALL_H, az], [ax, 0, az], e.n,
+          WALL_UV, cWallLow, cWall, cWall, cWallLow
+        )
+        addCorner(ax, az, o)
+        addCorner(bx, bz, o)
+        const mx = (ax + bx) / 2
+        const mz = (az + bz) / 2
+        const alongX = Math.abs(bx - ax) > 0.1
+        const inset = 0.06
+        const ox = e.n[0] * inset
+        const oz = e.n[2] * inset
+        // Rounded top cap + baseboard (the "no hard edges" rule for walls).
+        decor[o]!.push(xform(paint(cap(0.2, CELL - 0.4, 10, 3), theme.trim), [mx, WALL_H, mz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+        decor[o]!.push(xform(paint(cap(0.13, CELL - 0.3, 8, 2), theme.wallLow), [mx + ox, 0.14, mz + oz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+        // Light strips in rooms, pipes now and then.
+        if (c === Cell.Room && rng() < 0.45) {
+          glows[o]!.push(xform(paint(cap(0.07, 1.1, 8, 2), theme.accent), [mx + e.n[0] * 0.12, 2.95, mz + e.n[2] * 0.12], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+        } else if (rng() < 0.25) {
+          const py = 1.1 + rng() * 1.4
+          decor[o]!.push(xform(paint(cap(0.16, CELL, 10, 2), theme.pipe), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+          decor[o]!.push(xform(paint(torus(0.19, 0.05, 6, 14), theme.pilaster), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, Math.PI / 2, 0] : [0, 0, 0]))
+        }
+      }
+    }
+  }
+
+  // Pilasters on every wall corner.
+  for (const { x, z, owner: o } of corners.values()) {
+    decor[o]!.push(xform(paint(rcyl(0.3, WALL_H + 0.25, 0.12, 14), theme.pilaster), [x, (WALL_H + 0.25) / 2, z]))
+    decor[o]!.push(xform(paint(sph(0.34, 14, 8), theme.trim), [x, WALL_H + 0.25, z]))
+  }
+
+  // Door frames: a rounded lintel with hazard stripes across the doorway.
+  for (const d of map.doors) {
+    const o = d.to
+    const [fx, fz] = doorFramePos(d)
+    const along = d.axis === 'x' ? 'z' : 'x'
+    const lintel = paintBy(
+      xform(rbox(along === 'x' ? CELL + 0.4 : 0.8, 0.7, along === 'z' ? CELL + 0.4 : 0.8, 0.3), [fx, WALL_H - 0.55, fz]),
+      (x, y, z) => {
+        const t = along === 'x' ? x : z
+        return Math.floor((t + y) * 2.2) & 1 ? theme.hazard : theme.crateTrim
+      }
+    )
+    decor[o]!.push(lintel)
+    for (const s of [-1, 1]) {
+      const px = along === 'x' ? fx + s * (CELL / 2) : fx
+      const pz = along === 'z' ? fz + s * (CELL / 2) : fz
+      decor[o]!.push(xform(paint(rcyl(0.4, WALL_H, 0.15, 16), d.boss ? theme.trim : theme.pilaster), [px, WALL_H / 2, pz]))
+    }
+    // Hazard stripes on the floor under the door.
+    const hb = batches[o]!
+    const hw = 0.5
+    if (d.axis === 'x') {
+      hb.quad([fx - hw, 0.012, fz - CELL / 2], [fx - hw, 0.012, fz + CELL / 2], [fx + hw, 0.012, fz + CELL / 2], [fx + hw, 0.012, fz - CELL / 2], [0, 1, 0], PLAIN_UV, cHaz, cHaz, cHaz, cHaz)
+    } else {
+      hb.quad([fx - CELL / 2, 0.012, fz - hw], [fx - CELL / 2, 0.012, fz + hw], [fx + CELL / 2, 0.012, fz + hw], [fx + CELL / 2, 0.012, fz - hw], [0, 1, 0], PLAIN_UV, cHaz, cHaz, cHaz, cHaz)
+    }
+  }
+
+  // Pillars (static obstacles in big rooms).
+  for (const p of map.pillars) {
+    const o = map.room[Math.floor(p.z / CELL) * W + Math.floor(p.x / CELL)]!
+    if (o < 0) continue
+    decor[o]!.push(xform(paint(rcyl(p.r, 2.6, 0.2, 16), theme.pilaster), [p.x, 1.3, p.z]))
+    decor[o]!.push(xform(paint(torus(p.r * 0.95, 0.09, 6, 16), theme.trim), [p.x, 2.2, p.z], [Math.PI / 2, 0, 0]))
+    glows[o]!.push(xform(paint(sph(p.r * 0.55, 14, 8), theme.accent), [p.x, 2.75, p.z]))
+  }
+
+  // ── Assemble ─────────────────────────────────────────────────────────────
+  const root = new Group()
+  const rooms: Group[] = []
+  const bounds: LevelMeshes['bounds'] = []
+  const floorMat = toonVCMap(levelAtlas())
+  for (let r = 0; r < nRooms; r++) {
+    const g = new Group()
+    const geo = batches[r]!.build()
+    if (geo) {
+      geo.computeBoundingSphere()
+      g.add(new Mesh(geo, floorMat))
+      const bs = geo.boundingSphere!
+      bounds.push({ x: bs.center.x, z: bs.center.z, r: bs.radius })
+    } else {
+      bounds.push({ x: 0, z: 0, r: 0 })
+    }
+    if (decor[r]!.length) {
+      const dg = merge(decor[r]!)
+      dg.computeBoundingSphere()
+      g.add(new Mesh(dg, toonVC()))
+      const ol = new Mesh(dg, outlineMat(0.035))
+      ol.renderOrder = -1
+      g.add(ol)
+    }
+    if (glows[r]!.length) {
+      const gg = merge(glows[r]!)
+      g.add(new Mesh(gg, glowVC()))
+    }
+    rooms.push(g)
+    root.add(g)
+  }
+
+  // Distant skyline: big rounded silhouettes beyond the walls, drawn in fog.
+  root.add(buildSkyline(map, theme))
+
+  const sky = buildSky(theme)
+  return { root, rooms, sky, bounds }
+}
+
+/** World position of a door's frame: on the child room's wall line. */
+export const doorFramePos = (d: Door): [number, number] => {
+  const x = cellCenter(d.i) + (d.axis === 'x' ? d.dir * CELL / 2 : 0)
+  const z = cellCenter(d.j) + (d.axis === 'z' ? d.dir * CELL / 2 : 0)
+  return [x, z]
+}
+
+const buildSky = (theme: Theme): Mesh => {
+  const g = new SphereGeometry(180, 24, 16)
+  const top = new Color(theme.skyTop)
+  const bot = new Color(theme.skyBottom)
+  const fog = new Color(theme.fog)
+  const pos = g.attributes.position!
+  const col = new Float32Array(pos.count * 3)
+  const c = new Color()
+  for (let i = 0; i < pos.count; i++) {
+    const y = pos.getY(i) / 180
+    if (y > 0) c.copy(bot).lerp(top, Math.pow(y, 0.6))
+    else c.copy(bot).lerp(fog, Math.min(1, -y * 4))
+    col[i * 3] = c.r
+    col[i * 3 + 1] = c.g
+    col[i * 3 + 2] = c.b
+  }
+  g.setAttribute('color', new Float32BufferAttribute(col, 3))
+  const m = new MeshBasicMaterial({ vertexColors: true, side: BackSide, fog: false, depthWrite: false, toneMapped: false })
+  const mesh = new Mesh(g, m)
+  mesh.renderOrder = -10
+  mesh.frustumCulled = false
+  return mesh
+}
+
+const buildSkyline = (map: MapData, theme: Theme): Group => {
+  const rng = mulberry32(map.seed ^ 0xbead)
+  const cx = map.w * CELL / 2
+  const cz = map.h * CELL / 2
+  const parts: BufferGeometry[] = []
+  const glowParts: BufferGeometry[] = []
+  const n = 22
+  for (let k = 0; k < n; k++) {
+    const a = (k / n) * Math.PI * 2 + rng() * 0.2
+    const d = 95 + rng() * 25
+    const x = cx + Math.cos(a) * d
+    const z = cz + Math.sin(a) * d
+    const h = 18 + rng() * 34
+    const r = 5 + rng() * 7
+    const kind = rng()
+    if (kind < 0.5) {
+      parts.push(xform(paint(rcyl(r, h, r * 0.5, 14), theme.wallLow), [x, h / 2 - 2, z]))
+      parts.push(xform(paint(ell(r * 1.2, r * 0.5, r * 1.2, 14, 8), theme.wall), [x, h - 2, z]))
+      glowParts.push(xform(paint(sph(r * 0.25, 10, 6), theme.accent), [x, h + r * 0.3, z]))
+    } else {
+      parts.push(xform(paint(ell(r * 1.6, h * 0.5, r * 1.6, 14, 10), theme.wallLow), [x, 0, z]))
+    }
+  }
+  const g = new Group()
+  if (parts.length) g.add(new Mesh(merge(parts), toonVC()))
+  if (glowParts.length) g.add(new Mesh(merge(glowParts), glowVC()))
+  return g
+}

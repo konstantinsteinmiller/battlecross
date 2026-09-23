@@ -5,184 +5,6 @@ import { execFileSync } from 'node:child_process'
 
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 
-// ─── Campaign-overrides on-disk persistence ────────────────────────────
-// The level editor writes back into `data/campaign-overrides.json` so the
-// stages live in the repo (committable, fine-tunable in source) rather
-// than only in the user's localStorage. Two surfaces:
-//   1. A virtual module `virtual:campaign-overrides` that ships the
-//      current JSON as the campaign's seed override map. Resolved at
-//      both dev and build time.
-//   2. Dev-only middleware:
-//        POST /__maw/save-override   { id, stage }   → writes to disk
-//        POST /__maw/clear-override  { id }          → removes from disk
-//      Production builds don't expose these — the editor button silently
-//      falls back to localStorage when the endpoint is absent.
-const OVERRIDES_FILE = resolve(
-  fileURLToPath(new URL('./data/campaign-overrides.json', import.meta.url))
-)
-const OVERRIDES_VIRTUAL_ID = 'virtual:campaign-overrides'
-const OVERRIDES_RESOLVED = '\0' + OVERRIDES_VIRTUAL_ID
-
-const ensureOverridesFile = () => {
-  if (!existsSync(OVERRIDES_FILE)) {
-    mkdirSync(dirname(OVERRIDES_FILE), { recursive: true })
-    writeFileSync(OVERRIDES_FILE, '{}\n', 'utf-8')
-  }
-}
-
-const readOverridesJson = (): Record<string, unknown> => {
-  ensureOverridesFile()
-  try {
-    const parsed = JSON.parse(readFileSync(OVERRIDES_FILE, 'utf-8'))
-    return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
-      ? parsed as Record<string, unknown>
-      : {}
-  } catch {
-    return {}
-  }
-}
-
-const writeOverridesJson = (data: Record<string, unknown>) => {
-  ensureOverridesFile()
-  writeFileSync(OVERRIDES_FILE, JSON.stringify(data, null, 2) + '\n', 'utf-8')
-}
-
-const readBody = (req: import('node:http').IncomingMessage): Promise<string> =>
-  new Promise((res, rej) => {
-    const chunks: Buffer[] = []
-    req.on('data', c => chunks.push(c))
-    req.on('end', () => res(Buffer.concat(chunks).toString('utf-8')))
-    req.on('error', rej)
-  })
-
-const mawCampaignOverridesPlugin = (): Plugin => ({
-  name: 'maw-campaign-overrides',
-  resolveId(id) {
-    if (id === OVERRIDES_VIRTUAL_ID) return OVERRIDES_RESOLVED
-    return null
-  },
-  load(id) {
-    if (id !== OVERRIDES_RESOLVED) return null
-    return `export default ${JSON.stringify(readOverridesJson())}`
-  },
-  configureServer(server) {
-    // Hot-reload the virtual module if the JSON file is edited by hand.
-    server.watcher.add(OVERRIDES_FILE)
-    server.watcher.on('change', (path) => {
-      if (resolve(path) !== OVERRIDES_FILE) return
-      const mod = server.moduleGraph.getModuleById(OVERRIDES_RESOLVED)
-      if (mod) server.moduleGraph.invalidateModule(mod)
-      server.ws.send({ type: 'full-reload', path: '*' })
-    })
-
-    server.middlewares.use('/__maw/save-override', async (req, res, next) => {
-      if (req.method !== 'POST') { next(); return }
-      try {
-        const body = JSON.parse(await readBody(req)) as { id?: number; stage?: unknown }
-        if (typeof body.id !== 'number' || !body.stage) {
-          res.statusCode = 400
-          res.end(JSON.stringify({ error: 'expected { id: number, stage }' }))
-          return
-        }
-        const data = readOverridesJson()
-        data[String(body.id)] = body.stage
-        writeOverridesJson(data)
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ ok: true, id: body.id }))
-      } catch (e) {
-        res.statusCode = 400
-        res.end(JSON.stringify({ error: String((e as Error).message) }))
-      }
-    })
-
-    server.middlewares.use('/__maw/clear-override', async (req, res, next) => {
-      if (req.method !== 'POST') { next(); return }
-      try {
-        const body = JSON.parse(await readBody(req)) as { id?: number }
-        if (typeof body.id !== 'number') {
-          res.statusCode = 400
-          res.end(JSON.stringify({ error: 'expected { id: number }' }))
-          return
-        }
-        const data = readOverridesJson()
-        delete data[String(body.id)]
-        writeOverridesJson(data)
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ ok: true, id: body.id }))
-      } catch (e) {
-        res.statusCode = 400
-        res.end(JSON.stringify({ error: String((e as Error).message) }))
-      }
-    })
-  }
-})
-
-// `/art-sheets` (dev only) bakes the whole procedural cast onto reference
-// sheets so it can be handed to an image model and sliced back in. The browser
-// can render the sheets but cannot put them where they belong — a download
-// lands in the user's Downloads folder under whatever name Chrome decides — so
-// the bench POSTs each finished sheet here and this writes it into
-// `art-sheets/` in the repo.
-//
-//   POST /__art/save-sheet  { name, dataUrl }  → writes a binary file
-//   POST /__art/save-sheet  { name, text }     → writes a text file
-//
-// Dev only, and the name is whitelisted rather than sanitised: this is a
-// file-writing endpoint, so it takes a flat basename made of safe characters
-// and nothing else. No separators, no dots leading a segment, no escaping out
-// of the directory.
-const ART_SHEET_DIR = resolve(fileURLToPath(new URL('./art-sheets', import.meta.url)))
-const SAFE_SHEET_NAME = /^[A-Za-z0-9][A-Za-z0-9._@-]{0,79}$/
-
-const artSheetsPlugin = (): Plugin => ({
-  name: 'survivalist-art-sheets',
-  apply: 'serve',
-  // The sheets land inside the project root, so without this the dev server
-  // watches its own output: the first PNG written triggers a full page reload,
-  // which tears down the bench in the middle of writing the other fifty.
-  config: () => ({ server: { watch: { ignored: ['**/art-sheets/**'] } } }),
-  configureServer(server) {
-    server.middlewares.use('/__art/save-sheet', async (req, res, next) => {
-      if (req.method !== 'POST') { next(); return }
-      const fail = (code: number, error: string) => {
-        res.statusCode = code
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ error }))
-      }
-      try {
-        const body = JSON.parse(await readBody(req)) as
-          { name?: string; dataUrl?: string; text?: string }
-        const name = body.name ?? ''
-        if (!SAFE_SHEET_NAME.test(name) || name.includes('..')) {
-          fail(400, 'name must be a flat basename of [A-Za-z0-9._@-]')
-          return
-        }
-        mkdirSync(ART_SHEET_DIR, { recursive: true })
-        const file = resolve(ART_SHEET_DIR, name)
-        // Belt and braces: even a name that passed the pattern must land
-        // inside the directory we meant.
-        if (dirname(file) !== ART_SHEET_DIR) { fail(400, 'name escaped the sheet directory'); return }
-
-        if (typeof body.text === 'string') {
-          writeFileSync(file, body.text, 'utf-8')
-        } else if (typeof body.dataUrl === 'string') {
-          const comma = body.dataUrl.indexOf(',')
-          if (comma < 0 || !body.dataUrl.startsWith('data:')) { fail(400, 'dataUrl is not a data URI'); return }
-          writeFileSync(file, Buffer.from(body.dataUrl.slice(comma + 1), 'base64'))
-        } else {
-          fail(400, 'expected { name, dataUrl } or { name, text }')
-          return
-        }
-
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ ok: true, path: `art-sheets/${name}` }))
-      } catch (e) {
-        fail(400, String((e as Error).message))
-      }
-    })
-  }
-})
-
 // ─── The baked leaderboard ─────────────────────────────────────────────────
 //
 // Ships `data/leaderboard-snapshot.json` as `virtual:leaderboard-snapshot` for
@@ -261,7 +83,7 @@ const readSnapshotFile = (file: string): LeaderboardSnapshotFile | null => {
  *   target bakes the real snapshot as the bottom rung of its offline ladder.
  */
 const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
-  name: 'survivalist-leaderboard-snapshot',
+  name: 'mega-leaderboard-snapshot',
   buildStart() {
     if (seeded) {
       // Nothing to fetch: the seed is generated from a curve, committed, and
@@ -383,9 +205,7 @@ export default defineConfig(({ mode, command }) => {
 
   // Campaign-overrides plugin — virtual module + dev write endpoints so
   // editor saves persist to `data/campaign-overrides.json` in the repo.
-  plugins.push(mawCampaignOverridesPlugin())
   // Art-sheet export endpoint. `apply: 'serve'`, so it is not in any build.
-  plugins.push(artSheetsPlugin())
 
   // The baked board. EVERY build carries one — but not the same one, and the
   // difference is whether the build can ever write to the real board.
@@ -783,7 +603,7 @@ export default defineConfig(({ mode, command }) => {
   return {
     base: '/',
     server: {
-      port: 2050
+      port: 2194
     },
     define: {
       APP_VERSION: JSON.stringify(appVersion)

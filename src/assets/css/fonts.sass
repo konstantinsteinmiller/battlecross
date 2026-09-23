@@ -1,6 +1,7 @@
-@font-face
-  font-family: 'Angry'
-  font-style: normal
-  font-weight: 700
-  font-display: swap
-  src: url(./font/angrybirds-regular.ttf) format('truetype')
+// Faces are bundled through @fontsource (see main.ts) — no runtime font CDN,
+// which Poki / Playables forbid. Russo One covers Latin + Cyrillic; every
+// other script falls through to a NAMED system face before the generic, so
+// CJK / Thai / Devanagari / Arabic never render as tofu.
+:root
+  --font-ui: 'Russo One', 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Microsoft YaHei', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK SC', 'Noto Sans Thai', 'Leelawadee UI', 'Noto Sans Devanagari', 'Nirmala UI', 'Noto Naskh Arabic', 'Segoe UI Arabic', system-ui, sans-serif
+  --font-pixel: 'Press Start 2P', 'Russo One', monospace

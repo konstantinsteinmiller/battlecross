@@ -37,7 +37,6 @@
 
 import { syncGameplayLifecycle as syncCrazyGameplay } from '@/use/useCrazyGames'
 import { pokiGameplayStart, pokiGameplayStop } from '@/utils/pokiPlugin'
-import { setMonsterBakeAllowed } from '@/game/monsterSprites'
 
 // ─── What counts as live gameplay ───────────────────────────────────────────
 //
@@ -110,7 +109,6 @@ export const syncGameplayLifecycle = (live: boolean): void => {
   // cannot be sliced smaller, so it must never run while the player is playing;
   // every break this signal reports — the result screen, a modal, an ad, the
   // loading screen — is a moment nothing is animating and the baker is free.
-  setMonsterBakeAllowed(!live)
 
   syncCrazyGameplay(live)
 

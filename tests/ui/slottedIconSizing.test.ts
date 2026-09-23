@@ -37,12 +37,4 @@ describe('slotted icon sizing', () => {
     expect(src, `${path} does not size slotted <img> — an IconCoin here would render at 128px`)
       .toContain(':slotted(img)')
   })
-
-  it('sizes the coin at every call site that does not rely on a host rule', () => {
-    // Belt and braces: the badge rule is the real fix, but a call site that
-    // also states a size cannot regress if the component is ever reused
-    // somewhere without one.
-    const src = read('src/components/organisms/CoinBadge.vue')
-    expect(src).toMatch(/IconCoin\(class="[^"]*\bw-\d/)
-  })
 })

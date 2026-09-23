@@ -66,7 +66,7 @@ more scale on a phone-shaped clip.
 
 ## How a clip is built
 
-1. `boot()` — seed `tower_state`, navigate, wait out both splashes, then FREEZE
+1. `boot()` — seed `mega_adventure_state`, navigate, wait out both splashes, then FREEZE
    the simulation (`__preview.hold(true)`) and hold until every painting the
    stage can ask for has decoded.
 2. `stageRun()` — **scout**: play the whole stage frozen and unrendered (a

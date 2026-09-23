@@ -6,7 +6,7 @@ import type {
 } from './types'
 import { isInternalKey } from './types'
 import { SAVE_KEYS } from './SaveMergePolicy'
-import { STATE_KEY } from '@/use/useTowerState'
+import { STATE_KEY } from '@/use/useGameState'
 import { BlobStorage, type BlobStorageOptions } from './BlobStorage'
 
 // ─── SaveManager ───────────────────────────────────────────────────────────
@@ -400,11 +400,11 @@ const shouldRunSanityGuard = (state: HydrateState, local: LocalStorageAccessor):
 }
 
 /**
- * Read one field out of the consolidated `tower_state` blob, falling back to a
+ * Read one field out of the consolidated `mega_adventure_state` blob, falling back to a
  * top-level key read.
  *
- * This indirection is load-bearing: Survivalist persists everything INSIDE one
- * localStorage entry, so a naive `local.get('ts_best_stage')` always returns
+ * This indirection is load-bearing: the game persists everything INSIDE one
+ * localStorage entry, so a naive `local.get('ma_level')` always returns
  * null and `localLooksFresh` would report "fresh" for every player — making the
  * boot-sanity guard fire (and cost 3 s of boot latency) on every single launch
  * of a returning player, while telling us nothing.
@@ -426,18 +426,19 @@ const readStateField = (local: LocalStorageAccessor, field: string): string | nu
 
 /**
  * "Does this device look like a brand-new install?" — the precondition for the
- * boot-sanity retry loop. Any signal of real progress (a stage cleared, coins
- * banked, an upgrade bought, a run started) means the local snapshot is worth
+ * boot-sanity retry loop. Any signal of real progress (a level gained, a boss
+ * beaten, a mission done, bolts banked) means the local snapshot is worth
  * booting with and we don't stall the player waiting on the cloud.
  */
 const localLooksFresh = (local: LocalStorageAccessor): boolean => {
-  const bestStage = parseInt(readStateField(local, SAVE_KEYS.BEST_STAGE) ?? '0', 10) || 0
-  if (bestStage > 0) return false
-  const coins = parseInt(readStateField(local, SAVE_KEYS.COINS) ?? '0', 10) || 0
-  if (coins > 0) return false
-  const runs = parseInt(readStateField(local, SAVE_KEYS.RUNS) ?? '0', 10) || 0
-  if (runs > 0) return false
-  if (readStateField(local, SAVE_KEYS.UPGRADES)) return false
+  const level = parseInt(readStateField(local, SAVE_KEYS.LEVEL) ?? '1', 10) || 1
+  if (level > 1) return false
+  const story = parseInt(readStateField(local, SAVE_KEYS.STORY) ?? '0', 10) || 0
+  if (story > 0) return false
+  const done = parseInt(readStateField(local, SAVE_KEYS.QUESTS_DONE) ?? '0', 10) || 0
+  if (done > 0) return false
+  const bolts = parseInt(readStateField(local, SAVE_KEYS.COINS) ?? '0', 10) || 0
+  if (bolts > 0) return false
   return true
 }
 

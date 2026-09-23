@@ -1,5 +1,5 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
-import { getState, setState } from '@/use/useTowerState'
+import { getState, setState } from '@/use/useGameState'
 import { POSTED_NAME_KEY, SUBMITTED_STAGE_KEY } from '@/keys'
 import { resolveIdentity, type PlayerIdentity } from '@/use/usePlayerIdentity'
 import { boardSnapshot, rankFromDist } from '@/use/leaderboardSnapshot'
@@ -239,7 +239,7 @@ let boardSource: BoardSource = null
 let fetched = false
 
 /**
- * Deliberately NOT a `ts_`-prefixed key and not a field inside `tower_state`.
+ * Deliberately NOT a `ts_`-prefixed key and not a field inside `mega_adventure_state`.
  *
  * Both of those round-trip to the platform's cloud save (see `isPayloadKey`),
  * and this is a ~6 kB cache of PUBLIC data that is identical for every player.

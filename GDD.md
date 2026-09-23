@@ -1,296 +1,292 @@
-# Survivalist — game design document
+# Mega Adventure — game design document
 
 ## One line
 
-A vertical crowd runner: shoot the gates to make them worth more, run your squad
-through them, and turn three survivors into two hundred before the boss at the
-end of the stage takes them apart.
+A first-person action-RPG in the shape of *The Elder Scrolls: Blades*: take a
+mission, teleport into a sector, explore it room by room, blast machine
+enemies with a charge buster, loot chests, level up and spend Skill Chips on
+circuit boards. The cast is original chunky, rounded androids in the spirit of
+the 8-bit blue-bomber era (Mega Man 2–6), rebuilt as smooth low-poly 3D.
+
+No town building and no endless dungeon (the Abyss is cut). What stays is the
+Blades loop: **mission → explore → fight → loot → level → next mission**.
+
+## Setting
+
+Ampere Valley was an android city run by six Core Masters, robot foremen that
+each ran a sector (refinery, cryo plant, power tower and so on). The rogue AI
+**Dr. Vex** reprogrammed them and filled the sectors with hostile machines.
+
+The player is **Cobalt**, a blue combat android with an arm buster, woken by
+his maker **Prof. Gauss** (an elderly android scientist). His support unit
+**Pip** is a small hovering helper bot. It runs the mission terminal, hands out
+jobs and says the tutorial lines.
+
+No humans and no fantasy creatures. Everyone is an android or a machine.
+
+> **IP guard.** Every name, silhouette and palette is original. The game
+> evokes the classic look (big round helmet, arm cannon, segmented vertical
+> health bar, weapon-copy, boss shutters, beam-in teleport, orb-ring death
+> burst) but never ships a Capcom name or a 1:1 character copy. Enemies are
+> *archetypes*: the helmet-hider, the shield trooper, the heli drone, the
+> hopper, the wheel roller and the heavy brute.
 
 ## The loop
 
 ```
-steer  →  hold fire on a gate  →  COMMIT to one leaf  →  run through  →  crowd changes
-   ↑                                                                        ↓
-   └── break green crates (+damage) · break blue crates (+fire rate)
-       dodge everything solid · kill the pack · kill the miniboss
-                                                                            ↓
-                                          boss  →  stage clear  →  coins  →  upgrades
+Hub (mission terminal)  →  pick story mission or job  →  beam in
+   ↑                                                        ↓
+   │        explore rooms · open doors · smash crates · open chests
+   │        enemies notice you → lock-on combat → kill → XP / bolts / loot
+   │        objective done → beam out
+   │                                                        ↓
+   └──  results (XP, bolts, items) → level up → Skill Chip + attribute pick
+        → equip / upgrade gear → spend chips on circuits → next mission
 ```
 
-Every decision in the game is the same decision, asked at a different speed:
-**keep shooting this, or move now — and to which side?** Standing still on a
-`+N` gate makes it worth more and lets the monsters walk into you. Taking the
-`×3` instead of the `+18` is worth it only if your crowd is already big. And you
-cannot have both: there is a pillar between the leaves and it kills.
+## Controls
 
-## Core rules
-
-| Rule | Value | Where |
+| Action | Touch | Desktop |
 | --- | --- | --- |
-| Squad starts at | 3 survivors (+1 per Squad upgrade level) | `game/survival.ts` |
-| Crowd radius | capped at **1.65** — fits through one gate leaf (half-width 2.05) when aimed, clips the pillar when not | `CROWD_MAX_R` |
-| Auto-run speed | 5.1 u/s, +0.11 per stage, capped at 7.4 | `stageSpeed()` |
-| Damage | `squad × damage × fireRate` DPS; 14 visible tracer streams | `SHOOTERS` |
-| Fire rate | starts at **1.9** shots/s and rises **only** from blue crates (+0.55 each, three per stage, cap 6.5) — the one stat a run must earn | `BASE_FIRE_RATE` |
-| Gun range | rounds die **15 % of the screen short of the top edge** (10.8 units ahead of the crowd). Nothing off-screen can be shot, so obstacles arrive intact and a gate has to be approached before it can be pumped | `BULLET_RANGE` |
-| Reach (shop) | +3 %/level to **+30 % at level 10**, clamped at the top of the screen (13.7 u). The only track that buys TIME rather than force — every extra unit is more seconds of fire on each gate, crate and wall before the crowd reaches it — and the clamp is what stops the upgrade re-introducing "obstacles deleted above the camera" as a reward | `RANGE_PER_LEVEL`, `effectiveBulletRange()` |
-| Gate growth | **+1 per 500 ms of sustained fire**, lost after 400 ms of silence, `add` **and `sub`** leaves | `GATE_TICK_MS` |
-| `-N` doors | the mirror of `+N`, and the point is that the crowd fires FORWARD automatically: aim at a `-N` while you approach and the bill grows. The skill is *shoot the door you are not taking* | `GateOp.sub` |
-| Dilemma banks | `÷N` against `-N` — every door hostile, no right answer, only a cheaper wrong one. A division is cheap for a small crowd and ruinous for a big one; a subtraction is the other way round. One per stage from stage 4, never back to back, never the closing bank | `legalise()` rule 6 |
-| Gate bank | two or **three** doors + a lethal pillar between each pair; no two doors may ever be worth the same | `track.bank()` |
-| Gate claim | **one bank, one door.** The door holding the most survivors claims the bank and pays in full; every other offer is destroyed on the spot, pillars included | `claimBank()` |
-| Gate payout | `add`: `+N`; `mul`: `×N` on the survivors that went through; `div`: **kills** all but `1/N` of them; `sub`: takes `N` off the top | `claimBank()` |
-| Trap rungs | `÷2` from stage 2, **`÷3` from stage 4**, `÷5` from stage 6. Three rungs, because `÷2` is absorbable and `÷5` ends runs — the middle one is where a hard choice lives, and it is the value most often paired against a `-N` | `rollDiv()` |
-| No back-to-back multipliers | `×2` then `×2` is a free quadruple for anyone who can aim twice. A multiplier now always lands on a crowd the player had to keep alive through something else first | `canMul()` |
-| Funnel | the crowd squeezes to fit the door it is aimed at and spills back out after — which is what lets a bank have three narrow doors instead of two wide ones | `funnelRadius()` |
-| Passages | every **3rd–4th** bank (rolled, so it cannot be counted) grows a rib of unbreakable stone back down the road out of its pillar, splitting the approach into one corridor per door. Both offers are in plain sight the whole way in — that is the split second being sold — but once the crowd is in a corridor the other door is behind a wall it cannot shoot. Two-door banks only, from stage 6 | `passage()`, `PASSAGE_SECONDS` |
-| …and the corridor squeezes | the crowd funnels to fit the corridor exactly as it funnels for a door. The rib is only as wide as the pillar it grows from, so it takes nothing off the safe band a bank already had — but the pillar GRINDS and the rib KILLS, and a 0.35-wide band is not one a player can hold against that. Squeezing restores a ±0.4 window | `passageFit()`, `PASSAGE_FIT_MARGIN` |
-| Solid = lethal | **whoever touches a wall or a boulder dies, that frame** — no rate, no grace — and the rest of the swarm streams past on both sides. The bill is the LINE you ran, not the seconds you spent: clip an edge and lose the handful that clipped it, drive the middle of the crowd through and lose the column | `crushAgainst()` |
-| …except the two that grind | a gate **pillar** and an unbroken **crate** still cost `squad × fraction` a second and shove the rest clear. Deliberate: a pillar is a blade between two doors the player is aiming AT (a lethal one deletes a zero-input run at 67 % of stage 1 — the onboarding floor), and a crate is a REWARD the player was invited to chase | `grindAgainst()` |
-| Monsters knock a rank down | every foe is **solid** — no survivor ever stands inside a sprite — and running squarely into one **kills every second survivor that hits it**. Not all of them: a wall stands still, so a lethal wall is a question about your line, but a monster HOMES on the crowd, so all-or-nothing contact would be an undodgeable ~half of the squad against a designed bite of 0.4–1.8 % | `collideFoe()` |
-| …bounded twice, on purpose | the survivors of a collision get **10 frames of immunity** (per SURVIVOR — a pack shoulder to shoulder cannot bill the same body six times in one instant), and each monster can only knock a rank down **once per 0.6 s** (per MONSTER — one creep walking through the crowd's whole depth takes a rank, not a column). Without the second bound the body bills a fresh unprotected rank on every frame of its walk, which is the wall rule by another route | `FOE_COLLIDE_IFRAMES_MS`, `FOE_COLLIDE_CD` |
-| …and only the core kills | the whole body **pushes**, the middle **60 %** of it kills. Clip a flank and you are shoved aside; run into it squarely and your leading rank pays. A creep's contact box is 0.69 against a crowd 1.65 in radius, so "the edge of the shadow" is a very generous definition of running into something — and at the full body a competent no-ads career walls at stage 4 | `FOE_COLLIDE_CORE` |
-| Bite vs body | the two do not double-bill and are not the same event. The **mouth** reaches `FOE_REACH + UNIT_R` (further than the body), takes `max(flat 1–5, squad × 0.4–1.8 %)` and is metered by `biteCd`; the **body** takes half of what runs into it. Immunity covers the body only — a bite is an attack, not a collision | `stepFoes()` |
-| Boulders | **cannot be shot** — they eat the round and shrug. Two ranks with OFFSET gaps, so the crowd commits to a line and then has to change it. The one hazard whose difficulty does not decay as damage grows, which is what keeps steering a skill at stage 25 | `boulderField()` |
-| Crate tiers | every box prints its HP. **light 0.6× / standard 1× / heavy 2.1×** — a heavy crate is deliberately out of reach of an unupgraded squad, so it is walked past once and cracked open two upgrades later | `crateTierFor()`, `crateTierHp()` |
-| Monsters pay | a dead monster **drops loose coins** where it fell, on top of its bounty. Drops must be driven over, so the pack in your lane pays and the one you steered around does not — and Scavenging finally has a customer who fights | `FOE_COIN_DROP_PER_BOUNTY` |
-| Weapons | SIX, one per box, each a different verb rather than a bigger number: **gatling** (rate ×2.2, pumps doors fastest), **rocket** (homing salvo + blast), **grapeshot** (shotgun fan, hardest burst, 0.7× reach), **dynamo** (landed rounds fill a meter the player spends on a bolt), **gravecall** (the squad's own gun; what it kills gets up and fights, 15 max), **hoard** (kills stand as gold and pay `GILD_COIN_MUL` × the coins). Debuts 4 / 6 / 8 / 10 / 14 / 18, then a 7-long rotation against the box's 8-long position order so no weapon is welded to one place on the road | `game/weapons.ts` |
-| …and two of them are priced off the gun | the bolt (`DYNAMO_BOLT_MULT`) and the thralls are deliberately OUTSIDE `weaponDamageMul`, so no boss bar is sized against them: the fight was priced for the gun and they are the player getting ahead of it | `weaponDamageMul()` |
-| Rounds pierce gates | a doorway is not armour — fire passes through a gate to whatever stands behind it, and still charges the gate on the way | `resolveBullet()` |
-| Walls pay | a barricade block shot down drops **2–4 loose coins**, so removing one is a question rather than pure cost | `spillCoins()` |
-| Coin magnet | starts at **0.55** past the crowd's own body — the trails are a route, not scenery — and is what the Scavenging track sells, to **+3.4** at level 10 | `COIN_MAGNET_BASE`, `coinMagnetBonus` |
-| Foes | 5 archetypes (creep / husk / hound / brute / flyer), introduced across stages 1–7 | `game/foes.ts` |
-| Bite | the LARGER of the archetype's flat cost (1–5) and a **share of the whole crowd** (0.4–1.8 %) — a brute frightens thirty survivors and is still worth fearing at a thousand | `biteShareFor()` |
-| Minibosses | 1 from stage 2, 2 from stage 6; ~13 % / ~15 % of the end boss's health | `track.minibossHp()` |
-| Miniboss hold | it **plants and blocks the road** `ELITE_HOLD_AHEAD` in front of the crowd instead of walking through it, for up to `ELITE_HOLD_MAX` = 4.5 s, then breaks off | `stepFoes()`, `stepAnchor()` |
-| Miniboss clearance | the generator guarantees **12 units of clear road behind** every elite — clearance is asymmetric, because only the road behind eats the approach | `nudgeClearElite()` |
-| Miniboss sweep | the block is a fight, not a wait: **0.3 s** wind-up, then an arc across the **whole lane** reaching 4.3 u down the road, taking **a fifth of the current squad**. Every **1.5 s**, alternating direction | `ELITE_TELEGRAPH`, `ELITE_SWEEP_CD`, `ELITE_SWEEP_FRACTION`, `ELITE_SWEEP_REACH` |
-| …and why it is not dodgeable | deliberate. The boss asks *where are you standing*; the elite asks *how hard do you hit*. A lane-wide arc has no safe side, so the only answer is DPS — and the 4.5 s leash is what keeps it survivable (three sweeps, ~half the squad left) | `ELITE_HOLD_MAX` |
-| Boss | One per stage, slams **where the crowd is** on a **1.0 s** telegraph, capped at **31 %** of the squad | `stepBoss()` |
-| Boss guard | at **66 %** and **33 %** health it plants, becomes untouchable and swings — overkill is forfeited, so no amount of DPS skips the climax | `damageBoss()` |
-| Boss rage | every swing thrown brings the next one **0.17 s sooner** (floor 0.95 s) and **0.07 u wider** (ceiling 2.55 u) — a long fight is a losing fight | `stepBoss()` |
-| Charged swing | **every third slam** is charged: **double the radius**, a **1.7×** wind-up, an aim that leads the crowd's drift at 0.8 instead of 0.35, and **1.6× the share** (still capped at 50 %). A perfect dodger takes 0 % of ordinary slams — this is the swing that does not accept that answer, and the one the whole screen announces, so it costs more as well as reaching further | `CHARGED_EVERY`, `CHARGED_SHARE_MUL`, `slamRadiusFor()` |
-| Stage-1 slam | the ordinary **31 %** under the beginner's 60 % cut — no longer a token (the bar stays priced on the old 8 %, `TUTORIAL_BAR_SLAM_FRACTION`, so the fight keeps its ~11 s). A crowd that never dodges eats five rings and leaves with under a third (98 → 28) but still clears; one that dodges the ordinary rings usually eats one big ring (98 → 68) | `TUTORIAL_SLAM_FRACTION` |
-| Stage length | `120 + 9 × stage` world units (~35–50 s) | `stageLength()` |
-| Failure | Squad reaches 0 → wipe; still pays out coins scaled by progress | `wipeReward()` |
-| Retry relief | a stage that has beaten you comes back softer, and softer again each time: 80 % → 72 % → 66 % → 62 % enemy health, and a slam that takes 40 % less | `reliefFor()` |
-| Autobalancer | every stage cleared in a row makes the next one 13 % harder (health) plus denser packs and costlier bites, up to 30; **one loss wipes the streak entirely** | `challengeFactor()` |
+| Move | floating joystick on the **left half** | WASD / arrow keys |
+| Look | drag on the **right half** | mouse drag (right half or anywhere w/o joystick) / arrow ← → when not moving |
+| Walk to point | **tap the floor** (Blades' signature). A* path over the nav grid, a ground ring marks the target | click floor |
+| Interact | tap the door / chest / NPC / item (or the contextual ⓔ button) | click it, or `E` |
+| Fire | **tap** anywhere in combat → quick buster shot at the locked target | left click / `Space` |
+| Charge shot | **hold** → the ring around the crosshair fills (lv1 → lv2). Release at full = Charged Shot. Release inside the **perfect flash** window = critical | hold LMB / `Space` |
+| Block / Parry | hold the **shield** button (bottom-left). Blocking while an enemy's attack ring closes = **Parry**: projectiles reflect, melee staggers | hold RMB / `Shift` |
+| Slide | **Slide** button, or a fast swipe down on the left half. Short dash with i-frames | `Q` / `Ctrl` |
+| Special weapons | two slot buttons (right side), cost Weapon Energy | `1` / `2` |
+| Repair Tank | tank button, full heal, limited count | `H` |
+| Switch target | horizontal swipe on the right half during combat | `Tab` |
+| Pause / map | ⏸ top-right | `Esc` / `P`, `M` |
 
-## Difficulty
+**Combat lock-on.** Once an enemy has noticed Cobalt and is within 16 m, the
+camera soft-locks onto the nearest engaged enemy: yaw eases toward it and look
+drag is suppressed so a hold-to-charge is never mistaken for a look drag.
+Movement stays live, so circle-strafing around projectiles is the MegaMan-style
+skill layered on the Blades rhythm. When the last engaged enemy dies the lock
+releases and free look comes back.
 
-The curve is carried by five independent knobs rather than one multiplier, so it
-can be tuned finely and so failure always has a legible cause:
+## Combat rules
 
-1. **Enemy health** — `foeHpScale` (+34 %/stage) and `bossHpScale` (×1.55/stage
-   to stage 12, then +12 %/stage).
-2. **Density** — `packSize`, `beatGap` and the arrangement table in `track.ts`.
-3. **Routing pressure** — trap-gate frequency (`trapChance`), barricade gap
-   width, and how far off the line the crates sit (`CRATE_DETOUR_X`).
-4. **The player's own arc** — fire rate starts crawling, so a run that skips the
-   blue crates is measurably weaker at the boss than one that took the detours.
-   This is the main lever that *punishes suboptimal play* rather than punishing
-   the player for being on a high stage.
-5. **The autobalancer**, which is the one that tracks the PLAYER rather than
-   the stage. A streak of clears winds the next stage up a little at a time; a
-   single loss wipes the streak completely, so the handicap can never be the
-   reason somebody is stuck. Underneath it, minibosses break the stage into
-   winnable chunks, and a stage that has beaten the player comes back softer
-   each time it does — 80 % → 72 % → 66 % → 62 % enemy health, plus a slam that
-   takes 40 % less of the squad. (Health alone did nothing measurable:
-   14 of 15 simulated retries moved the clear rate by exactly zero, because most
-   of a failing run's losses are slams, which enemy HP never touches.) Neither
-   makes a good run easier; both stop a bad one becoming a wall.
+| Rule | Value |
+| --- | --- |
+| Quick shot | 1 pellet, dmg `buster × 1.0`, fire cooldown 0.22 s, 3 pellets max in flight (classic cap) |
+| Charge | lv1 at 0.55 s (dmg × 2.2, pierces), lv2 **full** at 1.2 s (dmg × 4, staggers, breaks guards). Skill `Quick Charge` shortens both |
+| Perfect release | a window of 0.22 s that opens 0.1 s after full charge. Release inside it for a **crit** (× 1.5, gold burst, hit-stop) |
+| Block | while held: frontal damage × 0.25, costs **Power** (stamina) = 40 % of the blocked damage. At 0 Power the guard breaks and Cobalt is stunned for 0.6 s |
+| Parry | block pressed within the enemy telegraph's last **0.28 s** (the ring is nearly closed and flashes white). Projectile → reflected at 2× damage. Melee → enemy stunned for 1.6 s, taking × 1.5 damage |
+| Slide | 0.28 s dash of 4.2 m, i-frames 0.2 s, cost 25 Power, cooldown 0.7 s |
+| Power | 100 base, regenerates 22/s when not blocking (1 s delay after spending) |
+| Weapon Energy (WE) | 28 segments base (the classic bar). Special weapons spend it. Refilled by WE capsules and by leveling |
+| Health | 28 segments shown; internally `maxHp` (100 base), the bar draws `ceil(hp / maxHp × 28)` segments |
+| Hit-stun on Cobalt | 0.25 s flinch, 0.8 s i-frames with blink (classic) |
+| Weakness | every Core Master is weak to one special weapon (× 2.5 dmg + stagger). Elemental enemies are weak to the counter element (× 1.75) |
+| Invulnerable states | Hardhat hidden, Shield Trooper guarding from the front: shots **deflect** with a "tink" and a diagonal ricochet. Charged lv2 breaks a guard |
 
-Balance is measured, not guessed: `tests/sim/` drives the real simulation with
-five scripted player policies (optimal / good / average / careless / coin-trail)
-and reports clear rate, time-to-clear, peak squad, DPS at the boss and
-cause-of-death per stage. `tests/sim/REPORT.md` carries the current numbers.
+Enemies **telegraph** every attack with a shrinking ring above them: orange
+means block, red means unblockable (slide out of it). The ring's last 0.28 s
+flashes white. That is the parry window.
 
-Where it stands (10 seeds per cell):
+## Enemies (archetypes)
 
-| stage | optimal | good | average | careless |
+| Id | Name | Behaviour | Teaches |
+| --- | --- | --- | --- |
+| `hardhat` | Hardhat | Hides under an invulnerable helmet, peeks, fires a 3-way spread, hides again | patience and timing |
+| `trooper` | Shield Trooper | Guards the front with a big shield, lowers it to fire a 3-round burst, sometimes hops | charge shots break guards, parry the burst |
+| `heli` | Rotor Drone | Hovers at head height, swoops in for a ram (blockable melee) | parry melee |
+| `hopper` | Stomper | One-eyed hopping walker. Leaps and lands with an AoE stomp (red: unblockable) | slide out of red rings |
+| `roller` | Gear Roller | Rolls in a straight charge, stuns itself on walls | sidestep and punish |
+| `brute` | Guardroid | Big and slow: two-hit punch combo plus a ground slam | block, then parry |
+| `turret` | Wall Cannon | Stationary, lobs arcing shells | move while shooting |
+
+Region variants tint the same rig and add an element: **Blaze** (fire, burn
+DoT), **Cryo** (ice, slow), **Volt** (electric, chain). **Elites** have a gold
+trim, × 2.5 HP, one affix (shielded, swift, volatile, regenerating) and a name
+tag.
+
+### Core Masters (bosses)
+
+A boss room sits behind a double shutter door. The fight opens with a name
+card, and the boss has 3 or 4 patterns with a phase change at 50 % HP.
+
+| Boss | Sector | Patterns | Drops weapon | Weak to |
 | --- | --- | --- | --- | --- |
-| 1 | 100 % | 100 % | **100 %** | 0 % |
-| 2 | 100 % | 100 % | 80 % | 0 % |
-| 3 | 100 % | 100 % | 60 % | 0 % |
-| 4 | 100 % | 80 % | 100 % | 0 % |
-| 5 | 100 % | 100 % | 100 % | 0 % |
-
-A sloppy player gets stage 1 and then has to actually play; a player who never
-touches the screen reaches the stage-1 boss and loses to it, every time. The
-spread between playing well and playing badly is **1.8×–5.8× DPS at the boss**,
-and it comes almost entirely from crates rather than from squad size — the gates
-hand roughly the same crowd to everybody.
-
-### The whole campaign, and what it took to make it a campaign
-
-Thirty-stage careers were then simulated end to end — every scripted policy
-against every purchasing strategy, carrying the save between stages — and the
-first pass returned a flat verdict: **every player who touched the screen
-cleared all thirty stages, on any strategy, including buying nothing at all.**
-From stage 8 onward the boss died before it swung once. The cause was structural
-rather than numerical: the crowd grows *exponentially* through gates while the
-road's toll was *absolute*, so the outcome of every late stage was settled
-before it started.
-
-Three rules closed it, and the same careers were re-measured after:
-
-* **The bite is a share** (`biteShareFor`) — a monster costs what it was
-  authored to cost, or a slice of the crowd, whichever is worse.
-* **The boss guards** at 66 % and 33 % (`damageBoss`) — overkill is forfeited,
-  so the climax always happens.
-* **The boss rages** — each swing shortens and widens the next, turning "not
-  enough damage" from *slow* into *fatal*.
-
-| what changed | before | after |
-| --- | --- | --- |
-| a competent player who never spends a coin | clears all 30 | **walls at 13** |
-| an average player who never spends a coin | clears all 30 | **walls at 10** |
-| "buy only scavenging" | ties the best strategy | **walls at 13** |
-| boss swings thrown, stage 8+ | 0 | **2–9** |
-| slams as a cause of death | early stages only | **top cause on most stages** |
-| a full career | 31–33 runs for 30 stages | **31–45**, losses scattered throughout |
-
-A perfect-play policy still clears everything with an empty wallet, which is the
-intended ceiling: the game is beatable by skill alone and the shop is what lets
-everybody else get there.
-
-### The road has no end
-
-Stages 1–5 are hand-authored, 6–30 are the measured campaign, and **there is no
-stage 31 in the sense of a wall** — the generator has always answered any number
-handed to it. What it did not do was keep *scaling*: measured across stages
-1–300, fourteen separate knobs hit a hard cap somewhere between stage 17 and
-stage 34, so a stage-100 road was a stage-34 road with more enemy health on it.
-
-Endless means the knobs never stop moving, and that every promise the road makes
-stays true at depth:
-
-| knob | used to stop at | now |
-| --- | --- | --- |
-| `gateAddBase` | linear forever → overran `MAX_SQUAD` by stage 86 | logarithmic knee past stage 30, every step past stage 14 trimmed a tenth (`GATE_GROWTH_TRIM`): 23 at stage 30 → 31 at 40 → 38 at 60 → 46 at 100 → 58 at 300 |
-| `gatePumpStep` | +1 a tick per 15-stage band, forever | +0.9 a band, floored: +2 from stage 17, +3 from 34, +4 from 50 (was 15 / 30 / 45) |
-| `packSize` | 16, reached at stage 19 | linear to 22, then log toward a **screen** limit of 34 |
-| `beatGap` | flat 7 from stage 30 — every deep stage beat-for-beat identical | keeps closing toward 5.2 (6.0 at stage 100) |
-| `maxTriples` / `mulLeaves` / `mulThrees` | flat from stages 22 / 6 / 8 | grow with the number of banks a stage actually has, so the *ratio* holds |
-| `MAX_SQUAD` | 1 600 — a thirty-stage ceiling | **4 000**, and the log knee is what keeps doors honest past it |
-| `GATE_MAX_VALUE` | 99 — banks printed **two identical doors from stage 161** | 999 |
-| pack / wall beat weights | floors reached at stages 34 / 32, then crowded out by hazards | floors drift up with the stage |
-
-The honest limit, stated rather than hidden: no finite `MAX_SQUAD` survives an
-unbounded sum. The theoretical best-case additive total first crosses 4 000
-around **stage 280** — hours of unbroken play, and a figure that ignores
-attrition, so a real run never approaches it.
-
-The multipliers are a different story, and an open one: past stage 60 the
-multiplier budget (`mulLeaves`, `mulThrees`) puts four to eight `×N` doors on a
-road, and a perfect run pins `MAX_SQUAD` at roughly 55–65 % of every stage from
-61 to 130, trim or no trim. The trim was measured not to move that point; a
-generator-side ceiling on late multipliers was, and is the next lever if the
-late roads still run out of decisions.
+| Scrapper (mini, tutorial) | Scrapyard | charge, scrap toss, stomp | **Scrap Burst** (3-way spread) | — |
+| Blaze Master | Blaze Refinery | fire wave, leaping slam, flame ring | **Flame Wave** (ground fire, burn DoT) | Ice Lance |
+| Frost Master | Cryo Plant | ice lance volley, freeze floor, dash | **Ice Lance** (piercing, freezes) | Thunder Arc |
+| Volt Master | Volt Tower | chain lightning, orb storm, teleport | **Thunder Arc** (chains to 3) | Gale Guard |
+| Gale Master | Sky Docks | tornado push, feather blades, dive | **Gale Guard** (orbiting shield, throwable) | Flame Wave |
+| Dr. Vex Mk-I | Vex Fortress | every pattern above, 3 phases | — (credits + New Game+) | none |
 
 ## Progression
 
-* **In-run:** squad size, per-survivor damage and fire rate — all three reset
-  every stage, all three built entirely from what the player does on the road.
-* **Between runs:** five coin-bought tracks (Squad / Firepower / Fire Rate /
-  Reach / Scavenging). Deliberately five, not forty: the meta exists to make the
-  *next* attempt feel different within thirty seconds.
-* **…and three of them never max.** Squad, Firepower and Scavenging are
-  uncapped, because a road with no last stage cannot have a shop with a last
-  level: measured, a benchmark career reached stage 80 with **every track maxed
-  and 893 063 coins unspent**. Fire Rate and Reach stay capped, and that is a
-  rule rather than an omission — both are bounded by something physical (the
-  bullet budget, the camera), so an endless level on either would sell a number
-  that cannot move. The endless tail is priced *gentler* than the authored head
-  (×1.16 a level against ×1.38–1.55): continuing the authored slope would put
-  level 21 tens of stages away, and "endless" would mean "locked".
-* **Squad is priced in doors.** A level starts the run a sixth of the stage's
-  own `+N` door ahead (`squadPerLevel`: +1 on stages 1–6, +2 from 7, +5 at 40,
-  +8 at 100) — one survivor a level was nothing once a stage-40 door paid 40–50.
-  Its second half, a share of every `+N` door's payout, adds a tenth less each
-  level in whole percents (4, 4, 3, 3, 3, 2 … %) and stops at **+37 %** from
-  level 20; the old flat +4 % a level had doors paying 2.2× at level 30.
-* **The gift ladder (stages 1–4):** the opening stages hand over without a
-  result screen (through stage 3) and each banner names the NEXT gift. The
-  stage-1 boss **drops a launcher on the spot** — a one-card reveal that closes
-  itself within three seconds, at half the launcher's damage, re-armed on every
-  attempt at stage 2 (`BOSS_REWARD_STAGE`; a quarter of playtesters quit at the
-  first kill). Stage 2's free gatling box then ADDS to it rather than replacing
-  it: gatling as the main gun, the half-power launcher still firing beside it
-  (`sideWeapon`), both on the badge. Stage 2's
-  clear opens a two-card reveal — **launcher or gatling, the player's own for
-  stage 3** (`WEAPON_PICK_STAGE`); stage 3's clear hands over the **shield**;
-  from stage 4 a weapon is on the road every other stage (`WEAPON_STAGE`). The
-  HUD carries the promise as a chip beside the stage number and marks the box
-  and the elites on the progress rail. A first-session wipe past 75 % of stages
-  2–3 is **rallied** once per stage instead of ended; stage 4 keeps the floor.
-* **Standing:** highest stage ever reached, posted to a global board, with squad
-  size as the tie-breaking second column. Read once per page load, written only
-  when the player beats their own posted record — the board is a decoration on a
-  game that works perfectly without it, and every failure path ends in "no rank
-  shown".
-* **The road goes on:** a cleared stage never reloads the level. The next road
-  opens under the crowd — same column, the survivors it keeps standing where
-  they stood (the rest fall back in a puff: every stage still opens on the
-  shop's squad), and the boss they killed lying a few steps ahead. A retry
-  reopens on that same ground; a fresh page load starts clean.
-* **Persistence:** one `tower_state` blob, one localStorage key, mirrored to
-  whichever platform cloud the build targets. The stage number alone rebuilds
-  the layout, so a reload resumes exactly where the player was.
+- **XP and level.** XP comes from kills, quests and first-time chest opens. The
+  curve is `xpToNext(L) = round(60 × L^1.55)`, level cap 40. Every level-up
+  gives **+1 Skill Chip** and a pick of one attribute: **+10 Max HP**,
+  **+4 Max WE** or **+10 Power** (the Blades triad). The levelled stat is also
+  refilled.
+- **Enemy level** comes from the sector's base level plus the player's level
+  (Blades-style soft scaling): `clamp(regionMin, playerLevel ± 1, regionMax)`.
+- **Bolts** are the single currency (Poki-safe). They drop from enemies, crates
+  and chests and are spent in the Workshop.
+
+### Skill system — the three circuit boards
+
+Skill Chips are spent on nodes. Each node has ranks, and a node unlocks once
+the node before it has at least one rank. Respec costs bolts.
+
+**Buster Circuit (offense)**
+
+| Node | Ranks | Effect / rank |
+| --- | --- | --- |
+| Rapid Pellets | 5 | quick-shot dmg +10 % |
+| Quick Charge | 3 | charge time −10 % |
+| Mega Charge | 5 | charged dmg +12 % |
+| Perfect Timing | 3 | perfect window +25 %, crit × +0.15 |
+| Piercing Core | 1 | charged lv1 also breaks guards |
+| Giga Buster | 1 | a 3rd charge level (hold 2 s): × 7 dmg, splash |
+
+**Armor Circuit (defense)**
+
+| Node | Ranks | Effect / rank |
+| --- | --- | --- |
+| Reinforced Frame | 5 | max HP +8 % |
+| Barrier Tuning | 3 | block Power cost −15 %, block dmg −5 % |
+| Parry Protocol | 3 | parry window +0.05 s, parry stun +0.3 s |
+| Auto-Repair | 3 | regen 1 % max HP/s out of combat |
+| Spike Plating | 3 | reflect 15 % of blocked dmg |
+| Last Stand | 1 | once per mission survive a lethal hit at 1 HP |
+
+**Core Circuit (utility and special weapons)**
+
+| Node | Ranks | Effect / rank |
+| --- | --- | --- |
+| Energy Cells | 5 | max WE +3 segments |
+| Weapon Mastery | 5 | special weapon dmg +10 % |
+| Efficient Cores | 3 | WE cost −10 % |
+| Slide Boosters | 3 | slide cooldown −15 %, cost −5 |
+| Bolt Magnet | 3 | bolts +15 %, pickup radius +40 % |
+| Tank Capacity | 2 | +1 Repair Tank capacity |
+| Scanner | 1 | chests and objectives on the pause map, enemy HP numbers |
+
+**Special weapons** (the MegaMan "weapon copy") are separate from the boards.
+Each one comes from a boss, is equipped in one of **2 slots** and levels up
+through use (kills with that weapon grant weapon XP, 3 ranks). Equipping one
+tints Cobalt's arm cannon in its colour, as the classic did.
+
+### Gear (loot)
+
+| Slot | Main stat |
+| --- | --- |
+| Buster (arm cannon) | damage, plus charge speed / fire rate rolls |
+| Helmet | armor + HP |
+| Chest | armor + HP |
+| Boots | armor + slide / move speed |
+| Chip × 2 | pure affixes (crit, WE regen, bolts, element resist) |
+
+Rarity (weights at drop time): Standard 60 % (white), Tuned 28 % (blue),
+Prototype 10 % (purple), Legendary 2 % (orange). An item has an item level (the
+enemy or quest level) and 0–3 affixes by rarity. Gear **recolours Cobalt's
+model** in the Hero screen and in the first-person arm.
+
+**Workshop:** upgrade an item (+1 level, cost `25 × lvl^1.4` bolts, max +10),
+salvage an item for bolts, buy a Repair Tank (150 bolts), refill tanks.
+
+## Missions
+
+- **Story missions**, one chain per sector: reach the sector core → defeat the
+  Core Master. Beating a boss unlocks its weapon and the next sector.
+- **Jobs**, the repeatable Blades jobs. The terminal shows 3 at a time. Taking
+  one generates a fresh map from `(sector, seed)`. Templates:
+  - *Scrap Duty*: destroy N (6–12) enemies of type X.
+  - *Data Recovery*: collect N (3–5) data cores scattered across rooms.
+  - *Rescue*: find the stranded worker-bot and escort it to the exit beacon.
+  - *Elite Hunt*: defeat the named elite.
+  - *Supply Run*: open N (3–4) supply chests.
+  - *Purge*: clear every room.
+- **Rewards:** XP + bolts + one item roll (rarity bias grows with difficulty).
+  A rewarded ad offers **×2 bolts** on the results screen.
+
+The **first mission** (tutorial: "Wake-Up Call", Scrapyard) starts with no menu.
+The player beams straight in and Pip's one-line tips teach move → look → fire
+→ charge → block/parry → chest → mini-boss. It should take about 4 minutes.
+Losing is possible, but damage is scaled down to 60 % until the mini-boss.
+
+### Maps
+
+Maps are generated procedurally on a cell grid with 3 m cells:
+
+- 6–11 rooms (rectangles of 3×3 to 7×7 cells), connected into a spanning tree
+  plus 1–2 loops by 1-cell corridors. Doors are sliding shutters between rooms
+  and corridors (the boss door is a double shutter).
+- Room roles: `start` (teleporter pad), `combat`, `treasure` (chest, sometimes
+  locked behind an elite), `objective` (data core, rescue bot), `boss`, `exit`.
+- Walls, pillars, pipes, crates and barrels come from the sector theme, with
+  wall panels and light strips for readability.
+- Navigation uses the same grid for circle-vs-grid collision, grid ray line of
+  sight, and A* for tap-to-move and enemy chase.
+
+### Hub
+
+After a mission the game goes to the **Hub**. It is a UI screen over a live 3D
+backdrop of Cobalt idling on the teleporter pad in Gauss's lab. The tabs are
+**Missions** (sector map plus the job board), **Hero** (gear, stats, 3D paper
+doll), **Circuits** (skills) and **Workshop**. The Hub is a menu, not a town:
+there is no building.
+
+Death means **Mission failed**: the player keeps the XP and bolts earned and
+loses the quest progress. The options are *Revive* (rewarded ad, once per
+mission, full HP) or *Retreat to Hub*.
 
 ## Art direction
 
-Hand-inked cel art, drawn procedurally and baked to frame strips at runtime —
-**zero gameplay bitmaps ship with the game**. One shared vocabulary
-(`inkArt.ts` / `monsterKit.ts`) means the survivors and the monsters look like
-one artist drew them: one ink colour, one key light, three line weights, three
-tone cuts.
-
-* Survivors are drawn **from behind** (pack, shoulders, bobbing hood) — the only
-  angle a vertical runner ever shows, and the only one that reads at 30 px.
-* Monsters come from the 13-design cast in `monsters.ts`, baked by
-  `monsterSprites.ts`. A boss's death is drawn by the same rigs, not by turning
-  a walk frame over: it staggers with its arms flailing, buckles, and goes down
-  onto its back with its limbs spread (a side-on beast onto its flank, legs out
-  stiff) — the fall the painted death strips are painted over.
-* The lane never changes hue; only the sky does, one palette per stage, so the
-  thing the player reads every frame keeps its contrast.
+- **Low poly, rounded, never cubey.** Everything is built from capsules,
+  spheres, lathes and tori at modest segment counts (8–16) with **smooth
+  normals**. The shading is **toon** (3-step gradient ramp) with **inverted-hull
+  outlines** (dark navy, never pure black). Proportions follow the classic
+  sprite era: big head and helmet, round shoulders, oversized boots and
+  forearms, short torso.
+- Palette: saturated primaries on light, clean sector backdrops. Cobalt is
+  `#1f6bff` / `#39c6ff` with a skin-tone face and big eyes. Enemies read by
+  silhouette and by a signature colour (Hardhat yellow, Trooper green, Drone
+  red, Stomper purple, Roller orange, Brute steel).
+- VFX: pooled additive sprites for pellets, charge glow, sparks, ring shocks,
+  bolt pickups and the **orb-ring death burst**. Hit-flash is a white emissive
+  pulse. Damage numbers are pooled DOM elements. Screenshake, hit-stop on crits
+  and parries.
+- Audio: all SFX and music are synthesized at runtime, chiptune-style (square
+  and triangle waves plus noise), with drop-in override files under
+  `public/audio` (Phase 3).
 
 ## Feel (the non-negotiables)
 
-* Gate ticks play a **rising pentatonic ladder** — pumping a gate is audibly
-  winding something up.
-* A gate pass costs a beat of **slow motion** (0.45× for ~150 ms), a white
-  flash, a 40-particle burst and a screen shake scaled by the haul.
-* Every hit flashes its target white by re-blitting its own sprite additively.
-* Losing survivors turns the frame edges red and plays a short falling cry —
-  the crowd has to feel like people, or the numbers mean nothing.
-* Target 60 fps on mid-tier Android: pooled particles in typed arrays, baked
-  sprite strips, one canvas, DPR clamped to 2, quality tiers driven by a rolling
-  FPS average.
+- Tap-fire must hit **the same frame** and a charged release must feel heavy:
+  a muzzle flash, recoil on the arm, hit-stop and a camera kick.
+- Every enemy attack is readable a beat ahead (telegraph ring plus a body wind-up).
+- Loot pops: chests burst open with light shafts, items fly out, and rarity
+  sets the colour of the beam.
+- Level-up is an event: a full-screen flash, a jingle and the attribute pick.
+- The first 10 seconds are already gameplay.
 
 ## Deliberately not in the game
 
-Battle pass, achievements wall, daily-login calendar, daily missions,
-rewarded-video buttons, treasure chest. They were removed because every one of
-them puts a screen between the player and the road. Interstitials remain at the
-natural break (between stages, ad **before** the result screen).
-
----
+Town building, the endless Abyss, lockpicking minigame, crafting from
+materials, PvP arena, timers/energy systems, a second currency.
 
 ## Standard requirements block
 
-> In GENERAL for all work: Do your work on a high-fidelity basis, don't do just
-> good enough. Make the interactions feel good, add vfx juice where applicable
-> (optimize to not overload the CPU/GPU). Don't take shortcuts. After planning,
-> write the plan into `game-implementation-plan.md` to continue from if a
-> session ends unexpectedly.
+> In GENERAL for all work: Do your work on a high-fidelity basis, don't do
+> just good enough. Make the interactions feel good, add vfx juice where
+> applicable (optimize to not overload the CPU/GPU). Don't take shortcuts.
+> After planning, write the plan into `game-implementation-plan.md` to
+> continue from if a session ends unexpectedly.
 > The game starts right into the first scene, no main menu.
-> Fully responsive: all mobile orientations, min portrait 320×658px, tablet and
-> desktop up to fullscreen. No fixed px where avoidable — use %, vw/vh. Respect
-> safe-area insets. Images are not selectable/draggable like normal web content
-> but must allow drag and click events for game logic.
-> Optimize for web-game standards: fast jump into gameplay (hot-path loading),
-> delay uncritical assets until after first paint.
-> Save ALL state variables in one object named `<game>_state`.
+> Fully responsive: all mobile orientations, min portrait 320×658px, tablet
+> and desktop up to fullscreen. No fixed px where avoidable — use %, vw/vh.
+> Respect safe-area insets. Images are not selectable/draggable like normal
+> web content but must allow drag and click events for game logic.
+> Optimize for web-game standards: fast jump into gameplay (hot-path
+> loading), delay uncritical assets until after first paint.
+> Save ALL state variables in one object named `mega_adventure_state`.

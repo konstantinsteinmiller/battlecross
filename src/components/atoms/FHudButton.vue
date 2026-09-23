@@ -2,7 +2,6 @@
 import { computed, useSlots } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import ArtIcon from '@/components/icons/ArtIcon.vue'
 import { resolveIconLabel } from '@/components/icons/iconLabels'
 import type { GameIconName } from '@/components/icons/iconNames'
 
@@ -67,8 +66,7 @@ const resolvedAriaLabel = computed<string | undefined>(
   )
     span.f-hud-button__shadow(aria-hidden="true")
     span.f-hud-button__body
-      ArtIcon.f-hud-button__glyph(v-if="icon && art && !slots.default" kind="ui" :id="art" :fallback="icon")
-      GameIcon.f-hud-button__glyph(v-else-if="icon && !slots.default" :name="icon")
+      GameIcon.f-hud-button__glyph(v-if="icon && !slots.default" :name="icon")
       slot
     span.f-hud-button__badge(v-if="$slots.badge")
       slot(name="badge")
