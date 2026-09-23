@@ -1,5 +1,5 @@
 import { watch } from 'vue'
-import { getAudioContext, isAudioSuspended } from '@/use/useAssets'
+import { getAudioContext, isAudioSuspended, audioUnlocked } from '@/use/useAssets'
 import useUser from '@/use/useUser'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
@@ -28,9 +28,16 @@ let watching = false
 export const SFX_BASE = 0.32
 export const MUSIC_BASE = 0.2
 
-/** The graph, created lazily on first use (after a user gesture on mobile). */
+/** False until audio may start (see `audioUnlocked`). */
+export const audioAllowed = audioUnlocked
+
+/**
+ * The graph, created lazily on first use. It hands out nothing until audio is
+ * unlocked, so no voice ever starts on a context the autoplay policy would
+ * refuse (each refusal is a console warning).
+ */
 export const audio = (): { ctx: AudioContext; sfx: GainNode; music: GainNode } | null => {
-  if (ctx && sfxBus && musicBus) return { ctx, sfx: sfxBus, music: musicBus }
+  if (ctx && sfxBus && musicBus) return audioUnlocked() ? { ctx, sfx: sfxBus, music: musicBus } : null
   const c = getAudioContext()
   if (!c) return null
   ctx = c
@@ -51,7 +58,7 @@ export const audio = (): { ctx: AudioContext; sfx: GainNode; music: GainNode } |
     const { userSoundVolume, userMusicVolume } = useUser()
     watch([userSoundVolume, userMusicVolume, isMobileAudioMuted, isPlatformAudioMuted], applyVolumes)
   }
-  return { ctx: c, sfx: sfxBus, music: musicBus }
+  return audioUnlocked() ? { ctx: c, sfx: sfxBus, music: musicBus } : null
 }
 
 const applyVolumes = (): void => {

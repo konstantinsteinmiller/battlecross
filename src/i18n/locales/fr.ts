@@ -1,5 +1,6 @@
+// French locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'Annuler',
   'close': 'Fermer',
   'ok': 'Ok',
@@ -10,8 +11,6 @@ export default {
   'tip': 'Astuce',
   'crazyGamesOnly': 'Ce jeu est uniquement disponible sur',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'Suivant',
     'replay': 'Rejouer',
@@ -23,262 +22,376 @@ export default {
     'info': 'Infos'
   },
 
+  'combat': {
+    'tink': 'TING !',
+    'perfect': 'PARFAIT !',
+    'parry': 'PARADE !',
+    'guardBreak': 'GARDE BRISÉE !',
+    'guardCracked': 'Garde percée !',
+    'xp': '+{n} XP',
+    'lastStand': 'Dernier rempart ! Systèmes redémarrés.',
+    'weak': 'FAIBLESSE !',
+    'dizzy': 'SONNÉ !',
+    'block': 'Bloquer',
+    'slide': 'Glissade',
+    'fire': 'Tirer',
+    'tank': 'Kit de réparation',
+    'noEnergy': "Pas assez d'énergie d'arme"
+  },
+
+  'enemy': {
+    'hardhat': 'Casqué',
+    'trooper': 'Soldat à bouclier',
+    'heli': 'Drone à rotor',
+    'hopper': 'Pilonneur',
+    'roller': 'Rouage roulant',
+    'brute': 'Gardroïde',
+    'turret': 'Canon mural',
+    'elite': 'Élite',
+    'level': 'Niv. {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'Casqué | Casqués',
+    'trooper': 'Soldat à bouclier | Soldats à bouclier',
+    'heli': 'Drone à rotor | Drones à rotor',
+    'hopper': 'Pilonneur | Pilonneurs',
+    'roller': 'Rouage roulant | Rouages roulants',
+    'brute': 'Gardroïde | Gardroïdes',
+    'turret': 'Canon mural | Canons muraux'
+  },
+
   'hud': {
-    'stage': 'Niveau {n}',
-    'best': 'Record {n}',
-    'boss': 'Boss',
-    'miniboss': 'Mini-boss',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Niveaux avant le prochain bonus',
-    'bonus': "Bonus +{coins}",
-    'fireRate': 'Rythme',
-    'incoming': 'Attaque imminente !',
-    'dodge': 'Esquive',
-    'getIn': 'Entre',
-    'holdStill': 'Bouge pas',
-    'milestone': '{n} au combat !',
-    'weaponActive': '{name} prêt',
-    'weaponsActive': '{a} + {b} prêts',
-    'weaponLocked': '{name} verrouillé — {n} leviers sur {total} touchés',
-    'weaponGift': '{name} devant — gratuit, sans leviers',
-    'weaponFree': 'GRATUIT'
+    'hp': 'Santé',
+    'we': "Énergie d'arme",
+    'power': 'Puissance',
+    'bolts': 'Boulons',
+    'level': 'Niv. {n}',
+    'beamOut': 'Téléportation'
   },
 
-  'weapons': {
-    'rocket': 'Lance-roquettes',
-    'gatling': 'Gatling',
-    'grapeshot': 'Mitraille',
-    'dynamo': 'Dynamo',
-    'gravecall': 'Outre-tombe',
-    'hoard': 'Trésor Corbeau',
-    'bolt': 'Éclair'
+  'boss': {
+    'stand': 'Ferrailleur',
+    'scrapper': 'Ferrailleur',
+    'blazeMaster': 'Maître Brasier',
+    'frostMaster': 'Maître Givre',
+    'voltMaster': 'Maître Volt',
+    'galeMaster': 'Maître Rafale',
+    'vexMk1': 'Dr. Vex Mk-I'
   },
 
-  'offer': {
-    'confirm': 'Voir la pub',
-    'available': 'Regarde une vidéo et obtiens {weapon} gratuitement'
+  'sector': {
+    'scrapyard': 'Casse',
+    'blaze': 'Raffinerie Brasier',
+    'cryo': 'Usine Cryo',
+    'volt': 'Tour Volt',
+    'gale': 'Docks célestes',
+    'fortress': 'Forteresse de Vex'
   },
 
-  'tutorial': {
-    'touch': 'Glisse pour déplacer ton escouade',
-    'desktop': 'Bouge la souris pour diriger ton escouade'
-  },
-  'hints': {
-    'move': { 'touch': 'Touche pour te déplacer', 'desktop': 'Clique pour te déplacer' },
-    'divider': { 'touch': 'Ne touche jamais le pilier entre les portes', 'desktop': 'Ne touche jamais le pilier entre les portes' },
-    'crate': { 'touch': 'Caisses vertes : tous frappent plus fort', 'desktop': 'Caisses vertes : tous frappent plus fort' },
-    'rate': { 'touch': 'Caisses bleues : tous tirent plus vite', 'desktop': 'Caisses bleues : tous tirent plus vite' },
-    'lever': { 'touch': 'Tire sur les DEUX leviers au bord de la route — ils ouvrent la caisse', 'desktop': 'Tire sur les DEUX leviers au bord de la route — ils ouvrent la caisse' },
-    'cage': { 'touch': 'Tire sur les cages — les prisonniers rejoignent ta troupe', 'desktop': 'Tire sur les cages — les prisonniers rejoignent ta troupe' },
-    'shieldBox': { 'touch': 'Caisse bouclier — elle attend, puis bloque un gros coup', 'desktop': 'Caisse bouclier — elle attend, puis bloque un gros coup' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': '{n} survivants encaissés',
-    'unlocked': 'Débloqué !',
-
-    'guardian': "Un ange gardien t'a sauvé !",
-
-    'guardianSub': "{n} survivants sont de retour",
-
-    'next': "Ensuite : {label} · {when}",
-    'bossAhead': "Boss en approche : {name}",
-    'rankUp': "Rang #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
+  'quest': {
+    'tutorial': 'Réveil en fanfare',
+    'boss': 'Face au Maître du Noyau',
+    'bossTitle': 'Duel : {boss}',
+    'kill': 'Opération Ferraille',
+    'collect': 'Récupération de données',
+    'rescue': 'Opération sauvetage',
+    'elite': "Chasse à l'élite",
+    'supply': 'Ravitaillement',
+    'purge': 'Purge du secteur',
+    'desc': {
+      'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
+      'boss': 'Infiltre-toi au cœur du secteur {sector} et bats {boss}.',
+      'kill': 'Détruis {n} {target} dans le secteur {sector}.',
+      'collect': 'Récupère {n} cœurs de données éparpillés dans le secteur {sector}.',
+      'rescue': 'Un robot ouvrier est bloqué dans le secteur {sector}. Trouve-le et téléporte-le en lieu sûr.',
+      'elite': "Un {target} d'élite terrorise le secteur {sector}. Traque-le !",
+      'supply': 'Ouvre {n} coffres de ravitaillement dans le secteur {sector}.',
+      'purge': 'Détruis toutes les machines du secteur {sector}.'
     }
-
+  },
+  'objective': {
+    'title': 'Objectif',
+    'complete': 'Objectif rempli',
+    'beamOutHint': 'Téléporte-toi quand tu es prêt.',
+    'tutorial': 'Bats le Ferrailleur',
+    'boss': 'Bats le Maître du Noyau',
+    'kill': 'Détruis des {target} : {n}/{total}',
+    'collect': 'Cœurs de données : {n}/{total}',
+    'rescue': 'Trouve le robot ouvrier bloqué',
+    'elite': "Traque le {target} d'élite",
+    'supply': 'Coffres de ravitaillement : {n}/{total}',
+    'purge': 'Machines détruites : {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} détruit !',
+    'objectiveDone': 'Objectif rempli !',
+    'rescued': 'Robot ouvrier téléporté en lieu sûr !',
+    'bossDoor': "La porte blindée s'ouvre en grinçant…"
+  },
+  'interact': {
+    'chest': 'Ouvrir',
+    'rescue': 'Sauver',
+    'bossDoor': 'Entrer'
+  },
+  'progress': {
+    'levelUp': 'Niveau {n} ! Systèmes entièrement réparés.'
+  },
+  'tips': {
+    'moveTouch': 'Glisse à gauche pour bouger, à droite pour regarder. Touche le sol pour y aller !',
+    'moveKeys': 'ZQSD pour bouger, glisse la souris pour regarder. Clique sur le sol pour y aller !',
+    'fireTouch': 'Machines en vue ! Touche pour tirer — maintiens puis relâche pour un tir chargé.',
+    'fireKeys': 'Machines en vue ! Clic ou Espace pour tirer — maintiens puis relâche pour un tir chargé.',
+    'hardhat': "Les Casqués sont à l'abri sous leur casque. Tire quand ils pointent le nez !",
+    'charge': 'Les boucliers bloquent les balles. Un tir chargé à FOND passe à travers.',
+    'blockTouch': "Anneau orange : maintiens le bouclier pour bloquer — appuie quand l'anneau se ferme pour PARER !",
+    'blockKeys': "Anneau orange : maintiens Maj ou clic droit pour bloquer — appuie quand l'anneau se ferme pour PARER !",
+    'red': 'Anneau rouge = imparable. Glisse hors de portée !',
+    'chest': "Un coffre de ravitaillement ! Touche-le pour l'ouvrir.",
+    'tank': 'Presque à sec ? Un kit de réparation te remet à neuf.',
+    'bossDoor': 'Quelque chose de gros attend derrière cette porte. Prêt ?',
+    'beamOut': 'Objectif rempli ! Explore encore un peu, ou téléporte-toi.',
+    'weapon': 'Utilise ton arme copiée avec le bouton coloré !',
+    'levelUp': 'Niveau supérieur ! Dépense ta puce de compétence dans les Circuits du labo.'
+  },
+  'loot': {
+    'found': 'Butin : {item} ({rarity}) !',
+    'tank': 'Kit de réparation trouvé !'
   },
 
-  'ladder': {
-    'weaponPick': "Choisir une arme",
-    'nextStage': "niveau suivant",
-    'stagesAway': "dans {n} niveaux",
-    'thisStage': "ce niveau"
+  'results': {
+    'success': 'MISSION ACCOMPLIE',
+    'failed': 'MISSION ÉCHOUÉE',
+    'xp': 'Expérience',
+    'bolts': 'Boulons',
+    'kills': 'Machines détruites',
+    'chests': 'Coffres ouverts',
+    'time': 'Temps',
+    'levelUp': 'Niveau supérieur ! Tu es maintenant niveau {n}',
+    'newWeapon': 'Nouvelle arme : {weapon} !',
+    'newSector': 'Nouveau secteur débloqué : {sector}',
+    'items': 'Équipement trouvé',
+    'double': 'Doubler les boulons (+{n})'
   },
-  'weaponPick': {
-    'title': "Choisis ton arme",
-    'subtitle': "À toi pour le niveau {n}. D'autres t'attendent sur la route.",
-    'take': "Prendre",
-    'rocket': {
-      'a': "Salve à tête chercheuse",
-      'b': "Dégâts de zone"
+  'defeat': {
+    'title': 'SYSTÈME EN PANNE',
+    'body': 'Cobalt a subi trop de dégâts.',
+    'kept': "Tu gardes les {xp} XP et les {bolts} boulons gagnés jusqu'ici.",
+    'useTank': 'Redémarrer avec un kit ({n})',
+    'rebootAd': 'Redémarrer maintenant',
+    'retreat': 'Retour au labo'
+  },
+  'pause': {
+    'title': 'PAUSE',
+    'resume': 'Reprendre',
+    'abandon': 'Abandonner la mission',
+    'controls': 'Commandes',
+    'touch': {
+      'move': 'Côté gauche : glisse pour bouger. Touche le sol pour y aller.',
+      'look': 'Côté droit : glisse pour regarder autour de toi.',
+      'fire': 'En combat : touche pour tirer, maintiens pour charger, relâche pour faire feu.',
+      'block': 'Maintiens le bouclier pour bloquer — pile quand un anneau se ferme pour parer.'
     },
-    'gatling': {
-      'a': "Cadence de tir doublée",
-      'b': "Charge les portes plus vite"
+    'keys': {
+      'move': 'ZQSD / flèches : se déplacer. Clique sur le sol pour y aller.',
+      'look': 'Glisse la souris pour regarder.',
+      'fire': 'Clic gauche ou Espace : tirer — maintiens pour charger.',
+      'block': 'Clic droit ou Maj : bloquer — pile quand un anneau se ferme pour parer.',
+      'slide': 'A : glissade · H : kit de réparation · E : interagir',
+      'more': '1 / 2 : armes spéciales · Tab : changer de cible · Échap : pause'
     }
   },
-  'bossReward': {
-    'title': "Boss vaincu !",
-    'subtitle': "Un cadeau pour le niveau {n}. Continue de courir !"
+  'levelUp': {
+    'title': 'NIVEAU SUPÉRIEUR !',
+    'pick': 'Choisis une amélioration système',
+    'chip': '+1 puce de compétence pour tes circuits'
   },
-  'result': {
-    'stageClear': 'Niveau terminé !',
-    'clearedStage': 'Niveau {n} terminé !',
-    'wipedOut': 'Escouade anéantie',
-    'reachedStage': 'Niveau {n}',
-    'newRecord': 'Nouveau record !',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Boss terrassé !',
-    'wasted': 'Éliminé',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Palier !',
-    'rallied': 'Second souffle',
-    'peakSquad': 'Plus grande escouade',
-    'kills': 'Éliminations',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Pièces triplées !',
-    'nextStage': 'Niveau suivant',
-    'tryAgain': 'Réessayer',
-    'upgrade': 'Améliorer',
-    'upgradeHint': 'Améliore ton escouade !',
-    'rankOf': 'sur {n}'
+  'attr': {
+    'hp': { 'name': 'Châssis', 'desc': 'Santé max' },
+    'we': { 'name': 'Réacteur', 'desc': "Énergie d'arme" },
+    'power': { 'name': 'Servos', 'desc': 'Puissance de blocage et de glissade' }
   },
 
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Partager la partie',
-    'text': "J'ai atteint le niveau {n} dans {game}. Tu peux faire mieux ?"
+  'hub': {
+    'tab': {
+      'missions': 'Missions',
+      'hero': 'Cobalt',
+      'circuits': 'Circuits',
+      'workshop': 'Atelier'
+    },
+    'levelUpReady': 'Nouveau niveau !',
+    'levels': 'Niv. {a}–{b}',
+    'story': 'Mission principale',
+    'jobs': 'Contrats',
+    'jobsHint': 'Répétables — de nouveaux arrivent à mesure que tu les termines',
+    'lockedHint': 'Bats {boss} pour ouvrir ce secteur.',
+    'sectorSecured': 'Secteur sécurisé. Ses contrats restent disponibles.',
+    'deploy': 'Déployer',
+    'reroll': 'Nouveau contrat'
   },
-
-  'leaderboard': {
-    'title': 'Classement',
-    'rank': '#',
-    'player': 'Joueur',
-    'stage': 'Niveau',
-    'squad': 'Escouade',
-    'empty': 'Aucun score pour l’instant. Sois le premier !',
-    'failed': 'Classement inaccessible.',
-    'loading': 'Chargement…',
-    'you': 'Toi',
-    'yourRank': 'Tu es #{n} sur {total}',
-    'tabGlobal': 'Mondial'
-  },
-
-  'chest': {
-    'label': 'Coffre au trésor',
-    'ready': 'Ouvrir le coffre pour {n} pièces',
-    'filling': 'Coffre au trésor : en cours de remplissage',
-    'spent': 'Coffre au trésor : vide jusqu\'à demain'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Expédition du jour',
-    'hud': 'Expédition',
-    'multiplier': '{n}×',
-    'available': 'Expédition du jour : la route du jour, pièces triplées',
-    'confirm': "Lancer l'expédition",
-    'spent': 'Expédition du jour : nouvelle route dans {time}',
-    'done': 'Revenez demain',
-    'back': 'Retour à la campagne'
-  },
-
-  'skills': {
-
-    'grenade': 'Grenade',
-
-    'shield': 'Bouclier',
-
-    'locked': 'Verrouillé',
-
-    'unlocksAt': 'Débloqué au niveau {n}',
-
-    'frost': 'Nova de givre',
-
-    'decoy': 'Fusée leurre',
-
-    'trialLabel': '{name} · essai gratuit',
-
-    'trialTag': 'Essai gratuit !',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Il a pris tout le monde.',
-    'alive': 'Ils sont encore en vie.',
-    'go': 'Va les chercher.',
-    'skip': 'Passer'
-  },
-
-  'upgrades': {
-    'title': 'Améliorations',
-    'spotlight': 'Dépense !',
-    'level': 'Niv {n}',
-    'maxed': 'Max',
-    'peekLabel': 'Améliorations : {name}',
-    'peekLabelReady': 'Améliorations : {name} — {n} disponibles à l’achat',
-    'names': {
-      'squad': 'Escouade',
+  'hero': {
+    'weapons': 'Armes spéciales',
+    'weaponSlot': 'Emplacement {n}',
+    'weaponRank': 'Rang {n}',
+    'noWeapons': 'Bats les Maîtres du Noyau pour copier leurs armes.',
+    'attrPending': 'Choisis {n} amélioration(s) système !',
+    'stats': 'Systèmes',
+    'attributes': 'Améliorations',
+    'stat': {
+      'hp': 'Santé max',
+      'we': "Énergie d'arme",
       'power': 'Puissance',
-      'rate': 'Cadence',
-      'range': 'Portée',
-      'scavenge': 'Récupération',
-      'grenade': 'Grenade',
-      'shield': 'Bouclier',
-      'rocket': 'Puissance roquette',
-      'gatling': 'Puissance Gatling',
-      'grapeshot': 'Puissance mitraille',
-      'dynamo': 'Puissance Dynamo',
-      'gravecall': 'Puissance outre-tombe',
-      'hoard': 'Puissance trésor'
-    },
-    'descriptions': {
-      'squad': 'Commence chaque niveau avec plus de survivants.',
-      'power': 'Chaque survivant inflige plus de dégâts par tir.',
-      'rate': 'Chaque survivant tire plus vite.',
-      'range': 'Ton escouade ouvre le feu plus loin sur la route.',
-      'scavenge': 'Gagne plus de pièces à chaque partie.',
-      'grenade': 'Lance une grenade pour infliger de gros dégâts.',
-      'shield': 'Réduit de moitié les dégâts subis pendant quelques secondes.',
-      'rocket': 'Les lance-roquettes trouvés dans un niveau font plus de dégâts.',
-      'gatling': 'Les Gatling trouvées dans un niveau font plus de dégâts.',
-      'grapeshot': 'Les fusils à pompe trouvés dans un niveau font plus de dégâts.',
-      'dynamo': 'Les éclairs du Dynamo trouvés dans un niveau frappent plus fort.',
-      'gravecall': 'Les morts que tu relèves frappent plus fort et durent plus longtemps.',
-      'hoard': 'Les ennemis changés en or rapportent plus de pièces.'
+      'damage': 'Dégâts des balles',
+      'charge': 'Tir chargé',
+      'armor': 'Armure',
+      'crit': 'Chance de critique',
+      'tanks': 'Kits de réparation'
     }
+  },
+  'workshop': {
+    'tanks': 'Provisions',
+    'tankName': 'Kit de réparation',
+    'tankDesc': 'Restaure entièrement la santé et la puissance en pleine mission.',
+    'owned': 'Sur toi : {n}/{max}',
+    'upgrade': "Améliorer l'équipement",
+    'next': 'Niveau suivant',
+    'upgradeBtn': 'Améliorer',
+    'maxed': 'Amélioration max'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Armure',
+    'core': 'Noyau'
+  },
+  'circuits': {
+    'chips': 'Puces de compétence : {n}',
+    'rank': 'Rang {n}/{max}',
+    'requires': 'Nécessite {name} (rang {n})',
+    'install': 'Installer la puce',
+    'maxed': 'Pleine puissance',
+    'respec': 'Réinitialiser les circuits ({n} boulons)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Balles rapides', 'desc': 'Dégâts des balles +10 % par puce.' },
+    'quickCharge': { 'name': 'Charge rapide', 'desc': 'Temps de charge −10 % par puce.' },
+    'megaCharge': { 'name': 'Méga-charge', 'desc': 'Dégâts du tir chargé +12 % par puce.' },
+    'perfectTiming': { 'name': 'Timing parfait', 'desc': 'Fenêtre de relâchement parfait élargie et critiques plus puissants.' },
+    'piercing': { 'name': 'Noyau perforant', 'desc': 'Les tirs à demi chargés brisent aussi boucliers et casques.' },
+    'giga': { 'name': 'Giga Buster', 'desc': 'Maintiens au-delà de la pleine charge pour un troisième niveau dévastateur.' },
+    'frame': { 'name': 'Châssis renforcé', 'desc': 'Santé max +8 % par puce.' },
+    'barrier': { 'name': 'Réglage de barrière', 'desc': 'Bloquer coûte moins de puissance et laisse passer moins de dégâts.' },
+    'autoRepair': { 'name': 'Auto-réparation', 'desc': 'Régénère 1 % de santé par seconde hors combat, par puce.' },
+    'parry': { 'name': 'Protocole de parade', 'desc': 'Fenêtre de parade élargie ; les machines parées restent étourdies plus longtemps.' },
+    'spikes': { 'name': 'Blindage à pointes', 'desc': 'Renvoie 15 % des dégâts bloqués par puce.' },
+    'lastStand': { 'name': 'Dernier rempart', 'desc': 'Une fois par mission, survis à un coup fatal avec 1 point de santé.' },
+    'cells': { 'name': "Cellules d'énergie", 'desc': "Énergie d'arme +3 par puce." },
+    'mastery': { 'name': 'Maîtrise des armes', 'desc': 'Dégâts des armes spéciales +10 % par puce.' },
+    'boosters': { 'name': 'Propulseurs de glissade', 'desc': 'Recharge de glissade plus rapide, glissades moins coûteuses.' },
+    'efficient': { 'name': 'Noyaux efficaces', 'desc': "Les armes spéciales coûtent 10 % d'énergie en moins par puce." },
+    'magnet': { 'name': 'Aimant à boulons', 'desc': 'Plus de boulons et une portée de ramassage accrue.' },
+    'tankCap': { 'name': 'Capacité de kits', 'desc': 'Emporte un kit de réparation de plus par puce.' }
+  },
+
+  'rarity': {
+    'standard': 'Standard',
+    'tuned': 'Optimisé',
+    'prototype': 'Prototype',
+    'legendary': 'Légendaire'
+  },
+  'item': {
+    'arm_standard': 'Buster standard',
+    'arm_rapid': 'Buster rapide',
+    'arm_heavy': 'Buster lourd',
+    'arm_quick': 'Buster à charge rapide',
+    'arm_nova': 'Buster Nova',
+    'helm_scout': "Casque d'éclaireur",
+    'helm_guard': 'Casque de garde',
+    'helm_ace': "Casque d'as",
+    'helm_royal': 'Casque royal',
+    'body_light': 'Châssis léger',
+    'body_plated': 'Châssis blindé',
+    'body_reactor': 'Châssis réacteur',
+    'body_aegis': 'Châssis Égide',
+    'boots_basic': 'Bottes de base',
+    'boots_dash': 'Bottes de sprint',
+    'boots_magnet': 'Bottes magnétiques',
+    'boots_titan': 'Bottes de titan',
+    'chip_logic': 'Puce logique',
+    'chip_quantum': 'Puce quantique'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Casque',
+    'chest': 'Châssis',
+    'boots': 'Bottes',
+    'chip': 'Puce'
+  },
+  'gear': {
+    'damage': 'Dégâts',
+    'armor': 'Armure',
+    'equip': 'Équiper',
+    'unequip': 'Retirer',
+    'equipped': 'Équipé',
+    'new': 'NOUVEAU',
+    'salvage': 'Recycler (+{n})',
+    'noAffixes': 'Aucun module bonus',
+    'emptySlot': 'Rien pour cet emplacement — ouvre des coffres et termine des contrats.'
+  },
+  'affix': {
+    'crit': '{v} chance de critique',
+    'critDmg': '{v} dégâts critiques',
+    'hp': '{v} santé max',
+    'armor': '{v} armure',
+    'we': "{v} énergie d'arme",
+    'power': '{v} puissance',
+    'bolts': '{v} boulons trouvés',
+    'chargeSpeed': '{v} vitesse de charge',
+    'pelletDmg': '{v} dégâts des balles',
+    'chargeDmg': '{v} dégâts du tir chargé',
+    'moveSpeed': '{v} vitesse de déplacement',
+    'special': '{v} dégâts des armes spéciales',
+    'regen': '{v} régén. de santé/s (hors combat)',
+    'magnet': '{v} portée de ramassage'
+  },
+  'weapon': {
+    'rankUp': '{weapon} passe au rang {n} !',
+    'scrapBurst': { 'name': 'Rafale de ferraille', 'desc': 'Une gerbe de ferraille en trois directions. Idéale contre les groupes.' },
+    'flameWave': { 'name': 'Vague de flammes', 'desc': 'Une boule de feu roule au sol, traverse toutes les machines sur son passage et les embrase.' },
+    'iceLance': { 'name': 'Lance de glace', 'desc': "Une lance perforante qui gèle tout ce qu'elle touche." },
+    'thunderArc': { 'name': 'Arc de foudre', 'desc': 'Un éclair instantané qui se propage aux machines proches.' },
+    'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." }
   },
 
   'options': {
-    'title': 'Options', 'general': 'Général', 'audio': 'Audio', 'language': 'Langue',
-    'difficulty': 'Difficulté', 'soundEffects': 'Effets sonores', 'music': 'Musique', 'musicTrack': 'Piste musicale',
-    'musicTracks': { 'cozy': 'Harmonie douce', 'trance': 'Tunnel trance' },
-    'haptics': 'Vibration', 'on': 'Activé', 'off': 'Désactivé',
+    'title': 'Options',
+    'general': 'Général',
+    'audio': 'Audio',
+    'language': 'Langue',
+    'difficulty': 'Difficulté',
+    'soundEffects': 'Effets sonores',
+    'music': 'Musique',
+    'musicTrack': 'Piste musicale',
+    'musicTracks': {
+      'cozy': 'Circuits apaisés',
+      'trance': 'Mega Drive'
+    },
+    'haptics': 'Vibration',
+    'on': 'Activé',
+    'off': 'Désactivé',
     'close': 'Enregistrer et fermer',
-    'difficulties': { 'easy': 'Facile', 'medium': 'Moyen', 'hard': 'Difficile' },
+    'lookSensitivity': 'Sensibilité de la caméra',
+    'difficulties': {
+      'easy': 'Facile',
+      'medium': 'Moyen',
+      'hard': 'Difficile'
+    },
     'difficultyHints': {
-      'easy': 'Ennemis plus faibles et barricades plus fines.',
-      'medium': 'La partie standard.',
-      'hard': 'Ennemis plus coriaces et barricades plus solides.'
+      'easy': 'Les machines frappent moins fort et tombent plus vite.',
+      'medium': "Le défi tel qu'il a été conçu.",
+      'hard': 'Des machines plus coriaces qui frappent plus fort.'
     }
   },
-
   'adsBlocked': {
     'title': 'Impossible d’afficher la publicité',
     'body': 'Nous avons essayé de vous montrer une vidéo pour votre récompense, mais quelque chose dans votre navigateur bloque les publicités.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'Compris'
   },
   'saveStatus': {
-    'restoredTitle': 'Sauvegarde cloud restaurée', 'restoredBody': '+{n} pièces bonus pour la récupération',
-    'tap': 'toucher', 'pausedTitle': 'Synchronisation en pause',
+    'restoredTitle': 'Sauvegarde cloud restaurée',
+    'restoredBody': '+{n} boulons bonus pour la récupération',
+    'tap': 'toucher',
+    'pausedTitle': 'Synchronisation en pause',
     'pausedBody': 'Vous jouez hors ligne. Votre progression est enregistrée ici.',
-    'retry': 'Réessayer', 'dismiss': 'ignorer'
+    'retry': 'Réessayer',
+    'dismiss': 'ignorer'
   },
-  'loading': { 'tooLong': 'Le chargement est trop long ? Désactivez votre bloqueur de publicités et rechargez.', 'boo': 'Bouh !', 'laugh': 'Hahaha !' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Tourne ton téléphone',
-    'body': 'Survivalist se joue en portrait.'
+  'loading': {
+    'tooLong': 'Le chargement est trop long ? Désactivez votre bloqueur de publicités et rechargez.'
   },
-  'license': { 'denied': 'Accès refusé : veuillez acheter une licence.' }
+  'license': {
+    'denied': 'Accès refusé : veuillez acheter une licence.'
+  }
 }

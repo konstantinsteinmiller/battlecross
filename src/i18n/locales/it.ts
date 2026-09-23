@@ -1,5 +1,6 @@
+// Italian locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'Annulla',
   'close': 'Chiudi',
   'ok': 'Ok',
@@ -10,8 +11,6 @@ export default {
   'tip': 'Consiglio',
   'crazyGamesOnly': 'Questo gioco è disponibile solo su',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'Avanti',
     'replay': 'Riprova',
@@ -23,262 +22,376 @@ export default {
     'info': 'Info'
   },
 
+  'combat': {
+    'tink': 'TINK!',
+    'perfect': 'PERFETTO!',
+    'parry': 'PARATA!',
+    'guardBreak': 'GUARDIA ROTTA!',
+    'guardCracked': 'Guardia incrinata!',
+    'xp': '+{n} XP',
+    'lastStand': 'Ultimo Baluardo! Sistemi riavviati.',
+    'weak': 'DEBOLE!',
+    'dizzy': 'STORDITO!',
+    'block': 'Blocca',
+    'slide': 'Scivola',
+    'fire': 'Spara',
+    'tank': 'Kit Riparazione',
+    'noEnergy': 'Energia arma insufficiente'
+  },
+
+  'enemy': {
+    'hardhat': 'Caschetto',
+    'trooper': 'Soldato Scudo',
+    'heli': 'Drone Rotore',
+    'hopper': 'Pestone',
+    'roller': 'Rullo Dentato',
+    'brute': 'Guardroide',
+    'turret': 'Cannone a Muro',
+    'elite': 'Élite',
+    'level': 'Lv {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'Caschetto | Caschetti',
+    'trooper': 'Soldato Scudo | Soldati Scudo',
+    'heli': 'Drone Rotore | Droni Rotore',
+    'hopper': 'Pestone | Pestoni',
+    'roller': 'Rullo Dentato | Rulli Dentati',
+    'brute': 'Guardroide | Guardroidi',
+    'turret': 'Cannone a Muro | Cannoni a Muro'
+  },
+
   'hud': {
-    'stage': 'Livello {n}',
-    'best': 'Record {n}',
-    'boss': 'Boss',
-    'miniboss': 'Miniboss',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Livelli al prossimo bonus',
-    'bonus': "Bonus +{coins}",
-    'fireRate': 'Ritmo',
-    'incoming': 'Attacco in arrivo!',
-    'dodge': 'Schiva',
-    'getIn': 'Entra',
-    'holdStill': 'Fermo',
-    'milestone': '{n} in campo!',
-    'weaponActive': '{name} pronto',
-    'weaponsActive': '{a} + {b} pronti',
-    'weaponLocked': '{name} bloccato — {n} di {total} leve colpite',
-    'weaponGift': '{name} più avanti — gratis, niente leve',
-    'weaponFree': 'GRATIS'
-  },
-
-  'weapons': {
-    'rocket': 'Lanciarazzi',
-    'gatling': 'Gatling',
-    'grapeshot': 'Mitraglia',
-    'dynamo': 'Dinamo',
-    'gravecall': 'Oltretomba',
-    'hoard': 'Tesoro Corvo',
-    'bolt': 'Fulmine'
-  },
-
-  'offer': {
-    'confirm': 'Guarda video',
-    'available': 'Guarda un video e ottieni {weapon} gratis'
-  },
-
-  'tutorial': {
-    'touch': 'Scorri per muovere la squadra',
-    'desktop': 'Muovi il mouse per guidare la squadra'
-  },
-  'hints': {
-    'move': { 'touch': 'Tocca per muoverti', 'desktop': 'Clicca per muoverti' },
-    'divider': { 'touch': 'Non toccare mai il pilastro tra i cancelli', 'desktop': 'Non toccare mai il pilastro tra i cancelli' },
-    'crate': { 'touch': 'Casse verdi: tutti colpiscono più forte', 'desktop': 'Casse verdi: tutti colpiscono più forte' },
-    'rate': { 'touch': 'Casse blu: tutti sparano più veloce', 'desktop': 'Casse blu: tutti sparano più veloce' },
-    'lever': { 'touch': 'Colpisci ENTRAMBE le leve ai bordi: aprono la cassa delle armi', 'desktop': 'Colpisci ENTRAMBE le leve ai bordi: aprono la cassa delle armi' },
-    'cage': { 'touch': 'Spara alle gabbie: i prigionieri si uniscono alla squadra', 'desktop': 'Spara alle gabbie: i prigionieri si uniscono alla squadra' },
-    'shieldBox': { 'touch': 'Cassa scudo: aspetta, poi blocca un colpo grosso', 'desktop': 'Cassa scudo: aspetta, poi blocca un colpo grosso' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': '{n} sopravvissuti riscossi',
-    'unlocked': 'Sbloccato!',
-
-    'guardian': "Un angelo custode ti ha salvato!",
-
-    'guardianSub': "{n} sopravvissuti sono tornati",
-
-    'next': "Prossimo: {label} · {when}",
-    'bossAhead': "Boss in arrivo: {name}",
-    'rankUp': "Posizione #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
-    }
-
-  },
-
-  'ladder': {
-    'weaponPick': "Scegli un'arma",
-    'nextStage': "prossimo livello",
-    'stagesAway': "tra {n} livelli",
-    'thisStage': "questo livello"
-  },
-  'weaponPick': {
-    'title': "Scegli la tua arma",
-    'subtitle': "Tua per il livello {n}. Altre ti aspettano sulla strada.",
-    'take': "Prendila",
-    'rocket': {
-      'a': "Salva a ricerca",
-      'b': "Danno esplosivo"
-    },
-    'gatling': {
-      'a': "Cadenza di fuoco doppia",
-      'b': "Carica i cancelli più in fretta"
-    }
-  },
-  'bossReward': {
-    'title': "Boss sconfitto!",
-    'subtitle': "Un regalo per il livello {n}. Continua a correre!"
-  },
-  'result': {
-    'stageClear': 'Livello superato!',
-    'clearedStage': 'Livello {n} superato!',
-    'wipedOut': 'Squadra annientata',
-    'reachedStage': 'Livello {n}',
-    'newRecord': 'Nuovo record!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Boss abbattuto!',
-    'wasted': 'Eliminato',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Traguardo!',
-    'rallied': 'Secondo fiato',
-    'peakSquad': 'Squadra massima',
-    'kills': 'Eliminazioni',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Monete triplicate!',
-    'nextStage': 'Livello successivo',
-    'tryAgain': 'Riprova',
-    'upgrade': 'Potenzia',
-    'upgradeHint': 'Potenzia la squadra!',
-    'rankOf': 'su {n}'
-  },
-
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Condividi la partita',
-    'text': 'Sono arrivato al livello {n} in {game}. Riesci ad andare più lontano?'
-  },
-
-  'leaderboard': {
-    'title': 'Classifica',
-    'rank': '#',
-    'player': 'Giocatore',
-    'stage': 'Livello',
-    'squad': 'Squadra',
-    'empty': 'Ancora nessun punteggio. Sii il primo!',
-    'failed': 'Classifica non raggiungibile.',
-    'loading': 'Caricamento…',
-    'you': 'Tu',
-    'yourRank': 'Sei #{n} su {total}',
-    'tabGlobal': 'Globale'
-  },
-
-  'chest': {
-    'label': 'Forziere',
-    'ready': 'Apri il forziere per {n} monete',
-    'filling': 'Forziere: si sta riempiendo',
-    'spent': 'Forziere: vuoto fino a domani'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Spedizione del giorno',
-    'hud': 'Spedizione',
-    'multiplier': '{n}×',
-    'available': 'Spedizione del giorno: la strada di oggi, monete triple',
-    'confirm': 'Inizia la spedizione',
-    'spent': 'Spedizione del giorno: nuova strada tra {time}',
-    'done': 'Torna domani',
-    'back': 'Torna alla campagna'
-  },
-
-  'skills': {
-
-    'grenade': 'Granata',
-
-    'shield': 'Scudo',
-
-    'locked': 'Bloccato',
-
-    'unlocksAt': 'Si sblocca al livello {n}',
-
-    'frost': 'Nova di gelo',
-
-    'decoy': 'Razzo esca',
-
-    'trialLabel': '{name} · prova gratis',
-
-    'trialTag': 'Prova gratis!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Ha preso tutti.',
-    'alive': 'Sono ancora vivi.',
-    'go': 'Vai a riprenderli.',
-    'skip': 'Salta'
-  },
-
-  'upgrades': {
-    'title': 'Potenziamenti',
-    'spotlight': 'Spendi!',
+    'hp': 'Salute',
+    'we': 'Energia arma',
+    'power': 'Potenza',
+    'bolts': 'Bulloni',
     'level': 'Lv {n}',
-    'maxed': 'Max',
-    'peekLabel': 'Potenziamenti: {name}',
-    'peekLabelReady': 'Potenziamenti: {name} — {n} pronti all’acquisto',
-    'names': {
-      'squad': 'Squadra',
-      'power': 'Potenza',
-      'rate': 'Cadenza',
-      'range': 'Gittata',
-      'scavenge': 'Recupero',
-      'grenade': 'Granata',
-      'shield': 'Scudo',
-      'rocket': 'Potenza razzi',
-      'gatling': 'Potenza Gatling',
-      'grapeshot': 'Potenza mitraglia',
-      'dynamo': 'Potenza Dinamo',
-      'gravecall': 'Potenza oltretomba',
-      'hoard': 'Potenza tesoro'
-    },
-    'descriptions': {
-      'squad': 'Inizia ogni livello con più sopravvissuti.',
-      'power': 'Ogni sopravvissuto infligge più danni per colpo.',
-      'rate': 'Ogni sopravvissuto spara più velocemente.',
-      'range': 'La squadra apre il fuoco più avanti sulla strada.',
-      'scavenge': 'Guadagna più monete a ogni partita.',
-      'grenade': 'Lancia una granata per un colpo di danno pesante.',
-      'shield': 'Dimezza i danni alla squadra per qualche secondo.',
-      'rocket': 'I lanciarazzi che sblocchi in un livello fanno più danni.',
-      'gatling': 'Le Gatling che sblocchi in un livello fanno più danni.',
-      'grapeshot': 'I fucili a pompa che sblocchi in un livello fanno più danni.',
-      'dynamo': 'I fulmini del Dinamo che sblocchi in un livello colpiscono più forte.',
-      'gravecall': 'I morti che rialzi combattono meglio e durano di più.',
-      'hoard': 'I nemici trasformati in oro valgono più monete.'
+    'beamOut': 'Rientra'
+  },
+
+  'boss': {
+    'stand': 'Rottamatore',
+    'scrapper': 'Rottamatore',
+    'blazeMaster': 'Maestro Fiamma',
+    'frostMaster': 'Maestro Gelo',
+    'voltMaster': 'Maestro Volt',
+    'galeMaster': 'Maestro Vento',
+    'vexMk1': 'Dr. Vex Mk-I'
+  },
+
+  'sector': {
+    'scrapyard': 'Discarica',
+    'blaze': 'Raffineria Rovente',
+    'cryo': 'Impianto Crio',
+    'volt': 'Torre Volt',
+    'gale': 'Moli Celesti',
+    'fortress': 'Fortezza di Vex'
+  },
+
+  'quest': {
+    'tutorial': 'Sveglia!',
+    'boss': 'Sfida al Maestro del Nucleo',
+    'bossTitle': 'Sfida: {boss}',
+    'kill': 'Rottamazione',
+    'collect': 'Recupero Dati',
+    'rescue': 'Operazione Soccorso',
+    'elite': "Caccia all'Élite",
+    'supply': 'Corsa ai Rifornimenti',
+    'purge': 'Bonifica del Settore',
+    'desc': {
+      'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
+      'boss': 'Irrompi nel cuore del settore {sector} e sconfiggi il {boss}.',
+      'kill': 'Distruggi {n} {target} nel settore {sector}.',
+      'collect': 'Recupera {n} nuclei dati sparsi nel settore {sector}.',
+      'rescue': 'Un robot operaio è bloccato nel settore {sector}. Trovalo e teletrasportalo in salvo.',
+      'elite': "Un {target} d'élite terrorizza il settore {sector}. Dagli la caccia.",
+      'supply': 'Forza {n} casse di rifornimenti nel settore {sector}.',
+      'purge': 'Distruggi ogni macchina nel settore {sector}.'
     }
+  },
+  'objective': {
+    'title': 'Obiettivo',
+    'complete': 'Obiettivo completato',
+    'beamOutHint': 'Rientra quando sei pronto.',
+    'tutorial': 'Sconfiggi il Rottamatore',
+    'boss': 'Sconfiggi il Maestro del Nucleo',
+    'kill': 'Distruggi {target}: {n}/{total}',
+    'collect': 'Nuclei dati: {n}/{total}',
+    'rescue': 'Trova il robot operaio bloccato',
+    'elite': "Caccia il {target} d'élite",
+    'supply': 'Casse rifornimenti: {n}/{total}',
+    'purge': 'Macchine distrutte: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} distrutto!',
+    'objectiveDone': 'Obiettivo completato!',
+    'rescued': 'Robot operaio teletrasportato in salvo!',
+    'bossDoor': 'La saracinesca si apre cigolando…'
+  },
+  'interact': {
+    'chest': 'Apri',
+    'rescue': 'Salva',
+    'bossDoor': 'Entra'
+  },
+  'progress': {
+    'levelUp': 'Livello {n}! Sistemi completamente riparati.'
+  },
+  'tips': {
+    'moveTouch': 'Trascina a sinistra per muoverti, a destra per guardarti intorno. Tocca il pavimento per andarci!',
+    'moveKeys': 'WASD per muoverti, trascina il mouse per guardare. Clicca il pavimento per andarci!',
+    'fireTouch': 'Macchine in vista! Tocca per sparare — tieni premuto e rilascia per un colpo caricato.',
+    'fireKeys': 'Macchine in vista! Clic o Spazio per sparare — tieni premuto e rilascia per un colpo caricato.',
+    'hardhat': 'I Caschetti sono al sicuro sotto il casco. Spara quando sbucano!',
+    'charge': 'Gli scudi fermano i colpi normali. Un colpo a carica PIENA li sfonda.',
+    'blockTouch': "Anello arancione: tieni premuto lo scudo per bloccare — premilo mentre l'anello si chiude per PARARE!",
+    'blockKeys': "Anello arancione: tieni premuto Shift o il tasto destro per bloccare — premi mentre l'anello si chiude per PARARE!",
+    'red': 'Anello rosso = attacco imparabile — scivola di lato!',
+    'chest': 'Una cassa di rifornimenti! Toccala per aprirla.',
+    'tank': 'A corto di salute? Un Kit Riparazione ti rimette a nuovo.',
+    'bossDoor': 'Qualcosa di grosso aspetta dietro questa saracinesca. Pronto?',
+    'beamOut': "Obiettivo completato! Esplora ancora un po' o rientra.",
+    'weapon': "Usa l'arma copiata con il pulsante colorato!",
+    'levelUp': 'Nuovo livello! Spendi il Chip Abilità nei Circuiti del laboratorio.'
+  },
+  'loot': {
+    'found': 'Hai trovato {item} ({rarity})!',
+    'tank': 'Kit Riparazione trovato!'
+  },
+
+  'results': {
+    'success': 'MISSIONE COMPIUTA',
+    'failed': 'MISSIONE FALLITA',
+    'xp': 'Esperienza',
+    'bolts': 'Bulloni',
+    'kills': 'Macchine distrutte',
+    'chests': 'Casse aperte',
+    'time': 'Tempo',
+    'levelUp': 'Nuovo livello! Ora sei al livello {n}',
+    'newWeapon': 'Nuova arma: {weapon}!',
+    'newSector': 'Nuovo settore sbloccato: {sector}',
+    'items': 'Equipaggiamento trovato',
+    'double': 'Raddoppia bulloni (+{n})'
+  },
+  'defeat': {
+    'title': 'SISTEMA FUORI USO',
+    'body': 'Cobalt ha subito troppi danni.',
+    'kept': 'Tieni i {xp} XP e i {bolts} bulloni guadagnati finora.',
+    'useTank': 'Usa Kit Riparazione ({n})',
+    'rebootAd': 'Riavvia ora',
+    'retreat': 'Ritirati al laboratorio'
+  },
+  'pause': {
+    'title': 'IN PAUSA',
+    'resume': 'Riprendi',
+    'abandon': 'Abbandona missione',
+    'controls': 'Comandi',
+    'touch': {
+      'move': 'Lato sinistro: trascina per muoverti. Tocca il pavimento per andarci.',
+      'look': 'Lato destro: trascina per guardarti intorno.',
+      'fire': 'In combattimento: tocca per sparare, tieni premuto per caricare, rilascia per fare fuoco.',
+      'block': 'Tieni premuto lo scudo per bloccare — premilo mentre un anello si chiude per parare.'
+    },
+    'keys': {
+      'move': 'WASD / frecce: muoviti. Clicca il pavimento per andarci.',
+      'look': 'Trascina il mouse per guardare.',
+      'fire': 'Clic sinistro o Spazio: spara — tieni premuto per caricare.',
+      'block': 'Clic destro o Shift: blocca — premi mentre un anello si chiude per parare.',
+      'slide': 'Q: scivolata · H: Kit Riparazione · E: interagisci',
+      'more': '1 / 2: armi speciali · Tab: cambia bersaglio · Esc: pausa'
+    }
+  },
+  'levelUp': {
+    'title': 'NUOVO LIVELLO!',
+    'pick': 'Scegli un potenziamento di sistema',
+    'chip': '+1 Chip Abilità per i tuoi circuiti'
+  },
+  'attr': {
+    'hp': { 'name': 'Telaio', 'desc': 'Salute massima' },
+    'we': { 'name': 'Reattore', 'desc': 'Energia arma' },
+    'power': { 'name': 'Servomotori', 'desc': 'Potenza di blocco e scivolata' }
+  },
+
+  'hub': {
+    'tab': {
+      'missions': 'Missioni',
+      'hero': 'Cobalt',
+      'circuits': 'Circuiti',
+      'workshop': 'Officina'
+    },
+    'levelUpReady': 'Nuovo livello!',
+    'levels': 'Lv {a}–{b}',
+    'story': 'Missione principale',
+    'jobs': 'Incarichi',
+    'jobsHint': 'Ripetibili — ne arrivano di nuovi man mano che li completi',
+    'lockedHint': 'Sconfiggi il {boss} per aprire questo settore.',
+    'sectorSecured': 'Settore al sicuro. I suoi incarichi sono ancora in bacheca.',
+    'deploy': 'Parti',
+    'reroll': 'Nuovo incarico'
+  },
+  'hero': {
+    'weapons': 'Armi speciali',
+    'weaponSlot': 'Slot {n}',
+    'weaponRank': 'Grado {n}',
+    'noWeapons': 'Sconfiggi i Maestri del Nucleo per copiarne le armi.',
+    'attrPending': 'Potenziamenti da scegliere: {n}!',
+    'stats': 'Sistemi',
+    'attributes': 'Potenziamenti',
+    'stat': {
+      'hp': 'Salute massima',
+      'we': 'Energia arma',
+      'power': 'Potenza',
+      'damage': 'Danno proiettili',
+      'charge': 'Colpo caricato',
+      'armor': 'Armatura',
+      'crit': 'Probabilità di critico',
+      'tanks': 'Kit Riparazione'
+    }
+  },
+  'workshop': {
+    'tanks': 'Scorte',
+    'tankName': 'Kit Riparazione',
+    'tankDesc': 'Ripristina del tutto salute e potenza durante la missione.',
+    'owned': 'In dotazione: {n}/{max}',
+    'upgrade': 'Potenzia equipaggiamento',
+    'next': 'Livello successivo',
+    'upgradeBtn': 'Potenzia',
+    'maxed': 'Al massimo'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Armatura',
+    'core': 'Nucleo'
+  },
+  'circuits': {
+    'chips': 'Chip Abilità: {n}',
+    'rank': 'Grado {n}/{max}',
+    'requires': 'Richiede {name} al grado {n}',
+    'install': 'Installa chip',
+    'maxed': 'Piena potenza',
+    'respec': 'Azzera circuiti ({n} bulloni)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Colpi Rapidi', 'desc': 'Danno dei colpi rapidi +10% per chip.' },
+    'quickCharge': { 'name': 'Carica Rapida', 'desc': 'Tempo di carica −10% per chip.' },
+    'megaCharge': { 'name': 'Mega Carica', 'desc': 'Danno del colpo caricato +12% per chip.' },
+    'perfectTiming': { 'name': 'Tempismo Perfetto', 'desc': 'Finestra di rilascio perfetto più ampia e critici più forti.' },
+    'piercing': { 'name': 'Nucleo Perforante', 'desc': 'Anche i colpi a mezza carica sfondano scudi ed elmetti.' },
+    'giga': { 'name': 'Giga Buster', 'desc': 'Continua a tenere premuto oltre la carica piena per un devastante terzo livello.' },
+    'frame': { 'name': 'Telaio Rinforzato', 'desc': 'Salute massima +8% per chip.' },
+    'barrier': { 'name': 'Barriera Calibrata', 'desc': 'Bloccare costa meno potenza e lascia passare meno danni.' },
+    'autoRepair': { 'name': 'Autoriparazione', 'desc': "Rigenera l'1% di salute al secondo fuori dal combattimento, per chip." },
+    'parry': { 'name': 'Protocollo Parata', 'desc': 'Finestra di parata più ampia; le macchine parate restano stordite più a lungo.' },
+    'spikes': { 'name': 'Placcatura Chiodata', 'desc': 'Riflette il 15% del danno bloccato per chip.' },
+    'lastStand': { 'name': 'Ultimo Baluardo', 'desc': 'Una volta per missione, sopravvivi a un colpo fatale con 1 di salute.' },
+    'cells': { 'name': 'Celle Energetiche', 'desc': 'Energia arma +3 per chip.' },
+    'mastery': { 'name': 'Maestria Armi', 'desc': 'Danno delle armi speciali +10% per chip.' },
+    'boosters': { 'name': 'Propulsori Scivolata', 'desc': 'Ricarica della scivolata più rapida, scivolate meno costose.' },
+    'efficient': { 'name': 'Nuclei Efficienti', 'desc': 'Le armi speciali costano il 10% di energia in meno per chip.' },
+    'magnet': { 'name': 'Magnete Bulloni', 'desc': 'Più bulloni e raggio di raccolta maggiore.' },
+    'tankCap': { 'name': 'Capacità Kit', 'desc': 'Trasporta un Kit Riparazione in più per chip.' }
+  },
+
+  'rarity': {
+    'standard': 'Standard',
+    'tuned': 'Calibrato',
+    'prototype': 'Prototipo',
+    'legendary': 'Leggendario'
+  },
+  'item': {
+    'arm_standard': 'Buster Standard',
+    'arm_rapid': 'Buster Rapido',
+    'arm_heavy': 'Buster Pesante',
+    'arm_quick': 'Buster Carica Rapida',
+    'arm_nova': 'Buster Nova',
+    'helm_scout': 'Elmo Esploratore',
+    'helm_guard': 'Elmo Guardia',
+    'helm_ace': 'Elmo Asso',
+    'helm_royal': 'Elmo Reale',
+    'body_light': 'Telaio Leggero',
+    'body_plated': 'Telaio Corazzato',
+    'body_reactor': 'Telaio Reattore',
+    'body_aegis': 'Telaio Egida',
+    'boots_basic': 'Stivali Base',
+    'boots_dash': 'Stivali Scatto',
+    'boots_magnet': 'Stivali Magnetici',
+    'boots_titan': 'Stivali Titano',
+    'chip_logic': 'Chip Logico',
+    'chip_quantum': 'Chip Quantico'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Elmo',
+    'chest': 'Telaio',
+    'boots': 'Stivali',
+    'chip': 'Chip'
+  },
+  'gear': {
+    'damage': 'Danno',
+    'armor': 'Armatura',
+    'equip': 'Equipaggia',
+    'unequip': 'Rimuovi',
+    'equipped': 'Equipaggiato',
+    'new': 'NUOVO',
+    'salvage': 'Smonta (+{n})',
+    'noAffixes': 'Nessun modulo bonus',
+    'emptySlot': 'Ancora niente per questo slot — apri casse e completa incarichi.'
+  },
+  'affix': {
+    'crit': '{v} probabilità di critico',
+    'critDmg': '{v} danno critico',
+    'hp': '{v} salute massima',
+    'armor': '{v} armatura',
+    'we': '{v} energia arma',
+    'power': '{v} potenza',
+    'bolts': '{v} bulloni trovati',
+    'chargeSpeed': '{v} velocità di carica',
+    'pelletDmg': '{v} danno proiettili',
+    'chargeDmg': '{v} danno colpo caricato',
+    'moveSpeed': '{v} velocità di movimento',
+    'special': '{v} danno armi speciali',
+    'regen': '{v} rigenerazione salute / s (fuori combattimento)',
+    'magnet': '{v} raggio di raccolta'
+  },
+  'weapon': {
+    'rankUp': '{weapon}: raggiunto il grado {n}!',
+    'scrapBurst': { 'name': 'Raffica di Rottami', 'desc': 'Una raffica di rottami in tre direzioni. Ottima contro i gruppi.' },
+    'flameWave': { 'name': 'Onda di Fuoco', 'desc': 'Una palla di fuoco rotola sul pavimento, attraversa ogni macchina sul suo cammino e le incendia.' },
+    'iceLance': { 'name': 'Lancia di Ghiaccio', 'desc': 'Una lancia perforante che congela ciò che colpisce.' },
+    'thunderArc': { 'name': 'Arco Tonante', 'desc': 'Un fulmine istantaneo che rimbalza sulle macchine vicine.' },
+    'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' }
   },
 
   'options': {
-    'title': 'Opzioni', 'general': 'Generale', 'audio': 'Audio', 'language': 'Lingua',
-    'difficulty': 'Difficoltà', 'soundEffects': 'Effetti sonori', 'music': 'Musica', 'musicTrack': 'Traccia musicale',
-    'musicTracks': { 'cozy': 'Armonia accogliente', 'trance': 'Tunnel trance' },
-    'haptics': 'Vibrazione', 'on': 'Attivo', 'off': 'Disattivo',
+    'title': 'Opzioni',
+    'general': 'Generale',
+    'audio': 'Audio',
+    'language': 'Lingua',
+    'difficulty': 'Difficoltà',
+    'soundEffects': 'Effetti sonori',
+    'music': 'Musica',
+    'musicTrack': 'Traccia musicale',
+    'musicTracks': {
+      'cozy': 'Circuiti Calmi',
+      'trance': 'Mega Drive'
+    },
+    'haptics': 'Vibrazione',
+    'on': 'Attivo',
+    'off': 'Disattivo',
     'close': 'Salva e chiudi',
-    'difficulties': { 'easy': 'Facile', 'medium': 'Media', 'hard': 'Difficile' },
+    'lookSensitivity': 'Sensibilità visuale',
+    'difficulties': {
+      'easy': 'Facile',
+      'medium': 'Media',
+      'hard': 'Difficile'
+    },
     'difficultyHints': {
-      'easy': 'Nemici più deboli e barricate più sottili.',
-      'medium': 'La partita standard.',
-      'hard': 'Nemici più duri e barricate più resistenti.'
+      'easy': 'Le macchine colpiscono più piano e cadono prima.',
+      'medium': 'La sfida come è stata pensata.',
+      'hard': 'Macchine più resistenti che colpiscono più forte.'
     }
   },
-
   'adsBlocked': {
     'title': 'Impossibile mostrare l’annuncio',
     'body': 'Abbiamo provato a mostrarti un video per farti ottenere la ricompensa, ma qualcosa nel tuo browser blocca gli annunci.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'Capito'
   },
   'saveStatus': {
-    'restoredTitle': 'Salvataggio cloud ripristinato', 'restoredBody': '+{n} monete bonus per il recupero',
-    'tap': 'tocca', 'pausedTitle': 'Sincronizzazione in pausa',
+    'restoredTitle': 'Salvataggio cloud ripristinato',
+    'restoredBody': '+{n} bulloni bonus per il recupero',
+    'tap': 'tocca',
+    'pausedTitle': 'Sincronizzazione in pausa',
     'pausedBody': 'Stai giocando offline. I progressi sono salvati qui.',
-    'retry': 'Riprova', 'dismiss': 'ignora'
+    'retry': 'Riprova',
+    'dismiss': 'ignora'
   },
-  'loading': { 'tooLong': 'Il caricamento è troppo lento? Disattiva il blocco annunci e ricarica.', 'boo': 'Bu!', 'laugh': 'Ahahah!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Ruota il telefono',
-    'body': 'Survivalist si gioca in verticale.'
+  'loading': {
+    'tooLong': 'Il caricamento è troppo lento? Disattiva il blocco annunci e ricarica.'
   },
-  'license': { 'denied': 'Accesso negato: acquista una licenza.' }
+  'license': {
+    'denied': 'Accesso negato: acquista una licenza.'
+  }
 }

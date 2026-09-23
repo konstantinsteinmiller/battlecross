@@ -1,38 +1,40 @@
 <template lang="pug">
   FModal(:model-value="open" :title="r ? (r.success ? t('results.success') : t('results.failed')) : ''" :is-closable="false")
-    div.results(v-if="r")
-      div.quest
-        div.q-name {{ t(`quest.${r.quest.template}`) }}
-        div.q-sector {{ t(`sector.${r.quest.sector}`) }}
-      div.rows
-        div.row
-          span.k {{ t('results.xp') }}
-          span.v.xp +{{ fmt(r.xp) }}
-        div.row
-          span.k {{ t('results.bolts') }}
-          span.v.bolts +{{ fmt(boltsShown) }}
-        div.row
-          span.k {{ t('results.kills') }}
-          span.v {{ r.kills }}
-        div.row(v-if="r.chests")
-          span.k {{ t('results.chests') }}
-          span.v {{ r.chests }}
-        div.row
-          span.k {{ t('results.time') }}
-          span.v {{ mmss(r.seconds) }}
-      div.levelup(v-if="r.levelAfter > r.levelBefore")
-        | {{ t('results.levelUp', { n: r.levelAfter }) }}
-      div.unlock(v-if="r.weapon")
-        span.w-dot(:style="{ background: WEAPONS[r.weapon].color }")
-        | {{ t('results.newWeapon', { weapon: t(`weapon.${r.weapon}.name`) }) }}
-      div.unlock(v-if="r.unlocked")
-        | {{ t('results.newSector', { sector: t(`sector.${r.unlocked}`) }) }}
-      div.items(v-if="r.items.length")
-        div.i-title {{ t('results.items') }}
-        div.item(v-for="it in r.items" :key="it.id" :style="{ '--rc': RARITY_COLOR[it.rarity] }")
-          span.i-rar {{ t(`rarity.${it.rarity}`) }}
-          span.i-name {{ t(`item.${it.base}`) }}
-          span.i-lvl {{ t('enemy.level', { n: it.ilvl }) }}
+    div.results(v-if="r" :class="{ split: hasExtras }")
+      div.col
+        div.quest
+          div.q-name {{ t(`quest.${r.quest.template}`) }}
+          div.q-sector {{ t(`sector.${r.quest.sector}`) }}
+        div.rows
+          div.row
+            span.k {{ t('results.xp') }}
+            span.v.xp +{{ fmt(r.xp) }}
+          div.row
+            span.k {{ t('results.bolts') }}
+            span.v.bolts +{{ fmt(boltsShown) }}
+          div.row
+            span.k {{ t('results.kills') }}
+            span.v {{ r.kills }}
+          div.row(v-if="r.chests")
+            span.k {{ t('results.chests') }}
+            span.v {{ r.chests }}
+          div.row
+            span.k {{ t('results.time') }}
+            span.v {{ mmss(r.seconds) }}
+      div.col(v-if="hasExtras")
+        div.levelup(v-if="r.levelAfter > r.levelBefore")
+          | {{ t('results.levelUp', { n: r.levelAfter }) }}
+        div.unlock(v-if="r.weapon")
+          span.w-dot(:style="{ background: WEAPONS[r.weapon].color }")
+          | {{ t('results.newWeapon', { weapon: t(`weapon.${r.weapon}.name`) }) }}
+        div.unlock(v-if="r.unlocked")
+          | {{ t('results.newSector', { sector: t(`sector.${r.unlocked}`) }) }}
+        div.items(v-if="r.items.length")
+          div.i-title {{ t('results.items') }}
+          div.item(v-for="it in r.items" :key="it.id" :style="{ '--rc': RARITY_COLOR[it.rarity] }")
+            span.i-rar {{ t(`rarity.${it.rarity}`) }}
+            span.i-name {{ t(`item.${it.base}`) }}
+            span.i-lvl {{ t('enemy.level', { n: it.ilvl }) }}
     template(#footer)
       div.actions
         FButton(
@@ -65,6 +67,10 @@ const r = computed(() => flow.results)
 const doubled = ref(false)
 const canAd = computed(() => canOfferReward.value)
 const boltsShown = computed(() => (r.value ? r.value.bolts * (doubled.value ? 2 : 1) : 0))
+const hasExtras = computed(() => {
+  const x = r.value
+  return !!x && (x.levelAfter > x.levelBefore || !!x.weapon || !!x.unlocked || x.items.length > 0)
+})
 const fmt = (n: number) => formatCount(Math.round(n), locale.value)
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
@@ -93,6 +99,19 @@ const done = () => {
   flex-direction: column
   gap: 10px
   min-width: min(78vw, 360px)
+.col
+  display: flex
+  flex-direction: column
+  gap: 10px
+// Short landscape (phones on their side, ~764×385 portal embeds): the stats
+// and the rewards sit side by side so nothing hides below the fold.
+@media (max-height: 520px) and (min-aspect-ratio: 4/3)
+  .results.split
+    display: grid
+    grid-template-columns: 1fr 1fr
+    align-items: center
+    gap: 16px
+    min-width: min(86vw, 640px)
 .quest
   text-align: center
 .q-name

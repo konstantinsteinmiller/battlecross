@@ -1,5 +1,6 @@
+// Polish locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'Anuluj',
   'close': 'Zamknij',
   'ok': 'Ok',
@@ -10,8 +11,6 @@ export default {
   'tip': 'Wskazówka',
   'crazyGamesOnly': 'Ta gra jest dostępna tylko na',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'Dalej',
     'replay': 'Powtórz',
@@ -23,262 +22,376 @@ export default {
     'info': 'Info'
   },
 
+  'combat': {
+    'tink': 'DZYŃ!',
+    'perfect': 'IDEALNIE!',
+    'parry': 'PAROWANIE!',
+    'guardBreak': 'GARDA ROZBITA!',
+    'guardCracked': 'Garda pęka!',
+    'xp': '+{n} XP',
+    'lastStand': 'Ostatni bastion! Systemy zrestartowane.',
+    'weak': 'SŁABOŚĆ!',
+    'dizzy': 'OSZOŁOMIONY!',
+    'block': 'Blok',
+    'slide': 'Wślizg',
+    'fire': 'Strzał',
+    'tank': 'Zestaw naprawczy',
+    'noEnergy': 'Za mało energii broni'
+  },
+
+  'enemy': {
+    'hardhat': 'Hełmiak',
+    'trooper': 'Tarczownik',
+    'heli': 'Dron wirnikowy',
+    'hopper': 'Tupacz',
+    'roller': 'Walec zębaty',
+    'brute': 'Strażdroid',
+    'turret': 'Działo ścienne',
+    'elite': 'Elitarny',
+    'level': 'Poz. {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'Hełmiak | Hełmiaki',
+    'trooper': 'Tarczownik | Tarczowniki',
+    'heli': 'Dron wirnikowy | Drony wirnikowe',
+    'hopper': 'Tupacz | Tupacze',
+    'roller': 'Walec zębaty | Walce zębate',
+    'brute': 'Strażdroid | Strażdroidy',
+    'turret': 'Działo ścienne | Działa ścienne'
+  },
+
   'hud': {
-    'stage': 'Etap {n}',
-    'best': 'Rekord {n}',
-    'boss': 'Boss',
-    'miniboss': 'Miniboss',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Etapy do następnej premii',
-    'bonus': "Bonus +{coins}",
-    'fireRate': 'Tempo',
-    'incoming': 'Nadchodzi atak!',
-    'dodge': 'Unik',
-    'getIn': 'Wejdź',
-    'holdStill': 'Stój',
-    'milestone': '{n} w szeregu!',
-    'weaponActive': '{name} gotowy',
-    'weaponsActive': '{a} + {b} gotowe',
-    'weaponLocked': '{name} zablokowany — trafiono {n} z {total} dźwigni',
-    'weaponGift': '{name} przed tobą — za darmo, bez dźwigni',
-    'weaponFree': 'GRATIS'
-  },
-
-  'weapons': {
-    'rocket': 'Wyrzutnia rakiet',
-    'gatling': 'Gatling',
-    'grapeshot': 'Kartacz',
-    'dynamo': 'Dynamo',
-    'gravecall': 'Zew grobu',
-    'hoard': 'Skarb kruka',
-    'bolt': 'Piorun'
-  },
-
-  'offer': {
-    'confirm': 'Obejrzyj reklamę',
-    'available': 'Obejrzyj wideo i zdobądź {weapon} za darmo'
-  },
-
-  'tutorial': {
-    'touch': 'Przesuń palcem, by ruszyć oddziałem',
-    'desktop': 'Poruszaj myszą, by kierować oddziałem'
-  },
-  'hints': {
-    'move': { 'touch': 'Dotknij, aby się ruszyć', 'desktop': 'Kliknij, aby się ruszyć' },
-    'divider': { 'touch': 'Nigdy nie dotykaj filaru między bramami', 'desktop': 'Nigdy nie dotykaj filaru między bramami' },
-    'crate': { 'touch': 'Zielone skrzynie: każdy bije mocniej', 'desktop': 'Zielone skrzynie: każdy bije mocniej' },
-    'rate': { 'touch': 'Niebieskie skrzynie: każdy strzela szybciej', 'desktop': 'Niebieskie skrzynie: każdy strzela szybciej' },
-    'lever': { 'touch': 'Zestrzel OBIE dźwignie przy krawędziach — otwierają skrzynię z bronią', 'desktop': 'Zestrzel OBIE dźwignie przy krawędziach — otwierają skrzynię z bronią' },
-    'cage': { 'touch': 'Strzelaj do klatek — więźniowie dołączą do oddziału', 'desktop': 'Strzelaj do klatek — więźniowie dołączą do oddziału' },
-    'shieldBox': { 'touch': 'Skrzynia tarczy — czeka i blokuje jeden duży cios', 'desktop': 'Skrzynia tarczy — czeka i blokuje jeden duży cios' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': 'Spieniężono {n} ocalałych',
-    'unlocked': 'Odblokowano!',
-
-    'guardian': "Anioł stróż cię uratował!",
-
-    'guardianSub': "Wróciło {n} ocalałych",
-
-    'next': "Dalej: {label} · {when}",
-    'bossAhead': "Boss przed tobą: {name}",
-    'rankUp': "Miejsce #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
-    }
-
-  },
-
-  'ladder': {
-    'weaponPick': "Wybierz broń",
-    'nextStage': "następny poziom",
-    'stagesAway': "za {n} poziomy",
-    'thisStage': "ten poziom"
-  },
-  'weaponPick': {
-    'title': "Wybierz swoją broń",
-    'subtitle': "Twoja na poziom {n}. Więcej czeka na drodze.",
-    'take': "Bierz",
-    'rocket': {
-      'a': "Salwa samonaprowadzająca",
-      'b': "Obrażenia wybuchowe"
-    },
-    'gatling': {
-      'a': "Dwa razy szybszy ogień",
-      'b': "Szybciej pompuje bramy"
-    }
-  },
-  'bossReward': {
-    'title': "Boss pokonany!",
-    'subtitle': "Prezent na poziom {n}. Biegnij dalej!"
-  },
-  'result': {
-    'stageClear': 'Etap ukończony!',
-    'clearedStage': 'Etap {n} ukończony!',
-    'wipedOut': 'Oddział wybity',
-    'reachedStage': 'Etap {n}',
-    'newRecord': 'Nowy rekord!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Boss powalony!',
-    'wasted': 'Koniec',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Kamień milowy!',
-    'rallied': 'Drugi oddech',
-    'peakSquad': 'Największy oddział',
-    'kills': 'Zabici',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Monety potrojone!',
-    'nextStage': 'Następny etap',
-    'tryAgain': 'Spróbuj ponownie',
-    'upgrade': 'Ulepsz',
-    'upgradeHint': 'Ulepsz swój oddział!',
-    'rankOf': 'z {n}'
-  },
-
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Udostępnij wynik',
-    'text': 'Dotarłem do poziomu {n} w {game}. Zajdziesz dalej?'
-  },
-
-  'leaderboard': {
-    'title': 'Ranking',
-    'rank': '#',
-    'player': 'Gracz',
-    'stage': 'Etap',
-    'squad': 'Oddział',
-    'empty': 'Brak wyników. Bądź pierwszy!',
-    'failed': 'Nie można wczytać rankingu.',
-    'loading': 'Wczytywanie…',
-    'you': 'Ty',
-    'yourRank': 'Jesteś #{n} z {total}',
-    'tabGlobal': 'Światowy'
-  },
-
-  'chest': {
-    'label': 'Skrzynia skarbów',
-    'ready': 'Otwórz skrzynię za {n} monet',
-    'filling': 'Skrzynia skarbów — napełnia się',
-    'spent': 'Skrzynia skarbów — pusta do jutra'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Codzienna wyprawa',
-    'hud': 'Wyprawa',
-    'multiplier': '{n}×',
-    'available': 'Codzienna wyprawa — dzisiejsza trasa, potrójne monety',
-    'confirm': 'Rozpocznij wyprawę',
-    'spent': 'Codzienna wyprawa — nowa trasa za {time}',
-    'done': 'Wróć jutro',
-    'back': 'Powrót do kampanii'
-  },
-
-  'skills': {
-
-    'grenade': 'Granat',
-
-    'shield': 'Tarcza',
-
-    'locked': 'Zablokowane',
-
-    'unlocksAt': 'Od poziomu {n}',
-
-    'frost': 'Mroźna nowa',
-
-    'decoy': 'Raca-wabik',
-
-    'trialLabel': '{name} · darmowa próba',
-
-    'trialTag': 'Darmowa próba!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Zabrało wszystkich.',
-    'alive': 'Wciąż żyją.',
-    'go': 'Idź po nich.',
-    'skip': 'Pomiń'
-  },
-
-  'upgrades': {
-    'title': 'Ulepszenia',
-    'spotlight': 'Wydaj!',
+    'hp': 'Zdrowie',
+    'we': 'Energia broni',
+    'power': 'Moc',
+    'bolts': 'Śruby',
     'level': 'Poz. {n}',
-    'maxed': 'Maks',
-    'peekLabel': 'Ulepszenia: {name}',
-    'peekLabelReady': 'Ulepszenia: {name} — {n} do kupienia',
-    'names': {
-      'squad': 'Oddział',
-      'power': 'Siła ognia',
-      'rate': 'Szybkostrzelność',
-      'range': 'Zasięg',
-      'scavenge': 'Zbieractwo',
-      'grenade': 'Granat',
-      'shield': 'Tarcza',
-      'rocket': 'Moc rakiet',
-      'gatling': 'Moc Gatlinga',
-      'grapeshot': 'Moc kartacza',
-      'dynamo': 'Moc Dynama',
-      'gravecall': 'Moc zewu grobu',
-      'hoard': 'Moc skarbu'
-    },
-    'descriptions': {
-      'squad': 'Zaczynaj każdy etap z większą liczbą ocalałych.',
-      'power': 'Każdy ocalały zadaje większe obrażenia na strzał.',
-      'rate': 'Każdy ocalały strzela szybciej.',
-      'range': 'Twój oddział otwiera ogień dalej na drodze.',
-      'scavenge': 'Zdobywaj więcej monet w każdej rundzie.',
-      'grenade': 'Rzuć granat, by zadać potężne obrażenia.',
-      'shield': 'Zmniejsz o połowę obrażenia oddziału na kilka sekund.',
-      'rocket': 'Wyrzutnie rakiet zdobyte na etapie zadają więcej obrażeń.',
-      'gatling': 'Gatlingi zdobyte na etapie zadają więcej obrażeń.',
-      'grapeshot': 'Strzelby zdobyte na etapie zadają więcej obrażeń.',
-      'dynamo': 'Pioruny Dynama zdobyte na etapie uderzają mocniej.',
-      'gravecall': 'Wskrzeszeni umarli walczą mocniej i żyją dłużej.',
-      'hoard': 'Wrogowie zamienieni w złoto dają więcej monet.'
+    'beamOut': 'Teleportuj'
+  },
+
+  'boss': {
+    'stand': 'Złomiarz',
+    'scrapper': 'Złomiarz',
+    'blazeMaster': 'Mistrz Ognia',
+    'frostMaster': 'Mistrz Mrozu',
+    'voltMaster': 'Mistrz Prądu',
+    'galeMaster': 'Mistrz Wichru',
+    'vexMk1': 'Dr. Vex Mk-I'
+  },
+
+  'sector': {
+    'scrapyard': 'Złomowisko',
+    'blaze': 'Rafineria Żaru',
+    'cryo': 'Kriofabryka',
+    'volt': 'Wieża Napięcia',
+    'gale': 'Podniebne Doki',
+    'fortress': 'Twierdza Vex'
+  },
+
+  'quest': {
+    'tutorial': 'Pobudka',
+    'boss': 'Starcie z Mistrzem Rdzenia',
+    'bossTitle': 'Starcie: {boss}',
+    'kill': 'Złomowanie',
+    'collect': 'Odzyskiwanie danych',
+    'rescue': 'Akcja ratunkowa',
+    'elite': 'Polowanie na elitę',
+    'supply': 'Wypad po zapasy',
+    'purge': 'Czystka sektora',
+    'desc': {
+      'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
+      'boss': 'Wedrzyj się do rdzenia sektora {sector} i pokonaj bossa ({boss}).',
+      'kill': 'Zniszcz {target} w sektorze {sector} — łącznie {n}.',
+      'collect': 'Odzyskaj rdzenie danych rozrzucone po sektorze {sector} — łącznie {n}.',
+      'rescue': 'Robot roboczy utknął w sektorze {sector}. Znajdź go i przeteleportuj w bezpieczne miejsce.',
+      'elite': 'Elitarny {target} terroryzuje sektor {sector}. Wytrop go!',
+      'supply': 'Rozbij skrzynie z zaopatrzeniem w sektorze {sector} — łącznie {n}.',
+      'purge': 'Zniszcz wszystkie maszyny w sektorze {sector}.'
     }
+  },
+  'objective': {
+    'title': 'Cel',
+    'complete': 'Cel osiągnięty',
+    'beamOutHint': 'Teleportuj się, kiedy zechcesz.',
+    'tutorial': 'Pokonaj Złomiarza',
+    'boss': 'Pokonaj Mistrza Rdzenia',
+    'kill': 'Zniszcz {target}: {n}/{total}',
+    'collect': 'Rdzenie danych: {n}/{total}',
+    'rescue': 'Znajdź uwięzionego robota roboczego',
+    'elite': 'Wytrop elitarnego wroga: {target}',
+    'supply': 'Skrzynie z zaopatrzeniem: {n}/{total}',
+    'purge': 'Zniszczone maszyny: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} zniszczony!',
+    'objectiveDone': 'Cel osiągnięty!',
+    'rescued': 'Robot roboczy przeteleportowany w bezpieczne miejsce!',
+    'bossDoor': 'Wrota otwierają się ze zgrzytem…'
+  },
+  'interact': {
+    'chest': 'Otwórz',
+    'rescue': 'Ratuj',
+    'bossDoor': 'Wejdź'
+  },
+  'progress': {
+    'levelUp': 'Poziom {n}! Systemy w pełni naprawione.'
+  },
+  'tips': {
+    'moveTouch': 'Przeciągaj po lewej, by chodzić, a po prawej, by się rozglądać. Dotknij podłogi, by tam pójść!',
+    'moveKeys': 'WASD – ruch, przeciągaj myszą, by się rozglądać. Kliknij podłogę, by tam pójść!',
+    'fireTouch': 'Maszyny przed tobą! Dotknij, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
+    'fireKeys': 'Maszyny przed tobą! Klik lub Spacja, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
+    'hardhat': 'Hełmiaki są bezpieczne pod hełmami. Strzelaj, gdy wyjrzą!',
+    'charge': 'Tarcze blokują zwykłe pociski. PEŁNY strzał naładowany przebija je na wylot.',
+    'blockTouch': 'Pomarańczowy pierścień: przytrzymaj tarczę, by blokować — wciśnij ją, gdy pierścień się zamyka, by SPAROWAĆ!',
+    'blockKeys': 'Pomarańczowy pierścień: przytrzymaj Shift lub prawy przycisk myszy, by blokować — wciśnij, gdy pierścień się zamyka, by SPAROWAĆ!',
+    'red': 'Czerwony pierścień: ataku nie da się zablokować — zejdź z drogi wślizgiem!',
+    'chest': 'Skrzynia z zaopatrzeniem! Dotknij jej, by otworzyć.',
+    'tank': 'Kończy ci się zdrowie? Zestaw naprawczy w pełni cię naprawi.',
+    'bossDoor': 'Za tymi wrotami czeka coś dużego. Gotowy?',
+    'beamOut': 'Cel osiągnięty! Pozwiedzaj jeszcze trochę albo się teleportuj.',
+    'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!',
+    'levelUp': 'Nowy poziom! Wydaj chip umiejętności w Obwodach w laboratorium.'
+  },
+  'loot': {
+    'found': 'Znaleziono: {item} ({rarity})!',
+    'tank': 'Znaleziono zestaw naprawczy!'
+  },
+
+  'results': {
+    'success': 'MISJA UKOŃCZONA',
+    'failed': 'MISJA NIEUDANA',
+    'xp': 'Doświadczenie',
+    'bolts': 'Śruby',
+    'kills': 'Zniszczone maszyny',
+    'chests': 'Otwarte skrzynie',
+    'time': 'Czas',
+    'levelUp': 'Awans na poziom {n}!',
+    'newWeapon': 'Nowa broń: {weapon}!',
+    'newSector': 'Odblokowano nowy sektor: {sector}',
+    'items': 'Znaleziony sprzęt',
+    'double': 'Podwój śruby (+{n})'
+  },
+  'defeat': {
+    'title': 'AWARIA SYSTEMU',
+    'body': 'Cobalt otrzymał zbyt wiele obrażeń.',
+    'kept': 'Zachowujesz zdobyte dotąd {xp} XP i śruby: {bolts}.',
+    'useTank': 'Użyj zestawu naprawczego ({n})',
+    'rebootAd': 'Restartuj teraz',
+    'retreat': 'Wróć do laboratorium'
+  },
+  'pause': {
+    'title': 'PAUZA',
+    'resume': 'Wznów',
+    'abandon': 'Porzuć misję',
+    'controls': 'Sterowanie',
+    'touch': {
+      'move': 'Lewa strona: przeciągaj, by chodzić. Dotknij podłogi, by tam pójść.',
+      'look': 'Prawa strona: przeciągaj, by się rozglądać.',
+      'fire': 'W walce: dotknij, by strzelić, przytrzymaj, by ładować, puść, by wystrzelić.',
+      'block': 'Przytrzymaj tarczę, by blokować — wciśnij, gdy pierścień się zamyka, by sparować.'
+    },
+    'keys': {
+      'move': 'WASD / strzałki: ruch. Kliknij podłogę, by tam pójść.',
+      'look': 'Przeciągaj myszą, by się rozglądać.',
+      'fire': 'Lewy przycisk lub Spacja: strzał — przytrzymaj, by ładować.',
+      'block': 'Prawy przycisk lub Shift: blok — wciśnij, gdy pierścień się zamyka, by sparować.',
+      'slide': 'Q: wślizg · H: zestaw naprawczy · E: interakcja',
+      'more': '1 / 2: bronie specjalne · Tab: zmiana celu · Esc: pauza'
+    }
+  },
+  'levelUp': {
+    'title': 'NOWY POZIOM!',
+    'pick': 'Wybierz ulepszenie systemu',
+    'chip': '+1 chip umiejętności do obwodów'
+  },
+  'attr': {
+    'hp': { 'name': 'Korpus', 'desc': 'Maks. zdrowie' },
+    'we': { 'name': 'Reaktor', 'desc': 'Energia broni' },
+    'power': { 'name': 'Serwa', 'desc': 'Moc bloku i wślizgu' }
+  },
+
+  'hub': {
+    'tab': {
+      'missions': 'Misje',
+      'hero': 'Cobalt',
+      'circuits': 'Obwody',
+      'workshop': 'Warsztat'
+    },
+    'levelUpReady': 'Nowy poziom!',
+    'levels': 'Poz. {a}–{b}',
+    'story': 'Misja fabularna',
+    'jobs': 'Zlecenia',
+    'jobsHint': 'Powtarzalne — nowe pojawiają się, gdy kończysz poprzednie',
+    'lockedHint': 'Pokonaj bossa ({boss}), by otworzyć ten sektor.',
+    'sectorSecured': 'Sektor zabezpieczony. Jego zlecenia wciąż wiszą na tablicy.',
+    'deploy': 'Wyrusz',
+    'reroll': 'Nowe zlecenie'
+  },
+  'hero': {
+    'weapons': 'Bronie specjalne',
+    'weaponSlot': 'Slot {n}',
+    'weaponRank': 'Ranga {n}',
+    'noWeapons': 'Pokonuj Mistrzów Rdzenia, by kopiować ich broń.',
+    'attrPending': 'Ulepszenia systemu do wybrania: {n}!',
+    'stats': 'Systemy',
+    'attributes': 'Ulepszenia',
+    'stat': {
+      'hp': 'Maks. zdrowie',
+      'we': 'Energia broni',
+      'power': 'Moc',
+      'damage': 'Obrażenia pocisków',
+      'charge': 'Strzał naładowany',
+      'armor': 'Pancerz',
+      'crit': 'Szansa na krytyczne',
+      'tanks': 'Zestawy naprawcze'
+    }
+  },
+  'workshop': {
+    'tanks': 'Zapasy',
+    'tankName': 'Zestaw naprawczy',
+    'tankDesc': 'W pełni przywraca zdrowie i moc w trakcie misji.',
+    'owned': 'Przy sobie: {n}/{max}',
+    'upgrade': 'Ulepsz sprzęt',
+    'next': 'Następny poziom',
+    'upgradeBtn': 'Ulepsz',
+    'maxed': 'W pełni ulepszone'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Pancerz',
+    'core': 'Rdzeń'
+  },
+  'circuits': {
+    'chips': 'Chipy umiejętności: {n}',
+    'rank': 'Ranga {n}/{max}',
+    'requires': 'Wymaga: {name}, ranga {n}',
+    'install': 'Zainstaluj chip',
+    'maxed': 'Pełna moc',
+    'respec': 'Resetuj obwody ({n} śrub)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Szybkie pociski', 'desc': 'Obrażenia szybkich strzałów +10% na chip.' },
+    'quickCharge': { 'name': 'Szybkie ładowanie', 'desc': 'Czas ładowania −10% na chip.' },
+    'megaCharge': { 'name': 'Mega ładunek', 'desc': 'Obrażenia strzału naładowanego +12% na chip.' },
+    'perfectTiming': { 'name': 'Idealne wyczucie', 'desc': 'Szersze okno na idealne puszczenie i mocniejsze trafienia krytyczne.' },
+    'piercing': { 'name': 'Przebijający rdzeń', 'desc': 'Strzały naładowane w połowie też przebijają tarcze i hełmy.' },
+    'giga': { 'name': 'Giga Buster', 'desc': 'Trzymaj dalej po pełnym naładowaniu, by uzyskać niszczycielski trzeci poziom.' },
+    'frame': { 'name': 'Wzmocniony korpus', 'desc': 'Maks. zdrowie +8% na chip.' },
+    'barrier': { 'name': 'Strojenie bariery', 'desc': 'Blokowanie zużywa mniej mocy i przepuszcza mniej obrażeń.' },
+    'autoRepair': { 'name': 'Autonaprawa', 'desc': 'Odnawia 1% zdrowia na sekundę poza walką, na chip.' },
+    'parry': { 'name': 'Protokół parowania', 'desc': 'Szersze okno parowania; sparowane maszyny dłużej pozostają ogłuszone.' },
+    'spikes': { 'name': 'Kolczaste poszycie', 'desc': 'Odbija 15% zablokowanych obrażeń na chip.' },
+    'lastStand': { 'name': 'Ostatni bastion', 'desc': 'Raz na misję przetrwaj śmiertelny cios z 1 punktem zdrowia.' },
+    'cells': { 'name': 'Ogniwa energii', 'desc': 'Energia broni +3 na chip.' },
+    'mastery': { 'name': 'Mistrzostwo broni', 'desc': 'Obrażenia broni specjalnych +10% na chip.' },
+    'boosters': { 'name': 'Dopalacze wślizgu', 'desc': 'Szybsze odnowienie wślizgu, tańsze wślizgi.' },
+    'efficient': { 'name': 'Wydajne rdzenie', 'desc': 'Bronie specjalne zużywają o 10% mniej energii na chip.' },
+    'magnet': { 'name': 'Magnes na śruby', 'desc': 'Więcej śrub i większy zasięg zbierania.' },
+    'tankCap': { 'name': 'Pojemność zestawów', 'desc': 'Noś o jeden zestaw naprawczy więcej na chip.' }
+  },
+
+  'rarity': {
+    'standard': 'Standardowy',
+    'tuned': 'Podrasowany',
+    'prototype': 'Prototyp',
+    'legendary': 'Legendarny'
+  },
+  'item': {
+    'arm_standard': 'Standardowy Buster',
+    'arm_rapid': 'Szybkostrzelny Buster',
+    'arm_heavy': 'Ciężki Buster',
+    'arm_quick': 'Buster szybkiego ładowania',
+    'arm_nova': 'Buster Nova',
+    'helm_scout': 'Hełm zwiadowcy',
+    'helm_guard': 'Hełm strażnika',
+    'helm_ace': 'Hełm asa',
+    'helm_royal': 'Hełm królewski',
+    'body_light': 'Lekki korpus',
+    'body_plated': 'Opancerzony korpus',
+    'body_reactor': 'Korpus reaktorowy',
+    'body_aegis': 'Korpus Egida',
+    'boots_basic': 'Podstawowe buty',
+    'boots_dash': 'Buty zrywu',
+    'boots_magnet': 'Buty magnetyczne',
+    'boots_titan': 'Buty tytana',
+    'chip_logic': 'Chip logiczny',
+    'chip_quantum': 'Chip kwantowy'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Hełm',
+    'chest': 'Korpus',
+    'boots': 'Buty',
+    'chip': 'Chip'
+  },
+  'gear': {
+    'damage': 'Obrażenia',
+    'armor': 'Pancerz',
+    'equip': 'Załóż',
+    'unequip': 'Zdejmij',
+    'equipped': 'Założone',
+    'new': 'NOWOŚĆ',
+    'salvage': 'Rozmontuj (+{n})',
+    'noAffixes': 'Brak modułów bonusowych',
+    'emptySlot': 'Nic jeszcze nie pasuje do tego gniazda — otwieraj skrzynie i wykonuj zlecenia.'
+  },
+  'affix': {
+    'crit': '{v} do szansy na krytyczne',
+    'critDmg': '{v} do obrażeń krytycznych',
+    'hp': '{v} do maks. zdrowia',
+    'armor': '{v} do pancerza',
+    'we': '{v} do energii broni',
+    'power': '{v} do mocy',
+    'bolts': '{v} do znajdowanych śrub',
+    'chargeSpeed': '{v} do szybkości ładowania',
+    'pelletDmg': '{v} do obrażeń pocisków',
+    'chargeDmg': '{v} do obrażeń strzału naładowanego',
+    'moveSpeed': '{v} do szybkości ruchu',
+    'special': '{v} do obrażeń broni specjalnych',
+    'regen': '{v} do regeneracji zdrowia / s (poza walką)',
+    'magnet': '{v} do zasięgu zbierania'
+  },
+  'weapon': {
+    'rankUp': '{weapon} — awans na rangę {n}!',
+    'scrapBurst': { 'name': 'Salwa złomu', 'desc': 'Trójkierunkowy strumień złomu. Świetny na grupy wrogów.' },
+    'flameWave': { 'name': 'Fala płomieni', 'desc': 'Kula ognia toczy się po podłodze przez każdą maszynę na swojej drodze i podpala je.' },
+    'iceLance': { 'name': 'Lodowa lanca', 'desc': 'Przebijająca lanca, która zamraża wszystko, co trafi.' },
+    'thunderArc': { 'name': 'Łuk gromu', 'desc': 'Natychmiastowa błyskawica, która przeskakuje na pobliskie maszyny.' },
+    'galeGuard': { 'name': 'Tarcza wichru', 'desc': 'Liście krążą wokół ciebie, blokując strzały i tnąc maszyny. Użyj ponownie, by nimi cisnąć.' }
   },
 
   'options': {
-    'title': 'Opcje', 'general': 'Ogólne', 'audio': 'Dźwięk', 'language': 'Język',
-    'difficulty': 'Trudność', 'soundEffects': 'Efekty dźwiękowe', 'music': 'Muzyka', 'musicTrack': 'Utwór',
-    'musicTracks': { 'cozy': 'Przytulna harmonia', 'trance': 'Tunel trance' },
-    'haptics': 'Wibracje', 'on': 'Wł.', 'off': 'Wył.',
+    'title': 'Opcje',
+    'general': 'Ogólne',
+    'audio': 'Dźwięk',
+    'language': 'Język',
+    'difficulty': 'Trudność',
+    'soundEffects': 'Efekty dźwiękowe',
+    'music': 'Muzyka',
+    'musicTrack': 'Utwór',
+    'musicTracks': {
+      'cozy': 'Spokojne obwody',
+      'trance': 'Mega Drive'
+    },
+    'haptics': 'Wibracje',
+    'on': 'Wł.',
+    'off': 'Wył.',
     'close': 'Zapisz i zamknij',
-    'difficulties': { 'easy': 'Łatwy', 'medium': 'Średni', 'hard': 'Trudny' },
+    'lookSensitivity': 'Czułość kamery',
+    'difficulties': {
+      'easy': 'Łatwy',
+      'medium': 'Średni',
+      'hard': 'Trudny'
+    },
     'difficultyHints': {
-      'easy': 'Słabsi wrogowie i cieńsze barykady.',
-      'medium': 'Standardowa rozgrywka.',
-      'hard': 'Twardsi wrogowie i mocniejsze barykady.'
+      'easy': 'Maszyny biją słabiej i szybciej padają.',
+      'medium': 'Wyzwanie zgodne z zamysłem twórców.',
+      'hard': 'Twardsze maszyny, które biją mocniej.'
     }
   },
-
   'adsBlocked': {
     'title': 'Nie udało się wyświetlić reklamy',
     'body': 'Chcieliśmy pokazać film, byś odebrał nagrodę, ale coś w przeglądarce blokuje reklamy.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'Rozumiem'
   },
   'saveStatus': {
-    'restoredTitle': 'Zapis w chmurze przywrócony', 'restoredBody': '+{n} monet bonusu za odzyskanie',
-    'tap': 'dotknij', 'pausedTitle': 'Synchronizacja wstrzymana',
+    'restoredTitle': 'Zapis w chmurze przywrócony',
+    'restoredBody': 'Premia za odzyskanie: śruby +{n}',
+    'tap': 'dotknij',
+    'pausedTitle': 'Synchronizacja wstrzymana',
     'pausedBody': 'Grasz offline. Postęp jest zapisywany tutaj.',
-    'retry': 'Ponów', 'dismiss': 'zamknij'
+    'retry': 'Ponów',
+    'dismiss': 'zamknij'
   },
-  'loading': { 'tooLong': 'Ładowanie trwa zbyt długo? Wyłącz blokadę reklam i odśwież.', 'boo': 'Bu!', 'laugh': 'Hahaha!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Obróć telefon',
-    'body': 'W Survivalist gra się w pionie.'
+  'loading': {
+    'tooLong': 'Ładowanie trwa zbyt długo? Wyłącz blokadę reklam i odśwież.'
   },
-  'license': { 'denied': 'Odmowa dostępu: kup licencję.' }
+  'license': {
+    'denied': 'Odmowa dostępu: kup licencję.'
+  }
 }

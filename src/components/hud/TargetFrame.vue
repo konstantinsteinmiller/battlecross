@@ -59,4 +59,7 @@ const { t } = useI18n()
 .tf-enter-from, .tf-leave-to
   opacity: 0
   transform: translate(-50%, -8px)
+@media (max-aspect-ratio: 1/1)
+  .target
+    top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(36px, 8vmin, 48px) + 40px)
 </style>

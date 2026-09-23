@@ -417,6 +417,18 @@ const bootstrap = async () => {
     fallbackWarn: false
   })
 
+  // Mirror the active locale onto <html lang>: screen readers and `:lang()`
+  // font fallbacks read it, and Arabic text blocks key their bidi rule off it
+  // (index.sass) so embedded Latin names and key labels order correctly.
+  {
+    const g = i18n.global
+    watch(
+      () => (typeof g.locale === 'string' ? g.locale : g.locale.value) as string,
+      (code) => { document.documentElement.lang = code },
+      { immediate: true }
+    )
+  }
+
   // Apply the player's saved language once hydrate finishes. The portal
   // locale (CG / Yandex) is used ONLY to seed first-time players — it
   // never overrides an explicit OptionsModal choice. After hydrate has

@@ -81,4 +81,7 @@ const { t } = useI18n()
 @keyframes pip-bob
   50%
     transform: translateY(-3px)
+@media (max-aspect-ratio: 1/1)
+  .tip
+    top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(110px, 28vmin, 200px) + 86px)
 </style>

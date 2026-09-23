@@ -47,6 +47,7 @@ const params = computed(() => ({
 
 <style scoped lang="sass">
 .qcard
+  container-type: inline-size
   display: grid
   grid-template-columns: auto 1fr auto
   align-items: center
@@ -125,4 +126,14 @@ const params = computed(() => ({
   border: 2px solid #141a33
   background: #2f4580
   color: #fff
+// Narrow card (a phone held upright): the actions drop under the text as a
+// full-width row, so the description is not squeezed into a sliver.
+@container (max-width: 340px)
+  .q-actions
+    grid-column: 1 / -1
+    flex-direction: row
+    align-items: center
+  .deploy
+    flex: 1
+    justify-content: center
 </style>

@@ -17,6 +17,8 @@
  * fire, Shift / RMB = block, Q = slide, 1/2 = weapons, H = tank, E = interact.
  */
 
+import { mobileCheck } from '@/utils/function'
+
 export interface Input {
   // Movement (joystick or keys), x = strafe right, y = forward. |v| ≤ 1.
   moveX: number
@@ -54,13 +56,20 @@ export interface Input {
   device: 'touch' | 'mouse'
 }
 
+/** Best first guess before any pointer event arrives, so the very first
+ *  control hint on a phone already names the touch controls. */
+const guessDevice = (): Input['device'] => {
+  if (typeof navigator !== 'undefined' && mobileCheck()) return 'touch'
+  return typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches ? 'touch' : 'mouse'
+}
+
 export const createInput = (): Input => ({
   moveX: 0, moveY: 0, lookDX: 0, lookDY: 0, taps: [],
   fireHeld: false, firePressed: false, fireReleased: false, fireX: 0, fireY: 0,
   blockHeld: false, blockPressed: false, slideQueued: false, weaponQueued: 0, tankQueued: false,
   interactQueued: false, swipe: 0, pauseQueued: false, mapQueued: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0,
-  touched: false, device: 'mouse'
+  touched: false, device: guessDevice()
 })
 
 /** Reset the one-shot edges after the sim consumed them. */
@@ -105,7 +114,6 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   let lookStartT = 0
   let lookMoved = 0
   let lookIsFire = false
-  let mouseDown = false
 
   const rect = () => surface.getBoundingClientRect()
 
@@ -155,7 +163,6 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     lookStartT = performance.now()
     lookMoved = 0
     lookIsFire = opts.fireMode()
-    if (e.pointerType === 'mouse') mouseDown = true
     if (lookIsFire) {
       input.fireHeld = true
       input.firePressed = true
@@ -242,7 +249,6 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
         input.taps.push({ x, y })
       }
       lookId = null
-      mouseDown = false
     }
   }
 
@@ -320,7 +326,6 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.joyActive = false
     joyId = null
     lookId = null
-    mouseDown = false
   }
 
   const onContext = (e: Event) => e.preventDefault()
@@ -333,7 +338,6 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   window.addEventListener('keydown', onKeyDown)
   window.addEventListener('keyup', onKeyUp)
   window.addEventListener('blur', onBlur)
-  void mouseDown
 
   return () => {
     surface.removeEventListener('pointerdown', onDown)

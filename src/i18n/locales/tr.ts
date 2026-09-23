@@ -1,5 +1,6 @@
+// Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'İptal',
   'close': 'Kapat',
   'ok': 'Tamam',
@@ -10,8 +11,6 @@ export default {
   'tip': 'İpucu',
   'crazyGamesOnly': 'Bu oyun yalnızca şurada mevcut:',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'İleri',
     'replay': 'Tekrar',
@@ -23,262 +22,378 @@ export default {
     'info': 'Bilgi'
   },
 
+  'combat': {
+    'tink': 'ÇIN!',
+    'perfect': 'MÜKEMMEL!',
+    'parry': 'SAVUŞTURMA!',
+    'guardBreak': 'GARD KIRILDI!',
+    'guardCracked': 'Gard çatladı!',
+    'xp': '+{n} XP',
+    'lastStand': 'Son Direniş! Sistemler yeniden başlatıldı.',
+    'weak': 'ZAYIF!',
+    'dizzy': 'SERSEM!',
+    'block': 'Blokla',
+    'slide': 'Kay',
+    'fire': 'Ateş et',
+    'tank': 'Tamir Kiti',
+    'noEnergy': 'Silah enerjisi yetersiz'
+  },
+
+  'enemy': {
+    'hardhat': 'Baretli',
+    'trooper': 'Kalkanlı Asker',
+    'heli': 'Pervaneli Dron',
+    'hopper': 'Ezici',
+    'roller': 'Dişli Silindir',
+    'brute': 'Muhafız Droid',
+    'turret': 'Duvar Topu',
+    'elite': 'Elit',
+    'level': 'Sv {n}'
+  },
+
+  // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
+  // forms are the singular on purpose.
+  'enemyPlural': {
+    'hardhat': 'Baretli | Baretli',
+    'trooper': 'Kalkanlı Asker | Kalkanlı Asker',
+    'heli': 'Pervaneli Dron | Pervaneli Dron',
+    'hopper': 'Ezici | Ezici',
+    'roller': 'Dişli Silindir | Dişli Silindir',
+    'brute': 'Muhafız Droid | Muhafız Droid',
+    'turret': 'Duvar Topu | Duvar Topu'
+  },
+
   'hud': {
-    'stage': 'Bölüm {n}',
-    'best': 'Rekor {n}',
-    'boss': 'Patron',
-    'miniboss': 'Mini Patron',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Sonraki bonusa kalan bölüm',
-    'bonus': "Bonus +{coins}",
-    'fireRate': 'Hız',
-    'incoming': 'Saldırı geliyor!',
-    'dodge': 'Kaç',
-    'getIn': 'İçine gir',
-    'holdStill': 'Kıpırdama',
-    'milestone': '{n} savaşçı!',
-    'weaponActive': '{name} hazır',
-    'weaponsActive': '{a} + {b} hazır',
-    'weaponLocked': '{name} kilitli — {total} kolun {n} tanesi vuruldu',
-    'weaponGift': '{name} ileride — bedava, kol yok',
-    'weaponFree': 'BEDAVA'
-  },
-
-  'weapons': {
-    'rocket': 'Roketatar',
-    'gatling': 'Gatling',
-    'grapeshot': 'Saçma',
-    'dynamo': 'Dinamo',
-    'gravecall': 'Mezar Çağrısı',
-    'hoard': 'Karga Hazinesi',
-    'bolt': 'Yıldırım'
-  },
-
-  'offer': {
-    'confirm': 'Reklamı izle',
-    'available': 'Video izle, {weapon} bedava kazan'
-  },
-
-  'tutorial': {
-    'touch': 'Takımını hareket ettirmek için kaydır',
-    'desktop': 'Takımını yönlendirmek için fareyi oynat'
-  },
-  'hints': {
-    'move': { 'touch': 'Hareket için dokun', 'desktop': 'Hareket için tıkla' },
-    'divider': { 'touch': 'Kapılar arasındaki direğe asla dokunma', 'desktop': 'Kapılar arasındaki direğe asla dokunma' },
-    'crate': { 'touch': 'Yeşil sandık: herkes daha sert vurur', 'desktop': 'Yeşil sandık: herkes daha sert vurur' },
-    'rate': { 'touch': 'Mavi sandık: herkes daha hızlı ateş eder', 'desktop': 'Mavi sandık: herkes daha hızlı ateş eder' },
-    'lever': { 'touch': 'Yol kenarındaki HER İKİ kolu da vur — silah sandığını açarlar', 'desktop': 'Yol kenarındaki HER İKİ kolu da vur — silah sandığını açarlar' },
-    'cage': { 'touch': 'Kafeslere ateş et — tutsaklar takımına katılır', 'desktop': 'Kafeslere ateş et — tutsaklar takımına katılır' },
-    'shieldBox': { 'touch': 'Kalkan sandığı — bekler, sonra bir büyük darbeyi engeller', 'desktop': 'Kalkan sandığı — bekler, sonra bir büyük darbeyi engeller' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': '{n} hayatta kalan bozduruldu',
-    'unlocked': 'Açıldı!',
-
-    'guardian': "Bir koruyucu melek seni kurtardı!",
-
-    'guardianSub': "{n} hayatta kalan geri döndü",
-
-    'next': "Sırada: {label} · {when}",
-    'bossAhead': "Sıradaki patron: {name}",
-    'rankUp': "Sıra #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
-    }
-
-  },
-
-  'ladder': {
-    'weaponPick': "Silah seç",
-    'nextStage': "sonraki bölüm",
-    'stagesAway': "{n} bölüm sonra",
-    'thisStage': "bu bölüm"
-  },
-  'weaponPick': {
-    'title': "Silahını seç",
-    'subtitle': "Bölüm {n} için senin. Yolda daha fazlası bekliyor.",
-    'take': "Al",
-    'rocket': {
-      'a': "Güdümlü salvo",
-      'b': "Patlama hasarı"
-    },
-    'gatling': {
-      'a': "İki kat atış hızı",
-      'b': "Kapıları daha hızlı doldurur"
-    }
-  },
-  'bossReward': {
-    'title': "Patron yenildi!",
-    'subtitle': "Bölüm {n} için bir hediye. Koşmaya devam!"
-  },
-  'result': {
-    'stageClear': 'Bölüm tamamlandı!',
-    'clearedStage': 'Bölüm {n} tamamlandı!',
-    'wipedOut': 'Ekip yok edildi',
-    'reachedStage': 'Bölüm {n}',
-    'newRecord': 'Yeni rekor!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Patron devrildi!',
-    'wasted': 'Bitti',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Dönüm noktası!',
-    'rallied': 'İkinci nefes',
-    'peakSquad': 'En büyük ekip',
-    'kills': 'Öldürme',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Altınlar üçe katlandı!',
-    'nextStage': 'Sonraki bölüm',
-    'tryAgain': 'Tekrar dene',
-    'upgrade': 'Geliştir',
-    'upgradeHint': 'Takımını geliştir!',
-    'rankOf': '{n} içinde'
-  },
-
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Koşuyu paylaş',
-    'text': '{game} oyununda {n}. bölüme ulaştım. Daha ileri gidebilir misin?'
-  },
-
-  'leaderboard': {
-    'title': 'Liderlik Tablosu',
-    'rank': '#',
-    'player': 'Oyuncu',
-    'stage': 'Bölüm',
-    'squad': 'Ekip',
-    'empty': 'Henüz skor yok. İlk sen ol!',
-    'failed': 'Liderlik tablosuna ulaşılamadı.',
-    'loading': 'Yükleniyor…',
-    'you': 'Sen',
-    'yourRank': '{total} oyuncu içinde #{n}. sıradasın',
-    'tabGlobal': 'Dünya'
-  },
-
-  'chest': {
-    'label': 'Hazine sandığı',
-    'ready': 'Sandığı {n} altın karşılığında aç',
-    'filling': 'Hazine sandığı doluyor',
-    'spent': 'Hazine sandığı yarına kadar boş'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Günlük Sefer',
-    'hud': 'Sefer',
-    'multiplier': '{n}×',
-    'available': 'Günlük sefer — bugünün yolu, üç kat madeni para',
-    'confirm': 'Seferi başlat',
-    'spent': 'Günlük sefer — yeni yol {time} sonra',
-    'done': 'Yarın gel',
-    'back': 'Kampanyaya dön'
-  },
-
-  'skills': {
-
-    'grenade': 'El Bombası',
-
-    'shield': 'Kalkan',
-
-    'locked': 'Kilitli',
-
-    'unlocksAt': '{n}. bölümde açılır',
-
-    'frost': 'Buz Novası',
-
-    'decoy': 'Tuzak Fişeği',
-
-    'trialLabel': '{name} · ücretsiz dene',
-
-    'trialTag': 'Ücretsiz dene!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Herkesi götürdü.',
-    'alive': 'Hâlâ hayattalar.',
-    'go': 'Git ve onları kurtar.',
-    'skip': 'Atla'
-  },
-
-  'upgrades': {
-    'title': 'Geliştirmeler',
-    'spotlight': 'Harca!',
+    'hp': 'Can',
+    'we': 'Silah enerjisi',
+    'power': 'Güç',
+    'bolts': 'Cıvata',
     'level': 'Sv {n}',
-    'maxed': 'Maks',
-    'peekLabel': 'Geliştirmeler: {name}',
-    'peekLabelReady': 'Geliştirmeler: {name} — {n} tanesi hemen alınabilir',
-    'names': {
-      'squad': 'Ekip',
-      'power': 'Ateş gücü',
-      'rate': 'Atış hızı',
-      'range': 'Menzil',
-      'scavenge': 'Toplayıcılık',
-      'grenade': 'El Bombası',
-      'shield': 'Kalkan',
-      'rocket': 'Roket Gücü',
-      'gatling': 'Gatling Gücü',
-      'grapeshot': 'Saçma Gücü',
-      'dynamo': 'Dinamo Gücü',
-      'gravecall': 'Mezar Gücü',
-      'hoard': 'Hazine Gücü'
-    },
-    'descriptions': {
-      'squad': 'Her bölüme daha çok hayatta kalanla başla.',
-      'power': 'Her hayatta kalan atış başına daha çok hasar verir.',
-      'rate': 'Her hayatta kalan daha hızlı ateş eder.',
-      'range': 'Takımın yolda daha ileriden ateş açar.',
-      'scavenge': 'Her turdan daha çok altın kazan.',
-      'grenade': 'Ağır hasar için el bombası at.',
-      'shield': 'Birkaç saniye boyunca alınan hasarı yarıya indirir.',
-      'rocket': 'Bölümde açtığın roketatarlar daha çok hasar verir.',
-      'gatling': 'Bölümde açtığın Gatlingler daha çok hasar verir.',
-      'grapeshot': 'Bölümde açtığın pompalı tüfekler daha çok hasar verir.',
-      'dynamo': 'Bölümde açtığın Dinamo yıldırımları daha sert vurur.',
-      'gravecall': 'Dirilttiğin ölüler daha güçlü savaşır ve daha uzun dayanır.',
-      'hoard': 'Altına dönüşen düşmanlar daha çok altın bırakır.'
+    'beamOut': 'Işınlan'
+  },
+
+  'boss': {
+    'stand': 'Hurdacı',
+    'scrapper': 'Hurdacı',
+    'blazeMaster': 'Alev Ustası',
+    'frostMaster': 'Ayaz Ustası',
+    'voltMaster': 'Volt Ustası',
+    'galeMaster': 'Fırtına Ustası',
+    'vexMk1': 'Dr. Vex Mk-I'
+  },
+
+  'sector': {
+    'scrapyard': 'Hurdalık',
+    'blaze': 'Alev Rafinerisi',
+    'cryo': 'Kriyo Tesisi',
+    'volt': 'Volt Kulesi',
+    'gale': 'Gök Rıhtımı',
+    'fortress': 'Vex Kalesi'
+  },
+
+  'quest': {
+    'tutorial': 'Uyanma Vakti',
+    'boss': 'Çekirdek Ustası Hesaplaşması',
+    'bossTitle': 'Hesaplaşma: {boss}',
+    'kill': 'Hurda Mesaisi',
+    'collect': 'Veri Kurtarma',
+    'rescue': 'Kurtarma Operasyonu',
+    'elite': 'Elit Avı',
+    'supply': 'İkmal Turu',
+    'purge': 'Bölge Temizliği',
+    'desc': {
+      'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
+      'boss': '{sector} bölgesinin çekirdeğine sız ve patronu yen: {boss}.',
+      'kill': '{sector} bölgesinde {n} {target} yok et.',
+      'collect': '{sector} bölgesine dağılmış {n} veri çekirdeğini kurtar.',
+      'rescue': '{sector} bölgesinde bir işçi robot mahsur kaldı. Onu bul ve güvenli bir yere ışınla.',
+      'elite': '{sector} bölgesinde elit bir {target} terör estiriyor. Onu avla.',
+      'supply': '{sector} bölgesinde {n} ikmal sandığını kırıp aç.',
+      'purge': '{sector} bölgesindeki tüm makineleri yok et.'
     }
+  },
+  'objective': {
+    'title': 'Hedef',
+    'complete': 'Hedef tamamlandı',
+    'beamOutHint': 'Hazır olduğunda ışınlan.',
+    'tutorial': "Hurdacı'yı yen",
+    'boss': 'Çekirdek Ustasını yen',
+    'kill': 'Yok edilen {target}: {n}/{total}',
+    'collect': 'Veri çekirdekleri: {n}/{total}',
+    'rescue': 'Mahsur kalan işçi robotu bul',
+    'elite': 'Elit {target} hedefini avla',
+    'supply': 'İkmal sandıkları: {n}/{total}',
+    'purge': 'Yok edilen makine: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} yok edildi!',
+    'objectiveDone': 'Hedef tamamlandı!',
+    'rescued': 'İşçi robot güvenle ışınlandı!',
+    'bossDoor': 'Kepenk gıcırdayarak açılıyor…'
+  },
+  'interact': {
+    'chest': 'Aç',
+    'rescue': 'Kurtar',
+    'bossDoor': 'Gir'
+  },
+  'progress': {
+    'levelUp': 'Seviye {n}! Sistemler tamamen onarıldı.'
+  },
+  'tips': {
+    'moveTouch': 'Hareket için sol tarafı, bakmak için sağ tarafı sürükle. Oraya yürümek için zemine dokun!',
+    'moveKeys': 'Hareket için WASD, bakmak için fareyi sürükle. Oraya yürümek için zemine tıkla!',
+    'fireTouch': 'Önünde makineler var! Ateş etmek için dokun — şarjlı atış için basılı tut ve bırak.',
+    'fireKeys': 'Önünde makineler var! Ateş etmek için tıkla ya da Boşluk — şarjlı atış için basılı tut ve bırak.',
+    'hardhat': 'Baretliler baretlerinin altında güvende. Kafalarını uzattıklarında ateş et!',
+    'charge': 'Kalkanlar mermileri durdurur. TAM şarjlı atış kalkanı delip geçer.',
+    'blockTouch': 'Turuncu halka: bloklamak için kalkanı basılı tut — halka kapanırken basarak SAVUŞTUR!',
+    'blockKeys': 'Turuncu halka: bloklamak için Shift ya da sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
+    'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
+    'chest': 'Bir ikmal sandığı! Açmak için dokun.',
+    'tank': 'Canın mı azaldı? Tamir Kiti seni tamamen onarır.',
+    'bossDoor': 'Bu kepengin ardında büyük bir şey bekliyor. Hazır mısın?',
+    'beamOut': 'Hedef tamam! Biraz daha keşfet ya da ışınlan.',
+    'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!',
+    'levelUp': 'Seviye atladın! Yetenek Çipini laboratuvardaki Devreler bölümünde harca.'
+  },
+  'loot': {
+    'found': '{rarity} {item} bulundu!',
+    'tank': 'Tamir Kiti bulundu!'
+  },
+
+  'results': {
+    'success': 'GÖREV TAMAMLANDI',
+    'failed': 'GÖREV BAŞARISIZ',
+    'xp': 'Deneyim',
+    'bolts': 'Cıvata',
+    'kills': 'Yok edilen makine',
+    'chests': 'Açılan sandık',
+    'time': 'Süre',
+    'levelUp': 'Seviye atladın! Artık seviye {n}',
+    'newWeapon': 'Yeni silah: {weapon}!',
+    'newSector': 'Yeni bölge açıldı: {sector}',
+    'items': 'Bulunan ekipman',
+    'double': 'Çift cıvata (+{n})'
+  },
+  'defeat': {
+    'title': 'SİSTEM ÇÖKTÜ',
+    'body': 'Cobalt çok fazla hasar aldı.',
+    'kept': 'Şu ana kadar kazandığın {xp} XP ve {bolts} cıvata sende kalıyor.',
+    'useTank': 'Tamir Kiti kullan ({n})',
+    'rebootAd': 'Hemen yeniden başlat',
+    'retreat': 'Laboratuvara çekil'
+  },
+  'pause': {
+    'title': 'DURAKLATILDI',
+    'resume': 'Devam et',
+    'abandon': 'Görevi bırak',
+    'controls': 'Kontroller',
+    'touch': {
+      'move': 'Sol taraf: hareket için sürükle. Oraya yürümek için zemine dokun.',
+      'look': 'Sağ taraf: etrafa bakmak için sürükle.',
+      'fire': 'Çatışmada: ateş için dokun, şarj için basılı tut, atış için bırak.',
+      'block': 'Bloklamak için kalkanı basılı tut — savuşturmak için halka kapanırken bas.'
+    },
+    'keys': {
+      'move': 'WASD / oklar: hareket. Oraya yürümek için zemine tıkla.',
+      'look': 'Bakmak için fareyi sürükle.',
+      'fire': 'Sol tık ya da Boşluk: ateş — şarj için basılı tut.',
+      'block': 'Sağ tık ya da Shift: blok — savuşturmak için halka kapanırken bas.',
+      'slide': 'Q: kayma · H: Tamir Kiti · E: etkileşim',
+      'more': '1 / 2: özel silahlar · Tab: hedef değiştir · Esc: duraklat'
+    }
+  },
+  'levelUp': {
+    'title': 'SEVİYE ATLADIN!',
+    'pick': 'Bir sistem geliştirmesi seç',
+    'chip': 'Devrelerin için +1 Yetenek Çipi'
+  },
+  'attr': {
+    'hp': { 'name': 'Gövde', 'desc': 'Maks. can' },
+    'we': { 'name': 'Reaktör', 'desc': 'Silah enerjisi' },
+    'power': { 'name': 'Servolar', 'desc': 'Blok ve kayma gücü' }
+  },
+
+  'hub': {
+    'tab': {
+      'missions': 'Görevler',
+      'hero': 'Cobalt',
+      'circuits': 'Devreler',
+      'workshop': 'Atölye'
+    },
+    'levelUpReady': 'Seviye atladın!',
+    'levels': 'Sv {a}–{b}',
+    'story': 'Hikâye görevi',
+    'jobs': 'İşler',
+    'jobsHint': 'Tekrarlanabilir — bitirdikçe yenileri gelir',
+    'lockedHint': 'Bu bölgeyi açmak için {boss} yenilmeli.',
+    'sectorSecured': 'Bölge güvende. İşleri hâlâ panoda.',
+    'deploy': 'Yola çık',
+    'reroll': 'Yeni iş'
+  },
+  'hero': {
+    'weapons': 'Özel silahlar',
+    'weaponSlot': 'Yuva {n}',
+    'weaponRank': 'Kademe {n}',
+    'noWeapons': 'Silahlarını kopyalamak için Çekirdek Ustalarını yen.',
+    'attrPending': '{n} sistem geliştirmesi seç!',
+    'stats': 'Sistemler',
+    'attributes': 'Geliştirmeler',
+    'stat': {
+      'hp': 'Maks. can',
+      'we': 'Silah enerjisi',
+      'power': 'Güç',
+      'damage': 'Mermi hasarı',
+      'charge': 'Şarjlı atış',
+      'armor': 'Zırh',
+      'crit': 'Kritik şansı',
+      'tanks': 'Tamir Kitleri'
+    }
+  },
+  'workshop': {
+    'tanks': 'İkmal',
+    'tankName': 'Tamir Kiti',
+    'tankDesc': 'Görev sırasında canı ve gücü tamamen yeniler.',
+    'owned': 'Taşınan: {n}/{max}',
+    'upgrade': 'Ekipmanı geliştir',
+    'next': 'Sonraki seviye',
+    'upgradeBtn': 'Geliştir',
+    'maxed': 'Tamamen geliştirildi'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Zırh',
+    'core': 'Çekirdek'
+  },
+  'circuits': {
+    'chips': 'Yetenek Çipi: {n}',
+    'rank': 'Kademe {n}/{max}',
+    'requires': 'Gerekli: {name} kademe {n}',
+    'install': 'Çipi tak',
+    'maxed': 'Tam güç',
+    'respec': 'Devreleri sıfırla ({n} cıvata)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Seri Mermi', 'desc': 'Hızlı atış hasarı çip başına +%10.' },
+    'quickCharge': { 'name': 'Hızlı Şarj', 'desc': 'Şarj süresi çip başına −%10.' },
+    'megaCharge': { 'name': 'Mega Şarj', 'desc': 'Şarjlı atış hasarı çip başına +%12.' },
+    'perfectTiming': { 'name': 'Kusursuz Zamanlama', 'desc': 'Daha geniş kusursuz bırakma aralığı ve daha güçlü kritikler.' },
+    'piercing': { 'name': 'Delici Çekirdek', 'desc': 'Yarı şarjlı atışlar da kalkanları ve kaskları kırar.' },
+    'giga': { 'name': 'Giga Buster', 'desc': 'Tam şarjdan sonra da basılı tutarak yıkıcı bir üçüncü seviyeye ulaş.' },
+    'frame': { 'name': 'Güçlendirilmiş Gövde', 'desc': 'Maks. can çip başına +%8.' },
+    'barrier': { 'name': 'Bariyer Ayarı', 'desc': 'Bloklamak daha az güç harcar ve daha az hasar geçirir.' },
+    'autoRepair': { 'name': 'Otomatik Onarım', 'desc': 'Çatışma dışında, çip başına saniyede %1 can yeniler.' },
+    'parry': { 'name': 'Savuşturma Protokolü', 'desc': 'Daha geniş savuşturma aralığı; savuşturulan makineler daha uzun süre sersem kalır.' },
+    'spikes': { 'name': 'Dikenli Kaplama', 'desc': "Bloklanan hasarın %15'ini çip başına geri yansıtır." },
+    'lastStand': { 'name': 'Son Direniş', 'desc': 'Görev başına bir kez, ölümcül bir darbeden 1 canla kurtul.' },
+    'cells': { 'name': 'Enerji Hücreleri', 'desc': 'Silah enerjisi çip başına +3.' },
+    'mastery': { 'name': 'Silah Ustalığı', 'desc': 'Özel silah hasarı çip başına +%10.' },
+    'boosters': { 'name': 'Kayma İticileri', 'desc': 'Daha kısa kayma bekleme süresi, daha ucuz kaymalar.' },
+    'efficient': { 'name': 'Verimli Çekirdekler', 'desc': 'Özel silahlar çip başına %10 daha az enerji harcar.' },
+    'magnet': { 'name': 'Cıvata Mıknatısı', 'desc': 'Daha çok cıvata ve daha uzun toplama menzili.' },
+    'tankCap': { 'name': 'Kit Kapasitesi', 'desc': 'Çip başına bir Tamir Kiti daha taşı.' }
+  },
+
+  'rarity': {
+    'standard': 'Standart',
+    'tuned': 'Modifiyeli',
+    'prototype': 'Prototip',
+    'legendary': 'Efsanevi'
+  },
+  'item': {
+    'arm_standard': 'Standart Buster',
+    'arm_rapid': 'Seri Buster',
+    'arm_heavy': 'Ağır Buster',
+    'arm_quick': 'Hızlı Şarj Buster',
+    'arm_nova': 'Nova Buster',
+    'helm_scout': 'Keşif Kaskı',
+    'helm_guard': 'Muhafız Kaskı',
+    'helm_ace': 'As Kaskı',
+    'helm_royal': 'Kraliyet Kaskı',
+    'body_light': 'Hafif Gövde',
+    'body_plated': 'Zırhlı Gövde',
+    'body_reactor': 'Reaktör Gövde',
+    'body_aegis': 'Aegis Gövde',
+    'boots_basic': 'Temel Botlar',
+    'boots_dash': 'Atılma Botları',
+    'boots_magnet': 'Mıknatıslı Botlar',
+    'boots_titan': 'Titan Botları',
+    'chip_logic': 'Mantık Çipi',
+    'chip_quantum': 'Kuantum Çipi'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Kask',
+    'chest': 'Gövde',
+    'boots': 'Botlar',
+    'chip': 'Çip'
+  },
+  'gear': {
+    'damage': 'Hasar',
+    'armor': 'Zırh',
+    'equip': 'Kuşan',
+    'unequip': 'Çıkar',
+    'equipped': 'Takılı',
+    'new': 'YENİ',
+    'salvage': 'Sök (+{n})',
+    'noAffixes': 'Bonus modül yok',
+    'emptySlot': 'Bu yuva için henüz bir şey yok — sandıkları aç, işleri bitir.'
+  },
+  'affix': {
+    'crit': '{v} kritik şansı',
+    'critDmg': '{v} kritik hasar',
+    'hp': '{v} maks. can',
+    'armor': '{v} zırh',
+    'we': '{v} silah enerjisi',
+    'power': '{v} güç',
+    'bolts': '{v} bulunan cıvata',
+    'chargeSpeed': '{v} şarj hızı',
+    'pelletDmg': '{v} mermi hasarı',
+    'chargeDmg': '{v} şarjlı atış hasarı',
+    'moveSpeed': '{v} hareket hızı',
+    'special': '{v} özel silah hasarı',
+    'regen': '{v} can yenilenmesi / sn (çatışma dışında)',
+    'magnet': '{v} toplama menzili'
+  },
+  'weapon': {
+    'rankUp': '{weapon} geliştirildi: kademe {n}!',
+    'scrapBurst': { 'name': 'Hurda Patlaması', 'desc': 'Üç yöne hurda saçar. Kalabalıklara karşı harika.' },
+    'flameWave': { 'name': 'Alev Dalgası', 'desc': 'Bir ateş topu yerde yuvarlanarak yolundaki her makineyi delip geçer ve onları tutuşturur.' },
+    'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi donduran delici bir mızrak.' },
+    'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
+    'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' }
   },
 
   'options': {
-    'title': 'Seçenekler', 'general': 'Genel', 'audio': 'Ses', 'language': 'Dil',
-    'difficulty': 'Zorluk', 'soundEffects': 'Ses Efektleri', 'music': 'Müzik', 'musicTrack': 'Müzik Parçası',
-    'musicTracks': { 'cozy': 'Huzurlu Uyum', 'trance': 'Trance Tüneli' },
-    'haptics': 'Titreşim', 'on': 'Açık', 'off': 'Kapalı',
+    'title': 'Seçenekler',
+    'general': 'Genel',
+    'audio': 'Ses',
+    'language': 'Dil',
+    'difficulty': 'Zorluk',
+    'soundEffects': 'Ses Efektleri',
+    'music': 'Müzik',
+    'musicTrack': 'Müzik Parçası',
+    'musicTracks': {
+      'cozy': 'Sakin Devreler',
+      'trance': 'Mega Drive'
+    },
+    'haptics': 'Titreşim',
+    'on': 'Açık',
+    'off': 'Kapalı',
     'close': 'Kaydet ve Kapat',
-    'difficulties': { 'easy': 'Kolay', 'medium': 'Orta', 'hard': 'Zor' },
+    'lookSensitivity': 'Kamera Hassasiyeti',
+    'difficulties': {
+      'easy': 'Kolay',
+      'medium': 'Orta',
+      'hard': 'Zor'
+    },
     'difficultyHints': {
-      'easy': 'Daha zayıf düşmanlar ve ince barikatlar.',
-      'medium': 'Standart tur.',
-      'hard': 'Daha güçlü düşmanlar ve ağır barikatlar.'
+      'easy': 'Makineler daha hafif vurur ve daha çabuk düşer.',
+      'medium': 'Oyunun tasarlandığı zorluk.',
+      'hard': 'Daha sert vuran, daha dayanıklı makineler.'
     }
   },
-
   'adsBlocked': {
     'title': 'Reklam gösterilemedi',
     'body': 'Ödülünü kazanabilmen için bir video göstermek istedik ama tarayıcındaki bir şey reklamları engelliyor.',
@@ -287,18 +402,18 @@ export default {
     'gotIt': 'Anladım'
   },
   'saveStatus': {
-    'restoredTitle': 'Bulut kaydı geri yüklendi', 'restoredBody': 'Kurtarma için +{n} bonus altın',
-    'tap': 'dokun', 'pausedTitle': 'Bulut eşitlemesi duraklatıldı',
+    'restoredTitle': 'Bulut kaydı geri yüklendi',
+    'restoredBody': 'Kurtarma için +{n} bonus cıvata',
+    'tap': 'dokun',
+    'pausedTitle': 'Bulut eşitlemesi duraklatıldı',
     'pausedBody': 'Çevrimdışı oynuyorsun. İlerlemen burada kaydediliyor.',
-    'retry': 'Yeniden dene', 'dismiss': 'kapat'
+    'retry': 'Yeniden dene',
+    'dismiss': 'kapat'
   },
-  'loading': { 'tooLong': 'Yükleme çok mu uzun sürüyor? Reklam engelleyiciyi kapatıp sayfayı yenile.', 'boo': 'Bö!', 'laugh': 'Hahaha!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Telefonu çevir',
-    'body': 'Survivalist dikey oynanır.'
+  'loading': {
+    'tooLong': 'Yükleme çok mu uzun sürüyor? Reklam engelleyiciyi kapatıp sayfayı yenile.'
   },
-  'license': { 'denied': 'Erişim reddedildi: lütfen bir lisans satın al.' }
+  'license': {
+    'denied': 'Erişim reddedildi: lütfen bir lisans satın al.'
+  }
 }

@@ -57,4 +57,8 @@ const segPct = computed(() => (Math.ceil(Math.max(0, hud.bossHp01) * SEG) / SEG)
 .bb-enter-from, .bb-leave-to
   opacity: 0
   transform: translate(-50%, -10px)
+@media (max-aspect-ratio: 1/1)
+  .boss-bar
+    top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(36px, 8vmin, 48px) + 40px)
+    width: min(72vw, 440px)
 </style>

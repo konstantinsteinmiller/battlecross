@@ -1,5 +1,6 @@
+// Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'Hủy',
   'close': 'Đóng',
   'ok': 'OK',
@@ -10,8 +11,6 @@ export default {
   'tip': 'Mẹo',
   'crazyGamesOnly': 'Trò chơi này chỉ có trên',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'Tiếp',
     'replay': 'Chơi lại',
@@ -23,262 +22,376 @@ export default {
     'info': 'Thông tin'
   },
 
+  'combat': {
+    'tink': 'KENG!',
+    'perfect': 'HOÀN HẢO!',
+    'parry': 'GẠT ĐÒN!',
+    'guardBreak': 'PHÁ THỦ!',
+    'guardCracked': 'Thế thủ đã nứt!',
+    'xp': '+{n} XP',
+    'lastStand': 'Tử Thủ! Hệ thống đã khởi động lại.',
+    'weak': 'YẾU ĐIỂM!',
+    'dizzy': 'CHOÁNG!',
+    'block': 'Chặn',
+    'slide': 'Trượt',
+    'fire': 'Bắn',
+    'tank': 'Bình Sửa Chữa',
+    'noEnergy': 'Không đủ năng lượng vũ khí'
+  },
+
+  'enemy': {
+    'hardhat': 'Nón Sắt',
+    'trooper': 'Lính Khiên',
+    'heli': 'Drone Cánh Quạt',
+    'hopper': 'Máy Dậm',
+    'roller': 'Bánh Răng Lăn',
+    'brute': 'Vệ Binh Máy',
+    'turret': 'Pháo Tường',
+    'elite': 'Tinh Anh',
+    'level': 'Cấp {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'Nón Sắt | Nón Sắt',
+    'trooper': 'Lính Khiên | Lính Khiên',
+    'heli': 'Drone Cánh Quạt | Drone Cánh Quạt',
+    'hopper': 'Máy Dậm | Máy Dậm',
+    'roller': 'Bánh Răng Lăn | Bánh Răng Lăn',
+    'brute': 'Vệ Binh Máy | Vệ Binh Máy',
+    'turret': 'Pháo Tường | Pháo Tường'
+  },
+
   'hud': {
-    'stage': 'Màn {n}',
-    'best': 'Kỷ lục {n}',
-    'boss': 'Trùm',
-    'miniboss': 'Trùm nhỏ',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Số màn đến phần thưởng tiếp theo',
-    'bonus': "Thưởng +{coins}",
-    'fireRate': 'Tốc độ',
-    'incoming': 'Sắp bị tấn công!',
-    'dodge': 'Né',
-    'getIn': 'Vào trong',
-    'holdStill': 'Đứng yên',
-    'milestone': '{n} chiến binh!',
-    'weaponActive': '{name} sẵn sàng',
-    'weaponsActive': '{a} + {b} sẵn sàng',
-    'weaponLocked': '{name} đã khoá — đã bắn {n}/{total} cần gạt',
-    'weaponGift': '{name} phía trước — miễn phí, không cần cần gạt',
-    'weaponFree': 'MIỄN PHÍ'
-  },
-
-  'weapons': {
-    'rocket': 'Súng phóng rocket',
-    'gatling': 'Súng Gatling',
-    'grapeshot': 'Súng hoa cải',
-    'dynamo': 'Dynamo',
-    'gravecall': 'Gọi hồn',
-    'hoard': 'Kho báu quạ',
-    'bolt': 'Tia sét'
-  },
-
-  'offer': {
-    'confirm': 'Xem quảng cáo',
-    'available': 'Xem video và nhận {weapon} miễn phí'
-  },
-
-  'tutorial': {
-    'touch': 'Vuốt để di chuyển đội của bạn',
-    'desktop': 'Di chuyển chuột để điều khiển đội'
-  },
-  'hints': {
-    'move': { 'touch': 'Chạm để di chuyển', 'desktop': 'Nhấp để di chuyển' },
-    'divider': { 'touch': 'Đừng bao giờ chạm cột giữa hai cổng', 'desktop': 'Đừng bao giờ chạm cột giữa hai cổng' },
-    'crate': { 'touch': 'Thùng xanh lá: cả đội đánh mạnh hơn', 'desktop': 'Thùng xanh lá: cả đội đánh mạnh hơn' },
-    'rate': { 'touch': 'Thùng xanh dương: cả đội bắn nhanh hơn', 'desktop': 'Thùng xanh dương: cả đội bắn nhanh hơn' },
-    'lever': { 'touch': 'Bắn CẢ HAI cần gạt ở hai bên đường — chúng mở hòm vũ khí', 'desktop': 'Bắn CẢ HAI cần gạt ở hai bên đường — chúng mở hòm vũ khí' },
-    'cage': { 'touch': 'Bắn vào lồng — tù nhân sẽ gia nhập đội', 'desktop': 'Bắn vào lồng — tù nhân sẽ gia nhập đội' },
-    'shieldBox': { 'touch': 'Hộp khiên — chờ sẵn rồi chặn một đòn lớn', 'desktop': 'Hộp khiên — chờ sẵn rồi chặn một đòn lớn' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': 'Quy đổi {n} người sống sót',
-    'unlocked': 'Đã mở khóa!',
-
-    'guardian': "Thiên thần hộ mệnh đã cứu bạn!",
-
-    'guardianSub': "{n} người sống sót đã trở lại",
-
-    'next': "Tiếp theo: {label} · {when}",
-    'bossAhead': "Trùm phía trước: {name}",
-    'rankUp': "Hạng #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
-    }
-
-  },
-
-  'ladder': {
-    'weaponPick': "Chọn vũ khí",
-    'nextStage': "màn tiếp theo",
-    'stagesAway': "sau {n} màn",
-    'thisStage': "màn này"
-  },
-  'weaponPick': {
-    'title': "Chọn vũ khí của bạn",
-    'subtitle': "Của bạn ở Màn {n}. Còn nhiều hơn đang chờ trên đường.",
-    'take': "Lấy",
-    'rocket': {
-      'a': "Loạt đạn tự dẫn",
-      'b': "Sát thương nổ"
-    },
-    'gatling': {
-      'a': "Tốc độ bắn gấp đôi",
-      'b': "Bơm cổng nhanh hơn"
-    }
-  },
-  'bossReward': {
-    'title': "Đã hạ Trùm!",
-    'subtitle': "Quà cho Màn {n}. Chạy tiếp nào!"
-  },
-  'result': {
-    'stageClear': 'Qua màn!',
-    'clearedStage': 'Qua màn {n}!',
-    'wipedOut': 'Đội bị xóa sổ',
-    'reachedStage': 'Màn {n}',
-    'newRecord': 'Kỷ lục mới!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Hạ gục trùm!',
-    'wasted': 'Toi đời',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Cột mốc!',
-    'rallied': 'Hồi sức',
-    'peakSquad': 'Đội đông nhất',
-    'kills': 'Tiêu diệt',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Xu đã nhân ba!',
-    'nextStage': 'Màn tiếp theo',
-    'tryAgain': 'Thử lại',
-    'upgrade': 'Nâng cấp',
-    'upgradeHint': 'Nâng cấp đội của bạn!',
-    'rankOf': 'trên {n}'
-  },
-
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Chia sẻ lượt chơi',
-    'text': 'Tôi đã đến màn {n} trong {game}. Bạn đi xa hơn được không?'
-  },
-
-  'leaderboard': {
-    'title': 'Bảng xếp hạng',
-    'rank': '#',
-    'player': 'Người chơi',
-    'stage': 'Màn',
-    'squad': 'Đội',
-    'empty': 'Chưa có ai. Hãy là người đầu tiên!',
-    'failed': 'Không kết nối được bảng xếp hạng.',
-    'loading': 'Đang tải…',
-    'you': 'Bạn',
-    'yourRank': 'Bạn hạng #{n} trên {total}',
-    'tabGlobal': 'Toàn cầu'
-  },
-
-  'chest': {
-    'label': 'Rương báu',
-    'ready': 'Mở rương báu nhận {n} xu',
-    'filling': 'Rương báu đang đầy dần',
-    'spent': 'Rương báu trống đến ngày mai'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Chuyến đi hằng ngày',
-    'hud': 'Chuyến đi',
-    'multiplier': '{n}×',
-    'available': 'Chuyến đi hằng ngày — cung đường hôm nay, xu gấp ba',
-    'confirm': 'Bắt đầu chuyến đi',
-    'spent': 'Chuyến đi hằng ngày — cung đường mới sau {time}',
-    'done': 'Mai quay lại',
-    'back': 'Về chiến dịch'
-  },
-
-  'skills': {
-
-    'grenade': 'Lựu đạn',
-
-    'shield': 'Khiên',
-
-    'locked': 'Đã khóa',
-
-    'unlocksAt': 'Mở khóa ở màn {n}',
-
-    'frost': 'Nova Băng Giá',
-
-    'decoy': 'Pháo Sáng Mồi',
-
-    'trialLabel': '{name} · dùng thử miễn phí',
-
-    'trialTag': 'Dùng thử miễn phí!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Nó đã bắt tất cả.',
-    'alive': 'Họ vẫn còn sống.',
-    'go': 'Đi cứu họ.',
-    'skip': 'Bỏ qua'
-  },
-
-  'upgrades': {
-    'title': 'Nâng cấp',
-    'spotlight': 'Tiêu đi!',
+    'hp': 'Máu',
+    'we': 'Năng lượng vũ khí',
+    'power': 'Thể lực',
+    'bolts': 'Bu lông',
     'level': 'Cấp {n}',
-    'maxed': 'Tối đa',
-    'peekLabel': 'Nâng cấp: {name}',
-    'peekLabelReady': 'Nâng cấp: {name} — {n} có thể mua ngay',
-    'names': {
-      'squad': 'Đội',
-      'power': 'Sát thương',
-      'rate': 'Tốc độ bắn',
-      'range': 'Tầm bắn',
-      'scavenge': 'Nhặt nhạnh',
-      'grenade': 'Lựu đạn',
-      'shield': 'Khiên',
-      'rocket': 'Sức mạnh rocket',
-      'gatling': 'Sức mạnh Gatling',
-      'grapeshot': 'Sức mạnh hoa cải',
-      'dynamo': 'Sức mạnh Dynamo',
-      'gravecall': 'Sức mạnh gọi hồn',
-      'hoard': 'Sức mạnh kho báu'
-    },
-    'descriptions': {
-      'squad': 'Bắt đầu mỗi màn với nhiều người sống sót hơn.',
-      'power': 'Mỗi người gây nhiều sát thương hơn mỗi phát.',
-      'rate': 'Mỗi người bắn nhanh hơn.',
-      'range': 'Đội của bạn khai hỏa xa hơn trên đường.',
-      'scavenge': 'Kiếm nhiều xu hơn sau mỗi lượt.',
-      'grenade': 'Ném lựu đạn để gây sát thương lớn.',
-      'shield': 'Giảm một nửa sát thương lên đội trong vài giây.',
-      'rocket': 'Súng phóng rocket mở khoá trong màn gây nhiều sát thương hơn.',
-      'gatling': 'Súng Gatling mở khoá trong màn gây nhiều sát thương hơn.',
-      'grapeshot': 'Súng hoa cải mở khoá trong màn gây nhiều sát thương hơn.',
-      'dynamo': 'Tia sét Dynamo mở khoá trong màn đánh mạnh hơn.',
-      'gravecall': 'Xác chết bạn hồi sinh đánh mạnh hơn và trụ lâu hơn.',
-      'hoard': 'Kẻ địch hoá vàng cho nhiều xu hơn.'
+    'beamOut': 'Dịch chuyển về'
+  },
+
+  'boss': {
+    'stand': 'Gã Phế Liệu',
+    'scrapper': 'Gã Phế Liệu',
+    'blazeMaster': 'Chúa Tể Lửa',
+    'frostMaster': 'Chúa Tể Băng',
+    'voltMaster': 'Chúa Tể Điện',
+    'galeMaster': 'Chúa Tể Gió',
+    'vexMk1': 'Dr. Vex Mk-I'
+  },
+
+  'sector': {
+    'scrapyard': 'Bãi Phế Liệu',
+    'blaze': 'Lò Luyện Lửa',
+    'cryo': 'Xưởng Đông Lạnh',
+    'volt': 'Tháp Điện',
+    'gale': 'Cảng Trời',
+    'fortress': 'Pháo Đài Vex'
+  },
+
+  'quest': {
+    'tutorial': 'Hồi Chuông Thức Tỉnh',
+    'boss': 'Đối Đầu Chúa Tể Lõi',
+    'bossTitle': 'Đối đầu: {boss}',
+    'kill': 'Nhiệm Vụ Phá Dỡ',
+    'collect': 'Khôi Phục Dữ Liệu',
+    'rescue': 'Giải Cứu',
+    'elite': 'Săn Tinh Anh',
+    'supply': 'Chuyến Tiếp Tế',
+    'purge': 'Càn Quét Khu Vực',
+    'desc': {
+      'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
+      'boss': 'Đột nhập vào lõi của {sector} và đánh bại {boss}.',
+      'kill': 'Phá hủy {n} {target} ở {sector}.',
+      'collect': 'Thu hồi {n} lõi dữ liệu nằm rải rác khắp {sector}.',
+      'rescue': 'Một robot công nhân bị kẹt ở {sector}. Hãy tìm và dịch chuyển nó ra ngoài.',
+      'elite': 'Một {target} tinh anh đang khủng bố {sector}. Săn lùng nó!',
+      'supply': 'Phá mở {n} rương tiếp tế ở {sector}.',
+      'purge': 'Phá hủy mọi cỗ máy ở {sector}.'
     }
+  },
+  'objective': {
+    'title': 'Mục tiêu',
+    'complete': 'Hoàn thành mục tiêu',
+    'beamOutHint': 'Dịch chuyển về khi bạn sẵn sàng.',
+    'tutorial': 'Đánh bại Gã Phế Liệu',
+    'boss': 'Đánh bại Chúa Tể Lõi',
+    'kill': 'Phá hủy {target}: {n}/{total}',
+    'collect': 'Lõi dữ liệu: {n}/{total}',
+    'rescue': 'Tìm robot công nhân bị kẹt',
+    'elite': 'Săn lùng {target} tinh anh',
+    'supply': 'Rương tiếp tế: {n}/{total}',
+    'purge': 'Máy đã phá hủy: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} đã bị tiêu diệt!',
+    'objectiveDone': 'Hoàn thành mục tiêu!',
+    'rescued': 'Robot công nhân đã được đưa về nơi an toàn!',
+    'bossDoor': 'Cửa sập kẽo kẹt mở ra…'
+  },
+  'interact': {
+    'chest': 'Mở',
+    'rescue': 'Giải cứu',
+    'bossDoor': 'Vào'
+  },
+  'progress': {
+    'levelUp': 'Cấp {n}! Hệ thống đã được sửa chữa hoàn toàn.'
+  },
+  'tips': {
+    'moveTouch': 'Kéo bên trái để di chuyển, bên phải để nhìn. Chạm vào sàn để đi tới đó!',
+    'moveKeys': 'WASD để di chuyển, kéo chuột để nhìn. Nhấp vào sàn để đi tới đó!',
+    'fireTouch': 'Có máy phía trước! Chạm để bắn — giữ rồi thả để bắn phát tụ lực.',
+    'fireKeys': 'Có máy phía trước! Nhấp hoặc Space để bắn — giữ rồi thả để bắn phát tụ lực.',
+    'hardhat': 'Nón Sắt an toàn dưới mũ của chúng. Bắn khi chúng ló đầu ra!',
+    'charge': 'Khiên chặn được đạn thường. Phát tụ lực ĐẦY xuyên thủng ngay.',
+    'blockTouch': 'Vòng cam: giữ khiên để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
+    'blockKeys': 'Vòng cam: giữ Shift hoặc chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
+    'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
+    'chest': 'Một rương tiếp tế! Chạm để mở.',
+    'tank': 'Sắp cạn máu? Bình Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
+    'bossDoor': 'Có thứ gì đó rất lớn đang chờ sau cửa sập này. Sẵn sàng chưa?',
+    'beamOut': 'Xong mục tiêu! Khám phá thêm chút nữa, hoặc dịch chuyển về.',
+    'weapon': 'Dùng vũ khí sao chép được từ nút có màu!',
+    'levelUp': 'Lên cấp! Dùng Chip Kỹ Năng trong Mạch của phòng thí nghiệm.'
+  },
+  'loot': {
+    'found': 'Tìm thấy {item} {rarity}!',
+    'tank': 'Tìm thấy Bình Sửa Chữa!'
+  },
+
+  'results': {
+    'success': 'HOÀN THÀNH NHIỆM VỤ',
+    'failed': 'NHIỆM VỤ THẤT BẠI',
+    'xp': 'Kinh nghiệm',
+    'bolts': 'Bu lông',
+    'kills': 'Máy đã phá hủy',
+    'chests': 'Rương đã mở',
+    'time': 'Thời gian',
+    'levelUp': 'Lên cấp! Giờ là cấp {n}',
+    'newWeapon': 'Vũ khí mới: {weapon}!',
+    'newSector': 'Mở khóa khu vực mới: {sector}',
+    'items': 'Trang bị tìm được',
+    'double': 'Nhân đôi bu lông (+{n})'
+  },
+  'defeat': {
+    'title': 'HỆ THỐNG SẬP',
+    'body': 'Cobalt đã chịu quá nhiều sát thương.',
+    'kept': 'Bạn vẫn giữ {xp} XP và {bolts} bu lông đã kiếm được.',
+    'useTank': 'Khởi động lại bằng Bình Sửa Chữa ({n})',
+    'rebootAd': 'Khởi động lại ngay',
+    'retreat': 'Rút về phòng thí nghiệm'
+  },
+  'pause': {
+    'title': 'TẠM DỪNG',
+    'resume': 'Tiếp tục',
+    'abandon': 'Bỏ nhiệm vụ',
+    'controls': 'Điều khiển',
+    'touch': {
+      'move': 'Bên trái: kéo để di chuyển. Chạm vào sàn để đi tới đó.',
+      'look': 'Bên phải: kéo để nhìn xung quanh.',
+      'fire': 'Khi chiến đấu: chạm để bắn, giữ để tụ lực, thả để khai hỏa.',
+      'block': 'Giữ khiên để chặn — đúng lúc vòng khép lại để gạt đòn.'
+    },
+    'keys': {
+      'move': 'WASD / phím mũi tên: di chuyển. Nhấp vào sàn để đi tới đó.',
+      'look': 'Kéo chuột để nhìn.',
+      'fire': 'Chuột trái hoặc Space: bắn — giữ để tụ lực.',
+      'block': 'Chuột phải hoặc Shift: chặn — đúng lúc vòng khép lại để gạt đòn.',
+      'slide': 'Q: trượt · H: Bình Sửa Chữa · E: tương tác',
+      'more': '1 / 2: vũ khí đặc biệt · Tab: đổi mục tiêu · Esc: tạm dừng'
+    }
+  },
+  'levelUp': {
+    'title': 'LÊN CẤP!',
+    'pick': 'Chọn một nâng cấp hệ thống',
+    'chip': '+1 Chip Kỹ Năng cho mạch của bạn'
+  },
+  'attr': {
+    'hp': { 'name': 'Khung', 'desc': 'Máu tối đa' },
+    'we': { 'name': 'Lò phản ứng', 'desc': 'Năng lượng vũ khí' },
+    'power': { 'name': 'Servo', 'desc': 'Thể lực chặn & trượt' }
+  },
+
+  'hub': {
+    'tab': {
+      'missions': 'Nhiệm vụ',
+      'hero': 'Cobalt',
+      'circuits': 'Mạch',
+      'workshop': 'Xưởng'
+    },
+    'levelUpReady': 'Lên cấp!',
+    'levels': 'Cấp {a}–{b}',
+    'story': 'Nhiệm vụ cốt truyện',
+    'jobs': 'Nhiệm vụ phụ',
+    'jobsHint': 'Làm lại được — nhiệm vụ mới xuất hiện khi bạn hoàn thành',
+    'lockedHint': 'Đánh bại {boss} để mở khu vực này.',
+    'sectorSecured': 'Khu vực đã an toàn. Nhiệm vụ phụ vẫn còn trên bảng.',
+    'deploy': 'Xuất kích',
+    'reroll': 'Đổi nhiệm vụ'
+  },
+  'hero': {
+    'weapons': 'Vũ khí đặc biệt',
+    'weaponSlot': 'Ô {n}',
+    'weaponRank': 'Hạng {n}',
+    'noWeapons': 'Đánh bại các Chúa Tể Lõi để sao chép vũ khí của chúng.',
+    'attrPending': 'Chọn {n} nâng cấp hệ thống!',
+    'stats': 'Hệ thống',
+    'attributes': 'Nâng cấp',
+    'stat': {
+      'hp': 'Máu tối đa',
+      'we': 'Năng lượng vũ khí',
+      'power': 'Thể lực',
+      'damage': 'Sát thương đạn',
+      'charge': 'Phát tụ lực',
+      'armor': 'Giáp',
+      'crit': 'Tỉ lệ chí mạng',
+      'tanks': 'Bình Sửa Chữa'
+    }
+  },
+  'workshop': {
+    'tanks': 'Vật tư',
+    'tankName': 'Bình Sửa Chữa',
+    'tankDesc': 'Hồi phục hoàn toàn máu và thể lực giữa nhiệm vụ.',
+    'owned': 'Mang theo: {n}/{max}',
+    'upgrade': 'Nâng cấp trang bị',
+    'next': 'Cấp tiếp theo',
+    'upgradeBtn': 'Nâng cấp',
+    'maxed': 'Đã nâng cấp tối đa'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Giáp',
+    'core': 'Lõi'
+  },
+  'circuits': {
+    'chips': 'Chip Kỹ Năng: {n}',
+    'rank': 'Hạng {n}/{max}',
+    'requires': 'Cần {name} hạng {n}',
+    'install': 'Lắp chip',
+    'maxed': 'Đã tối đa',
+    'respec': 'Đặt lại mạch ({n} bu lông)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Đạn Liên Thanh', 'desc': 'Sát thương bắn nhanh +10% mỗi chip.' },
+    'quickCharge': { 'name': 'Tụ Lực Nhanh', 'desc': 'Thời gian tụ lực −10% mỗi chip.' },
+    'megaCharge': { 'name': 'Tụ Lực Mega', 'desc': 'Sát thương phát tụ lực +12% mỗi chip.' },
+    'perfectTiming': { 'name': 'Căn Giờ Hoàn Hảo', 'desc': 'Khoảng thả hoàn hảo rộng hơn và chí mạng mạnh hơn.' },
+    'piercing': { 'name': 'Lõi Xuyên Phá', 'desc': 'Phát tụ lực một nửa cũng phá được khiên và mũ.' },
+    'giga': { 'name': 'Giga Buster', 'desc': 'Tiếp tục giữ sau khi tụ đầy để đạt cấp ba hủy diệt.' },
+    'frame': { 'name': 'Khung Gia Cố', 'desc': 'Máu tối đa +8% mỗi chip.' },
+    'barrier': { 'name': 'Tinh Chỉnh Rào Chắn', 'desc': 'Chặn tốn ít thể lực hơn và lọt ít sát thương hơn.' },
+    'autoRepair': { 'name': 'Tự Sửa Chữa', 'desc': 'Hồi 1% máu mỗi giây khi ngoài giao tranh, mỗi chip.' },
+    'parry': { 'name': 'Giao Thức Gạt Đòn', 'desc': 'Khoảng gạt đòn rộng hơn; máy bị gạt đòn choáng lâu hơn.' },
+    'spikes': { 'name': 'Giáp Gai', 'desc': 'Phản lại 15% sát thương đã chặn mỗi chip.' },
+    'lastStand': { 'name': 'Tử Thủ', 'desc': 'Mỗi nhiệm vụ một lần, sống sót sau đòn chí tử với 1 máu.' },
+    'cells': { 'name': 'Pin Năng Lượng', 'desc': 'Năng lượng vũ khí +3 mỗi chip.' },
+    'mastery': { 'name': 'Tinh Thông Vũ Khí', 'desc': 'Sát thương vũ khí đặc biệt +10% mỗi chip.' },
+    'boosters': { 'name': 'Tăng Tốc Trượt', 'desc': 'Hồi chiêu trượt nhanh hơn, trượt tốn ít hơn.' },
+    'efficient': { 'name': 'Lõi Hiệu Suất', 'desc': 'Vũ khí đặc biệt tốn ít hơn 10% năng lượng mỗi chip.' },
+    'magnet': { 'name': 'Nam Châm Bu Lông', 'desc': 'Nhiều bu lông hơn và tầm nhặt xa hơn.' },
+    'tankCap': { 'name': 'Sức Chứa Bình', 'desc': 'Mang thêm một Bình Sửa Chữa mỗi chip.' }
+  },
+
+  'rarity': {
+    'standard': 'Tiêu chuẩn',
+    'tuned': 'Tinh chỉnh',
+    'prototype': 'Nguyên mẫu',
+    'legendary': 'Huyền thoại'
+  },
+  'item': {
+    'arm_standard': 'Buster Tiêu Chuẩn',
+    'arm_rapid': 'Buster Liên Thanh',
+    'arm_heavy': 'Buster Hạng Nặng',
+    'arm_quick': 'Buster Tụ Nhanh',
+    'arm_nova': 'Buster Nova',
+    'helm_scout': 'Mũ Trinh Sát',
+    'helm_guard': 'Mũ Hộ Vệ',
+    'helm_ace': 'Mũ Cao Thủ',
+    'helm_royal': 'Mũ Hoàng Gia',
+    'body_light': 'Khung Nhẹ',
+    'body_plated': 'Khung Bọc Thép',
+    'body_reactor': 'Khung Lò Phản Ứng',
+    'body_aegis': 'Khung Aegis',
+    'boots_basic': 'Giày Cơ Bản',
+    'boots_dash': 'Giày Lướt',
+    'boots_magnet': 'Giày Nam Châm',
+    'boots_titan': 'Giày Titan',
+    'chip_logic': 'Chip Logic',
+    'chip_quantum': 'Chip Lượng Tử'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Mũ',
+    'chest': 'Khung',
+    'boots': 'Giày',
+    'chip': 'Chip'
+  },
+  'gear': {
+    'damage': 'Sát thương',
+    'armor': 'Giáp',
+    'equip': 'Trang bị',
+    'unequip': 'Tháo',
+    'equipped': 'Đang dùng',
+    'new': 'MỚI',
+    'salvage': 'Tháo dỡ (+{n})',
+    'noAffixes': 'Không có mô-đun thưởng',
+    'emptySlot': 'Chưa có gì cho ô này — hãy mở rương và làm nhiệm vụ.'
+  },
+  'affix': {
+    'crit': '{v} tỉ lệ chí mạng',
+    'critDmg': '{v} sát thương chí mạng',
+    'hp': '{v} máu tối đa',
+    'armor': '{v} giáp',
+    'we': '{v} năng lượng vũ khí',
+    'power': '{v} thể lực',
+    'bolts': '{v} bu lông nhặt được',
+    'chargeSpeed': '{v} tốc độ tụ lực',
+    'pelletDmg': '{v} sát thương đạn',
+    'chargeDmg': '{v} sát thương phát tụ lực',
+    'moveSpeed': '{v} tốc độ di chuyển',
+    'special': '{v} sát thương vũ khí đặc biệt',
+    'regen': '{v} hồi máu / giây (ngoài giao tranh)',
+    'magnet': '{v} tầm nhặt'
+  },
+  'weapon': {
+    'rankUp': '{weapon} đã lên hạng {n}!',
+    'scrapBurst': { 'name': 'Tán Xạ Phế Liệu', 'desc': 'Bắn tỏa phế liệu theo ba hướng. Rất hiệu quả với đám đông.' },
+    'flameWave': { 'name': 'Sóng Lửa', 'desc': 'Quả cầu lửa lăn dọc sàn, xuyên qua mọi cỗ máy trên đường và thiêu cháy chúng.' },
+    'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu, đóng băng mọi thứ nó trúng.' },
+    'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
+    'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' }
   },
 
   'options': {
-    'title': 'Tùy chọn', 'general': 'Chung', 'audio': 'Âm thanh', 'language': 'Ngôn ngữ',
-    'difficulty': 'Độ khó', 'soundEffects': 'Hiệu ứng âm thanh', 'music': 'Nhạc', 'musicTrack': 'Bản nhạc',
-    'musicTracks': { 'cozy': 'Giai điệu ấm cúng', 'trance': 'Đường hầm Trance' },
-    'haptics': 'Rung', 'on': 'Bật', 'off': 'Tắt',
+    'title': 'Tùy chọn',
+    'general': 'Chung',
+    'audio': 'Âm thanh',
+    'language': 'Ngôn ngữ',
+    'difficulty': 'Độ khó',
+    'soundEffects': 'Hiệu ứng âm thanh',
+    'music': 'Nhạc',
+    'musicTrack': 'Bản nhạc',
+    'musicTracks': {
+      'cozy': 'Mạch Êm Dịu',
+      'trance': 'Tăng Tốc Mega'
+    },
+    'haptics': 'Rung',
+    'on': 'Bật',
+    'off': 'Tắt',
     'close': 'Lưu & Đóng',
-    'difficulties': { 'easy': 'Dễ', 'medium': 'Trung bình', 'hard': 'Khó' },
+    'lookSensitivity': 'Độ nhạy góc nhìn',
+    'difficulties': {
+      'easy': 'Dễ',
+      'medium': 'Trung bình',
+      'hard': 'Khó'
+    },
     'difficultyHints': {
-      'easy': 'Kẻ địch yếu hơn và rào chắn mỏng hơn.',
-      'medium': 'Lượt chơi tiêu chuẩn.',
-      'hard': 'Kẻ địch cứng hơn và rào chắn dày hơn.'
+      'easy': 'Máy đánh nhẹ hơn và gục nhanh hơn.',
+      'medium': 'Thử thách đúng như thiết kế.',
+      'hard': 'Máy cứng cáp hơn và đánh mạnh hơn.'
     }
   },
-
   'adsBlocked': {
     'title': 'Không thể hiển thị quảng cáo',
     'body': 'Chúng tôi đã thử phát video để bạn nhận thưởng, nhưng có gì đó trên trình duyệt đang chặn quảng cáo.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'Đã hiểu'
   },
   'saveStatus': {
-    'restoredTitle': 'Đã khôi phục lưu trên đám mây', 'restoredBody': '+{n} xu thưởng cho việc khôi phục',
-    'tap': 'chạm', 'pausedTitle': 'Đã tạm dừng đồng bộ đám mây',
+    'restoredTitle': 'Đã khôi phục lưu trên đám mây',
+    'restoredBody': '+{n} bu lông thưởng cho việc khôi phục',
+    'tap': 'chạm',
+    'pausedTitle': 'Đã tạm dừng đồng bộ đám mây',
     'pausedBody': 'Đang chơi ngoại tuyến. Tiến trình được lưu tại đây.',
-    'retry': 'Thử lại', 'dismiss': 'bỏ qua'
+    'retry': 'Thử lại',
+    'dismiss': 'bỏ qua'
   },
-  'loading': { 'tooLong': 'Tải quá lâu? Hãy tắt trình chặn quảng cáo rồi làm mới trang.', 'boo': 'Hù!', 'laugh': 'Ha ha ha!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Xoay điện thoại',
-    'body': 'Survivalist chơi ở chế độ dọc.'
+  'loading': {
+    'tooLong': 'Tải quá lâu? Hãy tắt trình chặn quảng cáo rồi làm mới trang.'
   },
-  'license': { 'denied': 'Từ chối truy cập: vui lòng mua giấy phép.' }
+  'license': {
+    'denied': 'Từ chối truy cập: vui lòng mua giấy phép.'
+  }
 }

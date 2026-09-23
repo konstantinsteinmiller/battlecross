@@ -92,7 +92,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **8. Audio and juice.** Chiptune SFX synth and music sequencer (routed
   through the existing pause/mute gates), hit-stop, screenshake, level-up
   flash, loot beams, tutorial tips (Pip). *Commit.*
-- [ ] **9. i18n and responsiveness.** Every string in en plus the 20 other
+- [x] **9. i18n and responsiveness.** Every string in en plus the 20 other
   locales, the i18n parity test, safe areas, portrait/landscape layouts, the
   320×658 check. *Commit.*
 - [ ] **10. Ads and lifecycle wiring.** Revive (rewarded), 2× bolts
@@ -113,3 +113,15 @@ while bars and damage numbers get direct DOM writes.
   the camera for inspection).
 - Cheats in dev: `?cheat=1` enables `useCheats` hotkeys (to be rewritten for
   this game in chunk 4).
+- Layout checks: 320×658 portrait and 764×385 landscape, touch UA. In
+  portrait the top HUD row belongs to the bars and the status pills, so the
+  compass, target frame, objective and tip stack below it
+  (`@media (max-aspect-ratio: 1/1)`). The results modal splits into two
+  columns on short landscape screens.
+- `<html lang>` follows the active locale (`main.ts`). Arabic gets
+  `unicode-bidi: plaintext` on text blocks (`index.sass`), so sentences read
+  RTL, while the HUD geometry stays LTR.
+- Audio only starts once unlocked (`audioUnlocked` in `useAssets`: the first
+  gesture, or a context that came up running because the embed grants
+  autoplay). A track requested before that waits in `music.ts` and starts on
+  the first gesture. The console stays free of autoplay warnings.

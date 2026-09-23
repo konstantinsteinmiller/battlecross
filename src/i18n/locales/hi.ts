@@ -1,5 +1,6 @@
+// Hindi locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'रद्द करें',
   'close': 'बंद करें',
   'ok': 'ठीक है',
@@ -10,8 +11,6 @@ export default {
   'tip': 'सुझाव',
   'crazyGamesOnly': 'यह गेम केवल यहाँ उपलब्ध है:',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'आगे',
     'replay': 'दोबारा',
@@ -23,262 +22,376 @@ export default {
     'info': 'जानकारी'
   },
 
+  'combat': {
+    'tink': 'टन्न!',
+    'perfect': 'परफ़ेक्ट!',
+    'parry': 'पलटवार!',
+    'guardBreak': 'गार्ड टूटा!',
+    'guardCracked': 'गार्ड में दरार!',
+    'xp': '+{n} XP',
+    'lastStand': 'आख़िरी मोर्चा! सिस्टम रीबूट हुए।',
+    'weak': 'कमज़ोरी!',
+    'dizzy': 'चकराया!',
+    'block': 'ब्लॉक',
+    'slide': 'स्लाइड',
+    'fire': 'फ़ायर',
+    'tank': 'रिपेयर टैंक',
+    'noEnergy': 'हथियार ऊर्जा कम है'
+  },
+
+  'enemy': {
+    'hardhat': 'टोपधारी',
+    'trooper': 'ढाल सैनिक',
+    'heli': 'रोटर ड्रोन',
+    'hopper': 'रौंदू',
+    'roller': 'गियर रोलर',
+    'brute': 'रक्षक रोबोट',
+    'turret': 'दीवार तोप',
+    'elite': 'एलीट',
+    'level': 'लेवल {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'टोपधारी | टोपधारी',
+    'trooper': 'ढाल सैनिक | ढाल सैनिक',
+    'heli': 'रोटर ड्रोन | रोटर ड्रोन',
+    'hopper': 'रौंदू | रौंदू',
+    'roller': 'गियर रोलर | गियर रोलर',
+    'brute': 'रक्षक रोबोट | रक्षक रोबोट',
+    'turret': 'दीवार तोप | दीवार तोपें'
+  },
+
   'hud': {
-    'stage': 'चरण {n}',
-    'best': 'सर्वश्रेष्ठ {n}',
-    'boss': 'बॉस',
-    'miniboss': 'मिनी बॉस',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'अगले बोनस तक के चरण',
-    'bonus': "बोनस +{coins}",
-    'fireRate': 'दर',
-    'incoming': 'हमला आ रहा है!',
-    'dodge': 'बचें',
-    'getIn': 'अंदर जाएँ',
-    'holdStill': 'रुको',
-    'milestone': '{n} की सेना!',
-    'weaponActive': '{name} तैयार',
-    'weaponsActive': '{a} + {b} तैयार',
-    'weaponLocked': '{name} लॉक — {total} में से {n} लीवर दागे गए',
-    'weaponGift': '{name} आगे — मुफ़्त, कोई लीवर नहीं',
-    'weaponFree': 'मुफ़्त'
+    'hp': 'हेल्थ',
+    'we': 'हथियार ऊर्जा',
+    'power': 'शक्ति',
+    'bolts': 'बोल्ट',
+    'level': 'लेवल {n}',
+    'beamOut': 'बीम से लौटें'
   },
 
-  'weapons': {
-    'rocket': 'रॉकेट लॉन्चर',
-    'gatling': 'गैटलिंग गन',
-    'grapeshot': 'छर्रा बंदूक',
-    'dynamo': 'डायनमो',
-    'gravecall': 'कब्र पुकार',
-    'hoard': 'कौए का खज़ाना',
-    'bolt': 'बिजली'
+  'boss': {
+    'stand': 'कबाड़ी',
+    'scrapper': 'कबाड़ी',
+    'blazeMaster': 'ज्वाला मास्टर',
+    'frostMaster': 'हिम मास्टर',
+    'voltMaster': 'वोल्ट मास्टर',
+    'galeMaster': 'आँधी मास्टर',
+    'vexMk1': 'Dr. Vex Mk-I'
   },
 
-  'offer': {
-    'confirm': 'विज्ञापन देखें',
-    'available': 'वीडियो देखें और {weapon} मुफ़्त पाएं'
+  'sector': {
+    'scrapyard': 'कबाड़ यार्ड',
+    'blaze': 'ज्वाला रिफ़ाइनरी',
+    'cryo': 'हिम प्लांट',
+    'volt': 'वोल्ट टावर',
+    'gale': 'आसमानी बंदरगाह',
+    'fortress': 'Vex गढ़'
   },
 
-  'tutorial': {
-    'touch': 'अपनी टुकड़ी हिलाने के लिए स्वाइप करें',
-    'desktop': 'टुकड़ी चलाने के लिए माउस घुमाएँ'
-  },
-  'hints': {
-    'move': { 'touch': 'चलने के लिए टैप करें', 'desktop': 'चलने के लिए क्लिक करें' },
-    'divider': { 'touch': 'गेटों के बीच का खंभा कभी न छुएँ', 'desktop': 'गेटों के बीच का खंभा कभी न छुएँ' },
-    'crate': { 'touch': 'हरे बक्से: सबकी मार बढ़ेगी', 'desktop': 'हरे बक्से: सबकी मार बढ़ेगी' },
-    'rate': { 'touch': 'नीले बक्से: सब तेज़ी से गोली चलाएँगे', 'desktop': 'नीले बक्से: सब तेज़ी से गोली चलाएँगे' },
-    'lever': { 'touch': 'सड़क के किनारों पर दोनों लीवर पर गोली मारो — वे हथियार बॉक्स खोलते हैं', 'desktop': 'सड़क के किनारों पर दोनों लीवर पर गोली मारो — वे हथियार बॉक्स खोलते हैं' },
-    'cage': { 'touch': 'पिंजरों पर गोली चलाओ — कैदी आपकी टोली में शामिल होंगे', 'desktop': 'पिंजरों पर गोली चलाओ — कैदी आपकी टोली में शामिल होंगे' },
-    'shieldBox': { 'touch': 'ढाल बॉक्स — यह इंतज़ार करता है, फिर एक बड़ा वार रोकता है', 'desktop': 'ढाल बॉक्स — यह इंतज़ार करता है, फिर एक बड़ा वार रोकता है' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': '{n} बचे हुए भुनाए गए',
-    'unlocked': 'अनलॉक!',
-
-    'guardian': "एक अभिभावक देवदूत ने आपको बचाया!",
-
-    'guardianSub': "{n} बचे हुए लौट आए",
-
-    'next': "आगे: {label} · {when}",
-    'bossAhead': "आगे बॉस: {name}",
-    'rankUp': "रैंक #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "ग्रम्पलिंग",
-      'bonecap': "बोनकैप",
-      'snaggletusk': "स्नैगलटस्क",
-      'thornwick': "थॉर्नविक",
-      'marrowknight': "मैरोनाइट",
-      'cinderhound': "सिंडरहाउंड",
-      'rattlejack': "रैटलजैक",
-      'skewer': "स्क्यूअर"
+  'quest': {
+    'tutorial': 'जागने का वक़्त',
+    'boss': 'कोर मास्टर से मुक़ाबला',
+    'bossTitle': 'मुक़ाबला: {boss}',
+    'kill': 'कबाड़ ड्यूटी',
+    'collect': 'डेटा रिकवरी',
+    'rescue': 'बचाव अभियान',
+    'elite': 'एलीट शिकार',
+    'supply': 'रसद मिशन',
+    'purge': 'सेक्टर सफ़ाया',
+    'desc': {
+      'tutorial': 'कबाड़ यार्ड में लड़ते हुए आगे बढ़ें और कबाड़ी को धूल चटाएँ।',
+      'boss': '{sector} के कोर में घुसें और {boss} को हराएँ।',
+      'kill': '{sector} में {n} {target} नष्ट करें।',
+      'collect': '{sector} में बिखरे {n} डेटा कोर वापस लाएँ।',
+      'rescue': '{sector} में एक वर्कर-बॉट फँसा है। उसे ढूँढें और बीम करके बाहर निकालें।',
+      'elite': 'एक एलीट {target} ने {sector} में आतंक मचा रखा है। उसका शिकार करें।',
+      'supply': '{sector} में {n} रसद संदूक तोड़कर खोलें।',
+      'purge': '{sector} की हर मशीन नष्ट करें।'
     }
-
+  },
+  'objective': {
+    'title': 'लक्ष्य',
+    'complete': 'लक्ष्य पूरा',
+    'beamOutHint': 'तैयार हों तो बीम से लौटें।',
+    'tutorial': 'कबाड़ी को हराएँ',
+    'boss': 'कोर मास्टर को हराएँ',
+    'kill': '{target} नष्ट करें: {n}/{total}',
+    'collect': 'डेटा कोर: {n}/{total}',
+    'rescue': 'फँसे हुए वर्कर-बॉट को ढूँढें',
+    'elite': 'एलीट {target} का शिकार करें',
+    'supply': 'रसद संदूक: {n}/{total}',
+    'purge': 'नष्ट मशीनें: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} नष्ट!',
+    'objectiveDone': 'लक्ष्य पूरा!',
+    'rescued': 'वर्कर-बॉट बीम होकर सुरक्षित पहुँचा!',
+    'bossDoor': 'शटर घरघराते हुए खुल रहा है…'
+  },
+  'interact': {
+    'chest': 'खोलें',
+    'rescue': 'बचाएँ',
+    'bossDoor': 'अंदर जाएँ'
+  },
+  'progress': {
+    'levelUp': 'लेवल {n}! सिस्टम पूरी तरह ठीक।'
+  },
+  'tips': {
+    'moveTouch': 'बाईं ओर खींचकर चलें, दाईं ओर खींचकर देखें। वहाँ चलने के लिए फ़र्श पर टैप करें!',
+    'moveKeys': 'चलने के लिए WASD, देखने के लिए माउस खींचें। वहाँ चलने के लिए फ़र्श पर क्लिक करें!',
+    'fireTouch': 'आगे मशीनें हैं! टैप करके गोली चलाएँ — चार्ज शॉट के लिए दबाए रखें, फिर छोड़ें।',
+    'fireKeys': 'आगे मशीनें हैं! क्लिक या Space से गोली चलाएँ — चार्ज शॉट के लिए दबाए रखें, फिर छोड़ें।',
+    'hardhat': 'टोपधारी अपने टोप के नीचे सुरक्षित रहते हैं। जब वे झाँकें, तब गोली चलाएँ!',
+    'charge': 'ढालें छोटी गोलियाँ रोक लेती हैं। पूरा चार्ज शॉट उन्हें सीधा भेद देता है।',
+    'blockTouch': 'नारंगी घेरा: ब्लॉक के लिए ढाल दबाए रखें — घेरा बंद होते ही दबाएँ और पलटवार करें!',
+    'blockKeys': 'नारंगी घेरा: ब्लॉक के लिए Shift या राइट-क्लिक दबाए रखें — घेरा बंद होते ही दबाएँ और पलटवार करें!',
+    'red': 'लाल घेरा यानी ब्लॉक नहीं होगा — स्लाइड करके हट जाएँ!',
+    'chest': 'रसद संदूक! खोलने के लिए टैप करें।',
+    'tank': 'हेल्थ कम है? रिपेयर टैंक आपको पूरी तरह ठीक कर देता है।',
+    'bossDoor': 'इस शटर के पीछे कुछ बड़ा इंतज़ार कर रहा है। तैयार?',
+    'beamOut': 'लक्ष्य पूरा! थोड़ा और घूमें, या बीम से लौटें।',
+    'weapon': 'रंगीन बटन से अपना कॉपी किया हथियार चलाएँ!',
+    'levelUp': 'लेवल अप! अपनी स्किल चिप लैब के सर्किट में लगाएँ।'
+  },
+  'loot': {
+    'found': 'लूट: {rarity} {item}!',
+    'tank': 'रिपेयर टैंक मिला!'
   },
 
-  'ladder': {
-    'weaponPick': "हथियार चुनें",
-    'nextStage': "अगला स्टेज",
-    'stagesAway': "{n} स्टेज बाद",
-    'thisStage': "यह स्टेज"
+  'results': {
+    'success': 'मिशन पूरा',
+    'failed': 'मिशन विफल',
+    'xp': 'अनुभव',
+    'bolts': 'बोल्ट',
+    'kills': 'नष्ट मशीनें',
+    'chests': 'खोले गए संदूक',
+    'time': 'समय',
+    'levelUp': 'लेवल अप! अब लेवल {n}',
+    'newWeapon': 'नया हथियार: {weapon}!',
+    'newSector': 'नया सेक्टर खुला: {sector}',
+    'items': 'मिला सामान',
+    'double': 'दोगुने बोल्ट (+{n})'
   },
-  'weaponPick': {
-    'title': "अपना हथियार चुनें",
-    'subtitle': "स्टेज {n} के लिए आपका। रास्ते में और भी हैं।",
-    'take': "ले लो",
-    'rocket': {
-      'a': "लक्ष्य-साधक सैल्वो",
-      'b': "विस्फोट क्षति"
+  'defeat': {
+    'title': 'सिस्टम ठप',
+    'body': 'Cobalt को बहुत ज़्यादा नुकसान हुआ।',
+    'kept': 'अब तक कमाए {xp} XP और {bolts} बोल्ट आपके पास रहेंगे।',
+    'useTank': 'रिपेयर टैंक से रीबूट ({n})',
+    'rebootAd': 'अभी रीबूट करें',
+    'retreat': 'लैब में लौटें'
+  },
+  'pause': {
+    'title': 'रुका हुआ',
+    'resume': 'फिर शुरू करें',
+    'abandon': 'मिशन छोड़ें',
+    'controls': 'कंट्रोल',
+    'touch': {
+      'move': 'बायाँ हिस्सा: चलने के लिए खींचें। वहाँ चलने के लिए फ़र्श पर टैप करें।',
+      'look': 'दायाँ हिस्सा: चारों ओर देखने के लिए खींचें।',
+      'fire': 'लड़ाई में: गोली के लिए टैप करें, चार्ज के लिए दबाए रखें, दागने के लिए छोड़ें।',
+      'block': 'ब्लॉक के लिए ढाल दबाए रखें — पलटवार के लिए ठीक तब, जब घेरा बंद हो।'
     },
-    'gatling': {
-      'a': "दोगुनी फायर दर",
-      'b': "गेट तेज़ी से बढ़ाता है"
+    'keys': {
+      'move': 'WASD / तीर: चलें। वहाँ चलने के लिए फ़र्श पर क्लिक करें।',
+      'look': 'देखने के लिए माउस खींचें।',
+      'fire': 'लेफ़्ट क्लिक या Space: गोली — चार्ज के लिए दबाए रखें।',
+      'block': 'राइट क्लिक या Shift: ब्लॉक — पलटवार के लिए ठीक तब, जब घेरा बंद हो।',
+      'slide': 'Q: स्लाइड · H: रिपेयर टैंक · E: इंटरैक्ट',
+      'more': '1 / 2: विशेष हथियार · Tab: टारगेट बदलें · Esc: रोकें'
     }
   },
-  'bossReward': {
-    'title': "बॉस हार गया!",
-    'subtitle': "स्टेज {n} के लिए तोहफ़ा। दौड़ते रहो!"
+  'levelUp': {
+    'title': 'लेवल अप!',
+    'pick': 'एक सिस्टम अपग्रेड चुनें',
+    'chip': 'आपके सर्किट के लिए +1 स्किल चिप'
   },
-  'result': {
-    'stageClear': 'चरण पूरा!',
-    'clearedStage': 'चरण {n} पूरा!',
-    'wipedOut': 'दस्ता खत्म',
-    'reachedStage': 'चरण {n}',
-    'newRecord': 'नया रिकॉर्ड!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'बॉस गिरा!',
-    'wasted': 'ख़त्म',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'पड़ाव!',
-    'rallied': 'नया जोश',
-    'peakSquad': 'सबसे बड़ा दस्ता',
-    'kills': 'मारे गए',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'सिक्के तिगुने!',
-    'nextStage': 'अगला चरण',
-    'tryAgain': 'फिर कोशिश करें',
-    'upgrade': 'अपग्रेड',
-    'upgradeHint': 'अपनी टुकड़ी को अपग्रेड करें!',
-    'rankOf': '{n} में से'
+  'attr': {
+    'hp': { 'name': 'फ़्रेम', 'desc': 'अधिकतम हेल्थ' },
+    'we': { 'name': 'रिएक्टर', 'desc': 'हथियार ऊर्जा' },
+    'power': { 'name': 'सर्वो', 'desc': 'ब्लॉक और स्लाइड शक्ति' }
   },
 
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'अपना रन शेयर करें',
-    'text': 'मैं {game} में स्टेज {n} तक पहुँचा। क्या तुम इससे आगे जा सकते हो?'
-  },
-
-  'leaderboard': {
-    'title': 'लीडरबोर्ड',
-    'rank': '#',
-    'player': 'खिलाड़ी',
-    'stage': 'चरण',
-    'squad': 'दस्ता',
-    'empty': 'अभी कोई स्कोर नहीं। पहले बनें!',
-    'failed': 'लीडरबोर्ड तक नहीं पहुँच सके।',
-    'loading': 'लोड हो रहा है…',
-    'you': 'आप',
-    'yourRank': '{total} खिलाड़ियों में आप #{n} पर हैं',
-    'tabGlobal': 'वैश्विक'
-  },
-
-  'chest': {
-    'label': 'खज़ाने का संदूक',
-    'ready': '{n} सिक्कों के लिए संदूक खोलें',
-    'filling': 'खज़ाने का संदूक भर रहा है',
-    'spent': 'खज़ाने का संदूक कल तक खाली है'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'दैनिक अभियान',
-    'hud': 'अभियान',
-    'multiplier': '{n}×',
-    'available': 'दैनिक अभियान — आज का रास्ता, तिगुने सिक्के',
-    'confirm': 'अभियान शुरू करें',
-    'spent': 'दैनिक अभियान — नया रास्ता {time} में',
-    'done': 'कल फिर आएं',
-    'back': 'मुख्य खेल पर लौटें'
-  },
-
-  'skills': {
-
-    'grenade': 'ग्रेनेड',
-
-    'shield': 'ढाल',
-
-    'locked': 'लॉक है',
-
-    'unlocksAt': 'स्टेज {n} पर खुलेगा',
-
-    'frost': 'फ्रॉस्ट नोवा',
-
-    'decoy': 'छल फ़्लेयर',
-
-    'trialLabel': '{name} · मुफ़्त आज़माएँ',
-
-    'trialTag': 'मुफ़्त आज़माएँ!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'यह सबको ले गया।',
-    'alive': 'वे अब भी ज़िंदा हैं।',
-    'go': 'जाओ, उन्हें लाओ।',
-    'skip': 'छोड़ें'
-  },
-
-  'upgrades': {
-    'title': 'अपग्रेड',
-    'spotlight': 'खर्च करें!',
-    'level': 'लेव {n}',
-    'maxed': 'अधिकतम',
-    'peekLabel': 'अपग्रेड: {name}',
-    'peekLabelReady': 'अपग्रेड: {name} — {n} खरीदने के लिए तैयार',
-    'names': {
-      'squad': 'दस्ता',
-      'power': 'मारक क्षमता',
-      'rate': 'फायर दर',
-      'range': 'पहुँच',
-      'scavenge': 'खोज',
-      'grenade': 'ग्रेनेड',
-      'shield': 'ढाल',
-      'rocket': 'रॉकेट शक्ति',
-      'gatling': 'गैटलिंग शक्ति',
-      'grapeshot': 'छर्रा शक्ति',
-      'dynamo': 'डायनमो शक्ति',
-      'gravecall': 'कब्र पुकार शक्ति',
-      'hoard': 'खज़ाना शक्ति'
+  'hub': {
+    'tab': {
+      'missions': 'मिशन',
+      'hero': 'Cobalt',
+      'circuits': 'सर्किट',
+      'workshop': 'वर्कशॉप'
     },
-    'descriptions': {
-      'squad': 'हर चरण अधिक बचे लोगों के साथ शुरू करें।',
-      'power': 'हर सदस्य प्रति गोली अधिक नुकसान करता है।',
-      'rate': 'हर सदस्य तेज़ी से गोली चलाता है।',
-      'range': 'आपकी टुकड़ी सड़क पर और आगे से गोली चलाती है।',
-      'scavenge': 'हर दौर में अधिक सिक्के कमाएँ।',
-      'grenade': 'भारी नुकसान के लिए ग्रेनेड फेंकें।',
-      'shield': 'कुछ सेकंड के लिए आपकी टुकड़ी को आधा नुकसान।',
-      'rocket': 'स्टेज में मिले रॉकेट लॉन्चर ज़्यादा नुकसान करते हैं।',
-      'gatling': 'स्टेज में मिली गैटलिंग गन ज़्यादा नुकसान करती है।',
-      'grapeshot': 'स्टेज में मिली छर्रा बंदूकें ज़्यादा नुकसान करती हैं।',
-      'dynamo': 'स्टेज में मिली डायनमो बिजली ज़्यादा ज़ोर से मारती है।',
-      'gravecall': 'आपके जगाए मुर्दे ज़्यादा ताकत से लड़ते हैं और लंबे टिकते हैं।',
-      'hoard': 'सोने में बदले दुश्मन ज़्यादा सिक्के देते हैं।'
+    'levelUpReady': 'लेवल अप!',
+    'levels': 'लेवल {a}–{b}',
+    'story': 'कहानी मिशन',
+    'jobs': 'काम',
+    'jobsHint': 'दोबारा खेले जा सकते हैं — पूरे करते ही नए आते हैं',
+    'lockedHint': '{boss} को हराकर यह सेक्टर खोलें।',
+    'sectorSecured': 'सेक्टर सुरक्षित। इसके काम अब भी बोर्ड पर हैं।',
+    'deploy': 'रवाना हों',
+    'reroll': 'नया काम'
+  },
+  'hero': {
+    'weapons': 'विशेष हथियार',
+    'weaponSlot': 'स्लॉट {n}',
+    'weaponRank': 'रैंक {n}',
+    'noWeapons': 'कोर मास्टरों को हराकर उनके हथियार कॉपी करें।',
+    'attrPending': '{n} सिस्टम अपग्रेड चुनें!',
+    'stats': 'सिस्टम',
+    'attributes': 'अपग्रेड',
+    'stat': {
+      'hp': 'अधिकतम हेल्थ',
+      'we': 'हथियार ऊर्जा',
+      'power': 'शक्ति',
+      'damage': 'गोली का नुकसान',
+      'charge': 'चार्ज शॉट',
+      'armor': 'कवच',
+      'crit': 'क्रिटिकल मौका',
+      'tanks': 'रिपेयर टैंक'
     }
+  },
+  'workshop': {
+    'tanks': 'रसद',
+    'tankName': 'रिपेयर टैंक',
+    'tankDesc': 'मिशन के बीच हेल्थ और शक्ति पूरी तरह भर देता है।',
+    'owned': 'साथ में: {n}/{max}',
+    'upgrade': 'सामान अपग्रेड करें',
+    'next': 'अगला लेवल',
+    'upgradeBtn': 'अपग्रेड',
+    'maxed': 'पूरा अपग्रेड'
+  },
+
+  'board': {
+    'buster': 'बस्टर',
+    'armor': 'कवच',
+    'core': 'कोर'
+  },
+  'circuits': {
+    'chips': 'स्किल चिप: {n}',
+    'rank': 'रैंक {n}/{max}',
+    'requires': '{name} रैंक {n} ज़रूरी',
+    'install': 'चिप लगाएँ',
+    'maxed': 'पूरी शक्ति',
+    'respec': 'सर्किट रीसेट ({n} बोल्ट)'
+  },
+  'skill': {
+    'rapid': { 'name': 'तेज़ गोलियाँ', 'desc': 'हर चिप पर क्विक-शॉट नुकसान +10%।' },
+    'quickCharge': { 'name': 'तेज़ चार्ज', 'desc': 'हर चिप पर चार्ज समय −10%।' },
+    'megaCharge': { 'name': 'मेगा चार्ज', 'desc': 'हर चिप पर चार्ज शॉट नुकसान +12%।' },
+    'perfectTiming': { 'name': 'परफ़ेक्ट टाइमिंग', 'desc': 'परफ़ेक्ट रिलीज़ के लिए ज़्यादा समय और ज़ोरदार क्रिटिकल।' },
+    'piercing': { 'name': 'भेदी कोर', 'desc': 'आधे चार्ज वाले शॉट भी ढाल और टोप तोड़ देते हैं।' },
+    'giga': { 'name': 'गीगा बस्टर', 'desc': 'पूरे चार्ज के बाद भी दबाए रखें — विनाशकारी तीसरे लेवल के लिए।' },
+    'frame': { 'name': 'मज़बूत फ़्रेम', 'desc': 'हर चिप पर अधिकतम हेल्थ +8%।' },
+    'barrier': { 'name': 'बैरियर ट्यूनिंग', 'desc': 'ब्लॉक में कम शक्ति लगती है और कम नुकसान पार होता है।' },
+    'autoRepair': { 'name': 'ऑटो-रिपेयर', 'desc': 'लड़ाई से बाहर हर सेकंड 1% हेल्थ वापस, हर चिप पर।' },
+    'parry': { 'name': 'पलटवार प्रोटोकॉल', 'desc': 'पलटवार के लिए ज़्यादा समय; पलटवार झेलने वाली मशीनें देर तक सुन्न रहती हैं।' },
+    'spikes': { 'name': 'काँटेदार परत', 'desc': 'हर चिप पर ब्लॉक किए नुकसान का 15% लौटाएँ।' },
+    'lastStand': { 'name': 'आख़िरी मोर्चा', 'desc': 'हर मिशन में एक बार, जानलेवा वार 1 हेल्थ के साथ झेल जाएँ।' },
+    'cells': { 'name': 'ऊर्जा सेल', 'desc': 'हर चिप पर हथियार ऊर्जा +3।' },
+    'mastery': { 'name': 'हथियार महारत', 'desc': 'हर चिप पर विशेष हथियार नुकसान +10%।' },
+    'boosters': { 'name': 'स्लाइड बूस्टर', 'desc': 'स्लाइड जल्दी दोबारा तैयार, और सस्ती।' },
+    'efficient': { 'name': 'कुशल कोर', 'desc': 'हर चिप पर विशेष हथियार 10% कम ऊर्जा लेते हैं।' },
+    'magnet': { 'name': 'बोल्ट चुंबक', 'desc': 'ज़्यादा बोल्ट और दूर तक पिकअप।' },
+    'tankCap': { 'name': 'टैंक क्षमता', 'desc': 'हर चिप पर एक और रिपेयर टैंक साथ रखें।' }
+  },
+
+  'rarity': {
+    'standard': 'मानक',
+    'tuned': 'उन्नत',
+    'prototype': 'प्रोटोटाइप',
+    'legendary': 'लेजेंडरी'
+  },
+  'item': {
+    'arm_standard': 'मानक बस्टर',
+    'arm_rapid': 'तेज़ बस्टर',
+    'arm_heavy': 'भारी बस्टर',
+    'arm_quick': 'तेज़-चार्ज बस्टर',
+    'arm_nova': 'नोवा बस्टर',
+    'helm_scout': 'स्काउट हेलमेट',
+    'helm_guard': 'गार्ड हेलमेट',
+    'helm_ace': 'ऐस हेलमेट',
+    'helm_royal': 'शाही हेलमेट',
+    'body_light': 'हल्का फ़्रेम',
+    'body_plated': 'कवचदार फ़्रेम',
+    'body_reactor': 'रिएक्टर फ़्रेम',
+    'body_aegis': 'एजिस फ़्रेम',
+    'boots_basic': 'साधारण बूट',
+    'boots_dash': 'डैश बूट',
+    'boots_magnet': 'चुंबकीय बूट',
+    'boots_titan': 'टाइटन बूट',
+    'chip_logic': 'लॉजिक चिप',
+    'chip_quantum': 'क्वांटम चिप'
+  },
+  'slot': {
+    'buster': 'बस्टर',
+    'helmet': 'हेलमेट',
+    'chest': 'फ़्रेम',
+    'boots': 'बूट',
+    'chip': 'चिप'
+  },
+  'gear': {
+    'damage': 'नुकसान',
+    'armor': 'कवच',
+    'equip': 'लगाएँ',
+    'unequip': 'हटाएँ',
+    'equipped': 'लगा है',
+    'new': 'नया',
+    'salvage': 'कबाड़ करें (+{n})',
+    'noAffixes': 'कोई बोनस मॉड्यूल नहीं',
+    'emptySlot': 'इस सॉकेट के लिए अभी कुछ नहीं — संदूक खोलें और काम पूरे करें।'
+  },
+  'affix': {
+    'crit': '{v} क्रिटिकल मौका',
+    'critDmg': '{v} क्रिटिकल नुकसान',
+    'hp': '{v} अधिकतम हेल्थ',
+    'armor': '{v} कवच',
+    'we': '{v} हथियार ऊर्जा',
+    'power': '{v} शक्ति',
+    'bolts': '{v} बोल्ट की कमाई',
+    'chargeSpeed': '{v} चार्ज गति',
+    'pelletDmg': '{v} गोली नुकसान',
+    'chargeDmg': '{v} चार्ज शॉट नुकसान',
+    'moveSpeed': '{v} चलने की गति',
+    'special': '{v} विशेष हथियार नुकसान',
+    'regen': '{v} हेल्थ वापसी / सेकंड (लड़ाई से बाहर)',
+    'magnet': '{v} पिकअप दूरी'
+  },
+  'weapon': {
+    'rankUp': '{weapon} अब रैंक {n} पर!',
+    'scrapBurst': { 'name': 'कबाड़ बौछार', 'desc': 'कबाड़ की तीन-तरफ़ा बौछार। भीड़ पर ज़बरदस्त।' },
+    'flameWave': { 'name': 'ज्वाला लहर', 'desc': 'आग का गोला फ़र्श पर लुढ़कते हुए रास्ते की हर मशीन को चीरता है और उन्हें जला देता है।' },
+    'iceLance': { 'name': 'हिम भाला', 'desc': 'भेदने वाला भाला, जिसे लगे उसे जमा दे।' },
+    'thunderArc': { 'name': 'वज्र चाप', 'desc': 'तुरंत गिरने वाली बिजली, जो पास की मशीनों तक उछलती है।' },
+    'galeGuard': { 'name': 'आँधी कवच', 'desc': 'पत्ते आपके चारों ओर घूमते हैं, गोलियाँ रोकते हैं और मशीनें काटते हैं। दोबारा इस्तेमाल करें तो वे फेंके जाते हैं।' }
   },
 
   'options': {
-    'title': 'विकल्प', 'general': 'सामान्य', 'audio': 'ऑडियो', 'language': 'भाषा',
-    'difficulty': 'कठिनाई', 'soundEffects': 'ध्वनि प्रभाव', 'music': 'संगीत', 'musicTrack': 'संगीत ट्रैक',
-    'musicTracks': { 'cozy': 'सुकून भरी धुन', 'trance': 'ट्रांस टनल' },
-    'haptics': 'कंपन', 'on': 'चालू', 'off': 'बंद',
+    'title': 'विकल्प',
+    'general': 'सामान्य',
+    'audio': 'ऑडियो',
+    'language': 'भाषा',
+    'difficulty': 'कठिनाई',
+    'soundEffects': 'ध्वनि प्रभाव',
+    'music': 'संगीत',
+    'musicTrack': 'संगीत ट्रैक',
+    'musicTracks': {
+      'cozy': 'शांत सर्किट',
+      'trance': 'मेगा ड्राइव'
+    },
+    'haptics': 'कंपन',
+    'on': 'चालू',
+    'off': 'बंद',
     'close': 'सहेजें और बंद करें',
-    'difficulties': { 'easy': 'आसान', 'medium': 'मध्यम', 'hard': 'कठिन' },
+    'lookSensitivity': 'देखने की संवेदनशीलता',
+    'difficulties': {
+      'easy': 'आसान',
+      'medium': 'मध्यम',
+      'hard': 'कठिन'
+    },
     'difficultyHints': {
-      'easy': 'कमज़ोर दुश्मन और पतली रुकावटें।',
-      'medium': 'सामान्य दौर।',
-      'hard': 'मज़बूत दुश्मन और भारी रुकावटें।'
+      'easy': 'मशीनें हल्का वार करती हैं और जल्दी गिरती हैं।',
+      'medium': 'जैसी चुनौती सोची गई थी।',
+      'hard': 'ज़्यादा मज़बूत मशीनें, ज़्यादा ज़ोरदार वार।'
     }
   },
-
   'adsBlocked': {
     'title': 'विज्ञापन नहीं दिखा सके',
     'body': 'हमने आपको इनाम दिलाने के लिए वीडियो दिखाने की कोशिश की, पर आपके ब्राउज़र में कुछ विज्ञापन रोक रहा है।',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'समझ गया'
   },
   'saveStatus': {
-    'restoredTitle': 'क्लाउड सेव बहाल हुआ', 'restoredBody': 'रिकवरी के लिए +{n} बोनस सिक्के',
-    'tap': 'टैप', 'pausedTitle': 'क्लाउड सिंक रुका',
+    'restoredTitle': 'क्लाउड सेव बहाल हुआ',
+    'restoredBody': 'रिकवरी के लिए +{n} बोनस बोल्ट',
+    'tap': 'टैप',
+    'pausedTitle': 'क्लाउड सिंक रुका',
     'pausedBody': 'ऑफ़लाइन खेल रहे हैं। आपकी प्रगति यहाँ सहेजी जा रही है।',
-    'retry': 'फिर कोशिश करें', 'dismiss': 'हटाएँ'
+    'retry': 'फिर कोशिश करें',
+    'dismiss': 'हटाएँ'
   },
-  'loading': { 'tooLong': 'लोड होने में बहुत समय लग रहा है? ऐड-ब्लॉकर बंद करें और रीफ़्रेश करें।', 'boo': 'बू!', 'laugh': 'हाहाहा!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'अपना फ़ोन घुमाएँ',
-    'body': 'Survivalist पोर्ट्रेट में खेली जाती है.'
+  'loading': {
+    'tooLong': 'लोड होने में बहुत समय लग रहा है? ऐड-ब्लॉकर बंद करें और रीफ़्रेश करें।'
   },
-  'license': { 'denied': 'पहुँच अस्वीकृत: कृपया लाइसेंस खरीदें।' }
+  'license': {
+    'denied': 'पहुँच अस्वीकृत: कृपया लाइसेंस खरीदें।'
+  }
 }

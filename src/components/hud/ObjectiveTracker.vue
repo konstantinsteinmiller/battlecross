@@ -52,4 +52,11 @@ const { t } = useI18n()
   font-size: clamp(11px, 2.4vmin, 15px)
   line-height: 1.25
   text-shadow: 0 2px 0 #141a33
+// Portrait: too narrow to share the top row with the status pills, so the
+// tracker sits under the bars instead.
+@media (max-aspect-ratio: 1/1)
+  .obj
+    left: calc(env(safe-area-inset-left, 0px) + clamp(8px, 2.2vmin, 18px))
+    top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(110px, 28vmin, 200px) + 24px)
+    max-width: min(70vw, 320px)
 </style>

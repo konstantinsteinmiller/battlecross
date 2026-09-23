@@ -33,3 +33,10 @@ html, body
   50%
     background-color: #f7a000 !important
     opacity: 0.7
+
+// Arabic: every text block takes its base direction from its own first strong
+// character, so a sentence with an embedded Latin name (Cobalt, WASD) reads
+// right-to-left with the Latin run in place. The layout itself stays LTR —
+// the HUD's thumb zones and the hub geometry do not mirror.
+html[lang="ar"] body *
+  unicode-bidi: plaintext

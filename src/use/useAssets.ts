@@ -30,6 +30,21 @@ let resumeListenerArmed = false
  *  during an ad) can never re-unmute early. */
 let suspendDepth = 0
 
+type ActivationNavigator = Navigator & { userActivation?: { hasBeenActive: boolean } }
+
+/** The context came up running: the embed already grants autoplay (e.g. an
+ *  iframe with allow="autoplay" on a page the player has clicked). */
+let autoplayAtBirth = false
+
+/**
+ * Whether audio may start yet. Before the first gesture the autoplay policy
+ * refuses to start or resume a context (unless the embed grants autoplay), and
+ * Chrome logs a console warning for every refusal. Browsers without the User
+ * Activation API report true and rely on the gesture resume below.
+ */
+export const audioUnlocked = (): boolean =>
+  autoplayAtBirth || (navigator as ActivationNavigator).userActivation?.hasBeenActive !== false
+
 export const getAudioContext = (): AudioContext | null => {
   if (sharedAudioCtx) return sharedAudioCtx
   const Ctor = (window as any).AudioContext || (window as any).webkitAudioContext
@@ -39,6 +54,7 @@ export const getAudioContext = (): AudioContext | null => {
   } catch {
     return null
   }
+  autoplayAtBirth = sharedAudioCtx.state === 'running'
   // Born into an already-suspended world. A context constructed on a page that
   // has seen a user gesture starts `running`, so one created AFTER a mute has
   // landed (a portal `soundOff` at boot, a tab hidden before the first sound, an
@@ -104,7 +120,7 @@ export const suspendAllAudio = (): void => {
 export const resumeAllAudio = (): void => {
   suspendDepth = Math.max(0, suspendDepth - 1)
   if (suspendDepth > 0) return
-  if (sharedAudioCtx && sharedAudioCtx.state === 'suspended') {
+  if (sharedAudioCtx && sharedAudioCtx.state === 'suspended' && audioUnlocked()) {
     void sharedAudioCtx.resume()
   }
   for (const el of trackedAudioElements) {

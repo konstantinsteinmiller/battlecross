@@ -1,4 +1,4 @@
-import { audio, noise, pulse, midiHz } from './engine'
+import { audio, audioAllowed, noise, pulse, midiHz } from './engine'
 import { mulberry32, type Rng } from '../world/rng'
 
 /**
@@ -241,10 +241,35 @@ const tick = (): void => {
   }
 }
 
+// A track asked for before the first gesture waits here. Activation lands on
+// pointerup for touch (pointerdown only counts for a mouse), so listen to both.
+let pending: TrackId | null = null
+let gestureArmed = false
+const GESTURES = ['pointerdown', 'pointerup', 'keydown'] as const
+
+const onGesture = (): void => {
+  if (!audioAllowed()) return
+  for (const g of GESTURES) window.removeEventListener(g, onGesture, true)
+  gestureArmed = false
+  const id = pending
+  pending = null
+  if (id) playMusic(id)
+}
+
+const startOnGesture = (id: TrackId): void => {
+  pending = id
+  if (gestureArmed) return
+  gestureArmed = true
+  for (const g of GESTURES) window.addEventListener(g, onGesture, true)
+}
+
 /** Start (or switch to) a track. Idempotent for the track already playing. */
 export const playMusic = (id: TrackId): void => {
   const a = audio()
-  if (!a) return
+  if (!a) {
+    startOnGesture(id)
+    return
+  }
   if (current === id && timer !== null) return
   if (!cache.has(id)) cache.set(id, composeTrack(id))
   stopMusic(0.15)
@@ -261,6 +286,7 @@ export const playMusic = (id: TrackId): void => {
 
 /** Stop with a short fade. */
 export const stopMusic = (fade = 0.25): void => {
+  pending = null
   if (timer !== null) {
     clearInterval(timer)
     timer = null

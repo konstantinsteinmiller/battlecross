@@ -1,5 +1,6 @@
+// Arabic locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'إلغاء',
   'close': 'إغلاق',
   'ok': 'حسناً',
@@ -10,8 +11,6 @@ export default {
   'tip': 'نصيحة',
   'crazyGamesOnly': 'هذه اللعبة متاحة فقط على',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'التالي',
     'replay': 'إعادة',
@@ -23,262 +22,376 @@ export default {
     'info': 'معلومات'
   },
 
+  'combat': {
+    'tink': 'طِنّ!',
+    'perfect': 'مثالي!',
+    'parry': 'صدّ!',
+    'guardBreak': 'كسر الدفاع!',
+    'guardCracked': 'تصدّع الدفاع!',
+    'xp': '+{n} خبرة',
+    'lastStand': 'الصمود الأخير! أُعيد تشغيل الأنظمة.',
+    'weak': 'نقطة ضعف!',
+    'dizzy': 'دُوار!',
+    'block': 'دفاع',
+    'slide': 'انزلاق',
+    'fire': 'إطلاق',
+    'tank': 'خزان الإصلاح',
+    'noEnergy': 'طاقة السلاح غير كافية'
+  },
+
+  'enemy': {
+    'hardhat': 'خوذة',
+    'trooper': 'حامل الدرع',
+    'heli': 'مسيّرة مروحية',
+    'hopper': 'دهّاس',
+    'roller': 'ترس دوّار',
+    'brute': 'حارس آلي',
+    'turret': 'مدفع جداري',
+    'elite': 'نخبة',
+    'level': 'مستوى {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'خوذة | خوذات',
+    'trooper': 'حامل درع | حاملي دروع',
+    'heli': 'مسيّرة مروحية | مسيّرات مروحية',
+    'hopper': 'دهّاس | دهّاسات',
+    'roller': 'ترس دوّار | تروس دوّارة',
+    'brute': 'حارس آلي | حرّاس آليين',
+    'turret': 'مدفع جداري | مدافع جدارية'
+  },
+
   'hud': {
-    'stage': 'المرحلة {n}',
-    'best': 'الأفضل {n}',
-    'boss': 'الزعيم',
-    'miniboss': 'زعيم صغير',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'المراحل حتى المكافأة التالية',
-    'bonus': "مكافأة +{coins}",
-    'fireRate': 'معدل',
-    'incoming': 'هجوم قادم!',
-    'dodge': 'تفادَ',
-    'getIn': 'ادخل',
-    'holdStill': 'اثبت',
-    'milestone': '{n} مقاتل!',
-    'weaponActive': '{name} جاهز',
-    'weaponsActive': '{a} + {b} جاهزان',
-    'weaponLocked': '{name} مقفل — تمت إصابة {n} من {total} رافعات',
-    'weaponGift': '{name} في الأمام — مجاني، بلا روافع',
-    'weaponFree': 'مجاني'
-  },
-
-  'weapons': {
-    'rocket': 'قاذف صواريخ',
-    'gatling': 'رشاش غاتلينغ',
-    'grapeshot': 'بندقية خرطوش',
-    'dynamo': 'دينامو',
-    'gravecall': 'نداء القبور',
-    'hoard': 'كنز الغراب',
-    'bolt': 'صاعقة'
-  },
-
-  'offer': {
-    'confirm': 'شاهد الإعلان',
-    'available': 'شاهد فيديو واحصل على {weapon} مجانًا'
-  },
-
-  'tutorial': {
-    'touch': 'اسحب لتحريك فريقك',
-    'desktop': 'حرّك الفأرة لتوجيه فريقك'
-  },
-  'hints': {
-    'move': { 'touch': 'اضغط للتحرك', 'desktop': 'انقر للتحرك' },
-    'divider': { 'touch': 'لا تلمس العمود بين البوابتين', 'desktop': 'لا تلمس العمود بين البوابتين' },
-    'crate': { 'touch': 'الصناديق الخضراء: الجميع يضرب أقوى', 'desktop': 'الصناديق الخضراء: الجميع يضرب أقوى' },
-    'rate': { 'touch': 'الصناديق الزرقاء: الجميع يطلق أسرع', 'desktop': 'الصناديق الزرقاء: الجميع يطلق أسرع' },
-    'lever': { 'touch': 'أطلق على كلتا الرافعتين على حافتي الطريق — تفتحان صندوق السلاح', 'desktop': 'أطلق على كلتا الرافعتين على حافتي الطريق — تفتحان صندوق السلاح' },
-    'cage': { 'touch': 'حطّم الأقفاص — الأسرى ينضمّون إلى فريقك', 'desktop': 'حطّم الأقفاص — الأسرى ينضمّون إلى فريقك' },
-    'shieldBox': { 'touch': 'صندوق الدرع — ينتظر ثم يصدّ ضربة كبيرة', 'desktop': 'صندوق الدرع — ينتظر ثم يصدّ ضربة كبيرة' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': 'تم صرف {n} ناجيًا',
-    'unlocked': 'تم الفتح!',
-
-    'guardian': "أنقذك ملاك حارس!",
-
-    'guardianSub': "عاد {n} من الناجين",
-
-    'next': "التالي: {label} · {when}",
-    'bossAhead': "الزعيم في الطريق: {name}",
-    'rankUp': "المرتبة #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "غرامبلينغ",
-      'bonecap': "بونكاب",
-      'snaggletusk': "سناغلتاسك",
-      'thornwick': "ثورنويك",
-      'marrowknight': "مارونايت",
-      'cinderhound': "سيندرهاوند",
-      'rattlejack': "راتلجاك",
-      'skewer': "سكيوَر"
-    }
-
-  },
-
-  'ladder': {
-    'weaponPick': "اختر سلاحًا",
-    'nextStage': "المرحلة التالية",
-    'stagesAway': "بعد {n} مراحل",
-    'thisStage': "هذه المرحلة"
-  },
-  'weaponPick': {
-    'title': "اختر سلاحك",
-    'subtitle': "لك في المرحلة {n}. المزيد بانتظارك على الطريق.",
-    'take': "خذه",
-    'rocket': {
-      'a': "وابل موجّه",
-      'b': "ضرر انفجاري"
-    },
-    'gatling': {
-      'a': "ضعف معدل الإطلاق",
-      'b': "يشحن البوابات أسرع"
-    }
-  },
-  'bossReward': {
-    'title': "هزمت الزعيم!",
-    'subtitle': "هدية للمرحلة {n}. واصل الركض!"
-  },
-  'result': {
-    'stageClear': 'اجتزت المرحلة!',
-    'clearedStage': 'اجتزت المرحلة {n}!',
-    'wipedOut': 'أُبيد الفريق',
-    'reachedStage': 'المرحلة {n}',
-    'newRecord': 'رقم قياسي جديد!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'سقط الزعيم!',
-    'wasted': 'مُهدَر',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'إنجاز!',
-    'rallied': 'نفَس ثانٍ',
-    'peakSquad': 'أكبر فريق',
-    'kills': 'القتلى',
-    'tripleCoins': '×3',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'تضاعفت العملات ثلاث مرات!',
-    'nextStage': 'المرحلة التالية',
-    'tryAgain': 'حاول مجددًا',
-    'upgrade': 'ترقية',
-    'upgradeHint': 'طوّر فريقك!',
-    'rankOf': 'من {n}'
-  },
-
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'شارك جولتك',
-    'text': 'وصلت إلى المرحلة {n} في {game}. هل تقدر تتجاوزني؟'
-  },
-
-  'leaderboard': {
-    'title': 'لوحة الصدارة',
-    'rank': '#',
-    'player': 'اللاعب',
-    'stage': 'المرحلة',
-    'squad': 'الفريق',
-    'empty': 'لا توجد نتائج بعد. كن الأول!',
-    'failed': 'تعذر الوصول إلى لوحة الصدارة.',
-    'loading': 'جارٍ التحميل…',
-    'you': 'أنت',
-    'yourRank': 'ترتيبك #{n} من {total} لاعب',
-    'tabGlobal': 'عالمي'
-  },
-
-  'chest': {
-    'label': 'صندوق الكنز',
-    'ready': 'افتح صندوق الكنز مقابل {n} عملة',
-    'filling': 'صندوق الكنز قيد الامتلاء',
-    'spent': 'صندوق الكنز فارغ حتى الغد'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'الرحلة اليومية',
-    'hud': 'رحلة',
-    'multiplier': '×{n}',
-    'available': 'الرحلة اليومية — طريق اليوم، عملات ثلاثية',
-    'confirm': 'ابدأ الرحلة',
-    'spent': 'الرحلة اليومية — طريق جديد بعد {time}',
-    'done': 'عد غدًا',
-    'back': 'العودة إلى الحملة'
-  },
-
-  'skills': {
-
-    'grenade': 'قنبلة',
-
-    'shield': 'درع',
-
-    'locked': 'مقفل',
-
-    'unlocksAt': 'يُفتح في المرحلة {n}',
-
-    'frost': 'نوفا الصقيع',
-
-    'decoy': 'شعلة الخداع',
-
-    'trialLabel': '{name} · تجربة مجانية',
-
-    'trialTag': 'تجربة مجانية!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'لقد أخذ الجميع.',
-    'alive': 'ما زالوا أحياء.',
-    'go': 'اذهب وأنقذهم.',
-    'skip': 'تخطٍّ'
-  },
-
-  'upgrades': {
-    'title': 'الترقيات',
-    'spotlight': 'أنفق!',
+    'hp': 'الصحة',
+    'we': 'طاقة السلاح',
+    'power': 'القوة',
+    'bolts': 'البراغي',
     'level': 'مستوى {n}',
-    'maxed': 'الأقصى',
-    'peekLabel': 'الترقيات: {name}',
-    'peekLabelReady': 'الترقيات: {name} — {n} جاهزة للشراء',
-    'names': {
-      'squad': 'الفريق',
-      'power': 'قوة النيران',
-      'rate': 'معدل الإطلاق',
-      'range': 'المدى',
-      'scavenge': 'التجميع',
-      'grenade': 'قنبلة',
-      'shield': 'درع',
-      'rocket': 'قوة الصواريخ',
-      'gatling': 'قوة الرشاش',
-      'grapeshot': 'قوة الخرطوش',
-      'dynamo': 'قوة الدينامو',
-      'gravecall': 'قوة نداء القبور',
-      'hoard': 'قوة الكنز'
-    },
-    'descriptions': {
-      'squad': 'ابدأ كل مرحلة بعدد أكبر من الناجين.',
-      'power': 'كل ناجٍ يسبب ضررًا أكبر لكل طلقة.',
-      'rate': 'كل ناجٍ يطلق النار أسرع.',
-      'range': 'تفتح فرقتك النار من مسافة أبعد على الطريق.',
-      'scavenge': 'اكسب عملات أكثر في كل جولة.',
-      'grenade': 'ألقِ قنبلة لإحداث ضرر كبير.',
-      'shield': 'يقلّل الضرر على فريقك إلى النصف لبضع ثوانٍ.',
-      'rocket': 'قاذفات الصواريخ التي تفتحها في المرحلة تُلحق ضررًا أكبر.',
-      'gatling': 'رشاشات غاتلينغ التي تفتحها في المرحلة تُلحق ضررًا أكبر.',
-      'grapeshot': 'بنادق الخرطوش التي تفتحها في المرحلة تُلحق ضررًا أكبر.',
-      'dynamo': 'صواعق الدينامو التي تفتحها في المرحلة تضرب بقوة أكبر.',
-      'gravecall': 'الموتى الذين تبعثهم يقاتلون بقوة أكبر ويصمدون لفترة أطول.',
-      'hoard': 'الأعداء الذين يتحولون إلى ذهب يمنحون عملات أكثر.'
+    'beamOut': 'انتقال آني'
+  },
+
+  'boss': {
+    'stand': 'مقاتل الخردة',
+    'scrapper': 'مقاتل الخردة',
+    'blazeMaster': 'سيد اللهب',
+    'frostMaster': 'سيد الصقيع',
+    'voltMaster': 'سيد البرق',
+    'galeMaster': 'سيد الرياح',
+    'vexMk1': 'Dr. Vex Mk-I'
+  },
+
+  'sector': {
+    'scrapyard': 'ساحة الخردة',
+    'blaze': 'مصفاة اللهب',
+    'cryo': 'مصنع التجميد',
+    'volt': 'برج البرق',
+    'gale': 'مرفأ السماء',
+    'fortress': 'قلعة Vex'
+  },
+
+  'quest': {
+    'tutorial': 'جرس الاستيقاظ',
+    'boss': 'مواجهة سيد النواة',
+    'bossTitle': 'مواجهة: {boss}',
+    'kill': 'مهمة تخريد',
+    'collect': 'استعادة البيانات',
+    'rescue': 'عملية إنقاذ',
+    'elite': 'صيد النخبة',
+    'supply': 'جولة إمداد',
+    'purge': 'تطهير القطاع',
+    'desc': {
+      'tutorial': 'شقّ طريقك عبر ساحة الخردة وأطِح بمقاتل الخردة.',
+      'boss': 'اقتحم قلب {sector} واهزم {boss}.',
+      'kill': 'دمّر {n} {target} في {sector}.',
+      'collect': 'استعد {n} من نوى البيانات المتناثرة في {sector}.',
+      'rescue': 'روبوت عامل عالق في {sector}. اعثر عليه وانقله آنياً إلى الأمان.',
+      'elite': 'نسخة نخبة من {target} تروّع {sector}. تعقّبها!',
+      'supply': 'افتح {n} صناديق إمداد في {sector}.',
+      'purge': 'دمّر كل آلة في {sector}.'
     }
+  },
+  'objective': {
+    'title': 'الهدف',
+    'complete': 'اكتمل الهدف',
+    'beamOutHint': 'عُد بالنقل الآني متى كنت مستعداً.',
+    'tutorial': 'اهزم مقاتل الخردة',
+    'boss': 'اهزم سيد النواة',
+    'kill': 'دمّر {target}: {n}/{total}',
+    'collect': 'نوى البيانات: {n}/{total}',
+    'rescue': 'اعثر على الروبوت العامل العالق',
+    'elite': 'تعقّب النخبة: {target}',
+    'supply': 'صناديق الإمداد: {n}/{total}',
+    'purge': 'الآلات المدمّرة: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': 'تم تدمير {boss}!',
+    'objectiveDone': 'اكتمل الهدف!',
+    'rescued': 'نُقل الروبوت العامل إلى برّ الأمان!',
+    'bossDoor': 'البوابة تنفتح بصرير…'
+  },
+  'interact': {
+    'chest': 'افتح',
+    'rescue': 'أنقِذ',
+    'bossDoor': 'ادخل'
+  },
+  'progress': {
+    'levelUp': 'المستوى {n}! تم إصلاح الأنظمة بالكامل.'
+  },
+  'tips': {
+    'moveTouch': 'اسحب في الجهة اليسرى للتحرك، واليمنى للنظر. المس الأرض لتمشي إليها!',
+    'moveKeys': 'WASD للتحرك، واسحب الفأرة للنظر. انقر على الأرض لتمشي إليها!',
+    'fireTouch': 'آلات أمامك! المس لتطلق — اضغط مطولاً ثم أفلت لطلقة مشحونة.',
+    'fireKeys': 'آلات أمامك! انقر أو اضغط Space لتطلق — اضغط مطولاً ثم أفلت لطلقة مشحونة.',
+    'hardhat': 'الخوذات محمية وهي مختبئة. أطلق النار حين تطلّ برأسها!',
+    'charge': 'الدروع تصدّ الطلقات العادية. الطلقة المشحونة بالكامل تخترقها مباشرة.',
+    'blockTouch': 'حلقة برتقالية: اضغط مطولاً على الدرع للدفاع — واضغطه لحظة انغلاق الحلقة للصدّ!',
+    'blockKeys': 'حلقة برتقالية: اضغط مطولاً على Shift أو زر الفأرة الأيمن للدفاع — واضغطه لحظة انغلاق الحلقة للصدّ!',
+    'red': 'الحلقة الحمراء تعني ضربة لا تُصدّ — انزلق بعيداً عنها!',
+    'chest': 'صندوق إمداد! المسه لتفتحه.',
+    'tank': 'صحتك تنفد؟ خزان الإصلاح يعيدك كما كنت تماماً.',
+    'bossDoor': 'شيء ضخم ينتظر خلف هذه البوابة. مستعد؟',
+    'beamOut': 'اكتمل الهدف! استكشف قليلاً بعد، أو عُد بالنقل الآني.',
+    'weapon': 'استخدم السلاح الذي نسخته من الزر الملوّن!',
+    'levelUp': 'مستوى جديد! أنفق رقاقة المهارة في دوائر المختبر.'
+  },
+  'loot': {
+    'found': 'عُثر على {item} ({rarity})!',
+    'tank': 'عُثر على خزان إصلاح!'
+  },
+
+  'results': {
+    'success': 'اكتملت المهمة',
+    'failed': 'فشلت المهمة',
+    'xp': 'الخبرة',
+    'bolts': 'البراغي',
+    'kills': 'الآلات المدمّرة',
+    'chests': 'الصناديق المفتوحة',
+    'time': 'الوقت',
+    'levelUp': 'مستوى جديد! أنت الآن في المستوى {n}',
+    'newWeapon': 'سلاح جديد: {weapon}!',
+    'newSector': 'تم فتح قطاع جديد: {sector}',
+    'items': 'العتاد المكتشف',
+    'double': 'ضعف البراغي (+{n})'
+  },
+  'defeat': {
+    'title': 'تعطّل النظام',
+    'body': 'تلقّى Cobalt ضرراً كبيراً جداً.',
+    'kept': 'تحتفظ بما جمعته حتى الآن — الخبرة: {xp}، البراغي: {bolts}.',
+    'useTank': 'أعد التشغيل بخزان إصلاح ({n})',
+    'rebootAd': 'أعد التشغيل الآن',
+    'retreat': 'انسحب إلى المختبر'
+  },
+  'pause': {
+    'title': 'متوقف مؤقتاً',
+    'resume': 'استئناف',
+    'abandon': 'التخلي عن المهمة',
+    'controls': 'التحكم',
+    'touch': {
+      'move': 'الجهة اليسرى: اسحب للتحرك. المس الأرض لتمشي إليها.',
+      'look': 'الجهة اليمنى: اسحب للنظر حولك.',
+      'fire': 'في القتال: المس لتطلق، واضغط مطولاً للشحن، وأفلت للإطلاق.',
+      'block': 'اضغط مطولاً على الدرع للدفاع — ولحظة انغلاق الحلقة للصدّ.'
+    },
+    'keys': {
+      'move': 'WASD / الأسهم: تحرك. انقر على الأرض لتمشي إليها.',
+      'look': 'اسحب الفأرة للنظر.',
+      'fire': 'النقر الأيسر أو Space: إطلاق — اضغط مطولاً للشحن.',
+      'block': 'النقر الأيمن أو Shift: دفاع — ولحظة انغلاق الحلقة للصدّ.',
+      'slide': 'Q: انزلاق · H: خزان الإصلاح · E: تفاعل',
+      'more': '1 / 2: أسلحة خاصة · Tab: تبديل الهدف · Esc: إيقاف مؤقت'
+    }
+  },
+  'levelUp': {
+    'title': 'مستوى جديد!',
+    'pick': 'اختر ترقية للنظام',
+    'chip': '+1 رقاقة مهارة لدوائرك'
+  },
+  'attr': {
+    'hp': { 'name': 'الهيكل', 'desc': 'أقصى صحة' },
+    'we': { 'name': 'المفاعل', 'desc': 'طاقة السلاح' },
+    'power': { 'name': 'المحرّكات', 'desc': 'قوة الدفاع والانزلاق' }
+  },
+
+  'hub': {
+    'tab': {
+      'missions': 'المهام',
+      'hero': 'Cobalt',
+      'circuits': 'الدوائر',
+      'workshop': 'الورشة'
+    },
+    'levelUpReady': 'مستوى جديد!',
+    'levels': 'مستوى {a}–{b}',
+    'story': 'مهمة القصة',
+    'jobs': 'المهام الجانبية',
+    'jobsHint': 'قابلة للتكرار — تصل مهام جديدة كلما أنهيتها',
+    'lockedHint': 'اهزم {boss} لفتح هذا القطاع.',
+    'sectorSecured': 'تم تأمين القطاع. مهامه الجانبية ما زالت على اللوحة.',
+    'deploy': 'انطلق',
+    'reroll': 'مهمة أخرى'
+  },
+  'hero': {
+    'weapons': 'الأسلحة الخاصة',
+    'weaponSlot': 'الخانة {n}',
+    'weaponRank': 'الرتبة {n}',
+    'noWeapons': 'اهزم أسياد النواة لتنسخ أسلحتهم.',
+    'attrPending': 'ترقيات نظام بانتظار اختيارك: {n}!',
+    'stats': 'الأنظمة',
+    'attributes': 'الترقيات',
+    'stat': {
+      'hp': 'أقصى صحة',
+      'we': 'طاقة السلاح',
+      'power': 'القوة',
+      'damage': 'ضرر الطلقة',
+      'charge': 'الطلقة المشحونة',
+      'armor': 'التدريع',
+      'crit': 'فرصة الضربة الحرجة',
+      'tanks': 'خزانات الإصلاح'
+    }
+  },
+  'workshop': {
+    'tanks': 'المؤن',
+    'tankName': 'خزان الإصلاح',
+    'tankDesc': 'يعيد الصحة والقوة بالكامل في منتصف المهمة.',
+    'owned': 'بحوزتك: {n}/{max}',
+    'upgrade': 'ترقية العتاد',
+    'next': 'المستوى التالي',
+    'upgradeBtn': 'ترقية',
+    'maxed': 'مُطوَّر بالكامل'
+  },
+
+  'board': {
+    'buster': 'المدفع',
+    'armor': 'التدريع',
+    'core': 'النواة'
+  },
+  'circuits': {
+    'chips': 'رقاقات المهارة: {n}',
+    'rank': 'الرتبة {n}/{max}',
+    'requires': 'يتطلب {name} بالرتبة {n}',
+    'install': 'ثبّت الرقاقة',
+    'maxed': 'بأقصى قوة',
+    'respec': 'إعادة ضبط الدوائر ({n} برغي)'
+  },
+  'skill': {
+    'rapid': { 'name': 'طلقات سريعة', 'desc': 'ضرر الطلقات السريعة +10% لكل رقاقة.' },
+    'quickCharge': { 'name': 'شحن سريع', 'desc': 'زمن الشحن −10% لكل رقاقة.' },
+    'megaCharge': { 'name': 'شحن ميغا', 'desc': 'ضرر الطلقة المشحونة +12% لكل رقاقة.' },
+    'perfectTiming': { 'name': 'توقيت مثالي', 'desc': 'نافذة أوسع للإفلات المثالي وضربات حرجة أقوى.' },
+    'piercing': { 'name': 'النواة الخارقة', 'desc': 'الطلقات نصف المشحونة تحطّم الدروع والخوذات أيضاً.' },
+    'giga': { 'name': 'مدفع جيجا', 'desc': 'واصل الضغط بعد اكتمال الشحن لمستوى ثالث مدمّر.' },
+    'frame': { 'name': 'هيكل مُعزَّز', 'desc': 'أقصى صحة +8% لكل رقاقة.' },
+    'barrier': { 'name': 'ضبط الحاجز', 'desc': 'الدفاع يستهلك قوة أقل ويمرّر ضرراً أقل.' },
+    'autoRepair': { 'name': 'إصلاح ذاتي', 'desc': 'استعادة 1% من الصحة كل ثانية خارج القتال، لكل رقاقة.' },
+    'parry': { 'name': 'بروتوكول الصدّ', 'desc': 'نافذة صدّ أوسع؛ والآلات المصدودة تبقى مذهولة مدة أطول.' },
+    'spikes': { 'name': 'تصفيح شائك', 'desc': 'يعكس 15% من الضرر المحجوب لكل رقاقة.' },
+    'lastStand': { 'name': 'الصمود الأخير', 'desc': 'مرة واحدة في كل مهمة، انجُ من ضربة قاتلة بنقطة صحة واحدة.' },
+    'cells': { 'name': 'خلايا الطاقة', 'desc': 'طاقة السلاح +3 لكل رقاقة.' },
+    'mastery': { 'name': 'إتقان الأسلحة', 'desc': 'ضرر الأسلحة الخاصة +10% لكل رقاقة.' },
+    'boosters': { 'name': 'معززات الانزلاق', 'desc': 'انزلاق يتجدد أسرع وبكلفة أقل.' },
+    'efficient': { 'name': 'نوى فعّالة', 'desc': 'الأسلحة الخاصة تستهلك طاقة أقل بنسبة 10% لكل رقاقة.' },
+    'magnet': { 'name': 'مغناطيس البراغي', 'desc': 'براغٍ أكثر ومدى التقاط أبعد.' },
+    'tankCap': { 'name': 'سعة الخزانات', 'desc': 'احمل خزان إصلاح إضافياً لكل رقاقة.' }
+  },
+
+  'rarity': {
+    'standard': 'قياسي',
+    'tuned': 'مُحسَّن',
+    'prototype': 'تجريبي',
+    'legendary': 'أسطوري'
+  },
+  'item': {
+    'arm_standard': 'مدفع قياسي',
+    'arm_rapid': 'مدفع سريع',
+    'arm_heavy': 'مدفع ثقيل',
+    'arm_quick': 'مدفع الشحن السريع',
+    'arm_nova': 'مدفع نوفا',
+    'helm_scout': 'خوذة الكشّاف',
+    'helm_guard': 'خوذة الحارس',
+    'helm_ace': 'خوذة البطل',
+    'helm_royal': 'خوذة ملكية',
+    'body_light': 'هيكل خفيف',
+    'body_plated': 'هيكل مصفّح',
+    'body_reactor': 'هيكل المفاعل',
+    'body_aegis': 'هيكل إيجيس',
+    'boots_basic': 'حذاء أساسي',
+    'boots_dash': 'حذاء الاندفاع',
+    'boots_magnet': 'حذاء مغناطيسي',
+    'boots_titan': 'حذاء العملاق',
+    'chip_logic': 'رقاقة منطقية',
+    'chip_quantum': 'رقاقة كمّية'
+  },
+  'slot': {
+    'buster': 'المدفع',
+    'helmet': 'الخوذة',
+    'chest': 'الهيكل',
+    'boots': 'الحذاء',
+    'chip': 'الرقاقة'
+  },
+  'gear': {
+    'damage': 'الضرر',
+    'armor': 'التدريع',
+    'equip': 'تجهيز',
+    'unequip': 'إزالة',
+    'equipped': 'مُجهَّز',
+    'new': 'جديد',
+    'salvage': 'تفكيك (+{n})',
+    'noAffixes': 'لا وحدات إضافية',
+    'emptySlot': 'لا شيء لهذا المقبس بعد — افتح الصناديق وأنجز المهام.'
+  },
+  'affix': {
+    'crit': '{v} فرصة الضربة الحرجة',
+    'critDmg': '{v} ضرر الضربة الحرجة',
+    'hp': '{v} أقصى صحة',
+    'armor': '{v} تدريع',
+    'we': '{v} طاقة السلاح',
+    'power': '{v} قوة',
+    'bolts': '{v} البراغي المكتسبة',
+    'chargeSpeed': '{v} سرعة الشحن',
+    'pelletDmg': '{v} ضرر الطلقة',
+    'chargeDmg': '{v} ضرر الطلقة المشحونة',
+    'moveSpeed': '{v} سرعة الحركة',
+    'special': '{v} ضرر الأسلحة الخاصة',
+    'regen': '{v} استعادة الصحة / ث (خارج القتال)',
+    'magnet': '{v} مدى الالتقاط'
+  },
+  'weapon': {
+    'rankUp': 'تمت ترقية {weapon} إلى الرتبة {n}!',
+    'scrapBurst': { 'name': 'رشقة الخردة', 'desc': 'رشّة خردة في ثلاثة اتجاهات. ممتازة ضد الحشود.' },
+    'flameWave': { 'name': 'موجة اللهب', 'desc': 'كرة نار تتدحرج على الأرض عبر كل آلة في طريقها وتُضرم فيها النار.' },
+    'iceLance': { 'name': 'رمح الجليد', 'desc': 'رمح خارق يجمّد كل ما يصيبه.' },
+    'thunderArc': { 'name': 'قوس الرعد', 'desc': 'برق فوري يقفز إلى الآلات القريبة.' },
+    'galeGuard': { 'name': 'درع الرياح', 'desc': 'أوراق تدور حولك، تصدّ الطلقات وتقطع الآلات. استخدمه مجدداً لقذفها.' }
   },
 
   'options': {
-    'title': 'الخيارات', 'general': 'عام', 'audio': 'الصوت', 'language': 'اللغة',
-    'difficulty': 'الصعوبة', 'soundEffects': 'المؤثرات الصوتية', 'music': 'الموسيقى', 'musicTrack': 'المقطوعة',
-    'musicTracks': { 'cozy': 'انسجام هادئ', 'trance': 'نفق الترانس' },
-    'haptics': 'الاهتزاز', 'on': 'تشغيل', 'off': 'إيقاف',
+    'title': 'الخيارات',
+    'general': 'عام',
+    'audio': 'الصوت',
+    'language': 'اللغة',
+    'difficulty': 'الصعوبة',
+    'soundEffects': 'المؤثرات الصوتية',
+    'music': 'الموسيقى',
+    'musicTrack': 'المقطوعة',
+    'musicTracks': {
+      'cozy': 'دوائر هادئة',
+      'trance': 'اندفاع ميغا'
+    },
+    'haptics': 'الاهتزاز',
+    'on': 'تشغيل',
+    'off': 'إيقاف',
     'close': 'حفظ وإغلاق',
-    'difficulties': { 'easy': 'سهل', 'medium': 'متوسط', 'hard': 'صعب' },
+    'lookSensitivity': 'حساسية النظر',
+    'difficulties': {
+      'easy': 'سهل',
+      'medium': 'متوسط',
+      'hard': 'صعب'
+    },
     'difficultyHints': {
-      'easy': 'أعداء أضعف وحواجز أرق.',
-      'medium': 'الجولة القياسية.',
-      'hard': 'أعداء أقوى وحواجز أثقل.'
+      'easy': 'الآلات تضرب بقوة أقل وتسقط أسرع.',
+      'medium': 'التحدي كما صُمِّم.',
+      'hard': 'آلات أصلب تضرب بقوة أكبر.'
     }
   },
-
   'adsBlocked': {
     'title': 'تعذّر عرض الإعلان',
     'body': 'حاولنا عرض مقطع فيديو لتحصل على مكافأتك، لكن شيئاً في متصفحك يحجب الإعلانات.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'فهمت'
   },
   'saveStatus': {
-    'restoredTitle': 'تمت استعادة الحفظ السحابي', 'restoredBody': '+{n} عملة مكافأة للاستعادة',
-    'tap': 'اضغط', 'pausedTitle': 'تمت إيقاف المزامنة السحابية',
+    'restoredTitle': 'تمت استعادة الحفظ السحابي',
+    'restoredBody': '+{n} برغي مكافأة للاستعادة',
+    'tap': 'اضغط',
+    'pausedTitle': 'تم إيقاف المزامنة السحابية مؤقتاً',
     'pausedBody': 'تلعب دون اتصال. يتم حفظ تقدمك هنا.',
-    'retry': 'إعادة المحاولة', 'dismiss': 'إخفاء'
+    'retry': 'إعادة المحاولة',
+    'dismiss': 'إخفاء'
   },
-  'loading': { 'tooLong': 'التحميل يستغرق وقتاً طويلاً؟ عطّل مانع الإعلانات ثم أعد التحميل.', 'boo': 'بو!', 'laugh': 'هاهاها!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'أدر هاتفك',
-    'body': 'لعبة Survivalist تُلعب عموديًا.'
+  'loading': {
+    'tooLong': 'التحميل يستغرق وقتاً طويلاً؟ عطّل مانع الإعلانات ثم أعد التحميل.'
   },
-  'license': { 'denied': 'تم رفض الوصول: يرجى شراء ترخيص.' }
+  'license': {
+    'denied': 'تم رفض الوصول: يرجى شراء ترخيص.'
+  }
 }

@@ -145,11 +145,14 @@ export class HubMode implements GameMode {
     if (this.victoryT >= 0) animateHeroVictory(this.hero, this.victoryT)
     else animateHeroIdle(this.hero, this.t)
     animatePip(this.pip, this.t)
-    this.pipRoot.position.y = 1.7 + Math.sin(this.t * 1.7) * 0.12
     this.ring.rotation.y += dt * 0.5
     // Frame Cobalt beside the menus: right third in landscape, upper half in portrait.
     const cam = this.camera
     const portrait = cam.aspect < 1
+    // Pip hovers at Cobalt's shoulder; the narrow portrait frame would cut
+    // him off at the top-left corner, so he swaps to the cannon side there.
+    this.pipRoot.position.x = portrait ? 0.9 : -1.25
+    this.pipRoot.position.y = (portrait ? 1.1 : 1.7) + Math.sin(this.t * 1.7) * 0.12
     const sway = Math.sin(this.t * 0.25) * 0.35
     if (portrait) {
       // The menu sheet covers the lower ~60 %: aim low so Cobalt stands in

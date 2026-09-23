@@ -1,5 +1,6 @@
+// German locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Survivalist',
+  'gameName': 'Mega Adventure',
   'cancel': 'Abbrechen',
   'close': 'Schließen',
   'ok': 'Ok',
@@ -10,8 +11,6 @@ export default {
   'tip': 'Tipp',
   'crazyGamesOnly': 'Dieses Spiel ist nur verfügbar auf',
 
-  // Shared UI labels. NOT dead keys: they are the `aria-label` on the game's
-  // icon-only buttons, read aloud rather than shown. See `en.ts`.
   'ui': {
     'next': 'Weiter',
     'replay': 'Wiederholen',
@@ -23,262 +22,376 @@ export default {
     'info': 'Info'
   },
 
+  'combat': {
+    'tink': 'PING!',
+    'perfect': 'PERFEKT!',
+    'parry': 'PARIERT!',
+    'guardBreak': 'DECKUNG GEBROCHEN!',
+    'guardCracked': 'Deckung durchbrochen!',
+    'xp': '+{n} EP',
+    'lastStand': 'Letztes Gefecht! Systeme neu gestartet.',
+    'weak': 'SCHWÄCHE!',
+    'dizzy': 'BENOMMEN!',
+    'block': 'Blocken',
+    'slide': 'Rutschen',
+    'fire': 'Feuern',
+    'tank': 'Reparaturtank',
+    'noEnergy': 'Nicht genug Waffenenergie'
+  },
+
+  'enemy': {
+    'hardhat': 'Helmling',
+    'trooper': 'Schildsoldat',
+    'heli': 'Rotordrohne',
+    'hopper': 'Stampfer',
+    'roller': 'Zahnradroller',
+    'brute': 'Wachdroide',
+    'turret': 'Wandkanone',
+    'elite': 'Elite',
+    'level': 'Lv. {n}'
+  },
+
+  'enemyPlural': {
+    'hardhat': 'Helmling | Helmlinge',
+    'trooper': 'Schildsoldat | Schildsoldaten',
+    'heli': 'Rotordrohne | Rotordrohnen',
+    'hopper': 'Stampfer | Stampfer',
+    'roller': 'Zahnradroller | Zahnradroller',
+    'brute': 'Wachdroide | Wachdroiden',
+    'turret': 'Wandkanone | Wandkanonen'
+  },
+
   'hud': {
-    'stage': 'Level {n}',
-    'best': 'Rekord {n}',
-    'boss': 'Boss',
-    'miniboss': 'Miniboss',
-    // Screen-reader label for the star chip that counts down to the
-    // next milestone payout. The chip itself is a glyph and a digit.
-    'toMilestone': 'Level bis zum nächsten Bonus',
-    'bonus': "Bonus +{coins}",
-    'fireRate': 'Rate',
-    'incoming': 'Angriff!',
-    'dodge': 'Ausweichen',
-    'getIn': 'Rein da',
-    'holdStill': 'Stillhalten',
-    'milestone': '{n} Mann stark!',
-    'weaponActive': '{name} bereit',
-    'weaponsActive': '{a} + {b} bereit',
-    'weaponLocked': '{name} gesperrt — {n} von {total} Hebeln getroffen',
-    'weaponGift': '{name} voraus — gratis, keine Hebel',
-    'weaponFree': 'GRATIS'
+    'hp': 'Gesundheit',
+    'we': 'Waffenenergie',
+    'power': 'Kraft',
+    'bolts': 'Bolzen',
+    'level': 'Lv. {n}',
+    'beamOut': 'Rausbeamen'
   },
 
-  'weapons': {
-    'rocket': 'Raketenwerfer',
-    'gatling': 'Gatling',
-    'grapeshot': 'Kartätsche',
-    'dynamo': 'Dynamo',
-    'gravecall': 'Grabruf',
-    'hoard': 'Krähenhort',
-    'bolt': 'Blitzschlag'
+  'boss': {
+    'stand': 'Schrottbrecher',
+    'scrapper': 'Schrottbrecher',
+    'blazeMaster': 'Glutmeister',
+    'frostMaster': 'Frostmeister',
+    'voltMaster': 'Voltmeister',
+    'galeMaster': 'Sturmmeister',
+    'vexMk1': 'Dr. Vex Mk-I'
   },
 
-  'offer': {
-    'confirm': 'Video ansehen',
-    'available': 'Video ansehen und {weapon} gratis erhalten'
+  'sector': {
+    'scrapyard': 'Schrottplatz',
+    'blaze': 'Glutraffinerie',
+    'cryo': 'Kryowerk',
+    'volt': 'Voltturm',
+    'gale': 'Himmelsdocks',
+    'fortress': 'Festung Vex'
   },
 
-  'tutorial': {
-    'touch': 'Wische, um deinen Trupp zu bewegen',
-    'desktop': 'Bewege die Maus, um deinen Trupp zu lenken'
-  },
-  'hints': {
-    'move': { 'touch': 'Zum Bewegen tippen', 'desktop': 'Zum Bewegen klicken' },
-    'divider': { 'touch': 'Nie die Säule zwischen den Toren berühren', 'desktop': 'Nie die Säule zwischen den Toren berühren' },
-    'crate': { 'touch': 'Grüne Kisten: alle treffen härter', 'desktop': 'Grüne Kisten: alle treffen härter' },
-    'rate': { 'touch': 'Blaue Kisten: alle schießen schneller', 'desktop': 'Blaue Kisten: alle schießen schneller' },
-    'lever': { 'touch': 'Triff BEIDE Hebel am Straßenrand – sie öffnen die Waffenkiste', 'desktop': 'Triff BEIDE Hebel am Straßenrand – sie öffnen die Waffenkiste' },
-    'cage': { 'touch': 'Schieß auf Käfige — die Gefangenen schließen sich an', 'desktop': 'Schieß auf Käfige — die Gefangenen schließen sich an' },
-    'shieldBox': { 'touch': 'Schildkiste — sie wartet und blockt einen großen Treffer', 'desktop': 'Schildkiste — sie wartet und blockt einen großen Treffer' }
-  },
-
-  'flow': {
-
-
-    // The handover, which used to read as LOSING the squad: five testers saw
-
-    // "Squad 101 -> 3" and one asked whether she had lost progress. The crowd
-
-    // is cashed into coins on screen now, and this names it. {n} = survivors.
-
-    'squadCashed': '{n} Überlebende eingelöst',
-    'unlocked': 'Freigeschaltet!',
-
-    'guardian': "Ein Schutzengel hat dich gerettet!",
-
-    'guardianSub': "{n} Überlebende sind zurück",
-
-    'next': "Als Nächstes: {label} · {when}",
-    'bossAhead': "Boss voraus: {name}",
-    'rankUp': "Rang #{rank} ▲{n}",
-    'bossName': {
-      'grumpling': "Grumpling",
-      'bonecap': "Bonecap",
-      'snaggletusk': "Snaggletusk",
-      'thornwick': "Thornwick",
-      'marrowknight': "Marrowknight",
-      'cinderhound': "Cinderhound",
-      'rattlejack': "Rattlejack",
-      'skewer': "Skewer"
+  'quest': {
+    'tutorial': 'Weckruf',
+    'boss': 'Kernmeister-Duell',
+    'bossTitle': 'Duell: {boss}',
+    'kill': 'Schrottdienst',
+    'collect': 'Datenbergung',
+    'rescue': 'Rettungseinsatz',
+    'elite': 'Elitejagd',
+    'supply': 'Nachschubtour',
+    'purge': 'Sektorsäuberung',
+    'desc': {
+      'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
+      'boss': 'Dring in den Kern des Sektors {sector} ein und besiege {boss}.',
+      'kill': 'Zerstöre {n} {target} im Sektor {sector}.',
+      'collect': 'Sammle {n} Datenkerne ein, die im Sektor {sector} verstreut sind.',
+      'rescue': 'Ein Arbeitsbot sitzt im Sektor {sector} fest. Finde ihn und beam ihn raus.',
+      'elite': 'Ein Elite-Gegner ({target}) terrorisiert den Sektor {sector}. Jag ihn!',
+      'supply': 'Knack {n} Vorratskisten im Sektor {sector}.',
+      'purge': 'Zerstöre alle Maschinen im Sektor {sector}.'
     }
-
+  },
+  'objective': {
+    'title': 'Ziel',
+    'complete': 'Ziel erfüllt',
+    'beamOutHint': 'Beam dich raus, wenn du bereit bist.',
+    'tutorial': 'Besiege den Schrottbrecher',
+    'boss': 'Besiege den Kernmeister',
+    'kill': 'Zerstöre {target}: {n}/{total}',
+    'collect': 'Datenkerne: {n}/{total}',
+    'rescue': 'Finde den gestrandeten Arbeitsbot',
+    'elite': 'Jag den Elite-Gegner: {target}',
+    'supply': 'Vorratskisten: {n}/{total}',
+    'purge': 'Maschinen zerstört: {n}/{total}'
+  },
+  'mission': {
+    'bossDown': '{boss} zerstört!',
+    'objectiveDone': 'Ziel erfüllt!',
+    'rescued': 'Arbeitsbot in Sicherheit gebeamt!',
+    'bossDoor': 'Das Rolltor öffnet sich knirschend…'
+  },
+  'interact': {
+    'chest': 'Öffnen',
+    'rescue': 'Retten',
+    'bossDoor': 'Betreten'
+  },
+  'progress': {
+    'levelUp': 'Level {n}! Systeme vollständig repariert.'
+  },
+  'tips': {
+    'moveTouch': 'Links ziehen zum Laufen, rechts zum Umsehen. Tippe auf den Boden, um hinzulaufen!',
+    'moveKeys': 'WASD zum Laufen, Maus ziehen zum Umsehen. Klicke auf den Boden, um hinzulaufen!',
+    'fireTouch': 'Maschinen voraus! Tippe zum Schießen – halten und loslassen für einen Ladeschuss.',
+    'fireKeys': 'Maschinen voraus! Klick oder Leertaste zum Schießen – halten und loslassen für einen Ladeschuss.',
+    'hardhat': 'Helmlinge sind unter ihrem Helm sicher. Schieß, wenn sie hervorlugen!',
+    'charge': 'Schilde blocken Kugeln. Ein VOLLER Ladeschuss bricht glatt durch.',
+    'blockTouch': 'Oranger Ring: Halte den Schild zum Blocken – drück ihn, wenn sich der Ring schließt, um zu PARIEREN!',
+    'blockKeys': 'Oranger Ring: Halte Shift oder die rechte Maustaste zum Blocken – drück, wenn sich der Ring schließt, um zu PARIEREN!',
+    'red': 'Roter Ring heißt unblockbar – rutsch aus dem Weg!',
+    'chest': 'Eine Vorratskiste! Tippe sie an, um sie zu öffnen.',
+    'tank': 'Fast am Ende? Ein Reparaturtank macht dich wieder topfit.',
+    'bossDoor': 'Hinter diesem Tor wartet etwas Großes. Bereit?',
+    'beamOut': 'Ziel erfüllt! Erkunde noch ein bisschen oder beam dich raus.',
+    'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!',
+    'levelUp': 'Level-Up! Setz deinen Fähigkeitschip in den Schaltkreisen im Labor ein.'
+  },
+  'loot': {
+    'found': '{item} ({rarity}) gefunden!',
+    'tank': 'Reparaturtank gefunden!'
   },
 
-  'ladder': {
-    'weaponPick': "Waffe wählen",
-    'nextStage': "nächstes Level",
-    'stagesAway': "in {n} Leveln",
-    'thisStage': "dieses Level"
+  'results': {
+    'success': 'MISSION ERFÜLLT',
+    'failed': 'MISSION GESCHEITERT',
+    'xp': 'Erfahrung',
+    'bolts': 'Bolzen',
+    'kills': 'Zerstörte Maschinen',
+    'chests': 'Geöffnete Kisten',
+    'time': 'Zeit',
+    'levelUp': 'Level-Up! Jetzt Level {n}',
+    'newWeapon': 'Neue Waffe: {weapon}!',
+    'newSector': 'Neuer Sektor freigeschaltet: {sector}',
+    'items': 'Gefundene Ausrüstung',
+    'double': 'Bolzen verdoppeln (+{n})'
   },
-  'weaponPick': {
-    'title': "Wähle deine Waffe",
-    'subtitle': "Deine für Level {n}. Weitere warten auf der Straße.",
-    'take': "Nehmen",
-    'rocket': {
-      'a': "Zielsuchende Salve",
-      'b': "Explosionsschaden"
+  'defeat': {
+    'title': 'SYSTEMAUSFALL',
+    'body': 'Cobalt hat zu viel Schaden erlitten.',
+    'kept': 'Du behältst die bisher verdienten {xp} EP und {bolts} Bolzen.',
+    'useTank': 'Neustart mit Reparaturtank ({n})',
+    'rebootAd': 'Jetzt neu starten',
+    'retreat': 'Rückzug ins Labor'
+  },
+  'pause': {
+    'title': 'PAUSIERT',
+    'resume': 'Fortsetzen',
+    'abandon': 'Mission abbrechen',
+    'controls': 'Steuerung',
+    'touch': {
+      'move': 'Linke Seite: ziehen zum Laufen. Tippe auf den Boden, um hinzulaufen.',
+      'look': 'Rechte Seite: ziehen zum Umsehen.',
+      'fire': 'Im Kampf: tippen zum Schießen, halten zum Aufladen, loslassen zum Feuern.',
+      'block': 'Schild halten zum Blocken – zum Parieren genau dann, wenn sich ein Ring schließt.'
     },
-    'gatling': {
-      'a': "Doppelte Feuerrate",
-      'b': "Pumpt Tore schneller"
+    'keys': {
+      'move': 'WASD / Pfeiltasten: laufen. Klicke auf den Boden, um hinzulaufen.',
+      'look': 'Maus ziehen zum Umsehen.',
+      'fire': 'Linksklick oder Leertaste: schießen – halten zum Aufladen.',
+      'block': 'Rechtsklick oder Shift: blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
+      'slide': 'Q: rutschen · H: Reparaturtank · E: interagieren',
+      'more': '1 / 2: Spezialwaffen · Tab: Ziel wechseln · Esc: Pause'
     }
   },
-  'bossReward': {
-    'title': "Boss besiegt!",
-    'subtitle': "Ein Geschenk für Level {n}. Lauf weiter!"
+  'levelUp': {
+    'title': 'LEVEL-UP!',
+    'pick': 'Wähle ein System-Upgrade',
+    'chip': '+1 Fähigkeitschip für deine Schaltkreise'
   },
-  'result': {
-    'stageClear': 'Level geschafft!',
-    'clearedStage': 'Level {n} geschafft!',
-    'wipedOut': 'Trupp ausgelöscht',
-    'reachedStage': 'Level {n}',
-    'newRecord': 'Neuer Rekord!',
-    // The two seconds after a boss goes down, above its body. The kill is
-    // what the whole stage was for, so this is sold as a reward.
-    'bossFelled': 'Boss gefallen!',
-    'wasted': 'Erledigt',
-    // The every-fifth-stage lump the HUD chip counts down to.
-    'milestone': 'Meilenstein!',
-    'rallied': 'Zweiter Atem',
-    'peakSquad': 'Größter Trupp',
-    'kills': 'Kills',
-    'tripleCoins': '3×',
-    'tripleBonus': '(+{n})',
-    'tripleClaimed': 'Münzen verdreifacht!',
-    'nextStage': 'Nächstes Level',
-    'tryAgain': 'Nochmal',
-    'upgrade': 'Upgrade',
-    'upgradeHint': 'Rüste deine Truppe auf!',
-    'rankOf': 'von {n}'
+  'attr': {
+    'hp': { 'name': 'Chassis', 'desc': 'Max. Gesundheit' },
+    'we': { 'name': 'Reaktor', 'desc': 'Waffenenergie' },
+    'power': { 'name': 'Servos', 'desc': 'Kraft für Blocken & Rutschen' }
   },
 
-  // Two strings only; everything ON the card comes from keys this file
-  // already had (see en.ts). `action` is the accessible name of an
-  // icon-only button. `text` rides in the share sheet and is read by the
-  // person who receives the picture, so it is a boast, and it has to still
-  // make sense if the image never arrives.
-  'share': {
-    'action': 'Lauf teilen',
-    'text': 'Ich habe Level {n} in {game} erreicht. Kommst du weiter?'
-  },
-
-  'leaderboard': {
-    'title': 'Bestenliste',
-    'rank': '#',
-    'player': 'Spieler',
-    'stage': 'Level',
-    'squad': 'Trupp',
-    'empty': 'Noch keine Einträge. Sei der Erste!',
-    'failed': 'Bestenliste nicht erreichbar.',
-    'loading': 'Wird geladen…',
-    'you': 'Du',
-    'yourRank': 'Du bist #{n} von {total}',
-    'tabGlobal': 'Global'
-  },
-
-  'chest': {
-    'label': 'Schatztruhe',
-    'ready': 'Schatztruhe für {n} Münzen öffnen',
-    'filling': 'Schatztruhe — füllt sich',
-    'spent': 'Schatztruhe — leer bis morgen'
-  },
-
-  // Daily expedition. See en.ts for what each state means, why the multiplier
-  // is split from any word, and why `hud` has to stay one short word.
-  'expedition': {
-    'title': 'Tages-Expedition',
-    'hud': 'Expedition',
-    'multiplier': '{n}×',
-    'available': 'Tages-Expedition — die heutige Strecke, dreifache Münzen',
-    'confirm': 'Expedition starten',
-    'spent': 'Tages-Expedition — neue Strecke in {time}',
-    'done': 'Morgen wieder',
-    'back': 'Zurück zur Kampagne'
-  },
-
-  'skills': {
-
-    'grenade': 'Granate',
-
-    'shield': 'Schild',
-
-    'locked': 'Gesperrt',
-
-    'unlocksAt': 'Ab Level {n}',
-
-    'frost': 'Frostnova',
-
-    'decoy': 'Lockfackel',
-
-    'trialLabel': '{name} · gratis testen',
-
-    'trialTag': 'Gratis testen!',
-
-    'uses': '×{n}'
-  },
-
-  'intro': {
-    'took': 'Es hat alle geholt.',
-    'alive': 'Sie leben noch.',
-    'go': 'Hol sie zurück.',
-    'skip': 'Überspringen'
-  },
-
-  'upgrades': {
-    'title': 'Upgrades',
-    'spotlight': 'Ausgeben!',
-    'level': 'St. {n}',
-    'maxed': 'Max',
-    'peekLabel': 'Upgrades: {name}',
-    'peekLabelReady': 'Upgrades: {name} — {n} sofort kaufbar',
-    'names': {
-      'squad': 'Trupp',
-      'power': 'Feuerkraft',
-      'rate': 'Feuerrate',
-      'range': 'Reichweite',
-      'scavenge': 'Plündern',
-      'grenade': 'Granate',
-      'shield': 'Schild',
-      'rocket': 'Raketenkraft',
-      'gatling': 'Gatling-Kraft',
-      'grapeshot': 'Kartätschenkraft',
-      'dynamo': 'Dynamo-Kraft',
-      'gravecall': 'Grabruf-Kraft',
-      'hoard': 'Hort-Kraft'
+  'hub': {
+    'tab': {
+      'missions': 'Missionen',
+      'hero': 'Cobalt',
+      'circuits': 'Schaltkreise',
+      'workshop': 'Werkstatt'
     },
-    'descriptions': {
-      'squad': 'Starte jedes Level mit mehr Überlebenden.',
-      'power': 'Jeder Überlebende macht mehr Schaden pro Schuss.',
-      'rate': 'Jeder Überlebende schießt schneller.',
-      'range': 'Dein Trupp eröffnet das Feuer weiter vorn.',
-      'scavenge': 'Verdiene mehr Münzen pro Lauf.',
-      'grenade': 'Wirf eine Granate für einen schweren Schadensstoß.',
-      'shield': 'Halbiere für einige Sekunden den Schaden an deiner Truppe.',
-      'rocket': 'Raketenwerfer, die du im Level freischaltest, machen mehr Schaden.',
-      'gatling': 'Gatlings, die du im Level freischaltest, machen mehr Schaden.',
-      'grapeshot': 'Schrotflinten, die du im Level freischaltest, machen mehr Schaden.',
-      'dynamo': 'Dynamo-Blitze, die du im Level freischaltest, schlagen härter.',
-      'gravecall': 'Deine erweckten Toten kämpfen stärker und halten länger.',
-      'hoard': 'In Gold verwandelte Gegner bringen mehr Münzen.'
+    'levelUpReady': 'Level-Up!',
+    'levels': 'Lv. {a}–{b}',
+    'story': 'Hauptmission',
+    'jobs': 'Aufträge',
+    'jobsHint': 'Wiederholbar – neue kommen, sobald du welche abschließt',
+    'lockedHint': 'Besiege {boss}, um diesen Sektor zu öffnen.',
+    'sectorSecured': 'Sektor gesichert. Seine Aufträge stehen weiter bereit.',
+    'deploy': 'Ausrücken',
+    'reroll': 'Neuer Auftrag'
+  },
+  'hero': {
+    'weapons': 'Spezialwaffen',
+    'weaponSlot': 'Platz {n}',
+    'weaponRank': 'Rang {n}',
+    'noWeapons': 'Besiege die Kernmeister, um ihre Waffen zu kopieren.',
+    'attrPending': 'Wähle {n} System-Upgrade(s)!',
+    'stats': 'Systeme',
+    'attributes': 'Upgrades',
+    'stat': {
+      'hp': 'Max. Gesundheit',
+      'we': 'Waffenenergie',
+      'power': 'Kraft',
+      'damage': 'Kugelschaden',
+      'charge': 'Ladeschuss',
+      'armor': 'Panzerung',
+      'crit': 'Krit. Trefferchance',
+      'tanks': 'Reparaturtanks'
     }
+  },
+  'workshop': {
+    'tanks': 'Vorräte',
+    'tankName': 'Reparaturtank',
+    'tankDesc': 'Stellt während einer Mission Gesundheit und Kraft vollständig wieder her.',
+    'owned': 'Im Gepäck: {n}/{max}',
+    'upgrade': 'Ausrüstung verbessern',
+    'next': 'Nächste Stufe',
+    'upgradeBtn': 'Verbessern',
+    'maxed': 'Maximal verbessert'
+  },
+
+  'board': {
+    'buster': 'Buster',
+    'armor': 'Panzerung',
+    'core': 'Kern'
+  },
+  'circuits': {
+    'chips': 'Fähigkeitschips: {n}',
+    'rank': 'Rang {n}/{max}',
+    'requires': 'Erfordert {name} (Rang {n})',
+    'install': 'Chip einsetzen',
+    'maxed': 'Volle Leistung',
+    'respec': 'Schaltkreise zurücksetzen ({n} Bolzen)'
+  },
+  'skill': {
+    'rapid': { 'name': 'Kugelhagel', 'desc': 'Kugelschaden +10% pro Chip.' },
+    'quickCharge': { 'name': 'Schnellladung', 'desc': 'Ladezeit −10% pro Chip.' },
+    'megaCharge': { 'name': 'Megaladung', 'desc': 'Ladeschuss-Schaden +12% pro Chip.' },
+    'perfectTiming': { 'name': 'Perfektes Timing', 'desc': 'Größeres Zeitfenster fürs perfekte Loslassen und stärkere kritische Treffer.' },
+    'piercing': { 'name': 'Durchschlagskern', 'desc': 'Halb geladene Schüsse brechen auch Schilde und Helme.' },
+    'giga': { 'name': 'Giga-Buster', 'desc': 'Halte über die volle Ladung hinaus für eine verheerende dritte Stufe.' },
+    'frame': { 'name': 'Verstärktes Chassis', 'desc': 'Max. Gesundheit +8% pro Chip.' },
+    'barrier': { 'name': 'Barrieren-Tuning', 'desc': 'Blocken kostet weniger Kraft und lässt weniger Schaden durch.' },
+    'autoRepair': { 'name': 'Auto-Reparatur', 'desc': 'Regeneriert außerhalb von Kämpfen 1% Gesundheit pro Sekunde, pro Chip.' },
+    'parry': { 'name': 'Parier-Protokoll', 'desc': 'Größeres Parierfenster; parierte Maschinen bleiben länger betäubt.' },
+    'spikes': { 'name': 'Stachelpanzerung', 'desc': 'Wirft pro Chip 15% des geblockten Schadens zurück.' },
+    'lastStand': { 'name': 'Letztes Gefecht', 'desc': 'Überlebe einmal pro Mission einen tödlichen Treffer mit 1 Gesundheit.' },
+    'cells': { 'name': 'Energiezellen', 'desc': 'Waffenenergie +3 pro Chip.' },
+    'mastery': { 'name': 'Waffenmeisterschaft', 'desc': 'Spezialwaffen-Schaden +10% pro Chip.' },
+    'boosters': { 'name': 'Rutsch-Booster', 'desc': 'Kürzere Rutsch-Abklingzeit, günstigeres Rutschen.' },
+    'efficient': { 'name': 'Effiziente Kerne', 'desc': 'Spezialwaffen kosten pro Chip 10% weniger Energie.' },
+    'magnet': { 'name': 'Bolzenmagnet', 'desc': 'Mehr Bolzen und größere Aufsammelreichweite.' },
+    'tankCap': { 'name': 'Tankkapazität', 'desc': 'Trage pro Chip einen Reparaturtank mehr.' }
+  },
+
+  'rarity': {
+    'standard': 'Standard',
+    'tuned': 'Getunt',
+    'prototype': 'Prototyp',
+    'legendary': 'Legendär'
+  },
+  'item': {
+    'arm_standard': 'Standard-Buster',
+    'arm_rapid': 'Schnellfeuer-Buster',
+    'arm_heavy': 'Schwerer Buster',
+    'arm_quick': 'Schnelllade-Buster',
+    'arm_nova': 'Nova-Buster',
+    'helm_scout': 'Späherhelm',
+    'helm_guard': 'Wächterhelm',
+    'helm_ace': 'Ass-Helm',
+    'helm_royal': 'Königshelm',
+    'body_light': 'Leichtes Chassis',
+    'body_plated': 'Panzerchassis',
+    'body_reactor': 'Reaktorchassis',
+    'body_aegis': 'Aegis-Chassis',
+    'boots_basic': 'Basisstiefel',
+    'boots_dash': 'Sprintstiefel',
+    'boots_magnet': 'Magnetstiefel',
+    'boots_titan': 'Titanenstiefel',
+    'chip_logic': 'Logikchip',
+    'chip_quantum': 'Quantenchip'
+  },
+  'slot': {
+    'buster': 'Buster',
+    'helmet': 'Helm',
+    'chest': 'Chassis',
+    'boots': 'Stiefel',
+    'chip': 'Chip'
+  },
+  'gear': {
+    'damage': 'Schaden',
+    'armor': 'Panzerung',
+    'equip': 'Ausrüsten',
+    'unequip': 'Entfernen',
+    'equipped': 'Ausgerüstet',
+    'new': 'NEU',
+    'salvage': 'Verschrotten (+{n})',
+    'noAffixes': 'Keine Bonusmodule',
+    'emptySlot': 'Noch nichts für diesen Sockel – öffne Kisten und erledige Aufträge.'
+  },
+  'affix': {
+    'crit': '{v} krit. Trefferchance',
+    'critDmg': '{v} krit. Schaden',
+    'hp': '{v} max. Gesundheit',
+    'armor': '{v} Panzerung',
+    'we': '{v} Waffenenergie',
+    'power': '{v} Kraft',
+    'bolts': '{v} gefundene Bolzen',
+    'chargeSpeed': '{v} Ladetempo',
+    'pelletDmg': '{v} Kugelschaden',
+    'chargeDmg': '{v} Ladeschuss-Schaden',
+    'moveSpeed': '{v} Lauftempo',
+    'special': '{v} Spezialwaffen-Schaden',
+    'regen': '{v} Heilung/s (außerhalb von Kämpfen)',
+    'magnet': '{v} Aufsammelreichweite'
+  },
+  'weapon': {
+    'rankUp': '{weapon} auf Rang {n} verbessert!',
+    'scrapBurst': { 'name': 'Schrottsalve', 'desc': 'Ein Schrottfächer in drei Richtungen. Stark gegen Gruppen.' },
+    'flameWave': { 'name': 'Flammenwelle', 'desc': 'Ein Feuerball rollt über den Boden, durch jede Maschine auf seinem Weg, und setzt sie in Brand.' },
+    'iceLance': { 'name': 'Eislanze', 'desc': 'Eine durchschlagende Lanze, die alles einfriert, was sie trifft.' },
+    'thunderArc': { 'name': 'Donnerbogen', 'desc': 'Sofortiger Blitz, der auf Maschinen in der Nähe überspringt.' },
+    'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' }
   },
 
   'options': {
-    'title': 'Optionen', 'general': 'Allgemein', 'audio': 'Audio', 'language': 'Sprache',
-    'difficulty': 'Schwierigkeit', 'soundEffects': 'Soundeffekte', 'music': 'Musik', 'musicTrack': 'Musiktitel',
-    'musicTracks': { 'cozy': 'Gemütliche Harmonie', 'trance': 'Trance-Tunnel' },
-    'haptics': 'Vibration', 'on': 'An', 'off': 'Aus',
+    'title': 'Optionen',
+    'general': 'Allgemein',
+    'audio': 'Audio',
+    'language': 'Sprache',
+    'difficulty': 'Schwierigkeit',
+    'soundEffects': 'Soundeffekte',
+    'music': 'Musik',
+    'musicTrack': 'Musiktitel',
+    'musicTracks': {
+      'cozy': 'Ruhige Schaltkreise',
+      'trance': 'Mega Drive'
+    },
+    'haptics': 'Vibration',
+    'on': 'An',
+    'off': 'Aus',
     'close': 'Speichern & Schließen',
-    'difficulties': { 'easy': 'Leicht', 'medium': 'Mittel', 'hard': 'Schwer' },
+    'lookSensitivity': 'Kameraempfindlichkeit',
+    'difficulties': {
+      'easy': 'Leicht',
+      'medium': 'Mittel',
+      'hard': 'Schwer'
+    },
     'difficultyHints': {
-      'easy': 'Schwächere Gegner und dünnere Barrikaden.',
-      'medium': 'Der normale Lauf.',
-      'hard': 'Zähere Gegner und stärkere Barrikaden.'
+      'easy': 'Maschinen treffen schwächer und gehen schneller zu Boden.',
+      'medium': 'Die vorgesehene Herausforderung.',
+      'hard': 'Zähere Maschinen, die härter zuschlagen.'
     }
   },
-
   'adsBlocked': {
     'title': 'Werbung konnte nicht geladen werden',
     'body': 'Wir wollten dir ein Video zeigen, damit du deine Belohnung erhältst, aber etwas in deinem Browser blockiert Werbung.',
@@ -287,18 +400,18 @@ export default {
     'gotIt': 'Verstanden'
   },
   'saveStatus': {
-    'restoredTitle': 'Cloud-Speicher wiederhergestellt', 'restoredBody': '+{n} Bonusmünzen für die Wiederherstellung',
-    'tap': 'tippen', 'pausedTitle': 'Cloud-Sync pausiert',
+    'restoredTitle': 'Cloud-Speicher wiederhergestellt',
+    'restoredBody': '+{n} Bonusbolzen für die Wiederherstellung',
+    'tap': 'tippen',
+    'pausedTitle': 'Cloud-Sync pausiert',
     'pausedBody': 'Offline-Modus. Dein Fortschritt wird hier gespeichert.',
-    'retry': 'Erneut versuchen', 'dismiss': 'ausblenden'
+    'retry': 'Erneut versuchen',
+    'dismiss': 'ausblenden'
   },
-  'loading': { 'tooLong': 'Laden dauert zu lange? Deaktiviere deinen Adblocker und lade neu.', 'boo': 'Buh!', 'laugh': 'Hahaha!' },
-  // Phones in landscape are covered by a rotate-your-phone overlay: the lane
-  // fills about a fifth of a wide frame, which is what put the HUD and the
-  // attack badge out at the edges where testers never looked.
-  'portrait': {
-    'title': 'Dreh dein Handy',
-    'body': 'Survivalist spielt im Hochformat.'
+  'loading': {
+    'tooLong': 'Laden dauert zu lange? Deaktiviere deinen Adblocker und lade neu.'
   },
-  'license': { 'denied': 'Zugriff verweigert: Bitte erwerbe eine Lizenz.' }
+  'license': {
+    'denied': 'Zugriff verweigert: Bitte erwerbe eine Lizenz.'
+  }
 }
