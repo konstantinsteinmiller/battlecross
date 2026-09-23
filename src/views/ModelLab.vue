@@ -20,11 +20,14 @@ import { buildDoor, buildTeleporter, buildCrate, buildBarrel, buildChest, buildB
 import { THEMES } from '@/game/world/themes'
 import { bakeTextures } from '@/game/world/textures'
 import type { Rig } from '@/game/models/kit'
+import { buildBossRig, poseBoss, type BossId } from '@/game/models/bosses'
 import { buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, type EnemyKind } from '@/game/models/enemies'
 
 const host = ref<HTMLElement | null>(null)
 const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret']
-const models = ['hero', 'viewmodel', 'props', 'enemies', ...ENEMIES]
+const BOSSES: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'vexMk1']
+const models = ['hero', 'viewmodel', 'props', 'enemies', 'bosses', ...ENEMIES, ...BOSSES]
+let bossRigs: Array<{ id: BossId; rig: Rig }> = []
 let enemyRigs: Array<{ kind: EnemyKind; rig: Rig }> = []
 const hashQuery = new URLSearchParams(location.hash.split('?')[1] ?? '')
 const current = ref(hashQuery.get('m') ?? 'hero')
@@ -51,6 +54,7 @@ const show = (name: string) => {
   stage.clear()
   rig = null
   enemyRigs = []
+  bossRigs = []
   const th = THEMES.scrapyard
   if (name === 'hero') {
     rig = buildHero()
@@ -64,6 +68,18 @@ const show = (name: string) => {
     stage.add(vm.root)
     camera.position.set(1.5, 1.6, 2.5)
     camera.lookAt(0, 1, 0)
+  } else if (name === 'bosses' || (BOSSES as string[]).includes(name)) {
+    const ids = name === 'bosses' ? BOSSES : [name as BossId]
+    ids.forEach((id, i) => {
+      const r = buildBossRig(id)
+      const sc = id === 'scrapper' || id === 'vexMk1' ? 1 : 1.35
+      r.root.scale.setScalar(sc)
+      r.root.position.set((i - (ids.length - 1) / 2) * 2.6, id === 'vexMk1' ? 1.6 : 0, 0)
+      stage.add(r.root)
+      bossRigs.push({ id, rig: r })
+    })
+    camera.position.set(0, 2.2, ids.length > 1 ? 12 : 5.5)
+    camera.lookAt(0, 1.2, 0)
   } else if (name === 'enemies' || (ENEMIES as string[]).includes(name)) {
     const kinds = name === 'enemies' ? ENEMIES : [name as EnemyKind]
     kinds.forEach((kind, i) => {
@@ -108,8 +124,10 @@ const loop = () => {
     else if (kind === 'brute') poseBrute(r, t, 0.2, Math.sin(t) > 0 ? 1 : -1, Math.sin(t * 2), 0)
     else if (kind === 'turret') poseTurret(r, 0.2 + Math.sin(t) * 0.2, 0)
   }
+  for (const { id, rig: r } of bossRigs) poseBoss(r, id, t, 'idle', 0)
+  if (bossRigs.length > 1) stage.rotation.y = fixedAngle ?? Math.sin(t * 0.4) * 0.4
   if (enemyRigs.length > 1) stage.rotation.y = fixedAngle ?? Math.sin(t * 0.4) * 0.5
-  if (current.value !== 'props' && enemyRigs.length <= 1) stage.rotation.y = fixedAngle ?? t * 0.6
+  if (current.value !== 'props' && enemyRigs.length <= 1 && bossRigs.length <= 1) stage.rotation.y = fixedAngle ?? t * 0.6
   const r = getRenderer()
   r.clear()
   r.render(scene, camera)

@@ -25,6 +25,17 @@
     )
       GameIcon(name="flask")
       span.count {{ hud.tanks }}
+    template(v-for="(w, i) in hud.weapons" :key="i")
+      button.act.weapon(
+        v-if="w.id"
+        type="button"
+        :class="[`w${i}`, { off: !w.ready }]"
+        :style="{ '--wc': w.color }"
+        :aria-label="t(`weapon.${w.id}.name`)"
+        @pointerdown.prevent.stop="fire(i)"
+      )
+        span.w-orb
+        span.w-cost {{ w.cost }}
 </template>
 
 <script setup lang="ts">
@@ -56,6 +67,10 @@ const slide = () => {
 const tank = () => {
   input.touched = true
   input.tankQueued = true
+}
+const fire = (i: number) => {
+  input.touched = true
+  input.weaponQueued = (i + 1) as 1 | 2
 }
 </script>
 
@@ -113,6 +128,41 @@ const tank = () => {
     transform: scale(0.9)
   &.off
     filter: grayscale(0.8) brightness(0.75)
+.weapon
+  width: clamp(46px, 10.5vmin, 62px)
+  height: clamp(46px, 10.5vmin, 62px)
+  background: radial-gradient(circle at 40% 30%, #ffffff, var(--wc) 50%, color-mix(in srgb, var(--wc) 55%, #141a33))
+  &.w0
+    right: clamp(64px, 15vmin, 96px)
+    bottom: clamp(70px, 16vmin, 100px)
+  &.w1
+    right: clamp(120px, 27vmin, 170px)
+    bottom: clamp(30px, 7vmin, 46px)
+  &:active
+    transform: scale(0.9)
+  &.off
+    filter: grayscale(0.75) brightness(0.7)
+  .w-orb
+    width: 44%
+    height: 44%
+    border-radius: 50%
+    background: radial-gradient(circle, #ffffff 0%, var(--wc) 70%)
+    box-shadow: 0 0 10px var(--wc)
+  .w-cost
+    position: absolute
+    left: -4px
+    top: -6px
+    min-width: 20px
+    height: 20px
+    padding: 0 4px
+    border-radius: 10px
+    background: #141a33
+    color: #fff
+    font-family: var(--font-pixel)
+    font-size: 8px
+    line-height: 20px
+    text-align: center
+.tank
   .count
     position: absolute
     right: -6px

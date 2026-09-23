@@ -7,7 +7,9 @@
       FloatingText
       Crosshair
       Compass
-      TargetFrame
+      TargetFrame(v-if="!hud.bossName")
+      BossBar
+      TitleCard
       HudBars
       ObjectiveTracker
       TopStatus(@pause="openPause")
@@ -27,7 +29,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
 import { attachInput } from '@/game/engine/input'
 import { input, takePreparedMode, fallbackMode, currentMission } from '@/game/boot'
-import { flow } from '@/game/flow'
+import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { isGamePaused } from '@/use/useGamePause'
 import Joystick from '@/components/hud/Joystick.vue'
@@ -41,6 +43,8 @@ import TopStatus from '@/components/hud/TopStatus.vue'
 import ObjectiveTracker from '@/components/hud/ObjectiveTracker.vue'
 import Compass from '@/components/hud/Compass.vue'
 import ContextButtons from '@/components/hud/ContextButtons.vue'
+import BossBar from '@/components/hud/BossBar.vue'
+import TitleCard from '@/components/hud/TitleCard.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
@@ -78,7 +82,7 @@ onMounted(() => {
   app.setSuspended(isGamePaused.value)
   app.setWanted(true)
   window.addEventListener('keydown', onKey)
-  if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow }
+  if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow, startMission, storyFor, goHub }
 })
 
 watch(isGamePaused, (p) => app.setSuspended(p))

@@ -11,6 +11,7 @@ import { buildBolt, buildCapsule } from '../models/props'
 import { BASE_COLORS } from '../models/enemies'
 import { PLAYER_R, EYE_H } from './constants'
 import { scaleXp } from '../data/enemies'
+import { COUNTER, type BossDef } from '../data/bosses'
 
 /**
  * ─── Shots, damage, pickups ──────────────────────────────────────────────────
@@ -46,9 +47,42 @@ const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: numb
 
 const sphereGeo = new SphereGeometry(1, 12, 8)
 
+/** A wall of fire / wind sliding along the floor (boss attack — slide past it). */
+interface Wave {
+  active: boolean
+  x: number
+  z: number
+  dx: number
+  dz: number
+  speed: number
+  hw: number
+  travel: number
+  range: number
+  dmg: number
+  hit: boolean
+  color: string
+  source: Enemy
+}
+
+/** An expanding shock ring on the floor (boss attack — slide through it). */
+interface RingHazard {
+  active: boolean
+  x: number
+  z: number
+  r: number
+  speed: number
+  maxR: number
+  dmg: number
+  hit: boolean
+  color: string
+  source: Enemy
+}
+
 export class CombatSystem {
   shots: Shot[] = []
   pickups: Pickup[] = []
+  waves: Wave[] = []
+  rings: RingHazard[] = []
   readonly root = new Group()
   private host: CombatHost
 
@@ -71,7 +105,7 @@ export class CombatSystem {
         active: false, owner: 'player', kind: 'pellet', x: 0, y: 0, z: 0, px: 0, py: 0, pz: 0, vx: 0, vy: 0, vz: 0,
         dmg: 0, crit: false, radius: 0.1, life: 0, pierce: 0, hitIds: [], homing: null, turn: 0, source: null,
         blockable: true, sx: 0, sy: 0, sz: 0, tx: 0, tz: 0, t: 0, dur: 0, color: '#ffffff', sprite, core,
-        element: 'none', weapon: ''
+        element: 'none', weapon: '', homePlayer: false, destructible: false, burn: 0, freeze: 0
       }
       this.shots.push(s)
     }
@@ -84,6 +118,10 @@ export class CombatSystem {
     s.t = 0
     s.element = 'none'
     s.weapon = ''
+    s.homePlayer = false
+    s.destructible = false
+    s.burn = 0
+    s.freeze = 0
     s.sprite.visible = true
     s.core!.visible = true
     return s
@@ -122,7 +160,7 @@ export class CombatSystem {
     return s
   }
 
-  spawnEnemyShot(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): void {
+  spawnEnemyShot(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): Shot {
     const s = this.acquire()
     s.owner = 'enemy'
     s.kind = 'enemy'
@@ -139,6 +177,79 @@ export class CombatSystem {
     s.blockable = blockable
     const glow = e.element === 'fire' ? '#ff7a2a' : e.element === 'ice' ? '#7fe8ff' : e.element === 'volt' ? '#fff04a' : '#ff5a3a'
     this.look(s, 'enemy', glow)
+    return s
+  }
+
+  spawnWave(e: Enemy, x: number, z: number, dx: number, dz: number, speed: number, hw: number, range: number, dmg: number, color: string): void {
+    const l = Math.hypot(dx, dz) || 1
+    let w = this.waves.find(q => !q.active)
+    if (!w) {
+      w = { active: false, x: 0, z: 0, dx: 0, dz: 0, speed: 0, hw: 0, travel: 0, range: 0, dmg: 0, hit: false, color, source: e }
+      this.waves.push(w)
+    }
+    Object.assign(w, { active: true, x, z, dx: dx / l, dz: dz / l, speed, hw, travel: 0, range, dmg, hit: false, color, source: e })
+  }
+
+  spawnRing(e: Enemy, x: number, z: number, speed: number, maxR: number, dmg: number, color: string): void {
+    let r = this.rings.find(q => !q.active)
+    if (!r) {
+      r = { active: false, x: 0, z: 0, r: 0, speed: 0, maxR: 0, dmg: 0, hit: false, color, source: e }
+      this.rings.push(r)
+    }
+    Object.assign(r, { active: true, x, z, r: 0.3, speed, maxR, dmg, hit: false, color, source: e })
+    this.host.shocks.spawnLinear(x, z, speed, maxR, color)
+  }
+
+  /** A slow homing energy orb — can be blocked, parried or shot down. */
+  fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void {
+    const h = this.host
+    const s = this.spawnEnemyShot(e, x, y, z, h.player.x - x, (EYE_H - 0.45) - y, h.player.z - z, speed, dmg, true)
+    s.homePlayer = true
+    s.destructible = true
+    s.life = 5
+    s.turn = 1.8
+    this.look(s, 'enemy', '#d3fbff')
+    s.sprite.scale.setScalar(1.3)
+    s.core!.scale.setScalar(0.2)
+    s.radius = 0.25
+  }
+
+  private updateHazards(dt: number): void {
+    const h = this.host
+    const px = h.player.x
+    const pz = h.player.z
+    for (const w of this.waves) {
+      if (!w.active) continue
+      const step = w.speed * dt
+      w.x += w.dx * step
+      w.z += w.dz * step
+      w.travel += step
+      // Flames / gusts along the wave front
+      for (let k = 0; k < 5; k++) {
+        const o = (Math.random() * 2 - 1) * w.hw
+        h.fx.emit({
+          x: w.x - w.dz * o, y: 0.2 + Math.random() * 0.4, z: w.z + w.dx * o,
+          vy: 2 + Math.random() * 2, color: w.color, size: 0.7, sizeEnd: 0.1, life: 0.35
+        })
+      }
+      const along = (px - w.x) * w.dx + (pz - w.z) * w.dz
+      const lat = Math.abs((px - w.x) * -w.dz + (pz - w.z) * w.dx)
+      if (!w.hit && Math.abs(along) < 0.7 && lat < w.hw + PLAYER_R * 0.5) {
+        w.hit = true
+        h.hitPlayer(w.source, w.dmg, { blockable: false, fromX: w.x - w.dx, fromZ: w.z - w.dz, kind: 'aoe' })
+      }
+      if (w.travel > w.range || !hasLineOfSight(h.nav, w.x - w.dx * step, w.z - w.dz * step, w.x, w.z)) w.active = false
+    }
+    for (const r of this.rings) {
+      if (!r.active) continue
+      r.r += r.speed * dt
+      const d = Math.hypot(px - r.x, pz - r.z)
+      if (!r.hit && Math.abs(d - r.r) < 0.6) {
+        r.hit = true
+        h.hitPlayer(r.source, r.dmg, { blockable: false, fromX: r.x, fromZ: r.z, kind: 'aoe' })
+      }
+      if (r.r >= r.maxR) r.active = false
+    }
   }
 
   lobShell(e: Enemy, tx: number, tz: number, dur: number, dmg: number): void {
@@ -194,6 +305,19 @@ export class CombatSystem {
         continue
       }
 
+      // Enemy orbs curve toward the player
+      if (s.homePlayer) {
+        const ax = h.player.x - s.x
+        const ay = (EYE_H - 0.45) - s.y
+        const az = h.player.z - s.z
+        const al = Math.hypot(ax, ay, az) || 1
+        const sp = Math.hypot(s.vx, s.vy, s.vz)
+        const k = Math.min(1, s.turn * dt)
+        s.vx += ((ax / al) * sp - s.vx) * k
+        s.vy += ((ay / al) * sp - s.vy) * k
+        s.vz += ((az / al) * sp - s.vz) * k
+        if (Math.random() < 0.5) h.fx.emit({ x: s.x, y: s.y, z: s.z, color: '#d3fbff', size: 0.35, sizeEnd: 0.05, life: 0.25 })
+      }
       // Homing (gentle — a tap should hit what it was aimed at, strafing or not)
       if (s.homing && s.homing.state !== 'dead') {
         const e = s.homing
@@ -230,6 +354,19 @@ export class CombatSystem {
       }
 
       if (s.owner === 'player') {
+        // Shooting down orbs
+        let popped = false
+        for (const o of this.shots) {
+          if (!o.active || o.owner !== 'enemy' || !o.destructible) continue
+          const rr = o.radius + s.radius + 0.25
+          if ((o.x - s.x) ** 2 + (o.y - s.y) ** 2 + (o.z - s.z) ** 2 < rr * rr) {
+            h.fx.sparks(o.x, o.y, o.z, '#d3fbff', 10, 5)
+            this.kill(o)
+            popped = true
+            break
+          }
+        }
+        if (popped && s.pierce <= 0) { this.kill(s); continue }
         if (h.shotHitsProp?.(s.x, s.y, s.z, s.radius, s.dmg)) {
           h.fx.sparks(s.x, s.y, s.z, s.color, 6, 4)
           if (s.pierce <= 0) { this.kill(s); continue }
@@ -265,6 +402,7 @@ export class CombatSystem {
         }
       }
     }
+    this.updateHazards(dt)
     this.updatePickups(dt)
   }
 
@@ -317,14 +455,54 @@ export class CombatSystem {
   // ─── Damage to enemies ─────────────────────────────────────────────────────
 
   private hitEnemyWithShot(e: Enemy, s: Shot): void {
+    if (s.kind === 'special') {
+      e.lastWeapon = s.weapon
+      this.damageEnemy(e, s.dmg, { crit: s.crit, charge: 1, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element, special: true, weapon: s.weapon })
+      if (e.state !== 'dead') {
+        if (s.burn > 0) { e.burnT = 3; e.burnDps = s.burn }
+        if (s.freeze > 0 && !e.boss) {
+          e.frozenT = s.freeze
+          e.state = 'stun'
+          e.st = 0
+          e.stunT = s.freeze
+          e.ring.visible = false
+        } else if (s.freeze > 0 && e.boss) {
+          e.frozenT = 0.6
+        }
+      }
+      return
+    }
+    e.lastWeapon = ''
     const lvl = s.kind === 'charge3' ? 3 : s.kind === 'charge2' ? 2 : s.kind === 'charge1' ? 1 : s.kind === 'reflect' ? 2 : 0
     this.damageEnemy(e, s.dmg, { crit: s.crit, charge: lvl, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element })
   }
 
-  damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean }): void {
+  damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean; weapon?: string }): void {
     const h = this.host
     if (e.state === 'dead') return
+    // Bosses are untouchable during their entrance and their phase-2 roar.
+    if (e.boss && (e.state === 'idle' || e.state === 'alert' || (e.state === 'act' && e.attack === 'roar'))) {
+      h.fx.sparks(o.x, o.y, o.z, '#ffffff', 6, 4, 0.14)
+      pushHud({ t: 'text', x: o.x, y: o.y + 0.3, z: o.z, key: 'combat.tink', color: '#dfe7ff' })
+      h.sfx('tink', e.x, e.z)
+      return
+    }
     if (!e.awake) wake(h, e)
+    // Weakness: the right copied weapon (bosses ×2.5 + stagger), or the
+    // counter element against a sector machine (×1.75).
+    let weakMul = 1
+    if (o.weapon && e.boss && (e.def as BossDef).weakTo === o.weapon) weakMul = 2.5
+    else if (o.element && o.element !== 'none' && e.element !== 'none' && COUNTER[e.element] === o.element) weakMul = 1.75
+    if (weakMul > 1) {
+      pushHud({ t: 'text', x: o.x, y: o.y + 0.6, z: o.z, key: 'combat.weak', color: '#ff9a2e' })
+      if (e.boss && e.state !== 'stun') {
+        e.state = 'stun'
+        e.st = 0
+        e.stunT = 0.9
+        e.ring.visible = false
+      }
+    }
+    amount *= weakMul
     // ── Guards ──
     let guarded = false
     if (e.guardBreakT <= 0) {
@@ -382,7 +560,7 @@ export class CombatSystem {
       e.stunT = e.kind === 'brute' ? 0.4 : 0.6
       e.ring.visible = false
     }
-    pushHud({ t: 'damage', x: o.x, y: o.y + 0.2, z: o.z, amount: dmg, crit, weak: false, toPlayer: false })
+    pushHud({ t: 'damage', x: o.x, y: o.y + 0.2, z: o.z, amount: dmg, crit, weak: weakMul > 1, toPlayer: false })
     h.fx.sparks(o.x, o.y, o.z, crit ? '#ffd84a' : o.color, o.charge >= 2 ? 16 : 7, o.charge >= 2 ? 7 : 5, o.charge >= 2 ? 0.24 : 0.16)
     h.fx.flash(o.x, o.y, o.z, crit ? '#ffd84a' : o.color, o.charge >= 2 ? 1.5 : 0.7, 0.1)
     h.sfx(crit ? 'crit' : o.charge >= 2 ? 'hitHeavy' : 'hit', e.x, e.z)
@@ -400,16 +578,17 @@ export class CombatSystem {
     e.deathT = 0
     e.ring.visible = false
     const cy = e.y + e.def.aimY
-    const col = e.elite ? '#ffd84a' : BASE_COLORS[e.kind].main
-    h.fx.orbBurst(e.x, cy, e.z, col, e.elite ? 1.4 : e.def.radius > 0.8 ? 1.2 : 1)
-    h.shake(e.elite ? 0.4 : 0.2)
-    h.sfx('explode', e.x, e.z)
+    const col = e.boss ? (e.def as BossDef).color : e.elite ? '#ffd84a' : BASE_COLORS[e.kind].main
+    h.fx.orbBurst(e.x, cy, e.z, col, e.boss ? 2 : e.elite ? 1.4 : e.def.radius > 0.8 ? 1.2 : 1)
+    h.shake(e.boss ? 0.8 : e.elite ? 0.4 : 0.2)
+    h.sfx(e.boss ? 'death' : 'explode', e.x, e.z)
+    if (e.boss) h.hitStop = Math.max(h.hitStop, 0.35)
     const xp = scaleXp(e.def.xp, e.level) * (e.elite ? 3 : 1)
     pushHud({ t: 'text', x: e.x, y: cy + 0.8, z: e.z, key: 'combat.xp', color: '#9dff5a', params: { n: xp } })
     // Drops
     const [b0, b1] = e.def.bolts
     let bolts = Math.round((b0 + Math.random() * (b1 - b0)) * h.stats.boltMul * (1 + (e.level - 1) * 0.12) * (e.elite ? 3 : 1))
-    const chunks = Math.min(6, Math.max(1, Math.ceil(bolts / 4)))
+    const chunks = Math.min(e.boss ? 10 : 6, Math.max(1, Math.ceil(bolts / 4)))
     for (let k = 0; k < chunks; k++) {
       const v = Math.max(1, Math.round(bolts / (chunks - k)))
       bolts -= v

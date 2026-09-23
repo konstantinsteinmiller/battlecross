@@ -72,6 +72,15 @@ export interface Enemy {
   guardBreakT: number
   /** Last time this enemy took damage (for the floating HP bar). */
   hurtAt: number
+  /** Boss-only: which Core Master, whether phase 2 has begun. */
+  bossId: import('../models/bosses').BossId | null
+  phase2: boolean
+  /** Status effects from special weapons. */
+  burnT: number
+  burnDps: number
+  frozenT: number
+  /** Id of the special weapon that last hit (weapon XP on kill). */
+  lastWeapon: string
 }
 
 export type ShotKind = 'pellet' | 'charge1' | 'charge2' | 'charge3' | 'enemy' | 'shell' | 'reflect' | 'special'
@@ -113,6 +122,12 @@ export interface Shot {
   element: Element
   /** Special weapon id when kind === 'special'. */
   weapon: string
+  /** Enemy orbs that steer toward the player and can be shot down. */
+  homePlayer: boolean
+  destructible: boolean
+  /** Special-weapon payloads: burn (dps, s) / freeze (s) applied on hit. */
+  burn: number
+  freeze: number
 }
 
 export type PickupKind = 'bolt' | 'hp' | 'hpBig' | 'we' | 'weBig' | 'core'
@@ -170,6 +185,10 @@ export interface World {
   shocks: ShockRings
   fireEnemyShot(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): void
   lobShell(e: Enemy, tx: number, tz: number, dur: number, dmg: number): void
+  /** Boss hazards (see CombatSystem). */
+  spawnWave(e: Enemy, x: number, z: number, dx: number, dz: number, speed: number, halfWidth: number, range: number, dmg: number, color: string): void
+  spawnRing(e: Enemy, x: number, z: number, speed: number, maxR: number, dmg: number, color: string): void
+  fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void
   /** Melee / AoE / contact damage from an enemy to the player. */
   hitPlayer(e: Enemy | null, dmg: number, opts: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss'
   shake(amount: number): void

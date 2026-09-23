@@ -9,6 +9,9 @@ import type { Rig } from '../models/kit'
 import { mulberry32, shuffle } from '../world/rng'
 import { rollRarity, type Rarity } from '../data/items'
 import { createEnemy } from './enemies'
+import { createBoss } from './bosses'
+import { SECTOR_BY_ID } from '../data/regions'
+import type { BossId } from '../models/bosses'
 import { makeBlobShadow } from '../fx/markers'
 import { hasLineOfSight } from '../world/nav'
 import { pushHud } from '../state/hud'
@@ -228,15 +231,20 @@ export class MissionObjects {
     const h = this.host
     const q = this.quest
     const rng = mulberry32(h.map.seed ^ 0x0b1e)
-    if (q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss') {
-      // The elite waits in the objective room (the boss room for boss jobs
-      // until the Core Masters land — see bosses).
-      const room = h.map.rooms.find(r => r.role === (q.template === 'elite' ? 'objective' : 'boss'))
-        ?? h.map.rooms.find(r => r.role === 'objective')!
+    if (q.template === 'tutorial' || q.template === 'boss') {
+      // The sector's Core Master waits behind the boss shutter.
+      const room = h.map.rooms.find(r => r.role === 'boss') ?? h.map.rooms.find(r => r.role === 'objective')!
       const [cx, cz] = roomCenter(room)
-      const kind = q.target ?? (q.template === 'tutorial' ? 'brute' : 'brute')
-      const e = createEnemy(kind, q.level + (q.template === 'tutorial' ? 0 : 1), cx, cz, room.id, { elite: true })
-      e.nameKey = q.template === 'elite' ? `enemy.${kind}` : 'boss.stand'
+      const boss = createBoss(SECTOR_BY_ID[q.sector].boss as BossId, q.level + (q.template === 'tutorial' ? 0 : 1), cx, cz, room.id)
+      addEnemy(boss)
+      this.eliteId = boss.id
+      this.objective.count = 1
+    }
+    if (q.template === 'elite') {
+      const room = h.map.rooms.find(r => r.role === 'objective') ?? h.map.rooms[h.map.rooms.length - 1]!
+      const [cx, cz] = roomCenter(room)
+      const kind = q.target ?? 'brute'
+      const e = createEnemy(kind, q.level + 1, cx, cz, room.id, { elite: true })
       addEnemy(e)
       this.eliteId = e.id
       this.objective.count = 1

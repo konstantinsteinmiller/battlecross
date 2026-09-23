@@ -59,7 +59,7 @@ export const createEnemy = (kind: EnemyKind, level: number, x: number, z: number
     stunT: 0, flash: 0, path: null, pathT: 0, walk: 0, anim: Math.random() * 10, a: 0, b: 0,
     tx: 0, tz: 0, sx: 0, sz: 0, hitPlayer: false,
     rig, root, shadow: makeBlobShadow(def.radius * 1.1 * scale), ring: makeTeleRing(), deathT: 0,
-    guardBreakT: 0, hurtAt: -10
+    guardBreakT: 0, hurtAt: -10, bossId: null, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: ''
   }
   return e
 }

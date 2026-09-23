@@ -3,6 +3,32 @@
     div.scroll
       button.attr-cta(v-if="profile.hero.pendingAttrs > 0" type="button" @click="flow.modal = 'levelUp'")
         | {{ t('hero.attrPending', { n: profile.hero.pendingAttrs }) }}
+      div.section-title {{ t('hero.weapons') }}
+      div.wslots
+        button.wslot(
+          v-for="i in [0, 1]"
+          :key="i"
+          type="button"
+          :class="{ on: wSlot === i }"
+          :style="profile.hero.slots[i] ? { '--wc': WEAPONS[profile.hero.slots[i]].color } : {}"
+          @click="wSlot = i"
+        )
+          span.ws-orb
+          span.ws-name {{ profile.hero.slots[i] ? t(`weapon.${profile.hero.slots[i]}.name`) : t('hero.weaponSlot', { n: i + 1 }) }}
+      div.wlist(v-if="profile.hero.weapons.length")
+        button.wrow(
+          v-for="w in profile.hero.weapons"
+          :key="w"
+          type="button"
+          :style="{ '--wc': WEAPONS[w].color }"
+          :class="{ eq: profile.hero.slots.includes(w) }"
+          @click="assign(w)"
+        )
+          span.ws-orb
+          span.wr-name {{ t(`weapon.${w}.name`) }}
+          span.wr-rank {{ t('hero.weaponRank', { n: weaponRank(profile.hero.weaponXp[w] ?? 0, WEAPONS[w]) }) }}
+          span.wr-desc {{ t(`weapon.${w}.desc`) }}
+      div.empty-note(v-else) {{ t('hero.noWeapons') }}
       div.slots
         button.slot(
           v-for="s in EQUIP_SLOTS"
@@ -68,6 +94,8 @@ import { RARITY_COLOR } from '@/game/models/palette'
 import { flow } from '@/game/flow'
 import { currentHub } from '@/game/boot'
 import { sfx } from '@/game/audio/sfx'
+import { saveProfile } from '@/game/state/profile'
+import { WEAPONS, weaponRank, type WeaponId } from '@/game/data/weapons'
 
 /**
  * Cobalt's gear and stats. Six sockets across the top (buster, helmet, chest,
@@ -122,6 +150,18 @@ const salvage = () => {
   }
 }
 
+// ── Special weapon loadout ──
+const wSlot = ref<0 | 1>(0)
+const assign = (w: WeaponId) => {
+  const slots = profile.hero.slots
+  const other = wSlot.value === 0 ? 1 : 0
+  if (slots[other] === w) slots[other] = slots[wSlot.value]
+  slots[wSlot.value] = w
+  saveProfile()
+  currentHub()?.refreshHero()
+  sfx('weapon')
+}
+
 const pct = (v: number) => `${Math.round(v * 100)}%`
 const statRows = computed(() => {
   void profile.level
@@ -151,6 +191,59 @@ const statRows = computed(() => {
   font-family: var(--font-ui)
   font-size: clamp(13px, 2.8vmin, 16px)
   animation: cta 1.2s ease-in-out infinite
+.wslots
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 8px
+.wslot
+  display: flex
+  align-items: center
+  gap: 8px
+  padding: 8px 10px
+  border-radius: 12px
+  border: 3px solid var(--wc, #3a5a9a)
+  background: rgba(0, 0, 0, 0.3)
+  color: #fff
+  font-family: var(--font-ui)
+  font-size: clamp(12px, 2.6vmin, 15px)
+  &.on
+    outline: 2px solid #ffd84a
+.ws-orb
+  flex: 0 0 auto
+  width: 20px
+  height: 20px
+  border-radius: 50%
+  border: 2px solid #141a33
+  background: radial-gradient(circle, #fff 0%, var(--wc, #3a5a9a) 70%)
+  box-shadow: 0 0 8px var(--wc, transparent)
+.wlist
+  display: flex
+  flex-direction: column
+  gap: 4px
+.wrow
+  display: grid
+  grid-template-columns: auto 1fr auto
+  align-items: center
+  gap: 2px 8px
+  padding: 6px 10px
+  border-radius: 10px
+  border-left: 4px solid var(--wc)
+  background: rgba(0, 0, 0, 0.25)
+  color: #fff
+  text-align: left
+  font-family: var(--font-ui)
+  &.eq
+    background: rgba(255, 255, 255, 0.08)
+.wr-name
+  font-size: clamp(12px, 2.6vmin, 15px)
+.wr-rank
+  font-family: var(--font-pixel)
+  font-size: clamp(7px, 1.6vmin, 9px)
+  color: #ffd84a
+.wr-desc
+  grid-column: 2 / 4
+  font-size: clamp(10px, 2.2vmin, 12px)
+  color: #9fb8e6
 .slots
   display: grid
   grid-template-columns: repeat(6, 1fr)

@@ -37,6 +37,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Last Stand! Systems rebooted.',
     'weak': 'WEAK!',
+    'dizzy': 'DIZZY!',
     'block': 'Block',
     'slide': 'Slide',
     'fire': 'Fire',
@@ -132,6 +133,7 @@ export default {
     'purge': 'Machines destroyed: {n}/{total}'
   },
   'mission': {
+    'bossDown': '{boss} destroyed!',
     'objectiveDone': 'Objective complete!',
     'rescued': 'Worker-bot beamed to safety!',
     'bossDoor': 'The shutter grinds open…'
@@ -222,6 +224,10 @@ export default {
     'reroll': 'New job'
   },
   'hero': {
+    'weapons': 'Special weapons',
+    'weaponSlot': 'Slot {n}',
+    'weaponRank': 'Rank {n}',
+    'noWeapons': 'Defeat Core Masters to copy their weapons.',
     'attrPending': 'Choose {n} system upgrade(s)!',
     'stats': 'Systems',
     'attributes': 'Upgrades',
@@ -346,11 +352,12 @@ export default {
     'magnet': '{v} pickup reach'
   },
   'weapon': {
-    'scrapBurst': { 'name': 'Scrap Burst' },
-    'flameWave': { 'name': 'Flame Wave' },
-    'iceLance': { 'name': 'Ice Lance' },
-    'thunderArc': { 'name': 'Thunder Arc' },
-    'galeGuard': { 'name': 'Gale Guard' }
+    'rankUp': '{weapon} upgraded to rank {n}!',
+    'scrapBurst': { 'name': 'Scrap Burst', 'desc': 'A three-way spray of scrap. Great against crowds.' },
+    'flameWave': { 'name': 'Flame Wave', 'desc': 'A fireball rolls along the floor through every machine in its path and sets them burning.' },
+    'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that freezes what it hits.' },
+    'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
+    'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' }
   },
 
   'options': {

@@ -86,7 +86,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **6. Loot and gear.** Item generation, chests with a loot burst, the
   inventory/Hero tab with a 3D paper doll, gear recolouring the rig, the
   Workshop (upgrade, salvage, tanks). *Commit.*
-- [ ] **7. Bosses and special weapons.** Scrapper, Blaze, Frost, Volt and Gale
+- [x] **7. Bosses and special weapons.** Scrapper, Blaze, Frost, Volt and Gale
   Masters, boss door, name card, boss bar, weapon unlock, weakness, weapon
   slots, arm tint. *Commit.*
 - [ ] **8. Audio and juice.** Chiptune SFX synth and music sequencer (routed

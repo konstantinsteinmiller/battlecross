@@ -30,11 +30,15 @@ import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
 import { MissionObjects, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
 import {
-  profile, grantXp, saveProfile, computeStats, writeSnapshot, xp01, type MissionSnapshot
+  profile, grantXp, saveProfile, computeStats, writeSnapshot, xp01, heroColors, type MissionSnapshot
 } from '../state/profile'
 import { rollItem, type Item } from '../data/items'
 import { flow, finishMission } from '../flow'
 import { BEAM_OUT_TIME } from './constants'
+import { updateBoss, syncBossVisual, startBossIntro, BOSS_INTRO_T, bossRoomOf } from './bosses'
+import { WeaponSystem } from './weapons'
+import { WEAPONS, type WeaponId } from '../data/weapons'
+import type { Room } from '../world/levelGen'
 
 export interface MissionSetup {
   sector: SectorId
@@ -73,6 +77,7 @@ interface DoorState {
   mesh: DoorMesh
   open: number
   opening: boolean
+  closing: boolean
   locked: boolean
   slab: Slab
   x: number
@@ -143,6 +148,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private dirty = false
   private interact: ReturnType<MissionObjects['nearestInteractable']> | { kind: 'door'; ref: DoorState } | null = null
   private finished = false
+  weapons: WeaponSystem
+  private bossRoom: Room | null = null
+  private boss: Enemy | null = null
+  private bossStarted = false
+  private bossBarT = 0
+  private vmFlash = 0
+  private vmFlashColor = '#ffffff'
   private raycaster = new Raycaster()
   private marker: Mesh
   private markerT = 0
@@ -199,7 +211,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.nav.slabs.push(slab)
       this.nav.pathBlock[d.j * this.map.w + d.i] = d.boss ? 2 : 1
       this.doors.push({
-        id: d.id, mesh, open: 0, opening: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, to: d.to
+        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, to: d.to
       })
     }
 
@@ -236,10 +248,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.enemies = spawnEncounters(this.map, setup.encounters, setup.enemyLevel, { firstRoomsGentle: setup.tutorial })
     this.objects.setupEnemyObjectives(this.enemies, (e) => this.enemies.push(e))
     for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
+    this.bossRoom = bossRoomOf(this.map.rooms)
+    this.boss = this.enemies.find(e => e.boss) ?? null
+    this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
+    this.scene.add(this.weapons.root)
     if (setup.snapshot) this.applySnapshot(setup.snapshot)
 
     // Viewmodel
-    this.vm = buildViewmodel()
+    this.vm = buildViewmodel(heroColors())
     this.vmRoot.add(this.vm.root)
     this.vmScene.add(this.vmRoot)
     this.vmScene.add(new HemisphereLight(0xffffff, 0x445066, 1.2))
@@ -260,6 +276,18 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
 
   lobShell(e: Enemy, tx: number, tz: number, dur: number, dmg: number): void {
     this.system.lobShell(e, tx, tz, dur, dmg)
+  }
+
+  spawnWave(e: Enemy, x: number, z: number, dx: number, dz: number, speed: number, halfWidth: number, range: number, dmg: number, color: string): void {
+    this.system.spawnWave(e, x, z, dx, dz, speed, halfWidth, range, dmg, color)
+  }
+
+  spawnRing(e: Enemy, x: number, z: number, speed: number, maxR: number, dmg: number, color: string): void {
+    this.system.spawnRing(e, x, z, speed, maxR, dmg, color)
+  }
+
+  fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void {
+    this.system.fireOrb(e, x, y, z, speed, dmg)
   }
 
   shake(amount: number): void {
@@ -369,9 +397,70 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.kills++
     profile.stats.kills++
     if (this.combat.target === e) this.combat.target = null
+    if (e.lastWeapon) this.weapons.onKill(e.lastWeapon)
+    if (e.boss) {
+      // The shutter lifts again; the bar drains away with the boss.
+      const d = this.bossDoor()
+      if (d) {
+        d.locked = false
+        d.opening = true
+        d.open = Math.min(d.open, 0.2)
+        d.slab.active = true
+      }
+      pushHud({ t: 'toast', key: 'mission.bossDown', params: { boss: e.nameKey }, color: '#ffd84a' })
+    }
     this.objects.onEnemyKilled(e)
     this.gainXp(xp)
     this.dirty = true
+  }
+
+  private bossDoor(): DoorState | null {
+    if (!this.bossRoom) return null
+    return this.doors.find(d => d.to === this.bossRoom!.id) ?? null
+  }
+
+  /** Crossing into the boss room: shutter slams, name card, bar fills, fight. */
+  private startBoss(): void {
+    const b = this.boss
+    if (!b || this.bossStarted) return
+    this.bossStarted = true
+    startBossIntro(b)
+    const d = this.bossDoor()
+    if (d) {
+      d.locked = true
+      d.opening = false
+      d.open = 1
+      d.closing = true
+      this.nav.pathBlock[d.cellJ * this.map.w + d.cellI] = 2
+    }
+    hud.bossName = b.nameKey
+    hud.bossHp01 = 0
+    hud.titleKey = b.nameKey
+    hud.titleSub = `sector.${this.setup.sector}`
+    hud.titleShownAt = performance.now()
+    this.bossBarT = 0
+    this.combat.target = b
+    sfx('bossIntro')
+    this.shake(0.3)
+  }
+
+  /** Special weapon in slot i (HUD button / 1 / 2). */
+  fireWeapon(i: 0 | 1): void {
+    const id = profile.hero.slots[i] as WeaponId | ''
+    if (!id || hud.phase !== 'play' || this.combat.dead) return
+    const m = this.muzzle()
+    const aim = this.aimDir(m)
+    const r = this.weapons.use(i, id, m, aim)
+    if (r === 'ok') {
+      this.vmFlash = 1
+      this.vmFlashColor = WEAPONS[id].color
+      this.combat.recoil = 1
+      this.makeNoise(12)
+      if (aim[3] && !aim[3].awake) wake(this, aim[3])
+    } else if (r === 'energy') {
+      pushHud({ t: 'toast', key: 'combat.noEnergy', color: '#ff9a8a' })
+      sfx('denied')
+    }
   }
 
   /** Live XP → profile. A level-up mid-mission is a full repair + fanfare;
@@ -683,7 +772,31 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       }
     }
 
-    for (const e of this.enemies) updateEnemy(this, e, dt)
+    for (const e of this.enemies) {
+      if (e.boss) updateBoss(this, e, dt, this.bossRoom)
+      else updateEnemy(this, e, dt)
+      // Status effects from special weapons
+      if (e.state !== 'dead') {
+        if (e.burnT > 0) {
+          const before = Math.floor(e.burnT * 2)
+          e.burnT -= dt
+          if (Math.random() < 0.4) this.fx.emit({ x: e.x + (Math.random() - 0.5) * 0.6, y: e.y + e.def.aimY * Math.random() * 1.4, z: e.z + (Math.random() - 0.5) * 0.6, vy: 2, color: '#ff7a2a', size: 0.45, sizeEnd: 0.05, life: 0.4 })
+          if (Math.floor(e.burnT * 2) !== before) {
+            e.lastWeapon = 'flameWave'
+            this.system.damageEnemy(e, Math.max(1, Math.round(e.burnDps * 0.5)), { crit: false, charge: 0, fromX: e.x, fromZ: e.z, x: e.x, y: e.y + e.def.aimY, z: e.z, color: '#ff7a2a', special: true })
+          }
+        }
+        if (e.frozenT > 0) e.frozenT -= dt
+      }
+    }
+    // Entering the boss room triggers the Core Master
+    if (this.boss && !this.bossStarted && this.bossRoom && hud.phase === 'play') {
+      const i = Math.floor(p.x / CELL)
+      const j = Math.floor(p.z / CELL)
+      if (this.map.room[j * this.map.w + i] === this.bossRoom.id) this.startBoss()
+    }
+    this.weapons.update(dt)
+    if (first && this.input.weaponQueued && hud.phase === 'play') this.fireWeapon((this.input.weaponQueued - 1) as 0 | 1)
     this.system.update(dt)
     this.fx.update(dt)
     this.markers.update(dt, this.time)
@@ -700,7 +813,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     // Interaction: the nearest chest / bot / sealed boss door in reach.
     if (hud.phase === 'play') {
       const near = this.objects.nearestInteractable(p.x, p.z, p.yaw)
-      const door = this.doors.find(d => d.locked && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
+      const door = this.bossStarted ? undefined : this.doors.find(d => d.locked && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
       if (first && this.input.tankQueued) this.useTank()
@@ -1040,6 +1153,19 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
         }
         d.mesh.lampMat.color.set(d.open >= 1 ? PAL.glowCyan : PAL.glowYellow)
       }
+      // The boss shutter slams shut behind you.
+      if (d.closing) {
+        d.open = Math.max(0, d.open - dt * DOOR_OPEN_SPEED * 2.2)
+        const e = d.open * d.open
+        if (d.mesh.boss) d.mesh.panels[0]!.position.y = e * (WALL_H - 0.6)
+        if (d.open < 0.5) d.slab.active = true
+        if (d.open <= 0) {
+          d.closing = false
+          this.shake(0.35)
+          this.sfx('stomp', d.x, d.z)
+          d.mesh.lampMat.color.set(PAL.glowRed)
+        }
+      }
     }
   }
 
@@ -1111,7 +1237,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     for (const c of this.objects.chests) if (!c.opened) consider(c, c.x, 0.6, c.z)
     const n = this.objects.npc
     if (n && !n.rescued) consider(n, n.x, 0.8, n.z)
-    for (const d of this.doors) if (d.locked) consider(d, d.x, 1.6, d.z)
+    if (!this.bossStarted) for (const d of this.doors) if (d.locked) consider(d, d.x, 1.6, d.z)
     return best
   }
 
@@ -1173,6 +1299,28 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
     if (ob.done) marks.push({ bearing: -angDiff(Math.atan2(-(this.map.start.x - p.x), -(this.map.start.z - p.z)), p.yaw), kind: 'exit', dist: Math.hypot(this.map.start.x - p.x, this.map.start.z - p.z) })
     hud.compass = marks
+    // Special weapon slots
+    for (let i = 0; i < 2; i++) {
+      const id = profile.hero.slots[i] as WeaponId | ''
+      const w = hud.weapons[i]!
+      if (!id) {
+        w.id = ''
+        continue
+      }
+      const cost = this.weapons.cost(id)
+      w.id = id
+      w.cost = cost
+      w.color = WEAPONS[id].color
+      w.ready = this.weapons.cooldown[i as 0 | 1] <= 0 && (c.we >= cost || (id === 'galeGuard' && this.weapons.guardT > 0))
+    }
+    // Boss bar: fills segment by segment during the entrance, then tracks HP
+    const b = this.boss
+    if (b && this.bossStarted) {
+      this.bossBarT += 1 / 15
+      const fill = Math.min(1, this.bossBarT / (BOSS_INTRO_T * 0.7))
+      hud.bossHp01 = b.state === 'dead' ? 0 : Math.min(fill, b.hp / b.maxHp)
+      if (b.state === 'dead' && b.deathT > 1.6) hud.bossName = ''
+    }
     const t = c.target
     if (t && t.state !== 'dead') {
       hud.targetName = t.nameKey
@@ -1248,7 +1396,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     cam.updateMatrixWorld()
     this.level.sky.position.copy(cam.position)
 
-    for (const e of this.enemies) if (e.root.visible || e.state === 'dead') syncEnemyVisual(e, alpha, this.time)
+    for (const e of this.enemies) {
+      if (!e.root.visible && e.state !== 'dead') continue
+      if (e.boss) syncBossVisual(e, alpha)
+      else syncEnemyVisual(e, alpha, this.time)
+      if (e.frozenT > 0) e.rig.material.emissive.setRGB(0.15 + e.flash * 0.7, 0.4 + e.flash * 0.5, 0.75)
+    }
     this.system.sync(alpha)
 
     this.syncViewmodel(dt)
@@ -1297,7 +1450,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     } else {
       coreMat.color.set(PAL.glowCyan)
       haloMat.opacity = Math.max(0, haloMat.opacity - dt * 6)
-      this.vm.core.scale.setScalar(1 + Math.sin(this.time * 5) * 0.08)
+      this.vm.core.scale.setScalar(1 + Math.sin(this.time * 5) * 0.08 + this.vmFlash * 0.8)
+      if (this.vmFlash > 0) {
+        coreMat.color.set(this.vmFlashColor)
+        haloMat.color.set(this.vmFlashColor)
+        haloMat.opacity = Math.max(haloMat.opacity, this.vmFlash * 0.7)
+        this.vm.halo.scale.setScalar(0.8 + this.vmFlash)
+      }
+      this.vmFlash = Math.max(0, this.vmFlash - dt * 4)
     }
     // Barrier disc on block
     const sh = this.vm.shield

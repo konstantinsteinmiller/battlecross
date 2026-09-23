@@ -91,7 +91,7 @@ export class FloorMarkers {
 
 export class ShockRings {
   readonly root = new Group()
-  private pool: Array<{ mesh: Mesh; t: number; dur: number; r: number; active: boolean }> = []
+  private pool: Array<{ mesh: Mesh; t: number; dur: number; r: number; active: boolean; linear: boolean }> = []
 
   spawn(x: number, y: number, z: number, r: number, color: string, dur = 0.45): void {
     let m = this.pool.find(p => !p.active)
@@ -100,16 +100,25 @@ export class ShockRings {
       const mesh = new Mesh(new RingGeometry(0.8, 1, 48), mat)
       mesh.rotation.x = -Math.PI / 2
       this.root.add(mesh)
-      m = { mesh, t: 0, dur, r, active: true }
+      m = { mesh, t: 0, dur, r, active: true, linear: false }
       this.pool.push(m)
     }
     ;(m.mesh.material as MeshBasicMaterial).color.set(color)
     m.active = true
+    m.linear = false
     m.t = 0
     m.dur = dur
     m.r = r
     m.mesh.position.set(x, y, z)
     m.mesh.visible = true
+  }
+
+  /** A ring that expands at a CONSTANT speed — drawn exactly where the boss
+   *  hazard it represents is, so dodging reads truthfully. */
+  spawnLinear(x: number, z: number, speed: number, maxR: number, color: string): void {
+    this.spawn(x, 0.06, z, maxR, color, maxR / speed)
+    const m = this.pool.find(p => p.active && p.t === 0 && p.r === maxR)
+    if (m) m.linear = true
   }
 
   update(dt: number): void {
@@ -122,9 +131,9 @@ export class ShockRings {
         m.mesh.visible = false
         continue
       }
-      const e = 1 - Math.pow(1 - k, 2)
+      const e = m.linear ? k : 1 - Math.pow(1 - k, 2)
       m.mesh.scale.setScalar(0.2 + m.r * e)
-      ;(m.mesh.material as MeshBasicMaterial).opacity = 1 - k
+      ;(m.mesh.material as MeshBasicMaterial).opacity = m.linear ? 0.9 - k * 0.5 : 1 - k
     }
   }
 }
