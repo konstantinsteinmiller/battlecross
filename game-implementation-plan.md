@@ -98,7 +98,7 @@ while bars and damage numbers get direct DOM writes.
 - [x] **10. Ads and lifecycle wiring.** Revive (rewarded), 2× bolts
   (rewarded), the interstitial before results, gameplayStart/Stop from the
   state machine, platform pause gating the loop. *Commit.*
-- [ ] **11. QA pass.** Typecheck, tests (sim unit tests, save round-trip,
+- [x] **11. QA pass.** Typecheck, tests (sim unit tests, save round-trip,
   i18n parity), a production build, a headless-browser play-through
   screenshot run, and a perf check on a throttled CPU. *Commit.*
 
@@ -111,8 +111,10 @@ while bars and damage numbers get direct DOM writes.
   model (`src/views/ModelLab.vue`).
 - `window.__game.app.mode` is the live mission in dev (`debugCam` overrides
   the camera for inspection).
-- Cheats in dev: `?cheat=1` enables `useCheats` hotkeys (to be rewritten for
-  this game in chunk 4).
+- Cheats: `localStorage.cheat = 'true'` (DevTools) + reload enables the hotkeys in
+  `src/game/cheats.ts`, all on ctrl+shift+alt: B +1000 bolts, L level up,
+  O finish objective, K destroy every machine, G god mode, U unlock all.
+  Typing "cmarc" toggles debug mode (FPS/draw-call meter).
 - Layout checks: 320×658 portrait and 764×385 landscape, touch UA. In
   portrait the top HUD row belongs to the bars and the status pills, so the
   compass, target frame, objective and tip stack below it
@@ -141,3 +143,21 @@ while bars and damage numbers get direct DOM writes.
   `ma_stats.lastDropAt`). All are hidden unless `canOfferReward`.
 - Hidden QA ad trigger: 30 taps on a bolts pill within 30 s
   (`useQaAdTrigger`).
+- QA tooling (all run against a BUILT bundle; `npx vite build --outDir <dir>`):
+  - `pnpm qa:xbrowser --dist <dir>`: Chrome / Edge / Firefox / WebKit play the
+    first mission to the hub, with zero page errors.
+  - `pnpm qa:portal --platform gamepix --dist <dir> --headless`: mute at boot,
+    unmute, tab-away freeze and silence, resume, menu entry (12 checks).
+  - `pnpm perf:mission --dist <dir> [--arms base,<flag> --reps 3]`:
+    throttled perf with interleaved A/B. Results go in `PERF-LEDGER.md`.
+- Drop-in assets: files in `public/audio/sfx|music` and
+  `public/images/textures` replace the procedural sound or texture of the
+  same name. They are listed at build time (`virtual:asset-overrides`), so a
+  missing file never 404s. See `sound-todo.md` and `art-todo.md`.
+- Portal culling (`Mission.updateRoomCulling`): rooms show through open,
+  on-screen doors, two deep. Static props hang under their room group.
+  Beam-in and beam-out, with the camera above the walls, show everything.
+- Known open items for a human: the origin remote still points at the
+  survivalist repo, and `.env` still holds survivalist's GameMonetize id,
+  Glitch ids and Playgama leaderboard id. Replace them before a portal
+  upload.

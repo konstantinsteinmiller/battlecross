@@ -1,5 +1,6 @@
 import { PerspectiveCamera, Scene } from 'three'
 import { getRenderer, resizeRenderer, fovForAspect } from './renderer'
+import { frameStart, frameEnd, phaseStart, phaseEnd } from '@/use/usePerfProbe'
 
 /**
  * ─── The game loop ───────────────────────────────────────────────────────────
@@ -133,15 +134,23 @@ class GameApp {
     const dt = Math.min(0.1, Math.max(0, dtMs / 1000))
     const mode = this.mode
     if (!mode) return
+    // Perf seam (`?perfprobe=1`, see PERF-LEDGER.md): a const-false no-op in
+    // every player's session.
+    frameStart(now)
     this.acc += dt
     let n = 0
+    phaseStart('step')
     while (this.acc >= STEP && n < MAX_STEPS) {
       mode.update(STEP, n === 0)
       this.acc -= STEP
       n++
     }
+    phaseEnd('step')
     if (n === MAX_STEPS) this.acc = 0
+    phaseStart('draw')
     mode.render(this.acc / STEP, dt)
+    phaseEnd('draw')
+    frameEnd()
   }
 }
 

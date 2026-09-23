@@ -37,6 +37,7 @@ import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from 
 import { isAnyModalOpen } from '@/use/useModalState'
 import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
+import { registerGameCheats } from '@/game/cheats'
 import Joystick from '@/components/hud/Joystick.vue'
 import HudBars from '@/components/hud/HudBars.vue'
 import Crosshair from '@/components/hud/Crosshair.vue'
@@ -64,6 +65,8 @@ import OptionsModal from '@/components/organisms/OptionsModal.vue'
  * acquire the pause gate (FModal → useModalState), and the loop is suspended
  * while any pause reason holds (ads, modals, platform pause, hidden tab).
  */
+registerGameCheats()
+
 const canvasHost = ref<HTMLElement | null>(null)
 const surface = ref<HTMLElement | null>(null)
 const optionsOpen = ref(false)

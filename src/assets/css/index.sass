@@ -38,5 +38,19 @@ html, body
 // character, so a sentence with an embedded Latin name (Cobalt, WASD) reads
 // right-to-left with the Latin run in place. The layout itself stays LTR —
 // the HUD's thumb zones and the hub geometry do not mirror.
+//
+// Arabic is cursive: its letters join, and ANY letter-spacing tears the joins
+// apart, so the HUD's tracked captions lose their tracking in Arabic.
 html[lang="ar"] body *
   unicode-bidi: plaintext
+  letter-spacing: 0 !important
+
+// Italic and tracking are Latin idioms. The browser synthesizes the italic
+// by shearing, which smears Han, Hangul, Thai, Devanagari and Arabic glyphs,
+// and tracking (negative in particular) collides CJK characters. Scripts
+// without an italic tradition set upright and untracked.
+html:is([lang="ja"], [lang="zh"], [lang="ko"]) body *
+  font-style: normal !important
+  letter-spacing: 0 !important
+html:is([lang="th"], [lang="hi"], [lang="ar"]) body *
+  font-style: normal !important

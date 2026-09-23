@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { resolve, dirname } from 'node:path'
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 
 import { defineConfig, loadEnv, type Plugin } from 'vite'
@@ -82,6 +82,59 @@ const readSnapshotFile = (file: string): LeaderboardSnapshotFile | null => {
  *   no endpoint, so no writes). Those bake the modelled board; every other
  *   target bakes the real snapshot as the bottom rung of its offline ladder.
  */
+// ─── Drop-in asset overrides ─────────────────────────────────────────────────
+//
+// Everything the game draws and plays is procedural (canvas textures, a
+// chiptune synth). A file dropped into one of these folders REPLACES the
+// procedural version of the thing it is named after (`art-todo.md`,
+// `sound-todo.md` list the names):
+//
+//   public/audio/sfx/<sfx name>.ogg|mp3|m4a|wav
+//   public/audio/music/<track id>.ogg|mp3|m4a
+//   public/images/textures/floor|wall.webp|png|jpg
+//
+// The folders are listed HERE, at build time, into `virtual:asset-overrides`,
+// so the game only ever requests files that exist: probing at runtime would
+// put a 404 in the console for every missing asset, on every portal, on
+// every load. Dev re-scans when a file is added or removed.
+const OVERRIDE_DIRS = {
+  sfx: { dir: 'public/audio/sfx', exts: ['.ogg', '.mp3', '.m4a', '.wav'] },
+  music: { dir: 'public/audio/music', exts: ['.ogg', '.mp3', '.m4a'] },
+  textures: { dir: 'public/images/textures', exts: ['.webp', '.png', '.jpg'] }
+} as const
+const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS, string[]> => {
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[] }
+  for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
+    const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
+    if (!existsSync(abs)) continue
+    out[key as keyof typeof out] = readdirSync(abs)
+      .filter(f => (exts as readonly string[]).includes(f.slice(f.lastIndexOf('.')).toLowerCase()))
+      .sort()
+  }
+  return out
+}
+const assetOverridesPlugin = (): Plugin => {
+  const ID = 'virtual:asset-overrides'
+  const RESOLVED = '\0' + ID
+  return {
+    name: 'asset-overrides',
+    resolveId: (id) => (id === ID ? RESOLVED : null),
+    load: (id) => (id === RESOLVED ? `export default ${JSON.stringify(scanOverrides())}` : null),
+    configureServer(server) {
+      const dirs = Object.values(OVERRIDE_DIRS).map(d => fileURLToPath(new URL(`./${d.dir}`, import.meta.url)))
+      server.watcher.add(dirs)
+      const onChange = (file: string) => {
+        if (!dirs.some(d => file.startsWith(d))) return
+        const mod = server.moduleGraph.getModuleById(RESOLVED)
+        if (mod) server.moduleGraph.invalidateModule(mod)
+        server.ws.send({ type: 'full-reload' })
+      }
+      server.watcher.on('add', onChange)
+      server.watcher.on('unlink', onChange)
+    }
+  }
+}
+
 const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
   name: 'mega-leaderboard-snapshot',
   buildStart() {
@@ -203,9 +256,8 @@ export default defineConfig(({ mode, command }) => {
   // Initialize plugins array
   const plugins = []
 
-  // Campaign-overrides plugin — virtual module + dev write endpoints so
-  // editor saves persist to `data/campaign-overrides.json` in the repo.
-  // Art-sheet export endpoint. `apply: 'serve'`, so it is not in any build.
+  // Drop-in art/audio overrides (see `assetOverridesPlugin`).
+  plugins.push(assetOverridesPlugin())
 
   // The baked board. EVERY build carries one — but not the same one, and the
   // difference is whether the build can ever write to the real board.
@@ -654,7 +706,13 @@ export default defineConfig(({ mode, command }) => {
           '@/use/ads/GameDistributionProvider': fileURLToPath(new URL('./src/use/ads/GameDistributionProvider.stub.ts', import.meta.url))
         }),
         ...(env.VITE_APP_PLAYGAMA === 'true' ? {} : {
-          '@/use/ads/PlaygamaProvider': fileURLToPath(new URL('./src/use/ads/PlaygamaProvider.stub.ts', import.meta.url))
+          '@/use/ads/PlaygamaProvider': fileURLToPath(new URL('./src/use/ads/PlaygamaProvider.stub.ts', import.meta.url)),
+          // The provider stub closes the STATIC path only: `main.ts`,
+          // `FLogoProgress.vue` and the gameplay-lifecycle fan-out still
+          // `await import('@/utils/playgamaPlugin')`, and each dynamic import is
+          // a chunk that ships in every other portal's archive. Same stub-swap
+          // as yandexPlugin below.
+          '@/utils/playgamaPlugin': fileURLToPath(new URL('./src/utils/playgamaPlugin.stub.ts', import.meta.url))
         }),
         ...(env.VITE_APP_GAMEPIX === 'true' ? {} : {
           '@/use/ads/GamepixProvider': fileURLToPath(new URL('./src/use/ads/GamepixProvider.stub.ts', import.meta.url)),

@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, type Scene } from 'three'
+import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, type Scene, type Object3D } from 'three'
 import type { Quest, QuestTemplate } from '../data/quests'
 import type { Enemy, World } from './world'
 import type { Theme } from '../world/themes'
@@ -86,6 +86,9 @@ export interface ObjectiveHost extends World {
   onCoreTaken(c: Core): void
   onObjectiveDone(): void
   explode(x: number, z: number, r: number, dmg: number): void
+  /** The node a static prop at (x, z) hangs under: its room's mesh group,
+   *  so portal culling hides the prop together with the room. */
+  propParent(x: number, z: number): Object3D
 }
 
 export class MissionObjects {
@@ -119,7 +122,8 @@ export class MissionObjects {
     const cz = z - Math.cos(spot[2]) * off
     mesh.root.position.set(cx, 0, cz)
     mesh.root.rotation.y = spot[2]
-    this.root.add(mesh.root)
+    const parent = h.propParent(cx, cz)
+    parent.add(mesh.root)
     const navIdx = h.nav.props.length
     h.nav.props.push({ x: cx, z: cz, r: 0.8, active: true })
     const beam = new Mesh(
@@ -128,7 +132,7 @@ export class MissionObjects {
     )
     beam.position.set(cx, 2.5, cz)
     beam.visible = false
-    this.root.add(beam)
+    parent.add(beam)
     this.chests.push({ id: this.chests.length, x: cx, z: cz, yaw: spot[2], mesh, opened: false, openT: 0, supply, rarity, navIdx, beam })
     void room
   }
@@ -188,7 +192,7 @@ export class MissionObjects {
         const z = cellCenter(spot[1]) - Math.cos(spot[2]) * 0.7 + (rng() - 0.5) * 0.8
         mesh.root.position.set(x, 0, z)
         mesh.root.rotation.y = rng() * Math.PI * 2
-        this.root.add(mesh.root)
+        h.propParent(x, z).add(mesh.root)
         const navIdx = h.nav.props.length
         h.nav.props.push({ x, z, r: barrel ? 0.5 : 0.62, active: true })
         this.crates.push({ id: this.crates.length, x, z, kind: barrel ? 'barrel' : 'crate', mesh, hp: barrel ? 1 : 12, broken: false, navIdx, hitT: 0 })
@@ -205,7 +209,7 @@ export class MissionObjects {
         const x = cellCenter(sp[0])
         const z = cellCenter(sp[1])
         mesh.root.position.set(x, 1.1, z)
-        this.root.add(mesh.root, (() => { const s = makeBlobShadow(0.35); s.position.set(x, 0.02, z); return s })())
+        h.propParent(x, z).add(mesh.root, (() => { const s = makeBlobShadow(0.35); s.position.set(x, 0.02, z); return s })())
         this.cores.push({ id: this.cores.length, x, z, mesh, taken: false })
         placed++
       }

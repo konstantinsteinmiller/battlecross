@@ -2,6 +2,7 @@ import {
   CanvasTexture, RepeatWrapping, ClampToEdgeWrapping, SRGBColorSpace, LinearMipmapLinearFilter, LinearFilter, type Texture
 } from 'three'
 import { mulberry32 } from './rng'
+import { TEXTURE_FILES } from '../assets/overrides'
 
 /**
  * Canvas-baked GREYSCALE detail maps. The colour comes from vertex colours
@@ -123,12 +124,39 @@ const drawWall = (g: CanvasRenderingContext2D, ox: number) => {
   grain(g, ox, 0, S, S, 23, 8)
 }
 
+// ─── Drop-in detail maps ─────────────────────────────────────────────────────
+// public/images/textures/floor.* and wall.* replace the procedural cells (see
+// `game/assets/overrides.ts`). They are greyscale detail maps like the baked
+// ones — the sector colour still comes from the vertex colours.
+const overrideImages = new Map<string, HTMLImageElement>()
+
+/** Load the drop-in detail maps. Awaited by the boot loader BEFORE the atlas
+ *  bakes; a file that fails to decode keeps its procedural cell. */
+export const loadTextureOverrides = async (): Promise<void> => {
+  await Promise.all([...TEXTURE_FILES].map(async ([name, url]) => {
+    const img = new Image()
+    img.src = url
+    try {
+      await img.decode()
+      overrideImages.set(name, img)
+    } catch (e) {
+      console.warn(`[textures] drop-in "${name}" could not be decoded — keeping the procedural one`, e)
+    }
+  }))
+}
+
+const drawCell = (g: CanvasRenderingContext2D, ox: number, name: 'floor' | 'wall', draw: typeof drawFloor): void => {
+  const img = overrideImages.get(name)
+  if (img) g.drawImage(img, ox, 0, 256, 256)
+  else draw(g, ox)
+}
+
 /** Floor (u 0–0.5) + wall (u 0.5–1) atlas. */
 export const levelAtlas = (): Texture => {
   if (atlasTex) return atlasTex
   atlasTex = make(512, 256, (g) => {
-    drawFloor(g, 0)
-    drawWall(g, 256)
+    drawCell(g, 0, 'floor', drawFloor)
+    drawCell(g, 256, 'wall', drawWall)
   })
   atlasTex.wrapS = atlasTex.wrapT = ClampToEdgeWrapping
   return atlasTex

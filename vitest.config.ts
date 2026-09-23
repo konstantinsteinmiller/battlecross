@@ -52,6 +52,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // The drop-in asset list is a build-time virtual module; tests run with
+      // no drop-ins (the procedural art and synth).
+      'virtual:asset-overrides': path.resolve(__dirname, './tests/stubs/assetOverrides.ts'),
       '@': path.resolve(__dirname, './src')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']

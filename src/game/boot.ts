@@ -1,12 +1,12 @@
 import { getRenderer } from './engine/renderer'
 import { createInput } from './engine/input'
-import { bakeTextures } from './world/textures'
+import { bakeTextures, loadTextureOverrides } from './world/textures'
 import { Mission, setupFromQuest } from './sim/mission'
 import { HubMode } from './sim/hub'
 import { app, type GameMode } from './engine/app'
 import { initProfile } from './state/profile'
 import { registerModeFactories, createBootMode, ensureJobs } from './flow'
-import { installSynth } from './audio/synth'
+import { installSynth, loadSfxOverrides } from './audio/synth'
 
 /**
  * ─── Boot priming ────────────────────────────────────────────────────────────
@@ -38,8 +38,13 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     initProfile()
     ensureJobs()
     installSynth()
+    // Drop-in files (only those that exist; see game/assets/overrides.ts).
+    // SFX decode in the background; the detail maps must land before the
+    // atlas bakes, and cost nothing when there are none.
+    loadSfxOverrides()
     const renderer = getRenderer()
     onProgress(0.05)
+    await loadTextureOverrides()
     bakeTextures()
     onProgress(0.2)
     await nextFrame()

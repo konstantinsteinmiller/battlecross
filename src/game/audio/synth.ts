@@ -1,6 +1,7 @@
 import { registerOneShotSource } from '@/use/useAssets'
 import { audio, canPlay, noise, pulse, midiHz } from './engine'
 import { setSfxPlayer, type SfxName } from './sfx'
+import { SFX_FILES } from '../assets/overrides'
 
 /**
  * ─── Chiptune SFX ────────────────────────────────────────────────────────────
@@ -255,6 +256,48 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   uiOpen: (_p, g) => arp([79, 86], 0.045, 'p12', 0.12 * g, 0.06)
 }
 
+// ─── Drop-in SFX files ───────────────────────────────────────────────────────
+// A file in public/audio/sfx/ named after a recipe replaces it (see
+// `game/assets/overrides.ts`). Decoded on an OfflineAudioContext, which needs
+// no user gesture, so the buffers are ready before the first shot and the
+// autoplay policy never sees a context it would refuse.
+
+/** Drop-ins are mastered hotter than the synth voices; this evens them out. */
+const FILE_GAIN = 0.55
+const fileBuffers = new Map<string, AudioBuffer>()
+let filesRequested = false
+
+/** Fetch and decode every drop-in SFX file (from the boot loader). */
+export const loadSfxOverrides = (): void => {
+  if (filesRequested || SFX_FILES.size === 0) return
+  filesRequested = true
+  const Offline = window.OfflineAudioContext
+    ?? (window as unknown as { webkitOfflineAudioContext?: typeof OfflineAudioContext }).webkitOfflineAudioContext
+  if (!Offline) return
+  const decoder = new Offline(2, 1, 44100)
+  for (const [name, url] of SFX_FILES) {
+    fetch(url)
+      .then(r => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then(buf => decoder.decodeAudioData(buf))
+      .then(ab => { fileBuffers.set(name, ab) })
+      .catch(e => console.warn(`[sfx] drop-in "${name}" could not be loaded — keeping the synth`, e))
+  }
+}
+
+const playFile = (buf: AudioBuffer, pan: number, gain: number): void => {
+  const a = audio()
+  if (!a) return
+  const dest = out(pan)
+  if (!dest) return
+  const src = a.ctx.createBufferSource()
+  src.buffer = buf
+  const g = a.ctx.createGain()
+  g.gain.value = FILE_GAIN * gain
+  src.connect(g).connect(dest)
+  src.start()
+  registerOneShotSource(src)
+}
+
 const play = (name: SfxName, pan: number, gain: number): void => {
   if (!canPlay()) return
   const a = audio()
@@ -264,9 +307,15 @@ const play = (name: SfxName, pan: number, gain: number): void => {
   const last = lastAt.get(name) ?? -1
   if (now - last < gap) return
   lastAt.set(name, now)
+  const g = Math.max(0.05, Math.min(1.4, gain))
+  const file = fileBuffers.get(name)
+  if (file) {
+    try { playFile(file, pan, g) } catch { /* a voice failed to start — never fatal */ }
+    return
+  }
   const r = RECIPES[name]
   if (r) {
-    try { r(pan, Math.max(0.05, Math.min(1.4, gain))) } catch { /* a voice failed to start — never fatal */ }
+    try { r(pan, g) } catch { /* a voice failed to start — never fatal */ }
   }
 }
 

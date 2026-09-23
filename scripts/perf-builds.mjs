@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 // ─── A/B two BUILDS, and count the pixels ───────────────────────────────────
 //
-// `perf-play.mjs` compares two variant FLAGS inside one dev server. This one
+// `perf-mission.mjs` compares two variant FLAGS inside one build. This one
 // compares two URLs, so the arms can be two standalone builds — "did this get
 // slower since the release we were happy with" is a question about artefacts,
 // not about flags, and a dev server's HMR and unminified modules are not the
 // thing anybody ships.
 //
 // It also carries the instrument that found the fault in the 2026-09-14
-// playtest report, which `perf-play` structurally could not: an OVERDRAW
+// playtest report, which a flag A/B structurally could not: an OVERDRAW
 // CENSUS. `workP95` is CPU time inside the RAF callback; on the device in that
 // report `workP50` was 0.7 ms against a 33–50 ms frame, so 97 % of the frame
 // was pixel work no CPU probe can see. The census wraps `fillRect` and

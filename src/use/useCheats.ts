@@ -5,8 +5,8 @@ import { safeGetBool } from '@/utils/safeStorage'
 /**
  * Dev cheats.
  *
- * Enabled only when `localStorage.cheat` is truthy (or `?cheat=1` was used by
- * `useMatch`). The cheat MAP is filled by the game at runtime through
+ * Enabled only when `localStorage.cheat` is truthy (set it in DevTools and
+ * reload). The cheat MAP is filled by the game at runtime through
  * `registerCheat` rather than by importing game modules here — this file is
  * imported by the eager `App.vue`, and a static import of the mission sim
  * would hoist the whole 3D engine into the entry chunk.

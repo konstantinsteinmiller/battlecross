@@ -86,7 +86,23 @@ interface Rect { x0: number; z0: number; w: number; h: number }
 
 const DIRS: Array<[number, number]> = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
+/**
+ * Generate a sector map. A boss mission needs its boss room, and the 7×7
+ * room can fail to fit off every deep room on a crowded grid — so such a map
+ * re-rolls from a derived seed. Deterministic: a resumed mission regenerates
+ * the very same map from its quest seed.
+ */
 export const generateMap = (spec: MapSpec): MapData => {
+  let seed = spec.seed
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const m = generateOnce({ ...spec, seed })
+    if (!spec.boss || m.rooms.some(r => r.role === 'boss')) return m
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0
+  }
+  return generateOnce(spec)
+}
+
+const generateOnce = (spec: MapSpec): MapData => {
   const rng = mulberry32(spec.seed)
   const W = 44
   const H = 44

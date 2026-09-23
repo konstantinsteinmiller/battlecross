@@ -14,6 +14,7 @@
 //   --sdk-delay <ms>  how long the stubbed SDK takes to report ready
 //                                                            (default 1200)
 //   --keep            leave the browser open for inspection
+//   --headless        run Chrome headless (WebGL via SwiftShader)
 //
 // Exits non-zero on the first failed check, so CI can gate on it.
 //
@@ -84,6 +85,8 @@ const ROOT = resolve(arg('dist', 'dist'))
 const CHROME = arg('chrome', process.env.CHROME_PATH
   ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe')
 const KEEP = flag('keep')
+// Headless keeps the run off the desktop (a private profile either way).
+const HEADLESS = flag('headless')
 // How long the stubbed SDK waits before reporting ready. NOT a detail: see
 // note 5 above — an instantly-ready stub hides every readiness race, which is
 // the class of bug that got the GameMonetize build rejected. Keep it well past
@@ -150,16 +153,38 @@ qa.setHidden = function (v) {
   return hidden;
 };
 
-// The run's progress rail: an inline width %, rewritten only when the
-// simulation advances. The observable for "is the loop actually running?".
-qa.progress = function () {
-  var el = document.querySelector('.run-hud__rail-fill');
-  return el ? el.style.width : null;
+// "Is the loop actually running?" — the game runs ONE requestAnimationFrame
+// and a suspended loop cancels it outright, so the callback count is the
+// observable: it climbs ~60/s while the world runs and stands still when the
+// pause gate holds.
+var realRaf = window.requestAnimationFrame.bind(window);
+qa.raf = 0;
+window.requestAnimationFrame = function (cb) {
+  return realRaf(function (t) { qa.raf++; cb(t); });
 };
-// Only looping media is the music track; one-shot SFX are Web Audio.
-qa.musicPlays = function () { return qa.playCalls.filter(function (c) { return c.loop; }).length; };
+qa.progress = function () { return qa.raf; };
+
+// The music and every SFX are SYNTHESIZED on one Web Audio context, so the
+// contexts are tracked by constructor (the same trap-2 reasoning as media:
+// nothing lists them for us). A running context is live sound.
+qa.contexts = [];
+var RealAC = window.AudioContext || window.webkitAudioContext;
+if (RealAC) {
+  var TrackedAC = function (o) { var c = new RealAC(o); qa.contexts.push(c); return c; };
+  TrackedAC.prototype = RealAC.prototype;
+  window.AudioContext = TrackedAC;
+  if (window.webkitAudioContext) window.webkitAudioContext = TrackedAC;
+}
+qa.musicPlays = function () {
+  return qa.contexts.filter(function (c) { return c.state === 'running'; }).length
+    + qa.playCalls.filter(function (c) { return c.loop; }).length;
+};
 qa.audioState = function () {
-  return { count: qa.media.length, allPaused: qa.media.every(function (a) { return a.paused; }) };
+  return {
+    count: qa.media.length + qa.contexts.length,
+    allPaused: qa.media.every(function (a) { return a.paused; })
+      && qa.contexts.every(function (c) { return c.state !== 'running'; })
+  };
 };
 `
 
@@ -281,6 +306,7 @@ var runAd = function (kind) {
       // mount, so its PRESENCE proves nothing — the rail's progress is the
       // observable, and the first-play interstitial must land before it moves.
       progressAtOpen: qa.progress(),
+      progressAfter1s: null,
       musicAtOpen: qa.musicPlays(),
       // The count above is CUMULATIVE play() calls, which cannot tell "the
       // music started at boot and the ad hard-stopped it" from "the music is
@@ -293,6 +319,7 @@ var runAd = function (kind) {
       railPastCap: null
     };
     qa.gmEmit('SDK_GAME_PAUSE');
+    setTimeout(function () { qa.adAudit.progressAfter1s = qa.progress(); }, 1000);
     // Sample PAST the 6 s cap but before the ad closes.
     setTimeout(function () {
       qa.adAudit.musicPastCap = qa.musicPlays();
@@ -410,6 +437,7 @@ const chrome = spawn(CHROME, [
   // Satisfy the build's hostname gate instead of switching it off.
   `--host-resolver-rules=MAP ${plat.host} 127.0.0.1`,
   '--window-size=520,900',
+  ...(HEADLESS ? ['--headless=new', '--use-angle=d3d11', '--enable-unsafe-swiftshader'] : []),
   'about:blank'
 ], { stdio: 'ignore' })
 
@@ -502,10 +530,10 @@ try {
 
   let booted = false
   for (let i = 0; i < 160; i++) {
-    if (await ev('!!document.querySelector(".run-hud__rail-fill")')) { booted = true; break }
+    if (await ev('!!document.querySelector(".hud-layer, .hub")')) { booted = true; break }
     await sleep(250)
   }
-  check('game booted to a live run', booted)
+  check('game booted into a mission or the hub', booted)
   if (!booted) {
     console.log('  body    : ' + await ev('document.body.innerText.slice(0,300)'))
     console.log('  console : ' + await ev('JSON.stringify(window.__qa.console.slice(-15))'))
@@ -547,9 +575,11 @@ try {
     check('first-play interstitial was requested', !!audit,
       `ads=${await ev('JSON.stringify(window.__qa.ads)')}`)
     if (audit) {
-      check('the ad opened BEFORE the run started moving',
-        audit.progressAtOpen === null || audit.progressAtOpen === '' || parseFloat(audit.progressAtOpen) === 0,
-        `rail at open = ${audit.progressAtOpen}`)
+      // The mission is already beaming in behind the splash when the
+      // first-load ad opens, so the proof is that the world FREEZES under it.
+      check('the world is frozen while the ad is open',
+        audit.progressAfter1s !== null && audit.progressAfter1s - audit.progressAtOpen <= 2,
+        `rAF at open = ${audit.progressAtOpen}, 1 s later = ${audit.progressAfter1s}`)
       // SILENT, not never-started. GameMonetize's ad is the post-splash
       // first-load placement (`useFirstLoadInterstitial`), so stage 1 and its
       // music are already running behind the splash when the ad opens — the
@@ -608,28 +638,30 @@ try {
   const before = await ev('window.__qa.progress()')
   await sleep(1200)
   const moving = await ev('window.__qa.progress()')
-  check('control: the run advances while visible', moving !== before, `${before} → ${moving}`)
+  // "Running" is any real frame flow — a software-GL headless run draws ~12
+  // fps, a desktop 60 — while a held gate reads exactly 0 (see the checks below).
+  check('control: the world runs while visible', moving - before > 5, `rAF ${before} → ${moving}`)
 
   await ev('window.__qa.setHidden(true)')
   await sleep(300)
   const hiddenStart = await ev('window.__qa.progress()')
   await sleep(1800)
   const hiddenEnd = await ev('window.__qa.progress()')
-  check('tab away → simulation FROZEN', hiddenStart === hiddenEnd, `${hiddenStart} → ${hiddenEnd}`)
+  check('tab away → simulation FROZEN', hiddenEnd - hiddenStart <= 2, `rAF ${hiddenStart} → ${hiddenEnd}`)
 
   const hiddenAudio = JSON.parse(await ev('JSON.stringify(window.__qa.audioState())'))
-  check('tab away → music element paused', hiddenAudio.count > 0 && hiddenAudio.allPaused,
+  check('tab away → all audio suspended', hiddenAudio.count > 0 && hiddenAudio.allPaused,
     JSON.stringify(hiddenAudio))
 
   await ev('window.__qa.setHidden(false)')
   await sleep(1500)
   const back = await ev('window.__qa.progress()')
-  check('return to tab → simulation RESUMES', back !== hiddenEnd, `${hiddenEnd} → ${back}`)
+  check('return to tab → simulation RESUMES', back - hiddenEnd > 5, `rAF ${hiddenEnd} → ${back}`)
 
   // ── Menu entry ───────────────────────────────────────────────────────────
   const opened = await ev(`(() => {
     const btns = Array.from(document.querySelectorAll('button'));
-    const b = btns.find(x => /option|setting/i.test(x.getAttribute('aria-label') || ''));
+    const b = btns.find(x => /option|setting|pause/i.test(x.getAttribute('aria-label') || ''));
     if (!b) return 'no-button';
     b.click(); return 'clicked';
   })()`)
@@ -637,12 +669,16 @@ try {
   const menuStart = await ev('window.__qa.progress()')
   await sleep(1600)
   const menuEnd = await ev('window.__qa.progress()')
-  check('menu open → simulation FROZEN', opened === 'clicked' && menuStart === menuEnd,
-    `${opened}; ${menuStart} → ${menuEnd}`)
+  check('menu open → simulation FROZEN', opened === 'clicked' && menuEnd - menuStart <= 2,
+    `${opened}; rAF ${menuStart} → ${menuEnd}`)
 
+  // By design a menu freezes the world but NOT the sound (the Options
+  // sliders must be heard; see isAudioPaused) — only ads, a hidden tab and a
+  // platform pause silence it. So the contract here is the opposite of the
+  // tab-away one: the audio stays live.
   const menuAudio = JSON.parse(await ev('JSON.stringify(window.__qa.audioState())'))
-  check('menu open → music element paused', menuAudio.count > 0 && menuAudio.allPaused,
-    JSON.stringify(menuAudio))
+  check('menu open → audio stays live (modals freeze the game, not the sound)',
+    menuAudio.count > 0 && !menuAudio.allPaused, JSON.stringify(menuAudio))
 } finally {
   const failed = results.filter(r => !r.pass)
   console.log(`\n${results.length - failed.length}/${results.length} checks passed`)

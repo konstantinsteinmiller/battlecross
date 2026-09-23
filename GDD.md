@@ -169,7 +169,9 @@ the node before it has at least one rank. Respec costs bolts.
 | Slide Boosters | 3 | slide cooldown −15 %, cost −5 |
 | Bolt Magnet | 3 | bolts +15 %, pickup radius +40 % |
 | Tank Capacity | 2 | +1 Repair Tank capacity |
-| Scanner | 1 | chests and objectives on the pause map, enemy HP numbers |
+
+Each board has six nodes (18 in all), laid out as a small tree: one root,
+two branches, three leaves.
 
 **Special weapons** (the MegaMan "weapon copy") are separate from the boards.
 Each one comes from a boss, is equipped in one of **2 slots** and levels up
@@ -236,9 +238,27 @@ backdrop of Cobalt idling on the teleporter pad in Gauss's lab. The tabs are
 doll), **Circuits** (skills) and **Workshop**. The Hub is a menu, not a town:
 there is no building.
 
-Death means **Mission failed**: the player keeps the XP and bolts earned and
-loses the quest progress. The options are *Revive* (rewarded ad, once per
-mission, full HP) or *Retreat to Hub*.
+Death means **System down**. The options are *Reboot* with a Repair Tank,
+*Reboot* for a rewarded ad (once per mission, full HP) or *Retreat to the
+lab*. Retreating fails the mission: the player keeps the XP and bolts earned
+and loses the quest progress.
+
+## Monetization and portals
+
+- **Rewarded:** revive on defeat (once per mission), ×2 bolts on the results
+  screen, and the Workshop **Supply Drop** (40 + 20 × level bolts, every 4
+  minutes, cooldown kept in the save). Every rewarded button is hidden unless
+  an ad is actually ready.
+- **Interstitial:** only between missions, and always BEFORE the results
+  screen appears. None in the first 3 minutes of a session, then at most one
+  per 121 s. GameMonetize, GameDistribution and GamePix also get the
+  moderation-required first-load ad.
+- **Gameplay bracket:** `gameplayStart` only while a mission is in its play
+  phase with nothing on top of it; `gameplayStop` for every modal, ad, hidden
+  tab, platform pause and the hub. CrazyGames `happytime` on a mission win.
+- **Pause and audio:** ads, a hidden tab and a platform pause freeze the loop
+  AND silence all audio. A modal freezes the loop but keeps the sound (the
+  results fanfare, the Options sliders).
 
 ## Art direction
 

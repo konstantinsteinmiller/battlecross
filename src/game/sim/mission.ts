@@ -1,6 +1,7 @@
 import {
   Scene, PerspectiveCamera, Fog, HemisphereLight, DirectionalLight, Color, Vector3, Raycaster, Vector2,
-  Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight
+  Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight,
+  Frustum, Matrix4, Sphere, type Object3D
 } from 'three'
 import type { GameMode } from '../engine/app'
 import { getRenderer } from '../engine/renderer'
@@ -41,6 +42,7 @@ import { BEAM_OUT_TIME } from './constants'
 import { updateBoss, syncBossVisual, startBossIntro, BOSS_INTRO_T, bossRoomOf } from './bosses'
 import { WeaponSystem } from './weapons'
 import { WEAPONS, type WeaponId } from '../data/weapons'
+import { perfFlag } from '@/use/perfVariants'
 import type { Room } from '../world/levelGen'
 
 export interface MissionSetup {
@@ -88,6 +90,7 @@ interface DoorState {
   axis: 'x' | 'z'
   cellI: number
   cellJ: number
+  from: number
   to: number
 }
 
@@ -107,6 +110,16 @@ export interface PlayerState {
 
 const _v2 = new Vector2()
 const _v3 = new Vector3()
+// Portal-culling scratch (no per-frame allocation).
+const _frustum = new Frustum()
+const _pv = new Matrix4()
+const _portal = new Sphere()
+/** How many doors deep the view reaches. Two covers a room seen through the
+ *  next room's far door; anything deeper is past the fog anyway. */
+const PORTAL_DEPTH = 2
+/** Baseline arm for the perf A/B runner (`?perf=noportal`): the old
+ *  distance-only culling. See PERF-LEDGER.md. */
+const NO_PORTAL = perfFlag('noportal')
 
 const angDiff = (a: number, b: number): number => {
   let d = a - b
@@ -125,6 +138,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   theme: Theme
   level: LevelMeshes
   doors: DoorState[] = []
+  /** Per room group: visible this frame (portal culling). */
+  private roomVis = new Uint8Array(0)
+  private cullAdded: number[] = []
   pad: PadMesh
   vm: Viewmodel
   player: PlayerState
@@ -190,6 +206,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.map = generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
     this.level = buildLevel(this.map, this.theme)
+    this.roomVis = new Uint8Array(this.level.rooms.length)
     this.scene.add(this.level.root)
     this.scene.add(this.level.sky)
 
@@ -215,7 +232,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.nav.slabs.push(slab)
       this.nav.pathBlock[d.j * this.map.w + d.i] = d.boss ? 2 : 1
       this.doors.push({
-        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, to: d.to
+        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
       })
     }
 
@@ -620,6 +637,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
     sfx('beamIn')
     flow.modal = ''
+  }
+
+  /** Static props hang under their room's mesh group, so portal culling
+   *  hides them with the room (ObjectiveHost). */
+  propParent(x: number, z: number): Object3D {
+    const o = this.level.owner[Math.floor(z / CELL) * this.map.w + Math.floor(x / CELL)] ?? -1
+    return o >= 0 ? this.level.rooms[o]! : this.scene
   }
 
   /** Retreat / abandon: keep what was earned, fail the quest, go home. */
@@ -1194,19 +1218,64 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
   }
 
+  /**
+   * Portal culling. The walls stand 4.2 m against a 1.6 m eye, so the only
+   * way to see into another room is through a door. Visible = the room the
+   * player stands in, then out through every door that is open (even a crack)
+   * AND on screen, up to PORTAL_DEPTH doors deep; a shut door is opaque. Fog
+   * distance still caps it. Enemies in a hidden room are hidden with it, which
+   * also spares their skinning.
+   */
   private updateRoomCulling(): void {
     const p = this.player
     const far = this.theme.fogFar + 6
-    const b = this.level.bounds
-    for (let i = 0; i < this.level.rooms.length; i++) {
-      const bb = b[i]!
-      const d = Math.hypot(bb.x - p.x, bb.z - p.z) - bb.r
-      this.level.rooms[i]!.visible = d < far
+    const lv = this.level
+    const n = lv.rooms.length
+    const vis = this.roomVis
+    const cam = this.camera
+    cam.updateMatrixWorld()
+    _pv.multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse)
+    _frustum.setFromProjectionMatrix(_pv)
+    const W = this.map.w
+    const cellOwner = (x: number, z: number): number => lv.owner[Math.floor(z / CELL) * W + Math.floor(x / CELL)] ?? -1
+    const here = cellOwner(p.x, p.z)
+    // Portals only hold while the eye is below the wall tops: the beam-in
+    // drops from 7 m and the beam-out rises to 9 m, and from up there every
+    // room is in plain sight. Off the grid for a frame (a knock-back into a
+    // corner) or a debug camera: show all too.
+    const overWalls = cam.position.y > WALL_H - 0.5 || !!this.debugCam
+    if (here < 0 || overWalls || NO_PORTAL) {
+      vis.fill(1)
+    } else {
+      vis.fill(0)
+      vis[here] = 1
+      const added = this.cullAdded
+      for (let hop = 0; hop < PORTAL_DEPTH; hop++) {
+        added.length = 0
+        for (const d of this.doors) {
+          if (d.open <= 0.01 && !d.opening) continue
+          const a = vis[d.from]!
+          const b = vis[d.to]!
+          if (a === b) continue
+          _portal.center.set(d.x, WALL_H / 2, d.z)
+          _portal.radius = CELL * 0.85
+          const standingIn = Math.hypot(d.x - p.x, d.z - p.z) < CELL
+          if (!standingIn && !_frustum.intersectsSphere(_portal)) continue
+          added.push(a ? d.to : d.from)
+        }
+        if (!added.length) break
+        for (const r of added) vis[r] = 1
+      }
+    }
+    for (let i = 0; i < n; i++) {
+      const bb = lv.bounds[i]!
+      lv.rooms[i]!.visible = vis[i] === 1 && Math.hypot(bb.x - p.x, bb.z - p.z) - bb.r < far
     }
     for (const e of this.enemies) {
-      const vis = e.state !== 'dead' || e.deathT < 0.2
+      const alive = e.state !== 'dead' || e.deathT < 0.2
       const near = Math.hypot(e.x - p.x, e.z - p.z) < far
-      e.root.visible = vis && near
+      const o = cellOwner(e.x, e.z)
+      e.root.visible = alive && near && (o < 0 || vis[o] === 1)
       e.shadow.visible = e.root.visible
     }
   }

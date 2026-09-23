@@ -4,4 +4,7 @@
 // CJK / Thai / Devanagari / Arabic never render as tofu.
 :root
   --font-ui: 'Russo One', 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Microsoft YaHei', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK SC', 'Noto Sans Thai', 'Leelawadee UI', 'Noto Sans Devanagari', 'Nirmala UI', 'Noto Naskh Arabic', 'Segoe UI Arabic', system-ui, sans-serif
-  --font-pixel: 'Press Start 2P', 'Russo One', monospace
+  // The pixel face is Latin-only; the UI stack behind it names the system
+  // faces for every other script, so a translated label never falls to a
+  // generic monospace.
+  --font-pixel: 'Press Start 2P', var(--font-ui)

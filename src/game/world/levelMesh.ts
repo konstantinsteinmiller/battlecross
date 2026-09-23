@@ -11,11 +11,12 @@ import { mulberry32 } from './rng'
 /**
  * ─── Static level geometry ───────────────────────────────────────────────────
  *
- * One Group per ROOM (its corridor included), each holding at most four draw
- * calls: textured floor+walls, rounded decor (pilasters, caps, pipes, frames),
- * decor outline, and glow strips. Per-room grouping gives three.js an accurate
- * bounding sphere per group for frustum culling and lets the mission hide
- * rooms beyond fog range outright.
+ * One Group per ROOM (with the corridors leading out of it), each holding at
+ * most four draw calls: textured floor+walls, rounded decor (pilasters, caps,
+ * pipes, frames), decor outline, and glow strips. Per-room grouping gives
+ * three.js an accurate bounding sphere per group for frustum culling and lets
+ * the mission hide every room the player cannot see (portal culling through
+ * the doors, capped by fog range).
  *
  * The walls are open to the sky — every sector is an outdoor "stage" under a
  * bright gradient sky, which reads far better on a phone than a dark ceiling.
@@ -27,6 +28,8 @@ export interface LevelMeshes {
   sky: Mesh
   /** Distance-cull info per room group: centre and radius. */
   bounds: Array<{ x: number; z: number; r: number }>
+  /** Room group owning each cell (−1 = void), for portal culling. */
+  owner: Int16Array
 }
 
 class QuadBatch {
@@ -61,7 +64,12 @@ class QuadBatch {
   }
 }
 
-/** Which room group owns each walkable cell (corridors → the room their door leads into). */
+/**
+ * Which room group owns each walkable cell. A corridor belongs to the room it
+ * LEAVES: its door stands at the far end, on the child room's wall, so a shut
+ * door cleanly separates two groups and the mission can hide the room behind
+ * it (portal culling) without taking the corridor in front of it along.
+ */
 const cellOwners = (map: MapData): Int16Array => {
   const owner = new Int16Array(map.w * map.h).fill(-1)
   for (let k = 0; k < owner.length; k++) owner[k] = map.room[k]!
@@ -73,7 +81,7 @@ const cellOwners = (map: MapData): Int16Array => {
     let j = d.j
     let guard = 0
     while (map.cell[j * map.w + i] === Cell.Corridor && guard++ < 20) {
-      owner[j * map.w + i] = d.to
+      owner[j * map.w + i] = d.from
       i += di
       j += dj
     }
@@ -180,8 +188,11 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
   }
 
   // Door frames: a rounded lintel with hazard stripes across the doorway.
+  // A frame is seen from BOTH rooms, so it belongs to neither: all frames
+  // share one always-visible group, which portal culling never hides.
+  const doorDecor: BufferGeometry[] = []
+  const doorBatch = new QuadBatch()
   for (const d of map.doors) {
-    const o = d.to
     const [fx, fz] = doorFramePos(d)
     const along = d.axis === 'x' ? 'z' : 'x'
     const lintel = paintBy(
@@ -191,14 +202,14 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
         return Math.floor((t + y) * 2.2) & 1 ? theme.hazard : theme.crateTrim
       }
     )
-    decor[o]!.push(lintel)
+    doorDecor.push(lintel)
     for (const s of [-1, 1]) {
       const px = along === 'x' ? fx + s * (CELL / 2) : fx
       const pz = along === 'z' ? fz + s * (CELL / 2) : fz
-      decor[o]!.push(xform(paint(rcyl(0.4, WALL_H, 0.15, 16), d.boss ? theme.trim : theme.pilaster), [px, WALL_H / 2, pz]))
+      doorDecor.push(xform(paint(rcyl(0.4, WALL_H, 0.15, 16), d.boss ? theme.trim : theme.pilaster), [px, WALL_H / 2, pz]))
     }
     // Hazard stripes on the floor under the door.
-    const hb = batches[o]!
+    const hb = doorBatch
     const hw = 0.5
     if (d.axis === 'x') {
       hb.quad([fx - hw, 0.012, fz - CELL / 2], [fx - hw, 0.012, fz + CELL / 2], [fx + hw, 0.012, fz + CELL / 2], [fx + hw, 0.012, fz - CELL / 2], [0, 1, 0], PLAIN_UV, cHaz, cHaz, cHaz, cHaz)
@@ -248,11 +259,23 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
     root.add(g)
   }
 
+  if (doorDecor.length) {
+    const doorsGroup = new Group()
+    const dgeo = doorBatch.build()
+    if (dgeo) doorsGroup.add(new Mesh(dgeo, floorMat))
+    const dd = merge(doorDecor)
+    doorsGroup.add(new Mesh(dd, toonVC()))
+    const dol = new Mesh(dd, outlineMat(0.035))
+    dol.renderOrder = -1
+    doorsGroup.add(dol)
+    root.add(doorsGroup)
+  }
+
   // Distant skyline: big rounded silhouettes beyond the walls, drawn in fog.
   root.add(buildSkyline(map, theme))
 
   const sky = buildSky(theme)
-  return { root, rooms, sky, bounds }
+  return { root, rooms, sky, bounds, owner }
 }
 
 /** World position of a door's frame: on the child room's wall line. */

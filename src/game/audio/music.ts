@@ -1,5 +1,7 @@
 import { audio, audioAllowed, noise, pulse, midiHz } from './engine'
 import { mulberry32, type Rng } from '../world/rng'
+import { MUSIC_FILES } from '../assets/overrides'
+import { registerHtmlAudio, unregisterHtmlAudio } from '@/use/useAssets'
 
 /**
  * ─── Chiptune music ──────────────────────────────────────────────────────────
@@ -263,6 +265,48 @@ const startOnGesture = (id: TrackId): void => {
   for (const g of GESTURES) window.addEventListener(g, onGesture, true)
 }
 
+// ─── Drop-in music files ─────────────────────────────────────────────────────
+// public/audio/music/<track id>.ogg replaces that composed track, and
+// victory / defeat.ogg the jingles (see `game/assets/overrides.ts`). A file
+// STREAMS through a media element, routed into the same music bus as the
+// synth, so the volume, the platform mute and the ad / pause gates apply to
+// it unchanged; it is also registered with the suspend registry, which pauses
+// the element itself under an ad.
+
+/** Drop-ins are mastered far hotter than the synth voices. */
+const FILE_GAIN = 0.35
+let fileEl: HTMLAudioElement | null = null
+let fileGain: GainNode | null = null
+
+const startFile = (url: string, loop: boolean): { el: HTMLAudioElement; gain: GainNode } | null => {
+  const a = audio()
+  if (!a) return null
+  const el = new Audio(url)
+  el.loop = loop
+  el.preload = 'auto'
+  const g = a.ctx.createGain()
+  g.gain.setValueAtTime(0.0001, a.ctx.currentTime)
+  g.gain.exponentialRampToValueAtTime(FILE_GAIN, a.ctx.currentTime + 0.35)
+  a.ctx.createMediaElementSource(el).connect(g).connect(a.music)
+  registerHtmlAudio(el)
+  el.play().catch(() => { /* blocked or failed — the gates retry the start */ })
+  return { el, gain: g }
+}
+
+const stopFile = (el: HTMLAudioElement, g: GainNode, fade: number): void => {
+  const a = audio()
+  if (a) {
+    g.gain.cancelScheduledValues(a.ctx.currentTime)
+    g.gain.setValueAtTime(Math.max(0.0001, g.gain.value), a.ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.0001, a.ctx.currentTime + fade)
+  }
+  setTimeout(() => {
+    el.pause()
+    unregisterHtmlAudio(el)
+    g.disconnect()
+  }, (fade + 0.05) * 1000)
+}
+
 /** Start (or switch to) a track. Idempotent for the track already playing. */
 export const playMusic = (id: TrackId): void => {
   const a = audio()
@@ -270,9 +314,19 @@ export const playMusic = (id: TrackId): void => {
     startOnGesture(id)
     return
   }
-  if (current === id && timer !== null) return
-  if (!cache.has(id)) cache.set(id, composeTrack(id))
+  if (current === id && (timer !== null || fileEl !== null)) return
   stopMusic(0.15)
+  const url = MUSIC_FILES.get(id)
+  if (url) {
+    const f = startFile(url, true)
+    if (f) {
+      current = id
+      fileEl = f.el
+      fileGain = f.gain
+      return
+    }
+  }
+  if (!cache.has(id)) cache.set(id, composeTrack(id))
   current = id
   trackGain = a.ctx.createGain()
   trackGain.gain.setValueAtTime(0.0001, a.ctx.currentTime)
@@ -300,10 +354,13 @@ export const stopMusic = (fade = 0.25): void => {
     setTimeout(() => g.disconnect(), (fade + 0.3) * 1000)
   }
   trackGain = null
+  if (fileEl && fileGain) stopFile(fileEl, fileGain, fade)
+  fileEl = null
+  fileGain = null
   current = null
 }
 
-export const isMusicRunning = (): boolean => timer !== null
+export const isMusicRunning = (): boolean => timer !== null || fileEl !== null
 export const currentMusic = (): TrackId | null => current
 
 /** Short fanfares (not looped). */
@@ -311,6 +368,12 @@ export const playJingle = (kind: 'victory' | 'defeat'): void => {
   const a = audio()
   if (!a) return
   stopMusic(0.1)
+  const url = MUSIC_FILES.get(kind)
+  if (url) {
+    const f = startFile(url, false)
+    if (f) f.el.addEventListener('ended', () => stopFile(f.el, f.gain, 0.05), { once: true })
+    return
+  }
   const g = a.ctx.createGain()
   g.connect(a.music)
   const t0 = a.ctx.currentTime + 0.05
