@@ -67,12 +67,65 @@ Baseline arm: `?perf=noportal`.
   3 pairs. The absolute numbers are inflated: the machine sat at 99 % CPU from
   other applications during the run. The ratio is the finding.
 
-### 2. Obfuscation cost — measured, no change
+### 2. Obfuscation cost — measured, then FIXED (entry 4)
 
 The production obfuscator (stringArray, no control-flow flattening) against an
-unobfuscated twin, 4× throttle: work p50 16.6 vs 14.4 ms, about 13 %. It is
-paid on the portal builds that obfuscate. Keep the light profile, and never
-enable `controlFlowFlattening` on game modules.
+unobfuscated twin, 4× throttle: work p50 16.6 vs 14.4 ms, about 13 %. Most of
+that turned out to be three.js itself going through the obfuscator; see
+entry 4.
+
+### 3. Boot: loader first, one build, time-sliced — KEPT
+
+Measured with `scripts/boot-timeline.mjs` (User Timing `boot:*` marks,
+long-task observer, the loader fill sampled every frame).
+
+What was wrong:
+- `GameScene` mounted before priming finished, and its fallback built the
+  whole first sector a SECOND time, synchronously, without the shader
+  precompile. The primed copy was thrown away.
+- The prime started before the loader had painted, and the build was one
+  450 ms task on desktop, so the bar did not move for most of it.
+- The first live frame uploaded every mesh to the GPU: a 460 ms hitch at 4×,
+  exactly as the player gained control.
+
+What changed:
+- `adoptBootMode` makes the scene wait for the prepared mode. It never builds
+  its own copy.
+- `afterPaint` puts the loader on screen before any heavy work.
+- `Mission.create`, `buildLevel` and `spawnEncounters` are time-sliced
+  (`engine/slicer.ts`, 12 ms wall-clock budget, `scheduler.yield` or a
+  MessageChannel, never timers) and report fine-grained progress.
+- The shader programs are created one material at a time and their readiness
+  is polled. A final `compileAsync` would re-derive every material in one
+  500 ms task.
+- The GPU warm-up happens off-screen from above, one room per render.
+- The loader bar is ONE fill animated by `transform` under a segment mask, so
+  it moves on the compositor through any long task. The static HTML splash
+  creeps from the first byte, and the Vue loader continues from its position.
+- The "taking too long" hint fires on a real stall (no progress for 6 s),
+  not after a fixed 5 s.
+
+Numbers (dev server, desktop, 1×): long tasks 1150 ms total (longest 450) →
+402 ms (longest 176); the bar first moves at 374 ms instead of 629. At 4×,
+production build: the loader shows at ~0.6 s, the mission is ready at ~6.9 s,
+and the longest bar standstill is ~0.8 s, down from over 2 s.
+
+### 4. The obfuscator was rewriting three.js — FIXED
+
+`vite-plugin-javascript-obfuscator` does
+`exclude ? handleMatcher(exclude) : defaultExcludeMatcher`. The project's own
+exclude list therefore REPLACED the default `/node_modules/`, and every vendor
+library went through the stringArray pass. Adding `/node_modules/` back:
+- the engine chunk shrank from 1003 KB (320 KB gz) to 787 KB (228 KB gz);
+- at 4×, the mission was ready at ~6.9 s instead of 10.0 s;
+- the loader appeared at 0.6 s instead of 1.55 s.
+
+### 5. Hub → mission: pause the lab while the sector builds — KEPT
+
+A Deploy tap shows the beam overlay at once (`MissionLoading.vue`) and builds
+the mission behind it, time-sliced. The lab loop is paused for the build,
+because the overlay covers it anyway. Build time: 11.9 s → 5.8 s at 4×, and
+1.47 → 1.28 s at 1×.
 
 ## Open hypotheses (not applied, not measured)
 

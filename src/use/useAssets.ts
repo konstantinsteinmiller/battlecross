@@ -245,11 +245,13 @@ export const loadAudioBuffer = async (src: string): Promise<AudioBuffer | null> 
  * loading screen that can hang forever is a worse bug than a crowd of capsules,
  * so the wait is bounded — and the fallback path is exactly the old behaviour.
  */
-/** Hard cap on the whole critical boot. Past it the splash clears anyway and
- *  the scene finishes warming behind the first frames — a slow phone gets a
- *  hitch rather than a splash that never ends. Sits BEFORE the splash's own
- *  8 s fallback so the fallback never fires first. */
-const BOOT_TIMEOUT_MS = 7000
+/** Hard cap on the whole critical boot, for a prime that HANGS — not for a
+ *  slow one. The scene waits for the real first scene (`adoptBootMode`), so
+ *  clearing the splash early on a slow phone would only reveal an empty
+ *  canvas; the build is time-sliced and the bar keeps moving, so a long wait
+ *  reads as loading, not as a freeze. Sits BEFORE the splash's own fallback
+ *  so that fallback never fires first. */
+const BOOT_TIMEOUT_MS = 20000
 
 export default () => {
   const preloadAssets = async (): Promise<void> => {
@@ -271,9 +273,11 @@ export default () => {
 
     const work = (async () => {
       const boot = await import('@/game/boot')
-      loadingProgress.value = 15
+      // The engine chunk is in: FLogoProgress creeps toward this mark while
+      // it downloads, so the real numbers continue from there.
+      loadingProgress.value = Math.max(loadingProgress.value, 14)
       await boot.primeGame((p01) => {
-        loadingProgress.value = Math.max(loadingProgress.value, Math.round(15 + p01 * 80))
+        loadingProgress.value = Math.max(loadingProgress.value, Math.round(14 + p01 * 85))
       })
     })()
 

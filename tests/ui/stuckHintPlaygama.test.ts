@@ -5,7 +5,8 @@ import { describe, expect, it } from 'vitest'
 // ─── The "disable your adblocker" loading hint stays off the Playgama build ──
 //
 // `FLogoProgress` shows `loading.tooLong` ("Loading takes too long? Disable your
-// adblocker and reload.") after 5 s of loading. The Playgama archive is also the
+// adblocker and reload.") once the load has STALLED (no progress for a few
+// seconds — a stall watcher, not a plain timer). The Playgama archive is also the
 // YouTube Playables submission, where that advice is wrong twice over: ads come
 // only through the Playables SDK, and on playgama.com the portal serves them.
 //
@@ -16,7 +17,7 @@ import { describe, expect, it } from 'vitest'
 const src = readFileSync(resolve(__dirname, '../../src/components/atoms/FLogoProgress.vue'), 'utf8')
 
 describe('the stuck-loading hint (FLogoProgress.vue)', () => {
-  const timerIdx = src.indexOf('stuckHintId = window.setTimeout')
+  const timerIdx = src.indexOf('stuckHintId = window.setInterval')
   const beforeTimer = timerIdx === -1 ? '' : src.slice(0, timerIdx)
   const gate = beforeTimer.slice(beforeTimer.lastIndexOf('if ('))
 

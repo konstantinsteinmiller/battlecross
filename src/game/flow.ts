@@ -16,6 +16,7 @@ import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
 import { playJingle } from './audio/music'
+import { afterPaint } from './engine/slicer'
 import type { SectorId } from './world/themes'
 
 /**
@@ -53,10 +54,18 @@ export const flow = reactive({
   results: null as ResultsData | null,
   quest: null as Quest | null,
   /** Mission-side counters mirrored for the results screen. */
-  levelAtStart: 1
+  levelAtStart: 1,
+  /** A mission is being built behind the hub → mission beam overlay. */
+  loading: false,
+  /** 0..1 progress of that build. */
+  loadProgress: 0,
+  /** The sector being built (the overlay's label). */
+  loadingSector: '' as SectorId | ''
 })
 
-type MissionFactory = (quest: Quest, snapshot: MissionSnapshot | null) => import('./engine/app').GameMode
+type MissionFactory = (
+  quest: Quest, snapshot: MissionSnapshot | null, onProgress?: (p01: number) => void
+) => Promise<import('./engine/app').GameMode>
 type HubFactory = () => import('./engine/app').GameMode
 let missionFactory: MissionFactory | null = null
 let hubFactory: HubFactory | null = null
@@ -74,33 +83,55 @@ export const bootTarget = (): { kind: 'mission'; quest: Quest; snapshot: Mission
   return { kind: 'hub' }
 }
 
-export const createBootMode = () => {
+/** Build the first scene (a resumed mission, the tutorial or the hub). Async:
+ *  a mission build is time-sliced so the boot loader keeps moving. */
+export const createBootMode = async (onProgress?: (p01: number) => void): Promise<import('./engine/app').GameMode> => {
   const t = bootTarget()
   if (t.kind === 'mission') {
     flow.quest = t.quest
     flow.screen = 'mission'
     flow.levelAtStart = profile.level
     setMusicTrack(t.quest.sector)
-    return missionFactory!(t.quest, t.snapshot)
+    return missionFactory!(t.quest, t.snapshot, onProgress)
   }
   flow.screen = 'hub'
   hud.phase = 'hub'
   setMusicTrack('hub')
-  return hubFactory!()
+  const h = hubFactory!()
+  onProgress?.(1)
+  return h
 }
 
-export const startMission = (quest: Quest): void => {
-  if (!missionFactory) return
-  flow.quest = quest
-  flow.modal = ''
-  flow.results = null
-  flow.levelAtStart = profile.level
-  flow.screen = 'mission'
-  setMusicTrack(quest.sector)
-  startGameMusic()
-  const m = missionFactory(quest, null)
-  app.setMode(m)
-  app.setWanted(true)
+/**
+ * Hub → mission. The sector is built BEHIND the beam overlay (`flow.loading`),
+ * time-sliced so the lab keeps animating and the bar keeps filling, and the
+ * mission only takes over once it is complete, shaders included. A Deploy tap
+ * therefore answers at once instead of freezing the hub for the whole build.
+ */
+export const startMission = async (quest: Quest): Promise<void> => {
+  if (!missionFactory || flow.loading) return
+  flow.loading = true
+  flow.loadProgress = 0
+  flow.loadingSector = quest.sector
+  try {
+    // The beam is on screen before the build starts, and the lab stops
+    // drawing behind it: the build gets the whole CPU (the overlay covers
+    // the last frame, which simply stays put).
+    await afterPaint()
+    app.setWanted(false)
+    const m = await missionFactory(quest, null, (p) => { flow.loadProgress = p })
+    flow.quest = quest
+    flow.modal = ''
+    flow.results = null
+    flow.levelAtStart = profile.level
+    flow.screen = 'mission'
+    setMusicTrack(quest.sector)
+    startGameMusic()
+    app.setMode(m)
+  } finally {
+    app.setWanted(true)
+    flow.loading = false
+  }
 }
 
 export const goHub = (): void => {

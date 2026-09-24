@@ -23,13 +23,14 @@
     PauseModal(@options="optionsOpen = true")
     LevelUpModal
     OptionsModal(:is-open="optionsOpen" @close="optionsOpen = false")
+    MissionLoading
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
 import { attachInput } from '@/game/engine/input'
-import { input, takePreparedMode, fallbackMode, currentMission } from '@/game/boot'
+import { input, adoptBootMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { chargeHum } from '@/game/audio/synth'
@@ -58,6 +59,7 @@ import DefeatModal from '@/components/modals/DefeatModal.vue'
 import PauseModal from '@/components/modals/PauseModal.vue'
 import LevelUpModal from '@/components/modals/LevelUpModal.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
+import MissionLoading from '@/components/hud/MissionLoading.vue'
 
 /**
  * The one game view. Hosts the canvas, the gesture surface and whichever UI
@@ -83,10 +85,9 @@ const onKey = (e: KeyboardEvent) => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (!canvasHost.value || !surface.value) return
   app.attach(canvasHost.value)
-  app.setMode(takePreparedMode() ?? fallbackMode())
   detachInput = attachInput(surface.value, input, { fireMode: () => currentMission()?.wantsFire() ?? false })
   app.setSuspended(isGamePaused.value)
   app.setWanted(true)
@@ -95,6 +96,9 @@ onMounted(() => {
   startGameMusic()
   window.addEventListener('keydown', onKey)
   if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow, startMission, storyFor, goHub }
+  // The loader's prepared first scene. The scene never builds its own copy
+  // while the loader is still priming (see `adoptBootMode`).
+  app.setMode(await adoptBootMode())
 })
 
 watch(isGamePaused, (p) => {

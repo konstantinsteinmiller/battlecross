@@ -135,6 +135,45 @@ const assetOverridesPlugin = (): Plugin => {
   }
 }
 
+// ─── Engine chunk preload ───────────────────────────────────────────────────
+//
+// The engine (`src/game/boot.ts`: three.js plus the sim, ~1 MB) and the scene
+// route are DYNAMIC imports, so by default their download only starts once
+// main.ts has finished its portal-SDK and save init and App has mounted the
+// loader — seconds of waiting on a slow network with an idle pipe. These
+// `modulepreload` hints start the download alongside the entry chunk. Preload
+// only fetches and parses; nothing is evaluated before the app asks for it, so
+// the save hydrate still runs before any game module reads state.
+const ENGINE_CHUNKS = [/src[\\/]game[\\/]boot\.ts$/, /src[\\/]views[\\/]GameScene\.vue$/]
+const preloadEngineChunksPlugin = (): Plugin => {
+  let base = '/'
+  return {
+    name: 'preload-engine-chunks',
+    apply: 'build',
+    configResolved(c) { base = c.base },
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        const bundle = ctx.bundle
+        if (!bundle) return html
+        const files = new Set<string>()
+        const add = (name: string): void => {
+          const c = bundle[name]
+          if (!c || c.type !== 'chunk' || files.has(name)) return
+          files.add(name)
+          c.imports.forEach(add)
+        }
+        for (const c of Object.values(bundle)) {
+          if (c.type === 'chunk' && c.facadeModuleId && ENGINE_CHUNKS.some(r => r.test(c.facadeModuleId!))) add(c.fileName)
+        }
+        return [...files]
+          .filter(f => !html.includes(f))
+          .map(f => ({ tag: 'link', attrs: { rel: 'modulepreload', crossorigin: '', href: base + f }, injectTo: 'head' as const }))
+      }
+    }
+  }
+}
+
 const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
   name: 'mega-leaderboard-snapshot',
   buildStart() {
@@ -284,6 +323,14 @@ export default defineConfig(({ mode, command }) => {
         // rewrites import paths into array lookups that Vite can no longer
         // resolve, which breaks code splitting.
         exclude: [
+          // FIRST, and not optional: passing ANY `exclude` REPLACES the
+          // plugin's default of `[/node_modules/, /\.nuxt/]` — it does not
+          // add to it. Without this line every vendor library went through the
+          // stringArray pass, three.js included: its shader assembly and
+          // per-draw uniform lookups ran through the decoder, costing ~30 % of
+          // the boot and ~13 % of every frame on a throttled CPU, for zero
+          // protection (it is public code). See PERF-LEDGER.md.
+          /node_modules/,
           /router\/index\.ts$/,
           /main\.ts$/,
           // i18n loader uses `import.meta.glob` for per-locale code
@@ -590,6 +637,10 @@ export default defineConfig(({ mode, command }) => {
     // Cast to `any` — the plugin ships its own (mismatched) Vite Plugin types,
     // same reason the obfuscator plugin above is cast.
     plugins.push(viteSingleFile() as any)
+  } else {
+    // Everything is inlined on the single-file build; elsewhere the engine
+    // chunks start downloading with the entry (see the plugin).
+    plugins.push(preloadEngineChunksPlugin())
   }
 
   // Emit `playgama-bridge-config.json` ONLY for the Playgama mode — into the

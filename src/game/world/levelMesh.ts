@@ -7,6 +7,7 @@ import { levelAtlas } from './textures'
 import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
 import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus, ell } from '../models/kit'
 import { mulberry32 } from './rng'
+import { noSlice, type Slice } from '../engine/slicer'
 
 /**
  * ─── Static level geometry ───────────────────────────────────────────────────
@@ -98,8 +99,27 @@ const WALL_UV: UV8 = [0.5, 0, 0.5, 1, 1, 1, 1, 0]
 /** A flat patch of the floor plate — for decals that should read as solid colour. */
 const PLAIN_UV: UV8 = [0.25, 0.5, 0.25, 0.5, 0.25, 0.5, 0.25, 0.5]
 
-export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
+/**
+ * Build a sector's static geometry. Async and time-sliced (`slice`, see
+ * `engine/slicer.ts`): it is the heaviest part of a mission build, so it hands
+ * the thread back between rows and rooms and the loading bar keeps moving.
+ */
+export const buildLevel = async (
+  map: MapData, theme: Theme, slice: Slice = noSlice, onProgress: (f01: number) => void = () => {}
+): Promise<LevelMeshes> => {
   const rng = mulberry32(map.seed ^ 0x5eed)
+  // The same rounded pieces (wall caps, baseboards, pilasters…) repeat
+  // hundreds of times. Generate each shape once, painted, and clone it per
+  // placement: a copy of a few arrays instead of a fresh lathe every time.
+  const templates = new Map<string, BufferGeometry>()
+  const piece = (key: string, make: () => BufferGeometry): BufferGeometry => {
+    let t = templates.get(key)
+    if (!t) {
+      t = make()
+      templates.set(key, t)
+    }
+    return t.clone()
+  }
   const owner = cellOwners(map)
   const nRooms = map.rooms.length
   const batches = Array.from({ length: nRooms }, () => new QuadBatch())
@@ -167,24 +187,27 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
         const ox = e.n[0] * inset
         const oz = e.n[2] * inset
         // Rounded top cap + baseboard (the "no hard edges" rule for walls).
-        decor[o]!.push(xform(paint(cap(0.2, CELL - 0.4, 10, 3), theme.trim), [mx, WALL_H, mz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
-        decor[o]!.push(xform(paint(cap(0.13, CELL - 0.3, 8, 2), theme.wallLow), [mx + ox, 0.14, mz + oz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+        decor[o]!.push(xform(piece('capTop', () => paint(cap(0.2, CELL - 0.4, 10, 3), theme.trim)), [mx, WALL_H, mz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+        decor[o]!.push(xform(piece('baseboard', () => paint(cap(0.13, CELL - 0.3, 8, 2), theme.wallLow)), [mx + ox, 0.14, mz + oz], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
         // Light strips in rooms, pipes now and then.
         if (c === Cell.Room && rng() < 0.45) {
-          glows[o]!.push(xform(paint(cap(0.07, 1.1, 8, 2), theme.accent), [mx + e.n[0] * 0.12, 2.95, mz + e.n[2] * 0.12], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+          glows[o]!.push(xform(piece('strip', () => paint(cap(0.07, 1.1, 8, 2), theme.accent)), [mx + e.n[0] * 0.12, 2.95, mz + e.n[2] * 0.12], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
         } else if (rng() < 0.25) {
           const py = 1.1 + rng() * 1.4
-          decor[o]!.push(xform(paint(cap(0.16, CELL, 10, 2), theme.pipe), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
-          decor[o]!.push(xform(paint(torus(0.19, 0.05, 6, 14), theme.pilaster), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, Math.PI / 2, 0] : [0, 0, 0]))
+          decor[o]!.push(xform(piece('pipe', () => paint(cap(0.16, CELL, 10, 2), theme.pipe)), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+          decor[o]!.push(xform(piece('pipeRing', () => paint(torus(0.19, 0.05, 6, 14), theme.pilaster)), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], alongX ? [0, Math.PI / 2, 0] : [0, 0, 0]))
         }
       }
+      await slice()
     }
+    onProgress((j + 1) / map.h * 0.7)
   }
 
   // Pilasters on every wall corner.
   for (const { x, z, owner: o } of corners.values()) {
-    decor[o]!.push(xform(paint(rcyl(0.3, WALL_H + 0.25, 0.12, 14), theme.pilaster), [x, (WALL_H + 0.25) / 2, z]))
-    decor[o]!.push(xform(paint(sph(0.34, 14, 8), theme.trim), [x, WALL_H + 0.25, z]))
+    decor[o]!.push(xform(piece('pilaster', () => paint(rcyl(0.3, WALL_H + 0.25, 0.12, 14), theme.pilaster)), [x, (WALL_H + 0.25) / 2, z]))
+    decor[o]!.push(xform(piece('pilasterCap', () => paint(sph(0.34, 14, 8), theme.trim)), [x, WALL_H + 0.25, z]))
+    await slice()
   }
 
   // Door frames: a rounded lintel with hazard stripes across the doorway.
@@ -243,6 +266,7 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
     } else {
       bounds.push({ x: 0, z: 0, r: 0 })
     }
+    await slice()
     if (decor[r]!.length) {
       const dg = merge(decor[r]!)
       dg.computeBoundingSphere()
@@ -251,12 +275,15 @@ export const buildLevel = (map: MapData, theme: Theme): LevelMeshes => {
       ol.renderOrder = -1
       g.add(ol)
     }
+    await slice()
     if (glows[r]!.length) {
       const gg = merge(glows[r]!)
       g.add(new Mesh(gg, glowVC()))
     }
     rooms.push(g)
     root.add(g)
+    onProgress(0.75 + ((r + 1) / nRooms) * 0.25)
+    await slice()
   }
 
   if (doorDecor.length) {

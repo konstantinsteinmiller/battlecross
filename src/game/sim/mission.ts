@@ -1,13 +1,14 @@
 import {
   Scene, PerspectiveCamera, Fog, HemisphereLight, DirectionalLight, Color, Vector3, Raycaster, Vector2,
   Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight,
-  Frustum, Matrix4, Sphere, type Object3D
+  Frustum, Matrix4, Sphere, WebGLRenderTarget, type Object3D
 } from 'three'
 import type { GameMode } from '../engine/app'
 import { getRenderer } from '../engine/renderer'
 import type { Input } from '../engine/input'
 import { consumeEdges } from '../engine/input'
 import { generateMap, type MapData, CELL, WALL_H } from '../world/levelGen'
+import { createSlicer, type Slice } from '../engine/slicer'
 import { createNav, moveCircle, findPath, smoothPath, isSolidAt, hasLineOfSight, type Nav, type Slab } from '../world/nav'
 import { buildLevel, doorFramePos, type LevelMeshes } from '../world/levelMesh'
 import { THEMES, type Theme, type SectorId } from '../world/themes'
@@ -133,26 +134,26 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   camera = new PerspectiveCamera(70, 1, 0.05, 260)
   vmScene = new Scene()
   vmCamera = new PerspectiveCamera(50, 1, 0.01, 10)
-  map: MapData
-  nav: Nav
+  map!: MapData
+  nav!: Nav
   theme: Theme
-  level: LevelMeshes
+  level!: LevelMeshes
   doors: DoorState[] = []
   /** Per room group: visible this frame (portal culling). */
   private roomVis = new Uint8Array(0)
   private cullAdded: number[] = []
-  pad: PadMesh
-  vm: Viewmodel
-  player: PlayerState
+  pad!: PadMesh
+  vm!: Viewmodel
+  player!: PlayerState
   input: Input
   setup: MissionSetup
   stats: PlayerStats
   combat: CombatPlayer
   enemies: Enemy[] = []
-  fx: Particles
+  fx!: Particles
   markers = new FloorMarkers()
   shocks = new ShockRings()
-  system: CombatSystem
+  system!: CombatSystem
   time = 0
   phaseT = 0
   hitStop = 0
@@ -161,13 +162,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   kills = 0
   chestsOpened = 0
   itemsFound: Item[] = []
-  objects: MissionObjects
-  quest: Quest | null
+  objects!: MissionObjects
+  quest: Quest | null = null
   private snapT = 0
   private dirty = false
   private interact: ReturnType<MissionObjects['nearestInteractable']> | { kind: 'door'; ref: DoorState } | null = null
   private finished = false
-  weapons: WeaponSystem
+  weapons!: WeaponSystem
   private bossRoom: Room | null = null
   private boss: Enemy | null = null
   private bossStarted = false
@@ -176,7 +177,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private vmFlashColor = '#ffffff'
   private tips = new Tips(true)
   private raycaster = new Raycaster()
-  private marker: Mesh
+  private marker!: Mesh
   private markerT = 0
   private shakeAmt = 0
   private lookSens: number
@@ -190,7 +191,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   /** DEV: override the camera ([x,y,z, lookX,lookY,lookZ]) for inspection. */
   debugCam: [number, number, number, number, number, number] | null = null
 
-  constructor(setup: MissionSetup, input: Input) {
+  /** The cheap part only. The world is built by `Mission.create` — async and
+   *  time-sliced, so nothing ever builds a sector in one frozen task. */
+  private constructor(setup: MissionSetup, input: Input) {
     this.setup = setup
     this.input = input
     this.lookSens = setup.lookSens ?? 1
@@ -203,12 +206,33 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       lastStandUsed: false
     }
     this.theme = THEMES[setup.sector]
+  }
+
+  /**
+   * Build a mission: map, level meshes, doors, props, the cast, the arm
+   * cannon. Time-sliced (see `engine/slicer.ts`), so the boot loader and the
+   * hub → mission beam keep painting while it runs; `onProgress` reports
+   * 0..1 as each stage lands.
+   */
+  static async create(setup: MissionSetup, input: Input, onProgress: (p01: number) => void = () => {}): Promise<Mission> {
+    const m = new Mission(setup, input)
+    await m.build(createSlicer(12), onProgress)
+    onProgress(1)
+    return m
+  }
+
+  private async build(slice: Slice, onProgress: (p01: number) => void): Promise<void> {
+    const setup = this.setup
     this.map = generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
-    this.level = buildLevel(this.map, this.theme)
+    onProgress(0.04)
+    await slice()
+    this.level = await buildLevel(this.map, this.theme, slice, (f) => onProgress(0.04 + f * 0.51))
     this.roomVis = new Uint8Array(this.level.rooms.length)
     this.scene.add(this.level.root)
     this.scene.add(this.level.sky)
+    onProgress(0.55)
+    await slice()
 
     const th = this.theme
     this.scene.background = new Color(th.skyBottom)
@@ -234,7 +258,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.doors.push({
         id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
       })
+      await slice()
     }
+    onProgress(0.62)
 
     this.pad = buildTeleporter(th)
     const [sx, sz] = [this.map.start.x, this.map.start.z]
@@ -266,7 +292,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       id: 'dev', kind: 'job', template: 'purge', sector: setup.sector, seed: setup.seed, level: setup.enemyLevel,
       target: null, count: 1, rooms: setup.rooms, reward: { xp: 0, bolts: 0, rarityBias: 0 }
     })
-    this.enemies = spawnEncounters(this.map, setup.encounters, setup.enemyLevel, { firstRoomsGentle: setup.tutorial })
+    onProgress(0.68)
+    await slice()
+    this.enemies = await spawnEncounters(this.map, setup.encounters, setup.enemyLevel, {
+      firstRoomsGentle: setup.tutorial, slice, onProgress: (f) => onProgress(0.68 + f * 0.24)
+    })
+    onProgress(0.92)
     this.objects.setupEnemyObjectives(this.enemies, (e) => this.enemies.push(e))
     for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
     this.bossRoom = bossRoomOf(this.map.rooms)
@@ -275,6 +306,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.scene.add(this.weapons.root)
     if (setup.snapshot) this.applySnapshot(setup.snapshot)
 
+    await slice()
     // Viewmodel
     this.vm = buildViewmodel(heroColors())
     this.vmRoot.add(this.vm.root)
@@ -283,7 +315,71 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const vmSun = new DirectionalLight(0xffffff, 1.1)
     vmSun.position.set(-0.4, 1, 0.6)
     this.vmScene.add(vmSun, new AmbientLight(0xffffff, 0.15))
+  }
 
+  /**
+   * Upload every mesh and texture to the GPU while a loading screen is still
+   * up: tiny off-screen renders from high above, where the whole sector is in
+   * frame. three.js uploads buffers on first draw, so without this the first
+   * LIVE frame paid for the whole sector — a several-hundred-ms hitch on a
+   * phone, exactly as the player gained control. Programs are compiled before
+   * this (`compileAsync`), so it is uploads only — ONE ROOM PER RENDER,
+   * time-sliced, because a single render of everything was itself a
+   * one-second task on a throttled CPU.
+   */
+  async warmUp(slice: Slice, onProgress: (f01: number) => void = () => {}): Promise<void> {
+    const r = getRenderer()
+    const rt = new WebGLRenderTarget(64, 64)
+    const cam = new PerspectiveCamera(70, 1, 1, 2000)
+    const cx = (this.map.w * CELL) / 2
+    const cz = (this.map.h * CELL) / 2
+    cam.position.set(cx, 230, cz + 0.01)
+    cam.lookAt(cx, 0, cz)
+    cam.updateMatrixWorld()
+    const rooms = this.level.rooms
+    const roomWas = rooms.map(g => g.visible)
+    // Lights stay on in every pass: without them each program would be a
+    // different variant, and this would COMPILE instead of upload.
+    const top = this.scene.children.filter(o => !(o as { isLight?: boolean }).isLight)
+    const topWas = top.map(o => o.visible)
+    const prev = r.getRenderTarget()
+    const draw = async (): Promise<void> => {
+      r.render(this.scene, cam)
+      await slice()
+    }
+    try {
+      r.setRenderTarget(rt)
+      for (const o of top) o.visible = false
+      // The level, one room group at a time (props hang under their room).
+      this.level.root.visible = true
+      const rest = top.filter(o => o !== this.level.root)
+      const passes = rooms.length + Math.ceil(rest.length / 4)
+      let done = 0
+      for (let i = 0; i < rooms.length; i++) {
+        for (let k = 0; k < rooms.length; k++) rooms[k]!.visible = k === i
+        await draw()
+        onProgress(++done / passes)
+      }
+      for (const g of rooms) g.visible = false
+      // Everything else — machines, doors, pickups, sky — a few at a time.
+      for (let k = 0; k < rest.length; k += 4) {
+        for (let j = k; j < Math.min(k + 4, rest.length); j++) rest[j]!.visible = true
+        await draw()
+        for (let j = k; j < Math.min(k + 4, rest.length); j++) rest[j]!.visible = false
+        onProgress(++done / passes)
+      }
+      r.render(this.vmScene, this.vmCamera)
+    } finally {
+      top.forEach((o, k) => { o.visible = topWas[k]! })
+      rooms.forEach((g, k) => { g.visible = roomWas[k]! })
+      r.setRenderTarget(prev)
+      rt.dispose()
+    }
+  }
+
+  /** The mission becomes the live mode (`app.setMode`): beam in. A mission can
+   *  be built in the background, so nothing player-facing happens earlier. */
+  enter(): void {
     hud.phase = 'beamIn'
     this.phaseT = 0
     sfx('beamIn')

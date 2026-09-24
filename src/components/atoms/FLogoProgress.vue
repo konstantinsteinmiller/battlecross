@@ -16,7 +16,9 @@
         span.t1 MEGA
         span.t2 ADVENTURE
       div.bar(role="progressbar" :aria-valuenow="Math.round(progress)" aria-valuemin="0" aria-valuemax="100")
-        span.seg(v-for="i in SEGMENTS" :key="i" :class="{ on: i <= litSegments }")
+        div.cells(aria-hidden="true")
+        div.lit(aria-hidden="true")
+          div.fill(:style="fillStyle")
       Transition(name="hint-fade")
         div.stuck-hint(v-if="showStuckHint") {{ t('loading.tooLong') }}
 </template>
@@ -39,10 +41,36 @@ import { armFirstLoadInterstitial, notifySplashGone } from '@/use/useFirstLoadIn
  */
 const { t } = useI18n()
 
-const SEGMENTS = 28
 const { loadingProgress, preloadAssets } = useAssets()
 const progress = computed(() => loadingProgress.value)
-const litSegments = computed(() => Math.round((progress.value / 100) * SEGMENTS))
+
+// ── The bar ──
+// One fill scaled by `transform`, under a static segment mask. A transform
+// transition runs on the COMPOSITOR, so the bar keeps moving through a long
+// main-thread task (the engine chunk evaluating, a slice that overran) where
+// a per-segment class toggle would freeze.
+//
+// It starts exactly where the static HTML splash's creeping bar has got to,
+// so the handover never jumps backwards. While nothing has reported progress
+// yet (the engine chunk is still downloading) it creeps toward CREEP_TO.
+const readScaleX = (el: Element | null): number => {
+  if (!el) return 0
+  const m = /matrix\(([^,]+)/.exec(getComputedStyle(el).transform)
+  const v = m ? parseFloat(m[1]!) : 0
+  return Number.isFinite(v) ? Math.max(0, Math.min(1, v)) : 0
+}
+const startAt = typeof document !== 'undefined' ? readScaleX(document.querySelector('#static-splash .s-fill')) : 0
+const CREEP_TO = 0.14
+const armed = ref(false)
+const fillStyle = computed(() => {
+  const real = Math.max(progress.value / 100, startAt)
+  const creeping = progress.value < CREEP_TO * 100
+  const target = armed.value ? (creeping ? Math.max(real, CREEP_TO) : real) : startAt
+  return {
+    transform: `scaleX(${target.toFixed(4)})`,
+    transitionDuration: !armed.value ? '0ms' : creeping ? '3200ms' : '420ms'
+  }
+})
 
 void preloadAssets()
 
@@ -61,36 +89,47 @@ const done = ref(false)
 const backdropHidden = ref(false)
 const showStuckHint = ref(false)
 let stuckHintId: number | null = null
+const STALL_MS = 6000
+let lastProgressAt = typeof performance !== 'undefined' ? performance.now() : 0
 let settleFallbackId: number | null = null
 
 onMounted(() => {
+  performance.mark('boot:loader-mounted')
+  // First frame at the static bar's position, then start moving.
+  requestAnimationFrame(() => { armed.value = true })
   const staticSplash = document.getElementById('static-splash')
   if (staticSplash) {
     staticSplash.classList.add('hidden')
     setTimeout(() => staticSplash.remove(), 500)
   }
-  // Last-resort clear. Ordered AFTER the loader's own 7 s cap so it never
+  // Last-resort clear. Ordered AFTER the loader's own 20 s cap so it never
   // fires first on exactly the slow devices the wait protects.
   settleFallbackId = window.setTimeout(() => {
     if (!done.value) done.value = true
-  }, 8000)
+  }, 22000)
   // Not on Playgama: Playables grades a clean load, and a "taking long" line
-  // there reads as an error state.
+  // there reads as an error state. Everywhere else it appears only when the
+  // load has actually STALLED — progress frozen for STALL_MS — never on a
+  // plain timer: a slow phone loading at an honest pace is not stuck, and
+  // being told to disable an ad blocker mid-load reads as the game broken.
   if (import.meta.env.VITE_APP_PLAYGAMA !== 'true') {
-    stuckHintId = window.setTimeout(() => {
-      if (!done.value) showStuckHint.value = true
-    }, 5000)
+    stuckHintId = window.setInterval(() => {
+      if (!done.value && performance.now() - lastProgressAt > STALL_MS) showStuckHint.value = true
+    }, 1000)
   }
 })
 
 onUnmounted(() => {
   if (settleFallbackId !== null) clearTimeout(settleFallbackId)
-  if (stuckHintId !== null) clearTimeout(stuckHintId)
+  if (stuckHintId !== null) clearInterval(stuckHintId)
 })
 
 watch(progress, (val) => {
+  lastProgressAt = performance.now()
+  showStuckHint.value = false
   if (val < 100 || done.value) return
-  setTimeout(() => { done.value = true }, 120)
+  // Let the fill land on the last segment before the loader fades.
+  setTimeout(() => { done.value = true }, 320)
 }, { immediate: true })
 
 let cgLoadSignaled = false
@@ -277,23 +316,35 @@ watch(done, (isDone) => {
     -webkit-text-stroke: 1.5px #141a33
 
 // ── The 28-cell energy bar on its side ──
+// Cells are a mask (28 cells, 2 px gaps), so the fill beneath can be ONE
+// element animated by transform. Mirrors the static splash in index.html
+// exactly: change one, change both.
 .bar
-  display: grid
-  grid-template-columns: repeat(28, 1fr)
-  gap: 2px
+  position: relative
   width: 100%
   height: clamp(16px, 3.4vmin, 24px)
-  padding: 3px
   border: 3px solid #141a33
   border-radius: 6px
   background: #0b1433
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
-.seg
-  border-radius: 2px
+  box-sizing: border-box
+.cells, .lit
+  position: absolute
+  inset: 3px
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0, #000 calc((100% - 54px) / 28), transparent calc((100% - 54px) / 28), transparent calc((100% - 54px) / 28 + 2px))
+  mask-image: repeating-linear-gradient(90deg, #000 0, #000 calc((100% - 54px) / 28), transparent calc((100% - 54px) / 28), transparent calc((100% - 54px) / 28 + 2px))
+.cells
   background: rgba(255, 255, 255, 0.08)
-  &.on
-    background: linear-gradient(#fff9c8 0%, #ffe14a 45%, #f0a800 100%)
-    box-shadow: 0 0 6px rgba(255, 220, 80, 0.6)
+.lit
+  overflow: hidden
+.fill
+  width: 100%
+  height: 100%
+  background: linear-gradient(#fff9c8 0%, #ffe14a 45%, #f0a800 100%)
+  transform-origin: left center
+  transition-property: transform
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1)
+  will-change: transform
 
 .stuck-hint
   font-size: clamp(0.8rem, 3.2vmin, 1rem)

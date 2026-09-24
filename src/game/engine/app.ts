@@ -25,6 +25,9 @@ export interface GameMode {
    *  frame time (camera look, UI-side animation). */
   render(alpha: number, dt: number): void
   resize?(w: number, h: number): void
+  /** Called once when the mode becomes the live one (`setMode`). Modes can be
+   *  built in the background, so start-of-mode effects belong here. */
+  enter?(): void
   dispose(): void
 }
 
@@ -87,6 +90,7 @@ class GameApp {
       mode.camera.fov = fovForAspect(mode.camera.aspect)
       mode.camera.updateProjectionMatrix()
       this.resize()
+      mode.enter?.()
     }
     this.acc = 0
   }

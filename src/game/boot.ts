@@ -1,5 +1,7 @@
 import { getRenderer } from './engine/renderer'
 import { createInput } from './engine/input'
+import { afterPaint, createSlicer, yieldToBrowser, type Slice } from './engine/slicer'
+import type { Material, Mesh, Object3D } from 'three'
 import { bakeTextures, loadTextureOverrides } from './world/textures'
 import { Mission, setupFromQuest } from './sim/mission'
 import { HubMode } from './sim/hub'
@@ -17,24 +19,96 @@ import { installSynth, loadSfxOverrides } from './audio/synth'
  * a menu) and compiles its shaders. By the time the splash clears, the first
  * frame is ready to draw.
  *
- * The prepared mode is parked here and adopted by `GameScene.vue` on mount.
+ * Three rules, each one a measured failure before it was a rule:
+ * - The loader PAINTS FIRST. Nothing heavy starts until the splash has been
+ *   on screen for a frame, so the player gets feedback before the work.
+ * - The build is time-sliced (`Mission.create`), so the bar keeps moving.
+ * - The scene NEVER builds its own copy. `GameScene` waits on `adoptBootMode`
+ *   for the prepared mode. It used to fall back to a fresh synchronous build
+ *   whenever it mounted before priming finished — which it always did — so
+ *   the first sector was built TWICE, the second copy without the shader
+ *   precompile, and the loader froze through both.
  */
 
 export const input = createInput()
 
+/**
+ * Compile a scene's shader programs off the critical frame. `compileAsync`
+ * waits for the GPU asynchronously, but first derives the parameters and
+ * cache key of EVERY material and assembles every new program's source, all
+ * synchronously — one ~500-800 ms task on a throttled CPU. So programs are
+ * created one material at a time (sliced; the GPU still compiles them in
+ * parallel), and readiness is polled directly rather than through a final
+ * `compileAsync`, which would re-derive everything in one task again.
+ */
+const precompile = async (
+  mode: GameMode, slice: Slice = createSlicer(12), onProgress: (f01: number) => void = () => {}
+): Promise<void> => {
+  try {
+    const renderer = getRenderer()
+    const seen = new Set<string>()
+    const reps: Object3D[] = []
+    mode.scene.traverse((o) => {
+      const mat = (o as Mesh).material as Material | Material[] | undefined
+      if (!mat) return
+      const key = (Array.isArray(mat) ? mat : [mat]).map(m => m.uuid).join()
+      if (seen.has(key)) return
+      seen.add(key)
+      reps.push(o)
+    })
+    const pending = new Set<Material>()
+    for (let i = 0; i < reps.length; i++) {
+      for (const m of renderer.compile(reps[i]!, mode.camera, mode.scene)) pending.add(m)
+      onProgress((i + 1) / reps.length * 0.8)
+      await slice()
+    }
+    if (mode instanceof Mission) {
+      for (const m of renderer.compile(mode.vmScene, mode.vmCamera)) pending.add(m)
+    }
+    // KHR_parallel_shader_compile: poll completion without blocking.
+    const started = performance.now()
+    await new Promise<void>((resolve) => {
+      const check = () => {
+        for (const m of pending) {
+          const prog = (renderer.properties.get(m) as { currentProgram?: { isReady(): boolean } }).currentProgram
+          if (!prog || prog.isReady()) pending.delete(m)
+        }
+        // Capped: a driver that never reports completion must not hold the boot.
+        if (pending.size === 0 || performance.now() - started > 8000) resolve()
+        else setTimeout(check, 16)
+      }
+      check()
+    })
+  } catch (e) {
+    console.warn('[boot] shader precompile failed (will compile on first draw)', e)
+  }
+}
+
 registerModeFactories(
-  (quest, snapshot) => new Mission(setupFromQuest(quest, snapshot), input),
+  async (quest, snapshot, onProgress) => {
+    const m = await Mission.create(setupFromQuest(quest, snapshot), input, (p) => onProgress?.(p * 0.82))
+    await precompile(m, createSlicer(12), (f) => onProgress?.(0.82 + f * 0.1))
+    // GPU uploads now, behind the loader, not on the first live frame.
+    try {
+      await m.warmUp(createSlicer(12), (f) => onProgress?.(0.92 + f * 0.08))
+    } catch (e) { console.warn('[boot] warm-up render failed', e) }
+    onProgress?.(1)
+    return m
+  },
   () => new HubMode()
 )
 
 let prepared: GameMode | null = null
 let primed: Promise<void> | null = null
 
-const nextFrame = (): Promise<void> => new Promise((r) => requestAnimationFrame(() => r()))
-
 export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
   if (primed) return primed
   primed = (async () => {
+    // The loader is on screen before any of the work below starts.
+    await afterPaint()
+    // Boot milestones as User Timing marks: free, and they line up in the
+    // DevTools Performance panel (and `scripts/boot-timeline.mjs`).
+    performance.mark('boot:prime-start')
     initProfile()
     ensureJobs()
     installSynth()
@@ -42,23 +116,22 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     // SFX decode in the background; the detail maps must land before the
     // atlas bakes, and cost nothing when there are none.
     loadSfxOverrides()
-    const renderer = getRenderer()
-    onProgress(0.05)
+    onProgress(0.03)
+    await yieldToBrowser()
+    getRenderer()
+    onProgress(0.07)
     await loadTextureOverrides()
     bakeTextures()
-    onProgress(0.2)
-    await nextFrame()
-    const mode = createBootMode()
-    onProgress(0.55)
-    await nextFrame()
-    try {
-      await renderer.compileAsync(mode.scene, mode.camera)
-      if (mode instanceof Mission) await renderer.compileAsync(mode.vmScene, mode.vmCamera)
-    } catch (e) {
-      console.warn('[boot] shader precompile failed (will compile on first draw)', e)
-    }
+    onProgress(0.1)
+    await yieldToBrowser()
+    performance.mark('boot:build-start')
+    const mode = await createBootMode((p) => onProgress(0.1 + p * 0.88))
+    performance.mark('boot:built')
+    // A mission was precompiled by its factory; the hub is compiled here.
+    if (!(mode instanceof Mission)) await precompile(mode)
     onProgress(1)
     prepared = mode
+    performance.mark('boot:primed')
   })()
   return primed
 }
@@ -70,8 +143,23 @@ export const takePreparedMode = (): GameMode | null => {
   return m
 }
 
-/** Fallback if the loader never primed (e.g. its cap fired first). */
-export const fallbackMode = (): GameMode => {
+/** Longest the scene waits on priming before building its own scene. */
+const ADOPT_CAP_MS = 20000
+
+/**
+ * The first scene for `GameScene`: the loader's prepared mode, once priming
+ * has finished (starting it if nothing has). Capped, so a prime that hangs
+ * ends in a direct build rather than a black screen forever.
+ */
+export const adoptBootMode = async (): Promise<GameMode> => {
+  const p = primed ?? primeGame(() => {})
+  await Promise.race([
+    p.catch((e) => console.error('[boot] priming failed', e)),
+    new Promise((resolve) => setTimeout(resolve, ADOPT_CAP_MS))
+  ])
+  const m = takePreparedMode()
+  performance.mark(m ? 'boot:adopted' : 'boot:fallback-build')
+  if (m) return m
   initProfile()
   ensureJobs()
   return createBootMode()

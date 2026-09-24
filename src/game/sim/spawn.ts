@@ -5,6 +5,7 @@ import { cellCenter, roomCenter } from '../world/levelGen'
 import { mulberry32, weighted } from '../world/rng'
 import { createEnemy } from './enemies'
 import type { Enemy } from './world'
+import type { Slice } from '../engine/slicer'
 
 /**
  * Encounter placement: which machines stand in which room. Deterministic from
@@ -20,7 +21,13 @@ export interface EncounterTable {
   eliteChance: number
 }
 
-export const spawnEncounters = (map: MapData, table: EncounterTable, level: number, opts: { firstRoomsGentle?: boolean } = {}): Enemy[] => {
+/** Async so the rig builds can be time-sliced (`opts.slice`): a dozen skinned
+ *  machines is the second-heaviest part of a mission build. The RNG never
+ *  sees the yields, so the order (which resume snapshots index) is stable. */
+export const spawnEncounters = async (
+  map: MapData, table: EncounterTable, level: number,
+  opts: { firstRoomsGentle?: boolean; slice?: Slice; onProgress?: (f01: number) => void } = {}
+): Promise<Enemy[]> => {
   const rng = mulberry32(map.seed ^ 0xe11e)
   const out: Enemy[] = []
   for (const room of map.rooms) {
@@ -57,7 +64,9 @@ export const spawnEncounters = (map: MapData, table: EncounterTable, level: numb
       e.yaw = Math.atan2(cx - x, cz - z) + (rng() - 0.5) * 0.8
       out.push(e)
       placed++
+      await opts.slice?.()
     }
+    opts.onProgress?.((room.id + 1) / map.rooms.length)
   }
   return out
 }
