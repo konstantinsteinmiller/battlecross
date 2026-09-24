@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Pokaż sterowanie',
     'hp': 'Zdrowie',
     'we': 'Energia broni',
     'power': 'Moc',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD – ruch, przeciągaj myszą, by się rozglądać. Kliknij podłogę, by tam pójść!',
     'fireTouch': 'Maszyny przed tobą! Dotknij, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
     'fireKeys': 'Maszyny przed tobą! Klik lub Spacja, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
-    'hardhat': 'Hełmiaki są bezpieczne pod hełmami. Strzelaj, gdy wyjrzą!',
     'charge': 'Tarcze blokują zwykłe pociski. PEŁNY strzał naładowany przebija je na wylot.',
     'blockTouch': 'Pomarańczowy pierścień: przytrzymaj tarczę, by blokować — wciśnij ją, gdy pierścień się zamyka, by SPAROWAĆ!',
     'blockKeys': 'Pomarańczowy pierścień: przytrzymaj Shift lub prawy przycisk myszy, by blokować — wciśnij, gdy pierścień się zamyka, by SPAROWAĆ!',
     'red': 'Czerwony pierścień: ataku nie da się zablokować — zejdź z drogi wślizgiem!',
     'chest': 'Skrzynia z zaopatrzeniem! Dotknij jej, by otworzyć.',
     'tank': 'Kończy ci się zdrowie? Zestaw naprawczy w pełni cię naprawi.',
-    'bossDoor': 'Za tymi wrotami czeka coś dużego. Gotowy?',
-    'beamOut': 'Cel osiągnięty! Pozwiedzaj jeszcze trochę albo się teleportuj.',
-    'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!',
-    'levelUp': 'Nowy poziom! Wydaj chip umiejętności w Obwodach w laboratorium.'
+    'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!'
   },
   'loot': {
     'found': 'Znaleziono: {item} ({rarity})!',

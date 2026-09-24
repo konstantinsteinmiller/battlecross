@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Afficher les commandes',
     'hp': 'Santé',
     'we': "Énergie d'arme",
     'power': 'Puissance',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'ZQSD pour bouger, glisse la souris pour regarder. Clique sur le sol pour y aller !',
     'fireTouch': 'Machines en vue ! Touche pour tirer — maintiens puis relâche pour un tir chargé.',
     'fireKeys': 'Machines en vue ! Clic ou Espace pour tirer — maintiens puis relâche pour un tir chargé.',
-    'hardhat': "Les Casqués sont à l'abri sous leur casque. Tire quand ils pointent le nez !",
     'charge': 'Les boucliers bloquent les balles. Un tir chargé à FOND passe à travers.',
     'blockTouch': "Anneau orange : maintiens le bouclier pour bloquer — appuie quand l'anneau se ferme pour PARER !",
     'blockKeys': "Anneau orange : maintiens Maj ou clic droit pour bloquer — appuie quand l'anneau se ferme pour PARER !",
     'red': 'Anneau rouge = imparable. Glisse hors de portée !',
     'chest': "Un coffre de ravitaillement ! Touche-le pour l'ouvrir.",
     'tank': 'Presque à sec ? Un kit de réparation te remet à neuf.',
-    'bossDoor': 'Quelque chose de gros attend derrière cette porte. Prêt ?',
-    'beamOut': 'Objectif rempli ! Explore encore un peu, ou téléporte-toi.',
-    'weapon': 'Utilise ton arme copiée avec le bouton coloré !',
-    'levelUp': 'Niveau supérieur ! Dépense ta puce de compétence dans les Circuits du labo.'
+    'weapon': 'Utilise ton arme copiée avec le bouton coloré !'
   },
   'loot': {
     'found': 'Butin : {item} ({rarity}) !',

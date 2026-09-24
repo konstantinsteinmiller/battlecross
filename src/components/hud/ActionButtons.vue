@@ -10,6 +10,7 @@
       @pointerleave="blockUp"
     )
       GameIcon(name="shield")
+      CoachRing(:hint="touchHint('parry') ?? touchHint('block')" side="rim")
     button.act.slide(
       type="button"
       :class="{ off: !hud.slideReady }"
@@ -17,6 +18,7 @@
       @pointerdown.prevent.stop="slide"
     )
       GameIcon(name="forward")
+      CoachRing(:hint="touchHint('slide')")
     button.act.tank(
       type="button"
       :class="{ off: hud.tanks <= 0 || hud.hp >= hud.maxHp }"
@@ -25,6 +27,7 @@
     )
       GameIcon(name="flask")
       span.count {{ hud.tanks }}
+      CoachRing(:hint="touchHint('tank')")
     template(v-for="(w, i) in hud.weapons" :key="i")
       button.act.weapon(
         v-if="w.id"
@@ -36,6 +39,7 @@
       )
         span.w-orb
         span.w-cost {{ w.cost }}
+        CoachRing(v-if="i === 0" :hint="touchHint('weapon')")
 </template>
 
 <script setup lang="ts">
@@ -43,6 +47,8 @@ import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import CoachRing from './CoachRing.vue'
+import type { HintId } from '@/game/sim/coach'
 
 /**
  * Right-thumb cluster: BLOCK (hold; tap it as a ring closes to parry) and
@@ -50,6 +56,8 @@ import GameIcon from '@/components/icons/GameIcon.vue'
  * fire/look gesture layer underneath.
  */
 const { t } = useI18n()
+/** The coach glyph for a button, when it is teaching a touch player. */
+const touchHint = (id: HintId) => hud.hints.find(h => h.id === id && h.family === 'touch')
 
 const blockDown = (e: PointerEvent) => {
   input.touched = true

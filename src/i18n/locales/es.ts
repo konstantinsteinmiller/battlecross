@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Mostrar controles',
     'hp': 'Salud',
     'we': 'Energía de arma',
     'power': 'Potencia',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD para moverte, arrastra el ratón para mirar. ¡Haz clic en el suelo para ir allí!',
     'fireTouch': '¡Máquinas a la vista! Toca para disparar; mantén y suelta para un disparo cargado.',
     'fireKeys': '¡Máquinas a la vista! Clic o Espacio para disparar; mantén y suelta para un disparo cargado.',
-    'hardhat': 'Los Casquitos están a salvo bajo su casco. ¡Dispara cuando se asomen!',
     'charge': 'Los escudos bloquean las balas. Un disparo cargado al MÁXIMO los atraviesa.',
     'blockTouch': 'Anillo naranja: mantén el escudo para bloquear. ¡Púlsalo justo cuando el anillo se cierre para hacer una PARADA!',
     'blockKeys': 'Anillo naranja: mantén Mayús o clic derecho para bloquear. ¡Pulsa justo cuando el anillo se cierre para hacer una PARADA!',
     'red': 'Anillo rojo: imbloqueable. ¡Deslízate para esquivarlo!',
     'chest': '¡Un cofre de suministros! Tócalo para abrirlo.',
     'tank': '¿Poca salud? Un tanque de reparación te deja como nuevo.',
-    'bossDoor': 'Algo grande espera tras esta compuerta. ¿Listo?',
-    'beamOut': '¡Objetivo cumplido! Explora un poco más o teletranspórtate.',
-    'weapon': '¡Usa tu arma copiada con el botón de color!',
-    'levelUp': '¡Subes de nivel! Gasta tu chip de habilidad en los Circuitos del laboratorio.'
+    'weapon': '¡Usa tu arma copiada con el botón de color!'
   },
   'loot': {
     'found': '¡Botín: {item} ({rarity})!',

@@ -7,8 +7,7 @@
         div.q-obj {{ t(hud.objectiveKey, resolveParams(t, hud.objectiveParams)) }}
       div.controls
         div.c-title {{ t('pause.controls') }}
-        ul
-          li(v-for="k in controlKeys" :key="k") {{ t(k) }}
+        ControlsPanel
     template(#footer)
       div.actions
         FButton(type="primary" icon="play" :label="t('pause.resume')" @click="resume")
@@ -23,15 +22,13 @@ import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import { flow } from '@/game/flow'
 import { hud } from '@/game/state/hud'
-import { input, currentMission } from '@/game/boot'
+import { currentMission } from '@/game/boot'
+import ControlsPanel from '@/components/hud/ControlsPanel.vue'
 import { resolveParams } from '@/game/state/i18nParams'
 
 defineEmits<{ options: [] }>()
 const { t } = useI18n()
 const open = computed(() => flow.modal === 'pause')
-const controlKeys = computed(() => input.device === 'touch'
-  ? ['pause.touch.move', 'pause.touch.look', 'pause.touch.fire', 'pause.touch.block']
-  : ['pause.keys.move', 'pause.keys.look', 'pause.keys.fire', 'pause.keys.block', 'pause.keys.slide', 'pause.keys.more'])
 const resume = () => { flow.modal = '' }
 const abandon = () => {
   flow.modal = ''

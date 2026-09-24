@@ -64,6 +64,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Kontrolleri göster',
     'hp': 'Can',
     'we': 'Silah enerjisi',
     'power': 'Güç',
@@ -144,17 +145,13 @@ export default {
     'moveKeys': 'Hareket için WASD, bakmak için fareyi sürükle. Oraya yürümek için zemine tıkla!',
     'fireTouch': 'Önünde makineler var! Ateş etmek için dokun — şarjlı atış için basılı tut ve bırak.',
     'fireKeys': 'Önünde makineler var! Ateş etmek için tıkla ya da Boşluk — şarjlı atış için basılı tut ve bırak.',
-    'hardhat': 'Baretliler baretlerinin altında güvende. Kafalarını uzattıklarında ateş et!',
     'charge': 'Kalkanlar mermileri durdurur. TAM şarjlı atış kalkanı delip geçer.',
     'blockTouch': 'Turuncu halka: bloklamak için kalkanı basılı tut — halka kapanırken basarak SAVUŞTUR!',
     'blockKeys': 'Turuncu halka: bloklamak için Shift ya da sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
     'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
     'chest': 'Bir ikmal sandığı! Açmak için dokun.',
     'tank': 'Canın mı azaldı? Tamir Kiti seni tamamen onarır.',
-    'bossDoor': 'Bu kepengin ardında büyük bir şey bekliyor. Hazır mısın?',
-    'beamOut': 'Hedef tamam! Biraz daha keşfet ya da ışınlan.',
-    'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!',
-    'levelUp': 'Seviye atladın! Yetenek Çipini laboratuvardaki Devreler bölümünde harca.'
+    'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!'
   },
   'loot': {
     'found': '{rarity} {item} bulundu!',

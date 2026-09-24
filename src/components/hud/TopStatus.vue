@@ -8,6 +8,8 @@
       span.bolt-icon
         GameIcon(name="bolt")
       span.bolt-num {{ fmt(hud.bolts) }}
+    button.help(type="button" :aria-label="t('hud.help')" @click="help")
+      GameIcon(name="help")
     button.pause(type="button" :aria-label="t('ui.pause')" @click="$emit('pause')")
       GameIcon(name="pause")
 </template>
@@ -18,10 +20,13 @@ import { hud } from '@/game/state/hud'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { formatCount } from '@/utils/localeNumber'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
+import { currentMission } from '@/game/boot'
 
 defineEmits<{ pause: [] }>()
 const { t, locale } = useI18n()
 const fmt = (n: number) => formatCount(Math.round(n), locale.value)
+/** Bring the control glyphs back (the coach's "?"). */
+const help = () => currentMission()?.showHelp()
 </script>
 
 <style scoped lang="sass">
@@ -81,6 +86,19 @@ const fmt = (n: number) => formatCount(Math.round(n), locale.value)
   width: clamp(18px, 4vmin, 24px)
   height: clamp(18px, 4vmin, 24px)
   color: #ffd84a
+.help
+  pointer-events: auto
+  width: clamp(32px, 7vmin, 42px)
+  height: clamp(32px, 7vmin, 42px)
+  border-radius: 50%
+  border: 3px solid #141a33
+  background: linear-gradient(#8fe0ff, #3c8cff)
+  color: #fff
+  padding: clamp(5px, 1.4vmin, 8px)
+  flex: 0 0 auto
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
+  &:active
+    transform: translateY(2px)
 .pause
   pointer-events: auto
   width: clamp(36px, 8vmin, 48px)

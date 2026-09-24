@@ -83,7 +83,9 @@ export interface Profile {
   quests: QuestSave
   world: WorldSave
   stats: StatsSave
-  tips: Record<string, true>
+  /** One-time flags (true) and the control coach's per-glyph success counts
+   *  (`hint:<id>:<touch|mouse>` → n). */
+  tips: Record<string, true | number>
 }
 
 const defaultHero = (): HeroSave => ({

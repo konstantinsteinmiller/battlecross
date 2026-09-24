@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Tampilkan kontrol',
     'hp': 'Kesehatan',
     'we': 'Energi senjata',
     'power': 'Tenaga',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD untuk bergerak, geser mouse untuk melihat. Klik lantai untuk berjalan ke sana!',
     'fireTouch': 'Ada mesin di depan! Ketuk untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
     'fireKeys': 'Ada mesin di depan! Klik atau Space untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
-    'hardhat': 'Topi Baja aman di balik helmnya. Tembak saat mereka mengintip!',
     'charge': 'Perisai menahan peluru biasa. Tembakan bermuatan PENUH langsung menembusnya.',
     'blockTouch': 'Lingkaran oranye: tahan perisai untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
     'blockKeys': 'Lingkaran oranye: tahan Shift atau klik kanan untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
     'red': 'Lingkaran merah artinya tak bisa diblok — meluncurlah menghindar!',
     'chest': 'Peti pasokan! Ketuk untuk membukanya.',
     'tank': 'Hampir habis? Tangki Perbaikan memulihkanmu sepenuhnya.',
-    'bossDoor': 'Ada sesuatu yang besar di balik pintu ini. Siap?',
-    'beamOut': 'Tujuan tercapai! Jelajahi sedikit lagi, atau teleport keluar.',
-    'weapon': 'Pakai senjata salinanmu lewat tombol berwarna!',
-    'levelUp': 'Naik level! Pakai Chip Skill-mu di Sirkuit lab.'
+    'weapon': 'Pakai senjata salinanmu lewat tombol berwarna!'
   },
   'loot': {
     'found': '{item} {rarity} ditemukan!',

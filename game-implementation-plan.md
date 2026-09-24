@@ -54,7 +54,8 @@ src/game/
   audio/      synth.ts (chiptune SFX), music.ts (step sequencer, per-sector tracks)
 src/views/GameScene.vue      canvas host, mode switch mission ↔ hub, modal orchestration
 src/components/hud/*         Bars, Compass, Crosshair+ChargeRing, Joystick, ActionButtons,
-                             DamageNumbers, Toasts, ObjectiveTracker, TutorialTip, BossBar
+                             DamageNumbers, Toasts, ObjectiveTracker, BossBar,
+                             ControlHints + CoachRing + InputGlyph (the coach), ControlsPanel
 src/components/hub/*         HubScreen, MissionsTab, HeroTab, CircuitsTab, WorkshopTab
 src/components/modals/*      Pause, Results, LevelUp, Loot, Defeat
 ```
@@ -101,6 +102,18 @@ while bars and damage numbers get direct DOM writes.
 - [x] **11. QA pass.** Typecheck, tests (sim unit tests, save round-trip,
   i18n parity), a production build, a headless-browser play-through
   screenshot run, and a perf check on a throttled CPU. *Commit.*
+- [x] **12. Loader first.** The logo loader paints before any level work:
+  the mission is built in 12 ms wall-clock slices, shaders compile in slices
+  with readiness polling, the GPU warm-up renders a room at a time, and the
+  scene adopts the boot mission instead of building a second one. The bar
+  animates on the compositor and the stuck hint only shows on a real stall.
+  `scripts/boot-timeline.mjs` measures it. *Commit.*
+- [x] **13. Wordless controls coach.** Glyphs replace Pip's text tips (see
+  GDD § Teaching the controls). This chunk also fixes the camera (look deltas
+  were zeroed before the render applied them), makes a press that travels
+  become a look drag instead of a charge, lets manual look win over the
+  soft lock and hand it to the enemy in the sights, adds ← / → turning, the
+  "?" button and the glyph panel in the pause menu. *Commit.*
 
 ## Resume notes
 
@@ -117,7 +130,7 @@ while bars and damage numbers get direct DOM writes.
   Typing "cmarc" toggles debug mode (FPS/draw-call meter).
 - Layout checks: 320×658 portrait and 764×385 landscape, touch UA. In
   portrait the top HUD row belongs to the bars and the status pills, so the
-  compass, target frame, objective and tip stack below it
+  compass, target frame and objective stack below it
   (`@media (max-aspect-ratio: 1/1)`). The results modal splits into two
   columns on short landscape screens.
 - `<html lang>` follows the active locale (`main.ts`). Arabic gets
@@ -157,6 +170,20 @@ while bars and damage numbers get direct DOM writes.
 - Portal culling (`Mission.updateRoomCulling`): rooms show through open,
   on-screen doors, two deep. Static props hang under their room group.
   Beam-in and beam-out, with the camera above the walls, show everything.
+- Control coach: `game/sim/coach.ts` is the bookkeeping. The mission reports
+  successes (`use`, `looked`, `moved`, `blockableHit`, `deflected`) and the
+  context each step, and the HUD reads `hud.hints`. Progress is saved as
+  `profile.tips['hint:<id>:<touch|mouse>']`. Clear `profile.tips` to see the
+  first-run glyphs again. `tests/game/coach.test.ts` pins the rules. The
+  playtest scripts drive a real mission: the first fight shows look and move,
+  then fire and block (desktop cards under the crosshair; on touch, the tap
+  glyph plus a ring on the shield button).
+- Input ownership: `consumeEdges` (end of each sim step) clears only EDGES.
+  The look deltas belong to the render, which applies and zeroes them. Clearing
+  them in the step lost every drag whenever a step ran between two frames.
+- Boot timing: `node scripts/boot-timeline.mjs [url] [--throttle 4]` (or
+  `--dist <dir>`) prints the `boot:*` User Timing marks and the long tasks
+  until `boot:adopted`.
 - Known open items for a human: the origin remote still points at the
   survivalist repo, and `.env` still holds survivalist's GameMonetize id,
   Glitch ids and Playgama leaderboard id. Replace them before a portal

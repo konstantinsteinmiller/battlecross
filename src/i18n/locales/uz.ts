@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Boshqaruvni koʻrsatish',
     'hp': 'Sogʻliq',
     'we': 'Qurol energiyasi',
     'power': 'Quvvat',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD — yurish, sichqonchani tortish — qarash. U yerga borish uchun polga cherting!',
     'fireTouch': 'Oldinda mashinalar! Otish uchun bosing — zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
     'fireKeys': 'Oldinda mashinalar! Otish — chertish yoki Probel; zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
-    'hardhat': 'Dubulgʻalilar dubulgʻa ostida xavfsiz. Ular moʻralaganda oting!',
     'charge': 'Qalqonlar oddiy oʻqlarni toʻsadi. TOʻLIQ zaryadli oʻq teshib oʻtadi.',
     'blockTouch': 'Toʻq sariq halqa: bloklash uchun qalqonni bosib turing — halqa yopilayotganda bosib, QAYTARING!',
     'blockKeys': 'Toʻq sariq halqa: bloklash uchun Shift yoki oʻng tugmani bosib turing — halqa yopilayotganda bosib, QAYTARING!',
     'red': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Sirpanib chetlaning!',
     'chest': 'Taʼminot sandigʻi! Ochish uchun bosing.',
     'tank': 'Sogʻliq kammi? Taʼmir toʻplami sizni toʻliq tuzatadi.',
-    'bossDoor': 'Bu darvoza ortida nimadir katta kutmoqda. Tayyormisiz?',
-    'beamOut': 'Maqsad bajarildi! Yana biroz aylanib chiqing yoki teleport qiling.',
-    'weapon': 'Nusxalangan qurolni rangli tugma bilan ishlating!',
-    'levelUp': 'Yangi daraja! Koʻnikma chipini laboratoriyadagi «Sxemalar» boʻlimida sarflang.'
+    'weapon': 'Nusxalangan qurolni rangli tugma bilan ishlating!'
   },
   'loot': {
     'found': '{rarity} {item} topildi!',

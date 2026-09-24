@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Steuerung anzeigen',
     'hp': 'Gesundheit',
     'we': 'Waffenenergie',
     'power': 'Kraft',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD zum Laufen, Maus ziehen zum Umsehen. Klicke auf den Boden, um hinzulaufen!',
     'fireTouch': 'Maschinen voraus! Tippe zum Schießen – halten und loslassen für einen Ladeschuss.',
     'fireKeys': 'Maschinen voraus! Klick oder Leertaste zum Schießen – halten und loslassen für einen Ladeschuss.',
-    'hardhat': 'Helmlinge sind unter ihrem Helm sicher. Schieß, wenn sie hervorlugen!',
     'charge': 'Schilde blocken Kugeln. Ein VOLLER Ladeschuss bricht glatt durch.',
     'blockTouch': 'Oranger Ring: Halte den Schild zum Blocken – drück ihn, wenn sich der Ring schließt, um zu PARIEREN!',
     'blockKeys': 'Oranger Ring: Halte Shift oder die rechte Maustaste zum Blocken – drück, wenn sich der Ring schließt, um zu PARIEREN!',
     'red': 'Roter Ring heißt unblockbar – rutsch aus dem Weg!',
     'chest': 'Eine Vorratskiste! Tippe sie an, um sie zu öffnen.',
     'tank': 'Fast am Ende? Ein Reparaturtank macht dich wieder topfit.',
-    'bossDoor': 'Hinter diesem Tor wartet etwas Großes. Bereit?',
-    'beamOut': 'Ziel erfüllt! Erkunde noch ein bisschen oder beam dich raus.',
-    'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!',
-    'levelUp': 'Level-Up! Setz deinen Fähigkeitschip in den Schaltkreisen im Labor ein.'
+    'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!'
   },
   'loot': {
     'found': '{item} ({rarity}) gefunden!',

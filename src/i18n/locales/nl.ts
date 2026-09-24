@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Besturing tonen',
     'hp': 'Gezondheid',
     'we': 'Wapenenergie',
     'power': 'Kracht',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD om te lopen, sleep met de muis om te kijken. Klik op de vloer om erheen te lopen!',
     'fireTouch': 'Machines in zicht! Tik om te schieten — houd vast en laat los voor een geladen schot.',
     'fireKeys': 'Machines in zicht! Klik of spatie om te schieten — houd vast en laat los voor een geladen schot.',
-    'hardhat': 'Bouwhelmen zijn veilig onder hun helm. Schiet zodra ze eronder vandaan gluren!',
     'charge': 'Schilden blokkeren kogels. Een VOLLEDIG geladen schot knalt er dwars doorheen.',
     'blockTouch': 'Oranje ring: houd het schild vast om te blokkeren — druk als de ring sluit om te PAREREN!',
     'blockKeys': 'Oranje ring: houd Shift of de rechtermuisknop ingedrukt om te blokkeren — druk als de ring sluit om te PAREREN!',
     'red': 'Een rode ring is niet te blokkeren — glij opzij!',
     'chest': 'Een voorraadkist! Tik erop om hem te openen.',
     'tank': 'Bijna op? Een reparatietank lapt je helemaal op.',
-    'bossDoor': 'Achter dit rolluik wacht iets groots. Klaar?',
-    'beamOut': 'Doel voltooid! Verken nog wat, of teleporteer weg.',
-    'weapon': 'Gebruik je gekopieerde wapen via de gekleurde knop!',
-    'levelUp': 'Level omhoog! Besteed je vaardigheidschip in de Circuits van het lab.'
+    'weapon': 'Gebruik je gekopieerde wapen via de gekleurde knop!'
   },
   'loot': {
     'found': '{item} ({rarity}) gevonden!',

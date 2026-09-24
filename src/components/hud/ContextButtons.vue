@@ -4,6 +4,7 @@
       button.ctx-btn.interact(v-if="hud.interactKey" type="button" @click="interact")
         GameIcon.ico(:name="icon")
         span {{ t(hud.interactKey) }}
+        CoachRing.ring(:hint="hud.hints.find(h => h.id === 'interact' && h.family === 'touch')")
     Transition(name="ctx-pop")
       button.ctx-btn.beam(v-if="hud.objectiveDone && !hud.combat" type="button" @click="beamOut")
         GameIcon.ico(name="up")
@@ -16,6 +17,7 @@ import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 import { currentMission, input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import CoachRing from './CoachRing.vue'
 import type { GameIconName } from '@/components/icons/iconNames'
 
 /** Contextual actions, bottom centre: open / rescue / enter, and Beam out
@@ -45,6 +47,7 @@ const beamOut = () => {
   gap: 10px
   pointer-events: none
 .ctx-btn
+  position: relative
   pointer-events: auto
   display: flex
   align-items: center
@@ -65,6 +68,10 @@ const beamOut = () => {
   height: clamp(18px, 4vmin, 24px)
 .interact
   background: linear-gradient(#ffd23a, #e08a00)
+// The coach ring follows the pill, not a circle.
+.ring :deep(.pulse), .ring :deep(.approve)
+  inset: -8px
+  border-radius: 999px
 .beam
   background: linear-gradient(#7ff4ff, #1f9fd8)
 @keyframes ctx-bob

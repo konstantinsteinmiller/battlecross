@@ -1,4 +1,5 @@
 import { shallowReactive } from 'vue'
+import type { HintView } from '../sim/coach'
 
 /**
  * ─── The reactivity firewall ─────────────────────────────────────────────────
@@ -55,8 +56,8 @@ export const hud = shallowReactive({
   tanks: 0,
   slideReady: true,
   blockHeld: false,
-  /** Tutorial tip id (i18n key), '' when none. */
-  tip: '',
+  /** The control coach's glyphs on screen (see `sim/coach.ts`). */
+  hints: [] as HintView[],
   /** Sector / mission title card. */
   titleKey: '',
   titleSub: '',

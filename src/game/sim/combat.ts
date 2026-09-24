@@ -32,6 +32,8 @@ export interface CombatHost extends World {
   onPlayerDown(): void
   /** Breakable props (crates / barrels): true if the shot struck one. */
   shotHitsProp?(x: number, y: number, z: number, r: number, dmg: number): boolean
+  /** A player shot bounced off a guard (TINK). */
+  onDeflect?(): void
 }
 
 const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: number }> = {
@@ -521,6 +523,7 @@ export class CombatSystem {
       h.fx.sparks(o.x, o.y, o.z, '#ffffff', 7, 5, 0.14)
       pushHud({ t: 'text', x: o.x, y: o.y + 0.3, z: o.z, key: 'combat.tink', color: '#dfe7ff' })
       h.sfx('tink', e.x, e.z)
+      h.onDeflect?.()
       return
     }
     let dmg = amount * e.def.armor

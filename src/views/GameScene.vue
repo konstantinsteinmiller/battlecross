@@ -10,7 +10,7 @@
       TargetFrame(v-if="!hud.bossName")
       BossBar
       TitleCard
-      TipBubble
+      ControlHints
       HudBars
       ObjectiveTracker
       TopStatus(@pause="openPause")
@@ -52,7 +52,7 @@ import Compass from '@/components/hud/Compass.vue'
 import ContextButtons from '@/components/hud/ContextButtons.vue'
 import BossBar from '@/components/hud/BossBar.vue'
 import TitleCard from '@/components/hud/TitleCard.vue'
-import TipBubble from '@/components/hud/TipBubble.vue'
+import ControlHints from '@/components/hud/ControlHints.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'

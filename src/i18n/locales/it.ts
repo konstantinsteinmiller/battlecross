@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Mostra comandi',
     'hp': 'Salute',
     'we': 'Energia arma',
     'power': 'Potenza',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD per muoverti, trascina il mouse per guardare. Clicca il pavimento per andarci!',
     'fireTouch': 'Macchine in vista! Tocca per sparare — tieni premuto e rilascia per un colpo caricato.',
     'fireKeys': 'Macchine in vista! Clic o Spazio per sparare — tieni premuto e rilascia per un colpo caricato.',
-    'hardhat': 'I Caschetti sono al sicuro sotto il casco. Spara quando sbucano!',
     'charge': 'Gli scudi fermano i colpi normali. Un colpo a carica PIENA li sfonda.',
     'blockTouch': "Anello arancione: tieni premuto lo scudo per bloccare — premilo mentre l'anello si chiude per PARARE!",
     'blockKeys': "Anello arancione: tieni premuto Shift o il tasto destro per bloccare — premi mentre l'anello si chiude per PARARE!",
     'red': 'Anello rosso = attacco imparabile — scivola di lato!',
     'chest': 'Una cassa di rifornimenti! Toccala per aprirla.',
     'tank': 'A corto di salute? Un Kit Riparazione ti rimette a nuovo.',
-    'bossDoor': 'Qualcosa di grosso aspetta dietro questa saracinesca. Pronto?',
-    'beamOut': "Obiettivo completato! Esplora ancora un po' o rientra.",
-    'weapon': "Usa l'arma copiata con il pulsante colorato!",
-    'levelUp': 'Nuovo livello! Spendi il Chip Abilità nei Circuiti del laboratorio.'
+    'weapon': "Usa l'arma copiata con il pulsante colorato!"
   },
   'loot': {
     'found': 'Hai trovato {item} ({rarity})!',

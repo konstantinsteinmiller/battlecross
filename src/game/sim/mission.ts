@@ -17,7 +17,7 @@ import { buildViewmodel, type Viewmodel } from '../models/hero'
 import { PAL, RARITY_COLOR as RARITY_HEX } from '../models/palette'
 import {
   EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, PITCH_MIN, PITCH_MAX,
-  DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME
+  DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME, TURN_RATE
 } from './constants'
 import { hud, tickHud, pushHud } from '../state/hud'
 import type { CombatPlayer, Enemy, PickupKind } from './world'
@@ -29,7 +29,7 @@ import { Particles } from '../fx/particles'
 import { FloorMarkers, ShockRings } from '../fx/markers'
 import { sfx } from '../audio/sfx'
 import { setMusicTrack } from '@/use/useSound'
-import { Tips } from './tips'
+import { Coach, type HintView } from './coach'
 import { chargeHum } from '../audio/synth'
 import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
@@ -115,6 +115,10 @@ const _v3 = new Vector3()
 const _frustum = new Frustum()
 const _pv = new Matrix4()
 const _portal = new Sphere()
+/** After a manual look, the soft lock-on stands aside this long (s). */
+const LOCK_YIELD = 1.1
+/** An enemy within this angle of the crosshair (rad) is "in the sights". */
+const SIGHT_ANGLE = 0.22
 /** How many doors deep the view reaches. Two covers a room seen through the
  *  next room's far door; anything deeper is past the fog anyway. */
 const PORTAL_DEPTH = 2
@@ -175,7 +179,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private bossBarT = 0
   private vmFlash = 0
   private vmFlashColor = '#ffffff'
-  private tips = new Tips(true)
+  /** The wordless control coach (`sim/coach.ts`). */
+  readonly coach = new Coach()
+  /** When the player last steered the camera (drag / keys). */
+  private manualLookAt = -10
+  private hintsSig = ''
   private raycaster = new Raycaster()
   private marker!: Mesh
   private markerT = 0
@@ -450,6 +458,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
           e.flash = 1
         }
         c.iframes = Math.max(c.iframes, 0.2)
+        this.coach.use('parry')
         return 'parry'
       }
       // ── BLOCK ──
@@ -471,6 +480,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
         sfx('guardCrack')
         pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: EYE_H + 0.1, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.guardCracked', color: '#ff8a5a' })
       }
+      this.coach.use('block')
       this.checkDown()
       return 'block'
     }
@@ -485,6 +495,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     sfx('hurt')
     pushHud({ t: 'hurt', strength: Math.min(1, taken / (c.maxHp * 0.25)) })
     this.onPlayerHurt(taken)
+    if (o.blockable) this.coach.blockableHit()
     // Knock the player back a touch
     const kx = p.x - o.fromX
     const kz = p.z - o.fromZ
@@ -570,6 +581,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const aim = this.aimDir(m)
     const r = this.weapons.use(i, id, m, aim)
     if (r === 'ok') {
+      this.coach.use('weapon')
       this.vmFlash = 1
       this.vmFlashColor = WEAPONS[id].color
       this.combat.recoil = 1
@@ -598,7 +610,6 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       pushHud({ t: 'flash', color: '#ffd84a', strength: 0.45 })
       pushHud({ t: 'toast', key: 'progress.levelUp', params: { n: profile.level }, color: '#ffd84a' })
       sfx('levelUp')
-      this.tips.levelUp(this.time)
     }
   }
 
@@ -771,6 +782,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.fx.riseRing(this.player.x, 0.1, this.player.z, '#8dff7a', 0.9, 20)
     pushHud({ t: 'flash', color: '#8dff7a', strength: 0.35 })
     sfx('tank')
+    this.coach.use('tank')
     this.dirty = true
     return true
   }
@@ -943,21 +955,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
       if (first && this.input.tankQueued) this.useTank()
-      this.tips.update(dt, {
-        time: this.time,
-        combat: hud.combat,
-        enemies: this.enemies,
-        player: p,
-        hp01: this.combat.hp / this.combat.maxHp,
-        tanks: profile.inv.tanks,
-        interactKind: hud.interactKey,
-        objectiveDone: this.objects.objective.done,
-        hasWeapon: !!profile.hero.slots[0],
-        touch: this.input.device === 'touch'
-      })
     } else {
       this.interact = null
     }
+    this.updateCoach()
 
     // Checkpoints: persist profile + mission snapshot at most every 2 s.
     this.snapT -= rawDt
@@ -980,6 +981,43 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
   }
 
+  /** Feed the control coach what is happening right now (see `sim/coach.ts`). */
+  private updateCoach(): void {
+    const p = this.player
+    let teleBlock = false
+    let teleRed = false
+    for (const e of this.enemies) {
+      if (e.state !== 'tele' || !e.awake) continue
+      if (Math.hypot(e.x - p.x, e.z - p.z) > 16) continue
+      if (e.teleRed) teleRed = true
+      else teleBlock = true
+    }
+    this.coach.update({
+      time: this.time,
+      family: this.input.device,
+      playing: hud.phase === 'play' && !flow.modal,
+      combat: hud.combat,
+      aimCandidate: this.aimCandidate,
+      teleBlock,
+      teleRed,
+      hp01: this.combat.hp / this.combat.maxHp,
+      tanks: profile.inv.tanks,
+      hasWeapon: !!profile.hero.slots[0] || !!profile.hero.slots[1],
+      canInteract: !!this.interact
+    })
+  }
+
+  /** The HUD's "?" button: bring the core control glyphs back. */
+  showHelp(): void {
+    this.coach.help()
+    this.hudT = 0
+  }
+
+  /** A shot bounced off a guard (CombatHost): the charge shot's moment. */
+  onDeflect(): void {
+    this.coach.deflected()
+  }
+
   /** Act on the current interactable (button / E key / tapping it). */
   doInteract(): void {
     const it = this.interact
@@ -997,6 +1035,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
     this.interact = null
     this.dirty = true
+    this.coach.use('interact')
   }
 
   private updatePlayer(dt: number, first: boolean): void {
@@ -1038,6 +1077,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       const after = chargeInfo(c.charge, st).level
       if (after > before) sfx(after === 1 ? 'charge1' : 'charge2')
     }
+    if (first && inp.fireCancelled) {
+      // The press became a look drag: the charge is dropped, not fired.
+      c.charging = false
+      c.charge = 0
+    }
     if (first && inp.fireReleased && c.charging) {
       const info = chargeInfo(c.charge, st)
       if (info.level !== 0 && canAct) this.fireCharged(info.level, info.perfect)
@@ -1075,6 +1119,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       c.powerDelay = 0.6
       p.path = null
       sfx('slide')
+      this.coach.use('slide')
       this.fx.emit({ x: p.x, y: 0.2, z: p.z, color: '#dfefff', size: 0.9, sizeEnd: 1.6, life: 0.3 })
     }
 
@@ -1097,6 +1142,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       p.path = null
       tx = (fwdX * inp.moveY + rightX * inp.moveX) * WALK_SPEED * speedMul
       tz = (fwdZ * inp.moveY + rightZ * inp.moveX) * WALK_SPEED * speedMul
+      this.coach.moved(Math.hypot(tx, tz) * dt)
     } else if (p.path && p.path.length) {
       const [wx, wz] = p.path[0]!
       const dx = wx - p.x
@@ -1179,6 +1225,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     c.recoil = Math.min(1, c.recoil + 0.45)
     this.fx.flash(m[0] + dx * 0.5, m[1] + dy * 0.5, m[2] + dz * 0.5, '#fff39a', 0.22, 0.06)
     sfx('shoot')
+    this.coach.use('fire')
     // Shooting at a sleeping enemy in view wakes it.
     if (tgt && !tgt.awake) wake(this, tgt)
     this.makeNoise(10)
@@ -1212,6 +1259,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       pushHud({ t: 'text', x: m[0] + dx * 3, y: m[1] + 0.4, z: m[2] + dz * 3, key: 'combat.perfect', color: '#ffd84a' })
     }
     sfx(level >= 2 ? 'chargeShotBig' : 'chargeShot')
+    this.coach.use('charge')
     if (tgt && !tgt.awake) wake(this, tgt)
     this.makeNoise(12)
   }
@@ -1223,12 +1271,19 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.aimCandidate = false
     let best: Enemy | null = null
     let bestScore = Infinity
+    let sighted: Enemy | null = null
+    let sightedAng = SIGHT_ANGLE
+    let targetAng = 0
     for (const e of this.enemies) {
       if (e.state === 'dead') continue
       const d = Math.hypot(e.x - p.x, e.z - p.z)
       const ang = Math.abs(angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw))
+      if (e === c.target) targetAng = ang
       if (e.awake && d < 22) engaged++
-      if (d < 22 && ang < 0.5 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) this.aimCandidate = true
+      if (d < 22 && ang < 0.5 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) {
+        this.aimCandidate = true
+        if (ang < sightedAng) { sighted = e; sightedAng = ang }
+      }
       if ((e.awake && d < 22) || (d < 20 && ang < 0.45)) {
         const score = ang * 2.2 + d / 10
         if (score < bestScore && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) {
@@ -1252,7 +1307,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       c.target = best && (best.awake || this.aimCandidate) ? best : null
       this.targetLostT = 0
     }
-    // Swipe / Tab: cycle to the next engaged enemy by bearing.
+    // Aim by looking: while the player steers the camera, the enemy under the
+    // crosshair takes the lock once the old target has left the sights. On
+    // touch this IS target switching — a sideways drag is a look now, not a
+    // flick — and on desktop it spares the reach for Tab.
+    if (c.target && sighted && sighted !== c.target && targetAng > SIGHT_ANGLE * 1.6
+      && this.time - this.manualLookAt < LOCK_YIELD) {
+      c.target = sighted
+    }
+    // Tab: cycle to the next engaged enemy by bearing.
     if (this.input.swipe !== 0) {
       const list = this.enemies
         .filter(e => e.state !== 'dead' && e.awake && Math.hypot(e.x - p.x, e.z - p.z) < 22 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z))
@@ -1397,7 +1460,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
           const dx = p.x - hit.x
           const dz = p.z - hit.z
           const d = Math.hypot(dx, dz) || 1
-          this.walkTo(hit.x + (dx / d) * 1.6, hit.z + (dz / d) * 1.6)
+          if (this.walkTo(hit.x + (dx / d) * 1.6, hit.z + (dz / d) * 1.6)) this.coach.use('walk')
         }
         continue
       }
@@ -1408,7 +1471,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       const t = -ray.origin.y / ray.direction.y
       if (t > 45) continue
       ray.at(t, _v3)
-      this.walkTo(_v3.x, _v3.z)
+      if (this.walkTo(_v3.x, _v3.z)) this.coach.use('walk')
     }
   }
 
@@ -1469,6 +1532,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     hud.xp01 = xp01()
     hud.tanks = profile.inv.tanks
     hud.blockHeld = c.blocking
+    // Coach glyphs: only re-assigned when something visible changed.
+    const views: HintView[] = this.coach.views()
+    const sig = views.map(v => `${v.id}${v.family}${v.count}/${v.goal}${v.flash}${v.done ? 'd' : ''}`).join(',')
+    if (sig !== this.hintsSig) {
+      this.hintsSig = sig
+      hud.hints = views
+    }
     hud.slideReady = c.slideCd <= 0 && c.power >= this.stats.slideCost
     // Objective line + compass
     const ob = this.objects.objective
@@ -1530,10 +1600,19 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const inp = this.input
     if (hud.phase === 'play' && (inp.lookDX || inp.lookDY)) {
       const s = (inp.device === 'touch' ? LOOK_TOUCH : LOOK_MOUSE) * this.lookSens
-      // In combat the lock steers yaw; manual look still nudges it.
-      const k = hud.combat && c.target ? 0.35 : 1
-      p.yaw -= inp.lookDX * s * k
-      p.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, p.pitch - inp.lookDY * s * k))
+      // Full speed, always: the soft lock below stands aside while the
+      // player is steering (it used to damp this to 35 % and pull the view
+      // straight back, so in a fight the camera felt nailed down).
+      p.yaw -= inp.lookDX * s
+      p.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, p.pitch - inp.lookDY * s))
+      this.coach.looked(Math.hypot(inp.lookDX, inp.lookDY) * s)
+      this.manualLookAt = this.time
+    }
+    if (hud.phase === 'play' && inp.turn) {
+      const d = inp.turn * TURN_RATE * this.lookSens * Math.min(dt, 0.05)
+      p.yaw -= d
+      this.coach.looked(d)
+      this.manualLookAt = this.time
     }
     inp.lookDX = 0
     inp.lookDY = 0
@@ -1541,9 +1620,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const x = p.px + (p.x - p.px) * alpha
     const z = p.pz + (p.z - p.pz) * alpha
 
-    // Soft lock-on: ease the view toward the target (yaw + pitch).
+    // Soft lock-on: ease the view toward the target (yaw + pitch) — but not
+    // while, or just after, the player steers the camera themselves.
     const t = c.target
-    if (hud.phase === 'play' && t && t.state !== 'dead' && (hud.combat || c.charging)) {
+    const steering = this.time - this.manualLookAt < LOCK_YIELD
+    if (hud.phase === 'play' && t && t.state !== 'dead' && (hud.combat || c.charging) && !steering) {
       const ty = t.y + t.def.aimY * (t.elite ? 1.18 : 1)
       const want = Math.atan2(-(t.x - x), -(t.z - z))
       const dist = Math.hypot(t.x - x, t.z - z)
@@ -1678,7 +1759,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
 
   dispose(): void {
     chargeHum(null)
-    this.tips.clear()
+    hud.hints = []
     this.fx.dispose()
     this.scene.traverse((o) => {
       const m = o as Mesh

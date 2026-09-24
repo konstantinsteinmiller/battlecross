@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Hiện điều khiển',
     'hp': 'Máu',
     'we': 'Năng lượng vũ khí',
     'power': 'Thể lực',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD để di chuyển, kéo chuột để nhìn. Nhấp vào sàn để đi tới đó!',
     'fireTouch': 'Có máy phía trước! Chạm để bắn — giữ rồi thả để bắn phát tụ lực.',
     'fireKeys': 'Có máy phía trước! Nhấp hoặc Space để bắn — giữ rồi thả để bắn phát tụ lực.',
-    'hardhat': 'Nón Sắt an toàn dưới mũ của chúng. Bắn khi chúng ló đầu ra!',
     'charge': 'Khiên chặn được đạn thường. Phát tụ lực ĐẦY xuyên thủng ngay.',
     'blockTouch': 'Vòng cam: giữ khiên để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
     'blockKeys': 'Vòng cam: giữ Shift hoặc chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
     'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
     'chest': 'Một rương tiếp tế! Chạm để mở.',
     'tank': 'Sắp cạn máu? Bình Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
-    'bossDoor': 'Có thứ gì đó rất lớn đang chờ sau cửa sập này. Sẵn sàng chưa?',
-    'beamOut': 'Xong mục tiêu! Khám phá thêm chút nữa, hoặc dịch chuyển về.',
-    'weapon': 'Dùng vũ khí sao chép được từ nút có màu!',
-    'levelUp': 'Lên cấp! Dùng Chip Kỹ Năng trong Mạch của phòng thí nghiệm.'
+    'weapon': 'Dùng vũ khí sao chép được từ nút có màu!'
   },
   'loot': {
     'found': 'Tìm thấy {item} {rarity}!',

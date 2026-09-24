@@ -19,8 +19,8 @@ each ran a sector (refinery, cryo plant, power tower and so on). The rogue AI
 
 The player is **Cobalt**, a blue combat android with an arm buster, woken by
 his maker **Prof. Gauss** (an elderly android scientist). His support unit
-**Pip** is a small hovering helper bot. It runs the mission terminal, hands out
-jobs and says the tutorial lines.
+**Pip** is a small hovering helper bot. It runs the mission terminal and hands
+out jobs.
 
 No humans and no fantasy creatures. Everyone is an android or a machine.
 
@@ -48,25 +48,60 @@ Hub (mission terminal)  →  pick story mission or job  →  beam in
 
 | Action | Touch | Desktop |
 | --- | --- | --- |
-| Move | floating joystick on the **left half** | WASD / arrow keys |
-| Look | drag on the **right half** | mouse drag (right half or anywhere w/o joystick) / arrow ← → when not moving |
-| Walk to point | **tap the floor** (Blades' signature). A* path over the nav grid, a ground ring marks the target | click floor |
-| Interact | tap the door / chest / NPC / item (or the contextual ⓔ button) | click it, or `E` |
-| Fire | **tap** anywhere in combat → quick buster shot at the locked target | left click / `Space` |
-| Charge shot | **hold** → the ring around the crosshair fills (lv1 → lv2). Release at full = Charged Shot. Release inside the **perfect flash** window = critical | hold LMB / `Space` |
-| Block / Parry | hold the **shield** button (bottom-left). Blocking while an enemy's attack ring closes = **Parry**: projectiles reflect, melee staggers | hold RMB / `Shift` |
-| Slide | **Slide** button, or a fast swipe down on the left half. Short dash with i-frames | `Q` / `Ctrl` |
+| Move | floating joystick on the **left half** | WASD (↑ / ↓ too) |
+| Look | **drag** on the right half | **drag** with the mouse · ← / → turn |
+| Walk to point | **tap the floor** (Blades' signature). A* path over the nav grid, a ground ring marks the target | click the floor |
+| Interact | tap the door / chest / NPC / item (or the contextual button) | click it, or `E` |
+| Fire | **tap** in combat → quick buster shot at the locked target | click / `Space` |
+| Charge shot | **hold** without moving → the ring around the crosshair fills (lv1 → lv2). Release at full = Charged Shot. Release inside the **perfect flash** window = critical | hold the left button / `Space` |
+| Block / Parry | hold the **shield** button (right-thumb cluster). Blocking while an enemy's attack ring closes = **Parry**: projectiles reflect, melee staggers | hold the **right** mouse button (`Shift` also works, untaught) |
+| Slide | **Slide** button. Short dash with i-frames | `Q` (`Ctrl` too) |
 | Special weapons | two slot buttons (right side), cost Weapon Energy | `1` / `2` |
 | Repair Tank | tank button, full heal, limited count | `H` |
-| Switch target | horizontal swipe on the right half during combat | `Tab` |
+| Switch target | **look at** the other enemy | look at it, or `Tab` |
 | Pause / map | ⏸ top-right | `Esc` / `P`, `M` |
+| Show the controls again | **?** top-right | **?** top-right |
+
+**Press vs drag.** In combat a press is a shot and a hold is a charge, but a
+press that travels more than ~10 px (mouse) / 16 px (touch) becomes a look
+drag: the charge is dropped, never fired. Deciding fire-vs-look at the press
+made every drag near an enemy a charge, and the camera simply would not move.
 
 **Combat lock-on.** Once an enemy has noticed Cobalt and is within 16 m, the
-camera soft-locks onto the nearest engaged enemy: yaw eases toward it and look
-drag is suppressed so a hold-to-charge is never mistaken for a look drag.
-Movement stays live, so circle-strafing around projectiles is the MegaMan-style
-skill layered on the Blades rhythm. When the last engaged enemy dies the lock
-releases and free look comes back.
+camera soft-locks onto the nearest engaged enemy: yaw eases toward it.
+A manual look always wins: the lock stands aside for 1.1 s after the last
+drag, and if the player has turned onto another enemy by then, that one takes
+the lock. Movement stays live, so circle-strafing around projectiles is the
+MegaMan-style skill layered on the Blades rhythm. When the last engaged enemy
+dies the lock releases and free look comes back.
+
+### Teaching the controls: the coach
+
+No sentences. Every control is taught by a **glyph** where the action happens
+(`src/game/sim/coach.ts`, `ControlHints.vue`, `CoachRing.vue`):
+
+- Desktop: a WASD cluster bottom-left, a mouse with the drag arrows at the
+  right, and action cards (the mouse with the button to press lit, or the key)
+  just under the crosshair. Touch: a ghost joystick, a finger that drags / taps
+  / holds, and a pulsing ring on the HUD button itself (a ring **closing** onto
+  the shield button for the parry).
+- Each glyph stays until the control has actually been **used** a few times
+  (move 3 × 2.5 m, look 3 × 35°, fire 4, block 2…). Every success flashes it
+  green and fills a pip; the last pip pops a check and the glyph retires.
+  **Nothing times out.**
+- Context brings glyphs in: fire when an enemy is in the sights, block on a
+  blockable wind-up, slide on a red one, the tank at low health, interact at a
+  chest. At most two at once, most urgent first.
+- Stuck detection brings them back: no camera movement for 18 s, no movement
+  for 16 s, no shot for 7 s in a fight, three blockable hits in a row without a
+  block. One use retires a recalled glyph.
+- The **?** button in the top bar brings back the core set on demand; the
+  pause menu shows every control as glyph → action icon.
+- Progress is saved per input family (touch vs mouse + keys): a desktop veteran
+  on a phone still gets the joystick.
+- One input per glyph: "Shift or right-click" was read as Shift+right-click,
+  which Firefox answers with its own context menu — uncancellably.
+- The sentences survive only as screen-reader labels (`tips.*`, `pause.*`).
 
 ## Combat rules
 
@@ -212,8 +247,8 @@ salvage an item for bolts, buy a Repair Tank (150 bolts), refill tanks.
   A rewarded ad offers **×2 bolts** on the results screen.
 
 The **first mission** (tutorial: "Wake-Up Call", Scrapyard) starts with no menu.
-The player beams straight in and Pip's one-line tips teach move → look → fire
-→ charge → block/parry → chest → mini-boss. It should take about 4 minutes.
+The player beams straight in and the coach's glyphs teach move + look → fire
+→ charge → block/parry → chest → mini-boss, each retiring once it is used. It should take about 4 minutes.
 Losing is possible, but damage is scaled down to 60 % until the mini-boss.
 
 ### Maps

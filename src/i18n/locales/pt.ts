@@ -62,6 +62,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Mostrar controles',
     'hp': 'Vida',
     'we': 'Energia da arma',
     'power': 'Potência',
@@ -142,17 +143,13 @@ export default {
     'moveKeys': 'WASD para mover, arraste o mouse para olhar. Clique no chão para ir até lá!',
     'fireTouch': 'Máquinas à frente! Toque para atirar — segure e solte para um tiro carregado.',
     'fireKeys': 'Máquinas à frente! Clique ou Espaço para atirar — segure e solte para um tiro carregado.',
-    'hardhat': 'Os Capacetinhos ficam protegidos sob o capacete. Atire quando eles espiarem!',
     'charge': 'Escudos bloqueiam tiros comuns. Um tiro com carga TOTAL atravessa direto.',
     'blockTouch': 'Anel laranja: segure o escudo para bloquear — aperte quando o anel fechar para APARAR!',
     'blockKeys': 'Anel laranja: segure Shift ou o botão direito para bloquear — aperte quando o anel fechar para APARAR!',
     'red': 'Anel vermelho é imbloqueável — deslize para sair do caminho!',
     'chest': 'Um baú de suprimentos! Toque nele para abrir.',
     'tank': 'Vida baixa? Um Kit de Reparo te conserta por completo.',
-    'bossDoor': 'Algo grande espera atrás desta comporta. Pronto?',
-    'beamOut': 'Objetivo concluído! Explore mais um pouco ou teleporte-se.',
-    'weapon': 'Use sua arma copiada no botão colorido!',
-    'levelUp': 'Subiu de nível! Gaste seu Chip de Habilidade nos Circuitos do laboratório.'
+    'weapon': 'Use sua arma copiada no botão colorido!'
   },
   'loot': {
     'found': 'Você encontrou {item} ({rarity})!',

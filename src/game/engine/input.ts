@@ -8,13 +8,18 @@
  *
  * Touch model (Blades + a buster):
  *   • LEFT ~45 % of the screen: a floating joystick spawns under the thumb.
- *   • RIGHT side: drag = look, short tap = tap (walk-to / interact / fire),
- *     press-and-hold = `fireHeld` (the sim fires on press and charges while
- *     held, MegaMan-style). A fast horizontal flick = `swipe` (switch target).
+ *   • RIGHT side (and the mouse's left button): press = shoot and start
+ *     charging when a shot is wanted (`fireMode`); hold still to charge,
+ *     release to fire the charge. The moment the press DRAGS it becomes a
+ *     look instead: the charge is dropped (`fireCancelled`), never fired.
+ *     Out of fire mode a drag looks and a short tap walks / interacts.
+ *     (Deciding fire-vs-look at the press used to make a drag near any enemy
+ *     a charge — the camera simply would not move.)
  *   • HUD buttons write straight into the record (`blockHeld`, `slideQueued`…).
  *
- * Desktop: WASD / arrows move, mouse drag looks, click = tap / fire, Space =
- * fire, Shift / RMB = block, Q = slide, 1/2 = weapons, H = tank, E = interact.
+ * Desktop: WASD move (↑ / ↓ too), ← / → turn, mouse drag looks, click = tap /
+ * fire, Space = fire, RMB (or Shift) = block, Q = slide, 1/2 = weapons,
+ * H = tank, E = interact. The coach only ever SHOWS one input per action.
  */
 
 import { mobileCheck } from '@/utils/function'
@@ -23,6 +28,8 @@ export interface Input {
   // Movement (joystick or keys), x = strafe right, y = forward. |v| ≤ 1.
   moveX: number
   moveY: number
+  /** Keyboard turning (← / →): −1..1, + = turn right. */
+  turn: number
   /** Accumulated look delta in pixels since last consume. */
   lookDX: number
   lookDY: number
@@ -32,6 +39,8 @@ export interface Input {
   fireHeld: boolean
   firePressed: boolean
   fireReleased: boolean
+  /** The press turned into a look drag: drop the charge without firing it. */
+  fireCancelled: boolean
   /** Screen position of the current fire press (aim hint for free-aim). */
   fireX: number
   fireY: number
@@ -64,21 +73,27 @@ const guessDevice = (): Input['device'] => {
 }
 
 export const createInput = (): Input => ({
-  moveX: 0, moveY: 0, lookDX: 0, lookDY: 0, taps: [],
-  fireHeld: false, firePressed: false, fireReleased: false, fireX: 0, fireY: 0,
+  moveX: 0, moveY: 0, turn: 0, lookDX: 0, lookDY: 0, taps: [],
+  fireHeld: false, firePressed: false, fireReleased: false, fireCancelled: false, fireX: 0, fireY: 0,
   blockHeld: false, blockPressed: false, slideQueued: false, weaponQueued: 0, tankQueued: false,
   interactQueued: false, swipe: 0, pauseQueued: false, mapQueued: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0,
   touched: false, device: guessDevice()
 })
 
-/** Reset the one-shot edges after the sim consumed them. */
+/**
+ * Reset the one-shot edges after the sim consumed them.
+ *
+ * NOT the look deltas: those are applied by the mission's RENDER, which runs
+ * after this every frame and zeroes them itself. Clearing them here threw the
+ * drag away on every frame that ran a logic step — at 60 Hz nearly all of
+ * them — so the camera only moved on the odd step-less frame and felt stuck.
+ */
 export const consumeEdges = (i: Input): void => {
-  i.lookDX = 0
-  i.lookDY = 0
   i.taps.length = 0
   i.firePressed = false
   i.fireReleased = false
+  i.fireCancelled = false
   i.blockPressed = false
   i.slideQueued = false
   i.weaponQueued = 0
@@ -99,8 +114,9 @@ export interface InputOptions {
 
 const TAP_MAX_MS = 280
 const TAP_MAX_MOVE = 14
-const SWIPE_MIN_PX = 70
-const SWIPE_MAX_MS = 260
+/** A fire press that travels this far becomes a look drag (px). */
+const DRAG_TO_LOOK_MOUSE = 10
+const DRAG_TO_LOOK_TOUCH = 16
 
 export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptions): (() => void) => {
   const keys = new Set<string>()
@@ -121,10 +137,13 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     if (input.joyActive) return
     let x = 0
     let y = 0
-    if (keys.has('KeyA') || keys.has('ArrowLeft')) x -= 1
-    if (keys.has('KeyD') || keys.has('ArrowRight')) x += 1
+    if (keys.has('KeyA')) x -= 1
+    if (keys.has('KeyD')) x += 1
     if (keys.has('KeyW') || keys.has('ArrowUp')) y += 1
     if (keys.has('KeyS') || keys.has('ArrowDown')) y -= 1
+    // ← / → TURN: the keyboard-only way to look around (a trackpad player
+    // who never finds the drag still has one).
+    input.turn = (keys.has('ArrowRight') ? 1 : 0) - (keys.has('ArrowLeft') ? 1 : 0)
     const l = Math.hypot(x, y)
     input.moveX = l > 0 ? x / l : 0
     input.moveY = l > 0 ? y / l : 0
@@ -209,7 +228,15 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       lookLastX = x
       lookLastY = y
       lookMoved += Math.abs(dx) + Math.abs(dy)
-      if (!lookIsFire) {
+      if (lookIsFire && Math.hypot(x - lookStartX, y - lookStartY) > (e.pointerType === 'mouse' ? DRAG_TO_LOOK_MOUSE : DRAG_TO_LOOK_TOUCH)) {
+        // It is a drag after all: look, and drop the charge unfired. The
+        // travel so far counts, so the view does not lag the finger.
+        lookIsFire = false
+        input.fireHeld = false
+        input.fireCancelled = true
+        input.lookDX += x - lookStartX
+        input.lookDY += y - lookStartY
+      } else if (!lookIsFire) {
         input.lookDX += dx
         input.lookDY += dy
       } else {
@@ -238,13 +265,9 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       const x = e.clientX - r.left
       const y = e.clientY - r.top
       const dt = performance.now() - lookStartT
-      const totalDx = x - lookStartX
       if (lookIsFire) {
         input.fireHeld = false
         input.fireReleased = true
-        if (dt < SWIPE_MAX_MS && Math.abs(totalDx) > SWIPE_MIN_PX && Math.abs(totalDx) > Math.abs(y - lookStartY) * 1.5) {
-          input.swipe = totalDx > 0 ? 1 : -1
-        }
       } else if (dt < TAP_MAX_MS && lookMoved < TAP_MAX_MOVE) {
         input.taps.push({ x, y })
       }
@@ -318,6 +341,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     keys.clear()
     input.moveX = 0
     input.moveY = 0
+    input.turn = 0
     if (input.fireHeld) {
       input.fireHeld = false
       input.fireReleased = true

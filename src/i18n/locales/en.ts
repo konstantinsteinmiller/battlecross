@@ -70,6 +70,7 @@ export default {
   },
 
   'hud': {
+    'help': 'Show controls',
     'hp': 'Health',
     'we': 'Weapon energy',
     'power': 'Power',
@@ -146,23 +147,20 @@ export default {
   'progress': {
     'levelUp': 'Level {n}! Systems fully repaired.'
   },
-  // Pip's one-time tips. Keep each to ONE short line — it floats over play.
+  // Screen-reader sentences behind the control coach's wordless glyphs
+  // (ControlHints, ControlsPanel). Never drawn on screen.
   'tips': {
     'moveTouch': 'Drag the left side to move, the right side to look. Tap the floor to walk there!',
     'moveKeys': 'WASD to move, drag the mouse to look. Click the floor to walk there!',
     'fireTouch': 'Machines ahead! Tap to shoot — hold, then release for a charge shot.',
     'fireKeys': 'Machines ahead! Click or Space to shoot — hold, then release for a charge shot.',
-    'hardhat': 'Hardhats are safe under their helmets. Shoot when they peek!',
     'charge': 'Shields block pellets. A FULL charge shot breaks right through.',
     'blockTouch': 'Orange ring: hold the shield to block — press it as the ring closes to PARRY!',
     'blockKeys': 'Orange ring: hold Shift or right-click to block — press it as the ring closes to PARRY!',
     'red': 'Red ring means unblockable — slide out of the way!',
     'chest': 'A supply chest! Tap it to open.',
     'tank': 'Running low? A Repair Tank fixes you up completely.',
-    'bossDoor': 'Something big waits behind this shutter. Ready?',
-    'beamOut': 'Objective done! Explore a little more, or beam out.',
-    'weapon': 'Use your copied weapon from the colored button!',
-    'levelUp': 'Level up! Spend your Skill Chip in the lab’s Circuits.'
+    'weapon': 'Use your copied weapon from the colored button!'
   },
   'loot': {
     'found': '{rarity} {item} found!',
