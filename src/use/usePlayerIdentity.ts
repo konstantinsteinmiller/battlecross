@@ -26,7 +26,7 @@ export interface PlayerIdentity {
 }
 
 /**
- * The id's own localStorage key, deliberately OUTSIDE the `ts_`-prefixed save
+ * The id's own localStorage key, deliberately OUTSIDE the `ma_`-prefixed save
  * blob.
  *
  * That prefix is exactly what the cloud save layer allowlists and mirrors, so a
@@ -48,18 +48,16 @@ const NAME_MAX = 16
  */
 export const cleanName = (raw: unknown): string => {
   if (typeof raw !== 'string') return ''
-  // The class members are written as \u ESCAPES, and must stay that way.
-  // They used to be the literal characters, which reads fine in an editor and
-  // survives every normal build -- and then breaks the single-file builds
-  // outright. `vite-plugin-singlefile` inlines the bundle into a <script> in
-  // index.html, and HTML tokenisation replaces a literal U+0000 with U+FFFD
-  // (WHATWG 13.2.5). The class then starts `[\ufffd-\u001f`, which is a range
-  // out of order: the regex throws at PARSE time, so the whole bundle fails to
-  // evaluate and the game never leaves the splash at 0%. It cost a GamePix
-  // release pass to find, because the dev server and the multi-file builds
-  // keep the byte intact and are completely unaffected.
   // eslint-disable-next-line no-control-regex
-  return raw.replace(/[\u0000-\u001f\u007f\u200b-\u200f\u202a-\u202e\ufeff]/g, '')
+  return raw
+    // Written as escapes, not literal characters, and it must stay that way. A
+    // literal U+0000 survives the dev server and the multi-file builds, then
+    // breaks the single-file builds: `vite-plugin-singlefile` inlines the
+    // bundle into a <script>, HTML tokenisation turns U+0000 into U+FFFD
+    // (WHATWG 13.2.5), the class becomes an out-of-order range, and the regex
+    // throws at PARSE time, so the game never leaves the splash (a GamePix
+    // release pass found it).
+    .replace(/[\u0000-\u001F\u007F\u200B-\u200F\u202A-\u202E\uFEFF]/g, '')
     .trim()
     .slice(0, NAME_MAX)
 }
@@ -89,12 +87,13 @@ const mintId = (): string => {
 }
 
 /**
- * Every word is ≤ 9 characters, so `word + six digits` can never be truncated
- * by `NAME_MAX` — a name that got cut would collide with every other cut name.
+ * Android parts and callsigns, to match the game's cast. Every word is ≤ 9
+ * characters, so `word + six digits` can never be truncated by `NAME_MAX` — a
+ * name that got cut would collide with every other cut name.
  */
 const ANON_WORDS = [
-  'Survivor', 'Runner', 'Scout', 'Nomad', 'Drifter',
-  'Ranger', 'Wanderer', 'Strider', 'Trekker', 'Roamer'
+  'Android', 'Buster', 'Circuit', 'Blaster', 'Rivet',
+  'Piston', 'Servo', 'Sprocket', 'Dynamo', 'Gizmo'
 ] as const
 
 const mintName = (): string => {
@@ -148,6 +147,43 @@ const resolveName = (sdkName: string | null): string => {
 }
 
 /**
+ * Where a platform SDK's username comes from, if this build has one.
+ *
+ * INJECTED, never imported. The obvious shape is a lazy
+ * `await import('@/use/useCrazyGames')` right here — and it is a trap: Vite
+ * resolves dynamic imports at TRANSFORM time, so a specifier for a module the
+ * project does not have fails the BUILD, and the `try`/`catch` around it (which
+ * only ever catches at runtime) reads as protection while providing none. A
+ * game without that exact file cannot compile this module.
+ *
+ * So the platform layer pushes its name source in instead, once, at boot:
+ *
+ *     setSdkNameSource(() => crazyPlayerName.value)
+ *
+ * Unset is the normal state — most portals expose no username at all — and it
+ * simply means tier 2 is skipped. A source that throws or hangs is treated the
+ * same way: this runs on the path that ends a run, and a name is a decoration
+ * on a decoration.
+ */
+type SdkNameSource = () => string | null | undefined | Promise<string | null | undefined>
+
+let sdkNameSource: SdkNameSource | null = null
+
+export const setSdkNameSource = (source: SdkNameSource | null): void => {
+  sdkNameSource = source
+}
+
+const readSdkName = async (): Promise<string | null> => {
+  if (!sdkNameSource) return null
+  try {
+    return (await sdkNameSource()) ?? null
+  } catch {
+    // Signed out, offline, an SDK that never initialised. Tier 3 covers it.
+    return null
+  }
+}
+
+/**
  * Resolve both, persist anything that was missing, and flush.
  *
  * The flush is synchronous on purpose: the save layer debounces by 200 ms, and
@@ -157,14 +193,7 @@ const resolveName = (sdkName: string | null): string => {
 export const resolveIdentity = async (): Promise<PlayerIdentity> => {
   const { id, source } = resolveId()
 
-  // The CG SDK is the only platform here that offers a name, and it is loaded
-  // lazily so a non-CG build never pays for the import.
-  let sdkName: string | null = null
-  try {
-    const cg = await import('@/use/useCrazyGames')
-    sdkName = cg.crazyPlayerName.value
-  } catch { /* not a CrazyGames build */ }
-
+  const sdkName = await readSdkName()
   const name = resolveName(sdkName)
 
   let dirty = false

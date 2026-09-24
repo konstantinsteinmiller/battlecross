@@ -67,10 +67,12 @@ export const SDK_NAME_KEY = 'ma_sdk_name'
 export const ANON_NAME_KEY = 'ma_anon_name'
 /** The name the board row is currently labelled with, as far as we know. */
 export const POSTED_NAME_KEY = 'ma_posted_name'
-/** The highest score already sent to our own leaderboard. */
-export const SUBMITTED_STAGE_KEY = 'ma_submitted_score'
-/** The highest score already sent to the PORTAL's own board. */
-export const PORTAL_POSTED_STAGE_KEY = 'ma_portal_posted_score'
+/** The best score (lifetime XP) the server has ACCEPTED. The whole write rule
+ *  is `score > this`, so it may only be set after a confirmed 200. */
+export const SUBMITTED_SCORE_KEY = 'ma_submitted_score'
+/** The best score the PORTAL's own board accepted. Its own key: the two boards
+ *  fail independently. */
+export const PORTAL_POSTED_SCORE_KEY = 'ma_portal_posted_score'
 /** Whether this player already has a row on the portal's board. */
 export const PORTAL_JOINED_KEY = 'ma_portal_joined'
 

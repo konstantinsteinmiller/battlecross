@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Accès refusé : veuillez acheter une licence.'
+  },
+  'leaderboard': {
+    'title': 'Classement',
+    'rank': '#',
+    'player': 'Joueur',
+    'score': 'Expérience',
+    'flair': 'Niveau',
+    'empty': 'Personne au classement pour l’instant. Sois le premier !',
+    'failed': 'Classement inaccessible.',
+    'loading': 'Chargement…',
+    'you': 'Toi',
+    'yourRank': 'Tu es #{n} sur {total}',
+    'of': 'sur {n} joueurs',
+    'tabGlobal': 'Mondial'
   }
 }

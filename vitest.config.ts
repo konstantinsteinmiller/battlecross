@@ -62,7 +62,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./tests/save/setup.ts'],
+    setupFiles: ['./tests/save/setup.ts', './tests/setup.network.ts'],
+    // `.env` holds the LIVE leaderboard Worker and its signing secret. Blank
+    // both for the whole suite, or every test that ends a mission posts a real,
+    // signed score to the production board (it happened once). The leaderboard
+    // suites stub their own endpoint per case (`vi.stubEnv`).
+    env: { VITE_LEADERBOARD_URL: '', VITE_LEADERBOARD_SECRET: '' },
     // The suite's slowest tests are the ones that dynamically `import()` the
     // whole game model on their first assertion; with every file transforming
     // in parallel on a cold cache that import alone can exceed the 5 s default

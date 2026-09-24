@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Akses ditolak: silakan beli lisensi.'
+  },
+  'leaderboard': {
+    'title': 'Papan Peringkat',
+    'rank': '#',
+    'player': 'Pemain',
+    'score': 'Pengalaman',
+    'flair': 'Level',
+    'empty': 'Belum ada siapa pun di papan peringkat. Jadilah yang pertama!',
+    'failed': 'Papan peringkat tidak terjangkau.',
+    'loading': 'Memuat…',
+    'you': 'Kamu',
+    'yourRank': 'Kamu peringkat #{n} dari {total}',
+    'of': 'dari {n} pemain',
+    'tabGlobal': 'Global'
   }
 }

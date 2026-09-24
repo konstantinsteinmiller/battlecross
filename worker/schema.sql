@@ -3,10 +3,11 @@
 CREATE TABLE IF NOT EXISTS scores (
   id         TEXT PRIMARY KEY,
   name       TEXT NOT NULL,
-  -- THE score: the highest stage this player has ever reached.
+  -- THE score the board is ordered by: this player's LIFETIME XP (the point
+  -- total, still counting past the level-40 cap). It only ever grows.
   score      INTEGER NOT NULL,
-  -- Flavour shown beside the rank: the biggest squad they ever assembled.
-  squad      INTEGER NOT NULL,
+  -- Shown beside the rank, never ordered by: the HERO LEVEL (1-40).
+  flair      INTEGER NOT NULL,
   updated_at INTEGER NOT NULL
 );
 

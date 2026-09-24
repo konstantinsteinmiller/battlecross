@@ -430,5 +430,24 @@ export default {
   },
   'license': {
     'denied': 'Access Denied: Please purchase a license.'
+  },
+  // ─── Leaderboard ──────────────────────────────────────────────────────────
+  // `score` is LIFETIME XP, `flair` the hero level. `{n}` and `{total}` arrive
+  // PRE-FORMATTED (grouped for the locale): plain named interpolation, never
+  // plural forms. `yourRank` keeps both numbers in one sentence so a locale
+  // can order them; `of` is only the rank badge's tail after "#1,130".
+  'leaderboard': {
+    'title': 'Leaderboard',
+    'rank': '#',
+    'player': 'Player',
+    'score': 'Experience',
+    'flair': 'Level',
+    'empty': 'No one is on the board yet. Be the first!',
+    'failed': "Couldn't reach the leaderboard.",
+    'loading': 'Loading…',
+    'you': 'You',
+    'yourRank': 'You are #{n} of {total}',
+    'of': 'of {n} players',
+    'tabGlobal': 'Global'
   }
 }

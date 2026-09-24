@@ -7,14 +7,17 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 
 // ─── The baked leaderboard ─────────────────────────────────────────────────
 //
-// Ships `data/leaderboard-snapshot.json` as `virtual:leaderboard-snapshot` for
-// the builds that are not allowed to fetch a board at runtime — Poki forbids
-// every external runtime request, Yandex's moderators reject third-party
-// storage URLs, and both therefore build with `VITE_LEADERBOARD_URL` empty.
+// Ships a board inside the bundle as `virtual:leaderboard-snapshot`. Every
+// build carries one, but not the same one:
 //
-// Only those builds carry the bytes. A build with a live endpoint loads `null`
-// here and fetches the real board as it always has, so the snapshot costs the
-// other nine targets nothing.
+//   • a build WITH an endpoint bakes `data/leaderboard-snapshot.json`, the live
+//     board as last fetched: the bottom rung of `useLeaderboard`'s offline
+//     ladder, for a device whose fetch failed and that has no cache yet;
+//   • a build WITHOUT one (Poki, Yandex, Playgama: `VITE_LEADERBOARD_URL`
+//     empty) can neither read nor write the live board, so it bakes the
+//     MODELLED `data/leaderboard-seed.json`, which is the whole board for the
+//     life of that build. On those builds the game shows only the rank badge;
+//     the top-100 list is hidden, so no invented player is ever shown.
 //
 // The refresh runs as a CHILD PROCESS of `scripts/leaderboard-snapshot.mjs` —
 // the same code path `pnpm leaderboard:snapshot` runs, so the build cannot
@@ -50,7 +53,7 @@ interface LeaderboardSnapshotFile {
   fetchedAt: number
   updatedAt: number
   total: number
-  entries: { rank: number; name: string; score: number; squad: number }[]
+  entries: { rank: number; name: string; score: number; flair: number }[]
   dist: [number, number][]
 }
 
@@ -185,7 +188,7 @@ const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
       if (seed) {
         console.log(
           `[leaderboard] baking the SEEDED board — ${seed.total} players / `
-          + `${seed.entries.length} rows, top stage ${seed.dist[0]?.[0] ?? 0}. `
+          + `${seed.entries.length} rows, top score ${seed.dist[0]?.[0] ?? 0}. `
           + 'This build cannot post scores, so the board is modelled.'
         )
       } else {
@@ -221,10 +224,12 @@ const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
         + `(board of ${new Date(snap.updatedAt).toISOString().slice(0, 10)})`
       )
     } else {
-      // Not a build failure: `leaderboardEnabled` goes false and the game ships
-      // exactly as it did before, with no board and no rank cell.
+      // Not a build failure. A build WITH an endpoint still has its live
+      // board (`leaderboardEnabled` is true on `LIVE` alone); it only lacks the
+      // offline fallback, which is normal until a new board has players.
       console.warn(
-        `[leaderboard] no usable snapshot at ${SNAPSHOT_FILE} — this build has no leaderboard.`
+        `[leaderboard] no usable snapshot at ${SNAPSHOT_FILE} — the live board still works; `
+        + 'this build just has no offline fallback yet (a new board with no players).'
       )
     }
   },

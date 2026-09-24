@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Kirish rad etildi: iltimos, litsenziya sotib oling.'
+  },
+  'leaderboard': {
+    'title': 'Reyting',
+    'rank': '#',
+    'player': 'Oʻyinchi',
+    'score': 'Tajriba',
+    'flair': 'Daraja',
+    'empty': 'Jadvalda hali hech kim yoʻq. Birinchi boʻl!',
+    'failed': 'Reytingga ulanib boʻlmadi.',
+    'loading': 'Yuklanmoqda…',
+    'you': 'Siz',
+    'yourRank': '{total} oʻyinchidan #{n} oʻrindasiz',
+    'of': '/ {n} oʻyinchi',
+    'tabGlobal': 'Jahon'
   }
 }

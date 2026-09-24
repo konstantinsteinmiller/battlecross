@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Acesso negado: adquira uma licença.'
+  },
+  'leaderboard': {
+    'title': 'Classificação',
+    'rank': '#',
+    'player': 'Jogador',
+    'score': 'Experiência',
+    'flair': 'Nível',
+    'empty': 'Ainda não há ninguém no ranking. Seja o primeiro!',
+    'failed': 'Não foi possível carregar a classificação.',
+    'loading': 'Carregando…',
+    'you': 'Você',
+    'yourRank': 'Você é #{n} de {total}',
+    'of': 'de {n} jogadores',
+    'tabGlobal': 'Global'
   }
 }

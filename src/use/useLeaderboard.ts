@@ -1,17 +1,23 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
 import { getState, setState } from '@/use/useGameState'
-import { POSTED_NAME_KEY, SUBMITTED_STAGE_KEY } from '@/keys'
+import { POSTED_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
 import { resolveIdentity, type PlayerIdentity } from '@/use/usePlayerIdentity'
 import { boardSnapshot, rankFromDist } from '@/use/leaderboardSnapshot'
 
 /**
  * ─── The global board, client side ──────────────────────────────────────────
  *
- * THE SCORE IS THE HIGHEST STAGE EVER REACHED. Not a run total and not a point
- * count — the game's whole progression is "how deep did you get", so the board
- * is a depth chart and `score` is a small integer that grows by one at a time.
- * `squad` rides along as a second column because two players on stage 40 are
- * not the same player, and the biggest squad is the thing they compare.
+ * DECIDE WHAT `score` MEANS BEFORE YOU WRITE A LINE OF THIS, and write it here.
+ * It is the one number the whole board is ordered by, and it must be MONOTONIC
+ * — a lifetime best that only ever goes up (deepest stage reached, highest
+ * level, longest survival), never a per-run total that can go down. The write
+ * rule below ("only on a personal record") is built on that and quietly breaks
+ * without it.
+ *
+ * `flair` is the second column: a number that is not what the board is ordered
+ * by but tells two tied players apart (the biggest squad they assembled, the
+ * furthest wave, the most kills). Rename both to whatever they are in this
+ * game — the DB column names are arbitrary, the semantics are not.
  *
  * ONE RULE ABOVE ALL: NOTHING IN HERE MAY EVER THROW, BLOCK OR DELAY A RUN.
  * Every network call is wrapped, every failure is swallowed, every entry point
@@ -51,8 +57,8 @@ const SECRET: string = import.meta.env.VITE_LEADERBOARD_SECRET ?? ''
 const LIVE: boolean = ENDPOINT.length > 0
 
 /**
- * Rank a player who has not cleared a stage yet as LAST (`total + 1`) instead
- * of showing no rank. Per build; on for Playgama. See `rankFor`.
+ * Rank a player who has no score yet as LAST (`total + 1`) instead of showing
+ * no rank. Per build — survivalist turns it on for Playgama. See `rankFor`.
  */
 const UNPLAYED_LAST: boolean = import.meta.env.VITE_LEADERBOARD_UNPLAYED_LAST === 'true'
 
@@ -66,6 +72,16 @@ const UNPLAYED_LAST: boolean = import.meta.env.VITE_LEADERBOARD_UNPLAYED_LAST ==
 export const leaderboardEnabled: boolean = LIVE || boardSnapshot !== null
 
 /**
+ * May the top-100 LIST be shown? Only on a build with a live endpoint.
+ *
+ * The builds without one (Poki, Yandex, Playgama) bake a MODELLED population:
+ * exact enough to place a player ("#1,204 of 2,531"), but its rows would be
+ * invented people. The owner's call (2026-09-24): those builds show the rank
+ * badge and no list at all, and the seed carries no rows to show.
+ */
+export const leaderboardListEnabled: boolean = LIVE
+
+/**
  * 6 s, matching the worker's own budget note.
  *
  * Long enough for a cold D1 read over a bad mobile connection, short enough
@@ -75,15 +91,11 @@ export const leaderboardEnabled: boolean = LIVE || boardSnapshot !== null
  */
 const TIMEOUT_MS = 6000
 
-/** Returned by `rankFor` when the player is below the last published row: the
- *  board only publishes its top slice, so their true rank is unknowable here. */
-export const OUTSIDE_BOARD = -1
-
 interface BoardEntry {
   rank: number
   name: string
   score: number
-  squad: number
+  flair: number
 }
 
 interface Board {
@@ -121,17 +133,16 @@ export const playerTotal: ComputedRef<number> = computed(() => total.value)
  * The population a `rankFor(score)` answer is "of". Equal to `playerTotal`
  * except for an unplayed player on a build that ranks them last
  * (`UNPLAYED_LAST`): they are placed at `total + 1`, so they are counted in —
- * otherwise the chip would read "#7,832 of 7,831".
- *
- * A plain function reading refs, so a computed or a template that calls it
- * tracks both the score and the board.
+ * otherwise the chip reads "#7,832 of 7,831". A plain function reading refs, so
+ * a computed or template calling it tracks both the score and the board.
  */
 export const rankTotalFor = (score: number): number =>
   UNPLAYED_LAST && score <= 0 && board.value !== null && total.value > 0 ? total.value + 1 : total.value
 export const leaderboardPending: ComputedRef<boolean> = computed(() => pending.value)
 export const leaderboardFailed: ComputedRef<boolean> = computed(() => failed.value)
-/** Rows actually published. The result screen needs it to say `#100+` — the
- *  cut-off is whatever the server chose to send, not a number hardcoded here. */
+/** Rows actually published — the length of the slice the server chose to send,
+ *  not a number hardcoded anywhere. Read by the estimator below and by tests;
+ *  no player-facing string is built from it. */
 export const boardSize: ComputedRef<number> = computed(() => board.value?.entries.length ?? 0)
 /**
  * Which rung of the offline ladder the board on screen came from.
@@ -195,7 +206,7 @@ const adoptBoard = (next: unknown): boolean => {
         rank: Number(e.rank) || i + 1,
         name: typeof e.name === 'string' ? e.name : '',
         score: Number(e.score) || 0,
-        squad: Number(e.squad) || 0
+        flair: Number(e.flair) || 0
       })),
     // Remote input like everything else: each bucket must be a pair of finite
     // numbers or the rank walk silently returns nonsense.
@@ -206,6 +217,16 @@ const adoptBoard = (next: unknown): boolean => {
           Number.isFinite(Number(b[0])) && Number.isFinite(Number(b[1])))
         .map(([sc, n]) => [Number(sc), Number(n)] as [number, number])
       : undefined
+  }
+  // A population smaller than the rows we are holding is not a population.
+  //
+  // The Worker enforces this too, but the board here can also come off a
+  // localStorage cache banked by an OLDER Worker, or an older baked snapshot,
+  // and neither can be re-issued. Left alone it renders as a list of names above
+  // "You are #1 of 1 players" — seen live, and it reads as a broken game rather
+  // than a stale count.
+  if (board.value.total < board.value.entries.length) {
+    board.value.total = board.value.entries.length
   }
   total.value = board.value.total
   return true
@@ -239,7 +260,7 @@ let boardSource: BoardSource = null
 let fetched = false
 
 /**
- * Deliberately NOT a `ts_`-prefixed key and not a field inside `mega_adventure_state`.
+ * Deliberately NOT a `ma_`-prefixed key and not a field inside `ma_state`.
  *
  * Both of those round-trip to the platform's cloud save (see `isPayloadKey`),
  * and this is a ~6 kB cache of PUBLIC data that is identical for every player.
@@ -247,7 +268,7 @@ let fetched = false
  * save, against Poki's 1 MB ceiling — to protect a device that has its own copy
  * anyway. It is a per-device cache, so it lives per-device.
  */
-const BOARD_CACHE_KEY = 'tower_board_cache'
+const BOARD_CACHE_KEY = 'mega_adventure_board_cache'
 
 const readBoardCache = (): Board | null => {
   try {
@@ -272,7 +293,7 @@ const writeBoardCache = (b: Board): void => {
  * This is what removes the spinner and the error state from a returning
  * player's experience entirely: `pending` and `failed` are both still false and
  * the table is already populated, so the modal opens onto rows and the result
- * chip has a rank on the first stage of the session. When the live fetch lands
+ * chip has a rank from the first result screen of the session. When the live fetch lands
  * a moment later it silently replaces all of it.
  */
 const seedOfflineBoard = (): void => {
@@ -285,8 +306,8 @@ const seedOfflineBoard = (): void => {
   // snapshot. Both rank the same way now, but against different populations
   // (the snapshot's is weeks old), and seeding it would show a rank out of the
   // stale total that then shifts when the live board lands. There is nothing to
-  // buy by it either: a player's rank is hidden until they have cleared a
-  // stage, by which time the fetch has long resolved. The snapshot is reached
+  // buy by it either: a player's rank is hidden until they have a score at
+  // all, by which time the fetch has long resolved. The snapshot is reached
   // only once a fetch has actually failed, where nothing can contradict it.
   const cached = readBoardCache()
   if (cached && adoptBoard(cached)) boardSource = 'cache'
@@ -361,17 +382,17 @@ export const ensureBoard = async (): Promise<void> => {
  * score as posted after a `true`, so a failed write is retried on the next run
  * instead of being silently forgotten.
  */
-export const submitScore = async (score: number, squad: number): Promise<boolean> => {
+export const submitScore = async (score: number, flair: number): Promise<boolean> => {
   if (!LIVE) return false
   pending.value = true
   try {
     const { id, name } = await identity()
-    const body: Record<string, unknown> = { id, name, score, squad }
+    const body: Record<string, unknown> = { id, name, score, flair }
     // Only when this build was given a secret. An unsigned request against a
     // worker with `SCORE_SECRET` set is a 401; a signed one against a worker
     // without it is simply ignored — so the two sides can be rolled out in
     // either order.
-    if (SECRET.length > 0) body.sig = await sign(`${id}:${score}:${squad}`)
+    if (SECRET.length > 0) body.sig = await sign(`${id}:${score}:${flair}`)
 
     const res = await withTimeout(`${ENDPOINT}/score`, {
       method: 'POST',
@@ -410,18 +431,18 @@ export const submitScore = async (score: number, squad: number): Promise<boolean
 /**
  * A run posts at most this often, however many records it sets.
  *
- * `reportRun` fires on every cleared stage, and a good run beats its own best
- * on nearly all of them — a climb to stage 42 was up to forty-two POSTs, each
- * one a write and a rate-limit check on a free tier. Since every post carries
+ * `reportRun` fires on every cleared stage/level, and a good run beats its own
+ * best on nearly all of them — a climb to level 42 was up to forty-two POSTs,
+ * each a write and a rate-limit check on a free tier. Since every post carries
  * the CURRENT best rather than a delta, skipping one loses nothing: the next
- * one carries the higher number, so the throttle coalesces rather than drops.
+ * carries the higher number, so the throttle coalesces rather than drops.
  *
  * The run's END bypasses it (`force`), so the score a player finished on is
  * always the score the board gets.
  */
 const WRITE_MIN_GAP_MS = 180_000
 /** When the last write was ATTEMPTED — success or not. A backend that is
- *  refusing must not be asked again on the next stage clear. */
+ *  refusing must not be asked again on the next clear. */
 let lastWriteAt = 0
 
 /**
@@ -439,15 +460,14 @@ let lastWriteAt = 0
  *   • NEITHER → no write at all, and at most one read for the whole session
  *     (`ensureBoard` no-ops once the board is in hand).
  *
- * A player grinding stage 30 for an hour therefore costs the backend one GET,
+ * A player grinding the same score for an hour therefore costs one GET,
  * served from the edge cache.
  */
 export const reportRun = async (
-  bestStage: number, bestSquad: number, o: { force?: boolean } = {}
+  bestScore: number, bestFlair: number, o: { force?: boolean } = {}
 ): Promise<void> => {
-  // (The portal's own board — Playgama's — is NOT reported from here. It posts
-  // on a stage clear only, from the scene's win paths: see
-  // `reportPortalBest` in `usePortalLeaderboard`.)
+  // (The portal's own board — Phase 8 — is NOT reported from here. It posts on
+  // a WIN only, from the game's win dispatch: see `reportPortalBest`.)
 
   // A baked build has nothing to report TO. The rank it shows comes from the
   // snapshot, which no run can change, so this is the one entry point that stays
@@ -456,9 +476,9 @@ export const reportRun = async (
   try {
     // Both numbers come off the save blob, which a cloud restore can hand back
     // anything for, and the worker rejects a non-integer outright.
-    const stage = Math.max(0, Math.trunc(Number(bestStage) || 0))
-    const squad = Math.max(0, Math.trunc(Number(bestSquad) || 0))
-    const posted = Math.max(0, Math.trunc(Number(getState(SUBMITTED_STAGE_KEY, 0)) || 0))
+    const score = Math.max(0, Math.trunc(Number(bestScore) || 0))
+    const flair = Math.max(0, Math.trunc(Number(bestFlair) || 0))
+    const posted = Math.max(0, Math.trunc(Number(getState(SUBMITTED_SCORE_KEY, 0)) || 0))
     const { name } = await identity()
 
     // The first record of a session goes straight out; the rest wait their turn
@@ -466,15 +486,15 @@ export const reportRun = async (
     const due = o.force === true || lastWriteAt === 0 ||
       Date.now() - lastWriteAt >= WRITE_MIN_GAP_MS
 
-    if (stage > posted && due) {
+    if (score > posted && due) {
       lastWriteAt = Date.now()
-      if (await submitScore(stage, squad)) {
-        setState(SUBMITTED_STAGE_KEY, stage)
+      if (await submitScore(score, flair)) {
+        setState(SUBMITTED_SCORE_KEY, score)
         setState(POSTED_NAME_KEY, name)
       }
     } else if (posted > 0 && due && getState<string>(POSTED_NAME_KEY, '') !== name) {
       lastWriteAt = Date.now()
-      if (await submitScore(posted, squad)) setState(POSTED_NAME_KEY, name)
+      if (await submitScore(posted, flair)) setState(POSTED_NAME_KEY, name)
     }
 
     // HOWEVER the run was reported, end with a board to rank against.
@@ -483,16 +503,15 @@ export const reportRun = async (
     // case the player cares about most. A personal record takes the write path,
     // so a device with no cache yet — a fresh QA profile, a first session —
     // reached the result screen having only ever tried a POST. When that POST
-    // failed (the board's own free tier ran out of D1 reads mid-afternoon and
-    // answered 500 to everything) nothing had ever loaded a board, `rankFor`
-    // returned 0, and the chip hid itself. The offline ladder existed and was
-    // simply never reached: only `ensureBoard` climbs it.
+    // failed nothing had ever loaded a board, `rankFor` returned 0, and the
+    // badge hid itself. The offline ladder existed and was simply never
+    // reached: only `ensureBoard` climbs it.
     //
     // It costs nothing on the happy path — a successful write brings the board
     // back with it and sets `fetched`, so this no-ops. On a failed write it is
     // one edge-cached GET, which can still succeed where the POST could not
-    // (`/top` is served from the edge; `/score` must reach D1), and if that
-    // fails too its own failure path drops to the baked snapshot.
+    // (`/top` is served from the edge; `/score` must reach the database), and if
+    // that fails too its own failure path drops to the baked snapshot.
     await ensureBoard()
   } catch {
     // Unreachable in practice — everything above already swallows — but this is
@@ -509,52 +528,172 @@ export const reportRun = async (
 // ─── Ranking ────────────────────────────────────────────────────────────────
 
 /**
+ * ─── The estimate, and why there is no "#100+" ──────────────────────────────
+ *
+ * A PLAYER IS NEVER SHOWN "#100+". It is not a placing, it is the game
+ * admitting it did not look — and it lands hardest on the players who need the
+ * number most, because the hundredth published row sits far above where a first
+ * session ever reaches. A best-effort number that is roughly right beats an
+ * exact non-answer every time: nobody can tell #1130 from #1180, and everybody
+ * can tell both from "past the end".
+ *
+ * WHEN THIS RUNS: only when there is no histogram ANYWHERE — not on the board
+ * in hand, and no baked snapshot to borrow one from. Every rung above answers
+ * exactly, and the snapshot ships with every build, so in practice this is the
+ * legacy path: a cache banked by a build that predates the histogram, on a
+ * device that has not fetched since. It is the floor of the design, not a
+ * routine code path, and it is written to be plausible rather than clever.
+ *
+ * ── The model ──
+ *
+ * Two anchors are actually known:
+ *
+ *   • the last published row  → score `cut`,   rank `published`
+ *   • the bottom of the board → score `FLOOR`, rank ≈ `total × FLOOR_SHARE`
+ *
+ * and rank grows roughly geometrically as the score falls, so interpolate
+ * between them in LOG space, with `x = (cut − score) / (cut − FLOOR)`:
+ *
+ *   rank(score) = published × (floorRank / published) ^ (x ^ CURVE)
+ *
+ * Both constants earn their place; neither is a knob to fiddle with.
+ *
+ * `FLOOR_SHARE` — the bottom anchor is NOT `total`. The lowest score is a
+ * single enormous tied bucket (everyone who bounced in the first minute), and
+ * every one of them shares one rank. On the reference board that bucket is 721
+ * of 2 422 players, so the worst placing anyone actually holds is #1702 — 70 %
+ * of the total, not 100 %. Anchoring at `total` tells 721 people they came
+ * last, which is both wrong and the most demoralising thing this feature could
+ * say.
+ *
+ * `CURVE` — a straight line in log space between two anchors overshoots a
+ * convex curve everywhere in the middle, and this curve is strongly convex:
+ * ranks crawl just below the cut and then run away near the floor. Bending it
+ * with `x ^ 1.5` takes the mean error on the reference board from 43 % to 10 %
+ * and the worst from 82 % to 23 %. The basin is wide — anything from 1.4 to 1.8
+ * lands within a few points — so this is a shape, not a fitted magic number.
+ *
+ * ── What it is worth ──
+ *
+ * On the board it was calibrated against (2 422 players, 100 published rows,
+ * cut at score 13) it is within 23 % everywhere and 10 % on average, and it errs
+ * mildly PESSIMISTIC by design: when an exact rank does arrive it is usually
+ * better than the guess, and "you are higher than we thought" is the safe
+ * direction to be wrong in. On a distribution with a very different shape —
+ * near-uniform scores, or a much heavier bottom — it can be off by 2×. That is
+ * a plausible placing, not a measurement, and it is still worth far more than
+ * "#100+". If a project wants better, it already has the answer: bake the
+ * snapshot (it is free, and wired into every build) and this never runs.
+ *
+ * @returns a 1-based rank, or `0` when there are not enough anchors to guess
+ *   from — a board with no rows, or one that is its own whole population.
+ */
+const SCORE_FLOOR = 1
+const FLOOR_SHARE = 0.7
+const CURVE = 1.5
+
+const estimateRank = (entries: BoardEntry[], total: number, score: number): number => {
+  const published = entries.length
+  // No rows to anchor on, or the rows already ARE everybody — in the second
+  // case the caller counted exactly and never reached this.
+  if (published === 0 || total <= published) return 0
+
+  const cut = entries[published - 1]?.score ?? 0
+  // The published tail already reaches the floor, so the curve has no room to
+  // run: everyone below the cut is bunched into the bottom of the board.
+  if (cut <= SCORE_FLOOR) return total
+
+  const floorRank = Math.max(published + 1, Math.round(total * FLOOR_SHARE))
+  const x = Math.min(1, Math.max(0, (cut - score) / (cut - SCORE_FLOOR)))
+  const guess = Math.round(published * Math.pow(floorRank / published, Math.pow(x, CURVE)))
+  if (!Number.isFinite(guess)) return total
+  // Never a place inside the published rows it is standing in for, and never a
+  // player who is not on the board.
+  return Math.min(total, Math.max(published + 1, guess))
+}
+
+/**
+ * The estimate this session already showed, pinned.
+ *
+ * An estimate is a function of the BOARD as well as the score, and the board
+ * moves underneath it — a `/score` reply carrying fresh rows, a refresh landing
+ * mid-session. Recomputing would let one score answer #1130 on one screen and
+ * #1190 on the next, which reads as the game guessing (it is) rather than as a
+ * placing. So the first answer for a score is the answer for the session.
+ *
+ * The second clause is the one worth keeping: a player whose score improved may
+ * never be shown a worse number than they were shown for a lower one. Within a
+ * single board the curve guarantees that; across a board change it does not,
+ * and "you cleared another stage, here is a worse rank" is the single most
+ * broken thing this feature can say.
+ *
+ * In memory only, never localStorage: it is a guess made from a board that was
+ * already stale, and the next session deserves a fresh one — most likely an
+ * exact one, since any successful read retires this path entirely.
+ */
+let pinnedEstimate: { score: number; rank: number } | null = null
+
+const pinEstimate = (score: number, rank: number): number => {
+  const pin = pinnedEstimate
+  if (pin) {
+    if (score === pin.score) return pin.rank
+    if (score > pin.score && rank > pin.rank) rank = pin.rank
+  }
+  pinnedEstimate = { score, rank }
+  return rank
+}
+
+/**
  * What rank a score would hold, best-effort.
  *
- * The server's answer wins whenever it can: it counted every row in the table,
- * not just the hundred that got published. It is only valid for the score it
- * was computed against though — `score >= submittedScore` — because a player
- * who posted stage 12 and is now looking at stage 5 is not still rank 40.
+ * The server's answer wins for the score it was computed against and for no
+ * other — `score === submittedScore`, an EXACT match. A player who posted 12
+ * and is now looking at 5 is not still rank 40; and with `>=` rather than `===`
+ * a player who posted at 10 and climbed to 42 keeps being shown the rank they
+ * held at 10, because every later score still satisfies it. That second half
+ * stays hidden for as long as the client posts on every clear, and surfaces the
+ * day a write throttle is added.
  *
  * Otherwise derive it from the cached table, counting STRICTLY greater scores
  * so ties share a rank exactly as the worker's `COUNT(*) WHERE score > ?` does.
- * Two players on stage 40 are both #7; nobody is #8 because they arrived later.
+ * Two players on 40 are both #7; nobody is #8 because they arrived later.
  *
- * @returns a 1-based rank, `OUTSIDE_BOARD` when the score is below the whole
- *   published table, or `0` when there is simply nothing to say yet.
+ * @returns a 1-based rank — exact where anything can say exactly, estimated
+ *   where nothing can — or `0` when there is genuinely nothing to say yet.
+ *   NEVER a sentinel: `0` hides the badge, and every other value is a number a
+ *   player can read.
  */
 export const rankFor = (score: number): number => {
   if (!leaderboardEnabled) return 0
   // EXACT match, not `>=`. The server's answer belongs to the score it counted
-  // and to no other, and the difference only became visible once the client
-  // stopped posting every single stage: with `>=`, a player who posted at stage
-  // 10 and climbed to 42 kept being shown the rank they held at 10, because
-  // every later score still satisfied it. Anything else is derived below from
-  // the histogram — which is now the same arithmetic the Worker runs, so the
-  // two cannot disagree about anything but the age of the population.
+  // and to no other, and the difference only becomes visible once the client
+  // stops posting on every single clear: with `>=`, a player who posted at 10
+  // and climbed to 42 keeps being shown the rank they held at 10, because every
+  // later score still satisfies it. Anything else is derived below from the
+  // histogram — the same arithmetic the Worker runs, so the two cannot disagree
+  // about anything but the age of the population.
   if (serverRank.value > 0 && score === submittedScore.value) return serverRank.value
 
-  // A player who has not finished a stage has no standing of their own. Without
+  // A player with no score yet has no standing to report. Without
   // this the derivation below hands a fresh install `above + 1` = **#1** on an
   // empty board — the game congratulating someone for a run they have not had,
   // on the first screen they ever see.
   //
-  // Where the build opts in (`VITE_LEADERBOARD_UNPLAYED_LAST`, the Playgama
-  // build), they are placed instead: LAST, behind everyone the board knows —
-  // `total + 1`, with `rankTotalFor` counting them into the population so the
-  // chip reads "#7,832 of 7,832" rather than "of 7,831". The very bottom is a
-  // truthful place to start and a number with somewhere to go, which a blank
-  // cell is not. Only with a board in hand: last of nothing is still nothing.
+  // Where the build opts in (`VITE_LEADERBOARD_UNPLAYED_LAST`), they are placed
+  // instead: LAST, behind everyone the board knows — `total + 1`, counted into
+  // the population by `rankTotalFor`. The bottom is a truthful place to start
+  // and a number with somewhere to go; a blank cell is neither. Only with a
+  // board in hand: last of nothing is still nothing.
   if (score <= 0) return UNPLAYED_LAST && board.value !== null && total.value > 0 ? total.value + 1 : 0
 
   // On a baked build the histogram IS the board, and it answers for the whole
-  // population: no published cut to fall off, no `OUTSIDE_BOARD`, and a real
-  // number — "#1847 of 2363" — from the player's very first cleared stage.
+  // population: no published cut to fall off, and a real number —
+  // "#1847 of 2363" — from the player's very first result screen.
   //
   // That is why the snapshot carries a histogram and not just rows. The top-100
   // alone would have been useless: on a board of a few thousand the hundredth
-  // row sits around stage 13, well past where a first session reaches, so every
-  // new player would have seen `#100+` and nothing else — in exactly the
+  // row sits well past where a first session ever reaches, so every new
+  // player would have fallen through to the estimator below — in exactly the
   // session Poki's fit test grades.
   //
   const table = board.value
@@ -570,17 +709,18 @@ export const rankFor = (score: number): number => {
   // A board cached by a build that predates the histogram. Rank against the
   // BAKED one instead of the hundred published rows: its population is a few
   // weeks stale, so the rank is off by the number of players who joined since —
-  // about a percent — where the row-derived answer would be "#100+", i.e. no
-  // answer at all. Lasts until this device's next successful read.
+  // about a percent — which is an order of magnitude better than the estimate
+  // below. Lasts until this device's next successful read.
   if (boardSnapshot?.dist.length) return rankFromDist(boardSnapshot.dist, score)
 
-  // Last resort: no histogram anywhere. Only the published rows are visible, so
-  // below the cut the true rank genuinely is unknowable.
+  // Last resort: rows and a population count, no histogram anywhere.
   const above = table.entries.filter((e) => e.score > score).length
-  // Below every published row AND the table is a truncated slice of a bigger
-  // population — the true rank is somewhere past the cut and cannot be derived.
-  // When the table IS the whole population (`entries.length >= total`), being
-  // below all of it is an ordinary rank and gets counted like any other.
-  if (above >= table.entries.length && table.entries.length < table.total) return OUTSIDE_BOARD
-  return above + 1
+  // Inside the published slice, or the slice IS the whole population — either
+  // way this is an ordinary exact rank, counted like any other.
+  if (above < table.entries.length || table.entries.length >= table.total) return above + 1
+
+  // Below every published row, and the table is a truncated slice of a bigger
+  // population. THIS is where a rank used to be unknowable — so estimate it.
+  const guess = estimateRank(table.entries, table.total, score)
+  return guess > 0 ? pinEstimate(score, guess) : 0
 }

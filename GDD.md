@@ -278,6 +278,30 @@ Death means **System down**. The options are *Reboot* with a Repair Tank,
 lab*. Retreating fails the mission: the player keeps the XP and bolts earned
 and loses the quest progress.
 
+### Global leaderboard
+
+The board ranks **lifetime XP**: every point of experience Cobalt has earned,
+still counting past the level-40 cap, so it only ever grows. The hero level is
+shown beside it. Every mission end (win or defeat) reports it, once the result
+screen is up, and a request goes out only on a personal record.
+
+- **Results screen:** a gold rank chip under the mission name,
+  "#1,204 of 2,500 players", grouped for the player's language. It renders
+  nothing when there is no honest number to show.
+- **Hub:** a leaderboard pill in the top bar opens the top 100 (rank, player,
+  experience, level) with the player's own row highlighted.
+- **Backend:** Cloudflare Worker `mega-adventure-leaderboard` over one D1
+  table (`worker/`, runbook `worker/SETUP.md`): one edge-cached GET per session,
+  signed POSTs, a lifetime-XP cap of 100 M.
+- **Poki, Yandex, Playgama** can't call it. They bake a MODELLED board
+  (`data/leaderboard-seed.json`, `pnpm leaderboard:seed`): 2,500 players from a
+  stated retention curve, histogram only. The chip still gives an exact rank;
+  the top-100 list is hidden there, so no invented player names are ever shown.
+- **Names** are generated (`Servo852031`) unless the portal supplies one
+  (CrazyGames username). Nobody is asked to type a name.
+- Playgama's own hosted board is off until mega-adventure has one on the
+  Playgama dashboard.
+
 ## Monetization and portals
 
 - **Rewarded:** revive on defeat (once per mission), ×2 bolts on the results

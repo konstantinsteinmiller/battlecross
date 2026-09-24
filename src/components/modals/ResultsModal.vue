@@ -5,6 +5,10 @@
         div.quest
           div.q-name {{ t(`quest.${r.quest.template}`) }}
           div.q-sector {{ t(`sector.${r.quest.sector}`) }}
+        //- Where this lifetime XP places the player among everyone. Renders
+        //- nothing at all when there is no honest number to show.
+        div.rank(v-if="leaderboardEnabled")
+          RankBadge(:score="lifetime")
         div.rows
           div.row
             span.k {{ t('results.xp') }}
@@ -54,11 +58,13 @@ import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import { flow, goHub } from '@/game/flow'
-import { profile, saveProfile } from '@/game/state/profile'
+import { profile, saveProfile, lifetimeXp } from '@/game/state/profile'
 import { RARITY_COLOR } from '@/game/models/palette'
 import { WEAPONS } from '@/game/data/weapons'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { formatCount } from '@/utils/localeNumber'
+import RankBadge from '@/components/molecules/RankBadge.vue'
+import { leaderboardEnabled } from '@/use/useLeaderboard'
 
 /** Mission results: what the run earned, what unlocked, then home. */
 const { t, locale } = useI18n()
@@ -72,6 +78,8 @@ const hasExtras = computed(() => {
   return !!x && (x.levelAfter > x.levelBefore || !!x.weapon || !!x.unlocked || x.items.length > 0)
 })
 const fmt = (n: number) => formatCount(Math.round(n), locale.value)
+/** The leaderboard's score: the same number `finishMission` reported. */
+const lifetime = computed(() => (r.value ? lifetimeXp() : 0))
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
 watch(open, (o) => { if (o) doubled.value = false })
@@ -119,6 +127,11 @@ const done = () => {
 .q-sector
   font-size: clamp(11px, 2.4vmin, 14px)
   color: #9fe6ff
+.rank
+  display: flex
+  justify-content: center
+  &:empty
+    display: none
 .rows
   display: flex
   flex-direction: column

@@ -14,8 +14,19 @@
       div.pill.bolts(@pointerdown="registerQaAdTap()")
         GameIcon.pi(name="bolt")
         span {{ fmt(profile.bolts) }}
+      //- The top-100 list, on builds with a live board only (a baked board's
+      //- rows would be invented players; there the results screen shows the
+      //- rank badge alone).
+      button.pill.ranks(
+        v-if="leaderboardListEnabled"
+        type="button"
+        :aria-label="t('leaderboard.title')"
+        @click="showBoard = true"
+      )
+        GameIcon.pi(name="leaderboard")
       button.pill.cog(type="button" :aria-label="t('options.title')" @click="$emit('options')")
         GameIcon.pi(name="settings")
+    LeaderboardModal(v-if="leaderboardListEnabled" v-model="showBoard" :score="lifetimeXp()")
     div.panel(:class="`tab-${tab}`")
       Transition(name="tab-fade" mode="out-in")
         MissionsTab(v-if="tab === 'missions'" key="m")
@@ -46,7 +57,9 @@ import MissionsTab from './MissionsTab.vue'
 import HeroTab from './HeroTab.vue'
 import CircuitsTab from './CircuitsTab.vue'
 import WorkshopTab from './WorkshopTab.vue'
-import { profile, xp01, chipsAvailable } from '@/game/state/profile'
+import { profile, xp01, chipsAvailable, lifetimeXp } from '@/game/state/profile'
+import LeaderboardModal from '@/components/organisms/LeaderboardModal.vue'
+import { leaderboardListEnabled } from '@/use/useLeaderboard'
 import { flow } from '@/game/flow'
 import { formatCount } from '@/utils/localeNumber'
 import { sfx } from '@/game/audio/sfx'
@@ -68,6 +81,8 @@ const TABS: Array<{ id: Tab; icon: GameIconName }> = [
   { id: 'workshop', icon: 'anvil' }
 ]
 const tab = ref<Tab>('missions')
+/** The leaderboard modal; it fetches the board when it opens, not before. */
+const showBoard = ref(false)
 const setTab = (id: Tab) => {
   if (tab.value !== id) sfx('uiClick')
   tab.value = id
@@ -151,8 +166,10 @@ onMounted(() => {
   background: linear-gradient(#ffd23a, #e08a00)
   color: #141a33
   animation: pill-pulse 1.2s ease-in-out infinite
-.cog
+.cog, .ranks
   padding: 6px
+.ranks .pi
+  color: #ffd84a
 .panel
   pointer-events: auto
   flex: 1

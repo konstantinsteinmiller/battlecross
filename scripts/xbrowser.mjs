@@ -88,6 +88,20 @@ try {
     try {
       browser = await type.launch({ headless: true, executablePath: exe, args })
       const page = await (await browser.newContext({ viewport: { width: 1000, height: 600 } })).newPage()
+      // The build carries the LIVE leaderboard Worker, and this run ends a
+      // mission, so it would post a real score from every engine. Answer the
+      // Worker here instead: 200s, so the client takes its normal path and no
+      // "failed to load" console error fails the run.
+      await page.route(/\.workers\.dev\//, (route) => {
+        const req = route.request()
+        const cors = { 'access-control-allow-origin': '*', 'access-control-allow-headers': 'content-type', 'access-control-allow-methods': 'GET,POST,OPTIONS' }
+        if (req.method() === 'OPTIONS') return route.fulfill({ status: 204, headers: cors })
+        const board = { updatedAt: Date.now(), total: 1, entries: [], dist: [] }
+        let score = 0
+        try { score = Number(JSON.parse(req.postData() || '{}').score) || 0 } catch { /* not a post */ }
+        const body = req.method() === 'POST' ? { rank: 1, best: score, total: 1, board } : board
+        return route.fulfill({ status: 200, contentType: 'application/json', headers: cors, body: JSON.stringify(body) })
+      })
       const errors = []
       page.on('pageerror', e => errors.push('pageerror: ' + e.message))
       page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 160)) })

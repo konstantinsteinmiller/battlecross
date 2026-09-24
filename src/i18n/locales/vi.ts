@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Từ chối truy cập: vui lòng mua giấy phép.'
+  },
+  'leaderboard': {
+    'title': 'Bảng xếp hạng',
+    'rank': '#',
+    'player': 'Người chơi',
+    'score': 'Kinh nghiệm',
+    'flair': 'Cấp độ',
+    'empty': 'Chưa có ai trên bảng xếp hạng. Hãy là người đầu tiên!',
+    'failed': 'Không kết nối được bảng xếp hạng.',
+    'loading': 'Đang tải…',
+    'you': 'Bạn',
+    'yourRank': 'Bạn hạng #{n} trên {total}',
+    'of': 'trên {n} người chơi',
+    'tabGlobal': 'Toàn cầu'
   }
 }

@@ -20,7 +20,7 @@ declare module 'virtual:leaderboard-snapshot' {
   const snapshot: {
     updatedAt: number
     total: number
-    entries: { rank: number; name: string; score: number; squad: number }[]
+    entries: { rank: number; name: string; score: number; flair: number }[]
     /** `[score, howManyPlayersHaveIt]`, ordered score DESC. */
     dist: [number, number][]
   } | null

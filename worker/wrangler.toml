@@ -1,12 +1,16 @@
-name = "survivalist-leaderboard"
+name = "mega-adventure-leaderboard"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
+# Pinned, so a later `wrangler login` on another of the studio's accounts
+# cannot deploy this Worker somewhere else. (This folder was copied from
+# survivalist, whose cached account selection pointed at survivalist's account.)
+account_id = "7c5ee6a28676c02440e38e4f3e7bbb15"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "survivalist-leaderboard"
-# Replace with the id `wrangler d1 create survivalist-leaderboard` prints.
-database_id = "a7845c12-395d-4d6a-9cac-b44a056cf4eb"
+database_name = "mega-adventure-leaderboard"
+# Created 2026-09-24 with `wrangler d1 create mega-adventure-leaderboard`.
+database_id = "13ded41e-fe90-4659-a83d-954d15df96d2"
 
 [vars]
 # Empty = allow any origin. Every portal build serves the game from a different

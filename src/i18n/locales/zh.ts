@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': '访问被拒绝：请购买许可证。'
+  },
+  'leaderboard': {
+    'title': '排行榜',
+    'rank': '#',
+    'player': '玩家',
+    'score': '经验',
+    'flair': '等级',
+    'empty': '排行榜上还没有人。来当第一个吧！',
+    'failed': '无法连接排行榜。',
+    'loading': '加载中…',
+    'you': '你',
+    'yourRank': '{total} 人中你排第 {n}',
+    'of': '/ 共 {n} 名玩家',
+    'tabGlobal': '全球'
   }
 }

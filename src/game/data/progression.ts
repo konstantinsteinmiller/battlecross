@@ -7,6 +7,13 @@ export const MAX_LEVEL = 40
 /** XP needed to go from `level` to `level + 1`. */
 export const xpToNext = (level: number): number => Math.round(60 * Math.pow(Math.max(1, level), 1.55))
 
+/** Total XP it takes to reach `level` from level 1. */
+export const xpToReach = (level: number): number => {
+  let sum = 0
+  for (let l = 1; l < Math.min(level, MAX_LEVEL); l++) sum += xpToNext(l)
+  return sum
+}
+
 export type Attr = 'hp' | 'we' | 'power'
 
 export const ATTR_GAIN: Record<Attr, number> = { hp: 10, we: 4, power: 10 }

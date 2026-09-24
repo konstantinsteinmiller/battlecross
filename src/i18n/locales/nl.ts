@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Toegang geweigerd: koop een licentie.'
+  },
+  'leaderboard': {
+    'title': 'Ranglijst',
+    'rank': '#',
+    'player': 'Speler',
+    'score': 'Ervaring',
+    'flair': 'Level',
+    'empty': 'Nog niemand op het klassement. Wees de eerste!',
+    'failed': 'Ranglijst niet bereikbaar.',
+    'loading': 'Laden…',
+    'you': 'Jij',
+    'yourRank': 'Jij bent #{n} van {total}',
+    'of': 'van {n} spelers',
+    'tabGlobal': 'Wereldwijd'
   }
 }

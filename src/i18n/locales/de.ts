@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Zugriff verweigert: Bitte erwerbe eine Lizenz.'
+  },
+  'leaderboard': {
+    'title': 'Bestenliste',
+    'rank': '#',
+    'player': 'Spieler',
+    'score': 'Erfahrung',
+    'flair': 'Level',
+    'empty': 'Noch niemand auf der Bestenliste. Sei der Erste!',
+    'failed': 'Bestenliste nicht erreichbar.',
+    'loading': 'Wird geladen…',
+    'you': 'Du',
+    'yourRank': 'Du bist #{n} von {total}',
+    'of': 'von {n} Spielern',
+    'tabGlobal': 'Global'
   }
 }

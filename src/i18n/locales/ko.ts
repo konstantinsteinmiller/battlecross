@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': '접근이 거부되었습니다: 라이선스를 구매해 주세요.'
+  },
+  'leaderboard': {
+    'title': '리더보드',
+    'rank': '#',
+    'player': '플레이어',
+    'score': '경험치',
+    'flair': '레벨',
+    'empty': '아직 순위표에 아무도 없어요. 첫 번째가 되어 보세요!',
+    'failed': '리더보드에 연결할 수 없습니다.',
+    'loading': '불러오는 중…',
+    'you': '나',
+    'yourRank': '{total}명 중 {n}위',
+    'of': '/ {n}명 중',
+    'tabGlobal': '전 세계'
   }
 }

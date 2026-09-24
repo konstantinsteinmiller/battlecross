@@ -1,5 +1,5 @@
 /**
- * ─── Survivalist leaderboard ────────────────────────────────────────────────
+ * ─── mega-adventure leaderboard ───────────────────────────────────────────────────
  *
  * A Cloudflare Worker over one D1 table. Two routes:
  *
@@ -9,11 +9,14 @@
  *
  * The histogram is what lets the client rank a player EXACTLY without asking:
  * the published rows stop at 100, so on a board of thousands almost everyone is
- * below the cut and could otherwise only be told "#100+".
+ * below the cut, and rows alone could only place them by guesswork.
  *
- * THE SCORE IS THE HIGHEST STAGE REACHED. Not a point total — the game's whole
- * progression is "how deep did you get", so the board is a depth chart and
- * `score` is a small integer that grows by one at a time.
+ * THE SCORE IS LIFETIME XP: every point of experience Cobalt has ever earned,
+ * still counting after the level-40 cap. It is the POINT TOTAL (thousands to
+ * hundreds of thousands) and it only ever grows, so the client writes only on
+ * a personal record. `flair` is the HERO LEVEL (1–40), the depth, shown beside
+ * the score and never ordered by. Keep the two straight: swapping them ranks
+ * every player against the wrong quantity.
  *
  * Design rules, in the order they matter:
  *
@@ -32,7 +35,7 @@ export interface Env {
   SCORE_SECRET?: string
 }
 
-interface BoardEntry { rank: number; name: string; score: number; squad: number }
+interface BoardEntry { rank: number; name: string; score: number; flair: number }
 interface Board { updatedAt: number; total: number; entries: BoardEntry[] }
 
 /** Rows in the published table. */
@@ -67,22 +70,25 @@ const WRITE_COOLDOWN_MS = 3_000
 /**
  * The only real cheat cap, and it is deliberately generous.
  *
- * Stages are unbounded by design (the generator runs forever), so this cannot
- * be "the last stage" — it is a bound on the absurd. A player physically cannot
- * clear a stage in under ~30 s, so 2 000 stages is well over a day of unbroken
- * play; anything past it is a fabricated request. A false reject silently loses
- * somebody's genuine best, which is far worse than admitting an outlier, so the
- * bound is set where no honest run can ever reach it.
+ * SET FROM THE GAME'S ARITHMETIC, and absurdly high. The richest mission at
+ * level 40 pays about 15 000 XP (kills at ×9.6 for enemy level 40, elites ×3,
+ * a Master's 600 base, the boss job's 2.6× reward), and no mission clears in
+ * under ~90 s: about 14 M XP for a day of unbroken play. 100 M is several days.
+ *
+ * It is deliberately NOT "the highest legitimate score" — a false reject
+ * silently loses somebody's genuine best, which is far worse than admitting an
+ * outlier on a decorative board. Never derive it from a content cap either: the
+ * cap moves in an update and the Worker does not.
  */
-const MAX_STAGE = 2_000
-/** Squad is capped in the client at `MAX_SQUAD` = 4 000 (raised from 1 600 when
- *  the road went endless); the headroom here is for the next raise. */
-const MAX_SQUAD = 100_000
+const MAX_SCORE = 100_000_000
+/** The hero level caps at 40 in the client (`MAX_LEVEL`); the headroom here is
+ *  for a raised cap, which the Worker must not reject. */
+const MAX_FLAIR = 1_000
 
-const plausible = (score: number, squad: number): boolean =>
-  Number.isInteger(score) && Number.isInteger(squad) &&
-  score >= 0 && score <= MAX_STAGE &&
-  squad >= 0 && squad <= MAX_SQUAD
+const plausible = (score: number, flair: number): boolean =>
+  Number.isInteger(score) && Number.isInteger(flair) &&
+  score >= 0 && score <= MAX_SCORE &&
+  flair >= 0 && flair <= MAX_FLAIR
 
 /** `[a-zA-Z0-9_-]`, 8–64 — the same shape the client mints. */
 const validId = (id: unknown): id is string =>
@@ -189,16 +195,32 @@ const readBoard = async (env: Env): Promise<Board> => {
  */
 const rebuildBoard = async (env: Env): Promise<Board> => {
   const { results } = await env.DB
-    .prepare('SELECT name, score, squad FROM scores ORDER BY score DESC, updated_at ASC LIMIT ?')
+    .prepare('SELECT name, score, flair FROM scores ORDER BY score DESC, updated_at ASC LIMIT ?')
     .bind(TOP_N)
-    .all<{ name: string; score: number; squad: number }>()
+    .all<{ name: string; score: number; flair: number }>()
+
+  // Ties SHARE a rank — standard competition ranking (1, 2, 2, 4), which is
+  // `COUNT(*) WHERE score > ?` + 1 evaluated positionally.
+  //
+  // A positional `i + 1` here would disagree with `rankFromDist`, which every
+  // rank the client shows is derived from. The two are read side by side on one
+  // screen: the modal lists the rows, and its footer says "You are #N". Split
+  // ranks in the table mean the second of two tied players is listed as #6 while
+  // being told they are #5 — the board disagreeing with itself about the one
+  // number the player opened it for. Ordering still uses `updated_at` as the
+  // tie-break, so who is listed first is stable; only the number is shared.
+  let rank = 0
+  let previousScore: number | null = null
+  const entries = (results ?? []).map((r, i) => {
+    if (previousScore === null || r.score < previousScore) rank = i + 1
+    previousScore = r.score
+    return { rank, name: r.name, score: r.score, flair: r.flair }
+  })
 
   const board: Board = {
     updatedAt: Date.now(),
     total: 0,
-    entries: (results ?? []).map((r, i) => ({
-      rank: i + 1, name: r.name, score: r.score, squad: r.squad
-    }))
+    entries
   }
   await env.DB
     .prepare(
@@ -220,8 +242,10 @@ const rebuildBoard = async (env: Env): Promise<Board> => {
  * row; a rebuild costs the table, a few times an hour at most.
  *
  * It rides along on `/top` because of what it buys the client: an EXACT rank
- * for any score. Without it a player below the hundredth published row can only
- * be told "#100+", which on a board of a few thousand is almost everyone.
+ * for any score. Without it the client has to ESTIMATE the placing of every
+ * player below the hundredth row — which, on a board of a few thousand, is
+ * almost all of them. Sending it is a few hundred bytes; not sending it turns
+ * the whole board into an approximation.
  */
 // An hour, not a few minutes. A rebuild reads the whole table, and the account
 // is close enough to the free tier's ceiling to have hit it — 24 rebuilds a day
@@ -266,10 +290,41 @@ const sumDist = (dist: [number, number][]): number =>
  * board's own `COUNT(*)`. The two are separate reads of a moving table, and a
  * rank derived from the buckets has to be a rank out of the number those
  * buckets add up to — otherwise the game can print "#1204 of 1203".
+ *
+ * The mirror image of that trap is handled below: the histogram must also never
+ * report FEWER players than the rows shipped alongside it.
  */
 const withDist = async (env: Env, board: Board): Promise<Board & { dist: [number, number][] }> => {
+  // ── A board smaller than the cut IS its own histogram ───────────────────
+  //
+  // The rows come from `ORDER BY score DESC LIMIT TOP_N`. If that query did not
+  // fill, the rows ARE the whole table — so the histogram can be derived from
+  // them exactly, for free, and it then tracks the board's clock instead of the
+  // much slower histogram one.
+  //
+  // This is a correctness fix, not a micro-optimisation. The two caches run on
+  // very different clocks (`BOARD_TTL_MS` vs `DIST_TTL_MS`), so a board whose
+  // population changes materially inside an hour will PUBLISH ROWS IT DOES NOT
+  // COUNT. Observed live on a new board at three rows and `total: 1`, which the
+  // game rendered as three names above "You are #1 of 1 players" — a board
+  // contradicting itself, in a game's launch window, which is exactly when
+  // every board is small and every player is new. Past TOP_N players the
+  // materialised histogram takes over and an hour of drift is invisible.
+  //
+  // It also saves the `dist` row read on precisely the boards that can least
+  // afford a full-table `GROUP BY`.
+  if (board.entries.length < TOP_N) {
+    const counts = new Map<number, number>()
+    for (const e of board.entries) counts.set(e.score, (counts.get(e.score) ?? 0) + 1)
+    const dist = [...counts.entries()].sort((a, b) => b[0] - a[0]) as [number, number][]
+    return { ...board, total: board.entries.length, dist }
+  }
+
   const dist = await readDist(env)
-  return { ...board, total: sumDist(dist) || board.total, dist }
+  // Never publish a population smaller than the number of rows in the same
+  // response — the same invariant as "#1204 of 1203", from the other side.
+  const total = Math.max(sumDist(dist) || board.total, board.entries.length)
+  return { ...board, total, dist }
 }
 
 /**
@@ -344,14 +399,14 @@ export default {
 
       const id = body.id
       const score = Number(body.score)
-      const squad = Number(body.squad)
+      const flair = Number(body.flair)
       const name = cleanName(body.name)
 
       if (!validId(id)) return json({ error: 'bad id' }, 400, cors)
-      if (!plausible(score, squad)) return json({ error: 'implausible' }, 422, cors)
+      if (!plausible(score, flair)) return json({ error: 'implausible' }, 422, cors)
 
       if (env.SCORE_SECRET) {
-        const expected = await hmac(env.SCORE_SECRET, `${id}:${score}:${squad}`)
+        const expected = await hmac(env.SCORE_SECRET, `${id}:${score}:${flair}`)
         if (typeof body.sig !== 'string' || !safeEqual(body.sig, expected)) {
           return json({ error: 'bad signature' }, 401, cors)
         }
@@ -375,15 +430,15 @@ export default {
       let changed = false
       if (!existing) {
         await env.DB
-          .prepare('INSERT INTO scores (id, name, score, squad, updated_at) VALUES (?, ?, ?, ?, ?)')
-          .bind(id, name, score, squad, now)
+          .prepare('INSERT INTO scores (id, name, score, flair, updated_at) VALUES (?, ?, ?, ?, ?)')
+          .bind(id, name, score, flair, now)
           .run()
         best = score
         changed = true
       } else if (score > existing.score) {
         await env.DB
-          .prepare('UPDATE scores SET name = ?, score = ?, squad = ?, updated_at = ? WHERE id = ?')
-          .bind(name, score, squad, now, id)
+          .prepare('UPDATE scores SET name = ?, score = ?, flair = ?, updated_at = ? WHERE id = ?')
+          .bind(name, score, flair, now, id)
           .run()
         best = score
         changed = true
@@ -417,6 +472,7 @@ export default {
       return json({ error: 'unavailable' }, 503, cors)
      }
     }
+
 
     return json({ error: 'not found' }, 404, cors)
   }

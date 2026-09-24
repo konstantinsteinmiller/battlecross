@@ -19,6 +19,7 @@ import useUser, { isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, 
 import { isDebug } from '@/use/useMatch.ts'
 import { hasState, reloadGameState, flushPersist, STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 import { LANGUAGE_KEY } from '@/keys'
+import { setSdkNameSource } from '@/use/usePlayerIdentity'
 import { SaveManager } from '@/utils/save/SaveManager'
 import { resolveSaveStrategy } from '@/platforms/resolveSaveStrategy'
 import { installSaveStatus } from '@/use/useSaveStatus'
@@ -121,6 +122,10 @@ const bootstrap = async () => {
   if (isCrazyWeb) {
     const cg = await import('@/use/useCrazyGames')
     await cg.initCrazyGames()
+    // The CrazyGames username is tier 2 of the leaderboard name. It is pushed
+    // in from here rather than imported by `usePlayerIdentity`, so a build
+    // without CrazyGames never resolves the CG module.
+    setSdkNameSource(() => cg.crazyPlayerName.value)
     // Explicit `loadingStart` immediately after SDK init. The SDK
     // technically auto-enters the "loading" state on init, but CG QA's
     // tooling does NOT register the load window unless we fire the

@@ -6,7 +6,7 @@ import {
   STATS_KEY, TUTORIAL_KEY, MISSION_KEY
 } from '@/keys'
 import type { Attr } from '../data/progression'
-import { addXp, ATTR_GAIN, xpToNext } from '../data/progression'
+import { addXp, ATTR_GAIN, xpToNext, xpToReach } from '../data/progression'
 import type { WeaponId } from '../data/weapons'
 import { WEAPONS } from '../data/weapons'
 import {
@@ -71,6 +71,9 @@ export interface StatsSave {
   bestLevel: number
   /** Epoch ms of the last claimed Workshop supply drop (rewarded). */
   lastDropAt: number
+  /** Every point of XP ever earned, still counting past the level cap: the
+   *  leaderboard's score. Read it through `lifetimeXp()`. */
+  xpEarned: number
 }
 
 export interface Profile {
@@ -111,7 +114,7 @@ const defaults = (): Profile => ({
   inv: defaultInv(),
   quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
   world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard' },
-  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0 },
+  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0 },
   tips: {}
 })
 
@@ -192,7 +195,17 @@ export const chipsAvailable = (): number => {
 export const xp01 = (): number => profile.hero.xp / Math.max(1, xpToNext(profile.level))
 
 /** Grant XP; returns levels gained (each adds a chip and a pending attribute). */
+/**
+ * Lifetime XP: the leaderboard's score. A save from before the stat existed
+ * (or any path that set the level without granting XP) is floored at what its
+ * level and bar already prove, so the number can only ever grow.
+ */
+export const lifetimeXp = (): number =>
+  Math.max(Math.round(profile.stats.xpEarned || 0), xpToReach(profile.level) + Math.round(profile.hero.xp))
+
 export const grantXp = (amount: number): number => {
+  // Counted in full, even past the level cap where the bar stops filling.
+  profile.stats.xpEarned = lifetimeXp() + Math.max(0, Math.round(amount))
   const r = addXp(profile.level, profile.hero.xp, amount)
   profile.level = r.level
   profile.hero.xp = r.xp

@@ -6,7 +6,7 @@ import { SECTORS, SECTOR_BY_ID } from './data/regions'
 import { rollItem, type Item } from './data/items'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import {
-  profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot
+  profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp
 } from './state/profile'
 import { hud } from './state/hud'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -17,6 +17,7 @@ import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
 import { playJingle } from './audio/music'
 import { afterPaint } from './engine/slicer'
+import { reportRun } from '@/use/useLeaderboard'
 import type { SectorId } from './world/themes'
 
 /**
@@ -226,6 +227,12 @@ export const finishMission = async (success: boolean, tally: MissionTally): Prom
   if (success) triggerHappytime()
   playJingle(success ? 'victory' : 'defeat')
   flow.modal = 'results'
+  // The leaderboard, AFTER the result screen is up and never awaited: it is a
+  // decoration on a game that works without it, and a captive-portal wifi
+  // login must not stand between the player and their rewards. Lifetime XP
+  // also grew on a defeat (kills pay live), so both outcomes report; `force`
+  // makes the number a mission ended on always land.
+  void reportRun(lifetimeXp(), profile.level, { force: true })
 }
 
 /** Longest we hold the result screen for an ad that another placement left

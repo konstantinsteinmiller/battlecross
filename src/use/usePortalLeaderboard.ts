@@ -1,6 +1,6 @@
 import { computed, ref, type ComputedRef } from 'vue'
 import { getState, setState } from '@/use/useGameState'
-import { PORTAL_JOINED_KEY, PORTAL_POSTED_STAGE_KEY } from '@/keys'
+import { PORTAL_JOINED_KEY, PORTAL_POSTED_SCORE_KEY } from '@/keys'
 
 /**
  * ─── A portal's OWN leaderboard, beside ours ────────────────────────────────
@@ -110,7 +110,7 @@ const syncMode = (a: PortalBoardAdapter): void => {
 
 const readPosted = (): number => {
   try {
-    return Math.max(0, Math.trunc(Number(getState(PORTAL_POSTED_STAGE_KEY, 0)) || 0))
+    return Math.max(0, Math.trunc(Number(getState(PORTAL_POSTED_SCORE_KEY, 0)) || 0))
   } catch {
     return 0
   }
@@ -217,7 +217,7 @@ const enqueue = (a: PortalBoardAdapter, shouldPost: () => number | null): Promis
       }
       syncMode(a)
       if (!ok) return
-      if (score > readPosted()) setState(PORTAL_POSTED_STAGE_KEY, score)
+      if (score > readPosted()) setState(PORTAL_POSTED_SCORE_KEY, score)
       if (!readJoined()) setState(PORTAL_JOINED_KEY, true)
       fresh = false
     } catch { /* the queue must never reject */ }

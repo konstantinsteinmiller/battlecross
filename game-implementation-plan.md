@@ -114,6 +114,11 @@ while bars and damage numbers get direct DOM writes.
   become a look drag instead of a charge, lets manual look win over the
   soft lock and hand it to the enemy in the sights, adds ← / → turning, the
   "?" button and the glyph panel in the pause menu. *Commit.*
+- [x] **14. Global leaderboard.** Lifetime XP (new `stats.xpEarned`, floored for
+  older saves) on the `leaderboard-badge` stack: the Worker deployed as
+  `mega-adventure-leaderboard` with its own D1 and secret, a rank chip on the
+  results screen, a top-100 modal from the hub, and a modelled histogram-only
+  board for the builds that cannot post (Poki, Yandex, Playgama). *Commit.*
 
 ## Resume notes
 
@@ -184,7 +189,20 @@ while bars and damage numbers get direct DOM writes.
 - Boot timing: `node scripts/boot-timeline.mjs [url] [--throttle 4]` (or
   `--dist <dir>`) prints the `boot:*` User Timing marks and the long tasks
   until `boot:adopted`.
+- Leaderboard (GDD § Global leaderboard): Worker in `worker/` (runbook
+  `worker/SETUP.md`, account pinned in `wrangler.toml`). `.env` holds the live
+  URL and the signing secret, so NOTHING automated may end a mission against
+  it: vitest blanks both (`test.env`) and rejects non-local fetches
+  (`tests/setup.network.ts`, pinned by `tests/game/noLiveLeaderboard.test.ts`),
+  and `scripts/xbrowser.mjs` answers the Worker itself. A hand-run browser test
+  that ends a mission posts a real row; delete it afterwards with
+  `npx wrangler d1 execute mega-adventure-leaderboard --remote --command
+  "DELETE FROM scores WHERE id = '<id>'; DELETE FROM board_cache"` (the id is
+  `localStorage.mega_adventure_uid`). `data/leaderboard-snapshot.json` (the live
+  builds' offline fallback) appears on the first build after the board has
+  players; commit it then. The modelled board is `pnpm leaderboard:seed`.
 - Known open items for a human: the origin remote still points at the
-  survivalist repo, and `.env` still holds survivalist's GameMonetize id,
-  Glitch ids and Playgama leaderboard id. Replace them before a portal
-  upload.
+  survivalist repo, and `.env` still holds survivalist's GameMonetize id and
+  Glitch ids. Replace them before a portal upload. (The Playgama leaderboard
+  id is cleared; create a mega-adventure board on the Playgama dashboard to
+  switch that board on.)

@@ -1,27 +1,38 @@
 /**
- * ─── The seeded board, for the portals that can never gain a player ─────────
+ * ─── The seeded board, for the builds that can never gain a player ──────────
  *
- * Poki forbids every external runtime request and Yandex rejects third-party
- * storage URLs, so those builds ship `VITE_LEADERBOARD_URL` empty: they cannot
- * READ the board and, more to the point here, they can never WRITE to it. Their
- * baked copy is not a stale snapshot of a living board — it is the whole board,
- * for the life of the build, and nobody playing it will ever appear on it.
+ * Poki forbids every external runtime request, Yandex rejects third-party
+ * storage URLs and the Playgama archive doubles as the YouTube Playables
+ * submission (no external calls), so those builds ship `VITE_LEADERBOARD_URL`
+ * empty. They can neither READ the live board nor WRITE to it: their baked copy
+ * is the whole board for the life of the build, and nobody playing it ever
+ * appears on it.
  *
- * Seeding it from the live board does not work either, and the arithmetic is the
- * reason. The live board is 2 422 players of whom 56 % never got past stage 2
- * and 1.5 % passed stage 20, because it is a record of everyone who ever opened
- * the game once. Ranking a Poki player against that says more about the sample
- * than about them.
+ * So it is generated from a stated RETENTION CURVE instead of copied from the
+ * live board (which is a survivorship sample of everyone who ever opened the
+ * game). It is modelled data, and the file says so (`source`).
  *
- * So this generates a board from a stated RETENTION CURVE instead. It is
- * modelled data, and it is written down as modelled data — see `SURVIVAL`.
+ * ── Histogram only, NO rows ──
  *
- * ── Determinism is the point ──
+ * The owner's call (2026-09-24): on these builds the game shows the rank badge
+ * ("#1,204 of 2,500 players") and no top-100 list, so the seed publishes no
+ * rows at all and therefore no invented player names. `rankFromDist` needs
+ * only `dist` and `total` to place a player exactly.
  *
- * Every number below comes out of a seeded PRNG, so re-running this produces a
- * byte-identical file. A board that churned on every run would move every
- * player's rank for no reason, and a rank that moves without the player doing
- * anything is worse than no rank.
+ * ── What the score is ──
+ *
+ * LIFETIME XP, the same number the live builds post: the point total, not the
+ * hero level. The curve below is stated in hero LEVELS because that is how the
+ * design intent is phrased ("most stop by level 5"), and each modelled player
+ * is then given the lifetime XP a player of that level has: everything it took
+ * to reach the level, plus part of the bar. Keep the two straight — a histogram
+ * of levels ranked against XP totals would tell every player they are #1.
+ *
+ * ── Determinism ──
+ *
+ * Everything comes out of a seeded PRNG, so re-running this reproduces the
+ * committed file byte for byte. A board that churned per build would move every
+ * player's rank for no reason.
  *
  *     pnpm leaderboard:seed
  */
@@ -30,84 +41,107 @@ import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export const SEED_FILE = resolve(
-  fileURLToPath(new URL('../data/leaderboard-seed.json', import.meta.url))
-)
+/** This script's own path, or null where `import.meta.url` is not a file URL
+ *  (vitest imports this module to check it against the game). */
+const SELF = (() => {
+  try { return fileURLToPath(import.meta.url) } catch { return null }
+})()
 
-/** How many players the board claims. */
-const TOTAL = 7_831
-
-/** Rows the board publishes, matching the Worker's `TOP_N`. */
-const TOP_N = 100
+export const SEED_FILE = resolve(SELF ? dirname(SELF) : 'scripts', '../data/leaderboard-seed.json')
 
 /**
- * The retention curve, as `stage → fraction of players whose BEST is ≥ stage`.
- *
- * A survival function rather than a histogram, because that is the shape the
- * design intent is actually stated in — "most quit on 3 and 4", "only ~8 % go
- * past 20" are both statements about how many are still there, and deriving the
- * per-stage counts from them cannot drift out of agreement with them.
- *
- *   1 → 1.000   everyone reaches stage 1
- *   3 → 0.930     7 % gave up on 1-2         "some few on stage 1 and 2"
- *   5 → 0.620    31 % gave up on 3-4         "most players quit on 3 and 4"
- *  11 → 0.250    37 % gave up on 5-10        "most players play till 5-10"
- *  21 → 0.080    17 % gave up on 11-20
- *  44 → 0.00065  the top ~100 of 154 331     "the best players reach 40+"
- *
- * The far tail is anchored on the POPULATION, not chosen for its own sake: the
- * published hundred is the top 0.065 % of 154 331, so wherever the curve crosses
- * that fraction is where the visible board starts. The anchors put it at stage
- * 46, which is what "the best reach 40+" means at this size — at a tenth of the
- * population the same phrasing would want a much shallower tail, so re-check
- * this line before changing `TOTAL`.
- *
- * The anchors between 21 and 30 are close together for one reason: the bands
- * the spec asks for imply a WALL at 20 (17 % of everyone stops in 11-20, and
- * only 8 % are left after it), and a step in the drop-off rate is a step in the
- * histogram. Spread over four anchors the rate steepens gradually instead, and
- * the largest remaining rise between adjacent stages is under 3 % — down from
- * 15 % with a single anchor, where stage 21 visibly held more players than
- * stage 20.
- *
- * Interpolated log-linearly between anchors, which is what makes the middle of
- * a band decay smoothly instead of stepping at the anchors — a histogram with
- * visible steps in it reads as generated the moment anyone plots it.
+ * How many players the board claims. Sized to what these portals plausibly
+ * bring a new game (the studio's live boards run from a few hundred to ~5 000),
+ * not to what looks impressive: six figures beside an unknown game is the tell
+ * that a board was invented.
  */
-const SURVIVAL = [
+export const TOTAL = 2_500
+
+// ─── Copies of the game's XP curve (`src/game/data/progression.ts`) ─────────
+// This is plain Node and the game is TypeScript behind an alias, so these are
+// COPIES. `tests/game/leaderboardSeed.test.ts` re-derives them from the game's
+// own module and fails if they drift: regenerate the seed after changing the
+// curve.
+export const MAX_LEVEL = 40
+export const xpToNext = (level) => Math.round(60 * Math.pow(Math.max(1, level), 1.55))
+export const xpToReach = (level) => {
+  let sum = 0
+  for (let l = 1; l < Math.min(level, MAX_LEVEL); l++) sum += xpToNext(l)
+  return sum
+}
+
+/**
+ * The retention curve: `level → fraction of players whose best level is ≥ it`.
+ *
+ * A survival function, because the design intent is stated that way:
+ *
+ *    1 → 1.00     everyone starts at level 1
+ *    2 → 0.82     ~a fifth never finish the first mission
+ *    5 → 0.42     most stop somewhere in levels 2–4
+ *   12 → 0.12     one in eight plays into the second sector's levels
+ *   25 → 0.022    ~2 % are still playing at level 25
+ *   40 → 0.0024   a handful (~6 of 2 500) reach the cap
+ *   41 → 0        the cap: nobody is modelled past it
+ *
+ * Interpolated log-linearly between anchors, so each band decays smoothly
+ * instead of stepping at the anchors.
+ */
+export const SURVIVAL = [
   [1, 1],
-  [3, 0.93],
-  [5, 0.62],
-  [11, 0.25],
-  [21, 0.08],
-  [23, 0.0625],
-  [26, 0.043],
-  [30, 0.024],
-  [35, 0.0105],
-  [40, 0.0038],
-  [45, 0.0011],
-  [51, 0.00015],
-  [57, 0.00002],
-  [61, 0]
+  [2, 0.82],
+  [3, 0.64],
+  [5, 0.42],
+  [8, 0.24],
+  [12, 0.12],
+  [18, 0.055],
+  [25, 0.022],
+  [32, 0.008],
+  [40, 0.0024],
+  [41, 0]
 ]
 
-/** Fraction of players still going at `stage`. */
-const survival = (stage) => {
-  if (stage <= 1) return 1
+/** Fraction of players still going at `level`. */
+export const survival = (level) => {
+  if (level <= 1) return 1
   for (let i = 0; i < SURVIVAL.length - 1; i++) {
     const [x0, y0] = SURVIVAL[i]
     const [x1, y1] = SURVIVAL[i + 1]
-    if (stage < x0 || stage > x1) continue
-    const t = (stage - x0) / (x1 - x0)
-    // Log-linear, so a constant per-stage drop-off rate is a straight line.
-    // Guarded for the final anchor, where the curve reaches zero.
+    if (level < x0 || level > x1) continue
+    const t = (level - x0) / (x1 - x0)
     if (y1 <= 0 || y0 <= 0) return y0 + (y1 - y0) * t
     return y0 * Math.pow(y1 / y0, t)
   }
   return 0
 }
 
-/** Deterministic PRNG — mulberry32. Same seed, same board, every run. */
+/**
+ * XP a player earns AFTER reaching the cap (the bar stops, lifetime XP does
+ * not): exponential, with this mean. A soft knee keeps the tail from piling
+ * onto one ceiling value (a hard `Math.min` would tie every extreme draw).
+ */
+const POST_CAP_MEAN = 60_000
+const POST_CAP_KNEE = 150_000
+const POST_CAP_ROOM = 250_000
+const softKnee = (x) => (x <= POST_CAP_KNEE ? x : POST_CAP_KNEE + POST_CAP_ROOM * (1 - Math.exp(-(x - POST_CAP_KNEE) / POST_CAP_ROOM)))
+
+/**
+ * Round to two significant figures. The histogram ships inside the bundle, and
+ * 2 500 distinct XP values would be ~30 kB of buckets; two figures keep it to a
+ * few hundred without changing anyone's placing by more than the model's own
+ * noise.
+ */
+const twoFigures = (x) => {
+  if (x < 100) return Math.round(x)
+  const p = Math.pow(10, Math.floor(Math.log10(x)) - 1)
+  return Math.round(x / p) * p
+}
+
+/** Any fixed integer. */
+const SEED = 20260924
+/** The curve's stated date. A CONSTANT, so the file stays byte-reproducible. */
+const SEED_EPOCH = Date.UTC(2026, 8, 24)
+
+/** Deterministic PRNG — mulberry32. */
 const rng = (seed) => () => {
   seed = (seed + 0x6d2b79f5) | 0
   let t = seed
@@ -116,136 +150,62 @@ const rng = (seed) => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296
 }
 
-// ─── Names ──────────────────────────────────────────────────────────────────
-//
-// Shaped to match what the live board actually contains, which is almost
-// entirely portal handles (CrazyGames usernames) rather than this game's own
-// anonymous mint. Measured on the real top-100: 98 handles, 2 `Word######`.
-// `cleanName` caps a name at 16 characters, so every pattern here stays inside
-// that or it would be silently truncated somewhere else.
-
-const ADJ = [
-  'Juicy', 'Real', 'Brilliant', 'Silent', 'Crimson', 'Rapid', 'Iron', 'Lucky',
-  'Neon', 'Frost', 'Wild', 'Grim', 'Golden', 'Shadow', 'Turbo', 'Mad', 'Salty',
-  'Cosmic', 'Rusty', 'Velvet', 'Hyper', 'Quiet', 'Feral', 'Prime'
-]
-const NOUN = [
-  'Cloud', 'Milkshake', 'Demon', 'Falcon', 'Comet', 'Badger', 'Wolf', 'Pixel',
-  'Rocket', 'Nomad', 'Panda', 'Viper', 'Yeti', 'Gremlin', 'Bishop', 'Otter',
-  'Hydra', 'Muffin', 'Raven', 'Goblin', 'Turtle', 'Phantom', 'Bandit', 'Koala'
-]
-/** The game's own anonymous mint (`usePlayerIdentity.ANON_WORDS`). */
-const ANON = [
-  'Survivor', 'Runner', 'Scout', 'Nomad', 'Drifter',
-  'Ranger', 'Wanderer', 'Strider', 'Trekker', 'Roamer'
-]
-const SYL_A = ['Ka', 'Hi', 'Zu', 'Mo', 'Ra', 'Ta', 'Ni', 'Vo', 'Sa', 'Yu', 'Le', 'Do']
-const SYL_B = ['ze', 'ppi', 'nda', 'rro', 'shi', 'mba', 'kko', 'ven', 'lia', 'gan']
-const SYL_C = ['ko', 'riot', 'ssi', 'rashi', 'ra', 'nix', 'dor', 'la', 'thas', 'mi']
-const SUFFIX = ['RX', 'y', 'Jbql', 'GG', 'x', 'TV', 'zz', 'Q', 'io', 'kk']
-
-const pick = (r, xs) => xs[Math.floor(r() * xs.length)]
-
-/** One plausible handle, in the proportions the live board shows. */
-const mintName = (r) => {
-  const roll = r()
-  let name
-  if (roll < 0.34) {
-    name = pick(r, ADJ) + pick(r, NOUN)
-  } else if (roll < 0.56) {
-    name = `${pick(r, ADJ)}${pick(r, NOUN)}.${pick(r, SUFFIX)}`
-  } else if (roll < 0.8) {
-    name = pick(r, SYL_A) + pick(r, SYL_B) + pick(r, SYL_C)
-  } else if (roll < 0.92) {
-    name = (pick(r, SYL_A) + pick(r, SYL_B) + pick(r, SYL_C)).toUpperCase()
-  } else {
-    // The game's own anonymous mint, at roughly the rate the real board has it.
-    name = `${pick(r, ANON)}${100000 + Math.floor(r() * 900000)}`
-  }
-  // Trimmed to `cleanName`'s own 16-character ceiling, then stripped of any
-  // punctuation the cut landed on — "GoldenMilkshake." reads as a bug rather
-  // than as a handle.
-  return name.slice(0, 16).replace(/[^A-Za-z0-9]+$/, '')
-}
-
 // ─── Build ──────────────────────────────────────────────────────────────────
 
 export const buildSeed = () => {
-  const r = rng(20260908)
+  const r = rng(SEED)
 
-  // Per-stage counts, from the survival curve. `dist` is score-DESC, which is
-  // the order every rank walk in the game depends on.
-  const maxStage = SURVIVAL[SURVIVAL.length - 1][0]
-  const counts = []
-  for (let stage = 1; stage <= maxStage; stage++) {
-    const n = Math.round(TOTAL * (survival(stage) - survival(stage + 1)))
-    if (n > 0) counts.push([stage, n])
+  // Players per level, from the survival curve.
+  const perLevel = []
+  for (let level = 1; level <= MAX_LEVEL; level++) {
+    perLevel.push([level, Math.round(TOTAL * (survival(level) - survival(level + 1)))])
   }
-  counts.sort((a, b) => b[0] - a[0])
+  // Rounding leaves the sum a little off; correct it on the biggest level.
+  const sum = perLevel.reduce((a, [, n]) => a + n, 0)
+  let biggest = 0
+  for (let i = 1; i < perLevel.length; i++) if (perLevel[i][1] > perLevel[biggest][1]) biggest = i
+  perLevel[biggest][1] += TOTAL - sum
 
-  // Rounding leaves the sum a little off the target; correct it on the biggest
-  // bucket, which is the one place a handful of players cannot be noticed.
-  const sum = counts.reduce((a, [, n]) => a + n, 0)
-  if (sum !== TOTAL) {
-    let biggest = 0
-    for (let i = 1; i < counts.length; i++) if (counts[i][1] > counts[biggest][1]) biggest = i
-    counts[biggest][1] += TOTAL - sum
-  }
-
-  // The published rows: walk the histogram from the top, one player per row,
-  // so `entries` and `dist` describe the same population by construction. A
-  // board whose visible rows disagree with its own histogram would rank its own
-  // listed players wrongly.
-  const entries = []
-  for (const [score, n] of counts) {
-    for (let i = 0; i < n && entries.length < TOP_N; i++) {
-      entries.push({
-        rank: entries.length + 1,
-        name: mintName(r),
-        score,
-        // Squad is only loosely tied to depth on the real board (rank 10 has
-        // 4 000, rank 25 has 43), so this is a wide band with a mild upward
-        // trend rather than a function of the score.
-        //
-        // ⚠ THE KEY IS `squad`, which is this game's name for the template's
-        // `flair` — and it was still `flair` here while every reader of a board
-        // (`useLeaderboard`'s `Number(e.squad) || 0`, the modal's Squad column,
-        // the snapshot written from the live Worker) had long been renamed.
-        // Nothing failed: the column simply rendered 0 for all hundred rows, on
-        // exactly the builds where this file IS the whole leaderboard for the
-        // life of the build.
-        squad: Math.min(4000, Math.round(120 + score * 34 * (0.35 + r() * 1.5)))
-      })
+  // Each player's lifetime XP: what the level took, plus part of the bar; at
+  // the cap, plus whatever they kept earning.
+  const buckets = new Map()
+  for (const [level, n] of perLevel) {
+    for (let i = 0; i < n; i++) {
+      let xp = xpToReach(level) + r() * xpToNext(level)
+      if (level >= MAX_LEVEL) xp += softKnee(-Math.log(1 - r()) * POST_CAP_MEAN)
+      const score = twoFigures(xp)
+      buckets.set(score, (buckets.get(score) ?? 0) + 1)
     }
-    if (entries.length >= TOP_N) break
   }
+  const dist = [...buckets.entries()].sort((a, b) => b[0] - a[0])
 
   return {
     source: 'seeded:retention-curve',
-    fetchedAt: Date.now(),
-    updatedAt: Date.now(),
-    total: counts.reduce((a, [, n]) => a + n, 0),
-    entries,
-    dist: counts
+    // FIXED, not `Date.now()`: a regeneration that changed nothing must not
+    // land as a diff. Nothing reads either field on the seeded path.
+    fetchedAt: SEED_EPOCH,
+    updatedAt: SEED_EPOCH,
+    total: dist.reduce((a, [, n]) => a + n, 0),
+    // No rows: these builds show the rank badge only (see the header).
+    entries: [],
+    dist
   }
 }
 
 // ─── CLI ────────────────────────────────────────────────────────────────────
 
-if (process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
+if (SELF && process.argv[1] && resolve(process.argv[1]) === resolve(SELF)) {
   const seed = buildSeed()
   mkdirSync(dirname(SEED_FILE), { recursive: true })
-  writeFileSync(SEED_FILE, JSON.stringify(seed, null, 2) + '\n', 'utf-8')
+  const json = JSON.stringify(seed) + '\n'
+  writeFileSync(SEED_FILE, json, 'utf-8')
 
-  const above = (x) => seed.dist.filter(([s]) => s > x).reduce((a, [, n]) => a + n, 0)
-  const band = (lo, hi) => seed.dist.filter(([s]) => s >= lo && s <= hi).reduce((a, [, n]) => a + n, 0)
+  const atLeast = (xp) => seed.dist.filter(([s]) => s >= xp).reduce((a, [, n]) => a + n, 0)
   const pct = (n) => `${((100 * n) / seed.total).toFixed(1)}%`
-  console.log(`[seed] ${seed.total} players, top score ${seed.dist[0][0]}, ` +
-    `published cut at ${seed.entries[seed.entries.length - 1].score}`)
-  console.log(`[seed]   stage 1-2  ${String(band(1, 2)).padStart(6)}  ${pct(band(1, 2))}`)
-  console.log(`[seed]   stage 3-4  ${String(band(3, 4)).padStart(6)}  ${pct(band(3, 4))}`)
-  console.log(`[seed]   stage 5-10 ${String(band(5, 10)).padStart(6)}  ${pct(band(5, 10))}`)
-  console.log(`[seed]   stage 11-20${String(band(11, 20)).padStart(6)}  ${pct(band(11, 20))}`)
-  console.log(`[seed]   past 20    ${String(above(20)).padStart(6)}  ${pct(above(20))}`)
+  console.log(`[seed] ${seed.total} players, ${seed.dist.length} buckets, ${(json.length / 1024).toFixed(1)} kB, top ${seed.dist[0][0]} XP`)
+  for (const level of [2, 5, 12, 25, 40]) {
+    const n = atLeast(xpToReach(level))
+    console.log(`[seed]   reached level ${String(level).padStart(2)}  ${String(n).padStart(5)}  ${pct(n)}`)
+  }
   console.log(`[seed] wrote ${SEED_FILE}`)
 }

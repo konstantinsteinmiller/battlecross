@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'アクセスが拒否されました：ライセンスをご購入ください。'
+  },
+  'leaderboard': {
+    'title': 'ランキング',
+    'rank': '#',
+    'player': 'プレイヤー',
+    'score': '経験値',
+    'flair': 'レベル',
+    'empty': 'まだ誰もランキングにいません。一番乗りしよう！',
+    'failed': 'ランキングに接続できません。',
+    'loading': '読み込み中…',
+    'you': 'あなた',
+    'yourRank': '{total} 人中 #{n} 位',
+    'of': '/ {n}人中',
+    'tabGlobal': '世界'
   }
 }

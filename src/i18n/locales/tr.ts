@@ -416,5 +416,19 @@ export default {
   },
   'license': {
     'denied': 'Erişim reddedildi: lütfen bir lisans satın al.'
+  },
+  'leaderboard': {
+    'title': 'Liderlik Tablosu',
+    'rank': '#',
+    'player': 'Oyuncu',
+    'score': 'Deneyim',
+    'flair': 'Seviye',
+    'empty': 'Sıralamada henüz kimse yok. İlk sen ol!',
+    'failed': 'Liderlik tablosuna ulaşılamadı.',
+    'loading': 'Yükleniyor…',
+    'you': 'Sen',
+    'yourRank': '{total} oyuncu içinde #{n}. sıradasın',
+    'of': '/ {n} oyuncu',
+    'tabGlobal': 'Dünya'
   }
 }

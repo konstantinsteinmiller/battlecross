@@ -17,7 +17,7 @@ export interface SnapshotEntry {
   rank: number
   name: string
   score: number
-  squad: number
+  flair: number
 }
 
 export interface BoardSnapshot {
@@ -38,7 +38,7 @@ export const boardSnapshot: BoardSnapshot | null = snapshot
  *
  * Byte-for-byte the Worker's own definition — `COUNT(*) WHERE score > ?` + 1 —
  * so the number is the same whether it came from the live board, the cache or
- * the baked snapshot. Ties share a rank: two players on stage 40 are both #7
+ * the baked snapshot. Ties share a rank: two players on the same score are both #7
  * and nobody is #8.
  *
  * The buckets are score-DESC, so the walk stops at the first bucket that is not

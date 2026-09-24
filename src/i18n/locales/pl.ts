@@ -414,5 +414,19 @@ export default {
   },
   'license': {
     'denied': 'Odmowa dostępu: kup licencję.'
+  },
+  'leaderboard': {
+    'title': 'Ranking',
+    'rank': '#',
+    'player': 'Gracz',
+    'score': 'Doświadczenie',
+    'flair': 'Poziom',
+    'empty': 'Nikogo jeszcze nie ma w rankingu. Bądź pierwszy!',
+    'failed': 'Nie można wczytać rankingu.',
+    'loading': 'Wczytywanie…',
+    'you': 'Ty',
+    'yourRank': 'Jesteś #{n} z {total}',
+    'of': 'z {n} graczy',
+    'tabGlobal': 'Światowy'
   }
 }

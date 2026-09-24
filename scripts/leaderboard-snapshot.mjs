@@ -13,11 +13,12 @@
  * them. The bytes are part of the bundle, and the game makes no request.
  *
  * WHY THE HISTOGRAM AND NOT JUST THE TOP 100. `/top` publishes 100 rows, and on
- * a board of a few thousand that cut sits around stage 13 — above where a
- * first-session player ever gets. Rows alone could tell 4 % of players where
- * they stand and show the other 96 % "#100+", in exactly the session Poki's fit
- * test grades. So `/top` also carries a histogram of the WHOLE population, and
- * that is what both this snapshot and the live game rank against.
+ * a board of a few thousand that cut sits far above where a first-session
+ * player ever gets. Rows alone could tell 4 % of players exactly where they
+ * stand and leave the other 96 % — including everyone in the session Poki's fit
+ * test grades — on an estimate. So `/top` also carries a histogram of the WHOLE
+ * population, and that is what both this snapshot and the live game rank
+ * against. Baking it costs about a kilobyte and makes every rank exact.
  *
  * Run it by hand before a portal build:
  *
@@ -41,7 +42,7 @@ import { fileURLToPath } from 'node:url'
  * Deliberately NOT read from `VITE_LEADERBOARD_URL`: the builds that need this
  * are precisely the builds that set that variable to empty.
  */
-export const DEFAULT_SOURCE = 'https://survivalist-leaderboard.hyperg8.workers.dev'
+export const DEFAULT_SOURCE = 'https://mega-adventure-leaderboard.rodent-race.workers.dev'
 
 export const SNAPSHOT_FILE = resolve(
   fileURLToPath(new URL('../data/leaderboard-snapshot.json', import.meta.url))
@@ -88,7 +89,7 @@ export const buildSnapshot = (top, source) => {
       rank: Number(e.rank) || i + 1,
       name: typeof e.name === 'string' ? e.name : '',
       score: Number(e.score) || 0,
-      squad: Number(e.squad) || 0
+      flair: Number(e.flair) || 0
     }))
 
   const buckets = top.dist
