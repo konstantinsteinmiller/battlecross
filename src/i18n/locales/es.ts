@@ -115,8 +115,8 @@ export default {
     'title': 'Objetivo',
     'complete': 'Objetivo cumplido',
     'beamOutHint': 'Teletranspórtate cuando estés listo.',
-    'tutorial': 'Derrota al Chatarrero',
-    'boss': 'Derrota al Maestro del Núcleo',
+    'tutorial': 'Derrota a {boss}',
+    'boss': 'Derrota a {boss}',
     'kill': 'Destruye {target}: {n}/{total}',
     'collect': 'Núcleos de datos: {n}/{total}',
     'rescue': 'Encuentra al robot obrero atrapado',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Arrastra a la izquierda para moverte y a la derecha para mirar. ¡Toca el suelo para ir allí!',
-    'moveKeys': 'WASD para moverte, arrastra el ratón para mirar. ¡Haz clic en el suelo para ir allí!',
+    'moveKeys': 'WASD para moverte.',
+    'lookMouse': 'Mueve el ratón para mirar a tu alrededor.',
+    'capture': 'Haz clic en la escena para controlar la cámara.',
     'fireTouch': '¡Máquinas a la vista! Toca para disparar; mantén y suelta para un disparo cargado.',
-    'fireKeys': '¡Máquinas a la vista! Clic o Espacio para disparar; mantén y suelta para un disparo cargado.',
+    'fireKeys': '¡Máquinas a la vista! Clic izquierdo para disparar; mantén y suelta para un disparo cargado.',
     'charge': 'Los escudos bloquean las balas. Un disparo cargado al MÁXIMO los atraviesa.',
     'blockTouch': 'Anillo naranja: mantén el escudo para bloquear. ¡Púlsalo justo cuando el anillo se cierre para hacer una PARADA!',
-    'blockKeys': 'Anillo naranja: mantén Mayús o clic derecho para bloquear. ¡Pulsa justo cuando el anillo se cierre para hacer una PARADA!',
+    'blockKeys': 'Anillo naranja: mantén el botón derecho del ratón para bloquear. ¡Pulsa justo cuando el anillo se cierre para hacer una PARADA!',
     'red': 'Anillo rojo: imbloqueable. ¡Deslízate para esquivarlo!',
+    'dodgeKeys': 'Anillo rojo: imbloqueable. ¡Pulsa Espacio para deslizarte y esquivarlo!',
     'chest': '¡Un cofre de suministros! Tócalo para abrirlo.',
     'tank': '¿Poca salud? Un tanque de reparación te deja como nuevo.',
     'weapon': '¡Usa tu arma copiada con el botón de color!'
+  },
+  'lesson': {
+    'charge': 'Mantén para cargar tu Buster y luego suelta: solo un disparo cargado rompe el escudo del dron de entrenamiento.',
+    'crate': 'Las cajas de suministros solo se rompen con un disparo cargado. Mantén y suelta apuntando a la caja brillante.',
+    'weaponKeys': 'Pulsa {n} para disparar tu arma copiada: un solo disparo alcanza a los tres drones.',
+    'weaponTouch': 'Toca el botón de arma brillante: un solo disparo alcanza a los tres drones.'
+  },
+  'hubLesson': {
+    'workshop': 'Abre el Taller.',
+    'upgradeBuster': 'Gasta tornillos para mejorar tu Buster: más daño.',
+    'pickArmor': 'Ahora elige tu armadura de pecho.',
+    'upgradeArmor': 'Mejórala también: más defensa.',
+    'deploy': '¡Todo listo, de vuelta a las misiones!'
   },
   'loot': {
     'found': '¡Botín: {item} ({rarity})!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SISTEMA CAÍDO',
-    'body': 'Cobalt ha recibido demasiado daño.',
-    'kept': 'Conservas los {xp} XP y los {bolts} tornillos ganados hasta ahora.',
+    'body': 'Flux ha recibido demasiado daño.',
+    'kept': 'Conservas lo que has ganado hasta ahora:',
     'useTank': 'Reiniciar con tanque ({n})',
     'rebootAd': 'Reiniciar ya',
     'retreat': 'Volver al laboratorio'
@@ -190,11 +206,11 @@ export default {
       'block': 'Mantén el escudo para bloquear; púlsalo justo cuando un anillo se cierre para hacer una parada.'
     },
     'keys': {
-      'move': 'WASD / flechas: moverse. Haz clic en el suelo para ir allí.',
-      'look': 'Arrastra el ratón para mirar.',
-      'fire': 'Clic izquierdo o Espacio: disparar; mantén para cargar.',
-      'block': 'Clic derecho o Mayús: bloquear; pulsa justo cuando un anillo se cierre para hacer una parada.',
-      'slide': 'Q: deslizarse · H: tanque de reparación · E: interactuar',
+      'move': 'WASD / flechas: moverse.',
+      'look': 'Mueve el ratón para mirar. Haz clic en la escena para controlar la cámara.',
+      'fire': 'Clic izquierdo: disparar; mantén para cargar y suelta para disparar.',
+      'block': 'Clic derecho: bloquear; pulsa justo cuando un anillo se cierre para hacer una parada.',
+      'slide': 'Espacio: deslizarse · H: tanque de reparación · E: interactuar · B: teletransporte',
       'more': '1 / 2: armas especiales · Tab: cambiar de objetivo · Esc: pausa'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Misiones',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Circuitos',
       'workshop': 'Taller'
     },
+    'heroTabAria': 'Flux, tu androide de combate',
     'levelUpReady': '¡Nuevo nivel!',
     'levels': 'Nv. {a}–{b}',
     'story': 'Misión principal',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Nuevo encargo'
   },
   'hero': {
+    'role': 'Tu androide de combate',
     'weapons': 'Armas especiales',
     'weaponSlot': 'Ranura {n}',
     'weaponRank': 'Rango {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Requiere {name} (rango {n})',
     'install': 'Instalar chip',
     'maxed': 'A plena potencia',
-    'respec': 'Reiniciar circuitos ({n} tornillos)'
+    'respec': 'Reiniciar circuitos'
   },
   'skill': {
     'rapid': { 'name': 'Balas rápidas', 'desc': 'Daño de bala +10 % por chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Quitar',
     'equipped': 'Equipado',
     'new': 'NUEVO',
-    'salvage': 'Desguazar (+{n})',
+    'salvage': 'Desguazar',
     'noAffixes': 'Sin módulos extra',
     'emptySlot': 'Aún no hay nada para esta ranura: abre cofres y completa encargos.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Pista de música',
     'musicTracks': {
       'cozy': 'Circuitos tranquilos',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Vibración',
     'on': 'Activado',

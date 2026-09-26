@@ -3,7 +3,7 @@ import { PAL } from './palette'
 
 /**
  * Friendly androids: the stranded worker-bot the rescue jobs send you after,
- * and Pip, Cobalt's hovering support unit (hub + tutorial tips).
+ * and Pip, Flux's hovering support unit (hub + tutorial tips).
  */
 
 export const buildWorkerBot = (): Rig => {
@@ -50,12 +50,12 @@ export const buildPip = (): Rig => {
     .bone('body', 'root', [0, 0, 0])
     .bone('ring', 'body', [0, -0.18, 0])
   b.part('body', sph(0.24, 18, 14), '#f4f7ff')
-  b.part('body', ell(0.25, 0.08, 0.25), PAL.heroCyan, { p: [0, 0.02, 0] })
+  b.part('body', ell(0.25, 0.08, 0.25), PAL.labCyan, { p: [0, 0.02, 0] })
   b.part('body', ell(0.14, 0.14, 0.06), '#1d2438', { p: [0, 0.04, 0.2] })
   b.part('body', ell(0.08, 0.09, 0.03), PAL.glowCyan, { p: [0, 0.05, 0.25], glow: true, outline: false })
-  b.part('body', rcone(0.05, 0.015, 0.14, 0.01, 10), PAL.heroBlue, { p: [0, 0.3, 0] })
+  b.part('body', rcone(0.05, 0.015, 0.14, 0.01, 10), PAL.labBlue, { p: [0, 0.3, 0] })
   b.part('body', sph(0.035, 8, 6), '#ff7ab0', { p: [0, 0.39, 0], glow: true, outline: false })
-  b.part('ring', torus(0.2, 0.03, 6, 20), PAL.heroBlue, { r: [Math.PI / 2, 0, 0] })
+  b.part('ring', torus(0.2, 0.03, 6, 20), PAL.labBlue, { r: [Math.PI / 2, 0, 0] })
   return b.build({ outline: 0.012, height: 0.6 })
 }
 

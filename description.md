@@ -1,13 +1,13 @@
 # Mega Adventure
 
-## Short description (133 / 150 chars)
+## Short description (138 / 150 chars)
 
-Beam into robot-infested sectors as Cobalt, a blue combat android. Blast
+Beam into robot-infested sectors as Flux, a pearl-white combat android. Blast
 machines, loot gear, upgrade circuits and copy boss weapons!
 
-## Description (453 / 500 chars)
+## Description (451 / 500 chars)
 
-Rogue machines have overrun the city's sectors, and only Cobalt can take
+Rogue machines have overrun the city's sectors, and only Flux can take
 them back. Beam into each sector, explore rooms and corridors, and blast
 Hardhats, drones and brutes with your charge buster. Hold to charge, release
 at the perfect moment for a critical hit, raise your shield to block, and

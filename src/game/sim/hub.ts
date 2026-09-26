@@ -20,9 +20,9 @@ import { tickHud } from '../state/hud'
  * ─── The hub backdrop ────────────────────────────────────────────────────────
  *
  * Prof. Gauss's lab: a round platform under a dome of glowing panels, the
- * teleporter pad with Cobalt idling on it (in his current gear colours) and
+ * teleporter pad with Flux idling on it (in his current gear colours) and
  * Pip bobbing beside him. It is a stage for the hub menus, not a walkable
- * town — the camera frames Cobalt beside the UI and sways gently.
+ * town — the camera frames Flux beside the UI and sways gently.
  */
 export class HubMode implements GameMode {
   scene = new Scene()
@@ -113,7 +113,7 @@ export class HubMode implements GameMode {
     return g
   }
 
-  /** Rebuild Cobalt in his current gear colours (after equipping). */
+  /** Rebuild Flux in his current gear colours (after equipping). */
   refreshHero(): void {
     this.heroRoot.remove(this.hero.root)
     this.hero.mesh.geometry.dispose()
@@ -146,16 +146,16 @@ export class HubMode implements GameMode {
     else animateHeroIdle(this.hero, this.t)
     animatePip(this.pip, this.t)
     this.ring.rotation.y += dt * 0.5
-    // Frame Cobalt beside the menus: right third in landscape, upper half in portrait.
+    // Frame Flux beside the menus: right third in landscape, upper half in portrait.
     const cam = this.camera
     const portrait = cam.aspect < 1
-    // Pip hovers at Cobalt's shoulder; the narrow portrait frame would cut
+    // Pip hovers at Flux's shoulder; the narrow portrait frame would cut
     // him off at the top-left corner, so he swaps to the cannon side there.
     this.pipRoot.position.x = portrait ? 0.9 : -1.25
     this.pipRoot.position.y = (portrait ? 1.1 : 1.7) + Math.sin(this.t * 1.7) * 0.12
     const sway = Math.sin(this.t * 0.25) * 0.35
     if (portrait) {
-      // The menu sheet covers the lower ~60 %: aim low so Cobalt stands in
+      // The menu sheet covers the lower ~60 %: aim low so Flux stands in
       // the upper band of the screen.
       cam.position.set(sway * 0.6, 1.2, 7.2)
       cam.lookAt(0, -0.95, 0)

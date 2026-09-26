@@ -14,7 +14,7 @@
           :disabled="profile.bolts < TANK_PRICE || profile.inv.tanks >= stats.tanksMax"
           @click="buyTank"
         )
-          GameIcon.bi(name="bolt")
+          GameIcon.bi(name="nut")
           span {{ TANK_PRICE }}
       div.tank-row.drop(v-if="canOfferReward")
         div.tank-ico.drop-ico
@@ -29,8 +29,10 @@
           :aria-label="t('workshop.dropAria', { n: dropAmount })"
           @click="claimDrop"
         )
+          //- A video for "+60" and the nut: signed, like every reward.
           GameIcon.bi(name="video")
           span +{{ dropAmount }}
+          GameIcon.bi(name="nut")
       div.section-title {{ t('workshop.upgrade') }}
       div.cols
         div.list
@@ -40,6 +42,7 @@
             type="button"
             :class="{ sel: selId === it.id }"
             :style="{ '--rc': RARITY_COLOR[it.rarity] }"
+            :data-lesson="it.id === profile.inv.equipped.chest ? 'armor' : undefined"
             @click="selId = it.id"
           )
             span.r-ico
@@ -49,19 +52,22 @@
             span.r-eq(v-if="isEquipped(it.id)") ●
         div.detail-col(v-if="selected")
           ItemDetail(:item="selected")
-            div.upg-line(v-if="selected.slot !== 'chip'")
-              span {{ t('workshop.next') }}
-              span.v {{ mainStat(selected) }} → {{ nextMain }}
-            button.btn.upgrade(
-              type="button"
-              :disabled="selected.upg >= MAX_UPG || profile.bolts < upgradeCost(selected)"
-              @click="upgrade"
-            )
-              template(v-if="selected.upg >= MAX_UPG") {{ t('workshop.maxed') }}
-              template(v-else)
-                | {{ t('workshop.upgradeBtn') }}
-                GameIcon.bi(name="bolt")
-                | {{ upgradeCost(selected) }}
+            //- One block: what the upgrade buys, and the button that buys it
+            //- (the upgrade tour lights both).
+            div.upg-block(data-lesson="upgrade")
+              div.upg-line(v-if="selected.slot !== 'chip'")
+                span {{ t('workshop.next') }}
+                span.v {{ mainStat(selected) }} → {{ nextMain }}
+              button.btn.upgrade(
+                type="button"
+                :disabled="selected.upg >= MAX_UPG || profile.bolts < upgradeCost(selected)"
+                @click="upgrade"
+              )
+                template(v-if="selected.upg >= MAX_UPG") {{ t('workshop.maxed') }}
+                template(v-else)
+                  | {{ t('workshop.upgradeBtn') }}
+                  GameIcon.bi(name="nut")
+                  | {{ upgradeCost(selected) }}
 </template>
 
 <script setup lang="ts">
@@ -76,6 +82,7 @@ import { RARITY_COLOR } from '@/game/models/palette'
 import { sfx } from '@/game/audio/sfx'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { resumeMusicAfterAd } from '@/use/useSound'
+import { workshopSel } from './hubLesson'
 
 /** The Workshop: Repair Tanks, and upgrading gear with bolts (+1 … +10,
  *  +8 % main stat per level). Equipped gear is listed first. */
@@ -114,7 +121,10 @@ const claimDrop = async () => {
 const stats = computed(() => { void profile.hero.skills; return computeStats() })
 const items = computed(() => [...profile.inv.items]
   .sort((a, b) => Number(!!isEquipped(b.id)) - Number(!!isEquipped(a.id)) || itemPower(b) - itemPower(a)))
-const selId = ref<string | null>(profile.inv.equipped.buster)
+// Shared with the upgrade tour, which points at rows by what is selected.
+// Opening the Workshop selects the buster, as it always has.
+const selId = workshopSel
+selId.value = profile.inv.equipped.buster
 const selected = computed(() => itemById(selId.value))
 const nextMain = computed(() => {
   const s = selected.value
@@ -227,6 +237,10 @@ const upgrade = () => {
 .detail-col
   flex: 1
   min-width: 0
+.upg-block
+  display: flex
+  flex-direction: column
+  gap: 8px
 .upg-line
   display: flex
   justify-content: space-between

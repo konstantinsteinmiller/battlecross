@@ -115,8 +115,8 @@ export default {
     'title': 'Tujuan',
     'complete': 'Tujuan tercapai',
     'beamOutHint': 'Teleport keluar kapan pun kamu siap.',
-    'tutorial': 'Kalahkan Si Rongsok',
-    'boss': 'Kalahkan Master Inti',
+    'tutorial': 'Kalahkan {boss}',
+    'boss': 'Kalahkan {boss}',
     'kill': 'Hancurkan {target}: {n}/{total}',
     'collect': 'Inti data: {n}/{total}',
     'rescue': 'Temukan robot pekerja yang terjebak',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Geser sisi kiri untuk bergerak, sisi kanan untuk melihat. Ketuk lantai untuk berjalan ke sana!',
-    'moveKeys': 'WASD untuk bergerak, geser mouse untuk melihat. Klik lantai untuk berjalan ke sana!',
+    'moveKeys': 'WASD untuk bergerak.',
+    'lookMouse': 'Gerakkan mouse untuk melihat sekeliling.',
+    'capture': 'Klik layar permainan untuk mengendalikan kamera.',
     'fireTouch': 'Ada mesin di depan! Ketuk untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
-    'fireKeys': 'Ada mesin di depan! Klik atau Space untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
+    'fireKeys': 'Ada mesin di depan! Klik kiri untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
     'charge': 'Perisai menahan peluru biasa. Tembakan bermuatan PENUH langsung menembusnya.',
     'blockTouch': 'Lingkaran oranye: tahan perisai untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
-    'blockKeys': 'Lingkaran oranye: tahan Shift atau klik kanan untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
+    'blockKeys': 'Lingkaran oranye: tahan tombol kanan mouse untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
     'red': 'Lingkaran merah artinya tak bisa diblok — meluncurlah menghindar!',
+    'dodgeKeys': 'Lingkaran merah artinya tak bisa diblok — tekan Space untuk meluncur menghindar!',
     'chest': 'Peti pasokan! Ketuk untuk membukanya.',
     'tank': 'Hampir habis? Tangki Perbaikan memulihkanmu sepenuhnya.',
     'weapon': 'Pakai senjata salinanmu lewat tombol berwarna!'
+  },
+  'lesson': {
+    'charge': 'Tahan untuk mengisi muatan Buster-mu, lalu lepas: hanya tembakan bermuatan yang bisa memecah perisai drone latihan.',
+    'crate': 'Kotak pasokan hanya pecah oleh tembakan bermuatan. Tahan, lalu lepas sambil membidik kotak yang menyala.',
+    'weaponKeys': 'Tekan {n} untuk menembakkan senjata salinanmu: satu tembakan mengenai ketiga drone.',
+    'weaponTouch': 'Ketuk tombol senjata yang menyala: satu tembakan mengenai ketiga drone.'
+  },
+  'hubLesson': {
+    'workshop': 'Buka Bengkel.',
+    'upgradeBuster': 'Pakai baut untuk meningkatkan Buster-mu: kerusakan lebih besar.',
+    'pickArmor': 'Sekarang pilih zirah dadamu.',
+    'upgradeArmor': 'Tingkatkan juga: pertahanan lebih kuat.',
+    'deploy': 'Semua siap — kembali ke misi!'
   },
   'loot': {
     'found': '{item} {rarity} ditemukan!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SISTEM MATI',
-    'body': 'Cobalt menerima terlalu banyak kerusakan.',
-    'kept': 'Kamu tetap membawa {xp} XP dan {bolts} baut yang sudah didapat.',
+    'body': 'Flux menerima terlalu banyak kerusakan.',
+    'kept': 'Kamu tetap membawa hasil sejauh ini:',
     'useTank': 'Reboot dengan Tangki Perbaikan ({n})',
     'rebootAd': 'Reboot sekarang',
     'retreat': 'Mundur ke lab'
@@ -190,11 +206,11 @@ export default {
       'block': 'Tahan perisai untuk memblok — tepat saat lingkaran menutup untuk menangkis.'
     },
     'keys': {
-      'move': 'WASD / panah: bergerak. Klik lantai untuk berjalan ke sana.',
-      'look': 'Geser mouse untuk melihat.',
-      'fire': 'Klik kiri atau Space: tembak — tahan untuk mengisi muatan.',
-      'block': 'Klik kanan atau Shift: blok — tepat saat lingkaran menutup untuk menangkis.',
-      'slide': 'Q: meluncur · H: Tangki Perbaikan · E: interaksi',
+      'move': 'WASD / panah: bergerak.',
+      'look': 'Gerakkan mouse untuk melihat. Klik layar permainan untuk mengendalikan kamera.',
+      'fire': 'Klik kiri: tembak — tahan untuk mengisi muatan, lepas untuk menembak.',
+      'block': 'Klik kanan: blok — tepat saat lingkaran menutup untuk menangkis.',
+      'slide': 'Space: meluncur · H: Tangki Perbaikan · E: interaksi · B: teleport keluar',
       'more': '1 / 2: senjata spesial · Tab: ganti target · Esc: jeda'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Misi',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Sirkuit',
       'workshop': 'Bengkel'
     },
+    'heroTabAria': 'Flux, android tempurmu',
     'levelUpReady': 'Naik level!',
     'levels': 'Lv {a}–{b}',
     'story': 'Misi cerita',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Tugas baru'
   },
   'hero': {
+    'role': 'Android tempurmu',
     'weapons': 'Senjata spesial',
     'weaponSlot': 'Slot {n}',
     'weaponRank': 'Tingkat {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Butuh {name} tingkat {n}',
     'install': 'Pasang chip',
     'maxed': 'Daya penuh',
-    'respec': 'Atur ulang sirkuit ({n} baut)'
+    'respec': 'Atur ulang sirkuit'
   },
   'skill': {
     'rapid': { 'name': 'Peluru Cepat', 'desc': 'Kerusakan tembakan cepat +10% per chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Lepas',
     'equipped': 'Dipakai',
     'new': 'BARU',
-    'salvage': 'Daur ulang (+{n})',
+    'salvage': 'Daur ulang',
     'noAffixes': 'Tanpa modul bonus',
     'emptySlot': 'Belum ada untuk soket ini — buka peti dan selesaikan tugas.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Trek Musik',
     'musicTracks': {
       'cozy': 'Sirkuit Tenang',
-      'trance': 'Laju Mega'
+      'trance': 'Laju Ekstra'
     },
     'haptics': 'Getaran',
     'on': 'Aktif',

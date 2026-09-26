@@ -117,8 +117,8 @@ export default {
     'title': 'Hedef',
     'complete': 'Hedef tamamlandı',
     'beamOutHint': 'Hazır olduğunda ışınlan.',
-    'tutorial': "Hurdacı'yı yen",
-    'boss': 'Çekirdek Ustasını yen',
+    'tutorial': 'Patronu yen: {boss}',
+    'boss': 'Patronu yen: {boss}',
     'kill': 'Yok edilen {target}: {n}/{total}',
     'collect': 'Veri çekirdekleri: {n}/{total}',
     'rescue': 'Mahsur kalan işçi robotu bul',
@@ -142,16 +142,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Hareket için sol tarafı, bakmak için sağ tarafı sürükle. Oraya yürümek için zemine dokun!',
-    'moveKeys': 'Hareket için WASD, bakmak için fareyi sürükle. Oraya yürümek için zemine tıkla!',
+    'moveKeys': 'Etrafta dolaşmak için WASD.',
+    'lookMouse': 'Etrafa bakmak için fareyi hareket ettir.',
+    'capture': 'Kamerayı kontrol etmek için sahneye tıkla.',
     'fireTouch': 'Önünde makineler var! Ateş etmek için dokun — şarjlı atış için basılı tut ve bırak.',
-    'fireKeys': 'Önünde makineler var! Ateş etmek için tıkla ya da Boşluk — şarjlı atış için basılı tut ve bırak.',
+    'fireKeys': 'Önünde makineler var! Ateş etmek için sol tıkla — şarjlı atış için basılı tut ve bırak.',
     'charge': 'Kalkanlar mermileri durdurur. TAM şarjlı atış kalkanı delip geçer.',
     'blockTouch': 'Turuncu halka: bloklamak için kalkanı basılı tut — halka kapanırken basarak SAVUŞTUR!',
-    'blockKeys': 'Turuncu halka: bloklamak için Shift ya da sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
+    'blockKeys': 'Turuncu halka: bloklamak için sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
     'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
+    'dodgeKeys': 'Kırmızı halka bloklanamaz demek — Boşluk tuşuna bas ve kayarak yoldan çekil!',
     'chest': 'Bir ikmal sandığı! Açmak için dokun.',
     'tank': 'Canın mı azaldı? Tamir Kiti seni tamamen onarır.',
     'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!'
+  },
+  'lesson': {
+    'charge': "Buster'ını şarj etmek için basılı tut, sonra bırak: eğitim dronunun kalkanını yalnızca şarjlı atış kırar.",
+    'crate': 'İkmal kasaları yalnızca şarjlı atışla kırılır. Basılı tut, sonra parlayan kasaya nişan alıp bırak.',
+    'weaponKeys': 'Kopyaladığın silahı ateşlemek için {n} tuşuna bas: tek atış üç dronu birden vurur.',
+    'weaponTouch': 'Parlayan silah düğmesine dokun: tek atış üç dronu birden vurur.'
+  },
+  'hubLesson': {
+    'workshop': 'Atölyeyi aç.',
+    'upgradeBuster': "Buster'ını geliştirmek için cıvata harca: daha fazla hasar.",
+    'pickArmor': 'Şimdi göğüs zırhını seç.',
+    'upgradeArmor': 'Onu da geliştir: daha fazla savunma.',
+    'deploy': 'Her şey hazır — görevlere geri dön!'
   },
   'loot': {
     'found': '{rarity} {item} bulundu!',
@@ -174,8 +190,8 @@ export default {
   },
   'defeat': {
     'title': 'SİSTEM ÇÖKTÜ',
-    'body': 'Cobalt çok fazla hasar aldı.',
-    'kept': 'Şu ana kadar kazandığın {xp} XP ve {bolts} cıvata sende kalıyor.',
+    'body': 'Flux çok fazla hasar aldı.',
+    'kept': 'Şu ana kadar kazandıkların sende kalıyor:',
     'useTank': 'Tamir Kiti kullan ({n})',
     'rebootAd': 'Hemen yeniden başlat',
     'retreat': 'Laboratuvara çekil'
@@ -192,11 +208,11 @@ export default {
       'block': 'Bloklamak için kalkanı basılı tut — savuşturmak için halka kapanırken bas.'
     },
     'keys': {
-      'move': 'WASD / oklar: hareket. Oraya yürümek için zemine tıkla.',
-      'look': 'Bakmak için fareyi sürükle.',
-      'fire': 'Sol tık ya da Boşluk: ateş — şarj için basılı tut.',
-      'block': 'Sağ tık ya da Shift: blok — savuşturmak için halka kapanırken bas.',
-      'slide': 'Q: kayma · H: Tamir Kiti · E: etkileşim',
+      'move': 'WASD / oklar: hareket.',
+      'look': 'Bakmak için fareyi hareket ettir. Kamerayı kontrol etmek için sahneye tıkla.',
+      'fire': 'Sol tık: ateş — şarj için basılı tut, ateşlemek için bırak.',
+      'block': 'Sağ tık: blok — savuşturmak için halka kapanırken bas.',
+      'slide': 'Boşluk: kayma · H: Tamir Kiti · E: etkileşim · B: ışınlan',
       'more': '1 / 2: özel silahlar · Tab: hedef değiştir · Esc: duraklat'
     }
   },
@@ -214,10 +230,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Görevler',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Devreler',
       'workshop': 'Atölye'
     },
+    'heroTabAria': 'Flux, savaş androidin',
     'levelUpReady': 'Seviye atladın!',
     'levels': 'Sv {a}–{b}',
     'story': 'Hikâye görevi',
@@ -229,6 +246,7 @@ export default {
     'reroll': 'Yeni iş'
   },
   'hero': {
+    'role': 'Savaş androidin',
     'weapons': 'Özel silahlar',
     'weaponSlot': 'Yuva {n}',
     'weaponRank': 'Kademe {n}',
@@ -273,7 +291,7 @@ export default {
     'requires': 'Gerekli: {name} kademe {n}',
     'install': 'Çipi tak',
     'maxed': 'Tam güç',
-    'respec': 'Devreleri sıfırla ({n} cıvata)'
+    'respec': 'Devreleri sıfırla'
   },
   'skill': {
     'rapid': { 'name': 'Seri Mermi', 'desc': 'Hızlı atış hasarı çip başına +%10.' },
@@ -337,7 +355,7 @@ export default {
     'unequip': 'Çıkar',
     'equipped': 'Takılı',
     'new': 'YENİ',
-    'salvage': 'Sök (+{n})',
+    'salvage': 'Sök',
     'noAffixes': 'Bonus modül yok',
     'emptySlot': 'Bu yuva için henüz bir şey yok — sandıkları aç, işleri bitir.'
   },
@@ -377,7 +395,7 @@ export default {
     'musicTrack': 'Müzik Parçası',
     'musicTracks': {
       'cozy': 'Sakin Devreler',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Titreşim',
     'on': 'Açık',

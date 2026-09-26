@@ -1,10 +1,16 @@
 @use './fonts'
 @use './components'
 
-/* Prevent all touch zooming and remove the 300ms delay */
+/* No page panning, pinch or double-tap zoom, pull-to-refresh or long-press
+   callout: a game, not a document. `manipulation` still allowed pinch and
+   pan, and a pan in progress made every second thumb's touchstart
+   uncancelable. Scroll containers inside (the hub lists, modals) keep
+   their own panning: touch-action only reaches up to the nearest one. */
 html, body
-  touch-action: manipulation
-  -ms-touch-action: manipulation
+  touch-action: none
+  -ms-touch-action: none
+  overscroll-behavior: none
+  -webkit-touch-callout: none
   margin: 0
   padding: 0
   overflow: hidden
@@ -35,7 +41,7 @@ html, body
     opacity: 0.7
 
 // Arabic: every text block takes its base direction from its own first strong
-// character, so a sentence with an embedded Latin name (Cobalt, WASD) reads
+// character, so a sentence with an embedded Latin name (Flux, WASD) reads
 // right-to-left with the Latin run in place. The layout itself stays LTR —
 // the HUD's thumb zones and the hub geometry do not mirror.
 //

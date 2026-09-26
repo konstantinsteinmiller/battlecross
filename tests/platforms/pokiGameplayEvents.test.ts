@@ -166,6 +166,141 @@ describe('poki gameplay bracket', () => {
     })
   })
 
+  // ─── The gate only opens for a REAL player ────────────────────────────────
+  //
+  // Poki QA checks by hand that the first `gameplayStart()` follows a player
+  // interaction. The listeners `pokiPlugin()` arms must therefore ignore any
+  // event a script dispatched (`isTrusted === false`), and must not demand a
+  // second tap from a player whose first one landed before they were armed —
+  // the browser's sticky `navigator.userActivation.hasBeenActive` answers that.
+  describe('trusted-gesture gate', () => {
+    const GESTURES = ['pointerdown', 'touchstart', 'keydown', 'pointerup', 'touchend']
+    let mod: Plugin | null = null
+    const undo: Array<() => void> = []
+
+    /** jsdom has no `navigator.userActivation`; give it one for a spec. */
+    const setStickyActivation = (hasBeenActive: boolean): void => {
+      const prev = Object.getOwnPropertyDescriptor(navigator, 'userActivation')
+      Object.defineProperty(navigator, 'userActivation', {
+        value: { hasBeenActive, isActive: false },
+        configurable: true
+      })
+      undo.push(() => {
+        if (prev) Object.defineProperty(navigator, 'userActivation', prev)
+        else delete (navigator as unknown as { userActivation?: unknown }).userActivation
+      })
+    }
+
+    afterEach(() => {
+      // Each spec loads a FRESH module; detach its window listeners so an old
+      // instance never reacts to a later spec's events.
+      mod?.__resetPokiGameplayBracketForTests()
+      mod = null
+      undo.splice(0).reverse().forEach((fn) => fn())
+      vi.restoreAllMocks()
+    })
+
+    it('ignores synthetic (untrusted) input — a dispatched event is not a player', async () => {
+      const emitted = installSdkSpy()
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+
+      window.dispatchEvent(new Event('pointerdown'))
+      window.dispatchEvent(new Event('touchstart'))
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'w' }))
+      await wait(GUARD_MS * 2)
+
+      // Held: nothing a script can fake may open Poki's gameplay bracket.
+      expect(emitted).toEqual([])
+    })
+
+    it('releases the held start on a trusted gesture', async () => {
+      const emitted = installSdkSpy()
+      const handlers = new Map<string, (e: Event) => void>()
+      vi.spyOn(window, 'addEventListener').mockImplementation(((type: string, h: (e: Event) => void) => {
+        handlers.set(type, h)
+      }) as typeof window.addEventListener)
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      vi.restoreAllMocks()
+
+      // Capture-phase listeners for every gesture family.
+      expect([...handlers.keys()].sort()).toEqual([...GESTURES].sort())
+
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+      expect(emitted).toEqual([])
+
+      // jsdom cannot mint a trusted event, so hand the armed listener one.
+      handlers.get('pointerdown')!({ isTrusted: true, type: 'pointerdown' } as unknown as Event)
+      expect(emitted.map((e) => e.kind)).toEqual(['start'])
+    })
+
+    it('releases on a trusted UP edge too (a touch that went down during the splash)', async () => {
+      const emitted = installSdkSpy()
+      const handlers = new Map<string, (e: Event) => void>()
+      vi.spyOn(window, 'addEventListener').mockImplementation(((type: string, h: (e: Event) => void) => {
+        handlers.set(type, h)
+      }) as typeof window.addEventListener)
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      vi.restoreAllMocks()
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+
+      handlers.get('touchend')!({ isTrusted: false, type: 'touchend' } as unknown as Event)
+      expect(emitted).toEqual([])
+      handlers.get('touchend')!({ isTrusted: true, type: 'touchend' } as unknown as Event)
+      expect(emitted.map((e) => e.kind)).toEqual(['start'])
+    })
+
+    it('opens on the browser\'s sticky user activation, with no listener needed', async () => {
+      // The player tapped before `pokiPlugin()` ran (the entry chunk was still
+      // parsing): no listener saw it, but the browser remembers it.
+      setStickyActivation(true)
+      const emitted = installSdkSpy()
+      const add = vi.spyOn(window, 'addEventListener')
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+
+      expect(add.mock.calls.filter(([type]) => GESTURES.includes(String(type)))).toEqual([])
+
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+      // One tap was enough — no second one demanded.
+      expect(emitted.map((e) => e.kind)).toEqual(['start'])
+    })
+
+    it('reads activation again when the bracket asks to open, not only at arm time', async () => {
+      // A touch that went down before arming and came up after it grants
+      // activation on the UP edge — which none of the listeners hears.
+      setStickyActivation(false)
+      const emitted = installSdkSpy()
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      mod.pokiGameplayStart()
+      expect(emitted).toEqual([])
+
+      setStickyActivation(true)
+      mod.pokiGameLoadingFinished()
+      expect(emitted.map((e) => e.kind)).toEqual(['start'])
+    })
+
+    it('stays shut with no activation and no gesture', async () => {
+      setStickyActivation(false)
+      const emitted = installSdkSpy()
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+      await wait(GUARD_MS * 2)
+
+      expect(emitted).toEqual([])
+    })
+  })
+
   describe('bad-event guard', () => {
     it('never emits a start within the SDK bad-event window of a stop', async () => {
       const emitted = installSdkSpy()

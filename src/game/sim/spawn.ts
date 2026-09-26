@@ -3,9 +3,11 @@ import type { Element } from '../data/enemies'
 import type { MapData, Room } from '../world/levelGen'
 import { cellCenter, roomCenter } from '../world/levelGen'
 import { mulberry32, weighted } from '../world/rng'
+import { hasLineOfSight, type Nav } from '../world/nav'
 import { createEnemy } from './enemies'
 import type { Enemy } from './world'
 import type { Slice } from '../engine/slicer'
+import { TEACHER, doorwayOf, type WalkPlan } from './walkthrough'
 
 /**
  * Encounter placement: which machines stand in which room. Deterministic from
@@ -26,7 +28,7 @@ export interface EncounterTable {
  *  sees the yields, so the order (which resume snapshots index) is stable. */
 export const spawnEncounters = async (
   map: MapData, table: EncounterTable, level: number,
-  opts: { firstRoomsGentle?: boolean; slice?: Slice; onProgress?: (f01: number) => void } = {}
+  opts: { slice?: Slice; onProgress?: (f01: number) => void } = {}
 ): Promise<Enemy[]> => {
   const rng = mulberry32(map.seed ^ 0xe11e)
   const out: Enemy[] = []
@@ -37,8 +39,6 @@ export const spawnEncounters = async (
     if (room.role === 'treasure') n = 1 + (rng() < 0.5 ? 1 : 0)
     else if (room.role === 'objective') n = Math.max(2, Math.round((area / 9) * table.density) + 1)
     else n = Math.max(1, Math.round((area / 9) * table.density))
-    // Onboarding: the first room off the start is a single easy target.
-    if (opts.firstRoomsGentle && room.depth === 1) n = 1
     n = Math.min(n, 6, room.spots.length)
     const [cx, cz] = roomCenter(room)
     let placed = 0
@@ -46,7 +46,6 @@ export const spawnEncounters = async (
     let wallIdx = 0
     while (placed < n && spotIdx < room.spots.length) {
       let kind = weighted(rng, table.kinds)
-      if (opts.firstRoomsGentle && room.depth === 1) kind = 'hardhat'
       let x: number
       let z: number
       if (kind === 'turret') {
@@ -69,6 +68,72 @@ export const spawnEncounters = async (
     opts.onProgress?.((room.id + 1) / map.rooms.length)
   }
   return out
+}
+
+/** A side room this big gets a second Hardhat. */
+const SIDE_PAIR_SPOTS = 16
+/** Where a teacher stands: about this far from the door the player comes in by. */
+const TEACH_DIST = 8
+
+/**
+ * The tutorial's cast, scripted rather than rolled (see `walkthrough.ts`):
+ * each walkthrough room gets exactly the machine its lesson needs, a side
+ * room a Hardhat or two — none where a chest waits — and nothing that could
+ * pass for the boss before the Scrapper: no Guardroid, no elite (a Guardroid
+ * in the Scrapyard was taken for "the boss" in the blind playtest). Each
+ * machine stands in plain view of the door the player enters by, facing it.
+ * No RNG, so a resume rebuilds the very same cast.
+ */
+export const spawnTutorial = async (
+  map: MapData, nav: Nav, plan: WalkPlan, level: number,
+  opts: { chestRooms?: ReadonlySet<number>; slice?: Slice; onProgress?: (f01: number) => void } = {}
+): Promise<Enemy[]> => {
+  const out: Enemy[] = []
+  for (const room of map.rooms) {
+    if (room.role === 'start' || room.role === 'boss') continue
+    const gate = plan.gates.find(g => g.room === room.id)
+    const kinds: EnemyKind[] = []
+    if (gate) {
+      for (const s of gate.steps) {
+        const k = TEACHER[s]
+        if (k) kinds.push(k)
+      }
+    } else if (!opts.chestRooms?.has(room.id)) {
+      kinds.push('hardhat')
+      if (room.spots.length >= SIDE_PAIR_SPOTS) kinds.push('hardhat')
+    }
+    const [dx, dz] = doorwayOf(map, room.id)
+    const taken: Array<[number, number]> = []
+    for (const kind of kinds) {
+      const at = teachSpot(nav, room, dx, dz, taken)
+      if (!at) break
+      taken.push(at)
+      const e = createEnemy(kind, level, at[0], at[1], room.id)
+      e.yaw = Math.atan2(dx - at[0], dz - at[1])
+      out.push(e)
+      await opts.slice?.()
+    }
+    opts.onProgress?.((room.id + 1) / map.rooms.length)
+  }
+  return out
+}
+
+/** A floor cell about TEACH_DIST from the doorway, in sight of it, clear of
+ *  the machines already placed. */
+const teachSpot = (nav: Nav, room: Room, dx: number, dz: number, taken: Array<[number, number]>): [number, number] | null => {
+  let best: [number, number] | null = null
+  let bestScore = Infinity
+  for (const [i, j] of room.spots) {
+    const x = cellCenter(i)
+    const z = cellCenter(j)
+    if (taken.some(([tx, tz]) => Math.hypot(tx - x, tz - z) < 3)) continue
+    const score = Math.abs(Math.hypot(x - dx, z - dz) - TEACH_DIST) + (hasLineOfSight(nav, dx, dz, x, z) ? 0 : 6)
+    if (score < bestScore) {
+      best = [x, z]
+      bestScore = score
+    }
+  }
+  return best
 }
 
 export const roomOf = (map: MapData, x: number, z: number): Room | null => {

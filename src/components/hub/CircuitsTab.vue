@@ -48,8 +48,12 @@
           @click="install"
         )
           span {{ rank(sel.id) >= sel.ranks ? t('circuits.maxed') : t('circuits.install') }}
+        //- The price wears the nut, like every price in the Workshop.
         button.respec(v-if="spent > 0" type="button" :disabled="profile.bolts < respecCost(profile.hero.skills)" @click="respec")
-          | {{ t('circuits.respec', { n: respecCost(profile.hero.skills) }) }}
+          span {{ t('circuits.respec') }}
+          span.cost
+            GameIcon.ci(name="nut")
+            | {{ respecCost(profile.hero.skills) }}
 </template>
 
 <script setup lang="ts">
@@ -228,9 +232,22 @@ const respec = () => {
   color: #fff
 .respec
   margin-top: auto
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 8px
   background: linear-gradient(#5d6a82, #3b4458)
   color: #fff
   font-size: clamp(11px, 2.4vmin, 13px)
+.cost
+  display: inline-flex
+  align-items: center
+  gap: 3px
+  color: #ffd84a
+  // Nested, so it outranks GameIcon's own 100% sizing on specificity.
+  .ci
+    width: 1.15em
+    height: 1.15em
 @media (orientation: portrait)
   .body
     flex-direction: column

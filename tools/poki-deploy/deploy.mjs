@@ -17,11 +17,22 @@
 //   pnpm deploy:poki --skip-build       upload the zip that is already there
 //   pnpm deploy:poki --skip-qa          upload, stop before the Inspector
 //   pnpm deploy:poki --qa-only          QA the newest version already in P4D
-//   pnpm deploy:poki --gates-only       audit the artifact and stop
-//   pnpm deploy:poki --dry-run          everything except the upload itself
+//   pnpm deploy:poki --game-id <uuid>   the P4D game for this run (overrides the config)
+//   pnpm deploy:poki --gates-only       OFFLINE: pack + audit the built artifact and stop.
+//                                       No version bump, no build, no browser, no network,
+//                                       no P4D — and no gameId needed. Build first
+//                                       (`pnpm build:poki`), then run this.
+//   pnpm deploy:poki --dry-run          everything except the upload itself — NOT offline:
+//                                       it signs in to P4D, reads the Versions list and runs
+//                                       the Inspector pass on the newest existing version
 //   pnpm deploy:poki --strict           budget warnings fail the run
 //   pnpm deploy:poki --honest-ticks     tick only what the run proved
 //   pnpm deploy:poki --keep             leave Chrome open at the end
+//
+// Every mode except --gates-only talks to P4D, and refuses to start without an
+// explicit, valid `gameId` that is not another game's (lib/target.mjs) — checked
+// before the version bump, the build or the browser, so a refused run changes
+// nothing.
 //
 // The first run opens a real Chrome window and waits for a Google sign-in;
 // after that the profile at ~/.poki-deploy/chrome-profile carries the session.
@@ -33,7 +44,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { Cdp, DEFAULT_PROFILE, launch } from './lib/chrome.mjs'
 import { runGates } from './lib/gates.mjs'
-import { zipDir } from './lib/zip.mjs'
+import { packArtifact } from './lib/pack.mjs'
+import { checkGameId } from './lib/target.mjs'
 import { bold, bytes, cyan, die, dim, fail, info, pass, step, warn, yellow, green, red } from './lib/log.mjs'
 import { inspectorUrl, openVersions, readVersions, uploadVersion, versionsUrl, gameFrameOrigin } from './lib/p4d.mjs'
 import { STEPS, applyVerdicts, runInspectorQa } from './lib/inspector.mjs'
@@ -64,9 +76,18 @@ const HONEST = flag('honest-ticks')
 const PORT = Number(arg('port', 9333))
 const PROFILE = arg('profile', DEFAULT_PROFILE)
 
+// ── 0. which P4D game ───────────────────────────────────────────────────────
+// Decided FIRST, before anything is written: every mode but --gates-only
+// addresses P4D by this id, and a missing or foreign one must stop the run
+// while it has still changed nothing (no version bump, no build, no browser).
+const NEEDS_P4D = !GATES_ONLY
+const target = checkGameId(arg('game-id', cfg.gameId))
+if (NEEDS_P4D && !target.ok) die(target.why, target.next)
+const gameId = target.ok ? target.gameId : null
+
 console.log(bold(`\nPoki deploy — ${cfg.gameName}`))
-console.log(dim(`  team ${cfg.team} · game ${cfg.gameId}`))
-if (DRY) console.log(yellow('  --dry-run: nothing will actually be uploaded'))
+console.log(dim(`  team ${cfg.team} · game ${gameId ?? '(no gameId — offline gates only)'}`))
+if (DRY) console.log(yellow('  --dry-run: nothing will actually be uploaded (P4D and the Inspector are still opened)'))
 
 // ── 1. version ──────────────────────────────────────────────────────────────
 let version = readVersion(PKG)
@@ -106,16 +127,15 @@ if (!SKIP_BUILD && !GATES_ONLY) {
 // build script found on PATH — see lib/zip.mjs for the round this cost.
 if (!QA_ONLY && (cfg.repack ?? true)) {
   step('Pack')
-  const packed = zipDir(join(ROOT, cfg.dist), join(ROOT, cfg.zip), {
-    exclude: name => name.endsWith('.zip') || /-original\.(png|jpe?g|webp)$/i.test(name) || (cfg.zipExclude?.(name) ?? false),
-  })
+  const packed = packArtifact({ root: ROOT, cfg })
   info(`${cfg.zip}`, `${packed.entries} entries, ${bytes(packed.bytes)}, sha1 ${packed.sha1}`)
+  if (!packed.ok) die(`the packed archive would be rejected: ${packed.why}`, 'rebuild with `pnpm build:poki`, then re-run')
 }
 
 // ── 3. gates ────────────────────────────────────────────────────────────────
 if (!QA_ONLY) {
   step('Release gates')
-  const g = runGates({ dist: join(ROOT, cfg.dist), zip: join(ROOT, cfg.zip), allowHosts: cfg.allowHosts })
+  const g = runGates({ dist: join(ROOT, cfg.dist), zip: join(ROOT, cfg.zip), allowHosts: cfg.allowHosts, forbid: cfg.forbidInBundle ?? [] })
   for (const r of g.results) (r.level === 'pass' ? pass : r.level === 'warn' ? warn : fail)(r.name, r.detail)
   if (g.failed) die(`${g.failed} gate(s) failed`, 'these are rejections waiting to happen — fix them before uploading')
   if (STRICT && g.warned) die(`${g.warned} warning(s), and --strict was passed`)
@@ -124,6 +144,9 @@ if (!QA_ONLY) {
 }
 
 // ── 4. browser ──────────────────────────────────────────────────────────────
+// Belt and braces: nothing below this line may run without a valid target, even
+// if a later edit to the flags above lets a new mode fall through to here.
+if (!gameId) die(checkGameId(arg('game-id', cfg.gameId)).why ?? 'no valid gameId', 'see tools/poki-deploy/lib/target.mjs')
 step('Browser')
 const { port, adopted, profile } = await launch({ profile: PROFILE, port: PORT })
 info(adopted ? 'adopted the Chrome already on this port' : 'launched a headed Chrome', profile)
@@ -139,7 +162,7 @@ try {
     step('Upload to P4D')
     await openVersions(cdp, {
       team: cfg.team,
-      gameId: cfg.gameId,
+      gameId,
       onLoginNeeded: () => {
         console.log(`\n   ${yellow('▸ Sign in to Poki in the Chrome window that just opened.')}`)
         console.log(`   ${dim('This is a one-off: the profile keeps the session for every run after this.')}`)
@@ -159,11 +182,11 @@ try {
       })
       versionId = up.id
       pass(`uploaded as "${up.label}"`, `version ${up.id} — ${up.status}`)
-      info('served at', gameFrameOrigin(cfg.gameId, up.id))
+      info('served at', gameFrameOrigin(gameId, up.id))
     }
   } else {
     step('Target version')
-    await openVersions(cdp, { team: cfg.team, gameId: cfg.gameId, onLoginNeeded: () => console.log(yellow('   ▸ sign in to Poki in the Chrome window')) })
+    await openVersions(cdp, { team: cfg.team, gameId, onLoginNeeded: () => console.log(yellow('   ▸ sign in to Poki in the Chrome window')) })
     const rows = await readVersions(cdp)
     versionId = versionId ?? rows[0]?.id
     if (!versionId) die('no versions in P4D to QA')
@@ -192,7 +215,7 @@ try {
   }
 
   console.log(`\n${green('✔')} done — ${bold(versionName)}`)
-  console.log(`  ${dim('P4D')}        ${versionsUrl(cfg.team, cfg.gameId)}`)
+  console.log(`  ${dim('P4D')}        ${versionsUrl(cfg.team, gameId)}`)
   if (versionId) console.log(`  ${dim('Inspector')}  ${inspectorUrl(versionId)}`)
   console.log(`  ${dim('Setting the version live is still a manual click in P4D.')}\n`)
   failedRun = false

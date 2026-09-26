@@ -30,8 +30,11 @@ export interface CombatHost extends World {
   onPickup(kind: PickupKind, value: number): void
   onPlayerHurt(amount: number): void
   onPlayerDown(): void
-  /** Breakable props (crates / barrels): true if the shot struck one. */
-  shotHitsProp?(x: number, y: number, z: number, r: number, dmg: number): boolean
+  /** Breakable props (crates / barrels): true if the shot struck one.
+   *  `charge` is the shot's charge level (0 = a quick shot). */
+  shotHitsProp?(x: number, y: number, z: number, r: number, dmg: number, charge: number): boolean
+  /** A lesson's subject (the training drone): struck, turned away, or missed. */
+  shotHitsLesson?(s: Shot): 'hit' | 'deflect' | null
   /** A player shot bounced off a guard (TINK). */
   onDeflect?(): void
 }
@@ -48,6 +51,11 @@ const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: numb
 }
 
 const sphereGeo = new SphereGeometry(1, 12, 8)
+
+/** How charged a player shot is: 0 for a quick pellet; a copied weapon's
+ *  shots and reflected shots count as charged. */
+const chargeLevel = (s: Shot): number =>
+  s.kind === 'charge3' ? 3 : s.kind === 'charge2' || s.kind === 'reflect' ? 2 : s.kind === 'charge1' || s.weapon ? 1 : 0
 
 /** A wall of fire / wind sliding along the floor (boss attack — slide past it). */
 interface Wave {
@@ -369,13 +377,16 @@ export class CombatSystem {
           }
         }
         if (popped && s.pierce <= 0) { this.kill(s); continue }
-        if (h.shotHitsProp?.(s.x, s.y, s.z, s.radius, s.dmg)) {
+        const lesson = h.shotHitsLesson?.(s)
+        if (lesson === 'deflect' || (lesson === 'hit' && s.pierce <= 0)) { this.kill(s); continue }
+        if (lesson === 'hit') s.pierce--
+        if (h.shotHitsProp?.(s.x, s.y, s.z, s.radius, s.dmg, chargeLevel(s))) {
           h.fx.sparks(s.x, s.y, s.z, s.color, 6, 4)
           if (s.pierce <= 0) { this.kill(s); continue }
           s.pierce--
         }
         for (const e of h.enemies) {
-          if (e.state === 'dead' || s.hitIds.includes(e.id)) continue
+          if (e.state === 'dead' || e.offstage || s.hitIds.includes(e.id)) continue
           const ex = e.x - s.x
           const ey = e.y + e.def.aimY * (e.elite ? 1.18 : 1) - s.y
           const ez = e.z - s.z
@@ -481,7 +492,8 @@ export class CombatSystem {
 
   damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean; weapon?: string }): void {
     const h = this.host
-    if (e.state === 'dead') return
+    // A boss not yet in the arena takes nothing and shows nothing.
+    if (e.state === 'dead' || e.offstage) return
     // Bosses are untouchable during their entrance and their phase-2 roar.
     if (e.boss && (e.state === 'idle' || e.state === 'alert' || (e.state === 'act' && e.attack === 'roar'))) {
       h.fx.sparks(o.x, o.y, o.z, '#ffffff', 6, 4, 0.14)

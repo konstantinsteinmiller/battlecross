@@ -115,8 +115,8 @@ export default {
     'title': 'Mục tiêu',
     'complete': 'Hoàn thành mục tiêu',
     'beamOutHint': 'Dịch chuyển về khi bạn sẵn sàng.',
-    'tutorial': 'Đánh bại Gã Phế Liệu',
-    'boss': 'Đánh bại Chúa Tể Lõi',
+    'tutorial': 'Đánh bại {boss}',
+    'boss': 'Đánh bại {boss}',
     'kill': 'Phá hủy {target}: {n}/{total}',
     'collect': 'Lõi dữ liệu: {n}/{total}',
     'rescue': 'Tìm robot công nhân bị kẹt',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Kéo bên trái để di chuyển, bên phải để nhìn. Chạm vào sàn để đi tới đó!',
-    'moveKeys': 'WASD để di chuyển, kéo chuột để nhìn. Nhấp vào sàn để đi tới đó!',
+    'moveKeys': 'WASD để di chuyển.',
+    'lookMouse': 'Di chuyển chuột để nhìn xung quanh.',
+    'capture': 'Nhấp vào màn hình game để điều khiển camera.',
     'fireTouch': 'Có máy phía trước! Chạm để bắn — giữ rồi thả để bắn phát tụ lực.',
-    'fireKeys': 'Có máy phía trước! Nhấp hoặc Space để bắn — giữ rồi thả để bắn phát tụ lực.',
+    'fireKeys': 'Có máy phía trước! Nhấp chuột trái để bắn — giữ rồi thả để bắn phát tụ lực.',
     'charge': 'Khiên chặn được đạn thường. Phát tụ lực ĐẦY xuyên thủng ngay.',
     'blockTouch': 'Vòng cam: giữ khiên để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
-    'blockKeys': 'Vòng cam: giữ Shift hoặc chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
+    'blockKeys': 'Vòng cam: giữ chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
     'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
+    'dodgeKeys': 'Vòng đỏ nghĩa là không thể chặn — nhấn Space để trượt né ngay!',
     'chest': 'Một rương tiếp tế! Chạm để mở.',
     'tank': 'Sắp cạn máu? Bình Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
     'weapon': 'Dùng vũ khí sao chép được từ nút có màu!'
+  },
+  'lesson': {
+    'charge': 'Giữ để tụ lực cho Buster, rồi thả ra: chỉ phát tụ lực mới phá được khiên của drone huấn luyện.',
+    'crate': 'Thùng tiếp tế chỉ vỡ khi trúng phát tụ lực. Giữ, rồi thả khi đang nhắm vào thùng phát sáng.',
+    'weaponKeys': 'Nhấn {n} để bắn vũ khí sao chép: một phát trúng cả ba drone.',
+    'weaponTouch': 'Chạm vào nút vũ khí đang phát sáng: một phát trúng cả ba drone.'
+  },
+  'hubLesson': {
+    'workshop': 'Mở Xưởng.',
+    'upgradeBuster': 'Dùng bu lông để nâng cấp Buster: thêm sát thương.',
+    'pickArmor': 'Giờ hãy chọn giáp ngực.',
+    'upgradeArmor': 'Nâng cấp cả nó nữa: thêm phòng thủ.',
+    'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!'
   },
   'loot': {
     'found': 'Tìm thấy {item} {rarity}!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'HỆ THỐNG SẬP',
-    'body': 'Cobalt đã chịu quá nhiều sát thương.',
-    'kept': 'Bạn vẫn giữ {xp} XP và {bolts} bu lông đã kiếm được.',
+    'body': 'Flux đã chịu quá nhiều sát thương.',
+    'kept': 'Bạn vẫn giữ những gì đã kiếm được:',
     'useTank': 'Khởi động lại bằng Bình Sửa Chữa ({n})',
     'rebootAd': 'Khởi động lại ngay',
     'retreat': 'Rút về phòng thí nghiệm'
@@ -190,11 +206,11 @@ export default {
       'block': 'Giữ khiên để chặn — đúng lúc vòng khép lại để gạt đòn.'
     },
     'keys': {
-      'move': 'WASD / phím mũi tên: di chuyển. Nhấp vào sàn để đi tới đó.',
-      'look': 'Kéo chuột để nhìn.',
-      'fire': 'Chuột trái hoặc Space: bắn — giữ để tụ lực.',
-      'block': 'Chuột phải hoặc Shift: chặn — đúng lúc vòng khép lại để gạt đòn.',
-      'slide': 'Q: trượt · H: Bình Sửa Chữa · E: tương tác',
+      'move': 'WASD / phím mũi tên: di chuyển.',
+      'look': 'Di chuyển chuột để nhìn. Nhấp vào màn hình game để điều khiển camera.',
+      'fire': 'Chuột trái: bắn — giữ để tụ lực, thả để bắn.',
+      'block': 'Chuột phải: chặn — đúng lúc vòng khép lại để gạt đòn.',
+      'slide': 'Space: trượt · H: Bình Sửa Chữa · E: tương tác · B: dịch chuyển về',
       'more': '1 / 2: vũ khí đặc biệt · Tab: đổi mục tiêu · Esc: tạm dừng'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Nhiệm vụ',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Mạch',
       'workshop': 'Xưởng'
     },
+    'heroTabAria': 'Flux, android chiến đấu của bạn',
     'levelUpReady': 'Lên cấp!',
     'levels': 'Cấp {a}–{b}',
     'story': 'Nhiệm vụ cốt truyện',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Đổi nhiệm vụ'
   },
   'hero': {
+    'role': 'Android chiến đấu của bạn',
     'weapons': 'Vũ khí đặc biệt',
     'weaponSlot': 'Ô {n}',
     'weaponRank': 'Hạng {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Cần {name} hạng {n}',
     'install': 'Lắp chip',
     'maxed': 'Đã tối đa',
-    'respec': 'Đặt lại mạch ({n} bu lông)'
+    'respec': 'Đặt lại mạch'
   },
   'skill': {
     'rapid': { 'name': 'Đạn Liên Thanh', 'desc': 'Sát thương bắn nhanh +10% mỗi chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Tháo',
     'equipped': 'Đang dùng',
     'new': 'MỚI',
-    'salvage': 'Tháo dỡ (+{n})',
+    'salvage': 'Tháo dỡ',
     'noAffixes': 'Không có mô-đun thưởng',
     'emptySlot': 'Chưa có gì cho ô này — hãy mở rương và làm nhiệm vụ.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Bản nhạc',
     'musicTracks': {
       'cozy': 'Mạch Êm Dịu',
-      'trance': 'Tăng Tốc Mega'
+      'trance': 'Tăng Tốc Cực Đại'
     },
     'haptics': 'Rung',
     'on': 'Bật',

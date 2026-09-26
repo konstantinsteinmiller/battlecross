@@ -40,16 +40,25 @@ const NOISE_HOSTS = [
   'vuejs.org', 'github.com', 'mozilla.org', 'chromewebstore.google.com',
   'intlify.dev', 'npmjs.com', 'nodejs.org', 'rollupjs.org', 'vitejs.dev',
   'developer.mozilla.org', 'caniuse.com', 'schema.org',
+  // A paper citation inside a three.js GLSL chunk (a comment in a shader
+  // string), not a request.
+  'jcgt.org',
 ]
 
-/** Fragments that mean another portal's integration survived into this bundle. */
+/** Fragments that mean another portal's integration survived into this bundle.
+ *  Each one is a URL/path the other portal's SDK or plugin actually loads or
+ *  calls — not a mere mention of the portal's name, which inert identifiers
+ *  (capability flag names, comments) legitimately carry. */
 const FOREIGN_SDK_MARKERS = [
   'sdk.crazygames.com', 'CrazyGames.SDK',
   'html5.api.gamedistribution.com', 'gdsdk',
   'api.gamemonetize.com', 'sdk.gamemonetize.com',
-  'playgama.com/bridge', 'gamepix.com/sdk', 'games.gamepix.com',
-  'yandex.ru/games/sdk', 'sdk.games.s3.yandex.net',
-  'cdn.y8.com', 'api.wavedash',
+  'playgama.com/bridge', 'bridge.playgama.com/v1', 'playgama.com/platform-sdk',
+  'gamepix.com/sdk', 'games.gamepix.com',
+  'yandex.ru/games/sdk', 'sdk.games.s3.yandex.net', 'yandex.ru/ads', 'an.yandex.ru',
+  'youtube.com/game_api',
+  'api.glitch.fun',
+  'cdn.y8.com', 'api.wavedash', 'convex.cloud',
 ]
 
 const walk = (dir, out = []) => {
@@ -63,7 +72,13 @@ const walk = (dir, out = []) => {
 
 const TEXT = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '.txt', '.webmanifest'])
 
-export const runGates = ({ dist, zip, allowHosts = [], sdkTag = 'game-cdn.poki.com/scripts/v2/poki-sdk.js' }) => {
+/**
+ * @param {object} o
+ * @param {Array<{ text: string, why: string }>} [o.forbid]  project-specific strings
+ *   that must never ship in a release (e.g. dev tooling — Poki asks for a clean
+ *   build, "no debug code, no dev artifacts"). Any hit FAILS the run.
+ */
+export const runGates = ({ dist, zip, allowHosts = [], sdkTag = 'game-cdn.poki.com/scripts/v2/poki-sdk.js', forbid = [] }) => {
   const results = []
   const add = (level, name, detail) => results.push({ level, name, detail })
   const ok = (name, detail) => add('pass', name, detail)
@@ -109,6 +124,20 @@ export const runGates = ({ dist, zip, allowHosts = [], sdkTag = 'game-cdn.poki.c
   }
   if (foreign.length) bad('bundle purity (no foreign portal SDK)', foreign.slice(0, 6).join('; '))
   else ok('bundle purity (no foreign portal SDK)')
+
+  // ── 4b. no dev tooling (project-declared markers) ─────────────────────────
+  if (forbid.length) {
+    const hits = []
+    for (const f of files) {
+      if (!TEXT.has(extname(f))) continue
+      const body = readFileSync(f, 'utf8')
+      for (const { text, why } of forbid) {
+        if (body.includes(text)) hits.push(`${relative(dist, f)} → "${text}" (${why})`)
+      }
+    }
+    if (hits.length) bad('clean build (no dev tooling)', hits.slice(0, 6).join('; '))
+    else ok('clean build (no dev tooling)', `${forbid.length} marker(s) absent`)
+  }
 
   // ── 5. external hosts ─────────────────────────────────────────────────────
   // Poki forbids runtime requests to anything it has not approved. A URL in the

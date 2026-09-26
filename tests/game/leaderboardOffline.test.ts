@@ -56,6 +56,29 @@ const SNAPSHOT: BoardSnapshot = {
 
 const sent: string[] = []
 
+/**
+ * The `useGameState` instance the current `load()` wired the board to.
+ *
+ * Its writes are DEBOUNCED: `setState` arms a 200 ms `setTimeout` that writes
+ * to whatever `localStorage` is installed when it fires, and `vi.resetModules()`
+ * drops the module without cancelling it. A case that ends on a successful POST
+ * leaves one armed (`reportRun` records `ma_submitted_score` and
+ * `ma_posted_name`). On a loaded machine it fires inside a LATER case's
+ * `load()` — the `vi.doMock` below makes that import wait on an RPC — into the
+ * setup file's fresh storage, just before the fresh `useGameState` reads it.
+ * That case then boots holding another case's posted best under its own name,
+ * has nothing to post, and counts 0 writes: "the end of a run always posts"
+ * failed exactly so in full-suite runs.
+ *
+ * So no instance is dropped with a write pending. `drain` flushes it, as a real
+ * page does on `pagehide`, before every reset.
+ */
+let live: typeof import('@/use/useGameState') | null = null
+const drain = (): void => {
+  live?.flushPersist()
+  live = null
+}
+
 const load = async (opts: {
   url?: string
   cache?: unknown
@@ -75,18 +98,25 @@ const load = async (opts: {
   // when the module reads it at import time.
   if (cache !== undefined) localStorage.setItem(CACHE_KEY, JSON.stringify(cache))
 
+  // A second `load()` in one case is the next session on the same device: the
+  // previous one flushes on its way out, as a page does.
+  drain()
   vi.resetModules()
   vi.doMock('@/use/leaderboardSnapshot', async (importOriginal) => ({
     ...(await importOriginal<typeof import('@/use/leaderboardSnapshot')>()),
     boardSnapshot: snapshot
   }))
-  return await import('@/use/useLeaderboard')
+  const lb = await import('@/use/useLeaderboard')
+  // Same registry, so the very instance `useLeaderboard` reads and writes.
+  live = await import('@/use/useGameState')
+  return lb
 }
 
 const names = (lb: { leaderboard: { value: { entries: { name: string }[] } | null } }): string[] =>
   lb.leaderboard.value?.entries.map((e) => e.name) ?? []
 
 afterEach(() => {
+  drain()
   vi.unstubAllEnvs()
   vi.unstubAllGlobals()
   vi.doUnmock('@/use/leaderboardSnapshot')

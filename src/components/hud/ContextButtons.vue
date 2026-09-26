@@ -2,11 +2,13 @@
   div.ctx(v-if="hud.phase === 'play'")
     Transition(name="ctx-pop")
       button.ctx-btn.interact(v-if="hud.interactKey" type="button" @click="interact")
+        KeyCap(v-if="hud.device === 'mouse'" code="KeyE")
         GameIcon.ico(:name="icon")
         span {{ t(hud.interactKey) }}
         CoachRing.ring(:hint="hud.hints.find(h => h.id === 'interact' && h.family === 'touch')")
     Transition(name="ctx-pop")
       button.ctx-btn.beam(v-if="hud.objectiveDone && !hud.combat" type="button" @click="beamOut")
+        KeyCap(v-if="hud.device === 'mouse'" code="KeyB")
         GameIcon.ico(name="up")
         span {{ t('hud.beamOut') }}
 </template>
@@ -18,10 +20,13 @@ import { hud } from '@/game/state/hud'
 import { currentMission, input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import CoachRing from './CoachRing.vue'
+import KeyCap from './KeyCap.vue'
 import type { GameIconName } from '@/components/icons/iconNames'
 
 /** Contextual actions, bottom centre: open / rescue / enter, and Beam out
- *  once the objective is done and the room is quiet. */
+ *  once the objective is done and the room is quiet. On desktop each one
+ *  leads with its key — "[E] Open", "[B] Beam out" — because a captured
+ *  mouse has no cursor to click them with. */
 const { t } = useI18n()
 const icon = computed<GameIconName>(() =>
   hud.interactKey === 'interact.chest' ? 'chest' : hud.interactKey === 'interact.rescue' ? 'heart' : 'skull')
@@ -63,6 +68,9 @@ const beamOut = () => {
   animation: ctx-bob 1.4s ease-in-out infinite
   &:active
     transform: translateY(2px)
+.keycap
+  font-size: 1.05em
+  margin-inline-end: 2px
 .ico
   width: clamp(18px, 4vmin, 24px)
   height: clamp(18px, 4vmin, 24px)

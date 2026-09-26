@@ -19,6 +19,7 @@ import { isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygam
 import { glitchLicenseStatus } from '@/use/useGlitchLicense'
 import { resolveCapabilities } from '@/platforms/capabilities'
 import { getPlattformText } from '@/platforms/plattformText'
+import { installBrowserGuard } from '@/use/useBrowserGuard'
 
 const { t } = useI18n()
 const { initMusic, pauseMusic, continueMusic } = useMusic()
@@ -39,15 +40,6 @@ useCheats()
 initMusic()
 
 const portraitQuery = window.matchMedia('(orientation: portrait)')
-const onTouchStart = (event: any) => {
-  if (event.touches.length > 1) {
-    event.preventDefault() // Block multitouch (pinch)
-  }
-}
-
-const onGestureStart = (event: any) => {
-  event.preventDefault() // Block specific Safari zoom gestures
-}
 const onOrientationChange = (event: any) => {
   if (event.matches) {
     orientation.value = 'portrait'
@@ -56,9 +48,6 @@ const onOrientationChange = (event: any) => {
   }
 }
 
-const onContextMenu = (event: any) => {
-  event.preventDefault() // Block right-click context menu
-}
 
 const handleVisibilityChange = async () => {
   try {
@@ -123,16 +112,15 @@ onUnmounted(() => {
   clearInterval(dimensionsInterval.value)
 })
 
+// Context menus, mouse and rocker gestures, autoscroll, the history buttons,
+// drag, selection, pinch and quick find: see `useBrowserGuard`.
+let removeBrowserGuard: (() => void) | null = null
 onMounted(() => {
-  document.addEventListener('contextmenu', onContextMenu)
-  document.addEventListener('touchstart', onTouchStart, { passive: false })
-  document.addEventListener('gesturestart', onGestureStart)
+  removeBrowserGuard = installBrowserGuard()
   portraitQuery.addEventListener('change', onOrientationChange)
 })
 onUnmounted(() => {
-  document.removeEventListener('contextmenu', onContextMenu)
-  document.removeEventListener('touchstart', onTouchStart)
-  document.removeEventListener('gesturestart', onGestureStart)
+  removeBrowserGuard?.()
   portraitQuery.removeEventListener('change', onOrientationChange)
 })
 

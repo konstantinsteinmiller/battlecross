@@ -517,10 +517,32 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M3.4 8.4h11.2a3.6 3.6 0 0 1 0 7.2H3.4A1.6 1.6 0 0 1 1.8 14v-4a1.6 1.6 0 0 1 1.6-1.6Z',
     'M18.6 9.1h2.2a1.3 1.3 0 0 1 1.3 1.3v3.2a1.3 1.3 0 0 1-1.3 1.3h-2.2V9.1Z'
   ],
-  // The round helmet with the face opening cut out of its lower middle.
+  // The head slot: a helmet as a piece of KIT, so a side view (facing right,
+  // like the buster and the boots) of a sleek shell with its visor window
+  // punched through (wound against the shell). No eyes, no crest, no ear
+  // pieces: it must not read as the hero (that is `android`) nor as the old
+  // round helmet with a centre stripe. The window stops short of the front
+  // edge, since a hole that meets the outline leaks.
   'helmet': [
-    'M12 2.8a8.6 8.6 0 0 0-8.6 8.6V18a2 2 0 0 0 2 2h2.4v-6.4a4.2 4.2 0 0 1 8.4 0V20h2.4a2 2 0 0 0 2-2v-6.6A8.6 8.6 0 0 0 12 2.8Z',
-    'M10.8 3.2h2.4v5.2h-2.4V3.2Z'
+    'M3.3 16.1C2.4 10.9 4.3 5.7 9.5 4.2C14.3 2.9 19 4.9 20.5 9.4L21.4 12.2C21.8 14.6 21.2 17 19.5 18.7C18.4 19.8 16.9 20.4 15.1 20.4L6.5 20.4C4.6 20.4 3.5 18.5 3.3 16.1Z',
+    'M11.7 9.1C11.4 9.1 11 9.4 11 9.7L11 11.8C11 13 11.9 13.8 13 13.8L18.9 13.8L18.4 9.1Z'
+  ],
+  // Flux himself: his tab in the hub and his name plate, so it reads as a
+  // FACE at tab size, never as kit (the gear slot is `helmet`). The shell (a
+  // flat dome over a jaw that narrows into a chin, drawn right of centre to
+  // balance the blade), the visor band punched through it (wound against the
+  // shell, with a chevron brow on top), the two eye-lights standing back
+  // inside the band (wound with the shell, so they refill it), and the one
+  // swept sensor blade with its bead. Each eye clears the band's edges by
+  // about a unit, so the "o o" survives 20 px. The blade leaves the dome above
+  // the band and never crosses it; crossing would refill the hole.
+  'android': [
+    'M4 11.4C4 7.3 7.9 4.8 13 4.8C18.1 4.8 22 7.3 22 11.4C22 15.4 19.6 18.6 16.5 20.2C14.4 21.2 11.6 21.2 9.5 20.2C6.4 18.6 4 15.4 4 11.4Z',
+    'M4.9 8.4C4.3 6.8 3.6 5.2 2.8 3.4C4.3 4.6 5.9 5.3 7.5 5.7Z',
+    'M1.2 3.1A1.75 1.75 0 1 1 4.7 3.1A1.75 1.75 0 1 1 1.2 3.1Z',
+    'M6.1 8.6L6.4 13.4C8.5 15.3 10.8 16 13 16C15.2 16 17.5 15.3 19.6 13.4L19.9 8.6L13 9.9Z',
+    'M8.3 12.4A1.8 2 0 1 1 11.9 12.4A1.8 2 0 1 1 8.3 12.4Z',
+    'M14.1 12.4A1.8 2 0 1 1 17.7 12.4A1.8 2 0 1 1 14.1 12.4Z'
   ],
   // Chest plate: shoulders, a waist and a tapering body.
   'armor': [
@@ -535,5 +557,15 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M7 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm2 4v6h6V9H9Z',
     'M8 2h1.6v2.4H8V2Zm3.2 0h1.6v2.4h-1.6V2Zm3.2 0H16v2.4h-1.6V2ZM8 19.6h1.6V22H8v-2.4Zm3.2 0h1.6V22h-1.6v-2.4Zm3.2 0H16V22h-1.6v-2.4Z',
     'M2 8h2.4v1.6H2V8Zm0 3.2h2.4v1.6H2v-1.6Zm0 3.2h2.4V16H2v-1.6ZM19.6 8H22v1.6h-2.4V8Zm0 3.2H22v1.6h-2.4v-1.6Zm0 3.2H22V16h-2.4v-1.6Z'
+  ],
+  // Bolts, the currency: a hex nut, flats top and bottom. A regular hexagon
+  // (circumradius 10, corners filleted at 1.6 like `stop`) wound clockwise,
+  // and a bore of radius 4.3 wound against it, so the hole is a real hole.
+  // The rim is 4.4 units at the flats, about 3 px at 16 px, so the bore
+  // survives HUD size. Straight flats against `coin`'s circle and
+  // `settings`' teeth keep the three apart in the corner of the eye.
+  'nut': [
+    'M2.46 12.8A1.6 1.6 0 0 1 2.46 11.2L6.54 4.14A1.6 1.6 0 0 1 7.92 3.34L16.08 3.34A1.6 1.6 0 0 1 17.46 4.14L21.54 11.2A1.6 1.6 0 0 1 21.54 12.8L17.46 19.86A1.6 1.6 0 0 1 16.08 20.66L7.92 20.66A1.6 1.6 0 0 1 6.54 19.86Z',
+    'M7.7 12A4.3 4.3 0 1 0 16.3 12A4.3 4.3 0 1 0 7.7 12Z'
   ]
 }

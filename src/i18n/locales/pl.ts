@@ -115,8 +115,8 @@ export default {
     'title': 'Cel',
     'complete': 'Cel osiągnięty',
     'beamOutHint': 'Teleportuj się, kiedy zechcesz.',
-    'tutorial': 'Pokonaj Złomiarza',
-    'boss': 'Pokonaj Mistrza Rdzenia',
+    'tutorial': 'Pokonaj bossa: {boss}',
+    'boss': 'Pokonaj bossa: {boss}',
     'kill': 'Zniszcz {target}: {n}/{total}',
     'collect': 'Rdzenie danych: {n}/{total}',
     'rescue': 'Znajdź uwięzionego robota roboczego',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Przeciągaj po lewej, by chodzić, a po prawej, by się rozglądać. Dotknij podłogi, by tam pójść!',
-    'moveKeys': 'WASD – ruch, przeciągaj myszą, by się rozglądać. Kliknij podłogę, by tam pójść!',
+    'moveKeys': 'Poruszaj się klawiszami WASD.',
+    'lookMouse': 'Poruszaj myszą, by się rozglądać.',
+    'capture': 'Kliknij scenę, by przejąć kontrolę nad kamerą.',
     'fireTouch': 'Maszyny przed tobą! Dotknij, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
-    'fireKeys': 'Maszyny przed tobą! Klik lub Spacja, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
+    'fireKeys': 'Maszyny przed tobą! Kliknij lewym przyciskiem, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
     'charge': 'Tarcze blokują zwykłe pociski. PEŁNY strzał naładowany przebija je na wylot.',
     'blockTouch': 'Pomarańczowy pierścień: przytrzymaj tarczę, by blokować — wciśnij ją, gdy pierścień się zamyka, by SPAROWAĆ!',
-    'blockKeys': 'Pomarańczowy pierścień: przytrzymaj Shift lub prawy przycisk myszy, by blokować — wciśnij, gdy pierścień się zamyka, by SPAROWAĆ!',
+    'blockKeys': 'Pomarańczowy pierścień: przytrzymaj prawy przycisk myszy, by blokować — wciśnij, gdy pierścień się zamyka, by SPAROWAĆ!',
     'red': 'Czerwony pierścień: ataku nie da się zablokować — zejdź z drogi wślizgiem!',
+    'dodgeKeys': 'Czerwony pierścień: ataku nie da się zablokować — wciśnij Spację i zejdź z drogi wślizgiem!',
     'chest': 'Skrzynia z zaopatrzeniem! Dotknij jej, by otworzyć.',
     'tank': 'Kończy ci się zdrowie? Zestaw naprawczy w pełni cię naprawi.',
     'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!'
+  },
+  'lesson': {
+    'charge': 'Przytrzymaj, by naładować buster, i puść: tylko strzał naładowany przebija tarczę drona treningowego.',
+    'crate': 'Skrzynki z zaopatrzeniem pękają tylko od strzału naładowanego. Przytrzymaj i puść, celując w świecącą skrzynkę.',
+    'weaponKeys': 'Wciśnij {n}, by wystrzelić ze skopiowanej broni: jeden strzał trafia wszystkie trzy drony.',
+    'weaponTouch': 'Dotknij świecącego przycisku broni: jeden strzał trafia wszystkie trzy drony.'
+  },
+  'hubLesson': {
+    'workshop': 'Otwórz Warsztat.',
+    'upgradeBuster': 'Wydaj śruby, by ulepszyć buster: więcej obrażeń.',
+    'pickArmor': 'Teraz wybierz pancerz korpusu.',
+    'upgradeArmor': 'Jego też ulepsz: więcej obrony.',
+    'deploy': 'Gotowe — wracamy do misji!'
   },
   'loot': {
     'found': 'Znaleziono: {item} ({rarity})!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'AWARIA SYSTEMU',
-    'body': 'Cobalt otrzymał zbyt wiele obrażeń.',
-    'kept': 'Zachowujesz zdobyte dotąd {xp} XP i śruby: {bolts}.',
+    'body': 'Flux otrzymał zbyt wiele obrażeń.',
+    'kept': 'Zdobyte dotąd nagrody zostają z tobą:',
     'useTank': 'Użyj zestawu naprawczego ({n})',
     'rebootAd': 'Restartuj teraz',
     'retreat': 'Wróć do laboratorium'
@@ -190,11 +206,11 @@ export default {
       'block': 'Przytrzymaj tarczę, by blokować — wciśnij, gdy pierścień się zamyka, by sparować.'
     },
     'keys': {
-      'move': 'WASD / strzałki: ruch. Kliknij podłogę, by tam pójść.',
-      'look': 'Przeciągaj myszą, by się rozglądać.',
-      'fire': 'Lewy przycisk lub Spacja: strzał — przytrzymaj, by ładować.',
-      'block': 'Prawy przycisk lub Shift: blok — wciśnij, gdy pierścień się zamyka, by sparować.',
-      'slide': 'Q: wślizg · H: zestaw naprawczy · E: interakcja',
+      'move': 'WASD / strzałki: ruch.',
+      'look': 'Poruszaj myszą, by się rozglądać. Kliknij scenę, by przejąć kontrolę nad kamerą.',
+      'fire': 'Lewy przycisk: strzał — przytrzymaj, by ładować, puść, by wystrzelić.',
+      'block': 'Prawy przycisk: blok — wciśnij, gdy pierścień się zamyka, by sparować.',
+      'slide': 'Spacja: wślizg · H: zestaw naprawczy · E: interakcja · B: teleportacja',
       'more': '1 / 2: bronie specjalne · Tab: zmiana celu · Esc: pauza'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Misje',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Obwody',
       'workshop': 'Warsztat'
     },
+    'heroTabAria': 'Flux, twój android bojowy',
     'levelUpReady': 'Nowy poziom!',
     'levels': 'Poz. {a}–{b}',
     'story': 'Misja fabularna',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Nowe zlecenie'
   },
   'hero': {
+    'role': 'Twój android bojowy',
     'weapons': 'Bronie specjalne',
     'weaponSlot': 'Slot {n}',
     'weaponRank': 'Ranga {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Wymaga: {name}, ranga {n}',
     'install': 'Zainstaluj chip',
     'maxed': 'Pełna moc',
-    'respec': 'Resetuj obwody ({n} śrub)'
+    'respec': 'Resetuj obwody'
   },
   'skill': {
     'rapid': { 'name': 'Szybkie pociski', 'desc': 'Obrażenia szybkich strzałów +10% na chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Zdejmij',
     'equipped': 'Założone',
     'new': 'NOWOŚĆ',
-    'salvage': 'Rozmontuj (+{n})',
+    'salvage': 'Rozmontuj',
     'noAffixes': 'Brak modułów bonusowych',
     'emptySlot': 'Nic jeszcze nie pasuje do tego gniazda — otwieraj skrzynie i wykonuj zlecenia.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Utwór',
     'musicTracks': {
       'cozy': 'Spokojne obwody',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Wibracje',
     'on': 'Wł.',

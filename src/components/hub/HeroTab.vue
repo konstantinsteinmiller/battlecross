@@ -1,6 +1,14 @@
 <template lang="pug">
   div.hero.sheet
     div.scroll
+      //- The name plate: whose panel this is. His name is also a plain word
+      //- ("flux"), so it wears his face and says what he is under it.
+      div.plate
+        span.p-face
+          GameIcon.fi(name="android")
+        div.p-id
+          div.p-name {{ t('hub.tab.hero') }}
+          div.p-role {{ t('hero.role') }}
       button.attr-cta(v-if="profile.hero.pendingAttrs > 0" type="button" @click="flow.modal = 'levelUp'")
         | {{ t('hero.attrPending', { n: profile.hero.pendingAttrs }) }}
       div.section-title {{ t('hero.weapons') }}
@@ -64,8 +72,13 @@
             div.actions
               button.btn.equip(v-if="!isEquipped(selected.id)" type="button" @click="equip") {{ t('gear.equip') }}
               button.btn.unequip(v-else-if="selected.slot === 'chip'" type="button" @click="unequip") {{ t('gear.unequip') }}
+              //- What salvaging pays, signed and wearing the nut like every
+              //- Bolts reward.
               button.btn.salvage(v-if="!isEquipped(selected.id)" type="button" @click="salvage")
-                | {{ t('gear.salvage', { n: salvageValue(selected) }) }}
+                span {{ t('gear.salvage') }}
+                span.gain
+                  | +{{ salvageValue(selected) }}
+                  GameIcon.bi(name="nut")
       div.section-title {{ t('hero.stats') }}
       div.stats
         div.stat(v-for="s in statRows" :key="s.k")
@@ -98,10 +111,10 @@ import { saveProfile } from '@/game/state/profile'
 import { WEAPONS, weaponRank, type WeaponId } from '@/game/data/weapons'
 
 /**
- * Cobalt's gear and stats. Six sockets across the top (buster, helmet, chest,
- * boots, two chips); tap one to list what fits it, tap an item to compare it
- * with what is equipped, then Equip or Salvage. Equipping repaints Cobalt in
- * the lab behind the menu.
+ * Flux's gear and stats, under his name plate. Six sockets across the top
+ * (buster, helmet, chest, boots, two chips); tap one to list what fits it, tap
+ * an item to compare it with what is equipped, then Equip or Salvage.
+ * Equipping repaints Flux in the lab behind the menu.
  */
 const { t } = useI18n()
 const ATTRS: Attr[] = ['hp', 'we', 'power']
@@ -182,6 +195,55 @@ const statRows = computed(() => {
 
 <style scoped lang="sass">
 @use './sheet'
+// The name plate: a pearl portrait disc with his face glyph (the hub tab's
+// glyph), the name in the display face and what he is under it. It scrolls
+// away with the panel, so it costs short landscape nothing once read.
+.plate
+  flex: 0 0 auto
+  display: flex
+  align-items: center
+  gap: clamp(8px, 1.8vmin, 12px)
+  padding: clamp(3px, 0.8vmin, 5px) 12px clamp(3px, 0.8vmin, 5px) clamp(3px, 0.8vmin, 5px)
+  border-radius: 999px
+  background: linear-gradient(90deg, rgba(79, 216, 255, 0.24), rgba(79, 216, 255, 0) 85%)
+  box-shadow: inset 0 0 0 2px rgba(127, 244, 255, 0.25)
+.p-face
+  flex: 0 0 auto
+  display: grid
+  place-items: center
+  width: clamp(30px, 7.4vmin, 46px)
+  height: clamp(30px, 7.4vmin, 46px)
+  border-radius: 50%
+  border: 3px solid #141a33
+  // His pearl shell, his dark visor, the warm glow of his eye-lights.
+  background: radial-gradient(circle at 40% 30%, #ffffff, #e3e8ef 55%, #aab4c4)
+  color: #161a22
+  box-shadow: 0 0 10px rgba(255, 167, 51, 0.5)
+  // Nested, so it outranks GameIcon's own 100% sizing on specificity.
+  .fi
+    width: 68%
+    height: 68%
+.p-id
+  display: flex
+  flex-direction: column
+  // Each line as wide as its text: a right-to-left descriptor stays next
+  // to the name instead of flying to the far edge.
+  align-items: flex-start
+  min-width: 0
+.p-name
+  font-family: var(--font-ui)
+  font-size: clamp(18px, 4.4vmin, 28px)
+  line-height: 1
+  letter-spacing: 0.08em
+  text-transform: uppercase
+  color: #fff
+  text-shadow: 0 3px 0 #141a33, 0 0 12px rgba(127, 244, 255, 0.55)
+.p-role
+  margin-top: 3px
+  font-family: var(--font-ui)
+  font-size: clamp(10px, 2.3vmin, 13px)
+  line-height: 1.15
+  color: #9fe6ff
 .attr-cta
   padding: 10px
   border-radius: 12px
@@ -352,7 +414,19 @@ const statRows = computed(() => {
 .unequip
   background: linear-gradient(#5d6a82, #3b4458)
 .salvage
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: 6px
   background: linear-gradient(#ffb04a, #c25a00)
+.gain
+  display: inline-flex
+  align-items: center
+  gap: 2px
+  // Nested, so it outranks GameIcon's own 100% sizing on specificity.
+  .bi
+    width: 1.05em
+    height: 1.05em
 .stats
   display: grid
   grid-template-columns: repeat(2, 1fr)

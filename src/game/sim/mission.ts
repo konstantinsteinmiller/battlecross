@@ -16,20 +16,23 @@ import { buildDoor, buildTeleporter, type DoorMesh, type PadMesh } from '../mode
 import { buildViewmodel, type Viewmodel } from '../models/hero'
 import { PAL, RARITY_COLOR as RARITY_HEX } from '../models/palette'
 import {
-  EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, PITCH_MIN, PITCH_MAX,
+  EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, LOOK_LOCK, PITCH_MIN, PITCH_MAX,
   DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME, TURN_RATE
 } from './constants'
 import { hud, tickHud, pushHud } from '../state/hud'
-import type { CombatPlayer, Enemy, PickupKind } from './world'
+import type { CombatPlayer, Enemy, PickupKind, Shot } from './world'
 import { CombatSystem, type CombatHost } from './combat'
-import { updateEnemy, syncEnemyVisual, PARRY_WINDOW, wake } from './enemies'
-import { spawnEncounters, type EncounterTable } from './spawn'
+import { updateEnemy, syncEnemyVisual, PARRY_WINDOW, wake, createEnemy } from './enemies'
+import { spawnEncounters, spawnTutorial, type EncounterTable } from './spawn'
 import { baseStats, chargeInfo, type PlayerStats } from './stats'
 import { Particles } from '../fx/particles'
 import { FloorMarkers, ShockRings } from '../fx/markers'
+import { ObjectiveTrail, type TrailInput } from '../fx/objectiveTrail'
 import { sfx } from '../audio/sfx'
 import { setMusicTrack } from '@/use/useSound'
-import { Coach, type HintView } from './coach'
+import { Coach, type CoachContext, type HintView } from './coach'
+import { LessonDirector, roomAt, type LessonTick } from './lessons'
+import { Walkthrough, planWalkthrough, doorwayOf, helperSpot, type WalkChest, type WalkPlan } from './walkthrough'
 import { chargeHum } from '../audio/synth'
 import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
@@ -85,6 +88,9 @@ interface DoorState {
   opening: boolean
   closing: boolean
   locked: boolean
+  /** A tutorial walkthrough gate not yet earned: locked, and not for the
+   *  interact button either (unlike the sealed boss shutter). */
+  held: boolean
   slab: Slab
   x: number
   z: number
@@ -117,6 +123,9 @@ const _pv = new Matrix4()
 const _portal = new Sphere()
 /** After a manual look, the soft lock-on stands aside this long (s). */
 const LOCK_YIELD = 1.1
+/** A hold let go before the first charge level after this long (s) was a
+ *  try at a charge: a lesson in the sights shakes its glyph. */
+const EARLY_HOLD = 0.2
 /** An enemy within this angle of the crosshair (rad) is "in the sights". */
 const SIGHT_ANGLE = 0.22
 /** How many doors deep the view reaches. Two covers a room seen through the
@@ -181,6 +190,20 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private vmFlashColor = '#ffffff'
   /** The wordless control coach (`sim/coach.ts`). */
   readonly coach = new Coach()
+  private coachCtx: CoachContext = {
+    time: 0, family: 'mouse', playing: false, combat: false, aimCandidate: false, teleBlock: false, teleRed: false,
+    hp01: 1, tanks: 0, hasWeapon: false, canInteract: false, quiet: false
+  }
+  /** Scene-built lessons: the charge drone, crates, the special weapon. */
+  lessons!: LessonDirector
+  private lessonTick: LessonTick = { playing: false, combat: false, controls: false }
+  private lessonSig = ''
+  /** The tutorial's guided walk along the main path (`sim/walkthrough.ts`);
+   *  null in every other mission. */
+  walk: Walkthrough | null = null
+  /** Yellow floor chevrons to the main objective, once the walkthrough is done. */
+  trail!: ObjectiveTrail
+  private trailIn: TrailInput = { enabled: false, px: 0, pz: 0, target: null, time: 0 }
   /** When the player last steered the camera (drag / keys). */
   private manualLookAt = -10
   private hintsSig = ''
@@ -264,7 +287,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.nav.slabs.push(slab)
       this.nav.pathBlock[d.j * this.map.w + d.i] = d.boss ? 2 : 1
       this.doors.push({
-        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
+        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, held: false, slab, x: fx, z: fz, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
       })
       await slice()
     }
@@ -291,6 +314,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     // FX layers
     this.fx = new Particles(1000)
     this.scene.add(this.fx.points, this.markers.root, this.shocks.root)
+    // At the scene root (room culling never hides it), before the precompile.
+    this.trail = new ObjectiveTrail(this.scene, this.nav)
     this.system = new CombatSystem(this)
 
     // Mission objects + objective, then the cast (deterministic order: the
@@ -300,11 +325,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       id: 'dev', kind: 'job', template: 'purge', sector: setup.sector, seed: setup.seed, level: setup.enemyLevel,
       target: null, count: 1, rooms: setup.rooms, reward: { xp: 0, bolts: 0, rarityBias: 0 }
     })
+    // The tutorial is a guided walk: its path, its chest, a scripted cast.
+    const plan = setup.tutorial ? planWalkthrough(this.map) : null
+    const chest = plan ? this.walkChest(plan) : null
     onProgress(0.68)
     await slice()
-    this.enemies = await spawnEncounters(this.map, setup.encounters, setup.enemyLevel, {
-      firstRoomsGentle: setup.tutorial, slice, onProgress: (f) => onProgress(0.68 + f * 0.24)
-    })
+    const spawned = (f: number) => onProgress(0.68 + f * 0.24)
+    this.enemies = plan
+      ? await spawnTutorial(this.map, this.nav, plan, setup.enemyLevel, {
+        chestRooms: new Set(this.objects.chests.map(c => roomAt(this.map, c.x, c.z))), slice, onProgress: spawned
+      })
+      : await spawnEncounters(this.map, setup.encounters, setup.enemyLevel, { slice, onProgress: spawned })
     onProgress(0.92)
     this.objects.setupEnemyObjectives(this.enemies, (e) => this.enemies.push(e))
     for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
@@ -312,7 +343,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.boss = this.enemies.find(e => e.boss) ?? null
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
     this.scene.add(this.weapons.root)
+    this.lessons = new LessonDirector(this, { guided: !!plan })
+    if (plan) this.walk = new Walkthrough(this, plan, chest)
     if (setup.snapshot) this.applySnapshot(setup.snapshot)
+    // Before the precompile: the training drone's materials compile with the
+    // sector. Only while the walkthrough's first room is still to learn.
+    if (this.walk?.needsDrone) this.lessons.placeTarget()
+    this.walk?.start()
 
     await slice()
     // Viewmodel
@@ -458,7 +495,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
           e.flash = 1
         }
         c.iframes = Math.max(c.iframes, 0.2)
+        this.vm.barrier.impact('parry')
         this.coach.use('parry')
+        this.walk?.noteBlock()
         return 'parry'
       }
       // ── BLOCK ──
@@ -469,6 +508,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       this.fx.sparks(p.x - Math.sin(p.yaw) * 0.7, EYE_H - 0.3, p.z - Math.cos(p.yaw) * 0.7, '#7ff4ff', 8, 5)
       this.shake(0.1)
       sfx('block')
+      if (c.power > 0) this.vm.barrier.impact('block')
       pushHud({ t: 'damage', x: p.x - Math.sin(p.yaw) * 1.2, y: EYE_H - 0.1, z: p.z - Math.cos(p.yaw) * 1.2, amount: taken, crit: false, weak: false, toPlayer: true })
       if (this.stats.reflectPct > 0 && e) {
         this.system.damageEnemy(e, Math.round(dmg * this.stats.reflectPct), { crit: false, charge: 0, fromX: p.x, fromZ: p.z, x: e.x, y: e.y + e.def.aimY, z: e.z, color: '#7ff4ff' })
@@ -477,10 +517,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
         c.power = 0
         c.guardBroken = 0.7
         c.blocking = false
+        this.vm.barrier.impact('break')
         sfx('guardCrack')
         pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: EYE_H + 0.1, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.guardCracked', color: '#ff8a5a' })
       }
       this.coach.use('block')
+      this.walk?.noteBlock()
       this.checkDown()
       return 'block'
     }
@@ -550,7 +592,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   /** Crossing into the boss room: shutter slams, name card, bar fills, fight. */
   private startBoss(): void {
     const b = this.boss
-    if (!b || this.bossStarted) return
+    // A resume after the kill restores the boss dead: no second entrance.
+    if (!b || this.bossStarted || b.state === 'dead') return
     this.bossStarted = true
     startBossIntro(b)
     const d = this.bossDoor()
@@ -582,11 +625,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const r = this.weapons.use(i, id, m, aim)
     if (r === 'ok') {
       this.coach.use('weapon')
+      this.lessons.weaponFired()
       this.vmFlash = 1
       this.vmFlashColor = WEAPONS[id].color
       this.combat.recoil = 1
       this.makeNoise(12)
-      if (aim[3] && !aim[3].awake) wake(this, aim[3])
+      if (aim[3] && !aim[3].awake && !aim[3].hold) wake(this, aim[3])
     } else if (r === 'energy') {
       pushHud({ t: 'toast', key: 'combat.noEnergy', color: '#ff9a8a' })
       sfx('denied')
@@ -658,14 +702,136 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.dirty = true
   }
 
-  shotHitsProp(x: number, y: number, z: number, r: number, dmg: number): boolean {
-    return this.objects.shotHitsCrate(x, y, z, r, dmg)
+  shotHitsProp(x: number, y: number, z: number, r: number, dmg: number, charge: number): boolean {
+    return this.objects.shotHitsCrate(x, y, z, r, dmg, charge)
+  }
+
+  shotHitsLesson(s: Shot): 'hit' | 'deflect' | null {
+    return this.lessons.shotHits(s)
+  }
+
+  /** A quick shot bounced off a supply crate: the charge shot's moment. */
+  onCrateDeflect(c: Crate): void {
+    this.lessons.crateDeflected(c)
+    this.coach.deflected()
+  }
+
+  // ─── Lesson host (`sim/lessons.ts`) ──────────────────────────────────────────
+
+  crates(): Crate[] {
+    return this.objects.crates
+  }
+
+  addCrate(x: number, z: number, yaw: number): Crate | null {
+    return this.objects.addCrate(x, z, yaw)
+  }
+
+  addEnemy(e: Enemy): void {
+    this.enemies.push(e)
+    this.scene.add(e.root, e.shadow, e.ring)
+  }
+
+  spawnPickup(kind: PickupKind, value: number, x: number, y: number, z: number): void {
+    this.system.spawnPickup(kind, value, x, y, z)
+  }
+
+  weaponCost(id: WeaponId): number {
+    return this.weapons.cost(id)
+  }
+
+  weaponDamage(id: WeaponId): number {
+    const r = this.weapons.rank(id)
+    return Math.round(this.stats.busterDmg * WEAPONS[id].dmg * this.stats.specialMul * (1 + (r - 1) * 0.25))
+  }
+
+  /** Where the live lesson's glyph attaches (HUD ticker; x, y, z triples). */
+  lessonAnchors(out: Float32Array): number {
+    return this.lessons.anchors(out)
+  }
+
+  /** The player is in the live lesson's room: its off-screen bubble may show. */
+  lessonInRoom(): boolean {
+    return this.lessons.inRoom(this.player.x, this.player.z)
+  }
+
+  // ─── Walkthrough host (`sim/walkthrough.ts`) ────────────────────────────────
+
+  /** The tutorial's guided walk is still under way: some door on the path to
+   *  the boss is not earned yet. Always false outside the tutorial. */
+  walkthroughActive(): boolean {
+    return !!this.walk?.active
+  }
+
+  /** Shut a walkthrough gate: locked, a red lamp, no path through. */
+  holdDoor(id: number): void {
+    const d = this.doors[id]
+    if (!d) return
+    d.held = true
+    d.locked = true
+    d.opening = false
+    d.open = 0
+    d.slab.active = true
+    this.nav.pathBlock[d.cellJ * this.map.w + d.cellI] = 2
+    d.mesh.lampMat.color.set(PAL.glowRed)
+  }
+
+  /** A walkthrough gate earned: the lamp turns, a chime, a pulse at the door.
+   *  A plain door slides open by itself — the clearest "this way" there is;
+   *  the boss shutter stays sealed until the player opens it. */
+  releaseDoor(id: number): void {
+    const d = this.doors[id]
+    if (!d || !d.held) return
+    d.held = false
+    d.mesh.lampMat.color.set(PAL.glowYellow)
+    if (!d.mesh.boss) {
+      d.locked = false
+      d.opening = true
+      this.nav.pathBlock[d.cellJ * this.map.w + d.cellI] = 1
+      this.sfx('door', d.x, d.z)
+    }
+    sfx('objective')
+    this.fx.riseRing(d.x, 0.15, d.z, PAL.glowYellow, 1.1, 22)
+    this.fx.flash(d.x, WALL_H - 0.55, d.z, PAL.glowYellow, 2.2, 0.35)
+    this.shocks.spawn(d.x, 0.05, d.z, 2.4, PAL.glowYellow, 0.5)
+  }
+
+  /** Beam a stand-in teacher into `roomId`, in view of the player: the
+   *  Trooper fell before a single block, the Stomper before a slide. */
+  bringIn(kind: 'heli' | 'hopper', roomId: number): boolean {
+    const p = this.player
+    const at = helperSpot(this.nav, this.map, roomId, p.x, p.z, p.yaw)
+    if (!at) return false
+    const e = createEnemy(kind, this.setup.enemyLevel, at[0], at[1], roomId)
+    e.yaw = Math.atan2(p.x - at[0], p.z - at[1])
+    this.addEnemy(e)
+    this.fx.riseRing(at[0], 0.1, at[1], PAL.glowCyan, 0.8, 18)
+    this.sfx('beamIn', at[0], at[1])
+    wake(this, e)
+    return true
+  }
+
+  /** Progress worth keeping: into the next snapshot. */
+  checkpoint(): void {
+    this.dirty = true
+  }
+
+  /** The walkthrough's chest: one already standing in the chest room, else
+   *  one placed in plain view of its door. Build time, so a resume rebuilds
+   *  it under the same id. */
+  private walkChest(plan: WalkPlan): WalkChest | null {
+    const g = plan.gates.find(x => x.steps.includes('chest'))
+    const room = g ? this.map.rooms[g.room] : undefined
+    if (!room) return null
+    const [dx, dz] = doorwayOf(this.map, room.id)
+    const c = this.objects.chests.find(k => roomAt(this.map, k.x, k.z) === room.id)
+      ?? this.objects.placeChest(room, dx, dz)
+    return c ? { id: c.id, x: c.x, z: c.z } : null
   }
 
   /** Barrel blast: hurts every machine (and crate) in the radius. */
   explode(x: number, z: number, r: number, dmg: number): void {
     for (const e of this.enemies) {
-      if (e.state === 'dead') continue
+      if (e.state === 'dead' || e.offstage) continue
       if (Math.hypot(e.x - x, e.z - z) < r + e.def.radius) {
         this.system.damageEnemy(e, dmg, { crit: false, charge: 2, fromX: x, fromZ: z, x: e.x, y: e.y + e.def.aimY, z: e.z, color: '#ffb04a' })
       }
@@ -715,7 +881,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     c.charging = false
     this.deathT = 0
     hud.phase = 'dead'
-    this.fx.orbBurst(this.player.x, EYE_H - 0.4, this.player.z, PAL.heroCyan, 1.3)
+    // Flux bursts in his own plasma (the kit's core glow)
+    this.fx.orbBurst(this.player.x, EYE_H - 0.4, this.player.z, `#${this.vm.coreColor.getHexString()}`, 1.3)
     sfx('death')
     this.respawnT = 1.4
     this.writeSnap()
@@ -734,7 +901,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.fx.riseRing(this.player.x, 0.1, this.player.z, PAL.glowCyan, 1, 22)
     // Push nearby machines back a step so a revive is not an instant re-death.
     for (const e of this.enemies) {
-      if (e.state === 'dead') continue
+      if (e.state === 'dead' || e.offstage) continue
       const d = Math.hypot(e.x - this.player.x, e.z - this.player.z)
       if (d < 4) {
         e.state = 'stun'
@@ -816,7 +983,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       xp: this.xp,
       kills: this.kills,
       t: this.time,
-      done: false
+      done: false,
+      walk: this.walk?.save()
     })
   }
 
@@ -874,6 +1042,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.xp = s.xp
     this.kills = s.kills
     this.time = s.t
+    // Which walkthrough doors are earned; `start()` locks the rest after this.
+    this.walk?.restore(s.walk)
   }
 
   // ─── Update ────────────────────────────────────────────────────────────────
@@ -944,17 +1114,35 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     this.markerT = Math.max(0, this.markerT - dt)
     ;(this.marker.material as MeshBasicMaterial).opacity = p.path ? 0.55 + Math.sin(this.time * 8) * 0.25 : this.markerT * 2
     this.marker.scale.setScalar(p.path ? 1 + Math.sin(this.time * 6) * 0.08 : 1 + (0.5 - this.markerT) * 0.6)
-    this.pad.ringMat.opacity = hud.phase === 'beamIn' || hud.phase === 'beamOut' ? 0.85 : 0.18 + Math.sin(this.time * 2.4) * 0.08
+    this.pad.setBeamView(Math.hypot(p.x - this.pad.root.position.x, p.z - this.pad.root.position.z), hud.phase === 'beamIn' || hud.phase === 'beamOut', dt)
     this.pad.ring.rotation.y += dt * 0.6
     this.objects.update(dt, this.time)
+    const lt = this.lessonTick
+    lt.playing = hud.phase === 'play' && !flow.modal
+    lt.combat = hud.combat
+    lt.controls = this.coach.mastered('move') && this.coach.mastered('look')
+    this.lessons.update(dt, lt)
+    this.walk?.update(lt.playing, hud.combat)
+    // The way to the objective: only once the walkthrough has taught the
+    // controls, and never over a fight or a scene lesson.
+    const ti = this.trailIn
+    ti.enabled = lt.playing && !hud.combat && !hud.lesson && !this.walkthroughActive()
+    ti.px = p.x
+    ti.pz = p.z
+    ti.time = this.time
+    ti.target = ti.enabled ? this.objects.target(p.x, p.z, this.enemies) : null
+    this.trail.update(dt, ti)
 
-    // Interaction: the nearest chest / bot / sealed boss door in reach.
+    // Interaction: the nearest chest / bot / sealed boss door in reach (a
+    // walkthrough gate is not for opening by hand).
     if (hud.phase === 'play') {
       const near = this.objects.nearestInteractable(p.x, p.z, p.yaw)
-      const door = this.bossStarted ? undefined : this.doors.find(d => d.locked && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
+      const door = this.bossStarted ? undefined : this.doors.find(d => d.locked && !d.held && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
       if (first && this.input.tankQueued) this.useTank()
+      // B: beam out — the same rule as the button (objective done, room quiet).
+      if (first && this.input.beamQueued && hud.objectiveDone && !hud.combat) this.beamOut()
     } else {
       this.interact = null
     }
@@ -992,19 +1180,20 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       if (e.teleRed) teleRed = true
       else teleBlock = true
     }
-    this.coach.update({
-      time: this.time,
-      family: this.input.device,
-      playing: hud.phase === 'play' && !flow.modal,
-      combat: hud.combat,
-      aimCandidate: this.aimCandidate,
-      teleBlock,
-      teleRed,
-      hp01: this.combat.hp / this.combat.maxHp,
-      tanks: profile.inv.tanks,
-      hasWeapon: !!profile.hero.slots[0] || !!profile.hero.slots[1],
-      canInteract: !!this.interact
-    })
+    const c = this.coachCtx
+    c.time = this.time
+    c.family = this.input.device
+    c.playing = hud.phase === 'play' && !flow.modal
+    c.combat = hud.combat
+    c.aimCandidate = this.aimCandidate
+    c.teleBlock = teleBlock
+    c.teleRed = teleRed
+    c.hp01 = this.combat.hp / this.combat.maxHp
+    c.tanks = profile.inv.tanks
+    c.hasWeapon = !!profile.hero.slots[0] || !!profile.hero.slots[1]
+    c.canInteract = !!this.interact
+    c.quiet = this.lessons.focus(p.x, p.z, p.yaw)
+    this.coach.update(c)
   }
 
   /** The HUD's "?" button: bring the core control glyphs back. */
@@ -1085,6 +1274,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     if (first && inp.fireReleased && c.charging) {
       const info = chargeInfo(c.charge, st)
       if (info.level !== 0 && canAct) this.fireCharged(info.level, info.perfect)
+      // Let go too soon at a lesson's drone or crate: its glyph shakes.
+      else if (info.level === 0 && c.charge >= EARLY_HOLD) this.lessons.earlyRelease(p.x, p.z, p.yaw)
       c.charging = false
       c.charge = 0
     } else if (c.charging && !inp.fireHeld && !inp.fireReleased) {
@@ -1120,6 +1311,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       p.path = null
       sfx('slide')
       this.coach.use('slide')
+      this.walk?.noteSlide()
       this.fx.emit({ x: p.x, y: 0.2, z: p.z, color: '#dfefff', size: 0.9, sizeEnd: 1.6, life: 0.3 })
     }
 
@@ -1191,26 +1383,80 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private aimDir(from: [number, number, number]): [number, number, number, Enemy | null] {
     const t = this.combat.target
     const p = this.player
-    if (t && t.state !== 'dead') {
-      const ax = t.x - from[0]
-      const ay = t.y + t.def.aimY * (t.elite ? 1.18 : 1) - from[1]
-      const az = t.z - from[2]
-      const toT = Math.atan2(-(t.x - p.x), -(t.z - p.z))
-      if (Math.abs(angDiff(toT, p.yaw)) < 1.1) {
-        const l = Math.hypot(ax, ay, az) || 1
-        return [ax / l, ay / l, az / l, t]
-      }
+    const aimAt = (e: Enemy): [number, number, number, Enemy] => {
+      const ax = e.x - from[0]
+      const ay = e.y + e.def.aimY * (e.elite ? 1.18 : 1) - from[1]
+      const az = e.z - from[2]
+      const l = Math.hypot(ax, ay, az) || 1
+      return [ax / l, ay / l, az / l, e]
     }
-    // Free aim: along the view, converging on the crosshair ~20 m out
+    if (this.input.locked) {
+      // A captured mouse aims itself: the shot goes where the crosshair is,
+      // and only snaps onto a machine that is right under it.
+      const e = this.enemyUnderCrosshair(0.09)
+      if (e) return aimAt(e)
+    } else if (t && t.state !== 'dead') {
+      const toT = Math.atan2(-(t.x - p.x), -(t.z - p.z))
+      if (Math.abs(angDiff(toT, p.yaw)) < 1.1) return aimAt(t)
+    }
+    // Free aim: along the view, converging on the crosshair where the view
+    // meets a wall or the floor (the muzzle sits right-low of the eye).
     _v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion)
-    const fx = p.x + _v3.x * 20
-    const fy = EYE_H + _v3.y * 20
-    const fz = p.z + _v3.z * 20
+    const reach = this.viewReach(_v3.x, _v3.y, _v3.z)
+    const fx = p.x + _v3.x * reach
+    const fy = EYE_H + _v3.y * reach
+    const fz = p.z + _v3.z * reach
     const dx = fx - from[0]
     const dy = fy - from[1]
     const dz = fz - from[2]
     const l = Math.hypot(dx, dy, dz) || 1
     return [dx / l, dy / l, dz / l, null]
+  }
+
+  /** The machine nearest the crosshair, within `cone` radians widened by its
+   *  size (a big machine is a big target), and in sight. */
+  private enemyUnderCrosshair(cone: number): Enemy | null {
+    const p = this.player
+    _v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion)
+    const vx = _v3.x
+    const vy = _v3.y
+    const vz = _v3.z
+    let best: Enemy | null = null
+    let bestDot = -1
+    for (const e of this.enemies) {
+      if (e.state === 'dead' || e.offstage) continue
+      const ex = e.x - p.x
+      const ey = e.y + e.def.aimY * (e.elite ? 1.18 : 1) - EYE_H
+      const ez = e.z - p.z
+      const d = Math.hypot(ex, ey, ez)
+      if (d > 32 || d < 0.3) continue
+      const dot = (ex * vx + ey * vy + ez * vz) / d
+      if (dot < Math.cos(Math.min(0.5, cone + Math.atan2(e.def.hitR * 0.6, d)))) continue
+      if (dot <= bestDot) continue
+      if (!hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) continue
+      best = e
+      bestDot = dot
+    }
+    return best
+  }
+
+  /** How far the view ray runs before a wall or the floor (m, 2.5..26). */
+  private viewReach(vx: number, vy: number, vz: number): number {
+    const p = this.player
+    const h = Math.hypot(vx, vz)
+    let reach = 26
+    if (vy < -0.02) reach = Math.min(reach, EYE_H / -vy)
+    if (h > 1e-3) {
+      const ux = vx / h
+      const uz = vz / h
+      for (let d = 0.5; d / h < reach; d += 0.5) {
+        if (isSolidAt(this.nav, p.x + ux * d, p.z + uz * d)) {
+          reach = Math.min(reach, d / h)
+          break
+        }
+      }
+    }
+    return Math.max(2.5, reach)
   }
 
   private firePellet(): void {
@@ -1227,7 +1473,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     sfx('shoot')
     this.coach.use('fire')
     // Shooting at a sleeping enemy in view wakes it.
-    if (tgt && !tgt.awake) wake(this, tgt)
+    if (tgt && !tgt.awake && !tgt.hold) wake(this, tgt)
     this.makeNoise(10)
   }
 
@@ -1235,7 +1481,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   private makeNoise(r: number): void {
     const p = this.player
     for (const e of this.enemies) {
-      if (e.awake || e.state === 'dead') continue
+      // A lesson's drones sleep through gunfire; only a hit wakes them.
+      if (e.awake || e.state === 'dead' || e.hold) continue
       if (Math.hypot(e.x - p.x, e.z - p.z) < r) wake(this, e)
     }
   }
@@ -1260,7 +1507,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     }
     sfx(level >= 2 ? 'chargeShotBig' : 'chargeShot')
     this.coach.use('charge')
-    if (tgt && !tgt.awake) wake(this, tgt)
+    if (tgt && !tgt.awake && !tgt.hold) wake(this, tgt)
     this.makeNoise(12)
   }
 
@@ -1275,7 +1522,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     let sightedAng = SIGHT_ANGLE
     let targetAng = 0
     for (const e of this.enemies) {
-      if (e.state === 'dead') continue
+      if (e.state === 'dead' || e.offstage) continue
       const d = Math.hypot(e.x - p.x, e.z - p.z)
       const ang = Math.abs(angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw))
       if (e === c.target) targetAng = ang
@@ -1434,14 +1681,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       const alive = e.state !== 'dead' || e.deathT < 0.2
       const near = Math.hypot(e.x - p.x, e.z - p.z) < far
       const o = cellOwner(e.x, e.z)
-      e.root.visible = alive && near && (o < 0 || vis[o] === 1)
+      e.root.visible = alive && !e.offstage && near && (o < 0 || vis[o] === 1)
       e.shadow.visible = e.root.visible
     }
   }
 
   /** Right-side presses count as FIRE while in combat or an enemy is in the sights. */
   wantsFire(): boolean {
-    return hud.phase === 'play' && (hud.combat || this.aimCandidate)
+    const p = this.player
+    return hud.phase === 'play' && (hud.combat || this.aimCandidate || this.lessons.inSights(p.x, p.z, p.yaw))
   }
 
   // ─── Taps: walk-to / interact ────────────────────────────────────────────
@@ -1490,7 +1738,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     for (const c of this.objects.chests) if (!c.opened) consider(c, c.x, 0.6, c.z)
     const n = this.objects.npc
     if (n && !n.rescued) consider(n, n.x, 0.8, n.z)
-    if (!this.bossStarted) for (const d of this.doors) if (d.locked) consider(d, d.x, 1.6, d.z)
+    if (!this.bossStarted) for (const d of this.doors) if (d.locked && !d.held) consider(d, d.x, 1.6, d.z)
     return best
   }
 
@@ -1540,6 +1788,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       hud.hints = views
     }
     hud.slideReady = c.slideCd <= 0 && c.power >= this.stats.slideCost
+    // Which hand is playing, and whether the mouse still needs capturing.
+    hud.device = this.input.device
+    hud.lookMode = this.input.lockRefused ? 'drag' : 'lock'
+    hud.pointerFree = this.input.device === 'mouse' && !this.input.locked && !this.input.lockRefused
+    const lv = this.lessons.view()
+    const lsig = lv ? `${lv.id}${lv.nudge}${lv.done ? 'd' : ''}${lv.slot}` : ''
+    if (lsig !== this.lessonSig) {
+      this.lessonSig = lsig
+      hud.lesson = lv
+    }
     // Objective line + compass
     const ob = this.objects.objective
     hud.objectiveKey = `objective.${ob.template}`
@@ -1599,7 +1857,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const c = this.combat
     const inp = this.input
     if (hud.phase === 'play' && (inp.lookDX || inp.lookDY)) {
-      const s = (inp.device === 'touch' ? LOOK_TOUCH : LOOK_MOUSE) * this.lookSens
+      const s = (inp.device === 'touch' ? LOOK_TOUCH : inp.locked ? LOOK_LOCK : LOOK_MOUSE) * this.lookSens
       // Full speed, always: the soft lock below stands aside while the
       // player is steering (it used to damp this to 35 % and pull the view
       // straight back, so in a fight the camera felt nailed down).
@@ -1621,10 +1879,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     const z = p.pz + (p.z - p.pz) * alpha
 
     // Soft lock-on: ease the view toward the target (yaw + pitch) — but not
-    // while, or just after, the player steers the camera themselves.
+    // while, or just after, the player steers the camera themselves, and
+    // never for a captured mouse: that hand aims itself, and a camera that
+    // drifts under it feels broken.
     const t = c.target
     const steering = this.time - this.manualLookAt < LOCK_YIELD
-    if (hud.phase === 'play' && t && t.state !== 'dead' && (hud.combat || c.charging) && !steering) {
+    if (hud.phase === 'play' && t && t.state !== 'dead' && (hud.combat || c.charging) && !steering && !inp.locked) {
       const ty = t.y + t.def.aimY * (t.elite ? 1.18 : 1)
       const want = Math.atan2(-(t.x - x), -(t.z - z))
       const dist = Math.hypot(t.x - x, t.z - z)
@@ -1714,14 +1974,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
     if (c.charging && info.toL1 > 0.25) {
       const lv = info.level
       const flick = lv >= 2 ? (Math.floor(this.time * 30) % 2 === 0 ? 1 : 0.55) : 1
-      coreMat.color.set(info.perfect ? '#ffd84a' : lv >= 2 ? '#7ff4ff' : lv === 1 ? '#c8ff7a' : PAL.glowCyan)
+      if (info.perfect) coreMat.color.set('#ffd84a')
+      else if (lv >= 2) coreMat.color.set('#7ff4ff')
+      else if (lv === 1) coreMat.color.set('#c8ff7a')
+      else coreMat.color.copy(this.vm.coreColor)
       haloMat.color.copy(coreMat.color)
       haloMat.opacity = (0.25 + 0.45 * (lv >= 1 ? 1 : info.toL1)) * flick
       const sc = 1 + info.toL1 * 0.6 + info.toL2 * 0.9
       this.vm.core.scale.setScalar(sc)
       this.vm.halo.scale.setScalar(0.6 + info.toL1 * 0.6 + info.toL2 * 0.8 + (info.perfect ? 0.3 : 0))
     } else {
-      coreMat.color.set(PAL.glowCyan)
+      coreMat.color.copy(this.vm.coreColor)
       haloMat.opacity = Math.max(0, haloMat.opacity - dt * 6)
       this.vm.core.scale.setScalar(1 + Math.sin(this.time * 5) * 0.08 + this.vmFlash * 0.8)
       if (this.vmFlash > 0) {
@@ -1732,12 +1995,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
       }
       this.vmFlash = Math.max(0, this.vmFlash - dt * 4)
     }
-    // Barrier disc on block
-    const sh = this.vm.shield
-    sh.visible = c.blocking || this.vm.shieldMat.opacity > 0.01
-    this.vm.shieldMat.opacity += ((c.blocking ? 0.45 : 0) - this.vm.shieldMat.opacity) * Math.min(1, dt * 14)
-    sh.position.set(-0.42, 0.08, -0.25)
-    sh.rotation.set(0, 0.35, Math.PI / 6 + this.time * 0.8)
+    // The block barrier: raised while guarding, warmer as Power runs out.
+    this.vm.barrier.update(dt, c.blocking && hud.phase === 'play', c.power / Math.max(1, c.maxPower), this.time)
   }
 
   /** Project a world point to CSS pixels on the canvas (for the HUD). */
@@ -1758,8 +2017,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost {
   }
 
   dispose(): void {
+    this.trail?.dispose()
     chargeHum(null)
     hud.hints = []
+    hud.lesson = null
+    hud.pointerFree = false
     this.fx.dispose()
     this.scene.traverse((o) => {
       const m = o as Mesh

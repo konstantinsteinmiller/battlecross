@@ -395,6 +395,18 @@ export const markTip = (id: string): void => {
 
 // ─── Mission snapshot (resume) ───────────────────────────────────────────────
 
+/** The tutorial walkthrough's progress (`sim/walkthrough.ts`). */
+export interface WalkthroughSave {
+  /** Gates passed: that many doors along the path are open. */
+  gate: number
+  /** The crate lesson's crate is broken. */
+  crate: boolean
+  /** The player has blocked (or parried) at least once this mission. */
+  block: boolean
+  /** …and slid at least once. */
+  slide: boolean
+}
+
 export interface MissionSnapshot {
   quest: Quest
   killed: number[]
@@ -412,6 +424,8 @@ export interface MissionSnapshot {
   kills: number
   t: number
   done: boolean
+  /** Tutorial only; a tutorial snapshot without it predates the walkthrough. */
+  walk?: WalkthroughSave
 }
 
 export const readSnapshot = (): MissionSnapshot | null => {

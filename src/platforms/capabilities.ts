@@ -9,7 +9,25 @@
 //
 // All functions are pure: they take the inputs they need explicitly, no
 // module-level state, no Vue, no `window` reads. Vue components wrap the
-// call in `computed()` so reactivity flows correctly.
+// call in `computed()` so reactivity flows correctly. The one exception is
+// `platformPolicy` below: a frozen BUILD-TIME constant, resolved from env
+// literals exactly like the `IS_X_BUILD` constants further down.
+
+import { resolvePlatformPolicy, type PlatformPolicy } from './policy'
+
+export { resolvePlatformPolicy }
+export type { PlatformPolicy, PolicyInput } from './policy'
+
+/**
+ * THIS build's platform policy — the portal rules that shape the UI and decide
+ * what ships (see `policy.ts`). Read it instead of testing a `VITE_APP_*` flag
+ * in a component: the rule then lives in one place, and `vite.config.ts`
+ * resolves the very same function to alias dev tooling out of a build.
+ */
+export const platformPolicy: Readonly<PlatformPolicy> = Object.freeze(resolvePlatformPolicy({
+  isPoki: import.meta.env.VITE_APP_POKI === 'true',
+  qaTools: import.meta.env.VITE_POKI_QA_TOOLS === 'true'
+}))
 
 export interface PlatformFlags {
   isCrazyWeb: boolean

@@ -115,8 +115,8 @@ export default {
     'title': 'Maqsad',
     'complete': 'Maqsad bajarildi',
     'beamOutHint': 'Tayyor boʻlganingizda teleport qiling.',
-    'tutorial': 'Buzgʻunchini yenging',
-    'boss': 'Yadro ustasini yenging',
+    'tutorial': 'Asosiy dushmanni yenging: {boss}',
+    'boss': 'Asosiy dushmanni yenging: {boss}',
     'kill': '{target}: {n}/{total} yoʻq qilindi',
     'collect': 'Maʼlumot yadrolari: {n}/{total}',
     'rescue': 'Qamalib qolgan ishchi-botni toping',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Yurish uchun chap tomonni, qarash uchun oʻng tomonni suring. U yerga borish uchun polga bosing!',
-    'moveKeys': 'WASD — yurish, sichqonchani tortish — qarash. U yerga borish uchun polga cherting!',
+    'moveKeys': 'WASD — yurish.',
+    'lookMouse': 'Atrofga qarash uchun sichqonchani harakatlantiring.',
+    'capture': 'Kamerani boshqarish uchun oʻyin ekraniga cherting.',
     'fireTouch': 'Oldinda mashinalar! Otish uchun bosing — zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
-    'fireKeys': 'Oldinda mashinalar! Otish — chertish yoki Probel; zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
+    'fireKeys': 'Oldinda mashinalar! Otish — chap tugmani chertish; zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
     'charge': 'Qalqonlar oddiy oʻqlarni toʻsadi. TOʻLIQ zaryadli oʻq teshib oʻtadi.',
     'blockTouch': 'Toʻq sariq halqa: bloklash uchun qalqonni bosib turing — halqa yopilayotganda bosib, QAYTARING!',
-    'blockKeys': 'Toʻq sariq halqa: bloklash uchun Shift yoki oʻng tugmani bosib turing — halqa yopilayotganda bosib, QAYTARING!',
+    'blockKeys': 'Toʻq sariq halqa: bloklash uchun sichqonchaning oʻng tugmasini bosib turing — halqa yopilayotganda bosib, QAYTARING!',
     'red': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Sirpanib chetlaning!',
+    'dodgeKeys': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Probelni bosib, sirpanib chetlaning!',
     'chest': 'Taʼminot sandigʻi! Ochish uchun bosing.',
     'tank': 'Sogʻliq kammi? Taʼmir toʻplami sizni toʻliq tuzatadi.',
     'weapon': 'Nusxalangan qurolni rangli tugma bilan ishlating!'
+  },
+  'lesson': {
+    'charge': 'Blasterni zaryadlash uchun bosib turing, soʻng qoʻyib yuboring: mashq dronining qalqonini faqat zaryadli oʻq sindiradi.',
+    'crate': 'Taʼminot qutilarini faqat zaryadli oʻq sindiradi. Bosib turing va yonib turgan qutini moʻljallab qoʻyib yuboring.',
+    'weaponKeys': '{n} tugmasini bosib, nusxalangan qurolni oting: bitta oʻq uchala dronga ham tegadi.',
+    'weaponTouch': 'Yonib turgan qurol tugmasini bosing: bitta oʻq uchala dronga ham tegadi.'
+  },
+  'hubLesson': {
+    'workshop': 'Ustaxonani oching.',
+    'upgradeBuster': 'Blasterni yaxshilash uchun boltlarni sarflang: koʻproq zarar.',
+    'pickArmor': 'Endi koʻkrak zirhini tanlang.',
+    'upgradeArmor': 'Uni ham yaxshilang: koʻproq himoya.',
+    'deploy': 'Hammasi tayyor — missiyalarga qaytamiz!'
   },
   'loot': {
     'found': '{rarity} {item} topildi!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'TIZIM OʻCHDI',
-    'body': 'Cobalt juda koʻp zarar oldi.',
-    'kept': 'Hozirgacha topilgan {xp} tajriba va {bolts} ta bolt sizda qoladi.',
+    'body': 'Flux juda koʻp zarar oldi.',
+    'kept': 'Hozirgacha topganlaringiz sizda qoladi:',
     'useTank': 'Taʼmir toʻplami bilan qayta yoqish ({n})',
     'rebootAd': 'Hozir qayta yoqish',
     'retreat': 'Laboratoriyaga chekinish'
@@ -190,11 +206,11 @@ export default {
       'block': 'Bloklash uchun qalqonni bosib turing — qaytarish uchun halqa yopilayotgan payt bosing.'
     },
     'keys': {
-      'move': 'WASD / yoʻnalish tugmalari: yurish. U yerga borish uchun polga cherting.',
-      'look': 'Qarash uchun sichqonchani torting.',
-      'fire': 'Chap tugma yoki Probel: otish — zaryadlash uchun bosib turing.',
-      'block': 'Oʻng tugma yoki Shift: blok — qaytarish uchun halqa yopilayotgan payt bosing.',
-      'slide': 'Q: sirpanish · H: taʼmir toʻplami · E: amal',
+      'move': 'WASD / yoʻnalish tugmalari: yurish.',
+      'look': 'Qarash uchun sichqonchani harakatlantiring. Kamerani boshqarish uchun oʻyin ekraniga cherting.',
+      'fire': 'Chap tugma: otish — zaryadlash uchun bosib turing, otish uchun qoʻyib yuboring.',
+      'block': 'Oʻng tugma: blok — qaytarish uchun halqa yopilayotgan payt bosing.',
+      'slide': 'Probel: sirpanish · H: taʼmir toʻplami · E: amal · B: teleport',
       'more': '1 / 2: maxsus qurollar · Tab: nishonni almashtirish · Esc: pauza'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missiyalar',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Sxemalar',
       'workshop': 'Ustaxona'
     },
+    'heroTabAria': 'Flux, jangovar androidingiz',
     'levelUpReady': 'Yangi daraja!',
     'levels': 'Dar. {a}–{b}',
     'story': 'Syujetli missiya',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Yangi topshiriq'
   },
   'hero': {
+    'role': 'Jangovar androidingiz',
     'weapons': 'Maxsus qurollar',
     'weaponSlot': 'Uyacha {n}',
     'weaponRank': 'Bosqich {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Talab: {name}, {n}-bosqich',
     'install': 'Chipni oʻrnatish',
     'maxed': 'Toʻliq quvvatda',
-    'respec': 'Sxemalarni qayta sozlash ({n} bolt)'
+    'respec': 'Sxemalarni qayta sozlash'
   },
   'skill': {
     'rapid': { 'name': 'Tezkor oʻqlar', 'desc': 'Oddiy oʻq zarari har chipga +10%.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Yechish',
     'equipped': 'Kiyilgan',
     'new': 'YANGI',
-    'salvage': 'Parchalash (+{n})',
+    'salvage': 'Parchalash',
     'noAffixes': 'Bonus modullar yoʻq',
     'emptySlot': 'Bu uyacha uchun hozircha hech narsa yoʻq — sandiqlarni oching va topshiriqlarni bajaring.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Musiqa treki',
     'musicTracks': {
       'cozy': 'Sokin sxemalar',
-      'trance': 'Mega Drayv'
+      'trance': 'Overdrayv'
     },
     'haptics': 'Tebranish',
     'on': 'Yoqilgan',

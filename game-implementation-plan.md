@@ -42,7 +42,7 @@ src/game/
   engine/     renderer.ts (three setup, DPR cap, resize), loop.ts (RAF + fixed 60 Hz step),
               input.ts (touch/mouse/keyboard → intents), camera.ts (FP camera, bob, shake, lock-on)
   models/     toon.ts (gradient ramp, outline hull, shared materials), kit.ts (rounded parts),
-              hero.ts (Cobalt full rig + FP arm), enemies.ts (rigs per archetype), bosses.ts,
+              hero.ts (Flux full rig + FP arm), enemies.ts (rigs per archetype), bosses.ts,
               props.ts (door, chest, crate, barrel, teleporter, pickups, data core, npc)
   world/      rng.ts, levelGen.ts (rooms/corridors/doors/roles), levelMesh.ts (merged static
               geometry per room), themes.ts, nav.ts (grid collision, LOS, A*)
@@ -73,7 +73,7 @@ while bars and damage numbers get direct DOM writes.
   build green. *Commit.*
 - [x] **2. Exploration.** Level generator + meshes + theme, FP controller
   (joystick, look, tap-to-move with A*), doors, collision, head-bob, the
-  teleport beam-in, the Cobalt FP arm cannon. *Commit.*
+  teleport beam-in, the Flux FP arm cannon. *Commit.*
 - [x] **3. Combat.** Enemy rigs (hardhat, trooper, heli, hopper, roller, brute,
   turret), AI state machines, lock-on, quick and charged shots with the perfect
   window, block and parry, slide, telegraph rings, damage numbers, hit flash,
@@ -120,6 +120,168 @@ while bars and damage numbers get direct DOM writes.
   results screen, a top-100 modal from the hub, and a modelled histogram-only
   board for the builds that cannot post (Poki, Yandex, Playgama). *Commit.*
 
+- [x] **15. Desktop controls, lessons and the upgrade tour** (playtest feedback).
+  - Pointer lock on desktop (`engine/input.ts`): the first click captures the
+    mouse, mouse movement looks, left button fires (hold = charge), right
+    button blocks. Space = slide/dodge (Q kept silently, Ctrl dropped because
+    Ctrl+W closes the tab), B = beam out, E = interact. Losing the lock (Esc)
+    opens the pause menu; modals and the hub release it. Falls back to drag
+    looking where the lock is refused. No soft-lock camera pull with a locked
+    mouse; shots only snap to a machine near the crosshair.
+  - Keycaps in front of every desktop prompt ("[E] Open", "[B] Beam out") and
+    on the action buttons, labelled from the real keyboard layout.
+  - Wordless mission lessons (`sim/lessons.ts` + `LessonLayer.vue`):
+    charge shot on a shielded training target right after the first beam-in;
+    supply crates break only to charged shots (lesson in the second room
+    entered, once it is cleared); the special weapon (key 1) on a row of three
+    sleeping drones in the first mission after the weapon is won.
+  - Guided upgrade tour on the first hub visit (`HubLesson.vue`): Workshop tab
+    → upgrade the buster → pick the chest armour → upgrade it → back to
+    Missions. Everything else is dimmed and inert meanwhile.
+  - Hero model and block barrier redesigned (`models/hero.ts`,
+    `models/barrier.ts`; a subagent owns those two files).
+
+- [ ] **16. Story: intro cutscene, story beats and the ending** (`story.md`;
+  its § Decisions are settled). Builds on chunk 15 (the new hero rig, the
+  upgrade tour, pointer lock). Every step lands its own strings in all 21
+  locales (English first; keys and copy in `story.md` § New strings) and its
+  own sounds (synth, plus a drop-in name in `sound-todo.md`), so the parity
+  test stays green at every commit.
+  - **Weakness ring and GDD** (small, independent, first). Turn the ring one
+    step so each copied weapon is the key to the next Master: `weakTo` in
+    `data/bosses.ts` becomes Blaze ← `galeGuard`, Frost ← `flameWave`,
+    Volt ← `iceLance`, Gale ← `thunderArc`; `COUNTER` becomes fire ← wind,
+    ice ← fire, volt ← ice, wind ← volt (fix the chain comment). A test pins
+    that every Master after Blaze is weak to a weapon from an earlier
+    sector. GDD: § Setting (five foremen plus VEX, the Red Signal, the beam
+    network, Gauss in stasis, a link to `story.md`), the Core Masters
+    table's *Weak to* column, § Feel (the first 10 seconds are gameplay for
+    a player who skips the intro). *Commit.*
+  - **Models**, each on the ModelLab turntable (`story.md` § Reused and new):
+    - Prof. Gauss (`models/npc.ts`): console, lever, stagger, asleep, waking,
+      a hand on a helmet, idle at the console.
+    - The stasis capsule (`models/props.ts`): glass, a frost shell that grows
+      and melts, a heartbeat light.
+    - The valley diorama (new `models/diorama.ts`): six landmarks at the
+      `regions.ts` `mapPos` spots, the relay ring, the Fortress shield with
+      crack stages, a solid look and a hologram look.
+    - Vex's hologram (the Mk-I faceplate, flickering), Flux's visor eye-lights
+      (`models/hero.ts`), and the Masters' red "controlled" glow on eyes,
+      chest core and crest, with a swap back to their own colours. *Commit.*
+  - **Cutscene player** (new `src/game/story/`). `CutsceneMode` is a
+    `GameMode` that plays a script of shots: a camera per orientation
+    (framed the way `HubMode` frames Flux), pose tracks and timed events
+    (SFX, music section, HUD boot, Pip's glyph bubbles, blinks, the
+    screen-reader line). It runs on the sim clock, never on CSS animations
+    or timers, so modals, ads, a hidden tab and a platform pause freeze it.
+    `CutsceneLayer.vue`: the skip button (`skip-forward`, top right inside
+    the safe area, from 0.5 s, `Esc` too, selector `.cutscene-skip`), Pip's
+    bubbles projected from 3D, the eyelid bars, an `aria-live` line. No
+    pointer lock while a cutscene runs (a click there only unlocks audio or
+    skips); the gameplay bracket stays closed. *Commit.*
+  - **The intro** (`story/intro.ts`, the six shots in `story.md`):
+    - Save: `profile.world.seen: string[]` in `ma_world` lists the story
+      beats already shown (`intro`, `relay:<sector>`, `vex:<boss>`,
+      `blueprint`, `breach`, `ending`). `migrate()` marks every beat whose
+      trigger is already behind the player, so an update never queues old
+      cutscenes. Round-trip test.
+    - `bootTarget()` picks the intro when there is no snapshot, the tutorial
+      isn't done and `intro` isn't in `seen`, once the first-timer check has
+      waited (capped) for the cloud read. Boot order: build the cutscene set
+      (time-sliced), hide the loader (so `notifySplashGone` lets the
+      GameMonetize / GameDistribution / GamePix first-load ad land before
+      shot 1), build the tutorial behind the cutscene, and at the flash hand
+      off to the tutorial's `beamIn`, or to `MissionLoading` until the build
+      is done. A cloud save with progress that arrives mid-intro ends it.
+      Ending or skipping adds `intro` to `seen`.
+    - "Replay intro" in Options (hub only); a replay ends back in the hub.
+    - `VITE_APP_INTRO` is on by default; `false` drops the intro from the
+      build.
+    - Strings `ui.skip`, `options.replayIntro`, `story.intro.*`. Sounds: the
+      `intro` track in `music.ts` (valley in the hub's key, the Vex motif,
+      the wake-up rise landing on the Scrapyard track) and the SFX `alarm`,
+      `capsule`, `freeze`, `heartbeat`, `bootUp`.
+    - Tooling that boots a fresh profile presses `.cutscene-skip` (the real
+      user path, so the skip is exercised): `qa:xbrowser`, `qa:portal`,
+      `perf:mission`, `perf-builds.mjs` stage 0, `tools/preview-video`. New
+      marks `boot:intro-start` / `boot:intro-end`;
+      `scripts/boot-timeline.mjs` reports when the tutorial build finished
+      against shot 6 (14 s) at 4×. If it overruns, A/B the cutscene at
+      30 fps during the build into `PERF-LEDGER.md`, don't assume.
+    - Tests: first-timers only; ending and skipping both record it; a
+      snapshot resume or a finished tutorial never shows it; a cloud save
+      arriving mid-intro ends it; the cutscene clock freezes under
+      `isGamePaused` and ads. *Commit.*
+  - **Masters are freed** (`sim/bosses.ts`). After the orb-ring burst (now
+    the red chip breaking) the Master kneels in its own colours for about
+    1.5 s, then beams out. `mission.bossFreed` for the five Masters;
+    `mission.bossDown` stays for the Mk-I (test). The ad-before-results
+    order does not move (`tests/game/resultsAdOrder.test.ts`). *Commit.*
+  - **Hub beats** (`sim/hub.ts`, `MissionsTab.vue`, `story/beats.ts`):
+    - Gauss's capsule behind the pad, in frame in both orientations: asleep
+      until the Mk-I falls, then Gauss is awake at the console.
+    - The relay animation on the sector strip when a sector opens. The
+      first one waits until the upgrade tour (`hubLesson.ts`) hands back to
+      Missions.
+    - Vex's skull flickers over a lab console on the first visit after each
+      Master (about 2 s, angrier each time, `vexGlitch`).
+    - The blueprint after the Cryo Plant (about 4 s, `story.blueprint`) and
+      the Breach after the Sky Docks (about 6 s, `story.breach`), on the
+      cutscene player with the menus slid away, before any other hub
+      lesson. *Commit.*
+  - **The ending** (`story/ending.ts`): four shots after the Mk-I's results
+    close, short credits, then the hub; `ending` into `seen`, an ending cue,
+    `story.ending.*`. No Mk-II sting: it ships with New Game+ (GDD § Core
+    Masters), which has no chunk yet. *Commit.*
+  - **QA pass.** Typecheck, all tests, a production build, `qa:xbrowser`.
+    Every shot framed at 320×658 portrait and 764×385 landscape. `qa:portal`
+    checks that the intro obeys mute at boot and the tab-away freeze, and
+    that `gameplayStart` waits for the tutorial's play phase.
+    `boot-timeline` at 4×. After release, compare conversion-to-play per
+    portal and switch `VITE_APP_INTRO` off where it drops. *Commit.*
+
+- [x] **17. Blind-playtest fixes** (report: claude.ai/artifact/95ZdKQr6duPctCN7rMc4eH,
+  2026-09-24). Done 2026-09-24, NOT committed: all six packages integrated,
+  type-check and 729 tests green, round-2 report
+  claude.ai/artifact/HLp2VHZ9c6G9nfiWpmNKMh. Round 2's open items (candidates
+  for chunk 18): show each gate's requirement on its door and pulse it on
+  contact; park the training drone in the doorway, with a stuck fallback; a
+  hold cue on the block/parry cards and one safety drone instead of three;
+  hit-direction arcs; dim the target frame behind walls; a dodge glyph for
+  Slide (it hops back without stick input); a wider chest prompt; the level
+  badge reads as a coin. Six parallel work packages with disjoint file
+  ownership, then integration and a re-run of the same blind playtest:
+  - **WP1 Guided walkthrough + coach** (`sim/coach.ts`, `sim/lessons.ts`,
+    `sim/spawn.ts`, `sim/mission.ts`, `flow.ts`, `LessonLayer.vue`): move and
+    look are never silenced by a lesson; the tutorial becomes a gated
+    walkthrough along the start→boss path (look, move, fire + charge on the
+    drone, Hardhat + crate, Shield Trooper block/parry, red-ring slide, chest,
+    tank), each door opening when its room's lesson is done; scripted
+    tutorial encounters (no Guardroid before the Scrapper); the lesson edge
+    arrow only inside the lesson's room, drawn as the lesson glyph; the hub's
+    Scrapyard card replays the tutorial until it is done.
+  - **WP2 Glyphs** (`InputGlyph.vue`, `ControlHints.vue`, `CoachRing.vue`,
+    `ControlsPanel.vue`): touch "move" is a finger tracing an ∞; the hold
+    glyph reads without motion; the pause legend animates like the HUD.
+  - **WP3 Objective trail** (new `fx/objectiveTrail.ts`, `sim/objectives.ts`
+    `target()`): small subtle yellow floor chevrons along the nav path to the
+    main objective, only once the walkthrough is done and out of combat.
+  - **WP4 Bars** (`TargetFrame.vue`, `BossBar.vue`, `HudBars.vue`,
+    `ScreenFx.vue`): MegaMan-style segmented enemy and boss bars; heart on
+    the health bar, red pulse and edge vignette under 30 %.
+  - **WP5a HUD text and glyphs** (icons, `TopStatus.vue`, hub/modals currency,
+    `ObjectiveTracker.vue`, `GameScene.vue`, all locales): a nut glyph for
+    Bolts (⚡ stays for energy/charge), "+140" reward chips, [Esc] on pause and
+    F1 for help, the boss portrait on the objective card, "Defeat {boss}".
+  - **WP5b Hub tour + pad beam** (`HubLesson.vue`, `hubLesson.ts`,
+    `models/props.ts`): the tour's hand shows on the first frame and a tap on
+    a dimmed control pulses the live step; the start pad's light column
+    fades near the camera and after the beam-in.
+  - Lead: wire WP3/WP5b into `mission.ts`, type-check, tests, build; harness
+    fixes (emulated pointer lock so the host's real cursor is never captured,
+    clicks at the crosshair while captured, an `aim` helper, short-exposure
+    frames); re-run the two blind Sonnet playtests and publish a new report.
+
 ## Resume notes
 
 - Dev server: `pnpm dev` (port 2194 — 2050/2077/2193 belong to other games
@@ -131,7 +293,8 @@ while bars and damage numbers get direct DOM writes.
   the camera for inspection).
 - Cheats: `localStorage.cheat = 'true'` (DevTools) + reload enables the hotkeys in
   `src/game/cheats.ts`, all on ctrl+shift+alt: B +1000 bolts, L level up,
-  O finish objective, K destroy every machine, G god mode, U unlock all.
+  O finish objective, K destroy every machine, G god mode, U unlock all,
+  J jump to the boss door (the corridor outside the shutter, facing it).
   Typing "cmarc" toggles debug mode (FPS/draw-call meter).
 - Layout checks: 320×658 portrait and 764×385 landscape, touch UA. In
   portrait the top HUD row belongs to the bars and the status pills, so the
@@ -183,6 +346,44 @@ while bars and damage numbers get direct DOM writes.
   playtest scripts drive a real mission: the first fight shows look and move,
   then fire and block (desktop cards under the crosshair; on touch, the tap
   glyph plus a ring on the shield button).
+- Desktop mouse (chunk 15): pointer lock is owned by `engine/input.ts`
+  (`requestPointerLock` / `releasePointerLock` / `isPointerLocked`), mouse
+  BUTTONS come from mouse events (a second button while the first is held is
+  a `pointermove` under Pointer Events), and a refusal only counts when the
+  request rode a real gesture outside Chrome's re-capture cooldown.
+  `GameScene` releases the capture for every pause reason and the hub, takes
+  it back on Resume, and ignores an Esc that arrives with a lost capture.
+  `hud.pointerFree` drives the click glyph on the crosshair.
+- Scene lessons and the upgrade tour: flags `profile.tips['lesson:charge' |
+  'lesson:crate' | 'lesson:weapon' | 'lesson:upgrade']` (plus
+  `lesson:upgradeGrant` for the one-time bolt top-up). Clear them to see the
+  lessons again. Pinned by `tests/game/lessons.test.ts`, `crates.test.ts`,
+  `hubLesson.test.ts`, `input.test.ts`. Hub DOM anchors are `data-lesson`
+  attributes (`tab-<id>`, `upgrade`, `armor`, `bolts`, `weapon-<n>`).
+- Guided walkthrough (chunk 17): `sim/walkthrough.ts` locks the tutorial's
+  start→boss path doors (red lamps) and opens each when its room's lesson is
+  done; the tutorial seed is 20261916 (four path rooms), the cast is scripted
+  in `spawn.ts`, progress rides the snapshot field `walk`, and the hub's
+  Scrapyard card replays the tutorial until `tutorialDone`.
+  `Mission.walkthroughActive()` gates the objective trail
+  (`fx/objectiveTrail.ts`, `MissionObjects.target()`), which is also off in a
+  fight and during a scene lesson.
+- Browser defaults (menus, mouse/rocker gestures, autoscroll, history buttons,
+  drag, selection, quick find, pinch) are cancelled in one place:
+  `src/use/useBrowserGuard.ts` (capture phase on `window`, defaults only, text
+  fields exempt; pinned by `tests/ui/browserGuard.test.ts`). Don't add
+  per-component `contextmenu` blockers; extend the guard.
+- Browser automation must NEVER take a real pointer lock: a headless Chrome on
+  Windows captured the host's mouse cursor. Emulate it in the page (see
+  `scripts/xbrowser.mjs`): override `requestPointerLock`, the
+  `pointerLockElement` getter and `exitPointerLock`, and feed look as JS
+  `mousemove` events with `movementX/Y`.
+- Never put TypeScript in a pug template (`el as X`): the template is
+  compiled apart from the script and is not stripped, so it is a syntax
+  error in the browser that `vue-tsc` accepts. Cast in the script.
+- A browser playtest that ends a mission on the dev server posts to the LIVE
+  board. Route `/workers\.dev/` to a local answer in any such script (as
+  `scripts/xbrowser.mjs` does).
 - Input ownership: `consumeEdges` (end of each sim step) clears only EDGES.
   The look deltas belong to the render, which applies and zeroes them. Clearing
   them in the step lost every drag whenever a step ran between two frames.

@@ -2,7 +2,7 @@ import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeomet
 import type { Quest, QuestTemplate } from '../data/quests'
 import type { Enemy, World } from './world'
 import type { Theme } from '../world/themes'
-import { cellCenter, roomCenter, type MapData, type Room } from '../world/levelGen'
+import { cellCenter, roomCenter, CELL, type MapData, type Room, type Door } from '../world/levelGen'
 import { buildChest, buildCrate, buildBarrel, buildDataCore, type ChestMesh, type PropMesh } from '../models/props'
 import { buildWorkerBot, animateWorkerBot } from '../models/npc'
 import type { Rig } from '../models/kit'
@@ -86,9 +86,129 @@ export interface ObjectiveHost extends World {
   onCoreTaken(c: Core): void
   onObjectiveDone(): void
   explode(x: number, z: number, r: number, dmg: number): void
+  /** A quick shot bounced off a supply crate (they only break to a charge). */
+  onCrateDeflect?(c: Crate): void
   /** The node a static prop at (x, z) hangs under: its room's mesh group,
    *  so portal culling hides the prop together with the room. */
   propParent(x: number, z: number): Object3D
+}
+
+// ─── The objective's spot (where the floor trail leads) ──────────────────────
+
+/** What `objectiveTarget` reads. A `MissionObjects` is one. */
+export interface TargetSource {
+  readonly objective: { readonly template: QuestTemplate; readonly done: boolean }
+  readonly quest: { readonly target: Enemy['kind'] | null }
+  readonly eliteId: number
+  readonly cores: ReadonlyArray<{ readonly x: number; readonly z: number; readonly taken: boolean }>
+  readonly chests: ReadonlyArray<{ readonly x: number; readonly z: number; readonly supply: boolean; readonly opened: boolean }>
+  readonly npc: { readonly x: number; readonly z: number; readonly rescued: boolean } | null
+}
+
+/** The enemy fields the target rules read. */
+export type TargetEnemy = Pick<Enemy, 'id' | 'kind' | 'state' | 'x' | 'z' | 'hold'>
+
+/** The trail ends this far in front of the boss shutter (m): on the corridor
+ *  side, clear of the panel and inside the interact reach. */
+export const BOSS_DOOR_STANDOFF = 1
+/** Another candidate must be 15 % nearer than the current pick to take over
+ *  (compared squared), so a near-tie cannot flip the trail as the player walks. */
+const TARGET_STICKY = 0.85 * 0.85
+/** A lesson's sleeping drones only count once no real machine is left. */
+const HELD_PENALTY = 1e9
+
+// Scratch: the one live answer, and the pick it came from (for the stickiness).
+const _target = { x: 0, z: 0 }
+let _src: TargetSource | null = null
+let _prev: object | null = null
+let _pick: object | null = null
+let _pickD = 0
+
+const consider = (ref: object, x: number, z: number, px: number, pz: number, prev: object | null, penalty = 0): void => {
+  let d = (x - px) * (x - px) + (z - pz) * (z - pz)
+  if (ref === prev) d *= TARGET_STICKY
+  d += penalty
+  if (d >= _pickD) return
+  _pickD = d
+  _pick = ref
+  _target.x = x
+  _target.z = z
+}
+
+const livingElite = (src: TargetSource, enemies: readonly TargetEnemy[]): { x: number; z: number } | null => {
+  for (const e of enemies) {
+    if (e.id !== src.eliteId) continue
+    if (e.state === 'dead') return null
+    _target.x = e.x
+    _target.z = e.z
+    return _target
+  }
+  return null
+}
+
+/** The boss shutter, or null on a map without a boss room. */
+const bossDoorOf = (map: MapData): Door | null => {
+  for (const d of map.doors) if (d.boss) return d
+  return null
+}
+
+/**
+ * Where the objective is from (px, pz), or null when there is nothing to walk
+ * to (see `MissionObjects.target`). Returns a shared scratch object, valid
+ * until the next call.
+ */
+export const objectiveTarget = (
+  src: TargetSource, map: MapData, enemies: readonly TargetEnemy[], px: number, pz: number
+): { x: number; z: number } | null => {
+  const prev = src === _src ? _prev : null
+  _src = src
+  _prev = null
+  _pick = null
+  _pickD = Infinity
+  if (src.objective.done) return null
+  switch (src.objective.template) {
+    case 'tutorial':
+    case 'boss': {
+      const d = bossDoorOf(map)
+      // A map that could not fit a boss room keeps its Core Master in the objective room.
+      if (!d) return livingElite(src, enemies)
+      // The fight starts as the player crosses into the boss room.
+      const i = Math.floor(px / CELL)
+      const j = Math.floor(pz / CELL)
+      if (i >= 0 && j >= 0 && i < map.w && j < map.h && map.room[j * map.w + i] === d.to) return null
+      const off = CELL / 2 - BOSS_DOOR_STANDOFF
+      _target.x = cellCenter(d.i) + (d.axis === 'x' ? d.dir * off : 0)
+      _target.z = cellCenter(d.j) + (d.axis === 'z' ? d.dir * off : 0)
+      return _target
+    }
+    case 'elite':
+      return livingElite(src, enemies)
+    case 'kill':
+      for (const e of enemies) {
+        if (e.kind === src.quest.target && e.state !== 'dead') consider(e, e.x, e.z, px, pz, prev, e.hold ? HELD_PENALTY : 0)
+      }
+      break
+    case 'purge':
+      for (const e of enemies) {
+        if (e.state !== 'dead') consider(e, e.x, e.z, px, pz, prev, e.hold ? HELD_PENALTY : 0)
+      }
+      break
+    case 'collect':
+      for (const c of src.cores) if (!c.taken) consider(c, c.x, c.z, px, pz, prev)
+      break
+    case 'supply':
+      for (const c of src.chests) if (c.supply && !c.opened) consider(c, c.x, c.z, px, pz, prev)
+      break
+    case 'rescue': {
+      const n = src.npc
+      if (!n || n.rescued) return null
+      _target.x = n.x
+      _target.z = n.z
+      return _target
+    }
+  }
+  _prev = _pick
+  return _pick ? _target : null
 }
 
 export class MissionObjects {
@@ -187,15 +307,9 @@ export class MissionObjects {
         const spot = takeWall(r)
         if (!spot) break
         const barrel = rng() < 0.3
-        const mesh = barrel ? buildBarrel(h.theme) : buildCrate(h.theme)
         const x = cellCenter(spot[0]) - Math.sin(spot[2]) * 0.7 + (rng() - 0.5) * 0.8
         const z = cellCenter(spot[1]) - Math.cos(spot[2]) * 0.7 + (rng() - 0.5) * 0.8
-        mesh.root.position.set(x, 0, z)
-        mesh.root.rotation.y = rng() * Math.PI * 2
-        h.propParent(x, z).add(mesh.root)
-        const navIdx = h.nav.props.length
-        h.nav.props.push({ x, z, r: barrel ? 0.5 : 0.62, active: true })
-        this.crates.push({ id: this.crates.length, x, z, kind: barrel ? 'barrel' : 'crate', mesh, hp: barrel ? 1 : 12, broken: false, navIdx, hitT: 0 })
+        this.addCrate(x, z, rng() * Math.PI * 2, barrel ? 'barrel' : 'crate')
       }
     }
     // Collect jobs: data cores, one per room from the deepest outward.
@@ -357,6 +471,17 @@ export class MissionObjects {
     return best
   }
 
+  /**
+   * Where the objective trail (`fx/objectiveTrail.ts`) leads from (px, pz):
+   * the boss shutter until the Core Master's fight starts, the elite, the
+   * nearest machine that counts, data core or supply chest, the worker-bot.
+   * Null once the objective is done or there is nothing to walk to. A shared
+   * scratch object (no per-step allocation), valid until the next call.
+   */
+  target(px: number, pz: number, enemies: readonly Enemy[]): { x: number; z: number } | null {
+    return objectiveTarget(this, this.host.map, enemies, px, pz)
+  }
+
   openChest(c: Chest): void {
     if (c.opened) return
     c.opened = true
@@ -378,13 +503,43 @@ export class MissionObjects {
     this.progress(1)
   }
 
-  /** A player shot hit something? Returns true if it struck a crate/barrel. */
-  shotHitsCrate(x: number, y: number, z: number, r: number, dmg: number): boolean {
+  /** A crate or an energy barrel on the floor (build time, or a lesson's). */
+  addCrate(x: number, z: number, yaw: number, kind: 'crate' | 'barrel' = 'crate'): Crate {
+    const h = this.host
+    const barrel = kind === 'barrel'
+    const mesh = barrel ? buildBarrel(h.theme) : buildCrate(h.theme)
+    mesh.root.position.set(x, 0, z)
+    mesh.root.rotation.y = yaw
+    h.propParent(x, z).add(mesh.root)
+    const navIdx = h.nav.props.length
+    h.nav.props.push({ x, z, r: barrel ? 0.5 : 0.62, active: true })
+    const c: Crate = { id: this.crates.length, x, z, kind, mesh, hp: barrel ? 1 : 12, broken: false, navIdx, hitT: 0 }
+    this.crates.push(c)
+    return c
+  }
+
+  /**
+   * A player shot hit something? Returns true if it struck a crate/barrel.
+   * Supply crates are reinforced: a quick shot (`charge` 0) bounces off with
+   * a tink, and only a charged shot, a copied weapon or a blast breaks one —
+   * the charge shot's second use, taught by its own lesson. Barrels are
+   * volatile and pop to anything.
+   */
+  shotHitsCrate(x: number, y: number, z: number, r: number, dmg: number, charge = 1): boolean {
     for (const c of this.crates) {
       if (c.broken) continue
       const top = c.kind === 'barrel' ? 1.3 : 1.15
       if (y > top + r) continue
       if (Math.hypot(c.x - x, c.z - z) > (c.kind === 'barrel' ? 0.5 : 0.62) + r) continue
+      if (c.kind === 'crate' && charge <= 0) {
+        const h = this.host
+        c.hitT = 0.45
+        h.fx.sparks(x, y, z, '#ffffff', 6, 4, 0.14)
+        pushHud({ t: 'text', x, y: y + 0.3, z, key: 'combat.tink', color: '#dfe7ff' })
+        h.sfx('tink', c.x, c.z)
+        h.onCrateDeflect?.(c)
+        return true
+      }
       c.hp -= dmg
       c.hitT = 1
       if (c.hp <= 0) this.breakCrate(c)
@@ -428,5 +583,32 @@ export class MissionObjects {
     if (q.template === 'kill') for (const e of enemies) { if (e.kind === q.target && e.state !== 'dead') out.push({ x: e.x, z: e.z, kind: 'objective' }) }
     if (q.template === 'purge') for (const e of enemies) { if (e.state !== 'dead') out.push({ x: e.x, z: e.z, kind: 'objective' }) }
     return out
+  }
+
+  /**
+   * A chest for a scripted scene (the tutorial walkthrough's chest room): on
+   * a free wall spot of `room` in sight of (fromX, fromZ) — the doorway — and
+   * as far from it as the room allows, so it is the first thing seen on the
+   * way in. Deterministic, so a resumed mission rebuilds it under the same id.
+   */
+  placeChest(room: Room, fromX: number, fromZ: number, rarity: Rarity = 'tuned'): Chest | null {
+    const h = this.host
+    let best: [number, number, number] | null = null
+    let bestD = -1
+    for (const spot of room.wallSpots) {
+      const x = cellCenter(spot[0])
+      const z = cellCenter(spot[1])
+      if (this.crates.some(c => Math.hypot(c.x - x, c.z - z) < 1.8)) continue
+      if (this.chests.some(c => Math.hypot(c.x - x, c.z - z) < 1.8)) continue
+      if (!hasLineOfSight(h.nav, fromX, fromZ, x, z)) continue
+      const d = Math.hypot(x - fromX, z - fromZ)
+      if (d > bestD) {
+        best = spot
+        bestD = d
+      }
+    }
+    if (!best) return null
+    this.addChest(room, best, false, rarity)
+    return this.chests[this.chests.length - 1]!
   }
 }

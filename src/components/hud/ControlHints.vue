@@ -1,5 +1,10 @@
 <template lang="pug">
   div.coach(v-if="hud.phase === 'play'" aria-live="polite")
+    //- Desktop, mouse not captured yet: one click on the scene takes it.
+    Transition(name="hint")
+      div.capture(v-if="hud.pointerFree" role="img" :aria-label="t('tips.capture')")
+        span.capture-ring
+        InputGlyph(kind="mouse" button="left" :click="true")
     TransitionGroup(name="hint" tag="div" class="spots")
       div.hint(
         v-for="h in spots"
@@ -46,10 +51,11 @@ import type { GameIconName } from '@/components/icons/iconNames'
 
 /**
  * The control coach's glyphs (see `game/sim/coach.ts`). Movement and camera
- * sit where the thumbs / hands are; on desktop every action is a card just
- * under the crosshair — where the eyes already are. On touch the button
- * actions (block, slide, tank, weapon, interact) glow on the buttons
- * themselves (`ActionButtons` / `ContextButtons`).
+ * sit where the thumbs / hands are (on touch, a finger tracing an ∞ where the
+ * floating stick works); on desktop every action is a card just under the
+ * crosshair — where the eyes already are. On touch the button actions
+ * (block, slide, tank, weapon, interact) glow on the buttons themselves
+ * (`ActionButtons` / `ContextButtons`).
  *
  * Every success flashes the glyph green and fills a pip; the last pip pops a
  * check and the glyph leaves. No words: the aria-label carries the sentence
@@ -62,9 +68,11 @@ const ON_BUTTONS: ReadonlySet<HintId> = new Set(['block', 'parry', 'slide', 'tan
 /** Glyphs placed on the screen by region (the rest form the desktop row). */
 const SPATIAL: ReadonlySet<HintId> = new Set(['move', 'look'])
 
+// Until the mouse is captured a click captures it, so the click-driven cards
+// (and the look glyph) wait; the keys still work and keep their glyphs.
 const spots = computed(() => hud.hints.filter(h =>
-  SPATIAL.has(h.id) || (h.family === 'touch' && !ON_BUTTONS.has(h.id))))
-const row = computed(() => hud.hints.filter(h => h.family === 'mouse' && !SPATIAL.has(h.id)))
+  (SPATIAL.has(h.id) && !(hud.pointerFree && h.id === 'look')) || (h.family === 'touch' && !ON_BUTTONS.has(h.id))))
+const row = computed(() => hud.pointerFree ? [] : hud.hints.filter(h => h.family === 'mouse' && !SPATIAL.has(h.id)))
 
 const ACTION: Partial<Record<HintId, GameIconName>> = {
   fire: 'buster', charge: 'bolt', block: 'shield', parry: 'shield', slide: 'forward', tank: 'flask', weapon: 'star'
@@ -73,13 +81,13 @@ const ACTION: Partial<Record<HintId, GameIconName>> = {
 /** Screen-reader sentences (the glyphs themselves are wordless). */
 const ARIA: Record<HintId, Record<InputFamily, string>> = {
   move: { touch: 'tips.moveTouch', mouse: 'tips.moveKeys' },
-  look: { touch: 'tips.moveTouch', mouse: 'tips.moveKeys' },
+  look: { touch: 'tips.moveTouch', mouse: 'tips.lookMouse' },
   walk: { touch: 'tips.moveTouch', mouse: 'tips.moveKeys' },
   fire: { touch: 'tips.fireTouch', mouse: 'tips.fireKeys' },
   charge: { touch: 'tips.charge', mouse: 'tips.charge' },
   block: { touch: 'tips.blockTouch', mouse: 'tips.blockKeys' },
   parry: { touch: 'tips.blockTouch', mouse: 'tips.blockKeys' },
-  slide: { touch: 'tips.red', mouse: 'tips.red' },
+  slide: { touch: 'tips.red', mouse: 'tips.dodgeKeys' },
   tank: { touch: 'tips.tank', mouse: 'tips.tank' },
   weapon: { touch: 'tips.weapon', mouse: 'tips.weapon' },
   interact: { touch: 'tips.chest', mouse: 'tips.chest' }
@@ -90,7 +98,9 @@ type GlyphProps = InstanceType<typeof InputGlyph>['$props']
 const glyph = (h: HintView): GlyphProps => {
   if (h.family === 'touch') {
     switch (h.id) {
-      case 'move': return { kind: 'joystick' }
+      // A finger drawing an ∞: "drag here, any way". The ghost joystick it
+      // replaces read as a dashed-circle icon, and Slide's arrow as "walk".
+      case 'move': return { kind: 'infinity' }
       case 'look': return { kind: 'finger', mode: 'drag' }
       case 'charge': return { kind: 'finger', mode: 'hold' }
       default: return { kind: 'finger', mode: 'tap' }
@@ -98,13 +108,14 @@ const glyph = (h: HintView): GlyphProps => {
   }
   switch (h.id) {
     case 'move': return { kind: 'wasd' }
-    case 'look': return { kind: 'mouse', button: 'left', drag: true }
+    // A captured mouse looks by moving; where the capture is refused, by dragging.
+    case 'look': return hud.lookMode === 'lock' ? { kind: 'mouse', button: 'none', move: true } : { kind: 'mouse', button: 'left', drag: true }
     case 'charge': return { kind: 'mouse', button: 'left', hold: true }
     case 'block': case 'parry': return { kind: 'mouse', button: 'right' }
-    case 'slide': return { kind: 'key', label: 'Q' }
-    case 'tank': return { kind: 'key', label: 'H' }
-    case 'weapon': return { kind: 'key', label: '1' }
-    case 'interact': return { kind: 'key', label: 'E' }
+    case 'slide': return { kind: 'key', wide: true }
+    case 'tank': return { kind: 'key', code: 'KeyH' }
+    case 'weapon': return { kind: 'key', code: 'Digit1' }
+    case 'interact': return { kind: 'key', code: 'KeyE' }
     default: return { kind: 'mouse', button: 'left', click: true }
   }
 }
@@ -200,9 +211,14 @@ watch(() => hud.hints, (hints) => {
   left: calc(env(safe-area-inset-left, 0px) + 8vw)
   bottom: calc(env(safe-area-inset-bottom, 0px) + 20vh)
   width: clamp(92px, 20vmin, 150px)
+  // The ∞ finger: low in the left 45 % of the screen, where the floating
+  // stick answers, and clear of the thumb buttons at the lower right.
   &.touch
-    left: calc(env(safe-area-inset-left, 0px) + 10vw)
-    width: clamp(96px, 24vmin, 150px)
+    left: calc(env(safe-area-inset-left, 0px) + clamp(10px, 4vw, 40px))
+    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 8vh, 64px))
+    width: clamp(120px, 40vmin, 150px)
+    .glyph-box
+      aspect-ratio: 265 / 184
 .look
   right: calc(env(safe-area-inset-right, 0px) + 16vw)
   top: 34vh
@@ -240,8 +256,13 @@ watch(() => hud.hints, (hints) => {
 .card
   position: relative
   width: clamp(80px, 14vmin, 112px)
-  &.slide, &.tank, &.weapon, &.interact
+  &.tank, &.weapon, &.interact
     width: clamp(58px, 10vmin, 80px)
+  // The space bar is wide: its box keeps the key's proportions.
+  &.slide.mouse
+    width: clamp(96px, 16vmin, 130px)
+    .glyph-box
+      aspect-ratio: 124 / 64
   .floor
     top: 92%
 .parry-ring
@@ -251,11 +272,39 @@ watch(() => hud.hints, (hints) => {
   border: 4px solid #ffffff
   animation: parry-close 1.1s ease-in infinite
 
+// The capture glyph sits ON the crosshair: that is where the click goes.
+.capture
+  position: absolute
+  left: 50%
+  top: 50%
+  width: clamp(88px, 15vmin, 124px)
+  aspect-ratio: 140 / 112
+  transform: translate(-50%, -18%)
+  filter: drop-shadow(0 3px 0 rgba(20, 26, 51, 0.55))
+.capture-ring
+  position: absolute
+  left: 50%
+  top: -34%
+  width: 46%
+  aspect-ratio: 1
+  border-radius: 50%
+  border: 4px solid #ffffff
+  transform: translateX(-50%)
+  animation: capture-pulse 1.3s ease-out infinite
+@keyframes capture-pulse
+  from
+    transform: translateX(-50%) scale(0.6)
+    opacity: 1
+  to
+    transform: translateX(-50%) scale(1.5)
+    opacity: 0
+.capture.hint-enter-from, .capture.hint-leave-to
+  transform: translate(-50%, -18%) scale(0.6)
+
 // Portrait phones: the thumbs sit lower and the screen is narrow.
 @media (max-aspect-ratio: 1/1)
   .move.touch
-    left: calc(env(safe-area-inset-left, 0px) + 12vw)
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 18vh)
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12vh)
   .look
     right: calc(env(safe-area-inset-right, 0px) + 10vw)
     top: 40vh
@@ -315,6 +364,6 @@ watch(() => hud.hints, (hints) => {
     opacity: 0
     border-color: #7ff4ff
 @media (prefers-reduced-motion: reduce)
-  .ok .glyph-box, .approve, .floor, .parry-ring, .check
+  .ok .glyph-box, .approve, .floor, .parry-ring, .check, .capture-ring
     animation: none
 </style>

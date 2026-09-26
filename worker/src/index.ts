@@ -11,7 +11,7 @@
  * the published rows stop at 100, so on a board of thousands almost everyone is
  * below the cut, and rows alone could only place them by guesswork.
  *
- * THE SCORE IS LIFETIME XP: every point of experience Cobalt has ever earned,
+ * THE SCORE IS LIFETIME XP: every point of experience Flux has ever earned,
  * still counting after the level-40 cap. It is the POINT TOTAL (thousands to
  * hundreds of thousands) and it only ever grows, so the client writes only on
  * a personal record. `flair` is the HERO LEVEL (1–40), the depth, shown beside

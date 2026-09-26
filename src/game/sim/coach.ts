@@ -4,8 +4,8 @@ import { profile } from '../state/profile'
  * ─── The control coach: wordless, on-screen, earned away ─────────────────────
  *
  * Replaces the text tips. Every control is taught by a GLYPH drawn where the
- * action happens (a WASD cluster, a mouse with the right button lit, a thumb
- * on a ghost joystick, a pulsing ring on the shield button…), never by a
+ * action happens (a WASD cluster, a mouse with the right button lit, a finger
+ * tracing an ∞ where the joystick works, a pulsing ring on the shield button…), never by a
  * sentence that disappears before it is read. Each glyph stays until the
  * player has actually DONE the thing a few times: every success flashes it
  * green and fills a pip, and the last one pops a check and retires it.
@@ -20,6 +20,9 @@ import { profile } from '../state/profile'
  *   button brings the core set back on demand.
  * - One input per glyph. "Shift or right-click" was read as Shift+right-click,
  *   which Firefox answers with its own context menu, uncancellably.
+ * - A scene lesson (`lessons.ts`) quiets everything but survival — and the
+ *   thumbs: moving and looking are never silenced, not even on the first
+ *   frame with the training drone in view.
  *
  * Pure bookkeeping: the mission reports successes (`use`) and context, the HUD
  * reads `views()`.
@@ -63,6 +66,19 @@ const FIRE_IDLE = 7
 const MISSED_BLOCKS = 3
 /** The "?" button shows the core set for up to this long. */
 const HELP_HOLD = 25
+/** The Repair Tank glyph comes in below this much health (a tank carried). */
+const TANK_AT = 0.5
+/** During a lesson only what keeps the player alive may compete with it. */
+const SURVIVAL: ReadonlySet<HintId> = new Set(['block', 'parry', 'slide', 'tank', 'interact'])
+/**
+ * …and the thumbs: a lesson never silences moving and looking, and never
+ * crowds them out. In the blind playtest a phone player with the training
+ * drone in front of the pad saw only a finger on the drone, took the Slide
+ * button for "walk", and never touched the stick in 142 turns.
+ */
+const THUMBS: ReadonlySet<HintId> = new Set(['move', 'look'])
+/** What may show while a lesson has the player's eyes. */
+const heard = (id: HintId, quiet: boolean): boolean => !quiet || SURVIVAL.has(id) || THUMBS.has(id)
 
 export interface HintView {
   id: HintId
@@ -91,6 +107,10 @@ export interface CoachContext {
   tanks: number
   hasWeapon: boolean
   canInteract: boolean
+  /** A scene lesson (`lessons.ts`) is on screen: keep to survival glyphs
+   *  (block, slide, tank) and the thumbs (move, look), and let the lesson
+   *  have the player's attention. */
+  quiet?: boolean
 }
 
 interface HintState {
@@ -123,6 +143,7 @@ export class Coach {
   private helpUntil = -1
   private lookAcc = 0
   private moveAcc = 0
+  private quiet = false
 
   constructor() {
     for (const id of Object.keys(HINTS) as HintId[]) {
@@ -213,10 +234,11 @@ export class Coach {
       this.family = c.family
       for (const s of Object.values(this.st)) { s.count = 0; s.shown = false; s.doneAt = -1 }
     }
+    this.quiet = !!c.quiet
     if (!c.playing) return
     const t = c.time
     const want = (id: HintId, on: boolean): void => {
-      if (on) this.st[id].wantedUntil = t + LINGER
+      if (on && heard(id, this.quiet)) this.st[id].wantedUntil = t + LINGER
     }
     const fresh = (id: HintId): boolean => !this.mastered(id)
     // Movement and camera from the first moment of control, together: a
@@ -229,18 +251,20 @@ export class Coach {
     want('block', c.teleBlock && fresh('block'))
     want('parry', c.teleBlock && !fresh('block') && fresh('parry'))
     want('slide', c.teleRed && fresh('slide'))
-    want('tank', c.hp01 < 0.4 && c.tanks > 0 && fresh('tank'))
+    want('tank', c.hp01 < TANK_AT && c.tanks > 0 && fresh('tank'))
     want('weapon', c.hasWeapon && c.combat && fresh('weapon'))
     want('interact', c.canInteract && fresh('interact'))
-    // Stuck: bring the glyph back until the player does it once more.
+    // Stuck: bring the glyph back until the player does it once more. Moving
+    // and looking are watched through a lesson too — a player frozen in front
+    // of the training drone is exactly the one who needs the stick again.
     if (t > 6) {
       if (t - this.lastLook > LOOK_IDLE && !c.combat) this.recall('look')
       if (t - this.lastMove > MOVE_IDLE && !c.combat) this.recall('move')
-      if (c.combat && t - this.lastFire > FIRE_IDLE) this.recall('fire')
+      if (c.combat && !this.quiet && t - this.lastFire > FIRE_IDLE) this.recall('fire')
     }
     for (const id of Object.keys(this.st) as HintId[]) {
       const s = this.st[id]
-      if (s.recall > 0 && (id !== 'block' && id !== 'slide' || c.teleBlock || c.teleRed || t < this.helpUntil)) {
+      if (s.recall > 0 && heard(id, this.quiet) && (id !== 'block' && id !== 'slide' || c.teleBlock || c.teleRed || t < this.helpUntil)) {
         s.wantedUntil = Math.max(s.wantedUntil, t + 0.5)
       }
     }
@@ -253,7 +277,8 @@ export class Coach {
     for (const id of Object.keys(this.st) as HintId[]) {
       const s = this.st[id]
       const fading = s.doneAt >= 0 && t - s.doneAt < 0.9
-      const wanted = s.wantedUntil > t && (s.doneAt < 0)
+      // A lesson in focus clears the stage at once, lingering glyphs too.
+      const wanted = s.wantedUntil > t && (s.doneAt < 0) && heard(id, this.quiet)
       if (wanted || fading) live.push(id)
       else {
         s.shown = false
@@ -262,7 +287,18 @@ export class Coach {
       }
     }
     live.sort((a, b) => HINTS[b].priority - HINTS[a].priority)
-    const shown = live.slice(0, MAX_SHOWN)
+    // A lesson on screen counts as one of the two — but not against the
+    // thumbs: the stick and the camera glyphs sit where the thumbs are, well
+    // away from the lesson's card, and are never the ones left out.
+    let room = this.quiet ? MAX_SHOWN - 1 : MAX_SHOWN
+    const shown: HintId[] = []
+    for (const id of live) {
+      if (this.quiet && THUMBS.has(id)) shown.push(id)
+      else if (room > 0) {
+        shown.push(id)
+        room--
+      }
+    }
     return shown.map((id) => {
       const s = this.st[id]
       if (!s.shown) {

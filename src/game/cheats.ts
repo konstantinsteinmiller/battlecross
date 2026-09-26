@@ -4,6 +4,8 @@ import { profile, saveProfile, grantXp } from './state/profile'
 import { xpToNext } from './data/progression'
 import { SECTORS } from './data/regions'
 import { WEAPONS, type WeaponId } from './data/weapons'
+import { cellCenter } from './world/levelGen'
+import { isSolidAt } from './world/nav'
 
 /**
  * Dev cheats. They only fire when cheats are enabled: `localStorage.cheat =
@@ -38,6 +40,25 @@ export const registerGameCheats = (): void => {
     if (!m) return
     god = !god
     m.combat.iframes = god ? 1e9 : 0
+  })
+  // A boss fight is minutes into a mission; QA needs the entrance in seconds.
+  // The corridor outside the shutter, facing it, so the last steps are walked.
+  registerCheat('ctrl+shift+alt+j', 'jump to the boss door', () => {
+    const m = currentMission()
+    const d = m?.map.doors.find(o => o.boss)
+    if (!m || !d) return
+    const dx = cellCenter(d.i)
+    const dz = cellCenter(d.j)
+    // Back along the corridor, away from the boss room (`dir` points into it).
+    const bx = d.axis === 'x' ? -d.dir : 0
+    const bz = d.axis === 'z' ? -d.dir : 0
+    let back = 4.5
+    while (back > 1.5 && isSolidAt(m.nav, dx + bx * back, dz + bz * back)) back -= 0.5
+    const p = m.player
+    p.x = p.px = dx + bx * back
+    p.z = p.pz = dz + bz * back
+    p.path = null
+    p.yaw = Math.atan2(bx, bz)
   })
   registerCheat('ctrl+shift+alt+u', 'unlock every sector and weapon', () => {
     profile.world.unlocked = SECTORS.map(s => s.id)

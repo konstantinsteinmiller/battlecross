@@ -33,6 +33,8 @@ export const ICON_LABEL_KEYS: Partial<Record<GameIconName, string>> = {
   shop: 'hub.tab.workshop',
   anvil: 'hub.tab.workshop',
   chest: 'interact.chest',
+  // The currency glyph is named by the currency.
+  nut: 'hud.bolts',
   close: 'close',
   music: 'options.music',
   'music-off': 'options.music',

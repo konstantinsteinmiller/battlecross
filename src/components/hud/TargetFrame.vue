@@ -6,16 +6,32 @@
         span.name
           template(v-if="hud.targetElite") {{ t('enemy.elite') }}&nbsp;
           | {{ t(hud.targetName) }}
-      div.hpbar
-        div.hpfill(:style="{ width: Math.max(0, hud.targetHp01 * 100) + '%' }")
+      div.cells(aria-hidden="true")
+        span.cell(v-for="i in CELLS" :key="i" :class="{ on: i <= lit, last: nearlyDown && i === lit }")
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 
-/** The locked target's name, level and health, top-centre (Blades-style). */
+/**
+ * The locked target's name, level and energy, top-centre (Blades-style). The
+ * energy is a chunky Mega Man cell bar: 20 discrete cells, rounded UP so a
+ * machine with any HP left keeps a lit cell (the GDD's bar rule). When it is
+ * nearly down the last lit cell blinks: one more hit. Elites wear gold trim.
+ *
+ * Per-cell DOM rather than one fill under a mask (as the 28-segment bars
+ * are): 20 boxes lay out on whole pixels, where a gradient mask across a
+ * fractional width smears the gaps between cells.
+ */
 const { t } = useI18n()
+const CELLS = 20
+/** At or below this share of HP the last lit cell blinks. */
+const NEARLY_DOWN = 0.2
+const hp01 = computed(() => Math.min(1, Math.max(0, hud.targetHp01)))
+const lit = computed(() => Math.ceil(hp01.value * CELLS))
+const nearlyDown = computed(() => hp01.value > 0 && hp01.value <= NEARLY_DOWN)
 </script>
 
 <style scoped lang="sass">
@@ -42,24 +58,44 @@ const { t } = useI18n()
   color: #9fe6ff
 .elite .name
   color: #ffd84a
-.hpbar
+// The navy plate: its padding and the gaps between the cells are the outline.
+.cells
+  display: flex
+  gap: 2px
   margin-top: 4px
-  height: clamp(8px, 1.6vmin, 11px)
-  border: 2px solid #141a33
-  border-radius: 6px
-  background: #3a0d18
-  overflow: hidden
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35)
-.hpfill
-  height: 100%
-  background: linear-gradient(#ff9aa0, #ff2d3f 60%, #c0101f)
-  transition: width 0.15s ease-out
+  height: clamp(14px, 3.2vmin, 20px)
+  padding: 2px
+  border-radius: 4px
+  background: #141a33
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
+// Each cell carries the light stripe across its top. Empty cells stay dark
+// but keep the stripe faintly, so the drained length still reads as cells.
+.cell
+  flex: 1
+  border-radius: 1px
+  background: linear-gradient(#3b2633 0%, #3b2633 28%, #221520 28%, #221520 100%)
+  &.on
+    background: linear-gradient(#ffe6b8 0%, #ffe6b8 28%, #ff8a3a 28%, #ff8a3a 70%, #dd5220 70%, #dd5220 100%)
+  &.last
+    animation: blink 0.5s steps(1) infinite
+// Gold trim: a gold ring round the navy plate, a navy hairline outside it so
+// it holds against a bright sky, and a faint gold glow.
+.elite .cells
+  box-shadow: 0 0 0 2px #ffd84a, 0 0 0 3px #141a33, 0 4px 0 2px rgba(0, 0, 0, 0.35), 0 0 12px 3px rgba(255, 216, 74, 0.35)
 .tf-enter-active, .tf-leave-active
   transition: opacity 0.2s, transform 0.2s
 .tf-enter-from, .tf-leave-to
   opacity: 0
   transform: translate(-50%, -8px)
+@keyframes blink
+  50%
+    opacity: 0.15
 @media (max-aspect-ratio: 1/1)
   .target
     top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(36px, 8vmin, 48px) + 40px)
+// No blink: the last cell burns white-hot instead.
+@media (prefers-reduced-motion: reduce)
+  .cell.last
+    animation: none
+    background: linear-gradient(#ffffff 0%, #ffffff 28%, #ffd2a6 28%, #ffd2a6 100%)
 </style>

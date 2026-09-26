@@ -15,7 +15,9 @@
             span.v.xp +{{ fmt(r.xp) }}
           div.row
             span.k {{ t('results.bolts') }}
-            span.v.bolts +{{ fmt(boltsShown) }}
+            span.v.bolts
+              | +{{ fmt(boltsShown) }}
+              GameIcon.nut(name="nut")
           div.row
             span.k {{ t('results.kills') }}
             span.v {{ r.kills }}
@@ -41,15 +43,23 @@
             span.i-lvl {{ t('enemy.level', { n: it.ilvl }) }}
     template(#footer)
       div.actions
+        //- Poki (`platformPolicy.freeOptionFirst`): the free Continue leads and is
+        //- never smaller than the rewarded offer — an invisible copy of the
+        //- offer's label sizes it, in every language.
+        FButton(v-if="freeFirst" type="primary" icon="forward" :size="pairSize" @click="done")
+          span.free-label
+            span {{ t('continue') }}
+            span.sizer(v-if="offerDouble" aria-hidden="true") {{ doubleLabel }}
         FButton(
-          v-if="r && r.success && canAd && !doubled && r.bolts > 0"
+          v-if="offerDouble"
           type="warning"
           icon="video"
+          :size="pairSize"
           :is-disabled="adInFlight"
-          :label="t('results.double', { n: fmt(r.bolts) })"
+          :label="doubleLabel"
           @click="double"
         )
-        FButton(type="primary" icon="forward" :label="t('continue')" @click="done")
+        FButton(v-if="!freeFirst" type="primary" icon="forward" :label="t('continue')" @click="done")
 </template>
 
 <script setup lang="ts">
@@ -57,6 +67,7 @@ import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
+import GameIcon from '@/components/icons/GameIcon.vue'
 import { flow, goHub } from '@/game/flow'
 import { profile, saveProfile, lifetimeXp } from '@/game/state/profile'
 import { RARITY_COLOR } from '@/game/models/palette'
@@ -65,6 +76,8 @@ import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { formatCount } from '@/utils/localeNumber'
 import RankBadge from '@/components/molecules/RankBadge.vue'
 import { leaderboardEnabled } from '@/use/useLeaderboard'
+import { platformPolicy } from '@/platforms/capabilities'
+import { isShortViewport, windowWidth } from '@/use/useUser'
 
 /** Mission results: what the run earned, what unlocked, then home. */
 const { t, locale } = useI18n()
@@ -72,6 +85,15 @@ const open = computed(() => flow.modal === 'results')
 const r = computed(() => flow.results)
 const doubled = ref(false)
 const canAd = computed(() => canOfferReward.value)
+/** Portal rule (Poki): the free choice before the rewarded one. */
+const freeFirst = platformPolicy.freeOptionFirst
+const offerDouble = computed(() => !!(r.value && r.value.success && canAd.value && !doubled.value && r.value.bolts > 0))
+const doubleLabel = computed(() => (r.value ? t('results.double', { n: fmt(r.value.bolts) }) : ''))
+/** Two equal-width buttons need more room than the old pair did. In a tight
+ *  landscape (Poki's 640×360 test size) they take the small size so they stay
+ *  on one row instead of wrapping and pushing the stats into a scroll. */
+const pairSize = computed(() =>
+  (freeFirst && offerDouble.value && isShortViewport.value && windowWidth.value < 800 ? 'sm' : undefined))
 const boltsShown = computed(() => (r.value ? r.value.bolts * (doubled.value ? 2 : 1) : 0))
 const hasExtras = computed(() => {
   const x = r.value
@@ -151,7 +173,15 @@ const done = () => {
   &.xp
     color: #9dff5a
   &.bolts
+    display: inline-flex
+    align-items: center
+    gap: 4px
     color: #ffd84a
+// The value's pixel font runs at 0.8em: the glyph matches the label's size.
+// Nested, so it outranks GameIcon's own 100% sizing on specificity.
+.bolts .nut
+  width: 1.4em
+  height: 1.4em
 .levelup
   text-align: center
   color: #ffd84a
@@ -198,6 +228,15 @@ const done = () => {
   flex-wrap: wrap
   gap: 10px
   justify-content: center
+// Poki: the free button's label shares one grid cell with an invisible copy of
+// the rewarded label, so the free button is at least as wide as the offer.
+.free-label
+  display: inline-grid
+  justify-items: center
+  > *
+    grid-area: 1 / 1
+.sizer
+  visibility: hidden
 @keyframes lvl-pulse
   50%
     transform: scale(1.06)

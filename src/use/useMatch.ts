@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { safeGetBool, safeSetItem } from '@/utils/safeStorage'
+import { platformPolicy } from '@/platforms/capabilities'
 
 // Both reads below run at MODULE SCOPE. A bare `localStorage.getItem` here
 // throws before `bootstrap()` on any runtime where `window.localStorage` is
@@ -14,7 +15,10 @@ const isProductionBuild = import.meta.env.VITE_NODE_ENV === 'production'
 // build — without it, a `production` platform build (Playgama, GamePix, …)
 // ignored a persisted `debug=true` at boot, so debug mode silently reset to
 // off on every reload and `cmarc`'s toggle "didn't stick".
-const cheatEnabled = safeGetBool('cheat')
+// Not on a build whose platform policy ships no dev tooling (the Poki release:
+// "no debug code, no dev artifacts") — there the flag must not bring up the
+// FPS meter or the debug logs either.
+const cheatEnabled = platformPolicy.devTools && safeGetBool('cheat')
 export const isDebug = ref(envDebug || cheatEnabled || (!isProductionBuild && debugSaved))
 export const isCrazyGamesFullRelease = import.meta.env.VITE_APP_CRAZY_GAMES_FULL_RELEASE === 'true'
 

@@ -9,9 +9,11 @@
         span.chip.sector {{ t(`sector.${quest.sector}`) }}
         span.chip.lvl {{ t('enemy.level', { n: quest.level }) }}
         span.chip.xp {{ t('combat.xp', { n: quest.reward.xp }) }}
+        //- A reward, signed like the XP beside it: a bare "⚡ 140" was read
+        //- as a price.
         span.chip.bolt
-          GameIcon.mini(name="bolt")
-          | {{ quest.reward.bolts }}
+          | +{{ quest.reward.bolts }}
+          GameIcon.mini(name="nut")
     div.q-actions
       button.deploy(type="button" @click="$emit('deploy')")
         GameIcon.mini(name="play")

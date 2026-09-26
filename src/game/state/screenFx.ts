@@ -1,4 +1,6 @@
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
+import { isGamePaused } from '@/use/useGamePause'
+import { hud } from './hud'
 
 /**
  * Full-screen feedback levels (written by the HUD event drain, decayed and
@@ -9,6 +11,22 @@ export const screenFx = {
   flash: 0,
   flashColor: '#ffffff'
 }
+
+/** Below this share of max HP the health bar turns red (HudBars). */
+export const LOW_HP = 0.3
+
+/**
+ * The low-health warning is LIVE: under `LOW_HP` in actual play. Not while
+ * beaming in or out, not dead, and not under a modal, an ad or a paused tab
+ * (all of which hold `isGamePaused`; the hub unmounts the HUD outright).
+ *
+ * The health bar's heartbeat (HudBars) and the red edge vignette (ScreenFx)
+ * both key their CSS animations on this one flag, so they start in the same
+ * frame, beat in step, and restart in step after every pause.
+ */
+export const lowHealthLive = computed(() =>
+  hud.phase === 'play' && hud.hp > 0 && hud.hp < hud.maxHp * LOW_HP && !isGamePaused.value
+)
 
 export interface Toast {
   id: number

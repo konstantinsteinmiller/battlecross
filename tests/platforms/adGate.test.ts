@@ -63,7 +63,9 @@ describe('reward gating', () => {
     // The bug this locks: the gate used to read `isCrazyWeb && fullRelease`, so
     // five shipping portals with real rewarded inventory handed every perk out
     // for free — the video never played and the placement never earned.
-    for (const provider of ['playgama', 'gamepix', 'gamemonetize', 'yandex', 'gameDistribution']) {
+    // Poki included: its rewarded surfaces must play `rewardedBreak()`, never
+    // grant for free (integrate-poki §2d — the portal every past repo forgot).
+    for (const provider of ['playgama', 'gamepix', 'gamemonetize', 'yandex', 'gameDistribution', 'poki']) {
       const gate = await loadGate({ crazy: false, provider })
       const grant = vi.fn()
       expect(gate.isRewardGated, `${provider} did not gate the reward`).toBe(true)

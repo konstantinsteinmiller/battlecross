@@ -18,7 +18,7 @@
     "build:gamepix": "vite build --mode gamepix --base=./ && cd dist && tar -a -cf ../mega-adventure-gamepix.zip * && cd .. && move mega-adventure-gamepix.zip dist\\",
     "build:gamemonetize": "vite build --mode gamemonetize --base=./ && cd dist && tar -a -cf ../mega-adventure-gamemonetize.zip * && cd .. && move mega-adventure-gamemonetize.zip dist\\",
     "build:yandex": "vite build --mode yandex --base=./ && cd dist && tar -a -cf ../mega-adventure-yandex.zip * && cd .. && move mega-adventure-yandex.zip dist\\",
-    "build:poki": "vite build --mode poki --base=./ && cd dist && tar -a -cf ../mega-adventure-poki.zip * && cd .. && move mega-adventure-poki.zip dist\\",
+    "build:poki": "vite build --mode poki --base=./ && node tools/poki-deploy/pack.mjs",
     "deploy:poki": "node tools/poki-deploy/deploy.mjs",
     "build-github-main": "vite build --base=/mega-adventure/ --outDir=dist",
     "build-github-develop": "vite build --base=/mega-adventure/develop/ --outDir=dist/develop",

@@ -28,16 +28,18 @@ touch 180) and `public/favicon.ico`, all rendered from `public/icons/icon.svg`.
 
 | Asset | Size | Notes |
 | --- | --- | --- |
-| Poki thumbnail | ≥ 628×628, 1:1 | full-bleed, NO text (Poki rule) |
-| Landscape cover | 1920×1080 (16:9) | Cobalt mid-shot firing a charged shot in a sector corridor, logo top-left |
-| Portrait cover | 800×1200 (2:3) | Cobalt full body on the lab teleporter, logo top |
-| Square icon | 512×512 | helmet emblem (use `public/icons/icon.svg`) |
+| Poki thumbnail | ≥ 628×628, 1:1 | DONE: `store-art/poki/` (1256 master, 628 png + jpg), rendered from the rig by `scripts/render-thumbnail.mjs`. Full-bleed, NO text (Poki rule) |
+| Landscape cover | 1920×1080 (16:9) | Flux mid-shot firing a charged shot in a sector corridor, logo top-left |
+| Portrait cover | 800×1200 (2:3) | Flux full body on the lab teleporter, logo top |
+| Square icon | 512×512 | the app icon: export `public/icons/icon.svg` |
 | Screenshots | 1280×720 × 4 | combat, a Core Master fight, hub/circuits, loot results |
 
 Check each portal's current spec before uploading (CrazyGames, Playgama,
 GamePix and GameMonetize each publish their own sizes). Every image must be
-original: the look is "blue-bomber era", but no character, logo or level from
-an existing game.
+original: the proportions nod to late-80s / early-90s console action games,
+but no character, logo or level from an existing game. Flux is pearl armour
+over a graphite undersuit, with a dark visor band, amber eye-lights and an
+amber hex reactor. Never paint him blue or give him a face.
 
 ## 3. Not overridable by design
 

@@ -4,7 +4,7 @@
       div.quest(v-if="flow.quest")
         div.q-name {{ t(`quest.${flow.quest.template}`) }}
         div.q-sector {{ t(`sector.${flow.quest.sector}`) }} · {{ t('enemy.level', { n: flow.quest.level }) }}
-        div.q-obj {{ t(hud.objectiveKey, resolveParams(t, hud.objectiveParams)) }}
+        div.q-obj {{ objText }}
       div.controls
         div.c-title {{ t('pause.controls') }}
         ControlsPanel
@@ -25,10 +25,17 @@ import { hud } from '@/game/state/hud'
 import { currentMission } from '@/game/boot'
 import ControlsPanel from '@/components/hud/ControlsPanel.vue'
 import { resolveParams } from '@/game/state/i18nParams'
+import { SECTOR_BY_ID } from '@/game/data/regions'
 
 defineEmits<{ options: [] }>()
 const { t } = useI18n()
 const open = computed(() => flow.modal === 'pause')
+/** The objective line, with the sector's boss named ("Defeat {boss}"). */
+const objText = computed(() => {
+  const params = resolveParams(t, hud.objectiveParams)
+  if (flow.quest) params.boss = t(`boss.${SECTOR_BY_ID[flow.quest.sector].boss}`)
+  return t(hud.objectiveKey, params)
+})
 const resume = () => { flow.modal = '' }
 const abandon = () => {
   flow.modal = ''

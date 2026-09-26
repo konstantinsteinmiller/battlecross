@@ -11,8 +11,8 @@
         GameIcon.pi(name="star")
         span {{ t('hub.levelUpReady') }}
       div.spacer
-      div.pill.bolts(@pointerdown="registerQaAdTap()")
-        GameIcon.pi(name="bolt")
+      div.pill.bolts(data-lesson="bolts" @pointerdown="registerQaAdTap()")
+        GameIcon.pi(name="nut")
         span {{ fmt(profile.bolts) }}
       //- The top-100 list, on builds with a live board only (a baked board's
       //- rows would be invented players; there the results screen shows the
@@ -39,6 +39,8 @@
         :key="tb.id"
         type="button"
         :class="{ on: tab === tb.id }"
+        :data-lesson="`tab-${tb.id}`"
+        :aria-label="tb.aria ? t(tb.aria) : undefined"
         @click="setTab(tb.id)"
       )
         span.t-ico
@@ -46,6 +48,7 @@
           span.badge(v-if="tb.id === 'circuits' && chipsAvailable() > 0") {{ chipsAvailable() }}
           span.badge(v-if="tb.id === 'hero' && (profile.inv.fresh.length > 0 || profile.hero.pendingAttrs > 0)") !
         span.t-label {{ t(`hub.tab.${tb.id}`) }}
+    HubLesson
 </template>
 
 <script setup lang="ts">
@@ -57,6 +60,8 @@ import MissionsTab from './MissionsTab.vue'
 import HeroTab from './HeroTab.vue'
 import CircuitsTab from './CircuitsTab.vue'
 import WorkshopTab from './WorkshopTab.vue'
+import HubLesson from './HubLesson.vue'
+import { hubTab, type HubTab } from './hubLesson'
 import { profile, xp01, chipsAvailable, lifetimeXp } from '@/game/state/profile'
 import LeaderboardModal from '@/components/organisms/LeaderboardModal.vue'
 import { leaderboardListEnabled } from '@/use/useLeaderboard'
@@ -69,18 +74,26 @@ import { registerQaAdTap } from '@/use/useQaAdTrigger'
  * The hub: Gauss's lab behind, the menus in front. Missions is the home tab
  * (deploying is always one tap away); Hero, Circuits and Workshop hold the
  * RPG layer. Portrait lays the panel out as a bottom sheet; landscape as a
- * left column, so Cobalt stays visible on the other side.
+ * left column, so Flux stays visible on the other side.
  */
 defineEmits<{ options: [] }>()
 const { t, locale } = useI18n()
-type Tab = 'missions' | 'hero' | 'circuits' | 'workshop'
-const TABS: Array<{ id: Tab; icon: GameIconName }> = [
+type Tab = HubTab
+/** `aria`: a spoken name for a tab whose visible label needs one. */
+const TABS: Array<{ id: Tab; icon: GameIconName; aria?: string }> = [
   { id: 'missions', icon: 'play' },
-  { id: 'hero', icon: 'helmet' },
+  // The hero's tab is labelled with his name, and a name alone can read as
+  // a plain word (his old name was taken for the metal). The face glyph, the
+  // name plate at the top of his panel and this spoken name say it is the
+  // player's android. (The face is `android`; `helmet` is the gear slot.)
+  { id: 'hero', icon: 'android', aria: 'hub.heroTabAria' },
   { id: 'circuits', icon: 'chart' },
   { id: 'workshop', icon: 'anvil' }
 ]
-const tab = ref<Tab>('missions')
+// Shared with the upgrade tour (it watches which tab is open). Every visit
+// to the lab opens on Missions: deploying is always one tap away.
+const tab = hubTab
+tab.value = 'missions'
 /** The leaderboard modal; it fetches the board when it opens, not before. */
 const showBoard = ref(false)
 const setTab = (id: Tab) => {
@@ -230,13 +243,13 @@ onMounted(() => {
   50%
     transform: scale(1.06)
 
-// Landscape: the panel is a left column, Cobalt stands on the right.
+// Landscape: the panel is a left column, Flux stands on the right.
 @media (orientation: landscape)
   .panel
     width: min(56vw, 620px)
   .tabs
     width: min(56vw, 620px)
-// Portrait: the panel is a bottom sheet under Cobalt.
+// Portrait: the panel is a bottom sheet under Flux.
 @media (orientation: portrait)
   .panel
     justify-content: flex-end

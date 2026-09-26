@@ -11,6 +11,8 @@ export const PATH_SPEED = 4.3
 
 export const LOOK_TOUCH = 0.0058
 export const LOOK_MOUSE = 0.0034
+/** A captured mouse (pointer lock): raw movement, finer than a drag. */
+export const LOOK_LOCK = 0.0023
 /** Keyboard turning (← / →), rad/s. */
 export const TURN_RATE = 2.3
 export const PITCH_MIN = -0.95

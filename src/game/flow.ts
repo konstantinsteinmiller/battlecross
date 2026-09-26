@@ -79,7 +79,11 @@ export const registerModeFactories = (m: MissionFactory, h: HubFactory): void =>
 /** What the game should boot into (no main menu — straight into a scene). */
 export const bootTarget = (): { kind: 'mission'; quest: Quest; snapshot: MissionSnapshot | null } | { kind: 'hub' } => {
   const snap = readSnapshot()
-  if (snap && !snap.done) return { kind: 'mission', quest: snap.quest, snapshot: snap }
+  // A tutorial left before the guided walkthrough existed has no walkthrough
+  // progress to resume (and another map): it starts over. Its XP and bolts
+  // were banked live.
+  const stale = snap?.quest.template === 'tutorial' && !snap.walk
+  if (snap && !snap.done && !stale) return { kind: 'mission', quest: snap.quest, snapshot: snap }
   if (!profile.world.tutorialDone) return { kind: 'mission', quest: tutorialQuest(), snapshot: null }
   return { kind: 'hub' }
 }
@@ -292,6 +296,10 @@ export const rerollJob = (id: string): void => {
 export const storyFor = (sector: SectorId): Quest | null => {
   const s = SECTOR_BY_ID[sector]
   if (!profile.world.unlocked.includes(sector)) return null
+  // The Scrapyard's story mission IS the tutorial: until it is finished the
+  // card replays it, so abandoning it never skips the walkthrough.
+  const tutorial = tutorialQuest()
+  if (sector === tutorial.sector && !profile.world.tutorialDone) return tutorial
   if (profile.world.bosses.includes(s.boss)) return null
   return storyQuest(s, profile.level, profile.quests.storyAttempts[`story_${sector}`] ?? 0)
 }

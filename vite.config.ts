@@ -258,6 +258,7 @@ import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import { buildCsp } from './src/platforms/csp'
 import { buildPlaygamaBridgeConfig, playgamaLeaderboardEnv } from './src/platforms/playgama/bridgeConfig'
+import { devToolAliases, resolvePlatformPolicy } from './src/platforms/policy'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode, command }) => {
@@ -518,6 +519,13 @@ export default defineConfig(({ mode, command }) => {
   // is the wrong fix too — the list rotates with Poki's ad partners. Emit no
   // meta tag and let P4D own the policy.
   const isPokiBuild = env.VITE_APP_POKI === 'true'
+  // Portal rules that decide what ships — the same pure resolver the app reads
+  // through `platformPolicy` (src/platforms/capabilities.ts). Used by the
+  // dev-tooling aliases below.
+  const platformPolicy = resolvePlatformPolicy({
+    isPoki: isPokiBuild,
+    qaTools: env.VITE_POKI_QA_TOOLS === 'true'
+  })
   // PLAYGAMA / YOUTUBE PLAYABLES: same exception again, and the reason is the
   // strongest of the four. This archive is also the YouTube Playables
   // submission, and Playables runs the game under YOUTUBE'S OWN CSP inside a
@@ -823,6 +831,15 @@ export default defineConfig(({ mode, command }) => {
           // reason, as the gamepixPlugin alias above.
           '@/utils/pokiPlugin': fileURLToPath(new URL('./src/utils/pokiPlugin.stub.ts', import.meta.url))
         }),
+        // Dev tooling OUT of builds whose platform policy forbids it — today the
+        // Poki release: "no debug code, no dev artifacts" (see
+        // `src/platforms/policy.ts`, the same resolver the app reads). The
+        // cheats, the typed "cmarc" debug toggle and the hidden 30-tap
+        // interstitial are swapped for no-op stubs, so their code and labels
+        // never enter the bundle. `VITE_POKI_QA_TOOLS=true` builds a QA twin that
+        // keeps them; the Poki release gates refuse that artifact.
+        ...Object.fromEntries(Object.entries(devToolAliases(platformPolicy))
+          .map(([id, stub]) => [id, fileURLToPath(new URL(`./${stub}`, import.meta.url))])),
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         '@/': fileURLToPath(new URL('./src/', import.meta.url)),
         '#': fileURLToPath(new URL('./src/assets', import.meta.url))

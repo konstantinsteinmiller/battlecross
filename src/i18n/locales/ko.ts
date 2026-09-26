@@ -115,8 +115,8 @@ export default {
     'title': '목표',
     'complete': '목표 달성',
     'beamOutHint': '준비되면 귀환하세요.',
-    'tutorial': '스크래퍼 처치',
-    'boss': '코어 마스터 처치',
+    'tutorial': '{boss} 처치',
+    'boss': '{boss} 처치',
     'kill': '{target} 파괴: {n}/{total}',
     'collect': '데이터 코어: {n}/{total}',
     'rescue': '고립된 작업 로봇 찾기',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': '왼쪽을 드래그해 이동, 오른쪽으로 시점 조작. 바닥을 탭하면 그곳으로 걸어가요!',
-    'moveKeys': 'WASD로 이동, 마우스 드래그로 시점 조작. 바닥을 클릭하면 그곳으로 걸어가요!',
+    'moveKeys': 'WASD로 이동해요.',
+    'lookMouse': '마우스를 움직여 주위를 둘러보세요.',
+    'capture': '화면을 클릭하면 카메라를 조작할 수 있어요.',
     'fireTouch': '앞에 기계가 있어요! 탭해서 사격 — 길게 눌렀다 떼면 차지 샷!',
-    'fireKeys': '앞에 기계가 있어요! 클릭이나 Space로 사격 — 길게 눌렀다 떼면 차지 샷!',
+    'fireKeys': '앞에 기계가 있어요! 좌클릭으로 사격 — 길게 눌렀다 떼면 차지 샷!',
     'charge': '방패는 일반 탄을 막아요. 풀 차지 샷이면 그대로 뚫어요!',
     'blockTouch': '주황 링: 방패를 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
-    'blockKeys': '주황 링: Shift나 우클릭을 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
+    'blockKeys': '주황 링: 마우스 오른쪽 버튼을 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
     'red': '빨간 링은 막을 수 없어요 — 슬라이딩으로 피하세요!',
+    'dodgeKeys': '빨간 링은 막을 수 없어요 — Space를 눌러 슬라이딩으로 피하세요!',
     'chest': '보급 상자예요! 탭해서 열어 보세요.',
     'tank': '체력이 부족해요? 수리 탱크를 쓰면 완전히 회복돼요.',
     'weapon': '복사한 무기는 색깔 버튼으로 쓸 수 있어요!'
+  },
+  'lesson': {
+    'charge': '길게 눌러 버스터를 차지한 뒤 떼세요: 훈련용 드론의 방패는 차지 샷으로만 깨져요.',
+    'crate': '보급 크레이트는 차지 샷으로만 부서져요. 길게 누른 뒤, 빛나는 크레이트를 노리고 떼세요.',
+    'weaponKeys': '{n} 키를 눌러 복사한 무기를 발사하세요: 한 발로 드론 세 대를 모두 맞혀요.',
+    'weaponTouch': '빛나는 무기 버튼을 탭하세요: 한 발로 드론 세 대를 모두 맞혀요.'
+  },
+  'hubLesson': {
+    'workshop': '공방을 여세요.',
+    'upgradeBuster': '나사를 써서 버스터를 강화하세요: 피해 증가.',
+    'pickArmor': '이제 가슴 아머를 선택하세요.',
+    'upgradeArmor': '이것도 강화하세요: 방어력 증가.',
+    'deploy': '준비 완료 — 미션으로 돌아가요!'
   },
   'loot': {
     'found': '{rarity} {item} 발견!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': '시스템 다운',
-    'body': 'Cobalt가 너무 큰 피해를 입었습니다.',
-    'kept': '지금까지 얻은 경험치 {xp}, 나사 {bolts}개는 그대로 유지됩니다.',
+    'body': 'Flux가 너무 큰 피해를 입었습니다.',
+    'kept': '지금까지 얻은 보상은 그대로 유지됩니다:',
     'useTank': '수리 탱크로 재가동 ({n})',
     'rebootAd': '지금 재가동',
     'retreat': '연구소로 후퇴'
@@ -190,11 +206,11 @@ export default {
       'block': '방패를 길게 눌러 막기 — 링이 닫히는 순간이면 패링.'
     },
     'keys': {
-      'move': 'WASD / 방향키: 이동. 바닥을 클릭하면 그곳으로 걸어갑니다.',
-      'look': '마우스를 드래그해 둘러보기.',
-      'fire': '좌클릭 또는 Space: 사격 — 길게 눌러 차지.',
-      'block': '우클릭 또는 Shift: 막기 — 링이 닫히는 순간이면 패링.',
-      'slide': 'Q: 슬라이딩 · H: 수리 탱크 · E: 상호작용',
+      'move': 'WASD / 방향키: 이동.',
+      'look': '마우스를 움직여 둘러보기. 화면을 클릭하면 카메라를 조작합니다.',
+      'fire': '좌클릭: 사격 — 길게 눌러 차지, 떼면 발사.',
+      'block': '우클릭: 막기 — 링이 닫히는 순간이면 패링.',
+      'slide': 'Space: 슬라이딩 · H: 수리 탱크 · E: 상호작용 · B: 귀환',
       'more': '1 / 2: 특수 무기 · Tab: 타깃 전환 · Esc: 일시정지'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': '미션',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': '회로',
       'workshop': '공방'
     },
+    'heroTabAria': 'Flux, 나의 전투 안드로이드',
     'levelUpReady': '레벨 업!',
     'levels': '레벨 {a}–{b}',
     'story': '스토리 미션',
@@ -227,6 +244,7 @@ export default {
     'reroll': '새 의뢰'
   },
   'hero': {
+    'role': '나의 전투 안드로이드',
     'weapons': '특수 무기',
     'weaponSlot': '슬롯 {n}',
     'weaponRank': '랭크 {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': '{name} 랭크 {n} 필요',
     'install': '칩 장착',
     'maxed': '풀 파워',
-    'respec': '회로 초기화 (나사 {n}개)'
+    'respec': '회로 초기화'
   },
   'skill': {
     'rapid': { 'name': '속사 강화', 'desc': '칩당 일반 탄 피해 +10%.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': '해제',
     'equipped': '장착 중',
     'new': '신규',
-    'salvage': '분해 (+{n})',
+    'salvage': '분해',
     'noAffixes': '보너스 모듈 없음',
     'emptySlot': '아직 이 소켓에 맞는 장비가 없습니다 — 상자를 열고 의뢰를 완료하세요.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': '음악 트랙',
     'musicTracks': {
       'cozy': '고요한 회로',
-      'trance': '메가 질주'
+      'trance': '오버드라이브'
     },
     'haptics': '진동',
     'on': '켜기',

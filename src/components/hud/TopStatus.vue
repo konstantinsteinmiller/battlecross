@@ -6,18 +6,22 @@
         div.xp-fill(:style="{ width: Math.min(100, hud.xp01 * 100) + '%' }")
     div.bolts(:aria-label="t('hud.bolts')" @pointerdown="registerQaAdTap()")
       span.bolt-icon
-        GameIcon(name="bolt")
+        GameIcon(name="nut")
       span.bolt-num {{ fmt(hud.bolts) }}
     button.help(type="button" :aria-label="t('hud.help')" @click="help")
       GameIcon(name="help")
+      KeyCap.kc(v-if="desk" code="F1")
     button.pause(type="button" :aria-label="t('ui.pause')" @click="$emit('pause')")
       GameIcon(name="pause")
+      KeyCap.kc(v-if="desk" code="Escape")
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import KeyCap from './KeyCap.vue'
 import { formatCount } from '@/utils/localeNumber'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
 import { currentMission } from '@/game/boot'
@@ -25,8 +29,11 @@ import { currentMission } from '@/game/boot'
 defineEmits<{ pause: [] }>()
 const { t, locale } = useI18n()
 const fmt = (n: number) => formatCount(Math.round(n), locale.value)
-/** Bring the control glyphs back (the coach's "?"). */
+/** Bring the control glyphs back (the coach's "?"). F1 and "?" do the same
+ *  (GameScene's key handler): a captured mouse has no cursor to click with. */
 const help = () => currentMission()?.showHelp()
+/** Mouse + keys: both buttons wear their key, like the action buttons. */
+const desk = computed(() => hud.device === 'mouse')
 </script>
 
 <style scoped lang="sass">
@@ -87,6 +94,7 @@ const help = () => currentMission()?.showHelp()
   height: clamp(18px, 4vmin, 24px)
   color: #ffd84a
 .help
+  position: relative
   pointer-events: auto
   width: clamp(32px, 7vmin, 42px)
   height: clamp(32px, 7vmin, 42px)
@@ -100,6 +108,7 @@ const help = () => currentMission()?.showHelp()
   &:active
     transform: translateY(2px)
 .pause
+  position: relative
   pointer-events: auto
   width: clamp(36px, 8vmin, 48px)
   height: clamp(36px, 8vmin, 48px)
@@ -112,4 +121,15 @@ const help = () => currentMission()?.showHelp()
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
   &:active
     transform: translateY(2px)
+// The key that works the button, tucked on its bottom rim (as on the action
+// buttons): Esc pauses, F1 brings the control glyphs back. A size smaller
+// than theirs, so "Esc" stays inside the pause button's width. Nested, so it
+// outranks KeyCap's own font size on specificity.
+.help .kc, .pause .kc
+  position: absolute
+  left: 50%
+  bottom: -0.6em
+  transform: translateX(-50%)
+  font-size: clamp(9px, 1.9vmin, 12px)
+  pointer-events: none
 </style>

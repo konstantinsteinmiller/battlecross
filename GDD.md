@@ -17,17 +17,21 @@ Ampere Valley was an android city run by six Core Masters, robot foremen that
 each ran a sector (refinery, cryo plant, power tower and so on). The rogue AI
 **Dr. Vex** reprogrammed them and filled the sectors with hostile machines.
 
-The player is **Cobalt**, a blue combat android with an arm buster, woken by
-his maker **Prof. Gauss** (an elderly android scientist). His support unit
-**Pip** is a small hovering helper bot. It runs the mission terminal and hands
-out jobs.
+The player is **Flux**, a combat android in pearl-white armour over a
+graphite undersuit, with amber eye-lights behind a dark visor and an arm
+buster, woken by his maker **Prof. Gauss** (an elderly android scientist).
+His support unit **Pip** is a small hovering helper bot. It runs the mission
+terminal and hands out jobs.
 
 No humans and no fantasy creatures. Everyone is an android or a machine.
 
 > **IP guard.** Every name, silhouette and palette is original. The game
-> evokes the classic look (big round helmet, arm cannon, segmented vertical
+> evokes the classic look (chibi proportions, arm cannon, segmented vertical
 > health bar, weapon-copy, boss shutters, beam-in teleport, orb-ring death
-> burst) but never ships a Capcom name or a 1:1 character copy. Enemies are
+> burst) but never ships a Capcom name or a 1:1 character copy. Flux's head
+> is his own: a swept-back crown with a V-shaped brow, a wraparound visor
+> band with two amber eye-lights, a jaw guard and one antenna blade, never a
+> round helmet with a face in it. Enemies are
 > *archetypes*: the helmet-hider, the shield trooper, the heli drone, the
 > hopper, the wheel roller and the heavy brute.
 
@@ -49,25 +53,53 @@ Hub (mission terminal)  →  pick story mission or job  →  beam in
 | Action | Touch | Desktop |
 | --- | --- | --- |
 | Move | floating joystick on the **left half** | WASD (↑ / ↓ too) |
-| Look | **drag** on the right half | **drag** with the mouse · ← / → turn |
-| Walk to point | **tap the floor** (Blades' signature). A* path over the nav grid, a ground ring marks the target | click the floor |
-| Interact | tap the door / chest / NPC / item (or the contextual button) | click it, or `E` |
-| Fire | **tap** in combat → quick buster shot at the locked target | click / `Space` |
-| Charge shot | **hold** without moving → the ring around the crosshair fills (lv1 → lv2). Release at full = Charged Shot. Release inside the **perfect flash** window = critical | hold the left button / `Space` |
+| Look | **drag** on the right half | **move the mouse** (captured: pointer lock) · ← / → turn |
+| Walk to point | **tap the floor** (Blades' signature). A* path over the nav grid, a ground ring marks the target | — (only where the capture is refused: click the floor) |
+| Interact | tap the door / chest / NPC / item (or the contextual button) | `E` — every prompt shows its key: "[E] Open" |
+| Fire | **tap** in combat → quick buster shot at the locked target | **left click** |
+| Charge shot | **hold** without moving → the ring around the crosshair fills (lv1 → lv2). Release at full = Charged Shot. Release inside the **perfect flash** window = critical | **hold the left button**, release |
 | Block / Parry | hold the **shield** button (right-thumb cluster). Blocking while an enemy's attack ring closes = **Parry**: projectiles reflect, melee staggers | hold the **right** mouse button (`Shift` also works, untaught) |
-| Slide | **Slide** button. Short dash with i-frames | `Q` (`Ctrl` too) |
+| Slide (the dodge) | **Slide** button. Short dash with i-frames | **`Space`** (`Q` also works, untaught; never `Ctrl`: Ctrl+W with W held closes the tab) |
 | Special weapons | two slot buttons (right side), cost Weapon Energy | `1` / `2` |
 | Repair Tank | tank button, full heal, limited count | `H` |
+| Beam out | the **Beam out** button, once the objective is done and the room is quiet | `B` ("[B] Beam out") |
 | Switch target | **look at** the other enemy | look at it, or `Tab` |
 | Pause / map | ⏸ top-right | `Esc` / `P`, `M` |
-| Show the controls again | **?** top-right | **?** top-right |
+| Show the controls again | **?** top-right | **?** top-right, or `F1` / `?` (keycap on the button; the pause button shows `Esc`) |
+
+**The captured mouse (desktop).** A first-person shooter on desktop means
+pointer lock: the first click on the scene captures the mouse (that click
+fires nothing; a click glyph sits on the crosshair until it happens), then
+moving the mouse looks, the left button shoots and charges, the right button
+blocks. `Esc` belongs to the browser while the mouse is captured: it releases
+the capture, and a lost capture opens the pause menu (the same Esc does not
+close it again). Modals, ads and the hub hand the mouse back; *Resume* takes
+it again. A captured mouse aims itself: no soft lock pulls the camera, and a
+shot only snaps onto a machine right under the crosshair (0.09 rad plus the
+machine's size), otherwise it flies to where the view meets a wall. Where the
+browser refuses the capture (a sandboxed embed) the mouse falls back to
+drag-to-look, press-vs-drag below. Keycaps on every prompt and HUD button use
+the player's keyboard layout (an AZERTY player sees Z Q S D).
+
+**No browser behaviour on top of the game** (`src/use/useBrowserGuard.ts`,
+installed by `App.vue`). The browser's defaults are cancelled everywhere
+except in text fields: every context menu, the right, middle and thumb
+buttons (Opera and Vivaldi mouse and rocker gestures — hold right + drag down
+opened a new tab in the middle of the shield lesson — autoscroll, history
+navigation), wheel tab-switching with the right button held, image drag, text
+selection, Firefox's quick find (`/`, `'`), F1's help page and a lone Alt's menu
+bar. A right press also captures a free mouse, since a gesture needs a free
+cursor to draw with. On touch the page never pans, zooms or pulls to refresh
+(`touch-action: none` on the page; scroll lists keep their own panning). Left
+alone on purpose: browser shortcuts (Ctrl+W, F5), Esc, and Firefox's
+Shift + right-click menu, which no page can stop.
 
 **Press vs drag.** In combat a press is a shot and a hold is a charge, but a
 press that travels more than ~10 px (mouse) / 16 px (touch) becomes a look
 drag: the charge is dropped, never fired. Deciding fire-vs-look at the press
 made every drag near an enemy a charge, and the camera simply would not move.
 
-**Combat lock-on.** Once an enemy has noticed Cobalt and is within 16 m, the
+**Combat lock-on.** Once an enemy has noticed Flux and is within 16 m, the
 camera soft-locks onto the nearest engaged enemy: yaw eases toward it.
 A manual look always wins: the lock stands aside for 1.1 s after the last
 drag, and if the player has turned onto another enemy by then, that one takes
@@ -82,9 +114,14 @@ No sentences. Every control is taught by a **glyph** where the action happens
 
 - Desktop: a WASD cluster bottom-left, a mouse with the drag arrows at the
   right, and action cards (the mouse with the button to press lit, or the key)
-  just under the crosshair. Touch: a ghost joystick, a finger that drags / taps
-  / holds, and a pulsing ring on the HUD button itself (a ring **closing** onto
-  the shield button for the parry).
+  just under the crosshair. Touch: a finger tracing an **∞** in the lower left
+  (drag there to move), a finger that drags / taps / holds, and a pulsing ring
+  on the HUD button itself (a ring **closing** onto the shield button for the
+  parry). A hold reads as a hold even in a still frame: a 3/4 ring with a tick.
+- **Move and look are never silenced.** A scene lesson may quiet every other
+  glyph, but move and look show from the first frame on touch and keep their
+  stuck recall until they are learned (a lesson that hid them cost a playtester
+  the joystick for a whole session).
 - Each glyph stays until the control has actually been **used** a few times
   (move 3 × 2.5 m, look 3 × 35°, fire 4, block 2…). Every success flashes it
   green and fills a pip; the last pip pops a check and the glyph retires.
@@ -110,13 +147,14 @@ No sentences. Every control is taught by a **glyph** where the action happens
 | Quick shot | 1 pellet, dmg `buster × 1.0`, fire cooldown 0.22 s, 3 pellets max in flight (classic cap) |
 | Charge | lv1 at 0.55 s (dmg × 2.2, pierces), lv2 **full** at 1.2 s (dmg × 4, staggers, breaks guards). Skill `Quick Charge` shortens both |
 | Perfect release | a window of 0.22 s that opens 0.1 s after full charge. Release inside it for a **crit** (× 1.5, gold burst, hit-stop) |
-| Block | while held: frontal damage × 0.25, costs **Power** (stamina) = 40 % of the blocked damage. At 0 Power the guard breaks and Cobalt is stunned for 0.6 s |
+| Block | while held: frontal damage × 0.25, costs **Power** (stamina) = 40 % of the blocked damage. At 0 Power the guard breaks and Flux is stunned for 0.6 s |
 | Parry | block pressed within the enemy telegraph's last **0.28 s** (the ring is nearly closed and flashes white). Projectile → reflected at 2× damage. Melee → enemy stunned for 1.6 s, taking × 1.5 damage |
 | Slide | 0.28 s dash of 4.2 m, i-frames 0.2 s, cost 25 Power, cooldown 0.7 s |
 | Power | 100 base, regenerates 22/s when not blocking (1 s delay after spending) |
 | Weapon Energy (WE) | 28 segments base (the classic bar). Special weapons spend it. Refilled by WE capsules and by leveling |
-| Health | 28 segments shown; internally `maxHp` (100 base), the bar draws `ceil(hp / maxHp × 28)` segments |
-| Hit-stun on Cobalt | 0.25 s flinch, 0.8 s i-frames with blink (classic) |
+| Health | 28 segments shown; internally `maxHp` (100 base), the bar draws `ceil(hp / maxHp × 28)` segments. A heart heads the bar (a bolt heads the weapon-energy bar); under 30 % it turns red, pumps, and a red edge vignette beats with it |
+| Enemy energy | Mega Man segmented bars: the target frame shows 20 chunky cells (the last lit one blinks at ≤ 20 %, elites ringed in gold); a boss's 28-segment bar stands third beside the player's two, filling step by step on its intro |
+| Hit-stun on Flux | 0.25 s flinch, 0.8 s i-frames with blink (classic) |
 | Weakness | every Core Master is weak to one special weapon (× 2.5 dmg + stagger). Elemental enemies are weak to the counter element (× 1.75) |
 | Invulnerable states | Hardhat hidden, Shield Trooper guarding from the front: shots **deflect** with a "tink" and a diagonal ricochet. Charged lv2 breaks a guard |
 
@@ -145,6 +183,10 @@ tag.
 
 A boss room sits behind a double shutter door. The fight opens with a name
 card, and the boss has 3 or 4 patterns with a phase change at 50 % HP.
+The boss is not in its arena before the entrance (`Enemy.offstage`): through
+the open shutter the room is empty, and nothing can hit, wake, target or bump
+into it. Stepping in drops it from above the walls (9 m over its own height),
+landing with a shock ring while the shutter slams behind the player.
 
 | Boss | Sector | Patterns | Drops weapon | Weak to |
 | --- | --- | --- | --- | --- |
@@ -164,7 +206,8 @@ card, and the boss has 3 or 4 patterns with a phase change at 50 % HP.
   refilled.
 - **Enemy level** comes from the sector's base level plus the player's level
   (Blades-style soft scaling): `clamp(regionMin, playerLevel ± 1, regionMax)`.
-- **Bolts** are the single currency (Poki-safe). They drop from enemies, crates
+- **Bolts** are the single currency (Poki-safe), drawn as a hex nut everywhere
+  (⚡ means energy and the charge shot only; rewards read "+140"). They drop from enemies, crates
   and chests and are spent in the Workshop.
 
 ### Skill system — the three circuit boards
@@ -211,7 +254,7 @@ two branches, three leaves.
 **Special weapons** (the MegaMan "weapon copy") are separate from the boards.
 Each one comes from a boss, is equipped in one of **2 slots** and levels up
 through use (kills with that weapon grant weapon XP, 3 ranks). Equipping one
-tints Cobalt's arm cannon in its colour, as the classic did.
+tints Flux's arm cannon in its colour, as the classic did.
 
 ### Gear (loot)
 
@@ -225,7 +268,7 @@ tints Cobalt's arm cannon in its colour, as the classic did.
 
 Rarity (weights at drop time): Standard 60 % (white), Tuned 28 % (blue),
 Prototype 10 % (purple), Legendary 2 % (orange). An item has an item level (the
-enemy or quest level) and 0–3 affixes by rarity. Gear **recolours Cobalt's
+enemy or quest level) and 0–3 affixes by rarity. Gear **recolours Flux's
 model** in the Hero screen and in the first-person arm.
 
 **Workshop:** upgrade an item (+1 level, cost `25 × lvl^1.4` bolts, max +10),
@@ -246,10 +289,34 @@ salvage an item for bolts, buy a Repair Tank (150 bolts), refill tanks.
 - **Rewards:** XP + bolts + one item roll (rarity bias grows with difficulty).
   A rewarded ad offers **×2 bolts** on the results screen.
 
-The **first mission** (tutorial: "Wake-Up Call", Scrapyard) starts with no menu.
-The player beams straight in and the coach's glyphs teach move + look → fire
-→ charge → block/parry → chest → mini-boss, each retiring once it is used. It should take about 4 minutes.
-Losing is possible, but damage is scaled down to 60 % until the mini-boss.
+The **first mission** (tutorial: "Wake-Up Call", Scrapyard) starts with no menu
+and is a **guided walkthrough** (`sim/walkthrough.ts`): nobody reaches the
+Scrapper without every basic control and mechanic. Every door on the path
+from the pad to the boss starts locked (red lamp); a room's door opens by
+itself (yellow lamp, chime, a pulse) once its lesson is done:
+
+1. **Start room:** look and move, then the training drone: quick shots skip
+   off its bubble, only a charged shot pops it.
+2. **A Hardhat** (shoot when it peeks), then a glowing crate only a charge
+   breaks.
+3. **A Shield Trooper:** down, and at least one block or parry.
+4. **A Stomper:** down, and at least one slide out of its red ring.
+5. **A chest:** opening it unlocks the boss shutter. The Repair Tank is taught
+   in context (under 50 % health with a tank carried).
+
+The cast is scripted (one teaching machine per room, side rooms at most 1–2
+Hardhats; no Guardroid or elite before the Scrapper). If a teacher dies before
+its skill was used, a Rotor Drone or another Stomper beams in, up to three
+times, then the door opens anyway. Progress survives the mission snapshot, and
+the hub's Scrapyard card replays the tutorial until it is done. It should take
+about 4 minutes; damage is scaled down to 60 % until the mini-boss.
+
+**The objective trail** (`fx/objectiveTrail.ts`, `MissionObjects.target`):
+once the walkthrough is done, small yellow chevrons on the floor lead along
+the navigation path to the main objective (the boss shutter, the elite, the
+nearest target, core, supply chest or worker-bot). At most six, from 1.5 m to
+about 8 m ahead, faint, a slow wave travelling toward the goal; hidden in a
+fight, during a scene lesson and once the target is close and in sight.
 
 ### Maps
 
@@ -265,13 +332,49 @@ Maps are generated procedurally on a cell grid with 3 m cells:
 - Navigation uses the same grid for circle-vs-grid collision, grid ray line of
   sight, and A* for tap-to-move and enemy chase.
 
+### Scene lessons (mechanics, not inputs)
+
+The coach teaches inputs; three mechanics get a scene built for them instead
+(`src/game/sim/lessons.ts`, `LessonLayer.vue`). No words: a glyph rides on the
+subject, a wrong try shakes it, success pops a check. One at a time, once per
+profile; while one is on screen the coach keeps to survival glyphs plus move
+and look. A subject out of view gets a bubble with the lesson's own glyph at
+the screen edge, only while the player is in its room (never a chevron: one
+read as "go this way" and led two playtesters back to the start).
+
+1. **Charge shot**, right after the first beam-in: a training drone hovers
+   ahead of the pad in an energy bubble. Quick shots skip off it ("TINK");
+   a charged shot pops it (a few bolts drop). In the walkthrough the start
+   room's door stays shut until it pops; its glyph waits until move and look
+   are learned (or 10 s, or a bounced shot), and an early release shakes it.
+2. **Crates need a charge.** Supply crates only break to a charged shot, a
+   copied weapon or a blast; quick shots bounce off. In the walkthrough's
+   Hardhat room, once it is quiet, a crate glows (one is beamed in if the room
+   has none) with the hold glyph on it.
+3. **The special weapon**, in the first mission after one is won: as soon as
+   a room is quiet, three drones beam in asleep, in a row exactly one spread
+   apart (a line for the piercing weapons). The weapon's key (`1`) or its
+   breathing button carries the glyph, and guide lines fan out to the drones:
+   one press takes all three. Shot down with the buster instead, it tries
+   again in a later room (three times, then it retires).
+
 ### Hub
 
 After a mission the game goes to the **Hub**. It is a UI screen over a live 3D
-backdrop of Cobalt idling on the teleporter pad in Gauss's lab. The tabs are
+backdrop of Flux idling on the teleporter pad in Gauss's lab. The tabs are
 **Missions** (sector map plus the job board), **Hero** (gear, stats, 3D paper
 doll), **Circuits** (skills) and **Workshop**. The Hub is a menu, not a town:
 there is no building.
+
+**The upgrade tour.** The first return to the lab walks the player through
+the one loop that matters (`components/hub/hubLesson.ts`, `HubLesson.vue`):
+Workshop tab → upgrade the buster (damage) → select the chest armour →
+upgrade it (defence) → back to Missions. Everything but the target is dimmed
+and inert, a hand (a cursor on desktop) glides to each target and taps, and
+Flux strikes the victory pose after each upgrade. Steps follow the game's
+state, never a timer. The wallet is topped up once so both upgrades are
+affordable; a player who already upgraded something skips the tour, and a
+close button ends it any time.
 
 Death means **System down**. The options are *Reboot* with a Repair Tank,
 *Reboot* for a rewarded ad (once per mission, full HP) or *Retreat to the
@@ -280,7 +383,7 @@ and loses the quest progress.
 
 ### Global leaderboard
 
-The board ranks **lifetime XP**: every point of experience Cobalt has earned,
+The board ranks **lifetime XP**: every point of experience Flux has earned,
 still counting past the level-40 cap, so it only ever grows. The hero level is
 shown beside it. Every mission end (win or defeat) reports it, once the result
 screen is up, and a request goes out only on a personal record.
@@ -325,12 +428,16 @@ screen is up, and a request goes out only on a personal record.
   spheres, lathes and tori at modest segment counts (8–16) with **smooth
   normals**. The shading is **toon** (3-step gradient ramp) with **inverted-hull
   outlines** (dark navy, never pure black). Proportions follow the classic
-  sprite era: big head and helmet, round shoulders, oversized boots and
-  forearms, short torso.
-- Palette: saturated primaries on light, clean sector backdrops. Cobalt is
-  `#1f6bff` / `#39c6ff` with a skin-tone face and big eyes. Enemies read by
-  silhouette and by a signature colour (Hardhat yellow, Trooper green, Drone
-  red, Stomper purple, Roller orange, Brute steel).
+  sprite era: big head, round shoulders, oversized boots and forearms, short
+  torso.
+- Palette: saturated primaries on light, clean sector backdrops. Flux is
+  pearl `#eef0f3` armour over a graphite `#3a3f4b` undersuit, with a dark
+  visor band (`#161a22`) and one amber plasma `#ffa733` for his eye-lights,
+  hex chest reactor, cannon vents and back-fin edges. He has no face. Gear
+  repaints the armour shells and the plasma; the undersuit, visor and piston
+  steel never change. Enemies read by silhouette and by a signature colour
+  (Hardhat yellow, Trooper green, Drone red, Stomper purple, Roller orange,
+  Brute steel).
 - VFX: pooled additive sprites for pellets, charge glow, sparks, ring shocks,
   bolt pickups and the **orb-ring death burst**. Hit-flash is a white emissive
   pulse. Damage numbers are pooled DOM elements. Screenshake, hit-stop on crits

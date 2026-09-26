@@ -115,8 +115,8 @@ export default {
     'title': 'Doel',
     'complete': 'Doel voltooid',
     'beamOutHint': 'Teleporteer weg zodra je klaar bent.',
-    'tutorial': 'Versla de Sloper',
-    'boss': 'Versla de Kernmeester',
+    'tutorial': 'Versla {boss}',
+    'boss': 'Versla {boss}',
     'kill': 'Vernietig {target}: {n}/{total}',
     'collect': 'Datakernen: {n}/{total}',
     'rescue': 'Vind de gestrande werkbot',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Sleep links om te lopen en rechts om rond te kijken. Tik op de vloer om erheen te lopen!',
-    'moveKeys': 'WASD om te lopen, sleep met de muis om te kijken. Klik op de vloer om erheen te lopen!',
+    'moveKeys': 'WASD om rond te lopen.',
+    'lookMouse': 'Beweeg de muis om rond te kijken.',
+    'capture': 'Klik op de scène om de camera over te nemen.',
     'fireTouch': 'Machines in zicht! Tik om te schieten — houd vast en laat los voor een geladen schot.',
-    'fireKeys': 'Machines in zicht! Klik of spatie om te schieten — houd vast en laat los voor een geladen schot.',
+    'fireKeys': 'Machines in zicht! Klik met de linkermuisknop om te schieten — houd vast en laat los voor een geladen schot.',
     'charge': 'Schilden blokkeren kogels. Een VOLLEDIG geladen schot knalt er dwars doorheen.',
     'blockTouch': 'Oranje ring: houd het schild vast om te blokkeren — druk als de ring sluit om te PAREREN!',
-    'blockKeys': 'Oranje ring: houd Shift of de rechtermuisknop ingedrukt om te blokkeren — druk als de ring sluit om te PAREREN!',
+    'blockKeys': 'Oranje ring: houd de rechtermuisknop ingedrukt om te blokkeren — druk als de ring sluit om te PAREREN!',
     'red': 'Een rode ring is niet te blokkeren — glij opzij!',
+    'dodgeKeys': 'Een rode ring is niet te blokkeren — druk op spatie om opzij te glijden!',
     'chest': 'Een voorraadkist! Tik erop om hem te openen.',
     'tank': 'Bijna op? Een reparatietank lapt je helemaal op.',
     'weapon': 'Gebruik je gekopieerde wapen via de gekleurde knop!'
+  },
+  'lesson': {
+    'charge': 'Houd vast om je buster op te laden en laat dan los: alleen een geladen schot breekt het schild van de trainingsdrone.',
+    'crate': 'Voorraadkratten breken alleen door een geladen schot. Houd vast en laat los terwijl je op het gloeiende krat richt.',
+    'weaponKeys': 'Druk op {n} om je gekopieerde wapen af te vuren: één schot raakt alle drie de drones.',
+    'weaponTouch': 'Tik op de gloeiende wapenknop: één schot raakt alle drie de drones.'
+  },
+  'hubLesson': {
+    'workshop': 'Open de Werkplaats.',
+    'upgradeBuster': 'Besteed bouten om je buster te upgraden: meer schade.',
+    'pickArmor': 'Kies nu je borstpantser.',
+    'upgradeArmor': 'Upgrade dat ook: meer verdediging.',
+    'deploy': 'Klaar — terug naar de missies!'
   },
   'loot': {
     'found': '{item} ({rarity}) gevonden!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SYSTEEMSTORING',
-    'body': 'Cobalt heeft te veel schade opgelopen.',
-    'kept': 'Je houdt de {xp} XP en {bolts} bouten die je tot nu toe hebt verdiend.',
+    'body': 'Flux heeft te veel schade opgelopen.',
+    'kept': 'Wat je tot nu toe hebt verdiend, houd je:',
     'useTank': 'Herstart met reparatietank ({n})',
     'rebootAd': 'Nu herstarten',
     'retreat': 'Terug naar het lab'
@@ -190,11 +206,11 @@ export default {
       'block': 'Houd het schild vast om te blokkeren — precies als een ring sluit om te pareren.'
     },
     'keys': {
-      'move': 'WASD / pijltjes: lopen. Klik op de vloer om erheen te lopen.',
-      'look': 'Sleep met de muis om te kijken.',
-      'fire': 'Linkermuisknop of spatie: schieten — vasthouden om op te laden.',
-      'block': 'Rechtermuisknop of Shift: blokkeren — precies als een ring sluit om te pareren.',
-      'slide': 'Q: glijden · H: reparatietank · E: interactie',
+      'move': 'WASD / pijltjes: lopen.',
+      'look': 'Beweeg de muis om te kijken. Klik op de scène om de camera over te nemen.',
+      'fire': 'Linkermuisknop: schieten — vasthouden om op te laden, loslaten om te vuren.',
+      'block': 'Rechtermuisknop: blokkeren — precies als een ring sluit om te pareren.',
+      'slide': 'Spatie: glijden · H: reparatietank · E: interactie · B: teleporteren',
       'more': '1 / 2: speciale wapens · Tab: ander doelwit · Esc: pauze'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missies',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Circuits',
       'workshop': 'Werkplaats'
     },
+    'heroTabAria': 'Flux, jouw gevechtsandroïde',
     'levelUpReady': 'Level omhoog!',
     'levels': 'Lv. {a}–{b}',
     'story': 'Verhaalmissie',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Nieuwe klus'
   },
   'hero': {
+    'role': 'Jouw gevechtsandroïde',
     'weapons': 'Speciale wapens',
     'weaponSlot': 'Sleuf {n}',
     'weaponRank': 'Rang {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Vereist {name} (rang {n})',
     'install': 'Chip plaatsen',
     'maxed': 'Volledig opgeladen',
-    'respec': 'Circuits resetten ({n} bouten)'
+    'respec': 'Circuits resetten'
   },
   'skill': {
     'rapid': { 'name': 'Snelle kogels', 'desc': 'Kogelschade +10% per chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Verwijderen',
     'equipped': 'Uitgerust',
     'new': 'NIEUW',
-    'salvage': 'Slopen (+{n})',
+    'salvage': 'Slopen',
     'noAffixes': 'Geen bonusmodules',
     'emptySlot': 'Nog niets voor deze sleuf — open kisten en voltooi klussen.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Muzieknummer',
     'musicTracks': {
       'cozy': 'Rustige circuits',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Trillen',
     'on': 'Aan',

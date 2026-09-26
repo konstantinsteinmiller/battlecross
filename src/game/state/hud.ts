@@ -1,5 +1,6 @@
 import { shallowReactive } from 'vue'
 import type { HintView } from '../sim/coach'
+import type { LessonView } from '../sim/lessons'
 
 /**
  * ─── The reactivity firewall ─────────────────────────────────────────────────
@@ -58,6 +59,15 @@ export const hud = shallowReactive({
   blockHeld: false,
   /** The control coach's glyphs on screen (see `sim/coach.ts`). */
   hints: [] as HintView[],
+  /** The scene lesson on screen, if any (see `sim/lessons.ts`). */
+  lesson: null as LessonView | null,
+  /** The hand in use: keycaps show on prompts only for mouse + keys. */
+  device: 'mouse' as 'touch' | 'mouse',
+  /** How a desktop player looks: a captured mouse, or dragging where the
+   *  capture is refused. */
+  lookMode: 'lock' as 'lock' | 'drag',
+  /** A desktop mission whose mouse is not captured yet: the click glyph. */
+  pointerFree: false,
   /** Sector / mission title card. */
   titleKey: '',
   titleSub: '',

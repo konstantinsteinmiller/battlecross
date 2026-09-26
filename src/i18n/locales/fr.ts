@@ -115,8 +115,8 @@ export default {
     'title': 'Objectif',
     'complete': 'Objectif rempli',
     'beamOutHint': 'Téléporte-toi quand tu es prêt.',
-    'tutorial': 'Bats le Ferrailleur',
-    'boss': 'Bats le Maître du Noyau',
+    'tutorial': 'Bats {boss}',
+    'boss': 'Bats {boss}',
     'kill': 'Détruis des {target} : {n}/{total}',
     'collect': 'Cœurs de données : {n}/{total}',
     'rescue': 'Trouve le robot ouvrier bloqué',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Glisse à gauche pour bouger, à droite pour regarder. Touche le sol pour y aller !',
-    'moveKeys': 'ZQSD pour bouger, glisse la souris pour regarder. Clique sur le sol pour y aller !',
+    'moveKeys': 'ZQSD pour te déplacer.',
+    'lookMouse': 'Bouge la souris pour regarder autour de toi.',
+    'capture': 'Clique sur la scène pour prendre le contrôle de la caméra.',
     'fireTouch': 'Machines en vue ! Touche pour tirer — maintiens puis relâche pour un tir chargé.',
-    'fireKeys': 'Machines en vue ! Clic ou Espace pour tirer — maintiens puis relâche pour un tir chargé.',
+    'fireKeys': 'Machines en vue ! Clic gauche pour tirer — maintiens puis relâche pour un tir chargé.',
     'charge': 'Les boucliers bloquent les balles. Un tir chargé à FOND passe à travers.',
     'blockTouch': "Anneau orange : maintiens le bouclier pour bloquer — appuie quand l'anneau se ferme pour PARER !",
-    'blockKeys': "Anneau orange : maintiens Maj ou clic droit pour bloquer — appuie quand l'anneau se ferme pour PARER !",
+    'blockKeys': "Anneau orange : maintiens le bouton droit de la souris pour bloquer — appuie quand l'anneau se ferme pour PARER !",
     'red': 'Anneau rouge = imparable. Glisse hors de portée !',
+    'dodgeKeys': 'Anneau rouge = imparable. Appuie sur Espace pour glisser hors de portée !',
     'chest': "Un coffre de ravitaillement ! Touche-le pour l'ouvrir.",
     'tank': 'Presque à sec ? Un kit de réparation te remet à neuf.',
     'weapon': 'Utilise ton arme copiée avec le bouton coloré !'
+  },
+  'lesson': {
+    'charge': "Maintiens pour charger ton Buster, puis relâche : seul un tir chargé brise le bouclier du drone d'entraînement.",
+    'crate': "Les caisses de ravitaillement ne cèdent qu'à un tir chargé. Maintiens, puis relâche en visant la caisse lumineuse.",
+    'weaponKeys': 'Appuie sur {n} pour tirer avec ton arme copiée : un seul tir touche les trois drones.',
+    'weaponTouch': "Touche le bouton d'arme lumineux : un seul tir touche les trois drones."
+  },
+  'hubLesson': {
+    'workshop': "Ouvre l'Atelier.",
+    'upgradeBuster': 'Dépense des boulons pour améliorer ton Buster : plus de dégâts.',
+    'pickArmor': 'Sélectionne maintenant ton armure de torse.',
+    'upgradeArmor': 'Améliore-la aussi : plus de défense.',
+    'deploy': 'Tout est prêt — retour aux missions !'
   },
   'loot': {
     'found': 'Butin : {item} ({rarity}) !',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SYSTÈME EN PANNE',
-    'body': 'Cobalt a subi trop de dégâts.',
-    'kept': "Tu gardes les {xp} XP et les {bolts} boulons gagnés jusqu'ici.",
+    'body': 'Flux a subi trop de dégâts.',
+    'kept': "Tu gardes ce que tu as gagné jusqu'ici :",
     'useTank': 'Redémarrer avec un kit ({n})',
     'rebootAd': 'Redémarrer maintenant',
     'retreat': 'Retour au labo'
@@ -190,11 +206,11 @@ export default {
       'block': 'Maintiens le bouclier pour bloquer — pile quand un anneau se ferme pour parer.'
     },
     'keys': {
-      'move': 'ZQSD / flèches : se déplacer. Clique sur le sol pour y aller.',
-      'look': 'Glisse la souris pour regarder.',
-      'fire': 'Clic gauche ou Espace : tirer — maintiens pour charger.',
-      'block': 'Clic droit ou Maj : bloquer — pile quand un anneau se ferme pour parer.',
-      'slide': 'A : glissade · H : kit de réparation · E : interagir',
+      'move': 'ZQSD / flèches : se déplacer.',
+      'look': 'Bouge la souris pour regarder. Clique sur la scène pour prendre le contrôle de la caméra.',
+      'fire': 'Clic gauche : tirer — maintiens pour charger, relâche pour faire feu.',
+      'block': 'Clic droit : bloquer — pile quand un anneau se ferme pour parer.',
+      'slide': 'Espace : glissade · H : kit de réparation · E : interagir · B : téléportation',
       'more': '1 / 2 : armes spéciales · Tab : changer de cible · Échap : pause'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missions',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Circuits',
       'workshop': 'Atelier'
     },
+    'heroTabAria': 'Flux, ton androïde de combat',
     'levelUpReady': 'Nouveau niveau !',
     'levels': 'Niv. {a}–{b}',
     'story': 'Mission principale',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Nouveau contrat'
   },
   'hero': {
+    'role': 'Ton androïde de combat',
     'weapons': 'Armes spéciales',
     'weaponSlot': 'Emplacement {n}',
     'weaponRank': 'Rang {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Nécessite {name} (rang {n})',
     'install': 'Installer la puce',
     'maxed': 'Pleine puissance',
-    'respec': 'Réinitialiser les circuits ({n} boulons)'
+    'respec': 'Réinitialiser les circuits'
   },
   'skill': {
     'rapid': { 'name': 'Balles rapides', 'desc': 'Dégâts des balles +10 % par puce.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Retirer',
     'equipped': 'Équipé',
     'new': 'NOUVEAU',
-    'salvage': 'Recycler (+{n})',
+    'salvage': 'Recycler',
     'noAffixes': 'Aucun module bonus',
     'emptySlot': 'Rien pour cet emplacement — ouvre des coffres et termine des contrats.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Piste musicale',
     'musicTracks': {
       'cozy': 'Circuits apaisés',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Vibration',
     'on': 'Activé',

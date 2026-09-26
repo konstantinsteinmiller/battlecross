@@ -1,7 +1,7 @@
 {
   "name": "Mega Adventure",
   "short_name": "Mega Adventure",
-  "description": "Beam into machine-infested sectors as Cobalt, a blue combat android. Explore, blast rogue robots with your charge buster, loot chests, take on missions and upgrade your circuits.",
+  "description": "Beam into machine-infested sectors as Flux, a pearl-white combat android with a plasma-lit visor. Explore, blast rogue robots with your charge cannon, loot chests, take on missions and upgrade your circuits.",
   "display": "standalone",
   "display_override": [
     "fullscreen",
@@ -10,8 +10,8 @@
   "orientation": "any",
   "start_url": "./",
   "scope": "./",
-  "theme_color": "#12306e",
-  "background_color": "#12306e",
+  "theme_color": "#0a1224",
+  "background_color": "#0a1224",
   "icons": [
     {
       "src": "icons/icon-192.png",

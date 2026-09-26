@@ -37,7 +37,7 @@ as the fallback for anything missing, so files can arrive one at a time.
 
 ## SFX — `public/audio/sfx/`
 
-**Buster and combat (Cobalt)**
+**Buster and combat (Flux)**
 
 | File | Plays when |
 | --- | --- |
@@ -51,19 +51,19 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `hitHeavy.mp3` | a charged shot hits |
 | `tink.mp3` | a shot bounces off a guard (Hardhat helmet) |
 | `guardBreak.mp3` | a full charge breaks an enemy guard |
-| `block.mp3` | Cobalt blocks with the shield |
+| `block.mp3` | Flux blocks with the shield |
 | `parry.mp3` | perfect parry (crisp, rewarding) |
-| `guardCrack.mp3` | Cobalt's block breaks (out of Power) |
-| `slide.mp3` | Cobalt slides |
-| `hurt.mp3` | Cobalt takes damage |
-| `death.mp3` | Cobalt goes down (~1 s) |
+| `guardCrack.mp3` | Flux's block breaks (out of Power) |
+| `slide.mp3` | Flux slides |
+| `hurt.mp3` | Flux takes damage |
+| `death.mp3` | Flux goes down (~1 s) |
 | `tank.mp3` | a Repair Tank is used (refill arpeggio) |
 
 **Machines**
 
 | File | Plays when |
 | --- | --- |
-| `alert.mp3` | an enemy notices Cobalt (the "!" moment) |
+| `alert.mp3` | an enemy notices Flux (the "!" moment) |
 | `enemyShot.mp3` | an enemy fires |
 | `lob.mp3` | an enemy or boss lobs an arcing shot |
 | `jump.mp3` | a hopper jumps |

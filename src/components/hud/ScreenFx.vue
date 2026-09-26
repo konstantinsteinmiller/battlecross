@@ -1,5 +1,6 @@
 <template lang="pug">
   div.sfx-layer(aria-hidden="true")
+    div.low-hp(:class="{ on: lowHealthLive }")
     div.hurt(ref="hurt")
     div.flash(ref="flash")
     div.beam(ref="beam")
@@ -12,11 +13,15 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
-import { screenFx, toasts } from '@/game/state/screenFx'
+import { lowHealthLive, screenFx, toasts } from '@/game/state/screenFx'
 import { resolveParams } from '@/game/state/i18nParams'
 
-/** Red hurt vignette, colour flashes (parry, perfect, pickups), the beam-in
- *  white-out, and the toast stack. */
+/** Red hurt vignette, the low-health edge pulse, colour flashes (parry,
+ *  perfect, pickups), the beam-in white-out, and the toast stack.
+ *
+ *  The low-health pulse is a CSS animation keyed on `lowHealthLive`, not a
+ *  ticker write: a modal suspends the loop, and a ticker-driven vignette
+ *  froze on screen under it. */
 const { t } = useI18n()
 const hurt = ref<HTMLElement | null>(null)
 const flash = ref<HTMLElement | null>(null)
@@ -27,9 +32,7 @@ onMounted(() => {
   off = addHudTicker((dt) => {
     screenFx.hurt = Math.max(0, screenFx.hurt - dt * 1.6)
     screenFx.flash = Math.max(0, screenFx.flash - dt * 3.5)
-    const lowHp = hud.maxHp > 0 && hud.hp / hud.maxHp < 0.25 && hud.phase === 'play'
-    const pulse = lowHp ? 0.25 + 0.15 * Math.sin(performance.now() / 180) : 0
-    if (hurt.value) hurt.value.style.opacity = String(Math.min(1, screenFx.hurt * 0.85 + pulse))
+    if (hurt.value) hurt.value.style.opacity = String(Math.min(1, screenFx.hurt * 0.85))
     if (flash.value) {
       flash.value.style.opacity = String(screenFx.flash)
       flash.value.style.background = screenFx.flashColor
@@ -45,6 +48,25 @@ onUnmounted(() => off?.())
   position: absolute
   inset: 0
   pointer-events: none
+// Low health: a soft red rim that fades in, then beats on the same 0.9 s
+// lub-dub as the heart on the health bar (HudBars keys on the same flag, so
+// the two start in the same frame). The fade lives on the element and the
+// beat on its ::before, so leaving play fades it out instead of cutting it.
+.low-hp
+  position: absolute
+  inset: 0
+  opacity: 0
+  transition: opacity 0.5s
+  &::before
+    content: ''
+    position: absolute
+    inset: 0
+    background: radial-gradient(ellipse at center, transparent 52%, rgba(255, 40, 64, 0.18) 76%, rgba(214, 12, 44, 0.44) 100%)
+    opacity: 0.6
+  &.on
+    opacity: 1
+    &::before
+      animation: low-beat 0.9s ease-out infinite
 .hurt
   position: absolute
   inset: 0
@@ -88,4 +110,18 @@ onUnmounted(() => off?.())
   transform: translateY(-10px) scale(0.9)
 .toast-leave-to
   opacity: 0
+@keyframes low-beat
+  0%, 60%, 100%
+    opacity: 0.6
+  12%
+    opacity: 1
+  26%
+    opacity: 0.72
+  38%
+    opacity: 0.92
+// A steady rim instead of a beat.
+@media (prefers-reduced-motion: reduce)
+  .low-hp.on::before
+    animation: none
+    opacity: 0.8
 </style>

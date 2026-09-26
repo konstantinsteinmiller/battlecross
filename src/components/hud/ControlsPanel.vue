@@ -1,7 +1,7 @@
 <template lang="pug">
   div.controls-panel(:class="family")
-    div.row(v-for="r in rows" :key="r.key" role="img" :aria-label="r.aria ? t(r.aria) : undefined")
-      div.input
+    div.row(v-for="r in rows" :key="r.key" :data-row="r.key" role="img" :aria-label="r.aria ? t(r.aria) : undefined")
+      div.input(:class="r.glyph.kind")
         InputGlyph(v-bind="r.glyph")
       span.to(aria-hidden="true")
       div.action(aria-hidden="true")
@@ -15,11 +15,13 @@ import InputGlyph from './InputGlyph.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import type { GameIconName } from '@/components/icons/iconNames'
 import { input } from '@/game/boot'
+import { hud } from '@/game/state/hud'
 
 /**
  * Every control at a glance, wordless: the input glyph (the same drawings the
- * coach uses in play) → the action's icon. Shown in the pause menu for the
- * input family in use. The sentences survive only as screen-reader labels.
+ * coach uses in play, moving the same way) → the action's icon. Shown in the
+ * pause menu for the input family in use. The sentences survive only as
+ * screen-reader labels.
  */
 const { t } = useI18n()
 
@@ -29,7 +31,8 @@ interface Row { key: string; glyph: GlyphProps; action: GameIconName; aria?: str
 const family = computed(() => input.device)
 const rows = computed<Row[]>(() => family.value === 'touch'
   ? [
-      { key: 'move', glyph: { kind: 'joystick' }, action: 'boots', aria: 'pause.touch.move' },
+      // The finger tracing an ∞, as in play: it gets a row of its own.
+      { key: 'move', glyph: { kind: 'infinity' }, action: 'boots', aria: 'pause.touch.move' },
       { key: 'look', glyph: { kind: 'finger', mode: 'drag' }, action: 'replay', aria: 'pause.touch.look' },
       { key: 'fire', glyph: { kind: 'finger', mode: 'tap' }, action: 'buster', aria: 'pause.touch.fire' },
       { key: 'charge', glyph: { kind: 'finger', mode: 'hold' }, action: 'bolt', aria: 'pause.touch.fire' },
@@ -39,14 +42,20 @@ const rows = computed<Row[]>(() => family.value === 'touch'
     ]
   : [
       { key: 'move', glyph: { kind: 'wasd' }, action: 'boots', aria: 'pause.keys.move' },
-      { key: 'look', glyph: { kind: 'mouse', button: 'left', drag: true }, action: 'replay', aria: 'pause.keys.look' },
+      {
+        key: 'look',
+        glyph: hud.lookMode === 'lock' ? { kind: 'mouse', button: 'none', move: true } : { kind: 'mouse', button: 'left', drag: true },
+        action: 'replay',
+        aria: 'pause.keys.look'
+      },
       { key: 'fire', glyph: { kind: 'mouse', button: 'left', click: true }, action: 'buster', aria: 'pause.keys.fire' },
       { key: 'charge', glyph: { kind: 'mouse', button: 'left', hold: true }, action: 'bolt', aria: 'pause.keys.fire' },
       { key: 'block', glyph: { kind: 'mouse', button: 'right' }, action: 'shield', aria: 'pause.keys.block' },
-      { key: 'slide', glyph: { kind: 'key', label: 'Q' }, action: 'forward', aria: 'pause.keys.slide' },
-      { key: 'tank', glyph: { kind: 'key', label: 'H' }, action: 'flask', aria: 'pause.keys.more' },
-      { key: 'use', glyph: { kind: 'key', label: 'E' }, action: 'chest', aria: 'pause.keys.more' },
-      { key: 'weapon', glyph: { kind: 'key', label: '1' }, action: 'star', aria: 'pause.keys.more' }
+      { key: 'slide', glyph: { kind: 'key', wide: true }, action: 'forward', aria: 'pause.keys.slide' },
+      { key: 'tank', glyph: { kind: 'key', code: 'KeyH' }, action: 'flask', aria: 'pause.keys.slide' },
+      { key: 'use', glyph: { kind: 'key', code: 'KeyE' }, action: 'chest', aria: 'pause.keys.slide' },
+      { key: 'beam', glyph: { kind: 'key', code: 'KeyB' }, action: 'up', aria: 'pause.keys.slide' },
+      { key: 'weapon', glyph: { kind: 'key', code: 'Digit1' }, action: 'star', aria: 'pause.keys.more' }
     ])
 </script>
 
@@ -60,12 +69,25 @@ const rows = computed<Row[]>(() => family.value === 'touch'
   align-items: center
   justify-content: center
   gap: 8px
-  padding: 6px 8px
+  // Room above the glyph: a hold's timer tick stands over the fingertip.
+  padding: 10px 8px 6px
   border-radius: 12px
   background: rgba(0, 0, 0, 0.25)
+// The ∞ is wide: on a phone held upright it takes the whole first row,
+// otherwise two cells.
+.touch .row[data-row="move"]
+  grid-column: 1 / -1
+@media (min-aspect-ratio: 1/1)
+  .touch .row[data-row="move"]
+    grid-column: span 2
 .input
-  width: clamp(48px, 10vmin, 64px)
-  height: clamp(40px, 8vmin, 52px)
+  flex: 0 0 auto
+  width: clamp(56px, 12vmin, 76px)
+  height: clamp(46px, 10vmin, 62px)
+  &.infinity
+    width: clamp(100px, 26vmin, 132px)
+    height: auto
+    aspect-ratio: 265 / 184
 .to
   width: 14px
   height: 14px

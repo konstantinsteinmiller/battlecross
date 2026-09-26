@@ -19,7 +19,7 @@ import { pushHud } from '../state/hud'
  *   Flame Wave   — a floor-hugging fireball that pierces a line and sets burns
  *   Ice Lance    — a fast piercing lance that freezes what it hits
  *   Thunder Arc  — instant bolt to the target, chaining to two more
- *   Gale Guard   — four leaves orbit Cobalt (eat shots, cut machines);
+ *   Gale Guard   — four leaves orbit Flux (eat shots, cut machines);
  *                  press again to hurl them forward
  */
 
@@ -60,6 +60,27 @@ export class WeaponSystem {
     }
   }
 
+  /** The live machine nearest to the ray from (x, z) at bearing `a`, within
+   *  a narrow cone and in sight; machines in `skip` only as a last resort. */
+  private nearestOnLine(x: number, z: number, a: number, skip: Enemy[]): Enemy | null {
+    const h = this.host
+    let best: Enemy | null = null
+    let bestScore = Infinity
+    for (const e of h.enemies) {
+      if (e.state === 'dead' || e.offstage) continue
+      const d = Math.hypot(e.x - x, e.z - z)
+      if (d > 20 || d < 0.5) continue
+      let da = Math.atan2(e.x - x, e.z - z) - a
+      while (da > Math.PI) da -= Math.PI * 2
+      while (da < -Math.PI) da += Math.PI * 2
+      if (Math.abs(da) > 0.13) continue
+      if (!hasLineOfSight(h.nav, x, z, e.x, e.z)) continue
+      const score = Math.abs(da) + (skip.includes(e) ? 1 : 0)
+      if (score < bestScore) { best = e; bestScore = score }
+    }
+    return best
+  }
+
   rank(id: WeaponId): 1 | 2 | 3 {
     return weaponRank(this.weaponXp[id] ?? 0, WEAPONS[id])
   }
@@ -93,9 +114,15 @@ export class WeaponSystem {
       case 'scrapBurst': {
         const n = r >= 3 ? 5 : 3
         const yaw = Math.atan2(dx, dz)
+        const taken: Enemy[] = []
         for (let k = 0; k < n; k++) {
           const a = yaw + (k / (n - 1) - 0.5) * 0.42
-          const s = sys.spawnPlayerShot('charge1', mx, my, mz, Math.sin(a), dy, Math.cos(a), dmg, false, null)
+          // Each pellet leans onto a machine close to its own line (distinct
+          // ones first), so a burst aimed at the middle of a group meets the
+          // group — the weapon's whole point.
+          const home = this.nearestOnLine(mx, mz, a, taken)
+          if (home) taken.push(home)
+          const s = sys.spawnPlayerShot('charge1', mx, my, mz, Math.sin(a), dy, Math.cos(a), dmg, false, home)
           this.tag(s, id, '#c9d3e6')
         }
         h.sfx('shoot')
@@ -181,7 +208,7 @@ export class WeaponSystem {
     let best: Enemy | null = null
     let bestD = 18
     for (const e of h.enemies) {
-      if (e.state === 'dead') continue
+      if (e.state === 'dead' || e.offstage) continue
       const d = Math.hypot(e.x - h.player.x, e.z - h.player.z)
       const a = Math.atan2(-(e.x - h.player.x), -(e.z - h.player.z))
       let da = a - h.player.yaw
@@ -259,7 +286,7 @@ export class WeaponSystem {
       }
       // Cut machines
       for (const e of h.enemies) {
-        if (e.state === 'dead' || this.leafHitCd.has(e.id)) continue
+        if (e.state === 'dead' || e.offstage || this.leafHitCd.has(e.id)) continue
         if (Math.hypot(e.x - x, e.z - z) < e.def.radius + 0.35 && Math.abs(e.y + e.def.aimY - y) < 1.4) {
           this.leafHitCd.set(e.id, 0.5)
           e.lastWeapon = 'galeGuard'

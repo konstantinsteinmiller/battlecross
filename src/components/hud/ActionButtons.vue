@@ -10,6 +10,7 @@
       @pointerleave="blockUp"
     )
       GameIcon(name="shield")
+      KeyCap.kc(v-if="desk" code="MouseRight")
       CoachRing(:hint="touchHint('parry') ?? touchHint('block')" side="rim")
     button.act.slide(
       type="button"
@@ -18,6 +19,7 @@
       @pointerdown.prevent.stop="slide"
     )
       GameIcon(name="forward")
+      KeyCap.kc(v-if="desk" code="Space")
       CoachRing(:hint="touchHint('slide')")
     button.act.tank(
       type="button"
@@ -27,18 +29,21 @@
     )
       GameIcon(name="flask")
       span.count {{ hud.tanks }}
+      KeyCap.kc(v-if="desk" code="KeyH")
       CoachRing(:hint="touchHint('tank')")
     template(v-for="(w, i) in hud.weapons" :key="i")
       button.act.weapon(
         v-if="w.id"
         type="button"
-        :class="[`w${i}`, { off: !w.ready }]"
+        :class="[`w${i}`, { off: !w.ready, lesson: hud.lesson?.id === 'weapon' && !hud.lesson.done && hud.lesson.slot === i + 1 }]"
         :style="{ '--wc': w.color }"
+        :data-lesson="`weapon-${i + 1}`"
         :aria-label="t(`weapon.${w.id}.name`)"
         @pointerdown.prevent.stop="fire(i)"
       )
         span.w-orb
         span.w-cost {{ w.cost }}
+        KeyCap.kc(v-if="desk" :code="`Digit${i + 1}`")
         CoachRing(v-if="i === 0" :hint="touchHint('weapon')")
 </template>
 
@@ -48,7 +53,9 @@ import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import CoachRing from './CoachRing.vue'
+import KeyCap from './KeyCap.vue'
 import type { HintId } from '@/game/sim/coach'
+import { computed } from 'vue'
 
 /**
  * Right-thumb cluster: BLOCK (hold; tap it as a ring closes to parry) and
@@ -58,6 +65,8 @@ import type { HintId } from '@/game/sim/coach'
 const { t } = useI18n()
 /** The coach glyph for a button, when it is teaching a touch player. */
 const touchHint = (id: HintId) => hud.hints.find(h => h.id === id && h.family === 'touch')
+/** Mouse + keys: every button wears its key (the captured mouse has no cursor). */
+const desk = computed(() => hud.device === 'mouse')
 
 const blockDown = (e: PointerEvent) => {
   input.touched = true
@@ -170,6 +179,27 @@ const fire = (i: number) => {
     font-size: 8px
     line-height: 20px
     text-align: center
+// The key that works this button on a keyboard, tucked on its rim.
+.kc
+  position: absolute
+  left: 50%
+  bottom: -0.55em
+  transform: translateX(-50%)
+  font-size: clamp(11px, 2.3vmin, 14px)
+  pointer-events: none
+// The weapon lesson: the button to press breathes (on a child, so no
+// class churn on the button can clobber the animation).
+// The tank's count badge owns its bottom-right corner.
+.tank .kc
+  left: -2px
+  transform: none
+.weapon.lesson .w-orb
+  animation: lesson-breathe 0.9s ease-in-out infinite
+.weapon.lesson
+  box-shadow: 0 0 0 4px #ffffff, 0 0 22px var(--wc)
+@keyframes lesson-breathe
+  50%
+    transform: scale(1.35)
 .tank
   .count
     position: absolute

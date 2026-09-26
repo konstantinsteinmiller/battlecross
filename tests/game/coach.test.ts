@@ -146,3 +146,60 @@ describe('stuck', () => {
     expect(ids(run(c, 2.1, 4))).toEqual(expect.arrayContaining(['fire']))
   })
 })
+
+describe('during a scene lesson', () => {
+  const learnThumbs = (c: Coach) => {
+    for (const id of ['move', 'look', 'walk'] as HintId[]) for (let i = 0; i < 3; i++) c.use(id)
+  }
+
+  it('never silences moving and looking — the rest keeps quiet', () => {
+    const c = new Coach()
+    expect(ids(run(c, 0, 30, { quiet: true, aimCandidate: true })).sort()).toEqual(['look', 'move'])
+  })
+
+  it('shows the stick and the camera together from the first frame, on a phone too', () => {
+    const c = new Coach()
+    const v = run(c, 0, 0, { quiet: true, family: 'touch' })
+    expect(ids(v).sort()).toEqual(['look', 'move'])
+    expect(v.every(h => h.family === 'touch')).toBe(true)
+  })
+
+  it('still warns: a blockable wind-up shows the shield, and nothing else competes', () => {
+    const c = new Coach()
+    learnThumbs(c)
+    const v = run(c, 0, 1, { quiet: true, teleBlock: true, combat: true, aimCandidate: true })
+    expect(ids(v)).toEqual(['block'])
+  })
+
+  it('the shield never pushes the thumbs out', () => {
+    const c = new Coach()
+    const v = run(c, 0, 1, { quiet: true, teleBlock: true, combat: true })
+    expect(ids(v)).toEqual(['block', 'look', 'move'])
+  })
+
+  it('a player frozen in front of the lesson gets the stick back', () => {
+    const c = new Coach()
+    learnThumbs(c)
+    expect(ids(run(c, 0, 10, { quiet: true }))).toEqual([])
+    const v = ids(run(c, 10, 22, { quiet: true }))
+    expect(v).toContain('move')
+    expect(v).toContain('look')
+  })
+
+  it('the lesson over, the glyphs it held back come in', () => {
+    const c = new Coach()
+    learnThumbs(c)
+    expect(ids(run(c, 0, 5, { quiet: true, aimCandidate: true }))).toEqual([])
+    expect(ids(run(c, 5, 6, { aimCandidate: true }))).toEqual(['fire'])
+  })
+})
+
+describe('the repair tank', () => {
+  it('comes in at half health with a tank carried, not before', () => {
+    const c = new Coach()
+    expect(ids(run(c, 0, 1, { hp01: 0.6, tanks: 1 }))).not.toContain('tank')
+    expect(ids(run(c, 1, 2, { hp01: 0.45, tanks: 1 }))).toContain('tank')
+    const d = new Coach()
+    expect(ids(run(d, 0, 1, { hp01: 0.2, tanks: 0 }))).not.toContain('tank')
+  })
+})

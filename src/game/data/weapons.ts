@@ -3,7 +3,7 @@ import type { Element } from './enemies'
 /**
  * ─── Special weapons (the weapon-copy system) ────────────────────────────────
  *
- * Beating a Core Master copies its weapon into Cobalt's buster. Two can be
+ * Beating a Core Master copies its weapon into Flux's buster. Two can be
  * slotted at a time; each costs Weapon Energy per use and levels up (3 ranks)
  * through kills scored with it. Equipping one tints the arm cannon.
  */

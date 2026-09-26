@@ -2,9 +2,10 @@
 //
 // Wraps PokiSDK v2 (https://game-cdn.poki.com/scripts/v2/poki-sdk.js) behind a
 // small, safe surface. Nothing outside this file should touch `window.PokiSDK`,
-// because two of the SDK's behaviours are footguns this module exists to
-// neutralise. Both were found by de-minifying the shipped bundle; neither is in
-// Poki's public docs.
+// because three of the platform's rules are footguns this module exists to
+// neutralise. The first two were found by de-minifying the shipped bundle and
+// are in neither of Poki's docs; the third is a requirement Poki QA enforces by
+// hand.
 //
 //   1. THE BAD-EVENT KILL SWITCH. A `gameplayStart()` landing within 50 ms of
 //      the preceding `gameplayStop()` increments an internal `badEvents`
@@ -31,6 +32,12 @@
 //      and the provider's `isRewardedReady` hangs off it, which is what
 //      `canOfferReward` in `useAdGate` gates the ×3 button on.
 //
+//   3. `gameplayStart()` MAY NOT FIRE WITHOUT A PLAYER INTERACTION — a rule Poki
+//      QA checks by hand. The game boots straight into a live mission, so the
+//      bracket asks to open during mount. The start is HELD until the first
+//      TRUSTED pointer/key event (or the browser's sticky user activation) and
+//      released then; see "Gameplay bracket" below.
+//
 // Poki has NO cloud-save API (its wrapper mirrors localStorage + IndexedDB
 // itself — see PokiStrategy), NO audio-mute signal and NO pause signal. The
 // game owns all three. The only ad-audio edge available is the `onStart`
@@ -44,6 +51,7 @@
 // the ref from both places would double-manage the gate.
 
 import { ref, computed } from 'vue'
+import { startPillPlacement } from '@/platforms/poki/pill'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -136,6 +144,8 @@ export const pokiDeviceCategory = ref<PokiDeviceCategory | null>(null)
 // ─── Boot ───────────────────────────────────────────────────────────────────
 
 let initPromise: Promise<void> | null = null
+/** Mobile-pill watcher (see `platforms/poki/pill.ts`), started once after init. */
+let stopPillPlacement: (() => void) | null = null
 
 const ensureScriptTag = (): void => {
   if (typeof document === 'undefined') return
@@ -225,6 +235,12 @@ export const pokiPlugin = (): Promise<void> => {
     }
 
     isPokiSdkActive.value = true
+
+    // Mobile / tablet: poki.com draws its nav pill over our HUD's top-left
+    // corner (the HP / energy bars). Keep it clear — see `platforms/poki/pill.ts`.
+    if (pokiDeviceCategory.value === 'mobile' || pokiDeviceCategory.value === 'tablet') {
+      stopPillPlacement ??= startPillPlacement(pokiMovePill)
+    }
   })()
 
   return initPromise
@@ -311,12 +327,35 @@ const emitStop = (): void => {
 const bracketMayOpen = (): boolean => loadingFinishedSent && firstInteractionSeen
 
 /**
+ * Has this document had a real user gesture yet, according to the BROWSER?
+ *
+ * `navigator.userActivation.hasBeenActive` is sticky for the life of the
+ * document and is only ever set by a trusted input event inside this frame
+ * (activation in the Poki page around us does not propagate into a cross-origin
+ * game iframe). It catches the gesture the listeners were armed too late for:
+ * a tap that landed while the entry chunk was still parsing, before
+ * `pokiPlugin()` ran. Without it that player had already interacted and the
+ * gate demanded a SECOND tap — exactly the conversion cost the gate must not
+ * have. Optional-chained: Safari only shipped it in 16.4, and where it is
+ * missing the listeners are the whole gate.
+ */
+const hasStickyActivation = (): boolean => {
+  try {
+    return typeof navigator !== 'undefined' && navigator.userActivation?.hasBeenActive === true
+  } catch {
+    return false
+  }
+}
+
+/**
  * Send the start if the game still wants it, the gates are open, and the SDK's
  * 50 ms bad-event window has cleared. Called from every edge that can change any
  * one of those three inputs; a no-op whenever it is not yet the moment.
  */
 const tryOpenBracket = (): void => {
   if (bracket !== 'playing' || startEmitted || pendingStart) return
+  // Ask the browser before declaring the gate shut — see `hasStickyActivation`.
+  if (!firstInteractionSeen && hasStickyActivation()) markInteracted()
   if (!bracketMayOpen()) return
 
   const since = performance.now() - lastStopEmittedAt
@@ -336,21 +375,43 @@ const tryOpenBracket = (): void => {
 
 /** Inputs that count as "the player started playing". `pointerdown` covers mouse
  *  and touch on every browser this game ships to; `touchstart` is belt-and-braces
- *  for older mobile Safari, and `keydown` covers desktop keyboard play. */
-const INTERACTION_EVENTS = ['pointerdown', 'touchstart', 'keydown'] as const
+ *  for older mobile Safari, and `keydown` covers desktop keyboard play. The UP
+ *  edges are there for a touch that went down before the listeners were armed
+ *  (during the splash): a touch grants the browser's user activation on the up
+ *  edge, and without these nothing would notice until the player's next touch. */
+const INTERACTION_EVENTS = ['pointerdown', 'touchstart', 'keydown', 'pointerup', 'touchend'] as const
 
 /**
  * Listen for the player's first input. Armed from `pokiPlugin()` SYNCHRONOUSLY,
- * before it awaits the SDK, so a tap during the splash still counts.
+ * before it awaits the SDK, so a tap during the splash still counts — and a tap
+ * that landed even earlier, before this ran at all, is read off the browser's
+ * sticky activation instead (see `hasStickyActivation`).
  *
  * Capture phase + passive: the game's own input handling must be unaffected, and
- * `passive` keeps this off the scroll-blocking path.
+ * `passive` keeps this off the scroll-blocking path. Capture on `window` also
+ * means a canvas handler calling `stopPropagation()` cannot hide the gesture.
+ *
+ * TRUSTED EVENTS ONLY. Poki's rule is that the first `gameplayStart()` follows a
+ * real player interaction; a synthetic `dispatchEvent` — from the game's own
+ * code, a library, or a harness driving the page from inside — is not one, and
+ * must not open the bracket. (That is also why the specs open the gate through
+ * `notePokiFirstInteraction()` rather than by dispatching: jsdom cannot produce
+ * a trusted event.)
  */
 const armFirstInteraction = (): void => {
   if (typeof window === 'undefined') return
   if (firstInteractionSeen || detachInteractionListeners) return
 
-  const onInteract = (): void => notePokiFirstInteraction()
+  // Asked first: a player who already tapped needs no listener at all.
+  if (hasStickyActivation()) {
+    markInteracted()
+    return
+  }
+
+  const onInteract = (e: Event): void => {
+    if (!e.isTrusted) return
+    notePokiFirstInteraction()
+  }
   for (const type of INTERACTION_EVENTS) {
     window.addEventListener(type, onInteract, { capture: true, passive: true })
   }
@@ -362,16 +423,24 @@ const armFirstInteraction = (): void => {
   }
 }
 
+/** Open gate 2 and drop the listeners. Does NOT try to emit — callers decide. */
+const markInteracted = (): void => {
+  firstInteractionSeen = true
+  detachInteractionListeners?.()
+}
+
 /**
  * Mark the player as having interacted, releasing gate 2. Wired to a global
- * listener by `pokiPlugin()`, and exported so a call site can declare a more
- * specific "this was real gameplay input" moment if the global one ever proves
- * too generous. Idempotent.
+ * (trusted-only) listener by `pokiPlugin()`, and exported so a call site can
+ * declare a more specific "this was real gameplay input" moment if the global
+ * one ever proves too generous. Idempotent.
+ *
+ * Only ever call it from a player-driven path. Calling it from a timer, a
+ * lifecycle hook or an SDK callback defeats the whole point of the gate.
  */
 export const notePokiFirstInteraction = (): void => {
   if (firstInteractionSeen) return
-  firstInteractionSeen = true
-  detachInteractionListeners?.()
+  markInteracted()
   tryOpenBracket()
 }
 
@@ -417,6 +486,8 @@ export const pokiGameplayStop = (): void => {
 export const __resetPokiGameplayBracketForTests = (): void => {
   if (pendingStart) clearTimeout(pendingStart)
   detachInteractionListeners?.()
+  stopPillPlacement?.()
+  stopPillPlacement = null
   pendingStart = null
   bracket = 'idle'
   startEmitted = false
@@ -542,7 +613,7 @@ export const pokiMovePill = (topPercent: number, topPx: number): void => {
   const sdk = getSdk()
   if (!sdk) return
   try {
-    sdk.movePill(Math.min(50, Math.max(0, topPercent)), topPx)
+    sdk.movePill?.(Math.min(50, Math.max(0, topPercent)), topPx)
   } catch (e) {
     warn('movePill threw', e)
   }

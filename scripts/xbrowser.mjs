@@ -7,8 +7,9 @@
 // Plays the first mission to its result screen in Chrome, Edge, Firefox and
 // WebKit, and asserts STATE, not vibes: WebGL came up, the mission HUD
 // mounted, the objective completed (dev cheat, `localStorage.cheat`), Beam-out
-// appeared, the results screen entered the DOM, Continue reached the hub, and
-// the page logged ZERO errors.
+// appeared and B beamed out, the results screen entered the DOM, Continue
+// reached the hub, and the page logged ZERO errors. `locked` reports whether
+// the engine granted the mouse capture on the first click.
 //
 // Run it before every release, not after a bug report. Engine- and
 // device-dependent failures are invisible on desktop Chrome, which is the one
@@ -106,6 +107,22 @@ try {
       page.on('pageerror', e => errors.push('pageerror: ' + e.message))
       page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 160)) })
       await page.addInitScript(() => localStorage.setItem('cheat', 'true'))
+      // Pointer lock is emulated in the page: a real capture from a headless
+      // browser on Windows grabs the HOST's cursor (a playtest run took the
+      // owner's mouse). The page still sees the whole contract, so `out.locked`
+      // below still proves the game asked for the capture.
+      await page.addInitScript(() => {
+        let lockEl = null
+        const fire = () => queueMicrotask(() => document.dispatchEvent(new Event('pointerlockchange')))
+        Object.defineProperty(Document.prototype, 'pointerLockElement', { configurable: true, get () { return lockEl } })
+        Element.prototype.requestPointerLock = function () {
+          if (lockEl !== this) { lockEl = this; fire() }
+          return Promise.resolve()
+        }
+        Document.prototype.exitPointerLock = function () {
+          if (lockEl) { lockEl = null; fire() }
+        }
+      })
       await page.goto(`http://127.0.0.1:${PORT}/`)
       out.title = await page.title()
       if (!/Mega Adventure/i.test(out.title)) throw new Error(`wrong app on the port (title "${out.title}")`)
@@ -115,10 +132,14 @@ try {
         return !!(c && (c.getContext('webgl2') || c.getContext('webgl')))
       })
       await page.waitForTimeout(8000) // splash + beam-in
+      // The first click captures the mouse (pointer lock) where the engine
+      // grants it; a captured mouse has no cursor for HUD buttons, so the
+      // run beams out with the B key, like a desktop player.
       await page.mouse.click(700, 300)
+      out.locked = await page.evaluate(() => !!document.pointerLockElement)
       await page.keyboard.press('Control+Shift+Alt+KeyO') // cheat: objective done
-      await page.waitForTimeout(800)
-      await page.locator('.ctx-btn.beam').first().click({ force: true, timeout: 10000 })
+      await page.waitForSelector('.ctx-btn.beam', { timeout: 10000 })
+      await page.keyboard.press('KeyB')
       await page.waitForSelector('.results', { timeout: 20000 })
       out.results = true
       await page.locator('button', { hasText: /continue/i }).last().click({ force: true, timeout: 10000 })

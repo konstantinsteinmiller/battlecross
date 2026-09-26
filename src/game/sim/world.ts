@@ -38,6 +38,11 @@ export interface Enemy {
   dmg: number
   room: number
   awake: boolean
+  /** A lesson's machine: stays asleep whatever it sees until it is hurt. */
+  hold?: boolean
+  /** A boss before its entrance: not in the arena yet, so it is not drawn,
+   *  hit, aimed at, woken or bumped into. Its intro drops it in. */
+  offstage?: boolean
   state: EnemyState
   st: number
   cd: number

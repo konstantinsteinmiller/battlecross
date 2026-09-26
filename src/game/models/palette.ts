@@ -4,17 +4,23 @@
  * here so the HUD, particles and models agree.
  */
 export const PAL = {
-  // Cobalt
-  heroBlue: '#2468f0',
-  heroDeep: '#153c9e',
-  heroCyan: '#4fd8ff',
-  heroCyanDeep: '#1f9fd8',
-  skin: '#ffd2a8',
-  skinShade: '#f0b48c',
+  // Flux: pearl armour shells over a graphite undersuit, lit by one warm
+  // plasma. Gear repaints the shells and the plasma (`HeroColors`); the suit,
+  // visor and steel never change, so every kit still reads as him.
+  heroPearl: '#eef0f3',
+  heroSuit: '#3a3f4b',
+  heroSuitDeep: '#252932',
+  heroVisor: '#161a22',
+  heroVisorHi: '#3a4250',
+  heroSteel: '#c3cad4',
+  heroPlasma: '#ffa733',
+  heroPlasmaHot: '#fff0cc',
+  // The lab's blue and cyan: Pip and the hub (Flux wore them until his redesign)
+  labBlue: '#2468f0',
+  labCyan: '#4fd8ff',
+  // Cartoon eyes (machines, masters)
   eyeWhite: '#ffffff',
-  iris: '#1b6dd6',
   pupil: '#0b1433',
-  mouth: '#c0705a',
   // Generic machine tones
   steel: '#9aa7bd',
   steelDark: '#5d6a82',

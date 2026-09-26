@@ -43,12 +43,16 @@ const rewardFor = (template: QuestTemplate, level: number, story: boolean): Ques
   }
 }
 
+/** The first mission, "Wake-Up Call". Its seed is chosen for its layout: a
+ *  one-door start room facing that door, then four rooms on the way to the
+ *  Scrapper — one per walkthrough lesson (`sim/walkthrough.ts`) — with two
+ *  short side rooms. `tests/game/walkthrough.test.ts` pins that shape. */
 export const tutorialQuest = (): Quest => ({
   id: 'story_tutorial',
   kind: 'story',
   template: 'tutorial',
   sector: 'scrapyard',
-  seed: 20260923,
+  seed: 20261916,
   level: 1,
   target: null,
   count: 1,

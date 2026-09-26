@@ -52,7 +52,17 @@ export const GAME_ICON_NAMES = [
   // and `ArtIcon`'s floor is a glyph from this list — see `game/uiArt.ts`,
   // which draws the same sign on a canvas for the reference sheet.
   'warning',
-  'buster', 'helmet', 'armor', 'boots', 'chip'
+  'buster', 'helmet', 'armor', 'boots', 'chip',
+  // The hero himself: Flux's face (visor band, two eye-lights, the sensor
+  // blade) on his hub tab and his name plate. It was `helmet` until the face
+  // showed up on the helmet gear slot too; the character and a piece of his
+  // kit may not wear the same drawing.
+  'android',
+  // The currency. Bolts wore `bolt` (the lightning glyph) until a playtest
+  // showed the cost: ⚡ also marks the charged shot and the weapon-energy
+  // bar, and a tester called his Bolts "energy". The money is a hex nut now,
+  // the gold hexagon of the pickup's head; ⚡ means energy and charge only.
+  'nut'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

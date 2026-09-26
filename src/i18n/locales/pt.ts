@@ -115,8 +115,8 @@ export default {
     'title': 'Objetivo',
     'complete': 'Objetivo concluído',
     'beamOutHint': 'Teleporte-se quando estiver pronto.',
-    'tutorial': 'Derrote o Sucateiro',
-    'boss': 'Derrote o Mestre do Núcleo',
+    'tutorial': 'Derrote o {boss}',
+    'boss': 'Derrote o {boss}',
     'kill': 'Destrua {target}: {n}/{total}',
     'collect': 'Núcleos de dados: {n}/{total}',
     'rescue': 'Encontre o robô operário preso',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Arraste o lado esquerdo para mover e o direito para olhar. Toque no chão para ir até lá!',
-    'moveKeys': 'WASD para mover, arraste o mouse para olhar. Clique no chão para ir até lá!',
+    'moveKeys': 'WASD para se mover.',
+    'lookMouse': 'Mova o mouse para olhar ao redor.',
+    'capture': 'Clique na cena para controlar a câmera.',
     'fireTouch': 'Máquinas à frente! Toque para atirar — segure e solte para um tiro carregado.',
-    'fireKeys': 'Máquinas à frente! Clique ou Espaço para atirar — segure e solte para um tiro carregado.',
+    'fireKeys': 'Máquinas à frente! Clique esquerdo para atirar — segure e solte para um tiro carregado.',
     'charge': 'Escudos bloqueiam tiros comuns. Um tiro com carga TOTAL atravessa direto.',
     'blockTouch': 'Anel laranja: segure o escudo para bloquear — aperte quando o anel fechar para APARAR!',
-    'blockKeys': 'Anel laranja: segure Shift ou o botão direito para bloquear — aperte quando o anel fechar para APARAR!',
+    'blockKeys': 'Anel laranja: segure o botão direito do mouse para bloquear — aperte quando o anel fechar para APARAR!',
     'red': 'Anel vermelho é imbloqueável — deslize para sair do caminho!',
+    'dodgeKeys': 'Anel vermelho é imbloqueável — aperte Espaço para deslizar para fora do caminho!',
     'chest': 'Um baú de suprimentos! Toque nele para abrir.',
     'tank': 'Vida baixa? Um Kit de Reparo te conserta por completo.',
     'weapon': 'Use sua arma copiada no botão colorido!'
+  },
+  'lesson': {
+    'charge': 'Segure para carregar seu Buster e depois solte: só um tiro carregado quebra o escudo do drone de treino.',
+    'crate': 'Caixas de suprimentos só quebram com um tiro carregado. Segure e solte mirando na caixa brilhante.',
+    'weaponKeys': 'Aperte {n} para disparar sua arma copiada: um só tiro acerta os três drones.',
+    'weaponTouch': 'Toque no botão de arma brilhante: um só tiro acerta os três drones.'
+  },
+  'hubLesson': {
+    'workshop': 'Abra a Oficina.',
+    'upgradeBuster': 'Gaste parafusos para melhorar seu Buster: mais dano.',
+    'pickArmor': 'Agora selecione sua armadura peitoral.',
+    'upgradeArmor': 'Melhore-a também: mais defesa.',
+    'deploy': 'Tudo pronto — de volta às missões!'
   },
   'loot': {
     'found': 'Você encontrou {item} ({rarity})!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SISTEMA EM PANE',
-    'body': 'Cobalt sofreu dano demais.',
-    'kept': 'Você mantém os {xp} XP e os {bolts} parafusos ganhos até agora.',
+    'body': 'Flux sofreu dano demais.',
+    'kept': 'Você mantém o que ganhou até agora:',
     'useTank': 'Usar Kit de Reparo ({n})',
     'rebootAd': 'Reiniciar agora',
     'retreat': 'Recuar ao laboratório'
@@ -190,11 +206,11 @@ export default {
       'block': 'Segure o escudo para bloquear — aperte quando um anel fechar para aparar.'
     },
     'keys': {
-      'move': 'WASD / setas: mover. Clique no chão para ir até lá.',
-      'look': 'Arraste o mouse para olhar.',
-      'fire': 'Clique esquerdo ou Espaço: atirar — segure para carregar.',
-      'block': 'Clique direito ou Shift: bloquear — aperte quando um anel fechar para aparar.',
-      'slide': 'Q: deslizar · H: Kit de Reparo · E: interagir',
+      'move': 'WASD / setas: mover.',
+      'look': 'Mova o mouse para olhar. Clique na cena para controlar a câmera.',
+      'fire': 'Clique esquerdo: atirar — segure para carregar, solte para disparar.',
+      'block': 'Clique direito: bloquear — aperte quando um anel fechar para aparar.',
+      'slide': 'Espaço: deslizar · H: Kit de Reparo · E: interagir · B: teleportar',
       'more': '1 / 2: armas especiais · Tab: trocar alvo · Esc: pausar'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missões',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Circuitos',
       'workshop': 'Oficina'
     },
+    'heroTabAria': 'Flux, seu androide de combate',
     'levelUpReady': 'Subiu de nível!',
     'levels': 'Nv {a}–{b}',
     'story': 'Missão principal',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Novo contrato'
   },
   'hero': {
+    'role': 'Seu androide de combate',
     'weapons': 'Armas especiais',
     'weaponSlot': 'Slot {n}',
     'weaponRank': 'Grau {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Requer {name} no grau {n}',
     'install': 'Instalar chip',
     'maxed': 'Potência máxima',
-    'respec': 'Resetar circuitos ({n} parafusos)'
+    'respec': 'Resetar circuitos'
   },
   'skill': {
     'rapid': { 'name': 'Tiros Rápidos', 'desc': 'Dano do tiro rápido +10% por chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Remover',
     'equipped': 'Equipado',
     'new': 'NOVO',
-    'salvage': 'Desmontar (+{n})',
+    'salvage': 'Desmontar',
     'noAffixes': 'Sem módulos bônus',
     'emptySlot': 'Nada para este encaixe ainda — abra baús e conclua contratos.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Faixa musical',
     'musicTracks': {
       'cozy': 'Circuitos Calmos',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Vibração',
     'on': 'Ligado',

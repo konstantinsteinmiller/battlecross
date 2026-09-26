@@ -1,64 +1,124 @@
 <template lang="pug">
   Transition(name="bb")
-    div.boss-bar(v-if="hud.bossName" aria-hidden="true")
-      div.bb-name {{ t(hud.bossName) }}
-      div.bb-track
-        div.bb-fill(:style="{ width: segPct + '%' }")
+    div.bb-bar(v-if="hud.bossName" aria-hidden="true")
+      span.cap
+        GameIcon(name="skull")
+      div.track
+        div.fill(:style="{ height: segPct + '%' }")
+  Transition(name="bbn")
+    div.bb-name(v-if="hud.bossName" aria-hidden="true")
+      span.skull
+        GameIcon(name="skull")
+      span.label {{ t(hud.bossName) }}
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
+import GameIcon from '@/components/icons/GameIcon.vue'
 
-/** The Core Master's energy bar — the classic 28 segments, laid across the
- *  top. It fills segment by segment during the entrance. */
+/**
+ * The Core Master's energy: the classic 28-segment vertical bar, standing in
+ * line right of Flux's own two, the way Mega Man 2–6 set the boss's meter
+ * beside the hero's. Same frame, cap and segment geometry as HudBars (keep the
+ * two in step), in violet under a skull, a colour none of Flux's bars ever
+ * take (yellow or red health, weapon colours).
+ *
+ * It fills segment by segment during the entrance (the mission ramps
+ * `bossHp01`), with no tween, so every step lands whole.
+ *
+ * The name keeps the top-centre slot the target frame gives up while a boss is
+ * up, marked with the same skull.
+ */
 const { t } = useI18n()
 const SEG = 28
-const segPct = computed(() => (Math.ceil(Math.max(0, hud.bossHp01) * SEG) / SEG) * 100)
+const segPct = computed(() => (Math.ceil(Math.min(1, Math.max(0, hud.bossHp01)) * SEG) / SEG) * 100)
 </script>
 
 <style scoped lang="sass">
-.boss-bar
+// ─── The bar: HudBars' frame, two bars and two gaps in from its left ────────
+.bb-bar
+  --bw: clamp(14px, 3.4vmin, 22px)
+  --gap: clamp(3px, 0.8vmin, 6px)
   position: absolute
-  left: 50%
-  top: calc(env(safe-area-inset-top, 0px) + clamp(32px, 7vmin, 46px))
-  transform: translateX(-50%)
-  width: min(64vw, 440px)
+  left: calc(env(safe-area-inset-left, 0px) + clamp(8px, 2.2vmin, 18px) + var(--bw) * 2 + var(--gap) * 2)
+  top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px))
+  display: flex
+  flex-direction: column
+  width: var(--bw)
+  height: clamp(110px, 28vmin, 200px)
+  padding: 3px
+  border-radius: 4px
+  background: #141a33
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
   pointer-events: none
   z-index: 2
-.bb-name
-  text-align: center
-  font-family: var(--font-ui)
-  font-size: clamp(13px, 2.8vmin, 17px)
-  color: #fff
-  text-shadow: 0 2px 0 #141a33, 0 0 6px rgba(255, 60, 80, 0.6)
-  letter-spacing: 0.04em
-.bb-track
+.cap
+  display: block
+  flex: none
+  width: calc(var(--bw) - 2px)
+  height: calc(var(--bw) - 2px)
+  margin: -2px -2px 1px
+  color: #c98bff
+.track
   position: relative
-  margin-top: 4px
-  height: clamp(12px, 2.6vmin, 18px)
-  border: 3px solid #141a33
-  border-radius: 5px
-  background: #2a0a12
+  flex: 1
+  border-radius: 1px
+  background: #0b1433
   overflow: hidden
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
+  // Segment gaps drawn over whatever fill is below
   &::after
     content: ''
     position: absolute
     inset: 0
-    background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 28 - 2px), #2a0a12 calc(100% / 28 - 2px), #2a0a12 calc(100% / 28))
-.bb-fill
-  height: 100%
-  background: linear-gradient(#fff4c8 0%, #fff4c8 28%, #ff5a4a 29%, #c01830 100%)
-  transition: width 0.08s linear
-.bb-enter-active, .bb-leave-active
+    background: repeating-linear-gradient(to top, transparent 0, transparent calc(100% / 28 - 1.5px), #0b1433 calc(100% / 28 - 1.5px), #0b1433 calc(100% / 28))
+    pointer-events: none
+.fill
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  background: linear-gradient(90deg, #f4e0ff 0%, #f4e0ff 30%, #b45cff 31%, #7a2ee0 100%)
+// ─── The name: the target frame's slot ───────────────────────────────────────
+.bb-name
+  position: absolute
+  left: 50%
+  top: calc(env(safe-area-inset-top, 0px) + clamp(32px, 7vmin, 46px))
+  transform: translateX(-50%)
+  display: flex
+  align-items: center
+  gap: 6px
+  max-width: min(64vw, 440px)
+  font-family: var(--font-ui)
+  font-size: clamp(13px, 2.8vmin, 17px)
+  color: #fff
+  text-shadow: 0 2px 0 #141a33, 0 0 6px rgba(180, 92, 255, 0.7)
+  letter-spacing: 0.04em
+  white-space: nowrap
+  pointer-events: none
+  z-index: 2
+.skull
+  display: block
+  flex: none
+  width: 1.2em
+  height: 1.2em
+  color: #c98bff
+  filter: drop-shadow(0 2px 0 #141a33)
+.label
+  min-width: 0
+  overflow: hidden
+  text-overflow: ellipsis
+.bb-enter-active, .bb-leave-active, .bbn-enter-active, .bbn-leave-active
   transition: opacity 0.3s, transform 0.3s
 .bb-enter-from, .bb-leave-to
   opacity: 0
+  transform: translateX(-10px)
+.bbn-enter-from, .bbn-leave-to
+  opacity: 0
   transform: translate(-50%, -10px)
 @media (max-aspect-ratio: 1/1)
-  .boss-bar
+  .bb-name
     top: calc(env(safe-area-inset-top, 0px) + clamp(8px, 2.2vmin, 18px) + clamp(36px, 8vmin, 48px) + 40px)
-    width: min(72vw, 440px)
+    max-width: min(72vw, 440px)
 </style>

@@ -149,7 +149,7 @@ const keepRange = (w: World, e: Enemy, dt: number, strafe = 0.6): void => {
 /** Keep enemies from stacking on each other (and off the player). */
 const separate = (w: World, e: Enemy): void => {
   for (const o of w.enemies) {
-    if (o === e || o.state === 'dead') continue
+    if (o === e || o.state === 'dead' || o.offstage) continue
     const dx = e.x - o.x
     const dz = e.z - o.z
     const rr = e.def.radius + o.def.radius
@@ -191,13 +191,14 @@ const startTele = (e: Enemy, attack: string, dur: number, red: boolean): void =>
 
 /** Wake an enemy (and, a beat later, its room-mates). */
 export const wake = (w: World, e: Enemy, chain = true): void => {
-  if (e.awake || e.state === 'dead') return
+  if (e.awake || e.state === 'dead' || e.offstage) return
   e.awake = true
+  e.hold = false
   enterState(e, 'alert')
   e.cd = Math.max(e.cd, 0.8 + Math.random() * 0.6)
   if (chain) {
     for (const o of w.enemies) {
-      if (o !== e && !o.awake && o.room === e.room && o.state !== 'dead') {
+      if (o !== e && !o.awake && o.room === e.room && o.state !== 'dead' && !o.offstage) {
         o.awake = true
         enterState(o, 'alert')
         o.st = -0.15 - Math.random() * 0.35
@@ -231,7 +232,7 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
   switch (e.state) {
     case 'idle': {
       // Idle bob / patrol-in-place; perception tick.
-      if (d < def.aggro && seesPlayer(w, e)) wake(w, e)
+      if (!e.hold && d < def.aggro && seesPlayer(w, e)) wake(w, e)
       break
     }
     case 'alert': {

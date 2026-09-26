@@ -5,7 +5,7 @@ import type { BufferGeometry } from 'three'
 /**
  * ─── Core Masters ────────────────────────────────────────────────────────────
  *
- * The bosses. Four are "masters" — humanoids on Cobalt's own chibi skeleton,
+ * The bosses. Four are "masters" — humanoids on Flux's own chibi skeleton,
  * scaled up, each with a signature helmet crest and weapon arms (the sector's
  * element made visible). The Scrapper (tutorial) is a hulking junk crane and
  * Dr. Vex's machine is a hovering skull-faced capsule — the finale's classic
@@ -24,7 +24,7 @@ interface MasterSpec {
   arms: (b: RigBuilder) => void
 }
 
-/** Shared humanoid skeleton for the four masters (Cobalt's proportions ×1.35). */
+/** Shared humanoid skeleton for the four masters (Flux's proportions ×1.35). */
 const masterRig = (s: MasterSpec): Rig => {
   const b = new RigBuilder()
   b.bone('hips', null, [0, 0.62, 0])

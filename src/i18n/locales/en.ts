@@ -124,8 +124,8 @@ export default {
     'title': 'Objective',
     'complete': 'Objective complete',
     'beamOutHint': 'Beam out when you are ready.',
-    'tutorial': 'Defeat the Scrapper',
-    'boss': 'Defeat the Core Master',
+    'tutorial': 'Defeat {boss}',
+    'boss': 'Defeat {boss}',
     'kill': 'Destroy {target}: {n}/{total}',
     'collect': 'Data cores: {n}/{total}',
     'rescue': 'Find the stranded worker-bot',
@@ -151,16 +151,34 @@ export default {
   // (ControlHints, ControlsPanel). Never drawn on screen.
   'tips': {
     'moveTouch': 'Drag the left side to move, the right side to look. Tap the floor to walk there!',
-    'moveKeys': 'WASD to move, drag the mouse to look. Click the floor to walk there!',
+    'moveKeys': 'WASD to move around.',
+    'lookMouse': 'Move the mouse to look around.',
+    'capture': 'Click the scene to take control of the camera.',
     'fireTouch': 'Machines ahead! Tap to shoot — hold, then release for a charge shot.',
-    'fireKeys': 'Machines ahead! Click or Space to shoot — hold, then release for a charge shot.',
+    'fireKeys': 'Machines ahead! Left click to shoot — hold, then release for a charge shot.',
     'charge': 'Shields block pellets. A FULL charge shot breaks right through.',
     'blockTouch': 'Orange ring: hold the shield to block — press it as the ring closes to PARRY!',
-    'blockKeys': 'Orange ring: hold Shift or right-click to block — press it as the ring closes to PARRY!',
+    'blockKeys': 'Orange ring: hold the right mouse button to block — press it as the ring closes to PARRY!',
     'red': 'Red ring means unblockable — slide out of the way!',
+    'dodgeKeys': 'Red ring means unblockable — press Space to slide out of the way!',
     'chest': 'A supply chest! Tap it to open.',
     'tank': 'Running low? A Repair Tank fixes you up completely.',
     'weapon': 'Use your copied weapon from the colored button!'
+  },
+  // Screen-reader sentences behind the wordless scene lessons (LessonLayer).
+  'lesson': {
+    'charge': "Hold to charge your buster, then let go: only a charged shot breaks the training drone's shield.",
+    'crate': 'Supply crates only break to a charged shot. Hold, then let go at the glowing crate.',
+    'weaponKeys': 'Press {n} to fire your copied weapon: one shot takes all three drones.',
+    'weaponTouch': 'Tap the glowing weapon button: one shot takes all three drones.'
+  },
+  // Screen-reader sentences behind the first-visit upgrade tour (HubLesson).
+  'hubLesson': {
+    'workshop': 'Open the Workshop.',
+    'upgradeBuster': 'Spend bolts to upgrade your buster: more damage.',
+    'pickArmor': 'Now select your chest armor.',
+    'upgradeArmor': 'Upgrade it too: more defense.',
+    'deploy': 'All set — back to the missions!'
   },
   'loot': {
     'found': '{rarity} {item} found!',
@@ -184,8 +202,8 @@ export default {
   },
   'defeat': {
     'title': 'SYSTEM DOWN',
-    'body': 'Cobalt took too much damage.',
-    'kept': 'You keep the {xp} XP and {bolts} bolts earned so far.',
+    'body': 'Flux took too much damage.',
+    'kept': 'You keep what you earned so far:',
     'useTank': 'Reboot with Repair Tank ({n})',
     'rebootAd': 'Reboot now',
     'retreat': 'Retreat to the lab'
@@ -202,11 +220,11 @@ export default {
       'block': 'Hold the shield to block — just as a ring closes to parry.'
     },
     'keys': {
-      'move': 'WASD / arrows: move. Click the floor to walk there.',
-      'look': 'Drag the mouse to look.',
-      'fire': 'Left click or Space: shoot — hold to charge.',
-      'block': 'Right click or Shift: block — just as a ring closes to parry.',
-      'slide': 'Q: slide · H: Repair Tank · E: interact',
+      'move': 'WASD / arrows: move.',
+      'look': 'Move the mouse to look. Click the scene to take control of the camera.',
+      'fire': 'Left click: shoot — hold to charge, release to fire.',
+      'block': 'Right click: block — just as a ring closes to parry.',
+      'slide': 'Space: slide · H: Repair Tank · E: interact · B: beam out',
       'more': '1 / 2: special weapons · Tab: switch target · Esc: pause'
     }
   },
@@ -225,10 +243,13 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missions',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Circuits',
       'workshop': 'Workshop'
     },
+    // The hero tab's spoken name. Its visible label is the name alone, and
+    // "flux" is also a word, so the label says who he is.
+    'heroTabAria': 'Flux, your combat android',
     'levelUpReady': 'Level up!',
     'levels': 'Lv {a}–{b}',
     'story': 'Story mission',
@@ -240,6 +261,9 @@ export default {
     'reroll': 'New job'
   },
   'hero': {
+    // Under the name on the hero panel's name plate (the name itself is
+    // `hub.tab.hero`): what he is, so the name reads as a name.
+    'role': 'Your combat android',
     'weapons': 'Special weapons',
     'weaponSlot': 'Slot {n}',
     'weaponRank': 'Rank {n}',
@@ -285,7 +309,7 @@ export default {
     'requires': 'Requires {name} rank {n}',
     'install': 'Install chip',
     'maxed': 'Fully powered',
-    'respec': 'Reset circuits ({n} bolts)'
+    'respec': 'Reset circuits'
   },
   'skill': {
     'rapid': { 'name': 'Rapid Pellets', 'desc': 'Quick-shot damage +10% per chip.' },
@@ -350,7 +374,7 @@ export default {
     'unequip': 'Remove',
     'equipped': 'Equipped',
     'new': 'NEW',
-    'salvage': 'Salvage (+{n})',
+    'salvage': 'Salvage',
     'noAffixes': 'No bonus modules',
     'emptySlot': 'Nothing for this socket yet — open chests and finish jobs.'
   },
@@ -391,7 +415,7 @@ export default {
     'musicTrack': 'Music Track',
     'musicTracks': {
       'cozy': 'Calm Circuits',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Vibration',
     'on': 'On',

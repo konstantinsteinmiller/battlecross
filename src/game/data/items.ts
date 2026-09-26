@@ -1,5 +1,5 @@
 import { mulberry32, weighted, pick, type Rng } from '../world/rng'
-import { RARITY_COLOR } from '../models/palette'
+import { PAL, RARITY_COLOR } from '../models/palette'
 
 /**
  * ─── Gear ────────────────────────────────────────────────────────────────────
@@ -7,7 +7,12 @@ import { RARITY_COLOR } from '../models/palette'
  * Six slots: the buster (damage), three armour pieces (armour + a main stat)
  * and two chips (pure affixes). Rarity decides how many affixes an item rolls;
  * item level (the level of the enemy / mission that dropped it) scales every
- * number. Items recolour Cobalt: each armour base has its own tint pair.
+ * number. Items recolour Flux (`HeroColors` in models/hero.ts): a helmet
+ * paints the outer armour (head plates, gloves, boots) in its hue, a chest
+ * piece the torso armour in its metal, an arm cannon the cannon shell and
+ * the core's plasma glow (reactor, muzzle, vents, fin edges) — the eyes and
+ * antenna tip stay a constant amber. The graphite undersuit never changes,
+ * and the starter kit IS the default look: pearl armour, amber plasma.
  */
 
 export type Slot = 'buster' | 'helmet' | 'chest' | 'boots' | 'chip'
@@ -44,28 +49,29 @@ export interface BaseItem {
   main: number
   /** Built-in (implicit) affix for this base. */
   implicit?: Affix
-  /** Tint pair applied to Cobalt when equipped. */
+  /** Colours this base gives Flux when equipped (see the header). */
   tint?: { main?: string; accent?: string; buster?: string; core?: string }
   minLevel: number
 }
 
 export const BASES: BaseItem[] = [
   // Busters
-  { id: 'arm_standard', slot: 'buster', main: 10, minLevel: 1, tint: { buster: '#2468f0', core: '#7ff4ff' } },
-  { id: 'arm_rapid', slot: 'buster', main: 9, implicit: { id: 'pelletDmg', v: 0.15 }, minLevel: 2, tint: { buster: '#23a86a', core: '#b8ffcf' } },
-  { id: 'arm_heavy', slot: 'buster', main: 11, implicit: { id: 'chargeDmg', v: 0.15 }, minLevel: 3, tint: { buster: '#c0392b', core: '#ffc8a0' } },
-  { id: 'arm_quick', slot: 'buster', main: 9, implicit: { id: 'chargeSpeed', v: 0.1 }, minLevel: 5, tint: { buster: '#8e44ad', core: '#f0c8ff' } },
-  { id: 'arm_nova', slot: 'buster', main: 12, implicit: { id: 'crit', v: 0.05 }, minLevel: 9, tint: { buster: '#f39c12', core: '#fff2b0' } },
-  // Helmets
-  { id: 'helm_scout', slot: 'helmet', main: 4, minLevel: 1, tint: { main: '#2468f0' } },
-  { id: 'helm_guard', slot: 'helmet', main: 6, implicit: { id: 'hp', v: 8 }, minLevel: 3, tint: { main: '#1f7a5a' } },
-  { id: 'helm_ace', slot: 'helmet', main: 5, implicit: { id: 'crit', v: 0.03 }, minLevel: 6, tint: { main: '#b0322a' } },
-  { id: 'helm_royal', slot: 'helmet', main: 7, implicit: { id: 'we', v: 3 }, minLevel: 10, tint: { main: '#6a3fbf' } },
-  // Chests
-  { id: 'body_light', slot: 'chest', main: 6, minLevel: 1, tint: { accent: '#4fd8ff' } },
-  { id: 'body_plated', slot: 'chest', main: 9, implicit: { id: 'hp', v: 12 }, minLevel: 3, tint: { accent: '#7fe0a8' } },
-  { id: 'body_reactor', slot: 'chest', main: 7, implicit: { id: 'power', v: 12 }, minLevel: 6, tint: { accent: '#ffb06a' } },
-  { id: 'body_aegis', slot: 'chest', main: 11, implicit: { id: 'armor', v: 6 }, minLevel: 10, tint: { accent: '#e0e8ff' } },
+  // Busters: shell + plasma
+  { id: 'arm_standard', slot: 'buster', main: 10, minLevel: 1, tint: { buster: PAL.heroPearl, core: PAL.heroPlasma } },
+  { id: 'arm_rapid', slot: 'buster', main: 9, implicit: { id: 'pelletDmg', v: 0.15 }, minLevel: 2, tint: { buster: '#4fae7c', core: '#9dffc4' } },
+  { id: 'arm_heavy', slot: 'buster', main: 11, implicit: { id: 'chargeDmg', v: 0.15 }, minLevel: 3, tint: { buster: '#c2453b', core: '#ffb48c' } },
+  { id: 'arm_quick', slot: 'buster', main: 9, implicit: { id: 'chargeSpeed', v: 0.1 }, minLevel: 5, tint: { buster: '#8a5bd0', core: '#e6c6ff' } },
+  { id: 'arm_nova', slot: 'buster', main: 12, implicit: { id: 'crit', v: 0.05 }, minLevel: 9, tint: { buster: '#e6b23c', core: '#fff3c2' } },
+  // Helmets: the outer armour's hue
+  { id: 'helm_scout', slot: 'helmet', main: 4, minLevel: 1, tint: { main: PAL.heroPearl } },
+  { id: 'helm_guard', slot: 'helmet', main: 6, implicit: { id: 'hp', v: 8 }, minLevel: 3, tint: { main: '#6db38e' } },
+  { id: 'helm_ace', slot: 'helmet', main: 5, implicit: { id: 'crit', v: 0.03 }, minLevel: 6, tint: { main: '#d9544a' } },
+  { id: 'helm_royal', slot: 'helmet', main: 7, implicit: { id: 'we', v: 3 }, minLevel: 10, tint: { main: '#8b6ad6' } },
+  // Chests: the torso armour's metal
+  { id: 'body_light', slot: 'chest', main: 6, minLevel: 1, tint: { accent: PAL.heroPearl } },
+  { id: 'body_plated', slot: 'chest', main: 9, implicit: { id: 'hp', v: 12 }, minLevel: 3, tint: { accent: '#9fa9b8' } },
+  { id: 'body_reactor', slot: 'chest', main: 7, implicit: { id: 'power', v: 12 }, minLevel: 6, tint: { accent: '#cf8a55' } },
+  { id: 'body_aegis', slot: 'chest', main: 11, implicit: { id: 'armor', v: 6 }, minLevel: 10, tint: { accent: '#efc55a' } },
   // Boots
   { id: 'boots_basic', slot: 'boots', main: 3, minLevel: 1 },
   { id: 'boots_dash', slot: 'boots', main: 3, implicit: { id: 'moveSpeed', v: 0.05 }, minLevel: 2 },

@@ -115,8 +115,8 @@ export default {
     'title': 'Ziel',
     'complete': 'Ziel erfüllt',
     'beamOutHint': 'Beam dich raus, wenn du bereit bist.',
-    'tutorial': 'Besiege den Schrottbrecher',
-    'boss': 'Besiege den Kernmeister',
+    'tutorial': 'Besiege {boss}',
+    'boss': 'Besiege {boss}',
     'kill': 'Zerstöre {target}: {n}/{total}',
     'collect': 'Datenkerne: {n}/{total}',
     'rescue': 'Finde den gestrandeten Arbeitsbot',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': 'Links ziehen zum Laufen, rechts zum Umsehen. Tippe auf den Boden, um hinzulaufen!',
-    'moveKeys': 'WASD zum Laufen, Maus ziehen zum Umsehen. Klicke auf den Boden, um hinzulaufen!',
+    'moveKeys': 'WASD zum Herumlaufen.',
+    'lookMouse': 'Beweg die Maus, um dich umzusehen.',
+    'capture': 'Klicke in die Szene, um die Kamera zu steuern.',
     'fireTouch': 'Maschinen voraus! Tippe zum Schießen – halten und loslassen für einen Ladeschuss.',
-    'fireKeys': 'Maschinen voraus! Klick oder Leertaste zum Schießen – halten und loslassen für einen Ladeschuss.',
+    'fireKeys': 'Maschinen voraus! Linksklick zum Schießen – halten und loslassen für einen Ladeschuss.',
     'charge': 'Schilde blocken Kugeln. Ein VOLLER Ladeschuss bricht glatt durch.',
     'blockTouch': 'Oranger Ring: Halte den Schild zum Blocken – drück ihn, wenn sich der Ring schließt, um zu PARIEREN!',
-    'blockKeys': 'Oranger Ring: Halte Shift oder die rechte Maustaste zum Blocken – drück, wenn sich der Ring schließt, um zu PARIEREN!',
+    'blockKeys': 'Oranger Ring: Halte die rechte Maustaste zum Blocken – drück, wenn sich der Ring schließt, um zu PARIEREN!',
     'red': 'Roter Ring heißt unblockbar – rutsch aus dem Weg!',
+    'dodgeKeys': 'Roter Ring heißt unblockbar – drück die Leertaste und rutsch aus dem Weg!',
     'chest': 'Eine Vorratskiste! Tippe sie an, um sie zu öffnen.',
     'tank': 'Fast am Ende? Ein Reparaturtank macht dich wieder topfit.',
     'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!'
+  },
+  'lesson': {
+    'charge': 'Halte gedrückt, um deinen Buster aufzuladen, dann lass los: Nur ein Ladeschuss bricht den Schild der Trainingsdrohne.',
+    'crate': 'Versorgungskisten zerbrechen nur durch einen Ladeschuss. Halte gedrückt und lass los, während du auf die leuchtende Kiste zielst.',
+    'weaponKeys': 'Drück {n}, um deine kopierte Waffe abzufeuern: Ein Schuss erwischt alle drei Drohnen.',
+    'weaponTouch': 'Tippe auf den leuchtenden Waffenknopf: Ein Schuss erwischt alle drei Drohnen.'
+  },
+  'hubLesson': {
+    'workshop': 'Öffne die Werkstatt.',
+    'upgradeBuster': 'Gib Bolzen aus, um deinen Buster zu verbessern: mehr Schaden.',
+    'pickArmor': 'Wähle jetzt deine Brustpanzerung.',
+    'upgradeArmor': 'Verbessere sie auch: mehr Schutz.',
+    'deploy': 'Alles bereit – zurück zu den Missionen!'
   },
   'loot': {
     'found': '{item} ({rarity}) gefunden!',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': 'SYSTEMAUSFALL',
-    'body': 'Cobalt hat zu viel Schaden erlitten.',
-    'kept': 'Du behältst die bisher verdienten {xp} EP und {bolts} Bolzen.',
+    'body': 'Flux hat zu viel Schaden erlitten.',
+    'kept': 'Was du bisher verdient hast, behältst du:',
     'useTank': 'Neustart mit Reparaturtank ({n})',
     'rebootAd': 'Jetzt neu starten',
     'retreat': 'Rückzug ins Labor'
@@ -190,11 +206,11 @@ export default {
       'block': 'Schild halten zum Blocken – zum Parieren genau dann, wenn sich ein Ring schließt.'
     },
     'keys': {
-      'move': 'WASD / Pfeiltasten: laufen. Klicke auf den Boden, um hinzulaufen.',
-      'look': 'Maus ziehen zum Umsehen.',
-      'fire': 'Linksklick oder Leertaste: schießen – halten zum Aufladen.',
-      'block': 'Rechtsklick oder Shift: blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
-      'slide': 'Q: rutschen · H: Reparaturtank · E: interagieren',
+      'move': 'WASD / Pfeiltasten: laufen.',
+      'look': 'Maus bewegen zum Umsehen. Klicke in die Szene, um die Kamera zu steuern.',
+      'fire': 'Linksklick: schießen – halten zum Aufladen, loslassen zum Feuern.',
+      'block': 'Rechtsklick: blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
+      'slide': 'Leertaste: rutschen · H: Reparaturtank · E: interagieren · B: rausbeamen',
       'more': '1 / 2: Spezialwaffen · Tab: Ziel wechseln · Esc: Pause'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': 'Missionen',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': 'Schaltkreise',
       'workshop': 'Werkstatt'
     },
+    'heroTabAria': 'Flux, dein Kampfandroide',
     'levelUpReady': 'Level-Up!',
     'levels': 'Lv. {a}–{b}',
     'story': 'Hauptmission',
@@ -227,6 +244,7 @@ export default {
     'reroll': 'Neuer Auftrag'
   },
   'hero': {
+    'role': 'Dein Kampfandroide',
     'weapons': 'Spezialwaffen',
     'weaponSlot': 'Platz {n}',
     'weaponRank': 'Rang {n}',
@@ -271,7 +289,7 @@ export default {
     'requires': 'Erfordert {name} (Rang {n})',
     'install': 'Chip einsetzen',
     'maxed': 'Volle Leistung',
-    'respec': 'Schaltkreise zurücksetzen ({n} Bolzen)'
+    'respec': 'Schaltkreise zurücksetzen'
   },
   'skill': {
     'rapid': { 'name': 'Kugelhagel', 'desc': 'Kugelschaden +10% pro Chip.' },
@@ -335,7 +353,7 @@ export default {
     'unequip': 'Entfernen',
     'equipped': 'Ausgerüstet',
     'new': 'NEU',
-    'salvage': 'Verschrotten (+{n})',
+    'salvage': 'Verschrotten',
     'noAffixes': 'Keine Bonusmodule',
     'emptySlot': 'Noch nichts für diesen Sockel – öffne Kisten und erledige Aufträge.'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': 'Musiktitel',
     'musicTracks': {
       'cozy': 'Ruhige Schaltkreise',
-      'trance': 'Mega Drive'
+      'trance': 'Overdrive'
     },
     'haptics': 'Vibration',
     'on': 'An',

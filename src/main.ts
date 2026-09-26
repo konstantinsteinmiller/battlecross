@@ -458,7 +458,13 @@ const bootstrap = async () => {
         // strategy resolves out-of-band in some flows, etc.). Idempotent.
         reloadGameState()
         const hasStoredLanguage = hasState(LANGUAGE_KEY)
-        const portalSeed = cgLocale ?? yaLocale ?? pkLocale
+        // POKI is deliberately NOT in this seed. `PokiSDK.getLanguage()` is the
+        // Poki site's language (`?iso_lang`, else the browser's): platform
+        // state, not a player choice. Written into the player's key it would
+        // outrank every later visit through Poki's cloud save — a player who
+        // once came in via poki.com/en would stay English on poki.com/de. It
+        // still picks the first-paint locale above (`portalLocaleHint`).
+        const portalSeed = cgLocale ?? yaLocale
         if (!hasStoredLanguage && portalSeed && LANGUAGES.includes(portalSeed)) {
           setSettingValue('language', portalSeed)
         }
@@ -472,9 +478,12 @@ const bootstrap = async () => {
         // persist the portal locale (see the live watcher below), so applying
         // the default here reverted a first-time German Playables player to
         // English one tick after boot had chosen German — found in the
-        // YouTube-shaped browser run, where `getLanguage()` said 'de'.
-        const playgamaUnchosen = import.meta.env.VITE_APP_PLAYGAMA === 'true' && !hasStoredLanguage
-        if (!playgamaUnchosen && isSupportedLocale(storedLang.value)) {
+        // YouTube-shaped browser run, where `getLanguage()` said 'de'. POKI
+        // likewise: its hint is never stored (above), so the 'en' default must
+        // not overwrite it either.
+        const portalHintOnly = (import.meta.env.VITE_APP_PLAYGAMA === 'true' || import.meta.env.VITE_APP_POKI === 'true')
+          && !hasStoredLanguage
+        if (!portalHintOnly && isSupportedLocale(storedLang.value)) {
           setI18nLocale(i18n, storedLang.value)
         }
       },

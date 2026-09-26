@@ -11,6 +11,7 @@
       BossBar
       TitleCard
       ControlHints
+      LessonLayer
       HudBars
       ObjectiveTracker
       TopStatus(@pause="openPause")
@@ -29,7 +30,10 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
-import { attachInput } from '@/game/engine/input'
+import {
+  attachInput, isPointerLocked, releasePointerLock, requestPointerLock, unlockedRecently
+} from '@/game/engine/input'
+import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
@@ -53,6 +57,7 @@ import ContextButtons from '@/components/hud/ContextButtons.vue'
 import BossBar from '@/components/hud/BossBar.vue'
 import TitleCard from '@/components/hud/TitleCard.vue'
 import ControlHints from '@/components/hud/ControlHints.vue'
+import LessonLayer from '@/components/hud/LessonLayer.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
@@ -78,7 +83,26 @@ const openPause = () => {
   if (flow.screen === 'mission' && hud.phase === 'play' && !flow.modal) flow.modal = 'pause'
 }
 
+/** A key typed into a form field is text, not a game key. */
+const typing = (e: KeyboardEvent): boolean => {
+  const tag = (e.target as HTMLElement | null)?.tagName
+  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT'
+}
+
 const onKey = (e: KeyboardEvent) => {
+  // F1 and "?" are the HUD's "?" button (bring the control glyphs back): a
+  // captured mouse has no cursor to click it with. `e.key` so "?" is found
+  // on every layout. Both keys are the game's here: F1 never opens the
+  // browser's help page.
+  if (e.code === 'F1' || (e.key === '?' && !typing(e))) {
+    e.preventDefault()
+    if (!e.repeat && flow.screen === 'mission' && !flow.modal && !isGamePaused.value) currentMission()?.showHelp()
+    return
+  }
+  // While the mouse is captured, Esc belongs to the browser: it releases the
+  // capture, and the lost capture opens the pause menu (`onLockLost`). The
+  // same Esc must not then toggle the menu shut again.
+  if (e.code === 'Escape' && (isPointerLocked() || unlockedRecently())) return
   if (e.code === 'Escape' || e.code === 'KeyP') {
     if (flow.modal === 'pause') flow.modal = ''
     else openPause()
@@ -88,7 +112,16 @@ const onKey = (e: KeyboardEvent) => {
 onMounted(async () => {
   if (!canvasHost.value || !surface.value) return
   app.attach(canvasHost.value)
-  detachInput = attachInput(surface.value, input, { fireMode: () => currentMission()?.wantsFire() ?? false })
+  detachInput = attachInput(surface.value, input, {
+    fireMode: () => currentMission()?.wantsFire() ?? false,
+    // Capture the mouse only over live play: never under a modal or an ad.
+    canLock: () => flow.screen === 'mission' && (hud.phase === 'play' || hud.phase === 'beamIn') &&
+      !flow.modal && !isGamePaused.value,
+    // Esc, alt-tab or a system dialog took the mouse back: pause, like
+    // every desktop shooter.
+    onLockLost: () => openPause()
+  })
+  void loadKeyboardLayout()
   app.setSuspended(isGamePaused.value)
   app.setWanted(true)
   // Music intent from the first frame; the context itself unlocks on the
@@ -99,6 +132,17 @@ onMounted(async () => {
   // The loader's prepared first scene. The scene never builds its own copy
   // while the loader is still priming (see `adoptBootMode`).
   app.setMode(await adoptBootMode())
+})
+
+// The mouse is handed back whenever play stops for something else: a modal,
+// an ad, the hub. Resuming from the pause menu takes it again (the Resume
+// click is the gesture a capture needs; Esc is not one, so after an Esc the
+// click glyph asks for a click on the scene).
+watch(() => [isGamePaused.value, flow.screen] as const, ([paused, screen]) => {
+  if (paused || screen !== 'mission') releasePointerLock()
+})
+watch(() => flow.modal, (m, prev) => {
+  if (!m && prev && flow.screen === 'mission' && input.device === 'mouse' && hud.phase === 'play') requestPointerLock(input)
 })
 
 watch(isGamePaused, (p) => {

@@ -115,8 +115,8 @@ export default {
     'title': '目标',
     'complete': '目标完成',
     'beamOutHint': '准备好后即可传送撤离。',
-    'tutorial': '击败拆解者',
-    'boss': '击败核心大师',
+    'tutorial': '击败{boss}',
+    'boss': '击败{boss}',
     'kill': '摧毁{target}：{n}/{total}',
     'collect': '数据核心：{n}/{total}',
     'rescue': '找到被困的工作机器人',
@@ -140,16 +140,32 @@ export default {
   },
   'tips': {
     'moveTouch': '拖动左侧移动，拖动右侧转视角。点击地面即可走过去！',
-    'moveKeys': 'WASD移动，拖动鼠标转视角。点击地面即可走过去！',
+    'moveKeys': '用WASD四处移动。',
+    'lookMouse': '移动鼠标环顾四周。',
+    'capture': '点击画面即可控制镜头。',
     'fireTouch': '前方有机械！点击射击——按住再松开可发射蓄力弹。',
-    'fireKeys': '前方有机械！单击或按Space射击——按住再松开可发射蓄力弹。',
+    'fireKeys': '前方有机械！单击左键射击——按住再松开可发射蓄力弹。',
     'charge': '护盾能挡住普通弹。满蓄力弹可以直接击穿！',
     'blockTouch': '橙色光圈：按住护盾格挡——在光圈收拢瞬间按下即可弹反！',
-    'blockKeys': '橙色光圈：按住Shift或右键格挡——在光圈收拢瞬间按下即可弹反！',
+    'blockKeys': '橙色光圈：按住鼠标右键格挡——在光圈收拢瞬间按下即可弹反！',
     'red': '红色光圈无法格挡——快滑铲躲开！',
+    'dodgeKeys': '红色光圈无法格挡——按Space滑铲躲开！',
     'chest': '补给箱！点击打开。',
     'tank': '快撑不住了？修理罐能让你完全恢复。',
     'weapon': '用彩色按钮发射你复制来的武器！'
+  },
+  'lesson': {
+    'charge': '按住为臂炮蓄力，然后松开：只有蓄力弹能打破训练无人机的护盾。',
+    'crate': '补给木箱只有蓄力弹才能打碎。按住，然后对准发光的木箱松开。',
+    'weaponKeys': '按{n}发射复制来的武器：一发就能命中全部三架无人机。',
+    'weaponTouch': '点击发光的武器按钮：一发就能命中全部三架无人机。'
+  },
+  'hubLesson': {
+    'workshop': '打开工坊。',
+    'upgradeBuster': '花费螺丝强化臂炮：伤害更高。',
+    'pickArmor': '现在选择你的胸甲。',
+    'upgradeArmor': '把它也强化一下：防御更高。',
+    'deploy': '一切就绪——回到任务吧！'
   },
   'loot': {
     'found': '发现{item}（{rarity}）！',
@@ -172,8 +188,8 @@ export default {
   },
   'defeat': {
     'title': '系统停机',
-    'body': 'Cobalt受到了过多伤害。',
-    'kept': '目前获得的{xp}经验和{bolts}螺丝将会保留。',
+    'body': 'Flux受到了过多伤害。',
+    'kept': '目前获得的奖励将会保留：',
     'useTank': '使用修理罐重启（{n}）',
     'rebootAd': '立即重启',
     'retreat': '撤回实验室'
@@ -190,11 +206,11 @@ export default {
       'block': '按住护盾格挡——在光圈收拢瞬间按下即可弹反。'
     },
     'keys': {
-      'move': 'WASD / 方向键：移动。点击地面即可走过去。',
-      'look': '拖动鼠标环顾四周。',
-      'fire': '左键或Space：射击——按住蓄力。',
-      'block': '右键或Shift：格挡——在光圈收拢瞬间按下即可弹反。',
-      'slide': 'Q：滑铲 · H：修理罐 · E：互动',
+      'move': 'WASD / 方向键：移动。',
+      'look': '移动鼠标环顾四周。点击画面即可控制镜头。',
+      'fire': '左键：射击——按住蓄力，松开发射。',
+      'block': '右键：格挡——在光圈收拢瞬间按下即可弹反。',
+      'slide': 'Space：滑铲 · H：修理罐 · E：互动 · B：传送撤离',
       'more': '1 / 2：特殊武器 · Tab：切换目标 · Esc：暂停'
     }
   },
@@ -212,10 +228,11 @@ export default {
   'hub': {
     'tab': {
       'missions': '任务',
-      'hero': 'Cobalt',
+      'hero': 'Flux',
       'circuits': '电路',
       'workshop': '工坊'
     },
+    'heroTabAria': 'Flux，你的战斗机器人',
     'levelUpReady': '可升级！',
     'levels': '{a}–{b}级',
     'story': '主线任务',
@@ -227,6 +244,7 @@ export default {
     'reroll': '换个委托'
   },
   'hero': {
+    'role': '你的战斗机器人',
     'weapons': '特殊武器',
     'weaponSlot': '槽位 {n}',
     'weaponRank': '{n}阶',
@@ -271,7 +289,7 @@ export default {
     'requires': '需要{name}达到{n}级',
     'install': '安装芯片',
     'maxed': '已满能',
-    'respec': '重置电路（{n}螺丝）'
+    'respec': '重置电路'
   },
   'skill': {
     'rapid': { 'name': '速射弹', 'desc': '每枚芯片：普通弹伤害+10%。' },
@@ -335,7 +353,7 @@ export default {
     'unequip': '卸下',
     'equipped': '已装备',
     'new': '新',
-    'salvage': '拆解（+{n}）',
+    'salvage': '拆解',
     'noAffixes': '无加成模块',
     'emptySlot': '此插槽暂无装备——去开补给箱或完成委托吧。'
   },
@@ -375,7 +393,7 @@ export default {
     'musicTrack': '音乐曲目',
     'musicTracks': {
       'cozy': '宁静电路',
-      'trance': '极速驱动'
+      'trance': '超速驱动'
     },
     'haptics': '震动',
     'on': '开',

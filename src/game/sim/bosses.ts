@@ -41,7 +41,10 @@ export const createBoss = (id: BossId, level: number, x: number, z: number, room
     attack: '', step: 0, teleDur: def.tele, teleRed: false, guard: 0, aim: 0, stunT: 0, flash: 0,
     path: null, pathT: 0, walk: 0, anim: 0, a: 0, b: 0, tx: 0, tz: 0, sx: 0, sz: 0, hitPlayer: false,
     rig, root, shadow: makeBlobShadow(def.radius * 1.2), ring: makeTeleRing(), deathT: 0,
-    guardBreakT: 0, hurtAt: -10, bossId: id, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: ''
+    guardBreakT: 0, hurtAt: -10, bossId: id, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: '',
+    // Not in the arena until its entrance: seen through the open shutter,
+    // it stood on the floor, then snapped up and dropped in.
+    offstage: true
   }
 }
 
@@ -97,11 +100,22 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
 
 // ─── Intro / phase control (called by the mission) ──────────────────────────
 
+/** How far above its own height (a flyer's hover) a boss starts its entrance:
+ *  above the 4.2 m walls, out of a player's view from the door. */
+const DROP_H = 9
+
+/** The entrance: the boss arrives from above the walls (its first appearance)
+ *  and lands with a shock ring. The previous pose is the top too, so the
+ *  first drawn frame does not blend up from the floor. */
 export const startBossIntro = (e: Enemy): void => {
+  e.offstage = false
   e.awake = true
   e.state = 'alert'
   e.st = 0
-  e.y = 9
+  e.y = bdef(e).fly + DROP_H
+  e.py = e.y
+  e.px = e.x
+  e.pz = e.z
 }
 
 export const updateBoss = (w: World, e: Enemy, dt: number, room: Room | null): void => {
@@ -130,7 +144,7 @@ export const updateBoss = (w: World, e: Enemy, dt: number, room: Room | null): v
   if (e.state === 'alert') {
     // Intro: drop in from above, land with a shock ring.
     const k = Math.min(1, e.st / 0.8)
-    e.y = fly + (1 - k * k) * 9
+    e.y = fly + (1 - k * k) * DROP_H
     if (k >= 1 && e.a === 0) {
       e.a = 1
       w.shocks.spawn(e.x, 0.05, e.z, 4, def.color, 0.5)

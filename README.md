@@ -1,15 +1,16 @@
 # Mega Adventure
 
 A casual first-person **action-exploration** game for the web. You play
-Cobalt, a blue combat android. You beam into machine-infested sectors,
+Flux, a pearl-white combat android with amber eye-lights behind a dark
+visor and a cannon for a forearm. You beam into machine-infested sectors,
 explore rooms and corridors, blast rogue robots with a charge buster, open
 supply chests, finish missions, level up and wire your skill circuits.
 Beating a sector's Core Master copies its special weapon.
 
 It follows the Blades-style exploration loop (maps, enemies, quests,
-leveling, skills) without the town building and the endless dungeon, in the
-look of the late-80s / early-90s blue-bomber era, with rounded low-poly
-models.
+leveling, skills) without the town building and the endless dungeon, with
+the chibi proportions of late-80s / early-90s console action games, rebuilt
+as rounded low-poly models.
 
 Built with Vue 3 + TypeScript + three.js. It ships to CrazyGames, Playgama
 (and YouTube Playables through it), Poki, GamePix, GameMonetize,
@@ -32,7 +33,7 @@ The game starts right in the first mission. There is no menu.
 
 ## Highlights
 
-- **No art payload.** Cobalt, 7 machine archetypes, 6 Core Masters, NPCs and
+- **No art payload.** Flux, 7 machine archetypes, 6 Core Masters, NPCs and
   props are rounded low-poly rigs built in code, with toon shading and
   inverted-hull outlines. Levels are procedural sector maps. The only bitmaps
   are the app icons.
@@ -76,6 +77,8 @@ The game starts right in the first mission. There is no menu.
 - `scripts/portal-qa.mjs`: portal-signal checks on a BUILT bundle (mute at
   boot, unmute, tab-away freeze, menu entry) with a stubbed SDK.
 - [`description.md`](./description.md): store copy.
+- [`store-art/poki/`](./store-art/poki/README.md): the Poki thumbnail,
+  rendered from the rig (`node scripts/render-thumbnail.mjs`).
 
 ## Originality
 
