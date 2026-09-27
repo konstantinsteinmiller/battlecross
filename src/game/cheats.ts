@@ -5,7 +5,10 @@ import { xpToNext } from './data/progression'
 import { SECTORS } from './data/regions'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import { cellCenter } from './world/levelGen'
-import { isSolidAt } from './world/nav'
+import { isSolidAt, floorAt } from './world/nav'
+import { climbJob } from './data/quests'
+import { startMission } from './flow'
+import { wakeGolem } from './sim/enemies'
 
 /**
  * Dev cheats. They only fire when cheats are enabled: `localStorage.cheat =
@@ -29,6 +32,11 @@ export const registerGameCheats = (): void => {
     if (!m) return
     for (const e of m.enemies) {
       if (e.state === 'dead') continue
+      // A sleeping or unfolding crate golem shrugs off any hit: wake it fully first.
+      if (e.golem) {
+        wakeGolem(m, e)
+        e.golem.unfold = 1
+      }
       m.system.damageEnemy(e, 1e6, {
         crit: false, charge: 2, fromX: m.player.x, fromZ: m.player.z, x: e.x, y: 1, z: e.z, color: '#ffffff'
       })
@@ -57,9 +65,41 @@ export const registerGameCheats = (): void => {
     const p = m.player
     p.x = p.px = dx + bx * back
     p.z = p.pz = dz + bz * back
+    // On the climb's floor there (0 on a flat map), not in mid-air.
+    p.y = p.py = p.safeY = floorAt(m.nav, p.x, p.z)
+    p.vy = 0
+    p.ladder = -1
     p.path = null
     p.yaw = Math.atan2(bx, bz)
   })
+  // The climb (Tower Run) is offered only after a boss falls; QA wants it now.
+  // In the selected sector (any, boss beaten or not), a fresh seed each time.
+  registerCheat('ctrl+shift+alt+c', 'start a climb (Tower Run)', () => {
+    const sector = profile.world.selected ?? 'scrapyard'
+    const q = climbJob((Date.now() >>> 0) ^ 0x51ab, [sector], profile.level)
+    void startMission(q)
+  })
+  // …and each section of it without climbing the ones before.
+  registerCheat('ctrl+shift+alt+n', 'climb: skip to the next checkpoint', () => {
+    const m = currentMission()
+    const cl = m?.climb
+    if (!m || !cl) return
+    const c = cl.t.checkpoints[Math.min(cl.t.checkpoints.length - 1, cl.cp + 1)]
+    if (!c) return
+    cl.cp = cl.t.checkpoints.indexOf(c)
+    const p = m.player
+    p.x = p.px = c.x
+    p.z = p.pz = c.z
+    p.y = p.py = p.safeY = c.y
+    p.yaw = c.yaw
+    p.vx = p.vz = p.vy = 0
+    p.ground = true
+    p.ladder = -1
+    p.path = null
+  })
+  // A tutorial door waits for its lesson however long it takes (no stand-in
+  // cap any more, `sim/walkthrough.ts`); QA walks on without it.
+  registerCheat('ctrl+shift+alt+w', 'tutorial: open the next lesson door', () => currentMission()?.walk?.devPass())
   registerCheat('ctrl+shift+alt+u', 'unlock every sector and weapon', () => {
     profile.world.unlocked = SECTORS.map(s => s.id)
     for (const id of Object.keys(WEAPONS) as WeaponId[]) {

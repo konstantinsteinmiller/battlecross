@@ -37,12 +37,35 @@ describe('every shipped locale mirrors the English key shape', () => {
 
 describe('interpolation placeholders survive translation', () => {
   // A dropped `{n}` renders as literal text and looks like a bug to the player.
-  const placeholdersOf = (obj: any, path: string): string[] => {
-    const parts = path.split('.')
+  const stringAt = (obj: any, path: string): string | null => {
     let cur: any = obj
-    for (const p of parts) cur = cur?.[p]
-    if (typeof cur !== 'string') return []
-    return (cur.match(/\{[a-zA-Z]+\}/g) ?? []).sort()
+    for (const p of path.split('.')) cur = cur?.[p]
+    return typeof cur === 'string' ? cur : null
+  }
+  const placeholders = (s: string): string[] => (s.match(/\{[a-zA-Z]+\}/g) ?? []).sort()
+  const isPlural = (s: string) => s.includes('|')
+  /** vue-i18n's implicit plural count: a form may spell it in words. */
+  const COUNT = ['{n}', '{count}']
+
+  /**
+   * A plural message ("… {n} mission | … {n} missions") has as many forms as
+   * its language needs (three in ru/uk/pl, six in ar, one in ja), so it is
+   * checked form by form instead of by counting over the whole string: every
+   * form carries every placeholder English has, except the count, which a
+   * form may spell in words (Arabic's dual is one word, "two missions") but
+   * at least one form must show. No form may bring a placeholder of its own.
+   */
+  const pluralMismatch = (a: string, b: string): string | null => {
+    const want = [...new Set(placeholders(a))]
+    const forms = b.split('|').map(f => new Set(placeholders(f)))
+    for (const [i, got] of forms.entries()) {
+      const missing = want.filter(p => !got.has(p) && !COUNT.includes(p))
+      const extra = [...got].filter(p => !want.includes(p))
+      if (missing.length || extra.length) return `form ${i + 1} missing ${missing.join(',')} extra ${extra.join(',')}`
+    }
+    const count = want.filter(p => COUNT.includes(p))
+    if (count.some(p => !forms.some(f => f.has(p)))) return `no form shows ${count.join(',')}`
+    return null
   }
 
   for (const code of LANGUAGES) {
@@ -51,11 +74,14 @@ describe('interpolation placeholders survive translation', () => {
       const mod = await import(`../src/i18n/locales/${code}.ts`)
       const mismatches: string[] = []
       for (const key of enKeys) {
-        const a = placeholdersOf(en, key)
-        if (a.length === 0) continue
-        const b = placeholdersOf(mod.default, key)
-        if (JSON.stringify(a) !== JSON.stringify(b)) {
-          mismatches.push(`${key}: expected ${a.join(',')} got ${b.join(',')}`)
+        const a = stringAt(en, key)
+        if (a === null || placeholders(a).length === 0) continue
+        const b = stringAt(mod.default, key) ?? ''
+        if (isPlural(a)) {
+          const why = pluralMismatch(a, b)
+          if (why) mismatches.push(`${key}: ${why}`)
+        } else if (JSON.stringify(placeholders(a)) !== JSON.stringify(placeholders(b))) {
+          mismatches.push(`${key}: expected ${placeholders(a).join(',')} got ${placeholders(b).join(',')}`)
         }
       }
       expect(mismatches).toEqual([])

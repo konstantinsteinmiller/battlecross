@@ -258,6 +258,7 @@ import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import { buildCsp } from './src/platforms/csp'
 import { buildPlaygamaBridgeConfig, playgamaLeaderboardEnv } from './src/platforms/playgama/bridgeConfig'
+import { PLAYGAMA_BRIDGE_CHUNK, PLAYGAMA_OUT_DIR } from './src/platforms/playgama/release'
 import { devToolAliases, resolvePlatformPolicy } from './src/platforms/policy'
 
 // https://vite.dev/config/
@@ -519,12 +520,17 @@ export default defineConfig(({ mode, command }) => {
   // is the wrong fix too — the list rotates with Poki's ad partners. Emit no
   // meta tag and let P4D own the policy.
   const isPokiBuild = env.VITE_APP_POKI === 'true'
-  // Portal rules that decide what ships — the same pure resolver the app reads
-  // through `platformPolicy` (src/platforms/capabilities.ts). Used by the
-  // dev-tooling aliases below.
+  const isPlaygamaBuild = env.VITE_APP_PLAYGAMA === 'true'
+  // Portal rules that decide what ships — resolved ONCE, here, for this build.
+  // The dev-tooling aliases below read it, and the app gets the very same
+  // object as the `__PLATFORM_POLICY__` constant (see `define`), so the two can
+  // never disagree. Poki and Playgama are both clean releases; `VITE_QA_TOOLS`
+  // (the Poki-era `VITE_POKI_QA_TOOLS` still works) builds the QA twin that
+  // keeps the tooling, which both portals' release gates then refuse.
   const platformPolicy = resolvePlatformPolicy({
     isPoki: isPokiBuild,
-    qaTools: env.VITE_POKI_QA_TOOLS === 'true'
+    isPlaygama: isPlaygamaBuild,
+    qaTools: env.VITE_POKI_QA_TOOLS === 'true' || env.VITE_QA_TOOLS === 'true'
   })
   // PLAYGAMA / YOUTUBE PLAYABLES: same exception again, and the reason is the
   // strongest of the four. This archive is also the YouTube Playables
@@ -539,7 +545,6 @@ export default defineConfig(({ mode, command }) => {
   // gamedistribution, wavedash, clarity.ms, jsonbin.io and the rest, and a
   // reviewer grepping the archive finds all of them there and nowhere else.
   // Dropping the tag takes those strings out with it.
-  const isPlaygamaBuild = env.VITE_APP_PLAYGAMA === 'true'
   const skipCspMeta = isYandexBuild || isGamepixBuild || isPokiBuild || isPlaygamaBuild
   const cspValue = buildCsp(env)
 
@@ -722,7 +727,10 @@ export default defineConfig(({ mode, command }) => {
       port: 2194
     },
     define: {
-      APP_VERSION: JSON.stringify(appVersion)
+      APP_VERSION: JSON.stringify(appVersion),
+      // This build's platform policy as a literal (see `policy.ts`): the app
+      // reads the result instead of re-resolving it from the env flags.
+      __PLATFORM_POLICY__: JSON.stringify(platformPolicy)
     },
     plugins: [
       tailwindcss(),
@@ -832,12 +840,13 @@ export default defineConfig(({ mode, command }) => {
           '@/utils/pokiPlugin': fileURLToPath(new URL('./src/utils/pokiPlugin.stub.ts', import.meta.url))
         }),
         // Dev tooling OUT of builds whose platform policy forbids it — today the
-        // Poki release: "no debug code, no dev artifacts" (see
+        // Poki and Playgama releases: "no debug code, no dev artifacts" (see
         // `src/platforms/policy.ts`, the same resolver the app reads). The
-        // cheats, the typed "cmarc" debug toggle and the hidden 30-tap
-        // interstitial are swapped for no-op stubs, so their code and labels
-        // never enter the bundle. `VITE_POKI_QA_TOOLS=true` builds a QA twin that
-        // keeps them; the Poki release gates refuse that artifact.
+        // cheats and the typed "cmarc" debug toggle are swapped for no-op
+        // stubs, so their code and labels never enter the bundle. (The hidden
+        // 30-tap interstitial is not dev tooling and ships everywhere.)
+        // `VITE_QA_TOOLS=true` builds a QA twin that keeps them; the release
+        // gates refuse that artifact.
         ...Object.fromEntries(Object.entries(devToolAliases(platformPolicy))
           .map(([id, stub]) => [id, fileURLToPath(new URL(`./${stub}`, import.meta.url))])),
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -848,6 +857,39 @@ export default defineConfig(({ mode, command }) => {
     },
     build: {
       minify: 'esbuild',
+      // Playgama has its OWN output folder, never `dist/` — Vite empties its
+      // outDir on every build, and `dist/` holds the other portals' archives
+      // (the Poki upload among them). A CLI `--outDir` still wins, for scratch
+      // builds. See `src/platforms/playgama/release.ts`.
+      ...(isPlaygama ? { outDir: PLAYGAMA_OUT_DIR } : {}),
+      rollupOptions: {
+        output: {
+          // Playgama only (a group named on every build would be created and
+          // then filled with whatever shares its signature — see the playbook):
+          // pin the vendored Bridge SDK into ONE honestly named chunk that holds
+          // nothing else. The purity gate exempts that chunk and only that one —
+          // the npm Bridge carries every portal adapter as dead code by design —
+          // which is safe only while no game module can end up inside it.
+          //
+          // three.js goes into two chunks of its own, along the seam its build
+          // ships (`three.core.js` + the renderer/addons that import it). This
+          // archive is also the YouTube Playables submission, which asks every
+          // file to stay under 512 KiB; with three inside it the boot chunk was
+          // ~800 KiB. Both are static imports of the engine chunk, so the
+          // modulepreload plugin above fetches them alongside it, and three is
+          // reached on every run — a named group here is never an empty one.
+          ...(isPlaygama
+            ? {
+                manualChunks: (id: string) => {
+                  if (id.includes('@playgama/bridge')) return PLAYGAMA_BRIDGE_CHUNK
+                  if (/node_modules[\\/]three[\\/]build[\\/]three\.core\.js$/.test(id)) return 'three-core'
+                  if (/node_modules[\\/]three[\\/]/.test(id)) return 'three'
+                  return undefined
+                }
+              }
+            : {})
+        }
+      },
       // Source maps follow the obfuscator EXCEPT on production platform builds.
       //
       // `!shouldObfuscate` alone conflates two different questions. Turning the

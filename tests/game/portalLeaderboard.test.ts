@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PORTAL_JOINED_KEY, PORTAL_POSTED_SCORE_KEY } from '@/keys'
 import type { PortalBoardAdapter, PortalBoardEntry, PortalBoardMode } from '@/use/usePortalLeaderboard'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 /**
  * ─── The portal's own board (Playgama SaaS), beside ours ────────────────────
@@ -12,12 +13,14 @@ import type { PortalBoardAdapter, PortalBoardEntry, PortalBoardMode } from '@/us
  * (`templates/playgama/playgamaLeaderboard.test.ts`).
  *
  * Every case loads fresh modules: the layer keeps session state at module
- * scope, exactly as a page load does.
+ * scope, exactly as a page load does. Its saves (`ma_portal_posted_score`,
+ * `ma_portal_joined`) are debounced, so each case flushes its own before the
+ * next case's storage exists — see `tests/stubs/drainPersist.ts`.
  */
 
 const load = async () => {
-  vi.resetModules()
-  const state = await import('@/use/useGameState')
+  drainAndResetModules()
+  const state = await holdGameState()
   const portal = await import('@/use/usePortalLeaderboard')
   return { ...portal, state }
 }
@@ -50,6 +53,7 @@ const fakeAdapter = (o: {
 }
 
 afterEach(() => {
+  drainPersist()
   vi.restoreAllMocks()
   vi.unstubAllEnvs()
   vi.unstubAllGlobals()

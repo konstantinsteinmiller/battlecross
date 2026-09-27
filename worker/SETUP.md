@@ -7,7 +7,11 @@ same value as `VITE_LEADERBOARD_SECRET` in the gitignored `.env`). Steps 3-7
 below are done; they stay as the runbook for a rebuild.
 
 Every command below is run in PowerShell on Windows, from the repo root unless
-it says otherwise. `mega-adventure` is this game's slug — substitute it everywhere.
+it says otherwise. `mega-adventure-leaderboard` (Worker and D1) keeps the game's
+slug from before its rename to Mega Droid, on purpose: a new Worker `name`
+deploys a second Worker at a new URL, and a new `database_name` breaks every
+`wrangler d1` command against the live data. A rebuild for ANOTHER game
+substitutes that game's slug everywhere.
 
 Nothing here touches the game's behaviour until step 7: until
 `VITE_LEADERBOARD_URL` is set, the client treats the board as "feature off" and

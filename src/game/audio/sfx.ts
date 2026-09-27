@@ -2,19 +2,28 @@
  * SFX entry point. Every gameplay sound goes through `sfx(name, pan, gain)`;
  * the chiptune synthesizer behind it lands in the audio chunk. Until then this
  * is a registry the synth plugs into, so call sites are already final.
+ *
+ * `muffle` (0..1) low-passes the sound: a source behind the listener
+ * (`state/damageFeed.ts`), which a pan alone cannot tell from one in front.
  */
 export type SfxName =
   | 'shoot' | 'charge1' | 'charge2' | 'chargeShot' | 'chargeShotBig' | 'hit' | 'hitHeavy' | 'crit' | 'tink'
   | 'guardBreak' | 'explode' | 'enemyShot' | 'lob' | 'jump' | 'stomp' | 'dash' | 'bonk' | 'punch' | 'alert'
   | 'hurt' | 'block' | 'parry' | 'guardCrack' | 'slide' | 'bolt' | 'heal' | 'energy' | 'door' | 'beamIn'
   | 'beamOut' | 'levelUp' | 'chestOpen' | 'loot' | 'tank' | 'weapon' | 'denied' | 'uiClick' | 'uiOpen'
-  | 'objective' | 'bossIntro' | 'death'
+  | 'objective' | 'bossIntro' | 'death' | 'locate' | 'bossWarn'
+  | 'attrPick'
+  | 'trapHiss' | 'flameJet' | 'bladeWhoosh' | 'trapClick'
+  | 'borrowGet' | 'borrowSpent'
+  | 'droneArrive' | 'droneHum' | 'droneHumHi' | 'deckLand' | 'liftOff'
+  | 'whizz'
+  | 'fumble'
 
-type Player = (name: SfxName, pan: number, gain: number) => void
+type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void
 let player: Player | null = null
 
 export const setSfxPlayer = (p: Player | null): void => { player = p }
 
-export const sfx = (name: SfxName | string, pan = 0, gain = 1): void => {
-  player?.(name as SfxName, Math.max(-1, Math.min(1, pan)), gain)
+export const sfx = (name: SfxName | string, pan = 0, gain = 1, muffle = 0): void => {
+  player?.(name as SfxName, Math.max(-1, Math.min(1, pan)), gain, Math.max(0, Math.min(1, muffle)))
 }

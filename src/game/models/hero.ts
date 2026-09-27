@@ -8,6 +8,8 @@ import {
 import { PAL } from './palette'
 import { toonVC, glowVC, outlineMat } from './toon'
 import { buildBarrier, type BarrierFx } from './barrier'
+import { HERO_GAIT, gaitAmp, type EnemyMotion } from './motion'
+import { legL, legR, gaitLegs, poseLegs, stanceDrop } from './gait'
 
 /**
  * Colour slots that gear recolours (see `data/items.ts`). The graphite
@@ -582,6 +584,55 @@ export const animateHeroVictory = (rig: Rig, t: number): void => {
   pose(rig, 'elbowL', -1.2 * k, 0, 0)
   pose(rig, 'head', -0.15 * k, 0, 0.08 * k)
   pose(rig, 'chest', -0.08 * k, 0, 0)
+}
+
+/**
+ * A walk (the exit cutscene): the planted-foot gait of `models/gait.ts` at
+ * `m.phase` (`HERO_GAIT`), the arms swinging against the legs, the chest
+ * leaning into the walk. `m.walk` 0..1 is how much of a stride he takes.
+ */
+export const animateHeroWalk = (rig: Rig, m: EnemyMotion, t: number): void => {
+  const g = HERO_GAIT
+  const wk = gaitAmp(m.walk)
+  gaitLegs(g, m, wk)
+  poseLegs(rig)
+  const br = Math.sin(t * 2.2)
+  nudge(rig, 'hips', 0, -stanceDrop(g) + 0.006 * br * (1 - wk), 0)
+  // The L arm swings with the R leg, the cannon arm a little less
+  const swingL = (legR.th / g.A) * 0.45 * wk
+  const swingR = (legL.th / g.A) * 0.3 * wk
+  const twist = ((legL.th - legR.th) * 0.05 / g.A) * wk
+  pose(rig, 'spine', 0, 0, 0)
+  pose(rig, 'chest', 0.04 + 0.06 * wk + 0.015 * br, -twist, 0)
+  pose(rig, 'head', -0.04, twist * 0.5, 0)
+  pose(rig, 'shoulderL', -swingL, 0, -0.16)
+  pose(rig, 'shoulderR', -0.12 - swingR, 0, 0.2)
+  pose(rig, 'elbowL', -0.3 - 0.2 * Math.max(0, swingL), 0, 0)
+  pose(rig, 'elbowR', -0.4, 0, 0)
+}
+
+/**
+ * A hop (onto the exit drone's deck): `crouch` 0..1 is the wind-up before
+ * the take-off or the squash of a landing (hips down, knees bent, feet
+ * staying under them), `tuck` 0..1 the legs drawn up in the air, the arms
+ * thrown back for the push and forward over the jump.
+ */
+export const animateHeroHop = (rig: Rig, crouch: number, tuck: number, t: number): void => {
+  const c = crouch
+  const u = tuck
+  const br = Math.sin(t * 2.2)
+  nudge(rig, 'hips', 0, -0.105 * c + 0.004 * br * (1 - u), 0)
+  pose(rig, 'hipL', -0.9 * c - 0.85 * u, 0, -0.05)
+  pose(rig, 'hipR', -0.9 * c - 0.6 * u, 0, 0.05)
+  pose(rig, 'kneeL', 1.33 * c + 1.3 * u, 0, 0)
+  pose(rig, 'kneeR', 1.33 * c + 1.0 * u, 0, 0)
+  pose(rig, 'spine', 0.08 * c, 0, 0)
+  pose(rig, 'chest', 0.2 * c - 0.08 * u + 0.02 * br, 0, 0)
+  pose(rig, 'head', -0.1 * c + 0.06 * u, 0, 0)
+  pose(rig, 'shoulderL', 0.5 * c - 1.1 * u, 0, -0.18 - 0.25 * u)
+  pose(rig, 'shoulderR', 0.4 * c - 0.9 * u, 0, 0.2 + 0.2 * u)
+  pose(rig, 'elbowL', -0.3 - 0.35 * u, 0, 0)
+  pose(rig, 'elbowR', -0.4 - 0.2 * u, 0, 0)
 }
 
 // ─── First-person viewmodel ──────────────────────────────────────────────────

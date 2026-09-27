@@ -7,6 +7,7 @@
 import { describe, expect, it } from 'vitest'
 import { SAVE_KEYS, isPayloadKey, META_KEY } from '@/utils/save/SaveMergePolicy'
 import { STATE_KEY } from '@/use/useGameState'
+import { LEGACY_KEYS } from '@/legacyKeys'
 
 describe('SAVE_KEYS values are stable', () => {
   it('LEVEL key is the literal "ma_level"', () => {
@@ -25,9 +26,16 @@ describe('SAVE_KEYS values are stable', () => {
 
 describe('the persisted surface is exactly one state blob plus the meta blob', () => {
   it('accepts the state blob and the meta blob', () => {
-    expect(STATE_KEY).toBe('mega_adventure_state')
+    // Renamed with the game (Mega Adventure → Mega Droid). Changing it again
+    // would strand every existing save unless `src/legacyKeys.ts` gains the old
+    // name — see tests/save/LegacyKeyMigration.test.ts.
+    expect(STATE_KEY).toBe('mega_droid_state')
     expect(isPayloadKey(STATE_KEY)).toBe(true)
     expect(isPayloadKey(META_KEY)).toBe(true)
+  })
+
+  it('never mirrors the pre-rename state key, so nothing can write it back', () => {
+    expect(isPayloadKey(LEGACY_KEYS.STATE)).toBe(false)
   })
 
   it('accepts stray per-field ma_* writes so nothing is silently dropped', () => {

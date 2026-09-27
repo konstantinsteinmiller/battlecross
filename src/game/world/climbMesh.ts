@@ -1,0 +1,578 @@
+import { BufferGeometry, Group, Mesh, Color } from 'three'
+import { CELL, WALL_H, Cell, Ramp, type MapData, type Door } from './levelGen'
+import type { Theme } from './themes'
+import { levelAtlas } from './textures'
+import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
+import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus } from '../models/kit'
+import { mulberry32 } from './rng'
+import { noSlice, type Slice } from '../engine/slicer'
+import {
+  QuadBatch, cellOwners, doorFramePos, buildSky, buildSkyline, FLOOR_UV, WALL_UV, PLAIN_UV, type LevelMeshes, type UV8
+} from './levelMesh'
+import { BALL_R } from './climbGen'
+
+/**
+ * ─── The climb's static geometry ─────────────────────────────────────────────
+ *
+ * `buildLevel` for a terrain map, returning the same `LevelMeshes` — one group
+ * per room, its corridors with it, at most four draw calls each — so portal
+ * culling, the precompile and the warm-up treat the tower like any sector.
+ *
+ * Readability first, because every hazard here is a height:
+ *  - a ledge wears a hazard-striped lip and a rounded trim cap, so an edge
+ *    reads as an edge from above and from below;
+ *  - stairs are drawn as steps (walked as a slope: `nav.groundAt`), their
+ *    risers in the trim colour so each step is its own line;
+ *  - a pit shows its depth: its walls darken all the way down to a black
+ *    floor with dim red warning lights at the bottom;
+ *  - ladders glow along their rails and stand a hand-hold above the ledge
+ *    they reach, so one is seen from the top as well as from the foot.
+ * The moving parts (lifts, crushers' pistons, scrap balls, lamps) are built
+ * and driven by `sim/climb.ts`.
+ */
+
+/** Steps drawn per ramp cell (a 1.5 m rise: 0.3 m risers). */
+const STEPS = 5
+/** Tall walls are built in bands of about a labyrinth wall, so the wall
+ *  texture repeats instead of stretching (and each band reads as a storey). */
+const BAND = WALL_H
+
+type V3 = [number, number, number]
+
+export const buildClimbLevel = async (
+  map: MapData, theme: Theme, slice: Slice = noSlice, onProgress: (f01: number) => void = () => {}
+): Promise<LevelMeshes> => {
+  const t = map.terrain!
+  const rng = mulberry32(map.seed ^ 0x5eed)
+  const W = map.w
+  const templates = new Map<string, BufferGeometry>()
+  const piece = (key: string, make: () => BufferGeometry): BufferGeometry => {
+    let g = templates.get(key)
+    if (!g) {
+      g = make()
+      templates.set(key, g)
+    }
+    return g.clone()
+  }
+  const owner = cellOwners(map)
+  const nRooms = map.rooms.length
+  const batches = Array.from({ length: nRooms }, () => new QuadBatch())
+  const decor: BufferGeometry[][] = Array.from({ length: nRooms }, () => [])
+  const glows: BufferGeometry[][] = Array.from({ length: nRooms }, () => [])
+
+  const cFloor = new Color(theme.floor)
+  const cFloorAlt = new Color(theme.floorAlt)
+  const cCorr = new Color(theme.corridor)
+  const cWall = new Color(theme.wall)
+  const cWallLow = new Color(theme.wallLow)
+  const cHaz = new Color(theme.hazard)
+  const cHazDark = new Color(theme.crateTrim)
+  const cRiser = new Color(theme.trim).lerp(cFloor, 0.35)
+  const cVoid = new Color(theme.wallLow).multiplyScalar(0.12)
+
+  const walkable = (i: number, j: number) => i >= 0 && j >= 0 && i < W && j < map.h && map.cell[j * W + i] !== Cell.Void
+  const K = (i: number, j: number) => j * W + i
+  /** The room a cell's walls take their height from (a corridor: its own). */
+  const roomOf = (k: number) => map.room[k]!
+  const corridorTop = (k: number) => t.floor[k]! + WALL_H + 0.8
+  const wallTopOf = (k: number) => (roomOf(k) >= 0 ? t.wallTop[roomOf(k)]! : corridorTop(k))
+  const pitBottomOf = (k: number) => (roomOf(k) >= 0 ? t.pitBottom[roomOf(k)]! : t.floor[k]! - 12)
+  /** The lowest standing floor of the room: pit walls darken below it. */
+  const roomLow = new Array<number>(nRooms).fill(Infinity)
+  for (let k = 0; k < map.cell.length; k++) {
+    const r = map.room[k]!
+    if (r >= 0 && !t.pit[k]) roomLow[r] = Math.min(roomLow[r]!, t.floor[k]!)
+  }
+  const lowOf = (k: number) => (roomOf(k) >= 0 ? roomLow[roomOf(k)]! : t.floor[k]!)
+
+  /** Drawn floor height of cell k at local (u, v) ∈ [0,1]² — the ramp as a
+   *  line (the stepped look is drawn separately); a pit at its bottom. */
+  const heightAt = (k: number, u: number, v: number): number => {
+    if (t.pit[k]) return pitBottomOf(k)
+    const r = t.ramp[k]
+    if (!r) return t.floor[k]!
+    const s = r === Ramp.PX ? u : r === Ramp.NX ? 1 - u : r === Ramp.PZ ? v : 1 - v
+    return t.floor[k]! + t.rise[k]! * s
+  }
+  /** A ramp's tread height for step n (0..STEPS-1): the line at the step's middle. */
+  const tread = (k: number, n: number) => t.floor[k]! + t.rise[k]! * (n + 0.5) / STEPS
+
+  /** Depth shading: full colour down to the room's lowest floor, then
+   *  darkening to near black at the pit bottom. */
+  const _c = new Color()
+  const shade = (base: Color, y: number, k: number): Color => {
+    const low = lowOf(k)
+    if (y >= low - 0.01) return _c.copy(base)
+    const bot = pitBottomOf(k)
+    const f = Math.max(0, Math.min(1, (y - bot) / Math.max(0.1, low - bot)))
+    return _c.copy(cVoid).lerp(base, f * f)
+  }
+
+  /**
+   * A vertical face along the edge (x0, z0)–(x1, z1), facing `n`, from the
+   * bottom height `y0` to the top profile `top(s)` (s = 0..1 along the edge,
+   * sampled at `seg` equal pieces), built in bands of at most BAND.
+   */
+  const face = (
+    b: QuadBatch, k: number, x0: number, z0: number, x1: number, z1: number, n: V3, y0: number, top: (s: number) => number,
+    seg = 1, lowC: Color = cWallLow, highC: Color = cWall
+  ) => {
+    // Order the ends so the quad winds toward n: up × (P1 − P0) ∥ n.
+    if ((z1 - z0) * n[0] - (x1 - x0) * n[2] < 0) {
+      ;[x0, x1] = [x1, x0]
+      ;[z0, z1] = [z1, z0]
+      const f = top
+      top = (s: number) => f(1 - s)
+    }
+    for (let q = 0; q < seg; q++) {
+      const s0 = q / seg
+      const s1 = (q + 1) / seg
+      const ax = x0 + (x1 - x0) * s0
+      const az = z0 + (z1 - z0) * s0
+      const bx = x0 + (x1 - x0) * s1
+      const bz = z0 + (z1 - z0) * s1
+      const ta = top(s0 + 1e-6)
+      const tb = top(s1 - 1e-6)
+      const hi = Math.max(ta, tb)
+      if (hi - y0 < 0.02) continue
+      const bands = Math.max(1, Math.ceil((hi - y0) / BAND - 0.05))
+      for (let m = 0; m < bands; m++) {
+        const ya = y0 + (hi - y0) * m / bands
+        const yb = m === bands - 1 ? -1 : y0 + (hi - y0) * (m + 1) / bands
+        const topA = yb < 0 ? ta : Math.min(ta, yb)
+        const topB = yb < 0 ? tb : Math.min(tb, yb)
+        if (topA <= ya + 0.01 && topB <= ya + 0.01) continue
+        const cl0 = shade(lowC, ya, k).clone()
+        const clA = shade(highC, topA, k).clone()
+        const clB = shade(highC, topB, k).clone()
+        b.quad([ax, ya, az], [ax, Math.max(ya, topA), az], [bx, Math.max(ya, topB), bz], [bx, ya, bz], n, WALL_UV, cl0, clA, clB, cl0)
+      }
+    }
+  }
+
+  // Corner pilasters, deduplicated: the lowest foot and highest top seen.
+  const corners = new Map<string, { x: number; z: number; owner: number; lo: number; hi: number }>()
+  const addCorner = (x: number, z: number, o: number, lo: number, hi: number) => {
+    const key = `${Math.round(x * 10)},${Math.round(z * 10)}`
+    const c = corners.get(key)
+    if (!c) corners.set(key, { x, z, owner: o, lo, hi })
+    else {
+      c.lo = Math.min(c.lo, lo)
+      c.hi = Math.max(c.hi, hi)
+    }
+  }
+
+  const doorCells = new Set<number>()
+  for (const d of map.doors) doorCells.add(K(d.i, d.j))
+
+  for (let j = 0; j < map.h; j++) {
+    for (let i = 0; i < W; i++) {
+      const k = K(i, j)
+      const c = map.cell[k]
+      if (c === Cell.Void) continue
+      const o = owner[k]!
+      if (o < 0) continue
+      const b = batches[o]!
+      const x0 = i * CELL
+      const z0 = j * CELL
+      const x1 = x0 + CELL
+      const z1 = z0 + CELL
+      const ramp = t.ramp[k]!
+
+      // ── Floor ──
+      if (t.pit[k]) {
+        const y = pitBottomOf(k)
+        b.quad([x0, y, z0], [x0, y, z1], [x1, y, z1], [x1, y, z0], [0, 1, 0], PLAIN_UV, cVoid, cVoid, cVoid, cVoid)
+        // Dim warning lights far down: the pit is a drop, not a floor.
+        if (((i * 7 + j * 3) & 1) === 0) {
+          glows[o]!.push(xform(piece('pitLight', () => paint(sph(0.22, 8, 6), '#ff3a2a')), [x0 + 0.8 + rng() * 1.4, y + 0.25, z0 + 0.8 + rng() * 1.4]))
+        }
+      } else if (!ramp) {
+        const y = t.floor[k]!
+        const fc = c === Cell.Corridor ? cCorr : ((i + j) & 1 ? cFloor : cFloorAlt)
+        b.quad([x0, y, z0], [x0, y, z1], [x1, y, z1], [x1, y, z0], [0, 1, 0], FLOOR_UV, fc, fc, fc, fc)
+      } else {
+        // Steps: treads in the floor tones, risers in the trim colour.
+        const alongX = ramp === Ramp.PX || ramp === Ramp.NX
+        const up = ramp === Ramp.PX || ramp === Ramp.PZ ? 1 : -1
+        for (let n = 0; n < STEPS; n++) {
+          const y = tread(k, n)
+          // Tread n spans s ∈ [n, n+1] / STEPS measured uphill.
+          const sa = n / STEPS
+          const sb = (n + 1) / STEPS
+          const fc = n & 1 ? cFloor : cFloorAlt
+          const uv: UV8 = FLOOR_UV
+          if (alongX) {
+            const xa = up > 0 ? x0 + CELL * sa : x1 - CELL * sa
+            const xb = up > 0 ? x0 + CELL * sb : x1 - CELL * sb
+            const lx = Math.min(xa, xb)
+            const hx = Math.max(xa, xb)
+            b.quad([lx, y, z0], [lx, y, z1], [hx, y, z1], [hx, y, z0], [0, 1, 0], uv, fc, fc, fc, fc)
+            const below = n === 0 ? t.floor[k]! : tread(k, n - 1)
+            face(b, k, xa, z0, xa, z1, [-up, 0, 0], below, () => y, 1, cRiser, cRiser)
+          } else {
+            const za = up > 0 ? z0 + CELL * sa : z1 - CELL * sa
+            const zb = up > 0 ? z0 + CELL * sb : z1 - CELL * sb
+            const lz = Math.min(za, zb)
+            const hz = Math.max(za, zb)
+            b.quad([x0, y, lz], [x0, y, hz], [x1, y, hz], [x1, y, lz], [0, 1, 0], uv, fc, fc, fc, fc)
+            const below = n === 0 ? t.floor[k]! : tread(k, n - 1)
+            face(b, k, x0, za, x1, za, [0, 0, -up], below, () => y, 1, cRiser, cRiser)
+          }
+        }
+        // The last half-riser up to the landing.
+        const top = t.floor[k]! + t.rise[k]!
+        const last = tread(k, STEPS - 1)
+        if (alongX) {
+          const xe = up > 0 ? x1 : x0
+          face(b, k, xe, z0, xe, z1, [-up, 0, 0], last, () => top, 1, cRiser, cRiser)
+        } else {
+          const ze = up > 0 ? z1 : z0
+          face(b, k, x0, ze, x1, ze, [0, 0, -up], last, () => top, 1, cRiser, cRiser)
+        }
+      }
+
+      // ── Edges ──
+      const edges: Array<{ di: number; dj: number; a: [number, number]; bb: [number, number]; n: V3 }> = [
+        { di: -1, dj: 0, a: [x0, z1], bb: [x0, z0], n: [1, 0, 0] },
+        { di: 1, dj: 0, a: [x1, z0], bb: [x1, z1], n: [-1, 0, 0] },
+        { di: 0, dj: -1, a: [x0, z0], bb: [x1, z0], n: [0, 0, 1] },
+        { di: 0, dj: 1, a: [x1, z1], bb: [x0, z1], n: [0, 0, -1] }
+      ]
+      // Where my faces start along an edge: my floor there — a ramp's top at
+      // its uphill edge, its foot at the downhill edge and along its sides.
+      const upI = ramp === Ramp.PX ? 1 : ramp === Ramp.NX ? -1 : 0
+      const upJ = ramp === Ramp.PZ ? 1 : ramp === Ramp.NZ ? -1 : 0
+      const edgeLow = (di: number, dj: number): number => {
+        if (t.pit[k]) return pitBottomOf(k)
+        if (!ramp) return t.floor[k]!
+        return di === upI && dj === upJ ? t.floor[k]! + t.rise[k]! : t.floor[k]!
+      }
+      for (const e of edges) {
+        const ni = i + e.di
+        const nj = j + e.dj
+        const [ax, az] = e.a
+        const [bx, bz] = e.bb
+        const mx = (ax + bx) / 2
+        const mz = (az + bz) / 2
+        const alongX = Math.abs(bx - ax) > 0.1
+        const rotAlong: V3 = alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]
+        const low = edgeLow(e.di, e.dj)
+        if (!walkable(ni, nj)) {
+          // A wall to the room's top, from the lowest floor at its foot.
+          const topY = wallTopOf(k)
+          face(b, k, ax, az, bx, bz, e.n, low, () => topY)
+          addCorner(ax, az, o, low, topY)
+          addCorner(bx, bz, o, low, topY)
+          decor[o]!.push(xform(piece('capTop', () => paint(cap(0.2, CELL - 0.4, 10, 3), theme.trim)), [mx, topY, mz], rotAlong))
+          // A trim line at every band joint: storeys you can count.
+          const bands = Math.max(1, Math.ceil((topY - low) / BAND - 0.05))
+          for (let m = 1; m < bands; m++) {
+            const yb = low + (topY - low) * m / bands
+            decor[o]!.push(xform(piece('band', () => paint(cap(0.1, CELL - 0.3, 8, 2), theme.pilaster)), [mx + e.n[0] * 0.08, yb, mz + e.n[2] * 0.08], rotAlong))
+          }
+          if (!t.pit[k]) {
+            const fy = t.floor[k]!
+            if (!ramp) decor[o]!.push(xform(piece('baseboard', () => paint(cap(0.13, CELL - 0.3, 8, 2), theme.wallLow)), [mx + e.n[0] * 0.06, fy + 0.14, mz + e.n[2] * 0.06], rotAlong))
+            if (c === Cell.Room && rng() < 0.45) {
+              glows[o]!.push(xform(piece('strip', () => paint(cap(0.07, 1.1, 8, 2), theme.accent)), [mx + e.n[0] * 0.12, fy + (ramp ? 3.6 : 2.95), mz + e.n[2] * 0.12], rotAlong))
+            } else if (rng() < 0.25) {
+              const py = fy + 1.1 + rng() * 1.4 + (ramp ? 1.2 : 0)
+              decor[o]!.push(xform(piece('pipe', () => paint(cap(0.16, CELL, 10, 2), theme.pipe)), [mx + e.n[0] * 0.2, py, mz + e.n[2] * 0.2], rotAlong))
+            }
+          }
+          continue
+        }
+        // Another walkable cell: a cliff face on the lower side (drawn by
+        // the lower cell), a striped lip on the upper side.
+        const nk = K(ni, nj)
+        const nPit = t.pit[nk]
+        const nRamp = t.ramp[nk]!
+        // The neighbour's top along the shared edge, as a function of s ∈ [0,1] from a to b.
+        const nTop = (s: number): number => {
+          if (nPit) return pitBottomOf(nk)
+          if (!nRamp) return t.floor[nk]!
+          // Point on the shared edge, in the neighbour's local (u, v).
+          const px = ax + (bx - ax) * s
+          const pz = az + (bz - az) * s
+          const u = Math.max(0, Math.min(1, px / CELL - ni))
+          const v = Math.max(0, Math.min(1, pz / CELL - nj))
+          // A ramp's side follows its steps; its ends are level.
+          const r = nRamp
+          const across = (r === Ramp.PX || r === Ramp.NX) ? alongX : !alongX
+          if (!across) return heightAt(nk, u, v)
+          const sUp = r === Ramp.PX ? u : r === Ramp.NX ? 1 - u : r === Ramp.PZ ? v : 1 - v
+          return tread(nk, Math.min(STEPS - 1, Math.floor(sUp * STEPS)))
+        }
+        const nMax = Math.max(nTop(0.001), nTop(0.5), nTop(0.999))
+        if (nMax - low > 0.02) {
+          // Stepped profile along a ramp's side needs one piece per step.
+          const seg = nRamp && ((nRamp === Ramp.PX || nRamp === Ramp.NX) ? alongX : !alongX) ? STEPS : 1
+          face(b, k, ax, az, bx, bz, e.n, low, nTop, seg)
+        }
+        // My lip: I am a real ledge over this neighbour (not a stair riser).
+        if (!t.pit[k] && !ramp) {
+          const fy = t.floor[k]!
+          const nLow = nPit ? -Infinity : Math.min(nTop(0.001), nTop(0.999))
+          if (fy - nLow > 0.9 && !doorCells.has(k)) {
+            // Hazard stripes on the floor along the edge, then a trim cap.
+            const w = 0.3
+            const segs = 6
+            for (let q = 0; q < segs; q++) {
+              const s0 = q / segs
+              const s1 = (q + 1) / segs
+              const pax = ax + (bx - ax) * s0
+              const paz = az + (bz - az) * s0
+              const pbx = ax + (bx - ax) * s1
+              const pbz = az + (bz - az) * s1
+              // Inward = toward my cell = −(di, dj).
+              const ix = -e.di * w
+              const iz = -e.dj * w
+              const cl = q & 1 ? cHazDark : cHaz
+              const y = fy + 0.012
+              const p0: V3 = [pax, y, paz]
+              const p1: V3 = [pbx, y, pbz]
+              const p2: V3 = [pbx + ix, y, pbz + iz]
+              const p3: V3 = [pax + ix, y, paz + iz]
+              // Wind for an up normal: (p1 − p0) × (p3 − p0) must point +Y.
+              const cy = (p1[2] - p0[2]) * (p3[0] - p0[0]) - (p1[0] - p0[0]) * (p3[2] - p0[2])
+              if (cy > 0) b.quad(p0, p1, p2, p3, [0, 1, 0], PLAIN_UV, cl, cl, cl, cl)
+              else b.quad(p0, p3, p2, p1, [0, 1, 0], PLAIN_UV, cl, cl, cl, cl)
+            }
+            decor[o]!.push(xform(piece('lip', () => paint(cap(0.11, CELL - 0.25, 8, 2), theme.trim)), [mx - e.di * 0.02, fy + 0.02, mz - e.dj * 0.02], rotAlong))
+          }
+        }
+      }
+      await slice()
+    }
+    onProgress((j + 1) / map.h * 0.6)
+  }
+
+  // Pilasters on every wall corner, foot to top.
+  for (const { x, z, owner: o, lo, hi } of corners.values()) {
+    const h = hi - lo + 0.25
+    decor[o]!.push(xform(piece(`pil${Math.round(h * 4)}`, () => paint(rcyl(0.3, h, 0.12, 14), theme.pilaster)), [x, lo + h / 2, z]))
+    decor[o]!.push(xform(piece('pilasterCap', () => paint(sph(0.34, 14, 8), theme.trim)), [x, hi + 0.25, z]))
+  }
+  await slice()
+
+  // ── Ladders: two lit rails and rungs on the cliff face ──
+  for (const L of t.ladders) {
+    const k = K(L.i, L.j)
+    const o = owner[k]!
+    if (o < 0) continue
+    // The face line and the normal toward the foot.
+    const ex = L.di ? (L.di > 0 ? (L.i + 1) * CELL : L.i * CELL) : (L.i + 0.5) * CELL
+    const ez = L.dj ? (L.dj > 0 ? (L.j + 1) * CELL : L.j * CELL) : (L.j + 0.5) * CELL
+    const nx = -L.di
+    const nz = -L.dj
+    const ax = L.dj ? 1 : 0
+    const az = L.di ? 1 : 0
+    const off = 0.14
+    const h = L.y1 - L.y0 + 0.95
+    for (const s of [-0.48, 0.48]) {
+      const rx = ex + nx * off + ax * s
+      const rz = ez + nz * off + az * s
+      decor[o]!.push(xform(paint(rcyl(0.075, h, 0.03, 10), theme.pilaster), [rx, L.y0 + h / 2, rz]))
+      decor[o]!.push(xform(piece('railTop', () => paint(sph(0.11, 10, 6), theme.trim)), [rx, L.y0 + h, rz]))
+      glows[o]!.push(xform(paint(cap(0.035, h - 0.6, 6, 2), L.side ? '#8dff7a' : theme.accent), [rx + nx * 0.07, L.y0 + h / 2, rz + nz * 0.07]))
+    }
+    const rungs = Math.floor((L.y1 - L.y0 + 0.6) / 0.36)
+    for (let n = 1; n <= rungs; n++) {
+      const y = L.y0 + n * 0.36
+      decor[o]!.push(xform(piece('rung', () => paint(cap(0.045, 0.86, 8, 2), theme.trim)), [ex + nx * off, y, ez + nz * off], ax ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+    }
+    await slice()
+  }
+
+  // ── Crusher gantries: posts up from the pit, a beam over the walkway ──
+  for (const cr of t.crushers) {
+    const k = K(cr.i, cr.j)
+    const o = owner[k]!
+    if (o < 0) continue
+    const cx = (cr.i + 0.5) * CELL
+    const cz = (cr.j + 0.5) * CELL
+    // Posts stand on the pit sides of the walkway: across the walk direction.
+    const walkX = walkable(cr.i + 1, cr.j) && !t.pit[K(cr.i + 1, cr.j)]
+    const sideX = walkX ? 0 : 1
+    const sideZ = walkX ? 1 : 0
+    const bot = pitBottomOf(k)
+    const top = cr.y + 5.4
+    for (const s of [-1, 1]) {
+      const px = cx + sideX * s * (CELL / 2 + 0.2)
+      const pz = cz + sideZ * s * (CELL / 2 + 0.2)
+      decor[o]!.push(xform(paint(rcyl(0.26, top - bot, 0.1, 12), theme.pilaster), [px, (top + bot) / 2, pz]))
+    }
+    decor[o]!.push(paintBy(
+      xform(rbox(sideX ? CELL + 1.1 : 0.7, 0.6, sideZ ? CELL + 1.1 : 0.7, 0.3), [cx, top, cz]),
+      (x, y, z) => (Math.floor((sideX ? x : z) * 2.2 + y) & 1 ? theme.hazard : theme.crateTrim)
+    ))
+    await slice()
+  }
+
+  // ── Rolling stairs: the hatch gantry over the top, the gutter at the foot ──
+  const laneRooms = new Map<number, typeof t.lanes>()
+  for (const ln of t.lanes) laneRooms.set(ln.room, [...(laneRooms.get(ln.room) ?? []), ln])
+  for (const lanes of laneRooms.values()) {
+    const first = lanes[0]!
+    const k = K(Math.floor(first.x / CELL), Math.floor(first.z / CELL))
+    const o = owner[k]!
+    if (o < 0) continue
+    const topY = t.floor[k]!
+    let lo = Infinity
+    let hi = -Infinity
+    for (const ln of lanes) { lo = Math.min(lo, first.dx ? ln.z : ln.x); hi = Math.max(hi, first.dx ? ln.z : ln.x) }
+    lo -= CELL / 2
+    hi += CELL / 2
+    const gx = first.x + first.dx * 0.2
+    const gz = first.z + first.dz * 0.2
+    const beamY = topY + 3
+    const across = first.dx !== 0
+    for (const s of [lo, hi]) {
+      const px = across ? gx : s
+      const pz = across ? s : gz
+      decor[o]!.push(xform(paint(rcyl(0.24, beamY - topY, 0.1, 12), theme.pilaster), [px, topY + (beamY - topY) / 2, pz]))
+    }
+    decor[o]!.push(paintBy(
+      xform(rbox(across ? 0.9 : hi - lo, 0.8, across ? hi - lo : 0.9, 0.3), [across ? gx : (lo + hi) / 2, beamY, across ? (lo + hi) / 2 : gz]),
+      (x, y, z) => (Math.floor((across ? z : x) * 2 + y) & 1 ? theme.hazard : theme.crateTrim)
+    ))
+    for (const ln of lanes) {
+      // A hatch ring under the beam over each lane.
+      decor[o]!.push(xform(piece('hatch', () => paint(torus(BALL_R + 0.12, 0.08, 6, 16), theme.crateTrim)), [ln.x, beamY - 0.42, ln.z], [Math.PI / 2, 0, 0]))
+      // The gutter across the foot: a dark slot with striped lips.
+      // Just past the foot of the stairs, on the landing.
+      const fx = ln.x + ln.dx * (ln.len + 0.5)
+      const fz = ln.z + ln.dz * (ln.len + 0.5)
+      const fk = K(Math.floor(fx / CELL), Math.floor(fz / CELL))
+      const fy = t.floor[fk]! + 0.013
+      const b = batches[o]!
+      const hw = CELL / 2
+      const gw = 0.45
+      const q = (x0: number, z0: number, x1: number, z1: number, cl: Color) =>
+        b.quad([x0, fy, z0], [x0, fy, z1], [x1, fy, z1], [x1, fy, z0], [0, 1, 0], PLAIN_UV, cl, cl, cl, cl)
+      if (across) {
+        q(fx - gw, ln.z - hw, fx + gw, ln.z + hw, cVoid)
+        q(fx - gw - 0.14, ln.z - hw, fx - gw, ln.z + hw, cHaz)
+        q(fx + gw, ln.z - hw, fx + gw + 0.14, ln.z + hw, cHaz)
+      } else {
+        q(ln.x - hw, fz - gw, ln.x + hw, fz + gw, cVoid)
+        q(ln.x - hw, fz - gw - 0.14, ln.x + hw, fz - gw, cHaz)
+        q(ln.x - hw, fz + gw, ln.x + hw, fz + gw + 0.14, cHaz)
+      }
+    }
+    await slice()
+  }
+
+  // ── Lift guides: rails up a lift's shaft, rails under a shuttle's run ──
+  for (const lf of t.lifts) {
+    const k = K(Math.floor(lf.ax / CELL), Math.floor(lf.az / CELL))
+    const o = owner[k]!
+    if (o < 0) continue
+    const bot = pitBottomOf(k)
+    if (lf.kind === 'v') {
+      const top = Math.max(lf.ay, lf.by) + 1.2
+      for (const [sx, sz] of [[-1, -1], [1, 1]] as const) {
+        const px = lf.ax + sx * (lf.hw + 0.12)
+        const pz = lf.az + sz * (lf.hd + 0.12)
+        decor[o]!.push(xform(paint(rcyl(0.14, top - bot, 0.05, 10), theme.pipe), [px, (top + bot) / 2, pz]))
+        glows[o]!.push(xform(paint(sph(0.16, 10, 6), theme.accent), [px, top + 0.1, pz]))
+      }
+    } else {
+      const len = Math.hypot(lf.bx - lf.ax, lf.bz - lf.az) + lf.hw * 2
+      const alongX = Math.abs(lf.bx - lf.ax) > 0.1
+      const mx = (lf.ax + lf.bx) / 2
+      const mz = (lf.az + lf.bz) / 2
+      for (const s of [-0.8, 0.8]) {
+        decor[o]!.push(xform(paint(cap(0.1, len, 8, 2), theme.pipe), [mx + (alongX ? 0 : s), lf.ay - 0.75, mz + (alongX ? s : 0)], alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]))
+      }
+    }
+  }
+
+  // ── Reward ledges: a pad that glows under the prize ──
+  // (A borrowed-weapon capsule stands on an emitter plate of its own, in its
+  // weapon's colour: `models/weaponCapsule.ts`.)
+  for (const r of t.rewards) {
+    if (r.kind === 'weapon') continue
+    const k = K(Math.floor(r.x / CELL), Math.floor(r.z / CELL))
+    const o = owner[k]!
+    if (o < 0) continue
+    decor[o]!.push(xform(piece('rewardPad', () => paint(rcyl(0.7, 0.14, 0.06, 20), theme.crateTrim)), [r.x, r.y + 0.07, r.z]))
+    glows[o]!.push(xform(piece('rewardRing', () => paint(torus(0.62, 0.05, 6, 24), '#8dff7a')), [r.x, r.y + 0.15, r.z], [Math.PI / 2, 0, 0]))
+  }
+  await slice()
+
+  // ── Door frames at their corridor's height (one always-visible group) ──
+  const doorDecor: BufferGeometry[] = []
+  const doorBatch = new QuadBatch()
+  for (const d of map.doors) doorFrame(d, t.floor[K(d.i, d.j)]!, theme, doorDecor, doorBatch, cHaz)
+
+  // ── Assemble ─────────────────────────────────────────────────────────────
+  const root = new Group()
+  const rooms: Group[] = []
+  const bounds: LevelMeshes['bounds'] = []
+  const floorMat = toonVCMap(levelAtlas())
+  for (let r = 0; r < nRooms; r++) {
+    const g = new Group()
+    const geo = batches[r]!.build()
+    if (geo) {
+      geo.computeBoundingSphere()
+      g.add(new Mesh(geo, floorMat))
+      const bs = geo.boundingSphere!
+      bounds.push({ x: bs.center.x, z: bs.center.z, r: bs.radius })
+    } else {
+      bounds.push({ x: 0, z: 0, r: 0 })
+    }
+    await slice()
+    if (decor[r]!.length) {
+      const dg = merge(decor[r]!)
+      dg.computeBoundingSphere()
+      g.add(new Mesh(dg, toonVC()))
+      const ol = new Mesh(dg, outlineMat(0.035))
+      ol.renderOrder = -1
+      g.add(ol)
+    }
+    await slice()
+    if (glows[r]!.length) g.add(new Mesh(merge(glows[r]!), glowVC()))
+    rooms.push(g)
+    root.add(g)
+    onProgress(0.65 + ((r + 1) / nRooms) * 0.35)
+    await slice()
+  }
+  if (doorDecor.length) {
+    const doorsGroup = new Group()
+    const dgeo = doorBatch.build()
+    if (dgeo) doorsGroup.add(new Mesh(dgeo, floorMat))
+    const dd = merge(doorDecor)
+    doorsGroup.add(new Mesh(dd, toonVC()))
+    const dol = new Mesh(dd, outlineMat(0.035))
+    dol.renderOrder = -1
+    doorsGroup.add(dol)
+    root.add(doorsGroup)
+  }
+  root.add(buildSkyline(map, theme))
+  return { root, rooms, sky: buildSky(theme), bounds, owner }
+}
+
+/** A door frame (rounded striped lintel, two posts, floor stripes) standing
+ *  on the corridor floor at `y` — the labyrinth's frame, lifted. */
+const doorFrame = (d: Door, y: number, theme: Theme, out: BufferGeometry[], batch: QuadBatch, cHaz: Color): void => {
+  const [fx, fz] = doorFramePos(d)
+  const along = d.axis === 'x' ? 'z' : 'x'
+  out.push(paintBy(
+    xform(rbox(along === 'x' ? CELL + 0.4 : 0.8, 0.7, along === 'z' ? CELL + 0.4 : 0.8, 0.3), [fx, y + WALL_H - 0.55, fz]),
+    (x, yy, z) => (Math.floor(((along === 'x' ? x : z) + yy) * 2.2) & 1 ? theme.hazard : theme.crateTrim)
+  ))
+  for (const s of [-1, 1]) {
+    const px = along === 'x' ? fx + s * (CELL / 2) : fx
+    const pz = along === 'z' ? fz + s * (CELL / 2) : fz
+    out.push(xform(paint(rcyl(0.4, WALL_H, 0.15, 16), d.boss ? theme.trim : theme.pilaster), [px, y + WALL_H / 2, pz]))
+  }
+  const hw = 0.5
+  const yy = y + 0.012
+  if (d.axis === 'x') {
+    batch.quad([fx - hw, yy, fz - CELL / 2], [fx - hw, yy, fz + CELL / 2], [fx + hw, yy, fz + CELL / 2], [fx + hw, yy, fz - CELL / 2], [0, 1, 0], PLAIN_UV, cHaz, cHaz, cHaz, cHaz)
+  } else {
+    batch.quad([fx - CELL / 2, yy, fz - hw], [fx - CELL / 2, yy, fz + hw], [fx + CELL / 2, yy, fz + hw], [fx + CELL / 2, yy, fz - hw], [0, 1, 0], PLAIN_UV, cHaz, cHaz, cHaz, cHaz)
+  }
+}

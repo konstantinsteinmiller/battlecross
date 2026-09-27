@@ -3,14 +3,15 @@ import {
   OneMinusSrcAlphaFactor, DynamicDrawUsage, Matrix4, Vector3, type Scene
 } from 'three'
 import { CELL } from '../world/levelGen'
-import { findPath, smoothPath, hasLineOfSight, type Nav } from '../world/nav'
+import { findPath, smoothPath, hasLineOfSight, floorAt, type Nav } from '../world/nav'
 import { PLAYER_R } from '../sim/constants'
 
 /**
  * ─── Objective trail ─────────────────────────────────────────────────────────
  *
  * Small yellow chevrons on the floor that lead to the mission's main
- * objective (`MissionObjects.target`), along the walk the tap-to-move would
+ * objective (`MissionObjects.target`) — in the tutorial walkthrough to its
+ * next lesson (`Walkthrough.goal`) — along the walk the tap-to-move would
  * take: through the doors that open on approach, up to the boss shutter. A
  * blind playtester spent minutes lost in look-alike rooms with only the
  * compass to go on; this says "this way" without a word, and quietly.
@@ -21,8 +22,8 @@ import { PLAYER_R } from '../sim/constants'
  *    at the near end and out at the far one. They are spaced back from the
  *    TARGET, not from the player, so they stay put on the floor while the
  *    player walks and the next ones light up ahead.
- *  - When: only while the mission allows it (not in the tutorial walkthrough,
- *    in combat, under a modal or outside the play phase), there is a target
+ *  - When: only while the mission allows it (not in combat, under a modal,
+ *    over a scene lesson or outside the play phase), there is a target
  *    that is not already in plain sight a few metres away, and a path to it.
  *    0.4 s fades either way; a switch to another target fades out first.
  *  - Cost: ONE instanced draw of at most six quads and one small shader, no
@@ -176,14 +177,15 @@ export const setTrailPath = (out: TrailPath, x0: number, z0: number, pts: Readon
  * The walk to (tx, tz) the tap-to-move would take: A* through doors that open
  * on approach (`through` 1), pulled taut. A target inside a LOCKED door's
  * cell (in front of the boss shutter, until the player opens it) may be
- * reached as well, so the trail ends at that door. Leaves `out` untouched
- * and returns false when there is no way.
+ * reached as well, so the trail ends at that door. On the climb the way
+ * goes up ladders and rides lifts (`findPath`'s links): the trail only has
+ * to show it. Leaves `out` untouched and returns false when there is no way.
  */
 export const buildTrailPath = (nav: Nav, px: number, pz: number, tx: number, tz: number, out: TrailPath): boolean => {
   const i = Math.floor(tx / CELL)
   const j = Math.floor(tz / CELL)
   const locked = i >= 0 && j >= 0 && i < nav.w && j < nav.h && nav.pathBlock[j * nav.w + i]! > 1
-  const raw = findPath(nav, px, pz, tx, tz, 1400, locked ? 2 : 1)
+  const raw = findPath(nav, px, pz, tx, tz, 1400, locked ? 2 : 1, !!nav.map.terrain)
   if (!raw) return false
   const pts = smoothPath(nav, px, pz, raw, PLAYER_R)
   if (!pts.length) return false
@@ -276,12 +278,13 @@ export const closeToTarget = (nav: Nav, px: number, pz: number, tx: number, tz: 
 // ─── The trail ────────────────────────────────────────────────────────────────
 
 export interface TrailInput {
-  /** The mission's say: false in the tutorial walkthrough, in combat, under
-   *  a modal and outside the play phase. */
+  /** The mission's say: false in combat, over a scene lesson, under a modal
+   *  and outside the play phase. */
   enabled: boolean
   px: number
   pz: number
-  /** `MissionObjects.target`: null when there is nothing to lead to. */
+  /** `MissionObjects.target` (the tutorial walkthrough: `Walkthrough.goal`):
+   *  null when there is nothing to lead to. */
   target: { x: number; z: number } | null
   /** Mission clock (s), for the light wave. */
   time: number
@@ -376,8 +379,11 @@ export class ObjectiveTrail {
       const b = i * TRAIL_STRIDE
       // Crests run toward the target: brightest where time + distance-to-go lines up.
       const w = 0.5 + 0.5 * Math.cos(phase + (sl[b + 4]! / WAVE_LENGTH) * Math.PI * 2)
-      al[i] = this.vis * sl[b + 3]! * (OPACITY_BASE + (OPACITY_PEAK - OPACITY_BASE) * w * w)
-      _m.makeRotationY(sl[b + 2]!).scale(_scale).setPosition(sl[b]!, ARROW_Y, sl[b + 1]!)
+      // On the floor it lies on (the climb's ledges; 0 on a flat map). A
+      // chevron over a pit — a lift's run while the lift is away — is dark.
+      const fy = floorAt(this.nav, sl[b]!, sl[b + 1]!)
+      al[i] = fy === -Infinity ? 0 : this.vis * sl[b + 3]! * (OPACITY_BASE + (OPACITY_PEAK - OPACITY_BASE) * w * w)
+      _m.makeRotationY(sl[b + 2]!).scale(_scale).setPosition(sl[b]!, (fy === -Infinity ? 0 : fy) + ARROW_Y, sl[b + 1]!)
       this.mesh.setMatrixAt(i, _m)
     }
     this.mesh.instanceMatrix.needsUpdate = true

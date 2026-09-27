@@ -155,7 +155,7 @@ export const __gameplayFanoutIdle = (): Promise<void> => playgamaChain
  * idempotent off a flag, and `pokiGameplayStart` DEFERS (never drops) a start
  * landing inside the SDK's 50 ms guard window.
  *
- * Mega Adventure has no such handover today (every mission ends on the
+ * Mega Droid has no such handover today (every mission ends on the
  * results screen); this stays as the tested seam for one.
  */
 export const restartGameplayBracket = (): void => {

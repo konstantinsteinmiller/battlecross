@@ -29,13 +29,19 @@
 //      per session so it isn't spammy.
 //
 //   3. **PORTAL_KEYS allowlist.** Only mirror the consolidated state
-//      blob (`mega_adventure_state`), NOT internal-scratch keys or debug-only
+//      blob (`mega_droid_state`), NOT internal-scratch keys or debug-only
 //      flags. The latter should stay local-only by design — they
 //      shouldn't roam across devices.
+//
+//   4. **Pre-rename saves.** A portal save written before the game became
+//      Mega Droid holds the blob under `LEGACY_KEYS.STATE`. Hydrate adopts it
+//      when the new key is empty, re-files it on the portal under the new key
+//      and only then removes the legacy one (`adoptLegacyPortalState`).
 
 import type { HydrateState, LocalStorageAccessor, SaveStrategy } from './types'
 import { isInternalKey } from './types'
 import { STATE_KEY } from '@/use/useGameState'
+import { LEGACY_KEYS } from '@/legacyKeys'
 import { META_KEY } from './SaveMergePolicy'
 import { isDebug } from '@/use/useMatch'
 
@@ -101,8 +107,9 @@ const PORTAL_QUICK_MS = 600
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms))
 
 /** Wait for `window.GamePix.localStorage` to (a) appear AND (b) actually
- *  return the player's STATE blob. Resolves as soon as STATE_KEY reads
- *  non-empty (returning player, data loaded), or after `timeoutMs` with the
+ *  return the player's STATE blob. Resolves as soon as STATE_KEY — or, for a
+ *  save from before the rename, `LEGACY_KEYS.STATE` — reads non-empty
+ *  (returning player, data loaded), or after `timeoutMs` with the
  *  store object if it never carries data (genuinely-new player, or the
  *  localhost test SDK where the portal has no player). Returns `null` only
  *  if the store object itself never appears. Awaits each read so an async
@@ -115,7 +122,7 @@ const waitForGamePixStorageData = async (timeoutMs: number): Promise<GamePixStor
   for (;;) {
     const s = getGamePixStorage()
     if (s) {
-      const v = await portalGetItem(s, STATE_KEY)
+      const v = await portalGetItem(s, STATE_KEY) ?? await portalGetItem(s, LEGACY_KEYS.STATE)
       if (v !== null && v.length > 0) return s // data is live
     }
     if (Date.now() - start >= timeoutMs) return s ?? null
@@ -133,6 +140,26 @@ const shouldMirror = (key: string): boolean =>
   !isInternalKey(key) && PORTAL_KEYS.has(key)
 
 const FLUSH_POLL_MS = 250
+
+/**
+ * A portal save from before the rename: the blob sits under the legacy key.
+ * Returns it when the portal has nothing under STATE_KEY (so hydrate adopts it)
+ * and re-files it there, removing the legacy key only once that write went
+ * through — a failed write leaves it for the next boot. With both keys present
+ * the new one wins and the legacy one is simply removed. Never throws.
+ */
+const adoptLegacyPortalState = async (storage: GamePixStorage): Promise<string | null> => {
+  const legacy = await portalGetItem(storage, LEGACY_KEYS.STATE)
+  if (legacy === null) return null
+  const current = await portalGetItem(storage, STATE_KEY)
+  try {
+    if (current === null && legacy.length > 0) await Promise.resolve(storage.setItem(STATE_KEY, legacy))
+    await Promise.resolve(storage.removeItem(LEGACY_KEYS.STATE))
+  } catch (e) {
+    console.warn('[gamepix-save] re-filing the pre-rename save threw', e)
+  }
+  return current === null && legacy.length > 0 ? legacy : null
+}
 
 export class GamePixStrategy implements SaveStrategy {
   readonly name = 'gamepix'
@@ -174,7 +201,14 @@ export class GamePixStrategy implements SaveStrategy {
     }
     try {
       let mirrored = 0
+      const legacy = await adoptLegacyPortalState(storage)
+      if (legacy !== null) {
+        local.set(STATE_KEY, legacy)
+        mirrored += 1
+        dlog(`[gamepix-save] adopted the pre-rename save (${legacy.length} bytes)`)
+      }
       for (const key of PORTAL_KEYS) {
+        if (key === STATE_KEY && legacy !== null) continue
         const value = await portalGetItem(storage, key) // tolerates async getItem
         if (value !== null && value.length > 0) {
           local.set(key, value)

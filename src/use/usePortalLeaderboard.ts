@@ -18,15 +18,14 @@ import { PORTAL_JOINED_KEY, PORTAL_POSTED_SCORE_KEY } from '@/keys'
  *
  * ── When it writes ──
  *
- *   • ON A WIN, and only there. The score is the deepest stage ever cleared, so
- *     the one moment a new value can exist is a stage clear — the scene calls
- *     `reportPortalBest` from its clear dispatch (`presentClear`), which every
- *     win path goes through: the stage-1 reward card, the stage 2-3 handover,
- *     the result card. A loss has nothing new to say and never posts. No
- *     throttle: a clear is at most one post per stage, and stages take 24-48 s.
- *   • ONCE ON ARRIVAL, for a player with no row yet (`joinPortalBoard`, from the
- *     scene's setup). A first-time player is posted at stage 0, so they start
- *     as the LAST row of the portal's board rather than being absent from it; a
+ *   • WHEN A NEW BEST CAN EXIST, and only then. Mega Droid's score is
+ *     lifetime XP, which only grows — and grows on a defeat as well (kills pay
+ *     XP live) — so every mission end is such a moment: `finishMission` calls
+ *     `reportPortalBest`, which posts only when the value beats what the portal
+ *     already accepted. No throttle: at most one post per mission.
+ *   • ONCE ON ARRIVAL, for a player with no row yet (`joinPortalBoard`, from
+ *     `createBootMode`). A first-time player is posted at 0, so they start as
+ *     the LAST row of the portal's board rather than being absent from it; a
  *     returning player who predates the board is posted at their current best.
  *     Only on an `in_game` board — never as a 0 to YouTube's native one.
  *
@@ -226,7 +225,7 @@ const enqueue = (a: PortalBoardAdapter, shouldPost: () => number | null): Promis
 }
 
 /**
- * Post the player's lifetime best after a WIN. Posts only when it beats what
+ * Post the player's lifetime best at a mission end. Posts only when it beats what
  * the portal already accepted.
  */
 export const reportPortalBest = (best: number): Promise<void> => {

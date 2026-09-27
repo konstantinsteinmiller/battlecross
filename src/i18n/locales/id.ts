@@ -1,6 +1,6 @@
 // Indonesian locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Batal',
   'close': 'Tutup',
   'ok': 'Oke',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Klik untuk lanjut',
   'rewards': 'HADIAH',
   'tip': 'Tips',
-  'crazyGamesOnly': 'Gim ini hanya tersedia di',
+  'onlyAvailableOn': 'Gim ini hanya tersedia di',
 
   'ui': {
     'next': 'Lanjut',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Perlawanan Terakhir! Sistem dinyalakan ulang.',
     'weak': 'LEMAH!',
     'dizzy': 'PUSING!',
+    'dodge': 'MENGELAK!',
     'block': 'Blok',
     'slide': 'Luncur',
     'fire': 'Tembak',
-    'tank': 'Tangki Perbaikan',
-    'noEnergy': 'Energi senjata tidak cukup'
+    'tank': 'Gel Perbaikan',
+    'noEnergy': 'Energi senjata tidak cukup',
+    'tankCount': 'Gel Perbaikan: {n} dari {max}',
+    'borrowed': 'Senjata pinjaman {weapon}: {n} dari {max} tembakan',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Waduh-waduh!',
+      '2': 'Bzzt! Ups!',
+      '3': 'Lenganku cegukan!',
+      '4': 'Eror… wiii!',
+      '5': 'Sirkuit mentega!',
+      '6': 'Mode goyang AKTIF!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Gir Gelinding',
     'brute': 'Robot Penjaga',
     'turret': 'Meriam Dinding',
+    'golem': 'Golem Peti',
     'elite': 'Elit',
     'level': 'Lv {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Penghentak | Penghentak',
     'roller': 'Gir Gelinding | Gir Gelinding',
     'brute': 'Robot Penjaga | Robot Penjaga',
-    'turret': 'Meriam Dinding | Meriam Dinding'
+    'turret': 'Meriam Dinding | Meriam Dinding',
+    'golem': 'Golem Peti | Golem Peti'
   },
 
   'hud': {
     'help': 'Tampilkan kontrol',
+    'mute': 'Matikan suara',
+    'unmute': 'Nyalakan suara',
+    'bossUnknown': 'Bos misterius',
     'hp': 'Kesehatan',
     'we': 'Energi senjata',
     'power': 'Tenaga',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Perburuan Elit',
     'supply': 'Misi Pasokan',
     'purge': 'Pembersihan Sektor',
+    'climb': 'Lari Menara',
+    'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
       'boss': 'Dobrak masuk ke inti {sector} dan kalahkan {boss}.',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Sebuah robot pekerja terjebak di {sector}. Temukan dan teleport dia keluar.',
       'elite': '{target} elit sedang meneror {sector}. Buru sampai dapat!',
       'supply': 'Bongkar {n} peti pasokan di {sector}.',
-      'purge': 'Hancurkan semua mesin di {sector}.'
+      'purge': 'Hancurkan semua mesin di {sector}.',
+      'climb': 'Panjat menara {sector} — tangga, tangga panjat, lift, dan jurang — lalu turun ke arena untuk tanding ulang melawan {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Temukan robot pekerja yang terjebak',
     'elite': 'Buru {target} elit',
     'supply': 'Peti pasokan: {n}/{total}',
-    'purge': 'Mesin dihancurkan: {n}/{total}'
+    'purge': 'Mesin dihancurkan: {n}/{total}',
+    'climb': 'Panjat menara, kalahkan {boss}'
   },
   'mission': {
     'bossDown': '{boss} hancur!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Lingkaran merah artinya tak bisa diblok — meluncurlah menghindar!',
     'dodgeKeys': 'Lingkaran merah artinya tak bisa diblok — tekan Space untuk meluncur menghindar!',
     'chest': 'Peti pasokan! Ketuk untuk membukanya.',
-    'tank': 'Hampir habis? Tangki Perbaikan memulihkanmu sepenuhnya.',
+    'tank': 'Hampir habis? Gel Perbaikan memulihkanmu sepenuhnya.',
     'weapon': 'Pakai senjata salinanmu lewat tombol berwarna!'
   },
   'lesson': {
-    'charge': 'Tahan untuk mengisi muatan Buster-mu, lalu lepas: hanya tembakan bermuatan yang bisa memecah perisai drone latihan.',
+    'charge': 'Tahan untuk mengisi muatan meriammu, lalu lepas: hanya tembakan bermuatan yang bisa memecah perisai drone latihan.',
     'crate': 'Kotak pasokan hanya pecah oleh tembakan bermuatan. Tahan, lalu lepas sambil membidik kotak yang menyala.',
     'weaponKeys': 'Tekan {n} untuk menembakkan senjata salinanmu: satu tembakan mengenai ketiga drone.',
-    'weaponTouch': 'Ketuk tombol senjata yang menyala: satu tembakan mengenai ketiga drone.'
+    'weaponTouch': 'Ketuk tombol senjata yang menyala: satu tembakan mengenai ketiga drone.',
+    'gelKeys': 'Tekan H untuk memakai Gel Perbaikan: gel ini memulihkanmu sepenuhnya.',
+    'gelTouch': 'Ketuk tombol hijau Gel Perbaikan: gel ini memulihkanmu sepenuhnya.'
+  },
+  'walk': {
+    'finishLesson': 'Selesaikan pelajarannya'
   },
   'hubLesson': {
     'workshop': 'Buka Bengkel.',
-    'upgradeBuster': 'Pakai baut untuk meningkatkan Buster-mu: kerusakan lebih besar.',
+    'upgradeBuster': 'Pakai baut untuk meningkatkan meriammu: kerusakan lebih besar.',
     'pickArmor': 'Sekarang pilih zirah dadamu.',
     'upgradeArmor': 'Tingkatkan juga: pertahanan lebih kuat.',
     'deploy': 'Semua siap — kembali ke misi!'
   },
   'loot': {
     'found': '{item} {rarity} ditemukan!',
-    'tank': 'Tangki Perbaikan ditemukan!'
+    'tank': 'Gel Perbaikan ditemukan!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'SISTEM MATI',
     'body': 'Flux menerima terlalu banyak kerusakan.',
     'kept': 'Kamu tetap membawa hasil sejauh ini:',
-    'useTank': 'Reboot dengan Tangki Perbaikan ({n})',
+    'useTank': 'Reboot dengan Gel Perbaikan ({n})',
     'rebootAd': 'Reboot sekarang',
     'retreat': 'Mundur ke lab'
+  },
+  'banner': {
+    'cleared': 'Level selesai',
+    'bossDown': 'Musuh dikalahkan!',
+    'gameOver': 'Permainan berakhir!'
   },
   'pause': {
     'title': 'JEDA',
     'resume': 'Lanjutkan',
     'abandon': 'Tinggalkan misi',
     'controls': 'Kontrol',
+    'label': {
+      'move': 'Bergerak',
+      'look': 'Melihat',
+      'parry': 'Tangkis',
+      'interact': 'Interaksi'
+    },
     'touch': {
       'move': 'Sisi kiri: geser untuk bergerak. Ketuk lantai untuk berjalan ke sana.',
-      'look': 'Sisi kanan: geser untuk melihat sekeliling.',
       'fire': 'Saat bertarung: ketuk untuk menembak, tahan untuk mengisi muatan, lepas untuk menembak.',
-      'block': 'Tahan perisai untuk memblok — tepat saat lingkaran menutup untuk menangkis.'
+      'block': 'Tahan perisai untuk memblok — tepat saat lingkaran menutup untuk menangkis.',
+      'use': 'Di dekat peti, robot yang terjebak, atau pintu: ketuk benda itu, atau tombol yang muncul.'
     },
     'keys': {
       'move': 'WASD / panah: bergerak.',
       'look': 'Gerakkan mouse untuk melihat. Klik layar permainan untuk mengendalikan kamera.',
       'fire': 'Klik kiri: tembak — tahan untuk mengisi muatan, lepas untuk menembak.',
       'block': 'Klik kanan: blok — tepat saat lingkaran menutup untuk menangkis.',
-      'slide': 'Space: meluncur · H: Tangki Perbaikan · E: interaksi · B: teleport keluar',
-      'more': '1 / 2: senjata spesial · Tab: ganti target · Esc: jeda'
+      'slide': 'Space: meluncur · H: Gel Perbaikan · E: interaksi · B: teleport keluar',
+      'more': '1 / 2: senjata spesial · Tab: ganti target · Esc: jeda',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'NAIK LEVEL!',
     'pick': 'Pilih peningkatan sistem',
-    'chip': '+1 Chip Skill untuk sirkuitmu'
+    'chip': '+1 Chip Skill untuk sirkuitmu',
+    'granted': '{stat} naik dari {from} ke {to}'
   },
   'attr': {
     'hp': { 'name': 'Rangka', 'desc': 'Kesehatan maks' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Kalahkan {boss} untuk membuka sektor ini.',
     'sectorSecured': 'Sektor aman. Tugas-tugasnya masih ada di papan.',
     'deploy': 'Berangkat',
-    'reroll': 'Tugas baru'
+    'reroll': 'Tugas baru',
+    'unlock': {
+      'hint': 'Selesaikan {n} misi lagi untuk membuka',
+      'aria': '{name}, terkunci: selesaikan {n} misi lagi'
+    }
   },
   'hero': {
     'role': 'Android tempurmu',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Tembakan bermuatan',
       'armor': 'Zirah',
       'crit': 'Peluang kritis',
-      'tanks': 'Tangki Perbaikan'
+      'tanks': 'Gel Perbaikan'
     }
   },
   'workshop': {
     'tanks': 'Perbekalan',
-    'tankName': 'Tangki Perbaikan',
+    'tankName': 'Gel Perbaikan',
     'tankDesc': 'Memulihkan kesehatan dan tenaga sepenuhnya di tengah misi.',
     'owned': 'Dibawa: {n}/{max}',
     'upgrade': 'Tingkatkan perlengkapan',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Meriam',
     'armor': 'Zirah',
     'core': 'Inti'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Muatan Mega', 'desc': 'Kerusakan tembakan bermuatan +12% per chip.' },
     'perfectTiming': { 'name': 'Timing Sempurna', 'desc': 'Jendela lepas sempurna lebih lebar dan kritis lebih kuat.' },
     'piercing': { 'name': 'Inti Penembus', 'desc': 'Tembakan setengah muatan juga menghancurkan perisai dan helm.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Terus tahan melewati muatan penuh untuk tingkat ketiga yang dahsyat.' },
+    'giga': { 'name': 'Muatan Berlebih', 'desc': 'Terus tahan melewati muatan penuh untuk tingkat ketiga yang dahsyat.' },
     'frame': { 'name': 'Rangka Diperkuat', 'desc': 'Kesehatan maks +8% per chip.' },
     'barrier': { 'name': 'Setelan Penghalang', 'desc': 'Memblok memakai lebih sedikit tenaga dan meloloskan lebih sedikit kerusakan.' },
     'autoRepair': { 'name': 'Perbaikan Otomatis', 'desc': 'Pulihkan 1% kesehatan per detik di luar pertarungan, per chip.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'Pendorong Luncur', 'desc': 'Jeda luncur lebih singkat, luncuran lebih hemat.' },
     'efficient': { 'name': 'Inti Efisien', 'desc': 'Senjata spesial memakai 10% lebih sedikit energi per chip.' },
     'magnet': { 'name': 'Magnet Baut', 'desc': 'Lebih banyak baut dan jangkauan pungut lebih jauh.' },
-    'tankCap': { 'name': 'Kapasitas Tangki', 'desc': 'Bawa satu Tangki Perbaikan lagi per chip.' }
+    'tankCap': { 'name': 'Kapasitas Gel', 'desc': 'Bawa satu Gel Perbaikan lagi per chip.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'Legendaris'
   },
   'item': {
-    'arm_standard': 'Buster Standar',
-    'arm_rapid': 'Buster Cepat',
-    'arm_heavy': 'Buster Berat',
-    'arm_quick': 'Buster Isi Cepat',
-    'arm_nova': 'Buster Nova',
+    'arm_standard': 'Meriam Standar',
+    'arm_rapid': 'Meriam Cepat',
+    'arm_heavy': 'Meriam Berat',
+    'arm_quick': 'Meriam Isi Cepat',
+    'arm_nova': 'Meriam Nova',
     'helm_scout': 'Helm Pengintai',
     'helm_guard': 'Helm Penjaga',
     'helm_ace': 'Helm Jagoan',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Chip Kuantum'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Meriam',
     'helmet': 'Helm',
     'chest': 'Rangka',
     'boots': 'Sepatu',

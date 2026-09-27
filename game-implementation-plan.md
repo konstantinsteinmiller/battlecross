@@ -1,4 +1,4 @@
-# Mega Adventure — implementation plan
+# Mega Droid — implementation plan
 
 This is the resume point. Tick boxes as chunks land, and commit after every
 chunk that is playable. Design lives in `GDD.md`.
@@ -23,10 +23,14 @@ tooling routes, the survivalist tests (`tests/game`, `tests/sim`, most of
 
 ## Persisted state
 
-- One localStorage key: **`mega_adventure_state`**
+- One localStorage key: **`mega_droid_state`**
   (`src/use/useGameState.ts`, a rename of `useTowerState` with a new key and a
   new `ma_` field prefix). Save strategies, the merge policy and the CG
   scrubbing all reference `STATE_KEY` / the prefix, never a literal.
+- Pre-rename keys (`mega_adventure_state` / `_board_cache` / `_uid` / `_name`)
+  live only in `src/legacyKeys.ts`: each owner moves its key before the first
+  read, and the cloud strategies re-file a pre-rename payload under the new
+  name and never write the old one.
 - Fields (`src/keys.ts`): `ma_hero`, `ma_inventory`, `ma_quests`, `ma_world`,
   `ma_stats`, `ma_mission` (the resumable mid-mission snapshot), `ma_tutorial`,
   plus the settings and identity keys.
@@ -68,7 +72,7 @@ while bars and damage numbers get direct DOM writes.
 
 - [x] **0. Plan.** GDD.md + this file.
 - [x] **1. Strip and scaffold.** Remove the survivalist game, add three.js,
-  rename the state layer to `mega_adventure_state`, add a `GameScene` with a
+  rename the state layer to `mega_droid_state`, add a `GameScene` with a
   renderer and a test room, and keep the splash/loader working. Typecheck and
   build green. *Commit.*
 - [x] **2. Exploration.** Level generator + meshes + theme, FP controller
@@ -281,11 +285,56 @@ while bars and damage numbers get direct DOM writes.
     fixes (emulated pointer lock so the host's real cursor is never captured,
     clicks at the crosshair while captured, an `aim` helper, short-exposure
     frames); re-run the two blind Sonnet playtests and publish a new report.
+- **Chunk 18 — variety pass (2026-09-26).** Eight asks, built by parallel
+  subagents with disjoint file ownership (at most three at once, targeted test
+  files only, one full suite at the end by the lead):
+  - **WP-A Hazards + Repair Gel lesson** (new `sim/traps.ts`,
+    `models/traps.ts`; `sim/lessons.ts`, `sim/walkthrough.ts`, `sim/coach.ts`,
+    `ActionButtons.vue`, `HudBars.vue`, `LessonLayer.vue`): 1–2 corridor traps
+    per map (wall flame jets, a swinging blade), always readable, never
+    stacked on a fight; in "Wake-Up Call" a scripted flame trap in a quiet
+    corridor drops Flux to exactly 25 % with no machine near, then a wordless
+    Repair Gel lesson (the gel button pulses, a gel→heart glyph, pips for how
+    many gels are carried, the refill flows into the health bar). The gel
+    button stays on screen whenever gels are carried, as a resource.
+  - **WP-B Crate golem** (`models/enemies.ts`, `data/enemies.ts`,
+    `sim/enemies.ts`, `sim/spawn.ts`, `data/regions.ts`): a machine that
+    sleeps as a supply crate and takes no damage until a shot wakes it; it
+    unfolds, lobs rocks, sidesteps charged shots it can see coming at range,
+    so the answer is to close in.
+  - **WP-D Climb mission** (new `world/climbGen.ts`; `world/nav.ts`,
+    `world/levelMesh.ts`, `sim/mission.ts` player physics, `data/quests.ts`,
+    `flow.ts`): a platforming stage with floor heights — stairs, drops,
+    lifts, ladders, pits, timed obstacles — ending in a boss arena. Offered as
+    the `climb` job template.
+  - **WP-C Boss awareness + mute** (lead / later agent): HUD mute button left
+    of "?" with F2; a mystery boss chip in the top row (the boss head behind a
+    "?"); a yellow boss locator shown through walls for 5 s every 30 s until
+    Flux is ~10 m from the boss door; a boss door that reads as danger.
+  - **WP-E Temporary special shots**: capsules in the new levels grant a
+    copied weapon with a limited shot count for that mission only.
+  - **WP-F Level-up pick modal** (`LevelUpModal.vue`, `levelUpPick.ts`): pips
+    per pending level-up, the badge shows the level being spent, a "+N" chip
+    flies into a live stat readout, the cards re-deal after every pick, input
+    locked 600 ms, a finish hold after the last pick; 1/2/3 keys.
+  - Status (2026-09-27): WP-A, B, C, D, F built and screenshot-checked
+    (boss door, chip, locator, gel trap + lesson on desktop and phone, climb
+    rooms, level-up modal). Integration fixes by the lead: a sleeping golem
+    never holds a lesson room or shows on the purge compass; the kill cheat
+    wakes golems first. Open: WP-E (borrowed weapons) in progress; a real
+    playthrough of a golem fight and a full climb on a phone; dedicated golem
+    sounds (it reuses tink/door/stomp/lob); enemy AI/LOS is still 2D on climb
+    platforms (leashed walkers slide along their leash edge).
+  - QA harness for this chunk (scratchpad, not the repo): Vite dev server on a
+    random port + playwright-core driving system Chrome with emulated pointer
+    lock; click once to capture before expecting lesson cards (LessonLayer
+    hides while `hud.pointerFree`); combat lock-on turns the camera onto any
+    awake machine, so use `mission.debugCam` for prop shots.
 
 ## Resume notes
 
 - Dev server: `pnpm dev` (port 2194 — 2050/2077/2193 belong to other games
-  on this machine). Check the served `<title>` ("Mega Adventure") before
+  on this machine). Check the served `<title>` ("Mega Droid") before
   trusting a browser test.
 - `#/models?m=hero&angle=20&zoom=2` — DEV turntable for every procedural
   model (`src/views/ModelLab.vue`).
@@ -308,10 +357,13 @@ while bars and damage numbers get direct DOM writes.
   gesture, or a context that came up running because the embed grants
   autoplay). A track requested before that waits in `music.ts` and starts on
   the first gesture. The console stays free of autoplay warnings.
-- Ads (playbook Phase 6): `finishMission` pays and saves, then runs
-  `adBreakBeforeResults` (the interstitial if pacing allows, then a wait on
-  the ad GATE capped at 8 s), and only then reveals the results and plays the
-  jingle. `tests/game/resultsAdOrder.test.ts` pins that order. Every ad that
+- Ads (playbook Phase 6): `finishMission` pays and saves, waits only on the ad
+  GATE (another placement's ad, capped at 8 s), then reveals the results and
+  plays the jingle. The interstitial runs on the result screen's Continue
+  (`leaveResults`, won or failed): the screen closes first, the ad plays if
+  pacing allows (121 s gap, none in the first 61 s after load; no 3-minute
+  floor any more), and only then the hub opens and starts its music.
+  `tests/game/resultsAdOrder.test.ts` pins that order. Every ad that
   interrupts live play or the hub restarts the music in `.finally()`
   (`resumeMusicAfterAd`): the revive, the supply drop and the QA trigger.
 - Modals freeze the simulation (`isGamePaused`) but not the audio
@@ -323,7 +375,9 @@ while bars and damage numbers get direct DOM writes.
   the Workshop supply drop (40 + 20·level bolts, 4-minute cooldown saved in
   `ma_stats.lastDropAt`). All are hidden unless `canOfferReward`.
 - Hidden QA ad trigger: 30 taps on a bolts pill within 30 s
-  (`useQaAdTrigger`).
+  (`useQaAdTrigger`). Ships in every build, the Poki and Playgama releases
+  included; it is not dev tooling, so no alias strips it and no release gate
+  refuses it.
 - QA tooling (all run against a BUILT bundle; `npx vite build --outDir <dir>`):
   - `pnpm qa:xbrowser --dist <dir>`: Chrome / Edge / Firefox / WebKit play the
     first mission to the hub, with zero page errors.
@@ -399,11 +453,11 @@ while bars and damage numbers get direct DOM writes.
   that ends a mission posts a real row; delete it afterwards with
   `npx wrangler d1 execute mega-adventure-leaderboard --remote --command
   "DELETE FROM scores WHERE id = '<id>'; DELETE FROM board_cache"` (the id is
-  `localStorage.mega_adventure_uid`). `data/leaderboard-snapshot.json` (the live
+  `localStorage.mega_droid_uid`). `data/leaderboard-snapshot.json` (the live
   builds' offline fallback) appears on the first build after the board has
   players; commit it then. The modelled board is `pnpm leaderboard:seed`.
 - Known open items for a human: the origin remote still points at the
   survivalist repo, and `.env` still holds survivalist's GameMonetize id and
   Glitch ids. Replace them before a portal upload. (The Playgama leaderboard
-  id is cleared; create a mega-adventure board on the Playgama dashboard to
+  id is cleared; create a Mega Droid board on the Playgama dashboard to
   switch that board on.)

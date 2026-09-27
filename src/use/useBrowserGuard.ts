@@ -15,8 +15,10 @@
 // game's own handlers still get every event. Text fields keep their menus,
 // selection and keys.
 //
-// What a page cannot cancel is left alone on purpose: browser shortcuts
-// (Ctrl+W, Ctrl+T, F5), Esc leaving fullscreen or a pointer lock, and
+// What a page cannot cancel is left alone on purpose (while the mouse is
+// captured, the navigation guard at the bottom makes back and close harmless
+// instead): browser shortcuts (Ctrl+W, Ctrl+T, F5), browser-side mouse
+// gestures (Opera, Vivaldi), Esc leaving fullscreen or a pointer lock, and
 // Firefox's Shift + right-click menu, which opens with Shift held no matter
 // what the page does (the reason block is never taught as Shift + mouse).
 
@@ -35,10 +37,11 @@ export const installBrowserGuard = (): (() => void) => {
   const cancel = (e: Event) => {
     if (!editable(e.target)) e.preventDefault()
   }
-  // Every button but the left: consuming the press is what keeps Opera's
-  // mouse and rocker gestures from starting (the menu itself only fires on
-  // release, after the gesture has already run); middle stops autoscroll,
-  // the thumb buttons stop history navigation, which happens on release.
+  // Every button but the left: consuming the press stops gestures that run
+  // in the page (extensions that honour it; the menu itself only fires on
+  // release, after a gesture has already run) — Opera's own gestures run in
+  // the browser and ignore it, see the navigation guard below. Middle stops
+  // autoscroll, the thumb buttons stop history navigation, on release.
   const onButton = (e: MouseEvent) => {
     if (e.button !== 0 && !editable(e.target)) e.preventDefault()
   }
@@ -56,8 +59,9 @@ export const installBrowserGuard = (): (() => void) => {
   const onKeyDown = (e: KeyboardEvent) => {
     altAlone = e.key === 'Alt'
     if (editable(e.target)) return
-    // Firefox's quick find (`/` and `'`), and F1's browser help page.
-    if (e.code === 'Slash' || e.code === 'Quote' || e.code === 'F1') e.preventDefault()
+    // Firefox's quick find (`/` and `'`), F1's browser help page, and F2
+    // (the game's mute key), which Vivaldi answers with its Quick Commands.
+    if (e.code === 'Slash' || e.code === 'Quote' || e.code === 'F1' || e.code === 'F2') e.preventDefault()
   }
   const onKeyUp = (e: KeyboardEvent) => {
     // Alt pressed and released alone focuses the menu bar (Firefox and Edge
@@ -86,3 +90,102 @@ export const installBrowserGuard = (): (() => void) => {
     for (const [t, type, fn] of add) t.removeEventListener(type, fn, opts)
   }
 }
+
+// ─── While the mouse is captured: no leaving by accident ────────────────────
+//
+// Cancelling the press above is not enough in every browser. Opera (and
+// Vivaldi) recognise mouse and rocker gestures in the BROWSER, before the page
+// sees the press, so no `preventDefault` reaches them: hold the left button to
+// charge and press the right to block, and Opera's rocker gesture goes BACK;
+// hold right to block and look down-right, and the tab closes. Gesture
+// extensions (Brave, Chrome) do the same from a content script. Those are
+// exactly the shooter's own chords, so they cannot be designed away.
+//
+// What a page CAN do is make the result harmless while the mouse is captured
+// (the only time nobody means to leave: the cursor is gone, so there is no back
+// button or tab strip to click):
+//   • a same-document history entry on top, so "back" lands on the game's own
+//     entry — the page stays, and the entry is put back for the next one;
+//   • a `beforeunload` confirmation, so a gesture's (or Ctrl+W's) close asks
+//     first instead of throwing the run away.
+// Both come off when the capture is handed back on purpose (a modal, the hub)
+// and, after a short grace, when it is LOST (Esc, or a gesture that broke it:
+// the stroke finishes after the capture is gone). A new-tab gesture only moves
+// focus, which pauses the game like any alt-tab.
+//
+// Not on the Playgama build: that archive is also the YouTube Playables one,
+// served from a URL that is not ours, and the router there never touches the
+// history at all (see `router/index.ts`).
+
+const GUARD_KEY = '__captureGuard'
+const navGuardAllowed = (): boolean =>
+  import.meta.env.VITE_APP_PLAYGAMA !== 'true' && typeof window !== 'undefined' && typeof history !== 'undefined'
+
+let navArmed = false
+let navGraceTimer: ReturnType<typeof setTimeout> | null = null
+let popListening = false
+
+const onGuardedPage = (): boolean => {
+  const s = history.state as Record<string, unknown> | null
+  return !!s && s[GUARD_KEY] === true
+}
+/** Push the guard entry. Keeps the router's own state fields (hash history
+ *  reads its `position` on popstate; same position = no navigation). */
+const pushGuard = () => {
+  try {
+    history.pushState({ ...(history.state as object | null), [GUARD_KEY]: true }, '')
+  } catch { /* a sandbox without history access: nothing to guard */ }
+}
+// "Back" while armed arrived on the entry below the guard: put it back. Also
+// covers a re-arm that raced the disarm's own `history.back()`.
+const onPopState = () => {
+  if (navArmed && !onGuardedPage()) pushGuard()
+}
+const onBeforeUnload = (e: BeforeUnloadEvent) => {
+  e.preventDefault()
+  e.returnValue = ''
+}
+
+/** The mouse is captured: back and close must not end the run by accident. */
+export const armNavigationGuard = (): void => {
+  if (!navGuardAllowed()) return
+  if (navGraceTimer !== null) {
+    clearTimeout(navGraceTimer)
+    navGraceTimer = null
+  }
+  if (navArmed) return
+  navArmed = true
+  if (!popListening) {
+    window.addEventListener('popstate', onPopState)
+    popListening = true
+  }
+  window.addEventListener('beforeunload', onBeforeUnload)
+  if (!onGuardedPage()) pushGuard()
+}
+
+/** The capture ended. `graceMs` keeps the guard up that long (a lost capture:
+ *  the gesture that broke it may still be finishing); 0 disarms now. */
+export const disarmNavigationGuard = (graceMs = 0): void => {
+  if (!navArmed) return
+  if (graceMs > 0) {
+    if (navGraceTimer === null) {
+      navGraceTimer = setTimeout(() => {
+        navGraceTimer = null
+        disarmNavigationGuard(0)
+      }, graceMs)
+    }
+    return
+  }
+  if (navGraceTimer !== null) {
+    clearTimeout(navGraceTimer)
+    navGraceTimer = null
+  }
+  navArmed = false
+  window.removeEventListener('beforeunload', onBeforeUnload)
+  // Step off the guard entry, so the browser's back button leaves the game in
+  // one press again once the player has the cursor back.
+  if (onGuardedPage()) history.back()
+}
+
+/** For tests. */
+export const isNavigationGuardArmed = (): boolean => navArmed

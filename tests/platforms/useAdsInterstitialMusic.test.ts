@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 // Wiring test: `useAds.showMidgameAd` must hard-stop the background music
 // BEFORE it requests the interstitial — so music can't be heard under the ad
@@ -34,16 +35,20 @@ vi.mock('@/platforms/resolveAdProvider', () => ({
   resolveAdProvider: () => mockProvider
 }))
 
-beforeEach(() => {
-  vi.resetModules()
+beforeEach(async () => {
+  drainAndResetModules()
   forceStopMusicSpy.mockClear()
   forceStopMusicSpy.mockImplementation(() => {})
   mockProvider.showMidgameAd.mockReset()
   mockProvider.showMidgameAd.mockResolvedValue(undefined)
   window.localStorage.clear()
+  // A granted rewarded is recorded in useGameState's debounced save. Hold the
+  // instance every case loads, so afterEach flushes it (tests/stubs/drainPersist.ts).
+  await holdGameState()
 })
 
 afterEach(() => {
+  drainPersist()
   window.localStorage.clear()
 })
 

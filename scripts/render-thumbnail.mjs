@@ -1,35 +1,55 @@
 #!/usr/bin/env node
-// ─── Poki store thumbnail, rendered from the real rig ───────────────────────
+// ─── Store art, rendered from the real rig ──────────────────────────────────
 //
-//   node scripts/render-thumbnail.mjs                 # all variants, the pick → store-art/poki/
-//   node scripts/render-thumbnail.mjs --port 5173     # reuse a running `pnpm dev` (else starts its own)
-//   node scripts/render-thumbnail.mjs --only lab      # just these variants (comma list)
-//   node scripts/render-thumbnail.mjs --pick sector   # which variant becomes thumbnail-*.png
-//   node scripts/render-thumbnail.mjs --chrome <path> # Chrome executable (or CHROME_PATH)
+//   node scripts/render-thumbnail.mjs                  # Poki: all variants, the pick → store-art/poki/
+//   node scripts/render-thumbnail.mjs --set playgama   # Playgama covers + Wrap images → store-art/playgama/
+//   node scripts/render-thumbnail.mjs --set playgama --sheet  # only rebuild previews/sheet.png
+//   node scripts/render-thumbnail.mjs --port 5173      # reuse a running `pnpm dev` (else starts its own)
+//   node scripts/render-thumbnail.mjs --only lab       # Poki: just these variants (comma list)
+//   node scripts/render-thumbnail.mjs --pick sector    # Poki: which variant becomes thumbnail-*.png
+//   node scripts/render-thumbnail.mjs --chrome <path>  # Chrome executable (or CHROME_PATH)
 //
-// Each variant is the dev-only composition view `#/models?m=thumb&v=<id>`
+// Each picture is the dev-only composition view `#/models?m=thumb&v=<id>`
 // (src/views/ModelLab.vue): Flux in his default look, a charge in the arm
 // cannon, a backdrop from the game's own scene builders, and nothing on a
-// clock, so a re-render is the same picture. It is rendered at 628 CSS px and
-// deviceScaleFactor 4 (2512 px), read straight off the WebGL canvas (so no
-// DOM overlay can end up in it), and scaled DOWN with Lanczos: the 1256
-// master is 2x2 supersampled and the 628 export 4x4, which is what makes the
-// inverted-hull outlines crisp (the renderer has no MSAA at this DPR).
+// clock, so a re-render is the same picture. It is rendered at half the
+// target size in CSS px and deviceScaleFactor 4, i.e. at twice the target
+// size, read straight off the WebGL canvas (so no DOM overlay can end up in
+// it), and scaled DOWN with Lanczos, which is what makes the inverted-hull
+// outlines crisp (the renderer has no MSAA at this DPR).
 //
-// Writes, into store-art/poki/ (a repo folder that never ships: only public/
-// is copied into dist):
+// POKI (default), into store-art/poki/ (a repo folder that never ships: only
+// public/ is copied into dist):
 //   thumbnail-1256.png          the master (lossless)
 //   thumbnail-628.png / .jpg    the upload size; the jpg only when it is smaller
 //                               AND scores SSIM ≥ 0.99 against the png
 //   preview-200.png, -128.png   the pick at Poki tile sizes, the readability check
 //   variants/<id>-628.png       every variant, and variants/sheet.png side by side
-//
 // Poki's rules it checks mechanically: square, the size, and nothing near
 // Poki's playground colour #83FFE7 (fails on any pixel within CIE76 ΔE 10;
-// reports the share within ΔE 20). It also fails a frame without the amber
-// plasma in it, i.e. one where Flux and his charge never rendered. What it
-// cannot check: no text, one clear subject, reads at 128 px. Look at
-// preview-128.png before uploading.
+// reports the share within ΔE 20). What it cannot check: no text, one clear
+// subject, reads at 128 px. Look at preview-128.png before uploading.
+//
+// PLAYGAMA (`--set playgama`), into store-art/playgama/:
+//   covers/square-800x800.png            v=sector  } the three upload files: NO logo or text
+//   covers/landscape-1920x1080.png       v=land    } (YouTube Playables forbids branding in
+//   covers/portrait-1080x1920.png        v=port    }  a thumbnail; a slot may be forwarded)
+//   covers-logo/landscape-1920x1080.png  v=wide + the logo lockup on the left third
+//   covers-logo/portrait-1080x1920.png   v=tall + the lockup over the top third
+//   wrap/hero-1920x1080.png              v=wide, no text (the Wrap site sets the title as its heading)
+//   wrap/share-1280x670.png / .jpg       v=wide cut to 1.91:1 + the lockup (link previews)
+//   wrap/icon-1024.png                   public/icons/icon.svg full-bleed, badge in the maskable safe zone
+//   wrap/icon-1024-rounded.png           the same icon as the rounded tile with clear corners
+//   previews/*.png                       the upload covers (and share, icon) at catalog size
+//   previews/sheet.png                   those previews + wrap/screens/*.png (the gameplay
+//                                        screenshots, captured separately) at 448x252;
+//                                        `--set playgama --sheet` rebuilds only this sheet
+// The cover slots take exactly those sizes, PNG or JPEG, at most 10 MB; the
+// script checks the sizes and the 10 MB. The lockup is store-art/brand/
+// logo-lockup.svg, laid on with a soft shadow; its title matches the game's.
+//
+// Every frame must show the amber plasma (eyes, reactor, charge), or Flux
+// never rendered and the script fails.
 //
 // Its own Chrome, on a fresh temporary profile (never the MCP browser's), and
 // the pointer lock is stubbed: automation must never capture the real mouse.
@@ -37,7 +57,7 @@
 
 import { createRequire } from 'node:module'
 import { spawn, spawnSync } from 'node:child_process'
-import { mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -49,15 +69,17 @@ const sharp = require('sharp')
 const { ssim } = require('ssim.js')
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const OUT = join(ROOT, 'store-art', 'poki')
 const argv = process.argv.slice(2)
 const arg = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 ? argv[i + 1] : d }
+const SET = arg('set', 'poki')
+if (SET !== 'poki' && SET !== 'playgama') throw new Error(`--set ${SET}: expected poki or playgama`)
+const OUT = join(ROOT, 'store-art', SET)
 const VARIANTS = (arg('only', 'lab,sector,full')).split(',').map(s => s.trim()).filter(Boolean)
 const PICK = arg('pick', 'sector')
 const CHROME = arg('chrome', process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe')
 const CSS = 628
 const DSF = 4
-const TITLE = 'Mega Adventure'
+const TITLE = 'Mega Droid'
 
 // ─── Dev server: reuse one, or start our own on a free port ─────────────────
 
@@ -91,8 +113,11 @@ const stopServer = () => {
 process.on('exit', stopServer)
 process.on('SIGINT', () => { stopServer(); process.exit(130) })
 
+const SHEET_ONLY = SET === 'playgama' && argv.includes('--sheet')
 let port = Number(arg('port', 0))
-if (port) {
+if (SHEET_ONLY) {
+  // Rebuilds previews/sheet.png from files on disk: no server needed
+} else if (port) {
   const t = await titleAt(port)
   if (t !== TITLE) throw new Error(`localhost:${port} serves "${t}", not ${TITLE}: start \`pnpm dev\` or drop --port`)
 } else {
@@ -148,12 +173,13 @@ const colourReport = async (buf) => {
 
 // ─── Render ─────────────────────────────────────────────────────────────────
 
-const shoot = async (id) => {
+/** One composition, `cssW`×`cssH` CSS px at deviceScaleFactor 4: a PNG of 4× that. */
+const shoot = async (id, cssW = CSS, cssH = CSS) => {
   const profile = mkdtempSync(join(tmpdir(), 'mega-thumb-'))
   const ctx = await chromium.launchPersistentContext(profile, {
     executablePath: CHROME,
     headless: true,
-    viewport: { width: CSS, height: CSS },
+    viewport: { width: cssW, height: cssH },
     deviceScaleFactor: DSF,
     args: ['--ignore-gpu-blocklist', '--enable-gpu-rasterization', '--mute-audio']
   })
@@ -163,25 +189,42 @@ const shoot = async (id) => {
       Element.prototype.requestPointerLock = function () { return Promise.resolve() }
     })
     const page = ctx.pages()[0] ?? await ctx.newPage()
-    const errors = []
+    let errors = []
     page.on('pageerror', (e) => errors.push(String(e)))
     page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()) })
-    await page.goto(`http://localhost:${port}/#/models?m=thumb&v=${id}`, { waitUntil: 'load', timeout: 180000 })
-    if (await page.title() !== TITLE) throw new Error(`wrong page title on ${port}`)
-    await page.waitForFunction(() => window.__lab?.thumbReady === true, null, { timeout: 240000 })
-    await page.waitForTimeout(1000)
-    // Read the canvas itself, not a page screenshot: the boot loader (or any
-    // other overlay) may still be up over it in a cold profile
-    const url = await page.evaluate(() => window.__lab.thumbPng())
+    let url = ''
+    // A dev server reloads the page whenever someone saves a source file; a
+    // render caught by a reload starts again (at most three tries)
+    for (let attempt = 1; !url; attempt++) {
+      errors = []
+      try {
+        await page.goto(`http://localhost:${port}/#/models?m=thumb&v=${id}`, { waitUntil: 'load', timeout: 180000 })
+        if (await page.title() !== TITLE) throw new Error(`wrong page title on ${port}`)
+        await page.waitForFunction(() => window.__lab?.thumbReady === true, null, { timeout: 240000 })
+        await page.waitForTimeout(1000)
+        // Read the canvas itself, not a page screenshot: the boot loader (or
+        // any other overlay) may still be up over it in a cold profile
+        url = await page.evaluate(() => window.__lab.thumbPng())
+      } catch (e) {
+        if (attempt >= 3 || !/context was destroyed|navigat|Timeout/i.test(String(e))) throw e
+        console.log(`v=${id}: the page reloaded under the render (try ${attempt}), again`)
+      }
+    }
     if (errors.length) throw new Error(`page errors in v=${id}: ${errors.join(' | ')}`)
-    return Buffer.from(url.slice(url.indexOf(',') + 1), 'base64')
+    const png = Buffer.from(url.slice(url.indexOf(',') + 1), 'base64')
+    const meta = await sharp(png).metadata()
+    if (meta.width !== cssW * DSF || meta.height !== cssH * DSF) {
+      throw new Error(`v=${id}: got ${meta.width}x${meta.height}, want ${cssW * DSF}x${cssH * DSF}`)
+    }
+    return png
   } finally {
     await ctx.close()
     rmSync(profile, { recursive: true, force: true })
   }
 }
 
-const down = (buf, size) => sharp(buf).resize(size, size, { kernel: 'lanczos3' }).png({ compressionLevel: 9, adaptiveFiltering: true, effort: 10 }).toBuffer()
+const png9 = (s) => s.png({ compressionLevel: 9, adaptiveFiltering: true, effort: 10 }).toBuffer()
+const down = (buf, w, h = w) => png9(sharp(buf).resize(w, h, { kernel: 'lanczos3' }))
 
 const rgba = async (buf) => {
   const { data, info } = await sharp(buf).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
@@ -201,14 +244,15 @@ const bestJpeg = async (png) => {
   return best && best.jpg.length < png.length ? best : null
 }
 
-mkdirSync(join(OUT, 'variants'), { recursive: true })
-const shots = {}
 const kb = (b) => `${(b.length / 1024).toFixed(0)} KB`
-try {
+
+// ─── Poki ───────────────────────────────────────────────────────────────────
+
+const runPoki = async () => {
+  mkdirSync(join(OUT, 'variants'), { recursive: true })
+  const shots = {}
   for (const id of VARIANTS) {
     const raw = await shoot(id)
-    const meta = await sharp(raw).metadata()
-    if (meta.width !== CSS * DSF || meta.height !== CSS * DSF) throw new Error(`v=${id}: got ${meta.width}x${meta.height}, want ${CSS * DSF} square`)
     const v628 = await down(raw, 628)
     const m = await colourReport(v628)
     if (m.amber < 0.003) throw new Error(`v=${id}: no amber plasma in the frame (${(m.amber * 100).toFixed(2)}%): Flux and his charge did not render`)
@@ -242,6 +286,167 @@ try {
   } else if (!arg('only')) {
     throw new Error(`--pick ${PICK} is not one of the rendered variants (${ids.join(', ')})`)
   }
+}
+
+// ─── Playgama ───────────────────────────────────────────────────────────────
+
+const LOCKUP = join(ROOT, 'store-art', 'brand', 'logo-lockup.svg')
+
+/** The logo lockup `width` px wide, and a soft navy shadow for it (padded by `pad`, dropped by `drop`). */
+const lockup = async (width) => {
+  // The lockup's viewBox is 300 wide: rasterise at twice the size, then scale down
+  const logo = await sharp(readFileSync(LOCKUP), { density: Math.ceil((72 * width * 2) / 300) }).resize(width).png().toBuffer()
+  const { height } = await sharp(logo).metadata()
+  const blur = Math.max(2, Math.round(width * 0.014))
+  const pad = blur * 3
+  // Two pipelines: sharp runs extractChannel late, so in one pipeline the
+  // padding, blur and fade would land on the RGBA image, not on its alpha
+  const a0 = await sharp(logo).extractChannel(3).png().toBuffer()
+  const alpha = await sharp(a0)
+    .extend({ top: pad, bottom: pad, left: pad, right: pad, background: { r: 0, g: 0, b: 0, alpha: 1 } })
+    .blur(blur).linear(0.6, 0).toColourspace('b-w').png().toBuffer()
+  const shadow = await sharp({ create: { width: width + 2 * pad, height: height + 2 * pad, channels: 3, background: '#0b0e24' } })
+    .joinChannel(alpha).png().toBuffer()
+  return { logo, shadow, height, pad, drop: Math.round(width * 0.012) }
+}
+
+/** `base` with the lockup laid on, its top-left corner at (left, top). */
+const withLockup = async (base, width, left, top) => {
+  const L = await lockup(width)
+  return png9(sharp(base).composite([
+    { input: L.shadow, left: left - L.pad, top: top - L.pad + L.drop },
+    { input: L.logo, left, top }
+  ]))
+}
+
+/**
+ * The app icon from public/icons/icon.svg, rendered by Chrome as
+ * scripts/render-icons.mjs does it (the SVG swaps marks through a media query
+ * on its own size, which only a browser evaluates): the rounded tile with
+ * clear corners, and a full-bleed square with the badge inside the maskable
+ * safe zone (the inner 80 % circle) for platforms that mask the icon.
+ */
+const renderIcon = async (size) => {
+  const svg = readFileSync(join(ROOT, 'public', 'icons', 'icon.svg'), 'utf8')
+  const browser = await chromium.launch({ executablePath: CHROME, headless: true })
+  try {
+    const page = await (await browser.newContext({ deviceScaleFactor: 1, viewport: { width: size, height: size } })).newPage()
+    const uri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
+    await page.setContent(`<body style="margin:0;background:transparent"><img src="${uri}" width="${size}" height="${size}" style="display:block"></body>`)
+    await page.waitForFunction(() => document.images[0]?.complete)
+    const rounded = await page.screenshot({ clip: { x: 0, y: 0, width: size, height: size }, omitBackground: true })
+    const css = [
+      'body{margin:0}', `svg{display:block;width:${size}px;height:${size}px}`, 'svg .bg rect{rx:0;ry:0}',
+      'svg .d{transform:translate(256px,256px) scale(0.84) translate(-256px,-256px)}'
+    ].join('')
+    await page.setContent(`<style>${css}</style>${svg}`)
+    const square = await page.screenshot({ clip: { x: 0, y: 0, width: size, height: size } })
+    return { rounded, square }
+  } finally {
+    await browser.close()
+  }
+}
+
+const runPlaygama = async () => {
+  for (const d of ['covers', 'covers-logo', 'wrap', 'previews']) mkdirSync(join(OUT, d), { recursive: true })
+  /** Exact size, the cover slots' 10 MB cap, then write. */
+  const put = async (rel, buf, w, h) => {
+    const meta = await sharp(buf).metadata()
+    if (meta.width !== w || meta.height !== h) throw new Error(`${rel}: ${meta.width}x${meta.height}, want ${w}x${h}`)
+    if (buf.length > 10 * 1024 * 1024) throw new Error(`${rel}: ${kb(buf)}; a cover slot takes at most 10 MB`)
+    writeFileSync(join(OUT, rel), buf)
+    console.log(`${rel}: ${w}x${h}, ${kb(buf)}`)
+  }
+  const rendered = async (name, buf) => {
+    const m = await colourReport(buf)
+    if (m.amber < 0.003) throw new Error(`${name}: no amber plasma in the frame (${(m.amber * 100).toFixed(2)}%): Flux and his charge did not render`)
+    return buf
+  }
+
+  // The three cover slots: no logo and no text. YouTube Playables forbids
+  // branding in a thumbnail, and we cannot tell which slot Playgama forwards.
+  // The square is the Poki close-up (the catalog shows it ~218 px wide); the
+  // landscape and portrait are compositions that fill the frame.
+  const square = await rendered('square', await down(await shoot('sector', 400, 400), 800))
+  await put('covers/square-800x800.png', square, 800, 800)
+  const landscape = await rendered('landscape', await down(await shoot('land', 960, 540), 1920, 1080))
+  await put('covers/landscape-1920x1080.png', landscape, 1920, 1080)
+  const portrait = await rendered('portrait', await down(await shoot('port', 540, 960), 1080, 1920))
+  await put('covers/portrait-1080x1920.png', portrait, 1080, 1920)
+
+  // The logo versions (covers-logo/, for other portals) and the Wrap images:
+  // one `wide` render feeds the logo landscape, the Wrap hero (without the
+  // logo: the site sets the title as its heading) and the share image
+  const wide = await shoot('wide', 960, 540)
+  const hero = await rendered('wide', await down(wide, 1920, 1080))
+  await put('wrap/hero-1920x1080.png', hero, 1920, 1080)
+  await put('covers-logo/landscape-1920x1080.png', await withLockup(hero, 576, 72, 110), 1920, 1080)
+  // Share: the same frame cut to the 1.91:1 of link previews, at least 1280 wide
+  const cutH = Math.round((3840 * 670) / 1280)
+  const shareBase = await png9(sharp(wide).extract({ left: 0, top: Math.round((2160 - cutH) / 2), width: 3840, height: cutH })
+    .resize(1280, 670, { kernel: 'lanczos3' }))
+  const share = await withLockup(shareBase, 352, 48, 86)
+  await put('wrap/share-1280x670.png', share, 1280, 670)
+  const shareJpg = await bestJpeg(share)
+  if (shareJpg) {
+    writeFileSync(join(OUT, 'wrap', 'share-1280x670.jpg'), shareJpg.jpg)
+    console.log(`wrap/share-1280x670.jpg: ${kb(shareJpg.jpg)} (q${shareJpg.q}, SSIM ${shareJpg.ssim.toFixed(4)})`)
+  }
+
+  // The logo portrait: Flux head to boots, the lockup over the top third
+  const tall = await rendered('tall', await down(await shoot('tall', 540, 960), 1080, 1920))
+  await put('covers-logo/portrait-1080x1920.png', await withLockup(tall, 600, 240, 100), 1080, 1920)
+
+  // Icon (Wrap: the site's icon, favicon and PWA icon)
+  const icon = await renderIcon(1024)
+  await put('wrap/icon-1024.png', await png9(sharp(icon.square)), 1024, 1024)
+  await put('wrap/icon-1024-rounded.png', await png9(sharp(icon.rounded)), 1024, 1024)
+
+  // The three upload covers (and the share image and icon) at catalog size,
+  // side by side, to check they read small
+  const small = [
+    ['square-218.png', square, 218, 218], ['landscape-448x252.png', landscape, 448, 252],
+    ['portrait-216x384.png', portrait, 216, 384], ['share-448x234.png', share, 448, 234], ['icon-64.png', icon.square, 64, 64]
+  ]
+  for (const [name, buf, w, h] of small) writeFileSync(join(OUT, 'previews', name), await down(buf, w, h))
+  await previewSheet()
+}
+
+// The preview sheet: the catalog-size previews in the top row, then the Wrap
+// gameplay screenshots (wrap/screens/*.png) three to a row at the landscape
+// preview size. The screenshots are captured from real gameplay, not by this
+// script; `--set playgama --sheet` rebuilds just the sheet (no server, no
+// browser) after they change.
+const PREVIEWS = [['square-218.png', 218, 218], ['landscape-448x252.png', 448, 252],
+  ['portrait-216x384.png', 216, 384], ['share-448x234.png', 448, 234], ['icon-64.png', 64, 64]]
+const previewSheet = async () => {
+  const tiles = []
+  let x = 12
+  for (const [name, w] of PREVIEWS) {
+    tiles.push({ input: readFileSync(join(OUT, 'previews', name)), left: x, top: 12 })
+    x += w + 12
+  }
+  let y = 384 + 24
+  const dir = join(OUT, 'wrap', 'screens')
+  const shots = existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.png')).sort() : []
+  for (const [i, f] of shots.entries()) {
+    const buf = readFileSync(join(dir, f))
+    const meta = await sharp(buf).metadata()
+    if (meta.width !== 1920 || meta.height !== 1080) throw new Error(`wrap/screens/${f}: ${meta.width}x${meta.height}, want 1920x1080`)
+    if (buf.length > 10 * 1024 * 1024) throw new Error(`wrap/screens/${f}: ${kb(buf)}, over 10 MB`)
+    tiles.push({ input: await down(buf, 448, 252), left: 12 + (i % 3) * (448 + 12), top: y + Math.floor(i / 3) * (252 + 12) })
+  }
+  if (shots.length) y += Math.ceil(shots.length / 3) * (252 + 12)
+  else console.log('previews/sheet.png: no wrap/screens/*.png yet')
+  await sharp({ create: { width: Math.max(x, 12 + 3 * (448 + 12)), height: y, channels: 3, background: '#f2f4f8' } })
+    .composite(tiles).png().toFile(join(OUT, 'previews', 'sheet.png'))
+  console.log(`previews/sheet.png: the previews + ${shots.length} gameplay screenshots`)
+}
+
+try {
+  if (SET === 'poki') await runPoki()
+  else if (SHEET_ONLY) await previewSheet()
+  else await runPlaygama()
 } finally {
   stopServer()
 }

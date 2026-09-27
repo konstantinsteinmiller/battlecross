@@ -15,9 +15,12 @@ import { LANGUAGES } from '@/utils/enums'
 import { initAds } from '@/use/useAds'
 import { installGamePauseAudio } from '@/use/useGamePauseAudio'
 import { onPauseChange } from '@/use/useGamePause'
-import useUser, { isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
+import useUser, { clearLanguageChoice, isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
+import { followPortalLanguage, notePortalLanguageChange } from '@/i18n/portalLanguage'
+import { PLURAL_RULES } from '@/i18n/plural'
 import { isDebug } from '@/use/useMatch.ts'
 import { hasState, reloadGameState, flushPersist, STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
+import { LEGACY_KEYS } from '@/legacyKeys'
 import { LANGUAGE_KEY } from '@/keys'
 import { setSdkNameSource } from '@/use/usePlayerIdentity'
 import { SaveManager } from '@/utils/save/SaveManager'
@@ -86,7 +89,14 @@ const bootstrap = async () => {
   // builds — Yandex's moderator rejects any non-Yandex hostname as
   // "Service storage URL detected". On every other build the IIFE runs
   // normally and the diagnostic fires if a CG portal hosts a non-CG build.
-  if (import.meta.env.VITE_APP_YANDEX !== 'true') {
+  //
+  // Not on Playgama either: that archive is also the YouTube Playables
+  // submission and must carry the Playgama plugin path and nothing else — its
+  // release gate (`tools/playgama-release/gates.mjs`) refuses another portal's
+  // host, flag or build script named anywhere in the game's own code, and this
+  // diagnostic names all three. A Playgama archive can never be served by
+  // CrazyGames anyway: it is uploaded to developer.playgama.com.
+  if (import.meta.env.VITE_APP_YANDEX !== 'true' && import.meta.env.VITE_APP_PLAYGAMA !== 'true') {
     const looksLikeCrazyGamesPortal = (): boolean => {
       try {
         const ref = document.referrer
@@ -228,7 +238,8 @@ const bootstrap = async () => {
 
   // CrazyGames cloud-only mode: gameplay state and our save bookkeeping
   // (`__save_*`) live in memory only; `sdk.data` is the sole persistence
-  // backend. CG QA explicitly requires that no `mega_adventure_state` / `ma_*` /
+  // backend. CG QA explicitly requires that no state blob (`mega_droid_state`,
+  // or its pre-rename name `LEGACY_KEYS.STATE`) / `ma_*` /
   // `__save_*` keys appear in raw localStorage — only dev toggles
   // (`fps`, `debug`, `cheat`, `campaign-test`, `full_unlocked`) are
   // exempt. Inline env-literal so Vite tree-shakes the dead branch on
@@ -245,10 +256,14 @@ const bootstrap = async () => {
     // matter the hydrate timing.
   ;(window as any).__saveManager = saveManager
 
-  // Defense-in-depth `mega_adventure_state` / `ma_*` / `__save_*` safety remove on
+  // Defense-in-depth state-blob / `ma_*` / `__save_*` safety remove on
   // CG builds. BlobStorage's `scrubRawForCloudOnly()` already wiped these
   // at construction (it seeded into `state` first, so progress is
-  // preserved); this second pass catches anything BlobStorage missed.
+  // preserved); this second pass catches anything BlobStorage missed. The
+  // blob is removed under BOTH names: a pre-rename entry was already moved
+  // onto STATE_KEY (and so seeded) by the migration in `useGameState` /
+  // `SaveManager`, so a legacy copy still here is a stray — on CrazyGames
+  // `sdk.data`, not raw storage, is where the save lives.
   // MUST run BEFORE `saveManager.init()` because init patches
   // `localStorage.setItem` / `removeItem` to forward to the strategy —
   // calling the patched removeItem on a `ma_*` key would issue a
@@ -260,7 +275,7 @@ const bootstrap = async () => {
       const stragglers: string[] = []
       for (let i = 0; i < window.localStorage.length; i++) {
         const k = window.localStorage.key(i)
-        if (k && (k === STATE_KEY || k.startsWith(STATE_FIELD_PREFIX) || k.startsWith('__save_'))) {
+        if (k && (k === STATE_KEY || k === LEGACY_KEYS.STATE || k.startsWith(STATE_FIELD_PREFIX) || k.startsWith('__save_'))) {
           stragglers.push(k)
         }
       }
@@ -399,13 +414,25 @@ const bootstrap = async () => {
   const portalLocaleHint = cgLocale ?? yaLocale ?? pkLocale ?? pgLocale
   const portalLocale = portalLocaleHint && LANGUAGES.includes(portalLocaleHint) ? portalLocaleHint : null
 
+  // PLAYGAMA: the stored in-game choice wins while the portal language is
+  // steady, and a portal language that CHANGED since this device last saw it
+  // clears that choice (`src/i18n/portalLanguage.ts`). Settled HERE, before the
+  // i18n instance exists, so the first paint is already in the right language:
+  // no flash of the portal language over a player's choice, and no race between
+  // two locale loads. The portal value itself is never persisted.
+  let bootLocaleHint = portalLocale
+  if (import.meta.env.VITE_APP_PLAYGAMA === 'true') {
+    if (pgLocale && notePortalLanguageChange(pgLocale) && hasState(LANGUAGE_KEY)) clearLanguageChoice(pgLocale)
+    if (hasState(LANGUAGE_KEY)) bootLocaleHint = null
+  }
+
   const { default: App } = await import('@/App.vue')
 
   // Resolve and LOAD just the initial locale bundle before creating the
   // i18n instance. The English fallback is loaded in parallel so missing
   // keys are never undefined while the active locale's chunk is still
   // in flight. If the initial locale IS English we only fetch once.
-  const initial = resolveInitialLocale(portalLocale)
+  const initial = resolveInitialLocale(bootLocaleHint)
   const needsFallback = initial !== 'en'
   const [initialMsgs, fallbackMsgs] = await Promise.all([
     loadLocaleMessages(initial).catch(() => ({})),
@@ -419,7 +446,9 @@ const bootstrap = async () => {
       ? { [initial]: initialMsgs, en: fallbackMsgs ?? {} }
       : { en: initialMsgs },
     missingWarn: false,
-    fallbackWarn: false
+    fallbackWarn: false,
+    // Three forms for ru/uk/pl, six for ar (`i18n/plural.ts`).
+    pluralRules: PLURAL_RULES
   })
 
   // Mirror the active locale onto <html lang>: screen readers and `:lang()`
@@ -503,13 +532,20 @@ const bootstrap = async () => {
   // So here the portal language is APPLIED and never stored, and only while
   // the player has made no choice of their own. It follows mid-session changes
   // too (the plugin polls `platform.language`), because Playgama's QA Tool
-  // switches language without reloading the frame.
+  // switches language without reloading the frame — and a portal language that
+  // CHANGED outranks an in-game choice made before it (`followPortalLanguage`:
+  // QA's localization flow picks a language in-game first, then switches the
+  // platform's).
   if (import.meta.env.VITE_APP_PLAYGAMA === 'true') {
+    // (A switch between two visits was settled before the i18n instance was
+    // built — see `notePortalLanguageChange` above — so this only has to follow
+    // the language live: a late first answer, and the QA Tool's switches.)
     const { playgamaLocale } = await import('@/utils/playgamaPlugin')
-    watch(playgamaLocale, (code) => {
-      if (!code || hasState(LANGUAGE_KEY) || !isSupportedLocale(code)) return
-      void setI18nLocale(i18n, code)
-    })
+    watch(playgamaLocale, (code) => followPortalLanguage(code, {
+      hasChoice: () => hasState(LANGUAGE_KEY),
+      clearChoice: clearLanguageChoice,
+      apply: (c) => { void setI18nLocale(i18n, c) }
+    }))
   }
 
   // Expose the instance globally so composables / skills that want to

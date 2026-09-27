@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 // ─── FMuteButton (toggleMute) — "can't unmute on CG" regression ─────────────
 //
@@ -16,10 +17,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const SOUND_KEY = 'ma_user_sound_volume'
 const MUSIC_KEY = 'ma_user_music_volume'
 
-beforeEach(() => {
+// Every case writes volumes through useGameState's debounced save. Hold the
+// fresh instance up front (each case loads this same one) so afterEach flushes
+// it before the next case's storage exists — see tests/stubs/drainPersist.ts.
+beforeEach(async () => {
   localStorage.clear()
-  vi.resetModules()
+  drainAndResetModules()
+  await holdGameState()
 })
+
+afterEach(drainPersist)
 
 describe('useCrazyMuteSync.toggleMute', () => {
   it('unmutes a game that booted muted with NO snapshot (the reported CG bug)', async () => {

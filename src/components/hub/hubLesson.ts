@@ -1,14 +1,16 @@
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { profile, saveProfile, equipped, markTip } from '@/game/state/profile'
 import { upgradeCost } from '@/game/data/items'
+import { isUnlocked, unlockCount, type HubTab } from './hubUnlocks'
 
 /**
- * ─── The upgrade tour (first return to the lab) ──────────────────────────────
+ * ─── The upgrade tour (the Workshop's first visit) ───────────────────────────
  *
- * The hub has four tabs and a Workshop full of rows, prices and stats — too
- * much to take in at once for a player back from their first mission. So the
- * first time they come home, a guide walks them through the one loop that
- * matters: bolts in, gear up.
+ * The Workshop is full of rows, prices and stats — too much to take in at
+ * once. So the first time the player comes home with the Workshop open (it
+ * unlocks after two finished missions, `hubUnlocks.ts`), a guide walks them
+ * through the one loop that matters: bolts in, gear up. It never runs while
+ * the Workshop is locked.
  *
  *   workshop       → tap the Workshop tab
  *   upgradeBuster  → upgrade the buster (weapon: damage)
@@ -25,15 +27,26 @@ import { upgradeCost } from '@/game/data/items'
  * skips it, and a close button ends it any time.
  */
 
-export type HubTab = 'missions' | 'hero' | 'circuits' | 'workshop'
+export type { HubTab }
 export type HubStep = 'workshop' | 'upgradeBuster' | 'pickArmor' | 'upgradeArmor' | 'deploy'
 
 export const HUB_STEPS: HubStep[] = ['workshop', 'upgradeBuster', 'pickArmor', 'upgradeArmor', 'deploy']
 const DONE_KEY = 'lesson:upgrade'
 const GRANT_KEY = 'lesson:upgradeGrant'
 
-/** The hub's open tab (HubScreen binds it; the tour reads it). */
-export const hubTab = ref<HubTab>('missions')
+/** A tab the player may open now (Missions and Flux always). */
+export const tabOpen = (id: HubTab): boolean => isUnlocked(id, unlockCount(profile))
+
+const openTab = ref<HubTab>('missions')
+/**
+ * The hub's open tab (HubScreen binds it; the tour reads it). A locked tab can
+ * never be open, whoever sets it: the write is ignored, and a tab that locks
+ * under an open panel (a cloud save loaded on top) reads as Missions.
+ */
+export const hubTab = computed<HubTab>({
+  get: () => (tabOpen(openTab.value) ? openTab.value : 'missions'),
+  set: (id) => { if (tabOpen(id)) openTab.value = id }
+})
 /** The Workshop's selected item id (WorkshopTab binds it). */
 export const workshopSel = ref<string | null>(null)
 
@@ -46,10 +59,11 @@ export const hubLesson = reactive({
   granted: 0
 })
 
-/** The first return to the lab, for a player who never upgraded anything. */
+/** The first lab visit with the Workshop open, for a player who never
+ *  upgraded anything. */
 export const wantsHubLesson = (): boolean => {
   if (profile.tips[DONE_KEY]) return false
-  if (profile.stats.missions < 1) return false
+  if (!tabOpen('workshop')) return false
   if (profile.inv.items.some(it => it.upg > 0)) {
     // Already found the Workshop on their own: nothing to teach.
     markTip(DONE_KEY)
@@ -63,7 +77,7 @@ export const wantsHubLesson = (): boolean => {
 export const startHubLesson = (): void => {
   const b = equipped('buster')
   const c = equipped('chest')
-  if (!b || !c) return
+  if (!b || !c || !tabOpen('workshop')) return
   hubLesson.busterBase = b.upg
   hubLesson.armorBase = c.upg
   if (!profile.tips[GRANT_KEY]) {

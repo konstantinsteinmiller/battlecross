@@ -1,13 +1,20 @@
 import { Group } from 'three'
-import type { Enemy, World } from './world'
+import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
 import { hasLineOfSight, findPath, moveCircle, resolveCircle, smoothPath } from '../world/nav'
-import { PLAYER_R } from './constants'
+import { PLAYER_R, EYE_H } from './constants'
+import { CHARGE_L2 } from './stats'
+import { pushHud } from '../state/hud'
+import type { Theme } from '../world/themes'
+import {
+  newMotion, rand, swingA, cycleLen, hopSquash, GAIT, BOSS_GAIT, FIDGET_LEN, BOSS_FIDGET_LEN, TAU, HOP_H, ROLLER_R,
+  type GaitSpec
+} from '../models/motion'
 
 /**
  * ─── Enemy AI ────────────────────────────────────────────────────────────────
@@ -34,32 +41,71 @@ const ELEMENT_TINT: Record<Exclude<Element, 'none' | 'wind'>, Partial<EnemyColor
 
 export const colorsFor = (kind: EnemyKind, element: Element, elite: boolean): EnemyColors => {
   const base = { ...BASE_COLORS[kind] }
-  if (element !== 'none' && element !== 'wind') Object.assign(base, ELEMENT_TINT[element])
+  // A golem's colours are its sector's crate (golemColors): an element tint
+  // would repaint the disguise
+  if (element !== 'none' && element !== 'wind' && kind !== 'golem') Object.assign(base, ELEMENT_TINT[element])
   if (elite) base.accent = '#ffd84a'
   return base
 }
 
-export const createEnemy = (kind: EnemyKind, level: number, x: number, z: number, room: number, opts: { elite?: boolean; element?: Element } = {}): Enemy => {
-  const def = ENEMIES[kind]
+/**
+ * A crate golem in its sector's crate: the wood, trim and glowing nubs of
+ * `buildCrate(theme)` exactly, stone limbs, iron bands (an elite's gold — on
+ * the limbs only, so an elite sleeps looking like any other crate).
+ */
+export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>, elite = false): EnemyColors => ({
+  ...BASE_COLORS.golem,
+  main: theme.crate,
+  deep: theme.crateTrim,
+  eye: theme.accent,
+  accent: elite ? '#ffd84a' : BASE_COLORS.golem.accent
+})
+
+/**
+ * PENDING USER DECISION (c): the guard an UNAWARE trooper stands with. 1 (as
+ * today) = its shield is already up, so a first shot at a sleeping trooper
+ * TINKs off. 0 = relaxed at rest: the shield hangs at its side AND first
+ * shots land (the view draws `e.guard`, `combat.ts` tests it); engage raises
+ * it at 4/s as ever. This one number is the whole switch.
+ */
+export const UNAWARE_TROOPER_GUARD = 1
+
+export const createEnemy = (
+  kind: EnemyKind, level: number, x: number, z: number, room: number,
+  opts: { elite?: boolean; element?: Element; theme?: Pick<Theme, 'crate' | 'crateTrim' | 'accent'> } = {}
+): Enemy => {
+  const golem = kind === 'golem'
+  // A golem's own copy: its hit volume shrinks to a crate's while it sleeps
+  const def = golem ? { ...ENEMIES.golem, aimY: GOLEM_SLEEP_AIM, hitR: GOLEM_SLEEP_HIT } : ENEMIES[kind]
   const elite = !!opts.elite
-  const element = opts.element ?? 'none'
-  const rig = buildEnemyRig(kind, colorsFor(kind, element, elite))
+  const element = golem ? 'none' : opts.element ?? 'none'
+  const rig = buildEnemyRig(kind, golem && opts.theme ? golemColors(opts.theme, elite) : colorsFor(kind, element, elite))
   const root = new Group()
   root.add(rig.root)
   const scale = elite ? 1.18 : 1
-  rig.root.scale.setScalar(scale)
+  // An elite golem sleeps crate-sized and grows as it unfolds (syncEnemyVisual)
+  rig.root.scale.setScalar(golem ? 1 : scale)
   const hp = Math.round(scaleHp(def.hp, level) * (elite ? 2.5 : 1))
+  const id = nextId++
   const e: Enemy = {
-    id: nextId++, kind, def, level, elite, boss: false, element,
+    id, kind, def, level, elite, boss: false, element,
     nameKey: `enemy.${kind}`,
     x, z, y: def.fly, px: x, pz: z, py: def.fly, yaw: Math.random() * Math.PI * 2, vx: 0, vz: 0,
     hp, maxHp: hp, dmg: Math.round(scaleDmg(def.dmg, level) * (elite ? 1.3 : 1)),
     room, awake: false, state: 'idle', st: 0, cd: 0.6 + Math.random() * 1.2, attack: '', step: 0,
-    teleDur: def.tele, teleRed: def.unblockable, guard: kind === 'hardhat' || kind === 'trooper' ? 1 : 0, aim: 0,
-    stunT: 0, flash: 0, path: null, pathT: 0, walk: 0, anim: Math.random() * 10, a: 0, b: 0,
+    teleDur: def.tele, teleRed: def.unblockable, guard: kind === 'hardhat' ? 1 : kind === 'trooper' ? UNAWARE_TROOPER_GUARD : 0, aim: 0,
+    stunT: 0, flash: 0, path: null, pathT: 0, walk: 0, anim: Math.random() * 10, mo: newMotion(id, kind), a: 0, b: 0,
     tx: 0, tz: 0, sx: 0, sz: 0, hitPlayer: false,
     rig, root, shadow: makeBlobShadow(def.radius * 1.1 * scale), ring: makeTeleRing(), deathT: 0,
     guardBreakT: 0, hurtAt: -10, bossId: null, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: ''
+  }
+  if (golem) {
+    // Asleep as a crate; `hold` keeps gunfire from waking it (mission.makeNoise)
+    // and puts it last on the objective trail, like a lesson's sleeping drone
+    e.dormant = true
+    e.hold = true
+    const c = golemColors(opts.theme ?? { crate: BASE_COLORS.golem.main, crateTrim: BASE_COLORS.golem.deep, accent: BASE_COLORS.golem.eye })
+    e.golem = { wood: c.main, trim: c.deep, navIdx: -1, unfold: 0, dodgeCd: 0, throws: 0, side: id % 2 ? 1 : -1, hopSide: 1, aimT: 0 }
   }
   return e
 }
@@ -122,7 +168,6 @@ const seek = (w: World, e: Enemy, tx: number, tz: number, speed: number, dt: num
   if (d < 0.05) return
   const sp = Math.min(speed, d / dt)
   step(w, e, (dx / d) * sp * dt, (dz / d) * sp * dt)
-  e.walk = Math.min(1, e.walk + dt * 4)
 }
 
 /** Hold the preferred distance band; strafe a little inside it. */
@@ -136,13 +181,11 @@ const keepRange = (w: World, e: Enemy, dt: number, strafe = 0.6): void => {
     const dx = (e.x - w.player.x) / (d || 1)
     const dz = (e.z - w.player.z) / (d || 1)
     step(w, e, dx * sp * 0.8 * dt, dz * sp * 0.8 * dt)
-    e.walk = Math.min(1, e.walk + dt * 4)
   } else if (strafe > 0) {
     const s = Math.sin(w.time * 0.9 + e.id * 1.7)
     const dx = (e.z - w.player.z) / (d || 1)
     const dz = -(e.x - w.player.x) / (d || 1)
     step(w, e, dx * s * sp * strafe * dt, dz * s * sp * strafe * dt)
-    e.walk = Math.min(1, e.walk + dt * 2 * Math.abs(s))
   }
 }
 
@@ -189,16 +232,17 @@ const startTele = (e: Enemy, attack: string, dur: number, red: boolean): void =>
   enterState(e, 'tele')
 }
 
-/** Wake an enemy (and, a beat later, its room-mates). */
+/** Wake an enemy (and, a beat later, its room-mates). A machine asleep in
+ *  disguise sleeps through all of it: only a hit wakes it (`wakeGolem`). */
 export const wake = (w: World, e: Enemy, chain = true): void => {
-  if (e.awake || e.state === 'dead' || e.offstage) return
+  if (e.awake || e.state === 'dead' || e.offstage || e.dormant) return
   e.awake = true
   e.hold = false
   enterState(e, 'alert')
   e.cd = Math.max(e.cd, 0.8 + Math.random() * 0.6)
   if (chain) {
     for (const o of w.enemies) {
-      if (o !== e && !o.awake && o.room === e.room && o.state !== 'dead' && !o.offstage) {
+      if (o !== e && !o.awake && o.room === e.room && o.state !== 'dead' && !o.offstage && !o.dormant) {
         o.awake = true
         enterState(o, 'alert')
         o.st = -0.15 - Math.random() * 0.35
@@ -209,25 +253,323 @@ export const wake = (w: World, e: Enemy, chain = true): void => {
   w.sfx('alert', e.x, e.z)
 }
 
+// ─── Crate golem ──────────────────────────────────────────────────────────────
+//
+// Asleep it is a supply crate against a wall: solid like one, silent, never
+// noticed or locked on to, and no hit hurts it — the first one (a pellet, a
+// charge, a copied weapon, a blast) only wakes it, with a TINK. It unfolds
+// (GOLEM_UNFOLD, still untouchable), then keeps 6–12 m from Flux, backing off
+// faster than it closes, and throws rocks it pulls out of itself: two quick
+// throws (orange: block, parry them back), then a boulder lobbed at where he
+// stands (red, a floor marker: step out). A charged shot it can see coming,
+// fired from beyond GOLEM_DODGE_MIN, it hops out of the way of — sideways off
+// the shot's line, its preferred side alternating so the hop can be read, with
+// a cooldown (the moment to fire the second charge), never while it winds up
+// a throw (committed), and never when walls leave it no room. Pellets it
+// ignores. So the answer is to get close — or corner it, or bait the hop.
+
+/** The unfold, crate to golem (s); it takes no damage until it is done. */
+export const GOLEM_UNFOLD = 0.8
+/** Flux nearer than this (m): a charged shot arrives before it can react. */
+export const GOLEM_DODGE_MIN = 5
+/** Seconds between hops, [min, max]: long enough to punish, short enough to matter. */
+export const GOLEM_DODGE_CD: readonly [number, number] = [1.2, 1.6]
+/** The hop: duration (s), sideways reach (m), height (m). */
+export const GOLEM_DODGE_T = 0.34
+export const GOLEM_DODGE_DIST = 2.6
+const GOLEM_HOP_H = 0.45
+/** It notices a shot whose closest pass is this near in time (s). */
+const GOLEM_SEE_T = 0.8
+/** Asleep, its hit volume is the crate's (awake: ENEMIES.golem). */
+export const GOLEM_SLEEP_AIM = 0.6
+export const GOLEM_SLEEP_HIT = 0.72
+/** Its crate's solid on the nav while asleep (objectives.ts gives crates 0.62). */
+const GOLEM_PROP_R = 0.62
+/** Rocks fall at this (m/s²) — combat.ts flies them on it too. */
+export const ROCK_G = 10
+/** The thrown rock's ground speed (m/s): a readable arc, not a bullet. */
+const GOLEM_THROW_SPEED = 13
+/** The boulder lob: wind-up (s, red ring) and flight (s). */
+const GOLEM_LOB_TELE = 1.0
+const GOLEM_LOB_DUR = 1.15
+/** Where the rock leaves the fist (golem-local, rig units): the fist at the
+ *  top of the wind-up (models/enemies.ts GOLEM_WOUND), high beside the lid. */
+const GOLEM_RELEASE = { x: 0.85, y: 1.8, z: -0.2 } as const
+
+export interface GolemState {
+  /** Its crate's wood and trim (its debris and death burst). */
+  wood: string
+  trim: string
+  /** Its crate-sized solid in `nav.props` while asleep; −1 until placed. */
+  navIdx: number
+  /** 0 asleep … 1 unfolded, on its own clock from the wake (a stun mid-unfold
+   *  does not stall it). Below 1 no hit hurts it. */
+  unfold: number
+  /** Seconds until it can hop again. */
+  dodgeCd: number
+  /** Throws since its last lob: two throws, then the boulder. */
+  throws: number
+  /** The side its next hop prefers (they alternate). */
+  side: 1 | -1
+  /** The side of the hop under way (the lean). */
+  hopSide: 1 | -1
+  /** Seconds a full charge has been held on it from out of reach (the brace). */
+  aimT: number
+}
+
+/** No damage lands: still asleep, or still unfolding. */
+export const golemShielded = (e: Enemy): boolean => !!e.golem && (!!e.dormant || e.golem.unfold < 1)
+
+/** The first hit on a sleeping golem: it wakes (no damage — see combat.ts). */
+export const wakeGolem = (w: World, e: Enemy): void => {
+  const g = e.golem
+  if (!g || !e.dormant || e.state === 'dead') return
+  e.dormant = false
+  // Its crate's solid goes: it is a body now (separate() takes over)
+  const prop = g.navIdx >= 0 ? w.nav.props[g.navIdx] : undefined
+  if (prop) prop.active = false
+  wake(w, e)
+  // Its first throw waits for the unfold and a beat to look at you
+  e.cd = Math.max(e.cd, GOLEM_UNFOLD + 0.5 + Math.random() * 0.4)
+  // A puff of dust off the floor all round, and the grind of opening up
+  const fy = e.floor ?? 0
+  for (let k = 0; k < 12; k++) {
+    const a = (k / 12) * Math.PI * 2
+    w.fx.emit({
+      x: e.x + Math.cos(a) * 0.55, y: fy + 0.1, z: e.z + Math.sin(a) * 0.55,
+      vx: Math.cos(a) * 2.4, vy: 0.5 + Math.random() * 0.6, vz: Math.sin(a) * 2.4,
+      color: '#a8987f', size: 0.5, sizeEnd: 1.25, life: 0.6, drag: 3
+    })
+  }
+  w.sfx('door', e.x, e.z)
+}
+
+/** Asleep: a crate stands still. Whatever tried to move it (a revive's
+ *  shove-back, a freeze) is undone, and it is solid like the crate it is. */
+const golemSleep = (w: World, e: Enemy): void => {
+  const g = e.golem!
+  e.state = 'idle'
+  e.st = 0
+  e.stunT = 0
+  e.frozenT = 0
+  e.burnT = 0
+  e.y = 0
+  e.ring.visible = false
+  if (g.navIdx < 0) {
+    g.navIdx = w.nav.props.length
+    w.nav.props.push({ x: e.x, z: e.z, r: GOLEM_PROP_R, active: true })
+  }
+}
+
+const isChargeShot = (s: Shot): boolean => s.kind === 'charge1' || s.kind === 'charge2' || s.kind === 'charge3'
+
+/**
+ * A charged shot on a collision course, soon enough to matter: its closest
+ * pass (in plan) comes within GOLEM_SEE_T and within its body plus the shot's
+ * size — or it homes on this golem, which is a collision course by definition.
+ */
+export const shotThreatens = (e: Enemy, s: Shot): boolean => {
+  const rx = e.x - s.x
+  const rz = e.z - s.z
+  const vv = s.vx * s.vx + s.vz * s.vz
+  if (vv < 1e-6) return false
+  const tca = (rx * s.vx + rz * s.vz) / vv
+  if (tca < 0 || tca > GOLEM_SEE_T) return false
+  if (s.homing === e) return true
+  const cx = rx - s.vx * tca
+  const cz = rz - s.vz * tca
+  const rr = e.def.hitR * (e.elite ? 1.18 : 1) + s.radius + 0.35
+  return cx * cx + cz * cz < rr * rr
+}
+
+const _probe: [number, number] = [0, 0]
+/** How much of a hop along (dx, dz) the walls and props allow (0..1). */
+const hopRoom = (w: World, e: Enemy, dx: number, dz: number): number => {
+  moveCircle(w.nav, e.x, e.z, dx * GOLEM_DODGE_DIST, dz * GOLEM_DODGE_DIST, e.def.radius, _probe)
+  return Math.hypot(_probe[0] - e.x, _probe[1] - e.z) / GOLEM_DODGE_DIST
+}
+
+/** Hop out of a charged shot's line, if one is coming and there is room. */
+const golemTryDodge = (w: World, e: Enemy, d: number): boolean => {
+  const g = e.golem!
+  const shots = w.shots
+  if (!shots || g.dodgeCd > 0 || g.unfold < 1 || d <= GOLEM_DODGE_MIN) return false
+  let threat: Shot | null = null
+  for (let i = 0; i < shots.length; i++) {
+    const s = shots[i]!
+    if (s.active && s.owner === 'player' && isChargeShot(s) && shotThreatens(e, s)) { threat = s; break }
+  }
+  if (!threat) return false
+  const l = Math.hypot(threat.vx, threat.vz) || 1
+  // Off the line, square to it: the preferred side first, the other if walled in
+  const nx = -threat.vz / l
+  const nz = threat.vx / l
+  let side = g.side
+  let room = hopRoom(w, e, nx * side, nz * side)
+  if (room < 0.6) {
+    const other = hopRoom(w, e, -nx * side, -nz * side)
+    if (other > room) {
+      side = side === 1 ? -1 : 1
+      room = other
+    }
+  }
+  // Cornered: no room to hop, so the shot lands
+  if (room < 0.5) return false
+  e.sx = e.x
+  e.sz = e.z
+  e.tx = e.x + nx * side * GOLEM_DODGE_DIST * room
+  e.tz = e.z + nz * side * GOLEM_DODGE_DIST * room
+  g.hopSide = side
+  g.side = side === 1 ? -1 : 1
+  g.dodgeCd = GOLEM_DODGE_CD[0] + Math.random() * (GOLEM_DODGE_CD[1] - GOLEM_DODGE_CD[0])
+  // It slips the lock: every charge homing on it flies on where it was going
+  for (let i = 0; i < shots.length; i++) {
+    const s = shots[i]!
+    if (s.active && s.homing === e) s.homing = null
+  }
+  e.attack = 'dodge'
+  enterState(e, 'act')
+  e.ring.visible = false
+  const fy = e.floor ?? 0
+  for (let k = 0; k < 8; k++) {
+    w.fx.emit({
+      x: e.x + (Math.random() - 0.5) * 0.9, y: fy + 0.12, z: e.z + (Math.random() - 0.5) * 0.9,
+      vx: -nx * side * (1 + Math.random() * 2), vy: 0.6 + Math.random(), vz: -nz * side * (1 + Math.random() * 2),
+      color: '#a8987f', size: 0.45, sizeEnd: 1.1, life: 0.45, drag: 3
+    })
+  }
+  pushHud({ t: 'text', x: e.x, y: fy + e.y + 2.1, z: e.z, key: 'combat.dodge', color: '#e8dcc4' })
+  w.sfx('dash', e.x, e.z)
+  w.sfx('jump', e.x, e.z)
+  return true
+}
+
+/** One tick of the hop: most of the distance early (so it really clears the
+ *  line), an arc in the air, dust where it lands. */
+const golemHop = (w: World, e: Enemy, dt: number): void => {
+  const k = Math.min(1, e.st / GOLEM_DODGE_T)
+  const ease = 1 - (1 - k) * (1 - k)
+  step(w, e, e.sx + (e.tx - e.sx) * ease - e.x, e.sz + (e.tz - e.sz) * ease - e.z)
+  e.y = Math.sin(k * Math.PI) * GOLEM_HOP_H
+  faceTo(e, w.player.x, w.player.z, 6, dt)
+  if (k >= 1) {
+    e.y = 0
+    const fy = e.floor ?? 0
+    w.shocks.spawn(e.x, fy + 0.05, e.z, 1.4, '#c9b89a', 0.3)
+    w.fx.sparks(e.x, fy + 0.15, e.z, '#b3a386', 8, 3, 0.2)
+    w.sfx('punch', e.x, e.z)
+    enterState(e, 'recover')
+  }
+}
+
+/** The thrown rock: from the fist high over the lid, on an arc that meets
+ *  Flux's chest where he stands now (combat.ts flies it under ROCK_G). */
+const golemThrow = (w: World, e: Enemy): void => {
+  const sy = Math.sin(e.yaw)
+  const cy = Math.cos(e.yaw)
+  const sc = e.rig.root.scale.x
+  const R = GOLEM_RELEASE
+  const ox = e.x + (sy * R.z + cy * R.x) * sc
+  const oz = e.z + (cy * R.z - sy * R.x) * sc
+  // World heights: the climb's floors under it and under Flux (0 on a flat map)
+  const oy = (e.floor ?? 0) + e.y + R.y * sc
+  const tx = w.player.x
+  const tz = w.player.z
+  const T = Math.max(0.22, Math.hypot(tx - ox, tz - oz) / GOLEM_THROW_SPEED)
+  const vx = (tx - ox) / T
+  const vz = (tz - oz) / T
+  const vy = ((w.player.y ?? 0) + EYE_H - 0.45 - oy) / T + 0.5 * ROCK_G * T
+  w.fireEnemyShot(e, ox, oy, oz, vx, vy, vz, Math.hypot(vx, vy, vz), e.dmg, true)
+  w.sfx('lob', e.x, e.z)
+}
+
+/** Hold 6–12 m: close in when far or out of sight, back off (faster than it
+ *  closes, sliding along a wall it backs into), idle-strafe in the band. */
+const golemRange = (w: World, e: Enemy, dt: number, d: number): void => {
+  const [lo, hi] = e.def.range
+  const sp = e.def.speed
+  const px = w.player.x
+  const pz = w.player.z
+  if (d > hi || !seesPlayer(w, e)) {
+    seek(w, e, px, pz, sp, dt)
+  } else if (d < lo) {
+    const bx = (e.x - px) / (d || 1)
+    const bz = (e.z - pz) / (d || 1)
+    const k = sp * (d < lo - 2 ? 1.3 : 1.1) * dt
+    if (step(w, e, bx * k, bz * k) < 0.4) {
+      // Backed into a wall: slide along it, away from where Flux looks
+      const g = e.golem!
+      step(w, e, -bz * k * g.side, bx * k * g.side)
+    }
+  } else {
+    const s = Math.sin(w.time * 0.8 + e.id * 1.7)
+    step(w, e, ((e.z - pz) / d) * s * sp * 0.45 * dt, (-(e.x - px) / d) * s * sp * 0.45 * dt)
+  }
+}
+
+/** Is Flux holding a full charge on it from out of reach? */
+const fullChargeOn = (w: World, e: Enemy, d: number): boolean => {
+  const c = w.combat
+  if (!c?.charging || d <= GOLEM_DODGE_MIN) return false
+  if (c.charge < CHARGE_L2 * (w.stats?.chargeTimeMul ?? 1)) return false
+  const p = w.player
+  return Math.abs(angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw)) < 0.22
+}
+
+/** Every awake tick: the unfold and its beats, the hop cooldown, the brace
+ *  tell, its hit volume growing to its full size, and back to the floor after
+ *  a hop cut short (a stun in the air). */
+const golemTick = (w: World, e: Enemy, dt: number, d: number): void => {
+  const g = e.golem!
+  const was = g.unfold
+  g.unfold = Math.min(1, g.unfold + dt / GOLEM_UNFOLD)
+  const fy = e.floor ?? 0
+  if (was < 0.42 && g.unfold >= 0.42) {
+    // The legs slam down: the box jumps up on them
+    w.shocks.spawn(e.x, fy + 0.05, e.z, 1.6, '#c9b89a', 0.35)
+    w.fx.sparks(e.x, fy + 0.15, e.z, '#b3a386', 10, 3.5, 0.22)
+    w.sfx('stomp', e.x, e.z)
+    if (d < 9) w.shake(0.12)
+  } else if (was < 0.9 && g.unfold >= 0.9) {
+    // The fists clack together in front of it: ready
+    const sy = Math.sin(e.yaw)
+    const cy = Math.cos(e.yaw)
+    w.fx.sparks(e.x + sy * 0.6, fy + 1.2, e.z + cy * 0.6, '#fff1c8', 10, 4, 0.16)
+    w.sfx('punch', e.x, e.z)
+  }
+  const k = g.unfold
+  e.def.aimY = GOLEM_SLEEP_AIM + (ENEMIES.golem.aimY - GOLEM_SLEEP_AIM) * k
+  e.def.hitR = GOLEM_SLEEP_HIT + (ENEMIES.golem.hitR - GOLEM_SLEEP_HIT) * k
+  g.dodgeCd = Math.max(0, g.dodgeCd - dt)
+  g.aimT = fullChargeOn(w, e, d) ? g.aimT + dt : 0
+  if (!(e.state === 'act' && e.attack === 'dodge') && e.y > 0) e.y = Math.max(0, e.y - dt * 7)
+}
+
 // ─── Main update ─────────────────────────────────────────────────────────────
 
 export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
   e.px = e.x
   e.pz = e.z
   e.py = e.y
+  e.mo.pyaw = e.yaw
   e.st += dt
   e.anim += dt
   e.flash = Math.max(0, e.flash - dt * 8)
-  e.walk = Math.max(0, e.walk - dt * 2.5)
   e.guardBreakT = Math.max(0, e.guardBreakT - dt)
 
   if (e.state === 'dead') {
     e.deathT += dt
     return
   }
+  // Asleep as a crate: no perception, no motion, nothing to animate
+  if (e.dormant) {
+    golemSleep(w, e)
+    return
+  }
 
   const d = distToPlayer(w, e)
   const def = e.def
+  if (e.golem) golemTick(w, e, dt, d)
 
   switch (e.state) {
     case 'idle': {
@@ -236,8 +578,9 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
       break
     }
     case 'alert': {
-      faceTo(e, w.player.x, w.player.z, 7, dt)
-      if (e.st > 0.45) enterState(e, 'engage')
+      // A golem's alert is its unfold: it turns to look while it opens up
+      faceTo(e, w.player.x, w.player.z, e.golem ? 3 : 7, dt)
+      if (e.st > (e.golem ? GOLEM_UNFOLD : 0.45)) enterState(e, 'engage')
       break
     }
     case 'stun': {
@@ -255,6 +598,253 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
 
   if (e.state !== 'tele') e.ring.visible = false
   separate(w, e)
+  stepMotion(e, dt)
+}
+
+// ─── Motion channels (models/motion.ts), one tick ─────────────────────────────
+
+/** Below this share of top speed, a body is standing (separation jitter). */
+const WALK_DEAD = 0.05
+
+/** The legs a body walks on: a machine's by kind, a boss's by id (bosses
+ *  carry kind 'brute' but have their own proportions; Dr. Vex hovers). */
+const gaitOf = (e: Enemy): GaitSpec | undefined =>
+  e.boss ? (e.bossId ? BOSS_GAIT[e.bossId] : undefined) : GAIT[e.kind]
+
+/**
+ * Advance the animation channels one tick. Runs at the END of `updateEnemy`
+ * (and of `updateBoss`), after the AI moved and `separate` nudged the body, so
+ * `walk` and `stride` are what the body actually covered this tick — a strafe
+ * walks, a standing machine never does. Knockback lands later (combat), so a
+ * hit never plays as walking.
+ */
+export const stepMotion = (e: Enemy, dt: number): void => {
+  const m = e.mo
+  const def = e.def
+  const dx = e.x - e.px
+  const dz = e.z - e.pz
+  const ds = Math.hypot(dx, dz)
+  const sy = Math.sin(e.yaw)
+  const cy = Math.cos(e.yaw)
+  const fd = dx * sy + dz * cy
+  const sd = dx * cy - dz * sy
+  const dyaw = angDiff(e.yaw, m.pyaw)
+  const g = gaitOf(e)
+  // Gait and wheel sizes are in rig units; the rig is drawn scaled (an elite
+  // ×1.18, a Master ×1.35), so a metre on the floor is fewer rig units
+  const scale = e.rig.root.scale.x
+  // ── Locomotion, measured ──
+  const spd = dt > 1e-6 ? ds / dt : 0
+  // Turning on the spot shuffles the feet of a gaited kind (half weight)
+  const turnSpd = g && dt > 1e-6 ? (0.5 * Math.abs(dyaw) * g.hipW * scale) / dt : 0
+  const want = def.speed > 0 ? Math.max(0, Math.min(1, (Math.max(spd, turnSpd) / def.speed - WALK_DEAD) / (1 - WALK_DEAD))) : 0
+  m.walk += (want - m.walk) * Math.min(1, dt * 8)
+  if (want === 0 && m.walk < 1e-3) m.walk = 0
+  e.walk = m.walk
+  if (ds > 1e-5) {
+    const k = Math.min(1, dt * 10)
+    m.fwd += (fd / ds - m.fwd) * k
+    m.side += (sd / ds - m.side) * k
+  }
+  m.turn += ((dt > 1e-6 ? dyaw / dt : 0) - m.turn) * Math.min(1, dt * 6)
+  // Stride phase from DISTANCE (+ the turn shuffle), never from the clock.
+  // Integrated from the smoothed ground speed: the same total distance over
+  // any walk (planted feet), but a single-tick burst — the AI hopping over
+  // its range-band edge — cannot jump the legs.
+  // The feet cover the translation or, turning on the spot, the arc their
+  // stance sweeps — the larger, never the sum (a boss circling the player)
+  const inst = dt > 1e-6 ? Math.max(ds, g ? Math.abs(dyaw) * g.hipW * scale : 0) / dt : 0
+  m.speed += (inst - m.speed) * Math.min(1, dt * 20)
+  if (inst === 0 && m.speed < 1e-3) m.speed = 0
+  // A dash / charge (far past the walk): the legs fold still, not strobe
+  const dash = def.speed > 0 && spd > def.speed * 1.8 ? 1 : 0
+  m.dash += (dash - m.dash) * Math.min(1, dt * 15)
+  m.pstride = m.stride
+  if (g) {
+    // The same swing the pose draws (models/gait.ts gaitLegs): shortened for
+    // side-steps and while the smoothed direction turns round. Capped per
+    // tick (≈5 steps a second) so nothing can outrun the frame rate.
+    const mag = Math.hypot(m.fwd, m.side)
+    const a = swingA(g, m.walk, mag > 1e-6 ? m.side / mag : 0) * Math.min(1, mag)
+    m.stride += Math.min(0.55 * dt * 60, (TAU * m.speed * dt) / (cycleLen(g, a) * scale))
+  }
+  if (e.boss) stepBossMotion(e, dt)
+  else stepMachineMotion(e, dt, ds, fd, sd, scale)
+}
+
+/**
+ * A humanoid boss's channels. It is never "unaware" on screen (offstage until
+ * its entrance, then always in the fight), so its calm is the stand in
+ * `recover` after an attack, and that is the only place a taunt may start:
+ * never in the entrance (the name card's pose), a telegraph or an attack —
+ * leaving `recover`/`engage` cuts a taunt, and walking fades it. No glances
+ * (a boss keeps its eyes on the player; the head leads its turns instead).
+ */
+const stepBossMotion = (e: Enemy, dt: number): void => {
+  const m = e.mo
+  const lens = e.bossId ? BOSS_FIDGET_LEN[e.bossId] : []
+  const standing = e.state === 'recover' || (e.state === 'engage' && m.walk < 0.1)
+  const calm = standing ? 1 : 0
+  m.calm += (calm - m.calm) * Math.min(1, dt * (calm < m.calm ? 6 : 8))
+  m.startle = 0
+  m.look -= m.look * Math.min(1, dt * 2.5)
+  if (e.state === 'recover' && e.st === 0 && m.fid === 0) {
+    // A taunt after roughly half the attacks, once the strike has returned
+    m.fidCd = lens.length && rand(m) < 0.6 ? 0.08 : 99
+  }
+  if (m.fid === 0) {
+    if (e.state === 'recover' && lens.length) {
+      m.fidCd -= dt
+      if (m.fidCd <= 0) {
+        m.fid = 1 + Math.min(lens.length - 1, Math.floor(rand(m) * lens.length))
+        m.fidT = 0
+        m.fidCd = 99
+      }
+    }
+  } else {
+    m.fidT += dt * m.tempo
+    if (m.fidT >= lens[m.fid - 1]! || m.calm < 0.01 || (e.state !== 'recover' && e.state !== 'engage')) {
+      m.fid = 0
+      m.fidT = 0
+    }
+  }
+  // Eased act weights (airborne, dizzy); the telegraph and strike weights are
+  // exact functions of the state's clock (syncBossVisual → poseBoss)
+  const air = e.state === 'act' && e.y > e.def.fly + 0.5 ? 1 : 0
+  m.air += (air - m.air) * Math.min(1, dt * 5)
+  const daze = e.state === 'stun' ? 1 : 0
+  m.daze += (daze - m.daze) * Math.min(1, dt * 10)
+}
+
+/** A machine's kind-specific channels, its idle layer and attack channels. */
+const stepMachineMotion = (e: Enemy, dt: number, ds: number, fd: number, sd: number, scale: number): void => {
+  const m = e.mo
+  if (e.kind === 'roller') {
+    // The wheel steers into the travel (the driver keeps facing the player)
+    // and rolls by distance; backing off, it rolls backward.
+    let psi = 0
+    let dir = 1
+    if (ds > 1e-4) {
+      psi = Math.atan2(sd, fd)
+      if (psi > Math.PI / 2) { psi -= Math.PI; dir = -1 } else if (psi < -Math.PI / 2) { psi += Math.PI; dir = -1 }
+    }
+    const head = ds > 1e-4 ? psi * Math.min(1, m.walk / 0.2) : 0
+    m.heading += (head - m.heading) * Math.min(1, dt * 6)
+    m.roll += (dir * ds) / (ROLLER_R * scale)
+  } else if (e.kind === 'heli') {
+    m.roll += dt * 14 * m.walk // the rotor spins up with airspeed
+  } else if (e.kind === 'hopper') {
+    // The engage hop arc (view-only), on the AI's own hop clock: it moves
+    // only while b < 0.45, so the feet are off the floor for every metre.
+    // Out of engage the clock reads "not hopping", so the next run of hops
+    // restarts from the ground; a leap or stun mid-hop lands it eased.
+    if (e.state !== 'engage') e.b = 1
+    const want = e.state === 'engage' && e.b < 0.45 ? HOP_H * Math.sin((Math.PI * e.b) / 0.45) : 0
+    m.hop = Math.abs(want - m.hop) < 0.05 ? want : m.hop + (want - m.hop) * Math.min(1, dt * 10)
+    // Squash: the leap's take-off (act) and landing (recover) snap on
+    // purpose; everything else follows its curve, eased where it jumps
+    let sq = 0
+    if (e.state === 'tele') sq = -Math.min(1, e.st / 0.3)
+    else if (e.state === 'act') sq = 0.8
+    else if (e.state === 'recover') sq = -0.6 * Math.max(0, 1 - e.st * 3)
+    else if (e.state === 'engage' && e.b < 1) sq = hopSquash(e.b)
+    m.squash = e.state === 'act' || e.state === 'recover' || Math.abs(sq - m.squash) < 0.08
+      ? sq
+      : m.squash + (sq - m.squash) * Math.min(1, dt * 12)
+  }
+  // ── Idle ──
+  const calm = e.state === 'idle' ? 1 : 0
+  m.calm += (calm - m.calm) * Math.min(1, dt * (calm < m.calm ? 5 : 0.7))
+  m.startle = e.state === 'alert' ? Math.sin(Math.PI * Math.min(1, Math.max(0, e.st) / 0.3)) : 0
+  m.lookT -= dt
+  if (m.lookT <= 0) {
+    m.lookTo = rand(m) * 2 - 1
+    m.lookT = 1.8 + rand(m) * 3.2
+  }
+  m.look += ((m.calm > 0.5 ? m.lookTo : 0) - m.look) * Math.min(1, dt * 2.5)
+  const lens = FIDGET_LEN[e.kind]
+  if (m.fid === 0) {
+    if (m.calm > 0.95 && m.walk < 0.05) {
+      m.fidCd -= dt
+      if (m.fidCd <= 0) {
+        m.fid = 1 + Math.min(lens.length - 1, Math.floor(rand(m) * lens.length))
+        m.fidT = 0
+      }
+    }
+  } else {
+    // The envelope ends every fidget at exactly zero; woken, calm fades it out
+    m.fidT += dt * m.tempo
+    if (m.fidT >= lens[m.fid - 1]! || m.calm < 0.01) {
+      m.fid = 0
+      m.fidT = 0
+      m.fidCd = 2.5 + rand(m) * 4.5
+    }
+  }
+  // ── Attack channels: strikes follow their target, returns are eased ──
+  if (e.kind === 'heli') {
+    const want = e.state === 'act' ? 0.45 : e.state === 'tele' ? -0.25 : 0.08 + 0.3 * m.fwd * m.walk
+    m.tilt += (want - m.tilt) * Math.min(1, dt * 12)
+  } else if (e.kind === 'roller') {
+    const want = e.state === 'act' ? 1 : e.state === 'tele' ? -0.5 : 0.2 + 0.25 * m.fwd * m.walk
+    m.tilt += (want - m.tilt) * Math.min(1, dt * 10)
+  } else if (e.kind === 'golem') {
+    stepGolemMotion(e, dt)
+  } else if (e.kind === 'brute') {
+    let wantL = 0
+    let wantR = 0
+    let wantS = 0
+    const striking = e.state === 'tele' || e.state === 'act'
+    if (striking && e.attack === 'combo') {
+      // Wind-up exactly as before; the throw now starts FROM the wind-up
+      // (it used to restart at 0: a one-frame jump) and reaches it in 0.08 s
+      const k = e.state === 'tele' ? -Math.min(1, e.st / e.teleDur) : -1 + 2 * Math.min(1, e.st / 0.08)
+      if (e.step === 0) wantR = k
+      else wantL = k
+    } else if (striking && e.attack === 'slam') {
+      wantS = e.state === 'tele' ? -0.4 * Math.min(1, e.st / e.teleDur) : -0.4 + 1.4 * Math.min(1, e.st / 0.1)
+    }
+    // Returns: ≈0.4 s for a fist, ≈0.45 s for the slam (≤ 0.25 rad per tick)
+    const back = Math.min(1, dt * 6)
+    m.armL = wantL !== 0 ? wantL : m.armL * (1 - back)
+    m.armR = wantR !== 0 ? wantR : m.armR * (1 - back)
+    m.slam = wantS !== 0 ? wantS : m.slam * (1 - Math.min(1, dt * 5))
+  }
+}
+
+/**
+ * The crate golem's channels. The throw's wind-up follows the telegraph
+ * clock (the hand up over the lid and into the crate), the release is a
+ * strike (0.1 s), the return eases — and the path's blend (`armL`) stays full
+ * through tele and act, so the release whips on over the top instead of
+ * swinging back through the rest pose. The lob heaves the boulder up the
+ * front across the red wind-up and brings it down the front at the release.
+ * The rock and the boulder show only while held; the hop leans into its side.
+ */
+const stepGolemMotion = (e: Enemy, dt: number): void => {
+  const m = e.mo
+  const g = e.golem!
+  const back = Math.min(1, dt * 6)
+  if (e.attack === 'throw' && e.state === 'tele') {
+    m.armL = 1
+    m.armR = -Math.min(1, e.st / (e.teleDur * 0.8))
+  } else if (e.attack === 'throw' && e.state === 'act') {
+    m.armL = 1
+    m.armR = Math.max(0.01, Math.min(1, e.st / 0.1))
+  } else {
+    m.armL -= m.armL * back
+    if (m.armL < 1e-3) {
+      m.armL = 0
+      m.armR = 0
+    }
+  }
+  if (e.attack === 'lob' && e.state === 'tele') m.slam = Math.min(1, e.st / (e.teleDur * 0.85))
+  else if (e.attack === 'lob' && e.state === 'act') m.slam = 1 - 0.65 * Math.min(1, e.st / 0.12)
+  else m.slam -= m.slam * back
+  m.grip = e.state === 'tele' && e.attack === 'throw' && m.armR < -0.5 ? Math.min(1, m.grip + dt * 10) : 0
+  m.boulder = e.state === 'tele' && e.attack === 'lob' ? Math.min(1, m.boulder + dt * 4) : 0
+  const hop = e.state === 'act' && e.attack === 'dodge' ? g.hopSide * Math.sin(Math.PI * Math.min(1, e.st / GOLEM_DODGE_T)) : 0
+  m.tilt += (hop - m.tilt) * Math.min(1, dt * 20)
+  m.brace += ((g.aimT > 0.15 ? 1 : 0) - m.brace) * Math.min(1, dt * 6)
 }
 
 const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
@@ -395,13 +985,17 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
     case 'hopper': {
       if (e.state === 'engage') {
         faceTo(e, px, pz, 4, dt)
+        // Small hops toward the player on a rhythm. `e.b` is the hop clock
+        // (airborne while < 0.45) and 1 while not hopping; a new run of hops
+        // starts its clock from the ground, so the view's hop arc never
+        // begins in mid-air after a leap or a pause.
+        if (d > 3.5 && e.b >= 1) e.a = 0
         e.a += dt
-        // Small hops toward the player on a rhythm
         if (d > 3.5) {
           const phase = (e.a % 0.95) / 0.95
           if (phase < 0.45) seek(w, e, px, pz, def.speed * 2.2, dt)
           e.b = phase
-        }
+        } else e.b = 1
         if (canAttack && d < 8) {
           startTele(e, 'leap', def.tele, true)
           // Where it will land: the player's spot, clamped to 7 m
@@ -471,7 +1065,6 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
         const sp = 12
         const frac = step(w, e, e.tx * sp * dt, e.tz * sp * dt)
         e.a += dt * 40
-        e.walk = 1
         if (!e.hitPlayer && Math.hypot(w.player.x - e.x, w.player.z - e.z) < e.def.radius + PLAYER_R + 0.15) {
           e.hitPlayer = true
           w.hitPlayer(e, e.dmg, { blockable: false, fromX: e.x, fromZ: e.z, kind: 'melee' })
@@ -580,6 +1173,52 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       e.a = Math.max(0, e.a - dt * 4)
       break
     }
+
+    // ── Crate golem: keep its distance, throw, throw, lob; hop a charge ──
+    case 'golem': {
+      const g = e.golem!
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 4, dt)
+        golemRange(w, e, dt, d)
+        if (golemTryDodge(w, e, d)) break
+        if (canAttack && d < 16) {
+          if (g.throws >= 2) {
+            // The boulder, at where Flux stands now (red: step out)
+            g.throws = 0
+            startTele(e, 'lob', GOLEM_LOB_TELE, true)
+            e.tx = px
+            e.tz = pz
+            w.markers.spawn(px, pz, 1.9, GOLEM_LOB_TELE + GOLEM_LOB_DUR)
+          } else {
+            g.throws++
+            startTele(e, 'throw', def.tele, false)
+          }
+        }
+      } else if (e.state === 'tele') {
+        // Committed: no hop while it winds up (the other opening)
+        if (e.attack === 'lob') faceTo(e, e.tx, e.tz, 4, dt)
+        else faceTo(e, px, pz, 8, dt)
+        if (e.st >= e.teleDur) {
+          if (e.attack === 'lob') {
+            w.lobShell(e, e.tx, e.tz, GOLEM_LOB_DUR, Math.round(e.dmg * 1.35))
+            w.sfx('lob', e.x, e.z)
+          } else golemThrow(w, e)
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        if (e.attack === 'dodge') golemHop(w, e, dt)
+        else if (e.st > (e.attack === 'lob' ? 0.35 : 0.25)) enterState(e, 'recover')
+      } else if (e.state === 'recover') {
+        faceTo(e, px, pz, 4, dt)
+        if (golemTryDodge(w, e, d)) break
+        if (e.st > (e.attack === 'dodge' ? 0.3 : e.attack === 'lob' ? 0.7 : 0.5)) {
+          // A hop leaves the attack clock alone: it may throw right after landing
+          if (e.attack !== 'dodge') e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
   }
 
   // Telegraph ring
@@ -615,52 +1254,54 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
     e.ring.visible = false
     return
   }
+  // The motion layer (models/motion.ts): the gait phase interpolated to this
+  // frame like the position, and every pose gets `m` as its last argument.
+  const m = e.mo
+  m.phase = m.pstride + (m.stride - m.pstride) * alpha
   switch (e.kind) {
     case 'hardhat':
-      poseHardhat(r, 1 - e.guard, t, e.walk)
+      poseHardhat(r, 1 - e.guard, t, m.walk, m)
       break
     case 'trooper': {
       const g = e.guardBreakT > 0 ? 0 : e.guard
-      poseTrooper(r, g, e.aim, t, e.walk)
+      poseTrooper(r, g, e.aim, t, m.walk, m)
       break
     }
-    case 'heli': {
-      const tilt = e.state === 'act' ? 0.45 : e.state === 'tele' ? -0.25 : 0.08
-      poseHeli(r, t, tilt, t * (stunned ? 4 : 28))
+    case 'heli':
+      // m.tilt: the state's tilt, eased (no pops at tele/act), plus airspeed
+      poseHeli(r, t, m.tilt, t * (stunned ? 4 : 28) + m.roll, m)
       break
-    }
-    case 'hopper': {
-      let sq = Math.sin(t * 2.2) * 0.06
-      if (e.state === 'tele') sq = -Math.min(1, e.st / 0.3)
-      else if (e.state === 'act') sq = 0.8
-      else if (e.state === 'recover') sq = -0.6 * Math.max(0, 1 - e.st * 3)
-      else if (e.state === 'engage' && e.b < 0.45 && e.walk > 0.2) sq = Math.sin((e.b / 0.45) * Math.PI) * 0.6
-      poseHopper(r, sq, t)
+    case 'hopper':
+      // Attack squashes as before, engage hops on the AI's own hop clock
+      // (m.squash, eased into a telegraph that starts mid-hop)
+      poseHopper(r, m.squash, t, m)
       break
-    }
     case 'roller':
-      poseRoller(r, e.a + e.walk * t * 6, t, e.state === 'act' ? 1 : e.state === 'tele' ? -0.5 : 0.2)
+      // Wheel = telegraph revs (e.a) + distance rolled (m.roll); eased lean
+      poseRoller(r, e.a, t, m.tilt, m)
       break
-    case 'brute': {
-      let arm = 0
-      let k = 0
-      let slam = 0
-      if (e.attack === 'combo' && (e.state === 'tele' || e.state === 'act')) {
-        arm = e.step === 0 ? 1 : -1
-        k = e.state === 'tele' ? -Math.min(1, e.st / e.teleDur) : Math.min(1, e.st / 0.08)
-      } else if (e.attack === 'slam' && (e.state === 'tele' || e.state === 'act')) {
-        slam = e.state === 'tele' ? -0.4 * Math.min(1, e.st / e.teleDur) : Math.min(1, e.st / 0.1)
-      }
-      poseBrute(r, t, e.walk, arm, k, slam)
+    case 'brute':
+      // Punches per arm and the slam come eased from m (armL / armR / slam)
+      poseBrute(r, t, m.walk, 0, 0, m.slam, m)
       break
-    }
-    case 'turret': {
-      poseTurret(r, 0.35, e.a)
+    case 'turret':
+      poseTurret(r, 0.35, e.a, m)
+      break
+    case 'golem': {
+      const k = e.golem!.unfold
+      poseGolem(r, k, m.armR, m.slam, m.tilt, t, m)
+      // Asleep it is crate-sized and casts no blob (a crate has none); both
+      // grow in as it unfolds
+      if (e.elite) r.root.scale.setScalar(1 + 0.18 * k)
+      if (k < 0.02) e.shadow.visible = false
+      else e.shadow.scale.setScalar(sh * Math.min(1, k * 1.5))
       break
     }
   }
   if (stunned) {
-    e.root.rotation.z = Math.sin(time * 18) * 0.08
+    // Eased in and out: the wobble never switches on or off in one frame
+    const k = Math.min(1, e.st / 0.1) * Math.min(1, Math.max(0, e.stunT) / 0.1)
+    e.root.rotation.z = Math.sin(time * 18) * 0.08 * k
   } else {
     e.root.rotation.z = 0
   }

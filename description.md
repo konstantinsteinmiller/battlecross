@@ -1,4 +1,4 @@
-# Mega Adventure
+# Mega Droid
 
 ## Short description (138 / 150 chars)
 
@@ -9,7 +9,7 @@ machines, loot gear, upgrade circuits and copy boss weapons!
 
 Rogue machines have overrun the city's sectors, and only Flux can take
 them back. Beam into each sector, explore rooms and corridors, and blast
-Hardhats, drones and brutes with your charge buster. Hold to charge, release
+Hardhats, drones and brutes with your charge cannon. Hold to charge, release
 at the perfect moment for a critical hit, raise your shield to block, and
 parry right as the ring closes. Open supply chests for new gear, level up,
 wire your skill circuits, and defeat each Core Master to copy its special
@@ -22,16 +22,17 @@ look around, and tap the floor to walk there. In combat, tap to shoot, hold
 to charge and release to fire. Use the shield button to block and the arrow
 button to slide.
 
-**Keyboard and mouse:** WASD or the arrow keys move, drag the mouse to look,
-and click the floor to walk there. Click or press Space to shoot (hold to
-charge). Shift or the right mouse button blocks, Q slides, 1 and 2 fire
-special weapons, H uses a Repair Tank, E interacts, and Esc pauses.
+**Keyboard and mouse:** WASD or the arrow keys move and the mouse looks
+around (click the game to take control of the camera; Esc gives the mouse back
+and pauses). Left click shoots: hold to charge, release to fire. The right
+mouse button or Shift blocks, Space or Q slides, 1 and 2 fire special weapons,
+H uses Repair Gel, E interacts, B beams out and Tab switches target.
 
 ## Features
 
 - First-person exploration of procedurally built sectors: every job is a new
   map.
-- A charge buster with a perfect-release window, shield block and parry, a
+- A charge cannon with a perfect-release window, shield block and parry, a
   dodge slide and soft lock-on.
 - 7 machine types and 6 Core Master boss fights, each with its own attack
   patterns and a weakness.

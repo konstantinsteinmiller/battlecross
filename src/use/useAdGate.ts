@@ -207,9 +207,9 @@ export const canOfferReward = computed(
  *
  *   • CrazyGames  — one midgame ad per 2 min; an early request is rejected.
  *   • Playgama    — Bridge's own `minimumDelayBetweenInterstitial` is 120 s.
- *   • Yandex      — ≥ 60 s apart, and none in the first 60 s after load. 121 s
- *                   satisfies both, and the "first call starts the clock"
- *                   behaviour below covers the post-load half.
+ *   • Yandex      — ≥ 60 s apart, and none in the first 60 s after load. The
+ *                   gap covers the first half, `INTERSTITIAL_AFTER_LOAD_MS`
+ *                   below the second.
  *   • Poki        — paced server-side; the SDK's own bad-event gate is the only
  *                   client-side limit and it is about event SPACING, not ads.
  *   • GamePix / GameDistribution / GameMonetize — frequency-capped inside the
@@ -223,47 +223,28 @@ export const canOfferReward = computed(
 const INTERSTITIAL_MIN_GAP_MS = 121_000
 
 /**
- * ─── Nothing before the three-minute line ───────────────────────────────────
- *
- * Poki's fit test passes a game on AVERAGE playtime over three minutes and a
- * quarter of plays past it, and an interstitial is a full stop — the one screen
- * a stranger is most likely to close the tab on. So no midgame ad may run in
- * the first three minutes of a session, whatever the stage and whatever the
- * cadence below says.
- *
- * It binds from the very first screen: the first result screen lands after
- * stage 2 (~2:06 on a clean run), and without this floor that screen's request
- * would have started the gap clock there, putting the first ad up from ~4:07 —
- * the minutes where a player is deciding whether to stay. With it the clock
- * starts no earlier than 3:00, so the first ad is ~5:00 at the soonest. This is
- * the floor that does not move with the road lengths. It
- * measures the page, not the run: a player who retried stage 1 three times has
- * been with the game long enough.
+ * No interstitial in the first minute after load (Yandex's rule; 61 s for the
+ * same clock-skew reason as the gap). A first mission takes longer than that,
+ * so in practice the first mission's Continue gets its ad.
  *
  * Only the midgame ad. The moderation-mandated first-load ad (GameMonetize,
  * `useFirstLoadInterstitial`) is its own path and is untouched — shipping there
  * depends on it.
  */
-export const FIRST_INTERSTITIAL_AFTER_MS = 180_000
+export const INTERSTITIAL_AFTER_LOAD_MS = 61_000
 
 let lastInterstitialAt = 0
 let sessionStartedAt = Date.now()
 
 /**
- * True when enough time has passed to show another interstitial.
- *
- * The first call of a session returns false: an interstitial in the opening
- * seconds — before the player has seen the game work — is the single most
- * reliable way to lose them. And nothing at all before
- * `FIRST_INTERSTITIAL_AFTER_MS` of session time.
+ * True when an interstitial may run now: past the post-load minute, and a full
+ * gap after the last one. The session's first break needs no earlier request
+ * to start the clock.
  */
 export const canShowInterstitial = (): boolean => {
-  if (Date.now() - sessionStartedAt < FIRST_INTERSTITIAL_AFTER_MS) return false
-  if (lastInterstitialAt === 0) {
-    lastInterstitialAt = Date.now()
-    return false
-  }
-  return Date.now() - lastInterstitialAt >= INTERSTITIAL_MIN_GAP_MS
+  const now = Date.now()
+  if (now - sessionStartedAt < INTERSTITIAL_AFTER_LOAD_MS) return false
+  return lastInterstitialAt === 0 || now - lastInterstitialAt >= INTERSTITIAL_MIN_GAP_MS
 }
 
 /** Record that an interstitial was just shown, restarting the 120 s clock. */
@@ -277,10 +258,10 @@ export const interstitialCooldownLeft = (): number =>
 
 /**
  * Test seam: reset the pacing clock. `sessionAgeMs` is how long the session is
- * pretended to have been running — by default already past the three-minute
- * floor, so a spec about the GAP is not also a spec about the floor.
+ * pretended to have been running — by default already past the post-load
+ * minute, so a spec about the GAP is not also a spec about that floor.
  */
-export const __resetInterstitialClock = (sessionAgeMs = FIRST_INTERSTITIAL_AFTER_MS): void => {
+export const __resetInterstitialClock = (sessionAgeMs = INTERSTITIAL_AFTER_LOAD_MS): void => {
   lastInterstitialAt = 0
   sessionStartedAt = Date.now() - sessionAgeMs
 }

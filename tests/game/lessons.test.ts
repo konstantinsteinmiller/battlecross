@@ -6,11 +6,12 @@
 // (In the tutorial the walkthrough schedules the drone and the crate: see
 // walkthrough.test.ts.)
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Group, Scene } from 'three'
 import { generateMap, roomCenter, type MapData } from '@/game/world/levelGen'
 import { createNav, hasLineOfSight, isSolidAt } from '@/game/world/nav'
 import { profile } from '@/game/state/profile'
+import { flushPersist } from '@/use/useGameState'
 import { tutorialQuest } from '@/game/data/quests'
 import type { Enemy, Shot } from '@/game/sim/world'
 import type { Crate } from '@/game/sim/objectives'
@@ -86,6 +87,11 @@ beforeEach(() => {
   profile.tips = {}
   profile.hero.slots = ['', '']
 })
+
+// A learned lesson is saved through useGameState's debounced write: flush it
+// before the next case's storage exists (tests/stubs/drainPersist.ts). This
+// file never resets modules, so the static import is the instance in use.
+afterEach(() => flushPersist())
 
 describe('the charge lesson (first beam-in)', () => {
   /** A tutorial director with its drone up, the glyph already in. */
@@ -353,6 +359,103 @@ describe('the special-weapon lesson (sleeping drones)', () => {
     run(d, h.host, 1.5)
     expect(d.view()).toBeNull()
     expect(h.enemies).toHaveLength(0)
+  })
+})
+
+describe('the Repair Gel lesson', () => {
+  const hurt = { hp01: 0.25, tanks: 1 }
+
+  it('the walkthrough lights it: the subject is the HUD button, so it has the eyes wherever they look', () => {
+    const h = makeHost(true)
+    const d = new LessonDirector(h.host, { guided: true })
+    expect(d.startGel()).toBe(true)
+    run(d, h.host, 0.5, hurt)
+    expect(d.view()?.id).toBe('gel')
+    expect(d.gelLive).toBe(true)
+    expect(d.active).toBe(true)
+    // Any direction: the coach keeps to survival and the thumbs meanwhile.
+    for (const yaw of [0, 1.5, 3, 4.5]) expect(d.focus(h.host.player.x, h.host.player.z, yaw)).toBe(true)
+    // No world point to pin to; no press means "fire" because of it.
+    expect(d.anchors(new Float32Array(9))).toBe(0)
+    expect(d.inSights(h.host.player.x, h.host.player.z, 0)).toBe(false)
+    expect(d.inRoom(h.host.player.x, h.host.player.z)).toBe(false)
+  })
+
+  it('using a gel pops the check and learns it for good', () => {
+    const h = makeHost(true)
+    const d = new LessonDirector(h.host, { guided: true })
+    d.startGel()
+    run(d, h.host, 0.5, hurt)
+    expect(d.gelEnded).toBe(false)
+    d.gelUsed()
+    expect(d.view()).toMatchObject({ id: 'gel', done: true })
+    expect(d.gelEnded).toBe(true)
+    expect(lessonDone('gel')).toBe(true)
+    run(d, h.host, 1.5, { hp01: 1, tanks: 0 })
+    expect(d.view()).toBeNull()
+  })
+
+  it('in the tutorial, health back some other way changes nothing: its door waits for a gel used', () => {
+    const h = makeHost(true)
+    const d = new LessonDirector(h.host, { guided: true })
+    d.startGel()
+    run(d, h.host, 0.5, hurt)
+    run(d, h.host, 5, { hp01: 1, tanks: 1 })
+    expect(d.view()?.id).toBe('gel')
+    expect(d.gelLive).toBe(true)
+    expect(d.gelEnded).toBe(false)
+    d.gelUsed()
+    expect(d.gelEnded).toBe(true)
+    expect(lessonDone('gel')).toBe(true)
+  })
+
+  it('elsewhere, health back some other way: it steps aside unlearned', () => {
+    const h = makeHost(false)
+    const d = new LessonDirector(h.host)
+    d.startGel()
+    run(d, h.host, 0.5, hurt)
+    run(d, h.host, 0.1, { hp01: 1, tanks: 1 })
+    expect(d.view()).toBeNull()
+    expect(d.gelEnded).toBe(true)
+    expect(lessonDone('gel')).toBe(false)
+  })
+
+  it('never shoulders another lesson aside', () => {
+    const h = makeHost(true)
+    const d = new LessonDirector(h.host, { guided: true })
+    d.placeTarget()
+    run(d, h.host, 0.1, { controls: true })
+    expect(d.view()?.id).toBe('charge')
+    expect(d.startGel()).toBe(false)
+    expect(d.view()?.id).toBe('charge')
+  })
+
+  it('outside the tutorial: the first calm moment under half health with a gel carried', () => {
+    const h = makeHost(false)
+    const d = new LessonDirector(h.host)
+    run(d, h.host, 3, { hp01: 0.6, tanks: 1 })
+    expect(d.view()).toBeNull()
+    run(d, h.host, 3, { hp01: 0.3, tanks: 0 })
+    expect(d.view()).toBeNull()
+    run(d, h.host, 3, { hp01: 0.3, tanks: 1, combat: true })
+    expect(d.view()).toBeNull()
+    run(d, h.host, 0.8, hurt)
+    expect(d.view()).toBeNull() // it settles first
+    run(d, h.host, 0.6, hurt)
+    expect(d.view()?.id).toBe('gel')
+  })
+
+  it('…but never once learned, and never in the tutorial on its own', () => {
+    profile.tips['lesson:gel'] = true
+    const a = makeHost(false)
+    const learned = new LessonDirector(a.host)
+    run(learned, a.host, 3, hurt)
+    expect(learned.view()).toBeNull()
+    profile.tips = {}
+    const b = makeHost(true)
+    const guided = new LessonDirector(b.host, { guided: true })
+    run(guided, b.host, 3, hurt)
+    expect(guided.view()).toBeNull()
   })
 })
 

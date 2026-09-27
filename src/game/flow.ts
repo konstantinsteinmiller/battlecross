@@ -1,12 +1,13 @@
 import { reactive } from 'vue'
 import { app } from './engine/app'
 import type { Quest } from './data/quests'
-import { rollJob, storyQuest, tutorialQuest } from './data/quests'
+import { rollJob, storyQuest, tutorialQuest, climbJob, climbSectors } from './data/quests'
 import { SECTORS, SECTOR_BY_ID } from './data/regions'
 import { rollItem, type Item } from './data/items'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import {
-  profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp
+  profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp,
+  loadProfile, setSaveSandbox
 } from './state/profile'
 import { hud } from './state/hud'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -18,6 +19,7 @@ import { triggerHappytime } from '@/use/useCrazyGames'
 import { playJingle } from './audio/music'
 import { afterPaint } from './engine/slicer'
 import { reportRun } from '@/use/useLeaderboard'
+import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import type { SectorId } from './world/themes'
 
 /**
@@ -88,10 +90,60 @@ export const bootTarget = (): { kind: 'mission'; quest: Quest; snapshot: Mission
   return { kind: 'hub' }
 }
 
+// ─── Level-lab test runs (DEV ONLY) ──────────────────────────────────────────
+
+/**
+ * The running mission is a test run from the level lab (`views/LevelLab.vue`,
+ * whose Play loads `#/?level=…`). It plays on the save sandbox
+ * (`setSaveSandbox`): nothing it does is written, so no XP, loot, boss, sector
+ * or story step reaches the save, the real resume point stays as it was, and
+ * no leaderboard hears of it. It ends back in the lab with the profile re-read
+ * from that untouched save. Every use sits behind `import.meta.env.DEV`, so
+ * none of this ships.
+ */
+let testRun = false
+
+export const isTestRun = (): boolean => import.meta.env.DEV && testRun
+
+/** End a test run, if one is on: throw away what it changed in memory. */
+export const endTestRun = (): void => {
+  if (!import.meta.env.DEV || !testRun) return
+  testRun = false
+  loadProfile()
+  setSaveSandbox(false)
+}
+
+/** The level a `#/?level=…` address asks for, as the boot target (ahead of a
+ *  resume or the tutorial), with the sandbox on. Null: an ordinary boot. */
+const testBootTarget = async (): Promise<{ kind: 'mission'; quest: Quest; snapshot: null } | null> => {
+  endTestRun()
+  const { levelFromHash } = await import('./data/levelCatalog')
+  const quest = levelFromHash(location.hash)
+  if (!quest) return null
+  testRun = true
+  setSaveSandbox(true)
+  return { kind: 'mission', quest, snapshot: null }
+}
+
+/** Continue after a test run: no break, straight back to the lab, with the
+ *  level still selected (the game route's `?level=…` is the lab's query). */
+const leaveTestRun = async (): Promise<void> => {
+  flow.modal = ''
+  endTestRun()
+  const { default: router } = await import('@/router')
+  await router.push({ name: 'levels', query: router.currentRoute.value.query })
+}
+
 /** Build the first scene (a resumed mission, the tutorial or the hub). Async:
  *  a mission build is time-sliced so the boot loader keeps moving. */
 export const createBootMode = async (onProgress?: (p01: number) => void): Promise<import('./engine/app').GameMode> => {
-  const t = bootTarget()
+  // The portal's OWN leaderboard (Playgama's SaaS board, when the build carries
+  // one): a player with no row yet joins it on arrival — a first-timer as its
+  // last row, a returning player at their lifetime XP. Once per player, never
+  // awaited, a no-op on every build without a portal board. The save is
+  // hydrated by now (main.ts awaits it before the App mounts).
+  void joinPortalBoard(lifetimeXp())
+  const t = (import.meta.env.DEV && await testBootTarget()) || bootTarget()
   if (t.kind === 'mission') {
     flow.quest = t.quest
     flow.screen = 'mission'
@@ -168,7 +220,8 @@ export interface MissionTally {
 
 /** Mission over (success = objective done and beamed out). XP and bolts from
  *  kills were already granted live; this pays the QUEST reward on top, saves,
- *  runs the ad break if one is due and only then reveals the results. */
+ *  and reveals the results. The interstitial comes AFTER them, on Continue
+ *  (`leaveResults`). */
 export const finishMission = async (success: boolean, tally: MissionTally): Promise<void> => {
   const quest = flow.quest
   if (!quest) return
@@ -224,43 +277,74 @@ export const finishMission = async (success: boolean, tally: MissionTally): Prom
     quest, success, xp, bolts, kills: tally.kills, chests: tally.chests, items, levelBefore,
     levelAfter: profile.level, seconds: tally.seconds, weapon, unlocked
   }
-  // Everything is paid and saved before the ad, so a player who closes the
-  // tab during it loses nothing.
-  await adBreakBeforeResults()
+  // No ad of our own here (it plays after Continue), but an ad another
+  // placement started may still be up, and the results must not open under it.
+  await waitForAdGate()
   flow.results = results
   if (success) triggerHappytime()
   playJingle(success ? 'victory' : 'defeat')
   flow.modal = 'results'
+  // A level-lab test run posts nowhere: its XP is thrown away on the way out.
+  if (import.meta.env.DEV && testRun) return
   // The leaderboard, AFTER the result screen is up and never awaited: it is a
   // decoration on a game that works without it, and a captive-portal wifi
   // login must not stand between the player and their rewards. Lifetime XP
   // also grew on a defeat (kills pay live), so both outcomes report; `force`
   // makes the number a mission ended on always land.
   void reportRun(lifetimeXp(), profile.level, { force: true })
+  // …and to the portal's own board. The score is lifetime XP, which only ever
+  // grows and grows on a defeat too, so every mission end is a moment a new
+  // best can exist; `reportPortalBest` posts only when it beats what the portal
+  // already accepted. On YouTube Playables (same archive) Bridge forwards it as
+  // `ytgame.engagement.sendScore` — the same number the save holds.
+  void reportPortalBest(lifetimeXp())
 }
 
-/** Longest we hold the result screen for an ad that another placement left
- *  on screen. The provider caps its own waits; this only guards the gate. */
+/** Longest we hold a screen for an ad that another placement left on screen.
+ *  The provider caps its own waits; this only guards the gate. */
 const AD_GATE_WAIT_MS = 8000
 
 /**
- * The interstitial comes BEFORE the result screen, never on top of it or a
- * moment after it (portal QA). The world is frozen while it runs: the ad
- * flips `isAdShowing`, which suspends the loop and the audio.
- *
- * Waits on the ad GATE, not only on its own request: an ad started by another
- * placement (the QA trigger, the first-load ad) may still be up, and revealing
- * the screen under it would put the ad back on top. The jingle plays after,
- * so the ad never cuts it off.
+ * Wait until no ad is up. An ad started by another placement (the QA trigger,
+ * the first-load ad) may still be showing, and opening a screen under it would
+ * put the ad on top of that screen.
  */
-const adBreakBeforeResults = async (): Promise<void> => {
-  if (canShowInterstitial()) {
-    markInterstitialShown()
-    await showMidgameAd()
-  }
+const waitForAdGate = async (): Promise<void> => {
   const t0 = Date.now()
   while (isAdShowing.value && Date.now() - t0 < AD_GATE_WAIT_MS) {
     await new Promise((r) => setTimeout(r, 100))
+  }
+}
+
+/** True from Continue until the hub is up, so a double tap asks for one ad. */
+let leavingResults = false
+
+/**
+ * Continue on the result screen: close it, play the interstitial if one is
+ * due, and only then go home. Every mission end offers this break, won or
+ * failed; the shared pacing clock (`canShowInterstitial`) decides whether an
+ * ad actually runs.
+ *
+ * The screen closes FIRST, so the ad never opens on top of it (portal QA). The
+ * mission stays frozen behind the ad: `showMidgameAd` flips `isAdShowing`
+ * before its first await, which suspends the loop and the audio. Going home
+ * AFTER the ad also brings the music back: the ad hard-stops it and clears the
+ * play intent, and `goHub` starts the hub track.
+ */
+export const leaveResults = async (): Promise<void> => {
+  if (import.meta.env.DEV && testRun) return leaveTestRun()
+  if (leavingResults) return
+  leavingResults = true
+  flow.modal = ''
+  try {
+    if (canShowInterstitial()) {
+      markInterstitialShown()
+      await showMidgameAd()
+    }
+    await waitForAdGate()
+  } finally {
+    leavingResults = false
+    goHub()
   }
 }
 
@@ -274,13 +358,34 @@ const grantWeapon = (id: WeaponId): WeaponId | null => {
 
 // ─── Job board ───────────────────────────────────────────────────────────────
 
-/** Keep three jobs on the board, drawn from the unlocked sectors. */
+/** The one-time flag (in `profile.tips`) that the first climb was put on the
+ *  board. A flag rather than a save field: old saves load as they are. */
+const CLIMB_OFFERED = 'climbOffered'
+
+/** Sectors a Tower Run may roll in right now: their boss is down. */
+const climbsNow = () => climbSectors(profile.world.unlocked, profile.world.bosses)
+
+/**
+ * Keep three jobs on the board, drawn from the unlocked sectors. The first
+ * time a climb becomes possible (the Scrapper is down: straight after the
+ * tutorial) one is put on the board — the newest job makes way for it — so
+ * nobody has to reroll to find out the tower exists. After that it rolls like
+ * any other job.
+ */
 export const ensureJobs = (): void => {
   const q = profile.quests
   const sectors = profile.world.unlocked
+  const climbs = climbsNow()
   while (q.jobs.length < 3) {
     q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-    q.jobs.push(rollJob(q.jobSeed, sectors, profile.level))
+    q.jobs.push(rollJob(q.jobSeed, sectors, profile.level, climbs))
+  }
+  if (climbs.length && !profile.tips[CLIMB_OFFERED]) {
+    profile.tips[CLIMB_OFFERED] = true
+    if (!q.jobs.some(j => j.template === 'climb')) {
+      q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
+      q.jobs[q.jobs.length - 1] = climbJob(q.jobSeed, climbs, profile.level)
+    }
   }
 }
 
@@ -289,7 +394,7 @@ export const rerollJob = (id: string): void => {
   const i = q.jobs.findIndex(j => j.id === id)
   if (i < 0) return
   q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-  q.jobs[i] = rollJob(q.jobSeed, profile.world.unlocked, profile.level)
+  q.jobs[i] = rollJob(q.jobSeed, profile.world.unlocked, profile.level, climbsNow())
   saveProfile()
 }
 

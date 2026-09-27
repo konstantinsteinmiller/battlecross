@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { mobileCheck } from '@/utils/function'
 import { useMusic } from '@/use/useSound'
@@ -15,10 +15,8 @@ import AdsBlockedModal from '@/components/atoms/AdsBlockedModal.vue'
 import VConsoleHideButton from '@/components/atoms/VConsoleHideButton.vue'
 import { useCrazyMuteSync } from '@/use/useCrazyMuteSync'
 import useCheats, { installDebugUnlock } from '@/use/useCheats'
-import { isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki, isNative, orientation } from '@/use/useUser'
-import { glitchLicenseStatus } from '@/use/useGlitchLicense'
-import { resolveCapabilities } from '@/platforms/capabilities'
-import { getPlattformText } from '@/platforms/plattformText'
+import { orientation } from '@/use/useUser'
+import { useRenderGate } from '@/platforms/renderGate'
 import { installBrowserGuard } from '@/use/useBrowserGuard'
 
 const { t } = useI18n()
@@ -124,42 +122,21 @@ onUnmounted(() => {
   portraitQuery.removeEventListener('change', onOrientationChange)
 })
 
-// Capability gates for the per-platform render fork in the template
-// below — single source of truth lives in `@/platforms/capabilities`.
-// `parentOrigin` is the iframe parent's origin (only meaningful for Glitch
-// where the game runs on a CDN iframe-embedded into glitch.fun).
-const hostname = window.location.hostname
-const parentOrigin = window.location.ancestorOrigins?.[0] ?? document.referrer ?? ''
-const platformFlags = {
-  isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki
-}
-const capabilities = computed(() => resolveCapabilities({
-  flags: platformFlags,
-  hostname,
-  parentOrigin,
-  glitchLicenseStatus: glitchLicenseStatus.value
-}))
+// The per-platform render fork in the template below — whether this build may
+// show the game here, a refused licence, the "only available on …" copy. See
+// `@/platforms/renderGate` (Playgama folds it to "always render" at build time).
+const { isGameShowAllowed, isLicenseDenied, showOnlyAvailableText, plattformText } = useRenderGate()
 
-const isGameShowAllowed = computed(() =>
-  capabilities.value.allowedToShowOnCrazyGames ||
-  capabilities.value.allowedToShowOnWaveDash ||
-  capabilities.value.allowedToShowOnItch ||
-  capabilities.value.allowedToShowOnGlitch ||
-  capabilities.value.allowedToShowOnGameDistribution ||
-  capabilities.value.allowedToShowOnPlaygama ||
-  capabilities.value.allowedToShowOnGamepix ||
-  capabilities.value.allowedToShowOnGameMonetize ||
-  capabilities.value.allowedToShowOnYandex ||
-  capabilities.value.allowedToShowOnPoki ||
-  location.hostname.includes('localhost')
-)
-const isGlitchDenied = computed(() => capabilities.value.isGlitchDenied)
-const showOnlyAvailableText = computed(() => capabilities.value.showOnlyAvailableText)
-// Sourced from `@/platforms/plattformText` — that file is in the obfuscator's
-// exclude list so its env-literal ladder DCEs cleanly per build and only the
-// active build's hostname survives in the bundle. See the comment in
-// `plattformText.ts` for why a separate file (and why exclusion is required).
-const plattformText = computed(() => getPlattformText())
+// The vConsole "Hide" button exists only where vConsole can be mounted at all —
+// `main.ts` wires it on native builds or with `VITE_APP_INCLUDE_VCONSOLE`. On
+// every other build it could never appear. Chosen HERE, by a build-time
+// constant, rather than with a `v-if` on a flag: the template compiler reads
+// any non-literal const as a possible ref (`unref(flag)`), which no bundler can
+// fold, so the component and its hard-coded dev label would ship regardless. A
+// ternary on the env literals IS folded, and the import then drops out.
+const VConsoleHide = import.meta.env.VITE_APP_NATIVE === 'true' || import.meta.env.VITE_APP_INCLUDE_VCONSOLE === 'true'
+  ? VConsoleHideButton
+  : null
 </script>
 
 <template lang="pug">
@@ -168,15 +145,15 @@ const plattformText = computed(() => getPlattformText())
     FPerfMeter(v-if="isDebug" :offset-y="52")
     SaveStatusBanner
     AdsBlockedModal
-    VConsoleHideButton
+    component(v-if="VConsoleHide" :is="VConsoleHide")
     RouterView
 
-  div.relative.w-full.h-full(v-else-if="isGlitchDenied")
+  div.relative.w-full.h-full(v-else-if="isLicenseDenied")
     h1.absolute.text-red-500(class="left-1/2 -translate-x-[50%] top-1/2 -translate-y-[50%] text-3xl") {{ t('license.denied') }}
 
 
   div.relative.w-full.h-full(v-else-if="showOnlyAvailableText")
-    h1.absolute(class="left-1/2 -translate-x-[50%] top-1/2 -translate-y-[50%] text-3xl") {{ t('crazyGamesOnly') }}
+    h1.absolute(class="left-1/2 -translate-x-[50%] top-1/2 -translate-y-[50%] text-3xl") {{ t('onlyAvailableOn') }}
       span.ml-2.text-amber-500 {{ plattformText }}
 </template>
 

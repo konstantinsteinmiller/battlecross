@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { POSTED_NAME_KEY, PLAYER_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 /**
  * ─── The board's quota contract ─────────────────────────────────────────────
@@ -54,7 +55,9 @@ const BOARD = {
  * `useGameState` is handed back from the same module registry on purpose: the
  * save blob the leaderboard reads its bookkeeping out of has to be the one the
  * test seeds, and after `resetModules` a statically imported copy would be a
- * different instance holding a different blob.
+ * different instance holding a different blob. It is also HELD, so the posted
+ * best a case leaves in its debounced save is flushed before the next case's
+ * storage exists — see `tests/stubs/drainPersist.ts`.
  */
 const load = async (
   url: string,
@@ -72,8 +75,8 @@ const load = async (
     })
     return handler(target, init)
   }))
-  vi.resetModules()
-  const state = await import('@/use/useGameState')
+  drainAndResetModules()
+  const state = await holdGameState()
   const board = await import('@/use/useLeaderboard')
   return { ...board, state }
 }
@@ -82,6 +85,7 @@ const posts = (): Sent[] => sent.filter((c) => c.method === 'POST')
 const gets = (): Sent[] => sent.filter((c) => c.method === 'GET')
 
 afterEach(() => {
+  drainPersist()
   vi.unstubAllEnvs()
   vi.unstubAllGlobals()
 })

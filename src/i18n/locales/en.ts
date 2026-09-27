@@ -3,7 +3,7 @@
 // this folder mirror the shape. Vite ships each non-English locale as its own
 // lazy chunk (see `src/i18n/index.ts`).
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Cancel',
   'close': 'Close',
   'ok': 'Ok',
@@ -12,7 +12,7 @@ export default {
   'clickToContinue': 'Click to continue',
   'rewards': 'REWARDS',
   'tip': 'Tip',
-  'crazyGamesOnly': 'This game is only available on',
+  'onlyAvailableOn': 'This game is only available on',
 
   // Accessible names for icon-only controls (read aloud, not seen).
   'ui': {
@@ -38,11 +38,31 @@ export default {
     'lastStand': 'Last Stand! Systems rebooted.',
     'weak': 'WEAK!',
     'dizzy': 'DIZZY!',
+    'dodge': 'DODGE!',
     'block': 'Block',
     'slide': 'Slide',
     'fire': 'Fire',
-    'tank': 'Repair Tank',
-    'noEnergy': 'Not enough weapon energy'
+    'tank': 'Repair Gel',
+    'noEnergy': 'Not enough weapon energy',
+    // The gel button's accessible name: how many are carried, and the room.
+    'tankCount': 'Repair Gel: {n} of {max}',
+    // The borrowed weapon's button (accessible name) and the pickup toast.
+    'borrowed': 'Borrowed {weapon}: {n} of {max} shots',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  // ─── Flux's speech bubble (FluxBubble.vue) ────────────────────────────────
+  // A hard hit made him lose control of his charge (sim/fumble.ts): one
+  // short, silly line from a friendly robot. Two lines at most on a phone.
+  'flux': {
+    'fumble': {
+      '1': 'Whoa-oh!',
+      '2': 'Bzzt! Oops!',
+      '3': "My arm's got hiccups!",
+      '4': 'Error… wheee!',
+      '5': 'Butter circuits!',
+      '6': 'Wobble mode ON!'
+    }
   },
 
   // Enemy display names (target frame, bestiary, job board).
@@ -54,6 +74,7 @@ export default {
     'roller': 'Gear Roller',
     'brute': 'Guardroid',
     'turret': 'Wall Cannon',
+    'golem': 'Crate Golem',
     'elite': 'Elite',
     'level': 'Lv {n}'
   },
@@ -66,11 +87,15 @@ export default {
     'hopper': 'Stomper | Stompers',
     'roller': 'Gear Roller | Gear Rollers',
     'brute': 'Guardroid | Guardroids',
-    'turret': 'Wall Cannon | Wall Cannons'
+    'turret': 'Wall Cannon | Wall Cannons',
+    'golem': 'Crate Golem | Crate Golems'
   },
 
   'hud': {
     'help': 'Show controls',
+    'mute': 'Mute sound',
+    'unmute': 'Unmute sound',
+    'bossUnknown': 'Unknown boss',
     'hp': 'Health',
     'we': 'Weapon energy',
     'power': 'Power',
@@ -109,6 +134,8 @@ export default {
     'elite': 'Elite Hunt',
     'supply': 'Supply Run',
     'purge': 'Sector Purge',
+    'climb': 'Tower Run',
+    'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
       'boss': 'Break into the core of {sector} and defeat {boss}.',
@@ -117,7 +144,8 @@ export default {
       'rescue': 'A worker-bot is stranded in {sector}. Find it and beam it out.',
       'elite': 'An elite {target} is terrorising {sector}. Hunt it down.',
       'supply': 'Crack open {n} supply chests in {sector}.',
-      'purge': 'Destroy every machine in {sector}.'
+      'purge': 'Destroy every machine in {sector}.',
+      'climb': 'Climb the tower of {sector} — stairs, ladders, lifts and pits — then drop into the arena for a rematch with {boss}.'
     }
   },
   'objective': {
@@ -131,7 +159,8 @@ export default {
     'rescue': 'Find the stranded worker-bot',
     'elite': 'Hunt down the elite {target}',
     'supply': 'Supply chests: {n}/{total}',
-    'purge': 'Machines destroyed: {n}/{total}'
+    'purge': 'Machines destroyed: {n}/{total}',
+    'climb': 'Climb the tower, defeat {boss}'
   },
   'mission': {
     'bossDown': '{boss} destroyed!',
@@ -162,27 +191,34 @@ export default {
     'red': 'Red ring means unblockable — slide out of the way!',
     'dodgeKeys': 'Red ring means unblockable — press Space to slide out of the way!',
     'chest': 'A supply chest! Tap it to open.',
-    'tank': 'Running low? A Repair Tank fixes you up completely.',
+    'tank': 'Running low? Repair Gel fixes you up completely.',
     'weapon': 'Use your copied weapon from the colored button!'
   },
   // Screen-reader sentences behind the wordless scene lessons (LessonLayer).
   'lesson': {
-    'charge': "Hold to charge your buster, then let go: only a charged shot breaks the training drone's shield.",
+    'charge': "Hold to charge your cannon, then let go: only a charged shot breaks the training drone's shield.",
     'crate': 'Supply crates only break to a charged shot. Hold, then let go at the glowing crate.',
     'weaponKeys': 'Press {n} to fire your copied weapon: one shot takes all three drones.',
-    'weaponTouch': 'Tap the glowing weapon button: one shot takes all three drones.'
+    'weaponTouch': 'Tap the glowing weapon button: one shot takes all three drones.',
+    'gelKeys': 'Press H to use a Repair Gel: it repairs you completely.',
+    'gelTouch': 'Tap the green Repair Gel button: it repairs you completely.'
+  },
+  // The one line of the tutorial walk: shown at a door held shut until
+  // its room's lesson is done (DoorPrompt).
+  'walk': {
+    'finishLesson': 'Finish the lesson'
   },
   // Screen-reader sentences behind the first-visit upgrade tour (HubLesson).
   'hubLesson': {
     'workshop': 'Open the Workshop.',
-    'upgradeBuster': 'Spend bolts to upgrade your buster: more damage.',
+    'upgradeBuster': 'Spend bolts to upgrade your cannon: more damage.',
     'pickArmor': 'Now select your chest armor.',
     'upgradeArmor': 'Upgrade it too: more defense.',
     'deploy': 'All set — back to the missions!'
   },
   'loot': {
     'found': '{rarity} {item} found!',
-    'tank': 'Repair Tank found!'
+    'tank': 'Repair Gel found!'
   },
 
   // ─── Results / defeat / pause ─────────────────────────────────────────────
@@ -204,34 +240,56 @@ export default {
     'title': 'SYSTEM DOWN',
     'body': 'Flux took too much damage.',
     'kept': 'You keep what you earned so far:',
-    'useTank': 'Reboot with Repair Tank ({n})',
+    'useTank': 'Reboot with Repair Gel ({n})',
     'rebootAd': 'Reboot now',
     'retreat': 'Retreat to the lab'
+  },
+  // ─── The big moment banners (`BigBanner.vue`) ─────────────────────────────
+  // One line across the screen, uppercased by CSS in cased scripts, sized to
+  // fit: short and loud, like an "ENEMY FELLED".
+  'banner': {
+    'cleared': 'Level cleared',
+    'bossDown': 'Enemy defeated!',
+    'gameOver': 'Game Over!'
   },
   'pause': {
     'title': 'PAUSED',
     'resume': 'Resume',
     'abandon': 'Abandon mission',
     'controls': 'Controls',
+    // The controls legend's visible verbs (ControlsPanel), one per row beside
+    // the action's icon; the other rows reuse `combat.*`, `hud.*`, `hero.*`.
+    // Short: a row shares a 320 px wide phone with two glyphs, and wraps to
+    // two lines at most.
+    'label': {
+      'move': 'Move',
+      'look': 'Look',
+      'parry': 'Parry',
+      'interact': 'Interact'
+    },
     'touch': {
       'move': 'Left side: drag to move. Tap the floor to walk there.',
-      'look': 'Right side: drag to look around.',
       'fire': 'In combat: tap to shoot, hold to charge, release to fire.',
-      'block': 'Hold the shield to block — just as a ring closes to parry.'
+      'block': 'Hold the shield to block — just as a ring closes to parry.',
+      'use': 'Near a chest, a stranded bot or a door: tap it, or the button that pops up.'
     },
     'keys': {
       'move': 'WASD / arrows: move.',
       'look': 'Move the mouse to look. Click the scene to take control of the camera.',
       'fire': 'Left click: shoot — hold to charge, release to fire.',
       'block': 'Right click: block — just as a ring closes to parry.',
-      'slide': 'Space: slide · H: Repair Tank · E: interact · B: beam out',
-      'more': '1 / 2: special weapons · Tab: switch target · Esc: pause'
+      'slide': 'Space: slide · H: Repair Gel · E: interact · B: beam out',
+      'more': '1 / 2: special weapons · Tab: switch target · Esc: pause',
+      // A one-key row, read aloud: "H: Repair Gel". `{key}` is the key's
+      // letter on this keyboard, `{action}` the row's visible label.
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'LEVEL UP!',
     'pick': 'Choose a system upgrade',
-    'chip': '+1 Skill Chip for your circuits'
+    'chip': '+1 Skill Chip for your circuits',
+    'granted': '{stat} raised from {from} to {to}'
   },
   'attr': {
     'hp': { 'name': 'Frame', 'desc': 'Max health' },
@@ -258,7 +316,15 @@ export default {
     'lockedHint': 'Defeat {boss} to open this sector.',
     'sectorSecured': 'Sector secured. Its jobs are still on the board.',
     'deploy': 'Deploy',
-    'reroll': 'New job'
+    'reroll': 'New job',
+    // A locked lab menu (`hubUnlocks.ts`). `{n}` is how many more missions
+    // it waits for; the plural forms follow the language (`i18n/plural.ts`:
+    // three for ru/uk/pl, six for ar, one where the noun never changes).
+    'unlock': {
+      'hint': 'Complete {n} more mission to unlock | Complete {n} more missions to unlock',
+      // The locked menu's spoken name; `{name}` is its visible label.
+      'aria': '{name}, locked: complete {n} more mission | {name}, locked: complete {n} more missions'
+    }
   },
   'hero': {
     // Under the name on the hero panel's name plate (the name itself is
@@ -279,12 +345,12 @@ export default {
       'charge': 'Charge shot',
       'armor': 'Armor',
       'crit': 'Critical chance',
-      'tanks': 'Repair Tanks'
+      'tanks': 'Repair Gels'
     }
   },
   'workshop': {
     'tanks': 'Supplies',
-    'tankName': 'Repair Tank',
+    'tankName': 'Repair Gel',
     'tankDesc': 'Fully restores health and power mid-mission.',
     'owned': 'Carried: {n}/{max}',
     'upgrade': 'Upgrade gear',
@@ -299,7 +365,7 @@ export default {
 
   // ─── Circuits (skills) ────────────────────────────────────────────────────
   'board': {
-    'buster': 'Buster',
+    'buster': 'Cannon',
     'armor': 'Armor',
     'core': 'Core'
   },
@@ -317,7 +383,7 @@ export default {
     'megaCharge': { 'name': 'Mega Charge', 'desc': 'Charged shot damage +12% per chip.' },
     'perfectTiming': { 'name': 'Perfect Timing', 'desc': 'Wider perfect-release window and stronger criticals.' },
     'piercing': { 'name': 'Piercing Core', 'desc': 'Half-charged shots break shields and helmets too.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Keep holding past full charge for a devastating third level.' },
+    'giga': { 'name': 'Overcharge', 'desc': 'Keep holding past full charge for a devastating third level.' },
     'frame': { 'name': 'Reinforced Frame', 'desc': 'Max health +8% per chip.' },
     'barrier': { 'name': 'Barrier Tuning', 'desc': 'Blocking costs less power and lets less damage through.' },
     'autoRepair': { 'name': 'Auto-Repair', 'desc': 'Regenerate 1% health per second out of combat, per chip.' },
@@ -329,7 +395,7 @@ export default {
     'boosters': { 'name': 'Slide Boosters', 'desc': 'Faster slide cooldown, cheaper slides.' },
     'efficient': { 'name': 'Efficient Cores', 'desc': 'Special weapons cost 10% less energy per chip.' },
     'magnet': { 'name': 'Bolt Magnet', 'desc': 'More bolts and a longer pickup reach.' },
-    'tankCap': { 'name': 'Tank Capacity', 'desc': 'Carry one more Repair Tank per chip.' }
+    'tankCap': { 'name': 'Gel Capacity', 'desc': 'Carry one more Repair Gel per chip.' }
   },
 
   // ─── Gear ─────────────────────────────────────────────────────────────────
@@ -340,11 +406,11 @@ export default {
     'legendary': 'Legendary'
   },
   'item': {
-    'arm_standard': 'Standard Buster',
-    'arm_rapid': 'Rapid Buster',
-    'arm_heavy': 'Heavy Buster',
-    'arm_quick': 'Quick-Charge Buster',
-    'arm_nova': 'Nova Buster',
+    'arm_standard': 'Standard Cannon',
+    'arm_rapid': 'Rapid Cannon',
+    'arm_heavy': 'Heavy Cannon',
+    'arm_quick': 'Quick-Charge Cannon',
+    'arm_nova': 'Nova Cannon',
     'helm_scout': 'Scout Helmet',
     'helm_guard': 'Guard Helmet',
     'helm_ace': 'Ace Helmet',
@@ -361,7 +427,7 @@ export default {
     'chip_quantum': 'Quantum Chip'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Cannon',
     'helmet': 'Helmet',
     'chest': 'Frame',
     'boots': 'Boots',

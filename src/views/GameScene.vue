@@ -2,16 +2,20 @@
   div.scene-root
     div.canvas-host(ref="canvasHost")
     div.input-surface(v-show="flow.screen === 'mission'" ref="surface")
-    div.hud-layer(v-if="flow.screen === 'mission'")
+    div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' }")
       ScreenFx
+      DamageMarkers
       FloatingText
       Crosshair
+      FluxBubble
       Compass
+      ObjectiveLocator
       TargetFrame(v-if="!hud.bossName")
       BossBar
       TitleCard
       ControlHints
       LessonLayer
+      DoorPrompt
       HudBars
       ObjectiveTracker
       TopStatus(@pause="openPause")
@@ -19,6 +23,8 @@
       ContextButtons
       ActionButtons
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
+    ExitSkip(v-if="flow.screen === 'mission'")
+    BigBanner(v-if="flow.screen === 'mission'")
     ResultsModal
     DefeatModal
     PauseModal(@options="optionsOpen = true")
@@ -38,26 +44,35 @@ import { input, adoptBootMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { chargeHum } from '@/game/audio/synth'
+import { CHARGE_L2 } from '@/game/sim/stats'
 import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
 import { isAnyModalOpen } from '@/use/useModalState'
 import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
+import { toggleGameMute } from '@/use/useGameMute'
+import { armNavigationGuard, disarmNavigationGuard } from '@/use/useBrowserGuard'
 import { registerGameCheats } from '@/game/cheats'
 import Joystick from '@/components/hud/Joystick.vue'
 import HudBars from '@/components/hud/HudBars.vue'
 import Crosshair from '@/components/hud/Crosshair.vue'
 import TargetFrame from '@/components/hud/TargetFrame.vue'
 import FloatingText from '@/components/hud/FloatingText.vue'
+import FluxBubble from '@/components/hud/FluxBubble.vue'
 import ScreenFx from '@/components/hud/ScreenFx.vue'
+import DamageMarkers from '@/components/hud/DamageMarkers.vue'
 import ActionButtons from '@/components/hud/ActionButtons.vue'
 import TopStatus from '@/components/hud/TopStatus.vue'
 import ObjectiveTracker from '@/components/hud/ObjectiveTracker.vue'
 import Compass from '@/components/hud/Compass.vue'
+import ObjectiveLocator from '@/components/hud/ObjectiveLocator.vue'
 import ContextButtons from '@/components/hud/ContextButtons.vue'
 import BossBar from '@/components/hud/BossBar.vue'
 import TitleCard from '@/components/hud/TitleCard.vue'
 import ControlHints from '@/components/hud/ControlHints.vue'
 import LessonLayer from '@/components/hud/LessonLayer.vue'
+import DoorPrompt from '@/components/hud/DoorPrompt.vue'
+import BigBanner from '@/components/hud/BigBanner.vue'
+import ExitSkip from '@/components/hud/ExitSkip.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
@@ -78,6 +93,8 @@ const canvasHost = ref<HTMLElement | null>(null)
 const surface = ref<HTMLElement | null>(null)
 const optionsOpen = ref(false)
 let detachInput: (() => void) | null = null
+/** How long back / close stay guarded after the capture is LOST (ms). */
+const LOCK_LOSS_GRACE_MS = 2500
 
 const openPause = () => {
   if (flow.screen === 'mission' && hud.phase === 'play' && !flow.modal) flow.modal = 'pause'
@@ -97,6 +114,15 @@ const onKey = (e: KeyboardEvent) => {
   if (e.code === 'F1' || (e.key === '?' && !typing(e))) {
     e.preventDefault()
     if (!e.repeat && flow.screen === 'mission' && !flow.modal && !isGamePaused.value) currentMission()?.showHelp()
+    return
+  }
+  // F2 is the HUD's speaker button, on every screen (the lab and the menus
+  // too): muting is never a thing to hunt for a cursor to do. Not under an
+  // ad — the ad's audio gate owns the sound then, and a toggle underneath it
+  // would come back as a surprise when the ad ends.
+  if (e.code === 'F2') {
+    e.preventDefault()
+    if (!e.repeat && !typing(e) && !isAdShowing.value) toggleGameMute()
     return
   }
   // While the mouse is captured, Esc belongs to the browser: it releases the
@@ -119,7 +145,12 @@ onMounted(async () => {
       !flow.modal && !isGamePaused.value,
     // Esc, alt-tab or a system dialog took the mouse back: pause, like
     // every desktop shooter.
-    onLockLost: () => openPause()
+    onLockLost: () => openPause(),
+    // Browser gestures (Opera's rocker, gesture extensions) must not take
+    // the player off the page while captured; a lost capture keeps the
+    // guard a moment longer, since the stroke that broke it may still end.
+    onLockChange: (locked, asked) =>
+      locked ? armNavigationGuard() : disarmNavigationGuard(asked ? 0 : LOCK_LOSS_GRACE_MS)
   })
   void loadKeyboardLayout()
   app.setSuspended(isGamePaused.value)
@@ -128,7 +159,21 @@ onMounted(async () => {
   // first gesture (autoplay policy), and the gates keep it silent under ads.
   startGameMusic()
   window.addEventListener('keydown', onKey)
-  if (import.meta.env.DEV) (window as unknown as Record<string, unknown>).__game = { app, input, flow, startMission, storyFor, goHub }
+  if (import.meta.env.DEV) {
+    const w = window as unknown as Record<string, unknown>
+    w.__game = { app, input, flow, startMission, storyFor, goHub }
+    // A fumble on demand (QA, screenshots): the charge as held, else a full
+    // one (`sim/fumble.ts`). Folds away in production.
+    w.__fumble = () => {
+      const m = currentMission()
+      if (!m || hud.phase !== 'play') return
+      if (!m.combat.charging) {
+        m.combat.charging = true
+        m.combat.charge = CHARGE_L2 * m.stats.chargeTimeMul
+      }
+      m.fumbleCharge()
+    }
+  }
   // The loader's prepared first scene. The scene never builds its own copy
   // while the loader is still priming (see `adoptBootMode`).
   app.setMode(await adoptBootMode())
@@ -169,6 +214,7 @@ watch(live, (v) => syncGameplayLifecycle(v), { immediate: true })
 onUnmounted(() => {
   syncGameplayLifecycle(false)
   detachInput?.()
+  disarmNavigationGuard()
   window.removeEventListener('keydown', onKey)
   app.setWanted(false)
   app.detach()
@@ -199,4 +245,12 @@ onUnmounted(() => {
   position: absolute
   inset: 0
   pointer-events: none
+  transition: opacity 0.35s, visibility 0s linear 0s
+  // The exit cutscene (phase `beamOut`) is a film: the whole HUD fades away,
+  // and hidden it takes no taps either, so any press reaches the scene (the
+  // skip). The banner and the skip glyph live outside this layer.
+  &.cine
+    opacity: 0
+    visibility: hidden
+    transition: opacity 0.35s, visibility 0s linear 0.35s
 </style>

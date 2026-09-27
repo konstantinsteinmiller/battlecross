@@ -1,6 +1,6 @@
 // ─── Game-state field catalogue ─────────────────────────────────────────────
 //
-// Field names INSIDE the single `mega_adventure_state` blob (see
+// Field names INSIDE the single `mega_droid_state` blob (see
 // `useGameState.ts`). These are NOT separate localStorage keys — they are
 // properties of the one persisted object — but they are still a contract with
 // the player base: renaming any of them strands existing players' progress on

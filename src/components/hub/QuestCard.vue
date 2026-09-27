@@ -1,11 +1,14 @@
 <template lang="pug">
-  div.qcard(:class="{ story }" :style="{ '--c1': THEMES[quest.sector].wall }")
+  div.qcard(:class="{ story, climb }" :style="{ '--c1': THEMES[quest.sector].wall }")
     div.q-icon
       GameIcon(:name="ICON[quest.template]")
     div.q-body
       div.q-title {{ story && quest.template === 'boss' ? t('quest.bossTitle', { boss: t(`boss.${SECTOR_BY_ID[quest.sector].boss}`) }) : t(`quest.${quest.template}`) }}
       div.q-desc {{ t(`quest.desc.${quest.template}`, params) }}
       div.q-meta
+        //- A climb ends in a rematch: the boss named on the card, in the
+        //- boss's red, so the tower is not read as one more job.
+        span.chip.rematch(v-if="climb") {{ t('quest.rematch', { boss: params.boss }) }}
         span.chip.sector {{ t(`sector.${quest.sector}`) }}
         span.chip.lvl {{ t('enemy.level', { n: quest.level }) }}
         span.chip.xp {{ t('combat.xp', { n: quest.reward.xp }) }}
@@ -35,8 +38,11 @@ const props = defineProps<{ quest: Quest; story?: boolean }>()
 defineEmits<{ deploy: []; reroll: [] }>()
 const { t } = useI18n()
 const ICON: Record<QuestTemplate, GameIconName> = {
-  tutorial: 'star', boss: 'skull', kill: 'bomb', collect: 'gem', rescue: 'heart', elite: 'trophy', supply: 'chest', purge: 'flame'
+  tutorial: 'star', boss: 'skull', kill: 'bomb', collect: 'gem', rescue: 'heart', elite: 'trophy', supply: 'chest', purge: 'flame',
+  climb: 'up'
 }
+/** A Tower Run: its own livery (hazard stripes, a climbing arrow). */
+const climb = computed(() => props.quest.template === 'climb')
 const params = computed(() => ({
   n: props.quest.count,
   target: props.quest.target
@@ -71,6 +77,17 @@ const params = computed(() => ({
   color: #141a33
 .story .q-icon
   background: radial-gradient(circle at 40% 30%, #fff, #ff8a8a 45%, #c0101f)
+// The climb: a hazard-striped rim (the tower's ledges) and an amber arrow up.
+.qcard.climb
+  border-color: #ffc21a
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c1) 40%, #16244e), rgba(22, 36, 78, 0.9) 60%) padding-box, repeating-linear-gradient(-45deg, #ffc21a 0 8px, #1b1d24 8px 16px) border-box
+  border: 3px solid transparent
+  box-shadow: 0 0 12px rgba(255, 194, 26, 0.22)
+.climb .q-icon
+  background: radial-gradient(circle at 40% 30%, #fff, #ffd23a 45%, #e07a00)
+.chip.rematch
+  background: rgba(192, 16, 31, 0.55)
+  color: #ffe0e0
 .q-title
   font-size: clamp(14px, 3vmin, 18px)
   text-shadow: 0 2px 0 #141a33

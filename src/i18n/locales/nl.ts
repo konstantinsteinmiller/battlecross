@@ -1,6 +1,6 @@
 // Dutch locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Annuleren',
   'close': 'Sluiten',
   'ok': 'Ok',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Klik om door te gaan',
   'rewards': 'BELONINGEN',
   'tip': 'Tip',
-  'crazyGamesOnly': 'Dit spel is alleen beschikbaar op',
+  'onlyAvailableOn': 'Dit spel is alleen beschikbaar op',
 
   'ui': {
     'next': 'Volgende',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Laatste adem! Systemen herstart.',
     'weak': 'ZWAKTE!',
     'dizzy': 'DUIZELIG!',
+    'dodge': 'ONTWEKEN!',
     'block': 'Blokkeren',
     'slide': 'Glijden',
     'fire': 'Vuren',
-    'tank': 'Reparatietank',
-    'noEnergy': 'Niet genoeg wapenenergie'
+    'tank': 'Reparatiegel',
+    'noEnergy': 'Niet genoeg wapenenergie',
+    'tankCount': 'Reparatiegel: {n} van {max}',
+    'borrowed': 'Geleend wapen {weapon}: {n} van {max} schoten',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Oei-oei!',
+      '2': 'Bzzt! Oeps!',
+      '3': 'Mijn arm heeft de hik!',
+      '4': 'Fout… wieee!',
+      '5': 'Circuits van boter!',
+      '6': 'Wiebelmodus AAN!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Tandwielroller',
     'brute': 'Wachtdroid',
     'turret': 'Wandkanon',
+    'golem': 'Kistgolem',
     'elite': 'Elite',
     'level': 'Lv. {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Stamper | Stampers',
     'roller': 'Tandwielroller | Tandwielrollers',
     'brute': 'Wachtdroid | Wachtdroids',
-    'turret': 'Wandkanon | Wandkanonnen'
+    'turret': 'Wandkanon | Wandkanonnen',
+    'golem': 'Kistgolem | Kistgolems'
   },
 
   'hud': {
     'help': 'Besturing tonen',
+    'mute': 'Geluid uit',
+    'unmute': 'Geluid aan',
+    'bossUnknown': 'Onbekende baas',
     'hp': 'Gezondheid',
     'we': 'Wapenenergie',
     'power': 'Kracht',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Elitejacht',
     'supply': 'Bevoorrading',
     'purge': 'Sectorzuivering',
+    'climb': 'Torenrun',
+    'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
       'boss': 'Dring door tot de kern van sector {sector} en versla {boss}.',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Een werkbot zit vast in sector {sector}. Vind hem en teleporteer hem weg.',
       'elite': 'Een elitevijand ({target}) terroriseert sector {sector}. Maak er jacht op!',
       'supply': 'Kraak {n} voorraadkisten in sector {sector}.',
-      'purge': 'Vernietig elke machine in sector {sector}.'
+      'purge': 'Vernietig elke machine in sector {sector}.',
+      'climb': 'Beklim de toren van sector {sector} — trappen, ladders, liften en afgronden — en daal af naar de arena voor een revanche tegen {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Vind de gestrande werkbot',
     'elite': 'Jaag op de elitevijand: {target}',
     'supply': 'Voorraadkisten: {n}/{total}',
-    'purge': 'Machines vernietigd: {n}/{total}'
+    'purge': 'Machines vernietigd: {n}/{total}',
+    'climb': 'Beklim de toren, versla {boss}'
   },
   'mission': {
     'bossDown': '{boss} vernietigd!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Een rode ring is niet te blokkeren — glij opzij!',
     'dodgeKeys': 'Een rode ring is niet te blokkeren — druk op spatie om opzij te glijden!',
     'chest': 'Een voorraadkist! Tik erop om hem te openen.',
-    'tank': 'Bijna op? Een reparatietank lapt je helemaal op.',
+    'tank': 'Bijna op? Reparatiegel lapt je helemaal op.',
     'weapon': 'Gebruik je gekopieerde wapen via de gekleurde knop!'
   },
   'lesson': {
-    'charge': 'Houd vast om je buster op te laden en laat dan los: alleen een geladen schot breekt het schild van de trainingsdrone.',
+    'charge': 'Houd vast om je kanon op te laden en laat dan los: alleen een geladen schot breekt het schild van de trainingsdrone.',
     'crate': 'Voorraadkratten breken alleen door een geladen schot. Houd vast en laat los terwijl je op het gloeiende krat richt.',
     'weaponKeys': 'Druk op {n} om je gekopieerde wapen af te vuren: één schot raakt alle drie de drones.',
-    'weaponTouch': 'Tik op de gloeiende wapenknop: één schot raakt alle drie de drones.'
+    'weaponTouch': 'Tik op de gloeiende wapenknop: één schot raakt alle drie de drones.',
+    'gelKeys': 'Druk op H voor een reparatiegel: die lapt je helemaal op.',
+    'gelTouch': 'Tik op de groene reparatiegelknop: die lapt je helemaal op.'
+  },
+  'walk': {
+    'finishLesson': 'Maak de les af'
   },
   'hubLesson': {
     'workshop': 'Open de Werkplaats.',
-    'upgradeBuster': 'Besteed bouten om je buster te upgraden: meer schade.',
+    'upgradeBuster': 'Besteed bouten om je kanon te upgraden: meer schade.',
     'pickArmor': 'Kies nu je borstpantser.',
     'upgradeArmor': 'Upgrade dat ook: meer verdediging.',
     'deploy': 'Klaar — terug naar de missies!'
   },
   'loot': {
     'found': '{item} ({rarity}) gevonden!',
-    'tank': 'Reparatietank gevonden!'
+    'tank': 'Reparatiegel gevonden!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'SYSTEEMSTORING',
     'body': 'Flux heeft te veel schade opgelopen.',
     'kept': 'Wat je tot nu toe hebt verdiend, houd je:',
-    'useTank': 'Herstart met reparatietank ({n})',
+    'useTank': 'Herstart met reparatiegel ({n})',
     'rebootAd': 'Nu herstarten',
     'retreat': 'Terug naar het lab'
+  },
+  'banner': {
+    'cleared': 'Level voltooid',
+    'bossDown': 'Vijand verslagen!',
+    'gameOver': 'Game over!'
   },
   'pause': {
     'title': 'GEPAUZEERD',
     'resume': 'Hervatten',
     'abandon': 'Missie afbreken',
     'controls': 'Besturing',
+    'label': {
+      'move': 'Lopen',
+      'look': 'Kijken',
+      'parry': 'Pareren',
+      'interact': 'Interactie'
+    },
     'touch': {
       'move': 'Linkerkant: sleep om te lopen. Tik op de vloer om erheen te lopen.',
-      'look': 'Rechterkant: sleep om rond te kijken.',
       'fire': 'In gevecht: tik om te schieten, houd vast om op te laden, laat los om te vuren.',
-      'block': 'Houd het schild vast om te blokkeren — precies als een ring sluit om te pareren.'
+      'block': 'Houd het schild vast om te blokkeren — precies als een ring sluit om te pareren.',
+      'use': 'Bij een kist, een gestrande bot of een deur: tik erop, of op de knop die verschijnt.'
     },
     'keys': {
       'move': 'WASD / pijltjes: lopen.',
       'look': 'Beweeg de muis om te kijken. Klik op de scène om de camera over te nemen.',
       'fire': 'Linkermuisknop: schieten — vasthouden om op te laden, loslaten om te vuren.',
       'block': 'Rechtermuisknop: blokkeren — precies als een ring sluit om te pareren.',
-      'slide': 'Spatie: glijden · H: reparatietank · E: interactie · B: teleporteren',
-      'more': '1 / 2: speciale wapens · Tab: ander doelwit · Esc: pauze'
+      'slide': 'Spatie: glijden · H: reparatiegel · E: interactie · B: teleporteren',
+      'more': '1 / 2: speciale wapens · Tab: ander doelwit · Esc: pauze',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'LEVEL OMHOOG!',
     'pick': 'Kies een systeemupgrade',
-    'chip': '+1 vaardigheidschip voor je circuits'
+    'chip': '+1 vaardigheidschip voor je circuits',
+    'granted': '{stat} verhoogd van {from} naar {to}'
   },
   'attr': {
     'hp': { 'name': 'Chassis', 'desc': 'Max. gezondheid' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Versla {boss} om deze sector te openen.',
     'sectorSecured': 'Sector veiliggesteld. De klussen staan nog op het bord.',
     'deploy': 'Uitrukken',
-    'reroll': 'Nieuwe klus'
+    'reroll': 'Nieuwe klus',
+    'unlock': {
+      'hint': 'Voltooi nog {n} missie om dit te ontgrendelen | Voltooi nog {n} missies om dit te ontgrendelen',
+      'aria': '{name}, vergrendeld: voltooi nog {n} missie | {name}, vergrendeld: voltooi nog {n} missies'
+    }
   },
   'hero': {
     'role': 'Jouw gevechtsandroïde',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Geladen schot',
       'armor': 'Pantser',
       'crit': 'Kritieke kans',
-      'tanks': 'Reparatietanks'
+      'tanks': 'Reparatiegels'
     }
   },
   'workshop': {
     'tanks': 'Voorraad',
-    'tankName': 'Reparatietank',
+    'tankName': 'Reparatiegel',
     'tankDesc': 'Herstelt tijdens een missie je gezondheid en kracht volledig.',
     'owned': 'Op zak: {n}/{max}',
     'upgrade': 'Uitrusting upgraden',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Kanon',
     'armor': 'Pantser',
     'core': 'Kern'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Megalading', 'desc': 'Schade van geladen schoten +12% per chip.' },
     'perfectTiming': { 'name': 'Perfecte timing', 'desc': 'Ruimer venster voor perfect loslaten en sterkere kritieke treffers.' },
     'piercing': { 'name': 'Doorborende kern', 'desc': 'Half geladen schoten breken ook door schilden en helmen.' },
-    'giga': { 'name': 'Giga-buster', 'desc': 'Blijf na volle lading vasthouden voor een verwoestend derde niveau.' },
+    'giga': { 'name': 'Overlading', 'desc': 'Blijf na volle lading vasthouden voor een verwoestend derde niveau.' },
     'frame': { 'name': 'Versterkt chassis', 'desc': 'Max. gezondheid +8% per chip.' },
     'barrier': { 'name': 'Barrière-afstelling', 'desc': 'Blokkeren kost minder kracht en laat minder schade door.' },
     'autoRepair': { 'name': 'Auto-reparatie', 'desc': 'Herstel buiten gevechten 1% gezondheid per seconde, per chip.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'Glijboosters', 'desc': 'Snellere glij-afkoeltijd, goedkoper glijden.' },
     'efficient': { 'name': 'Efficiënte kernen', 'desc': 'Speciale wapens kosten per chip 10% minder energie.' },
     'magnet': { 'name': 'Boutmagneet', 'desc': 'Meer bouten en een groter oppakbereik.' },
-    'tankCap': { 'name': 'Tankcapaciteit', 'desc': 'Neem per chip één reparatietank extra mee.' }
+    'tankCap': { 'name': 'Gelcapaciteit', 'desc': 'Neem per chip één reparatiegel extra mee.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'Legendarisch'
   },
   'item': {
-    'arm_standard': 'Standaardbuster',
-    'arm_rapid': 'Snelvuurbuster',
-    'arm_heavy': 'Zware buster',
-    'arm_quick': 'Snellaadbuster',
-    'arm_nova': 'Nova-buster',
+    'arm_standard': 'Standaardkanon',
+    'arm_rapid': 'Snelvuurkanon',
+    'arm_heavy': 'Zwaar kanon',
+    'arm_quick': 'Snellaadkanon',
+    'arm_nova': 'Nova-kanon',
     'helm_scout': 'Verkennershelm',
     'helm_guard': 'Wachtershelm',
     'helm_ace': 'Sterhelm',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Kwantumchip'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Kanon',
     'helmet': 'Helm',
     'chest': 'Chassis',
     'boots': 'Laarzen',

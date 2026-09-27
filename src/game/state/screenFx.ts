@@ -12,8 +12,9 @@ export const screenFx = {
   flashColor: '#ffffff'
 }
 
-/** Below this share of max HP the health bar turns red (HudBars). */
-export const LOW_HP = 0.3
+/** Below this share of max HP the health bar turns red (HudBars). 40 %, not
+ *  30: a playtester saw the low-health overlay one turn before dying. */
+export const LOW_HP = 0.4
 
 /**
  * The low-health warning is LIVE: under `LOW_HP` in actual play. Not while

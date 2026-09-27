@@ -70,7 +70,7 @@ describe('SaveMergePolicy.computeMeta', () => {
 
   it('reads the fields out of the consolidated state blob', () => {
     const meta = computeMeta(reader({
-      mega_adventure_state: JSON.stringify({ [SAVE_KEYS.LEVEL]: 5, [SAVE_KEYS.STORY]: 1 })
+      mega_droid_state: JSON.stringify({ [SAVE_KEYS.LEVEL]: 5, [SAVE_KEYS.STORY]: 1 })
     }))
     expect(meta.progressScore).toBe(5000 + 5000)
   })

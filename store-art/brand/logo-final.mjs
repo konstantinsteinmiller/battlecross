@@ -1,4 +1,4 @@
-// Mega Adventure logo lockup generator (design tool, not shipped).
+// Mega Droid logo lockup generator (design tool, not shipped).
 //
 //   node store-art/brand/logo-final.mjs   -> rewrites logo-lockup.svg next to itself
 //
@@ -126,6 +126,16 @@ L.U = ({ H, tv, th, C, W }) => {
     [W - tv, 0], [W, 0], [W, H - C], [W - C, H], [C, H], [0, H - C]
   ]]
 }
+// O: D's corner cut and D's counter, on all four corners
+L.O = ({ H, tv, th, C, W }) => {
+  const k = C + ((tv + th) / 2) * Math.SQRT2 * 0.8
+  return [
+    [[0, H - C], [0, C], [C, 0], [W - C, 0], [W, C], [W, H - C], [W - C, H], [C, H]],
+    [[tv, k - tv], [k - th, th], [W - k + th, th], [W - tv, k - tv], [W - tv, H - (k - tv)], [W - k + th, H - th], [k - th, H - th], [tv, H - (k - tv)]]
+  ]
+}
+// I: the bare stem (W = tv), with the small chamfer every letter has
+L.I = ({ H, c, W }) => [[[0, H], [0, c], [c, 0], [W, 0], [W, H - c], [W - c, H]]]
 L.R = ({ H, tv, th, c, C, W, m = 0.58, lw = 1.15 }) => {
   const yb = H * m + th / 2
   const k = Math.max(0, C - tv * 0.5)
@@ -186,15 +196,16 @@ const relCmds = (cmds) => {
 // ── italic ─────────────────────────────────────────────────────────────────
 const TAN = Math.tan((12 * Math.PI) / 180)
 const skewM = (x0, y0, H) => `matrix(1 0 -${TAN.toFixed(3).replace(/^0/, '')} 1 ${num(T(x0 + TAN * H))} ${num(T(y0))})`
-/** Upright word at origin (0,0), letters laid left to right. */
-const wordUp = (text, spec, tracking, widths) => {
+/** Upright word at origin (0,0), letters laid left to right; `kern` adds to the tracking per pair ('ID': 1). */
+const wordUp = (text, spec, tracking, widths, kern = {}) => {
   let x = 0
   const parts = []
-  for (const ch of text) {
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i]
     const W = widths[ch]
     const g = L[ch]({ ...spec, W })
     parts.push(relGlyph(g.map((c) => c.map(([px, py]) => [x + px, py]))))
-    x += W + tracking
+    x += W + tracking + (kern[ch + (text[i + 1] ?? '')] ?? 0)
   }
   const up = x - tracking
   return { d: parts.join(''), upright: up, width: up + spec.H * TAN }
@@ -295,20 +306,30 @@ const lockupSvg = () => {
   body += `<path transform="${skewM(mx, megaY + 4.5, megaSpec.H)}" d="${mega.d}" fill="${INK}" stroke="${INK}" stroke-width="7"/>`
   body += `<path transform="${skewM(mx, megaY, megaSpec.H)}" d="${mega.d}" fill="${PEARL}" stroke="${INK}" stroke-width="7" paint-order="stroke"/>`
 
-  const advSpec = { H: 18, tv: 4.5, th: 3.9, td: 4, c: 2.6, C: 5 }
-  const advW = { A: 18, D: 17, V: 18, E: 14, N: 17, T: 16, U: 16.5, R: 17 }
-  const letters = 'ADVENTURE'
-  const sumW = [...letters].reduce((a, ch) => a + advW[ch], 0)
-  const tr = Math.min(11, (mega.width - 30 - sumW - advSpec.H * TAN) / (letters.length - 1))
-  const adv = wordUp(letters, advSpec, tr, advW)
+  // DROID: amber on a visor plate. The plate is exactly as wide as the badge
+  // (at mid-height its path runs vertex to vertex of the hex) and its ends lean
+  // at the italic angle, like the letters and the loader bar under it, so the
+  // column reads badge / MEGA / plate as one shape. The word is tracked out to
+  // fill the plate with the same padding at both ends.
+  const droidSpec = { H: 28, tv: 7, th: 6, td: 6.2, c: 4, C: 7.8 }
+  const droidW = { D: 26.4, R: 26.4, O: 27.4, I: 7 }
+  const letters = 'DROID'
+  const kern = { ID: 1 }
+  const pad = 11
+  const sumW = [...letters].reduce((a, ch) => a + droidW[ch], 0) + Object.values(kern).reduce((a, k) => a + k, 0)
+  // at any one height the word spans its upright width: the lean moves both ends alike
+  const tr = (2 * R - 2 * pad - sumW) / (letters.length - 1)
+  const droid = wordUp(letters, droidSpec, tr, droidW, kern)
   const plateY = megaY + megaSpec.H + 10
-  const plateH = 31
+  const plateH = droidSpec.H + 13
   const sk = plateH * TAN
-  const plateL = mx - 4, plateR = mx + mega.width + 4
-  body += `<path d="${relPoly([[plateL + sk, plateY], [plateR + sk, plateY], [plateR + 2.4, plateY + plateH], [plateL - 2.4, plateY + plateH]])}" fill="${VISOR}" stroke="${INK}" stroke-width="6"/>`
-  body += `<path d="M${r1(plateL + sk + 2)} ${r1(plateY + 3.4)}h${r1(plateR - plateL - 4)}" stroke="${VISOR_HI}" stroke-width="2.4"/>`
-  const ax = (VW - adv.width) / 2 + 1.5
-  body += `<path transform="${skewM(ax, plateY + (plateH - advSpec.H) / 2, advSpec.H)}" d="${adv.d}" fill="${AMBER}"/>`
+  const plateL = cx - R - sk / 2, plateR = cx + R - sk / 2
+  body += `<path d="${relPoly([[plateL + sk, plateY], [plateR + sk, plateY], [plateR, plateY + plateH], [plateL, plateY + plateH]])}" fill="${VISOR}" stroke="${INK}" stroke-width="6"/>`
+  const hiX = plateL + sk - 3.4 * TAN + 3
+  body += `<path d="M${r1(hiX)} ${r1(plateY + 3.4)}h${r1(plateR - plateL - 6)}" stroke="${VISOR_HI}" stroke-width="2.4"/>`
+  // +1: the closing D's cut corners read lighter than the opening D's stem
+  const dx = cx - R + pad + 1 - (droidSpec.H / 2) * TAN
+  body += `<path transform="${skewM(dx, plateY + (plateH - droidSpec.H) / 2, droidSpec.H)}" d="${droid.d}" fill="${AMBER}"/>`
   const VH = Math.ceil(plateY + plateH + 4)
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VW} ${VH}" aria-hidden="true" focusable="false"><g stroke-linejoin="round">${body}</g></svg>`
 }

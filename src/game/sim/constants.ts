@@ -22,6 +22,13 @@ export const DOOR_OPEN_DIST = 4.4
 export const DOOR_OPEN_SPEED = 2.6
 
 export const BEAM_IN_TIME = 1.15
-export const BEAM_OUT_TIME = 1.25
 
-export const INTERACT_DIST = 2.6
+/** How far a chest or the worker-bot answers [E] / the tap (m), centre to
+ *  centre — the boss shutter's reach. A chest's centre sits 0.55 m back
+ *  toward its wall and its collision keeps the player 1.4 m off it, so a
+ *  shorter reach left only a thin crescent in front to stand in. */
+export const INTERACT_DIST = 3.4
+/** Closer than this the interact reach skips the grid sight test (m): no
+ *  wall fits between (a wall cell is 3 m thick; chests keep off doorways),
+ *  and a line that grazes a wall cell's corner would only hide the prompt. */
+export const INTERACT_NEAR = 1.8

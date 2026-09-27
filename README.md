@@ -1,4 +1,4 @@
-# Mega Adventure
+# Mega Droid
 
 A casual first-person **action-exploration** game for the web. You play
 Flux, a pearl-white combat android with amber eye-lights behind a dark
@@ -22,12 +22,19 @@ GameDistribution, Yandex, Glitch, itch.io and Wavedash from one codebase.
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:2194 (check the tab title says "Mega Adventure")
+pnpm dev          # http://localhost:2194 (check the tab title says "Mega Droid")
 pnpm test         # 458 unit, integration and simulation tests
 pnpm type-check   # vue-tsc
 pnpm build        # type-check + production build
 pnpm build:crazy-web | build:playgama | build:poki | build:gamepix | …
+pnpm playgama:audit # YouTube Playables fit audit of the Playgama archive
 ```
+
+`build:playgama` writes its own folder, never `dist/`:
+`dist-playgama/mega-droid-playgama.zip` (a real PKZIP of
+`dist-playgama/game/`), which is also the YouTube Playables submission. Its
+release gates (`tools/playgama-release/`) fail the build if another portal, dev
+tooling or an external host ships in it.
 
 The game starts right in the first mission. There is no menu.
 
@@ -49,8 +56,10 @@ The game starts right in the first mission. There is no menu.
 - **Progression:** XP levels with a stat pick, three skill circuit boards
   (18 nodes), gear in 6 sockets with rarities and affixes, Workshop
   upgrades, special weapons that rank up with use.
-- **One save blob** (`mega_adventure_state`) behind a SaveManager with
+- **One save blob** (`mega_droid_state`) behind a SaveManager with
   per-portal cloud strategies, including a resumable mid-mission snapshot.
+  Saves from before the rename (`mega_adventure_*` keys) move onto the new
+  keys once, on boot and on the first cloud read (`src/legacyKeys.ts`).
 - **21 languages**, including RTL Arabic and CJK, with a parity test.
 
 ## Where things are

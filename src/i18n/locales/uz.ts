@@ -1,6 +1,6 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Bekor qilish',
   'close': 'Yopish',
   'ok': 'Ok',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Davom etish uchun cherting',
   'rewards': 'MUKOFOTLAR',
   'tip': 'Maslahat',
-  'crazyGamesOnly': 'Bu oʻyin faqat quyidagi joyda mavjud:',
+  'onlyAvailableOn': 'Bu oʻyin faqat quyidagi joyda mavjud:',
 
   'ui': {
     'next': 'Keyingi',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Soʻnggi marra! Tizimlar qayta ishga tushdi.',
     'weak': 'ZAIF!',
     'dizzy': 'GANGIDI!',
+    'dodge': 'CHETLANDI!',
     'block': 'Blok',
     'slide': 'Sirpanish',
     'fire': 'Otish',
-    'tank': 'Taʼmir toʻplami',
-    'noEnergy': 'Qurol energiyasi yetarli emas'
+    'tank': 'Taʼmir geli',
+    'noEnergy': 'Qurol energiyasi yetarli emas',
+    'tankCount': 'Taʼmir geli: {max} tadan {n} ta',
+    'borrowed': 'Qarzga olingan qurol {weapon}: {max} tadan {n} ta oʻq',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Voy-voy!',
+      '2': 'Bzzt! Ups!',
+      '3': 'Qoʻlim hiqichoq tutdi!',
+      '4': 'Xato… viii!',
+      '5': 'Sirpanchiq sxemalar!',
+      '6': 'Titrash rejimi YONIQ!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Tishli gʻildirak',
     'brute': 'Qoʻriqchi-droid',
     'turret': 'Devor toʻpi',
+    'golem': 'Yashik-golem',
     'elite': 'Elitar',
     'level': 'Dar. {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Toptovchi | Toptovchi',
     'roller': 'Tishli gʻildirak | Tishli gʻildirak',
     'brute': 'Qoʻriqchi-droid | Qoʻriqchi-droid',
-    'turret': 'Devor toʻpi | Devor toʻpi'
+    'turret': 'Devor toʻpi | Devor toʻpi',
+    'golem': 'Yashik-golem | Yashik-golem'
   },
 
   'hud': {
     'help': 'Boshqaruvni koʻrsatish',
+    'mute': 'Ovozni oʻchirish',
+    'unmute': 'Ovozni yoqish',
+    'bossUnknown': 'Nomaʼlum boss',
     'hp': 'Sogʻliq',
     'we': 'Qurol energiyasi',
     'power': 'Quvvat',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Elita ovi',
     'supply': 'Taʼminot reydi',
     'purge': 'Sektorni tozalash',
+    'climb': 'Minora poygasi',
+    'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
       'boss': '{boss} {sector} sektori yadrosida kutmoqda. Ichkariga yorib kiring va uni yenging!',
@@ -108,7 +130,8 @@ export default {
       'rescue': '{sector} sektorida ishchi-bot qamalib qoldi. Uni toping va teleport qiling.',
       'elite': 'Elitar {target} {sector} sektorini dahshatga solmoqda. Uni ovlang.',
       'supply': '{sector} sektorida {n} ta taʼminot sandigʻini oching.',
-      'purge': '{sector} sektoridagi barcha mashinalarni yoʻq qiling.'
+      'purge': '{sector} sektoridagi barcha mashinalarni yoʻq qiling.',
+      'climb': '{sector} sektoridagi minoraga chiqing — zinapoyalar, narvonlar, liftlar va chuqurlar — soʻng arenaga tushing. Qayta jang: {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Qamalib qolgan ishchi-botni toping',
     'elite': 'Elita ovi: {target}',
     'supply': 'Taʼminot sandiqlari: {n}/{total}',
-    'purge': 'Yoʻq qilingan mashinalar: {n}/{total}'
+    'purge': 'Yoʻq qilingan mashinalar: {n}/{total}',
+    'climb': 'Minoraga chiqing va asosiy dushmanni yenging: {boss}'
   },
   'mission': {
     'bossDown': '{boss} yoʻq qilindi!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Sirpanib chetlaning!',
     'dodgeKeys': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Probelni bosib, sirpanib chetlaning!',
     'chest': 'Taʼminot sandigʻi! Ochish uchun bosing.',
-    'tank': 'Sogʻliq kammi? Taʼmir toʻplami sizni toʻliq tuzatadi.',
+    'tank': 'Sogʻliq kammi? Taʼmir geli sizni toʻliq tuzatadi.',
     'weapon': 'Nusxalangan qurolni rangli tugma bilan ishlating!'
   },
   'lesson': {
-    'charge': 'Blasterni zaryadlash uchun bosib turing, soʻng qoʻyib yuboring: mashq dronining qalqonini faqat zaryadli oʻq sindiradi.',
+    'charge': 'Qoʻl toʻpini zaryadlash uchun bosib turing, soʻng qoʻyib yuboring: mashq dronining qalqonini faqat zaryadli oʻq sindiradi.',
     'crate': 'Taʼminot qutilarini faqat zaryadli oʻq sindiradi. Bosib turing va yonib turgan qutini moʻljallab qoʻyib yuboring.',
     'weaponKeys': '{n} tugmasini bosib, nusxalangan qurolni oting: bitta oʻq uchala dronga ham tegadi.',
-    'weaponTouch': 'Yonib turgan qurol tugmasini bosing: bitta oʻq uchala dronga ham tegadi.'
+    'weaponTouch': 'Yonib turgan qurol tugmasini bosing: bitta oʻq uchala dronga ham tegadi.',
+    'gelKeys': 'Taʼmir gelini ishlatish uchun H tugmasini bosing: u sizni toʻliq tuzatadi.',
+    'gelTouch': 'Yashil taʼmir geli tugmasini bosing: u sizni toʻliq tuzatadi.'
+  },
+  'walk': {
+    'finishLesson': 'Darsni tugating'
   },
   'hubLesson': {
     'workshop': 'Ustaxonani oching.',
-    'upgradeBuster': 'Blasterni yaxshilash uchun boltlarni sarflang: koʻproq zarar.',
+    'upgradeBuster': 'Qoʻl toʻpini yaxshilash uchun boltlarni sarflang: koʻproq zarar.',
     'pickArmor': 'Endi koʻkrak zirhini tanlang.',
     'upgradeArmor': 'Uni ham yaxshilang: koʻproq himoya.',
     'deploy': 'Hammasi tayyor — missiyalarga qaytamiz!'
   },
   'loot': {
     'found': '{rarity} {item} topildi!',
-    'tank': 'Taʼmir toʻplami topildi!'
+    'tank': 'Taʼmir geli topildi!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'TIZIM OʻCHDI',
     'body': 'Flux juda koʻp zarar oldi.',
     'kept': 'Hozirgacha topganlaringiz sizda qoladi:',
-    'useTank': 'Taʼmir toʻplami bilan qayta yoqish ({n})',
+    'useTank': 'Taʼmir geli bilan qayta yoqish ({n})',
     'rebootAd': 'Hozir qayta yoqish',
     'retreat': 'Laboratoriyaga chekinish'
+  },
+  'banner': {
+    'cleared': 'Bosqich yakunlandi',
+    'bossDown': 'Dushman yengildi!',
+    'gameOver': 'Oʻyin tugadi!'
   },
   'pause': {
     'title': 'PAUZA',
     'resume': 'Davom etish',
     'abandon': 'Missiyani tark etish',
     'controls': 'Boshqaruv',
+    'label': {
+      'move': 'Yurish',
+      'look': 'Qarash',
+      'parry': 'Qaytarish',
+      'interact': 'Amal'
+    },
     'touch': {
       'move': 'Chap tomon: yurish uchun suring. U yerga borish uchun polga bosing.',
-      'look': 'Oʻng tomon: atrofga qarash uchun suring.',
       'fire': 'Jangda: otish uchun bosing; zaryadlash uchun bosib turing va qoʻyib yuboring.',
-      'block': 'Bloklash uchun qalqonni bosib turing — qaytarish uchun halqa yopilayotgan payt bosing.'
+      'block': 'Bloklash uchun qalqonni bosib turing — qaytarish uchun halqa yopilayotgan payt bosing.',
+      'use': 'Sandiq, qamalib qolgan bot yoki eshik yonida: unga yoki paydo boʻlgan tugmaga bosing.'
     },
     'keys': {
       'move': 'WASD / yoʻnalish tugmalari: yurish.',
       'look': 'Qarash uchun sichqonchani harakatlantiring. Kamerani boshqarish uchun oʻyin ekraniga cherting.',
       'fire': 'Chap tugma: otish — zaryadlash uchun bosib turing, otish uchun qoʻyib yuboring.',
       'block': 'Oʻng tugma: blok — qaytarish uchun halqa yopilayotgan payt bosing.',
-      'slide': 'Probel: sirpanish · H: taʼmir toʻplami · E: amal · B: teleport',
-      'more': '1 / 2: maxsus qurollar · Tab: nishonni almashtirish · Esc: pauza'
+      'slide': 'Probel: sirpanish · H: taʼmir geli · E: amal · B: teleport',
+      'more': '1 / 2: maxsus qurollar · Tab: nishonni almashtirish · Esc: pauza',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'YANGI DARAJA!',
     'pick': 'Tizim yaxshilanishini tanlang',
-    'chip': 'Sxemalaringiz uchun +1 koʻnikma chipi'
+    'chip': 'Sxemalaringiz uchun +1 koʻnikma chipi',
+    'granted': '{stat}: {from} dan {to} gacha oshdi'
   },
   'attr': {
     'hp': { 'name': 'Korpus', 'desc': 'Maks. sogʻliq' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Bu sektorni ochish uchun bossni yenging: {boss}.',
     'sectorSecured': 'Sektor tozalandi. Uning topshiriqlari hali ham taxtada.',
     'deploy': 'Jangga',
-    'reroll': 'Yangi topshiriq'
+    'reroll': 'Yangi topshiriq',
+    'unlock': {
+      'hint': 'Ochish uchun yana {n} ta missiyani bajaring',
+      'aria': '{name}, qulflangan: yana {n} ta missiyani bajaring'
+    }
   },
   'hero': {
     'role': 'Jangovar androidingiz',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Zaryadli oʻq',
       'armor': 'Zirh',
       'crit': 'Kritik zarba ehtimoli',
-      'tanks': 'Taʼmir toʻplamlari'
+      'tanks': 'Taʼmir gellari'
     }
   },
   'workshop': {
     'tanks': 'Taʼminot',
-    'tankName': 'Taʼmir toʻplami',
+    'tankName': 'Taʼmir geli',
     'tankDesc': 'Missiya davomida sogʻliq va quvvatni toʻliq tiklaydi.',
     'owned': 'Yoningizda: {n}/{max}',
     'upgrade': 'Jihozlarni yaxshilash',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Blaster',
+    'buster': 'Qoʻl toʻpi',
     'armor': 'Zirh',
     'core': 'Yadro'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Mega zaryad', 'desc': 'Zaryadli oʻq zarari har chipga +12%.' },
     'perfectTiming': { 'name': 'Mukammal lahza', 'desc': 'Mukammal qoʻyib yuborish oynasi kengroq, kritik zarbalar kuchliroq.' },
     'piercing': { 'name': 'Teshuvchi yadro', 'desc': 'Yarim zaryadli oʻqlar ham qalqon va dubulgʻalarni sindiradi.' },
-    'giga': { 'name': 'Giga blaster', 'desc': 'Toʻliq zaryaddan keyin ham bosib turing — vayronkor uchinchi daraja ochiladi.' },
+    'giga': { 'name': 'Oʻta zaryad', 'desc': 'Toʻliq zaryaddan keyin ham bosib turing — vayronkor uchinchi daraja ochiladi.' },
     'frame': { 'name': 'Mustahkam korpus', 'desc': 'Maks. sogʻliq har chipga +8%.' },
     'barrier': { 'name': 'Toʻsiqni sozlash', 'desc': 'Blok kamroq quvvat sarflaydi va kamroq zarar oʻtkazadi.' },
     'autoRepair': { 'name': 'Avtotaʼmir', 'desc': 'Jangdan tashqarida har chip soniyasiga 1% sogʻliqni tiklaydi.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'Sirpanish tezlatgichi', 'desc': 'Sirpanish tezroq tiklanadi va arzonroq turadi.' },
     'efficient': { 'name': 'Tejamkor yadrolar', 'desc': 'Maxsus qurollar har chipga 10% kamroq energiya sarflaydi.' },
     'magnet': { 'name': 'Bolt magniti', 'desc': 'Koʻproq bolt va uzoqroqdan yigʻish.' },
-    'tankCap': { 'name': 'Toʻplam sigʻimi', 'desc': 'Har chipga yana bitta taʼmir toʻplamini olib yurasiz.' }
+    'tankCap': { 'name': 'Gel sigʻimi', 'desc': 'Har chipga yana bitta taʼmir gelini olib yurasiz.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'Afsonaviy'
   },
   'item': {
-    'arm_standard': 'Standart blaster',
-    'arm_rapid': 'Tezkor blaster',
-    'arm_heavy': 'Ogʻir blaster',
-    'arm_quick': 'Tez zaryadli blaster',
-    'arm_nova': 'Nova blaster',
+    'arm_standard': 'Standart toʻp',
+    'arm_rapid': 'Tezkor toʻp',
+    'arm_heavy': 'Ogʻir toʻp',
+    'arm_quick': 'Tez zaryadli toʻp',
+    'arm_nova': 'Nova toʻpi',
     'helm_scout': 'Kashfiyotchi dubulgʻasi',
     'helm_guard': 'Qoʻriqchi dubulgʻasi',
     'helm_ace': 'Qahramon dubulgʻasi',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Kvant chipi'
   },
   'slot': {
-    'buster': 'Blaster',
+    'buster': 'Qoʻl toʻpi',
     'helmet': 'Dubulgʻa',
     'chest': 'Korpus',
     'boots': 'Etik',

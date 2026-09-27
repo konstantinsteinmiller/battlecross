@@ -1,6 +1,6 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'キャンセル',
   'close': '閉じる',
   'ok': '了解',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'クリックして続ける',
   'rewards': '報酬',
   'tip': 'ヒント',
-  'crazyGamesOnly': 'このゲームは以下でのみプレイできます：',
+  'onlyAvailableOn': 'このゲームは以下でのみプレイできます：',
 
   'ui': {
     'next': '次へ',
@@ -32,11 +32,26 @@ export default {
     'lastStand': '食いしばり！ システム再起動。',
     'weak': '弱点！',
     'dizzy': 'フラフラ！',
+    'dodge': '回避！',
     'block': 'ガード',
     'slide': 'スライディング',
     'fire': '発射',
-    'tank': 'リペア缶',
-    'noEnergy': '武器エネルギー不足'
+    'tank': 'リペアジェル',
+    'noEnergy': '武器エネルギー不足',
+    'tankCount': 'リペアジェル：{n}/{max}',
+    'borrowed': '借りた武器 {weapon}：残り{n}/{max}発',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'わわわっ！',
+      '2': 'ビビッ！おっと！',
+      '3': 'うでがしゃっくり！',
+      '4': 'エラー…わーい！',
+      '5': 'ツルッと回路！',
+      '6': 'ぷるぷるモード！'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'ギアローラー',
     'brute': 'ガードロイド',
     'turret': '壁面砲台',
+    'golem': '木箱ゴーレム',
     'elite': 'エリート',
     'level': 'レベル{n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'ストンパー | ストンパー',
     'roller': 'ギアローラー | ギアローラー',
     'brute': 'ガードロイド | ガードロイド',
-    'turret': '壁面砲台 | 壁面砲台'
+    'turret': '壁面砲台 | 壁面砲台',
+    'golem': '木箱ゴーレム | 木箱ゴーレム'
   },
 
   'hud': {
     'help': '操作を表示',
+    'mute': 'ミュート',
+    'unmute': 'ミュート解除',
+    'bossUnknown': '謎のボス',
     'hp': '体力',
     'we': '武器エネルギー',
     'power': 'パワー',
@@ -100,6 +120,8 @@ export default {
     'elite': 'エリート狩り',
     'supply': '物資調達',
     'purge': 'セクター掃討',
+    'climb': 'タワーラン',
+    'rematch': '再戦：{boss}',
     'desc': {
       'tutorial': 'スクラップヤードを突破し、スクラッパーを倒せ。',
       'boss': '{sector}の中枢に突入し、{boss}を倒せ。',
@@ -108,7 +130,8 @@ export default {
       'rescue': '{sector}に作業ロボが取り残されている。見つけて転送で脱出させよ。',
       'elite': '{sector}でエリート{target}が暴れている。仕留めよ。',
       'supply': '{sector}の補給チェストを{n}個こじ開けよ。',
-      'purge': '{sector}の機械をすべて破壊せよ。'
+      'purge': '{sector}の機械をすべて破壊せよ。',
+      'climb': '{sector}のタワーを登れ。階段、はしご、リフト、落とし穴を越えて、アリーナで{boss}と再戦だ。'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': '取り残された作業ロボを探せ',
     'elite': 'エリート{target}を仕留めよ',
     'supply': '補給チェスト：{n}/{total}',
-    'purge': '破壊した機械：{n}/{total}'
+    'purge': '破壊した機械：{n}/{total}',
+    'climb': 'タワーを登り、{boss}を倒せ'
   },
   'mission': {
     'bossDown': '{boss}撃破！',
@@ -151,25 +175,30 @@ export default {
     'red': '赤い輪はガード不可 — スライディングでかわして！',
     'dodgeKeys': '赤い輪はガード不可 — Spaceでスライディングしてかわして！',
     'chest': '補給チェストだ！ タップして開けよう。',
-    'tank': 'ピンチ？ リペア缶で完全回復できるよ。',
+    'tank': 'ピンチ？ リペアジェルで完全回復できるよ。',
     'weapon': 'コピーした武器は色付きボタンで使えるよ！'
   },
   'lesson': {
-    'charge': '長押しでバスターをチャージして離そう：訓練用ドローンのシールドはチャージショットでしか壊せない！',
+    'charge': '長押しでキャノンをチャージして離そう：訓練用ドローンのシールドはチャージショットでしか壊せない！',
     'crate': '補給コンテナはチャージショットでしか壊れない。長押しして、光るコンテナを狙って離そう。',
     'weaponKeys': '{n}でコピーした武器を発射：一発で3機のドローン全部に当たるよ！',
-    'weaponTouch': '光る武器ボタンをタップ：一発で3機のドローン全部に当たるよ！'
+    'weaponTouch': '光る武器ボタンをタップ：一発で3機のドローン全部に当たるよ！',
+    'gelKeys': 'Hキーでリペアジェルを使おう：完全回復できるよ。',
+    'gelTouch': '緑のリペアジェルボタンをタップ：完全回復できるよ。'
+  },
+  'walk': {
+    'finishLesson': 'レッスンを終わらせよう'
   },
   'hubLesson': {
     'workshop': '工房を開こう。',
-    'upgradeBuster': 'ネジを使ってバスターを強化：ダメージアップ。',
+    'upgradeBuster': 'ネジを使ってキャノンを強化：ダメージアップ。',
     'pickArmor': '次は胸部アーマーを選ぼう。',
     'upgradeArmor': 'これも強化：防御力アップ。',
     'deploy': '準備完了 — ミッションに戻ろう！'
   },
   'loot': {
     'found': '{item}（{rarity}）を入手！',
-    'tank': 'リペア缶を入手！'
+    'tank': 'リペアジェルを入手！'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'システムダウン',
     'body': 'フラックスがダメージを受けすぎた。',
     'kept': 'ここまでに得たものはそのまま残る：',
-    'useTank': 'リペア缶で再起動（{n}）',
+    'useTank': 'リペアジェルで再起動（{n}）',
     'rebootAd': '今すぐ再起動',
     'retreat': 'ラボへ撤退'
+  },
+  'banner': {
+    'cleared': 'ステージクリア',
+    'bossDown': '敵を撃破！',
+    'gameOver': 'ゲームオーバー！'
   },
   'pause': {
     'title': 'ポーズ中',
     'resume': '再開',
     'abandon': 'ミッション放棄',
     'controls': '操作方法',
+    'label': {
+      'move': '移動',
+      'look': '視点',
+      'parry': 'パリィ',
+      'interact': 'アクション'
+    },
     'touch': {
       'move': '左側：ドラッグで移動。床をタップするとそこへ歩く。',
-      'look': '右側：ドラッグで周囲を見回す。',
       'fire': '戦闘中：タップで射撃、長押しでチャージ、離して発射。',
-      'block': 'シールドを長押しでガード — 輪が閉じる瞬間ならパリィ。'
+      'block': 'シールドを長押しでガード — 輪が閉じる瞬間ならパリィ。',
+      'use': 'チェスト・取り残されたロボ・扉の近くで：それか、出てきたボタンをタップ。'
     },
     'keys': {
       'move': 'WASD／矢印キー：移動。',
       'look': 'マウスを動かして視点操作。画面をクリックするとカメラを操作できる。',
       'fire': '左クリック：射撃 — 長押しでチャージ、離して発射。',
       'block': '右クリック：ガード — 輪が閉じる瞬間ならパリィ。',
-      'slide': 'Space：スライディング · H：リペア缶 · E：アクション · B：帰還',
-      'more': '1／2：特殊武器 · Tab：ターゲット切替 · Esc：ポーズ'
+      'slide': 'Space：スライディング · H：リペアジェル · E：アクション · B：帰還',
+      'more': '1／2：特殊武器 · Tab：ターゲット切替 · Esc：ポーズ',
+      'press': '{key}：{action}'
     }
   },
   'levelUp': {
     'title': 'レベルアップ！',
     'pick': 'システム強化を選ぼう',
-    'chip': '回路用スキルチップ +1'
+    'chip': '回路用スキルチップ +1',
+    'granted': '{stat}が{from}から{to}に上がった'
   },
   'attr': {
     'hp': { 'name': 'フレーム', 'desc': '最大体力' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': '{boss}を倒すとこのセクターが開く。',
     'sectorSecured': 'セクター制圧済み。依頼はまだボードに残っている。',
     'deploy': '出撃',
-    'reroll': '別の依頼'
+    'reroll': '別の依頼',
+    'unlock': {
+      'hint': 'あと{n}回ミッションをクリアすると解放',
+      'aria': '{name}、ロック中：あと{n}回ミッションをクリア'
+    }
   },
   'hero': {
     'role': 'あなたの戦闘アンドロイド',
@@ -260,12 +306,12 @@ export default {
       'charge': 'チャージショット',
       'armor': 'アーマー',
       'crit': 'クリティカル率',
-      'tanks': 'リペア缶'
+      'tanks': 'リペアジェル'
     }
   },
   'workshop': {
     'tanks': '補給品',
-    'tankName': 'リペア缶',
+    'tankName': 'リペアジェル',
     'tankDesc': 'ミッション中に体力とパワーを全回復する。',
     'owned': '所持：{n}/{max}',
     'upgrade': '装備強化',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'バスター',
+    'buster': 'キャノン',
     'armor': 'アーマー',
     'core': 'コア'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'メガチャージ', 'desc': 'チップ1枚ごとにチャージショットのダメージ+12%。' },
     'perfectTiming': { 'name': 'ジャストタイミング', 'desc': 'パーフェクトリリースの受付時間が延び、クリティカルが強化される。' },
     'piercing': { 'name': '貫通コア', 'desc': 'ハーフチャージショットでもシールドとヘルメットを破壊できる。' },
-    'giga': { 'name': 'ギガバスター', 'desc': 'フルチャージ後も押し続けると、強烈な第3段階を放てる。' },
+    'giga': { 'name': 'オーバーチャージ', 'desc': 'フルチャージ後も押し続けると、強烈な第3段階を放てる。' },
     'frame': { 'name': '強化フレーム', 'desc': 'チップ1枚ごとに最大体力+8%。' },
     'barrier': { 'name': 'バリア調整', 'desc': 'ガードのパワー消費と受けるダメージが減る。' },
     'autoRepair': { 'name': 'オートリペア', 'desc': 'チップ1枚ごとに、戦闘外で毎秒体力1%を回復。' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'スライドブースター', 'desc': 'スライディングのクールダウンが短くなり、消費も減る。' },
     'efficient': { 'name': '省エネコア', 'desc': 'チップ1枚ごとに特殊武器のエネルギー消費−10%。' },
     'magnet': { 'name': 'ネジマグネット', 'desc': 'ネジが増え、回収範囲が広がる。' },
-    'tankCap': { 'name': '缶ホルダー', 'desc': 'チップ1枚ごとにリペア缶をもう1個持てる。' }
+    'tankCap': { 'name': 'ジェルホルダー', 'desc': 'チップ1枚ごとにリペアジェルをもう1個持てる。' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'レジェンド'
   },
   'item': {
-    'arm_standard': 'スタンダードバスター',
-    'arm_rapid': 'ラピッドバスター',
-    'arm_heavy': 'ヘビーバスター',
-    'arm_quick': 'クイックチャージバスター',
-    'arm_nova': 'ノヴァバスター',
+    'arm_standard': 'スタンダードキャノン',
+    'arm_rapid': 'ラピッドキャノン',
+    'arm_heavy': 'ヘビーキャノン',
+    'arm_quick': 'クイックチャージキャノン',
+    'arm_nova': 'ノヴァキャノン',
     'helm_scout': 'スカウトヘルメット',
     'helm_guard': 'ガードヘルメット',
     'helm_ace': 'エースヘルメット',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': '量子チップ'
   },
   'slot': {
-    'buster': 'バスター',
+    'buster': 'キャノン',
     'helmet': 'ヘルメット',
     'chest': 'フレーム',
     'boots': 'ブーツ',

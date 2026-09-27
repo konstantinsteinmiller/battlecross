@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="open" :title="t('pause.title')" @update:model-value="(v) => !v && resume()")
+  FModal.pause-modal(:model-value="open" :title="t('pause.title')" @update:model-value="(v) => !v && resume()")
     div.pause
       div.quest(v-if="flow.quest")
         div.q-name {{ t(`quest.${flow.quest.template}`) }}
@@ -78,4 +78,13 @@ ul
   flex-wrap: wrap
   gap: 10px
   justify-content: center
+</style>
+
+<style lang="sass">
+// Unscoped: the frame belongs to FModal, teleported to <body>. A wider pause
+// frame on a desktop, so the controls legend (ControlsPanel) stands in three
+// columns of whole-word verbs and the menu fits 1280×720 without scrolling.
+// Phones keep the usual width (96vw is the smaller one there).
+.f-modal.pause-modal .f-modal__container
+  max-width: min(60rem, 96vw)
 </style>

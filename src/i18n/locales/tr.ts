@@ -1,6 +1,6 @@
 // Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'İptal',
   'close': 'Kapat',
   'ok': 'Tamam',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Devam etmek için tıkla',
   'rewards': 'ÖDÜLLER',
   'tip': 'İpucu',
-  'crazyGamesOnly': 'Bu oyun yalnızca şurada mevcut:',
+  'onlyAvailableOn': 'Bu oyun yalnızca şurada mevcut:',
 
   'ui': {
     'next': 'İleri',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Son Direniş! Sistemler yeniden başlatıldı.',
     'weak': 'ZAYIF!',
     'dizzy': 'SERSEM!',
+    'dodge': 'KAÇTI!',
     'block': 'Blokla',
     'slide': 'Kay',
     'fire': 'Ateş et',
-    'tank': 'Tamir Kiti',
-    'noEnergy': 'Silah enerjisi yetersiz'
+    'tank': 'Tamir Jeli',
+    'noEnergy': 'Silah enerjisi yetersiz',
+    'tankCount': 'Tamir Jeli: {n}/{max}',
+    'borrowed': 'Ödünç silah {weapon}: {n}/{max} atış',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Hoppala!',
+      '2': 'Bzzt! Hop!',
+      '3': 'Kolum hıçkırıyor!',
+      '4': 'Hata… vuhuu!',
+      '5': 'Tereyağlı devreler!',
+      '6': 'Titreme modu AÇIK!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Dişli Silindir',
     'brute': 'Muhafız Droid',
     'turret': 'Duvar Topu',
+    'golem': 'Sandık Golemi',
     'elite': 'Elit',
     'level': 'Sv {n}'
   },
@@ -60,11 +76,15 @@ export default {
     'hopper': 'Ezici | Ezici',
     'roller': 'Dişli Silindir | Dişli Silindir',
     'brute': 'Muhafız Droid | Muhafız Droid',
-    'turret': 'Duvar Topu | Duvar Topu'
+    'turret': 'Duvar Topu | Duvar Topu',
+    'golem': 'Sandık Golemi | Sandık Golemi'
   },
 
   'hud': {
     'help': 'Kontrolleri göster',
+    'mute': 'Sesi kapat',
+    'unmute': 'Sesi aç',
+    'bossUnknown': 'Bilinmeyen boss',
     'hp': 'Can',
     'we': 'Silah enerjisi',
     'power': 'Güç',
@@ -102,6 +122,8 @@ export default {
     'elite': 'Elit Avı',
     'supply': 'İkmal Turu',
     'purge': 'Bölge Temizliği',
+    'climb': 'Kule Koşusu',
+    'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
       'boss': '{sector} bölgesinin çekirdeğine sız ve patronu yen: {boss}.',
@@ -110,7 +132,8 @@ export default {
       'rescue': '{sector} bölgesinde bir işçi robot mahsur kaldı. Onu bul ve güvenli bir yere ışınla.',
       'elite': '{sector} bölgesinde elit bir {target} terör estiriyor. Onu avla.',
       'supply': '{sector} bölgesinde {n} ikmal sandığını kırıp aç.',
-      'purge': '{sector} bölgesindeki tüm makineleri yok et.'
+      'purge': '{sector} bölgesindeki tüm makineleri yok et.',
+      'climb': '{sector} bölgesindeki kuleye tırman — merdivenler, seyyar merdivenler, asansörler ve çukurlar — sonra arenaya in. Rövanş: {boss}.'
     }
   },
   'objective': {
@@ -124,7 +147,8 @@ export default {
     'rescue': 'Mahsur kalan işçi robotu bul',
     'elite': 'Elit {target} hedefini avla',
     'supply': 'İkmal sandıkları: {n}/{total}',
-    'purge': 'Yok edilen makine: {n}/{total}'
+    'purge': 'Yok edilen makine: {n}/{total}',
+    'climb': 'Kuleye tırman, patronu yen: {boss}'
   },
   'mission': {
     'bossDown': '{boss} yok edildi!',
@@ -153,25 +177,30 @@ export default {
     'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
     'dodgeKeys': 'Kırmızı halka bloklanamaz demek — Boşluk tuşuna bas ve kayarak yoldan çekil!',
     'chest': 'Bir ikmal sandığı! Açmak için dokun.',
-    'tank': 'Canın mı azaldı? Tamir Kiti seni tamamen onarır.',
+    'tank': 'Canın mı azaldı? Tamir Jeli seni tamamen onarır.',
     'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!'
   },
   'lesson': {
-    'charge': "Buster'ını şarj etmek için basılı tut, sonra bırak: eğitim dronunun kalkanını yalnızca şarjlı atış kırar.",
+    'charge': 'Kol topunu şarj etmek için basılı tut, sonra bırak: eğitim dronunun kalkanını yalnızca şarjlı atış kırar.',
     'crate': 'İkmal kasaları yalnızca şarjlı atışla kırılır. Basılı tut, sonra parlayan kasaya nişan alıp bırak.',
     'weaponKeys': 'Kopyaladığın silahı ateşlemek için {n} tuşuna bas: tek atış üç dronu birden vurur.',
-    'weaponTouch': 'Parlayan silah düğmesine dokun: tek atış üç dronu birden vurur.'
+    'weaponTouch': 'Parlayan silah düğmesine dokun: tek atış üç dronu birden vurur.',
+    'gelKeys': 'Tamir Jeli kullanmak için H tuşuna bas: seni tamamen onarır.',
+    'gelTouch': 'Yeşil Tamir Jeli düğmesine dokun: seni tamamen onarır.'
+  },
+  'walk': {
+    'finishLesson': 'Dersi tamamla'
   },
   'hubLesson': {
     'workshop': 'Atölyeyi aç.',
-    'upgradeBuster': "Buster'ını geliştirmek için cıvata harca: daha fazla hasar.",
+    'upgradeBuster': 'Kol topunu geliştirmek için cıvata harca: daha fazla hasar.',
     'pickArmor': 'Şimdi göğüs zırhını seç.',
     'upgradeArmor': 'Onu da geliştir: daha fazla savunma.',
     'deploy': 'Her şey hazır — görevlere geri dön!'
   },
   'loot': {
     'found': '{rarity} {item} bulundu!',
-    'tank': 'Tamir Kiti bulundu!'
+    'tank': 'Tamir Jeli bulundu!'
   },
 
   'results': {
@@ -192,34 +221,47 @@ export default {
     'title': 'SİSTEM ÇÖKTÜ',
     'body': 'Flux çok fazla hasar aldı.',
     'kept': 'Şu ana kadar kazandıkların sende kalıyor:',
-    'useTank': 'Tamir Kiti kullan ({n})',
+    'useTank': 'Tamir Jeli kullan ({n})',
     'rebootAd': 'Hemen yeniden başlat',
     'retreat': 'Laboratuvara çekil'
+  },
+  'banner': {
+    'cleared': 'Bölüm tamamlandı',
+    'bossDown': 'Düşman yenildi!',
+    'gameOver': 'Oyun bitti!'
   },
   'pause': {
     'title': 'DURAKLATILDI',
     'resume': 'Devam et',
     'abandon': 'Görevi bırak',
     'controls': 'Kontroller',
+    'label': {
+      'move': 'Hareket',
+      'look': 'Bakış',
+      'parry': 'Savuşturma',
+      'interact': 'Etkileşim'
+    },
     'touch': {
       'move': 'Sol taraf: hareket için sürükle. Oraya yürümek için zemine dokun.',
-      'look': 'Sağ taraf: etrafa bakmak için sürükle.',
       'fire': 'Çatışmada: ateş için dokun, şarj için basılı tut, atış için bırak.',
-      'block': 'Bloklamak için kalkanı basılı tut — savuşturmak için halka kapanırken bas.'
+      'block': 'Bloklamak için kalkanı basılı tut — savuşturmak için halka kapanırken bas.',
+      'use': 'Bir sandık, mahsur kalan bir robot ya da kapının yanında: ona ya da beliren düğmeye dokun.'
     },
     'keys': {
       'move': 'WASD / oklar: hareket.',
       'look': 'Bakmak için fareyi hareket ettir. Kamerayı kontrol etmek için sahneye tıkla.',
       'fire': 'Sol tık: ateş — şarj için basılı tut, ateşlemek için bırak.',
       'block': 'Sağ tık: blok — savuşturmak için halka kapanırken bas.',
-      'slide': 'Boşluk: kayma · H: Tamir Kiti · E: etkileşim · B: ışınlan',
-      'more': '1 / 2: özel silahlar · Tab: hedef değiştir · Esc: duraklat'
+      'slide': 'Boşluk: kayma · H: Tamir Jeli · E: etkileşim · B: ışınlan',
+      'more': '1 / 2: özel silahlar · Tab: hedef değiştir · Esc: duraklat',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'SEVİYE ATLADIN!',
     'pick': 'Bir sistem geliştirmesi seç',
-    'chip': 'Devrelerin için +1 Yetenek Çipi'
+    'chip': 'Devrelerin için +1 Yetenek Çipi',
+    'granted': '{stat} {from} değerinden {to} değerine yükseldi'
   },
   'attr': {
     'hp': { 'name': 'Gövde', 'desc': 'Maks. can' },
@@ -243,7 +285,11 @@ export default {
     'lockedHint': 'Bu bölgeyi açmak için {boss} yenilmeli.',
     'sectorSecured': 'Bölge güvende. İşleri hâlâ panoda.',
     'deploy': 'Yola çık',
-    'reroll': 'Yeni iş'
+    'reroll': 'Yeni iş',
+    'unlock': {
+      'hint': 'Açmak için {n} görev daha tamamla',
+      'aria': '{name}, kilitli: {n} görev daha tamamla'
+    }
   },
   'hero': {
     'role': 'Savaş androidin',
@@ -262,12 +308,12 @@ export default {
       'charge': 'Şarjlı atış',
       'armor': 'Zırh',
       'crit': 'Kritik şansı',
-      'tanks': 'Tamir Kitleri'
+      'tanks': 'Tamir Jelleri'
     }
   },
   'workshop': {
     'tanks': 'İkmal',
-    'tankName': 'Tamir Kiti',
+    'tankName': 'Tamir Jeli',
     'tankDesc': 'Görev sırasında canı ve gücü tamamen yeniler.',
     'owned': 'Taşınan: {n}/{max}',
     'upgrade': 'Ekipmanı geliştir',
@@ -281,7 +327,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Kol Topu',
     'armor': 'Zırh',
     'core': 'Çekirdek'
   },
@@ -299,7 +345,7 @@ export default {
     'megaCharge': { 'name': 'Mega Şarj', 'desc': 'Şarjlı atış hasarı çip başına +%12.' },
     'perfectTiming': { 'name': 'Kusursuz Zamanlama', 'desc': 'Daha geniş kusursuz bırakma aralığı ve daha güçlü kritikler.' },
     'piercing': { 'name': 'Delici Çekirdek', 'desc': 'Yarı şarjlı atışlar da kalkanları ve kaskları kırar.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Tam şarjdan sonra da basılı tutarak yıkıcı bir üçüncü seviyeye ulaş.' },
+    'giga': { 'name': 'Aşırı Şarj', 'desc': 'Tam şarjdan sonra da basılı tutarak yıkıcı bir üçüncü seviyeye ulaş.' },
     'frame': { 'name': 'Güçlendirilmiş Gövde', 'desc': 'Maks. can çip başına +%8.' },
     'barrier': { 'name': 'Bariyer Ayarı', 'desc': 'Bloklamak daha az güç harcar ve daha az hasar geçirir.' },
     'autoRepair': { 'name': 'Otomatik Onarım', 'desc': 'Çatışma dışında, çip başına saniyede %1 can yeniler.' },
@@ -311,7 +357,7 @@ export default {
     'boosters': { 'name': 'Kayma İticileri', 'desc': 'Daha kısa kayma bekleme süresi, daha ucuz kaymalar.' },
     'efficient': { 'name': 'Verimli Çekirdekler', 'desc': 'Özel silahlar çip başına %10 daha az enerji harcar.' },
     'magnet': { 'name': 'Cıvata Mıknatısı', 'desc': 'Daha çok cıvata ve daha uzun toplama menzili.' },
-    'tankCap': { 'name': 'Kit Kapasitesi', 'desc': 'Çip başına bir Tamir Kiti daha taşı.' }
+    'tankCap': { 'name': 'Jel Kapasitesi', 'desc': 'Çip başına bir Tamir Jeli daha taşı.' }
   },
 
   'rarity': {
@@ -321,11 +367,11 @@ export default {
     'legendary': 'Efsanevi'
   },
   'item': {
-    'arm_standard': 'Standart Buster',
-    'arm_rapid': 'Seri Buster',
-    'arm_heavy': 'Ağır Buster',
-    'arm_quick': 'Hızlı Şarj Buster',
-    'arm_nova': 'Nova Buster',
+    'arm_standard': 'Standart Top',
+    'arm_rapid': 'Seri Top',
+    'arm_heavy': 'Ağır Top',
+    'arm_quick': 'Hızlı Şarj Topu',
+    'arm_nova': 'Nova Topu',
     'helm_scout': 'Keşif Kaskı',
     'helm_guard': 'Muhafız Kaskı',
     'helm_ace': 'As Kaskı',
@@ -342,7 +388,7 @@ export default {
     'chip_quantum': 'Kuantum Çipi'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Kol Topu',
     'helmet': 'Kask',
     'chest': 'Gövde',
     'boots': 'Botlar',

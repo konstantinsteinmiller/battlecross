@@ -1,6 +1,6 @@
 <template lang="pug">
   Transition(name="tf")
-    div.target(v-if="hud.targetName" :class="{ elite: hud.targetElite }")
+    div.target(v-if="hud.targetName" :class="{ elite: hud.targetElite, lost: hud.targetHidden }")
       div.row
         span.lv {{ t('enemy.level', { n: hud.targetLevel }) }}
         span.name
@@ -20,6 +20,8 @@ import { hud } from '@/game/state/hud'
  * energy is a chunky Mega Man cell bar: 20 discrete cells, rounded UP so a
  * machine with any HP left keeps a lit cell (the GDD's bar rule). When it is
  * nearly down the last lit cell blinks: one more hit. Elites wear gold trim.
+ * A target out of sight (the lock's grace, `hud.targetHidden`) fades to a
+ * grey ghost with a dashed rim until it is seen again or the lock lets go.
  *
  * Per-cell DOM rather than one fill under a mask (as the 28-segment bars
  * are): 20 boxes lay out on whole pixels, where a gradient mask across a
@@ -82,6 +84,20 @@ const nearlyDown = computed(() => hp01.value > 0 && hp01.value <= NEARLY_DOWN)
 // it holds against a bright sky, and a faint gold glow.
 .elite .cells
   box-shadow: 0 0 0 2px #ffd84a, 0 0 0 3px #141a33, 0 4px 0 2px rgba(0, 0, 0, 0.35), 0 0 12px 3px rgba(255, 216, 74, 0.35)
+// Out of sight: faint, grey, the plate's rim broken into dashes, no blink —
+// a lock on nothing that can be hit. It fades out; seen again, it is back at
+// once (no transition on the way back). On the children, so the frame's own
+// opacity and transition stay free for its enter/leave.
+.target.lost
+  .row, .cells
+    opacity: 0.38
+    filter: grayscale(1)
+    transition: opacity 0.15s, filter 0.15s
+  .cells
+    outline: 2px dashed #ffffff
+    outline-offset: 2px
+  .cell.last
+    animation: none
 .tf-enter-active, .tf-leave-active
   transition: opacity 0.2s, transform 0.2s
 .tf-enter-from, .tf-leave-to

@@ -1,4 +1,4 @@
-import { profile } from '../state/profile'
+import { profile, saveProfile } from '../state/profile'
 
 /**
  * ─── The control coach: wordless, on-screen, earned away ─────────────────────
@@ -15,6 +15,8 @@ import { profile } from '../state/profile'
  *   the look glyph a minute later; one who has, never sees it again.
  * - Mastery is per INPUT FAMILY (touch vs mouse+keys): a desktop veteran who
  *   picks up a phone has not learned the joystick.
+ * - Some glyphs a family never gets (`UNTAUGHT`): on touch the ∞ finger
+ *   teaches the drag, and the camera has no glyph of its own.
  * - It comes back when the player seems stuck — no camera movement for a
  *   while, not shooting in a fight, eating blockable hits — and the "?"
  *   button brings the core set back on demand.
@@ -79,6 +81,14 @@ const SURVIVAL: ReadonlySet<HintId> = new Set(['block', 'parry', 'slide', 'tank'
 const THUMBS: ReadonlySet<HintId> = new Set(['move', 'look'])
 /** What may show while a lesson has the player's eyes. */
 const heard = (id: HintId, quiet: boolean): boolean => !quiet || SURVIVAL.has(id) || THUMBS.has(id)
+/**
+ * Glyphs a hand is never shown. On touch the camera has none: the ∞ finger
+ * ("drag here, any way") stands for it, and a second finger swaying beside
+ * it was one glyph too many. Looking still counts toward its progress; it
+ * just never takes a slot, never comes back when idle, and gates nothing
+ * (`walk`, the drone lesson) — nothing waits on a glyph that never shows.
+ */
+const UNTAUGHT: Record<InputFamily, ReadonlySet<HintId>> = { touch: new Set(['look']), mouse: new Set() }
 
 export interface HintView {
   id: HintId
@@ -111,6 +121,10 @@ export interface CoachContext {
    *  (block, slide, tank) and the thumbs (move, look), and let the lesson
    *  have the player's attention. */
   quiet?: boolean
+  /** The Repair Gel lesson owns the gel button (on, or about to come on
+   *  after the tutorial's trap): the tank glyph stands aside — two glyphs on
+   *  one button read as two different things to do. */
+  gelLesson?: boolean
 }
 
 interface HintState {
@@ -155,6 +169,22 @@ export class Coach {
     return hintProgress(id, family) >= HINTS[id].goal
   }
 
+  /** Does this hand get the glyph at all? (Not `look` on touch.) */
+  teaches(id: HintId, family = this.family): boolean {
+    return !UNTAUGHT[family].has(id)
+  }
+
+  /** Nothing left to teach on this hand: mastered, or never taught here.
+   *  What anything waiting on a glyph (the next glyph, a lesson) reads. */
+  learned(id: HintId, family = this.family): boolean {
+    return !this.teaches(id, family) || this.mastered(id, family)
+  }
+
+  /** May the glyph show now: taught on this hand, and not hushed by a lesson. */
+  private open(id: HintId): boolean {
+    return this.teaches(id) && heard(id, this.quiet)
+  }
+
   /** The player just did it. */
   use(id: HintId): void {
     const s = this.st[id]
@@ -164,7 +194,13 @@ export class Coach {
     if (id === 'block' || id === 'parry') this.missedBlocks.length = 0
     const k = key(id, this.family)
     const stored = hintProgress(id, this.family)
-    if (stored < HINTS[id].goal) profile.tips[k] = stored + 1
+    if (stored < HINTS[id].goal) {
+      profile.tips[k] = stored + 1
+      // Persist now: the mission only checkpoints on kills, chests and doors,
+      // so a reload before the first one brought a learned glyph back.
+      // Bounded by each hint's goal, so a handful of saves per glyph.
+      saveProfile()
+    }
     if (!s.shown) {
       if (s.recall > 0) s.recall--
       return
@@ -222,6 +258,7 @@ export class Coach {
   }
 
   private recall(id: HintId): void {
+    if (!this.teaches(id)) return
     const s = this.st[id]
     s.recall = Math.max(s.recall, 1)
     s.doneAt = -1
@@ -238,11 +275,14 @@ export class Coach {
     if (!c.playing) return
     const t = c.time
     const want = (id: HintId, on: boolean): void => {
-      if (on && heard(id, this.quiet)) this.st[id].wantedUntil = t + LINGER
+      if (on && this.open(id)) this.st[id].wantedUntil = t + LINGER
     }
-    const fresh = (id: HintId): boolean => !this.mastered(id)
+    // Untaught counts as learned: on touch `look` is never fresh, so `walk`
+    // follows the stick alone.
+    const fresh = (id: HintId): boolean => !this.learned(id)
     // Movement and camera from the first moment of control, together: a
     // player who never finds the camera is stuck in the first corridor.
+    // (On touch, movement alone: the ∞ finger covers both.)
     want('move', fresh('move'))
     want('look', fresh('look'))
     want('walk', !c.combat && !fresh('move') && !fresh('look') && fresh('walk'))
@@ -251,7 +291,9 @@ export class Coach {
     want('block', c.teleBlock && fresh('block'))
     want('parry', c.teleBlock && !fresh('block') && fresh('parry'))
     want('slide', c.teleRed && fresh('slide'))
-    want('tank', c.hp01 < TANK_AT && c.tanks > 0 && fresh('tank'))
+    // No linger either: the lesson's glyph takes over at once.
+    if (c.gelLesson) this.st.tank.wantedUntil = -1
+    want('tank', !c.gelLesson && c.hp01 < TANK_AT && c.tanks > 0 && fresh('tank'))
     want('weapon', c.hasWeapon && c.combat && fresh('weapon'))
     want('interact', c.canInteract && fresh('interact'))
     // Stuck: bring the glyph back until the player does it once more. Moving
@@ -264,7 +306,7 @@ export class Coach {
     }
     for (const id of Object.keys(this.st) as HintId[]) {
       const s = this.st[id]
-      if (s.recall > 0 && heard(id, this.quiet) && (id !== 'block' && id !== 'slide' || c.teleBlock || c.teleRed || t < this.helpUntil)) {
+      if (s.recall > 0 && this.open(id) && (id !== 'block' && id !== 'slide' || c.teleBlock || c.teleRed || t < this.helpUntil)) {
         s.wantedUntil = Math.max(s.wantedUntil, t + 0.5)
       }
     }
@@ -278,7 +320,8 @@ export class Coach {
       const s = this.st[id]
       const fading = s.doneAt >= 0 && t - s.doneAt < 0.9
       // A lesson in focus clears the stage at once, lingering glyphs too.
-      const wanted = s.wantedUntil > t && (s.doneAt < 0) && heard(id, this.quiet)
+      // An untaught glyph still lingering from the other hand drops too.
+      const wanted = s.wantedUntil > t && (s.doneAt < 0) && this.open(id)
       if (wanted || fading) live.push(id)
       else {
         s.shown = false

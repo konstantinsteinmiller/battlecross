@@ -1,6 +1,8 @@
 import { RigBuilder, sph, ell, cap, torus, rcyl, rcone, dome, paintBy, xform, type Rig, pose, nudge, scaleBone } from './kit'
 import { PAL } from './palette'
 import type { BufferGeometry } from 'three'
+import { BOSS_GAIT, BOSS_FIDGET_LEN, TAU, bump, frac, fidgetEnv, fidgetPIn, gaitAmp, type EnemyMotion } from './motion'
+import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
 
 /**
  * ─── Core Masters ────────────────────────────────────────────────────────────
@@ -238,8 +240,225 @@ export const buildBossRig = (id: BossId): Rig => {
   }
 }
 
-/** Generic boss animation driven by the AI's current action. */
-export const poseBoss = (rig: Rig, id: BossId, t: number, act: 'idle' | 'walk' | 'tele' | 'attack' | 'stun' | 'air', k: number): void => {
+export type BossAct = 'idle' | 'walk' | 'tele' | 'attack' | 'stun' | 'air'
+
+// ─── Motion layer (the humanoid bosses) ──────────────────────────────────────
+//
+// With `m` (the game, via syncBossVisual) a Master or the Scrapper stands in a
+// ready stance instead of the old 18°-outward A-pose, breathes, shifts its
+// weight, leads its turns with the head, walks on the same distance-driven
+// planted-foot gait as the machines (models/gait.ts) with its arms swinging
+// against its legs, and may throw a short taunt in the `recover` after an
+// attack. That base layer is blended toward the act poses below by their
+// weights, and each act's pose is the OLD formula, untouched: at full weight
+// (the end of a telegraph, the first frame of a strike, airborne, dizzy) the
+// boss holds exactly the pose it always did. The look (the rigs) is unchanged.
+
+/** An arm's rest: shoulder [rx, ry, rz] + elbow rx for the L arm (R mirrors ry, rz). */
+interface ArmRest { x: number; y: number; z: number; elbow: number }
+/** The Masters' arms at rest: a ready stance, the weapon forearms held
+ *  forward (≈6° out, ≈33° forward). Chosen with the legs WALKING — forward,
+ *  sideways, diagonal — so a swinging thigh never meets a forearm cannon. */
+export const MASTER_REST: Readonly<ArmRest> = { x: -0.6, y: -0.25, z: -0.08, elbow: -0.5 }
+/** The Scrapper's: magnet claw and hammer carried forward, clear of its
+ *  thighs through the whole stride. */
+export const SCRAPPER_REST: Readonly<ArmRest> = { x: -0.6, y: -0.25, z: -0.08, elbow: -0.8 }
+
+const mix = (a: number, b: number, k: number): number => a + (b - a) * k
+
+const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: number, m: EnemyMotion): void => {
+  const g = BOSS_GAIT[id]!
+  const R = id === 'scrapper' ? SCRAPPER_REST : MASTER_REST
+  const T = t * m.tempo
+  const wk = gaitAmp(m.walk)
+  const still = 1 - wk
+  gaitLegs(g, m, wk)
+  const u = frac(m.phase / TAU)
+  const f = gaitDir.f
+  const s = gaitDir.s
+  // ── Taunt (only ever scheduled in `recover`, faded by m.calm) ──
+  const p = fidgetPIn(m, BOSS_FIDGET_LEN[id])
+  const fe = m.fid ? fidgetEnv(p) * m.calm : 0
+  let lX = 0
+  let lY = 0
+  let lE = 0
+  let rX = 0
+  let rY = 0
+  let rE = 0
+  let hX = 0
+  let hY = 0
+  let hZ = 0
+  let cY = 0
+  let cZ = 0
+  let buzz = 0
+  if (m.fid === 1) {
+    // Shoulder roll: each arm circles forward in turn
+    const q = Math.sin(TAU * p)
+    lX = -0.15 * Math.max(0, q)
+    rX = -0.15 * Math.max(0, -q)
+    cZ = 0.07 * q
+  } else if (m.fid === 2) {
+    if (id === 'scrapper') {
+      // Hammer tap: the hammer fist lifts and taps down, twice
+      const tap = bump(p, 0.05, 0.45) + 0.8 * bump(p, 0.5, 0.9)
+      rX = -0.7 * tap
+      rE = -0.3 * tap
+      hX = 0.12 * Math.sin(Math.PI * p)
+    } else if (id === 'blazeMaster') {
+      // Nozzle flick: both forearms flick up and back
+      const fl = Math.sin(Math.PI * p)
+      lE = -0.65 * fl
+      rE = -0.65 * fl
+      lX = -0.15 * fl
+      rX = -0.15 * fl
+      hZ = 0.08 * Math.sin(TAU * p)
+    } else if (id === 'frostMaster') {
+      // Blade check: the R blade comes up in front, the head tips to look
+      const up = Math.sin(Math.PI * p)
+      rX = -0.8 * up
+      rY = -0.35 * up
+      rE = -0.8 * up
+      hX = 0.15 * up
+      hY = -0.2 * up
+    } else if (id === 'voltMaster') {
+      // Crackle: a fast shoulder buzz and a head twitch
+      const bz = Math.sin(8 * TAU * p)
+      lX = 0.06 * bz
+      rX = -0.06 * bz
+      buzz = 0.01 * Math.sin(10 * TAU * p)
+      hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else {
+      // Fan flourish: the R arm sweeps across the chest and back
+      const sw = Math.sin(Math.PI * p)
+      rX = -0.5 * sw
+      rY = -0.55 * sw
+      rE = -0.45 * sw
+      cY = 0.12 * sw
+    }
+  }
+  // ── Act weights: each blends toward its OLD pose ──
+  const bob = Math.sin(t * 2.2) * 0.012
+  const wT = act === 'tele' ? k : 0
+  const wA = act === 'attack' || act === 'air' ? 1 - k : 0
+  const wAir = m.air
+  const wS = m.daze
+  const wAct = Math.max(wT, wA, wAir, wS)
+  const legW = Math.max(wT, wA, wS)
+  // ── Base layer ──
+  const br = Math.sin(T * 2.0)
+  const sh = Math.sin(T * 0.5 + 0.9)
+  const shiftX = 0.012 * sh * still - 0.02 * Math.sin(TAU * u) * wk
+  const twist = ((legL.th - legR.th) * 0.5 * 0.12 / g.A) * wk * f
+  const lead = Math.max(-0.3, Math.min(0.3, 0.1 * m.turn))
+  // Arms swing against the legs: L with the R leg, R with the L leg
+  const swingL = (legR.th / g.A) * 0.35 * wk * f
+  const swingR = (legL.th / g.A) * 0.35 * wk * f
+  const breathArm = 0.03 * br * still
+  // Hips height
+  let hipsY = -stanceDrop(g) + 0.008 * br * still + buzz * fe
+  hipsY = mix(hipsY, -0.08 * k + bob, wT)
+  hipsY = mix(hipsY, bob, wA)
+  hipsY = mix(hipsY, bob, wAir)
+  hipsY = mix(hipsY, -0.05, wS)
+  nudge(rig, 'hips', 0, hipsY, 0)
+  // Legs: the gait → still (telegraph, strike, dizzy) → tucked (airborne)
+  let hLx = mix(-legL.th * f, 0, legW)
+  let hLz = mix(legL.th * s - gaitDir.bias, 0, legW)
+  let hRx = mix(-legR.th * f, 0, legW)
+  let hRz = mix(legR.th * s + gaitDir.bias, 0, legW)
+  let kL = mix(legL.knee, 0, legW)
+  let kR = mix(legR.knee, 0, legW)
+  hLx = mix(hLx, -0.6, wAir)
+  hLz = mix(hLz, 0, wAir)
+  hRx = mix(hRx, -0.6, wAir)
+  hRz = mix(hRz, 0, wAir)
+  kL = mix(kL, 0.9, wAir)
+  kR = mix(kR, 0.9, wAir)
+  pose(rig, 'hipL', hLx, 0, hLz)
+  pose(rig, 'hipR', hRx, 0, hRz)
+  pose(rig, 'kneeL', kL, 0, 0)
+  pose(rig, 'kneeR', kR, 0, 0)
+  // Spine (the Masters; the old poses never moved it) and chest
+  pose(rig, 'spine', 0.02 * br * (1 - wAct), 0, 0)
+  nudge(rig, 'chest', shiftX * (1 - wAct), 0, 0)
+  let chx = 0.04 + 0.08 * wk * f + 0.015 * br
+  let chy = -twist + cY * fe
+  let chz = -1.2 * shiftX + cZ * fe
+  chx = mix(chx, 0.2 * k, wT)
+  chy = mix(chy, 0, wT)
+  chz = mix(chz, 0, wT)
+  chx = mix(chx, -0.12 * (1 - k), wA)
+  chy = mix(chy, 0, wA)
+  chz = mix(chz, 0, wA)
+  chx = mix(chx, 0.35, wS)
+  chy = mix(chy, Math.sin(t * 8) * 0.2, wS)
+  chz = mix(chz, 0, wS)
+  pose(rig, 'chest', chx, chy, chz)
+  // Head: leads the turns
+  let hx = -0.04 + hX * fe
+  let hy = lead + hY * fe
+  let hz = hZ * fe
+  hx = mix(hx, -0.15 * k, wT)
+  hy = mix(hy, 0, wT)
+  hz = mix(hz, 0, wT)
+  hx = mix(hx, 0, wA)
+  hy = mix(hy, 0, wA)
+  hz = mix(hz, 0, wA)
+  hx = mix(hx, 0.3, wS)
+  hy = mix(hy, Math.sin(t * 9) * 0.4, wS)
+  hz = mix(hz, 0, wS)
+  pose(rig, 'head', hx, hy, hz)
+  // Arms
+  let sLx = R.x - swingL + breathArm + lX * fe
+  let sLy = R.y + lY * fe
+  let sLz = R.z
+  let sRx = R.x - swingR + breathArm + rX * fe
+  let sRy = -R.y + rY * fe
+  let sRz = -R.z
+  let eL = R.elbow + lE * fe
+  let eR = R.elbow + rE * fe
+  sLx = mix(sLx, 0.8 * k, wT)
+  sLy = mix(sLy, 0, wT)
+  sLz = mix(sLz, -0.4 * k, wT)
+  sRx = mix(sRx, 0.8 * k, wT)
+  sRy = mix(sRy, 0, wT)
+  sRz = mix(sRz, 0.4 * k, wT)
+  eL = mix(eL, -0.8 * k, wT)
+  eR = mix(eR, -0.8 * k, wT)
+  const e1 = 1 - k
+  sLx = mix(sLx, -1.5 * e1, wA)
+  sLy = mix(sLy, 0, wA)
+  sLz = mix(sLz, -0.1, wA)
+  sRx = mix(sRx, -1.5 * e1, wA)
+  sRy = mix(sRy, 0, wA)
+  sRz = mix(sRz, 0.1, wA)
+  eL = mix(eL, -0.1, wA)
+  eR = mix(eR, -0.1, wA)
+  sLx = mix(sLx, -2.6, wAir)
+  sLy = mix(sLy, 0, wAir)
+  sLz = mix(sLz, -0.3, wAir)
+  sRx = mix(sRx, -2.6, wAir)
+  sRy = mix(sRy, 0, wAir)
+  sRz = mix(sRz, 0.3, wAir)
+  sLx = mix(sLx, 0.3, wS)
+  sLy = mix(sLy, 0, wS)
+  sLz = mix(sLz, -0.6, wS)
+  sRx = mix(sRx, 0.3, wS)
+  sRy = mix(sRy, 0, wS)
+  sRz = mix(sRz, 0.6, wS)
+  pose(rig, 'shoulderL', sLx, sLy, sLz)
+  pose(rig, 'shoulderR', sRx, sRy, sRz)
+  pose(rig, 'elbowL', eL, 0, 0)
+  pose(rig, 'elbowR', eR, 0, 0)
+}
+
+/** Generic boss animation driven by the AI's current action. With `m`, the
+ *  motion layer (humanoid bosses; Dr. Vex keeps his own hover). */
+export const poseBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: number, m?: EnemyMotion): void => {
+  if (m && id !== 'vexMk1') {
+    animateHumanoidBoss(rig, id, t, act, k, m)
+    return
+  }
   if (id === 'vexMk1') {
     nudge(rig, 'body', 0, Math.sin(t * 1.4) * 0.12, 0)
     pose(rig, 'body', Math.sin(t * 0.9) * 0.05, 0, Math.sin(t * 1.1) * 0.05)

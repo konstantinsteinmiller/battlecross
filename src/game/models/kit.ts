@@ -115,6 +115,88 @@ export const rbox = (w: number, h: number, d: number, round = 0.35, ws = 16, hs 
   return stripUv(g)
 }
 
+/**
+ * `rbox` cut along one of its latitude rings into two pieces: rows 0..k (the
+ * top cap) and rows k..hs (the rest). A superellipsoid ring is flat, so the
+ * cut is a clean plane, and both pieces take their positions AND normals from
+ * the whole box — put back together they shade pixel-for-pixel like
+ * `rbox(w, h, d, round, ws, hs)`, with no line where they meet (normals
+ * recomputed per piece would band the toon ramp along the cut). The crate
+ * golem's lid is invisible until it opens. `y` is the cut's height, `halfD`
+ * the ring's half-depth (where a back hinge goes).
+ */
+export const rboxSplit = (
+  w: number, h: number, d: number, round = 0.35, k = 4, ws = 16, hs = 12
+): { top: BufferGeometry; bottom: BufferGeometry; y: number; halfD: number } => {
+  const whole = rbox(w, h, d, round, ws, hs)
+  const wp = whole.attributes.position!
+  const wn = whole.attributes.normal!
+  const row = ws + 1
+  // A partial sphere for the index layout; every vertex is then the whole's
+  const piece = (first: number, rows: number): BufferGeometry => {
+    const g = new SphereGeometry(1, ws, rows, 0, Math.PI * 2, (first * Math.PI) / hs, (rows * Math.PI) / hs)
+    const pos = g.attributes.position!
+    const nor = g.attributes.normal!
+    for (let i = 0; i < pos.count; i++) {
+      const src = first * row + i
+      pos.setXYZ(i, wp.getX(src), wp.getY(src), wp.getZ(src))
+      nor.setXYZ(i, wn.getX(src), wn.getY(src), wn.getZ(src))
+    }
+    return stripUv(g)
+  }
+  let halfD = 0
+  for (let ix = 0; ix < row; ix++) halfD = Math.max(halfD, Math.abs(wp.getZ(k * row + ix)))
+  const out = { top: piece(0, k), bottom: piece(k, hs - k), y: wp.getY(k * row), halfD }
+  whole.dispose()
+  return out
+}
+
+/**
+ * A rounded rock: a low sphere with seeded bumps, a little flattened so it
+ * lies like a stone. Smooth normals (a boulder, never a gem). Coincident seam
+ * and pole vertices get the same bump, so the surface cannot crack open.
+ * Same seed, same rock.
+ */
+export const rock = (r: number, seed = 1, ws = 9, hs = 7): BufferGeometry => {
+  const g = new SphereGeometry(1, ws, hs)
+  const pos = g.attributes.position!
+  let st = (Math.imul(seed | 0, 2654435761) >>> 0) || 1
+  const bumps = new Map<string, number>()
+  const keys: string[] = []
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i)
+    const y = pos.getY(i)
+    const z = pos.getZ(i)
+    const key = `${x.toFixed(3)},${y.toFixed(3)},${z.toFixed(3)}`
+    keys.push(key)
+    let k = bumps.get(key)
+    if (k === undefined) {
+      st = (Math.imul(st, 1664525) + 1013904223) >>> 0
+      k = 0.84 + 0.3 * (st / 4294967296)
+      bumps.set(key, k)
+    }
+    pos.setXYZ(i, x * r * k, y * r * k * 0.8, z * r * k)
+  }
+  g.computeVertexNormals()
+  // Weld the normals of coincident vertices too, or the outline hull (pushed
+  // out along them) splits open along the seam
+  const nor = g.attributes.normal!
+  const sum = new Map<string, Vector3>()
+  for (let i = 0; i < pos.count; i++) {
+    const v = sum.get(keys[i]!) ?? new Vector3()
+    v.x += nor.getX(i)
+    v.y += nor.getY(i)
+    v.z += nor.getZ(i)
+    sum.set(keys[i]!, v)
+  }
+  for (let i = 0; i < pos.count; i++) {
+    const v = sum.get(keys[i]!)!
+    const l = v.length() || 1
+    nor.setXYZ(i, v.x / l, v.y / l, v.z / l)
+  }
+  return stripUv(g)
+}
+
 // ─── Transform helpers ───────────────────────────────────────────────────────
 
 export type V3 = [number, number, number]

@@ -1,8 +1,10 @@
-// The first-return upgrade tour (src/components/hub/hubLesson.ts). Its steps
-// follow the game's own state — the open tab, the selected item, the two
-// upgrade levels — never a timer, so a player who side-steps is guided
-// back. It runs once, skips players who already upgraded something, and
-// tops the wallet up once so the lesson's button is never greyed out.
+// The upgrade tour (src/components/hub/hubLesson.ts). Its steps follow the
+// game's own state — the open tab, the selected item, the two upgrade
+// levels — never a timer, so a player who side-steps is guided back. It runs
+// on the first lab visit with the Workshop open (two finished missions,
+// `hubUnlocks.ts`) and never while it is locked, once, skips players who
+// already upgraded something, and tops the wallet up once so the lesson's
+// button is never greyed out.
 //
 // On screen (HubLesson.vue): the hand is on the target in the tour's first
 // frame and never leaves between steps, and a press on the dimmed screen
@@ -15,8 +17,9 @@ import { mount, type VueWrapper } from '@vue/test-utils'
 import { profile, equipped } from '@/game/state/profile'
 import { starterItems, upgradeCost } from '@/game/data/items'
 import {
-  hubLesson, hubTab, workshopSel, wantsHubLesson, startHubLesson, syncHubLesson, endHubLesson
+  hubLesson, hubTab, workshopSel, wantsHubLesson, startHubLesson, syncHubLesson, endHubLesson, tabOpen
 } from '@/components/hub/hubLesson'
+import { FLOOR_TIP } from '@/components/hub/hubUnlocks'
 import HubLesson from '@/components/hub/HubLesson.vue'
 
 // HubLesson.vue's game-side imports, reduced to what it reads: the lab is on
@@ -39,7 +42,9 @@ const upgrade = (slot: 'buster' | 'chest') => {
 beforeEach(() => {
   profile.tips = {}
   profile.bolts = 0
-  profile.stats.missions = 1
+  profile.stats.missions = 2
+  // Two finished missions: the Workshop is open (`hubUnlocks.ts`).
+  profile.questsDone = 2
   profile.inv.items = starterItems()
   profile.inv.equipped = { buster: 'start_buster', helmet: 'start_helm', chest: 'start_body', boots: 'start_boots', chip1: null, chip2: null }
   hubLesson.step = null
@@ -49,10 +54,27 @@ beforeEach(() => {
 })
 
 describe('when the tour runs', () => {
-  it('after the first mission, not before', () => {
-    profile.stats.missions = 0
+  it('once the Workshop is open, never while it is locked', () => {
+    // Back from the tutorial: one finished mission, the Workshop still locked.
+    profile.questsDone = 1
+    profile.tips[FLOOR_TIP] = 0
     expect(wantsHubLesson()).toBe(false)
-    profile.stats.missions = 1
+    // A death or a retreat is not a finished mission.
+    profile.stats.missions = 5
+    expect(wantsHubLesson()).toBe(false)
+    // Not even when asked directly.
+    startHubLesson()
+    expect(hubLesson.step).toBeNull()
+    expect(profile.tips['lesson:upgradeGrant']).toBeUndefined()
+    profile.questsDone = 2
+    expect(wantsHubLesson()).toBe(true)
+  })
+
+  it('for a returning player whose menus were all open already, as before', () => {
+    // One mission from the old lab, the tour closed half-way (only the
+    // top-up flag is left): the Workshop stays open, so the tour may run.
+    profile.questsDone = 1
+    profile.tips['lesson:upgradeGrant'] = true
     expect(wantsHubLesson()).toBe(true)
   })
 
@@ -89,6 +111,32 @@ describe('the wallet top-up', () => {
     startHubLesson()
     expect(profile.bolts).toBe(5000)
     expect(hubLesson.granted).toBe(0)
+  })
+})
+
+describe('a locked tab cannot be opened', () => {
+  it('by anyone who sets the open tab, the tour included', () => {
+    profile.questsDone = 1
+    profile.tips[FLOOR_TIP] = 0
+    expect(tabOpen('workshop')).toBe(false)
+    hubTab.value = 'workshop'
+    expect(hubTab.value).toBe('missions')
+    hubTab.value = 'circuits'
+    expect(hubTab.value).toBe('missions')
+    hubTab.value = 'hero'
+    expect(hubTab.value).toBe('hero')
+    profile.questsDone = 2
+    hubTab.value = 'workshop'
+    expect(hubTab.value).toBe('workshop')
+    hubTab.value = 'circuits'
+    expect(hubTab.value).toBe('workshop')
+  })
+
+  it('and a tab that locks under an open panel (a cloud save loaded on top) reads as Missions', () => {
+    hubTab.value = 'workshop'
+    profile.questsDone = 1
+    profile.tips[FLOOR_TIP] = 0
+    expect(hubTab.value).toBe('missions')
   })
 })
 
@@ -250,6 +298,15 @@ describe('the tour on screen', () => {
     const [tx, ty] = tapPoint(BTN)
     expect(x).toBeCloseTo(tx)
     expect(y).toBeCloseTo(ty)
+  })
+
+  it('waits for the Workshop: nothing starts in a lab where it is still locked', async () => {
+    profile.questsDone = 1
+    profile.tips[FLOOR_TIP] = 0
+    const w = await startTour()
+    expect(hubLesson.step).toBeNull()
+    expect(w.find('.guide').exists()).toBe(false)
+    expect(w.find('.block').exists()).toBe(false)
   })
 
   it('takes the hand away with the tour', async () => {

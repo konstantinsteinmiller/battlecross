@@ -16,6 +16,7 @@ import { makeBlobShadow } from '../fx/markers'
 import { hasLineOfSight } from '../world/nav'
 import { pushHud } from '../state/hud'
 import { RARITY_COLOR } from '../models/palette'
+import { INTERACT_DIST, INTERACT_NEAR } from './constants'
 
 /**
  * ─── Mission objects & objectives ────────────────────────────────────────────
@@ -168,7 +169,8 @@ export const objectiveTarget = (
   if (src.objective.done) return null
   switch (src.objective.template) {
     case 'tutorial':
-    case 'boss': {
+    case 'boss':
+    case 'climb': {
       const d = bossDoorOf(map)
       // A map that could not fit a boss room keeps its Core Master in the objective room.
       if (!d) return livingElite(src, enemies)
@@ -349,8 +351,9 @@ export class MissionObjects {
     const h = this.host
     const q = this.quest
     const rng = mulberry32(h.map.seed ^ 0x0b1e)
-    if (q.template === 'tutorial' || q.template === 'boss') {
-      // The sector's Core Master waits behind the boss shutter.
+    if (q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') {
+      // The sector's Core Master waits behind the boss shutter (a climb's:
+      // at the foot of its tower, for the rematch).
       const room = h.map.rooms.find(r => r.role === 'boss') ?? h.map.rooms.find(r => r.role === 'objective')!
       const [cx, cz] = roomCenter(room)
       const boss = createBoss(SECTOR_BY_ID[q.sector].boss as BossId, q.level + (q.template === 'tutorial' ? 0 : 1), cx, cz, room.id)
@@ -448,24 +451,33 @@ export class MissionObjects {
     const q = this.quest
     if (q.template === 'kill' && e.kind === q.target) this.progress(1)
     else if (q.template === 'purge') this.progress(1)
-    else if ((q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss') && e.id === this.eliteId) this.progress(1)
+    else if ((q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') && e.id === this.eliteId) this.progress(1)
   }
 
   // ─── Interaction ───────────────────────────────────────────────────────────
 
-  /** The nearest thing the player can interact with right now. */
+  /**
+   * The nearest thing the player can interact with right now: an unopened
+   * chest or the stranded worker-bot within `INTERACT_DIST` and in sight —
+   * taken on trust up close (`INTERACT_NEAR`), where only a false "no" can
+   * come of the grid test. The bot wins a near-tie with a chest. No facing
+   * rule: the prompt must not flicker as the view turns, and a tap walks the
+   * player up without turning them. The E key, the prompt button and a tap
+   * on the object (`Mission.doInteract`) all act on this answer.
+   */
   nearestInteractable(px: number, pz: number, yaw: number): { kind: 'chest' | 'npc'; ref: Chest | Npc } | null {
-    const h = this.host
+    const nav = this.host.nav
     let best: { kind: 'chest' | 'npc'; ref: Chest | Npc } | null = null
-    let bestD = 2.9
+    let bestD = INTERACT_DIST
     for (const c of this.chests) {
       if (c.opened) continue
       const d = Math.hypot(c.x - px, c.z - pz)
-      if (d < bestD && hasLineOfSight(h.nav, px, pz, c.x, c.z)) { bestD = d; best = { kind: 'chest', ref: c } }
+      if (d < bestD && (d < INTERACT_NEAR || hasLineOfSight(nav, px, pz, c.x, c.z))) { bestD = d; best = { kind: 'chest', ref: c } }
     }
-    if (this.npc && !this.npc.rescued) {
-      const d = Math.hypot(this.npc.x - px, this.npc.z - pz)
-      if (d < bestD + 0.4) best = { kind: 'npc', ref: this.npc }
+    const n = this.npc
+    if (n && !n.rescued) {
+      const d = Math.hypot(n.x - px, n.z - pz)
+      if (d < bestD + 0.4 && (d < INTERACT_NEAR || hasLineOfSight(nav, px, pz, n.x, n.z))) best = { kind: 'npc', ref: n }
     }
     void yaw
     return best
@@ -576,12 +588,17 @@ export class MissionObjects {
     if (q.template === 'collect') for (const c of this.cores) { if (!c.taken) out.push({ x: c.x, z: c.z, kind: 'objective' }) }
     if (q.template === 'supply') for (const c of this.chests) { if (c.supply && !c.opened) out.push({ x: c.x, z: c.z, kind: 'objective' }) }
     if (q.template === 'rescue' && this.npc && !this.npc.rescued) out.push({ x: this.npc.x, z: this.npc.z, kind: 'objective' })
-    if (q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss') {
+    if (q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') {
       const e = enemies.find(x => x.id === this.eliteId && x.state !== 'dead')
       if (e) out.push({ x: e.x, z: e.z, kind: q.template === 'elite' ? 'objective' : 'boss' })
     }
     if (q.template === 'kill') for (const e of enemies) { if (e.kind === q.target && e.state !== 'dead') out.push({ x: e.x, z: e.z, kind: 'objective' }) }
-    if (q.template === 'purge') for (const e of enemies) { if (e.state !== 'dead') out.push({ x: e.x, z: e.z, kind: 'objective' }) }
+    if (q.template === 'purge') {
+      // A sleeping crate golem passes for a crate: the compass only gives it
+      // away once it is the last machine standing (as the floor trail does).
+      const awake = enemies.some(e => e.state !== 'dead' && !e.dormant)
+      for (const e of enemies) { if (e.state !== 'dead' && (!e.dormant || !awake)) out.push({ x: e.x, z: e.z, kind: 'objective' }) }
+    }
     return out
   }
 

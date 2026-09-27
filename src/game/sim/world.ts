@@ -1,6 +1,7 @@
-import type { Group, Mesh, Sprite } from 'three'
+import type { Group, Mesh, Object3D, Sprite } from 'three'
 import type { Rig } from '../models/kit'
 import type { EnemyKind } from '../models/enemies'
+import type { EnemyMotion } from '../models/motion'
 import type { EnemyDef, Element } from '../data/enemies'
 import type { Nav } from '../world/nav'
 import type { MapData } from '../world/levelGen'
@@ -43,6 +44,13 @@ export interface Enemy {
   /** A boss before its entrance: not in the arena yet, so it is not drawn,
    *  hit, aimed at, woken or bumped into. Its intro drops it in. */
   offstage?: boolean
+  /** A machine asleep in disguise (the crate golem as a supply crate): drawn
+   *  and hit like the prop it pretends to be, but never noticed, aimed at or
+   *  locked on to as a machine, never woken by sight, noise or a room-mate —
+   *  and a hit wakes it without hurting it. */
+  dormant?: boolean
+  /** Crate golem only: its state beyond the shared machine (sim/enemies.ts). */
+  golem?: import('./enemies').GolemState
   state: EnemyState
   st: number
   cd: number
@@ -58,8 +66,13 @@ export interface Enemy {
   flash: number
   path: Array<[number, number]> | null
   pathT: number
+  /** 0..1 locomotion: the ground actually covered per tick / top speed
+   *  (measured by `stepMotion`, mirrors `mo.walk`). Bosses run their own. */
   walk: number
   anim: number
+  /** Animation channels (idle, distance-driven gait, eased attacks); see
+   *  models/motion.ts. Advanced per tick, read by the pose functions. */
+  mo: EnemyMotion
   /** Scratch slots for per-kind state. */
   a: number
   b: number
@@ -86,9 +99,18 @@ export interface Enemy {
   frozenT: number
   /** Id of the special weapon that last hit (weapon XP on kill). */
   lastWeapon: string
+  /** The climb (terrain maps): the height of the platform it stands on.
+   *  `y` stays relative to it, so the AI is the flat one; only the world
+   *  position (drawing, shot origins, hit tests) adds it. Absent = 0. */
+  floor?: number
+  /** The climb: the rectangle (x0, z0, x1, z1) it may not leave — its own
+   *  platform — and, for a flyer, the band of heights it follows the player
+   *  through. */
+  leash?: [number, number, number, number]
+  hover?: [number, number]
 }
 
-export type ShotKind = 'pellet' | 'charge1' | 'charge2' | 'charge3' | 'enemy' | 'shell' | 'reflect' | 'special'
+export type ShotKind = 'pellet' | 'charge1' | 'charge2' | 'charge3' | 'enemy' | 'shell' | 'reflect' | 'special' | 'rock'
 
 export interface Shot {
   active: boolean
@@ -133,6 +155,8 @@ export interface Shot {
   /** Special-weapon payloads: burn (dps, s) / freeze (s) applied on hit. */
   burn: number
   freeze: number
+  /** A crate golem's rock (a tumbling stone mesh, fx/rubble.ts) in place of the glow core. */
+  rock?: Object3D | null
 }
 
 export type PickupKind = 'bolt' | 'hp' | 'hpBig' | 'we' | 'weBig' | 'core'
@@ -182,12 +206,18 @@ export interface World {
   map: MapData
   nav: Nav
   time: number
-  player: { x: number; z: number; yaw: number; pitch: number }
+  /** `y`: the height of the player's feet (the climb; 0 on a flat map). */
+  player: { x: number; z: number; yaw: number; pitch: number; y?: number }
   combat: CombatPlayer
   enemies: Enemy[]
   fx: Particles
   markers: FloorMarkers
   shocks: ShockRings
+  /** Every projectile in flight (the CombatSystem's pool, which puts itself
+   *  here): a crate golem watches for charged shots coming its way. */
+  shots?: readonly Shot[]
+  /** What a machine can read of Flux's kit: how long his charge takes. */
+  stats?: { readonly chargeTimeMul: number }
   fireEnemyShot(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): void
   lobShell(e: Enemy, tx: number, tz: number, dur: number, dmg: number): void
   /** Boss hazards (see CombatSystem). */

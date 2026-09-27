@@ -26,7 +26,9 @@ import { chargeInfo } from '@/game/sim/stats'
  *   • inner ring fills to charge level 1, outer ring to the full charge;
  *   • at full charge the ring flickers, and inside the PERFECT window it turns
  *     gold — release then for a critical;
- *   • the bracket tracks the locked target's aim point on screen.
+ *   • the bracket tracks the locked target's aim point on screen; while the
+ *     target is out of sight (the lock's grace, `Mission.targetHidden`) it
+ *     turns faint, grey and dashed, and snaps back the moment it is seen.
  */
 const xh = ref<HTMLElement | null>(null)
 const l1 = ref<SVGCircleElement | null>(null)
@@ -59,8 +61,10 @@ onMounted(() => {
     const tg = c.target
     if (tg && tg.state !== 'dead') {
       const s = tg.elite ? 1.18 : 1
-      m.project(tg.x, tg.y + (tg.def.aimY + tg.def.hitR) * s, tg.z, top)
-      m.project(tg.x, tg.y + tg.def.aimY * s, tg.z, pt)
+      // The climb: a machine on a ledge stands on its platform (`floor`).
+      const ty = tg.y + (tg.floor ?? 0)
+      m.project(tg.x, ty + (tg.def.aimY + tg.def.hitR) * s, tg.z, top)
+      m.project(tg.x, ty + tg.def.aimY * s, tg.z, pt)
       if (pt.visible) {
         const size = Math.max(34, Math.min(170, Math.abs(pt.y - top.y) * 2.3))
         lock.value.style.opacity = '1'
@@ -68,6 +72,7 @@ onMounted(() => {
         lock.value.style.height = `${size}px`
         lock.value.style.transform = `translate(${pt.x - size / 2}px, ${pt.y - size / 2}px) rotate(${Math.sin(t * 3) * 3}deg)`
         lock.value.dataset.tele = tg.state === 'tele' ? (tg.teleRed ? 'red' : 'orange') : ''
+        lock.value.dataset.lost = m.targetHidden ? '1' : ''
         return
       }
     }
@@ -163,4 +168,23 @@ onUnmounted(() => off?.())
     border-color: #ffa21f
   &[data-tele='red'] .c
     border-color: #ff2d3f
+  // Out of sight: faint, grey (over any telegraph colour) and each corner's
+  // two arms dashed. It fades out; seen again it is back at once, since the
+  // transition only lives on the lost state.
+  &[data-lost='1'] .c
+    opacity: 0.38
+    border-color: #b9c0d3
+    transition: opacity 0.15s
+  &[data-lost='1'] .tl
+    border-top-style: dashed
+    border-left-style: dashed
+  &[data-lost='1'] .tr
+    border-top-style: dashed
+    border-right-style: dashed
+  &[data-lost='1'] .bl
+    border-bottom-style: dashed
+    border-left-style: dashed
+  &[data-lost='1'] .br
+    border-bottom-style: dashed
+    border-right-style: dashed
 </style>

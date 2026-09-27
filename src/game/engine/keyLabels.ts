@@ -29,7 +29,7 @@ const fallback = (code: string): string => {
 export const keyLabel = (code: string): string => labels[code] ?? fallback(code)
 
 /** The keys the HUD ever draws. */
-const DRAWN = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyB', 'KeyH', 'KeyQ', 'Digit1', 'Digit2']
+const DRAWN = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyB', 'KeyH', 'KeyQ', 'Digit1', 'Digit2', 'Digit3']
 
 let asked = false
 /** Ask the browser for the layout once (safe to call repeatedly). */

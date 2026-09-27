@@ -62,7 +62,13 @@ export const GAME_ICON_NAMES = [
   // showed the cost: ⚡ also marks the charged shot and the weapon-energy
   // bar, and a tester called his Bolts "energy". The money is a hex nut now,
   // the gold hexagon of the pickup's head; ⚡ means energy and charge only.
-  'nut'
+  'nut',
+  // The Slide (the dodge). It wore `forward` until a phone tester read the
+  // arrow as "dash ahead" and was thrown when a slide with no stick hopped
+  // BACK. A slide goes wherever the stick points (back without one), so its
+  // mark is the move itself, a figure sliding low with speed lines, not a
+  // direction.
+  'dodge'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

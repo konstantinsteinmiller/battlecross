@@ -64,7 +64,7 @@ const frameMsFor = (ctx) => 1000 / ctx.fps
 // ─── The save fixture ───────────────────────────────────────────────────────
 
 /**
- * One `mega_adventure_state` blob (`src/keys.ts`, `useGameState.ts`).
+ * One `mega_droid_state` blob (`src/keys.ts`, `useGameState.ts`).
  *
  * Pin EVERY flag that can put something in front of the road: the tutorial
  * lightbox, the control primers, the shop spotlight, the weapon choice, the
@@ -139,9 +139,9 @@ export const saveFixture = (over = {}) => ({
 export const THIN_SHOP = { squad: 4, power: 4, rate: 3, range: 2, scavenge: 2, grenade: 0, shield: 0 }
 
 /** Written into the page BEFORE the app's first line, so the game boots into
- *  it. `useGameState` reads `mega_adventure_state` once, at module load. */
+ *  it. `useGameState` reads `mega_droid_state` once, at module load. */
 export const seedSaveScript = (save) => {
-  try { localStorage.setItem('mega_adventure_state', JSON.stringify(save)) } catch { /* private mode */ }
+  try { localStorage.setItem('mega_droid_state', JSON.stringify(save)) } catch { /* private mode */ }
   // The recorder's own flag, read by `src/game/previewFeed.ts` from the URL —
   // nothing to do here — but the ART flag persists, and a context that inherits
   // "off" from a previous session would record the procedural game.

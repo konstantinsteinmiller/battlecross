@@ -55,9 +55,9 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `parry.mp3` | perfect parry (crisp, rewarding) |
 | `guardCrack.mp3` | Flux's block breaks (out of Power) |
 | `slide.mp3` | Flux slides |
-| `hurt.mp3` | Flux takes damage |
+| `hurt.mp3` | Flux takes damage (played panned toward the hit's source, muffled from behind) |
 | `death.mp3` | Flux goes down (~1 s) |
-| `tank.mp3` | a Repair Tank is used (refill arpeggio) |
+| `tank.mp3` | a Repair Gel is used (refill arpeggio) |
 
 **Machines**
 
@@ -65,6 +65,7 @@ as the fallback for anything missing, so files can arrive one at a time.
 | --- | --- |
 | `alert.mp3` | an enemy notices Flux (the "!" moment) |
 | `enemyShot.mp3` | an enemy fires |
+| `whizz.mp3` | an enemy shot about to hit Flux from off-screen (a short air-rip, ~0.2 s; played panned to its side) |
 | `lob.mp3` | an enemy or boss lobs an arcing shot |
 | `jump.mp3` | a hopper jumps |
 | `stomp.mp3` | a heavy landing or boss slam (low, with a shockwave feel) |
@@ -80,13 +81,24 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `bolt.mp3` | bolt (currency) pickup — very frequent, tiny |
 | `heal.mp3` | health capsule pickup |
 | `energy.mp3` | weapon-energy pickup |
+| `borrowGet.mp3` | a borrowed-weapon capsule is taken ("weapon get": rising arpeggio past the octave, a held top note, ~0.8 s — grander than any pickup) |
+| `borrowSpent.mp3` | the borrowed weapon's last charge is spent (short falling blip + puff, ~0.25 s) |
 | `door.mp3` | a shutter door slides open |
 | `chestOpen.mp3` | a supply chest opens |
 | `objective.mp3` | objective progress or completion |
 | `beamIn.mp3` | teleport in at mission start (~0.8 s) |
-| `beamOut.mp3` | teleport out (~0.8 s) |
+| `beamOut.mp3` | teleport out (~0.8 s) — no longer played: the exit drone replaced the beam-out |
+| `droneArrive.mp3` | the exit drone flies in over the walls (falling whoosh + low motor, ~1.5 s) |
+| `droneHum.mp3` | one pulse of the exit drone's rotors (~0.6 s swell; re-triggered every 0.4 s while it hovers, so it must loop-overlap cleanly) |
+| `droneHumHi.mp3` | the same rotor pulse spun up for the climb out (~0.5 s, re-triggered every 0.3 s) |
+| `deckLand.mp3` | Flux lands on the drone's deck (hollow metal clunk) |
+| `liftOff.mp3` | the drone lifts off with Flux, under the LEVEL CLEARED banner (rising rush + arpeggio, ~1.3 s) |
 | `bossIntro.mp3` | Core Master name card (~1 s) |
 | `levelUp.mp3` | level up (~1 s fanfare) |
+| `trapHiss.mp3` | a corridor flame jet warns before its burst (gas hiss, ~0.7 s) |
+| `flameJet.mp3` | the flame jet bursts across the corridor (roar, ~0.9 s) |
+| `bladeWhoosh.mp3` | a swinging blade comes down past the corridor's middle (swell, ~0.4 s) |
+| `trapClick.mp3` | the tutorial's pressure plate gives under a foot (click + clunk) |
 
 **Hub and UI**
 
@@ -94,6 +106,7 @@ as the fallback for anything missing, so files can arrive one at a time.
 | --- | --- |
 | `loot.mp3` | a Workshop reward is claimed (Supply Drop) |
 | `weapon.mp3` | a special weapon is equipped (Hero tab) |
+| `attrPick.mp3` | one level-up upgrade picked while more are waiting (short "ting"; the last pick plays `levelUp`) |
 | `denied.mp3` | an action is not possible (not enough bolts, …) |
 | `uiClick.mp3` | UI tap |
 | `uiOpen.mp3` | a panel or modal opens |

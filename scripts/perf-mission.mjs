@@ -81,7 +81,7 @@ const runOnce = async (arm) => {
     const q = arm === 'base' ? '?perfprobe=1' : `?perfprobe=1&perf=${arm}`
     await page.goto(`http://127.0.0.1:${PORT}/${q}`)
     const title = await page.title()
-    if (!/Mega Adventure/i.test(title)) throw new Error(`wrong app on the port (title "${title}")`)
+    if (!/Mega Droid/i.test(title)) throw new Error(`wrong app on the port (title "${title}")`)
 
     // Boot and beam in, unthrottled: loading is not what this measures.
     await page.waitForSelector('.hud-layer', { timeout: 30000 })

@@ -3,6 +3,7 @@ import { getState, setState } from '@/use/useGameState'
 import { POSTED_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
 import { resolveIdentity, type PlayerIdentity } from '@/use/usePlayerIdentity'
 import { boardSnapshot, rankFromDist } from '@/use/leaderboardSnapshot'
+import { LEGACY_KEYS, migrateLegacyKey } from '@/legacyKeys'
 
 /**
  * ─── The global board, client side ──────────────────────────────────────────
@@ -266,9 +267,14 @@ let fetched = false
  * and this is a ~6 kB cache of PUBLIC data that is identical for every player.
  * Syncing it would pay for the same hundred rows once per player, on every
  * save, against Poki's 1 MB ceiling — to protect a device that has its own copy
- * anyway. It is a per-device cache, so it lives per-device.
+ * anyway. It is a per-device cache, so it lives per-device. Renamed with the
+ * game (Mega Adventure → Mega Droid); a pre-rename cache is moved over before
+ * the seed below reads it (`src/legacyKeys.ts`), so a returning player's first
+ * board still comes up without a spinner.
  */
-const BOARD_CACHE_KEY = 'mega_adventure_board_cache'
+const BOARD_CACHE_KEY = 'mega_droid_board_cache'
+
+migrateLegacyKey(LEGACY_KEYS.BOARD_CACHE, BOARD_CACHE_KEY)
 
 const readBoardCache = (): Board | null => {
   try {
@@ -467,7 +473,7 @@ export const reportRun = async (
   bestScore: number, bestFlair: number, o: { force?: boolean } = {}
 ): Promise<void> => {
   // (The portal's own board — Phase 8 — is NOT reported from here. It posts on
-  // a WIN only, from the game's win dispatch: see `reportPortalBest`.)
+  // its own bookkeeping, from `finishMission`: see `reportPortalBest`.)
 
   // A baked build has nothing to report TO. The rank it shows comes from the
   // snapshot, which no run can change, so this is the one entry point that stays

@@ -108,6 +108,8 @@ const mountHub = (locale = 'en', messages: Messages = en) =>
 beforeEach(() => {
   profile.hero.pendingAttrs = 0
   profile.inv.fresh = []
+  // Every menu open (`hubUnlocks.ts`): the tabs here are the unlocked ones.
+  profile.questsDone = 4
   flow.modal = ''
 })
 

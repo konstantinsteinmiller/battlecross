@@ -10,6 +10,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 const mockProvider = {
   name: 'mock',
@@ -29,14 +30,18 @@ vi.mock('@/platforms/resolveAdProvider', () => ({
 }))
 
 const importAds = async () => {
-  vi.resetModules()
+  drainAndResetModules()
   // Reset spy call counts and the provider readiness defaults between
   // tests so each `await import` starts from a clean slate.
   mockProvider.isRewardedReady.value = true
   mockProvider.isAdsBlocked.value = false
   mockProvider.showRewardedAd.mockClear()
   mockProvider.showRewardedAd.mockResolvedValue(true)
-  return await import('@/use/useAds')
+  const ads = await import('@/use/useAds')
+  // The throttle records every grant in useGameState's debounced save: hold
+  // that instance so afterEach flushes it (tests/stubs/drainPersist.ts).
+  await holdGameState()
+  return ads
 }
 
 describe('useAds + rewarded throttle', () => {
@@ -44,6 +49,7 @@ describe('useAds + rewarded throttle', () => {
     window.localStorage.clear()
   })
   afterEach(() => {
+    drainPersist()
     window.localStorage.clear()
   })
 

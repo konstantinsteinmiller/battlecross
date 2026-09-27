@@ -70,6 +70,14 @@ export const ENEMIES: Record<EnemyKind, EnemyDef> = {
   turret: {
     kind: 'turret', hp: 60, dmg: 12, speed: 0, radius: 0.6, hitR: 0.75, aimY: 0.75, fly: 0,
     aggro: 18, range: [0, 20], xp: 16, bolts: [4, 7], cooldown: 2.6, tele: 0.8, unblockable: true, armor: 0.9
+  },
+  // Crate golem, AWAKE (asleep it has a crate's hit volume, sim/enemies.ts
+  // GOLEM_SLEEP_*, and takes no damage at all). `dmg` is the thrown rock
+  // (orange); the boulder lob hits ×1.35 (red). It keeps 6–12 m from Flux and
+  // backs off faster than it closes; `tele` is the throw's wind-up.
+  golem: {
+    kind: 'golem', hp: 80, dmg: 12, speed: 2.0, radius: 0.6, hitR: 0.8, aimY: 1.05, fly: 0,
+    aggro: 16, range: [6, 12], xp: 24, bolts: [6, 11], cooldown: 2.3, tele: 0.62, unblockable: false, armor: 1
   }
 }
 

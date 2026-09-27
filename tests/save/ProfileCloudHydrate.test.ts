@@ -11,7 +11,7 @@ import { nextTick } from 'vue'
 //   commits those defaults over the real cloud save and the loss becomes
 //   permanent.
 //
-// The whole game lives in ONE `mega_adventure_state` blob. The profile store
+// The whole game lives in ONE `mega_droid_state` blob. The profile store
 // (`src/game/state/profile.ts`) re-reads it whenever `saveDataVersion` bumps,
 // which `useSaveStatus` does right after a hydrate lands.
 //
@@ -20,7 +20,7 @@ import { nextTick } from 'vue'
 // who beams out and reloads a moment later would otherwise get the OLD save.
 
 const MANIFEST_KEY = '__save_internal__crazy_keys'
-const STATE_KEY = 'mega_adventure_state'
+const STATE_KEY = 'mega_droid_state'
 
 const makeFakeData = (seed: Record<string, string> = {}) => {
   const store = new Map<string, string>(Object.entries(seed))
@@ -100,7 +100,7 @@ beforeEach(() => {
   vi.resetModules()
 })
 
-describe('mega_adventure_state cloud hydrate → profile store', () => {
+describe('mega_droid_state cloud hydrate → profile store', () => {
   it('hydrates the blob before the app graph reads it', async () => {
     await bootCloudOnly(await seededCloud())
     const { getState } = await import('@/use/useGameState')

@@ -8,7 +8,7 @@ import InputGlyph from '@/components/hud/InputGlyph.vue'
 import ControlHints from '@/components/hud/ControlHints.vue'
 import ControlsPanel from '@/components/hud/ControlsPanel.vue'
 import {
-  FINGERTIP, FINGER_HOLD, HAND, INFINITY, INF_HAND_SCALE, INF_POINTS, INF_SAMPLES, MOUSE_HOLD
+  FINGERTIP, FINGER_HOLD, HAND, INFINITY, INF_HAND_SCALE, INF_POINTS, INF_SAMPLES, MOUSE_BUTTONS, MOUSE_HOLD, onMouseButton
 } from '@/components/hud/glyphGeometry'
 import { hud } from '@/game/state/hud'
 
@@ -137,17 +137,34 @@ describe('the ∞ the move finger traces', () => {
 describe('the hold ring', () => {
   const ring = (paths: typeof FINGER_HOLD) => Object.fromEntries(paths.map(p => [p.cls, p]))
 
-  it.each([['finger', FINGER_HOLD, 70, 16, 28], ['mouse', MOUSE_HOLD, 70, 58, 54]] as const)(
-    '%s: stands three quarters full, from twelve clockwise, with a tick at twelve',
-    (_, paths, cx, cy, r) => {
-      const p = ring(paths)
-      // 270° clockwise: large arc + sweep flags, twelve o'clock to nine.
-      expect(p['hold-arc']!.d).toBe(`M${cx} ${cy - r}A${r} ${r} 0 1 1 ${cx - r} ${cy}`)
+  it('finger: stands three quarters full, from twelve clockwise, with a tick at twelve', () => {
+    const [cx, cy, r] = [70, 16, 28]
+    const p = ring(FINGER_HOLD)
+    // 270° clockwise: large arc + sweep flags, twelve o'clock to nine.
+    expect(p['hold-arc']!.d).toBe(`M${cx} ${cy - r}A${r} ${r} 0 1 1 ${cx - r} ${cy}`)
+    expect(p['hold-edge']!.d).toBe(p['hold-arc']!.d)
+    // The tick stands on the ring at twelve, outside it (a stopwatch's crown).
+    expect(p['hold-tick']!.d).toBe(`M${cx} ${cy - r - 9}V${cy - r + 1}`)
+    // Only the sweep is animated, so only it is measured in pathLength units.
+    expect(FINGER_HOLD.filter(q => q.len).map(q => q.cls)).toEqual(['hold-ring'])
+  })
+
+  it.each([['left', 0, 70 + 54], ['right', 1, 70 - 54]] as const)(
+    'mouse, %s button: fills from twelve TOWARD the lit side, and stands on that side when still',
+    (side, sweep, endX) => {
+      const [cx, cy, r] = [70, 58, 54]
+      const p = ring(MOUSE_HOLD[side])
+      // The old ring always hugged the right half, its only gap over the lit
+      // LEFT button: the eye read "right". Now the 3/4 rest pose runs from
+      // twelve through the lit side and leaves its gap over the other button.
+      expect(p['hold-arc']!.d).toBe(`M${cx} ${cy - r}A${r} ${r} 0 1 ${sweep} ${endX} ${cy}`)
       expect(p['hold-edge']!.d).toBe(p['hold-arc']!.d)
-      // The tick stands on the ring at twelve, outside it (a stopwatch's crown).
+      // The fill: a whole ring from twelve, first half toward the lit side.
+      expect(p['m-fill']!.d).toBe(`M${cx} ${cy - r}A${r} ${r} 0 1 ${sweep} ${cx} ${cy + r}A${r} ${r} 0 1 ${sweep} ${cx} ${cy - r}`)
+      expect(p['m-fill-edge']!.d).toBe(p['m-fill']!.d)
       expect(p['hold-tick']!.d).toBe(`M${cx} ${cy - r - 9}V${cy - r + 1}`)
-      // Only the sweep is animated, so only it is measured in pathLength units.
-      expect(paths.filter(q => q.len).map(q => q.cls)).toEqual(['hold-ring'])
+      // Only the fill (and its edge) is animated, in pathLength units.
+      expect(MOUSE_HOLD[side].filter(q => q.len).map(q => q.cls)).toEqual(['m-fill-edge', 'm-fill'])
     })
 
   it('is wider than the finger, which hides only its bottom', () => {
@@ -207,7 +224,21 @@ describe('InputGlyph in a frozen frame', () => {
       expect(hold).toContain(c)
       expect(click).not.toContain(c)
     }
-    expect(click).toContain('ripple')
+    expect(click).toContain('m-ripple')
+  })
+
+  it('draws a finger that taps or holds, never one swaying left and right: dragging is the ∞\'s', () => {
+    for (const mode of ['tap', 'hold'] as const) {
+      const c = classes(mount(InputGlyph, { props: { kind: 'finger', mode } }))
+      expect(c, mode).not.toContain('sway')
+      expect(c, mode).not.toContain('arrow')
+    }
+    // The desktop camera keeps its swaying mouse, captured or dragged.
+    for (const props of [{ button: 'none', move: true }, { button: 'left', drag: true }] as const) {
+      const c = classes(mount(InputGlyph, { props: { kind: 'mouse', ...props } }))
+      expect(c).toContain('sway')
+      expect(c).toContain('arrow')
+    }
   })
 
   it('still draws the old joystick for any caller that asks for it', () => {
@@ -223,6 +254,151 @@ describe('InputGlyph in a frozen frame', () => {
     const rule = (sel: string) => src.match(new RegExp(`\\n${sel.replace('.', '\\.')}\\n((?:  .*\\n)+)`))?.[1] ?? ''
     for (const sel of ['.hold-arc', '.hold-edge', '.hold-tick', '.hold-track']) {
       expect(rule(sel), sel).not.toMatch(/animation/)
+    }
+  })
+})
+
+/**
+ * ─── The mouse must say WHICH button ────────────────────────────────────────
+ *
+ * The developer read the old left-button glyph as the right one, and its
+ * click as a middle click: the lit half pulsed to a near white, the hold
+ * ring's full three quarters hugged the right side with its gap over the lit
+ * button, and the ripple was centred on the seam, over the wheel (70, 30).
+ */
+describe('the mouse says which button, and click or hold', () => {
+  /** Every x a path visits (its M/L/A end points and H targets). */
+  const pathXs = (d: string): number[] => {
+    const out: number[] = []
+    for (const m of d.matchAll(/([MLAHVZ])([^MLAHVZ]*)/g)) {
+      const n = m[2]!.trim().split(/[ ,]+/).filter(Boolean).map(Number)
+      if (m[1] === 'M' || m[1] === 'L') out.push(n[0]!)
+      else if (m[1] === 'A') out.push(n[5]!)
+      else if (m[1] === 'H') out.push(n[0]!)
+    }
+    return out
+  }
+  const glyph = (props: Record<string, unknown>) => mount(InputGlyph, { props: { kind: 'mouse', ...props } })
+  const other = { left: 'right', right: 'left' } as const
+
+  it.each(['left', 'right'] as const)('%s: the lit face is on the %s, the other one and the wheel stay neutral', (side) => {
+    for (const mode of [{ click: true }, { hold: true }]) {
+      const w = glyph({ button: side, ...mode })
+      const hot = w.findAll('path.hot')
+      expect(hot).toHaveLength(1)
+      expect(hot[0]!.attributes('data-button')).toBe(side)
+      expect(hot[0]!.attributes('d')).toBe(MOUSE_BUTTONS[side].d)
+      // Every point of the lit face lies on its side of the seam (x 70).
+      for (const x of pathXs(MOUSE_BUTTONS[side].d)) {
+        if (side === 'left') expect(x).toBeLessThanOrEqual(70)
+        else expect(x).toBeGreaterThanOrEqual(70)
+      }
+      expect(pathXs(MOUSE_BUTTONS[side].d).some(x => side === 'left' ? x < 50 : x > 90)).toBe(true)
+      // The other face is plain body, and the wheel is never lit.
+      expect(w.find(`path[data-button="${other[side]}"]`).classes()).toEqual(['btn'])
+      expect(w.find('.wheel').classes()).not.toContain('hot')
+      expect(w.find('svg').attributes('data-lit')).toBe(side)
+    }
+  })
+
+  it.each(['left', 'right'] as const)('%s: the press ripple starts at that button\'s own centre, off the seam and the wheel', (side) => {
+    for (const mode of [{ click: true }, { hold: true }]) {
+      const c = glyph({ button: side, ...mode }).find('circle.m-ripple')
+      const cx = Number(c.attributes('cx'))
+      const cy = Number(c.attributes('cy'))
+      expect(onMouseButton(side, cx, cy)).toBe(true)
+      expect(onMouseButton(other[side], cx, cy)).toBe(false)
+      // Clear of the wheel (x 67.5–72.5) by more than its own radius at rest.
+      expect(Math.abs(cx - 70)).toBeGreaterThan(10)
+      // …and it is the face's centre, well inside it.
+      expect(onMouseButton(side, cx + (side === 'left' ? -10 : 10), cy)).toBe(true)
+      expect(onMouseButton(side, cx, cy - 12)).toBe(true)
+      expect(onMouseButton(side, cx, cy + 12)).toBe(true)
+    }
+    // The old origin sat on the seam (70, 30): a hair to either side of it
+    // is already the other button.
+    expect(onMouseButton('left', 71, 30)).toBe(false)
+    expect(onMouseButton('right', 69, 30)).toBe(false)
+  })
+
+  it.each(['left', 'right'] as const)('%s click: marks fly off that button\'s outer corner, outside the mouse', (side) => {
+    const w = glyph({ button: side, click: true })
+    expect(w.find('path.m-marks').attributes('d')).toBe(MOUSE_BUTTONS[side].marks)
+    const pts = [...MOUSE_BUTTONS[side].marks.matchAll(/[ML](-?[\d.]+) (-?[\d.]+)/g)].map(m => [Number(m[1]), Number(m[2])] as const)
+    expect(pts).toHaveLength(6)
+    for (const [x, y] of pts) {
+      if (side === 'left') expect(x).toBeLessThan(70)
+      else expect(x).toBeGreaterThan(70)
+      // Beyond the body's rounded top (r 29 round (70, 41), outline 2).
+      expect(Math.hypot(x - 70, y - 41)).toBeGreaterThan(31)
+      expect(y).toBeLessThan(41)
+    }
+  })
+
+  it('a hold shows the ring, the glow and the stopwatch tick, and no click marks; a click no ring', () => {
+    for (const side of ['left', 'right'] as const) {
+      const hold = glyph({ button: side, hold: true })
+      const click = glyph({ button: side, click: true })
+      expect(hold.find('svg').classes()).toContain('m-hold')
+      expect(click.find('svg').classes()).toContain('m-click')
+      for (const sel of ['.m-fill', '.m-fill-edge', '.m-glow', '.hold-track', '.hold-tick']) {
+        expect(hold.find(sel).exists(), sel).toBe(true)
+        expect(click.find(sel).exists(), sel).toBe(false)
+      }
+      expect(hold.find('.m-marks').exists()).toBe(false)
+      expect(click.find('.m-marks').exists()).toBe(true)
+      // The fill runs toward the lit side.
+      expect(hold.find('path.m-fill').attributes('d')).toBe(MOUSE_HOLD[side].find(p => p.cls === 'm-fill')!.d)
+    }
+  })
+
+  it('moving the captured mouse lights no button: no fill, no ripple, no ring, just the sway', () => {
+    const w = glyph({ button: 'none', move: true })
+    expect(w.find('svg').attributes('data-lit')).toBe('none')
+    expect(w.findAll('path.hot')).toHaveLength(0)
+    expect(w.findAll('path.btn')).toHaveLength(2)
+    for (const sel of ['.m-ripple', '.m-marks', '.m-fill', '.well']) expect(w.find(sel).exists(), sel).toBe(false)
+    expect(w.find('.sway').exists()).toBe(true)
+    // Even with a button prop left over, `move` wins.
+    expect(glyph({ button: 'left', move: true }).findAll('path.hot')).toHaveLength(0)
+  })
+
+  it('the lit colour holds: no pulse toward white, a press only darkens it; the stylesheet agrees', () => {
+    const src = readFileSync(resolve(__dirname, '../../src/components/hud/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
+    expect(src).not.toMatch(/hot-pulse/)
+    expect(src).not.toMatch(/#fff3a8/i)
+    // The top-level .hot rule is not animated…
+    const hot = src.match(/\n\.hot\n((?:  .*\n)+)/)?.[1] ?? ''
+    expect(hot).toMatch(/fill: #ffd84a/)
+    expect(hot).not.toMatch(/animation/)
+    // …and the press keyframes only move between the lit yellow and its darker press.
+    for (const name of ['m-click', 'm-hold']) {
+      const kf = src.match(new RegExp(`@keyframes ${name}\\n((?:  .*\\n)+)`))?.[1] ?? ''
+      expect(kf, name).toMatch(/translateY\(3px\)/)
+      const fills = [...kf.matchAll(/fill: (#[0-9a-f]{6})/gi)].map(m => m[1]!.toLowerCase())
+      expect(new Set(fills), name).toEqual(new Set(['#ffd84a', '#f0ae22']))
+    }
+    // Reduced motion: a hold keeps the button down inside the standing ring.
+    const reduced = src.slice(src.indexOf('@media (prefers-reduced-motion: reduce)'))
+    expect(reduced).toMatch(/\.m-hold\n\s+\.hot\n\s+transform: translateY\(3px\)/)
+    expect(reduced).toMatch(/\.hold-edge, \.hold-arc\n\s+display: inline/)
+    expect(reduced).toMatch(/\.m-click\n\s+\.m-ripple/)
+  })
+
+  it('reduced motion stills the mouse\'s press cycles too, at the weight they are set with', () => {
+    // The cycles are set under `.m-click` / `.m-hold` (two classes); a flat
+    // `.hot { animation: none }` loses to them, and the pause legend kept
+    // clicking and holding with reduced motion on.
+    const src = readFileSync(resolve(__dirname, '../../src/components/hud/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
+    const at = src.indexOf('@media (prefers-reduced-motion: reduce)')
+    const before = src.slice(0, at)
+    const reduced = src.slice(at)
+    const stilled = reduced.match(/\n  \.m-click, \.m-hold\n    ([^\n]+)\n      animation: none/)?.[1]?.split(', ') ?? []
+    for (const mode of ['m-click', 'm-hold']) {
+      const block = '\n' + (before.match(new RegExp(`\\n\\.${mode}\\n((?:  .*\\n)+)`))?.[1] ?? '')
+      const animated = [...block.matchAll(/\n  ([^\n]+)\n    animation: /g)].flatMap(m => m[1]!.split(', '))
+      expect(animated.length, mode).toBeGreaterThan(0)
+      for (const sel of animated) expect(stilled, `${mode} ${sel}`).toContain(sel)
     }
   })
 })
@@ -265,5 +441,98 @@ describe('where the coach and the pause menu draw it', () => {
     const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
     expect(keys.find('[data-row="move"] .input.wasd').exists()).toBe(true)
     expect(keys.find('[data-row="charge"] .hold-arc').exists()).toBe(true)
+  })
+
+  it('the touch legend has no look row — the ∞ stands for it; keys keep the swaying mouse', () => {
+    device.value = 'touch'
+    const touch = mount(ControlsPanel, { global: { plugins: [i18n()] } })
+    expect(touch.find('[data-row="look"]').exists()).toBe(false)
+    expect(touch.find('.sway').exists()).toBe(false)
+    expect(touch.find('[data-row="move"] .input.infinity').exists()).toBe(true)
+
+    device.value = 'mouse'
+    const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
+    expect(keys.find('[data-row="look"] .input.mouse .sway').exists()).toBe(true)
+  })
+
+  it('the coach still teaches the desktop camera with the swaying mouse', () => {
+    hud.phase = 'play'
+    hud.pointerFree = false
+    hud.hints = [{ id: 'look', family: 'mouse', count: 0, goal: 3, flash: 0, done: false }]
+    const w = mount(ControlHints, { global: { plugins: [i18n()] } })
+    const hint = w.find('.hint.look.mouse')
+    expect(hint.exists()).toBe(true)
+    expect(hint.find('.sway').exists()).toBe(true)
+    expect(hint.attributes('aria-label')).toBe(en.tips.lookMouse)
+    // Looking lights no button.
+    expect(hint.find('svg').attributes('data-lit')).toBe('none')
+  })
+
+  it('the coach\'s mouse cards: fire clicks left, charge holds left, block HOLDS right, parry clicks right', () => {
+    hud.phase = 'play'
+    hud.pointerFree = false
+    const card = (id: 'fire' | 'charge' | 'block' | 'parry') => {
+      hud.hints = [{ id, family: 'mouse', count: 0, goal: 2, flash: 0, done: false }]
+      return mount(ControlHints, { global: { plugins: [i18n()] } }).find(`.hint.${id}.mouse svg`)
+    }
+    const expectGlyph = (svg: ReturnType<typeof card>, side: 'left' | 'right', mode: 'm-click' | 'm-hold') => {
+      expect(svg.attributes('data-lit')).toBe(side)
+      expect(svg.classes()).toContain(mode)
+      expect(svg.find('path.hot').attributes('data-button')).toBe(side)
+    }
+    expectGlyph(card('fire'), 'left', 'm-click')
+    expectGlyph(card('charge'), 'left', 'm-hold')
+    // Block is held (input.ts: blockHeld): the right button stays down while
+    // the ring fills — the card read as "click right" without it.
+    const block = card('block')
+    expectGlyph(block, 'right', 'm-hold')
+    expect(block.find('path.m-fill').exists()).toBe(true)
+    // A parry is one timed press, on the beat of the card's closing ring.
+    const parry = card('parry')
+    expectGlyph(parry, 'right', 'm-click')
+    expect(parry.find('path.m-fill').exists()).toBe(false)
+    const src = readFileSync(resolve(__dirname, '../../src/components/hud/ControlHints.vue'), 'utf8').replace(/\r\n/g, '\n')
+    expect(src).toMatch(/\.parry \.glyph-box\n\s+--m-click-dur: 1\.1s\n\s+--m-click-delay: -0\.495s/)
+    // The capture glyph (before the mouse is captured) is a left click.
+    hud.pointerFree = true
+    hud.hints = []
+    const capture = mount(ControlHints, { global: { plugins: [i18n()] } }).find('.capture svg')
+    expectGlyph(capture, 'left', 'm-click')
+    hud.pointerFree = false
+  })
+
+  it('the pause legend: block is a right-button hold, fire a left click, charge a left hold', () => {
+    device.value = 'mouse'
+    const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
+    const row = (k: string) => keys.find(`[data-row="${k}"] svg`)
+    expect(row('block').attributes('data-lit')).toBe('right')
+    expect(row('block').classes()).toContain('m-hold')
+    expect(row('fire').attributes('data-lit')).toBe('left')
+    expect(row('fire').classes()).toContain('m-click')
+    expect(row('charge').attributes('data-lit')).toBe('left')
+    expect(row('charge').classes()).toContain('m-hold')
+    expect(row('look').attributes('data-lit')).toBe('none')
+    // The parry: the same right button, clicked once on the beat.
+    expect(row('parry').attributes('data-lit')).toBe('right')
+    expect(row('parry').classes()).toContain('m-click')
+    expect(row('parry').find('path.m-fill').exists()).toBe(false)
+  })
+
+  it('the pause legend writes each action\'s verb beside its icon, as the coach never does', () => {
+    for (const fam of ['touch', 'mouse'] as const) {
+      device.value = fam
+      const w = mount(ControlsPanel, { global: { plugins: [i18n()] } })
+      expect(w.get('[data-row="move"] .action .label').text(), fam).toBe(en.pause.label.move)
+      expect(w.get('[data-row="charge"] .action .label').text(), fam).toBe(en.hero.stat.charge)
+      expect(w.get('[data-row="block"] .action .label').text(), fam).toBe(en.combat.block)
+      expect(w.get('[data-row="slide"] .action .label').text(), fam).toBe(en.combat.slide)
+      w.unmount()
+    }
+    // The in-play coach stays wordless.
+    hud.phase = 'play'
+    hud.pointerFree = false
+    hud.hints = [{ id: 'charge', family: 'mouse', count: 0, goal: 2, flash: 0, done: false }]
+    const coach = mount(ControlHints, { global: { plugins: [i18n()] } })
+    expect(coach.find('.hint.charge').text()).toBe('')
   })
 })

@@ -20,6 +20,8 @@ export const isPlaygamaSdkActive: Ref<boolean> = ref(false)
 export const isPlaygamaAdsBlocked: Ref<boolean> = ref(false)
 export const playgamaLocale: Ref<string | null> = ref(null)
 export const playgamaDetectedId: Ref<string | null> = ref(null)
+export const isPlaygamaInterstitialSupported: Ref<boolean> = ref(false)
+export const isPlaygamaRewardedSupported: Ref<boolean> = ref(false)
 
 export const getPlaygamaBridge = (): null => null
 export const normalizePlaygamaLanguage = (_raw: unknown): string | null => null

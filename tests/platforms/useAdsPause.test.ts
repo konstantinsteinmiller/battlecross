@@ -12,6 +12,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 interface Deferred<T> {
   promise: Promise<T>
@@ -41,7 +42,7 @@ vi.mock('@/platforms/resolveAdProvider', () => ({
 }))
 
 const importAll = async () => {
-  vi.resetModules()
+  drainAndResetModules()
   mockProvider.isAdsBlocked.value = false
   mockProvider.showRewardedAd.mockReset()
   mockProvider.showMidgameAd.mockReset()
@@ -55,12 +56,18 @@ const importAll = async () => {
   // log-assertion tests below see them (same fresh module instance post-reset).
   const { isDebug } = await import('@/use/useMatch')
   isDebug.value = true
+  // A granted rewarded is recorded in useGameState's debounced save: hold that
+  // instance so afterEach flushes it (tests/stubs/drainPersist.ts).
+  await holdGameState()
   return { ads, assets, gate }
 }
 
 describe('useAds — pauses audio + gameplay around ads (all providers)', () => {
   beforeEach(() => { window.localStorage.clear() })
-  afterEach(() => { window.localStorage.clear() })
+  afterEach(() => {
+    drainPersist()
+    window.localStorage.clear()
+  })
 
   it('rewarded: suspends audio + pauses the gate while in flight, resumes after grant', async () => {
     const { ads, assets, gate } = await importAll()

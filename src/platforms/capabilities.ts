@@ -13,21 +13,27 @@
 // `platformPolicy` below: a frozen BUILD-TIME constant, resolved from env
 // literals exactly like the `IS_X_BUILD` constants further down.
 
-import { resolvePlatformPolicy, type PlatformPolicy } from './policy'
+// Types only. A value import would pull `policy.ts` — whose dev-tool marker
+// table names the cheats — into the app bundle, and the obfuscator lifts
+// those strings into its string array before tree-shaking can drop them:
+// the Poki clean-build gate caught "[CHEAT]" / "cmarc" shipping that way.
+// The resolver itself runs in `vite.config.ts` (→ `__PLATFORM_POLICY__`).
+import type { PlatformPolicy } from './policy'
 
-export { resolvePlatformPolicy }
 export type { PlatformPolicy, PolicyInput } from './policy'
 
 /**
  * THIS build's platform policy — the portal rules that shape the UI and decide
  * what ships (see `policy.ts`). Read it instead of testing a `VITE_APP_*` flag
- * in a component: the rule then lives in one place, and `vite.config.ts`
- * resolves the very same function to alias dev tooling out of a build.
+ * in a component: the rule then lives in one place.
+ *
+ * It is the RESULT of the resolver call `vite.config.ts` makes for this very
+ * build (the same call that aliases dev tooling out of it), handed over as the
+ * compile-time constant `__PLATFORM_POLICY__`. Resolving it again here from the
+ * env flags would ship the resolver — and with it the name of every portal it
+ * tells apart — into a bundle that must name only its own portal.
  */
-export const platformPolicy: Readonly<PlatformPolicy> = Object.freeze(resolvePlatformPolicy({
-  isPoki: import.meta.env.VITE_APP_POKI === 'true',
-  qaTools: import.meta.env.VITE_POKI_QA_TOOLS === 'true'
-}))
+export const platformPolicy: Readonly<PlatformPolicy> = Object.freeze({ ...__PLATFORM_POLICY__ })
 
 export interface PlatformFlags {
   isCrazyWeb: boolean

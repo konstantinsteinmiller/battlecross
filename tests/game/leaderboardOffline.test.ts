@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { BoardSnapshot } from '@/use/leaderboardSnapshot'
+import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 /**
  * ─── The offline ladder ─────────────────────────────────────────────────────
@@ -21,7 +22,7 @@ import type { BoardSnapshot } from '@/use/leaderboardSnapshot'
  */
 
 const ENDPOINT = 'https://board.example.test'
-const CACHE_KEY = 'mega_adventure_board_cache'
+const CACHE_KEY = 'mega_droid_board_cache'
 
 const reply = (body: unknown, ok = true): Response =>
   ({ ok, status: ok ? 200 : 500, json: async () => body }) as unknown as Response
@@ -57,7 +58,7 @@ const SNAPSHOT: BoardSnapshot = {
 const sent: string[] = []
 
 /**
- * The `useGameState` instance the current `load()` wired the board to.
+ * Every `load()` holds the `useGameState` instance it wired the board to.
  *
  * Its writes are DEBOUNCED: `setState` arms a 200 ms `setTimeout` that writes
  * to whatever `localStorage` is installed when it fires, and `vi.resetModules()`
@@ -70,15 +71,10 @@ const sent: string[] = []
  * has nothing to post, and counts 0 writes: "the end of a run always posts"
  * failed exactly so in full-suite runs.
  *
- * So no instance is dropped with a write pending. `drain` flushes it, as a real
- * page does on `pagehide`, before every reset.
+ * So no instance is dropped with a write pending: the held one is flushed, as a
+ * real page does on `pagehide`, before every reset and at the end of every case
+ * (`tests/stubs/drainPersist.ts`).
  */
-let live: typeof import('@/use/useGameState') | null = null
-const drain = (): void => {
-  live?.flushPersist()
-  live = null
-}
-
 const load = async (opts: {
   url?: string
   cache?: unknown
@@ -100,15 +96,14 @@ const load = async (opts: {
 
   // A second `load()` in one case is the next session on the same device: the
   // previous one flushes on its way out, as a page does.
-  drain()
-  vi.resetModules()
+  drainAndResetModules()
   vi.doMock('@/use/leaderboardSnapshot', async (importOriginal) => ({
     ...(await importOriginal<typeof import('@/use/leaderboardSnapshot')>()),
     boardSnapshot: snapshot
   }))
   const lb = await import('@/use/useLeaderboard')
   // Same registry, so the very instance `useLeaderboard` reads and writes.
-  live = await import('@/use/useGameState')
+  await holdGameState()
   return lb
 }
 
@@ -116,7 +111,7 @@ const names = (lb: { leaderboard: { value: { entries: { name: string }[] } | nul
   lb.leaderboard.value?.entries.map((e) => e.name) ?? []
 
 afterEach(() => {
-  drain()
+  drainPersist()
   vi.unstubAllEnvs()
   vi.unstubAllGlobals()
   vi.doUnmock('@/use/leaderboardSnapshot')
@@ -190,6 +185,17 @@ describe('a returning player never sees a spinner or an error', () => {
     expect(names(lb)).toEqual(['Ivy', 'Jo'])
     expect(lb.rankFor(50)).toBe(2)
     expect(lb.boardProvenance()).toBe('cache')
+  })
+
+  it('seeds from a cache banked before the rename, and moves it to the new key', async () => {
+    localStorage.setItem('mega_adventure_board_cache', JSON.stringify(CACHED_BOARD))
+    const lb = await load()
+
+    expect(sent).toHaveLength(0)
+    expect(names(lb)).toEqual(['Ivy', 'Jo'])
+    expect(lb.boardProvenance()).toBe('cache')
+    expect(JSON.parse(localStorage.getItem(CACHE_KEY) ?? 'null').total).toBe(300)
+    expect(localStorage.getItem('mega_adventure_board_cache')).toBeNull()
   })
 
   it('survives a corrupt or unparseable cache without throwing', async () => {

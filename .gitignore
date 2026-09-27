@@ -17,6 +17,9 @@ electron/dist-demo
 out
 
 dist-purity-cg
+# `pnpm build:playgama` — the Playgama / YouTube Playables release (its own
+# folder, never `dist/`: see src/platforms/playgama/release.ts)
+/dist-playgama/
 
 node_modules
 .DS_Store

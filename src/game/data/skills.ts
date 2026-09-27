@@ -41,7 +41,7 @@ export const SKILLS: SkillNode[] = [
   // ── Core ──
   { id: 'cells', board: 'core', ranks: 5, req: null, icon: 'bolt', pos: [1, 0] },
   { id: 'mastery', board: 'core', ranks: 5, req: { id: 'cells', rank: 1 }, icon: 'flame', pos: [0, 1] },
-  { id: 'boosters', board: 'core', ranks: 3, req: { id: 'cells', rank: 1 }, icon: 'forward', pos: [2, 1] },
+  { id: 'boosters', board: 'core', ranks: 3, req: { id: 'cells', rank: 1 }, icon: 'dodge', pos: [2, 1] },
   { id: 'efficient', board: 'core', ranks: 3, req: { id: 'mastery', rank: 1 }, icon: 'snowflake', pos: [0, 2] },
   { id: 'magnet', board: 'core', ranks: 3, req: { id: 'boosters', rank: 1 }, icon: 'coin', pos: [2, 2] },
   { id: 'tankCap', board: 'core', ranks: 2, req: { id: 'magnet', rank: 2 }, icon: 'flask', pos: [1, 2] }

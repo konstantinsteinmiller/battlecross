@@ -1,6 +1,6 @@
 // Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Hủy',
   'close': 'Đóng',
   'ok': 'OK',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Nhấp để tiếp tục',
   'rewards': 'PHẦN THƯỞNG',
   'tip': 'Mẹo',
-  'crazyGamesOnly': 'Trò chơi này chỉ có trên',
+  'onlyAvailableOn': 'Trò chơi này chỉ có trên',
 
   'ui': {
     'next': 'Tiếp',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Tử Thủ! Hệ thống đã khởi động lại.',
     'weak': 'YẾU ĐIỂM!',
     'dizzy': 'CHOÁNG!',
+    'dodge': 'NÉ!',
     'block': 'Chặn',
     'slide': 'Trượt',
     'fire': 'Bắn',
-    'tank': 'Bình Sửa Chữa',
-    'noEnergy': 'Không đủ năng lượng vũ khí'
+    'tank': 'Gel Sửa Chữa',
+    'noEnergy': 'Không đủ năng lượng vũ khí',
+    'tankCount': 'Gel Sửa Chữa: {n}/{max}',
+    'borrowed': 'Vũ khí mượn {weapon}: {n}/{max} phát',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Ối ối!',
+      '2': 'Bzzt! Úi!',
+      '3': 'Tay tớ bị nấc cụt!',
+      '4': 'Lỗi… uii!',
+      '5': 'Mạch trơn như bơ!',
+      '6': 'Chế độ lắc lư BẬT!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Bánh Răng Lăn',
     'brute': 'Vệ Binh Máy',
     'turret': 'Pháo Tường',
+    'golem': 'Golem Thùng',
     'elite': 'Tinh Anh',
     'level': 'Cấp {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Máy Dậm | Máy Dậm',
     'roller': 'Bánh Răng Lăn | Bánh Răng Lăn',
     'brute': 'Vệ Binh Máy | Vệ Binh Máy',
-    'turret': 'Pháo Tường | Pháo Tường'
+    'turret': 'Pháo Tường | Pháo Tường',
+    'golem': 'Golem Thùng | Golem Thùng'
   },
 
   'hud': {
     'help': 'Hiện điều khiển',
+    'mute': 'Tắt tiếng',
+    'unmute': 'Bật tiếng',
+    'bossUnknown': 'Trùm bí ẩn',
     'hp': 'Máu',
     'we': 'Năng lượng vũ khí',
     'power': 'Thể lực',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Săn Tinh Anh',
     'supply': 'Chuyến Tiếp Tế',
     'purge': 'Càn Quét Khu Vực',
+    'climb': 'Leo Tháp',
+    'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
       'boss': 'Đột nhập vào lõi của {sector} và đánh bại {boss}.',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Một robot công nhân bị kẹt ở {sector}. Hãy tìm và dịch chuyển nó ra ngoài.',
       'elite': 'Một {target} tinh anh đang khủng bố {sector}. Săn lùng nó!',
       'supply': 'Phá mở {n} rương tiếp tế ở {sector}.',
-      'purge': 'Phá hủy mọi cỗ máy ở {sector}.'
+      'purge': 'Phá hủy mọi cỗ máy ở {sector}.',
+      'climb': 'Leo lên tháp ở {sector} — cầu thang, thang leo, thang máy và hố sâu — rồi xuống đấu trường tái đấu với {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Tìm robot công nhân bị kẹt',
     'elite': 'Săn lùng {target} tinh anh',
     'supply': 'Rương tiếp tế: {n}/{total}',
-    'purge': 'Máy đã phá hủy: {n}/{total}'
+    'purge': 'Máy đã phá hủy: {n}/{total}',
+    'climb': 'Leo tháp, đánh bại {boss}'
   },
   'mission': {
     'bossDown': '{boss} đã bị tiêu diệt!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
     'dodgeKeys': 'Vòng đỏ nghĩa là không thể chặn — nhấn Space để trượt né ngay!',
     'chest': 'Một rương tiếp tế! Chạm để mở.',
-    'tank': 'Sắp cạn máu? Bình Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
+    'tank': 'Sắp cạn máu? Gel Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
     'weapon': 'Dùng vũ khí sao chép được từ nút có màu!'
   },
   'lesson': {
-    'charge': 'Giữ để tụ lực cho Buster, rồi thả ra: chỉ phát tụ lực mới phá được khiên của drone huấn luyện.',
+    'charge': 'Giữ để tụ lực cho pháo, rồi thả ra: chỉ phát tụ lực mới phá được khiên của drone huấn luyện.',
     'crate': 'Thùng tiếp tế chỉ vỡ khi trúng phát tụ lực. Giữ, rồi thả khi đang nhắm vào thùng phát sáng.',
     'weaponKeys': 'Nhấn {n} để bắn vũ khí sao chép: một phát trúng cả ba drone.',
-    'weaponTouch': 'Chạm vào nút vũ khí đang phát sáng: một phát trúng cả ba drone.'
+    'weaponTouch': 'Chạm vào nút vũ khí đang phát sáng: một phát trúng cả ba drone.',
+    'gelKeys': 'Nhấn H để dùng Gel Sửa Chữa: gel hồi phục bạn hoàn toàn.',
+    'gelTouch': 'Chạm vào nút Gel Sửa Chữa màu xanh lá: gel hồi phục bạn hoàn toàn.'
+  },
+  'walk': {
+    'finishLesson': 'Hoàn thành bài học'
   },
   'hubLesson': {
     'workshop': 'Mở Xưởng.',
-    'upgradeBuster': 'Dùng bu lông để nâng cấp Buster: thêm sát thương.',
+    'upgradeBuster': 'Dùng bu lông để nâng cấp pháo: thêm sát thương.',
     'pickArmor': 'Giờ hãy chọn giáp ngực.',
     'upgradeArmor': 'Nâng cấp cả nó nữa: thêm phòng thủ.',
     'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!'
   },
   'loot': {
     'found': 'Tìm thấy {item} {rarity}!',
-    'tank': 'Tìm thấy Bình Sửa Chữa!'
+    'tank': 'Tìm thấy Gel Sửa Chữa!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'HỆ THỐNG SẬP',
     'body': 'Flux đã chịu quá nhiều sát thương.',
     'kept': 'Bạn vẫn giữ những gì đã kiếm được:',
-    'useTank': 'Khởi động lại bằng Bình Sửa Chữa ({n})',
+    'useTank': 'Khởi động lại bằng Gel Sửa Chữa ({n})',
     'rebootAd': 'Khởi động lại ngay',
     'retreat': 'Rút về phòng thí nghiệm'
+  },
+  'banner': {
+    'cleared': 'Hoàn thành màn',
+    'bossDown': 'Hạ gục kẻ địch!',
+    'gameOver': 'Trò chơi kết thúc!'
   },
   'pause': {
     'title': 'TẠM DỪNG',
     'resume': 'Tiếp tục',
     'abandon': 'Bỏ nhiệm vụ',
     'controls': 'Điều khiển',
+    'label': {
+      'move': 'Di chuyển',
+      'look': 'Nhìn',
+      'parry': 'Gạt đòn',
+      'interact': 'Tương tác'
+    },
     'touch': {
       'move': 'Bên trái: kéo để di chuyển. Chạm vào sàn để đi tới đó.',
-      'look': 'Bên phải: kéo để nhìn xung quanh.',
       'fire': 'Khi chiến đấu: chạm để bắn, giữ để tụ lực, thả để khai hỏa.',
-      'block': 'Giữ khiên để chặn — đúng lúc vòng khép lại để gạt đòn.'
+      'block': 'Giữ khiên để chặn — đúng lúc vòng khép lại để gạt đòn.',
+      'use': 'Gần rương, robot bị kẹt hoặc cửa: chạm vào nó, hoặc nút hiện lên.'
     },
     'keys': {
       'move': 'WASD / phím mũi tên: di chuyển.',
       'look': 'Di chuyển chuột để nhìn. Nhấp vào màn hình game để điều khiển camera.',
       'fire': 'Chuột trái: bắn — giữ để tụ lực, thả để bắn.',
       'block': 'Chuột phải: chặn — đúng lúc vòng khép lại để gạt đòn.',
-      'slide': 'Space: trượt · H: Bình Sửa Chữa · E: tương tác · B: dịch chuyển về',
-      'more': '1 / 2: vũ khí đặc biệt · Tab: đổi mục tiêu · Esc: tạm dừng'
+      'slide': 'Space: trượt · H: Gel Sửa Chữa · E: tương tác · B: dịch chuyển về',
+      'more': '1 / 2: vũ khí đặc biệt · Tab: đổi mục tiêu · Esc: tạm dừng',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'LÊN CẤP!',
     'pick': 'Chọn một nâng cấp hệ thống',
-    'chip': '+1 Chip Kỹ Năng cho mạch của bạn'
+    'chip': '+1 Chip Kỹ Năng cho mạch của bạn',
+    'granted': '{stat} tăng từ {from} lên {to}'
   },
   'attr': {
     'hp': { 'name': 'Khung', 'desc': 'Máu tối đa' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Đánh bại {boss} để mở khu vực này.',
     'sectorSecured': 'Khu vực đã an toàn. Nhiệm vụ phụ vẫn còn trên bảng.',
     'deploy': 'Xuất kích',
-    'reroll': 'Đổi nhiệm vụ'
+    'reroll': 'Đổi nhiệm vụ',
+    'unlock': {
+      'hint': 'Hoàn thành thêm {n} nhiệm vụ để mở khóa',
+      'aria': '{name}, đã khóa: hoàn thành thêm {n} nhiệm vụ'
+    }
   },
   'hero': {
     'role': 'Android chiến đấu của bạn',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Phát tụ lực',
       'armor': 'Giáp',
       'crit': 'Tỉ lệ chí mạng',
-      'tanks': 'Bình Sửa Chữa'
+      'tanks': 'Gel Sửa Chữa'
     }
   },
   'workshop': {
     'tanks': 'Vật tư',
-    'tankName': 'Bình Sửa Chữa',
+    'tankName': 'Gel Sửa Chữa',
     'tankDesc': 'Hồi phục hoàn toàn máu và thể lực giữa nhiệm vụ.',
     'owned': 'Mang theo: {n}/{max}',
     'upgrade': 'Nâng cấp trang bị',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Pháo',
     'armor': 'Giáp',
     'core': 'Lõi'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Tụ Lực Mega', 'desc': 'Sát thương phát tụ lực +12% mỗi chip.' },
     'perfectTiming': { 'name': 'Căn Giờ Hoàn Hảo', 'desc': 'Khoảng thả hoàn hảo rộng hơn và chí mạng mạnh hơn.' },
     'piercing': { 'name': 'Lõi Xuyên Phá', 'desc': 'Phát tụ lực một nửa cũng phá được khiên và mũ.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Tiếp tục giữ sau khi tụ đầy để đạt cấp ba hủy diệt.' },
+    'giga': { 'name': 'Tụ Lực Quá Tải', 'desc': 'Tiếp tục giữ sau khi tụ đầy để đạt cấp ba hủy diệt.' },
     'frame': { 'name': 'Khung Gia Cố', 'desc': 'Máu tối đa +8% mỗi chip.' },
     'barrier': { 'name': 'Tinh Chỉnh Rào Chắn', 'desc': 'Chặn tốn ít thể lực hơn và lọt ít sát thương hơn.' },
     'autoRepair': { 'name': 'Tự Sửa Chữa', 'desc': 'Hồi 1% máu mỗi giây khi ngoài giao tranh, mỗi chip.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'Tăng Tốc Trượt', 'desc': 'Hồi chiêu trượt nhanh hơn, trượt tốn ít hơn.' },
     'efficient': { 'name': 'Lõi Hiệu Suất', 'desc': 'Vũ khí đặc biệt tốn ít hơn 10% năng lượng mỗi chip.' },
     'magnet': { 'name': 'Nam Châm Bu Lông', 'desc': 'Nhiều bu lông hơn và tầm nhặt xa hơn.' },
-    'tankCap': { 'name': 'Sức Chứa Bình', 'desc': 'Mang thêm một Bình Sửa Chữa mỗi chip.' }
+    'tankCap': { 'name': 'Sức Chứa Gel', 'desc': 'Mang thêm một Gel Sửa Chữa mỗi chip.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'Huyền thoại'
   },
   'item': {
-    'arm_standard': 'Buster Tiêu Chuẩn',
-    'arm_rapid': 'Buster Liên Thanh',
-    'arm_heavy': 'Buster Hạng Nặng',
-    'arm_quick': 'Buster Tụ Nhanh',
-    'arm_nova': 'Buster Nova',
+    'arm_standard': 'Pháo Tiêu Chuẩn',
+    'arm_rapid': 'Pháo Liên Thanh',
+    'arm_heavy': 'Pháo Hạng Nặng',
+    'arm_quick': 'Pháo Tụ Nhanh',
+    'arm_nova': 'Pháo Nova',
     'helm_scout': 'Mũ Trinh Sát',
     'helm_guard': 'Mũ Hộ Vệ',
     'helm_ace': 'Mũ Cao Thủ',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Chip Lượng Tử'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Pháo',
     'helmet': 'Mũ',
     'chest': 'Khung',
     'boots': 'Giày',

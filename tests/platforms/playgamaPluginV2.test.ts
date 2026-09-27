@@ -24,7 +24,9 @@ const makeBridge = (o: { id?: string; language?: string; isPaused?: boolean; isA
     },
     player: { id: 'p-1', name: null },
     leaderboards: { type: 'in_game', setScore: vi.fn(), getEntries: vi.fn() },
-    advertisement: { showInterstitial: vi.fn(), showRewarded: vi.fn() },
+    // Both formats served — the show wrappers ask before firing (see
+    // playgamaAdSupport.test.ts for a platform that serves neither).
+    advertisement: { isInterstitialSupported: true, isRewardedSupported: true, showInterstitial: vi.fn(), showRewarded: vi.fn() },
     initialize: vi.fn(function (this: unknown, opts: unknown) {
       bridge.initOptions = opts
       return o.hangInit ? new Promise(() => {}) : Promise.resolve()

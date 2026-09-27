@@ -2,13 +2,13 @@
 //
 // Thirty taps on the coin badge inside thirty seconds request an interstitial.
 //
-// It exists because every portal's interstitial is PACED. `canShowInterstitial`
-// holds a 121 s gap between ads and the first call of a session only starts the
-// clock, so a reviewer checking the things portals grade — does the ad mute the
-// music, does it stop the loop, does it land BEFORE the result screen, does the
-// music come back on a no-fill — has to play two full minutes for each attempt,
-// on a build where the answer might be no. This is the back door that turns
-// that into a ten-second job on the bundle they are actually reviewing.
+// It exists because every portal's interstitial is PACED. The real placement
+// runs only on the result screen's Continue, and `canShowInterstitial` holds a
+// 121 s gap between ads, so a reviewer checking the things portals grade —
+// does the ad mute the music, does it stop the loop, does the music come back
+// on a no-fill — has to finish a mission for each attempt, on a build where
+// the answer might be no. This is the back door that turns that into a
+// ten-second job on the bundle they are actually reviewing.
 //
 // ── Why it is silent ──
 //
@@ -20,7 +20,10 @@
 // zero. The failure mode of guessing wrong here is one extra ad, which is why
 // this is allowed to ship rather than being hidden behind `isDebug` — QA runs
 // the same artefact the player gets, and a back door that only opens on a
-// debug build cannot be used to test the build being submitted.
+// debug build cannot be used to test the build being submitted. That includes
+// the Poki and Playgama releases: it is not dev tooling in the sense of
+// `src/platforms/policy.ts`, so no build aliases it out and no release gate
+// refuses its `[qa-ad]` log line.
 //
 // ── What it still owes ──
 //

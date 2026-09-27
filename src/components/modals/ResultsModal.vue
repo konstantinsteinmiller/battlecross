@@ -68,7 +68,7 @@ import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import { flow, goHub } from '@/game/flow'
+import { flow, leaveResults } from '@/game/flow'
 import { profile, saveProfile, lifetimeXp } from '@/game/state/profile'
 import { RARITY_COLOR } from '@/game/models/palette'
 import { WEAPONS } from '@/game/data/weapons'
@@ -115,9 +115,9 @@ const double = async () => {
     saveProfile()
   })
 }
+/** Continue: the interstitial (when one is due), then home. */
 const done = () => {
-  flow.modal = ''
-  goHub()
+  void leaveResults()
 }
 </script>
 

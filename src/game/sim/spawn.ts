@@ -8,6 +8,7 @@ import { createEnemy } from './enemies'
 import type { Enemy } from './world'
 import type { Slice } from '../engine/slicer'
 import { TEACHER, doorwayOf, type WalkPlan } from './walkthrough'
+import { THEMES, type SectorId } from '../world/themes'
 
 /**
  * Encounter placement: which machines stand in which room. Deterministic from
@@ -21,7 +22,16 @@ export interface EncounterTable {
   /** Enemies per 9 floor cells, roughly. */
   density: number
   eliteChance: number
+  /** Chance that a combat or objective room hides a crate golem (one at most). */
+  golems?: number
+  /** Whose supply crates the golems wear (they must match the room's real
+   *  crates exactly, so without a theme no golem is placed). */
+  theme?: SectorId
 }
+
+/** Wall spots left free at the END of a room's list: MissionObjects takes
+ *  its chests and crates from there (a bonus chest, a supply chest, 3 crates). */
+const OBJECT_WALL_SPOTS = 5
 
 /** Async so the rig builds can be time-sliced (`opts.slice`): a dozen skinned
  *  machines is the second-heaviest part of a mission build. The RNG never
@@ -32,6 +42,8 @@ export const spawnEncounters = async (
 ): Promise<Enemy[]> => {
   const rng = mulberry32(map.seed ^ 0xe11e)
   const out: Enemy[] = []
+  /** Wall spots each room's turrets took from the front (golems go next). */
+  const wallsUsed = new Map<number, number>()
   for (const room of map.rooms) {
     if (room.role === 'start' || room.role === 'boss') continue
     const area = room.w * room.h
@@ -65,7 +77,56 @@ export const spawnEncounters = async (
       placed++
       await opts.slice?.()
     }
+    wallsUsed.set(room.id, wallIdx)
     opts.onProgress?.((room.id + 1) / map.rooms.length)
+  }
+  for (const e of placeGolems(map, table, level, wallsUsed)) {
+    out.push(e)
+    await opts.slice?.()
+  }
+  return out
+}
+
+/**
+ * Crate golems: now and then a combat or objective room has one asleep where
+ * a crate would stand — on a free wall spot (after the turrets' from the
+ * front, clear of the objects' at the end), pushed toward the wall the way
+ * `MissionObjects` pushes its crates, facing into the room. Their own RNG
+ * stream, placed after the rolled cast: adding them moved no other machine's
+ * roll, and a resume rebuilds them in the same slots of the list. Never in
+ * the tutorial (`spawnTutorial` has its own scripted cast).
+ */
+export const placeGolems = (
+  map: MapData, table: EncounterTable, level: number, wallsUsed: ReadonlyMap<number, number> = new Map()
+): Enemy[] => {
+  const out: Enemy[] = []
+  if (!table.golems || !table.theme) return out
+  const theme = THEMES[table.theme]
+  const rng = mulberry32(map.seed ^ 0x601e)
+  for (const room of map.rooms) {
+    if (room.role !== 'combat' && room.role !== 'objective') continue
+    // Rolled for every room, so one room's odds never shift another's
+    const roll = rng()
+    const pick = rng()
+    const along = rng()
+    const out01 = rng()
+    const turn = rng()
+    const elite = rng() < table.eliteChance
+    if (roll >= table.golems) continue
+    const first = wallsUsed.get(room.id) ?? 0
+    const free = room.wallSpots.length - OBJECT_WALL_SPOTS - first
+    if (free <= 0) continue
+    const ws = room.wallSpots[first + Math.floor(pick * Math.min(free, 2))]!
+    // Toward the wall like a crate (0.7 m ± a little), slid along it
+    const nx = -Math.sin(ws[2])
+    const nz = -Math.cos(ws[2])
+    const push = 0.7 + (out01 - 0.5) * 0.3
+    const slide = (along - 0.5) * 0.8
+    const x = cellCenter(ws[0]) + nx * push - nz * slide
+    const z = cellCenter(ws[1]) + nz * push + nx * slide
+    const e = createEnemy('golem', level, x, z, room.id, { elite, theme })
+    e.yaw = ws[2] + (turn - 0.5) * 0.6
+    out.push(e)
   }
   return out
 }

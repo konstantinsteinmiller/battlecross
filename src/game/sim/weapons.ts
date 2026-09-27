@@ -13,7 +13,9 @@ import { pushHud } from '../state/hud'
  * ─── Special weapons ─────────────────────────────────────────────────────────
  *
  * The copied Core Master weapons. Each fires from the buster on a slot button
- * (or 1 / 2), costs Weapon Energy, has its own cooldown and a distinct verb:
+ * (or 1 / 2), costs Weapon Energy, has its own cooldown and a distinct verb
+ * (a borrowed one, `borrowed.ts`, fires on the third button / 3 for charges
+ * instead of energy):
  *
  *   Scrap Burst  — 3-way scrap spread (5-way at rank 3)
  *   Flame Wave   — a floor-hugging fireball that pierces a line and sets burns
@@ -29,7 +31,8 @@ export interface WeaponHost {
   system: CombatSystem
   enemies: Enemy[]
   stats: PlayerStats
-  player: { x: number; z: number; yaw: number }
+  /** `y`: feet height (the climb; 0 on a flat map). */
+  player: { x: number; z: number; yaw: number; y?: number }
   combat: { we: number; target: Enemy | null }
   time: number
   sfx(name: string, x?: number, z?: number): void
@@ -37,7 +40,8 @@ export interface WeaponHost {
 }
 
 export class WeaponSystem {
-  cooldown: [number, number] = [0, 0]
+  /** Per button: the two slots, then the borrowed weapon (`sim/borrowed.ts`). */
+  cooldown: [number, number, number] = [0, 0, 0]
   /** Gale Guard state. */
   guardT = 0
   private leaves: Mesh[] = []
@@ -89,8 +93,12 @@ export class WeaponSystem {
     return Math.max(1, Math.round(WEAPONS[id].cost * this.host.stats.weCostMul))
   }
 
-  /** Fire the weapon in slot `i`. Returns false (and why) when it cannot. */
-  use(i: 0 | 1, id: WeaponId | '', muzzle: [number, number, number], aim: [number, number, number, Enemy | null]): 'ok' | 'energy' | 'cooldown' | 'none' {
+  /**
+   * Fire the weapon on button `i` (0, 1: the slots; 2: the borrowed weapon).
+   * Returns 'ok' or why it could not. `free`: a borrowed weapon, which spends
+   * a charge of its own instead of Weapon Energy (the caller counts it).
+   */
+  use(i: 0 | 1 | 2, id: WeaponId | '', muzzle: [number, number, number], aim: [number, number, number, Enemy | null], free = false): 'ok' | 'energy' | 'cooldown' | 'none' {
     if (!id) return 'none'
     const h = this.host
     const def = WEAPONS[id]
@@ -101,7 +109,7 @@ export class WeaponSystem {
       this.cooldown[i] = 0.4
       return 'ok'
     }
-    const cost = this.cost(id)
+    const cost = free ? 0 : this.cost(id)
     if (h.combat.we < cost) return 'energy'
     h.combat.we -= cost
     this.cooldown[i] = def.cooldown
@@ -171,7 +179,7 @@ export class WeaponSystem {
         let ay = my
         let az = mz
         for (const e of hitList) {
-          const ey = e.y + e.def.aimY
+          const ey = e.y + (e.floor ?? 0) + e.def.aimY
           this.bolt(ax, ay, az, e.x, ey, e.z)
           e.lastWeapon = id
           sys.damageEnemy(e, dmg, { crit: false, charge: 1, fromX: h.player.x, fromZ: h.player.z, x: e.x, y: ey, z: e.z, color: '#fff27a', element: 'volt', special: true, weapon: id })
@@ -240,7 +248,7 @@ export class WeaponSystem {
     const yaw = Math.atan2(dx, dz)
     for (let k = 0; k < 4; k++) {
       const a = yaw + (k / 3 - 0.5) * 0.5
-      const s = h.system.spawnPlayerShot('charge1', h.player.x + Math.sin(a) * 0.8, EYE_H - 0.4, h.player.z + Math.cos(a) * 0.8, Math.sin(a), 0, Math.cos(a), dmg, false, tgt)
+      const s = h.system.spawnPlayerShot('charge1', h.player.x + Math.sin(a) * 0.8, (h.player.y ?? 0) + EYE_H - 0.4, h.player.z + Math.cos(a) * 0.8, Math.sin(a), 0, Math.cos(a), dmg, false, tgt)
       this.tag(s, 'galeGuard', '#7fffc8')
       s.pierce = 2
     }
@@ -253,6 +261,7 @@ export class WeaponSystem {
     const h = this.host
     this.cooldown[0] = Math.max(0, this.cooldown[0] - dt)
     this.cooldown[1] = Math.max(0, this.cooldown[1] - dt)
+    this.cooldown[2] = Math.max(0, this.cooldown[2] - dt)
     for (const [k, v] of this.leafHitCd) {
       if (v - dt <= 0) this.leafHitCd.delete(k)
       else this.leafHitCd.set(k, v - dt)
@@ -269,7 +278,7 @@ export class WeaponSystem {
       const a = h.time * 3.2 + (k / this.leaves.length) * Math.PI * 2
       const x = h.player.x + Math.cos(a) * R
       const z = h.player.z + Math.sin(a) * R
-      const y = EYE_H - 0.45 + Math.sin(h.time * 5 + k) * 0.12
+      const y = (h.player.y ?? 0) + EYE_H - 0.45 + Math.sin(h.time * 5 + k) * 0.12
       const leaf = this.leaves[k]!
       leaf.position.set(x, y, z)
       leaf.rotation.set(0, -a, Math.sin(h.time * 6 + k) * 0.4)
@@ -287,7 +296,7 @@ export class WeaponSystem {
       // Cut machines
       for (const e of h.enemies) {
         if (e.state === 'dead' || e.offstage || this.leafHitCd.has(e.id)) continue
-        if (Math.hypot(e.x - x, e.z - z) < e.def.radius + 0.35 && Math.abs(e.y + e.def.aimY - y) < 1.4) {
+        if (Math.hypot(e.x - x, e.z - z) < e.def.radius + 0.35 && Math.abs(e.y + (e.floor ?? 0) + e.def.aimY - y) < 1.4) {
           this.leafHitCd.set(e.id, 0.5)
           e.lastWeapon = 'galeGuard'
           h.system.damageEnemy(e, dmg, { crit: false, charge: 0, fromX: h.player.x, fromZ: h.player.z, x, y, z, color: '#7fffc8', element: 'wind', special: true, weapon: 'galeGuard' })

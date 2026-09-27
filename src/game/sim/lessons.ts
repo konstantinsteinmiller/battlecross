@@ -26,10 +26,12 @@ import { EYE_H } from './constants'
  *
  * 1. CHARGE. In the tutorial's start room a training drone hovers in front
  *    of the pad inside an energy bubble. Quick shots skip off the bubble; a
- *    charged shot pops it. The glyph (hold the button, release) comes onto
- *    the drone once the player can move and look — the coach's first two
- *    glyphs — or at once when a quick shot skips off, and stays until it
- *    pops. Letting go too early shakes it, like a quick shot does.
+ *    charged shot pops it. The glyph — a looping demo: a finger (or the left
+ *    mouse button) held down, the crosshair's rings filling, the shot growing,
+ *    let go and it flies in (`ChargeDemo.vue`) — comes onto the drone once
+ *    the player can move and look — the coach's first two glyphs — or at
+ *    once when a quick shot skips off, and stays until it pops. Letting go
+ *    too early shakes it, like a quick shot does, after a replay of the try.
  * 2. CRATES. Supply crates only break to charged shots. In the second room
  *    the player enters, once its machines are down, one crate glows and
  *    carries the same glyph. A quick shot bounces off it.
@@ -37,16 +39,23 @@ import { EYE_H } from './constants'
  *    as soon as a room is clear three drones beam in, asleep, in a row at
  *    exactly the spread of the weapon. The glyph is the weapon's key (1) and
  *    three guide lines fan out to them; one press takes all three.
+ * 4. THE REPAIR GEL. Hurt, a gel carried, nothing fighting: the gel button
+ *    pulses and wears its key (H) or a tapping finger, and a small glyph
+ *    pours the gel into a heart that fills green. Using one pops the check.
+ *    In the tutorial the walkthrough brings it on after the gel corridor's
+ *    trap; elsewhere a player who never learned it gets it at the first calm
+ *    moment under half health.
  *
  * Only one lesson is live at a time. Each is finished for good (a flag in
  * the save), and one that is ignored — the drones shot down with the buster
  * three times — retires instead of nagging. In the tutorial the walkthrough
  * (`walkthrough.ts`, the `guided` director) schedules the drone and the
  * crate itself, one room each, whatever the flags say: a replayed tutorial
- * is taught again.
+ * is taught again. There nothing retires: each lesson holds a door shut
+ * until it is done.
  */
 
-export type LessonId = 'charge' | 'crate' | 'weapon'
+export type LessonId = 'charge' | 'crate' | 'weapon' | 'gel'
 
 /** What the HUD draws for the live lesson (positions come from `anchors`). */
 export interface LessonView {
@@ -98,6 +107,9 @@ const WEAPON_TRIES = 3
 const REVEAL_AFTER = 10
 /** Half-angle between Scrap Burst's outer shots (weapons.ts: spread 0.42). */
 const SPREAD = 0.21
+/** Outside the tutorial the gel lesson comes in under this much health (the
+ *  coach's own tank glyph threshold). */
+const GEL_AT = 0.5
 
 interface TargetState {
   mesh: TrainingTargetMesh
@@ -119,7 +131,9 @@ export const roomAt = (map: MapData, x: number, z: number): number => {
 /** A room is clear when none of its own machines stands (sleeping or not)
  *  and nothing anywhere is fighting the player. */
 export const roomClear = (enemies: Enemy[], roomId: number, combat: boolean): boolean =>
-  !combat && !enemies.some(e => e.room === roomId && e.state !== 'dead' && !e.boss)
+  // A sleeping crate golem is a crate until it is shot: a room with one in
+  // it is quiet, or the crate lesson would wait on a machine nobody can see.
+  !combat && !enemies.some(e => e.room === roomId && e.state !== 'dead' && !e.boss && !e.dormant)
 
 /**
  * Where three drones can hover ahead of (px, pz, yaw): as a FAN, each exactly
@@ -165,6 +179,9 @@ export interface LessonTick {
   combat: boolean
   /** The coach's move and look glyphs are learned (the drone's cue). */
   controls: boolean
+  /** Health 0..1 and Repair Gels carried (the gel lesson). */
+  hp01?: number
+  tanks?: number
 }
 
 export class LessonDirector {
@@ -184,6 +201,12 @@ export class LessonDirector {
   private weaponUsed = false
   private weaponTries = 0
   private weaponRooms = new Set<number>()
+  /** The gel lesson ran and ended this mission (learned, or — outside the
+   *  tutorial — nothing left to repair); the walkthrough's gel door waits on
+   *  it. */
+  private gelEnd = false
+  /** Since when the player has been calm, hurt and carrying a gel. */
+  private gelCalm = -1
   /** Rooms in the order the player first walked into them. */
   readonly visited: number[] = []
   private clearSince = new Map<number, number>()
@@ -302,6 +325,27 @@ export class LessonDirector {
     if (this.live === 'weapon') this.weaponUsed = true
   }
 
+  /**
+   * Light the Repair Gel lesson: the gel button pulses with its key or a
+   * tapping finger, beside a gel pouring into a heart. The walkthrough calls
+   * it once its trap has gone off (a gel is carried by then: the mission
+   * grants one if none). False while another lesson has the stage.
+   */
+  startGel(): boolean {
+    if (this.live) return this.live === 'gel'
+    this.live = 'gel'
+    this.nudge = 0
+    return true
+  }
+
+  /** A Repair Gel was used (mission.useTank succeeded): learned. */
+  gelUsed(): void {
+    if (this.live !== 'gel') return
+    const p = this.host.player
+    this.gelEnd = true
+    this.finish('gel', [p.x, EYE_H, p.z])
+  }
+
   private popTarget(t: TargetState): void {
     const h = this.host
     t.alive = false
@@ -352,6 +396,30 @@ export class LessonDirector {
       if (o.controls || this.playT >= REVEAL_AFTER) this.revealCharge()
       return
     }
+    // ── 4. The Repair Gel, while it is on: health back some other way (a
+    // capsule, a level-up), or no gel left — nothing to teach right now.
+    // Not in the tutorial: its gel door waits for a gel USED, so the lesson
+    // stays until one is (the gel button takes one even at full health
+    // while it runs, `Mission.useTank`). ──
+    if (this.live === 'gel') {
+      if (!this.guided && ((o.hp01 ?? 0) >= 1 || (o.tanks ?? 1) <= 0)) {
+        this.live = null
+        this.nudge = 0
+        this.gelEnd = true
+      }
+      return
+    }
+    // …and outside the tutorial, for a player who never learned it: the
+    // first calm moment under half health with a gel carried.
+    if (!this.guided && this.live === null && !lessonDone('gel') && !o.combat
+      && (o.hp01 ?? 1) < GEL_AT && (o.tanks ?? 0) > 0) {
+      if (this.gelCalm < 0) this.gelCalm = h.time
+      else if (h.time - this.gelCalm >= CLEAR_SETTLE) {
+        this.gelCalm = -1
+        this.startGel()
+        return
+      }
+    } else this.gelCalm = -1
     // ── 2. Crates: the second room, once it is quiet (the walkthrough picks
     // the room itself in the tutorial) ──
     if (this.live === 'crate') {
@@ -540,6 +608,8 @@ export class LessonDirector {
    * camera yet still gets the look glyph while the subject is off screen.
    */
   focus(px: number, pz: number, yaw: number): boolean {
+    // The gel's subject is a HUD button: it has the eyes wherever they look.
+    if (this.live === 'gel') return true
     if (this.live === 'weapon') {
       return this.drones.some(e => {
         if (e.state === 'dead') return false
@@ -625,13 +695,33 @@ export class LessonDirector {
     return !!this.target?.alive
   }
 
+  /** Where the training drone hovers, while it does (the walkthrough's goal). */
+  get droneAt(): { readonly x: number; readonly z: number } | null {
+    return this.target?.alive ? this.target : null
+  }
+
   /** The crate lesson's crate broke this mission (the walkthrough's second gate). */
   get crateBroken(): boolean {
     return this.crateBroke
   }
 
+  /** The crate lesson's crate while that lesson runs (the walkthrough's goal). */
+  get crateAt(): { readonly x: number; readonly z: number } | null {
+    return this.live === 'crate' ? this.crate : null
+  }
+
   /** The crate lesson's room (tests). */
   get lessonRoom(): number {
     return this.crateRoom
+  }
+
+  /** The Repair Gel lesson is on screen (the coach drops its own tank glyph). */
+  get gelLive(): boolean {
+    return this.live === 'gel'
+  }
+
+  /** The gel lesson ran and ended this mission (the walkthrough's gel door). */
+  get gelEnded(): boolean {
+    return this.gelEnd
   }
 }

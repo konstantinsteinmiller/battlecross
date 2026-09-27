@@ -1,6 +1,6 @@
 // French locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Annuler',
   'close': 'Fermer',
   'ok': 'Ok',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Cliquez pour continuer',
   'rewards': 'RÉCOMPENSES',
   'tip': 'Astuce',
-  'crazyGamesOnly': 'Ce jeu est uniquement disponible sur',
+  'onlyAvailableOn': 'Ce jeu est uniquement disponible sur',
 
   'ui': {
     'next': 'Suivant',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Dernier rempart ! Systèmes redémarrés.',
     'weak': 'FAIBLESSE !',
     'dizzy': 'SONNÉ !',
+    'dodge': 'ESQUIVE !',
     'block': 'Bloquer',
     'slide': 'Glissade',
     'fire': 'Tirer',
-    'tank': 'Kit de réparation',
-    'noEnergy': "Pas assez d'énergie d'arme"
+    'tank': 'Gel réparateur',
+    'noEnergy': "Pas assez d'énergie d'arme",
+    'tankCount': 'Gel réparateur : {n} sur {max}',
+    'borrowed': 'Arme empruntée {weapon} : {n} tirs sur {max}',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Ouh là là !',
+      '2': 'Bzzt ! Oups !',
+      '3': 'Mon bras a le hoquet !',
+      '4': 'Erreur… youpi !',
+      '5': 'Circuits en beurre !',
+      '6': 'Mode tremblote ON !'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Rouage roulant',
     'brute': 'Gardroïde',
     'turret': 'Canon mural',
+    'golem': 'Golem-caisse',
     'elite': 'Élite',
     'level': 'Niv. {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Pilonneur | Pilonneurs',
     'roller': 'Rouage roulant | Rouages roulants',
     'brute': 'Gardroïde | Gardroïdes',
-    'turret': 'Canon mural | Canons muraux'
+    'turret': 'Canon mural | Canons muraux',
+    'golem': 'Golem-caisse | Golems-caisses'
   },
 
   'hud': {
     'help': 'Afficher les commandes',
+    'mute': 'Couper le son',
+    'unmute': 'Activer le son',
+    'bossUnknown': 'Boss inconnu',
     'hp': 'Santé',
     'we': "Énergie d'arme",
     'power': 'Puissance',
@@ -100,6 +120,8 @@ export default {
     'elite': "Chasse à l'élite",
     'supply': 'Ravitaillement',
     'purge': 'Purge du secteur',
+    'climb': 'Course à la tour',
+    'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
       'boss': 'Infiltre-toi au cœur du secteur {sector} et bats {boss}.',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Un robot ouvrier est bloqué dans le secteur {sector}. Trouve-le et téléporte-le en lieu sûr.',
       'elite': "Un {target} d'élite terrorise le secteur {sector}. Traque-le !",
       'supply': 'Ouvre {n} coffres de ravitaillement dans le secteur {sector}.',
-      'purge': 'Détruis toutes les machines du secteur {sector}.'
+      'purge': 'Détruis toutes les machines du secteur {sector}.',
+      'climb': 'Gravis la tour du secteur {sector} — escaliers, échelles, ascenseurs et gouffres — puis descends dans l\'arène pour ta revanche contre {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Trouve le robot ouvrier bloqué',
     'elite': "Traque le {target} d'élite",
     'supply': 'Coffres de ravitaillement : {n}/{total}',
-    'purge': 'Machines détruites : {n}/{total}'
+    'purge': 'Machines détruites : {n}/{total}',
+    'climb': 'Gravis la tour, bats {boss}'
   },
   'mission': {
     'bossDown': '{boss} détruit !',
@@ -151,25 +175,30 @@ export default {
     'red': 'Anneau rouge = imparable. Glisse hors de portée !',
     'dodgeKeys': 'Anneau rouge = imparable. Appuie sur Espace pour glisser hors de portée !',
     'chest': "Un coffre de ravitaillement ! Touche-le pour l'ouvrir.",
-    'tank': 'Presque à sec ? Un kit de réparation te remet à neuf.',
+    'tank': 'Presque à sec ? Le gel réparateur te remet à neuf.',
     'weapon': 'Utilise ton arme copiée avec le bouton coloré !'
   },
   'lesson': {
-    'charge': "Maintiens pour charger ton Buster, puis relâche : seul un tir chargé brise le bouclier du drone d'entraînement.",
+    'charge': "Maintiens pour charger ton canon, puis relâche : seul un tir chargé brise le bouclier du drone d'entraînement.",
     'crate': "Les caisses de ravitaillement ne cèdent qu'à un tir chargé. Maintiens, puis relâche en visant la caisse lumineuse.",
     'weaponKeys': 'Appuie sur {n} pour tirer avec ton arme copiée : un seul tir touche les trois drones.',
-    'weaponTouch': "Touche le bouton d'arme lumineux : un seul tir touche les trois drones."
+    'weaponTouch': "Touche le bouton d'arme lumineux : un seul tir touche les trois drones.",
+    'gelKeys': 'Appuie sur H pour utiliser un gel réparateur : il te répare entièrement.',
+    'gelTouch': 'Touche le bouton vert du gel réparateur : il te répare entièrement.'
+  },
+  'walk': {
+    'finishLesson': 'Termine la leçon'
   },
   'hubLesson': {
     'workshop': "Ouvre l'Atelier.",
-    'upgradeBuster': 'Dépense des boulons pour améliorer ton Buster : plus de dégâts.',
+    'upgradeBuster': 'Dépense des boulons pour améliorer ton canon : plus de dégâts.',
     'pickArmor': 'Sélectionne maintenant ton armure de torse.',
     'upgradeArmor': 'Améliore-la aussi : plus de défense.',
     'deploy': 'Tout est prêt — retour aux missions !'
   },
   'loot': {
     'found': 'Butin : {item} ({rarity}) !',
-    'tank': 'Kit de réparation trouvé !'
+    'tank': 'Gel réparateur trouvé !'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'SYSTÈME EN PANNE',
     'body': 'Flux a subi trop de dégâts.',
     'kept': "Tu gardes ce que tu as gagné jusqu'ici :",
-    'useTank': 'Redémarrer avec un kit ({n})',
+    'useTank': 'Redémarrer avec un gel ({n})',
     'rebootAd': 'Redémarrer maintenant',
     'retreat': 'Retour au labo'
+  },
+  'banner': {
+    'cleared': 'Niveau terminé',
+    'bossDown': 'Ennemi vaincu !',
+    'gameOver': 'Partie terminée !'
   },
   'pause': {
     'title': 'PAUSE',
     'resume': 'Reprendre',
     'abandon': 'Abandonner la mission',
     'controls': 'Commandes',
+    'label': {
+      'move': 'Se déplacer',
+      'look': 'Regarder',
+      'parry': 'Parer',
+      'interact': 'Interagir'
+    },
     'touch': {
       'move': 'Côté gauche : glisse pour bouger. Touche le sol pour y aller.',
-      'look': 'Côté droit : glisse pour regarder autour de toi.',
       'fire': 'En combat : touche pour tirer, maintiens pour charger, relâche pour faire feu.',
-      'block': 'Maintiens le bouclier pour bloquer — pile quand un anneau se ferme pour parer.'
+      'block': 'Maintiens le bouclier pour bloquer — pile quand un anneau se ferme pour parer.',
+      'use': 'Près d’un coffre, d’un robot bloqué ou d’une porte : touche-le, ou le bouton qui apparaît.'
     },
     'keys': {
       'move': 'ZQSD / flèches : se déplacer.',
       'look': 'Bouge la souris pour regarder. Clique sur la scène pour prendre le contrôle de la caméra.',
       'fire': 'Clic gauche : tirer — maintiens pour charger, relâche pour faire feu.',
       'block': 'Clic droit : bloquer — pile quand un anneau se ferme pour parer.',
-      'slide': 'Espace : glissade · H : kit de réparation · E : interagir · B : téléportation',
-      'more': '1 / 2 : armes spéciales · Tab : changer de cible · Échap : pause'
+      'slide': 'Espace : glissade · H : gel réparateur · E : interagir · B : téléportation',
+      'more': '1 / 2 : armes spéciales · Tab : changer de cible · Échap : pause',
+      'press': '{key} : {action}'
     }
   },
   'levelUp': {
     'title': 'NIVEAU SUPÉRIEUR !',
     'pick': 'Choisis une amélioration système',
-    'chip': '+1 puce de compétence pour tes circuits'
+    'chip': '+1 puce de compétence pour tes circuits',
+    'granted': '{stat} passe de {from} à {to}'
   },
   'attr': {
     'hp': { 'name': 'Châssis', 'desc': 'Santé max' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Bats {boss} pour ouvrir ce secteur.',
     'sectorSecured': 'Secteur sécurisé. Ses contrats restent disponibles.',
     'deploy': 'Déployer',
-    'reroll': 'Nouveau contrat'
+    'reroll': 'Nouveau contrat',
+    'unlock': {
+      'hint': 'Termine encore {n} mission pour le débloquer | Termine encore {n} missions pour le débloquer',
+      'aria': '{name}, verrouillé : termine encore {n} mission | {name}, verrouillé : termine encore {n} missions'
+    }
   },
   'hero': {
     'role': 'Ton androïde de combat',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Tir chargé',
       'armor': 'Armure',
       'crit': 'Chance de critique',
-      'tanks': 'Kits de réparation'
+      'tanks': 'Gels réparateurs'
     }
   },
   'workshop': {
     'tanks': 'Provisions',
-    'tankName': 'Kit de réparation',
+    'tankName': 'Gel réparateur',
     'tankDesc': 'Restaure entièrement la santé et la puissance en pleine mission.',
     'owned': 'Sur toi : {n}/{max}',
     'upgrade': "Améliorer l'équipement",
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Canon',
     'armor': 'Armure',
     'core': 'Noyau'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Méga-charge', 'desc': 'Dégâts du tir chargé +12 % par puce.' },
     'perfectTiming': { 'name': 'Timing parfait', 'desc': 'Fenêtre de relâchement parfait élargie et critiques plus puissants.' },
     'piercing': { 'name': 'Noyau perforant', 'desc': 'Les tirs à demi chargés brisent aussi boucliers et casques.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Maintiens au-delà de la pleine charge pour un troisième niveau dévastateur.' },
+    'giga': { 'name': 'Surcharge', 'desc': 'Maintiens au-delà de la pleine charge pour un troisième niveau dévastateur.' },
     'frame': { 'name': 'Châssis renforcé', 'desc': 'Santé max +8 % par puce.' },
     'barrier': { 'name': 'Réglage de barrière', 'desc': 'Bloquer coûte moins de puissance et laisse passer moins de dégâts.' },
     'autoRepair': { 'name': 'Auto-réparation', 'desc': 'Régénère 1 % de santé par seconde hors combat, par puce.' },
@@ -309,21 +355,21 @@ export default {
     'boosters': { 'name': 'Propulseurs de glissade', 'desc': 'Recharge de glissade plus rapide, glissades moins coûteuses.' },
     'efficient': { 'name': 'Noyaux efficaces', 'desc': "Les armes spéciales coûtent 10 % d'énergie en moins par puce." },
     'magnet': { 'name': 'Aimant à boulons', 'desc': 'Plus de boulons et une portée de ramassage accrue.' },
-    'tankCap': { 'name': 'Capacité de kits', 'desc': 'Emporte un kit de réparation de plus par puce.' }
+    'tankCap': { 'name': 'Capacité de gels', 'desc': 'Emporte un gel réparateur de plus par puce.' }
   },
 
   'rarity': {
     'standard': 'Standard',
-    'tuned': 'Optimisé',
+    'tuned': 'Tuning',
     'prototype': 'Prototype',
-    'legendary': 'Légendaire'
+    'legendary': 'Légende'
   },
   'item': {
-    'arm_standard': 'Buster standard',
-    'arm_rapid': 'Buster rapide',
-    'arm_heavy': 'Buster lourd',
-    'arm_quick': 'Buster à charge rapide',
-    'arm_nova': 'Buster Nova',
+    'arm_standard': 'Canon standard',
+    'arm_rapid': 'Canon rapide',
+    'arm_heavy': 'Canon lourd',
+    'arm_quick': 'Canon à charge rapide',
+    'arm_nova': 'Canon Nova',
     'helm_scout': "Casque d'éclaireur",
     'helm_guard': 'Casque de garde',
     'helm_ace': "Casque d'as",
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Puce quantique'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Canon',
     'helmet': 'Casque',
     'chest': 'Châssis',
     'boots': 'Bottes',

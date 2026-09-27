@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.actions(v-show="hud.phase === 'play'")
+  div.actions(ref="actionsEl" v-show="hud.phase === 'play'")
     button.act.block(
       type="button"
       :class="{ held: hud.blockHeld }"
@@ -18,19 +18,30 @@
       :aria-label="t('combat.slide')"
       @pointerdown.prevent.stop="slide"
     )
-      GameIcon(name="forward")
+      GameIcon(name="dodge")
       KeyCap.kc(v-if="desk" code="Space")
       CoachRing(:hint="touchHint('slide')")
+    //- The Repair Gel: always on screen, as the resource it is. The gel in
+    //- the flask and a pip per gel carried (hollow pips: room for more);
+    //- dimmed while there is nothing to repair, glowing once there is.
     button.act.tank(
+      ref="gelBtn"
       type="button"
-      :class="{ off: hud.tanks <= 0 || hud.hp >= hud.maxHp }"
-      :aria-label="t('combat.tank')"
+      data-lesson="gel"
+      :class="gelClass"
+      :aria-label="t('combat.tankCount', { n: hud.tanks, max: gelCap })"
       @pointerdown.prevent.stop="tank"
     )
+      span.gel-fill
+      span.gel-ring(v-if="gelLesson")
       GameIcon(name="flask")
-      span.count {{ hud.tanks }}
+      span.gel-pips(v-show="!touchHint('tank')" aria-hidden="true")
+        span.gel-pip(v-for="i in gelCap" :key="i" :class="{ on: i <= hud.tanks }")
       KeyCap.kc(v-if="desk" code="KeyH")
       CoachRing(:hint="touchHint('tank')")
+    //- A gel found flies from the middle of the view into its button.
+    span.gel-fly(ref="gelFly" aria-hidden="true")
+      GameIcon(name="flask")
     template(v-for="(w, i) in hud.weapons" :key="i")
       button.act.weapon(
         v-if="w.id"
@@ -45,22 +56,64 @@
         span.w-cost {{ w.cost }}
         KeyCap.kc(v-if="desk" :code="`Digit${i + 1}`")
         CoachRing(v-if="i === 0" :hint="touchHint('weapon')")
+    //- The borrowed weapon (a capsule's, this mission only): its colour, a
+    //- horseshoe of pips for the charges left, no energy cost. It pops in on
+    //- the grant and pops out when its last charge is spent.
+    Transition(name="borrow")
+      button.act.weapon.w2(
+        v-if="hud.borrowed.id || borrowPop"
+        type="button"
+        data-lesson="weapon-3"
+        :class="borrowClass"
+        :style="{ '--wc': hud.borrowed.color }"
+        :aria-label="borrowLabel"
+        @pointerdown.prevent.stop="fire(2)"
+      )
+        span.w-orb
+        span.b-pips(aria-hidden="true")
+          span.b-arm(v-for="i in hud.borrowed.max" :key="i" :style="{ transform: pipTurn(i) }")
+            span.b-pip(:class="{ on: i <= hud.borrowed.shots }")
+        KeyCap.kc(v-if="desk" code="Digit3")
+        //- The first take in a profile: the coach's ring (a check once fired),
+        //- and over the button its key or a tapping finger — that card stays
+        //- off a fight; the ring on the button hides nothing.
+        CoachRing(:hint="borrowHint")
+        span.b-teach(v-if="borrowTeach && !hud.combat" aria-hidden="true")
+          InputGlyph(v-if="desk" kind="key" code="Digit3")
+          InputGlyph(v-else kind="finger" mode="tap")
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
+import { profile } from '@/game/state/profile'
 import { input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import CoachRing from './CoachRing.vue'
 import KeyCap from './KeyCap.vue'
-import type { HintId } from '@/game/sim/coach'
-import { computed } from 'vue'
+import InputGlyph from './InputGlyph.vue'
+import type { HintId, HintView } from '@/game/sim/coach'
+import { TEACH_TIP } from '@/game/sim/borrowed'
+import { computed, onUnmounted, ref, watch } from 'vue'
 
 /**
  * Right-thumb cluster: BLOCK (hold; tap it as a ring closes to parry) and
  * SLIDE. These sit above the input surface, so their presses never reach the
  * fire/look gesture layer underneath.
+ *
+ * The Repair Gel button is inventory first. A playtester never understood why
+ * a heal "appeared out of nowhere" at low health, or how many he had: it now
+ * stays on screen with a pip per gel carried (and hollow ones for the room
+ * left), the gel visible in the flask. At full health it is dimmed, not gone;
+ * hurt, it glows; under half, it breathes. A gel found flies into it; one used
+ * drains out of it (and pours into the health bar, `HudBars`).
+ *
+ * A borrowed weapon (`sim/borrowed.ts`) gets a third weapon button left of
+ * the first slot, over the second, in its colour, with no energy cost on it:
+ * a horseshoe of pips counts the charges left (numbers never needed), it
+ * bounces on a refill and pops out with its last charge. The first one a
+ * profile takes is taught the coach's way: a pulsing ring on the button, its
+ * key or a tapping finger over it (not during a fight), a check once fired.
  */
 const { t } = useI18n()
 /** The coach glyph for a button, when it is teaching a touch player. */
@@ -84,11 +137,130 @@ const slide = () => {
 const tank = () => {
   input.touched = true
   input.tankQueued = true
+  // Nothing to repair, or none carried: a shake — "not now", never "gone".
+  if (hud.tanks <= 0 || hud.hp >= hud.maxHp) flash(gelDenied, 420)
 }
+
+// ── The Repair Gel as a resource ──
+/** Pips: the capacity (Gel Capacity skill), or more if more are carried. */
+const gelCap = computed(() => Math.max(1, hud.tanksMax, hud.tanks))
+/** The gel lesson points at this button (`LessonLayer` draws its card). */
+const gelLesson = computed(() => hud.lesson?.id === 'gel' && !hud.lesson.done)
+const gelPop = ref(false)
+const gelDenied = ref(false)
+const gelDrain = ref<'' | 'drain' | 'drain-last'>('')
+const gelClass = computed(() => [gelDrain.value, {
+  empty: hud.tanks <= 0 && !gelDrain.value,
+  stocked: hud.tanks > 0 && hud.hp >= hud.maxHp,
+  want: hud.tanks > 0 && hud.hp > 0 && hud.hp < hud.maxHp * 0.5,
+  lesson: gelLesson.value,
+  pop: gelPop.value,
+  denied: gelDenied.value
+}])
+const timers = new Set<number>()
+const flash = (flag: { value: boolean }, ms: number): void => {
+  flag.value = false
+  requestAnimationFrame(() => {
+    flag.value = true
+    const id = window.setTimeout(() => { flag.value = false; timers.delete(id) }, ms)
+    timers.add(id)
+  })
+}
+
+const actionsEl = ref<HTMLElement | null>(null)
+const gelBtn = ref<HTMLElement | null>(null)
+const gelFly = ref<HTMLElement | null>(null)
+/** A gel gained in play flies in from the middle of the view, on an arc. */
+const flyIn = (): void => {
+  const fly = gelFly.value
+  const btn = gelBtn.value
+  const box = actionsEl.value
+  if (!fly || !btn || !box || typeof fly.animate !== 'function') { flash(gelPop, 450); return }
+  const a = box.getBoundingClientRect()
+  const b = btn.getBoundingClientRect()
+  const sx = window.innerWidth / 2 - a.left
+  const sy = window.innerHeight * 0.45 - a.top
+  const ex = b.left + b.width / 2 - a.left
+  const ey = b.top + b.height / 2 - a.top
+  const mx = (sx + ex) / 2
+  const my = Math.min(sy, ey) - Math.min(90, window.innerHeight * 0.12)
+  const at = (x: number, y: number, s: number) => `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${s})`
+  const anim = fly.animate([
+    { transform: at(sx, sy, 0.3), opacity: 0 },
+    { transform: at(sx, sy, 1.6), opacity: 1, offset: 0.2 },
+    { transform: at(sx, sy, 1.4), opacity: 1, offset: 0.34 },
+    { transform: at(mx, my, 1.1), opacity: 1, offset: 0.68 },
+    { transform: at(ex, ey, 0.6), opacity: 1 }
+  ], { duration: 1000, easing: 'cubic-bezier(0.45, 0, 0.3, 1)' })
+  anim.onfinish = () => flash(gelPop, 450)
+}
+watch(() => hud.tanks, (n, prev) => {
+  if (prev !== undefined && n > prev && hud.phase === 'play') flyIn()
+})
+// A gel used: it drains out of the flask (the last one leaves it empty).
+watch(() => hud.gelUse, (n, prev) => {
+  if (prev === undefined || n <= prev) return
+  gelDrain.value = ''
+  requestAnimationFrame(() => {
+    gelDrain.value = profile.inv.tanks <= 0 ? 'drain-last' : 'drain'
+    const id = window.setTimeout(() => { gelDrain.value = ''; timers.delete(id) }, 820)
+    timers.add(id)
+  })
+})
+onUnmounted(() => {
+  for (const id of timers) clearTimeout(id)
+  timers.clear()
+})
 const fire = (i: number) => {
   input.touched = true
-  input.weaponQueued = (i + 1) as 1 | 2
+  input.weaponQueued = (i + 1) as 1 | 2 | 3
 }
+
+// ── The borrowed weapon (`sim/borrowed.ts`) ──
+/** Pips on a horseshoe round the button, open at the bottom where its key
+ *  sits: the first at −150°, the last at +150°. */
+const pipTurn = (i: number): string => {
+  const n = hud.borrowed.max
+  return `rotate(${n > 1 ? -150 + ((i - 1) * 300) / (n - 1) : 0}deg)`
+}
+const borrowLabel = computed(() => {
+  const b = hud.borrowed
+  return b.id ? t('combat.borrowed', { weapon: t(`weapon.${b.id}.name`), n: b.shots, max: b.max }) : ''
+})
+/** The last charge spent: the button stays a beat to pop out. */
+const borrowPop = ref(false)
+/** Charges back (a grant, a refill): the button bounces. */
+const borrowGot = ref(false)
+/** The first-take teach just learned: the coach's check, briefly. */
+const borrowTaught = ref(false)
+const borrowTeach = computed(() => hud.borrowed.teach && !!hud.borrowed.id)
+const borrowHint = computed<HintView | undefined>(() => {
+  if (!borrowTeach.value && !borrowTaught.value) return undefined
+  // No pip row (goal 0): the card with the key stands where it would be;
+  // the one use flashes the ring green and pops the check.
+  const done = borrowTaught.value
+  return { id: 'weapon', family: hud.device, count: 0, goal: 0, flash: done ? 1 : 0, done }
+})
+const borrowClass = computed(() => ({
+  off: !hud.borrowed.ready && !borrowPop.value,
+  lesson: borrowTeach.value,
+  got: borrowGot.value,
+  spent: borrowPop.value
+}))
+// Set before the render that drops the weapon (a pre-flush watcher), so the
+// button never unmounts for a frame between its last charge and its pop.
+watch(() => hud.borrowed.spent, (n, prev) => {
+  if (prev === undefined || n <= prev) return
+  borrowPop.value = true
+  const id = window.setTimeout(() => { borrowPop.value = false; timers.delete(id) }, 460)
+  timers.add(id)
+})
+watch(() => hud.borrowed.shots, (n, prev) => {
+  if (prev !== undefined && n > prev && prev > 0) flash(borrowGot, 450)
+})
+watch(() => hud.borrowed.teach, (on, was) => {
+  if (was && !on && profile.tips[TEACH_TIP]) flash(borrowTaught, 1100)
+})
 </script>
 
 <style scoped lang="sass">
@@ -135,16 +307,102 @@ const fire = (i: number) => {
     transform: scale(0.9)
   &.off
     filter: grayscale(0.7) brightness(0.8)
+// The Repair Gel: dark glass, the gel inside it (clipped from the top as it
+// drains), the flask glyph over both, pips above for the gels carried.
 .tank
   right: clamp(4px, 1vmin, 8px)
   bottom: clamp(76px, 17.5vmin, 110px)
   width: clamp(44px, 10vmin, 60px)
   height: clamp(44px, 10vmin, 60px)
-  background: radial-gradient(circle at 40% 30%, #d4ffc8, #5fe07a 45%, #1f9a4a)
+  background: radial-gradient(circle at 40% 30%, #4a6663, #22333d 60%, #141c26)
+  transition: transform 0.06s, box-shadow 0.3s, filter 0.3s
   &:active
     transform: scale(0.9)
-  &.off
-    filter: grayscale(0.8) brightness(0.75)
+  .gel-fill
+    position: absolute
+    inset: 0
+    border-radius: 50%
+    background: radial-gradient(circle at 40% 30%, #d4ffc8, #5fe07a 45%, #1f9a4a)
+    clip-path: inset(0 0 0 0)
+    transition: clip-path 0.35s ease-out
+  :deep(.game-icon)
+    position: relative
+  // None carried: the empty flask, faint.
+  &.empty
+    filter: grayscale(0.6) brightness(0.8)
+    .gel-fill
+      clip-path: inset(100% 0 0 0)
+    :deep(.game-icon)
+      opacity: 0.55
+  // Carried, nothing to repair: in stock, not lit.
+  &.stocked
+    filter: saturate(0.6) brightness(0.9)
+  // Hurt with a gel carried: it glows; under half it breathes.
+  &:not(.empty):not(.stocked)
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), 0 0 14px rgba(141, 255, 122, 0.6), inset 0 -5px 0 rgba(0, 0, 0, 0.18), inset 0 4px 0 rgba(255, 255, 255, 0.35)
+  &.want:not(.lesson)
+    animation: gel-want 1.1s ease-in-out infinite
+  &.drain .gel-fill
+    animation: gel-drain 0.8s ease-in-out
+  &.drain-last .gel-fill
+    animation: gel-drain-last 0.6s ease-in forwards
+  &.pop
+    animation: gel-pop 0.45s cubic-bezier(0.2, 1.8, 0.4, 1)
+  &.denied
+    animation: gel-denied 0.4s ease-in-out
+  // The gel lesson: a white ring and a pulse, the flask breathing.
+  &.lesson
+    box-shadow: 0 0 0 4px #ffffff, 0 0 22px #8dff7a
+    :deep(.game-icon)
+      animation: lesson-breathe 0.9s ease-in-out infinite
+.gel-ring
+  position: absolute
+  inset: -14%
+  border-radius: 50%
+  border: 4px solid #ffffff
+  box-shadow: 0 0 14px rgba(141, 255, 122, 0.9)
+  animation: gel-ring 1.1s ease-out infinite
+  pointer-events: none
+.gel-pips
+  position: absolute
+  left: 50%
+  bottom: calc(100% + 5px)
+  transform: translateX(-50%)
+  display: flex
+  gap: 3px
+  pointer-events: none
+.gel-pip
+  width: clamp(7px, 1.5vmin, 9px)
+  height: clamp(10px, 2.2vmin, 13px)
+  border-radius: 4px
+  border: 2px solid #141a33
+  background: rgba(20, 26, 51, 0.55)
+  transition: background 0.3s, box-shadow 0.3s, transform 0.3s
+  &.on
+    background: linear-gradient(#e6ffdc, #5fe07a 55%, #1f9a4a)
+    box-shadow: 0 0 6px rgba(141, 255, 122, 0.75)
+// The fly-in: starts at the middle of the view, lands on the button.
+.gel-fly
+  position: absolute
+  left: 0
+  top: 0
+  width: clamp(40px, 9vmin, 56px)
+  height: clamp(40px, 9vmin, 56px)
+  padding: 18%
+  border-radius: 50%
+  border: 3px solid #141a33
+  background: radial-gradient(circle at 40% 30%, #d4ffc8, #5fe07a 45%, #1f9a4a)
+  box-shadow: 0 0 22px rgba(141, 255, 122, 0.9)
+  color: #fff
+  display: grid
+  place-items: center
+  opacity: 0
+  pointer-events: none
+  will-change: transform, opacity
+  :deep(.game-icon)
+    width: 100%
+    height: 100%
+    filter: drop-shadow(0 2px 0 rgba(20, 26, 51, 0.6))
 .weapon
   width: clamp(46px, 10.5vmin, 62px)
   height: clamp(46px, 10.5vmin, 62px)
@@ -189,30 +447,147 @@ const fire = (i: number) => {
   pointer-events: none
 // The weapon lesson: the button to press breathes (on a child, so no
 // class churn on the button can clobber the animation).
-// The tank's count badge owns its bottom-right corner.
-.tank .kc
-  left: -2px
-  transform: none
 .weapon.lesson .w-orb
   animation: lesson-breathe 0.9s ease-in-out infinite
 .weapon.lesson
   box-shadow: 0 0 0 4px #ffffff, 0 0 22px var(--wc)
+// The borrowed weapon: left of the first slot, over the second — the three
+// weapon buttons make one block — low enough to stay out of the coach's
+// look and fire glyphs on a landscape phone; a glow in its colour so it
+// reads as "extra", pips round it for the charges left.
+.weapon.w2
+  right: clamp(120px, 27vmin, 170px)
+  bottom: clamp(88px, 20vmin, 126px)
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), 0 0 14px var(--wc), inset 0 -5px 0 rgba(0, 0, 0, 0.18), inset 0 4px 0 rgba(255, 255, 255, 0.35)
+  &.lesson
+    box-shadow: 0 0 0 4px #ffffff, 0 0 22px var(--wc)
+  &.got
+    animation: gel-pop 0.45s cubic-bezier(0.2, 1.8, 0.4, 1)
+  &.spent
+    animation: borrow-spent 0.45s ease-out forwards
+    pointer-events: none
+.b-pips
+  position: absolute
+  inset: calc(-1 * clamp(7px, 1.6vmin, 10px))
+  pointer-events: none
+.b-arm
+  position: absolute
+  inset: 0
+.b-pip
+  position: absolute
+  left: 50%
+  top: 0
+  width: clamp(7px, 1.5vmin, 9px)
+  height: clamp(7px, 1.5vmin, 9px)
+  transform: translate(-50%, -50%)
+  border-radius: 50%
+  border: 2px solid #141a33
+  background: rgba(20, 26, 51, 0.6)
+  transition: background 0.2s, box-shadow 0.2s
+  &.on
+    background: radial-gradient(circle, #ffffff 25%, var(--wc) 75%)
+    box-shadow: 0 0 5px var(--wc)
+// The teach card: the key (3) or a tapping finger, over the button in
+// portrait (clear of its pips), bobbing toward it.
+.b-teach
+  position: absolute
+  left: 50%
+  bottom: calc(100% + clamp(12px, 2.8vmin, 18px))
+  width: clamp(38px, 8.5vmin, 52px)
+  padding: 4px
+  border-radius: 10px
+  border: 2px solid #ffd84a
+  background: rgba(20, 26, 51, 0.72)
+  box-shadow: 0 0 12px rgba(255, 216, 74, 0.55)
+  transform: translateX(-50%)
+  animation: borrow-nudge 1.1s ease-in-out infinite
+  pointer-events: none
+  :deep(.glyph)
+    display: block
+    width: 100%
+    height: auto
+.borrow-enter-active
+  animation: borrow-in 0.5s cubic-bezier(0.2, 1.8, 0.4, 1)
+.borrow-leave-active
+  transition: opacity 0.15s
+.borrow-leave-to
+  opacity: 0
+@keyframes borrow-in
+  from
+    transform: scale(0)
+  60%
+    transform: scale(1.3)
+@keyframes borrow-spent
+  0%
+    transform: scale(1)
+    filter: brightness(1)
+    opacity: 1
+  30%
+    transform: scale(1.3)
+    filter: brightness(2.2)
+    opacity: 1
+  100%
+    transform: scale(0.2)
+    filter: brightness(2.2)
+    opacity: 0
+// Landscape: the card beside the button, toward the middle — above it, it
+// would meet the coach's look glyph on a short screen (in portrait, beside
+// it, the move glyph's ∞).
+@media (min-aspect-ratio: 1/1)
+  .b-teach
+    left: auto
+    right: calc(100% + clamp(10px, 2.4vmin, 16px))
+    bottom: auto
+    top: 50%
+    transform: translateY(-50%)
+    animation-name: borrow-nudge-side
+@keyframes borrow-nudge
+  50%
+    transform: translate(-50%, 4px)
+@keyframes borrow-nudge-side
+  50%
+    transform: translate(4px, -50%)
 @keyframes lesson-breathe
   50%
     transform: scale(1.35)
-.tank
-  .count
-    position: absolute
-    right: -6px
-    bottom: -6px
-    min-width: 20px
-    height: 20px
-    padding: 0 4px
-    border-radius: 10px
-    background: #141a33
-    color: #fff
-    font-family: var(--font-pixel)
-    font-size: 9px
-    line-height: 20px
-    text-align: center
+@keyframes gel-want
+  50%
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), 0 0 26px rgba(141, 255, 122, 0.95), inset 0 -5px 0 rgba(0, 0, 0, 0.18), inset 0 4px 0 rgba(255, 255, 255, 0.35)
+// Drains from the top, then the next gel slides up into the flask.
+@keyframes gel-drain
+  0%
+    clip-path: inset(0 0 0 0)
+  45%, 60%
+    clip-path: inset(100% 0 0 0)
+  100%
+    clip-path: inset(0 0 0 0)
+@keyframes gel-drain-last
+  from
+    clip-path: inset(0 0 0 0)
+  to
+    clip-path: inset(100% 0 0 0)
+@keyframes gel-pop
+  40%
+    transform: scale(1.25)
+@keyframes gel-denied
+  20%
+    transform: translateX(-5px)
+  40%
+    transform: translateX(4px)
+  60%
+    transform: translateX(-3px)
+  80%
+    transform: translateX(2px)
+@keyframes gel-ring
+  from
+    transform: scale(0.95)
+    opacity: 1
+  to
+    transform: scale(1.4)
+    opacity: 0
+@media (prefers-reduced-motion: reduce)
+  .tank.want:not(.lesson), .tank.pop, .tank.denied, .gel-ring, .tank.lesson :deep(.game-icon)
+    animation: none
+  .weapon.w2.got, .b-teach, .borrow-enter-active
+    animation: none
 </style>

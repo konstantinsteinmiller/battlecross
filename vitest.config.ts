@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import { resolvePlatformPolicy } from './src/platforms/policy'
 
 // Stub for the `virtual:campaign-overrides` module that the production
 // build provides via the `mawCampaignOverridesPlugin` in vite.config.ts.
@@ -48,7 +49,11 @@ export default defineConfig({
   // throws ReferenceError under tests. Mirror the define here so test
   // imports of those modules don't trip on a missing global.
   define: {
-    APP_VERSION: JSON.stringify('test')
+    APP_VERSION: JSON.stringify('test'),
+    // The build-time platform policy (see `src/platforms/policy.ts`): tests run
+    // as the plain web build, which ships every rule at its default. Suites that
+    // need a portal's policy mock `@/platforms/capabilities` instead.
+    __PLATFORM_POLICY__: JSON.stringify(resolvePlatformPolicy({ isPoki: false }))
   },
   resolve: {
     alias: {
@@ -74,6 +79,11 @@ export default defineConfig({
     // and fail a test that is not actually slow. The work is transform time,
     // not test time, so the ceiling is raised rather than the tests split up.
     testTimeout: 30_000,
+    // Vitest defaults to one worker per core — ~30 on this laptop, which
+    // starves every other app and session on it, and two agents testing at
+    // once doubled that. Four keeps a full run to about a minute. Raise it
+    // for a one-off run with VITEST_MAX_WORKERS=<n>.
+    maxWorkers: Number(process.env.VITEST_MAX_WORKERS) || 4,
     // tests/e2e runs under Playwright + a real Vite dev server (Node env,
     // not jsdom). Excluded from the default suite so `pnpm test` stays
     // fast; run them with `pnpm test:e2e`.

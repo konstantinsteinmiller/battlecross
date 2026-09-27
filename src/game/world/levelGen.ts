@@ -21,6 +21,9 @@ export const enum Cell { Void = 0, Room = 1, Corridor = 2 }
 
 export type RoomRole = 'start' | 'combat' | 'treasure' | 'objective' | 'boss'
 
+/** The four grid neighbours, in a fixed order (+X, −X, +Z, −Z). */
+export const DIRS4: ReadonlyArray<readonly [number, number]> = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+
 export interface Room {
   id: number
   x0: number
@@ -71,6 +74,142 @@ export interface MapData {
   doors: Door[]
   pillars: Pillar[]
   start: { x: number; z: number; yaw: number }
+  /** Floor heights, ladders, lifts, pits and timed obstacles (the climb,
+   *  `climbGen.ts`). Absent on every labyrinth map: those stay flat at y = 0
+   *  and nothing below reads this unless it is there. */
+  terrain?: Terrain
+}
+
+// ─── Terrain (the climb) ─────────────────────────────────────────────────────
+
+/** Which way a ramp cell climbs: its floor rises across the cell toward
+ *  +X, −X, +Z or −Z (0 = a flat cell). The stairs are drawn as steps, walked
+ *  as a slope. */
+export const enum Ramp { None = 0, PX = 1, NX = 2, PZ = 3, NZ = 4 }
+
+/** A ladder bolted to the cliff face between two floors. */
+export interface Ladder {
+  /** The foot cell: the lower floor, in front of the wall. */
+  i: number
+  j: number
+  /** From the foot cell toward the wall (and the top cell): one axis, ±1. */
+  di: number
+  dj: number
+  /** Floor heights at the foot and at the top (m). */
+  y0: number
+  y1: number
+  /** Off the main line: it leads to a reward ledge. */
+  side: boolean
+}
+
+/** A moving platform. `v` waits at its lower stop and rides up once stood
+ *  on; `h` shuttles across a pit on a loop. Both stops are the platform's
+ *  top centre. Under it the lift is a solid column (a piston, a hull), so
+ *  nothing walks beneath it. */
+export interface Lift {
+  kind: 'v' | 'h'
+  /** Half extents of the platform (m). */
+  hw: number
+  hd: number
+  ax: number
+  ay: number
+  az: number
+  bx: number
+  by: number
+  bz: number
+  /** Seconds per leg and dwell at each stop. */
+  travel: number
+  wait: number
+  /** Loop offset (s) of an `h` lift. */
+  phase: number
+  room: number
+}
+
+/** A piston crusher over a walkway cell: it warns, slams, holds, rises. */
+export interface Crusher {
+  i: number
+  j: number
+  /** The floor it slams onto (m). */
+  y: number
+  /** Seconds between slams, and the loop offset. */
+  period: number
+  phase: number
+  room: number
+}
+
+/** A lane down a staircase that scrap balls roll along. */
+export interface RollerLane {
+  /** Where a ball lands out of its hatch (top of the slope) and the downhill
+   *  direction (a unit axis). */
+  x: number
+  z: number
+  dx: number
+  dz: number
+  /** How far it rolls before it drops into the gutter at the foot (m). */
+  len: number
+  period: number
+  phase: number
+  room: number
+}
+
+/** A restart spot: a pit fall (and a resume) puts Flux back here. Reached by
+ *  standing on any of its cells. */
+export interface Checkpoint {
+  x: number
+  z: number
+  y: number
+  yaw: number
+  room: number
+  cells: number[]
+}
+
+/** A reward ledge off the main line: bolts, a big capsule, or (`weapon`) a
+ *  borrowed-weapon capsule, which `sim/borrowed.ts` owns — the climb's own
+ *  runtime draws and pays only the other kinds. */
+export interface RewardSpot {
+  x: number
+  z: number
+  y: number
+  room: number
+  kind: 'hp' | 'we' | 'bolts' | 'weapon'
+}
+
+/** A machine's post in the climb: what kind of slot it is, where it stands,
+ *  the rectangle it may not leave (its own platform) and, for a flyer, the
+ *  band of heights it follows the player through. */
+export interface FoePost {
+  role: 'ground' | 'turret' | 'flyer'
+  x: number
+  z: number
+  y: number
+  yaw: number
+  room: number
+  leash: [number, number, number, number]
+  fly?: [number, number]
+}
+
+export type SectionKind = 'hall' | 'ladder' | 'rolling' | 'lift' | 'crusher' | 'descent' | 'arena'
+
+export interface Terrain {
+  /** Floor height per cell (m); a ramp's height at its low edge. */
+  floor: Float32Array
+  ramp: Uint8Array
+  /** Height a ramp cell gains across it (m). */
+  rise: Float32Array
+  /** 1 = no floor at all: a pit. */
+  pit: Uint8Array
+  /** Per room: the top of its walls and how deep its pits are drawn (m). */
+  wallTop: number[]
+  pitBottom: number[]
+  /** Per room: which section of the climb it is. */
+  sections: SectionKind[]
+  ladders: Ladder[]
+  lifts: Lift[]
+  crushers: Crusher[]
+  lanes: RollerLane[]
+  checkpoints: Checkpoint[]
+  rewards: RewardSpot[]
+  foes: FoePost[]
 }
 
 export interface MapSpec {

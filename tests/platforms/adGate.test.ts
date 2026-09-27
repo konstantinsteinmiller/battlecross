@@ -171,19 +171,31 @@ describe('reward gating', () => {
 })
 
 describe('interstitial pacing', () => {
-  it('never fires on the first opportunity of a session', async () => {
+  it('allows the session\'s first break outright — no earlier request has to start a clock', async () => {
+    // The first mission's Continue gets its ad: asking once must not be what
+    // arms the gap, or that first ad would never run.
     const gate = await loadGate()
     gate.__resetInterstitialClock()
-    // The opening minute is when a player decides whether the game is worth
-    // their time; an ad there is the most reliable way to lose them.
-    expect(gate.canShowInterstitial()).toBe(false)
+    expect(gate.canShowInterstitial()).toBe(true)
+    expect(gate.canShowInterstitial()).toBe(true) // asking alone changes nothing
   })
 
-  it('holds the break for a full two minutes', async () => {
+  it('runs nothing in the first minute after load (Yandex)', async () => {
+    vi.useFakeTimers()
+    const gate = await loadGate()
+    gate.__resetInterstitialClock(0)
+    expect(gate.INTERSTITIAL_AFTER_LOAD_MS).toBe(61_000)
+    vi.advanceTimersByTime(60_000)
+    expect(gate.canShowInterstitial()).toBe(false)
+    vi.advanceTimersByTime(1_000)
+    expect(gate.canShowInterstitial()).toBe(true)
+  })
+
+  it('holds the next break for a full two minutes after the last', async () => {
     vi.useFakeTimers()
     const gate = await loadGate()
     gate.__resetInterstitialClock()
-    gate.canShowInterstitial() // starts the clock
+    gate.markInterstitialShown()
 
     vi.advanceTimersByTime(119_000)
     expect(gate.canShowInterstitial()).toBe(false)
@@ -192,38 +204,20 @@ describe('interstitial pacing', () => {
     expect(gate.canShowInterstitial()).toBe(true)
   })
 
-  it('runs no break at all in the first three minutes of a session', async () => {
-    // Poki's fit test is averaged playtime past three minutes; a midgame ad is
-    // a full stop, and the one screen a stranger most readily closes the tab
-    // on. The floor is session time, independent of the gap below.
+  it('counts an ad from another placement (first-load, QA tap) against the gap', async () => {
     vi.useFakeTimers()
     const gate = await loadGate()
-    gate.__resetInterstitialClock(0)
-    expect(gate.FIRST_INTERSTITIAL_AFTER_MS).toBe(180_000)
-
-    // The gap alone would allow one at 2:01 — the floor still says no.
-    gate.canShowInterstitial()
-    vi.advanceTimersByTime(121_000)
+    gate.__resetInterstitialClock()
+    gate.markInterstitialShown() // e.g. the first-load ad on GamePix
+    vi.advanceTimersByTime(90_000)
     expect(gate.canShowInterstitial()).toBe(false)
-    vi.advanceTimersByTime(58_000)
-    expect(gate.canShowInterstitial()).toBe(false)
-
-    // Past three minutes the ordinary pacing takes over: the first request
-    // after the floor starts the gap clock, exactly as a session's first
-    // request always has.
-    vi.advanceTimersByTime(2_000)
-    expect(gate.canShowInterstitial()).toBe(false)
-    vi.advanceTimersByTime(121_000)
-    expect(gate.canShowInterstitial()).toBe(true)
   })
 
   it('restarts the clock once a break is actually shown', async () => {
     vi.useFakeTimers()
     const gate = await loadGate()
     gate.__resetInterstitialClock()
-    gate.canShowInterstitial()
 
-    vi.advanceTimersByTime(121_000)
     expect(gate.canShowInterstitial()).toBe(true)
     gate.markInterstitialShown()
 

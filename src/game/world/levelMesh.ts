@@ -33,7 +33,7 @@ export interface LevelMeshes {
   owner: Int16Array
 }
 
-class QuadBatch {
+export class QuadBatch {
   pos: number[] = []
   nor: number[] = []
   uv: number[] = []
@@ -71,7 +71,7 @@ class QuadBatch {
  * door cleanly separates two groups and the mission can hide the room behind
  * it (portal culling) without taking the corridor in front of it along.
  */
-const cellOwners = (map: MapData): Int16Array => {
+export const cellOwners = (map: MapData): Int16Array => {
   const owner = new Int16Array(map.w * map.h).fill(-1)
   for (let k = 0; k < owner.length; k++) owner[k] = map.room[k]!
   for (const d of map.doors) {
@@ -92,12 +92,12 @@ const cellOwners = (map: MapData): Int16Array => {
 
 const doorKey = (i: number, j: number) => `${i},${j}`
 
-type UV8 = [number, number, number, number, number, number, number, number]
+export type UV8 = [number, number, number, number, number, number, number, number]
 /** Atlas UVs: floor cell on the left half, wall cell on the right. */
-const FLOOR_UV: UV8 = [0, 0, 0, 1, 0.5, 1, 0.5, 0]
-const WALL_UV: UV8 = [0.5, 0, 0.5, 1, 1, 1, 1, 0]
+export const FLOOR_UV: UV8 = [0, 0, 0, 1, 0.5, 1, 0.5, 0]
+export const WALL_UV: UV8 = [0.5, 0, 0.5, 1, 1, 1, 1, 0]
 /** A flat patch of the floor plate — for decals that should read as solid colour. */
-const PLAIN_UV: UV8 = [0.25, 0.5, 0.25, 0.5, 0.25, 0.5, 0.25, 0.5]
+export const PLAIN_UV: UV8 = [0.25, 0.5, 0.25, 0.5, 0.25, 0.5, 0.25, 0.5]
 
 /**
  * Build a sector's static geometry. Async and time-sliced (`slice`, see
@@ -312,7 +312,7 @@ export const doorFramePos = (d: Door): [number, number] => {
   return [x, z]
 }
 
-const buildSky = (theme: Theme): Mesh => {
+export const buildSky = (theme: Theme): Mesh => {
   const g = new SphereGeometry(180, 24, 16)
   const top = new Color(theme.skyTop)
   const bot = new Color(theme.skyBottom)
@@ -336,7 +336,7 @@ const buildSky = (theme: Theme): Mesh => {
   return mesh
 }
 
-const buildSkyline = (map: MapData, theme: Theme): Group => {
+export const buildSkyline = (map: MapData, theme: Theme): Group => {
   const rng = mulberry32(map.seed ^ 0xbead)
   const cx = map.w * CELL / 2
   const cz = map.h * CELL / 2

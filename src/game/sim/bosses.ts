@@ -2,11 +2,12 @@ import { Group } from 'three'
 import type { Enemy, World } from './world'
 import { BOSSES, type BossDef } from '../data/bosses'
 import { buildBossRig, poseBoss, type BossId } from '../models/bosses'
+import { newMotion } from '../models/motion'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
 import { scaleDmg, scaleHp } from '../data/enemies'
 import { moveCircle, hasLineOfSight, isSolidAt } from '../world/nav'
 import { cellCenter, type Room } from '../world/levelGen'
-import { PARRY_WINDOW } from './enemies'
+import { PARRY_WINDOW, stepMotion } from './enemies'
 import { PLAYER_R, EYE_H } from './constants'
 import { pushHud } from '../state/hud'
 
@@ -33,8 +34,12 @@ export const createBoss = (id: BossId, level: number, x: number, z: number, room
   root.add(rig.root)
   rig.root.scale.setScalar(def.scale)
   const hp = scaleHp(def.hp, level)
+  const eid = nextBossId++
   return {
-    id: nextBossId++, kind: 'brute', def, level, elite: false, boss: true, element: def.element,
+    id: eid, kind: 'brute', def, level, elite: false, boss: true, element: def.element,
+    // Animation channels: advanced after every tick (`updateBoss`), read by
+    // `poseBoss` (the humanoid bosses' idle, gait and eased acts)
+    mo: newMotion(eid),
     nameKey: `boss.${id}`,
     x, z, y: 0, px: x, pz: z, py: 0, yaw: 0, vx: 0, vz: 0,
     hp, maxHp: hp, dmg: scaleDmg(def.dmg, level), room, awake: false, state: 'idle', st: 0, cd: 1.2,
@@ -118,14 +123,21 @@ export const startBossIntro = (e: Enemy): void => {
   e.pz = e.z
 }
 
+/** One boss tick: the AI, then the motion channels (models/motion.ts) from
+ *  what the body actually did — the AI below has many early returns. */
 export const updateBoss = (w: World, e: Enemy, dt: number, room: Room | null): void => {
+  e.mo.pyaw = e.yaw
+  bossTick(w, e, dt, room)
+  if (e.state !== 'dead') stepMotion(e, dt)
+}
+
+const bossTick = (w: World, e: Enemy, dt: number, room: Room | null): void => {
   e.px = e.x
   e.pz = e.z
   e.py = e.y
   e.st += dt
   e.anim += dt
   e.flash = Math.max(0, e.flash - dt * 8)
-  e.walk = Math.max(0, e.walk - dt * 2.5)
   if (e.state === 'dead') {
     e.deathT += dt
     // A ripple of explosions across the body before the big pop
@@ -203,7 +215,6 @@ export const updateBoss = (w: World, e: Enemy, dt: number, room: Room | null): v
       const ml = Math.hypot(mx, mz)
       if (ml > 0.01) {
         step(w, e, (mx / ml) * def.speed * dt, (mz / ml) * def.speed * dt)
-        e.walk = Math.min(1, e.walk + dt * 4)
       }
       e.cd -= dt
       if (e.cd <= 0) {
@@ -346,7 +357,6 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         w.sfx('dash', e.x, e.z)
       }
       const frac = step(w, e, e.tx * 13 * dt, e.tz * 13 * dt)
-      e.walk = 1
       if (!e.hitPlayer && d < e.def.radius + PLAYER_R + 0.2) {
         e.hitPlayer = true
         w.hitPlayer(e, Math.round(e.dmg * 1.2), { blockable: false, fromX: e.x, fromZ: e.z, kind: 'melee' })
@@ -572,7 +582,11 @@ export const syncBossVisual = (e: Enemy, alpha: number): void => {
       : e.state === 'stun' ? 'stun'
         : e.walk > 0.2 ? 'walk' : 'idle'
   const k = e.state === 'tele' ? Math.min(1, e.st / e.teleDur) : e.state === 'act' ? Math.min(1, e.st / 0.25) : 0
-  poseBoss(e.rig, id, e.anim, act, k)
+  // The motion layer: the gait phase interpolated to this frame like the
+  // position; the humanoid bosses blend it with their act poses (Vex: hover)
+  const m = e.mo
+  m.phase = m.pstride + (m.stride - m.pstride) * alpha
+  poseBoss(e.rig, id, e.anim, act, k, m)
   if (e.ring.visible) e.ring.position.set(x, y + e.rig.height * bdef(e).scale + 0.6, z)
 }
 

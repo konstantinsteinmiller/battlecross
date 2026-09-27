@@ -1,6 +1,6 @@
 // Korean locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': '취소',
   'close': '닫기',
   'ok': '확인',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': '클릭하여 계속',
   'rewards': '보상',
   'tip': '팁',
-  'crazyGamesOnly': '이 게임은 다음에서만 이용할 수 있습니다:',
+  'onlyAvailableOn': '이 게임은 다음에서만 이용할 수 있습니다:',
 
   'ui': {
     'next': '다음',
@@ -32,11 +32,26 @@ export default {
     'lastStand': '불굴! 시스템 재가동.',
     'weak': '약점!',
     'dizzy': '어질어질!',
+    'dodge': '회피!',
     'block': '막기',
     'slide': '슬라이딩',
     'fire': '발사',
-    'tank': '수리 탱크',
-    'noEnergy': '무기 에너지 부족'
+    'tank': '수리 젤',
+    'noEnergy': '무기 에너지 부족',
+    'tankCount': '수리 젤: {n}/{max}',
+    'borrowed': '빌린 무기 {weapon}: {n}/{max}발',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': '으악-으악!',
+      '2': '지직! 앗!',
+      '3': '팔이 딸꾹질해!',
+      '4': '에러… 우와앙!',
+      '5': '미끌미끌 회로!',
+      '6': '흔들흔들 모드 ON!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': '기어 롤러',
     'brute': '가드로이드',
     'turret': '벽 포탑',
+    'golem': '상자 골렘',
     'elite': '엘리트',
     'level': '레벨 {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': '스톰퍼 | 스톰퍼',
     'roller': '기어 롤러 | 기어 롤러',
     'brute': '가드로이드 | 가드로이드',
-    'turret': '벽 포탑 | 벽 포탑'
+    'turret': '벽 포탑 | 벽 포탑',
+    'golem': '상자 골렘 | 상자 골렘'
   },
 
   'hud': {
     'help': '조작법 보기',
+    'mute': '음소거',
+    'unmute': '음소거 해제',
+    'bossUnknown': '정체불명의 보스',
     'hp': '체력',
     'we': '무기 에너지',
     'power': '파워',
@@ -100,6 +120,8 @@ export default {
     'elite': '엘리트 사냥',
     'supply': '보급 작전',
     'purge': '구역 소탕',
+    'climb': '타워 런',
+    'rematch': '재대결: {boss}',
     'desc': {
       'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
       'boss': '{sector}의 중심부로 침투하세요. 목표: {boss} 격파.',
@@ -108,7 +130,8 @@ export default {
       'rescue': '작업 로봇이 {sector}에 고립되었습니다. 찾아서 전송으로 탈출시키세요.',
       'elite': '{sector}에서 엘리트 {target} 한 기가 날뛰고 있습니다. 추적해 처치하세요.',
       'supply': '{sector}에서 보급 상자 {n}개를 열어젖히세요.',
-      'purge': '{sector}의 기계를 모두 파괴하세요.'
+      'purge': '{sector}의 기계를 모두 파괴하세요.',
+      'climb': '{sector}의 탑을 오르세요. 계단, 사다리, 리프트, 구덩이를 지나 아레나로 내려가 {boss}에게 다시 도전하세요.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': '고립된 작업 로봇 찾기',
     'elite': '엘리트 {target} 처치',
     'supply': '보급 상자: {n}/{total}',
-    'purge': '파괴한 기계: {n}/{total}'
+    'purge': '파괴한 기계: {n}/{total}',
+    'climb': '탑을 올라 {boss} 처치'
   },
   'mission': {
     'bossDown': '{boss} 격파!',
@@ -151,25 +175,30 @@ export default {
     'red': '빨간 링은 막을 수 없어요 — 슬라이딩으로 피하세요!',
     'dodgeKeys': '빨간 링은 막을 수 없어요 — Space를 눌러 슬라이딩으로 피하세요!',
     'chest': '보급 상자예요! 탭해서 열어 보세요.',
-    'tank': '체력이 부족해요? 수리 탱크를 쓰면 완전히 회복돼요.',
+    'tank': '체력이 부족해요? 수리 젤을 쓰면 완전히 회복돼요.',
     'weapon': '복사한 무기는 색깔 버튼으로 쓸 수 있어요!'
   },
   'lesson': {
-    'charge': '길게 눌러 버스터를 차지한 뒤 떼세요: 훈련용 드론의 방패는 차지 샷으로만 깨져요.',
+    'charge': '길게 눌러 캐논을 차지한 뒤 떼세요: 훈련용 드론의 방패는 차지 샷으로만 깨져요.',
     'crate': '보급 크레이트는 차지 샷으로만 부서져요. 길게 누른 뒤, 빛나는 크레이트를 노리고 떼세요.',
     'weaponKeys': '{n} 키를 눌러 복사한 무기를 발사하세요: 한 발로 드론 세 대를 모두 맞혀요.',
-    'weaponTouch': '빛나는 무기 버튼을 탭하세요: 한 발로 드론 세 대를 모두 맞혀요.'
+    'weaponTouch': '빛나는 무기 버튼을 탭하세요: 한 발로 드론 세 대를 모두 맞혀요.',
+    'gelKeys': 'H 키를 눌러 수리 젤을 쓰세요: 완전히 회복돼요.',
+    'gelTouch': '초록색 수리 젤 버튼을 탭하세요: 완전히 회복돼요.'
+  },
+  'walk': {
+    'finishLesson': '레슨을 마치세요'
   },
   'hubLesson': {
     'workshop': '공방을 여세요.',
-    'upgradeBuster': '나사를 써서 버스터를 강화하세요: 피해 증가.',
+    'upgradeBuster': '나사를 써서 캐논을 강화하세요: 피해 증가.',
     'pickArmor': '이제 가슴 아머를 선택하세요.',
     'upgradeArmor': '이것도 강화하세요: 방어력 증가.',
     'deploy': '준비 완료 — 미션으로 돌아가요!'
   },
   'loot': {
     'found': '{rarity} {item} 발견!',
-    'tank': '수리 탱크 발견!'
+    'tank': '수리 젤 발견!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': '시스템 다운',
     'body': 'Flux가 너무 큰 피해를 입었습니다.',
     'kept': '지금까지 얻은 보상은 그대로 유지됩니다:',
-    'useTank': '수리 탱크로 재가동 ({n})',
+    'useTank': '수리 젤로 재가동 ({n})',
     'rebootAd': '지금 재가동',
     'retreat': '연구소로 후퇴'
+  },
+  'banner': {
+    'cleared': '스테이지 클리어',
+    'bossDown': '적 처치!',
+    'gameOver': '게임 오버!'
   },
   'pause': {
     'title': '일시정지',
     'resume': '계속하기',
     'abandon': '미션 포기',
     'controls': '조작법',
+    'label': {
+      'move': '이동',
+      'look': '시점',
+      'parry': '패링',
+      'interact': '상호작용'
+    },
     'touch': {
       'move': '왼쪽: 드래그로 이동. 바닥을 탭하면 그곳으로 걸어갑니다.',
-      'look': '오른쪽: 드래그로 주위 둘러보기.',
       'fire': '전투 중: 탭으로 사격, 길게 눌러 차지, 떼면 발사.',
-      'block': '방패를 길게 눌러 막기 — 링이 닫히는 순간이면 패링.'
+      'block': '방패를 길게 눌러 막기 — 링이 닫히는 순간이면 패링.',
+      'use': '상자, 고립된 로봇, 문 근처에서: 그것이나 나타나는 버튼을 탭하세요.'
     },
     'keys': {
       'move': 'WASD / 방향키: 이동.',
       'look': '마우스를 움직여 둘러보기. 화면을 클릭하면 카메라를 조작합니다.',
       'fire': '좌클릭: 사격 — 길게 눌러 차지, 떼면 발사.',
       'block': '우클릭: 막기 — 링이 닫히는 순간이면 패링.',
-      'slide': 'Space: 슬라이딩 · H: 수리 탱크 · E: 상호작용 · B: 귀환',
-      'more': '1 / 2: 특수 무기 · Tab: 타깃 전환 · Esc: 일시정지'
+      'slide': 'Space: 슬라이딩 · H: 수리 젤 · E: 상호작용 · B: 귀환',
+      'more': '1 / 2: 특수 무기 · Tab: 타깃 전환 · Esc: 일시정지',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': '레벨 업!',
     'pick': '시스템 업그레이드를 선택하세요',
-    'chip': '회로용 스킬 칩 +1'
+    'chip': '회로용 스킬 칩 +1',
+    'granted': '{stat} 상승: {from}에서 {to}(으)로'
   },
   'attr': {
     'hp': { 'name': '프레임', 'desc': '최대 체력' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': '{boss} 격파 시 이 구역이 열립니다.',
     'sectorSecured': '구역 확보 완료. 의뢰는 아직 게시판에 남아 있습니다.',
     'deploy': '출격',
-    'reroll': '새 의뢰'
+    'reroll': '새 의뢰',
+    'unlock': {
+      'hint': '미션을 {n}개 더 완료하면 열립니다',
+      'aria': '{name}, 잠김: 미션 {n}개 더 완료'
+    }
   },
   'hero': {
     'role': '나의 전투 안드로이드',
@@ -260,12 +306,12 @@ export default {
       'charge': '차지 샷',
       'armor': '방어력',
       'crit': '치명타 확률',
-      'tanks': '수리 탱크'
+      'tanks': '수리 젤'
     }
   },
   'workshop': {
     'tanks': '보급품',
-    'tankName': '수리 탱크',
+    'tankName': '수리 젤',
     'tankDesc': '미션 중 체력과 파워를 완전히 회복합니다.',
     'owned': '보유: {n}/{max}',
     'upgrade': '장비 강화',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': '버스터',
+    'buster': '캐논',
     'armor': '아머',
     'core': '코어'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': '메가 차지', 'desc': '칩당 차지 샷 피해 +12%.' },
     'perfectTiming': { 'name': '퍼펙트 타이밍', 'desc': '퍼펙트 릴리스 판정이 넓어지고 치명타가 강해집니다.' },
     'piercing': { 'name': '관통 코어', 'desc': '하프 차지 샷으로도 방패와 헬멧을 부술 수 있습니다.' },
-    'giga': { 'name': '기가 버스터', 'desc': '풀 차지 후에도 계속 누르면 파괴적인 3단계 차지가 발동합니다.' },
+    'giga': { 'name': '오버 차지', 'desc': '풀 차지 후에도 계속 누르면 파괴적인 3단계 차지가 발동합니다.' },
     'frame': { 'name': '강화 프레임', 'desc': '칩당 최대 체력 +8%.' },
     'barrier': { 'name': '배리어 튜닝', 'desc': '막기에 드는 파워가 줄고 받는 피해도 줄어듭니다.' },
     'autoRepair': { 'name': '자동 수리', 'desc': '칩당 비전투 시 초당 체력 1% 재생.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': '슬라이드 부스터', 'desc': '슬라이딩 쿨다운이 빨라지고 소모도 줄어듭니다.' },
     'efficient': { 'name': '고효율 코어', 'desc': '칩당 특수 무기 에너지 소모 10% 감소.' },
     'magnet': { 'name': '나사 자석', 'desc': '나사를 더 많이 얻고 획득 범위가 넓어집니다.' },
-    'tankCap': { 'name': '탱크 용량', 'desc': '칩당 수리 탱크를 하나 더 들고 다닐 수 있습니다.' }
+    'tankCap': { 'name': '젤 용량', 'desc': '칩당 수리 젤을 하나 더 들고 다닐 수 있습니다.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': '전설'
   },
   'item': {
-    'arm_standard': '스탠다드 버스터',
-    'arm_rapid': '래피드 버스터',
-    'arm_heavy': '헤비 버스터',
-    'arm_quick': '퀵 차지 버스터',
-    'arm_nova': '노바 버스터',
+    'arm_standard': '스탠다드 캐논',
+    'arm_rapid': '래피드 캐논',
+    'arm_heavy': '헤비 캐논',
+    'arm_quick': '퀵 차지 캐논',
+    'arm_nova': '노바 캐논',
     'helm_scout': '정찰 헬멧',
     'helm_guard': '가드 헬멧',
     'helm_ace': '에이스 헬멧',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': '퀀텀 칩'
   },
   'slot': {
-    'buster': '버스터',
+    'buster': '캐논',
     'helmet': '헬멧',
     'chest': '프레임',
     'boots': '부츠',

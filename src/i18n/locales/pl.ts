@@ -1,6 +1,6 @@
 // Polish locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Anuluj',
   'close': 'Zamknij',
   'ok': 'Ok',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Kliknij, aby kontynuować',
   'rewards': 'NAGRODY',
   'tip': 'Wskazówka',
-  'crazyGamesOnly': 'Ta gra jest dostępna tylko na',
+  'onlyAvailableOn': 'Ta gra jest dostępna tylko na',
 
   'ui': {
     'next': 'Dalej',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Ostatni bastion! Systemy zrestartowane.',
     'weak': 'SŁABOŚĆ!',
     'dizzy': 'OSZOŁOMIONY!',
+    'dodge': 'UNIK!',
     'block': 'Blok',
     'slide': 'Wślizg',
     'fire': 'Strzał',
-    'tank': 'Zestaw naprawczy',
-    'noEnergy': 'Za mało energii broni'
+    'tank': 'Żel naprawczy',
+    'noEnergy': 'Za mało energii broni',
+    'tankCount': 'Żel naprawczy: {n} z {max}',
+    'borrowed': 'Pożyczona broń {weapon}: {n} z {max} strzałów',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Ojej-ojej!',
+      '2': 'Bzzt! Ups!',
+      '3': 'Ręka ma czkawkę!',
+      '4': 'Błąd… jupiii!',
+      '5': 'Obwody z masła!',
+      '6': 'Tryb galaretki: WŁ!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Walec zębaty',
     'brute': 'Strażdroid',
     'turret': 'Działo ścienne',
+    'golem': 'Golem-skrzynia',
     'elite': 'Elitarny',
     'level': 'Poz. {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Tupacz | Tupacze',
     'roller': 'Walec zębaty | Walce zębate',
     'brute': 'Strażdroid | Strażdroidy',
-    'turret': 'Działo ścienne | Działa ścienne'
+    'turret': 'Działo ścienne | Działa ścienne',
+    'golem': 'Golem-skrzynia | Golemy-skrzynie'
   },
 
   'hud': {
     'help': 'Pokaż sterowanie',
+    'mute': 'Wycisz dźwięk',
+    'unmute': 'Włącz dźwięk',
+    'bossUnknown': 'Nieznany boss',
     'hp': 'Zdrowie',
     'we': 'Energia broni',
     'power': 'Moc',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Polowanie na elitę',
     'supply': 'Wypad po zapasy',
     'purge': 'Czystka sektora',
+    'climb': 'Bieg na wieżę',
+    'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
       'boss': 'Wedrzyj się do rdzenia sektora {sector} i pokonaj bossa ({boss}).',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Robot roboczy utknął w sektorze {sector}. Znajdź go i przeteleportuj w bezpieczne miejsce.',
       'elite': 'Elitarny {target} terroryzuje sektor {sector}. Wytrop go!',
       'supply': 'Rozbij skrzynie z zaopatrzeniem w sektorze {sector} — łącznie {n}.',
-      'purge': 'Zniszcz wszystkie maszyny w sektorze {sector}.'
+      'purge': 'Zniszcz wszystkie maszyny w sektorze {sector}.',
+      'climb': 'Wespnij się na wieżę w sektorze {sector} — schody, drabiny, windy i przepaście — a potem zejdź na arenę na rewanż. Przeciwnik: {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Znajdź uwięzionego robota roboczego',
     'elite': 'Wytrop elitarnego wroga: {target}',
     'supply': 'Skrzynie z zaopatrzeniem: {n}/{total}',
-    'purge': 'Zniszczone maszyny: {n}/{total}'
+    'purge': 'Zniszczone maszyny: {n}/{total}',
+    'climb': 'Wespnij się na wieżę i pokonaj bossa: {boss}'
   },
   'mission': {
     'bossDown': '{boss} zniszczony!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Czerwony pierścień: ataku nie da się zablokować — zejdź z drogi wślizgiem!',
     'dodgeKeys': 'Czerwony pierścień: ataku nie da się zablokować — wciśnij Spację i zejdź z drogi wślizgiem!',
     'chest': 'Skrzynia z zaopatrzeniem! Dotknij jej, by otworzyć.',
-    'tank': 'Kończy ci się zdrowie? Zestaw naprawczy w pełni cię naprawi.',
+    'tank': 'Kończy ci się zdrowie? Żel naprawczy w pełni cię naprawi.',
     'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!'
   },
   'lesson': {
-    'charge': 'Przytrzymaj, by naładować buster, i puść: tylko strzał naładowany przebija tarczę drona treningowego.',
+    'charge': 'Przytrzymaj, by naładować działo, i puść: tylko strzał naładowany przebija tarczę drona treningowego.',
     'crate': 'Skrzynki z zaopatrzeniem pękają tylko od strzału naładowanego. Przytrzymaj i puść, celując w świecącą skrzynkę.',
     'weaponKeys': 'Wciśnij {n}, by wystrzelić ze skopiowanej broni: jeden strzał trafia wszystkie trzy drony.',
-    'weaponTouch': 'Dotknij świecącego przycisku broni: jeden strzał trafia wszystkie trzy drony.'
+    'weaponTouch': 'Dotknij świecącego przycisku broni: jeden strzał trafia wszystkie trzy drony.',
+    'gelKeys': 'Wciśnij H, by użyć żelu naprawczego: w pełni cię naprawi.',
+    'gelTouch': 'Dotknij zielonego przycisku żelu naprawczego: w pełni cię naprawi.'
+  },
+  'walk': {
+    'finishLesson': 'Ukończ lekcję'
   },
   'hubLesson': {
     'workshop': 'Otwórz Warsztat.',
-    'upgradeBuster': 'Wydaj śruby, by ulepszyć buster: więcej obrażeń.',
+    'upgradeBuster': 'Wydaj śruby, by ulepszyć działo: więcej obrażeń.',
     'pickArmor': 'Teraz wybierz pancerz korpusu.',
     'upgradeArmor': 'Jego też ulepsz: więcej obrony.',
     'deploy': 'Gotowe — wracamy do misji!'
   },
   'loot': {
     'found': 'Znaleziono: {item} ({rarity})!',
-    'tank': 'Znaleziono zestaw naprawczy!'
+    'tank': 'Znaleziono żel naprawczy!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'AWARIA SYSTEMU',
     'body': 'Flux otrzymał zbyt wiele obrażeń.',
     'kept': 'Zdobyte dotąd nagrody zostają z tobą:',
-    'useTank': 'Użyj zestawu naprawczego ({n})',
+    'useTank': 'Użyj żelu naprawczego ({n})',
     'rebootAd': 'Restartuj teraz',
     'retreat': 'Wróć do laboratorium'
+  },
+  'banner': {
+    'cleared': 'Poziom ukończony',
+    'bossDown': 'Wróg pokonany!',
+    'gameOver': 'Koniec gry!'
   },
   'pause': {
     'title': 'PAUZA',
     'resume': 'Wznów',
     'abandon': 'Porzuć misję',
     'controls': 'Sterowanie',
+    'label': {
+      'move': 'Ruch',
+      'look': 'Rozglądanie',
+      'parry': 'Parowanie',
+      'interact': 'Interakcja'
+    },
     'touch': {
       'move': 'Lewa strona: przeciągaj, by chodzić. Dotknij podłogi, by tam pójść.',
-      'look': 'Prawa strona: przeciągaj, by się rozglądać.',
       'fire': 'W walce: dotknij, by strzelić, przytrzymaj, by ładować, puść, by wystrzelić.',
-      'block': 'Przytrzymaj tarczę, by blokować — wciśnij, gdy pierścień się zamyka, by sparować.'
+      'block': 'Przytrzymaj tarczę, by blokować — wciśnij, gdy pierścień się zamyka, by sparować.',
+      'use': 'Przy skrzyni, uwięzionym robocie lub drzwiach: dotknij ich albo przycisku, który się pojawi.'
     },
     'keys': {
       'move': 'WASD / strzałki: ruch.',
       'look': 'Poruszaj myszą, by się rozglądać. Kliknij scenę, by przejąć kontrolę nad kamerą.',
       'fire': 'Lewy przycisk: strzał — przytrzymaj, by ładować, puść, by wystrzelić.',
       'block': 'Prawy przycisk: blok — wciśnij, gdy pierścień się zamyka, by sparować.',
-      'slide': 'Spacja: wślizg · H: zestaw naprawczy · E: interakcja · B: teleportacja',
-      'more': '1 / 2: bronie specjalne · Tab: zmiana celu · Esc: pauza'
+      'slide': 'Spacja: wślizg · H: żel naprawczy · E: interakcja · B: teleportacja',
+      'more': '1 / 2: bronie specjalne · Tab: zmiana celu · Esc: pauza',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'NOWY POZIOM!',
     'pick': 'Wybierz ulepszenie systemu',
-    'chip': '+1 chip umiejętności do obwodów'
+    'chip': '+1 chip umiejętności do obwodów',
+    'granted': '{stat} wzrasta z {from} do {to}'
   },
   'attr': {
     'hp': { 'name': 'Korpus', 'desc': 'Maks. zdrowie' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Pokonaj bossa ({boss}), by otworzyć ten sektor.',
     'sectorSecured': 'Sektor zabezpieczony. Jego zlecenia wciąż wiszą na tablicy.',
     'deploy': 'Wyrusz',
-    'reroll': 'Nowe zlecenie'
+    'reroll': 'Nowe zlecenie',
+    'unlock': {
+      'hint': 'Ukończ jeszcze {n} misję, aby odblokować | Ukończ jeszcze {n} misje, aby odblokować | Ukończ jeszcze {n} misji, aby odblokować',
+      'aria': '{name}, zablokowane: ukończ jeszcze {n} misję | {name}, zablokowane: ukończ jeszcze {n} misje | {name}, zablokowane: ukończ jeszcze {n} misji'
+    }
   },
   'hero': {
     'role': 'Twój android bojowy',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Strzał naładowany',
       'armor': 'Pancerz',
       'crit': 'Szansa na krytyczne',
-      'tanks': 'Zestawy naprawcze'
+      'tanks': 'Żele naprawcze'
     }
   },
   'workshop': {
     'tanks': 'Zapasy',
-    'tankName': 'Zestaw naprawczy',
+    'tankName': 'Żel naprawczy',
     'tankDesc': 'W pełni przywraca zdrowie i moc w trakcie misji.',
     'owned': 'Przy sobie: {n}/{max}',
     'upgrade': 'Ulepsz sprzęt',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Działo',
     'armor': 'Pancerz',
     'core': 'Rdzeń'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Mega ładunek', 'desc': 'Obrażenia strzału naładowanego +12% na chip.' },
     'perfectTiming': { 'name': 'Idealne wyczucie', 'desc': 'Szersze okno na idealne puszczenie i mocniejsze trafienia krytyczne.' },
     'piercing': { 'name': 'Przebijający rdzeń', 'desc': 'Strzały naładowane w połowie też przebijają tarcze i hełmy.' },
-    'giga': { 'name': 'Giga Buster', 'desc': 'Trzymaj dalej po pełnym naładowaniu, by uzyskać niszczycielski trzeci poziom.' },
+    'giga': { 'name': 'Przeciążenie', 'desc': 'Trzymaj dalej po pełnym naładowaniu, by uzyskać niszczycielski trzeci poziom.' },
     'frame': { 'name': 'Wzmocniony korpus', 'desc': 'Maks. zdrowie +8% na chip.' },
     'barrier': { 'name': 'Strojenie bariery', 'desc': 'Blokowanie zużywa mniej mocy i przepuszcza mniej obrażeń.' },
     'autoRepair': { 'name': 'Autonaprawa', 'desc': 'Odnawia 1% zdrowia na sekundę poza walką, na chip.' },
@@ -309,21 +355,21 @@ export default {
     'boosters': { 'name': 'Dopalacze wślizgu', 'desc': 'Szybsze odnowienie wślizgu, tańsze wślizgi.' },
     'efficient': { 'name': 'Wydajne rdzenie', 'desc': 'Bronie specjalne zużywają o 10% mniej energii na chip.' },
     'magnet': { 'name': 'Magnes na śruby', 'desc': 'Więcej śrub i większy zasięg zbierania.' },
-    'tankCap': { 'name': 'Pojemność zestawów', 'desc': 'Noś o jeden zestaw naprawczy więcej na chip.' }
+    'tankCap': { 'name': 'Zapas żelu', 'desc': 'Noś o jeden żel naprawczy więcej na chip.' }
   },
 
   'rarity': {
-    'standard': 'Standardowy',
-    'tuned': 'Podrasowany',
+    'standard': 'Standard',
+    'tuned': 'Tuning',
     'prototype': 'Prototyp',
-    'legendary': 'Legendarny'
+    'legendary': 'Legenda'
   },
   'item': {
-    'arm_standard': 'Standardowy Buster',
-    'arm_rapid': 'Szybkostrzelny Buster',
-    'arm_heavy': 'Ciężki Buster',
-    'arm_quick': 'Buster szybkiego ładowania',
-    'arm_nova': 'Buster Nova',
+    'arm_standard': 'Standardowe działo',
+    'arm_rapid': 'Szybkostrzelne działo',
+    'arm_heavy': 'Ciężkie działo',
+    'arm_quick': 'Działo szybkiego ładowania',
+    'arm_nova': 'Działo Nova',
     'helm_scout': 'Hełm zwiadowcy',
     'helm_guard': 'Hełm strażnika',
     'helm_ace': 'Hełm asa',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Chip kwantowy'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Działo',
     'helmet': 'Hełm',
     'chest': 'Korpus',
     'boots': 'Buty',

@@ -41,6 +41,9 @@ export const setTeleRing = (s: Sprite, k: number, red: boolean, parryWindow01: n
 export class FloorMarkers {
   readonly root = new Group()
   private pool: Array<{ mesh: Mesh; fill: Mesh; t: number; dur: number; r: number; active: boolean }> = []
+  /** The climb: the floor height under a marker (a ledge, a walkway). Null
+   *  on a flat map, where every marker lies at y = 0. */
+  floorY: ((x: number, z: number) => number) | null = null
 
   spawn(x: number, z: number, r: number, dur: number): void {
     let m = this.pool.find(p => !p.active)
@@ -59,8 +62,9 @@ export class FloorMarkers {
     m.t = 0
     m.dur = dur
     m.r = r
-    m.mesh.position.set(x, 0.03, z)
-    m.fill.position.set(x, 0.025, z)
+    const fy = this.floorY ? Math.max(-60, this.floorY(x, z)) : 0
+    m.mesh.position.set(x, fy + 0.03, z)
+    m.fill.position.set(x, fy + 0.025, z)
     m.mesh.scale.setScalar(r)
     m.fill.scale.setScalar(0.01)
     m.mesh.visible = m.fill.visible = true

@@ -1,7 +1,13 @@
+import { Color, Euler, Quaternion } from 'three'
 import {
-  RigBuilder, sph, ell, cap, torus, rcyl, rcone, dome, paintBy, xform, type Rig, pose, nudge, scaleBone
+  RigBuilder, sph, ell, cap, torus, rcyl, rcone, dome, paintBy, xform, type Rig, pose, nudge, scaleBone,
+  rbox, rboxSplit, rock
 } from './kit'
 import { PAL } from './palette'
+import {
+  GAIT, TAU, HOP_H, bump, frac, fidgetEnv, fidgetP, gaitAmp, smoothstep, type EnemyMotion
+} from './motion'
+import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
 
 /**
  * ─── Machine enemies ─────────────────────────────────────────────────────────
@@ -16,7 +22,7 @@ import { PAL } from './palette'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem'
 
 export interface EnemyColors {
   main: string
@@ -33,7 +39,39 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   hopper: { main: PAL.hopper, deep: PAL.hopperDeep, accent: '#ffd23a', eye: PAL.glowRed, metal: '#8a93a8' },
   roller: { main: PAL.roller, deep: PAL.rollerDeep, accent: '#ffe14a', eye: PAL.glowCyan, metal: '#6f7a90' },
   brute: { main: PAL.brute, deep: PAL.bruteDeep, accent: '#ff8a2a', eye: PAL.glowRed, metal: '#3b4458' },
-  turret: { main: PAL.turret, deep: '#2c7a72', accent: '#ffcf3a', eye: PAL.glowRed, metal: '#5d6a82' }
+  turret: { main: PAL.turret, deep: '#2c7a72', accent: '#ffcf3a', eye: PAL.glowRed, metal: '#5d6a82' },
+  // The crate golem wears its sector's crate (sim/enemies.ts golemColors):
+  // main = the crate's wood, deep = its trim, eye = the theme accent (the
+  // crate's nubs, its visor and core), accent = the iron bands on its limbs
+  // (an elite's gold), metal = its stone. This is the Scrapyard's crate.
+  golem: { main: '#c68a3e', deep: '#5f4630', accent: '#646b7a', eye: '#ffcf5a', metal: '#8e877b' }
+}
+
+// ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
+//
+// Every pose function below takes an optional last `m: EnemyMotion` (see
+// models/motion.ts). WITHOUT it the function is byte-for-byte the old pose, so
+// the dev bench and the store-art shots in ModelLab render exactly as before.
+// WITH it (the game, via syncEnemyVisual) the machine breathes, shifts its
+// weight, glances around, fidgets while unaware, walks on a distance-driven
+// planted-foot gait, and eases out of its attacks. The attack key poses
+// (a full wind-up, the aim arm, a full peek, the hop crouch) are reached
+// exactly as before, so every telegraph reads the same.
+
+const mix = (a: number, b: number, k: number): number => a + (b - a) * k
+const clamp = (x: number, lo: number, hi: number): number => (x < lo ? lo : x > hi ? hi : x)
+
+const _eYX = new Euler(0, 0, 0, 'YXZ')
+const _qYX = new Quaternion()
+/** Like kit.pose, but the yaw comes FIRST (a heading), then the pitch about
+ *  the turned axle — the roller's wheel steering into its travel. */
+const poseYX = (rig: Rig, name: string, rx: number, ry: number): void => {
+  const b = rig.bones[name]
+  const r = rig.rest[name]
+  if (!b || !r) return
+  _eYX.set(rx, ry, 0, 'YXZ')
+  _qYX.setFromEuler(_eYX)
+  b.quaternion.copy(r.q).multiply(_qYX)
 }
 
 /** Eye: white, iris, pupil, highlight — the thing that makes a machine cute. */
@@ -71,8 +109,73 @@ export const buildHardhat = (c: EnemyColors = BASE_COLORS.hardhat): Rig => {
   return b.build({ outline: 0.016, height: 0.78 })
 }
 
-/** 0 = fully hidden under the helmet, 1 = peeking. */
-export const poseHardhat = (rig: Rig, peek: number, t: number, walk: number): void => {
+/** The idle peek-look lifts the helmet only this far: `combat.ts` deflects
+ *  shots while guard > 0.55 (peek < 0.45), so the look never promises an
+ *  opening the rules do not give. */
+export const HARDHAT_IDLE_PEEK = 0.35
+/** Walking hidden, helmet and body rise together (eyes stay under the dome)
+ *  so the little feet show under the brim: the brim's rolled edge must clear
+ *  a lifted foot (0.2 m), or from the player's eye height it still glides. */
+export const HARDHAT_WALK_LIFT = 0.17
+
+const animateHardhat = (rig: Rig, peek: number, t: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const g = GAIT.hardhat!
+  const wk = gaitAmp(m.walk)
+  const still = 1 - wk
+  const p = fidgetP(m, 'hardhat')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let fPeek = 0
+  let fYaw = 0
+  let fRoll = 0
+  let fHop = 0
+  let fTapL = 0
+  let fTapR = 0
+  let fTurn = 0
+  if (m.fid === 1) {
+    // Peek-look: eyes up under the brim, glance left, right, duck
+    fPeek = HARDHAT_IDLE_PEEK
+    fYaw = -0.5 * Math.sin(TAU * p)
+  } else if (m.fid === 2) {
+    // Helmet settle: a shimmy and a hop
+    fRoll = 0.1 * Math.sin(3 * TAU * p)
+    fHop = 0.04 * Math.sin(Math.PI * p)
+  } else if (m.fid === 3) {
+    // Shuffle-turn: four taps, a little turn and back
+    const s = Math.sin(2 * TAU * p)
+    fTapL = 0.03 * Math.max(0, s)
+    fTapR = 0.03 * Math.max(0, -s)
+    fTurn = 0.2 * Math.sin(TAU * p)
+  }
+  const k = clamp(Math.max(peek, fPeek * fe), 0, 1)
+  gaitLegs(g, m, wk)
+  const u = frac(m.phase / TAU)
+  // Foot-only rig: L = 1, so sin(th) is the fore-aft offset (m)
+  const dL = g.L * Math.sin(legL.th)
+  const dR = g.L * Math.sin(legR.th)
+  const out = g.L * Math.sin(gaitDir.bias)
+  const br = Math.sin(T * 2.1)
+  const sh = Math.sin(T * 0.55 + 1.3)
+  const bob = 0.0075 * wk * (1 - Math.cos(2 * TAU * u))
+  const lift = HARDHAT_WALK_LIFT * wk + 0.012 * br * still + bob + fHop * fe + 0.05 * m.startle
+  // Rock toward the planted foot (the L side while u < 0.5), a slow weight rock at rest
+  const rock = (0.02 + 0.015 * calm) * sh * still + 0.06 * wk * Math.sin(TAU * u) + fRoll * fe
+  nudge(rig, 'helmet', 0, -0.26 * (1 - k) + 0.12 * k + lift, -0.04 * k)
+  pose(rig, 'helmet', -0.35 * k + 0.08 * wk * gaitDir.f, fTurn * fe, rock)
+  scaleBone(rig, 'body', 1, 0.45 + 0.55 * k, 1)
+  nudge(rig, 'body', 0, -0.12 * (1 - k) + lift, 0)
+  pose(rig, 'body', 0, fYaw * fe, 0)
+  nudge(rig, 'footL', dL * gaitDir.s - out, legL.knee + fTapL * fe, dL * gaitDir.f)
+  nudge(rig, 'footR', dR * gaitDir.s + out, legR.knee + fTapR * fe, dR * gaitDir.f)
+}
+
+/** 0 = fully hidden under the helmet, 1 = peeking. With `m`, the motion layer. */
+export const poseHardhat = (rig: Rig, peek: number, t: number, walk: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateHardhat(rig, peek, t, m)
+    return
+  }
   const k = Math.max(0, Math.min(1, peek))
   nudge(rig, 'helmet', 0, -0.26 * (1 - k) + 0.12 * k, -0.04 * k)
   pose(rig, 'helmet', -0.35 * k, 0, Math.sin(t * 9) * 0.04 * walk)
@@ -127,8 +230,98 @@ export const buildTrooper = (c: EnemyColors = BASE_COLORS.trooper): Rig => {
   return b.build({ outline: 0.018, height: 1.62 })
 }
 
-/** guard: 1 = shield raised in front. aim: 1 = gun arm raised to fire. */
-export const poseTrooper = (rig: Rig, guard: number, aim: number, t: number, walk: number): void => {
+/** Arm angles [shoulder rx, ry, rz] + elbow rx. */
+interface ArmPose { x: number; y: number; z: number; elbow: number }
+
+/**
+ * The shield RAISED (guard 1): upper arm forward, forearm hanging, so the
+ * disc (its face is the forearm's +Z) stands upright IN FRONT of the torso,
+ * facing the player — it reads as blocking frontal shots, the visor peeking
+ * over its rim. (The old pose, still drawn by the legacy path, laid it flat
+ * over the head like an umbrella.) Purely visual: `combat.ts` decides a block
+ * from `guard` and the shot's angle, never from the shield's geometry.
+ */
+export const TROOPER_SHIELD_UP: Readonly<ArmPose> = { x: -1.1, y: 0.2, z: 0.2, elbow: 1.0 }
+/** The shield LOWERED to fire (guard 0): carried at the side, arm close in
+ *  (not the old 14°-outward A-arm) and the disc turned edge-on to the front,
+ *  so the opening reads at a glance — a disc hanging IN FRONT of the hips
+ *  looked half-guarded while front shots already land. */
+export const TROOPER_SHIELD_DOWN: Readonly<ArmPose> = { x: 0.05, y: -1.45, z: -0.12, elbow: -0.2 }
+/** The gun arm at rest: low ready, forward-down and close to the body. */
+export const TROOPER_GUN_REST: Readonly<ArmPose> = { x: -0.25, y: -0.1, z: 0.08, elbow: -0.55 }
+/** The gun arm at aim 1: exactly the old aim pose (the burst telegraph). */
+const TROOPER_GUN_AIM: Readonly<ArmPose> = { x: -1.55, y: 0, z: 0.03, elbow: -0.15 }
+
+const animateTrooper = (rig: Rig, guard: number, aim: number, t: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const g = GAIT.trooper!
+  const wk = gaitAmp(m.walk)
+  const still = 1 - wk
+  gaitLegs(g, m, wk)
+  poseLegs(rig)
+  const u = frac(m.phase / TAU)
+  const br = Math.sin(T * 2.4)
+  const sh = Math.sin(T * 0.55 + 1.3)
+  nudge(rig, 'hips', 0, -stanceDrop(g) + 0.008 * br * still + 0.05 * m.startle, 0)
+  const p = fidgetP(m, 'trooper')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let hX = 0
+  let hY = 0
+  let hZ = 0
+  let cY = 0
+  let cZ = 0
+  let gX = 0
+  let gY = 0
+  let gE = 0
+  let sX = 0
+  if (m.fid === 1) {
+    // Look-around: head left, hold, right, hold (the chest follows a little)
+    hY = 0.7 * clamp(1.6 * Math.sin(TAU * p), -1, 1)
+    cY = 0.25 * hY
+  } else if (m.fid === 2) {
+    // Check gun: bring it up across the chest, look down at it, give it a shake
+    gX = -0.75
+    gY = -0.4
+    gE = -0.95 + 0.1 * Math.sin(6 * TAU * p)
+    hX = 0.25
+    hY = 0.2
+  } else if (m.fid === 3) {
+    // Shield shrug: shoulders roll twice, the shield bobs (still in front)
+    cZ = 0.06 * Math.sin(2 * TAU * p)
+    sX = 0.12 * Math.sin(Math.PI * p)
+  } else if (m.fid === 4) {
+    // Antenna twitch
+    hZ = 0.12 * Math.sin(2 * TAU * p)
+  }
+  const look = m.look * calm
+  // Weight on the chest, never on the hips (a sway on the hips drags the
+  // planted foot); walking, it rides over the stance leg (L side while u < ½)
+  const shiftX = 0.015 * sh * still - 0.018 * Math.sin(TAU * u) * wk
+  const twist = ((legL.th - legR.th) * 0.5 * 0.1 / g.A) * wk * gaitDir.f
+  nudge(rig, 'chest', shiftX, 0, 0)
+  pose(rig, 'chest', 0.05 * guard + 0.1 * wk * gaitDir.f + 0.025 * br * still, 0.15 * aim - twist + 0.15 * look + cY * fe, -1.5 * shiftX + cZ * fe)
+  pose(rig, 'head', -0.1 * aim - 0.015 * br * still + hX * fe - 0.1 * m.startle, clamp(0.6 * look + hY * fe, -1.1, 1.1), hZ * fe)
+  // Gun arm: low ready + counter-swing (with the L leg) + fidget → the aim pose by `aim`
+  const swing = -(legL.th / g.A) * 0.38 * wk * gaitDir.f
+  const R = TROOPER_GUN_REST
+  const A = TROOPER_GUN_AIM
+  pose(rig, 'shoulderR', mix(R.x + swing + gX * fe - 0.2 * m.startle, A.x, aim), mix(R.y + gY * fe, A.y, aim), mix(R.z, A.z, aim))
+  pose(rig, 'elbowR', mix(R.elbow + gE * fe, A.elbow, aim), 0, 0)
+  // Shield: the low carry (guard 0) … raised (guard 1); breath and steps bob it
+  const D = TROOPER_SHIELD_DOWN
+  const U = TROOPER_SHIELD_UP
+  const bobS = (0.03 * br * still + 0.04 * wk * Math.abs(Math.sin(TAU * u)) + sX * fe) * guard
+  pose(rig, 'shoulderL', mix(D.x, U.x, guard) + bobS, mix(D.y, U.y, guard), mix(D.z, U.z, guard))
+  pose(rig, 'elbowL', mix(D.elbow, U.elbow, guard), 0, 0)
+}
+
+/** guard: 1 = shield raised in front. aim: 1 = gun arm raised to fire. With `m`, the motion layer. */
+export const poseTrooper = (rig: Rig, guard: number, aim: number, t: number, walk: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateTrooper(rig, guard, aim, t, m)
+    return
+  }
   const w = Math.sin(t * 8) * walk
   pose(rig, 'hipL', w * 0.5, 0, 0)
   pose(rig, 'hipR', -w * 0.5, 0, 0)
@@ -166,7 +359,39 @@ export const buildHeli = (c: EnemyColors = BASE_COLORS.heli): Rig => {
   return b.build({ outline: 0.015, height: 0.8 })
 }
 
-export const poseHeli = (rig: Rig, t: number, tilt: number, spin: number): void => {
+const animateHeli = (rig: Rig, t: number, tilt: number, spin: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const w = m.walk
+  // The smoothed direction as is (not normalised): it passes through zero
+  // when the drone reverses, so bank and trail fade through level
+  const cf = m.fwd
+  const sf = m.side
+  const p = fidgetP(m, 'heli')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let clack = 0
+  let dip = 0
+  let yaw = 0
+  if (m.fid === 1) clack = 0.35 * Math.max(0, Math.sin(2 * TAU * p)) // claw snap ×2
+  else if (m.fid === 2) dip = p < 0.5 ? -0.12 * Math.sin(TAU * p) : 0.04 * Math.sin(TAU * (p - 0.5)) // hiccup
+  else if (m.fid === 3) yaw = 0.9 * Math.sin(TAU * p) // spin check
+  // Hover bob (view-only: the sim's height bob only runs in engage)
+  nudge(rig, 'body', 0, 0.06 * Math.sin(T * 1.6) * (1 - 0.5 * w) + 0.15 * m.startle + dip * fe, 0)
+  pose(rig, 'rotor', 0, spin, 0)
+  // Bank into the travel and into turns (a negative roll lifts the −X side)
+  const roll = Math.sin(T * 2.3) * 0.08 - clamp(0.35 * sf * w + 0.15 * m.turn, -0.5, 0.5)
+  pose(rig, 'body', tilt + 0.04 * Math.sin(T * 1.3) * (1 - w), 0.4 * m.look * calm + yaw * fe, roll)
+  // Claws hang under the tilt and trail behind with airspeed
+  const trail = 0.3 * w * cf
+  pose(rig, 'clawL', Math.sin(T * 3) * 0.2 - tilt * 0.8 + trail, 0, -0.2 + clack * fe)
+  pose(rig, 'clawR', Math.sin(T * 3 + 1) * 0.2 - tilt * 0.8 + trail, 0, 0.2 - clack * fe)
+}
+
+export const poseHeli = (rig: Rig, t: number, tilt: number, spin: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateHeli(rig, t, tilt, spin, m)
+    return
+  }
   pose(rig, 'rotor', 0, spin, 0)
   pose(rig, 'body', tilt, 0, Math.sin(t * 2.3) * 0.08)
   pose(rig, 'clawL', Math.sin(t * 3) * 0.2 - tilt * 0.8, 0, -0.2)
@@ -200,8 +425,52 @@ export const buildHopper = (c: EnemyColors = BASE_COLORS.hopper): Rig => {
   return b.build({ outline: 0.02, height: 2.0 })
 }
 
-/** squash: -1 crouch … 0 rest … 1 stretched (air). */
-export const poseHopper = (rig: Rig, squash: number, t: number): void => {
+const animateHopper = (rig: Rig, squash: number, t: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const p = fidgetP(m, 'hopper')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let crouch = 0
+  let hopF = 0
+  let lift = 0
+  let shake = 0
+  let yaw = 0
+  let roll = 0
+  if (m.fid === 1) {
+    // Bounce-bounce: two small hops, each after a SHALLOW crouch (the leap's
+    // telegraph is a full crouch with a red ring and a floor marker)
+    const q = frac(p * 2)
+    crouch = -0.2 * bump(q, 0, 0.3)
+    hopF = 0.1 * bump(q, 0.3, 0.9)
+  } else if (m.fid === 2) {
+    // Leg shake: one coil draws up and shakes
+    lift = 1
+    shake = 0.15 * Math.sin(4 * TAU * p)
+  } else if (m.fid === 3) {
+    // Eye roll
+    yaw = 0.6 * Math.sin(TAU * p)
+    roll = 0.08 * Math.sin(2 * TAU * p)
+  }
+  // Breathing fades out under an attack squash, so its key poses are exact
+  const quiet = 1 - Math.min(1, Math.abs(squash))
+  const s = clamp(squash + 0.06 * Math.sin(T * 2.2) * quiet + crouch * fe, -1, 1)
+  scaleBone(rig, 'legL', 1, (1 + s * 0.35) * (1 - 0.3 * lift * fe), 1)
+  scaleBone(rig, 'legR', 1, 1 + s * 0.35, 1)
+  pose(rig, 'legL', 0, 0, shake * fe)
+  pose(rig, 'legR', 0, 0, 0)
+  scaleBone(rig, 'body', 1 - s * 0.08, 1 + s * 0.1, 1 - s * 0.08)
+  // m.hop: the engage hop arc (view-only), so the feet leave the floor for
+  // every metre the stomper covers; it leans into the hop
+  nudge(rig, 'hips', 0, s * 0.22 + Math.sin(T * 2.5) * 0.01 + m.hop + hopF * fe + 0.06 * m.startle, 0)
+  pose(rig, 'body', 0.15 * (m.hop / HOP_H), 0.35 * m.look * calm + yaw * fe, 0.04 * Math.sin(T * 0.7) * calm + roll * fe)
+}
+
+/** squash: -1 crouch … 0 rest … 1 stretched (air). With `m`, the motion layer. */
+export const poseHopper = (rig: Rig, squash: number, t: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateHopper(rig, squash, t, m)
+    return
+  }
   const s = Math.max(-1, Math.min(1, squash))
   scaleBone(rig, 'legL', 1, 1 + s * 0.35, 1)
   scaleBone(rig, 'legR', 1, 1 + s * 0.35, 1)
@@ -235,7 +504,48 @@ export const buildRoller = (c: EnemyColors = BASE_COLORS.roller): Rig => {
   return b.build({ outline: 0.018, height: 1.8 })
 }
 
-export const poseRoller = (rig: Rig, wheelAngle: number, t: number, lean: number): void => {
+const animateRoller = (rig: Rig, wheelAngle: number, t: number, lean: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const w = m.walk
+  const still = 1 - Math.min(1, w * 3)
+  const p = fidgetP(m, 'roller')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let fLook = 0
+  let fTilt = 0
+  let fBlip = 0
+  let fHop = 0
+  let fTop = 0
+  if (m.fid === 1) {
+    // Look-around with a head tilt
+    fLook = 0.9 * Math.sin(TAU * p)
+    fTilt = 0.15 * Math.sin(2 * TAU * p)
+  } else if (m.fid === 2) {
+    // Rev blip: a small forward-and-back twitch (the charge telegraph is a
+    // continuous 30 rad/s rev with a red ring)
+    fBlip = 0.9 * Math.sin(Math.PI * p)
+    fHop = 0.05 * Math.sin(Math.PI * p)
+  } else if (m.fid === 3) {
+    // Near-topple, the driver counter-leaning
+    fTop = 0.1 * Math.sin(3 * TAU * p) * (1 - p)
+    fTilt = -1.2 * fTop
+  }
+  // Balancing rock at rest; rolling, the wheel angle comes from DISTANCE
+  // (m.roll) plus the telegraph revs (wheelAngle = e.a), steered into the travel
+  const rock = 0.08 * Math.sin(T * 0.9) * still
+  poseYX(rig, 'wheel', wheelAngle + m.roll + rock + fBlip * fe, m.heading)
+  const bank = clamp(-0.12 * m.turn * w, -0.25, 0.25)
+  pose(rig, 'root', 0, 0, bank + 0.05 * w * Math.sin(m.roll * 0.5) + 0.03 * Math.sin(T * 0.9 + 0.7) * still + fTop * fe)
+  pose(rig, 'driver', lean * 0.35 - 1.2 * rock, 0.6 * m.look * calm + fLook * fe, Math.sin(T * 6) * 0.05 + fTilt * fe)
+  // The driver bounces with the WHEEL, not the clock
+  nudge(rig, 'driver', 0, Math.abs(Math.sin(m.roll)) * 0.03 * w + Math.abs(Math.sin(T * 10)) * 0.006 * still + 0.06 * m.startle + fHop * fe, 0)
+}
+
+export const poseRoller = (rig: Rig, wheelAngle: number, t: number, lean: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateRoller(rig, wheelAngle, t, lean, m)
+    return
+  }
   pose(rig, 'wheel', wheelAngle, 0, 0)
   pose(rig, 'driver', lean * 0.35, 0, Math.sin(t * 6) * 0.05)
   nudge(rig, 'driver', 0, Math.abs(Math.sin(t * 10)) * 0.03 * Math.min(1, Math.abs(lean) + 0.2), 0)
@@ -278,8 +588,87 @@ export const buildBrute = (c: EnemyColors = BASE_COLORS.brute): Rig => {
   return b.build({ outline: 0.024, height: 2.45 })
 }
 
-/** punch: which arm (−1 L, 1 R, 0 none) and wind-up k (−1 back … 1 thrown). */
-export const poseBrute = (rig: Rig, t: number, walk: number, arm: number, k: number, slam: number): void => {
+/** The Guardroid's L arm at rest (R mirrors y and z): a hunched gorilla
+ *  stance, fists hanging in front of the hips — the old rest had them 0.2 rad
+ *  out to the sides (the A-pose). Every fist clearance is positive. */
+export const BRUTE_REST: Readonly<ArmPose> = { x: -0.38, y: 0.18, z: -0.02, elbow: -0.7 }
+
+const animateBrute = (rig: Rig, t: number, slam: number, m: EnemyMotion): void => {
+  const T = t * m.tempo
+  const calm = m.calm
+  const g = GAIT.brute!
+  const wk = gaitAmp(m.walk)
+  const still = 1 - wk
+  gaitLegs(g, m, wk)
+  // Soft knees at rest (the soles stay down: hips drop 0.027), straight in the stride
+  poseLegs(rig, -0.25 * still, 0.5 * still)
+  const br = Math.sin(T * 1.6)
+  const sh = Math.sin(T * 0.45 + 0.7)
+  nudge(rig, 'hips', 0, -stanceDrop(g) - 0.027 * still + 0.01 * br * still - slam * 0.25 + 0.06 * m.startle, 0)
+  const p = fidgetP(m, 'brute')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let hZ = 0
+  let cZ = 0
+  let aX = 0
+  let aY = 0
+  let aE = 0
+  let knock = 0
+  let rollL = 0
+  if (m.fid === 1) {
+    // Neck crack: head over to one side, hold, the other, hold
+    hZ = 0.4 * clamp(2 * Math.sin(TAU * p), -1, 1)
+    cZ = -0.2 * hZ
+  } else if (m.fid === 2) {
+    // Knuckle knock: both fists come up IN FRONT of the chest and knock
+    // inward twice — symmetric, unlike the combo (one arm drawn back) or the
+    // slam (both back). They stop ~0.15 m apart: the shoulders are too wide
+    // and the chest too deep for the 0.25 m fists to touch without clipping.
+    aX = -0.8
+    aY = 0.6
+    aE = -0.6
+    knock = 0.05 * Math.max(0, Math.sin(3 * TAU * p))
+  } else if (m.fid === 3) {
+    // Shoulder roll: each arm circles forward in turn (never back into an A)
+    rollL = Math.sin(TAU * p)
+    cZ = 0.08 * rollL
+  }
+  const look = m.look * calm
+  const shiftX = 0.035 * sh * still - 0.045 * Math.sin(TAU * frac(m.phase / TAU)) * wk
+  const twist = ((legL.th - legR.th) * 0.5 * 0.14 / g.A) * wk * gaitDir.f
+  // Attack blend per arm: 0 = the rest layer, 1 = exactly the old attack pose
+  const aL = m.armL
+  const aR = m.armR
+  const bL = Math.min(1, Math.max(Math.abs(aL), Math.abs(slam) * 2.5))
+  const bR = Math.min(1, Math.max(Math.abs(aR), Math.abs(slam) * 2.5))
+  const bAny = Math.max(bL, bR)
+  nudge(rig, 'chest', shiftX, 0.012 * br * still, 0)
+  pose(rig, 'chest', (0.12 + 0.035 * br * still) * (1 - bAny) + 0.12 * wk * gaitDir.f + 0.2 * slam, -0.35 * aL + 0.35 * aR - twist + 0.2 * look, -1.2 * shiftX + cZ * fe)
+  pose(rig, 'head', -0.12 * (1 - bAny) - 0.1 * m.startle, clamp(0.45 * look, -0.9, 0.9), hZ * fe)
+  const B = BRUTE_REST
+  const breathArm = 0.04 * br * still
+  // Arms counter-swing: L with the R leg, R with the L leg
+  const swingL = (legR.th / g.A) * 0.3 * wk * gaitDir.f
+  const swingR = (legL.th / g.A) * 0.3 * wk * gaitDir.f
+  pose(rig, 'shoulderL',
+    mix(B.x - swingL + breathArm + (aX - 0.15 * Math.max(0, rollL)) * fe - 0.2 * m.startle, -1.4 * Math.max(0, aL) + 0.6 * Math.max(0, -aL) - 2.6 * slam, bL),
+    mix(B.y + (aY + knock) * fe, 0, bL),
+    mix(B.z, -0.2, bL))
+  pose(rig, 'elbowL', mix(B.elbow + aE * fe, -0.9 + 0.8 * Math.max(0, aL), bL), 0, 0)
+  pose(rig, 'shoulderR',
+    mix(B.x - swingR + breathArm + (aX - 0.15 * Math.max(0, -rollL)) * fe - 0.2 * m.startle, -1.4 * Math.max(0, aR) + 0.6 * Math.max(0, -aR) - 2.6 * slam, bR),
+    mix(-B.y - (aY + knock) * fe, 0, bR),
+    mix(-B.z, 0.2, bR))
+  pose(rig, 'elbowR', mix(B.elbow + aE * fe, -0.9 + 0.8 * Math.max(0, aR), bR), 0, 0)
+}
+
+/** punch: which arm (−1 L, 1 R, 0 none) and wind-up k (−1 back … 1 thrown).
+ *  With `m`, the motion layer: the two arms then come from m.armL / m.armR
+ *  (one can return while the other winds up) and `slam` is the eased slam. */
+export const poseBrute = (rig: Rig, t: number, walk: number, arm: number, k: number, slam: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateBrute(rig, t, slam, m)
+    return
+  }
   const w = Math.sin(t * 5.5) * walk
   pose(rig, 'hipL', w * 0.4, 0, 0)
   pose(rig, 'hipR', -w * 0.4, 0, 0)
@@ -312,9 +701,253 @@ export const buildTurret = (c: EnemyColors = BASE_COLORS.turret): Rig => {
   return b.build({ outline: 0.018, height: 1.2 })
 }
 
-export const poseTurret = (rig: Rig, pitch: number, recoil: number): void => {
+const animateTurret = (rig: Rig, pitch: number, recoil: number, m: EnemyMotion): void => {
+  const calm = m.calm
+  const p = fidgetP(m, 'turret')
+  const fe = m.fid ? fidgetEnv(p) * calm : 0
+  let yaw = 0
+  let pit = 0
+  // Double-take: snap back toward where it just looked, then settle
+  if (m.fid === 1) yaw = -0.3 * (m.look < 0 ? -1 : 1) * Math.sin(Math.PI * Math.sqrt(p))
+  else if (m.fid === 2) pit = 0.6 * Math.sin(Math.PI * p) // barrel check
+  // Sentry scan while unaware (eased sweeps and holds); in the fight the head
+  // faces front and the whole cannon turns to the player (e.yaw)
+  pose(rig, 'head', 0, 0.7 * m.look * calm + yaw * fe, 0)
+  const rest = 0.2 + 0.03 * Math.sin(4 * m.look)
+  pose(rig, 'barrel', -(mix(pitch, rest, calm) + pit * fe), 0, 0)
+  nudge(rig, 'barrel', 0, 0, -recoil * 0.15)
+}
+
+export const poseTurret = (rig: Rig, pitch: number, recoil: number, m?: EnemyMotion): void => {
+  if (m) {
+    animateTurret(rig, pitch, recoil, m)
+    return
+  }
   pose(rig, 'barrel', -pitch, 0, 0)
   nudge(rig, 'barrel', 0, 0, -recoil * 0.15)
+}
+
+// ─── Crate Golem ─────────────────────────────────────────────────────────────
+//
+// Asleep it IS the sector's supply crate (models/props.ts buildCrate): the
+// same 1.15 m rounded box in the crate's wood, the four trim-coloured corner
+// bumpers, the trim discs on its front and back with an accent nub on each,
+// the same outline. Nothing else shows. The lid is the box's own top rows cut
+// off along a ring (kit.rboxSplit: the same vertices and normals, so the cut
+// cannot be seen), and the visor, core, arms, legs and rocks sit INSIDE the
+// closed box, the limbs scaled to nothing. Awake it unfolds: stone legs punch
+// out under it and lift it half a metre, the front disc drops open like a jaw
+// on a glowing visor slit, the lid tips back on a glowing core, and stubby
+// stone-and-plank arms swing out of its sides. It throws rocks it pulls out
+// of itself: one hand into the crate for a throw, both for the boulder lob.
+
+/** props.ts buildCrate's `s`: asleep, the golem is exactly this box. */
+export const GOLEM_CRATE = 1.15
+/** How high the legs lift the box off the floor, awake (m). */
+export const GOLEM_LIFT = 0.5
+/** Hip bone → sole, at scale 1 (GAIT.golem.L). */
+const GOLEM_LEG = 0.615
+/** The hips sit this far above the box's bottom face (inside it). */
+const GOLEM_HIP_IN = 0.115
+/** The lid: the box's top 4 of 12 rings (its top face and rounded edge, 10 cm). */
+const GOLEM_LID_ROWS = 4
+/** The inside of the box (seen once the lid opens): its trim's wood, in shadow.
+ *  Near-black read as a hole in the model, not as a crate's inside. */
+const golemInside = (c: EnemyColors): string => `#${new Color(c.deep).multiplyScalar(0.7).getHexString()}`
+/** The visor band behind the jaw. */
+const GOLEM_VISOR = '#161a22'
+/** A scale that hides a part inside the box (0 would make a singular matrix). */
+const HIDE = 0.001
+
+export const buildGolem = (c: EnemyColors = BASE_COLORS.golem): Rig => {
+  const s = GOLEM_CRATE
+  const h = s / 2
+  const cut = rboxSplit(s, s, s, 0.28, GOLEM_LID_ROWS)
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+    .bone('body', 'root', [0, h, 0])
+    // Lid hinge: the back edge of the cut ring
+    .bone('lid', 'body', [0, cut.y, -cut.halfD])
+    // Jaw hinge: the bottom edge of the front disc
+    .bone('hatch', 'body', [0, -s * 0.36, h])
+    .bone('visor', 'body', [0, 0.1, h - 0.005])
+    .bone('boulder', 'body', [0, 1.02, 0.18])
+    .bone('shoulderL', 'body', [-0.47, 0.18, 0])
+    .bone('elbowL', 'shoulderL', [0, -0.3, 0])
+    .bone('shoulderR', 'body', [0.47, 0.18, 0])
+    .bone('elbowR', 'shoulderR', [0, -0.3, 0])
+    // On top of the fist boulder (it hid inside it at the fist's centre)
+    .bone('rockR', 'elbowR', [0, -0.54, 0.1])
+    .bone('hipL', 'body', [-0.27, -h + GOLEM_HIP_IN, 0.02])
+    .bone('kneeL', 'hipL', [0, -0.3, 0])
+    .bone('hipR', 'body', [0.27, -h + GOLEM_HIP_IN, 0.02])
+    .bone('kneeR', 'hipR', [0, -0.3, 0])
+  // ── The crate, part for part as buildCrate lays it out (body-local = the
+  // crate's own coordinates minus its half height) ──
+  b.part('body', cut.bottom, c.main)
+  b.part('lid', cut.top, c.main, { p: [0, -cut.y, cut.halfD] })
+  for (const x of [-1, 1]) {
+    for (const z of [-1, 1]) {
+      b.part('lid', sph(0.2, 10, 8), c.deep, { p: [x * s * 0.42, s * 0.9 - h - cut.y, z * s * 0.42 + cut.halfD] })
+    }
+  }
+  b.part('hatch', ell(s * 0.36, s * 0.36, 0.06), c.deep, { p: [0, s * 0.36, 0] })
+  b.part('hatch', sph(0.09, 8, 6), c.eye, { p: [0, s * 0.36, s * 0.54 - h], glow: true, outline: false })
+  b.part('body', ell(s * 0.36, s * 0.36, 0.06), c.deep, { p: [0, 0, -h] })
+  b.part('body', sph(0.09, 8, 6), c.eye, { p: [0, 0, -s * 0.54], glow: true, outline: false })
+  // ── Inside the box (never outlined: a hull would poke through the crate) ──
+  // Behind the jaw: a dark visor band with the glowing slit, both shallower
+  // than the closed disc in front of them
+  b.part('visor', ell(0.28, 0.1, 0.03), GOLEM_VISOR, { p: [0, 0, 0.01], outline: false })
+  b.part('visor', ell(0.22, 0.034, 0.024), c.eye, { p: [0, 0.005, 0.022], glow: true, outline: false })
+  // The floor of the open top, the core glowing in a dark socket. Both dark
+  // plates keep ≥ 2 cm inside the box's FACETED walls (between two rings a
+  // wall is a chord, inside the smooth shape): at 3 mm one showed as a sliver.
+  // From Flux's eye height (1.36 m, under the awake box's top) a gap round
+  // the plate's rim is never seen.
+  const inside = golemInside(c)
+  b.part('body', rbox(1.04, 0.05, 1.04, 0.3), inside, { p: [0, cut.y - 0.05, 0], outline: false })
+  b.part('body', torus(0.15, 0.035, 6, 16), '#2e2b38', { p: [0, cut.y - 0.04, 0], r: [Math.PI / 2, 0, 0], outline: false })
+  b.part('body', sph(0.1, 12, 8), c.eye, { p: [0, cut.y - 0.06, 0], glow: true, outline: false })
+  // The lid's underside
+  b.part('lid', rbox(1.02, 0.04, 1.02, 0.3), inside, { p: [0, 0.03, cut.halfD], outline: false })
+  // ── Limbs: stone, strapped with planks, iron at the joints ──
+  b.mirror((_s, t) => {
+    b.part(`shoulder${t}`, sph(0.14, 12, 8), c.accent)
+    b.part(`shoulder${t}`, cap(0.1, 0.14), c.metal, { p: [0, -0.15, 0] })
+    b.part(`shoulder${t}`, rbox(0.25, 0.09, 0.25, 0.35), c.main, { p: [0, -0.13, 0] })
+    b.part(`elbow${t}`, cap(0.115, 0.08), c.metal, { p: [0, -0.1, 0] })
+    b.part(`elbow${t}`, torus(0.125, 0.035, 6, 14), c.accent, { p: [0, -0.17, 0], r: [Math.PI / 2, 0, 0] })
+    b.part(`elbow${t}`, rock(0.23, t === 'L' ? 11 : 12), c.metal, { p: [0, -0.34, 0.03] })
+    b.part(`hip${t}`, sph(0.13, 12, 8), c.accent)
+    b.part(`hip${t}`, cap(0.12, 0.1), c.metal, { p: [0, -0.15, 0] })
+    b.part(`knee${t}`, cap(0.115, 0.06), c.metal, { p: [0, -0.09, 0] })
+    b.part(`knee${t}`, torus(0.12, 0.03, 6, 14), c.accent, { p: [0, -0.05, 0], r: [Math.PI / 2, 0, 0] })
+    // A plank-shod stone foot; its sole is GOLEM_LEG below the hip
+    b.part(`knee${t}`, rbox(0.3, 0.14, 0.42, 0.4), c.deep, { p: [0, -(GOLEM_LEG - 0.3) + 0.07, 0.06] })
+  })
+  b.part('rockR', rock(0.19, 3), c.metal)
+  b.part('boulder', rock(0.36, 7), c.metal)
+  // `height` places the telegraph ring: over the boulder it heaves (≈2.46 m), not in it
+  const rig = b.build({ outline: 0.028, height: 2.1 })
+  // Born asleep: limbs in, lid and jaw shut
+  poseGolem(rig, 0, 0, 0, 0, 0)
+  return rig
+}
+
+const clamp01 = (x: number): number => (x < 0 ? 0 : x > 1 ? 1 : x)
+/** Ease-out with a small overshoot (≈6 %): parts that spring into place. */
+const backOut = (x: number): number => {
+  const k = clamp01(x) - 1
+  return 1 + 2.3 * k * k * k + 1.3 * k * k
+}
+
+/** The throwing arm (shoulder x, z, elbow): wound up over the lid, and thrown. */
+// Wound up BESIDE the lid, not behind it: seen from the front, a fist behind
+// the tipped-up lid hid the whole wind-up
+const GOLEM_WOUND = { x: -3.1, z: 0.7, elbow: -0.9 } as const
+const GOLEM_THROWN = { x: -1.3, z: -0.05, elbow: -0.1 } as const
+/** Both arms under the boulder, overhead (the R arm mirrors z). */
+const GOLEM_HEAVE = { x: -2.8, z: 0.42, elbow: -0.45 } as const
+
+/**
+ * unfold: 0 asleep (exactly the crate) … 1 unfolded. arm: the throw, one path
+ * — up over the top from rest to the wind-up (−1: the rock drawn out of the
+ * crate over the lid), then the whip from there to the release (1). The
+ * motion layer blends that path over the rest layer by `m.armL` (1 all
+ * through the throw, eased out after it), so the release never swings back
+ * down through the rest pose; without `m` (ModelLab) any arm ≠ 0 is fully
+ * blended. lift: the boulder (0 rest … 1 held overhead; the release brings it
+ * down the front). hop: the dodge, signed toward the hop side (0 standing).
+ * With `m`, the walk, breathing, the brace tell and the rock and boulder in
+ * hand; without it, those show at the wind-up's top.
+ */
+export const poseGolem = (rig: Rig, unfold: number, arm: number, lift: number, hop: number, t: number, m?: EnemyMotion): void => {
+  const u = clamp01(unfold)
+  const T = m ? t * m.tempo : t
+  const up = u >= 1 ? 1 : 0
+  // ── The unfold's beats: a rattle, the legs, the jaw, the eye, the lid, the arms ──
+  const kLeg = smoothstep(0.1, 0.42, u)
+  const kJaw = smoothstep(0.28, 0.55, u)
+  const kEye = smoothstep(0.5, 0.62, u)
+  const kLid = smoothstep(0.38, 0.7, u)
+  const kArm = smoothstep(0.5, 0.86, u)
+  const rattle = 0.05 * Math.sin(u * 95) * bump(u, 0, 0.3)
+  const clack = bump(u, 0.8, 1)
+  const liftY = GOLEM_LIFT * backOut(kLeg)
+  // ── Motion layer ──
+  const g = GAIT.golem!
+  const wk = m ? gaitAmp(m.walk) * up : 0
+  const brace = m ? m.brace * up : 0
+  const grip = m ? m.grip : arm < -0.5 ? 1 : 0
+  const held = m ? m.boulder : lift > 0.5 ? 1 : 0
+  const ah = Math.abs(hop)
+  const wThrow = m ? m.armL : arm !== 0 ? 1 : 0
+  /** How far the hand is up over the lid (1 = fully wound), and the whip (1 = thrown). */
+  const aT = wThrow * (arm <= 0 ? -arm : 1 - arm)
+  const aF = wThrow * Math.max(0, arm)
+  const lU = clamp01(lift)
+  const br = Math.sin(T * 2.1) * up * (1 - wk)
+  // ── Legs: grown to reach the floor as the box rises; then the gait ──
+  const legS = kLeg > 0 ? Math.min(1.1, (GOLEM_HIP_IN + liftY) / GOLEM_LEG) : HIDE
+  scaleBone(rig, 'hipL', legS)
+  scaleBone(rig, 'hipR', legS)
+  let drop = 0
+  if (m && wk > 0) {
+    gaitLegs(g, m, wk)
+    drop = stanceDrop(g)
+    poseLegs(rig, -0.55 * ah - 0.2 * brace, 1.1 * ah + 0.4 * brace)
+  } else {
+    pose(rig, 'hipL', -0.55 * ah - 0.2 * brace, 0, 0)
+    pose(rig, 'hipR', -0.55 * ah - 0.2 * brace, 0, 0)
+    pose(rig, 'kneeL', 1.1 * ah + 0.4 * brace, 0, 0)
+    pose(rig, 'kneeR', 1.1 * ah + 0.4 * brace, 0, 0)
+  }
+  // ── Body: rides the legs, breathes, braces, twists into the throw ──
+  const crouch = 0.1 * brace + 0.12 * ah
+  nudge(rig, 'body', 0, liftY - drop - crouch + 0.012 * br, 0)
+  const sway = 0.04 * Math.sin(TAU * frac((m ? m.phase : 0) / TAU)) * wk
+  pose(rig, 'body',
+    0.06 * wk + 0.06 * brace - 0.12 * lU + 0.06 * aF,
+    0.28 * aT - 0.34 * aF,
+    rattle + sway - 0.3 * hop)
+  // ── Jaw, visor, lid (the lid gapes while a hand is in the crate) ──
+  pose(rig, 'hatch', 1.0 * backOut(kJaw) + (0.05 * Math.sin(T * 7.3) + 0.25 * lU + 0.12 * aT) * up, 0, 0)
+  const blink = 1 - 0.92 * bump(frac(T * 0.23), 0, 0.035) * up
+  scaleBone(rig, 'visor', 1, Math.max(HIDE, kEye * blink * (1 - 0.55 * brace)), 1)
+  pose(rig, 'lid', -(0.55 * backOut(kLid) + (0.05 * Math.sin(T * 1.7) + 0.3 * clamp01(aT * 1.4) + 1.05 * lU + 0.15 * brace) * up), 0, 0)
+  // ── Arms: out of the sides; a clack of the fists to finish the unfold ──
+  const armS = kArm > 0 ? Math.max(HIDE, backOut(kArm)) : HIDE
+  scaleBone(rig, 'shoulderL', armS)
+  scaleBone(rig, 'shoulderR', armS)
+  nudge(rig, 'shoulderL', 0.3 * (1 - kArm), 0, 0)
+  nudge(rig, 'shoulderR', -0.3 * (1 - kArm), 0, 0)
+  // Counter-swing: L with the R leg, R with the L leg
+  const swL = m && wk > 0 ? (legR.th / g.A) * 0.35 * wk * gaitDir.f : 0
+  const swR = m && wk > 0 ? (legL.th / g.A) * 0.35 * wk * gaitDir.f : 0
+  const restX = -0.2 + 0.03 * br - 0.9 * clack - 0.7 * brace - 0.4 * ah
+  const restZ = 0.25 + 0.6 * (1 - kArm) - 0.28 * clack + 0.8 * ah
+  const restE = -0.5 - 0.6 * clack - 0.9 * brace
+  // The heave: up the front to overhead (angles interpolate through "forward")
+  const H = GOLEM_HEAVE
+  pose(rig, 'shoulderL', mix(restX - swL, H.x, lU), 0, mix(-restZ, H.z, lU))
+  pose(rig, 'elbowL', mix(restE, H.elbow, lU), 0, 0)
+  const layX = mix(restX - swR, H.x, lU)
+  const layZ = mix(restZ, -H.z, lU)
+  const layE = mix(restE, H.elbow, lU)
+  // The throw path over that layer: rest → wound (arm −1), wound → thrown (arm 1)
+  const W = GOLEM_WOUND
+  const F = GOLEM_THROWN
+  const pX = arm <= 0 ? mix(layX, W.x, -arm) : mix(W.x, F.x, arm)
+  const pZ = arm <= 0 ? mix(layZ, W.z, -arm) : mix(W.z, F.z, arm)
+  const pE = arm <= 0 ? mix(layE, W.elbow, -arm) : mix(W.elbow, F.elbow, arm)
+  pose(rig, 'shoulderR', mix(layX, pX, wThrow), 0, mix(layZ, pZ, wThrow))
+  pose(rig, 'elbowR', mix(layE, pE, wThrow), 0, 0)
+  // ── What it throws ──
+  scaleBone(rig, 'rockR', Math.max(HIDE, grip))
+  scaleBone(rig, 'boulder', Math.max(HIDE, held))
+  // The boulder rises out of the open top into the raised fists
+  nudge(rig, 'boulder', 0, -0.85 * (1 - lU), -0.18 * (1 - lU))
 }
 
 export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
@@ -327,5 +960,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'roller': return buildRoller(c)
     case 'brute': return buildBrute(c)
     case 'turret': return buildTurret(c)
+    case 'golem': return buildGolem(c)
   }
 }

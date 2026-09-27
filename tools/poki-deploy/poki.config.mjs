@@ -1,4 +1,4 @@
-// Per-project settings for `pnpm deploy:poki` — Mega Adventure.
+// Per-project settings for `pnpm deploy:poki` — Mega Droid.
 //
 // `team` and `gameId` come straight out of the P4D URL of the game's Versions
 // page:
@@ -8,7 +8,7 @@ export default {
   // The developer team every game of this studio lives under (the same slug as
   // the sibling repos' configs).
   team: 'hyperg8',
-  // NOT KNOWN YET, and deliberately not guessed. Until Mega Adventure exists in
+  // NOT KNOWN YET, and deliberately not guessed. Until Mega Droid exists in
   // P4D and its uuid is pasted here (or passed as `--game-id <uuid>`), every mode
   // that talks to P4D refuses to start — see lib/target.mjs. This repo was
   // forked from Survivalist and this field used to hold Survivalist's id; an
@@ -16,12 +16,12 @@ export default {
   // that id is refused outright even if it is pasted back in.
   // `--gates-only` (offline) needs no id.
   gameId: null,
-  gameName: 'Mega Adventure',
+  gameName: 'Mega Droid',
 
   build: 'pnpm build:poki',
   dist: 'dist',
   // What `build:poki` writes (its tail is `node tools/poki-deploy/pack.mjs`).
-  zip: 'dist/mega-adventure-poki.zip',
+  zip: 'dist/mega-droid-poki.zip',
 
   /** Pack `dist` into `zip` with the pipeline's own zip writer instead of
    *  trusting a shell `tar -a -cf`, which silently produces a TAR named `.zip`
@@ -33,10 +33,10 @@ export default {
 
   /** What the version is called in P4D. Keep the version number in it — it is
    *  the only thing tying a live build back to a commit. */
-  versionName: version => `Mega Adventure ${version}`,
+  versionName: version => `Mega Droid ${version}`,
 
   /** Extra hosts the gates and the runtime sweep should accept. Anything here
-   *  needs a matching per-URL approval in P4D → Settings → CSP. Mega Adventure
+   *  needs a matching per-URL approval in P4D → Settings → CSP. Mega Droid
    *  makes no external requests on Poki (the leaderboard is baked), so: none. */
   allowHosts: [],
 
@@ -48,16 +48,17 @@ export default {
     { text: '[CHEAT]', why: 'dev cheats, src/use/useCheats.ts' },
     { text: 'ctrl+shift+alt+', why: 'cheat shortcuts, src/game/cheats.ts' },
     { text: 'cmarc', why: 'typed debug-mode toggle, src/use/useCheats.ts' },
-    { text: '[qa-ad]', why: 'hidden 30-tap interstitial, src/use/useQaAdTrigger.ts' },
+    // NOT the hidden 30-tap interstitial (src/use/useQaAdTrigger.ts): it ships
+    // in the release on purpose (src/platforms/policy.ts).
   ],
 
   qa: {
     playMs: 45000,          // how long the harness actually plays before judging
-    // How long to wait for a commercial break. NOTE: this game requests no
-    // interstitial in the first 3 minutes of a session and then paces them
-    // 121 s apart (src/use/useAdGate.ts), so a short pass usually sees none
-    // and reports the ad steps as unproven. A human can fire one on demand:
-    // 30 taps on the bolts counter (HUD or hub) within 30 s
+    // How long to wait for a commercial break. NOTE: this game requests an
+    // interstitial only on the result screen's Continue, 121 s apart
+    // (src/use/useAdGate.ts), so a short pass usually sees none and reports the
+    // ad steps as unproven. A human can fire one on demand, on the release
+    // itself: 30 taps on the bolts counter (HUD or hub) within 30 s
     // (src/use/useQaAdTrigger.ts).
     adWaitMs: 120000,
   },
@@ -66,7 +67,7 @@ export default {
    *  "not applicable" or a real question — a game WITH usernames must not have
    *  its profanity-filter step reported as n/a.
    *
-   *  Mega Adventure has neither on Poki: there is no name-entry UI anywhere
+   *  Mega Droid has neither on Poki: there is no name-entry UI anywhere
    *  (`setPlayerName` has no caller), and with `VITE_LEADERBOARD_URL` empty the
    *  Poki build shows only a rank badge — the top-100 list, the one place other
    *  players' names appear, is compiled out (`leaderboardListEnabled` is false)
@@ -78,16 +79,19 @@ export default {
 
   /** Expressions evaluated INSIDE the game's iframe during the QA pass. */
   hooks: {
-    /** A snapshot that must survive a reload. Mega Adventure keeps ALL of its
-     *  state in ONE localStorage blob, `mega_adventure_state`, keyed by `ma_*`
-     *  fields (src/keys.ts). Only DURABLE progress is read — counters that
-     *  change on a mission result or a kill, never on a mere reload — so a
-     *  resumed mission re-writing its snapshot (`ma_mission`), a job re-roll
-     *  (`ma_quests`) or a timestamp cannot fail a save that works. `null` when
-     *  there is no save yet, which the pass reports as unproven, not as a pass. */
+    /** A snapshot that must survive a reload. Mega Droid keeps ALL of its
+     *  state in ONE localStorage blob, `mega_droid_state`, keyed by `ma_*`
+     *  fields (src/keys.ts). A save from before the rename sits under
+     *  `mega_adventure_state` until the game's next boot moves it
+     *  (src/legacyKeys.ts), so that name is the fallback. Only DURABLE
+     *  progress is read — counters that change on a mission result or a
+     *  kill, never on a mere reload — so a resumed mission re-writing its
+     *  snapshot (`ma_mission`), a job re-roll (`ma_quests`) or a timestamp
+     *  cannot fail a save that works. `null` when there is no save yet, which
+     *  the pass reports as unproven, not as a pass. */
     readProgress: `(() => {
       try {
-        const raw = localStorage.getItem('mega_adventure_state')
+        const raw = localStorage.getItem('mega_droid_state') ?? localStorage.getItem('mega_adventure_state')
         if (!raw) return null
         const s = JSON.parse(raw)
         const hero = s.ma_hero || {}
@@ -106,7 +110,7 @@ export default {
       } catch (e) { return null }
     })()`,
 
-    /** Open the game's rewarded-ad flow. Mega Adventure's rewarded offers all
+    /** Open the game's rewarded-ad flow. Mega Droid's rewarded offers all
      *  sit behind game state (the defeat modal's reboot, the result screen's
      *  double bolts, the hub workshop's supply drop), so there is no expression
      *  that opens one from a cold pass — left null, and the step is reported

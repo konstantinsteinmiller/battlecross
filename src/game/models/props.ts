@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, type BufferGeometry } from 'three'
+import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, BufferGeometry, Float32BufferAttribute } from 'three'
 import { rcyl, rbox, torus, sph, ell, cap, xform, paint, paintBy, merge, lathe } from './kit'
 import { toonVC, glowVC, outlineMat } from './toon'
 import { PAL, RARITY_COLOR } from './palette'
@@ -40,6 +40,23 @@ const assemble = (toonParts: BufferGeometry[], glowParts: BufferGeometry[], outl
 
 // ─── Door ────────────────────────────────────────────────────────────────────
 
+/**
+ * The boss shutter's warning kit, animated by the mission (`updateDoors`):
+ * two beacons whose light fans sweep the corridor, a red glow pooled on the
+ * floor in front of the gate and three chevrons marching into it.
+ */
+export interface BossDoorFx {
+  beacons: Group[]
+  /** The beacons' glass domes and light fans (one material each, pulsed). */
+  domeMat: MeshBasicMaterial
+  beamMat: MeshBasicMaterial
+  floorMat: MeshBasicMaterial
+  chevronMats: MeshBasicMaterial[]
+  /** Warning strength 0..1, eased by the mission (it powers down once the
+   *  boss has fallen). */
+  level: number
+}
+
 export interface DoorMesh {
   root: Group
   /** Panels that slide apart (normal door) or the shutter that lifts (boss). */
@@ -47,59 +64,194 @@ export interface DoorMesh {
   boss: boolean
   lamp: Mesh
   lampMat: MeshBasicMaterial
+  /** Boss door only. */
+  warn: BossDoorFx | null
 }
+
+// The danger livery is the same in every sector — yellow and black like a
+// real machine guard, red light — so "a Core Master waits here" is one sign
+// the player learns once, not a sector colour to decode each time.
+const DANGER_YELLOW = '#ffc21a'
+const DANGER_BLACK = '#1b1d24'
+const DANGER_STEEL = '#343846'
+const DANGER_RED = '#ff3040'
+
+/** Diagonal hazard stripes, `per` bands per metre along (y ± z). */
+const hazard = (per: number, flip = 1) => (x: number, y: number, z: number) =>
+  (Math.floor((y + (z + x * 0.35) * flip) * per) & 1 ? DANGER_YELLOW : DANGER_BLACK)
+
+/** A flat quad on the floor (XZ), vertex colour fading c0 → c1 from z0 to z1.
+ *  Under additive blending black adds nothing, so the fade needs no texture. */
+const floorFade = (x0: number, x1: number, z0: number, z1: number, c0: Color, c1: Color): BufferGeometry => {
+  const g = new BufferGeometry()
+  g.setAttribute('position', new Float32BufferAttribute([x0, 0, z0, x1, 0, z0, x1, 0, z1, x0, 0, z1], 3))
+  g.setAttribute('color', new Float32BufferAttribute([c0.r, c0.g, c0.b, c0.r, c0.g, c0.b, c1.r, c1.g, c1.b, c1.r, c1.g, c1.b], 3))
+  g.setIndex([0, 2, 1, 0, 3, 2])
+  return g
+}
+
+/** A floor chevron pointing along -Z·dir (into the gate), centred at z. */
+const chevron = (z: number, dir: number, span: number, depth: number, thick: number): BufferGeometry => {
+  const pts: number[] = []
+  const idx: number[] = []
+  for (const s of [-1, 1]) {
+    // One arm: from the tip (x 0) out to the side, trailing back by `depth`.
+    const b = pts.length / 3
+    const tipZ = z - dir * depth / 2
+    const endZ = z + dir * depth / 2
+    pts.push(0, 0, tipZ, s * span, 0, endZ, s * span, 0, endZ + dir * thick, 0, 0, tipZ + dir * thick)
+    idx.push(b, b + 1, b + 2, b, b + 2, b + 3)
+  }
+  const g = new BufferGeometry()
+  g.setAttribute('position', new Float32BufferAttribute(pts, 3))
+  g.setIndex(idx)
+  return g
+}
+
+/** A beacon's light fan: two wedges back to back along ±X, bright at the
+ *  lamp, black (= nothing, additively) at the far end. */
+const lightFan = (len: number, spread: number): BufferGeometry => {
+  const pts: number[] = []
+  const col: number[] = []
+  const c = new Color(DANGER_RED)
+  for (const s of [-1, 1]) {
+    for (const [dy, dz] of [[spread, 0], [0, spread]] as const) {
+      pts.push(0, 0, 0, s * len, dy, dz, s * len, -dy, -dz)
+      col.push(c.r, c.g, c.b, 0, 0, 0, 0, 0, 0)
+    }
+  }
+  const g = new BufferGeometry()
+  g.setAttribute('position', new Float32BufferAttribute(pts, 3))
+  g.setAttribute('color', new Float32BufferAttribute(col, 3))
+  return g
+}
+
+const additive = (color: string, opacity: number, vertexColors = false): MeshBasicMaterial => new MeshBasicMaterial({
+  color: new Color(color), vertexColors, transparent: true, opacity, blending: AdditiveBlending,
+  depthWrite: false, side: DoubleSide, toneMapped: false, fog: false
+})
 
 /**
  * A sliding double door built in local space with the doorway spanning X
  * (width = one cell) and facing ±Z. The mission rotates it to the corridor.
  * The boss door is a single heavy shutter of rounded slats that LIFTS — the
- * classic boss-gate silhouette.
+ * classic boss-gate silhouette — set in a hazard-striped frame with a robot
+ * skull over it, warning beacons and a red pool of light on the approach
+ * side (`approach`: the sign of local Z the corridor lies on).
  */
-export const buildDoor = (theme: Theme, boss: boolean): DoorMesh => {
+export const buildDoor = (theme: Theme, boss: boolean, approach: 1 | -1 = 1): DoorMesh => {
   const root = new Group()
   const panels: Group[] = []
   const w = CELL
   const h = WALL_H - 0.9
-  if (!boss) {
-    for (const s of [-1, 1]) {
-      const toon: BufferGeometry[] = []
-      toon.push(xform(paint(rbox(w / 2 - 0.05, h, 0.34, 0.3), theme.crate), [s * (w / 4), h / 2, 0]))
-      // Chevron stripes on the leading edges
-      toon.push(paintBy(
-        xform(rbox(0.26, h - 0.3, 0.4, 0.3), [s * 0.16, h / 2, 0]),
-        (_x, y) => (Math.floor(y * 2.6) & 1 ? theme.hazard : theme.crateTrim)
-      ))
-      toon.push(xform(paint(ell(0.36, 0.36, 0.08), theme.crateTrim), [s * (w / 4), h * 0.62, 0.18]))
-      toon.push(xform(paint(ell(0.36, 0.36, 0.08), theme.crateTrim), [s * (w / 4), h * 0.62, -0.18]))
-      const glowG = [
-        xform(paint(sph(0.12, 10, 8), theme.accent), [s * (w / 4), h * 0.62, 0.24]),
-        xform(paint(sph(0.12, 10, 8), theme.accent), [s * (w / 4), h * 0.62, -0.24])
-      ]
-      const p = assemble(toon, glowG, 0.025)
-      panels.push(p.root)
-      root.add(p.root)
-    }
-  } else {
+  if (boss) return buildBossDoor(root, panels, w, h, approach)
+  for (const s of [-1, 1]) {
     const toon: BufferGeometry[] = []
-    const slats = 6
-    for (let k = 0; k < slats; k++) {
-      const y = (k + 0.5) * (h / slats)
-      toon.push(xform(paint(rbox(w - 0.1, h / slats - 0.04, 0.5, 0.45), k % 2 ? theme.trim : theme.pilaster), [0, y, 0]))
-    }
+    toon.push(xform(paint(rbox(w / 2 - 0.05, h, 0.34, 0.3), theme.crate), [s * (w / 4), h / 2, 0]))
+    // Chevron stripes on the leading edges
+    toon.push(paintBy(
+      xform(rbox(0.26, h - 0.3, 0.4, 0.3), [s * 0.16, h / 2, 0]),
+      (_x, y) => (Math.floor(y * 2.6) & 1 ? theme.hazard : theme.crateTrim)
+    ))
+    toon.push(xform(paint(ell(0.36, 0.36, 0.08), theme.crateTrim), [s * (w / 4), h * 0.62, 0.18]))
+    toon.push(xform(paint(ell(0.36, 0.36, 0.08), theme.crateTrim), [s * (w / 4), h * 0.62, -0.18]))
     const glowG = [
-      xform(paint(ell(0.5, 0.5, 0.12), PAL.glowRed), [0, h * 0.55, 0.28]),
-      xform(paint(ell(0.5, 0.5, 0.12), PAL.glowRed), [0, h * 0.55, -0.28])
+      xform(paint(sph(0.12, 10, 8), theme.accent), [s * (w / 4), h * 0.62, 0.24]),
+      xform(paint(sph(0.12, 10, 8), theme.accent), [s * (w / 4), h * 0.62, -0.24])
     ]
-    const p = assemble(toon, glowG, 0.03)
+    const p = assemble(toon, glowG, 0.025)
     panels.push(p.root)
     root.add(p.root)
   }
-  const lampMat = new MeshBasicMaterial({ color: new Color(boss ? PAL.glowRed : PAL.glowGreen), toneMapped: false })
+  const lampMat = new MeshBasicMaterial({ color: new Color(PAL.glowGreen), toneMapped: false })
   const lamp = new Mesh(new CylinderGeometry(0.16, 0.16, 0.12, 12), lampMat)
   lamp.rotation.x = Math.PI / 2
   lamp.position.set(0, h + 0.35, 0)
   root.add(lamp)
-  return { root, panels, boss, lamp, lampMat }
+  return { root, panels, boss, lamp, lampMat, warn: null }
+}
+
+const buildBossDoor = (root: Group, panels: Group[], w: number, h: number, approach: 1 | -1): DoorMesh => {
+  // ── The shutter: dark steel slats, every other one hazard-striped, and the
+  // red eye in the middle on both faces.
+  const toon: BufferGeometry[] = []
+  const slats = 6
+  for (let k = 0; k < slats; k++) {
+    const y = (k + 0.5) * (h / slats)
+    const slat = xform(rbox(w - 0.1, h / slats - 0.04, 0.5, 0.45), [0, y, 0])
+    toon.push(k % 2 ? paintBy(slat, hazard(2.4)) : paint(slat, DANGER_STEEL))
+  }
+  toon.push(xform(paint(ell(0.66, 0.66, 0.2), DANGER_BLACK), [0, h * 0.55, 0]))
+  const glowG = [
+    xform(paint(ell(0.5, 0.5, 0.12), PAL.glowRed), [0, h * 0.55, 0.28]),
+    xform(paint(ell(0.5, 0.5, 0.12), PAL.glowRed), [0, h * 0.55, -0.28])
+  ]
+  const shutter = assemble(toon, glowG, 0.03)
+  panels.push(shutter.root)
+  root.add(shutter.root)
+
+  // ── The frame: two striped jambs the shutter runs in, a striped lintel,
+  // and a robot skull plate over the gate on the approach face.
+  const frame: BufferGeometry[] = []
+  const jx = w / 2 - 0.06
+  for (const s of [-1, 1]) {
+    frame.push(paintBy(xform(rbox(0.36, h + 0.62, 0.96, 0.2), [s * jx, (h + 0.62) / 2, 0]), hazard(2.2, s)))
+    frame.push(xform(paint(rcyl(0.2, 0.22, 0.05, 14), DANGER_BLACK), [s * jx, h + 0.73, 0]))
+  }
+  frame.push(paintBy(xform(rbox(w + 0.5, 0.62, 1.0, 0.25), [0, h + 0.31, 0]), hazard(2.4)))
+  const az = approach * 0.52
+  frame.push(xform(paint(ell(0.62, 0.52, 0.16), '#5a1420'), [0, h + 0.36, az]))
+  frame.push(xform(paint(ell(0.3, 0.14, 0.12), '#2a0a10'), [0, h + 0.1, az + approach * 0.04]))
+  for (let k = -2; k <= 2; k++) {
+    frame.push(xform(paint(rbox(0.09, 0.14, 0.08, 0.4), '#d9dde6'), [k * 0.11, h + 0.1, az + approach * 0.1]))
+  }
+  const f = assemble(frame, [], 0.028)
+  root.add(f.root)
+
+  // The skull's eyes are the door's state lamp (red locked, yellow opening,
+  // cyan open): the mission drives `lampMat` as on every door.
+  const lampMat = new MeshBasicMaterial({ color: new Color(PAL.glowRed), toneMapped: false })
+  const eyes = merge([
+    xform(ell(0.15, 0.1, 0.06), [-0.22, h + 0.44, az + approach * 0.13], [0, 0, -0.35 * approach]),
+    xform(ell(0.15, 0.1, 0.06), [0.22, h + 0.44, az + approach * 0.13], [0, 0, 0.35 * approach])
+  ].map(g => paint(g, '#ffffff')))
+  const lamp = new Mesh(eyes, lampMat)
+  root.add(lamp)
+
+  // ── Beacons on the jambs: a red glass dome and a light fan that sweeps.
+  const domeMat = new MeshBasicMaterial({ color: new Color(DANGER_RED), toneMapped: false })
+  const beamMat = additive('#ffffff', 0.55, true)
+  const beacons: Group[] = []
+  const domeG = lathe([[0.001, 0.2], [0.1, 0.18], [0.15, 0.1], [0.16, 0]], 12)
+  const fanG = lightFan(2.6, 0.34)
+  for (const s of [-1, 1]) {
+    const b = new Group()
+    b.position.set(s * jx, h + 0.78, 0)
+    b.add(new Mesh(domeG, domeMat))
+    const fan = new Mesh(fanG, beamMat)
+    fan.position.y = 0.1
+    fan.renderOrder = 2
+    b.add(fan)
+    beacons.push(b)
+    root.add(b)
+  }
+
+  // ── On the corridor floor: a pooled red glow and three chevrons into the gate.
+  const floorMat = additive('#ffffff', 0.6, true)
+  const pool = new Mesh(floorFade(-w / 2 + 0.1, w / 2 - 0.1, approach * 0.5, approach * (0.5 + CELL * 1.8), new Color(DANGER_RED).multiplyScalar(0.8), new Color(0, 0, 0)), floorMat)
+  pool.position.y = 0.025
+  pool.renderOrder = 1
+  root.add(pool)
+  const chevronMats: MeshBasicMaterial[] = []
+  for (let k = 0; k < 3; k++) {
+    const m = additive(DANGER_YELLOW, 0.5)
+    const c = new Mesh(chevron(approach * (1.3 + k * 1.25), approach, 0.9, 0.55, 0.22), m)
+    c.position.y = 0.03
+    c.renderOrder = 1
+    chevronMats.push(m)
+    root.add(c)
+  }
+  return { root, panels, boss: true, lamp, lampMat, warn: { beacons, domeMat, beamMat, floorMat, chevronMats, level: 1 } }
 }
 
 // ─── Teleporter pad ──────────────────────────────────────────────────────────

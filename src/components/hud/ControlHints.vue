@@ -51,9 +51,9 @@ import type { GameIconName } from '@/components/icons/iconNames'
 
 /**
  * The control coach's glyphs (see `game/sim/coach.ts`). Movement and camera
- * sit where the thumbs / hands are (on touch, a finger tracing an ∞ where the
- * floating stick works); on desktop every action is a card just under the
- * crosshair — where the eyes already are. On touch the button actions
+ * sit where the thumbs / hands are (on touch just one: a finger tracing an ∞
+ * where the floating stick works); on desktop every action is a card just
+ * under the crosshair — where the eyes already are. On touch the button actions
  * (block, slide, tank, weapon, interact) glow on the buttons themselves
  * (`ActionButtons` / `ContextButtons`).
  *
@@ -75,7 +75,7 @@ const spots = computed(() => hud.hints.filter(h =>
 const row = computed(() => hud.pointerFree ? [] : hud.hints.filter(h => h.family === 'mouse' && !SPATIAL.has(h.id)))
 
 const ACTION: Partial<Record<HintId, GameIconName>> = {
-  fire: 'buster', charge: 'bolt', block: 'shield', parry: 'shield', slide: 'forward', tank: 'flask', weapon: 'star'
+  fire: 'buster', charge: 'bolt', block: 'shield', parry: 'shield', slide: 'dodge', tank: 'flask', weapon: 'star'
 }
 
 /** Screen-reader sentences (the glyphs themselves are wordless). */
@@ -100,8 +100,8 @@ const glyph = (h: HintView): GlyphProps => {
     switch (h.id) {
       // A finger drawing an ∞: "drag here, any way". The ghost joystick it
       // replaces read as a dashed-circle icon, and Slide's arrow as "walk".
+      // It stands for the camera too: the coach never raises `look` on touch.
       case 'move': return { kind: 'infinity' }
-      case 'look': return { kind: 'finger', mode: 'drag' }
       case 'charge': return { kind: 'finger', mode: 'hold' }
       default: return { kind: 'finger', mode: 'tap' }
     }
@@ -111,7 +111,10 @@ const glyph = (h: HintView): GlyphProps => {
     // A captured mouse looks by moving; where the capture is refused, by dragging.
     case 'look': return hud.lookMode === 'lock' ? { kind: 'mouse', button: 'none', move: true } : { kind: 'mouse', button: 'left', drag: true }
     case 'charge': return { kind: 'mouse', button: 'left', hold: true }
-    case 'block': case 'parry': return { kind: 'mouse', button: 'right' }
+    // Block is HELD (the shield stays up while the button is down); a parry
+    // is one timed press, landing as the card's closing ring meets the mouse.
+    case 'block': return { kind: 'mouse', button: 'right', hold: true }
+    case 'parry': return { kind: 'mouse', button: 'right', click: true }
     case 'slide': return { kind: 'key', wide: true }
     case 'tank': return { kind: 'key', code: 'KeyH' }
     case 'weapon': return { kind: 'key', code: 'Digit1' }
@@ -271,6 +274,11 @@ watch(() => hud.hints, (hints) => {
   border-radius: 50%
   border: 4px solid #ffffff
   animation: parry-close 1.1s ease-in infinite
+// The parry's click on the ring's beat: InputGlyph presses at 30 % of its
+// cycle, the ring closes at 85 % of 1.1 s — so the click runs 0.495 s ahead.
+.parry .glyph-box
+  --m-click-dur: 1.1s
+  --m-click-delay: -0.495s
 
 // The capture glyph sits ON the crosshair: that is where the click goes.
 .capture

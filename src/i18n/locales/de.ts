@@ -1,6 +1,6 @@
 // German locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': 'Abbrechen',
   'close': 'Schließen',
   'ok': 'Ok',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': 'Zum Fortfahren klicken',
   'rewards': 'BELOHNUNGEN',
   'tip': 'Tipp',
-  'crazyGamesOnly': 'Dieses Spiel ist nur verfügbar auf',
+  'onlyAvailableOn': 'Dieses Spiel ist nur verfügbar auf',
 
   'ui': {
     'next': 'Weiter',
@@ -32,11 +32,26 @@ export default {
     'lastStand': 'Letztes Gefecht! Systeme neu gestartet.',
     'weak': 'SCHWÄCHE!',
     'dizzy': 'BENOMMEN!',
+    'dodge': 'AUSGEWICHEN!',
     'block': 'Blocken',
     'slide': 'Rutschen',
     'fire': 'Feuern',
-    'tank': 'Reparaturtank',
-    'noEnergy': 'Nicht genug Waffenenergie'
+    'tank': 'Reparaturgel',
+    'noEnergy': 'Nicht genug Waffenenergie',
+    'tankCount': 'Reparaturgel: {n} von {max}',
+    'borrowed': 'Geliehene Waffe {weapon}: {n} von {max} Schüssen',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': 'Hoppla-hopp!',
+      '2': 'Bzzt! Ups!',
+      '3': 'Mein Arm hat Schluckauf!',
+      '4': 'Fehler… juhuu!',
+      '5': 'Butter im Schaltkreis!',
+      '6': 'Wackelmodus AN!'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': 'Zahnradroller',
     'brute': 'Wachdroide',
     'turret': 'Wandkanone',
+    'golem': 'Kistengolem',
     'elite': 'Elite',
     'level': 'Lv. {n}'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': 'Stampfer | Stampfer',
     'roller': 'Zahnradroller | Zahnradroller',
     'brute': 'Wachdroide | Wachdroiden',
-    'turret': 'Wandkanone | Wandkanonen'
+    'turret': 'Wandkanone | Wandkanonen',
+    'golem': 'Kistengolem | Kistengolems'
   },
 
   'hud': {
     'help': 'Steuerung anzeigen',
+    'mute': 'Ton aus',
+    'unmute': 'Ton an',
+    'bossUnknown': 'Unbekannter Boss',
     'hp': 'Gesundheit',
     'we': 'Waffenenergie',
     'power': 'Kraft',
@@ -100,6 +120,8 @@ export default {
     'elite': 'Elitejagd',
     'supply': 'Nachschubtour',
     'purge': 'Sektorsäuberung',
+    'climb': 'Turmlauf',
+    'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
       'boss': 'Dring in den Kern des Sektors {sector} ein und besiege {boss}.',
@@ -108,7 +130,8 @@ export default {
       'rescue': 'Ein Arbeitsbot sitzt im Sektor {sector} fest. Finde ihn und beam ihn raus.',
       'elite': 'Ein Elite-Gegner ({target}) terrorisiert den Sektor {sector}. Jag ihn!',
       'supply': 'Knack {n} Vorratskisten im Sektor {sector}.',
-      'purge': 'Zerstöre alle Maschinen im Sektor {sector}.'
+      'purge': 'Zerstöre alle Maschinen im Sektor {sector}.',
+      'climb': 'Erklimme den Turm im Sektor {sector} – Treppen, Leitern, Aufzüge und Abgründe – und stell dich unten in der Arena erneut {boss}.'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': 'Finde den gestrandeten Arbeitsbot',
     'elite': 'Jag den Elite-Gegner: {target}',
     'supply': 'Vorratskisten: {n}/{total}',
-    'purge': 'Maschinen zerstört: {n}/{total}'
+    'purge': 'Maschinen zerstört: {n}/{total}',
+    'climb': 'Erklimme den Turm, besiege {boss}'
   },
   'mission': {
     'bossDown': '{boss} zerstört!',
@@ -151,25 +175,30 @@ export default {
     'red': 'Roter Ring heißt unblockbar – rutsch aus dem Weg!',
     'dodgeKeys': 'Roter Ring heißt unblockbar – drück die Leertaste und rutsch aus dem Weg!',
     'chest': 'Eine Vorratskiste! Tippe sie an, um sie zu öffnen.',
-    'tank': 'Fast am Ende? Ein Reparaturtank macht dich wieder topfit.',
+    'tank': 'Fast am Ende? Reparaturgel macht dich wieder topfit.',
     'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!'
   },
   'lesson': {
-    'charge': 'Halte gedrückt, um deinen Buster aufzuladen, dann lass los: Nur ein Ladeschuss bricht den Schild der Trainingsdrohne.',
+    'charge': 'Halte gedrückt, um deine Kanone aufzuladen, dann lass los: Nur ein Ladeschuss bricht den Schild der Trainingsdrohne.',
     'crate': 'Versorgungskisten zerbrechen nur durch einen Ladeschuss. Halte gedrückt und lass los, während du auf die leuchtende Kiste zielst.',
     'weaponKeys': 'Drück {n}, um deine kopierte Waffe abzufeuern: Ein Schuss erwischt alle drei Drohnen.',
-    'weaponTouch': 'Tippe auf den leuchtenden Waffenknopf: Ein Schuss erwischt alle drei Drohnen.'
+    'weaponTouch': 'Tippe auf den leuchtenden Waffenknopf: Ein Schuss erwischt alle drei Drohnen.',
+    'gelKeys': 'Drück H für ein Reparaturgel: Es repariert dich komplett.',
+    'gelTouch': 'Tippe auf den grünen Reparaturgel-Knopf: Das Gel repariert dich komplett.'
+  },
+  'walk': {
+    'finishLesson': 'Beende die Lektion'
   },
   'hubLesson': {
     'workshop': 'Öffne die Werkstatt.',
-    'upgradeBuster': 'Gib Bolzen aus, um deinen Buster zu verbessern: mehr Schaden.',
+    'upgradeBuster': 'Gib Bolzen aus, um deine Kanone zu verbessern: mehr Schaden.',
     'pickArmor': 'Wähle jetzt deine Brustpanzerung.',
     'upgradeArmor': 'Verbessere sie auch: mehr Schutz.',
     'deploy': 'Alles bereit – zurück zu den Missionen!'
   },
   'loot': {
     'found': '{item} ({rarity}) gefunden!',
-    'tank': 'Reparaturtank gefunden!'
+    'tank': 'Reparaturgel gefunden!'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': 'SYSTEMAUSFALL',
     'body': 'Flux hat zu viel Schaden erlitten.',
     'kept': 'Was du bisher verdient hast, behältst du:',
-    'useTank': 'Neustart mit Reparaturtank ({n})',
+    'useTank': 'Neustart mit Reparaturgel ({n})',
     'rebootAd': 'Jetzt neu starten',
     'retreat': 'Rückzug ins Labor'
+  },
+  'banner': {
+    'cleared': 'Level geschafft',
+    'bossDown': 'Gegner besiegt!',
+    'gameOver': 'Game Over!'
   },
   'pause': {
     'title': 'PAUSIERT',
     'resume': 'Fortsetzen',
     'abandon': 'Mission abbrechen',
     'controls': 'Steuerung',
+    'label': {
+      'move': 'Laufen',
+      'look': 'Umsehen',
+      'parry': 'Parieren',
+      'interact': 'Interagieren'
+    },
     'touch': {
       'move': 'Linke Seite: ziehen zum Laufen. Tippe auf den Boden, um hinzulaufen.',
-      'look': 'Rechte Seite: ziehen zum Umsehen.',
       'fire': 'Im Kampf: tippen zum Schießen, halten zum Aufladen, loslassen zum Feuern.',
-      'block': 'Schild halten zum Blocken – zum Parieren genau dann, wenn sich ein Ring schließt.'
+      'block': 'Schild halten zum Blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
+      'use': 'An einer Kiste, einem gestrandeten Bot oder einer Tür: tippe darauf oder auf den Knopf, der erscheint.'
     },
     'keys': {
       'move': 'WASD / Pfeiltasten: laufen.',
       'look': 'Maus bewegen zum Umsehen. Klicke in die Szene, um die Kamera zu steuern.',
       'fire': 'Linksklick: schießen – halten zum Aufladen, loslassen zum Feuern.',
       'block': 'Rechtsklick: blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
-      'slide': 'Leertaste: rutschen · H: Reparaturtank · E: interagieren · B: rausbeamen',
-      'more': '1 / 2: Spezialwaffen · Tab: Ziel wechseln · Esc: Pause'
+      'slide': 'Leertaste: rutschen · H: Reparaturgel · E: interagieren · B: rausbeamen',
+      'more': '1 / 2: Spezialwaffen · Tab: Ziel wechseln · Esc: Pause',
+      'press': '{key}: {action}'
     }
   },
   'levelUp': {
     'title': 'LEVEL-UP!',
     'pick': 'Wähle ein System-Upgrade',
-    'chip': '+1 Fähigkeitschip für deine Schaltkreise'
+    'chip': '+1 Fähigkeitschip für deine Schaltkreise',
+    'granted': '{stat} erhöht von {from} auf {to}'
   },
   'attr': {
     'hp': { 'name': 'Chassis', 'desc': 'Max. Gesundheit' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': 'Besiege {boss}, um diesen Sektor zu öffnen.',
     'sectorSecured': 'Sektor gesichert. Seine Aufträge stehen weiter bereit.',
     'deploy': 'Ausrücken',
-    'reroll': 'Neuer Auftrag'
+    'reroll': 'Neuer Auftrag',
+    'unlock': {
+      'hint': 'Noch {n} Mission abschließen zum Freischalten | Noch {n} Missionen abschließen zum Freischalten',
+      'aria': '{name}, gesperrt: noch {n} Mission abschließen | {name}, gesperrt: noch {n} Missionen abschließen'
+    }
   },
   'hero': {
     'role': 'Dein Kampfandroide',
@@ -260,12 +306,12 @@ export default {
       'charge': 'Ladeschuss',
       'armor': 'Panzerung',
       'crit': 'Krit. Trefferchance',
-      'tanks': 'Reparaturtanks'
+      'tanks': 'Reparaturgele'
     }
   },
   'workshop': {
     'tanks': 'Vorräte',
-    'tankName': 'Reparaturtank',
+    'tankName': 'Reparaturgel',
     'tankDesc': 'Stellt während einer Mission Gesundheit und Kraft vollständig wieder her.',
     'owned': 'Im Gepäck: {n}/{max}',
     'upgrade': 'Ausrüstung verbessern',
@@ -279,7 +325,7 @@ export default {
   },
 
   'board': {
-    'buster': 'Buster',
+    'buster': 'Kanone',
     'armor': 'Panzerung',
     'core': 'Kern'
   },
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': 'Megaladung', 'desc': 'Ladeschuss-Schaden +12% pro Chip.' },
     'perfectTiming': { 'name': 'Perfektes Timing', 'desc': 'Größeres Zeitfenster fürs perfekte Loslassen und stärkere kritische Treffer.' },
     'piercing': { 'name': 'Durchschlagskern', 'desc': 'Halb geladene Schüsse brechen auch Schilde und Helme.' },
-    'giga': { 'name': 'Giga-Buster', 'desc': 'Halte über die volle Ladung hinaus für eine verheerende dritte Stufe.' },
+    'giga': { 'name': 'Überladung', 'desc': 'Halte über die volle Ladung hinaus für eine verheerende dritte Stufe.' },
     'frame': { 'name': 'Verstärktes Chassis', 'desc': 'Max. Gesundheit +8% pro Chip.' },
     'barrier': { 'name': 'Barrieren-Tuning', 'desc': 'Blocken kostet weniger Kraft und lässt weniger Schaden durch.' },
     'autoRepair': { 'name': 'Auto-Reparatur', 'desc': 'Regeneriert außerhalb von Kämpfen 1% Gesundheit pro Sekunde, pro Chip.' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': 'Rutsch-Booster', 'desc': 'Kürzere Rutsch-Abklingzeit, günstigeres Rutschen.' },
     'efficient': { 'name': 'Effiziente Kerne', 'desc': 'Spezialwaffen kosten pro Chip 10% weniger Energie.' },
     'magnet': { 'name': 'Bolzenmagnet', 'desc': 'Mehr Bolzen und größere Aufsammelreichweite.' },
-    'tankCap': { 'name': 'Tankkapazität', 'desc': 'Trage pro Chip einen Reparaturtank mehr.' }
+    'tankCap': { 'name': 'Gelkapazität', 'desc': 'Trage pro Chip ein Reparaturgel mehr.' }
   },
 
   'rarity': {
@@ -319,11 +365,11 @@ export default {
     'legendary': 'Legendär'
   },
   'item': {
-    'arm_standard': 'Standard-Buster',
-    'arm_rapid': 'Schnellfeuer-Buster',
-    'arm_heavy': 'Schwerer Buster',
-    'arm_quick': 'Schnelllade-Buster',
-    'arm_nova': 'Nova-Buster',
+    'arm_standard': 'Standardkanone',
+    'arm_rapid': 'Schnellfeuerkanone',
+    'arm_heavy': 'Schwere Kanone',
+    'arm_quick': 'Schnelllade-Kanone',
+    'arm_nova': 'Nova-Kanone',
     'helm_scout': 'Späherhelm',
     'helm_guard': 'Wächterhelm',
     'helm_ace': 'Ass-Helm',
@@ -340,7 +386,7 @@ export default {
     'chip_quantum': 'Quantenchip'
   },
   'slot': {
-    'buster': 'Buster',
+    'buster': 'Kanone',
     'helmet': 'Helm',
     'chest': 'Chassis',
     'boots': 'Stiefel',

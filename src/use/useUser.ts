@@ -4,7 +4,7 @@ import { mobileCheck } from '@/utils/function'
 import { DIFFICULTY, type Difficulties } from '@/utils/enums'
 import { isDbInitialized, isSplashScreenVisible } from '@/use/useMatch'
 import { saveDataVersion } from '@/use/useSaveStatus'
-import { getState, setState, hasState } from '@/use/useGameState'
+import { getState, setState, hasState, removeState, flushPersist } from '@/use/useGameState'
 import {
   SOUND_KEY, MUSIC_KEY, LANGUAGE_KEY, DIFFICULTY_KEY, MUSIC_TRACK_KEY
 } from '@/keys'
@@ -48,7 +48,7 @@ export const version: string = APP_VERSION
 // ─── Persisted settings ────────────────────────────────────────────────────
 //
 // Survivalist persists FIVE user settings — difficulty, sound volume, music
-// volume, locale, music track — as fields inside the single `mega_adventure_state`
+// volume, locale, music track — as fields inside the single `mega_droid_state`
 // blob (keys catalogued in `src/keys.ts`), never as their own localStorage
 // entries. On a platform build the blob goes through the patched
 // `SaveManager.setItem` and is mirrored to the SDK cloud store automatically.
@@ -181,6 +181,27 @@ const sweepLegacyKeys = (storage: Storage) => {
 }
 sweepLegacyKeys(localStorage)
 sweepLegacyKeys(sessionStorage)
+
+/**
+ * Forget the player's language choice — the portal changed its language, and a
+ * portal CHANGE outranks a stored choice (see `src/i18n/portalLanguage.ts`).
+ *
+ * `displayed` is the language the game now shows, so the Options dropdown
+ * follows it; it is NOT persisted. Writing it through `setSettingValue` would
+ * store platform state in the player's key, where it would outrank every later
+ * portal language — the bug this contract exists to prevent.
+ *
+ * Persisted AT ONCE, not on the save debounce: at boot this runs moments before
+ * main.ts re-reads the blob from storage (`reloadGameState`), which would
+ * otherwise bring the old choice straight back — the portal language would win
+ * for one session and the stale choice would reach the cloud and return on the
+ * next visit (measured on the built Wrap archive).
+ */
+export const clearLanguageChoice = (displayed: string): void => {
+  removeState(LANGUAGE_KEY)
+  flushPersist()
+  userLanguage.value = displayed
+}
 
 // ─── Composable surface ───────────────────────────────────────────────────
 

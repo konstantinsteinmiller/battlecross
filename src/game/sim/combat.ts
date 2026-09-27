@@ -4,9 +4,11 @@ import {
 import type { Enemy, Shot, World, Pickup, PickupKind } from './world'
 import type { PlayerStats } from './stats'
 import { glowTexture } from '../world/textures'
-import { hasLineOfSight } from '../world/nav'
-import { PARRY_WINDOW, wake } from './enemies'
+import { hasLineOfSight, floorAt } from '../world/nav'
+import { PARRY_WINDOW, wake, golemShielded, wakeGolem, ROCK_G } from './enemies'
+import { Rubble } from '../fx/rubble'
 import { pushHud } from '../state/hud'
+import { incomingShot } from '../state/damageFeed'
 import { buildBolt, buildCapsule } from '../models/props'
 import { BASE_COLORS } from '../models/enemies'
 import { PLAYER_R, EYE_H } from './constants'
@@ -39,6 +41,10 @@ export interface CombatHost extends World {
   onDeflect?(): void
 }
 
+/** Height of the player's feet: the climb's floors (`nav.floorAt`, and an
+ *  enemy's `floor`) lift everything aimed at him; 0 on a flat map. */
+const feetOf = (h: World): number => h.player.y ?? 0
+
 const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: number }> = {
   pellet: { core: '#fff6b0', glow: '#ffe066', r: 0.085, g: 0.55 },
   charge1: { core: '#eaffb0', glow: '#9dff5a', r: 0.15, g: 1.0 },
@@ -47,7 +53,10 @@ const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: numb
   enemy: { core: '#fff0e0', glow: '#ff5a3a', r: 0.12, g: 0.8 },
   shell: { core: '#3b4458', glow: '#ff7a3a', r: 0.22, g: 1.0 },
   reflect: { core: '#ffffff', glow: '#7ff4ff', r: 0.16, g: 1.2 },
-  special: { core: '#ffffff', glow: '#ffffff', r: 0.2, g: 1.2 }
+  special: { core: '#ffffff', glow: '#ffffff', r: 0.2, g: 1.2 },
+  // A golem's rock: a stone mesh (fx/rubble.ts) in a faint dust halo that
+  // flashes white in the parry window like every blockable shot
+  rock: { core: '#6a645a', glow: '#6e5a40', r: 0.19, g: 0.9 }
 }
 
 const sphereGeo = new SphereGeometry(1, 12, 8)
@@ -94,11 +103,16 @@ export class CombatSystem {
   waves: Wave[] = []
   rings: RingHazard[] = []
   readonly root = new Group()
+  /** Crate golems' stones in flight and their debris. */
+  readonly rubble: Rubble
   private host: CombatHost
 
   constructor(host: CombatHost) {
     this.host = host
     host.scene.add(this.root)
+    this.rubble = new Rubble(this.root)
+    // A golem reads the shots in flight to see a charge coming (World.shots)
+    host.shots = this.shots
   }
 
   // ─── Shot pool ─────────────────────────────────────────────────────────────
@@ -132,6 +146,7 @@ export class CombatSystem {
     s.destructible = false
     s.burn = 0
     s.freeze = 0
+    s.rock = null
     s.sprite.visible = true
     s.core!.visible = true
     return s
@@ -185,6 +200,14 @@ export class CombatSystem {
     s.life = 3
     s.source = e
     s.blockable = blockable
+    if (e.kind === 'golem') {
+      // A crate golem throws a real stone, on an arc (ROCK_G in update)
+      s.kind = 'rock'
+      this.look(s, 'rock')
+      s.core!.visible = false
+      s.rock = this.rubble.stone(false)
+      return s
+    }
     const glow = e.element === 'fire' ? '#ff7a2a' : e.element === 'ice' ? '#7fe8ff' : e.element === 'volt' ? '#fff04a' : '#ff5a3a'
     this.look(s, 'enemy', glow)
     return s
@@ -213,7 +236,7 @@ export class CombatSystem {
   /** A slow homing energy orb — can be blocked, parried or shot down. */
   fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void {
     const h = this.host
-    const s = this.spawnEnemyShot(e, x, y, z, h.player.x - x, (EYE_H - 0.45) - y, h.player.z - z, speed, dmg, true)
+    const s = this.spawnEnemyShot(e, x, y, z, h.player.x - x, feetOf(h) + EYE_H - 0.45 - y, h.player.z - z, speed, dmg, true)
     s.homePlayer = true
     s.destructible = true
     s.life = 5
@@ -267,7 +290,7 @@ export class CombatSystem {
     s.owner = 'enemy'
     s.kind = 'shell'
     s.sx = e.x
-    s.sy = 1.0
+    s.sy = (e.floor ?? 0) + 1.0
     s.sz = e.z
     s.x = s.px = s.sx
     s.y = s.py = s.sy
@@ -281,6 +304,14 @@ export class CombatSystem {
     s.source = e
     s.blockable = false
     this.look(s, 'shell')
+    if (e.kind === 'golem') {
+      // The golem's boulder, from over its head, in a faint dust halo
+      s.sy = s.y = s.py = (e.floor ?? 0) + 2.05 * e.rig.root.scale.x
+      s.core!.visible = false
+      ;(s.sprite.material as SpriteMaterial).color.set('#6e5a40')
+      s.sprite.scale.setScalar(1.5)
+      s.rock = this.rubble.stone(true)
+    }
   }
 
   // ─── Update ────────────────────────────────────────────────────────────────
@@ -288,7 +319,11 @@ export class CombatSystem {
   update(dt: number): void {
     const h = this.host
     for (const s of this.shots) {
-      if (!s.active) continue
+      if (!s.active) {
+        // Ended elsewhere (a Gale Guard leaf ate it): its stone crumbles too
+        if (s.rock) this.kill(s)
+        continue
+      }
       s.px = s.x
       s.py = s.y
       s.pz = s.z
@@ -300,13 +335,20 @@ export class CombatSystem {
         const k = Math.min(1, s.t / s.dur)
         s.x = s.sx + (s.tx - s.sx) * k
         s.z = s.sz + (s.tz - s.sz) * k
-        s.y = s.sy * (1 - k) + Math.sin(k * Math.PI) * 4.5
-        h.fx.emit({ x: s.x, y: s.y, z: s.z, color: '#ffb070', size: 0.35, sizeEnd: 0.05, life: 0.3, vy: 0.5 })
+        // Lands on whatever floor is at the target (the climb: a ledge).
+        const ty = Math.max(-60, floorAt(h.nav, s.tx, s.tz))
+        s.y = s.sy * (1 - k) + ty * k + Math.sin(k * Math.PI) * 4.5
+        // A golem's boulder sheds a little dust, not a fuse's sparks
+        if (!s.rock) h.fx.emit({ x: s.x, y: s.y, z: s.z, color: '#ffb070', size: 0.35, sizeEnd: 0.05, life: 0.3, vy: 0.5 })
+        else if (Math.random() < 0.4) h.fx.emit({ x: s.x, y: s.y, z: s.z, color: '#8a7a62', size: 0.45, sizeEnd: 0.1, life: 0.35, vy: 0.3 })
         if (k >= 1) {
-          h.fx.orbBurst(s.x, 0.4, s.z, '#ff7a3a', 0.7)
-          h.shocks.spawn(s.x, 0.05, s.z, 2.0, '#ff5a3a', 0.35)
+          if (s.rock) {
+            h.fx.sparks(s.x, ty + 0.3, s.z, '#b3a386', 16, 6, 0.24)
+            h.fx.flash(s.x, ty + 0.4, s.z, '#e8d8b8', 1.8, 0.16)
+          } else h.fx.orbBurst(s.x, ty + 0.4, s.z, '#ff7a3a', 0.7)
+          h.shocks.spawn(s.x, ty + 0.05, s.z, 2.0, '#ff5a3a', 0.35)
           h.shake(0.3)
-          h.sfx('explode', s.x, s.z)
+          h.sfx(s.rock ? 'stomp' : 'explode', s.x, s.z)
           if (Math.hypot(h.player.x - s.x, h.player.z - s.z) < 1.9 + PLAYER_R) {
             h.hitPlayer(s.source, s.dmg, { blockable: false, fromX: s.x, fromZ: s.z, kind: 'aoe' })
           }
@@ -318,7 +360,7 @@ export class CombatSystem {
       // Enemy orbs curve toward the player
       if (s.homePlayer) {
         const ax = h.player.x - s.x
-        const ay = (EYE_H - 0.45) - s.y
+        const ay = feetOf(h) + EYE_H - 0.45 - s.y
         const az = h.player.z - s.z
         const al = Math.hypot(ax, ay, az) || 1
         const sp = Math.hypot(s.vx, s.vy, s.vz)
@@ -332,7 +374,7 @@ export class CombatSystem {
       if (s.homing && s.homing.state !== 'dead') {
         const e = s.homing
         const ax = e.x - s.x
-        const ay = e.y + e.def.aimY - s.y
+        const ay = e.y + (e.floor ?? 0) + e.def.aimY - s.y
         const az = e.z - s.z
         const al = Math.hypot(ax, ay, az) || 1
         const sp = Math.hypot(s.vx, s.vy, s.vz)
@@ -346,6 +388,8 @@ export class CombatSystem {
         s.vz = (s.vz / nl) * sp
       }
 
+      // A golem's rock falls along its arc (a parried one flies back straight)
+      if (s.kind === 'rock') s.vy -= ROCK_G * dt
       s.x += s.vx * dt
       s.y += s.vy * dt
       s.z += s.vz * dt
@@ -355,10 +399,16 @@ export class CombatSystem {
         h.fx.emit({ x: s.x, y: s.y, z: s.z, color: s.color, size: s.kind === 'charge3' ? 0.9 : 0.6, sizeEnd: 0.05, life: 0.22 })
       }
 
-      // World collision (walls, closed doors, pillars, floor)
-      if (s.y < 0.02 || !hasLineOfSight(h.nav, s.px, s.pz, s.x, s.z)) {
-        h.fx.sparks(s.px, Math.max(0.1, s.py), s.pz, s.color, s.kind === 'pellet' ? 5 : 12, 4)
-        if (s.kind !== 'pellet') h.fx.flash(s.px, s.py, s.pz, s.color, 1.2, 0.14)
+      // World collision (walls, closed doors, pillars, floor — on the climb
+      // a ledge's floor, so its cliff face stops a shot too)
+      if (s.y < floorAt(h.nav, s.x, s.z) + 0.02 || !hasLineOfSight(h.nav, s.px, s.pz, s.x, s.z)) {
+        if (s.rock) {
+          h.fx.sparks(s.px, Math.max(0.1, s.py), s.pz, '#b3a386', 8, 4, 0.2)
+          h.sfx('punch', s.px, s.pz)
+        } else {
+          h.fx.sparks(s.px, Math.max(0.1, s.py), s.pz, s.color, s.kind === 'pellet' ? 5 : 12, 4)
+          if (s.kind !== 'pellet') h.fx.flash(s.px, s.py, s.pz, s.color, 1.2, 0.14)
+        }
         this.kill(s)
         continue
       }
@@ -388,23 +438,26 @@ export class CombatSystem {
         for (const e of h.enemies) {
           if (e.state === 'dead' || e.offstage || s.hitIds.includes(e.id)) continue
           const ex = e.x - s.x
-          const ey = e.y + e.def.aimY * (e.elite ? 1.18 : 1) - s.y
+          const ey = e.y + (e.floor ?? 0) + e.def.aimY * (e.elite ? 1.18 : 1) - s.y
           const ez = e.z - s.z
           const rr = e.def.hitR * (e.elite ? 1.18 : 1) + s.radius
           if (ex * ex + ey * ey + ez * ez > rr * rr) continue
           s.hitIds.push(e.id)
+          // A shot that only TINKs off a sleeping golem stops there, piercing or not
+          const bounced = golemShielded(e)
           this.hitEnemyWithShot(e, s)
-          if (s.pierce <= 0) { this.kill(s); break }
+          if (bounced || s.pierce <= 0) { this.kill(s); break }
           s.pierce--
         }
       } else {
         const dx = h.player.x - s.x
-        const dy = (EYE_H - 0.45) - s.y
+        const dy = feetOf(h) + EYE_H - 0.45 - s.y
         const dz = h.player.z - s.z
         const rr = 0.5 + s.radius
         // Late-window flash: the shot glints white when a block now would parry.
         const toPlayer = Math.hypot(dx, dz)
         const sp = Math.hypot(s.vx, s.vz) || 1
+        incomingShot(h.player, s.x, s.z, s.px, s.pz, s.vx, s.vz) // an off-screen shot whizzes from its side
         if (s.blockable && toPlayer / sp < PARRY_WINDOW + h.stats.parryBonus) {
           ;(s.sprite.material as SpriteMaterial).color.set('#ffffff')
         }
@@ -417,6 +470,7 @@ export class CombatSystem {
     }
     this.updateHazards(dt)
     this.updatePickups(dt)
+    this.rubble.update(dt, h.nav)
   }
 
   /** Per-frame visual interpolation. */
@@ -429,6 +483,11 @@ export class CombatSystem {
       const z = s.pz + (s.z - s.pz) * alpha
       s.sprite.position.set(x, y, z)
       s.core!.position.set(x, y, z)
+      if (s.rock) {
+        // Tumbling on the way (its remaining life is a free, steady clock)
+        s.rock.position.set(x, y, z)
+        s.rock.rotation.set(s.life * 9, s.life * 4, s.life * 6)
+      }
       // Player shots start small and grow over their first ~2.5 m, so a
       // charge shot leaving the buster does not white out the screen.
       if (s.owner === 'player' && s.kind !== 'reflect') {
@@ -448,6 +507,12 @@ export class CombatSystem {
     s.active = false
     s.sprite.visible = false
     if (s.core) s.core.visible = false
+    if (s.rock) {
+      // A stone breaks where it ends: on a wall, the floor, Flux, a golem
+      this.rubble.crumble(s.x, s.y, s.z, s.kind === 'shell' ? 7 : 4)
+      this.rubble.drop(s.rock)
+      s.rock = null
+    }
   }
 
   /** Parried enemy shot flies back at its owner, twice as hard. */
@@ -463,6 +528,8 @@ export class CombatSystem {
     s.life = 2
     s.hitIds.length = 0
     this.look(s, 'reflect')
+    // A parried rock goes back as a rock, lit cyan
+    if (s.rock) s.core!.visible = false
   }
 
   // ─── Damage to enemies ─────────────────────────────────────────────────────
@@ -471,7 +538,8 @@ export class CombatSystem {
     if (s.kind === 'special') {
       e.lastWeapon = s.weapon
       this.damageEnemy(e, s.dmg, { crit: s.crit, charge: 1, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element, special: true, weapon: s.weapon })
-      if (e.state !== 'dead') {
+      // A golem the hit only woke catches no burn and no freeze either
+      if (e.state !== 'dead' && !golemShielded(e)) {
         if (s.burn > 0) { e.burnT = 3; e.burnDps = s.burn }
         if (s.freeze > 0 && !e.boss) {
           e.frozenT = s.freeze
@@ -499,6 +567,17 @@ export class CombatSystem {
       h.fx.sparks(o.x, o.y, o.z, '#ffffff', 6, 4, 0.14)
       pushHud({ t: 'text', x: o.x, y: o.y + 0.3, z: o.z, key: 'combat.tink', color: '#dfe7ff' })
       h.sfx('tink', e.x, e.z)
+      return
+    }
+    // A crate golem asleep or still unfolding takes nothing: the first hit of
+    // anything only wakes it, with the deflect's TINK (never the coach's
+    // "charge it" nudge — a charge is no key here)
+    if (golemShielded(e)) {
+      h.fx.sparks(o.x, o.y, o.z, '#ffffff', 8, 5, 0.15)
+      h.fx.flash(o.x, o.y, o.z, '#fff6dc', 0.8, 0.1)
+      pushHud({ t: 'text', x: o.x, y: o.y + 0.3, z: o.z, key: 'combat.tink', color: '#dfe7ff' })
+      h.sfx('tink', e.x, e.z)
+      wakeGolem(h, e)
       return
     }
     if (!e.awake) wake(h, e)
@@ -592,9 +671,11 @@ export class CombatSystem {
     e.state = 'dead'
     e.deathT = 0
     e.ring.visible = false
-    const cy = e.y + e.def.aimY
-    const col = e.boss ? (e.def as BossDef).color : e.elite ? '#ffd84a' : BASE_COLORS[e.kind].main
+    const cy = e.y + (e.floor ?? 0) + e.def.aimY
+    const col = e.boss ? (e.def as BossDef).color : e.elite ? '#ffd84a' : e.golem ? e.golem.wood : BASE_COLORS[e.kind].main
     h.fx.orbBurst(e.x, cy, e.z, col, e.boss ? 2 : e.elite ? 1.4 : e.def.radius > 0.8 ? 1.2 : 1)
+    // A golem breaks up into its crate's planks and its stone
+    if (e.golem) this.rubble.burst(e.x, cy, e.z, e.golem.wood, e.golem.trim)
     h.shake(e.boss ? 0.8 : e.elite ? 0.4 : 0.2)
     h.sfx(e.boss ? 'death' : 'explode', e.x, e.z)
     if (e.boss) h.hitStop = Math.max(h.hitStop, 0.35)
@@ -661,14 +742,14 @@ export class CombatSystem {
         const sp = 9 + p.t * 4
         p.x += (dx / (d || 1)) * Math.min(d, sp * dt)
         p.z += (dz / (d || 1)) * Math.min(d, sp * dt)
-        p.y += ((EYE_H - 0.6) - p.y) * Math.min(1, dt * 8)
+        p.y += (feetOf(h) + EYE_H - 0.6 - p.y) * Math.min(1, dt * 8)
       } else {
         // Toss, bounce, settle
         p.vy -= 18 * dt
         p.x += p.vx * dt
         p.z += p.vz * dt
         p.y += p.vy * dt
-        const rest = p.kind === 'bolt' ? 0.22 : 0.3
+        const rest = (p.kind === 'bolt' ? 0.22 : 0.3) + Math.max(-60, floorAt(h.nav, p.x, p.z))
         if (p.y < rest) {
           p.y = rest
           p.vy = Math.abs(p.vy) > 2 ? -p.vy * 0.35 : 0
@@ -717,5 +798,6 @@ export class CombatSystem {
       p.active = false
       p.root.visible = false
     }
+    this.rubble.clear()
   }
 }

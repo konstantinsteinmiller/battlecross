@@ -34,15 +34,19 @@ interface ToneOpts {
 
 let busOut: GainNode | null = null
 const panners: StereoPannerNode[] = []
+/** A muffled sound's low-pass (see `play`): while its recipe runs, every
+ *  voice routes through it on its way to the sfx bus. */
+let route: BiquadFilterNode | null = null
 
 const out = (pan: number): AudioNode | null => {
   const a = audio()
   if (!a) return null
   if (!busOut) busOut = a.sfx
-  if (!pan || !('createStereoPanner' in a.ctx)) return a.sfx
+  const bus = route ?? a.sfx
+  if (!pan || !('createStereoPanner' in a.ctx)) return bus
   const p = a.ctx.createStereoPanner()
   p.pan.value = pan
-  p.connect(a.sfx)
+  p.connect(bus)
   panners.push(p)
   if (panners.length > 64) panners.shift()?.disconnect()
   return p
@@ -130,8 +134,23 @@ const arp = (notes: number[], step: number, wave: Wave, vol: number, len = step 
 // Voice limiting: the same sound can only retrigger every `gap` seconds.
 const lastAt = new Map<string, number>()
 const GAP: Partial<Record<SfxName, number>> = {
-  shoot: 0.04, hit: 0.035, bolt: 0.05, tink: 0.05, enemyShot: 0.06, explode: 0.06, alert: 0.12, uiClick: 0.03
+  shoot: 0.04, hit: 0.035, bolt: 0.05, tink: 0.05, enemyShot: 0.06, explode: 0.06, alert: 0.12, uiClick: 0.03,
+  // Two traps in earshot must not stack into one loud chord.
+  bladeWhoosh: 0.2, trapHiss: 0.3, flameJet: 0.3,
+  // The exit drone's rotor pulses overlap on purpose, never faster than this.
+  droneHum: 0.2, droneHumHi: 0.15,
+  // Hits from several sides at once: one hurt, not a stutter of them.
+  hurt: 0.13,
+  // The incoming-shot warning: a volley whizzes once.
+  whizz: 0.5
 }
+
+/** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
+const OPEN_HZ = 16000
+const MUFFLED_HZ = 850
+/** The low-pass cutoff for a muffle of 0..1, on an exponential (pitch) scale. */
+export const muffleHz = (muffle: number): number =>
+  OPEN_HZ * Math.pow(MUFFLED_HZ / OPEN_HZ, Math.max(0, Math.min(1, muffle)))
 
 const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   // ── Buster ──
@@ -177,6 +196,12 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   },
   // ── Enemy actions ──
   enemyShot: (p, g) => tone({ wave: 'p25', f0: 520, f1: 900, dur: 0.08, vol: 0.14 * g, pan: p }),
+  // A shot about to land from off-screen: a quick falling air-rip from its
+  // side (a Doppler drop), quiet — a warning, not an alarm.
+  whizz: (p, g) => {
+    burst({ dur: 0.2, vol: 0.13 * g, type: 'bandpass', f0: 5200, f1: 1300, q: 2.6, pan: p })
+    tone({ wave: 'tri', f0: 1900, f1: 720, dur: 0.17, vol: 0.05 * g, pan: p })
+  },
   lob: (p, g) => tone({ wave: 'p12', f0: 1400, f1: 300, dur: 0.45, vol: 0.12 * g, exp: false, pan: p }),
   jump: (p, g) => tone({ wave: 'p25', f0: 180, f1: 700, dur: 0.18, vol: 0.18 * g, pan: p }),
   stomp: (p, g) => {
@@ -194,9 +219,12 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   },
   alert: (p, g) => arp([81, 88], 0.07, 'p25', 0.14 * g, 0.07, 0, p),
   // ── Player state ──
-  hurt: (_p, g) => {
-    arp([76, 72, 69, 64], 0.028, 'p50', 0.24 * g, 0.04)
-    burst({ dur: 0.1, vol: 0.18 * g, f0: 2000, f1: 400 })
+  // From the side the hit came from (`state/damageFeed.ts`): the impact's
+  // crack at the full pan, Flux's own falling blip only half way, so it
+  // still reads as him.
+  hurt: (p, g) => {
+    arp([76, 72, 69, 64], 0.028, 'p50', 0.24 * g, 0.04, 0, p * 0.55)
+    burst({ dur: 0.1, vol: 0.18 * g, f0: 2000, f1: 400, pan: p })
   },
   block: (p, g) => {
     tone({ wave: 'tri', f0: 1500, f1: 1100, dur: 0.1, vol: 0.2 * g, pan: p })
@@ -211,6 +239,14 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     arp([67, 63, 58], 0.06, 'p50', 0.2 * g, 0.08)
   },
   slide: (_p, g) => burst({ dur: 0.22, vol: 0.18 * g, f0: 3000, f1: 500 }),
+  // A hard hit shook the charge loose: a sputtering buzz, two crackles and a
+  // silly "boing" up (sim/fumble.ts).
+  fumble: (_p, g) => {
+    tone({ wave: 'p50', f0: 240, f1: 90, dur: 0.24, vol: 0.2 * g, vib: 70, vibRate: 38 })
+    burst({ dur: 0.06, vol: 0.16 * g, type: 'bandpass', f0: 3200, q: 3 })
+    burst({ dur: 0.05, vol: 0.14 * g, type: 'bandpass', f0: 2300, q: 3, at: 0.1 })
+    tone({ wave: 'p12', f0: 700, f1: 1900, dur: 0.1, vol: 0.1 * g, at: 0.2 })
+  },
   // ── Pickups & rewards ──
   bolt: (p, g) => arp([88, 95], 0.04, 'p25', 0.13 * g, 0.06, 0, p),
   heal: (_p, g) => arp([72, 76, 79, 84, 88], 0.04, 'p25', 0.16 * g, 0.06),
@@ -227,8 +263,30 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     arp([72, 76, 79, 84, 79, 84, 88], 0.07, 'p25', 0.2 * g, 0.12)
     arp([60, 64, 67, 72], 0.14, 'tri', 0.2 * g, 0.2)
   },
+  // One level-up pick spent while more are waiting: a bright two-step "ting"
+  // with a sparkle on top — the fanfare's opening interval, so it reads as
+  // part of the same event, and short enough that three in a row never pile
+  // up. The LAST pick plays the full `levelUp` fanfare instead.
+  attrPick: (_p, g) => {
+    arp([79, 86], 0.05, 'p25', 0.17 * g, 0.09)
+    tone({ wave: 'tri', f0: midiHz(98), f1: midiHz(103), dur: 0.16, vol: 0.1 * g, at: 0.09 })
+  },
   objective: (_p, g) => arp([79, 84, 88, 91, 96], 0.06, 'p50', 0.17 * g, 0.12),
   weapon: (_p, g) => arp([76, 83, 88], 0.04, 'p12', 0.15 * g, 0.07),
+  // A borrowed weapon taken: the classic "weapon get" shape — a rising
+  // arpeggio that climbs past the octave, a held top note with vibrato and a
+  // triangle bass under it. Longer and grander than any pickup blip, so it
+  // is never mistaken for health or energy.
+  borrowGet: (p, g) => {
+    arp([67, 71, 74, 79, 83, 86], 0.055, 'p25', 0.16 * g, 0.08, 0, p)
+    tone({ wave: 'p12', f0: midiHz(91), dur: 0.42, vol: 0.14 * g, at: 0.33, vib: 9, vibRate: 11, pan: p })
+    arp([55, 62, 67], 0.11, 'tri', 0.18 * g, 0.16, 0, p)
+  },
+  // Its last charge spent: a short falling blip and a puff — gone, not broken.
+  borrowSpent: (_p, g) => {
+    tone({ wave: 'p50', f0: midiHz(84), f1: midiHz(60), dur: 0.2, vol: 0.14 * g })
+    burst({ dur: 0.16, vol: 0.1 * g, type: 'bandpass', f0: 2600, f1: 700, q: 1.2, at: 0.05 })
+  },
   // ── World ──
   door: (p, g) => {
     burst({ dur: 0.35, vol: 0.14 * g, type: 'bandpass', f0: 400, f1: 1600, q: 1.5, pan: p })
@@ -242,9 +300,77 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     arp([96, 84, 72], 0.05, 'p12', 0.14 * g, 0.08)
     tone({ wave: 'p25', f0: 300, f1: 2800, dur: 0.6, vol: 0.2 * g, vib: 60, vibRate: 30, at: 0.12 })
   },
+  // ── The exit drone (`sim/exitRun.ts`) ──
+  // Coming in over the walls: a falling whoosh with a low motor under it.
+  droneArrive: (_p, g) => {
+    burst({ dur: 1.5, vol: 0.14 * g, type: 'bandpass', f0: 2400, f1: 420, q: 1.3 })
+    tone({ wave: 'tri', f0: 220, f1: 96, dur: 1.4, vol: 0.14 * g, attack: 0.3, vib: 6, vibRate: 17 })
+  },
+  // The rotors: one swelling pulse of a low buzz with the blades' chop in
+  // it. Re-triggered while the drone flies (overlapping, so it reads as one
+  // hum), each pulse a one-shot: a mute or an ad silences it like any sound.
+  droneHum: (p, g) => {
+    tone({ wave: 'p50', f0: 94, f1: 90, dur: 0.62, vol: 0.06 * g, attack: 0.2, vib: 7, vibRate: 19, pan: p })
+    tone({ wave: 'tri', f0: 188, dur: 0.6, vol: 0.05 * g, attack: 0.22, pan: p })
+    burst({ dur: 0.6, vol: 0.035 * g, type: 'bandpass', f0: 760, f1: 620, q: 1.6, pan: p })
+  },
+  // …spun up for the climb out.
+  droneHumHi: (p, g) => {
+    tone({ wave: 'p50', f0: 132, f1: 140, dur: 0.5, vol: 0.06 * g, attack: 0.15, vib: 9, vibRate: 26, pan: p })
+    tone({ wave: 'tri', f0: 264, dur: 0.48, vol: 0.05 * g, attack: 0.16, pan: p })
+    burst({ dur: 0.48, vol: 0.04 * g, type: 'bandpass', f0: 1100, f1: 1300, q: 1.6, pan: p })
+  },
+  // Flux lands on the deck: a hollow metal clunk.
+  deckLand: (_p, g) => {
+    tone({ wave: 'tri', f0: 330, f1: 120, dur: 0.16, vol: 0.28 * g })
+    burst({ dur: 0.09, vol: 0.16 * g, type: 'bandpass', f0: 1800, q: 1.4 })
+    tone({ wave: 'p12', f0: 1250, f1: 1100, dur: 0.12, vol: 0.06 * g, at: 0.02 })
+  },
+  // Lift-off: a rising rush and a climbing arpeggio — the level's done.
+  liftOff: (_p, g) => {
+    burst({ dur: 1.3, vol: 0.2 * g, type: 'bandpass', f0: 300, f1: 2600, q: 1.1 })
+    tone({ wave: 'p25', f0: 110, f1: 440, dur: 1.1, vol: 0.14 * g, vib: 10, vibRate: 22 })
+    arp([67, 72, 76, 79, 84], 0.07, 'p12', 0.12 * g, 0.12, 0.15)
+  },
   bossIntro: (_p, g) => {
     arp([45, 48, 51, 54, 57], 0.12, 'p50', 0.2 * g, 0.2)
     tone({ wave: 'tri', f0: 55, dur: 0.9, vol: 0.35 * g, vib: 3, vibRate: 7 })
+  },
+  // The objective locator's triangle appearing: a soft rising sonar blip, a
+  // hint rather than an alarm, so it never reads as danger mid-fight.
+  locate: (_p, g) => {
+    tone({ wave: 'tri', f0: midiHz(84), f1: midiHz(91), dur: 0.16, vol: 0.14 * g })
+    tone({ wave: 'tri', f0: midiHz(91), dur: 0.22, vol: 0.08 * g, at: 0.14 })
+  },
+  // First sight of the boss shutter: a low klaxon pair over a rumble — the
+  // door says "a Core Master is behind this" before the name card does.
+  bossWarn: (p, g) => {
+    tone({ wave: 'p50', f0: 196, f1: 185, dur: 0.28, vol: 0.16 * g, pan: p })
+    tone({ wave: 'p50', f0: 165, f1: 156, dur: 0.34, vol: 0.16 * g, at: 0.32, pan: p })
+    tone({ wave: 'tri', f0: 49, dur: 0.9, vol: 0.3 * g, vib: 2, vibRate: 6, pan: p })
+  },
+  // ── Corridor traps (`sim/traps.ts`) ──
+  // A flame jet's warning: gas hissing up through a thin rising whine — the
+  // beat to stop, or to run.
+  trapHiss: (p, g) => {
+    burst({ dur: 0.7, vol: 0.12 * g, type: 'highpass', f0: 3500, f1: 6500, q: 0.7, pan: p })
+    tone({ wave: 'p12', f0: 700, f1: 1500, dur: 0.7, vol: 0.05 * g, pan: p })
+  },
+  // …and its burst: a low roar that dies away with the sheet.
+  flameJet: (p, g) => {
+    burst({ dur: 0.95, vol: 0.34 * g, f0: 1800, f1: 260, pan: p })
+    burst({ dur: 0.35, vol: 0.2 * g, type: 'bandpass', f0: 900, f1: 2400, q: 1.1, pan: p })
+    tone({ wave: 'tri', f0: 82, f1: 55, dur: 0.8, vol: 0.22 * g, pan: p })
+  },
+  // A blade coming down through the air: a swell that peaks as it passes.
+  bladeWhoosh: (p, g) => {
+    burst({ dur: 0.14, vol: 0.06 * g, type: 'bandpass', f0: 500, f1: 1200, q: 2.2, pan: p })
+    burst({ dur: 0.3, vol: 0.2 * g, type: 'bandpass', f0: 1300, f1: 450, q: 2.4, at: 0.1, pan: p })
+  },
+  // A pressure plate giving under a foot: a click and a clunk.
+  trapClick: (p, g) => {
+    tone({ wave: 'p12', f0: 1900, f1: 1500, dur: 0.035, vol: 0.2 * g, pan: p })
+    tone({ wave: 'tri', f0: 320, f1: 110, dur: 0.12, vol: 0.26 * g, at: 0.03, pan: p })
   },
   death: (_p, g) => {
     for (let k = 0; k < 6; k++) tone({ wave: 'p50', f0: midiHz(84 - k * 5), f1: midiHz(78 - k * 5), dur: 0.1, vol: 0.2 * g, at: k * 0.09 })
@@ -298,7 +424,7 @@ const playFile = (buf: AudioBuffer, pan: number, gain: number): void => {
   registerOneShotSource(src)
 }
 
-const play = (name: SfxName, pan: number, gain: number): void => {
+const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
   if (!canPlay()) return
   const a = audio()
   if (!a || a.ctx.state !== 'running') return
@@ -308,14 +434,23 @@ const play = (name: SfxName, pan: number, gain: number): void => {
   if (now - last < gap) return
   lastAt.set(name, now)
   const g = Math.max(0.05, Math.min(1.4, gain))
-  const file = fileBuffers.get(name)
-  if (file) {
-    try { playFile(file, pan, g) } catch { /* a voice failed to start — never fatal */ }
-    return
+  // Muffled: one low-pass in front of the SAME sfx bus, so the mute, the
+  // volume and the ad gates hold for it like for any other sound.
+  if (muffle > 0.01) {
+    try {
+      route = a.ctx.createBiquadFilter()
+      route.type = 'lowpass'
+      route.frequency.value = muffleHz(muffle)
+      route.Q.value = 0.7
+      route.connect(a.sfx)
+    } catch { route = null }
   }
-  const r = RECIPES[name]
-  if (r) {
-    try { r(pan, g) } catch { /* a voice failed to start — never fatal */ }
+  try {
+    const file = fileBuffers.get(name)
+    if (file) playFile(file, pan, g)
+    else RECIPES[name]?.(pan, g)
+  } catch { /* a voice failed to start — never fatal */ } finally {
+    route = null
   }
 }
 

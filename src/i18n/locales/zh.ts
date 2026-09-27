@@ -1,6 +1,6 @@
 // Simplified Chinese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Adventure',
+  'gameName': 'Mega Droid',
   'cancel': '取消',
   'close': '关闭',
   'ok': '确定',
@@ -9,7 +9,7 @@ export default {
   'clickToContinue': '单击继续',
   'rewards': '奖励',
   'tip': '提示',
-  'crazyGamesOnly': '本游戏仅在以下平台提供：',
+  'onlyAvailableOn': '本游戏仅在以下平台提供：',
 
   'ui': {
     'next': '下一个',
@@ -32,11 +32,26 @@ export default {
     'lastStand': '不屈！系统已重启。',
     'weak': '弱点！',
     'dizzy': '眩晕！',
+    'dodge': '闪避！',
     'block': '格挡',
     'slide': '滑铲',
     'fire': '射击',
-    'tank': '修理罐',
-    'noEnergy': '武器能量不足'
+    'tank': '修理凝胶',
+    'noEnergy': '武器能量不足',
+    'tankCount': '修理凝胶：{n}/{max}',
+    'borrowed': '借来的武器{weapon}：剩余{n}/{max}发',
+    'borrowedGet': '{weapon} ×{n}'
+  },
+
+  'flux': {
+    'fumble': {
+      '1': '哇哦哦！',
+      '2': '滋滋！哎呀！',
+      '3': '手臂打嗝啦！',
+      '4': '出错…呜呼！',
+      '5': '电路滑溜溜！',
+      '6': '抖抖模式开启！'
+    }
   },
 
   'enemy': {
@@ -47,6 +62,7 @@ export default {
     'roller': '滚动齿轮',
     'brute': '守卫机兵',
     'turret': '墙炮',
+    'golem': '木箱魔像',
     'elite': '精英',
     'level': '{n}级'
   },
@@ -58,11 +74,15 @@ export default {
     'hopper': '重踏者 | 重踏者',
     'roller': '滚动齿轮 | 滚动齿轮',
     'brute': '守卫机兵 | 守卫机兵',
-    'turret': '墙炮 | 墙炮'
+    'turret': '墙炮 | 墙炮',
+    'golem': '木箱魔像 | 木箱魔像'
   },
 
   'hud': {
     'help': '显示操作',
+    'mute': '静音',
+    'unmute': '取消静音',
+    'bossUnknown': '神秘首领',
     'hp': '生命值',
     'we': '武器能量',
     'power': '动力',
@@ -100,6 +120,8 @@ export default {
     'elite': '精英猎杀',
     'supply': '补给行动',
     'purge': '区域肃清',
+    'climb': '高塔冲刺',
+    'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
       'boss': '攻入{sector}的核心，击败{boss}。',
@@ -108,7 +130,8 @@ export default {
       'rescue': '一台工作机器人被困在{sector}。找到它，把它传送出去。',
       'elite': '一台精英{target}正在{sector}肆虐。追踪并消灭它。',
       'supply': '在{sector}撬开{n}个补给箱。',
-      'purge': '摧毁{sector}的所有机械。'
+      'purge': '摧毁{sector}的所有机械。',
+      'climb': '攀上{sector}的高塔——楼梯、梯子、升降台和深坑——再跳进竞技场，与{boss}再战。'
     }
   },
   'objective': {
@@ -122,7 +145,8 @@ export default {
     'rescue': '找到被困的工作机器人',
     'elite': '猎杀精英{target}',
     'supply': '补给箱：{n}/{total}',
-    'purge': '已摧毁机械：{n}/{total}'
+    'purge': '已摧毁机械：{n}/{total}',
+    'climb': '攀上高塔，击败{boss}'
   },
   'mission': {
     'bossDown': '{boss}已被摧毁！',
@@ -151,14 +175,19 @@ export default {
     'red': '红色光圈无法格挡——快滑铲躲开！',
     'dodgeKeys': '红色光圈无法格挡——按Space滑铲躲开！',
     'chest': '补给箱！点击打开。',
-    'tank': '快撑不住了？修理罐能让你完全恢复。',
+    'tank': '快撑不住了？修理凝胶能让你完全恢复。',
     'weapon': '用彩色按钮发射你复制来的武器！'
   },
   'lesson': {
     'charge': '按住为臂炮蓄力，然后松开：只有蓄力弹能打破训练无人机的护盾。',
     'crate': '补给木箱只有蓄力弹才能打碎。按住，然后对准发光的木箱松开。',
     'weaponKeys': '按{n}发射复制来的武器：一发就能命中全部三架无人机。',
-    'weaponTouch': '点击发光的武器按钮：一发就能命中全部三架无人机。'
+    'weaponTouch': '点击发光的武器按钮：一发就能命中全部三架无人机。',
+    'gelKeys': '按 H 使用修理凝胶：让你完全恢复。',
+    'gelTouch': '点击绿色的修理凝胶按钮：让你完全恢复。'
+  },
+  'walk': {
+    'finishLesson': '完成这一课'
   },
   'hubLesson': {
     'workshop': '打开工坊。',
@@ -169,7 +198,7 @@ export default {
   },
   'loot': {
     'found': '发现{item}（{rarity}）！',
-    'tank': '发现修理罐！'
+    'tank': '发现修理凝胶！'
   },
 
   'results': {
@@ -190,34 +219,47 @@ export default {
     'title': '系统停机',
     'body': 'Flux受到了过多伤害。',
     'kept': '目前获得的奖励将会保留：',
-    'useTank': '使用修理罐重启（{n}）',
+    'useTank': '用修理凝胶重启（{n}）',
     'rebootAd': '立即重启',
     'retreat': '撤回实验室'
+  },
+  'banner': {
+    'cleared': '关卡完成',
+    'bossDown': '击败敌人！',
+    'gameOver': '游戏结束！'
   },
   'pause': {
     'title': '已暂停',
     'resume': '继续',
     'abandon': '放弃任务',
     'controls': '操作说明',
+    'label': {
+      'move': '移动',
+      'look': '视角',
+      'parry': '弹反',
+      'interact': '互动'
+    },
     'touch': {
       'move': '左侧：拖动移动。点击地面即可走过去。',
-      'look': '右侧：拖动环顾四周。',
       'fire': '战斗中：点击射击，按住蓄力，松开发射。',
-      'block': '按住护盾格挡——在光圈收拢瞬间按下即可弹反。'
+      'block': '按住护盾格挡——在光圈收拢瞬间按下即可弹反。',
+      'use': '靠近箱子、被困的机器人或门时：点击它，或点击弹出的按钮。'
     },
     'keys': {
       'move': 'WASD / 方向键：移动。',
       'look': '移动鼠标环顾四周。点击画面即可控制镜头。',
       'fire': '左键：射击——按住蓄力，松开发射。',
       'block': '右键：格挡——在光圈收拢瞬间按下即可弹反。',
-      'slide': 'Space：滑铲 · H：修理罐 · E：互动 · B：传送撤离',
-      'more': '1 / 2：特殊武器 · Tab：切换目标 · Esc：暂停'
+      'slide': 'Space：滑铲 · H：修理凝胶 · E：互动 · B：传送撤离',
+      'more': '1 / 2：特殊武器 · Tab：切换目标 · Esc：暂停',
+      'press': '{key}：{action}'
     }
   },
   'levelUp': {
     'title': '升级！',
     'pick': '选择一项系统升级',
-    'chip': '+1 技能芯片，用于电路'
+    'chip': '+1 技能芯片，用于电路',
+    'granted': '{stat}从{from}提升到{to}'
   },
   'attr': {
     'hp': { 'name': '机体', 'desc': '最大生命值' },
@@ -241,7 +283,11 @@ export default {
     'lockedHint': '击败{boss}即可开启此区域。',
     'sectorSecured': '区域已肃清。委托仍在任务板上。',
     'deploy': '出击',
-    'reroll': '换个委托'
+    'reroll': '换个委托',
+    'unlock': {
+      'hint': '再完成{n}个任务即可解锁',
+      'aria': '{name}，已锁定：再完成{n}个任务'
+    }
   },
   'hero': {
     'role': '你的战斗机器人',
@@ -260,12 +306,12 @@ export default {
       'charge': '蓄力弹',
       'armor': '护甲',
       'crit': '暴击率',
-      'tanks': '修理罐'
+      'tanks': '修理凝胶'
     }
   },
   'workshop': {
     'tanks': '补给',
-    'tankName': '修理罐',
+    'tankName': '修理凝胶',
     'tankDesc': '在任务中完全恢复生命值和动力。',
     'owned': '携带：{n}/{max}',
     'upgrade': '强化装备',
@@ -297,7 +343,7 @@ export default {
     'megaCharge': { 'name': '超级蓄力', 'desc': '每枚芯片：蓄力弹伤害+12%。' },
     'perfectTiming': { 'name': '完美时机', 'desc': '完美松手判定更宽，暴击更强。' },
     'piercing': { 'name': '穿透核心', 'desc': '半蓄力弹也能击破护盾和头盔。' },
-    'giga': { 'name': '超载臂炮', 'desc': '满蓄力后继续按住，释放毁灭性的第三段蓄力。' },
+    'giga': { 'name': '过载蓄力', 'desc': '满蓄力后继续按住，释放毁灭性的第三段蓄力。' },
     'frame': { 'name': '强化机体', 'desc': '每枚芯片：最大生命值+8%。' },
     'barrier': { 'name': '屏障调校', 'desc': '格挡消耗更少动力，承受的伤害也更低。' },
     'autoRepair': { 'name': '自动修复', 'desc': '每枚芯片：脱战时每秒恢复1%生命值。' },
@@ -309,7 +355,7 @@ export default {
     'boosters': { 'name': '滑铲推进器', 'desc': '滑铲冷却更快，消耗更少。' },
     'efficient': { 'name': '高效核心', 'desc': '每枚芯片：特殊武器能量消耗降低10%。' },
     'magnet': { 'name': '螺丝磁铁', 'desc': '获得更多螺丝，拾取范围更大。' },
-    'tankCap': { 'name': '罐容量', 'desc': '每枚芯片：可多携带一个修理罐。' }
+    'tankCap': { 'name': '凝胶容量', 'desc': '每枚芯片：可多携带一份修理凝胶。' }
   },
 
   'rarity': {

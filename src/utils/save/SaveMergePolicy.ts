@@ -9,7 +9,7 @@
 // the player's actual keys. The blob lets the next hydrate score local vs.
 // remote and pick a winner deterministically without prompting.
 //
-// Score formula (Mega Adventure):
+// Score formula (Mega Droid):
 //   storySectors   × 5000   (Core Masters defeated — the headline number)
 // + heroLevel      × 1000
 // + missionsDone   ×   40
@@ -117,7 +117,7 @@ const safeJson = <T>(v: string | null, fallback: T): T => {
  * Compute a fresh meta blob from the current localStorage snapshot.
  * Pure — no side effects.
  */
-/** Pull a sub-field out of the consolidated `mega_adventure_state` blob if present.
+/** Pull a sub-field out of the consolidated `mega_droid_state` blob if present.
  *  Falls through to a top-level read for back-compat with any pre-migration
  *  snapshot that still has individual keys (e.g. the score formula was just
  *  invoked between BlobStorage construction and the first migration write). */
@@ -253,8 +253,11 @@ export const readCoinTotal = (read: SnapshotReader): number => {
  * misleading picture of what the game stores.
  *
  * Single-blob model: every persisted gameplay value lives inside the
- * `mega_adventure_state` localStorage entry (see `useGameState.ts`). The cloud
+ * `mega_droid_state` localStorage entry (see `useGameState.ts`). The cloud
  * therefore mirrors exactly TWO keys — the state blob and the meta blob.
+ * The pre-rename state key (`LEGACY_KEYS.STATE`) is deliberately NOT payload:
+ * it is only ever read and re-filed by the migration (`src/legacyKeys.ts`),
+ * never mirrored, so no layer can write the old name back.
  *
  * Individual `ma_*` field keys are also accepted as payload so any stray
  * per-key write (defensive, or a mid-migration snapshot from an older client)

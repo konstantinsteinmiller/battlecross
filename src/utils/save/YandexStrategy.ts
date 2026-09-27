@@ -20,12 +20,14 @@
 //
 //   2. **Single blob key.** Yandex's setData accepts an arbitrary object;
 //      we send `{ blob: <serialized snapshot>, meta: <SaveMeta JSON> }`.
-//      The blob is the consolidated `mega_adventure_state` blob (the same payload
+//      The blob is the consolidated `mega_droid_state` blob (the same payload
 //      Playgama / GamePix mirror), and `meta` is the same SaveMeta the
 //      CrazyGames merge resolver uses — kept here even though we don't
 //      run the merge today, so a future cross-device merge has the data.
 //      One row per player keeps the request count minimal under the 100
-//      req / 5 min cap.
+//      req / 5 min cap. The row never names the local key, so the rename
+//      to Mega Droid left the cloud format untouched: a pre-rename row
+//      hydrates as-is, and only ever lands under the new local key.
 //
 // Failure mode: if `getPlayer()` failed at init (anonymous limits, network
 // blip) the strategy degrades to local-only (success-empty hydrate, writes

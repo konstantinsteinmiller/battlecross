@@ -511,7 +511,7 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M5 12.4c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4v2.3c0 1.3-3.1 2.4-7 2.4s-7-1.1-7-2.4v-2.3Zm0 4.5c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4v2.2c0 1.3-3.1 2.4-7 2.4s-7-1.1-7-2.4v-2.2Z',
     'M9.6 2.4a3.4 3.4 0 0 1 3.3 2.6l3.9 1.2-3.8 1a3.4 3.4 0 1 1-3.4-4.8Zm-.5 1.7a1 1 0 0 0 0 2 1 1 0 0 0 0-2Z'
   ],
-  // ── Mega Adventure gear slots ─────────────────────────────────────────
+  // ── Mega Droid gear slots ─────────────────────────────────────────────
   // The arm cannon: a rounded barrel with a muzzle collar.
   'buster': [
     'M3.4 8.4h11.2a3.6 3.6 0 0 1 0 7.2H3.4A1.6 1.6 0 0 1 1.8 14v-4a1.6 1.6 0 0 1 1.6-1.6Z',
@@ -567,5 +567,30 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
   'nut': [
     'M2.46 12.8A1.6 1.6 0 0 1 2.46 11.2L6.54 4.14A1.6 1.6 0 0 1 7.92 3.34L16.08 3.34A1.6 1.6 0 0 1 17.46 4.14L21.54 11.2A1.6 1.6 0 0 1 21.54 12.8L17.46 19.86A1.6 1.6 0 0 1 16.08 20.66L7.92 20.66A1.6 1.6 0 0 1 6.54 19.86Z',
     'M7.7 12A4.3 4.3 0 1 0 16.3 12A4.3 4.3 0 1 0 7.7 12Z'
+  ],
+  // The Slide: a figure dropped low mid-slide, facing right like the kit
+  // glyphs (head leading, torso pitched forward, front leg straight out along
+  // the floor, back leg folded under, arm flung back), with two speed lines
+  // behind it. A figure doing the move, not an arrow: the slide goes wherever
+  // the stick points, and back with no stick, so `forward` promised a
+  // direction it did not keep. Every limb is a capsule wound clockwise, so
+  // the joints merge under nonzero. Limbs are 2.3 units or more, the torso
+  // 3.5 to 3.9, and each speed line clears the figure by 1.5 units or more,
+  // so at 16 px they stay lines rather than a smear off the back.
+  'dodge': [
+    // head
+    'M13.2 6.5A2.7 2.7 0 1 1 18.6 6.5A2.7 2.7 0 1 1 13.2 6.5Z',
+    // torso
+    'M15.44 12.08L10.43 15.22A1.75 1.75 0 0 1 8.47 12.32L13.27 8.85A1.95 1.95 0 1 1 15.44 12.08Z',
+    // front leg
+    'M9.89 12.28L21.21 16.41A1.35 1.35 0 0 1 20.34 18.97L8.85 15.3A1.6 1.6 0 1 1 9.89 12.28Z',
+    // back thigh and shin
+    'M10.36 15.01L6.37 17.8A1.4 1.4 0 0 1 4.7 15.55L8.51 12.53A1.55 1.55 0 1 1 10.36 15.01Z',
+    'M6.35 15.58L9.29 18.06A1.3 1.3 0 0 1 7.66 20.09L4.6 17.77A1.4 1.4 0 1 1 6.35 15.58Z',
+    // arm, flung back
+    'M12.37 12.34L9.64 9.66A1.15 1.15 0 0 1 11.2 7.98L14.07 10.51A1.25 1.25 0 1 1 12.37 12.34Z',
+    // speed lines
+    'M2.5 5.25L7.1 5.25A1.25 1.25 0 0 1 7.1 7.75L2.5 7.75A1.25 1.25 0 0 1 2.5 5.25Z',
+    'M2.5 9.65L5.1 9.65A1.25 1.25 0 0 1 5.1 12.15L2.5 12.15A1.25 1.25 0 0 1 2.5 9.65Z'
   ]
 }

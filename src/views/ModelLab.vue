@@ -14,7 +14,7 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import {
   Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, AmbientLight, Color, Group, GridHelper, Fog, Mesh,
-  MeshBasicMaterial, SphereGeometry, Sprite, SpriteMaterial, AdditiveBlending, NormalBlending, PointLight, Vector3,
+  MeshBasicMaterial, SphereGeometry, Sprite, SpriteMaterial, AdditiveBlending, NormalBlending, PointLight, Quaternion, Vector3,
   type Object3D, type SkinnedMesh, type Texture
 } from 'three'
 import { getRenderer } from '@/game/engine/renderer'
@@ -29,12 +29,15 @@ import { buildLevel, doorFramePos } from '@/game/world/levelMesh'
 import { mulberry32 } from '@/game/world/rng'
 import { HubMode } from '@/game/sim/hub'
 import { PAL } from '@/game/models/palette'
+import { glowVC } from '@/game/models/toon'
 import { pose, nudge, type Rig, type V3 } from '@/game/models/kit'
 import { buildBossRig, poseBoss, type BossId } from '@/game/models/bosses'
-import { buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, type EnemyKind } from '@/game/models/enemies'
+import { buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem, type EnemyKind } from '@/game/models/enemies'
+import { newMotion } from '@/game/models/motion'
+import { golemColors } from '@/game/sim/enemies'
 
 const host = ref<HTMLElement | null>(null)
-const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret']
+const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret', 'golem']
 const BOSSES: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'vexMk1']
 const models = ['hero', 'hubview', 'turn', 'gear', 'viewmodel', 'fp', 'thumb', 'props', 'enemies', 'bosses', ...ENEMIES, ...BOSSES]
 let bossRigs: Array<{ id: BossId; rig: Rig }> = []
@@ -101,6 +104,55 @@ const fpFreezeAt = hashQuery.has('freeze') ? Number(hashQuery.get('freeze')) : n
 /** `drop=1.2` releases the guard at that time (catch the collapse). */
 const fpDropAt = hashQuery.has('drop') ? Number(hashQuery.get('drop')) : null
 
+/**
+ * `m=golem` — the crate golem's life on a 9 s loop: asleep (1.2 s), the
+ * unfold, idle, a throw (wind-up, release, return), the boulder lob (heave,
+ * release), a dodge hop, the brace. Or one held pose:
+ * `gpose=dormant|unfold|idle|wound|thrown|heave|hop|brace` (`u=0.4` holds the
+ * unfold there). `compare=1` stands the sector's real supply crate beside it
+ * (asleep, the two must be indistinguishable); `theme=cryo` picks the sector.
+ */
+const golemPose = hashQuery.get('gpose')
+const golemU = hashQuery.has('u') ? Number(hashQuery.get('u')) : null
+const golemCompare = hashQuery.get('compare') === '1'
+const labTheme: SectorId = (hashQuery.get('theme') as SectorId | null) ?? 'scrapyard'
+const golemMo = newMotion(7, 'golem')
+const clamp01 = (x: number): number => Math.min(1, Math.max(0, x))
+const poseGolemLab = (r: Rig, t: number): void => {
+  const m = golemMo
+  const c = golemPose ? -1 : t % 9
+  const at = (p: string, a: number, b: number): boolean => golemPose === p || (c >= a && c < b)
+  m.walk = 0
+  m.calm = 0
+  m.armL = 0
+  m.grip = 0
+  m.boulder = 0
+  m.brace = 0
+  let u = 1
+  let arm = 0
+  let lift = 0
+  let hop = 0
+  if (at('dormant', 0, 1.2)) u = 0
+  else if (at('unfold', 1.2, 2.0)) u = golemPose ? golemU ?? clamp01((t % 1.6) / 0.8) : (c - 1.2) / 0.8
+  else if (at('wound', 3, 3.5)) {
+    m.armL = 1
+    arm = golemPose ? -1 : -clamp01((c - 3) / 0.4)
+    m.grip = arm < -0.5 ? 1 : 0
+  } else if (at('thrown', 3.5, 4.2)) {
+    arm = golemPose ? 1 : Math.max(0.01, clamp01((c - 3.5) / 0.1))
+    m.armL = golemPose || c < 3.6 ? 1 : clamp01(1 - (c - 3.6) / 0.5)
+  } else if (at('heave', 4.5, 5.5)) {
+    lift = golemPose ? 1 : clamp01((c - 4.5) / 0.85)
+    m.boulder = 1
+  } else if (c >= 5.5 && c < 6.2) {
+    lift = c < 5.62 ? 1 - (0.65 * (c - 5.5)) / 0.12 : 0.35 * (1 - (c - 5.62) / 0.58)
+  } else if (at('hop', 6.5, 6.84)) {
+    hop = Math.sin(Math.PI * (golemPose ? 0.5 : (c - 6.5) / 0.34))
+  } else if (at('brace', 7, 8.2)) m.brace = 1
+  r.root.position.y = hop * 0.45
+  poseGolem(r, u, arm, lift, hop, t, m)
+}
+
 const scene = new Scene()
 scene.background = new Color(hubLight ? '#0e1c3f' : '#8fc8ff')
 const camera = new PerspectiveCamera(35, 1, 0.05, 100)
@@ -149,12 +201,15 @@ let fpDownUntil = -1
 
 // ─── Store thumbnail (`m=thumb`) ─────────────────────────────────────────────
 //
-// The Poki thumbnail (store-art/poki/README.md), rendered from the real rig:
-// Flux in his DEFAULT look with a charge building in the arm cannon, on a
-// backdrop made by the game's own scene builders. `v=lab` is a low close-up
+// Store art (store-art/poki/, store-art/playgama/), rendered from the real
+// rig: Flux in his DEFAULT look with a charge building in the arm cannon, on
+// a backdrop made by the game's own scene builders. `v=lab` is a low close-up
 // on the hub's pad (HubMode's scene), `v=sector` a close-up in a Volt Tower
 // room (generateMap + buildLevel, as a mission builds it) with a Rotor Drone
-// over his shoulder, `v=full` head to boots on the pad. Nothing runs on a clock:
+// over his shoulder, `v=full` head to boots on the pad. The Playgama covers:
+// `v=land` (16:9) and `v=port` (9:16) fill the frame (no logo goes on them);
+// `v=wide` and `v=tall` keep a calm third for the logo lockup. Frame each at
+// its aspect: the camera's aspect follows the page. Nothing runs on a clock:
 // pose, camera, lights and the spark layout are fixed, so a re-render is the
 // same picture. The page renders at the full devicePixelRatio (the play-time
 // cap is for frame rate, not for a still); `window.__lab.thumb({...})`
@@ -179,8 +234,14 @@ interface ThumbShot {
   turn: number
   /** A white key light from over the camera (0 = none): keeps the pearl armour pearl under a tinted sector sky. */
   key: number
-  enemy?: { kind: EnemyKind; at: V3; yaw: number }
+  /** Machines in the shot. `act` (0..1) is how far into its attack each one is. */
+  enemies?: ThumbEnemy[]
+  /** A charged shot already fired, this far (m) down the cannon's aim; 0 or absent = none. */
+  fired?: number
+  /** `false` switches the room's wall light strips off (a logo is laid over that wall). Sector backdrops only. */
+  lights?: boolean
 }
+interface ThumbEnemy { kind: EnemyKind; at: V3; yaw: number; act?: number }
 
 /**
  * Braced, three-quarter to the camera: the cannon raised and out to screen
@@ -214,7 +275,47 @@ const THUMB: Record<string, ThumbShot> = {
   sector: {
     bg: 'sector', cam: [-0.25, 0.72, -1.35], look: [0.3, 1.2, -3.25], fov: 43, at: [0.2, 0, -3.25], yaw: 0.3,
     pose: THUMB_STANCE, crouch: 0.05, charge: 1, glow: 1.2, turn: 1.42, key: 1.05,
-    enemy: { kind: 'heli', at: [-0.05, 2.75, -5.55], yaw: 0.05 }
+    enemies: [{ kind: 'heli', at: [-0.05, 2.75, -5.55], yaw: 0.05 }]
+  },
+  // Logo layout (16:9): the lockup landscape (covers-logo/), the Wrap hero and
+  // the share image. Flux fires a charged shot across the frame at a
+  // Guardroid, a Rotor Drone over it; the left third is bare wall for the
+  // logo or the site's heading. This wall (turn 4.56) has no pipes on it.
+  wide: {
+    bg: 'sector', cam: [0.2, 0.9, 1.2], look: [0.15, 1.1, -2.6], fov: 40, at: [-0.15, 0, -2.4], yaw: 1.55,
+    pose: {
+      chest: [0, 0.15, 0], head: [0.03, -1, 0.06], shoulderR: [-1.5, 0, 0.15], elbowR: [-0.08, 0, 0],
+      shoulderL: [-0.55, 0, -0.4], elbowL: [-1.6, 0, 0], hipL: [-0.4, 0, -0.2], kneeL: [0.45, 0, 0], hipR: [0.4, 0, 0.22], kneeR: [0.35, 0, 0]
+    },
+    crouch: 0.07, charge: 0.5, glow: 1.2, turn: 4.56, key: 1.05, fired: 1.2,
+    enemies: [{ kind: 'brute', at: [1.95, 0, -4], yaw: -0.75, act: 0.45 }, { kind: 'heli', at: [1.05, 2.3, -3.9], yaw: -0.5 }]
+  },
+  // Logo layout (9:16), the lockup portrait (covers-logo/): Flux head to
+  // boots in the lower two thirds, charging, the top third bare wall for the logo
+  tall: {
+    bg: 'sector', cam: [-0.32, 1, 1.15], look: [0.1, 1, -2.6], fov: 40, at: [0, 0, -2.6], yaw: 0.3,
+    pose: { ...THUMB_WIDE, shoulderR: [-2.1, 0, 0.6] }, crouch: 0.06, charge: 1, glow: 1.2, turn: 4.56, key: 1.05,
+    lights: false
+  },
+  // Playgama covers WITHOUT a logo (YouTube Playables forbids branding in a
+  // thumbnail, and a slot may be forwarded there), so nothing is left calm:
+  // `land` (16:9) — Flux left, the shot across the middle into a Guardroid
+  // that fills the right third, a Rotor Drone over them;
+  land: {
+    bg: 'sector', cam: [0.3, 0.85, 0.6], look: [0.55, 1.1, -2.8], fov: 46, at: [-0.6, 0, -2.45], yaw: 1.55,
+    pose: {
+      chest: [0, 0.15, 0], head: [0.03, -1, 0.06], shoulderR: [-1.6, 0, 0.15], elbowR: [-0.08, 0, 0],
+      shoulderL: [-0.55, 0, -0.4], elbowL: [-1.6, 0, 0], hipL: [-0.4, 0, -0.2], kneeL: [0.45, 0, 0], hipR: [0.4, 0, 0.22], kneeR: [0.35, 0, 0]
+    },
+    crouch: 0.07, charge: 0.5, glow: 1.2, turn: 4.56, key: 1.05, fired: 1.2,
+    enemies: [{ kind: 'brute', at: [2.15, 0, -3.3], yaw: -0.75, act: 0.35 }, { kind: 'heli', at: [0.7, 2.3, -3.7], yaw: -0.45 }]
+  },
+  // `port` (9:16) — Flux head to boots fires up at a Rotor Drone in the top third
+  port: {
+    bg: 'sector', cam: [-0.3, 0.95, 0.9], look: [0.15, 1.3, -2.6], fov: 46, at: [0, 0, -2.6], yaw: 0.35,
+    pose: { ...THUMB_WIDE, chest: [-0.12, 0.1, 0.05], head: [-0.12, -0.3, 0.08], shoulderR: [-2.55, 0, 0.35] },
+    crouch: 0.06, charge: 0.5, glow: 1.2, turn: 4.56, key: 1.05, fired: 0.9, lights: false,
+    enemies: [{ kind: 'heli', at: [0.55, 2.75, -3.9], yaw: -0.15 }]
   },
   // Head to boots on the hub's pad
   full: {
@@ -228,34 +329,38 @@ const thumbTheme: SectorId = (hashQuery.get('theme') as SectorId | null) ?? 'vol
 let thumbScene: Scene | null = null
 let thumbReady = false
 let thumbHero: Rig | null = null
-let thumbEnemy: Rig | null = null
+let thumbEnemies: Rig[] = []
 let thumbSky: Object3D | null = null
 const thumbAnchor = new Vector3()
 const thumbCharge = new Group()
 const thumbLight = new PointLight(new Color(PAL.heroPlasma), 2, 2.4, 2)
 const thumbKey = new DirectionalLight(new Color('#ffffff'), 0)
+/** A charged shot in flight (`fired`): a hot core and a fading trail back to the muzzle. */
+const thumbFired = new Group()
+
+/** One glow sprite. Additive by default; the outer blooms are painted instead
+ *  (added onto a purple sector sky, amber turns pink; laid over it, it stays
+ *  amber on any backdrop). */
+const glowSprite = (to: Group, map: Texture, hex: string, scale: number, opacity: number, additive = true): Sprite => {
+  const s = new Sprite(new SpriteMaterial({
+    map, color: new Color(hex), transparent: true, opacity, blending: additive ? AdditiveBlending : NormalBlending,
+    depthWrite: false, toneMapped: false, fog: false
+  }))
+  s.scale.setScalar(scale)
+  to.add(s)
+  return s
+}
+const hotCore = (r: number): Mesh =>
+  new Mesh(new SphereGeometry(r, 16, 12), new MeshBasicMaterial({ color: new Color(PAL.heroPlasmaHot), toneMapped: false }))
 
 /** The charge at the muzzle: a white-hot core in an amber halo, a gathering ring, sparks drawn in. */
 const buildCharge = (): void => {
   thumbCharge.clear()
-  const add = (map: Texture, hex: string, scale: number, opacity: number, additive = true): Sprite => {
-    const s = new Sprite(new SpriteMaterial({
-      map, color: new Color(hex), transparent: true, opacity, blending: additive ? AdditiveBlending : NormalBlending,
-      depthWrite: false, toneMapped: false, fog: false
-    }))
-    s.scale.setScalar(scale)
-    thumbCharge.add(s)
-    return s
-  }
-  // The outer bloom is painted, not added: added onto a purple sector sky,
-  // amber turns pink; laid over it, it stays amber on any backdrop
-  add(glowTexture(), '#ff9a2e', 1.25, 0.5, false)
-  add(glowTexture(), PAL.heroPlasma, 0.62, 0.95)
-  add(ringTexture(), '#ffc266', 0.44, 0.85)
-  add(glowTexture(), PAL.heroPlasmaHot, 0.3, 1)
-  thumbCharge.add(new Mesh(
-    new SphereGeometry(0.05, 16, 12), new MeshBasicMaterial({ color: new Color(PAL.heroPlasmaHot), toneMapped: false })
-  ))
+  glowSprite(thumbCharge, glowTexture(), '#ff9a2e', 1.25, 0.5, false)
+  glowSprite(thumbCharge, glowTexture(), PAL.heroPlasma, 0.62, 0.95)
+  glowSprite(thumbCharge, ringTexture(), '#ffc266', 0.44, 0.85)
+  glowSprite(thumbCharge, glowTexture(), PAL.heroPlasmaHot, 0.3, 1)
+  thumbCharge.add(hotCore(0.05))
   // A fixed, seeded spark layout: the same picture on every render
   const rng = mulberry32(0xc0ba17)
   for (let i = 0; i < 16; i++) {
@@ -263,14 +368,39 @@ const buildCharge = (): void => {
     const a = rng() * Math.PI * 2
     const r = 0.2 + rng() * 0.28
     const s = Math.sqrt(1 - u * u)
-    const sp = add(glowTexture(), i % 3 ? '#ffd08a' : PAL.heroPlasmaHot, 0.03 + rng() * 0.05, 0.9)
+    const sp = glowSprite(thumbCharge, glowTexture(), i % 3 ? '#ffd08a' : PAL.heroPlasmaHot, 0.03 + rng() * 0.05, 0.9)
     sp.position.set(Math.cos(a) * s * r, u * r, Math.sin(a) * s * r)
   }
+}
+
+/** The shot in flight: core, halo and bloom, then a trail of shrinking glows laid back along the cannon's aim. */
+const SHOT_TRAIL = 12
+let thumbTrail: Sprite[] = []
+const buildFiredShot = (): void => {
+  thumbFired.clear()
+  glowSprite(thumbFired, glowTexture(), '#ff9a2e', 1.0, 0.45, false)
+  glowSprite(thumbFired, glowTexture(), PAL.heroPlasma, 0.55, 1)
+  glowSprite(thumbFired, glowTexture(), PAL.heroPlasmaHot, 0.26, 1)
+  thumbFired.add(hotCore(0.075))
+  thumbTrail = Array.from({ length: SHOT_TRAIL }, (_, i) => {
+    const k = (i + 1) / SHOT_TRAIL
+    return glowSprite(thumbFired, glowTexture(), k < 0.3 ? PAL.heroPlasmaHot : PAL.heroPlasma, 0.34 * (1 - k) + 0.05, 0.85 * (1 - k) + 0.1)
+  })
 }
 
 const Y_AXIS = new Vector3(0, 1, 0)
 /** A composition point (anchor-relative, turned by `turn`) in world space. */
 const thumbAt = (v: V3, turn: number): Vector3 => new Vector3(v[0], v[1], v[2]).applyAxisAngle(Y_AXIS, turn).add(thumbAnchor)
+
+/** A machine frozen mid-attack: `act` 0 is its idle stance, 1 the height of the attack. */
+const poseThumbEnemy = (r: Rig, e: ThumbEnemy): void => {
+  const k = e.act ?? 0
+  if (e.kind === 'heli') poseHeli(r, 0.6, 0.12 + 0.25 * k, 0.5)
+  else if (e.kind === 'brute') poseBrute(r, 0, 0, 1, 0, k)
+  else if (e.kind === 'hopper') poseHopper(r, 1 - 2 * k, 0)
+  else if (e.kind === 'trooper') poseTrooper(r, 1 - k, k, 0, 0)
+  else if (e.kind === 'turret') poseTurret(r, 0.25 * k, 0)
+}
 
 /** Pose Flux, frame him, put the charge on the muzzle (no rebuild of the backdrop). */
 const applyThumb = (shot: ThumbShot): void => {
@@ -288,10 +418,18 @@ const applyThumb = (shot: ThumbShot): void => {
   thumbCharge.scale.setScalar(shot.charge)
   thumbLight.position.copy(muzzle)
   thumbLight.intensity = shot.glow
-  if (thumbEnemy && shot.enemy) {
-    thumbEnemy.root.position.copy(thumbAt(shot.enemy.at, shot.turn))
-    thumbEnemy.root.rotation.y = shot.enemy.yaw + shot.turn
-  }
+  // The shot in flight rides the cannon's axis (−Y of the forearm), its trail laid back toward the muzzle
+  const aim = new Vector3(0, -1, 0).applyQuaternion(hero.bones.elbowR!.getWorldQuaternion(new Quaternion()))
+  thumbFired.visible = (shot.fired ?? 0) > 0
+  thumbFired.position.copy(muzzle).addScaledVector(aim, shot.fired ?? 0)
+  thumbTrail.forEach((s, i) => s.position.copy(aim).multiplyScalar(-((i + 1) / SHOT_TRAIL) * Math.min(1.2, (shot.fired ?? 0) * 0.8)))
+  shot.enemies?.forEach((e, i) => {
+    const r = thumbEnemies[i]
+    if (!r) return
+    r.root.position.copy(thumbAt(e.at, shot.turn))
+    r.root.rotation.y = e.yaw + shot.turn
+    poseThumbEnemy(r, e)
+  })
   camera.fov = shot.fov
   camera.position.copy(thumbAt(shot.cam, shot.turn))
   camera.lookAt(thumbAt(shot.look, shot.turn))
@@ -339,6 +477,8 @@ const buildThumb = async (shot: ThumbShot): Promise<void> => {
     const th = THEMES[thumbTheme] ?? THEMES.volt
     const map = generateMap({ seed: 20260926, rooms: 5, boss: false })
     const level = await buildLevel(map, th)
+    // The level's glow meshes (wall strips, lamps) share one material
+    if (shot.lights === false) level.root.traverse((o) => { if ((o as Mesh).material === glowVC()) o.visible = false })
     sc = new Scene()
     sc.add(level.root, level.sky)
     thumbSky = level.sky
@@ -354,22 +494,19 @@ const buildThumb = async (shot: ThumbShot): Promise<void> => {
       door.root.rotation.y = d.axis === 'x' ? Math.PI / 2 : 0
       sc.add(door.root)
     }
+    // Anchored on the start cell; its pad is left out (a floor fixture that
+    // only crowded the foreground of the wide shots)
     thumbAnchor.set(map.start.x, 0, map.start.z)
-    const pad = buildTeleporter(th)
-    pad.root.position.copy(thumbAnchor)
-    pad.ringMat.opacity = 0
-    sc.add(pad.root)
   }
   thumbHero = buildHero()
   buildCharge()
-  sc.add(thumbHero.root, thumbCharge, thumbLight, thumbKey, thumbKey.target)
-  thumbEnemy = null
-  if (shot.enemy) {
-    thumbEnemy = buildEnemyRig(shot.enemy.kind)
-    if (shot.enemy.kind === 'heli') poseHeli(thumbEnemy, 0.6, 0.12, 0.5)
-    else if (shot.enemy.kind === 'brute') poseBrute(thumbEnemy, 0, 0, 1, 0.4, 0)
-    sc.add(thumbEnemy.root)
-  }
+  buildFiredShot()
+  sc.add(thumbHero.root, thumbCharge, thumbFired, thumbLight, thumbKey, thumbKey.target)
+  thumbEnemies = (shot.enemies ?? []).map((e) => {
+    const r = buildEnemyRig(e.kind)
+    sc.add(r.root)
+    return r
+  })
   thumbScene = sc
   applyThumb(shot)
   thumbReady = true
@@ -476,11 +613,24 @@ const show = (name: string) => {
   } else if (name === 'enemies' || (ENEMIES as string[]).includes(name)) {
     const kinds = name === 'enemies' ? ENEMIES : [name as EnemyKind]
     kinds.forEach((kind, i) => {
-      const r = buildEnemyRig(kind)
+      const r = buildEnemyRig(kind, kind === 'golem' ? golemColors(THEMES[labTheme]) : undefined)
       r.root.position.set((i - (kinds.length - 1) / 2) * 2.1, kind === 'heli' ? 1.6 : 0, 0)
       stage.add(r.root)
       enemyRigs.push({ kind, rig: r })
     })
+    if (name === 'golem' && golemCompare) {
+      // The real crate beside it, as MissionObjects builds it
+      enemyRigs[0]!.rig.root.position.x = -0.85
+      const crate = buildCrate(THEMES[labTheme]).root
+      crate.position.x = 0.85
+      stage.add(crate)
+    }
+    if (name === 'golem') {
+      // Room for the open lid, the arms overhead and the boulder over them
+      camera.position.set(0, 1.5, (golemCompare ? 7.4 : 6.6) / zoom)
+      camera.lookAt(0, 1.05, 0)
+      return
+    }
     if (kinds.length > 1) {
       camera.position.set(0, 2.4, 11)
       camera.lookAt(0, 1.0, 0)
@@ -572,6 +722,7 @@ const loop = () => {
     else if (kind === 'roller') poseRoller(r, t * 3, t, 0.4)
     else if (kind === 'brute') poseBrute(r, t, 0.2, Math.sin(t) > 0 ? 1 : -1, Math.sin(t * 2), 0)
     else if (kind === 'turret') poseTurret(r, 0.2 + Math.sin(t) * 0.2, 0)
+    else if (kind === 'golem') poseGolemLab(r, still ? 0 : t)
   }
   for (const { id, rig: r } of bossRigs) poseBoss(r, id, t, 'idle', 0)
   if (bossRigs.length > 1) stage.rotation.y = fixedAngle ?? Math.sin(t * 0.4) * 0.4

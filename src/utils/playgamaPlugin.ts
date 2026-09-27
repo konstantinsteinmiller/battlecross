@@ -7,9 +7,10 @@
 // "Playgama Bridge" is the one abstraction Playgama ships across ~30 portals.
 // The `build:playgama` archive runs on three of them:
 //
-//   playgama  playgama.com (and `playgama_sandbox`)
-//   qa_tool   Playgama's developer QA Tool — a different postMessage protocol
-//   youtube   YouTube Playables — Playgama distributes the SAME archive there
+//   playgama    playgama.com (and `playgama_sandbox`)
+//   qa_tool     Playgama's developer QA Tool — a different postMessage protocol
+//   youtube     YouTube Playables — Playgama distributes the SAME archive there
+//   standalone  a Playgama Wrap site (Bridge loads the Wrap SDK there)
 //
 // and on localhost it falls back to `mock`.
 //
@@ -124,6 +125,31 @@ export const playgamaLocale = ref<string | null>(null)
  *  `qa_tool`, `mock`, …) — the first thing to check in a QA console. */
 export const playgamaDetectedId = ref<string | null>(null)
 
+/**
+ * Reactive: does THIS platform serve the format at all? Playgama's rule for the
+ * archive it also forwards to YouTube Playables: the code "must always check
+ * whether ad placements are supported" before firing — and where a format is
+ * not, its button must not exist rather than fail after the player committed.
+ *
+ * Read from Bridge's own `advertisement.isInterstitialSupported` /
+ * `isRewardedSupported` once `initialize()` succeeded (false before that, and
+ * false on the localhost MOCK, which serves no ads). Only an explicit `true`
+ * counts. `PlaygamaProvider` folds them into the per-format readiness gates;
+ * the show wrappers below re-check at call time as well.
+ */
+export const isPlaygamaInterstitialSupported = ref(false)
+export const isPlaygamaRewardedSupported = ref(false)
+
+type AdSupportKey = 'isInterstitialSupported' | 'isRewardedSupported'
+
+const adSupported = (bridge: Bridge | null, key: AdSupportKey): boolean => {
+  try {
+    return (bridge?.advertisement as Record<AdSupportKey, unknown> | undefined)?.[key] === true
+  } catch {
+    return false
+  }
+}
+
 // ─── Internal handles ──────────────────────────────────────────────────────
 
 let sdk: Bridge | null = null
@@ -167,7 +193,31 @@ export const getPlaygamaBridge = (): Bridge | null => sdk
 
 /** Adapters with no portal behind them: their `platform.language` is just the
  *  browser language and must not be treated as a portal signal. */
-const NO_PORTAL_LANGUAGE: ReadonlySet<string> = new Set(['mock', 'standalone'])
+const NO_PORTAL_LANGUAGE: ReadonlySet<string> = new Set(['mock'])
+
+/**
+ * `standalone` is Playgama WRAP: Bridge 2.2.0 loads the Wrap SDK
+ * (`PLAYGAMA_WRAP`) on that site and reports the page's
+ * `platformService.getLanguage()` as `platform.language` — or, when the page
+ * supplies none, the BROWSER language, and `platform.language` alone cannot
+ * tell the two apart. So on Wrap the SDK is asked directly, through Bridge's
+ * public handle on it (`platform.sdk`): a language the Wrap page set is a
+ * portal signal like any other portal's (applied, never stored, and a change
+ * overrides an earlier in-game choice); an absent one is no signal at all, and
+ * the game keeps its own default rather than a browser guess.
+ */
+const WRAP_PLATFORM_ID = 'standalone'
+
+interface WrapSdk { platformService?: { getLanguage?: () => unknown } }
+
+const wrapSuppliedLanguage = (bridge: Bridge): unknown => {
+  try {
+    const wrap = (bridge.platform as { sdk?: unknown } | undefined)?.sdk as WrapSdk | null | undefined
+    return wrap?.platformService?.getLanguage?.()
+  } catch {
+    return undefined
+  }
+}
 
 const LANGUAGE_ALIASES: Record<string, string> = {
   jpn: 'ja', kor: 'ko', cmn: 'zh', chi: 'zh', zho: 'zh',
@@ -193,12 +243,13 @@ export const normalizePlaygamaLanguage = (raw: unknown): string | null => {
 
 let lastLoggedLanguage: string | null = null
 
-/** Read `platform.language` and publish it. Never clears an earlier value. */
+/** Read the portal language and publish it. Never clears an earlier value. */
 const readPortalLanguage = (bridge: Bridge | null = sdk): void => {
   try {
-    const id = bridge?.platform?.id ?? ''
+    if (!bridge) return
+    const id = bridge.platform?.id ?? ''
     if (NO_PORTAL_LANGUAGE.has(id)) return
-    const raw = bridge?.platform?.language
+    const raw = id === WRAP_PLATFORM_ID ? wrapSuppliedLanguage(bridge) : bridge.platform?.language
     const code = normalizePlaygamaLanguage(raw)
     if (raw !== lastLoggedLanguage) {
       lastLoggedLanguage = typeof raw === 'string' ? raw : null
@@ -264,6 +315,8 @@ export const playgamaPlugin = (): Promise<void> => {
       sdk = bridge
       isPlaygamaSdkActive.value = true
       playgamaDetectedId.value = bridge.platform?.id ?? null
+      isPlaygamaInterstitialSupported.value = adSupported(bridge, 'isInterstitialSupported')
+      isPlaygamaRewardedSupported.value = adSupported(bridge, 'isRewardedSupported')
       console.info('[playgama] Bridge v%s initialized — platform.id: %s', bridge.version, playgamaDetectedId.value)
 
       readPortalLanguage(bridge)
@@ -352,11 +405,13 @@ export const playgamaGameplayStop = (): void => {
 
 // ─── Ad show wrappers ──────────────────────────────────────────────────────
 
-/** Shows an interstitial; resolves on `closed` or `failed`. Never rejects. */
+/** Shows an interstitial; resolves on `closed` or `failed`. Never rejects.
+ *  Resolves at once, without asking, on a platform that serves none. */
 export const showInterstitialPG = async (onImpression?: () => void): Promise<void> => {
   await playgamaPlugin()
   const bridge = sdk
   if (!isPlaygamaSdkActive.value || !bridge?.advertisement?.showInterstitial) return
+  if (!adSupported(bridge, 'isInterstitialSupported')) return
   return new Promise<void>((resolve) => {
     let settled = false
     let hardCap: ReturnType<typeof setTimeout> | null = null
@@ -394,6 +449,7 @@ export const showRewardedPG = async (onImpression?: () => void): Promise<boolean
   await playgamaPlugin()
   const bridge = sdk
   if (!isPlaygamaSdkActive.value || !bridge?.advertisement?.showRewarded) return false
+  if (!adSupported(bridge, 'isRewardedSupported')) return false
   return new Promise<boolean>((resolve) => {
     let settled = false
     let rewarded = false

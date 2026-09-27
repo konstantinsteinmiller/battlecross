@@ -12,7 +12,7 @@ import type { Rarity } from './items'
  * mission carries its own map seed, so taking a job builds a fresh sector map.
  */
 
-export type QuestTemplate = 'tutorial' | 'boss' | 'kill' | 'collect' | 'rescue' | 'elite' | 'supply' | 'purge'
+export type QuestTemplate = 'tutorial' | 'boss' | 'kill' | 'collect' | 'rescue' | 'elite' | 'supply' | 'purge' | 'climb'
 
 export interface Quest {
   id: string
@@ -31,15 +31,20 @@ export interface Quest {
 export const JOB_TEMPLATES: Array<[QuestTemplate, number]> = [
   ['kill', 3], ['collect', 2.5], ['purge', 1.5], ['elite', 1.6], ['supply', 1.6], ['rescue', 1.8]
 ]
+/** The climb's weight on the board, once some sector's Core Master is down
+ *  (it is a rematch at the top of that sector's tower). */
+export const CLIMB_WEIGHT = 1.4
 
 const rewardFor = (template: QuestTemplate, level: number, story: boolean): Quest['reward'] => {
   const base = 40 + level * 18
-  const mul: Record<QuestTemplate, number> = { tutorial: 1.2, boss: 2.6, kill: 1, collect: 1.05, rescue: 1.15, elite: 1.35, supply: 1.1, purge: 1.3 }
+  const mul: Record<QuestTemplate, number> = { tutorial: 1.2, boss: 2.6, kill: 1, collect: 1.05, rescue: 1.15, elite: 1.35, supply: 1.1, purge: 1.3, climb: 2.6 }
+  // A climb ends in a Core Master fight: it pays like one.
+  const bossLike = template === 'boss' || template === 'climb'
   return {
     xp: Math.round(base * mul[template] * (story ? 1.3 : 1)),
     bolts: Math.round((30 + level * 12) * mul[template]),
-    rarityBias: template === 'boss' ? 1.5 : template === 'elite' || template === 'purge' ? 0.8 : 0.3,
-    guaranteed: template === 'boss' ? 'prototype' : undefined
+    rarityBias: bossLike ? 1.5 : template === 'elite' || template === 'purge' ? 0.8 : 0.3,
+    guaranteed: bossLike ? 'prototype' : undefined
   }
 }
 
@@ -76,11 +81,46 @@ export const storyQuest = (sector: Sector, playerLevel: number, attempt: number)
   }
 }
 
-export const rollJob = (seed: number, sectors: SectorId[], playerLevel: number): Quest => {
+/**
+ * A Tower Run: the climb (`world/climbGen.ts`) up a sector whose Core Master
+ * is already down, ending in a rematch with it. `sectors` are the eligible
+ * ones (see `climbSectors`).
+ */
+export const climbJob = (seed: number, sectors: SectorId[], playerLevel: number): Quest => {
+  const rng = mulberry32(seed ^ 0x7c1b)
+  const sid = pick(rng, sectors)
+  const sector = SECTOR_BY_ID[sid]
+  const level = enemyLevelFor(sector, playerLevel, randInt(rng, 0, 1))
+  return {
+    id: `job_${seed.toString(36)}`,
+    kind: 'job',
+    template: 'climb',
+    sector: sid,
+    seed: (seed * 2654435761) >>> 0,
+    level,
+    target: null,
+    count: 1,
+    rooms: 7,
+    reward: rewardFor('climb', level, false)
+  }
+}
+
+/** Sectors a climb may be offered in: unlocked, and their boss beaten. */
+export const climbSectors = (unlocked: readonly SectorId[], bosses: readonly string[]): SectorId[] =>
+  unlocked.filter(id => bosses.includes(SECTOR_BY_ID[id].boss))
+
+/**
+ * A job for the board. `climbs` are the sectors a climb may roll in (none:
+ * the classic six templates, drawn exactly as before, so a board rolled
+ * without climbs is unchanged seed for seed).
+ */
+export const rollJob = (seed: number, sectors: SectorId[], playerLevel: number, climbs: readonly SectorId[] = []): Quest => {
   const rng = mulberry32(seed)
   const sid = pick(rng, sectors)
   const sector = SECTOR_BY_ID[sid]
-  const template = weighted(rng, JOB_TEMPLATES)
+  const climb: [QuestTemplate, number] = ['climb', CLIMB_WEIGHT]
+  const template = weighted(rng, climbs.length ? [...JOB_TEMPLATES, climb] : JOB_TEMPLATES)
+  if (template === 'climb') return climbJob(seed, [...climbs], playerLevel)
   const level = enemyLevelFor(sector, playerLevel, randInt(rng, -1, 1))
   const kinds = sector.encounters.kinds.filter(([k]) => k !== 'turret').map(([k, w]) => [k, w] as const)
   let target: EnemyKind | null = null

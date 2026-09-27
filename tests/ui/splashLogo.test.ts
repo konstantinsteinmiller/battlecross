@@ -12,7 +12,7 @@ import { describe, expect, it } from 'vitest'
 // with half the title, so the logo visibly changed as the loader took over.
 //
 // Now the lockup (Flux's head in the hex reactor badge over the MEGA /
-// ADVENTURE wordmark) is ONE inline SVG of paths, pasted into both files. This
+// DROID wordmark) is ONE inline SVG of paths, pasted into both files. This
 // pins the two copies to each other, byte for byte, and pins every sizing and
 // colour rule of the two layouts to each other, rule for rule. A browser
 // check of the hand-over (boxes and pixels) is in the logo redesign notes;
@@ -21,7 +21,7 @@ import { describe, expect, it } from 'vitest'
 const read = (rel: string): string => readFileSync(resolve(__dirname, '../..', rel), 'utf8')
 const html = read('index.html')
 const vue = read('src/components/atoms/FLogoProgress.vue')
-const manifest = JSON.parse(read('public/manifest.json')) as { description: string; background_color: string }
+const manifest = JSON.parse(read('public/manifest.json')) as { name: string; short_name: string; description: string; background_color: string }
 
 const staticSvg = /<div class="s-logo"[^>]*>(<svg[\s\S]*?<\/svg>)<\/div>/.exec(html)?.[1] ?? ''
 const loaderSvg = /h1\.logo\(.*\)\n\s*(<svg[\s\S]*?<\/svg>)\n/.exec(vue)?.[1] ?? ''
@@ -78,6 +78,12 @@ describe('the splash lockup', () => {
     expect(loaderSvg).toBe(staticSvg)
   })
 
+  it('is the generated lockup, pasted as it is (node store-art/brand/logo-final.mjs)', () => {
+    // The store covers lay store-art/brand/logo-lockup.svg over the art, so a
+    // splash that drifted from it would show players a different logo.
+    expect(staticSvg).toBe(read('store-art/brand/logo-lockup.svg'))
+  })
+
   it('carries no id: during the cross-fade both copies are in the document at once', () => {
     // A duplicated id makes url(#…) / <use href="#…"> resolve into the OTHER
     // copy, which is then removed from under it.
@@ -100,8 +106,21 @@ describe('the splash lockup', () => {
 
   it('is decoration for assistive tech; the wrapper carries the name', () => {
     expect(staticSvg).toMatch(/^<svg [^>]*aria-hidden="true"/)
-    expect(html).toMatch(/<div class="s-logo" role="img" aria-label="Mega Adventure">/)
+    expect(html).toMatch(/<div class="s-logo" role="img" aria-label="Mega Droid">/)
     expect(vue).toMatch(/h1\.logo\(:aria-label="t\('gameName'\)"\)/)
+  })
+
+  it('is named what the page and the installed app are named', () => {
+    // The tab title, the iOS home-screen title, the PWA name and the logo's
+    // accessible name are one string. scripts/render-thumbnail.mjs also
+    // checks the served <title> against its own TITLE before trusting a port.
+    const title = /<title>([^<]*)<\/title>/.exec(html)?.[1]
+    expect(title).toBe('Mega Droid')
+    expect(/<meta name="apple-mobile-web-app-title" content="([^"]*)">/.exec(html)?.[1]).toBe(title)
+    expect(/<div class="s-logo" role="img" aria-label="([^"]*)">/.exec(html)?.[1]).toBe(title)
+    expect(manifest.name).toBe(title)
+    expect(manifest.short_name).toBe(title)
+    expect(read('scripts/render-thumbnail.mjs')).toContain(`const TITLE = '${title}'`)
   })
 
   it('declares the aspect ratio its viewBox has, in both layouts', () => {

@@ -60,13 +60,17 @@ export interface Input {
   blockHeld: boolean
   blockPressed: boolean
   slideQueued: boolean
-  weaponQueued: 0 | 1 | 2
+  /** A special weapon's button: 1, 2 the slots, 3 the borrowed weapon. */
+  weaponQueued: 0 | 1 | 2 | 3
   tankQueued: boolean
   interactQueued: boolean
   beamQueued: boolean
   swipe: -1 | 0 | 1
   pauseQueued: boolean
   mapQueued: boolean
+  /** Any fresh press on the scene this step — a touch, a mouse button, a key
+   *  (not a modifier or F-key on its own). A cutscene's skip. */
+  anyPressed: boolean
   // Joystick visual state (read by the HUD)
   joyActive: boolean
   joyOriginX: number
@@ -98,7 +102,7 @@ export const createInput = (): Input => ({
   moveX: 0, moveY: 0, turn: 0, lookDX: 0, lookDY: 0, taps: [],
   fireHeld: false, firePressed: false, fireReleased: false, fireCancelled: false, fireX: 0, fireY: 0,
   blockHeld: false, blockPressed: false, slideQueued: false, weaponQueued: 0, tankQueued: false,
-  interactQueued: false, beamQueued: false, swipe: 0, pauseQueued: false, mapQueued: false,
+  interactQueued: false, beamQueued: false, swipe: 0, pauseQueued: false, mapQueued: false, anyPressed: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0,
   touched: false, device: guessDevice(), locked: false, lockRefused: !lockSupported()
 })
@@ -125,6 +129,7 @@ export const consumeEdges = (i: Input): void => {
   i.swipe = 0
   i.pauseQueued = false
   i.mapQueued = false
+  i.anyPressed = false
 }
 
 export interface InputOptions {
@@ -136,6 +141,8 @@ export interface InputOptions {
   canLock?: () => boolean
   /** The capture was lost without the game asking (Esc, a system dialog). */
   onLockLost?: () => void
+  /** Every capture change: taken, or ended (`asked` = the game released it). */
+  onLockChange?: (locked: boolean, asked: boolean) => void
   /** Joystick radius in CSS px. */
   joyRadius?: number
 }
@@ -152,6 +159,9 @@ const LOOK_SPIKE = 280
 /** A refused capture this soon after the player released one is the browser's
  *  re-capture cooldown, not a refusal of the feature. */
 const RELOCK_COOLDOWN_MS = 2500
+/** Keys that are never "a press" for a skip: modifiers, and F1 / F2 (help,
+ *  mute), which have their own jobs. */
+const NOT_A_PRESS = new Set(['ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'MetaLeft', 'MetaRight', 'F1', 'F2'])
 
 // ─── Pointer lock (module state: there is one document) ─────────────────────
 
@@ -291,6 +301,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     if (e.pointerType === 'mouse') return
     input.touched = true
     input.device = 'touch'
+    input.anyPressed = true
     lastTouchAt = performance.now()
     const r = rect()
     const x = e.clientX - r.left
@@ -373,12 +384,15 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     if (performance.now() - lastTouchAt < 900) return
     input.touched = true
     input.device = 'mouse'
+    input.anyPressed = true
     if (e.button === 1) { e.preventDefault(); return } // no autoscroll
     if (e.button === 2) {
-      // The press is the game's: no menu, no mouse or rocker gesture (hold
-      // right + drag down opened a new tab in Opera mid-block). A gesture
-      // draws with a free cursor, so a free mouse is captured by this press
-      // too, as by a left click; unlike that one, it still blocks.
+      // The press is the game's: no menu, no in-page gesture (hold right +
+      // drag down opened a new tab in Opera mid-block). A gesture draws with
+      // a free cursor, so a free mouse is captured by this press too, as by a
+      // left click; unlike that one, it still blocks. Opera's own gestures
+      // never see this cancel: the navigation guard (`useBrowserGuard`) makes
+      // their back / close harmless while captured.
       e.preventDefault()
       if (!input.locked && !input.lockRefused && (opts.canLock?.() ?? false)) requestPointerLock(input)
       input.blockHeld = true
@@ -447,6 +461,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       skipNextLook = true
       mouseDrag = false
       input.device = 'mouse'
+      opts.onLockChange?.(true, false)
       return
     }
     lastUnlockAt = performance.now()
@@ -458,6 +473,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.blockHeld = false
     const asked = releasing
     releasing = false
+    opts.onLockChange?.(false, asked)
     if (!asked) opts.onLockLost?.()
   }
 
@@ -472,6 +488,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.device = 'mouse'
     if (e.repeat && keys.has(e.code)) return
     keys.add(e.code)
+    if (!e.repeat && !NOT_A_PRESS.has(e.code)) input.anyPressed = true
     switch (e.code) {
       case 'Space':
       case 'KeyQ':
@@ -490,6 +507,10 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       case 'Digit2':
       case 'Numpad2':
         input.weaponQueued = 2
+        break
+      case 'Digit3':
+      case 'Numpad3':
+        input.weaponQueued = 3
         break
       case 'KeyH':
         input.tankQueued = true

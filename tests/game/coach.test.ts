@@ -157,10 +157,10 @@ describe('during a scene lesson', () => {
     expect(ids(run(c, 0, 30, { quiet: true, aimCandidate: true })).sort()).toEqual(['look', 'move'])
   })
 
-  it('shows the stick and the camera together from the first frame, on a phone too', () => {
+  it('shows the stick from the first frame on a phone too — the ∞ stands for the camera', () => {
     const c = new Coach()
     const v = run(c, 0, 0, { quiet: true, family: 'touch' })
-    expect(ids(v).sort()).toEqual(['look', 'move'])
+    expect(ids(v)).toEqual(['move'])
     expect(v.every(h => h.family === 'touch')).toBe(true)
   })
 
@@ -191,6 +191,89 @@ describe('during a scene lesson', () => {
     learnThumbs(c)
     expect(ids(run(c, 0, 5, { quiet: true, aimCandidate: true }))).toEqual([])
     expect(ids(run(c, 5, 6, { aimCandidate: true }))).toEqual(['fire'])
+  })
+})
+
+describe('the camera on touch: no glyph of its own', () => {
+  // The ∞ finger ("drag here, any way") replaces the finger that swayed left
+  // and right: on touch the coach never raises `look`, and nothing waits on it.
+  const touch = { family: 'touch' } as const
+  /** Every glyph id shown at any step from `t0` to `t1`. */
+  const seen = (c: Coach, t0: number, t1: number, over: Partial<CoachContext> = {}): Set<HintId> => {
+    const all = new Set<HintId>()
+    for (let t = t0; t <= t1 + 1e-9; t += 1 / 15) {
+      c.update(base(t, over))
+      for (const h of c.views()) all.add(h.id)
+    }
+    return all
+  }
+
+  it('never raises look: not at first, not a minute later, not in a lesson', () => {
+    expect([...seen(new Coach(), 0, 60, touch)]).toEqual(['move'])
+    expect([...seen(new Coach(), 0, 30, { ...touch, quiet: true, aimCandidate: true })]).toEqual(['move'])
+  })
+
+  it('never brings it back when idle, long past LOOK_IDLE — the stick still does', () => {
+    const c = new Coach()
+    run(c, 0, 0, touch)
+    for (const id of ['move', 'walk'] as HintId[]) for (let i = 0; i < 3; i++) c.use(id)
+    // From 1 s: the stick's check has faded, so a stick seen later is its recall.
+    const all = seen(c, 1, 60, touch)
+    expect(all.has('look')).toBe(false)
+    expect(all.has('move')).toBe(true)
+  })
+
+  it('the "?" button brings the core set back without it', () => {
+    const shownAfterHelp = (family: 'touch' | 'mouse') => {
+      const c = new Coach()
+      run(c, 0, 0, { family })
+      for (const id of ['move', 'look', 'walk', 'fire', 'block', 'slide'] as HintId[]) for (let i = 0; i < 4; i++) c.use(id)
+      run(c, 0, 1, { family })
+      c.help()
+      run(c, 1, 2, { family })
+      for (const id of ['slide', 'block', 'fire'] as HintId[]) c.use(id)
+      return ids(run(c, 2.1, 4, { family })).sort()
+    }
+    expect(shownAfterHelp('touch')).toEqual(['move'])
+    expect(shownAfterHelp('mouse')).toEqual(['look', 'move'])
+  })
+
+  it('lets walk in for a player who never looked', () => {
+    const c = new Coach()
+    run(c, 0, 1, touch)
+    for (let i = 0; i < 3; i++) c.use('move')
+    expect(c.mastered('look')).toBe(false)
+    expect(ids(run(c, 1, 5, touch))).toEqual(['walk'])
+  })
+
+  it('still counts looking, but gates nothing on it (the drone lesson reads `learned`)', () => {
+    const c = new Coach()
+    run(c, 0, 0, touch)
+    expect(c.learned('look')).toBe(true)
+    expect(c.learned('move')).toBe(false)
+    expect(c.learned('look', 'mouse')).toBe(false)
+    c.looked(0.61)
+    expect(hintProgress('look', 'touch')).toBe(1)
+    expect(ids(run(c, 0, 1, touch))).toEqual(['move'])
+  })
+
+  it('drops a camera glyph still lingering from the mouse when the phone takes over', () => {
+    const c = new Coach()
+    expect(ids(run(c, 0, 1)).sort()).toEqual(['look', 'move'])
+    const v = run(c, 1.05, 1.5, touch)
+    expect(ids(v)).toEqual(['move'])
+    expect(v[0]!.family).toBe('touch')
+  })
+
+  it('on the mouse, the camera glyph is as before, and walk still waits for it', () => {
+    const c = new Coach()
+    run(c, 0, 1)
+    for (let i = 0; i < 3; i++) c.use('move')
+    expect(c.learned('look')).toBe(false)
+    const v = run(c, 1, 5)
+    expect(ids(v)).toEqual(['look'])
+    for (let i = 0; i < 3; i++) c.use('look')
+    expect(ids(run(c, 5, 10))).toEqual(['walk'])
   })
 })
 

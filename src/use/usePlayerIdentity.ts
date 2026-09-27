@@ -3,6 +3,7 @@ import { flushSaveNow } from '@/use/useSaveStatus'
 import {
   ANON_NAME_KEY, PLAYER_ID_KEY, PLAYER_NAME_KEY, SDK_NAME_KEY
 } from '@/keys'
+import { LEGACY_KEYS, migrateLegacyKey } from '@/legacyKeys'
 
 /**
  * ─── Who the leaderboard row belongs to ─────────────────────────────────────
@@ -33,9 +34,17 @@ export interface PlayerIdentity {
  * hydrate from an older cloud blob can hand the game a save with no id in it —
  * and the game would mint a second one, and the player would have two rows.
  * This copy exists to be the one thing a cloud round-trip cannot overwrite.
+ *
+ * Both keys were renamed with the game (Mega Adventure → Mega Droid). The
+ * pre-rename entries are moved over right here, before anything reads them: an
+ * id left behind on the old key would mint the player a fresh one, so a second
+ * board row. See `src/legacyKeys.ts`.
  */
-const DEVICE_UID_KEY = 'mega_adventure_uid'
-const DEVICE_NAME_KEY = 'mega_adventure_name'
+const DEVICE_UID_KEY = 'mega_droid_uid'
+const DEVICE_NAME_KEY = 'mega_droid_name'
+
+migrateLegacyKey(LEGACY_KEYS.DEVICE_UID, DEVICE_UID_KEY)
+migrateLegacyKey(LEGACY_KEYS.DEVICE_NAME, DEVICE_NAME_KEY)
 
 /** The shape the worker validates against. Keep the two in step. */
 const ID_RE = /^[a-zA-Z0-9_-]{8,64}$/
@@ -92,7 +101,7 @@ const mintId = (): string => {
  * name that got cut would collide with every other cut name.
  */
 const ANON_WORDS = [
-  'Android', 'Buster', 'Circuit', 'Blaster', 'Rivet',
+  'Android', 'Cannon', 'Circuit', 'Blaster', 'Rivet',
   'Piston', 'Servo', 'Sprocket', 'Dynamo', 'Gizmo'
 ] as const
 

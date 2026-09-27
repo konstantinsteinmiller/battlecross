@@ -1,5 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { installBrowserGuard } from '@/use/useBrowserGuard'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  armNavigationGuard, disarmNavigationGuard, installBrowserGuard, isNavigationGuardArmed
+} from '@/use/useBrowserGuard'
 
 // The guard cancels browser DEFAULTS only: menus, gestures, autoscroll,
 // history buttons, drag, selection, quick find. Text fields keep theirs, the
@@ -54,10 +56,11 @@ describe('browser guard', () => {
     expect(fire(field, new Event('selectstart', { bubbles: true, cancelable: true })).defaultPrevented).toBe(false)
   })
 
-  it('keeps quick find, F1 and a lone Alt away from the browser', () => {
+  it('keeps quick find, F1, F2 and a lone Alt away from the browser', () => {
     expect(fire(document.body, key('keydown', 'Slash', '/')).defaultPrevented).toBe(true)
     expect(fire(document.body, key('keydown', 'Quote', "'")).defaultPrevented).toBe(true)
     expect(fire(document.body, key('keydown', 'F1', 'F1')).defaultPrevented).toBe(true)
+    expect(fire(document.body, key('keydown', 'F2', 'F2')).defaultPrevented).toBe(true)
     expect(fire(field, key('keydown', 'Slash', '/')).defaultPrevented).toBe(false)
     fire(document.body, key('keydown', 'AltLeft', 'Alt'))
     expect(fire(document.body, key('keyup', 'AltLeft', 'Alt')).defaultPrevented).toBe(true)
@@ -69,6 +72,32 @@ describe('browser guard', () => {
 
   it('leaves game keys to the game', () => {
     expect(fire(document.body, key('keydown', 'KeyW', 'w')).defaultPrevented).toBe(false)
+  })
+
+  it('guards back and close while the mouse is captured, and only then', async () => {
+    const guarded = () => (history.state as Record<string, unknown> | null)?.__captureGuard === true
+    const unload = () => fire(window, new Event('beforeunload', { cancelable: true }))
+    expect(unload().defaultPrevented).toBe(false)
+
+    armNavigationGuard()
+    expect(isNavigationGuardArmed()).toBe(true)
+    expect(guarded()).toBe(true)
+    expect(unload().defaultPrevented).toBe(true)
+    // A gesture's "back" lands under the guard: the page stays, the guard returns.
+    const depth = history.length
+    history.back()
+    await vi.waitFor(() => expect(guarded()).toBe(true))
+    expect(history.length).toBe(depth)
+
+    // A lost capture keeps it up for the grace, then lets go.
+    vi.useFakeTimers()
+    disarmNavigationGuard(2500)
+    expect(isNavigationGuardArmed()).toBe(true)
+    vi.advanceTimersByTime(2500)
+    vi.useRealTimers()
+    expect(isNavigationGuardArmed()).toBe(false)
+    expect(unload().defaultPrevented).toBe(false)
+    await vi.waitFor(() => expect(guarded()).toBe(false))
   })
 
   it('uninstalls every listener', () => {

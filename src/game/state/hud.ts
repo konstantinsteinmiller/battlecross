@@ -1,6 +1,7 @@
 import { shallowReactive } from 'vue'
 import type { HintView } from '../sim/coach'
 import type { LessonView } from '../sim/lessons'
+import type { BorrowedView } from '../sim/borrowed'
 
 /**
  * ─── The reactivity firewall ─────────────────────────────────────────────────
@@ -39,9 +40,21 @@ export const hud = shallowReactive({
   targetLevel: 0,
   targetHp01: 0,
   targetElite: false,
+  /** The locked target is out of sight (held by the lock's grace): the
+   *  frame dims. The bracket reads `Mission.targetHidden` per frame. */
+  targetHidden: false,
   /** Boss bar. */
   bossName: '',
   bossHp01: 0,
+  /** The mission's Core Master for the top row's mystery chip ('' = a map
+   *  without a boss), and whether it has fallen. The chip reveals the face
+   *  once the fight begins (`bossName` set). */
+  missionBoss: '',
+  bossDown: false,
+  /** The objective locator (`sim/locator.ts`): on screen now, and how far
+   *  its cooldown has run, 0..1 (-1 = retired, nothing to show). */
+  locatorOn: false,
+  locatorCd01: -1,
   /** Contextual interact prompt (i18n key + params), empty when none. */
   interactKey: '',
   /** Objective tracker line (i18n key + params). */
@@ -54,7 +67,16 @@ export const hud = shallowReactive({
     { id: '', cost: 0, ready: false, color: '#ffffff' },
     { id: '', cost: 0, ready: false, color: '#ffffff' }
   ],
+  /** The borrowed weapon on the third button (`sim/borrowed.ts`): charges
+   *  left as pips, no Weapon Energy. Replaced whole on a change. */
+  borrowed: { id: '', shots: 0, max: 0, color: '#ffffff', ready: false, teach: false, spent: 0 } as BorrowedView,
   tanks: 0,
+  /** Repair Gel capacity (Gel Capacity skill): the gel button's pips. */
+  tanksMax: 2,
+  /** Counts the Repair Gels used: each one plays the button's drain and the
+   *  health bar's green refill, from `gelFrom01` (health before it). */
+  gelUse: 0,
+  gelFrom01: 0,
   slideReady: true,
   blockHeld: false,
   /** The control coach's glyphs on screen (see `sim/coach.ts`). */
@@ -68,6 +90,12 @@ export const hud = shallowReactive({
   lookMode: 'lock' as 'lock' | 'drag',
   /** A desktop mission whose mouse is not captured yet: the click glyph. */
   pointerFree: false,
+  /** The exit cutscene may be skipped now (any press): its skip glyph. */
+  cineSkip: false,
+  /** Flux's speech bubble (`FluxBubble.vue`): the i18n key of his line,
+   *  and a count that grows with each one, so the same line pops again. */
+  sayKey: '',
+  saySeq: 0,
   /** Sector / mission title card. */
   titleKey: '',
   titleSub: '',

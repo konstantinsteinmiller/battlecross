@@ -6,8 +6,9 @@
 // capabilities.ts) and by `vite.config.ts`, which aliases dev tooling out of a
 // build whose policy forbids it (`devToolAliases`). Poki's hard requirements ask
 // for a clean build — "no debug code, no dev artifacts" — so its RELEASE build
-// must carry neither the `localStorage.cheat` cheats, nor the typed "cmarc"
-// debug toggle, nor the hidden 30-tap interstitial.
+// must carry neither the `localStorage.cheat` cheats nor the typed "cmarc"
+// debug toggle. The hidden 30-tap interstitial is NOT dev tooling: it ships in
+// every build, releases included, and no gate refuses it.
 //
 // Pinned here, all without evaluating the Vite config itself (importing it —
 // every build plugin, esbuild — once timed out under full-suite load):
@@ -22,8 +23,9 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { DEV_TOOL_STUBS, devToolAliases, resolvePlatformPolicy } from '@/platforms/policy'
+import { DEV_TOOL_MARKERS, DEV_TOOL_STUBS, devToolAliases, resolvePlatformPolicy } from '@/platforms/policy'
 
 const ROOT = resolve(__dirname, '..', '..')
 const read = (rel: string): string => readFileSync(resolve(ROOT, rel), 'utf8')
@@ -43,12 +45,22 @@ describe('resolvePlatformPolicy', () => {
 })
 
 describe('dev tooling is aliased out of the Poki release', () => {
-  it('Poki release: all three modules resolve to their stubs', () => {
+  it('Poki release: both cheat modules resolve to their stubs', () => {
     expect(devToolAliases(resolvePlatformPolicy({ isPoki: true }))).toEqual({
       '@/use/useCheats': 'src/use/useCheats.stub.ts',
-      '@/game/cheats': 'src/game/cheats.stub.ts',
-      '@/use/useQaAdTrigger': 'src/use/useQaAdTrigger.stub.ts'
+      '@/game/cheats': 'src/game/cheats.stub.ts'
     })
+  })
+
+  it('the hidden 30-tap interstitial ships in the Poki and Playgama releases', async () => {
+    for (const policy of [resolvePlatformPolicy({ isPoki: true }), resolvePlatformPolicy({ isPoki: false, isPlaygama: true })]) {
+      expect(devToolAliases(policy)).not.toHaveProperty('@/use/useQaAdTrigger')
+    }
+    expect(DEV_TOOL_MARKERS.map((m) => m.text)).not.toContain('[qa-ad]')
+    const poki = (await import(pathToFileURL(resolve(ROOT, 'tools/poki-deploy/poki.config.mjs')).href)).default
+    expect(poki.forbidInBundle.map((f: { text: string }) => f.text)).not.toContain('[qa-ad]')
+    // No stub left behind for a stray alias to pick up.
+    expect(existsSync(resolve(ROOT, 'src/use/useQaAdTrigger.stub.ts'))).toBe(false)
   })
 
   it('Poki QA twin and non-Poki builds keep the real modules', () => {
@@ -60,7 +72,9 @@ describe('dev tooling is aliased out of the Poki release', () => {
     const cfg = read('vite.config.ts')
     // The policy comes from THE flags of the build being configured.
     expect(cfg).toMatch(/const isPokiBuild = env\.VITE_APP_POKI === 'true'/)
-    expect(cfg).toMatch(/resolvePlatformPolicy\(\{\s*isPoki: isPokiBuild,\s*qaTools: env\.VITE_POKI_QA_TOOLS === 'true'\s*\}\)/)
+    // (Playgama joined the clean releases, and the QA-twin flag was generalised
+    // to VITE_QA_TOOLS with the Poki-era name kept — see playgamaCleanBuild.test.ts.)
+    expect(cfg).toMatch(/resolvePlatformPolicy\(\{\s*isPoki: isPokiBuild,\s*isPlaygama: isPlaygamaBuild,\s*qaTools: env\.VITE_POKI_QA_TOOLS === 'true' \|\| env\.VITE_QA_TOOLS === 'true'\s*\}\)/)
     // …and its aliases are spread into resolve.alias, ahead of '@'.
     const spread = cfg.indexOf('devToolAliases(platformPolicy)')
     const catchAll = cfg.indexOf("'@': fileURLToPath(new URL('./src', import.meta.url))")

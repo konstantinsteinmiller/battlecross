@@ -1,4 +1,4 @@
-# Mega Adventure — story
+# Mega Droid — story
 
 This file covers the story arc, the intro cutscene, and where each story beat
 appears in the game. The design is in [`GDD.md`](./GDD.md). This file answers

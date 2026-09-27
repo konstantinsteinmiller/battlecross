@@ -5,9 +5,9 @@
 // This repo was forked from Survivalist, and `tools/poki-deploy/poki.config.mjs`
 // came along still pointing at SURVIVALIST'S P4D game. Every P4D step is
 // addressed by `gameId` alone, so an upload would not have failed — it would
-// have put Mega Adventure into Survivalist's Versions list. Pinned here:
+// have put Mega Droid into Survivalist's Versions list. Pinned here:
 //
-//   1. the config is Mega Adventure's (name, zip, version name, save hook) and
+//   1. the config is Mega Droid's (name, zip, version name, save hook) and
 //      carries no gameId until the real one is known;
 //   2. `deploy.mjs` refuses every P4D-bound mode without a valid, non-foreign
 //      gameId — BEFORE it bumps the version, builds, or opens a browser — while
@@ -53,7 +53,7 @@ describe('gameId guard (lib/target.mjs)', () => {
 
   it('refuses anything that is not a P4D uuid', async () => {
     const { checkGameId } = await load('lib/target.mjs')
-    for (const v of ['TODO', 'mega-adventure', '1d51788e-5771-4d70-8290', 42, {}]) {
+    for (const v of ['TODO', 'mega-droid', '1d51788e-5771-4d70-8290', 42, {}]) {
       expect(checkGameId(v).ok, String(v)).toBe(false)
     }
   })
@@ -73,16 +73,16 @@ describe('gameId guard (lib/target.mjs)', () => {
   })
 })
 
-describe('poki.config.mjs is Mega Adventure\'s', () => {
+describe('poki.config.mjs is Mega Droid\'s', () => {
   it('names, packs and versions the right game, and has no gameId yet', async () => {
     const { default: cfg } = await load('poki.config.mjs')
     const { checkGameId } = await load('lib/target.mjs')
-    expect(cfg.gameName).toBe('Mega Adventure')
+    expect(cfg.gameName).toBe('Mega Droid')
     expect(cfg.team).toBe('hyperg8')
-    expect(cfg.zip).toBe('dist/mega-adventure-poki.zip')
+    expect(cfg.zip).toBe('dist/mega-droid-poki.zip')
     expect(cfg.dist).toBe('dist')
     expect(cfg.build).toBe('pnpm build:poki')
-    expect(cfg.versionName('0.1.1')).toBe('Mega Adventure 0.1.1')
+    expect(cfg.versionName('0.1.1')).toBe('Mega Droid 0.1.1')
     expect(cfg.gameId).toBeNull()
     expect(checkGameId(cfg.gameId).ok).toBe(false)
     expect(cfg.declares).toEqual({ usernames: false, chat: false })
@@ -122,7 +122,7 @@ describe('poki.config.mjs is Mega Adventure\'s', () => {
 
     expect(run()).toBeNull()
 
-    store.set('mega_adventure_state', JSON.stringify({
+    store.set('mega_droid_state', JSON.stringify({
       ma_level: 3,
       ma_bolts: 120,
       ma_story: 1,
@@ -138,8 +138,22 @@ describe('poki.config.mjs is Mega Adventure\'s', () => {
       tutorialDone: true, sectors: 2, bosses: 1, weapons: 2
     })
 
-    store.set('mega_adventure_state', '{not json')
+    store.set('mega_droid_state', '{not json')
     expect(run()).toBeNull()
+  })
+
+  it('falls back to a pre-rename save the game has not migrated yet, and prefers the new key', async () => {
+    const { default: cfg } = await load('poki.config.mjs')
+    const store = new Map<string, string>()
+    const localStorage = { getItem: (k: string) => store.get(k) ?? null }
+    // eslint-disable-next-line no-new-func
+    const run = () => new Function('localStorage', `return ${cfg.hooks.readProgress}`)(localStorage)
+
+    store.set('mega_adventure_state', JSON.stringify({ ma_level: 4, ma_bolts: 10 }))
+    expect(run()).toMatchObject({ level: 4, bolts: 10 })
+
+    store.set('mega_droid_state', JSON.stringify({ ma_level: 6, ma_bolts: 30 }))
+    expect(run()).toMatchObject({ level: 6, bolts: 30 })
   })
 })
 
@@ -153,13 +167,13 @@ describe('deploy.mjs refuses P4D without a valid gameId', () => {
     writeFileSync(file, `export default {
       team: 'hyperg8',
       gameId: ${JSON.stringify(gameId)},
-      gameName: 'Mega Adventure',
+      gameName: 'Mega Droid',
       build: 'node -e "process.exit(3)"',
       dist: ${JSON.stringify(join(SCRATCH_REL, 'missing-dist').replace(/\\/g, '/'))},
       zip: ${JSON.stringify(join(SCRATCH_REL, 'never.zip').replace(/\\/g, '/'))},
       repack: true,
       allowHosts: [],
-      versionName: v => 'Mega Adventure ' + v
+      versionName: v => 'Mega Droid ' + v
     }\n`)
     return file
   }
@@ -201,16 +215,16 @@ describe('deploy.mjs refuses P4D without a valid gameId', () => {
     const distRel = join(SCRATCH_REL, 'gates-dist')
     mkdirSync(join(ROOT, distRel, 'assets'), { recursive: true })
     writeFileSync(join(ROOT, distRel, 'index.html'),
-      '<!doctype html><html><head><meta charset="utf-8"><title>Mega Adventure</title></head><body>'
+      '<!doctype html><html><head><meta charset="utf-8"><title>Mega Droid</title></head><body>'
       + '<script src="https://game-cdn.poki.com/scripts/v2/poki-sdk.js"></script>'
       + '<script type="module" src="./assets/index.js"></script></body></html>')
     writeFileSync(join(ROOT, distRel, 'assets', 'index.js'), 'console.log("hi")')
     const file = join(SCRATCH, 'gates.config.mjs')
     writeFileSync(file, `export default {
-      team: 'hyperg8', gameId: null, gameName: 'Mega Adventure', build: 'node -e "process.exit(3)"',
+      team: 'hyperg8', gameId: null, gameName: 'Mega Droid', build: 'node -e "process.exit(3)"',
       dist: ${JSON.stringify(distRel.replace(/\\/g, '/'))},
-      zip: ${JSON.stringify(join(distRel, 'mega-adventure-poki.zip').replace(/\\/g, '/'))},
-      repack: true, allowHosts: [], versionName: v => 'Mega Adventure ' + v
+      zip: ${JSON.stringify(join(distRel, 'mega-droid-poki.zip').replace(/\\/g, '/'))},
+      repack: true, allowHosts: [], versionName: v => 'Mega Droid ' + v
     }\n`)
 
     const r = deploy(['--config', file, '--gates-only'])
@@ -301,7 +315,9 @@ describe('release gates (lib/gates.mjs)', () => {
     const { runGates } = await load('lib/gates.mjs')
     const { default: cfg } = await load('poki.config.mjs')
     const texts = cfg.forbidInBundle.map((f: { text: string }) => f.text)
-    expect(texts).toEqual(expect.arrayContaining(['[CHEAT]', 'ctrl+shift+alt+', 'cmarc', '[qa-ad]']))
+    expect(texts).toEqual(expect.arrayContaining(['[CHEAT]', 'ctrl+shift+alt+', 'cmarc']))
+    // The hidden 30-tap interstitial ships in the release on purpose.
+    expect(texts).not.toContain('[qa-ad]')
     const gate = (dist: string) => runGates({ dist, zip: null, forbid: cfg.forbidInBundle })
       .results.find((x: { name: string }) => x.name.startsWith('clean build'))
     for (const text of texts) {

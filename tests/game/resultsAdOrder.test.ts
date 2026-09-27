@@ -1,10 +1,14 @@
-// The interstitial comes BEFORE the result screen — never on top of it, and
-// never a moment after it (CrazyGames QA). `finishMission` pays and saves,
-// runs the ad break, and only then reveals the results and plays the jingle.
+// The interstitial comes AFTER the result screen: the results open at once,
+// and the ad plays when the player taps Continue — the screen closes first, so
+// the ad never opens on top of it, and the hub only comes up once the ad is
+// done. `finishMission` pays and saves, then reveals; `leaveResults` runs the
+// break and goes home.
 
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const h = vi.hoisted(() => ({ adMs: 0, canShow: true, marks: 0, happy: 0, adCalls: 0 }))
+const h = vi.hoisted(() => ({ adMs: 0, canShow: true, marks: 0, happy: 0, adCalls: 0, hubs: 0 }))
 
 vi.mock('@/use/useAds', async () => {
   const { isAdShowing } = await import('@/use/useGamePause')
@@ -24,6 +28,8 @@ vi.mock('@/use/useAdGate', () => ({
   markInterstitialShown: () => { h.marks++ }
 }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => { h.happy++ } }))
+// The hub is a three.js scene; only whether (and when) it was entered matters.
+vi.mock('@/game/engine/app', () => ({ app: { setMode: () => {}, setWanted: () => {} } }))
 
 const tally = { xp: 10, bolts: 5, kills: 1, chests: 0, items: [], seconds: 30 }
 
@@ -31,51 +37,46 @@ const load = async () => {
   const flowMod = await import('@/game/flow')
   const { tutorialQuest } = await import('@/game/data/quests')
   const { isAdShowing } = await import('@/use/useGamePause')
+  const fakeMode = {} as never
+  flowMod.registerModeFactories(async () => fakeMode, () => { h.hubs++; return fakeMode })
   flowMod.flow.quest = tutorialQuest()
+  flowMod.flow.screen = 'mission'
   flowMod.flow.modal = ''
   flowMod.flow.results = null
   return { ...flowMod, isAdShowing }
 }
 
-describe('ad break before the result screen', () => {
+describe('result screen: opens at once, no ad in front of it', () => {
   beforeEach(() => {
     h.adMs = 0
     h.canShow = true
     h.marks = 0
     h.happy = 0
     h.adCalls = 0
+    h.hubs = 0
   })
   afterEach(() => { vi.useRealTimers() })
 
-  it('plays the due interstitial first, and reveals the results only after it', async () => {
+  it('reveals the results without requesting an ad, even when one is due', async () => {
     const m = await load()
-    h.adMs = 150
-    const done = m.finishMission(true, tally)
-    // The ad is up; nothing of the result screen may be showing under it.
-    expect(m.isAdShowing.value).toBe(true)
-    expect(m.flow.modal).toBe('')
-    expect(m.flow.results).toBeNull()
-    await done
-    expect(m.isAdShowing.value).toBe(false)
+    await m.finishMission(true, tally)
+    expect(h.adCalls).toBe(0)
+    expect(h.marks).toBe(0) // the pacing slot is left for Continue
     expect(m.flow.modal).toBe('results')
     expect(m.flow.results?.success).toBe(true)
-    expect(h.adCalls).toBe(1)
-    expect(h.marks).toBe(1) // the shared pacing clock restarts
     expect(h.happy).toBe(1) // CrazyGames happytime on a win
   })
 
-  it('skips the ad when none is due and reveals straight away', async () => {
+  it('a failed mission reveals straight away too, without happytime', async () => {
     const m = await load()
-    h.canShow = false
     await m.finishMission(false, tally)
     expect(h.adCalls).toBe(0)
     expect(m.flow.modal).toBe('results')
-    expect(h.happy).toBe(0) // no happytime on a failed mission
+    expect(h.happy).toBe(0)
   })
 
   it('waits for an ad ANOTHER placement left on screen', async () => {
     const m = await load()
-    h.canShow = false
     m.isAdShowing.value = true // e.g. the QA trigger or the first-load ad
     const done = m.finishMission(true, tally)
     await new Promise((r) => setTimeout(r, 250))
@@ -88,12 +89,87 @@ describe('ad break before the result screen', () => {
   it('never strands the player behind a gate that does not drop', async () => {
     const m = await load()
     vi.useFakeTimers()
-    h.canShow = false
     m.isAdShowing.value = true
     const done = m.finishMission(true, tally)
     await vi.advanceTimersByTimeAsync(8200)
     await done
     expect(m.flow.modal).toBe('results')
     m.isAdShowing.value = false
+  })
+})
+
+describe('Continue: the ad, then the hub', () => {
+  beforeEach(() => {
+    h.adMs = 0
+    h.canShow = true
+    h.marks = 0
+    h.adCalls = 0
+    h.hubs = 0
+  })
+  afterEach(() => { vi.useRealTimers() })
+
+  it('closes the screen, plays the due interstitial, and only then goes home', async () => {
+    const m = await load()
+    await m.finishMission(true, tally)
+    h.adMs = 150
+    const left = m.leaveResults()
+    // The screen is gone before the ad opens, and the hub waits for the ad.
+    expect(m.flow.modal).toBe('')
+    expect(m.isAdShowing.value).toBe(true)
+    expect(h.hubs).toBe(0)
+    expect(m.flow.screen).toBe('mission')
+    await left
+    expect(m.isAdShowing.value).toBe(false)
+    expect(h.adCalls).toBe(1)
+    expect(h.marks).toBe(1) // the shared pacing clock restarts
+    expect(h.hubs).toBe(1)
+    expect(m.flow.screen).toBe('hub')
+  })
+
+  it('offers the break after a failed mission as well', async () => {
+    const m = await load()
+    await m.finishMission(false, tally)
+    await m.leaveResults()
+    expect(h.adCalls).toBe(1)
+    expect(m.flow.screen).toBe('hub')
+  })
+
+  it('goes straight home when the pacing says no ad is due', async () => {
+    const m = await load()
+    await m.finishMission(true, tally)
+    h.canShow = false
+    await m.leaveResults()
+    expect(h.adCalls).toBe(0)
+    expect(h.marks).toBe(0)
+    expect(h.hubs).toBe(1)
+    expect(m.flow.screen).toBe('hub')
+  })
+
+  it('a double tap on Continue asks for one ad and builds one hub', async () => {
+    const m = await load()
+    await m.finishMission(true, tally)
+    h.adMs = 50
+    await Promise.all([m.leaveResults(), m.leaveResults()])
+    expect(h.adCalls).toBe(1)
+    expect(h.hubs).toBe(1)
+  })
+
+  it('does not open the hub under an ad another placement left up', async () => {
+    const m = await load()
+    await m.finishMission(true, tally)
+    h.canShow = false
+    m.isAdShowing.value = true // e.g. the QA trigger fired on this screen
+    const left = m.leaveResults()
+    await new Promise((r) => setTimeout(r, 250))
+    expect(h.hubs).toBe(0)
+    m.isAdShowing.value = false
+    await left
+    expect(h.hubs).toBe(1)
+  })
+
+  it('is what the result screen\'s Continue calls', () => {
+    const src = readFileSync(resolve(__dirname, '../../src/components/modals/ResultsModal.vue'), 'utf8')
+    expect(src).toMatch(/const done = \(\) => \{\s*void leaveResults\(\)\s*\}/)
+    expect(src).not.toMatch(/\bgoHub\(/)
   })
 })

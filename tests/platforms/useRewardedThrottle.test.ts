@@ -76,16 +76,16 @@ describe('useRewardedThrottle', () => {
     expect(mod.isRewardedThrottled.value).toBe(false)
   })
 
-  it('persists history inside the mega_adventure_state blob under the internal-key field', async () => {
+  it('persists history inside the mega_droid_state blob under the internal-key field', async () => {
     const mod = await importThrottle()
     mod.recordRewardedGranted(123_456)
     // The blob write is debounced (it rides the single-blob persist debounce),
     // so advance past it before asserting the on-disk contents.
     vi.advanceTimersByTime(300)
     // Single-blob storage: nothing lives at the bare key any more — the
-    // history is a sub-field of `mega_adventure_state`.
+    // history is a sub-field of `mega_droid_state`.
     expect(window.localStorage.getItem(STORAGE_KEY)).toBeNull()
-    const blob = JSON.parse(window.localStorage.getItem('mega_adventure_state') || '{}')
+    const blob = JSON.parse(window.localStorage.getItem('mega_droid_state') || '{}')
     expect(blob[STORAGE_KEY]).toEqual([123_456])
   })
 
@@ -93,7 +93,7 @@ describe('useRewardedThrottle', () => {
     const seed = [Date.now() - 1000, Date.now() - 500, Date.now() - 100]
     // Single-blob model: the throttle reads its history as a field of the
     // consolidated blob, so seed it there (not at the bare key).
-    window.localStorage.setItem('mega_adventure_state', JSON.stringify({ [STORAGE_KEY]: seed }))
+    window.localStorage.setItem('mega_droid_state', JSON.stringify({ [STORAGE_KEY]: seed }))
     const mod = await importThrottle()
     // 3 entries < MAX (5), so still un-throttled, but the next 2 must throttle.
     expect(mod.isRewardedThrottled.value).toBe(false)

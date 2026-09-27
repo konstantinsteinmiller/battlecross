@@ -125,7 +125,7 @@ try {
       })
       await page.goto(`http://127.0.0.1:${PORT}/`)
       out.title = await page.title()
-      if (!/Mega Adventure/i.test(out.title)) throw new Error(`wrong app on the port (title "${out.title}")`)
+      if (!/Mega Droid/i.test(out.title)) throw new Error(`wrong app on the port (title "${out.title}")`)
       await page.waitForSelector('.hud-layer', { timeout: 40000 })
       out.webgl = await page.evaluate(() => {
         const c = document.querySelector('canvas')

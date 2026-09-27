@@ -15,7 +15,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GamePixStrategy } from '@/utils/save/GamePixStrategy'
 
-const STATE_KEY = 'mega_adventure_state'
+const STATE_KEY = 'mega_droid_state'
 
 interface FakeLocal {
   get: (k: string) => string | null

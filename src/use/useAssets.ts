@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { prependBaseUrl } from '@/utils/function'
 
-// Mega Adventure renders every gameplay asset procedurally (three.js meshes
+// Mega Droid renders every gameplay asset procedurally (three.js meshes
 // built from primitives, canvas-baked textures, synthesized audio). The
 // critical-path "assets" are therefore not files but WORK: the engine chunk,
 // the first scene's meshes and the shader compile. `preloadAssets` drives that
@@ -61,11 +61,63 @@ export const getAudioContext = (): AudioContext | null => {
   // ad opening before any SFX has played) would come up audible underneath it —
   // `suspendAllAudio` had already run and had nothing to suspend. The depth
   // counter is the honest record of whether anything wants silence right now.
-  if (suspendDepth > 0) {
-    try { void sharedAudioCtx.suspend() } catch { /* older impls */ }
-  }
+  // A transition the browser makes on its own (an OS interruption ending, one
+  // of ours landing late) is checked against that record too.
+  try { sharedAudioCtx.addEventListener('statechange', syncContextState) } catch { /* older impls */ }
+  syncContextState()
   armResumeOnGesture()
   return sharedAudioCtx
+}
+
+// ─── Context state: reconcile, never race ─────────────────────────────────
+//
+// `suspend()` and `resume()` are ASYNC: `ctx.state` keeps its old value until
+// the promise settles. Deciding from `ctx.state` alone therefore loses a race
+// whenever the gate flips twice inside one transition — an ad whose close and a
+// platform pause/soundOn edge land together. A resume issued while the suspend
+// was still in flight read `state === 'running'`, did nothing, and the suspend
+// then landed with the gate already open: the context stayed suspended and the
+// game played on in silence (hub after an interstitial, QA Tool 2026-09-26).
+// The mirror race let a suspend be skipped under a pending resume, so an ad
+// could open over live audio.
+//
+// So there is one function that moves the context TOWARD the wanted state —
+// suspended while anything holds the depth counter, running otherwise (once
+// audio is unlocked) — starts at most one transition at a time, and checks
+// again the moment it settles.
+
+/** A suspend/resume is in flight; the next sync waits for it. */
+let ctxTransitionPending = false
+
+/** A transition that never settles must not wedge the gate. */
+const CTX_TRANSITION_CAP_MS = 1000
+
+const syncContextState = (): void => {
+  const ctx = sharedAudioCtx
+  if (!ctx || ctxTransitionPending) return
+  const state = ctx.state as string
+  if (state === 'closed') return
+  let op: Promise<void> | undefined
+  try {
+    if (suspendDepth > 0) {
+      if (state === 'running') op = ctx.suspend()
+    } else if (state !== 'running' && audioUnlocked()) {
+      op = ctx.resume()
+    }
+  } catch { return /* older impls throw instead of rejecting */ }
+  if (!op || typeof op.then !== 'function') return
+  ctxTransitionPending = true
+  let settled = false
+  const settle = (checkAgain: boolean): void => {
+    if (settled) return
+    settled = true
+    ctxTransitionPending = false
+    // A rejection (autoplay refusal, a closed context) is not retried here:
+    // the next gate edge, gesture or statechange asks again.
+    if (checkAgain) syncContextState()
+  }
+  op.then(() => settle(true), () => settle(false))
+  setTimeout(() => settle(true), CTX_TRANSITION_CAP_MS)
 }
 
 /** True while engine audio is globally suspended (an ad is on-screen, the
@@ -76,11 +128,7 @@ export const isAudioSuspended = (): boolean => suspendDepth > 0
 const armResumeOnGesture = (): void => {
   if (resumeListenerArmed) return
   resumeListenerArmed = true
-  const resume = () => {
-    if (sharedAudioCtx && sharedAudioCtx.state === 'suspended' && suspendDepth === 0) {
-      void sharedAudioCtx.resume()
-    }
-  }
+  const resume = () => syncContextState()
   window.addEventListener('pointerdown', resume, { once: true })
   window.addEventListener('keydown', resume, { once: true })
 }
@@ -106,9 +154,7 @@ export const unregisterHtmlAudio = (el: HTMLAudioElement) => {
  *  before audio plays again. */
 export const suspendAllAudio = (): void => {
   suspendDepth += 1
-  if (sharedAudioCtx && sharedAudioCtx.state === 'running') {
-    void sharedAudioCtx.suspend()
-  }
+  syncContextState()
   for (const el of trackedAudioElements) {
     if (!el.paused) {
       pausedByGlobalSuspend.add(el)
@@ -120,9 +166,7 @@ export const suspendAllAudio = (): void => {
 export const resumeAllAudio = (): void => {
   suspendDepth = Math.max(0, suspendDepth - 1)
   if (suspendDepth > 0) return
-  if (sharedAudioCtx && sharedAudioCtx.state === 'suspended' && audioUnlocked()) {
-    void sharedAudioCtx.resume()
-  }
+  syncContextState()
   for (const el of trackedAudioElements) {
     if (pausedByGlobalSuspend.has(el)) {
       pausedByGlobalSuspend.delete(el)
