@@ -245,6 +245,12 @@ onUnmounted(() => {
   position: absolute
   inset: 0
   pointer-events: none
+  // The resting joystick's centre, from the lower-left corner (inside the
+  // safe area). Shared by the stick and the coach's move glyph drawn over it.
+  // ~2 stick radii in from each edge: a full push, thumb and all, stays on
+  // the glass instead of slipping off it.
+  --joy-home-x: 104px
+  --joy-home-y: max(104px, 13vh)
   transition: opacity 0.35s, visibility 0s linear 0s
   // The exit cutscene (phase `beamOut`) is a film: the whole HUD fades away,
   // and hidden it takes no taps either, so any press reaches the scene (the

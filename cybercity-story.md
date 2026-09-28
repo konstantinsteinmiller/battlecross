@@ -1,12 +1,26 @@
 Intro cutscene.
 
-Build story with enemy proposition introduction.
-Cartoonish expression like Arrrh! and Oof! when taking damage 
-and "Dr Evil"-like in fancy speech bubbles.
+Build a story arc with enemy proposition introduction.
+Cartoonish expression like Arrrh! and Oof!(choose the best expressions yourself for Mega Droid) when taking damage-
+Introduce a "Dr Evil"-like in fancy speech bubbles. 
+Make it a story arc with a beginning, middle and end that fits this game and mission design.
+the Intro could play in a high tech city with a cyberpunk aesthetic, showing 
+Flux navigating through the city streets, encountering various enemies and 
+obstacles. The story arc could involve Flux being tasked with stopping a rogue 
+AI that has taken control of the city's systems, leading to a series of battles against 
+corrupted machines, androids and bosses( just an idea, please make it a cool story understandble with almost no dialogs).
+I think I will add english voice overs later, prepare this reflections in the story-voice-over.md(no need to implement anything yet)
+The end result should be a story-arc.md file containing explanations for the intro cutscene first, the general
+story outline and how it is resolved by Flux, especially how to reach the end boss/bosses.
+I want to use this file to create some storyboard game and feel images for the story progress.
+after your done, write me a comic.md that includes the story as prompts for each page of a comic, which I will run myself with gemini. 
+
+include Flux's KI assistent "Atlas".
 
 KI assistent "Atlas" talking to Flux and briefing him on the missing, 
 warning him of boss ahead, warning of dangers (running low on health, traps , levers etc.),
-running low on special weapon energy etc. . Helping with story arc progression.
+running low on special weapon energy etc. . Helping with story arc progression. 
+"Atlas" model will be implemented later.
 
 
 new found items should show a icon and be more prevalently visible on the screen, when looting it from bosses 
@@ -30,3 +44,5 @@ This could be done by adding a toggle option in the settings menu that allows pl
 Add a tap cord for 20 consecutive clicks on the screws badge in the UI(without pointerlock) to trigger a hidden interstitial ad, this feature can ship to production, as its not hurting the player.
 
 weakpoints on enemies and bosses.
+
+Improve beam down cutscene by showing Flux first with teh camera and then upon landing going to first-pe

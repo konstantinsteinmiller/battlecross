@@ -1,5 +1,20 @@
 <template lang="pug">
   div.actions(ref="actionsEl" v-show="hud.phase === 'play'")
+    //- FIRE (touch): press to shoot, hold to charge, let go to fire the
+    //- charge — at anything, with nothing in sight (a crate, a barrel), where
+    //- a press on the view only fires near a machine. Dragging it looks
+    //- around and keeps the charge.
+    button.act.fire(
+      v-if="!desk"
+      type="button"
+      :class="{ held: fireDown }"
+      :aria-label="t('combat.fire')"
+      @pointerdown.prevent.stop="fireStart"
+      @pointermove.prevent.stop="fireDrag"
+      @pointerup.prevent.stop="fireEnd"
+      @pointercancel.prevent.stop="fireEnd"
+    )
+      GameIcon(name="buster")
     button.act.block(
       type="button"
       :class="{ held: hud.blockHeld }"
@@ -97,8 +112,8 @@ import { TEACH_TIP } from '@/game/sim/borrowed'
 import { computed, onUnmounted, ref, watch } from 'vue'
 
 /**
- * Right-thumb cluster: BLOCK (hold; tap it as a ring closes to parry) and
- * SLIDE. These sit above the input surface, so their presses never reach the
+ * Right-thumb cluster: FIRE (touch only — shoot / hold to charge, drag to
+ * look), BLOCK (hold; tap it as a ring closes to parry) and SLIDE. These sit above the input surface, so their presses never reach the
  * fire/look gesture layer underneath.
  *
  * The Repair Gel button is inventory first. A playtester never understood why
@@ -130,6 +145,43 @@ const blockDown = (e: PointerEvent) => {
 const blockUp = () => {
   input.blockHeld = false
 }
+// ── Fire (touch) ──
+// Writes the same fire edges as a press on the view does in combat, so the
+// sim cannot tell them apart: a shot on press, the charge while held, the
+// charged shot on release. Free aim goes where the crosshair is.
+const fireDown = ref(false)
+let fireId: number | null = null
+let fireLastX = 0
+let fireLastY = 0
+const fireStart = (e: PointerEvent) => {
+  if (fireId !== null) return
+  fireId = e.pointerId
+  fireLastX = e.clientX
+  fireLastY = e.clientY
+  input.touched = true
+  input.anyPressed = true
+  input.fireHeld = true
+  input.firePressed = true
+  fireDown.value = true
+  try { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId) } catch { /* ignore */ }
+}
+const fireDrag = (e: PointerEvent) => {
+  if (e.pointerId !== fireId) return
+  input.lookDX += e.clientX - fireLastX
+  input.lookDY += e.clientY - fireLastY
+  fireLastX = e.clientX
+  fireLastY = e.clientY
+}
+const fireEnd = (e: PointerEvent) => {
+  if (e.pointerId !== fireId) return
+  fireId = null
+  fireDown.value = false
+  if (input.fireHeld) {
+    input.fireHeld = false
+    input.fireReleased = true
+  }
+}
+
 const slide = () => {
   input.touched = true
   input.slideQueued = true
@@ -287,6 +339,17 @@ watch(() => hud.borrowed.teach, (on, was) => {
     width: 52%
     height: 52%
     filter: drop-shadow(0 2px 0 rgba(20, 26, 51, 0.6))
+.fire
+  right: 0
+  // Above the Repair Gel and its pips, on the edge the right thumb rests on.
+  bottom: calc(clamp(76px, 17.5vmin, 110px) + clamp(44px, 10vmin, 60px) + 26px)
+  width: clamp(64px, 14vmin, 88px)
+  height: clamp(64px, 14vmin, 88px)
+  background: radial-gradient(circle at 40% 30%, #ffe7a8, #ffb13c 45%, #e0621f)
+  &.held
+    transform: scale(0.92)
+    background: radial-gradient(circle at 40% 30%, #ffffff, #ffe07a 50%, #ffb13c)
+    box-shadow: 0 0 18px rgba(255, 216, 74, 0.85), inset 0 -3px 0 rgba(0, 0, 0, 0.15)
 .block
   right: 0
   bottom: 0

@@ -1,7 +1,8 @@
 # Sound — drop-in list
 
 Every sound in the game is synthesized: chiptune recipes in
-`src/game/audio/synth.ts` and a composed score in `src/game/audio/music.ts`.
+`src/game/audio/synth.ts` and a composed score in `src/game/audio/songs.ts`
+(sequenced by `music.ts`).
 A file dropped in with the right name REPLACES that one sound. The synth stays
 as the fallback for anything missing, so files can arrive one at a time.
 
@@ -14,9 +15,17 @@ as the fallback for anything missing, so files can arrive one at a time.
   plenty. Style: 8/16-bit console blips and bursts (pulse and noise), punchy,
   under 0.6 s unless noted.
 - **Music:** stereo, 44.1 kHz, about −16 LUFS integrated, 128 kbps,
-  seamless loop (no fade at either end). Style: upbeat blue-bomber-era
-  chiptune/rock, 140–170 BPM for sectors. Originals only: no melodies taken
-  from existing games.
+  seamless loop (no fade at either end). Originals only: no melodies taken
+  from existing games. Area themes: upbeat blue-bomber-era chiptune/rock,
+  140–170 BPM for sectors.
+- **Rotation:** outside a boss fight the game does not loop one theme — it
+  rotates *area theme → `drift` → `circuit`*, moving on at the end of a pass
+  once a song has played ≥ 45 s. A dropped-in rotation song plays whole
+  passes the same way, so a 30 s file plays twice. `boss` loops for as long
+  as the fight lasts.
+- **Hear / measure the composed score:** `node tools/music-render.mjs --out
+  <dir>` renders every song to mp3 and prints its loudness; keep a
+  replacement within ~1 LU of the song it replaces.
 - All audio routes through the game's volume, mute, pause and ad gates
   automatically.
 
@@ -31,7 +40,9 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `volt.mp3` | Volt Tower | electric, syncopated, 155 BPM |
 | `gale.mp3` | Sky Docks | airy, lydian, 150 BPM |
 | `fortress.mp3` | Vex Fortress (final sector) | dark, phrygian, 165 BPM |
-| `boss.mp3` | every Core Master fight | urgent, 170 BPM, 30–60 s loop |
+| `drift.mp3` | rotation song 2, everywhere but boss fights | "Neon Drift": synthwave, 100 BPM, A minor, ~60 s |
+| `circuit.mp3` | rotation song 3, everywhere but boss fights | "Deep Circuit": lo-fi, swung, 84 BPM, ~60 s |
+| `boss.mp3` | every Core Master fight | "Overload": cinematic, 140 BPM, D minor — taiko, low-string ostinato, brass, choir; 50–60 s loop |
 | `victory.mp3` | results screen, mission won | one-shot fanfare, 2–3 s, NOT looped |
 | `defeat.mp3` | results screen, mission failed | one-shot sting, 2–3 s, NOT looped |
 

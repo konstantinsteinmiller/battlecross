@@ -1,0 +1,10 @@
+{
+  "port": 5180,
+  "gemini": {
+    "gapSeconds": 5,
+    "jitterSeconds": 5,
+    "dailyCap": 1000,
+    "timeoutSeconds": 420,
+    "retries": 1
+  }
+}

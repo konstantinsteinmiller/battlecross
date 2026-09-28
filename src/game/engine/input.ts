@@ -8,13 +8,21 @@
  *
  * Touch model (Blades + a buster):
  *   • LEFT ~45 % of the screen: a floating joystick spawns under the thumb.
+ *     A faint resting stick always sits low on the left (`joyHome*`, placed
+ *     by the HUD): a press on it grabs the stick at its centre, so a player
+ *     who never discovers "drag anywhere" still finds the movement control.
  *   • RIGHT side: press = shoot and start charging when a shot is wanted
  *     (`fireMode`); hold still to charge, release to fire the charge. The
  *     moment the press DRAGS it becomes a look instead: the charge is dropped
  *     (`fireCancelled`), never fired. Out of fire mode a drag looks and a
  *     short tap walks / interacts. (Deciding fire-vs-look at the press used
  *     to make a drag near any enemy a charge — the camera would not move.)
- *   • HUD buttons write straight into the record (`blockHeld`, `slideQueued`…).
+ *   • HUD buttons write straight into the record (`blockHeld`, `slideQueued`…),
+ *     the FIRE button included — it fires whatever is in fire mode, so a crate
+ *     or a barrel can be shot with no machine anywhere near.
+ *   • On a phone or tablet (`touchFirst`) the device stays TOUCH whatever
+ *     arrives: a mouse is treated as a finger (no capture, no mouse hints) and
+ *     a keyboard only adds its keys. The touch HUD never swaps out mid-game.
  *
  * Desktop — a first-person shooter, so the mouse is CAPTURED (pointer lock):
  *   • The first click on the scene captures the mouse (that click fires
@@ -77,6 +85,10 @@ export interface Input {
   joyOriginY: number
   joyX: number
   joyY: number
+  /** The resting stick's centre and grab radius (surface px); 0 radius = none. */
+  joyHomeX: number
+  joyHomeY: number
+  joyHomeR: number
   /** True once the player has provided any real input (onboarding, Poki gate). */
   touched: boolean
   /** Last input device family, for control hints. */
@@ -94,6 +106,19 @@ const guessDevice = (): Input['device'] => {
   return typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches ? 'touch' : 'mouse'
 }
 
+/**
+ * A phone or tablet: the touch controls are THE controls here, whatever input
+ * arrives. The UA check covers phones; `pointer: coarse` with touch points
+ * covers an iPad asking for the desktop site. A touch-screen laptop (a fine
+ * primary pointer) stays a desktop.
+ */
+export const touchFirst = (): boolean => {
+  if (typeof navigator === 'undefined') return false
+  if (mobileCheck()) return true
+  return (navigator.maxTouchPoints ?? 0) > 0 &&
+    typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+}
+
 const lockSupported = (): boolean =>
   typeof document !== 'undefined' && 'pointerLockElement' in document &&
   typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.requestPointerLock === 'function'
@@ -103,8 +128,9 @@ export const createInput = (): Input => ({
   fireHeld: false, firePressed: false, fireReleased: false, fireCancelled: false, fireX: 0, fireY: 0,
   blockHeld: false, blockPressed: false, slideQueued: false, weaponQueued: 0, tankQueued: false,
   interactQueued: false, beamQueued: false, swipe: 0, pauseQueued: false, mapQueued: false, anyPressed: false,
-  joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0,
-  touched: false, device: guessDevice(), locked: false, lockRefused: !lockSupported()
+  joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0, joyHomeX: 0, joyHomeY: 0, joyHomeR: 0,
+  // A phone never captures the mouse: there, a mouse is a finger.
+  touched: false, device: guessDevice(), locked: false, lockRefused: !lockSupported() || touchFirst()
 })
 
 /**
@@ -230,6 +256,10 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   let skipNextLook = false
   /** Last touch press: a touch also emits compatibility mouse events. */
   let lastTouchAt = -1e9
+  /** Phone / tablet: a mouse is a finger, and the device never turns 'mouse'. */
+  const touchOnly = touchFirst()
+  /** Pointer events this build reads as touch (see `touchOnly`). */
+  const asTouch = (e: PointerEvent) => e.pointerType !== 'mouse' || touchOnly
   lockEl = surface
 
   const rect = () => surface.getBoundingClientRect()
@@ -298,7 +328,8 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
 
   // ── Touch / pen: pointer events ──
   const onDown = (e: PointerEvent) => {
-    if (e.pointerType === 'mouse') return
+    if (!asTouch(e)) return
+    if (e.pointerType === 'mouse' && e.button !== 0) return
     input.touched = true
     input.device = 'touch'
     input.anyPressed = true
@@ -307,13 +338,17 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     const x = e.clientX - r.left
     const y = e.clientY - r.top
     const leftZone = x < r.width * 0.45
-    if (leftZone && joyId === null) {
+    const onHome = input.joyHomeR > 0 && Math.hypot(x - input.joyHomeX, y - input.joyHomeY) <= input.joyHomeR
+    if ((leftZone || onHome) && joyId === null) {
       joyId = e.pointerId
       input.joyActive = true
-      input.joyOriginX = x
-      input.joyOriginY = y
+      // On the resting stick: grab it by its centre, so the first touch is
+      // already a push in the finger's direction. Anywhere else: float.
+      input.joyOriginX = onHome ? input.joyHomeX : x
+      input.joyOriginY = onHome ? input.joyHomeY : y
       input.joyX = 0
       input.joyY = 0
+      if (onHome) stickTo(x, y)
       try { surface.setPointerCapture(e.pointerId) } catch { /* ignore */ }
       e.preventDefault()
       return
@@ -325,34 +360,39 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     e.preventDefault()
   }
 
+  /** Point the stick at a finger position (surface px). */
+  const stickTo = (x: number, y: number) => {
+    let dx = x - input.joyOriginX
+    let dy = y - input.joyOriginY
+    const l = Math.hypot(dx, dy)
+    // Drag the origin along when the thumb overshoots, so the stick never
+    // "sticks" at the rim — the Brawl Stars / Blades floating-stick feel.
+    if (l > joyR) {
+      const k = (l - joyR) / l
+      input.joyOriginX += dx * k
+      input.joyOriginY += dy * k
+      dx = x - input.joyOriginX
+      dy = y - input.joyOriginY
+    }
+    input.joyX = dx / joyR
+    input.joyY = dy / joyR
+    const mag = Math.min(1, Math.hypot(input.joyX, input.joyY))
+    // Small dead zone, then an ease so fine steps are possible.
+    const dz = 0.12
+    const eased = mag < dz ? 0 : Math.pow((mag - dz) / (1 - dz), 1.25)
+    const nx = mag > 0 ? input.joyX / mag : 0
+    const ny = mag > 0 ? input.joyY / mag : 0
+    input.moveX = nx * eased
+    input.moveY = -ny * eased
+  }
+
   const onMove = (e: PointerEvent) => {
-    if (e.pointerType === 'mouse') return
+    if (!asTouch(e)) return
     const r = rect()
     const x = e.clientX - r.left
     const y = e.clientY - r.top
     if (e.pointerId === joyId) {
-      let dx = x - input.joyOriginX
-      let dy = y - input.joyOriginY
-      const l = Math.hypot(dx, dy)
-      // Drag the origin along when the thumb overshoots, so the stick never
-      // "sticks" at the rim — the Brawl Stars / Blades floating-stick feel.
-      if (l > joyR) {
-        const k = (l - joyR) / l
-        input.joyOriginX += dx * k
-        input.joyOriginY += dy * k
-        dx = x - input.joyOriginX
-        dy = y - input.joyOriginY
-      }
-      input.joyX = dx / joyR
-      input.joyY = dy / joyR
-      const mag = Math.min(1, Math.hypot(input.joyX, input.joyY))
-      // Small dead zone, then an ease so fine steps are possible.
-      const dz = 0.12
-      const eased = mag < dz ? 0 : Math.pow((mag - dz) / (1 - dz), 1.25)
-      const nx = mag > 0 ? input.joyX / mag : 0
-      const ny = mag > 0 ? input.joyY / mag : 0
-      input.moveX = nx * eased
-      input.moveY = -ny * eased
+      stickTo(x, y)
       e.preventDefault()
       return
     }
@@ -363,7 +403,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   }
 
   const onUp = (e: PointerEvent) => {
-    if (e.pointerType === 'mouse') return
+    if (!asTouch(e)) return
     if (e.pointerId === joyId) {
       joyId = null
       input.joyActive = false
@@ -381,7 +421,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
 
   // ── Mouse: captured (FPS) or, where refused, drag-to-look ──
   const onMouseDown = (e: MouseEvent) => {
-    if (performance.now() - lastTouchAt < 900) return
+    if (touchOnly || performance.now() - lastTouchAt < 900) return
     input.touched = true
     input.device = 'mouse'
     input.anyPressed = true
@@ -419,6 +459,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   }
 
   const onMouseMove = (e: MouseEvent) => {
+    if (touchOnly) return
     if (input.locked) {
       if (skipNextLook) { skipNextLook = false; return }
       const dx = e.movementX || 0
@@ -434,6 +475,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   }
 
   const onMouseUp = (e: MouseEvent) => {
+    if (touchOnly) return
     if (e.button === 2) {
       input.blockHeld = false
       return
@@ -485,7 +527,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     const tag = (e.target as HTMLElement | null)?.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
     input.touched = true
-    input.device = 'mouse'
+    if (!touchOnly) input.device = 'mouse'
     if (e.repeat && keys.has(e.code)) return
     keys.add(e.code)
     if (!e.repeat && !NOT_A_PRESS.has(e.code)) input.anyPressed = true

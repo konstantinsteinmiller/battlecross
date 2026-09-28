@@ -214,11 +214,13 @@ watch(() => hud.hints, (hints) => {
   left: calc(env(safe-area-inset-left, 0px) + 8vw)
   bottom: calc(env(safe-area-inset-bottom, 0px) + 20vh)
   width: clamp(92px, 20vmin, 150px)
-  // The ∞ finger: low in the left 45 % of the screen, where the floating
-  // stick answers, and clear of the thumb buttons at the lower right.
+  // The ∞ finger, drawn over the resting joystick (`Joystick.vue`): "drag
+  // this". Centred with `translate`, which the enter / leave `transform`
+  // animations leave alone.
   &.touch
-    left: calc(env(safe-area-inset-left, 0px) + clamp(10px, 4vw, 40px))
-    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 8vh, 64px))
+    left: calc(env(safe-area-inset-left, 0px) + var(--joy-home-x))
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--joy-home-y))
+    translate: -50% 50%
     width: clamp(120px, 40vmin, 150px)
     .glyph-box
       aspect-ratio: 265 / 184
@@ -311,8 +313,6 @@ watch(() => hud.hints, (hints) => {
 
 // Portrait phones: the thumbs sit lower and the screen is narrow.
 @media (max-aspect-ratio: 1/1)
-  .move.touch
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 12vh)
   .look
     right: calc(env(safe-area-inset-right, 0px) + 10vw)
     top: 40vh

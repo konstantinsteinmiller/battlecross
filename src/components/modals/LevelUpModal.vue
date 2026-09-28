@@ -346,15 +346,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="sass">
+@use "sass:list"
+
 // Each stat's colours: card gradient top, bottom, and the glow / accent.
 // Set once on `.hp` / `.we` / `.power`, whatever wears the class — card,
 // stat, spent pip, flying chip — so the four always match.
 $attrs: (hp: (#ff8a8a, #d0303f, #ff6b7a), we: (#8ad8ff, #1f7fd0, #5cc8ff), power: (#b8ff8a, #2f9a3f, #8fe86a))
 @each $a, $c in $attrs
   .#{$a}
-    --c1: #{nth($c, 1)}
-    --c2: #{nth($c, 2)}
-    --glow: #{nth($c, 3)}
+    --c1: #{list.nth($c, 1)}
+    --c2: #{list.nth($c, 2)}
+    --glow: #{list.nth($c, 3)}
 
 .lu
   position: relative
