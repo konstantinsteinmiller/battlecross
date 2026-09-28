@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Arraste o lado esquerdo para mover e o direito para olhar. Toque no chão para ir até lá!',
-    'moveKeys': 'WASD para se mover.',
+    'moveKeys': '{keys} para se mover.',
     'lookMouse': 'Mova o mouse para olhar ao redor.',
     'capture': 'Clique na cena para controlar a câmera.',
     'fireTouch': 'Máquinas à frente! Toque para atirar — segure e solte para um tiro carregado.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Anel laranja: segure o escudo para bloquear — aperte quando o anel fechar para APARAR!',
     'blockKeys': 'Anel laranja: segure o botão direito do mouse para bloquear — aperte quando o anel fechar para APARAR!',
     'red': 'Anel vermelho é imbloqueável — deslize para sair do caminho!',
-    'dodgeKeys': 'Anel vermelho é imbloqueável — aperte Espaço para deslizar para fora do caminho!',
+    'dodgeKeys': 'Anel vermelho é imbloqueável — aperte {slide} para deslizar para fora do caminho!',
+    'spaceKey': 'Espaço',
     'chest': 'Um baú de suprimentos! Toque nele para abrir.',
     'tank': 'Vida baixa? O Gel de Reparo te conserta por completo.',
     'weapon': 'Use sua arma copiada no botão colorido!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Caixas de suprimentos só quebram com um tiro carregado. Segure e solte mirando na caixa brilhante.',
     'weaponKeys': 'Aperte {n} para disparar sua arma copiada: um só tiro acerta os três drones.',
     'weaponTouch': 'Toque no botão de arma brilhante: um só tiro acerta os três drones.',
-    'gelKeys': 'Aperte H para usar um Gel de Reparo: ele te conserta por completo.',
+    'gelKeys': 'Aperte {key} para usar um Gel de Reparo: ele te conserta por completo.',
     'gelTouch': 'Toque no botão verde do Gel de Reparo: ele te conserta por completo.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Tudo pronto — de volta às missões!'
   },
   'loot': {
+    'upgrade': 'Melhoria!',
     'found': 'Você encontrou {item} ({rarity})!',
     'tank': 'Gel de Reparo encontrado!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Perto de um baú, um robô preso ou uma porta: toque nele, ou no botão que aparece.'
     },
     'keys': {
-      'move': 'WASD / setas: mover.',
+      'move': '{keys} / setas: mover.',
       'look': 'Mova o mouse para olhar. Clique na cena para controlar a câmera.',
       'fire': 'Clique esquerdo: atirar — segure para carregar, solte para disparar.',
       'block': 'Clique direito: bloquear — aperte quando um anel fechar para aparar.',
-      'slide': 'Espaço: deslizar · H: Gel de Reparo · E: interagir · B: teleportar',
-      'more': '1 / 2: armas especiais · Tab: trocar alvo · Esc: pausar',
+      'slide': '{slide}: deslizar · {tank}: Gel de Reparo · {use}: interagir · {beam}: teleportar',
+      'more': '{w1} / {w2}: armas especiais · {target}: trocar alvo · Esc: pausar',
+      'space': 'Espaço',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Nada para este encaixe ainda — abra baús e conclua contratos.'
   },
   'affix': {
+    'damage': '{v} de dano',
     'crit': '{v} chance de crítico',
     'critDmg': '{v} dano crítico',
     'hp': '{v} vida máxima',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Vibração',
     'on': 'Ligado',
     'off': 'Desligado',
-    'close': 'Salvar e fechar',
+    'close': 'Fechar',
+    'keyboard': {
+      'auto': 'Detectar layout do teclado',
+      'layout': 'Layout do teclado',
+      'detected': 'Detectado: {layout}',
+      'bindings': 'Atalhos de teclas',
+      'press': 'Pressione uma tecla… (Esc para cancelar)',
+      'reset': 'Redefinir teclas'
+    },
+    'actions': {
+      'forward': 'Avançar',
+      'back': 'Recuar',
+      'left': 'Mover à esquerda',
+      'right': 'Mover à direita',
+      'turnLeft': 'Virar à esquerda',
+      'turnRight': 'Virar à direita',
+      'slide': 'Deslizar',
+      'block': 'Bloquear',
+      'interact': 'Interagir',
+      'beam': 'Teletransportar',
+      'tank': 'Gel reparador',
+      'weapon1': 'Arma especial 1',
+      'weapon2': 'Arma especial 2',
+      'weapon3': 'Arma emprestada',
+      'target': 'Trocar alvo',
+      'map': 'Mapa'
+    },
     'lookSensitivity': 'Sensibilidade da câmera',
     'difficulties': {
       'easy': 'Fácil',

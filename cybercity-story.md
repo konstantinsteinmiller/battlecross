@@ -23,26 +23,22 @@ running low on special weapon energy etc. . Helping with story arc progression.
 "Atlas" model will be implemented later.
 
 
-new found items should show a icon and be more prevalently visible on the screen, when looting it from bosses 
-from chests, otherwise it goes under, maybe even show if the new item is a 
-real upgrade by showing the stat increases/descreases.
-
-The Charged Shot need a little bit of improved visuals, right now its just a bigger 
-circle. The player can autoaim at enemies through some pieces of the wall. A shot and 
+- [ ] The Charged Shot need a little bit of improved visuals, right now its just a bigger 
+circle. The player can auto-aim at enemies through some pieces of the wall. A shot and 
 charged shot should collide with the wall and not do damage to the enemies behind it.
 
-Key rebinding in Settings Menu tab. Auto-detect noon-QWERTZ keyboards on desktop 
+- [x] Key rebinding in Settings Menu tab. Auto-detect noon-QWERTZ keyboards on desktop 
 and adjust keybindings and UI elements like the tutorial WASD keys. Check with a websearch how
  other games handle this. After successful implementation create user-level skill that automatically activates 
 in games that have WASD movement and applies the auto-detected keybindings to the game. This should be a toggleable option in the settings menu.
 add the skill to the playbook.
 Add the Poki deploy script to the weg-game-playbook as skill.
 
-Currently it's not possible to leave the window running and leaving the pointerlock
-without opening the settings menu, this is bad, as it can be annoying for players who want to switch tabs or do other things while the game is running. Implement a feature that allows players to leave the window running and maintain pointer lock without having to open the settings menu. 
-This could be done by adding a toggle option in the settings menu that allows players to enable or disable this feature(Pointerlock enabled by default).
-Add a tap cord for 20 consecutive clicks on the screws badge in the UI(without pointerlock) to trigger a hidden interstitial ad, this feature can ship to production, as its not hurting the player.
 
-weakpoints on enemies and bosses.
+- [ ] weakpoints on enemies and bosses.
 
-Improve beam down cutscene by showing Flux first with teh camera and then upon landing going to first-pe
+- [x] Improve beam down cutscene by showing Flux first with the camera and then upon landing going to first-person view
+
+- [x] new found items should show a icon and be more prevalently visible on the screen, when looting it from bosses
+  from chests, otherwise it goes under, maybe even show if the new item is a
+  real upgrade by showing the stat increases/descreases.

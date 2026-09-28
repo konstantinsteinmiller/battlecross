@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Kéo bên trái để di chuyển, bên phải để nhìn. Chạm vào sàn để đi tới đó!',
-    'moveKeys': 'WASD để di chuyển.',
+    'moveKeys': '{keys} để di chuyển.',
     'lookMouse': 'Di chuyển chuột để nhìn xung quanh.',
     'capture': 'Nhấp vào màn hình game để điều khiển camera.',
     'fireTouch': 'Có máy phía trước! Chạm để bắn — giữ rồi thả để bắn phát tụ lực.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Vòng cam: giữ khiên để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
     'blockKeys': 'Vòng cam: giữ chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
     'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
-    'dodgeKeys': 'Vòng đỏ nghĩa là không thể chặn — nhấn Space để trượt né ngay!',
+    'dodgeKeys': 'Vòng đỏ nghĩa là không thể chặn — nhấn {slide} để trượt né ngay!',
+    'spaceKey': 'Space',
     'chest': 'Một rương tiếp tế! Chạm để mở.',
     'tank': 'Sắp cạn máu? Gel Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
     'weapon': 'Dùng vũ khí sao chép được từ nút có màu!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Thùng tiếp tế chỉ vỡ khi trúng phát tụ lực. Giữ, rồi thả khi đang nhắm vào thùng phát sáng.',
     'weaponKeys': 'Nhấn {n} để bắn vũ khí sao chép: một phát trúng cả ba drone.',
     'weaponTouch': 'Chạm vào nút vũ khí đang phát sáng: một phát trúng cả ba drone.',
-    'gelKeys': 'Nhấn H để dùng Gel Sửa Chữa: gel hồi phục bạn hoàn toàn.',
+    'gelKeys': 'Nhấn {key} để dùng Gel Sửa Chữa: gel hồi phục bạn hoàn toàn.',
     'gelTouch': 'Chạm vào nút Gel Sửa Chữa màu xanh lá: gel hồi phục bạn hoàn toàn.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!'
   },
   'loot': {
+    'upgrade': 'Nâng cấp!',
     'found': 'Tìm thấy {item} {rarity}!',
     'tank': 'Tìm thấy Gel Sửa Chữa!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Gần rương, robot bị kẹt hoặc cửa: chạm vào nó, hoặc nút hiện lên.'
     },
     'keys': {
-      'move': 'WASD / phím mũi tên: di chuyển.',
+      'move': '{keys} / phím mũi tên: di chuyển.',
       'look': 'Di chuyển chuột để nhìn. Nhấp vào màn hình game để điều khiển camera.',
       'fire': 'Chuột trái: bắn — giữ để tụ lực, thả để bắn.',
       'block': 'Chuột phải: chặn — đúng lúc vòng khép lại để gạt đòn.',
-      'slide': 'Space: trượt · H: Gel Sửa Chữa · E: tương tác · B: dịch chuyển về',
-      'more': '1 / 2: vũ khí đặc biệt · Tab: đổi mục tiêu · Esc: tạm dừng',
+      'slide': '{slide}: trượt · {tank}: Gel Sửa Chữa · {use}: tương tác · {beam}: dịch chuyển về',
+      'more': '{w1} / {w2}: vũ khí đặc biệt · {target}: đổi mục tiêu · Esc: tạm dừng',
+      'space': 'Space',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Chưa có gì cho ô này — hãy mở rương và làm nhiệm vụ.'
   },
   'affix': {
+    'damage': '{v} sát thương',
     'crit': '{v} tỉ lệ chí mạng',
     'critDmg': '{v} sát thương chí mạng',
     'hp': '{v} máu tối đa',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Rung',
     'on': 'Bật',
     'off': 'Tắt',
-    'close': 'Lưu & Đóng',
+    'close': 'Đóng',
+    'keyboard': {
+      'auto': 'Tự nhận bố cục bàn phím',
+      'layout': 'Bố cục bàn phím',
+      'detected': 'Đã nhận: {layout}',
+      'bindings': 'Gán phím',
+      'press': 'Nhấn một phím… (Esc để hủy)',
+      'reset': 'Đặt lại phím'
+    },
+    'actions': {
+      'forward': 'Tiến lên',
+      'back': 'Lùi lại',
+      'left': 'Sang trái',
+      'right': 'Sang phải',
+      'turnLeft': 'Quay trái',
+      'turnRight': 'Quay phải',
+      'slide': 'Trượt',
+      'block': 'Đỡ',
+      'interact': 'Tương tác',
+      'beam': 'Dịch chuyển về',
+      'tank': 'Gel sửa chữa',
+      'weapon1': 'Vũ khí đặc biệt 1',
+      'weapon2': 'Vũ khí đặc biệt 2',
+      'weapon3': 'Vũ khí mượn',
+      'target': 'Đổi mục tiêu',
+      'map': 'Bản đồ'
+    },
     'lookSensitivity': 'Độ nhạy góc nhìn',
     'difficulties': {
       'easy': 'Dễ',

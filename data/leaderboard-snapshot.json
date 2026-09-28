@@ -1,13 +1,13 @@
 {
   "source": "https://mega-adventure-leaderboard.rodent-race.workers.dev",
-  "fetchedAt": 1790601607341,
-  "updatedAt": 1790601607020,
-  "total": 3,
+  "fetchedAt": 1790606902761,
+  "updatedAt": 1790606902418,
+  "total": 4,
   "entries": [
     {
       "rank": 1,
       "name": "Rivet465294",
-      "score": 4732,
+      "score": 5010,
       "flair": 8
     },
     {
@@ -21,11 +21,17 @@
       "name": "Android665399",
       "score": 340,
       "flair": 3
+    },
+    {
+      "rank": 4,
+      "name": "Android731972",
+      "score": 120,
+      "flair": 2
     }
   ],
   "dist": [
     [
-      4732,
+      5010,
       1
     ],
     [
@@ -34,6 +40,10 @@
     ],
     [
       340,
+      1
+    ],
+    [
+      120,
       1
     ]
   ]

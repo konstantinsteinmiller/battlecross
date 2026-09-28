@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Yurish uchun chap tomonni, qarash uchun oʻng tomonni suring. U yerga borish uchun polga bosing!',
-    'moveKeys': 'WASD — yurish.',
+    'moveKeys': '{keys} — yurish.',
     'lookMouse': 'Atrofga qarash uchun sichqonchani harakatlantiring.',
     'capture': 'Kamerani boshqarish uchun oʻyin ekraniga cherting.',
     'fireTouch': 'Oldinda mashinalar! Otish uchun bosing — zaryadli oʻq uchun bosib turing va qoʻyib yuboring.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Toʻq sariq halqa: bloklash uchun qalqonni bosib turing — halqa yopilayotganda bosib, QAYTARING!',
     'blockKeys': 'Toʻq sariq halqa: bloklash uchun sichqonchaning oʻng tugmasini bosib turing — halqa yopilayotganda bosib, QAYTARING!',
     'red': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Sirpanib chetlaning!',
-    'dodgeKeys': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. Probelni bosib, sirpanib chetlaning!',
+    'dodgeKeys': 'Qizil halqa — bu zarbani bloklab boʻlmaydi. {slide} bosib, sirpanib chetlaning!',
+    'spaceKey': 'Probelni',
     'chest': 'Taʼminot sandigʻi! Ochish uchun bosing.',
     'tank': 'Sogʻliq kammi? Taʼmir geli sizni toʻliq tuzatadi.',
     'weapon': 'Nusxalangan qurolni rangli tugma bilan ishlating!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Taʼminot qutilarini faqat zaryadli oʻq sindiradi. Bosib turing va yonib turgan qutini moʻljallab qoʻyib yuboring.',
     'weaponKeys': '{n} tugmasini bosib, nusxalangan qurolni oting: bitta oʻq uchala dronga ham tegadi.',
     'weaponTouch': 'Yonib turgan qurol tugmasini bosing: bitta oʻq uchala dronga ham tegadi.',
-    'gelKeys': 'Taʼmir gelini ishlatish uchun H tugmasini bosing: u sizni toʻliq tuzatadi.',
+    'gelKeys': 'Taʼmir gelini ishlatish uchun {key} tugmasini bosing: u sizni toʻliq tuzatadi.',
     'gelTouch': 'Yashil taʼmir geli tugmasini bosing: u sizni toʻliq tuzatadi.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Hammasi tayyor — missiyalarga qaytamiz!'
   },
   'loot': {
+    'upgrade': 'Yaxshilash!',
     'found': '{rarity} {item} topildi!',
     'tank': 'Taʼmir geli topildi!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Sandiq, qamalib qolgan bot yoki eshik yonida: unga yoki paydo boʻlgan tugmaga bosing.'
     },
     'keys': {
-      'move': 'WASD / yoʻnalish tugmalari: yurish.',
+      'move': '{keys} / yoʻnalish tugmalari: yurish.',
       'look': 'Qarash uchun sichqonchani harakatlantiring. Kamerani boshqarish uchun oʻyin ekraniga cherting.',
       'fire': 'Chap tugma: otish — zaryadlash uchun bosib turing, otish uchun qoʻyib yuboring.',
       'block': 'Oʻng tugma: blok — qaytarish uchun halqa yopilayotgan payt bosing.',
-      'slide': 'Probel: sirpanish · H: taʼmir geli · E: amal · B: teleport',
-      'more': '1 / 2: maxsus qurollar · Tab: nishonni almashtirish · Esc: pauza',
+      'slide': '{slide}: sirpanish · {tank}: taʼmir geli · {use}: amal · {beam}: teleport',
+      'more': '{w1} / {w2}: maxsus qurollar · {target}: nishonni almashtirish · Esc: pauza',
+      'space': 'Probel',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Bu uyacha uchun hozircha hech narsa yoʻq — sandiqlarni oching va topshiriqlarni bajaring.'
   },
   'affix': {
+    'damage': '{v} zarar',
     'crit': '{v} kritik zarba ehtimoli',
     'critDmg': '{v} kritik zarba zarari',
     'hp': '{v} maks. sogʻliq',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Tebranish',
     'on': 'Yoqilgan',
     'off': 'Oʻchirilgan',
-    'close': 'Saqlash va yopish',
+    'close': 'Yopish',
+    'keyboard': {
+      'auto': 'Klaviatura tartibini aniqlash',
+      'layout': 'Klaviatura tartibi',
+      'detected': 'Aniqlandi: {layout}',
+      'bindings': 'Tugmalar',
+      'press': 'Tugmani bosing… (bekor qilish uchun Esc)',
+      'reset': 'Tugmalarni tiklash'
+    },
+    'actions': {
+      'forward': 'Oldinga',
+      'back': 'Orqaga',
+      'left': 'Chapga siljish',
+      'right': 'Oʻngga siljish',
+      'turnLeft': 'Chapga burilish',
+      'turnRight': 'Oʻngga burilish',
+      'slide': 'Sirpanish',
+      'block': 'Himoya',
+      'interact': 'Harakat',
+      'beam': 'Teleport',
+      'tank': 'Taʼmir geli',
+      'weapon1': 'Maxsus qurol 1',
+      'weapon2': 'Maxsus qurol 2',
+      'weapon3': 'Qarzga olingan qurol',
+      'target': 'Nishonni almashtirish',
+      'map': 'Xarita'
+    },
     'lookSensitivity': 'Qarash sezgirligi',
     'difficulties': {
       'easy': 'Oson',

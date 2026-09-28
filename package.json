@@ -42,6 +42,7 @@
     "preview:video": "node tools/preview-video/record.mjs",
     "art:desk": "node tools/art-desk/server.mjs",
     "art:comic": "node tools/art-comic.mjs",
+    "art:promotion": "node tools/art-promotion.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

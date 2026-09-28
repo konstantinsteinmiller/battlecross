@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useUser, { isMobileLandscape } from '@/use/useUser'
 import { setI18nLocale } from '@/i18n'
@@ -9,6 +9,9 @@ import FSlider from '@/components/atoms/FSlider.vue'
 import FSelect from '@/components/atoms/FSelect.vue'
 import { LANGUAGES, LANGUAGE_AUTONYMS, DIFFICULTY } from '@/utils/enums'
 import { hapticsAvailable, hapticsEnabled, setHapticsEnabled } from '@/use/useHaptics'
+import { touchFirst } from '@/game/engine/input'
+import { ACTIONS, bindKey, bindingsChanged, isBindable, primaryCode, resetBindings, type Action } from '@/game/engine/keyBindings'
+import { keyboard, keyLabel, LAYOUTS, setAutoLayout, setManualLayout, type Layout } from '@/game/engine/keyLabels'
 
 defineProps<{
   isOpen: boolean
@@ -50,7 +53,10 @@ const tabs = computed(() => {
   const list = [
     { value: 'general', label: t('options.general') }
   ]
-  return !isMobile.value ? list.concat({ label: t('options.audio'), value: 'audio' }) : list
+  if (isMobile.value) return list
+  const desk = list.concat({ label: t('options.audio'), value: 'audio' })
+  // Keyboard layout and rebinding: a keyboard player's tab, never a phone's.
+  return touchFirst() ? desk : desk.concat({ label: t('pause.controls'), value: 'controls' })
 })
 
 // Native-name dropdown — every option legible regardless of the active locale.
@@ -90,6 +96,40 @@ const hapticsList = computed(() => [
   { value: 'on', label: t('options.on') },
   { value: 'off', label: t('options.off') }
 ])
+
+// ─── Controls: keyboard layout + key rebinding ──────────────────────────────
+//
+// Keys are PHYSICAL (`engine/keyBindings.ts`); the layout only decides what
+// they are called (`engine/keyLabels.ts`). Auto-detect on: the detected
+// layout names them; off: the one picked here does.
+const layoutList = LAYOUTS.map(l => ({ value: l, label: l.toUpperCase() }))
+const detectedName = computed(() => (keyboard.detected ?? 'qwerty').toUpperCase())
+const pickLayout = (v: string): void => { if ((LAYOUTS as string[]).includes(v)) setManualLayout(v as Layout) }
+
+/** The action waiting for its new key, if any. */
+const capturing = ref<Action | null>(null)
+const onCapture = (e: KeyboardEvent): void => {
+  const a = capturing.value
+  if (!a) return
+  // Ours alone: the game's own key handler must not also act on this press.
+  e.preventDefault()
+  e.stopImmediatePropagation()
+  if (e.code === 'Escape') { stopCapture(); return }
+  if (!isBindable(e.code)) return
+  bindKey(a, e.code)
+  stopCapture()
+}
+const stopCapture = (): void => {
+  capturing.value = null
+  window.removeEventListener('keydown', onCapture, true)
+}
+const startCapture = (a: Action): void => {
+  if (capturing.value === a) { stopCapture(); return }
+  capturing.value = a
+  window.addEventListener('keydown', onCapture, true)
+}
+watch(currentTab, stopCapture)
+onUnmounted(stopCapture)
 </script>
 
 <template lang="pug">
@@ -157,6 +197,32 @@ const hapticsList = computed(() => [
         )
       hr(class="border-slate-600 my-1 md:my-2 pt-0")
 
+    div(v-else-if="currentTab === 'controls'").flex.flex-col.gap-2.p-2
+      div(class="z-[20] flex flex-col gap-1")
+        FSelect(
+          :label="t('options.keyboard.auto')"
+          :options="hapticsList"
+          :model-value="keyboard.auto ? 'on' : 'off'"
+          @update:model-value="setAutoLayout($event === 'on')"
+        )
+        p.text-white.game-text.opacity-70.leading-tight.px-1(v-if="keyboard.auto" class="text-[10px] md:text-xs") {{ t('options.keyboard.detected', { layout: detectedName }) }}
+      div(v-if="!keyboard.auto" class="z-[10] flex flex-col gap-1")
+        FSelect(
+          :label="t('options.keyboard.layout')"
+          :options="layoutList"
+          :model-value="keyboard.manual"
+          @update:model-value="pickLayout"
+        )
+      hr(class="border-slate-600 my-1 pt-0")
+      div.flex.items-center.justify-between.px-1
+        span.text-white.game-text(class="text-xs md:text-sm") {{ t('options.keyboard.bindings') }}
+        button.reset-keys(type="button" :disabled="!bindingsChanged()" @click="resetBindings()") {{ t('options.keyboard.reset') }}
+      p.text-white.game-text.px-1(v-if="capturing" class="text-[10px] md:text-xs") {{ t('options.keyboard.press') }}
+      ul.bindings
+        li.bind-row(v-for="a in ACTIONS" :key="a")
+          span.bind-name {{ t(`options.actions.${a}`) }}
+          button.bind-key(type="button" :class="{ waiting: capturing === a }" @click="startCapture(a)") {{ capturing === a ? '…' : keyLabel(primaryCode(a)) }}
+
     template(#footer)
       FButton(class="px-6 sm:px-8" @click="emit('close')") {{ t('options.close') }}
 </template>
@@ -164,4 +230,54 @@ const hapticsList = computed(() => [
 <style lang="sass" scoped>
 span
   text-shadow: 2px 2px 0 #000
+.bindings
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr))
+  gap: 4px 12px
+  max-height: min(46vh, 22rem)
+  overflow-y: auto
+  margin: 0
+  padding: 0 4px
+  list-style: none
+.bind-row
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 8px
+  padding: 3px 4px
+  border-radius: 8px
+  background: rgba(0, 0, 0, 0.22)
+.bind-name
+  color: #fff
+  font-size: clamp(11px, 2.4vmin, 13px)
+  line-height: 1.2
+.bind-key
+  min-width: 2.4em
+  height: 1.9em
+  padding: 0 0.45em
+  border-radius: 0.4em
+  background: #f4f7ff
+  border: 2px solid #141a33
+  box-shadow: 0 0.18em 0 #141a33
+  color: #141a33
+  font-family: var(--font-pixel)
+  font-size: 11px
+  cursor: pointer
+  &.waiting
+    background: #ffd84a
+    animation: key-wait 0.9s ease-in-out infinite
+.reset-keys
+  padding: 2px 10px
+  border-radius: 8px
+  border: 2px solid #141a33
+  background: #6f8cff
+  color: #fff
+  font-size: 11px
+  cursor: pointer
+  &:disabled
+    opacity: 0.45
+    cursor: default
+@keyframes key-wait
+  50%
+    transform: scale(1.08)
 </style>

@@ -23,7 +23,9 @@ const make = (w: number, h: number, draw: (g: CanvasRenderingContext2D) => void)
   const c = document.createElement('canvas')
   c.width = w
   c.height = h
-  const g = c.getContext('2d')!
+  // Baked once, with `grain` reading pixels back per region: a CPU-backed
+  // canvas does that without GPU readbacks (and without Chrome's warning).
+  const g = c.getContext('2d', { willReadFrequently: true })!
   draw(g)
   const t = new CanvasTexture(c)
   t.wrapS = RepeatWrapping

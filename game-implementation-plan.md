@@ -374,7 +374,7 @@ while bars and damage numbers get direct DOM writes.
 - Rewarded placements: revive (once per mission), 2× bolts on results, and
   the Workshop supply drop (40 + 20·level bolts, 4-minute cooldown saved in
   `ma_stats.lastDropAt`). All are hidden unless `canOfferReward`.
-- Hidden QA ad trigger: 30 taps on a bolts pill within 30 s
+- Hidden QA ad trigger: 20 taps on a bolts pill within 30 s
   (`useQaAdTrigger`). Ships in every build, the Poki and Playgama releases
   included; it is not dev tooling, so no alias strips it and no release gate
   refuses it.

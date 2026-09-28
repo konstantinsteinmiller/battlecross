@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Sleep links om te lopen en rechts om rond te kijken. Tik op de vloer om erheen te lopen!',
-    'moveKeys': 'WASD om rond te lopen.',
+    'moveKeys': '{keys} om rond te lopen.',
     'lookMouse': 'Beweeg de muis om rond te kijken.',
     'capture': 'Klik op de scène om de camera over te nemen.',
     'fireTouch': 'Machines in zicht! Tik om te schieten — houd vast en laat los voor een geladen schot.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Oranje ring: houd het schild vast om te blokkeren — druk als de ring sluit om te PAREREN!',
     'blockKeys': 'Oranje ring: houd de rechtermuisknop ingedrukt om te blokkeren — druk als de ring sluit om te PAREREN!',
     'red': 'Een rode ring is niet te blokkeren — glij opzij!',
-    'dodgeKeys': 'Een rode ring is niet te blokkeren — druk op spatie om opzij te glijden!',
+    'dodgeKeys': 'Een rode ring is niet te blokkeren — druk op {slide} om opzij te glijden!',
+    'spaceKey': 'spatie',
     'chest': 'Een voorraadkist! Tik erop om hem te openen.',
     'tank': 'Bijna op? Reparatiegel lapt je helemaal op.',
     'weapon': 'Gebruik je gekopieerde wapen via de gekleurde knop!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Voorraadkratten breken alleen door een geladen schot. Houd vast en laat los terwijl je op het gloeiende krat richt.',
     'weaponKeys': 'Druk op {n} om je gekopieerde wapen af te vuren: één schot raakt alle drie de drones.',
     'weaponTouch': 'Tik op de gloeiende wapenknop: één schot raakt alle drie de drones.',
-    'gelKeys': 'Druk op H voor een reparatiegel: die lapt je helemaal op.',
+    'gelKeys': 'Druk op {key} voor een reparatiegel: die lapt je helemaal op.',
     'gelTouch': 'Tik op de groene reparatiegelknop: die lapt je helemaal op.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Klaar — terug naar de missies!'
   },
   'loot': {
+    'upgrade': 'Upgrade!',
     'found': '{item} ({rarity}) gevonden!',
     'tank': 'Reparatiegel gevonden!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Bij een kist, een gestrande bot of een deur: tik erop, of op de knop die verschijnt.'
     },
     'keys': {
-      'move': 'WASD / pijltjes: lopen.',
+      'move': '{keys} / pijltjes: lopen.',
       'look': 'Beweeg de muis om te kijken. Klik op de scène om de camera over te nemen.',
       'fire': 'Linkermuisknop: schieten — vasthouden om op te laden, loslaten om te vuren.',
       'block': 'Rechtermuisknop: blokkeren — precies als een ring sluit om te pareren.',
-      'slide': 'Spatie: glijden · H: reparatiegel · E: interactie · B: teleporteren',
-      'more': '1 / 2: speciale wapens · Tab: ander doelwit · Esc: pauze',
+      'slide': '{slide}: glijden · {tank}: reparatiegel · {use}: interactie · {beam}: teleporteren',
+      'more': '{w1} / {w2}: speciale wapens · {target}: ander doelwit · Esc: pauze',
+      'space': 'Spatie',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Nog niets voor deze sleuf — open kisten en voltooi klussen.'
   },
   'affix': {
+    'damage': '{v} schade',
     'crit': '{v} kritieke kans',
     'critDmg': '{v} kritieke schade',
     'hp': '{v} max. gezondheid',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Trillen',
     'on': 'Aan',
     'off': 'Uit',
-    'close': 'Opslaan en sluiten',
+    'close': 'Sluiten',
+    'keyboard': {
+      'auto': 'Toetsenbordindeling detecteren',
+      'layout': 'Toetsenbordindeling',
+      'detected': 'Gedetecteerd: {layout}',
+      'bindings': 'Toetstoewijzing',
+      'press': 'Druk op een toets… (Esc om te annuleren)',
+      'reset': 'Toetsen herstellen'
+    },
+    'actions': {
+      'forward': 'Vooruit',
+      'back': 'Achteruit',
+      'left': 'Zijwaarts links',
+      'right': 'Zijwaarts rechts',
+      'turnLeft': 'Links draaien',
+      'turnRight': 'Rechts draaien',
+      'slide': 'Glijden',
+      'block': 'Blokkeren',
+      'interact': 'Gebruiken',
+      'beam': 'Wegstralen',
+      'tank': 'Reparatiegel',
+      'weapon1': 'Speciaal wapen 1',
+      'weapon2': 'Speciaal wapen 2',
+      'weapon3': 'Geleend wapen',
+      'target': 'Ander doelwit',
+      'map': 'Kaart'
+    },
     'lookSensitivity': 'Cameragevoeligheid',
     'difficulties': {
       'easy': 'Makkelijk',

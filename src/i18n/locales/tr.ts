@@ -166,7 +166,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Hareket için sol tarafı, bakmak için sağ tarafı sürükle. Oraya yürümek için zemine dokun!',
-    'moveKeys': 'Etrafta dolaşmak için WASD.',
+    'moveKeys': 'Etrafta dolaşmak için {keys}.',
     'lookMouse': 'Etrafa bakmak için fareyi hareket ettir.',
     'capture': 'Kamerayı kontrol etmek için sahneye tıkla.',
     'fireTouch': 'Önünde makineler var! Ateş etmek için dokun — şarjlı atış için basılı tut ve bırak.',
@@ -175,7 +175,8 @@ export default {
     'blockTouch': 'Turuncu halka: bloklamak için kalkanı basılı tut — halka kapanırken basarak SAVUŞTUR!',
     'blockKeys': 'Turuncu halka: bloklamak için sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
     'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
-    'dodgeKeys': 'Kırmızı halka bloklanamaz demek — Boşluk tuşuna bas ve kayarak yoldan çekil!',
+    'dodgeKeys': 'Kırmızı halka bloklanamaz demek — {slide} bas ve kayarak yoldan çekil!',
+    'spaceKey': 'Boşluk tuşuna',
     'chest': 'Bir ikmal sandığı! Açmak için dokun.',
     'tank': 'Canın mı azaldı? Tamir Jeli seni tamamen onarır.',
     'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!'
@@ -185,7 +186,7 @@ export default {
     'crate': 'İkmal kasaları yalnızca şarjlı atışla kırılır. Basılı tut, sonra parlayan kasaya nişan alıp bırak.',
     'weaponKeys': 'Kopyaladığın silahı ateşlemek için {n} tuşuna bas: tek atış üç dronu birden vurur.',
     'weaponTouch': 'Parlayan silah düğmesine dokun: tek atış üç dronu birden vurur.',
-    'gelKeys': 'Tamir Jeli kullanmak için H tuşuna bas: seni tamamen onarır.',
+    'gelKeys': 'Tamir Jeli kullanmak için {key} tuşuna bas: seni tamamen onarır.',
     'gelTouch': 'Yeşil Tamir Jeli düğmesine dokun: seni tamamen onarır.'
   },
   'walk': {
@@ -199,6 +200,7 @@ export default {
     'deploy': 'Her şey hazır — görevlere geri dön!'
   },
   'loot': {
+    'upgrade': 'Yükseltme!',
     'found': '{rarity} {item} bulundu!',
     'tank': 'Tamir Jeli bulundu!'
   },
@@ -248,12 +250,13 @@ export default {
       'use': 'Bir sandık, mahsur kalan bir robot ya da kapının yanında: ona ya da beliren düğmeye dokun.'
     },
     'keys': {
-      'move': 'WASD / oklar: hareket.',
+      'move': '{keys} / oklar: hareket.',
       'look': 'Bakmak için fareyi hareket ettir. Kamerayı kontrol etmek için sahneye tıkla.',
       'fire': 'Sol tık: ateş — şarj için basılı tut, ateşlemek için bırak.',
       'block': 'Sağ tık: blok — savuşturmak için halka kapanırken bas.',
-      'slide': 'Boşluk: kayma · H: Tamir Jeli · E: etkileşim · B: ışınlan',
-      'more': '1 / 2: özel silahlar · Tab: hedef değiştir · Esc: duraklat',
+      'slide': '{slide}: kayma · {tank}: Tamir Jeli · {use}: etkileşim · {beam}: ışınlan',
+      'more': '{w1} / {w2}: özel silahlar · {target}: hedef değiştir · Esc: duraklat',
+      'space': 'Boşluk',
       'press': '{key}: {action}'
     }
   },
@@ -406,6 +409,7 @@ export default {
     'emptySlot': 'Bu yuva için henüz bir şey yok — sandıkları aç, işleri bitir.'
   },
   'affix': {
+    'damage': '{v} hasar',
     'crit': '{v} kritik şansı',
     'critDmg': '{v} kritik hasar',
     'hp': '{v} maks. can',
@@ -446,7 +450,33 @@ export default {
     'haptics': 'Titreşim',
     'on': 'Açık',
     'off': 'Kapalı',
-    'close': 'Kaydet ve Kapat',
+    'close': 'Kapat',
+    'keyboard': {
+      'auto': 'Klavye düzenini algıla',
+      'layout': 'Klavye düzeni',
+      'detected': 'Algılanan: {layout}',
+      'bindings': 'Tuş atamaları',
+      'press': 'Bir tuşa bas… (iptal için Esc)',
+      'reset': 'Tuşları sıfırla'
+    },
+    'actions': {
+      'forward': 'İleri',
+      'back': 'Geri',
+      'left': 'Sola kay',
+      'right': 'Sağa kay',
+      'turnLeft': 'Sola dön',
+      'turnRight': 'Sağa dön',
+      'slide': 'Kayma',
+      'block': 'Blok',
+      'interact': 'Etkileşim',
+      'beam': 'Işınlan',
+      'tank': 'Onarım jeli',
+      'weapon1': 'Özel silah 1',
+      'weapon2': 'Özel silah 2',
+      'weapon3': 'Ödünç silah',
+      'target': 'Hedef değiştir',
+      'map': 'Harita'
+    },
     'lookSensitivity': 'Kamera Hassasiyeti',
     'difficulties': {
       'easy': 'Kolay',

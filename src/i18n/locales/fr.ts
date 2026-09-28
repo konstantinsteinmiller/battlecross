@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Glisse à gauche pour bouger, à droite pour regarder. Touche le sol pour y aller !',
-    'moveKeys': 'ZQSD pour te déplacer.',
+    'moveKeys': '{keys} pour te déplacer.',
     'lookMouse': 'Bouge la souris pour regarder autour de toi.',
     'capture': 'Clique sur la scène pour prendre le contrôle de la caméra.',
     'fireTouch': 'Machines en vue ! Touche pour tirer — maintiens puis relâche pour un tir chargé.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': "Anneau orange : maintiens le bouclier pour bloquer — appuie quand l'anneau se ferme pour PARER !",
     'blockKeys': "Anneau orange : maintiens le bouton droit de la souris pour bloquer — appuie quand l'anneau se ferme pour PARER !",
     'red': 'Anneau rouge = imparable. Glisse hors de portée !',
-    'dodgeKeys': 'Anneau rouge = imparable. Appuie sur Espace pour glisser hors de portée !',
+    'dodgeKeys': 'Anneau rouge = imparable. Appuie sur {slide} pour glisser hors de portée !',
+    'spaceKey': 'Espace',
     'chest': "Un coffre de ravitaillement ! Touche-le pour l'ouvrir.",
     'tank': 'Presque à sec ? Le gel réparateur te remet à neuf.',
     'weapon': 'Utilise ton arme copiée avec le bouton coloré !'
@@ -183,7 +184,7 @@ export default {
     'crate': "Les caisses de ravitaillement ne cèdent qu'à un tir chargé. Maintiens, puis relâche en visant la caisse lumineuse.",
     'weaponKeys': 'Appuie sur {n} pour tirer avec ton arme copiée : un seul tir touche les trois drones.',
     'weaponTouch': "Touche le bouton d'arme lumineux : un seul tir touche les trois drones.",
-    'gelKeys': 'Appuie sur H pour utiliser un gel réparateur : il te répare entièrement.',
+    'gelKeys': 'Appuie sur {key} pour utiliser un gel réparateur : il te répare entièrement.',
     'gelTouch': 'Touche le bouton vert du gel réparateur : il te répare entièrement.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Tout est prêt — retour aux missions !'
   },
   'loot': {
+    'upgrade': 'Amélioration !',
     'found': 'Butin : {item} ({rarity}) !',
     'tank': 'Gel réparateur trouvé !'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Près d’un coffre, d’un robot bloqué ou d’une porte : touche-le, ou le bouton qui apparaît.'
     },
     'keys': {
-      'move': 'ZQSD / flèches : se déplacer.',
+      'move': '{keys} / flèches : se déplacer.',
       'look': 'Bouge la souris pour regarder. Clique sur la scène pour prendre le contrôle de la caméra.',
       'fire': 'Clic gauche : tirer — maintiens pour charger, relâche pour faire feu.',
       'block': 'Clic droit : bloquer — pile quand un anneau se ferme pour parer.',
-      'slide': 'Espace : glissade · H : gel réparateur · E : interagir · B : téléportation',
-      'more': '1 / 2 : armes spéciales · Tab : changer de cible · Échap : pause',
+      'slide': '{slide} : glissade · {tank} : gel réparateur · {use} : interagir · {beam} : téléportation',
+      'more': '{w1} / {w2} : armes spéciales · {target} : changer de cible · Échap : pause',
+      'space': 'Espace',
       'press': '{key} : {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Rien pour cet emplacement — ouvre des coffres et termine des contrats.'
   },
   'affix': {
+    'damage': '{v} dégâts',
     'crit': '{v} chance de critique',
     'critDmg': '{v} dégâts critiques',
     'hp': '{v} santé max',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Vibration',
     'on': 'Activé',
     'off': 'Désactivé',
-    'close': 'Enregistrer et fermer',
+    'close': 'Fermer',
+    'keyboard': {
+      'auto': 'Détecter la disposition du clavier',
+      'layout': 'Disposition du clavier',
+      'detected': 'Détectée : {layout}',
+      'bindings': 'Touches',
+      'press': 'Appuie sur une touche… (Échap pour annuler)',
+      'reset': 'Réinitialiser les touches'
+    },
+    'actions': {
+      'forward': 'Avancer',
+      'back': 'Reculer',
+      'left': 'Pas latéral gauche',
+      'right': 'Pas latéral droit',
+      'turnLeft': 'Tourner à gauche',
+      'turnRight': 'Tourner à droite',
+      'slide': 'Glisser',
+      'block': 'Bloquer',
+      'interact': 'Interagir',
+      'beam': 'Se téléporter',
+      'tank': 'Gel de réparation',
+      'weapon1': 'Arme spéciale 1',
+      'weapon2': 'Arme spéciale 2',
+      'weapon3': 'Arme empruntée',
+      'target': 'Changer de cible',
+      'map': 'Carte'
+    },
     'lookSensitivity': 'Sensibilité de la caméra',
     'difficulties': {
       'easy': 'Facile',

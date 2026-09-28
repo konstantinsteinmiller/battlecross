@@ -1,6 +1,7 @@
 import { computed, reactive } from 'vue'
 import { isGamePaused } from '@/use/useGamePause'
 import { hud } from './hud'
+import type { Item } from '../data/items'
 
 /**
  * Full-screen feedback levels (written by the HUD event drain, decayed and
@@ -47,4 +48,18 @@ export const pushToast = (key: string, params: Record<string, string | number> =
     const i = toasts.findIndex(x => x.id === t.id)
     if (i >= 0) toasts.splice(i, 1)
   }, 2600)
+}
+
+/**
+ * Items found in the mission, waiting for their card (`LootCard.vue`), oldest
+ * first. One card at a time, each for a few seconds of PLAY: a chest opened
+ * right before a modal or an ad does not spend its card unseen.
+ */
+export const lootQueue = reactive<Item[]>([])
+/** More than this waiting and the oldest wait no longer (they are in the
+ *  results and the workshop either way). */
+const LOOT_MAX = 4
+export const pushLoot = (item: Item): void => {
+  lootQueue.push(item)
+  if (lootQueue.length > LOOT_MAX) lootQueue.splice(1, 1)
 }

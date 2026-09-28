@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Links ziehen zum Laufen, rechts zum Umsehen. Tippe auf den Boden, um hinzulaufen!',
-    'moveKeys': 'WASD zum Herumlaufen.',
+    'moveKeys': '{keys} zum Herumlaufen.',
     'lookMouse': 'Beweg die Maus, um dich umzusehen.',
     'capture': 'Klicke in die Szene, um die Kamera zu steuern.',
     'fireTouch': 'Maschinen voraus! Tippe zum Schießen – halten und loslassen für einen Ladeschuss.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Oranger Ring: Halte den Schild zum Blocken – drück ihn, wenn sich der Ring schließt, um zu PARIEREN!',
     'blockKeys': 'Oranger Ring: Halte die rechte Maustaste zum Blocken – drück, wenn sich der Ring schließt, um zu PARIEREN!',
     'red': 'Roter Ring heißt unblockbar – rutsch aus dem Weg!',
-    'dodgeKeys': 'Roter Ring heißt unblockbar – drück die Leertaste und rutsch aus dem Weg!',
+    'dodgeKeys': 'Roter Ring heißt unblockbar – drück {slide} und rutsch aus dem Weg!',
+    'spaceKey': 'die Leertaste',
     'chest': 'Eine Vorratskiste! Tippe sie an, um sie zu öffnen.',
     'tank': 'Fast am Ende? Reparaturgel macht dich wieder topfit.',
     'weapon': 'Setz deine kopierte Waffe mit dem farbigen Knopf ein!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Versorgungskisten zerbrechen nur durch einen Ladeschuss. Halte gedrückt und lass los, während du auf die leuchtende Kiste zielst.',
     'weaponKeys': 'Drück {n}, um deine kopierte Waffe abzufeuern: Ein Schuss erwischt alle drei Drohnen.',
     'weaponTouch': 'Tippe auf den leuchtenden Waffenknopf: Ein Schuss erwischt alle drei Drohnen.',
-    'gelKeys': 'Drück H für ein Reparaturgel: Es repariert dich komplett.',
+    'gelKeys': 'Drück {key} für ein Reparaturgel: Es repariert dich komplett.',
     'gelTouch': 'Tippe auf den grünen Reparaturgel-Knopf: Das Gel repariert dich komplett.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Alles bereit – zurück zu den Missionen!'
   },
   'loot': {
+    'upgrade': 'Verbesserung!',
     'found': '{item} ({rarity}) gefunden!',
     'tank': 'Reparaturgel gefunden!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'An einer Kiste, einem gestrandeten Bot oder einer Tür: tippe darauf oder auf den Knopf, der erscheint.'
     },
     'keys': {
-      'move': 'WASD / Pfeiltasten: laufen.',
+      'move': '{keys} / Pfeiltasten: laufen.',
       'look': 'Maus bewegen zum Umsehen. Klicke in die Szene, um die Kamera zu steuern.',
       'fire': 'Linksklick: schießen – halten zum Aufladen, loslassen zum Feuern.',
       'block': 'Rechtsklick: blocken – zum Parieren genau dann, wenn sich ein Ring schließt.',
-      'slide': 'Leertaste: rutschen · H: Reparaturgel · E: interagieren · B: rausbeamen',
-      'more': '1 / 2: Spezialwaffen · Tab: Ziel wechseln · Esc: Pause',
+      'slide': '{slide}: rutschen · {tank}: Reparaturgel · {use}: interagieren · {beam}: rausbeamen',
+      'more': '{w1} / {w2}: Spezialwaffen · {target}: Ziel wechseln · Esc: Pause',
+      'space': 'Leertaste',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Noch nichts für diesen Sockel – öffne Kisten und erledige Aufträge.'
   },
   'affix': {
+    'damage': '{v} Schaden',
     'crit': '{v} krit. Trefferchance',
     'critDmg': '{v} krit. Schaden',
     'hp': '{v} max. Gesundheit',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Vibration',
     'on': 'An',
     'off': 'Aus',
-    'close': 'Speichern & Schließen',
+    'close': 'Schließen',
+    'keyboard': {
+      'auto': 'Tastaturlayout erkennen',
+      'layout': 'Tastaturlayout',
+      'detected': 'Erkannt: {layout}',
+      'bindings': 'Tastenbelegung',
+      'press': 'Taste drücken … (Esc bricht ab)',
+      'reset': 'Tasten zurücksetzen'
+    },
+    'actions': {
+      'forward': 'Vorwärts',
+      'back': 'Rückwärts',
+      'left': 'Links seitwärts',
+      'right': 'Rechts seitwärts',
+      'turnLeft': 'Links drehen',
+      'turnRight': 'Rechts drehen',
+      'slide': 'Rutschen',
+      'block': 'Blocken',
+      'interact': 'Interagieren',
+      'beam': 'Rausbeamen',
+      'tank': 'Reparaturgel',
+      'weapon1': 'Spezialwaffe 1',
+      'weapon2': 'Spezialwaffe 2',
+      'weapon3': 'Geliehene Waffe',
+      'target': 'Ziel wechseln',
+      'map': 'Karte'
+    },
     'lookSensitivity': 'Kameraempfindlichkeit',
     'difficulties': {
       'easy': 'Leicht',

@@ -4,13 +4,13 @@
     g(v-for="k in WASD" :key="k.c" :transform="`translate(${k.x} ${k.y})`")
       rect(x="2" y="8" width="54" height="50" rx="11" class="lip")
       rect(x="2" y="2" width="54" height="50" rx="11" class="cap")
-      text(x="29" y="36" class="label") {{ keyLabel(k.c) }}
+      text(x="29" y="36" class="label") {{ actionKeyLabel(k.c) }}
 
   //- ── One key ──
-  svg.glyph(v-else-if="kind === 'key'" :viewBox="wide ? '0 0 124 64' : '0 0 60 64'" aria-hidden="true")
-    rect(x="2" y="10" :width="wide ? 120 : 56" height="52" rx="11" class="lip")
-    rect(x="2" y="2" :width="wide ? 120 : 56" height="52" rx="11" class="cap")
-    text(v-if="!wide" x="30" y="37" class="label") {{ code ? keyLabel(code) : label }}
+  svg.glyph(v-else-if="kind === 'key'" :viewBox="isWide ? '0 0 124 64' : '0 0 60 64'" aria-hidden="true")
+    rect(x="2" y="10" :width="isWide ? 120 : 56" height="52" rx="11" class="lip")
+    rect(x="2" y="2" :width="isWide ? 120 : 56" height="52" rx="11" class="cap")
+    text(v-if="!isWide" x="30" y="37" class="label") {{ code ? actionKeyLabel(code) : label }}
     rect(v-else x="34" y="30" width="56" height="7" rx="3.5" class="spacebar")
 
   //- ── Mouse: the button to press lit and pushed in — a click, or a hold ──
@@ -122,7 +122,8 @@
  * and a glow builds, then lets go.
  */
 import { computed, useId } from 'vue'
-import { keyLabel } from '@/game/engine/keyLabels'
+import { actionKeyLabel } from '@/game/engine/keyLabels'
+import { boundCode } from '@/game/engine/keyBindings'
 import {
   FINGER_HOLD, HAND, INFINITY, MOUSE_BODY, MOUSE_BUTTONS, MOUSE_HOLD, MOUSE_MID, MOUSE_SIDES, type MouseSide
 } from './glyphGeometry'
@@ -159,6 +160,9 @@ const WASD = [
   { c: 'KeyS', x: 59, y: 58 },
   { c: 'KeyD', x: 118, y: 58 }
 ]
+/** The space bar stays a bar only while the action is still on Space
+ *  (`keyBindings.ts`); rebound, it is a key with its letter. */
+const isWide = computed(() => props.wide && (!props.code || boundCode(props.code) === 'Space'))
 /** The mouse button to press; none when the mouse only moves. */
 const lit = computed<MouseSide | null>(() => props.move || props.button === 'none' ? null : props.button)
 /** What the mouse glyph acts out. */

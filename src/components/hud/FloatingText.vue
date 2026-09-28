@@ -6,7 +6,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hudEvents } from '@/game/state/hud'
-import { screenFx, pushToast } from '@/game/state/screenFx'
+import { screenFx, pushToast, pushLoot } from '@/game/state/screenFx'
 import { currentMission } from '@/game/boot'
 
 /**
@@ -79,6 +79,8 @@ onMounted(() => {
         screenFx.flashColor = e.color
       } else if (e.t === 'toast') {
         pushToast(e.key, e.params ?? {}, e.color)
+      } else if (e.t === 'loot') {
+        pushLoot(e.item)
       }
     }
     const m = currentMission()

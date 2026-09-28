@@ -225,6 +225,16 @@ const enterState = (e: Enemy, s: Enemy['state']): void => {
   e.st = 0
 }
 
+/** The Guardroid's rush: from this far (m)… */
+export const BRUTE_RUSH_MIN = 5
+/** …to this far (m), for at most this long (s). */
+export const BRUTE_RUSH_MAX = 12
+export const BRUTE_RUSH_TIME = 0.95
+/** Rushing into a wall staggers it this long (s). */
+export const BRUTE_WALL_STUN = 1.3
+/** An elite Guardroid's arm-cannon volley reaches this far (m). */
+export const BRUTE_VOLLEY_MAX = 16
+
 const startTele = (e: Enemy, attack: string, dur: number, red: boolean): void => {
   e.attack = attack
   e.teleDur = dur
@@ -802,6 +812,14 @@ const stepMachineMotion = (e: Enemy, dt: number, ds: number, fd: number, sd: num
       else wantL = k
     } else if (striking && e.attack === 'slam') {
       wantS = e.state === 'tele' ? -0.4 * Math.min(1, e.st / e.teleDur) : -0.4 + 1.4 * Math.min(1, e.st / 0.1)
+    } else if (striking && e.attack === 'rush') {
+      // Both fists drawn back for the wind-up, thrown forward for the charge.
+      const k = e.state === 'tele' ? -0.8 * Math.min(1, e.st / e.teleDur) : 0.7
+      wantL = k
+      wantR = k
+    } else if (striking && e.attack === 'volley') {
+      // The cannon arm raised to aim, kicking back with each fan.
+      wantR = e.state === 'tele' ? 0.55 * Math.min(1, e.st / 0.25) : 0.55 - 0.35 * Math.max(0, 1 - ((e.st % 0.35) / 0.12))
     }
     // Returns: ≈0.4 s for a fist, ≈0.45 s for the slam (≤ 0.25 rad per tick)
     const back = Math.min(1, dt * 6)
@@ -1088,21 +1106,82 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
-    // ── Guardroid: two-punch combo (orange) or overhead slam (red) ───────
+    // ── Guardroid: two-punch combo (orange) or overhead slam (red) up close;
+    // from further off a shoulder RUSH (red: slide or step aside — into a
+    // wall it staggers), and an elite also fires its arm cannon (orange: two
+    // fans of heavy shots). It used to only walk at a Flux who outpaces it:
+    // nothing to fear from two steps away. ─────────────────────────────────
     case 'brute': {
       if (e.state === 'engage') {
         faceTo(e, px, pz, 3, dt)
         if (d > 2.3) seek(w, e, px, pz, def.speed, dt)
-        if (canAttack && d < 3.2) {
-          if (Math.random() < 0.35) startTele(e, 'slam', 1.1, true)
-          else {
+        if (canAttack) {
+          if (d < 3.2) {
+            if (Math.random() < 0.35) startTele(e, 'slam', 1.1, true)
+            else {
+              e.step = 0
+              startTele(e, 'combo', def.tele, false)
+            }
+          } else if (d > BRUTE_RUSH_MIN && d < BRUTE_RUSH_MAX && Math.random() < (e.elite ? 0.55 : 0.6)) {
+            startTele(e, 'rush', e.elite ? 0.6 : 0.8, true)
+          } else if (e.elite && d < BRUTE_VOLLEY_MAX) {
             e.step = 0
-            startTele(e, 'combo', def.tele, false)
+            startTele(e, 'volley', 0.7, false)
+          } else {
+            e.cd = 0.5 // nothing this time: look again shortly
           }
         }
       } else if (e.state === 'tele') {
-        faceTo(e, px, pz, e.attack === 'slam' ? 2 : 4, dt)
-        if (e.st >= e.teleDur) enterState(e, 'act')
+        faceTo(e, px, pz, e.attack === 'slam' ? 2 : e.attack === 'rush' ? 6 : 4, dt)
+        if (e.st >= e.teleDur) {
+          if (e.attack === 'rush') {
+            // The line is locked here: a step aside at the last moment is the dodge.
+            const dx = px - e.x
+            const dz = pz - e.z
+            const dd = Math.hypot(dx, dz) || 1
+            e.tx = dx / dd
+            e.tz = dz / dd
+            e.hitPlayer = false
+            w.sfx('dash', e.x, e.z)
+          }
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act' && e.attack === 'rush') {
+        const sp = e.elite ? 12 : 10
+        const frac = step(w, e, e.tx * sp * dt, e.tz * sp * dt)
+        if (Math.random() < 0.5) w.fx.sparks(e.x - e.tx * 0.6, 0.15, e.z - e.tz * 0.6, '#c9b79a', 2, 2, 0.14)
+        if (!e.hitPlayer && Math.hypot(w.player.x - e.x, w.player.z - e.z) < def.radius + PLAYER_R + 0.2) {
+          e.hitPlayer = true
+          w.shake(0.35)
+          w.hitPlayer(e, Math.round(e.dmg * 1.1), { blockable: false, fromX: e.x, fromZ: e.z, kind: 'melee' })
+          enterState(e, 'recover')
+        } else if (frac < 0.4 && e.st > 0.08) {
+          // Into a wall: it staggers — the opening for dodging it well.
+          w.fx.sparks(e.x + e.tx * 0.9, 1.0, e.z + e.tz * 0.9, '#ffe07a', 18, 7)
+          w.shake(0.3)
+          w.sfx('bonk', e.x, e.z)
+          e.stunT = BRUTE_WALL_STUN
+          enterState(e, 'stun')
+        } else if (e.st > BRUTE_RUSH_TIME) {
+          // An elite that ends its rush next to Flux goes straight into the slam.
+          if (e.elite && d < 3.4) startTele(e, 'slam', 0.9, true)
+          else enterState(e, 'recover')
+        }
+      } else if (e.state === 'act' && e.attack === 'volley') {
+        const due = e.step * 0.35
+        if (e.step < 2 && e.st >= due) {
+          // The right arm is the cannon: a fan of three from its muzzle, aimed at the chest.
+          const ox = e.x + Math.sin(e.yaw) * 0.9 + Math.cos(e.yaw) * 0.55
+          const oz = e.z + Math.cos(e.yaw) * 0.9 - Math.sin(e.yaw) * 0.55
+          const a0 = Math.atan2(px - ox, pz - oz)
+          const dy = (1.0 - 1.35) / Math.max(1, d)
+          for (const off of [-0.2, 0, 0.2]) {
+            w.fireEnemyShot(e, ox, 1.35, oz, Math.sin(a0 + off), dy, Math.cos(a0 + off), 11, Math.round(e.dmg * 0.55), true)
+          }
+          w.sfx('enemyShot', e.x, e.z)
+          e.step++
+        }
+        if (e.st > 0.8) enterState(e, 'recover')
       } else if (e.state === 'act') {
         if (e.attack === 'combo') {
           // The punch lands on entering 'act'
@@ -1138,7 +1217,7 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
           if (e.st > 0.4) enterState(e, 'recover')
         }
       } else if (e.state === 'recover') {
-        if (e.st > (e.attack === 'slam' ? 1.2 : 0.9)) {
+        if (e.st > (e.attack === 'slam' ? 1.2 : e.attack === 'rush' ? 0.8 : 0.9)) {
           e.cd = cooldown()
           enterState(e, 'engage')
         }

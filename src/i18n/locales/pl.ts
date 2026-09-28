@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Przeciągaj po lewej, by chodzić, a po prawej, by się rozglądać. Dotknij podłogi, by tam pójść!',
-    'moveKeys': 'Poruszaj się klawiszami WASD.',
+    'moveKeys': 'Poruszaj się klawiszami {keys}.',
     'lookMouse': 'Poruszaj myszą, by się rozglądać.',
     'capture': 'Kliknij scenę, by przejąć kontrolę nad kamerą.',
     'fireTouch': 'Maszyny przed tobą! Dotknij, by strzelić — przytrzymaj i puść, by oddać strzał naładowany.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Pomarańczowy pierścień: przytrzymaj tarczę, by blokować — wciśnij ją, gdy pierścień się zamyka, by SPAROWAĆ!',
     'blockKeys': 'Pomarańczowy pierścień: przytrzymaj prawy przycisk myszy, by blokować — wciśnij, gdy pierścień się zamyka, by SPAROWAĆ!',
     'red': 'Czerwony pierścień: ataku nie da się zablokować — zejdź z drogi wślizgiem!',
-    'dodgeKeys': 'Czerwony pierścień: ataku nie da się zablokować — wciśnij Spację i zejdź z drogi wślizgiem!',
+    'dodgeKeys': 'Czerwony pierścień: ataku nie da się zablokować — wciśnij {slide} i zejdź z drogi wślizgiem!',
+    'spaceKey': 'Spację',
     'chest': 'Skrzynia z zaopatrzeniem! Dotknij jej, by otworzyć.',
     'tank': 'Kończy ci się zdrowie? Żel naprawczy w pełni cię naprawi.',
     'weapon': 'Użyj skopiowanej broni kolorowym przyciskiem!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Skrzynki z zaopatrzeniem pękają tylko od strzału naładowanego. Przytrzymaj i puść, celując w świecącą skrzynkę.',
     'weaponKeys': 'Wciśnij {n}, by wystrzelić ze skopiowanej broni: jeden strzał trafia wszystkie trzy drony.',
     'weaponTouch': 'Dotknij świecącego przycisku broni: jeden strzał trafia wszystkie trzy drony.',
-    'gelKeys': 'Wciśnij H, by użyć żelu naprawczego: w pełni cię naprawi.',
+    'gelKeys': 'Wciśnij {key}, by użyć żelu naprawczego: w pełni cię naprawi.',
     'gelTouch': 'Dotknij zielonego przycisku żelu naprawczego: w pełni cię naprawi.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Gotowe — wracamy do misji!'
   },
   'loot': {
+    'upgrade': 'Ulepszenie!',
     'found': 'Znaleziono: {item} ({rarity})!',
     'tank': 'Znaleziono żel naprawczy!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Przy skrzyni, uwięzionym robocie lub drzwiach: dotknij ich albo przycisku, który się pojawi.'
     },
     'keys': {
-      'move': 'WASD / strzałki: ruch.',
+      'move': '{keys} / strzałki: ruch.',
       'look': 'Poruszaj myszą, by się rozglądać. Kliknij scenę, by przejąć kontrolę nad kamerą.',
       'fire': 'Lewy przycisk: strzał — przytrzymaj, by ładować, puść, by wystrzelić.',
       'block': 'Prawy przycisk: blok — wciśnij, gdy pierścień się zamyka, by sparować.',
-      'slide': 'Spacja: wślizg · H: żel naprawczy · E: interakcja · B: teleportacja',
-      'more': '1 / 2: bronie specjalne · Tab: zmiana celu · Esc: pauza',
+      'slide': '{slide}: wślizg · {tank}: żel naprawczy · {use}: interakcja · {beam}: teleportacja',
+      'more': '{w1} / {w2}: bronie specjalne · {target}: zmiana celu · Esc: pauza',
+      'space': 'Spacja',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Nic jeszcze nie pasuje do tego gniazda — otwieraj skrzynie i wykonuj zlecenia.'
   },
   'affix': {
+    'damage': '{v} obrażeń',
     'crit': '{v} do szansy na krytyczne',
     'critDmg': '{v} do obrażeń krytycznych',
     'hp': '{v} do maks. zdrowia',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Wibracje',
     'on': 'Wł.',
     'off': 'Wył.',
-    'close': 'Zapisz i zamknij',
+    'close': 'Zamknij',
+    'keyboard': {
+      'auto': 'Wykrywaj układ klawiatury',
+      'layout': 'Układ klawiatury',
+      'detected': 'Wykryto: {layout}',
+      'bindings': 'Przypisanie klawiszy',
+      'press': 'Naciśnij klawisz… (Esc anuluje)',
+      'reset': 'Resetuj klawisze'
+    },
+    'actions': {
+      'forward': 'Naprzód',
+      'back': 'Do tyłu',
+      'left': 'Krok w lewo',
+      'right': 'Krok w prawo',
+      'turnLeft': 'Obrót w lewo',
+      'turnRight': 'Obrót w prawo',
+      'slide': 'Wślizg',
+      'block': 'Blok',
+      'interact': 'Interakcja',
+      'beam': 'Teleportacja',
+      'tank': 'Żel naprawczy',
+      'weapon1': 'Broń specjalna 1',
+      'weapon2': 'Broń specjalna 2',
+      'weapon3': 'Pożyczona broń',
+      'target': 'Zmień cel',
+      'map': 'Mapa'
+    },
     'lookSensitivity': 'Czułość kamery',
     'difficulties': {
       'easy': 'Łatwy',

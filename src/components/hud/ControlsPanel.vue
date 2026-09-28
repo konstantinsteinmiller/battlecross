@@ -22,7 +22,8 @@ import InputGlyph from './InputGlyph.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import type { GameIconName } from '@/components/icons/iconNames'
 import { input } from '@/game/boot'
-import { keyLabel } from '@/game/engine/keyLabels'
+import { actionKeyLabel } from '@/game/engine/keyLabels'
+import { keyAriaParams } from './keyAria'
 import { hud } from '@/game/state/hud'
 
 /**
@@ -120,8 +121,8 @@ const groups = computed<Group[]>(() => family.value === 'touch'
     ])
 
 const ariaOf = (r: Row): string => r.aria
-  ? t(r.aria)
-  : t('pause.keys.press', { key: keyLabel(r.glyph.code ?? ''), action: t(r.label) })
+  ? t(r.aria, keyAriaParams(t))
+  : t('pause.keys.press', { key: actionKeyLabel(r.glyph.code ?? ''), action: t(r.label) })
 </script>
 
 <style scoped lang="sass">

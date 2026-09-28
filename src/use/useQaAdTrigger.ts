@@ -1,6 +1,9 @@
 // ─── The hidden QA interstitial tap ─────────────────────────────────────────
 //
-// Thirty taps on the coin badge inside thirty seconds request an interstitial.
+// Twenty taps on the screws (bolts) badge inside thirty seconds request an
+// interstitial — in the hub or in a mission. The badge takes the tap itself
+// (`pointerdown`, above the input surface), so on desktop it works with the
+// mouse free and never captures it.
 //
 // It exists because every portal's interstitial is PACED. The real placement
 // runs only on the result screen's Continue, and `canShowInterstitial` holds a
@@ -14,7 +17,7 @@
 //
 // No counter, no toast, no glyph. A visible affordance is a feature the player
 // can find, and an ad the player can summon is an ad nobody asked for. The tap
-// count and the window ARE the secret, and thirty deliberate taps in thirty
+// count and the window ARE the secret, and twenty deliberate taps in thirty
 // seconds is not a shape a run produces by accident: the badge is a readout
 // rather than a control, and the number of times a real session taps it is
 // zero. The failure mode of guessing wrong here is one extra ad, which is why
@@ -53,7 +56,7 @@ import { isAdShowing } from '@/use/useGamePause'
 import { resumeMusicAfterAd } from '@/use/useSound'
 
 /** Taps that open the door… */
-export const QA_AD_TAPS = 30
+export const QA_AD_TAPS = 20
 /** …and the rolling window they have to land inside, ms. */
 export const QA_AD_WINDOW_MS = 30_000
 
@@ -69,13 +72,15 @@ export const __resetQaAdTaps = (): void => {
 }
 
 /**
- * Record one tap on the coin badge, and request an interstitial once
+ * Record one tap on the screws badge, and request an interstitial once
  * `QA_AD_TAPS` of them have landed inside `QA_AD_WINDOW_MS`.
  *
  * The window ROLLS rather than being counted from the first tap: a tester who
  * starts slowly and speeds up is asking for the same thing, and a window that
  * had to be restarted from scratch would make the back door fiddlier to open
- * than the two minutes of play it exists to replace.
+ * than the two minutes of play it exists to replace. It is also what makes
+ * the taps "consecutive": a pause of more than the window drops the taps
+ * before it, so the count restarts.
  *
  * @param now injectable clock, for tests.
  * @returns whether this tap fired the ad. Nothing in the game reads it; it is

@@ -1,17 +1,19 @@
 <template lang="pug">
-  span.keycap(:class="{ wide: code === 'Space', mouse: code === 'MouseRight' || code === 'MouseLeft' }" aria-hidden="true")
+  span.keycap(:class="{ wide: bound === 'Space', mouse: bound === 'MouseRight' || bound === 'MouseLeft' }" aria-hidden="true")
     //- The space bar is a bar, the mouse buttons a mouse: shapes, never words.
-    span.bar(v-if="code === 'Space'")
-    svg.mouse-ico(v-else-if="code === 'MouseRight' || code === 'MouseLeft'" viewBox="0 0 20 28")
+    span.bar(v-if="bound === 'Space'")
+    svg.mouse-ico(v-else-if="bound === 'MouseRight' || bound === 'MouseLeft'" viewBox="0 0 20 28")
       rect(x="1.5" y="1.5" width="17" height="25" rx="8.5" class="m-body")
-      path(:d="code === 'MouseLeft' ? 'M10 1.5 A8.5 8.5 0 0 0 1.5 10 L1.5 12 L10 12 Z' : 'M10 1.5 A8.5 8.5 0 0 1 18.5 10 L18.5 12 L10 12 Z'" class="m-hot")
+      path(:d="bound === 'MouseLeft' ? 'M10 1.5 A8.5 8.5 0 0 0 1.5 10 L1.5 12 L10 12 Z' : 'M10 1.5 A8.5 8.5 0 0 1 18.5 10 L18.5 12 L10 12 Z'" class="m-hot")
       line(x1="10" y1="1.5" x2="10" y2="12" class="m-seam")
       line(x1="1.5" y1="12" x2="18.5" y2="12" class="m-seam")
-    template(v-else) {{ keyLabel(code) }}
+    template(v-else) {{ keyLabel(bound) }}
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { keyLabel } from '@/game/engine/keyLabels'
+import { boundCode } from '@/game/engine/keyBindings'
 
 /**
  * A small inline keycap — "[E] Open" on a desktop prompt, "1" on a weapon
@@ -19,7 +21,10 @@ import { keyLabel } from '@/game/engine/keyLabels'
  * from the player's keyboard layout (`keyLabels.ts`). Decorative for screen
  * readers: the button it sits in carries the sentence.
  */
-defineProps<{ code: string }>()
+const props = defineProps<{ code: string }>()
+/** The key as bound now: the prompt was written with the DEFAULT key
+ *  (`keyBindings.ts`), the player may have moved the action. */
+const bound = computed(() => boundCode(props.code))
 </script>
 
 <style scoped lang="sass">

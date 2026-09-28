@@ -21,7 +21,6 @@ export const PITCH_MAX = 0.62
 export const DOOR_OPEN_DIST = 4.4
 export const DOOR_OPEN_SPEED = 2.6
 
-export const BEAM_IN_TIME = 1.15
 
 /** How far a chest or the worker-bot answers [E] / the tap (m), centre to
  *  centre — the boss shutter's reach. A chest's centre sits 0.55 m back

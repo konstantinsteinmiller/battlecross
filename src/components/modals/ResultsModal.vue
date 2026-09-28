@@ -37,10 +37,9 @@
           | {{ t('results.newSector', { sector: t(`sector.${r.unlocked}`) }) }}
         div.items(v-if="r.items.length")
           div.i-title {{ t('results.items') }}
-          div.item(v-for="it in r.items" :key="it.id" :style="{ '--rc': RARITY_COLOR[it.rarity] }")
-            span.i-rar {{ t(`rarity.${it.rarity}`) }}
-            span.i-name {{ t(`item.${it.base}`) }}
-            span.i-lvl {{ t('enemy.level', { n: it.ilvl }) }}
+          //- Each find with its icon and what it changes against the equipped
+          //- piece — a boss's reward is the one to know is an upgrade.
+          LootCompare.item(v-for="it in r.items" :key="it.id" :item="it" compact)
     template(#footer)
       div.actions
         //- Poki (`platformPolicy.freeOptionFirst`): the free Continue leads and is
@@ -70,11 +69,11 @@ import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { flow, leaveResults } from '@/game/flow'
 import { profile, saveProfile, lifetimeXp } from '@/game/state/profile'
-import { RARITY_COLOR } from '@/game/models/palette'
 import { WEAPONS } from '@/game/data/weapons'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { formatCount } from '@/utils/localeNumber'
 import RankBadge from '@/components/molecules/RankBadge.vue'
+import LootCompare from '@/components/molecules/LootCompare.vue'
 import { leaderboardEnabled } from '@/use/useLeaderboard'
 import { platformPolicy } from '@/platforms/capabilities'
 import { isShortViewport, windowWidth } from '@/use/useUser'
@@ -199,6 +198,8 @@ const done = () => {
   height: 14px
   border-radius: 50%
   border: 2px solid #141a33
+.items .item
+  margin-top: 8px
 .items
   display: flex
   flex-direction: column
@@ -207,22 +208,6 @@ const done = () => {
   font-size: clamp(11px, 2.4vmin, 14px)
   color: #ffd84a
   text-transform: uppercase
-.item
-  display: flex
-  gap: 8px
-  align-items: baseline
-  padding: 4px 10px
-  border-radius: 8px
-  border-left: 4px solid var(--rc)
-  background: rgba(0, 0, 0, 0.2)
-  font-size: clamp(12px, 2.6vmin, 15px)
-.i-rar
-  color: var(--rc)
-.i-lvl
-  margin-left: auto
-  font-family: var(--font-pixel)
-  font-size: 0.65em
-  color: #9fe6ff
 .actions
   display: flex
   flex-wrap: wrap

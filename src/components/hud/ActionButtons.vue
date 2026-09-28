@@ -27,13 +27,22 @@
       GameIcon(name="shield")
       KeyCap.kc(v-if="desk" code="MouseRight")
       CoachRing(:hint="touchHint('parry') ?? touchHint('block')" side="rim")
+    //- The cooldown is a clock wipe that shrinks away with the seconds left in
+    //- the middle, and the button pops when it is back — the same on a phone
+    //- (under the thumb) and on a desktop. Short of power it says so instead:
+    //- the energy bolt on it blinks red. (A plain grey-out read as "broken".)
     button.act.slide(
+      ref="slideBtn"
       type="button"
-      :class="{ off: !hud.slideReady }"
+      :class="{ cooling: slideCooling, low: hud.slidePowerLow, ready: slideFlash }"
       :aria-label="t('combat.slide')"
       @pointerdown.prevent.stop="slide"
     )
       GameIcon(name="dodge")
+      span.cd(aria-hidden="true")
+      span.cd-num(ref="slideNum" aria-hidden="true")
+      span.low-bolt(v-if="hud.slidePowerLow" aria-hidden="true")
+        GameIcon(name="bolt")
       KeyCap.kc(v-if="desk" code="Space")
       CoachRing(:hint="touchHint('slide')")
     //- The Repair Gel: always on screen, as the resource it is. The gel in
@@ -100,7 +109,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { hud } from '@/game/state/hud'
+import { addHudTicker, hud, hudLive } from '@/game/state/hud'
 import { profile } from '@/game/state/profile'
 import { input } from '@/game/boot'
 import GameIcon from '@/components/icons/GameIcon.vue'
@@ -109,7 +118,7 @@ import KeyCap from './KeyCap.vue'
 import InputGlyph from './InputGlyph.vue'
 import type { HintId, HintView } from '@/game/sim/coach'
 import { TEACH_TIP } from '@/game/sim/borrowed'
-import { computed, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 /**
  * Right-thumb cluster: FIRE (touch only — shoot / hold to charge, drag to
@@ -181,6 +190,35 @@ const fireEnd = (e: PointerEvent) => {
     input.fireReleased = true
   }
 }
+
+// ── The slide's cooldown ──
+// Painted from the HUD ticker (`hudLive`, not reactive): the wipe's angle and
+// the seconds change every frame, the classes only on their edges.
+const slideBtn = ref<HTMLElement | null>(null)
+const slideNum = ref<HTMLElement | null>(null)
+const slideCooling = ref(false)
+const slideFlash = ref(false)
+let slideText = ''
+let offSlideCd: (() => void) | null = null
+onMounted(() => {
+  offSlideCd = addHudTicker(() => {
+    const cd = hudLive.slideCd
+    const cooling = cd > 0.001
+    if (cooling !== slideCooling.value) slideCooling.value = cooling
+    if (!cooling) return
+    slideBtn.value?.style.setProperty('--cd', String(Math.min(1, cd / Math.max(0.01, hudLive.slideCdMax))))
+    const txt = cd >= 1 ? String(Math.ceil(cd)) : cd.toFixed(1)
+    if (txt !== slideText && slideNum.value) {
+      slideNum.value.textContent = txt
+      slideText = txt
+    }
+  })
+})
+onUnmounted(() => offSlideCd?.())
+// Back in hand — off cooldown with the power for it: the button pops.
+watch(() => hud.slideReady, (ready, was) => {
+  if (ready && was === false) flash(slideFlash, 450)
+})
 
 const slide = () => {
   input.touched = true
@@ -368,8 +406,64 @@ watch(() => hud.borrowed.teach, (on, was) => {
   background: radial-gradient(circle at 40% 30%, #c0d4ff, #6f8cff 45%, #3a4fc0)
   &:active
     transform: scale(0.9)
-  &.off
-    filter: grayscale(0.7) brightness(0.8)
+  // The clock wipe: the dark sector is the cooldown still to run, from 12
+  // o'clock clockwise, shrinking to nothing.
+  .cd
+    position: absolute
+    inset: 0
+    border-radius: 50%
+    background: conic-gradient(rgba(8, 12, 34, 0.74) calc(var(--cd, 0) * 1turn), transparent 0)
+    display: none
+    pointer-events: none
+  .cd-num
+    position: absolute
+    inset: 0
+    display: none
+    place-items: center
+    color: #ffffff
+    font-family: var(--font-pixel)
+    font-size: clamp(12px, 2.8vmin, 16px)
+    text-shadow: 0 2px 0 #141a33, 0 0 6px #141a33
+    pointer-events: none
+  &.cooling
+    .cd
+      display: block
+    .cd-num
+      display: grid
+    :deep(.game-icon)
+      opacity: 0.35
+  // Off cooldown, short of power: the bolt says what is missing.
+  &.low
+    filter: saturate(0.45) brightness(0.85)
+  .low-bolt
+    position: absolute
+    right: -4px
+    top: -4px
+    width: 46%
+    height: 46%
+    padding: 4px
+    box-sizing: border-box
+    border-radius: 50%
+    border: 2px solid #141a33
+    background: #ff4d5e
+    color: #ffffff
+    animation: low-bolt 0.9s ease-in-out infinite
+    :deep(.game-icon)
+      width: 100%
+      height: 100%
+      opacity: 1
+  &.ready
+    animation: slide-ready 0.45s cubic-bezier(0.2, 1.8, 0.4, 1)
+@keyframes slide-ready
+  0%
+    box-shadow: 0 0 0 0 rgba(160, 190, 255, 0.9)
+  40%
+    transform: scale(1.22)
+    box-shadow: 0 0 0 10px rgba(160, 190, 255, 0)
+@keyframes low-bolt
+  50%
+    transform: scale(1.15)
+    filter: brightness(1.3)
 // The Repair Gel: dark glass, the gel inside it (clipped from the top as it
 // drains), the flask glyph over both, pips above for the gels carried.
 .tank

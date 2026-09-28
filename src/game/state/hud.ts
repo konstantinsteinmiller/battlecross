@@ -1,4 +1,5 @@
 import { shallowReactive } from 'vue'
+import type { Item } from '../data/items'
 import type { HintView } from '../sim/coach'
 import type { LessonView } from '../sim/lessons'
 import type { BorrowedView } from '../sim/borrowed'
@@ -78,6 +79,8 @@ export const hud = shallowReactive({
   gelUse: 0,
   gelFrom01: 0,
   slideReady: true,
+  /** The slide is off cooldown but short of power (its button says which). */
+  slidePowerLow: false,
   blockHeld: false,
   /** The control coach's glyphs on screen (see `sim/coach.ts`). */
   hints: [] as HintView[],
@@ -92,6 +95,9 @@ export const hud = shallowReactive({
   pointerFree: false,
   /** The exit cutscene may be skipped now (any press): its skip glyph. */
   cineSkip: false,
+  /** The beam-in's third-person shot is on (`sim/beamIn.ts`): the HUD waits
+   *  until the camera dives into Flux's head. */
+  introCine: false,
   /** Flux's speech bubble (`FluxBubble.vue`): the i18n key of his line,
    *  and a count that grows with each one, so the same line pops again. */
   sayKey: '',
@@ -105,7 +111,18 @@ export const hud = shallowReactive({
 export type HudTicker = (dt: number) => void
 const tickers = new Set<HudTicker>()
 /** Register a per-frame HUD callback (direct DOM writes). Returns a remover. */
-export const addHudTicker = (fn: HudTicker): (() => void) => {
+/**
+ * Per-frame values the HUD paints with direct DOM writes from its ticker —
+ * NOT reactive, so a number that changes every frame never re-renders a
+ * component. Written by the mission's HUD sync.
+ */
+export const hudLive = {
+  /** Seconds of slide cooldown left, and the full cooldown it started from. */
+  slideCd: 0,
+  slideCdMax: 1
+}
+
+export const addHudTicker =(fn: HudTicker): (() => void) => {
   tickers.add(fn)
   return () => { tickers.delete(fn) }
 }
@@ -121,6 +138,8 @@ export type HudEvent =
   | { t: 'toast'; key: string; params?: Record<string, string | number>; color?: string; icon?: string }
   | { t: 'flash'; color: string; strength: number }
   | { t: 'hurt'; strength: number }
+  /** An item found in the mission: its card (`LootCard.vue`). */
+  | { t: 'loot'; item: Item }
 
 export const hudEvents: HudEvent[] = []
 export const pushHud = (e: HudEvent): void => {

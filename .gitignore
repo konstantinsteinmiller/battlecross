@@ -98,3 +98,4 @@ __screenshots__/
 
 # Written by `pnpm deploy:poki` (tools/poki-deploy) — one run’s QA evidence.
 /poki-qa-report.json
+/promotion-backup/

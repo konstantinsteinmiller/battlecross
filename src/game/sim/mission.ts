@@ -22,9 +22,9 @@ import { newMotion, type EnemyMotion } from '../models/motion'
 import { PAL, RARITY_COLOR as RARITY_HEX } from '../models/palette'
 import {
   EYE_H, PLAYER_R, WALK_SPEED, ACCEL, PATH_SPEED, LOOK_TOUCH, LOOK_MOUSE, LOOK_LOCK, PITCH_MIN, PITCH_MAX,
-  DOOR_OPEN_DIST, DOOR_OPEN_SPEED, BEAM_IN_TIME, TURN_RATE
+  DOOR_OPEN_DIST, DOOR_OPEN_SPEED, TURN_RATE
 } from './constants'
-import { hud, tickHud, pushHud } from '../state/hud'
+import { hud, hudLive, tickHud, pushHud } from '../state/hud'
 import { feedDamage } from '../state/damageFeed'
 import type { CombatPlayer, Enemy, PickupKind, Shot } from './world'
 import { CombatSystem, type CombatHost } from './combat'
@@ -54,6 +54,9 @@ import { flow, finishMission } from '../flow'
 import { showBanner, clearBanner, BANNER_HOLD } from '../state/banner'
 import { ExitRun, ExitCamera, planExit, newExitPose, type ExitEvent, type ExitHost } from './exitRun'
 import { cineWorld, type CineWorld, type CineBox } from './cineCam'
+import {
+  BeamInCamera, beamInPose, newBeamInPose, padPlateLift, BEAM_IN_COLUMN, BEAM_IN_DROP, BEAM_IN_END, BEAM_IN_LAND, BEAM_IN_SKIP_AFTER
+} from './beamIn'
 import { updateBoss, syncBossVisual, startBossIntro, BOSS_INTRO_T, bossRoomOf } from './bosses'
 import { WeaponSystem } from './weapons'
 import { WEAPONS, type WeaponId } from '../data/weapons'
@@ -332,6 +335,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   private exitPose = newExitPose()
   private exitCam = new ExitCamera()
   private exitView: ExitView | null = null
+  /** The beam-in (`sim/beamIn.ts`): its pose, camera, and whether he landed. */
+  private beamPose = newBeamInPose()
+  private beamCam = new BeamInCamera()
+  private beamLanded = false
+  /** `phaseT` one step back, for the render's interpolation. */
+  private beamPrevT = 0
   /** The level as solid space for the cutscene camera (`sim/cineCam.ts`). */
   cine!: CineWorld
   /** Until the rotor hum's next pulse (s). */
@@ -591,6 +600,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     hud.locatorOn = false
     hud.locatorCd01 = -1
     hud.cineSkip = false
+    // It opens on Flux himself, third person (`sim/beamIn.ts`).
+    hud.introCine = true
+    this.beamCam.reset()
+    this.beamLanded = false
+    this.beamPrevT = 0
     // No banner left over from the last mission.
     clearBanner()
     sfx('beamIn')
@@ -1019,7 +1033,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       profile.inv.items.push(it)
       profile.inv.fresh.push(it.id)
       this.itemsFound.push(it)
-      pushHud({ t: 'toast', key: 'loot.found', params: { rarity: `rarity.${it.rarity}`, item: `item.${it.base}` }, color: RARITY_HEX[it.rarity] })
+      // Its own card, icon and upgrade check included (`LootCard.vue`): a
+      // line in the toast stack went by unread.
+      pushHud({ t: 'loot', item: it })
+      sfx('loot')
     }
     if (Math.random() < 0.18 && profile.inv.tanks < this.stats.tanksMax) {
       profile.inv.tanks++
@@ -1663,11 +1680,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.climb?.update(dt, this.time, p, hud.phase === 'play' && !flow.modal)
 
     if (hud.phase === 'beamIn') {
-      if (this.phaseT >= BEAM_IN_TIME) {
-        hud.phase = 'play'
-        this.phaseT = 0
-        this.fx.riseRing(p.x, 0.2, p.z, PAL.glowCyan, 0.9, 20)
-      }
+      this.stepBeamIn(dt, first)
     } else if (hud.phase === 'play') {
       this.updatePlayer(dt, first)
     } else if (hud.phase === 'dead') {
@@ -1717,7 +1730,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     ;(this.marker.material as MeshBasicMaterial).opacity = p.path ? 0.55 + Math.sin(this.time * 8) * 0.25 : this.markerT * 2
     this.marker.scale.setScalar(p.path ? 1 + Math.sin(this.time * 6) * 0.08 : 1 + (0.5 - this.markerT) * 0.6)
     // The pad beams Flux in; he leaves by drone, so it stays idle after.
-    this.pad.setBeamView(Math.hypot(p.x - this.pad.root.position.x, p.z - this.pad.root.position.z), hud.phase === 'beamIn', dt)
+    this.pad.setBeamView(Math.hypot(p.x - this.pad.root.position.x, p.z - this.pad.root.position.z), hud.phase === 'beamIn' && this.phaseT < BEAM_IN_COLUMN, dt)
     this.pad.ring.rotation.y += dt * 0.6
     this.objects.update(dt, this.time)
     const lt = this.lessonTick
@@ -1781,6 +1794,40 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     if (this.respawnT > 0) {
       this.respawnT -= rawDt
       if (this.respawnT <= 0) flow.modal = 'defeat'
+    }
+  }
+
+  /** One step of the beam-in (`sim/beamIn.ts`): the landing's beat, the skip,
+   *  and the handover to play. */
+  private stepBeamIn(dt: number, first: boolean): void {
+    const p = this.player
+    this.beamPrevT = this.phaseT - dt
+    // Any press once it has begun: straight to play (the press still counts —
+    // a thumb on the stick is already walking).
+    if (first && this.input.anyPressed && this.phaseT >= BEAM_IN_SKIP_AFTER) this.phaseT = BEAM_IN_END
+    if (!this.beamLanded && this.phaseT >= BEAM_IN_LAND) {
+      this.beamLanded = true
+      if (this.phaseT < BEAM_IN_END) {
+        sfx('deckLand')
+        this.fx.sparks(p.x, p.y + 0.3, p.z, PAL.glowCyan, 10, 3, 0.16)
+      }
+      this.fx.riseRing(p.x, p.y + 0.2, p.z, PAL.glowCyan, 0.9, 20)
+    }
+    const o = beamInPose(this.phaseT, this.beamPose)
+    if (hud.introCine !== o.cine) hud.introCine = o.cine
+    const skip = this.phaseT >= BEAM_IN_SKIP_AFTER && this.phaseT < BEAM_IN_END
+    if (hud.cineSkip !== skip) hud.cineSkip = skip
+    if (this.phaseT >= BEAM_IN_END) {
+      hud.phase = 'play'
+      this.phaseT = 0
+      hud.introCine = false
+      hud.cineSkip = false
+      const v = this.exitView
+      if (v) {
+        v.heroRoot.visible = false
+        v.heroShadow.visible = false
+        v.heroRoot.scale.setScalar(1)
+      }
     }
   }
 
@@ -2045,6 +2092,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       c.slideDZ = dz / l
       c.slideT = 0.28
       c.slideCd = Math.max(SLIDE_CD_MIN, SLIDE_CD * st.slideCdMul)
+      hudLive.slideCdMax = c.slideCd
       c.iframes = Math.max(c.iframes, 0.22)
       c.power -= st.slideCost
       c.powerDelay = 0.6
@@ -2614,6 +2662,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       hud.hints = views
     }
     hud.slideReady = c.slideCd <= 0 && c.power >= this.stats.slideCost
+    hud.slidePowerLow = c.slideCd <= 0 && c.power < this.stats.slideCost
+    hudLive.slideCd = c.slideCd
     // Which hand is playing, and whether the mouse still needs capturing.
     hud.device = this.input.device
     hud.lookMode = this.input.lockRefused ? 'drag' : 'lock'
@@ -2745,11 +2795,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const bobY = Math.sin(p.bob * 2) * 0.042 * p.bobAmp
     const bobX = Math.cos(p.bob) * 0.028 * p.bobAmp
     let y = fy + EYE_H + bobY
-    if (hud.phase === 'beamIn') {
-      const k = Math.min(1, this.phaseT / BEAM_IN_TIME)
-      const e = 1 - Math.pow(1 - k, 3)
-      y = fy + EYE_H + (1 - e) * 7
-    } else if (hud.phase === 'dead') {
+    if (hud.phase === 'dead') {
       y = fy + EYE_H - Math.min(1, this.deathT * 1.5) * 0.9
     }
     if (c.slideT > 0) y -= 0.35
@@ -2768,6 +2814,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // The exit is third person: its own camera, Flux whole, no arm cannon.
     const cine = hud.phase === 'beamOut' && this.exit.active
     if (cine) this.frameExit(alpha, dt)
+    // The beam-in opens on Flux himself, then flies into his head.
+    const intro = hud.phase === 'beamIn'
+    if (intro) this.frameBeamIn(x, fy, z, alpha)
     if (this.debugCam) {
       const d = this.debugCam
       cam.position.set(d[0], d[1], d[2])
@@ -2791,7 +2840,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.system.sync(alpha)
 
     this.syncViewmodel(dt)
-    this.vmRoot.visible = !cine
+    this.vmRoot.visible = !cine && !(intro && this.beamPose.arm <= 0)
 
     const r = getRenderer()
     r.clear()
@@ -2801,6 +2850,40 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       r.render(this.vmScene, this.vmCamera)
     }
     tickHud(dt)
+  }
+
+  /**
+   * A frame of the beam-in (`sim/beamIn.ts`) at the render's point between
+   * two steps: Flux forming in the pad's column and landing, and the camera
+   * that frames him and then dives into his head. (x, fy, z): his feet.
+   */
+  private frameBeamIn(x: number, fy: number, z: number, alpha: number): void {
+    const v = this.exitView
+    if (!v) return
+    const t = this.beamPrevT + (this.phaseT - this.beamPrevT) * alpha
+    const o = beamInPose(t, this.beamPose)
+    const p = this.player
+    const pad = this.pad.root.position
+    const plate = Math.abs(floorAt(this.nav, pad.x, pad.z) - fy) < 0.5 ? padPlateLift(pad.x, pad.z, x, z) : 0
+    // ── Flux ──
+    const hr = v.heroRoot
+    hr.visible = o.body
+    hr.position.set(x, fy + plate + o.drop, z)
+    hr.quaternion.setFromAxisAngle(_up, p.yaw + Math.PI)
+    hr.scale.set(o.sx, o.sy, o.sx)
+    const rig = v.hero
+    if (o.drop > 0.02 || o.crouch > 0) animateHeroHop(rig, o.crouch, o.drop > 0.02 ? 0.35 * (1 - o.drop / BEAM_IN_DROP) : 0, t)
+    else animateHeroIdle(rig, t)
+    v.heroShadow.visible = o.body
+    v.heroShadow.position.set(x, fy + plate + 0.035, z)
+    v.heroShadow.scale.setScalar(Math.max(0.35, 1 - o.drop * 0.2))
+    // ── The camera ──
+    // From the floor the first-person eye stands on, so the dive ends exactly
+    // at that eye; the plate only lifts what the lens looks at.
+    const sh = this.beamCam.frame(this.cine, x, fy, z, p.yaw, p.pitch, o.dive, o.drop + plate)
+    const cam = this.camera
+    cam.position.set(sh.x, sh.y, sh.z)
+    cam.lookAt(sh.tx, sh.ty, sh.tz)
   }
 
   /**
@@ -2872,7 +2955,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const p = this.player
     const c = this.combat
     const vm = this.vmRoot
-    const beam = hud.phase === 'beamIn' ? 1 - Math.min(1, this.phaseT / BEAM_IN_TIME)
+    const beam = hud.phase === 'beamIn' ? 1 - this.beamPose.arm
       : hud.phase === 'beamOut' || hud.phase === 'dead' ? 1 : 0
     const block = c.blocking ? 1 : 0
     // Portrait screens are narrow: tuck the arm in and shrink it so it never

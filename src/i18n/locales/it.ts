@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Trascina a sinistra per muoverti, a destra per guardarti intorno. Tocca il pavimento per andarci!',
-    'moveKeys': 'WASD per muoverti.',
+    'moveKeys': '{keys} per muoverti.',
     'lookMouse': 'Muovi il mouse per guardarti intorno.',
     'capture': 'Clicca sulla scena per controllare la telecamera.',
     'fireTouch': 'Macchine in vista! Tocca per sparare — tieni premuto e rilascia per un colpo caricato.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': "Anello arancione: tieni premuto lo scudo per bloccare — premilo mentre l'anello si chiude per PARARE!",
     'blockKeys': "Anello arancione: tieni premuto il tasto destro del mouse per bloccare — premi mentre l'anello si chiude per PARARE!",
     'red': 'Anello rosso = attacco imparabile — scivola di lato!',
-    'dodgeKeys': 'Anello rosso = attacco imparabile — premi Spazio per scivolare di lato!',
+    'dodgeKeys': 'Anello rosso = attacco imparabile — premi {slide} per scivolare di lato!',
+    'spaceKey': 'Spazio',
     'chest': 'Una cassa di rifornimenti! Toccala per aprirla.',
     'tank': 'A corto di salute? Il Gel Riparatore ti rimette a nuovo.',
     'weapon': "Usa l'arma copiata con il pulsante colorato!"
@@ -183,7 +184,7 @@ export default {
     'crate': 'Le casse di rifornimenti si rompono solo con un colpo caricato. Tieni premuto e rilascia mirando alla cassa luminosa.',
     'weaponKeys': "Premi {n} per sparare con l'arma copiata: un solo colpo prende tutti e tre i droni.",
     'weaponTouch': "Tocca il pulsante luminoso dell'arma: un solo colpo prende tutti e tre i droni.",
-    'gelKeys': 'Premi H per usare un Gel Riparatore: ti ripara del tutto.',
+    'gelKeys': 'Premi {key} per usare un Gel Riparatore: ti ripara del tutto.',
     'gelTouch': 'Tocca il pulsante verde del Gel Riparatore: ti ripara del tutto.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Tutto pronto — si torna alle missioni!'
   },
   'loot': {
+    'upgrade': 'Miglioramento!',
     'found': 'Hai trovato {item} ({rarity})!',
     'tank': 'Gel Riparatore trovato!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Vicino a una cassa, un robot bloccato o una porta: toccalo, o tocca il pulsante che appare.'
     },
     'keys': {
-      'move': 'WASD / frecce: muoviti.',
+      'move': '{keys} / frecce: muoviti.',
       'look': 'Muovi il mouse per guardare. Clicca sulla scena per controllare la telecamera.',
       'fire': 'Clic sinistro: spara — tieni premuto per caricare, rilascia per sparare.',
       'block': 'Clic destro: blocca — premi mentre un anello si chiude per parare.',
-      'slide': 'Spazio: scivolata · H: Gel Riparatore · E: interagisci · B: rientra',
-      'more': '1 / 2: armi speciali · Tab: cambia bersaglio · Esc: pausa',
+      'slide': '{slide}: scivolata · {tank}: Gel Riparatore · {use}: interagisci · {beam}: rientra',
+      'more': '{w1} / {w2}: armi speciali · {target}: cambia bersaglio · Esc: pausa',
+      'space': 'Spazio',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Ancora niente per questo slot — apri casse e completa incarichi.'
   },
   'affix': {
+    'damage': '{v} danni',
     'crit': '{v} probabilità di critico',
     'critDmg': '{v} danno critico',
     'hp': '{v} salute massima',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Vibrazione',
     'on': 'Attivo',
     'off': 'Disattivo',
-    'close': 'Salva e chiudi',
+    'close': 'Chiudi',
+    'keyboard': {
+      'auto': 'Rileva layout tastiera',
+      'layout': 'Layout tastiera',
+      'detected': 'Rilevato: {layout}',
+      'bindings': 'Assegnazione tasti',
+      'press': 'Premi un tasto… (Esc per annullare)',
+      'reset': 'Ripristina tasti'
+    },
+    'actions': {
+      'forward': 'Avanti',
+      'back': 'Indietro',
+      'left': 'Laterale sinistra',
+      'right': 'Laterale destra',
+      'turnLeft': 'Ruota a sinistra',
+      'turnRight': 'Ruota a destra',
+      'slide': 'Scivolata',
+      'block': 'Parata',
+      'interact': 'Interagisci',
+      'beam': 'Teletrasporto',
+      'tank': 'Gel riparatore',
+      'weapon1': 'Arma speciale 1',
+      'weapon2': 'Arma speciale 2',
+      'weapon3': 'Arma in prestito',
+      'target': 'Cambia bersaglio',
+      'map': 'Mappa'
+    },
     'lookSensitivity': 'Sensibilità visuale',
     'difficulties': {
       'easy': 'Facile',

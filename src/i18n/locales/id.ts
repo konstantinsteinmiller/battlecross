@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': 'Geser sisi kiri untuk bergerak, sisi kanan untuk melihat. Ketuk lantai untuk berjalan ke sana!',
-    'moveKeys': 'WASD untuk bergerak.',
+    'moveKeys': '{keys} untuk bergerak.',
     'lookMouse': 'Gerakkan mouse untuk melihat sekeliling.',
     'capture': 'Klik layar permainan untuk mengendalikan kamera.',
     'fireTouch': 'Ada mesin di depan! Ketuk untuk menembak — tahan, lalu lepas untuk tembakan bermuatan.',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': 'Lingkaran oranye: tahan perisai untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
     'blockKeys': 'Lingkaran oranye: tahan tombol kanan mouse untuk memblok — tekan saat lingkarannya menutup untuk MENANGKIS!',
     'red': 'Lingkaran merah artinya tak bisa diblok — meluncurlah menghindar!',
-    'dodgeKeys': 'Lingkaran merah artinya tak bisa diblok — tekan Space untuk meluncur menghindar!',
+    'dodgeKeys': 'Lingkaran merah artinya tak bisa diblok — tekan {slide} untuk meluncur menghindar!',
+    'spaceKey': 'Space',
     'chest': 'Peti pasokan! Ketuk untuk membukanya.',
     'tank': 'Hampir habis? Gel Perbaikan memulihkanmu sepenuhnya.',
     'weapon': 'Pakai senjata salinanmu lewat tombol berwarna!'
@@ -183,7 +184,7 @@ export default {
     'crate': 'Kotak pasokan hanya pecah oleh tembakan bermuatan. Tahan, lalu lepas sambil membidik kotak yang menyala.',
     'weaponKeys': 'Tekan {n} untuk menembakkan senjata salinanmu: satu tembakan mengenai ketiga drone.',
     'weaponTouch': 'Ketuk tombol senjata yang menyala: satu tembakan mengenai ketiga drone.',
-    'gelKeys': 'Tekan H untuk memakai Gel Perbaikan: gel ini memulihkanmu sepenuhnya.',
+    'gelKeys': 'Tekan {key} untuk memakai Gel Perbaikan: gel ini memulihkanmu sepenuhnya.',
     'gelTouch': 'Ketuk tombol hijau Gel Perbaikan: gel ini memulihkanmu sepenuhnya.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': 'Semua siap — kembali ke misi!'
   },
   'loot': {
+    'upgrade': 'Peningkatan!',
     'found': '{item} {rarity} ditemukan!',
     'tank': 'Gel Perbaikan ditemukan!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': 'Di dekat peti, robot yang terjebak, atau pintu: ketuk benda itu, atau tombol yang muncul.'
     },
     'keys': {
-      'move': 'WASD / panah: bergerak.',
+      'move': '{keys} / panah: bergerak.',
       'look': 'Gerakkan mouse untuk melihat. Klik layar permainan untuk mengendalikan kamera.',
       'fire': 'Klik kiri: tembak — tahan untuk mengisi muatan, lepas untuk menembak.',
       'block': 'Klik kanan: blok — tepat saat lingkaran menutup untuk menangkis.',
-      'slide': 'Space: meluncur · H: Gel Perbaikan · E: interaksi · B: teleport keluar',
-      'more': '1 / 2: senjata spesial · Tab: ganti target · Esc: jeda',
+      'slide': '{slide}: meluncur · {tank}: Gel Perbaikan · {use}: interaksi · {beam}: teleport keluar',
+      'more': '{w1} / {w2}: senjata spesial · {target}: ganti target · Esc: jeda',
+      'space': 'Space',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': 'Belum ada untuk soket ini — buka peti dan selesaikan tugas.'
   },
   'affix': {
+    'damage': '{v} kerusakan',
     'crit': '{v} peluang kritis',
     'critDmg': '{v} kerusakan kritis',
     'hp': '{v} kesehatan maks',
@@ -444,7 +448,33 @@ export default {
     'haptics': 'Getaran',
     'on': 'Aktif',
     'off': 'Nonaktif',
-    'close': 'Simpan & Tutup',
+    'close': 'Tutup',
+    'keyboard': {
+      'auto': 'Deteksi tata letak keyboard',
+      'layout': 'Tata letak keyboard',
+      'detected': 'Terdeteksi: {layout}',
+      'bindings': 'Pengaturan tombol',
+      'press': 'Tekan tombol… (Esc untuk batal)',
+      'reset': 'Atur ulang tombol'
+    },
+    'actions': {
+      'forward': 'Maju',
+      'back': 'Mundur',
+      'left': 'Geser kiri',
+      'right': 'Geser kanan',
+      'turnLeft': 'Belok kiri',
+      'turnRight': 'Belok kanan',
+      'slide': 'Meluncur',
+      'block': 'Tangkis',
+      'interact': 'Interaksi',
+      'beam': 'Teleportasi keluar',
+      'tank': 'Gel perbaikan',
+      'weapon1': 'Senjata khusus 1',
+      'weapon2': 'Senjata khusus 2',
+      'weapon3': 'Senjata pinjaman',
+      'target': 'Ganti target',
+      'map': 'Peta'
+    },
     'lookSensitivity': 'Sensitivitas Pandang',
     'difficulties': {
       'easy': 'Mudah',

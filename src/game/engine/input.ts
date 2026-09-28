@@ -44,6 +44,8 @@
  */
 
 import { mobileCheck } from '@/utils/function'
+import { actionForCode, codesFor, type Action } from './keyBindings'
+import { observeKey } from './keyLabels'
 
 export interface Input {
   // Movement (joystick or keys), x = strafe right, y = forward. |v| ≤ 1.
@@ -263,18 +265,20 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   lockEl = surface
 
   const rect = () => surface.getBoundingClientRect()
+  /** Any key bound to the action is down (see `keyBindings.ts`). */
+  const held = (a: Action): boolean => codesFor(a).some(c => keys.has(c))
 
   const updateKeysMove = () => {
     if (input.joyActive) return
     let x = 0
     let y = 0
-    if (keys.has('KeyA')) x -= 1
-    if (keys.has('KeyD')) x += 1
-    if (keys.has('KeyW') || keys.has('ArrowUp')) y += 1
-    if (keys.has('KeyS') || keys.has('ArrowDown')) y -= 1
+    if (held('left')) x -= 1
+    if (held('right')) x += 1
+    if (held('forward')) y += 1
+    if (held('back')) y -= 1
     // ← / → TURN: the keyboard-only way to look around (a trackpad player
     // who never finds the drag still has one).
-    input.turn = (keys.has('ArrowRight') ? 1 : 0) - (keys.has('ArrowLeft') ? 1 : 0)
+    input.turn = (held('turnRight') ? 1 : 0) - (held('turnLeft') ? 1 : 0)
     const l = Math.hypot(x, y)
     input.moveX = l > 0 ? x / l : 0
     input.moveY = l > 0 ? y / l : 0
@@ -528,52 +532,50 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
     input.touched = true
     if (!touchOnly) input.device = 'mouse'
+    // Every real key teaches the layout its label (`keyLabels.ts`).
+    if (!touchOnly) observeKey(e)
     if (e.repeat && keys.has(e.code)) return
     keys.add(e.code)
     if (!e.repeat && !NOT_A_PRESS.has(e.code)) input.anyPressed = true
-    switch (e.code) {
-      case 'Space':
-      case 'KeyQ':
+    // Through the bindings (`keyBindings.ts`): physical keys, rebindable.
+    switch (actionForCode(e.code)) {
+      case 'slide':
         input.slideQueued = true
         e.preventDefault()
         break
-      case 'ShiftLeft':
-      case 'ShiftRight':
+      case 'block':
         input.blockHeld = true
         input.blockPressed = true
         break
-      case 'Digit1':
-      case 'Numpad1':
+      case 'weapon1':
         input.weaponQueued = 1
         break
-      case 'Digit2':
-      case 'Numpad2':
+      case 'weapon2':
         input.weaponQueued = 2
         break
-      case 'Digit3':
-      case 'Numpad3':
+      case 'weapon3':
         input.weaponQueued = 3
         break
-      case 'KeyH':
+      case 'tank':
         input.tankQueued = true
         break
-      case 'KeyE':
-      case 'KeyF':
+      case 'interact':
         input.interactQueued = true
         break
-      case 'KeyB':
+      case 'beam':
         input.beamQueued = true
         break
-      case 'Tab':
+      case 'target':
         input.swipe = 1
         e.preventDefault()
         break
-      case 'Escape':
-      case 'KeyP':
-        input.pauseQueued = true
-        break
-      case 'KeyM':
+      case 'map':
         input.mapQueued = true
+        break
+      case null:
+        // Esc always pauses (it also ends a mouse capture); P too, unless a
+        // rebinding gave it an action.
+        if (e.code === 'Escape' || e.code === 'KeyP') input.pauseQueued = true
         break
     }
     updateKeysMove()
@@ -581,7 +583,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
 
   const onKeyUp = (e: KeyboardEvent) => {
     keys.delete(e.code)
-    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') input.blockHeld = false
+    if (actionForCode(e.code) === 'block' && !held('block')) input.blockHeld = false
     updateKeysMove()
   }
 

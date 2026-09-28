@@ -58,6 +58,8 @@ const mountResults = async (freeOptionFirst: boolean, success = true, viewport =
   }))
   vi.doMock('@/game/state/profile', () => ({ profile: { bolts: 0 }, saveProfile: vi.fn(), lifetimeXp: () => 0 }))
   vi.doMock('@/game/models/palette', () => ({ RARITY_COLOR: {} }))
+  // The found-gear rows are not what this spec is about.
+  vi.doMock('@/components/molecules/LootCompare.vue', () => ({ default: { name: 'LootCompare', render: () => null } }))
   vi.doMock('@/game/data/weapons', () => ({ WEAPONS: {} }))
   vi.doMock('@/use/useLeaderboard', () => ({ leaderboardEnabled: false }))
   vi.doMock('@/components/molecules/RankBadge.vue', () => ({ default: { template: '<i />' } }))

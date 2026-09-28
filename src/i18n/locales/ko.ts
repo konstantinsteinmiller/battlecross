@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': '왼쪽을 드래그해 이동, 오른쪽으로 시점 조작. 바닥을 탭하면 그곳으로 걸어가요!',
-    'moveKeys': 'WASD로 이동해요.',
+    'moveKeys': '{keys}로 이동해요.',
     'lookMouse': '마우스를 움직여 주위를 둘러보세요.',
     'capture': '화면을 클릭하면 카메라를 조작할 수 있어요.',
     'fireTouch': '앞에 기계가 있어요! 탭해서 사격 — 길게 눌렀다 떼면 차지 샷!',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': '주황 링: 방패를 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
     'blockKeys': '주황 링: 마우스 오른쪽 버튼을 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
     'red': '빨간 링은 막을 수 없어요 — 슬라이딩으로 피하세요!',
-    'dodgeKeys': '빨간 링은 막을 수 없어요 — Space를 눌러 슬라이딩으로 피하세요!',
+    'dodgeKeys': '빨간 링은 막을 수 없어요 — {slide}를 눌러 슬라이딩으로 피하세요!',
+    'spaceKey': 'Space',
     'chest': '보급 상자예요! 탭해서 열어 보세요.',
     'tank': '체력이 부족해요? 수리 젤을 쓰면 완전히 회복돼요.',
     'weapon': '복사한 무기는 색깔 버튼으로 쓸 수 있어요!'
@@ -183,7 +184,7 @@ export default {
     'crate': '보급 크레이트는 차지 샷으로만 부서져요. 길게 누른 뒤, 빛나는 크레이트를 노리고 떼세요.',
     'weaponKeys': '{n} 키를 눌러 복사한 무기를 발사하세요: 한 발로 드론 세 대를 모두 맞혀요.',
     'weaponTouch': '빛나는 무기 버튼을 탭하세요: 한 발로 드론 세 대를 모두 맞혀요.',
-    'gelKeys': 'H 키를 눌러 수리 젤을 쓰세요: 완전히 회복돼요.',
+    'gelKeys': '{key} 키를 눌러 수리 젤을 쓰세요: 완전히 회복돼요.',
     'gelTouch': '초록색 수리 젤 버튼을 탭하세요: 완전히 회복돼요.'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': '준비 완료 — 미션으로 돌아가요!'
   },
   'loot': {
+    'upgrade': '업그레이드!',
     'found': '{rarity} {item} 발견!',
     'tank': '수리 젤 발견!'
   },
@@ -246,12 +248,13 @@ export default {
       'use': '상자, 고립된 로봇, 문 근처에서: 그것이나 나타나는 버튼을 탭하세요.'
     },
     'keys': {
-      'move': 'WASD / 방향키: 이동.',
+      'move': '{keys} / 방향키: 이동.',
       'look': '마우스를 움직여 둘러보기. 화면을 클릭하면 카메라를 조작합니다.',
       'fire': '좌클릭: 사격 — 길게 눌러 차지, 떼면 발사.',
       'block': '우클릭: 막기 — 링이 닫히는 순간이면 패링.',
-      'slide': 'Space: 슬라이딩 · H: 수리 젤 · E: 상호작용 · B: 귀환',
-      'more': '1 / 2: 특수 무기 · Tab: 타깃 전환 · Esc: 일시정지',
+      'slide': '{slide}: 슬라이딩 · {tank}: 수리 젤 · {use}: 상호작용 · {beam}: 귀환',
+      'more': '{w1} / {w2}: 특수 무기 · {target}: 타깃 전환 · Esc: 일시정지',
+      'space': 'Space',
       'press': '{key}: {action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': '아직 이 소켓에 맞는 장비가 없습니다 — 상자를 열고 의뢰를 완료하세요.'
   },
   'affix': {
+    'damage': '피해 {v}',
     'crit': '치명타 확률 {v}',
     'critDmg': '치명타 피해 {v}',
     'hp': '최대 체력 {v}',
@@ -444,7 +448,33 @@ export default {
     'haptics': '진동',
     'on': '켜기',
     'off': '끄기',
-    'close': '저장 후 닫기',
+    'close': '닫기',
+    'keyboard': {
+      'auto': '키보드 배열 자동 감지',
+      'layout': '키보드 배열',
+      'detected': '감지됨: {layout}',
+      'bindings': '키 설정',
+      'press': '키를 누르세요… (Esc로 취소)',
+      'reset': '키 초기화'
+    },
+    'actions': {
+      'forward': '전진',
+      'back': '후진',
+      'left': '왼쪽 이동',
+      'right': '오른쪽 이동',
+      'turnLeft': '왼쪽 회전',
+      'turnRight': '오른쪽 회전',
+      'slide': '슬라이딩',
+      'block': '막기',
+      'interact': '상호작용',
+      'beam': '귀환 전송',
+      'tank': '수리 젤',
+      'weapon1': '특수 무기 1',
+      'weapon2': '특수 무기 2',
+      'weapon3': '빌린 무기',
+      'target': '대상 전환',
+      'map': '지도'
+    },
     'lookSensitivity': '시점 감도',
     'difficulties': {
       'easy': '쉬움',

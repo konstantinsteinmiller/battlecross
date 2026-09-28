@@ -61,8 +61,8 @@ const APPROACH_TURN = [0, 0.7, -0.7, 1.4, -1.4, 2.1, -2.1]
 const DRONE_REACH = DRONE_ARM_R + DRONE_DUCT_R * 0.8
 /** The teleporter pad (`models/props.ts`): Flux stands on its plate, this
  *  high, out to this radius, and steps down off its rim. */
-const PAD_TOP = 0.32
-const PAD_R = 1.15
+export const PAD_TOP = 0.32
+export const PAD_R = 1.15
 
 export type ExitEvent = 'approach' | 'walk' | 'hop' | 'land' | 'lift' | 'finish'
 export type ExitStage = 'approach' | 'walk' | 'hop' | 'settle' | 'lift'

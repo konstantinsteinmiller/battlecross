@@ -11,7 +11,7 @@
         :key="`${h.id}-${h.family}`"
         :class="[h.id, h.family, { ok: approving[h.id], done: h.done }]"
         role="img"
-        :aria-label="t(ARIA[h.id][h.family])"
+        :aria-label="ariaOf(h)"
       )
         div.glyph-box
           InputGlyph(v-bind="glyph(h)")
@@ -27,7 +27,7 @@
         :key="`${h.id}-${h.family}`"
         :class="[h.id, h.family, { ok: approving[h.id], done: h.done }]"
         role="img"
-        :aria-label="t(ARIA[h.id][h.family])"
+        :aria-label="ariaOf(h)"
       )
         div.glyph-box
           InputGlyph(v-bind="glyph(h)")
@@ -47,6 +47,7 @@ import { hud } from '@/game/state/hud'
 import type { HintId, HintView, InputFamily } from '@/game/sim/coach'
 import InputGlyph from './InputGlyph.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { keyAriaParams } from './keyAria'
 import type { GameIconName } from '@/components/icons/iconNames'
 
 /**
@@ -92,6 +93,8 @@ const ARIA: Record<HintId, Record<InputFamily, string>> = {
   weapon: { touch: 'tips.weapon', mouse: 'tips.weapon' },
   interact: { touch: 'tips.chest', mouse: 'tips.chest' }
 }
+/** The sentence, with the keys as this keyboard and the bindings have them. */
+const ariaOf = (h: HintView): string => t(ARIA[h.id][h.family], keyAriaParams(t, 'tips.spaceKey'))
 
 type GlyphProps = InstanceType<typeof InputGlyph>['$props']
 /** One input per glyph — never "X or Y", which reads as "X + Y". */
@@ -115,7 +118,7 @@ const glyph = (h: HintView): GlyphProps => {
     // is one timed press, landing as the card's closing ring meets the mouse.
     case 'block': return { kind: 'mouse', button: 'right', hold: true }
     case 'parry': return { kind: 'mouse', button: 'right', click: true }
-    case 'slide': return { kind: 'key', wide: true }
+    case 'slide': return { kind: 'key', code: 'Space', wide: true }
     case 'tank': return { kind: 'key', code: 'KeyH' }
     case 'weapon': return { kind: 'key', code: 'Digit1' }
     case 'interact': return { kind: 'key', code: 'KeyE' }

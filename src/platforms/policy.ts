@@ -49,7 +49,7 @@ export interface PlatformPolicy {
    * modules are aliased to stubs, and the `cheat` flag no longer turns on
    * debug mode.
    *
-   * The hidden 30-tap QA interstitial (`useQaAdTrigger`) is NOT dev tooling:
+   * The hidden 20-tap QA interstitial (`useQaAdTrigger`) is NOT dev tooling:
    * it ships in every build, releases included. It is invisible, a normal
    * player never triggers it, and QA can then prove ads on the exact archive
    * that was submitted.

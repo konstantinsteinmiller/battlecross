@@ -15,7 +15,7 @@ export default {
   // upload with that id would have landed in Survivalist's Versions list, so
   // that id is refused outright even if it is pasted back in.
   // `--gates-only` (offline) needs no id.
-  gameId: null,
+  gameId: '9b504ac8-a798-4111-b0e5-a7c569fcec46',
   gameName: 'Mega Droid',
 
   build: 'pnpm build:poki',

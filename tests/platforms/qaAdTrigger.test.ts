@@ -1,4 +1,4 @@
-// The hidden QA interstitial tap: thirty taps on the coin badge inside thirty
+// The hidden QA interstitial tap: twenty taps on the screws badge inside thirty
 // seconds request an interstitial.
 //
 // Every portal paces interstitials at 121 s and only starts that clock on the
@@ -64,8 +64,11 @@ afterEach(() => {
 })
 
 describe('the hidden QA ad trigger', () => {
-  it('stays shut for twenty-nine taps and opens on the thirtieth', async () => {
+  it('stays shut for nineteen taps and opens on the twentieth', async () => {
     const mod = await load()
+    // The numbers QA is told: twenty taps, inside thirty seconds.
+    expect(mod.QA_AD_TAPS).toBe(20)
+    expect(mod.QA_AD_WINDOW_MS).toBe(30_000)
     tap(mod, mod.QA_AD_TAPS - 1, 1000)
     expect(showMidgameAd).not.toHaveBeenCalled()
 
@@ -84,7 +87,7 @@ describe('the hidden QA ad trigger', () => {
 
   it('rolls the window rather than restarting it, so a slow start still opens', async () => {
     const mod = await load()
-    // Ten taps, then a long pause that ages exactly those out, then thirty more
+    // Ten taps, then a long pause that ages exactly those out, then twenty more
     // spread across the window. The burst that lands inside the window is a
     // full one and must fire.
     const after = tap(mod, 10, 1000, 200)
@@ -159,7 +162,7 @@ describe('the hidden QA ad trigger', () => {
     expect(showMidgameAd).not.toHaveBeenCalled()
   })
 
-  it('needs a fresh thirty after every ad', async () => {
+  it('needs a fresh twenty after every ad', async () => {
     const mod = await load()
     tap(mod, mod.QA_AD_TAPS, 1000)
     await settle()

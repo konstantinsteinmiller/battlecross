@@ -37,7 +37,9 @@ onMounted(() => {
       flash.value.style.opacity = String(screenFx.flash)
       flash.value.style.background = screenFx.flashColor
     }
-    if (beam.value) beam.value.style.opacity = hud.phase === 'beamIn' ? '0.35' : '0'
+    // The white-out rides the camera's dive into Flux's head, not the shot of
+    // him arriving (`sim/beamIn.ts`): it is his view materialising.
+    if (beam.value) beam.value.style.opacity = hud.phase === 'beamIn' && !hud.introCine ? '0.35' : '0'
   })
 })
 onUnmounted(() => off?.())

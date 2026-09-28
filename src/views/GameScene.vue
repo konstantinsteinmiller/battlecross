@@ -2,7 +2,7 @@
   div.scene-root
     div.canvas-host(ref="canvasHost")
     div.input-surface(v-show="flow.screen === 'mission'" ref="surface")
-    div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' }")
+    div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' || hud.introCine }")
       ScreenFx
       DamageMarkers
       FloatingText
@@ -13,6 +13,7 @@
       TargetFrame(v-if="!hud.bossName")
       BossBar
       TitleCard
+      LootCard
       ControlHints
       LessonLayer
       DoorPrompt
@@ -53,6 +54,7 @@ import { toggleGameMute } from '@/use/useGameMute'
 import { armNavigationGuard, disarmNavigationGuard } from '@/use/useBrowserGuard'
 import { registerGameCheats } from '@/game/cheats'
 import Joystick from '@/components/hud/Joystick.vue'
+import LootCard from '@/components/hud/LootCard.vue'
 import HudBars from '@/components/hud/HudBars.vue'
 import Crosshair from '@/components/hud/Crosshair.vue'
 import TargetFrame from '@/components/hud/TargetFrame.vue'
@@ -252,7 +254,8 @@ onUnmounted(() => {
   --joy-home-x: 104px
   --joy-home-y: max(104px, 13vh)
   transition: opacity 0.35s, visibility 0s linear 0s
-  // The exit cutscene (phase `beamOut`) is a film: the whole HUD fades away,
+  // The exit cutscene (phase `beamOut`) and the beam-in's opening shot of
+  // Flux (`hud.introCine`) are film: the whole HUD fades away,
   // and hidden it takes no taps either, so any press reaches the scene (the
   // skip). The banner and the skip glyph live outside this layer.
   &.cine

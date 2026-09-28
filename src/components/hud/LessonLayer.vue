@@ -13,7 +13,7 @@
     div.card(
       ref="cardEl"
       role="img"
-      :aria-label="t(aria, { n: lesson.slot })"
+      :aria-label="ariaText"
       :class="{ nudge: nudging }"
     )
       template(v-if="!lesson.done")
@@ -61,6 +61,7 @@ import InputGlyph from './InputGlyph.vue'
 import ChargeDemo from './ChargeDemo.vue'
 import { DEMO_ANCHOR, DEMO_CLIP } from './glyphGeometry'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { spokenKey } from './keyAria'
 
 /**
  * The scene lessons' glyphs (see `game/sim/lessons.ts`). No words: the glyph
@@ -101,6 +102,12 @@ const aria = computed(() => {
   if (l.id === 'weapon') return hud.device === 'touch' ? 'lesson.weaponTouch' : 'lesson.weaponKeys'
   if (l.id === 'gel') return hud.device === 'touch' ? 'lesson.gelTouch' : 'lesson.gelKeys'
   return `lesson.${l.id}`
+})
+/** Keys spoken as this keyboard and the bindings have them (`keyAria.ts`). */
+const ariaText = computed(() => {
+  const slot = hud.lesson?.slot ?? 1
+  const n = hud.device === 'touch' ? slot : spokenKey(t, `Digit${slot}`)
+  return t(aria.value, { n, key: spokenKey(t, 'KeyH') })
 })
 
 // ── "Not like that": a shake and a red cross on each wrong try ──

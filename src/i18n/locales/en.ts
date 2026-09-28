@@ -180,7 +180,7 @@ export default {
   // (ControlHints, ControlsPanel). Never drawn on screen.
   'tips': {
     'moveTouch': 'Drag the left side to move, the right side to look. Tap the floor to walk there!',
-    'moveKeys': 'WASD to move around.',
+    'moveKeys': '{keys} to move around.',
     'lookMouse': 'Move the mouse to look around.',
     'capture': 'Click the scene to take control of the camera.',
     'fireTouch': 'Machines ahead! Tap to shoot — hold, then release for a charge shot.',
@@ -189,7 +189,10 @@ export default {
     'blockTouch': 'Orange ring: hold the shield to block — press it as the ring closes to PARRY!',
     'blockKeys': 'Orange ring: hold the right mouse button to block — press it as the ring closes to PARRY!',
     'red': 'Red ring means unblockable — slide out of the way!',
-    'dodgeKeys': 'Red ring means unblockable — press Space to slide out of the way!',
+    'dodgeKeys': 'Red ring means unblockable — press {slide} to slide out of the way!',
+    // The slide key as the sentence above speaks it (inflected where the
+    // language needs it); a rebound key is spoken by its letter instead.
+    'spaceKey': 'Space',
     'chest': 'A supply chest! Tap it to open.',
     'tank': 'Running low? Repair Gel fixes you up completely.',
     'weapon': 'Use your copied weapon from the colored button!'
@@ -200,7 +203,7 @@ export default {
     'crate': 'Supply crates only break to a charged shot. Hold, then let go at the glowing crate.',
     'weaponKeys': 'Press {n} to fire your copied weapon: one shot takes all three drones.',
     'weaponTouch': 'Tap the glowing weapon button: one shot takes all three drones.',
-    'gelKeys': 'Press H to use a Repair Gel: it repairs you completely.',
+    'gelKeys': 'Press {key} to use a Repair Gel: it repairs you completely.',
     'gelTouch': 'Tap the green Repair Gel button: it repairs you completely.'
   },
   // The one line of the tutorial walk: shown at a door held shut until
@@ -217,6 +220,8 @@ export default {
     'deploy': 'All set — back to the missions!'
   },
   'loot': {
+    // The loot card's badge when a find beats what is equipped.
+    'upgrade': 'Upgrade!',
     'found': '{rarity} {item} found!',
     'tank': 'Repair Gel found!'
   },
@@ -274,12 +279,14 @@ export default {
       'use': 'Near a chest, a stranded bot or a door: tap it, or the button that pops up.'
     },
     'keys': {
-      'move': 'WASD / arrows: move.',
+      'move': '{keys} / arrows: move.',
       'look': 'Move the mouse to look. Click the scene to take control of the camera.',
       'fire': 'Left click: shoot — hold to charge, release to fire.',
       'block': 'Right click: block — just as a ring closes to parry.',
-      'slide': 'Space: slide · H: Repair Gel · E: interact · B: beam out',
-      'more': '1 / 2: special weapons · Tab: switch target · Esc: pause',
+      'slide': '{slide}: slide · {tank}: Repair Gel · {use}: interact · {beam}: beam out',
+      'more': '{w1} / {w2}: special weapons · {target}: switch target · Esc: pause',
+      // The space bar's name, spoken where the slide key is still Space.
+      'space': 'Space',
       // A one-key row, read aloud: "H: Repair Gel". `{key}` is the key's
       // letter on this keyboard, `{action}` the row's visible label.
       'press': '{key}: {action}'
@@ -446,6 +453,8 @@ export default {
   },
   // `{v}` arrives already signed and formatted ("+12", "+4.5%").
   'affix': {
+    // The main stat of an arm cannon, as a signed change (the loot card).
+    'damage': '{v} damage',
     'crit': '{v} critical chance',
     'critDmg': '{v} critical damage',
     'hp': '{v} max health',
@@ -486,7 +495,34 @@ export default {
     'haptics': 'Vibration',
     'on': 'On',
     'off': 'Off',
-    'close': 'Save & Close',
+    'close': 'Close',
+    // Options → Controls (desktop): keyboard layout and key rebinding.
+    'keyboard': {
+      'auto': 'Detect keyboard layout',
+      'layout': 'Keyboard layout',
+      'detected': 'Detected: {layout}',
+      'bindings': 'Key bindings',
+      'press': 'Press a key… (Esc to cancel)',
+      'reset': 'Reset keys'
+    },
+    'actions': {
+      'forward': 'Move forward',
+      'back': 'Move back',
+      'left': 'Strafe left',
+      'right': 'Strafe right',
+      'turnLeft': 'Turn left',
+      'turnRight': 'Turn right',
+      'slide': 'Slide',
+      'block': 'Block',
+      'interact': 'Interact',
+      'beam': 'Beam out',
+      'tank': 'Repair Gel',
+      'weapon1': 'Special weapon 1',
+      'weapon2': 'Special weapon 2',
+      'weapon3': 'Borrowed weapon',
+      'target': 'Switch target',
+      'map': 'Map'
+    },
     'lookSensitivity': 'Look Sensitivity',
     'difficulties': {
       'easy': 'Easy',

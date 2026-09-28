@@ -164,7 +164,7 @@ export default {
   },
   'tips': {
     'moveTouch': '拖动左侧移动，拖动右侧转视角。点击地面即可走过去！',
-    'moveKeys': '用WASD四处移动。',
+    'moveKeys': '用{keys}四处移动。',
     'lookMouse': '移动鼠标环顾四周。',
     'capture': '点击画面即可控制镜头。',
     'fireTouch': '前方有机械！点击射击——按住再松开可发射蓄力弹。',
@@ -173,7 +173,8 @@ export default {
     'blockTouch': '橙色光圈：按住护盾格挡——在光圈收拢瞬间按下即可弹反！',
     'blockKeys': '橙色光圈：按住鼠标右键格挡——在光圈收拢瞬间按下即可弹反！',
     'red': '红色光圈无法格挡——快滑铲躲开！',
-    'dodgeKeys': '红色光圈无法格挡——按Space滑铲躲开！',
+    'dodgeKeys': '红色光圈无法格挡——按{slide}滑铲躲开！',
+    'spaceKey': 'Space',
     'chest': '补给箱！点击打开。',
     'tank': '快撑不住了？修理凝胶能让你完全恢复。',
     'weapon': '用彩色按钮发射你复制来的武器！'
@@ -183,7 +184,7 @@ export default {
     'crate': '补给木箱只有蓄力弹才能打碎。按住，然后对准发光的木箱松开。',
     'weaponKeys': '按{n}发射复制来的武器：一发就能命中全部三架无人机。',
     'weaponTouch': '点击发光的武器按钮：一发就能命中全部三架无人机。',
-    'gelKeys': '按 H 使用修理凝胶：让你完全恢复。',
+    'gelKeys': '按 {key} 使用修理凝胶：让你完全恢复。',
     'gelTouch': '点击绿色的修理凝胶按钮：让你完全恢复。'
   },
   'walk': {
@@ -197,6 +198,7 @@ export default {
     'deploy': '一切就绪——回到任务吧！'
   },
   'loot': {
+    'upgrade': '升级！',
     'found': '发现{item}（{rarity}）！',
     'tank': '发现修理凝胶！'
   },
@@ -246,12 +248,13 @@ export default {
       'use': '靠近箱子、被困的机器人或门时：点击它，或点击弹出的按钮。'
     },
     'keys': {
-      'move': 'WASD / 方向键：移动。',
+      'move': '{keys} / 方向键：移动。',
       'look': '移动鼠标环顾四周。点击画面即可控制镜头。',
       'fire': '左键：射击——按住蓄力，松开发射。',
       'block': '右键：格挡——在光圈收拢瞬间按下即可弹反。',
-      'slide': 'Space：滑铲 · H：修理凝胶 · E：互动 · B：传送撤离',
-      'more': '1 / 2：特殊武器 · Tab：切换目标 · Esc：暂停',
+      'slide': '{slide}：滑铲 · {tank}：修理凝胶 · {use}：互动 · {beam}：传送撤离',
+      'more': '{w1} / {w2}：特殊武器 · {target}：切换目标 · Esc：暂停',
+      'space': 'Space',
       'press': '{key}：{action}'
     }
   },
@@ -404,6 +407,7 @@ export default {
     'emptySlot': '此插槽暂无装备——去开补给箱或完成委托吧。'
   },
   'affix': {
+    'damage': '伤害 {v}',
     'crit': '暴击率 {v}',
     'critDmg': '暴击伤害 {v}',
     'hp': '最大生命值 {v}',
@@ -444,7 +448,33 @@ export default {
     'haptics': '震动',
     'on': '开',
     'off': '关',
-    'close': '保存并关闭',
+    'close': '关闭',
+    'keyboard': {
+      'auto': '自动检测键盘布局',
+      'layout': '键盘布局',
+      'detected': '已检测：{layout}',
+      'bindings': '按键绑定',
+      'press': '请按一个键…（Esc 取消）',
+      'reset': '重置按键'
+    },
+    'actions': {
+      'forward': '前进',
+      'back': '后退',
+      'left': '向左平移',
+      'right': '向右平移',
+      'turnLeft': '向左转',
+      'turnRight': '向右转',
+      'slide': '滑铲',
+      'block': '格挡',
+      'interact': '互动',
+      'beam': '传送离开',
+      'tank': '修复凝胶',
+      'weapon1': '特殊武器 1',
+      'weapon2': '特殊武器 2',
+      'weapon3': '借用武器',
+      'target': '切换目标',
+      'map': '地图'
+    },
     'lookSensitivity': '视角灵敏度',
     'difficulties': {
       'easy': '简单',
