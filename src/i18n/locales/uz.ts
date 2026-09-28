@@ -19,7 +19,8 @@ export default {
     'pause': 'Pauza',
     'menu': 'Menyu',
     'home': 'Bosh sahifa',
-    'info': 'Maʼlumot'
+    'info': 'Maʼlumot',
+    'skip': 'Oʻtkazib yuborish'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} tajriba',
     'lastStand': 'Soʻnggi marra! Tizimlar qayta ishga tushdi.',
     'weak': 'ZAIF!',
+    'kranck': 'KRANCK!',
     'dizzy': 'GANGIDI!',
     'dodge': 'CHETLANDI!',
     'block': 'Blok',
@@ -449,6 +451,7 @@ export default {
     'on': 'Yoqilgan',
     'off': 'Oʻchirilgan',
     'close': 'Yopish',
+    'replayIntro': 'Introni qayta koʻrish',
     'keyboard': {
       'auto': 'Klaviatura tartibini aniqlash',
       'layout': 'Klaviatura tartibi',
@@ -522,5 +525,65 @@ export default {
     'yourRank': '{total} oʻyinchidan #{n} oʻrindasiz',
     'of': '/ {n} oʻyinchi',
     'tabGlobal': 'Jahon'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux Ampere Valley neon koʻchalarida isyonkor mashinalarga qarshi jang qiladi.',
+      'valley': 'Ampere Valley — nur tolalari bilan bogʻlangan yorqin androidlar shahri. Dr. Vex qizil signal bilan uning mashinalarini egallab oladi.',
+      'lab': 'Signal Prof. Gauss laboratoriyasiga yetib boradi. U Fluxga Atlas diskini beradi va uni uygʻotadi.',
+      'safeMode': 'Gauss signalni kiritmaslik uchun oʻzini kapsulada muzlatadi. U hali tirik.',
+      'wakeUp': 'Flux 1-darajada uygʻonadi, Atlas onlayn. Vex qalʼasi ancha kuchli, shuning uchun avval Chiqindixona.',
+      'beam': 'Flux Chiqindixonaga teleportatsiya qilinadi.'
+    },
+    'vex': {
+      'diagnosis': 'Tashxis: bu vodiy KASAL. Davosi… MEN!'
+    },
+    'atlas': {
+      'logStart': 'Jurnal boshlandi.',
+      'goodMorning': 'Yadro onlayn. Xayrli tong, Flux.',
+      'scrapyardFirst': 'Avval Chiqindixona. Releylarni birma-bir.'
+    }
+  },
+  'atlas': {
+    'landed': 'Qoʻndik! Ketdik.',
+    'brief': {
+      'tutorial': 'Mashgʻulot vaqti. Men yoʻl koʻrsataman!',
+      'job': 'Tezkor ish. Kirdik-chiqdik!',
+      'climb': 'Minoraga chiqish! Yuqoriga, yuqoriga!',
+      'story': 'Yadro ustasi kutmoqda. Uni ozod qilamiz!'
+    },
+    'story': {
+      'scrapyard': 'Chiqindixona releyi. Yoq uni!',
+      'blaze': 'Zavod. Issiq, issiq, issiq!',
+      'cryo': 'Krio zavodi. Brr! Toʻxtama.',
+      'volt': 'Volt minorasi. Sxemalarim jimirlayapti!',
+      'gale': 'Osmon doklari. Pastga qarama!',
+      'fortress': 'Qalʼa. Buni tugatamiz.'
+    },
+    'arc': {
+      '1': 'Bitta rele yondi. Toʻrttasi qoldi!',
+      '2': 'Ikkita rele! Vex arazlayapti.',
+      '3': 'Yarim yoʻl. Porlashda davom et!',
+      '4': 'Bitta usta qoldi. Oz qoldi!',
+      '5': 'Qalqon tushdi. Endi Vex!'
+    },
+    'bossAhead': 'Oldinda boss. Chuqur nafas ol!',
+    'bossDown': 'Usta ozod! Barakalla!',
+    'vexDown': 'Vex yengildi. Uddaladik!',
+    'lowHp': 'Voy! Ehtiyot boʻl, Flux!',
+    'lowHpGel': 'Sogʻliq kam! Taʼmir gelini ishlat.',
+    'lowWe': 'Qurol energiyasi kam!',
+    'trap': 'Oldinda tuzoq. Vaqtini poyla!',
+    'plate': 'Bosim plitasi. Oyoq uchida!',
+    'objective': 'Tayyor! Endi chiqishni top.',
+    'exit': 'Transportimiz keldi!',
+    'levelUp': 'Yangi daraja! Porlab turibsan.',
+    'idle': {
+      '1': 'Bip. Shunchaki holingni soʻrayapman.',
+      '2': 'Zoʻr ketyapsan.',
+      '3': 'Gauss faxrlanardi.',
+      '4': 'Jamoamiz menga yoqadi.'
+    }
   }
 }

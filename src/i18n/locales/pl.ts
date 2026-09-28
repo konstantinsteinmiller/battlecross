@@ -19,7 +19,8 @@ export default {
     'pause': 'Pauza',
     'menu': 'Menu',
     'home': 'Ekran główny',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Pomiń'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Ostatni bastion! Systemy zrestartowane.',
     'weak': 'SŁABOŚĆ!',
+    'kranck': 'KRANCK!',
     'dizzy': 'OSZOŁOMIONY!',
     'dodge': 'UNIK!',
     'block': 'Blok',
@@ -449,6 +451,7 @@ export default {
     'on': 'Wł.',
     'off': 'Wył.',
     'close': 'Zamknij',
+    'replayIntro': 'Odtwórz intro ponownie',
     'keyboard': {
       'auto': 'Wykrywaj układ klawiatury',
       'layout': 'Układ klawiatury',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Jesteś #{n} z {total}',
     'of': 'z {n} graczy',
     'tabGlobal': 'Światowy'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux walczy ze zbuntowanymi maszynami na neonowych ulicach Ampere Valley.',
+      'valley': 'Ampere Valley: jasne miasto androidów, połączone wiązkami światła. Dr. Vex przejmuje jego maszyny czerwonym sygnałem.',
+      'lab': 'Sygnał dociera do laboratorium Prof. Gauss. Zdążyła jeszcze dać Fluxowi dysk Atlas i go obudzić.',
+      'safeMode': 'Gauss zamroziła się w kapsule, by odciąć sygnał. Wciąż żyje.',
+      'wakeUp': 'Flux budzi się na poziomie 1, z aktywnym Atlasem. Twierdza Vex jest o wiele silniejsza, więc najpierw Złomowisko.',
+      'beam': 'Flux teleportuje się na Złomowisko.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnoza: ta dolina jest CHORA. Lekarstwem… jestem JA!'
+    },
+    'atlas': {
+      'logStart': 'Początek dziennika.',
+      'goodMorning': 'Rdzeń aktywny. Dzień dobry, Flux.',
+      'scrapyardFirst': 'Najpierw Złomowisko. Jeden przekaźnik naraz.'
+    }
+  },
+  'atlas': {
+    'landed': 'Lądowanie! Ruszamy.',
+    'brief': {
+      'tutorial': 'Czas na trening. Poprowadzę cię!',
+      'job': 'Szybka robota. Wejść i wyjść!',
+      'climb': 'Wspinaczka! W górę, w górę!',
+      'story': 'Czeka Mistrz Rdzenia. Uwolnijmy go!'
+    },
+    'story': {
+      'scrapyard': 'Przekaźnik na Złomowisku. Rozświetl go!',
+      'blaze': 'Rafineria. Gorąco, gorąco!',
+      'cryo': 'Kriofabryka. Brr! Nie stój w miejscu.',
+      'volt': 'Wieża Napięcia. Obwody mnie łaskoczą!',
+      'gale': 'Podniebne Doki. Nie patrz w dół!',
+      'fortress': 'Twierdza. Kończymy z tym.'
+    },
+    'arc': {
+      '1': 'Jeden przekaźnik świeci. Zostały cztery!',
+      '2': 'Dwa przekaźniki! Vex się dąsa.',
+      '3': 'Połowa drogi. Świeć dalej!',
+      '4': 'Został jeden Mistrz. Prawie!',
+      '5': 'Tarcza padła. Teraz Vex!'
+    },
+    'bossAhead': 'Boss przed nami. Weź głęboki oddech!',
+    'bossDown': 'Mistrz uwolniony! Świetna robota!',
+    'vexDown': 'Vex pokonany. Udało się!',
+    'lowHp': 'Au! Ostrożnie, Flux!',
+    'lowHpGel': 'Mało zdrowia! Użyj żelu naprawczego.',
+    'lowWe': 'Mało energii broni!',
+    'trap': 'Pułapka przed nami. Uważaj na timing!',
+    'plate': 'Płyta naciskowa. Na paluszkach!',
+    'objective': 'Gotowe! Teraz znajdź wyjście.',
+    'exit': 'Transport już jest!',
+    'levelUp': 'Nowy poziom! Aż błyszczysz.',
+    'idle': {
+      '1': 'Pip. Tylko sprawdzam.',
+      '2': 'Świetnie ci idzie.',
+      '3': 'Gauss byłaby dumna.',
+      '4': 'Lubię naszą drużynę.'
+    }
   }
 }

@@ -19,7 +19,8 @@ export default {
     'pause': 'Pausa',
     'menu': 'Menu',
     'home': 'Início',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Pular'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Última Resistência! Sistemas reiniciados.',
     'weak': 'FRACO!',
+    'kranck': 'KRANCK!',
     'dizzy': 'TONTO!',
     'dodge': 'ESQUIVA!',
     'block': 'Bloquear',
@@ -449,6 +451,7 @@ export default {
     'on': 'Ligado',
     'off': 'Desligado',
     'close': 'Fechar',
+    'replayIntro': 'Rever intro',
     'keyboard': {
       'auto': 'Detectar layout do teclado',
       'layout': 'Layout do teclado',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Você é #{n} de {total}',
     'of': 'de {n} jogadores',
     'tabGlobal': 'Global'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux enfrenta máquinas rebeldes nas ruas de neon de Ampere Valley.',
+      'valley': 'Ampere Valley: uma cidade brilhante de androides, ligada por feixes de luz. Dr. Vex toma o controle de suas máquinas com um sinal vermelho.',
+      'lab': 'O sinal chega ao laboratório da Prof.ª Gauss. Ela entrega a Flux o disco Atlas e o desperta.',
+      'safeMode': 'Gauss se congela em uma cápsula para bloquear o sinal. Ela ainda está viva.',
+      'wakeUp': 'Flux desperta no nível 1, com Atlas online. A Fortaleza Vex é muito mais forte, então o Ferro-Velho vem primeiro.',
+      'beam': 'Flux se teletransporta para o Ferro-Velho.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnóstico: este vale está DOENTE. A cura… sou EU!'
+    },
+    'atlas': {
+      'logStart': 'Início do registro.',
+      'goodMorning': 'Núcleo online. Bom dia, Flux.',
+      'scrapyardFirst': 'Primeiro o Ferro-Velho. Um relé de cada vez.'
+    }
+  },
+  'atlas': {
+    'landed': 'Pousamos! Vamos lá.',
+    'brief': {
+      'tutorial': 'Hora do treino. Eu te guio!',
+      'job': 'Servicinho rápido. Entra e sai!',
+      'climb': 'Subida na torre! Sobe, sobe!',
+      'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
+    },
+    'story': {
+      'scrapyard': 'Relé do Ferro-Velho. Bora acender!',
+      'blaze': 'A Refinaria. Quente, quente, quente!',
+      'cryo': 'Usina Crio. Brr! Não fica parado.',
+      'volt': 'Torre Volt. Meus circuitos formigam!',
+      'gale': 'Docas Celestes. Não olha pra baixo!',
+      'fortress': 'A Fortaleza. Vamos acabar com isso.'
+    },
+    'arc': {
+      '1': 'Um relé aceso. Faltam quatro!',
+      '2': 'Dois relés! Vex tá emburrado.',
+      '3': 'Metade do caminho. Continua brilhando!',
+      '4': 'Falta um Mestre. Quase lá!',
+      '5': 'Escudo caiu. Agora é o Vex!'
+    },
+    'bossAhead': 'Chefe à frente. Respira fundo!',
+    'bossDown': 'Mestre libertado! Mandou bem!',
+    'vexDown': 'Vex caiu. Conseguimos!',
+    'lowHp': 'Ai! Cuidado, Flux!',
+    'lowHpGel': 'Vida baixa! Usa um Gel de Reparo.',
+    'lowWe': 'Energia da arma baixa!',
+    'trap': 'Armadilha à frente. Olho no tempo!',
+    'plate': 'Placa de pressão. Na ponta dos pés!',
+    'objective': 'Feito! Agora acha a saída.',
+    'exit': 'Nossa carona chegou!',
+    'levelUp': 'Subiu de nível! Tá brilhando.',
+    'idle': {
+      '1': 'Bip. Só passando pra ver.',
+      '2': 'Você tá indo muito bem.',
+      '3': 'A Gauss ficaria orgulhosa.',
+      '4': 'Adoro nossa equipe.'
+    }
   }
 }

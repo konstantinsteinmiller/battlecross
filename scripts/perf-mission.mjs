@@ -84,6 +84,11 @@ const runOnce = async (arm) => {
     if (!/Mega Droid/i.test(title)) throw new Error(`wrong app on the port (title "${title}")`)
 
     // Boot and beam in, unthrottled: loading is not what this measures.
+    // A fresh profile opens on the intro cutscene: skip it like a player.
+    {
+      const first = await page.waitForSelector('.cutscene-skip, .hud-layer', { timeout: 30000 })
+      if (await first.evaluate(el => el.classList.contains('cutscene-skip'))) await first.click()
+    }
     await page.waitForSelector('.hud-layer', { timeout: 30000 })
     await sleep(7000)
     const cdp = await page.context().newCDPSession(page)

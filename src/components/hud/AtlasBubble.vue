@@ -1,0 +1,117 @@
+<template lang="pug">
+  div.atlas-say(aria-live="polite")
+    div.bubble(v-if="hud.atlasKey" ref="el" :key="hud.atlasSeq" :class="{ docked }")
+      span.glyph(aria-hidden="true")
+      span.text {{ t(hud.atlasKey) }}
+</template>
+
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { hud, hudLive, addHudTicker } from '@/game/state/hud'
+import { setAtlasTextLookup } from '@/game/sim/atlas'
+
+/**
+ * Atlas's speech bubble (`sim/atlas.ts`): its line in a small cyan-edged
+ * bubble beside Atlas's model — tail pointing at it — while the model is in
+ * view (it flies into the top left of the view to speak), docked in the top
+ * left with Atlas's ring glyph when it is not. The line is also read to
+ * screen readers. It lives outside the HUD layer, so it stays up through the
+ * beam-in and the exit, when the rest of the HUD is away.
+ *
+ * Positioned from the HUD ticker (the game loop's clock), like the other
+ * per-frame HUD pieces.
+ */
+const { t } = useI18n()
+const el = ref<HTMLElement | null>(null)
+const docked = ref(true)
+let off: (() => void) | null = null
+
+onMounted(() => {
+  // The director times a line without a voice by the length of its text.
+  setAtlasTextLookup((key) => t(key))
+  off = addHudTicker(() => {
+    const b = el.value
+    if (!b) return
+    const w = window.innerWidth
+    const h = window.innerHeight
+    const inView = hudLive.atlasIn
+    if (docked.value === inView) docked.value = !inView
+    // Beside Atlas (to its right), or docked below the top-left status.
+    const ax = inView ? hudLive.atlasX * w + Math.min(w, h) * 0.085 : Math.max(16, w * 0.02)
+    const ay = inView ? hudLive.atlasY * h - b.offsetHeight / 2 : Math.max(96, h * 0.2)
+    const x = Math.min(Math.max(8, ax), w - b.offsetWidth - 8)
+    const y = Math.min(Math.max(8, ay), h - b.offsetHeight - 8)
+    b.style.transform = `translate3d(${x.toFixed(0)}px, ${y.toFixed(0)}px, 0)`
+  })
+})
+onUnmounted(() => {
+  off?.()
+  setAtlasTextLookup(null)
+})
+</script>
+
+<style scoped lang="sass">
+.atlas-say
+  position: absolute
+  inset: 0
+  pointer-events: none
+  z-index: 3
+.bubble
+  position: absolute
+  left: 0
+  top: 0
+  display: flex
+  align-items: center
+  gap: 0.45em
+  max-width: min(58vw, 300px)
+  padding: 0.38em 0.8em 0.42em 0.55em
+  background: #ffffff
+  color: #141a33
+  border: 3px solid #141a33
+  border-radius: 1.1em
+  box-shadow: 0 0 0 2px #6ff2ff, 0 4px 0 rgba(20, 26, 51, 0.4)
+  font-family: var(--font-ui)
+  font-size: clamp(12px, 2.6vmin, 18px)
+  line-height: 1.15
+  will-change: transform
+  // The tail, toward Atlas on the left.
+  &::before
+    content: ''
+    position: absolute
+    left: -10px
+    top: 50%
+    width: 12px
+    height: 12px
+    margin-top: -6px
+    background: #ffffff
+    border-left: 3px solid #141a33
+    border-bottom: 3px solid #141a33
+    transform: rotate(45deg)
+  &.docked::before
+    display: none
+.text
+  display: inline-block
+  animation: atlas-pop 0.3s cubic-bezier(0.2, 1.5, 0.45, 1) both
+  overflow-wrap: anywhere
+// Atlas's ring glyph: shown when the bubble is docked (Atlas not in view).
+.glyph
+  display: none
+  flex: none
+  width: 1.1em
+  height: 1.1em
+  border-radius: 50%
+  border: 2px solid #20b8d0
+  border-top-color: transparent
+  .docked &
+    display: block
+@keyframes atlas-pop
+  0%
+    transform: scale(0.3)
+    opacity: 0
+  60%
+    transform: scale(1.1)
+    opacity: 1
+  100%
+    transform: scale(1)
+</style>

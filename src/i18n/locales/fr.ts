@@ -19,7 +19,8 @@ export default {
     'pause': 'Pause',
     'menu': 'Menu',
     'home': 'Accueil',
-    'info': 'Infos'
+    'info': 'Infos',
+    'skip': 'Passer'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Dernier rempart ! Systèmes redémarrés.',
     'weak': 'FAIBLESSE !',
+    'kranck': 'KRANCK!',
     'dizzy': 'SONNÉ !',
     'dodge': 'ESQUIVE !',
     'block': 'Bloquer',
@@ -449,6 +451,7 @@ export default {
     'on': 'Activé',
     'off': 'Désactivé',
     'close': 'Fermer',
+    'replayIntro': "Revoir l'intro",
     'keyboard': {
       'auto': 'Détecter la disposition du clavier',
       'layout': 'Disposition du clavier',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Tu es #{n} sur {total}',
     'of': 'sur {n} joueurs',
     'tabGlobal': 'Mondial'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': "Flux combat des machines rebelles dans les rues néon d'Ampere Valley.",
+      'valley': "Ampere Valley : une ville d'androïdes lumineuse, reliée par des faisceaux de lumière. Dr. Vex prend le contrôle de ses machines avec un signal rouge.",
+      'lab': 'Le signal atteint le laboratoire de la Prof. Gauss. Elle confie à Flux le disque Atlas et le réveille.',
+      'safeMode': 'Gauss se cryogénise dans une capsule pour bloquer le signal. Elle est toujours en vie.',
+      'wakeUp': 'Flux se réveille au niveau 1, avec Atlas en ligne. La Forteresse de Vex est bien plus puissante : on commence par la Casse.',
+      'beam': 'Flux se téléporte vers la Casse.'
+    },
+    'vex': {
+      'diagnosis': "Diagnostic : cette vallée est MALADE. Le remède… c'est MOI !"
+    },
+    'atlas': {
+      'logStart': 'Début du journal.',
+      'goodMorning': 'Noyau en ligne. Bonjour, Flux.',
+      'scrapyardFirst': "La Casse d'abord. Un relais à la fois."
+    }
+  },
+  'atlas': {
+    'landed': 'Atterrissage ! On y va.',
+    'brief': {
+      'tutorial': 'Entraînement ! Je te guide.',
+      'job': 'Petite mission. On entre, on sort !',
+      'climb': 'Course à la tour ! Monte, monte !',
+      'story': 'Un Maître du Noyau attend. Libérons-le !'
+    },
+    'story': {
+      'scrapyard': 'Relais de la Casse. Allume-le !',
+      'blaze': 'La Raffinerie. Chaud, chaud, chaud !',
+      'cryo': 'Usine Cryo. Brr ! Continue de bouger.',
+      'volt': 'Tour Volt. Mes circuits picotent !',
+      'gale': 'Docks célestes. Ne regarde pas en bas !',
+      'fortress': 'La Forteresse. On en finit.'
+    },
+    'arc': {
+      '1': 'Un relais allumé. Plus que quatre !',
+      '2': 'Deux relais ! Vex boude.',
+      '3': 'À mi-chemin. Continue de briller !',
+      '4': "Plus qu'un Maître. Presque !",
+      '5': 'Bouclier tombé. À Vex, maintenant !'
+    },
+    'bossAhead': 'Boss en vue. Respire à fond !',
+    'bossDown': 'Maître libéré ! Bien joué !',
+    'vexDown': 'Vex est vaincu. On a réussi !',
+    'lowHp': 'Aïe ! Attention, Flux !',
+    'lowHpGel': 'Santé faible ! Prends un gel réparateur.',
+    'lowWe': "Énergie d'arme faible !",
+    'trap': 'Piège devant. Attention au timing !',
+    'plate': 'Plaque de pression. Sur la pointe des pieds !',
+    'objective': 'Fini ! Trouve la sortie.',
+    'exit': 'Notre navette est là !',
+    'levelUp': 'Nouveau niveau ! Tu brilles.',
+    'idle': {
+      '1': 'Bip. Je viens aux nouvelles.',
+      '2': 'Tu te débrouilles super bien.',
+      '3': 'Gauss serait fière.',
+      '4': "J'aime notre équipe."
+    }
   }
 }

@@ -376,6 +376,62 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     for (let k = 0; k < 6; k++) tone({ wave: 'p50', f0: midiHz(84 - k * 5), f1: midiHz(78 - k * 5), dur: 0.1, vol: 0.2 * g, at: k * 0.09 })
     burst({ dur: 0.7, vol: 0.3 * g, f0: 2500, f1: 100, at: 0.1 })
   },
+  // ── The intro cutscene (`story/introScript.ts`) ──
+  // The cold open's rain: a hiss under the score (its bass is the music's).
+  synthPulse: (_p, g) => {
+    burst({ dur: 2.8, vol: 0.06 * g, type: 'highpass', f0: 5200, f1: 4200, q: 0.5 })
+  },
+  // A tape stopping, then spooling back: the rewind into Atlas's log.
+  tapeRewind: (_p, g) => {
+    tone({ wave: 'saw', f0: 220, f1: 40, dur: 0.35, vol: 0.16 * g })
+    tone({ wave: 'p25', f0: 300, f1: 2400, dur: 0.5, vol: 0.08 * g, at: 0.3, vib: 90, vibRate: 40 })
+    burst({ dur: 0.55, vol: 0.1 * g, type: 'bandpass', f0: 800, f1: 4200, q: 1.5, at: 0.3 })
+  },
+  // A beam hopping relay to relay: a soft bell.
+  relayChime: (_p, g) => {
+    tone({ wave: 'tri', f0: midiHz(88), dur: 0.5, vol: 0.12 * g })
+    tone({ wave: 'sine', f0: midiHz(95), dur: 0.35, vol: 0.05 * g, at: 0.02 })
+  },
+  // Dr. Vex on the air: three falling square notes over a crushed noise sweep.
+  vexGlitch: (_p, g) => {
+    arp([64, 61, 57], 0.13, 'p50', 0.16 * g, 0.16)
+    burst({ dur: 0.5, vol: 0.14 * g, type: 'bandpass', f0: 3000, f1: 300, q: 3 })
+    tone({ wave: 'p12', f0: 90, f1: 60, dur: 0.45, vol: 0.12 * g, vib: 40, vibRate: 50 })
+  },
+  // A relay going red: a falling blip.
+  relayOut: (_p, g) => tone({ wave: 'p25', f0: midiHz(84), f1: midiHz(60), dur: 0.2, vol: 0.1 * g }),
+  // The lab's two-tone alarm.
+  alarm: (_p, g) => {
+    for (let k = 0; k < 2; k++) {
+      tone({ wave: 'p50', f0: 880, dur: 0.2, vol: 0.1 * g, at: k * 0.44 })
+      tone({ wave: 'p50', f0: 660, dur: 0.2, vol: 0.1 * g, at: k * 0.44 + 0.22 })
+    }
+  },
+  // The capsule's lever: a heavy clunk, then the steam's hiss.
+  capsule: (_p, g) => {
+    tone({ wave: 'tri', f0: 150, f1: 55, dur: 0.22, vol: 0.32 * g })
+    burst({ dur: 0.1, vol: 0.2 * g, type: 'bandpass', f0: 1200, q: 1.2 })
+    burst({ dur: 0.9, vol: 0.16 * g, type: 'highpass', f0: 2500, f1: 6000, q: 0.6, at: 0.1 })
+  },
+  // Frost racing over the glass: an icy crackle falling in pitch.
+  freeze: (_p, g) => {
+    burst({ dur: 0.6, vol: 0.14 * g, type: 'bandpass', f0: 7000, f1: 1800, q: 4 })
+    for (let k = 0; k < 6; k++) tone({ wave: 'p12', f0: midiHz(100 - k * 3), dur: 0.05, vol: 0.06 * g, at: k * 0.07 })
+    tone({ wave: 'sine', f0: midiHz(96), f1: midiHz(84), dur: 0.7, vol: 0.05 * g })
+  },
+  // A soft, low heartbeat: lub-dub.
+  heartbeat: (_p, g) => {
+    tone({ wave: 'sine', f0: 70, f1: 45, dur: 0.14, vol: 0.4 * g })
+    tone({ wave: 'sine', f0: 62, f1: 40, dur: 0.16, vol: 0.3 * g, at: 0.2 })
+  },
+  // Pip's two-note chirp.
+  pipChirp: (_p, g) => arp([91, 96], 0.07, 'p12', 0.13 * g, 0.08),
+  // Flux's systems coming up: a rising boot chime, then the bar's tick-fill.
+  bootUp: (_p, g) => {
+    tone({ wave: 'tri', f0: midiHz(60), f1: midiHz(84), dur: 0.35, vol: 0.14 * g })
+    arp([72, 79, 84], 0.08, 'p25', 0.12 * g, 0.1, 0.3)
+    for (let k = 0; k < 14; k++) tone({ wave: 'p12', f0: midiHz(72 + k), dur: 0.03, vol: 0.06 * g, at: 0.12 + k * 0.045 })
+  },
   // ── UI ──
   denied: (_p, g) => tone({ wave: 'p50', f0: 140, f1: 110, dur: 0.14, vol: 0.18 * g }),
   uiClick: (_p, g) => tone({ wave: 'p12', f0: 1800, dur: 0.035, vol: 0.1 * g }),

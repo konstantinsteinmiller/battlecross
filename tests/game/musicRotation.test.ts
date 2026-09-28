@@ -17,6 +17,13 @@ describe('music rotation', () => {
     }
   })
 
+  it('the intro cutscene has its own scored song: never rotated, never kept under another area', () => {
+    for (const sl of [0, 1, 2]) expect(songFor('intro', sl)).toBe('intro')
+    expect(shouldRotate('intro', 'intro', 999)).toBe(false)
+    expect(keepsPlaying('intro', 'drift', 1)).toBe(false)
+    expect(keepsPlaying('scrapyard', 'intro', 1)).toBe(false)
+  })
+
   it('the boss fight has its own song at every slot and never rotates away', () => {
     for (const s of [0, 1, 2]) expect(songFor('boss', s)).toBe('boss')
     expect(shouldRotate('boss', 'boss', 999)).toBe(false)

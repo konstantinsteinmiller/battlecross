@@ -24,13 +24,20 @@
       ContextButtons
       ActionButtons
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
+    CutsceneLayer(v-else-if="flow.screen === 'intro'")
     ExitSkip(v-if="flow.screen === 'mission'")
     BigBanner(v-if="flow.screen === 'mission'")
+    AtlasBubble(v-if="flow.screen === 'mission'")
     ResultsModal
     DefeatModal
     PauseModal(@options="optionsOpen = true")
     LevelUpModal
-    OptionsModal(:is-open="optionsOpen" @close="optionsOpen = false")
+    OptionsModal(
+      :is-open="optionsOpen"
+      :can-replay-intro="INTRO_ENABLED && flow.screen === 'hub'"
+      @close="optionsOpen = false"
+      @replay-intro="onReplayIntro"
+    )
     MissionLoading
 </template>
 
@@ -42,7 +49,7 @@ import {
 } from '@/game/engine/input'
 import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentMission } from '@/game/boot'
-import { flow, startMission, storyFor, goHub } from '@/game/flow'
+import { flow, startMission, storyFor, goHub, replayIntro, INTRO_ENABLED } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { chargeHum } from '@/game/audio/synth'
 import { CHARGE_L2 } from '@/game/sim/stats'
@@ -74,6 +81,7 @@ import ControlHints from '@/components/hud/ControlHints.vue'
 import LessonLayer from '@/components/hud/LessonLayer.vue'
 import DoorPrompt from '@/components/hud/DoorPrompt.vue'
 import BigBanner from '@/components/hud/BigBanner.vue'
+import AtlasBubble from '@/components/hud/AtlasBubble.vue'
 import ExitSkip from '@/components/hud/ExitSkip.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
@@ -82,6 +90,8 @@ import PauseModal from '@/components/modals/PauseModal.vue'
 import LevelUpModal from '@/components/modals/LevelUpModal.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 import MissionLoading from '@/components/hud/MissionLoading.vue'
+import CutsceneLayer from '@/components/story/CutsceneLayer.vue'
+import { skipCutscene } from '@/game/story/cine'
 
 /**
  * The one game view. Hosts the canvas, the gesture surface and whichever UI
@@ -97,6 +107,12 @@ const optionsOpen = ref(false)
 let detachInput: (() => void) | null = null
 /** How long back / close stay guarded after the capture is LOST (ms). */
 const LOCK_LOSS_GRACE_MS = 2500
+
+/** Options → Replay intro: close the sheet, then play it (it ends in the hub). */
+const onReplayIntro = () => {
+  optionsOpen.value = false
+  replayIntro()
+}
 
 const openPause = () => {
   if (flow.screen === 'mission' && hud.phase === 'play' && !flow.modal) flow.modal = 'pause'
@@ -125,6 +141,12 @@ const onKey = (e: KeyboardEvent) => {
   if (e.code === 'F2') {
     e.preventDefault()
     if (!e.repeat && !typing(e) && !isAdShowing.value) toggleGameMute()
+    return
+  }
+  // The intro: Esc skips it (the skip glyph's key). There is no pause menu
+  // over a cutscene, and no captured mouse.
+  if (flow.screen === 'intro') {
+    if (e.code === 'Escape' && !e.repeat) skipCutscene()
     return
   }
   // While the mouse is captured, Esc belongs to the browser: it releases the

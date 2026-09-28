@@ -5,7 +5,7 @@ import { CELL, WALL_H, Cell, cellCenter, type MapData, type Door } from './level
 import type { Theme } from './themes'
 import { levelAtlas } from './textures'
 import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
-import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus, ell } from '../models/kit'
+import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus } from '../models/kit'
 import { mulberry32 } from './rng'
 import { noSlice, type Slice } from '../engine/slicer'
 
@@ -298,9 +298,6 @@ export const buildLevel = async (
     root.add(doorsGroup)
   }
 
-  // Distant skyline: big rounded silhouettes beyond the walls, drawn in fog.
-  root.add(buildSkyline(map, theme))
-
   const sky = buildSky(theme)
   return { root, rooms, sky, bounds, owner }
 }
@@ -334,33 +331,4 @@ export const buildSky = (theme: Theme): Mesh => {
   mesh.renderOrder = -10
   mesh.frustumCulled = false
   return mesh
-}
-
-export const buildSkyline = (map: MapData, theme: Theme): Group => {
-  const rng = mulberry32(map.seed ^ 0xbead)
-  const cx = map.w * CELL / 2
-  const cz = map.h * CELL / 2
-  const parts: BufferGeometry[] = []
-  const glowParts: BufferGeometry[] = []
-  const n = 22
-  for (let k = 0; k < n; k++) {
-    const a = (k / n) * Math.PI * 2 + rng() * 0.2
-    const d = 95 + rng() * 25
-    const x = cx + Math.cos(a) * d
-    const z = cz + Math.sin(a) * d
-    const h = 18 + rng() * 34
-    const r = 5 + rng() * 7
-    const kind = rng()
-    if (kind < 0.5) {
-      parts.push(xform(paint(rcyl(r, h, r * 0.5, 14), theme.wallLow), [x, h / 2 - 2, z]))
-      parts.push(xform(paint(ell(r * 1.2, r * 0.5, r * 1.2, 14, 8), theme.wall), [x, h - 2, z]))
-      glowParts.push(xform(paint(sph(r * 0.25, 10, 6), theme.accent), [x, h + r * 0.3, z]))
-    } else {
-      parts.push(xform(paint(ell(r * 1.6, h * 0.5, r * 1.6, 14, 10), theme.wallLow), [x, 0, z]))
-    }
-  }
-  const g = new Group()
-  if (parts.length) g.add(new Mesh(merge(parts), toonVC()))
-  if (glowParts.length) g.add(new Mesh(merge(glowParts), glowVC()))
-  return g
 }

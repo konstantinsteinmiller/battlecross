@@ -105,8 +105,21 @@ const OVERRIDE_DIRS = {
   music: { dir: 'public/audio/music', exts: ['.ogg', '.mp3', '.m4a'] },
   textures: { dir: 'public/images/textures', exts: ['.webp', '.png', '.jpg'] }
 } as const
-const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS, string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[] }
+/** Voice-overs: public/audio/voice/<lang>/<line id>.ogg, one folder per
+ *  voiced language (see `src/game/audio/voice.ts` and voice-todo.md). */
+const VOICE_DIR = 'public/audio/voice'
+const VOICE_EXTS = ['.ogg', '.mp3', '.m4a']
+const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], voice: [] as string[] }
+  const voiceAbs = fileURLToPath(new URL(`./${VOICE_DIR}`, import.meta.url))
+  if (existsSync(voiceAbs)) {
+    for (const lang of readdirSync(voiceAbs).filter(d => /^[a-z]{2}$/.test(d)).sort()) {
+      const files = readdirSync(`${voiceAbs}/${lang}`)
+        .filter(f => VOICE_EXTS.includes(f.slice(f.lastIndexOf('.')).toLowerCase()))
+        .sort()
+      for (const f of files) out.voice.push(`${lang}/${f}`)
+    }
+  }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue
@@ -124,7 +137,7 @@ const assetOverridesPlugin = (): Plugin => {
     resolveId: (id) => (id === ID ? RESOLVED : null),
     load: (id) => (id === RESOLVED ? `export default ${JSON.stringify(scanOverrides())}` : null),
     configureServer(server) {
-      const dirs = Object.values(OVERRIDE_DIRS).map(d => fileURLToPath(new URL(`./${d.dir}`, import.meta.url)))
+      const dirs = [...Object.values(OVERRIDE_DIRS).map(d => d.dir), VOICE_DIR].map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
       server.watcher.add(dirs)
       const onChange = (file: string) => {
         if (!dirs.some(d => file.startsWith(d))) return

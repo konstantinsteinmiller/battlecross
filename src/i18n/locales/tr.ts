@@ -19,7 +19,8 @@ export default {
     'pause': 'Duraklat',
     'menu': 'Menü',
     'home': 'Ana ekran',
-    'info': 'Bilgi'
+    'info': 'Bilgi',
+    'skip': 'Geç'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Son Direniş! Sistemler yeniden başlatıldı.',
     'weak': 'ZAYIF!',
+    'kranck': 'KRANCK!',
     'dizzy': 'SERSEM!',
     'dodge': 'KAÇTI!',
     'block': 'Blokla',
@@ -451,6 +453,7 @@ export default {
     'on': 'Açık',
     'off': 'Kapalı',
     'close': 'Kapat',
+    'replayIntro': 'İntroyu tekrar izle',
     'keyboard': {
       'auto': 'Klavye düzenini algıla',
       'layout': 'Klavye düzeni',
@@ -524,5 +527,65 @@ export default {
     'yourRank': '{total} oyuncu içinde #{n}. sıradasın',
     'of': '/ {n} oyuncu',
     'tabGlobal': 'Dünya'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': "Flux, Ampere Valley'nin neon sokaklarında azgın makinelerle savaşıyor.",
+      'valley': 'Ampere Valley: ışık hüzmeleriyle birbirine bağlı, parlak bir android şehri. Dr. Vex kırmızı bir sinyalle makinelerini ele geçiriyor.',
+      'lab': "Sinyal, Prof. Gauss'un laboratuvarına ulaşıyor. Gauss, Flux'a Atlas diskini veriyor ve onu uyandırıyor.",
+      'safeMode': 'Gauss sinyali dışarıda tutmak için kendini bir kapsülde donduruyor. Hâlâ hayatta.',
+      'wakeUp': "Flux, Atlas çevrimiçiyken seviye 1'de uyanıyor. Vex Kalesi çok daha güçlü, bu yüzden önce Hurdalık.",
+      'beam': "Flux, Hurdalık'a ışınlanıyor."
+    },
+    'vex': {
+      'diagnosis': 'Teşhis: bu vadi HASTA. Tedavi… BENİM!'
+    },
+    'atlas': {
+      'logStart': 'Kayıt başladı.',
+      'goodMorning': 'Çekirdek çevrimiçi. Günaydın, Flux.',
+      'scrapyardFirst': 'Önce Hurdalık. Her seferinde bir röle.'
+    }
+  },
+  'atlas': {
+    'landed': 'İniş tamam! Hadi bakalım.',
+    'brief': {
+      'tutorial': 'Eğitim zamanı. Sana yol gösteririm!',
+      'job': 'Hızlı iş. Gir ve çık!',
+      'climb': 'Kule koşusu! Yukarı, yukarı!',
+      'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
+    },
+    'story': {
+      'scrapyard': 'Hurdalık rölesi. Yak onu!',
+      'blaze': 'Rafineri. Sıcak, sıcak, sıcak!',
+      'cryo': 'Kriyo Tesisi. Brr! Hareket et.',
+      'volt': 'Volt Kulesi. Devrelerim karıncalanıyor!',
+      'gale': 'Gök Rıhtımı. Aşağı bakma!',
+      'fortress': 'Kale. Bunu bitiriyoruz.'
+    },
+    'arc': {
+      '1': 'Bir röle yandı. Dört kaldı!',
+      '2': 'İki röle! Vex surat asıyor.',
+      '3': 'Yolun yarısı. Parlamaya devam!',
+      '4': 'Bir Usta kaldı. Az kaldı!',
+      '5': "Kalkan düştü. Sıra Vex'te!"
+    },
+    'bossAhead': 'İleride patron. Derin nefes!',
+    'bossDown': 'Usta kurtarıldı! Harika iş!',
+    'vexDown': 'Vex yenildi. Başardık!',
+    'lowHp': 'Ah! Dikkat, Flux!',
+    'lowHpGel': 'Canın az! Bir Tamir Jeli kullan.',
+    'lowWe': 'Silah enerjisi az!',
+    'trap': 'İleride tuzak. Zamanlamaya dikkat!',
+    'plate': 'Basınç plakası. Parmak ucunda!',
+    'objective': 'Tamam! Şimdi çıkışı bul.',
+    'exit': 'Aracımız geldi!',
+    'levelUp': 'Seviye atladın! Parlıyorsun.',
+    'idle': {
+      '1': 'Bip. Sadece yokluyorum.',
+      '2': 'Harika gidiyorsun.',
+      '3': 'Gauss gurur duyardı.',
+      '4': 'Takımımızı seviyorum.'
+    }
   }
 }

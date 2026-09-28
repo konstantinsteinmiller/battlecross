@@ -23,7 +23,8 @@ export default {
     'pause': 'Pause',
     'menu': 'Menu',
     'home': 'Home',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Skip'
   },
 
   // ─── Combat call-outs (floating text in the 3D view) ─────────────────────
@@ -37,6 +38,9 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Last Stand! Systems rebooted.',
     'weak': 'WEAK!',
+    // A shot on a weak spot (a head, a back, a tail): a sound word, not
+    // translated.
+    'kranck': 'KRANCK!',
     'dizzy': 'DIZZY!',
     'dodge': 'DODGE!',
     'block': 'Block',
@@ -496,6 +500,7 @@ export default {
     'on': 'On',
     'off': 'Off',
     'close': 'Close',
+    'replayIntro': 'Replay intro',
     // Options → Controls (desktop): keyboard layout and key rebinding.
     'keyboard': {
       'auto': 'Detect keyboard layout',
@@ -575,5 +580,72 @@ export default {
     'yourRank': 'You are #{n} of {total}',
     'of': 'of {n} players',
     'tabGlobal': 'Global'
+  },
+  // ─── Story (the intro cutscene, story-arc.md § 1) ─────────────────────────
+  // `intro.*` are screen-reader lines, one per shot: read aloud, never drawn.
+  // `vex.*` is Dr. Vex's speech bubble: a pompous showman, CAPS for the
+  // shouted word. `atlas.*` are Atlas's lines: calm, dry, short.
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux fights rogue machines on the neon streets of Ampere Valley.',
+      'valley': 'Ampere Valley: a bright android city, linked by beams of light. Dr. Vex takes over its machines with a red signal.',
+      'lab': "The signal reaches Prof. Gauss's lab. Gauss gives Flux the Atlas disc and wakes him.",
+      'safeMode': 'Gauss freezes herself in a capsule to keep the signal out. She is still alive.',
+      'wakeUp': 'Flux wakes at level 1, with Atlas online. The Vex Fortress is far stronger, so the Scrapyard comes first.',
+      'beam': 'Flux beams out to the Scrapyard.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnosis: this valley is SICK. The cure… is ME!'
+    },
+    'atlas': {
+      'logStart': 'Log start.',
+      'goodMorning': 'Core online. Good morning, Flux.',
+      'scrapyardFirst': 'Scrapyard first. One relay at a time.'
+    }
+  },
+  // ─── Atlas, in the missions (sim/atlas.ts) ─────────────────────────────────
+  // Flux's AI companion talking to him: tiny, warm, a little cheeky. One
+  // short line each (they sit in a small speech bubble for 2–3 s). Each key is
+  // also the name of its optional voice file (voice-todo.md).
+  'atlas': {
+    'landed': "Touchdown! Let's go.",
+    'brief': {
+      'tutorial': "Training time. I'll guide you!",
+      'job': 'Quick job. In and out!',
+      'climb': 'Tower run! Up, up, up!',
+      'story': "A Core Master waits. Let's free it!"
+    },
+    'story': {
+      'scrapyard': 'Scrapyard relay. Light it up!',
+      'blaze': 'The Refinery. Hot, hot, hot!',
+      'cryo': 'Cryo Plant. Brr! Keep moving.',
+      'volt': 'Volt Tower. My circuits tingle!',
+      'gale': "Sky Docks. Don't look down!",
+      'fortress': 'The Fortress. We end this.'
+    },
+    'arc': {
+      '1': 'One relay lit. Four to go!',
+      '2': 'Two relays! Vex is sulking.',
+      '3': 'Halfway there. Keep glowing!',
+      '4': 'One Master left. Almost!',
+      '5': "Shield's down. Vex is next!"
+    },
+    'bossAhead': 'Boss ahead. Deep breath!',
+    'bossDown': 'Master freed! Great job!',
+    'vexDown': 'Vex is down. We did it!',
+    'lowHp': 'Ouch! Careful, Flux!',
+    'lowHpGel': 'Low health! Try a Repair Gel.',
+    'lowWe': "Weapon energy's low!",
+    'trap': 'Trap ahead. Watch the timing!',
+    'plate': 'Pressure plate. Tiptoe!',
+    'objective': 'Done! Now find the exit.',
+    'exit': "Our ride's here!",
+    'levelUp': "Level up! You're shining.",
+    'idle': {
+      '1': 'Beep. Just checking in.',
+      '2': "You're doing great.",
+      '3': 'Gauss would be proud.',
+      '4': 'I like our team.'
+    }
   }
 }

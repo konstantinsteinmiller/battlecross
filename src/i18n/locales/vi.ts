@@ -19,7 +19,8 @@ export default {
     'pause': 'Tạm dừng',
     'menu': 'Menu',
     'home': 'Trang chính',
-    'info': 'Thông tin'
+    'info': 'Thông tin',
+    'skip': 'Bỏ qua'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Tử Thủ! Hệ thống đã khởi động lại.',
     'weak': 'YẾU ĐIỂM!',
+    'kranck': 'KRANCK!',
     'dizzy': 'CHOÁNG!',
     'dodge': 'NÉ!',
     'block': 'Chặn',
@@ -449,6 +451,7 @@ export default {
     'on': 'Bật',
     'off': 'Tắt',
     'close': 'Đóng',
+    'replayIntro': 'Xem lại phần mở đầu',
     'keyboard': {
       'auto': 'Tự nhận bố cục bàn phím',
       'layout': 'Bố cục bàn phím',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Bạn hạng #{n} trên {total}',
     'of': 'trên {n} người chơi',
     'tabGlobal': 'Toàn cầu'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux chiến đấu với những cỗ máy nổi loạn trên các con phố neon của Ampere Valley.',
+      'valley': 'Ampere Valley: một thành phố android rực rỡ, nối với nhau bằng những chùm sáng. Dr. Vex chiếm quyền điều khiển máy móc ở đó bằng một tín hiệu đỏ.',
+      'lab': 'Tín hiệu lan tới phòng thí nghiệm của Prof. Gauss. Bà trao cho Flux đĩa Atlas và đánh thức cậu.',
+      'safeMode': 'Gauss tự đóng băng trong một khoang để chặn tín hiệu. Bà vẫn còn sống.',
+      'wakeUp': 'Flux tỉnh dậy ở cấp 1, với Atlas đã trực tuyến. Pháo Đài Vex mạnh hơn nhiều, nên phải đến Bãi Phế Liệu trước.',
+      'beam': 'Flux dịch chuyển tới Bãi Phế Liệu.'
+    },
+    'vex': {
+      'diagnosis': 'Chẩn đoán: thung lũng này BỆNH rồi. Liều thuốc… chính là TA!'
+    },
+    'atlas': {
+      'logStart': 'Bắt đầu nhật ký.',
+      'goodMorning': 'Lõi đã trực tuyến. Chào buổi sáng, Flux.',
+      'scrapyardFirst': 'Bãi Phế Liệu trước. Từng trạm tiếp sóng một.'
+    }
+  },
+  'atlas': {
+    'landed': 'Hạ cánh! Đi thôi.',
+    'brief': {
+      'tutorial': 'Giờ luyện tập. Để tớ dẫn!',
+      'job': 'Việc nhanh. Vào rồi ra!',
+      'climb': 'Leo tháp! Lên, lên, lên!',
+      'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
+    },
+    'story': {
+      'scrapyard': 'Trạm tiếp sóng Bãi Phế Liệu. Thắp sáng nó!',
+      'blaze': 'Lò Luyện. Nóng, nóng, nóng!',
+      'cryo': 'Xưởng Đông Lạnh. Brr! Cứ di chuyển.',
+      'volt': 'Tháp Điện. Mạch tớ tê rần!',
+      'gale': 'Cảng Trời. Đừng nhìn xuống!',
+      'fortress': 'Pháo Đài. Kết thúc thôi.'
+    },
+    'arc': {
+      '1': 'Một trạm đã sáng. Còn bốn!',
+      '2': 'Hai trạm! Vex đang dỗi.',
+      '3': 'Được nửa đường. Cứ tỏa sáng!',
+      '4': 'Còn một Chúa Tể. Sắp xong!',
+      '5': 'Khiên vỡ rồi. Tới Vex!'
+    },
+    'bossAhead': 'Trùm phía trước. Hít sâu!',
+    'bossDown': 'Chúa Tể được giải phóng! Giỏi lắm!',
+    'vexDown': 'Vex gục rồi. Ta làm được!',
+    'lowHp': 'Ui! Cẩn thận, Flux!',
+    'lowHpGel': 'Máu thấp! Dùng Gel Sửa Chữa đi.',
+    'lowWe': 'Năng lượng vũ khí thấp!',
+    'trap': 'Bẫy phía trước. Canh thời điểm!',
+    'plate': 'Tấm áp lực. Nhón chân!',
+    'objective': 'Xong! Giờ tìm lối ra.',
+    'exit': 'Xe đón tới rồi!',
+    'levelUp': 'Lên cấp! Cậu đang tỏa sáng.',
+    'idle': {
+      '1': 'Bíp. Chỉ hỏi thăm thôi.',
+      '2': 'Cậu làm tốt lắm.',
+      '3': 'Gauss sẽ tự hào.',
+      '4': 'Tớ thích đội mình.'
+    }
   }
 }

@@ -60,6 +60,9 @@ export interface WorldSave {
   bosses: string[]
   tutorialDone: boolean
   selected: SectorId
+  /** Story beats already shown (`story.md` § What this changes: `intro`, and
+   *  later `relay:<sector>`, `vex:<boss>`, `blueprint`, `breach`, `ending`). */
+  seen: string[]
 }
 
 export interface StatsSave {
@@ -113,7 +116,7 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
-  world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard' },
+  world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard', seen: [] },
   stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0 },
   tips: {}
 })
@@ -172,9 +175,28 @@ export const loadProfile = (): void => {
   const world = obj(stored(WORLD_KEY), d.world)
   if (!Array.isArray(world.unlocked) || !world.unlocked.length) world.unlocked = ['scrapyard']
   if (!Array.isArray(world.bosses)) world.bosses = []
+  if (!Array.isArray(world.seen)) world.seen = []
+  migrateSeen(world)
   profile.world = world
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
+}
+
+/**
+ * Story beats never replay history: every beat whose trigger is already behind
+ * the player is marked seen, so an update never queues old cutscenes. The
+ * intro's trigger is the first launch, so any save past the tutorial has
+ * seen it (or never needs to).
+ */
+export const migrateSeen = (world: WorldSave): void => {
+  if (world.tutorialDone && !world.seen.includes('intro')) world.seen.push('intro')
+}
+
+/** Mark a story beat as shown, and save. */
+export const markStorySeen = (beat: string): void => {
+  if (profile.world.seen.includes(beat)) return
+  profile.world.seen.push(beat)
+  saveProfile()
 }
 
 /**

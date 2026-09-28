@@ -19,7 +19,8 @@ export default {
     'pause': 'Pausa',
     'menu': 'Menú',
     'home': 'Inicio',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Saltar'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': '¡Último aliento! Sistemas reiniciados.',
     'weak': '¡DEBILIDAD!',
+    'kranck': 'KRANCK!',
     'dizzy': '¡MAREADO!',
     'dodge': '¡ESQUIVA!',
     'block': 'Bloquear',
@@ -449,6 +451,7 @@ export default {
     'on': 'Activado',
     'off': 'Desactivado',
     'close': 'Cerrar',
+    'replayIntro': 'Repetir intro',
     'keyboard': {
       'auto': 'Detectar distribución del teclado',
       'layout': 'Distribución del teclado',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Eres #{n} de {total}',
     'of': 'de {n} jugadores',
     'tabGlobal': 'Global'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux combate máquinas rebeldes en las calles de neón de Ampere Valley.',
+      'valley': 'Ampere Valley: una brillante ciudad de androides, unida por haces de luz. Dr. Vex toma el control de sus máquinas con una señal roja.',
+      'lab': 'La señal llega al laboratorio de la Prof. Gauss. Ella le da a Flux el disco Atlas y lo despierta.',
+      'safeMode': 'Gauss se congela en una cápsula para mantener fuera la señal. Sigue viva.',
+      'wakeUp': 'Flux despierta en el nivel 1, con Atlas en línea. La Fortaleza de Vex es mucho más fuerte, así que primero toca el Desguace.',
+      'beam': 'Flux se teletransporta al Desguace.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnóstico: este valle está ENFERMO. La cura… ¡soy YO!'
+    },
+    'atlas': {
+      'logStart': 'Inicio del registro.',
+      'goodMorning': 'Núcleo en línea. Buenos días, Flux.',
+      'scrapyardFirst': 'Primero el Desguace. Un relé cada vez.'
+    }
+  },
+  'atlas': {
+    'landed': '¡Aterrizaje! ¡Vamos!',
+    'brief': {
+      'tutorial': 'Hora de entrenar. ¡Yo te guío!',
+      'job': 'Trabajo rápido. ¡Entrar y salir!',
+      'climb': '¡A la torre! ¡Arriba, arriba!',
+      'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
+    },
+    'story': {
+      'scrapyard': 'Relé del Desguace. ¡Enciéndelo!',
+      'blaze': 'La Refinería. ¡Quema, quema!',
+      'cryo': 'Planta Criogénica. ¡Brr! No te pares.',
+      'volt': 'Torre Voltio. ¡Me hormiguean los circuitos!',
+      'gale': 'Muelles del Cielo. ¡No mires abajo!',
+      'fortress': 'La Fortaleza. Acabemos con esto.'
+    },
+    'arc': {
+      '1': 'Un relé encendido. ¡Quedan cuatro!',
+      '2': '¡Dos relés! Vex está enfurruñado.',
+      '3': 'A mitad de camino. ¡Sigue brillando!',
+      '4': 'Queda un Maestro. ¡Casi!',
+      '5': 'Escudo caído. ¡Ahora Vex!'
+    },
+    'bossAhead': 'Jefe adelante. ¡Respira hondo!',
+    'bossDown': '¡Maestro liberado! ¡Buen trabajo!',
+    'vexDown': 'Vex ha caído. ¡Lo logramos!',
+    'lowHp': '¡Ay! ¡Cuidado, Flux!',
+    'lowHpGel': '¡Poca salud! Usa un gel reparador.',
+    'lowWe': '¡Poca energía de arma!',
+    'trap': 'Trampa adelante. ¡Ojo al ritmo!',
+    'plate': 'Placa de presión. ¡De puntillas!',
+    'objective': '¡Hecho! Ahora busca la salida.',
+    'exit': '¡Llegó nuestro transporte!',
+    'levelUp': '¡Nuevo nivel! Estás brillando.',
+    'idle': {
+      '1': 'Bip. Solo pasaba a saludar.',
+      '2': 'Lo estás haciendo genial.',
+      '3': 'Gauss estaría orgullosa.',
+      '4': 'Me gusta nuestro equipo.'
+    }
   }
 }

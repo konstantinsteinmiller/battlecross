@@ -15,6 +15,10 @@ import { BASE_COLORS } from '../models/enemies'
 import { PLAYER_R, EYE_H } from './constants'
 import { scaleXp } from '../data/enemies'
 import { COUNTER, type BossDef } from '../data/bosses'
+import { weakSpotAt, WEAK_SPOT_MUL } from '../data/weakspots'
+
+/** Scratch for a weak spot's position. */
+const _weak = { x: 0, y: 0, z: 0, r: 0 }
 
 /**
  * ─── Shots, damage, pickups ──────────────────────────────────────────────────
@@ -188,6 +192,8 @@ export class CombatSystem {
     s.active = true
     s.hitIds.length = 0
     s.homing = null
+    s.weakOf = null
+    s.weakBest = Infinity
     s.source = null
     s.pierce = 0
     s.crit = false
@@ -215,7 +221,12 @@ export class CombatSystem {
     s.radius = L.r
   }
 
-  spawnPlayerShot(kind: 'pellet' | 'charge1' | 'charge2' | 'charge3', x: number, y: number, z: number, dx: number, dy: number, dz: number, dmg: number, crit: boolean, target: Enemy | null): Shot {
+  /**
+   * A buster shot. `weakOf`: fired with the crosshair on that machine's weak
+   * spot — the shot flies at the spot and may land it (×1.5). Every other
+   * shot, the aim assist's included, can only hit bodies.
+   */
+  spawnPlayerShot(kind: 'pellet' | 'charge1' | 'charge2' | 'charge3', x: number, y: number, z: number, dx: number, dy: number, dz: number, dmg: number, crit: boolean, target: Enemy | null, weakOf: Enemy | null = null): Shot {
     const s = this.acquire()
     s.owner = 'player'
     s.kind = kind
@@ -230,7 +241,8 @@ export class CombatSystem {
     s.crit = crit
     s.life = 1.4
     s.pierce = kind === 'pellet' ? 0 : kind === 'charge1' ? 1 : 3
-    s.homing = target
+    s.homing = weakOf ?? target
+    s.weakOf = weakOf
     s.turn = kind === 'pellet' ? 4 : 2.5
     s.blockable = true
     this.look(s, kind, crit ? '#ffd84a' : undefined)
@@ -447,9 +459,12 @@ export class CombatSystem {
       // Homing (gentle — a tap should hit what it was aimed at, strafing or not)
       if (s.homing && s.homing.state !== 'dead') {
         const e = s.homing
-        const ax = e.x - s.x
-        const ay = e.y + (e.floor ?? 0) + e.def.aimY - s.y
-        const az = e.z - s.z
+        // A weak-spot shot keeps to the spot; any other, to the body's middle.
+        const onWeak = s.weakOf === e
+        if (onWeak) weakSpotAt(e, _weak)
+        const ax = (onWeak ? _weak.x : e.x) - s.x
+        const ay = (onWeak ? _weak.y : e.y + (e.floor ?? 0) + e.def.aimY) - s.y
+        const az = (onWeak ? _weak.z : e.z) - s.z
         const al = Math.hypot(ax, ay, az) || 1
         const sp = Math.hypot(s.vx, s.vy, s.vz)
         const k = Math.min(1, s.turn * dt)
@@ -520,6 +535,26 @@ export class CombatSystem {
         }
         for (const e of h.enemies) {
           if (e.state === 'dead' || e.offstage || s.hitIds.includes(e.id)) continue
+          // A shot aimed at this machine's weak spot: on the spot, it lands
+          // there; still closing on it, the body does not catch it first;
+          // once it has passed it by, it is an ordinary shot.
+          if (s.weakOf === e) {
+            weakSpotAt(e, _weak)
+            const d = Math.hypot(_weak.x - s.x, _weak.y - s.y, _weak.z - s.z)
+            if (d < _weak.r + s.radius + 0.12 && hasLineOfSight(h.nav, s.x, s.z, e.x, e.z)) {
+              s.hitIds.push(e.id)
+              s.weakOf = null
+              this.hitEnemyWithShot(e, s, true)
+              if (s.pierce <= 0) { this.kill(s); break }
+              s.pierce--
+              continue
+            }
+            if (d < (s.weakBest ?? Infinity) - 0.001) {
+              s.weakBest = d
+              continue
+            }
+            s.weakOf = null
+          }
           const ex = e.x - s.x
           const ey = e.y + (e.floor ?? 0) + e.def.aimY * (e.elite ? 1.18 : 1) - s.y
           const ez = e.z - s.z
@@ -656,6 +691,7 @@ export class CombatSystem {
     s.vz = -s.vz * 1.6
     s.dmg = Math.round(this.host.stats.busterDmg * 2.5 + s.dmg)
     s.homing = s.source
+    s.weakOf = null
     s.turn = 8
     s.life = 2
     s.hitIds.length = 0
@@ -666,7 +702,7 @@ export class CombatSystem {
 
   // ─── Damage to enemies ─────────────────────────────────────────────────────
 
-  private hitEnemyWithShot(e: Enemy, s: Shot): void {
+  private hitEnemyWithShot(e: Enemy, s: Shot, weakSpot = false): void {
     if (s.kind === 'special') {
       e.lastWeapon = s.weapon
       this.damageEnemy(e, s.dmg, { crit: s.crit, charge: 1, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element, special: true, weapon: s.weapon })
@@ -687,10 +723,10 @@ export class CombatSystem {
     }
     e.lastWeapon = ''
     const lvl = s.kind === 'charge3' ? 3 : s.kind === 'charge2' ? 2 : s.kind === 'charge1' ? 1 : s.kind === 'reflect' ? 2 : 0
-    this.damageEnemy(e, s.dmg, { crit: s.crit, charge: lvl, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element })
+    this.damageEnemy(e, s.dmg, { crit: s.crit, charge: lvl, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element, weakSpot })
   }
 
-  damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean; weapon?: string }): void {
+  damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean; weapon?: string; weakSpot?: boolean }): void {
     const h = this.host
     // A boss not yet in the arena takes nothing and shows nothing.
     if (e.state === 'dead' || e.offstage) return
@@ -728,6 +764,12 @@ export class CombatSystem {
       }
     }
     amount *= weakMul
+    // A shot on the weak spot: ×1.5, a crit to the eye and the ear, KRANCK!
+    if (o.weakSpot) {
+      amount *= WEAK_SPOT_MUL
+      o = { ...o, crit: true }
+      pushHud({ t: 'kranck', x: o.x, y: o.y + 0.35, z: o.z })
+    }
     // ── Guards ──
     let guarded = false
     if (e.guardBreakT <= 0) {

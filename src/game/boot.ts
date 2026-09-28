@@ -5,6 +5,7 @@ import type { Material, Mesh, Object3D } from 'three'
 import { bakeTextures, loadTextureOverrides } from './world/textures'
 import { Mission, setupFromQuest } from './sim/mission'
 import { HubMode } from './sim/hub'
+import { IntroMode } from './story/intro'
 import { app, type GameMode } from './engine/app'
 import { initProfile } from './state/profile'
 import { registerModeFactories, createBootMode, ensureJobs } from './flow'
@@ -95,7 +96,8 @@ registerModeFactories(
     onProgress?.(1)
     return m
   },
-  () => new HubMode()
+  () => new HubMode(),
+  (opts) => new IntroMode(opts)
 )
 
 let prepared: GameMode | null = null

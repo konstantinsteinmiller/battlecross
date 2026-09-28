@@ -19,7 +19,8 @@ export default {
     'pause': 'Jeda',
     'menu': 'Menu',
     'home': 'Beranda',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Lewati'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Perlawanan Terakhir! Sistem dinyalakan ulang.',
     'weak': 'LEMAH!',
+    'kranck': 'KRANCK!',
     'dizzy': 'PUSING!',
     'dodge': 'MENGELAK!',
     'block': 'Blok',
@@ -449,6 +451,7 @@ export default {
     'on': 'Aktif',
     'off': 'Nonaktif',
     'close': 'Tutup',
+    'replayIntro': 'Putar ulang intro',
     'keyboard': {
       'auto': 'Deteksi tata letak keyboard',
       'layout': 'Tata letak keyboard',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Kamu peringkat #{n} dari {total}',
     'of': 'dari {n} pemain',
     'tabGlobal': 'Global'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux melawan mesin-mesin liar di jalanan neon Ampere Valley.',
+      'valley': 'Ampere Valley: kota android yang terang, terhubung oleh berkas cahaya. Dr. Vex mengambil alih mesin-mesinnya dengan sinyal merah.',
+      'lab': 'Sinyal itu mencapai lab Prof. Gauss. Ia memberi Flux cakram Atlas dan membangunkannya.',
+      'safeMode': 'Gauss membekukan dirinya dalam kapsul agar sinyal tidak masuk. Ia masih hidup.',
+      'wakeUp': 'Flux bangun di level 1, dengan Atlas aktif. Benteng Vex jauh lebih kuat, jadi Gudang Rongsok lebih dulu.',
+      'beam': 'Flux berteleportasi ke Gudang Rongsok.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnosis: lembah ini SAKIT. Obatnya… adalah AKU!'
+    },
+    'atlas': {
+      'logStart': 'Log dimulai.',
+      'goodMorning': 'Inti aktif. Selamat pagi, Flux.',
+      'scrapyardFirst': 'Gudang Rongsok dulu. Satu relai demi satu.'
+    }
+  },
+  'atlas': {
+    'landed': 'Mendarat! Ayo.',
+    'brief': {
+      'tutorial': 'Waktunya latihan. Aku pandu!',
+      'job': 'Tugas cepat. Masuk, keluar!',
+      'climb': 'Lari menara! Naik, naik, naik!',
+      'story': 'Master Inti menunggu. Ayo bebaskan!'
+    },
+    'story': {
+      'scrapyard': 'Relai Gudang Rongsok. Nyalakan!',
+      'blaze': 'Kilang. Panas, panas, panas!',
+      'cryo': 'Pabrik Beku. Brr! Terus bergerak.',
+      'volt': 'Menara Volt. Sirkuitku kesemutan!',
+      'gale': 'Dermaga Langit. Jangan lihat ke bawah!',
+      'fortress': 'Benteng. Kita akhiri ini.'
+    },
+    'arc': {
+      '1': 'Satu relai menyala. Tinggal empat!',
+      '2': 'Dua relai! Vex lagi ngambek.',
+      '3': 'Setengah jalan. Terus bersinar!',
+      '4': 'Tinggal satu Master. Hampir!',
+      '5': 'Perisai jatuh. Sekarang Vex!'
+    },
+    'bossAhead': 'Bos di depan. Tarik napas!',
+    'bossDown': 'Master bebas! Kerja bagus!',
+    'vexDown': 'Vex tumbang. Kita berhasil!',
+    'lowHp': 'Aduh! Hati-hati, Flux!',
+    'lowHpGel': 'Kesehatan rendah! Pakai Gel Perbaikan.',
+    'lowWe': 'Energi senjata menipis!',
+    'trap': 'Jebakan di depan. Perhatikan waktunya!',
+    'plate': 'Pelat tekan. Jinjit!',
+    'objective': 'Beres! Sekarang cari pintu keluar.',
+    'exit': 'Jemputan kita datang!',
+    'levelUp': 'Naik level! Kamu bersinar.',
+    'idle': {
+      '1': 'Bip. Cuma mengecek.',
+      '2': 'Kamu hebat.',
+      '3': 'Gauss pasti bangga.',
+      '4': 'Aku suka tim kita.'
+    }
   }
 }

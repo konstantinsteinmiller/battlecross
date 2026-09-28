@@ -1,14 +1,14 @@
 {
   "source": "https://mega-adventure-leaderboard.rodent-race.workers.dev",
-  "fetchedAt": 1790609606638,
-  "updatedAt": 1790609606695,
+  "fetchedAt": 1790624182056,
+  "updatedAt": 1790624182289,
   "total": 4,
   "entries": [
     {
       "rank": 1,
       "name": "Rivet465294",
-      "score": 5010,
-      "flair": 8
+      "score": 8662,
+      "flair": 10
     },
     {
       "rank": 2,
@@ -31,7 +31,7 @@
   ],
   "dist": [
     [
-      5010,
+      8662,
       1
     ],
     [

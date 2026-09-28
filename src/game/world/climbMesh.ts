@@ -7,7 +7,7 @@ import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus } from '../mo
 import { mulberry32 } from './rng'
 import { noSlice, type Slice } from '../engine/slicer'
 import {
-  QuadBatch, cellOwners, doorFramePos, buildSky, buildSkyline, FLOOR_UV, WALL_UV, PLAIN_UV, type LevelMeshes, type UV8
+  QuadBatch, cellOwners, doorFramePos, buildSky, FLOOR_UV, WALL_UV, PLAIN_UV, type LevelMeshes, type UV8
 } from './levelMesh'
 import { BALL_R } from './climbGen'
 
@@ -550,7 +550,6 @@ export const buildClimbLevel = async (
     doorsGroup.add(dol)
     root.add(doorsGroup)
   }
-  root.add(buildSkyline(map, theme))
   return { root, rooms, sky: buildSky(theme), bounds, owner }
 }
 

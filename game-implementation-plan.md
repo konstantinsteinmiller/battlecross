@@ -183,7 +183,14 @@ while bars and damage numbers get direct DOM writes.
     bubbles projected from 3D, the eyelid bars, an `aria-live` line. No
     pointer lock while a cutscene runs (a click there only unlocks audio or
     skips); the gameplay bracket stays closed. *Commit.*
-  - **The intro** (`story/intro.ts`, the six shots in `story.md`):
+  - **The intro** (`story/intro.ts`, the six shots in `story.md`) — BUILT
+    2026-09-28 to `story-arc.md` § 1 (cold open + five shots, 17 s): script
+    `story/introScript.ts`, player `story/intro.ts`, layer
+    `components/story/CutsceneLayer.vue`, models `gauss.ts`, `stasis.ts`,
+    `diorama.ts`, `street.ts`; tests `tests/game/intro.test.ts`. Not yet: a
+    dedicated three-section `intro` music track (it plays the hub theme with
+    SFX stings, then the Scrapyard theme on the flash), and a 4× run of
+    `boot-timeline`. The other bullets of this chunk are still open.
     - Save: `profile.world.seen: string[]` in `ma_world` lists the story
       beats already shown (`intro`, `relay:<sector>`, `vex:<boss>`,
       `blueprint`, `breach`, `ending`). `migrate()` marks every beat whose
@@ -243,6 +250,55 @@ while bars and damage numbers get direct DOM writes.
     that `gameplayStart` waits for the tutorial's play phase.
     `boot-timeline` at 4×. After release, compare conversion-to-play per
     portal and switch `VITE_APP_INTRO` off where it drops. *Commit.*
+
+- [x] **16b. The city round every mission** (2026-09-28, not committed):
+  `world/cityscape.ts` replaces the old fog-hidden skyline blobs. A far-future
+  skyline (stepped, round, twisted, needle, twin and dome towers; landmarks:
+  arcology, halo tower, leaning arch, floating district, sphere on a tripod,
+  space-elevator tether, spaceport) and sky traffic (quadcopters, flying taxis,
+  police cruisers with flashing light bars, cargo haulers, an ad blimp, a high
+  freighter, rocket launches). Nothing flies over the level: every lane is
+  ≥ 42 m outside its reach and ~26 m above its walls (tested). One shader
+  (procedural windows, distance haze instead of scene fog), ~15 draw calls.
+  Near/mid skyline builds behind the loader (time-sliced, longest chunk
+  ~18 ms); the far band and landmarks stream in once play begins (3 ms a
+  frame) and rise out of the haze; vehicles trickle in one every 0.3 s.
+  `engine/quality.ts` (`?scenery=low|full`) gives budget phones ~40 % of the
+  buildings, three landmarks and half the traffic; the intro uses the same
+  tier (less rain, fewer puddles, half-size backdrop textures, half the
+  diorama's towers) and streams its sets after the cold open's street.
+
+- [x] **16c. The intro score, and Atlas** (2026-09-28, not committed):
+  - "Wake-Up Call" (`audio/songs.ts`, id `intro`): 150 BPM so one 16th =
+    0.1 s and every cutscene beat has a step; scored to the picture (hits on
+    the charge shot, the Spire, the lever, the flash; silence on the freeze).
+    Loops like the boss song (never rotates); joins mid-song at the cutscene's
+    clock if the audio unlocks late (`setSongStartHint`). Loudness matched
+    with tools/music-render.mjs: −18.6 LU per pass (Scrapyard −18.5), the
+    cold open −17.1 (boss −17.0).
+  - Atlas, Flux's AI companion: model `models/atlas.ts`; lines and rules
+    `sim/atlas.ts` (briefings per mission/sector, story arc, boss ahead/freed,
+    low health / weapon energy, traps, plates, objective, ride, level up,
+    small talk; priorities, cooldowns, re-arming); in play it peeks into the
+    top left of the view (viewmodel layer), in the beam-in / exit it flies at
+    Flux's shoulder, in the intro it runs with him in the cold open and rises
+    out of his chest disc at the wake-up. Bubble `AtlasBubble.vue`.
+  - Voice-overs (`audio/voice.ts`): `public/audio/voice/<en|de>/<key>.ogg`,
+    German for `de`, English for everyone else, listed at build time (never a
+    404), silent on any failure. `pnpm voice:script` writes voice-todo.md.
+    Loaded on demand: a line's file starts loading when the line is queued
+    (`prefetchVoice`); a line still loading waits up to `VOICE_WAIT` (0.8 s),
+    then goes up as a bubble alone.
+- [x] **16d. Weak spots** (2026-09-28, not committed): `data/weakspots.ts` —
+  one per machine and per boss (androids and the four Masters: the head;
+  rotor drone: the tail; stomper, gear roller, crate golem, the Scrapper: the
+  back; wall cannon: its rear core; Vex's Mk-I: the dome). Only a shot fired
+  with the crosshair itself on the spot goes for it (`mission.aimShot` →
+  `weakSpotUnderRay`, the camera's view ray, the side facing the eye, line of
+  sight); an auto-aimed or locked-on shot carries no spot and never lands
+  one. On the spot: ×1.5 (`WEAK_SPOT_MUL`), a crit, and the amber "KRANCK!"
+  (`FloatingText.vue`: wobble, grow, snap away in 0.62 s). Placement checked
+  in-game against every model, front and back.
 
 - [x] **17. Blind-playtest fixes** (report: claude.ai/artifact/95ZdKQr6duPctCN7rMc4eH,
   2026-09-24). Done 2026-09-24, NOT committed: all six packages integrated,

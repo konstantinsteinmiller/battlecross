@@ -18,6 +18,9 @@ export type SfxName =
   | 'droneArrive' | 'droneHum' | 'droneHumHi' | 'deckLand' | 'liftOff'
   | 'whizz'
   | 'fumble'
+  // The intro cutscene (`story/introScript.ts`)
+  | 'synthPulse' | 'tapeRewind' | 'relayChime' | 'vexGlitch' | 'relayOut' | 'alarm' | 'capsule' | 'freeze'
+  | 'heartbeat' | 'pipChirp' | 'bootUp'
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void
 let player: Player | null = null

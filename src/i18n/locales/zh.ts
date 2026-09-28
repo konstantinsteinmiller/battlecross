@@ -19,7 +19,8 @@ export default {
     'pause': '暂停',
     'menu': '菜单',
     'home': '主页',
-    'info': '信息'
+    'info': '信息',
+    'skip': '跳过'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} 经验',
     'lastStand': '不屈！系统已重启。',
     'weak': '弱点！',
+    'kranck': 'KRANCK!',
     'dizzy': '眩晕！',
     'dodge': '闪避！',
     'block': '格挡',
@@ -449,6 +451,7 @@ export default {
     'on': '开',
     'off': '关',
     'close': '关闭',
+    'replayIntro': '重看开场',
     'keyboard': {
       'auto': '自动检测键盘布局',
       'layout': '键盘布局',
@@ -522,5 +525,65 @@ export default {
     'yourRank': '{total} 人中你排第 {n}',
     'of': '/ 共 {n} 名玩家',
     'tabGlobal': '全球'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux在Ampere Valley的霓虹街道上与失控的机器战斗。',
+      'valley': 'Ampere Valley：一座由光束相连的璀璨仿生人城市。Dr. Vex用红色信号控制了城中的机器。',
+      'lab': '信号传到了Prof. Gauss的实验室。她把Atlas圆盘交给Flux，并唤醒了他。',
+      'safeMode': 'Gauss将自己冰封在舱中，以阻挡信号。她仍然活着。',
+      'wakeUp': 'Flux在1级苏醒，Atlas已上线。Vex要塞强大得多，所以先去废料场。',
+      'beam': 'Flux传送至废料场。'
+    },
+    'vex': {
+      'diagnosis': '诊断：这座山谷病了。解药…就是我！'
+    },
+    'atlas': {
+      'logStart': '日志开始。',
+      'goodMorning': '核心上线。早上好，Flux。',
+      'scrapyardFirst': '先去废料场。一次一个中继站。'
+    }
+  },
+  'atlas': {
+    'landed': '着陆！出发吧。',
+    'brief': {
+      'tutorial': '训练时间，我来带你！',
+      'job': '小任务，速战速决！',
+      'climb': '爬塔！冲冲冲！',
+      'story': '核心大师在等着，去解救它吧！'
+    },
+    'story': {
+      'scrapyard': '废料场中继站，点亮它！',
+      'blaze': '精炼厂，好热好热！',
+      'cryo': '冷冻工厂，嘶！别停下。',
+      'volt': '伏特塔，我的电路麻麻的！',
+      'gale': '天空码头，别往下看！',
+      'fortress': '要塞，一决胜负吧。'
+    },
+    'arc': {
+      '1': '点亮一个中继站，还剩四个！',
+      '2': '两个了！Vex在生闷气。',
+      '3': '过半啦，继续发光！',
+      '4': '只剩一个大师，快了！',
+      '5': '护盾没了，轮到Vex！'
+    },
+    'bossAhead': '前方首领，深呼吸！',
+    'bossDown': '大师解放！干得好！',
+    'vexDown': 'Vex倒下了，我们做到了！',
+    'lowHp': '哎哟！小心，Flux！',
+    'lowHpGel': '生命值低！用个修理凝胶吧。',
+    'lowWe': '武器能量不足！',
+    'trap': '前方陷阱，注意时机！',
+    'plate': '压力板，踮起脚尖！',
+    'objective': '完成！去找出口吧。',
+    'exit': '接我们的来了！',
+    'levelUp': '升级啦！你在闪闪发光。',
+    'idle': {
+      '1': '哔。来看看你。',
+      '2': '你做得超棒。',
+      '3': 'Gauss会为你骄傲的。',
+      '4': '我喜欢我们这个队伍。'
+    }
   }
 }

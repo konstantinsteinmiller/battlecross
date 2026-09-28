@@ -4,6 +4,14 @@ import {
   Frustum, Matrix4, Sphere, WebGLRenderTarget, Quaternion, Euler, type Object3D
 } from 'three'
 import type { GameMode } from '../engine/app'
+import { buildCityscape, type Cityscape } from '../world/cityscape'
+import { weakSpotUnderRay } from '../data/weakspots'
+import { AtlasDirector, atlasKey, type AtlasTick } from './atlas'
+import { buildAtlas, animateAtlas } from '../models/atlas'
+import { playVoice, prefetchVoice } from '../audio/voice'
+
+/** Main-thread budget per frame for streaming the city in (ms). */
+const CITY_STREAM_MS = 3
 import { getRenderer, fovForAspect } from '../engine/renderer'
 import type { Input } from '../engine/input'
 import { consumeEdges } from '../engine/input'
@@ -162,6 +170,8 @@ const _v3 = new Vector3()
 const _qy = new Quaternion()
 const _e = new Euler()
 const _up = new Vector3(0, 1, 0)
+/** Scratch for Atlas (`renderAtlas`, `followAtlas`). */
+const _v = new Vector3()
 // Portal-culling scratch (no per-frame allocation).
 const _frustum = new Frustum()
 const _pv = new Matrix4()
@@ -226,6 +236,21 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   nav!: Nav
   theme: Theme
   level!: LevelMeshes
+  /** The city round the level and the traffic in its sky (`world/cityscape.ts`). */
+  city: Cityscape | null = null
+  /** Atlas, Flux's AI companion: what it says (`sim/atlas.ts`), and its two
+   *  bodies — in the viewmodel layer during play (it peeks into the top left
+   *  of the view and can never clip a wall), in the world beside Flux in the
+   *  beam-in and the exit. */
+  atlas: AtlasDirector | null = null
+  private atlasVm: Rig | null = null
+  private atlasWorld: Rig | null = null
+  private atlasWorldAt = new Vector3()
+  private atlasWorldSet = false
+  private atlasTick: AtlasTick = {
+    playing: false, combat: false, hp01: 1, tanks: 0, we01: -1, level: 1, objectiveDone: false, trapNear: -1, plateNear: false
+  }
+  private cityDone = false
   doors: DoorState[] = []
   /** Per room group: visible this frame (portal culling). */
   private roomVis = new Uint8Array(0)
@@ -393,6 +418,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.scene.add(this.level.sky)
     onProgress(0.55)
     await slice()
+    this.city = await buildCityscape(this.map, this.theme, slice)
+    this.scene.add(this.city.root)
+    await slice()
 
     const th = this.theme
     this.scene.background = new Color(th.skyBottom)
@@ -505,6 +533,21 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     vmSun.position.set(-0.4, 1, 0.6)
     this.vmScene.add(vmSun, new AmbientLight(0xffffff, 0.15))
     this.buildExit()
+    // Atlas (in the scene from the start: the precompile covers it).
+    this.atlasVm = buildAtlas()
+    this.atlasVm.root.visible = false
+    this.vmScene.add(this.atlasVm.root)
+    this.atlasWorld = buildAtlas()
+    this.atlasWorld.root.visible = false
+    this.scene.add(this.atlasWorld.root)
+    const q = setup.quest
+    this.atlas = new AtlasDirector({
+      tutorial: !!setup.tutorial,
+      kind: q?.kind ?? 'job',
+      template: q?.template ?? '',
+      sector: setup.sector,
+      freed: profile.world.bosses.filter(b => b !== 'vexMk1').length
+    }, (key) => playVoice(key), (key) => prefetchVoice(key))
   }
 
   /**
@@ -886,6 +929,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       if (!this.bossBannered.has(e)) {
         this.bossBannered.add(e)
         showBanner('bossDown')
+        this.atlas?.event(this.boss?.bossId === 'vexMk1' ? 'vexDown' : 'bossDown')
       }
     }
     this.objects.onEnemyKilled(e)
@@ -1484,6 +1528,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     switch (e) {
       case 'approach':
         sfx('droneArrive')
+        this.atlas?.event('exit')
         break
       case 'hop':
         sfx('jump')
@@ -1750,6 +1795,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.traps.update(dt, tt)
     this.updateBorrowed(dt, lt.playing)
     this.updateTrail(dt, lt.playing)
+    this.tickAtlas(dt, lt.playing)
 
     // Interaction: the nearest chest / bot / sealed boss door in reach (a
     // walkthrough gate is not for opening by hand).
@@ -1807,6 +1853,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     if (first && this.input.anyPressed && this.phaseT >= BEAM_IN_SKIP_AFTER) this.phaseT = BEAM_IN_END
     if (!this.beamLanded && this.phaseT >= BEAM_IN_LAND) {
       this.beamLanded = true
+      this.atlas?.event('landed')
       if (this.phaseT < BEAM_IN_END) {
         sfx('deckLand')
         this.fx.sparks(p.x, p.y + 0.3, p.z, PAL.glowCyan, 10, 3, 0.16)
@@ -1820,6 +1867,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     if (this.phaseT >= BEAM_IN_END) {
       hud.phase = 'play'
       this.phaseT = 0
+      this.atlas?.event('play')
       hud.introCine = false
       hud.cineSkip = false
       const v = this.exitView
@@ -2213,6 +2261,34 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     return [dx / l, dy / l, dz / l, null]
   }
 
+  /**
+   * A buster shot's aim: the crosshair itself on a weak spot (`data/
+   * weakspots.ts`) — the shot flies at the spot and may land it — or else
+   * the ordinary aim (`aimDir`, with its assist), which never can. The test
+   * is the view ray as it is when fired: no assist, no snapping.
+   */
+  private aimShot(from: [number, number, number]): [number, number, number, Enemy | null, Enemy | null] {
+    const p = this.player
+    const cam = this.camera.position
+    _v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion)
+    const reach = this.viewReach(_v3.x, _v3.y, _v3.z)
+    const w = weakSpotUnderRay(
+      cam.x, cam.y, cam.z, _v3.x, _v3.y, _v3.z, this.enemies,
+      (e) => e.state !== 'dead' && !e.offstage && !e.dormant,
+      (e) => hasLineOfSight(this.nav, p.x, p.z, e.x, e.z) && hasLineOfSight(this.nav, from[0], from[2], e.x, e.z),
+      reach + 0.5
+    )
+    if (w) {
+      const dx = w.x - from[0]
+      const dy = w.y - from[1]
+      const dz = w.z - from[2]
+      const l = Math.hypot(dx, dy, dz) || 1
+      return [dx / l, dy / l, dz / l, null, w.e]
+    }
+    const [dx, dy, dz, tgt] = this.aimDir(from)
+    return [dx, dy, dz, tgt, null]
+  }
+
   /** The machine nearest the crosshair, within `cone` radians widened by its
    *  size (a big machine is a big target), and in sight. */
   private enemyUnderCrosshair(cone: number): Enemy | null {
@@ -2271,10 +2347,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const c = this.combat
     const st = this.stats
     const m = this.muzzle()
-    const [dx, dy, dz, tgt] = stray ? [stray[0], stray[1], stray[2], null] : this.aimDir(m)
+    const [dx, dy, dz, tgt, weak] = stray ? [stray[0], stray[1], stray[2], null, null] : this.aimShot(m)
     const crit = Math.random() < st.critChance
     const dmg = Math.round(st.busterDmg * st.pelletMul * (crit ? st.critMul : 1))
-    this.system.spawnPlayerShot('pellet', m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt)
+    this.system.spawnPlayerShot('pellet', m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt, weak)
     c.fireCd = 0.2
     c.recoil = Math.min(1, c.recoil + 0.45)
     this.fx.flash(m[0] + dx * 0.5, m[1] + dy * 0.5, m[2] + dz * 0.5, '#fff39a', 0.22, 0.06)
@@ -2300,12 +2376,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const c = this.combat
     const st = this.stats
     const m = this.muzzle()
-    const [dx, dy, dz, tgt] = stray ? [stray[0], stray[1], stray[2], null] : this.aimDir(m)
+    const [dx, dy, dz, tgt, weak] = stray ? [stray[0], stray[1], stray[2], null, null] : this.aimShot(m)
     const mul = level === 3 ? 7 : level === 2 ? 4 : 2.2
     const crit = perfect || Math.random() < st.critChance
     const dmg = Math.round(st.busterDmg * mul * st.chargeDmgMul * (crit ? st.critMul : 1))
     const kind = level === 3 ? 'charge3' : level === 2 ? 'charge2' : 'charge1'
-    this.system.spawnPlayerShot(kind, m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt)
+    this.system.spawnPlayerShot(kind, m[0], m[1], m[2], dx, dy, dz, dmg, crit, tgt, weak)
     c.fireCd = 0.25
     c.recoil = 1
     this.shake(level >= 2 ? 0.16 : 0.06)
@@ -2483,6 +2559,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       if (Math.hypot(d.x - p.x, d.z - p.z) < 9 && hasLineOfSight(this.nav, p.x, p.z, d.x, d.z)) {
         this.bossWarned = true
         this.sfx('bossWarn', d.x, d.z)
+        this.atlas?.event('bossAhead')
         this.shake(0.12)
         pushHud({ t: 'flash', color: '#ff3040', strength: 0.16 })
       }
@@ -2832,6 +2909,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     }
     cam.updateMatrixWorld()
     this.level.sky.position.copy(cam.position)
+    // Once play has begun, the rest of the city streams in: a few ms a frame.
+    if (this.city && hud.phase === 'play' && !this.cityDone) this.cityDone = this.city.stream(CITY_STREAM_MS)
+    this.city?.update(this.time)
 
     for (const e of this.enemies) {
       if (!e.root.visible && e.state !== 'dead') continue
@@ -2849,6 +2929,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
 
     this.syncViewmodel(dt)
     this.vmRoot.visible = !cine && !(intro && this.beamPose.arm <= 0)
+    this.renderAtlas(dt, cine, intro)
 
     const r = getRenderer()
     r.clear()
@@ -2858,6 +2939,93 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       r.render(this.vmScene, this.vmCamera)
     }
     tickHud(dt)
+  }
+
+  /** Feed Atlas what it reacts to, and mirror its line to the HUD. */
+  private tickAtlas(dt: number, playing: boolean): void {
+    if (!this.atlas) return
+    const k = this.atlasTick
+    const p = this.player
+    k.playing = playing
+    k.combat = hud.combat
+    k.hp01 = this.combat.hp / this.combat.maxHp
+    k.tanks = profile.inv.tanks
+    k.we01 = profile.hero.slots[0] || profile.hero.slots[1] ? hud.we / Math.max(1, hud.maxWe) : -1
+    k.level = profile.level
+    k.objectiveDone = hud.objectiveDone
+    k.trapNear = -1
+    k.plateNear = false
+    this.traps.traps.forEach((s, i) => {
+      if (s.stage === 'spent') return
+      const d = Math.hypot(s.spot.x - p.x, s.spot.z - p.z)
+      if (s.spot.plate) { if (d < 5) k.plateNear = true } else if (d < 8 && k.trapNear < 0) k.trapNear = i
+    })
+    this.atlas.update(dt, k)
+    const key = this.atlas.line ? atlasKey(this.atlas.line.id) : ''
+    if (key !== hud.atlasKey) {
+      hud.atlasKey = key
+      if (key) hud.atlasSeq++
+    }
+  }
+
+  /**
+   * Place Atlas for this frame. In play: in the viewmodel layer, eased from
+   * out of sight (above and behind the left shoulder) into the top left of
+   * the view by the director's `peek`. In the beam-in and the exit: in the
+   * world, at Flux's shoulder (`frameBeamIn` / `frameExit` aim it). And
+   * where its speech bubble goes.
+   */
+  private renderAtlas(dt: number, cine: boolean, intro: boolean): void {
+    if (!this.atlas || !this.atlasVm || !this.atlasWorld) return
+    const t = this.time
+    const talk = this.atlas.line ? 1 : 0
+    const vc = this.vmCamera
+    const peek = this.atlas.peek
+    const d = 1.3
+    const ty = Math.tan((vc.fov * Math.PI) / 360)
+    const tx = ty * vc.aspect
+    // In view: in from the top-left corner, under the status cards (lower
+    // and smaller on a tall screen).
+    const portrait = vc.aspect < 1
+    const nx = -1.55 + (portrait ? 0.97 : 1.0) * peek
+    const ny = 1.35 - (portrait ? 1.13 : 0.93) * peek
+    const vm = this.atlasVm
+    vm.root.visible = !cine && !intro && peek > 0.01
+    if (vm.root.visible) {
+      vm.root.position.set(nx * tx * d, ny * ty * d + Math.sin(t * 1.9) * 0.02, -d)
+      vm.root.scale.setScalar(portrait ? 0.42 : 0.55)
+      // Facing Flux (the camera), turned a touch toward the middle.
+      vm.root.lookAt(0, 0, 0)
+      vm.root.rotateY(0.3)
+      animateAtlas(vm, t, talk)
+      hudLive.atlasX = (nx + 1) / 2
+      hudLive.atlasY = (1 - ny) / 2
+      hudLive.atlasIn = peek > 0.5
+    }
+    const w = this.atlasWorld
+    w.root.visible = (cine || intro) && this.atlasWorldSet
+    if (w.root.visible) {
+      w.root.position.copy(this.atlasWorldAt)
+      w.root.position.y += Math.sin(t * 2.1) * 0.05
+      w.root.lookAt(this.camera.position.x, w.root.position.y, this.camera.position.z)
+      animateAtlas(w, t, talk)
+      _v.copy(w.root.position).project(this.camera)
+      hudLive.atlasX = (_v.x + 1) / 2
+      hudLive.atlasY = (1 - _v.y) / 2 - 0.04
+      hudLive.atlasIn = _v.z < 1 && Math.abs(_v.x) < 1 && Math.abs(_v.y) < 1
+    } else if (!vm.root.visible) hudLive.atlasIn = false
+    if (!cine && !intro) this.atlasWorldSet = false
+    void dt
+  }
+
+  /** Aim the world Atlas at Flux's shoulder (local offset from his root),
+   *  following with a little lag once it is out. */
+  private followAtlas(hero: Object3D, dt: number, snap: boolean): void {
+    if (!this.atlasWorld) return
+    _v.set(0.62, 1.45, -0.15).applyQuaternion(hero.quaternion).add(hero.position)
+    if (snap || !this.atlasWorldSet) this.atlasWorldAt.copy(_v)
+    else this.atlasWorldAt.lerp(_v, 1 - Math.exp(-dt * 6))
+    this.atlasWorldSet = true
   }
 
   /**
@@ -2884,6 +3052,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     else animateHeroIdle(rig, t)
     v.heroShadow.visible = o.body
     v.heroShadow.position.set(x, fy + plate + 0.035, z)
+    // Atlas beams in with him, at his shoulder once he has landed.
+    if (t >= BEAM_IN_LAND - 0.25) this.followAtlas(hr, 1 / 60, true)
+    this.atlasWorld?.root.scale.setScalar(Math.min(1, Math.max(0.05, (t - (BEAM_IN_LAND - 0.25)) / 0.3)))
     v.heroShadow.scale.setScalar(Math.max(0.35, 1 - o.drop * 0.2))
     // ── The camera ──
     // From the floor the first-person eye stands on, so the dive ends exactly
@@ -2945,6 +3116,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       animateHeroHop(rig, o.crouch, o.tuck, t)
       if (o.cheer >= 0) animateHeroVictory(rig, o.cheer)
     }
+    // Atlas rides out with him, at his shoulder.
+    this.atlasWorld?.root.scale.setScalar(1)
+    this.followAtlas(hr, dt, false)
     const fy = floorAt(this.nav, o.hx, o.hz)
     v.heroShadow.visible = o.mode !== 'ride' && fy > -50
     v.heroShadow.position.set(o.hx, fy + 0.035, o.hz)
@@ -3045,6 +3219,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   }
 
   dispose(): void {
+    this.city?.dispose()
     this.trail?.dispose()
     chargeHum(null)
     hud.hints = []

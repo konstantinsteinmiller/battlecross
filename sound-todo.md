@@ -42,6 +42,7 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `fortress.mp3` | Vex Fortress (final sector) | dark, phrygian, 165 BPM |
 | `drift.mp3` | rotation song 2, everywhere but boss fights | "Neon Drift": synthwave, 100 BPM, A minor, ~60 s |
 | `circuit.mp3` | rotation song 3, everywhere but boss fights | "Deep Circuit": lo-fi, swung, 84 BPM, ~60 s |
+| `intro.mp3` | the intro cutscene | "Wake-Up Call": action, 150 BPM, E minor; scored to the cutscene's 17 s (one 16th = 0.1 s; its beats are listed in `songs.ts`), so a file must keep that timing to line up. Loops if anything holds |
 | `boss.mp3` | every Core Master fight | "Overload": cinematic, 140 BPM, D minor — taiko, low-string ostinato, brass, choir; 50–60 s loop |
 | `victory.mp3` | results screen, mission won | one-shot fanfare, 2–3 s, NOT looped |
 | `defeat.mp3` | results screen, mission failed | one-shot sting, 2–3 s, NOT looped |
@@ -121,6 +122,22 @@ as the fallback for anything missing, so files can arrive one at a time.
 | `denied.mp3` | an action is not possible (not enough bolts, …) |
 | `uiClick.mp3` | UI tap |
 | `uiOpen.mp3` | a panel or modal opens |
+
+**Intro cutscene** (`src/game/story/introScript.ts`, first launch and Options → Replay intro)
+
+| File | Plays when |
+| --- | --- |
+| `synthPulse.mp3` | the cold open's rain hiss under the score (~2.7 s) |
+| `tapeRewind.mp3` | the freeze frame rewinds into Atlas's log (tape stop, then a spool-back, ~0.8 s) |
+| `relayChime.mp3` | a beam hops from relay to relay over the valley (soft bell) |
+| `vexGlitch.mp3` | Dr. Vex's face glitches on: three falling square notes over a crushed noise sweep (~0.5 s) |
+| `relayOut.mp3` | a relay goes red under the Red Signal (short falling blip) |
+| `alarm.mp3` | the lab's red alarm (two-tone, ~0.9 s) |
+| `capsule.mp3` | Gauss throws the capsule lever (heavy clunk, then a steam hiss, ~1 s) |
+| `freeze.mp3` | frost races over the stasis capsule (icy crackle falling in pitch, ~0.7 s) |
+| `heartbeat.mp3` | the stasis capsule's heartbeat light (soft, low lub-dub) |
+| `pipChirp.mp3` | Pip pops into Flux's view (two-note chirp) |
+| `bootUp.mp3` | Flux's HUD boots (rising boot chime, then the health bar's tick-fill, ~0.8 s) |
 
 **Stays synthesized:** the buster **charge hum**. It is re-pitched every frame
 while the button is held, so a sample cannot stand in for it.

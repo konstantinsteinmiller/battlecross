@@ -17,6 +17,58 @@ import { makeBlobShadow } from '../fx/markers'
 import { tickHud } from '../state/hud'
 
 /**
+ * The lab set: the round platform, the dome's glowing panels, the consoles and
+ * the ceiling lamp. The hub stands on it, and the intro's lab shots reuse it
+ * (`story/intro.ts`).
+ */
+export const buildLabSet = (): Group => {
+  const g = new Group()
+  const toon: BufferGeometry[] = []
+  const glow: BufferGeometry[] = []
+  // Floor: a big rounded disc with rings
+  toon.push(xform(paint(rcyl(9, 0.4, 0.2, 48), '#26365f'), [0, -0.2, 0]))
+  toon.push(xform(paint(torus(3.2, 0.06, 6, 48), '#3a5a9a'), [0, 0.01, 0], [Math.PI / 2, 0, 0]))
+  toon.push(xform(paint(torus(5.6, 0.06, 6, 64), '#3a5a9a'), [0, 0.01, 0], [Math.PI / 2, 0, 0]))
+  // Back wall: curved panels in a half ring behind the pad
+  for (let k = 0; k < 11; k++) {
+    const a = Math.PI + (k / 10) * Math.PI
+    const x = Math.cos(a) * 8.2
+    const z = Math.sin(a) * 8.2
+    toon.push(paintBy(xform(rbox(2.6, 6, 0.5, 0.35), [x, 3, z], [0, -a - Math.PI / 2, 0]), (_x, y) => (y > 5.3 ? '#4fd8ff' : y < 0.7 ? '#1c2a50' : '#2f4580')))
+    glow.push(xform(paint(cap(0.07, 3.2, 8, 2), k % 2 ? '#7ff4ff' : '#ffd84a'), [Math.cos(a) * 7.9, 3.2, Math.sin(a) * 7.9]))
+    toon.push(xform(paint(rcyl(0.32, 6.4, 0.12, 12), '#5d6a82'), [Math.cos(a + 0.14) * 8.1, 3.2, Math.sin(a + 0.14) * 8.1]))
+  }
+  // Consoles either side
+  for (const s of [-1, 1]) {
+    toon.push(xform(paint(rbox(1.6, 1.1, 0.9, 0.35), '#3b4458'), [s * 3.6, 0.55, -2.4], [0, -s * 0.5, 0]))
+    toon.push(xform(paint(rbox(1.4, 0.8, 0.12, 0.4), '#1d2438'), [s * 3.55, 1.45, -2.65], [-0.35, -s * 0.5, 0]))
+    glow.push(xform(paint(rbox(1.2, 0.6, 0.05, 0.5), s > 0 ? '#3cff9a' : '#3cc8ff'), [s * 3.55, 1.47, -2.58], [-0.35, -s * 0.5, 0]))
+    // Glass capsule tubes with glowing fluid
+    toon.push(xform(paint(rcyl(0.55, 0.35, 0.12, 20), '#5d6a82'), [s * 5.4, 0.18, -0.6]))
+    toon.push(xform(paint(rcyl(0.55, 0.35, 0.12, 20), '#5d6a82'), [s * 5.4, 3.3, -0.6]))
+    glow.push(xform(paint(lathe([[0, 0], [0.42, 0.05], [0.42, 2.6], [0, 2.65]], 20), s > 0 ? '#7fffc8' : '#8ab8ff'), [s * 5.4, 0.35, -0.6]))
+    toon.push(xform(paint(sph(0.35, 14, 10), '#9aa7bd'), [s * 5.4, 1.6, -0.6]))
+  }
+  // Ceiling lamp ring
+  glow.push(xform(paint(torus(3.6, 0.09, 6, 48), '#bff3ff'), [0, 7.2, 0], [Math.PI / 2, 0, 0]))
+  toon.push(xform(paint(ell(1.4, 0.4, 1.4, 20, 10), '#2f4580'), [0, 7.6, 0]))
+  const geo = merge(toon)
+  g.add(new Mesh(geo, toonVC()))
+  const ol = new Mesh(geo, outlineMat(0.03))
+  ol.renderOrder = -1
+  g.add(ol)
+  g.add(new Mesh(merge(glow), glowVC()))
+  // Soft light shaft over the pad
+  const shaft = new Mesh(
+    new CylinderGeometry(1.2, 1.6, 7, 24, 1, true),
+    new MeshBasicMaterial({ color: new Color('#7ff4ff'), transparent: true, opacity: 0.07, blending: AdditiveBlending, depthWrite: false, side: DoubleSide, toneMapped: false })
+  )
+  shaft.position.y = 3.6
+  g.add(shaft)
+  return g
+}
+
+/**
  * ─── The hub backdrop ────────────────────────────────────────────────────────
  *
  * Prof. Gauss's lab: a round platform under a dome of glowing panels, the
@@ -46,7 +98,7 @@ export class HubMode implements GameMode {
     const rim = new DirectionalLight(new Color('#7fd6ff'), 0.7)
     rim.position.set(-1, 0.6, -0.8)
     this.scene.add(key, rim)
-    this.scene.add(this.buildLab())
+    this.scene.add(buildLabSet())
 
     const pad = buildTeleporter(th)
     this.scene.add(pad.root)
@@ -64,53 +116,6 @@ export class HubMode implements GameMode {
     this.pipRoot.position.set(-1.25, 1.7, 0.4)
     this.scene.add(this.pipRoot)
     this.scene.add(this.fx.points)
-  }
-
-  private buildLab(): Group {
-    const g = new Group()
-    const toon: BufferGeometry[] = []
-    const glow: BufferGeometry[] = []
-    // Floor: a big rounded disc with rings
-    toon.push(xform(paint(rcyl(9, 0.4, 0.2, 48), '#26365f'), [0, -0.2, 0]))
-    toon.push(xform(paint(torus(3.2, 0.06, 6, 48), '#3a5a9a'), [0, 0.01, 0], [Math.PI / 2, 0, 0]))
-    toon.push(xform(paint(torus(5.6, 0.06, 6, 64), '#3a5a9a'), [0, 0.01, 0], [Math.PI / 2, 0, 0]))
-    // Back wall: curved panels in a half ring behind the pad
-    for (let k = 0; k < 11; k++) {
-      const a = Math.PI + (k / 10) * Math.PI
-      const x = Math.cos(a) * 8.2
-      const z = Math.sin(a) * 8.2
-      toon.push(paintBy(xform(rbox(2.6, 6, 0.5, 0.35), [x, 3, z], [0, -a - Math.PI / 2, 0]), (_x, y) => (y > 5.3 ? '#4fd8ff' : y < 0.7 ? '#1c2a50' : '#2f4580')))
-      glow.push(xform(paint(cap(0.07, 3.2, 8, 2), k % 2 ? '#7ff4ff' : '#ffd84a'), [Math.cos(a) * 7.9, 3.2, Math.sin(a) * 7.9]))
-      toon.push(xform(paint(rcyl(0.32, 6.4, 0.12, 12), '#5d6a82'), [Math.cos(a + 0.14) * 8.1, 3.2, Math.sin(a + 0.14) * 8.1]))
-    }
-    // Consoles either side
-    for (const s of [-1, 1]) {
-      toon.push(xform(paint(rbox(1.6, 1.1, 0.9, 0.35), '#3b4458'), [s * 3.6, 0.55, -2.4], [0, -s * 0.5, 0]))
-      toon.push(xform(paint(rbox(1.4, 0.8, 0.12, 0.4), '#1d2438'), [s * 3.55, 1.45, -2.65], [-0.35, -s * 0.5, 0]))
-      glow.push(xform(paint(rbox(1.2, 0.6, 0.05, 0.5), s > 0 ? '#3cff9a' : '#3cc8ff'), [s * 3.55, 1.47, -2.58], [-0.35, -s * 0.5, 0]))
-      // Glass capsule tubes with glowing fluid
-      toon.push(xform(paint(rcyl(0.55, 0.35, 0.12, 20), '#5d6a82'), [s * 5.4, 0.18, -0.6]))
-      toon.push(xform(paint(rcyl(0.55, 0.35, 0.12, 20), '#5d6a82'), [s * 5.4, 3.3, -0.6]))
-      glow.push(xform(paint(lathe([[0, 0], [0.42, 0.05], [0.42, 2.6], [0, 2.65]], 20), s > 0 ? '#7fffc8' : '#8ab8ff'), [s * 5.4, 0.35, -0.6]))
-      toon.push(xform(paint(sph(0.35, 14, 10), '#9aa7bd'), [s * 5.4, 1.6, -0.6]))
-    }
-    // Ceiling lamp ring
-    glow.push(xform(paint(torus(3.6, 0.09, 6, 48), '#bff3ff'), [0, 7.2, 0], [Math.PI / 2, 0, 0]))
-    toon.push(xform(paint(ell(1.4, 0.4, 1.4, 20, 10), '#2f4580'), [0, 7.6, 0]))
-    const geo = merge(toon)
-    g.add(new Mesh(geo, toonVC()))
-    const ol = new Mesh(geo, outlineMat(0.03))
-    ol.renderOrder = -1
-    g.add(ol)
-    g.add(new Mesh(merge(glow), glowVC()))
-    // Soft light shaft over the pad
-    const shaft = new Mesh(
-      new CylinderGeometry(1.2, 1.6, 7, 24, 1, true),
-      new MeshBasicMaterial({ color: new Color('#7ff4ff'), transparent: true, opacity: 0.07, blending: AdditiveBlending, depthWrite: false, side: DoubleSide, toneMapped: false })
-    )
-    shaft.position.y = 3.6
-    g.add(shaft)
-    return g
   }
 
   /** Rebuild Flux in his current gear colours (after equipping). */

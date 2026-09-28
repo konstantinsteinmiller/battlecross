@@ -19,7 +19,8 @@ export default {
     'pause': 'Pauze',
     'menu': 'Menu',
     'home': 'Start',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Overslaan'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} XP',
     'lastStand': 'Laatste adem! Systemen herstart.',
     'weak': 'ZWAKTE!',
+    'kranck': 'KRANCK!',
     'dizzy': 'DUIZELIG!',
     'dodge': 'ONTWEKEN!',
     'block': 'Blokkeren',
@@ -449,6 +451,7 @@ export default {
     'on': 'Aan',
     'off': 'Uit',
     'close': 'Sluiten',
+    'replayIntro': 'Intro opnieuw bekijken',
     'keyboard': {
       'auto': 'Toetsenbordindeling detecteren',
       'layout': 'Toetsenbordindeling',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Jij bent #{n} van {total}',
     'of': 'van {n} spelers',
     'tabGlobal': 'Wereldwijd'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux vecht tegen op hol geslagen machines in de neonstraten van Ampere Valley.',
+      'valley': 'Ampere Valley: een stralende androïdenstad, verbonden door lichtstralen. Dr. Vex neemt de machines over met een rood signaal.',
+      'lab': 'Het signaal bereikt het lab van Prof. Gauss. Zij geeft Flux de Atlas-schijf en wekt hem.',
+      'safeMode': 'Gauss vriest zichzelf in in een capsule om het signaal buiten te houden. Ze leeft nog.',
+      'wakeUp': 'Flux ontwaakt op niveau 1, met Atlas online. Fort Vex is veel sterker, dus eerst de Schroothoop.',
+      'beam': 'Flux beamt naar de Schroothoop.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnose: deze vallei is ZIEK. Het medicijn… ben IK!'
+    },
+    'atlas': {
+      'logStart': 'Log gestart.',
+      'goodMorning': 'Kern online. Goedemorgen, Flux.',
+      'scrapyardFirst': 'Eerst de Schroothoop. Eén relais tegelijk.'
+    }
+  },
+  'atlas': {
+    'landed': 'Geland! Daar gaan we.',
+    'brief': {
+      'tutorial': 'Training! Ik help je.',
+      'job': 'Klusje. Erin en eruit!',
+      'climb': 'Torenrace! Omhoog, omhoog!',
+      'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
+    },
+    'story': {
+      'scrapyard': 'Schroothoop-relais. Laat het stralen!',
+      'blaze': 'De Raffinaderij. Heet, heet, heet!',
+      'cryo': 'Cryocentrale. Brr! Blijf bewegen.',
+      'volt': 'Volttoren. Mijn circuits tintelen!',
+      'gale': 'Luchtdokken. Niet naar beneden kijken!',
+      'fortress': 'Het Fort. We maken het af.'
+    },
+    'arc': {
+      '1': 'Eén relais aan. Nog vier!',
+      '2': 'Twee relais! Vex zit te mokken.',
+      '3': 'Halverwege. Blijf stralen!',
+      '4': 'Nog één Meester. Bijna!',
+      '5': 'Schild weg. Nu Vex!'
+    },
+    'bossAhead': 'Baas in zicht. Diep ademhalen!',
+    'bossDown': 'Meester bevrijd! Goed gedaan!',
+    'vexDown': 'Vex is verslagen. Het is gelukt!',
+    'lowHp': 'Au! Voorzichtig, Flux!',
+    'lowHpGel': 'Lage gezondheid! Neem een reparatiegel.',
+    'lowWe': 'Wapenenergie laag!',
+    'trap': 'Val vooruit. Let op de timing!',
+    'plate': 'Drukplaat. Op je tenen!',
+    'objective': 'Klaar! Zoek nu de uitgang.',
+    'exit': 'Onze lift is er!',
+    'levelUp': 'Level omhoog! Je straalt.',
+    'idle': {
+      '1': 'Piep. Even checken.',
+      '2': 'Je doet het super.',
+      '3': 'Gauss zou trots zijn.',
+      '4': 'Ik vind ons een fijn team.'
+    }
   }
 }

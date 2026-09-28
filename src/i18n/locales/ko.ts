@@ -19,7 +19,8 @@ export default {
     'pause': '일시정지',
     'menu': '메뉴',
     'home': '홈',
-    'info': '정보'
+    'info': '정보',
+    'skip': '건너뛰기'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} 경험치',
     'lastStand': '불굴! 시스템 재가동.',
     'weak': '약점!',
+    'kranck': 'KRANCK!',
     'dizzy': '어질어질!',
     'dodge': '회피!',
     'block': '막기',
@@ -449,6 +451,7 @@ export default {
     'on': '켜기',
     'off': '끄기',
     'close': '닫기',
+    'replayIntro': '인트로 다시 보기',
     'keyboard': {
       'auto': '키보드 배열 자동 감지',
       'layout': '키보드 배열',
@@ -522,5 +525,65 @@ export default {
     'yourRank': '{total}명 중 {n}위',
     'of': '/ {n}명 중',
     'tabGlobal': '전 세계'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux는 Ampere Valley의 네온 거리에서 폭주한 기계들과 싸운다.',
+      'valley': 'Ampere Valley: 빛줄기로 이어진 눈부신 안드로이드 도시. Dr. Vex가 붉은 신호로 도시의 기계들을 장악한다.',
+      'lab': '신호가 Prof. Gauss의 연구실에 닿는다. 그녀는 Flux에게 Atlas 디스크를 건네고 그를 깨운다.',
+      'safeMode': 'Gauss는 신호를 막기 위해 스스로를 캡슐 안에 냉동한다. 그녀는 아직 살아 있다.',
+      'wakeUp': 'Flux가 레벨 1로 깨어나고, Atlas가 가동된다. Vex 요새는 훨씬 강하니, 고철장부터 간다.',
+      'beam': 'Flux가 고철장으로 전송된다.'
+    },
+    'vex': {
+      'diagnosis': '진단: 이 계곡은 병들었다. 치료제는… 바로 나다!'
+    },
+    'atlas': {
+      'logStart': '기록 시작.',
+      'goodMorning': '코어 가동. 좋은 아침입니다, Flux.',
+      'scrapyardFirst': '고철장부터. 중계기 하나씩.'
+    }
+  },
+  'atlas': {
+    'landed': '착륙! 가자.',
+    'brief': {
+      'tutorial': '훈련 시간. 내가 안내할게!',
+      'job': '간단한 일. 들어갔다 나오자!',
+      'climb': '타워 등반! 위로, 위로!',
+      'story': '코어 마스터가 기다려. 풀어주자!'
+    },
+    'story': {
+      'scrapyard': '고철장 중계기. 불을 켜자!',
+      'blaze': '정제소. 뜨거, 뜨거, 뜨거!',
+      'cryo': '극저온 공장. 부르르! 계속 움직여.',
+      'volt': '전격 타워. 회로가 찌릿찌릿!',
+      'gale': '하늘 부두. 아래 보지 마!',
+      'fortress': '요새. 여기서 끝내자.'
+    },
+    'arc': {
+      '1': '중계기 하나 점등. 넷 남았어!',
+      '2': '중계기 둘! Vex가 삐졌어.',
+      '3': '절반 왔어. 계속 빛나자!',
+      '4': '마스터 하나 남았어. 거의 다 왔어!',
+      '5': '방어막 해제. 다음은 Vex!'
+    },
+    'bossAhead': '앞에 보스야. 심호흡!',
+    'bossDown': '마스터 해방! 잘했어!',
+    'vexDown': 'Vex 쓰러뜨렸어. 해냈다!',
+    'lowHp': '아야! 조심해, Flux!',
+    'lowHpGel': '체력 부족! 수리 젤을 써 봐.',
+    'lowWe': '무기 에너지 부족!',
+    'trap': '앞에 함정. 타이밍 잘 봐!',
+    'plate': '압력판. 살금살금!',
+    'objective': '완료! 이제 출구를 찾아.',
+    'exit': '우리 탈것 도착!',
+    'levelUp': '레벨 업! 반짝반짝하네.',
+    'idle': {
+      '1': '삐빅. 그냥 확인 중.',
+      '2': '아주 잘하고 있어.',
+      '3': 'Gauss도 자랑스러워할 거야.',
+      '4': '난 우리 팀이 좋아.'
+    }
   }
 }

@@ -531,6 +531,8 @@ try {
   let booted = false
   for (let i = 0; i < 160; i++) {
     if (await ev('!!document.querySelector(".hud-layer, .hub")')) { booted = true; break }
+    // A fresh profile opens on the intro cutscene: press its skip glyph.
+    await ev('(() => { const b = document.querySelector(".cutscene-skip"); if (b) b.click(); return true })()')
     await sleep(250)
   }
   check('game booted into a mission or the hub', booted)

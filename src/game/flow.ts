@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { app } from './engine/app'
 import type { Quest } from './data/quests'
 import { rollJob, storyQuest, tutorialQuest, climbJob, climbSectors } from './data/quests'
@@ -7,10 +7,10 @@ import { rollItem, type Item } from './data/items'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import {
   profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp,
-  loadProfile, setSaveSandbox
+  loadProfile, setSaveSandbox, markStorySeen
 } from './state/profile'
 import { hud } from './state/hud'
-import { flushSaveNow } from '@/use/useSaveStatus'
+import { flushSaveNow, saveDataVersion } from '@/use/useSaveStatus'
 import { setMusicTrack, startGameMusic } from '@/use/useSound'
 import { showMidgameAd } from '@/use/useAds'
 import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
@@ -33,7 +33,7 @@ import type { SectorId } from './world/themes'
  * does not import the heavy mission/hub code itself.
  */
 
-export type Screen = 'boot' | 'mission' | 'hub'
+export type Screen = 'boot' | 'mission' | 'hub' | 'intro'
 export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp'
 
 export interface ResultsData {
@@ -70,23 +70,55 @@ type MissionFactory = (
   quest: Quest, snapshot: MissionSnapshot | null, onProgress?: (p01: number) => void
 ) => Promise<import('./engine/app').GameMode>
 type HubFactory = () => import('./engine/app').GameMode
+/** The intro cutscene (`story/intro.ts`), as far as the flow drives it. */
+export interface IntroHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
+  skip(): void
+  /** End it now, without its end callback (a cloud save took over). */
+  abort(): void
+}
+type IntroFactory = (opts: {
+  replay: boolean
+  onStart: () => void
+  onEnd: (skipped: boolean) => void
+}) => IntroHandle
 let missionFactory: MissionFactory | null = null
 let hubFactory: HubFactory | null = null
+let introFactory: IntroFactory | null = null
 
-export const registerModeFactories = (m: MissionFactory, h: HubFactory): void => {
+export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory): void => {
   missionFactory = m
   hubFactory = h
+  introFactory = i ?? null
 }
 
+/**
+ * The intro cutscene ships on every build unless the build switches it off
+ * (`VITE_APP_INTRO=false`, `story.md` § Decisions), wherever a portal's
+ * conversion-to-play drops. A const, so a build without it folds the check.
+ */
+export const INTRO_ENABLED = import.meta.env.VITE_APP_INTRO !== 'false'
+
+export type BootTarget =
+  | { kind: 'mission'; quest: Quest; snapshot: MissionSnapshot | null }
+  | { kind: 'hub' }
+  | { kind: 'intro' }
+
 /** What the game should boot into (no main menu — straight into a scene). */
-export const bootTarget = (): { kind: 'mission'; quest: Quest; snapshot: MissionSnapshot | null } | { kind: 'hub' } => {
+export const bootTarget = (introOn: boolean = INTRO_ENABLED): BootTarget => {
   const snap = readSnapshot()
   // A tutorial left before the guided walkthrough existed has no walkthrough
   // progress to resume (and another map): it starts over. Its XP and bolts
   // were banked live.
   const stale = snap?.quest.template === 'tutorial' && !snap.walk
   if (snap && !snap.done && !stale) return { kind: 'mission', quest: snap.quest, snapshot: snap }
-  if (!profile.world.tutorialDone) return { kind: 'mission', quest: tutorialQuest(), snapshot: null }
+  if (!profile.world.tutorialDone) {
+    // A first-timer sees the intro once; the tutorial builds behind it. The
+    // save is hydrated before the scene boots (main.ts awaits it), so a
+    // returning player on a new device reads as returning here.
+    // Any snapshot at all (even a stale one) means they have played before.
+    if (introOn && !snap && !profile.world.seen.includes('intro')) return { kind: 'intro' }
+    return { kind: 'mission', quest: tutorialQuest(), snapshot: null }
+  }
   return { kind: 'hub' }
 }
 
@@ -143,7 +175,12 @@ export const createBootMode = async (onProgress?: (p01: number) => void): Promis
   // awaited, a no-op on every build without a portal board. The save is
   // hydrated by now (main.ts awaits it before the App mounts).
   void joinPortalBoard(lifetimeXp())
-  const t = (import.meta.env.DEV && await testBootTarget()) || bootTarget()
+  const t = (import.meta.env.DEV && await testBootTarget()) || bootTarget(INTRO_ENABLED && !!introFactory)
+  if (t.kind === 'intro') {
+    const m = beginIntro(false)
+    onProgress?.(1)
+    return m
+  }
   if (t.kind === 'mission') {
     flow.quest = t.quest
     flow.screen = 'mission'
@@ -159,13 +196,158 @@ export const createBootMode = async (onProgress?: (p01: number) => void): Promis
   return h
 }
 
+// ─── The intro cutscene ──────────────────────────────────────────────────────
+//
+// It is the loader (`story.md` § Intro): the cutscene's set is the boot scene
+// (the splash leaves as it starts, so a portal's first-load ad lands before
+// shot 1 and the cutscene waits frozen under it), and the tutorial builds
+// BEHIND it while it plays. At the flash the tutorial takes over with its own
+// beam-in; if the build is not done yet — or the player skipped early — the
+// mission beam overlay (`MissionLoading`) holds until it is. Skipping never
+// costs time, and nobody who watches sees a frozen frame.
+
+interface Behind {
+  quest: Quest
+  build: Promise<import('./engine/app').GameMode>
+  mode: import('./engine/app').GameMode | null
+}
+/** The tutorial building behind the intro. */
+let behind: Behind | null = null
+let introLive: IntroHandle | null = null
+let stopCloudWatch: (() => void) | null = null
+
+/** Make the intro the scene (the boot, or a replay from Options). */
+const beginIntro = (replay: boolean): IntroHandle => {
+  flow.screen = 'intro'
+  flow.modal = ''
+  hud.phase = 'boot'
+  // The intro's own score starts when the cutscene goes live (`IntroMode.enter`).
+  const m = introFactory!({
+    replay,
+    onStart: () => {
+      performance.mark('boot:intro-start')
+      if (!replay) buildBehindIntro()
+    },
+    onEnd: (skipped) => { void finishIntro(replay, skipped) }
+  })
+  introLive = m
+  return m
+}
+
+const buildBehindIntro = (): void => {
+  if (behind || !missionFactory) return
+  const quest = tutorialQuest()
+  flow.loadProgress = 0
+  const b: Behind = { quest, mode: null, build: null as unknown as Behind['build'] }
+  b.build = missionFactory(quest, null, (p) => { flow.loadProgress = p }).then((m) => {
+    b.mode = m
+    performance.mark('boot:tutorial-built')
+    return m
+  })
+  behind = b
+  watchCloudDuringIntro()
+}
+
+/**
+ * A cloud save that arrives mid-intro with progress on it ends the intro: the
+ * player has been here before (on another device). Whatever the save says to
+ * boot into takes over, and the tutorial built behind is thrown away.
+ */
+const watchCloudDuringIntro = (): void => {
+  stopCloudWatch?.()
+  stopCloudWatch = watch(saveDataVersion, () => {
+    if (flow.screen !== 'intro' || !introLive) return
+    const t = bootTarget(false)
+    if (t.kind === 'mission' && t.quest.template === 'tutorial' && !t.snapshot) return
+    stopCloudWatch?.()
+    stopCloudWatch = null
+    void abandonIntro(t)
+  })
+}
+
+const dropBehind = (): void => {
+  const b = behind
+  behind = null
+  if (b) void b.build.then(m => m.dispose(), () => {})
+}
+
+const abandonIntro = async (t: BootTarget): Promise<void> => {
+  introLive?.abort()
+  introLive = null
+  dropBehind()
+  markStorySeen('intro')
+  performance.mark('boot:intro-end')
+  if (t.kind === 'mission') await startMission(t.quest, t.snapshot)
+  else goHub()
+}
+
+/** The intro ended (watched or skipped): record it, then hand over. */
+const finishIntro = async (replay: boolean, _skipped: boolean): Promise<void> => {
+  introLive = null
+  stopCloudWatch?.()
+  stopCloudWatch = null
+  performance.mark('boot:intro-end')
+  markStorySeen('intro')
+  void flushSaveNow()
+  if (replay) {
+    goHub()
+    return
+  }
+  if (!behind) buildBehindIntro()
+  const b = behind!
+  // The sector's music now, even if the build still holds the beam overlay.
+  setMusicTrack(b.quest.sector)
+  if (!b.mode) {
+    // Still building: the mission beam overlay holds until it is ready.
+    flow.loadingSector = b.quest.sector
+    flow.loading = true
+  }
+  try {
+    const m = await b.build
+    if (behind !== b) return
+    behind = null
+    flow.quest = b.quest
+    flow.modal = ''
+    flow.results = null
+    flow.levelAtStart = profile.level
+    flow.screen = 'mission'
+    setMusicTrack(b.quest.sector)
+    startGameMusic()
+    app.setMode(m)
+    app.setWanted(true)
+  } catch (e) {
+    console.error('[intro] tutorial build failed', e)
+    behind = null
+    flow.loading = false
+    await startMission(b.quest)
+  } finally {
+    flow.loading = false
+  }
+}
+
+/** Options → Replay intro (the hub only). It ends back in the hub. */
+export const replayIntro = (): void => {
+  if (!introFactory || flow.screen !== 'hub' || flow.loading) return
+  const m = beginIntro(true)
+  app.setMode(m)
+  app.setWanted(true)
+}
+
+/** For tests: forget the intro's state between cases. */
+export const __resetIntro = (): void => {
+  stopCloudWatch?.()
+  stopCloudWatch = null
+  behind = null
+  introLive = null
+}
+
 /**
  * Hub → mission. The sector is built BEHIND the beam overlay (`flow.loading`),
  * time-sliced so the lab keeps animating and the bar keeps filling, and the
  * mission only takes over once it is complete, shaders included. A Deploy tap
  * therefore answers at once instead of freezing the hub for the whole build.
  */
-export const startMission = async (quest: Quest): Promise<void> => {
+export const startMission = async (quest: Quest, snapshot: MissionSnapshot | null = null): Promise<void> => {
   if (!missionFactory || flow.loading) return
   flow.loading = true
   flow.loadProgress = 0
@@ -176,7 +358,7 @@ export const startMission = async (quest: Quest): Promise<void> => {
     // the last frame, which simply stays put).
     await afterPaint()
     app.setWanted(false)
-    const m = await missionFactory(quest, null, (p) => { flow.loadProgress = p })
+    const m = await missionFactory(quest, snapshot, (p) => { flow.loadProgress = p })
     flow.quest = quest
     flow.modal = ''
     flow.results = null

@@ -126,6 +126,12 @@ try {
       await page.goto(`http://127.0.0.1:${PORT}/`)
       out.title = await page.title()
       if (!/Mega Droid/i.test(out.title)) throw new Error(`wrong app on the port (title "${out.title}")`)
+// A fresh profile opens on the intro cutscene: skip it the way a player
+      // does (the skip glyph), so the skip itself is exercised.
+      {
+        const first = await page.waitForSelector('.cutscene-skip, .hud-layer', { timeout: 40000 })
+        if (await first.evaluate(el => el.classList.contains('cutscene-skip'))) await first.click()
+      }
       await page.waitForSelector('.hud-layer', { timeout: 40000 })
       out.webgl = await page.evaluate(() => {
         const c = document.querySelector('canvas')

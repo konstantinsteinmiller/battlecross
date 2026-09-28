@@ -102,6 +102,10 @@ export const hud = shallowReactive({
    *  and a count that grows with each one, so the same line pops again. */
   sayKey: '',
   saySeq: 0,
+  /** Atlas's speech bubble (`sim/atlas.ts`, `AtlasBubble.vue`): the i18n key
+   *  of its line ('' = none), and a count that grows with each line. */
+  atlasKey: '',
+  atlasSeq: 0,
   /** Sector / mission title card. */
   titleKey: '',
   titleSub: '',
@@ -119,7 +123,12 @@ const tickers = new Set<HudTicker>()
 export const hudLive = {
   /** Seconds of slide cooldown left, and the full cooldown it started from. */
   slideCd: 0,
-  slideCdMax: 1
+  slideCdMax: 1,
+  /** Where Atlas's model is on screen (viewport fractions, top-left origin),
+   *  for its bubble; `atlasIn` = it is in view. */
+  atlasX: 0.14,
+  atlasY: 0.3,
+  atlasIn: false
 }
 
 export const addHudTicker =(fn: HudTicker): (() => void) => {
@@ -138,6 +147,8 @@ export type HudEvent =
   | { t: 'toast'; key: string; params?: Record<string, string | number>; color?: string; icon?: string }
   | { t: 'flash'; color: string; strength: number }
   | { t: 'hurt'; strength: number }
+  /** A shot on a weak spot: the amber "KRANCK!" that wobbles up and pops. */
+  | { t: 'kranck'; x: number; y: number; z: number }
   /** An item found in the mission: its card (`LootCard.vue`). */
   | { t: 'loot'; item: Item }
 

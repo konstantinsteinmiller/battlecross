@@ -132,6 +132,12 @@ export interface Shot {
   pierce: number
   hitIds: number[]
   homing: Enemy | null
+  /** Aimed at this machine's weak spot (`data/weakspots.ts`): the crosshair
+   *  was on it when fired. Only such a shot can land one; the auto-aim's never. */
+  weakOf?: Enemy | null
+  /** How close it has come to that spot so far (m): once it is past it, it
+   *  is an ordinary shot. */
+  weakBest?: number
   turn: number
   source: Enemy | null
   blockable: boolean

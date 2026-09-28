@@ -18,6 +18,8 @@ import { currentMission } from '@/game/boot'
 const { t } = useI18n()
 const layer = ref<HTMLElement | null>(null)
 const POOL = 32
+/** The weak-spot call-out's whole life (s): up, wobble, gone. */
+const KRANCK_LIFE = 0.62
 
 interface Item {
   el: HTMLSpanElement
@@ -30,6 +32,8 @@ interface Item {
   rise: number
   jitter: number
   scale: number
+  /** The weak-spot call-out: wobbles as it grows, then pops away. */
+  kranck: boolean
 }
 const items: Item[] = []
 const pt = { x: 0, y: 0, visible: false }
@@ -49,6 +53,7 @@ const spawn = (x: number, y: number, z: number, text: string, cls: string, life:
   it.rise = 0.9 + Math.random() * 0.3
   it.jitter = (Math.random() - 0.5) * 36
   it.scale = scale
+  it.kranck = cls === 'kranck'
   it.el.textContent = text
   it.el.className = `ft ${cls}`
   it.el.style.color = color
@@ -61,7 +66,7 @@ onMounted(() => {
     el.className = 'ft'
     el.style.display = 'none'
     layer.value!.appendChild(el)
-    items.push({ el, active: false, x: 0, y: 0, z: 0, t: 0, life: 1, rise: 1, jitter: 0, scale: 1 })
+    items.push({ el, active: false, x: 0, y: 0, z: 0, t: 0, life: 1, rise: 1, jitter: 0, scale: 1, kranck: false })
   }
   off = addHudTicker((dt) => {
     // Drain the sim's event queue
@@ -70,6 +75,8 @@ onMounted(() => {
       if (e.t === 'damage') {
         const cls = e.toPlayer ? 'dmg-player' : e.crit ? 'dmg-crit' : e.weak ? 'dmg-weak' : 'dmg'
         spawn(e.x, e.y, e.z, String(e.amount), cls, e.crit ? 1.0 : 0.8, e.crit ? 1.35 : 1)
+      } else if (e.t === 'kranck') {
+        spawn(e.x, e.y, e.z, t('combat.kranck'), 'kranck', KRANCK_LIFE, 1)
       } else if (e.t === 'text') {
         spawn(e.x, e.y, e.z, t(e.key, e.params ?? {}), 'call', 1.0, 1, e.color)
       } else if (e.t === 'hurt') {
@@ -93,9 +100,17 @@ onMounted(() => {
         it.el.style.display = 'none'
         continue
       }
-      m.project(it.x, it.y + k * it.rise, it.z, pt)
+      m.project(it.x, it.y + (it.kranck ? k * 0.25 : k * it.rise), it.z, pt)
       if (!pt.visible) {
         it.el.style.opacity = '0'
+        continue
+      }
+      if (it.kranck) {
+        // Grows a bit while it wobbles, holds, then shrinks away almost at once.
+        const grow = k < 0.7 ? 0.55 + 0.75 * (1 - (1 - k / 0.7) ** 3) : 1.3 * (1 - ((k - 0.7) / 0.3) ** 0.6)
+        const wob = Math.sin(it.t * 38) * 14 * (1 - k)
+        it.el.style.opacity = '1'
+        it.el.style.transform = `translate(${pt.x}px, ${pt.y}px) translate(-50%, -50%) rotate(${wob.toFixed(1)}deg) scale(${Math.max(0, grow).toFixed(3)})`
         continue
       }
       const pop = k < 0.12 ? 0.6 + (k / 0.12) * 0.7 : k < 0.22 ? 1.3 - ((k - 0.12) / 0.1) * 0.3 : 1
@@ -132,6 +147,14 @@ onUnmounted(() => off?.())
     color: #ff9a2e
   .dmg-player
     color: #ff5a5a
+  // "KRANCK!": a cartoon sound word in amber, fat outline, a little tilt.
+  .kranck
+    font-family: var(--font-ui)
+    font-size: clamp(22px, 5.2vmin, 38px)
+    letter-spacing: 0.04em
+    color: #ffb03a
+    -webkit-text-stroke: 1px #7a3a00
+    text-shadow: 3px 3px 0 #141a33, -2px -2px 0 #141a33, 2px -2px 0 #141a33, -2px 2px 0 #141a33, 0 0 14px rgba(255, 176, 58, 0.7)
   .call
     font-family: var(--font-ui)
     font-size: clamp(14px, 3vmin, 22px)

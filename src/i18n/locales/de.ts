@@ -19,7 +19,8 @@ export default {
     'pause': 'Pause',
     'menu': 'Menü',
     'home': 'Start',
-    'info': 'Info'
+    'info': 'Info',
+    'skip': 'Überspringen'
   },
 
   'combat': {
@@ -31,6 +32,7 @@ export default {
     'xp': '+{n} EP',
     'lastStand': 'Letztes Gefecht! Systeme neu gestartet.',
     'weak': 'SCHWÄCHE!',
+    'kranck': 'KRANCK!',
     'dizzy': 'BENOMMEN!',
     'dodge': 'AUSGEWICHEN!',
     'block': 'Blocken',
@@ -449,6 +451,7 @@ export default {
     'on': 'An',
     'off': 'Aus',
     'close': 'Schließen',
+    'replayIntro': 'Intro wiederholen',
     'keyboard': {
       'auto': 'Tastaturlayout erkennen',
       'layout': 'Tastaturlayout',
@@ -522,5 +525,65 @@ export default {
     'yourRank': 'Du bist #{n} von {total}',
     'of': 'von {n} Spielern',
     'tabGlobal': 'Global'
+  },
+
+  'story': {
+    'intro': {
+      'coldOpen': 'Flux kämpft auf den Neonstraßen von Ampere Valley gegen abtrünnige Maschinen.',
+      'valley': 'Ampere Valley: eine leuchtende Android-Stadt, verbunden durch Lichtstrahlen. Dr. Vex übernimmt ihre Maschinen mit einem roten Signal.',
+      'lab': 'Das Signal erreicht das Labor von Prof. Gauss. Sie übergibt Flux die Atlas-Scheibe und weckt ihn.',
+      'safeMode': 'Gauss friert sich in einer Kapsel ein, um das Signal abzuhalten. Sie lebt noch.',
+      'wakeUp': 'Flux erwacht auf Stufe 1, mit Atlas online. Die Festung Vex ist viel stärker, also kommt zuerst der Schrottplatz.',
+      'beam': 'Flux beamt sich zum Schrottplatz.'
+    },
+    'vex': {
+      'diagnosis': 'Diagnose: Dieses Tal ist KRANK. Die Heilung… bin ICH!'
+    },
+    'atlas': {
+      'logStart': 'Protokoll gestartet.',
+      'goodMorning': 'Kern online. Guten Morgen, Flux.',
+      'scrapyardFirst': 'Erst der Schrottplatz. Ein Relais nach dem anderen.'
+    }
+  },
+  'atlas': {
+    'landed': "Gelandet! Los geht's.",
+    'brief': {
+      'tutorial': 'Training! Ich helf dir.',
+      'job': 'Kurzer Job. Rein und raus!',
+      'climb': 'Turmlauf! Hoch, hoch, hoch!',
+      'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
+    },
+    'story': {
+      'scrapyard': "Schrottplatz-Relais. Bring's zum Leuchten!",
+      'blaze': 'Die Raffinerie. Heiß, heiß, heiß!',
+      'cryo': 'Kryowerk. Brr! Bleib in Bewegung.',
+      'volt': 'Voltturm. Meine Schaltkreise kribbeln!',
+      'gale': 'Himmelsdocks. Nicht runterschauen!',
+      'fortress': 'Die Festung. Zeit, das zu beenden.'
+    },
+    'arc': {
+      '1': 'Ein Relais leuchtet. Noch vier!',
+      '2': 'Zwei Relais! Vex schmollt.',
+      '3': 'Halbzeit. Leucht weiter!',
+      '4': 'Nur noch ein Meister. Fast geschafft!',
+      '5': 'Schild ist weg. Jetzt ist Vex dran!'
+    },
+    'bossAhead': 'Boss voraus. Tief durchatmen!',
+    'bossDown': 'Meister befreit! Super gemacht!',
+    'vexDown': 'Vex ist erledigt. Wir haben es geschafft!',
+    'lowHp': 'Autsch! Vorsicht, Flux!',
+    'lowHpGel': 'Du bist angeschlagen! Nimm ein Reparaturgel.',
+    'lowWe': 'Waffenenergie wird knapp!',
+    'trap': 'Falle voraus. Achte aufs Timing!',
+    'plate': 'Druckplatte. Auf Zehenspitzen!',
+    'objective': 'Erledigt! Jetzt ab zum Ausgang.',
+    'exit': 'Unser Taxi ist da!',
+    'levelUp': 'Level-Up! Du strahlst ja richtig.',
+    'idle': {
+      '1': 'Piep. Alles klar bei dir?',
+      '2': 'Du machst das super.',
+      '3': 'Gauss wäre stolz.',
+      '4': 'Ich mag unser Team.'
+    }
   }
 }

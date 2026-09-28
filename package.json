@@ -40,6 +40,7 @@
     "compress-bench": "node scripts/image-compress-bench.mjs",
     "compress-folder-with-backup": "node scripts/compress-images.mjs public/images --max-effort --backup-dir public-backup",
     "preview:video": "node tools/preview-video/record.mjs",
+    "voice:script": "node --experimental-strip-types --no-warnings tools/voice-script.mjs",
     "art:desk": "node tools/art-desk/server.mjs",
     "art:comic": "node tools/art-comic.mjs",
     "art:promotion": "node tools/art-promotion.mjs",

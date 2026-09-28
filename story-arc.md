@@ -14,7 +14,9 @@ It also marks a **key frame** for every beat, for storyboard and mood images.
 Voice direction is in [`story-voice-over.md`](./story-voice-over.md), and the
 comic prompts are in [`comic.md`](./comic.md).
 
-Nothing here is built. Where this file changes `story.md`, it says so, and
+Only § 1, the intro cutscene, is built so far (`src/game/story/`: the script
+in `introScript.ts`, the player in `intro.ts`, the screen layer in
+`components/story/CutsceneLayer.vue`). Where this file changes `story.md`, it says so, and
 [Changes to story.md](#changes-to-storymd) lists every change for you to
 confirm.
 

@@ -15,10 +15,13 @@ import { keyboard, keyLabel, LAYOUTS, setAutoLayout, setManualLayout, type Layou
 
 defineProps<{
   isOpen: boolean
+  /** Offer "Replay intro" (the hub only, on builds that ship the intro). */
+  canReplayIntro?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'replayIntro'): void
 }>()
 
 // Global scope so the Options UI strings resolve from the shared locale
@@ -224,7 +227,9 @@ onUnmounted(stopCapture)
           button.bind-key(type="button" :class="{ waiting: capturing === a }" @click="startCapture(a)") {{ capturing === a ? '…' : keyLabel(primaryCode(a)) }}
 
     template(#footer)
-      FButton(class="px-6 sm:px-8" @click="emit('close')") {{ t('options.close') }}
+      div.flex.flex-wrap.items-center.justify-center.gap-2
+        FButton(v-if="canReplayIntro" class="px-4 sm:px-6" type="secondary" @click="emit('replayIntro')") {{ t('options.replayIntro') }}
+        FButton(class="px-6 sm:px-8" @click="emit('close')") {{ t('options.close') }}
 </template>
 
 <style lang="sass" scoped>

@@ -35,16 +35,31 @@ export const ROTATION_SIZE = ROTATION.length + 1
 export const ROTATE_AFTER_S = 45
 /** The first music of the session fades in gently rather than arriving at full level. */
 export const FIRST_FADE_S = 4
+/** Songs that loop and never rotate: the boss fight, and the intro cutscene's
+ *  score (scored to the picture, `story/introScript.ts`). */
+const OWN_SONG = (id: TrackId | SongId | null): boolean => id === 'boss' || id === 'intro'
+
+/**
+ * Where a song should START, in seconds, if not at its top: the intro's score
+ * follows the cutscene clock, so music that could only start once the player's
+ * first tap unlocked the audio (or that an ad stopped) joins at the shot on
+ * screen instead of at bar 1. The cutscene registers it while it plays.
+ */
+let startHint: ((id: SongId) => number) | null = null
+export const setSongStartHint = (fn: ((id: SongId) => number) | null): void => {
+  startHint = fn
+}
+
 /** Song-to-song handover: the outgoing song's tail fades under the incoming one. */
 const HANDOVER_FADE_S = 2.5
 
 /** The song an area plays at a rotation slot. */
 export const songFor = (area: TrackId, slot: number): SongId =>
-  area === 'boss' ? 'boss' : slot % ROTATION_SIZE === 0 ? area : ROTATION[(slot % ROTATION_SIZE) - 1]!
+  OWN_SONG(area) ? area : slot % ROTATION_SIZE === 0 ? area : ROTATION[(slot % ROTATION_SIZE) - 1]!
 
 /** Whether a finished pass of a song should hand over to the next one. */
 export const shouldRotate = (area: TrackId | null, playing: SongId | null, played: number): boolean =>
-  area !== 'boss' && playing !== 'boss' && played >= ROTATE_AFTER_S
+  !OWN_SONG(area) && !OWN_SONG(playing) && played >= ROTATE_AFTER_S
 
 /**
  * Whether a request for `area` can leave the current song alone. The same song
@@ -54,7 +69,7 @@ export const shouldRotate = (area: TrackId | null, playing: SongId | null, playe
 export const keepsPlaying = (area: TrackId, playing: SongId | null, slot: number): boolean => {
   if (!playing) return false
   if (playing === songFor(area, slot)) return true
-  return area !== 'boss' && playing !== 'boss' && slot % ROTATION_SIZE !== 0
+  return !OWN_SONG(area) && !OWN_SONG(playing) && slot % ROTATION_SIZE !== 0
 }
 
 // ─── Sequencer state ────────────────────────────────────────────────────────
@@ -92,11 +107,13 @@ const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: b
   o.master.gain.setValueAtTime(0.0001, a.ctx.currentTime)
   o.master.gain.setValueAtTime(0.0001, t0)
   o.master.gain.exponentialRampToValueAtTime(s.gain, t0 + Math.max(0.03, fadeIn))
-  if (allowResume && resume && resume.id === id && id !== 'boss') {
+  if (allowResume && resume && resume.id === id && !OWN_SONG(id)) {
     stepIdx = resume.step
     played = resume.played
   } else {
-    stepIdx = 0
+    // Join a scored song where the picture is (see `setSongStartHint`).
+    const sec = startHint?.(id) ?? 0
+    stepIdx = Math.max(0, Math.min(s.steps.length - 1, Math.round(sec / (60 / s.bpm / 4))))
     played = 0
   }
   resume = null
@@ -211,9 +228,12 @@ const stopFile = (el: HTMLAudioElement, g: GainNode, fade: number): void => {
 }
 
 const startFileSong = (id: SongId, url: string, fadeIn: number): boolean => {
-  const rotating = id !== 'boss'
+  const rotating = !OWN_SONG(id)
   const f = startFile(url, !rotating, fadeIn)
   if (!f) return false
+  // A scored file joins where the picture is, like the composed score.
+  const sec = startHint?.(id) ?? 0
+  if (sec > 0) f.el.currentTime = sec
   playing = id
   fileEl = f.el
   fileGain = f.gain
@@ -237,7 +257,8 @@ const startFileSong = (id: SongId, url: string, fadeIn: number): boolean => {
 
 /** Start a song from a file if one was dropped in, else compose it. */
 const begin = (id: SongId): void => {
-  const fadeIn = everStarted ? 0.35 : FIRST_FADE_S
+  // The intro's score opens on a hit: no gentle first-of-session fade.
+  const fadeIn = id === 'intro' ? 0.04 : everStarted ? 0.35 : FIRST_FADE_S
   everStarted = true
   const url = MUSIC_FILES.get(id)
   if (url && startFileSong(id, url, fadeIn)) return
