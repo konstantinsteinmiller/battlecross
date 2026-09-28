@@ -20,7 +20,8 @@ export default {
     'menu': '메뉴',
     'home': '홈',
     'info': '정보',
-    'skip': '건너뛰기'
+    'skip': '건너뛰기',
+    'holdToSkip': '{key} 길게 눌러 건너뛰기'
   },
 
   'combat': {

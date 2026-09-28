@@ -20,7 +20,8 @@ export default {
     'menu': 'Menu',
     'home': 'Trang chính',
     'info': 'Thông tin',
-    'skip': 'Bỏ qua'
+    'skip': 'Bỏ qua',
+    'holdToSkip': 'Giữ {key} để bỏ qua'
   },
 
   'combat': {

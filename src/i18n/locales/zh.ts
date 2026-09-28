@@ -20,7 +20,8 @@ export default {
     'menu': '菜单',
     'home': '主页',
     'info': '信息',
-    'skip': '跳过'
+    'skip': '跳过',
+    'holdToSkip': '按住{key}跳过'
   },
 
   'combat': {

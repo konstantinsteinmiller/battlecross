@@ -1,11 +1,12 @@
 <template lang="pug">
   div.missions.sheet
-    div.sectors
+    div.sectors(ref="strip")
       button.sector(
         v-for="s in SECTORS"
         :key="s.id"
         type="button"
         :class="{ on: sel === s.id, locked: !unlocked(s.id), cleared: cleared(s.id) }"
+        :data-sector="s.id"
         :style="{ '--c1': THEMES[s.id].wall, '--c2': THEMES[s.id].accent }"
         @click="select(s.id)"
       )
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import QuestCard from './QuestCard.vue'
@@ -36,6 +37,7 @@ import { profile, saveProfile } from '@/game/state/profile'
 import { storyFor, startMission, rerollJob } from '@/game/flow'
 import type { Quest } from '@/game/data/quests'
 import { sfx } from '@/game/audio/sfx'
+import { useDragScroll, revealIn } from '@/use/useDragScroll'
 
 /** Sector strip (the valley map), the sector's story mission, and the job board. */
 const { t } = useI18n()
@@ -48,10 +50,21 @@ const prevBoss = (id: SectorId) => {
   const s = SECTOR_BY_ID[id]
   return s.after ? SECTOR_BY_ID[s.after].boss : ''
 }
+// The strip drags with a mouse (a wheel scrolls it too), and the selected
+// sector always scrolls fully into view: on opening, and on every pick.
+const strip = ref<HTMLElement | null>(null)
+useDragScroll(strip)
+const reveal = (smooth: boolean) => {
+  const el = strip.value
+  const card = el?.querySelector<HTMLElement>(`[data-sector="${sel.value}"]`)
+  if (el && card) revealIn(el, card, smooth)
+}
+onMounted(() => nextTick(() => reveal(false)))
 const select = (id: SectorId) => {
   sel.value = id
   profile.world.selected = id
   sfx('uiClick')
+  void nextTick(() => reveal(true))
 }
 const deploy = (q: Quest) => {
   sfx('uiOpen')
@@ -72,8 +85,16 @@ const reroll = (id: string) => {
   overflow-x: auto
   padding: 4px 2px 10px
   scrollbar-width: none
+  overscroll-behavior-x: contain
   &::-webkit-scrollbar
     display: none
+  @media (pointer: fine)
+    cursor: grab
+  &.dragging
+    cursor: grabbing
+    user-select: none
+    .sector
+      pointer-events: none
 .sector
   flex: 0 0 auto
   display: flex

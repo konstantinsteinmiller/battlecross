@@ -303,14 +303,17 @@ person from there on.
 
 ### Rules
 
-- **16 seconds long, 18 at most.** It shows once, to first-time players
-  only. A save flag is set when it ends or is skipped. The first-timer check
+- **Paced for a first watch** (57 s, see `story-arc.md` § 1): each shot
+  holds long enough to follow; there is no length cap. It shows once, to
+  first-time players only. A save flag is set when it ends or is skipped. The first-timer check
   waits (capped) for the cloud read, so a returning player on a new device
   doesn't see it again. If the save that arrives shows progress, the
   cutscene ends early.
-- **Skippable at once.** From 0.5 s, the `skip-forward` glyph sits in the top
-  right corner, inside the safe area. One tap, click or `Esc` skips the
-  cutscene. A tap anywhere else only unlocks the sound, and the music joins
+- **Skippable at once.** From 0.5 s, a labelled **Skip** button sits in the
+  bottom right corner, inside the safe area. One tap, click or `Esc` skips
+  the cutscene; with a keyboard, holding `Space` for 3 s skips it too (a
+  space-bar cap beside the button fills its ring while held, and empties if
+  let go). A tap anywhere else only unlocks the sound, and the music joins
   at the current section.
 - **Replayable** from Options in the hub. A replay ends back in the hub
   instead of beaming into the tutorial.
@@ -416,13 +419,13 @@ time, and a player who watches never sees a frozen frame.
 ### Time budget
 
 - **Desktop.** PERF-LEDGER §5 measured a mission build at about 1.3 s (1×).
-  A player who watches the whole intro reaches gameplay about 15 s later
-  than today. That is the real price of an intro, and the instant skip is
-  what keeps it fair.
+  A player who watches the whole intro reaches gameplay about a minute
+  later than today (the cut is paced for a first watch, 57 s). That is the
+  real price of an intro, and the instant skip is what keeps it fair.
 - **Slow phone (4× throttle).** The tutorial is ready about 6.9 s after
   launch (§3). But §5 also measured how drawing the lab during a build slows
   it: 11.9 s instead of 5.8 s. The intro draws on purpose, so expect the
-  slower build. It should still finish inside the 16-second cut, and the
+  slower build. It finishes well inside the 57-second cut, and the
   beam hold covers anything slower. If the build overruns shot 6 on the 4×
   benchmark, try drawing the cutscene at 30 fps while the build runs. Measure
   that with `scripts/boot-timeline.mjs` before keeping it.

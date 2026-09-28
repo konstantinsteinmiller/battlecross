@@ -18,7 +18,7 @@ import { consumeEdges } from '../engine/input'
 import { generateMap, type MapData, CELL, WALL_H } from '../world/levelGen'
 import { createSlicer, type Slice } from '../engine/slicer'
 import { createNav, moveCircle, findPath, smoothPath, isSolidAt, hasLineOfSight, floorAt, type Nav, type Slab } from '../world/nav'
-import { buildLevel, doorFramePos, type LevelMeshes } from '../world/levelMesh'
+import { buildLevel, doorFramePos, SKY_FAR, type LevelMeshes } from '../world/levelMesh'
 import { THEMES, type Theme, type SectorId } from '../world/themes'
 import { buildDoor, buildTeleporter, type DoorMesh, type PadMesh } from '../models/props'
 import {
@@ -192,6 +192,19 @@ export const LOCK_GRACE = 1.2
 const EARLY_HOLD = 0.2
 /** An enemy within this angle of the crosshair (rad) is "in the sights". */
 const SIGHT_ANGLE = 0.22
+/** `hud.combat` counts any awake machine within 22 m, walls or not, and a
+ *  machine never falls back asleep: in a labyrinth one that lost the player
+ *  a corridor over held it on for minutes. The floor trail and the locator
+ *  wait only for a FIGHT: an awake machine in sight, this close (m), or hit
+ *  this recently (s)… */
+const FIGHT_NEAR = 8
+const FIGHT_HURT = 3
+/** …and come back once none has been for this long (s): a machine ducking
+ *  behind a pillar does not flash them on. */
+const FIGHT_LINGER = 1.5
+/** A trap parks for a fight only with Flux or a fighting machine this close
+ *  to it (m): a fight rooms away leaves the corridor ahead running. */
+const TRAP_FIGHT_R = 12
 /** How many doors deep the view reaches. Two covers a room seen through the
  *  next room's far door; anything deeper is past the fog anyway. */
 const PORTAL_DEPTH = 2
@@ -229,7 +242,7 @@ interface ExitView {
 
 export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   scene = new Scene()
-  camera = new PerspectiveCamera(70, 1, 0.05, 260)
+  camera = new PerspectiveCamera(70, 1, 0.05, SKY_FAR)
   vmScene = new Scene()
   vmCamera = new PerspectiveCamera(50, 1, 0.01, 10)
   map!: MapData
@@ -322,7 +335,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   /** Corridor traps (`sim/traps.ts`): flame jets, swinging blades, and the
    *  tutorial's Repair Gel plate. */
   traps!: TrapSystem
-  private trapTick: TrapTick = { playing: false, combat: false }
+  private trapTick: TrapTick = { playing: false, combat: false, fightAt: (x, z) => this.fightNear(x, z) }
   /** The climb's moving parts and Flux's feet on it (`sim/climb.ts`); null
    *  on every labyrinth map, which never leaves y = 0. */
   climb: ClimbRun | null = null
@@ -353,6 +366,22 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   private respawnT = 0
   private deathT = 0
   private combatEndT = 0
+  /** Counts down from FIGHT_LINGER once no machine is fighting (see FIGHT_NEAR). */
+  private fightT = 0
+  /** A fight is on: the trail and the locator stand down, traps near it park
+   *  (`updateTargeting`). */
+  private get fighting(): boolean { return this.fightT > 0 }
+  /** Flux or an awake machine within TRAP_FIGHT_R of (x, z). Allocation-free. */
+  private fightNear(x: number, z: number): boolean {
+    const r2 = TRAP_FIGHT_R * TRAP_FIGHT_R
+    const p = this.player
+    if ((p.x - x) ** 2 + (p.z - z) ** 2 < r2) return true
+    for (const e of this.enemies) {
+      if (!e.awake || e.state === 'dead' || e.offstage || e.dormant) continue
+      if ((e.x - x) ** 2 + (e.z - z) ** 2 < r2) return true
+    }
+    return false
+  }
   /** DEV: override the camera ([x,y,z, lookX,lookY,lookZ]) for inspection. */
   debugCam: [number, number, number, number, number, number] | null = null
   /** The exit: the lab's drone fetches Flux (`sim/exitRun.ts`). */
@@ -1788,10 +1817,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.lessons.update(dt, lt)
     this.walk?.update(lt.playing, hud.combat)
     this.updateDoorPrompt(dt, lt.playing)
-    // Traps run on the mission's dt (hit-stop slows them) and park in a fight.
+    // Traps run on the mission's dt (hit-stop slows them) and park in a fight
+    // that reaches them (`fightNear`).
     const tt = this.trapTick
     tt.playing = lt.playing
-    tt.combat = hud.combat
+    tt.combat = this.fighting
     this.traps.update(dt, tt)
     this.updateBorrowed(dt, lt.playing)
     this.updateTrail(dt, lt.playing)
@@ -1919,7 +1949,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const li = this.locatorIn
     const door = this.bossRoom ? this.bossDoor() : null
     li.playing = playing
-    li.quiet = !hud.combat && !hud.lesson && !this.walkthroughActive()
+    li.quiet = !this.fighting && !hud.lesson && !this.walkthroughActive()
     li.boss = !!door
     li.finished = this.objects.objective.done || this.bossStarted || this.boss?.state === 'dead'
     if (door && this.bossRoom) {
@@ -1972,14 +2002,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       // Not before the coach's first glyph is learned: on a phone the first
       // chevrons lay across the stick's ∞ finger, and the first goal (the
       // drone) hovers in plain view in front of the pad anyway.
-      const goal = playing && !hud.combat && this.coach.learned('move') ? walk.goal() : null
+      const goal = playing && !this.fighting && this.coach.learned('move') ? walk.goal() : null
       const lesson = hud.lesson
       ti.target = goal && (!lesson || (!lesson.done && (goal.kind === 'drone' || goal.kind === 'crate') && !this.lessonInRoom()))
         ? goal
         : null
       ti.enabled = ti.target !== null
     } else {
-      ti.enabled = playing && !hud.combat && !hud.lesson
+      ti.enabled = playing && !this.fighting && !hud.lesson
       ti.target = ti.enabled ? this.objects.target(p.x, p.z, this.enemies) : null
     }
     this.trail.update(dt, ti)
@@ -2408,13 +2438,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     let sighted: Enemy | null = null
     let sightedAng = SIGHT_ANGLE
     let targetAng = 0
+    let fight = false
     for (const e of this.enemies) {
       // A golem asleep is a crate: no lock, no target frame, no fire glyph
       if (e.state === 'dead' || e.offstage || e.dormant) continue
       const d = Math.hypot(e.x - p.x, e.z - p.z)
       const ang = Math.abs(angDiff(Math.atan2(-(e.x - p.x), -(e.z - p.z)), p.yaw))
       if (e === c.target) targetAng = ang
-      if (e.awake && d < 22) engaged++
+      if (e.awake && d < 22) {
+        engaged++
+        if (!fight && (d < FIGHT_NEAR || this.time - e.hurtAt < FIGHT_HURT || hasLineOfSight(this.nav, p.x, p.z, e.x, e.z))) fight = true
+      }
       if (d < 22 && ang < 0.5 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) {
         this.aimCandidate = true
         if (ang < sightedAng) { sighted = e; sightedAng = ang }
@@ -2430,6 +2464,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const wasCombat = hud.combat
     hud.combat = engaged > 0
     if (wasCombat && !hud.combat) this.combatEndT = 0.6
+    this.fightT = fight ? FIGHT_LINGER : Math.max(0, this.fightT - dt)
     if (this.combatEndT > 0) {
       this.combatEndT -= dt
       if (this.combatEndT <= 0) this.system.vacuum(16)

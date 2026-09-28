@@ -4,6 +4,15 @@ These are notes for recording English voice-overs later. The story and every
 beat are in [`story-arc.md`](./story-arc.md), and this file uses the same
 lines. Nothing here is implemented.
 
+**The line list lives in the voice catalog**
+(`src/game/audio/voiceCatalog.ts`): every line, its key and file name,
+speaker, scene, direction, max length, and English and German text. `pnpm
+voice:report` prints what is done, recorded or still to record per language,
+and writes the recording scripts for the voice actors
+(`src/assets/voice-lines-list_en.pdf` / `_de.pdf`). The script tables below
+are where the planned lines came from; a line changed here must be changed in
+the catalog too. This file keeps the direction and the processing chains.
+
 ## Principles
 
 - **VO adds to the picture and never carries it.** Every line also has a
@@ -30,22 +39,160 @@ lines. Nothing here is implemented.
    `story-arc.md` §9 for localizing their subtitles.
 2. **Does Gauss speak?** She has one optional line at the end. It is
    recommended: it's the emotional payoff, and it costs one actor session.
-3. **The folder.** The drop-in loader today covers `public/audio/music/` and
-   `public/audio/sfx/`. VO needs a third folder, `public/audio/vo/`,
-   registered the same way. That is a small code change when the time comes.
+3. **The folder.** *Resolved:* the voice loader exists
+   (`src/game/audio/voice.ts`, list in `voice-todo.md`). It reads
+   `public/audio/voice/<lang>/<file>.ogg`, where `<file>` is the line's
+   **Key** with its dots as underscores (`atlas_story_relayOne.ogg`), not its
+   VO id. Raw takes are named the same way plus the take
+   (`atlas_story_relayOne_1.ogg`, the catalog's `rawPath`); the VO ids below
+   are only labels.
 
 ## File specs
 
 Specs follow `sound-todo.md`, plus a few rules just for voice:
 
-- mono, 44.1 kHz, `.mp3`, 96 kbps;
-- peak −3 dBFS, with dialogue normalized to about −18 LUFS short-term so it
-  sits over the music;
+- mono, 44.1 kHz, `.ogg` (`.mp3` / `.m4a` also load; `.ogg` wins);
+- peak −3 dBFS, loudness per character (see *Post-production* below; Atlas
+  sits at −16 LUFS like `voice-todo.md` and the music);
 - no leading silence, and a 50 ms tail at most;
-- file name = the **VO id** below + `.mp3` (e.g. `atlas_core_online.mp3`).
+- file name = the line's **Key** with its dots as underscores + `.ogg`, in
+  `public/audio/voice/en/` (e.g. `atlas_intro_online.ogg`). Raw takes are named by the key and take
+  (`vo-src/raw/en/atlas/story_atlas_goodMorning_1.ogg`); the recording
+  scripts show every file name.
 
-When a VO file is playing, the game ducks the music by about 6 dB, and it
-never ducks during an ad (the global audio gates already handle that).
+*Planned, not built yet:* while a VO file plays, the game ducks the music by
+about 6 dB (never during an ad; the global audio gates handle that). Today
+`playVoice` plays at unity gain on the SFX bus with no duck, so the chains
+below get a line heard through **presence and density, not level**.
+
+---
+
+## Post-production: the Audacity chains
+
+Every line goes through the same three stages: **shared prep → the
+character's chain → shared leveling**. A script drives Audacity through
+`mod-script-pipe` (the voice skill, run by a `package.json` script), or a
+person runs the same steps by hand from the menus. Each stage is written out
+below as a fenced `audacity-chain` block with one scripting command per line,
+so the skill can parse the blocks straight out of this file:
+
+- `# …` lines are comments.
+- `# skill: …` lines are steps the script does itself, such as measuring,
+  looping over labels or picking a branch.
+- `{name}` is a value the script fills in: a path, a measured time, or a
+  value from the character's table.
+
+### Why the chains sound the way they do
+
+What a voice competes with in the mix:
+
+- **The music** is chiptune pulse leads, arps and a triangle bass, 140–170 BPM,
+  with its energy at 150 Hz–4 kHz. A dropped-in song plays at −16 LUFS through
+  `FILE_GAIN` 0.35 on the music bus, so a −16 LUFS voice already sits about
+  14 dB over it at default volumes. Voices don't need to be louder than the
+  music. They need to stay out of its way: they are thin in the lows (the
+  triangle bass and kick live there, and phone speakers drop them anyway), and
+  they carry a 2.5–4 kHz presence lift that the square leads don't cover.
+- **The SFX** share the voice bus. Shots, hits and alarms are short 8/16-bit
+  bursts peaking at −3 dBFS. Compression keeps a line dense enough to survive
+  a burst without being peak-louder than it.
+- **The phone.** Most players hear the game on a phone speaker. Nothing
+  important goes below about 150 Hz. The low layers (Vex's octave) are
+  "felt on headphones, harmless on phones".
+
+The characters' sonic egos, and how they separate from each other:
+
+| Who | Band | Space | Texture | Level |
+| --- | --- | --- | --- | --- |
+| **Atlas** | narrow: 280 Hz–6.2 kHz, "in your helmet" | dry, a 14 ms doubler | a clean digital sheen (a 6 % ring-mod) | −16 LUFS, very even (3:1) |
+| **Vex** | wide and heavy: 110 Hz–8 kHz, low-mid body | where he is: a broadcast, the arena PA, the clinic | a sub-octave crushed layer and a consonant buzz, glitching more as the story goes on | −15 LUFS, theatrical (4:1, slow release) |
+| **Flux** | bright: 150 Hz–9 kHz, +3 st | dry | a metallic ring-mod edge and a synth tail | peak −3 dBFS (barks are too short to measure in LUFS) |
+| **Gauss** | full, warm: 90 Hz–10 kHz | the lab: a soft small room | a faint shimmer (a 9 ms comb) | −17 LUFS, gentle (2:1) |
+
+### Audacity setup (once)
+
+1. **Use Audacity 3.6 or newer.** It has the new Compressor and Limiter,
+   whose times are in ms. The legacy compressor's release can't go below
+   1 s, which pumps on short lines.
+2. **Enable the pipe:** *Edit → Preferences → Modules → mod-script-pipe →
+   Enabled*, then restart Audacity. The pipes are
+   `/tmp/audacity_script_pipe.to.<uid>` and `.from.<uid>` on macOS and Linux,
+   and `\\.\pipe\ToSrvPipe` / `\\.\pipe\FromSrvPipe` on Windows. Each command
+   is one line; Audacity answers with lines ending in `BatchCommand finished:
+   OK` (or `Failed!`).
+3. **Check the parameter names once:** `GetInfo: Type=Commands Format=JSON`.
+   Effect keys change between Audacity versions: the 3.6 Compressor and
+   Limiter keys below are the ones to check first, and `SBSMS`, `Version` and
+   the Sliding Stretch keys after them. On a mismatch, the skill should stop
+   and name the key rather than run the chain without that step.
+4. **Folders:** raw takes go in `vo-src/raw/<lang>/<character>/<file>_<take>.ogg`
+   (OGG Vorbis, mono, 48 kHz, quality 8 or more, dry and close). Optional hand-placed markers
+   go in `vo-src/labels/<file>_<take>.txt`: an Audacity label export
+   (*File → Export → Labels*) with the names `stutter`, `wobble`, `tear`,
+   `cut` or `crush`, which the glitch steps read. Synth tails go in
+   `vo-src/tails/<type>.ogg`. Outputs go to `public/audio/voice/en/<file>.ogg`.
+   `<file>` is the line's key with its dots as underscores (`atlas.bossAhead`
+   → `atlas_bossAhead`), as the recording scripts list it.
+5. **Raw files are never changed.** Every run starts from the raw take, so any
+   chain can be re-tuned and re-run.
+
+### Stage 1: shared prep (every line)
+
+```audacity-chain prep
+SelectAll:
+RemoveTracks:
+Import2: Filename="{raw}"
+SelectAll:
+# skill: GetInfo: Type=Tracks — only if the take is stereo:
+StereoToMono:
+# Rumble, handling noise, DC; a steady level into the character chain.
+High-passFilter: frequency=70 rolloff=dB24
+Normalize: PeakLevel=-1 ApplyGain=1 RemoveDcOffset=1 StereoIndependent=0
+```
+
+Noise: record clean. Noise Reduction needs a profile picked by hand, so it
+can't be scripted. If a take has room hiss, run *Effect → Noise Reduction*
+by hand on the raw take first, and save the result as the new raw file.
+
+### Stage 3: shared leveling (every line)
+
+Dynamics use the character's values from its table (`{thr}`, `{ratio}`,
+`{atk}`, `{rel}`, `{lufs}`).
+
+```audacity-chain level
+SelectAll:
+Compressor: thresholdDb={thr} makeupGainDb=0 kneeWidthDb=6 compressionRatio={ratio} lookaheadMs=1 attackMs={atk} releaseMs={rel}
+# skill: a line longer than 1.0 s gets loudness; a shorter one (barks, call-outs) gets peak (LUFS needs 400 ms blocks)
+LoudnessNormalization: StereoIndependent=0 LUFSLevel={lufs} RMSLevel=-20 DualMono=1 NormalizeTo=0
+# …or, for the short ones:
+Normalize: PeakLevel={peak} ApplyGain=1 RemoveDcOffset=0 StereoIndependent=0
+# -3.3 leaves room for the .ogg encoder's overshoot (spec: peak -3 dBFS).
+Limiter: thresholdDb=-3.3 makeupTargetDb=-3.3 kneeWidthDb=0 lookaheadMs=2 releaseMs=30
+# Trim: the skill exports a scratch file and measures it.
+Export2: Filename="{tmp}.ogg" NumChannels=1
+# skill: lead = first sample over -45 dBFS, minus 5 ms (never < 0)
+# skill: end  = last sample over -50 dBFS, plus 50 ms (Vex's laughs: plus 250 ms); len = the track length
+Select: Start={end} End={len} Track=0 TrackCount=1 Mode=Set
+Delete:
+Select: Start=0 End={lead} Track=0 TrackCount=1 Mode=Set
+Delete:
+Select: Start=0 End=0.004 Track=0 TrackCount=1 Mode=Set
+FadeIn:
+# skill: newLen = the length now
+Select: Start={newLen-0.03} End={newLen} Track=0 TrackCount=1 Mode=Set
+FadeOut:
+# skill: over the Max column by <= 8 %? tighten it; more than that: report it and export anyway (a retake is the fix)
+SelectAll:
+ChangeTempo: Percentage={tempo} SBSMS=1
+Export2: Filename="{out}" NumChannels=1
+```
+
+Delete the tail before the lead, so the tail's times are still right. A line
+with a `cut` label (Atlas cut off mid-word) skips the tail fade: it gets a
+2 ms fade, and the stop stays abrupt.
+
+The skill should also report each line's loudness, peak and length against
+its Max, so a whole batch can be checked at a glance.
 
 ---
 
@@ -69,6 +216,76 @@ never ducks during an ad (the global audio gates already handle that).
   at the finale. Its choice at the Spire should sound like a decision, not a
   sacrifice.
 
+#### Atlas: the chain
+
+The goal: the voice in your helmet. It is narrow, close and dry, with a faint
+digital sheen, and so even that it's never the loudest thing on screen, yet
+it's always intelligible over a fight. The warmth comes from the read; the
+chain only frames it.
+
+| Dynamics | `{thr}` | `{ratio}` | `{atk}` | `{rel}` | `{lufs}` / `{peak}` |
+| --- | --- | --- | --- | --- | --- |
+| standard | −22 dB | 3 | 5 ms | 120 ms | −16 LUFS / −4 dBFS |
+| `atlas.warn.critical*` ("tighter, not louder") | −26 dB | 5 | 2 ms | 80 ms | −16 LUFS / −4 dBFS |
+
+```audacity-chain atlas
+SelectAll:
+# 1. The helmet band. Presence at 3 kHz carries it over the square leads; a small dip at 700 Hz removes the "boxy" read.
+High-passFilter: frequency=280 rolloff=dB12
+Low-passFilter: frequency=6200 rolloff=dB12
+FilterCurve: FilterLength=8191 InterpolateLin=0 InterpolationMethod=B-spline f0=400 f1=700 f2=1800 f3=3000 f4=4500 v0=0 v1=-2 v2=0 v3=3 v4=0
+# 2. The doubler: one short tap at 14 ms, reading as a speaker inside a shell (Audacity has no chorus).
+Echo: Delay=0.014 Decay=0.2
+# 3. The digital sheen: 6 % of the voice ring-modulated at 1.2 kHz. Below 4 % nobody hears it; over 10 % it turns into a Dalek.
+NyquistPrompt: Command="(sim (mult 0.94 *track*) (mult 0.06 *track* (hzosc 1200)))" Version=4
+```
+
+The **pre-chirp** (the 60 ms cyan blip) is **not** baked in. The game plays
+it as a synth SFX just before the line, so the file starts on the word
+(no leading silence), and the blip stays the same on every line and in
+every language.
+
+**Per-line changes** (applied after the chain, before Stage 3):
+
+| Lines | Change | Why |
+| --- | --- | --- |
+| `atlas_log_start` | narrower band: `High-passFilter: frequency=400`, `Low-passFilter: frequency=4000`, crush at level 1 (below) | a log played back, clinical |
+| `atlas_first_draft` | `{lufs}` −19 | the quietest line in the game; normalizing it to −16 would erase that |
+| `atlas_kept_it_out` | glitch level 1 on a `crush` label over "…You" | shaken, then sincere: the glitch clears as the bond line lands |
+| `atlas_run_themselves`, `atlas_spark` | the doubler at `Decay=0.12` | the finale is steadier and closer |
+| `atlas.mk1.*` call-outs, `atlas.warn.gel`, `atlas.warn.critical` | the short path (peak −4 dBFS) | under 1 s: too short for LUFS |
+
+#### Atlas: the glitch variant (Volt Tower)
+
+This is for `atlas_something_in`, `atlas.story.volt` ("My circuits
+tingle!", level 1) and any Volt Tower line marked glitched. Run it **after**
+the Atlas chain. It adds bit-crush, stutters and pitch wobble, keyed to the
+labels, or to the whole line when a take has no labels.
+
+| Level | Crush mix (dry / crushed) | Sample rate | Steps | Stutters | Wobble |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 70 / 30 | 16 kHz | 128 | 0 | ±25 cents |
+| 2 | 50 / 50 | 11 kHz | 32 | up to 2 | ±40 cents |
+| 3 | 30 / 70 | 8 kHz | 12 | up to 3 | ±60 cents |
+
+```audacity-chain atlas-glitch
+# Bit-crush: each {crush-label} region, or SelectAll: when there are none. Level 2 shown.
+Select: Start={t0} End={t1} Track=0 TrackCount=1 Mode=Set
+NyquistPrompt: Command="(sim (mult 0.5 *track*) (mult 0.5 (quantize (force-srate 44100 (force-srate 11025 *track*)) 32)))" Version=4
+# Stutter: each `stutter` label (no labels: the skill picks word onsets from the silence map). 60 ms, repeated once.
+Select: Start={onset} End={onset+0.06} Track=0 TrackCount=1 Mode=Set
+Repeat: Count=1
+# skill: wobble: over each `wobble` label (no labels: the second half of the line), step through 100 ms windows, alternating up and down
+Select: Start={w} End={w+0.1} Track=0 TrackCount=1 Mode=Set
+ChangePitch: Percentage={+2.34 | -2.34} SBSMS=0
+# `cut` label (atlas_something_in): delete everything after it, then a 2 ms fade, no tail.
+Select: Start={cut} End={len} Track=0 TrackCount=1 Mode=Set
+Delete:
+```
+
+`SBSMS=0` on the wobble is on purpose. The faster engine leaves small
+seams at the window edges, and those seams are part of the glitch.
+
 ### Dr. Vex: the showman doctor
 
 - **Voice:** big, theatrical and pompous. A game-show host crossed with a
@@ -90,6 +307,103 @@ never ducks during an ad (the global audio gates already handle that).
 - **The laugh:** record 3 takes of "Mwa-ha-HA!" (short, medium, and
   maniacal) for bubbles that end in a laugh.
 
+#### Vex: the chain
+
+The goal: bigger than the room he's in. He's pitched down and heavy, with an
+octave of crushed menace under him and a square-wave buzz on every hard
+consonant. That buzz is the synth villain's own voice leaking through the
+actor's. His sound is also *placed*: Vex is almost never in the room with
+Flux. He is on a hacked screen, on the arena PA, and then, in the Fortress,
+finally in person. And as his plan falls apart, so does his signal.
+
+| Dynamics | `{thr}` | `{ratio}` | `{atk}` | `{rel}` | `{lufs}` / `{peak}` |
+| --- | --- | --- | --- | --- | --- |
+| standard | −24 dB | 4 | 8 ms | 250 ms (the slow release keeps his swells theatrical) | −15 LUFS / −3 dBFS |
+| `vex_second_opinion` | −24 dB | 4 | 8 ms | 250 ms | −19 LUFS |
+| `vex_doctor_in` (a whisper) | −30 dB | 3 | 5 ms | 150 ms | −18 LUFS |
+
+```audacity-chain vex
+SelectAll:
+# 1. The layers: the sub layer is copied from the RAW read, then each is pitched on its own.
+Duplicate:
+SelectTracks: Track=0 TrackCount=1 Mode=Set
+ChangePitch: Percentage=-10.91 SBSMS=1
+SelectTracks: Track=1 TrackCount=1 Mode=Set
+ChangePitch: Percentage=-50 SBSMS=1
+# The sub layer: an octave down, crushed, dark, at -12 dB.
+NyquistPrompt: Command="(quantize (force-srate 44100 (force-srate 8000 *track*)) 24)" Version=4
+Low-passFilter: frequency=2500 rolloff=dB24
+High-passFilter: frequency=60 rolloff=dB24
+Amplify: Ratio=0.2512
+# 2. The consonant buzz on the main layer: a 98 Hz square (G2) gated by the voice's own energy over 3 kHz, so it only sounds under S, T, K and P.
+SelectTracks: Track=0 TrackCount=1 Mode=Set
+NyquistPrompt: Command="(let* ((env (force-srate *sound-srate* (snd-avg (s-abs (hp *track* 3000)) 441 441 op-peak))) (gate (s-max 0 (diff (mult 3 env) 0.06)))) (sim *track* (mult {buzz} gate (osc-pulse 98 0))))" Version=4
+# {buzz} starts at 0.25. Audition the S's: too high reads as distortion; too low and nobody hears it.
+# 3. One voice.
+SelectTracks: Track=0 TrackCount=2 Mode=Set
+MixAndRender:
+# 4. Tone: a showman's chest (180 Hz), the bite of a sneer (3.5 kHz), less mud (800 Hz).
+High-passFilter: frequency=110 rolloff=dB12
+Low-passFilter: frequency=8000 rolloff=dB12
+FilterCurve: FilterLength=8191 InterpolateLin=0 InterpolationMethod=B-spline f0=180 f1=450 f2=800 f3=2000 f4=3500 f5=6000 v0=2 v1=0 v2=-2 v3=0 v4=3 v5=0
+# 5. The place: one of the three spaces below.
+# 6. The glitch level of this line (below).
+```
+
+**Step 5, the place.** Pick one per line:
+
+```audacity-chain vex-broadcast
+# A hacked screen or a hub transmission: a narrow band, grit, no room.
+High-passFilter: frequency=250 rolloff=dB24
+Low-passFilter: frequency=4500 rolloff=dB24
+NyquistPrompt: Command="(sim (mult 0.85 *track*) (mult 0.15 (quantize *track* 64)))" Version=4
+```
+
+```audacity-chain vex-pa
+# The arena announcer: a PA in a big space. One slap and a short hall.
+Echo: Delay=0.11 Decay=0.15
+Reverb: RoomSize=85 Delay=20 Reverberance=35 HfDamping=70 ToneLow=60 ToneHigh=80 WetGain=-12 DryGain=0 StereoWidth=0 WetOnly=0
+```
+
+```audacity-chain vex-clinic
+# In person, in the Fortress: a small hard room close up. His real voice, with nothing between him and Flux.
+Reverb: RoomSize=35 Delay=5 Reverberance=25 HfDamping=40 ToneLow=100 ToneHigh=100 WetGain=-16 DryGain=0 StereoWidth=0 WetOnly=0
+```
+
+**Step 6, the glitch.** This follows his arc: smug, then irritated, then
+panicking, then unravelling, then small. It uses the same crush, stutter and
+wobble steps as Atlas's glitch variant (`atlas-glitch`), at the level below,
+plus `tear` for the static rip.
+
+| Line | Place | Glitch | Extra |
+| --- | --- | --- | --- |
+| `vex_diagnosis` | broadcast | 0 | a 0.4 s silence before "is ME" is part of the read. Don't let Stage 3 trim internal pauses (it only trims the ends). |
+| `vex_present_scrapper`, `vex_present_blaze`, `vex_present_frost` | PA | 0 | |
+| `vex_hub_scrapper`, `vex_hub_blaze`, `vex_sketches` | broadcast | 0 | |
+| `vex_empty_head` | broadcast | 1 | a `wobble` label on "empty head…": the creepy hum |
+| `vex_unwritable` | broadcast | 1 | a `stutter` label on "RUDE" |
+| `vex_present_volt` | PA | 1 | |
+| `vex_perfectly_fine` | broadcast | 2 | `stutter` labels on "per-", "-fect-" and "-ly"; the crush at level 3 on "FINE" (`crush` label) |
+| `vex_present_gale` | PA | 1 | |
+| `vex_patented` | broadcast | 2 | a `tear` label over "PATENTED" (below) |
+| `vex_clinic`, `vex_behold` | clinic | 0 | the laugh file, if any, gets the same chain and a 250 ms tail |
+| `vex_obey` | clinic | 1 | |
+| `vex_listen` | clinic | 3 | wobble over the whole line: phase 2 is breaking him |
+| `vex_second_opinion` | clinic | 3 | then `Low-passFilter: frequency=3000 rolloff=dB12` and a fade-out over the last 40 %: small and crackling |
+| `vex_doctor_in` | clinic, `WetGain=-20` | 0 | no sub layer (skip step 1's duplicate): a whisper, close, and the slow grin carries it |
+| laugh takes | as their bubble's line | as their bubble's line | a 250 ms tail |
+
+```audacity-chain vex-tear
+# The static rip over a `tear` label: the voice dips, and band-passed noise tears through it.
+Select: Start={t0} End={t1} Track=0 TrackCount=1 Mode=Set
+NyquistPrompt: Command="(sim (mult 0.55 *track*) (mult 0.22 (lp (hp (noise) 1800) 7000)))" Version=4
+```
+
+The **Vex motif** (E4 → C♯4 → A3, three 130 ms square notes; the `vexGlitch`
+SFX in `synth.ts`) is **not** baked in either. The game plays it on the
+first bubble of each scene, so it stays in time with the score and plays
+exactly once.
+
 ### Flux: barks only
 
 - **Voice:** youthful, bright and bouncy. A plucky little robot, never pained
@@ -98,16 +412,94 @@ never ducks during an ad (the global audio gates already handle that).
   a tiny synth **tail** that matches the hit type (see the bark table).
 - **Record** 3 takes of each bark, and let the game pick at random.
 
+#### Flux: the chain
+
+The goal: a toy robot yelping, bright and small. It pokes out of a fight in
+under half a second and makes you smile rather than wince. His barks land on
+top of the hit SFX (same moment, same bus), so they're pitched up and
+brightened into a band the hit sounds don't fill (the 4 kHz "sparkle"). Then
+they're hard-compressed and peak-normalized; they're too short for LUFS.
+
+| Dynamics | `{thr}` | `{ratio}` | `{atk}` | `{rel}` | `{peak}` |
+| --- | --- | --- | --- | --- | --- |
+| all barks | −28 dB | 6 | 1 ms | 60 ms | −3 dBFS (the tail included) |
+
+```audacity-chain flux
+SelectAll:
+# 1. Youthful and bouncy: +3 semitones. The formants rise too (Audacity's pitch shift doesn't keep them), and that's the point: small body, big energy.
+ChangePitch: Percentage=18.92 SBSMS=1
+# 2. The metallic edge: 20 % of the voice ring-modulated at 330 Hz.
+NyquistPrompt: Command="(sim (mult 0.8 *track*) (mult 0.2 *track* (hzosc 330)))" Version=4
+# 3. Bright and clear of the thumps.
+High-passFilter: frequency=150 rolloff=dB12
+Low-passFilter: frequency=9000 rolloff=dB12
+FilterCurve: FilterLength=8191 InterpolateLin=0 InterpolationMethod=B-spline f0=300 f1=1000 f2=4000 f3=7000 v0=-1 v1=0 v2=3 v3=0
+# 4. The synth tail (see the table): import, place it 30 ms before the voice ends, 8 dB under, mix.
+# skill: voiceEnd = the end of the bark's clip (GetInfo: Type=Clips)
+Import2: Filename="vo-src/tails/{tail}.ogg"
+SelectTracks: Track=1 TrackCount=1 Mode=Set
+SetClip: At=0 Start={voiceEnd-0.03}
+Amplify: Ratio=0.398
+SelectTracks: Track=0 TrackCount=2 Mode=Set
+MixAndRender:
+```
+
+**Per-bark changes:**
+
+| Type | Tail (`vo-src/tails/`) | Extra step (before the tail) |
+| --- | --- | --- |
+| `light` | `tick` | none |
+| `heavy` | `clang` | none |
+| `fire` | `sizzle` | none |
+| `ice` | `tinkle` | `Echo: Delay=0.03 Decay=0.25` (a glassy flutter) |
+| `volt` | `crackle` | the crush at level 1 (the `atlas-glitch` crush) |
+| `wind` | `whoosh` | none |
+| `trap` | none | none |
+| `crusher` | `squeak` | `ChangePitch: Percentage=12.25` again on the last 40 % (squashed higher) |
+| `pit` | `fall` | `SlidingStretch: RatePercentChangeStart=0 RatePercentChangeEnd=0 PitchHalfStepsStart=0 PitchHalfStepsEnd=-7 PitchPercentChangeStart=0 PitchPercentChangeEnd=-33.26` on the "aaaa", then `Low-passFilter: frequency=3000` and a fade-out over the last 50 %: the Doppler fall |
+| `lowHp` | `whine` | none |
+| `down` | `powerdown` | `SlidingStretch` over the last 60 % with `PitchHalfStepsEnd=-4` and `PitchPercentChangeEnd=-20.63`: droopy, not dying |
+| `parry` | `ping` | none |
+| `gel` | `shimmer` | `Echo: Delay=0.04 Decay=0.2` (relief, a little airy) |
+
+The tails are short synth sounds made in the same style as the game's SFX
+(pulse and noise, from `synth.ts`), mono and peaking at −6 dBFS. They are
+made once and reused by every take of that type.
+
 ### Prof. Gauss: one line (optional)
 
 - **Voice:** elderly, gentle, clever and a little amused. A grandmother who
   built half the city.
 - **Processing:** a very light metallic shimmer, softer than Atlas.
 
+#### Gauss: the chain
+
+The goal: the only voice at the end that isn't fighting anything. She's full
+range and warm, in the lab's small room, with just enough shimmer to be an
+android. Her line plays over the ending, with no fight SFX under it, so she
+can sit a little lower and breathe.
+
+| Dynamics | `{thr}` | `{ratio}` | `{atk}` | `{rel}` | `{lufs}` |
+| --- | --- | --- | --- | --- | --- |
+| her line | −20 dB | 2 | 15 ms | 300 ms | −17 LUFS |
+
+```audacity-chain gauss
+SelectAll:
+# 1. Warm and full; a little air on top instead of Atlas's presence push.
+High-passFilter: frequency=90 rolloff=dB12
+Low-passFilter: frequency=10000 rolloff=dB12
+FilterCurve: FilterLength=8191 InterpolateLin=0 InterpolationMethod=B-spline f0=200 f1=500 f2=3000 f3=9000 v0=1 v1=0 v2=0 v3=2
+# 2. The shimmer: a 9 ms comb, fainter than Atlas's doubler, and a trace of ring-mod up high.
+Echo: Delay=0.009 Decay=0.12
+NyquistPrompt: Command="(sim (mult 0.97 *track*) (mult 0.03 *track* (hzosc 2400)))" Version=4
+# 3. The lab: a soft small room with the highs damped.
+Reverb: RoomSize=30 Delay=8 Reverberance=30 HfDamping=70 ToneLow=100 ToneHigh=70 WetGain=-17 DryGain=0 StereoWidth=0 WetOnly=0
+```
+
 ### Pip: no VO
 
 Pip stays synth chirps and glyphs, as `story.md` has it. Its two-note chirp
-lives in `sound-todo.md`.
+lives in `sound-todo.md`. There is no chain; the skill skips it.
 
 ---
 
@@ -278,7 +670,11 @@ should sound like "oops, I'll be back", not dying.
       files. Glitch and robot processing are done in post, so they can be
       re-tuned.
 - [ ] Build one processing preset per character, so a line recorded later
-      matches.
+      matches. The `audacity-chain` blocks above are those presets; the voice
+      skill runs them (Post-production).
+- [ ] Make the Flux tails (`vo-src/tails/`) and confirm the effect
+      parameter names against `GetInfo: Type=Commands` for the Audacity
+      version in use.
 - [ ] Deliver to `public/audio/vo/` with the VO ids above, once the loader
       supports that folder (open decision 3).
 - [ ] Check the durations against the "Max" column. Bubbles and subtitles

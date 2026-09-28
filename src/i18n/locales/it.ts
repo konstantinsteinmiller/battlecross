@@ -20,7 +20,8 @@ export default {
     'menu': 'Menu',
     'home': 'Home',
     'info': 'Info',
-    'skip': 'Salta'
+    'skip': 'Salta',
+    'holdToSkip': 'Tieni premuto {key} per saltare'
   },
 
   'combat': {

@@ -20,7 +20,8 @@ export default {
     'menu': 'Menu',
     'home': 'Beranda',
     'info': 'Info',
-    'skip': 'Lewati'
+    'skip': 'Lewati',
+    'holdToSkip': 'Tahan {key} untuk melewati'
   },
 
   'combat': {

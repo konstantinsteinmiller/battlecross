@@ -91,7 +91,7 @@ import LevelUpModal from '@/components/modals/LevelUpModal.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 import MissionLoading from '@/components/hud/MissionLoading.vue'
 import CutsceneLayer from '@/components/story/CutsceneLayer.vue'
-import { skipCutscene } from '@/game/story/cine'
+import { holdToSkip, skipCutscene } from '@/game/story/cine'
 
 /**
  * The one game view. Hosts the canvas, the gesture surface and whichever UI
@@ -143,10 +143,16 @@ const onKey = (e: KeyboardEvent) => {
     if (!e.repeat && !typing(e) && !isAdShowing.value) toggleGameMute()
     return
   }
-  // The intro: Esc skips it (the skip glyph's key). There is no pause menu
-  // over a cutscene, and no captured mouse.
+  // The intro: Esc skips it at once (the skip button's key); Space held for
+  // 3 s skips it too, without reaching for the mouse (`story/holdSkip.ts`).
+  // Space never scrolls or presses a focused button here: it is only the
+  // hold. There is no pause menu over a cutscene, and no captured mouse.
   if (flow.screen === 'intro') {
     if (e.code === 'Escape' && !e.repeat) skipCutscene()
+    if (e.code === 'Space' && !typing(e)) {
+      e.preventDefault()
+      if (!e.repeat) holdToSkip(true)
+    }
     return
   }
   // While the mouse is captured, Esc belongs to the browser: it releases the
@@ -158,6 +164,13 @@ const onKey = (e: KeyboardEvent) => {
     else openPause()
   }
 }
+
+/** Space let go (or the window lost it, so its keyup never comes): the
+ *  hold-to-skip ring empties. Harmless outside a cutscene. */
+const onKeyUp = (e: KeyboardEvent) => {
+  if (e.code === 'Space') holdToSkip(false)
+}
+const onWindowBlur = () => holdToSkip(false)
 
 onMounted(async () => {
   if (!canvasHost.value || !surface.value) return
@@ -183,6 +196,8 @@ onMounted(async () => {
   // first gesture (autoplay policy), and the gates keep it silent under ads.
   startGameMusic()
   window.addEventListener('keydown', onKey)
+  window.addEventListener('keyup', onKeyUp)
+  window.addEventListener('blur', onWindowBlur)
   if (import.meta.env.DEV) {
     const w = window as unknown as Record<string, unknown>
     w.__game = { app, input, flow, startMission, storyFor, goHub }
@@ -240,6 +255,8 @@ onUnmounted(() => {
   detachInput?.()
   disarmNavigationGuard()
   window.removeEventListener('keydown', onKey)
+  window.removeEventListener('keyup', onKeyUp)
+  window.removeEventListener('blur', onWindowBlur)
   app.setWanted(false)
   app.detach()
 })

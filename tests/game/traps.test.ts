@@ -259,6 +259,20 @@ describe('the swinging blade', () => {
     expect(s.parked).toBe(false)
     expect(Math.abs(s.speed)).toBeGreaterThan(0)
   })
+
+  it('keeps swinging through a fight that does not reach it', () => {
+    const { host } = makeHost(50, 50)
+    const sys = new TrapSystem(host, [blade(), spot({ x: 40, z: 40 })])
+    const reaches = (x: number, z: number) => Math.hypot(x - 40, z - 40) < 12
+    for (let t = 0; t < 3; t += 1 / 60) {
+      host.time += 1 / 60
+      sys.update(1 / 60, { playing: true, combat: true, fightAt: reaches })
+    }
+    const [b, f] = sys.traps
+    expect(b!.parked).toBe(false)
+    expect(Math.abs(b!.speed)).toBeGreaterThan(0)
+    expect(f!.parked).toBe(true)
+  })
 })
 
 describe('the tutorial plate', () => {

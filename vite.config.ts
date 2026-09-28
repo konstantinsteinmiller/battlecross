@@ -105,7 +105,7 @@ const OVERRIDE_DIRS = {
   music: { dir: 'public/audio/music', exts: ['.ogg', '.mp3', '.m4a'] },
   textures: { dir: 'public/images/textures', exts: ['.webp', '.png', '.jpg'] }
 } as const
-/** Voice-overs: public/audio/voice/<lang>/<line id>.ogg, one folder per
+/** Voice-overs: public/audio/voice/<lang>/<line file>.ogg, one folder per
  *  voiced language (see `src/game/audio/voice.ts` and voice-todo.md). */
 const VOICE_DIR = 'public/audio/voice'
 const VOICE_EXTS = ['.ogg', '.mp3', '.m4a']

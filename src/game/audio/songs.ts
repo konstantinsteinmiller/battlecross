@@ -1172,38 +1172,54 @@ const boss = (): Song => {
 //
 // 150 BPM, so one 16th is exactly 0.1 s and every beat of the cutscene
 // (`story/introScript.ts`) has a step: step = seconds × 10. It is scored to
-// the picture, not looped as a theme:
+// the picture, not looped as a theme. Each shot is a section of its own,
+// written to the shot's length — the sections breathe with the picture
+// rather than being stretched — and the hits sit on the cutscene's beats:
 //
-//   0–27     cold open: full band in E minor, a chip hero riff, the charge
-//            (a riser) and the release (a hit) — then silence on the freeze
-//   29–35    the rewind: a crackle
-//   35–46    the valley: G major, a bright pad and a plucked arpeggio
-//   46–65    the Red Signal: a hit on the Spire's flash, Vex's motif (three
-//            falling square notes, doubled by low brass), an E-phrygian
-//            string ostinato, taiko; a hit on Blaze's cut-in (58)
-//   65–95    the lab: a pulsing bass under the alarm, a snare roll and a
-//            riser into the lever (86): hit, crash; brass on the way down
-//   95–110   safe mode: everything drops away to a cold pad and icy bells
-//   110–150  the wake-up: a soft pulse, then the arpeggio climbs as the HUD
-//            boots (125), a half-time kick, the hero riff returns softly (140)
-//   150–165  the beam: the full band, the riff at its top, a snare roll
-//   165      the flash: the whole band on one E-major chord, ringing out
-//   176–192  a groove bar to hold on, should anything hold (the loop)
+//   0–32     cold open, the run: full band in E minor, the chip hero riff
+//   32–56    the slide in slow motion: the band drops to half time, the riff
+//            at half speed over a choir
+//   56–80    the charge: a riser, a 16th bass pedal, a snare roll; the
+//            release (a hit, 80) — then silence on the freeze
+//   92–108   the rewind: a crackle
+//   110–146  the valley: G major, then C, a bright pad and a plucked
+//            arpeggio; a bell on each relay chime (118, 127, 136)
+//   146–194  the Red Signal: a hit on the Spire's flash (146), Vex's motif
+//            (three falling square notes, low brass under them) as his face
+//            comes on (150) and again as the ring rolls (174); an E-phrygian
+//            choir and string ostinato, taiko, a snare roll into…
+//   194–210  Blaze's cut-in: a hit (194), a tritone brass stab, a second hit
+//            as his eyes lock red (203)
+//   210–310  the lab: a pulsing bass under the alarm; it thins for the Atlas
+//            disc's close-up (244–260, bells, the disc clicks home on 255);
+//            a riser and a snare roll into the lever (284): hit, crash;
+//            brass on the way down
+//   310–360  safe mode: it all drops away to a cold pad and icy bells; the
+//            frost glitters (327–342); a low heartbeat from 344, every 1.3 s
+//            like the capsule's light
+//   360–490  the wake-up: the dark pad, keys as the view sharpens (390);
+//            the HUD boots (412) and the arpeggio climbs, a half-time kick;
+//            the hologram (444); the hero riff returns softly (460), a riser
+//   490–548  the beam: the full band, the riff at its top; the column rises
+//            (522) on a D chord, a snare roll and toms
+//   548      the flash: the whole band on one E-major chord, ringing out
+//   576–592  a groove bar to hold on, should anything hold (the loop)
 //
 // Its `gain` is matched to the other songs with tools/music-render.mjs.
 
 const intro = (): Song => {
-  const S = new Score(12)
+  const S = new Score(37)
   const rng = mulberry32(1700)
   /** Add at an absolute 16th (0.1 s each). */
   const at = (step: number, i: Inst, m: number | string, len: number, v: number, p?: number): void =>
     S.add(0, step, i, typeof m === 'string' ? note(m) : m, len, v, p)
-  const kit = (from: number, to: number, o: { kick?: number; snare?: boolean; hats?: 8 | 16; v?: number } = {}): void => {
+  const kit = (from: number, to: number, o: { kick?: number; snare?: 8 | 16; hats?: 8 | 16; v?: number } = {}): void => {
     const v = o.v ?? 1
     for (let s = from; s < to; s++) {
       const b = s - from
       if (o.kick && b % o.kick === 0) at(s, 'kick', 0, 1, 0.95 * v)
-      if (o.snare && b % 8 === 4) { at(s, 'snare', 0, 1, 0.85 * v); at(s, 'clap', 0, 1, 0.4 * v) }
+      // Backbeat every 8 16ths; half time (the slow motion) every 16.
+      if (o.snare && b % o.snare === o.snare / 2) { at(s, 'snare', 0, 1, 0.85 * v); at(s, 'clap', 0, 1, 0.4 * v) }
       if (o.hats === 16) at(s, 'hat', 0, 1, jitter(rng, (b % 2 ? 0.22 : 0.34) * v))
       if (o.hats === 8 && b % 2 === 0) at(s, 'hat', 0, 1, jitter(rng, 0.3 * v))
     }
@@ -1214,118 +1230,184 @@ const intro = (): Song => {
   const chord = (step: number, i: Inst, notes: string[], len: number, v: number): void => {
     for (const n of notes) at(step, i, n, len, v)
   }
+  /** A snare roll that tightens from 8ths to 16ths and swells. */
+  const roll = (from: number, to: number, v0: number, v1: number): void => {
+    const half = from + Math.floor((to - from) / 2)
+    for (let s = from; s < to; s += s < half ? 2 : 1) at(s, 'snare', 0, 1, v0 + ((v1 - v0) * (s - from)) / (to - from))
+  }
 
-  // ── 0–27 · Cold open ──
+  // ── 0–32 · Cold open: the run ──
   at(0, 'hit', 0, 1, 0.85)
   at(0, 'crash', 0, 1, 0.8)
-  kit(0, 27, { kick: 4, snare: true, hats: 16 })
-  bassLine(0, ['E2', 'E2', 'E3', 'E2', 'G2', 'E2', 'A2', 'B2', 'C3', 'C3', 'C4', 'C3', 'D3', 'D3'])
-  S.line(0, 'cLead', 'E5:0:2 G5:2:2 A5:4:2 B5:6:3 A5:9:1 G5:10:2 E5:12:4', 0.75)
-  S.line(0, 'cLead', 'D5:16:2 E5:18:2 G5:20:2 A5:22:3', 0.75)
-  S.line(0, 'lead', 'E4:0:2 G4:2:2 A4:4:2 B4:6:3 A4:9:1 G4:10:2 E4:12:4 D4:16:2 E4:18:2 G4:20:2 A4:22:3', 0.45)
-  // The charge (19–26) and the release (26); the freeze cuts it all at 27.
-  at(18, 'riser', 0, 9, 0.8)
-  for (let s = 19; s < 26; s++) at(s, 'snare', 0, 1, 0.3 + 0.06 * (s - 19))
-  at(26, 'hit', 0, 1, 1)
-  at(26, 'crash', 0, 1, 0.7)
-  at(26, 'bkick', 0, 1, 1)
-  // ── 29–35 · The rewind ──
-  at(29, 'crackle', 0, 6, 0.55)
+  kit(0, 32, { kick: 4, snare: 8, hats: 16 })
+  bassLine(0, ['E2', 'E2', 'E3', 'E2', 'G2', 'E2', 'A2', 'B2', 'C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3'])
+  const riff = 'E5:0:2 G5:2:2 A5:4:2 B5:6:3 A5:9:1 G5:10:2 E5:12:4 D5:16:2 E5:18:2 G5:20:2 A5:22:3 B5:25:1 G5:26:2 E5:28:4'
+  S.line(0, 'cLead', riff, 0.75)
+  S.line(0, 'lead', riff, 0.45, -1)
 
-  // ── 35–46 · The valley, before ──
-  chord(35, 'pad', ['G3', 'B3', 'D4', 'G4'], 11, 0.5)
-  at(35, 'sub', 'G1', 11, 0.6)
-  const arp = ['G4', 'B4', 'D5', 'G5', 'D5', 'B4', 'G4', 'D5', 'B4', 'G5', 'D5']
-  arp.forEach((n, j) => at(35 + j, 'pluck', n, 1, 0.42 + j * 0.015))
-  at(35, 'bell', 'G5', 4, 0.4)
-  at(39, 'bell', 'D6', 4, 0.3)
-  at(43, 'bell', 'B5', 3, 0.3)
+  // ── 32–56 · The slide, in slow motion: half time ──
+  at(32, 'crash', 0, 1, 0.55)
+  at(32, 'bkick', 0, 1, 0.8)
+  kit(32, 56, { kick: 16, snare: 16, hats: 8, v: 0.8 })
+  at(32, 'bass', 'E2', 8, 0.85)
+  at(40, 'bass', 'C3', 8, 0.8)
+  at(48, 'bass', 'D3', 8, 0.8)
+  chord(32, 'choir', ['E3', 'G3', 'B3'], 24, 0.4)
+  const slow = 'E5:32:4 G5:36:4 A5:40:4 B5:44:6 A5:50:2 G5:52:4'
+  S.line(0, 'cLead', slow, 0.7)
+  S.line(0, 'lead', slow, 0.45, -1)
 
-  // ── 46–65 · The Red Signal ──
-  at(46, 'hit', 0, 1, 0.9)
-  at(46, 'bkick', 0, 1, 0.9)
-  at(46, 'sub', 'E1', 18, 0.75)
-  // Vex's motif: three falling square notes, low brass under them.
-  at(47, 'cLead', 'E5', 2, 0.9, 0.5)
-  at(49, 'cLead', 'C5', 2, 0.9, 0.5)
-  at(51, 'cLead', 'A#4', 5, 0.9, 0.5)
-  at(47, 'brass', 'E3', 2, 0.7)
-  at(49, 'brass', 'C3', 2, 0.7)
-  at(51, 'brass', 'A#2', 5, 0.75)
-  chord(52, 'choir', ['E3', 'G3', 'B3', 'F4'], 13, 0.5)
-  for (let s = 52; s < 65; s += 2) at(s, 'str', (s / 2) % 4 === 3 ? 'F2' : 'E2', 2, 0.5 + (s - 52) * 0.02)
-  for (const s of [52, 56, 60, 62, 64]) at(s, 'taiko', 40, 1, 0.8)
-  for (const s of [52, 56, 60, 64]) at(s, 'lkick', 0, 1, 0.8)
-  at(58, 'hit', 0, 1, 0.75)
+  // ── 56–80 · The charge, and the release (80); the freeze cuts it all at 81 ──
+  kit(56, 80, { kick: 4, hats: 16, v: 0.85 })
+  for (let s = 56; s < 80; s++) at(s, 'bass', 'E2', 1, jitter(rng, 0.5 + 0.018 * (s - 56), 0.05))
+  chord(56, 'choir', ['E3', 'B3', 'E4'], 24, 0.4)
+  at(56, 'riser', 0, 24, 0.8)
+  roll(60, 80, 0.3, 0.75)
+  at(80, 'hit', 0, 1, 1)
+  at(80, 'crash', 0, 1, 0.7)
+  at(80, 'bkick', 0, 1, 1)
+  // ── 92–108 · The rewind ──
+  at(92, 'crackle', 0, 16, 0.55)
 
-  // ── 65–95 · The lab ──
-  chord(65, 'choir', ['E3', 'G3', 'B3'], 21, 0.45)
-  for (let s = 65; s < 86; s++) at(s, 'bass', Math.floor((s - 65) / 8) % 2 ? 'F2' : 'E2', 1, jitter(rng, s % 4 === 1 ? 0.85 : 0.55, 0.05))
-  kit(65, 86, { kick: 4, hats: 8, v: 0.85 })
-  for (const s of [69, 77]) at(s, 'snare', 0, 1, 0.7)
-  at(70, 'riser', 0, 16, 0.85)
-  for (let s = 78; s < 86; s += s < 82 ? 2 : 1) at(s, 'snare', 0, 1, 0.4 + 0.07 * (s - 78))
-  // The lever: hit, crash, and the weight coming down.
-  at(86, 'hit', 0, 1, 1)
-  at(86, 'crash', 0, 1, 0.85)
-  at(86, 'bkick', 0, 1, 1)
-  at(86, 'taiko', 40, 1, 0.9)
-  chord(86, 'brass', ['C3', 'E3', 'G3'], 5, 0.7)
-  chord(91, 'brass', ['B2', 'D#3', 'F#3'], 4, 0.7)
-  at(86, 'sub', 'C2', 5, 0.6)
-  at(91, 'sub', 'B1', 4, 0.6)
-  for (const s of [90, 94]) at(s, 'lkick', 0, 1, 0.75)
-
-  // ── 95–110 · Safe mode: it all drops away ──
-  chord(95, 'pad', ['E3', 'B3', 'F#4', 'G4'], 15, 0.42)
-  for (const [s, n] of [[97, 'B5'], [100, 'G5'], [103, 'F#5'], [106, 'E5']] as const) at(s, 'bell', n, 3, 0.42)
-
-  // ── 110–150 · The wake-up ──
-  chord(110, 'pad', ['E3', 'G3', 'B3', 'D4'], 40, 0.36)
-  at(110, 'sub', 'E1', 20, 0.4)
-  at(122, 'keys', 'B4', 3, 0.35)
-  const rise = ['E4', 'G4', 'B4', 'E5']
-  for (let s = 125; s < 150; s++) {
-    const oct = s >= 140 ? 12 : 0
-    at(s, 'pluck', note(rise[(s - 125) % 4]!) + oct, 1, 0.3 + (s - 125) * 0.012)
+  // ── 110–146 · The valley, before ──
+  chord(110, 'pad', ['G3', 'B3', 'D4', 'G4'], 18, 0.5)
+  chord(128, 'pad', ['C4', 'E4', 'G4', 'D5'], 18, 0.48)
+  at(110, 'sub', 'G1', 18, 0.6)
+  at(128, 'sub', 'C2', 18, 0.55)
+  const arp = ['G4', 'B4', 'D5', 'G5', 'D5', 'B4', 'G4', 'D5']
+  const arpC = ['C5', 'E5', 'G5', 'D6', 'G5', 'E5', 'C5', 'G5']
+  for (let s = 110; s < 146; s += 2) {
+    const j = (s - 110) / 2
+    at(s, 'pluck', (s < 128 ? arp : arpC)[j % 8]!, 2, jitter(rng, 0.38 + j * 0.004, 0.06))
   }
-  for (let s = 130; s < 150; s += 8) at(s, 'kick', 0, 1, 0.75)
-  for (let s = 130; s < 150; s += 4) at(s, 'bass', s % 8 === 2 ? 'E2' : 'E3', 3, 0.7)
-  for (let s = 138; s < 150; s += 2) at(s, 'hat', 0, 1, 0.26)
-  for (const s of [144, 148]) at(s, 'snare', 0, 1, 0.55)
-  S.line(0, 'cLead', 'E5:140:2 G5:142:2 A5:144:4 B5:148:2', 0.55)
-  at(140, 'riser', 0, 25, 0.9)
+  at(118, 'bell', 'G5', 4, 0.4)
+  at(127, 'bell', 'D6', 4, 0.3)
+  at(136, 'bell', 'B5', 4, 0.3)
 
-  // ── 150–165 · The beam ──
-  kit(150, 158, { kick: 4, snare: true, hats: 16 })
-  bassLine(150, ['C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3'])
-  S.line(0, 'cLead', 'E5:150:2 G5:152:2 A5:154:2 B5:156:2 D6:158:3 B5:161:1 E6:162:3', 0.85)
-  S.line(0, 'lead', 'E4:150:2 G4:152:2 A4:154:2 B4:156:2 D5:158:3 B4:161:1 E5:162:3', 0.5)
-  chord(150, 'choir', ['C4', 'E4', 'G4'], 8, 0.45)
-  chord(158, 'choir', ['D4', 'F#4', 'A4'], 7, 0.5)
-  for (let s = 158; s < 165; s++) at(s, 'snare', 0, 1, 0.45 + 0.07 * (s - 158))
-  ;[57, 55, 52, 50].forEach((m, j) => at(161 + j, 'tom', m, 1, 0.7 + 0.07 * j))
-  for (const s of [158, 160, 162]) at(s, 'kick', 0, 1, 0.9)
+  // ── 146–194 · The Red Signal ──
+  at(146, 'hit', 0, 1, 0.9)
+  at(146, 'bkick', 0, 1, 0.9)
+  at(146, 'sub', 'E1', 48, 0.75)
+  // Vex's motif: three falling square notes, low brass under them — as his
+  // face comes on, and again as his ring rolls over the valley.
+  for (const [s0, v] of [[150, 0.9], [174, 0.8]] as const) {
+    at(s0, 'cLead', 'E5', 3, v, 0.5)
+    at(s0 + 3, 'cLead', 'C5', 3, v, 0.5)
+    at(s0 + 6, 'cLead', 'A#4', 8, v, 0.5)
+    at(s0, 'brass', 'E3', 3, v * 0.78)
+    at(s0 + 3, 'brass', 'C3', 3, v * 0.78)
+    at(s0 + 6, 'brass', 'A#2', 8, v * 0.83)
+  }
+  chord(158, 'choir', ['E3', 'G3', 'B3', 'F4'], 36, 0.5)
+  for (let s = 158; s < 194; s += 2) at(s, 'str', (s / 2) % 4 === 3 ? 'F2' : 'E2', 2, 0.5 + (s - 158) * 0.007)
+  for (const s of [158, 166, 174, 178, 182, 186, 188, 190, 192]) at(s, 'taiko', 40, 1, 0.8)
+  for (const s of [158, 166, 174, 182, 190]) at(s, 'lkick', 0, 1, 0.8)
+  roll(186, 194, 0.35, 0.7)
+  // ── 194–210 · Blaze Master's cut-in ──
+  at(194, 'hit', 0, 1, 0.8)
+  at(194, 'taiko', 40, 1, 0.9)
+  chord(194, 'brass', ['A#2', 'E3'], 6, 0.7)
+  for (let s = 194; s < 210; s += 2) at(s, 'bass', 'E2', 2, jitter(rng, 0.7, 0.05))
+  at(203, 'hit', 0, 1, 0.7)
+  at(203, 'lkick', 0, 1, 0.85)
+  chord(203, 'brass', ['E2', 'A#2'], 7, 0.75)
+  for (const s of [198, 206]) at(s, 'taiko', 40, 1, 0.7)
 
-  // ── 165 · The flash: one E-major chord, the whole band ──
-  at(165, 'hit', 0, 1, 1)
-  at(165, 'crash', 0, 1, 1)
-  at(165, 'bkick', 0, 1, 1)
-  chord(165, 'choir', ['E3', 'G#3', 'B3', 'E4'], 11, 0.75)
-  chord(165, 'brass', ['E2', 'B2', 'E3'], 11, 0.8)
-  at(165, 'sub', 'E1', 11, 0.8)
-  at(165, 'cLead', 'E6', 8, 0.6)
+  // ── 210–310 · The lab ──
+  chord(210, 'choir', ['E3', 'G3', 'B3'], 34, 0.45)
+  chord(244, 'choir', ['C3', 'E3', 'G3', 'B3'], 16, 0.4)
+  chord(260, 'choir', ['E3', 'G3', 'B3'], 24, 0.45)
+  for (let s = 210; s < 284; s++) {
+    // Under the disc's close-up it thins to 8ths.
+    if (s >= 244 && s < 260 && s % 2) continue
+    at(s, 'bass', Math.floor((s - 210) / 8) % 2 ? 'F2' : 'E2', 1, jitter(rng, s % 4 === 1 ? 0.85 : 0.55, 0.05))
+  }
+  kit(210, 244, { kick: 4, hats: 8, v: 0.85 })
+  kit(244, 260, { hats: 8, v: 0.5 })
+  kit(260, 284, { kick: 4, hats: 8, v: 0.85 })
+  for (let s = 214; s < 268; s += 8) if (s < 244 || s >= 260) at(s, 'snare', 0, 1, 0.7)
+  // The Atlas disc: bells climbing to it clicking home (255).
+  for (const [s, n] of [[246, 'B5'], [249, 'E6'], [252, 'F#6'], [255, 'B6']] as const) at(s, 'bell', n, 4, 0.4)
+  chord(255, 'pluck', ['E5', 'B5', 'E6'], 3, 0.4)
+  at(268, 'riser', 0, 16, 0.85)
+  roll(276, 284, 0.4, 0.9)
+  // The lever: hit, crash, and the weight coming down.
+  at(284, 'hit', 0, 1, 1)
+  at(284, 'crash', 0, 1, 0.85)
+  at(284, 'bkick', 0, 1, 1)
+  at(284, 'taiko', 40, 1, 0.9)
+  chord(284, 'brass', ['C3', 'E3', 'G3'], 8, 0.7)
+  chord(292, 'brass', ['B2', 'D#3', 'F#3'], 8, 0.7)
+  at(284, 'sub', 'C2', 8, 0.6)
+  at(292, 'sub', 'B1', 8, 0.6)
+  for (const [s, v] of [[290, 0.75], [298, 0.6], [306, 0.45]] as const) at(s, 'lkick', 0, 1, v)
 
-  // ── 176–192 · A groove to hold on (the loop) ──
-  kit(176, 192, { kick: 4, hats: 8, v: 0.8 })
-  bassLine(176, ['E2', 'E2', 'E3', 'E2', 'G2', 'E2', 'A2', 'B2'], 2, 0.75)
-  chord(176, 'pad', ['E3', 'G3', 'B3'], 16, 0.35)
+  // ── 310–360 · Safe mode: it all drops away ──
+  chord(310, 'pad', ['E3', 'B3', 'F#4', 'G4'], 50, 0.42)
+  for (const [s, n] of [[314, 'B5'], [320, 'G5'], [326, 'F#5'], [338, 'E5'], [348, 'D5'], [354, 'B4']] as const) at(s, 'bell', n, 4, 0.4)
+  // The frost: icy glitter up the glass.
+  const ice = ['E6', 'F#6', 'B6', 'G6', 'E7']
+  for (let s = 327; s < 342; s += 3) at(s, 'bell', ice[((s - 327) / 3) % ice.length]!, 2, jitter(rng, 0.22))
+  // The capsule's heartbeat, every 1.3 s from 34.4 s, on into the dark.
+  for (let s = 344; s < 412; s += 13) at(s, 'lkick', 0, 1, 0.35)
+
+  // ── 360–490 · The wake-up ──
+  chord(360, 'pad', ['E3', 'G3', 'B3', 'D4'], 52, 0.36)
+  chord(412, 'pad', ['C3', 'E3', 'G3', 'B3'], 32, 0.34)
+  chord(444, 'pad', ['E3', 'G3', 'B3', 'F#4'], 46, 0.34)
+  at(360, 'sub', 'E1', 52, 0.4)
+  at(390, 'keys', 'B4', 4, 0.35)
+  at(394, 'keys', 'G4', 6, 0.3)
+  // The HUD boots: the arpeggio climbs, in 8ths, then 16ths once the
+  // hologram is up, an octave higher for the riff.
+  const rise = ['E4', 'G4', 'B4', 'E5']
+  for (let s = 412; s < 490; s += s < 444 ? 2 : 1) {
+    const oct = s >= 464 ? 12 : 0
+    at(s, 'pluck', note(rise[Math.floor((s - 412) / (s < 444 ? 2 : 1)) % 4]!) + oct, 1, Math.min(0.55, 0.25 + (s - 412) * 0.004))
+  }
+  for (let s = 422; s < 490; s += 8) at(s, 'kick', 0, 1, 0.7)
+  for (let s = 422; s < 490; s += 4) at(s, 'bass', s % 8 === 6 ? 'E2' : 'E3', 3, 0.65)
+  for (let s = 444; s < 490; s += 2) at(s, 'hat', 0, 1, 0.24)
+  for (const s of [474, 478, 482, 486]) at(s, 'snare', 0, 1, 0.5)
+  S.line(0, 'cLead', 'E5:460:2 G5:462:2 A5:464:4 B5:468:2 A5:470:2 G5:472:4 D5:476:2 E5:478:2 G5:480:2 A5:482:4 B5:486:4', 0.5)
+  at(466, 'riser', 0, 24, 0.9)
+
+  // ── 490–548 · The beam ──
+  kit(490, 522, { kick: 4, snare: 8, hats: 16 })
+  bassLine(490, ['C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3', 'C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3'])
+  const top = 'E5:490:2 G5:492:2 A5:494:2 B5:496:2 D6:498:3 B5:501:1 E6:502:4 D6:506:2 B5:508:2 A5:510:2 B5:512:2 D6:514:3 E6:517:5'
+  S.line(0, 'cLead', top, 0.85)
+  S.line(0, 'lead', top, 0.5, -1)
+  chord(490, 'choir', ['C4', 'E4', 'G4'], 16, 0.45)
+  chord(506, 'choir', ['D4', 'F#4', 'A4'], 16, 0.5)
+  // The column rises: a D chord swelling under a riser, the roll, the toms.
+  kit(522, 540, { kick: 4, hats: 16, v: 0.9 })
+  for (let s = 522; s < 548; s += 2) at(s, 'bass', s % 4 ? 'D3' : 'D2', 2, 0.75)
+  chord(522, 'choir', ['D4', 'F#4', 'A4', 'D5'], 26, 0.5)
+  at(522, 'riser', 0, 26, 0.9)
+  roll(532, 548, 0.45, 0.95)
+  ;[57, 55, 52, 50].forEach((m, j) => at(544 + j, 'tom', m, 1, 0.7 + 0.07 * j))
+  for (const s of [540, 542, 544, 546]) at(s, 'kick', 0, 1, 0.9)
+
+  // ── 548 · The flash: one E-major chord, the whole band ──
+  at(548, 'hit', 0, 1, 1)
+  at(548, 'crash', 0, 1, 1)
+  at(548, 'bkick', 0, 1, 1)
+  chord(548, 'choir', ['E3', 'G#3', 'B3', 'E4'], 22, 0.75)
+  chord(548, 'brass', ['E2', 'B2', 'E3'], 22, 0.8)
+  at(548, 'sub', 'E1', 22, 0.8)
+  at(548, 'cLead', 'E6', 12, 0.6)
+
+  // ── 576–592 · A groove to hold on (the loop) ──
+  kit(576, 592, { kick: 4, hats: 8, v: 0.8 })
+  bassLine(576, ['E2', 'E2', 'E3', 'E2', 'G2', 'E2', 'A2', 'B2'], 2, 0.75)
+  chord(576, 'pad', ['E3', 'G3', 'B3'], 16, 0.35)
 
   return {
     id: 'intro',
     bpm: 150,
-    bars: 12,
-    loopBar: 11,
+    bars: 37,
+    loopBar: 36,
     swing: 0,
     // Its loud sections (cold open, beam) sit at the boss fight's level; the
     // whole pass, quiet shots included, at the Scrapyard's it hands over to.

@@ -20,7 +20,8 @@ export default {
     'menu': 'メニュー',
     'home': 'ホーム',
     'info': '情報',
-    'skip': 'スキップ'
+    'skip': 'スキップ',
+    'holdToSkip': '{key}長押しでスキップ'
   },
 
   'combat': {

@@ -20,7 +20,8 @@ export default {
     'menu': 'Меню',
     'home': 'Головна',
     'info': 'Інфо',
-    'skip': 'Пропустити'
+    'skip': 'Пропустити',
+    'holdToSkip': 'Утримуйте {key}, щоб пропустити'
   },
 
   'combat': {

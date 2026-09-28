@@ -8,8 +8,8 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 
 - **Where:** `public/audio/voice/en/<file>` for English,
   `public/audio/voice/de/<file>` for German. File names exactly as below
-  (the line's key + `.ogg`; `.mp3` / `.m4a` also work, `.ogg` wins if both
-  exist).
+  (the line's key with its dots as underscores + `.ogg`; `.mp3` /
+  `.m4a` also work, `.ogg` wins if both exist).
 - **Who hears what:** German players hear the German files; every other
   language hears the English ones. The speech bubble is always in the
   player's own language. A German line without a German file falls back to
@@ -24,37 +24,37 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 
 | File | Plays when | English | German |
 | --- | --- | --- | --- |
-| `story.atlas.logStart.ogg` | Intro, the cold open freezes and rewinds: Atlas starts its log | Log start. | Protokoll gestartet. |
-| `story.atlas.goodMorning.ogg` | Intro, Flux wakes up: Atlas comes online (first words of the game) | Core online. Good morning, Flux. | Kern online. Guten Morgen, Flux. |
-| `story.atlas.scrapyardFirst.ogg` | Intro, the hologram: the Scrapyard relay blinks | Scrapyard first. One relay at a time. | Erst der Schrottplatz. Ein Relais nach dem anderen. |
-| `atlas.landed.ogg` | Every mission: Flux lands on the pad | Touchdown! Let's go. | Gelandet! Los geht's. |
-| `atlas.brief.tutorial.ogg` | The tutorial starts | Training time. I'll guide you! | Training! Ich helf dir. |
-| `atlas.brief.job.ogg` | A job mission starts | Quick job. In and out! | Kurzer Job. Rein und raus! |
-| `atlas.brief.climb.ogg` | A Tower Run starts | Tower run! Up, up, up! | Turmlauf! Hoch, hoch, hoch! |
-| `atlas.brief.story.ogg` | A story mission starts (fallback) | A Core Master waits. Let's free it! | Ein Kernmeister wartet. Holen wir ihn raus! |
-| `atlas.story.scrapyard.ogg` | Story mission start: Scrapyard | Scrapyard relay. Light it up! | Schrottplatz-Relais. Bring's zum Leuchten! |
-| `atlas.story.blaze.ogg` | Story mission start: Blaze Refinery | The Refinery. Hot, hot, hot! | Die Raffinerie. Heiß, heiß, heiß! |
-| `atlas.story.cryo.ogg` | Story mission start: Cryo Plant | Cryo Plant. Brr! Keep moving. | Kryowerk. Brr! Bleib in Bewegung. |
-| `atlas.story.volt.ogg` | Story mission start: Volt Tower | Volt Tower. My circuits tingle! | Voltturm. Meine Schaltkreise kribbeln! |
-| `atlas.story.gale.ogg` | Story mission start: Sky Docks | Sky Docks. Don't look down! | Himmelsdocks. Nicht runterschauen! |
-| `atlas.story.fortress.ogg` | Story mission start: Vex Fortress | The Fortress. We end this. | Die Festung. Zeit, das zu beenden. |
-| `atlas.arc.1.ogg` | Story mission start, 1 Master freed so far | One relay lit. Four to go! | Ein Relais leuchtet. Noch vier! |
-| `atlas.arc.2.ogg` | Story mission start, 2 Masters freed | Two relays! Vex is sulking. | Zwei Relais! Vex schmollt. |
-| `atlas.arc.3.ogg` | Story mission start, 3 Masters freed | Halfway there. Keep glowing! | Halbzeit. Leucht weiter! |
-| `atlas.arc.4.ogg` | Story mission start, 4 Masters freed | One Master left. Almost! | Nur noch ein Meister. Fast geschafft! |
-| `atlas.arc.5.ogg` | Story mission start, all 5 Masters freed | Shield's down. Vex is next! | Schild ist weg. Jetzt ist Vex dran! |
-| `atlas.bossAhead.ogg` | The boss door comes into view | Boss ahead. Deep breath! | Boss voraus. Tief durchatmen! |
-| `atlas.bossDown.ogg` | A Core Master is beaten (freed) | Master freed! Great job! | Meister befreit! Super gemacht! |
-| `atlas.vexDown.ogg` | Vex's Mk-I is beaten | Vex is down. We did it! | Vex ist erledigt. Wir haben es geschafft! |
-| `atlas.lowHp.ogg` | Health under 30 %, no Repair Gel left | Ouch! Careful, Flux! | Autsch! Vorsicht, Flux! |
-| `atlas.lowHpGel.ogg` | Health under 30 %, a Repair Gel in the pack | Low health! Try a Repair Gel. | Du bist angeschlagen! Nimm ein Reparaturgel. |
-| `atlas.lowWe.ogg` | Special weapon energy under 20 % | Weapon energy's low! | Waffenenergie wird knapp! |
-| `atlas.trap.ogg` | A corridor trap ahead (flame jet, blade) | Trap ahead. Watch the timing! | Falle voraus. Achte aufs Timing! |
-| `atlas.plate.ogg` | A pressure plate ahead | Pressure plate. Tiptoe! | Druckplatte. Auf Zehenspitzen! |
-| `atlas.objective.ogg` | The objective is done | Done! Now find the exit. | Erledigt! Jetzt ab zum Ausgang. |
-| `atlas.exit.ogg` | The exit drone arrives | Our ride's here! | Unser Taxi ist da! |
-| `atlas.levelUp.ogg` | Flux levels up mid-mission | Level up! You're shining. | Level-Up! Du strahlst ja richtig. |
-| `atlas.idle.1.ogg` | Small talk in a quiet stretch | Beep. Just checking in. | Piep. Alles klar bei dir? |
-| `atlas.idle.2.ogg` | Small talk in a quiet stretch | You're doing great. | Du machst das super. |
-| `atlas.idle.3.ogg` | Small talk in a quiet stretch | Gauss would be proud. | Gauss wäre stolz. |
-| `atlas.idle.4.ogg` | Small talk in a quiet stretch | I like our team. | Ich mag unser Team. |
+| `story_atlas_logStart.ogg` | Intro: the cold open freezes and rewinds; Atlas starts its log | Log start. | Protokoll gestartet. |
+| `story_atlas_goodMorning.ogg` | Intro: Flux wakes up; the first words of the game | Core online. Good morning, Flux. | Kern online. Guten Morgen, Flux. |
+| `story_atlas_scrapyardFirst.ogg` | Intro, the hologram: the Scrapyard relay blinks | Scrapyard first. One relay at a time. | Erst der Schrottplatz. Ein Relais nach dem anderen. |
+| `atlas_landed.ogg` | Every mission: Flux lands on the pad | Touchdown! Let's go. | Gelandet! Los geht's. |
+| `atlas_brief_tutorial.ogg` | The tutorial starts | Training time. I'll guide you! | Training! Ich helf dir. |
+| `atlas_brief_job.ogg` | A job mission starts | Quick job. In and out! | Kurzer Job. Rein und raus! |
+| `atlas_brief_climb.ogg` | A Tower Run starts | Tower run! Up, up, up! | Turmlauf! Hoch, hoch, hoch! |
+| `atlas_brief_story.ogg` | A story mission starts (fallback line) | A Core Master waits. Let's free it! | Ein Kernmeister wartet. Holen wir ihn raus! |
+| `atlas_story_scrapyard.ogg` | Story mission start: Scrapyard | Scrapyard relay. Light it up! | Schrottplatz-Relais. Bring's zum Leuchten! |
+| `atlas_story_blaze.ogg` | Story mission start: Blaze Refinery | The Refinery. Hot, hot, hot! | Die Raffinerie. Heiß, heiß, heiß! |
+| `atlas_story_cryo.ogg` | Story mission start: Cryo Plant | Cryo Plant. Brr! Keep moving. | Kryowerk. Brr! Bleib in Bewegung. |
+| `atlas_story_volt.ogg` | Story mission start: Volt Tower | Volt Tower. My circuits tingle! | Voltturm. Meine Schaltkreise kribbeln! |
+| `atlas_story_gale.ogg` | Story mission start: Sky Docks | Sky Docks. Don't look down! | Himmelsdocks. Nicht runterschauen! |
+| `atlas_story_fortress.ogg` | Story mission start: Vex Fortress | The Fortress. We end this. | Die Festung. Zeit, das zu beenden. |
+| `atlas_arc_1.ogg` | Story mission start, 1 of 5 Masters freed | One relay lit. Four to go! | Ein Relais leuchtet. Noch vier! |
+| `atlas_arc_2.ogg` | Story mission start, 2 of 5 Masters freed | Two relays! Vex is sulking. | Zwei Relais! Vex schmollt. |
+| `atlas_arc_3.ogg` | Story mission start, 3 of 5 Masters freed | Halfway there. Keep glowing! | Halbzeit. Leucht weiter! |
+| `atlas_arc_4.ogg` | Story mission start, 4 of 5 Masters freed | One Master left. Almost! | Nur noch ein Meister. Fast geschafft! |
+| `atlas_arc_5.ogg` | Story mission start, 5 of 5 Masters freed | Shield's down. Vex is next! | Schild ist weg. Jetzt ist Vex dran! |
+| `atlas_bossAhead.ogg` | The boss door comes into view | Boss ahead. Deep breath! | Boss voraus. Tief durchatmen! |
+| `atlas_bossDown.ogg` | A Core Master is beaten (freed) | Master freed! Great job! | Meister befreit! Super gemacht! |
+| `atlas_vexDown.ogg` | Vex's Mk-I is beaten | Vex is down. We did it! | Vex ist erledigt. Wir haben es geschafft! |
+| `atlas_lowHp.ogg` | Health under 30 %, no Repair Gel left | Ouch! Careful, Flux! | Autsch! Vorsicht, Flux! |
+| `atlas_lowHpGel.ogg` | Health under 30 %, a Repair Gel in the pack | Low health! Try a Repair Gel. | Du bist angeschlagen! Nimm ein Reparaturgel. |
+| `atlas_lowWe.ogg` | Special weapon energy under 20 % | Weapon energy's low! | Waffenenergie wird knapp! |
+| `atlas_trap.ogg` | A corridor trap ahead (flame jet, blade) | Trap ahead. Watch the timing! | Falle voraus. Achte aufs Timing! |
+| `atlas_plate.ogg` | A pressure plate ahead | Pressure plate. Tiptoe! | Druckplatte. Auf Zehenspitzen! |
+| `atlas_objective.ogg` | The objective is done | Done! Now find the exit. | Erledigt! Jetzt ab zum Ausgang. |
+| `atlas_exit.ogg` | The exit drone arrives | Our ride's here! | Unser Taxi ist da! |
+| `atlas_levelUp.ogg` | Flux levels up mid-mission | Level up! You're shining. | Level-Up! Du strahlst ja richtig. |
+| `atlas_idle_1.ogg` | Small talk in a quiet stretch | Beep. Just checking in. | Piep. Alles klar bei dir? |
+| `atlas_idle_2.ogg` | Small talk in a quiet stretch | You're doing great. | Du machst das super. |
+| `atlas_idle_3.ogg` | Small talk in a quiet stretch | Gauss would be proud. | Gauss wäre stolz. |
+| `atlas_idle_4.ogg` | Small talk in a quiet stretch | I like our team. | Ich mag unser Team. |

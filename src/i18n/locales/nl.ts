@@ -20,7 +20,8 @@ export default {
     'menu': 'Menu',
     'home': 'Start',
     'info': 'Info',
-    'skip': 'Overslaan'
+    'skip': 'Overslaan',
+    'holdToSkip': 'Houd {key} ingedrukt om over te slaan'
   },
 
   'combat': {

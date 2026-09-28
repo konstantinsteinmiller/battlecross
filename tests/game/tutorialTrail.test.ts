@@ -64,13 +64,15 @@ const rig = (opts: { tutorial?: boolean; moved?: boolean } = {}) => {
   if (opts.tutorial) {
     m.walk = { get active() { return s.active }, goal: () => s.goal } as unknown as Mission['walk']
   }
-  const internals = m as unknown as { updateTrail(dt: number, playing: boolean): void; locator: Locator }
+  const internals = m as unknown as { updateTrail(dt: number, playing: boolean): void; locator: Locator; fightT: number }
   /** Step the trail for `secs` of play (or of a paused / modal game). */
   const step = (secs = STEP, playing = true) => {
     for (let t = 0; t < secs - 1e-9; t += STEP) internals.updateTrail(STEP, playing)
   }
   const last = (): Seen => seen[seen.length - 1]!
-  return { m, s, seen, step, last, objective, locator: internals.locator }
+  /** A fight on or off (what `updateTargeting` decides from the machines). */
+  const fight = (on: boolean) => { internals.fightT = on ? 1 : 0 }
+  return { m, s, seen, step, last, fight, objective, locator: internals.locator }
 }
 
 const lesson = (id: LessonView['id'], done = false): LessonView => ({ id, nudge: 0, done, slot: 1, color: '#ffffff' })
@@ -110,10 +112,10 @@ describe('the trail in the tutorial walkthrough', () => {
 
   it('hides in a fight and while the game is not playing (a modal, the beam-in)', () => {
     const r = rig({ tutorial: true })
-    hud.combat = true
+    r.fight(true)
     r.step()
     expect(r.last()).toEqual({ enabled: false, target: null })
-    hud.combat = false
+    r.fight(false)
     r.step(STEP, false)
     expect(r.last()).toEqual({ enabled: false, target: null })
     r.step()
@@ -181,10 +183,10 @@ describe('the trail in every other mission', () => {
     const r = rig({ moved: false })
     r.step()
     expect(r.last()).toEqual({ enabled: true, target: r.objective })
-    hud.combat = true
+    r.fight(true)
     r.step()
     expect(r.last()).toEqual({ enabled: false, target: null })
-    hud.combat = false
+    r.fight(false)
     hud.lesson = lesson('weapon')
     r.s.inRoom = false
     r.step()

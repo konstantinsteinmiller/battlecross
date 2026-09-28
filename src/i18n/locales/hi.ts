@@ -20,7 +20,8 @@ export default {
     'menu': 'मेन्यू',
     'home': 'होम',
     'info': 'जानकारी',
-    'skip': 'छोड़ें'
+    'skip': 'छोड़ें',
+    'holdToSkip': 'छोड़ने के लिए {key} दबाए रखें'
   },
 
   'combat': {

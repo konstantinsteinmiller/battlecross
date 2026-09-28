@@ -20,7 +20,8 @@ export default {
     'menu': 'Menu',
     'home': 'Ekran główny',
     'info': 'Info',
-    'skip': 'Pomiń'
+    'skip': 'Pomiń',
+    'holdToSkip': 'Przytrzymaj {key}, aby pominąć'
   },
 
   'combat': {

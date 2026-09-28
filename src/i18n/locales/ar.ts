@@ -20,7 +20,8 @@ export default {
     'menu': 'القائمة',
     'home': 'الرئيسية',
     'info': 'معلومات',
-    'skip': 'تخطي'
+    'skip': 'تخطي',
+    'holdToSkip': 'اضغط مطولًا على {key} للتخطي'
   },
 
   'combat': {

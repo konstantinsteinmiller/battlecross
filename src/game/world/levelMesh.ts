@@ -309,8 +309,15 @@ export const doorFramePos = (d: Door): [number, number] => {
   return [x, z]
 }
 
+/** The sky dome's radius (m). It follows the camera, so only the far plane
+ *  (`SKY_FAR`) must clear it; both reach well past the tallest landmark top
+ *  (the tether, 225 m up in the far ring) seen from any corner of the level. */
+export const SKY_R = 900
+/** The mission camera's far plane: just past the sky dome. */
+export const SKY_FAR = SKY_R + 100
+
 export const buildSky = (theme: Theme): Mesh => {
-  const g = new SphereGeometry(180, 24, 16)
+  const g = new SphereGeometry(SKY_R, 24, 16)
   const top = new Color(theme.skyTop)
   const bot = new Color(theme.skyBottom)
   const fog = new Color(theme.fog)
@@ -318,7 +325,7 @@ export const buildSky = (theme: Theme): Mesh => {
   const col = new Float32Array(pos.count * 3)
   const c = new Color()
   for (let i = 0; i < pos.count; i++) {
-    const y = pos.getY(i) / 180
+    const y = pos.getY(i) / SKY_R
     if (y > 0) c.copy(bot).lerp(top, Math.pow(y, 0.6))
     else c.copy(bot).lerp(fog, Math.min(1, -y * 4))
     col[i * 3] = c.r

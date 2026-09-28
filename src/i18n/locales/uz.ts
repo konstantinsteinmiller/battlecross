@@ -20,7 +20,8 @@ export default {
     'menu': 'Menyu',
     'home': 'Bosh sahifa',
     'info': 'Maʼlumot',
-    'skip': 'Oʻtkazib yuborish'
+    'skip': 'Oʻtkazib yuborish',
+    'holdToSkip': 'Oʻtkazib yuborish uchun {key} ni bosib turing'
   },
 
   'combat': {

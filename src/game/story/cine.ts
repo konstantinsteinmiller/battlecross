@@ -1,21 +1,23 @@
 import { shallowReactive } from 'vue'
 import { newOverlay, type IntroOverlay, type ShotId } from './introScript'
+import { newHold, pressHold, releaseHold } from './holdSkip'
 
 /**
  * ─── The cutscene's HUD mirror ───────────────────────────────────────────────
  *
  * The same firewall as `state/hud.ts`: the cutscene (`story/intro.ts`) never
- * touches Vue. Discrete things the layer shows through Vue (the skip glyph,
+ * touches Vue. Discrete things the layer shows through Vue (the skip button,
  * the screen-reader line, which bubble or caption is up) go in `cine`, written
  * only when they change. Everything that moves every frame (the overlays, the
- * projected anchors of the bubble and the hologram's tags) goes in `cineLive`,
- * which `CutsceneLayer.vue` paints with direct DOM writes from its HUD ticker.
+ * projected anchors of the bubble and the hologram's tags, the hold-to-skip
+ * ring) goes in `cineLive`, which `CutsceneLayer.vue` paints with direct DOM
+ * writes from its HUD ticker.
  */
 
 export const cine = shallowReactive({
   /** A cutscene is on screen. */
   on: false,
-  /** The skip glyph is up (and a skip counts). */
+  /** The skip button is up (and a skip counts). */
   skip: false,
   /** The screen-reader line: the shot whose `story.intro.<id>` is read. */
   line: '' as ShotId | '',
@@ -39,9 +41,15 @@ export interface CineLive extends IntroOverlay {
   fortY: number
   scrapX: number
   scrapY: number
+  /** The hold-to-skip ring's fill, 0..1 (`holdSkip.ts`). */
+  hold: number
 }
 
-export const cineLive: CineLive = { ...newOverlay(), t: 0, atlasAt: -10, bubbleX: 0.5, bubbleY: 0.2, fortX: 0, fortY: 0, scrapX: 0, scrapY: 0 }
+export const cineLive: CineLive = { ...newOverlay(), t: 0, atlasAt: -10, bubbleX: 0.5, bubbleY: 0.2, fortX: 0, fortY: 0, scrapX: 0, scrapY: 0, hold: 0 }
+
+/** Space held to skip: the key handlers press and release it, the live
+ *  cutscene steps it on its clock. */
+export const skipHold = newHold()
 
 /** Back to rest (a cutscene ended, or a new one starts). */
 export const resetCine = (): void => {
@@ -50,7 +58,8 @@ export const resetCine = (): void => {
   cine.line = ''
   cine.atlas = ''
   cine.vex = ''
-  Object.assign(cineLive, newOverlay(), { t: 0, atlasAt: -10 })
+  releaseHold(skipHold)
+  Object.assign(cineLive, newOverlay(), { t: 0, atlasAt: -10, hold: 0 })
 }
 
 // ─── Skip ────────────────────────────────────────────────────────────────────
@@ -62,8 +71,14 @@ export const setSkipHandler = (fn: (() => void) | null): void => {
   skipHandler = fn
 }
 
-/** The skip glyph, `Esc`: skip the cutscene on screen, if any (and if a skip
+/** The skip button, `Esc`: skip the cutscene on screen, if any (and if a skip
  *  counts yet — the cutscene decides). */
 export const skipCutscene = (): void => {
   skipHandler?.()
+}
+
+/** `Space` down or up over a cutscene: held for `HOLD_TO_SKIP_S`, it skips. */
+export const holdToSkip = (down: boolean): void => {
+  if (down) pressHold(skipHold)
+  else releaseHold(skipHold)
 }

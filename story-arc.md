@@ -26,7 +26,6 @@ confirm.
 
 The intro keeps every rule `story.md` sets:
 
-- it lasts 18 s at most;
 - it can be skipped from 0.5 s;
 - it works without words or sound;
 - it has both orientations;
@@ -38,19 +37,28 @@ It adds a **cold open**: Flux in action on the neon streets, then a rewind to
 how it began. The rewind is **Atlas replaying its log**. So the first thing a
 player sees is the game's promise, and the first voice they hear is Atlas.
 
-To stay under 18 s, the old shot 1 (the valley) and shot 2 (the Red Signal)
-are merged.
+The old shot 1 (the valley) and shot 2 (the Red Signal) are merged.
+
+**Pacing.** The first cut ran 17 s to fit an 18 s cap, and it was too fast
+to follow on a first watch. The cap is gone: the cutscene now runs **57 s**,
+every shot at least three times its old length. The time goes into holds,
+not slow-downs: each shot settles on its framing while its action plays, the
+camera drifts between a few eased keys instead of cutting, the two inserts
+(the Atlas disc, Blaze's cut-in) are held for 1.6 s instead of flashed,
+every caption stays up 3.5 s, and the cold open's slide plays in slow
+motion. Anyone who has seen it skips it: the Skip button (tap or click),
+`Esc`, or holding `Space` for 3 s.
 
 | # | Time | Shot | What the player must get |
 | --- | --- | --- | --- |
-| 0 | 0.0–3.5 s | Cold open: neon streets | This hero fights machines in a neon android city. |
-| 1 | 3.5–6.5 s | Rewind: the valley, then the Red Signal | It was a bright city. A red signal took its machines. |
-| 2 | 6.5–9.5 s | The lab | The signal reaches the lab. Gauss wakes Flux. |
-| 3 | 9.5–11.0 s | Safe mode | Gauss freezes herself to keep the signal out. She is alive. |
-| 4 | 11.0–15.0 s | Wake-up, first person | I'm Flux, level 1. Atlas is with me. The Scrapyard comes first. |
-| 5 | 15.0–17.0 s | The beam | Go. |
+| 0 | 0–11 s | Cold open: neon streets | This hero fights machines in a neon android city. |
+| 1 | 11–21 s | Rewind: the valley, then the Red Signal | It was a bright city. A red signal took its machines. |
+| 2 | 21–31 s | The lab | The signal reaches the lab. Gauss wakes Flux. |
+| 3 | 31–36 s | Safe mode | Gauss freezes herself to keep the signal out. She is alive. |
+| 4 | 36–49 s | Wake-up, first person | I'm Flux, level 1. Atlas is with me. The Scrapyard comes first. |
+| 5 | 49–57 s | The beam | Go. |
 
-### Shot 0 · Cold open (0.0–3.5 s)
+### Shot 0 · Cold open (0–11 s)
 
 A rain-slick street at night in the Volt Tower district. That is the neon
 downtown, far ahead of where the game begins, so it is a flash-forward.
@@ -61,6 +69,12 @@ from an alley, and Flux slides under its swing. A flame jet from a wall
 nozzle sheets across the street right behind him. He plants a foot, raises
 the buster, and the charge ring fills amber. **Freeze frame** on the
 release, with the charge shot a hand's width from the Trooper's shield.
+
+*Pacing:* a high, wide frame of the street first, Flux a speck far down it,
+craning down to him as he runs in at full speed (3 s). The Trooper's step
+and the slide under its swing play at a third of the speed (2.4 s): the
+poster frame, held. The plant, the aim and the charge play at under half
+speed; the freeze frame holds 1.1 s before the tape runs it all back.
 
 The frame **rewinds**. Cyan scan-lines tear through it, the tape-rewind
 effect runs, and a small cyan ring spins in a corner: **Atlas's glyph**.
@@ -73,7 +87,7 @@ effect runs, and a small cyan ring spins in a corner: **Atlas's glyph**.
 asphalt, with neon reflected in the puddles. Red Vex billboards loom
 overhead and amber light streaks from his visor. It is the game's poster.
 
-### Shot 1 · The valley and the Red Signal (3.5–6.5 s)
+### Shot 1 · The valley and the Red Signal (11–21 s)
 
 **The valley, before.** Dusk over Ampere Valley. A bowl of android city
 rings Gauss's cyan lab dome, and each sector glows in its own colour:
@@ -93,29 +107,36 @@ on above it. Its first **speech bubble** pops up: ornate, gilded and red:
 > **"Diagnosis: this valley is SICK. The cure… is ME!"**
 
 A red ring rolls out across the valley. Each billboard, relay and window it
-passes flips to red. A 0.6 s cut-in shows Blaze Master's gold eyes
-flickering, then locking red.
+passes flips to red. A 1.6 s cut-in shows Blaze Master's gold eyes
+flickering, then locking red, and cuts straight to the lab.
+
+*Pacing:* 3.6 s of the bright valley under a slow aerial drift, the relays
+chiming; in on the Spire as it flashes and Vex comes on (his bubble stays up
+4.3 s); back out, wide, as the ring rolls over it all (3 s).
 
 **Key frame:** a wide shot over the neon valley bowl, split down the middle.
 The left half is still in rainbow sector colours. On the right half a red
 shock-ring sweeps in from the Spire and turns everything crimson. Vex's
 hologram grins from the sky.
 
-### Shot 2 · The lab (6.5–9.5 s)
+### Shot 2 · The lab (21–31 s)
 
 As in `story.md`: red alarm light, Pip hiding behind the console, and Flux
 dark in his capsule. A red crackle climbs Gauss's arm. She looks at Flux and
 throws the lever. Steam bursts out and the glass drops.
 
 **New:** before she pulls it, Gauss slots a small **cyan data-disc** into
-Flux's chest port. That disc is Atlas. It gets one close-up beat of 0.4 s.
+Flux's chest port. That disc is Atlas. It gets one close-up of 1.6 s, in
+which it slides home and clicks in. The rest of the shot is one slow push-in:
+the alarm closing in panel by panel, Gauss turning to Flux, the disc, the
+crackle and her stagger, the lever, the steam.
 
 **Key frame:** Gauss, tall and stooped in a white coat with the brass coil
 glowing under her glass cap, is half in red alarm light. One hand is on the
 lever and the other presses the cyan disc into the sleeping Flux's chest.
 Pip's single cyan eye peeks over the console.
 
-### Shot 3 · Safe mode (9.5–11.0 s)
+### Shot 3 · Safe mode (31–36 s)
 
 As in `story.md`: Gauss seals herself into the second capsule and frost
 races over the glass. The red crackle hits the frost and dies. A heartbeat
@@ -124,7 +145,7 @@ light pulses slow and blue.
 **Key frame:** a frosted capsule with Gauss's silhouette inside, calm, eyes
 dimmed to blue, and the red lightning dying against the frost.
 
-### Shot 4 · Wake-up, first person (11.0–15.0 s)
+### Shot 4 · Wake-up, first person (36–49 s)
 
 As in `story.md`: the eyelid-bar blinks, then the blur sharpens on the
 frosted capsule. Pip pops in with a huge eye, then squints happily. The HUD
@@ -145,7 +166,7 @@ heartbeat glow, Pip's big cyan eye filling the frame edge, and a cyan
 hologram of the valley ring with a red Fortress on its cliff. The HUD
 flickers on at the frame's edges.
 
-### Shot 5 · The beam (15.0–17.0 s)
+### Shot 5 · The beam (49–57 s)
 
 As in `story.md`: Flux steps onto the pad, Pip spins the ring, the beam rises
 and the screen goes white with the logo. Then comes the tutorial's normal
@@ -154,10 +175,11 @@ beam-in to the Scrapyard.
 **Key frame:** a cyan beam column from below with Flux silhouetted inside,
 and Pip's halo spinning in the foreground.
 
-> **Budget note.** The shots come to 17 s. If a portal needs it shorter, cut
-> shot 0 (the cold open) first. The rest still tells the story in 13.5 s.
-> The cold open is the hook, though, so A/B it before cutting it everywhere
-> (`VITE_APP_INTRO`).
+> **Length note.** The shots come to 57 s, paced for a first watch; the skip
+> is always one tap, one `Esc` or a 3 s `Space` hold away. If a portal needs
+> it shorter, cut shot 0 (the cold open) first. The rest still tells the
+> story in 46 s. The cold open is the hook, though, so A/B it before cutting
+> it everywhere (`VITE_APP_INTRO`).
 
 ---
 
@@ -677,7 +699,8 @@ These change or extend the canon, so confirm them before anything is built:
    setting. It also makes the "Flux's only company" line about Pip no longer
    true.
 3. **The intro gains a cold open** (shot 0), and the valley and signal shots
-   are merged. Total 17 s, still inside the 18 s cap.
+   are merged. The 18 s cap is dropped: the cut is paced for a first watch
+   (57 s) and skippable at any time.
 4. **The Ampere Valley look turns neon/cyberpunk** under Vex. The sector
    identities are unchanged.
 5. **New story beats:**

@@ -29,15 +29,26 @@
     div.black(ref="blackEl" aria-hidden="true")
     div.flash(ref="flashEl" aria-hidden="true")
       div.logo(ref="logoEl" v-html="LOGO_SVG")
+    //- Skip: a labelled button, bottom corner (thumb reach on a phone); with a
+    //- keyboard, also "hold Space", its ring filling as it is held.
     Transition(name="skip")
-      button.cutscene-skip(
-        v-if="cine.skip"
-        type="button"
-        :aria-label="t('ui.skip')"
-        @click.stop="skipCutscene()"
-        @pointerdown.stop
-      )
-        GameIcon(name="skip-forward")
+      div.skip-dock(v-if="cine.skip")
+        div.hold-hint(v-if="keyboard" ref="holdEl" aria-hidden="true")
+          span.hold-key
+            svg.hold-ring(viewBox="0 0 48 48")
+              circle.ring-track(cx="24" cy="24" r="21")
+              circle.ring-fill(ref="ringEl" cx="24" cy="24" r="21" pathLength="1")
+            span.spacebar
+          span.hold-text {{ t('ui.holdToSkip', { key: t('pause.keys.space') }) }}
+        button.cutscene-skip(
+          type="button"
+          aria-keyshortcuts="Escape"
+          @click.stop="skipCutscene()"
+          @pointerdown.stop
+        )
+          span.skip-label {{ t('ui.skip') }}
+          span.skip-icon(aria-hidden="true")
+            GameIcon(name="skip-forward")
     div.sr-only(aria-live="polite") {{ cine.line ? t(`story.intro.${cine.line}`) : '' }}
 </template>
 
@@ -46,7 +57,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker } from '@/game/state/hud'
 import { cine, cineLive, skipCutscene } from '@/game/story/cine'
-import { VEX_ON, ramp } from '@/game/story/introScript'
+import { ATLAS_HOLD, VEX_ON, ramp } from '@/game/story/introScript'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { LOGO_SVG } from './logoLockup'
 
@@ -59,14 +70,27 @@ import { LOGO_SVG } from './logoLockup'
  * booting (the 28-cell bar ticking full, `Lv 1`, Atlas's slot), the
  * hologram's level tags, Atlas's captions, the white flash and the logo.
  *
- * The skip glyph (`skip-forward`, top right in the safe area, from 0.5 s) is
- * the only control. A tap anywhere else only unlocks the sound (the audio
- * gate's window listener does that) — this layer swallows it, so nothing
- * underneath reacts. `Esc` skips too (`GameScene`). The screen-reader line
- * for each shot is announced through the `aria-live` region.
+ * The skip button ("Skip ⏭", bottom right in the safe area, from 0.5 s) is
+ * the only control: a labelled pill with a thumb-sized target, never taking
+ * focus by itself. With a keyboard (a fine pointer, or any key pressed) a
+ * "hold Space to skip" hint sits beside it: a space-bar cap in a ring that
+ * fills while Space is held and empties when it is let go (`holdSkip.ts`,
+ * stepped by the cutscene; `GameScene` routes the key). `Esc` skips at once.
+ * A tap anywhere else only unlocks the sound (the audio gate's window
+ * listener does that) — this layer swallows it, so nothing underneath
+ * reacts. The screen-reader line for each shot is announced through the
+ * `aria-live` region.
  */
 const { t, locale } = useI18n()
 const dir = computed(() => (locale.value === 'ar' ? 'rtl' : 'ltr'))
+
+/** A keyboard is likely (a mouse or trackpad), or one was just used. */
+const keyboard = ref(typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches)
+const onAnyKey = (): void => {
+  if (!keyboard.value) keyboard.value = true
+}
+const holdEl = ref<HTMLElement | null>(null)
+const ringEl = ref<SVGCircleElement | null>(null)
 
 const blurEl = ref<HTMLElement | null>(null)
 const cutinEl = ref<HTMLElement | null>(null)
@@ -104,7 +128,9 @@ const show = (el: HTMLElement | null, o: number): void => {
 }
 
 let off: (() => void) | null = null
+let lastHold = -1
 onMounted(() => {
+  window.addEventListener('keydown', onAnyKey)
   off = addHudTicker(() => {
     const L = cineLive
     const tt = L.t
@@ -160,11 +186,17 @@ onMounted(() => {
     // Atlas's caption: in, hold, out.
     if (atlasEl.value) {
       const age = tt - L.atlasAt
-      show(atlasEl.value, ramp(0, 0.15, age) * (1 - ramp(1.7, 1.95, age)))
+      show(atlasEl.value, ramp(0, 0.15, age) * (1 - ramp(ATLAS_HOLD - 0.3, ATLAS_HOLD, age)))
       atlasEl.value.style.transform = `translate(-50%, ${((1 - ramp(0, 0.2, age)) * 10).toFixed(1)}px)`
     }
     if (atlasGlyphEl.value) atlasGlyphEl.value.style.transform = `rotate(${((tt * 300) % 360).toFixed(1)}deg)`
     // The flash, and the logo stamped onto it.
+    // The hold-to-skip ring (written only when it moves).
+    if (ringEl.value && L.hold !== lastHold) {
+      lastHold = L.hold
+      ringEl.value.style.strokeDashoffset = (1 - L.hold).toFixed(4)
+      holdEl.value?.classList.toggle('held', L.hold > 0)
+    }
     show(flashEl.value, L.flash)
     if (logoEl.value) {
       logoEl.value.style.opacity = L.logo.toFixed(3)
@@ -172,7 +204,10 @@ onMounted(() => {
     }
   })
 })
-onUnmounted(() => off?.())
+onUnmounted(() => {
+  off?.()
+  window.removeEventListener('keydown', onAnyKey)
+})
 </script>
 
 <style scoped lang="sass">
@@ -355,7 +390,9 @@ onUnmounted(() => off?.())
 .atlas-line
   position: absolute
   left: 50%
-  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(18px, 7vh, 60px))
+  // Low in the frame, but always clear above the skip dock's row, which a
+  // centred caption can reach on a narrow or portrait screen.
+  bottom: calc(env(safe-area-inset-bottom, 0px) + max(clamp(18px, 7vh, 60px), clamp(12px, 2.6vmin, 22px) + 62px))
   display: flex
   align-items: center
   gap: 0.55em
@@ -390,28 +427,124 @@ onUnmounted(() => off?.())
     bottom: 0
     transform: translate3d(0, 100%, 0)
 
-// ── Skip ──
-.cutscene-skip
+// ── Skip: bottom right, clear of the safe area, a thumb-sized target ──
+.skip-dock
   position: absolute
-  top: calc(env(safe-area-inset-top, 0px) + clamp(12px, 2.6vmin, 22px))
-  right: calc(env(safe-area-inset-right, 0px) + clamp(12px, 2.6vmin, 22px))
-  width: clamp(44px, 8vmin, 56px)
-  height: clamp(44px, 8vmin, 56px)
-  padding: clamp(9px, 1.8vmin, 12px)
-  box-sizing: border-box
-  border-radius: 50%
-  border: 2px solid rgba(255, 255, 255, 0.7)
-  background: rgba(20, 26, 51, 0.6)
-  color: #fff
-  cursor: pointer
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 2.6vmin, 22px))
+  inset-inline-end: calc(max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)) + clamp(12px, 2.6vmin, 22px))
+  display: flex
+  align-items: center
+  gap: clamp(10px, 2vmin, 16px)
   z-index: 2
+.cutscene-skip
+  display: inline-flex
+  align-items: center
+  gap: 0.45em
+  min-width: 48px
+  min-height: 48px
+  padding: 0 1em 0 1.1em
+  box-sizing: border-box
+  border-radius: 999px
+  border: 2px solid rgba(255, 255, 255, 0.7)
+  background: rgba(20, 26, 51, 0.72)
+  color: #fff
+  font-family: var(--font-ui)
+  font-size: clamp(15px, 2.6vmin, 19px)
+  line-height: 1
+  letter-spacing: 0.02em
+  cursor: pointer
+  touch-action: manipulation
+  transition: background 0.15s, border-color 0.15s
+  @media (hover: hover)
+    &:hover
+      background: rgba(40, 52, 96, 0.9)
+      border-color: #fff
+  &:active
+    background: rgba(40, 52, 96, 0.95)
   &:focus-visible
     outline: 3px solid #ffd84a
     outline-offset: 2px
+.skip-icon
+  display: block
+  width: 1.1em
+  height: 1.1em
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
+[dir="rtl"] .skip-icon
+  transform: scaleX(-1)
+.hold-hint
+  display: inline-flex
+  align-items: center
+  gap: 0.5em
+  padding: 0.3em 0.8em 0.3em 0.3em
+  border-radius: 999px
+  background: rgba(20, 26, 51, 0.55)
+  color: rgba(255, 255, 255, 0.85)
+  font-size: clamp(13px, 2.1vmin, 16px)
+  line-height: 1.1
+  white-space: nowrap
+  pointer-events: none
+[dir="rtl"] .hold-hint
+  padding: 0.3em 0.3em 0.3em 0.8em
+.hold-key
+  position: relative
+  display: grid
+  place-items: center
+  width: 44px
+  height: 44px
+  flex: none
+.hold-ring
+  position: absolute
+  inset: 0
+  width: 100%
+  height: 100%
+  // The fill starts at twelve o'clock and runs clockwise.
+  transform: rotate(-90deg)
+  circle
+    fill: none
+    stroke-width: 4
+  .ring-track
+    stroke: rgba(255, 255, 255, 0.22)
+  .ring-fill
+    stroke: #ffd84a
+    stroke-linecap: round
+    stroke-dasharray: 1
+    stroke-dashoffset: 1
+// The space bar: a bar in a cap (shapes, never words — as `KeyCap.vue`).
+.spacebar
+  position: relative
+  width: 24px
+  height: 12px
+  border-radius: 3px
+  background: #f4f7ff
+  border: 2px solid #141a33
+  box-shadow: 0 2px 0 #141a33
+  box-sizing: border-box
+  &::after
+    content: ''
+    position: absolute
+    left: 3px
+    right: 3px
+    bottom: 2px
+    height: 2px
+    border-radius: 1px
+    background: #9aa6c8
+// Held: the cap pressed down, lit, and the words brighten.
+.hold-hint.held
+  color: #fff
+  .spacebar
+    transform: translateY(2px)
+    box-shadow: none
+    background: #ffd84a
 .skip-enter-active, .skip-leave-active
   transition: opacity 0.25s
 .skip-enter-from, .skip-leave-to
   opacity: 0
+@media (prefers-reduced-motion: reduce)
+  .skip-enter-active, .skip-leave-active, .cutscene-skip
+    transition: none
 
 .sr-only
   position: absolute

@@ -1,8 +1,10 @@
 // The intro cutscene, "Wake-Up Call" (story-arc.md § 1, story.md § Intro).
 //
 // The script is pure data and pure functions of time, so it is checked without
-// a GPU: the shots tile the 17 s, every event fires exactly once when the
-// game loop steps through it, and the overlays land where the story says.
+// a GPU: the shots tile the cutscene at a pace a first-timer can follow (each
+// at least three times its old, too-fast length), every event fires exactly
+// once when the game loop steps through it, the beats hold long enough to
+// read, and the overlays land where the story says.
 // The director (`flow.ts`) is checked with fake modes: first-timers only, the
 // tutorial builds behind it, watching and skipping both record it, a skip
 // before the build is done holds the mission beam overlay, and a cloud save
@@ -12,7 +14,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 import {
-  SHOTS, INTRO_END, SKIP_AFTER, EVENTS, eventsBetween, overlayAt, streetTime, shotIndexAt, FREEZE_AT
+  SHOTS, INTRO_END, SKIP_AFTER, ATLAS_HOLD, EVENTS, eventsBetween, overlayAt, streetTime, streetAt, streetRate, shotIndexAt,
+  STREET_FROM, STREET_RELEASE, FREEZE_AT, REWIND_FROM, VALLEY_FROM, WAKE_FROM, VEX_ON, CUTIN_FROM, CUTIN_TO, DISC_FROM, DISC_TO,
+  HP_FILL_TO, LV_POP, FLASH_FULL
 } from '@/game/story/introScript'
 
 const h = vi.hoisted(() => ({ modes: [] as unknown[] }))
@@ -25,16 +29,36 @@ vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
 vi.mock('@/use/usePortalLeaderboard', () => ({ joinPortalBoard: async () => {}, reportPortalBest: async () => {} }))
 
 describe('the intro script', () => {
-  it('six shots tile the cutscene, under the 18 s cap', () => {
+  it('six shots tile the cutscene, each at least 3x its old 17 s-cut length', () => {
     expect(SHOTS.map(s => s.id)).toEqual(['coldOpen', 'valley', 'lab', 'safeMode', 'wakeUp', 'beam'])
     expect(SHOTS[0]!.start).toBe(0)
     for (let i = 1; i < SHOTS.length; i++) expect(SHOTS[i]!.start).toBe(SHOTS[i - 1]!.end)
     expect(SHOTS[SHOTS.length - 1]!.end).toBe(INTRO_END)
-    expect(INTRO_END).toBeLessThanOrEqual(18)
+    // The old cut: 3.5 · 3 · 3 · 1.5 · 4 · 2 s (17 s), too fast to follow.
+    const OLD = [3.5, 3, 3, 1.5, 4, 2]
+    SHOTS.forEach((s, i) => expect(s.end - s.start).toBeGreaterThanOrEqual(3 * OLD[i]!))
+    expect(INTRO_END).toBeGreaterThanOrEqual(51)
     expect(SKIP_AFTER).toBe(0.5)
-    expect(shotIndexAt(3.49)).toBe(0)
-    expect(shotIndexAt(3.5)).toBe(1)
-    expect(shotIndexAt(16.9)).toBe(5)
+    expect(shotIndexAt(VALLEY_FROM - 0.01)).toBe(0)
+    expect(shotIndexAt(VALLEY_FROM)).toBe(1)
+    expect(shotIndexAt(INTRO_END - 0.1)).toBe(5)
+  })
+
+  it('the beats hold long enough to read', () => {
+    // Atlas's captions never overlap, each held ATLAS_HOLD (its voice is ≤ 2.2 s).
+    expect(ATLAS_HOLD).toBeGreaterThanOrEqual(3)
+    const atlas = EVENTS.filter(e => e.kind === 'atlas').map(e => e.at)
+    for (let i = 1; i < atlas.length; i++) expect(atlas[i]! - atlas[i - 1]!).toBeGreaterThanOrEqual(ATLAS_HOLD)
+    // Vex's bubble stays up for his whole line.
+    const vexOn = EVENTS.find(e => e.kind === 'vex' && e.key)!.at
+    const vexOff = EVENTS.find(e => e.kind === 'vex' && !e.key)!.at
+    expect(vexOn).toBeGreaterThan(VEX_ON)
+    expect(vexOff - vexOn).toBeGreaterThanOrEqual(4)
+    // The two inserts are held, not flashed: the disc's close-up and Blaze's cut-in.
+    expect(DISC_TO - DISC_FROM).toBeGreaterThanOrEqual(1.2)
+    expect(CUTIN_TO - CUTIN_FROM).toBeGreaterThanOrEqual(1.2)
+    // The logo holds on the white before the handover.
+    expect(INTRO_END - FLASH_FULL).toBeGreaterThanOrEqual(1.5)
   })
 
   it('stepping at 60 Hz fires every event exactly once, in order', () => {
@@ -62,24 +86,42 @@ describe('the intro script', () => {
     expect(music).toMatchObject({ track: 'scrapyard' })
   })
 
-  it('the cold open freezes on the release, then the tape rewinds it to the start', () => {
-    expect(streetTime(1)).toBe(1)
-    expect(streetTime(FREEZE_AT + 0.1)).toBe(FREEZE_AT)
-    expect(streetTime(3.46)).toBe(0)
+  it('the cold open runs in, slows for the slide, freezes on the release, then the tape rewinds it', () => {
+    expect(streetTime(0)).toBe(STREET_FROM)
+    expect(streetTime(FREEZE_AT - 1e-6)).toBeCloseTo(STREET_RELEASE, 4)
+    expect(streetTime(FREEZE_AT + 0.1)).toBe(STREET_RELEASE)
+    expect(streetTime(REWIND_FROM - 0.01)).toBe(STREET_RELEASE)
+    // Back at the start before the valley, the tear held a beat on it.
+    expect(streetTime(VALLEY_FROM - 0.1)).toBe(STREET_FROM)
+    // The action clock only ever runs forward until the freeze.
+    let prev = -Infinity
+    for (let t = 0; t < FREEZE_AT; t += 0.05) {
+      expect(streetTime(t)).toBeGreaterThanOrEqual(prev)
+      prev = streetTime(t)
+    }
+    // The run at full speed; the slide (action 1.1–1.5) in slow motion.
+    expect(streetRate(1)).toBe(1)
+    expect(streetRate(streetAt(1.3))).toBeLessThan(0.5)
+    expect(streetAt(1.5) - streetAt(1.1)).toBeGreaterThanOrEqual(1)
+    expect(streetRate(FREEZE_AT)).toBe(0)
+    // `streetAt` places the street's sounds on the action.
+    for (const st of [-2, 0.3, 1.15, 1.55, 2.35, 2.65]) expect(streetTime(streetAt(st))).toBeCloseTo(st, 6)
   })
 
   it('overlays: in from black, the eyelids, the HUD boot, the white flash and the logo', () => {
     expect(overlayAt(0).black).toBe(1)
     expect(overlayAt(1).black).toBe(0)
-    expect(overlayAt(3.2).rewind).toBeGreaterThan(0.9)
-    expect(overlayAt(11.1).eyelid).toBe(1)
-    expect(overlayAt(12.2).eyelid).toBe(0)
-    expect(overlayAt(12).hp).toBe(0)
-    expect(overlayAt(14).hp).toBe(1)
-    expect(overlayAt(14).lv).toBe(1)
+    expect(overlayAt(REWIND_FROM + 0.5).rewind).toBeGreaterThan(0.9)
+    expect(overlayAt(VALLEY_FROM + 1).rewind).toBe(0)
+    expect(overlayAt(WAKE_FROM - 0.01).black).toBeGreaterThan(0.95)
+    expect(overlayAt(WAKE_FROM + 0.5).eyelid).toBe(1)
+    expect(overlayAt(39.5).eyelid).toBe(0)
+    expect(overlayAt(40).hp).toBe(0)
+    expect(overlayAt(HP_FILL_TO + 0.1).hp).toBe(1)
+    expect(overlayAt(LV_POP + 0.5).lv).toBe(1)
     expect(overlayAt(INTRO_END).flash).toBe(1)
     expect(overlayAt(INTRO_END).logo).toBe(1)
-    expect(overlayAt(8).flash).toBe(0)
+    expect(overlayAt(30).flash).toBe(0)
   })
 })
 
@@ -231,17 +273,24 @@ describe('the intro director', () => {
 describe('the intro score ("Wake-Up Call")', () => {
   it('is scored to the picture: one 16th is 0.1 s, and the big hits land on the cutscene beats', async () => {
     const { getSong, songSeconds } = await import('@/game/audio/songs')
-    const { FREEZE_AT, SPIRE_FLASH, LEVER_AT, FLASH_FROM, FLASH_FULL } = await import('@/game/story/introScript')
+    const { FREEZE_AT, REWIND_FROM, SPIRE_FLASH, CUTIN_FROM, DISC_TO, LEVER_AT, FLASH_FROM, FLASH_FULL } = await import('@/game/story/introScript')
     const s = getSong('intro')
     expect(60 / s.bpm / 4).toBeCloseTo(0.1, 6)
     expect(songSeconds(s)).toBeGreaterThanOrEqual(INTRO_END)
     const hitAt = (sec: number, slack = 0.15) => s.steps.some((evs, i) => Math.abs(i * 0.1 - sec) <= slack && evs.some(e => e.i === 'hit'))
     expect(hitAt(FREEZE_AT - 0.1)).toBe(true) // the charge shot's release
     expect(hitAt(SPIRE_FLASH)).toBe(true)
+    expect(hitAt(CUTIN_FROM)).toBe(true)
     expect(hitAt(LEVER_AT)).toBe(true)
     expect(hitAt((FLASH_FROM + FLASH_FULL) / 2 + 0.1)).toBe(true)
+    // The Atlas disc clicks home on a bell.
+    expect(s.steps[Math.round((DISC_TO - 0.5) * 10)]!.some(e => e.i === 'bell')).toBe(true)
     // The freeze is silence: nothing new between the release and the rewind.
-    const quiet = s.steps.slice(Math.ceil(FREEZE_AT * 10), 29).every(evs => evs.length === 0)
+    const quiet = s.steps.slice(Math.ceil(FREEZE_AT * 10), Math.round(REWIND_FROM * 10)).every(evs => evs.length === 0)
     expect(quiet).toBe(true)
+    expect(s.steps[Math.round(REWIND_FROM * 10)]!.some(e => e.i === 'crackle')).toBe(true)
+    // Scored through to the end, then a groove bar to loop on should anything hold.
+    expect(s.steps.slice(Math.round(INTRO_END * 10) - 100, Math.round(INTRO_END * 10)).some(evs => evs.length > 0)).toBe(true)
+    expect(s.loopBar * 16 * 0.1).toBeGreaterThanOrEqual(INTRO_END)
   })
 })

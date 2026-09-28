@@ -24,17 +24,22 @@ import { sfx } from '../audio/sfx'
 import { setMusicTrack } from '@/use/useSound'
 import { setSongStartHint } from '../audio/music'
 import {
-  INTRO_END, SKIP_AFTER, eventsBetween, overlayAt, shotIndexAt, streetTime, ringReach, ramp, clamp01,
-  FREEZE_AT, SPIRE_FLASH, VEX_ON, CUTIN_FROM, CUTIN_TO, DISC_FROM, DISC_TO, LEVER_AT, SEAL_AT, FROST_FROM, FROST_TO,
-  PIP_POP, GLYPH_ON, HOLO_FROM, SCRAP_BLINK, TURN_FROM, STEP_FROM, STEP_TO, BEAM_RISE, FLASH_FULL
+  INTRO_END, SKIP_AFTER, ATLAS_HOLD, eventsBetween, overlayAt, shotIndexAt, streetTime, streetRate, ringReach, ramp, clamp01,
+  STREET_FROM, STREET_RELEASE, FREEZE_AT, SPIRE_FLASH, VEX_ON, CUTIN_FROM, CUTIN_TO, LAB_FROM, ALARM_TO, GAUSS_TURN,
+  DISC_FROM, DISC_TO, STAGGER_AT, LEVER_AT, SAFE_FROM, SEAL_AT, FROST_FROM, FROST_TO, HEART_FROM, WAKE_FROM,
+  PIP_POP, GLYPH_ON, LV_POP, HOLO_FROM, SCRAP_BLINK, TURN_FROM, HOLO_FOLD_FROM, HOLO_FOLD_TO, STEP_FROM, STEP_TO, BEAM_RISE,
+  FLASH_FROM, FLASH_FULL
 } from './introScript'
-import { cine, cineLive, resetCine, setSkipHandler } from './cine'
+import { cine, cineLive, resetCine, setSkipHandler, skipHold } from './cine'
+import { holdProgress, stepHold } from './holdSkip'
 import { sceneQuality, type SceneQuality } from '../engine/quality'
 import { buildAtlas, animateAtlas } from '../models/atlas'
 import { playVoice, prefetchVoice } from '../audio/voice'
 
 /** How far ahead of an Atlas line its recording starts loading (s). */
 const VOICE_LEAD = 1.5
+/** Atlas's talk light runs this long after a line starts (its longest take). */
+const ATLAS_TALK = 2.2
 
 /**
  * ─── The intro cutscene: "Wake-Up Call" ──────────────────────────────────────
@@ -131,54 +136,69 @@ const camAt = (list: readonly CamKey[], t: number, pos: Vector3, look: Vector3):
 
 // ─── Camera keys per shot (set-local coordinates) ────────────────────────────
 
-/** Cold open, on the ACTION clock (`streetTime`): so the rewind rewinds it. */
+// Every shot moves between few keys, each segment eased in and out (`camAt`),
+// so the camera settles on its framing while the action plays and drifts on
+// only between beats: holds, not whip pans.
+
+/** Cold open, on the ACTION clock (`streetTime`): so the slow motion slows it
+ *  and the rewind rewinds it. */
 const STREET_CAM: readonly CamKey[] = [
-  { t: 0, pos: [1.3, 0.6, -1.2], look: [0, 1.0, -14], hfov: 72 },
+  // High over the wet street, the billboards on both sides; Flux a speck far
+  // down it, running in. One long crane down to his height as he nears.
+  { t: STREET_FROM, pos: [2.4, 3.4, 1.2], look: [0, 1.6, -24], hfov: 66 },
   { t: 0.9, pos: [0.9, 0.5, -2.6], look: [0, 1.1, -9], hfov: 74 },
   // The poster frame: low, under the Trooper's swing, the billboards above.
   { t: 1.2, pos: [-1.5, 0.28, -3.6], look: [0.4, 1.35, -6.8], hfov: 80 },
   { t: 1.55, pos: [-1.3, 0.3, -3.2], look: [0.3, 1.3, -6.2], hfov: 80 },
-  // Side on: Flux planted on the right, the Trooper's shield on the left.
-  { t: 2.0, pos: [4.6, 1.1, -3.9], look: [0.1, 0.95, -5.0], hfov: 72 },
-  { t: FREEZE_AT, pos: [4.0, 1.0, -4.4], look: [0.15, 0.95, -5.0], hfov: 70 }
+  // Side on: Flux planted on the right, the Trooper's shield on the left; it
+  // holds there through the charge, the release and the freeze.
+  { t: 2.05, pos: [4.6, 1.1, -3.9], look: [0.1, 0.95, -5.0], hfov: 72 },
+  { t: STREET_RELEASE, pos: [4.0, 1.0, -4.4], look: [0.15, 0.95, -5.0], hfov: 70 }
 ]
 
 const VALLEY_CAM: readonly CamKey[] = [
-  { t: 3.5, pos: [6, 18, 36], look: [0, 1, 0], hfov: 72 },
-  { t: 4.5, pos: [2, 14, 28], look: [-1.5, 2.2, -1.5], hfov: 72 },
-  { t: 5.6, pos: [-0.5, 10.5, 17], look: [-4, 4.5, -3], hfov: 76 },
-  { t: 6.5, pos: [2, 12, 24], look: [-2, 2, -1], hfov: 78 }
+  // A slow aerial drift over the bright valley while the relays chime…
+  { t: 11, pos: [6, 18, 36], look: [0, 1, 0], hfov: 72 },
+  { t: 14.4, pos: [2, 14, 28], look: [-1.5, 2.2, -1.5], hfov: 72 },
+  // …in on the Spire as it flashes and Vex's face comes on…
+  { t: 16.0, pos: [-0.5, 10.5, 17], look: [-4, 4.5, -3], hfov: 76 },
+  // …and back out, wide, as the red ring rolls over all of it.
+  { t: CUTIN_FROM, pos: [2.5, 13.5, 27], look: [-2, 2, -1], hfov: 80 }
 ]
 
 // Low and wide from beside the pad, on the right: Gauss three-quarter on,
-// Flux's capsule beyond her, Pip peeking over the console at the edge.
+// Flux's capsule beyond her, Pip peeking over the console at the edge. A slow
+// push-in across the whole shot; the disc's close-up is the one cut away.
 const LAB_CAM: readonly CamKey[] = [
-  { t: 6.5, pos: [2.9, 0.7, 1.9], look: [0.3, 1.35, -2.7], hfov: 80 },
-  { t: 7.5, pos: [2.5, 0.75, 1.4], look: [0.45, 1.35, -2.75], hfov: 78 },
-  { t: 7.96, pos: [2.3, 0.85, 1.1], look: [0.55, 1.3, -2.8], hfov: 76 },
-  { t: 9.5, pos: [1.9, 0.95, 0.6], look: [0.7, 1.25, -2.9], hfov: 76 }
+  { t: LAB_FROM, pos: [2.9, 0.7, 1.9], look: [0.3, 1.35, -2.7], hfov: 80 },
+  { t: DISC_FROM, pos: [2.5, 0.75, 1.4], look: [0.45, 1.35, -2.75], hfov: 78 },
+  { t: DISC_TO, pos: [2.3, 0.85, 1.1], look: [0.55, 1.3, -2.8], hfov: 76 },
+  { t: SAFE_FROM, pos: [1.9, 0.95, 0.6], look: [0.7, 1.25, -2.9], hfov: 76 }
 ]
 
+/** The Atlas disc: held long enough to see it slide into his chest port. */
 const DISC_CAM: readonly CamKey[] = [
   { t: DISC_FROM, pos: [1.9, 1.45, -1.55], look: [1.45, 1.2, -2.9], hfov: 56 },
-  { t: DISC_TO, pos: [1.85, 1.42, -1.7], look: [1.45, 1.2, -2.9], hfov: 52 }
+  { t: DISC_TO, pos: [1.8, 1.4, -1.8], look: [1.45, 1.2, -2.9], hfov: 50 }
 ]
 
 const SAFE_CAM: readonly CamKey[] = [
-  { t: 9.5, pos: [-0.1, 1.5, -0.5], look: [-1.3, 1.3, -3.1], hfov: 64 },
-  { t: 11, pos: [-0.5, 1.5, -1.0], look: [-1.45, 1.35, -3.1], hfov: 58 }
+  { t: SAFE_FROM, pos: [-0.1, 1.5, -0.5], look: [-1.3, 1.3, -3.1], hfov: 64 },
+  { t: WAKE_FROM, pos: [-0.5, 1.5, -1.0], look: [-1.45, 1.35, -3.1], hfov: 58 }
 ]
 
 /** Where Flux looks in first person (world). */
 const FP_LOOK: ReadonlyArray<readonly [number, number, number, number]> = [
   // t, x, y, z
-  [11.0, GAUSS_CAP.x, 1.3, GAUSS_CAP.z + 0.2],
-  [13.25, GAUSS_CAP.x, 1.35, GAUSS_CAP.z],
-  [13.6, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
+  [WAKE_FROM, GAUSS_CAP.x, 1.3, GAUSS_CAP.z + 0.2],
+  [43.2, GAUSS_CAP.x, 1.35, GAUSS_CAP.z],
+  [44.4, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
   [TURN_FROM, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
   [STEP_FROM, 0, 1.0, 0],
   [STEP_TO, -0.3, 1.45, 3],
-  [INTRO_END, -0.3, 1.5, 3]
+  // Up the beam column as it rises round him.
+  [FLASH_FROM, -0.3, 2.3, 3],
+  [INTRO_END, -0.3, 2.3, 3]
 ]
 
 const fpLookAt = (t: number, out: Vector3): Vector3 => {
@@ -190,10 +210,10 @@ const fpLookAt = (t: number, out: Vector3): Vector3 => {
   return out.set(k0[1] + (k1[1] - k0[1]) * u, k0[2] + (k1[2] - k0[2]) * u, k0[3] + (k1[3] - k0[3]) * u)
 }
 
-/** The stasis heartbeat: a beat every 1.3 s from the seal, 0..1. */
+/** The stasis heartbeat: a beat every 1.3 s once the frost has set, 0..1. */
 const heartbeat = (t: number): number => {
-  if (t < 10.6) return 0
-  const p = (t - 10.6) % 1.3
+  if (t < HEART_FROM) return 0
+  const p = (t - HEART_FROM) % 1.3
   return Math.exp(-p * 7) + 0.6 * Math.exp(-Math.max(0, p - 0.2) * 9) * (p > 0.2 ? 1 : 0)
 }
 
@@ -337,7 +357,7 @@ export class IntroMode implements GameMode {
     s.add(this.streetSet)
 
     // The loader builds only the cold open's street: it is all the first
-    // 3.5 s show. The other sets stream in one per frame while it plays
+    // 11 s show. The other sets stream in one per frame while it plays
     // (`streamSets`), and a shot that needs one not built yet builds it
     // first (`needSets`), so a skip never shows a missing set.
     this.jobs = [
@@ -467,7 +487,7 @@ export class IntroMode implements GameMode {
     this.opts.onStart?.()
   }
 
-  /** The player skipped (the glyph, a tap on it, `Esc`). Counts from `SKIP_AFTER`. */
+  /** The player skipped (the button, `Esc`, `Space` held). Counts from `SKIP_AFTER`. */
   skip(): void {
     if (this.ended || this.t < SKIP_AFTER) return
     // Straight to the flash: the handover shows the white frame and the logo,
@@ -523,8 +543,18 @@ export class IntroMode implements GameMode {
         case 'music': if (!this.opts.replay) setMusicTrack(e.track); break
       }
     }
-    const skipNow = this.t >= SKIP_AFTER
+    // Up from SKIP_AFTER; gone once the flash is full (a skip lands there).
+    const skipNow = this.t >= SKIP_AFTER && this.t < FLASH_FULL
     if (cine.skip !== skipNow) cine.skip = skipNow
+    // Space held: the ring fills on this clock, so an ad or a pause freezes
+    // it with the picture (and a hold from before the button showed only
+    // starts counting once it has).
+    if (skipNow && stepHold(skipHold, dt)) {
+      cineLive.hold = 1
+      this.skip()
+      return
+    }
+    cineLive.hold = holdProgress(skipHold)
     this.emit(dt)
     this.fx.update(dt)
     if (this.t >= INTRO_END) this.end(false)
@@ -536,28 +566,34 @@ export class IntroMode implements GameMode {
     const S = STREET_AT
     const st = streetTime(t)
     if (t < FREEZE_AT) {
+      // The street's particles run on the action clock too: in the slow
+      // motion they are spawned, fly and die at its rate.
+      const rate = Math.max(0.05, streetRate(t))
       if (st > 1.55 && st < 2.3) {
         for (let k = 0; k < 4; k++) {
+          if (Math.random() > rate) continue
           this.fx.emit({
             x: S.x - 4.4, y: S.y + 0.9 + (Math.random() - 0.5) * 0.4, z: S.z - 8.2 + (Math.random() - 0.5) * 0.4,
-            vx: 9 + Math.random() * 4, vy: (Math.random() - 0.3) * 1.5, vz: (Math.random() - 0.5) * 1.5,
-            color: Math.random() < 0.5 ? '#ff7a1f' : '#ffd84a', size: 0.7, sizeEnd: 1.4, life: 0.55, drag: 1.5
+            vx: (9 + Math.random() * 4) * rate, vy: (Math.random() - 0.3) * 1.5 * rate, vz: (Math.random() - 0.5) * 1.5 * rate,
+            color: Math.random() < 0.5 ? '#ff7a1f' : '#ffd84a', size: 0.7, sizeEnd: 1.4, life: 0.55 / rate, drag: 1.5 * rate
           })
         }
       }
-      if (st > 1.9 && st < 2.6 && Math.random() < dt * 40) {
+      if (st > 1.9 && st < 2.6 && Math.random() < dt * 40 * rate) {
         const m = this.chargeRing.position
         const a = Math.random() * Math.PI * 2
-        this.fx.emit({ x: S.x + m.x + Math.cos(a) * 0.6, y: S.y + m.y + Math.sin(a) * 0.6, z: S.z + m.z, vx: -Math.cos(a) * 2, vy: -Math.sin(a) * 2, color: PAL.heroPlasma, size: 0.08, sizeEnd: 0.02, life: 0.3 })
+        this.fx.emit({ x: S.x + m.x + Math.cos(a) * 0.6, y: S.y + m.y + Math.sin(a) * 0.6, z: S.z + m.z, vx: -Math.cos(a) * 2 * rate, vy: -Math.sin(a) * 2 * rate, color: PAL.heroPlasma, size: 0.08, sizeEnd: 0.02, life: 0.3 / rate })
       }
     }
-    if (t > LEVER_AT + 0.05 && t < LEVER_AT + 0.9) {
-      for (let k = 0; k < 3; k++) {
+    if (t > LEVER_AT + 0.05 && t < LEVER_AT + 1.8) {
+      // The burst, then the steam thinning out as the glass settles.
+      const n = t < LEVER_AT + 0.9 ? 3 : 1
+      for (let k = 0; k < n; k++) {
         const a = Math.random() * Math.PI * 2
         this.fx.emit({ x: FLUX_CAP.x + Math.cos(a) * 0.7, y: 0.4, z: FLUX_CAP.z + Math.sin(a) * 0.7, vx: Math.cos(a) * 1.5, vy: 1.5 + Math.random() * 1.5, vz: Math.sin(a) * 1.5, color: '#e8f4ff', size: 0.35, sizeEnd: 0.9, life: 0.9, drag: 1.2 })
       }
     }
-    if (t > FROST_FROM && t < FROST_TO + 0.2 && Math.random() < dt * 30) {
+    if (t > FROST_FROM && t < FROST_TO + 0.3 && Math.random() < dt * 30) {
       const a = Math.random() * Math.PI * 2
       this.fx.emit({ x: GAUSS_CAP.x + Math.cos(a) * 0.66, y: 0.4 + ramp(FROST_FROM, FROST_TO, t) * 2.2, z: GAUSS_CAP.z + Math.sin(a) * 0.66, vy: 0.3, color: '#dff6ff', size: 0.07, sizeEnd: 0.01, life: 0.5 })
     }
@@ -770,10 +806,10 @@ export class IntroMode implements GameMode {
   // ─── 2–5 · The lab ─────────────────────────────────────────────────────────
 
   private renderLab(t: number, dt: number, pos: Vector3, look: Vector3): number {
-    const fp = t >= 11
+    const fp = t >= WAKE_FROM
     // Red alarm light, closing in panel by panel; calmer once Gauss is frozen.
-    const panels = 11 * ramp(6.5, 8.4, t)
-    const calm = ramp(10.6, 11.5, t)
+    const panels = 11 * ramp(LAB_FROM, ALARM_TO, t)
+    const calm = ramp(HEART_FROM, HEART_FROM + 2, t)
     const pulse = 0.5 + 0.5 * Math.sin(t * 6)
     this.alarm.forEach((m, k) => {
       m.opacity = (k < panels ? 0.75 : 0) * (1 - 0.65 * calm) * (0.7 + 0.3 * pulse)
@@ -790,32 +826,36 @@ export class IntroMode implements GameMode {
     this.sleeper.glowMaterial.color.setScalar(0.1)
     this.sleeperRoot.visible = !fp
     // His capsule: the lever, the glass sliding down.
-    const lever = ramp(LEVER_AT - 0.2, LEVER_AT, t)
+    const lever = ramp(LEVER_AT - 0.4, LEVER_AT, t)
     this.fluxCap.setLever(lever)
-    this.fluxCap.setOpen(ramp(LEVER_AT + 0.1, LEVER_AT + 0.7, t))
+    this.fluxCap.setOpen(ramp(LEVER_AT + 0.2, LEVER_AT + 1.6, t))
     // (In first person the camera stands inside it: no wash over the view.)
     this.fluxCap.setInner('#ff4050', fp ? 0 : 0.12)
     this.fluxCap.setFrost(0)
     this.fluxCap.setHeart(0)
     // Gauss's capsule: open until she steps in, then sealed and frosting.
-    this.gaussCap.setOpen(t < SEAL_AT ? 1 : 1 - ramp(SEAL_AT, SEAL_AT + 0.15, t))
+    this.gaussCap.setOpen(t < SEAL_AT ? 1 : 1 - ramp(SEAL_AT, SEAL_AT + 0.4, t))
     this.gaussCap.setFrost(ramp(FROST_FROM, FROST_TO, t))
     const hb = heartbeat(t)
     this.gaussCap.setHeart(hb)
-    this.gaussCap.setLever(ramp(SEAL_AT - 0.1, SEAL_AT, t))
+    this.gaussCap.setLever(ramp(SEAL_AT - 0.2, SEAL_AT, t))
     this.gaussCap.setInner(t < FROST_FROM ? '#ff4050' : '#5b8cff', t < FROST_FROM ? 0.08 : 0.1 + 0.1 * hb)
-    // Gauss: at Flux's capsule (disc, crackle, lever), then into her own.
+    // Gauss: at the console, then turning to Flux (disc, crackle, lever), then
+    // across to her own capsule — a few slow steps, bobbing — and into it.
     const gp = this.gp
-    const walk = ramp(9.45, 9.9, t)
+    const walk = ramp(SAFE_FROM, SAFE_FROM + 1.0, t)
     const from = GAUSS_AT
-    this.gaussRoot.position.set(from.x + (GAUSS_CAP.x - from.x) * walk, 0.34 * ramp(9.75, 9.9, t), from.z + (GAUSS_CAP.z - from.z) * walk)
+    const bob = walk > 0 && walk < 1 ? Math.abs(Math.sin(walk * Math.PI * 3)) * 0.03 : 0
+    this.gaussRoot.position.set(
+      from.x + (GAUSS_CAP.x - from.x) * walk, 0.34 * ramp(SAFE_FROM + 0.75, SAFE_FROM + 1.0, t) + bob, from.z + (GAUSS_CAP.z - from.z) * walk
+    )
     this.gaussRoot.rotation.y = 2.1 * (1 - walk)
-    gp.disc = t < DISC_TO + 0.2 ? ramp(7.1, DISC_FROM + 0.1, t) : 1 - ramp(DISC_TO + 0.2, DISC_TO + 0.5, t)
-    gp.stagger = t > 8.0 && t < 9.5 ? ramp(8.0, 8.2, t) * (1 - ramp(8.5, 9.0, t)) : 0
-    gp.look = t < 7.2 ? -0.2 : t < 8.1 ? 0.4 : t < 8.3 ? -0.7 : 0.3
-    gp.lever = t < 9.4 ? ramp(8.2, LEVER_AT, t) : 0
-    gp.slap = ramp(9.85, 9.98, t) * (1 - ramp(10.1, 10.35, t))
-    gp.asleep = ramp(10.3, 10.9, t)
+    gp.disc = t < DISC_TO + 0.2 ? ramp(GAUSS_TURN, DISC_FROM + 0.1, t) : 1 - ramp(DISC_TO + 0.2, DISC_TO + 0.8, t)
+    gp.stagger = t > STAGGER_AT && t < SAFE_FROM ? ramp(STAGGER_AT, STAGGER_AT + 0.4, t) * (1 - ramp(STAGGER_AT + 1.0, STAGGER_AT + 1.8, t)) : 0
+    gp.look = t < GAUSS_TURN ? -0.2 : t < STAGGER_AT + 0.1 ? 0.4 : t < STAGGER_AT + 0.8 ? -0.7 : 0.3
+    gp.lever = t < SAFE_FROM - 0.1 ? ramp(LEVER_AT - 1.0, LEVER_AT, t) : 0
+    gp.slap = ramp(SEAL_AT - 0.1, SEAL_AT + 0.1, t) * (1 - ramp(SEAL_AT + 0.4, SEAL_AT + 0.9, t))
+    gp.asleep = ramp(FROST_FROM + 0.7, FROST_TO + 0.6, t)
     poseGauss(this.gauss, gp, t)
     setGaussGlow(this.gauss, 1 - gp.asleep, hb)
     this.labSet.updateMatrixWorld(true)
@@ -824,21 +864,22 @@ export class IntroMode implements GameMode {
     _a.y -= 0.25
     this.sleeper.bones.chest!.getWorldPosition(_b)
     _b.add(_d.set(0, 0.07, 0.19))
-    const into = ramp(DISC_FROM - 0.1, DISC_TO - 0.05, t)
-    this.disc.visible = t > 7.0 && !fp
+    // It slides home in the close-up, and clicks in (`energy`) at DISC_TO − 0.5.
+    const into = ramp(DISC_FROM + 0.3, DISC_TO - 0.5, t)
+    this.disc.visible = t > GAUSS_TURN - 0.1 && !fp
     this.disc.position.copy(_a).lerp(_b, into)
     this.disc.rotation.set(Math.PI / 2, 0, 0)
     ;(this.disc.material as MeshBasicMaterial).opacity = 0.7 + 0.3 * Math.sin(t * 12)
     // The red crackle: up her arm, then at the frost, where it dies.
-    const arm = t > 7.3 && t < 8.9
+    const arm = t > GAUSS_TURN + 0.6 && t < LEVER_AT + 0.2
     this.armCrackle.visible = arm && Math.random() < 0.85
     if (arm) {
       this.gauss.bones.shoulderL!.getWorldPosition(_b)
-      const climb = ramp(7.3, 8.1, t)
+      const climb = ramp(GAUSS_TURN + 0.6, STAGGER_AT - 0.2, t)
       crackle(this.armCrackle, _a, _c.copy(_a).lerp(_b, climb), 0.09)
     }
-    const glass = t > 9.95 && t < 10.55
-    this.glassCrackle.visible = glass && Math.random() < 0.8 * (1 - ramp(10.35, 10.55, t)) + 0.1
+    const glass = t > FROST_FROM - 0.05 && t < FROST_TO
+    this.glassCrackle.visible = glass && Math.random() < 0.8 * (1 - ramp(FROST_TO - 0.5, FROST_TO, t)) + 0.1
     if (glass) {
       const top = 0.4 + 2.2 * ramp(FROST_FROM, FROST_TO, t)
       _a.set(GAUSS_CAP.x + 0.25, 0.1, GAUSS_CAP.z + 0.75)
@@ -848,7 +889,7 @@ export class IntroMode implements GameMode {
     // Pip: hiding behind the console, then in Flux's face, then the hologram.
     this.renderPip(t)
     // The hologram of the valley: five sectors red, the Fortress shielded.
-    const holoOn = ramp(HOLO_FROM, HOLO_FROM + 0.3, t) * (1 - ramp(TURN_FROM + 0.2, TURN_FROM + 0.45, t))
+    const holoOn = ramp(HOLO_FROM, HOLO_FROM + 0.6, t) * (1 - ramp(HOLO_FOLD_FROM, HOLO_FOLD_TO, t))
     this.holo.root.visible = holoOn > 0.01
     this.holo.root.scale.set(HOLO_SCALE, HOLO_SCALE * holoOn, HOLO_SCALE)
     this.holo.animate(t)
@@ -872,27 +913,28 @@ export class IntroMode implements GameMode {
     this.beamGlow.position.y = 0.3 + 2 * beam
     // The camera.
     if (!fp) {
-      if (t < 9.5) {
+      if (t < SAFE_FROM) {
         if (t >= DISC_FROM && t < DISC_TO) return camAt(DISC_CAM, t, pos, look)
         return camAt(LAB_CAM, t, pos, look)
       }
       return camAt(SAFE_CAM, t, pos, look)
     }
-    // First person: his eye, then the step onto the pad.
+    // First person: his eye, then three steps onto the pad.
     const walkK = ramp(STEP_FROM, STEP_TO, t)
     pos.copy(EYE).lerp(PAD_EYE, walkK)
-    pos.y += Math.sin(walkK * Math.PI * 2) * 0.03
+    pos.y -= Math.abs(Math.sin(walkK * Math.PI * 3)) * 0.03
     // The wake-up: a small dip and rise as the eyes open.
-    pos.y += -0.05 * (1 - ramp(11.6, 12.4, t))
+    pos.y += -0.05 * (1 - ramp(37.8, 40.0, t))
     fpLookAt(t, look)
     this.placeAtlasFp(t, pos, look)
     return 82
   }
 
-  /** Atlas is talking (a caption is up). */
+  /** Atlas is talking (its line has just started; the caption holds on for
+   *  `ATLAS_HOLD`). */
   private atlasTalk(t: number): number {
     const age = t - cineLive.atlasAt
-    return age >= 0 && age < 1.8 ? 1 : 0
+    return age >= 0 && age < Math.min(ATLAS_TALK, ATLAS_HOLD) ? 1 : 0
   }
 
   /**
@@ -901,7 +943,7 @@ export class IntroMode implements GameMode {
    */
   private placeAtlasFp(t: number, pos: Vector3, look: Vector3): void {
     const A = this.atlasLab
-    const on = ramp(GLYPH_ON - 0.3, GLYPH_ON + 0.15, t)
+    const on = ramp(GLYPH_ON - 0.3, GLYPH_ON + 0.45, t)
     A.root.visible = on > 0.01
     if (!A.root.visible) return
     const f = _a.copy(look).sub(pos).normalize()
@@ -921,9 +963,9 @@ export class IntroMode implements GameMode {
   private renderPip(t: number): void {
     const P = this.pipRoot
     animatePip(this.pip, t)
-    const pop = ramp(PIP_POP - 0.1, PIP_POP + 0.1, t)
-    const back = ramp(12.95, 13.35, t)
-    if (t < 11) {
+    const pop = ramp(PIP_POP - 0.2, PIP_POP + 0.2, t)
+    const back = ramp(LV_POP, HOLO_FROM, t)
+    if (t < WAKE_FROM) {
       // Behind the right console, only his eye over the top.
       P.position.set(3.5, 1.2 + Math.sin(t * 3) * 0.03, -2.95)
       P.rotation.y = -0.6
@@ -936,7 +978,7 @@ export class IntroMode implements GameMode {
       P.position.copy(near).lerp(PIP_PROJECT, back)
       P.position.y += (1 - pop) * -0.8 + Math.sin(t * 2.4) * 0.03
       P.lookAt(EYE)
-      const sq = t > 12.45 && t < 12.95 ? 0.8 : 1
+      const sq = t > PIP_POP + 0.6 && t < PIP_POP + 1.4 ? 0.8 : 1
       const s = 0.3 + 0.7 * pop
       P.scale.set(s, s * sq, s)
       // As the view turns to the pad, he flies ahead to its edge.

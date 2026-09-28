@@ -20,7 +20,8 @@ export default {
     'menu': 'Мәзір',
     'home': 'Басты бет',
     'info': 'Ақпарат',
-    'skip': 'Өткізу'
+    'skip': 'Өткізу',
+    'holdToSkip': 'Өткізу үшін {key} басып тұрыңыз'
   },
 
   'combat': {

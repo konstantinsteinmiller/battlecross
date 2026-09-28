@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // ─── pnpm voice:script ───────────────────────────────────────────────────────
 //
-// Writes voice-todo.md: every line Atlas speaks, with the file name each
-// recording must have, when it plays, and its English and German text (the
-// recording script, e.g. for ElevenLabs). The text comes straight from the
-// locale files, so re-run this after changing a line.
+// Writes voice-todo.md: every line Atlas speaks in the game today, with the
+// file name each recording must have, when it plays, and its English and
+// German text (the recording script, e.g. for ElevenLabs). The lines and
+// their notes come from the voice catalog (src/game/audio/voiceCatalog.ts),
+// the text from the locale files, so re-run this after changing a line.
 //
 // Runs on Node's own TypeScript stripping (the locales and the line list are
 // plain TS): `node --experimental-strip-types tools/voice-script.mjs`.
@@ -16,51 +17,18 @@ import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const en = (await import(join(ROOT, 'src/i18n/locales/en.ts'))).default
 const de = (await import(join(ROOT, 'src/i18n/locales/de.ts'))).default
-const { ATLAS_LINES, atlasKey } = await import(join(ROOT, 'src/game/sim/atlas.ts'))
+const { VOICE_LINES, fileName } = await import(join(ROOT, 'src/game/audio/voiceCatalog.ts'))
 
 const at = (o, key) => key.split('.').reduce((x, k) => x?.[k], o)
+const fill = (s, params) => s.replace(/\{(\w+)\}/g, (m, n) => at(en, params?.[n] ?? '') ?? m)
 
-/** When each line plays (for the voice director, not for players). */
-const WHEN = {
-  'story.atlas.logStart': 'Intro, the cold open freezes and rewinds: Atlas starts its log',
-  'story.atlas.goodMorning': 'Intro, Flux wakes up: Atlas comes online (first words of the game)',
-  'story.atlas.scrapyardFirst': 'Intro, the hologram: the Scrapyard relay blinks',
-  'atlas.landed': 'Every mission: Flux lands on the pad',
-  'atlas.brief.tutorial': 'The tutorial starts',
-  'atlas.brief.job': 'A job mission starts',
-  'atlas.brief.climb': 'A Tower Run starts',
-  'atlas.brief.story': 'A story mission starts (fallback)',
-  'atlas.story.scrapyard': 'Story mission start: Scrapyard',
-  'atlas.story.blaze': 'Story mission start: Blaze Refinery',
-  'atlas.story.cryo': 'Story mission start: Cryo Plant',
-  'atlas.story.volt': 'Story mission start: Volt Tower',
-  'atlas.story.gale': 'Story mission start: Sky Docks',
-  'atlas.story.fortress': 'Story mission start: Vex Fortress',
-  'atlas.arc.1': 'Story mission start, 1 Master freed so far',
-  'atlas.arc.2': 'Story mission start, 2 Masters freed',
-  'atlas.arc.3': 'Story mission start, 3 Masters freed',
-  'atlas.arc.4': 'Story mission start, 4 Masters freed',
-  'atlas.arc.5': 'Story mission start, all 5 Masters freed',
-  'atlas.bossAhead': 'The boss door comes into view',
-  'atlas.bossDown': 'A Core Master is beaten (freed)',
-  'atlas.vexDown': 'Vex\'s Mk-I is beaten',
-  'atlas.lowHp': 'Health under 30 %, no Repair Gel left',
-  'atlas.lowHpGel': 'Health under 30 %, a Repair Gel in the pack',
-  'atlas.lowWe': 'Special weapon energy under 20 %',
-  'atlas.trap': 'A corridor trap ahead (flame jet, blade)',
-  'atlas.plate': 'A pressure plate ahead',
-  'atlas.objective': 'The objective is done',
-  'atlas.exit': 'The exit drone arrives',
-  'atlas.levelUp': 'Flux levels up mid-mission',
-  'atlas.idle.1': 'Small talk in a quiet stretch',
-  'atlas.idle.2': 'Small talk in a quiet stretch',
-  'atlas.idle.3': 'Small talk in a quiet stretch',
-  'atlas.idle.4': 'Small talk in a quiet stretch'
-}
-
-const ids = ['story.atlas.logStart', 'story.atlas.goodMorning', 'story.atlas.scrapyardFirst', ...ATLAS_LINES.map(atlasKey)]
+// The lines in the game today, from the voice catalog (the full list, planned
+// lines too, is `pnpm voice:report`).
+const live = VOICE_LINES.filter(l => l.status === 'live')
+const ids = live.map(l => l.key)
+const WHEN = Object.fromEntries(live.map(l => [l.key, fill(l.when[0], l.params)]))
 const cell = (s) => String(s ?? '—').replace(/\|/g, '\\|')
-const rows = ids.map(id => `| \`${id}.ogg\` | ${cell(WHEN[id])} | ${cell(at(en, id))} | ${cell(at(de, id))} |`)
+const rows = ids.map(id => `| \`${fileName(id)}.ogg\` | ${cell(WHEN[id])} | ${cell(at(en, id))} | ${cell(at(de, id))} |`)
 
 const md = `# Voice-over — drop-in list (Atlas)
 
@@ -72,8 +40,8 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 
 - **Where:** \`public/audio/voice/en/<file>\` for English,
   \`public/audio/voice/de/<file>\` for German. File names exactly as below
-  (the line's key + \`.ogg\`; \`.mp3\` / \`.m4a\` also work, \`.ogg\` wins if both
-  exist).
+  (the line's key with its dots as underscores + \`.ogg\`; \`.mp3\` /
+  \`.m4a\` also work, \`.ogg\` wins if both exist).
 - **Who hears what:** German players hear the German files; every other
   language hears the English ones. The speech bubble is always in the
   player's own language. A German line without a German file falls back to

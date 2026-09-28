@@ -22,8 +22,10 @@ import { scaleDmg } from '../data/enemies'
  * Rules, each against a way a trap could feel cheap:
  * - Never where a fight could land on top of it: not in the start room's
  *   corridors, not in the boss shutter's, never on a door's own cell. And
- *   while a fight is on, every trap PARKS — a flame holds its idle, a blade
- *   latches at the top of its swing — until the room is quiet again.
+ *   while a fight is on near it, a trap PARKS — a flame holds its idle, a
+ *   blade latches at the top of its swing — until it is quiet again. A
+ *   fight rooms away leaves it running: a latched blade in the corridor
+ *   ahead reads as broken.
  * - One hit is 12 at level 1 (an eighth of the bar), scaled like the
  *   machines' damage, with the usual hurt i-frames: a mistake, never a death.
  * - They hurt Flux only. Machines walk through; tap-to-move paths too — the
@@ -271,8 +273,10 @@ export interface TrapHost {
 export interface TrapTick {
   /** Live play (no modal, not beaming): only then does a trap hurt. */
   playing: boolean
-  /** A fight is on: every trap parks. */
+  /** A fight is on: traps near it park. */
   combat: boolean
+  /** Whether the fight reaches the trap at (x, z); absent = every trap parks. */
+  fightAt?: (x: number, z: number) => boolean
 }
 
 export class TrapSystem {
@@ -325,9 +329,10 @@ export class TrapSystem {
       const sp = s.spot
       const view = this.views[n] ?? null
       const loud = Math.hypot(sp.x - p.x, sp.z - p.z) < HEAR && (!view || view.shown)
+      const park = o.combat && (!o.fightAt || o.fightAt(sp.x, sp.z))
       if (sp.plate) this.stepPlate(s, dt)
-      else if (sp.kind === 'flame') this.stepFlame(s, dt, o, loud)
-      else this.stepBlade(s, dt, o, loud)
+      else if (sp.kind === 'flame') this.stepFlame(s, dt, o.playing, park, loud)
+      else this.stepBlade(s, dt, o.playing, park, loud)
       view?.sync(s, dt, h.time)
     }
   }
@@ -344,10 +349,10 @@ export class TrapSystem {
     }
   }
 
-  private stepFlame(s: TrapState, dt: number, o: TrapTick, loud: boolean): void {
+  private stepFlame(s: TrapState, dt: number, playing: boolean, park: boolean, loud: boolean): void {
     const before = s.stage
     // A fight parks it: it finishes the burst it is in, then holds its idle.
-    s.parked = o.combat && before === 'idle'
+    s.parked = park && before === 'idle'
     if (!s.parked) s.t += dt
     s.stage = flameStage(s.t)
     s.k = flameK(s.t)
@@ -357,12 +362,12 @@ export class TrapSystem {
       else if (s.stage === 'burn') this.host.sfx('flameJet', sp.x, sp.z)
     }
     const p = this.host.player
-    if (s.stage === 'burn' && o.playing && inFlame(sp, p.x, p.z)) this.hurt(s)
+    if (s.stage === 'burn' && playing && inFlame(sp, p.x, p.z)) this.hurt(s)
   }
 
-  private stepBlade(s: TrapState, dt: number, o: TrapTick, loud: boolean): void {
+  private stepBlade(s: TrapState, dt: number, playing: boolean, park: boolean, loud: boolean): void {
     const sp = s.spot
-    if (o.combat) {
+    if (park) {
       // Swing on to the top of the next swing out and latch there.
       if (!s.parked) {
         const peak = nextPeak(s.t)
@@ -382,7 +387,7 @@ export class TrapSystem {
     const half = BLADE_AMP * 0.5
     if (loud && !s.parked && Math.abs(prev) > half && Math.abs(s.angle) <= half) this.host.sfx('bladeWhoosh', sp.x, sp.z)
     const p = this.host.player
-    if (o.playing && Math.abs(s.speed) > BLADE_LIVE && bladeHits(sp, s.angle, p.x, p.z)) this.hurt(s)
+    if (playing && Math.abs(s.speed) > BLADE_LIVE && bladeHits(sp, s.angle, p.x, p.z)) this.hurt(s)
   }
 
   /** One hit: unblockable, knocked back out along the corridor. */

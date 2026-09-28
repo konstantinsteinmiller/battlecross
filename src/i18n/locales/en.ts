@@ -24,7 +24,9 @@ export default {
     'menu': 'Menu',
     'home': 'Home',
     'info': 'Info',
-    'skip': 'Skip'
+    'skip': 'Skip',
+    // Beside the skip button: {key} is the space bar's name (pause.keys.space).
+    'holdToSkip': 'Hold {key} to skip'
   },
 
   // ─── Combat call-outs (floating text in the 3D view) ─────────────────────

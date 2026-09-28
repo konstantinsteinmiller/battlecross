@@ -20,7 +20,8 @@ export default {
     'menu': 'Menü',
     'home': 'Ana ekran',
     'info': 'Bilgi',
-    'skip': 'Geç'
+    'skip': 'Geç',
+    'holdToSkip': 'Geçmek için {key} tuşunu basılı tut'
   },
 
   'combat': {
