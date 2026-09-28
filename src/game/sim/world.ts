@@ -157,6 +157,9 @@ export interface Shot {
   freeze: number
   /** A crate golem's rock (a tumbling stone mesh, fx/rubble.ts) in place of the glow core. */
   rock?: Object3D | null
+  /** A charged shot's comet tail and the energy rings it sheds (combat.ts),
+   *  built the first time its pool slot fires one. */
+  aura?: Group | null
 }
 
 export type PickupKind = 'bolt' | 'hp' | 'hpBig' | 'we' | 'weBig' | 'core'

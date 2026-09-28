@@ -543,6 +543,8 @@ export class MissionObjects {
       const top = c.kind === 'barrel' ? 1.3 : 1.15
       if (y > top + r) continue
       if (Math.hypot(c.x - x, c.z - z) > (c.kind === 'barrel' ? 0.5 : 0.62) + r) continue
+      // Crates stand against walls: a shot on the far side stops on the wall
+      if (!hasLineOfSight(this.host.nav, x, z, c.x, c.z)) continue
       if (c.kind === 'crate' && charge <= 0) {
         const h = this.host
         c.hitT = 0.45

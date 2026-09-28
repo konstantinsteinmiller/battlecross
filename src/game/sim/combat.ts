@@ -1,5 +1,6 @@
 import {
-  Sprite, SpriteMaterial, AdditiveBlending, Color, Mesh, MeshBasicMaterial, SphereGeometry, Group, type Scene
+  Sprite, SpriteMaterial, AdditiveBlending, Color, Mesh, MeshBasicMaterial, SphereGeometry, Group, ConeGeometry,
+  TorusGeometry, BufferAttribute, DoubleSide, Vector3, type Scene
 } from 'three'
 import type { Enemy, Shot, World, Pickup, PickupKind } from './world'
 import type { PlayerStats } from './stats'
@@ -60,6 +61,57 @@ const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: numb
 }
 
 const sphereGeo = new SphereGeometry(1, 12, 8)
+
+type ChargeKind = 'charge1' | 'charge2' | 'charge3'
+
+/** A charged shot is more than a bigger ball: a comet tail streams behind it
+ *  and it sheds energy rings that widen and fade in its wake, more of both
+ *  the fuller the charge, and a full one crackles. `tail` is the tail's
+ *  length and `rings` their count, in core radii; `crackle` the chance per
+ *  tick of a spark jumping off it. */
+const CHARGE_AURA: Record<ChargeKind, { tail: number; rings: number; crackle: number }> = {
+  charge1: { tail: 4, rings: 1, crackle: 0 },
+  charge2: { tail: 6, rings: 2, crackle: 0.45 },
+  charge3: { tail: 8, rings: 3, crackle: 0.9 }
+}
+const MAX_RINGS = 3
+/** Rings shed per second (each one's cycle). */
+const RING_RATE = 3.4
+
+/** The comet tail: a cone from the core (z = 0) back to a point at z = −1,
+ *  fading to nothing along its length (additive: black draws nothing). */
+const tailGeo = (() => {
+  const g = new ConeGeometry(1, 1, 14, 4, true)
+  g.rotateX(-Math.PI / 2)
+  g.translate(0, 0, -0.5)
+  const p = g.attributes.position!
+  const c = new Float32Array(p.count * 3)
+  for (let k = 0; k < p.count; k++) c.fill(Math.pow(Math.max(0, 1 + p.getZ(k)), 1.6), k * 3, k * 3 + 3)
+  g.setAttribute('color', new BufferAttribute(c, 3))
+  return g
+})()
+/** An energy ring, square to the flight (+Z). */
+const ringGeo = new TorusGeometry(1, 0.08, 6, 28)
+const _ahead = new Vector3()
+
+const auraMat = (vertexColors: boolean): MeshBasicMaterial =>
+  new MeshBasicMaterial({
+    color: new Color('#ffffff'), vertexColors, transparent: true, blending: AdditiveBlending,
+    depthWrite: false, toneMapped: false, side: DoubleSide
+  })
+
+/** Children: the tail, its white-hot inner tail, then MAX_RINGS rings. */
+const buildAura = (): Group => {
+  const g = new Group()
+  const tail = new Mesh(tailGeo, auraMat(true))
+  tail.material.opacity = 0.6
+  const inner = new Mesh(tailGeo, auraMat(true))
+  inner.material.opacity = 0.8
+  g.add(tail, inner)
+  for (let k = 0; k < MAX_RINGS; k++) g.add(new Mesh(ringGeo, auraMat(false)))
+  for (const m of g.children) m.renderOrder = 6
+  return g
+}
 
 /** How charged a player shot is: 0 for a quick pellet; a copied weapon's
  *  shots and reflected shots count as charged. */
@@ -149,6 +201,7 @@ export class CombatSystem {
     s.rock = null
     s.sprite.visible = true
     s.core!.visible = true
+    if (s.aura) s.aura.visible = false
     return s
   }
 
@@ -181,7 +234,28 @@ export class CombatSystem {
     s.turn = kind === 'pellet' ? 4 : 2.5
     s.blockable = true
     this.look(s, kind, crit ? '#ffd84a' : undefined)
-    if (kind !== 'pellet') s.radius *= 1.8
+    if (kind !== 'pellet') {
+      s.radius *= 1.8
+      if (!s.aura) {
+        s.aura = buildAura()
+        this.root.add(s.aura)
+      }
+      const [tail, inner, ...rings] = s.aura.children as Mesh<ConeGeometry, MeshBasicMaterial>[]
+      tail!.material.color.set(s.color)
+      inner!.material.color.set(crit ? '#fff6d0' : SHOT_LOOK[kind]!.core)
+      for (let k = 0; k < rings.length; k++) {
+        rings[k]!.material.color.set(s.color)
+        rings[k]!.visible = k < CHARGE_AURA[kind].rings
+      }
+      s.aura.visible = true
+    }
+    // Fired from a buster already through the wall (Flux pressed up to it,
+    // the muzzle sits ahead of him): the shot ends on that wall, and nothing
+    // beyond it is touched.
+    if (!hasLineOfSight(this.host.nav, this.host.player.x, this.host.player.z, x, z)) {
+      this.wallHit(s)
+      this.kill(s)
+    }
     return s
   }
 
@@ -398,17 +472,26 @@ export class CombatSystem {
       if (s.kind === 'charge2' || s.kind === 'charge3' || s.kind === 'reflect') {
         h.fx.emit({ x: s.x, y: s.y, z: s.z, color: s.color, size: s.kind === 'charge3' ? 0.9 : 0.6, sizeEnd: 0.05, life: 0.22 })
       }
+      // A full charge crackles: sparks jump off it, white and in its colour
+      const A = CHARGE_AURA[s.kind as ChargeKind]
+      if (A && Math.random() < A.crackle) {
+        const a = Math.random() * Math.PI * 2
+        const b = (Math.random() - 0.5) * Math.PI
+        const r = s.radius * 1.1
+        const ox = Math.cos(a) * Math.cos(b)
+        const oy = Math.sin(b)
+        const oz = Math.sin(a) * Math.cos(b)
+        h.fx.emit({
+          x: s.x + ox * r, y: s.y + oy * r, z: s.z + oz * r, vx: ox * 3, vy: oy * 3, vz: oz * 3,
+          color: Math.random() < 0.5 ? '#ffffff' : s.color, size: 0.2, sizeEnd: 0.02, life: 0.14
+        })
+      }
 
-      // World collision (walls, closed doors, pillars, floor — on the climb
-      // a ledge's floor, so its cliff face stops a shot too)
+      // World collision (walls, closed doors, pillars, wall-corner and door
+      // posts, floor — on the climb a ledge's floor, so its cliff face stops
+      // a shot too)
       if (s.y < floorAt(h.nav, s.x, s.z) + 0.02 || !hasLineOfSight(h.nav, s.px, s.pz, s.x, s.z)) {
-        if (s.rock) {
-          h.fx.sparks(s.px, Math.max(0.1, s.py), s.pz, '#b3a386', 8, 4, 0.2)
-          h.sfx('punch', s.px, s.pz)
-        } else {
-          h.fx.sparks(s.px, Math.max(0.1, s.py), s.pz, s.color, s.kind === 'pellet' ? 5 : 12, 4)
-          if (s.kind !== 'pellet') h.fx.flash(s.px, s.py, s.pz, s.color, 1.2, 0.14)
-        }
+        this.wallHit(s)
         this.kill(s)
         continue
       }
@@ -442,6 +525,9 @@ export class CombatSystem {
           const ez = e.z - s.z
           const rr = e.def.hitR * (e.elite ? 1.18 : 1) + s.radius
           if (ex * ex + ey * ey + ez * ez > rr * rr) continue
+          // Close enough, but the wall it stopped short of stands between:
+          // a (fat, charged) shot must not reach a machine behind it
+          if (!hasLineOfSight(h.nav, s.x, s.z, e.x, e.z)) continue
           s.hitIds.push(e.id)
           // A shot that only TINKs off a sleeping golem stops there, piercing or not
           const bounced = golemShielded(e)
@@ -495,6 +581,9 @@ export class CombatSystem {
         const d = Math.hypot(x - h.player.x, z - h.player.z)
         const k = Math.min(1, Math.max(0.15, (d - 0.4) / 2.5))
         s.sprite.scale.setScalar(L.g * k)
+        const A = CHARGE_AURA[s.kind as ChargeKind]
+        if (s.aura) s.aura.visible = !!A
+        if (A) this.syncAura(s, A, x, y, z, k)
       }
     }
     for (const p of this.pickups) {
@@ -503,10 +592,53 @@ export class CombatSystem {
     }
   }
 
+  /** A charged shot's tail and rings, at its drawn position, facing along its
+   *  flight; `grow` is its sprite's start-small factor. The core throbs. */
+  private syncAura(s: Shot, A: (typeof CHARGE_AURA)[ChargeKind], x: number, y: number, z: number, grow: number): void {
+    const au = s.aura!
+    // Its remaining life is a free, steady clock (it only counts down)
+    const clock = -s.life
+    const r = SHOT_LOOK[s.kind]!.r
+    au.position.set(x, y, z)
+    au.lookAt(_ahead.set(x + s.vx, y + s.vy, z + s.vz))
+    au.scale.setScalar(r * Math.max(0.35, grow))
+    s.core!.scale.setScalar(r * (1 + 0.14 * Math.sin(clock * 42)))
+    const [tail, inner, ...rings] = au.children as Mesh<ConeGeometry, MeshBasicMaterial>[]
+    const flick = 1 + 0.08 * Math.sin(clock * 57)
+    tail!.scale.set(0.95, 0.95, A.tail * flick)
+    inner!.scale.set(0.45, 0.45, A.tail * 0.7 * flick)
+    // Each ring is born at the core, then drifts back, widens and fades
+    for (let k = 0; k < A.rings; k++) {
+      const ring = rings[k]!
+      const t = clock * RING_RATE + k / A.rings
+      const ph = t - Math.floor(t)
+      ring.position.z = -ph * A.tail * 0.6
+      ring.scale.setScalar(1.15 + ph * 1.5)
+      ring.material.opacity = 0.85 * (1 - ph)
+    }
+  }
+
+  /** A shot ends on a wall (or the floor) where it last was: sparks, and a
+   *  charged one bursts. */
+  private wallHit(s: Shot): void {
+    const h = this.host
+    const y = Math.max(0.1, s.py)
+    if (s.rock) {
+      h.fx.sparks(s.px, y, s.pz, '#b3a386', 8, 4, 0.2)
+      h.sfx('punch', s.px, s.pz)
+    } else if (s.kind === 'charge2' || s.kind === 'charge3') {
+      h.fx.orbBurst(s.px, y, s.pz, s.color, s.kind === 'charge3' ? 0.7 : 0.5)
+    } else {
+      h.fx.sparks(s.px, y, s.pz, s.color, s.kind === 'pellet' ? 5 : 12, 4)
+      if (s.kind !== 'pellet') h.fx.flash(s.px, y, s.pz, s.color, 1.2, 0.14)
+    }
+  }
+
   private kill(s: Shot): void {
     s.active = false
     s.sprite.visible = false
     if (s.core) s.core.visible = false
+    if (s.aura) s.aura.visible = false
     if (s.rock) {
       // A stone breaks where it ends: on a wall, the floor, Flux, a golem
       this.rubble.crumble(s.x, s.y, s.z, s.kind === 'shell' ? 7 : 4)

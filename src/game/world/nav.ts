@@ -39,7 +39,17 @@ export interface Nav {
   /** One-way hops between cells a walk cannot make — up a ladder, across on
    *  a lift — for the objective trail's search only (terrain maps only). */
   links?: Map<number, number[]>
+  /** Radius of the post standing on each grid vertex ((w + 1) × (h + 1),
+   *  0 = none): the wall-corner pilasters and door-frame posts the level
+   *  mesh draws there. They stand proud of the wall line, so sight (and a
+   *  shot) grazing a corner or a doorway stops on them (flat maps only). */
+  posts?: Float32Array
 }
+
+/** Pilaster radius on every wall corner (`levelMesh.ts`). */
+const PILASTER_R = 0.3
+/** Door-frame post radius on each side of a doorway (`levelMesh.ts`). */
+const DOOR_POST_R = 0.4
 
 /** A moving platform's footprint and top this tick, and how far it moved
  *  (what it carries a rider by). A solid column below its top. */
@@ -60,8 +70,35 @@ export const createNav = (map: MapData): Nav => {
   if (map.terrain) {
     nav.plats = []
     nav.links = terrainLinks(map)
-  }
+  } else nav.posts = vertexPosts(map)
   return nav
+}
+
+/** `Nav.posts`: a pilaster wherever walkable and void cells meet at a
+ *  vertex (any wall edge ends there), a door post beside every doorway. */
+const vertexPosts = (map: MapData): Float32Array => {
+  const W1 = map.w + 1
+  const posts = new Float32Array(W1 * (map.h + 1))
+  const walk = (i: number, j: number): boolean =>
+    i >= 0 && j >= 0 && i < map.w && j < map.h && map.cell[j * map.w + i] !== Cell.Void
+  for (let j = 0; j <= map.h; j++) {
+    for (let i = 0; i <= map.w; i++) {
+      const n = +walk(i - 1, j - 1) + +walk(i, j - 1) + +walk(i - 1, j) + +walk(i, j)
+      if (n > 0 && n < 4) posts[j * W1 + i] = PILASTER_R
+    }
+  }
+  for (const d of map.doors ?? []) {
+    // The frame stands on the grid line past the door cell (`doorFramePos`),
+    // its two posts on the vertices at either end of it
+    const vi = d.axis === 'x' ? d.i + (d.dir > 0 ? 1 : 0) : d.i
+    const vj = d.axis === 'z' ? d.j + (d.dir > 0 ? 1 : 0) : d.j
+    for (let s = 0; s < 2; s++) {
+      const i = vi + (d.axis === 'z' ? s : 0)
+      const j = vj + (d.axis === 'x' ? s : 0)
+      if (i <= map.w && j <= map.h) posts[j * W1 + i] = Math.max(posts[j * W1 + i]!, DOOR_POST_R)
+    }
+  }
+  return posts
 }
 
 // ─── Terrain: floor heights (the climb) ──────────────────────────────────────
@@ -458,9 +495,33 @@ const segHitsSlab = (ax: number, az: number, bx: number, bz: number, sl: Slab): 
   return clip(-dx, ax - sl.minX) && clip(dx, sl.maxX - ax) && clip(-dz, az - sl.minZ) && clip(dz, sl.maxZ - az) && t0 <= t1
 }
 
+/** Does the segment from (ax, az) along (dx, dz) pass through a post on one
+ *  of cell (i, j)'s four corners? A post near the segment always sits on a
+ *  corner of a cell the segment crosses (a post is far smaller than a
+ *  cell), so the grid walk only has to ask the cells it visits. */
+const cornerPostHit = (nav: Nav, i: number, j: number, ax: number, az: number, dx: number, dz: number, len2: number): boolean => {
+  const posts = nav.posts
+  if (!posts) return false
+  const W1 = nav.w + 1
+  for (let c = 0; c < 4; c++) {
+    const vi = i + (c & 1)
+    const vj = j + (c >> 1)
+    if (vi < 0 || vj < 0 || vi > nav.w || vj > nav.h) continue
+    const r = posts[vj * W1 + vi]!
+    if (!r) continue
+    const t = len2 < 1e-6 ? 0 : Math.max(0, Math.min(1, ((vi * CELL - ax) * dx + (vj * CELL - az) * dz) / len2))
+    const cx = ax + dx * t - vi * CELL
+    const cz = az + dz * t - vj * CELL
+    // As lenient as a pillar (below)
+    if (cx * cx + cz * cz < r * r * 0.8) return true
+  }
+  return false
+}
+
 /**
  * Grid line of sight from (ax, az) to (bx, bz). Pillars block too (a
- * segment-vs-circle test), so an enemy behind a pillar cannot shoot through it.
+ * segment-vs-circle test), so an enemy behind a pillar cannot shoot through
+ * it, and so do the posts on wall corners and doorways (`Nav.posts`).
  */
 export const hasLineOfSight = (nav: Nav, ax: number, az: number, bx: number, bz: number): boolean => {
   let i = Math.floor(ax / CELL)
@@ -469,6 +530,8 @@ export const hasLineOfSight = (nav: Nav, ax: number, az: number, bx: number, bz:
   const tj = Math.floor(bz / CELL)
   const dx = bx - ax
   const dz = bz - az
+  const len2 = dx * dx + dz * dz
+  if (cornerPostHit(nav, i, j, ax, az, dx, dz, len2)) return false
   const stepI = dx > 0 ? 1 : -1
   const stepJ = dz > 0 ? 1 : -1
   const tDeltaX = dx !== 0 ? Math.abs(CELL / dx) : Infinity
@@ -486,13 +549,12 @@ export const hasLineOfSight = (nav: Nav, ax: number, az: number, bx: number, bz:
       tMaxZ += tDeltaZ
       j += stepJ
     }
-    if (isSolidCell(nav, i, j)) return false
+    if (isSolidCell(nav, i, j) || cornerPostHit(nav, i, j, ax, az, dx, dz, len2)) return false
   }
   for (const sl of nav.slabs) {
     if (sl.active && segHitsSlab(ax, az, bx, bz, sl)) return false
   }
   // Pillars
-  const len2 = dx * dx + dz * dz
   if (len2 < 1e-6) return true
   for (const p of nav.map.pillars) {
     const t = Math.max(0, Math.min(1, ((p.x - ax) * dx + (p.z - az) * dz) / len2))

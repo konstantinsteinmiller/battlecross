@@ -23,7 +23,7 @@ running low on special weapon energy etc. . Helping with story arc progression.
 "Atlas" model will be implemented later.
 
 
-- [ ] The Charged Shot need a little bit of improved visuals, right now its just a bigger 
+- [x] The Charged Shot need a little bit of improved visuals, right now its just a bigger 
 circle. The player can auto-aim at enemies through some pieces of the wall. A shot and 
 charged shot should collide with the wall and not do damage to the enemies behind it.
 

@@ -2177,7 +2177,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   private aimDir(from: [number, number, number]): [number, number, number, Enemy | null] {
     const t = this.combat.target
     const p = this.player
-    const aimAt = (e: Enemy): [number, number, number, Enemy] => {
+    // Only a machine the buster can see: a lock still held through its grace
+    // behind a wall (or the edge of a doorway) is no aim and no homing — the
+    // shot flies free, to the crosshair, and ends on that wall.
+    const aimAt = (e: Enemy): [number, number, number, Enemy] | null => {
+      if (!hasLineOfSight(this.nav, p.x, p.z, e.x, e.z) || !hasLineOfSight(this.nav, from[0], from[2], e.x, e.z)) return null
       const ax = e.x - from[0]
       const ay = e.y + (e.floor ?? 0) + e.def.aimY * (e.elite ? 1.18 : 1) - from[1]
       const az = e.z - from[2]
@@ -2188,10 +2192,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       // A captured mouse aims itself: the shot goes where the crosshair is,
       // and only snaps onto a machine that is right under it.
       const e = this.enemyUnderCrosshair(0.09)
-      if (e) return aimAt(e)
+      const aim = e && aimAt(e)
+      if (aim) return aim
     } else if (t && t.state !== 'dead') {
       const toT = Math.atan2(-(t.x - p.x), -(t.z - p.z))
-      if (Math.abs(angDiff(toT, p.yaw)) < 1.1) return aimAt(t)
+      const aim = Math.abs(angDiff(toT, p.yaw)) < 1.1 ? aimAt(t) : null
+      if (aim) return aim
     }
     // Free aim: along the view, converging on the crosshair where the view
     // meets a wall or the floor (the muzzle sits right-low of the eye).
@@ -2304,6 +2310,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     c.recoil = 1
     this.shake(level >= 2 ? 0.16 : 0.06)
     this.fx.flash(m[0] + dx * 0.6, m[1] + dy * 0.6, m[2] + dz * 0.6, level >= 2 ? '#7ff4ff' : '#c8ff7a', level >= 2 ? 0.5 : 0.32, 0.1)
+    // A full charge leaves the buster in a burst of sparks
+    if (level >= 2) this.fx.sparks(m[0] + dx * 0.6, m[1] + dy * 0.6, m[2] + dz * 0.6, crit ? '#ffd84a' : level === 3 ? '#ff5fd8' : '#7ff4ff', 8, 4, 0.1)
     if (perfect) {
       pushHud({ t: 'flash', color: '#ffd84a', strength: 0.25 })
       pushHud({ t: 'text', x: m[0] + dx * 3, y: m[1] + 0.4, z: m[2] + dz * 3, key: 'combat.perfect', color: '#ffd84a' })
