@@ -26,7 +26,7 @@
     )
       GameIcon(name="shield")
       KeyCap.kc(v-if="desk" code="MouseRight")
-      CoachRing(:hint="touchHint('parry') ?? touchHint('block')" side="rim")
+      CoachRing(:hint="touchHint('parry') ?? touchHint('block') ?? urgentBlock" side="rim")
     //- The cooldown is a clock wipe that shrinks away with the seconds left in
     //- the middle, and the button pops when it is back — the same on a phone
     //- (under the thumb) and on a desktop. Short of power it says so instead:
@@ -142,6 +142,8 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 const { t } = useI18n()
 /** The coach glyph for a button, when it is teaching a touch player. */
 const touchHint = (id: HintId) => hud.hints.find(h => h.id === id && h.family === 'touch')
+/** The shield lesson rings the block button on desktop too, beside the card. */
+const urgentBlock = computed(() => hud.hints.find(h => h.id === 'block' && h.urgent))
 /** Mouse + keys: every button wears its key (the captured mouse has no cursor). */
 const desk = computed(() => hud.device === 'mouse')
 

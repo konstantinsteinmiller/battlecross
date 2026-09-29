@@ -25,11 +25,12 @@
       div.hint.card(
         v-for="h in row"
         :key="`${h.id}-${h.family}`"
-        :class="[h.id, h.family, { ok: approving[h.id], done: h.done }]"
+        :class="[h.id, h.family, { ok: approving[h.id], done: h.done, urgent: h.urgent }]"
         role="img"
         :aria-label="ariaOf(h)"
       )
         div.glyph-box
+          span.urgent-halo(v-if="h.urgent")
           InputGlyph(v-bind="glyph(h)")
           span.parry-ring(v-if="h.id === 'parry'")
           span.floor(v-if="h.id === 'walk'")
@@ -273,6 +274,32 @@ watch(() => hud.hints, (hints) => {
       aspect-ratio: 124 / 64
   .floor
     top: 92%
+// A lesson waits on it (the shield lesson): bigger, with a gold halo
+// breathing behind it, so it reads before the drone's dive is over.
+.card.urgent
+  width: clamp(112px, 20vmin, 160px)
+  .glyph-box
+    animation: urgent-bob 1s ease-in-out infinite
+.urgent-halo
+  position: absolute
+  inset: -22%
+  border-radius: 50%
+  border: 5px solid #ffd84a
+  box-shadow: 0 0 22px rgba(255, 216, 74, 0.85), inset 0 0 16px rgba(255, 216, 74, 0.5)
+  animation: urgent-halo 1s ease-out infinite
+  z-index: -1
+@keyframes urgent-halo
+  from
+    transform: scale(0.85)
+    opacity: 1
+  to
+    transform: scale(1.3)
+    opacity: 0
+@keyframes urgent-bob
+  0%, 100%
+    transform: scale(1)
+  50%
+    transform: scale(1.08)
 .parry-ring
   position: absolute
   inset: -30%
@@ -375,6 +402,6 @@ watch(() => hud.hints, (hints) => {
     opacity: 0
     border-color: #7ff4ff
 @media (prefers-reduced-motion: reduce)
-  .ok .glyph-box, .approve, .floor, .parry-ring, .check, .capture-ring
+  .ok .glyph-box, .approve, .floor, .parry-ring, .check, .capture-ring, .urgent-halo, .card.urgent .glyph-box
     animation: none
 </style>

@@ -124,6 +124,8 @@ export default {
     'supply': 'Corsa ai Rifornimenti',
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
+    'stage': 'Livello a piattaforme',
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -134,7 +136,8 @@ export default {
       'elite': "Un {target} d'élite terrorizza il settore {sector}. Dagli la caccia.",
       'supply': 'Forza {n} casse di rifornimenti nel settore {sector}.',
       'purge': 'Distruggi ogni macchina nel settore {sector}.',
-      'climb': 'Scala la torre del settore {sector} — scale, scale a pioli, ascensori e baratri — poi scendi nell\'arena per la rivincita contro il {boss}.'
+      'climb': 'Scala la torre del settore {sector} — scale, scale a pioli, ascensori e baratri — poi scendi nell\'arena per la rivincita contro il {boss}.',
+      'stage': 'Corri, scivola e viaggia attraverso il settore {sector} — cornicioni, baratri e macchine — fino all\'arena, poi sconfiggi il {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': "Caccia il {target} d'élite",
     'supply': 'Casse rifornimenti: {n}/{total}',
     'purge': 'Macchine distrutte: {n}/{total}',
-    'climb': 'Scala la torre, sconfiggi il {boss}'
+    'climb': 'Scala la torre, sconfiggi il {boss}',
+    'stage': 'Raggiungi l\'arena, sconfiggi il {boss}'
   },
   'mission': {
     'bossDown': '{boss} distrutto!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Miglioramento!',
     'found': 'Hai trovato {item} ({rarity})!',
-    'tank': 'Gel Riparatore trovato!'
+    'tank': 'Gel Riparatore trovato!',
+    'giftTank': 'Regalo: +1 Gel Riparatore!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Nuova arma: {weapon}!',
     'newSector': 'Nuovo settore sbloccato: {sector}',
     'items': 'Equipaggiamento trovato',
-    'double': 'Raddoppia bulloni (+{n})'
+    'triple': 'Triplica bulloni',
+    'tripleAria': 'Guarda un breve video: triplica i bulloni a +{n}'
   },
   'defeat': {
     'title': 'SISTEMA FUORI USO',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Settore al sicuro. I suoi incarichi sono ancora in bacheca.',
     'deploy': 'Parti',
     'reroll': 'Nuovo incarico',
+    'gift': {
+      'name': 'Gel per il viaggio',
+      'desc': 'Guarda un breve video: +1 Gel Riparatore per la prossima missione, anche oltre il limite.',
+      'aria': 'Guarda un breve video per un Gel Riparatore in più nella prossima missione',
+      'ready': 'Regalo pronto!',
+      'readyDesc': '+1 Gel Riparatore per la prossima missione.'
+    },
     'unlock': {
       'hint': 'Completa ancora {n} missione per sbloccarlo | Completa ancora {n} missioni per sbloccarlo',
       'aria': '{name}, bloccato: completa ancora {n} missione | {name}, bloccato: completa ancora {n} missioni'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': "Laggiù c'è lava. Resta sul metallo.",
+        'leap': 'Troppo largo a piedi. Scivola dal bordo e passerai.',
+        'vents': 'Prima il sibilo, poi il fuoco. Aspetta il ruggito, poi vai.',
+        'barrels': "Barili! Guarda le luci e passa tra uno e l'altro.",
+        'hammers': 'Magli da forgia. Conta il ritmo, poi corri.',
+        'drop': 'È una bella discesa. Una sporgenza alla volta.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Ghiaccio! Se lasci lo stick, continui a scivolare.',
+        'spikes': 'Spuntoni sotto quel ghiaccio. Cammina dritto, niente curve strette.',
+        'frost': 'Lanciagelo. Prima brilla e sibila. Passa quando tace.',
+        'icicles': 'Ombre sul pavimento? Ghiaccioli. Esci dal cerchio!',
+        'pillar': 'Quel pilastro è crepato. Sparagli ed ecco la scorciatoia.',
+        'stairs': 'Scale ghiacciate. Piano: il pianerottolo è piccolo.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Quei pannelli pulsano. Aspetta su una fila spenta, poi avanza.',
+        'board': 'Giù le mani dai comandi: guido io, tu spari.',
+        'wave': 'Droni in arrivo! Abbattili prima che piombino giù.',
+        'dip': 'Grande discesa in arrivo. Tieniti forte e continua a sparare!',
+        'arrive': 'Capolinea. Scendi!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Troppo largo per camminare. Scivola oltre il bordo: lo slancio ti porta.',
+        'down': 'Bel salto. Ora non guardare giù.',
+        'shuttle': "Navette. Sali quando attracca, scendi dall'altra parte.",
+        'wind': 'Aspetta che la raffica cali, poi muoviti. O riparati dietro un pilastro.',
+        'bob': 'Piattaforme ondeggianti. Sali in basso e fatti portare su.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Quel pannello mostra uno schema. Le lampade sul muro, non ancora.',
+      'color': 'Quella cornice ha un colore preferito. Solo le sue lampade devono brillare.',
+      'cycle': 'Ogni colpo fa cambiare idea a una lampada. Il pannello sa cosa vuole.',
+      'solved': 'Bene, bene. A qualcuno piacciono gli enigmi.'
+    },
     'landed': 'Atterrati! Andiamo.',
     'brief': {
       'tutorial': 'Allenamento! Ti guido io.',

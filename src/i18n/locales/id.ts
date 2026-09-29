@@ -124,6 +124,8 @@ export default {
     'supply': 'Misi Pasokan',
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
+    'stage': 'Tahap Platform',
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -134,7 +136,8 @@ export default {
       'elite': '{target} elit sedang meneror {sector}. Buru sampai dapat!',
       'supply': 'Bongkar {n} peti pasokan di {sector}.',
       'purge': 'Hancurkan semua mesin di {sector}.',
-      'climb': 'Panjat menara {sector} — tangga, tangga panjat, lift, dan jurang — lalu turun ke arena untuk tanding ulang melawan {boss}.'
+      'climb': 'Panjat menara {sector} — tangga, tangga panjat, lift, dan jurang — lalu turun ke arena untuk tanding ulang melawan {boss}.',
+      'stage': 'Lari, meluncur, dan melaju melintasi {sector} — tepian, jurang, dan mesin — sampai ke arena, lalu kalahkan {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Buru {target} elit',
     'supply': 'Peti pasokan: {n}/{total}',
     'purge': 'Mesin dihancurkan: {n}/{total}',
-    'climb': 'Panjat menara, kalahkan {boss}'
+    'climb': 'Panjat menara, kalahkan {boss}',
+    'stage': 'Capai arena, kalahkan {boss}'
   },
   'mission': {
     'bossDown': '{boss} hancur!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Peningkatan!',
     'found': '{item} {rarity} ditemukan!',
-    'tank': 'Gel Perbaikan ditemukan!'
+    'tank': 'Gel Perbaikan ditemukan!',
+    'giftTank': 'Hadiah: +1 Gel Perbaikan!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Senjata baru: {weapon}!',
     'newSector': 'Sektor baru terbuka: {sector}',
     'items': 'Perlengkapan ditemukan',
-    'double': 'Baut ganda (+{n})'
+    'triple': 'Baut tiga kali',
+    'tripleAria': 'Tonton video singkat: lipat tigakan bautmu jadi +{n}'
   },
   'defeat': {
     'title': 'SISTEM MATI',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Sektor aman. Tugas-tugasnya masih ada di papan.',
     'deploy': 'Berangkat',
     'reroll': 'Tugas baru',
+    'gift': {
+      'name': 'Gel untuk perjalanan',
+      'desc': 'Tonton video singkat: +1 Gel Perbaikan untuk misi berikutnya, bahkan melebihi batas.',
+      'aria': 'Tonton video singkat untuk satu Gel Perbaikan tambahan di misi berikutnya',
+      'ready': 'Hadiah siap!',
+      'readyDesc': '+1 Gel Perbaikan untuk misi berikutnya.'
+    },
     'unlock': {
       'hint': 'Selesaikan {n} misi lagi untuk membuka',
       'aria': '{name}, terkunci: selesaikan {n} misi lagi'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Di bawah itu lava. Tetap di atas logam.',
+        'leap': 'Terlalu lebar untuk berjalan. Meluncur dari tepi, kamu akan menyeberang.',
+        'vents': 'Desis dulu, lalu api. Tunggu raungannya, lalu jalan.',
+        'barrels': 'Tong! Perhatikan lampunya, menyeberang di sela-selanya.',
+        'hammers': 'Palu tempa. Hitung iramanya, lalu lari.',
+        'drop': 'Jalan turunnya jauh. Satu pijakan setiap kali.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Es! Lepas stiknya, kamu tetap meluncur.',
+        'spikes': 'Ada duri di bawah es itu. Jalan lurus, jangan belok tajam.',
+        'frost': 'Penyembur beku. Ia menyala dan mendesis dulu. Lewat saat ia diam.',
+        'icicles': 'Bayangan di lantai? Es runcing. Keluar dari lingkaran!',
+        'pillar': 'Pilar itu retak. Tembak, dan itulah jalan pintasmu.',
+        'stairs': 'Tangga licin. Pelan-pelan, bordesnya kecil.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Panel itu berdenyut. Tunggu di baris yang gelap, lalu melangkah.',
+        'board': 'Lepaskan kemudi — aku yang menyetir, kamu yang menembak.',
+        'wave': 'Drone di depan! Tembak sebelum mereka menukik.',
+        'dip': 'Turunan besar di depan. Pegangan — terus menembak!',
+        'arrive': 'Stasiun terakhir. Turun!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Terlalu lebar untuk dilewati. Meluncurlah dari tepi, momentummu akan membawamu.',
+        'down': 'Lompatan bagus. Sekarang jangan lihat ke bawah.',
+        'shuttle': 'Platform antar. Naik saat merapat, turun di seberang.',
+        'wind': 'Tunggu embusan reda, lalu maju. Atau sembunyi di balik pilar.',
+        'bob': 'Platform naik-turun. Naik di bawah, biarkan ia mengangkatmu.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Panel itu menunjukkan pola. Lampu di dinding belum.',
+      'color': 'Bingkai itu punya warna favorit. Hanya lampu warna itu yang boleh menyala.',
+      'cycle': 'Setiap tembakan bikin lampu berubah pikiran. Panelnya tahu maunya apa.',
+      'solved': 'Wah, wah. Ada yang suka teka-teki.'
+    },
     'landed': 'Mendarat! Ayo.',
     'brief': {
       'tutorial': 'Waktunya latihan. Aku pandu!',

@@ -124,6 +124,8 @@ export default {
     'supply': 'Wypad po zapasy',
     'purge': 'Czystka sektora',
     'climb': 'Bieg na wieżę',
+    'stage': 'Etap platformowy',
+    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki' },
     'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Elitarny {target} terroryzuje sektor {sector}. Wytrop go!',
       'supply': 'Rozbij skrzynie z zaopatrzeniem w sektorze {sector} — łącznie {n}.',
       'purge': 'Zniszcz wszystkie maszyny w sektorze {sector}.',
-      'climb': 'Wespnij się na wieżę w sektorze {sector} — schody, drabiny, windy i przepaście — a potem zejdź na arenę na rewanż. Przeciwnik: {boss}.'
+      'climb': 'Wespnij się na wieżę w sektorze {sector} — schody, drabiny, windy i przepaście — a potem zejdź na arenę na rewanż. Przeciwnik: {boss}.',
+      'stage': 'Biegnij, ślizgaj się i jedź przez sektor {sector} — półki, przepaście i maszyny — aż do areny. Przeciwnik: {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Wytrop elitarnego wroga: {target}',
     'supply': 'Skrzynie z zaopatrzeniem: {n}/{total}',
     'purge': 'Zniszczone maszyny: {n}/{total}',
-    'climb': 'Wespnij się na wieżę i pokonaj bossa: {boss}'
+    'climb': 'Wespnij się na wieżę i pokonaj bossa: {boss}',
+    'stage': 'Dotrzyj na arenę i pokonaj bossa: {boss}'
   },
   'mission': {
     'bossDown': '{boss} zniszczony!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Ulepszenie!',
     'found': 'Znaleziono: {item} ({rarity})!',
-    'tank': 'Znaleziono żel naprawczy!'
+    'tank': 'Znaleziono żel naprawczy!',
+    'giftTank': 'Prezent: +1 żel naprawczy!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Nowa broń: {weapon}!',
     'newSector': 'Odblokowano nowy sektor: {sector}',
     'items': 'Znaleziony sprzęt',
-    'double': 'Podwój śruby (+{n})'
+    'triple': 'Potrój śruby',
+    'tripleAria': 'Obejrzyj krótki film: potrój śruby do +{n}'
   },
   'defeat': {
     'title': 'AWARIA SYSTEMU',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Sektor zabezpieczony. Jego zlecenia wciąż wiszą na tablicy.',
     'deploy': 'Wyrusz',
     'reroll': 'Nowe zlecenie',
+    'gift': {
+      'name': 'Żel na drogę',
+      'desc': 'Obejrzyj krótki film: +1 żel naprawczy na następną misję, nawet ponad limit.',
+      'aria': 'Obejrzyj krótki film, aby dostać dodatkowy żel naprawczy na następną misję',
+      'ready': 'Prezent spakowany!',
+      'readyDesc': '+1 żel naprawczy na następną misję.'
+    },
     'unlock': {
       'hint': 'Ukończ jeszcze {n} misję, aby odblokować | Ukończ jeszcze {n} misje, aby odblokować | Ukończ jeszcze {n} misji, aby odblokować',
       'aria': '{name}, zablokowane: ukończ jeszcze {n} misję | {name}, zablokowane: ukończ jeszcze {n} misje | {name}, zablokowane: ukończ jeszcze {n} misji'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Tam na dole jest lawa. Trzymaj się metalu.',
+        'leap': 'Za szeroko, żeby przejść. Wślizgnij się z krawędzi, przelecisz.',
+        'vents': 'Najpierw syk, potem ogień. Poczekaj na ryk i biegnij.',
+        'barrels': 'Beczki! Patrz na lampki i przechodź między nimi.',
+        'hammers': 'Młoty kuźnicze. Policz rytm, potem biegnij.',
+        'drop': 'Długa droga w dół. Półka po półce.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Lód! Puść drążek, a będziesz dalej sunąć.',
+        'spikes': 'Pod tym lodem są kolce. Idź prosto, bez ostrych skrętów.',
+        'frost': 'Miotacz mrozu. Najpierw świeci i syczy. Przechodź, gdy ucichnie.',
+        'icicles': 'Cienie na podłodze? Sople. Wyjdź z kręgu!',
+        'pillar': 'Ten filar jest pęknięty. Strzel w niego i masz skrót.',
+        'stairs': 'Oblodzone schody. Powoli, podest jest mały.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Te płyty pulsują. Czekaj na ciemnym rzędzie, potem krok.',
+        'board': 'Ręce od sterów — ja prowadzę, ty strzelasz.',
+        'wave': 'Drony z przodu! Zestrzel je, zanim zanurkują.',
+        'dip': 'Zaraz ostry zjazd. Trzymaj się — strzelaj dalej!',
+        'arrive': 'Stacja końcowa. Wysiadaj!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Za szeroko, by przejść. Wślizgnij się z krawędzi – pęd cię przeniesie.',
+        'down': 'Ładny skok. Teraz nie patrz w dół.',
+        'shuttle': 'Wahadłowce. Wsiadaj, gdy przybije, wysiadaj po drugiej stronie.',
+        'wind': 'Poczekaj, aż podmuch ucichnie, i ruszaj. Albo schowaj się za filarem.',
+        'bob': 'Pływające platformy. Wskocz na dole i daj się wynieść w górę.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Ten panel pokazuje wzór. Lampy na ścianie jeszcze nie.',
+      'color': 'Ta rama ma ulubiony kolor. Świecić mają tylko jej lampy.',
+      'cycle': 'Każdy strzał zmienia zdanie lampy. Panel wie, czego chce.',
+      'solved': 'No, no. Ktoś tu lubi zagadki.'
+    },
     'landed': 'Lądowanie! Ruszamy.',
     'brief': {
       'tutorial': 'Czas na trening. Poprowadzę cię!',

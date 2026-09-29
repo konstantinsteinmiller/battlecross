@@ -286,3 +286,53 @@ describe('the repair tank', () => {
     expect(ids(run(d, 0, 1, { hp01: 0.2, tanks: 0 }))).not.toContain('tank')
   })
 })
+
+describe('the shield lesson', () => {
+  // A diving drone's ring is gone before it is read: in the tutorial's block
+  // lesson the glyph stays up, emphasised, until a block actually lands.
+  it('keeps the block glyph up and urgent with no ring winding up', () => {
+    const c = new Coach()
+    for (const id of ['move', 'look'] as HintId[]) for (let k = 0; k < 3; k++) c.use(id)
+    const v = run(c, 0, 8, { blockLesson: true, combat: true })
+    const b = v.find(h => h.id === 'block')
+    expect(b).toBeDefined()
+    expect(b!.urgent).toBe(true)
+  })
+
+  it('shows it even when the block was mastered before', () => {
+    profile.tips = { 'hint:block:mouse': 2 }
+    const c = new Coach()
+    expect(ids(run(c, 0, 1, { blockLesson: true }))).toContain('block')
+  })
+
+  it('is not urgent outside the lesson', () => {
+    const c = new Coach()
+    const b = run(c, 0, 1, { teleBlock: true }).find(h => h.id === 'block')
+    expect(b?.urgent).toBeFalsy()
+  })
+})
+
+describe('the shield lesson', () => {
+  // A diving drone's ring is gone before it is read: in the tutorial's block
+  // lesson the glyph stays up, emphasised, until a block actually lands.
+  it('keeps the block glyph up and urgent with no ring winding up', () => {
+    const c = new Coach()
+    for (const id of ['move', 'look'] as HintId[]) for (let k = 0; k < 3; k++) c.use(id)
+    const v = run(c, 0, 8, { blockLesson: true, combat: true })
+    const b = v.find(h => h.id === 'block')
+    expect(b).toBeDefined()
+    expect(b!.urgent).toBe(true)
+  })
+
+  it('shows it even when the block was mastered before', () => {
+    profile.tips = { 'hint:block:mouse': 2 }
+    const c = new Coach()
+    expect(ids(run(c, 0, 1, { blockLesson: true }))).toContain('block')
+  })
+
+  it('is not urgent outside the lesson', () => {
+    const c = new Coach()
+    const b = run(c, 0, 1, { teleBlock: true }).find(h => h.id === 'block')
+    expect(b?.urgent).toBeFalsy()
+  })
+})

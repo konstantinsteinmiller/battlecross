@@ -1,15 +1,16 @@
-import { BufferGeometry, Group, Mesh, Color } from 'three'
+import { BufferGeometry, Group, Mesh, Color, type Object3D } from 'three'
 import { CELL, WALL_H, Cell, Ramp, type MapData, type Door } from './levelGen'
 import type { Theme } from './themes'
 import { levelAtlas } from './textures'
 import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
-import { rcyl, cap, rbox, xform, paint, paintBy, merge, sph, torus } from '../models/kit'
+import { rcyl, rcone, cap, rbox, xform, paint, paintBy, merge, sph, torus } from '../models/kit'
 import { mulberry32 } from './rng'
 import { noSlice, type Slice } from '../engine/slicer'
 import {
   QuadBatch, cellOwners, doorFramePos, buildSky, FLOOR_UV, WALL_UV, PLAIN_UV, type LevelMeshes, type UV8
 } from './levelMesh'
 import { BALL_R } from './climbGen'
+import { secretDoorFace } from './stages/builder'
 
 /**
  * ─── The climb's static geometry ─────────────────────────────────────────────
@@ -26,13 +27,21 @@ import { BALL_R } from './climbGen'
  *  - a pit shows its depth: its walls darken all the way down to a black
  *    floor with dim red warning lights at the bottom;
  *  - ladders glow along their rails and stand a hand-hold above the ledge
- *    they reach, so one is seen from the top as well as from the foot.
+ *    they reach, so one is seen from the top as well as from the foot;
+ *  - a stage's pits may hold spikes (rows of cones) or lava (a glowing
+ *    plane) instead of the dark drop, or open onto a sea of clouds (the Sky
+ *    Docks, `Terrain.clouds`), and its ice cells are glassy blue with a
+ *    glint; a frozen sector's wall tops and ledges carry snow;
+ *  - a secret alcove is walled off from its room, its false wall a
+ *    striped slab of its own (`LevelMeshes.secretWalls`) the run time hides.
  * The moving parts (lifts, crushers' pistons, scrap balls, lamps) are built
  * and driven by `sim/climb.ts`.
  */
 
 /** Steps drawn per ramp cell (a 1.5 m rise: 0.3 m risers). */
 const STEPS = 5
+/** Over open sky (`Terrain.clouds`) an island is a slab this thick (m). */
+const ISLAND_SLAB = 1.6
 /** Tall walls are built in bands of about a labyrinth wall, so the wall
  *  texture repeats instead of stretching (and each band reads as a storey). */
 const BAND = WALL_H
@@ -68,7 +77,9 @@ export const buildClimbLevel = async (
   const cHaz = new Color(theme.hazard)
   const cHazDark = new Color(theme.crateTrim)
   const cRiser = new Color(theme.trim).lerp(cFloor, 0.35)
-  const cVoid = new Color(theme.wallLow).multiplyScalar(0.12)
+  // Open sky (`Terrain.clouds`): the depths fade into the fog's colour, a
+  // sea of cloud, instead of into the dark.
+  const cVoid = t.clouds ? new Color(theme.fog).lerp(new Color('#ffffff'), 0.35) : new Color(theme.wallLow).multiplyScalar(0.12)
 
   const walkable = (i: number, j: number) => i >= 0 && j >= 0 && i < W && j < map.h && map.cell[j * W + i] !== Cell.Void
   const K = (i: number, j: number) => j * W + i
@@ -165,6 +176,26 @@ export const buildClimbLevel = async (
   const doorCells = new Set<number>()
   for (const d of map.doors) doorCells.add(K(d.i, d.j))
 
+  // Secret alcoves: which secret each hidden cell is (−1: none), and each
+  // false wall's face. A face between two cells of different secrets (or
+  // a secret and the open room) is a wall, but for the false wall itself.
+  const secrets = t.secrets ?? []
+  const hidden = new Int16Array(map.cell.length).fill(-1)
+  secrets.forEach((sp, n) => { for (const k of sp.cells) hidden[k] = n })
+  const falseWalls = secrets.map(sp => secretDoorFace(map, sp))
+  const isFalseWall = (i: number, j: number, di: number, dj: number): boolean => {
+    for (const f of falseWalls) {
+      if ((f.i === i && f.j === j && f.di === di && f.dj === dj) || (f.i === i + di && f.j === j + dj && f.di === -di && f.dj === -dj)) return true
+    }
+    return false
+  }
+  // Ice: a clear blue over the floor tone (the cryo floors are near white
+  // already), with a glint streak on each cell so it reads as polished.
+  const cIce = new Color('#7fcfff')
+  // Snow on the wall tops and the ledge lips of a frozen sector.
+  const snowy = theme.id === 'cryo'
+  const pitKindOf = (k: number) => (roomOf(k) >= 0 ? t.pitKind?.[roomOf(k)] ?? 'void' : 'void')
+
   for (let j = 0; j < map.h; j++) {
     for (let i = 0; i < W; i++) {
       const k = K(i, j)
@@ -183,14 +214,37 @@ export const buildClimbLevel = async (
       if (t.pit[k]) {
         const y = pitBottomOf(k)
         b.quad([x0, y, z0], [x0, y, z1], [x1, y, z1], [x1, y, z0], [0, 1, 0], PLAIN_UV, cVoid, cVoid, cVoid, cVoid)
-        // Dim warning lights far down: the pit is a drop, not a floor.
-        if (((i * 7 + j * 3) & 1) === 0) {
+        const pk = pitKindOf(k)
+        if (pk === 'lava') {
+          // A glowing plane a little over the bottom: lava, not a drop.
+          glows[o]!.push(xform(piece('lava', () => paint(rbox(CELL, 0.12, CELL, 0.04, 6, 4), '#ff6a1a')), [x0 + CELL / 2, y + 0.3, z0 + CELL / 2]))
+        } else if (pk === 'spikes') {
+          // A bed of spikes: three rows of three cones.
+          for (let a = 0; a < 3; a++) {
+            for (let c2 = 0; c2 < 3; c2++) {
+              decor[o]!.push(xform(piece('spike', () => paint(rcone(0.34, 0.03, 1.1, 0.01, 8), theme.pilaster)), [x0 + 0.5 + a, y + 0.55, z0 + 0.5 + c2]))
+            }
+          }
+        } else if (t.clouds) {
+          // Cloud puffs over the misty bottom: soft, lumpy, bright.
+          for (let n = 0; n < 2; n++) {
+            const r = 1.1 + rng() * 0.8
+            glows[o]!.push(xform(piece('puff', () => paint(sph(1, 9, 6), '#f4f9ff')),
+              [x0 + 0.6 + rng() * 1.8, y + 0.2 + rng() * 0.5, z0 + 0.6 + rng() * 1.8], [0, 0, 0], [r, r * 0.45, r]))
+          }
+        } else if (((i * 7 + j * 3) & 1) === 0) {
+          // Dim warning lights far down: the pit is a drop, not a floor.
           glows[o]!.push(xform(piece('pitLight', () => paint(sph(0.22, 8, 6), '#ff3a2a')), [x0 + 0.8 + rng() * 1.4, y + 0.25, z0 + 0.8 + rng() * 1.4]))
         }
       } else if (!ramp) {
         const y = t.floor[k]!
-        const fc = c === Cell.Corridor ? cCorr : ((i + j) & 1 ? cFloor : cFloorAlt)
+        const fc0 = c === Cell.Corridor ? cCorr : ((i + j) & 1 ? cFloor : cFloorAlt)
+        const fc = t.ice?.[k] ? fc0.clone().lerp(cIce, 0.7) : fc0
         b.quad([x0, y, z0], [x0, y, z1], [x1, y, z1], [x1, y, z0], [0, 1, 0], FLOOR_UV, fc, fc, fc, fc)
+        if (t.ice?.[k]) {
+          const off = ((i + j) % 3 - 1) * 0.6
+          glows[o]!.push(xform(piece('iceGlint', () => paint(rbox(0.12, 0.02, 1.7, 0.5, 4, 2), '#e9f9ff')), [x0 + CELL / 2 + off, y + 0.015, z0 + CELL / 2 - off * 0.5], [0, Math.PI / 4, 0]))
+        }
       } else {
         // Steps: treads in the floor tones, risers in the trim colour.
         const alongX = ramp === Ramp.PX || ramp === Ramp.NX
@@ -200,7 +254,7 @@ export const buildClimbLevel = async (
           // Tread n spans s ∈ [n, n+1] / STEPS measured uphill.
           const sa = n / STEPS
           const sb = (n + 1) / STEPS
-          const fc = n & 1 ? cFloor : cFloorAlt
+          const fc = t.ice?.[k] ? (n & 1 ? cFloor : cFloorAlt).clone().lerp(cIce, 0.7) : n & 1 ? cFloor : cFloorAlt
           const uv: UV8 = FLOOR_UV
           if (alongX) {
             const xa = up > 0 ? x0 + CELL * sa : x1 - CELL * sa
@@ -232,6 +286,19 @@ export const buildClimbLevel = async (
         }
       }
 
+      // An island's underside over open sky, seen from across a gap.
+      if (t.clouds && !t.pit[k]) {
+        let open = false
+        for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+          if (walkable(i + di, j + dj) && t.pit[K(i + di, j + dj)]) open = true
+        }
+        if (open) {
+          const y = t.floor[k]! - ISLAND_SLAB
+          const cu = shade(cWallLow, y, k).clone()
+          b.quad([x0, y, z0], [x1, y, z0], [x1, y, z1], [x0, y, z1], [0, -1, 0], PLAIN_UV, cu, cu, cu, cu)
+        }
+      }
+
       // ── Edges ──
       const edges: Array<{ di: number; dj: number; a: [number, number]; bb: [number, number]; n: V3 }> = [
         { di: -1, dj: 0, a: [x0, z1], bb: [x0, z0], n: [1, 0, 0] },
@@ -258,13 +325,22 @@ export const buildClimbLevel = async (
         const alongX = Math.abs(bx - ax) > 0.1
         const rotAlong: V3 = alongX ? [0, 0, Math.PI / 2] : [Math.PI / 2, 0, 0]
         const low = edgeLow(e.di, e.dj)
-        if (!walkable(ni, nj)) {
+        // A secret's false wall is drawn on its own (below); the rest of
+        // an alcove's rim is wall like the void.
+        const rim = walkable(ni, nj) && hidden[K(ni, nj)] !== hidden[k]
+        if (rim && isFalseWall(i, j, e.di, e.dj)) continue
+        if (!walkable(ni, nj) || rim) {
+          // Over open sky a gap runs out into the world: no wall on its outer
+          // edge, so the islands' walls stand as panels with sky between.
+          // (Nothing walks there: the void beyond is solid to bodies.)
+          if (t.clouds && t.pit[k] && !rim) continue
           // A wall to the room's top, from the lowest floor at its foot.
           const topY = wallTopOf(k)
           face(b, k, ax, az, bx, bz, e.n, low, () => topY)
           addCorner(ax, az, o, low, topY)
           addCorner(bx, bz, o, low, topY)
           decor[o]!.push(xform(piece('capTop', () => paint(cap(0.2, CELL - 0.4, 10, 3), theme.trim)), [mx, topY, mz], rotAlong))
+          if (snowy) decor[o]!.push(xform(piece('snowTop', () => paint(rbox(0.62, 0.26, CELL + 0.1, 0.45, 8, 4), '#f7fcff')), [mx, topY + 0.2, mz], alongX ? [0, Math.PI / 2, 0] : [0, 0, 0]))
           // A trim line at every band joint: storeys you can count.
           const bands = Math.max(1, Math.ceil((topY - low) / BAND - 0.05))
           for (let m = 1; m < bands; m++) {
@@ -305,10 +381,13 @@ export const buildClimbLevel = async (
           return tread(nk, Math.min(STEPS - 1, Math.floor(sUp * STEPS)))
         }
         const nMax = Math.max(nTop(0.001), nTop(0.5), nTop(0.999))
-        if (nMax - low > 0.02) {
+        // Over open sky an island's edge is a slab, not a cliff down to the
+        // bottom: under it the gap shows sky (its underside is drawn below).
+        const faceLow = t.clouds && t.pit[k] && !nPit ? Math.max(low, Math.min(nTop(0.001), nTop(0.999)) - ISLAND_SLAB) : low
+        if (nMax - faceLow > 0.02) {
           // Stepped profile along a ramp's side needs one piece per step.
           const seg = nRamp && ((nRamp === Ramp.PX || nRamp === Ramp.NX) ? alongX : !alongX) ? STEPS : 1
-          face(b, k, ax, az, bx, bz, e.n, low, nTop, seg)
+          face(b, k, ax, az, bx, bz, e.n, faceLow, nTop, seg)
         }
         // My lip: I am a real ledge over this neighbour (not a stair riser).
         if (!t.pit[k] && !ramp) {
@@ -340,6 +419,8 @@ export const buildClimbLevel = async (
               else b.quad(p0, p3, p2, p1, [0, 1, 0], PLAIN_UV, cl, cl, cl, cl)
             }
             decor[o]!.push(xform(piece('lip', () => paint(cap(0.11, CELL - 0.25, 8, 2), theme.trim)), [mx - e.di * 0.02, fy + 0.02, mz - e.dj * 0.02], rotAlong))
+            // A drift of snow along the ledge, just inside the stripes.
+            if (snowy && !t.ice?.[k]) decor[o]!.push(xform(piece('snowLip', () => paint(rbox(0.5, 0.16, CELL - 0.5, 0.45, 8, 4), '#f7fcff')), [mx - e.di * 0.55, fy + 0.05, mz - e.dj * 0.55], alongX ? [0, Math.PI / 2, 0] : [0, 0, 0]))
           }
         }
       }
@@ -411,8 +492,14 @@ export const buildClimbLevel = async (
   }
 
   // ── Rolling stairs: the hatch gantry over the top, the gutter at the foot ──
-  const laneRooms = new Map<number, typeof t.lanes>()
-  for (const ln of t.lanes) laneRooms.set(ln.room, [...(laneRooms.get(ln.room) ?? []), ln])
+  // One gantry per room and hatch height: the climb's lanes share a top;
+  // lanes that start on different steps (the Meltdown's barrels cross a
+  // stair run) get a gantry each at their own height.
+  const laneRooms = new Map<string, typeof t.lanes>()
+  for (const ln of t.lanes) {
+    const key = `${ln.room}:${t.floor[K(Math.floor(ln.x / CELL), Math.floor(ln.z / CELL))]}`
+    laneRooms.set(key, [...(laneRooms.get(key) ?? []), ln])
+  }
   for (const lanes of laneRooms.values()) {
     const first = lanes[0]!
     const k = K(Math.floor(first.x / CELL), Math.floor(first.z / CELL))
@@ -502,6 +589,32 @@ export const buildClimbLevel = async (
   }
   await slice()
 
+  // ── Secret false walls: a striped slab over the alcove's mouth, each its
+  // own mesh so the run time can take it away ──
+  const secretWalls: Object3D[] = []
+  const secretOwner: number[] = []
+  secrets.forEach((sp, n) => {
+    const f = falseWalls[n]!
+    const k = K(f.i + f.di, f.j + f.dj)
+    const fy = t.floor[k]!
+    const top = wallTopOf(k)
+    const x = f.di ? (f.i + (f.di > 0 ? 1 : 0)) * CELL : (f.i + 0.5) * CELL
+    const z = f.dj ? (f.j + (f.dj > 0 ? 1 : 0)) * CELL : (f.j + 0.5) * CELL
+    const h = top - fy
+    const geo = paintBy(
+      xform(rbox(f.di ? 0.3 : CELL, h, f.di ? CELL : 0.3, 0.08, 8, 6), [x, fy + h / 2, z]),
+      (px, py, pz) => (Math.floor(((f.di ? pz : px) + py) * 1.4) & 1 ? theme.wall : theme.wallLow)
+    )
+    const g = new Group()
+    g.add(new Mesh(geo, toonVC()))
+    const ol = new Mesh(geo, outlineMat(0.035))
+    ol.renderOrder = -1
+    g.add(ol)
+    g.name = `secretWall${n}`
+    secretWalls.push(g)
+    secretOwner.push(owner[k]!)
+  })
+
   // ── Door frames at their corridor's height (one always-visible group) ──
   const doorDecor: BufferGeometry[] = []
   const doorBatch = new QuadBatch()
@@ -534,6 +647,7 @@ export const buildClimbLevel = async (
     }
     await slice()
     if (glows[r]!.length) g.add(new Mesh(merge(glows[r]!), glowVC()))
+    secretWalls.forEach((w, n) => { if (secretOwner[n] === r) g.add(w) })
     rooms.push(g)
     root.add(g)
     onProgress(0.65 + ((r + 1) / nRooms) * 0.35)
@@ -550,7 +664,9 @@ export const buildClimbLevel = async (
     doorsGroup.add(dol)
     root.add(doorsGroup)
   }
-  return { root, rooms, sky: buildSky(theme), bounds, owner }
+  const out: LevelMeshes = { root, rooms, sky: buildSky(theme), bounds, owner }
+  if (secretWalls.length) out.secretWalls = secretWalls
+  return out
 }
 
 /** A door frame (rounded striped lintel, two posts, floor stripes) standing

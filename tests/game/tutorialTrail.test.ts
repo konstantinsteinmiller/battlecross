@@ -27,6 +27,9 @@ import { LOCATOR_FIRST, type Locator } from '@/game/sim/locator'
 import type { TrailInput } from '@/game/fx/objectiveTrail'
 import type { LessonView } from '@/game/sim/lessons'
 import type { WalkGoal } from '@/game/sim/walkthrough'
+import { generateClimb } from '@/game/world/climbGen'
+import { createNav, type Nav } from '@/game/world/nav'
+import type { MapData } from '@/game/world/levelGen'
 
 const STEP = 1 / 60
 
@@ -200,5 +203,19 @@ describe('the trail in every other mission', () => {
     const r = rig()
     r.step(LOCATOR_FIRST + 0.5)
     expect(r.locator.phase).toBe('show')
+  })
+
+  it('on a terrain map the locator floats over the floor of its goal, not at a fixed height', () => {
+    const r = rig()
+    const map = generateClimb(7)
+    const internals = r.m as unknown as { map: MapData; nav: Nav; locatorPoint: { y: number } }
+    internals.map = map
+    internals.nav = createNav(map)
+    // A goal on the crusher bridge's walkway, a storey and more up.
+    const cp = map.terrain!.checkpoints.find(c => c.y > 10)!
+    r.objective.x = cp.x
+    r.objective.z = cp.z
+    r.step(LOCATOR_FIRST + 0.5)
+    expect(internals.locatorPoint.y).toBeCloseTo(cp.y + 1.6)
   })
 })

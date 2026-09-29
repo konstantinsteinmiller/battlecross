@@ -141,6 +141,8 @@ export default {
     'supply': 'Supply Run',
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
+    'stage': 'Platform Stage',
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -151,7 +153,8 @@ export default {
       'elite': 'An elite {target} is terrorising {sector}. Hunt it down.',
       'supply': 'Crack open {n} supply chests in {sector}.',
       'purge': 'Destroy every machine in {sector}.',
-      'climb': 'Climb the tower of {sector} — stairs, ladders, lifts and pits — then drop into the arena for a rematch with {boss}.'
+      'climb': 'Climb the tower of {sector} — stairs, ladders, lifts and pits — then drop into the arena for a rematch with {boss}.',
+      'stage': 'Run, slide and ride through {sector} — ledges, pits and machines — to the arena, then defeat {boss}.'
     }
   },
   'objective': {
@@ -166,7 +169,8 @@ export default {
     'elite': 'Hunt down the elite {target}',
     'supply': 'Supply chests: {n}/{total}',
     'purge': 'Machines destroyed: {n}/{total}',
-    'climb': 'Climb the tower, defeat {boss}'
+    'climb': 'Climb the tower, defeat {boss}',
+    'stage': 'Reach the arena, defeat {boss}'
   },
   'mission': {
     'bossDown': '{boss} destroyed!',
@@ -229,7 +233,8 @@ export default {
     // The loot card's badge when a find beats what is equipped.
     'upgrade': 'Upgrade!',
     'found': '{rarity} {item} found!',
-    'tank': 'Repair Gel found!'
+    'tank': 'Repair Gel found!',
+    'giftTank': 'Gift: +1 Repair Gel!'
   },
 
   // ─── Results / defeat / pause ─────────────────────────────────────────────
@@ -245,7 +250,8 @@ export default {
     'newWeapon': 'New weapon: {weapon}!',
     'newSector': 'New sector unlocked: {sector}',
     'items': 'Gear found',
-    'double': 'Double bolts (+{n})'
+    'triple': 'Triple bolts',
+    'tripleAria': 'Watch a short video: triple your bolts to +{n}'
   },
   'defeat': {
     'title': 'SYSTEM DOWN',
@@ -330,6 +336,14 @@ export default {
     'sectorSecured': 'Sector secured. Its jobs are still on the board.',
     'deploy': 'Deploy',
     'reroll': 'New job',
+    // The rewarded "+1 Repair Gel next mission" card on the Missions tab.
+    'gift': {
+      'name': 'Gel for the road',
+      'desc': 'Watch a short video: +1 Repair Gel for your next mission, even over your limit.',
+      'aria': 'Watch a short video for one extra Repair Gel on your next mission',
+      'ready': 'Gift packed!',
+      'readyDesc': '+1 Repair Gel for your next mission.'
+    },
     // A locked lab menu (`hubUnlocks.ts`). `{n}` is how many more missions
     // it waits for; the plural forms follow the language (`i18n/plural.ts`:
     // three for ru/uk/pl, six for ar, one where the noun never changes).
@@ -610,6 +624,49 @@ export default {
   // short line each (they sit in a small speech bubble for 2–3 s). Each key is
   // also the name of its optional voice file (voice-todo.md).
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': "That's lava down there. Stay on the metal.",
+        'leap': "Too wide to walk. Slide off the edge, you'll carry.",
+        'vents': 'Hiss, then fire. Let the roar pass, then go.',
+        'barrels': 'Barrels! Watch the lamps, cross between them.',
+        'hammers': 'Forge hammers. Count the beat, then run.',
+        'drop': 'Long way down. One ledge at a time.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': "Ice! Let go of the stick and you'll keep sliding.",
+        'spikes': 'Spikes under that ice. Walk it straight, no sharp turns.',
+        'frost': "Frost thrower. It glows and hisses first. Cross when it's quiet.",
+        'icicles': 'Shadows on the floor? Icicles. Step out of the ring!',
+        'pillar': "That pillar's cracked. Shoot it, and there's your shortcut.",
+        'stairs': "Icy stairs. Go slow — the landing's small."
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Those panels pulse. Wait on a dark row, then step.',
+        'board': "Hands off the controls — I'll drive, you shoot.",
+        'wave': 'Drones ahead! Shoot them before they swoop.',
+        'dip': 'Big drop ahead. Hold on — keep shooting!',
+        'arrive': 'End of the line. Hop off!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': "Gap's too wide to walk. Slide off the edge — you'll carry.",
+        'down': "Nice leap. Now don't look down.",
+        'shuttle': 'Shuttles. Step on when it docks, off at the other end.',
+        'wind': 'Wait for the gust to die, then move. Or hide behind a pillar.',
+        'bob': 'Bobbing platforms. Hop on at the bottom, ride it up.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': "That panel shows a pattern. The lamps on the wall don't. Yet.",
+      'color': 'That frame has a favourite colour. Only its lamps should shine.',
+      'cycle': "Every hit changes a lamp's mind. The panel knows what it wants.",
+      'solved': 'Well, well. Someone likes puzzles.'
+    },
     'landed': "Touchdown! Let's go.",
     'brief': {
       'tutorial': "Training time. I'll guide you!",

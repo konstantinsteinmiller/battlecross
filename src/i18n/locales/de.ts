@@ -124,6 +124,8 @@ export default {
     'supply': 'Nachschubtour',
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
+    'stage': 'Plattform-Etappe',
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Ein Elite-Gegner ({target}) terrorisiert den Sektor {sector}. Jag ihn!',
       'supply': 'Knack {n} Vorratskisten im Sektor {sector}.',
       'purge': 'Zerstöre alle Maschinen im Sektor {sector}.',
-      'climb': 'Erklimme den Turm im Sektor {sector} – Treppen, Leitern, Aufzüge und Abgründe – und stell dich unten in der Arena erneut {boss}.'
+      'climb': 'Erklimme den Turm im Sektor {sector} – Treppen, Leitern, Aufzüge und Abgründe – und stell dich unten in der Arena erneut {boss}.',
+      'stage': 'Lauf, rutsch und fahr durch den Sektor {sector} – Kanten, Abgründe und Maschinen – bis in die Arena, und besiege dort {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Jag den Elite-Gegner: {target}',
     'supply': 'Vorratskisten: {n}/{total}',
     'purge': 'Maschinen zerstört: {n}/{total}',
-    'climb': 'Erklimme den Turm, besiege {boss}'
+    'climb': 'Erklimme den Turm, besiege {boss}',
+    'stage': 'Erreiche die Arena, besiege {boss}'
   },
   'mission': {
     'bossDown': '{boss} zerstört!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Verbesserung!',
     'found': '{item} ({rarity}) gefunden!',
-    'tank': 'Reparaturgel gefunden!'
+    'tank': 'Reparaturgel gefunden!',
+    'giftTank': 'Geschenk: +1 Reparaturgel!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Neue Waffe: {weapon}!',
     'newSector': 'Neuer Sektor freigeschaltet: {sector}',
     'items': 'Gefundene Ausrüstung',
-    'double': 'Bolzen verdoppeln (+{n})'
+    'triple': 'Dreifache Bolzen',
+    'tripleAria': 'Kurzes Video ansehen: Bolzen verdreifachen auf +{n}'
   },
   'defeat': {
     'title': 'SYSTEMAUSFALL',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Sektor gesichert. Seine Aufträge stehen weiter bereit.',
     'deploy': 'Ausrücken',
     'reroll': 'Neuer Auftrag',
+    'gift': {
+      'name': 'Gel für unterwegs',
+      'desc': 'Kurzes Video ansehen: +1 Reparaturgel für deinen nächsten Einsatz, auch über dein Limit.',
+      'aria': 'Kurzes Video ansehen für ein zusätzliches Reparaturgel im nächsten Einsatz',
+      'ready': 'Geschenk eingepackt!',
+      'readyDesc': '+1 Reparaturgel für deinen nächsten Einsatz.'
+    },
     'unlock': {
       'hint': 'Noch {n} Mission abschließen zum Freischalten | Noch {n} Missionen abschließen zum Freischalten',
       'aria': '{name}, gesperrt: noch {n} Mission abschließen | {name}, gesperrt: noch {n} Missionen abschließen'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Da unten ist Lava. Bleib auf dem Metall.',
+        'leap': 'Zu weit zum Gehen. Rutsch über die Kante, du fliegst rüber.',
+        'vents': 'Erst Zischen, dann Feuer. Warte das Fauchen ab, dann los.',
+        'barrels': 'Fässer! Achte auf die Lampen, geh zwischen ihnen durch.',
+        'hammers': 'Schmiedehämmer. Zähl den Takt, dann lauf.',
+        'drop': 'Weit runter. Ein Sims nach dem anderen.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Eis! Lass den Stick los, und du rutschst weiter.',
+        'spikes': 'Stacheln unter dem Eis. Geh geradeaus, keine scharfen Kurven.',
+        'frost': 'Frostwerfer. Erst glüht und zischt er. Geh, wenn er still ist.',
+        'icicles': 'Schatten am Boden? Eiszapfen. Raus aus dem Ring!',
+        'pillar': 'Die Säule hat Risse. Schieß drauf – schon hast du eine Abkürzung.',
+        'stairs': 'Eisige Treppe. Langsam – der Absatz ist klein.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Die Platten pulsieren. Warte auf einer dunklen Reihe, dann los.',
+        'board': 'Hände weg vom Steuer — ich fahre, du schießt.',
+        'wave': 'Drohnen voraus! Schieß sie ab, bevor sie herabstoßen.',
+        'dip': "Gleich geht's steil runter. Festhalten — weiterschießen!",
+        'arrive': 'Endstation. Steig aus!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Zu breit zum Gehen. Rutsch über die Kante – du fliegst mit.',
+        'down': 'Schöner Sprung. Jetzt bloß nicht nach unten schauen.',
+        'shuttle': 'Fähren. Aufsteigen, wenn sie anlegt, drüben wieder runter.',
+        'wind': 'Warte, bis die Böe abflaut, dann los. Oder duck dich hinter eine Säule.',
+        'bob': 'Schwebeplattformen. Unten aufsteigen, mit nach oben fahren.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Das Schild zeigt ein Muster. Die Lampen an der Wand noch nicht.',
+      'color': 'Der Rahmen hat eine Lieblingsfarbe. Nur ihre Lampen sollen leuchten.',
+      'cycle': 'Jeder Treffer ändert die Meinung einer Lampe. Das Schild weiß, was es will.',
+      'solved': 'Sieh an. Da mag jemand Rätsel.'
+    },
     'landed': "Gelandet! Los geht's.",
     'brief': {
       'tutorial': 'Training! Ich helf dir.',

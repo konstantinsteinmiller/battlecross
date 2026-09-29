@@ -20,7 +20,7 @@ import {
   LEVEL_TYPES, levelTypes, levelEntries, buildLevel, levelMap, rollAs, levelQuery, parseLevelQuery, levelFromHash,
   type LevelPick
 } from '@/game/data/levelCatalog'
-import { JOB_TEMPLATES, rollJob, climbJob, storyQuest, tutorialQuest, type Quest, type QuestTemplate } from '@/game/data/quests'
+import { JOB_TEMPLATES, rollJob, climbJob, storyQuest, bossQuest, tutorialQuest, type Quest, type QuestTemplate } from '@/game/data/quests'
 import { SECTORS, SECTOR_BY_ID } from '@/game/data/regions'
 import { MAX_LEVEL } from '@/game/data/progression'
 import { setupFromQuest } from '@/game/sim/mission'
@@ -37,7 +37,7 @@ const expectSound = (q: Quest, template: QuestTemplate, sector: string) => {
   expect(q.template).toBe(template)
   expect(q.sector).toBe(sector)
   expect(q.id).toMatch(/^(story|job)_/)
-  expect(q.kind).toBe(template === 'tutorial' || template === 'boss' ? 'story' : 'job')
+  expect(q.kind).toBe(template === 'tutorial' || template === 'boss' || template === 'stage' ? 'story' : 'job')
   expect(Number.isInteger(q.seed) && q.seed >= 0 && q.seed <= 0xffffffff).toBe(true)
   expect(q.level).toBeGreaterThanOrEqual(s.levels[0])
   expect(q.level).toBeLessThanOrEqual(s.levels[1])
@@ -61,17 +61,21 @@ describe('level catalog: every entry is a real level', () => {
     }
   })
 
-  it('lists every sector for every type but the tutorial, which is one level', () => {
+  it('lists every sector for every type but the tutorial (one level) and the stages (their four sectors)', () => {
+    const stages = ['blaze', 'cryo', 'volt', 'gale']
     for (const t of levelTypes()) {
-      expect(t.sectors).toEqual(t.template === 'tutorial' ? ['scrapyard'] : SECTORS.map(s => s.id))
+      expect(t.sectors).toEqual(t.template === 'tutorial' ? ['scrapyard'] : t.template === 'stage' ? stages : SECTORS.map(s => s.id))
     }
-    expect(levelEntries()).toHaveLength(1 + (levelTypes().length - 1) * SECTORS.length)
+    expect(levelEntries()).toHaveLength(1 + stages.length + (levelTypes().length - 2) * SECTORS.length)
   })
 
   it('builds with the game\'s own builders', () => {
     const lv = 9
     for (const s of SECTORS) {
-      expect(buildLevel({ template: 'boss', sector: s.id, seed: 2, playerLevel: lv })).toEqual(storyQuest(s, lv, 2))
+      expect(buildLevel({ template: 'boss', sector: s.id, seed: 2, playerLevel: lv })).toEqual(bossQuest(s, lv, 2))
+      if (LEVEL_TYPES.stage.sectors.includes(s.id)) {
+        expect(buildLevel({ template: 'stage', sector: s.id, seed: 2, playerLevel: lv })).toEqual(storyQuest(s, lv, 2))
+      }
       expect(buildLevel({ template: 'climb', sector: s.id, seed: 77, playerLevel: lv })).toEqual(climbJob(77, [s.id], lv))
     }
     expect(buildLevel({ template: 'tutorial', sector: 'scrapyard', seed: 5, playerLevel: 30 })).toEqual(tutorialQuest())
@@ -125,7 +129,7 @@ describe('level catalog: reproducible', () => {
 describe('level catalog: covers every template', () => {
   it('has an entry, under its own name, for every template the game hands out', () => {
     const keys = Object.keys(LEVEL_TYPES).sort()
-    const handedOut = new Set<string>(['tutorial', 'boss', 'climb', ...JOB_TEMPLATES.map(([t]) => t)])
+    const handedOut = new Set<string>(['tutorial', 'boss', 'climb', 'stage', ...JOB_TEMPLATES.map(([t]) => t)])
     // Whatever the board rolls, climbs included.
     const sectors = SECTORS.map(s => s.id)
     for (let seed = 1; seed < 600; seed++) handedOut.add(rollJob(seed, sectors, 10, sectors).template)
@@ -138,13 +142,14 @@ describe('level catalog: covers every template', () => {
       const q = buildLevel({ template, sector, seed: 12, playerLevel: 6 })
       const t = LEVEL_TYPES[template]
       const setup = setupFromQuest(q, null)
-      expect(setup.climb).toBe(t.map === 'climb')
+      expect(setup.climb).toBe(t.map === 'climb' || t.map === 'stage')
+      expect(setup.stage).toBe(t.map === 'stage' ? sector : undefined)
       expect(setup.tutorial).toBe(template === 'tutorial')
       if (t.map === 'rooms') expect(setup.boss).toBe(t.boss)
       const m = levelMap(q)
       expect(m.rooms.some(r => r.role === 'start')).toBe(true)
       expect(m.rooms.some(r => r.role === 'boss')).toBe(t.boss)
-      expect(m.terrain !== undefined).toBe(t.map === 'climb')
+      expect(m.terrain !== undefined).toBe(t.map !== 'rooms')
     }
   })
 })
@@ -173,7 +178,9 @@ describe('level catalog: the address', () => {
   it('boots a level from the game route only', () => {
     const q = levelFromHash('#/?level=climb&sector=blaze&seed=7&plevel=9')
     expect(q).toEqual(climbJob(7, ['blaze'], 9))
-    expect(levelFromHash('#?level=boss&sector=cryo&seed=0&plevel=8')).toEqual(storyQuest(SECTOR_BY_ID.cryo, 8, 0))
+    expect(levelFromHash('#?level=boss&sector=cryo&seed=0&plevel=8')).toEqual(bossQuest(SECTOR_BY_ID.cryo, 8, 0))
+    expect(levelFromHash('#/?level=stage&sector=cryo&seed=0&plevel=8')).toEqual(storyQuest(SECTOR_BY_ID.cryo, 8, 0))
+    expect(levelFromHash('#/?level=stage&sector=fortress&seed=0&plevel=8')).toBeNull()
     expect(levelFromHash('#/levels?level=climb&sector=blaze&seed=7&plevel=9')).toBeNull()
     expect(levelFromHash('#/models?level=climb')).toBeNull()
     expect(levelFromHash('#/')).toBeNull()

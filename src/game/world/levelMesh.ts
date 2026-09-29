@@ -1,5 +1,5 @@
 import {
-  BufferGeometry, Float32BufferAttribute, Group, Mesh, Color, BackSide, MeshBasicMaterial, SphereGeometry
+  BufferGeometry, Float32BufferAttribute, Group, Mesh, Color, BackSide, MeshBasicMaterial, SphereGeometry, type Object3D
 } from 'three'
 import { CELL, WALL_H, Cell, cellCenter, type MapData, type Door } from './levelGen'
 import type { Theme } from './themes'
@@ -31,6 +31,9 @@ export interface LevelMeshes {
   bounds: Array<{ x: number; z: number; r: number }>
   /** Room group owning each cell (−1 = void), for portal culling. */
   owner: Int16Array
+  /** A terrain map's secret false walls, by `Terrain.secrets` index (in
+   *  their room's group): `ClimbRun.openSecret` hides one. */
+  secretWalls?: Object3D[]
 }
 
 export class QuadBatch {

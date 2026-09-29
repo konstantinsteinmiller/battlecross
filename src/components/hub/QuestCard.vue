@@ -3,7 +3,7 @@
     div.q-icon
       GameIcon(:name="ICON[quest.template]")
     div.q-body
-      div.q-title {{ story && quest.template === 'boss' ? t('quest.bossTitle', { boss: t(`boss.${SECTOR_BY_ID[quest.sector].boss}`) }) : t(`quest.${quest.template}`) }}
+      div.q-title {{ story && quest.template === 'boss' ? t('quest.bossTitle', { boss: t(`boss.${SECTOR_BY_ID[quest.sector].boss}`) }) : quest.template === 'stage' ? t(`quest.stageName.${quest.sector}`) : t(`quest.${quest.template}`) }}
       div.q-desc {{ t(`quest.desc.${quest.template}`, params) }}
       div.q-meta
         //- A climb ends in a rematch: the boss named on the card, in the
@@ -39,7 +39,7 @@ defineEmits<{ deploy: []; reroll: [] }>()
 const { t } = useI18n()
 const ICON: Record<QuestTemplate, GameIconName> = {
   tutorial: 'star', boss: 'skull', kill: 'bomb', collect: 'gem', rescue: 'heart', elite: 'trophy', supply: 'chest', purge: 'flame',
-  climb: 'up'
+  climb: 'up', stage: 'rocket'
 }
 /** A Tower Run: its own livery (hazard stripes, a climbing arrow). */
 const climb = computed(() => props.quest.template === 'climb')

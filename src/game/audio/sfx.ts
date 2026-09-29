@@ -14,6 +14,8 @@ export type SfxName =
   | 'objective' | 'bossIntro' | 'death' | 'locate' | 'bossWarn'
   | 'attrPick'
   | 'trapHiss' | 'flameJet' | 'bladeWhoosh' | 'trapClick'
+  // The Sky Docks' wind tunnel (`sim/stages/wind.ts`)
+  | 'gust'
   | 'borrowGet' | 'borrowSpent'
   | 'droneArrive' | 'droneHum' | 'droneHumHi' | 'deckLand' | 'liftOff'
   | 'whizz'

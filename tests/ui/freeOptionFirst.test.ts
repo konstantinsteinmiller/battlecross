@@ -27,7 +27,7 @@ const i18n = () => createI18n({ legacy: false, locale: 'en', messages: { en } })
 const stubs = {
   FModal: { template: '<div class="fmodal"><slot /><slot name="footer" /></div>' },
   FButton: {
-    props: ['label', 'type', 'icon', 'isDisabled', 'size'],
+    props: ['label', 'type', 'icon', 'isDisabled', 'size', 'emphasis'],
     template: `<button class="fb" :data-icon="icon" :data-size="size || 'md'"><slot>{{ label }}</slot></button>`
   },
   GameIcon: true,
@@ -78,7 +78,10 @@ const mountDefeat = async (freeOptionFirst: boolean, tanks = 0) => {
   return mount(DefeatModal, { global: { plugins: [i18n()], stubs } })
 }
 
-const order = (w: Awaited<ReturnType<typeof mountResults>>) => w.findAll('button.fb').map((b) => b.attributes('data-icon'))
+// The result screen's offer is drawn by its own badge (`TripleOffer`), not by
+// FButton's glyph: it reads as 'video' here all the same.
+const order = (w: Awaited<ReturnType<typeof mountResults>>) =>
+  w.findAll('button.fb').map((b) => (b.classes().includes('offer') ? 'video' : b.attributes('data-icon')))
 
 describe('result screen', () => {
   it('Poki: Continue first, sized by an invisible copy of the rewarded label', async () => {
@@ -89,6 +92,8 @@ describe('result screen', () => {
     expect(sizer.exists()).toBe(true)
     expect(sizer.attributes('aria-hidden')).toBe('true')
     expect(sizer.text()).toBe(double!.text())
+    // …and the whole offer, badge included, not just its words.
+    expect(sizer.find('.triple-offer').exists()).toBe(true)
     // The visible label is still just "Continue".
     expect(cont!.find('.free-label > span:first-child').text()).toBe(en.continue)
   })
@@ -130,5 +135,23 @@ describe('defeat screen', () => {
   it('every other portal keeps its layout (Reboot before Retreat)', async () => {
     const w = await mountDefeat(false)
     expect(order(w)).toEqual(['video', 'back'])
+  })
+})
+
+describe('the result screen\'s rewarded offer', () => {
+  it('offers ×3 bolts: the badge shows the tripled total and the ×3 sticker', async () => {
+    const w = await mountResults(false)
+    const offer = w.find('button.offer')
+    expect(offer.find('.x3').text()).toBe('×3')
+    expect(offer.find('.amount').text()).toContain('+240')
+    expect(offer.find('.what').text()).toBe(en.results.triple)
+  })
+
+  it('never matches the green of a plain confirm', async () => {
+    const src = (await import('node:fs')).readFileSync(
+      (await import('node:path')).resolve(__dirname, '../../src/components/modals/ResultsModal.vue'), 'utf8')
+    const offer = src.slice(src.indexOf('FButton.offer('), src.indexOf('TripleOffer(:amount', src.indexOf('FButton.offer(')))
+    expect(offer).not.toMatch(/type="success"/)
+    expect(offer).toMatch(/color-from="#ff9a2e"/)
   })
 })

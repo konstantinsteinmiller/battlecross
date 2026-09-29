@@ -32,6 +32,9 @@ export interface Chest {
   id: number
   x: number
   z: number
+  /** The floor it stands on: 0 on a flat map, a ledge's height on a terrain
+   *  map (`Terrain.chests`). Opened only from that floor (CHEST_DY). */
+  y: number
   yaw: number
   mesh: ChestMesh
   opened: boolean
@@ -115,6 +118,9 @@ export const BOSS_DOOR_STANDOFF = 1
 /** Another candidate must be 15 % nearer than the current pick to take over
  *  (compared squared), so a near-tie cannot flip the trail as the player walks. */
 const TARGET_STICKY = 0.85 * 0.85
+/** A chest answers only to a player standing within this of its floor (m):
+ *  on a terrain map the one on the ledge overhead is not in reach. */
+export const CHEST_DY = 1.2
 /** A lesson's sleeping drones only count once no real machine is left. */
 const HELD_PENALTY = 1e9
 
@@ -170,7 +176,8 @@ export const objectiveTarget = (
   switch (src.objective.template) {
     case 'tutorial':
     case 'boss':
-    case 'climb': {
+    case 'climb':
+    case 'stage': {
       const d = bossDoorOf(map)
       // A map that could not fit a boss room keeps its Core Master in the objective room.
       if (!d) return livingElite(src, enemies)
@@ -233,17 +240,22 @@ export class MissionObjects {
     this.place()
   }
 
-  private addChest(room: Room, spot: [number, number, number], supply: boolean, rarity: Rarity): void {
+  private addChest(room: Room | null, spot: [number, number, number], supply: boolean, rarity: Rarity): void {
+    this.addChestAt(cellCenter(spot[0]), 0, cellCenter(spot[1]), spot[2], supply, rarity)
+    void room
+  }
+
+  /** A chest on the cell centred at (x, z), its floor at `y`, backed onto
+   *  the wall `yaw` faces (`Room.wallSpots`' convention). */
+  private addChestAt(x: number, y: number, z: number, yaw: number, supply: boolean, rarity: Rarity): void {
     const h = this.host
     const mesh = buildChest(h.theme, rarity)
-    const x = cellCenter(spot[0])
-    const z = cellCenter(spot[1])
     // Push toward the wall it stands against so it does not block the room.
     const off = 0.55
-    const cx = x - Math.sin(spot[2]) * off
-    const cz = z - Math.cos(spot[2]) * off
-    mesh.root.position.set(cx, 0, cz)
-    mesh.root.rotation.y = spot[2]
+    const cx = x - Math.sin(yaw) * off
+    const cz = z - Math.cos(yaw) * off
+    mesh.root.position.set(cx, y, cz)
+    mesh.root.rotation.y = yaw
     const parent = h.propParent(cx, cz)
     parent.add(mesh.root)
     const navIdx = h.nav.props.length
@@ -252,11 +264,10 @@ export class MissionObjects {
       new CylinderGeometry(0.35, 0.6, 5, 16, 1, true),
       new MeshBasicMaterial({ color: new Color(RARITY_COLOR[rarity]), transparent: true, opacity: 0, blending: AdditiveBlending, depthWrite: false, side: DoubleSide, toneMapped: false })
     )
-    beam.position.set(cx, 2.5, cz)
+    beam.position.set(cx, y + 2.5, cz)
     beam.visible = false
     parent.add(beam)
-    this.chests.push({ id: this.chests.length, x: cx, z: cz, yaw: spot[2], mesh, opened: false, openT: 0, supply, rarity, navIdx, beam })
-    void room
+    this.chests.push({ id: this.chests.length, x: cx, y, z: cz, yaw, mesh, opened: false, openT: 0, supply, rarity, navIdx, beam })
   }
 
   private place(): void {
@@ -344,6 +355,9 @@ export class MissionObjects {
       h.nav.props.push({ x: cx, z: cz, r: 0.5, active: true })
       this.objective.count = 1
     }
+    // A terrain map's own chests (`Terrain.chests`: a level's author put
+    // them on its ledges), last: the rolls above stay the seed's.
+    for (const c of map.terrain?.chests ?? []) this.addChestAt(c.x, c.y, c.z, c.yaw, false, rollRarity(rng, 0.3))
   }
 
   /** Called once enemies exist: attach elite / kill / purge targets. */
@@ -351,7 +365,7 @@ export class MissionObjects {
     const h = this.host
     const q = this.quest
     const rng = mulberry32(h.map.seed ^ 0x0b1e)
-    if (q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') {
+    if (q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb' || q.template === 'stage') {
       // The sector's Core Master waits behind the boss shutter (a climb's:
       // at the foot of its tower, for the rematch).
       const room = h.map.rooms.find(r => r.role === 'boss') ?? h.map.rooms.find(r => r.role === 'objective')!
@@ -451,7 +465,7 @@ export class MissionObjects {
     const q = this.quest
     if (q.template === 'kill' && e.kind === q.target) this.progress(1)
     else if (q.template === 'purge') this.progress(1)
-    else if ((q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') && e.id === this.eliteId) this.progress(1)
+    else if ((q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb' || q.template === 'stage') && e.id === this.eliteId) this.progress(1)
   }
 
   // ─── Interaction ───────────────────────────────────────────────────────────
@@ -465,12 +479,12 @@ export class MissionObjects {
    * player up without turning them. The E key, the prompt button and a tap
    * on the object (`Mission.doInteract`) all act on this answer.
    */
-  nearestInteractable(px: number, pz: number, yaw: number): { kind: 'chest' | 'npc'; ref: Chest | Npc } | null {
+  nearestInteractable(px: number, pz: number, yaw: number, py = 0): { kind: 'chest' | 'npc'; ref: Chest | Npc } | null {
     const nav = this.host.nav
     let best: { kind: 'chest' | 'npc'; ref: Chest | Npc } | null = null
     let bestD = INTERACT_DIST
     for (const c of this.chests) {
-      if (c.opened) continue
+      if (c.opened || Math.abs(c.y - py) >= CHEST_DY) continue
       const d = Math.hypot(c.x - px, c.z - pz)
       if (d < bestD && (d < INTERACT_NEAR || hasLineOfSight(nav, px, pz, c.x, c.z))) { bestD = d; best = { kind: 'chest', ref: c } }
     }
@@ -499,8 +513,8 @@ export class MissionObjects {
     c.opened = true
     c.openT = 0
     this.host.nav.props[c.navIdx]!.active = false
-    this.host.fx.riseRing(c.x, 0.4, c.z, RARITY_COLOR[c.rarity], 0.9, 18)
-    this.host.fx.sparks(c.x, 0.9, c.z, RARITY_COLOR[c.rarity], 16, 5)
+    this.host.fx.riseRing(c.x, c.y + 0.4, c.z, RARITY_COLOR[c.rarity], 0.9, 18)
+    this.host.fx.sparks(c.x, c.y + 0.9, c.z, RARITY_COLOR[c.rarity], 16, 5)
     if (c.supply) this.progress(1)
     this.host.onChestOpened(c)
   }
@@ -590,7 +604,7 @@ export class MissionObjects {
     if (q.template === 'collect') for (const c of this.cores) { if (!c.taken) out.push({ x: c.x, z: c.z, kind: 'objective' }) }
     if (q.template === 'supply') for (const c of this.chests) { if (c.supply && !c.opened) out.push({ x: c.x, z: c.z, kind: 'objective' }) }
     if (q.template === 'rescue' && this.npc && !this.npc.rescued) out.push({ x: this.npc.x, z: this.npc.z, kind: 'objective' })
-    if (q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb') {
+    if (q.template === 'elite' || q.template === 'tutorial' || q.template === 'boss' || q.template === 'climb' || q.template === 'stage') {
       const e = enemies.find(x => x.id === this.eliteId && x.state !== 'dead')
       if (e) out.push({ x: e.x, z: e.z, kind: q.template === 'elite' ? 'objective' : 'boss' })
     }

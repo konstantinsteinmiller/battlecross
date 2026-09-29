@@ -1,16 +1,23 @@
-import { Group, Color, type MeshBasicMaterial, type Object3D } from 'three'
-import { CELL, type MapData, type Terrain, type Ladder, type Lift, type Crusher, type RollerLane, type RewardSpot } from '../world/levelGen'
+import { Group, Color, type MeshBasicMaterial, type Object3D, type Scene } from 'three'
+import {
+  CELL, Cell, type MapData, type Terrain, type Ladder, type Lift, type Crusher, type RollerLane, type RewardSpot, type SecretSpec
+} from '../world/levelGen'
 import { floorAt, groundAt, moveBody, platUnder, type Nav, type Plat, type Slab } from '../world/nav'
 import { BALL_R } from '../world/climbGen'
+import { secretDoorFace } from '../world/stages/builder'
+import type { LevelMeshes } from '../world/levelMesh'
 import {
-  buildLift, buildCrusher, buildScrapBall, buildLaneLamp, type LiftMesh, type CrusherMesh, type BallMesh
+  buildLift, buildCrusher, buildScrapBall, buildEmberBarrel, buildLaneLamp, type LiftMesh, type CrusherMesh, type BallMesh
 } from '../models/climbProps'
 import { buildBolt, buildCapsule } from '../models/props'
 import type { Theme } from '../world/themes'
-import type { CombatPlayer, Enemy, PickupKind } from './world'
+import type { CombatPlayer, Enemy, PickupKind, Shot } from './world'
 import type { Particles } from '../fx/particles'
 import type { FloorMarkers, ShockRings } from '../fx/markers'
-import { PLAYER_R } from './constants'
+import { PLAYER_R, ACCEL } from './constants'
+import type { EncounterTable } from './spawn'
+import type { AtlasLine } from './atlas'
+import { buildStageFeatures, type StageFeature, type MoveMod } from './stageFeatures'
 
 /**
  * ─── The climb at run time ───────────────────────────────────────────────────
@@ -25,14 +32,23 @@ import { PLAYER_R } from './constants'
  *    ladder and forward descends when coming off the top; the top steps off
  *    by itself. Slide lets go.
  *  - Lifts: a shuttle loops over a pit on the mission clock; a vertical lift
- *    waits at the bottom and rides up once stood on, then comes home.
+ *    waits at the bottom and rides up once stood on, then comes home — or,
+ *    with `loop`, bobs up and down on the clock like a shuttle.
  *  - Crushers warn (a lamp, a click, a red ring on the walkway), slam, hold,
  *    rise. Under the head at the slam: a fifth of the health.
  *  - Scrap balls drop from hatches over the rolling stairs and roll down
  *    their lanes into the gutter, each lane's lamp going amber then red first.
  *  - Pits: a fall well below the last floor costs PIT_COST of the health and
  *    puts Flux back on the last checkpoint after a fade (MegaMan's pits,
- *    softened).
+ *    softened) — twice that into spikes or lava (`Terrain.pitKind`).
+ *  - The dash leap: a slide that runs off a pit edge hops (LEAP_VY) and
+ *    carries its momentum (LEAP_SPEED at most) with little air control, so
+ *    a one-cell gap between equal floors is crossed and a two-cell one is
+ *    not. Level designs rely on exactly that.
+ *  - The platform stages' own mechanics (`sim/stageFeatures.ts`) are driven
+ *    from here: their update, the walk they bend (`moveMod`), the body they
+ *    carry, their snapshot. Secret alcoves stay walled off (a slab, blocked
+ *    paths, the mesh's false wall) until `openSecret`.
  *
  * Nothing allocates per step: pools and fixed arrays built with the mission.
  */
@@ -67,6 +83,20 @@ const BALL_VMAX = 9
 const BALL_COST = 0.16
 /** Flux's height for things that hit his body (m). */
 const BODY_H = 1.75
+/** The dash leap: the hop off a pit edge (m/s up) and the most horizontal
+ *  speed it keeps (m/s; the slide runs at 15). With GRAVITY that is 0.47 s
+ *  in the air before the feet are STEP_UP under the take-off floor: about
+ *  5.1 m of flight with the stick let go, 3.5 m with it held on ahead —
+ *  a 3 m gap is always crossed, a 6 m one never. */
+export const LEAP_VY = 5
+export const LEAP_SPEED = 11
+/** Air control on a terrain map: the walk's blend in the air, as a share of
+ *  the ground's. */
+export const AIR_CONTROL = 0.25
+/** Twice a plain fall into spikes or lava. */
+const HOT_PIT = 2
+/** Half the thickness of a secret alcove's wall slabs (m). */
+const SECRET_WALL = 0.15
 
 /** The player's body as the climb moves it (the mission's `PlayerState`). */
 export interface ClimbBody {
@@ -101,11 +131,33 @@ export interface ClimbHost {
   fx: Particles
   markers: FloorMarkers
   shocks: ShockRings
+  /** For the stage features: the scene (meshes outside any room), the
+   *  mission clock, the level's meshes (a secret's false wall), and what a
+   *  wave of flyers needs — `createEnemy('heli', enemyLevel, …)` with a
+   *  floor, a hover band and a leash, then `addEnemy`. */
+  scene: Scene
+  time: number
+  level: LevelMeshes
+  enemyLevel: number
+  encounters: EncounterTable
+  addEnemy(e: Enemy): void
+  /** A machine's shot (the mission's own: lifted to its floor, tipped at
+   *  Flux's height) — for a feature's machines that fire on their own
+   *  rhythm (the rail's wave flyers). Optional: a host without it gets
+   *  none. */
+  fireEnemyShot?(e: Enemy, x: number, y: number, z: number, dx: number, dy: number, dz: number, speed: number, dmg: number, blockable: boolean): void
+  /** Atlas says a line: a stage's `hint.<id>` (a tip on the danger ahead)
+   *  or `secret.<id>` (a nudge toward a secret), once a mission each. */
+  say(line: AtlasLine): void
   hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss'
   sfx(name: string, x?: number, z?: number): void
   shake(amount: number): void
   onPickup(kind: PickupKind, value: number): void
   propParent(x: number, z: number): Object3D
+  /** A secret's prize is taken (`sim/secrets.ts`): 'tank' one Repair Gel
+   *  more, even over the cap; 'weapon' / 'power' a borrowed Core Master
+   *  weapon's charges (`sim/borrowed.ts`). ('hp' is `onPickup('hpBig')`.) */
+  secretPrize?(prize: SecretSpec['prize'], x: number, y: number, z: number): void
 }
 
 interface LadderRt {
@@ -190,7 +242,25 @@ export interface ClimbSave {
   cp: number
   /** Reward ledges already emptied. */
   got: number[]
+  /** Secrets opened (`Terrain.secrets` indices). */
+  open?: number[]
+  /** Each stage feature's own save, by its place in the list. */
+  feat?: unknown[]
 }
+
+/** A secret alcove's walls at run time: the false wall's slab (active until
+ *  solved) and the permanent ones round the rest of the alcove. */
+interface SecretRt {
+  def: SecretSpec
+  door: Slab
+  open: boolean
+}
+
+/** The blend of the walk toward the wanted velocity this step (the mission's
+ *  `k`): all at once in a slide, ACCEL on the ground, a quarter of it in the
+ *  air on a terrain map, times the floor's friction (`StageFeature.move`). */
+export const walkBlend = (dt: number, sliding: boolean, air: boolean, friction = 1): number =>
+  sliding ? 1 : Math.min(1, dt * ACCEL * friction * (air ? AIR_CONTROL : 1))
 
 /** Lamp colours, made once: the telegraphs change colour every frame. */
 const LAMP = {
@@ -219,6 +289,11 @@ export class ClimbRun {
   private lanes: LaneRt[] = []
   private balls: BallRt[] = []
   private rewards: RewardRt[] = []
+  private secrets: SecretRt[] = []
+  /** The platform stages' mechanics (`sim/stageFeatures.ts`), in snapshot
+   *  order. */
+  readonly features: StageFeature[]
+  private mod: MoveMod = { friction: 1, pushX: 0, pushZ: 0 }
   /** Last checkpoint reached (−1: the pad). */
   cp = -1
   /** This step's pit fall happened (the mission restarts Flux), and how dark
@@ -227,6 +302,12 @@ export class ClimbRun {
   pitDark = 0
   /** Speed of the last landing (m/s), for the thud. */
   landSpeed = 0
+  /** This step's slide ran off a pit edge into a dash leap (the mission
+   *  ends the slide: the leap keeps its own momentum). */
+  leapt = false
+  /** Share of max health this step's pit fall costs (PIT_COST, doubled
+   *  into spikes or lava). */
+  pitCost = PIT_COST
   private level: number
 
   constructor(host: ClimbHost, level: number) {
@@ -285,7 +366,8 @@ export class ClimbRun {
       const rt: LaneRt = { def: ln, mat: lamp.mat, fired: -1, topY }
       this.lanes.push(rt)
       for (let n = 0; n < 2; n++) {
-        const mesh = buildScrapBall(th, BALL_R)
+        // The blaze sector rolls ember barrels, every other one scrap balls.
+        const mesh = th.id === 'blaze' ? buildEmberBarrel(th, BALL_R, ln.dz !== 0) : buildScrapBall(th, BALL_R)
         mesh.root.visible = false
         host.propParent(ln.x, ln.z).add(mesh.root)
         this.balls.push({ active: false, lane: null, s: 0, v: 0, x: 0, y: 0, z: 0, vy: 0, sink: 0, hit: false, mesh })
@@ -313,6 +395,89 @@ export class ClimbRun {
       host.propParent(r.x, r.z).add(root)
       this.rewards.push({ def: r, root, taken: false })
     }
+    for (const sp of t.secrets ?? []) this.secrets.push(this.sealSecret(sp))
+    this.features = buildStageFeatures(host, t, this)
+  }
+
+  /**
+   * Wall a secret alcove off: a slab on every face between an alcove cell
+   * and the open floor around it — the false wall's the only one that ever
+   * opens — and no path into it (the objective trail, the tap-to-move).
+   */
+  private sealSecret(def: SecretSpec): SecretRt {
+    const map = this.host.map
+    const nav = this.host.nav
+    const W = map.w
+    const face = secretDoorFace(map, def)
+    let door: Slab | null = null
+    for (const k of def.cells) {
+      nav.pathBlock[k] = 2
+      const i = k % W
+      const j = (k - i) / W
+      for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+        const ni = i + di
+        const nj = j + dj
+        if (ni < 0 || nj < 0 || ni >= W || nj >= map.h) continue
+        const nk = nj * W + ni
+        if (map.cell[nk] === Cell.Void || def.cells.includes(nk)) continue
+        const x = (i + (di > 0 ? 1 : 0)) * CELL
+        const z = (j + (dj > 0 ? 1 : 0)) * CELL
+        const slab: Slab = di
+          ? { minX: x - SECRET_WALL, maxX: x + SECRET_WALL, minZ: j * CELL, maxZ: (j + 1) * CELL, active: true }
+          : { minX: i * CELL, maxX: (i + 1) * CELL, minZ: z - SECRET_WALL, maxZ: z + SECRET_WALL, active: true }
+        nav.slabs.push(slab)
+        if (i === face.i && j === face.j && di === face.di && dj === face.dj) door = slab
+      }
+    }
+    return { def, door: door ?? { minX: 0, maxX: 0, minZ: 0, maxZ: 0, active: false }, open: false }
+  }
+
+  /** Solved: the false wall of secret `n` gives way — bodies, sight and
+   *  paths pass, and the mesh's wall goes (`hideWall`: false when the
+   *  runtime sinks it itself first). */
+  openSecret(n: number, hideWall = true): void {
+    const s = this.secrets[n]
+    if (!s || s.open) return
+    s.open = true
+    s.door.active = false
+    for (const k of s.def.cells) this.host.nav.pathBlock[k] = 0
+    const wall = this.host.level.secretWalls?.[n]
+    if (wall && hideWall) wall.visible = false
+  }
+
+  secretOpen(n: number): boolean {
+    return !!this.secrets[n]?.open
+  }
+
+  /** The walk bent where Flux stands (ice, wind): a shared scratch, valid
+   *  until the next call. */
+  moveMod(p: ClimbBody): MoveMod {
+    const m = this.mod
+    m.friction = 1
+    m.pushX = 0
+    m.pushZ = 0
+    for (const f of this.features) f.move?.(p, m)
+    return m
+  }
+
+  /** A player shot met something solid of a stage feature's (an ice
+   *  pillar). */
+  shotHits(x: number, y: number, z: number, r: number, charge: number): boolean {
+    for (const f of this.features) if (f.shotHits?.(x, y, z, r, charge)) return true
+    return false
+  }
+
+  /** A player shot this step (`CombatHost.shotHitsStage`): true when a
+   *  feature caught it (a secret's wall button), and the shot ends. */
+  shotStep(s: Shot): boolean {
+    for (const f of this.features) if (f.shot?.(s)) return true
+    return false
+  }
+
+  /** A feature has the body (a rail cart): the stick waits. */
+  locksMove(): boolean {
+    for (const f of this.features) if (f.locksMove?.()) return true
+    return false
   }
 
   // ─── Per step ──────────────────────────────────────────────────────────────
@@ -324,6 +489,7 @@ export class ClimbRun {
     for (const cr of this.crushers) this.stepCrusher(cr, time, p, playing)
     for (const ln of this.lanes) this.stepLane(ln, time)
     for (const b of this.balls) if (b.active) this.stepBall(b, dt, p, playing)
+    for (const f of this.features) f.update(dt, time, p, playing)
     for (const r of this.rewards) {
       if (r.taken || r.def.kind === 'weapon') continue
       r.root.rotation.y += dt * 1.8
@@ -361,8 +527,9 @@ export class ClimbRun {
   private stepLift(lf: LiftRt, dt: number, time: number, p: ClimbBody): void {
     const d = lf.def
     let k: number
-    if (d.kind === 'h') {
-      // A loop on the mission clock: wait at A, go, wait at B, come back.
+    if (d.kind === 'h' || d.loop) {
+      // A loop on the mission clock: wait at A, go, wait at B, come back
+      // (a shuttle across, or a bobbing platform up and down).
       const leg = d.travel + d.wait
       const u = ((time + d.phase) % (leg * 2) + leg * 2) % (leg * 2)
       if (u < d.wait) k = 0
@@ -553,7 +720,9 @@ export class ClimbRun {
     this.pitted = false
     this.pitDark = 0
     this.landSpeed = 0
+    this.leapt = false
     const nav = this.host.nav
+    for (const f of this.features) if (f.carry?.(p, out, dt)) return
     if (p.ladder >= 0) {
       this.climbLadder(p, out, wx, wz, dt)
       return
@@ -578,13 +747,26 @@ export class ClimbRun {
       const pl = nav.plats![p.plat]
       if (pl) { x += pl.dx; z += pl.dz }
     }
-    moveBody(nav, x, z, p.y, p.vx * dt, p.vz * dt, PLAYER_R, out)
+    const m = this.moveMod(p)
+    moveBody(nav, x, z, p.y, (p.vx + m.pushX) * dt, (p.vz + m.pushZ) * dt, PLAYER_R, out)
     const sup = floorAt(nav, out[0], out[1], p.y)
     if (p.ground) {
       if (sup >= p.y - SNAP) {
         p.y = sup
         p.vy = 0
         p.air = 0
+      } else if (sliding && sup === -Infinity) {
+        // The dash leap: off the edge in a slide, a hop, and the slide's
+        // momentum (capped) carries over the gap.
+        p.ground = false
+        p.vy = LEAP_VY
+        p.air = 0
+        const v = Math.hypot(p.vx, p.vz)
+        if (v > LEAP_SPEED) {
+          p.vx *= LEAP_SPEED / v
+          p.vz *= LEAP_SPEED / v
+        }
+        this.leapt = true
       } else if (sup === -Infinity && p.air < COYOTE) {
         p.air += dt
       } else {
@@ -608,7 +790,15 @@ export class ClimbRun {
     if (!p.ground && groundAt(this.host.map, out[0], out[1]) === -Infinity && floorAt(nav, out[0], out[1]) === -Infinity) {
       const drop = p.safeY - p.y
       this.pitDark = clamp(drop / PIT_DROP, 0, 1)
-      if (drop > PIT_DROP) this.pitted = true
+      if (drop > PIT_DROP) {
+        this.pitted = true
+        const map = this.host.map
+        const i = Math.floor(out[0] / CELL)
+        const j = Math.floor(out[1] / CELL)
+        const r = i >= 0 && j >= 0 && i < map.w && j < map.h ? map.room[j * map.w + i]! : -1
+        const kind = r >= 0 ? this.t.pitKind?.[r] : undefined
+        this.pitCost = kind === 'spikes' || kind === 'lava' ? PIT_COST * HOT_PIT : PIT_COST
+      }
     }
   }
 
@@ -715,7 +905,13 @@ export class ClimbRun {
   save(): ClimbSave {
     const got: number[] = []
     this.rewards.forEach((r, i) => { if (r.taken) got.push(i) })
-    return { cp: this.cp, got }
+    const s: ClimbSave = { cp: this.cp, got }
+    if (this.secrets.length) {
+      s.open = []
+      this.secrets.forEach((x, i) => { if (x.open) s.open!.push(i) })
+    }
+    if (this.features.length) s.feat = this.features.map(f => f.save?.() ?? null)
+    return s
   }
 
   restore(s: ClimbSave | undefined): void {
@@ -727,5 +923,11 @@ export class ClimbRun {
       r.taken = true
       r.root.visible = false
     }
+    for (const i of s.open ?? []) this.openSecret(i)
+    this.features.forEach((f, i) => { if (s.feat && s.feat[i] != null) f.restore?.(s.feat[i]) })
+  }
+
+  dispose(): void {
+    for (const f of this.features) f.dispose?.()
   }
 }

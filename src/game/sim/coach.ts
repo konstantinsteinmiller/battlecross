@@ -100,6 +100,8 @@ export interface HintView {
   flash: number
   /** Just completed: show the check and fade. */
   done: boolean
+  /** A lesson waits on it: drawn bigger and pulsing (the shield lesson). */
+  urgent?: boolean
 }
 
 /** What the mission tells the coach every step. */
@@ -125,6 +127,10 @@ export interface CoachContext {
    *  after the tutorial's trap): the tank glyph stands aside — two glyphs on
    *  one button read as two different things to do. */
   gelLesson?: boolean
+  /** The tutorial's shield lesson is on (`Walkthrough.blockPending`): the
+   *  block glyph stays up, emphasised, until a block lands — not only while
+   *  a ring winds up, which on a diving drone is gone before it is read. */
+  blockLesson?: boolean
 }
 
 interface HintState {
@@ -158,6 +164,7 @@ export class Coach {
   private lookAcc = 0
   private moveAcc = 0
   private quiet = false
+  private blockLesson = false
 
   constructor() {
     for (const id of Object.keys(HINTS) as HintId[]) {
@@ -288,7 +295,8 @@ export class Coach {
     want('walk', !c.combat && !fresh('move') && !fresh('look') && fresh('walk'))
     want('fire', (c.combat || c.aimCandidate) && fresh('fire'))
     want('charge', c.combat && !fresh('fire') && fresh('charge'))
-    want('block', c.teleBlock && fresh('block'))
+    this.blockLesson = !!c.blockLesson
+    want('block', (c.teleBlock && fresh('block')) || this.blockLesson)
     want('parry', c.teleBlock && !fresh('block') && fresh('parry'))
     want('slide', c.teleRed && fresh('slide'))
     // No linger either: the lesson's glyph takes over at once.
@@ -351,7 +359,8 @@ export class Coach {
         s.count = s.recall > 0 && this.mastered(id) ? 0 : Math.min(hintProgress(id, this.family), HINTS[id].goal)
       }
       const goal = s.recall > 0 && this.mastered(id) ? Math.max(1, s.count + s.recall) : HINTS[id].goal
-      return { id, family: this.family, count: Math.min(s.count, goal), goal, flash: s.flash, done: s.doneAt >= 0 }
+      const urgent = id === 'block' && this.blockLesson && s.doneAt < 0
+      return { id, family: this.family, count: Math.min(s.count, goal), goal, flash: s.flash, done: s.doneAt >= 0, urgent }
     })
   }
 }

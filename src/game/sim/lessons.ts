@@ -4,7 +4,7 @@ import {
 import type { Enemy, Shot } from './world'
 import type { MapData, Room } from '../world/levelGen'
 import { CELL, cellCenter } from '../world/levelGen'
-import { isSolidAt, hasLineOfSight, type Nav } from '../world/nav'
+import { isSolidAt, hasLineOfSight, groundAt, type Nav } from '../world/nav'
 import { profile, markTip } from '../state/profile'
 import { buildTrainingTarget, type TrainingTargetMesh } from '../models/props'
 import { PAL } from '../models/palette'
@@ -75,7 +75,9 @@ export interface LessonHost {
   map: MapData
   nav: Nav
   scene: Scene
-  player: { x: number; z: number; yaw: number }
+  /** `y`: the feet on a terrain map (the climb, a stage); 0 or absent on a
+   *  flat one. */
+  player: { x: number; z: number; yaw: number; y?: number }
   enemies: Enemy[]
   fx: Particles
   shocks: ShockRings
@@ -105,6 +107,9 @@ const WEAPON_TRIES = 3
 /** The drone's glyph waits for the coach's move and look glyphs at most
  *  this long (s of play) before it comes in anyway. */
 const REVEAL_AFTER = 10
+/** On a terrain map a drone hovers only over a floor this close to the
+ *  player's (m): a ledge above or a pit below is out of the lesson's reach. */
+const DRONE_FLOOR = 0.6
 /** Half-angle between Scrap Burst's outer shots (weapons.ts: spread 0.42). */
 const SPREAD = 0.21
 /** Outside the tutorial the gel lesson comes in under this much health (the
@@ -140,10 +145,12 @@ export const roomClear = (enemies: Enemy[], roomId: number, combat: boolean): bo
  * one spread-angle apart as seen from the player, so one Scrap Burst aimed at
  * the middle one meets all three; or as a LINE for the piercing weapons.
  * Tries the view direction first, then turns toward the open side. Pure:
- * returns null when nothing fits.
+ * returns null when nothing fits. On a terrain map every drone must hover
+ * over a floor within DRONE_FLOOR of the player's feet `py`: never over a
+ * pit, never under a ledge (the line of sight is a grid walk, blind to it).
  */
 export const droneRow = (
-  nav: Nav, map: MapData, px: number, pz: number, yaw: number, layout: 'fan' | 'line' = 'fan'
+  nav: Nav, map: MapData, px: number, pz: number, yaw: number, layout: 'fan' | 'line' = 'fan', py = 0
 ): Array<[number, number]> | null => {
   const turns = [0, 0.35, -0.35, 0.7, -0.7, 1.1, -1.1, Math.PI]
   for (const dy of turns) {
@@ -158,6 +165,8 @@ export const droneRow = (
         const x = px - Math.sin(b) * dd
         const z = pz - Math.cos(b) * dd
         if (isSolidAt(nav, x, z) || roomAt(map, x, z) < 0) break
+        // −∞ over a pit fails this too.
+        if (map.terrain && !(Math.abs(groundAt(map, x, z) - py) <= DRONE_FLOOR)) break
         if (!hasLineOfSight(nav, px, pz, x, z)) break
         // Room to hover: nothing solid within a drone's radius.
         let free = true
@@ -537,7 +546,8 @@ export class LessonDirector {
     const h = this.host
     const p = h.player
     const layout = w.id === 'flameWave' || w.id === 'iceLance' ? 'line' : 'fan'
-    const row = droneRow(h.nav, h.map, p.x, p.z, p.yaw, layout)
+    const py = h.map.terrain ? p.y ?? 0 : 0
+    const row = droneRow(h.nav, h.map, p.x, p.z, p.yaw, layout, py)
     if (!row) return
     // One hit of the weapon takes a drone (through its armour); enough
     // energy for a few tries.
@@ -547,8 +557,15 @@ export class LessonDirector {
       e.hold = true
       e.hp = e.maxHp = Math.min(e.maxHp, Math.max(1, Math.floor(dmg * (e.def.armor ?? 1) * 0.9)))
       e.yaw = Math.atan2(p.x - x, p.z - z)
+      // On a terrain map the drone hovers over its own floor (as the climb's
+      // cast does, `sim/climbSpawn.ts`), in a band that keeps it there.
+      const f = h.map.terrain ? groundAt(h.map, x, z) : 0
+      if (h.map.terrain) {
+        e.floor = f
+        e.hover = [f, f]
+      }
       h.addEnemy(e)
-      h.fx.riseRing(x, 0.1, z, WEAPONS[w.id].color, 0.7, 16)
+      h.fx.riseRing(x, f + 0.1, z, WEAPONS[w.id].color, 0.7, 16)
       return e
     })
     h.sfx('beamIn', row[1]![0], row[1]![1])

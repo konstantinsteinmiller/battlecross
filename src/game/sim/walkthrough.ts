@@ -349,6 +349,14 @@ export class Walkthrough {
     return this.gel === 'sprung'
   }
 
+  /** The gate being taught waits on a block and the player is in its room:
+   *  the coach keeps the shield glyph up, emphasised, until one lands. */
+  blockPending(x: number, z: number): boolean {
+    const g = this.plan.gates[this.gate]
+    if (!g || this.blocked || !g.steps.includes('block')) return false
+    return roomAt(this.h.map, x, z) === g.room
+  }
+
   /** Until every gate before the boss is passed. */
   get active(): boolean {
     return this.gate < this.plan.gates.length

@@ -136,7 +136,7 @@ const lastAt = new Map<string, number>()
 const GAP: Partial<Record<SfxName, number>> = {
   shoot: 0.04, hit: 0.035, bolt: 0.05, tink: 0.05, enemyShot: 0.06, explode: 0.06, alert: 0.12, uiClick: 0.03,
   // Two traps in earshot must not stack into one loud chord.
-  bladeWhoosh: 0.2, trapHiss: 0.3, flameJet: 0.3,
+  bladeWhoosh: 0.2, trapHiss: 0.3, flameJet: 0.3, gust: 1,
   // The exit drone's rotor pulses overlap on purpose, never faster than this.
   droneHum: 0.2, droneHumHi: 0.15,
   // Hits from several sides at once: one hurt, not a stutter of them.
@@ -366,6 +366,12 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   bladeWhoosh: (p, g) => {
     burst({ dur: 0.14, vol: 0.06 * g, type: 'bandpass', f0: 500, f1: 1200, q: 2.2, pan: p })
     burst({ dur: 0.3, vol: 0.2 * g, type: 'bandpass', f0: 1300, f1: 450, q: 2.4, at: 0.1, pan: p })
+  },
+  // A gust coming (the wind tunnel's telegraph): a rising whistle over a
+  // swelling rush of air.
+  gust: (p, g) => {
+    tone({ wave: 'sine', f0: 900, f1: 1700, dur: 0.75, vol: 0.07 * g, vib: 18, vibRate: 7, pan: p })
+    burst({ dur: 1.1, vol: 0.16 * g, type: 'bandpass', f0: 500, f1: 1600, q: 1.4, pan: p })
   },
   // A pressure plate giving under a foot: a click and a clunk.
   trapClick: (p, g) => {

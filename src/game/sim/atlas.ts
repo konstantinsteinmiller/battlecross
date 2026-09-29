@@ -7,6 +7,13 @@
  * key under `atlas.*` (the bubble) and a voice id of the same name (the
  * optional recording, `audio/voice.ts`).
  *
+ * The platform stages add two open families, keyed by the level's own
+ * files (`sim/stageFeatures.ts`, `ClimbHost.say`): `hint.<id>` — a tip on a
+ * trap or a jump ahead, as urgent as a trap warning — and `secret.<id>` — a
+ * cryptic nudge toward a secret, low key. Their text is `atlas.hint.<id>` /
+ * `atlas.secret.<id>` in the locales; a recording is optional (no file: the
+ * bubble alone). Like most lines, each is said once a mission.
+ *
  * Rules that keep it from nagging:
  * - one line at a time; a waiting line with a higher priority goes first;
  * - a gap after each line, and a cooldown per line;
@@ -32,8 +39,10 @@ export type AtlasLine =
   | 'trap' | 'plate'
   | 'objective' | 'exit' | 'levelUp'
   | 'idle.1' | 'idle.2' | 'idle.3' | 'idle.4'
+  | `hint.${string}` | `secret.${string}`
 
-/** Every mission line, for the voice list and the preload. */
+/** Every fixed mission line, for the voice list and the preload (a stage's
+ *  `hint.*` / `secret.*` lines are its own, fetched when said). */
 export const ATLAS_LINES: readonly AtlasLine[] = [
   'landed', 'brief.tutorial', 'brief.job', 'brief.climb', 'brief.story',
   'story.scrapyard', 'story.blaze', 'story.cryo', 'story.volt', 'story.gale', 'story.fortress',
@@ -50,7 +59,10 @@ const PRIO: Partial<Record<AtlasLine, number>> = {
   lowHp: 9, lowHpGel: 9, bossAhead: 8, trap: 7, plate: 7, lowWe: 6, bossDown: 8, vexDown: 8,
   exit: 7, objective: 6, levelUp: 5, landed: 4
 }
-const prioOf = (l: AtlasLine): number => PRIO[l] ?? (l.startsWith('idle') ? 1 : 3)
+/** A stage's tip on the danger ahead weighs like a trap warning; its secret
+ *  nudges keep the default. */
+const HINT_PRIO = 7
+const prioOf = (l: AtlasLine): number => PRIO[l] ?? (l.startsWith('idle') ? 1 : l.startsWith('hint.') ? HINT_PRIO : 3)
 
 /** Seconds before the same line may come back (default: once a mission). */
 const COOLDOWN: Partial<Record<AtlasLine, number>> = {

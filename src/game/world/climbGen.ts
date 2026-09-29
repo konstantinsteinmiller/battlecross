@@ -1,8 +1,6 @@
-import {
-  CELL, Cell, Ramp, cellCenter, type MapData, type Room, type RoomRole, type Door, type Terrain, type SectionKind,
-  type Ladder, type Lift, type Crusher, type RollerLane, type Checkpoint, type RewardSpot, type FoePost
-} from './levelGen'
+import { CELL, Ramp, cellCenter, type MapData } from './levelGen'
 import { mulberry32, shuffle } from './rng'
+import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './stages/builder'
 
 /**
  * ─── The climb ("Tower Run") ─────────────────────────────────────────────────
@@ -28,6 +26,13 @@ import { mulberry32, shuffle } from './rng'
  * same tower); the seed varies the details, never the route: a mirrored
  * layout, which side the stairs sit on, how many crushers and their timing,
  * the scrap-ball rhythm, the shuttle's pace, what waits on the reward ledges.
+ * Two chests stand on ledges off the route (`Terrain.chests`); they draw no
+ * numbers from the seed, so the tower is the one it always was. Nor does its
+ * secret (`Terrain.secrets`, `sim/secrets.ts`): a lamp puzzle on the ground
+ * hall's front wall behind the pad, and an alcove with a Repair Gel.
+ *
+ * The toolkit it is built with (`Builder`, `finish`, `mirrorX`) lives in
+ * `world/stages/builder.ts`, shared with the platform stages.
  */
 
 /** One storey of the tower (m). A ladder climbs one, a lift one, the stairs
@@ -37,108 +42,6 @@ export const STOREY = 3
 export const BALL_R = 0.55
 const GRID_W = 32
 const GRID_H = 19
-/** Walls rise this far above a room's highest floor (m). */
-const WALL_OVER = 5
-/** Pits are drawn this deep under the floor they are cut into (m). */
-const PIT_DEPTH = 12
-
-class Builder {
-  readonly W = GRID_W
-  readonly H = GRID_H
-  cell = new Uint8Array(GRID_W * GRID_H)
-  room = new Int16Array(GRID_W * GRID_H).fill(-1)
-  floor = new Float32Array(GRID_W * GRID_H)
-  ramp = new Uint8Array(GRID_W * GRID_H)
-  rise = new Float32Array(GRID_W * GRID_H)
-  pit = new Uint8Array(GRID_W * GRID_H)
-  rooms: Room[] = []
-  doors: Door[] = []
-  sections: SectionKind[] = []
-  ladders: Ladder[] = []
-  lifts: Lift[] = []
-  crushers: Crusher[] = []
-  lanes: RollerLane[] = []
-  checkpoints: Checkpoint[] = []
-  rewards: RewardSpot[] = []
-  foes: FoePost[] = []
-
-  k(i: number, j: number): number { return j * this.W + i }
-
-  addRoom(x0: number, z0: number, w: number, h: number, role: RoomRole, kind: SectionKind, y: number): Room {
-    const parent = this.rooms.length - 1
-    const r: Room = {
-      id: this.rooms.length, x0, z0, w, h, depth: this.rooms.length, parent, children: [], role, door: -1,
-      spots: [], wallSpots: []
-    }
-    if (parent >= 0) this.rooms[parent]!.children.push(r.id)
-    this.rooms.push(r)
-    this.sections.push(kind)
-    for (let j = z0; j < z0 + h; j++) {
-      for (let i = x0; i < x0 + w; i++) {
-        const k = this.k(i, j)
-        this.cell[k] = Cell.Room
-        this.room[k] = r.id
-        this.floor[k] = y
-      }
-    }
-    return r
-  }
-
-  /** Floor height over a rectangle of cells (inclusive). */
-  level(i0: number, j0: number, i1: number, j1: number, y: number): void {
-    for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) this.floor[this.k(i, j)] = y
-  }
-
-  pits(i0: number, j0: number, i1: number, j1: number): void {
-    for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) this.pit[this.k(i, j)] = 1
-  }
-
-  stair(i: number, j: number, dir: Ramp, lo: number, rise: number): void {
-    const k = this.k(i, j)
-    this.ramp[k] = dir
-    this.floor[k] = lo
-    this.rise[k] = rise
-  }
-
-  /** A straight corridor out of the last room: `n` cells from (i, j) along
-   *  (di, dj); the door stands in its last cell, facing the next room. */
-  corridor(i: number, j: number, di: number, dj: number, n: number, y: number, boss = false): void {
-    for (let s = 0; s < n; s++) {
-      const k = this.k(i + di * s, j + dj * s)
-      this.cell[k] = Cell.Corridor
-      this.floor[k] = y
-    }
-    const from = this.rooms.length - 1
-    this.doors.push({
-      id: this.doors.length, i: i + di * (n - 1), j: j + dj * (n - 1), axis: di !== 0 ? 'x' : 'z',
-      dir: (di !== 0 ? di : dj) as 1 | -1, from, to: from + 1, boss
-    })
-  }
-
-  checkpoint(i: number, j: number, yaw: number, cells: Array<[number, number]>): void {
-    const r = this.room[this.k(i, j)]!
-    this.checkpoints.push({
-      x: cellCenter(i), z: cellCenter(j), y: this.floor[this.k(i, j)]!, yaw, room: r,
-      cells: cells.map(([a, b]) => this.k(a, b))
-    })
-  }
-
-  /** A machine's post, leashed to a rectangle of cells (inclusive). */
-  foe(role: FoePost['role'], i: number, j: number, yaw: number, box: [number, number, number, number], fly?: [number, number]): void {
-    const [i0, j0, i1, j1] = box
-    const pad = 0.75
-    this.foes.push({
-      role, x: cellCenter(i), z: cellCenter(j), y: this.floor[this.k(i, j)]!, yaw, room: this.room[this.k(i, j)]!,
-      leash: [i0 * CELL + pad, j0 * CELL + pad, (i1 + 1) * CELL - pad, (j1 + 1) * CELL - pad], fly
-    })
-  }
-}
-
-/** Facing yaw (the game's convention: forward = (−sin, −cos)) toward +X etc. */
-const YAW_PX = -Math.PI / 2
-const YAW_NX = Math.PI / 2
-const YAW_PZ = Math.PI
-const YAW_NZ = 0
 
 /**
  * Build the tower for `seed`. Every storey is STOREY metres: floor levels
@@ -146,7 +49,7 @@ const YAW_NZ = 0
  */
 export const generateClimb = (seed: number): MapData => {
   const rng = mulberry32(seed ^ 0xc11b)
-  const b = new Builder()
+  const b = new Builder(GRID_W, GRID_H)
   const L = (n: number) => n * STOREY
   const half = STOREY / 2
 
@@ -164,6 +67,11 @@ export const generateClimb = (seed: number): MapData => {
   b.foe('turret', 3, 3, YAW_PZ, [3, 3, 3, 3])
   b.foe('ground', 2, 4, YAW_PZ, [2, 4, 4, 5])
   b.foe('ground', 7, 6, YAW_NX, [7, 5, 7, 7])
+  // The secret: behind the pad, along the hall's front wall, a striped false
+  // wall, the panel beside it and four lamps to copy it with; a Repair Gel
+  // in the two-cell alcove behind. Off the route, and no numbers drawn.
+  b.secret(0, 'lights', [2, 8, 2, 9], { i: 2, j: 8, axis: 'z' },
+    [[4, 7, 's'], [5, 7, 's'], [6, 7, 's'], [7, 7, 's']], [1, 0, 1, 1], 'tank')
   b.corridor(8, 3, 1, 0, 2, L(1))
 
   // ── 2 Ladder shaft ────────────────────────────────────────────────────────
@@ -176,6 +84,9 @@ export const generateClimb = (seed: number): MapData => {
   b.ladders.push({ i: 11, j: 3, di: 0, dj: -1, y0: L(1), y1: L(2), side: false })
   b.ladders.push({ i: 10, j: 4, di: 0, dj: 1, y0: L(1), y1: L(2), side: true })
   b.rewards.push({ x: cellCenter(10), z: cellCenter(5), y: L(2), room: 1, kind: 'hp' })
+  // A chest in the upper ledge's dead end, backed onto the wall past the
+  // ladder's top: seen on the way up, off the walk to the way on.
+  b.chest(10, 2, YAW_NX)
   b.checkpoint(10, 3, YAW_PX, [[10, 3], [11, 3], [10, 4], [11, 4], [12, 4], [11, 5], [12, 5]])
   b.foe('flyer', 11, 4, YAW_NX, [10, 2, 12, 5], [L(1), L(2)])
   b.corridor(13, 2, 1, 0, 2, L(2))
@@ -257,6 +168,9 @@ export const generateClimb = (seed: number): MapData => {
   b.foe('turret', 20, 11, YAW_PZ, [20, 11, 20, 11])
   b.foe('turret', 19, 15, YAW_NZ, [19, 15, 19, 15])
   b.foe('ground', 17, 12, YAW_PX, [17, 11, 18, 15])
+  // A chest at the end of the first terrace down, against the side wall: a
+  // detour on the way down, never in a drop's landing line.
+  b.chest(21, 15, YAW_PZ)
   // The last checkpoint: the floor in front of the boss shutter.
   b.checkpoint(17, 13, YAW_NX, [[17, 11], [17, 12], [17, 13], [17, 14], [17, 15], [18, 11], [18, 12], [18, 13], [18, 14], [18, 15]])
   b.corridor(16, 13, -1, 0, 2, L(0), true)
@@ -264,82 +178,10 @@ export const generateClimb = (seed: number): MapData => {
   // ── 7 Arena ───────────────────────────────────────────────────────────────
   b.addRoom(8, 10, 7, 7, 'boss', 'arena', L(0))
 
-  // Doors lead INTO rooms: each room's door index.
-  for (const d of b.doors) b.rooms[d.to]!.door = d.id
-
-  const wallTop: number[] = []
-  const pitBottom: number[] = []
-  b.rooms.forEach((r, id) => {
-    let hi = -Infinity
-    let lo = Infinity
-    for (let j = r.z0; j < r.z0 + r.h; j++) {
-      for (let i = r.x0; i < r.x0 + r.w; i++) {
-        const k = b.k(i, j)
-        if (b.pit[k]) continue
-        hi = Math.max(hi, b.floor[k]! + b.rise[k]!)
-        lo = Math.min(lo, b.floor[k]!)
-      }
-    }
-    // The arena keeps the labyrinth's wall height: the boss drops in over it.
-    wallTop.push(b.sections[id] === 'arena' ? 4.2 : hi + WALL_OVER)
-    pitBottom.push(lo - PIT_DEPTH)
-  })
-
-  const terrain: Terrain = {
-    floor: b.floor, ramp: b.ramp, rise: b.rise, pit: b.pit, wallTop, pitBottom, sections: b.sections,
-    ladders: b.ladders, lifts: b.lifts, crushers: b.crushers, lanes: b.lanes, checkpoints: b.checkpoints,
-    rewards: b.rewards, foes: b.foes
-  }
   // Start: on the pad in the hall, facing the stairs.
   const sx = cellCenter(3)
   const sz = cellCenter(6)
   const start = { x: sx, z: sz, yaw: Math.atan2(-(cellCenter(stairI) - sx), -(cellCenter(5) - sz)) }
-  const map: MapData = {
-    seed, w: b.W, h: b.H, cell: b.cell, room: b.room, navBlock: new Uint8Array(b.W * b.H), rooms: b.rooms,
-    doors: b.doors, pillars: [], start, terrain
-  }
+  const map = finish(b, start, seed)
   return rng() < 0.5 ? mirrorX(map) : map
-}
-
-/** The whole tower mirrored left-right: same route, the other hand. */
-const mirrorX = (m: MapData): MapData => {
-  const W = m.w
-  const X = W * CELL
-  const t = m.terrain!
-  const flip = <A extends Uint8Array | Int16Array | Float32Array>(a: A): A => {
-    const out = a.slice() as A
-    for (let j = 0; j < m.h; j++) for (let i = 0; i < W; i++) out[j * W + i] = a[j * W + (W - 1 - i)]!
-    return out
-  }
-  const ramp = flip(t.ramp)
-  for (let k = 0; k < ramp.length; k++) {
-    if (ramp[k] === Ramp.PX) ramp[k] = Ramp.NX
-    else if (ramp[k] === Ramp.NX) ramp[k] = Ramp.PX
-  }
-  const mi = (i: number) => W - 1 - i
-  const mk = (k: number) => { const i = k % W; return (k - i) + mi(i) }
-  const box = (l: [number, number, number, number]): [number, number, number, number] => [X - l[2], l[1], X - l[0], l[3]]
-  return {
-    ...m,
-    cell: flip(m.cell),
-    room: flip(m.room),
-    navBlock: flip(m.navBlock),
-    rooms: m.rooms.map(r => ({ ...r, x0: W - (r.x0 + r.w) })),
-    doors: m.doors.map(d => ({ ...d, i: mi(d.i), dir: (d.axis === 'x' ? -d.dir : d.dir) as 1 | -1 })),
-    start: { x: X - m.start.x, z: m.start.z, yaw: -m.start.yaw },
-    terrain: {
-      ...t,
-      floor: flip(t.floor),
-      ramp,
-      rise: flip(t.rise),
-      pit: flip(t.pit),
-      ladders: t.ladders.map(l => ({ ...l, i: mi(l.i), di: -l.di })),
-      lifts: t.lifts.map(l => ({ ...l, ax: X - l.ax, bx: X - l.bx })),
-      crushers: t.crushers.map(c => ({ ...c, i: mi(c.i) })),
-      lanes: t.lanes.map(l => ({ ...l, x: X - l.x, dx: -l.dx })),
-      checkpoints: t.checkpoints.map(c => ({ ...c, x: X - c.x, yaw: -c.yaw, cells: c.cells.map(mk) })),
-      rewards: t.rewards.map(r => ({ ...r, x: X - r.x })),
-      foes: t.foes.map(f => ({ ...f, x: X - f.x, yaw: -f.yaw, leash: box(f.leash) }))
-    }
-  }
 }

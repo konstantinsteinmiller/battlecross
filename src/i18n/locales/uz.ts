@@ -124,6 +124,8 @@ export default {
     'supply': 'Taʼminot reydi',
     'purge': 'Sektorni tozalash',
     'climb': 'Minora poygasi',
+    'stage': 'Platforma bosqichi',
+    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari' },
     'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Elitar {target} {sector} sektorini dahshatga solmoqda. Uni ovlang.',
       'supply': '{sector} sektorida {n} ta taʼminot sandigʻini oching.',
       'purge': '{sector} sektoridagi barcha mashinalarni yoʻq qiling.',
-      'climb': '{sector} sektoridagi minoraga chiqing — zinapoyalar, narvonlar, liftlar va chuqurlar — soʻng arenaga tushing. Qayta jang: {boss}.'
+      'climb': '{sector} sektoridagi minoraga chiqing — zinapoyalar, narvonlar, liftlar va chuqurlar — soʻng arenaga tushing. Qayta jang: {boss}.',
+      'stage': '{sector} sektori boʻylab yuguring, sirpaning va yoʻl oling — tokchalar, chuqurlar va mashinalar — arenagacha. Asosiy dushman: {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Elita ovi: {target}',
     'supply': 'Taʼminot sandiqlari: {n}/{total}',
     'purge': 'Yoʻq qilingan mashinalar: {n}/{total}',
-    'climb': 'Minoraga chiqing va asosiy dushmanni yenging: {boss}'
+    'climb': 'Minoraga chiqing va asosiy dushmanni yenging: {boss}',
+    'stage': 'Arenaga yeting va asosiy dushmanni yenging: {boss}'
   },
   'mission': {
     'bossDown': '{boss} yoʻq qilindi!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Yaxshilash!',
     'found': '{rarity} {item} topildi!',
-    'tank': 'Taʼmir geli topildi!'
+    'tank': 'Taʼmir geli topildi!',
+    'giftTank': 'Sovg‘a: +1 taʼmir geli!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Yangi qurol: {weapon}!',
     'newSector': 'Yangi sektor ochildi: {sector}',
     'items': 'Topilgan jihozlar',
-    'double': 'Ikki barobar bolt (+{n})'
+    'triple': 'Uch barobar bolt',
+    'tripleAria': 'Qisqa video ko‘ring: boltlarni uch barobar oshiring, +{n}'
   },
   'defeat': {
     'title': 'TIZIM OʻCHDI',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Sektor tozalandi. Uning topshiriqlari hali ham taxtada.',
     'deploy': 'Jangga',
     'reroll': 'Yangi topshiriq',
+    'gift': {
+      'name': 'Yo‘l uchun gel',
+      'desc': 'Qisqa video ko‘ring: keyingi topshiriq uchun +1 taʼmir geli, limitdan oshsa ham.',
+      'aria': 'Keyingi topshiriqda qo‘shimcha taʼmir geli uchun qisqa video ko‘ring',
+      'ready': 'Sovg‘a tayyor!',
+      'readyDesc': 'Keyingi topshiriq uchun +1 taʼmir geli.'
+    },
     'unlock': {
       'hint': 'Ochish uchun yana {n} ta missiyani bajaring',
       'aria': '{name}, qulflangan: yana {n} ta missiyani bajaring'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Pastda lava. Metall ustida qol.',
+        'leap': 'Yurib o‘tishga juda keng. Chetidan sirpan, uchib o‘tasan.',
+        'vents': 'Avval vishillash, keyin olov. Guvillash tinishini kut, keyin yur.',
+        'barrels': 'Bochkalar! Chiroqlarga qara, oralaridan o‘t.',
+        'hammers': 'Temirchilik bolg‘alari. Ritmni sana, keyin yugur.',
+        'drop': 'Pastga uzoq yo‘l. Bittadan tokchaga.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': "Muz! Tayoqchani qo'yib yuborsang ham, sirpanishda davom etasan.",
+        'spikes': "U muz ostida tikanlar bor. To'g'ri yur, keskin burilma.",
+        'frost': "Sovuq purkagich. Avval yonib, vishillaydi. Tinchiganda o't.",
+        'icicles': 'Polda soyalar? Muz sumalaklari. Doiradan chiq!',
+        'pillar': "Anavi ustun yorilgan. Otib tashla — mana senga qisqa yo'l.",
+        'stairs': 'Muzli zinapoya. Sekin — maydonchasi kichkina.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Bu panellar urib turibdi. Qorongʻi qatorda kut, keyin qadam bos.',
+        'board': 'Boshqaruvni qoʻyib yubor — men haydayman, sen otasan.',
+        'wave': 'Oldinda dronlar! Shoʻngʻishidan oldin urib tushir.',
+        'dip': 'Oldinda katta pastlik. Mahkam ushla — otishda davom et!',
+        'arrive': 'Oxirgi bekat. Tush!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Yurib oʻtish uchun juda keng. Chetidan sirpan — tezliging olib oʻtadi.',
+        'down': 'Zoʻr sakrash. Endi pastga qarama.',
+        'shuttle': 'Shattllar. Toʻxtaganda min, narigi tomonda tush.',
+        'wind': 'Shamol tinguncha kut, keyin yur. Yoki ustun ortiga yashirin.',
+        'bob': 'Tebranuvchi platformalar. Pastda min, u seni tepaga olib chiqadi.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Anavi panelda naqsh bor. Devordagi chiroqlar hali unday emas.',
+      'color': 'U ramkaning sevimli rangi bor. Faqat oʻsha rangdagi chiroqlar yonishi kerak.',
+      'cycle': 'Har bir oʻq chiroqning fikrini oʻzgartiradi. Panel nima istashini biladi.',
+      'solved': 'Qarang-a. Kimdir jumboqlarni yaxshi koʻrar ekan.'
+    },
     'landed': 'Qoʻndik! Ketdik.',
     'brief': {
       'tutorial': 'Mashgʻulot vaqti. Men yoʻl koʻrsataman!',

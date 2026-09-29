@@ -772,7 +772,7 @@ export class IntroMode implements GameMode {
     const flash = t >= SPIRE_FLASH ? 0.5 + 0.5 * Math.sin((t - SPIRE_FLASH) * 30) : 0
     this.light(
       reach > 0.3 ? '#3a1630' : '#2b2350', '#1a1030', 1.0,
-      reach > 0.3 ? '#ff9a9a' : '#ffd7a8', 1.0, '#7fd6ff', 0.5, 40, 120
+      reach > 0.3 ? '#ff9a9a' : '#ffd7a8', 1.0, '#7fd6ff', 0.5, 45, 175
     )
     this.valley.animate(t)
     this.valley.setSignal(reach, t >= SPIRE_FLASH ? Math.max(flash, reach > 0 ? 1 : 0) : 0)

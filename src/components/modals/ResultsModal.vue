@@ -48,16 +48,25 @@
         FButton(v-if="freeFirst" type="primary" icon="forward" :size="pairSize" @click="done")
           span.free-label
             span {{ t('continue') }}
-            span.sizer(v-if="offerDouble" aria-hidden="true") {{ doubleLabel }}
-        FButton(
-          v-if="offerDouble"
+            span.sizer(v-if="offerTriple" aria-hidden="true")
+              TripleOffer(:amount="tripleAmount")
+        //- The rewarded offer: ×3 bolts. Orange into magenta with a gold
+        //- sticker — special, never the green of a plain confirm — and a big
+        //- camera badge so "watch a video" reads without the words.
+        FButton.offer(
+          v-if="offerTriple"
           type="warning"
-          icon="video"
+          color-from="#ff9a2e"
+          color-to="#e8327f"
+          shadow-color="#5a0f36"
           :size="pairSize"
+          :emphasis="freeFirst ? 1 : 1.12"
+          :attention="!freeFirst"
           :is-disabled="adInFlight"
-          :label="doubleLabel"
-          @click="double"
+          :aria-label="tripleAria"
+          @click="triple"
         )
+          TripleOffer(:amount="tripleAmount")
         FButton(v-if="!freeFirst" type="primary" icon="forward" :label="t('continue')" @click="done")
 </template>
 
@@ -74,6 +83,7 @@ import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { formatCount } from '@/utils/localeNumber'
 import RankBadge from '@/components/molecules/RankBadge.vue'
 import LootCompare from '@/components/molecules/LootCompare.vue'
+import TripleOffer from '@/components/molecules/TripleOffer.vue'
 import { leaderboardEnabled } from '@/use/useLeaderboard'
 import { platformPolicy } from '@/platforms/capabilities'
 import { isShortViewport, windowWidth } from '@/use/useUser'
@@ -82,18 +92,25 @@ import { isShortViewport, windowWidth } from '@/use/useUser'
 const { t, locale } = useI18n()
 const open = computed(() => flow.modal === 'results')
 const r = computed(() => flow.results)
-const doubled = ref(false)
+/** The rewarded offer was taken: the run's bolts paid three times over. */
+const tripled = ref(false)
 const canAd = computed(() => canOfferReward.value)
 /** Portal rule (Poki): the free choice before the rewarded one. */
 const freeFirst = platformPolicy.freeOptionFirst
-const offerDouble = computed(() => !!(r.value && r.value.success && canAd.value && !doubled.value && r.value.bolts > 0))
-const doubleLabel = computed(() => (r.value ? t('results.double', { n: fmt(r.value.bolts) }) : ''))
+/** The ad pays this many times the run's bolts in all (the run's own share
+ *  included). Three, not two: a doubling was skipped too often to be worth
+ *  the button. */
+const OFFER_MUL = 3
+const offerTriple = computed(() => !!(r.value && r.value.success && canAd.value && !tripled.value && r.value.bolts > 0))
+/** What the offer brings in total, as the button shows it. */
+const tripleAmount = computed(() => (r.value ? fmt(r.value.bolts * OFFER_MUL) : ''))
+const tripleAria = computed(() => t('results.tripleAria', { n: tripleAmount.value }))
 /** Two equal-width buttons need more room than the old pair did. In a tight
  *  landscape (Poki's 640×360 test size) they take the small size so they stay
  *  on one row instead of wrapping and pushing the stats into a scroll. */
 const pairSize = computed(() =>
-  (freeFirst && offerDouble.value && isShortViewport.value && windowWidth.value < 800 ? 'sm' : undefined))
-const boltsShown = computed(() => (r.value ? r.value.bolts * (doubled.value ? 2 : 1) : 0))
+  (freeFirst && offerTriple.value && isShortViewport.value && windowWidth.value < 800 ? 'sm' : undefined))
+const boltsShown = computed(() => (r.value ? r.value.bolts * (tripled.value ? OFFER_MUL : 1) : 0))
 const hasExtras = computed(() => {
   const x = r.value
   return !!x && (x.levelAfter > x.levelBefore || !!x.weapon || !!x.unlocked || x.items.length > 0)
@@ -103,14 +120,15 @@ const fmt = (n: number) => formatCount(Math.round(n), locale.value)
 const lifetime = computed(() => (r.value ? lifetimeXp() : 0))
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
-watch(open, (o) => { if (o) doubled.value = false })
+watch(open, (o) => { if (o) tripled.value = false })
 
-const double = async () => {
+const triple = async () => {
   const res = r.value
   if (!res) return
   await claimReward(() => {
-    profile.bolts += res.bolts
-    doubled.value = true
+    // The run already paid its bolts once: the ad adds the other two shares.
+    profile.bolts += res.bolts * (OFFER_MUL - 1)
+    tripled.value = true
     saveProfile()
   })
 }

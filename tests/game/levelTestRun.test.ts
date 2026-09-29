@@ -84,7 +84,7 @@ describe('level-lab test run', () => {
     const m = await load()
     location.hash = BLAZE_BOSS
     await m.flowMod.createBootMode()
-    expect(m.built).toEqual([{ quest: m.quests.storyQuest(m.SECTOR_BY_ID.blaze, 6, 0), snapshot: null }])
+    expect(m.built).toEqual([{ quest: m.quests.bossQuest(m.SECTOR_BY_ID.blaze, 6, 0), snapshot: null }])
     expect(m.flowMod.flow.screen).toBe('mission')
     expect(m.flowMod.isTestRun()).toBe(true)
   })

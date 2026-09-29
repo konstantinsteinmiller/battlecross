@@ -24,8 +24,8 @@ import { bossPortrait, cachedBossPortrait } from '@/game/models/portrait'
 const { t } = useI18n()
 
 /** The objectives that name the sector's boss ("Defeat {boss}"; a climb's
- *  rematch at the foot of the tower too). */
-const BOSS_OBJECTIVES = ['objective.boss', 'objective.tutorial', 'objective.climb']
+ *  rematch at the foot of the tower and a platform stage's arena too). */
+const BOSS_OBJECTIVES = ['objective.boss', 'objective.tutorial', 'objective.climb', 'objective.stage']
 /** Whose objective this is: the sector's Core Master (the Scrapper in the
  *  Scrapyard, on the tutorial and its replays alike). */
 const bossId = computed<BossId | null>(() => {

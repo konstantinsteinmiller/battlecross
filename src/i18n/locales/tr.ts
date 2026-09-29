@@ -126,6 +126,8 @@ export default {
     'supply': 'İkmal Turu',
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
+    'stage': 'Platform Bölümü',
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -136,7 +138,8 @@ export default {
       'elite': '{sector} bölgesinde elit bir {target} terör estiriyor. Onu avla.',
       'supply': '{sector} bölgesinde {n} ikmal sandığını kırıp aç.',
       'purge': '{sector} bölgesindeki tüm makineleri yok et.',
-      'climb': '{sector} bölgesindeki kuleye tırman — merdivenler, seyyar merdivenler, asansörler ve çukurlar — sonra arenaya in. Rövanş: {boss}.'
+      'climb': '{sector} bölgesindeki kuleye tırman — merdivenler, seyyar merdivenler, asansörler ve çukurlar — sonra arenaya in. Rövanş: {boss}.',
+      'stage': '{sector} bölgesinde koş, kay ve araca bin — çıkıntılar, çukurlar ve makineler — arenaya kadar ilerle. Rakip: {boss}.'
     }
   },
   'objective': {
@@ -151,7 +154,8 @@ export default {
     'elite': 'Elit {target} hedefini avla',
     'supply': 'İkmal sandıkları: {n}/{total}',
     'purge': 'Yok edilen makine: {n}/{total}',
-    'climb': 'Kuleye tırman, patronu yen: {boss}'
+    'climb': 'Kuleye tırman, patronu yen: {boss}',
+    'stage': 'Arenaya ulaş, patronu yen: {boss}'
   },
   'mission': {
     'bossDown': '{boss} yok edildi!',
@@ -205,7 +209,8 @@ export default {
   'loot': {
     'upgrade': 'Yükseltme!',
     'found': '{rarity} {item} bulundu!',
-    'tank': 'Tamir Jeli bulundu!'
+    'tank': 'Tamir Jeli bulundu!',
+    'giftTank': 'Hediye: +1 Tamir Jeli!'
   },
 
   'results': {
@@ -220,7 +225,8 @@ export default {
     'newWeapon': 'Yeni silah: {weapon}!',
     'newSector': 'Yeni bölge açıldı: {sector}',
     'items': 'Bulunan ekipman',
-    'double': 'Çift cıvata (+{n})'
+    'triple': 'Üç kat cıvata',
+    'tripleAria': 'Kısa bir video izle: cıvatalarını üç katına çıkar, +{n}'
   },
   'defeat': {
     'title': 'SİSTEM ÇÖKTÜ',
@@ -292,6 +298,13 @@ export default {
     'sectorSecured': 'Bölge güvende. İşleri hâlâ panoda.',
     'deploy': 'Yola çık',
     'reroll': 'Yeni iş',
+    'gift': {
+      'name': 'Yol için jel',
+      'desc': 'Kısa bir video izle: sonraki görevin için +1 Tamir Jeli, sınırını aşsa bile.',
+      'aria': 'Sonraki görevde fazladan bir Tamir Jeli için kısa bir video izle',
+      'ready': 'Hediye hazır!',
+      'readyDesc': 'Sonraki görevin için +1 Tamir Jeli.'
+    },
     'unlock': {
       'hint': 'Açmak için {n} görev daha tamamla',
       'aria': '{name}, kilitli: {n} görev daha tamamla'
@@ -549,6 +562,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Aşağıdaki lav. Metalin üstünde kal.',
+        'leap': 'Yürümek için çok geniş. Kenardan kay, karşıya geçersin.',
+        'vents': 'Önce tıslama, sonra ateş. Kükremeyi bekle, sonra geç.',
+        'barrels': 'Variller! Lambalara bak, aralarından geç.',
+        'hammers': 'Demirci çekiçleri. Ritmi say, sonra koş.',
+        'drop': 'Uzun bir iniş. Her seferinde bir çıkıntı.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Buz! Kolu bırakırsan kaymaya devam edersin.',
+        'spikes': 'O buzun altında dikenler var. Düz yürü, keskin dönüş yok.',
+        'frost': 'Buz püskürtücü. Önce parlar ve tıslar. Sessizleşince geç.',
+        'icicles': 'Yerde gölgeler mi? Buz sarkıtları. Halkadan çık!',
+        'pillar': 'Şu sütun çatlak. Ateş et, işte sana kestirme.',
+        'stairs': 'Buzlu merdiven. Yavaş ol, sahanlık küçük.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Bu paneller atıyor. Karanlık sırada bekle, sonra ilerle.',
+        'board': 'Kumandayı bırak — ben sürerim, sen ateş et.',
+        'wave': 'Önde dronlar var! Dalış yapmadan vur onları.',
+        'dip': 'Büyük iniş geliyor. Sıkı tutun — ateşe devam!',
+        'arrive': 'Son durak. İn bakalım!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Yürümek için çok geniş. Kenardan kay, hızın seni taşır.',
+        'down': 'Güzel sıçrayış. Şimdi aşağı bakma.',
+        'shuttle': 'Mekikler. Yanaşınca bin, öbür tarafta in.',
+        'wind': 'Rüzgâr dinene kadar bekle, sonra ilerle. Ya da bir sütunun arkasına saklan.',
+        'bob': 'Salınan platformlar. Aşağıda bin, seni yukarı taşısın.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'O panel bir desen gösteriyor. Duvardaki lambalar henüz değil.',
+      'color': 'O çerçevenin sevdiği bir renk var. Sadece o rengin lambaları yanmalı.',
+      'cycle': 'Her atış bir lambanın fikrini değiştirir. Panel ne istediğini biliyor.',
+      'solved': 'Vay vay. Birileri bulmaca seviyor.'
+    },
     'landed': 'İniş tamam! Hadi bakalım.',
     'brief': {
       'tutorial': 'Eğitim zamanı. Sana yol gösteririm!',

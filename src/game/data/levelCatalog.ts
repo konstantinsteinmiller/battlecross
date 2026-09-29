@@ -1,9 +1,10 @@
 import type { SectorId } from '../world/themes'
 import { generateMap, type MapData } from '../world/levelGen'
 import { generateClimb } from '../world/climbGen'
+import { generateStage, STAGE_LENGTH, type StageSector } from '../world/stages'
 import { MAX_LEVEL } from './progression'
 import { SECTORS, SECTOR_BY_ID } from './regions'
-import { tutorialQuest, storyQuest, climbJob, rollJob, type Quest, type QuestTemplate } from './quests'
+import { tutorialQuest, storyQuest, bossQuest, climbJob, rollJob, type Quest, type QuestTemplate } from './quests'
 
 /**
  * ─── Level catalog (DEV: the level lab, `/levels`) ───────────────────────────
@@ -14,9 +15,10 @@ import { tutorialQuest, storyQuest, climbJob, rollJob, type Quest, type QuestTem
  * a look-alike.
  *
  * A level type IS a quest template. The template alone decides the map
- * (`setupFromQuest`: the climb is `generateClimb`'s tower, every other one the
- * room labyrinth of `generateMap`, with a boss room for `boss` and
- * `tutorial`), the objective and the cast. The climb's sections are parts of
+ * (`setupFromQuest`: the climb is `generateClimb`'s tower, a stage the
+ * sector's platform stage (`world/stages/`), every other one the room
+ * labyrinth of `generateMap`, with a boss room for `boss` and `tutorial`),
+ * the objective and the cast. The climb's sections are parts of
  * every tower (all seven, always in order), not separate levels. So the
  * catalog is keyed by `QuestTemplate`: a new template does not type-check
  * until it has an entry here, and from then on the lab lists it without
@@ -28,7 +30,7 @@ import { tutorialQuest, storyQuest, climbJob, rollJob, type Quest, type QuestTem
  */
 
 /** Which generator builds the map. */
-export type MapKind = 'rooms' | 'climb'
+export type MapKind = 'rooms' | 'climb' | 'stage'
 
 /** What the lab's seed feeds: a job-board roll (`rollJob` / `climbJob`), the
  *  story attempt number (`storyQuest`; 0 = a first try), or nothing at all
@@ -55,6 +57,8 @@ export interface LevelType {
 }
 
 const ALL_SECTORS: readonly SectorId[] = SECTORS.map(s => s.id)
+/** The sectors whose story mission is a platform stage, in story order. */
+const STAGE_SECTORS: readonly SectorId[] = ALL_SECTORS.filter(s => s in STAGE_LENGTH) as StageSector[]
 
 /** How far past the seed `rollAs` looks. The rarest job is one board roll in
  *  eight, so 512 misses in a row (~1e-30) never happens. */
@@ -94,6 +98,18 @@ export const LEVEL_TYPES: Record<QuestTemplate, LevelType> = {
     isNew: true,
     build: (sector, seed, playerLevel) => climbJob(seed, [sector], playerLevel)
   },
+  stage: {
+    template: 'stage',
+    name: 'Platform Stage',
+    blurb: 'A sector\'s story mission as a hand-built platformer (Meltdown Descent, Glacier Run, Rail Rush, Sky Docks), '
+      + 'ending in its Core Master\'s arena. The seed is the attempt number (0 = a first try).',
+    map: 'stage',
+    boss: true,
+    sectors: STAGE_SECTORS,
+    seed: 'attempt',
+    isNew: true,
+    build: (sector, seed, playerLevel) => storyQuest(SECTOR_BY_ID[sector], playerLevel, seed)
+  },
   tutorial: {
     template: 'tutorial',
     name: 'Wake-Up Call',
@@ -108,13 +124,14 @@ export const LEVEL_TYPES: Record<QuestTemplate, LevelType> = {
   boss: {
     template: 'boss',
     name: 'Core Master Showdown',
-    blurb: 'A sector\'s story mission: through its rooms to the Core Master. The seed is the attempt number (0 = a first try).',
+    blurb: 'Through a labyrinth of rooms to the Core Master: the Fortress\'s story mission (the stage sectors\' before their stages). '
+      + 'The seed is the attempt number (0 = a first try).',
     map: 'rooms',
     boss: true,
     sectors: ALL_SECTORS,
     seed: 'attempt',
     isNew: false,
-    build: (sector, seed, playerLevel) => storyQuest(SECTOR_BY_ID[sector], playerLevel, seed)
+    build: (sector, seed, playerLevel) => bossQuest(SECTOR_BY_ID[sector], playerLevel, seed)
   },
   kill: job('kill', 'Scrap Duty', 'Destroy a number of one kind of machine.'),
   collect: job('collect', 'Data Recovery', 'Recover the data cores scattered through the sector.'),
@@ -145,7 +162,8 @@ export const buildLevel = (p: LevelPick): Quest => LEVEL_TYPES[p.template].build
  *  `setupFromQuest` (`tests/game/levelCatalog.test.ts` holds them together). */
 const MAPS: Record<MapKind, (q: Quest, type: LevelType) => MapData> = {
   rooms: (q, type) => generateMap({ seed: q.seed, rooms: q.rooms, boss: type.boss }),
-  climb: (q) => generateClimb(q.seed)
+  climb: (q) => generateClimb(q.seed),
+  stage: (q) => generateStage(q.sector, q.seed)
 }
 
 export const levelMap = (q: Quest): MapData => {

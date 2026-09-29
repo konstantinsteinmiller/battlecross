@@ -47,6 +47,10 @@ export interface InventorySave {
   tanks: number
   /** Item ids the player has not looked at yet (the "NEW" badge). */
   fresh: string[]
+  /** A rewarded "+1 Repair Gel" from the lab, waiting for the next mission's
+   *  start (`claimGiftTank`). A flag, not a tank: it may go one over the cap,
+   *  which only a live mission can carry. */
+  giftTank: boolean
 }
 
 export interface QuestSave {
@@ -104,7 +108,8 @@ const defaultInv = (): InventorySave => {
     items,
     equipped: { buster: 'start_buster', helmet: 'start_helm', chest: 'start_body', boots: 'start_boots', chip1: null, chip2: null },
     tanks: 1,
-    fresh: []
+    fresh: [],
+    giftTank: false
   }
 }
 
@@ -166,6 +171,8 @@ export const loadProfile = (): void => {
   }
   inv.equipped = obj(inv.equipped, d.inv.equipped)
   if (!Array.isArray(inv.fresh)) inv.fresh = []
+  // Saves from before the gift have no flag; anything but `true` is none.
+  inv.giftTank = inv.giftTank === true
   inv.items = inv.items.filter(it => it && BASE_BY_ID[it.base])
   profile.inv = inv
   const quests = obj(stored(QUESTS_KEY), d.quests)
@@ -230,6 +237,20 @@ export const saveProfile = (): void => {
     [STATS_KEY]: plain(profile.stats),
     [TUTORIAL_KEY]: plain(profile.tips)
   })
+}
+
+/**
+ * A new mission has begun (not a resume: that mission already had its turn):
+ * a pending rewarded gift becomes one more Repair Gel, over the cap if need
+ * be, and the flag clears so it is paid exactly once. Saved at once, so the
+ * blob never holds the flag and the gel it became side by side.
+ */
+export const claimGiftTank = (): boolean => {
+  if (!profile.inv.giftTank) return false
+  profile.inv.giftTank = false
+  profile.inv.tanks++
+  saveProfile()
+  return true
 }
 
 let loaded = false
@@ -485,9 +506,10 @@ export interface MissionSnapshot {
   done: boolean
   /** Tutorial only; a tutorial snapshot without it predates the walkthrough. */
   walk?: WalkthroughSave
-  /** Climb only: the last checkpoint reached (−1 = the pad; a resume starts
-   *  there) and the reward ledges already emptied. */
-  climb?: { cp: number; got: number[] }
+  /** Climb and platform stages only: the last checkpoint reached (−1 = the
+   *  pad; a resume starts there), the reward ledges already emptied, the
+   *  secrets opened and each stage feature's own save (`sim/climb.ts`). */
+  climb?: { cp: number; got: number[]; open?: number[]; feat?: unknown[] }
   /** The borrowed weapon (`sim/borrowed.ts`): the weapon carried and its
    *  charges left, and the capsules already taken. Never in the profile. */
   borrowed?: { w: string; shots: number; got: number[] }

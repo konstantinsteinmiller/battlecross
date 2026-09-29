@@ -124,6 +124,8 @@ export default {
     'supply': '보급 작전',
     'purge': '구역 소탕',
     'climb': '타워 런',
+    'stage': '플랫폼 스테이지',
+    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독' },
     'rematch': '재대결: {boss}',
     'desc': {
       'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
@@ -134,7 +136,8 @@ export default {
       'elite': '{sector}에서 엘리트 {target} 한 기가 날뛰고 있습니다. 추적해 처치하세요.',
       'supply': '{sector}에서 보급 상자 {n}개를 열어젖히세요.',
       'purge': '{sector}의 기계를 모두 파괴하세요.',
-      'climb': '{sector}의 탑을 오르세요. 계단, 사다리, 리프트, 구덩이를 지나 아레나로 내려가 {boss}에게 다시 도전하세요.'
+      'climb': '{sector}의 탑을 오르세요. 계단, 사다리, 리프트, 구덩이를 지나 아레나로 내려가 {boss}에게 다시 도전하세요.',
+      'stage': '{sector}를 달리고, 미끄러지고, 올라타며 통과하세요. 난간, 구덩이, 기계를 지나 아레나에서 {boss}에게 맞서세요.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': '엘리트 {target} 처치',
     'supply': '보급 상자: {n}/{total}',
     'purge': '파괴한 기계: {n}/{total}',
-    'climb': '탑을 올라 {boss} 처치'
+    'climb': '탑을 올라 {boss} 처치',
+    'stage': '아레나에 도달해 {boss} 처치'
   },
   'mission': {
     'bossDown': '{boss} 격파!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': '업그레이드!',
     'found': '{rarity} {item} 발견!',
-    'tank': '수리 젤 발견!'
+    'tank': '수리 젤 발견!',
+    'giftTank': '선물: 수리 젤 +1!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': '새 무기: {weapon}!',
     'newSector': '새 구역 해금: {sector}',
     'items': '획득한 장비',
-    'double': '나사 2배 (+{n})'
+    'triple': '나사 3배',
+    'tripleAria': '짧은 영상 보고 나사 3배 받기: +{n}'
   },
   'defeat': {
     'title': '시스템 다운',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': '구역 확보 완료. 의뢰는 아직 게시판에 남아 있습니다.',
     'deploy': '출격',
     'reroll': '새 의뢰',
+    'gift': {
+      'name': '여정용 젤',
+      'desc': '짧은 영상 시청: 다음 임무에 수리 젤 +1, 한도를 넘어도 OK.',
+      'aria': '짧은 영상을 보고 다음 임무에 수리 젤 하나 더 받기',
+      'ready': '선물 준비 완료!',
+      'readyDesc': '다음 임무에 수리 젤 +1.'
+    },
     'unlock': {
       'hint': '미션을 {n}개 더 완료하면 열립니다',
       'aria': '{name}, 잠김: 미션 {n}개 더 완료'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': '아래는 용암이야. 금속 위에만 있어.',
+        'leap': '걸어서는 못 건너. 가장자리에서 슬라이드하면 넘어가.',
+        'vents': '쉿 소리 다음엔 불이야. 불길이 멎으면 가.',
+        'barrels': '통이다! 램프를 보고 사이로 건너.',
+        'hammers': '단조 해머야. 박자를 세고 달려.',
+        'drop': '한참 내려가야 해. 한 칸씩 차근차근.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': '얼음이야! 스틱을 놓아도 계속 미끄러져.',
+        'spikes': '저 얼음 밑엔 가시가 있어. 똑바로 걸어, 급하게 꺾지 말고.',
+        'frost': '냉기 분사기야. 먼저 빛나고 쉭 소리를 내. 조용할 때 건너.',
+        'icicles': '바닥에 그림자? 고드름이야. 원 밖으로 피해!',
+        'pillar': '저 기둥 금이 갔네. 쏘면 지름길이 열려.',
+        'stairs': '얼어붙은 계단이야. 천천히, 층계참이 좁아.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': '패널이 맥동해. 어두운 줄에서 기다렸다가 건너.',
+        'board': '조종은 맡겨. 운전은 내가, 사격은 네가.',
+        'wave': '앞에 드론이다! 급강하하기 전에 쏴 떨어뜨려.',
+        'dip': '곧 급경사야. 꽉 잡아 — 계속 쏴!',
+        'arrive': '종점이야. 내려!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': '걸어서 건너기엔 너무 넓어. 가장자리에서 슬라이딩하면 날아갈 거야.',
+        'down': '멋진 점프야. 이제 아래는 보지 마.',
+        'shuttle': '셔틀이야. 도착하면 타고, 건너편에서 내려.',
+        'wind': '돌풍이 멎을 때까지 기다렸다가 움직여. 아니면 기둥 뒤에 숨어.',
+        'bob': '오르내리는 발판이야. 아래에서 타면 위로 데려다줘.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': '저 패널에 무늬가 있어. 벽의 램프는 아직 아니고.',
+      'color': '저 테두리엔 좋아하는 색이 있어. 그 색 램프만 켜져야 해.',
+      'cycle': '쏠 때마다 램프가 마음을 바꿔. 패널은 뭘 원하는지 알아.',
+      'solved': '오호. 누가 퍼즐을 좋아하나 보네.'
+    },
     'landed': '착륙! 가자.',
     'brief': {
       'tutorial': '훈련 시간. 내가 안내할게!',

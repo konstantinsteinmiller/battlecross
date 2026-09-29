@@ -9,7 +9,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Group, Scene } from 'three'
 import { generateMap, roomCenter, type MapData } from '@/game/world/levelGen'
-import { createNav, hasLineOfSight, isSolidAt } from '@/game/world/nav'
+import { generateClimb } from '@/game/world/climbGen'
+import { createNav, hasLineOfSight, isSolidAt, groundAt } from '@/game/world/nav'
 import { profile } from '@/game/state/profile'
 import { flushPersist } from '@/use/useGameState'
 import { tutorialQuest } from '@/game/data/quests'
@@ -31,8 +32,8 @@ type Tick = import('@/game/sim/lessons').LessonTick
 
 const TUTORIAL = { seed: tutorialQuest().seed, rooms: tutorialQuest().rooms, boss: true }
 
-const makeHost = (tutorial: boolean) => {
-  const map: MapData = generateMap(TUTORIAL)
+const makeHost = (tutorial: boolean, climbSeed = -1) => {
+  const map: MapData = climbSeed >= 0 ? generateClimb(climbSeed) : generateMap(TUTORIAL)
   const nav = createNav(map)
   const scene = new Scene()
   const crates: Crate[] = []
@@ -349,6 +350,32 @@ describe('the special-weapon lesson (sleeping drones)', () => {
     expect(enemies).toHaveLength(0)
   })
 
+  it('on a terrain map (the climb) the drones hover over Flux\'s own floor, never a pit or another level', () => {
+    let rows = 0
+    for (const seed of [1, 2, 3, 4242, 99999]) {
+      const probe = generateClimb(seed)
+      for (const cp of probe.terrain!.checkpoints) {
+        if (probe.rooms[cp.room]!.role === 'start') continue
+        const h = makeHost(false, seed)
+        const d = new LessonDirector(h.host)
+        run(d, h.host, 0.1)
+        Object.assign(h.host.player, { x: cp.x, z: cp.z, yaw: cp.yaw, y: cp.y })
+        run(d, h.host, 1.5)
+        if (!h.enemies.length) continue
+        rows++
+        expect(h.enemies).toHaveLength(3)
+        for (const e of h.enemies) {
+          const f = groundAt(h.map, e.x, e.z)
+          expect(Math.abs(f - cp.y), `seed ${seed} cp ${cp.room}`).toBeLessThanOrEqual(0.6)
+          expect(e.floor).toBe(f)
+          expect(e.hover).toEqual([f, f])
+        }
+      }
+    }
+    // Enough ledges fit a row that the rule is exercised, not just avoided.
+    expect(rows).toBeGreaterThan(3)
+  })
+
   it('never in the tutorial (the weapon is won at its end)', () => {
     const h = makeHost(true)
     const d = new LessonDirector(h.host)
@@ -481,5 +508,18 @@ describe('helpers', () => {
       }
     }
     throw new Error('no room fits a line of drones')
+  })
+
+  it('on a terrain map a row only ever stands over floor at the player\'s height', () => {
+    const map = generateClimb(31337)
+    const nav = createNav(map)
+    for (const cp of map.terrain!.checkpoints) {
+      for (let yaw = 0; yaw < Math.PI * 2; yaw += 0.5) {
+        for (const layout of ['fan', 'line'] as const) {
+          const row = droneRow(nav, map, cp.x, cp.z, yaw, layout, cp.y)
+          for (const [x, z] of row ?? []) expect(Math.abs(groundAt(map, x, z) - cp.y)).toBeLessThanOrEqual(0.6)
+        }
+      }
+    }
   })
 })

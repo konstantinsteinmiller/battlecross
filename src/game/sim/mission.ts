@@ -6,7 +6,7 @@ import {
 import type { GameMode } from '../engine/app'
 import { buildCityscape, type Cityscape } from '../world/cityscape'
 import { weakSpotUnderRay } from '../data/weakspots'
-import { AtlasDirector, atlasKey, type AtlasTick } from './atlas'
+import { AtlasDirector, atlasKey, type AtlasTick, type AtlasLine } from './atlas'
 import { buildAtlas, animateAtlas } from '../models/atlas'
 import { playVoice, prefetchVoice } from '../audio/voice'
 
@@ -15,7 +15,7 @@ const CITY_STREAM_MS = 3
 import { getRenderer, fovForAspect } from '../engine/renderer'
 import type { Input } from '../engine/input'
 import { consumeEdges } from '../engine/input'
-import { generateMap, type MapData, CELL, WALL_H } from '../world/levelGen'
+import { generateMap, type MapData, type SecretSpec, CELL, WALL_H } from '../world/levelGen'
 import { createSlicer, type Slice } from '../engine/slicer'
 import { createNav, moveCircle, findPath, smoothPath, isSolidAt, hasLineOfSight, floorAt, type Nav, type Slab } from '../world/nav'
 import { buildLevel, doorFramePos, SKY_FAR, type LevelMeshes } from '../world/levelMesh'
@@ -53,9 +53,9 @@ import { buildTrapView } from '../models/traps'
 import { chargeHum } from '../audio/synth'
 import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
-import { MissionObjects, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
+import { MissionObjects, CHEST_DY, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
 import {
-  profile, grantXp, saveProfile, computeStats, writeSnapshot, xp01, heroColors, type MissionSnapshot
+  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, xp01, heroColors, type MissionSnapshot
 } from '../state/profile'
 import { rollItem, type Item } from '../data/items'
 import { flow, finishMission } from '../flow'
@@ -72,10 +72,11 @@ import { perfFlag } from '@/use/perfVariants'
 import { roomCenter, type Room } from '../world/levelGen'
 import { Locator, type LocatorInput } from './locator'
 import { generateClimb } from '../world/climbGen'
+import { generateStage } from '../world/stages'
 import { buildClimbLevel } from '../world/climbMesh'
-import { ClimbRun, PIT_COST } from './climb'
+import { ClimbRun, walkBlend } from './climb'
 import { spawnClimb } from './climbSpawn'
-import { BorrowedRun, planBorrowed } from './borrowed'
+import { BorrowedRun, planBorrowed, secretWeapon } from './borrowed'
 import { Fumble, isHardHit, strayDir, FUMBLE_PANIC } from './fumble'
 import { buildWeaponCapsule } from '../models/weaponCapsule'
 
@@ -92,6 +93,10 @@ export interface MissionSetup {
   /** A Tower Run: the climb's map (`world/climbGen.ts`), floor heights, its
    *  own cast, the sector's Core Master at the foot of the tower. */
   climb?: boolean
+  /** A platform stage (`world/stages/`): the sector whose stage is built.
+   *  Runs as a climb (`climb` is set with it): the same terrain, feet and
+   *  hazards, plus the stage's own mechanics (`sim/stageFeatures.ts`). */
+  stage?: SectorId
   lookSens?: number
   quest?: Quest
   snapshot?: MissionSnapshot | null
@@ -109,7 +114,8 @@ export const setupFromQuest = (quest: Quest, snapshot: MissionSnapshot | null): 
     encounters: sector.encounters,
     stats: computeStats(),
     tutorial: quest.template === 'tutorial',
-    climb: quest.template === 'climb',
+    climb: quest.template === 'climb' || quest.template === 'stage',
+    stage: quest.template === 'stage' ? quest.sector : undefined,
     quest,
     snapshot
   }
@@ -222,6 +228,9 @@ const SLIDE_CD = 1.5
 /** No Slide Boosters rank may cut the cooldown below this (s): at rank 3 the
  *  plain 1.5 × 0.55 = 0.825 s let the dodge be spammed again. */
 const SLIDE_CD_MIN = 1
+/** After a parry the shield stays down this long (s) with block still held:
+ *  the counter window, inside the parried machine's stun (1.6 s and up). */
+const RIPOSTE = 1.2
 
 const angDiff = (a: number, b: number): number => {
   let d = a - b
@@ -316,7 +325,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   readonly coach = new Coach()
   private coachCtx: CoachContext = {
     time: 0, family: 'mouse', playing: false, combat: false, aimCandidate: false, teleBlock: false, teleRed: false,
-    hp01: 1, tanks: 0, hasWeapon: false, canInteract: false, quiet: false, gelLesson: false
+    hp01: 1, tanks: 0, hasWeapon: false, canInteract: false, quiet: false, gelLesson: false, blockLesson: false
   }
   /** Scene-built lessons: the charge drone, crates, the special weapon, the gel. */
   lessons!: LessonDirector
@@ -412,7 +421,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const s = this.stats
     this.combat = {
       hp: s.maxHp, maxHp: s.maxHp, we: s.maxWe, maxWe: s.maxWe, power: s.maxPower, maxPower: s.maxPower,
-      powerDelay: 0, charge: 0, charging: false, fireCd: 0, blocking: false, blockPressedAt: -10, guardBroken: 0,
+      powerDelay: 0, charge: 0, charging: false, fireCd: 0, blocking: false, blockPressedAt: -10, riposteT: 0, guardBroken: 0,
       slideT: 0, slideCd: 0, slideDX: 0, slideDZ: 0, iframes: 0, hurtT: 0, target: null, recoil: 0, dead: false,
       lastStandUsed: false
     }
@@ -434,7 +443,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
 
   private async build(slice: Slice, onProgress: (p01: number) => void): Promise<void> {
     const setup = this.setup
-    this.map = setup.climb ? generateClimb(setup.seed) : generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
+    this.map = setup.stage
+      ? generateStage(setup.stage, setup.seed)
+      : setup.climb ? generateClimb(setup.seed) : generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
     onProgress(0.04)
     await slice()
@@ -758,6 +769,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
           e.flash = 1
         }
         c.iframes = Math.max(c.iframes, 0.2)
+        // The counter: the shield drops so the stunned machine can be shot
+        // at once, with the button still down (the firing waits on
+        // `!blocking`). A fresh press raises it again.
+        c.riposteT = RIPOSTE
+        c.blocking = false
         this.vm.barrier.impact('parry')
         this.coach.use('parry')
         this.walk?.noteBlock()
@@ -877,6 +893,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const wx = fwdX * inp.moveY + rightX * inp.moveX
     const wz = fwdZ * inp.moveY + rightZ * inp.moveX
     cl.stepBody(p, out, wx, wz, dt, sliding)
+    // A slide off a pit edge became a dash leap: the slide is over, the
+    // leap flies on its own momentum.
+    if (cl.leapt) this.combat.slideT = 0
     if (cl.landSpeed > 8) {
       this.shake(Math.min(0.3, (cl.landSpeed - 8) * 0.04))
       this.sfx('stomp', p.x, p.z)
@@ -888,8 +907,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     if (cl.pitted) this.pitFall(out)
   }
 
-  /** A pit: PIT_COST of the health, and back on the last checkpoint out of
-   *  a black screen (MegaMan's pits, softened). It can be the last straw. */
+  /** A pit: PIT_COST of the health (twice that into spikes or lava:
+   *  `ClimbRun.pitCost`), and back on the last checkpoint out of a black
+   *  screen (MegaMan's pits, softened). It can be the last straw. */
   private pitFall(out: [number, number]): void {
     const c = this.combat
     const p = this.player
@@ -907,7 +927,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     p.path = null
     c.slideT = 0
     this.pitHold = PIT_HOLD
-    const dmg = Math.max(1, Math.round(c.maxHp * PIT_COST))
+    const dmg = Math.max(1, Math.round(c.maxHp * this.climb!.pitCost))
     c.hp -= dmg
     c.iframes = Math.max(c.iframes, 1.2)
     sfx('hurt')
@@ -1098,7 +1118,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const lvl = this.setup.enemyLevel
     // Bolts burst out of every chest; an item drops by rarity chance.
     const bolts = Math.round((12 + lvl * 6) * (c.supply ? 1.2 : 1) * this.stats.boltMul)
-    for (let k = 0; k < 5; k++) this.system.spawnPickup('bolt', Math.max(1, Math.round(bolts / 5)), c.x, 1.0, c.z)
+    for (let k = 0; k < 5; k++) this.system.spawnPickup('bolt', Math.max(1, Math.round(bolts / 5)), c.x, c.y + 1.0, c.z)
     const itemChance = c.rarity === 'standard' ? 0.45 : 1
     const seed = (this.map.seed ^ (0x9e37 * (c.id + 1))) >>> 0
     if (Math.random() < itemChance) {
@@ -1139,11 +1159,33 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   }
 
   shotHitsProp(x: number, y: number, z: number, r: number, dmg: number, charge: number): boolean {
-    return this.objects.shotHitsCrate(x, y, z, r, dmg, charge)
+    return this.objects.shotHitsCrate(x, y, z, r, dmg, charge) || !!this.climb?.shotHits(x, y, z, r, charge)
   }
 
   shotHitsLesson(s: Shot): 'hit' | 'deflect' | null {
     return this.lessons.shotHits(s)
+  }
+
+  /** A stage's wall buttons (`sim/secrets.ts`, via `ClimbRun.shotStep`). */
+  shotHitsStage(s: Shot): boolean {
+    return this.climb?.shotStep(s) ?? false
+  }
+
+  /** A secret's prize (`ClimbHost.secretPrize`): a Repair Gel past the cap
+   *  (a secret is worth breaking the rule for), or a borrowed weapon — the
+   *  one this mission's capsules lend, else one chosen the same way. */
+  secretPrize(prize: SecretSpec['prize'], x: number, y: number, z: number): void {
+    if (prize === 'tank') {
+      profile.inv.tanks++
+      pushHud({ t: 'toast', key: 'loot.tank', color: '#8dff7a' })
+      sfx('tank')
+    } else if (prize === 'hp') {
+      this.onPickup('hpBig', 0)
+    } else {
+      const w = this.borrowed.capsules[0]?.spot.weapon ?? secretWeapon(this.map.seed, profile.hero.weapons, profile.hero.slots)
+      this.borrowed.lend(w, x, y, z)
+    }
+    this.dirty = true
   }
 
   /** A quick shot bounced off a supply crate: the charge shot's moment. */
@@ -1166,6 +1208,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.enemies.push(e)
     this.scene.add(e.root, e.shadow, e.ring)
   }
+
+  /** Atlas says a line (`ClimbHost`: a stage feature's tip or a secret's
+   *  nudge). Before Atlas is built, nothing. */
+  say(line: AtlasLine): void {
+    this.atlas?.say(line)
+  }
+
+  /** The cast's level and the sector's table (`ClimbHost`: a stage's waves
+   *  of flyers are cast from them). */
+  get enemyLevel(): number { return this.setup.enemyLevel }
+  get encounters(): EncounterTable { return this.setup.encounters }
 
   spawnPickup(kind: PickupKind, value: number, x: number, y: number, z: number): void {
     this.system.spawnPickup(kind, value, x, y, z)
@@ -1830,7 +1883,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // Interaction: the nearest chest / bot / sealed boss door in reach (a
     // walkthrough gate is not for opening by hand).
     if (hud.phase === 'play') {
-      const near = this.objects.nearestInteractable(p.x, p.z, p.yaw)
+      const near = this.objects.nearestInteractable(p.x, p.z, p.yaw, p.y)
       const door = this.bossStarted ? undefined : this.doors.find(d => d.locked && !d.held && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
@@ -1898,6 +1951,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       hud.phase = 'play'
       this.phaseT = 0
       this.atlas?.event('play')
+      // The lab's rewarded gift pays out as he lands, where the fly-in is
+      // seen. A resume already had its start (and its gift), so only a fresh
+      // mission claims one; a mission quit mid-beam leaves it pending.
+      if (!this.setup.snapshot && claimGiftTank()) {
+        pushHud({ t: 'toast', key: 'loot.giftTank', color: '#8dff7a' })
+        sfx('loot')
+      }
       hud.introCine = false
       hud.cineSkip = false
       const v = this.exitView
@@ -1956,7 +2016,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       const [cx, cz] = roomCenter(this.bossRoom)
       L.x = cx
       L.z = cz
-      L.y = 2.4
+      // On a terrain map the arena's floor (y = 0 by design) is read, not
+      // assumed: the triangle floats over the floor it points at.
+      L.y = this.map?.terrain ? Math.max(-60, floorAt(this.nav, cx, cz)) + 2.4 : 2.4
       li.hasGoal = true
       li.dist = Math.hypot(door.x - p.x, door.z - p.z)
     } else if (trailGoal !== undefined) {
@@ -1966,7 +2028,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       if (trailGoal) {
         L.x = trailGoal.x
         L.z = trailGoal.z
-        L.y = 1.6
+        L.y = this.map?.terrain ? Math.max(-60, floorAt(this.nav, trailGoal.x, trailGoal.z)) + 1.6 : 1.6
         li.dist = Math.hypot(trailGoal.x - p.x, trailGoal.z - p.z)
       }
     }
@@ -2041,6 +2103,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     c.canInteract = !!this.interact
     c.quiet = this.lessons.focus(p.x, p.z, p.yaw)
     c.gelLesson = this.lessons.gelLive || !!this.walk?.gelPending
+    c.blockLesson = !!this.walk?.blockPending(p.x, p.z)
     this.coach.update(c)
   }
 
@@ -2101,8 +2164,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.updateTargeting(dt)
 
     // ── Block ──
-    if (inp.blockPressed) c.blockPressedAt = this.time
-    c.blocking = inp.blockHeld && c.guardBroken <= 0 && c.slideT <= 0 && c.hurtT <= 0
+    if (inp.blockPressed) {
+      c.blockPressedAt = this.time
+      c.riposteT = 0
+    }
+    c.riposteT = Math.max(0, c.riposteT - dt)
+    c.blocking = inp.blockHeld && c.riposteT <= 0 && c.guardBroken <= 0 && c.slideT <= 0 && c.hurtT <= 0
 
     // ── Fire / charge (MegaMan: shoot on press, charge while held) ──
     // A fumble's flailing arm neither fires nor charges (`sim/fumble.ts`).
@@ -2193,7 +2260,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.pitHold = Math.max(0, this.pitHold - dt)
     // Stunned by a fumble: no moving either.
     const stunned = this.fumble.stunned
-    const stick = this.pitHold > 0 || stunned ? 0 : Math.hypot(inp.moveX, inp.moveY)
+    // Riding (a stage's rail cart): the stick waits, looking and shooting work.
+    const riding = !!this.climb?.locksMove()
+    if (riding) p.path = null
+    const stick = this.pitHold > 0 || stunned || riding ? 0 : Math.hypot(inp.moveX, inp.moveY)
     const speedMul = st.moveMul * (c.blocking ? 0.45 : 1) * (c.hurtT > 0 ? 0.5 : 1)
     if (c.slideT > 0) {
       c.slideT -= dt
@@ -2224,7 +2294,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
         }
       }
     }
-    const k = c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
+    // On a terrain map: little air control, and the floor's friction (ice).
+    // In the air with the stick let go, the momentum carries (a dash leap
+    // flies on over its gap).
+    const air = !!this.climb && !p.ground && p.ladder < 0 && p.mantle <= 0
+    if (air && c.slideT <= 0 && stick <= 0.01 && !p.path) {
+      tx = p.vx
+      tz = p.vz
+    }
+    const k = this.climb ? walkBlend(dt, c.slideT > 0, air, this.climb.moveMod(p).friction) : c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
     p.vx += (tx - p.vx) * k
     p.vz += (tz - p.vz) * k
     const out: [number, number] = [0, 0]
@@ -2727,7 +2805,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       const d = Math.hypot(pt.x - sx, pt.y - sy)
       if (d < bestD && hasLineOfSight(this.nav, p.x, p.z, x, z)) { bestD = d; best = { ref, x, z } }
     }
-    for (const c of this.objects.chests) if (!c.opened) consider(c, c.x, 0.6, c.z)
+    // A chest on another floor (a ledge overhead) is not the tap's: it falls
+    // through to the floor under the finger.
+    for (const c of this.objects.chests) if (!c.opened && Math.abs(c.y - p.y) < CHEST_DY) consider(c, c.x, c.y + 0.6, c.z)
     const n = this.objects.npc
     if (n && !n.rescued) consider(n, n.x, 0.8, n.z)
     if (!this.bossStarted) for (const d of this.doors) if (d.locked && !d.held) consider(d, d.x, d.y + 1.6, d.z)
@@ -2776,7 +2856,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     hud.blockHeld = c.blocking
     // Coach glyphs: only re-assigned when something visible changed.
     const views: HintView[] = this.coach.views()
-    const sig = views.map(v => `${v.id}${v.family}${v.count}/${v.goal}${v.flash}${v.done ? 'd' : ''}`).join(',')
+    const sig = views.map(v => `${v.id}${v.family}${v.count}/${v.goal}${v.flash}${v.done ? 'd' : ''}${v.urgent ? 'u' : ''}`).join(',')
     if (sig !== this.hintsSig) {
       this.hintsSig = sig
       hud.hints = views
@@ -3256,6 +3336,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   dispose(): void {
     this.city?.dispose()
     this.trail?.dispose()
+    this.climb?.dispose()
     chargeHum(null)
     hud.hints = []
     hud.lesson = null

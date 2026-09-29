@@ -59,7 +59,9 @@ describe('the objective names the sector\'s boss', () => {
 
   it('every sector\'s story mission names its own master', () => {
     objectiveFor(storyQuest(SECTOR_BY_ID.blaze, 5, 0))
-    expect(tracker().get('.obj-text').text()).toBe('Defeat Blaze Master')
+    expect(tracker().get('.obj-text').text()).toBe('Reach the arena, defeat Blaze Master')
+    objectiveFor(storyQuest(SECTOR_BY_ID.fortress, 5, 0))
+    expect(tracker().get('.obj-text').text()).toBe('Defeat Dr. Vex Mk-I')
   })
 
   it('the tutorial says it the same way', () => {

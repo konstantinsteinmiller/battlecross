@@ -124,6 +124,8 @@ export default {
     'supply': 'Ravitaillement',
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
+    'stage': 'Niveau de plateformes',
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -134,7 +136,8 @@ export default {
       'elite': "Un {target} d'élite terrorise le secteur {sector}. Traque-le !",
       'supply': 'Ouvre {n} coffres de ravitaillement dans le secteur {sector}.',
       'purge': 'Détruis toutes les machines du secteur {sector}.',
-      'climb': 'Gravis la tour du secteur {sector} — escaliers, échelles, ascenseurs et gouffres — puis descends dans l\'arène pour ta revanche contre {boss}.'
+      'climb': 'Gravis la tour du secteur {sector} — escaliers, échelles, ascenseurs et gouffres — puis descends dans l\'arène pour ta revanche contre {boss}.',
+      'stage': 'Cours, glisse et roule à travers le secteur {sector} — corniches, gouffres et machines — jusqu\'à l\'arène, puis bats {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': "Traque le {target} d'élite",
     'supply': 'Coffres de ravitaillement : {n}/{total}',
     'purge': 'Machines détruites : {n}/{total}',
-    'climb': 'Gravis la tour, bats {boss}'
+    'climb': 'Gravis la tour, bats {boss}',
+    'stage': 'Atteins l\'arène, bats {boss}'
   },
   'mission': {
     'bossDown': '{boss} détruit !',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Amélioration !',
     'found': 'Butin : {item} ({rarity}) !',
-    'tank': 'Gel réparateur trouvé !'
+    'tank': 'Gel réparateur trouvé !',
+    'giftTank': 'Cadeau : +1 Gel réparateur !'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Nouvelle arme : {weapon} !',
     'newSector': 'Nouveau secteur débloqué : {sector}',
     'items': 'Équipement trouvé',
-    'double': 'Doubler les boulons (+{n})'
+    'triple': 'Boulons ×3',
+    'tripleAria': 'Regarde une courte vidéo : triple tes boulons à +{n}'
   },
   'defeat': {
     'title': 'SYSTÈME EN PANNE',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Secteur sécurisé. Ses contrats restent disponibles.',
     'deploy': 'Déployer',
     'reroll': 'Nouveau contrat',
+    'gift': {
+      'name': 'Gel pour la route',
+      'desc': 'Regarde une courte vidéo : +1 Gel réparateur pour ta prochaine mission, même au-delà de ta limite.',
+      'aria': 'Regarde une courte vidéo pour un Gel réparateur en plus à ta prochaine mission',
+      'ready': 'Cadeau prêt !',
+      'readyDesc': '+1 Gel réparateur pour ta prochaine mission.'
+    },
     'unlock': {
       'hint': 'Termine encore {n} mission pour le débloquer | Termine encore {n} missions pour le débloquer',
       'aria': '{name}, verrouillé : termine encore {n} mission | {name}, verrouillé : termine encore {n} missions'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': "C'est de la lave en bas. Reste sur le métal.",
+        'leap': 'Trop large à pied. Glisse depuis le bord, tu passeras.',
+        'vents': 'Un sifflement, puis le feu. Attends le rugissement, puis fonce.',
+        'barrels': 'Des barils ! Surveille les lampes, passe entre eux.',
+        'hammers': 'Marteaux de forge. Compte le rythme, puis cours.',
+        'drop': 'Ça descend loin. Une corniche à la fois.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'De la glace ! Lâche le stick et tu continues de glisser.',
+        'spikes': 'Des pointes sous cette glace. Marche droit, pas de virage serré.',
+        'frost': "Lance-givre. Il brille et siffle d'abord. Passe quand il se tait.",
+        'icicles': 'Des ombres au sol ? Des stalactites. Sors du cercle !',
+        'pillar': 'Ce pilier est fissuré. Tire dessus : voilà ton raccourci.',
+        'stairs': 'Escalier gelé. Doucement, le palier est petit.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Ces dalles pulsent. Attends sur une rangée éteinte, puis avance.',
+        'board': 'Lâche les commandes — je conduis, tu tires.',
+        'wave': "Drones droit devant ! Abats-les avant qu'ils plongent.",
+        'dip': 'Grosse descente en vue. Accroche-toi — continue de tirer !',
+        'arrive': 'Terminus. Descends !'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Trop large pour marcher. Glisse depuis le bord, ton élan fera le reste.',
+        'down': 'Joli saut. Maintenant, ne regarde pas en bas.',
+        'shuttle': "Navettes. Monte quand elle accoste, descends de l'autre côté.",
+        'wind': 'Attends que la rafale retombe, puis avance. Ou abrite-toi derrière un pilier.',
+        'bob': 'Plateformes flottantes. Monte en bas, laisse-toi porter.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Ce panneau montre un motif. Les lampes du mur, pas encore.',
+      'color': 'Ce cadre a une couleur préférée. Seules ses lampes doivent briller.',
+      'cycle': "Chaque tir fait changer une lampe d'avis. Le panneau sait ce qu'il veut.",
+      'solved': "Tiens, tiens. Quelqu'un aime les énigmes."
+    },
     'landed': 'Atterrissage ! On y va.',
     'brief': {
       'tutorial': 'Entraînement ! Je te guide.',

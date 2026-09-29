@@ -124,6 +124,8 @@ export default {
     'supply': 'Busca de Suprimentos',
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
+    'stage': 'Fase de plataformas',
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Um {target} de elite está aterrorizando o setor {sector}. Cace-o.',
       'supply': 'Arrombe {n} baús de suprimentos no setor {sector}.',
       'purge': 'Destrua todas as máquinas do setor {sector}.',
-      'climb': 'Suba a torre do setor {sector} — escadas, escadas de mão, elevadores e abismos — e desça à arena para a revanche contra o {boss}.'
+      'climb': 'Suba a torre do setor {sector} — escadas, escadas de mão, elevadores e abismos — e desça à arena para a revanche contra o {boss}.',
+      'stage': 'Corra, deslize e viaje pelo setor {sector} — beirais, abismos e máquinas — até a arena e derrote o {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Cace o {target} de elite',
     'supply': 'Baús de suprimentos: {n}/{total}',
     'purge': 'Máquinas destruídas: {n}/{total}',
-    'climb': 'Suba a torre e derrote o {boss}'
+    'climb': 'Suba a torre e derrote o {boss}',
+    'stage': 'Chegue à arena e derrote o {boss}'
   },
   'mission': {
     'bossDown': '{boss} destruído!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Melhoria!',
     'found': 'Você encontrou {item} ({rarity})!',
-    'tank': 'Gel de Reparo encontrado!'
+    'tank': 'Gel de Reparo encontrado!',
+    'giftTank': 'Presente: +1 Gel de Reparo!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Nova arma: {weapon}!',
     'newSector': 'Novo setor desbloqueado: {sector}',
     'items': 'Equipamento encontrado',
-    'double': 'Dobrar parafusos (+{n})'
+    'triple': 'Triplicar parafusos',
+    'tripleAria': 'Assista a um vídeo curto: triplique seus parafusos para +{n}'
   },
   'defeat': {
     'title': 'SISTEMA EM PANE',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Setor protegido. Os contratos dele continuam no quadro.',
     'deploy': 'Partir',
     'reroll': 'Novo contrato',
+    'gift': {
+      'name': 'Gel para a jornada',
+      'desc': 'Assista a um vídeo curto: +1 Gel de Reparo para sua próxima missão, mesmo acima do limite.',
+      'aria': 'Assista a um vídeo curto para ganhar um Gel de Reparo extra na próxima missão',
+      'ready': 'Presente pronto!',
+      'readyDesc': '+1 Gel de Reparo para sua próxima missão.'
+    },
     'unlock': {
       'hint': 'Conclua mais {n} missão para desbloquear | Conclua mais {n} missões para desbloquear',
       'aria': '{name}, bloqueado: conclua mais {n} missão | {name}, bloqueado: conclua mais {n} missões'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Aquilo lá embaixo é lava. Fica no metal.',
+        'leap': 'Largo demais para andar. Desliza pela borda e você passa.',
+        'vents': 'Primeiro o chiado, depois o fogo. Espera o rugido e vai.',
+        'barrels': 'Barris! Olha as luzes e passa entre eles.',
+        'hammers': 'Martelos de forja. Conta o ritmo e corre.',
+        'drop': 'É uma longa descida. Uma saliência de cada vez.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Gelo! Solte o direcional e você continua deslizando.',
+        'spikes': 'Espinhos embaixo desse gelo. Ande reto, sem curvas bruscas.',
+        'frost': 'Lança-gelo. Primeiro brilha e chia. Passe quando ficar quieto.',
+        'icicles': 'Sombras no chão? Pingentes de gelo. Saia do círculo!',
+        'pillar': 'Esse pilar está rachado. Atire nele e aí está o atalho.',
+        'stairs': 'Escada congelada. Devagar: o patamar é pequeno.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Esses painéis pulsam. Espere numa fileira apagada e avance.',
+        'board': 'Tire as mãos dos controles — eu dirijo, você atira.',
+        'wave': 'Drones à frente! Derrube-os antes do mergulho.',
+        'dip': 'Vem aí uma grande descida. Segure firme e continue atirando!',
+        'arrive': 'Fim da linha. Pode descer!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Largo demais para andar. Deslize pela borda: o embalo te leva.',
+        'down': 'Belo salto. Agora não olhe para baixo.',
+        'shuttle': 'Plataformas móveis. Suba quando atracar, desça do outro lado.',
+        'wind': 'Espere a rajada passar e avance. Ou se esconda atrás de um pilar.',
+        'bob': 'Plataformas flutuantes. Suba embaixo e deixe que ela te leve para cima.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Aquele painel mostra um padrão. As lâmpadas da parede, ainda não.',
+      'color': 'Aquela moldura tem uma cor favorita. Só as lâmpadas dessa cor devem brilhar.',
+      'cycle': 'Cada tiro faz uma lâmpada mudar de ideia. O painel sabe o que quer.',
+      'solved': 'Ora, ora. Alguém gosta de enigmas.'
+    },
     'landed': 'Pousamos! Vamos lá.',
     'brief': {
       'tutorial': 'Hora do treino. Eu te guio!',

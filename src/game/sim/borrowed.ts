@@ -218,6 +218,12 @@ export const planBorrowed = (
   return at.map(s => ({ ...s, weapon }))
 }
 
+/** A secret's weapon prize on a map without a capsule: chosen like a
+ *  capsule's (`lentWeapon`), from a stream of its own off the map seed. */
+export const SECRET_SALT = 0x5ec2e7
+export const secretWeapon = (seed: number, owned: readonly string[], slots: readonly string[]): WeaponId =>
+  lentWeapon(mulberry32((seed ^ SECRET_SALT) >>> 0)(), owned, slots)
+
 // ─── The borrowed slot (pure state) ──────────────────────────────────────────
 
 export class BorrowedSlot {
@@ -359,6 +365,14 @@ export class BorrowedRun {
     this.host.sfx('borrowGet', s.x, s.z)
     pushHud({ t: 'flash', color, strength: 0.3 })
     pushHud({ t: 'toast', key: 'combat.borrowedGet', params: { weapon: `weapon.${s.weapon}.name`, n: this.slot.shots }, color })
+  }
+
+  /** A borrowed weapon off any pedestal — a secret alcove's prize
+   *  (`sim/secrets.ts`): taken at (x, y, z) as if a capsule stood there. It
+   *  joins no list, so the capsules' saved indices hold; the slot's charges
+   *  ride in the save as usual. */
+  lend(weapon: WeaponId, x: number, y: number, z: number): void {
+    this.take({ spot: { x, y, z, room: -1, weapon }, view: null, taken: false })
   }
 
   /** The borrowed weapon fired ('ok'). `free`: Gale Guard's throw, which is

@@ -124,6 +124,8 @@ export default {
     'supply': '补给行动',
     'purge': '区域肃清',
     'climb': '高塔冲刺',
+    'stage': '平台关卡',
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -134,7 +136,8 @@ export default {
       'elite': '一台精英{target}正在{sector}肆虐。追踪并消灭它。',
       'supply': '在{sector}撬开{n}个补给箱。',
       'purge': '摧毁{sector}的所有机械。',
-      'climb': '攀上{sector}的高塔——楼梯、梯子、升降台和深坑——再跳进竞技场，与{boss}再战。'
+      'climb': '攀上{sector}的高塔——楼梯、梯子、升降台和深坑——再跳进竞技场，与{boss}再战。',
+      'stage': '在{sector}中奔跑、滑铲、乘车前进——越过平台、深坑和机器——直抵竞技场，击败{boss}。'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': '猎杀精英{target}',
     'supply': '补给箱：{n}/{total}',
     'purge': '已摧毁机械：{n}/{total}',
-    'climb': '攀上高塔，击败{boss}'
+    'climb': '攀上高塔，击败{boss}',
+    'stage': '抵达竞技场，击败{boss}'
   },
   'mission': {
     'bossDown': '{boss}已被摧毁！',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': '升级！',
     'found': '发现{item}（{rarity}）！',
-    'tank': '发现修理凝胶！'
+    'tank': '发现修理凝胶！',
+    'giftTank': '礼物：+1 修理凝胶！'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': '新武器：{weapon}！',
     'newSector': '新区域已解锁：{sector}',
     'items': '获得装备',
-    'double': '螺丝翻倍（+{n}）'
+    'triple': '螺丝三倍',
+    'tripleAria': '观看短视频：螺丝翻三倍，+{n}'
   },
   'defeat': {
     'title': '系统停机',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': '区域已肃清。委托仍在任务板上。',
     'deploy': '出击',
     'reroll': '换个委托',
+    'gift': {
+      'name': '路上的凝胶',
+      'desc': '观看短视频：下次任务 +1 修理凝胶，即使超过上限。',
+      'aria': '观看短视频，下次任务额外获得一个修理凝胶',
+      'ready': '礼物已备好！',
+      'readyDesc': '下次任务 +1 修理凝胶。'
+    },
     'unlock': {
       'hint': '再完成{n}个任务即可解锁',
       'aria': '{name}，已锁定：再完成{n}个任务'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': '下面是岩浆。待在金属上。',
+        'leap': '太宽了走不过去。从边缘滑铲，就能冲过去。',
+        'vents': '先嘶嘶响，再喷火。等火焰停了再走。',
+        'barrels': '油桶来了！看好指示灯，从空隙穿过去。',
+        'hammers': '锻锤来了。数准节拍，再冲过去。',
+        'drop': '好深的落差。一层一层往下跳。'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': '是冰！松开摇杆，你还会继续滑。',
+        'spikes': '冰下面全是尖刺。走直线，别急转弯。',
+        'frost': '冰霜喷射器。它会先发光、嘶嘶作响。等它安静了再过去。',
+        'icicles': '地上有影子？是冰锥。快离开圆圈！',
+        'pillar': '那根柱子裂了。打碎它，就有捷径了。',
+        'stairs': '结冰的楼梯。慢点走，平台很小。'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': '这些面板在脉冲放电。在暗的那排等着，再往前走。',
+        'board': '别碰操纵杆——我来开，你来射。',
+        'wave': '前方有无人机！趁它们俯冲前击落。',
+        'dip': '前面是大下坡。抓稳——继续射击！',
+        'arrive': '终点站。下车吧！'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': '太宽了，走不过去。从边缘滑铲出去，惯性会带你过去。',
+        'down': '漂亮的一跃。现在，别往下看。',
+        'shuttle': '穿梭平台。靠岸时上去，到对面再下来。',
+        'wind': '等阵风停了再走。或者躲到柱子后面。',
+        'bob': '上下浮动的平台。在低处站上去，它会把你送上去。'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': '那块面板上有个图案。墙上的灯还没对上。',
+      'color': '那个边框有最喜欢的颜色。只有那种颜色的灯该亮。',
+      'cycle': '每打一枪，灯就改一次主意。面板知道它想要什么。',
+      'solved': '哎哟，有人喜欢解谜嘛。'
+    },
     'landed': '着陆！出发吧。',
     'brief': {
       'tutorial': '训练时间，我来带你！',

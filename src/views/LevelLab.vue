@@ -102,7 +102,7 @@ const router = useRouter()
 const types = levelTypes()
 const entries = levelEntries()
 
-const MAP_LABEL: Record<MapKind, string> = { rooms: 'rooms', climb: 'tower' }
+const MAP_LABEL: Record<MapKind, string> = { rooms: 'rooms', climb: 'tower', stage: 'stage' }
 const SEED_HINT: Record<SeedKind, string> = {
   board: 'a job-board roll',
   attempt: 'the story attempt number (0 = a first try)',
@@ -150,7 +150,9 @@ const facts = computed((): Array<[string, string]> => {
   const sector = SECTOR_BY_ID[q.sector]
   const out: Array<[string, string]> = [
     ['Quest', `${q.id} · ${q.kind} · ${q.template}`],
-    ['Map', t.map === 'climb' ? `climb tower (climbGen) · map seed ${q.seed}` : `${q.rooms} rooms (levelGen) · map seed ${q.seed}`]
+    ['Map', t.map === 'climb' ? `climb tower (climbGen) · map seed ${q.seed}`
+      : t.map === 'stage' ? `${q.sector} platform stage (world/stages) · map seed ${q.seed}`
+        : `${q.rooms} rooms (levelGen) · map seed ${q.seed}`]
   ]
   // A job is the first board roll of its template at or after the seed.
   const board = q.kind === 'job' ? parseInt(q.id.slice(4), 36) : null

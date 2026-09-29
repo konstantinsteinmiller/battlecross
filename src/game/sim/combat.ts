@@ -44,6 +44,10 @@ export interface CombatHost extends World {
   shotHitsLesson?(s: Shot): 'hit' | 'deflect' | null
   /** A player shot bounced off a guard (TINK). */
   onDeflect?(): void
+  /** A stage's targets on the walls (a secret's buttons, `sim/secrets.ts`),
+   *  tested along the shot's step before the wall stops it: true if one
+   *  caught the shot (it ends there). */
+  shotHitsStage?(s: Shot): boolean
 }
 
 /** Height of the player's feet: the climb's floors (`nav.floorAt`, and an
@@ -500,6 +504,13 @@ export class CombatSystem {
           x: s.x + ox * r, y: s.y + oy * r, z: s.z + oz * r, vx: ox * 3, vy: oy * 3, vz: oz * 3,
           color: Math.random() < 0.5 ? '#ffffff' : s.color, size: 0.2, sizeEnd: 0.02, life: 0.14
         })
+      }
+
+      // A wall button sits on the wall's face: its test comes first, or the
+      // wall would always stop the shot short of it.
+      if (s.owner === 'player' && h.shotHitsStage?.(s)) {
+        this.kill(s)
+        continue
       }
 
       // World collision (walls, closed doors, pillars, wall-corner and door

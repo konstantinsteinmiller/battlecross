@@ -20,6 +20,30 @@
       QuestCard(v-if="story" :quest="story" story @deploy="deploy(story)")
       div.note(v-else-if="!unlocked(sel)") {{ t('hub.lockedHint', { boss: t(`boss.${prevBoss(sel)}`) }) }}
       div.note.ok(v-else) {{ t('hub.sectorSecured') }}
+      //- Rewarded: one Repair Gel for the next mission, offered where the
+      //- player is about to deploy. Once watched, a badge says it is packed.
+      div.gift.ready(v-if="giftReady" data-gift="ready")
+        div.gift-ico
+          GameIcon(name="flask")
+        div.gift-info
+          div.gn {{ t('hub.gift.ready') }}
+          div.gd {{ t('hub.gift.readyDesc') }}
+      div.gift(v-else-if="giftOffer" data-gift="offer")
+        div.gift-ico
+          GameIcon(name="flask")
+        div.gift-info
+          div.gn {{ t('hub.gift.name') }}
+          div.gd {{ t('hub.gift.desc') }}
+        button.gift-btn(
+          type="button"
+          :disabled="adInFlight"
+          :aria-label="t('hub.gift.aria')"
+          @click="claimGift"
+        )
+          //- A video for "+1" and the flask: signed, like every reward.
+          GameIcon.bi(name="video")
+          span +1
+          GameIcon.bi(name="flask")
       div.section-title
         span {{ t('hub.jobs') }}
         span.hint {{ t('hub.jobsHint') }}
@@ -33,11 +57,13 @@ import GameIcon from '@/components/icons/GameIcon.vue'
 import QuestCard from './QuestCard.vue'
 import { SECTORS, SECTOR_BY_ID } from '@/game/data/regions'
 import { THEMES, type SectorId } from '@/game/world/themes'
-import { profile, saveProfile } from '@/game/state/profile'
+import { profile, saveProfile, computeStats } from '@/game/state/profile'
 import { storyFor, startMission, rerollJob } from '@/game/flow'
 import type { Quest } from '@/game/data/quests'
 import { sfx } from '@/game/audio/sfx'
 import { useDragScroll, revealIn } from '@/use/useDragScroll'
+import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
+import { resumeMusicAfterAd } from '@/use/useSound'
 
 /** Sector strip (the valley map), the sector's story mission, and the job board. */
 const { t } = useI18n()
@@ -74,6 +100,32 @@ const deploy = (q: Quest) => {
 const reroll = (id: string) => {
   sfx('uiClick')
   rerollJob(id)
+}
+
+// ─── Gel for the road (rewarded) ─────────────────────────────────────────────
+// A video buys one Repair Gel, packed as a flag and handed over when the next
+// mission begins (`claimGiftTank`), one over the cap if need be. Only after
+// the tutorial (its gel lesson scripts the gels), never while a gift is
+// already packed, and never when he already carries more than the cap (a
+// gift left over from last time): "one over" stays one. Hidden whenever no
+// rewarded ad is ready, like the Workshop's supply drop.
+const tanksMax = computed(() => { void profile.hero.skills; return computeStats().tanksMax })
+const giftReady = computed(() => profile.world.tutorialDone && profile.inv.giftTank)
+const giftOffer = computed(() =>
+  profile.world.tutorialDone && canOfferReward.value && profile.inv.tanks <= tanksMax.value)
+const claimGift = async () => {
+  if (profile.inv.giftTank) return
+  try {
+    await claimReward(() => {
+      profile.inv.giftTank = true
+      saveProfile()
+      sfx('tank')
+    })
+  } finally {
+    // The ad hard-stopped the lab music and its play intent; nothing else
+    // restarts it until the next mission, so bring it back here.
+    resumeMusicAfterAd()
+  }
 }
 </script>
 
@@ -141,6 +193,52 @@ const reroll = (id: string) => {
   text-align: center
   &.ok
     color: #8dff7a
+.gift
+  display: flex
+  align-items: center
+  gap: 10px
+  margin-top: 8px
+  padding: 10px
+  border-radius: 14px
+  background: rgba(0, 0, 0, 0.25)
+  &.ready
+    outline: 2px solid #8dff7a
+.gift-ico
+  flex: 0 0 auto
+  width: 44px
+  height: 44px
+  padding: 8px
+  border-radius: 12px
+  border: 2px solid #141a33
+  background: radial-gradient(circle at 40% 30%, #d4ffc8, #5fe07a 45%, #1f9a4a)
+.gift-info
+  flex: 1
+  min-width: 0
+.gn
+  font-size: clamp(14px, 3vmin, 17px)
+.ready .gn
+  color: #8dff7a
+.gd
+  font-size: clamp(11px, 2.4vmin, 13px)
+  color: #cfe0ff
+.gift-btn
+  display: flex
+  align-items: center
+  gap: 4px
+  padding: 8px 12px
+  border-radius: 12px
+  border: 3px solid #141a33
+  background: linear-gradient(#9fe6ff, #3c8cff)
+  color: #141a33
+  font-family: var(--font-pixel)
+  font-size: 11px
+  &:disabled
+    filter: grayscale(0.8) brightness(0.7)
+.bi
+  display: inline-block
+  width: 16px
+  height: 16px
+  vertical-align: -3px
 .hint
   font-family: var(--font-ui)
   font-size: 0.8em

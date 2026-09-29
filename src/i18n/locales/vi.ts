@@ -124,6 +124,8 @@ export default {
     'supply': 'Chuyến Tiếp Tế',
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
+    'stage': 'Màn nền tảng',
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Một {target} tinh anh đang khủng bố {sector}. Săn lùng nó!',
       'supply': 'Phá mở {n} rương tiếp tế ở {sector}.',
       'purge': 'Phá hủy mọi cỗ máy ở {sector}.',
-      'climb': 'Leo lên tháp ở {sector} — cầu thang, thang leo, thang máy và hố sâu — rồi xuống đấu trường tái đấu với {boss}.'
+      'climb': 'Leo lên tháp ở {sector} — cầu thang, thang leo, thang máy và hố sâu — rồi xuống đấu trường tái đấu với {boss}.',
+      'stage': 'Chạy, trượt và lướt qua {sector} — gờ, hố và máy móc — đến đấu trường, rồi đánh bại {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Săn lùng {target} tinh anh',
     'supply': 'Rương tiếp tế: {n}/{total}',
     'purge': 'Máy đã phá hủy: {n}/{total}',
-    'climb': 'Leo tháp, đánh bại {boss}'
+    'climb': 'Leo tháp, đánh bại {boss}',
+    'stage': 'Đến đấu trường, đánh bại {boss}'
   },
   'mission': {
     'bossDown': '{boss} đã bị tiêu diệt!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Nâng cấp!',
     'found': 'Tìm thấy {item} {rarity}!',
-    'tank': 'Tìm thấy Gel Sửa Chữa!'
+    'tank': 'Tìm thấy Gel Sửa Chữa!',
+    'giftTank': 'Quà: +1 Gel Sửa Chữa!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Vũ khí mới: {weapon}!',
     'newSector': 'Mở khóa khu vực mới: {sector}',
     'items': 'Trang bị tìm được',
-    'double': 'Nhân đôi bu lông (+{n})'
+    'triple': 'Bu lông ×3',
+    'tripleAria': 'Xem video ngắn: nhân ba bu lông thành +{n}'
   },
   'defeat': {
     'title': 'HỆ THỐNG SẬP',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Khu vực đã an toàn. Nhiệm vụ phụ vẫn còn trên bảng.',
     'deploy': 'Xuất kích',
     'reroll': 'Đổi nhiệm vụ',
+    'gift': {
+      'name': 'Gel lên đường',
+      'desc': 'Xem video ngắn: +1 Gel Sửa Chữa cho nhiệm vụ tiếp theo, kể cả vượt giới hạn.',
+      'aria': 'Xem video ngắn để nhận thêm một Gel Sửa Chữa ở nhiệm vụ tiếp theo',
+      'ready': 'Quà đã sẵn sàng!',
+      'readyDesc': '+1 Gel Sửa Chữa cho nhiệm vụ tiếp theo.'
+    },
     'unlock': {
       'hint': 'Hoàn thành thêm {n} nhiệm vụ để mở khóa',
       'aria': '{name}, đã khóa: hoàn thành thêm {n} nhiệm vụ'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Dưới kia là dung nham. Đứng trên kim loại thôi.',
+        'leap': 'Quá rộng để đi bộ. Trượt khỏi mép, cậu sẽ bay qua.',
+        'vents': 'Xì trước, lửa sau. Đợi tiếng gầm dứt rồi đi.',
+        'barrels': 'Thùng lăn! Nhìn đèn, băng qua giữa chúng.',
+        'hammers': 'Búa rèn. Đếm nhịp rồi chạy.',
+        'drop': 'Xuống sâu lắm đấy. Từng gờ một.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'Băng! Thả cần ra là cậu vẫn trượt tiếp.',
+        'spikes': 'Dưới lớp băng đó là gai. Đi thẳng, đừng rẽ gấp.',
+        'frost': 'Máy phun băng. Nó sáng lên và xì xì trước. Qua khi nó im.',
+        'icicles': 'Bóng trên sàn à? Nhũ băng đấy. Ra khỏi vòng tròn!',
+        'pillar': 'Cột đó nứt rồi. Bắn nó là có đường tắt.',
+        'stairs': 'Cầu thang đóng băng. Đi chậm thôi, chiếu nghỉ nhỏ lắm.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Mấy tấm sàn đó đang phóng điện. Đợi ở hàng tối rồi bước tiếp.',
+        'board': 'Bỏ tay khỏi cần lái — tôi lái, cậu bắn.',
+        'wave': 'Phía trước có drone! Bắn hạ trước khi chúng lao xuống.',
+        'dip': 'Sắp có dốc lớn. Bám chắc — cứ bắn tiếp!',
+        'arrive': 'Hết đường ray. Xuống thôi!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Quá rộng để đi bộ qua. Trượt khỏi mép, đà sẽ đưa cậu qua.',
+        'down': 'Nhảy đẹp lắm. Giờ đừng nhìn xuống nhé.',
+        'shuttle': 'Tàu con thoi. Lên khi nó cập bến, xuống ở bờ bên kia.',
+        'wind': 'Đợi cơn gió lặng rồi hãy đi. Hoặc nấp sau cột.',
+        'bob': 'Bệ nhấp nhô. Lên ở dưới, nó sẽ đưa cậu lên.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Tấm bảng kia có một hình mẫu. Đèn trên tường thì chưa.',
+      'color': 'Khung kia có một màu yêu thích. Chỉ đèn màu đó mới được sáng.',
+      'cycle': 'Mỗi phát bắn làm đèn đổi ý. Tấm bảng biết nó muốn gì.',
+      'solved': 'Chà chà. Có người thích giải đố đây.'
+    },
     'landed': 'Hạ cánh! Đi thôi.',
     'brief': {
       'tutorial': 'Giờ luyện tập. Để tớ dẫn!',

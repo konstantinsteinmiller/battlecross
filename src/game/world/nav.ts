@@ -291,8 +291,9 @@ export const walkStep = (map: MapData, ai: number, aj: number, bi: number, bj: n
   return edgeHeight(map, bi, bj, -di, -dj) - edgeHeight(map, ai, aj, di, dj) <= STEP_UP
 }
 
-/** The hops a walk cannot make, per cell: ladders both ways, and each lift
- *  from the cells beside one stop to the cells beside the other. */
+/** The hops a walk cannot make, per cell: ladders both ways, each lift
+ *  from the cells beside one stop to the cells beside the other, and the
+ *  map's own links. */
 const terrainLinks = (map: MapData): Map<number, number[]> => {
   const t = map.terrain!
   const W = map.w
@@ -328,6 +329,9 @@ const terrainLinks = (map: MapData): Map<number, number[]> => {
     const b = beside(lf.bx, lf.by, lf.bz)
     for (const ka of a) for (const kb of b) { add(ka, kb); add(kb, ka) }
   }
+  // The level's own one-way hops (a dash leap over a gap, a rail ride):
+  // what no floor, ladder or lift tells the search (`Terrain.links`).
+  for (const l of t.links ?? []) add(l.from[1] * W + l.from[0], l.to[1] * W + l.to[0])
   return links
 }
 

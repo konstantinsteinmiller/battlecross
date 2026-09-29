@@ -135,6 +135,29 @@ export const buildScrapBall = (theme: Theme, r: number): BallMesh => {
   return { root, spin }
 }
 
+/**
+ * An ember barrel (the blaze sector's scrap ball): a charred drum with glowing
+ * seams and hot end caps, its axis along the axle it rolls about — X for a
+ * lane along Z (`axleX`), else Z — so the sim spins it like the ball.
+ */
+export const buildEmberBarrel = (theme: Theme, r: number, axleX: boolean): BallMesh => {
+  const toon: BufferGeometry[] = []
+  const glowG: BufferGeometry[] = []
+  const len = r * 2.1
+  toon.push(paint(rcyl(r, len, r * 0.25, 18), '#3a2a26'))
+  for (const s of [-0.3, 0.3]) toon.push(xform(paint(torus(r, r * 0.09, 6, 20), theme.pilaster), [0, s * len, 0], [Math.PI / 2, 0, 0]))
+  for (const s of [-0.08, 0.08]) glowG.push(xform(paint(torus(r * 0.99, r * 0.05, 6, 20), '#ff7a1a'), [0, s * len, 0], [Math.PI / 2, 0, 0]))
+  for (const s of [-1, 1]) glowG.push(xform(paint(rcyl(r * 0.55, 0.04, 0.01, 14), '#ffb04a'), [0, s * (len / 2 + 0.005), 0]))
+  // Built along Y; laid along the axle.
+  const drum = assemble(toon, glowG, 0.03)
+  drum.rotation.set(axleX ? 0 : Math.PI / 2, 0, axleX ? Math.PI / 2 : 0)
+  const spin = new Group()
+  spin.add(drum)
+  const root = new Group()
+  root.add(spin)
+  return { root, spin }
+}
+
 /** A lane's release lamp (under the hatch gantry): dark, amber, then red. */
 export const buildLaneLamp = (): { root: Mesh; mat: MeshBasicMaterial } => {
   const mat = lampMaterial('#3a2a18')

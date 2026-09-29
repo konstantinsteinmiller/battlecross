@@ -198,6 +198,9 @@ export interface CombatPlayer {
   fireCd: number
   blocking: boolean
   blockPressedAt: number
+  /** After a parry the shield is lowered for the counter (s left): firing
+   *  works even with block still held. A fresh block press raises it again. */
+  riposteT: number
   guardBroken: number
   slideT: number
   slideCd: number

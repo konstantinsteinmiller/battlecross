@@ -1,6 +1,6 @@
 <template lang="pug">
   Transition(name="coach")
-    span.coach(v-if="hint" :class="[side, { ok: approving, done: hint.done, parry: hint.id === 'parry' }]" aria-hidden="true")
+    span.coach(v-if="hint" :class="[side, { ok: approving, done: hint.done, parry: hint.id === 'parry', urgent: hint.urgent }]" aria-hidden="true")
       span.pulse
       span.closing(v-if="hint.id === 'parry'")
       span.approve(v-if="approving" :key="hint.flash")
@@ -61,6 +61,11 @@ watch(() => props.hint?.flash, (f) => {
   border-radius: 50%
   border: 4px solid #ffffff
   animation: coach-close 1.1s ease-in infinite
+.urgent .pulse
+  inset: -22%
+  border-width: 6px
+  box-shadow: 0 0 22px rgba(255, 216, 74, 0.95)
+  animation-duration: 0.8s
 .ok .pulse
   border-color: #8dff7a
   box-shadow: 0 0 18px rgba(141, 255, 122, 0.95)

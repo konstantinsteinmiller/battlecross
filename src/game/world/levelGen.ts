@@ -105,7 +105,9 @@ export interface Ladder {
 /** A moving platform. `v` waits at its lower stop and rides up once stood
  *  on; `h` shuttles across a pit on a loop. Both stops are the platform's
  *  top centre. Under it the lift is a solid column (a piston, a hull), so
- *  nothing walks beneath it. */
+ *  nothing walks beneath it. A `v` lift with `loop` bobs between its stops
+ *  on the mission clock like a shuttle, ridden or not (the Sky Docks'
+ *  bobbing platforms). */
 export interface Lift {
   kind: 'v' | 'h'
   /** Half extents of the platform (m). */
@@ -120,9 +122,11 @@ export interface Lift {
   /** Seconds per leg and dwell at each stop. */
   travel: number
   wait: number
-  /** Loop offset (s) of an `h` lift. */
+  /** Loop offset (s) of an `h` (or looping) lift. */
   phase: number
   room: number
+  /** A `v` lift that loops on the clock instead of waiting to be ridden. */
+  loop?: boolean
 }
 
 /** A piston crusher over a walkway cell: it warns, slams, holds, rises. */
@@ -188,7 +192,150 @@ export interface FoePost {
   fly?: [number, number]
 }
 
+/** What a section of a terrain map is (a label: the lab draws it, the arena's
+ *  wall height keys on it). The climb's seven, then the platform stages'. */
 export type SectionKind = 'hall' | 'ladder' | 'rolling' | 'lift' | 'crusher' | 'descent' | 'arena'
+  | 'drop' | 'vents' | 'hammer' | 'lava' | 'ice' | 'spikes' | 'frost' | 'icicles' | 'rail' | 'cart' | 'islands' | 'shuttle' | 'wind' | 'dock'
+
+// ─── Terrain extensions (the platform stages, `world/stages/`) ──────────────
+// All optional on `Terrain`: the climb sets only `chests`, and nothing reads
+// one that is absent. `mirrorX` (`world/stages/builder.ts`) mirrors each.
+
+/** A chest a level's author put on a ledge: the centre of its cell, the
+ *  floor it stands on, and the wall it backs onto (`Room.wallSpots`' yaw:
+ *  forward, (−sin, −cos), points at the wall). */
+export interface ChestSpot {
+  x: number
+  y: number
+  z: number
+  yaw: number
+  room: number
+}
+
+/** What lies at the bottom of a room's pits: a plain drop, a bed of spikes,
+ *  or lava. Spikes and lava cost twice a plain fall (`sim/climb.ts`). */
+export type PitKind = 'void' | 'spikes' | 'lava'
+
+/** A wind tunnel's gusts over a rectangle of cells (inclusive): a push of
+ *  `strength` m/s along the unit (dx, dz), blowing `on` s then still `off`
+ *  s, offset by `phase` on the mission clock. */
+export interface WindZone {
+  i0: number
+  j0: number
+  i1: number
+  j1: number
+  dx: number
+  dz: number
+  strength: number
+  on: number
+  off: number
+  phase: number
+  room: number
+}
+
+/** A maglev rail a cart rides along: its polyline (the cart's floor at each
+ *  point), speed (m/s), and the cells it is boarded at and left at. */
+export interface RailSpec {
+  points: Array<{ x: number; y: number; z: number }>
+  speed: number
+  room: number
+  boardAt: { i: number; j: number }
+  exitAt: { i: number; j: number }
+}
+
+/** A wave of flyers that beams in on a trigger (standing on a cell, or the
+ *  cart setting off): `count` at a time, every `every` s, `total` in all. */
+export interface WaveSpec {
+  room: number
+  trigger: { i: number; j: number } | 'rail'
+  kind: 'heli'
+  count: number
+  every: number
+  total: number
+}
+
+/** A wall vent that breathes fire (or frost) across the cell in front of it
+ *  along (dx, dz), from its mouth at height `y`: `on` s of every `period`,
+ *  offset by `phase`. A `shock` vent is a floor panel instead: cell (i, j)
+ *  itself goes live (no direction; `y` is its floor) — each feature takes
+ *  only its own kind. */
+export interface VentSpec {
+  i: number
+  j: number
+  dx: number
+  dz: number
+  y: number
+  period: number
+  phase: number
+  on: number
+  room: number
+  kind: 'fire' | 'frost' | 'shock'
+}
+
+/** An ice pillar filling the middle of cell (i, j): a solid column
+ *  (`sim/stages/icePillars.ts`), blocked for paths from the start
+ *  (`finish` marks its cell in `navBlock`). A `cracked` one shatters when
+ *  shot, opening its cell: an optional shortcut, never the route. */
+export interface IcePillar {
+  i: number
+  j: number
+  cracked: boolean
+  room: number
+}
+
+/** An icicle over cell (i, j), whose floor is `y`: every `period` s (offset
+ *  by `phase`) a shadow ring grows under it, then it drops and shatters,
+ *  and grows back (`sim/stages/icicles.ts`). */
+export interface IcicleSpec {
+  i: number
+  j: number
+  y: number
+  period: number
+  phase: number
+  room: number
+}
+
+/** A one-way hop between two cells that `findPath` cannot infer from the
+ *  floors (a dash leap over a gap, a rail ride, a drop past a ledge): the
+ *  objective trail follows it, the tap-to-move never does. */
+export interface NavLink {
+  from: [number, number]
+  to: [number, number]
+  kind: 'leap' | 'rail' | 'drop'
+}
+
+/**
+ * An optional secret room: a few coloured wall buttons, shot to toggle, and
+ * a hint panel beside a false wall; solved, the wall sinks and opens a small
+ * alcove with a prize. The alcove's cells are the room's own cells, walled
+ * off (`climbMesh.ts`) and blocked for bodies and paths (`sim/climb.ts`)
+ * until it is solved (`ClimbRun.openSecret`). Built by `Builder.secret`.
+ *
+ *  - `lights`: each button ON/OFF; the panel shows the target lamps.
+ *  - `color`: fixed colours, each toggles ON/OFF; exactly the buttons of
+ *    the `key` colour ON (the wall's frame wears that colour).
+ *  - `cycle`: each hit steps red → green → blue → yellow; the panel shows
+ *    the target colour per button, left to right.
+ */
+export interface SecretSpec {
+  room: number
+  kind: 'lights' | 'color' | 'cycle'
+  /** Wall buttons: position of the button face centre and the wall's normal into the room (unit, axis aligned). */
+  buttons: Array<{ x: number; y: number; z: number; nx: number; nz: number; color: number /* 0 red,1 green,2 blue,3 yellow; 'lights': ignored */ }>
+  /** Target: per button ON (lights/color) or color index (cycle). 'color': target = buttons[i].color === key. */
+  target: number[]
+  /** 'color' only: the key color index. */
+  key?: number
+  /** The hint panel (on the wall next to the hidden door). */
+  panel: { x: number; y: number; z: number; nx: number; nz: number }
+  /** The false wall: the door cell of the alcove (the wall face between `door` and the room), and the alcove cells. */
+  door: { i: number; j: number; axis: 'x' | 'z' }
+  /** Alcove cell indices (hidden until solved). */
+  cells: number[]
+  /** 'tank' = +1 Repair Tank (heal pack) even over the cap, 'power' = a borrowed Core Master weapon charge set. */
+  prize: 'tank' | 'hp' | 'weapon' | 'power'
+  prizeAt: { x: number; y: number; z: number }
+}
 
 export interface Terrain {
   /** Floor height per cell (m); a ramp's height at its low edge. */
@@ -210,6 +357,27 @@ export interface Terrain {
   checkpoints: Checkpoint[]
   rewards: RewardSpot[]
   foes: FoePost[]
+  /** Chests on the ledges (`sim/objectives.ts` places them after its own). */
+  chests?: ChestSpot[]
+  /** Optional secret alcoves behind shoot-the-button puzzles. */
+  secrets?: SecretSpec[]
+  /** 1 = an ice cell: low friction, momentum carries (per cell). */
+  ice?: Uint8Array
+  /** Per room: what its pits hold (absent: 'void'). */
+  pitKind?: PitKind[]
+  wind?: WindZone[]
+  rails?: RailSpec[]
+  waves?: WaveSpec[]
+  vents?: VentSpec[]
+  /** Ice pillars (solid; the cracked ones can be shot down). */
+  icePillars?: IcePillar[]
+  /** Icicles that drop from the ceiling on a rhythm. */
+  icicles?: IcicleSpec[]
+  /** Extra one-way edges for the objective trail's `findPath`. */
+  links?: NavLink[]
+  /** The pits are open sky over a sea of clouds (the Sky Docks): drawn as
+   *  mist far below instead of a dark shaft. Looks only. */
+  clouds?: boolean
 }
 
 export interface MapSpec {

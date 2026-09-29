@@ -242,6 +242,71 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     lamp(`beam-${i}`, LAB_CYAN, 'relay', xform(cap(0.03, len), [mx, 1.4, mz], [Math.PI / 2, yaw, 0]), mx, mz)
   })
 
+  // ── Beyond the rim (solid look only): the rest of Ampere Valley ──
+  // The bowl is only the valley's heart. Past its hills the city goes on —
+  // skyscrapers climbing taller the farther they stand, between rolling
+  // hills — up to a ring of mountains the fog turns to silhouettes. Without
+  // it the aerial shot sees the diorama floating in bare sky. Kept low on
+  // the south (the camera's side) so nothing stands in the shot.
+  const outerGlow: BufferGeometry[] = []
+  if (!holo) {
+    const or = lcg(4242)
+    const OUTER = 95
+    toon.push(xform(paint(rcyl(OUTER, 0.5, 0.2, 48), '#171d3c'), [0, -0.35, 0]))
+    // Rolling hills between the rim and the towers, and mountains behind.
+    const outerHills = low ? 10 : 18
+    for (let k = 0; k < outerHills; k++) {
+      const a = (k / outerHills) * Math.PI * 2 + or() * 0.3
+      const r = DIORAMA_R * 1.55 + or() * 10
+      const south = Math.max(0, Math.sin(a))
+      const s = (3 + or() * 3) * (1 - 0.5 * south)
+      toon.push(xform(paint(rock(s, k + 40), '#2c3263'), [Math.cos(a) * r, -0.3, Math.sin(a) * r], [0, or() * 3, 0], [1.6, 0.2 + (1 - south) * 0.45 + or() * 0.15, 1.6]))
+    }
+    const peaks = low ? 9 : 16
+    for (let k = 0; k < peaks; k++) {
+      const a = (k / peaks) * Math.PI * 2 + or() * 0.25
+      const r = 68 + or() * 16
+      const s = 12 + or() * 8
+      toon.push(xform(paint(rock(s, k + 70, 8, 6), '#262b55'), [Math.cos(a) * r, 0, Math.sin(a) * r], [0, or() * 3, 0], [1.5, 0.9 + or() * 0.8, 1.2]))
+    }
+    // The skyscrapers: stepped, round and needle towers with window bands.
+    const WIN = ['#ffd98a', '#7fe8ff', '#ff7ad8', '#b8a6ff']
+    const want = low ? 30 : 70
+    let built = 0
+    for (let tries = 0; tries < 400 && built < want; tries++) {
+      const a = or() * Math.PI * 2
+      const r = DIORAMA_R * 1.45 + Math.pow(or(), 0.8) * 42
+      const x = Math.cos(a) * r
+      const z = Math.sin(a) * r
+      // The camera's corridor: it flies in from the south, over +z.
+      if (z > 0 && Math.abs(x) < 16) continue
+      const south = Math.max(0, Math.sin(a))
+      const far = (r - DIORAMA_R * 1.45) / 42
+      const h = (2 + far * 8 + or() * or() * 6) * (1 - 0.75 * south)
+      const w = 0.9 + or() * 1.1
+      const wall = or() < 0.5 ? '#2a3162' : '#353a6b'
+      const win = WIN[Math.floor(or() * WIN.length)]!
+      const kind = or()
+      built++
+      if (kind < 0.45) {
+        // Stepped: a slab with a narrower block on top.
+        toon.push(xform(paint(rbox(w, h * 0.7, w, 0.15, 8, 6), wall), [x, h * 0.35, z], [0, a, 0]))
+        toon.push(xform(paint(rbox(w * 0.65, h * 0.3, w * 0.65, 0.2, 8, 6), wall), [x, h * 0.85, z], [0, a, 0]))
+      } else if (kind < 0.8) {
+        toon.push(xform(paint(rcyl(w * 0.55, h, 0.1, 10, 1), wall), [x, h / 2, z]))
+      } else {
+        toon.push(xform(paint(rcone(w * 0.6, w * 0.12, h * 1.25, 0.05, 8), wall), [x, h * 0.625, z]))
+      }
+      const bands = Math.max(1, Math.floor(h / 2.2))
+      for (let b = 0; b < bands; b++) {
+        const y = h * (0.2 + 0.6 * (b + 0.5) / bands)
+        const bw = kind < 0.8 ? w * (kind < 0.45 ? 1.04 : 1.12) : w * 0.9 * (1 - y / (h * 1.25))
+        outerGlow.push(paint(xform(kind < 0.45 ? rbox(bw, 0.18, bw, 0.15, 8, 4) : rcyl(bw * 0.5, 0.18, 0.02, 10, 1), [x, y, z], [0, a, 0]), win))
+      }
+      if (h > 7) outerGlow.push(paint(xform(sph(0.25, 6, 4), [x, (kind >= 0.8 ? h * 1.25 : h) + 0.2, z]), SPIRE_WHITE))
+    }
+  }
+
   // ── Assemble ──
   const toonGeo = merge(toon)
   let holoMat: MeshBasicMaterial | null = null
@@ -270,6 +335,11 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     lamps.push({ mat, base: new Color(e.color), dist: Math.hypot(cx - sx, cz - sz), sector: e.sector })
   }
   const reach = Math.max(...lamps.map(l => l.dist)) + 1
+  // The outer city's windows: one mesh, not a lamp (the ring's reach stays
+  // the bowl's); they redden once the ring has rolled over the bowl.
+  const outerMat = new MeshBasicMaterial({ vertexColors: true, toneMapped: false })
+  outerMat.userData.own = true
+  if (outerGlow.length) root.add(new Mesh(merge(outerGlow), outerMat))
 
   // The turning coil and the drifting airships (both lamps of their own).
   const voltMat = new MeshBasicMaterial({ color: new Color(SECTOR_GLOW.volt), toneMapped: false })
@@ -350,6 +420,7 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
       ring.scale.setScalar(Math.max(0.01, front))
       ringMat.opacity = 0.9 * (1 - k * 0.6)
       hopMat.color.copy(tmp.set('#e8fbff')).lerp(red, k > 0.15 ? 1 : 0)
+      outerMat.color.set('#ffffff').lerp(red, Math.min(1, Math.max(0, (k - 0.6) / 0.4)) * 0.85)
     },
     animate: (t) => {
       if (moving.coil) moving.coil.rotation.y = t * 2.2
@@ -389,6 +460,6 @@ export const disposeDiorama = (d: Diorama): void => {
     const m = o as Mesh
     if (m.geometry) m.geometry.dispose()
     const mat = m.material as Material | Material[] | undefined
-    if (mat && !Array.isArray(mat) && mat instanceof MeshBasicMaterial && mat.vertexColors === false) mat.dispose()
+    if (mat && !Array.isArray(mat) && mat instanceof MeshBasicMaterial && (mat.vertexColors === false || mat.userData.own)) mat.dispose()
   })
 }

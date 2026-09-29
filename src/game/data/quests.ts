@@ -2,6 +2,7 @@ import type { SectorId } from '../world/themes'
 import type { EnemyKind } from '../models/enemies'
 import { SECTOR_BY_ID, enemyLevelFor, type Sector } from './regions'
 import { mulberry32, randInt, pick, weighted } from '../world/rng'
+import { STAGE_LENGTH, isStageSector } from '../world/stages'
 import type { Rarity } from './items'
 
 /**
@@ -10,9 +11,13 @@ import type { Rarity } from './items'
  * Story missions (one per sector: fight through to the Core Master) and the
  * repeatable Blades-style JOBS the terminal offers three at a time. Every
  * mission carries its own map seed, so taking a job builds a fresh sector map.
+ *
+ * The story missions of Blaze, Cryo, Volt and Gale are platform STAGES
+ * (`world/stages/`, template 'stage'); the Scrapyard's is the tutorial and
+ * the Fortress's the classic room labyrinth ('boss').
  */
 
-export type QuestTemplate = 'tutorial' | 'boss' | 'kill' | 'collect' | 'rescue' | 'elite' | 'supply' | 'purge' | 'climb'
+export type QuestTemplate = 'tutorial' | 'boss' | 'kill' | 'collect' | 'rescue' | 'elite' | 'supply' | 'purge' | 'climb' | 'stage'
 
 export interface Quest {
   id: string
@@ -37,9 +42,11 @@ export const CLIMB_WEIGHT = 1.4
 
 const rewardFor = (template: QuestTemplate, level: number, story: boolean): Quest['reward'] => {
   const base = 40 + level * 18
-  const mul: Record<QuestTemplate, number> = { tutorial: 1.2, boss: 2.6, kill: 1, collect: 1.05, rescue: 1.15, elite: 1.35, supply: 1.1, purge: 1.3, climb: 2.6 }
-  // A climb ends in a Core Master fight: it pays like one.
-  const bossLike = template === 'boss' || template === 'climb'
+  const mul: Record<QuestTemplate, number> = {
+    tutorial: 1.2, boss: 2.6, kill: 1, collect: 1.05, rescue: 1.15, elite: 1.35, supply: 1.1, purge: 1.3, climb: 2.6, stage: 2.6
+  }
+  // A climb and a stage end in a Core Master fight: they pay like one.
+  const bossLike = template === 'boss' || template === 'climb' || template === 'stage'
   return {
     xp: Math.round(base * mul[template] * (story ? 1.3 : 1)),
     bolts: Math.round((30 + level * 12) * mul[template]),
@@ -65,7 +72,14 @@ export const tutorialQuest = (): Quest => ({
   reward: { xp: 120, bolts: 80, rarityBias: 0.5, guaranteed: 'tuned' }
 })
 
-export const storyQuest = (sector: Sector, playerLevel: number, attempt: number): Quest => {
+/** A sector's story mission: its platform stage where it has one, else
+ *  the labyrinth to its Core Master (`bossQuest`). */
+export const storyQuest = (sector: Sector, playerLevel: number, attempt: number): Quest =>
+  isStageSector(sector.id) ? stageQuest(sector, playerLevel, attempt) : bossQuest(sector, playerLevel, attempt)
+
+/** The room labyrinth to a Core Master: the Fortress's story mission (and
+ *  the Scrapyard's replay), and the lab's showdown in any sector. */
+export const bossQuest = (sector: Sector, playerLevel: number, attempt: number): Quest => {
   const level = enemyLevelFor(sector, playerLevel, 1)
   return {
     id: `story_${sector.id}`,
@@ -78,6 +92,24 @@ export const storyQuest = (sector: Sector, playerLevel: number, attempt: number)
     count: 1,
     rooms: sector.rooms[1],
     reward: rewardFor('boss', level, true)
+  }
+}
+
+/** A platform stage (`world/stages/`): its sections and the arena are the
+ *  rooms; the seed is the attempt's, as a labyrinth's. */
+const stageQuest = (sector: Sector, playerLevel: number, attempt: number): Quest => {
+  const level = enemyLevelFor(sector, playerLevel, 1)
+  return {
+    id: `story_${sector.id}`,
+    kind: 'story',
+    template: 'stage',
+    sector: sector.id,
+    seed: (sector.id.length * 7919 + attempt * 104729 + 12345) >>> 0,
+    level,
+    target: null,
+    count: 1,
+    rooms: isStageSector(sector.id) ? STAGE_LENGTH[sector.id] + 1 : sector.rooms[1],
+    reward: rewardFor('stage', level, true)
   }
 }
 

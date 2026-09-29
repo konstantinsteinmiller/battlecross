@@ -124,6 +124,8 @@ export default {
     'supply': 'Bevoorrading',
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
+    'stage': 'Platformlevel',
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -134,7 +136,8 @@ export default {
       'elite': 'Een elitevijand ({target}) terroriseert sector {sector}. Maak er jacht op!',
       'supply': 'Kraak {n} voorraadkisten in sector {sector}.',
       'purge': 'Vernietig elke machine in sector {sector}.',
-      'climb': 'Beklim de toren van sector {sector} — trappen, ladders, liften en afgronden — en daal af naar de arena voor een revanche tegen {boss}.'
+      'climb': 'Beklim de toren van sector {sector} — trappen, ladders, liften en afgronden — en daal af naar de arena voor een revanche tegen {boss}.',
+      'stage': 'Ren, glijd en rijd door sector {sector} — richels, afgronden en machines — naar de arena, en versla daar {boss}.'
     }
   },
   'objective': {
@@ -149,7 +152,8 @@ export default {
     'elite': 'Jaag op de elitevijand: {target}',
     'supply': 'Voorraadkisten: {n}/{total}',
     'purge': 'Machines vernietigd: {n}/{total}',
-    'climb': 'Beklim de toren, versla {boss}'
+    'climb': 'Beklim de toren, versla {boss}',
+    'stage': 'Bereik de arena, versla {boss}'
   },
   'mission': {
     'bossDown': '{boss} vernietigd!',
@@ -203,7 +207,8 @@ export default {
   'loot': {
     'upgrade': 'Upgrade!',
     'found': '{item} ({rarity}) gevonden!',
-    'tank': 'Reparatiegel gevonden!'
+    'tank': 'Reparatiegel gevonden!',
+    'giftTank': 'Cadeau: +1 Reparatiegel!'
   },
 
   'results': {
@@ -218,7 +223,8 @@ export default {
     'newWeapon': 'Nieuw wapen: {weapon}!',
     'newSector': 'Nieuwe sector vrijgespeeld: {sector}',
     'items': 'Gevonden uitrusting',
-    'double': 'Bouten verdubbelen (+{n})'
+    'triple': 'Bouten ×3',
+    'tripleAria': 'Bekijk een korte video: verdrievoudig je bouten tot +{n}'
   },
   'defeat': {
     'title': 'SYSTEEMSTORING',
@@ -290,6 +296,13 @@ export default {
     'sectorSecured': 'Sector veiliggesteld. De klussen staan nog op het bord.',
     'deploy': 'Uitrukken',
     'reroll': 'Nieuwe klus',
+    'gift': {
+      'name': 'Gel voor onderweg',
+      'desc': 'Bekijk een korte video: +1 Reparatiegel voor je volgende missie, zelfs boven je limiet.',
+      'aria': 'Bekijk een korte video voor een extra Reparatiegel in je volgende missie',
+      'ready': 'Cadeau ingepakt!',
+      'readyDesc': '+1 Reparatiegel voor je volgende missie.'
+    },
     'unlock': {
       'hint': 'Voltooi nog {n} missie om dit te ontgrendelen | Voltooi nog {n} missies om dit te ontgrendelen',
       'aria': '{name}, vergrendeld: voltooi nog {n} missie | {name}, vergrendeld: voltooi nog {n} missies'
@@ -547,6 +560,49 @@ export default {
     }
   },
   'atlas': {
+    'hint': {
+      'blaze': {
+        // Meltdown Descent (blaze stage)
+        'lava': 'Daar beneden is lava. Blijf op het metaal.',
+        'leap': 'Te breed om te lopen. Glij over de rand, dan kom je er wel.',
+        'vents': 'Eerst gesis, dan vuur. Wacht op het gebrul en ga dan.',
+        'barrels': 'Vaten! Let op de lampjes en steek ertussendoor over.',
+        'hammers': 'Smeedhamers. Tel de maat en ren dan.',
+        'drop': 'Het is diep. Eén richel tegelijk.'
+      },
+      'cryo': {
+        // Glacier Run (cryo stage)
+        'ice': 'IJs! Laat de stick los en je glijdt door.',
+        'spikes': 'Pinnen onder dat ijs. Loop rechtdoor, geen scherpe bochten.',
+        'frost': 'Vorstwerper. Eerst gloeit en sist hij. Ga als hij stil is.',
+        'icicles': 'Schaduwen op de vloer? IJspegels. Stap uit de ring!',
+        'pillar': 'Die pilaar is gebarsten. Schiet erop en je hebt een kortere weg.',
+        'stairs': 'IJzige trap. Rustig aan, het bordes is klein.'
+      },
+      'volt': {
+        // Rail Rush (volt stage)
+        'panels': 'Die panelen pulseren. Wacht op een donkere rij en stap dan door.',
+        'board': 'Handen van de besturing — ik rijd, jij schiet.',
+        'wave': 'Drones vooruit! Schiet ze neer voordat ze duiken.',
+        'dip': 'Grote afdaling in zicht. Hou je vast — blijf schieten!',
+        'arrive': 'Eindstation. Stap maar uit!'
+      },
+      'gale': {
+        // Sky Docks (gale stage)
+        'leap': 'Te breed om te lopen. Glij over de rand – je vaart draagt je.',
+        'down': 'Mooie sprong. Nu niet naar beneden kijken.',
+        'shuttle': 'Pendels. Stap op als hij aanmeert, aan de overkant eraf.',
+        'wind': 'Wacht tot de windvlaag gaat liggen, dan lopen. Of schuil achter een pilaar.',
+        'bob': 'Deinende platforms. Stap onderaan op en ga mee omhoog.'
+      }
+    },
+    'secret': {
+      // secret-room puzzles
+      'lights': 'Dat paneel toont een patroon. De lampen aan de muur nog niet.',
+      'color': 'Die lijst heeft een lievelingskleur. Alleen haar lampen horen te branden.',
+      'cycle': 'Elk schot laat een lamp van gedachten veranderen. Het paneel weet wat het wil.',
+      'solved': 'Kijk eens aan. Iemand houdt van puzzels.'
+    },
     'landed': 'Geland! Daar gaan we.',
     'brief': {
       'tutorial': 'Training! Ik help je.',
