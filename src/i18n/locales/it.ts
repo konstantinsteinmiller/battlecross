@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon}: raggiunto il grado {n}!',
     'scrapBurst': { 'name': 'Raffica di Rottami', 'desc': 'Una raffica di rottami in tre direzioni. Ottima contro i gruppi.' },
     'flameWave': { 'name': 'Onda di Fuoco', 'desc': 'Una palla di fuoco rotola sul pavimento, attraversa ogni macchina sul suo cammino e le incendia.' },
-    'iceLance': { 'name': 'Lancia di Ghiaccio', 'desc': 'Una lancia perforante che congela ciò che colpisce.' },
+    'iceLance': { 'name': 'Lancia di Ghiaccio', 'desc': 'Una lancia perforante che raffredda ciò che colpisce e lo rallenta.' },
     'thunderArc': { 'name': 'Arco Tonante', 'desc': 'Un fulmine istantaneo che rimbalza sulle macchine vicine.' },
     'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' }
   },

@@ -512,7 +512,8 @@ export class MissionObjects {
     if (c.opened) return
     c.opened = true
     c.openT = 0
-    this.host.nav.props[c.navIdx]!.active = false
+    // An opened chest stays a solid thing: Flux walks around it and shots
+    // stop on it (its loot still flies to him on the pickup magnet).
     this.host.fx.riseRing(c.x, c.y + 0.4, c.z, RARITY_COLOR[c.rarity], 0.9, 18)
     this.host.fx.sparks(c.x, c.y + 0.9, c.z, RARITY_COLOR[c.rarity], 16, 5)
     if (c.supply) this.progress(1)
@@ -571,6 +572,17 @@ export class MissionObjects {
       c.hp -= dmg
       c.hitT = 1
       if (c.hp <= 0) this.breakCrate(c)
+      return true
+    }
+    return false
+  }
+
+  /** A shot hit a chest, open or shut? It stops there (no damage, sparks). */
+  shotHitsChest(x: number, y: number, z: number, r: number): boolean {
+    for (const c of this.chests) {
+      if (y > c.y + 1.05 + r || y < c.y - r) continue
+      if (Math.hypot(c.x - x, c.z - z) > this.host.nav.props[c.navIdx]!.r + r) continue
+      if (!hasLineOfSight(this.host.nav, x, z, c.x, c.z)) continue
       return true
     }
     return false

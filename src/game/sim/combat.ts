@@ -440,7 +440,9 @@ export class CombatSystem {
           h.shake(0.3)
           h.sfx(s.rock ? 'stomp' : 'explode', s.x, s.z)
           if (Math.hypot(h.player.x - s.x, h.player.z - s.z) < 1.9 + PLAYER_R) {
-            h.hitPlayer(s.source, s.dmg, { blockable: false, fromX: s.x, fromZ: s.z, kind: 'aoe' })
+            // The shield takes a shell too, raised toward the gun that lobbed
+            // it (the landing point is often Flux's own feet, no direction).
+            h.hitPlayer(s.source, s.dmg, { blockable: true, fromX: s.sx, fromZ: s.sz, kind: 'aoe' })
           }
           this.kill(s)
         }
@@ -720,15 +722,8 @@ export class CombatSystem {
       // A golem the hit only woke catches no burn and no freeze either
       if (e.state !== 'dead' && !golemShielded(e)) {
         if (s.burn > 0) { e.burnT = 3; e.burnDps = s.burn }
-        if (s.freeze > 0 && !e.boss) {
-          e.frozenT = s.freeze
-          e.state = 'stun'
-          e.st = 0
-          e.stunT = s.freeze
-          e.ring.visible = false
-        } else if (s.freeze > 0 && e.boss) {
-          e.frozenT = 0.6
-        }
+        // Ice is an element, not a stun: it slows (see `frozenDt`).
+        if (s.freeze > 0) e.frozenT = Math.max(e.frozenT, s.freeze)
       }
       return
     }
@@ -861,6 +856,9 @@ export class CombatSystem {
     h.fx.orbBurst(e.x, cy, e.z, col, e.boss ? 2 : e.elite ? 1.4 : e.def.radius > 0.8 ? 1.2 : 1)
     // A golem breaks up into its crate's planks and its stone
     if (e.golem) this.rubble.burst(e.x, cy, e.z, e.golem.wood, e.golem.trim)
+    // Every other machine comes apart too: plates in its colour and dark
+    // chips tumble down (the kill-cam's subject; cheap: pooled, few).
+    else if (!e.boss) this.rubble.burst(e.x, cy, e.z, col, '#2a2d3e', e.def.radius > 0.8 ? 7 : 5, 5)
     h.shake(e.boss ? 0.8 : e.elite ? 0.4 : 0.2)
     h.sfx(e.boss ? 'death' : 'explode', e.x, e.z)
     if (e.boss) h.hitStop = Math.max(h.hitStop, 0.35)

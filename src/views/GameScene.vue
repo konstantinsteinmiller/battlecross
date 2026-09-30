@@ -2,7 +2,7 @@
   div.scene-root
     div.canvas-host(ref="canvasHost")
     div.input-surface(v-show="flow.screen === 'mission'" ref="surface")
-    div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' || hud.introCine }")
+    div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' || hud.introCine || (hud.freezeKind && hud.freezeFrame !== 'fp') }")
       ScreenFx
       DamageMarkers
       FloatingText
@@ -25,12 +25,26 @@
       ActionButtons
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
     CutsceneLayer(v-else-if="flow.screen === 'intro'")
+    //- After an ad the mouse is free and a browser only re-captures on a
+    //- click: the run waits under this veil until the player gives one.
+    div.relock(
+      v-if="relockVeil"
+      role="button"
+      tabindex="0"
+      :aria-label="t('tips.capture')"
+      @pointerdown.prevent.stop="relock"
+      @keydown.enter.prevent="relock"
+    )
+      div.relock-glyph
+        InputGlyph(kind="mouse" button="left" :click="true")
     ExitSkip(v-if="flow.screen === 'mission'")
+    FreezeOverlay(v-if="flow.screen === 'mission'")
     BigBanner(v-if="flow.screen === 'mission'")
     AtlasBubble(v-if="flow.screen === 'mission'")
     ResultsModal
     DefeatModal
     PauseModal(@options="optionsOpen = true")
+    ControlsIntroModal
     LevelUpModal
     OptionsModal(
       :is-open="optionsOpen"
@@ -43,6 +57,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import InputGlyph from '@/components/hud/InputGlyph.vue'
 import { app } from '@/game/engine/app'
 import {
   attachInput, isPointerLocked, releasePointerLock, requestPointerLock, unlockedRecently
@@ -51,9 +67,10 @@ import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub, replayIntro, INTRO_ENABLED } from '@/game/flow'
 import { hud } from '@/game/state/hud'
+import { profile } from '@/game/state/profile'
 import { chargeHum } from '@/game/audio/synth'
 import { CHARGE_L2 } from '@/game/sim/stats'
-import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
+import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused, acquireAppPause } from '@/use/useGamePause'
 import { isAnyModalOpen } from '@/use/useModalState'
 import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
@@ -83,10 +100,12 @@ import DoorPrompt from '@/components/hud/DoorPrompt.vue'
 import BigBanner from '@/components/hud/BigBanner.vue'
 import AtlasBubble from '@/components/hud/AtlasBubble.vue'
 import ExitSkip from '@/components/hud/ExitSkip.vue'
+import FreezeOverlay from '@/components/hud/FreezeOverlay.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
 import PauseModal from '@/components/modals/PauseModal.vue'
+import ControlsIntroModal from '@/components/modals/ControlsIntroModal.vue'
 import LevelUpModal from '@/components/modals/LevelUpModal.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 import MissionLoading from '@/components/hud/MissionLoading.vue'
@@ -143,6 +162,13 @@ const onKey = (e: KeyboardEvent) => {
     if (!e.repeat && !typing(e) && !isAdShowing.value) toggleGameMute()
     return
   }
+  // F4 during a kill-cam: kill-cams off (Options → Gameplay turns them back
+  // on). Only then: F4 is nothing else of the game's.
+  if (e.code === 'F4' && hud.freezeKind === 'kill') {
+    e.preventDefault()
+    if (!e.repeat) currentMission()?.killCamsOff()
+    return
+  }
   // The intro: Esc skips it at once (the skip button's key); Space held for
   // 3 s skips it too, without reaching for the mouse (`story/holdSkip.ts`).
   // Space never scrolls or presses a focused button here: it is only the
@@ -186,8 +212,11 @@ onMounted(async () => {
     // Browser gestures (Opera's rocker, gesture extensions) must not take
     // the player off the page while captured; a lost capture keeps the
     // guard a moment longer, since the stroke that broke it may still end.
-    onLockChange: (locked, asked) =>
-      locked ? armNavigationGuard() : disarmNavigationGuard(asked ? 0 : LOCK_LOSS_GRACE_MS)
+    onLockChange: (locked, asked) => {
+      if (locked) armNavigationGuard()
+      else if (playLive.value) armNavigationGuard(false)
+      else disarmNavigationGuard(asked ? 0 : LOCK_LOSS_GRACE_MS)
+    }
   })
   void loadKeyboardLayout()
   app.setSuspended(isGamePaused.value)
@@ -229,6 +258,58 @@ watch(() => flow.modal, (m, prev) => {
   if (!m && prev && flow.screen === 'mission' && input.device === 'mouse' && hud.phase === 'play') requestPointerLock(input)
 })
 
+// Live play without a capture (the lock refused or lost, a portal iframe
+// without `allow-pointer-lock`) still blocks on the right button, so a rocker
+// gesture can still go back: keep the history entry, without the close prompt.
+const playLive = computed(() => flow.screen === 'mission' && hud.phase === 'play' &&
+  !flow.modal && !isGamePaused.value)
+watch(playLive, (v) => {
+  if (v) {
+    if (!isPointerLocked()) armNavigationGuard(false)
+  } else if (!isPointerLocked()) disarmNavigationGuard()
+})
+
+// ── Pointer lock around ads ──
+// An ad takes the mouse back (the pause gate releases the lock). A browser
+// only captures again on a user gesture, and the ad's own close click happens
+// in the SDK's frame, not ours — so a mouse player comes back to a paused run
+// under a "click to continue" veil, never to machines shooting at a camera
+// that no longer turns.
+const { t } = useI18n()
+const relockVeil = ref(false)
+/** An ad ended during this mission: the veil is owed once play is back (a
+ *  revive ad ends while Flux is still down, under the defeat modal). */
+const relockOwed = ref(false)
+let relockRelease: (() => void) | null = null
+watch(isAdShowing, (v, prev) => {
+  if (!v && prev && flow.screen === 'mission') relockOwed.value = true
+})
+watch(() => [relockOwed.value, hud.phase, flow.modal, isAdShowing.value] as const, ([owed, ph, modal, ad]) => {
+  if (!owed || ph !== 'play' || modal || ad) return
+  relockOwed.value = false
+  if (input.device !== 'mouse' || input.lockRefused || isPointerLocked()) return
+  relockVeil.value = true
+  relockRelease = acquireAppPause()
+})
+const relock = () => {
+  relockVeil.value = false
+  relockRelease?.()
+  relockRelease = null
+  requestPointerLock(input)
+}
+watch(() => flow.screen, (sc) => {
+  if (sc === 'mission') return
+  relockOwed.value = false
+  if (relockVeil.value) relock()
+})
+
+// A touch player's first mission: the controls legend once, right after the
+// beam-in (phone testers never found it in the pause menu).
+watch(() => hud.phase, (ph) => {
+  if (ph === 'play' && flow.screen === 'mission' && !flow.modal && input.device === 'touch' &&
+    !profile.tips['controlsIntro:touch']) flow.modal = 'controls'
+})
+
 watch(isGamePaused, (p) => {
   app.setSuspended(p)
   // The sim is frozen, so nothing re-pitches the buster's charge hum: silence
@@ -268,6 +349,25 @@ onUnmounted(() => {
   inset: 0
   overflow: hidden
   background: #0a1224
+.relock
+  position: absolute
+  inset: 0
+  z-index: 40
+  display: grid
+  place-items: center
+  background: rgba(6, 10, 26, 0.45)
+  cursor: pointer
+.relock-glyph
+  width: clamp(96px, 16vmin, 132px)
+  aspect-ratio: 140 / 112
+  filter: drop-shadow(0 3px 0 rgba(20, 26, 51, 0.55))
+  animation: relock-bob 1.1s ease-in-out infinite
+@keyframes relock-bob
+  50%
+    transform: translateY(-6px)
+@media (prefers-reduced-motion: reduce)
+  .relock-glyph
+    animation: none
 .canvas-host
   position: absolute
   inset: 0

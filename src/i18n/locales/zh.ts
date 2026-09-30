@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon}升至{n}阶！',
     'scrapBurst': { 'name': '废铁爆散', 'desc': '向三个方向喷射废铁碎片。对付成群敌人的利器。' },
     'flameWave': { 'name': '烈焰波', 'desc': '火球沿地面滚动，贯穿路径上的所有机械并将其点燃。' },
-    'iceLance': { 'name': '寒冰枪', 'desc': '穿透性的长枪，冻结命中的目标。' },
+    'iceLance': { 'name': '寒冰枪', 'desc': '穿透性的长枪，让命中的目标冻僵减速。' },
     'thunderArc': { 'name': '雷电弧', 'desc': '瞬发闪电，会连锁到附近的机械。' },
     'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' }
   },

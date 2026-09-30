@@ -98,6 +98,14 @@ export const hud = shallowReactive({
   /** The beam-in's third-person shot is on (`sim/beamIn.ts`): the HUD waits
    *  until the camera dives into Flux's head. */
   introCine: false,
+  /** A freeze-frame shot is running (`sim/freezeCam.ts`): its kind, how it
+   *  is framed ('fp' keeps the HUD), whether it skips, presses toward a skip. */
+  freezeKind: '' as '' | 'kill' | 'trap' | 'rescue' | 'lesson',
+  freezeFrame: '' as '' | 'shoulder' | 'front' | 'above' | 'fp',
+  freezeSkippable: false,
+  freezeSkips: 0,
+  /** Kill-cams shown this mission (the counter chip during one). */
+  killCams: 0,
   /** Flux's speech bubble (`FluxBubble.vue`): the i18n key of his line,
    *  and a count that grows with each one, so the same line pops again. */
   sayKey: '',

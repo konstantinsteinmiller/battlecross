@@ -119,6 +119,11 @@ export interface CoachContext {
   tanks: number
   hasWeapon: boolean
   canInteract: boolean
+  /** Past the tutorial mission: the "no shot in a fight" recall is off. On
+   *  a platform stage a fight often has nothing in reach (a drone across a
+   *  gap, a gun on another ledge), and the fire glyph kept coming back on
+   *  Sky Docks for players who had fired a thousand shots. */
+  veteran?: boolean
   /** A scene lesson (`lessons.ts`) is on screen: keep to survival glyphs
    *  (block, slide, tank) and the thumbs (move, look), and let the lesson
    *  have the player's attention. */
@@ -310,7 +315,7 @@ export class Coach {
     if (t > 6) {
       if (t - this.lastLook > LOOK_IDLE && !c.combat) this.recall('look')
       if (t - this.lastMove > MOVE_IDLE && !c.combat) this.recall('move')
-      if (c.combat && !this.quiet && t - this.lastFire > FIRE_IDLE) this.recall('fire')
+      if (c.combat && !this.quiet && !c.veteran && t - this.lastFire > FIRE_IDLE) this.recall('fire')
     }
     for (const id of Object.keys(this.st) as HintId[]) {
       const s = this.st[id]

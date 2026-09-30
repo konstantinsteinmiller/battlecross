@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} subiu para o grau {n}!',
     'scrapBurst': { 'name': 'Rajada de Sucata', 'desc': 'Um jato de sucata em três direções. Ótimo contra grupos.' },
     'flameWave': { 'name': 'Onda de Chamas', 'desc': 'Uma bola de fogo rola pelo chão, atravessa todas as máquinas no caminho e as incendeia.' },
-    'iceLance': { 'name': 'Lança de Gelo', 'desc': 'Uma lança perfurante que congela o que atinge.' },
+    'iceLance': { 'name': 'Lança de Gelo', 'desc': 'Uma lança perfurante que resfria o que atinge e o deixa mais lento.' },
     'thunderArc': { 'name': 'Arco Trovão', 'desc': 'Um raio instantâneo que salta para as máquinas próximas.' },
     'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' }
   },

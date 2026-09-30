@@ -7,7 +7,7 @@ import { rollItem, type Item } from './data/items'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import {
   profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp,
-  loadProfile, setSaveSandbox, markStorySeen
+  loadProfile, setSaveSandbox, markStorySeen, noteMissionIncome
 } from './state/profile'
 import { hud } from './state/hud'
 import { flushSaveNow, saveDataVersion } from '@/use/useSaveStatus'
@@ -34,7 +34,7 @@ import type { SectorId } from './world/themes'
  */
 
 export type Screen = 'boot' | 'mission' | 'hub' | 'intro'
-export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp'
+export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp' | 'controls'
 
 export interface ResultsData {
   quest: Quest
@@ -419,6 +419,7 @@ export const finishMission = async (success: boolean, tally: MissionTally): Prom
     bolts += quest.reward.bolts
     grantXp(quest.reward.xp)
     profile.bolts += quest.reward.bolts
+    noteMissionIncome(bolts)
     profile.questsDone++
     const it = rollItem((quest.seed ^ 0xa11) >>> 0, quest.level, { bias: quest.reward.rarityBias, rarity: quest.reward.guaranteed })
     profile.inv.items.push(it)

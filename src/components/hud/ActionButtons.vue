@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.actions(ref="actionsEl" v-show="hud.phase === 'play'")
+  div.actions(ref="actionsEl" v-show="hud.phase === 'play'" :class="{ touch: !desk }")
     //- FIRE (touch): press to shoot, hold to charge, let go to fire the
     //- charge — at anything, with nothing in sight (a crate, a barrel), where
     //- a press on the view only fires near a machine. Dragging it looks
@@ -15,6 +15,8 @@
       @pointercancel.prevent.stop="fireEnd"
     )
       GameIcon(name="buster")
+      //- Crosshair ticks round the buster: "this one shoots", at a glance.
+      span.fire-ticks(aria-hidden="true")
     button.act.block(
       type="button"
       :class="{ held: hud.blockHeld }"
@@ -77,6 +79,7 @@
         @pointerdown.prevent.stop="fire(i)"
       )
         span.w-orb
+          GameIcon.w-mark(v-if="w.id" :name="weaponIcon(w.id)")
         span.w-cost {{ w.cost }}
         KeyCap.kc(v-if="desk" :code="`Digit${i + 1}`")
         CoachRing(v-if="i === 0" :hint="touchHint('weapon')")
@@ -94,6 +97,7 @@
         @pointerdown.prevent.stop="fire(2)"
       )
         span.w-orb
+          GameIcon.w-mark(v-if="hud.borrowed.id" :name="weaponIcon(hud.borrowed.id)")
         span.b-pips(aria-hidden="true")
           span.b-arm(v-for="i in hud.borrowed.max" :key="i" :style="{ transform: pipTurn(i) }")
             span.b-pip(:class="{ on: i <= hud.borrowed.shots }")
@@ -117,6 +121,7 @@ import CoachRing from './CoachRing.vue'
 import KeyCap from './KeyCap.vue'
 import InputGlyph from './InputGlyph.vue'
 import type { HintId, HintView } from '@/game/sim/coach'
+import { WEAPON_ICON, type WeaponId } from '@/game/data/weapons'
 import { TEACH_TIP } from '@/game/sim/borrowed'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -139,6 +144,8 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
  * profile takes is taught the coach's way: a pulsing ring on the button, its
  * key or a tapping finger over it (not during a fight), a check once fired.
  */
+/** A weapon's mark inside its orb (the same glyph as the results screen). */
+const weaponIcon = (id: string) => WEAPON_ICON[id as WeaponId] ?? 'buster'
 const { t } = useI18n()
 /** The coach glyph for a button, when it is teaching a touch player. */
 const touchHint = (id: HintId) => hud.hints.find(h => h.id === id && h.family === 'touch')
@@ -577,11 +584,18 @@ watch(() => hud.borrowed.teach, (on, was) => {
   &.off
     filter: grayscale(0.75) brightness(0.7)
   .w-orb
+    display: grid
+    place-items: center
     width: 44%
     height: 44%
     border-radius: 50%
     background: radial-gradient(circle, #ffffff 0%, var(--wc) 70%)
     box-shadow: 0 0 10px var(--wc)
+  .w-mark
+    width: 78%
+    height: 78%
+    color: #141a33
+    opacity: 0.85
   .w-cost
     position: absolute
     left: -4px
@@ -689,6 +703,61 @@ watch(() => hud.borrowed.teach, (on, was) => {
     transform: scale(0.2)
     filter: brightness(2.2)
     opacity: 0
+// ── Touch layout ─────────────────────────────────────────────────────────
+// Phone playtests: the fire button sat on the screen's right edge, and a
+// thumb holding it to charge and dragging right to look slid off the glass.
+// Fire is now bigger (the primary action) and moved in by about one button,
+// with nothing to its right but air above the shield; slide stays under it,
+// the gel and the weapon slots moved out to the left.
+.actions.touch
+  width: clamp(230px, 60vmin, 360px)
+  height: clamp(150px, 36vmin, 220px)
+  .fire
+    right: clamp(64px, 17vmin, 108px)
+    bottom: clamp(66px, 16vmin, 100px)
+    width: clamp(77px, 17vmin, 106px)
+    height: clamp(77px, 17vmin, 106px)
+    :deep(.game-icon)
+      width: 50%
+      height: 50%
+  .tank
+    right: clamp(140px, 36vmin, 226px)
+    bottom: clamp(72px, 17.5vmin, 110px)
+  .weapon.w0
+    right: clamp(136px, 35vmin, 220px)
+    bottom: clamp(8px, 2vmin, 14px)
+  .weapon.w1
+    right: clamp(186px, 47vmin, 296px)
+    bottom: clamp(40px, 10vmin, 64px)
+  .weapon.w2
+    right: clamp(186px, 47vmin, 296px)
+    bottom: clamp(100px, 24vmin, 150px)
+// Portrait: the screen is narrow, the left 45 % is the stick's, so the
+// weapon slots stack ABOVE the fire button instead of reaching left.
+@media (max-aspect-ratio: 1/1)
+  .actions.touch
+    width: clamp(200px, 60vmin, 300px)
+    height: clamp(230px, 56vmin, 330px)
+    .tank
+      right: clamp(120px, 37.5vmin, 200px)
+      bottom: clamp(10px, 3vmin, 20px)
+    .weapon.w0
+      right: clamp(74px, 20vmin, 118px)
+      bottom: clamp(154px, 38vmin, 220px)
+    .weapon.w1
+      right: clamp(118px, 37vmin, 196px)
+      bottom: clamp(128px, 33vmin, 190px)
+    .weapon.w2
+      right: clamp(14px, 4vmin, 24px)
+      bottom: clamp(160px, 40vmin, 230px)
+.fire-ticks
+  position: absolute
+  inset: 9%
+  border-radius: 50%
+  pointer-events: none
+  // Four short ticks at 12, 3, 6 and 9 o'clock: a sight, drawn as gradients.
+  background: linear-gradient(#141a33, #141a33) top center / 3px 16% no-repeat, linear-gradient(#141a33, #141a33) bottom center / 3px 16% no-repeat, linear-gradient(#141a33, #141a33) left center / 16% 3px no-repeat, linear-gradient(#141a33, #141a33) right center / 16% 3px no-repeat
+  opacity: 0.55
 // Landscape: the card beside the button, toward the middle — above it, it
 // would meet the coach's look glyph on a short screen (in portrait, beside
 // it, the move glyph's ∞).

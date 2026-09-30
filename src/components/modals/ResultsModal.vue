@@ -31,7 +31,8 @@
         div.levelup(v-if="r.levelAfter > r.levelBefore")
           | {{ t('results.levelUp', { n: r.levelAfter }) }}
         div.unlock(v-if="r.weapon")
-          span.w-dot(:style="{ background: WEAPONS[r.weapon].color }")
+          span.w-badge(:style="{ '--wc': WEAPONS[r.weapon].color }")
+            GameIcon.w-icon(:name="WEAPON_ICON[r.weapon]")
           | {{ t('results.newWeapon', { weapon: t(`weapon.${r.weapon}.name`) }) }}
         div.unlock(v-if="r.unlocked")
           | {{ t('results.newSector', { sector: t(`sector.${r.unlocked}`) }) }}
@@ -78,7 +79,7 @@ import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { flow, leaveResults } from '@/game/flow'
 import { profile, saveProfile, lifetimeXp } from '@/game/state/profile'
-import { WEAPONS } from '@/game/data/weapons'
+import { WEAPONS, WEAPON_ICON } from '@/game/data/weapons'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { formatCount } from '@/utils/localeNumber'
 import RankBadge from '@/components/molecules/RankBadge.vue'
@@ -211,11 +212,37 @@ const done = () => {
   gap: 8px
   color: #7ff4ff
   font-size: clamp(13px, 2.8vmin, 16px)
-.w-dot
-  width: 14px
-  height: 14px
+// The won weapon's own mark in its colour, popping in: the player sees
+// WHAT they got (a flame, a snowflake) before reading its name.
+.w-badge
+  --wc: #fff
+  flex: none
+  display: grid
+  place-items: center
+  width: clamp(34px, 7vmin, 46px)
+  height: clamp(34px, 7vmin, 46px)
   border-radius: 50%
-  border: 2px solid #141a33
+  border: 3px solid #141a33
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, var(--wc) 45%, color-mix(in srgb, var(--wc) 55%, #141a33) 100%)
+  box-shadow: 0 0 14px color-mix(in srgb, var(--wc) 70%, transparent), inset 0 -3px 0 rgba(0, 0, 0, 0.25)
+  animation: w-pop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) 0.2s both, w-glow 1.6s ease-in-out 0.8s infinite
+.w-badge .w-icon
+  width: 62%
+  height: 62%
+  color: #141a33
+@keyframes w-pop
+  0%
+    transform: scale(0) rotate(-40deg)
+  100%
+    transform: scale(1) rotate(0)
+@keyframes w-glow
+  0%, 100%
+    box-shadow: 0 0 10px color-mix(in srgb, var(--wc) 60%, transparent), inset 0 -3px 0 rgba(0, 0, 0, 0.25)
+  50%
+    box-shadow: 0 0 22px var(--wc), inset 0 -3px 0 rgba(0, 0, 0, 0.25)
+@media (prefers-reduced-motion: reduce)
+  .w-badge
+    animation: none
 .items .item
   margin-top: 8px
 .items

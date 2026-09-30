@@ -81,6 +81,9 @@ export interface StatsSave {
   /** Every point of XP ever earned, still counting past the level cap: the
    *  leaderboard's score. Read it through `lifetimeXp()`. */
   xpEarned: number
+  /** A running average (EMA) of the bolts a won mission paid, quest reward
+   *  and pickups, before any ×3 ad: what "a mission's income" is worth now. */
+  boltsAvg: number
 }
 
 export interface Profile {
@@ -122,7 +125,7 @@ const defaults = (): Profile => ({
   inv: defaultInv(),
   quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
   world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard', seen: [] },
-  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0 },
+  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0, boltsAvg: 0 },
   tips: {}
 })
 
@@ -524,4 +527,21 @@ export const readSnapshot = (): MissionSnapshot | null => {
 export const writeSnapshot = (s: MissionSnapshot | null): void => {
   if (import.meta.env.DEV && saveSandbox) return
   setStates({ [MISSION_KEY]: s ? plain(s) : null })
+}
+
+// ─── Income-scaled rewards ─────────────────────────────────────────────────
+
+/** Fold a won mission's bolts into the running income average. */
+export const noteMissionIncome = (bolts: number): void => {
+  const a = profile.stats.boltsAvg || 0
+  profile.stats.boltsAvg = a <= 0 ? bolts : a + (bolts - a) * 0.35
+}
+
+/** The Workshop's rewarded supply drop: about half a mission's income, so the
+ *  ad stays worth a look however far the player is (the flat level formula
+ *  fell far behind real mission pay). Never under the old flat amount. */
+export const supplyDropBolts = (): number => {
+  const flat = 40 + 20 * profile.level
+  const half = 0.5 * (profile.stats.boltsAvg || 0)
+  return Math.round(Math.max(flat, half) / 5) * 5
 }

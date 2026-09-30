@@ -29,8 +29,10 @@
           :aria-label="t('workshop.dropAria', { n: dropAmount })"
           @click="claimDrop"
         )
-          //- A video for "+60" and the nut: signed, like every reward.
-          GameIcon.bi(name="video")
+          //- A film clapper for "+60" and the nut: signed, like every reward.
+          //- White on a dark chip, so the mark reads at a glance on the gold.
+          span.ad-chip
+            RewardAdIcon.ad-mark
           span +{{ dropAmount }}
           GameIcon.bi(name="nut")
       div.section-title {{ t('workshop.upgrade') }}
@@ -73,10 +75,11 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import RewardAdIcon from '@/components/atoms/RewardAdIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import ItemDetail from './ItemDetail.vue'
 import { SLOT_ICON } from './gearFormat'
-import { profile, saveProfile, computeStats, isEquipped, upgradeItem, itemById } from '@/game/state/profile'
+import { profile, saveProfile, computeStats, isEquipped, upgradeItem, itemById, supplyDropBolts } from '@/game/state/profile'
 import { itemPower, mainStat, upgradeCost, MAX_UPG } from '@/game/data/items'
 import { RARITY_COLOR } from '@/game/models/palette'
 import { sfx } from '@/game/audio/sfx'
@@ -94,7 +97,7 @@ const TANK_PRICE = 150
 // in the save (so a reload does not reset it). Hidden whenever no rewarded ad
 // is ready — an offer that then fails reads as a broken game.
 const DROP_COOLDOWN_MS = 4 * 60_000
-const dropAmount = computed(() => Math.round((40 + 20 * profile.level) / 5) * 5)
+const dropAmount = computed(() => supplyDropBolts())
 const now = ref(Date.now())
 let clock: number | null = null
 onMounted(() => { clock = window.setInterval(() => { now.value = Date.now() }, 1000) })
@@ -175,6 +178,16 @@ const upgrade = () => {
 .tc
   font-size: clamp(11px, 2.4vmin, 13px)
   color: #9fe6ff
+.ad-chip
+  display: grid
+  place-items: center
+  padding: 3px 5px
+  border-radius: 7px
+  background: #141a33
+  color: #ffffff
+.ad-mark
+  width: 1.7em
+  height: 1.3em
 .buy
   display: flex
   align-items: center

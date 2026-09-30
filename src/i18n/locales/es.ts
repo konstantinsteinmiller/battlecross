@@ -443,7 +443,7 @@ export default {
     'rankUp': '¡{weapon} sube a rango {n}!',
     'scrapBurst': { 'name': 'Ráfaga de chatarra', 'desc': 'Un abanico triple de chatarra. Ideal contra grupos.' },
     'flameWave': { 'name': 'Ola de llamas', 'desc': 'Una bola de fuego rueda por el suelo, atraviesa todas las máquinas a su paso y las incendia.' },
-    'iceLance': { 'name': 'Lanza de hielo', 'desc': 'Una lanza perforante que congela todo lo que toca.' },
+    'iceLance': { 'name': 'Lanza de hielo', 'desc': 'Una lanza perforante que enfría lo que toca y lo ralentiza.' },
     'thunderArc': { 'name': 'Arco de trueno', 'desc': 'Un rayo instantáneo que salta a las máquinas cercanas.' },
     'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' }
   },

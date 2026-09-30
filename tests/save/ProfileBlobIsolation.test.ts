@@ -31,7 +31,7 @@ const inventory = () => ({
 })
 const world = () => ({ unlocked: ['scrapyard', 'blaze'], bosses: ['scrapper'], tutorialDone: true, selected: 'blaze' })
 const quests = () => ({ jobs: [], jobSeed: 7, storyAttempts: { blaze: 1 } })
-const stats = () => ({ kills: 90, deaths: 1, chests: 4, missions: 5, playSeconds: 900, bestLevel: 6, lastDropAt: 0, xpEarned: 2000 })
+const stats = () => ({ kills: 90, deaths: 1, chests: 4, missions: 5, playSeconds: 900, bestLevel: 6, lastDropAt: 0, xpEarned: 2000, boltsAvg: 180 })
 
 /** A save well into the game, on disk before the game boots. */
 const stored = () => ({

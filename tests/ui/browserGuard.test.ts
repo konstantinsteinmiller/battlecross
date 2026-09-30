@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
-  armNavigationGuard, disarmNavigationGuard, installBrowserGuard, isNavigationGuardArmed
+  armNavigationGuard, disarmNavigationGuard, installBrowserGuard, isCloseConfirmArmed, isNavigationGuardArmed
 } from '@/use/useBrowserGuard'
 
 // The guard cancels browser DEFAULTS only: menus, gestures, autoscroll,
@@ -97,6 +97,26 @@ describe('browser guard', () => {
     vi.useRealTimers()
     expect(isNavigationGuardArmed()).toBe(false)
     expect(unload().defaultPrevented).toBe(false)
+    await vi.waitFor(() => expect(guarded()).toBe(false))
+  })
+
+  it('keeps back harmless without a capture, but never asks before a close', async () => {
+    const guarded = () => (history.state as Record<string, unknown> | null)?.__captureGuard === true
+    const unload = () => fire(window, new Event('beforeunload', { cancelable: true }))
+    // Live play with the lock refused (a portal iframe without pointer lock).
+    armNavigationGuard(false)
+    expect(isNavigationGuardArmed()).toBe(true)
+    expect(isCloseConfirmArmed()).toBe(false)
+    expect(guarded()).toBe(true)
+    expect(unload().defaultPrevented).toBe(false)
+    // The capture arrives later: the close prompt joins, and leaves with it.
+    armNavigationGuard()
+    expect(isCloseConfirmArmed()).toBe(true)
+    armNavigationGuard(false)
+    expect(isCloseConfirmArmed()).toBe(false)
+    expect(isNavigationGuardArmed()).toBe(true)
+    disarmNavigationGuard()
+    expect(isNavigationGuardArmed()).toBe(false)
     await vi.waitFor(() => expect(guarded()).toBe(false))
   })
 

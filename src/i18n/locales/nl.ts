@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} verbeterd naar rang {n}!',
     'scrapBurst': { 'name': 'Schrootsalvo', 'desc': 'Een schrootwaaier in drie richtingen. Ideaal tegen groepen.' },
     'flameWave': { 'name': 'Vlammengolf', 'desc': 'Een vuurbal rolt over de vloer, dwars door elke machine op zijn pad, en zet ze in brand.' },
-    'iceLance': { 'name': 'IJslans', 'desc': 'Een doorborende lans die alles bevriest wat hij raakt.' },
+    'iceLance': { 'name': 'IJslans', 'desc': 'Een doorborende lans die alles wat hij raakt onderkoelt en vertraagt.' },
     'thunderArc': { 'name': 'Donderboog', 'desc': 'Directe bliksem die overspringt op machines in de buurt.' },
     'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' }
   },

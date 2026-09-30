@@ -462,6 +462,12 @@ export class ClimbRun {
 
   /** A player shot met something solid of a stage feature's (an ice
    *  pillar). */
+  /** A feature's hazard within r (m) of (x, z) (`StageFeature.hazardNear`). */
+  hazardNear(x: number, z: number, r: number): boolean {
+    for (const f of this.features) if (f.hazardNear?.(x, z, r)) return true
+    return false
+  }
+
   shotHits(x: number, y: number, z: number, r: number, charge: number): boolean {
     for (const f of this.features) if (f.shotHits?.(x, y, z, r, charge)) return true
     return false

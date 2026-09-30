@@ -49,6 +49,8 @@ export interface Enemy {
    *  locked on to as a machine, never woken by sight, noise or a room-mate —
    *  and a hit wakes it without hurting it. */
   dormant?: boolean
+  /** A mini-boss (the Fortress's gatekeepers): no kill-cam, a checkpoint. */
+  mini?: boolean
   /** Crate golem only: its state beyond the shared machine (sim/enemies.ts). */
   golem?: import('./enemies').GolemState
   state: EnemyState

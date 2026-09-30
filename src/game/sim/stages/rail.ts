@@ -178,6 +178,24 @@ export class RailFeature implements StageFeature {
     root.rotation.x = q.pitch
   }
 
+  /**
+   * A shot stops on the cart: its deck (a shot aimed down through the floor
+   * Flux rides on went straight through it) and its side rails. The test runs
+   * in the cart's frame: `dirX/dirZ` is its long axis.
+   */
+  shotHits(x: number, y: number, z: number, r: number): boolean {
+    const dx = x - this.x
+    const dz = z - this.z
+    const along = dx * this.dirX + dz * this.dirZ
+    const side = dx * this.dirZ - dz * this.dirX
+    if (Math.abs(along) > 1.3 + r || Math.abs(side) > 1.25 + r) return false
+    const dy = y - this.y
+    if (dy < -0.8 - r) return false
+    if (dy <= 0.02 + r) return true
+    // Above the deck only the side rails (and the front bar) are solid.
+    return dy <= 0.66 + r && (Math.abs(side) > 1.05 || along > 1.2)
+  }
+
   /** Back in the boarding slot, waiting. */
   reset(): void {
     this.state = 'wait'

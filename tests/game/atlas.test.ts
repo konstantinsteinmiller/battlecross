@@ -60,7 +60,8 @@ describe('Atlas: what it says, and when', () => {
     a.say('bossAhead')
     a.update(1 / 60, tick())
     a.say('lowHp')
-    const said = run(a, 10)
+    // Lines without a voice hold twice as long as they used to (readability).
+    const said = run(a, 30)
     expect(said.indexOf('lowHp')).toBeLessThan(said.indexOf('idle.1'))
   })
 
@@ -86,9 +87,9 @@ describe('Atlas: what it says, and when', () => {
 
   it('low weapon energy, the objective, a level up', () => {
     const a = new AtlasDirector(info())
-    const said = run(a, 4, tick({ we01: 0.1 }))
-    run(a, 4, tick({ we01: 0.1, objectiveDone: true }), said)
-    run(a, 4, tick({ we01: 0.1, objectiveDone: true, level: 4 }), said)
+    const said = run(a, 8, tick({ we01: 0.1 }))
+    run(a, 8, tick({ we01: 0.1, objectiveDone: true }), said)
+    run(a, 8, tick({ we01: 0.1, objectiveDone: true, level: 4 }), said)
     expect(said).toEqual(['lowWe', 'objective', 'levelUp'])
   })
 

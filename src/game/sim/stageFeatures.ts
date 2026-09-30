@@ -55,6 +55,9 @@ export interface StageFeature {
   /** A player shot at (x, y, z) of radius r (`charge` 0: a quick shot):
    *  true if something of this feature's stopped it. */
   shotHits?(x: number, y: number, z: number, r: number, charge: number): boolean
+  /** Something of this feature that hurts is within r (m) of (x, z): a
+   *  kill-cam holds off, Flux is in a hurry. */
+  hazardNear?(x: number, z: number, r: number): boolean
   /** A player shot's step, from (px, py, pz) to (x, y, z), before the walls
    *  stop it: true when the feature caught it (the shot ends there). */
   shot?(s: Shot): boolean

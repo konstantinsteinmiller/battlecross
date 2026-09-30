@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} auf Rang {n} verbessert!',
     'scrapBurst': { 'name': 'Schrottsalve', 'desc': 'Ein Schrottfächer in drei Richtungen. Stark gegen Gruppen.' },
     'flameWave': { 'name': 'Flammenwelle', 'desc': 'Ein Feuerball rollt über den Boden, durch jede Maschine auf seinem Weg, und setzt sie in Brand.' },
-    'iceLance': { 'name': 'Eislanze', 'desc': 'Eine durchschlagende Lanze, die alles einfriert, was sie trifft.' },
+    'iceLance': { 'name': 'Eislanze', 'desc': 'Eine durchschlagende Lanze, die Getroffenes unterkühlt und verlangsamt.' },
     'thunderArc': { 'name': 'Donnerbogen', 'desc': 'Sofortiger Blitz, der auf Maschinen in der Nähe überspringt.' },
     'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' }
   },

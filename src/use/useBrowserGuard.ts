@@ -122,6 +122,8 @@ const navGuardAllowed = (): boolean =>
   import.meta.env.VITE_APP_PLAYGAMA !== 'true' && typeof window !== 'undefined' && typeof history !== 'undefined'
 
 let navArmed = false
+/** The `beforeunload` confirmation is up (only while the mouse is captured). */
+let confirmArmed = false
 let navGraceTimer: ReturnType<typeof setTimeout> | null = null
 let popListening = false
 
@@ -146,12 +148,24 @@ const onBeforeUnload = (e: BeforeUnloadEvent) => {
   e.returnValue = ''
 }
 
-/** The mouse is captured: back and close must not end the run by accident. */
-export const armNavigationGuard = (): void => {
+/** Back and close must not end the run by accident. `confirmClose` adds the
+ *  leave-page confirmation: only while the mouse is really captured, since a
+ *  portal page must never meet a dialog the player did not ask for. Without
+ *  it only the history entry is kept (live play with the pointer lock refused
+ *  or lost — a portal iframe without `allow-pointer-lock` — where the right
+ *  button still blocks and so still starts rocker gestures). */
+export const armNavigationGuard = (confirmClose = true): void => {
   if (!navGuardAllowed()) return
   if (navGraceTimer !== null) {
     clearTimeout(navGraceTimer)
     navGraceTimer = null
+  }
+  if (confirmClose && !confirmArmed) {
+    confirmArmed = true
+    window.addEventListener('beforeunload', onBeforeUnload)
+  } else if (!confirmClose && confirmArmed) {
+    confirmArmed = false
+    window.removeEventListener('beforeunload', onBeforeUnload)
   }
   if (navArmed) return
   navArmed = true
@@ -159,7 +173,6 @@ export const armNavigationGuard = (): void => {
     window.addEventListener('popstate', onPopState)
     popListening = true
   }
-  window.addEventListener('beforeunload', onBeforeUnload)
   if (!onGuardedPage()) pushGuard()
 }
 
@@ -181,7 +194,10 @@ export const disarmNavigationGuard = (graceMs = 0): void => {
     navGraceTimer = null
   }
   navArmed = false
-  window.removeEventListener('beforeunload', onBeforeUnload)
+  if (confirmArmed) {
+    confirmArmed = false
+    window.removeEventListener('beforeunload', onBeforeUnload)
+  }
   // Step off the guard entry, so the browser's back button leaves the game in
   // one press again once the player has the cursor back.
   if (onGuardedPage()) history.back()
@@ -189,3 +205,5 @@ export const disarmNavigationGuard = (graceMs = 0): void => {
 
 /** For tests. */
 export const isNavigationGuardArmed = (): boolean => navArmed
+/** For tests. */
+export const isCloseConfirmArmed = (): boolean => confirmArmed

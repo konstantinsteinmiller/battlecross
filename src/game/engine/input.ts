@@ -424,13 +424,17 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   }
 
   // ── Mouse: captured (FPS) or, where refused, drag-to-look ──
+  /** Mouse buttons holding block: 1 the middle, 2 the right. */
+  let blockButtons = 0
   const onMouseDown = (e: MouseEvent) => {
     if (touchOnly || performance.now() - lastTouchAt < 900) return
     input.touched = true
     input.device = 'mouse'
     input.anyPressed = true
-    if (e.button === 1) { e.preventDefault(); return } // no autoscroll
-    if (e.button === 2) {
+    // The middle button (the wheel click) blocks too, untaught: an
+    // alternative for players whose right button fights a gesture browser.
+    // Its press is also what stops autoscroll.
+    if (e.button === 1 || e.button === 2) {
       // The press is the game's: no menu, no in-page gesture (hold right +
       // drag down opened a new tab in Opera mid-block). A gesture draws with
       // a free cursor, so a free mouse is captured by this press too, as by a
@@ -439,6 +443,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       // their back / close harmless while captured.
       e.preventDefault()
       if (!input.locked && !input.lockRefused && (opts.canLock?.() ?? false)) requestPointerLock(input)
+      blockButtons |= e.button === 1 ? 1 : 2
       input.blockHeld = true
       input.blockPressed = true
       return
@@ -480,8 +485,10 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
 
   const onMouseUp = (e: MouseEvent) => {
     if (touchOnly) return
-    if (e.button === 2) {
-      input.blockHeld = false
+    if (e.button === 1 || e.button === 2) {
+      // Block stays held while either blocking button still is.
+      blockButtons &= ~(e.button === 1 ? 1 : 2)
+      if (blockButtons === 0) input.blockHeld = false
       return
     }
     if (e.button !== 0) return
@@ -517,6 +524,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       input.fireCancelled = true
     }
     input.blockHeld = false
+    blockButtons = 0
     const asked = releasing
     releasing = false
     opts.onLockChange?.(false, asked)
@@ -597,6 +605,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       input.fireCancelled = true
     }
     input.blockHeld = false
+    blockButtons = 0
     input.joyActive = false
     joyId = null
     lookId = null

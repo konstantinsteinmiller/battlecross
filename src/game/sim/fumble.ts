@@ -46,8 +46,9 @@ export const FUMBLE_PITCH_MIN = -5 * DEG
 export const FUMBLE_PITCH_MAX = 20 * DEG
 /** Flux's lines: `flux.fumble.1` … `flux.fumble.N`. */
 export const FUMBLE_LINES = 6
-/** The speech bubble's time on screen (s). */
-export const FUMBLE_BUBBLE = 1.1
+/** The speech bubble's time on screen (s): doubled for readability while
+ *  the barks have no voice-over. */
+export const FUMBLE_BUBBLE = 2.2
 
 /** A hard hit: from a Core Master, or a big share of the bar. */
 export const isHardHit = (taken: number, maxHp: number, boss: boolean): boolean =>

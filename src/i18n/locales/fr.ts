@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} passe au rang {n} !',
     'scrapBurst': { 'name': 'Rafale de ferraille', 'desc': 'Une gerbe de ferraille en trois directions. Idéale contre les groupes.' },
     'flameWave': { 'name': 'Vague de flammes', 'desc': 'Une boule de feu roule au sol, traverse toutes les machines sur son passage et les embrase.' },
-    'iceLance': { 'name': 'Lance de glace', 'desc': "Une lance perforante qui gèle tout ce qu'elle touche." },
+    'iceLance': { 'name': 'Lance de glace', 'desc': "Une lance perforante qui glace ce qu'elle touche et le ralentit." },
     'thunderArc': { 'name': 'Arc de foudre', 'desc': 'Un éclair instantané qui se propage aux machines proches.' },
     'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." }
   },

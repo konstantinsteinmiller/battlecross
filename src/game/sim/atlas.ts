@@ -73,8 +73,9 @@ export const ATLAS_GAP = 1.2
 /** Longest a line waits for its recording to finish loading before it goes
  *  up as a bubble alone (s). */
 export const VOICE_WAIT = 0.8
-/** A waiting line older than this is dropped (it would come too late). */
-const STALE = 8
+/** A waiting line older than this is dropped (it would come too late).
+ *  Doubled with the hold times, so a queue of two lines still gets through. */
+const STALE = 16
 /** Quiet play before a line of small talk (s), and at most this many. */
 const IDLE_AFTER = 55
 const IDLE_MAX = 2
@@ -82,8 +83,10 @@ const IDLE_MAX = 2
 const PEEK_EVERY = 38
 const PEEK_FOR = 2.6
 
-/** How long a line stays up without a voice: by its length in characters. */
-export const lineSeconds = (chars: number): number => Math.min(3.8, Math.max(1.6, 1.1 + chars * 0.045))
+/** How long a line stays up without a voice: by its length in characters.
+ *  Doubled after playtests — players lost lines mid-read (a voiced line keeps
+ *  the voice's own length). */
+export const lineSeconds = (chars: number): number => 2 * Math.min(3.8, Math.max(1.6, 1.1 + chars * 0.045))
 
 export interface AtlasMissionInfo {
   tutorial: boolean

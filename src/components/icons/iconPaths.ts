@@ -592,5 +592,12 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     // speed lines
     'M2.5 5.25L7.1 5.25A1.25 1.25 0 0 1 7.1 7.75L2.5 7.75A1.25 1.25 0 0 1 2.5 5.25Z',
     'M2.5 9.65L5.1 9.65A1.25 1.25 0 0 1 5.1 12.15L2.5 12.15A1.25 1.25 0 0 1 2.5 9.65Z'
+  ],
+  // Three gusts, the upper two curling back on themselves. Each band is 2.2
+  // units thick (legible at 16 px); the curls are ring segments, not strokes.
+  'wind': [
+    'M3 7.6H14A2.3 2.3 0 1 0 11.7 5.3H9.5A4.5 4.5 0 1 1 14 9.8H3A1.1 1.1 0 0 1 3 7.6Z',
+    'M3 11.4H18.5A4.5 4.5 0 1 1 14 15.9H16.2A2.3 2.3 0 1 0 18.5 13.6H3A1.1 1.1 0 0 1 3 11.4Z',
+    'M3 16.9H10.5A1.1 1.1 0 0 1 10.5 19.1H3A1.1 1.1 0 0 1 3 16.9Z'
   ]
 }

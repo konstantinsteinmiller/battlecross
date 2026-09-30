@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} naik ke tingkat {n}!',
     'scrapBurst': { 'name': 'Semburan Rongsok', 'desc': 'Semburan rongsokan ke tiga arah. Ampuh melawan kerumunan.' },
     'flameWave': { 'name': 'Gelombang Api', 'desc': 'Bola api menggelinding di lantai, menembus setiap mesin di jalurnya dan membakar mereka.' },
-    'iceLance': { 'name': 'Tombak Es', 'desc': 'Tombak penembus yang membekukan apa pun yang dikenainya.' },
+    'iceLance': { 'name': 'Tombak Es', 'desc': 'Tombak penembus yang mendinginkan sasarannya dan memperlambatnya.' },
     'thunderArc': { 'name': 'Busur Petir', 'desc': 'Petir instan yang menyambar berantai ke mesin di dekatnya.' },
     'galeGuard': { 'name': 'Perisai Badai', 'desc': 'Dedaunan mengitarimu, menahan tembakan dan mengiris mesin. Gunakan lagi untuk melemparkannya.' }
   },

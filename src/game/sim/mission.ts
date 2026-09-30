@@ -36,7 +36,7 @@ import { hud, hudLive, tickHud, pushHud } from '../state/hud'
 import { feedDamage } from '../state/damageFeed'
 import type { CombatPlayer, Enemy, PickupKind, Shot } from './world'
 import { CombatSystem, type CombatHost } from './combat'
-import { updateEnemy, syncEnemyVisual, PARRY_WINDOW, wake, createEnemy } from './enemies'
+import { updateEnemy, syncEnemyVisual, PARRY_WINDOW, wake, createEnemy, frozenDt } from './enemies'
 import { spawnEncounters, spawnTutorial, type EncounterTable } from './spawn'
 import { baseStats, chargeInfo, type PlayerStats } from './stats'
 import { Particles } from '../fx/particles'
@@ -62,6 +62,9 @@ import { flow, finishMission } from '../flow'
 import { showBanner, clearBanner, BANNER_HOLD } from '../state/banner'
 import { ExitRun, ExitCamera, planExit, newExitPose, type ExitEvent, type ExitHost } from './exitRun'
 import { cineWorld, type CineWorld, type CineBox } from './cineCam'
+import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
+import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
+import { killCamsEnabled, setKillCamsEnabled } from '@/use/useKillCam'
 import {
   BeamInCamera, beamInPose, newBeamInPose, padPlateLift, BEAM_IN_COLUMN, BEAM_IN_DROP, BEAM_IN_END, BEAM_IN_LAND, BEAM_IN_SKIP_AFTER
 } from './beamIn'
@@ -398,6 +401,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   private exitPose = newExitPose()
   private exitCam = new ExitCamera()
   private exitView: ExitView | null = null
+  /** Freeze-frame shots: kill-cam, trap hits, Atlas's rescue, lesson cards. */
+  readonly freeze = new FreezeDirector()
+  /** Machine kinds shown in a kill-cam this mission (once per kind). */
+  private readonly killCamSeen = new Set<string>()
+  private killCamCount = 0
   /** The beam-in (`sim/beamIn.ts`): its pose, camera, and whether he landed. */
   private beamPose = newBeamInPose()
   private beamCam = new BeamInCamera()
@@ -965,14 +973,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // yet (`sim/borrowed.ts`) never ranks up.
     if (e.lastWeapon && profile.hero.weapons.includes(e.lastWeapon as WeaponId)) this.weapons.onKill(e.lastWeapon)
     if (e.boss) {
-      // The shutter lifts again; the bar drains away with the boss.
-      const d = this.bossDoor()
-      if (d) {
-        d.locked = false
-        d.opening = true
-        d.open = Math.min(d.open, 0.2)
-        d.slab.active = true
-      }
+      // The shutter stays shut: the way out is the beam, from inside the
+      // arena, where the exit drone has room (a corridor clipped its camera).
       pushHud({ t: 'toast', key: 'mission.bossDown', params: { boss: e.nameKey }, color: '#ffd84a' })
       // The big red card, once per Core Master however its death is reported.
       if (!this.bossBannered.has(e)) {
@@ -984,6 +986,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.objects.onEnemyKilled(e)
     this.gainXp(xp)
     this.dirty = true
+    this.maybeKillCam(e)
   }
 
   private bossDoor(): DoorState | null {
@@ -1159,7 +1162,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   }
 
   shotHitsProp(x: number, y: number, z: number, r: number, dmg: number, charge: number): boolean {
-    return this.objects.shotHitsCrate(x, y, z, r, dmg, charge) || !!this.climb?.shotHits(x, y, z, r, charge)
+    return this.objects.shotHitsCrate(x, y, z, r, dmg, charge) || this.objects.shotHitsChest(x, y, z, r) ||
+      !!this.climb?.shotHits(x, y, z, r, charge)
   }
 
   shotHitsLesson(s: Shot): 'hit' | 'deflect' | null {
@@ -1794,6 +1798,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   // ─── Update ────────────────────────────────────────────────────────────────
 
   update(rawDt: number, first: boolean): void {
+    // A freeze-frame: the world holds still, the effects play on.
+    if (this.freeze.active) {
+      this.stepFreeze(rawDt, first)
+      return
+    }
     // Hit-stop: the world slows to a crawl for a few frames on crits/parries.
     const dt = this.hitStop > 0 ? rawDt * 0.08 : rawDt
     this.hitStop = Math.max(0, this.hitStop - rawDt)
@@ -1817,8 +1826,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     }
 
     for (const e of this.enemies) {
-      if (e.boss) updateBoss(this, e, dt, this.bossRoom)
-      else updateEnemy(this, e, dt)
+      const edt = frozenDt(e, dt)
+      if (e.boss) updateBoss(this, e, edt, this.bossRoom)
+      else updateEnemy(this, e, edt)
       // The climb: a machine keeps to its platform, a drone to Flux's height.
       if (this.climb && !e.boss) this.climb.tendFoe(e, p.y, dt)
       // Status effects from special weapons
@@ -1887,6 +1897,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       const door = this.bossStarted ? undefined : this.doors.find(d => d.locked && !d.held && Math.hypot(d.x - p.x, d.z - p.z) < 3.4)
       this.interact = near ?? (door ? { kind: 'door', ref: door } : null)
       if (first && this.input.interactQueued) this.doInteract()
+      // Playtesters stood at the sealed shutter pressing shoot and block:
+      // either one opens it too, when Flux faces it.
+      else if (first && door && this.interact?.ref === door && (this.input.firePressed || this.input.blockPressed) &&
+        Math.abs(angDiff(Math.atan2(-(door.x - p.x), -(door.z - p.z)), p.yaw)) < 1.05) this.doInteract()
       if (first && this.input.tankQueued) this.useTank()
       // B: beam out — the same rule as the button (objective done, room quiet).
       if (first && this.input.beamQueued && hud.objectiveDone && !hud.combat) this.beamOut()
@@ -1914,6 +1928,116 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       this.handleTaps()
       consumeEdges(this.input)
     }
+  }
+
+  // ─── Freeze-frames (`sim/freezeCam.ts`) ──────────────────────────────────
+
+  /** One step of a freeze-frame: only the effects, the death pops and the
+   *  shot's own clock move. */
+  private stepFreeze(dt: number, first: boolean): void {
+    const pressed = first && this.input.anyPressed
+    const ended = this.freeze.update(dt, pressed)
+    this.fx.update(dt)
+    this.system.rubble.update(dt, this.nav)
+    this.shocks.update(dt)
+    for (const e of this.enemies) if (e.state === 'dead' && !e.boss) updateEnemy(this, e, dt)
+    this.freezeFx(dt)
+    if (ended) this.onFreezeEnd(ended)
+    this.hudT -= dt
+    if (this.hudT <= 0 || ended) {
+      this.hudT = 1 / 15
+      this.writeHud()
+    }
+    if (first) consumeEdges(this.input)
+  }
+
+  /** Start a shot, from Flux's feet and facing unless the spec says so. */
+  startFreeze(spec: Omit<FreezeSpec, 'hx' | 'hy' | 'hz' | 'hyaw'> & Partial<Pick<FreezeSpec, 'hx' | 'hy' | 'hz' | 'hyaw'>>): void {
+    const p = this.player
+    this.freeze.start({ hx: p.x, hy: p.y, hz: p.z, hyaw: p.yaw, ...spec })
+    // A held charge must not fire on the frame the shot ends.
+    this.combat.charging = false
+    this.combat.charge = 0
+    chargeHum(null)
+    this.writeHud()
+  }
+
+  /** Ask for a skip (the HUD's skip chip). */
+  skipFreeze(): void {
+    this.freeze.skip()
+  }
+
+  /** Kill-cams off for good (the in-shot button, F4); Options turns them on. */
+  killCamsOff(): void {
+    if (this.freeze.shot?.kind !== 'kill') return
+    setKillCamsEnabled(false)
+    this.freeze.end()
+    this.onFreezeEnd('kill')
+  }
+
+  private onFreezeEnd(kind: FreezeKind): void {
+    const v = this.exitView
+    if (v && hud.phase === 'play') {
+      v.heroRoot.visible = false
+      v.heroShadow.visible = false
+    }
+    void kind
+    this.writeHud()
+  }
+
+  /** Effects around Flux while a trap's shot holds him (the kill-cam's are the
+   *  machine's own debris). */
+  private freezeFx(dt: number): void {
+    const s = this.freeze.shot
+    if (!s || s.kind !== 'trap') return
+    const k = Math.min(1, dt * 60)
+    if (Math.random() > 0.7 * k) return
+    const x = s.hx + (Math.random() - 0.5) * 0.8
+    const y = s.hy + 0.2 + Math.random() * 1.5
+    const z = s.hz + (Math.random() - 0.5) * 0.8
+    if (s.fx === 'volt') this.fx.sparks(x, y, z, Math.random() < 0.5 ? '#fff38a' : '#7fe8ff', 3, 4, 0.12)
+    else if (s.fx === 'flame') this.fx.emit({ x, y, z, vy: 2.2, color: Math.random() < 0.5 ? '#ffb13c' : '#ff5a2a', size: 0.55, sizeEnd: 0.05, life: 0.45 })
+    else if (s.fx === 'ice') this.fx.emit({ x, y, z, vy: 0.4, color: '#bff6ff', size: 0.3, sizeEnd: 0.02, life: 0.6 })
+    else this.fx.sparks(x, y, z, '#ffd84a', 2, 5, 0.1)
+  }
+
+  /** A machine went down: maybe the kill-cam (`sim/killCam.ts`). */
+  private maybeKillCam(e: Enemy): void {
+    if (e.boss || hud.phase !== 'play' || this.freeze.active || this.exit.active) return
+    const p = this.player
+    let alertNear = false
+    for (const o of this.enemies) {
+      if (o === e || o.state === 'dead' || !o.awake || o.dormant) continue
+      if (Math.hypot(o.x - p.x, o.z - p.z) < KILLCAM_ALERT_R) { alertNear = true; break }
+    }
+    let hazardNear = false
+    for (const s of this.traps.traps) {
+      if (s.stage !== 'spent' && Math.hypot(s.spot.x - p.x, s.spot.z - p.z) < KILLCAM_HAZARD_R) { hazardNear = true; break }
+    }
+    if (!hazardNear && this.climb?.hazardNear?.(p.x, p.z, KILLCAM_HAZARD_R)) hazardNear = true
+    const ok = wantsKillCam({
+      enabled: killCamsEnabled.value,
+      tutorial: !!this.setup.tutorial,
+      boss: false,
+      mini: !!e.mini,
+      kind: e.kind,
+      seen: this.killCamSeen,
+      sliding: this.combat.slideT > 0,
+      airborne: !!this.climb && !p.ground,
+      hazardNear,
+      alertNear,
+      busy: !!flow.modal || this.lessons.focus(p.x, p.z, p.yaw),
+      roll: Math.random()
+    })
+    if (!ok) return
+    this.killCamSeen.add(e.kind)
+    this.killCamCount++
+    // Flux turns to face his kill; the machine's middle is the subject.
+    const yaw = Math.atan2(-(e.x - p.x), -(e.z - p.z))
+    this.startFreeze({
+      kind: 'kill', dur: KILLCAM_DUR, frame: 'shoulder', hyaw: yaw, skippable: true, fx: 'crumble',
+      tx: e.x, ty: e.y + (e.floor ?? 0) + e.def.aimY, tz: e.z
+    })
   }
 
   /** Down: the death camera drops, and the defeat modal opens once the GAME
@@ -2102,6 +2226,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     c.hasWeapon = !!profile.hero.slots[0] || !!profile.hero.slots[1]
     c.canInteract = !!this.interact
     c.quiet = this.lessons.focus(p.x, p.z, p.yaw)
+    c.veteran = profile.world.tutorialDone
     c.gelLesson = this.lessons.gelLive || !!this.walk?.gelPending
     c.blockLesson = !!this.walk?.blockPending(p.x, p.z)
     this.coach.update(c)
@@ -2841,6 +2966,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   // ─── HUD mirror (≤ 15 Hz) ────────────────────────────────────────────────
 
   private writeHud(): void {
+    const fz = this.freeze.shot
+    hud.freezeKind = fz?.kind ?? ''
+    hud.freezeFrame = fz?.frame ?? ''
+    hud.freezeSkippable = !!fz?.skippable
+    hud.freezeSkips = this.freeze.presses
+    hud.killCams = this.killCamCount
     const c = this.combat
     hud.hp = Math.max(0, c.hp)
     hud.maxHp = c.maxHp
@@ -3012,8 +3143,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const hurtRoll = (c.hurtT > 0 ? Math.sin(this.time * 40) * 0.02 : 0) + (this.fumble.stunned ? Math.sin(this.time * 55) * 0.035 : 0)
     cam.rotation.set(p.pitch, p.yaw, Math.cos(p.bob) * 0.006 * p.bobAmp + (Math.random() - 0.5) * sh * 0.05 + hurtRoll + (c.slideT > 0 ? -0.05 : 0))
     // The exit is third person: its own camera, Flux whole, no arm cannon.
-    const cine = hud.phase === 'beamOut' && this.exit.active
-    if (cine) this.frameExit(alpha, dt)
+    const exiting = hud.phase === 'beamOut' && this.exit.active
+    if (exiting) this.frameExit(alpha, dt)
+    // A third-person freeze-frame: Flux whole, its own spring-arm camera.
+    const fz = this.freeze.shot
+    const frozenCam = !!fz && fz.frame !== 'fp'
+    if (frozenCam) this.frameFreeze(dt)
+    const cine = exiting || frozenCam
     // The beam-in opens on Flux himself, then flies into his head.
     const intro = hud.phase === 'beamIn'
     if (intro) this.frameBeamIn(x, fy, z, alpha)
@@ -3246,6 +3382,34 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       cam.fov = sh.fov
       cam.updateProjectionMatrix()
     }
+  }
+
+  /** A frame of a third-person freeze-frame: Flux's rig where he stands,
+   *  reacting to what holds him, and the director's camera. */
+  private frameFreeze(dt: number): void {
+    const s = this.freeze.shot
+    const v = this.exitView
+    if (!s || !v) return
+    const t = this.freeze.t
+    const hr = v.heroRoot
+    hr.visible = true
+    // A trap's hold shakes him in place; the other shots stand him still.
+    const shake = s.kind === 'trap' ? 0.035 : 0
+    hr.position.set(
+      s.hx + (shake ? (Math.random() - 0.5) * shake : 0),
+      s.hy + (shake ? Math.random() * shake : 0),
+      s.hz + (shake ? (Math.random() - 0.5) * shake : 0)
+    )
+    hr.quaternion.setFromAxisAngle(_up, s.hyaw)
+    animateHeroIdle(v.hero, t)
+    const fy = floorAt(this.nav, s.hx, s.hz)
+    v.heroShadow.visible = fy > -50 && s.hy - fy < 3
+    v.heroShadow.position.set(s.hx, fy + 0.035, s.hz)
+    const view = this.freeze.frame(this.cine, dt)
+    if (!view) return
+    const cam = this.camera
+    cam.position.set(view.x, view.y, view.z)
+    cam.lookAt(view.tx, view.ty, view.tz)
   }
 
   private syncViewmodel(dt: number): void {

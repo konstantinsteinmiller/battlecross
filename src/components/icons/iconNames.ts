@@ -68,7 +68,9 @@ export const GAME_ICON_NAMES = [
   // BACK. A slide goes wherever the stick points (back without one), so its
   // mark is the move itself, a figure sliding low with speed lines, not a
   // direction.
-  'dodge'
+  'dodge',
+  // Gale Guard's mark: three gusts, the top and middle ones curling off.
+  'wind'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

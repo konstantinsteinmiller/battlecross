@@ -31,3 +31,9 @@ export const INTERACT_DIST = 3.4
  *  wall fits between (a wall cell is 3 m thick; chests keep off doorways),
  *  and a line that grazes a wall cell's corner would only hide the prompt. */
 export const INTERACT_NEAR = 1.8
+
+/** Ice Lance: how long a hit keeps a machine chilled (s), and how much it
+ *  slows its movement and wind-ups (a Core Master shrugs off half of it). */
+export const FREEZE_T = 3
+export const FREEZE_SLOW = 0.3
+export const FREEZE_SLOW_BOSS = 0.15

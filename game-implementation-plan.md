@@ -387,6 +387,33 @@ while bars and damage numbers get direct DOM writes.
     hides while `hud.pointerFree`); combat lock-on turns the camera onto any
     awake machine, so use `mission.debugCam` for prop shots.
 
+- **Chunk 19+ — cybercity-story.md batch (2026-09-30).** One writer: only the
+  main session edits code; subagents research and draft translations. Full
+  decision table (D0–D53) in the published report
+  https://claude.ai/artifact/UDq6P14LtaQcoDAyrJ9G34 and in
+  `~/.claude/plans/steady-dancing-book.md`. Commit after every phase (P1…P10), then continue without waiting.
+  - [ ] **P1 Quick fixes and input**: right-click/back bug, middle-click block,
+    boss gate opened by shoot/block, bubbles ×2 (non-voiced), chest + rail-cart
+    shot collision, shield blocks mortars, freeze = 30 % slow (no stun), boss
+    door stays shut + beam-out in the arena, weapon icon on results, supply drop
+    reward/icon, mobile layout + buster glyph, first-touch controls modal,
+    pointer lock after ads (+ playbook rule), shoot glyph on Gale, VO chains.
+  - [ ] **P2 Shared engines**: FreezeCam, lesson framework v2, edge-leap,
+    anti-stunlock + ranged fallback, hazards hurt enemies, spike pits + Atlas
+    rescue, trap-hit cams + crumbling platforms, kill-cam + Gameplay tab + F4,
+    flame cone + weapon VFX, chevron pulse, repair-kit model, boss-room kit +
+    enrage, Vex-face door, wind turbine, puzzle validator, adaptive boss HP,
+    Pip catch-up lesson.
+  - [ ] **P3 Mission 1 rework** + `fpv-tutorial` skill.
+  - [ ] **P4 Retrofit stages** (beam-in lesson rooms, props, reused foes,
+    crumbling floors, spike pits, Gale fixes, per-Master boss rooms).
+  - [ ] **P5 Intro showcase** + skyline rocket fix.
+  - [ ] **P6 Balance pass 1** (`scripts/balance-sim.mjs`).
+  - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor).
+  - [ ] **P8 Vex Fortress** (Core Descent finale).
+  - [ ] **P9 Final balance.**
+  - [ ] **P10 Boot hot-path pass.**
+
 ## Resume notes
 
 - Dev server: `pnpm dev` (port 2194 — 2050/2077/2193 belong to other games

@@ -7,7 +7,7 @@ import {
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
 import { hasLineOfSight, findPath, moveCircle, resolveCircle, smoothPath } from '../world/nav'
-import { PLAYER_R, EYE_H } from './constants'
+import { PLAYER_R, EYE_H, FREEZE_SLOW, FREEZE_SLOW_BOSS } from './constants'
 import { CHARGE_L2 } from './stats'
 import { pushHud } from '../state/hud'
 import type { Theme } from '../world/themes'
@@ -556,6 +556,17 @@ const golemTick = (w: World, e: Enemy, dt: number, d: number): void => {
 }
 
 // ─── Main update ─────────────────────────────────────────────────────────────
+
+/**
+ * The step a chilled machine lives: slower in everything it does (walk,
+ * turn, telegraph, recover), except a leap already in the air, whose arc
+ * keeps its speed and length.
+ */
+export const frozenDt = (e: Enemy, dt: number): number => {
+  if (e.frozenT <= 0 || e.state === 'dead') return dt
+  if (e.kind !== 'heli' && e.y > (e.floor ?? 0) + 0.2) return dt
+  return dt * (1 - (e.boss ? FREEZE_SLOW_BOSS : FREEZE_SLOW))
+}
 
 export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
   e.px = e.x

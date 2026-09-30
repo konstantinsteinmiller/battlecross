@@ -494,7 +494,7 @@ export default {
     'rankUp': '{weapon} upgraded to rank {n}!',
     'scrapBurst': { 'name': 'Scrap Burst', 'desc': 'A three-way spray of scrap. Great against crowds.' },
     'flameWave': { 'name': 'Flame Wave', 'desc': 'A fireball rolls along the floor through every machine in its path and sets them burning.' },
-    'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that freezes what it hits.' },
+    'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that chills what it hits and slows it down.' },
     'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
     'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' }
   },

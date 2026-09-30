@@ -3,7 +3,7 @@ import type { Enemy } from './world'
 import type { CombatSystem } from './combat'
 import type { Particles } from '../fx/particles'
 import { WEAPONS, weaponRank, type WeaponId } from '../data/weapons'
-import { EYE_H } from './constants'
+import { EYE_H, FREEZE_T } from './constants'
 import type { PlayerStats } from './stats'
 import type { Nav } from '../world/nav'
 import { hasLineOfSight } from '../world/nav'
@@ -151,7 +151,7 @@ export class WeaponSystem {
         const s = sys.spawnPlayerShot('charge2', mx, my, mz, dx, dy, dz, dmg, false, tgt)
         this.tag(s, id, '#8ff2ff')
         s.pierce = 99
-        s.freeze = 1.6 + r * 0.3
+        s.freeze = FREEZE_T + (r - 1) * 0.5
         s.vx *= 1.4
         s.vy *= 1.4
         s.vz *= 1.4

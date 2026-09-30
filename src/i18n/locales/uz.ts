@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon}: endi {n}-bosqich!',
     'scrapBurst': { 'name': 'Temir sochma', 'desc': 'Uch tomonga sochiladigan temir-tersak. Toʻdaga qarshi zoʻr.' },
     'flameWave': { 'name': 'Olov toʻlqini', 'desc': 'Olov shari pol boʻylab dumalab, yoʻlidagi barcha mashinalardan oʻtadi va ularni yondiradi.' },
-    'iceLance': { 'name': 'Muz nayza', 'desc': 'Tekkan narsasini muzlatadigan teshuvchi nayza.' },
+    'iceLance': { 'name': 'Muz nayza', 'desc': 'Tekkan narsasini sovutib, sekinlashtiradigan teshuvchi nayza.' },
     'thunderArc': { 'name': 'Momaqaldiroq yoyi', 'desc': 'Yaqin mashinalarga zanjir boʻlib oʻtadigan bir zumlik chaqmoq.' },
     'galeGuard': { 'name': 'Boʻron qalqoni', 'desc': 'Barglar atrofingizda aylanib, oʻqlarni toʻsadi va mashinalarni kesadi. Ularni uloqtirish uchun yana ishlating.' }
   },

@@ -36,4 +36,15 @@ export const WEAPONS: Record<WeaponId, WeaponDef> = {
 
 export const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
 
+/** Each weapon's mark (`components/icons`): the results screen's "new weapon"
+ *  line and the HUD's weapon buttons draw the same glyph in its colour, so a
+ *  player sees WHAT they won, not only its name. */
+export const WEAPON_ICON = {
+  scrapBurst: 'grapeshot',
+  flameWave: 'flame',
+  iceLance: 'snowflake',
+  thunderArc: 'bolt',
+  galeGuard: 'wind'
+} as const satisfies Record<WeaponId, string>
+
 export const weaponRank = (xp: number, def: WeaponDef): 1 | 2 | 3 => (xp >= def.xp[1] ? 3 : xp >= def.xp[0] ? 2 : 1)

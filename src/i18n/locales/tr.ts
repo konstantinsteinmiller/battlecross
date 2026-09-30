@@ -445,7 +445,7 @@ export default {
     'rankUp': '{weapon} geliştirildi: kademe {n}!',
     'scrapBurst': { 'name': 'Hurda Patlaması', 'desc': 'Üç yöne hurda saçar. Kalabalıklara karşı harika.' },
     'flameWave': { 'name': 'Alev Dalgası', 'desc': 'Bir ateş topu yerde yuvarlanarak yolundaki her makineyi delip geçer ve onları tutuşturur.' },
-    'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi donduran delici bir mızrak.' },
+    'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi soğutup yavaşlatan delici bir mızrak.' },
     'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
     'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' }
   },

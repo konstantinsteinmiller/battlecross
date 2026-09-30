@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} đã lên hạng {n}!',
     'scrapBurst': { 'name': 'Tán Xạ Phế Liệu', 'desc': 'Bắn tỏa phế liệu theo ba hướng. Rất hiệu quả với đám đông.' },
     'flameWave': { 'name': 'Sóng Lửa', 'desc': 'Quả cầu lửa lăn dọc sàn, xuyên qua mọi cỗ máy trên đường và thiêu cháy chúng.' },
-    'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu, đóng băng mọi thứ nó trúng.' },
+    'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu làm lạnh cóng mục tiêu và khiến nó chậm lại.' },
     'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
     'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' }
   },

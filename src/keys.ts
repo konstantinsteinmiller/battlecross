@@ -89,6 +89,8 @@ export const LOOK_SENS_KEY = 'ma_user_look_sensitivity'
 export const MOBILE_MUTE_KEY = 'ma_mobile_mute'
 /** Vibration on / off (boolean). Absent means ON — see `useHaptics.ts`. */
 export const HAPTICS_KEY = 'ma_user_haptics'
+/** Kill-cams on / off (boolean). Absent means ON — see `useKillCam.ts`. */
+export const KILLCAM_KEY = 'ma_user_killcam'
 /** Rebound main keys, action → `KeyboardEvent.code` (`engine/keyBindings.ts`). */
 export const KEY_BINDINGS_KEY = 'ma_user_key_bindings'
 /** Keyboard layout: auto-detect on / off, the manual pick, the layout last

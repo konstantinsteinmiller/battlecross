@@ -443,7 +443,7 @@ export default {
     'rankUp': '{weapon} — awans na rangę {n}!',
     'scrapBurst': { 'name': 'Salwa złomu', 'desc': 'Trójkierunkowy strumień złomu. Świetny na grupy wrogów.' },
     'flameWave': { 'name': 'Fala płomieni', 'desc': 'Kula ognia toczy się po podłodze przez każdą maszynę na swojej drodze i podpala je.' },
-    'iceLance': { 'name': 'Lodowa lanca', 'desc': 'Przebijająca lanca, która zamraża wszystko, co trafi.' },
+    'iceLance': { 'name': 'Lodowa lanca', 'desc': 'Przebijająca lanca, która schładza i spowalnia to, co trafi.' },
     'thunderArc': { 'name': 'Łuk gromu', 'desc': 'Natychmiastowa błyskawica, która przeskakuje na pobliskie maszyny.' },
     'galeGuard': { 'name': 'Tarcza wichru', 'desc': 'Liście krążą wokół ciebie, blokując strzały i tnąc maszyny. Użyj ponownie, by nimi cisnąć.' }
   },
