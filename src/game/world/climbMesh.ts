@@ -1,5 +1,5 @@
 import { BufferGeometry, Group, Mesh, Color, type Object3D } from 'three'
-import { CELL, WALL_H, Cell, Ramp, type MapData, type Door, type Terrain } from './levelGen'
+import { CELL, WALL_H, Cell, Ramp, pitKindOf, type MapData, type Door, type Terrain } from './levelGen'
 import type { Theme } from './themes'
 import { levelAtlas } from './textures'
 import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
@@ -217,7 +217,7 @@ export const buildClimbLevel = async (
   const cIce = new Color('#7fcfff')
   // Snow on the wall tops and the ledge lips of a frozen sector.
   const snowy = theme.id === 'cryo'
-  const pitKindOf = (k: number) => (roomOf(k) >= 0 ? t.pitKind?.[roomOf(k)] ?? 'void' : 'void')
+  const pitKindAt = (k: number) => pitKindOf(t, roomOf(k))
 
   for (let j = 0; j < map.h; j++) {
     for (let i = 0; i < W; i++) {
@@ -237,7 +237,7 @@ export const buildClimbLevel = async (
       if (t.pit[k]) {
         const y = pitBottomOf(k)
         b.quad([x0, y, z0], [x0, y, z1], [x1, y, z1], [x1, y, z0], [0, 1, 0], PLAIN_UV, cVoid, cVoid, cVoid, cVoid)
-        const pk = pitKindOf(k)
+        const pk = pitKindAt(k)
         if (pk === 'lava') {
           // A glowing plane a little over the bottom: lava, not a drop.
           glows[o]!.push(xform(piece('lava', () => paint(rbox(CELL, 0.12, CELL, 0.04, 6, 4), '#ff6a1a')), [x0 + CELL / 2, y + 0.3, z0 + CELL / 2]))

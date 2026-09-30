@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Tocca il pulsante verde del Gel Riparatore: ti ripara del tutto.'
   },
   'walk': {
+    'finishLessonOn': 'Completa la lezione su {weapon}',
     'finishTutorial': 'Prima finisci il tutorial',
     'finishLesson': 'Completa la lezione'
   },

@@ -1,4 +1,4 @@
-import { Ramp, cellCenter, type MapData, type RailSpec } from '../levelGen'
+import { CELL, Ramp, cellCenter, type MapData, type RailSpec } from '../levelGen'
 import { mulberry32, shuffle } from '../rng'
 import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './builder'
 
@@ -297,11 +297,24 @@ export const generateRailRush = (seed: number): MapData => {
 
   // ── 9 Arena ───────────────────────────────────────────────────────────────
   b.addRoom(21, 27, 7, 7, 'boss', 'arena', L(0))
+  // The Volt Master's arena: a conductive floor grid. Panels go live in
+  // three staggered sets; the cells between them are the rubber mats,
+  // always safe. The boss stands above it (its own current).
+  {
+    const room = b.rooms.length - 1
+    const panels: Array<[number, number, number]> = [
+      [22, 28, 0], [24, 28, 1], [26, 28, 2], [23, 30, 2], [25, 30, 0], [22, 32, 1], [24, 32, 2], [26, 32, 0]
+    ]
+    for (const [i, j, set] of panels) {
+      b.vents.push({ i, j, dx: 0, dz: 0, y: L(0), period: 6, phase: set * 2, on: SHOCK_ON, room, kind: 'shock' })
+    }
+  }
 
-  // Start: on the pad in the yard, facing the stairs.
-  const sx = cellCenter(3)
-  const sz = cellCenter(6)
-  const start = { x: sx, z: sz, yaw: Math.atan2(-(cellCenter(stairI) - sx), -(cellCenter(5) - sz)) }
+  // The beam-in room: below the yard, the pad out of the machines' sight.
+  b.beamRoom(3, 9, 4, 3, 4, 8, 0, -1, 1)
+  void stairI
+  // Start: in the beam-in room, facing its door.
+  const start = { x: cellCenter(4) + CELL / 2, z: cellCenter(10), yaw: YAW_NZ }
   const map = finish(b, start, seed)
   return rng() < 0.5 ? mirrorX(map) : map
 }

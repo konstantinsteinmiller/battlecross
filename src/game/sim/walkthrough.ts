@@ -117,7 +117,7 @@ export interface WalkSave extends WalkthroughSave {
 
 /** What a held walkthrough door waits on: its room's step, or the gel
  *  corridor's gel (`Walkthrough.needAt`). */
-export type WalkNeed = WalkStep | 'gel'
+export type WalkNeed = WalkStep | 'gel' | 'weapon'
 
 /** The rooms after the start teach these, in order (the start: 'charge'). */
 const TEACH: readonly WalkStep[] = ['crate', 'block', 'slide', 'chest']

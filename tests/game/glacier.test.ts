@@ -157,7 +157,7 @@ describe('generateGlacier', () => {
       mirrored.add(m.start.x > m.w * CELL / 2)
       cracked.add(m.terrain!.icePillars!.find(p => p.cracked)!.j)
       kinds.add(m.terrain!.secrets![0]!.kind)
-      expect(m.terrain!.sections).toEqual(SECTIONS)
+      expect(m.terrain!.sections.slice(0, m.beam ? -1 : undefined)).toEqual(SECTIONS)
       expect(m.w).toBeLessThanOrEqual(48)
       expect(m.h).toBeLessThanOrEqual(40)
     }
@@ -180,7 +180,7 @@ describe('generateGlacier', () => {
           expect(t.floor[k]).toBe(0)
           expect(t.ramp[k]).toBe(0)
           expect(t.pit[k]).toBe(0)
-          expect(t.ice![k]).toBe(0)
+          // (The Frost Master's arena has its own two ice sheets.)
         }
       }
       const doors = m.doors.filter(d => d.boss)
@@ -251,7 +251,8 @@ describe('generateGlacier', () => {
         expect(t.checkpoints.some(c => c.room === r.id), `seed ${seed}: room ${r.id}`).toBe(true)
       }
       // In the order of the rooms: the section's first checkpoint comes first.
-      const rooms = t.checkpoints.map(c => c.room)
+      // (The beam-in room's checkpoint leads the list; it is off the chain.)
+      const rooms = t.checkpoints.map(c => c.room).filter(r => r !== m.beam?.room)
       expect([...rooms].sort((a, b) => a - b)).toEqual(rooms)
       expect(t.chests!.length).toBeGreaterThanOrEqual(2)
       expect(t.rewards.filter(r => r.kind === 'weapon')).toHaveLength(1)

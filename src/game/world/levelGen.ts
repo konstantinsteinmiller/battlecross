@@ -83,6 +83,10 @@ export interface MapData {
   /** A built tutorial's lessons per path room, start first (`WalkStep`s;
    *  `sim/walkthrough.ts` reads them instead of spreading its default). */
   walkSteps?: string[][]
+  /** A stage's beam-in room (off its first room, `Builder.beamRoom`): where
+   *  Flux lands, and the door into the level it holds until the newest
+   *  weapon has had its lesson. */
+  beam?: { room: number; door: number }
 }
 
 // ─── Terrain (the climb) ─────────────────────────────────────────────────────
@@ -220,6 +224,15 @@ export interface ChestSpot {
 /** What lies at the bottom of a room's pits: a plain drop, a bed of spikes,
  *  or lava. Spikes and lava cost twice a plain fall (`sim/climb.ts`). */
 export type PitKind = 'void' | 'spikes' | 'lava'
+
+/**
+ * What a room's pits hold. Unset, a pit with a floor to see holds SPIKES:
+ * a fall used to end in a dark nothing and a jingle, and players never knew
+ * why it hurt. Only a map open to the sky (`clouds`: off the level itself)
+ * keeps a bottomless void — there Atlas catches Flux straight away.
+ */
+export const pitKindOf = (t: Pick<Terrain, 'pitKind' | 'clouds'>, room: number): PitKind =>
+  (room >= 0 ? t.pitKind?.[room] : undefined) ?? (t.clouds ? 'void' : 'spikes')
 
 /** A slab that holds once (`sim/stages/crumble.ts`): its corner cell, its top
  *  (m) and its size in cells. The cells under it are pit. */

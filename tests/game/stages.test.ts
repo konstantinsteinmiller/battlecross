@@ -7,7 +7,7 @@
 // route to their stage, the builder's new lists survive the mirror, links
 // carry the objective trail over what the floors cannot tell it, chests sit
 // on the ledges and answer only from their own floor, a secret stays shut
-// until it is opened, spikes and lava cost twice a plain fall, and a
+// until it is opened, lava costs twice a plain fall (spikes: the plain one), and a
 // feature's friction, push and carry reach the body.
 
 import { describe, expect, it, vi } from 'vitest'
@@ -237,9 +237,9 @@ describe('pit kinds', () => {
     return run.pitCost
   }
 
-  it('spikes and lava cost twice a plain fall', () => {
+  it('lava costs twice a plain fall; spikes are the plain fall made visible', () => {
     expect(fall('void')).toBe(PIT_COST)
-    expect(fall('spikes')).toBe(PIT_COST * 2)
+    expect(fall('spikes')).toBe(PIT_COST)
     expect(fall('lava')).toBe(PIT_COST * 2)
   })
 

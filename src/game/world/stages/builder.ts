@@ -76,6 +76,8 @@ export class Builder {
   icePillars: IcePillar[] = []
   icicles: IcicleSpec[] = []
   crumbles: CrumbleSpec[] = []
+  /** The beam-in room and its door, if the stage has one (`beamRoom`). */
+  beam: { room: number; door: number } | null = null
   links: NavLink[] = []
 
   constructor(W: number, H: number) {
@@ -121,6 +123,50 @@ export class Builder {
   }
 
   /** What the pits of `room` hold (spikes and lava cost twice a plain fall). */
+  /**
+   * The beam-in room: a small quiet room off the stage's first room where
+   * Flux lands (no machine in sight of the pad), joined to room `to` by a
+   * corridor of `n` cells from (ci, cj) along (di, dj) — its door in the last
+   * cell. Added after the arena so no stage's room numbers move; it is a room
+   * of its own, not on the chain (no parent). Room `to` stops being the start.
+   */
+  beamRoom(x0: number, z0: number, w: number, h: number, ci: number, cj: number, di: number, dj: number, n: number, to = 0): void {
+    // Level with the room it opens into, at the cell past the door.
+    const y = this.floor[this.k(ci + di * n, cj + dj * n)]!
+    const id = this.rooms.length
+    const r: Room = { id, x0, z0, w, h, depth: 0, parent: -1, children: [], role: 'start', door: -1, spots: [], wallSpots: [] }
+    this.rooms.push(r)
+    this.sections.push('hall')
+    for (let j = z0; j < z0 + h; j++) {
+      for (let i = x0; i < x0 + w; i++) {
+        const k = this.k(i, j)
+        this.cell[k] = Cell.Room
+        this.room[k] = id
+        this.floor[k] = y
+      }
+    }
+    for (let s = 0; s < n; s++) {
+      const k = this.k(ci + di * s, cj + dj * s)
+      this.cell[k] = Cell.Corridor
+      this.floor[k] = y
+    }
+    const door = this.doors.length
+    this.doors.push({
+      id: door, i: ci + di * (n - 1), j: cj + dj * (n - 1), axis: di !== 0 ? 'x' : 'z',
+      dir: (di !== 0 ? di : dj) as 1 | -1, from: id, to, boss: false
+    })
+    this.rooms[to]!.role = 'combat'
+    this.beam = { room: id, door }
+    // A checkpoint on the pad's floor: a fall anywhere near comes back here.
+    const cells: Array<[number, number]> = []
+    for (let j = z0; j < z0 + h; j++) for (let i = x0; i < x0 + w; i++) cells.push([i, j])
+    // First on the route: the checkpoints run in route order.
+    this.checkpoints.unshift({
+      x: (x0 + w / 2) * CELL, z: (z0 + h / 2) * CELL, y, yaw: Math.atan2(-di, -dj), room: id,
+      cells: cells.map(([a, b]) => this.k(a, b))
+    })
+  }
+
   /** A crumbling slab (`sim/stages/crumble.ts`) at top `y` over the w × d
    *  cells from (i, j), which become pit: it holds once, then drops. */
   crumble(i: number, j: number, y: number, w = 1, d = 1): void {
@@ -334,10 +380,12 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
   }
   if (b.icicles.length) terrain.icicles = b.icicles
   if (b.crumbles.length) terrain.crumbles = b.crumbles
-  return {
+  const map: MapData = {
     seed, w: b.W, h: b.H, cell: b.cell, room: b.room, navBlock, rooms: b.rooms,
     doors: b.doors, pillars: [], start, terrain
   }
+  if (b.beam) map.beam = b.beam
+  return map
 }
 
 /** The whole map mirrored left-right: same route, the other hand. */

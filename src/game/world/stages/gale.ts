@@ -1,4 +1,4 @@
-import { Ramp, cellCenter, type MapData, type Lift } from '../levelGen'
+import { CELL, Ramp, cellCenter, type MapData, type Lift } from '../levelGen'
 import { mulberry32 } from '../rng'
 import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './builder'
 
@@ -250,11 +250,15 @@ export const generateSkyDocks = (seed: number): MapData => {
 
   // ── 10 Arena ──────────────────────────────────────────────────────────────
   b.addRoom(24, 26, 7, 7, 'boss', 'arena', 0)
+  // The Gale Master's arena: now and then a gust sweeps across it — rarer
+  // than the level's own, and it pushes only Flux.
+  b.wind.push({ i0: 24, j0: 26, i1: 30, j1: 32, dx: 1, dz: 0, strength: 2.8, on: 2.2, off: 9, phase: 4, room: b.rooms.length - 1 })
 
-  // Start: on the pad, facing the way on.
-  const sx = cellCenter(2)
-  const sz = cellCenter(3)
-  const map = finish(b, { x: sx, z: sz, yaw: YAW_PX }, seed)
+  // The beam-in room: below the dock, on solid ground (its pits are the
+  // dock's west half), the door into the dock's east half.
+  b.beamRoom(3, 7, 4, 3, 5, 6, 0, -1, 1)
+  // Start: in the beam-in room, facing its door.
+  const map = finish(b, { x: cellCenter(4) + CELL / 2, z: cellCenter(8), yaw: YAW_NZ }, seed)
   map.terrain!.clouds = true
   return rng() < 0.5 ? mirrorX(map) : map
 }

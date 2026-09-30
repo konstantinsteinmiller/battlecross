@@ -197,6 +197,7 @@ export default {
     'gelTouch': '초록색 수리 젤 버튼을 탭하세요: 완전히 회복돼요.'
   },
   'walk': {
+    'finishLessonOn': '{weapon} 레슨을 끝내세요',
     'finishTutorial': '먼저 튜토리얼을 끝내세요',
     'finishLesson': '레슨을 마치세요'
   },

@@ -208,7 +208,11 @@ export class SecretsFeature implements StageFeature {
         const lit = c === spec.key
         setLamp(l.lampMat, LAMP.colors[c]!, lit ? 1 : DIM)
         l.icon.geometry = iconGeometry(c)
-        l.iconMat.color.copy(lit ? LAMP.dark : LAMP.colors[c]!)
+        // Only the key reads at a glance: the others' icons dim with their
+        // lamps (bright icons on dark lamps read as four equal answers — a
+        // Sky Docks playtester could not tell which colour the hint meant).
+        if (lit) l.iconMat.color.copy(LAMP.dark)
+        else l.iconMat.color.copy(LAMP.colors[c]!).multiplyScalar(0.3)
       })
       return
     }

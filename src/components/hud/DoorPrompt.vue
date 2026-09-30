@@ -1,7 +1,7 @@
 <template lang="pug">
   div.door-prompt(v-show="!flow.modal && !isGamePaused" ref="rootEl" :aria-hidden="on ? 'false' : 'true'")
     div.dp-head
-      div.dp-label(ref="labelEl" role="status") {{ t(labelKey) }}
+      div.dp-label(ref="labelEl" role="status") {{ t(labelKey, { weapon: weaponName }) }}
       div.dp-arrow(ref="arrowEl" aria-hidden="true")
         svg(viewBox="0 0 40 40")
           path.dp-arrow-body(:d="ARROW")
@@ -55,6 +55,9 @@ const glyphBoxEl = ref<HTMLElement | null>(null)
 const need = ref<WalkNeed | ''>('')
 /** "Finish the Tutorial first" at the first gate, "Finish the lesson" later. */
 const labelKey = ref('walk.finishLesson')
+/** The weapon a beam-in room's lesson is about ("Finish the lesson on …"). */
+const weaponId = ref('')
+const weaponName = computed(() => (weaponId.value ? t(`weapon.${weaponId.value}.name`) : ''))
 /** On screen (the label is read out only then). */
 const on = ref(false)
 const input = computed(() => (need.value ? doorInput(need.value, hud.device) : null))
@@ -97,6 +100,7 @@ const place = (): void => {
   }
   if (v.need !== need.value) need.value = v.need
   if (v.label !== labelKey.value) labelKey.value = v.label
+  if (v.weapon !== weaponId.value) weaponId.value = v.weapon
   root.style.opacity = v.alpha.toFixed(3)
   if (!shown) on.value = true
   shown = true

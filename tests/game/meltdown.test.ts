@@ -152,7 +152,8 @@ describe('generateMeltdown', () => {
     for (const seed of SEEDS) {
       const m = generateMeltdown(seed)
       const t = m.terrain!
-      expect(t.sections).toEqual(['hall', 'lava', 'vents', 'rolling', 'hammer', 'drop', 'lift', 'arena'])
+      // (The beam-in room, off the chain, comes last.)
+      expect(t.sections.slice(0, m.beam ? -1 : undefined)).toEqual(['hall', 'lava', 'vents', 'rolling', 'hammer', 'drop', 'lift', 'arena'])
       expect(m.w).toBeLessThanOrEqual(48)
       expect(m.h).toBeLessThanOrEqual(40)
       mirrored.add(m.start.x > m.w * CELL / 2)
@@ -250,7 +251,8 @@ describe('generateMeltdown', () => {
         if (t.sections[r.id] === 'arena') continue
         expect(t.checkpoints.some(c => c.room === r.id), `room ${r.id}`).toBe(true)
       }
-      for (let n = 1; n < t.checkpoints.length; n++) {
+      // (The beam-in room's checkpoint leads the list; it is off the chain.)
+      for (let n = m.beam ? 2 : 1; n < t.checkpoints.length; n++) {
         expect(t.checkpoints[n]!.room).toBeGreaterThanOrEqual(t.checkpoints[n - 1]!.room)
         expect(t.checkpoints[n]!.y).toBeLessThanOrEqual(t.checkpoints[n - 1]!.y)
       }

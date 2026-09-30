@@ -197,6 +197,7 @@ export default {
     'gelTouch': '緑のリペアジェルボタンをタップ：完全回復できるよ。'
   },
   'walk': {
+    'finishLessonOn': '{weapon}のレッスンを終えよう',
     'finishTutorial': 'まずチュートリアルを終えよう',
     'finishLesson': 'レッスンを終わらせよう'
   },

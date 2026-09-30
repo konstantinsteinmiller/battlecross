@@ -1,6 +1,6 @@
 import { Group, Color, type MeshBasicMaterial, type Object3D, type Scene } from 'three'
 import {
-  CELL, Cell, type MapData, type Terrain, type Ladder, type Lift, type Crusher, type RollerLane, type RewardSpot, type SecretSpec
+  CELL, Cell, pitKindOf, type MapData, type Terrain, type Ladder, type Lift, type Crusher, type RollerLane, type RewardSpot, type SecretSpec
 } from '../world/levelGen'
 import { floorAt, groundAt, moveBody, platUnder, STEP_UP, type Nav, type Plat, type Slab } from '../world/nav'
 import { BALL_R } from '../world/climbGen'
@@ -40,7 +40,8 @@ import { buildStageFeatures, type StageFeature, type MoveMod } from './stageFeat
  *    their lanes into the gutter, each lane's lamp going amber then red first.
  *  - Pits: a fall well below the last floor costs PIT_COST of the health and
  *    puts Flux back on the last checkpoint after a fade (MegaMan's pits,
- *    softened) — twice that into spikes or lava (`Terrain.pitKind`).
+ *    softened) — a visible pit holds spikes, twice that into lava
+ *    (`Terrain.pitKind`, `pitKindOf`).
  *  - The dash leap: a slide that runs off a pit edge hops (LEAP_VY) and
  *    carries its momentum (LEAP_SPEED at most) with little air control, so
  *    a one-cell gap between equal floors is crossed and a two-cell one is
@@ -837,8 +838,9 @@ export class ClimbRun {
         const i = Math.floor(out[0] / CELL)
         const j = Math.floor(out[1] / CELL)
         const r = i >= 0 && j >= 0 && i < map.w && j < map.h ? map.room[j * map.w + i]! : -1
-        const kind = r >= 0 ? this.t.pitKind?.[r] : undefined
-        this.pitCost = kind === 'spikes' || kind === 'lava' ? PIT_COST * HOT_PIT : PIT_COST
+        const kind = pitKindOf(this.t, r)
+        // Lava costs twice a fall; spikes are the plain fall made visible.
+        this.pitCost = kind === 'lava' ? PIT_COST * HOT_PIT : PIT_COST
       }
     }
   }
@@ -954,7 +956,7 @@ export class ClimbRun {
     const i = Math.floor(x / CELL)
     const j = Math.floor(z / CELL)
     const r = i >= 0 && j >= 0 && i < map.w && j < map.h ? map.room[j * map.w + i]! : -1
-    const kind = r >= 0 ? this.t.pitKind?.[r] : undefined
+    const kind = pitKindOf(this.t, r)
     if (kind !== 'spikes' && kind !== 'lava') return -Infinity
     return this.t.pitBottom[r] ?? PIT_FLOOR_Y
   }

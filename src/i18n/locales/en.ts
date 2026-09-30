@@ -221,6 +221,7 @@ export default {
   // The one line of the tutorial walk: shown at a door held shut until
   // its room's lesson is done (DoorPrompt).
   'walk': {
+    'finishLessonOn': 'Finish the lesson on {weapon}',
     'finishTutorial': 'Finish the Tutorial first',
     'finishLesson': 'Finish the lesson'
   },

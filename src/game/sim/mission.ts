@@ -80,6 +80,7 @@ import { roomCenter, cellCenter, type Room } from '../world/levelGen'
 import { Locator, type LocatorInput } from './locator'
 import { generateClimb } from '../world/climbGen'
 import { generateStage } from '../world/stages'
+import { mulberry32 } from '../world/rng'
 import { generateWakeUpCall } from '../world/stages/tutorial'
 import { buildClimbLevel } from '../world/climbMesh'
 import { ClimbRun, walkBlend } from './climb'
@@ -140,11 +141,15 @@ const DEMO_RING_SPEED = 7
 const LESSON_POINT_FOR = 6
 /** The tutorial's false wall sinks over this long (s). */
 const FALSE_WALL_SINK = 1.2
+/** Off the pad this far (m) before a beam lesson's drones come. */
+const BEAM_MOVE = 1.2
 /** Which walkthrough step runs which lesson room. */
 const TRAIN_OF: Partial<Record<string, TrainId>> = { charge: 'charge', block: 'block', slide: 'slide', gap: 'gap' }
 /** Hazards on machines: half the share they take from Flux, once a burst. */
 const HAZARD_MACHINE_SHARE = 0.5
 const HAZARD_CD = 0.8
+/** The arena's light, burning low as the boss falls. */
+const ARENA_RED = new Color('#ff5a3a')
 /** Machines' extra health per Core Master beaten (tuned by the balance sim). */
 const PROGRESS_HP = 0.06
 /** A hazard's first-hit freeze-frame (s). */
@@ -381,7 +386,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   /** What the door prompt's HUD draws (`DoorPrompt.vue`, per frame): its
    *  opacity and pulse, the door's glyph anchor and need, and the lesson
    *  the arrow points to (`goal`: false when there is none to point at). */
-  readonly doorView = { alpha: 0, pulse: 0, x: 0, y: 0, z: 0, need: '' as WalkNeed | '', label: 'walk.finishLesson', goal: false, gx: 0, gz: 0 }
+  readonly doorView = { alpha: 0, pulse: 0, x: 0, y: 0, z: 0, need: '' as WalkNeed | '', label: 'walk.finishLesson', weapon: '', goal: false, gx: 0, gz: 0 }
   /** Corridor traps (`sim/traps.ts`): flame jets, swinging blades, and the
    *  tutorial's Repair Gel plate. */
   traps!: TrapSystem
@@ -474,12 +479,20 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    *  down on the nearest one clear of the pit's edge. */
   private readonly footing: Array<[number, number, number, number]> = []
   private footT = 0
+  /** The sky light (the boss fight's set dressing dims and reddens it). */
+  private hemi: HemisphereLight | null = null
+  private readonly hemiBase = new Color()
   /** The boss arena's props, cover and anti-cheese (`sim/bossArena.ts`). */
   arena: BossArena | null = null
   /** Doors hidden behind a false wall until released (the tutorial's first). */
   private readonly falseWalls = new Map<number, { mesh: Mesh; t: number; x: number; z: number }>()
   /** The gap lesson's take-off and landing arrows (the built tutorial). */
   private gapArrows: Mesh[] = []
+  /** A stage's beam-in room: the weapon it teaches before its door opens
+   *  (the newest one not yet taught), whether its drones came, its door. */
+  private beamTeach: WeaponId | null = null
+  private beamStarted = false
+  private beamDoorId = -1
   /** Atlas is flying the lesson intro's arc (in and out). */
   private atlasSwoop = false
   /** The beam-in (`sim/beamIn.ts`): its pose, camera, and whether he landed. */
@@ -552,6 +565,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.scene.background = new Color(th.skyBottom)
     this.scene.fog = new Fog(new Color(th.fog), th.fogNear, th.fogFar)
     const hemi = new HemisphereLight(new Color(th.hemiSky), new Color(th.hemiGround), 1.05)
+    this.hemi = hemi
+    this.hemiBase.copy(hemi.color)
     const sun = new DirectionalLight(new Color(th.sun), th.sunIntensity)
     sun.position.set(0.45, 1, 0.3)
     this.scene.add(hemi, sun)
@@ -646,6 +661,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     }
     for (const e of this.enemies) if (!e.boss) this.toughen(e)
     if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
+    if (setup.stage) this.placeStageProps()
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
     this.scene.add(this.weapons.root)
     // Before the snapshot (it marks capsules taken) and the precompile.
@@ -1369,8 +1385,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       return
     }
     const n = c.kind === 'barrel' ? 1 : 2
-    for (let k = 0; k < n; k++) this.system.spawnPickup('bolt', 2 + Math.floor(Math.random() * 3), c.x, 0.8, c.z)
-    if (Math.random() < 0.12) this.system.spawnPickup(Math.random() < 0.6 ? 'hp' : 'we', 0, c.x, 0.8, c.z)
+    for (let k = 0; k < n; k++) this.system.spawnPickup('bolt', 2 + Math.floor(Math.random() * 3), c.x, c.y + 0.8, c.z)
+    if (Math.random() < 0.12) this.system.spawnPickup(Math.random() < 0.6 ? 'hp' : 'we', 0, c.x, c.y + 0.8, c.z)
   }
 
   onCoreTaken(_c: Core): void {
@@ -1445,6 +1461,61 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.toughen(e)
     this.enemies.push(e)
     this.scene.add(e.root, e.shadow, e.ring)
+  }
+
+  /**
+   * A stage's barrels and crates: 2–4 of them in the corners of every other
+   * ground machine's patch (the platform stages had none — the first
+   * mission's crates and barrels were never seen again). Deterministic from
+   * the map's seed; never on a pit or a ledge's lip.
+   */
+  private placeStageProps(): void {
+    const t = this.map.terrain
+    if (!t) return
+    const posts = t.foes.filter(f => f.role !== 'turret' && f.role !== 'flyer')
+    const rng = mulberry32(this.map.seed ^ 0xb4a1)
+    const want = 2 + Math.floor(rng() * 3)
+    let n = 0
+    for (let k = 1; k < posts.length && n < want; k += 2) {
+      const f = posts[k]!
+      const [x0, z0, x1, z1] = f.leash
+      const x = rng() < 0.5 ? x0 + 0.3 : x1 - 0.3
+      const z = rng() < 0.5 ? z0 + 0.3 : z1 - 0.3
+      const yaw = rng() * Math.PI * 2
+      const kind = rng() < 0.45 ? 'barrel' : 'crate'
+      if (Math.hypot(x - f.x, z - f.z) < 1.4) continue
+      if (Math.abs(floorAt(this.nav, x, z, f.y + 0.5) - f.y) > 0.05) continue
+      if (Math.abs(floorAt(this.nav, x + 0.7, z, f.y + 0.5) - f.y) > 0.05 || Math.abs(floorAt(this.nav, x - 0.7, z, f.y + 0.5) - f.y) > 0.05) continue
+      this.objects.addCrate(x, z, yaw, kind, f.y)
+      n++
+    }
+  }
+
+  /**
+   * The fight shows on the arena itself, as the boss wears down: under half
+   * its health the lights stutter; under a quarter they burn low and red and
+   * sparks rain from the rafters. Visual only; back to normal when it falls.
+   */
+  private arenaDressing(dt: number): void {
+    const h = this.hemi
+    const b = this.boss
+    const room = this.arena?.room
+    if (!h || !b || !room) return
+    const live = this.bossStarted && b.state !== 'dead'
+    const frac = live ? b.hp / Math.max(1, b.maxHp) : 1
+    let want = 1.05
+    if (frac < 0.5) want *= Math.random() < 0.06 ? 0.45 : 1
+    if (frac < 0.25) {
+      want *= 0.8
+      if (Math.random() < 0.35) {
+        const x = (room.x0 + Math.random() * room.w) * CELL
+        const z = (room.z0 + Math.random() * room.h) * CELL
+        this.fx.emit({ x, y: 6.5, z, vx: 0, vy: -1, vz: 0, color: Math.random() < 0.5 ? '#ffd35a' : '#ff7a2a', size: 0.14, sizeEnd: 0.02, life: 1.2, gravity: 7 })
+      }
+    }
+    h.intensity += (want - h.intensity) * Math.min(1, dt * (want < h.intensity ? 30 : 6))
+    const red = live && frac < 0.25 ? 1 : 0
+    h.color.copy(this.hemiBase).lerp(ARENA_RED, 0.4 * red)
   }
 
   /** Story progress toughens machines: PROGRESS_HP more health per Core
@@ -1575,7 +1646,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    */
   private updateDoorPrompt(dt: number, playing: boolean): void {
     const walk = this.walk
-    if (!walk) return
+    // Held doors: the walkthrough's gates, or a stage's beam-in door while
+    // its weapon lesson is owed.
+    const beamNeed = this.beamTeach ? this.beamDoorId : -1
+    if (!walk && beamNeed < 0) return
+    const needAt = (id: number): WalkNeed | null => walk ? walk.needAt(id) : id === beamNeed ? 'weapon' : null
     const p = this.player
     const o = this.doorTick
     o.time = this.time
@@ -1586,7 +1661,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     for (const d of this.doors) {
       if (!d.held || Math.abs(p.y - d.y) > 2.6) continue
       const dist = Math.hypot(d.x - p.x, d.z - p.z)
-      if (dist > 30 || !walk.needAt(d.id)) continue
+      if (dist > 30 || !needAt(d.id)) continue
       if (dist < nearest) {
         nearest = dist
         o.near = d.id
@@ -1617,24 +1692,25 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       const dd = this.doors[pr.door]
       if (dd?.held) dd.shakeT = DOOR_SHAKE
     }
-    if (pr.call) {
+    if (pr.call && walk) {
       const e = walk.teacher()
       if (e && !e.awake) wake(this, e)
     }
     const v = this.doorView
     const d = pr.door >= 0 ? this.doors[pr.door] : undefined
-    const need = d?.held ? walk.needAt(d.id) : null
+    const need = d?.held ? needAt(d.id) : null
     v.alpha = need ? pr.alpha : 0
     v.pulse = pr.pulse
     if (!d || !need) return
     v.need = need
     // The very first gate: "Finish the Tutorial first" (players took the
     // shut door for a dead end); every later one names its lesson.
-    v.label = walk.passed === 0 ? 'walk.finishTutorial' : 'walk.finishLesson'
+    v.label = !walk ? 'walk.finishLessonOn' : walk.passed === 0 ? 'walk.finishTutorial' : 'walk.finishLesson'
+    v.weapon = this.beamTeach ?? ''
     v.x = d.x
     v.y = d.y + 1.35
     v.z = d.z
-    const g = walk.goal()
+    const g = walk ? walk.goal() : this.beamGoal()
     v.goal = !!g && g.kind !== 'door'
     if (g) {
       v.gx = g.x
@@ -2125,6 +2201,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     // The arena's anti-cheese: a boss that cannot reach Flux enrages.
     const boss = this.boss
     if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play') this.arena.update(dt, boss)
+    this.arenaDressing(dt)
     // Entering the boss room triggers the Core Master
     if (this.boss && !this.bossStarted && this.bossRoom && hud.phase === 'play') {
       const i = Math.floor(p.x / CELL)
@@ -2419,6 +2496,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     }
   }
 
+  /** Where the beam lesson's prompt points: its drones, else its room. */
+  private beamGoal(): { x: number; z: number; kind: string } | null {
+    const at = this.lessons.weaponDronesAt
+    if (at) return { x: at.x, z: at.z, kind: 'machine' }
+    const b = this.map.beam
+    const r = b ? this.map.rooms[b.room] : undefined
+    return r ? { x: (r.x0 + r.w / 2) * CELL, z: (r.z0 + r.h / 2) * CELL, kind: 'room' } : null
+  }
+
   /** An edge-leap happened: the gap lesson's proof. */
   private onEdgeLeap(): void {
     if (this.demo.active) return
@@ -2434,6 +2520,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     for (const id of ['charge', 'block', 'slide', 'gel', 'gap', 'weapon'] as TrainId[]) {
       if (profile.tips[`train:${id}`]) this.training.done.add(id)
     }
+    this.setupBeamLesson()
     const walk = this.walk
     if (!walk) return
     for (const g of walk.plan.gates) {
@@ -2454,6 +2541,66 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const first = walk.plan.gates[0]
     if (first && this.map.walkSteps && walk.passed === 0) this.hideDoor(first.door)
     this.buildGapArrows()
+  }
+
+  /**
+   * A stage's beam-in room teaches the newest weapon not yet taught (the one
+   * the last Core Master gave): its door into the level stays shut until the
+   * lesson is done. It is slotted first if it is not (a weapon the player
+   * cannot fire cannot be taught). No weapon to teach: the door just opens.
+   */
+  private setupBeamLesson(): void {
+    const beam = this.map.beam
+    if (!beam || this.setup.tutorial) return
+    this.beamDoorId = beam.door
+    const owned = profile.hero.weapons
+    let id: WeaponId | null = null
+    for (let k = owned.length - 1; k >= 0; k--) {
+      const w = owned[k]!
+      if (!profile.tips[`train:weapon:${w}`]) { id = w; break }
+    }
+    if (!id) return
+    const slots = profile.hero.slots
+    if (slots[0] !== id && slots[1] !== id) {
+      if (!slots[0]) slots[0] = id
+      else if (!slots[1]) slots[1] = id
+      else slots[0] = id
+      saveProfile()
+    }
+    this.beamTeach = id
+    this.holdDoor(beam.door)
+  }
+
+  /** Per step while a beam lesson is owed: the drones come once Flux moves
+   *  off the pad (never before he has his bearings); energy stays topped up
+   *  for more tries; done, the door opens. */
+  private stepBeamLesson(playing: boolean): void {
+    const id = this.beamTeach
+    const beam = this.map.beam
+    if (!id || !beam || !playing) return
+    const p = this.player
+    const tr = this.training
+    if (!this.beamStarted) {
+      if (Math.hypot(p.x - this.map.start.x, p.z - this.map.start.z) < BEAM_MOVE) return
+      this.beamStarted = true
+      if (!this.lessons.teachWeapon(beam.room, id)) {
+        // No row of drones fits: nothing to teach here; let him on.
+        this.beamTeach = null
+        this.releaseDoor(beam.door)
+        return
+      }
+      tr.enter('weapon', this.time)
+    }
+    const at = this.lessons.weaponDronesAt
+    if (at) this.trainSpot = { x: at.x, y: at.y, z: at.z }
+    this.combat.we = Math.max(this.combat.we, Math.min(this.combat.maxWe, this.weaponCost(id) * 2))
+    if (this.lessons.weaponLearned === id) {
+      markTip(`train:weapon:${id}`)
+      this.trainDone('weapon')
+      this.beamTeach = null
+      this.releaseDoor(beam.door)
+      tr.leave()
+    }
   }
 
   private hideDoor(id: number): void {
@@ -2536,6 +2683,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const walk = this.walk
     const tr = this.training
     const p = this.player
+    if (this.beamTeach) this.stepBeamLesson(playing)
     // The gap arrows breathe until the gap has been crossed.
     const gapOpen = !tr.done.has('gap')
     for (const a of this.gapArrows) {

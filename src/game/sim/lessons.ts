@@ -104,6 +104,8 @@ const DONE_HOLD = 1.1
 const CLEAR_SETTLE = 1.2
 /** The weapon lesson gives up after being ignored this many times. */
 const WEAPON_TRIES = 3
+/** A taught lesson's drones come back this long after a try with the buster (s). */
+const WEAPON_AGAIN = 1.5
 /** The drone's glyph waits for the coach's move and look glyphs at most
  *  this long (s of play) before it comes in anyway. */
 const REVEAL_AFTER = 10
@@ -212,6 +214,12 @@ export class LessonDirector {
   private weaponRoom = -1
   private weaponUsed = false
   private weaponTries = 0
+  /** A stage's beam-in lesson names its weapon (`teachWeapon`): the
+   *  automatic room-by-room one stands down, and a try shot down with the
+   *  buster brings the drones back instead of giving up. */
+  private taught: { id: WeaponId; room: number; again: number } | null = null
+  /** The weapon a lesson finished this mission with (the mission's cue). */
+  weaponLearned: WeaponId | null = null
   private weaponRooms = new Set<number>()
   /** The gel lesson ran and ended this mission (learned, or — outside the
    *  tutorial — nothing left to repair); the walkthrough's gel door waits on
@@ -489,8 +497,15 @@ export class LessonDirector {
       const standing = this.drones.filter(e => e.state !== 'dead')
       if (standing.length === 0) {
         const last = this.drones[1] ?? this.drones[0]
-        if (this.weaponUsed) this.finish('weapon', [last?.x ?? p.x, (last?.y ?? 1) + 0.6, last?.z ?? p.z])
-        else {
+        if (this.weaponUsed) {
+          this.finish('weapon', [last?.x ?? p.x, (last?.y ?? 1) + 0.6, last?.z ?? p.z])
+          this.weaponLearned = this.taught?.id ?? this.weaponSlot()?.id ?? null
+          this.taught = null
+        } else if (this.taught) {
+          // The taught lesson never gives up: the drones come back in a beat.
+          this.live = null
+          this.taught.again = h.time + WEAPON_AGAIN
+        } else {
           // Shot down with the buster: not learned. Try again in a later room.
           this.weaponTries++
           this.live = null
@@ -500,14 +515,47 @@ export class LessonDirector {
       }
       return
     }
+    const tw = this.taught
+    if (tw && this.live === null && tw.again > 0 && h.time >= tw.again) {
+      tw.again = 0
+      const room = h.map.rooms[tw.room]
+      const slot = this.slotOf(tw.id)
+      if (room && slot) this.startWeapon(room, slot)
+    }
     const slot = this.weaponSlot()
-    if (slot && !lessonDone('weapon') && !h.setup.tutorial && this.live === null && here >= 0) {
+    if (slot && !this.taught && !lessonDone('weapon') && !h.setup.tutorial && this.live === null && here >= 0) {
       const room = h.map.rooms[here]
       if (room && room.role !== 'start' && room.role !== 'boss' && !this.weaponRooms.has(here) && this.settled(here)) {
         this.weaponRooms.add(here)
         this.startWeapon(room, slot)
       }
     }
+  }
+
+  /** Teach `id` here and now (a stage's beam-in room): its drones beam in
+   *  ahead of Flux. False when it is not slotted or no row fits. */
+  teachWeapon(roomId: number, id: WeaponId): boolean {
+    const room = this.host.map.rooms[roomId]
+    const slot = this.slotOf(id)
+    if (!room || !slot) return false
+    this.taught = { id, room: roomId, again: 0 }
+    this.weaponRooms.add(roomId)
+    this.startWeapon(room, slot)
+    return this.live === 'weapon'
+  }
+
+  /** The slot a weapon sits in (1 or 2), if it is slotted. */
+  private slotOf(id: WeaponId): { slot: 1 | 2; id: WeaponId } | null {
+    const s = profile.hero.slots
+    if (s[0] === id) return { slot: 1, id }
+    if (s[1] === id) return { slot: 2, id }
+    return null
+  }
+
+  /** The taught weapon lesson's drones are up (the room's subject). */
+  get weaponDronesAt(): { readonly x: number; readonly y: number; readonly z: number } | null {
+    const e = this.drones.find(d => d.state !== 'dead')
+    return e ? { x: e.x, y: e.y + (e.floor ?? 0) + e.def.aimY, z: e.z } : null
   }
 
   private settled(room: number): boolean {

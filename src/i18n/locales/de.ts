@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Tippe auf den grünen Reparaturgel-Knopf: Das Gel repariert dich komplett.'
   },
   'walk': {
+    'finishLessonOn': 'Schließ die Lektion zu {weapon} ab',
     'finishTutorial': 'Erst das Tutorial abschließen',
     'finishLesson': 'Beende die Lektion'
   },

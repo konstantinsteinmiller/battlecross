@@ -211,11 +211,24 @@ export const generateMeltdown = (seed: number): MapData => {
 
   // ── Arena ─────────────────────────────────────────────────────────────────
   b.addRoom(1, 11, 7, 7, 'boss', 'arena', L(0))
+  // The Blaze Master's arena burns too (Flux only — the boss is its own
+  // fire): a wall jet on each side and two floor columns, out of step.
+  {
+    const room = b.rooms.length - 1
+    const fire = (i: number, j: number, dx: number, dz: number, y: number, ph: number): void => {
+      b.vents.push({ i, j, dx, dz, y, period: 6, phase: ph, on: VENT_ON, room, kind: 'fire' })
+    }
+    fire(1, 13, 1, 0, L(0) + VENT_MOUTH, 0)
+    fire(7, 15, -1, 0, L(0) + VENT_MOUTH, 3)
+    fire(3, 16, 0, 0, L(0), 1.5)
+    fire(5, 12, 0, 0, L(0), 4.5)
+  }
 
-  // Start: on the pad on the roof, facing the way on.
-  const sx = cellCenter(3)
-  const sz = cellCenter(5)
-  const start = { x: sx, z: sz, yaw: Math.atan2(-(cellCenter(9) - sx), -(cellCenter(4) - sz)) }
+  // The beam-in room: below the roof's pad room, out of the turret's sight;
+  // two cells deep with a void row between it and the arena (no drop in).
+  b.beamRoom(2, 8, 8, 2, 4, 7, 0, -1, 1)
+  // Start: in the beam-in room, facing its door.
+  const start = { x: cellCenter(3), z: cellCenter(8) + CELL / 2, yaw: YAW_PX }
   const map = finish(b, start, seed)
   return rng() < 0.5 ? mirrorX(map) : map
 }

@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Dotknij zielonego przycisku żelu naprawczego: w pełni cię naprawi.'
   },
   'walk': {
+    'finishLessonOn': 'Ukończ lekcję: {weapon}',
     'finishTutorial': 'Najpierw ukończ samouczek',
     'finishLesson': 'Ukończ lekcję'
   },

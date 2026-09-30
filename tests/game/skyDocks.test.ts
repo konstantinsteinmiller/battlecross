@@ -145,8 +145,8 @@ describe('generateSkyDocks', () => {
     for (const seed of SEEDS) {
       const m = generateSkyDocks(seed)
       const t = m.terrain!
-      expect(t.sections).toEqual(['dock', 'islands', 'shuttle', 'wind', 'lift', 'ladder', 'islands', 'descent', 'hall', 'arena'])
-      expect(t.sections.length - 1).toBe(STAGE_LENGTH.gale)
+      expect(t.sections.slice(0, m.beam ? -1 : undefined)).toEqual(['dock', 'islands', 'shuttle', 'wind', 'lift', 'ladder', 'islands', 'descent', 'hall', 'arena'])
+      expect(t.sections.length - 1 - (m.beam ? 1 : 0)).toBe(STAGE_LENGTH.gale)
       expect(m.w).toBeLessThanOrEqual(48)
       expect(m.h).toBeLessThanOrEqual(40)
       mirrored.add(m.start.x > m.w * CELL / 2)
@@ -323,7 +323,8 @@ describe('generateSkyDocks', () => {
       expect(t.foes.length).toBeLessThanOrEqual(22)
       expect(t.lifts.filter(l => l.kind === 'h')).toHaveLength(2)
       expect(t.lifts.filter(l => l.loop)).toHaveLength(2)
-      expect(t.wind).toHaveLength(1)
+      // The tunnel, and the arena's occasional gust.
+      expect(t.wind).toHaveLength(2)
     }
   })
 
@@ -342,7 +343,8 @@ describe('generateSkyDocks', () => {
     for (const seed of SEEDS) {
       const m = generateSkyDocks(seed)
       const t = m.terrain!
-      for (const z of t.wind!) {
+      // (The arena's gust is its own: a flat, walled 7 × 7.)
+      for (const z of t.wind!.filter(w => m.rooms[w.room]?.role !== 'boss')) {
         expect(Math.abs(z.dx) + Math.abs(z.dz)).toBe(1)
         expect(z.strength).toBeGreaterThanOrEqual(3.5)
         expect(z.strength).toBeLessThanOrEqual(5)

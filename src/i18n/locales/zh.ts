@@ -197,6 +197,7 @@ export default {
     'gelTouch': '点击绿色的修理凝胶按钮：让你完全恢复。'
   },
   'walk': {
+    'finishLessonOn': '完成{weapon}的课程',
     'finishTutorial': '请先完成教程',
     'finishLesson': '完成这一课'
   },

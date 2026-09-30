@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'हरे रिपेयर जेल बटन पर टैप करें: यह आपको पूरी तरह ठीक कर देता है।'
   },
   'walk': {
+    'finishLessonOn': '{weapon} का पाठ पूरा करें',
     'finishTutorial': 'पहले ट्यूटोरियल पूरा करें',
     'finishLesson': 'पाठ पूरा करें'
   },

@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Tik op de groene reparatiegelknop: die lapt je helemaal op.'
   },
   'walk': {
+    'finishLessonOn': 'Rond de les over {weapon} af',
     'finishTutorial': 'Rond eerst de tutorial af',
     'finishLesson': 'Maak de les af'
   },

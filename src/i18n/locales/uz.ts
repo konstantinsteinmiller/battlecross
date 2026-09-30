@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Yashil taʼmir geli tugmasini bosing: u sizni toʻliq tuzatadi.'
   },
   'walk': {
+    'finishLessonOn': '{weapon} darsini tugating',
     'finishTutorial': 'Avval mashgʻulotni tugating',
     'finishLesson': 'Darsni tugating'
   },

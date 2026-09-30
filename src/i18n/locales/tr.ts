@@ -199,6 +199,7 @@ export default {
     'gelTouch': 'Yeşil Tamir Jeli düğmesine dokun: seni tamamen onarır.'
   },
   'walk': {
+    'finishLessonOn': '{weapon} dersini bitir',
     'finishTutorial': 'Önce eğitimi bitir',
     'finishLesson': 'Dersi tamamla'
   },

@@ -5,6 +5,7 @@ import { createEnemy } from './enemies'
 import type { Enemy } from './world'
 import type { EncounterTable } from './spawn'
 import type { Slice } from '../engine/slicer'
+import { THEMES } from '../world/themes'
 
 /**
  * The climb's cast (`world/climbGen.ts` places the posts): a Wall Cannon on
@@ -28,10 +29,25 @@ export const spawnClimb = async (
   const walkers = table.kinds.filter(([k]) => GROUND.includes(k))
   const pool: ReadonlyArray<readonly [EnemyKind, number]> = walkers.length ? walkers : [['hardhat', 1]]
   const out: Enemy[] = []
+  // The first ground posts along the route bring back the first mission's
+  // machines (players met them once and never again): a Gear Roller, a
+  // Guardroid, a crate golem asleep as a crate (where the sector has crates),
+  // a Hardhat. The rest roll from the sector's table.
+  const FIRST: ReadonlyArray<EnemyKind | 'golem'> = ['roller', 'brute', 'golem', 'hardhat']
+  let ground = 0
   for (let n = 0; n < t.foes.length; n++) {
     const f = t.foes[n]!
-    const kind: EnemyKind = f.role === 'turret' ? 'turret' : f.role === 'flyer' ? 'heli' : weighted(rng, pool)
-    const e = createEnemy(kind, level, f.x, f.z, f.room, { element: table.element })
+    let kind: EnemyKind = f.role === 'turret' ? 'turret' : f.role === 'flyer' ? 'heli' : weighted(rng, pool)
+    let golem = false
+    if (f.role !== 'turret' && f.role !== 'flyer') {
+      const first = FIRST[ground++]
+      if (first === 'golem') {
+        if (table.theme) { kind = 'golem'; golem = true }
+      } else if (first) kind = first
+    }
+    const e = golem
+      ? createEnemy('golem', level, f.x, f.z, f.room, { theme: THEMES[table.theme!] })
+      : createEnemy(kind, level, f.x, f.z, f.room, { element: table.element })
     // Posts face the game's way (forward = −sin, −cos); machines face (sin, cos).
     e.yaw = f.yaw + Math.PI
     e.floor = f.y

@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'المس زر جل الإصلاح الأخضر: يصلحك بالكامل.'
   },
   'walk': {
+    'finishLessonOn': 'أكمل درس {weapon}',
     'finishTutorial': 'أكمل التدريب أولًا',
     'finishLesson': 'أكمل الدرس'
   },

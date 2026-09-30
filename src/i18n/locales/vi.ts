@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Chạm vào nút Gel Sửa Chữa màu xanh lá: gel hồi phục bạn hoàn toàn.'
   },
   'walk': {
+    'finishLessonOn': 'Hoàn thành bài học về {weapon}',
     'finishTutorial': 'Hãy hoàn thành hướng dẫn trước',
     'finishLesson': 'Hoàn thành bài học'
   },

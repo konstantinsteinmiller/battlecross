@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Ketuk tombol hijau Gel Perbaikan: gel ini memulihkanmu sepenuhnya.'
   },
   'walk': {
+    'finishLessonOn': 'Selesaikan pelajaran {weapon}',
     'finishTutorial': 'Selesaikan tutorial dulu',
     'finishLesson': 'Selesaikan pelajarannya'
   },

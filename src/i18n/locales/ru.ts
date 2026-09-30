@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Нажмите зелёную кнопку ремонтного геля: он полностью вас починит.'
   },
   'walk': {
+    'finishLessonOn': 'Пройди урок: {weapon}',
     'finishTutorial': 'Сначала пройди обучение',
     'finishLesson': 'Завершите урок'
   },

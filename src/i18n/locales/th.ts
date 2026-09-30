@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'แตะปุ่มเจลซ่อมสีเขียว: ฟื้นฟูคุณได้เต็มที่'
   },
   'walk': {
+    'finishLessonOn': 'เรียนบทเรียน {weapon} ให้จบ',
     'finishTutorial': 'ทำบทฝึกให้จบก่อน',
     'finishLesson': 'ทำบทเรียนให้จบ'
   },

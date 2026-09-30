@@ -408,8 +408,12 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P3 Mission 1 rework** + `fpv-tutorial` skill: "Wake-Up Call" is a
     built stage now (`world/stages/tutorial.ts`), lessons per room via
     `map.walkSteps`, a hidden first wall, the gap room, slide then gel then boss.
-  - [ ] **P4 Retrofit stages** (beam-in lesson rooms, props, reused foes,
-    crumbling floors, spike pits, Gale fixes, per-Master boss rooms).
+  - [x] **P4 Retrofit stages**: beam-in rooms (`Builder.beamRoom`, `map.beam`)
+    teach the newest weapon behind a held door; spikes in every visible pit;
+    Roller/Guardroid/golem/Hardhat on the first ground posts; 2–4 props per
+    stage; per-Master arena hazards; health-reactive arena light; Gale hint
+    readable. Deferred: crumbling slabs in the old stages (new levels only),
+    the Scrapper's magnet crane.
   - [ ] **P5 Intro showcase** + skyline rocket fix.
   - [ ] **P6 Balance pass 1** (`scripts/balance-sim.mjs`).
   - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor).

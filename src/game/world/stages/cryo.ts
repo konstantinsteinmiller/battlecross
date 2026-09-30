@@ -1,4 +1,4 @@
-import { Ramp, cellCenter, type MapData, type SecretSpec } from '../levelGen'
+import { CELL, Ramp, cellCenter, type MapData, type SecretSpec } from '../levelGen'
 import { mulberry32, shuffle } from '../rng'
 import { STOREY } from '../climbGen'
 import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './builder'
@@ -190,9 +190,20 @@ export const generateGlacier = (seed: number): MapData => {
 
   // ── 9 Arena ───────────────────────────────────────────────────────────────
   b.addRoom(34, 14, 7, 7, 'boss', 'arena', L(0))
+  // The Frost Master's arena: two sheets of slick ice and two frost
+  // throwers on the walls (they chill Flux, never their master).
+  {
+    const room = b.rooms.length - 1
+    b.ice(35, 15, 36, 16)
+    b.ice(38, 18, 39, 19)
+    b.vents.push({ i: 36, j: 14, dx: 0, dz: 1, y: L(0) + 1, period: 7, phase: 0, on: 1.1, room, kind: 'frost' })
+    b.vents.push({ i: 38, j: 20, dx: 0, dz: -1, y: L(0) + 1, period: 7, phase: 3.5, on: 1.1, room, kind: 'frost' })
+  }
 
-  // Start: on the pad in the lobby, facing the ice patch and the door.
-  const start = { x: cellCenter(3), z: cellCenter(5), yaw: YAW_PX }
+  // The beam-in room: below the lobby, the pad out of the machines' sight.
+  b.beamRoom(3, 8, 4, 3, 4, 7, 0, -1, 1)
+  // Start: in the beam-in room, facing its door.
+  const start = { x: cellCenter(4) + CELL / 2, z: cellCenter(9), yaw: YAW_NZ }
   const map = finish(b, start, seed)
   return rng() < 0.5 ? mirrorX(map) : map
 }

@@ -197,6 +197,7 @@ export default {
     'gelTouch': 'Жасыл жөндеу гелі батырмасын басыңыз: ол сізді толық жөндейді.'
   },
   'walk': {
+    'finishLessonOn': '{weapon} сабағын аяқта',
     'finishTutorial': 'Алдымен жаттығуды аяқта',
     'finishLesson': 'Сабақты аяқтаңыз'
   },
