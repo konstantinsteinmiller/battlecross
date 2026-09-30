@@ -1,3 +1,4 @@
+import { generateWakeUpCall } from '../world/stages/tutorial'
 import type { SectorId } from '../world/themes'
 import { generateMap, type MapData } from '../world/levelGen'
 import { generateClimb } from '../world/climbGen'
@@ -30,7 +31,7 @@ import { tutorialQuest, storyQuest, bossQuest, climbJob, rollJob, type Quest, ty
  */
 
 /** Which generator builds the map. */
-export type MapKind = 'rooms' | 'climb' | 'stage'
+export type MapKind = 'rooms' | 'climb' | 'stage' | 'tutorial'
 
 /** What the lab's seed feeds: a job-board roll (`rollJob` / `climbJob`), the
  *  story attempt number (`storyQuest`; 0 = a first try), or nothing at all
@@ -113,8 +114,8 @@ export const LEVEL_TYPES: Record<QuestTemplate, LevelType> = {
   tutorial: {
     template: 'tutorial',
     name: 'Wake-Up Call',
-    blurb: 'The first mission: the guided walkthrough to the Scrapper. A hand-picked map, so seed and level change nothing.',
-    map: 'rooms',
+    blurb: 'The first mission: the guided walkthrough to the Scrapper — a built stage, a lesson per room. Seed and level change nothing.',
+    map: 'tutorial',
     boss: true,
     sectors: ['scrapyard'],
     seed: 'fixed',
@@ -163,7 +164,8 @@ export const buildLevel = (p: LevelPick): Quest => LEVEL_TYPES[p.template].build
 const MAPS: Record<MapKind, (q: Quest, type: LevelType) => MapData> = {
   rooms: (q, type) => generateMap({ seed: q.seed, rooms: q.rooms, boss: type.boss }),
   climb: (q) => generateClimb(q.seed),
-  stage: (q) => generateStage(q.sector, q.seed)
+  stage: (q) => generateStage(q.sector, q.seed),
+  tutorial: (q) => generateWakeUpCall(q.seed)
 }
 
 export const levelMap = (q: Quest): MapData => {

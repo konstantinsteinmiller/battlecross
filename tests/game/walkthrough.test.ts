@@ -505,7 +505,7 @@ describe('resume', () => {
     passTo(a, 3)
     const saved = JSON.parse(JSON.stringify(a.walk.save())) as ReturnType<Walk['save']>
     // `gel`: the Repair Gel corridor's trap has not gone off (see below).
-    expect(saved).toEqual({ gate: 3, crate: true, block: true, slide: false, gel: false, gelDone: false })
+    expect(saved).toEqual({ gate: 3, crate: true, block: true, slide: false, leap: false, gel: false, gelDone: false })
     const b = makeWalk()
     b.walk.restore(saved)
     b.walk.start()
@@ -544,7 +544,7 @@ describe('resume', () => {
     r.walk.restore(undefined)
     expect(r.walk.passed).toBe(0)
     r.walk.restore({ gate: 'x', crate: 1, block: 'yes', slide: null, gel: 'yes', gelDone: 1 } as unknown as ReturnType<Walk['save']>)
-    expect(r.walk.save()).toEqual({ gate: 0, crate: false, block: false, slide: false, gel: false, gelDone: false })
+    expect(r.walk.save()).toEqual({ gate: 0, crate: false, block: false, slide: false, leap: false, gel: false, gelDone: false })
     r.walk.restore({ gate: 99, crate: false, block: false, slide: false })
     expect(r.walk.passed).toBe(5)
     expect(r.walk.active).toBe(false)
@@ -558,7 +558,7 @@ describe('resume', () => {
     r.walk.start()
     expect(r.walk.passed).toBe(4)
     expect(r.walk.gelFired).toBe(false)
-    expect(r.walk.save()).toEqual({ ...old, gel: false, gelDone: false })
+    expect(r.walk.save()).toEqual({ ...old, leap: false, gel: false, gelDone: false })
     expect(held(r)).toEqual([r.gate(4).door])
   })
 

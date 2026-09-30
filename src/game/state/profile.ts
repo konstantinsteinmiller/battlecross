@@ -488,6 +488,8 @@ export interface WalkthroughSave {
   block: boolean
   /** …and slid at least once. */
   slide: boolean
+  /** …and crossed a gap with an edge-leap (the built tutorial's gap room). */
+  leap?: boolean
 }
 
 export interface MissionSnapshot {

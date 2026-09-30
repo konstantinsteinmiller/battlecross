@@ -142,7 +142,7 @@ describe('level catalog: covers every template', () => {
       const q = buildLevel({ template, sector, seed: 12, playerLevel: 6 })
       const t = LEVEL_TYPES[template]
       const setup = setupFromQuest(q, null)
-      expect(setup.climb).toBe(t.map === 'climb' || t.map === 'stage')
+      expect(setup.climb).toBe(t.map === 'climb' || t.map === 'stage' || t.map === 'tutorial')
       expect(setup.stage).toBe(t.map === 'stage' ? sector : undefined)
       expect(setup.tutorial).toBe(template === 'tutorial')
       if (t.map === 'rooms') expect(setup.boss).toBe(t.boss)

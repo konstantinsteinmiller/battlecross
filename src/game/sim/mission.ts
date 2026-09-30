@@ -1,7 +1,7 @@
 import {
   Scene, PerspectiveCamera, Fog, HemisphereLight, DirectionalLight, Color, Vector3, Raycaster, Vector2,
   Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight,
-  Frustum, Matrix4, Sphere, WebGLRenderTarget, Quaternion, Euler, type Object3D
+  Frustum, Matrix4, Sphere, WebGLRenderTarget, Quaternion, Euler, BoxGeometry, MeshToonMaterial, Shape, ShapeGeometry, type Object3D
 } from 'three'
 import type { GameMode } from '../engine/app'
 import { buildCityscape, type Cityscape } from '../world/cityscape'
@@ -76,10 +76,11 @@ import { updateBoss, syncBossVisual, startBossIntro, BOSS_INTRO_T, bossRoomOf } 
 import { WeaponSystem } from './weapons'
 import { WEAPONS, type WeaponId } from '../data/weapons'
 import { perfFlag } from '@/use/perfVariants'
-import { roomCenter, type Room } from '../world/levelGen'
+import { roomCenter, cellCenter, type Room } from '../world/levelGen'
 import { Locator, type LocatorInput } from './locator'
 import { generateClimb } from '../world/climbGen'
 import { generateStage } from '../world/stages'
+import { generateWakeUpCall } from '../world/stages/tutorial'
 import { buildClimbLevel } from '../world/climbMesh'
 import { ClimbRun, walkBlend } from './climb'
 import { spawnClimb } from './climbSpawn'
@@ -121,7 +122,7 @@ export const setupFromQuest = (quest: Quest, snapshot: MissionSnapshot | null): 
     encounters: sector.encounters,
     stats: computeStats(),
     tutorial: quest.template === 'tutorial',
-    climb: quest.template === 'climb' || quest.template === 'stage',
+    climb: quest.template === 'climb' || quest.template === 'stage' || quest.template === 'tutorial',
     stage: quest.template === 'stage' ? quest.sector : undefined,
     quest,
     snapshot
@@ -137,6 +138,10 @@ const DEMO_RING_DIST = 6
 const DEMO_RING_SPEED = 7
 /** The checklist's arrow toward a lesson stays up this long (s). */
 const LESSON_POINT_FOR = 6
+/** The tutorial's false wall sinks over this long (s). */
+const FALSE_WALL_SINK = 1.2
+/** Which walkthrough step runs which lesson room. */
+const TRAIN_OF: Partial<Record<string, TrainId>> = { charge: 'charge', block: 'block', slide: 'slide', gap: 'gap' }
 /** Hazards on machines: half the share they take from Flux, once a burst. */
 const HAZARD_MACHINE_SHARE = 0.5
 const HAZARD_CD = 0.8
@@ -451,6 +456,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   /** The demo's own target and its shooter (a second drone, the teacher). */
   demoAim: { x: number; y: number; z: number } | null = null
   demoSource: Enemy | null = null
+  /** Sim time since the demo's last step (it steps once a frame). */
+  private demoDt = 0
   /** Each lesson room's middle in this mission (the checklist's arrows and
    *  the lesson's spotlight fall back to it). */
   readonly lessonSpots = new Map<TrainId, { x: number; y: number; z: number }>()
@@ -469,6 +476,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private footT = 0
   /** The boss arena's props, cover and anti-cheese (`sim/bossArena.ts`). */
   arena: BossArena | null = null
+  /** Doors hidden behind a false wall until released (the tutorial's first). */
+  private readonly falseWalls = new Map<number, { mesh: Mesh; t: number; x: number; z: number }>()
+  /** The gap lesson's take-off and landing arrows (the built tutorial). */
+  private gapArrows: Mesh[] = []
   /** Atlas is flying the lesson intro's arc (in and out). */
   private atlasSwoop = false
   /** The beam-in (`sim/beamIn.ts`): its pose, camera, and whether he landed. */
@@ -516,7 +527,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
 
   private async build(slice: Slice, onProgress: (p01: number) => void): Promise<void> {
     const setup = this.setup
-    this.map = setup.stage
+    this.map = setup.tutorial
+      ? generateWakeUpCall(setup.seed)
+      : setup.stage
       ? generateStage(setup.stage, setup.seed)
       : setup.climb ? generateClimb(setup.seed) : generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
@@ -644,6 +657,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     // sector. Only while the walkthrough's first room is still to learn.
     if (this.walk?.needsDrone) this.lessons.placeTarget()
     this.walk?.start()
+    this.setupTraining()
     this.buildTraps()
 
     await slice()
@@ -861,7 +875,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         c.blocking = false
         this.vm.barrier.impact('parry')
         this.coach.use('parry')
-        this.walk?.noteBlock()
+        if (!this.demo.active) { this.walk?.noteBlock(); this.trainDone('block') }
         return 'parry'
       }
       // ── BLOCK ──
@@ -886,7 +900,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: p.y + EYE_H + 0.1, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.guardCracked', color: '#ff8a5a' })
       }
       this.coach.use('block')
-      this.walk?.noteBlock()
+      if (!this.demo.active) { this.walk?.noteBlock(); this.trainDone('block') }
       this.checkDown()
       return 'block'
     }
@@ -1504,6 +1518,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   releaseDoor(id: number): void {
     const d = this.doors[id]
     if (!d || !d.held) return
+    // The tutorial's first way on is a wall until now: it sinks first, and
+    // the door behind it opens once it is down (`updateFalseWalls`).
+    const fw = this.falseWalls.get(id)
+    if (fw && fw.t < 0) {
+      d.held = false
+      fw.t = 0
+      this.sfx('stomp', d.x, d.z)
+      this.shake(0.3)
+      sfx('objective')
+      return
+    }
     d.held = false
     d.mesh.lampMat.color.set(PAL.glowYellow)
     if (!d.mesh.boss) {
@@ -1684,6 +1709,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       sfx('loot')
       this.dirty = true
     }
+    this.training.enter('gel', this.time)
     return this.lessons.startGel()
   }
 
@@ -2060,7 +2086,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (hud.phase === 'beamIn') {
       this.stepBeamIn(dt, first)
     } else if (hud.phase === 'play') {
-      if (this.demo.active) this.stepDemo(dt)
+      // The demo writes the input record like a hand does: once a frame (its
+      // presses are edges, read on the frame's first step and then cleared).
+      if (this.demo.active) {
+        this.demoDt += dt
+        if (first) {
+          this.stepDemo(this.demoDt)
+          this.demoDt = 0
+        }
+      }
       this.updatePlayer(dt, first)
     } else if (hud.phase === 'dead') {
       this.stepDead(dt, rawDt)
@@ -2125,6 +2159,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     lt.tanks = profile.inv.tanks
     this.lessons.update(dt, lt)
     this.walk?.update(lt.playing, hud.combat)
+    this.stepTraining(lt.playing)
     this.training.update(this.time, lt.playing)
     this.updateDoorPrompt(dt, lt.playing)
     // Traps run on the mission's dt (hit-stop slows them) and park in a fight
@@ -2386,8 +2421,178 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
 
   /** An edge-leap happened: the gap lesson's proof. */
   private onEdgeLeap(): void {
-    this.training.complete('gap')
-    markTip('train:gap')
+    if (this.demo.active) return
+    this.walk?.noteLeap()
+    this.trainDone('gap')
+  }
+
+  // ─── The tutorial's lesson rooms (`sim/training.ts` over the walkthrough) ─
+
+  /** Build time: the profile's done lessons, each lesson room's spot (the
+   *  checklist), the hidden first door and the gap arrows. */
+  private setupTraining(): void {
+    for (const id of ['charge', 'block', 'slide', 'gel', 'gap', 'weapon'] as TrainId[]) {
+      if (profile.tips[`train:${id}`]) this.training.done.add(id)
+    }
+    const walk = this.walk
+    if (!walk) return
+    for (const g of walk.plan.gates) {
+      for (const st of g.steps) {
+        const id = TRAIN_OF[st]
+        if (!id) continue
+        const r = this.map.rooms[g.room]!
+        const x = (r.x0 + r.w / 2) * CELL
+        const z = (r.z0 + r.h / 2) * CELL
+        this.lessonSpots.set(id, { x, y: Math.max(0, floorAt(this.nav, x, z)), z })
+      }
+    }
+    const gel = walk.plan.gel
+    if (gel) this.lessonSpots.set('gel', { x: cellCenter(gel.spot.i), y: 0, z: cellCenter(gel.spot.j) })
+    // A built tutorial hides its first door behind a wall that sinks when
+    // the charge lesson is done (players took the shut door for the way on
+    // and never met the drone).
+    const first = walk.plan.gates[0]
+    if (first && this.map.walkSteps && walk.passed === 0) this.hideDoor(first.door)
+    this.buildGapArrows()
+  }
+
+  private hideDoor(id: number): void {
+    const d = this.doors[id]
+    if (!d) return
+    d.mesh.root.visible = false
+    const mat = new MeshToonMaterial({ color: new Color(this.theme.wall) })
+    const mesh = new Mesh(new BoxGeometry(d.axis === 'x' ? 0.5 : CELL, WALL_H, d.axis === 'x' ? CELL : 0.5), mat)
+    mesh.position.set(d.x, d.y + WALL_H / 2, d.z)
+    this.propParent(d.x, d.z).add(mesh)
+    this.falseWalls.set(id, { mesh, t: -1, x: d.x, z: d.z })
+  }
+
+  /** A released false wall sinks into the floor (dust, a rumble); once down
+   *  the door behind it shows and opens. */
+  private updateFalseWalls(dt: number): void {
+    for (const [id, fw] of this.falseWalls) {
+      if (fw.t < 0) continue
+      fw.t += dt
+      const k = Math.min(1, fw.t / FALSE_WALL_SINK)
+      fw.mesh.position.y = WALL_H / 2 - k * (WALL_H + 0.1) + Math.sin(fw.t * 50) * 0.03 * (1 - k)
+      if (Math.random() < 0.5) this.fx.emit({ x: fw.x + (Math.random() - 0.5) * CELL, y: 0.2, z: fw.z + (Math.random() - 0.5) * 0.8, vy: 1.2, color: '#b8ad98', size: 0.7, sizeEnd: 1.3, life: 0.6 })
+      if (k < 1) continue
+      fw.mesh.removeFromParent()
+      this.falseWalls.delete(id)
+      const d = this.doors[id]
+      if (!d) continue
+      d.mesh.root.visible = true
+      d.locked = false
+      d.opening = true
+      this.nav.pathBlock[d.cellJ * this.map.w + d.cellI] = 1
+      d.mesh.lampMat.color.set(PAL.glowYellow)
+      this.fx.riseRing(d.x, 0.15, d.z, PAL.glowYellow, 1.1, 22)
+    }
+  }
+
+  /** Glowing floor arrows at the gap's take-off and landing (its `leap`
+   *  link): where to walk off, where he comes down. */
+  private buildGapArrows(): void {
+    const walk = this.walk
+    const t = this.map.terrain
+    if (!walk || !t?.links || !this.lessonSpots.has('gap')) return
+    const g = walk.plan.gates.find(x => x.steps.includes('gap' as never))
+    if (!g) return
+    const link = t.links.find(l => l.kind === 'leap' && this.map.room[l.from[1] * this.map.w + l.from[0]] === g.room)
+    if (!link) return
+    const shape = new Shape()
+    shape.moveTo(0, 0.7)
+    shape.lineTo(0.55, 0.05)
+    shape.lineTo(0.2, 0.05)
+    shape.lineTo(0.2, -0.6)
+    shape.lineTo(-0.2, -0.6)
+    shape.lineTo(-0.2, 0.05)
+    shape.lineTo(-0.55, 0.05)
+    shape.closePath()
+    const geo = new ShapeGeometry(shape).rotateX(-Math.PI / 2)
+    const fx = cellCenter(link.from[0])
+    const fz = cellCenter(link.from[1])
+    const tx = cellCenter(link.to[0])
+    const tz = cellCenter(link.to[1])
+    const yaw = Math.atan2(-(tx - fx), -(tz - fz))
+    for (const [x, z, col] of [[fx, fz, '#ffd84a'], [tx, tz, '#7fffc8']] as const) {
+      const mat = new MeshBasicMaterial({ color: new Color(col), transparent: true, opacity: 0.8, blending: AdditiveBlending, depthWrite: false, toneMapped: false })
+      const m = new Mesh(geo, mat)
+      m.position.set(x, floorAt(this.nav, x, z) + 0.05, z)
+      m.rotation.y = yaw
+      m.renderOrder = 3
+      this.propParent(x, z).add(m)
+      this.gapArrows.push(m)
+    }
+  }
+
+  /**
+   * Per step: the lesson room Flux is in runs its beats (`sim/training.ts`),
+   * with the subject the card spotlights and the demo uses; leaving it stops
+   * a demo and takes the vignette away. The gel lesson (a corridor) runs
+   * from its trap to its end.
+   */
+  private stepTraining(playing: boolean): void {
+    const walk = this.walk
+    const tr = this.training
+    const p = this.player
+    // The gap arrows breathe until the gap has been crossed.
+    const gapOpen = !tr.done.has('gap')
+    for (const a of this.gapArrows) {
+      a.visible = gapOpen
+      ;(a.material as MeshBasicMaterial).opacity = 0.45 + 0.4 * Math.sin(this.time * 4)
+    }
+    if (tr.id === 'gel') {
+      this.trainSpot = { x: p.x - Math.sin(p.yaw) * 2, y: p.y + EYE_H - 0.4, z: p.z - Math.cos(p.yaw) * 2 }
+      if (this.lessons.gelEnded) {
+        this.trainDone('gel')
+        tr.leave()
+      }
+      return
+    }
+    if (!walk?.active || !playing) return
+    const g = walk.current
+    const here = roomAt(this.map, p.x, p.z)
+    let id: TrainId | null = null
+    if (g && here === g.room) {
+      for (const st of g.steps) {
+        const t = TRAIN_OF[st]
+        if (t) { id = t; break }
+      }
+    }
+    if (!id) {
+      if (tr.id && tr.phase !== 'card') {
+        tr.leave()
+        if (this.demo.active) this.demo.stop()
+      }
+      return
+    }
+    if (tr.id !== id) tr.enter(id, this.time)
+    // The subject, fresh every step (a machine walks).
+    this.demoAim = null
+    this.demoSource = null
+    if (id === 'charge') {
+      const a = this.lessons.targetAt
+      this.trainSpot = a ? { x: a.x, y: a.y, z: a.z } : null
+      const b = this.lessons.demoTargetAt
+      this.demoAim = b ? { x: b.x, y: b.y, z: b.z } : null
+      if (!this.lessons.droneUp) this.trainDone('charge')
+    } else if (id === 'block' || id === 'slide') {
+      const e = walk.teacher()
+      if (e && e.state !== 'dead') {
+        this.trainSpot = { x: e.x, y: e.y + (e.floor ?? 0) + e.def.aimY, z: e.z }
+        this.demoSource = e
+      }
+    } else if (id === 'gap') {
+      this.trainSpot = this.lessonSpots.get('gap') ?? null
+    }
+  }
+
+  /** A lesson done by the player's own hand: ticked off for good. */
+  private trainDone(id: TrainId): void {
+    if (this.demo.active) return
+    if (!this.training.done.has(id)) markTip(`train:${id}`)
+    this.training.complete(id)
   }
 
   /** A machine went down: maybe the kill-cam (`sim/killCam.ts`). */
@@ -2761,7 +2966,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       p.path = null
       sfx('slide')
       this.coach.use('slide')
-      this.walk?.noteSlide()
+      if (!this.demo.active) { this.walk?.noteSlide(); this.trainDone('slide') }
       this.fx.emit({ x: p.x, y: p.y + 0.2, z: p.z, color: '#dfefff', size: 0.9, sizeEnd: 1.6, life: 0.3 })
     }
 
@@ -2873,6 +3078,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       const toT = Math.atan2(-(t.x - p.x), -(t.z - p.z))
       const aim = Math.abs(angDiff(toT, p.yaw)) < 1.1 ? aimAt(t) : null
       if (aim) return aim
+    }
+    // The training drones are not machines, so the lock-on never found them:
+    // aim at the one near the crosshair like at one.
+    const lt = this.lessons.aimTarget(p.x, p.z, p.yaw, this.input.locked ? 0.14 : 0.45)
+    if (lt) {
+      const ax = lt.x - from[0]
+      const ay = lt.y - from[1]
+      const az = lt.z - from[2]
+      const l = Math.hypot(ax, ay, az) || 1
+      return [ax / l, ay / l, az / l, null]
     }
     // Free aim: along the view, converging on the crosshair where the view
     // meets a wall or the floor (the muzzle sits right-low of the eye).
@@ -3115,6 +3330,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   }
 
   private updateDoors(dt: number): void {
+    this.updateFalseWalls(dt)
     const p = this.player
     for (const d of this.doors) {
       if (!d.opening && !d.locked) {

@@ -392,19 +392,22 @@ while bars and damage numbers get direct DOM writes.
   decision table (D0–D53) in the published report
   https://claude.ai/artifact/UDq6P14LtaQcoDAyrJ9G34 and in
   `~/.claude/plans/steady-dancing-book.md`. Commit after every phase (P1…P10), then continue without waiting.
-  - [ ] **P1 Quick fixes and input**: right-click/back bug, middle-click block,
+  - [x] **P1 Quick fixes and input** (commit 73c7642): right-click/back bug, middle-click block,
     boss gate opened by shoot/block, bubbles ×2 (non-voiced), chest + rail-cart
     shot collision, shield blocks mortars, freeze = 30 % slow (no stun), boss
     door stays shut + beam-out in the arena, weapon icon on results, supply drop
     reward/icon, mobile layout + buster glyph, first-touch controls modal,
     pointer lock after ads (+ playbook rule), shoot glyph on Gale, VO chains.
-  - [ ] **P2 Shared engines**: FreezeCam, lesson framework v2, edge-leap,
+  - [x] **P2 Shared engines** (commit 3ddaa28; boss-room ideas 2–4 and the
+    weapon-lesson room's respawns/spawn-on-move land with their levels in P4): FreezeCam, lesson framework v2, edge-leap,
     anti-stunlock + ranged fallback, hazards hurt enemies, spike pits + Atlas
     rescue, trap-hit cams + crumbling platforms, kill-cam + Gameplay tab + F4,
     flame cone + weapon VFX, chevron pulse, repair-kit model, boss-room kit +
     enrage, Vex-face door, wind turbine, puzzle validator, adaptive boss HP,
     Pip catch-up lesson.
-  - [ ] **P3 Mission 1 rework** + `fpv-tutorial` skill.
+  - [x] **P3 Mission 1 rework** + `fpv-tutorial` skill: "Wake-Up Call" is a
+    built stage now (`world/stages/tutorial.ts`), lessons per room via
+    `map.walkSteps`, a hidden first wall, the gap room, slide then gel then boss.
   - [ ] **P4 Retrofit stages** (beam-in lesson rooms, props, reused foes,
     crumbling floors, spike pits, Gale fixes, per-Master boss rooms).
   - [ ] **P5 Intro showcase** + skyline rocket fix.

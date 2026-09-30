@@ -198,6 +198,9 @@ export class LessonDirector {
   /** The tutorial walkthrough schedules the drone and the crate itself. */
   private guided: boolean
   private target: TargetState | null = null
+  /** The demo's drone beside it (`sim/demo.ts` pops this one; only the
+   *  player's own pop teaches). */
+  private demoTarget: TargetState | null = null
   private targetRoom = -1
   /** The drone's glyph is on (see REVEAL_AFTER). */
   private revealed = false
@@ -279,6 +282,17 @@ export class LessonDirector {
       h.propParent(x, z).add(mesh.root)
       this.target = { mesh, x, z, y, alive: true, hitT: 0 }
       this.targetRoom = startRoom
+      // The demo's drone: a little to one side, the same distance out.
+      for (const side of [2.4, -2.4, 3.2, -3.2]) {
+        const bx = x - fz * side
+        const bz = z + fx * side
+        if (!free(bx, bz)) continue
+        const bm = buildTrainingTarget()
+        bm.root.position.set(bx, y, bz)
+        h.propParent(bx, bz).add(bm.root)
+        this.demoTarget = { mesh: bm, x: bx, z: bz, y, alive: true, hitT: 0 }
+        break
+      }
       return
     }
   }
@@ -287,6 +301,27 @@ export class LessonDirector {
 
   /** A player shot vs. the training drone's bubble. */
   shotHits(s: Shot): 'hit' | 'deflect' | null {
+    const d = this.demoTarget
+    if (d?.alive) {
+      const rd = 0.78 + s.radius
+      if ((s.x - d.x) ** 2 + (s.y - d.y) ** 2 + (s.z - d.z) ** 2 <= rd * rd) {
+        const h = this.host
+        if (s.kind === 'pellet') {
+          d.hitT = 1
+          h.fx.sparks(s.x, s.y, s.z, PAL.glowCyan, 8, 5, 0.16)
+          h.sfx('tink', d.x, d.z)
+          return 'deflect'
+        }
+        d.alive = false
+        d.mesh.root.visible = false
+        h.fx.sparks(d.x, d.y, d.z, PAL.glowCyan, 22, 8, 0.22)
+        h.fx.orbBurst(d.x, d.y, d.z, PAL.glowYellow, 0.9)
+        h.fx.flash(d.x, d.y, d.z, '#ffffff', 1.6, 0.16)
+        h.shake(0.15)
+        h.sfx('explode', d.x, d.z)
+        return 'hit'
+      }
+    }
     const t = this.target
     if (!t || !t.alive) return null
     const r = 0.78 + s.radius
@@ -578,7 +613,16 @@ export class LessonDirector {
 
   private animate(dt: number): void {
     const h = this.host
-    const t = this.target
+    for (const t of [this.target, this.demoTarget]) this.animateTarget(t, dt)
+    if (this.ring.visible) {
+      const k = (h.time * 0.9) % 1
+      this.ring.scale.setScalar(0.85 + k * 0.4)
+      this.ringMat.opacity = 0.7 * (1 - k)
+    }
+  }
+
+  private animateTarget(t: TargetState | null, dt: number): void {
+    const h = this.host
     if (t?.alive) {
       const m = t.mesh
       t.hitT = Math.max(0, t.hitT - dt * 4)
@@ -590,11 +634,6 @@ export class LessonDirector {
       m.barrierMat.opacity = 0.13 + t.hitT * 0.4 + Math.sin(h.time * 3) * 0.02
       m.rimMat.opacity = 0.55 + t.hitT * 0.45
       m.barrier.scale.setScalar(1 + t.hitT * 0.08)
-    }
-    if (this.ring.visible) {
-      const k = (h.time * 0.9) % 1
-      this.ring.scale.setScalar(0.85 + k * 0.4)
-      this.ringMat.opacity = 0.7 * (1 - k)
     }
   }
 
@@ -705,6 +744,35 @@ export class LessonDirector {
     if (this.live === 'crate') return
     this.ring.position.set(x, 0.04, z)
     this.ring.visible = on
+  }
+
+  /** The demo's drone, while it hovers (the charge demo aims at it). */
+  get demoTargetAt(): { readonly x: number; readonly y: number; readonly z: number } | null {
+    return this.demoTarget?.alive ? this.demoTarget : null
+  }
+
+  /** The player's drone, while it hovers (the card's spotlight). */
+  get targetAt(): { readonly x: number; readonly y: number; readonly z: number } | null {
+    return this.target?.alive ? this.target : null
+  }
+
+  /**
+   * Auto-aim at the training drones: the hovering one nearest the crosshair
+   * within `cone` (rad) of the view — the shot flies at it like at a machine
+   * (they are not machines, so the lock-on never found them). Null: none.
+   */
+  aimTarget(px: number, pz: number, yaw: number, cone: number): { readonly x: number; readonly y: number; readonly z: number } | null {
+    let best: TargetState | null = null
+    let bestA = cone
+    for (const t of [this.target, this.demoTarget]) {
+      if (!t?.alive) continue
+      if (Math.hypot(t.x - px, t.z - pz) > 25) continue
+      let a = Math.atan2(-(t.x - px), -(t.z - pz)) - yaw
+      while (a > Math.PI) a -= Math.PI * 2
+      while (a < -Math.PI) a += Math.PI * 2
+      if (Math.abs(a) < bestA) { bestA = Math.abs(a); best = t }
+    }
+    return best
   }
 
   /** The training drone still hovers (the walkthrough's first gate). */

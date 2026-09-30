@@ -54,7 +54,7 @@ import { plateSpot, type TrapSpot } from './traps'
  */
 
 /** What a room teaches before its door out opens. */
-export type WalkStep = 'charge' | 'crate' | 'block' | 'slide' | 'chest' | 'clear'
+export type WalkStep = 'charge' | 'crate' | 'block' | 'slide' | 'chest' | 'clear' | 'gap' | 'rest'
 
 export interface WalkGate {
   /** The path room that teaches. */
@@ -123,7 +123,7 @@ export type WalkNeed = WalkStep | 'gel'
 const TEACH: readonly WalkStep[] = ['crate', 'block', 'slide', 'chest']
 /** The one machine that stands in a room for each step (the scripted cast). */
 export const TEACHER: Record<WalkStep, EnemyKind | null> = {
-  charge: null, crate: 'hardhat', block: 'trooper', slide: 'hopper', chest: null, clear: 'hardhat'
+  charge: null, crate: 'hardhat', block: 'trooper', slide: 'hopper', chest: null, clear: 'hardhat', gap: null, rest: null
 }
 /** A room must have been quiet this long before its lesson moves in — and
  *  the beat between one stand-in teacher falling and the next beaming in. */
@@ -170,7 +170,10 @@ export const planWalkthrough = (map: MapData): WalkPlan => {
   if (!boss || boss.parent < 0) return { path: [], gates: [], gel: null }
   const path: number[] = []
   for (let r = boss.parent; r >= 0; r = map.rooms[r]!.parent) path.unshift(r)
-  const steps = stepsFor(path.length)
+  // A built tutorial names its rooms' lessons itself.
+  const steps = map.walkSteps && map.walkSteps.length === path.length
+    ? map.walkSteps.map(s => s as WalkStep[])
+    : stepsFor(path.length)
   const gates = path.map((room, k): WalkGate => {
     const next = k + 1 < path.length ? path[k + 1]! : boss.id
     return { room, door: map.rooms[next]!.door, steps: steps[k]! }
@@ -306,6 +309,7 @@ export class Walkthrough {
   private gate = 0
   private blocked = false
   private slid = false
+  private leapt = false
   private crate = false
   private crateLive = false
   private clearAt = -1
@@ -392,6 +396,13 @@ export class Walkthrough {
     this.h.checkpoint()
   }
 
+  /** The player crossed a gap with an edge-leap. */
+  noteLeap(): void {
+    if (this.leapt) return
+    this.leapt = true
+    this.h.checkpoint()
+  }
+
   /** The player slid. */
   noteSlide(): void {
     if (this.slid) return
@@ -466,7 +477,10 @@ export class Walkthrough {
       case 'chest':
         return this.chestOpen()
       case 'clear':
+      case 'rest':
         return true
+      case 'gap':
+        return this.leapt
     }
   }
 
@@ -671,7 +685,7 @@ export class Walkthrough {
 
   save(): WalkSave {
     return {
-      gate: this.gate, crate: this.crate, block: this.blocked, slide: this.slid,
+      gate: this.gate, crate: this.crate, block: this.blocked, slide: this.slid, leap: this.leapt,
       gel: this.gelFiredFlag, gelDone: this.gelFiredFlag && this.gel === 'done'
     }
   }
@@ -692,6 +706,7 @@ export class Walkthrough {
     this.crate = s.crate === true
     this.blocked = s.block === true
     this.slid = s.slide === true
+    this.leapt = s.leap === true
     this.gelFiredFlag = s.gel === true
     const gel = this.plan.gel
     if (this.gel !== 'done' && gel) {

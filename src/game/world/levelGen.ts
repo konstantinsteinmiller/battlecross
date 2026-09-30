@@ -80,6 +80,9 @@ export interface MapData {
    *  `climbGen.ts`). Absent on every labyrinth map: those stay flat at y = 0
    *  and nothing below reads this unless it is there. */
   terrain?: Terrain
+  /** A built tutorial's lessons per path room, start first (`WalkStep`s;
+   *  `sim/walkthrough.ts` reads them instead of spreading its default). */
+  walkSteps?: string[][]
 }
 
 // ─── Terrain (the climb) ─────────────────────────────────────────────────────

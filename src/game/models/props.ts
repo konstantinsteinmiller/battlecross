@@ -1,5 +1,6 @@
 import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, BufferGeometry, Float32BufferAttribute, PlaneGeometry, CanvasTexture, SRGBColorSpace } from 'three'
 import { drawVexFace } from './street'
+import { buildEnemyRig, type EnemyColors } from './enemies'
 import { rcyl, rbox, torus, sph, ell, cap, xform, paint, paintBy, merge, lathe } from './kit'
 import { toonVC, glowVC, outlineMat } from './toon'
 import { PAL, RARITY_COLOR } from './palette'
@@ -499,6 +500,9 @@ export const buildBeacon = (): { root: Group; mat: MeshBasicMaterial } => {
 
 // ─── Training target (the charge-shot lesson) ────────────────────────────────
 
+/** The training drone's paint: blue and white, a friendly practice machine. */
+const TRAINING_DRONE: EnemyColors = { main: '#3c8dff', deep: '#1f4fb0', accent: '#dff1ff', eye: '#7ff4ff', metal: '#8fa3c8' }
+
 export interface TrainingTargetMesh {
   root: Group
   /** The bullseye drone; bobs and turns to face the player. */
@@ -522,38 +526,16 @@ export const buildTrainingTarget = (): TrainingTargetMesh => {
   const root = new Group()
   const body = new Group()
   root.add(body)
-  // The face: a rounded disc painted as a bullseye, steel on the back.
-  const disc = xform(rcyl(0.42, 0.14, 0.05, 28), [0, 0, 0], [Math.PI / 2, 0, 0])
-  paintBy(disc, (x, y, z) => {
-    if (z < 0.02) return PAL.steel
-    const r = Math.hypot(x, y)
-    return r < 0.1 ? PAL.glowRed : r < 0.19 ? PAL.white : r < 0.29 ? PAL.glowRed : PAL.white
-  })
-  const toon = [
-    disc,
-    xform(paint(torus(0.42, 0.04, 8, 28), PAL.steelDark), [0, 0, 0]),
-    // Hub and the two stubby arms that carry the rotor pods
-    xform(paint(sph(0.17, 14, 10), PAL.gunmetal), [0, 0, -0.12]),
-    xform(paint(cap(0.045, 0.62, 8, 2), PAL.steelDark), [0, 0, -0.1], [0, 0, Math.PI / 2]),
-    // Antenna
-    xform(paint(cap(0.018, 0.16, 6, 2), PAL.steelDark), [0, 0.52, -0.04])
-  ]
-  const glowParts = [
-    xform(paint(sph(0.045, 10, 8), PAL.glowYellow), [0, 0.63, -0.04])
-  ]
-  const face = assemble(toon, glowParts, 0.02)
-  body.add(face.root)
+  // A real Rotor Drone, painted training blue and unarmed (playtesters took
+  // the old bullseye for scenery and walked past it): the same machine they
+  // will meet, so the lesson transfers. Its rotor spins with the "pods".
+  const rig = buildEnemyRig('heli', TRAINING_DRONE)
+  rig.root.scale.setScalar(0.9)
+  rig.root.position.y = -0.45
+  body.add(rig.root)
   const rotors: Group[] = []
-  for (const s of [-1, 1]) {
-    const pod = assemble(
-      [xform(paint(ell(0.13, 0.08, 0.13, 14, 8), PAL.hardhat), [0, 0, 0])],
-      [xform(paint(torus(0.14, 0.022, 6, 18), PAL.glowCyan), [0, 0.02, 0], [Math.PI / 2, 0, 0])],
-      0.016
-    )
-    pod.root.position.set(s * 0.56, 0, -0.1)
-    body.add(pod.root)
-    rotors.push(pod.root)
-  }
+  const rotor = rig.bones.rotor
+  if (rotor) rotors.push(rotor as unknown as Group)
   // The bubble: soft additive shell + a bright rim facing the player.
   const barrierMat = new MeshBasicMaterial({
     color: new Color(PAL.glowCyan), transparent: true, opacity: 0.13, blending: AdditiveBlending,

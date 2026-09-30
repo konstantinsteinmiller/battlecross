@@ -219,6 +219,10 @@ export const doorInput = (need: WalkNeed, family: InputFamily): DoorInput => {
     case 'gel':
       return touch ? { kind: 'finger', mode: 'tap', icon: 'flask' } : { kind: 'key', code: 'KeyH', icon: 'flask' }
     case 'clear':
+    case 'rest':
       return touch ? { kind: 'finger', mode: 'tap', icon: 'buster' } : { kind: 'mouse', button: 'left', click: true, icon: 'buster' }
+    case 'gap':
+      // Walk on at the edge: the stick (the W key) — the edge does the leap.
+      return touch ? { kind: 'finger', mode: 'hold', icon: 'dodge' } : { kind: 'key', code: 'KeyW', icon: 'dodge' }
   }
 }
