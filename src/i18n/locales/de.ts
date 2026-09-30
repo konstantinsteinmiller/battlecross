@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Dieses Spiel ist nur verfügbar auf',
 
   'ui': {
+    'killcamCount': 'Kill-Cams in dieser Mission: {n}',
+    'killcamOff': 'Kill-Cams ausschalten',
     'next': 'Weiter',
     'replay': 'Wiederholen',
     'back': 'Zurück',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Tippe auf den grünen Reparaturgel-Knopf: Das Gel repariert dich komplett.'
   },
   'walk': {
+    'finishTutorial': 'Erst das Tutorial abschließen',
     'finishLesson': 'Beende die Lektion'
   },
   'hubLesson': {
+    'earnBolts': 'Zu wenig Bolzen? Schau ein kurzes Video für Nachschub.',
+    'catchUp': 'Pip: Deine Kanone hält mit den Maschinen da draußen nicht mehr mit. Lass sie uns verbessern!',
     'workshop': 'Öffne die Werkstatt.',
     'upgradeBuster': 'Gib Bolzen aus, um deine Kanone zu verbessern: mehr Schaden.',
     'pickArmor': 'Wähle jetzt deine Brustpanzerung.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Genug Bolzen für zwei Upgrades deiner besten Kanone.',
+    'upgradeAdName': 'Upgrade-Schub',
     'tanks': 'Vorräte',
     'tankName': 'Reparaturgel',
     'tankDesc': 'Stellt während einer Mission Gesundheit und Kraft vollständig wieder her.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-Cam',
+    'gameplay': 'Gameplay',
     'title': 'Optionen',
     'general': 'Allgemein',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Wähl deine neue Waffe und feure auf die Drohnen!',
+      'gap': 'Lauf geradeaus auf die Kante zu, dann springst du automatisch rüber!',
+      'gel': 'Nutze ein Reparaturgel, um dich zu heilen!',
+      'slide': 'Rutsch weg, kurz bevor der rote Ring dich erreicht!',
+      'block': 'Halte Blocken gedrückt, wenn er feuert. Genau beim Einschlag ist perfekt!',
+      'charge': 'Halte Feuer gedrückt, bis die Kanone glüht, dann lass los!',
+    },
+    'train': {
+      'weapon': 'Lass uns deine neue Waffe trainieren!',
+      'gap': 'Lass uns das Springen über Lücken trainieren!',
+      'gel': 'Lass uns das Reparaturgel trainieren!',
+      'slide': 'Lass uns das Rutschen trainieren!',
+      'block': 'Lass uns das Perfekte Blocken trainieren!',
+      'charge': 'Lass uns den Ladeschuss trainieren!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss wäre stolz.',
       '4': 'Ich mag unser Team.'
     }
+  },
+  'train': {
+    'todo': 'noch nicht erledigt',
+    'done': 'erledigt',
+    'checklist': 'Tutorials',
+    'watch': 'Schau zu, wie es geht',
+    'card': {
+      'weapon': 'Du hast die Waffe eines Kernmeisters kopiert! Feuere sie mit ihrem Knopf ab: Waffenenergie treibt sie an, und manche Maschinen sind schwach dagegen.',
+      'gel': 'Verletzt? Reparaturgel stellt deine Gesundheit vollständig wieder her. Nutze eins, wann immer ein Kampf schlecht läuft.',
+      'slide': 'Rote Angriffe lassen sich nicht blocken. Rutsch zur Seite, um auszuweichen: Während des Rutschens kann dich nichts treffen.',
+      'block': 'Halte Blocken gedrückt, um dein Schild zu heben: Es stoppt Schüsse und Treffer von vorne. Heb es genau in dem Moment, in dem ein Treffer einschlägt, für ein Perfektes Blocken, das den Angreifer ausschaltet.',
+      'charge': 'Ein normaler Schuss durchbricht kein Schild. Halte Feuer gedrückt, bis deine Kanone glüht, dann lass los: Ein Ladeschuss bricht glatt durch.',
+    },
+    'name': {
+      'weapon': 'Waffen-Lektion',
+      'gap': 'Sprung-Tutorial',
+      'gel': 'Reparaturgel-Tutorial',
+      'slide': 'Rutsch-Tutorial',
+      'block': 'Schild-Tutorial',
+      'charge': 'Ladeschuss-Tutorial',
+    },
   }
 }

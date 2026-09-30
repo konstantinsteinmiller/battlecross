@@ -1,6 +1,7 @@
 import { Color } from 'three'
 import { CELL, type Terrain, type VentSpec } from '../../world/levelGen'
 import { buildVent, FIRE_LOOK, JET_LEN, COLUMN_H, type VentLook, type VentMesh } from '../../models/stageProps/vents'
+import { setFlame } from '../../fx/flameCone'
 import type { ClimbBody, ClimbHost } from '../climb'
 import type { StageFeature } from '../stageFeatures'
 
@@ -90,9 +91,11 @@ export interface VentStyle {
   look: VentLook
   /** Anything a hit does besides the damage (a frost slow). */
   onHit?(p: ClimbBody): void
+  /** The hazard's kind for the trap-hit freeze-frame ('flame', 'ice'). */
+  hazard?: string
 }
 
-export const FIRE_STYLE: VentStyle = { cost: 0.15, warnSfx: 'trapHiss', burnSfx: 'flameJet', look: FIRE_LOOK }
+export const FIRE_STYLE: VentStyle = { cost: 0.15, warnSfx: 'trapHiss', burnSfx: 'flameJet', look: FIRE_LOOK, hazard: 'flame' }
 
 interface VentRt {
   def: VentSpec
@@ -168,7 +171,7 @@ export class VentFeature implements StageFeature {
       m.lampMat.color.copy(this.lampHot)
       m.jet.visible = f > 0.01
       m.jet.scale.set(0.8 + 0.2 * f, Math.max(0.05, f * (0.92 + Math.sin(time * 37 + v.i) * 0.08)), 0.8 + 0.2 * f)
-      for (let n = 0; n < m.layers.length; n++) m.layers[n]!.opacity = f * (0.5 + n * 0.2) * (0.85 + Math.sin(time * 29 + n * 2) * 0.15)
+      for (let n = 0; n < m.layers.length; n++) setFlame(m.layers[n]!, f * (0.8 + n * 0.25), time + n * 0.37)
       if (rt.roared !== cyc) {
         rt.roared = cyc
         if (near) this.host.sfx(this.style.burnSfx, rt.cx, rt.cz)
@@ -179,11 +182,17 @@ export class VentFeature implements StageFeature {
         rt.acc -= n
         if (n) m.spit(n, 9)
       }
+      // Machines in the jet burn too (a Guardroid stood in the flames
+      // unharmed, and the level's fire read as scenery).
+      if (f > 0.3) {
+        const mo = ventMouth(v)
+        this.host.hurtMachines?.(this.style.cost, mo.x, mo.z, (x, y, z) => inJet(v, x, y, z))
+      }
       // Whoever is in the jet: once a burst, not blockable.
       if (playing && f > 0.3 && rt.hitCyc !== cyc && inJet(v, p.x, p.y, p.z)) {
         rt.hitCyc = cyc
         const mo = ventMouth(v)
-        const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * this.style.cost), { blockable: false, fromX: mo.x, fromZ: mo.z, kind: 'aoe' })
+        const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * this.style.cost), { blockable: false, fromX: mo.x, fromZ: mo.z, kind: 'aoe', hazard: this.style.hazard })
         if (r === 'hit') this.style.onHit?.(p)
       }
     } else {

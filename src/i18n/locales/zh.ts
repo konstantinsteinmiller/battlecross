@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': '本游戏仅在以下平台提供：',
 
   'ui': {
+    'killcamCount': '本次任务击杀镜头：{n}',
+    'killcamOff': '关闭击杀镜头',
     'next': '下一个',
     'replay': '重玩',
     'back': '返回',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': '点击绿色的修理凝胶按钮：让你完全恢复。'
   },
   'walk': {
+    'finishTutorial': '请先完成教程',
     'finishLesson': '完成这一课'
   },
   'hubLesson': {
+    'earnBolts': '螺丝不够？看一段短视频来补充。',
+    'catchUp': '皮普：你的炮已经跟不上外面的机器了。我们来升级它吧！',
     'workshop': '打开工坊。',
     'upgradeBuster': '花费螺丝强化臂炮：伤害更高。',
     'pickArmor': '现在选择你的胸甲。',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': '足够为你最好的臂炮升级两次的螺丝。',
+    'upgradeAdName': '升级助力',
     'tanks': '补给',
     'tankName': '修理凝胶',
     'tankDesc': '在任务中完全恢复生命值和动力。',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': '击杀镜头',
+    'gameplay': '玩法',
     'title': '选项',
     'general': '通用',
     'audio': '音频',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': '选好新武器，朝无人机开火！',
+      'gap': '朝边缘直走就能自动跳过去！',
+      'gel': '用修理凝胶回复体力！',
+      'slide': '在红色光圈到达前滑铲躲开！',
+      'block': '它开火时按住格挡。命中瞬间就是完美时机！',
+      'charge': '按住射击直到臂炮发光，然后松开！',
+    },
+    'train': {
+      'weapon': '我们来练习你的新武器吧！',
+      'gap': '我们来练习跳过缺口吧！',
+      'gel': '我们来练习修理凝胶吧！',
+      'slide': '我们来练习滑铲吧！',
+      'block': '我们来练习完美格挡吧！',
+      'charge': '我们来练习蓄力弹吧！',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss会为你骄傲的。',
       '4': '我喜欢我们这个队伍。'
     }
+  },
+  'train': {
+    'todo': '尚未完成',
+    'done': '已完成',
+    'checklist': '教程',
+    'watch': '看看怎么做',
+    'card': {
+      'weapon': '你复制了一名核心大师的武器！用它专属的按钮开火：武器能量为其提供动力，有些机械对它很弱。',
+      'gel': '受伤了？修理凝胶能让你的生命值完全恢复。战斗不利时随时使用。',
+      'slide': '红色攻击无法格挡。滑铲可以躲开：滑铲过程中不会被击中。',
+      'block': '按住格挡举起护盾：能挡住正面的弹药和攻击。在攻击命中的瞬间举起即可做出完美格挡，将攻击者击晕。',
+      'charge': '普通弹打不破护盾。按住射击直到臂炮发光，然后松开：蓄力弹能直接击穿。',
+    },
+    'name': {
+      'weapon': '武器课',
+      'gap': '跳跃教程',
+      'gel': '修理凝胶教程',
+      'slide': '滑铲教程',
+      'block': '护盾教程',
+      'charge': '蓄力弹教程',
+    },
   }
 }

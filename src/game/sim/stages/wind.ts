@@ -2,6 +2,7 @@ import { CELL, Cell, type MapData, type Terrain, type WindZone } from '../../wor
 import { STEP_UP } from '../../world/nav'
 import { sceneQuality } from '../../engine/quality'
 import { buildWindStreaks, STREAK_WINDOW, type WindStreaksMesh } from '../../models/stageProps/wind'
+import { buildTurbine, type TurbineMesh } from '../../models/stageProps/turbine'
 import type { ClimbBody, ClimbHost } from '../climb'
 import type { MoveMod, StageFeature } from '../stageFeatures'
 
@@ -124,6 +125,23 @@ interface ZoneRt {
   /** The streaks' yaw: local +X down the wind. */
   cos: number
   sin: number
+  /** The turbine at its upwind edge, and its rotor's spin (rad/s). */
+  turbine: TurbineMesh | null
+  spin: number
+}
+
+/** A turbine's rotor at a full gust (rad/s), and how fast it winds up and
+ *  coasts down (1/s). */
+const SPIN_FULL = 14
+const SPIN_EASE = 1.6
+
+/** The turbine's spot: the middle of the zone's upwind edge, a cell out. */
+const turbineSpot = (d: WindZone): { x: number; z: number } => {
+  const cx = ((d.i0 + d.i1 + 1) / 2) * CELL
+  const cz = ((d.j0 + d.j1 + 1) / 2) * CELL
+  const x = d.dx > 0 ? d.i0 * CELL - CELL * 0.35 : d.dx < 0 ? (d.i1 + 1) * CELL + CELL * 0.35 : cx
+  const z = d.dz > 0 ? d.j0 * CELL - CELL * 0.35 : d.dz < 0 ? (d.j1 + 1) * CELL + CELL * 0.35 : cz
+  return { x, z }
 }
 
 export class WindFeature implements StageFeature {
@@ -141,8 +159,18 @@ export class WindFeature implements StageFeature {
     this.zones = (t.wind ?? []).map(def => ({
       def, shelter: windShelter(map, def), share: 0, warned: false,
       y: t.floor[def.j0 * map.w + def.i0]!,
-      cos: def.dx, sin: -def.dz
+      cos: def.dx, sin: -def.dz,
+      turbine: null, spin: 0
     }))
+    // One turbine per zone, on its upwind edge, blowing down the wind.
+    for (const z of this.zones) {
+      const at = turbineSpot(z.def)
+      const tb = buildTurbine()
+      tb.root.position.set(at.x, z.y, at.z)
+      tb.root.rotation.y = Math.atan2(z.def.dx, z.def.dz)
+      host.propParent(at.x, at.z).add(tb.root)
+      z.turbine = tb
+    }
     let q: 'low' | 'full' = 'full'
     try { q = sceneQuality() } catch { /* no window: full */ }
     this.want = COUNT[q]
@@ -162,6 +190,11 @@ export class WindFeature implements StageFeature {
     for (const z of this.zones) {
       const d = z.def
       z.share = gustShare(d, time)
+      // The turbine winds up with the gust and coasts down in the calm.
+      if (z.turbine) {
+        z.spin += (SPIN_FULL * z.share - z.spin) * Math.min(1, dt * SPIN_EASE)
+        z.turbine.rotor.rotation.z -= z.spin * dt
+      }
       const warn = gustWarning(d, time)
       const close = this.distTo(z, p.x, p.z) < NEAR && Math.abs(p.y - z.y) < 6
       if (close) near = z

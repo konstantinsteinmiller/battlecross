@@ -4,7 +4,7 @@
     div.bar.top(aria-hidden="true")
     div.bar.bottom(aria-hidden="true")
     //- The kill-cam counter: how many this mission (top right).
-    div.count(v-if="hud.freezeKind === 'kill'" role="img" :aria-label="t('killcam.count', { n: hud.killCams })")
+    div.count(v-if="hud.freezeKind === 'kill'" role="img" :aria-label="t('ui.killcamCount', { n: hud.killCams })")
       GameIcon.ic(name="skull")
       span.n ×{{ hud.killCams }}
     //- Where the fire and block buttons sit in play: skip (two presses of
@@ -13,7 +13,7 @@
       button.off(
         v-if="hud.freezeKind === 'kill'"
         type="button"
-        :aria-label="t('killcam.off')"
+        :aria-label="t('ui.killcamOff')"
         @pointerdown.prevent.stop="off"
       )
         span.off-mark

@@ -2,7 +2,7 @@ import { Group, Color, type MeshBasicMaterial, type Object3D, type Scene } from 
 import {
   CELL, Cell, type MapData, type Terrain, type Ladder, type Lift, type Crusher, type RollerLane, type RewardSpot, type SecretSpec
 } from '../world/levelGen'
-import { floorAt, groundAt, moveBody, platUnder, type Nav, type Plat, type Slab } from '../world/nav'
+import { floorAt, groundAt, moveBody, platUnder, STEP_UP, type Nav, type Plat, type Slab } from '../world/nav'
 import { BALL_R } from '../world/climbGen'
 import { secretDoorFace } from '../world/stages/builder'
 import type { LevelMeshes } from '../world/levelMesh'
@@ -90,9 +90,20 @@ const BODY_H = 1.75
  *  a 3 m gap is always crossed, a 6 m one never. */
 export const LEAP_VY = 5
 export const LEAP_SPEED = 11
+/** The edge-leap (`edgeLeap`): the least walking speed that leaps (m/s),
+ *  how far ahead a landing is looked for (m) and how much lower it may be,
+ *  how far past its near edge the leap aims, and the flight time the launch
+ *  speed is sized for (s; LEAP_VY under GRAVITY, landing a step lower). */
+const EDGE_MIN = 1.2
+const EDGE_REACH = 4.4
+const EDGE_DROP = 1.6
+const EDGE_OVER = 0.9
+const EDGE_FLIGHT = 0.42
 /** Air control on a terrain map: the walk's blend in the air, as a share of
  *  the ground's. */
 export const AIR_CONTROL = 0.25
+/** How deep a spiked (or lava) pit's floor lies when its room does not say. */
+const PIT_FLOOR_Y = -4
 /** Twice a plain fall into spikes or lava. */
 const HOT_PIT = 2
 /** Half the thickness of a secret alcove's wall slabs (m). */
@@ -149,7 +160,10 @@ export interface ClimbHost {
   /** Atlas says a line: a stage's `hint.<id>` (a tip on the danger ahead)
    *  or `secret.<id>` (a nudge toward a secret), once a mission each. */
   say(line: AtlasLine): void
-  hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss'
+  hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot'; hazard?: string }): 'hit' | 'block' | 'parry' | 'miss'
+  /** A hazard also catches machines (not a Core Master): each one the test
+   *  says is in it loses `cost01` of ITS max health, halved (`hurtMachines`). */
+  hurtMachines?(cost01: number, fromX: number, fromZ: number, hits: (x: number, y: number, z: number) => boolean): void
   sfx(name: string, x?: number, z?: number): void
   shake(amount: number): void
   onPickup(kind: PickupKind, value: number): void
@@ -305,6 +319,10 @@ export class ClimbRun {
   /** This step's slide ran off a pit edge into a dash leap (the mission
    *  ends the slide: the leap keeps its own momentum). */
   leapt = false
+  /** This step's walk ran off an edge into an edge-leap (no slide). */
+  edgeLeapt = false
+  /** An edge-leap is in the air (until the feet touch down). */
+  edgeFlight = false
   /** Share of max health this step's pit fall costs (PIT_COST, doubled
    *  into spikes or lava). */
   pitCost = PIT_COST
@@ -599,8 +617,12 @@ export class ClimbRun {
       const r = PLAYER_R * 0.7
       if (Math.abs(p.x - cr.x) < CR_SIZE / 2 + r && Math.abs(p.z - cr.z) < CR_SIZE / 2 + r) {
         cr.hitCyc = cyc
-        this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * CR_COST), { blockable: false, fromX: cr.x, fromZ: cr.z, kind: 'aoe' })
+        this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * CR_COST), { blockable: false, fromX: cr.x, fromZ: cr.z, kind: 'aoe', hazard: 'crush' })
       }
+    }
+    if (u >= tSlam && u < tRise) {
+      this.host.hurtMachines?.(CR_COST, cr.x, cr.z, (x, y, z) => Math.abs(y - d.y) < 1.2 &&
+        Math.abs(x - cr.x) < CR_SIZE / 2 + 0.4 && Math.abs(z - cr.z) < CR_SIZE / 2 + 0.4)
     }
     if (u >= tHold && cr.landed !== cyc) {
       cr.landed = cyc
@@ -683,13 +705,17 @@ export class ClimbRun {
       }
     }
     b.mesh.root.position.set(b.x, b.y, b.z)
+    if (b.sink <= 0) {
+      this.host.hurtMachines?.(BALL_COST, b.x, b.z, (x, y, z) =>
+        (x - b.x) ** 2 + (z - b.z) ** 2 < (BALL_R + 0.5) ** 2 && b.y - BALL_R < y + BODY_H && b.y + BALL_R > y)
+    }
     if (!playing || b.hit || b.sink > 0) return
     const dx = p.x - b.x
     const dz = p.z - b.z
     const reach = BALL_R + PLAYER_R * 0.75
     if (dx * dx + dz * dz < reach * reach && b.y - BALL_R < p.y + BODY_H && b.y + BALL_R > p.y) {
       b.hit = true
-      const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * BALL_COST), { blockable: false, fromX: b.x - d.dx, fromZ: b.z - d.dz, kind: 'aoe' })
+      const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * BALL_COST), { blockable: false, fromX: b.x - d.dx, fromZ: b.z - d.dz, kind: 'aoe', hazard: 'crush' })
       if (r === 'hit') {
         // Bowled aside, across the lane.
         const side = (dx * -d.dz + dz * d.dx) >= 0 ? 1 : -1
@@ -727,6 +753,7 @@ export class ClimbRun {
     this.pitDark = 0
     this.landSpeed = 0
     this.leapt = false
+    this.edgeLeapt = false
     const nav = this.host.nav
     for (const f of this.features) if (f.carry?.(p, out, dt)) return
     if (p.ladder >= 0) {
@@ -773,6 +800,13 @@ export class ClimbRun {
           p.vz *= LEAP_SPEED / v
         }
         this.leapt = true
+      } else if (!sliding && sup === -Infinity && this.edgeLeap(p, out)) {
+        // The edge-leap: walked into a gap with a floor in reach ahead, Flux
+        // runs off the lip and leaps for it (there is no jump button — an
+        // edge IS the jump). Falling in is for gaps with nothing to reach.
+        this.leapt = true
+        this.edgeLeapt = true
+        this.edgeFlight = true
       } else if (sup === -Infinity && p.air < COYOTE) {
         p.air += dt
       } else {
@@ -784,6 +818,7 @@ export class ClimbRun {
       p.vy = Math.max(-MAX_FALL, p.vy - GRAVITY * dt)
       p.y += p.vy * dt
       if (p.y <= sup) {
+        this.edgeFlight = false
         this.landSpeed = -p.vy
         p.y = sup
         p.vy = 0
@@ -880,11 +915,50 @@ export class ClimbRun {
   }
 
   /** Slide is a ground move: not in the air, on a ladder or stepping off one. */
+  /**
+   * The edge-leap's test and launch. Walking at the edge (at least EDGE_MIN
+   * m/s along the stick), look ahead along the walk for a floor no lower
+   * than EDGE_DROP under the feet within EDGE_REACH: found, the body leaves
+   * the lip with LEAP_VY up and just the speed that carries it EDGE_OVER
+   * past that floor's near edge (capped at LEAP_SPEED); none, no leap.
+   */
+  private edgeLeap(p: ClimbBody, at: [number, number]): boolean {
+    const v = Math.hypot(p.vx, p.vz)
+    if (v < EDGE_MIN) return false
+    const dx = p.vx / v
+    const dz = p.vz / v
+    const nav = this.host.nav
+    for (let d = 0.8; d <= EDGE_REACH; d += 0.3) {
+      const fy = floorAt(nav, at[0] + dx * d, at[1] + dz * d, p.y + STEP_UP)
+      if (fy === -Infinity || fy < p.y - EDGE_DROP || fy > p.y + STEP_UP) continue
+      const speed = Math.min(LEAP_SPEED, Math.max(v, (d + EDGE_OVER) / EDGE_FLIGHT))
+      p.ground = false
+      p.vy = LEAP_VY
+      p.air = 0
+      p.vx = dx * speed
+      p.vz = dz * speed
+      return true
+    }
+    return false
+  }
+
   canSlide(p: ClimbBody): boolean {
     return p.ground && p.ladder < 0 && p.mantle <= 0
   }
 
   /** Where a pit fall (or a resume) puts Flux back. */
+  /** The floor of the pit under (x, z) that Flux lands on — its spikes or
+   *  lava — or −∞ for a pit that falls off the level (no floor to show). */
+  pitFloor(x: number, z: number): number {
+    const map = this.host.map
+    const i = Math.floor(x / CELL)
+    const j = Math.floor(z / CELL)
+    const r = i >= 0 && j >= 0 && i < map.w && j < map.h ? map.room[j * map.w + i]! : -1
+    const kind = r >= 0 ? this.t.pitKind?.[r] : undefined
+    if (kind !== 'spikes' && kind !== 'lava') return -Infinity
+    return this.t.pitBottom[r] ?? PIT_FLOOR_Y
+  }
+
   respawn(): { x: number; z: number; y: number; yaw: number } {
     const c = this.t.checkpoints[this.cp]
     if (c) return c
@@ -899,6 +973,18 @@ export class ClimbRun {
     if (l) {
       e.x = clamp(e.x, l[0], l[2])
       e.z = clamp(e.z, l[1], l[3])
+    }
+    // Never into a block of terrain taller than its body is high: a drone
+    // backing off after a swoop sank into the Sky Docks' raised decks (the
+    // 2-D wall test only knows walls, not floor heights). Such a step is
+    // undone, the way a wall stops it.
+    if (e.state !== 'dead') {
+      const g = groundAt(this.host.map, e.x, e.z)
+      const body = (e.floor ?? 0) + Math.max(0, e.y) - 0.25
+      if (g > body + STEP_UP && g > (e.floor ?? 0) + STEP_UP) {
+        e.x = e.px
+        e.z = e.pz
+      }
     }
     const h = e.hover
     if (h && e.state !== 'dead') {

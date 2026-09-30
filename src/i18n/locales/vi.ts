@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Trò chơi này chỉ có trên',
 
   'ui': {
+    'killcamCount': 'Camera hạ gục trong nhiệm vụ: {n}',
+    'killcamOff': 'Tắt camera hạ gục',
     'next': 'Tiếp',
     'replay': 'Chơi lại',
     'back': 'Quay lại',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Chạm vào nút Gel Sửa Chữa màu xanh lá: gel hồi phục bạn hoàn toàn.'
   },
   'walk': {
+    'finishTutorial': 'Hãy hoàn thành hướng dẫn trước',
     'finishLesson': 'Hoàn thành bài học'
   },
   'hubLesson': {
+    'earnBolts': 'Không đủ bu lông? Xem một video ngắn để nạp thêm.',
+    'catchUp': 'Pip: Pháo của cậu đang tụt lại so với máy móc ngoài kia. Nâng cấp nó nào!',
     'workshop': 'Mở Xưởng.',
     'upgradeBuster': 'Dùng bu lông để nâng cấp pháo: thêm sát thương.',
     'pickArmor': 'Giờ hãy chọn giáp ngực.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Đủ bu lông cho hai lần nâng cấp pháo tốt nhất.',
+    'upgradeAdName': 'Tiếp sức nâng cấp',
     'tanks': 'Vật tư',
     'tankName': 'Gel Sửa Chữa',
     'tankDesc': 'Hồi phục hoàn toàn máu và thể lực giữa nhiệm vụ.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Camera hạ gục',
+    'gameplay': 'Lối chơi',
     'title': 'Tùy chọn',
     'general': 'Chung',
     'audio': 'Âm thanh',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Chọn vũ khí mới và bắn vào lũ drone!',
+      'gap': 'Đi thẳng về phía mép, cậu sẽ tự động nhảy qua!',
+      'gel': 'Dùng Gel Sửa Chữa để hồi phục!',
+      'slide': 'Trượt né ngay trước khi vòng đỏ chạm tới cậu!',
+      'block': 'Giữ chặn khi nó bắn. Đúng lúc trúng đòn là hoàn hảo!',
+      'charge': 'Giữ bắn cho tới khi pháo phát sáng, rồi thả ra!',
+    },
+    'train': {
+      'weapon': 'Cùng luyện vũ khí mới của cậu nào!',
+      'gap': 'Cùng luyện nhảy qua khoảng trống nào!',
+      'gel': 'Cùng luyện Gel Sửa Chữa nào!',
+      'slide': 'Cùng luyện Trượt nào!',
+      'block': 'Cùng luyện Chặn Hoàn Hảo nào!',
+      'charge': 'Cùng luyện Phát Tụ Lực nào!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss sẽ tự hào.',
       '4': 'Tớ thích đội mình.'
     }
+  },
+  'train': {
+    'todo': 'chưa xong',
+    'done': 'xong',
+    'checklist': 'Hướng Dẫn',
+    'watch': 'Xem cách thực hiện',
+    'card': {
+      'weapon': 'Bạn đã sao chép được vũ khí của một Chúa Tể Lõi! Bắn nó bằng nút riêng: năng lượng vũ khí cấp sức mạnh cho nó, và một số cỗ máy yếu trước nó.',
+      'gel': 'Bị thương à? Gel Sửa Chữa sẽ hồi phục hoàn toàn sức khỏe của bạn. Dùng một cái bất cứ khi nào trận đánh trở nên tồi tệ.',
+      'slide': 'Đòn tấn công đỏ không thể chặn được. Trượt để né tránh: không gì chạm được bạn khi đang trượt.',
+      'block': 'Giữ chặn để giương khiên lên: nó chặn đạn và đòn đánh từ phía trước. Giương lên đúng lúc đòn đánh chạm tới để thực hiện Chặn Hoàn Hảo, khiến kẻ tấn công bị hạ gục.',
+      'charge': 'Phát bắn thường không phá được khiên. Giữ bắn cho tới khi pháo phát sáng, rồi thả ra: phát tụ lực sẽ xuyên thủng ngay.',
+    },
+    'name': {
+      'weapon': 'Bài Học Vũ Khí',
+      'gap': 'Hướng Dẫn Nhảy',
+      'gel': 'Hướng Dẫn Gel Sửa Chữa',
+      'slide': 'Hướng Dẫn Trượt',
+      'block': 'Hướng Dẫn Khiên',
+      'charge': 'Hướng Dẫn Phát Tụ Lực',
+    },
   }
 }

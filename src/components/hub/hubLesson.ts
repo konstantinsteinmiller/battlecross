@@ -1,5 +1,8 @@
 import { computed, reactive, ref } from 'vue'
-import { profile, saveProfile, equipped, markTip } from '@/game/state/profile'
+import { profile, saveProfile, equipped, markTip, computeStats } from '@/game/state/profile'
+import { behind } from '@/game/sim/adaptive'
+import { canOfferReward } from '@/use/useAdGate'
+import { storyFor } from '@/game/flow'
 import { upgradeCost } from '@/game/data/items'
 import { isUnlocked, unlockCount, type HubTab } from './hubUnlocks'
 
@@ -28,9 +31,9 @@ import { isUnlocked, unlockCount, type HubTab } from './hubUnlocks'
  */
 
 export type { HubTab }
-export type HubStep = 'workshop' | 'upgradeBuster' | 'pickArmor' | 'upgradeArmor' | 'deploy'
+export type HubStep = 'workshop' | 'upgradeBuster' | 'earnBolts' | 'pickArmor' | 'upgradeArmor' | 'deploy'
 
-export const HUB_STEPS: HubStep[] = ['workshop', 'upgradeBuster', 'pickArmor', 'upgradeArmor', 'deploy']
+export const HUB_STEPS: HubStep[] = ['workshop', 'upgradeBuster', 'earnBolts', 'pickArmor', 'upgradeArmor', 'deploy']
 const DONE_KEY = 'lesson:upgrade'
 const GRANT_KEY = 'lesson:upgradeGrant'
 
@@ -56,14 +59,30 @@ export const hubLesson = reactive({
   busterBase: 0,
   armorBase: 0,
   /** Bolts added so the tour's two upgrades are affordable (shown as +N). */
-  granted: 0
+  granted: 0,
+  /** Pip's catch-up (the player fell behind the curve): the buster only, no
+   *  free bolts — the Workshop offers a rewarded top-up instead. */
+  catchUp: false
 })
+
+/** The next story mission's level (the selected sector's), or the player's. */
+const nextLevel = (): number => storyFor(profile.world.selected)?.level ?? profile.level
+
+/** Falling behind for the next mission, and not yet helped at this level. */
+const catchUpDue = (): boolean => {
+  // From the second mission on: the first one is the reference itself.
+  if (!profile.world.bosses.length) return false
+  const L = nextLevel()
+  if (profile.tips[`lesson:catchup:${L}`]) return false
+  return behind(computeStats(), L)
+}
 
 /** The first lab visit with the Workshop open, for a player who never
  *  upgraded anything. */
 export const wantsHubLesson = (): boolean => {
-  if (profile.tips[DONE_KEY]) return false
   if (!tabOpen('workshop')) return false
+  // Later visits: Pip steps in when the gear has fallen behind.
+  if (profile.tips[DONE_KEY]) return !!equipped('buster') && catchUpDue()
   if (profile.inv.items.some(it => it.upg > 0)) {
     // Already found the Workshop on their own: nothing to teach.
     markTip(DONE_KEY)
@@ -80,7 +99,11 @@ export const startHubLesson = (): void => {
   if (!b || !c || !tabOpen('workshop')) return
   hubLesson.busterBase = b.upg
   hubLesson.armorBase = c.upg
-  if (!profile.tips[GRANT_KEY]) {
+  hubLesson.catchUp = !!profile.tips[DONE_KEY]
+  if (hubLesson.catchUp) {
+    profile.tips[`lesson:catchup:${nextLevel()}`] = true
+    saveProfile()
+  } else if (!profile.tips[GRANT_KEY]) {
     const need = upgradeCost(b) + upgradeCost(c)
     const short = Math.max(0, need - profile.bolts)
     profile.tips[GRANT_KEY] = true
@@ -107,10 +130,21 @@ export const syncHubLesson = (): void => {
   if (!b || !c) { endHubLesson(); return }
   const inShop = hubTab.value === 'workshop'
   if (b.upg <= hubLesson.busterBase) {
+    // Catch-up short of bolts: the rewarded top-up first (or, with no ad to
+    // offer, the shortfall once, like the first tour's grant).
+    if (hubLesson.catchUp && profile.bolts < upgradeCost(b)) {
+      if (canOfferReward.value) {
+        hubLesson.step = inShop ? 'earnBolts' : 'workshop'
+        return
+      }
+      hubLesson.granted = upgradeCost(b) - profile.bolts
+      profile.bolts += hubLesson.granted
+      saveProfile()
+    }
     hubLesson.step = inShop ? 'upgradeBuster' : 'workshop'
     // The upgrade button acts on the selection: keep it on the buster.
     if (inShop && workshopSel.value !== b.id) workshopSel.value = b.id
-  } else if (c.upg <= hubLesson.armorBase) {
+  } else if (!hubLesson.catchUp && c.upg <= hubLesson.armorBase) {
     hubLesson.step = !inShop ? 'workshop' : workshopSel.value === c.id ? 'upgradeArmor' : 'pickArmor'
   } else if (hubTab.value === 'missions') {
     endHubLesson()
@@ -123,6 +157,7 @@ export const syncHubLesson = (): void => {
 export const endHubLesson = (): void => {
   hubLesson.step = null
   hubLesson.granted = 0
+  hubLesson.catchUp = false
   markTip(DONE_KEY)
 }
 
@@ -132,6 +167,7 @@ export const stepTarget = (s: HubStep): string => {
     case 'workshop': return '[data-lesson="tab-workshop"]'
     case 'upgradeBuster':
     case 'upgradeArmor': return '[data-lesson="upgrade"]'
+    case 'earnBolts': return '[data-lesson="bolts-ad"]'
     case 'pickArmor': return '[data-lesson="armor"]'
     case 'deploy': return '[data-lesson="tab-missions"]'
   }

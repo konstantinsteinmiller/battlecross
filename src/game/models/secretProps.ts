@@ -160,6 +160,36 @@ export const buildKeyFrame = (key: number, w: number, h: number): Group => {
   return root
 }
 
+/**
+ * The Repair Kit: the Repair Gel as a thing found in the world, drawn after
+ * Mega Man 2/3's energy tanks so it can never be taken for an energy pill (a
+ * capsule) or a bolt (a hex nut): a square canister, white with a green band,
+ * a big green cross on both faces, a dark cap and base. The cross is glow-lit
+ * and blinks (`blinkRepairKit`), like the tank in the old games.
+ */
+export const buildRepairKit = (): Group => {
+  const toon: BufferGeometry[] = [
+    xform(paint(rbox(0.56, 0.62, 0.34, 0.12), '#f4f8ff'), [0, 0, 0]),
+    xform(paint(rbox(0.6, 0.12, 0.38, 0.06), '#2fbf6a'), [0, -0.12, 0]),
+    xform(paint(rbox(0.36, 0.1, 0.24, 0.05), '#2a3140'), [0, 0.36, 0]),
+    xform(paint(rbox(0.6, 0.08, 0.38, 0.04), '#2a3140'), [0, -0.33, 0])
+  ]
+  const glow: BufferGeometry[] = []
+  for (const z of [0.176, -0.176]) {
+    glow.push(xform(paint(rbox(0.3, 0.09, 0.02, 0.02), '#5dff8e'), [0, 0.08, z]))
+    glow.push(xform(paint(rbox(0.09, 0.3, 0.02, 0.02), '#5dff8e'), [0, 0.08, z]))
+  }
+  const root = assemble(toon, glow, 0.02)
+  root.userData.blink = root.children[root.children.length - 1]
+  return root
+}
+
+/** The Repair Kit's cross blinks (call per frame with the clock). */
+export const blinkRepairKit = (g: Group, time: number): void => {
+  const c = g.userData.blink as Mesh | undefined
+  if (c) c.visible = Math.sin(time * 7) > -0.35
+}
+
 /** The prize, floating over its origin (the alcove floor): a Repair Gel
  *  flask, a big heal capsule, or a power orb (a borrowed weapon). */
 export const buildPrize = (prize: SecretSpec['prize']): Group => {
@@ -168,13 +198,7 @@ export const buildPrize = (prize: SecretSpec['prize']): Group => {
     g.scale.setScalar(1.5)
     return g
   }
-  if (prize === 'tank') {
-    return assemble([
-      xform(paint(rcyl(0.2, 0.46, 0.08, 16), '#dff7ff'), [0, 0, 0]),
-      xform(paint(rcyl(0.13, 0.12, 0.04, 14), '#5f6878'), [0, 0.3, 0]),
-      xform(paint(rcyl(0.215, 0.2, 0.05, 16), '#3fe07a'), [0, -0.04, 0])
-    ], [xform(paint(torus(0.22, 0.03, 6, 20), '#8dff7a'), [0, 0.1, 0], [Math.PI / 2, 0, 0])], 0.015)
-  }
+  if (prize === 'tank') return buildRepairKit()
   return assemble([
     xform(paint(torus(0.34, 0.045, 6, 22), '#c9d3e6'), [0, 0, 0], [Math.PI / 2, 0, 0]),
     xform(paint(torus(0.34, 0.045, 6, 22), '#c9d3e6'), [0, 0, 0], [0, Math.PI / 2, 0])

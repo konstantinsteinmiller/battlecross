@@ -16,6 +16,8 @@ export default {
 
   // Accessible names for icon-only controls (read aloud, not seen).
   'ui': {
+    'killcamCount': 'Kill-cams this mission: {n}',
+    'killcamOff': 'Turn kill-cams off',
     'next': 'Next',
     'replay': 'Replay',
     'back': 'Back',
@@ -219,10 +221,13 @@ export default {
   // The one line of the tutorial walk: shown at a door held shut until
   // its room's lesson is done (DoorPrompt).
   'walk': {
+    'finishTutorial': 'Finish the Tutorial first',
     'finishLesson': 'Finish the lesson'
   },
   // Screen-reader sentences behind the first-visit upgrade tour (HubLesson).
   'hubLesson': {
+    'earnBolts': 'Not enough bolts? Watch a short video for a top-up.',
+    'catchUp': "Pip: Your cannon is falling behind the machines out there. Let's upgrade it!",
     'workshop': 'Open the Workshop.',
     'upgradeBuster': 'Spend bolts to upgrade your cannon: more damage.',
     'pickArmor': 'Now select your chest armor.',
@@ -376,6 +381,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Enough bolts for two upgrades of your best cannon.',
+    'upgradeAdName': 'Upgrade Boost',
     'tanks': 'Supplies',
     'tankName': 'Repair Gel',
     'tankDesc': 'Fully restores health and power mid-mission.',
@@ -500,6 +507,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-cam',
+    'gameplay': 'Gameplay',
     'title': 'Options',
     'general': 'General',
     'audio': 'Audio',
@@ -624,6 +633,22 @@ export default {
   // short line each (they sit in a small speech bubble for 2–3 s). Each key is
   // also the name of its optional voice file (voice-todo.md).
   'atlas': {
+    'help': {
+      'weapon': 'Pick your new weapon and fire at the drones!',
+      'gap': "Walk straight at the edge and you'll leap across!",
+      'gel': 'Use a Repair Gel to heal up!',
+      'slide': 'Slide away just before the red ring reaches you!',
+      'block': 'Hold block when it fires. Just as it hits is perfect!',
+      'charge': 'Hold fire until the cannon glows, then let go!',
+    },
+    'train': {
+      'weapon': "Let's train your new weapon!",
+      'gap': "Let's train jumping over gaps!",
+      'gel': "Let's train the Repair Gel!",
+      'slide': "Let's train the Slide!",
+      'block': "Let's train the Perfect Block!",
+      'charge': "Let's train the Charge Shot!",
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -706,5 +731,26 @@ export default {
       '3': 'Gauss would be proud.',
       '4': 'I like our team.'
     }
+  },
+  'train': {
+    'todo': 'not done yet',
+    'done': 'done',
+    'checklist': 'Tutorials',
+    'watch': "Watch how it's done",
+    'card': {
+      'weapon': "You copied a Core Master's weapon! Fire it with its button: weapon energy powers it, and some machines are weak against it.",
+      'gel': 'Hurt? A Repair Gel restores your health. Use one whenever a fight turns bad.',
+      'slide': "Red attacks can't be blocked. Slide to dash out of the way: nothing can hit you mid-slide.",
+      'block': 'Hold block to raise your shield: it stops shots and hits from the front. Raise it just as a hit lands for a Perfect Block, which knocks the attacker out.',
+      'charge': "A normal shot can't break a shield. Hold fire until your cannon glows, then let go: a Charge Shot breaks right through.",
+    },
+    'name': {
+      'weapon': 'Weapon Lesson',
+      'gap': 'Jump Tutorial',
+      'gel': 'Repair Gel Tutorial',
+      'slide': 'Slide Tutorial',
+      'block': 'Shield Tutorial',
+      'charge': 'Charge Shot Tutorial',
+    },
   }
 }

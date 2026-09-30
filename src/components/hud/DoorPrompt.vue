@@ -1,7 +1,7 @@
 <template lang="pug">
   div.door-prompt(v-show="!flow.modal && !isGamePaused" ref="rootEl" :aria-hidden="on ? 'false' : 'true'")
     div.dp-head
-      div.dp-label(ref="labelEl" role="status") {{ t('walk.finishLesson') }}
+      div.dp-label(ref="labelEl" role="status") {{ t(labelKey) }}
       div.dp-arrow(ref="arrowEl" aria-hidden="true")
         svg(viewBox="0 0 40 40")
           path.dp-arrow-body(:d="ARROW")
@@ -53,6 +53,8 @@ const glyphEl = ref<HTMLElement | null>(null)
 const glyphBoxEl = ref<HTMLElement | null>(null)
 
 const need = ref<WalkNeed | ''>('')
+/** "Finish the Tutorial first" at the first gate, "Finish the lesson" later. */
+const labelKey = ref('walk.finishLesson')
 /** On screen (the label is read out only then). */
 const on = ref(false)
 const input = computed(() => (need.value ? doorInput(need.value, hud.device) : null))
@@ -94,6 +96,7 @@ const place = (): void => {
     return
   }
   if (v.need !== need.value) need.value = v.need
+  if (v.label !== labelKey.value) labelKey.value = v.label
   root.style.opacity = v.alpha.toFixed(3)
   if (!shown) on.value = true
   shown = true
@@ -145,6 +148,9 @@ onUnmounted(() => { off?.() })
 
 <style scoped lang="sass">
 $red: #ff4a5a
+// The way to the lesson is blue (the game's "go here" colour): the red
+// label says "not yet", the blue arrow says where to instead.
+$blue: #3cc8ff
 $navy: #141a33
 .door-prompt
   position: absolute
@@ -207,7 +213,7 @@ $navy: #141a33
   height: clamp(44px, 10vmin, 68px)
   opacity: 0
 .dp-arrow-body
-  fill: $red
+  fill: $blue
   stroke: $navy
   stroke-width: 3
   stroke-linejoin: round

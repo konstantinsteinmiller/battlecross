@@ -104,10 +104,11 @@ export class Icicles implements StageFeature {
     this.host.sfx('guardCrack', c.x, c.z)
     this.host.fx.sparks(c.x, y + 0.3, c.z, '#dff8ff', 14, 5, 0.22)
     this.host.shocks.spawn(c.x, y + 0.05, c.z, ICICLE_REACH + 0.4, '#bff4ff', 0.3)
+    this.host.hurtMachines?.(ICICLE_COST, c.x, c.z, (x, yy, z) => Math.abs(yy - y) < 1.2 && (x - c.x) ** 2 + (z - c.z) ** 2 < (ICICLE_REACH + 0.4) ** 2)
     if (!playing || Math.abs(p.y - y) > 1.2) return
     const reach = ICICLE_REACH + PLAYER_R * 0.6
     if ((p.x - c.x) ** 2 + (p.z - c.z) ** 2 > reach * reach) return
-    this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * ICICLE_COST), { blockable: false, fromX: c.x, fromZ: c.z, kind: 'aoe' })
+    this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * ICICLE_COST), { blockable: false, fromX: c.x, fromZ: c.z, kind: 'aoe', hazard: 'ice' })
   }
 
   save(): unknown {

@@ -437,6 +437,7 @@ const resolveExtras = (nav: Nav, x: number, z: number, r: number): void => {
   let px = x
   let pz = z
   for (const p of nav.map.pillars) {
+    if (p.gone) continue
     const ddx = px - p.x
     const ddz = pz - p.z
     const rr = r + p.r
@@ -561,6 +562,7 @@ export const hasLineOfSight = (nav: Nav, ax: number, az: number, bx: number, bz:
   // Pillars
   if (len2 < 1e-6) return true
   for (const p of nav.map.pillars) {
+    if (p.gone) continue
     const t = Math.max(0, Math.min(1, ((p.x - ax) * dx + (p.z - az) * dz) / len2))
     const cx = ax + dx * t - p.x
     const cz = az + dz * t - p.z

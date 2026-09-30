@@ -2,7 +2,7 @@ import type { Group, Mesh, MeshBasicMaterial, Object3D } from 'three'
 import { CELL, type SecretSpec, type Terrain } from '../world/levelGen'
 import { BUTTON_Y, secretDoorFace } from '../world/stages/builder'
 import {
-  buildButton, buildPanel, buildKeyFrame, buildPrize, buildLightShaft, iconGeometry, setLamp,
+  buildButton, buildPanel, buildKeyFrame, buildPrize, buildLightShaft, iconGeometry, setLamp, blinkRepairKit,
   BUTTON_R, DIM, LAMP, type LampMesh
 } from '../models/secretProps'
 import type { ClimbBody, ClimbHost } from './climb'
@@ -323,6 +323,7 @@ export class SecretsFeature implements StageFeature {
       // The prize turns and bobs in its shaft of light until it is taken.
       const y = rt.spec.prizeAt.y
       rt.prize.rotation.y += dt * 1.6
+      blinkRepairKit(rt.prize, time)
       rt.prize.position.y = y + PRIZE_HOVER + Math.sin(time * 2.4 + rt.n) * 0.1
       rt.shaftMat.opacity = 0.24 + Math.sin(time * 2.2 + rt.n) * 0.08
       if (!playing || Math.abs(p.y - y) > PRIZE_DY) continue

@@ -40,6 +40,8 @@ export type AtlasLine =
   | 'objective' | 'exit' | 'levelUp'
   | 'idle.1' | 'idle.2' | 'idle.3' | 'idle.4'
   | `hint.${string}` | `secret.${string}`
+  /** A lesson room's gold intro, and its hint when the player is stuck. */
+  | `train.${string}` | `help.${string}`
 
 /** Every fixed mission line, for the voice list and the preload (a stage's
  *  `hint.*` / `secret.*` lines are its own, fetched when said). */
@@ -62,7 +64,8 @@ const PRIO: Partial<Record<AtlasLine, number>> = {
 /** A stage's tip on the danger ahead weighs like a trap warning; its secret
  *  nudges keep the default. */
 const HINT_PRIO = 7
-const prioOf = (l: AtlasLine): number => PRIO[l] ?? (l.startsWith('idle') ? 1 : l.startsWith('hint.') ? HINT_PRIO : 3)
+const prioOf = (l: AtlasLine): number =>
+  PRIO[l] ?? (l.startsWith('idle') ? 1 : l.startsWith('train.') ? 8 : l.startsWith('hint.') || l.startsWith('help.') ? HINT_PRIO : 3)
 
 /** Seconds before the same line may come back (default: once a mission). */
 const COOLDOWN: Partial<Record<AtlasLine, number>> = {
@@ -164,7 +167,8 @@ export class AtlasDirector {
   /** Ask for a line (it waits its turn; a line on cooldown is dropped). */
   say(id: AtlasLine): void {
     const last = this.said.get(id)
-    const cd = COOLDOWN[id]
+    // A lesson's hint repeats while the player stays stuck (`training.ts`).
+    const cd = COOLDOWN[id] ?? (id.startsWith('help.') ? 25 : undefined)
     if (last !== undefined && (cd === undefined || this.t - last < cd)) return
     if (this.queue.some(q => q.id === id) || this.line?.id === id) return
     this.queue.push({ id, at: this.t })

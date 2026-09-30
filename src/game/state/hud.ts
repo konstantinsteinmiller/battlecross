@@ -104,6 +104,18 @@ export const hud = shallowReactive({
   freezeFrame: '' as '' | 'shoulder' | 'front' | 'above' | 'fp',
   freezeSkippable: false,
   freezeSkips: 0,
+  /** The lesson room Flux is in (`sim/training.ts`): its id and beat. */
+  trainId: '' as '' | 'charge' | 'block' | 'slide' | 'gel' | 'gap' | 'weapon',
+  trainPhase: 'off' as 'off' | 'intro' | 'card' | 'demo' | 'try' | 'done',
+  /** The demo's lit input and whether it is pressed right now. */
+  demoAct: '' as '' | 'fire' | 'block' | 'slide' | 'tank' | 'move' | 'look',
+  demoDown: false,
+  /** Presses toward skipping the demo. */
+  demoSkips: 0,
+  /** Atlas's current line is a lesson intro: the gold bubble. */
+  atlasGold: false,
+  /** The tutorial checklist (mission 1): each lesson, done or not. */
+  checklist: [] as Array<{ id: string; done: boolean; current: boolean }>,
   /** Kill-cams shown this mission (the counter chip during one). */
   killCams: 0,
   /** Flux's speech bubble (`FluxBubble.vue`): the i18n key of his line,

@@ -94,7 +94,7 @@ export const createEnemy = (
     hp, maxHp: hp, dmg: Math.round(scaleDmg(def.dmg, level) * (elite ? 1.3 : 1)),
     room, awake: false, state: 'idle', st: 0, cd: 0.6 + Math.random() * 1.2, attack: '', step: 0,
     teleDur: def.tele, teleRed: def.unblockable, guard: kind === 'hardhat' ? 1 : kind === 'trooper' ? UNAWARE_TROOPER_GUARD : 0, aim: 0,
-    stunT: 0, flash: 0, path: null, pathT: 0, walk: 0, anim: Math.random() * 10, mo: newMotion(id, kind), a: 0, b: 0,
+    stunT: 0, stunN: 0, stunAge: 99, stunImmune: 0, flash: 0, path: null, pathT: 0, walk: 0, anim: Math.random() * 10, mo: newMotion(id, kind), a: 0, b: 0,
     tx: 0, tz: 0, sx: 0, sz: 0, hitPlayer: false,
     rig, root, shadow: makeBlobShadow(def.radius * 1.1 * scale), ring: makeTeleRing(), deathT: 0,
     guardBreakT: 0, hurtAt: -10, bossId: null, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: ''
@@ -568,6 +568,42 @@ export const frozenDt = (e: Enemy, dt: number): number => {
   return dt * (1 - (e.boss ? FREEZE_SLOW_BOSS : FREEZE_SLOW))
 }
 
+/**
+ * ─── Stun diminishing returns ───────────────────────────────────────────────
+ *
+ * A machine shot with charged shots from a distance used to spend the whole
+ * fight stunned: every full charge interrupted it again before it could act
+ * (playtest: a Guardroid on a ledge, stunlocked forever — "feels like a
+ * cheat"). Now each stun the PLAYER's weapons cause within STUN_CHAIN of the
+ * last one lasts half as long, and the one after STUN_CHAIN_MAX stuns in a
+ * row does not land: the machine shrugs it off (a shield flash) and is
+ * immune for STUN_IMMUNE. Parries and a machine's own blunders (a Gear Roller
+ * into a wall) are not part of it — those are earned or free.
+ */
+export const STUN_CHAIN = 6
+export const STUN_CHAIN_MAX = 3
+export const STUN_IMMUNE = 3
+
+/** Stun `e` for `dur` seconds, diminished by its chain. Returns the stun
+ *  given (0: immune, or the chain just ran out — `resisted` then). */
+export const tryStun = (e: Enemy, dur: number): { dur: number; resisted: boolean } => {
+  if (e.stunImmune > 0) return { dur: 0, resisted: false }
+  e.stunN = e.stunAge < STUN_CHAIN ? e.stunN + 1 : 1
+  e.stunAge = 0
+  if (e.stunN > STUN_CHAIN_MAX) {
+    e.stunN = 0
+    e.stunImmune = STUN_IMMUNE
+    return { dur: 0, resisted: true }
+  }
+  const d = dur * Math.pow(0.5, e.stunN - 1)
+  const cur = e.state === 'stun' ? e.stunT : 0
+  e.state = 'stun'
+  e.st = 0
+  e.stunT = Math.max(cur, d)
+  e.ring.visible = false
+  return { dur: d, resisted: false }
+}
+
 export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
   e.px = e.x
   e.pz = e.z
@@ -577,6 +613,9 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
   e.anim += dt
   e.flash = Math.max(0, e.flash - dt * 8)
   e.guardBreakT = Math.max(0, e.guardBreakT - dt)
+  e.stunAge += dt
+  e.stunImmune = Math.max(0, e.stunImmune - dt)
+  if (e.hazardCd) e.hazardCd = Math.max(0, e.hazardCd - dt)
 
   if (e.state === 'dead') {
     e.deathT += dt
@@ -876,7 +915,77 @@ const stepGolemMotion = (e: Enemy, dt: number): void => {
   m.brace += ((g.aimT > 0.15 ? 1 : 0) - m.brace) * Math.min(1, dt * 6)
 }
 
+/**
+ * ─── The ranged fallback ─────────────────────────────────────────────────────
+ *
+ * A melee machine that cannot reach Flux — he stands on another ledge, it is
+ * leashed to its platform, a gap is between them — used to pace at the edge
+ * while he shot it at leisure. Now, after FAR_AFTER seconds engaged, in
+ * sight and farther than FAR_MIN without getting closer, it lobs a scrap
+ * shell at where he stands: telegraphed (its ring, then the red landing
+ * marker), blockable, weaker than its melee, and a charged shot can still
+ * interrupt the wind-up — within the stun chain's limits (`tryStun`).
+ */
+const FALLBACK_KINDS: ReadonlySet<string> = new Set(['hopper', 'roller', 'brute'])
+const FAR_MIN = 6
+const FAR_AFTER = 2
+/** Closing in by this much (m) per FAR_CHECK (s) counts as progress. */
+const FAR_PROGRESS = 0.6
+const FAR_CHECK = 1.5
+const FALLBACK_TELE = 0.9
+const FALLBACK_FLIGHT = 1.15
+const FALLBACK_DMG = 0.6
+
+/** The fallback's own beats; true when it took this step. */
+const fallbackTick = (w: World, e: Enemy, dt: number, d: number): boolean => {
+  if (!FALLBACK_KINDS.has(e.kind) || e.boss || e.golem) return false
+  const px = w.player.x
+  const pz = w.player.z
+  if (e.attack === 'lobFallback') {
+    if (e.state === 'tele') {
+      faceTo(e, px, pz, 8, dt)
+      if (e.st >= e.teleDur) {
+        w.lobShell(e, px, pz, FALLBACK_FLIGHT, Math.max(1, Math.round(e.dmg * FALLBACK_DMG)))
+        w.sfx('lob', e.x, e.z)
+        enterState(e, 'recover')
+      }
+      return true
+    }
+    if (e.state === 'recover') {
+      if (e.st > 0.7) {
+        e.attack = ''
+        e.cd = e.def.cooldown * 1.5
+        enterState(e, 'engage')
+      }
+      return true
+    }
+  }
+  if (e.state !== 'engage') {
+    e.farT = 0
+    return false
+  }
+  // Getting closer? Checked every FAR_CHECK against where it stood.
+  e.farCheck = (e.farCheck ?? 0) + dt
+  if (e.farCheck >= FAR_CHECK) {
+    const moved = Math.hypot((e.farX ?? e.x) - px, (e.farZ ?? e.z) - pz) - d
+    if (moved > FAR_PROGRESS) e.farT = 0
+    e.farCheck = 0
+    e.farX = e.x
+    e.farZ = e.z
+  }
+  const high = Math.abs((w.player.y ?? 0) - (e.floor ?? 0)) > 1.2
+  if (d > FAR_MIN && seesPlayer(w, e)) e.farT = (e.farT ?? 0) + dt * (high ? 1.6 : 1)
+  else e.farT = 0
+  if ((e.farT ?? 0) >= FAR_AFTER && e.cd <= 0) {
+    e.farT = 0
+    startTele(e, 'lobFallback', FALLBACK_TELE, false)
+    return true
+  }
+  return false
+}
+
 const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
+  if (fallbackTick(w, e, dt, d)) return
   const def = e.def
   const px = w.player.x
   const pz = w.player.z

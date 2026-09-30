@@ -47,7 +47,7 @@ import { setMusicTrack } from '@/use/useSound'
 import { Coach, type CoachContext, type HintView } from './coach'
 import { LessonDirector, roomAt, type LessonTick } from './lessons'
 import { Walkthrough, planWalkthrough, doorwayOf, helperSpot, type WalkChest, type WalkPlan, type GelPlan, type WalkNeed } from './walkthrough'
-import { DoorPrompt, IDLE_RANGE, type DoorTick } from './doorPrompt'
+import { DoorPrompt, IDLE_RANGE, CLOSE_RANGE, type DoorTick } from './doorPrompt'
 import { TrapSystem, planTraps, type TrapTick } from './traps'
 import { buildTrapView } from '../models/traps'
 import { chargeHum } from '../audio/synth'
@@ -55,7 +55,7 @@ import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
 import { MissionObjects, CHEST_DY, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
 import {
-  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, xp01, heroColors, type MissionSnapshot
+  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, xp01, heroColors, markTip, type MissionSnapshot
 } from '../state/profile'
 import { rollItem, type Item } from '../data/items'
 import { flow, finishMission } from '../flow'
@@ -63,6 +63,10 @@ import { showBanner, clearBanner, BANNER_HOLD } from '../state/banner'
 import { ExitRun, ExitCamera, planExit, newExitPose, type ExitEvent, type ExitHost } from './exitRun'
 import { cineWorld, type CineWorld, type CineBox } from './cineCam'
 import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
+import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './training'
+import { BossArena, type ArenaHost } from './bossArena'
+import { bossHpMul } from './adaptive'
+import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
 import { killCamsEnabled, setKillCamsEnabled } from '@/use/useKillCam'
 import {
@@ -124,6 +128,33 @@ export const setupFromQuest = (quest: Quest, snapshot: MissionSnapshot | null): 
   }
 }
 
+/** A held gate's red judder on a refusal (s). */
+const DOOR_SHAKE = 0.45
+/** The demos' blockable shot speed (m/s), and the slide demo's ring: how far
+ *  ahead it starts (m) and how fast it rolls (m/s). */
+const DEMO_SHOT_SPEED = 9
+const DEMO_RING_DIST = 6
+const DEMO_RING_SPEED = 7
+/** The checklist's arrow toward a lesson stays up this long (s). */
+const LESSON_POINT_FOR = 6
+/** Hazards on machines: half the share they take from Flux, once a burst. */
+const HAZARD_MACHINE_SHARE = 0.5
+const HAZARD_CD = 0.8
+/** Machines' extra health per Core Master beaten (tuned by the balance sim). */
+const PROGRESS_HP = 0.06
+/** A hazard's first-hit freeze-frame (s). */
+const TRAP_CAM_DUR = 1.5
+/** The pit rescue: its length with a spiked floor and without (s), the
+ *  impact before Atlas grabs, the grab, the lift; the footing trail. */
+const RESCUE_SPIKES = 3.9
+const RESCUE_VOID = 2.7
+const RESCUE_IMPACT = 1.2
+const RESCUE_GRAB = 1.9
+const RESCUE_LIFT = 1.5
+const RESCUE_CLEAR = 1.6
+const FOOT_EVERY = 0.25
+const FOOT_KEEP = 24
+
 interface DoorState {
   id: number
   mesh: DoorMesh
@@ -134,6 +165,8 @@ interface DoorState {
   /** A tutorial walkthrough gate not yet earned: locked, and not for the
    *  interact button either (unlike the sealed boss shutter). */
   held: boolean
+  /** A refused push: the panels judder red for this long (s). */
+  shakeT: number
   slab: Slab
   x: number
   z: number
@@ -252,7 +285,7 @@ interface ExitView {
   droneShadow: Mesh
 }
 
-export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
+export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, TrainHost, ArenaHost {
   scene = new Scene()
   camera = new PerspectiveCamera(70, 1, 0.05, SKY_FAR)
   vmScene = new Scene()
@@ -339,11 +372,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   walk: Walkthrough | null = null
   /** "Finish the lesson" at a held walkthrough door (`sim/doorPrompt.ts`). */
   readonly doorPrompt = new DoorPrompt()
-  private doorTick: DoorTick = { time: 0, playing: false, combat: false, press: -1, shot: -1, near: -1 }
+  private doorTick: DoorTick = { time: 0, playing: false, combat: false, press: -1, shot: -1, near: -1, close: -1 }
   /** What the door prompt's HUD draws (`DoorPrompt.vue`, per frame): its
    *  opacity and pulse, the door's glyph anchor and need, and the lesson
    *  the arrow points to (`goal`: false when there is none to point at). */
-  readonly doorView = { alpha: 0, pulse: 0, x: 0, y: 0, z: 0, need: '' as WalkNeed | '', goal: false, gx: 0, gz: 0 }
+  readonly doorView = { alpha: 0, pulse: 0, x: 0, y: 0, z: 0, need: '' as WalkNeed | '', label: 'walk.finishLesson', goal: false, gx: 0, gz: 0 }
   /** Corridor traps (`sim/traps.ts`): flame jets, swinging blades, and the
    *  tutorial's Repair Gel plate. */
   traps!: TrapSystem
@@ -406,6 +439,38 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   /** Machine kinds shown in a kill-cam this mission (once per kind). */
   private readonly killCamSeen = new Set<string>()
   private killCamCount = 0
+  /** Hazard kinds whose hit has had its freeze-frame this mission. */
+  private readonly trapCamSeen = new Set<string>()
+  /** Lesson rooms: intro, card, demo, try (`sim/training.ts`). */
+  readonly training: Training = new Training(this)
+  /** A lesson's demo, played through the real controls (`sim/demo.ts`). */
+  readonly demo = new DemoDriver()
+  /** Where the lesson's subject is (the card's spotlight, the demo's aim);
+   *  set by whoever runs the room (the walkthrough, a weapon lesson). */
+  trainSpot: { x: number; y: number; z: number } | null = null
+  /** The demo's own target and its shooter (a second drone, the teacher). */
+  demoAim: { x: number; y: number; z: number } | null = null
+  demoSource: Enemy | null = null
+  /** Each lesson room's middle in this mission (the checklist's arrows and
+   *  the lesson's spotlight fall back to it). */
+  readonly lessonSpots = new Map<TrainId, { x: number; y: number; z: number }>()
+  /** The checklist's "which way": a lesson's room, until `until`. */
+  lessonPointer: { x: number; z: number; until: number } | null = null
+  private checklistSig = ''
+  /** Atlas's pit rescue under way (`pitFall`): where Flux fell, the pit's
+   *  floor if it has one (spikes: he lands on it first), where he goes. */
+  private rescue: {
+    fx: number; fy: number; fz: number; bottom: number; spikes: boolean
+    tx: number; ty: number; tz: number; tyaw: number
+  } | null = null
+  /** Recent solid footing (x, z, y, yaw), newest last: the rescue sets Flux
+   *  down on the nearest one clear of the pit's edge. */
+  private readonly footing: Array<[number, number, number, number]> = []
+  private footT = 0
+  /** The boss arena's props, cover and anti-cheese (`sim/bossArena.ts`). */
+  arena: BossArena | null = null
+  /** Atlas is flying the lesson intro's arc (in and out). */
+  private atlasSwoop = false
   /** The beam-in (`sim/beamIn.ts`): its pose, camera, and whether he landed. */
   private beamPose = newBeamInPose()
   private beamCam = new BeamInCamera()
@@ -494,7 +559,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       this.nav.slabs.push(slab)
       this.nav.pathBlock[d.j * this.map.w + d.i] = d.boss ? 2 : 1
       this.doors.push({
-        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, held: false, slab, x: fx, z: fz, y: fy, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
+        id: d.id, mesh, open: 0, opening: false, closing: false, locked: d.boss, held: false, shakeT: 0, slab, x: fx, z: fz, y: fy, axis: d.axis, cellI: d.i, cellJ: d.j, from: d.from, to: d.to
       })
       await slice()
     }
@@ -558,6 +623,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     for (const e of this.enemies) this.scene.add(e.root, e.shadow, e.ring)
     this.bossRoom = bossRoomOf(this.map.rooms)
     this.boss = this.enemies.find(e => e.boss) ?? null
+    // Adaptive difficulty (`sim/adaptive.ts`): a boss keeps up with a player
+    // geared far past the reference; machines toughen a little with every
+    // Core Master beaten, so upgrades stay needed.
+    if (this.boss) {
+      const mul = bossHpMul(this.stats, setup.enemyLevel)
+      this.boss.maxHp = Math.round(this.boss.maxHp * mul)
+      this.boss.hp = this.boss.maxHp
+    }
+    for (const e of this.enemies) if (!e.boss) this.toughen(e)
+    if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
     this.scene.add(this.weapons.root)
     // Before the snapshot (it marks capsules taken) and the precompile.
@@ -752,10 +827,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     sfx(name, pan * 0.7, gain)
   }
 
-  hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss' {
+  hitPlayer(e: Enemy | null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot'; hazard?: string }): 'hit' | 'block' | 'parry' | 'miss' {
     const c = this.combat
     const p = this.player
     if (c.dead || hud.phase !== 'play') return 'miss'
+    // A boss attack reached Flux: the arena's run of blocked ones is over.
+    if (e?.boss) this.arena?.attackLanded()
     if (c.iframes > 0) return 'miss'
     if (this.climb && this.offLevel(e, o.kind, o.fromX, o.fromZ)) return 'miss'
     const toSrc = Math.atan2(-(o.fromX - p.x), -(o.fromZ - p.z))
@@ -837,7 +914,31 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // a hazard's (no machine behind it), never in the tutorial.
     if (e && !c.dead && !this.setup.tutorial && !this.exit.active && !flow.modal &&
       this.fumble.roll(c.charging, isHardHit(taken, c.maxHp, !!e.boss))) this.fumbleCharge()
+    if (o.hazard && !c.dead) this.maybeTrapCam(o.hazard, o.fromX, o.fromZ)
     return 'hit'
+  }
+
+  /**
+   * A hazard's first hit of its kind in a mission gets a short freeze-frame on
+   * Flux (`sim/freezeCam.ts`): the camera swings in front of him while he
+   * shakes in the jolt, the flames, the frost — so "that hurt, and why" reads
+   * at once. Later hits of the same kind stay first person. Never in a boss
+   * fight, never on top of another shot, and not while a machine is awake
+   * close by (the freeze would hide a live threat's wind-up).
+   */
+  private maybeTrapCam(hazard: string, fromX: number, fromZ: number): void {
+    if (this.trapCamSeen.has(hazard) || this.freeze.active || this.exit.active || flow.modal) return
+    if (this.bossStarted && this.boss && this.boss.state !== 'dead') return
+    const p = this.player
+    for (const o of this.enemies) {
+      if (o.state !== 'dead' && o.awake && !o.dormant && Math.hypot(o.x - p.x, o.z - p.z) < KILLCAM_ALERT_R * 0.75) return
+    }
+    this.trapCamSeen.add(hazard)
+    this.startFreeze({
+      kind: 'trap', dur: TRAP_CAM_DUR, frame: 'front', skippable: true,
+      fx: hazard === 'volt' ? 'volt' : hazard === 'ice' ? 'ice' : hazard === 'flame' ? 'flame' : 'spikes',
+      tx: fromX, ty: p.y + 1, tz: fromZ
+    })
   }
 
   /**
@@ -904,6 +1005,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // A slide off a pit edge became a dash leap: the slide is over, the
     // leap flies on its own momentum.
     if (cl.leapt) this.combat.slideT = 0
+    // An edge-leap: the take-off reads as one (a whoosh, a dust puff, a kick
+    // of the view), and it counts as the gap lesson done.
+    if (cl.edgeLeapt) {
+      this.sfx('slide', p.x, p.z)
+      this.fx.emit({ x: p.x, y: p.y + 0.1, z: p.z, color: '#dfefff', size: 0.9, sizeEnd: 1.6, life: 0.25 })
+      this.shake(0.08)
+      this.onEdgeLeap()
+    }
     if (cl.landSpeed > 8) {
       this.shake(Math.min(0.3, (cl.landSpeed - 8) * 0.04))
       this.sfx('stomp', p.x, p.z)
@@ -918,12 +1027,77 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   /** A pit: PIT_COST of the health (twice that into spikes or lava:
    *  `ClimbRun.pitCost`), and back on the last checkpoint out of a black
    *  screen (MegaMan's pits, softened). It can be the last straw. */
+  /**
+   * A fall into a pit. MegaMan's pits, softened, and now SHOWN: where the pit
+   * has a floor (spikes), Flux lands on it — a short freeze-frame, sparks off
+   * his body — and Atlas swoops down, Flux grabs on, and Atlas lifts him back
+   * onto the nearest solid footing he stood on. A pit with no floor (off the
+   * level) goes straight to the rescue. The fall's cost is paid at once; a
+   * fall that ends him is his defeat as before.
+   */
   private pitFall(out: [number, number]): void {
     const c = this.combat
     const p = this.player
-    const at = this.climb!.respawn()
-    out[0] = p.x = p.px = at.x
-    out[1] = p.z = p.pz = at.z
+    const cl = this.climb!
+    const dmg = Math.max(1, Math.round(c.maxHp * cl.pitCost))
+    c.hp -= dmg
+    sfx('hurt')
+    pushHud({ t: 'hurt', strength: 0.5 })
+    this.dirty = true
+    const to = this.rescueSpot(p.x, p.z) ?? cl.respawn()
+    const bottom = cl.pitFloor(p.x, p.z)
+    const spikes = bottom > -50
+    if (c.hp <= 0 || this.freeze.active) {
+      this.placeAfterFall(to, out)
+      this.checkDown()
+      return
+    }
+    this.rescue = { fx: p.x, fy: p.y, fz: p.z, bottom: spikes ? bottom : p.y, spikes, tx: to.x, ty: to.y, tz: to.z, tyaw: to.yaw }
+    p.vx = p.vz = p.vy = 0
+    out[0] = p.x
+    out[1] = p.z
+    this.startFreeze({
+      kind: 'rescue', dur: spikes ? RESCUE_SPIKES : RESCUE_VOID, frame: 'front', skippable: true, fx: spikes ? 'spikes' : 'fall',
+      hy: spikes ? bottom : p.y, tx: p.x, ty: (spikes ? bottom : p.y) + 1, tz: p.z
+    })
+    if (spikes) {
+      this.sfx('stomp', p.x, p.z)
+      this.shake(0.4)
+    }
+    pushHud({ t: 'damage', x: p.x, y: (spikes ? bottom : p.y) + 1.4, z: p.z, amount: dmg, crit: false, weak: false, toPlayer: true })
+  }
+
+  /** The nearest recent footing at least RESCUE_CLEAR from the fall. */
+  private rescueSpot(x: number, z: number): { x: number; y: number; z: number; yaw: number } | null {
+    for (let k = this.footing.length - 1; k >= 0; k--) {
+      const f = this.footing[k]!
+      if (Math.hypot(f[0] - x, f[1] - z) >= RESCUE_CLEAR) return { x: f[0], z: f[1], y: f[2], yaw: f[3] }
+    }
+    return null
+  }
+
+  /** Keep a short trail of solid footing (every FOOT_EVERY on real ground —
+   *  never a lift, a ladder or the air). */
+  private noteFooting(dt: number): void {
+    const p = this.player
+    this.footT -= dt
+    if (this.footT > 0 || !p.ground || p.plat >= 0 || p.ladder >= 0 || !this.climb) return
+    if (floorAt(this.nav, p.x, p.z, p.y) !== p.y) return
+    this.footT = FOOT_EVERY
+    this.footing.push([p.x, p.z, p.y, p.yaw])
+    if (this.footing.length > FOOT_KEEP) this.footing.shift()
+  }
+
+  /** Put Flux down after a fall (the rescue's end, or at once). */
+  private placeAfterFall(at: { x: number; y: number; z: number; yaw: number }, out?: [number, number]): void {
+    const c = this.combat
+    const p = this.player
+    p.x = p.px = at.x
+    p.z = p.pz = at.z
+    if (out) {
+      out[0] = at.x
+      out[1] = at.z
+    }
     p.y = p.py = p.safeY = at.y
     p.yaw = at.yaw
     p.vx = p.vz = p.vy = 0
@@ -934,18 +1108,44 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     p.mantle = 0
     p.path = null
     c.slideT = 0
-    this.pitHold = PIT_HOLD
-    const dmg = Math.max(1, Math.round(c.maxHp * this.climb!.pitCost))
-    c.hp -= dmg
     c.iframes = Math.max(c.iframes, 1.2)
-    sfx('hurt')
-    sfx('beamIn')
-    pushHud({ t: 'flash', color: '#05070f', strength: 1 })
-    pushHud({ t: 'hurt', strength: 0.5 })
-    pushHud({ t: 'damage', x: at.x - Math.sin(at.yaw) * 1.2, y: at.y + EYE_H - 0.1, z: at.z - Math.cos(at.yaw) * 1.2, amount: dmg, crit: false, weak: false, toPlayer: true })
+    if (this.climb) this.climb.edgeFlight = false
+    this.pitHold = PIT_HOLD
     this.fx.riseRing(at.x, at.y + 0.1, at.z, PAL.glowCyan, 0.9, 20)
-    this.dirty = true
-    this.checkDown()
+  }
+
+  /** The rescue's shot this frame: Flux on the spikes, Atlas coming down, the
+   *  lift back up (an arc over the gap), set down. Writes the freeze spec's
+   *  hero and subject, and Atlas's spot. */
+  private poseRescue(): { x: number; y: number; z: number; hang: boolean } | null {
+    const r = this.rescue
+    const s = this.freeze.shot
+    if (!r || !s || s.kind !== 'rescue') return null
+    const t = this.freeze.t - (r.spikes ? 0 : RESCUE_IMPACT)
+    let x = r.fx
+    let y = r.bottom
+    let z = r.fz
+    let hang = false
+    if (t > RESCUE_GRAB) {
+      const k = Math.min(1, (t - RESCUE_GRAB) / RESCUE_LIFT)
+      const e = k * k * (3 - 2 * k)
+      x = r.fx + (r.tx - r.fx) * e
+      z = r.fz + (r.tz - r.fz) * e
+      y = r.bottom + (r.ty - r.bottom) * e + Math.sin(e * Math.PI) * 3
+      hang = k < 1
+    }
+    s.hx = x
+    s.hy = y
+    s.hz = z
+    s.hyaw = r.tyaw
+    s.tx = x
+    s.ty = y + 1
+    s.tz = z
+    // Atlas: from high above, down to his hands, then carrying him.
+    const down = Math.min(1, Math.max(0, (t - RESCUE_IMPACT * 0.8) / (RESCUE_GRAB - RESCUE_IMPACT * 0.8)))
+    this.atlasWorldAt.set(x + 0.1, y + 2.35 + (1 - down) * 7, z)
+    this.atlasWorldSet = true
+    return { x, y, z, hang }
   }
 
   /** Where a tap's ray first meets a floor on the tower (the labyrinth's is
@@ -1143,6 +1343,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   }
 
   onCrateBroken(c: Crate): void {
+    // A boss arena's prop: a pill always, a Repair Gel rarely (one a room).
+    if (c.arena && this.arena) {
+      const d = this.arena.drop()
+      if (d === 'tank' && profile.inv.tanks < this.stats.tanksMax) {
+        profile.inv.tanks++
+        pushHud({ t: 'toast', key: 'loot.tank', color: '#8dff7a' })
+        sfx('tank')
+        this.dirty = true
+      } else this.system.spawnPickup(d === 'tank' ? 'hp' : d, 0, c.x, c.y + 0.8, c.z)
+      return
+    }
     const n = c.kind === 'barrel' ? 1 : 2
     for (let k = 0; k < n; k++) this.system.spawnPickup('bolt', 2 + Math.floor(Math.random() * 3), c.x, 0.8, c.z)
     if (Math.random() < 0.12) this.system.spawnPickup(Math.random() < 0.6 ? 'hp' : 'we', 0, c.x, 0.8, c.z)
@@ -1208,9 +1419,28 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     return this.objects.addCrate(x, z, yaw)
   }
 
+  addArenaCrate(x: number, z: number, yaw: number, kind: 'crate' | 'barrel', y: number): Crate | null {
+    return this.objects.addCrate(x, z, yaw, kind, y)
+  }
+
+  onShotBlocked(s: Shot): void {
+    this.arena?.shotBlocked(s)
+  }
+
   addEnemy(e: Enemy): void {
+    this.toughen(e)
     this.enemies.push(e)
     this.scene.add(e.root, e.shadow, e.ring)
+  }
+
+  /** Story progress toughens machines: PROGRESS_HP more health per Core
+   *  Master beaten (never a boss, never twice). */
+  private toughen(e: Enemy): void {
+    if (e.boss || (e as { toughened?: boolean }).toughened) return
+    ;(e as { toughened?: boolean }).toughened = true
+    const mul = 1 + PROGRESS_HP * profile.world.bosses.length
+    e.maxHp = Math.round(e.maxHp * mul)
+    e.hp = Math.round(e.hp * mul)
   }
 
   /** Atlas says a line (`ClimbHost`: a stage feature's tip or a secret's
@@ -1326,7 +1556,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     o.time = this.time
     o.playing = playing
     o.combat = hud.combat
-    o.press = o.shot = o.near = -1
+    o.press = o.shot = o.near = o.close = -1
     let nearest = IDLE_RANGE
     for (const d of this.doors) {
       if (!d.held || Math.abs(p.y - d.y) > 2.6) continue
@@ -1352,8 +1582,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
         if ((across ? Math.abs(d.z - s.z) : Math.abs(d.x - s.x)) < CELL / 2) o.shot = d.id
       }
     }
+    if (o.near >= 0 && nearest < CLOSE_RANGE) o.close = o.near
     const pr = this.doorPrompt
+    const pulse = pr.pulse
     pr.update(o)
+    // Each refusal the prompt shows (an approach, a bump, a shot): the gate
+    // judders red, so "not yet" is on the door itself too.
+    if (pr.pulse !== pulse && pr.door >= 0) {
+      const dd = this.doors[pr.door]
+      if (dd?.held) dd.shakeT = DOOR_SHAKE
+    }
     if (pr.call) {
       const e = walk.teacher()
       if (e && !e.awake) wake(this, e)
@@ -1365,6 +1603,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     v.pulse = pr.pulse
     if (!d || !need) return
     v.need = need
+    // The very first gate: "Finish the Tutorial first" (players took the
+    // shut door for a dead end); every later one names its lesson.
+    v.label = walk.passed === 0 ? 'walk.finishTutorial' : 'walk.finishLesson'
     v.x = d.x
     v.y = d.y + 1.35
     v.z = d.z
@@ -1814,10 +2055,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     p.py = p.y
     // The tower moves first: this step's lift motion is what carries a rider.
     this.climb?.update(dt, this.time, p, hud.phase === 'play' && !flow.modal)
+    if (hud.phase === 'play') this.noteFooting(dt)
 
     if (hud.phase === 'beamIn') {
       this.stepBeamIn(dt, first)
     } else if (hud.phase === 'play') {
+      if (this.demo.active) this.stepDemo(dt)
       this.updatePlayer(dt, first)
     } else if (hud.phase === 'dead') {
       this.stepDead(dt, rawDt)
@@ -1845,6 +2088,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
         if (e.frozenT > 0) e.frozenT -= dt
       }
     }
+    // The arena's anti-cheese: a boss that cannot reach Flux enrages.
+    const boss = this.boss
+    if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play') this.arena.update(dt, boss)
     // Entering the boss room triggers the Core Master
     if (this.boss && !this.bossStarted && this.bossRoom && hud.phase === 'play') {
       const i = Math.floor(p.x / CELL)
@@ -1879,6 +2125,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     lt.tanks = profile.inv.tanks
     this.lessons.update(dt, lt)
     this.walk?.update(lt.playing, hud.combat)
+    this.training.update(this.time, lt.playing)
     this.updateDoorPrompt(dt, lt.playing)
     // Traps run on the mission's dt (hit-stop slows them) and park in a fight
     // that reaches them (`fightNear`).
@@ -1936,12 +2183,20 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
    *  shot's own clock move. */
   private stepFreeze(dt: number, first: boolean): void {
     const pressed = first && this.input.anyPressed
+    // A lesson card: any press continues (to the demo).
+    if (pressed && this.freeze.shot?.kind === 'lesson' && this.training.phase === 'card') {
+      this.training.dismissCard(this.time)
+    }
     const ended = this.freeze.update(dt, pressed)
     this.fx.update(dt)
     this.system.rubble.update(dt, this.nav)
     this.shocks.update(dt)
     for (const e of this.enemies) if (e.state === 'dead' && !e.boss) updateEnemy(this, e, dt)
     this.freezeFx(dt)
+    const r = this.rescue
+    if (r?.spikes && this.freeze.t < RESCUE_IMPACT && Math.random() < 0.5) {
+      this.fx.sparks(r.fx + (Math.random() - 0.5) * 0.6, r.bottom + 0.3 + Math.random(), r.fz + (Math.random() - 0.5) * 0.6, '#ffd84a', 3, 5, 0.12)
+    }
     if (ended) this.onFreezeEnd(ended)
     this.hudT -= dt
     if (this.hudT <= 0 || ended) {
@@ -1959,7 +2214,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     this.combat.charging = false
     this.combat.charge = 0
     chargeHum(null)
-    this.writeHud()
+    this.syncFreezeHud()
+  }
+
+  /** The freeze-frame's HUD fields (also part of every `writeHud`). */
+  private syncFreezeHud(): void {
+    const fz = this.freeze.shot
+    hud.freezeKind = fz?.kind ?? ''
+    hud.freezeFrame = fz?.frame ?? ''
+    hud.freezeSkippable = !!fz?.skippable
+    hud.freezeSkips = this.freeze.presses
+    hud.killCams = this.killCamCount
   }
 
   /** Ask for a skip (the HUD's skip chip). */
@@ -1976,6 +2241,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   }
 
   private onFreezeEnd(kind: FreezeKind): void {
+    if (kind === 'rescue' && this.rescue) {
+      const r = this.rescue
+      this.rescue = null
+      this.placeAfterFall({ x: r.tx, y: r.ty, z: r.tz, yaw: r.tyaw })
+      sfx('beamIn')
+      this.dirty = true
+    }
     const v = this.exitView
     if (v && hud.phase === 'play') {
       v.heroRoot.visible = false
@@ -1999,6 +2271,123 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     else if (s.fx === 'flame') this.fx.emit({ x, y, z, vy: 2.2, color: Math.random() < 0.5 ? '#ffb13c' : '#ff5a2a', size: 0.55, sizeEnd: 0.05, life: 0.45 })
     else if (s.fx === 'ice') this.fx.emit({ x, y, z, vy: 0.4, color: '#bff6ff', size: 0.3, sizeEnd: 0.02, life: 0.6 })
     else this.fx.sparks(x, y, z, '#ffd84a', 2, 5, 0.1)
+  }
+
+  // ─── Training host (`sim/training.ts`) ──────────────────────────────────
+
+  freezeForCard(_id: TrainId): void {
+    const at = this.trainSpot
+    this.startFreeze({
+      kind: 'lesson', dur: Infinity, frame: 'fp', skippable: false, fx: '',
+      tx: at?.x ?? this.player.x, ty: at?.y ?? this.player.y + 1, tz: at?.z ?? this.player.z
+    })
+  }
+
+  unfreeze(): void {
+    if (this.freeze.shot?.kind === 'lesson') {
+      this.freeze.end()
+      this.writeHud()
+    }
+  }
+
+  /** The card was dismissed from the HUD (a tap or click on it). */
+  dismissTrainingCard(): void {
+    this.training.dismissCard(this.time)
+  }
+
+  startDemo(id: TrainId): boolean {
+    const touch = this.input.device === 'touch'
+    const aimAt = () => this.demoAim ?? this.trainSpot
+    let s: DemoScript | null = null
+    // A demo shot's flight time from its shooter (m / (m/s)).
+    const lead = (): number => {
+      const a = this.demoSource
+      return a ? Math.max(0.4, Math.hypot(a.x - this.player.x, a.z - this.player.z) / DEMO_SHOT_SPEED) : 0.7
+    }
+    switch (id) {
+      case 'charge': s = this.demoAim ? chargeDemo(aimAt, touch) : null; break
+      case 'block': s = this.demoSource ? blockDemo(aimAt, lead()) : null; break
+      case 'slide': s = this.demoSource ? slideDemo(aimAt, DEMO_RING_DIST / DEMO_RING_SPEED) : null; break
+      case 'gap': s = this.trainSpot ? gapDemo(aimAt, 1.6) : null; break
+      case 'gel': s = gelDemo(); break
+      default: s = null
+    }
+    if (!s) return false
+    this.demo.start(s)
+    return true
+  }
+
+  demoOver(): boolean {
+    return !this.demo.active
+  }
+
+  /** A demo step: the script drives the input record; the view turns to its
+   *  target; the scene events it asks for happen. */
+  private stepDemo(dt: number): void {
+    const d = this.demo
+    d.step(dt, this.input)
+    const p = this.player
+    const aim = d.script?.aim?.()
+    if (aim) {
+      const want = Math.atan2(-(aim.x - p.x), -(aim.z - p.z))
+      const dist = Math.hypot(aim.x - p.x, aim.z - p.z)
+      const wantPitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, Math.atan2(aim.y - (p.y + EYE_H), Math.max(0.5, dist))))
+      const k = Math.min(1, dt * 6)
+      if (d.turnRate === 0) p.yaw += angDiff(want, p.yaw) * k
+      p.pitch += (wantPitch - p.pitch) * k
+    }
+    if (d.turnRate) p.yaw -= d.turnRate * dt
+    const src = this.demoSource
+    for (const tag of d.emits) {
+      if (!src) continue
+      if (tag === 'shot') {
+        // A slow blockable shot from the teacher's middle, at Flux's chest.
+        const sx = src.x
+        const sy = src.y + (src.floor ?? 0) + src.def.aimY
+        const sz = src.z
+        const tx = p.x - sx
+        const ty = p.y + EYE_H - 0.4 - sy
+        const tz = p.z - sz
+        const l = Math.hypot(tx, ty, tz) || 1
+        this.system.spawnEnemyShot(src, sx, sy, sz, tx / l, ty / l, tz / l, DEMO_SHOT_SPEED, 1, true)
+      } else if (tag === 'ring') {
+        // A red ring rolling at Flux from a few metres ahead of him.
+        const fx = -Math.sin(p.yaw)
+        const fz = -Math.cos(p.yaw)
+        this.system.spawnRing(src, p.x + fx * DEMO_RING_DIST, p.z + fz * DEMO_RING_DIST, DEMO_RING_SPEED, DEMO_RING_DIST + 2, 1, '#ff3a3a')
+      }
+    }
+  }
+
+  /** The checklist's tap on an open lesson: point the way for a while. */
+  pointToLesson(id: TrainId): void {
+    const at = this.lessonSpots.get(id)
+    if (!at || this.training.done.has(id)) return
+    this.lessonPointer = { x: at.x, z: at.z, until: this.time + LESSON_POINT_FOR }
+  }
+
+  /**
+   * A hazard's hit on machines (`TrapHost` / `ClimbHost.hurtMachines`): every
+   * awake machine the test catches — never a Core Master, never one asleep in
+   * disguise — loses half of `cost01` of its own max health, once a burst
+   * (`hazardCd`), with the hit's sparks and number.
+   */
+  hurtMachines(cost01: number, fromX: number, fromZ: number, hits: (x: number, y: number, z: number) => boolean): void {
+    for (const e of this.enemies) {
+      if (e.boss || e.state === 'dead' || e.dormant || e.offstage || (e.hazardCd ?? 0) > 0) continue
+      const y = e.y + (e.floor ?? 0)
+      if (!hits(e.x, y, e.z)) continue
+      e.hazardCd = HAZARD_CD
+      const dmg = Math.max(1, Math.round(e.maxHp * cost01 * HAZARD_MACHINE_SHARE))
+      this.system.damageEnemy(e, dmg, { crit: false, charge: 0, fromX, fromZ, x: e.x, y: y + e.def.aimY, z: e.z, color: '#ff9a2e', special: true })
+      if (!e.awake) wake(this, e)
+    }
+  }
+
+  /** An edge-leap happened: the gap lesson's proof. */
+  private onEdgeLeap(): void {
+    this.training.complete('gap')
+    markTip('train:gap')
   }
 
   /** A machine went down: maybe the kill-cam (`sim/killCam.ts`). */
@@ -2184,6 +2573,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     ti.px = p.x
     ti.pz = p.z
     ti.time = this.time
+    ti.yaw = p.yaw
+    // The chevrons pulse in the first two missions, while they are new.
+    ti.pulse = !!this.setup.tutorial || profile.world.bosses.length <= 1
     if (walk) {
       // Not before the coach's first glyph is learned: on a phone the first
       // chevrons lay across the stick's ∞ finger, and the first goal (the
@@ -2423,7 +2815,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // In the air with the stick let go, the momentum carries (a dash leap
     // flies on over its gap).
     const air = !!this.climb && !p.ground && p.ladder < 0 && p.mantle <= 0
-    if (air && c.slideT <= 0 && stick <= 0.01 && !p.path) {
+    // An edge-leap flies on its launch speed to its landing (the stick
+    // steers only after touchdown), or the held walk would drag it short.
+    if (air && ((c.slideT <= 0 && stick <= 0.01 && !p.path) || this.climb!.edgeFlight)) {
       tx = p.vx
       tz = p.vz
     }
@@ -2766,6 +3160,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
         }
       }
       if (d.mesh.warn) this.updateBossDoorFx(d, dt)
+      // A held gate refusing Flux: a short red judder of its panels.
+      if (d.shakeT > 0) {
+        d.shakeT = Math.max(0, d.shakeT - dt)
+        const k = d.shakeT / DOOR_SHAKE
+        const off = Math.sin(this.time * 70) * 0.06 * k
+        for (let i = 0; i < d.mesh.panels.length && !d.opening; i++) d.mesh.panels[i]!.position.x = (d.mesh.boss ? 0 : (i === 0 ? -1 : 1) * 0) + off
+        d.mesh.lampMat.color.set(k > 0 && Math.sin(this.time * 30) > 0 ? '#ff3a3a' : PAL.glowRed)
+      }
     }
   }
 
@@ -2788,6 +3190,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     fx.beamMat.opacity = 0.5 * a
     fx.domeMat.color.setRGB(0.55 + 0.45 * flash * a, 0.1 + 0.08 * flash * a, 0.14)
     fx.floorMat.opacity = (0.45 + 0.2 * Math.sin(t * 2.4)) * a
+    // Dr. Vex's screen: a signal that glitches now and then, going dark
+    // once his Core Master has fallen.
+    const glitch = Math.sin(t * 13.7) > 0.93 || Math.sin(t * 3.1 + 1.3) > 0.985
+    fx.screenMat.opacity = (0.25 + 0.75 * a) * (glitch ? 0.35 : 1)
+    fx.screenMat.color.setScalar(glitch ? 1.6 : 1)
     for (let k = 0; k < fx.chevronMats.length; k++) {
       // The pulse runs from the far chevron to the gate: "in there".
       fx.chevronMats[k]!.opacity = (0.18 + 0.7 * Math.max(0, Math.sin(t * 4.2 + k * 1.1))) * a
@@ -2966,12 +3373,25 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
   // ─── HUD mirror (≤ 15 Hz) ────────────────────────────────────────────────
 
   private writeHud(): void {
-    const fz = this.freeze.shot
-    hud.freezeKind = fz?.kind ?? ''
-    hud.freezeFrame = fz?.frame ?? ''
-    hud.freezeSkippable = !!fz?.skippable
-    hud.freezeSkips = this.freeze.presses
-    hud.killCams = this.killCamCount
+    this.syncFreezeHud()
+    const tr = this.training
+    hud.trainId = tr.id ?? ''
+    hud.trainPhase = tr.phase
+    hud.demoAct = this.demo.act
+    hud.demoDown = this.demo.down
+    hud.demoSkips = this.demo.presses
+    // The first mission's checklist: every lesson this map teaches.
+    if (this.setup.tutorial) {
+      let sig = ''
+      for (const id of TUTORIAL_TRAINING) {
+        if (this.lessonSpots.has(id)) sig += `${id}${tr.done.has(id) ? 1 : 0}${tr.id === id ? 'c' : ''};`
+      }
+      if (sig !== this.checklistSig) {
+        this.checklistSig = sig
+        hud.checklist = TUTORIAL_TRAINING.filter(id => this.lessonSpots.has(id))
+          .map(id => ({ id, done: tr.done.has(id), current: tr.id === id }))
+      }
+    }
     const c = this.combat
     hud.hp = Math.max(0, c.hp)
     hud.maxHp = c.maxHp
@@ -3175,6 +3595,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
         if (e.ring.visible) e.ring.position.y += e.floor
       }
       if (e.frozenT > 0) e.rig.material.emissive.setRGB(0.15 + e.flash * 0.7, 0.4 + e.flash * 0.5, 0.75)
+      // An enraged boss burns red (`sim/bossArena.ts`).
+      else if (e.boss && this.arena?.enraged) e.rig.material.emissive.setRGB(0.55 + 0.25 * Math.sin(this.time * 9) + e.flash * 0.4, 0.06, 0.02)
     }
     this.system.sync(alpha)
 
@@ -3215,6 +3637,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     const key = this.atlas.line ? atlasKey(this.atlas.line.id) : ''
     if (key !== hud.atlasKey) {
       hud.atlasKey = key
+      hud.atlasGold = key.startsWith('atlas.train.')
       if (key) hud.atlasSeq++
     }
   }
@@ -3238,8 +3661,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
     // In view: in from the top-left corner, under the status cards (lower
     // and smaller on a tall screen).
     const portrait = vc.aspect < 1
-    const nx = -1.55 + (portrait ? 0.97 : 1.0) * peek
-    const ny = 1.35 - (portrait ? 1.13 : 0.93) * peek
+    // A lesson intro (gold line): Atlas FLIES in, from off the top right in
+    // an arc to its spot, and back out the same way — the playtesters never
+    // noticed the usual slide-in from the corner.
+    if (hud.atlasGold) this.atlasSwoop = true
+    else if (peek < 0.02) this.atlasSwoop = false
+    const spotX = -1.55 + (portrait ? 0.97 : 1.0)
+    const spotY = 1.35 - (portrait ? 1.13 : 0.93)
+    const e = 1 - (1 - peek) * (1 - peek)
+    const nx = this.atlasSwoop ? 1.7 + (spotX - 1.7) * e : -1.55 + (portrait ? 0.97 : 1.0) * peek
+    const ny = this.atlasSwoop ? 1.5 + (spotY - 1.5) * e + Math.sin(e * Math.PI) * 0.35 : 1.35 - (portrait ? 1.13 : 0.93) * peek
     const vm = this.atlasVm
     vm.root.visible = !cine && !intro && peek > 0.01
     if (vm.root.visible) {
@@ -3401,7 +3832,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost {
       s.hz + (shake ? (Math.random() - 0.5) * shake : 0)
     )
     hr.quaternion.setFromAxisAngle(_up, s.hyaw)
-    animateHeroIdle(v.hero, t)
+    const rp = s.kind === 'rescue' ? this.poseRescue() : null
+    if (rp) {
+      hr.position.set(rp.x, rp.y, rp.z)
+      if (rp.hang) animateHeroHop(v.hero, 0, 0.6, t)
+      else animateHeroIdle(v.hero, t)
+    } else animateHeroIdle(v.hero, t)
     const fy = floorAt(this.nav, s.hx, s.hz)
     v.heroShadow.visible = fy > -50 && s.hy - fy < 3
     v.heroShadow.position.set(s.hx, fy + 0.035, s.hz)

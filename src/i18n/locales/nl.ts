@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Dit spel is alleen beschikbaar op',
 
   'ui': {
+    'killcamCount': 'Kill-cams deze missie: {n}',
+    'killcamOff': 'Kill-cams uitzetten',
     'next': 'Volgende',
     'replay': 'Opnieuw',
     'back': 'Terug',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Tik op de groene reparatiegelknop: die lapt je helemaal op.'
   },
   'walk': {
+    'finishTutorial': 'Rond eerst de tutorial af',
     'finishLesson': 'Maak de les af'
   },
   'hubLesson': {
+    'earnBolts': 'Te weinig bouten? Bekijk een korte video voor een aanvulling.',
+    'catchUp': 'Pip: Je kanon loopt achter op de machines daarbuiten. Laten we het upgraden!',
     'workshop': 'Open de Werkplaats.',
     'upgradeBuster': 'Besteed bouten om je kanon te upgraden: meer schade.',
     'pickArmor': 'Kies nu je borstpantser.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Genoeg bouten voor twee upgrades van je beste kanon.',
+    'upgradeAdName': 'Upgradeboost',
     'tanks': 'Voorraad',
     'tankName': 'Reparatiegel',
     'tankDesc': 'Herstelt tijdens een missie je gezondheid en kracht volledig.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-cam',
+    'gameplay': 'Gameplay',
     'title': 'Opties',
     'general': 'Algemeen',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Kies je nieuwe wapen en vuur op de drones!',
+      'gap': 'Loop recht op de rand af en je springt er vanzelf overheen!',
+      'gel': 'Gebruik Reparatiegel om te genezen!',
+      'slide': 'Glij weg vlak voordat de rode ring je bereikt!',
+      'block': 'Houd blokkeren ingedrukt als hij vuurt. Precies bij de inslag is perfect!',
+      'charge': 'Houd vuren ingedrukt tot het kanon gloeit, laat dan los!',
+    },
+    'train': {
+      'weapon': 'Laten we je nieuwe wapen trainen!',
+      'gap': 'Laten we springen over kloven trainen!',
+      'gel': 'Laten we Reparatiegel trainen!',
+      'slide': 'Laten we Glijden trainen!',
+      'block': 'Laten we de Perfecte Blok trainen!',
+      'charge': 'Laten we het Geladen Schot trainen!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss zou trots zijn.',
       '4': 'Ik vind ons een fijn team.'
     }
+  },
+  'train': {
+    'todo': 'nog niet klaar',
+    'done': 'klaar',
+    'checklist': 'Tutorials',
+    'watch': 'Kijk hoe het moet',
+    'card': {
+      'weapon': 'Je hebt het wapen van een Kernmeester gekopieerd! Vuur het af met zijn knop: wapenenergie voedt het aan, en sommige machines zijn er zwak tegen.',
+      'gel': 'Gewond? Reparatiegel herstelt je gezondheid volledig. Gebruik er een zodra een gevecht slecht gaat.',
+      'slide': 'Rode aanvallen kun je niet blokkeren. Glij weg om te ontwijken: tijdens het glijden kan niets je raken.',
+      'block': 'Houd blokkeren ingedrukt om je schild te heffen: het stopt schoten en klappen van voren. Hef het precies als een klap landt voor een Perfecte Blok, die de aanvaller uitschakelt.',
+      'charge': 'Een normaal schot doorbreekt geen schild. Houd vuren ingedrukt tot je kanon gloeit, laat dan los: een Geladen Schot breekt er dwars doorheen.',
+    },
+    'name': {
+      'weapon': 'Wapenles',
+      'gap': 'Tutorial: Sprong',
+      'gel': 'Tutorial: Reparatiegel',
+      'slide': 'Tutorial: Glijden',
+      'block': 'Tutorial: Schild',
+      'charge': 'Tutorial: Geladen Schot',
+    },
   }
 }

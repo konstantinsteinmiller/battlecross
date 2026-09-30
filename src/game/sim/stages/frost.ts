@@ -171,9 +171,10 @@ export class FrostThrowers implements StageFeature {
       s.size = 0.5 + Math.random() * 0.4
       this.host.fx.emit(s)
     }
+    this.host.hurtMachines?.(FROST_COST, n.fx, n.fz, (x, y, z) => Math.abs(y - n.floor) < 1.2 && inFrostCone(n, x, z))
     if (!playing || n.hitCyc === cyc || Math.abs(p.y - n.floor) > 1.2 || !inFrostCone(n, p.x, p.z)) return
     n.hitCyc = cyc
-    const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * FROST_COST), { blockable: false, fromX: n.fx, fromZ: n.fz, kind: 'aoe' })
+    const r = this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * FROST_COST), { blockable: false, fromX: n.fx, fromZ: n.fz, kind: 'aoe', hazard: 'ice' })
     if (r === 'hit') {
       this.slowT = SLOW_TIME
       this.host.sfx('freeze', p.x, p.z)

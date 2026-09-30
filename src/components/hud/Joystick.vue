@@ -4,7 +4,7 @@
     //- the movement control can be SEEN before it is found. A press on it
     //- grabs it by its centre (`engine/input.ts`); in use, it steps aside
     //- for the live stick below.
-    div.joy-home(ref="home" v-show="resting" :class="{ hidden: busy }")
+    div.joy-home(ref="home" v-show="resting" :class="{ hidden: busy, demo: demoMove }")
       div.joy-home-knob
     div.joy-base(ref="base")
       div.joy-knob(ref="knob")
@@ -86,9 +86,14 @@ onUnmounted(() => {
   window.removeEventListener('orientationchange', placeSoon)
   input.joyHomeR = 0
 })
+/** A lesson demo walks with the stick: its resting ring lights gold. */
+const demoMove = computed(() => hud.trainPhase === 'demo' && hud.demoAct === 'move')
 </script>
 
 <style scoped lang="sass">
+.joy-home.demo
+  box-shadow: 0 0 0 4px #ffd84a, 0 0 20px rgba(255, 216, 74, 0.9)
+  opacity: 1 !important
 .joy
   position: absolute
   inset: 0

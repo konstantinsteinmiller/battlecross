@@ -103,12 +103,17 @@ export class ShockFeature implements StageFeature {
         }
         if (u < dt * 1.5 && near && pn.lead) host.sfx('trapHiss', pn.x, pn.z)
       }
+      // Machines standing on a live panel take the jolt too.
+      if (live) {
+        const r0 = CELL / 2
+        host.hurtMachines?.(SHOCK_COST, pn.x, pn.z, (x, y, z) => Math.abs(y - d.y) < 0.5 && Math.abs(x - pn.x) < r0 && Math.abs(z - pn.z) < r0)
+      }
       // The jolt: standing on the live panel.
       if (!playing || !live || pn.hitCyc === cyc || !p.ground || Math.abs(p.y - d.y) > 0.5) continue
       const r = CELL / 2 + PLAYER_R * 0.3
       if (Math.abs(p.x - pn.x) > r || Math.abs(p.z - pn.z) > r) continue
       pn.hitCyc = cyc
-      const res = host.hitPlayer(null, Math.round(host.combat.maxHp * SHOCK_COST), { blockable: false, fromX: pn.x, fromZ: pn.z, kind: 'aoe' })
+      const res = host.hitPlayer(null, Math.round(host.combat.maxHp * SHOCK_COST), { blockable: false, fromX: pn.x, fromZ: pn.z, kind: 'aoe', hazard: 'volt' })
       if (res === 'hit') {
         host.shake(0.18)
         host.fx.sparks(p.x, p.y + 0.8, p.z, '#fffbe0', 12, 6, 0.16)

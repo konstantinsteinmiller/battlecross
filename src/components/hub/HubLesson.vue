@@ -22,6 +22,8 @@
       div.grant-chip
         GameIcon.gi(name="nut")
         span +{{ grantShown }}
+    //- Pip's catch-up: one short line — the gear has fallen behind.
+    div.pip-say(v-if="hubLesson.catchUp && hubLesson.step === 'workshop'" role="status") {{ t('hubLesson.catchUp') }}
     span.sr(role="status" aria-live="polite") {{ t(`hubLesson.${hubLesson.step}`) }}
     button.skip(type="button" :aria-label="t('close')" @click="endHubLesson()")
       GameIcon(name="close")
@@ -221,6 +223,22 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="sass">
+.pip-say
+  position: absolute
+  left: 50%
+  top: calc(env(safe-area-inset-top, 0px) + clamp(60px, 14vh, 110px))
+  transform: translateX(-50%)
+  max-width: min(84vw, 420px)
+  padding: 0.5em 0.9em
+  border-radius: 1em
+  border: 3px solid #141a33
+  background: #ffffff
+  color: #141a33
+  font-family: var(--font-ui)
+  font-size: clamp(13px, 2.8vmin, 17px)
+  box-shadow: 0 0 0 2px #ffd84a, 0 4px 0 rgba(20, 26, 51, 0.4)
+  pointer-events: none
+  z-index: 3
 .tour
   position: fixed
   inset: 0

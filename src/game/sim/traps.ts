@@ -213,6 +213,9 @@ export const flameK = (t: number): number => {
 }
 
 /** Inside the fire sheet: the whole width of the corridor, a body deep. */
+/** A corridor trap's bite on a machine: this share of its max health. */
+const TRAP_MACHINE_COST = 0.25
+
 export const inFlame = (s: TrapSpot, px: number, pz: number): boolean =>
   Math.abs(alongOf(s, px, pz)) < FLAME_HALF + BODY_R && Math.abs(acrossOf(s, px, pz)) < CELL / 2 + 0.2
 
@@ -264,7 +267,10 @@ export interface TrapHost {
   time: number
   player: { x: number; z: number }
   setup: { enemyLevel: number }
-  hitPlayer(e: null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): unknown
+  hitPlayer(e: null, dmg: number, o: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot'; hazard?: string }): unknown
+  /** A hazard also catches machines (not a Core Master): each one the test
+   *  says is in it loses `cost01` of ITS max health, halved (`hurtMachines`). */
+  hurtMachines?(cost01: number, fromX: number, fromZ: number, hits: (x: number, y: number, z: number) => boolean): void
   sfx(name: string, x?: number, z?: number): void
   shake(amount: number): void
 }
@@ -362,6 +368,7 @@ export class TrapSystem {
       else if (s.stage === 'burn') this.host.sfx('flameJet', sp.x, sp.z)
     }
     const p = this.host.player
+    if (s.stage === 'burn') this.host.hurtMachines?.(TRAP_MACHINE_COST, sp.x, sp.z, (x, _y, z) => inFlame(sp, x, z))
     if (s.stage === 'burn' && playing && inFlame(sp, p.x, p.z)) this.hurt(s)
   }
 
@@ -387,6 +394,7 @@ export class TrapSystem {
     const half = BLADE_AMP * 0.5
     if (loud && !s.parked && Math.abs(prev) > half && Math.abs(s.angle) <= half) this.host.sfx('bladeWhoosh', sp.x, sp.z)
     const p = this.host.player
+    if (Math.abs(s.speed) > BLADE_LIVE) this.host.hurtMachines?.(TRAP_MACHINE_COST, sp.x, sp.z, (x, _y, z) => bladeHits(sp, s.angle, x, z))
     if (playing && Math.abs(s.speed) > BLADE_LIVE && bladeHits(sp, s.angle, p.x, p.z)) this.hurt(s)
   }
 
@@ -398,7 +406,7 @@ export class TrapSystem {
     // From the trap's plane, level with Flux: the push runs along the corridor.
     const fromX = sp.axis === 'x' ? sp.x : p.x
     const fromZ = sp.axis === 'x' ? p.z : sp.z
-    if (h.hitPlayer(null, trapDamage(h.setup.enemyLevel), { blockable: false, fromX, fromZ, kind: 'aoe' }) === 'hit') {
+    if (h.hitPlayer(null, trapDamage(h.setup.enemyLevel), { blockable: false, fromX, fromZ, kind: 'aoe', hazard: s.spot.kind === 'blade' ? 'blade' : 'flame' }) === 'hit') {
       h.shake(0.15)
     }
   }

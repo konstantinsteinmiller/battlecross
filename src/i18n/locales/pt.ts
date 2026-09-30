@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Este jogo só está disponível em',
 
   'ui': {
+    'killcamCount': 'Kill-cams nesta missão: {n}',
+    'killcamOff': 'Desligar kill-cams',
     'next': 'Próximo',
     'replay': 'Repetir',
     'back': 'Voltar',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Toque no botão verde do Gel de Reparo: ele te conserta por completo.'
   },
   'walk': {
+    'finishTutorial': 'Termine o tutorial primeiro',
     'finishLesson': 'Termine a lição'
   },
   'hubLesson': {
+    'earnBolts': 'Parafusos insuficientes? Veja um vídeo curto para recarregar.',
+    'catchUp': 'Pip: Seu canhão está ficando para trás das máquinas lá fora. Vamos melhorá-lo!',
     'workshop': 'Abra a Oficina.',
     'upgradeBuster': 'Gaste parafusos para melhorar seu canhão: mais dano.',
     'pickArmor': 'Agora selecione sua armadura peitoral.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Parafusos para duas melhorias do seu melhor canhão.',
+    'upgradeAdName': 'Impulso de melhoria',
     'tanks': 'Suprimentos',
     'tankName': 'Gel de Reparo',
     'tankDesc': 'Restaura toda a vida e a potência no meio da missão.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-cam',
+    'gameplay': 'Jogabilidade',
     'title': 'Opções',
     'general': 'Geral',
     'audio': 'Áudio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Escolha sua nova arma e atire nos drones!',
+      'gap': 'Ande reto até a borda e você pulará automaticamente!',
+      'gel': 'Use um Gel de Reparo para se curar!',
+      'slide': 'Deslize para escapar bem antes do anel vermelho te alcançar!',
+      'block': 'Segure bloquear quando ele disparar. Bem na hora do impacto é perfeito!',
+      'charge': 'Segure o disparo até o canhão brilhar, depois solte!',
+    },
+    'train': {
+      'weapon': 'Vamos treinar sua nova arma!',
+      'gap': 'Vamos treinar pular sobre vãos!',
+      'gel': 'Vamos treinar o Gel de Reparo!',
+      'slide': 'Vamos treinar o Deslize!',
+      'block': 'Vamos treinar o Bloqueio Perfeito!',
+      'charge': 'Vamos treinar o Tiro Carregado!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'A Gauss ficaria orgulhosa.',
       '4': 'Adoro nossa equipe.'
     }
+  },
+  'train': {
+    'todo': 'ainda não concluído',
+    'done': 'concluído',
+    'checklist': 'Tutoriais',
+    'watch': 'Veja como se faz',
+    'card': {
+      'weapon': 'Você copiou a arma de um Mestre do Núcleo! Dispare com o botão dela: energia da arma a alimenta, e algumas máquinas são fracas contra ela.',
+      'gel': 'Machucado? Um Gel de Reparo restaura completamente sua saúde. Use um sempre que uma luta piorar.',
+      'slide': 'Ataques vermelhos não podem ser bloqueados. Deslize para escapar: nada te atinge durante o deslize.',
+      'block': 'Segure bloquear para erguer seu escudo: ele para tiros e golpes vindos de frente. Erga-o bem na hora que um golpe chegar para um Bloqueio Perfeito, que nocauteia o atacante.',
+      'charge': 'Um tiro normal não quebra um escudo. Segure o disparo até seu canhão brilhar, depois solte: um Tiro Carregado atravessa direto.',
+    },
+    'name': {
+      'weapon': 'Lição de Arma',
+      'gap': 'Tutorial de Salto',
+      'gel': 'Tutorial de Gel de Reparo',
+      'slide': 'Tutorial de Deslize',
+      'block': 'Tutorial de Escudo',
+      'charge': 'Tutorial de Tiro Carregado',
+    },
   }
 }

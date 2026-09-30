@@ -65,6 +65,19 @@ export interface Enemy {
   guard: number
   aim: number
   stunT: number
+  /** Stun diminishing returns (`tryStun`): stuns in the current chain, time
+   *  since the last one (s), and a stun immunity still running (s). */
+  stunN: number
+  stunAge: number
+  stunImmune: number
+  /** The ranged fallback (`fallbackTick`): time spent unable to close on
+   *  Flux (s), and where it stood when the last progress check began. */
+  /** A hazard hit it a moment ago (s left): one hit per burst. */
+  hazardCd?: number
+  farT?: number
+  farX?: number
+  farZ?: number
+  farCheck?: number
   flash: number
   path: Array<[number, number]> | null
   pathT: number
@@ -239,7 +252,7 @@ export interface World {
   spawnRing(e: Enemy, x: number, z: number, speed: number, maxR: number, dmg: number, color: string): void
   fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void
   /** Melee / AoE / contact damage from an enemy to the player. */
-  hitPlayer(e: Enemy | null, dmg: number, opts: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot' }): 'hit' | 'block' | 'parry' | 'miss'
+  hitPlayer(e: Enemy | null, dmg: number, opts: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot'; hazard?: string }): 'hit' | 'block' | 'parry' | 'miss'
   shake(amount: number): void
   sfx(name: string, x?: number, z?: number): void
 }

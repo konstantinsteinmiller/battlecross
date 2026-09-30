@@ -43,7 +43,7 @@ export const createBoss = (id: BossId, level: number, x: number, z: number, room
     nameKey: `boss.${id}`,
     x, z, y: 0, px: x, pz: z, py: 0, yaw: 0, vx: 0, vz: 0,
     hp, maxHp: hp, dmg: scaleDmg(def.dmg, level), room, awake: false, state: 'idle', st: 0, cd: 1.2,
-    attack: '', step: 0, teleDur: def.tele, teleRed: false, guard: 0, aim: 0, stunT: 0, flash: 0,
+    attack: '', step: 0, teleDur: def.tele, teleRed: false, guard: 0, aim: 0, stunT: 0, stunN: 0, stunAge: 99, stunImmune: 0, flash: 0,
     path: null, pathT: 0, walk: 0, anim: 0, a: 0, b: 0, tx: 0, tz: 0, sx: 0, sz: 0, hitPlayer: false,
     rig, root, shadow: makeBlobShadow(def.radius * 1.2), ring: makeTeleRing(), deathT: 0,
     guardBreakT: 0, hurtAt: -10, bossId: id, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: '',
@@ -173,6 +173,8 @@ const bossTick = (w: World, e: Enemy, dt: number, room: Room | null): void => {
     }
     return
   }
+  e.stunAge += dt
+  e.stunImmune = Math.max(0, e.stunImmune - dt)
   if (e.state === 'stun') {
     e.stunT -= dt
     e.y += (fly - e.y) * Math.min(1, dt * 6)

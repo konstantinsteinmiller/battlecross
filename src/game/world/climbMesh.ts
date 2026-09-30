@@ -1,5 +1,5 @@
 import { BufferGeometry, Group, Mesh, Color, type Object3D } from 'three'
-import { CELL, WALL_H, Cell, Ramp, type MapData, type Door } from './levelGen'
+import { CELL, WALL_H, Cell, Ramp, type MapData, type Door, type Terrain } from './levelGen'
 import type { Theme } from './themes'
 import { levelAtlas } from './textures'
 import { toonVCMap, toonVC, glowVC, outlineMat } from '../models/toon'
@@ -48,6 +48,26 @@ const BAND = WALL_H
 
 type V3 = [number, number, number]
 
+/**
+ * The wall faces a secret's buttons and hint panel are mounted on, as
+ * `"<cell index>:<di>,<dj>"` (the room cell in front and the edge's outward
+ * step): the mesh keeps them clear of decor, and the puzzle audit checks
+ * against the same rule (`tests/game/puzzleAudit.test.ts`).
+ */
+export const secretWallFaces = (t: Terrain, W: number): Set<string> => {
+  const out = new Set<string>()
+  const add = (x: number, z: number, nx: number, nz: number): void => {
+    const i = Math.floor((x + nx * 0.5) / CELL)
+    const j = Math.floor((z + nz * 0.5) / CELL)
+    out.add(`${j * W + i}:${-nx},${-nz}`)
+  }
+  for (const s of t.secrets ?? []) {
+    for (const b of s.buttons) add(b.x, b.z, b.nx, b.nz)
+    add(s.panel.x, s.panel.z, s.panel.nx, s.panel.nz)
+  }
+  return out
+}
+
 export const buildClimbLevel = async (
   map: MapData, theme: Theme, slice: Slice = noSlice, onProgress: (f01: number) => void = () => {}
 ): Promise<LevelMeshes> => {
@@ -83,6 +103,9 @@ export const buildClimbLevel = async (
 
   const walkable = (i: number, j: number) => i >= 0 && j >= 0 && i < W && j < map.h && map.cell[j * W + i] !== Cell.Void
   const K = (i: number, j: number) => j * W + i
+  // Wall faces a secret's button or hint panel sits on: no pipe or light
+  // strip is drawn over them (a Sky Docks pipe hid a blue button).
+  const busy = secretWallFaces(t, W)
   /** The room a cell's walls take their height from (a corridor: its own). */
   const roomOf = (k: number) => map.room[k]!
   const corridorTop = (k: number) => t.floor[k]! + WALL_H + 0.8
@@ -350,7 +373,9 @@ export const buildClimbLevel = async (
           if (!t.pit[k]) {
             const fy = t.floor[k]!
             if (!ramp) decor[o]!.push(xform(piece('baseboard', () => paint(cap(0.13, CELL - 0.3, 8, 2), theme.wallLow)), [mx + e.n[0] * 0.06, fy + 0.14, mz + e.n[2] * 0.06], rotAlong))
-            if (c === Cell.Room && rng() < 0.45) {
+            if (busy.has(`${k}:${e.di},${e.dj}`)) {
+              // A secret's wall: kept bare for its button / hint.
+            } else if (c === Cell.Room && rng() < 0.45) {
               glows[o]!.push(xform(piece('strip', () => paint(cap(0.07, 1.1, 8, 2), theme.accent)), [mx + e.n[0] * 0.12, fy + (ramp ? 3.6 : 2.95), mz + e.n[2] * 0.12], rotAlong))
             } else if (rng() < 0.25) {
               const py = fy + 1.1 + rng() * 1.4 + (ramp ? 1.2 : 0)

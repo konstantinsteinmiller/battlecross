@@ -59,6 +59,8 @@ export interface Pillar {
   x: number
   z: number
   r: number
+  /** A boss arena's cover pillar that has crumbled (`sim/bossArena.ts`). */
+  gone?: boolean
 }
 
 export interface MapData {
@@ -216,6 +218,16 @@ export interface ChestSpot {
  *  or lava. Spikes and lava cost twice a plain fall (`sim/climb.ts`). */
 export type PitKind = 'void' | 'spikes' | 'lava'
 
+/** A slab that holds once (`sim/stages/crumble.ts`): its corner cell, its top
+ *  (m) and its size in cells. The cells under it are pit. */
+export interface CrumbleSpec {
+  i: number
+  j: number
+  y: number
+  w?: number
+  d?: number
+}
+
 /** A wind tunnel's gusts over a rectangle of cells (inclusive): a push of
  *  `strength` m/s along the unit (dx, dz), blowing `on` s then still `off`
  *  s, offset by `phase` on the mission clock. */
@@ -365,6 +377,8 @@ export interface Terrain {
   ice?: Uint8Array
   /** Per room: what its pits hold (absent: 'void'). */
   pitKind?: PitKind[]
+  /** Crumbling platforms over pits (`sim/stages/crumble.ts`). */
+  crumbles?: CrumbleSpec[]
   wind?: WindZone[]
   rails?: RailSpec[]
   waves?: WaveSpec[]

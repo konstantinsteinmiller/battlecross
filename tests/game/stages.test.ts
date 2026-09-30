@@ -180,21 +180,36 @@ describe('the dash leap', () => {
     }
   })
 
-  it('a walk off the edge is no leap: it falls', () => {
-    const map = gapMap(1)
-    const run = new ClimbRun(hostFor(map), 1)
+  // The edge-leap: there is no jump button, an edge IS the jump — walked
+  // into a gap with a floor in reach, Flux leaps for it; into one too wide,
+  // there is nothing to reach and he falls.
+  const walkOff = (gap: number) => {
+    const run = new ClimbRun(hostFor(gapMap(gap)), 1)
     const p = body(4 * CELL - 0.3, cellCenter(1))
     const out: [number, number] = [0, 0]
-    let leapt = false
+    let edge = false
     for (let n = 0; n < 200 && !run.pitted; n++) {
-      p.vx = WALK_SPEED
+      // The walk pushes on the ground; a leap flies on its own speed.
+      if (p.ground) p.vx = WALK_SPEED
       run.stepBody(p, out, 1, 0, DT, false)
-      leapt ||= run.leapt
+      edge ||= run.edgeLeapt
       p.x = out[0]
       p.z = out[1]
     }
-    expect(leapt).toBe(false)
-    expect(run.pitted).toBe(true)
+    return { edge, pitted: run.pitted, x: p.x }
+  }
+
+  it('a walk into a one-cell gap leaps it (the edge-leap)', () => {
+    const r = walkOff(1)
+    expect(r.edge).toBe(true)
+    expect(r.pitted).toBe(false)
+    expect(r.x).toBeGreaterThan(5 * CELL)
+  })
+
+  it('a walk into a gap too wide to reach falls', () => {
+    const r = walkOff(2)
+    expect(r.edge).toBe(false)
+    expect(r.pitted).toBe(true)
   })
 
   it('air control is a quarter of the ground\'s; a slide sets the speed at once; friction scales the blend', () => {

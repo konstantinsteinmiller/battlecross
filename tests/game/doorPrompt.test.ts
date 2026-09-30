@@ -18,12 +18,12 @@ const DOOR = 7
 /** A prompt and its clock; `step` runs it for `secs` with the given tick. */
 const rig = () => {
   const p = new DoorPrompt()
-  const o: DoorTick = { time: 0, playing: true, combat: false, press: -1, shot: -1, near: -1 }
+  const o: DoorTick = { time: 0, playing: true, combat: false, press: -1, shot: -1, near: -1, close: -1 }
   let idles = 0
   const calls: number[] = []
   const step = (secs: number, over: Partial<DoorTick> = {}) => {
     for (let t = 0; t < secs - 1e-9; t += DT) {
-      Object.assign(o, { playing: true, combat: false, press: -1, shot: -1, near: -1 }, over)
+      Object.assign(o, { playing: true, combat: false, press: -1, shot: -1, near: -1, close: -1 }, over)
       o.time += DT
       p.update(o)
       if (p.idled) idles++

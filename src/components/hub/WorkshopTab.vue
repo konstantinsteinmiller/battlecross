@@ -16,6 +16,24 @@
         )
           GameIcon.bi(name="nut")
           span {{ TANK_PRICE }}
+      //- Out of bolts for the next upgrade of the best buster: a rewarded
+      //- top-up worth two of its upgrades (Pip's catch-up points here).
+      div.tank-row.drop(v-if="canOfferReward && shortForUpgrade" data-lesson="bolts-ad")
+        div.tank-ico.drop-ico
+          GameIcon(name="anvil")
+        div.tank-info
+          div.tn {{ t('workshop.upgradeAdName') }}
+          div.td {{ t('workshop.upgradeAdDesc') }}
+        button.buy.ad(
+          type="button"
+          :disabled="adInFlight"
+          :aria-label="t('workshop.dropAria', { n: upgradeAdAmount })"
+          @click="claimUpgradeAd"
+        )
+          span.ad-chip
+            RewardAdIcon.ad-mark
+          span +{{ upgradeAdAmount }}
+          GameIcon.bi(name="nut")
       div.tank-row.drop(v-if="canOfferReward")
         div.tank-ico.drop-ico
           GameIcon(name="gift")
@@ -118,6 +136,25 @@ const claimDrop = async () => {
   } finally {
     // The ad hard-stopped the lab music and its play intent; nothing else
     // restarts it until the next mission, so bring it back here.
+    resumeMusicAfterAd()
+  }
+}
+/** The best buster the player owns (by power), and what its next upgrade
+ *  costs: short of that, the rewarded top-up pays two such upgrades. */
+const bestBuster = computed(() => profile.inv.items.filter(it => it.slot === 'buster' && it.upg < MAX_UPG)
+  .sort((a, b) => itemPower(b) - itemPower(a))[0] ?? null)
+const shortForUpgrade = computed(() => !!bestBuster.value && profile.bolts < upgradeCost(bestBuster.value))
+const upgradeAdAmount = computed(() => (bestBuster.value ? upgradeCost(bestBuster.value) * 2 : 0))
+const claimUpgradeAd = async () => {
+  const n = upgradeAdAmount.value
+  if (!n) return
+  try {
+    await claimReward(() => {
+      profile.bolts += n
+      saveProfile()
+      sfx('loot')
+    })
+  } finally {
     resumeMusicAfterAd()
   }
 }

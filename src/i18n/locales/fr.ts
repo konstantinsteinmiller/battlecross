@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Ce jeu est uniquement disponible sur',
 
   'ui': {
+    'killcamCount': 'Kill-cams dans cette mission : {n}',
+    'killcamOff': 'Désactiver les kill-cams',
     'next': 'Suivant',
     'replay': 'Rejouer',
     'back': 'Retour',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Touche le bouton vert du gel réparateur : il te répare entièrement.'
   },
   'walk': {
+    'finishTutorial': "Termine d'abord le tutoriel",
     'finishLesson': 'Termine la leçon'
   },
   'hubLesson': {
+    'earnBolts': 'Pas assez de boulons ? Regarde une courte vidéo pour en recevoir.',
+    'catchUp': 'Pip : Ton canon est à la traîne face aux machines. Améliorons-le !',
     'workshop': "Ouvre l'Atelier.",
     'upgradeBuster': 'Dépense des boulons pour améliorer ton canon : plus de dégâts.',
     'pickArmor': 'Sélectionne maintenant ton armure de torse.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Assez de boulons pour deux améliorations de ton meilleur canon.',
+    'upgradeAdName': 'Coup de pouce',
     'tanks': 'Provisions',
     'tankName': 'Gel réparateur',
     'tankDesc': 'Restaure entièrement la santé et la puissance en pleine mission.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-cam',
+    'gameplay': 'Jeu',
     'title': 'Options',
     'general': 'Général',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Choisis ta nouvelle arme et tire sur les drones !',
+      'gap': 'Marche droit vers le bord, tu sauteras automatiquement !',
+      'gel': 'Utilise un gel réparateur pour te soigner !',
+      'slide': "Glisse juste avant que l'anneau rouge ne t'atteigne !",
+      'block': "Maintiens bloquer quand il tire. Pile à l'impact, c'est parfait !",
+      'charge': "Maintiens le tir jusqu'à ce que le canon brille, puis relâche !",
+    },
+    'train': {
+      'weapon': 'Entraînons-nous avec ta nouvelle arme !',
+      'gap': 'Entraînons-nous à sauter par-dessus les trous !',
+      'gel': 'Entraînons-nous au gel réparateur !',
+      'slide': 'Entraînons-nous à la glissade !',
+      'block': 'Entraînons-nous au Blocage Parfait !',
+      'charge': 'Entraînons-nous au tir chargé !',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss serait fière.',
       '4': "J'aime notre équipe."
     }
+  },
+  'train': {
+    'todo': 'pas encore fait',
+    'done': 'fait',
+    'checklist': 'Tutoriels',
+    'watch': 'Regarde comment on fait',
+    'card': {
+      'weapon': "Tu as copié l'arme d'un Maître du Noyau ! Tire avec son bouton : l'énergie d'arme l'alimente, et certaines machines y sont faibles.",
+      'gel': "Blessé ? Un gel réparateur restaure entièrement ta santé. Utilises-en un dès qu'un combat tourne mal.",
+      'slide': "Les attaques rouges ne peuvent pas être bloquées. Glisse pour t'écarter d'un bond : rien ne peut te toucher pendant la glissade.",
+      'block': "Maintiens bloquer pour lever ton bouclier : il arrête les tirs et les coups de face. Lève-le pile quand un coup arrive pour un Blocage Parfait, qui assomme l'attaquant.",
+      'charge': "Un tir normal ne peut pas briser un bouclier. Maintiens le tir jusqu'à ce que ton canon brille, puis relâche : un tir chargé passe à travers.",
+    },
+    'name': {
+      'weapon': "Leçon d'arme",
+      'gap': 'Tutoriel du saut',
+      'gel': 'Tutoriel du gel réparateur',
+      'slide': 'Tutoriel de la glissade',
+      'block': 'Tutoriel du bouclier',
+      'charge': 'Tutoriel du tir chargé',
+    },
   }
 }

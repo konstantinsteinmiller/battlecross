@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Questo gioco è disponibile solo su',
 
   'ui': {
+    'killcamCount': 'Kill-cam in questa missione: {n}',
+    'killcamOff': 'Disattiva le kill-cam',
     'next': 'Avanti',
     'replay': 'Riprova',
     'back': 'Indietro',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Tocca il pulsante verde del Gel Riparatore: ti ripara del tutto.'
   },
   'walk': {
+    'finishTutorial': 'Prima finisci il tutorial',
     'finishLesson': 'Completa la lezione'
   },
   'hubLesson': {
+    'earnBolts': 'Bulloni insufficienti? Guarda un breve video per ricaricarli.',
+    'catchUp': 'Pip: Il tuo cannone sta restando indietro rispetto alle macchine. Potenziamolo!',
     'workshop': "Apri l'Officina.",
     'upgradeBuster': 'Spendi bulloni per potenziare il cannone: più danno.',
     'pickArmor': 'Ora seleziona la tua corazza.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Bulloni per due potenziamenti del tuo cannone migliore.',
+    'upgradeAdName': 'Spinta potenziamento',
     'tanks': 'Scorte',
     'tankName': 'Gel Riparatore',
     'tankDesc': 'Ripristina del tutto salute e potenza durante la missione.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kill-cam',
+    'gameplay': 'Gioco',
     'title': 'Opzioni',
     'general': 'Generale',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Scegli la tua nuova arma e spara ai droni!',
+      'gap': "Cammina dritto verso il bordo e salterai dall'altra parte!",
+      'gel': 'Usa un Gel Riparatore per curarti!',
+      'slide': "Scivola via appena prima che l'anello rosso ti raggiunga!",
+      'block': "Tieni premuto blocca quando spara. Il momento perfetto è proprio all'impatto!",
+      'charge': 'Tieni premuto il fuoco finché il cannone non brilla, poi rilascia!',
+    },
+    'train': {
+      'weapon': 'Alleniamo la tua nuova arma!',
+      'gap': 'Alleniamoci a saltare i dislivelli!',
+      'gel': 'Alleniamo il Gel Riparatore!',
+      'slide': 'Alleniamo la Scivolata!',
+      'block': 'Alleniamo il Blocco Perfetto!',
+      'charge': 'Alleniamo il Colpo Caricato!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss sarebbe fiera.',
       '4': 'Mi piace la nostra squadra.'
     }
+  },
+  'train': {
+    'todo': 'non ancora fatto',
+    'done': 'fatto',
+    'checklist': 'Tutorial',
+    'watch': 'Guarda come si fa',
+    'card': {
+      'weapon': "Hai copiato l'arma di un Maestro del Nucleo! Sparala col suo pulsante: l'energia arma la alimenta, e alcune macchine ne sono deboli.",
+      'gel': 'Ferito? Un Gel Riparatore ripristina completamente la tua salute. Usane uno ogni volta che un combattimento va male.',
+      'slide': 'Gli attacchi rossi non si possono bloccare. Scivola per schivarli: niente può colpirti durante la scivolata.',
+      'block': "Tieni premuto blocca per alzare il tuo scudo: ferma colpi e attacchi frontali. Alzalo proprio quando arriva un colpo per un Blocco Perfetto, che mette KO l'attaccante.",
+      'charge': 'Un colpo normale non può rompere uno scudo. Tieni premuto il fuoco finché il cannone non brilla, poi rilascia: un colpo caricato lo sfonda.',
+    },
+    'name': {
+      'weapon': "Lezione sull'Arma",
+      'gap': 'Tutorial: Salto',
+      'gel': 'Tutorial: Gel Riparatore',
+      'slide': 'Tutorial: Scivolata',
+      'block': 'Tutorial: Scudo',
+      'charge': 'Tutorial: Colpo Caricato',
+    },
   }
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
   div.atlas-say(aria-live="polite")
-    div.bubble(v-if="hud.atlasKey" ref="el" :key="hud.atlasSeq" :class="{ docked }")
+    div.bubble(v-if="hud.atlasKey" ref="el" :key="hud.atlasSeq" :class="{ docked, gold: hud.atlasGold }")
       span.glyph(aria-hidden="true")
       span.text {{ t(hud.atlasKey) }}
 </template>
@@ -74,6 +74,12 @@ onUnmounted(() => {
   font-family: var(--font-ui)
   font-size: clamp(12px, 2.6vmin, 18px)
   line-height: 1.15
+  // A lesson room's intro ("Let's train the Charge Shot"): gold-edged and
+  // glowing, unlike every other line, so it reads as "training starts here".
+  &.gold
+    background: linear-gradient(#fffaf0, #fff0c8)
+    box-shadow: 0 0 0 3px #ffd84a, 0 0 18px rgba(255, 196, 40, 0.8), 0 4px 0 rgba(20, 26, 51, 0.4)
+    animation: gold-glow 1.3s ease-in-out infinite
   will-change: transform
   // The tail, toward Atlas on the left.
   &::before
@@ -114,4 +120,10 @@ onUnmounted(() => {
     opacity: 1
   100%
     transform: scale(1)
+@keyframes gold-glow
+  50%
+    box-shadow: 0 0 0 3px #ffd84a, 0 0 28px rgba(255, 196, 40, 1), 0 4px 0 rgba(20, 26, 51, 0.4)
+@media (prefers-reduced-motion: reduce)
+  .bubble.gold
+    animation: none
 </style>

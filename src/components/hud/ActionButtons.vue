@@ -7,7 +7,7 @@
     button.act.fire(
       v-if="!desk"
       type="button"
-      :class="{ held: fireDown }"
+      :class="[{ held: fireDown }, demoClass('fire')]"
       :aria-label="t('combat.fire')"
       @pointerdown.prevent.stop="fireStart"
       @pointermove.prevent.stop="fireDrag"
@@ -17,9 +17,11 @@
       GameIcon(name="buster")
       //- Crosshair ticks round the buster: "this one shoots", at a glance.
       span.fire-ticks(aria-hidden="true")
+      span.demo-finger(v-if="demoOn('fire')" aria-hidden="true")
+        InputGlyph(kind="finger" :mode="hud.demoDown ? 'hold' : 'tap'")
     button.act.block(
       type="button"
-      :class="{ held: hud.blockHeld }"
+      :class="[{ held: hud.blockHeld }, demoClass('block')]"
       :aria-label="t('combat.block')"
       @pointerdown.prevent.stop="blockDown"
       @pointerup.prevent.stop="blockUp"
@@ -28,6 +30,8 @@
     )
       GameIcon(name="shield")
       KeyCap.kc(v-if="desk" code="MouseRight")
+      span.demo-finger(v-if="demoOn('block')" aria-hidden="true")
+        InputGlyph(kind="finger" :mode="hud.demoDown ? 'hold' : 'tap'")
       CoachRing(:hint="touchHint('parry') ?? touchHint('block') ?? urgentBlock" side="rim")
     //- The cooldown is a clock wipe that shrinks away with the seconds left in
     //- the middle, and the button pops when it is back — the same on a phone
@@ -36,7 +40,7 @@
     button.act.slide(
       ref="slideBtn"
       type="button"
-      :class="{ cooling: slideCooling, low: hud.slidePowerLow, ready: slideFlash }"
+      :class="[{ cooling: slideCooling, low: hud.slidePowerLow, ready: slideFlash }, demoClass('slide')]"
       :aria-label="t('combat.slide')"
       @pointerdown.prevent.stop="slide"
     )
@@ -47,6 +51,8 @@
         GameIcon(name="bolt")
       KeyCap.kc(v-if="desk" code="Space")
       CoachRing(:hint="touchHint('slide')")
+      span.demo-finger(v-if="demoOn('slide')" aria-hidden="true")
+        InputGlyph(kind="finger" mode="tap")
     //- The Repair Gel: always on screen, as the resource it is. The gel in
     //- the flask and a pip per gel carried (hollow pips: room for more);
     //- dimmed while there is nothing to repair, glowing once there is.
@@ -54,7 +60,7 @@
       ref="gelBtn"
       type="button"
       data-lesson="gel"
-      :class="gelClass"
+      :class="[gelClass, demoClass('tank')]"
       :aria-label="t('combat.tankCount', { n: hud.tanks, max: gelCap })"
       @pointerdown.prevent.stop="tank"
     )
@@ -144,6 +150,10 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
  * profile takes is taught the coach's way: a pulsing ring on the button, its
  * key or a tapping finger over it (not during a fight), a check once fired.
  */
+/** A lesson demo presses this button (`sim/demo.ts`): it lights, and on a
+ *  phone a finger shows on it — where the player's thumb will go. */
+const demoOn = (act: string): boolean => hud.trainPhase === 'demo' && hud.demoAct === act && !desk.value
+const demoClass = (act: string) => (demoOn(act) ? { demo: true, 'demo-down': hud.demoDown } : {})
 /** A weapon's mark inside its orb (the same glyph as the results screen). */
 const weaponIcon = (id: string) => WEAPON_ICON[id as WeaponId] ?? 'buster'
 const { t } = useI18n()
@@ -750,6 +760,18 @@ watch(() => hud.borrowed.teach, (on, was) => {
     .weapon.w2
       right: clamp(14px, 4vmin, 24px)
       bottom: clamp(160px, 40vmin, 230px)
+.act.demo
+  box-shadow: 0 0 0 4px #ffd84a, 0 0 22px rgba(255, 216, 74, 0.9), inset 0 -5px 0 rgba(0, 0, 0, 0.18)
+.act.demo-down
+  transform: scale(0.9)
+  filter: brightness(1.25)
+.demo-finger
+  position: absolute
+  left: 55%
+  top: 55%
+  width: 70%
+  pointer-events: none
+  filter: drop-shadow(0 2px 0 rgba(20, 26, 51, 0.6))
 .fire-ticks
   position: absolute
   inset: 9%

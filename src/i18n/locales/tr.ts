@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Bu oyun yalnızca şurada mevcut:',
 
   'ui': {
+    'killcamCount': 'Bu görevdeki öldürme kameraları: {n}',
+    'killcamOff': 'Öldürme kamerasını kapat',
     'next': 'İleri',
     'replay': 'Tekrar',
     'back': 'Geri',
@@ -197,9 +199,12 @@ export default {
     'gelTouch': 'Yeşil Tamir Jeli düğmesine dokun: seni tamamen onarır.'
   },
   'walk': {
+    'finishTutorial': 'Önce eğitimi bitir',
     'finishLesson': 'Dersi tamamla'
   },
   'hubLesson': {
+    'earnBolts': 'Cıvata yetmiyor mu? Takviye için kısa bir video izle.',
+    'catchUp': 'Pip: Topun dışarıdaki makinelerin gerisinde kalıyor. Hadi onu geliştirelim!',
     'workshop': 'Atölyeyi aç.',
     'upgradeBuster': 'Kol topunu geliştirmek için cıvata harca: daha fazla hasar.',
     'pickArmor': 'Şimdi göğüs zırhını seç.',
@@ -331,6 +336,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'En iyi topun için iki geliştirmeye yetecek cıvata.',
+    'upgradeAdName': 'Geliştirme Desteği',
     'tanks': 'İkmal',
     'tankName': 'Tamir Jeli',
     'tankDesc': 'Görev sırasında canı ve gücü tamamen yeniler.',
@@ -451,6 +458,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Öldürme kamerası',
+    'gameplay': 'Oynanış',
     'title': 'Seçenekler',
     'general': 'Genel',
     'audio': 'Ses',
@@ -562,6 +571,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Yeni silahını seç ve dronlara ateş et!',
+      'gap': 'Kenara doğru dümdüz yürü, otomatik olarak atlarsın!',
+      'gel': 'İyileşmek için bir Tamir Jeli kullan!',
+      'slide': 'Kırmızı halka sana ulaşmadan hemen önce kay!',
+      'block': 'O ateş ederken blokla tuşunu basılı tut. Tam vurduğu an mükemmeldir!',
+      'charge': 'Kol topu parlayana kadar ateşi basılı tut, sonra bırak!',
+    },
+    'train': {
+      'weapon': 'Yeni silahını çalıştıralım!',
+      'gap': 'Boşlukların üzerinden atlamayı çalıştıralım!',
+      'gel': "Tamir Jeli'ni çalıştıralım!",
+      'slide': 'Kaymayı çalıştıralım!',
+      'block': "Mükemmel Blok'u çalıştıralım!",
+      'charge': 'Şarjlı atışı çalıştıralım!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -644,5 +669,26 @@ export default {
       '3': 'Gauss gurur duyardı.',
       '4': 'Takımımızı seviyorum.'
     }
+  },
+  'train': {
+    'todo': 'henüz tamamlanmadı',
+    'done': 'tamamlandı',
+    'checklist': 'Eğitimler',
+    'watch': 'Nasıl yapıldığını izle',
+    'card': {
+      'weapon': "Bir Çekirdek Usta'nın silahını kopyaladın! Kendi düğmesiyle ateşle: silah enerjisi onu besler ve bazı makineler ona karşı zayıftır.",
+      'gel': 'Yaralandın mı? Tamir Jeli canını tamamen yeniler. Çarpışma kötüye giderse bir tane kullan.',
+      'slide': 'Kırmızı saldırılar bloklanamaz. Yoldan çıkmak için kay: kayış sırasında hiçbir şey sana vuramaz.',
+      'block': 'Kalkanını kaldırmak için blokla tuşunu basılı tut: önden gelen atışları ve vuruşları durdurur. Tam vuruş anında kaldırırsan Mükemmel Blok yaparsın, bu da saldırganı sersemletir.',
+      'charge': 'Normal atış kalkanı kıramaz. Kol topun parlayana kadar ateşi basılı tut, sonra bırak: şarjlı atış onu doğrudan deler.',
+    },
+    'name': {
+      'weapon': 'Silah Dersi',
+      'gap': 'Sıçrayış Eğitimi',
+      'gel': 'Tamir Jeli Eğitimi',
+      'slide': 'Kayma Eğitimi',
+      'block': 'Kalkan Eğitimi',
+      'charge': 'Şarjlı Atış Eğitimi',
+    },
   }
 }

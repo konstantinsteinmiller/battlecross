@@ -38,6 +38,9 @@ export const PROMPT_GAP = 1.5
 export const IDLE_RANGE = 4
 /** …this long (s), outside a fight, is being stuck at it. */
 export const IDLE_AFTER = 8
+/** Walking up this close (m) to a held door shows the prompt at once: most
+ *  players never pushed or waited, they turned away thinking it a dead end. */
+export const CLOSE_RANGE = 3
 /** The teacher is called this long after the wait trigger (s): its fight
  *  hides the prompt, so the prompt gets its moment first. */
 export const CALL_DELAY = 1.5
@@ -54,6 +57,8 @@ export interface DoorTick {
   shot: number
   /** The held door he stands within IDLE_RANGE of. */
   near: number
+  /** The held door he has walked up to within CLOSE_RANGE. */
+  close: number
 }
 
 export class DoorPrompt {
@@ -79,6 +84,7 @@ export class DoorPrompt {
   private pressing = -1
   private waitDoor = -1
   private waitFrom = 0
+  private closing = -1
 
   update(o: DoorTick): void {
     this.idled = false
@@ -106,6 +112,9 @@ export class DoorPrompt {
       this.call = true
       this.callAt = -1
     }
+    // Walked up to it: on at once, held while he stays that close.
+    if (o.close >= 0) this.trigger(o.close, t, o.close !== this.closing)
+    this.closing = o.close
     if (o.shot >= 0) this.trigger(o.shot, t, true)
     if (o.press >= 0) this.trigger(o.press, t, o.press !== this.pressing)
     this.pressing = o.press

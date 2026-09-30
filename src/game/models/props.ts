@@ -1,4 +1,5 @@
-import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, BufferGeometry, Float32BufferAttribute } from 'three'
+import { Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, CylinderGeometry, DoubleSide, BufferGeometry, Float32BufferAttribute, PlaneGeometry, CanvasTexture, SRGBColorSpace } from 'three'
+import { drawVexFace } from './street'
 import { rcyl, rbox, torus, sph, ell, cap, xform, paint, paintBy, merge, lathe } from './kit'
 import { toonVC, glowVC, outlineMat } from './toon'
 import { PAL, RARITY_COLOR } from './palette'
@@ -55,6 +56,23 @@ export interface BossDoorFx {
   /** Warning strength 0..1, eased by the mission (it powers down once the
    *  boss has fallen). */
   level: number
+  /** Dr. Vex on the screen over the gate (the mission flickers it). */
+  screenMat: MeshBasicMaterial
+}
+
+/** Dr. Vex's face for the boss gates' screens, drawn once (the intro's own
+ *  drawing, `drawVexFace`, at a gate screen's size). */
+let vexScreen: CanvasTexture | null = null
+const vexScreenTexture = (): CanvasTexture => {
+  if (vexScreen) return vexScreen
+  const c = document.createElement('canvas')
+  c.width = 256
+  c.height = 160
+  const g = c.getContext('2d')
+  if (g) drawVexFace(g, 256, 160)
+  vexScreen = new CanvasTexture(c)
+  vexScreen.colorSpace = SRGBColorSpace
+  return vexScreen
 }
 
 export interface DoorMesh {
@@ -191,7 +209,8 @@ const buildBossDoor = (root: Group, panels: Group[], w: number, h: number, appro
   root.add(shutter.root)
 
   // ── The frame: two striped jambs the shutter runs in, a striped lintel,
-  // and a robot skull plate over the gate on the approach face.
+  // and Dr. Vex grinning from a screen over the gate on the approach face
+  // (the face from the intro: every Core Master's gate is his show).
   const frame: BufferGeometry[] = []
   const jx = w / 2 - 0.06
   for (const s of [-1, 1]) {
@@ -200,22 +219,22 @@ const buildBossDoor = (root: Group, panels: Group[], w: number, h: number, appro
   }
   frame.push(paintBy(xform(rbox(w + 0.5, 0.62, 1.0, 0.25), [0, h + 0.31, 0]), hazard(2.4)))
   const az = approach * 0.52
-  frame.push(xform(paint(ell(0.62, 0.52, 0.16), '#5a1420'), [0, h + 0.36, az]))
-  frame.push(xform(paint(ell(0.3, 0.14, 0.12), '#2a0a10'), [0, h + 0.1, az + approach * 0.04]))
-  for (let k = -2; k <= 2; k++) {
-    frame.push(xform(paint(rbox(0.09, 0.14, 0.08, 0.4), '#d9dde6'), [k * 0.11, h + 0.1, az + approach * 0.1]))
-  }
+  // The screen's housing: a dark bezel with a red rim, on two brackets.
+  frame.push(xform(paint(rbox(1.72, 1.08, 0.16, 0.12, 4, 2), '#1a0a10'), [0, h + 0.62, az]))
+  frame.push(xform(paint(rbox(1.84, 1.2, 0.08, 0.1, 4, 2), '#7a1222'), [0, h + 0.62, az - approach * 0.05]))
+  for (const s of [-1, 1]) frame.push(xform(paint(rbox(0.12, 0.5, 0.2, 0.05, 4, 2), DANGER_BLACK), [s * 0.7, h + 0.16, az - approach * 0.04]))
   const f = assemble(frame, [], 0.028)
   root.add(f.root)
+  const screenMat = new MeshBasicMaterial({ map: vexScreenTexture(), toneMapped: false, transparent: true })
+  const screen = new Mesh(new PlaneGeometry(1.56, 0.96), screenMat)
+  screen.position.set(0, h + 0.62, az + approach * 0.09)
+  if (approach < 0) screen.rotation.y = Math.PI
+  root.add(screen)
 
-  // The skull's eyes are the door's state lamp (red locked, yellow opening,
-  // cyan open): the mission drives `lampMat` as on every door.
+  // Under the screen, a lamp bar is the door's state lamp (red locked,
+  // yellow opening, cyan open): the mission drives `lampMat` as on every door.
   const lampMat = new MeshBasicMaterial({ color: new Color(PAL.glowRed), toneMapped: false })
-  const eyes = merge([
-    xform(ell(0.15, 0.1, 0.06), [-0.22, h + 0.44, az + approach * 0.13], [0, 0, -0.35 * approach]),
-    xform(ell(0.15, 0.1, 0.06), [0.22, h + 0.44, az + approach * 0.13], [0, 0, 0.35 * approach])
-  ].map(g => paint(g, '#ffffff')))
-  const lamp = new Mesh(eyes, lampMat)
+  const lamp = new Mesh(paint(xform(rbox(1.2, 0.1, 0.06, 0.04, 4, 2), [0, h + 0.02, az + approach * 0.08]), '#ffffff'), lampMat)
   root.add(lamp)
 
   // ── Beacons on the jambs: a red glass dome and a light fan that sweeps.
@@ -251,7 +270,7 @@ const buildBossDoor = (root: Group, panels: Group[], w: number, h: number, appro
     chevronMats.push(m)
     root.add(c)
   }
-  return { root, panels, boss: true, lamp, lampMat, warn: { beacons, domeMat, beamMat, floorMat, chevronMats, level: 1 } }
+  return { root, panels, boss: true, lamp, lampMat, warn: { beacons, domeMat, beamMat, floorMat, chevronMats, level: 1, screenMat } }
 }
 
 // ─── Teleporter pad ──────────────────────────────────────────────────────────

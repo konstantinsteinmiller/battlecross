@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Gim ini hanya tersedia di',
 
   'ui': {
+    'killcamCount': 'Kamera kill di misi ini: {n}',
+    'killcamOff': 'Matikan kamera kill',
     'next': 'Lanjut',
     'replay': 'Ulangi',
     'back': 'Kembali',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Ketuk tombol hijau Gel Perbaikan: gel ini memulihkanmu sepenuhnya.'
   },
   'walk': {
+    'finishTutorial': 'Selesaikan tutorial dulu',
     'finishLesson': 'Selesaikan pelajarannya'
   },
   'hubLesson': {
+    'earnBolts': 'Baut kurang? Tonton video singkat untuk tambahan.',
+    'catchUp': 'Pip: Meriammu mulai kalah dari mesin-mesin di luar. Ayo tingkatkan!',
     'workshop': 'Buka Bengkel.',
     'upgradeBuster': 'Pakai baut untuk meningkatkan meriammu: kerusakan lebih besar.',
     'pickArmor': 'Sekarang pilih zirah dadamu.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Cukup baut untuk dua upgrade meriam terbaikmu.',
+    'upgradeAdName': 'Dorongan Upgrade',
     'tanks': 'Perbekalan',
     'tankName': 'Gel Perbaikan',
     'tankDesc': 'Memulihkan kesehatan dan tenaga sepenuhnya di tengah misi.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Kamera kill',
+    'gameplay': 'Permainan',
     'title': 'Opsi',
     'general': 'Umum',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Pilih senjata barumu dan tembak drone-drone itu!',
+      'gap': 'Jalan lurus ke tepi dan kamu akan melompat otomatis!',
+      'gel': 'Gunakan Gel Perbaikan untuk pulih!',
+      'slide': 'Meluncurlah tepat sebelum cincin merah mengenaimu!',
+      'block': 'Tahan blok saat dia menembak. Tepat saat kena itu sempurna!',
+      'charge': 'Tahan tembak sampai meriam bercahaya, lalu lepas!',
+    },
+    'train': {
+      'weapon': 'Ayo latih senjata barumu!',
+      'gap': 'Ayo latih melompati celah!',
+      'gel': 'Ayo latih Gel Perbaikan!',
+      'slide': 'Ayo latih Meluncur!',
+      'block': 'Ayo latih Blok Sempurna!',
+      'charge': 'Ayo latih Tembakan Bermuatan!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss pasti bangga.',
       '4': 'Aku suka tim kita.'
     }
+  },
+  'train': {
+    'todo': 'belum selesai',
+    'done': 'selesai',
+    'checklist': 'Tutorial',
+    'watch': 'Lihat caranya',
+    'card': {
+      'weapon': 'Kamu menyalin senjata seorang Master Inti! Tembakkan dengan tombolnya: energi senjata memberinya daya, dan beberapa mesin lemah terhadapnya.',
+      'gel': 'Terluka? Gel Perbaikan memulihkan kesehatanmu sepenuhnya. Gunakan satu kapan pun pertarungan memburuk.',
+      'slide': 'Serangan merah tidak bisa diblok. Meluncurlah untuk menghindar: tidak ada yang bisa mengenaimu saat meluncur.',
+      'block': 'Tahan blok untuk mengangkat perisaimu: ini menahan tembakan dan pukulan dari depan. Angkat tepat saat pukulan mendarat untuk Blok Sempurna, yang merobohkan penyerang.',
+      'charge': 'Tembakan biasa tidak bisa menembus perisai. Tahan tembak sampai meriammu bercahaya, lalu lepas: Tembakan Bermuatan langsung menembusnya.',
+    },
+    'name': {
+      'weapon': 'Pelajaran Senjata',
+      'gap': 'Tutorial Lompatan',
+      'gel': 'Tutorial Gel Perbaikan',
+      'slide': 'Tutorial Meluncur',
+      'block': 'Tutorial Perisai',
+      'charge': 'Tutorial Tembakan Bermuatan',
+    },
   }
 }

@@ -55,6 +55,10 @@ export interface Crate {
   broken: boolean
   navIdx: number
   hitT: number
+  /** The floor it stands on (a stage's ledges; 0 on a flat map). */
+  y: number
+  /** A boss arena's prop: its own drops (`sim/bossArena.ts`). */
+  arena?: boolean
 }
 
 export interface Core {
@@ -531,16 +535,16 @@ export class MissionObjects {
   }
 
   /** A crate or an energy barrel on the floor (build time, or a lesson's). */
-  addCrate(x: number, z: number, yaw: number, kind: 'crate' | 'barrel' = 'crate'): Crate {
+  addCrate(x: number, z: number, yaw: number, kind: 'crate' | 'barrel' = 'crate', y = 0): Crate {
     const h = this.host
     const barrel = kind === 'barrel'
     const mesh = barrel ? buildBarrel(h.theme) : buildCrate(h.theme)
-    mesh.root.position.set(x, 0, z)
+    mesh.root.position.set(x, y, z)
     mesh.root.rotation.y = yaw
     h.propParent(x, z).add(mesh.root)
     const navIdx = h.nav.props.length
     h.nav.props.push({ x, z, r: barrel ? 0.5 : 0.62, active: true })
-    const c: Crate = { id: this.crates.length, x, z, kind, mesh, hp: barrel ? 1 : 12, broken: false, navIdx, hitT: 0 }
+    const c: Crate = { id: this.crates.length, x, z, kind, mesh, hp: barrel ? 1 : 12, broken: false, navIdx, hitT: 0, y }
     this.crates.push(c)
     return c
   }
@@ -556,7 +560,7 @@ export class MissionObjects {
     for (const c of this.crates) {
       if (c.broken) continue
       const top = c.kind === 'barrel' ? 1.3 : 1.15
-      if (y > top + r) continue
+      if (y > c.y + top + r || y < c.y - r) continue
       if (Math.hypot(c.x - x, c.z - z) > (c.kind === 'barrel' ? 0.5 : 0.62) + r) continue
       // Crates stand against walls: a shot on the far side stops on the wall
       if (!hasLineOfSight(this.host.nav, x, z, c.x, c.z)) continue

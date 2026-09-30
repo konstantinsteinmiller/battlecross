@@ -1,7 +1,8 @@
 import {
-  Group, Mesh, MeshBasicMaterial, AdditiveBlending, DoubleSide, Color, type BufferGeometry
+  Group, Mesh, MeshBasicMaterial, Color, CylinderGeometry, type BufferGeometry, type ShaderMaterial
 } from 'three'
-import { rcyl, rbox, torus, tube, xform, paint, paintBy, merge } from '../kit'
+import { makeFlameMaterial } from '../../fx/flameCone'
+import { rcyl, rbox, torus, xform, paint, paintBy, merge } from '../kit'
 import { toonVC, outlineMat } from '../toon'
 import { PAL } from '../palette'
 import type { Particles, ParticleSpec } from '../../fx/particles'
@@ -48,16 +49,12 @@ export interface VentMesh {
   /** The jet group (its local +Y is the jet's way), scaled along Y by the
    *  sim as it flares, and its layers' materials (opacity per frame). */
   jet: Group
-  layers: MeshBasicMaterial[]
+  /** The jet's fire (`fx/flameCone.ts`): driven by `setFlame` per frame. */
+  layers: ShaderMaterial[]
   /** Spit `n` motes out of the mouth along the jet (the pooled particles,
    *  one scratch spec). */
   spit(n: number, speed: number): void
 }
-
-const additive = (hex: string): MeshBasicMaterial => new MeshBasicMaterial({
-  color: new Color(hex), transparent: true, opacity: 0, blending: AdditiveBlending,
-  depthWrite: false, side: DoubleSide, toneMapped: false
-})
 
 const assemble = (parts: BufferGeometry[]): Group => {
   const g = new Group()
@@ -105,13 +102,19 @@ export const buildVent = (
   // The jet: open cones along +Y from the mouth; a wall jet is laid along +Z.
   const jet = new Group()
   const len = wall ? JET_LEN : COLUMN_H
-  const layers: MeshBasicMaterial[] = []
-  const sizes = wall ? [[0.3, 1.05, 1], [0.24, 0.72, 0.85], [0.16, 0.4, 0.6]] : [[0.5, 1.15, 1], [0.4, 0.8, 0.85], [0.26, 0.45, 0.6]]
+  // Two fire cones (`fx/flameCone.ts`): the full flame, and a hotter,
+  // shorter core inside it. Open cylinders WITH their UVs (v: mouth → tip).
+  const layers: ShaderMaterial[] = []
+  const sizes = wall ? [[0.3, 1.05, 1], [0.16, 0.5, 0.62]] : [[0.5, 1.2, 1], [0.26, 0.55, 0.62]]
   sizes.forEach(([r0, r1, l], n) => {
-    const mat = additive(look.jet[n]!)
+    const mat = makeFlameMaterial(n === 0
+      ? { edge: look.jet[0], mid: look.jet[1], core: look.jet[2] }
+      : { edge: look.jet[1], mid: look.jet[2], core: '#ffffff' })
     layers.push(mat)
     const h = len * l!
-    jet.add(new Mesh(xform(tube(r1!, r0!, h, 16), [0, h / 2, 0]), mat))
+    const mesh = new Mesh(new CylinderGeometry(r1!, r0!, h, 20, 6, true).translate(0, h / 2, 0), mat)
+    mesh.renderOrder = 5 + n
+    jet.add(mesh)
   })
   if (wall) {
     jet.rotation.x = Math.PI / 2

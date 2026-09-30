@@ -4,6 +4,7 @@
     div.input-surface(v-show="flow.screen === 'mission'" ref="surface")
     div.hud-layer(v-if="flow.screen === 'mission'" :class="{ cine: hud.phase === 'beamOut' || hud.introCine || (hud.freezeKind && hud.freezeFrame !== 'fp') }")
       ScreenFx
+      TrainingFrame
       DamageMarkers
       FloatingText
       Crosshair
@@ -23,6 +24,10 @@
       Joystick
       ContextButtons
       ActionButtons
+      TutorialChecklist
+      LessonPointer
+      DemoOverlay
+      LessonCard
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
     CutsceneLayer(v-else-if="flow.screen === 'intro'")
     //- After an ad the mouse is free and a browser only re-captures on a
@@ -101,6 +106,11 @@ import BigBanner from '@/components/hud/BigBanner.vue'
 import AtlasBubble from '@/components/hud/AtlasBubble.vue'
 import ExitSkip from '@/components/hud/ExitSkip.vue'
 import FreezeOverlay from '@/components/hud/FreezeOverlay.vue'
+import TrainingFrame from '@/components/hud/TrainingFrame.vue'
+import TutorialChecklist from '@/components/hud/TutorialChecklist.vue'
+import LessonPointer from '@/components/hud/LessonPointer.vue'
+import DemoOverlay from '@/components/hud/DemoOverlay.vue'
+import LessonCard from '@/components/hud/LessonCard.vue'
 import HubScreen from '@/components/hub/HubScreen.vue'
 import ResultsModal from '@/components/modals/ResultsModal.vue'
 import DefeatModal from '@/components/modals/DefeatModal.vue'
@@ -229,7 +239,7 @@ onMounted(async () => {
   window.addEventListener('blur', onWindowBlur)
   if (import.meta.env.DEV) {
     const w = window as unknown as Record<string, unknown>
-    w.__game = { app, input, flow, startMission, storyFor, goHub }
+    w.__game = { app, input, flow, startMission, storyFor, goHub, mission: currentMission }
     // A fumble on demand (QA, screenshots): the charge as held, else a full
     // one (`sim/fumble.ts`). Folds away in production.
     w.__fumble = () => {

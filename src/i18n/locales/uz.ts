@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Bu oʻyin faqat quyidagi joyda mavjud:',
 
   'ui': {
+    'killcamCount': 'Ushbu missiyadagi kameralar: {n}',
+    'killcamOff': 'Yoʻq qilish kamerasini oʻchirish',
     'next': 'Keyingi',
     'replay': 'Qayta',
     'back': 'Orqaga',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Yashil taʼmir geli tugmasini bosing: u sizni toʻliq tuzatadi.'
   },
   'walk': {
+    'finishTutorial': 'Avval mashgʻulotni tugating',
     'finishLesson': 'Darsni tugating'
   },
   'hubLesson': {
+    'earnBolts': 'Boltlar yetmayaptimi? Toʻldirish uchun qisqa video koʻring.',
+    'catchUp': 'Pip: Toʻpingiz tashqaridagi mashinalardan ortda qolmoqda. Keling, uni yaxshilaymiz!',
     'workshop': 'Ustaxonani oching.',
     'upgradeBuster': 'Qoʻl toʻpini yaxshilash uchun boltlarni sarflang: koʻproq zarar.',
     'pickArmor': 'Endi koʻkrak zirhini tanlang.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Eng yaxshi toʻpingizni ikki marta yaxshilashga yetadigan boltlar.',
+    'upgradeAdName': 'Yaxshilash turtkisi',
     'tanks': 'Taʼminot',
     'tankName': 'Taʼmir geli',
     'tankDesc': 'Missiya davomida sogʻliq va quvvatni toʻliq tiklaydi.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Yoʻq qilish kamerasi',
+    'gameplay': 'Oʻyin',
     'title': 'Sozlamalar',
     'general': 'Umumiy',
     'audio': 'Ovoz',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': 'Yangi qurolingizni tanlang va dronlarga oting!',
+      'gap': 'Chekkaga qarab toʻgʻri yuring, oʻzingiz sakrab oʻtasiz!',
+      'gel': 'Davolanish uchun Taʼmir geli ishlating!',
+      'slide': 'Qizil halqa sizga yetmasdan oldin sirpanib keting!',
+      'block': 'U otayotganda blokni bosib turing. Aynan tegayotgan payt mukammal!',
+      'charge': 'Qoʻl topi yorqinlashguncha otishni bosib turing, soʻng qoʻyib yuboring!',
+    },
+    'train': {
+      'weapon': 'Yangi qurolingizni mashq qilaylik!',
+      'gap': 'Boʻshliqlar ustidan sakrashni mashq qilaylik!',
+      'gel': 'Taʼmir gelini mashq qilaylik!',
+      'slide': 'Sirpanishni mashq qilaylik!',
+      'block': 'Mukammal Blokni mashq qilaylik!',
+      'charge': 'Zaryadli oʻqni mashq qilaylik!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -572,11 +597,11 @@ export default {
       },
       'cryo': {
         // Glacier Run (cryo stage)
-        'ice': "Muz! Tayoqchani qo'yib yuborsang ham, sirpanishda davom etasan.",
-        'spikes': "U muz ostida tikanlar bor. To'g'ri yur, keskin burilma.",
-        'frost': "Sovuq purkagich. Avval yonib, vishillaydi. Tinchiganda o't.",
+        'ice': 'Muz! Tayoqchani qoʻyib yuborsang ham, sirpanishda davom etasan.',
+        'spikes': 'U muz ostida tikanlar bor. Toʻgʻri yur, keskin burilma.',
+        'frost': 'Sovuq purkagich. Avval yonib, vishillaydi. Tinchiganda oʻt.',
         'icicles': 'Polda soyalar? Muz sumalaklari. Doiradan chiq!',
-        'pillar': "Anavi ustun yorilgan. Otib tashla — mana senga qisqa yo'l.",
+        'pillar': 'Anavi ustun yorilgan. Otib tashla — mana senga qisqa yoʻl.',
         'stairs': 'Muzli zinapoya. Sekin — maydonchasi kichkina.'
       },
       'volt': {
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss faxrlanardi.',
       '4': 'Jamoamiz menga yoqadi.'
     }
+  },
+  'train': {
+    'todo': 'hali tayyor emas',
+    'done': 'tayyor',
+    'checklist': 'Mashgʻulotlar',
+    'watch': 'Qanday qilinishini koʻring',
+    'card': {
+      'weapon': 'Siz Yadro ustasining qurolini nusxaladingiz! Uni oʻz tugmasi bilan oting: qurol energiyasi uni quvvatlaydi, baʼzi mashinalar esa unga qarshi zaif.',
+      'gel': 'Jarohat oldingizmi? Taʼmir geli sogʻligʻingizni toʻliq tiklaydi. Jang yomonlashsa, birini ishlating.',
+      'slide': 'Qizil hujumlarni bloklab boʻlmaydi. Chetga chiqish uchun sirpaning: sirpanish paytida sizga hech narsa tegmaydi.',
+      'block': 'Qalqoningizni koʻtarish uchun blokni bosib turing: u oldindan kelayotgan oʻqlar va zarbalarni toʻxtatadi. Zarba tegayotgan aniq paytda koʻtarsangiz, Mukammal Blok hosil boʻladi va u hujumchini gandiraklatadi.',
+      'charge': 'Oddiy oʻq qalqonni sindira olmaydi. Qoʻl topingiz yorqinlashguncha otishni bosib turing, soʻng qoʻyib yuboring: zaryadli oʻq uni teshib oʻtadi.',
+    },
+    'name': {
+      'weapon': 'Qurol darsi',
+      'gap': 'Sakrash mashgʻuloti',
+      'gel': 'Taʼmir geli mashgʻuloti',
+      'slide': 'Sirpanish mashgʻuloti',
+      'block': 'Qalqon mashgʻuloti',
+      'charge': 'Zaryadli oʻq mashgʻuloti',
+    },
   }
 }

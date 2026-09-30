@@ -12,6 +12,8 @@ export default {
   'onlyAvailableOn': 'Este juego solo está disponible en',
 
   'ui': {
+    'killcamCount': 'Cámaras de derribo en esta misión: {n}',
+    'killcamOff': 'Desactivar cámaras de derribo',
     'next': 'Siguiente',
     'replay': 'Repetir',
     'back': 'Atrás',
@@ -195,9 +197,12 @@ export default {
     'gelTouch': 'Toca el botón verde del gel reparador: te repara por completo.'
   },
   'walk': {
+    'finishTutorial': 'Termina primero el tutorial',
     'finishLesson': 'Termina la lección'
   },
   'hubLesson': {
+    'earnBolts': '¿Te faltan tornillos? Mira un vídeo corto para recargar.',
+    'catchUp': 'Pip: Tu cañón se está quedando atrás frente a las máquinas. ¡Vamos a mejorarlo!',
     'workshop': 'Abre el Taller.',
     'upgradeBuster': 'Gasta tornillos para mejorar tu cañón: más daño.',
     'pickArmor': 'Ahora elige tu armadura de pecho.',
@@ -329,6 +334,8 @@ export default {
     }
   },
   'workshop': {
+    'upgradeAdDesc': 'Tornillos para dos mejoras de tu mejor cañón.',
+    'upgradeAdName': 'Impulso de mejora',
     'tanks': 'Suministros',
     'tankName': 'Gel reparador',
     'tankDesc': 'Restaura por completo la salud y la potencia durante la misión.',
@@ -449,6 +456,8 @@ export default {
   },
 
   'options': {
+    'killCams': 'Cámara de derribo',
+    'gameplay': 'Jugabilidad',
     'title': 'Opciones',
     'general': 'General',
     'audio': 'Audio',
@@ -560,6 +569,22 @@ export default {
     }
   },
   'atlas': {
+    'help': {
+      'weapon': '¡Elige tu arma nueva y dispara a los drones!',
+      'gap': '¡Camina derecho hacia el borde y saltarás al otro lado!',
+      'gel': '¡Usa un gel reparador para curarte!',
+      'slide': '¡Desliza justo antes de que el anillo rojo te alcance!',
+      'block': 'Mantén bloqueo cuando dispare. ¡Justo al impactar es perfecto!',
+      'charge': '¡Mantén disparo hasta que el cañón brille, y suelta!',
+    },
+    'train': {
+      'weapon': '¡Vamos a entrenar tu arma nueva!',
+      'gap': '¡Vamos a entrenar el salto sobre huecos!',
+      'gel': '¡Vamos a entrenar el gel reparador!',
+      'slide': '¡Vamos a entrenar el deslizamiento!',
+      'block': '¡Vamos a entrenar el Bloqueo Perfecto!',
+      'charge': '¡Vamos a entrenar el disparo cargado!',
+    },
     'hint': {
       'blaze': {
         // Meltdown Descent (blaze stage)
@@ -642,5 +667,26 @@ export default {
       '3': 'Gauss estaría orgullosa.',
       '4': 'Me gusta nuestro equipo.'
     }
+  },
+  'train': {
+    'todo': 'aún no',
+    'done': 'hecho',
+    'checklist': 'Tutoriales',
+    'watch': 'Mira cómo se hace',
+    'card': {
+      'weapon': '¡Copiaste el arma de un Maestro del Núcleo! Dispárala con su botón: la energía de arma la alimenta, y algunas máquinas son débiles contra ella.',
+      'gel': '¿Herido? Un gel reparador restaura tu salud por completo. Usa uno cuando una pelea se ponga difícil.',
+      'slide': 'Los ataques rojos no se pueden bloquear. Desliza para esquivarlos: nada puede golpearte durante el deslizamiento.',
+      'block': 'Mantén bloqueo para levantar tu escudo: detiene disparos y golpes de frente. Levántalo justo cuando llegue un golpe para un Bloqueo Perfecto, que deja fuera de combate al atacante.',
+      'charge': 'Un disparo normal no puede romper un escudo. Mantén disparo hasta que tu cañón brille, y suelta: un disparo cargado lo atraviesa sin problema.',
+    },
+    'name': {
+      'weapon': 'Lección de armas',
+      'gap': 'Tutorial de salto',
+      'gel': 'Tutorial de gel reparador',
+      'slide': 'Tutorial de deslizamiento',
+      'block': 'Tutorial de escudo',
+      'charge': 'Tutorial de disparo cargado',
+    },
   }
 }

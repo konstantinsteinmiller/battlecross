@@ -248,7 +248,7 @@ describe('when a hit fumbles the charge', () => {
     const { m, c, charging, shots, mid } = rig()
     m.fumble.rng = () => 0
     charging()
-    m.climb = { respawn: () => ({ x: mid, z: mid, y: 0, yaw: 0 }), pitCost: 0.15 } as unknown as Mission['climb']
+    m.climb = { respawn: () => ({ x: mid, z: mid, y: 0, yaw: 0 }), pitCost: 0.15, pitFloor: () => -Infinity } as unknown as Mission['climb']
     ;(m as unknown as { pitFall(out: [number, number]): void }).pitFall([0, 0])
     expect(c.hp).toBeLessThan(c.maxHp)
     expect(m.fumble.panicking).toBe(false)

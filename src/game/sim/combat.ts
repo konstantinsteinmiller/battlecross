@@ -1,3 +1,4 @@
+import { sceneQuality } from '../engine/quality'
 import {
   Sprite, SpriteMaterial, AdditiveBlending, Color, Mesh, MeshBasicMaterial, SphereGeometry, Group, ConeGeometry,
   TorusGeometry, BufferAttribute, DoubleSide, Vector3, type Scene
@@ -6,7 +7,7 @@ import type { Enemy, Shot, World, Pickup, PickupKind } from './world'
 import type { PlayerStats } from './stats'
 import { glowTexture } from '../world/textures'
 import { hasLineOfSight, floorAt } from '../world/nav'
-import { PARRY_WINDOW, wake, golemShielded, wakeGolem, ROCK_G } from './enemies'
+import { PARRY_WINDOW, wake, golemShielded, wakeGolem, ROCK_G, tryStun } from './enemies'
 import { Rubble } from '../fx/rubble'
 import { pushHud } from '../state/hud'
 import { incomingShot } from '../state/damageFeed'
@@ -30,6 +31,8 @@ const _weak = { x: 0, y: 0, z: 0, r: 0 }
  */
 
 export interface CombatHost extends World {
+  /** A machine's shot ended on geometry (the boss arena counts these). */
+  onShotBlocked?(s: Shot): void
   scene: Scene
   stats: PlayerStats
   hitStop: number
@@ -156,6 +159,9 @@ interface RingHazard {
   color: string
   source: Enemy
 }
+
+/** Low-quality devices get half the special weapons' trail particles. */
+const LOW_FX = sceneQuality() === 'low'
 
 export class CombatSystem {
   shots: Shot[] = []
@@ -489,6 +495,8 @@ export class CombatSystem {
       s.y += s.vy * dt
       s.z += s.vz * dt
 
+      // A copied weapon's own trail: what it IS reads in flight.
+      if (s.kind === 'special') this.specialTrail(s)
       // Trails for charged shots
       if (s.kind === 'charge2' || s.kind === 'charge3' || s.kind === 'reflect') {
         h.fx.emit({ x: s.x, y: s.y, z: s.z, color: s.color, size: s.kind === 'charge3' ? 0.9 : 0.6, sizeEnd: 0.05, life: 0.22 })
@@ -520,6 +528,7 @@ export class CombatSystem {
       // a shot too)
       if (s.y < floorAt(h.nav, s.x, s.z) + 0.02 || !hasLineOfSight(h.nav, s.px, s.pz, s.x, s.z)) {
         this.wallHit(s)
+        if (s.owner === 'enemy') h.onShotBlocked?.(s)
         this.kill(s)
         continue
       }
@@ -715,8 +724,77 @@ export class CombatSystem {
 
   // ─── Damage to enemies ─────────────────────────────────────────────────────
 
+  /**
+   * The special weapons' flight: Flame Wave rolls along the floor in real
+   * fire (rising flames, embers); Ice Lance leaves frost mist and glinting
+   * shards; Scrap Burst sheds hot metal chips that fall; the thrown Gale
+   * leaves swirl. A few pooled particles a step (half on low quality).
+   */
+  private specialTrail(s: Shot): void {
+    const fx = this.host.fx
+    const k = LOW_FX ? 0.5 : 1
+    const r = Math.random
+    switch (s.weapon) {
+      case 'flameWave':
+        for (let n = 0; n < 2; n++) {
+          if (r() > k) continue
+          fx.emit({ x: s.x + (r() - 0.5) * 0.7, y: s.y - 0.2 + r() * 0.3, z: s.z + (r() - 0.5) * 0.7, vx: s.vx * 0.15, vy: 1.8 + r() * 1.6, vz: s.vz * 0.15, color: r() < 0.35 ? '#fff27a' : r() < 0.6 ? '#ffa23a' : '#ff5a1f', size: 0.7 + r() * 0.4, sizeEnd: 0.05, life: 0.45 + r() * 0.2 })
+        }
+        if (r() < 0.3 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 3, vy: 2.5 + r() * 2, vz: (r() - 0.5) * 3, color: '#ffd35a', size: 0.12, sizeEnd: 0.02, life: 0.7, gravity: 6 })
+        break
+      case 'iceLance':
+        if (r() < 0.8 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 0.6, vy: (r() - 0.5) * 0.6, vz: (r() - 0.5) * 0.6, color: '#dffbff', size: 0.5, sizeEnd: 0.9, life: 0.35 })
+        if (r() < 0.5 * k) fx.emit({ x: s.x + (r() - 0.5) * 0.3, y: s.y + (r() - 0.5) * 0.3, z: s.z + (r() - 0.5) * 0.3, color: r() < 0.5 ? '#ffffff' : '#8ff2ff', size: 0.16, sizeEnd: 0.02, life: 0.5, gravity: 2 })
+        break
+      case 'scrapBurst':
+        if (r() < 0.45 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 2.5, vy: 1 + r() * 1.5, vz: (r() - 0.5) * 2.5, color: r() < 0.5 ? '#c9d3e6' : '#ffb04a', size: 0.14, sizeEnd: 0.03, life: 0.45, gravity: 9 })
+        break
+      case 'galeGuard':
+        if (r() < 0.6 * k) {
+          const a = s.life * 20
+          fx.emit({ x: s.x + Math.cos(a) * 0.35, y: s.y + Math.sin(a) * 0.35, z: s.z, color: '#bffff2', size: 0.28, sizeEnd: 0.02, life: 0.3 })
+        }
+        break
+    }
+  }
+
+  /** A special weapon's impact, in its own look. */
+  private specialImpact(s: Shot): void {
+    const fx = this.host.fx
+    switch (s.weapon) {
+      case 'flameWave':
+        fx.orbBurst(s.x, s.y + 0.3, s.z, '#ff7a2a', 0.9)
+        fx.sparks(s.x, s.y + 0.4, s.z, '#ffd35a', 10, 6, 0.2)
+        break
+      case 'iceLance':
+        fx.flash(s.x, s.y, s.z, '#dffbff', 1.6, 0.14)
+        fx.sparks(s.x, s.y, s.z, '#bff6ff', 14, 7, 0.22)
+        break
+      case 'scrapBurst':
+        fx.sparks(s.x, s.y, s.z, '#c9d3e6', 8, 6, 0.18)
+        break
+      case 'galeGuard':
+        fx.sparks(s.x, s.y, s.z, '#7fffc8', 10, 5, 0.2)
+        break
+    }
+  }
+
+  /** A stun from the player's weapons, with diminishing returns: the chain's
+   *  end shows as a cyan shield flash (the machine shrugged it off). */
+  private stun(e: Enemy, dur: number): void {
+    const r = tryStun(e, dur)
+    if (r.resisted) {
+      const h = this.host
+      const cy = e.y + (e.floor ?? 0) + e.def.aimY
+      h.fx.flash(e.x, cy, e.z, '#7ff4ff', 2.2, 0.22)
+      h.fx.sparks(e.x, cy, e.z, '#bff6ff', 14, 6, 0.2)
+      h.sfx('tink', e.x, e.z)
+    }
+  }
+
   private hitEnemyWithShot(e: Enemy, s: Shot, weakSpot = false): void {
     if (s.kind === 'special') {
+      this.specialImpact(s)
       e.lastWeapon = s.weapon
       this.damageEnemy(e, s.dmg, { crit: s.crit, charge: 1, fromX: s.px, fromZ: s.pz, x: s.x, y: s.y, z: s.z, color: s.color, element: s.element, special: true, weapon: s.weapon })
       // A golem the hit only woke catches no burn and no freeze either
@@ -762,12 +840,7 @@ export class CombatSystem {
     else if (o.element && o.element !== 'none' && e.element !== 'none' && COUNTER[e.element] === o.element) weakMul = 1.75
     if (weakMul > 1) {
       pushHud({ t: 'text', x: o.x, y: o.y + 0.6, z: o.z, key: 'combat.weak', color: '#ff9a2e' })
-      if (e.boss && e.state !== 'stun') {
-        e.state = 'stun'
-        e.st = 0
-        e.stunT = 0.9
-        e.ring.visible = false
-      }
+      if (e.boss && e.state !== 'stun') this.stun(e, 0.9)
     }
     amount *= weakMul
     // A shot on the weak spot: ×1.5, a crit to the eye and the ear, KRANCK!
@@ -806,9 +879,7 @@ export class CombatSystem {
     if (guarded && breaks) {
       e.guardBreakT = 1.6
       e.guard = 0
-      e.stunT = 1.1
-      e.state = 'stun'
-      e.st = 0
+      this.stun(e, 1.1)
       dmg *= 0.7
       pushHud({ t: 'text', x: o.x, y: o.y + 0.5, z: o.z, key: 'combat.guardBreak', color: '#ffd84a' })
       h.sfx('guardBreak', e.x, e.z)
@@ -828,11 +899,9 @@ export class CombatSystem {
       e.z += (kz / kl) * kb
     }
     if (o.charge >= 2 && !e.boss && e.hp > 0 && (e.state === 'tele' || e.state === 'engage' || e.state === 'act')) {
-      // A full charge interrupts: telegraphs can be cancelled by timing it.
-      e.state = 'stun'
-      e.st = 0
-      e.stunT = e.kind === 'brute' ? 0.4 : 0.6
-      e.ring.visible = false
+      // A full charge interrupts: telegraphs can be cancelled by timing it —
+      // with diminishing returns (`tryStun`), never forever.
+      this.stun(e, e.kind === 'brute' ? 0.4 : 0.6)
     }
     pushHud({ t: 'damage', x: o.x, y: o.y + 0.2, z: o.z, amount: dmg, crit, weak: weakMul > 1, toPlayer: false })
     h.fx.sparks(o.x, o.y, o.z, crit ? '#ffd84a' : o.color, o.charge >= 2 ? 16 : 7, o.charge >= 2 ? 7 : 5, o.charge >= 2 ? 0.24 : 0.16)

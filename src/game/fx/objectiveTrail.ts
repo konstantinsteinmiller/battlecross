@@ -288,6 +288,31 @@ export interface TrailInput {
   target: { x: number; z: number } | null
   /** Mission clock (s), for the light wave. */
   time: number
+  /** The early missions: the trail pulses to be noticed (`PULSE_*`). */
+  pulse?: boolean
+  /** The view's heading (rad, the player's yaw): a pulse only counts while
+   *  a chevron is in front of it. */
+  yaw?: number
+}
+
+/** Playtesters walked past the chevrons. In the first missions they pulse:
+ *  PULSE_FOR seconds of a strong glow and a swell every PULSE_EVERY, the
+ *  clock running only while chevrons are on screen (a pulse nobody sees is
+ *  not spent). */
+export const PULSE_EVERY = 20
+export const PULSE_FOR = 3
+const PULSE_LIFT = 2.4
+const PULSE_ALPHA = 2
+const PULSE_SWELL = 0.35
+/** A chevron within this of the view's heading (rad) is on screen. */
+const PULSE_VIEW = 0.75
+
+/** 0..1 pulse strength at pulse-clock `t` (s): a 3 Hz throb inside its window. */
+export const pulseAt = (t: number): number => {
+  const u = t % PULSE_EVERY
+  if (u >= PULSE_FOR) return 0
+  const env = Math.sin((u / PULSE_FOR) * Math.PI)
+  return env * (0.6 + 0.4 * Math.sin(u * Math.PI * 6))
 }
 
 const _m = new Matrix4()
@@ -316,6 +341,8 @@ export class ObjectiveTrail {
   private fromZ = 0
   private toX = 0
   private toZ = 0
+  /** The pulse's own clock (s): runs while pulsing chevrons are in view. */
+  private pulseT = 0
 
   constructor(scene: Scene, nav: Nav) {
     this.nav = nav
@@ -375,6 +402,23 @@ export class ObjectiveTrail {
     const sl = this.slots
     const al = this.alpha.array as Float32Array
     const phase = (o.time / WAVE_PERIOD) * Math.PI * 2
+    // The pulse: its clock runs only while a chevron is in front of the view.
+    let pk = 0
+    if (o.pulse && this.vis > 0.5) {
+      let seen = false
+      for (let i = 0; i < n && !seen; i++) {
+        const b = i * TRAIL_STRIDE
+        const a = Math.atan2(-(sl[b]! - o.px), -(sl[b + 1]! - o.pz)) - (o.yaw ?? 0)
+        seen = Math.abs(Math.atan2(Math.sin(a), Math.cos(a))) < PULSE_VIEW
+      }
+      if (seen) {
+        this.pulseT += dt
+        pk = pulseAt(this.pulseT)
+      }
+    }
+
+    this.mat.uniforms.uLift!.value = 0.3 + PULSE_LIFT * pk
+    _scale.set(ARROW_SIZE * (1 + PULSE_SWELL * pk), 1, ARROW_SIZE * (1 + PULSE_SWELL * pk))
     for (let i = 0; i < n; i++) {
       const b = i * TRAIL_STRIDE
       // Crests run toward the target: brightest where time + distance-to-go lines up.
@@ -382,7 +426,7 @@ export class ObjectiveTrail {
       // On the floor it lies on (the climb's ledges; 0 on a flat map). A
       // chevron over a pit — a lift's run while the lift is away — is dark.
       const fy = floorAt(this.nav, sl[b]!, sl[b + 1]!)
-      al[i] = fy === -Infinity ? 0 : this.vis * sl[b + 3]! * (OPACITY_BASE + (OPACITY_PEAK - OPACITY_BASE) * w * w)
+      al[i] = fy === -Infinity ? 0 : Math.min(1, this.vis * sl[b + 3]! * (OPACITY_BASE + (OPACITY_PEAK - OPACITY_BASE) * w * w) * (1 + PULSE_ALPHA * pk))
       _m.makeRotationY(sl[b + 2]!).scale(_scale).setPosition(sl[b]!, (fy === -Infinity ? 0 : fy) + ARROW_Y, sl[b + 1]!)
       this.mesh.setMatrixAt(i, _m)
     }

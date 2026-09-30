@@ -1,5 +1,6 @@
+import { makeFlameMaterial, setFlame } from '../fx/flameCone'
 import {
-  Group, Mesh, MeshBasicMaterial, PlaneGeometry, AdditiveBlending, DoubleSide, Color, type BufferGeometry
+  Group, Mesh, MeshBasicMaterial, PlaneGeometry, AdditiveBlending, DoubleSide, Color, type BufferGeometry, type ShaderMaterial
 } from 'three'
 import { rcyl, rbox, torus, sph, cap, xform, paint, paintBy, merge } from './kit'
 import { toonVC, glowVC, outlineMat } from './toon'
@@ -114,9 +115,14 @@ const buildFlame = (spot: TrapSpot, theme: Theme, fx: Particles): TrapMesh => {
   // (opacity 0) so the precompile sees them; the first step hides them until
   // they burn.
   const sheet = new Group()
-  const layers: Array<{ mat: MeshBasicMaterial; mesh: Mesh; base: number; h: number }> = []
-  for (const [hex, h, base] of [['#ff5a1f', 2.7, 0.3], ['#ffa23a', 2.1, 0.4], ['#fff27a', 1.35, 0.5]] as const) {
-    const mat = addMat(hex)
+  // Two curtains of real fire (`fx/flameCone.ts`, the sheet variant): the
+  // full sheet, and a hotter core low in front of it.
+  const layers: Array<{ mat: ShaderMaterial; mesh: Mesh; base: number; h: number }> = []
+  for (const [c, h, base] of [
+    [{ edge: '#c8200a', mid: '#ff6a1f', core: '#ffd35a' }, 2.8, 0.85],
+    [{ edge: '#ff7a2a', mid: '#ffc24a', core: '#ffffff' }, 1.7, 0.75]
+  ] as const) {
+    const mat = makeFlameMaterial(c, true)
     const mesh = new Mesh(new PlaneGeometry(CELL - 0.2, h), mat)
     mesh.position.y = h / 2 + 0.05
     sheet.add(mesh)
@@ -172,7 +178,7 @@ const buildFlame = (spot: TrapSpot, theme: Theme, fx: Particles): TrapMesh => {
       for (let k = 0; k < layers.length; k++) {
         const L = layers[k]!
         const flick = 0.75 + 0.25 * Math.sin(time * (31 + k * 7) + k * 1.7)
-        L.mat.opacity = L.base * rise * flick
+        setFlame(L.mat, L.base * rise * flick * 1.4, time + k * 0.41)
         L.mesh.scale.y = 0.2 + 0.8 * rise * (0.9 + 0.1 * Math.sin(time * 19 + k))
         L.mesh.position.y = L.h * L.mesh.scale.y / 2 + 0.05
       }

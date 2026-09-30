@@ -1,6 +1,7 @@
 import type { Terrain } from '../world/levelGen'
 import type { ClimbBody, ClimbHost, ClimbRun } from './climb'
 import type { AtlasLine } from './atlas'
+import { CrumbleFeature } from './stages/crumble'
 import { VentFeature, FIRE_STYLE } from './stages/vents'
 import { meltdownCues } from './stages/meltdown'
 import { IceFeature } from './stages/ice'
@@ -114,6 +115,9 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
 
   // ── secrets (every terrain map) ──
   if (t.secrets?.length) out.push(new SecretsFeature(host, t, run))
+
+  // ── any stage (appended last: older saves keep their feature slots) ──
+  if (t.crumbles?.length) out.push(new CrumbleFeature(host, t))
 
   return out
 }

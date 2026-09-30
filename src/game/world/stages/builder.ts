@@ -2,7 +2,7 @@ import {
   CELL, Cell, Ramp, cellCenter, type MapData, type Room, type RoomRole, type Door, type Terrain, type SectionKind,
   type Ladder, type Lift, type Crusher, type RollerLane, type Checkpoint, type RewardSpot, type FoePost,
   type ChestSpot, type SecretSpec, type PitKind, type WindZone, type RailSpec, type WaveSpec, type VentSpec, type NavLink,
-  type IcePillar, type IcicleSpec
+  type IcePillar, type IcicleSpec, type CrumbleSpec
 } from '../levelGen'
 
 /**
@@ -75,6 +75,7 @@ export class Builder {
   vents: VentSpec[] = []
   icePillars: IcePillar[] = []
   icicles: IcicleSpec[] = []
+  crumbles: CrumbleSpec[] = []
   links: NavLink[] = []
 
   constructor(W: number, H: number) {
@@ -120,6 +121,13 @@ export class Builder {
   }
 
   /** What the pits of `room` hold (spikes and lava cost twice a plain fall). */
+  /** A crumbling slab (`sim/stages/crumble.ts`) at top `y` over the w × d
+   *  cells from (i, j), which become pit: it holds once, then drops. */
+  crumble(i: number, j: number, y: number, w = 1, d = 1): void {
+    this.pits(i, j, i + w - 1, j + d - 1)
+    this.crumbles.push({ i, j, y, w, d })
+  }
+
   pitKind(room: number, kind: PitKind): void {
     while (this.pitKinds.length <= room) this.pitKinds.push('void')
     this.pitKinds[room] = kind
@@ -325,6 +333,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
     for (const p of b.icePillars) navBlock[b.k(p.i, p.j)] = 1
   }
   if (b.icicles.length) terrain.icicles = b.icicles
+  if (b.crumbles.length) terrain.crumbles = b.crumbles
   return {
     seed, w: b.W, h: b.H, cell: b.cell, room: b.room, navBlock, rooms: b.rooms,
     doors: b.doors, pillars: [], start, terrain
@@ -389,6 +398,7 @@ export const mirrorX = (m: MapData): MapData => {
   if (t.links) terrain.links = t.links.map(l => ({ ...l, from: [mi(l.from[0]), l.from[1]], to: [mi(l.to[0]), l.to[1]] }))
   if (t.icePillars) terrain.icePillars = t.icePillars.map(p => ({ ...p, i: mi(p.i) }))
   if (t.icicles) terrain.icicles = t.icicles.map(c => ({ ...c, i: mi(c.i) }))
+  if (t.crumbles) terrain.crumbles = t.crumbles.map(c => ({ ...c, i: mi(c.i + (c.w ?? 1) - 1) }))
   return {
     ...m,
     cell: flip(m.cell),
