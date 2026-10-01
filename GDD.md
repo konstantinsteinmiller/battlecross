@@ -237,7 +237,7 @@ wind to volt.
 
 At the boss door, right after "Boss ahead. Deep breath!", Atlas says
 "{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux carries the
-Master's weakness, and "No weak spot I can see. Stay moving."
+Master's weakness, and "No weak spot visible. Move!"
 (`atlas.noWeak`) at the Scrapper's and Vex's doors, which have none. For a
 Master whose weakness Flux hasn't copied yet, Atlas says nothing.
 

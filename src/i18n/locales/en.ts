@@ -782,7 +782,7 @@ export default {
       '5': 'Halfway there! Vex is sweating.',
     },
     'bossAhead': 'Boss ahead. Deep breath!',
-    'noWeak': 'No weak spot I can see. Stay moving.',
+    'noWeak': 'No weak spot visible. Move!',
     'weak': {
       'flameWave': 'Flame Wave hurts this one!',
       'iceLance': 'Ice Lance hurts this one!',

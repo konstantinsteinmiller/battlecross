@@ -339,7 +339,7 @@ the boss door and the **Scrapper**.
 - At the boss intro, Vex presents it:
   VB: **"Warm up act! The SCRAPPER!"**
 - The Scrapper has no weakness. Right after "Boss ahead. Deep breath!",
-  A: "No weak spot I can see. Stay moving."
+  A: "No weak spot visible. Move!"
 - When the Scrapper is freed, the red chip bursts out, the visor goes warm
   yellow and the hammer goes down. A: "Relay one lit. Nine to go."
 - **Hub, first visit:** Vex's face glitches on the lab screens.
@@ -583,8 +583,7 @@ story beats:
 - **Phase 1** (the `patterns` in `data/bosses.ts`): Vex fights with the
   Masters' stolen moves (flame burst, ice volley, orb storm, lob barrage).
   It has no weakness, because it took a piece of every Master. At its door,
-  right after "Boss ahead. Deep breath!", A: "No weak spot I can see. Stay
-  moving." Atlas calls each element as it winds up ("Fire!", "Ice!") on the
+  right after "Boss ahead. Deep breath!", A: "No weak spot visible. Move!" Atlas calls each element as it winds up ("Fire!", "Ice!") on the
   first cycle only.
 - **Phase 2 at half health: the relays hold.** The dome cracks. Vex fires
   one last **Red Signal** from the Mk-I to re-take the freed Masters. The
@@ -695,7 +694,7 @@ spine behind the story.
    Atlas names the counter live, **reading `weakTo` from the data**, never
    from a hard-coded line: right after "Boss ahead. Deep breath!" it says
    "{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux carries the
-   weakness, and "No weak spot I can see. Stay moving." (`atlas.noWeak`) at
+   weakness, and "No weak spot visible. Move!" (`atlas.noWeak`) at
    the Scrapper's and Vex's doors. For a Master whose weakness Flux hasn't
    copied yet, it says nothing.
 4. **The reserve, then the Breach.** Freeing the Gale Master lights the
@@ -815,7 +814,7 @@ drop-in.
 | --- | --- | --- |
 | Boss door danger kit, first sight | skull | "Core Master signal. It's… big." / "Core Master ahead." |
 | Boss door, right after "Boss ahead. Deep breath!", Flux owns its weakness | weapon icon | "{weapon} hurts this one!" (`atlas.weak.<weapon>`) |
-| Boss door, the Scrapper or Vex (no weakness) | weapon icon ✗ | "No weak spot I can see. Stay moving." (`atlas.noWeak`) |
+| Boss door, the Scrapper or Vex (no weakness) | weapon icon ✗ | "No weak spot visible. Move!" (`atlas.noWeak`) |
 | HP < 50 %, gel carried (gel lesson moment) | heart + gel | "Plating's cracking. Use a gel." / "Gel." |
 | HP < 25 % | heart, blinking | "Critical! Back off!" / "Critical!" |
 | HP < 25 %, no gel | heart + ✗ gel | "No gel left. Play it safe." |

@@ -646,7 +646,7 @@ wrong.
   capsule can lend Drone Swarm early.
 - **Atlas names the weakness live.** Right after "Boss ahead. Deep breath!"
   Atlas says "{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux
-  carries the Master's weakness, and "No weak spot I can see. Stay moving."
+  carries the Master's weakness, and "No weak spot visible. Move!"
   (`atlas.noWeak`) at the Scrapper's and Vex's doors, which have none. For a
   Master whose weakness Flux hasn't copied yet, it says nothing.
 - **Ten relays, and the Breach after the tenth.** The Fortress shield is

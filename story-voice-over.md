@@ -646,7 +646,7 @@ count now runs to ten:
 | --- | --- | --- | --- | --- |
 | `atlas_boss_ahead` | `atlas.warn.boss` | "Core Master ahead." | Alert. | 1.4 s |
 | `atlas_weak_<weapon>` | `atlas.weak.<weapon>` | "{weapon} hurts this one!" | Tactical, a quick tip with a grin. **Live:** said right after "Boss ahead" when Flux carries the Master's weakness. *Record one per weapon* (Gale Guard, Flame Wave, Ice Lance, Thunder Arc, Drone Swarm, Magnet Pull, Drill Bomb, Bubble Lance, Neon Blade). | 2.2 s |
-| `atlas_noWeak` | `atlas.noWeak` | "No weak spot I can see. Stay moving." | Focused. **Live:** the Scrapper's and Vex's boss doors. | 2.2 s |
+| `atlas_noWeak` | `atlas.noWeak` | "No weak spot visible. Move!" | Focused. **Live:** the Scrapper's and Vex's boss doors. | 2.2 s |
 | `atlas_use_gel_first` | `atlas.warn.gelFirst` | "Plating's cracking. Use a gel." | Concerned, a clear instruction. | 2.0 s |
 | `atlas_use_gel` | `atlas.warn.gel` | "Gel." | A quick nudge. | 0.6 s |
 | `atlas_critical_first` | `atlas.warn.criticalFirst` | "Critical! Back off!" | Tight and fast, **not** loud. | 1.2 s |
