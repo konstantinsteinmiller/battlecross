@@ -125,12 +125,27 @@ const syncContextState = (): void => {
  *  starting a new one-shot during an ad — so nothing leaks past the mute. */
 export const isAudioSuspended = (): boolean => suspendDepth > 0
 
+/**
+ * Every gesture asks the context to resume, for the life of the page.
+ *
+ * Not `once`: iOS suspends ("interrupted") the context on a call, Siri, a
+ * video ad or an app switch, and a resume without a gesture is refused there,
+ * so the NEXT tap is the only way back to sound. A one-shot listener had
+ * already been spent on the first tap, and the game stayed silent for the
+ * rest of the session. WebKit also counts `touchend`/`click`, not
+ * `pointerdown`, as the activation that may unlock audio, so all of them are
+ * heard. `syncContextState` respects the suspend depth, so a tap during an ad
+ * or a hidden tab resumes nothing.
+ */
 const armResumeOnGesture = (): void => {
   if (resumeListenerArmed) return
   resumeListenerArmed = true
-  const resume = () => syncContextState()
-  window.addEventListener('pointerdown', resume, { once: true })
-  window.addEventListener('keydown', resume, { once: true })
+  const resume = (): void => {
+    if (sharedAudioCtx && sharedAudioCtx.state !== 'running') syncContextState()
+  }
+  for (const type of ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown']) {
+    window.addEventListener(type, resume, { capture: true, passive: true })
+  }
 }
 
 /** Bookkeeping for HTMLAudio elements (music, fallback SFX path) so

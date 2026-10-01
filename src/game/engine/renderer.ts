@@ -2,7 +2,9 @@ import {
   WebGLRenderer, SRGBColorSpace, NoToneMapping, PerspectiveCamera
 } from 'three'
 import { deviceClass } from '@/use/deviceProfile'
-import { perfFlag } from '@/use/perfVariants'
+import { perfFlag, IOS_LEGACY } from '@/use/perfVariants'
+import { isAppleTouch } from '@/use/deviceProfile'
+import { watchContextLoss } from './glContext'
 
 /**
  * The one WebGL renderer, owned by a module singleton rather than by the
@@ -23,6 +25,7 @@ export const dprCap = (): number => {
   const weak = deviceClass() === 'weak'
   const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
   if (weak) return 1
+  if (!IOS_LEGACY && isAppleTouch()) return 1.5
   return coarse ? 1.6 : 2
 }
 
@@ -30,6 +33,7 @@ export const getRenderer = (): WebGLRenderer => {
   if (renderer) return renderer
   const canvas = document.createElement('canvas')
   canvas.className = 'game-canvas'
+  watchContextLoss(canvas)
   const dpr = Math.min(window.devicePixelRatio || 1, dprCap())
   renderer = new WebGLRenderer({
     canvas,

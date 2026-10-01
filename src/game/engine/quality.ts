@@ -1,4 +1,5 @@
-import { deviceClass } from '@/use/deviceProfile'
+import { deviceClass, isAppleTouch } from '@/use/deviceProfile'
+import { IOS_LEGACY } from '@/use/perfVariants'
 
 /**
  * ─── Scenery quality ─────────────────────────────────────────────────────────
@@ -35,7 +36,8 @@ export const sceneQuality = (): SceneQuality => {
   try { touch = window.matchMedia('(pointer: coarse)').matches } catch { /* no matchMedia */ }
   const smallRam = typeof nav?.deviceMemory === 'number' && nav.deviceMemory <= 4
   const fewCores = typeof nav?.hardwareConcurrency === 'number' && nav.hardwareConcurrency <= 4
-  cached = weak || (touch && (smallRam || fewCores)) ? 'low' : 'full'
+  const ios = !IOS_LEGACY && isAppleTouch()
+  cached = weak || ios || (touch && (smallRam || fewCores)) ? 'low' : 'full'
   return cached
 }
 

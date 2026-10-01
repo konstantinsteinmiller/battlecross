@@ -156,6 +156,18 @@ It was there before this work too. Software GL in headless Chrome has no
 the links there; on GPUs with the extension the poll does. Confirm on a real
 phone before acting on it.
 
+### 7. iOS opens one step lighter — SHIPPED UNMEASURED (#112, 2026-10-01)
+
+- Why: portal analytics show iOS sessions at a fraction of Android's (1–5 min
+  vs 16–28 min). iOS reports no `deviceMemory` and "Apple GPU", so every
+  iPhone opened at full scenery and 1.6x; iOS kills an oversized tab instead
+  of slowing it down.
+- Change: iPhone/iPad (iPadOS by its touch points) open at low scenery and a
+  1.5x pixel-ratio cap. Baseline arm: `?perf=ios-legacy`.
+- Status: NOT measured — there is no iOS on this machine and WebKit on Windows
+  has no memory killer. To keep or revert it: a real iPhone, Safari Web
+  Inspector, both arms, memory and frame time after 5 min in a mission.
+
 ## Open hypotheses (not applied, not measured)
 
 - The inverted-hull outline doubles every decor and character triangle.

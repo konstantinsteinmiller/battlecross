@@ -61,6 +61,13 @@ export const activeVariants = (): string[] => [...flags]
 // ─── Live experiments ───────────────────────────────────────────────────────
 //
 /**
+ * Baseline: iOS opens like any other phone (full scenery when it reports no
+ * small RAM, 1.6x resolution). The shipping path opens iOS at low scenery and
+ * 1.5x. Not yet measured on a real iPhone; see PERF-LEDGER entry 7.
+ */
+export const IOS_LEGACY = perfFlag('ios-legacy')
+
+/**
  * Baseline: paint the full-screen vignette as a live radial gradient.
  *
  * The shipping path blits a small baked texture instead. This is a RE-TEST of

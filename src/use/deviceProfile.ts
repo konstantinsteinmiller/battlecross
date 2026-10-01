@@ -154,5 +154,20 @@ export const deviceClass = (): DeviceClass => {
  *  until `deviceClass()` has run at least once. */
 export const deviceRenderer = (): string => cachedRenderer
 
+/**
+ * An iPhone or iPad (iPadOS included, which reports a Mac user agent).
+ *
+ * iOS reports neither `deviceMemory` nor a weak GPU name ("Apple GPU"), so
+ * every iPhone — a 3 GB one included — looked like a desktop-class device and
+ * opened at full scenery and 1.6x resolution. iOS kills a tab that grows too
+ * large instead of slowing it down, and that reads as a crash. Until a real
+ * device has been measured, iOS opens one step lighter (see PERF-LEDGER).
+ */
+export const isAppleTouch = (): boolean => {
+  if (typeof navigator === 'undefined') return false
+  const ua = navigator.userAgent || ''
+  return /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && (navigator.maxTouchPoints ?? 0) > 1)
+}
+
 /** Test seam: forget the answer. */
 export const __resetDeviceClass = (): void => { cached = null; cachedRenderer = '' }

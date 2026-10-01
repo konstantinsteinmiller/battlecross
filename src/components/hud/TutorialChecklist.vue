@@ -63,6 +63,8 @@ const point = (id: string) => currentMission()?.pointToLesson(id as TrainId)
   color: rgba(255, 255, 255, 0.85)
   cursor: pointer
   touch-action: none
+  // The HUD layer passes pointers through; the buttons must take them back.
+  pointer-events: auto
   .ic
     width: 62%
     height: 62%
