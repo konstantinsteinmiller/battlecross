@@ -311,8 +311,8 @@ export default {
     'atlas': "The Spire is empty. I could run this city now. I won't. It's theirs.",
     'morning': 'Cyber City wakes to its first free morning.',
     'spark': 'Flux... did you see that spark?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Dr. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Dr. Gauss' },
+    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
+    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
     'credits': {
       'by': 'A game by {studio}',
       'cast': 'Starring',
@@ -321,7 +321,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City is free!',
-      'promise': 'New Game+: the Masters hit 25 % harder and strike faster. Your level, gear and weapons stay.',
+      'promise': 'New Game+: the Masters have 25 % more health and strike faster. Your level, gear and weapons stay.',
       'ngplus': 'Start New Game+',
       'lab': 'Back to the Lab',
       'confirm': 'Start New Game+?',
@@ -738,7 +738,7 @@ export default {
       },
       // The Grand Master Bot (#101): Atlas through the fight, part by part.
       'gm': {
-        'button': "He's pressing something... Brace yourself!",
+        'button': "Vex is pressing something... Brace yourself!",
         'arms': 'Its arms first! The cannon and the lance!',
         'feet': 'Now the feet! Block the shockwaves!',
         'head': "It's down low. The head is in reach!",

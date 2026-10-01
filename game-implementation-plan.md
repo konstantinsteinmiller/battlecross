@@ -580,7 +580,10 @@ while bars and damage numbers get direct DOM writes.
     with the baked portraits, end card); after the Fortress's results and
     their interstitial; New Game+ from the card (confirmed); Gauss awake in
     the lab afterwards (`seen: 'ending'`).
-  - [ ] **P9 story/docs catch-up** (comic skipped).
+  - [x] **P9 story/docs catch-up** (comic skipped): story.md, story-arc.md,
+    story-voice-over.md, GDD.md; the finale's lines planned in the voice
+    catalogue; "Prof. Gauss" and the New Game+ promise (more health, not
+    harder hits) fixed in the strings.
   - [x] **P10 final balance**: the Grand Master ~106 s for the reference
     player (pinned 80–150 s), Vex 43 s, nothing else moved.
   - [x] **P10b #114 sound pass**: a low-health heartbeat (under 25 %, quicker

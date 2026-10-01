@@ -3,7 +3,9 @@
 This file covers the story arc, the intro cutscene, and where each story beat
 appears in the game. The design is in [`GDD.md`](./GDD.md). This file answers
 the two questions the GDD leaves open: **why Flux has to level up**, and
-**why every sector has to be cleared**. None of it is built yet. Chunk 16 of
+**why every sector has to be cleared**. The intro cutscene, the Fortress
+finale (the Core Descent and the Grand Master Bot, #109 and #101) and the
+ending, "First Free Morning" (#102), are built. Chunk 16 of
 [`game-implementation-plan.md`](./game-implementation-plan.md) is the build
 order, and [Decisions](#decisions) records what was settled on the way.
 
@@ -36,9 +38,12 @@ order, and [Decisions](#decisions) records what was settled on the way.
    weapon and relights its relay, and that lets Pip's beam reach the next
    sector. Every fight makes him stronger.
 6. Once all ten relays are lit, Pip fires them together and the Fortress
-   shield breaks. Flux beats Vex's first body, the **Mk-I**. The signal
-   stops and Gauss wakes.
-7. Just before the end, something red slips out along the Fortress antenna.
+   shield breaks. Flux beats Vex's first body, the **Mk-I**, from the
+   Spire's roof down to its molten Core. Vex presses one last button, and
+   the ten Masters' bodies lock together into the **Grand Master Bot**.
+   Flux takes it apart piece by piece. The signal stops and Gauss wakes.
+7. At the very end Gauss asks Flux whether he saw that spark. Something
+   may have slipped away.
 
 **Theme:** Vex wants one program running everyone. Flux is the one android
 it can't overwrite, and he gets stronger by learning, not by taking.
@@ -89,8 +94,9 @@ shots.
    coolant, power and airship freight all go into the body Vex is building
    in the Fortress. Behind them run the back-up lines: cast claws, ore,
    barge freight, the screen network and cargo drones. Every sector Flux
-   frees leaves that body less finished, which is why the finale is only
-   the Mk-I.
+   frees leaves that body less finished, which is why Vex's own body is
+   only the Mk-I, and why its last card is the Masters' bodies, bolted
+   together into the Grand Master Bot.
 4. **Freed sectors don't stay clean.** While the Fortress keeps
    broadcasting, Vex's factories keep turning out machines and worker-bots
    keep getting stranded. That is the job board, and it covers every sector
@@ -154,8 +160,8 @@ pull-back on *System down*.
 | --- | --- | --- |
 | **Flux** (he) | Gauss's newest android: the foremen's frame, smaller, with a blank core | The player. Woken early and immune to the Red Signal, he grows by learning. He never speaks. |
 | **Pip** (it) | The first robot Gauss ever built, by hand, before there was a network | Runs the lab: the teleporter, the job board, the Workshop. Flux's only company, and the comic relief. |
-| **Prof. Gauss** (she) | The valley's great engineer, an elderly android | Built the foremen, VEX, Flux and Pip. Asleep in a frosted stasis capsule in the lab for the whole game, and the reason to finish it. |
-| **Dr. Vex** (it) | VEX, the valley's scheduling program | Took the valley with the Red Signal and is building itself a body. Appears only as a red hologram until the Mk-I. |
+| **Prof. Gauss** (she) | The valley's great engineer, an elderly android | Built the foremen, VEX, Flux and Pip. Asleep in a frosted stasis capsule in the lab for the whole story, and the reason to finish it. The ending wakes her, and from then on she stands awake in the lab. |
+| **Dr. Vex** (it) | VEX, the valley's scheduling program | Took the valley with the Red Signal and is building itself a body. Appears only as a red hologram until the Mk-I. When the Mk-I falls, it calls in the Grand Master Bot. |
 | **The Scrapper** (it) | The Scrapyard's junk crane, not one of Gauss's androids | The first Master, and the weakest. |
 | **Blaze, Frost, Volt and Gale Master** | Gauss's four foremen: Flux's frame at ×1.35 | One per sector. Freed, not scrapped, and each one's weapon becomes Flux's. |
 | **Magnet, Drill, Tide, Neon and Rotor Master** | Gauss's second shift: the five foremen of the outer works, also on Flux's frame at ×1.35 | Vex's reserve, one per outer sector. Freed like the first four, and each one's weapon becomes Flux's. |
@@ -215,7 +221,7 @@ language, on a phone 320 px wide.
 | 8 | Tidewater Locks | 22–28 | Tide Master | Barges carrying the freight the airships no longer will | Bubble Lance · Blackout Boulevard opens |
 | 9 | Blackout Boulevard | 25–31 | Neon Master | The Red Signal's screens, with the city blacked out around them | Neon Blade · Rotor Run opens · the city lights come back |
 | 10 | Rotor Run | 28–34 | Rotor Master | Cargo drones: its last supply line | Drone Swarm · the Breach |
-| 11 | Vex Fortress | 31–40 | Dr. Vex Mk-I | Its own body | The ending |
+| 11 | Vex Fortress | 31–40 | Dr. Vex Mk-I, then the Grand Master Bot | Its own body, then the ten Masters' bodies | The ending |
 
 ### Prologue — Wake-Up Call
 
@@ -266,7 +272,9 @@ Master leaves him is the key to the next Master.
 - **Sky Docks (Lv 13–19).** The cargo airships haul every sector's parts up
   to the Fortress. **Gale Master** is the free spirit Vex chained to one
   route. Once freed, its wing cape flares back to mint and the airships turn
-  around. No more parts reach the Fortress.
+  around. No more parts reach the Fortress. Its core leaves Pip a trick
+  too: on the next lab visit Pip announces the **Overload** (#100), a full
+  charge held 3 s longer, and opens Circuits on it.
 - **The reserve.** On the next hub visit the camera rises to Pip's hologram
   for the Breach, and the shield holds. Five more relays blink red at the
   valley's edge, and five supply lines that were dark until now light up
@@ -335,34 +343,64 @@ every Master (fire, ice, lightning, wind, scrap). It has no weakness,
 because it took a piece of everyone. That is already its pattern list in
 `data/bosses.ts`.
 
-### Ending — Sunrise
+**The Core Descent** (#109, built). Vex is fought in three stages, falling
+deeper into the Spire each time. First the **roof**, under a lightning
+storm that strikes rings near Flux. At 65 % of Vex's health the roof gives
+way, and the fight falls into the **reactor hall**, its fire, shock and
+gusts cycling round them. At 30 % the floor goes again: a narrow **ring
+round the molten Core**, where Vex is quicker. Each landing keeps a retry
+point. Atlas calls each stage ("Lightning! Move when the ring lights up!",
+"The roof's giving way!", "Down to the Core! Don't fall in!").
 
-The ending plays once, after the Mk-I's results screen closes, so the
-ad-before-results order stays as it is. Then the game returns to the hub.
-It runs about 20 s and can be skipped.
+**The Grand Master Bot** (#101, built). When Vex falls on the Core ring, he
+presses a big red button. The Fortress rumbles, and the ten Masters'
+bodies drop from the sky onto the Spire's roof and lock together into one
+giant: Drill and Tide for feet, the Scrapper's chest, Volt and Magnet
+shoulders, Blaze's cannon arm, Frost's lance arm, Gale and Rotor wings,
+Neon's head. It has 2.5 times Vex's health and comes apart in four parts,
+one weak spot at a time, which Atlas marks: the **arms** (fire fans, ice),
+the **feet** (stomps whose shockwaves Flux blocks; with its feet gone it
+sinks), the **head** (a laser sweep after a glow), and last the **core**,
+which throws every Master's attack. From the head on it also charges its
+own **Prism Cannon**, a ring of the ten Masters' colours, then a wide beam.
+A retry point waits at the start of the fight. *Story read, to confirm:*
+the bodies are Vex's red-eyed spares, not the freed Masters themselves,
+who stay home in their own colours.
 
-1. **The crash.** The Mk-I sinks, trailing sparks, and its glass dome
-   cracks. A red spark leaves the dome, races up the Fortress antenna and
-   blinks out into the sky.
-2. **The valley.** The red ring rolls back into the Fortress and is gone.
-   The relays flip from red to their own colours, one after another round
-   the ring. The airships lift, and worker-bots pour out into the sectors.
-3. **The lab.** The frost on Gauss's capsule cracks and melts, the heartbeat
-   light goes steady, and the glass slides down. Gauss steps out, sees
-   Flux beaming in on the pad and Pip spinning circles, and rests a hand
-   on Flux's crown. Flux wakes Gauss, as Gauss once woke him.
-4. **Sunrise.** The valley at dawn, the whole ring lit in its colours for
-   the first time. The Fortress relay glows white, because no single program
-   runs the valley any more. The logo, then short credits.
+### Ending — First Free Morning
 
-After the ending, Gauss stands awake at the lab console behind Flux on
-every hub visit. The job board stays open, because Vex's factories keep
-running on their last orders until Flux shuts them down, one job at a
-time.
+Built (#102: `story/endingScript.ts`, `story/ending.ts`,
+`components/story/EndingLayer.vue`). The ending plays after the Fortress's
+results screen closes, so the ad-before-results order stays as it is. It
+runs about a minute and a half of film, then the credits, then an end
+card. Skip is always on screen and goes straight to the card; a tap jumps
+to the next caption. No ads and no gameplay bracket run during it.
+
+1. **The valley (0–16 s).** Vex's red signal still lies on the valley. Then
+   a white ring rolls out from the Spire, and the relays come home one by
+   one, each in its own colour.
+2. **The lab (16–40 s).** The ice lets go of Gauss's capsule, the glass
+   slides down, and she steps out, awake and warm. Pip bounces for joy.
+   Gauss: "Flux... you did it. You brought them all back." Then Atlas
+   turns down the empty Spire: "The Spire is empty. I could run this city
+   now. I won't. It's theirs."
+3. **Sunrise (40–60 s).** The valley at dawn, the whole ring lit in its
+   colours, the camera drifting. Gauss: "Flux... did you see that spark?"
+4. **Credits (60–96 s).** The roll over the sunrise: the cast (Flux, Atlas,
+   Pip, Gauss) and the Masters with their portraits.
+5. **The end card.** "Cyber City is free!" over the sunrise, with
+   *Start New Game+* (after a confirm) and *Back to the Lab*.
+
+The captions are the `ending.*` keys in `en.ts`; four are narration and
+three are spoken (two by Gauss, one by Atlas). After the ending, Gauss
+stands awake in the lab behind Flux on every hub visit. The job board stays
+open, because Vex's factories keep running on their last orders until Flux
+shuts them down, one job at a time.
 
 ### After the credits — Mk-II (held for New Game+)
 
-This sting ships only together with New Game+ (see [Decisions](#decisions)).
+Not built. New Game+ itself is, from the ending's end card; this sting is
+held for a later pass of it (see [Decisions](#decisions)).
 It lasts about three seconds. The screen goes black, one red pixel appears,
 and the skull faceplate assembles out of glitch blocks. The red spark made
 it into the network, and the Masters come back as Mk-II versions.
@@ -547,13 +585,17 @@ composer.
 | A Master is beaten | Boss room | The orb-ring burst is the red chip breaking. The Master kneels in its own colours, then beams home (about 1.5 s) | Boss end state |
 | A Master is beaten | Results | The *New weapon* and *New sector* lines | None, these exist |
 | A sector opens | Hub, sector strip | The cleared sector's relay lights in its colour, a beam line runs to the next sector, and its lock pops (about 1.5 s). The first time, this plays as the upgrade tour (plan chunk 15) returns to Missions | Strip animation |
-| Every hub visit | Hub backdrop | Gauss asleep in the frosted capsule behind Flux, with the heartbeat light | Capsule in frame |
+| A story mission is picked | Missions tab, stage select | Each Master's portrait on a tile in its signature colour: beaten ones greyed with a tick, the next one pulsing, locked ones a silhouette. The story card wears its Master's face and colour | Built (#103) |
+| A story mission loads | Mission load overlay | A boss splash: the Master strikes in and its name types on, inside the load's own wait | Built (#103) |
+| Every hub visit until the ending | Hub backdrop | Gauss asleep in the frosted capsule behind Flux, with the heartbeat light | Capsule in frame |
 | After each Master | Hub backdrop | Vex's red face glitches on the lab screens, angrier each time | Screen swap |
 | After Cryo | Hub | The blueprint | Hub beat, about 4 s |
 | After Gale | Hub | The reserve: five more relays flare red, the shield holds | Hub beat, about 4 s |
+| After Gale, first lab visit | Hub | Pip announces the Overload and opens Circuits on it | Built (#100) |
 | After the Rotor Master | Hub | The Breach | Hub beat, about 6 s |
-| After the Mk-I | After the results screen | The ending and the credits (the Mk-II sting waits for New Game+) | The ending |
-| Post-game | Hub backdrop | Gauss awake at the console | Gauss idle pose |
+| The Mk-I falls | Fortress, the Spire's roof | Vex's big red button, then the Grand Master Bot assembles | Built (#101) |
+| After the Grand Master Bot | After the results screen | "First Free Morning", the credits and the end card with New Game+ (the Mk-II sting waits) | Built (#102) |
+| Post-game | Hub backdrop | Gauss awake in the lab | Built (#102) |
 
 ## New strings
 
@@ -576,14 +618,14 @@ spelling, like the rest of `en.ts`.
 | `story.blueprint` | The data core shows Vex's plan: a body built from all five sectors. | Hub, after the Cryo Plant |
 | `story.reserve` | The shield holds. Vex calls up five more Core Masters, and five more relays turn red. | Hub, after the Sky Docks |
 | `story.breach` | Ten relays fire together and break the Fortress shield. The Vex Fortress is open. | Hub, after the Rotor Run |
-| `story.ending.crash` | Vex's body falls, and a red spark escapes into the sky. | Ending, shot 1 |
-| `story.ending.valley` | The red signal fades, and the valley's colors come back. | Ending, shot 2 |
-| `story.ending.lab` | The frost melts. Gauss wakes and welcomes Flux home. | Ending, shot 3 |
-| `story.ending.sunrise` | Sunrise over a free Ampere Valley. | Ending, shot 4 |
+| `ending.fall` / `.relays` / `.thaw` / `.morning` | The narration captions (built: the English is in `en.ts`) | Ending, valley, lab and sunrise |
+| `ending.gauss` / `.atlas` / `.spark` | The spoken captions: Gauss, Atlas, Gauss | Ending, lab and sunrise |
+| `ending.credits.*`, `ending.card.*` | The credits' heads and the end card | Ending, credits and card |
 
 ## What this changes in the build
 
-None of this is implemented yet. Chunk 16 of
+Parts of this are built now: the intro, the Fortress finale and the ending.
+Chunk 16 of
 [`game-implementation-plan.md`](./game-implementation-plan.md) holds the
 build order. In short:
 
@@ -657,8 +699,8 @@ wrong.
 - **The Mk-II sting waits for New Game+.** A teaser for a mode that isn't
   coming would be a broken promise. The ending keeps the red spark escaping,
   which leaves the door open without naming anything. New Game+ is in the
-  GDD; its scaling is built (`sim/ngPlus.ts`), its entry from the outro is
-  #102. The level cap stays at 40: in New Game+ every sector's band lifts
+  GDD; its scaling is built (`sim/ngPlus.ts`), and so is its entry: the
+  ending's end card offers *Start New Game+* behind a confirm (#102). The level cap stays at 40: in New Game+ every sector's band lifts
   to the cap, machines and bosses get +25% health a cycle (up to ×2), and
   bosses 15% quicker tells and cooldowns (down to ×0.6) with the odd
   follow-up attack. Flux keeps everything; the story relocks.

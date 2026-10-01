@@ -16,7 +16,10 @@ comic prompts are in [`comic.md`](./comic.md).
 
 Only § 1, the intro cutscene, is built so far (`src/game/story/`: the script
 in `introScript.ts`, the player in `intro.ts`, the screen layer in
-`components/story/CutsceneLayer.vue`). Where this file changes `story.md`, it says so, and
+`components/story/CutsceneLayer.vue`). Since then the Fortress finale (the
+Core Descent and the Grand Master Bot, § 5 Act III) and the ending, "First
+Free Morning" (`story/ending.ts`, `components/story/EndingLayer.vue`), are
+built too. Where this file changes `story.md`, it says so, and
 [Changes to story.md](#changes-to-storymd) lists every change for you to
 confirm.
 
@@ -194,9 +197,11 @@ and Pip's halo spinning in the foreground.
 > at a time and copies their weapons, and each weapon is the key to another
 > Master. He relights all ten relays, Pip fires them together to
 > break the Fortress shield, and Flux climbs the Control Spire to scrap
-> Vex's stolen body, the **Mk-I**. At the top, Atlas could take the empty
-> Spire and run the valley. It chooses not to. Gauss wakes. A red spark gets
-> away.
+> Vex's stolen body, the **Mk-I**, all the way down to the molten Core.
+> Vex's last card is the **Grand Master Bot**, the ten Masters' bodies
+> bolted into one giant, and Flux takes it apart. Gauss wakes. Atlas could
+> take the empty Spire and run the valley. It chooses not to. And Gauss
+> thinks she saw a spark.
 
 **Theme** (from `story.md`, sharpened): *two programs Gauss wrote.* VEX was
 built to run everyone, and it decided everyone was the problem. Atlas was
@@ -340,6 +345,12 @@ the boss door and the **Scrapper**.
   VB: **"Warm up act! The SCRAPPER!"**
 - The Scrapper has no weakness. Right after "Boss ahead. Deep breath!",
   A: "No weak spot visible. Move!"
+- **The magnet crane** (built, #108). Halfway through the fight the yard's
+  gantry crane wakes: it rolls over Flux, a ring opens on the floor, and a
+  crate drops. A crate landing on the Scrapper hurts it, so baiting the
+  drop is the room's trick. The crates that stay are soft cover, and each
+  holds an energy pill. A first-timer's first fight is unchanged until the
+  Scrapper is half beaten.
 - When the Scrapper is freed, the red chip bursts out, the visor goes warm
   yellow and the hammer goes down. A: "Relay one lit. Nine to go."
 - **Hub, first visit:** Vex's face glitches on the lab screens.
@@ -428,6 +439,11 @@ frame Flux's amber reactor glow floods outward and pushes it back.
 - Weakness hint, A: "Thunder Arc hurts this one!"
 - Freed: the wing cape flares back to mint, and the airships **turn
   around**. A: "No more parts reach the Fortress."
+- **The Overload** (built, #100). On the first lab visit after the Gale
+  Master, Pip: "The Gale Master's core taught me a trick. Hold a full
+  charge 3 more seconds: OVERLOAD!" It opens Circuits on the violet mod,
+  2300 bolts, bought once: a gold-white comet in epic violet, 1.75 times a
+  full charge.
 
 **The reserve (hub, about 4 s).** Pip's hologram comes up for the Breach,
 and the shield holds. Five more relays blink red beyond the ring, and five
@@ -480,6 +496,12 @@ armour comes out of this shaft.
   to a full charge or a Drill Bomb. Stalactites drop behind shadow rings. Flux
   rides a two-cage mine elevator, crosses a chasm and a mole warren, and finds
   a weapon cave sealed by cracked rock.
+- **The ore cart** (built, #111), an optional ride: from the Chasm's east
+  island it climbs a trestle over the chasm, takes a steep drop, runs
+  through the corridor and across the Mole Warren to its west door. Atlas
+  steers and Flux shoots the moles. A: "Ore cart's rolling! I steer, you
+  shoot the moles." / "Steep drop! Hold on tight!" / "Last stop. Out you
+  hop!" The islands stay a walk for anyone who steps past the cart.
 - Boss intro, VB: **"Time for a deep check-up! DRILL MASTER!"**
 - The fight: it burrows and erupts under Flux, lobs drill bombs and
   charges. In phase 2 it starts a quake: rings on the floor and falling rock.
@@ -515,6 +537,11 @@ this is the Red Signal's screen network.
 - The stage: bridges of light are floor only while they are lit. Some blink
   on the clock and some swap with a light switch. A secret wall-kick shaft
   (slide at its foot facing the wall, again and again) climbs to a reward.
+- **The blackouts** (built, #110). The boulevard's power fails on a 9 s
+  clock: a 1 s warning (the lights dip twice and a whine plays), 2 s of
+  dark, then light, always the longest part. The blinking bridges go out
+  with the dark, so a crossing is never made blind. A: "Power's failing!
+  Cross when the lights come back."
 - Boss intro, VB: **"Lights! Camera! NEON MASTER!"**
 - The fight: a blade thrown out and back, a dash and a neon volley. In phase
   2 it adds a laser grid. It is weak to Bubble Lance, copied at the locks.
@@ -574,9 +601,9 @@ story beats:
   A: "Half-built. You did that."
 - Vex, on the Fortress's own screens, VB: **"Welcome to my clinic! Take a
   seat… FOREVER!"**
-- **The Mk-I's entrance.** The boss shutter opens on a round arena at the
-  top of the Spire. Through its windows the ten relays glow around the
-  valley in their colours. The **Mk-I** drops in: the skull-faced capsule
+- **The Mk-I's entrance.** The boss shutter opens onto the Spire's roof,
+  under a lightning storm. Around it the ten relays glow across the valley
+  in their colours. The **Mk-I** drops in: the skull-faced capsule
   with claws and a glass dome, and Vex's hologram flickers inside the dome.
   VB: **"Behold! My new body! Mark ONE!"**
   A: "That's Vex. The real one."
@@ -597,45 +624,80 @@ story beats:
   - *No new gameplay:* the burst is a 1.5 s cinematic beat at the phase
     switch.
   - The existing boss half-health tell carries it.
-- **Victory:** the Mk-I sinks trailing sparks, and the dome cracks open.
+- **The Core Descent** (built, #109). The fight runs in three stages, each
+  a floor further down. **The roof:** lightning strikes a ring near Flux
+  every few seconds, unblockable, with the sky flashing. A: "Lightning!
+  Move when the ring lights up!" **At 65 %** the roof gives way: a rumble,
+  black, and Flux and Vex land in the **reactor hall**, its fire, shock and
+  gusts cycling round them. A: "The roof's giving way!" **At 30 %** the
+  floor goes again: a narrow **ring round the molten Core**, Vex hovering
+  over it and quicker. A: "Down to the Core! Don't fall in!" Each landing
+  replays Vex's entrance and keeps a retry-from-checkpoint point.
+  - *Still planned:* the relays-hold beat above (the last Red Signal) has
+    no scene yet; if it is built, it sits at the first fall.
+- **Victory over the Mk-I:** it sinks on the Core ring, trailing sparks.
   VB (small, crackling): **"I'll get… a second opinion…"**
-  A red spark races up the antenna into the sky. This is the `story.md`
-  ending, shot 1.
+- **The Grand Master Bot** (built, #101). Vex presses a big red button.
+  A: "Vex is pressing something... Brace yourself!" The Fortress rumbles, the
+  screen goes black, and Flux is back on the roof as the ten Masters'
+  bodies drop from the sky and lock together: Drill and Tide feet, the
+  Scrapper's chest, Volt and Magnet shoulders, Blaze's cannon arm, Frost's
+  lance arm, Gale and Rotor wings, Neon's head. Mega Man 2's Wily Machine,
+  rebuilt from the whole cast. It has 2.5 times Vex's health and four
+  parts, one weak spot at a time, ringed by Atlas. A weak-spot hit does
+  ×1.5, and each part keeps its Master's weakness (×2).
+  - **Arms:** Blaze's cannon throws fire fans, Frost's lance fires ice.
+    A: "Its arms first! The cannon and the lance!"
+  - **Feet:** stomps send shockwaves along the floor; block them. With its
+    feet gone it sinks. A: "Now the feet! Block the shockwaves!"
+  - **Head:** within reach now, it sweeps a laser across the roof after a
+    glow. A: "It's down low. The head is in reach!"
+  - **Core:** every Master's attack, at random. A: "The core is open!
+    Finish it!"
+  - From the head on it charges its own **Prism Cannon**: a ring of the ten
+    Masters' colours on its chest, then a wide beam swept across the roof.
+    A: "Prism Cannon! Shield up!"
+  - A retry point waits at the fight's start; a reload keeps every broken
+    part broken. When the core breaks, the giant falls, the banner reads
+    "Grand Master!", and the results screen leads into the ending.
 
 **Key frame (Act III poster):** the round arena at the Spire's peak, the
 skull-capsule Mk-I hovering with claws spread, its dome cracked. Outside,
 the red shock-ring shatters against a ring of ten coloured relay lights.
 Flux's charge shot glows amber, aimed at the crack.
 
-### Ending — Sunrise (about 20 s, skippable, after the results screen)
+### Ending — First Free Morning (built, #102; after the results screen)
 
-This follows `story.md`'s four shots, with Atlas's choice added between
-shots 1 and 2:
+About a minute and a half of film, then the credits and an end card. Skip
+is always on screen and goes straight to the card; a tap jumps to the next
+caption, and each caption holds 6.5 s. It follows `story.md`'s shots, with
+Atlas's choice moved into the lab:
 
-1. **The crash**: the spark escapes, as above.
-2. **The empty Spire (new, about 3 s).** Flux stands before the Spire's
-   control core, which is dark and waiting. Atlas's globe hovers over it and
-   the core starts to glow cyan.
-   A: "The Spire's empty. I could run all of it."
-   A beat, then the globe drifts back to Flux's HUD, and the core stays
-   dark.
-   A: "…No. They can run themselves."
-3. **The valley**: the red rolls back, the relays flip to their colours, the
-   airships lift and the worker-bots pour out.
-4. **The lab**: the frost melts, Gauss steps out and rests a hand on Flux's
-   crown. Her eyes go to his chest port and the cyan disc. A small nod:
-   she knows Atlas made it too.
-   *(Optional, Gauss's one line.)* "Welcome home. Both of you."
-5. **Sunrise**: the valley at dawn with the ring lit, and the Fortress relay
-   **white** because nobody runs the valley. `story.md` set that up, and
-   Atlas's refusal now explains it. Then the logo and credits.
+1. **The valley (0–16 s):** "The Grand Master falls. Vex's Red Signal dies
+   with it." A white ring rolls out from the Spire, and the relays come
+   home in their colours: "One by one, the relays come home, each in its
+   own colour."
+2. **The lab (16–40 s):** "In the lab, the ice lets go." The capsule's frost
+   melts, the glass slides down, and Gauss steps out, her eyes warming.
+   Pip bounces for joy.
+   Gauss: "Flux... you did it. You brought them all back."
+   Then Atlas's globe glows: the choice the old plan set at the empty
+   Spire, said in the lab.
+   A: "The Spire is empty. I could run this city now. I won't. It's
+   theirs."
+3. **Sunrise (40–60 s):** "Cyber City wakes to its first free morning." The
+   valley at dawn, every relay in its own colour.
+   Gauss: "Flux... did you see that spark?" (The spark line moved from
+   Atlas to Gauss; no spark is shown, so it stays a hook, not a promise.)
+4. **Credits (60–96 s):** the cast, then the Masters with their portraits,
+   then "Thank you for playing!"
+5. **The end card:** "Cyber City is free!" with *Start New Game+* (behind a
+   confirm) and *Back to the Lab*. From then on Gauss stands awake in the
+   lab.
 
-**Final line, over the logo:**
-
-> A: "Flux… did you see that spark?"
-
-It leaves the door open for New Game+ without promising it, which fits
-`story.md`'s Mk-II decision.
+The older drafts for this section (the crash shot, "I could run all of
+it", "…No. They can run themselves.", "Welcome home. Both of you.") are
+not in the built ending.
 
 **Key frame:** dawn over the valley, every sector glowing in its colour, the
 black Spire topped with a calm white light. In the lab, Gauss's hand rests
@@ -645,7 +707,8 @@ Flux's shoulder.
 ### After the credits — Mk-II (New Game+ only, as `story.md` decides)
 
 Black screen, one red pixel, the skull faceplate assembling. Add one Vex
-bubble: **"The doctor… is IN."**
+bubble: **"The doctor… is IN."** *Not built.* New Game+ itself is: the end
+card starts it.
 
 ---
 
@@ -708,12 +771,14 @@ spine behind the story.
    - A Fortress **Tower Run** (the climb kit: ladders, lifts, crushers, up
      the Spire's antenna) makes a natural second route. It would be a
      **proposal**, and the Tower Run already exists as a job type.
-6. **The Mk-I**, two phases, as in section 5. This is the only final boss;
-   more bosses wait for New Game+ (the Mk-II and Master Mk-II rematches,
-   per `story.md`).
-   > ⚠️ `story.md` put the Mk-II at Lv 26–40, "the range the level cap
-   > leaves open". The Fortress now runs to Lv 40, the cap itself, so New
-   > Game+ needs a higher cap or its own scaling. This is an open decision.
+6. **The Mk-I in the Core Descent**, then the **Grand Master Bot**, as in
+   section 5. Two final fights back to back: Vex down three floors of the
+   Spire, then the giant on its roof, each with retry points. More bosses
+   wait for New Game+ (the Mk-II and Master Mk-II rematches, per
+   `story.md`).
+   > Settled: New Game+ keeps the cap at Lv 40 and scales on its own
+   > (`sim/ngPlus.ts`, as `story.md` decides). Its entry is the ending's
+   > end card.
 
 ---
 
@@ -833,6 +898,10 @@ drop-in.
 | Story mission start (relays lit so far) | relay ring, lit count | One line per count: "One relay lit. Nine to go!" … "One Master left. Almost!" (9) … "Shield's down. Vex is next!" (10) (`atlas.arc.1`–`.10`) |
 | Objective complete | check | "Done. Call the drone when ready." |
 | *System down*, Pip's pull-back | Pip's eye | "Rebooting… Pip's got you." |
+| Blackout Boulevard, first power cut (built) | globe | "Power's failing! Cross when the lights come back." (`atlas.hint.neon.blackout`) |
+| Deep Mine, ore cart: board / the drop / the end (built) | globe | "Ore cart's rolling! I steer, you shoot the moles." / "Steep drop! Hold on tight!" / "Last stop. Out you hop!" (`atlas.hint.drill.board` / `.dip` / `.arrive`) |
+| Core Descent: the roof / each fall (built) | globe | "Lightning! Move when the ring lights up!" / "The roof's giving way!" / "Down to the Core! Don't fall in!" (`atlas.hint.vex.roof` / `.fall` / `.core`) |
+| Grand Master Bot: the button, each part, the Prism Cannon (built) | globe | "Vex is pressing something... Brace yourself!" / "Its arms first! The cannon and the lance!" / "Now the feet! Block the shockwaves!" / "It's down low. The head is in reach!" / "The core is open! Finish it!" / "Prism Cannon! Shield up!" (`atlas.hint.gm.*`) |
 | Levers / switches | lever | *No levers in the level kit yet.* Suggested line when they exist: "Switch. Try it." |
 
 All lines are ≤ 7 words in English. Localized subtitles may run longer, so
@@ -933,3 +1002,8 @@ These change or extend the canon, so confirm them before anything is built:
    reserve, plays after the Gale Master. The Fortress band moves to Lv
    31–40, and the new Masters form a second weakness ring of their own,
    which runs with the story order like the first.
+9. **The finale (built).** Vex's fight becomes the Core Descent (roof,
+   reactor hall, Core ring), and the Mk-I is no longer the only final boss:
+   the Grand Master Bot follows it. The ending is "First Free Morning":
+   Atlas's choice moves into the lab, the spark line goes to Gauss, Gauss
+   speaks two lines, and the end card starts New Game+.

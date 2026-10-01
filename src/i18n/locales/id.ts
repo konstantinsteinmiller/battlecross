@@ -693,7 +693,7 @@ export default {
         'core': 'Turun ke Inti! Jangan sampai jatuh!'
       },
       'gm': {
-        'button': 'Dia menekan sesuatu... Bersiaplah!',
+        'button': 'Vex menekan sesuatu... Bersiaplah!',
         'arms': 'Lengannya dulu! Meriam dan tombaknya!',
         'feet': 'Sekarang kakinya! Tahan gelombang kejutnya!',
         'head': 'Dia merunduk. Kepalanya terjangkau!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... kau lihat percikan itu?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Game dari {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City bebas!',
-      'promise': 'Game Baru+: para Master memukul 25% lebih keras dan menyerang lebih cepat. Level, perlengkapan, dan senjatamu tetap.',
+      'promise': 'Game Baru+: para Master punya 25% darah lebih banyak dan menyerang lebih cepat. Level, perlengkapan, dan senjatamu tetap.',
       'ngplus': 'Mulai Game Baru+',
       'lab': 'Kembali ke Lab',
       'confirm': 'Mulai Game Baru+?',

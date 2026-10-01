@@ -693,7 +693,7 @@ export default {
         'core': 'Naar de Kern! Val er niet in!'
       },
       'gm': {
-        'button': 'Hij drukt ergens op... Zet je schrap!',
+        'button': 'Vex drukt ergens op... Zet je schrap!',
         'arms': 'Eerst de armen! Het kanon en de lans!',
         'feet': 'Nu de voeten! Blokkeer de schokgolven!',
         'head': 'Hij zit laag. Het hoofd is binnen bereik!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... zag je die vonk?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Een game van {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City is vrij!',
-      'promise': 'Nieuw spel+: de Meesters slaan 25% harder en sneller toe. Je level, uitrusting en wapens blijven.',
+      'promise': 'Nieuw spel+: de Meesters hebben 25% meer leven en slaan sneller toe. Je level, uitrusting en wapens blijven.',
       'ngplus': 'Start Nieuw spel+',
       'lab': 'Terug naar het lab',
       'confirm': 'Nieuw spel+ starten?',

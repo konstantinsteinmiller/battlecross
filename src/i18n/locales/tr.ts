@@ -695,7 +695,7 @@ export default {
         'core': 'Çekirdeğe iniyoruz! Düşme sakın!'
       },
       'gm': {
-        'button': 'Bir şeye basıyor... Hazırlan!',
+        'button': 'Vex bir şeye basıyor... Hazırlan!',
         'arms': 'Önce kolları! Top ve mızrak!',
         'feet': 'Şimdi ayaklar! Şok dalgalarını blokla!',
         'head': 'Eğildi. Kafası menzilde!',
@@ -803,14 +803,14 @@ export default {
     'spark': 'Flux... o kıvılcımı gördün mü?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Bir {studio} oyunu',
@@ -820,7 +820,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City özgür!',
-      'promise': 'Yeni Oyun+: Ustalar %25 daha sert ve daha hızlı vuruyor. Seviyen, ekipmanın ve silahların kalıyor.',
+      'promise': 'Yeni Oyun+: Ustaların canı %25 daha fazla ve daha hızlı vuruyorlar. Seviyen, ekipmanın ve silahların kalıyor.',
       'ngplus': 'Yeni Oyun+ başlat',
       'lab': 'Laboratuvara dön',
       'confirm': 'Yeni Oyun+ başlatılsın mı?',

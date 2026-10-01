@@ -37,8 +37,10 @@ the catalog too. This file keeps the direction and the processing chains.
 
    Barks are fine in English everywhere (they're onomatopoeia), but see
    `story-arc.md` §9 for localizing their subtitles.
-2. **Does Gauss speak?** She has one optional line at the end. It is
-   recommended: it's the emotional payoff, and it costs one actor session.
+2. **Does Gauss speak?** The built ending gives her two spoken captions
+   (`ending.gauss`, `ending.spark`), so a Gauss session now covers two
+   lines. It is recommended: it's the emotional payoff, and it costs one
+   actor session. Without it, her captions play silent like any line.
 3. **The folder.** *Resolved:* the voice loader exists
    (`src/game/audio/voice.ts`, list in `voice-todo.md`). It reads
    `public/audio/voice/<lang>/<file>.ogg`, where `<file>` is the line's
@@ -474,7 +476,7 @@ The tails are short synth sounds made in the same style as the game's SFX
 (pulse and noise, from `synth.ts`), mono and peaking at −6 dBFS. They are
 made once and reused by every take of that type.
 
-### Prof. Gauss: one line (optional)
+### Prof. Gauss: the ending (optional)
 
 - **Voice:** elderly, gentle, clever and a little amused. A grandmother who
   built half the city.
@@ -484,12 +486,14 @@ made once and reused by every take of that type.
 
 The goal: the only voice at the end that isn't fighting anything. She's full
 range and warm, in the lab's small room, with just enough shimmer to be an
-android. Her line plays over the ending, with no fight SFX under it, so she
-can sit a little lower and breathe.
+android. Her lines play over the ending, with no fight SFX under them, so
+she can sit a little lower and breathe. Both use this one chain, the lab's
+room included: `ending.spark` plays over the sunrise, but one preset per
+character keeps her the same voice across the cut.
 
 | Dynamics | `{thr}` | `{ratio}` | `{atk}` | `{rel}` | `{lufs}` |
 | --- | --- | --- | --- | --- | --- |
-| her line | −20 dB | 2 | 15 ms | 300 ms | −17 LUFS |
+| her lines | −20 dB | 2 | 15 ms | 300 ms | −17 LUFS |
 
 ```audacity-chain gauss
 SelectAll:
@@ -630,6 +634,28 @@ count now runs to ten:
 | `atlas_because_free` | `atlas.mk1.free` | Atlas | "Because they're free." | Calm, almost gentle. The thesis of the game. | 1.8 s |
 | `vex_second_opinion` | `vex.mk1.defeat` | Vex | "I'll get… a second opinion…" | Small, fading, still smug under it. | 2.6 s |
 
+### Act III: the Core Descent and the Grand Master Bot
+
+These lines are in the game now (the locale's text under `atlas.hint.vex`
+and `atlas.hint.gm`) and still need adding to `voiceCatalog.ts`. All are
+Atlas, on **the Atlas chain** with the *standard* dynamics row: no glitch
+variant (that stays the Volt Tower's), and none of them takes the
+`atlas.warn.critical*` row. The urgency is in the read, tighter and
+faster, never louder, as the cast notes ask. They play over a boss fight,
+so the presence push of the chain is what carries them.
+
+| VO id | Key | Who | Line | Direction | Max |
+| --- | --- | --- | --- | --- | --- |
+| `atlas_vex_roof` | `atlas.hint.vex.roof` | Atlas | "Lightning! Move when the ring lights up!" | Quick coaching under a storm. Clear on "ring". | 2.4 s |
+| `atlas_vex_fall` | `atlas.hint.vex.fall` | Atlas | "The roof's giving way!" | Sudden, tight. Plays as the floor rumbles. | 1.4 s |
+| `atlas_vex_core` | `atlas.hint.vex.core` | Atlas | "Down to the Core! Don't fall in!" | Tense, focused: the last stage. | 2.0 s |
+| `atlas_gm_button` | `atlas.hint.gm.button` | Atlas | "Vex is pressing something... Brace yourself!" | Wary on the first half, a beat, then firm. Atlas calls Vex "he" here, as the locale does. | 2.6 s |
+| `atlas_gm_arms` | `atlas.hint.gm.arms` | Atlas | "Its arms first! The cannon and the lance!" | Tactical, quick, pointing out targets. | 2.4 s |
+| `atlas_gm_feet` | `atlas.hint.gm.feet` | Atlas | "Now the feet! Block the shockwaves!" | The same, a notch more urgent. | 2.2 s |
+| `atlas_gm_head` | `atlas.hint.gm.head` | Atlas | "It's down low. The head is in reach!" | Spotting an opening; a hint of a grin. | 2.4 s |
+| `atlas_gm_body` | `atlas.hint.gm.body` | Atlas | "The core is open! Finish it!" | The push to the end. Resolve, not a shout. | 1.8 s |
+| `atlas_gm_prism` | `atlas.hint.gm.prism` | Atlas | "Prism Cannon! Shield up!" | A sharp call-out on the charge, like the Mk-I's element calls. | 1.4 s |
+
 ### Ending
 
 | VO id | Key | Who | Line | Direction | Max |
@@ -639,6 +665,22 @@ count now runs to ten:
 | `gauss_welcome_home` | `gauss.ending.home` | Gauss | "Welcome home. Both of you." | Warm, tired and proud. *Optional.* | 2.4 s |
 | `atlas_spark` | `atlas.ending.spark` | Atlas | "Flux… did you see that spark?" | Light and curious; a hook, not dread. | 2.2 s |
 | `vex_doctor_in` | `vex.sting.doctorIn` | Vex | "The doctor… is IN." | Whispered, then a slow grin. *NG+ only.* | 2.2 s |
+
+### Ending: First Free Morning (built)
+
+The built ending (#102) has its own captions (`ending.*` in `en.ts`). Three
+are spoken; the other four (`ending.fall`, `.relays`, `.thaw`, `.morning`)
+are narration and stay subtitle-only. Each caption holds 6.5 s, so the Max
+column leaves the read room to land. The planned ending lines above
+(`atlas.ending.spire`, `.choice`, `.spark`, `gauss.ending.home`) are not
+in the built ending; *proposed:* retire them from the catalog when these
+three are added, and keep `vex.sting.doctorIn` for the Mk-II sting.
+
+| VO id | Key | Who | Line | Direction | Max |
+| --- | --- | --- | --- | --- | --- |
+| `gauss_you_did_it` | `ending.gauss` | Gauss | "Flux... you did it. You brought them all back." | Just out of the ice: a breath first, warm, tired and proud. The pause after "Flux" is her waking up. **The Gauss chain.** | 3.6 s |
+| `atlas_its_theirs` | `ending.atlas` | Atlas | "The Spire is empty. I could run this city now. I won't. It's theirs." | Tempted for one sentence, then a decision, and peace. It should sound like a choice, not a sacrifice. The game's one long Atlas line: over the 7-word rule on purpose, so a brisk read to fit the catalogue's 3.5 s cap. **The Atlas chain**, standard row, no glitch. | 3.5 s |
+| `gauss_that_spark` | `ending.spark` | Gauss | "Flux... did you see that spark?" | Light and curious, over the sunrise; a hook, not dread. **The Gauss chain.** | 2.4 s |
 
 ### Atlas: field warnings
 
@@ -669,6 +711,14 @@ count now runs to ten:
 | `atlas_sector_floor` | `atlas.hint.floor` | "{sector} runs level {n} and up." | A briefing. *Record per sector.* | 2.0 s |
 | `atlas_system_down` | `atlas.warn.down` | "Rebooting… Pip's got you." | Reassuring. | 1.8 s |
 | `atlas_switch` | `atlas.hint.switch` | "Switch. Try it." | *Reserved until the level kit has levers.* | 1.0 s |
+| `atlas_neon_blackout` | `atlas.hint.neon.blackout` | "Power's failing! Cross when the lights come back." | Calm warning as the lights dip; the second half is the instruction. **Live** (Blackout Boulevard, #110). | 2.6 s |
+| `atlas_drill_board` | `atlas.hint.drill.board` | "Ore cart's rolling! I steer, you shoot the moles." | Cheerful, a little proud to drive. **Live** (Deep Mine cart, #111), like `atlas.hint.volt.board`. | 2.8 s |
+| `atlas_drill_dip` | `atlas.hint.drill.dip` | "Steep drop! Hold on tight!" | A rollercoaster grin, quick. **Live.** | 1.6 s |
+| `atlas_drill_arrive` | `atlas.hint.drill.arrive` | "Last stop. Out you hop!" | Light, a conductor's sign-off. **Live.** | 1.6 s |
+
+These four ride the Atlas chain with the standard dynamics row, like the
+other stage hints (`atlas.hint.cryo.*`, `atlas.hint.volt.*`), and still
+need adding to `voiceCatalog.ts`.
 
 ### Atlas: machine scans (first sighting)
 

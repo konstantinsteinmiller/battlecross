@@ -693,7 +693,7 @@ export default {
         'core': 'Xuống Lõi thôi! Đừng rơi vào!'
       },
       'gm': {
-        'button': 'Hắn đang bấm gì đó... Chuẩn bị đi!',
+        'button': 'Vex đang bấm gì đó... Chuẩn bị đi!',
         'arms': 'Bắn tay trước! Khẩu pháo và cây thương!',
         'feet': 'Giờ tới chân! Chặn sóng xung kích!',
         'head': 'Nó hạ thấp rồi. Đầu nó trong tầm bắn!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... cậu có thấy tia lửa đó không?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Một trò chơi của {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City đã tự do!',
-      'promise': 'New Game+: các Chúa Tể đánh mạnh hơn 25% và ra đòn nhanh hơn. Cấp độ, trang bị và vũ khí của bạn được giữ lại.',
+      'promise': 'New Game+: các Chúa Tể có thêm 25% máu và ra đòn nhanh hơn. Cấp độ, trang bị và vũ khí của bạn được giữ lại.',
       'ngplus': 'Bắt đầu New Game+',
       'lab': 'Về phòng thí nghiệm',
       'confirm': 'Bắt đầu New Game+?',

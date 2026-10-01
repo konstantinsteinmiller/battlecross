@@ -159,7 +159,7 @@ No sentences. Every control is taught by a **glyph** where the action happens
 | Rule | Value |
 | --- | --- |
 | Quick shot | 1 pellet, dmg `buster × 1.0`, fire cooldown 0.22 s, 3 pellets max in flight (classic cap) |
-| Charge | lv1 at 0.55 s (dmg × 2.2, pierces), lv2 **full** at 1.2 s (dmg × 4, staggers, breaks guards). Skill `Quick Charge` shortens both |
+| Charge | lv1 at 0.55 s (dmg × 2.2, pierces), lv2 **full** at 1.2 s (dmg × 4, staggers, breaks guards). Skill `Quick Charge` shortens both. With the **Overload** mod, holding a full charge 3 s more fires lv3 (dmg × 7, 1.75 × a full charge): a gold-white comet in the epic violet. Charge-speed upgrades never shorten those 3 s |
 | Perfect release | a window of 0.22 s that opens 0.1 s after full charge. Release inside it for a **crit** (× 1.5, gold burst, hit-stop) |
 | Block | while held: frontal damage × 0.25, costs **Power** (stamina) = 40 % of the blocked damage. At 0 Power the guard breaks and Flux is stunned for 0.6 s |
 | Parry | block pressed within the enemy telegraph's last **0.28 s** (the ring is nearly closed and flashes white). Projectile → reflected at 2× damage. Melee → enemy stunned for 1.6 s, taking × 1.5 damage |
@@ -211,7 +211,7 @@ landing with a shock ring while the shutter slams behind the player.
 
 | Boss | Sector | Patterns | Drops weapon | Weak to |
 | --- | --- | --- | --- | --- |
-| Scrapper (mini, tutorial) | Scrapyard | charge, scrap toss, stomp | **Scrap Burst** (3-way spread) | — |
+| Scrapper (mini, tutorial) | Scrapyard | charge, scrap toss, stomp; phase 2: the arena's magnet crane drops crates on rings near Flux (they hurt the Scrapper too, and stay as cover with an energy pill) | **Scrap Burst** (3-way spread) | — |
 | Blaze Master | Blaze Refinery | fire wave, leaping slam, flame ring | **Flame Wave** (ground fire, burn DoT) | Gale Guard |
 | Frost Master | Cryo Plant | ice lance volley, freeze floor, dash | **Ice Lance** (piercing, freezes) | Flame Wave |
 | Volt Master | Volt Tower | chain lightning, orb storm, teleport | **Thunder Arc** (chains to 3) | Ice Lance |
@@ -221,7 +221,8 @@ landing with a shock ring while the shutter slams behind the player.
 | Tide Master | Tidewater Locks | lance thrust, tidal waves (slide under), slow bubble volley; phase 2: whirlpool pull | **Bubble Lance** (a bubble rolling along the floor through every machine) | Drill Bomb |
 | Neon Master | Blackout Boulevard | blade thrown out and back, dash, neon volley; phase 2: laser grid | **Neon Blade** (a boomerang that cuts going and coming) | Bubble Lance |
 | Rotor Master | Rotor Run | drone swarm, downdraft (blows Flux back), dive; phase 2: rotor storm | **Drone Swarm** (three homing drones) | Neon Blade |
-| Dr. Vex Mk-I | Vex Fortress | every pattern above, 3 phases | — (credits + New Game+) | none |
+| Dr. Vex Mk-I | Vex Fortress | every pattern above, in the three-stage Core Descent (below) | — | none |
+| Grand Master Bot | Vex Fortress (the Spire's roof) | four parts in turn: arms (fire fans, ice), feet (shockwaves), head (laser sweep), core (every Master's attack); the Prism Cannon from the head on | — (the ending, credits + New Game+) | per part: its Master's weakness |
 
 Both weakness rings run **with** the story order: each Master is weak to the
 weapon of the Master freed just before it, and each ring's first Master
@@ -240,6 +241,30 @@ At the boss door, right after "Boss ahead. Deep breath!", Atlas says
 Master's weakness, and "No weak spot visible. Move!"
 (`atlas.noWeak`) at the Scrapper's and Vex's doors, which have none. For a
 Master whose weakness Flux hasn't copied yet, Atlas says nothing.
+
+**The finale** (`sim/coreDescent.ts`, `sim/grandMaster.ts`). Two fights back
+to back, with a retry-from-checkpoint point at each landing:
+
+- **The Core Descent** (#109): Vex on the Spire's **roof** under a lightning
+  storm (a strike every 3.2 s on a ring near Flux, 8 % of his health,
+  unblockable). At **65 %** of Vex's health the roof gives way into the
+  **reactor hall** (fire, shock and gusts cycling); at **30 %** onto a
+  narrow **ring round the molten Core**, where Vex attacks quicker (tempo
+  × 0.8). Each fall is a 1.6 s scene (rumble, black, landing, Vex's
+  entrance again); Vex can't be hit during it. Atlas: `hint.vex.roof` /
+  `.fall` / `.core`.
+- **The Grand Master Bot** (#101): when Vex falls he presses a big red
+  button; the ten Masters' bodies drop onto the roof and assemble (Drill
+  and Tide feet, the Scrapper's chest, Volt and Magnet shoulders, Blaze's
+  cannon arm, Frost's lance arm, Gale and Rotor wings, Neon's head). Health
+  **2.5 ×** Vex's. Four parts in order, one weak spot at a time, marked by
+  Atlas: **arms → feet** (block the shockwaves; with its feet gone it sinks)
+  **→ head** (a laser sweep after a glow) **→ core** (every Master's attack
+  at random). A hit on the weak spot does × 1.5, the part's Master's
+  weakness × 2. From the head on, every 9 s it charges its **Prism
+  Cannon** (a ten-colour ring for 1.5 s, then a wide beam swept across the
+  roof). Its state rides in the climb's save, so a reload or retry keeps
+  broken parts broken. Atlas: `hint.gm.*`.
 
 Sector bands:
 Polarity Works 16–22, Deep Mine 19–25, Tidewater Locks 22–28, Blackout
@@ -273,7 +298,7 @@ the node before it has at least one rank. Respec costs bolts.
 | Mega Charge | 5 | charged dmg +12 % |
 | Perfect Timing | 3 | perfect window +25 %, crit × +0.15 |
 | Piercing Core | 1 | charged lv1 also breaks guards |
-| Giga Buster | 1 | a 3rd charge level (hold 2 s): × 7 dmg, splash |
+| **Overload** (mod) | 1 | a 3rd charge level: hold a full charge 3 s more, × 7 dmg. Not bought with a chip (below) |
 
 **Armor Circuit (defense)**
 
@@ -299,6 +324,14 @@ the node before it has at least one rank. Respec costs bolts.
 
 Each board has six nodes (18 in all), laid out as a small tree: one root,
 two branches, three leaves.
+
+**The Overload mod** (#100, `data/skills.ts` `OVERLOAD_PRICE`) sits on the
+Buster board's middle leaf but lives outside the chip economy: it is drawn
+in violet, costs no Skill Chip, is bought once for **2300 bolts** in
+Circuits, and a respec never refunds or removes it. It unlocks with the
+Gale Master's Gale Guard. On the first lab visit after the Gale Master, Pip
+announces it ("Hold a full charge 3 more seconds: OVERLOAD!") and opens
+Circuits on it (`PipNotice.vue`, once per profile).
 
 **Special weapons** (the MegaMan "weapon copy") are separate from the boards.
 Each one comes from a boss, is equipped in one of **2 slots** and levels up
@@ -376,6 +409,16 @@ salvage an item for bolts, buy a Repair Tank (150 bolts), refill tanks.
 
 - **Story missions**, one chain per sector: reach the sector core → defeat the
   Core Master. Beating a boss unlocks its weapon and the next sector.
+  Beating the Fortress plays the ending, "First Free Morning" (#102), whose
+  end card offers **New Game+**.
+- **Story stage set pieces** that are optional or timed: the Deep Mine's
+  **ore cart** (#111), an optional ride from the Chasm's east island over a
+  trestle, down a steep drop, through the corridor and across the Mole
+  Warren (Atlas drives, Flux shoots; `hint.drill.board` / `.dip` /
+  `.arrive`), and the Blackout Boulevard's **power cuts** (#110,
+  `sim/lightPulse.ts`): a 9 s cycle with a 1 s warning (two dips, a whine)
+  and 2 s of dark; the Blink Run's pulse bridges go out with the dark
+  (`hint.neon.blackout`). The dips stay under three flashes a second.
 - **Jobs**, the repeatable Blades jobs. The terminal shows 3 at a time. Taking
   one generates a fresh map from `(sector, seed)`. Templates:
   - *Scrap Duty*: destroy N (6–12) enemies of type X.
@@ -581,9 +624,18 @@ instant; the bar catches up, and a hit on the way cancels the show).
 
 After a mission the game goes to the **Hub**. It is a UI screen over a live 3D
 backdrop of Flux idling on the teleporter pad in Gauss's lab. The tabs are
-**Missions** (sector map plus the job board), **Hero** (gear, stats, 3D paper
-doll), **Circuits** (skills) and **Workshop**. The Hub is a menu, not a town:
-there is no building.
+**Missions** (the stage select plus the job board), **Hero** (gear, stats,
+3D paper doll), **Circuits** (skills) and **Workshop**. The Hub is a menu,
+not a town: there is no building. Once the ending has played, Gauss stands
+awake in the lab beside the pad.
+
+**The stage select** (#103, `MissionsTab.vue`, `QuestCard.vue`): each
+Master's portrait on a tile in its signature colour. Beaten ones are
+greyed with a tick, the next one pulses, locked ones are a silhouette; the
+story stays linear. A story mission's card wears its Master's face and
+colour, and while the mission loads a boss splash plays
+(`hud/MissionLoading.vue`): the Master strikes in and its name types on,
+inside the load's own wait, never adding to it.
 
 **The upgrade tour.** The first return to the lab walks the player through
 the one loop that matters (`components/hub/hubLesson.ts`, `HubLesson.vue`):

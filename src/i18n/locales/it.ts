@@ -693,7 +693,7 @@ export default {
         'core': 'Giù al Nucleo! Non caderci dentro!'
       },
       'gm': {
-        'button': 'Sta premendo qualcosa... Preparati!',
+        'button': 'Vex sta premendo qualcosa... Preparati!',
         'arms': 'Prima le braccia! Il cannone e la lancia!',
         'feet': 'Ora i piedi! Para le onde d\'urto!',
         'head': 'È abbassato. La testa è a portata!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... hai visto quella scintilla?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Un gioco di {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City è libera!',
-      'promise': 'Nuova partita+: i Maestri colpiscono il 25% più forte e più in fretta. Livello, equipaggiamento e armi restano.',
+      'promise': 'Nuova partita+: i Maestri hanno il 25% di salute in più e colpiscono più in fretta. Livello, equipaggiamento e armi restano.',
       'ngplus': 'Inizia Nuova partita+',
       'lab': 'Torna al laboratorio',
       'confirm': 'Iniziare Nuova partita+?',

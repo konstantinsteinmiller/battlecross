@@ -693,7 +693,7 @@ export default {
         'core': 'W dół, do Rdzenia! Nie wpadnij!'
       },
       'gm': {
-        'button': 'Coś naciska... Przygotuj się!',
+        'button': 'Vex coś naciska... Przygotuj się!',
         'arms': 'Najpierw ramiona! Działo i lanca!',
         'feet': 'Teraz stopy! Blokuj fale uderzeniowe!',
         'head': 'Jest nisko. Głowa w zasięgu!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... widziałeś tę iskrę?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Gra autorstwa {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City jest wolne!',
-      'promise': 'Nowa gra+: Mistrzowie biją o 25% mocniej i atakują szybciej. Twój poziom, sprzęt i broń zostają.',
+      'promise': 'Nowa gra+: Mistrzowie mają o 25% więcej zdrowia i atakują szybciej. Twój poziom, sprzęt i broń zostają.',
       'ngplus': 'Zacznij Nową grę+',
       'lab': 'Wróć do laboratorium',
       'confirm': 'Zacząć Nową grę+?',

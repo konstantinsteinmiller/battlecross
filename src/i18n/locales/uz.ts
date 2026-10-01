@@ -693,7 +693,7 @@ export default {
         'core': 'Yadroga tushamiz! Yiqilib ketma!'
       },
       'gm': {
-        'button': 'U nimanidir bosyapti... Tayyor tur!',
+        'button': 'Vex nimanidir bosyapti... Tayyor tur!',
         'arms': 'Avval qoʻllari! Toʻp va nayza!',
         'feet': 'Endi oyoqlari! Zarba toʻlqinlarini toʻsib qol!',
         'head': 'U pastga egildi. Boshi yetarli masofada!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... anavi uchqunni koʻrdingmi?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': '{studio} oʻyini',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City ozod!',
-      'promise': 'Yangi oʻyin+: Ustalar 25% kuchliroq va tezroq zarba beradi. Darajangiz, jihozlaringiz va qurollaringiz saqlanadi.',
+      'promise': 'Yangi oʻyin+: Ustalarning sogʻligʻi 25% koʻproq va ular tezroq zarba beradi. Darajangiz, jihozlaringiz va qurollaringiz saqlanadi.',
       'ngplus': 'Yangi oʻyin+ boshlash',
       'lab': 'Laboratoriyaga qaytish',
       'confirm': 'Yangi oʻyin+ boshlansinmi?',

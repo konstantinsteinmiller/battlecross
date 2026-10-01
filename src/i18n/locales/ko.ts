@@ -693,7 +693,7 @@ export default {
         'core': '코어까지 내려가자! 빠지지 마!'
       },
       'gm': {
-        'button': '뭔가 누르고 있어... 대비해!',
+        'button': 'Vex가 뭔가 누르고 있어... 대비해!',
         'arms': '팔부터! 캐논과 랜스!',
         'feet': '이제 발! 충격파를 막아!',
         'head': '자세가 낮아졌어. 머리가 닿아!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... 방금 그 불꽃 봤어?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': '핍'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': '핍',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': '{studio} 제작',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City가 자유를 되찾았다!',
-      'promise': '뉴 게임+: 마스터들이 25% 더 세게, 더 빠르게 공격합니다. 레벨, 장비, 무기는 유지됩니다.',
+      'promise': '뉴 게임+: 마스터들의 체력이 25% 늘어나고 더 빠르게 공격합니다. 레벨, 장비, 무기는 유지됩니다.',
       'ngplus': '뉴 게임+ 시작',
       'lab': '연구소로 돌아가기',
       'confirm': '뉴 게임+를 시작할까요?',

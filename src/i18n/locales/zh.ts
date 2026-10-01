@@ -693,7 +693,7 @@ export default {
         'core': '下到核心！别掉进去！'
       },
       'gm': {
-        'button': '他在按什么东西……做好准备！',
+        'button': 'Vex在按什么东西……做好准备！',
         'arms': '先打手臂！炮臂和长枪！',
         'feet': '现在打脚！挡住冲击波！',
         'head': '它压低了。头部够得着了！',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux……你看到那道火花了吗？',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': '皮普'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': '皮普',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': '{studio} 出品',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City自由了！',
-      'promise': '新游戏+：大师们的攻击力提升25%，出手更快。你的等级、装备和武器都会保留。',
+      'promise': '新游戏+：大师们的生命值提升25%，出手更快。你的等级、装备和武器都会保留。',
       'ngplus': '开始新游戏+',
       'lab': '返回实验室',
       'confirm': '开始新游戏+？',

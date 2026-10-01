@@ -693,7 +693,7 @@ export default {
         'core': 'Runter zum Kern! Nicht reinfallen!'
       },
       'gm': {
-        'button': 'Er drückt irgendwas... Mach dich bereit!',
+        'button': 'Vex drückt irgendwas... Mach dich bereit!',
         'arms': 'Erst die Arme! Kanone und Lanze!',
         'feet': 'Jetzt die Füße! Blocke die Schockwellen!',
         'head': 'Er ist unten. Der Kopf ist in Reichweite!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... hast du den Funken gesehen?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Ein Spiel von {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City ist frei!',
-      'promise': 'Neues Spiel+: Die Meister treffen 25 % härter und schlagen schneller zu. Level, Ausrüstung und Waffen bleiben.',
+      'promise': 'Neues Spiel+: Die Meister haben 25 % mehr Leben und schlagen schneller zu. Level, Ausrüstung und Waffen bleiben.',
       'ngplus': 'Neues Spiel+ starten',
       'lab': 'Zurück ins Labor',
       'confirm': 'Neues Spiel+ starten?',

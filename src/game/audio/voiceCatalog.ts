@@ -858,10 +858,95 @@ const GAUSS: VoiceLine[] = [
 ]
 
 /** Every line, speakers in cast order, scenes in playing order. */
+
+/** The finale and the new stage lines (#101, #102, #109, #110, #111): planned. */
+const FINALE: VoiceLine[] = [
+  plan('atlas.hint.vex.roof', 'atlas', 'act3', 2.4, {
+    when: ["Vex Fortress: the roof fight begins, the first lightning ring", "Vex-Festung: der Kampf auf dem Dach beginnt, der erste Blitzring"],
+    draft: ["Lightning! Move when the ring lights up!", "Blitze! Weg, wenn der Ring aufleuchtet!"],
+    direction: ["Sharp, watching the sky.", "Scharf, den Himmel im Blick."]
+  }),
+  plan('atlas.hint.vex.fall', 'atlas', 'act3', 2.4, {
+    when: ["Vex Fortress: the roof collapses at 65 %", "Vex-Festung: das Dach bricht bei 65 % ein"],
+    draft: ["The roof's giving way!", "Das Dach bricht ein!"],
+    direction: ["Alarmed, quick.", "Alarmiert, schnell."]
+  }),
+  plan('atlas.hint.vex.core', 'atlas', 'act3', 2.4, {
+    when: ["Vex Fortress: the drop to the Core ring at 30 %", "Vex-Festung: der Sturz zum Kernring bei 30 %"],
+    draft: ["Down to the Core! Don't fall in!", "Runter zum Kern! Nicht reinfallen!"],
+    direction: ["Urgent, careful.", "Dringend, vorsichtig."]
+  }),
+  plan('atlas.hint.gm.button', 'atlas', 'act3', 2.4, {
+    when: ["Vex Fortress: Vex falls and presses his red button", "Vex-Festung: Vex fällt und drückt seinen roten Knopf"],
+    draft: ["Vex is pressing something... Brace yourself!", "Vex drückt irgendwas... Mach dich bereit!"],
+    direction: ["Uneasy, bracing.", "Unruhig, angespannt."]
+  }),
+  plan('atlas.hint.gm.arms', 'atlas', 'act3', 2.4, {
+    when: ["Grand Master: the fight starts, the arms are the target", "Großmeister: der Kampf beginnt, die Arme sind das Ziel"],
+    draft: ["Its arms first! The cannon and the lance!", "Erst die Arme! Kanone und Lanze!"],
+    direction: ["Commanding.", "Befehlend."]
+  }),
+  plan('atlas.hint.gm.feet', 'atlas', 'act3', 2.4, {
+    when: ["Grand Master: both arms down, the feet next", "Großmeister: beide Arme ab, jetzt die Füße"],
+    draft: ["Now the feet! Block the shockwaves!", "Jetzt die Füße! Blocke die Schockwellen!"],
+    direction: ["Driving on.", "Treibend."]
+  }),
+  plan('atlas.hint.gm.head', 'atlas', 'act3', 2.4, {
+    when: ["Grand Master: it sinks, the head comes in reach", "Großmeister: er sinkt, der Kopf ist erreichbar"],
+    draft: ["It's down low. The head is in reach!", "Er ist unten. Der Kopf ist in Reichweite!"],
+    direction: ["Spotting the chance.", "Erkennt die Chance."]
+  }),
+  plan('atlas.hint.gm.body', 'atlas', 'act3', 2.4, {
+    when: ["Grand Master: the last part, the core", "Großmeister: das letzte Teil, der Kern"],
+    draft: ["The core is open! Finish it!", "Der Kern liegt frei! Mach ihn fertig!"],
+    direction: ["All in.", "Alles geben."]
+  }),
+  plan('atlas.hint.gm.prism', 'atlas', 'act3', 2.4, {
+    when: ["Grand Master: the Prism Cannon charges", "Großmeister: die Prismakanone lädt"],
+    draft: ["Prism Cannon! Shield up!", "Prismakanone! Schild hoch!"],
+    direction: ["Warning, fast.", "Warnung, schnell."]
+  }),
+  plan('atlas.hint.neon.blackout', 'atlas', 'act3', 2.4, {
+    when: ["Blackout Boulevard: at the first pulse bridge", "Blackout Boulevard: an der ersten Pulsbrücke"],
+    draft: ["Power's failing! Cross when the lights come back.", "Der Strom fällt aus! Rüber, wenn das Licht wieder angeht."],
+    direction: ["Tense, then reassuring.", "Angespannt, dann beruhigend."]
+  }),
+  plan('atlas.hint.drill.board', 'atlas', 'act3', 2.4, {
+    when: ["Deep Mine: boarding the ore cart", "Tiefe Mine: Einstieg in die Lore"],
+    draft: ["Ore cart's rolling! I steer, you shoot the moles.", "Die Lore rollt! Ich lenke, du schießt auf die Maulwürfe."],
+    direction: ["Excited.", "Begeistert."]
+  }),
+  plan('atlas.hint.drill.dip', 'atlas', 'act3', 2.4, {
+    when: ["Deep Mine: before the cart's steep drop", "Tiefe Mine: vor dem steilen Gefälle der Lore"],
+    draft: ["Steep drop! Hold on tight!", "Steil bergab! Gut festhalten!"],
+    direction: ["Bracing, thrilled.", "Festhalten, aufgekratzt."]
+  }),
+  plan('atlas.hint.drill.arrive', 'atlas', 'act3', 2.4, {
+    when: ["Deep Mine: the cart stops at the warren", "Tiefe Mine: die Lore hält am Bau"],
+    draft: ["Last stop. Out you hop!", "Letzter Halt. Raus mit dir!"],
+    direction: ["Wry.", "Trocken."]
+  }),
+  plan('gauss.ending.gauss', 'gauss', 'ending', 3.5, {
+    when: ["The ending: Gauss steps out of her capsule", "Das Ende: Gauss steigt aus ihrer Kapsel"],
+    draft: ["Flux... you did it. You brought them all back.", "Flux... du hast es geschafft. Du hast sie alle zurückgebracht."],
+    direction: ["Warm, tired, proud.", "Warm, müde, stolz."]
+  }),
+  plan('atlas.ending.atlas', 'atlas', 'ending', 3.5, {
+    when: ["The ending: Atlas and the empty Spire", "Das Ende: Atlas und der leere Turm"],
+    draft: ["The Spire is empty. I could run this city now. I won't. It's theirs.", "Der Turm ist leer. Ich könnte diese Stadt jetzt lenken. Tu ich nicht. Sie gehört ihnen."],
+    direction: ["Quiet, certain, a smile in it.", "Leise, sicher, mit einem Lächeln."]
+  }),
+  plan('gauss.ending.spark', 'gauss', 'ending', 3.5, {
+    when: ["The ending: the sunrise, the last line", "Das Ende: der Sonnenaufgang, die letzte Zeile"],
+    draft: ["Flux... did you see that spark?", "Flux... hast du den Funken gesehen?"],
+    direction: ["Soft wonder.", "Sanftes Staunen."]
+  })
+]
+
 export const VOICE_LINES: readonly VoiceLine[] = [
   ...ATLAS_LIVE, ...ATLAS_PLAN,
   ...ATLAS_HINT_BLAZE, ...ATLAS_HINT_CRYO, ...ATLAS_HINT_VOLT, ...ATLAS_HINT_GALE, ...ATLAS_SECRET,
-  ...VEX, ...FLUX, ...GAUSS
+  ...VEX, ...FLUX, ...GAUSS, ...FINALE
 ]
 
 /** A key's file name, without the extension: `atlas.bossAhead` → `atlas_bossAhead`. */

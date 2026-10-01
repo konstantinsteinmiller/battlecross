@@ -693,7 +693,7 @@ export default {
         'core': 'Rumo ao Núcleo! Não caia lá dentro!'
       },
       'gm': {
-        'button': 'Ele está apertando algo... Se prepara!',
+        'button': 'O Vex está apertando algo... Se prepara!',
         'arms': 'Primeiro os braços! O canhão e a lança!',
         'feet': 'Agora os pés! Bloqueia as ondas de choque!',
         'head': 'Ele abaixou. A cabeça está ao alcance!',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... você viu aquela faísca?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Um jogo de {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City está livre!',
-      'promise': 'Novo Jogo+: os Mestres batem 25% mais forte e atacam mais rápido. Seu nível, equipamento e armas ficam.',
+      'promise': 'Novo Jogo+: os Mestres têm 25% mais vida e atacam mais rápido. Seu nível, equipamento e armas ficam.',
       'ngplus': 'Iniciar Novo Jogo+',
       'lab': 'Voltar ao laboratório',
       'confirm': 'Iniciar Novo Jogo+?',

@@ -693,7 +693,7 @@ export default {
         'core': 'コアまで降りるよ！落ちないで！'
       },
       'gm': {
-        'button': '何か押してる…気をつけて！',
+        'button': 'Vexが何か押してる…気をつけて！',
         'arms': 'まずは腕！キャノンとランスだよ！',
         'feet': '次は足！衝撃波をガードして！',
         'head': '低くなった。頭を狙えるよ！',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux…今の火花、見た？',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'ピップ'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'ピップ',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': '制作：{studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber Cityは自由だ！',
-      'promise': 'ニューゲーム+：マスターの攻撃が25%強く、速くなる。レベル、装備、武器は引き継がれる。',
+      'promise': 'ニューゲーム+：マスターの体力が25%増え、攻撃も速くなる。レベル、装備、武器は引き継がれる。',
       'ngplus': 'ニューゲーム+を始める',
       'lab': 'ラボに戻る',
       'confirm': 'ニューゲーム+を始めますか？',

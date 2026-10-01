@@ -693,7 +693,7 @@ export default {
         'core': 'Direction le Noyau ! Ne tombe pas dedans !'
       },
       'gm': {
-        'button': 'Il appuie sur quelque chose... Prépare-toi !',
+        'button': 'Vex appuie sur quelque chose... Prépare-toi !',
         'arms': 'Les bras d\'abord ! Le canon et la lance !',
         'feet': 'Maintenant les pieds ! Bloque les ondes de choc !',
         'head': 'Il est à terre. La tête est à ta portée !',
@@ -801,14 +801,14 @@ export default {
     'spark': 'Flux... tu as vu cette étincelle ?',
     'speaker': {
       'atlas': 'Atlas',
-      'gauss': 'Dr. Gauss',
+      'gauss': 'Prof. Gauss',
       'pip': 'Pip'
     },
     'cast': {
       'flux': 'Flux',
       'atlas': 'Atlas',
       'pip': 'Pip',
-      'gauss': 'Dr. Gauss'
+      'gauss': 'Prof. Gauss'
     },
     'credits': {
       'by': 'Un jeu de {studio}',
@@ -818,7 +818,7 @@ export default {
     },
     'card': {
       'title': 'Cyber City est libre !',
-      'promise': 'Nouvelle partie+ : les Maîtres frappent 25 % plus fort et plus vite. Ton niveau, ton équipement et tes armes restent.',
+      'promise': 'Nouvelle partie+ : les Maîtres ont 25 % de vie en plus et frappent plus vite. Ton niveau, ton équipement et tes armes restent.',
       'ngplus': 'Lancer Nouvelle partie+',
       'lab': 'Retour au labo',
       'confirm': 'Lancer Nouvelle partie+ ?',
