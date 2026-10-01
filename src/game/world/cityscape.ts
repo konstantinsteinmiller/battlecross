@@ -1,5 +1,5 @@
 import {
-  BufferGeometry, Color, DynamicDrawUsage, Float32BufferAttribute, Group, InstancedMesh, Matrix4, Mesh,
+  BufferGeometry, Color, CylinderGeometry, DynamicDrawUsage, Float32BufferAttribute, Group, InstancedMesh, Matrix4, Mesh,
   Quaternion, ShaderMaterial, Vector3, type Material
 } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
@@ -604,17 +604,27 @@ const freighter = (): [BufferGeometry[], BufferGeometry[]] => [[
   light(sph(0.8, 6, 4), '#8dff7a', [12, 0, -8], 0.8)
 ]]
 
+/** An open cone (the kit's attributes: no uv). */
+const cone = (top: number, bottom: number, h: number, segs: number): BufferGeometry => {
+  const g = new CylinderGeometry(top, bottom, h, segs, 1, true)
+  g.deleteAttribute('uv')
+  return g
+}
+
 const rocket = (): [BufferGeometry[], BufferGeometry[]] => [[
   solid(rcyl(2.2, 26, 0.4, 12), '#f4f7ff', [0, 13, 0]),
   solid(sph(2.2, 12, 8), '#f4f7ff', [0, 26, 0], [0, 0, 0], [1, 2.2, 1]),
   ...[0, 1, 2].map(i => solid(rbox(0.4, 5, 3, 0.2), '#3c4458', [Math.cos(i * 2.1) * 2.4, 2.5, Math.sin(i * 2.1) * 2.4], [0, -i * 2.1, 0]))
 ], [
   light(sph(2.4, 10, 6), '#fff0cc', [0, -2.5, 0], 0, [0, 0, 0], [1, 2.6, 1]),
-  light(sph(1.6, 8, 6), '#ffb03a', [0, -7, 0], 0, [0, 0, 0], [1, 3, 1])
+  // The thrust cone: wide at the nozzles, a hot point below.
+  light(cone(2.1, 0.35, 10, 12), '#ffb03a', [0, -5.5, 0]),
+  light(cone(1.2, 0.2, 6, 10), '#fff6d8', [0, -3.6, 0])
 ]]
 
-/** The smoke column a launch leaves: a unit-tall column, scaled per frame. */
-const plume = (): BufferGeometry[] => [prism(10, 3.6, 2.2, 1, '#eef0f6', 0, false)]
+/** The smoke a launch leaves: a short unit-tall column (narrow end at the
+ *  top, under the flame), scaled per frame and drawn see-through. */
+const plume = (): BufferGeometry[] => [prism(10, 3.4, 1.6, 1, '#eef0f6', 0, false)]
 
 // ─── Assemble ────────────────────────────────────────────────────────────────
 
@@ -678,7 +688,14 @@ export const buildCityscape = async (
   const vehMat = cityMat(look, 'glow', 0.5)
   vehMat.defines = {}
   const vehLight = cityMat(look, 'glow', 0.3)
-  const mats: ShaderMaterial[] = [bodyMat, glowMat, vehMat, vehLight]
+  // The rockets' smoke: the vehicles' shading, see-through.
+  const smokeMat = vehMat.clone()
+  smokeMat.defines = {}
+  smokeMat.fragmentShader = 'uniform float uAlpha;\n' + FRAG.replace('vHaze ), 1.0 );', 'vHaze ), uAlpha );')
+  smokeMat.uniforms.uAlpha = { value: 0.34 }
+  smokeMat.transparent = true
+  smokeMat.depthWrite = false
+  const mats: ShaderMaterial[] = [bodyMat, glowMat, vehMat, vehLight, smokeMat]
 
   const tint = new Color(theme.wallLow)
   const newKit = (): Kit => ({
@@ -821,29 +838,38 @@ export const buildCityscape = async (
   const launch = (i: number, t: number): number => ((t + i * PERIOD / 2 + 6) % PERIOD)
   {
     const [b, g] = rocket()
+    // Straight up, then a gentle gravity turn; the nose always points along
+    // the climb (its velocity), never tilted off it.
+    const ACC = 1.9
+    const TURN = 0.004
+    const flight = (i: number, kk: number, p: Vector3): number => {
+      p.set(port.x + (i ? 8 : -8) + TURN * kk * kk * kk, 2 + 0.5 * ACC * kk * kk, port.z)
+      return Math.atan2(3 * TURN * kk * kk, ACC * kk + 1e-6)
+    }
     fleets.push(fleet(b, g, n(2), vehMat, vehLight, (i, t, p, q, s) => {
       const kk = launch(i, t)
       if (kk > LAUNCH) return false
-      const acc = 1.9
-      p.set(port.x + (i ? 8 : -8), 2 + 0.5 * acc * kk * kk, port.z)
-      // A gentle gravity turn once it is up.
-      q.setFromAxisAngle(ZAXIS, -Math.min(0.35, kk * kk * 0.0015))
-      p.x += 0.5 * kk * kk * 0.12
+      q.setFromAxisAngle(ZAXIS, -flight(i, kk, p))
       s.setScalar(1)
       return true
     }))
-    fleets.push(fleet(plume(), [], n(2), vehMat, vehLight, (i, t, p, q, s) => {
-      const kk = launch(i, t)
-      if (kk > LAUNCH + 8) return false
-      const acc = 1.9
-      const tipY = 2 + 0.5 * acc * Math.min(kk, LAUNCH) ** 2
-      // The column climbs with the rocket, then thins away after it.
-      const fade = kk > LAUNCH ? 1 - (kk - LAUNCH) / 8 : 1
-      p.set(port.x + (i ? 8 : -8), 2, port.z)
-      q.identity()
-      s.set(fade, Math.max(0.01, tipY - 6), fade)
-      return fade > 0.02
-    }))
+    // A short see-through trail under the flame (none on the low tier).
+    if (!low) {
+      const tail = new Vector3()
+      fleets.push(fleet(plume(), [], 2, smokeMat, vehLight, (i, t, p, q, s) => {
+        const kk = launch(i, t)
+        if (kk > LAUNCH + 3) return false
+        const a = flight(i, Math.min(kk, LAUNCH), p)
+        // It grows to its length off the pad, and thins out after the rocket.
+        const len = Math.min(16, 0.5 * ACC * kk * kk + 2)
+        const fade = kk > LAUNCH ? 1 - (kk - LAUNCH) / 3 : 1
+        q.setFromAxisAngle(ZAXIS, -a)
+        tail.set(Math.sin(a), Math.cos(a), 0).multiplyScalar(-(9 + len))
+        p.add(tail)
+        s.set(fade, len, fade)
+        return fade > 0.02
+      }))
+    }
   }
   // Flying taxis.
   {

@@ -1180,7 +1180,17 @@ const boss = (): Song => {
 //   32–56    the slide in slow motion: the band drops to half time, the riff
 //            at half speed over a choir
 //   56–80    the charge: a riser, a 16th bass pedal, a snare roll; the
-//            release (a hit, 80) — then silence on the freeze
+//            release (a hit, 80)
+//   80–225   the showcase: the band plays on at full tilt, a hit on each
+//            move (the shot lands 82, the parry 100, the volley's blocks
+//            134/140/146, drone 2 down 154, the ring 162 and the slide under
+//            it 170, the finish 182, the gel's bell burst 196), the hero riff
+//            on top — then silence on the freeze (225)
+//
+//   Everything from the rewind on sits SHOW_STEPS (144 = 9 bars, the
+//   script's SHOW × 10) later than its time below; the steps are written as
+//   they were before the showcase:
+//
 //   92–108   the rewind: a crackle
 //   110–146  the valley: G major, then C, a bright pad and a plucked
 //            arpeggio; a bell on each relay chime (118, 127, 136)
@@ -1208,11 +1218,20 @@ const boss = (): Song => {
 // Its `gain` is matched to the other songs with tools/music-render.mjs.
 
 const intro = (): Song => {
-  const S = new Score(37)
+  const S = new Score(46)
   const rng = mulberry32(1700)
+  /** From the rewind on, every step lands this much later (the showcase). */
+  let off = 0
   /** Add at an absolute 16th (0.1 s each). */
   const at = (step: number, i: Inst, m: number | string, len: number, v: number, p?: number): void =>
-    S.add(0, step, i, typeof m === 'string' ? note(m) : m, len, v, p)
+    S.add(0, step + off, i, typeof m === 'string' ? note(m) : m, len, v, p)
+  /** A melody written as "E5:0:6 D5:6:2" (note:step:length), from `from`. */
+  const line = (from: number, i: Inst, text: string, v: number, octave = 0): void => {
+    for (const tok of text.trim().split(/\s+/)) {
+      const [n, st, l] = tok.split(':')
+      at(from + Number(st), i, note(n!) + 12 * octave, Number(l), v)
+    }
+  }
   const kit = (from: number, to: number, o: { kick?: number; snare?: 8 | 16; hats?: 8 | 16; v?: number } = {}): void => {
     const v = o.v ?? 1
     for (let s = from; s < to; s++) {
@@ -1266,6 +1285,46 @@ const intro = (): Song => {
   at(80, 'hit', 0, 1, 1)
   at(80, 'crash', 0, 1, 0.7)
   at(80, 'bkick', 0, 1, 1)
+
+  // ── 80–225 · The showcase: the band plays on, a hit on every move ──
+  kit(88, 224, { kick: 4, snare: 8, hats: 16, v: 0.9 })
+  for (const from of [88, 120, 152, 184]) {
+    bassLine(from, ['E2', 'E2', 'E3', 'E2', 'G2', 'E2', 'A2', 'B2', 'C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3'], 2, 0.85)
+  }
+  for (let s = 216; s < 225; s++) at(s, 'bass', 'E2', 1, jitter(rng, 0.7, 0.05))
+  // The shot lands: the Trooper staggers.
+  at(82, 'hit', 0, 1, 0.8)
+  at(82, 'bkick', 0, 1, 0.9)
+  chord(82, 'choir', ['E3', 'B3', 'E4'], 18, 0.35)
+  // The dive and the parry.
+  at(90, 'riser', 0, 10, 0.5)
+  at(100, 'hit', 0, 1, 0.9)
+  at(100, 'crash', 0, 1, 0.75)
+  line(88, 'cLead', riff, 0.6)
+  line(88, 'lead', riff, 0.4, -1)
+  // The volley: a taiko under each block, the answer's hit.
+  for (const s of [134, 140, 146]) { at(s, 'taiko', 40, 1, 0.85); at(s, 'bkick', 0, 1, 0.7) }
+  chord(126, 'brass', ['E3', 'G3', 'B3'], 6, 0.5)
+  at(154, 'hit', 0, 1, 0.75)
+  at(154, 'crash', 0, 1, 0.6)
+  // The ring rolls out; the slide under it; the finish.
+  at(152, 'riser', 0, 18, 0.7)
+  at(162, 'taiko', 40, 1, 0.9)
+  roll(162, 170, 0.35, 0.8)
+  at(170, 'hit', 0, 1, 0.85)
+  chord(170, 'brass', ['C3', 'E3', 'G3'], 8, 0.6)
+  at(182, 'hit', 0, 1, 1)
+  at(182, 'crash', 0, 1, 0.85)
+  at(182, 'bkick', 0, 1, 1)
+  // The gel: a bell burst climbing, the choir in E major; the hero riff at
+  // the top into the freeze.
+  for (const [s, n] of [[190, 'B5'], [192, 'E6'], [194, 'G#6'], [196, 'B6']] as const) at(s, 'bell', n, 4, 0.42)
+  chord(196, 'choir', ['E3', 'G#3', 'B3', 'E4'], 28, 0.5)
+  line(200, 'cLead', 'E5:0:2 G5:2:2 A5:4:2 B5:6:3 D6:9:1 E6:10:6 D6:16:2 B5:18:2 E6:20:4', 0.75)
+  line(200, 'lead', 'E5:0:2 G5:2:2 A5:4:2 B5:6:3 D6:9:1 E6:10:6 D6:16:2 B5:18:2 E6:20:4', 0.45, -1)
+
+  // From the rewind on: 144 steps (9 bars) later than written.
+  off = 144
   // ── 92–108 · The rewind ──
   at(92, 'crackle', 0, 16, 0.55)
 
@@ -1369,15 +1428,15 @@ const intro = (): Song => {
   for (let s = 422; s < 490; s += 4) at(s, 'bass', s % 8 === 6 ? 'E2' : 'E3', 3, 0.65)
   for (let s = 444; s < 490; s += 2) at(s, 'hat', 0, 1, 0.24)
   for (const s of [474, 478, 482, 486]) at(s, 'snare', 0, 1, 0.5)
-  S.line(0, 'cLead', 'E5:460:2 G5:462:2 A5:464:4 B5:468:2 A5:470:2 G5:472:4 D5:476:2 E5:478:2 G5:480:2 A5:482:4 B5:486:4', 0.5)
+  line(0, 'cLead', 'E5:460:2 G5:462:2 A5:464:4 B5:468:2 A5:470:2 G5:472:4 D5:476:2 E5:478:2 G5:480:2 A5:482:4 B5:486:4', 0.5)
   at(466, 'riser', 0, 24, 0.9)
 
   // ── 490–548 · The beam ──
   kit(490, 522, { kick: 4, snare: 8, hats: 16 })
   bassLine(490, ['C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3', 'C3', 'C3', 'C4', 'C3', 'D3', 'D3', 'D4', 'D3'])
   const top = 'E5:490:2 G5:492:2 A5:494:2 B5:496:2 D6:498:3 B5:501:1 E6:502:4 D6:506:2 B5:508:2 A5:510:2 B5:512:2 D6:514:3 E6:517:5'
-  S.line(0, 'cLead', top, 0.85)
-  S.line(0, 'lead', top, 0.5, -1)
+  line(0, 'cLead', top, 0.85)
+  line(0, 'lead', top, 0.5, -1)
   chord(490, 'choir', ['C4', 'E4', 'G4'], 16, 0.45)
   chord(506, 'choir', ['D4', 'F#4', 'A4'], 16, 0.5)
   // The column rises: a D chord swelling under a riser, the roll, the toms.
@@ -1406,8 +1465,8 @@ const intro = (): Song => {
   return {
     id: 'intro',
     bpm: 150,
-    bars: 37,
-    loopBar: 36,
+    bars: 46,
+    loopBar: 45,
     swing: 0,
     // Its loud sections (cold open, beam) sit at the boss fight's level; the
     // whole pass, quiet shots included, at the Scrapyard's it hands over to.

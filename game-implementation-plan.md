@@ -414,7 +414,13 @@ while bars and damage numbers get direct DOM writes.
     stage; per-Master arena hazards; health-reactive arena light; Gale hint
     readable. Deferred: crumbling slabs in the old stages (new levels only),
     the Scrapper's magnet crane.
-  - [ ] **P5 Intro showcase** + skyline rocket fix.
+  - [x] **P5 Intro showcase**: the cold open runs on 14.4 s at full speed
+    after the release (`SHOW`; everything later is `old time + SHOW`, the
+    score 144 steps later): the shot lands, a parry swats a diving drone,
+    the shield takes a volley, a slide under the Trooper's shock ring, the
+    finish, a Repair Gel; then the freeze and the rewind. Skyline rockets fly
+    nose-first along their climb, with a thrust cone and a short see-through
+    trail (none on the low tier).
   - [ ] **P6 Balance pass 1** (`scripts/balance-sim.mjs`).
   - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor).
   - [ ] **P8 Vex Fortress** (Core Descent finale).

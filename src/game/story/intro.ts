@@ -25,7 +25,10 @@ import { setMusicTrack } from '@/use/useSound'
 import { setSongStartHint } from '../audio/music'
 import {
   INTRO_END, SKIP_AFTER, ATLAS_HOLD, eventsBetween, overlayAt, shotIndexAt, streetTime, streetRate, ringReach, ramp, clamp01,
-  STREET_FROM, STREET_RELEASE, FREEZE_AT, SPIRE_FLASH, VEX_ON, CUTIN_FROM, CUTIN_TO, LAB_FROM, ALARM_TO, GAUSS_TURN,
+  STREET_FROM, STREET_RELEASE, SHOW, FREEZE_AT,
+  SHOW_HIT, SHOW_DIVE, SHOW_GUARD_UP, SHOW_PARRY, SHOW_GUARD_DOWN, SHOW_SHIELD_UP, SHOW_VOLLEY, SHOW_ORB_FLIGHT, SHOW_SHIELD_DOWN,
+  SHOW_ANSWER, SHOW_ANSWER_HIT, SHOW_SLAM, SHOW_SLIDE_FROM, SHOW_RING_OVER, SHOW_SLIDE_TO, SHOW_FINISH, SHOW_FINISH_HIT,
+  SHOW_GEL, SHOW_GEL_BURST, SPIRE_FLASH, VEX_ON, CUTIN_FROM, CUTIN_TO, LAB_FROM, ALARM_TO, GAUSS_TURN,
   DISC_FROM, DISC_TO, STAGGER_AT, LEVER_AT, SAFE_FROM, SEAL_AT, FROST_FROM, FROST_TO, HEART_FROM, WAKE_FROM,
   PIP_POP, GLYPH_ON, LV_POP, HOLO_FROM, SCRAP_BLINK, TURN_FROM, HOLO_FOLD_FROM, HOLO_FOLD_TO, STEP_FROM, STEP_TO, BEAM_RISE,
   FLASH_FROM, FLASH_FULL
@@ -153,15 +156,32 @@ const STREET_CAM: readonly CamKey[] = [
   // Side on: Flux planted on the right, the Trooper's shield on the left; it
   // holds there through the charge, the release and the freeze.
   { t: 2.05, pos: [4.6, 1.1, -3.9], look: [0.1, 0.95, -5.0], hfov: 72 },
-  { t: STREET_RELEASE, pos: [4.0, 1.0, -4.4], look: [0.15, 0.95, -5.0], hfov: 70 }
+  { t: STREET_RELEASE, pos: [4.0, 1.0, -4.4], look: [0.15, 0.95, -5.0], hfov: 70 },
+  // The showcase. The shot lands: a beat on the Trooper, staggering.
+  { t: 3.3, pos: [3.6, 1.2, -3.4], look: [0.3, 1.0, -5.9], hfov: 72 },
+  // Over his left shoulder (Atlas keeps to his right) as drone 1 dives in,
+  // and the parry swats it away.
+  { t: 4.1, pos: [-1.5, 1.75, -1.4], look: [-0.3, 1.45, -5.8], hfov: 76 },
+  { t: 5.8, pos: [-1.6, 1.7, -1.6], look: [-1.2, 1.1, -6.4], hfov: 76 },
+  // Low, three-quarter front: drone 2 up high, the shield taking its volley.
+  { t: 7.0, pos: [-2.4, 0.8, -2.3], look: [0.7, 1.9, -6.6], hfov: 78 },
+  { t: 10.1, pos: [-2.2, 0.85, -2.6], look: [0.9, 1.4, -6.8], hfov: 78 },
+  // Wide from the side: the Trooper's ring rolls out, Flux slides under it.
+  // Raised, so the ring reads as a ring and not as a wall.
+  { t: 10.7, pos: [5.0, 2.6, -4.4], look: [0.2, 0.5, -5.6], hfov: 80 },
+  { t: 12.9, pos: [4.7, 2.2, -5.2], look: [0.2, 0.7, -6.0], hfov: 78 },
+  // Front on for the Repair Gel, easing in to the hero pose the freeze holds.
+  { t: 13.6, pos: [1.0, 2.0, -7.5], look: [0.1, 1.05, -5.0], hfov: 64 },
+  { t: 14.9, pos: [1.3, 1.4, -7.7], look: [0.1, 1.15, -5.0], hfov: 60 },
+  { t: 17.1, pos: [1.7, 1.05, -7.8], look: [0.1, 1.2, -5.0], hfov: 58 }
 ]
 
 const VALLEY_CAM: readonly CamKey[] = [
   // A slow aerial drift over the bright valley while the relays chime…
-  { t: 11, pos: [6, 18, 36], look: [0, 1, 0], hfov: 72 },
-  { t: 14.4, pos: [2, 14, 28], look: [-1.5, 2.2, -1.5], hfov: 72 },
+  { t: 11 + SHOW, pos: [6, 18, 36], look: [0, 1, 0], hfov: 72 },
+  { t: 14.4 + SHOW, pos: [2, 14, 28], look: [-1.5, 2.2, -1.5], hfov: 72 },
   // …in on the Spire as it flashes and Vex's face comes on…
-  { t: 16.0, pos: [-0.5, 10.5, 17], look: [-4, 4.5, -3], hfov: 76 },
+  { t: 16.0 + SHOW, pos: [-0.5, 10.5, 17], look: [-4, 4.5, -3], hfov: 76 },
   // …and back out, wide, as the red ring rolls over all of it.
   { t: CUTIN_FROM, pos: [2.5, 13.5, 27], look: [-2, 2, -1], hfov: 80 }
 ]
@@ -191,8 +211,8 @@ const SAFE_CAM: readonly CamKey[] = [
 const FP_LOOK: ReadonlyArray<readonly [number, number, number, number]> = [
   // t, x, y, z
   [WAKE_FROM, GAUSS_CAP.x, 1.3, GAUSS_CAP.z + 0.2],
-  [43.2, GAUSS_CAP.x, 1.35, GAUSS_CAP.z],
-  [44.4, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
+  [43.2 + SHOW, GAUSS_CAP.x, 1.35, GAUSS_CAP.z],
+  [44.4 + SHOW, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
   [TURN_FROM, HOLO_AT.x, HOLO_AT.y + 0.2, HOLO_AT.z],
   [STEP_FROM, 0, 1.0, 0],
   [STEP_TO, -0.3, 1.45, 3],
@@ -278,6 +298,18 @@ export class IntroMode implements GameMode {
   private chargeRing: Mesh
   private shotBall: Mesh
   private eyeStreak: Mesh
+  /** The showcase's props: the shield's barrier, drone 2's orbs, the
+   *  Trooper's shock ring, the Repair Gel flask and its burst. */
+  private barrier: Mesh
+  private barrierMat: MeshBasicMaterial
+  private orbs: Mesh[] = []
+  private shockRing: Mesh
+  private shockMat: MeshBasicMaterial
+  private flask: Mesh
+  private healRing: Mesh
+  private healMat: MeshBasicMaterial
+  /** The action clock last frame: the showcase's bursts fire on crossings. */
+  private lastSt = STREET_FROM
 
   // Everything after the cold open streams in (see the constructor), so these
   // are assigned by their build jobs.
@@ -350,6 +382,24 @@ export class IntroMode implements GameMode {
     this.shotBall = new Mesh(sph(0.2, 14, 10), additive(PAL.heroPlasmaHot, 1))
     this.eyeStreak = new Mesh(cap(0.03, 1.2, 6, 2), additive(PAL.heroPlasma, 0.55))
     this.streetSet.add(this.chargeRing, this.shotBall, this.eyeStreak)
+    // The showcase's props.
+    this.barrierMat = additive(PAL.glowCyan, 0.5)
+    this.barrier = new Mesh(sph(0.5, 20, 12), this.barrierMat)
+    this.barrier.scale.set(1, 1, 0.12)
+    for (let k = 0; k < SHOW_VOLLEY.length; k++) {
+      const o = new Mesh(sph(0.11, 10, 8), additive('#ff4a3a', 1))
+      o.visible = false
+      this.orbs.push(o)
+    }
+    this.shockMat = additive('#ff2a36', 0.85)
+    this.shockRing = new Mesh(torus(1, 0.045, 6, 48), this.shockMat)
+    this.flask = new Mesh(cap(0.045, 0.1, 8, 4), additive('#5dff8a', 0.95))
+    this.flask.position.set(0, -0.22, 0.03)
+    this.runner.bones.elbowL!.add(this.flask)
+    this.healMat = additive('#5dff8a', 0.8)
+    this.healRing = new Mesh(torus(0.7, 0.05, 6, 36), this.healMat)
+    this.streetSet.add(this.barrier, this.shockRing, this.healRing, ...this.orbs)
+    this.barrier.visible = this.shockRing.visible = this.flask.visible = this.healRing.visible = false
     // Atlas, flying at his shoulder: the cold open is a flash-forward.
     this.atlasStreet = buildAtlas()
     this.streetSet.add(this.atlasStreet.root)
@@ -585,6 +635,7 @@ export class IntroMode implements GameMode {
         this.fx.emit({ x: S.x + m.x + Math.cos(a) * 0.6, y: S.y + m.y + Math.sin(a) * 0.6, z: S.z + m.z, vx: -Math.cos(a) * 2 * rate, vy: -Math.sin(a) * 2 * rate, color: PAL.heroPlasma, size: 0.08, sizeEnd: 0.02, life: 0.3 / rate })
       }
     }
+    this.showcaseBursts(st)
     if (t > LEVER_AT + 0.05 && t < LEVER_AT + 1.8) {
       // The burst, then the steam thinning out as the glass settles.
       const n = t < LEVER_AT + 0.9 ? 3 : 1
@@ -733,7 +784,7 @@ export class IntroMode implements GameMode {
     this.chargeRing.rotation.set(0, ry, st * 9)
     this.chargeRing.scale.setScalar(0.6 + 2.2 * charge)
     const shield = _b.set(0.55, 0.75, -6.0)
-    const fly = st >= 2.6 ? clamp01((st - 2.6) / 0.1) * 0.88 : -1
+    const fly = st >= 2.6 && st < SHOW_HIT ? clamp01((st - 2.6) / 0.1) * 0.88 + 0.12 * clamp01((st - STREET_RELEASE) / (SHOW_HIT - STREET_RELEASE)) : -1
     this.shotBall.visible = fly >= 0
     if (fly >= 0) this.shotBall.position.copy(muzzle).lerp(shield, fly)
     this.shotBall.scale.setScalar(1 + Math.sin(t * 50) * 0.08)
@@ -759,10 +810,174 @@ export class IntroMode implements GameMode {
       this.droneRoots[i]!.rotation.y = Math.PI + s * 0.3
       poseHeli(d, st, 0.35 * (1 - k), st * 40)
     })
+    this.renderShowcase(st, t, muzzle)
     const hfov = camAt(STREET_CAM, st, pos, look)
     pos.add(STREET_AT)
     look.add(STREET_AT)
     return hfov
+  }
+
+  /**
+   * The showcase, after the release (ACTION s): the shot lands, a perfect
+   * block swats drone 1, the shield takes drone 2's volley, the Trooper's
+   * shock ring rolls out and Flux slides under it, then a Repair Gel. Every
+   * pose is a function of the action clock, so the rewind runs it back.
+   */
+  private renderShowcase(st: number, t: number, muzzle: Vector3): void {
+    const R = this.runner
+    const F = this.runnerRoot
+    // Flux: the slide under the ring carries him forward; up again after.
+    const slide = ramp(SHOW_SLIDE_FROM, SHOW_SLIDE_FROM + 0.12, st) * (1 - ramp(SHOW_SLIDE_TO - 0.1, SHOW_SLIDE_TO + 0.15, st))
+    const fz = -3.6 - 1.4 * ramp(SHOW_SLIDE_FROM, SHOW_SLIDE_TO, st)
+    if (st > STREET_RELEASE) {
+      F.position.set(0, -0.42 * slide, fz)
+      F.rotation.x = -0.4 * slide
+    }
+    if (slide > 0) {
+      pose(R, 'hipL', -1.45 * slide, 0, -0.05)
+      pose(R, 'kneeL', 0.2 * slide, 0, 0)
+      pose(R, 'hipR', -0.5 * slide, 0, 0.05)
+      pose(R, 'kneeR', 1.7 * slide, 0, 0)
+      pose(R, 'chest', -0.35 * slide, 0, 0)
+    }
+    // The shield: up for the parry and for the volley; a flash on each hit.
+    const guard = Math.max(
+      ramp(SHOW_GUARD_UP, SHOW_GUARD_UP + 0.1, st) * (1 - ramp(SHOW_GUARD_DOWN - 0.1, SHOW_GUARD_DOWN, st)),
+      ramp(SHOW_SHIELD_UP, SHOW_SHIELD_UP + 0.15, st) * (1 - ramp(SHOW_SHIELD_DOWN - 0.15, SHOW_SHIELD_DOWN, st))
+    )
+    const flashOf = (at: number): number => (st >= at ? 1 - clamp01((st - at) / 0.25) : 0)
+    let flash = flashOf(SHOW_PARRY) * 1.4
+    for (const v of SHOW_VOLLEY) flash = Math.max(flash, flashOf(v + SHOW_ORB_FLIGHT))
+    this.barrier.visible = guard > 0.02
+    if (guard > 0) {
+      pose(R, 'shoulderL', -1.35 * guard, 0, 0.35 * guard)
+      pose(R, 'elbowL', -0.5 * guard, 0, 0)
+      this.barrier.position.set(F.position.x + 0.05, 1.05, fz - 0.62)
+      this.barrier.scale.set(guard * (1 + 0.12 * flash), guard * (1 + 0.12 * flash), 0.12)
+      this.barrierMat.opacity = 0.32 + 0.55 * Math.min(1, flash)
+      this.barrierMat.color.set(flashOf(SHOW_PARRY) > 0 ? '#fff4a8' : PAL.glowCyan)
+    }
+    // The Repair Gel: the flask up in his left hand, then the green burst.
+    const gel = ramp(SHOW_GEL, SHOW_GEL + 0.35, st) * (1 - ramp(SHOW_GEL_BURST, SHOW_GEL_BURST + 0.45, st))
+    this.flask.visible = st >= SHOW_GEL && st < SHOW_GEL_BURST
+    if (gel > 0) {
+      pose(R, 'shoulderL', -2.5 * gel, 0, 0.25 * gel)
+      pose(R, 'elbowL', -0.9 * gel, 0, 0)
+    }
+    const heal = st >= SHOW_GEL_BURST ? clamp01((st - SHOW_GEL_BURST) / 0.9) : -1
+    this.healRing.visible = heal >= 0 && heal < 1
+    if (heal >= 0) {
+      this.healRing.position.set(F.position.x, 0.1 + 1.9 * heal, fz)
+      this.healRing.rotation.set(Math.PI / 2, 0, 0)
+      this.healRing.scale.setScalar(0.8 + 0.5 * heal)
+      this.healMat.opacity = 0.85 * (1 - heal)
+    }
+    // The hero pose after the gel: chin up, the cannon held across.
+    const hero = ramp(SHOW_GEL_BURST + 0.3, SHOW_GEL_BURST + 0.9, st)
+    if (hero > 0) {
+      pose(R, 'shoulderR', -1.5 + 0.9 * hero, 0, 0.12 + 0.5 * hero)
+      pose(R, 'elbowR', -0.05 - 0.9 * hero, 0, 0)
+      pose(R, 'chest', 0.05, 0.2 - 0.3 * hero, 0)
+    }
+
+    // The Trooper: staggered by the charged shot, the slam, then finished.
+    const T = this.trooperRoot
+    const back = ramp(SHOW_HIT, SHOW_HIT + 0.4, st)
+    const stagger = ramp(SHOW_HIT, SHOW_HIT + 0.15, st) * (1 - ramp(SHOW_HIT + 0.5, SHOW_HIT + 1.3, st))
+    const lift = ramp(SHOW_SLAM - 0.5, SHOW_SLAM - 0.15, st) * (1 - ramp(SHOW_SLAM - 0.15, SHOW_SLAM, st))
+    const down = ramp(SHOW_SLAM - 0.15, SHOW_SLAM, st) * (1 - ramp(SHOW_SLAM + 0.4, SHOW_SLAM + 0.9, st))
+    const fall = ramp(SHOW_FINISH_HIT, SHOW_FINISH_HIT + 0.2, st)
+    T.position.z = -6.4 - 0.8 * back
+    T.rotation.x = -0.35 * stagger - 0.25 * lift + 0.4 * down - 0.6 * fall
+    T.visible = st < SHOW_FINISH_HIT + 0.15
+    // The shock ring: out from the Trooper's feet, over Flux as he slides.
+    const ringK = st - SHOW_SLAM
+    const reach = Math.abs(T.position.z - (-3.6 - 1.4 * ramp(SHOW_SLIDE_FROM, SHOW_SLIDE_TO, SHOW_RING_OVER)))
+    const r = 0.3 + (reach - 0.3) * (ringK / (SHOW_RING_OVER - SHOW_SLAM))
+    this.shockRing.visible = ringK >= 0 && ringK < 2.2
+    if (this.shockRing.visible) {
+      this.shockRing.position.set(T.position.x, 0.8, T.position.z)
+      this.shockRing.rotation.set(Math.PI / 2, 0, 0)
+      this.shockRing.scale.set(r, r, 1)
+      this.shockMat.opacity = 0.9 * (1 - clamp01((ringK - 1.4) / 0.8))
+    }
+
+    // Drone 1: dives, the parry swats it; it tumbles into the street.
+    const d0 = this.droneRoots[0]!
+    const dive = ramp(SHOW_DIVE, SHOW_PARRY, st)
+    const knock = st >= SHOW_PARRY ? clamp01((st - SHOW_PARRY) / 1.0) : 0
+    if (st >= SHOW_DIVE) {
+      _c.set(-1.9, 3.6, -7.5).lerp(_d.set(-0.15, 1.35, fz - 1.1), dive)
+      d0.position.set(_c.x - 2.5 * knock, Math.max(0.25, _c.y + 2.2 * knock - 3.6 * knock * knock), _c.z - 3.0 * knock)
+      d0.rotation.set(0.8 * dive * (1 - knock), Math.PI - 0.3, knock * 7)
+      if (knock > 0) poseHeli(this.drones[0]!, st, 0, knock < 1 ? st * 40 * (1 - knock) : 0)
+    } else d0.rotation.set(0, Math.PI - 0.3, 0)
+    // Drone 2: up high for its volley, then Flux's answer brings it down.
+    const d1 = this.droneRoots[1]!
+    const rise = ramp(SHOW_GUARD_DOWN, SHOW_SHIELD_UP, st)
+    const drop = st >= SHOW_ANSWER_HIT ? clamp01((st - SHOW_ANSWER_HIT) / 0.8) : 0
+    if (st >= SHOW_GUARD_DOWN) {
+      _c.set(1.9, 3.6, -7.5).lerp(_d.set(1.4, 3.0, -8.2), rise)
+      d1.position.set(_c.x + 0.8 * drop, Math.max(0.25, _c.y * (1 - drop * drop)), _c.z)
+      d1.rotation.set(0, Math.PI + 0.3, -drop * 5)
+      if (drop > 0) poseHeli(this.drones[1]!, st, 0, drop < 1 ? st * 40 * (1 - drop) : 0)
+    } else d1.rotation.set(0, Math.PI + 0.3, 0)
+    // Its orbs, each from the drone to the barrier.
+    SHOW_VOLLEY.forEach((v, k) => {
+      const o = this.orbs[k]!
+      const u = (st - v) / SHOW_ORB_FLIGHT
+      o.visible = u >= 0 && u < 1
+      if (o.visible) o.position.copy(d1.position).lerp(_d.set(0.05, 1.05, fz - 0.62), u)
+    })
+    // The shot ball, reused: the answer at drone 2, the point-blank finish.
+    const shotAt = (from: number, to: number, target: Vector3, scale: number): boolean => {
+      if (st < from || st >= to) return false
+      this.shotBall.visible = true
+      this.shotBall.position.copy(muzzle).lerp(target, (st - from) / (to - from))
+      this.shotBall.scale.setScalar(scale * (1 + Math.sin(t * 50) * 0.08))
+      return true
+    }
+    if (!shotAt(SHOW_ANSWER, SHOW_ANSWER_HIT, _c.copy(d1.position), 0.55)) {
+      shotAt(SHOW_FINISH, SHOW_FINISH_HIT, _c.set(T.position.x, 1.1, T.position.z + 0.3), 0.75)
+    }
+  }
+
+  /** The showcase's particle bursts, each once as the action clock passes
+   *  its beat (never on the rewind). */
+  private showcaseBursts(st: number): void {
+    const from = this.lastSt
+    this.lastSt = st
+    if (st <= from || st - from > 1) return
+    const S = STREET_AT
+    const passed = (at: number): boolean => from < at && st >= at
+    const burst = (x: number, y: number, z: number, colors: string[], n: number, speed: number, size = 0.12, life = 0.5): void => {
+      for (let k = 0; k < n; k++) {
+        const a = Math.random() * Math.PI * 2
+        const b = Math.random() * Math.PI - Math.PI / 2
+        const v = speed * (0.5 + Math.random() * 0.5)
+        this.fx.emit({
+          x: S.x + x, y: S.y + y, z: S.z + z,
+          vx: Math.cos(a) * Math.cos(b) * v, vy: Math.sin(b) * v + speed * 0.3, vz: Math.sin(a) * Math.cos(b) * v,
+          color: colors[k % colors.length]!, size, sizeEnd: size * 0.2, life: life * (0.6 + Math.random() * 0.6), drag: 2
+        })
+      }
+    }
+    const T = this.trooperRoot.position
+    const n = this.low ? 0.5 : 1
+    if (passed(SHOW_HIT)) burst(0.55, 0.9, -6.0, [PAL.heroPlasmaHot, PAL.heroPlasma, '#ffffff'], 26 * n, 6, 0.16)
+    const bp = this.barrier.position
+    if (passed(SHOW_PARRY)) burst(bp.x, bp.y, bp.z, ['#fff4a8', '#ffffff', PAL.glowCyan], 30 * n, 7, 0.14)
+    for (const v of SHOW_VOLLEY) if (passed(v + SHOW_ORB_FLIGHT)) burst(bp.x, bp.y, bp.z, ['#ff6a4a', PAL.glowCyan], 12 * n, 4, 0.1, 0.35)
+    const d0 = this.droneRoots[0]!.position
+    if (passed(SHOW_PARRY + 0.95)) burst(d0.x, 0.3, d0.z, ['#6a6a78', '#ffb040', '#3a3a44'], 18 * n, 3, 0.25, 0.9)
+    const d1 = this.droneRoots[1]!.position
+    if (passed(SHOW_ANSWER_HIT)) burst(d1.x, d1.y, d1.z, ['#ffb040', '#ff5a20', '#ffffff'], 30 * n, 6, 0.2, 0.7)
+    if (passed(SHOW_SLAM)) burst(T.x, 0.15, T.z + 0.4, ['#ff2a36', '#ffb0a0'], 20 * n, 4, 0.14, 0.5)
+    if (passed(SHOW_FINISH_HIT)) burst(T.x, 1.0, T.z, ['#ffb040', '#ff5a20', '#ffffff', '#6a6a78'], 44 * n, 8, 0.24, 0.9)
+    if (passed(SHOW_GEL_BURST)) {
+      const F = this.runnerRoot.position
+      burst(F.x, 0.9, F.z, ['#5dff8a', '#c8ffd8', '#ffffff'], 36 * n, 3.5, 0.12, 1.0)
+    }
   }
 
   // ─── 1 · The valley and the Red Signal ─────────────────────────────────────
@@ -924,7 +1139,7 @@ export class IntroMode implements GameMode {
     pos.copy(EYE).lerp(PAD_EYE, walkK)
     pos.y -= Math.abs(Math.sin(walkK * Math.PI * 3)) * 0.03
     // The wake-up: a small dip and rise as the eyes open.
-    pos.y += -0.05 * (1 - ramp(37.8, 40.0, t))
+    pos.y += -0.05 * (1 - ramp(37.8 + SHOW, 40.0 + SHOW, t))
     fpLookAt(t, look)
     this.placeAtlasFp(t, pos, look)
     return 82

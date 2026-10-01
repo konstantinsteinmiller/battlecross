@@ -16,7 +16,8 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
 import {
   SHOTS, INTRO_END, SKIP_AFTER, ATLAS_HOLD, EVENTS, eventsBetween, overlayAt, streetTime, streetAt, streetRate, shotIndexAt,
   STREET_FROM, STREET_RELEASE, FREEZE_AT, REWIND_FROM, VALLEY_FROM, WAKE_FROM, VEX_ON, CUTIN_FROM, CUTIN_TO, DISC_FROM, DISC_TO,
-  HP_FILL_TO, LV_POP, FLASH_FULL
+  HP_FILL_TO, LV_POP, FLASH_FULL, STREET_END, SHOW_HIT, SHOW_PARRY, SHOW_VOLLEY, SHOW_SLAM, SHOW_RING_OVER, SHOW_SLIDE_FROM,
+  SHOW_SLIDE_TO, SHOW_FINISH_HIT, SHOW_GEL_BURST
 } from '@/game/story/introScript'
 
 const h = vi.hoisted(() => ({ modes: [] as unknown[] }))
@@ -86,11 +87,22 @@ describe('the intro script', () => {
     expect(music).toMatchObject({ track: 'scrapyard' })
   })
 
-  it('the cold open runs in, slows for the slide, freezes on the release, then the tape rewinds it', () => {
+  it('the cold open runs in, slows for the slide, plays the showcase, freezes on its last frame, then the tape rewinds it', () => {
     expect(streetTime(0)).toBe(STREET_FROM)
-    expect(streetTime(FREEZE_AT - 1e-6)).toBeCloseTo(STREET_RELEASE, 4)
-    expect(streetTime(FREEZE_AT + 0.1)).toBe(STREET_RELEASE)
-    expect(streetTime(REWIND_FROM - 0.01)).toBe(STREET_RELEASE)
+    expect(streetTime(FREEZE_AT - 1e-6)).toBeCloseTo(STREET_END, 4)
+    expect(streetTime(FREEZE_AT + 0.1)).toBe(STREET_END)
+    expect(streetTime(REWIND_FROM - 0.01)).toBe(STREET_END)
+    // The showcase runs 1:1 after the release, and every beat sits inside it.
+    expect(streetRate(streetAt(STREET_RELEASE + 1))).toBeCloseTo(1, 6)
+    for (const b of [SHOW_HIT, SHOW_PARRY, ...SHOW_VOLLEY, SHOW_SLAM, SHOW_RING_OVER, SHOW_FINISH_HIT, SHOW_GEL_BURST]) {
+      expect(b).toBeGreaterThan(STREET_RELEASE)
+      expect(b).toBeLessThan(STREET_END - 1)
+    }
+    // The slide spans the moment the ring passes over Flux.
+    expect(SHOW_SLIDE_FROM).toBeLessThan(SHOW_RING_OVER)
+    expect(SHOW_SLIDE_TO).toBeGreaterThan(SHOW_RING_OVER)
+    // The events stay in time order.
+    for (let i = 1; i < EVENTS.length; i++) expect(EVENTS[i]!.at).toBeGreaterThanOrEqual(EVENTS[i - 1]!.at)
     // Back at the start before the valley, the tear held a beat on it.
     expect(streetTime(VALLEY_FROM - 0.1)).toBe(STREET_FROM)
     // The action clock only ever runs forward until the freeze.
@@ -278,7 +290,9 @@ describe('the intro score ("Wake-Up Call")', () => {
     expect(60 / s.bpm / 4).toBeCloseTo(0.1, 6)
     expect(songSeconds(s)).toBeGreaterThanOrEqual(INTRO_END)
     const hitAt = (sec: number, slack = 0.15) => s.steps.some((evs, i) => Math.abs(i * 0.1 - sec) <= slack && evs.some(e => e.i === 'hit'))
-    expect(hitAt(FREEZE_AT - 0.1)).toBe(true) // the charge shot's release
+    expect(hitAt(streetAt(STREET_RELEASE) - 0.1)).toBe(true) // the charge shot's release
+    // The showcase: a hit on the parry, the slide and the finish.
+    for (const b of [SHOW_PARRY, SHOW_SLIDE_FROM + 0.1, SHOW_FINISH_HIT]) expect(hitAt(streetAt(b), 0.25)).toBe(true)
     expect(hitAt(SPIRE_FLASH)).toBe(true)
     expect(hitAt(CUTIN_FROM)).toBe(true)
     expect(hitAt(LEVER_AT)).toBe(true)
