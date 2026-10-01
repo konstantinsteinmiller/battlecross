@@ -6,6 +6,7 @@ import { bakeTextures, loadTextureOverrides } from './world/textures'
 import { Mission, setupFromQuest } from './sim/mission'
 import { HubMode } from './sim/hub'
 import { IntroMode } from './story/intro'
+import { EndingMode } from './story/ending'
 import { app, type GameMode } from './engine/app'
 import { initProfile } from './state/profile'
 import { registerModeFactories, createBootMode, ensureJobs } from './flow'
@@ -108,7 +109,8 @@ registerModeFactories(
     return m
   },
   () => new HubMode(),
-  (opts) => new IntroMode(opts)
+  (opts) => new IntroMode(opts),
+  (opts) => new EndingMode(opts)
 )
 
 let prepared: GameMode | null = null

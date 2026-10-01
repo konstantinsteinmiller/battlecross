@@ -790,5 +790,39 @@ export default {
       'block': 'Qalqon mashgʻuloti',
       'charge': 'Zaryadli oʻq mashgʻuloti',
     },
+  },
+  'ending': {
+    'fall': 'Buyuk Usta yiqiladi. Vexning Qizil Signali u bilan birga soʻnadi.',
+    'relays': 'Birin-ketin relelar uyga qaytadi, har biri oʻz rangida.',
+    'thaw': 'Laboratoriyada muz eriydi.',
+    'gauss': 'Flux... uddalading. Hammasini qaytarib olib kelding.',
+    'atlas': 'Minora boʻm-boʻsh. Endi bu shaharni men boshqarishim mumkin edi. Boshqarmayman. U ularniki.',
+    'morning': 'Cyber City ilk erkin tongi bilan uygʻonadi.',
+    'spark': 'Flux... anavi uchqunni koʻrdingmi?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': '{studio} oʻyini',
+      'cast': 'Rollarda',
+      'masters': 'Ustalar',
+      'thanks': 'Oʻynaganingiz uchun rahmat!'
+    },
+    'card': {
+      'title': 'Cyber City ozod!',
+      'promise': 'Yangi oʻyin+: Ustalar 25% kuchliroq va tezroq zarba beradi. Darajangiz, jihozlaringiz va qurollaringiz saqlanadi.',
+      'ngplus': 'Yangi oʻyin+ boshlash',
+      'lab': 'Laboratoriyaga qaytish',
+      'confirm': 'Yangi oʻyin+ boshlansinmi?',
+      'confirmBody': 'Hikoya kuchliroq Ustalar bilan qaytadan boshlanadi. Daraja, jihozlar, qurollar va yaxshilanishlar saqlanadi.'
+    }
   }
 }

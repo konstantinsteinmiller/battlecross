@@ -790,5 +790,39 @@ export default {
       'block': 'Schild-Tutorial',
       'charge': 'Ladeschuss-Tutorial',
     },
+  },
+  'ending': {
+    'fall': 'Der Großmeister fällt. Vex\' Rotes Signal erlischt mit ihm.',
+    'relays': 'Ein Relais nach dem anderen kehrt heim, jedes in seiner eigenen Farbe.',
+    'thaw': 'Im Labor gibt das Eis nach.',
+    'gauss': 'Flux... du hast es geschafft. Du hast sie alle zurückgebracht.',
+    'atlas': 'Der Turm ist leer. Ich könnte diese Stadt jetzt lenken. Tu ich nicht. Sie gehört ihnen.',
+    'morning': 'Cyber City erwacht zu ihrem ersten freien Morgen.',
+    'spark': 'Flux... hast du den Funken gesehen?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Ein Spiel von {studio}',
+      'cast': 'Mit',
+      'masters': 'Die Meister',
+      'thanks': 'Danke fürs Spielen!'
+    },
+    'card': {
+      'title': 'Cyber City ist frei!',
+      'promise': 'Neues Spiel+: Die Meister treffen 25 % härter und schlagen schneller zu. Level, Ausrüstung und Waffen bleiben.',
+      'ngplus': 'Neues Spiel+ starten',
+      'lab': 'Zurück ins Labor',
+      'confirm': 'Neues Spiel+ starten?',
+      'confirmBody': 'Die Geschichte beginnt von vorn, mit stärkeren Meistern. Du behältst Level, Ausrüstung, Waffen und Upgrades.'
+    }
   }
 }

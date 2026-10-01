@@ -174,3 +174,58 @@ describe('Continue: the ad, then the hub', () => {
     expect(src).not.toMatch(/\bgoHub\(/)
   })
 })
+
+describe('the Fortress won: the ad, then the ending (#102), then its card', () => {
+  beforeEach(() => {
+    h.adMs = 0
+    h.canShow = true
+    h.adCalls = 0
+    h.hubs = 0
+  })
+
+  const fortress = async () => {
+    const m = await load()
+    const { storyQuest } = await import('@/game/data/quests')
+    const { SECTOR_BY_ID } = await import('@/game/data/regions')
+    const { profile } = await import('@/game/state/profile')
+    const order: string[] = []
+    let onEnd: ((c: 'ngplus' | 'lab') => void) | null = null
+    const fakeMode = {} as never
+    m.registerModeFactories(async () => fakeMode, () => { h.hubs++; order.push('hub'); return fakeMode }, undefined, (opts) => {
+      order.push(`ending after ${h.adCalls} ad`)
+      onEnd = opts.onEnd
+      return { skip() {}, advance() {}, choose() {} } as never
+    })
+    m.flow.quest = { ...storyQuest(SECTOR_BY_ID.fortress, 32, 0), kind: 'story' }
+    return { m, order, profile, end: (c: 'ngplus' | 'lab') => onEnd!(c) }
+  }
+
+  it('plays the interstitial, then the ending instead of the hub', async () => {
+    const { m, order } = await fortress()
+    await m.finishMission(true, tally)
+    await m.leaveResults()
+    expect(order).toEqual(['ending after 1 ad'])
+    expect(m.flow.screen).toBe('ending')
+  })
+
+  it('the card\'s New Game+ starts the next cycle, marks the ending seen and opens the lab', async () => {
+    const { m, order, profile, end } = await fortress()
+    await m.finishMission(true, tally)
+    await m.leaveResults()
+    const ng = profile.world.ngPlus
+    end('ngplus')
+    expect(profile.world.ngPlus).toBe(ng + 1)
+    expect(profile.world.seen).toContain('ending')
+    expect(order.at(-1)).toBe('hub')
+  })
+
+  it('Back to the Lab keeps the cycle', async () => {
+    const { m, profile, end } = await fortress()
+    await m.finishMission(true, tally)
+    await m.leaveResults()
+    const ng = profile.world.ngPlus
+    end('lab')
+    expect(profile.world.ngPlus).toBe(ng)
+    expect(m.flow.screen).toBe('hub')
+  })
+})

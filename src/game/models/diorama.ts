@@ -57,6 +57,10 @@ export interface Diorama {
   /** Solid look: the Red Signal. `reach` 0..1 of the ring's roll; `flash`
    *  0..1 the Spire tip's red flash. */
   setSignal(reach: number, flash: number): void
+  /** The ending (#102): from a fully red valley, a WHITE ring rolls out from
+   *  the Spire and every lamp it passes comes home to its own colour; the
+   *  Spire burns white. `k` 0..1 of the roll. */
+  setFreed(k: number): void
   /** Idle motion: the coil turns, airships drift, beams hop (s). */
   animate(t: number): void
   /** Holo look: `scrapBlink` 0..1 (the Scrapyard relay pulses cyan). */
@@ -480,6 +484,27 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
       ringMat.opacity = 0.9 * (1 - k * 0.6)
       hopMat.color.copy(tmp.set('#e8fbff')).lerp(red, k > 0.15 ? 1 : 0)
       outerMat.color.set('#ffffff').lerp(red, Math.min(1, Math.max(0, (k - 0.6) / 0.4)) * 0.85)
+    },
+    setFreed: (k) => {
+      signalOn = 0
+      const front = k * reach
+      for (const l of lamps) {
+        if (l.sector === 'lab') continue
+        if (l.sector === 'spire') {
+          l.mat.color.copy(red).lerp(tmp.set(SPIRE_WHITE), Math.min(1, k * 4))
+          continue
+        }
+        // Back to its own colour as the white front passes, with a flicker.
+        const past = front - l.dist
+        const f = past <= 0 ? 0 : past > 1.2 ? 1 : (Math.sin(past * 40) > 0 ? 1 : 0.3)
+        l.mat.color.copy(red).lerp(l.base, f)
+      }
+      ring.visible = k > 0 && k < 1
+      ring.scale.setScalar(Math.max(0.01, front))
+      ringMat.color.set('#ffffff')
+      ringMat.opacity = 0.9 * (1 - k * 0.6)
+      hopMat.color.set('#e8fbff')
+      outerMat.color.set('#ffffff')
     },
     animate: (t) => {
       if (moving.coil) moving.coil.rotation.y = t * 2.2

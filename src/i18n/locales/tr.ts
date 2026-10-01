@@ -792,5 +792,39 @@ export default {
       'block': 'Kalkan Eğitimi',
       'charge': 'Şarjlı Atış Eğitimi',
     },
+  },
+  'ending': {
+    'fall': 'Büyük Usta düşüyor. Vex\'in Kızıl Sinyali de onunla birlikte sönüyor.',
+    'relays': 'Röleler birer birer eve dönüyor, her biri kendi renginde.',
+    'thaw': 'Laboratuvarda buz çözülüyor.',
+    'gauss': 'Flux... başardın. Hepsini geri getirdin.',
+    'atlas': 'Kule boş. Bu şehri artık ben yönetebilirim. Yönetmeyeceğim. Burası onların.',
+    'morning': 'Cyber City ilk özgür sabahına uyanıyor.',
+    'spark': 'Flux... o kıvılcımı gördün mü?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Bir {studio} oyunu',
+      'cast': 'Başrollerde',
+      'masters': 'Ustalar',
+      'thanks': 'Oynadığın için teşekkürler!'
+    },
+    'card': {
+      'title': 'Cyber City özgür!',
+      'promise': 'Yeni Oyun+: Ustalar %25 daha sert ve daha hızlı vuruyor. Seviyen, ekipmanın ve silahların kalıyor.',
+      'ngplus': 'Yeni Oyun+ başlat',
+      'lab': 'Laboratuvara dön',
+      'confirm': 'Yeni Oyun+ başlatılsın mı?',
+      'confirmBody': 'Hikâye daha zorlu Ustalarla baştan başlar. Seviyeni, ekipmanını, silahlarını ve geliştirmelerini korursun.'
+    }
   }
 }

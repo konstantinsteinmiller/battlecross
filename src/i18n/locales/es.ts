@@ -790,5 +790,39 @@ export default {
       'block': 'Tutorial de escudo',
       'charge': 'Tutorial de disparo cargado',
     },
+  },
+  'ending': {
+    'fall': 'El Gran Maestro cae. La Señal Roja de Vex muere con él.',
+    'relays': 'Uno a uno, los relés vuelven a casa, cada uno con su propio color.',
+    'thaw': 'En el laboratorio, el hielo cede.',
+    'gauss': 'Flux... lo lograste. Los trajiste a todos de vuelta.',
+    'atlas': 'La Aguja está vacía. Podría gobernar esta ciudad. No lo haré. Es suya.',
+    'morning': 'Cyber City despierta en su primera mañana libre.',
+    'spark': 'Flux... ¿viste esa chispa?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Un juego de {studio}',
+      'cast': 'Reparto',
+      'masters': 'Los Maestros',
+      'thanks': '¡Gracias por jugar!'
+    },
+    'card': {
+      'title': '¡Cyber City es libre!',
+      'promise': 'Nueva partida+: los Maestros pegan un 25 % más fuerte y atacan más rápido. Conservas tu nivel, equipo y armas.',
+      'ngplus': 'Empezar Nueva partida+',
+      'lab': 'Volver al laboratorio',
+      'confirm': '¿Empezar Nueva partida+?',
+      'confirmBody': 'La historia vuelve a empezar con Maestros más duros. Conservas tu nivel, equipo, armas y mejoras.'
+    }
   }
 }

@@ -790,5 +790,39 @@ export default {
       'block': 'Tutorial: Schild',
       'charge': 'Tutorial: Geladen Schot',
     },
+  },
+  'ending': {
+    'fall': 'De Grootmeester valt. Het Rode Signaal van Vex sterft met hem.',
+    'relays': 'Eén voor één komen de relais thuis, elk in zijn eigen kleur.',
+    'thaw': 'In het lab laat het ijs los.',
+    'gauss': 'Flux... het is je gelukt. Je hebt ze allemaal teruggebracht.',
+    'atlas': 'De Spits is leeg. Ik zou deze stad nu kunnen besturen. Dat doe ik niet. Ze is van hen.',
+    'morning': 'Cyber City ontwaakt in zijn eerste vrije ochtend.',
+    'spark': 'Flux... zag je die vonk?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Een game van {studio}',
+      'cast': 'Met',
+      'masters': 'De Meesters',
+      'thanks': 'Bedankt voor het spelen!'
+    },
+    'card': {
+      'title': 'Cyber City is vrij!',
+      'promise': 'Nieuw spel+: de Meesters slaan 25% harder en sneller toe. Je level, uitrusting en wapens blijven.',
+      'ngplus': 'Start Nieuw spel+',
+      'lab': 'Terug naar het lab',
+      'confirm': 'Nieuw spel+ starten?',
+      'confirmBody': 'Het verhaal begint opnieuw met taaiere Meesters. Je houdt je level, uitrusting, wapens en upgrades.'
+    }
   }
 }

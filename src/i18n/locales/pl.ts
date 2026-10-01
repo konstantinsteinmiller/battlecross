@@ -790,5 +790,39 @@ export default {
       'block': 'Samouczek: Tarcza',
       'charge': 'Samouczek: Strzał naładowany',
     },
+  },
+  'ending': {
+    'fall': 'Wielki Mistrz upada. Czerwony Sygnał Vexa gaśnie razem z nim.',
+    'relays': 'Jeden po drugim przekaźniki wracają do domu, każdy we własnym kolorze.',
+    'thaw': 'W laboratorium lód puszcza.',
+    'gauss': 'Flux... udało ci się. Sprowadziłeś ich wszystkich z powrotem.',
+    'atlas': 'Iglica jest pusta. Mógłbym teraz rządzić tym miastem. Nie zrobię tego. Jest ich.',
+    'morning': 'Cyber City budzi się w swój pierwszy wolny poranek.',
+    'spark': 'Flux... widziałeś tę iskrę?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Gra autorstwa {studio}',
+      'cast': 'Występują',
+      'masters': 'Mistrzowie',
+      'thanks': 'Dzięki za grę!'
+    },
+    'card': {
+      'title': 'Cyber City jest wolne!',
+      'promise': 'Nowa gra+: Mistrzowie biją o 25% mocniej i atakują szybciej. Twój poziom, sprzęt i broń zostają.',
+      'ngplus': 'Zacznij Nową grę+',
+      'lab': 'Wróć do laboratorium',
+      'confirm': 'Zacząć Nową grę+?',
+      'confirmBody': 'Historia zaczyna się od nowa z twardszymi Mistrzami. Zachowujesz poziom, sprzęt, broń i ulepszenia.'
+    }
   }
 }

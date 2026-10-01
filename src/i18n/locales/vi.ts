@@ -790,5 +790,39 @@ export default {
       'block': 'Hướng Dẫn Khiên',
       'charge': 'Hướng Dẫn Phát Tụ Lực',
     },
+  },
+  'ending': {
+    'fall': 'Đại Chúa Tể gục ngã. Tín Hiệu Đỏ của Vex lụi tắt theo.',
+    'relays': 'Từng trạm tiếp sóng lần lượt trở về, mỗi trạm một màu riêng.',
+    'thaw': 'Trong phòng thí nghiệm, lớp băng tan dần.',
+    'gauss': 'Flux... cậu làm được rồi. Cậu đã đưa tất cả trở về.',
+    'atlas': 'Ngọn Tháp trống không. Giờ tôi có thể điều hành thành phố này. Tôi sẽ không làm. Nó là của họ.',
+    'morning': 'Cyber City thức dậy trong buổi sáng tự do đầu tiên.',
+    'spark': 'Flux... cậu có thấy tia lửa đó không?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Một trò chơi của {studio}',
+      'cast': 'Nhân vật',
+      'masters': 'Các Chúa Tể',
+      'thanks': 'Cảm ơn bạn đã chơi!'
+    },
+    'card': {
+      'title': 'Cyber City đã tự do!',
+      'promise': 'New Game+: các Chúa Tể đánh mạnh hơn 25% và ra đòn nhanh hơn. Cấp độ, trang bị và vũ khí của bạn được giữ lại.',
+      'ngplus': 'Bắt đầu New Game+',
+      'lab': 'Về phòng thí nghiệm',
+      'confirm': 'Bắt đầu New Game+?',
+      'confirmBody': 'Câu chuyện bắt đầu lại với các Chúa Tể mạnh hơn. Bạn giữ cấp độ, trang bị, vũ khí và nâng cấp.'
+    }
   }
 }

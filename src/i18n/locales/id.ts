@@ -790,5 +790,39 @@ export default {
       'block': 'Tutorial Perisai',
       'charge': 'Tutorial Tembakan Bermuatan',
     },
+  },
+  'ending': {
+    'fall': 'Master Agung tumbang. Sinyal Merah Vex ikut padam bersamanya.',
+    'relays': 'Satu per satu, relai-relai pulang, masing-masing dengan warnanya sendiri.',
+    'thaw': 'Di lab, es pun mencair.',
+    'gauss': 'Flux... kau berhasil. Kau membawa mereka semua kembali.',
+    'atlas': 'Menara itu kosong. Aku bisa saja memimpin kota ini sekarang. Tidak akan. Kota ini milik mereka.',
+    'morning': 'Cyber City terbangun di pagi bebas pertamanya.',
+    'spark': 'Flux... kau lihat percikan itu?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Game dari {studio}',
+      'cast': 'Dibintangi',
+      'masters': 'Para Master',
+      'thanks': 'Terima kasih sudah bermain!'
+    },
+    'card': {
+      'title': 'Cyber City bebas!',
+      'promise': 'Game Baru+: para Master memukul 25% lebih keras dan menyerang lebih cepat. Level, perlengkapan, dan senjatamu tetap.',
+      'ngplus': 'Mulai Game Baru+',
+      'lab': 'Kembali ke Lab',
+      'confirm': 'Mulai Game Baru+?',
+      'confirmBody': 'Cerita dimulai lagi dengan Master yang lebih tangguh. Level, perlengkapan, senjata, dan peningkatanmu tetap.'
+    }
   }
 }

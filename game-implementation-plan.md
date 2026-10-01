@@ -575,7 +575,11 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P7 #101 Grand Master Bot** (`sim/grandMaster.ts`, a Fortress
     climb feature: its parts' health rides in the climb's save) (7.1 rig + red-button assembly, 7.2 the
     four-part fight on the roof, Prism Cannon, checkpoint after Vex).
-  - [ ] **P8 #102 outro + New Game+** (~2 min, skippable, credits, end card).
+  - [x] **P8 #102 outro + New Game+**: `story/ending.ts` + `endingScript.ts`
+    + `EndingLayer.vue`, ~100 s (valley freed, Gauss wakes, sunrise, credits
+    with the baked portraits, end card); after the Fortress's results and
+    their interstitial; New Game+ from the card (confirmed); Gauss awake in
+    the lab afterwards (`seen: 'ending'`).
   - [ ] **P9 story/docs catch-up** (comic skipped).
   - [ ] **P10 final balance**; **P10b #114 sound pass**; **P11 boot/perf**.
   - Deferred: outro replay menu; checkpoint retry outside the Fortress; boot

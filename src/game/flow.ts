@@ -7,7 +7,7 @@ import { rollItem, type Item } from './data/items'
 import { WEAPONS, type WeaponId } from './data/weapons'
 import {
   profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp,
-  loadProfile, setSaveSandbox, markStorySeen, noteMissionIncome
+  loadProfile, setSaveSandbox, markStorySeen, noteMissionIncome, startNewGamePlus
 } from './state/profile'
 import { hud } from './state/hud'
 import { flushSaveNow, saveDataVersion } from '@/use/useSaveStatus'
@@ -33,7 +33,7 @@ import type { SectorId } from './world/themes'
  * does not import the heavy mission/hub code itself.
  */
 
-export type Screen = 'boot' | 'mission' | 'hub' | 'intro'
+export type Screen = 'boot' | 'mission' | 'hub' | 'intro' | 'ending'
 export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp' | 'controls'
 
 export interface ResultsData {
@@ -84,14 +84,53 @@ type IntroFactory = (opts: {
   onStart: () => void
   onEnd: (skipped: boolean) => void
 }) => IntroHandle
+/** The ending (`story/ending.ts`), as far as the flow and its layer drive it. */
+export interface EndingHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
+  skip(): void
+  advance(): void
+  choose(choice: 'ngplus' | 'lab'): void
+}
+type EndingFactory = (opts: { onEnd: (choice: 'ngplus' | 'lab') => void }) => EndingHandle
 let missionFactory: MissionFactory | null = null
 let hubFactory: HubFactory | null = null
 let introFactory: IntroFactory | null = null
+let endingFactory: EndingFactory | null = null
 
-export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory): void => {
+export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory, e?: EndingFactory): void => {
   missionFactory = m
   hubFactory = h
   introFactory = i ?? null
+  endingFactory = e ?? null
+}
+
+/** The ending playing now (its layer's buttons drive it). */
+export let endingLive: EndingHandle | null = null
+/** The Fortress was just won: the ending follows its results (#102). */
+let pendingEnding = false
+
+/**
+ * The ending (#102), after the Fortress's results (and the interstitial, if
+ * one was due — never during it). Its card offers a New Game+ run or the lab.
+ */
+export const startEnding = (): void => {
+  if (!endingFactory) { goHub(); return }
+  flow.modal = ''
+  flow.screen = 'ending'
+  hud.phase = 'done'
+  hud.combat = false
+  hud.bossName = ''
+  const m = endingFactory({
+    onEnd: (choice) => {
+      endingLive = null
+      if (!profile.world.seen.includes('ending')) profile.world.seen.push('ending')
+      if (choice === 'ngplus') startNewGamePlus()
+      saveProfile()
+      goHub()
+    }
+  })
+  endingLive = m
+  app.setMode(m)
+  app.setWanted(true)
 }
 
 /**
@@ -441,6 +480,8 @@ export const finishMission = async (success: boolean, tally: MissionTally): Prom
     // The tutorial IS the Scrapyard's story mission: its mini-boss (the
     // Scrapper) counts as that sector's Core Master.
     if (quest.kind === 'story') {
+      // The Fortress (Vex and the Grand Master) won: the ending follows.
+      if (quest.sector === 'fortress') pendingEnding = true
       const sector = SECTOR_BY_ID[quest.sector]
       if (!profile.world.bosses.includes(sector.boss)) {
         profile.world.bosses.push(sector.boss)
@@ -537,7 +578,10 @@ export const leaveResults = async (): Promise<void> => {
     await waitForAdGate()
   } finally {
     leavingResults = false
-    goHub()
+    if (pendingEnding) {
+      pendingEnding = false
+      startEnding()
+    } else goHub()
   }
 }
 

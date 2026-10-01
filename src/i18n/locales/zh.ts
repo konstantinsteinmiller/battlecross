@@ -790,5 +790,39 @@ export default {
       'block': '护盾教程',
       'charge': '蓄力弹教程',
     },
+  },
+  'ending': {
+    'fall': '至尊大师倒下了。Vex的红色信号也随之消逝。',
+    'relays': '中继站一个接一个回家，各自亮起自己的颜色。',
+    'thaw': '实验室里，冰层渐渐消融。',
+    'gauss': 'Flux……你做到了。你把大家都带回来了。',
+    'atlas': '尖塔已经空了。现在我可以掌管这座城市。但我不会。它属于他们。',
+    'morning': 'Cyber City迎来了第一个自由的早晨。',
+    'spark': 'Flux……你看到那道火花了吗？',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': '皮普'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': '皮普',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': '{studio} 出品',
+      'cast': '主演',
+      'masters': '大师们',
+      'thanks': '感谢游玩！'
+    },
+    'card': {
+      'title': 'Cyber City自由了！',
+      'promise': '新游戏+：大师们的攻击力提升25%，出手更快。你的等级、装备和武器都会保留。',
+      'ngplus': '开始新游戏+',
+      'lab': '返回实验室',
+      'confirm': '开始新游戏+？',
+      'confirmBody': '故事将以更强的大师们重新开始。你会保留等级、装备、武器和强化。'
+    }
   }
 }

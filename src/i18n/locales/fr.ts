@@ -790,5 +790,39 @@ export default {
       'block': 'Tutoriel du bouclier',
       'charge': 'Tutoriel du tir chargé',
     },
+  },
+  'ending': {
+    'fall': 'Le Grand Maître tombe. Le Signal Rouge de Vex s\'éteint avec lui.',
+    'relays': 'Un à un, les relais reviennent, chacun dans sa propre couleur.',
+    'thaw': 'Au labo, la glace cède.',
+    'gauss': 'Flux... tu as réussi. Tu les as tous ramenés.',
+    'atlas': 'La Flèche est vide. Je pourrais diriger cette ville. Je ne le ferai pas. Elle est à eux.',
+    'morning': 'Cyber City s\'éveille à son premier matin libre.',
+    'spark': 'Flux... tu as vu cette étincelle ?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Un jeu de {studio}',
+      'cast': 'Avec',
+      'masters': 'Les Maîtres',
+      'thanks': 'Merci d\'avoir joué !'
+    },
+    'card': {
+      'title': 'Cyber City est libre !',
+      'promise': 'Nouvelle partie+ : les Maîtres frappent 25 % plus fort et plus vite. Ton niveau, ton équipement et tes armes restent.',
+      'ngplus': 'Lancer Nouvelle partie+',
+      'lab': 'Retour au labo',
+      'confirm': 'Lancer Nouvelle partie+ ?',
+      'confirmBody': 'L\'histoire recommence avec des Maîtres plus coriaces. Tu gardes ton niveau, ton équipement, tes armes et tes améliorations.'
+    }
   }
 }

@@ -790,5 +790,39 @@ export default {
       'block': '방패 튜토리얼',
       'charge': '차지 샷 튜토리얼',
     },
+  },
+  'ending': {
+    'fall': '그랜드 마스터가 쓰러진다. Vex의 붉은 신호도 함께 꺼진다.',
+    'relays': '중계기가 하나둘 돌아온다. 저마다 제 색으로.',
+    'thaw': '연구소에서, 얼음이 풀린다.',
+    'gauss': 'Flux... 해냈구나. 모두를 되찾아 줬어.',
+    'atlas': '탑은 비었어. 이제 내가 이 도시를 움직일 수도 있지. 하지만 안 해. 여긴 그들의 도시니까.',
+    'morning': 'Cyber City가 첫 자유의 아침을 맞는다.',
+    'spark': 'Flux... 방금 그 불꽃 봤어?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': '핍'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': '핍',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': '{studio} 제작',
+      'cast': '출연',
+      'masters': '마스터들',
+      'thanks': '플레이해 주셔서 감사합니다!'
+    },
+    'card': {
+      'title': 'Cyber City가 자유를 되찾았다!',
+      'promise': '뉴 게임+: 마스터들이 25% 더 세게, 더 빠르게 공격합니다. 레벨, 장비, 무기는 유지됩니다.',
+      'ngplus': '뉴 게임+ 시작',
+      'lab': '연구소로 돌아가기',
+      'confirm': '뉴 게임+를 시작할까요?',
+      'confirmBody': '더 강해진 마스터들과 이야기가 처음부터 다시 시작됩니다. 레벨, 장비, 무기, 강화는 유지됩니다.'
+    }
   }
 }

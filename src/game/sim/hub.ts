@@ -11,7 +11,8 @@ import { rcyl, rbox, torus, sph, ell, cap, xform, paint, paintBy, merge, lathe }
 import { toonVC, glowVC, outlineMat } from '../models/toon'
 import { THEMES } from '../world/themes'
 import type { Rig } from '../models/kit'
-import { heroColors } from '../state/profile'
+import { heroColors, profile } from '../state/profile'
+import { buildGauss, poseGauss, newGaussPose, setGaussGlow, type GaussRig } from '../models/gauss'
 import { Particles } from '../fx/particles'
 import { makeBlobShadow } from '../fx/markers'
 import { tickHud } from '../state/hud'
@@ -83,6 +84,9 @@ export class HubMode implements GameMode {
   private heroRoot = new Group()
   private pip: Rig
   private pipRoot = new Group()
+  /** Dr. Gauss, awake in her lab once the ending has played (#102). */
+  private gauss: GaussRig | null = null
+  private readonly gaussPose = newGaussPose()
   private fx = new Particles(300)
   private t = 0
   private victoryT = -1
@@ -116,6 +120,16 @@ export class HubMode implements GameMode {
     this.pipRoot.position.set(-1.25, 1.7, 0.4)
     this.scene.add(this.pipRoot)
     this.scene.add(this.fx.points)
+    if (profile.world.seen.includes('ending')) {
+      this.gauss = buildGauss()
+      this.gauss.root.position.set(2.2, 0, -1.7)
+      this.gauss.root.rotation.y = -0.5
+      setGaussGlow(this.gauss, 1)
+      const shadow = makeBlobShadow(0.5)
+      shadow.position.x = 2.2
+      shadow.position.z = -1.7
+      this.scene.add(this.gauss.root, shadow)
+    }
   }
 
   /** Rebuild Flux in his current gear colours (after equipping). */
@@ -150,6 +164,11 @@ export class HubMode implements GameMode {
     if (this.victoryT >= 0) animateHeroVictory(this.hero, this.victoryT)
     else animateHeroIdle(this.hero, this.t)
     animatePip(this.pip, this.t)
+    if (this.gauss) {
+      // She glances at Flux now and then.
+      this.gaussPose.look = Math.sin(this.t * 0.3) > 0.6 ? 0.5 : 0
+      poseGauss(this.gauss, this.gaussPose, this.t)
+    }
     this.ring.rotation.y += dt * 0.5
     // Frame Flux beside the menus: right third in landscape, upper half in portrait.
     const cam = this.camera

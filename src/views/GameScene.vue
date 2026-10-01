@@ -30,6 +30,7 @@
       LessonCard
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
     CutsceneLayer(v-else-if="flow.screen === 'intro'")
+    EndingLayer(v-else-if="flow.screen === 'ending'")
     //- After an ad the mouse is free and a browser only re-captures on a
     //- click: the run waits under this veil until the player gives one.
     div.relock(
@@ -121,6 +122,7 @@ import LevelUpModal from '@/components/modals/LevelUpModal.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 import MissionLoading from '@/components/hud/MissionLoading.vue'
 import CutsceneLayer from '@/components/story/CutsceneLayer.vue'
+import EndingLayer from '@/components/story/EndingLayer.vue'
 import { holdToSkip, skipCutscene } from '@/game/story/cine'
 
 /**

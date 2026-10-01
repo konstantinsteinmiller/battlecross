@@ -790,5 +790,39 @@ export default {
       'block': 'Tutorial: Scudo',
       'charge': 'Tutorial: Colpo Caricato',
     },
+  },
+  'ending': {
+    'fall': 'Il Gran Maestro cade. Il Segnale Rosso di Vex muore con lui.',
+    'relays': 'Uno dopo l\'altro, i relè tornano a casa, ognuno col suo colore.',
+    'thaw': 'Nel laboratorio, il ghiaccio si scioglie.',
+    'gauss': 'Flux... ce l\'hai fatta. Li hai riportati tutti indietro.',
+    'atlas': 'La Guglia è vuota. Potrei governare io questa città. Non lo farò. È loro.',
+    'morning': 'Cyber City si sveglia nel suo primo mattino libero.',
+    'spark': 'Flux... hai visto quella scintilla?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Un gioco di {studio}',
+      'cast': 'Interpreti',
+      'masters': 'I Maestri',
+      'thanks': 'Grazie per aver giocato!'
+    },
+    'card': {
+      'title': 'Cyber City è libera!',
+      'promise': 'Nuova partita+: i Maestri colpiscono il 25% più forte e più in fretta. Livello, equipaggiamento e armi restano.',
+      'ngplus': 'Inizia Nuova partita+',
+      'lab': 'Torna al laboratorio',
+      'confirm': 'Iniziare Nuova partita+?',
+      'confirmBody': 'La storia ricomincia con Maestri più tosti. Mantieni livello, equipaggiamento, armi e potenziamenti.'
+    }
   }
 }

@@ -790,5 +790,39 @@ export default {
       'block': 'Tutorial de Escudo',
       'charge': 'Tutorial de Tiro Carregado',
     },
+  },
+  'ending': {
+    'fall': 'O Grão-Mestre cai. O Sinal Vermelho de Vex morre com ele.',
+    'relays': 'Um a um, os relés voltam para casa, cada um com sua própria cor.',
+    'thaw': 'No laboratório, o gelo se desfaz.',
+    'gauss': 'Flux... você conseguiu. Trouxe todos de volta.',
+    'atlas': 'A Torre está vazia. Eu poderia comandar esta cidade agora. Não vou. Ela é deles.',
+    'morning': 'Cyber City acorda para sua primeira manhã livre.',
+    'spark': 'Flux... você viu aquela faísca?',
+    'speaker': {
+      'atlas': 'Atlas',
+      'gauss': 'Dr. Gauss',
+      'pip': 'Pip'
+    },
+    'cast': {
+      'flux': 'Flux',
+      'atlas': 'Atlas',
+      'pip': 'Pip',
+      'gauss': 'Dr. Gauss'
+    },
+    'credits': {
+      'by': 'Um jogo de {studio}',
+      'cast': 'Elenco',
+      'masters': 'Os Mestres',
+      'thanks': 'Obrigado por jogar!'
+    },
+    'card': {
+      'title': 'Cyber City está livre!',
+      'promise': 'Novo Jogo+: os Mestres batem 25% mais forte e atacam mais rápido. Seu nível, equipamento e armas ficam.',
+      'ngplus': 'Iniciar Novo Jogo+',
+      'lab': 'Voltar ao laboratório',
+      'confirm': 'Iniciar Novo Jogo+?',
+      'confirmBody': 'A história recomeça com Mestres mais durões. Você mantém nível, equipamento, armas e melhorias.'
+    }
   }
 }

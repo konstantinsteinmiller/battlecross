@@ -302,6 +302,32 @@ export default {
   // ─── The big moment banners (`BigBanner.vue`) ─────────────────────────────
   // One line across the screen, uppercased by CSS in cased scripts, sized to
   // fit: short and loud, like an "ENEMY FELLED".
+  // ─── The ending, "First Free Morning" (#102) ───────────────────────────────
+  'ending': {
+    'fall': "The Grand Master falls. Vex's Red Signal dies with it.",
+    'relays': 'One by one, the relays come home, each in its own colour.',
+    'thaw': 'In the lab, the ice lets go.',
+    'gauss': 'Flux... you did it. You brought them all back.',
+    'atlas': "The Spire is empty. I could run this city now. I won't. It's theirs.",
+    'morning': 'Cyber City wakes to its first free morning.',
+    'spark': 'Flux... did you see that spark?',
+    'speaker': { 'atlas': 'Atlas', 'gauss': 'Dr. Gauss', 'pip': 'Pip' },
+    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Dr. Gauss' },
+    'credits': {
+      'by': 'A game by {studio}',
+      'cast': 'Starring',
+      'masters': 'The Masters',
+      'thanks': 'Thank you for playing!'
+    },
+    'card': {
+      'title': 'Cyber City is free!',
+      'promise': 'New Game+: the Masters hit 25 % harder and strike faster. Your level, gear and weapons stay.',
+      'ngplus': 'Start New Game+',
+      'lab': 'Back to the Lab',
+      'confirm': 'Start New Game+?',
+      'confirmBody': 'The story starts over with tougher Masters. You keep your level, gear, weapons and upgrades.'
+    }
+  },
   'banner': {
     'cleared': 'Level cleared',
     'bossDown': 'Enemy defeated!',
