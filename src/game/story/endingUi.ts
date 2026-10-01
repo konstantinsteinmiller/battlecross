@@ -16,5 +16,7 @@ export const endingUi = reactive({
   credits: false,
   card: false,
   /** The roll's progress, 0..1. */
-  roll: 0
+  roll: 0,
+  /** New Game+ chosen: Vex's sting plays before the new run (#117). */
+  sting: false
 })

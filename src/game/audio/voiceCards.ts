@@ -296,7 +296,7 @@ export const TONES: Readonly<Record<string, Tone>> = {
   'atlas.secret.color': 'whisper',
   'atlas.secret.cycle': 'cheeky',
   'atlas.secret.solved': 'cheeky',
-  'vex.intro.diagnosis': 'menacing',
+  'story.vex.diagnosis': 'menacing',
   'vex.present.scrapper': 'cheeky',
   'vex.hub.scrapper': 'cheeky',
   'vex.present.blaze': 'shout',

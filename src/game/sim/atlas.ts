@@ -47,6 +47,8 @@ export type AtlasLine =
   | `hint.${string}` | `secret.${string}`
   /** A lesson room's gold intro, and its hint when the player is stuck. */
   | `train.${string}` | `help.${string}`
+  /** Lines inside the voiced story scenes (`story/vexScene.ts`, #117). */
+  | `story.${string}` | `volt.${string}` | `mk1.${string}`
 
 /** The relays to light before Vex's shield falls (the Core Masters, the
  *  Scrapper's included): one progress line each (`arc.1` … `arc.10`). */
@@ -150,6 +152,7 @@ export class AtlasDirector {
   private armed = { hp: true, we: true, objective: true }
   private trapsWarned = new Set<number>()
   private briefed = false
+  private held = false
 
   /**
    * @param info the mission
@@ -185,6 +188,21 @@ export class AtlasDirector {
     this.queue.push({ id, at: this.t })
     // Its recording loads now, on demand: it has the wait before the bubble.
     this.prefetch(atlasKey(id))
+  }
+
+  /**
+   * A story scene speaks now (`story/vexScene.ts`): this line goes up at once,
+   * cutting nothing (the scene holds the director first). Returns its hold (s).
+   */
+  sayNow(id: AtlasLine): number {
+    this.queue = this.queue.filter(q => q.id !== id)
+    this.start(id)
+    return this.line!.hold
+  }
+
+  /** While a scene runs, the director starts nothing of its own; warnings still arm and wait. */
+  hold(on: boolean): void {
+    this.held = on
   }
 
   /** One-off moments the mission reports. */
@@ -237,7 +255,7 @@ export class AtlasDirector {
       this.quietSince = t
     }
     this.queue = this.queue.filter(q => t - q.at < STALE)
-    if (!this.line && this.queue.length && t - this.quietSince >= ATLAS_GAP) {
+    if (!this.held && !this.line && this.queue.length && t - this.quietSince >= ATLAS_GAP) {
       this.queue.sort((a, b) => prioOf(b.id) - prioOf(a.id) || a.at - b.at)
       const next = this.queue[0]!
       // Still loading its voice: give it a moment, then go without.
@@ -247,7 +265,7 @@ export class AtlasDirector {
       }
     }
     // ── Small talk, in a quiet stretch ──
-    if (k.playing && !k.combat && !this.line && !this.queue.length && this.idleSaid < IDLE_MAX &&
+    if (!this.held && k.playing && !k.combat && !this.line && !this.queue.length && this.idleSaid < IDLE_MAX &&
       t - this.quietSince > IDLE_AFTER) {
       this.idleSaid++
       this.say(`idle.${1 + ((this.info.freed + this.idleSaid) % 4)}` as AtlasLine)

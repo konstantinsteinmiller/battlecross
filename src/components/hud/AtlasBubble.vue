@@ -2,7 +2,7 @@
   div.atlas-say(aria-live="polite")
     div.bubble(v-if="hud.atlasKey" ref="el" :key="hud.atlasSeq" :class="{ docked, gold: hud.atlasGold }")
       span.glyph(aria-hidden="true")
-      span.text {{ t(hud.atlasKey) }}
+      span.text {{ t(hud.atlasKey, paramsOf(hud.atlasKey)) }}
 </template>
 
 <script setup lang="ts">
@@ -23,13 +23,18 @@ import { setAtlasTextLookup } from '@/game/sim/atlas'
  * per-frame HUD pieces.
  */
 const { t } = useI18n()
+/** A "{weapon} copied." line names the weapon its key ends with (#117). */
+const paramsOf = (key: string): Record<string, string> => {
+  const m = /^atlas\.story\.copied\.(\w+)$/.exec(key)
+  return m ? { weapon: t(`weapon.${m[1]}.name`) } : {}
+}
 const el = ref<HTMLElement | null>(null)
 const docked = ref(true)
 let off: (() => void) | null = null
 
 onMounted(() => {
   // The director times a line without a voice by the length of its text.
-  setAtlasTextLookup((key) => t(key))
+  setAtlasTextLookup((key) => t(key, paramsOf(key)))
   off = addHudTicker(() => {
     const b = el.value
     if (!b) return

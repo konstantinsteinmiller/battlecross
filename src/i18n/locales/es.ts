@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… hay algo en el—',
+      'thanks': '…Lo mantuviste fuera. Gracias.',
+    },
+    'mk1': {
+      'intro': 'Ese es Vex. El de verdad.',
+      'fire': '¡Fuego!',
+      'ice': '¡Hielo!',
+      'volt': '¡Voltio!',
+      'wind': '¡Viento!',
+      'scrap': '¡Chatarra!',
+      'free': 'Porque son libres.',
+    },
     'guardDown': '¡Guardia caído! El camino está libre.',
     'help': {
       'weapon': '¡Elige tu arma nueva y dispara a los drones!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
     },
     'story': {
+      'relayOne': 'Relé uno encendido. Quedan nueve.',
+      'copied': {
+        'scrapBurst': 'Arma copiada: {weapon}.',
+        'flameWave': 'Arma copiada: {weapon}.',
+        'iceLance': 'Arma copiada: {weapon}.',
+        'thunderArc': 'Arma copiada: {weapon}.',
+        'galeGuard': 'Arma copiada: {weapon}.',
+        'magnetPull': 'Arma copiada: {weapon}.',
+        'drillBomb': 'Arma copiada: {weapon}.',
+        'bubbleLance': 'Arma copiada: {weapon}.',
+        'neonBlade': 'Arma copiada: {weapon}.',
+        'droneSwarm': 'Arma copiada: {weapon}.',
+      },
+      'dataCore': 'Nos ha dejado algo.',
+      'firstDraft': '…Me escribieron a partir de su primer borrador.',
+      'body': 'Se está construyendo un cuerpo. Con nuestro valle.',
+      'voltFreed': 'La señal se ha quedado sin central.',
+      'galeFreed': 'Ya no llegan piezas a la Fortaleza.',
+      'breach': 'Escudo caído. La Fortaleza está abierta.',
+      'magnetFreed': 'La fundición está fría. Se acabaron las garras.',
+      'drillFreed': 'La mina está en silencio. Se acabó el mineral.',
+      'tideFreed': 'Esclusas cerradas. Las barcazas se quedan en casa.',
+      'neonFreed': 'Luces encendidas. Vex se ha quedado sin pantallas.',
+      'rotorFreed': 'Todas las líneas cortadas. Vex está solo.',
       'rotor': 'Ruta del Rotor. ¡Viento en mi antena!',
       'neon': 'Bulevar del Apagón. ¡Luces, por favor!',
       'tide': 'Esclusas de Marea. ¡Hora de chapotear!',
@@ -824,5 +861,49 @@ export default {
       'confirm': '¿Empezar Nueva partida+?',
       'confirmBody': 'La historia vuelve a empezar con Maestros más duros. Conservas tu nivel, equipo, armas y mejoras.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': '¡El telonero! ¡El {boss}!',
+      'blaze': '¡El más veterano! ¡El más ardiente! ¡{boss}!',
+      'frost': '¡Sangre fría, droidecito! ¡{boss}!',
+      'volt': '¡Si parpadeas, te lo pierdes! ¡{boss}!',
+      'gale': '¡Siguiente, por favor! {boss}, ¡mándalo a volar!',
+      'magnet': 'Atractivo, ¿verdad? ¡{boss}!',
+      'drill': '¡Hora de un chequeo a fondo! ¡{boss}!',
+      'tide': '¡Que te lleve la corriente, droide! ¡{boss}!',
+      'neon': '¡Luces! ¡Cámara! ¡{boss}!',
+      'rotor': '¡El gran final! ¡{boss}!',
+    },
+    'hub': {
+      'scrapper': '¿Una grúa de chatarra? Qué… adorable.',
+      'blaze': 'Efecto secundario anotado. Aumento la dosis.',
+      'blueprint': '¡Mis bocetos! Soy magnífico, ¿verdad?',
+      'volt': 'Estoy… per-fec-ta-men-te… BIEN.',
+      'gale': '¡Bien! Tengo MÁS Maestros.',
+      'magnet': '¿Repelido? ¿Yo? ¡Im-POSIBLE!',
+      'drill': 'Bah. He tocado fondo. Literalmente.',
+      'tide': '¡La marea cambiará! …¿Verdad?',
+      'neon': '¿¡Quién ha ENCENDIDO las luces?!',
+      'rotor': '¿¡Diez relés?! ¡Enfermera! ¡ENFERMERA!',
+      'breach': '¡No, no, NO! ¡Ese escudo estaba PATENTADO!',
+    },
+    'volt': {
+      'hack': 'Veamos qué hay en esa cabeza hueca…',
+      'fail': '¿¡No se puede sobrescribir?! Qué GROSERO.',
+    },
+    'fortress': {
+      'welcome': '¡Bienvenido a mi clínica! Toma asiento… ¡para SIEMPRE!',
+    },
+    'mk1': {
+      'intro': '¡Contemplad! ¡Mi nuevo cuerpo! ¡Mark UNO!',
+      'obey': '¡Maestros! ¡OBEDECED a vuestro doctor!',
+      'listen': '¿¡Por qué no ESCUCHAN?!',
+      'defeat': 'Pediré… una segunda opinión…',
+    },
+    'sting': {
+      'doctorIn': 'El doctor… está en CONSULTA.',
+    },
   }
 }

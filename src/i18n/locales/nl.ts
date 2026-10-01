@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… er zit iets in mijn sys—',
+      'thanks': '…Je hield het buiten. Dank je.',
+    },
+    'mk1': {
+      'intro': 'Dat is Vex. De echte.',
+      'fire': 'Vuur!',
+      'ice': 'IJs!',
+      'volt': 'Volt!',
+      'wind': 'Wind!',
+      'scrap': 'Schroot!',
+      'free': 'Omdat ze vrij zijn.',
+    },
     'guardDown': 'Bewaker neer! De weg is vrij.',
     'help': {
       'weapon': 'Kies je nieuwe wapen en vuur op de drones!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'relayOne': 'Relais één brandt. Nog negen.',
+      'copied': {
+        'scrapBurst': '{weapon} gekopieerd.',
+        'flameWave': '{weapon} gekopieerd.',
+        'iceLance': '{weapon} gekopieerd.',
+        'thunderArc': '{weapon} gekopieerd.',
+        'galeGuard': '{weapon} gekopieerd.',
+        'magnetPull': '{weapon} gekopieerd.',
+        'drillBomb': '{weapon} gekopieerd.',
+        'bubbleLance': '{weapon} gekopieerd.',
+        'neonBlade': '{weapon} gekopieerd.',
+        'droneSwarm': '{weapon} gekopieerd.',
+      },
+      'dataCore': 'Hij heeft ons iets nagelaten.',
+      'firstDraft': '…Ik ben geschreven uit zijn eerste ontwerp.',
+      'body': 'Hij bouwt een lichaam. Uit onze vallei.',
+      'voltFreed': 'Het signaal is zijn centrale kwijt.',
+      'galeFreed': 'Er komen geen onderdelen meer bij het Fort.',
+      'breach': 'Schild weg. Het Fort ligt open.',
+      'magnetFreed': 'De gieterij is koud. Geen klauwen meer.',
+      'drillFreed': 'De mijn is stil. Geen erts meer.',
+      'tideFreed': 'Sluizen dicht. De aken blijven thuis.',
+      'neonFreed': 'Licht aan. Vex is zijn schermen kwijt.',
+      'rotorFreed': 'Alle lijnen gekapt. Vex staat alleen.',
       'rotor': 'Rotorrun. Wind in mijn antenne!',
       'neon': 'Blackoutboulevard. Licht aan, graag!',
       'tide': 'Getijdensluizen. Spettertijd!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Nieuw spel+ starten?',
       'confirmBody': 'Het verhaal begint opnieuw met taaiere Meesters. Je houdt je level, uitrusting, wapens en upgrades.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Het voorprogramma! De {boss}!',
+      'blaze': 'De oudste! De heetste! {boss}!',
+      'frost': 'Blijf koel, droidje! {boss}!',
+      'volt': 'Knipper en je mist hem! {boss}!',
+      'gale': 'Volgende, graag! {boss}, blaas hem weg!',
+      'magnet': 'Aantrekkelijk, hè? {boss}!',
+      'drill': 'Tijd voor een grondig onderzoek! {boss}!',
+      'tide': 'Hier komt de vloedgolf, droid! {boss}!',
+      'neon': 'Licht! Camera! {boss}!',
+      'rotor': 'De grote finale! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Een schrootkraan? Wat… schattig.',
+      'blaze': 'Bijwerking genoteerd. Ik verhoog de dosis.',
+      'blueprint': 'Mijn schetsen! Ik ben geniaal, hè?',
+      'volt': 'Met mij gaat het… per-fect… GOED.',
+      'gale': 'Prima! Ik heb nog MEER Meesters.',
+      'magnet': 'Afgestoten? Ik? On-MOGELIJK!',
+      'drill': 'Hmpf. Een nieuw dieptepunt. Letterlijk.',
+      'tide': 'Het tij zal keren! …Toch?',
+      'neon': 'Wie deed het licht AAN?!',
+      'rotor': 'Tien relais?! Zuster! ZUSTER!',
+      'breach': 'Nee, nee, NEE! Dat schild was GEPATENTEERD!',
+    },
+    'volt': {
+      'hack': 'Eens kijken wat er in dat lege hoofd zit…',
+      'fail': 'Schrijfbeveiligd?! Hoe BRUTAAL.',
+    },
+    'fortress': {
+      'welcome': 'Welkom in mijn kliniek! Neem plaats… voor ALTIJD!',
+    },
+    'mk1': {
+      'intro': 'Aanschouw! Mijn nieuwe lichaam! Mark ÉÉN!',
+      'obey': 'Meesters! GEHOORZAAM jullie dokter!',
+      'listen': 'Waarom LUISTEREN ze niet?!',
+      'defeat': 'Ik vraag… een second opinion aan…',
+    },
+    'sting': {
+      'doctorIn': 'De dokter… is ER.',
+    },
   }
 }

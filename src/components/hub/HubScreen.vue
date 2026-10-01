@@ -76,6 +76,7 @@
       span.lt-text {{ t('hub.unlock.hint', left(hint.id)) }}
     HubLesson
     PipNotice
+    HubSceneLayer
 </template>
 
 <script setup lang="ts">
@@ -89,6 +90,7 @@ import CircuitsTab from './CircuitsTab.vue'
 import WorkshopTab from './WorkshopTab.vue'
 import HubLesson from './HubLesson.vue'
 import PipNotice from './PipNotice.vue'
+import HubSceneLayer from '@/components/story/HubSceneLayer.vue'
 import { hubTab, type HubTab } from './hubLesson'
 import {
   HUB_UNLOCKS, FLOOR_TIP, isFresh, isUnlocked, missionsLeft, needFor, openedTip, placeTip, toAnnounce,

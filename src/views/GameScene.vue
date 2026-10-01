@@ -47,6 +47,7 @@
     FreezeOverlay(v-if="flow.screen === 'mission'")
     BigBanner(v-if="flow.screen === 'mission'")
     AtlasBubble(v-if="flow.screen === 'mission'")
+    SceneBubble(v-if="flow.screen === 'mission' || flow.screen === 'hub' || flow.screen === 'ending'")
     ResultsModal
     DefeatModal
     PauseModal(@options="optionsOpen = true")
@@ -106,6 +107,7 @@ import LessonLayer from '@/components/hud/LessonLayer.vue'
 import DoorPrompt from '@/components/hud/DoorPrompt.vue'
 import BigBanner from '@/components/hud/BigBanner.vue'
 import AtlasBubble from '@/components/hud/AtlasBubble.vue'
+import SceneBubble from '@/components/story/SceneBubble.vue'
 import ExitSkip from '@/components/hud/ExitSkip.vue'
 import FreezeOverlay from '@/components/hud/FreezeOverlay.vue'
 import TrainingFrame from '@/components/hud/TrainingFrame.vue'

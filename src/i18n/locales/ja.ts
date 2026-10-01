@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux…何かが中に入っ—',
+      'thanks': '…締め出してくれたね。ありがとう。',
+    },
+    'mk1': {
+      'intro': 'あれがVex。本物だ。',
+      'fire': '炎！',
+      'ice': '氷！',
+      'volt': '電撃！',
+      'wind': '風！',
+      'scrap': 'スクラップ！',
+      'free': '自由だからだよ。',
+    },
     'guardDown': '番兵ダウン！道が開いたよ。',
     'help': {
       'weapon': '新しい武器を選んでドローンを撃とう！',
@@ -716,6 +729,30 @@ export default {
       'story': 'コアマスターが待ってる。解放しよう！'
     },
     'story': {
+      'relayOne': '中継器ひとつ点灯。あと九つ。',
+      'copied': {
+        'scrapBurst': '{weapon}、コピー完了。',
+        'flameWave': '{weapon}、コピー完了。',
+        'iceLance': '{weapon}、コピー完了。',
+        'thunderArc': '{weapon}、コピー完了。',
+        'galeGuard': '{weapon}、コピー完了。',
+        'magnetPull': '{weapon}、コピー完了。',
+        'drillBomb': '{weapon}、コピー完了。',
+        'bubbleLance': '{weapon}、コピー完了。',
+        'neonBlade': '{weapon}、コピー完了。',
+        'droneSwarm': '{weapon}、コピー完了。',
+      },
+      'dataCore': '何か残していったね。',
+      'firstDraft': '…私は、あの設計の初稿から書かれたんだ。',
+      'body': '体を造ってる。私たちの谷を材料に。',
+      'voltFreed': '信号は発電所を失った。',
+      'galeFreed': 'もう部品は要塞に届かない。',
+      'breach': 'シールド解除。要塞が開いた。',
+      'magnetFreed': '鋳造所は停止。もう爪は来ない。',
+      'drillFreed': '鉱山は静か。もう鉱石は出ない。',
+      'tideFreed': '水門閉鎖。はしけはもう出ない。',
+      'neonFreed': '明かりがついた。Vexの画面はもうない。',
+      'rotorFreed': '全回線切断。Vexはひとりだ。',
       'rotor': '旋翼航路。アンテナに風を感じる！',
       'neon': '停電大通り。明かりをお願い！',
       'tide': '潮汐水門。バシャバシャタイムだ！',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'ニューゲーム+を始めますか？',
       'confirmBody': '強くなったマスターたちと、物語が最初から始まります。レベル、装備、武器、強化は引き継がれます。'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': '前座の登場だ！{boss}！',
+      'blaze': '最古にして！最も熱い！{boss}！',
+      'frost': '頭を冷やしたまえ、チビドロイド！{boss}！',
+      'volt': 'まばたき厳禁！{boss}！',
+      'gale': '次の方どうぞ！{boss}、吹き飛ばせ！',
+      'magnet': '思わず惹きつけられるだろう？{boss}！',
+      'drill': '深ーく診察してあげよう！{boss}！',
+      'tide': '大波でサヨナラだ、ドロイド！{boss}！',
+      'neon': 'ライト！カメラ！{boss}！',
+      'rotor': 'グランドフィナーレだ！{boss}！',
+    },
+    'hub': {
+      'scrapper': 'ガラクタのクレーン？なんと…かわいらしい。',
+      'blaze': '副作用を確認。投与量を増やす。',
+      'blueprint': 'ワタシのスケッチ！実に見事だろう？',
+      'volt': 'ワタシは…まっ・たく…問題ナイ！',
+      'gale': 'よかろう！マスターはまだまだいるぞ。',
+      'magnet': '反発だと？ワタシが？ありえ…ナイ！',
+      'drill': 'フン。どん底だ。文字通りな。',
+      'tide': '潮目は変わる！…変わるよな？',
+      'neon': '誰だ、明かりをつけたのは?!',
+      'rotor': '中継器が十?! 看護師！看護師ーっ！',
+      'breach': 'やめろ、やめろ、やめろーっ！あのシールドは特許品だぞ！',
+    },
+    'volt': {
+      'hack': 'その空っぽの頭の中、拝見しようか…',
+      'fail': '書き込めない?! なんと無礼な！',
+    },
+    'fortress': {
+      'welcome': 'ようこそワタシのクリニックへ！お掛けなさい…永遠に！',
+    },
+    'mk1': {
+      'intro': '見よ！我が新たな体！マーク・ワン！',
+      'obey': 'マスターども！主治医に従え！',
+      'listen': 'なぜ言うことを聞かない?!',
+      'defeat': 'セカンド…オピニオンを…もらってくる…',
+    },
+    'sting': {
+      'doctorIn': 'ドクターは…診察中だ。',
+    },
   }
 }

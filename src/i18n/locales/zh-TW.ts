@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux…有東西闖進了我的系—',
+      'thanks': '…你把它擋在外面了。謝謝你。',
+    },
+    'mk1': {
+      'intro': '那就是Vex。本尊。',
+      'fire': '火！',
+      'ice': '冰！',
+      'volt': '電！',
+      'wind': '風！',
+      'scrap': '廢鐵！',
+      'free': '因為它們是自由的。',
+    },
     'guardDown': '守衛倒下！路通了。',
     'help': {
       'weapon': '選好新武器，朝無人機開火！',
@@ -735,6 +748,30 @@ export default {
       'story': '核心大師在等著，去解救它吧！'
     },
     'story': {
+      'relayOne': '點亮一個中繼站。還剩九個。',
+      'copied': {
+        'scrapBurst': '已複製{weapon}。',
+        'flameWave': '已複製{weapon}。',
+        'iceLance': '已複製{weapon}。',
+        'thunderArc': '已複製{weapon}。',
+        'galeGuard': '已複製{weapon}。',
+        'magnetPull': '已複製{weapon}。',
+        'drillBomb': '已複製{weapon}。',
+        'bubbleLance': '已複製{weapon}。',
+        'neonBlade': '已複製{weapon}。',
+        'droneSwarm': '已複製{weapon}。',
+      },
+      'dataCore': '它給我們留了點東西。',
+      'firstDraft': '…我就是照著它的初稿寫出來的。',
+      'body': '它在造身體。拿我們的山谷當材料。',
+      'voltFreed': '訊號失去了它的發電站。',
+      'galeFreed': '零件再也送不到要塞了。',
+      'breach': '護盾沒了。要塞敞開了。',
+      'magnetFreed': '鑄造廠冷了。再也沒有鐵爪了。',
+      'drillFreed': '礦坑安靜了。沒有礦石了。',
+      'tideFreed': '水閘關閉。駁船出不去了。',
+      'neonFreed': '燈亮了。Vex沒了螢幕。',
+      'rotorFreed': '所有線路都斷了。Vex孤立無援。',
       'rotor': '旋翼疾飛，風吹我的天線！',
       'neon': '斷電大道。請開燈！',
       'tide': '潮汐水閘，玩水時間到！',
@@ -808,6 +845,50 @@ export default {
       'slide': '滑鏟教學',
       'block': '護盾教學',
       'charge': '蓄力彈教學',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': '暖場節目！{boss}！',
+      'blaze': '最古老！最火熱！{boss}！',
+      'frost': '冷靜點，小機器人！{boss}！',
+      'volt': '一眨眼就錯過！{boss}！',
+      'gale': '下一位！{boss}，把他吹走！',
+      'magnet': '很有吸引力吧？{boss}！',
+      'drill': '來做個深度健檢！{boss}！',
+      'tide': '被浪捲走吧，機器人！{boss}！',
+      'neon': '燈光！攝影機！{boss}！',
+      'rotor': '壓軸大戲！{boss}！',
+    },
+    'hub': {
+      'scrapper': '一台廢品吊車？多麼…可愛。',
+      'blaze': '副作用已記錄。加重劑量。',
+      'blueprint': '我的草圖！我真是天才，對吧？',
+      'volt': '我…完、全…沒事！',
+      'gale': '好吧！我還有更多大師。',
+      'magnet': '被排斥？我？不可…能！',
+      'drill': '哼。又創新低。字面上的意思。',
+      'tide': '潮水總會回頭的！…對吧？',
+      'neon': '誰把燈打開了？！',
+      'rotor': '十個中繼站？！護理師！護理師！！',
+      'breach': '不，不，不！那護盾可是有專利的！',
+    },
+    'volt': {
+      'hack': '讓我瞧瞧那顆空腦袋裡有什麼…',
+      'fail': '無法寫入？！真是無禮！',
+    },
+    'fortress': {
+      'welcome': '歡迎光臨我的診所！請坐…永遠別起來！',
+    },
+    'mk1': {
+      'intro': '看哪！我的新身體！馬克一號！',
+      'obey': '大師們！服從你們的醫生！',
+      'listen': '它們為什麼不聽話？！',
+      'defeat': '我去…換家醫院…再看看…',
+    },
+    'sting': {
+      'doctorIn': '醫生…開始看診了。',
     },
   }
 }

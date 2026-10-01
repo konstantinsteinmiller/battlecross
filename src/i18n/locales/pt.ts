@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… tem alguma coisa no—',
+      'thanks': '…Você o manteve fora. Obrigado.',
+    },
+    'mk1': {
+      'intro': 'Esse é o Vex. O de verdade.',
+      'fire': 'Fogo!',
+      'ice': 'Gelo!',
+      'volt': 'Volt!',
+      'wind': 'Vento!',
+      'scrap': 'Sucata!',
+      'free': 'Porque eles são livres.',
+    },
     'guardDown': 'Guarda caiu! O caminho está livre.',
     'help': {
       'weapon': 'Escolha sua nova arma e atire nos drones!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'relayOne': 'Relé um aceso. Faltam nove.',
+      'copied': {
+        'scrapBurst': 'Arma copiada: {weapon}.',
+        'flameWave': 'Arma copiada: {weapon}.',
+        'iceLance': 'Arma copiada: {weapon}.',
+        'thunderArc': 'Arma copiada: {weapon}.',
+        'galeGuard': 'Arma copiada: {weapon}.',
+        'magnetPull': 'Arma copiada: {weapon}.',
+        'drillBomb': 'Arma copiada: {weapon}.',
+        'bubbleLance': 'Arma copiada: {weapon}.',
+        'neonBlade': 'Arma copiada: {weapon}.',
+        'droneSwarm': 'Arma copiada: {weapon}.',
+      },
+      'dataCore': 'Ele deixou algo pra gente.',
+      'firstDraft': '…Eu fui escrito a partir do primeiro rascunho dele.',
+      'body': 'Ele está construindo um corpo. Com o nosso vale.',
+      'voltFreed': 'O sinal perdeu sua usina.',
+      'galeFreed': 'Nenhuma peça chega mais à Fortaleza.',
+      'breach': 'Escudo caiu. A Fortaleza está aberta.',
+      'magnetFreed': 'A fundição esfriou. Chega de garras.',
+      'drillFreed': 'A mina silenciou. Acabou o minério.',
+      'tideFreed': 'Eclusas fechadas. As barcaças ficam em casa.',
+      'neonFreed': 'Luzes acesas. O Vex perdeu as telas.',
+      'rotorFreed': 'Todas as linhas cortadas. O Vex está sozinho.',
       'rotor': 'Rota da Hélice. Vento na minha antena!',
       'neon': 'Avenida do Apagão. Luzes, por favor!',
       'tide': 'Eclusas da Maré. Hora de chapinhar!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Iniciar Novo Jogo+?',
       'confirmBody': 'A história recomeça com Mestres mais durões. Você mantém nível, equipamento, armas e melhorias.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'O show de abertura! O {boss}!',
+      'blaze': 'O mais antigo! O mais quente! {boss}!',
+      'frost': 'Esfria a cabeça, droidezinho. {boss}!',
+      'volt': 'Piscou, perdeu! {boss}!',
+      'gale': 'Próximo, por favor! {boss}, manda ele pelos ares!',
+      'magnet': 'Atraente, não é? {boss}!',
+      'drill': 'Hora de um check-up profundo! {boss}!',
+      'tide': 'Vai por água abaixo, droide! {boss}!',
+      'neon': 'Luzes! Câmera! {boss}!',
+      'rotor': 'O grande final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Um guindaste de sucata? Que… fofo.',
+      'blaze': 'Efeito colateral anotado. Aumentando a dose.',
+      'blueprint': 'Meus esboços! Magnífico, não sou?',
+      'volt': 'Eu estou… per-fei-ta-men-te… BEM.',
+      'gale': 'Tudo bem! Eu tenho MAIS Mestres.',
+      'magnet': 'Repelido? Eu? Im-POSSÍVEL!',
+      'drill': 'Hmpf. Cheguei ao fundo do poço. Literalmente.',
+      'tide': 'A maré vai virar! …Não vai?',
+      'neon': 'Quem ACENDEU as luzes?!',
+      'rotor': 'Dez relés?! Enfermeira! ENFERMEIRA!',
+      'breach': 'Não, não, NÃO! Aquele escudo era PATENTEADO!',
+    },
+    'volt': {
+      'hack': 'Vamos ver o que tem nessa cabeça vazia…',
+      'fail': 'Não gravável?! Que GROSSERIA.',
+    },
+    'fortress': {
+      'welcome': 'Bem-vindo à minha clínica! Sente-se… para SEMPRE!',
+    },
+    'mk1': {
+      'intro': 'Contemplem! Meu novo corpo! Mark UM!',
+      'obey': 'Mestres! OBEDEÇAM ao seu doutor!',
+      'listen': 'Por que eles não ESCUTAM?!',
+      'defeat': 'Vou pedir… uma segunda opinião…',
+    },
+    'sting': {
+      'doctorIn': 'O doutor… está ATENDENDO.',
+    },
   }
 }

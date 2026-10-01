@@ -13,6 +13,7 @@ import { flow } from '@/game/flow'
 import { isAnyModalOpen } from '@/use/useModalState'
 import { sfx } from '@/game/audio/sfx'
 import { hubLesson, hubTab, tabOpen, circuitsFocus } from './hubLesson'
+import { hubSceneUi } from '@/game/story/hubSceneUi'
 
 /** `profile.tips` key: Pip has announced the Overload. */
 const OVERLOAD_TIP = 'pip:overload'
@@ -26,9 +27,9 @@ const due = computed(() =>
   !profile.tips[OVERLOAD_TIP] &&
   tabOpen('circuits')
 )
-/** Anything else on top (a modal, the upgrade tour, a load) goes first. */
+/** Anything else on top (a modal, the upgrade tour, a load, Vex's scene) goes first. */
 const visible = computed(() => due.value && flow.screen === 'hub' && !flow.modal &&
-  !isAnyModalOpen.value && !flow.loading && !hubLesson.step)
+  !isAnyModalOpen.value && !flow.loading && !hubLesson.step && !hubSceneUi.active)
 
 let timer: ReturnType<typeof setTimeout> | null = null
 const go = (): void => {

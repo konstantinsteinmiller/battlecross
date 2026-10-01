@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… jokin on järjes—',
+      'thanks': '…Pidit sen ulkona. Kiitos.',
+    },
+    'mk1': {
+      'intro': 'Tuo on Vex. Se oikea.',
+      'fire': 'Tuli!',
+      'ice': 'Jää!',
+      'volt': 'Voltti!',
+      'wind': 'Tuuli!',
+      'scrap': 'Romu!',
+      'free': 'Koska ne ovat vapaita.',
+    },
     'guardDown': 'Vartija kaatui! Tie on auki.',
     'help': {
       'weapon': 'Valitse uusi aseesi ja ammu drooneja!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Ydinmestari odottaa. Vapautetaan se!'
     },
     'story': {
+      'relayOne': 'Rele yksi syttyi. Yhdeksän jäljellä.',
+      'copied': {
+        'scrapBurst': '{weapon} kopioitu.',
+        'flameWave': '{weapon} kopioitu.',
+        'iceLance': '{weapon} kopioitu.',
+        'thunderArc': '{weapon} kopioitu.',
+        'galeGuard': '{weapon} kopioitu.',
+        'magnetPull': '{weapon} kopioitu.',
+        'drillBomb': '{weapon} kopioitu.',
+        'bubbleLance': '{weapon} kopioitu.',
+        'neonBlade': '{weapon} kopioitu.',
+        'droneSwarm': '{weapon} kopioitu.',
+      },
+      'dataCore': 'Se jätti meille jotain.',
+      'firstDraft': '…Minut kirjoitettiin sen ensimmäisestä luonnoksesta.',
+      'body': 'Vex rakentaa kehoa. Meidän laaksostamme.',
+      'voltFreed': 'Signaali menetti voimalaitoksensa.',
+      'galeFreed': 'Linnoitukseen ei tule enää osia.',
+      'breach': 'Kilpi alhaalla. Linnoitus on auki.',
+      'magnetFreed': 'Valimo on kylmä. Ei enää kynsiä.',
+      'drillFreed': 'Kaivos on hiljaa. Ei enää malmia.',
+      'tideFreed': 'Sulut kiinni. Proomut jäävät kotiin.',
+      'neonFreed': 'Valot päällä. Vex menetti näyttönsä.',
+      'rotorFreed': 'Kaikki linjat poikki. Vex on yksin.',
       'rotor': 'Roottorirata. Tuulta antenniini!',
       'neon': 'Pimeyden bulevardi. Valot, kiitos!',
       'tide': 'Vuorovesisulut. Molskis!',
@@ -808,6 +845,50 @@ export default {
       'slide': 'Liukuopetus',
       'block': 'Kilpiopetus',
       'charge': 'Latauslaukausopetus',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Lämmittelynumero! {boss}!',
+      'blaze': 'Vanhin! Kuumin! {boss}!',
+      'frost': 'Jäähdyttele, pikku droidi! {boss}!',
+      'volt': 'Räpäytä silmää, niin se meni! {boss}!',
+      'gale': 'Seuraava, kiitos! {boss}, puhalla se tiehensä!',
+      'magnet': 'Puoleensavetävää, eikö? {boss}!',
+      'drill': 'Syvätarkastuksen aika! {boss}!',
+      'tide': 'Aalto vie sinut, droidi! {boss}!',
+      'neon': 'Valot! Kamera! {boss}!',
+      'rotor': 'Suuri finaali! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Romunosturi? Kuinka… söpöä.',
+      'blaze': 'Sivuvaikutus kirjattu. Nostan annosta.',
+      'blueprint': 'Luonnokseni! Enkö olekin upea?',
+      'volt': 'Voin… täy-sin… HYVIN.',
+      'gale': 'Hyvä on! Minulla on LISÄÄ Mestareita.',
+      'magnet': 'Hylitty? Minä? Mah-DOTONTA!',
+      'drill': 'Hmph. Uusi pohjanoteeraus. Kirjaimellisesti.',
+      'tide': 'Vuorovesi kääntyy! …Eikö?',
+      'neon': 'Kuka laittoi valot PÄÄLLE?!',
+      'rotor': 'Kymmenen relettä?! Hoitaja! HOITAJA!',
+      'breach': 'Ei, ei, EI! Se kilpi oli PATENTOITU!',
+    },
+    'volt': {
+      'hack': 'Katsotaanpa, mitä tuossa tyhjässä päässä on…',
+      'fail': 'Kirjoitussuojattu?! Kuinka TÖYKEÄÄ.',
+    },
+    'fortress': {
+      'welcome': 'Tervetuloa klinikalleni! Istu alas… IKUISESTI!',
+    },
+    'mk1': {
+      'intro': 'Katsokaa! Uusi kehoni! Mark YKSI!',
+      'obey': 'Mestarit! TOTELKAA tohtorianne!',
+      'listen': 'Miksi ne eivät KUUNTELE?!',
+      'defeat': 'Haen… toisen mielipiteen…',
+    },
+    'sting': {
+      'doctorIn': 'Tohtori… on VASTAANOTOLLA.',
     },
   }
 }

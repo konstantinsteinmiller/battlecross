@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… ichimda nimadir bo—',
+      'thanks': '…Uni kiritmading. Rahmat.',
+    },
+    'mk1': {
+      'intro': 'Bu Vex. Haqiqiysi.',
+      'fire': 'Olov!',
+      'ice': 'Muz!',
+      'volt': 'Tok!',
+      'wind': 'Shamol!',
+      'scrap': 'Tersak!',
+      'free': 'Chunki ular erkin.',
+    },
     'guardDown': 'Qoʻriqchi yiqildi! Yoʻl ochiq.',
     'help': {
       'weapon': 'Yangi qurolingizni tanlang va dronlarga oting!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Yadro ustasi kutmoqda. Uni ozod qilamiz!'
     },
     'story': {
+      'relayOne': 'Birinchi rele yondi. Toʻqqiztasi qoldi.',
+      'copied': {
+        'scrapBurst': '{weapon} nusxalandi.',
+        'flameWave': '{weapon} nusxalandi.',
+        'iceLance': '{weapon} nusxalandi.',
+        'thunderArc': '{weapon} nusxalandi.',
+        'galeGuard': '{weapon} nusxalandi.',
+        'magnetPull': '{weapon} nusxalandi.',
+        'drillBomb': '{weapon} nusxalandi.',
+        'bubbleLance': '{weapon} nusxalandi.',
+        'neonBlade': '{weapon} nusxalandi.',
+        'droneSwarm': '{weapon} nusxalandi.',
+      },
+      'dataCore': 'U bizga nimadir qoldirdi.',
+      'firstDraft': '…Men uning birinchi qoralamasidan yozilganman.',
+      'body': 'U oʻziga tana quryapti. Vodiyimizdan.',
+      'voltFreed': 'Signal elektr stansiyasidan ayrildi.',
+      'galeFreed': 'Qalʼaga endi qismlar yetib bormaydi.',
+      'breach': 'Qalqon tushdi. Qalʼa ochiq.',
+      'magnetFreed': 'Quyish sexi sovidi. Panjalar yoʻq.',
+      'drillFreed': 'Kon jimib qoldi. Ruda yoʻq.',
+      'tideFreed': 'Shlyuzlar yopiq. Barjalar uyda qoladi.',
+      'neonFreed': 'Chiroqlar yondi. Vex ekranlaridan ayrildi.',
+      'rotorFreed': 'Hamma liniyalar uzildi. Vex yolgʻiz.',
       'rotor': 'Rotor parvozi. Antennamda shamol!',
       'neon': 'Zulmat bulvari. Chiroqlarni yoqing!',
       'tide': 'Toʻlqin shlyuzlari. Shalop-shulup vaqti!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Yangi oʻyin+ boshlansinmi?',
       'confirmBody': 'Hikoya kuchliroq Ustalar bilan qaytadan boshlanadi. Daraja, jihozlar, qurollar va yaxshilanishlar saqlanadi.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Isinish raundi! {boss}!',
+      'blaze': 'Eng keksasi! Eng issigʻi! {boss}!',
+      'frost': 'Biroz salqinla, kichkina droid. {boss}!',
+      'volt': 'Koʻz ochib-yumguncha! {boss}!',
+      'gale': 'Keyingisi, marhamat! {boss}, uni uchirib yubor!',
+      'magnet': 'Jozibador, shundaymi? {boss}!',
+      'drill': 'Chuqur tekshiruv vaqti! {boss}!',
+      'tide': 'Toʻlqinga qoʻl silkit, droid! {boss}!',
+      'neon': 'Chiroqlar! Kamera! {boss}!',
+      'rotor': 'Katta final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Tersak krani? Qanday… yoqimtoy.',
+      'blaze': 'Nojoʻya taʼsir qayd etildi. Dozani oshiraman.',
+      'blueprint': 'Chizmalarim! Ajoyibman, shundaymi?',
+      'volt': 'Men… mut-la-qo… YAXSHIMAN.',
+      'gale': 'Mayli! Menda yana KOʻPROQ Ustalar bor.',
+      'magnet': 'Itarildimmi? Menmi? Im-KONSIZ!',
+      'drill': 'Hm. Tubiga yetdim. Tom maʼnoda.',
+      'tide': 'Toʻlqin qaytadi! …Toʻgʻrimi?',
+      'neon': 'Chiroqni kim YOQDI?!',
+      'rotor': 'Oʻnta rele?! Hamshira! HAMSHIRA!',
+      'breach': 'Yoʻq, yoʻq, YOʻQ! U qalqon PATENTLANGAN edi!',
+    },
+    'volt': {
+      'hack': 'Koʻraylik-chi, boʻsh kallada nima bor…',
+      'fail': 'Yozib boʻlmaydi?! Qanday ODOBSIZLIK.',
+    },
+    'fortress': {
+      'welcome': 'Klinikamga xush kelibsan! Oʻtir… ABADIY!',
+    },
+    'mk1': {
+      'intro': 'Qaranglar! Yangi tanam! Mark BIR!',
+      'obey': 'Ustalar! Doktoringizga ITOAT qiling!',
+      'listen': 'Nega ular TINGLAMAYDI?!',
+      'defeat': 'Ikkinchi… fikr soʻrayman…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… QABULDA.',
+    },
   }
 }

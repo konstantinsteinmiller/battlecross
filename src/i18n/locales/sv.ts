@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… det är något i mitt sys—',
+      'thanks': '…Du höll det ute. Tack.',
+    },
+    'mk1': {
+      'intro': 'Det där är Vex. Den riktiga.',
+      'fire': 'Eld!',
+      'ice': 'Is!',
+      'volt': 'Volt!',
+      'wind': 'Vind!',
+      'scrap': 'Skrot!',
+      'free': 'För att de är fria.',
+    },
     'guardDown': 'Vakten nere! Vägen är fri.',
     'help': {
       'weapon': 'Välj ditt nya vapen och skjut på drönarna!',
@@ -735,6 +748,30 @@ export default {
       'story': 'En Kärnmästare väntar. Vi befriar den!'
     },
     'story': {
+      'relayOne': 'Relä ett tänt. Nio kvar.',
+      'copied': {
+        'scrapBurst': '{weapon} kopierat.',
+        'flameWave': '{weapon} kopierat.',
+        'iceLance': '{weapon} kopierat.',
+        'thunderArc': '{weapon} kopierat.',
+        'galeGuard': '{weapon} kopierat.',
+        'magnetPull': '{weapon} kopierat.',
+        'drillBomb': '{weapon} kopierat.',
+        'bubbleLance': '{weapon} kopierat.',
+        'neonBlade': '{weapon} kopierat.',
+        'droneSwarm': '{weapon} kopierat.',
+      },
+      'dataCore': 'Den lämnade något åt oss.',
+      'firstDraft': '…Jag skrevs utifrån dess första utkast.',
+      'body': 'Han bygger sig en kropp. Av vår dal.',
+      'voltFreed': 'Signalen har förlorat sitt kraftverk.',
+      'galeFreed': 'Inga fler delar når Fästningen.',
+      'breach': 'Skölden är nere. Fästningen är öppen.',
+      'magnetFreed': 'Gjuteriet är kallt. Inga fler klor.',
+      'drillFreed': 'Gruvan är tyst. Ingen mer malm.',
+      'tideFreed': 'Slussarna stängda. Pråmarna stannar hemma.',
+      'neonFreed': 'Ljuset tänt. Vex har förlorat sina skärmar.',
+      'rotorFreed': 'Varje linje kapad. Vex är ensam.',
       'rotor': 'Rotorrundan. Vind i antennen!',
       'neon': 'Blackout-boulevarden. Ljus, tack!',
       'tide': 'Tidvattenslussarna. Plaskdags!',
@@ -808,6 +845,50 @@ export default {
       'slide': 'Glidövning',
       'block': 'Sköldövning',
       'charge': 'Laddskottsövning',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Uppvärmningen! Här är {boss}!',
+      'blaze': 'Den äldsta! Den hetaste! {boss}!',
+      'frost': 'Ta det kallt, lilla droid. {boss}!',
+      'volt': 'Blinka och du missar den! {boss}!',
+      'gale': 'Nästa, tack! {boss}, blås bort honom!',
+      'magnet': 'Attraktivt, va? {boss}!',
+      'drill': 'Dags för en djupundersökning! {boss}!',
+      'tide': 'Dags för en kalldusch, droid! {boss}!',
+      'neon': 'Ljus! Kamera! {boss}!',
+      'rotor': 'Den stora finalen! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'En skrotkran? Så… gulligt.',
+      'blaze': 'Biverkning noterad. Jag höjer dosen.',
+      'blueprint': 'Mina skisser! Visst är jag magnifik?',
+      'volt': 'Jag mår… ut-märkt… BRA.',
+      'gale': 'Fint! Jag har FLER Mästare.',
+      'magnet': 'Avstött? Jag? O-MÖJLIGT!',
+      'drill': 'Hmpf. Ett nytt bottenrekord. Bokstavligen.',
+      'tide': 'Tidvattnet vänder! …Eller?',
+      'neon': 'Vem TÄNDE ljuset?!',
+      'rotor': 'Tio reläer?! Syster! SYSTER!',
+      'breach': 'Nej, nej, NEJ! Den skölden var PATENTERAD!',
+    },
+    'volt': {
+      'hack': 'Få se vad som finns i det tomma huvudet…',
+      'fail': 'Skrivskyddad?! Så OFÖRSKÄMT.',
+    },
+    'fortress': {
+      'welcome': 'Välkommen till min klinik! Sitt ner… för ALLTID!',
+    },
+    'mk1': {
+      'intro': 'Se här! Min nya kropp! Mark ETT!',
+      'obey': 'Mästare! LYD er doktor!',
+      'listen': 'Varför LYSSNAR de inte?!',
+      'defeat': 'Jag ska be om… ett andra utlåtande…',
+    },
+    'sting': {
+      'doctorIn': 'Doktorn… är INNE.',
     },
   }
 }

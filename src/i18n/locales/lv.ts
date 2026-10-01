@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… kaut kas ir ma—',
+      'thanks': '…Tu to neielaidi. Paldies.',
+    },
+    'mk1': {
+      'intro': 'Tas ir Vex. Īstais.',
+      'fire': 'Uguns!',
+      'ice': 'Ledus!',
+      'volt': 'Strāva!',
+      'wind': 'Vējš!',
+      'scrap': 'Lūžņi!',
+      'free': 'Jo viņi ir brīvi.',
+    },
     'guardDown': 'Sargs kritis! Ceļš ir brīvs.',
     'help': {
       'weapon': 'Izvēlies jauno ieroci un šauj uz droniem!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Gaida Kodola meistars. Atbrīvosim to!'
     },
     'story': {
+      'relayOne': 'Pirmais relejs deg. Vēl deviņi.',
+      'copied': {
+        'scrapBurst': 'Ierocis nokopēts: {weapon}.',
+        'flameWave': 'Ierocis nokopēts: {weapon}.',
+        'iceLance': 'Ierocis nokopēts: {weapon}.',
+        'thunderArc': 'Ierocis nokopēts: {weapon}.',
+        'galeGuard': 'Ierocis nokopēts: {weapon}.',
+        'magnetPull': 'Ierocis nokopēts: {weapon}.',
+        'drillBomb': 'Ierocis nokopēts: {weapon}.',
+        'bubbleLance': 'Ierocis nokopēts: {weapon}.',
+        'neonBlade': 'Ierocis nokopēts: {weapon}.',
+        'droneSwarm': 'Ierocis nokopēts: {weapon}.',
+      },
+      'dataCore': 'Viņš mums kaut ko atstāja.',
+      'firstDraft': '…Mani uzrakstīja no tā pirmā melnraksta.',
+      'body': 'Viņš būvē sev ķermeni. No mūsu ielejas.',
+      'voltFreed': 'Signāls zaudēja savu spēkstaciju.',
+      'galeFreed': 'Cietoksni vairs nesasniedz neviena detaļa.',
+      'breach': 'Vairogs kritis. Cietoksnis ir atvērts.',
+      'magnetFreed': 'Lietuve atdzisusi. Vairs nekādu nagu.',
+      'drillFreed': 'Raktuve klusa. Vairs nekādas rūdas.',
+      'tideFreed': 'Slūžas ciet. Baržas paliek mājās.',
+      'neonFreed': 'Gaisma deg. Vex zaudēja ekrānus.',
+      'rotorFreed': 'Visas līnijas pārgrieztas. Vex ir viens.',
       'rotor': 'Rotora lidojums. Vējš manā antenā!',
       'neon': 'Aptumsuma bulvāris. Gaismu, lūdzu!',
       'tide': 'Paisuma slūžas. Šļakstīšanās laiks!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Apmācība: Vairogs',
       'charge': 'Apmācība: Lādēts šāviens'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Iesildīšanās! {boss}!',
+      'blaze': 'Vecākais! Karstākais! {boss}!',
+      'frost': 'Atvēsies, mazo droīd. {boss}!',
+      'volt': 'Samirkšķini, un palaidīsi garām! {boss}!',
+      'gale': 'Nākamais, lūdzu! {boss}, aizpūt viņu!',
+      'magnet': 'Pievilcīgi, vai ne? {boss}!',
+      'drill': 'Laiks dziļai izmeklēšanai! {boss}!',
+      'tide': 'Vilnis tevi aiznesīs, droīd! {boss}!',
+      'neon': 'Gaismas! Kamera! {boss}!',
+      'rotor': 'Lielais fināls! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Lūžņu celtnis? Cik… mīlīgi.',
+      'blaze': 'Blakusefekts reģistrēts. Palielinu devu.',
+      'blueprint': 'Manas skices! Es esmu lielisks, vai ne?',
+      'volt': 'Man… pil-nī-gi… LABI.',
+      'gale': 'Labi! Man ir VĒL Meistari.',
+      'magnet': 'Atgrūsts? Es? Ne-IESPĒJAMI!',
+      'drill': 'Hmf. Jauns zemākais punkts. Burtiski.',
+      'tide': 'Paisums vēl atgriezīsies! …Vai ne?',
+      'neon': 'Kas IESLĒDZA gaismu?!',
+      'rotor': 'Desmit releji?! Māsiņ! MĀSIŅ!',
+      'breach': 'Nē, nē, NĒ! Tas vairogs bija PATENTĒTS!',
+    },
+    'volt': {
+      'hack': 'Paskatīsimies, kas ir tajā tukšajā galvā…',
+      'fail': 'Nerakstāms?! Cik NEPIEKLĀJĪGI.',
+    },
+    'fortress': {
+      'welcome': 'Laipni lūgts manā klīnikā! Apsēdies… UZ MŪŽU!',
+    },
+    'mk1': {
+      'intro': 'Skatieties! Mans jaunais ķermenis! Mark VIENS!',
+      'obey': 'Meistari! KLAUSIET savu dakteri!',
+      'listen': 'Kāpēc viņi NEKLAUSA?!',
+      'defeat': 'Es palūgšu… otru viedokli…',
+    },
+    'sting': {
+      'doctorIn': 'Dakteris… PIEŅEM.',
+    },
   }
 }

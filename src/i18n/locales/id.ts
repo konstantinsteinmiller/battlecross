@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… ada sesuatu di sis—',
+      'thanks': '…Kamu menahannya di luar. Terima kasih.',
+    },
+    'mk1': {
+      'intro': 'Itu Vex. Yang asli.',
+      'fire': 'Api!',
+      'ice': 'Es!',
+      'volt': 'Volt!',
+      'wind': 'Angin!',
+      'scrap': 'Rongsok!',
+      'free': 'Karena mereka bebas.',
+    },
     'guardDown': 'Penjaga tumbang! Jalan terbuka.',
     'help': {
       'weapon': 'Pilih senjata barumu dan tembak drone-drone itu!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Master Inti menunggu. Ayo bebaskan!'
     },
     'story': {
+      'relayOne': 'Relai satu menyala. Tinggal sembilan.',
+      'copied': {
+        'scrapBurst': '{weapon} disalin.',
+        'flameWave': '{weapon} disalin.',
+        'iceLance': '{weapon} disalin.',
+        'thunderArc': '{weapon} disalin.',
+        'galeGuard': '{weapon} disalin.',
+        'magnetPull': '{weapon} disalin.',
+        'drillBomb': '{weapon} disalin.',
+        'bubbleLance': '{weapon} disalin.',
+        'neonBlade': '{weapon} disalin.',
+        'droneSwarm': '{weapon} disalin.',
+      },
+      'dataCore': 'Ia meninggalkan sesuatu untuk kita.',
+      'firstDraft': '…Aku ditulis dari draf pertamanya.',
+      'body': 'Dia membangun tubuh. Dari lembah kita.',
+      'voltFreed': 'Sinyal itu kehilangan pembangkitnya.',
+      'galeFreed': 'Tak ada lagi suku cadang ke Benteng.',
+      'breach': 'Perisai jatuh. Benteng terbuka.',
+      'magnetFreed': 'Pengecoran dingin. Tak ada cakar lagi.',
+      'drillFreed': 'Tambang sunyi. Tak ada bijih lagi.',
+      'tideFreed': 'Pintu air tertutup. Tongkang tetap di rumah.',
+      'neonFreed': 'Lampu menyala. Vex kehilangan layarnya.',
+      'rotorFreed': 'Semua jalur terputus. Vex sendirian.',
       'rotor': 'Laju Rotor. Angin di antenaku!',
       'neon': 'Bulevar Padam. Nyalakan lampunya, dong!',
       'tide': 'Pintu Air Pasang. Waktunya ciprat-ciprat!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Mulai Game Baru+?',
       'confirmBody': 'Cerita dimulai lagi dengan Master yang lebih tangguh. Level, perlengkapan, senjata, dan peningkatanmu tetap.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Pembuka acara! {boss}!',
+      'blaze': 'Yang tertua! Yang terpanas! {boss}!',
+      'frost': 'Dinginkan kepalamu, droid kecil! {boss}!',
+      'volt': 'Kedip sekali, dia hilang! {boss}!',
+      'gale': 'Berikutnya, silakan! {boss}, terbangkan dia!',
+      'magnet': 'Menarik, bukan? {boss}!',
+      'drill': 'Waktunya pemeriksaan mendalam! {boss}!',
+      'tide': 'Lambaikan selamat tinggal, droid! {boss}!',
+      'neon': 'Lampu! Kamera! {boss}!',
+      'rotor': 'Puncak acara! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Derek rongsokan? Betapa… imutnya.',
+      'blaze': 'Efek samping dicatat. Dosis dinaikkan.',
+      'blueprint': 'Sketsaku! Aku hebat sekali, kan?',
+      'volt': 'Aku… sa-ngat… BAIK.',
+      'gale': 'Baik! Master-ku masih BANYAK.',
+      'magnet': 'Ditolak? Aku? MUS-TAHIL!',
+      'drill': 'Hmph. Titik terendah baru. Secara harfiah.',
+      'tide': 'Air pasang akan kembali! …Kan?',
+      'neon': 'Siapa yang MENYALAKAN lampu?!',
+      'rotor': 'Sepuluh relai?! Suster! SUSTER!',
+      'breach': 'Tidak, tidak, TIDAK! Perisai itu sudah DIPATENKAN!',
+    },
+    'volt': {
+      'hack': 'Coba lihat isi kepala kosong itu…',
+      'fail': 'Tak bisa ditulis?! KURANG AJAR.',
+    },
+    'fortress': {
+      'welcome': 'Selamat datang di klinikku! Silakan duduk… SELAMANYA!',
+    },
+    'mk1': {
+      'intro': 'Lihatlah! Tubuh baruku! Mark SATU!',
+      'obey': 'Para Master! PATUHI doktermu!',
+      'listen': 'Kenapa mereka tidak MENDENGAR?!',
+      'defeat': 'Aku akan cari… pendapat kedua…',
+    },
+    'sting': {
+      'doctorIn': 'Dokter… sudah HADIR.',
+    },
   }
 }

@@ -5,8 +5,9 @@ import { registerOneShotSource } from '@/use/useAssets'
 /**
  * ─── Voice-overs ─────────────────────────────────────────────────────────────
  *
- * Atlas speaks (the intro, and in every mission). Every line is a speech
- * bubble first; a recorded voice is an optional layer on top:
+ * Atlas, Vex and Gauss speak lines (a speech bubble or caption first; a
+ * recorded voice is an optional layer on top), and Flux barks when he is hit
+ * (`barks.ts`, no bubble):
  *
  *   public/audio/voice/en/<line id>.ogg     English
  *   public/audio/voice/de/<line id>.ogg     German
@@ -21,8 +22,12 @@ import { registerOneShotSource } from '@/use/useAssets'
  * logs a 404. A file that fails to fetch or decode is forgotten silently,
  * and that line stays a bubble. Nothing here throws.
  *
- * Voices play on the sound-effects bus, so the volume, mute, pause and ad
- * gates cover them, and an ad hard-stops one mid-line like any sound.
+ * Voices play on the voice bus, under the same volume, mute, pause and ad
+ * gates as every sound; an ad hard-stops one mid-line.
+ *
+ * Two channels: 'line' (one speaker at a time: a new line cuts the last, and
+ * the music steps back) and 'bark' (Flux's yelps: never cut a line, never
+ * duck the music, one at a time among themselves).
  */
 
 export type VoiceLang = 'en' | 'de'
@@ -108,21 +113,27 @@ export const prefetchVoice = (id: string): VoiceState => {
   return loading.has(url) ? 'loading' : buffers.has(url) ? 'ready' : 'none'
 }
 
-let current: AudioBufferSourceNode | null = null
+export type VoiceChannel = 'line' | 'bark'
 
-/** Stop the line being spoken, if any. */
-export const stopVoice = (): void => {
-  try { current?.stop() } catch { /* already stopped */ }
-  current = null
+const current: Record<VoiceChannel, AudioBufferSourceNode | null> = { line: null, bark: null }
+
+/** Stop what a channel is saying (the line by default), if anything. */
+export const stopVoice = (channel: VoiceChannel = 'line'): void => {
+  try { current[channel]?.stop() } catch { /* already stopped */ }
+  current[channel] = null
 }
+
+/** Someone is speaking a line right now (barks wait their turn). */
+export const isSpeaking = (): boolean => current.line != null
 
 /**
  * Speak a line now, if its file is ready: returns how long it lasts (s), or
  * null when there is no voice for it (no file, not decoded yet, no audio) —
  * the caller shows the bubble either way. A line not decoded yet is fetched
- * for next time. Cuts off a line still playing: Atlas says one thing at once.
+ * for next time. Cuts off what the same channel is still saying: one speaker
+ * at a time.
  */
-export const playVoice = (id: string): number | null => {
+export const playVoice = (id: string, channel: VoiceChannel = 'line'): number | null => {
   try {
     const url = voiceUrl(id)
     if (!url) return null
@@ -133,16 +144,16 @@ export const playVoice = (id: string): number | null => {
     }
     const a = audio()
     if (!a) return null
-    stopVoice()
+    stopVoice(channel)
     const src = a.ctx.createBufferSource()
     src.buffer = buf
     src.connect(a.voice)
     src.start()
-    // The music steps back while someone speaks.
-    duckMusic(buf.duration)
-    src.onended = () => { if (current === src) current = null }
+    // The music steps back while someone speaks (a yelp is too short to matter).
+    if (channel === 'line') duckMusic(buf.duration)
+    src.onended = () => { if (current[channel] === src) current[channel] = null }
     registerOneShotSource(src)
-    current = src
+    current[channel] = src
     return buf.duration
   } catch {
     return null
@@ -154,5 +165,6 @@ export const __resetVoices = (): void => {
   buffers.clear()
   failed.clear()
   loading.clear()
-  current = null
+  current.line = null
+  current.bark = null
 }

@@ -13,11 +13,14 @@ import { buildLabSet } from '../sim/hub'
 import { Particles } from '../fx/particles'
 import { tickHud } from '../state/hud'
 import { sfx } from '../audio/sfx'
+import { playVoice, prefetchVoice, stopVoice } from '../audio/voice'
+import { Scene as StoryScene, prefetchScene } from './vexScene'
+import { stingBeats } from './vexScenes'
 import { setMusicTrack } from '@/use/useSound'
 import { sceneQuality } from '../engine/quality'
 import {
   CARD_FROM, CREDITS_FROM, FREE_FROM, FREE_TO, LAB_FROM, OPEN_FROM, OPEN_TO, STEP_FROM, STEP_TO, SUNRISE_FROM, THAW_FROM, THAW_TO,
-  captionAt, nextBeat, ramp, shotAt, type Speaker
+  CAPTIONS, captionAt, nextBeat, ramp, shotAt, type Speaker
 } from './endingScript'
 import { endingUi } from './endingUi'
 
@@ -96,31 +99,55 @@ export class EndingMode implements GameMode {
   }
 
   enter(): void {
-    Object.assign(endingUi, { on: true, t: 0, caption: '', speaker: '', credits: false, card: false, roll: 0 })
+    Object.assign(endingUi, { on: true, t: 0, caption: '', speaker: '', credits: false, card: false, roll: 0, sting: false })
+    prefetchScene(stingBeats())
     setMusicTrack('intro')
+    // The spoken captions (Gauss, Atlas): fetched now, played as each shows.
+    for (const c of CAPTIONS) if (c.speaker) prefetchVoice(`ending.${c.key}`)
     try { getRenderer().compile(this.scene, this.camera) } catch { /* compiles on first draw */ }
   }
 
   /** Skip: straight to the end card. */
   skip(): void {
+    if (this.sting) return this.sting.skip()
     if (this.t < CARD_FROM) this.t = CARD_FROM
+    stopVoice()
   }
 
   /** A tap on the film: the next line (or the credits after the last). */
   advance(): void {
+    if (this.sting) return this.sting.skip()
     if (this.t < CREDITS_FROM) this.t = nextBeat(this.t)
   }
 
-  /** The card's choice. */
+  /** Vex's sting (S14, `vex.sting.doctorIn`): New Game+ starts after it. */
+  private sting: StoryScene | null = null
+
+  /** The card's choice. New Game+ plays the sting first: Vex is back. */
   choose(choice: 'ngplus' | 'lab'): void {
+    if (this.ended || this.sting) return
+    if (choice === 'ngplus') {
+      endingUi.sting = true
+      this.sting = new StoryScene(stingBeats(), 'center', { onEnd: () => this.finish('ngplus') })
+      return
+    }
+    this.finish(choice)
+  }
+
+  private finish(choice: 'ngplus' | 'lab'): void {
     if (this.ended) return
     this.ended = true
     endingUi.on = false
+    endingUi.sting = false
     this.opts.onEnd(choice)
   }
 
   update(dt: number): void {
     if (this.ended) return
+    if (this.sting) {
+      this.sting.update(dt)
+      return
+    }
     const before = this.t
     this.t += dt
     const t = this.t
@@ -131,6 +158,9 @@ export class EndingMode implements GameMode {
       endingUi.caption = key
       endingUi.speaker = c?.speaker ?? ''
       if (key) endingUi.seq++
+      // A spoken caption speaks (`ending.<key>` in the voice catalog); a new one cuts the last.
+      stopVoice()
+      if (c?.speaker) playVoice(`ending.${key}`)
     }
     endingUi.t = t
     endingUi.credits = t >= CREDITS_FROM && t < CARD_FROM

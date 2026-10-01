@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… něco je v mo—',
+      'thanks': '…Nepustil jsi to dovnitř. Děkuju.',
+    },
+    'mk1': {
+      'intro': 'To je Vex. Ten skutečný.',
+      'fire': 'Oheň!',
+      'ice': 'Led!',
+      'volt': 'Proud!',
+      'wind': 'Vítr!',
+      'scrap': 'Šrot!',
+      'free': 'Protože jsou svobodní.',
+    },
     'guardDown': 'Strážce padl! Cesta je volná.',
     'help': {
       'weapon': 'Vyber novou zbraň a pal na drony!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Čeká Mistr jádra. Osvoboďme ho!'
     },
     'story': {
+      'relayOne': 'První přenašeč svítí. Zbývá devět.',
+      'copied': {
+        'scrapBurst': 'Zkopírováno: {weapon}.',
+        'flameWave': 'Zkopírováno: {weapon}.',
+        'iceLance': 'Zkopírováno: {weapon}.',
+        'thunderArc': 'Zkopírováno: {weapon}.',
+        'galeGuard': 'Zkopírováno: {weapon}.',
+        'magnetPull': 'Zkopírováno: {weapon}.',
+        'drillBomb': 'Zkopírováno: {weapon}.',
+        'bubbleLance': 'Zkopírováno: {weapon}.',
+        'neonBlade': 'Zkopírováno: {weapon}.',
+        'droneSwarm': 'Zkopírováno: {weapon}.',
+      },
+      'dataCore': 'Něco nám tu nechal.',
+      'firstDraft': '…Vznikl jsem z jeho prvního návrhu.',
+      'body': 'Staví si tělo. Z našeho údolí.',
+      'voltFreed': 'Signál přišel o svou elektrárnu.',
+      'galeFreed': 'Do Pevnosti už nedorazí žádné díly.',
+      'breach': 'Štít padl. Pevnost je otevřená.',
+      'magnetFreed': 'Slévárna vychladla. Žádné drápy.',
+      'drillFreed': 'Důl utichl. Žádná ruda.',
+      'tideFreed': 'Zdymadla zavřená. Prámy zůstanou doma.',
+      'neonFreed': 'Světla svítí. Vex přišel o obrazovky.',
+      'rotorFreed': 'Všechny linky přerušeny. Vex je sám.',
       'rotor': 'Rotorový let. Vítr v anténě!',
       'neon': 'Bulvár výpadku. Světla, prosím!',
       'tide': 'Přílivová zdymadla. Čas na cákání!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Tutoriál: Štít',
       'charge': 'Tutoriál: Nabitá rána'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Předskokan! {boss}!',
+      'blaze': 'Nejstarší! Nejžhavější! {boss}!',
+      'frost': 'Vychladni, droidku. {boss}!',
+      'volt': 'Mrkneš a je pryč! {boss}!',
+      'gale': 'Další, prosím! {boss}, odfoukni ho!',
+      'magnet': 'Přitažlivé, že? {boss}!',
+      'drill': 'Čas na hloubkové vyšetření! {boss}!',
+      'tide': 'Šplouch a sbohem, droide! {boss}!',
+      'neon': 'Světla! Kamera! {boss}!',
+      'rotor': 'Velké finále! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Jeřáb na šrot? Jak… rozkošné.',
+      'blaze': 'Vedlejší účinek zaznamenán. Zvyšuji dávku.',
+      'blueprint': 'Moje skici! Jsem úžasný, že?',
+      'volt': 'Jsem… na-pros-to… V POHODĚ.',
+      'gale': 'Fajn! Mám ještě DALŠÍ Mistry.',
+      'magnet': 'Odpuzen? Já? Ne-MOŽNÉ!',
+      'drill': 'Hm. Nové dno. Doslova.',
+      'tide': 'Příliv se ještě vrátí! …Že jo?',
+      'neon': 'Kdo to ROZSVÍTIL?!',
+      'rotor': 'Deset přenašečů?! Sestro! SESTRO!',
+      'breach': 'Ne, ne, NE! Ten štít byl PATENTOVANÝ!',
+    },
+    'volt': {
+      'hack': 'Copak asi je v té prázdné hlavě…',
+      'fail': 'Nezapisovatelný?! Jak DRZÉ.',
+    },
+    'fortress': {
+      'welcome': 'Vítej v mé klinice! Posaď se… NAVŽDY!',
+    },
+    'mk1': {
+      'intro': 'Hleďte! Mé nové tělo! Mark JEDNA!',
+      'obey': 'Mistři! POSLECHNĚTE svého doktora!',
+      'listen': 'Proč NEPOSLOUCHAJÍ?!',
+      'defeat': 'Vyžádám si… druhý názor…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… ORDINUJE.',
+    },
   }
 }

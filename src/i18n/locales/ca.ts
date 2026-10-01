@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… hi ha alguna cosa al—',
+      'thanks': "…L'has mantingut a fora. Gràcies.",
+    },
+    'mk1': {
+      'intro': 'És en Vex. El de veritat.',
+      'fire': 'Foc!',
+      'ice': 'Gel!',
+      'volt': 'Volt!',
+      'wind': 'Vent!',
+      'scrap': 'Ferralla!',
+      'free': 'Perquè són lliures.',
+    },
     'guardDown': 'Guàrdia abatut! El camí és lliure.',
     'help': {
       'weapon': 'Tria la teva arma nova i dispara als drons!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Un Mestre del Nucli espera. Alliberem-lo!'
     },
     'story': {
+      'relayOne': 'Primer relé encès. En queden nou.',
+      'copied': {
+        'scrapBurst': 'Arma copiada: {weapon}.',
+        'flameWave': 'Arma copiada: {weapon}.',
+        'iceLance': 'Arma copiada: {weapon}.',
+        'thunderArc': 'Arma copiada: {weapon}.',
+        'galeGuard': 'Arma copiada: {weapon}.',
+        'magnetPull': 'Arma copiada: {weapon}.',
+        'drillBomb': 'Arma copiada: {weapon}.',
+        'bubbleLance': 'Arma copiada: {weapon}.',
+        'neonBlade': 'Arma copiada: {weapon}.',
+        'droneSwarm': 'Arma copiada: {weapon}.',
+      },
+      'dataCore': 'Ens ha deixat alguna cosa.',
+      'firstDraft': '…Em van escriure a partir del seu primer esborrany.',
+      'body': "S'està construint un cos. Amb la nostra vall.",
+      'voltFreed': "El senyal s'ha quedat sense central.",
+      'galeFreed': 'Ja no arriben peces a la Fortalesa.',
+      'breach': 'Escut abatut. La Fortalesa és oberta.',
+      'magnetFreed': 'La foneria és freda. Prou urpes.',
+      'drillFreed': 'La mina calla. Ja no hi ha mineral.',
+      'tideFreed': 'Rescloses tancades. Les barcasses es queden a casa.',
+      'neonFreed': "Llums enceses. En Vex s'ha quedat sense pantalles.",
+      'rotorFreed': 'Totes les línies tallades. En Vex està sol.',
       'rotor': 'Ruta del Rotor. Vent a l\'antena!',
       'neon': 'Bulevard de l\'Apagada. Llums, si us plau!',
       'tide': 'Rescloses de la Marea. Hora de xipollejar!',
@@ -808,6 +845,50 @@ export default {
       'slide': 'Tutorial de lliscament',
       'block': 'Tutorial d\'escut',
       'charge': 'Tutorial de tret carregat',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'El teloner! El {boss}!',
+      'blaze': 'El més veterà! El més ardent! {boss}!',
+      'frost': 'Sang freda, droidet! {boss}!',
+      'volt': "Si parpelleges, te'l perds! {boss}!",
+      'gale': 'El següent, si us plau! {boss}, fes-lo volar!',
+      'magnet': 'Atractiu, oi? {boss}!',
+      'drill': "Hora d'una revisió a fons! {boss}!",
+      'tide': "Que t'emporti el corrent, droide! {boss}!",
+      'neon': 'Llums! Càmera! {boss}!',
+      'rotor': 'El gran final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Una grua de ferralla? Que… adorable.',
+      'blaze': 'Efecte secundari anotat. Augmento la dosi.',
+      'blueprint': 'Els meus esbossos! Magnífic, oi?',
+      'volt': 'Estic… per-fec-ta-ment… BÉ.',
+      'gale': 'Molt bé! Tinc MÉS Mestres.',
+      'magnet': 'Repel·lit? Jo? Im-POSSIBLE!',
+      'drill': 'Hmpf. He tocat fons. Literalment.',
+      'tide': 'La marea canviarà! …Oi?',
+      'neon': 'Qui ha ENCÈS els llums?!',
+      'rotor': 'Deu relés?! Infermera! INFERMERA!',
+      'breach': 'No, no, NO! Aquell escut estava PATENTAT!',
+    },
+    'volt': {
+      'hack': 'A veure què hi ha en aquest cap buit…',
+      'fail': "No s'hi pot escriure?! Quin MALEDUCAT.",
+    },
+    'fortress': {
+      'welcome': 'Benvingut a la meva clínica! Seu… per SEMPRE!',
+    },
+    'mk1': {
+      'intro': 'Contempleu! El meu nou cos! Mark UN!',
+      'obey': 'Mestres! OBEÏU el vostre doctor!',
+      'listen': 'Per què no ESCOLTEN?!',
+      'defeat': 'Demanaré… una segona opinió…',
+    },
+    'sting': {
+      'doctorIn': 'El doctor… ja PASSA CONSULTA.',
     },
   }
 }

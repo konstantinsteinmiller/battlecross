@@ -700,6 +700,19 @@ export default {
   // short line each (they sit in a small speech bubble for 2–3 s). Each key is
   // also the name of its optional voice file (voice-todo.md).
   'atlas': {
+    'volt': {
+      'hack': "Flux… something's in the—",
+      'thanks': '…You kept it out. Thank you.',
+    },
+    'mk1': {
+      'intro': "That's Vex. The real one.",
+      'fire': 'Fire!',
+      'ice': 'Ice!',
+      'volt': 'Volt!',
+      'wind': 'Wind!',
+      'scrap': 'Scrap!',
+      'free': "Because they're free.",
+    },
     'guardDown': "Guard down! The way's open.",
     'help': {
       'weapon': 'Pick your new weapon and fire at the drones!',
@@ -813,6 +826,30 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'relayOne': 'Relay one lit. Nine to go.',
+      'copied': {
+        'scrapBurst': '{weapon} copied.',
+        'flameWave': '{weapon} copied.',
+        'iceLance': '{weapon} copied.',
+        'thunderArc': '{weapon} copied.',
+        'galeGuard': '{weapon} copied.',
+        'magnetPull': '{weapon} copied.',
+        'drillBomb': '{weapon} copied.',
+        'bubbleLance': '{weapon} copied.',
+        'neonBlade': '{weapon} copied.',
+        'droneSwarm': '{weapon} copied.',
+      },
+      'dataCore': 'It left us something.',
+      'firstDraft': '…I was written from its first draft.',
+      'body': "It's building a body. Out of our valley.",
+      'voltFreed': "The signal's lost its power station.",
+      'galeFreed': 'No more parts reach the Fortress.',
+      'breach': "Shield's down. The Fortress is open.",
+      'magnetFreed': "The foundry's cold. No more claws.",
+      'drillFreed': "The mine's quiet. No more ore.",
+      'tideFreed': 'Locks shut. The barges stay home.',
+      'neonFreed': 'Lights on. Vex lost its screens.',
+      'rotorFreed': "Every line's cut. Vex is alone.",
       'rotor': 'Rotor Run. Wind in my antenna!',
       'neon': 'Blackout Boulevard. Lights, please!',
       'tide': 'Tidewater Locks. Splash time!',
@@ -886,6 +923,50 @@ export default {
       'slide': 'Slide Tutorial',
       'block': 'Shield Tutorial',
       'charge': 'Charge Shot Tutorial',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Warm up act! The {boss}!',
+      'blaze': 'The oldest! The hottest! {boss}!',
+      'frost': 'Chill, little droid. {boss}!',
+      'volt': "Blink and you'll miss it! {boss}!",
+      'gale': 'Next, please! {boss}, blow him away!',
+      'magnet': "Attractive, isn't it? {boss}!",
+      'drill': 'Time for a deep check-up! {boss}!',
+      'tide': 'Wave goodbye, droid! {boss}!',
+      'neon': 'Lights! Camera! {boss}!',
+      'rotor': 'The grand finale! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'A junk crane? How… adorable.',
+      'blaze': 'Side effect noted. Increasing the dose.',
+      'blueprint': "My sketches! Magnificent, aren't I?",
+      'volt': 'I am… per-fect-ly… FINE.',
+      'gale': 'Fine! I have MORE Masters.',
+      'magnet': 'Repelled? Me? Im-POSSIBLE!',
+      'drill': 'Hmph. A new low. Literally.',
+      'tide': "The tide will turn! …Won't it?",
+      'neon': 'Who turned the lights ON?!',
+      'rotor': 'Ten relays?! Nurse! NURSE!',
+      'breach': 'No, no, NO! That shield was PATENTED!',
+    },
+    'volt': {
+      'hack': "Let's see what's in that empty head…",
+      'fail': 'Unwritable?! How RUDE.',
+    },
+    'fortress': {
+      'welcome': 'Welcome to my clinic! Take a seat… FOREVER!',
+    },
+    'mk1': {
+      'intro': 'Behold! My new body! Mark ONE!',
+      'obey': 'Masters! OBEY your doctor!',
+      'listen': "Why won't they LISTEN?!",
+      'defeat': "I'll get… a second opinion…",
+    },
+    'sting': {
+      'doctorIn': 'The doctor… is IN.',
     },
   }
 }

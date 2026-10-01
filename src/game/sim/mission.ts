@@ -10,6 +10,12 @@ import { weakSpotUnderRay } from '../data/weakspots'
 import { AtlasDirector, atlasKey, type AtlasTick, type AtlasLine } from './atlas'
 import { buildAtlas, animateAtlas } from '../models/atlas'
 import { playVoice, prefetchVoice } from '../audio/voice'
+import { bark, barkFor, preloadBarks } from '../audio/barks'
+import { Scene as StoryScene, markVexSeen, vexSeen, prefetchScene, VEX_BOSS_KEY, type Beat, type ScenePlace } from '../story/vexScene'
+import {
+  presentBeats, freedBeats, voltHackBeats, fortressBeats, mk1IntroBeats, mk1SignalBeats, mk1DefeatBeats,
+  MK1_INTRO_HOLD, MK1_SIGNAL_HOLD, MK1_CALL
+} from '../story/vexScenes'
 
 /** Main-thread budget per frame for streaming the city in (ms). */
 const CITY_STREAM_MS = 3
@@ -366,6 +372,14 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private bossRoom: Room | null = null
   private boss: Enemy | null = null
   private bossStarted = false
+  /** A voiced story scene running (`story/vexScene.ts`, #117), if any. */
+  private storyScene: StoryScene | null = null
+  /** A scene waiting for Atlas's current line to end (the landing's "Touchdown!"). */
+  private pendingScene: (() => void) | null = null
+  /** The Mk-I fight's beats: phase 2 seen, the attack in its wind-up, the elements called. */
+  private mk1Signal = false
+  private mk1Tele = ''
+  private readonly mk1Called = new Set<string>()
   private bossBarT = 0
   /** The yellow "the goal is over there" triangle (`sim/locator.ts`). */
   private locator = new Locator()
@@ -838,6 +852,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       sector: setup.sector,
       freed: profile.world.bosses.filter(b => b !== 'vexMk1').length
     }, (key) => playVoice(key), (key) => prefetchVoice(key))
+    preloadBarks()
   }
 
   /**
@@ -1020,6 +1035,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         pushHud({ t: 'text', x: p.x - Math.sin(p.yaw) * 1.4, y: p.y + EYE_H + 0.2, z: p.z - Math.cos(p.yaw) * 1.4, key: 'combat.parry', color: '#7ff4ff' })
         this.fx.sparks(p.x - Math.sin(p.yaw) * 0.8, p.y + EYE_H - 0.3, p.z - Math.cos(p.yaw) * 0.8, '#bff6ff', 18, 7, 0.2)
         sfx('parry')
+        if (!this.demo.active) bark('parry')
         if (e && o.kind === 'melee') {
           e.state = 'stun'
           e.st = 0
@@ -1084,6 +1100,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     p.vx += (kx / kl) * kb
     p.vz += (kz / kl) * kb
     this.checkDown()
+    // Flux yelps: what hit him, or a groan the moment health drops under 30 %.
+    if (!c.dead && !this.demo.active) {
+      const crossedLow = c.hp / c.maxHp < 0.3 && (c.hp + taken) / c.maxHp >= 0.3
+      bark(crossedLow ? 'lowHp' : barkFor({ hazard: o.hazard, element: e?.element, hard: o.kind === 'aoe' || isHardHit(taken, c.maxHp, !!e?.boss) }))
+    }
     // A machine's hard hit mid-charge can shake it loose. Never a trap's or
     // a hazard's (no machine behind it), never in the tutorial.
     if (e && !c.dead && !this.setup.tutorial && !this.exit.active && !flow.modal &&
@@ -1216,6 +1237,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const dmg = Math.max(1, Math.round(c.maxHp * cl.pitCost))
     c.hp -= dmg
     sfx('hurt')
+    bark('pit')
     pushHud({ t: 'hurt', strength: 0.5 })
     this.dirty = true
     const to = this.rescueSpot(p.x, p.z) ?? cl.respawn()
@@ -1354,9 +1376,19 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       if (!this.bossBannered.has(e)) {
         this.bossBannered.add(e)
         showBanner('bossDown')
-        this.atlas?.event(this.boss?.bossId === 'vexMk1' ? 'vexDown' : 'bossDown')
-        // Vex presses his button: the Grand Master (#101).
-        if (e.bossId === 'vexMk1') this.finale?.start(e.x, e.z)
+        if (e.bossId === 'vexMk1') {
+          // Vex sinks ("a second opinion…"); Atlas's "We did it!" waits for the Grand Master.
+          this.playScene(mk1DefeatBeats(), 'title', null)
+          // Vex presses his button: the Grand Master (#101).
+          this.finale?.start(e.x, e.z)
+        } else {
+          // A Master's first clear: what freeing it did, and the weapon Flux copied.
+          const bid = e.bossId ?? ''
+          const first = this.setup.quest?.kind === 'story' && !!VEX_BOSS_KEY[bid] && !profile.world.bosses.includes(bid)
+          const beats = first ? freedBeats(bid) : []
+          if (beats.length) this.playScene(beats, 'top', null)
+          else this.atlas?.event('bossDown')
+        }
       }
     }
     this.objects.onEnemyKilled(e)
@@ -1395,6 +1427,18 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     sfx('bossIntro')
     setMusicTrack('boss')
     this.shake(0.3)
+    // Dr. Vex presents his Master (once ever; later entrances get his laugh), or lands the Mk-I.
+    const bid = b.bossId ?? ''
+    this.mk1Signal = b.phase2
+    if (bid === 'vexMk1') {
+      if (!vexSeen('mk1:intro')) {
+        b.beatHold = MK1_INTRO_HOLD
+        this.playScene(mk1IntroBeats(), 'title', 'mk1:intro')
+      }
+    } else if (VEX_BOSS_KEY[bid]) {
+      if (!vexSeen(`present:${bid}`)) this.playScene(presentBeats(bid), 'title', `present:${bid}`)
+      else playVoice('vex.laugh.short')
+    }
   }
 
   /** Special weapon in slot i (HUD button / 1 / 2). */
@@ -2083,6 +2127,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (c.dead) return
     c.dead = true
     c.charging = false
+    if (!this.demo.active) bark('down')
     this.fumble.reset()
     this.deathT = 0
     hud.phase = 'dead'
@@ -2242,6 +2287,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.fx.riseRing(this.player.x, this.player.y + 0.1, this.player.z, '#8dff7a', 0.9, 20)
     pushHud({ t: 'flash', color: '#8dff7a', strength: 0.35 })
     sfx('tank')
+    bark('gel')
     this.coach.use('tank')
     this.lessons.gelUsed()
     this.dirty = true
@@ -3128,6 +3174,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (!this.beamLanded && this.phaseT >= BEAM_IN_LAND) {
       this.beamLanded = true
       this.atlas?.event('landed')
+      this.prefetchStoryScenes()
       if (this.phaseT < BEAM_IN_END) {
         sfx('deckLand')
         this.fx.sparks(p.x, p.y + 0.3, p.z, PAL.glowCyan, 10, 3, 0.16)
@@ -3141,7 +3188,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (this.phaseT >= BEAM_IN_END) {
       hud.phase = 'play'
       this.phaseT = 0
-      this.atlas?.event('play')
+      this.startStoryBeat()
       // The lab's rewarded gift pays out as he lands, where the fly-in is
       // seen. A resume already had its start (and its gift), so only a fresh
       // mission claims one; a mission quit mid-beam leaves it pending.
@@ -4342,8 +4389,81 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     tickHud(dt)
   }
 
+  /**
+   * Run a voiced story scene: marked seen at once, Atlas's own lines held
+   * while it plays, Atlas's scene lines in his own bubble.
+   */
+  private playScene(beats: readonly Beat[], place: ScenePlace, seen: string | null, onEnd?: () => void): void {
+    if (seen) markVexSeen(seen)
+    this.storyScene?.skip()
+    this.atlas?.hold(true)
+    this.storyScene = new StoryScene(beats, place, {
+      atlas: (key) => this.atlas?.sayNow(key.replace(/^atlas\./, '') as AtlasLine) ?? 0,
+      onEnd: () => { this.atlas?.hold(false); onEnd?.() }
+    })
+  }
+
+  /**
+   * The landing's story beat: Atlas's briefing, or in its place the Volt
+   * Tower hack (S8) or Vex's welcome to the Fortress (S9), once ever each.
+   */
+  private startStoryBeat(): void {
+    const story = this.setup.quest?.kind === 'story'
+    const sector = this.setup.sector
+    const freed = profile.world.bosses.filter(b => b !== 'vexMk1').length
+    if (story && sector === 'volt' && !vexSeen('voltHack')) {
+      this.pendingScene = () => this.playScene(voltHackBeats(freed,
+        () => pushHud({ t: 'flash', color: '#ff2d3f', strength: 0.55 }),
+        () => pushHud({ t: 'flash', color: '#ffb43a', strength: 0.6 })), 'top', 'voltHack')
+    } else if (story && sector === 'fortress' && !vexSeen('fortress')) {
+      this.pendingScene = () => this.playScene(fortressBeats(), 'top', 'fortress', () => this.atlas?.event('play'))
+    } else this.atlas?.event('play')
+  }
+
+  /** The story scenes' recordings, fetched as the mission lands (a line must not wait on its file). */
+  private prefetchStoryScenes(): void {
+    const bid = this.boss?.bossId ?? ''
+    if (bid === 'vexMk1') {
+      for (const beats of [mk1IntroBeats(), mk1SignalBeats(), mk1DefeatBeats()]) prefetchScene(beats)
+    } else if (VEX_BOSS_KEY[bid]) {
+      prefetchScene(presentBeats(bid))
+      prefetchScene(freedBeats(bid))
+    }
+    if (this.setup.sector === 'volt') prefetchScene(voltHackBeats(3, () => {}, () => {}))
+    if (this.setup.sector === 'fortress') prefetchScene(fortressBeats())
+  }
+
+  /** The Mk-I fight: the relays-hold beat at phase 2 (S12), Atlas's element call-outs (S11). */
+  private tickMk1(): void {
+    const b = this.boss
+    if (!b || b.bossId !== 'vexMk1' || !this.bossStarted || b.state === 'dead') return
+    if (b.phase2 && !this.mk1Signal) {
+      this.mk1Signal = true
+      if (!vexSeen('mk1:signal')) {
+        b.beatHold = MK1_SIGNAL_HOLD
+        this.playScene(mk1SignalBeats(), 'title', 'mk1:signal')
+      }
+    }
+    if (b.state === 'tele' && b.attack !== this.mk1Tele) {
+      this.mk1Tele = b.attack
+      const el = MK1_CALL[b.attack]
+      // A late call-out is wrong: only when nobody is speaking.
+      if (el && !this.mk1Called.has(el) && !this.storyScene && this.atlas && !this.atlas.line) {
+        this.mk1Called.add(el)
+        this.atlas.sayNow(`mk1.${el}` as AtlasLine)
+      }
+    } else if (b.state !== 'tele') this.mk1Tele = ''
+  }
+
   /** Feed Atlas what it reacts to, and mirror its line to the HUD. */
   private tickAtlas(dt: number, playing: boolean): void {
+    if (this.storyScene && !this.storyScene.update(dt)) this.storyScene = null
+    if (this.pendingScene && !this.storyScene && !this.atlas?.line) {
+      const start = this.pendingScene
+      this.pendingScene = null
+      start()
+    }
+    this.tickMk1()
     if (!this.atlas) return
     const k = this.atlasTick
     const p = this.player
@@ -4680,6 +4800,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   }
 
   dispose(): void {
+    this.storyScene?.skip()
     this.crane?.dispose()
     this.city?.dispose()
     this.trail?.dispose()

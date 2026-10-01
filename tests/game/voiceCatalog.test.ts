@@ -32,7 +32,10 @@ describe('the voice catalog', () => {
 
   it('live lines have their text in both locales; planned lines carry a draft in both (or are in both locales)', () => {
     for (const l of VOICE_LINES) {
-      if (l.status === 'live' || !l.draft) {
+      if (l.speaker === 'flux' || l.key.startsWith('vex.laugh.')) {
+        // Barks and laughs: no bubble, so no locale text; the draft is the sound.
+        expect(l.neutral && l.draft?.[0], l.key).toBeTruthy()
+      } else if (l.status === 'live' || !l.draft) {
         expect(typeof at(en, l.key), `en ${l.key}`).toBe('string')
         expect(typeof at(de, l.key), `de ${l.key}`).toBe('string')
       } else {

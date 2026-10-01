@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… hai algo no—',
+      'thanks': '…Mantivéchelo fóra. Grazas.',
+    },
+    'mk1': {
+      'intro': 'Ese é Vex. O de verdade.',
+      'fire': 'Lume!',
+      'ice': 'Xeo!',
+      'volt': 'Voltio!',
+      'wind': 'Vento!',
+      'scrap': 'Chatarra!',
+      'free': 'Porque son libres.',
+    },
     'guardDown': 'Garda abatido! O camiño está libre.',
     'help': {
       'weapon': 'Escolle a túa nova arma e dispara aos drons!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Un Mestre do Núcleo agarda. Liberémolo!'
     },
     'story': {
+      'relayOne': 'Primeiro relé aceso. Quedan nove.',
+      'copied': {
+        'scrapBurst': 'Arma copiada: {weapon}.',
+        'flameWave': 'Arma copiada: {weapon}.',
+        'iceLance': 'Arma copiada: {weapon}.',
+        'thunderArc': 'Arma copiada: {weapon}.',
+        'galeGuard': 'Arma copiada: {weapon}.',
+        'magnetPull': 'Arma copiada: {weapon}.',
+        'drillBomb': 'Arma copiada: {weapon}.',
+        'bubbleLance': 'Arma copiada: {weapon}.',
+        'neonBlade': 'Arma copiada: {weapon}.',
+        'droneSwarm': 'Arma copiada: {weapon}.',
+      },
+      'dataCore': 'Deixounos algo.',
+      'firstDraft': '…Escribíronme a partir do seu primeiro borrador.',
+      'body': 'Está a construír un corpo. Co noso val.',
+      'voltFreed': 'O sinal perdeu a súa central.',
+      'galeFreed': 'Xa non chegan pezas á Fortaleza.',
+      'breach': 'Escudo caído. A Fortaleza está aberta.',
+      'magnetFreed': 'A fundición está fría. Acabáronse as garras.',
+      'drillFreed': 'A mina cala. Xa non hai mineral.',
+      'tideFreed': 'Comportas pechadas. As barcazas quedan na casa.',
+      'neonFreed': 'Luces acesas. Vex quedou sen pantallas.',
+      'rotorFreed': 'Todas as liñas cortadas. Vex está só.',
       'rotor': 'Ruta do Rotor. Vento na miña antena!',
       'neon': 'Bulevar do Apagón. Luces, por favor!',
       'tide': 'Comportas da Marea. Hora de chapotear!',
@@ -808,6 +845,50 @@ export default {
       'slide': 'Titorial de esvarada',
       'block': 'Titorial de escudo',
       'charge': 'Titorial de disparo cargado',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'O número de apertura! O {boss}!',
+      'blaze': 'O máis vello! O máis ardente! {boss}!',
+      'frost': 'Sangue frío, droidiño! {boss}!',
+      'volt': 'Se pestanexas, pérdelo! {boss}!',
+      'gale': 'O seguinte, por favor! {boss}, mándao voar!',
+      'magnet': 'Atractivo, non si? {boss}!',
+      'drill': 'Hora dunha revisión a fondo! {boss}!',
+      'tide': 'Que te leve a corrente, droide! {boss}!',
+      'neon': 'Luces! Cámara! {boss}!',
+      'rotor': 'O gran final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Un guindastre de chatarra? Que… adorable.',
+      'blaze': 'Efecto secundario anotado. Aumento a dose.',
+      'blueprint': 'Os meus bosquexos! Magnífico, non si?',
+      'volt': 'Estou… per-fec-ta-men-te… BEN.',
+      'gale': 'Ben! Teño MÁIS Mestres.',
+      'magnet': 'Repelido? Eu? Im-POSIBLE!',
+      'drill': 'Hmpf. Toquei fondo. Literalmente.',
+      'tide': 'A marea cambiará! …Non si?',
+      'neon': 'Quen ACENDEU as luces?!',
+      'rotor': 'Dez relés?! Enfermeira! ENFERMEIRA!',
+      'breach': 'Non, non, NON! Ese escudo estaba PATENTADO!',
+    },
+    'volt': {
+      'hack': 'A ver que hai nesa cabeza baleira…',
+      'fail': 'Non se pode escribir?! Que MALEDUCADO.',
+    },
+    'fortress': {
+      'welcome': 'Benvido á miña clínica! Séntate… para SEMPRE!',
+    },
+    'mk1': {
+      'intro': 'Contemplade! O meu novo corpo! Mark UN!',
+      'obey': 'Mestres! OBEDECEDE ao voso doutor!',
+      'listen': 'Por que non ESCOITAN?!',
+      'defeat': 'Pedirei… unha segunda opinión…',
+    },
+    'sting': {
+      'doctorIn': 'O doutor… xa PASA CONSULTA.',
     },
   }
 }

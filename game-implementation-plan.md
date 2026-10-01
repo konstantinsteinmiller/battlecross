@@ -615,9 +615,30 @@ while bars and damage numbers get direct DOM writes.
   - [ ] **P5 compression lab** + the blind listening report (`pnpm
     voice:compare`) — the one stop for the user's ratings.
   - [ ] **P6 production run** (winner, every live line EN + DE, 2 takes).
-  - [ ] **P7 skill** (ask first).
-  - Deferred: a small format every browser decodes (iOS < 17); wiring Vex,
-    Flux and Gauss lines into the game.
+  - [ ] **P7 full VO** (user, 2026-10-02: "everything, new scenes too";
+    scene spec S1–S14 in the decision doc):
+    - [x] 7.0 shared: Flux bark channel + hooks, ending/intro voices, the
+      Vex bubble and scene runner, AtlasDirector hold, seen flags (NG+
+      reset, old-save migration), the new lines in all 39 locales.
+    - [x] 7.1 in the boss room: Master presentations (S2), Mk-I intro,
+      element call-outs, relays-hold beat, defeat (S10–S13).
+    - [x] 7.2 in missions: Master freed lines (S3), Volt Tower hack (S8),
+      Fortress welcome (S9).
+    - [x] 7.3 in the hub: Vex broadcasts (S4), blueprint, reserve and breach
+      cinematics (S5–S7).
+    - [x] 7.4 the New Game+ sting (S14).
+    - [ ] 7.5 voice every new line (Chatterbox), browser pass.
+  - [ ] **P8 skill** (ask first).
+  - Chosen (user's blind test, 2026-10-02): Gemini Flash-Lite 4.5 stars,
+    Gemini Flash and Chatterbox 4.0, VoxCPM2 and Qwen3 3.3; Opus 24k/16k
+    rated above Vorbis q2. Production on Chatterbox (free) and Opus 24k in
+    .ogg, so the user can play the game with full VO first.
+  - Deferred: re-voice with Gemini 3.8 Flash-Lite once the user commits to a
+    paid model (billing on the AI Studio project "Default Gemini Project";
+    `pnpm voice:gen --engine gemini-lite`, voices already designed); the AI
+    Studio browser route's 403 (retest after the quota reset); a small format
+    every browser decodes (iOS < 17); wiring Vex, Flux and Gauss lines into
+    the game.
 
 ## Resume notes
 

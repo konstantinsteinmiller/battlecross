@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… valami van a me—',
+      'thanks': '…Kint tartottad. Köszönöm.',
+    },
+    'mk1': {
+      'intro': 'Ez Vex. Az igazi.',
+      'fire': 'Tűz!',
+      'ice': 'Jég!',
+      'volt': 'Áram!',
+      'wind': 'Szél!',
+      'scrap': 'Roncs!',
+      'free': 'Mert szabadok.',
+    },
     'guardDown': 'Lent a védelem! Szabad az út.',
     'help': {
       'weapon': 'Válaszd ki az új fegyvered, és lőj a drónokra!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Egy Magmester vár. Szabadítsuk ki!'
     },
     'story': {
+      'relayOne': 'Az első relé világít. Még kilenc.',
+      'copied': {
+        'scrapBurst': '{weapon} lemásolva.',
+        'flameWave': '{weapon} lemásolva.',
+        'iceLance': '{weapon} lemásolva.',
+        'thunderArc': '{weapon} lemásolva.',
+        'galeGuard': '{weapon} lemásolva.',
+        'magnetPull': '{weapon} lemásolva.',
+        'drillBomb': '{weapon} lemásolva.',
+        'bubbleLance': '{weapon} lemásolva.',
+        'neonBlade': '{weapon} lemásolva.',
+        'droneSwarm': '{weapon} lemásolva.',
+      },
+      'dataCore': 'Hagyott nekünk valamit.',
+      'firstDraft': '…Az első vázlatából írtak engem.',
+      'body': 'Testet épít magának. A völgyünkből.',
+      'voltFreed': 'A jel elvesztette az erőművét.',
+      'galeFreed': 'Több alkatrész nem jut el az Erődbe.',
+      'breach': 'Lent a pajzs. Az Erőd nyitva áll.',
+      'magnetFreed': 'Kihűlt az öntöde. Nincs több karom.',
+      'drillFreed': 'Csend a bányában. Nincs több érc.',
+      'tideFreed': 'Zsilipek zárva. Az uszályok otthon maradnak.',
+      'neonFreed': 'Fény van. Vex elvesztette a képernyőit.',
+      'rotorFreed': 'Minden vonal elvágva. Vex egyedül maradt.',
       'rotor': 'Rotorfutam. Szél az antennámban!',
       'neon': 'Sötét sugárút. Fényt kérek!',
       'tide': 'Árapály-zsilipek. Pancsolás!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Pajzsoktatás',
       'charge': 'Töltöttlövés-oktatás'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Előzenekar! {boss}!',
+      'blaze': 'A legöregebb! A legforróbb! {boss}!',
+      'frost': 'Hűtsd le magad, kis droid! {boss}!',
+      'volt': 'Pislogsz, és lemaradsz! {boss}!',
+      'gale': 'Következőt, kérem! {boss}, fújd el!',
+      'magnet': 'Vonzó, ugye? {boss}!',
+      'drill': 'Ideje egy mélyreható vizsgálatnak! {boss}!',
+      'tide': 'Elsodor a hullám, droid! {boss}!',
+      'neon': 'Fények! Kamera! {boss}!',
+      'rotor': 'A nagy finálé! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Egy ócskavas-daru? Milyen… cuki.',
+      'blaze': 'Mellékhatás feljegyezve. Emelem az adagot.',
+      'blueprint': 'A vázlataim! Csodás vagyok, ugye?',
+      'volt': 'Én… tö-ké-le-te-sen… JÓL vagyok.',
+      'gale': 'Jó! Van még TÖBB Mesterem.',
+      'magnet': 'Taszítva? Én? Le-HETETLEN!',
+      'drill': 'Hmf. Új mélypont. Szó szerint.',
+      'tide': 'Megfordul még az ár! …Ugye?',
+      'neon': 'Ki KAPCSOLTA FEL a villanyt?!',
+      'rotor': 'Tíz relé?! Nővér! NŐVÉR!',
+      'breach': 'Nem, nem, NEM! Az a pajzs SZABADALMAZTATOTT volt!',
+    },
+    'volt': {
+      'hack': 'Lássuk, mi van abban az üres fejben…',
+      'fail': 'Írásvédett?! Milyen GOROMBA.',
+    },
+    'fortress': {
+      'welcome': 'Üdv a klinikámon! Foglalj helyet… ÖRÖKRE!',
+    },
+    'mk1': {
+      'intro': 'Íme! Az új testem! Mark EGY!',
+      'obey': 'Mesterek! ENGEDELMESKEDJETEK a doktornak!',
+      'listen': 'Miért nem HALLGATNAK rám?!',
+      'defeat': 'Kérek… egy második véleményt…',
+    },
+    'sting': {
+      'doctorIn': 'A doktor… RENDEL.',
+    },
   }
 }

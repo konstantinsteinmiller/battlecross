@@ -205,6 +205,25 @@ export const loadProfile = (): void => {
  */
 export const migrateSeen = (world: WorldSave): void => {
   if (world.tutorialDone && !world.seen.includes('intro')) world.seen.push('intro')
+  // The voiced Vex scenes (#117) arrived with this save already past some
+  // Masters: theirs count as seen, once (a Master beaten after this point
+  // plays its scenes even if the game was closed before the hub).
+  if (!world.seen.includes('vo:migrated')) {
+    world.seen.push('vo:migrated')
+    for (const beat of voBeatsBehind(world)) if (!world.seen.includes(beat)) world.seen.push(beat)
+  }
+}
+
+/** The voiced scenes whose trigger a save is already past (`story/vexScene.ts`). */
+export const voBeatsBehind = (world: Pick<WorldSave, 'bosses' | 'unlocked'>): string[] => {
+  const out: string[] = []
+  for (const b of world.bosses) out.push(`present:${b}`, `vex:${b}`)
+  if (world.bosses.includes('frostMaster')) out.push('blueprint')
+  if (world.bosses.includes('galeMaster')) out.push('reserve')
+  if (world.bosses.includes('rotorMaster')) out.push('breach')
+  if (world.bosses.includes('voltMaster')) out.push('voltHack')
+  if (world.bosses.includes('vexMk1')) out.push('fortress', 'mk1:intro', 'mk1:signal')
+  return out
 }
 
 /**

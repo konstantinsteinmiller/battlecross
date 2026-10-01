@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… coś jest w mo—',
+      'thanks': '…Zatrzymałeś to. Dziękuję.',
+    },
+    'mk1': {
+      'intro': 'To Vex. Ten prawdziwy.',
+      'fire': 'Ogień!',
+      'ice': 'Lód!',
+      'volt': 'Prąd!',
+      'wind': 'Wiatr!',
+      'scrap': 'Złom!',
+      'free': 'Bo są wolni.',
+    },
     'guardDown': 'Strażnik padł! Droga wolna.',
     'help': {
       'weapon': 'Wybierz nową broń i strzelaj do dronów!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Czeka Mistrz Rdzenia. Uwolnijmy go!'
     },
     'story': {
+      'relayOne': 'Pierwszy przekaźnik świeci. Zostało dziewięć.',
+      'copied': {
+        'scrapBurst': 'Skopiowano: {weapon}.',
+        'flameWave': 'Skopiowano: {weapon}.',
+        'iceLance': 'Skopiowano: {weapon}.',
+        'thunderArc': 'Skopiowano: {weapon}.',
+        'galeGuard': 'Skopiowano: {weapon}.',
+        'magnetPull': 'Skopiowano: {weapon}.',
+        'drillBomb': 'Skopiowano: {weapon}.',
+        'bubbleLance': 'Skopiowano: {weapon}.',
+        'neonBlade': 'Skopiowano: {weapon}.',
+        'droneSwarm': 'Skopiowano: {weapon}.',
+      },
+      'dataCore': 'Coś nam zostawił.',
+      'firstDraft': '…Napisano mnie z jego pierwszego szkicu.',
+      'body': 'Buduje sobie ciało. Z naszej doliny.',
+      'voltFreed': 'Sygnał stracił swoją elektrownię.',
+      'galeFreed': 'Żadne części nie dotrą już do Twierdzy.',
+      'breach': 'Tarcza padła. Twierdza stoi otworem.',
+      'magnetFreed': 'Odlewnia wystygła. Koniec ze szponami.',
+      'drillFreed': 'Kopalnia ucichła. Koniec z rudą.',
+      'tideFreed': 'Śluzy zamknięte. Barki zostają w domu.',
+      'neonFreed': 'Światła włączone. Vex stracił ekrany.',
+      'rotorFreed': 'Wszystkie linie przecięte. Vex jest sam.',
       'rotor': 'Wirnikowy Rajd. Wiatr w mojej antenie!',
       'neon': 'Aleja Zaciemnienia. Światła, proszę!',
       'tide': 'Śluzy Pływowe. Czas na chlapanie!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Zacząć Nową grę+?',
       'confirmBody': 'Historia zaczyna się od nowa z twardszymi Mistrzami. Zachowujesz poziom, sprzęt, broń i ulepszenia.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Na rozgrzewkę! {boss}!',
+      'blaze': 'Najstarszy! Najgorętszy! {boss}!',
+      'frost': 'Ochłoń, mały droidzie. {boss}!',
+      'volt': 'Mrugniesz i przegapisz! {boss}!',
+      'gale': 'Następny, proszę! {boss}, zdmuchnij go!',
+      'magnet': 'Pociągający, prawda? {boss}!',
+      'drill': 'Czas na dogłębne badanie! {boss}!',
+      'tide': 'Odpłyń w siną dal, droidzie! {boss}!',
+      'neon': 'Światła! Kamera! {boss}!',
+      'rotor': 'Wielki finał! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Dźwig na złom? Jakie… urocze.',
+      'blaze': 'Skutek uboczny odnotowany. Zwiększam dawkę.',
+      'blueprint': 'Moje szkice! Wspaniały jestem, prawda?',
+      'volt': 'Czuję się… zu-peł-nie… DOBRZE.',
+      'gale': 'Dobrze! Mam WIĘCEJ Mistrzów.',
+      'magnet': 'Odepchnięty? Ja? Nie-MOŻLIWE!',
+      'drill': 'Phi. Nowe dno. Dosłownie.',
+      'tide': 'Przypływ jeszcze wróci! …Prawda?',
+      'neon': 'Kto WŁĄCZYŁ światło?!',
+      'rotor': 'Dziesięć przekaźników?! Siostro! SIOSTRO!',
+      'breach': 'Nie, nie, NIE! Ta tarcza była OPATENTOWANA!',
+    },
+    'volt': {
+      'hack': 'Zobaczmy, co jest w tej pustej głowie…',
+      'fail': 'Niezapisywalny?! Co za BEZCZELNOŚĆ.',
+    },
+    'fortress': {
+      'welcome': 'Witaj w mojej klinice! Usiądź… NA ZAWSZE!',
+    },
+    'mk1': {
+      'intro': 'Podziwiajcie! Moje nowe ciało! Mark JEDEN!',
+      'obey': 'Mistrzowie! SŁUCHAJCIE swojego doktora!',
+      'listen': 'Czemu oni NIE SŁUCHAJĄ?!',
+      'defeat': 'Zasięgnę… drugiej opinii…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… PRZYJMUJE.',
+    },
   }
 }

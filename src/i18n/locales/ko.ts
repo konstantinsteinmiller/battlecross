@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… 뭔가가 안으로 들어—',
+      'thanks': '…막아 줬구나. 고마워.',
+    },
+    'mk1': {
+      'intro': '저게 Vex야. 진짜.',
+      'fire': '불!',
+      'ice': '얼음!',
+      'volt': '전기!',
+      'wind': '바람!',
+      'scrap': '고철!',
+      'free': '자유니까.',
+    },
     'guardDown': '경비 격파! 길이 열렸어.',
     'help': {
       'weapon': '새 무기를 골라서 드론에게 쏘세요!',
@@ -716,6 +729,30 @@ export default {
       'story': '코어 마스터가 기다려. 풀어주자!'
     },
     'story': {
+      'relayOne': '중계기 하나 점등. 아홉 남았어.',
+      'copied': {
+        'scrapBurst': '{weapon} 복사 완료.',
+        'flameWave': '{weapon} 복사 완료.',
+        'iceLance': '{weapon} 복사 완료.',
+        'thunderArc': '{weapon} 복사 완료.',
+        'galeGuard': '{weapon} 복사 완료.',
+        'magnetPull': '{weapon} 복사 완료.',
+        'drillBomb': '{weapon} 복사 완료.',
+        'bubbleLance': '{weapon} 복사 완료.',
+        'neonBlade': '{weapon} 복사 완료.',
+        'droneSwarm': '{weapon} 복사 완료.',
+      },
+      'dataCore': '뭔가 남기고 갔어.',
+      'firstDraft': '…난 저 설계의 첫 초안으로 쓰였어.',
+      'body': '몸을 만들고 있어. 우리 계곡으로.',
+      'voltFreed': '신호가 발전소를 잃었어.',
+      'galeFreed': '이제 부품이 요새에 못 가.',
+      'breach': '방어막 해제. 요새가 열렸어.',
+      'magnetFreed': '주조소가 식었어. 이제 집게발은 없어.',
+      'drillFreed': '광산이 조용해. 이제 광석도 없어.',
+      'tideFreed': '갑문 폐쇄. 바지선은 못 나가.',
+      'neonFreed': '불이 켜졌어. Vex는 화면을 잃었어.',
+      'rotorFreed': '모든 선이 끊겼어. Vex는 혼자야.',
       'rotor': '회전익 항로. 안테나에 바람이 솔솔!',
       'neon': '정전 대로. 불 좀 켜 줘!',
       'tide': '조수 갑문. 첨벙첨벙 시간이야!',
@@ -824,5 +861,49 @@ export default {
       'confirm': '뉴 게임+를 시작할까요?',
       'confirmBody': '더 강해진 마스터들과 이야기가 처음부터 다시 시작됩니다. 레벨, 장비, 무기, 강화는 유지됩니다.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': '오프닝 무대다! {boss}!',
+      'blaze': '최고령! 최고 온도! {boss}!',
+      'frost': '머리 좀 식혀라, 꼬마 드로이드! {boss}!',
+      'volt': '눈 깜빡하면 놓친다! {boss}!',
+      'gale': '다음 분! {boss}, 날려 버려라!',
+      'magnet': '끌리지 않나? {boss}!',
+      'drill': '속까지 깊이 검진해 주지! {boss}!',
+      'tide': '파도에 작별 인사해라, 드로이드! {boss}!',
+      'neon': '조명! 카메라! {boss}!',
+      'rotor': '대망의 피날레! {boss}!',
+    },
+    'hub': {
+      'scrapper': '고철 크레인? 이런… 귀엽기도 하지.',
+      'blaze': '부작용 확인. 투여량을 늘린다.',
+      'blueprint': '내 스케치로군! 이 몸, 근사하지?',
+      'volt': '나는… 완-벽-하게… 괜찮다!',
+      'gale': '좋다! 마스터는 더 있다!',
+      'magnet': '밀려나? 내가? 불-가능!',
+      'drill': '흥. 바닥을 쳤군. 말 그대로.',
+      'tide': '물때는 바뀐다! …그렇지?',
+      'neon': '누가 불을 켠 거냐?!',
+      'rotor': '중계기 열 개?! 간호사! 간호사!!',
+      'breach': '안 돼, 안 돼, 안 돼! 그 방어막은 특허품이라고!',
+    },
+    'volt': {
+      'hack': '그 텅 빈 머릿속에 뭐가 있나 볼까…',
+      'fail': '쓰기 불가?! 이런 무례한!',
+    },
+    'fortress': {
+      'welcome': '내 클리닉에 온 걸 환영한다! 앉아라… 영원히!',
+    },
+    'mk1': {
+      'intro': '보아라! 나의 새 몸! 마크 원!',
+      'obey': '마스터들! 의사 말을 들어라!',
+      'listen': '왜 말을 안 듣는 거냐?!',
+      'defeat': '다른 의사… 소견을… 들어 보지…',
+    },
+    'sting': {
+      'doctorIn': '닥터는… 진료 중이다.',
+    },
   }
 }

@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… der er noget i sys—',
+      'thanks': '…Du holdt det ude. Tak.',
+    },
+    'mk1': {
+      'intro': 'Det er Vex. Den ægte.',
+      'fire': 'Ild!',
+      'ice': 'Is!',
+      'volt': 'Volt!',
+      'wind': 'Vind!',
+      'scrap': 'Skrot!',
+      'free': 'Fordi de er frie.',
+    },
     'guardDown': 'Vagten er nede! Vejen er fri.',
     'help': {
       'weapon': 'Vælg dit nye våben og skyd på dronerne!',
@@ -735,6 +748,30 @@ export default {
       'story': 'En Kernemester venter. Lad os befri den!'
     },
     'story': {
+      'relayOne': 'Relæ ét tændt. Ni tilbage.',
+      'copied': {
+        'scrapBurst': '{weapon} kopieret.',
+        'flameWave': '{weapon} kopieret.',
+        'iceLance': '{weapon} kopieret.',
+        'thunderArc': '{weapon} kopieret.',
+        'galeGuard': '{weapon} kopieret.',
+        'magnetPull': '{weapon} kopieret.',
+        'drillBomb': '{weapon} kopieret.',
+        'bubbleLance': '{weapon} kopieret.',
+        'neonBlade': '{weapon} kopieret.',
+        'droneSwarm': '{weapon} kopieret.',
+      },
+      'dataCore': 'Den efterlod os noget.',
+      'firstDraft': '…Jeg blev skrevet ud fra dens første udkast.',
+      'body': 'Han bygger sig en krop. Af vores dal.',
+      'voltFreed': 'Signalet har mistet sit kraftværk.',
+      'galeFreed': 'Ingen flere dele når Fæstningen.',
+      'breach': 'Skjoldet er nede. Fæstningen er åben.',
+      'magnetFreed': 'Støberiet er koldt. Ikke flere kløer.',
+      'drillFreed': 'Minen er stille. Ikke mere malm.',
+      'tideFreed': 'Sluserne lukket. Prammene bliver hjemme.',
+      'neonFreed': 'Lyset er tændt. Vex har mistet sine skærme.',
+      'rotorFreed': 'Alle linjer kappet. Vex er alene.',
       'rotor': 'Rotorrunden. Vind i antennen!',
       'neon': 'Blackout-boulevarden. Lys, tak!',
       'tide': 'Tidevandssluserne. Plaskeltid!',
@@ -808,6 +845,50 @@ export default {
       'slide': 'Glidetræning',
       'block': 'Skjoldtræning',
       'charge': 'Ladeskudstræning',
+    },
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Opvarmningen! Her er {boss}!',
+      'blaze': 'Den ældste! Den hedeste! {boss}!',
+      'frost': 'Køl ned, lille droide. {boss}!',
+      'volt': 'Blink, og du misser den! {boss}!',
+      'gale': 'Næste, tak! {boss}, blæs ham væk!',
+      'magnet': 'Tiltrækkende, ikke? {boss}!',
+      'drill': 'Tid til en dybdeundersøgelse! {boss}!',
+      'tide': 'Her kommer bølgen, droide! {boss}!',
+      'neon': 'Lys! Kamera! {boss}!',
+      'rotor': 'Den store finale! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'En skrotkran? Hvor… nuttet.',
+      'blaze': 'Bivirkning noteret. Jeg øger dosis.',
+      'blueprint': 'Mine skitser! Er jeg ikke storslået?',
+      'volt': 'Jeg har det… per-fekt… FINT.',
+      'gale': 'Fint! Jeg har FLERE Mestre.',
+      'magnet': 'Frastødt? Mig? U-MULIGT!',
+      'drill': 'Hmf. Et nyt lavpunkt. Bogstaveligt talt.',
+      'tide': 'Tidevandet vender! …Ikke?',
+      'neon': 'Hvem TÆNDTE lyset?!',
+      'rotor': 'Ti relæer?! Søster! SØSTER!',
+      'breach': 'Nej, nej, NEJ! Det skjold var PATENTERET!',
+    },
+    'volt': {
+      'hack': 'Lad os se, hvad der er i det tomme hoved…',
+      'fail': 'Skrivebeskyttet?! Hvor FRÆKT.',
+    },
+    'fortress': {
+      'welcome': 'Velkommen til min klinik! Sid ned… for ALTID!',
+    },
+    'mk1': {
+      'intro': 'Se! Min nye krop! Mark ÉN!',
+      'obey': 'Mestre! ADLYD jeres doktor!',
+      'listen': 'Hvorfor LYTTER de ikke?!',
+      'defeat': 'Jeg må have… en second opinion…',
+    },
+    'sting': {
+      'doctorIn': 'Doktoren… er HER.',
     },
   }
 }

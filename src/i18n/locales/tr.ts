@@ -609,6 +609,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… içimde bir şey va—',
+      'thanks': '…Onu dışarıda tuttun. Teşekkür ederim.',
+    },
+    'mk1': {
+      'intro': 'Bu Vex. Gerçeği.',
+      'fire': 'Ateş!',
+      'ice': 'Buz!',
+      'volt': 'Elektrik!',
+      'wind': 'Rüzgâr!',
+      'scrap': 'Hurda!',
+      'free': 'Çünkü onlar özgür.',
+    },
     'guardDown': 'Bekçi düştü! Yol açık.',
     'help': {
       'weapon': 'Yeni silahını seç ve dronlara ateş et!',
@@ -718,6 +731,30 @@ export default {
       'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
     },
     'story': {
+      'relayOne': 'Birinci röle yandı. Dokuz kaldı.',
+      'copied': {
+        'scrapBurst': '{weapon} kopyalandı.',
+        'flameWave': '{weapon} kopyalandı.',
+        'iceLance': '{weapon} kopyalandı.',
+        'thunderArc': '{weapon} kopyalandı.',
+        'galeGuard': '{weapon} kopyalandı.',
+        'magnetPull': '{weapon} kopyalandı.',
+        'drillBomb': '{weapon} kopyalandı.',
+        'bubbleLance': '{weapon} kopyalandı.',
+        'neonBlade': '{weapon} kopyalandı.',
+        'droneSwarm': '{weapon} kopyalandı.',
+      },
+      'dataCore': 'Bize bir şey bıraktı.',
+      'firstDraft': '…Ben onun ilk taslağından yazıldım.',
+      'body': 'Kendine bir beden yapıyor. Vadimizden.',
+      'voltFreed': 'Sinyal elektrik santralini kaybetti.',
+      'galeFreed': 'Kaleye artık parça ulaşmıyor.',
+      'breach': 'Kalkan düştü. Kale açık.',
+      'magnetFreed': 'Dökümhane soğudu. Pençe yok artık.',
+      'drillFreed': 'Maden sessiz. Cevher yok artık.',
+      'tideFreed': 'Savaklar kapalı. Mavnalar evde kalıyor.',
+      'neonFreed': 'Işıklar açık. Vex ekranlarını kaybetti.',
+      'rotorFreed': 'Tüm hatlar kesildi. Vex yalnız.',
       'rotor': 'Pervane Uçuşu. Antenimde rüzgâr!',
       'neon': 'Karartma Bulvarı. Işıklar lütfen!',
       'tide': 'Gelgit Savakları. Şapırtı zamanı!',
@@ -826,5 +863,49 @@ export default {
       'confirm': 'Yeni Oyun+ başlatılsın mı?',
       'confirmBody': 'Hikâye daha zorlu Ustalarla baştan başlar. Seviyeni, ekipmanını, silahlarını ve geliştirmelerini korursun.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Isınma turu! {boss}!',
+      'blaze': 'En yaşlısı! En sıcağı! {boss}!',
+      'frost': 'Biraz serinle, küçük droid. {boss}!',
+      'volt': 'Göz kırpsan kaçırırsın! {boss}!',
+      'gale': 'Sıradaki, lütfen! {boss}, uçur onu!',
+      'magnet': 'Çekici, değil mi? {boss}!',
+      'drill': 'Derin bir muayene zamanı! {boss}!',
+      'tide': 'Dalgaya el salla, droid! {boss}!',
+      'neon': 'Işıklar! Kamera! {boss}!',
+      'rotor': 'Büyük final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Hurda vinci mi? Ne kadar… tatlı.',
+      'blaze': 'Yan etki not edildi. Dozu artırıyorum.',
+      'blueprint': 'Eskizlerim! Muhteşemim, değil mi?',
+      'volt': 'Ben… ga-yet… İYİYİM.',
+      'gale': 'Peki! Daha FAZLA Ustam var.',
+      'magnet': 'İtildim mi? Ben mi? İm-KÂNSIZ!',
+      'drill': 'Hıh. Dibe vurdum. Resmen.',
+      'tide': 'Gelgit dönecek! …Değil mi?',
+      'neon': 'Işıkları kim AÇTI?!',
+      'rotor': 'On röle mi?! Hemşire! HEMŞİRE!',
+      'breach': 'Hayır, hayır, HAYIR! O kalkanın PATENTİ vardı!',
+    },
+    'volt': {
+      'hack': 'Bakalım o boş kafada ne var…',
+      'fail': 'Yazılamıyor mu?! Ne KABALIK.',
+    },
+    'fortress': {
+      'welcome': 'Kliniğime hoş geldin! Otur… SONSUZA DEK!',
+    },
+    'mk1': {
+      'intro': 'Görün! Yeni bedenim! Mark BİR!',
+      'obey': 'Ustalar! Doktorunuza İTAAT edin!',
+      'listen': 'Neden DİNLEMİYORLAR?!',
+      'defeat': 'İkinci bir… görüş alacağım…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… İŞBAŞINDA.',
+    },
   }
 }

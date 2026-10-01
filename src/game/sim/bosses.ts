@@ -203,7 +203,8 @@ const bossTick = (w: World, e: Enemy, dt: number, room: Room | null): void => {
       w.sfx('stomp', e.x, e.z)
     }
     faceTo(e, w.player.x, w.player.z, 6, dt)
-    if (e.st >= BOSS_INTRO_T) {
+    if (e.st >= BOSS_INTRO_T + (e.beatHold ?? 0)) {
+      e.beatHold = 0
       e.state = 'engage'
       e.st = 0
       e.a = 0
@@ -386,7 +387,9 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         w.shake(0.6)
       }
       e.flash = 0.6 + Math.sin(e.st * 30) * 0.4
-      return e.st > 1.3
+      const over = e.st > 1.3 + (e.beatHold ?? 0)
+      if (over) e.beatHold = 0
+      return over
     }
     case 'charge': {
       if (e.step === 0) {

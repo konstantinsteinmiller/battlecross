@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… il y a quelque chose dans le—',
+      'thanks': "…Tu l'as repoussé. Merci.",
+    },
+    'mk1': {
+      'intro': "C'est Vex. Le vrai.",
+      'fire': 'Feu !',
+      'ice': 'Glace !',
+      'volt': 'Volt !',
+      'wind': 'Vent !',
+      'scrap': 'Ferraille !',
+      'free': "Parce qu'ils sont libres.",
+    },
     'guardDown': 'Garde à terre ! La voie est libre.',
     'help': {
       'weapon': 'Choisis ta nouvelle arme et tire sur les drones !',
@@ -716,6 +729,30 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'relayOne': 'Relais un allumé. Plus que neuf.',
+      'copied': {
+        'scrapBurst': 'Arme copiée : {weapon}.',
+        'flameWave': 'Arme copiée : {weapon}.',
+        'iceLance': 'Arme copiée : {weapon}.',
+        'thunderArc': 'Arme copiée : {weapon}.',
+        'galeGuard': 'Arme copiée : {weapon}.',
+        'magnetPull': 'Arme copiée : {weapon}.',
+        'drillBomb': 'Arme copiée : {weapon}.',
+        'bubbleLance': 'Arme copiée : {weapon}.',
+        'neonBlade': 'Arme copiée : {weapon}.',
+        'droneSwarm': 'Arme copiée : {weapon}.',
+      },
+      'dataCore': 'Il nous a laissé quelque chose.',
+      'firstDraft': "…J'ai été écrit à partir de son premier jet.",
+      'body': 'Il se fabrique un corps. Avec notre vallée.',
+      'voltFreed': 'Le signal a perdu sa centrale.',
+      'galeFreed': "Plus aucune pièce n'atteint la Forteresse.",
+      'breach': 'Bouclier tombé. La Forteresse est ouverte.',
+      'magnetFreed': 'La fonderie est froide. Plus de griffes.',
+      'drillFreed': 'La mine se tait. Plus de minerai.',
+      'tideFreed': 'Écluses fermées. Les péniches restent au port.',
+      'neonFreed': "Lumières allumées. Vex n'a plus d'écrans.",
+      'rotorFreed': 'Toutes les lignes coupées. Vex est seul.',
       'rotor': 'Rallye Rotor. Du vent dans mon antenne !',
       'neon': 'Boulevard Black-out. La lumière, s’il te plaît !',
       'tide': 'Écluses Marée. C’est l’heure de barboter !',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Lancer Nouvelle partie+ ?',
       'confirmBody': 'L\'histoire recommence avec des Maîtres plus coriaces. Tu gardes ton niveau, ton équipement, tes armes et tes améliorations.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'En première partie ! Le {boss} !',
+      'blaze': 'Le plus ancien ! Le plus brûlant ! {boss} !',
+      'frost': 'Garde ton sang-froid, petit droïde ! {boss} !',
+      'volt': "Un clin d'œil et il a filé ! {boss} !",
+      'gale': 'Au suivant ! {boss}, souffle-le !',
+      'magnet': "Attirant, n'est-ce pas ? {boss} !",
+      'drill': "L'heure d'un examen en profondeur ! {boss} !",
+      'tide': 'Prépare-toi à boire la tasse, droïde ! {boss} !',
+      'neon': 'Lumière ! Caméra ! {boss} !',
+      'rotor': 'Le bouquet final ! {boss} !',
+    },
+    'hub': {
+      'scrapper': "Une grue à ferraille ? Comme c'est… mignon.",
+      'blaze': "Effet secondaire noté. J'augmente la dose.",
+      'blueprint': "Mes croquis ! Quel génie, n'est-ce pas ?",
+      'volt': 'Je vais… par-fai-te-ment… BIEN.',
+      'gale': "Soit ! J'ai ENCORE des Maîtres.",
+      'magnet': 'Repoussé ? Moi ? Im-POSSIBLE !',
+      'drill': 'Hmpf. Je touche le fond. Littéralement.',
+      'tide': 'La marée va tourner ! …Pas vrai ?',
+      'neon': 'Qui a ALLUMÉ la lumière ?!',
+      'rotor': 'Dix relais ?! Infirmière ! INFIRMIÈRE !',
+      'breach': 'Non, non, NON ! Ce bouclier était BREVETÉ !',
+    },
+    'volt': {
+      'hack': "Voyons ce qu'il y a dans cette tête vide…",
+      'fail': 'Non inscriptible ?! Quelle INSOLENCE.',
+    },
+    'fortress': {
+      'welcome': 'Bienvenue dans ma clinique ! Installe-toi… pour TOUJOURS !',
+    },
+    'mk1': {
+      'intro': 'Admirez ! Mon nouveau corps ! Mark UN !',
+      'obey': 'Maîtres ! OBÉISSEZ à votre docteur !',
+      'listen': "Pourquoi n'ÉCOUTENT-ils pas ?!",
+      'defeat': 'Je vais demander… un deuxième avis…',
+    },
+    'sting': {
+      'doctorIn': 'Le docteur… va vous RECEVOIR.',
+    },
   }
 }

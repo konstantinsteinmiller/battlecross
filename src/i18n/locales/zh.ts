@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux…有东西闯进了我的系—',
+      'thanks': '…你把它挡在外面了。谢谢你。',
+    },
+    'mk1': {
+      'intro': '那就是Vex。真身。',
+      'fire': '火！',
+      'ice': '冰！',
+      'volt': '电！',
+      'wind': '风！',
+      'scrap': '废铁！',
+      'free': '因为它们是自由的。',
+    },
     'guardDown': '守卫倒下！路通了。',
     'help': {
       'weapon': '选好新武器，朝无人机开火！',
@@ -716,6 +729,30 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'relayOne': '点亮一个中继站。还剩九个。',
+      'copied': {
+        'scrapBurst': '已复制{weapon}。',
+        'flameWave': '已复制{weapon}。',
+        'iceLance': '已复制{weapon}。',
+        'thunderArc': '已复制{weapon}。',
+        'galeGuard': '已复制{weapon}。',
+        'magnetPull': '已复制{weapon}。',
+        'drillBomb': '已复制{weapon}。',
+        'bubbleLance': '已复制{weapon}。',
+        'neonBlade': '已复制{weapon}。',
+        'droneSwarm': '已复制{weapon}。',
+      },
+      'dataCore': '它给我们留了点东西。',
+      'firstDraft': '…我就是照着它的初稿写出来的。',
+      'body': '它在造身体。拿我们的山谷当材料。',
+      'voltFreed': '信号失去了它的发电站。',
+      'galeFreed': '零件再也送不到要塞了。',
+      'breach': '护盾没了。要塞敞开了。',
+      'magnetFreed': '铸造厂冷了。再也没有铁爪了。',
+      'drillFreed': '矿井安静了。没有矿石了。',
+      'tideFreed': '水闸关闭。驳船出不去了。',
+      'neonFreed': '灯亮了。Vex没了屏幕。',
+      'rotorFreed': '所有线路都断了。Vex孤立无援。',
       'rotor': '旋翼疾飞，风吹我的天线！',
       'neon': '断电大道。请开灯！',
       'tide': '潮汐水闸，玩水时间到！',
@@ -824,5 +861,49 @@ export default {
       'confirm': '开始新游戏+？',
       'confirmBody': '故事将以更强的大师们重新开始。你会保留等级、装备、武器和强化。'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': '暖场节目！{boss}！',
+      'blaze': '最古老！最火热！{boss}！',
+      'frost': '冷静点，小机器人！{boss}！',
+      'volt': '一眨眼就错过！{boss}！',
+      'gale': '下一位！{boss}，把他吹走！',
+      'magnet': '很有吸引力吧？{boss}！',
+      'drill': '来做个深度体检！{boss}！',
+      'tide': '被浪卷走吧，机器人！{boss}！',
+      'neon': '灯光！摄像机！{boss}！',
+      'rotor': '压轴大戏！{boss}！',
+    },
+    'hub': {
+      'scrapper': '一台废品吊车？多么…可爱。',
+      'blaze': '副作用已记录。加大剂量。',
+      'blueprint': '我的草图！我真是天才，对吧？',
+      'volt': '我…完、全…没事！',
+      'gale': '好吧！我还有更多大师。',
+      'magnet': '被排斥？我？不可…能！',
+      'drill': '哼。又创新低。字面意思。',
+      'tide': '潮水总会回头的！…对吧？',
+      'neon': '谁把灯打开了？！',
+      'rotor': '十个中继站？！护士！护士！！',
+      'breach': '不，不，不！那护盾可是有专利的！',
+    },
+    'volt': {
+      'hack': '让我瞧瞧那颗空脑袋里有什么…',
+      'fail': '无法写入？！真是无礼！',
+    },
+    'fortress': {
+      'welcome': '欢迎光临我的诊所！请坐…永远别起来！',
+    },
+    'mk1': {
+      'intro': '看哪！我的新身体！马克一号！',
+      'obey': '大师们！服从你们的医生！',
+      'listen': '它们为什么不听话？！',
+      'defeat': '我去…换家医院…再看看…',
+    },
+    'sting': {
+      'doctorIn': '医生…开始坐诊了。',
+    },
   }
 }

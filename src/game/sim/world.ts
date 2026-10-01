@@ -114,6 +114,8 @@ export interface Enemy {
   /** Boss-only: which Core Master, whether phase 2 has begun. */
   bossId: import('../models/bosses').BossId | null
   phase2: boolean
+  /** Extra seconds a boss's entrance or phase-2 roar runs while a story scene speaks over it (#117). */
+  beatHold?: number
   /** Boss-only, New Game+ (`sim/ngPlus.ts`): tells and cooldowns × this,
    *  and the chance of a quick follow-up attack. Absent: 1 and none. */
   tempo?: number

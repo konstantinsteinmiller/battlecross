@@ -34,7 +34,15 @@
       div.actions
         FButton(type="primary" icon="replay" :label="t('ending.card.ngplus')" @click="confirming = true")
         FButton(type="secondary" icon="back" :label="t('ending.card.lab')" @click="endingLive?.choose('lab')")
-    div.confirm(v-if="confirming" role="dialog" aria-modal="true" @pointerdown.stop)
+    //- Vex's sting before New Game+: black, one red pixel, his skull assembling.
+    div.sting(v-if="endingUi.sting" @pointerdown.stop="endingLive?.advance()")
+      div.pixel
+      svg.skull(viewBox="0 0 100 100" aria-hidden="true")
+        rect(x="22" y="14" width="56" height="62" rx="22")
+        circle(cx="38" cy="44" r="8")
+        circle(cx="62" cy="44" r="8")
+        path(d="M36 66 h28")
+    div.confirm(v-if="confirming && !endingUi.sting" role="dialog" aria-modal="true" @pointerdown.stop)
       div.box
         div.title {{ t('ending.card.confirm') }}
         p {{ t('ending.card.confirmBody') }}
@@ -198,6 +206,46 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   flex-wrap: wrap
   justify-content: center
   gap: 10px
+.sting
+  position: absolute
+  inset: 0
+  z-index: 3
+  background: #000
+  display: grid
+  place-items: center
+  .pixel
+    position: absolute
+    left: 50%
+    top: 34%
+    width: 4px
+    height: 4px
+    background: #ff2d3f
+    box-shadow: 0 0 10px #ff2d3f
+    animation: sting-pixel 0.4s 0.4s both
+  .skull
+    position: absolute
+    left: 50%
+    top: 34%
+    width: clamp(70px, 16vmin, 130px)
+    transform: translate(-50%, -50%)
+    fill: none
+    stroke: #ff2d3f
+    stroke-width: 3
+    filter: drop-shadow(0 0 8px rgba(255, 45, 63, 0.8))
+    animation: sting-skull 1.2s 0.8s steps(6) both
+@keyframes sting-pixel
+  from
+    opacity: 0
+@keyframes sting-skull
+  from
+    opacity: 0
+    clip-path: inset(0 0 100% 0)
+  to
+    opacity: 1
+    clip-path: inset(0 0 0 0)
+@media (prefers-reduced-motion: reduce)
+  .sting .pixel, .sting .skull
+    animation: none
 .confirm
   position: absolute
   inset: 0

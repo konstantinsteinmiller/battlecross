@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… nešto je u mo—',
+      'thanks': '…Nisi ga pustio unutra. Hvala ti.',
+    },
+    'mk1': {
+      'intro': 'To je Vex. Onaj pravi.',
+      'fire': 'Vatra!',
+      'ice': 'Led!',
+      'volt': 'Struja!',
+      'wind': 'Vjetar!',
+      'scrap': 'Otpad!',
+      'free': 'Zato što su slobodni.',
+    },
     'guardDown': 'Čuvar je pao! Put je slobodan.',
     'help': {
       'weapon': 'Odaberi novo oružje i pucaj na dronove!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Čeka Majstor jezgre. Oslobodimo ga!'
     },
     'story': {
+      'relayOne': 'Prvi relej svijetli. Još devet.',
+      'copied': {
+        'scrapBurst': 'Kopirano: {weapon}.',
+        'flameWave': 'Kopirano: {weapon}.',
+        'iceLance': 'Kopirano: {weapon}.',
+        'thunderArc': 'Kopirano: {weapon}.',
+        'galeGuard': 'Kopirano: {weapon}.',
+        'magnetPull': 'Kopirano: {weapon}.',
+        'drillBomb': 'Kopirano: {weapon}.',
+        'bubbleLance': 'Kopirano: {weapon}.',
+        'neonBlade': 'Kopirano: {weapon}.',
+        'droneSwarm': 'Kopirano: {weapon}.',
+      },
+      'dataCore': 'Ostavio nam je nešto.',
+      'firstDraft': '…Napisan sam iz njegova prvog nacrta.',
+      'body': 'Gradi si tijelo. Od naše doline.',
+      'voltFreed': 'Signal je izgubio svoju elektranu.',
+      'galeFreed': 'Nijedan dio više ne stiže u Tvrđavu.',
+      'breach': 'Štit je pao. Tvrđava je otvorena.',
+      'magnetFreed': 'Ljevaonica je hladna. Nema više kandži.',
+      'drillFreed': 'Rudnik je utihnuo. Nema više rude.',
+      'tideFreed': 'Ustave zatvorene. Teglenice ostaju doma.',
+      'neonFreed': 'Svjetla gore. Vex je ostao bez ekrana.',
+      'rotorFreed': 'Sve su linije prekinute. Vex je sam.',
       'rotor': 'Rotorski let. Vjetar u anteni!',
       'neon': 'Bulevar zamračenja. Svjetla, molim!',
       'tide': 'Plimne ustave. Vrijeme za prskanje!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Vodič: Štit',
       'charge': 'Vodič: Nabijeni hitac'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Predgrupa! {boss}!',
+      'blaze': 'Najstariji! Najvreliji! {boss}!',
+      'frost': 'Ohladi se, droidiću. {boss}!',
+      'volt': 'Trepneš i propustiš ga! {boss}!',
+      'gale': 'Sljedeći, molim! {boss}, otpuši ga!',
+      'magnet': 'Privlačno, zar ne? {boss}!',
+      'drill': 'Vrijeme je za dubinski pregled! {boss}!',
+      'tide': 'Val te nosi, droide! {boss}!',
+      'neon': 'Svjetla! Kamera! {boss}!',
+      'rotor': 'Veliko finale! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Dizalica za otpad? Kako… slatko.',
+      'blaze': 'Nuspojava zabilježena. Povećavam dozu.',
+      'blueprint': 'Moje skice! Veličanstven sam, zar ne?',
+      'volt': 'Ja sam… sa-svim… DOBRO.',
+      'gale': 'Dobro! Imam JOŠ Majstora.',
+      'magnet': 'Odbijen? Ja? Ne-MOGUĆE!',
+      'drill': 'Hmf. Novo dno. Doslovno.',
+      'tide': 'Plima će se okrenuti! …Zar ne?',
+      'neon': 'Tko je UPALIO svjetla?!',
+      'rotor': 'Deset releja?! Sestro! SESTRO!',
+      'breach': 'Ne, ne, NE! Taj štit je bio PATENTIRAN!',
+    },
+    'volt': {
+      'hack': 'Da vidimo što je u toj praznoj glavi…',
+      'fail': 'Nezapisiv?! Kako BEZOBRAZNO.',
+    },
+    'fortress': {
+      'welcome': 'Dobro došao u moju kliniku! Sjedni… ZAUVIJEK!',
+    },
+    'mk1': {
+      'intro': 'Gledajte! Moje novo tijelo! Mark JEDAN!',
+      'obey': 'Majstori! SLUŠAJTE svog doktora!',
+      'listen': 'Zašto me NE SLUŠAJU?!',
+      'defeat': 'Tražit ću… drugo mišljenje…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… PRIMA.',
+    },
   }
 }

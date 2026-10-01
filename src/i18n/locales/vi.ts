@@ -607,6 +607,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… có gì đó trong hệ thố—',
+      'thanks': '…Cậu đã chặn nó lại. Cảm ơn cậu.',
+    },
+    'mk1': {
+      'intro': 'Đó là Vex. Bản thật.',
+      'fire': 'Lửa!',
+      'ice': 'Băng!',
+      'volt': 'Điện!',
+      'wind': 'Gió!',
+      'scrap': 'Phế liệu!',
+      'free': 'Vì họ tự do.',
+    },
     'guardDown': 'Hạ gục lính gác! Đường đã mở.',
     'help': {
       'weapon': 'Chọn vũ khí mới và bắn vào lũ drone!',
@@ -716,6 +729,30 @@ export default {
       'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
     },
     'story': {
+      'relayOne': 'Một trạm đã sáng. Còn chín.',
+      'copied': {
+        'scrapBurst': 'Đã sao chép {weapon}.',
+        'flameWave': 'Đã sao chép {weapon}.',
+        'iceLance': 'Đã sao chép {weapon}.',
+        'thunderArc': 'Đã sao chép {weapon}.',
+        'galeGuard': 'Đã sao chép {weapon}.',
+        'magnetPull': 'Đã sao chép {weapon}.',
+        'drillBomb': 'Đã sao chép {weapon}.',
+        'bubbleLance': 'Đã sao chép {weapon}.',
+        'neonBlade': 'Đã sao chép {weapon}.',
+        'droneSwarm': 'Đã sao chép {weapon}.',
+      },
+      'dataCore': 'Nó để lại gì đó cho chúng ta.',
+      'firstDraft': '…Tớ được viết từ bản nháp đầu tiên của nó.',
+      'body': 'Nó đang tạo một cơ thể. Từ thung lũng của ta.',
+      'voltFreed': 'Tín hiệu mất trạm phát điện rồi.',
+      'galeFreed': 'Không còn linh kiện nào tới Pháo Đài nữa.',
+      'breach': 'Khiên vỡ rồi. Pháo Đài đã mở.',
+      'magnetFreed': 'Xưởng đúc nguội rồi. Hết móng vuốt.',
+      'drillFreed': 'Mỏ đã yên. Hết quặng rồi.',
+      'tideFreed': 'Âu đã đóng. Sà lan nằm yên ở bến.',
+      'neonFreed': 'Đèn sáng rồi. Vex mất hết màn hình.',
+      'rotorFreed': 'Mọi đường dây đã cắt. Vex chỉ còn một mình.',
       'rotor': 'Đường Bay Cánh Quạt. Gió lùa ăng-ten tớ!',
       'neon': 'Đại Lộ Mất Điện. Bật đèn lên nào!',
       'tide': 'Âu Thuyền Thủy Triều. Đến giờ té nước!',
@@ -824,5 +861,49 @@ export default {
       'confirm': 'Bắt đầu New Game+?',
       'confirmBody': 'Câu chuyện bắt đầu lại với các Chúa Tể mạnh hơn. Bạn giữ cấp độ, trang bị, vũ khí và nâng cấp.'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Tiết mục khởi động! {boss}!',
+      'blaze': 'Lâu đời nhất! Nóng bỏng nhất! {boss}!',
+      'frost': 'Hạ hỏa đi, droid nhỏ! {boss}!',
+      'volt': 'Chớp mắt là lỡ đấy! {boss}!',
+      'gale': 'Mời người tiếp theo! {boss}, thổi bay nó đi!',
+      'magnet': 'Hấp dẫn chứ hả? {boss}!',
+      'drill': 'Đến giờ khám chuyên SÂU! {boss}!',
+      'tide': 'Theo sóng mà đi nhé, droid! {boss}!',
+      'neon': 'Đèn! Máy quay! {boss}!',
+      'rotor': 'Màn kết hoành tráng! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Một cái cần cẩu phế liệu? Thật là… đáng yêu.',
+      'blaze': 'Đã ghi nhận tác dụng phụ. Tăng liều.',
+      'blueprint': 'Bản phác thảo của ta! Lộng lẫy chưa?',
+      'volt': 'Ta… hoàn-toàn… ỔN.',
+      'gale': 'Được thôi! Ta còn NHIỀU Chúa Tể nữa.',
+      'magnet': 'Bị đẩy lùi? Ta ư? Không-THỂ nào!',
+      'drill': 'Hừ. Chạm đáy mới. Theo nghĩa đen.',
+      'tide': 'Thủy triều sẽ đổi chiều! …Phải không?',
+      'neon': 'Ai BẬT đèn lên thế?!',
+      'rotor': 'Mười trạm?! Y tá! Y TÁ!',
+      'breach': 'Không, không, KHÔNG! Cái khiên đó có BẰNG SÁNG CHẾ!',
+    },
+    'volt': {
+      'hack': 'Xem cái đầu rỗng đó chứa gì nào…',
+      'fail': 'Không ghi được?! Thật là VÔ LỄ.',
+    },
+    'fortress': {
+      'welcome': 'Chào mừng đến phòng khám của ta! Mời ngồi… MÃI MÃI!',
+    },
+    'mk1': {
+      'intro': 'Chiêm ngưỡng đi! Cơ thể mới của ta! Mark MỘT!',
+      'obey': 'Chúa Tể! Hãy VÂNG LỜI bác sĩ!',
+      'listen': 'Sao chúng không chịu NGHE?!',
+      'defeat': 'Ta sẽ… hỏi ý kiến… bác sĩ khác…',
+    },
+    'sting': {
+      'doctorIn': 'Bác sĩ… đã CÓ MẶT.',
+    },
   }
 }

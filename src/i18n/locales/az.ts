@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… içimdə nəsə va—',
+      'thanks': '…Onu içəri buraxmadın. Sağ ol.',
+    },
+    'mk1': {
+      'intro': 'Bu, Vexdir. Əsl Vex.',
+      'fire': 'Od!',
+      'ice': 'Buz!',
+      'volt': 'Elektrik!',
+      'wind': 'Külək!',
+      'scrap': 'Hurda!',
+      'free': 'Çünki onlar azaddır.',
+    },
     'guardDown': 'Keşikçi yıxıldı! Yol açıqdır.',
     'help': {
       'weapon': 'Yeni silahını seç və dronlara atəş aç!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Bir Nüvə Ustası gözləyir. Gəl onu azad edək!'
     },
     'story': {
+      'relayOne': 'Birinci rele yandı. Doqquz qaldı.',
+      'copied': {
+        'scrapBurst': '{weapon} kopyalandı.',
+        'flameWave': '{weapon} kopyalandı.',
+        'iceLance': '{weapon} kopyalandı.',
+        'thunderArc': '{weapon} kopyalandı.',
+        'galeGuard': '{weapon} kopyalandı.',
+        'magnetPull': '{weapon} kopyalandı.',
+        'drillBomb': '{weapon} kopyalandı.',
+        'bubbleLance': '{weapon} kopyalandı.',
+        'neonBlade': '{weapon} kopyalandı.',
+        'droneSwarm': '{weapon} kopyalandı.',
+      },
+      'dataCore': 'Bizə bir şey qoyub getdi.',
+      'firstDraft': '…Mən onun ilk qaralamasından yazılmışam.',
+      'body': 'Özünə bədən qurur. Bizim vadidən.',
+      'voltFreed': 'Siqnal elektrik stansiyasını itirdi.',
+      'galeFreed': 'Qalaya daha hissə çatmır.',
+      'breach': 'Qalxan düşdü. Qala açıqdır.',
+      'magnetFreed': 'Tökmə zavodu soyudu. Caynaq yoxdur.',
+      'drillFreed': 'Mədən susdu. Filiz yoxdur.',
+      'tideFreed': 'Şlüzlər bağlıdır. Barjalar evdə qalır.',
+      'neonFreed': 'İşıqlar yandı. Vex ekranlarını itirdi.',
+      'rotorFreed': 'Bütün xətlər kəsildi. Vex təkdir.',
       'rotor': 'Pər Uçuşu. Antenamda külək!',
       'neon': 'Qaranlıq Bulvarı. İşıqlar, zəhmət olmasa!',
       'tide': 'Qabarma Şlüzləri. Şappıltı vaxtı!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Qalxan Təlimi',
       'charge': 'Yüklü Atəş Təlimi'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'İsinmə turu! {boss}!',
+      'blaze': 'Ən qocası! Ən istisi! {boss}!',
+      'frost': 'Bir az sərinlə, balaca droid. {boss}!',
+      'volt': 'Göz qırpsan, qaçırarsan! {boss}!',
+      'gale': 'Növbəti, buyurun! {boss}, uçur onu!',
+      'magnet': 'Cazibədar, elə deyil? {boss}!',
+      'drill': 'Dərin müayinə vaxtıdır! {boss}!',
+      'tide': 'Dalğaya əl yellə, droid! {boss}!',
+      'neon': 'İşıqlar! Kamera! {boss}!',
+      'rotor': 'Böyük final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Hurda kranı? Necə də… şirin.',
+      'blaze': 'Yan təsir qeydə alındı. Dozanı artırıram.',
+      'blueprint': 'Eskizlərim! Möhtəşəməm, elə deyil?',
+      'volt': 'Mən… ta-ma-mi-lə… YAXŞIYAM.',
+      'gale': 'Yaxşı! Məndə daha ÇOX Usta var.',
+      'magnet': 'İtələndim? Mən? Qeyri-MÜMKÜN!',
+      'drill': 'Hıh. Dibə vurdum. Hərfi mənada.',
+      'tide': 'Qabarma qayıdacaq! …Elə deyilmi?',
+      'neon': 'İşıqları kim YANDIRDI?!',
+      'rotor': 'On rele?! Tibb bacısı! TİBB BACISI!',
+      'breach': 'Yox, yox, YOX! O qalxan PATENTLİ idi!',
+    },
+    'volt': {
+      'hack': 'Görək o boş başda nə var…',
+      'fail': 'Yazılmır?! Nə KOBUDLUQ.',
+    },
+    'fortress': {
+      'welcome': 'Klinikama xoş gəldin! Otur… ƏBƏDİLİK!',
+    },
+    'mk1': {
+      'intro': 'Baxın! Yeni bədənim! Mark BİR!',
+      'obey': 'Ustalar! Doktorunuza İTAƏT edin!',
+      'listen': 'Niyə QULAQ ASMIRLAR?!',
+      'defeat': 'İkinci bir… rəy alacağam…',
+    },
+    'sting': {
+      'doctorIn': 'Doktor… QƏBUL EDİR.',
+    },
   }
 }

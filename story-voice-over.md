@@ -1,8 +1,9 @@
 # Mega Droid — voice-over prep
 
-These are notes for recording English voice-overs later. The story and every
-beat are in [`story-arc.md`](./story-arc.md), and this file uses the same
-lines. Nothing here is implemented.
+The direction, the casting and the processing chains for the voice-over. The
+story and every beat are in [`story-arc.md`](./story-arc.md), and this file
+uses the same lines. The lines are voiced by a TTS pipeline (below); this
+file is still the reference for how each character should sound.
 
 **The line list lives in the voice catalog**
 (`src/game/audio/voiceCatalog.ts`): every line, its key and file name,
@@ -62,10 +63,52 @@ Specs follow `sound-todo.md`, plus a few rules just for voice:
   (`vo-src/raw/en/atlas/story_atlas_goodMorning_1.ogg`); the recording
   scripts show every file name.
 
-*Planned, not built yet:* while a VO file plays, the game ducks the music by
-about 6 dB (never during an ad; the global audio gates handle that). Today
-`playVoice` plays at unity gain on the SFX bus with no duck, so the chains
-below get a line heard through **presence and density, not level**.
+While a VO file plays, the game ducks the music by 7 dB (`engine.ts`
+`DUCK_DB`; never during an ad, the global audio gates handle that). Lines
+play on their own voice bus. The chains below still get a line heard through
+**presence and density, not level**.
+
+## The pipeline: `pnpm voice:*`
+
+The lines are voiced by text-to-speech, end to end, with no hand editing
+(#117). Each step is a script in `tools/voice/`:
+
+1. `pnpm voice:cards` prints the voice cards (`src/game/audio/voiceCards.ts`)
+   as `voice-cards.md`. A card describes a voice the way a voice-design model
+   takes it: a clean human voice (age, gender, pitch, pace, attitude), never a
+   robot one. It also gives every line one tone word.
+2. `pnpm voice:collect` (`--all`, `--samples`) writes every line as a job in
+   `vo-src/jobs/`, with its English and German text, the direction, the
+   situation, the tone and the max length. Numbers become words and shouted
+   capitals become stressed words.
+3. `pnpm voice:gen --engine <name>` designs each voice once and freezes it as
+   a reference clip in `vo-src/refs/`. It speaks every line twice, runs each
+   take through the character's chain (`tools/voice/fx.mjs`, ported from the
+   Audacity blocks below) and levels it. It then reads each take back with
+   Whisper and checks the words, the length, the loudness and clipping. It
+   ships the better passing take to `public/audio/voice/<lang>/` as Opus
+   24 kbps in an `.ogg` file. A line with no passing take is listed, never
+   shipped.
+4. `pnpm voice:compare` is the blind listening page that picks an engine and
+   an encoding. `pnpm voice:setup <engine>` builds the local engines' Python
+   environments.
+
+The engines are VoxCPM2, Qwen3-TTS and Chatterbox Multilingual V3 (local, on
+the GPU) and Gemini 3.8 Flash / Flash-Lite TTS (API or AI Studio).
+
+**Chosen on 2026-10-02:** the blind test ranked Gemini Flash-Lite 4.5,
+Gemini Flash and Chatterbox 4.0, and VoxCPM2 and Qwen3 3.3. Production runs
+on **Chatterbox**, which clones Qwen3's designed references. It's free and
+has no quota, whereas the Gemini API's free tier is a few requests a day.
+
+**Where `fx.mjs` departs from the blocks below:**
+
+- Vex's sub octave is not crushed, and his consonant buzz is half as loud.
+  The user heard the crush as crisping on the Blaze Master line.
+- His broadcast grit is milder: 8 bits at 8 %.
+- The label-driven glitches (stutter, wobble, tear, crush on one word) and
+  Flux's synth tails are not ported.
+- ffmpeg has no Audacity Reverb, so rooms are short echo clusters.
 
 ---
 
@@ -525,7 +568,7 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | VO id | Key | Who | Line | Direction | Max |
 | --- | --- | --- | --- | --- | --- |
 | `atlas_log_start` | `atlas.intro.log` | Atlas | "Log start." | Flat, clinical. Starts the rewind. | 1.0 s |
-| `vex_diagnosis` | `vex.intro.diagnosis` | Vex | "Diagnosis: this valley is SICK. The cure… is ME!" | A grand reveal. A pause before "is ME", which is huge. | 3.5 s |
+| `vex_diagnosis` | `story.vex.diagnosis` | Vex | "Diagnosis: this valley is SICK. The cure… is ME!" | A grand reveal. A pause before "is ME", which is huge. | 3.5 s |
 | `atlas_core_online` | `atlas.intro.online` | Atlas | "Core online. Good morning, Flux." | Soft, the first words he ever hears. Warm on "Flux". | 2.2 s |
 | `atlas_scrapyard_first` | `atlas.intro.plan` | Atlas | "Scrapyard first. One relay at a time." | Matter-of-fact. The mission in one breath. | 2.2 s |
 
@@ -770,7 +813,8 @@ should sound like "oops, I'll be back", not dying.
 
 ## Recording checklist
 
-- [ ] Decide the VO locale policy (open decision 1).
+- [x] Decide the VO locale policy (open decision 1): (a), every other
+      locale hears English with its own subtitles.
 - [ ] Decide on Gauss's line (open decision 2).
 - [ ] Cast 3 voices (Atlas, Vex, Flux), plus Gauss if yes. Flux's barks can
       be one short session.
@@ -783,7 +827,7 @@ should sound like "oops, I'll be back", not dying.
 - [ ] Make the Flux tails (`vo-src/tails/`) and confirm the effect
       parameter names against `GetInfo: Type=Commands` for the Audacity
       version in use.
-- [ ] Deliver to `public/audio/vo/` with the VO ids above, once the loader
-      supports that folder (open decision 3).
+- [x] Deliver to `public/audio/voice/<lang>/<key with dots as
+      underscores>.ogg` (open decision 3; `pnpm voice:gen` does it).
 - [ ] Check the durations against the "Max" column. Bubbles and subtitles
       hold for the line's length, and never less than 1.8 s.

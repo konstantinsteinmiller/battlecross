@@ -37,7 +37,7 @@ import { cine, cineLive, resetCine, setSkipHandler, skipHold } from './cine'
 import { holdProgress, stepHold } from './holdSkip'
 import { sceneQuality, type SceneQuality } from '../engine/quality'
 import { buildAtlas, animateAtlas } from '../models/atlas'
-import { playVoice, prefetchVoice } from '../audio/voice'
+import { playVoice, prefetchVoice, stopVoice } from '../audio/voice'
 
 /** How far ahead of an Atlas line its recording starts loading (s). */
 const VOICE_LEAD = 1.5
@@ -562,6 +562,7 @@ export class IntroMode implements GameMode {
   private end(skipped: boolean): void {
     if (this.ended) return
     this.ended = true
+    if (skipped) stopVoice()
     cine.skip = false
     cine.vex = ''
     setSkipHandler(null)
@@ -577,6 +578,7 @@ export class IntroMode implements GameMode {
     // Atlas's recordings load on demand, a moment before each line.
     for (const e of eventsBetween(t0 + VOICE_LEAD, this.t + VOICE_LEAD)) {
       if (e.kind === 'atlas') prefetchVoice(`story.atlas.${e.key}`)
+      if (e.kind === 'vex' && e.key) prefetchVoice(`story.vex.${e.key}`)
     }
     for (const e of eventsBetween(t0, this.t)) {
       switch (e.kind) {
@@ -589,7 +591,10 @@ export class IntroMode implements GameMode {
           // Its recorded voice, if one was dropped in (else the caption only).
           playVoice(`story.atlas.${e.key}`)
           break
-        case 'vex': cine.vex = e.key; break
+        case 'vex':
+          cine.vex = e.key
+          if (e.key) playVoice(`story.vex.${e.key}`)
+          break
         case 'music': if (!this.opts.replay) setMusicTrack(e.track); break
       }
     }

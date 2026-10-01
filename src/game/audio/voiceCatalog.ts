@@ -273,7 +273,7 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Core Master signal. It\'s… big.', 'Kernmeister-Signal. Er ist… groß.'],
     direction: ['Deadpan understatement, a pause before "big".', 'Trockene Untertreibung, Pause vor "groß".']
   }),
-  plan('atlas.story.relayOne', 'atlas', 'prologue', 2, {
+  ship('atlas.story.relayOne', 'atlas', 'prologue', 2, {
     when: ['The first relay is lit', 'Das erste Relais leuchtet'],
     draft: ['Relay one lit. Nine to go.', 'Relais eins leuchtet. Noch neun.'],
     direction: ['The first small win. A hint of a smile.', 'Der erste kleine Sieg. Ein Hauch von Lächeln.']
@@ -283,7 +283,7 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Refinery. It runs hot. Mind the vents.', 'Raffinerie. Hier wird\'s heiß. Achte auf die Düsen.'],
     direction: ['Brisk briefing.', 'Zügige Einweisung.']
   }),
-  ...WEAPONS.map(w => plan(`atlas.story.copied.${w}`, 'atlas', 'act1', 1.6, {
+  ...WEAPONS.map(w => ship(`atlas.story.copied.${w}`, 'atlas', 'act1', 1.6, {
     when: ['A Master is freed: its weapon is copied', 'Ein Meister ist befreit: seine Waffe wird kopiert'],
     draft: ['{weapon} copied.', '{weapon} kopiert.'], params: { weapon: `weapon.${w}.name` },
     direction: ['Crisp.', 'Knackig.']
@@ -293,32 +293,32 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Coolant\'s flowing uphill. To the Fortress.', 'Das Kühlmittel fließt bergauf. Zur Festung.'],
     direction: ['Noticing something; suspicious.', 'Bemerkt etwas; misstrauisch.']
   }),
-  plan('atlas.story.dataCore', 'atlas', 'act1', 1.6, {
+  ship('atlas.story.dataCore', 'atlas', 'act1', 1.6, {
     when: ['The Frost Master leaves a data core behind', 'Der Frostmeister hinterlässt einen Datenkern'],
     draft: ['It left us something.', 'Er hat uns etwas dagelassen.'],
     direction: ['Curious, quiet.', 'Neugierig, leise.']
   }),
-  plan('atlas.story.firstDraft', 'atlas', 'midpoint', 2.6, {
+  ship('atlas.story.firstDraft', 'atlas', 'midpoint', 2.6, {
     when: ['The blueprint: Atlas recognises its own code', 'Der Bauplan: Atlas erkennt seinen eigenen Code'],
     draft: ['…I was written from its first draft.', '…Ich wurde aus seinem ersten Entwurf geschrieben.'],
     direction: ['The quietest line in the game. Unsettled.', 'Die leiseste Zeile des Spiels. Verunsichert.']
   }),
-  plan('atlas.story.body', 'atlas', 'midpoint', 2.6, {
+  ship('atlas.story.body', 'atlas', 'midpoint', 2.6, {
     when: ['The blueprint: what Vex is building', 'Der Bauplan: was Vex baut'],
     draft: ['It\'s building a body. Out of our valley.', 'Er baut sich einen Körper. Aus unserem Tal.'],
     direction: ['Recovering; resolve coming back.', 'Fängt sich; die Entschlossenheit kehrt zurück.']
   }),
-  plan('atlas.volt.hack', 'atlas', 'act2', 2, {
+  ship('atlas.volt.hack', 'atlas', 'act2', 2, {
     when: ['Volt Tower: Vex hacks Atlas mid-sentence', 'Voltturm: Vex hackt Atlas mitten im Satz'],
     draft: ['Flux… something\'s in the—', 'Flux… da ist etwas in mei—'],
     direction: ['Cut off mid-word, clean. The glitch is added in post.', 'Mitten im Wort abbrechen, sauber. Der Glitch kommt in der Nachbearbeitung.']
   }),
-  plan('atlas.volt.thanks', 'atlas', 'act2', 2.4, {
+  ship('atlas.volt.thanks', 'atlas', 'act2', 2.4, {
     when: ['Volt Tower: the hack fails', 'Voltturm: der Hack scheitert'],
     draft: ['…You kept it out. Thank you.', '…Du hast es draußen gehalten. Danke.'],
     direction: ['Shaken, then sincere. Their bond line.', 'Erschüttert, dann aufrichtig. Die Zeile ihrer Freundschaft.']
   }),
-  plan('atlas.story.voltFreed', 'atlas', 'act2', 2.2, {
+  ship('atlas.story.voltFreed', 'atlas', 'act2', 2.2, {
     when: ['The Volt Master is freed', 'Der Voltmeister ist befreit'],
     draft: ['The signal\'s lost its power station.', 'Das Signal hat sein Kraftwerk verloren.'],
     direction: ['Satisfied.', 'Zufrieden.']
@@ -328,12 +328,12 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Every part for its body goes through here.', 'Jedes Teil für seinen Körper kommt hier durch.'],
     direction: ['A briefing with purpose.', 'Eine Einweisung mit Ziel.']
   }),
-  plan('atlas.story.galeFreed', 'atlas', 'act2', 2.2, {
+  ship('atlas.story.galeFreed', 'atlas', 'act2', 2.2, {
     when: ['The Gale Master is freed', 'Der Sturmmeister ist befreit'],
     draft: ['No more parts reach the Fortress.', 'Keine Teile erreichen mehr die Festung.'],
     direction: ['Quiet triumph.', 'Leiser Triumph.']
   }),
-  plan('atlas.story.breach', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.breach', 'atlas', 'shift', 2.2, {
     when: ['The Fortress shield falls', 'Der Schild der Festung fällt'],
     draft: ['Shield\'s down. The Fortress is open.', 'Der Schild ist unten. Die Festung ist offen.'],
     direction: ['Steady: this is it.', 'Ruhig: jetzt gilt es.']
@@ -343,17 +343,17 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Half-built. You did that.', 'Halb gebaut. Das warst du.'],
     direction: ['Proud, understated.', 'Stolz, zurückhaltend.']
   }),
-  plan('atlas.mk1.intro', 'atlas', 'act3', 1.8, {
+  ship('atlas.mk1.intro', 'atlas', 'act3', 1.8, {
     when: ['Mk-I intro: Vex steps into his body', 'Mk-I-Auftritt: Vex steigt in seinen Körper'],
     draft: ['That\'s Vex. The real one.', 'Das ist Vex. Der echte.'],
     direction: ['Low and focused.', 'Tief und konzentriert.']
   }),
   ...([['fire', 'Fire!', 'Feuer!'], ['ice', 'Ice!', 'Eis!'], ['volt', 'Volt!', 'Volt!'], ['wind', 'Wind!', 'Wind!'], ['scrap', 'Scrap!', 'Schrott!']] as const)
-    .map(([id, en, de]) => plan(`atlas.mk1.${id}`, 'atlas', 'act3', 0.6, {
+    .map(([id, en, de]) => ship(`atlas.mk1.${id}`, 'atlas', 'act3', 0.6, {
       when: ['Mk-I fight: calling the element of its next attack', 'Mk-I-Kampf: ruft das Element des nächsten Angriffs'],
       draft: [en, de], direction: ['A sharp call-out, on the beat.', 'Ein scharfer Zuruf, auf den Punkt.']
     })),
-  plan('atlas.mk1.free', 'atlas', 'act3', 1.8, {
+  ship('atlas.mk1.free', 'atlas', 'act3', 1.8, {
     when: ['Mk-I phase 2: answering Vex ("Why won\'t they listen?")', 'Mk-I Phase 2: Antwort an Vex ("Warum hören sie nicht?")'],
     draft: ['Because they\'re free.', 'Weil sie frei sind.'],
     direction: ['Calm, almost gentle. The thesis of the game.', 'Ruhig, fast sanft. Die Kernaussage des Spiels.']
@@ -615,65 +615,65 @@ const ATLAS_SECRET: VoiceLine[] = [
 
 // ── Vex (planned) ──
 const VEX: VoiceLine[] = [
-  plan('vex.intro.diagnosis', 'vex', 'intro', 3.5, {
+  ship('story.vex.diagnosis', 'vex', 'intro', 3.5, {
     when: ['Intro: Vex takes over the screens', 'Intro: Vex übernimmt die Bildschirme'],
     draft: ['Diagnosis: this valley is SICK. The cure… is ME!', 'Diagnose: Dieses Tal ist KRANK. Die Heilung… bin ICH!'],
     direction: ['A grand reveal. A pause before "is ME", which is huge.', 'Eine große Enthüllung. Pause vor "bin ICH", das riesig kommt.']
   }),
-  plan('vex.present.scrapper', 'vex', 'prologue', 2.5, {
+  ship('vex.present.scrapper', 'vex', 'prologue', 2.5, {
     when: ['Presents the Scrapper', 'Kündigt den Schrottbrecher an'],
     draft: ['Warm up act! The {BOSS}!', 'Die Vorband! Der {BOSS}!'], params: { boss: 'boss.scrapper' },
     direction: ['A ringmaster, a bit dismissive.', 'Ein Zirkusdirektor, etwas herablassend.']
   }),
-  plan('vex.hub.scrapper', 'vex', 'prologue', 2.5, {
+  ship('vex.hub.scrapper', 'vex', 'prologue', 2.5, {
     when: ['The hub, after the Scrapper', 'Die Basis, nach dem Schrottbrecher'],
     draft: ['A junk crane? How… adorable.', 'Ein Schrottkran? Wie… entzückend.'], direction: ['Mock-sweet, patronising.', 'Gespielt süß, herablassend.']
   }),
-  plan('vex.present.blaze', 'vex', 'act1', 3, {
+  ship('vex.present.blaze', 'vex', 'act1', 3, {
     when: ['Presents the Blaze Master', 'Kündigt den Glutmeister an'],
     draft: ['The oldest! The hottest! {BOSS}!', 'Der Älteste! Der Heißeste! {BOSS}!'], params: { boss: 'boss.blazeMaster' },
     direction: ['A full boxing-announcer build.', 'Ein Boxkampf-Ansager mit voller Steigerung.']
   }),
-  plan('vex.hub.blaze', 'vex', 'act1', 2.8, {
+  ship('vex.hub.blaze', 'vex', 'act1', 2.8, {
     when: ['The hub, after the Blaze Master', 'Die Basis, nach dem Glutmeister'],
     draft: ['Side effect noted. Increasing the dose.', 'Nebenwirkung notiert. Ich erhöhe die Dosis.'],
     direction: ['Clinical and irritated, a doctor annoyed at a chart.', 'Klinisch und gereizt, ein Arzt, der sich über ein Krankenblatt ärgert.']
   }),
-  plan('vex.present.frost', 'vex', 'act1', 2.8, {
+  ship('vex.present.frost', 'vex', 'act1', 2.8, {
     when: ['Presents the Frost Master', 'Kündigt den Frostmeister an'],
     draft: ['Chill, little droid. {BOSS}!', 'Bleib cool, kleiner Droide. {BOSS}!'], params: { boss: 'boss.frostMaster' },
     direction: ['Smug about the pun.', 'Selbstgefällig über das Wortspiel.']
   }),
-  plan('vex.hub.blueprint', 'vex', 'midpoint', 2.8, {
+  ship('vex.hub.blueprint', 'vex', 'midpoint', 2.8, {
     when: ['The hub: Flux found his blueprint', 'Die Basis: Flux hat seinen Bauplan gefunden'],
     draft: ['My sketches! Magnificent, aren\'t I?', 'Meine Skizzen! Großartig, nicht wahr?'],
     direction: ['Preening, delighted to be noticed.', 'Eitel, entzückt, bemerkt zu werden.']
   }),
-  plan('vex.volt.hack', 'vex', 'act2', 2.8, {
+  ship('vex.volt.hack', 'vex', 'act2', 2.8, {
     when: ['Volt Tower: he hacks Atlas', 'Voltturm: er hackt Atlas'],
     draft: ['Let\'s see what\'s in that empty head…', 'Mal sehen, was in dem leeren Kopf steckt…'],
     direction: ['Creepy-playful, a burglar humming.', 'Gruselig-verspielt, ein summender Einbrecher.']
   }),
-  plan('vex.volt.fail', 'vex', 'act2', 2.2, {
+  ship('vex.volt.fail', 'vex', 'act2', 2.2, {
     when: ['Volt Tower: the hack fails', 'Voltturm: der Hack scheitert'],
     draft: ['Unwritable?! How RUDE.', 'Nicht beschreibbar?! Wie UNVERSCHÄMT.'], direction: ['Scandalised. The monocle pops.', 'Empört. Das Monokel springt heraus.']
   }),
-  plan('vex.present.volt', 'vex', 'act2', 2.8, {
+  ship('vex.present.volt', 'vex', 'act2', 2.8, {
     when: ['Presents the Volt Master', 'Kündigt den Voltmeister an'],
     draft: ['Blink and you\'ll miss it! {BOSS}!', 'Einmal blinzeln und er ist weg! {BOSS}!'], params: { boss: 'boss.voltMaster' },
     direction: ['Fast and zappy.', 'Schnell und zackig.']
   }),
-  plan('vex.hub.volt', 'vex', 'act2', 2.8, {
+  ship('vex.hub.volt', 'vex', 'act2', 2.8, {
     when: ['The hub, after the Volt Master', 'Die Basis, nach dem Voltmeister'],
     draft: ['I am… per-fect-ly… FINE.', 'Mir geht es… ab-so-lut… BESTENS.'],
     direction: ['Forced calm that cracks on the last word. The stutter is added in post.', 'Erzwungene Ruhe, die beim letzten Wort bricht. Das Stottern kommt in der Nachbearbeitung.']
   }),
-  plan('vex.present.gale', 'vex', 'act2', 3, {
+  ship('vex.present.gale', 'vex', 'act2', 3, {
     when: ['Presents the Gale Master', 'Kündigt den Sturmmeister an'],
     draft: ['Next, please! {BOSS}, blow him away!', 'Der Nächste, bitte! {BOSS}, puste ihn weg!'], params: { boss: 'boss.galeMaster' },
     direction: ['Brisk showmanship, a doctor calling the next patient. Not desperate yet: he still has a reserve.', 'Zackige Showeinlage, ein Arzt ruft den nächsten Patienten auf. Noch nicht verzweifelt: er hat noch eine Reserve.']
   }),
-  plan('vex.hub.gale', 'vex', 'act2', 2.4, {
+  ship('vex.hub.gale', 'vex', 'act2', 2.4, {
     when: ['The hub, after the Gale Master: the shield holds, he calls up his reserve', 'Die Basis, nach dem Sturmmeister: der Schild hält, er ruft seine Reserve'],
     draft: ['Fine! I have MORE Masters.', 'Schön! Ich habe noch MEHR Meister.'],
     direction: ['Huffy, then smug again: he has a trick left.', 'Eingeschnappt, dann wieder selbstgefällig: er hat noch einen Trick.']
@@ -683,17 +683,17 @@ const VEX: VoiceLine[] = [
     draft: ['A foundry. It\'s casting claws.', 'Eine Gießerei. Hier entstehen Klauen.'],
     direction: ['Noticing something; a little grim.', 'Bemerkt etwas; ein wenig grimmig.']
   }),
-  plan('vex.present.magnet', 'vex', 'shift', 2.8, {
+  ship('vex.present.magnet', 'vex', 'shift', 2.8, {
     when: ['Presents the Magnet Master', 'Kündigt den Magnetmeister an'],
     draft: ['Attractive, isn\'t it? {BOSS}!', 'Anziehend, nicht wahr? {BOSS}!'], params: { boss: 'boss.magnetMaster' },
     direction: ['Silky, pleased with the pun: a ringmaster leaning on "attractive".', 'Seidig, zufrieden mit dem Wortspiel: ein Zirkusdirektor, der "anziehend" auskostet.']
   }),
-  plan('atlas.story.magnetFreed', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.magnetFreed', 'atlas', 'shift', 2.2, {
     when: ['The Magnet Master is freed', 'Der Magnetmeister ist befreit'],
     draft: ['The foundry\'s cold. No more claws.', 'Die Gießerei ist kalt. Keine Klauen mehr.'],
     direction: ['Satisfied.', 'Zufrieden.']
   }),
-  plan('vex.hub.magnet', 'vex', 'shift', 2.4, {
+  ship('vex.hub.magnet', 'vex', 'shift', 2.4, {
     when: ['The hub, after the Magnet Master', 'Die Basis, nach dem Magnetmeister'],
     draft: ['Repelled? Me? Im-POSSIBLE!', 'Abgestoßen? Ich? Un-MÖGLICH!'],
     direction: ['Offended vanity; breaks the last word in two.', 'Gekränkte Eitelkeit; bricht das letzte Wort in zwei Teile.']
@@ -703,17 +703,17 @@ const VEX: VoiceLine[] = [
     draft: ['Ore for its armor. Dug right here.', 'Erz für seine Panzerung. Von hier unten.'],
     direction: ['Low and close, like a voice down a shaft.', 'Tief und nah, wie eine Stimme in einem Schacht.']
   }),
-  plan('vex.present.drill', 'vex', 'shift', 3, {
+  ship('vex.present.drill', 'vex', 'shift', 3, {
     when: ['Presents the Drill Master', 'Kündigt den Bohrmeister an'],
     draft: ['Time for a deep check-up! {BOSS}!', 'Zeit für eine Tiefenuntersuchung! {BOSS}!'], params: { boss: 'boss.drillMaster' },
     direction: ['A doctor\'s bedside manner gone theatrical; leans into "deep".', 'Ärztlicher Plauderton, ins Theatralische gekippt; legt sich in "Tiefen".']
   }),
-  plan('atlas.story.drillFreed', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.drillFreed', 'atlas', 'shift', 2.2, {
     when: ['The Drill Master is freed', 'Der Bohrmeister ist befreit'],
     draft: ['The mine\'s quiet. No more ore.', 'Die Mine ist still. Kein Erz mehr.'],
     direction: ['Quiet, a breath out.', 'Leise, ein Ausatmen.']
   }),
-  plan('vex.hub.drill', 'vex', 'shift', 2.4, {
+  ship('vex.hub.drill', 'vex', 'shift', 2.4, {
     when: ['The hub, after the Drill Master', 'Die Basis, nach dem Bohrmeister'],
     draft: ['Hmph. A new low. Literally.', 'Pah. Ein neuer Tiefpunkt. Wörtlich.'],
     direction: ['Sulky and deadpan, then pleased with his own pun on the last word.', 'Schmollend und trocken, dann zufrieden mit dem eigenen Wortspiel beim letzten Wort.']
@@ -723,17 +723,17 @@ const VEX: VoiceLine[] = [
     draft: ['Barges now. Vex found another way.', 'Jetzt Lastkähne. Vex hat einen neuen Weg.'],
     direction: ['Wry: Vex is resourceful.', 'Trocken: Vex ist einfallsreich.']
   }),
-  plan('vex.present.tide', 'vex', 'shift', 2.8, {
+  ship('vex.present.tide', 'vex', 'shift', 2.8, {
     when: ['Presents the Tide Master', 'Kündigt den Gezeitenmeister an'],
     draft: ['Wave goodbye, droid! {BOSS}!', 'Hier kommt die große Welle! {BOSS}!'], params: { boss: 'boss.tideMaster' },
     direction: ['Grand and splashy, a game-show host swinging his arm.', 'Groß und spritzig, ein Showmaster, der den Arm schwingt.']
   }),
-  plan('atlas.story.tideFreed', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.tideFreed', 'atlas', 'shift', 2.2, {
     when: ['The Tide Master is freed', 'Der Gezeitenmeister ist befreit'],
     draft: ['Locks shut. The barges stay home.', 'Schleusen zu. Die Kähne bleiben daheim.'],
     direction: ['Pleased, a small smile.', 'Erfreut, ein kleines Lächeln.']
   }),
-  plan('vex.hub.tide', 'vex', 'shift', 2.6, {
+  ship('vex.hub.tide', 'vex', 'shift', 2.6, {
     when: ['The hub, after the Tide Master', 'Die Basis, nach dem Gezeitenmeister'],
     draft: ['The tide will turn! …Won\'t it?', 'Die Flut kommt wieder! …Oder?'],
     direction: ['Defiant, then a small doubtful pause before the question.', 'Trotzig, dann eine kleine zweifelnde Pause vor der Frage.']
@@ -743,17 +743,17 @@ const VEX: VoiceLine[] = [
     draft: ['Lights out. Except Vex\'s face.', 'Licht aus. Nur Vex\' Gesicht nicht.'],
     direction: ['Dry, almost a joke.', 'Trocken, fast ein Witz.']
   }),
-  plan('vex.present.neon', 'vex', 'shift', 2.6, {
+  ship('vex.present.neon', 'vex', 'shift', 2.6, {
     when: ['Presents the Neon Master', 'Kündigt den Neonmeister an'],
     draft: ['Lights! Camera! {BOSS}!', 'Licht! Kamera! {BOSS}!'], params: { boss: 'boss.neonMaster' },
     direction: ['Pure showbiz: a director calling the shot, then the name in lights.', 'Reines Showbusiness: ein Regisseur ruft die Szene aus, dann der Name in Leuchtschrift.']
   }),
-  plan('atlas.story.neonFreed', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.neonFreed', 'atlas', 'shift', 2.2, {
     when: ['The Neon Master is freed', 'Der Neonmeister ist befreit'],
     draft: ['Lights on. Vex lost its screens.', 'Licht an. Vex hat keine Bildschirme mehr.'],
     direction: ['Delighted, warm.', 'Begeistert, warm.']
   }),
-  plan('vex.hub.neon', 'vex', 'shift', 2.2, {
+  ship('vex.hub.neon', 'vex', 'shift', 2.2, {
     when: ['The hub, after the Neon Master', 'Die Basis, nach dem Neonmeister'],
     draft: ['Who turned the lights ON?!', 'Wer hat das Licht ANGEMACHT?!'],
     direction: ['Shrieking, squinting at the light. The glitch is added in post.', 'Kreischend, blinzelt ins Licht. Der Glitch kommt in der Nachbearbeitung.']
@@ -763,56 +763,57 @@ const VEX: VoiceLine[] = [
     draft: ['Drones. Its last supply line.', 'Drohnen. Seine letzte Versorgungslinie.'],
     direction: ['Focused: the end is in sight.', 'Konzentriert: das Ende ist in Sicht.']
   }),
-  plan('vex.present.rotor', 'vex', 'shift', 2.8, {
+  ship('vex.present.rotor', 'vex', 'shift', 2.8, {
     when: ['Presents the Rotor Master, the last of his reserve', 'Kündigt den Rotormeister an, den Letzten seiner Reserve'],
     draft: ['The grand finale! {BOSS}!', 'Das große Finale! {BOSS}!'], params: { boss: 'boss.rotorMaster' },
     direction: ['The last card: still the showman, the voice straining at the top.', 'Die letzte Karte: immer noch der Showman, die Stimme oben angespannt.']
   }),
-  plan('atlas.story.rotorFreed', 'atlas', 'shift', 2.2, {
+  ship('atlas.story.rotorFreed', 'atlas', 'shift', 2.2, {
     when: ['The Rotor Master is freed: the tenth relay', 'Der Rotormeister ist befreit: das zehnte Relais'],
     draft: ['Every line\'s cut. Vex is alone.', 'Alle Linien gekappt. Vex ist allein.'],
     direction: ['Quiet triumph, with weight to it.', 'Leiser Triumph, mit Gewicht.']
   }),
-  plan('vex.hub.rotor', 'vex', 'shift', 2.4, {
+  ship('vex.hub.rotor', 'vex', 'shift', 2.4, {
     when: ['The hub, after the Rotor Master: the Breach begins (just before vex.hub.breach)', 'Die Basis, nach dem Rotormeister: der Durchbruch beginnt (direkt vor vex.hub.breach)'],
     draft: ['Ten relays?! Nurse! NURSE!', 'Zehn Relais?! Schwester! SCHWESTER!'],
     direction: ['Panic: calling for a nurse who never comes. The tantrum builds into the Breach; the static tear is added in post.', 'Panik: ruft nach einer Schwester, die nie kommt. Der Wutanfall steigert sich in den Durchbruch; der Störeffekt kommt in der Nachbearbeitung.']
   }),
-  plan('vex.hub.breach', 'vex', 'shift', 3, {
+  ship('vex.hub.breach', 'vex', 'shift', 3, {
     when: ['The hub: his shield has fallen', 'Die Basis: sein Schild ist gefallen'],
     draft: ['No, no, NO! That shield was PATENTED!', 'Nein, nein, NEIN! Der Schild war PATENTIERT!'],
     direction: ['A full tantrum. The static tear is added in post.', 'Ein ausgewachsener Wutanfall. Der Störeffekt kommt in der Nachbearbeitung.']
   }),
-  plan('vex.fortress.welcome', 'vex', 'act3', 3.2, {
+  ship('vex.fortress.welcome', 'vex', 'act3', 3.2, {
     when: ['Entering the Fortress', 'Betreten der Festung'],
     draft: ['Welcome to my clinic! Take a seat… FOREVER!', 'Willkommen in meiner Klinik! Nimm Platz… für IMMER!'],
     direction: ['A villain host, relishing it.', 'Ein Schurken-Gastgeber, der es genießt.']
   }),
-  plan('vex.mk1.intro', 'vex', 'act3', 2.8, {
+  ship('vex.mk1.intro', 'vex', 'act3', 2.8, {
     when: ['Mk-I intro', 'Mk-I-Auftritt'],
     draft: ['Behold! My new body! Mark ONE!', 'Seht her! Mein neuer Körper! Mark EINS!'], direction: ['The peak of vanity.', 'Der Gipfel der Eitelkeit.']
   }),
-  plan('vex.mk1.obey', 'vex', 'act3', 2.4, {
+  ship('vex.mk1.obey', 'vex', 'act3', 2.4, {
     when: ['Mk-I fight: he calls the Masters', 'Mk-I-Kampf: er ruft die Meister'],
     draft: ['Masters! OBEY your doctor!', 'Meister! GEHORCHT eurem Doktor!'], direction: ['Commanding, strained.', 'Befehlend, angespannt.']
   }),
-  plan('vex.mk1.listen', 'vex', 'act3', 2.2, {
+  ship('vex.mk1.listen', 'vex', 'act3', 2.2, {
     when: ['Mk-I phase 2: the Masters refuse', 'Mk-I Phase 2: die Meister verweigern sich'],
     draft: ['Why won\'t they LISTEN?!', 'Warum HÖREN sie nicht?!'], direction: ['Cracking; genuine confusion under the rage.', 'Brüchig; echte Verwirrung unter der Wut.']
   }),
-  plan('vex.mk1.defeat', 'vex', 'act3', 2.6, {
+  ship('vex.mk1.defeat', 'vex', 'act3', 2.6, {
     when: ['Mk-I defeated', 'Mk-I besiegt'],
     draft: ['I\'ll get… a second opinion…', 'Ich hole mir… eine zweite Meinung…'], direction: ['Small, fading, still smug under it.', 'Klein, verblassend, darunter immer noch selbstgefällig.']
   }),
-  plan('vex.sting.doctorIn', 'vex', 'ending', 2.2, {
+  ship('vex.sting.doctorIn', 'vex', 'ending', 2.2, {
     when: ['New Game+ only: the sting after the credits', 'Nur New Game+: der Nachklapp nach dem Abspann'],
     draft: ['The doctor… is IN.', 'Der Doktor… ist DA.'], direction: ['Whispered, then a slow grin.', 'Geflüstert, dann ein langsames Grinsen.']
   }),
-  ...([['short', 1.2], ['medium', 1.8], ['maniacal', 2.6]] as const).map(([k, max]) => plan(`vex.laugh.${k}`, 'vex', 'laughs', max, {
+  // Live: the story scenes close a line with one (`story/vexScene.ts`). No bubble of their own.
+  ...([['short', 1.2], ['medium', 1.8], ['maniacal', 2.6]] as const).map(([k, max]) => ({ ...plan(`vex.laugh.${k}`, 'vex', 'laughs', max, {
     when: ['A bubble that ends in a laugh', 'Eine Sprechblase, die mit einem Lachen endet'],
     draft: ['Mwa-ha-HA!', 'Mwa-ha-HA!'], neutral: true,
     direction: [`The ${k} laugh.`, `Das ${k === 'short' ? 'kurze' : k === 'medium' ? 'mittlere' : 'wahnsinnige'} Lachen.`]
-  }))
+  }), status: 'live' as const }))
 ]
 
 // ── Flux (planned): barks, English everywhere ──
@@ -831,14 +832,15 @@ const BARKS: ReadonlyArray<readonly [type: string, max: number, takes: readonly 
   ['parry', 0.3, ['Ha!', 'Ha!', 'Ha!'], 'a bright ping'],
   ['gel', 0.7, ['Aaah~', 'Aaah~', 'Aaah~'], 'a rising refill shimmer']
 ]
-const FLUX: VoiceLine[] = BARKS.flatMap(([type, max, takes, tail]) => takes.map((t, i) => plan(`flux.hurt.${type}.${i + 1}`, 'flux', 'barks', max, {
+/** Live: `audio/barks.ts` plays them. A bark has no bubble, so its text is its draft (never a locale key). */
+const FLUX: VoiceLine[] = BARKS.flatMap(([type, max, takes, tail]) => takes.map((t, i) => ({ ...plan(`flux.hurt.${type}.${i + 1}`, 'flux', 'barks', max, {
   when: [`Flux takes a hit: ${type} (the game picks one of 3 at random; synth tail in post: ${tail})`,
     `Flux wird getroffen: ${type} (das Spiel wählt zufällig einen von 3)`],
   draft: [t, t], neutral: true,
   direction: takes.indexOf(t) !== i
     ? ['Another take of the same word: vary the pitch and energy.', 'Eine weitere Aufnahme desselben Worts: Tonhöhe und Energie variieren.']
     : ['Comedy first: a cartoon robot getting bonked, never a real injury.', 'Komik zuerst: ein Cartoon-Roboter kriegt eins ab, nie eine echte Verletzung.']
-})))
+}), status: 'live' as const })))
 
 /** Every line, speakers in cast order, scenes in playing order. */
 
@@ -909,15 +911,15 @@ const FINALE: VoiceLine[] = [
     draft: ["Last stop. Out you hop!", "Letzter Halt. Raus mit dir!"],
     direction: ["Wry.", "Trocken."]
   }),
-  plan('ending.gauss', 'gauss', 'ending', 3.5, {
+  ship('ending.gauss', 'gauss', 'ending', 3.5, {
     when: ["The ending: Gauss steps out of her capsule", "Das Ende: Gauss steigt aus ihrer Kapsel"],
     direction: ["Warm, tired, proud.", "Warm, müde, stolz."]
   }),
-  plan('ending.atlas', 'atlas', 'ending', 3.5, {
+  ship('ending.atlas', 'atlas', 'ending', 3.5, {
     when: ["The ending: Atlas and the empty Spire", "Das Ende: Atlas und der leere Turm"],
     direction: ["Quiet, certain, a smile in it.", "Leise, sicher, mit einem Lächeln."]
   }),
-  plan('ending.spark', 'gauss', 'ending', 3.5, {
+  ship('ending.spark', 'gauss', 'ending', 3.5, {
     when: ["The ending: the sunrise, the last line", "Das Ende: der Sonnenaufgang, die letzte Zeile"],
     direction: ["Soft wonder.", "Sanftes Staunen."]
   })

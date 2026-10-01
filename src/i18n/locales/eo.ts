@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… io estas en la sis—',
+      'thanks': '…Vi tenis ĝin ekstere. Dankon.',
+    },
+    'mk1': {
+      'intro': 'Jen Vex. La vera.',
+      'fire': 'Fajro!',
+      'ice': 'Glacio!',
+      'volt': 'Volto!',
+      'wind': 'Vento!',
+      'scrap': 'Rubo!',
+      'free': 'Ĉar ili estas liberaj.',
+    },
     'guardDown': 'Gardo falis! La vojo estas libera.',
     'help': {
       'weapon': 'Elektu vian novan armilon kaj pafu al la dronoj!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Kerna Majstro atendas. Ni liberigu ĝin!'
     },
     'story': {
+      'relayOne': 'Relajso unu lumas. Restas naŭ.',
+      'copied': {
+        'scrapBurst': '{weapon} kopiita.',
+        'flameWave': '{weapon} kopiita.',
+        'iceLance': '{weapon} kopiita.',
+        'thunderArc': '{weapon} kopiita.',
+        'galeGuard': '{weapon} kopiita.',
+        'magnetPull': '{weapon} kopiita.',
+        'drillBomb': '{weapon} kopiita.',
+        'bubbleLance': '{weapon} kopiita.',
+        'neonBlade': '{weapon} kopiita.',
+        'droneSwarm': '{weapon} kopiita.',
+      },
+      'dataCore': 'Ĝi lasis ion al ni.',
+      'firstDraft': '…Mi estis verkita el ĝia unua skizo.',
+      'body': 'Li konstruas korpon. El nia valo.',
+      'voltFreed': 'La signalo perdis sian elektrocentralon.',
+      'galeFreed': 'Neniuj partoj plu atingas la Fortikaĵon.',
+      'breach': 'La ŝildo falis. La Fortikaĵo estas malfermita.',
+      'magnetFreed': 'La fandejo estas malvarma. Ne plu ungegoj.',
+      'drillFreed': 'La minejo silentas. Ne plu erco.',
+      'tideFreed': 'Kluzoj fermitaj. La barĝoj restas hejme.',
+      'neonFreed': 'Lumoj ŝaltitaj. Vex perdis siajn ekranojn.',
+      'rotorFreed': 'Ĉiu linio tranĉita. Vex estas sola.',
       'rotor': 'Rotora Flugo. Vento en mia anteno!',
       'neon': 'Mallumiĝa Bulvardo. Lumojn, mi petas!',
       'tide': 'Tajdaj Kluzoj. Plaŭdotempo!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Ŝilda Lernilo',
       'charge': 'Lernilo pri Ŝarĝita Pafo'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'La antaŭprezento! La {boss}!',
+      'blaze': 'La plej maljuna! La plej arda! {boss}!',
+      'frost': 'Malvarmiĝu, droideto! {boss}!',
+      'volt': 'Palpebrumu kaj vi maltrafos! {boss}!',
+      'gale': 'La sekvan, mi petas! {boss}, forblovu lin!',
+      'magnet': 'Alloga, ĉu ne? {boss}!',
+      'drill': 'Tempo por profunda ekzameno! {boss}!',
+      'tide': 'Ondu adiaŭ, droido! {boss}!',
+      'neon': 'Lumoj! Kamerao! {boss}!',
+      'rotor': 'La granda finalo! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Rubgruo? Kiel… dolĉe.',
+      'blaze': 'Kromefiko notita. Mi altigas la dozon.',
+      'blueprint': 'Miaj skizoj! Ĉu mi ne estas grandioza?',
+      'volt': 'Mi fartas… per-fek-te… BONE.',
+      'gale': 'Bone! Mi havas PLIAJN Majstrojn.',
+      'magnet': 'Forpuŝita? Mi? NE-EBLE!',
+      'drill': 'Hmf. Nova malaltpunkto. Laŭvorte.',
+      'tide': 'La tajdo turniĝos! …Ĉu ne?',
+      'neon': 'Kiu ŜALTIS la lumojn?!',
+      'rotor': 'Dek relajsoj?! Flegistino! FLEGISTINO!',
+      'breach': 'Ne, ne, NE! Tiu ŝildo estis PATENTITA!',
+    },
+    'volt': {
+      'hack': 'Ni vidu, kio estas en tiu malplena kapo…',
+      'fail': 'Neskribebla?! Kiel MALĜENTILE.',
+    },
+    'fortress': {
+      'welcome': 'Bonvenon al mia kliniko! Sidiĝu… POR ĈIAM!',
+    },
+    'mk1': {
+      'intro': 'Rigardu! Mia nova korpo! Mark UNU!',
+      'obey': 'Majstroj! OBEU vian doktoron!',
+      'listen': 'Kial ili ne AŬSKULTAS?!',
+      'defeat': 'Mi petos… duan opinion…',
+    },
+    'sting': {
+      'doctorIn': 'La doktoro… ĈEESTAS.',
+    },
   }
 }

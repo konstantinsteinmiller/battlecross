@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… kažkas yra ma—',
+      'thanks': '…Tu to neįleidai. Ačiū.',
+    },
+    'mk1': {
+      'intro': 'Tai Vex. Tikrasis.',
+      'fire': 'Ugnis!',
+      'ice': 'Ledas!',
+      'volt': 'Srovė!',
+      'wind': 'Vėjas!',
+      'scrap': 'Laužas!',
+      'free': 'Nes jie laisvi.',
+    },
     'guardDown': 'Sargas nukautas! Kelias laisvas.',
     'help': {
       'weapon': 'Pasirink naują ginklą ir šauk į dronus!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Laukia šerdies meistras. Išlaisvinkime jį!'
     },
     'story': {
+      'relayOne': 'Pirma relė šviečia. Liko devynios.',
+      'copied': {
+        'scrapBurst': 'Nukopijuota: {weapon}.',
+        'flameWave': 'Nukopijuota: {weapon}.',
+        'iceLance': 'Nukopijuota: {weapon}.',
+        'thunderArc': 'Nukopijuota: {weapon}.',
+        'galeGuard': 'Nukopijuota: {weapon}.',
+        'magnetPull': 'Nukopijuota: {weapon}.',
+        'drillBomb': 'Nukopijuota: {weapon}.',
+        'bubbleLance': 'Nukopijuota: {weapon}.',
+        'neonBlade': 'Nukopijuota: {weapon}.',
+        'droneSwarm': 'Nukopijuota: {weapon}.',
+      },
+      'dataCore': 'Jis mums kai ką paliko.',
+      'firstDraft': '…Mane parašė iš jo pirmojo juodraščio.',
+      'body': 'Jis stato sau kūną. Iš mūsų slėnio.',
+      'voltFreed': 'Signalas neteko savo elektrinės.',
+      'galeFreed': 'Į Tvirtovę nebepatenka jokios dalys.',
+      'breach': 'Skydas nukrito. Tvirtovė atvira.',
+      'magnetFreed': 'Liejykla atvėso. Daugiau jokių nagų.',
+      'drillFreed': 'Kasykla nutilo. Daugiau jokios rūdos.',
+      'tideFreed': 'Šliuzai uždaryti. Baržos lieka namie.',
+      'neonFreed': 'Šviesa įjungta. Vex neteko ekranų.',
+      'rotorFreed': 'Visos linijos nukirstos. Vex vienas.',
       'rotor': 'Rotorių skrydis. Vėjas mano antenoje!',
       'neon': 'Aptemimo bulvaras. Šviesas, prašau!',
       'tide': 'Potvynio šliuzai. Laikas taškytis!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Skydo mokymas',
       'charge': 'Įkrauto šūvio mokymas'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Apšilimui! {boss}!',
+      'blaze': 'Seniausias! Karščiausias! {boss}!',
+      'frost': 'Atvėsk, droidėli. {boss}!',
+      'volt': 'Sumirksėsi ir praleisi! {boss}!',
+      'gale': 'Kitas, prašom! {boss}, nupūsk jį!',
+      'magnet': 'Patrauklu, ar ne? {boss}!',
+      'drill': 'Laikas giliai apžiūrai! {boss}!',
+      'tide': 'Banga tave nuneš, droide! {boss}!',
+      'neon': 'Šviesos! Kamera! {boss}!',
+      'rotor': 'Didysis finalas! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'Laužo kranas? Kaip… miela.',
+      'blaze': 'Šalutinis poveikis užfiksuotas. Didinu dozę.',
+      'blueprint': 'Mano eskizai! Aš nuostabus, ar ne?',
+      'volt': 'Man… vi-siš-kai… GERAI.',
+      'gale': 'Puiku! Turiu DAUGIAU meistrų.',
+      'magnet': 'Atstumtas? Aš? Ne-ĮMANOMA!',
+      'drill': 'Hmf. Naujas dugnas. Tiesiogine prasme.',
+      'tide': 'Potvynis dar grįš! …Juk taip?',
+      'neon': 'Kas ĮJUNGĖ šviesą?!',
+      'rotor': 'Dešimt relių?! Sesele! SESELE!',
+      'breach': 'Ne, ne, NE! Tas skydas buvo PATENTUOTAS!',
+    },
+    'volt': {
+      'hack': 'Pažiūrėkim, kas toje tuščioje galvoje…',
+      'fail': 'Neįrašoma?! Kaip ĮŽŪLU.',
+    },
+    'fortress': {
+      'welcome': 'Sveikas atvykęs į mano kliniką! Sėskis… AMŽINAI!',
+    },
+    'mk1': {
+      'intro': 'Žiūrėkit! Mano naujas kūnas! Mark VIENAS!',
+      'obey': 'Meistrai! KLAUSYKIT savo daktaro!',
+      'listen': 'Kodėl jie NEKLAUSO?!',
+      'defeat': 'Paprašysiu… antros nuomonės…',
+    },
+    'sting': {
+      'doctorIn': 'Daktaras… PRIIMA.',
+    },
   }
 }

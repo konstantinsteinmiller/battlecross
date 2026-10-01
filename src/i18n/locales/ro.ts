@@ -631,6 +631,19 @@ export default {
     }
   },
   'atlas': {
+    'volt': {
+      'hack': 'Flux… e ceva în me—',
+      'thanks': '…L-ai ținut afară. Mulțumesc.',
+    },
+    'mk1': {
+      'intro': 'El e Vex. Cel adevărat.',
+      'fire': 'Foc!',
+      'ice': 'Gheață!',
+      'volt': 'Curent!',
+      'wind': 'Vânt!',
+      'scrap': 'Fier vechi!',
+      'free': 'Pentru că sunt liberi.',
+    },
     'guardDown': 'Garda a căzut! Drumul e liber.',
     'help': {
       'weapon': 'Alege-ți arma nouă și trage în drone!',
@@ -735,6 +748,30 @@ export default {
       'story': 'Ne așteaptă un Maestru al Nucleului. Hai să-l eliberăm!'
     },
     'story': {
+      'relayOne': 'Primul releu aprins. Mai sunt nouă.',
+      'copied': {
+        'scrapBurst': 'Am copiat {weapon}.',
+        'flameWave': 'Am copiat {weapon}.',
+        'iceLance': 'Am copiat {weapon}.',
+        'thunderArc': 'Am copiat {weapon}.',
+        'galeGuard': 'Am copiat {weapon}.',
+        'magnetPull': 'Am copiat {weapon}.',
+        'drillBomb': 'Am copiat {weapon}.',
+        'bubbleLance': 'Am copiat {weapon}.',
+        'neonBlade': 'Am copiat {weapon}.',
+        'droneSwarm': 'Am copiat {weapon}.',
+      },
+      'dataCore': 'Ne-a lăsat ceva.',
+      'firstDraft': '…Am fost scris din prima lui schiță.',
+      'body': 'Își construiește un corp. Din valea noastră.',
+      'voltFreed': 'Semnalul și-a pierdut centrala.',
+      'galeFreed': 'Nicio piesă nu mai ajunge la Fortăreață.',
+      'breach': 'Scutul a căzut. Fortăreața e deschisă.',
+      'magnetFreed': 'Turnătoria e rece. Gata cu ghearele.',
+      'drillFreed': 'Mina e liniștită. Gata cu minereul.',
+      'tideFreed': 'Ecluzele închise. Barjele rămân acasă.',
+      'neonFreed': 'Lumina e aprinsă. Vex și-a pierdut ecranele.',
+      'rotorFreed': 'Toate liniile tăiate. Vex e singur.',
       'rotor': 'Cursa Rotorului. Vânt în antenă!',
       'neon': 'Bulevardul Întunecat. Lumină, vă rog!',
       'tide': 'Ecluzele Mareei. E vremea de bălăceală!',
@@ -809,5 +846,49 @@ export default {
       'block': 'Tutorial: Scutul',
       'charge': 'Tutorial: Lovitura Încărcată'
     }
+  },
+  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
+  'vex': {
+    'present': {
+      'scrapper': 'Deschiderea serii! {boss}!',
+      'blaze': 'Cel mai bătrân! Cel mai fierbinte! {boss}!',
+      'frost': 'Răcorește-te, droidule. {boss}!',
+      'volt': 'Clipești și l-ai ratat! {boss}!',
+      'gale': 'Următorul, vă rog! {boss}, suflă-l de aici!',
+      'magnet': 'Atrăgător, nu-i așa? {boss}!',
+      'drill': 'E timpul pentru un control în profunzime! {boss}!',
+      'tide': 'Te ia valul, droidule! {boss}!',
+      'neon': 'Lumini! Cameră! {boss}!',
+      'rotor': 'Marele final! {boss}!',
+    },
+    'hub': {
+      'scrapper': 'O macara de fier vechi? Ce… drăguț.',
+      'blaze': 'Efect secundar notat. Măresc doza.',
+      'blueprint': 'Schițele mele! Sunt magnific, nu?',
+      'volt': 'Sunt… per-fect… BINE.',
+      'gale': 'Bine! Am MAI MULȚI Maeștri.',
+      'magnet': 'Respins? Eu? Im-POSIBIL!',
+      'drill': 'Hmf. Am atins fundul. La propriu.',
+      'tide': 'Mareea se va întoarce! …Nu-i așa?',
+      'neon': 'Cine a APRINS lumina?!',
+      'rotor': 'Zece relee?! Asistentă! ASISTENTĂ!',
+      'breach': 'Nu, nu, NU! Scutul acela era BREVETAT!',
+    },
+    'volt': {
+      'hack': 'Să vedem ce e în capul ăla gol…',
+      'fail': 'Nu se poate scrie?! Ce OBRĂZNICIE.',
+    },
+    'fortress': {
+      'welcome': 'Bun venit în clinica mea! Ia loc… PE VECI!',
+    },
+    'mk1': {
+      'intro': 'Priviți! Noul meu corp! Mark UNU!',
+      'obey': 'Maeștri! ASCULTAȚI de doctorul vostru!',
+      'listen': 'De ce nu ASCULTĂ?!',
+      'defeat': 'Voi cere… o a doua opinie…',
+    },
+    'sting': {
+      'doctorIn': 'Doctorul… vă PRIMEȘTE.',
+    },
   }
 }
