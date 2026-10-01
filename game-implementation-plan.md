@@ -608,7 +608,7 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P1 voice cards + line tones** (`pnpm voice:cards`).
   - [x] **P2 collector** (`pnpm voice:collect [--samples]`, German text
     normaliser).
-  - [ ] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
+  - [x] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
     −16 LUFS, OGG Vorbis q2 mono; length, loudness, clipping, Whisper).
   - [ ] **P4 engine bake-off** (VoxCPM2, Qwen3-TTS, Chatterbox ML v3,
     Gemini API + AI Studio browser route).
