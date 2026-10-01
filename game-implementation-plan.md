@@ -628,6 +628,30 @@ while bars and damage numbers get direct DOM writes.
       cinematics (S5–S7).
     - [x] 7.4 the New Game+ sting (S14).
     - [ ] 7.5 voice every new line (Chatterbox), browser pass.
+  - **Resume here (paused 2026-10-02, account switch):**
+    1. Atlas production ran (`pnpm voice:gen --engine chatterbox`, 2 takes):
+       151/188 shipped to `public/audio/voice/{en,de}` (Opus 24k .ogg,
+       uncommitted). QA was then fixed (uncommitted, `tools/voice/qa.mjs`,
+       `whisper.mjs`, `generate.mjs`): numbers in Whisper's read-back spelled
+       out, a names prompt + name aliases, length budget = max(line max,
+       words / 2.6 + 0.5 s) × 1.5. Re-run `pnpm voice:gen --engine chatterbox`
+       (takes are cached: only post + Whisper rerun) and see how many pass.
+    2. Lines still failing: add a `--retry` mode to generate.mjs (extra takes
+       3–4 with new seeds for lines whose `best` is null), then rerun.
+    3. `pnpm voice:collect` again (live now = Atlas + Flux barks + Vex + the
+       ending + the new Atlas scene lines) and `pnpm voice:gen --engine
+       chatterbox` for the new ones (Flux and Gauss references get designed
+       by Qwen on first use).
+    4. Commit P6/7.5: shipped files, `vo-src/refs` (qwen refs + voices.json:
+       the Gemini voice ids for the later Flash-Lite re-voice), the tool
+       changes (fx.mjs Vex chain softened, post.mjs ships Opus, generate.mjs
+       merges partial runs), voice-todo.md; ignore `vo-src/refs/**/*.voxcpm.*`
+       and `*.gemini.wav` or commit them (decide by size).
+    5. Browser pass on a fresh dev server (own port, check `<title>`):
+       the probe `probe-hub.mjs` (scratchpad) covers the hub scenes; check a
+       boss presentation + Mk-I via `#level` test runs and cheat J.
+    6. Then roadmap #117 tick (+ note Gemini Flash-Lite for later), final
+       report, and ask about P8 (the skill).
   - [ ] **P8 skill** (ask first).
   - Chosen (user's blind test, 2026-10-02): Gemini Flash-Lite 4.5 stars,
     Gemini Flash and Chatterbox 4.0, VoxCPM2 and Qwen3 3.3; Opus 24k/16k

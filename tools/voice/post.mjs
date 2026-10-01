@@ -3,7 +3,10 @@
 // leading silence: a line plays the moment its bubble pops), the loudness or
 // peak target, a limiter at -3.3 dBFS (room for the encoder's overshoot), the
 // fades, a tempo tighten of up to 8 % when a take runs past the line's max,
-// then a 48 kHz WAV master and the shipped OGG Vorbis q2, mono 44.1 kHz.
+// then a 48 kHz WAV master and the shipped file: Opus 24 kbps (voip) in an
+// .ogg container, mono. The user's blind listening test (2026-10-02) rated
+// Opus 24k/16k above Vorbis q2 at about a third of its size; a decoder that
+// reads Ogg Vorbis reads Ogg Opus too (old iOS reads neither: deferred).
 //
 // The shipped file is always encoded from the master: a lossy file is never
 // re-encoded (`encode` takes any of ENCODINGS for the compression lab).
@@ -48,7 +51,7 @@ export const ENCODINGS = {
   'opus-24k': { ext: 'opus', args: ['-c:a', 'libopus', '-b:a', '24k', '-application', 'voip'] },
   'opus-16k': { ext: 'opus', args: ['-c:a', 'libopus', '-b:a', '16k', '-application', 'voip'] }
 }
-export const SHIP = 'vorbis-q2-44k'
+export const SHIP = 'opus-24k'
 
 /** Encode a master (never a lossy file) to one of ENCODINGS. */
 export const encode = async (master, out, name = SHIP) => {

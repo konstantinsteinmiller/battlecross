@@ -83,7 +83,7 @@ for (const j of jobs) {
     if (!existsSync(raw)) continue
     try {
       const m = await processTake({ raw, master, ogg: null, speaker: j.speaker, key: j.key, max: j.max })
-      ts.push({ take: t, master, text: j.text, ...m })
+      ts.push({ take: t, master, text: j.text, lang: j.lang, ...m })
     } catch (e) {
       console.warn(`  ✘ post ${j.id}.t${t}: ${e.message.split('\n')[0]}`)
     }
@@ -108,7 +108,11 @@ for (const r of results) {
   r.shipped = relative(ROOT, out).replaceAll('\\', '/')
 }
 
-writeFileSync(join(work, `${mode}-results.json`), `${JSON.stringify({ engine: engineName, label: engine.label, mode, takes, results }, null, 2)}\n`)
+// A partial run (--only, --lang) updates its lines and keeps the rest.
+const resultsFile = join(work, `${mode}-results.json`)
+const before = existsSync(resultsFile) ? JSON.parse(readFileSync(resultsFile, 'utf8')).results : []
+const merged = all.map(j => results.find(r => r.job.id === j.id) ?? before.find(r => r.job.id === j.id)).filter(Boolean)
+writeFileSync(resultsFile, `${JSON.stringify({ engine: engineName, label: engine.label, mode, takes, results: merged }, null, 2)}\n`)
 const ok = results.filter(r => r.best).length
 console.log(`${ok}/${results.length} lines ${ship ? 'shipped' : 'ready to compare'}; results in ${relative(ROOT, join(work, `${mode}-results.json`))}`)
 if (fixer.length) {

@@ -138,12 +138,13 @@ Wait for my "go" to start implementation, ask to review the decisions first.
 - [x] let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
   That should make the game startup faster and happier players (should not create asset pop-ins)
 
-- [ ] #100 Lets add an extended charge shot, after the charge shot is fully loaded, another 3 seconds of charge will make it an overloaded charge shot with an even cooler and more epic
+- [x] #100 Lets add an extended charge shot, after the charge shot is fully loaded, another 3 seconds of charge will make it an overloaded charge shot with an even cooler and more epic
  Bullet design and charge hold animation, this new overload charge does 1.75x more damage than the normal charge shot.
  The overload charge shot becomes available after beating Gale Master, The player will be notified by Pip in the Lab that the overloaded charge shot is now available and needs to be unlocked with a special chip modification that is highlighted in an epic violet color(like the color of epic equipment) and a small pulse.
  Pip opens the page for you to see the new upgrade costing (balance the upgrade appropriately)
+  Done (Phase 2): the Overcharge node re-timed to full charge + 3 s at 7x (1.75x a full charge), gold-white comet in epic violet; unlocked by the Gale Guard, bought once for 2300 bolts as a violet mod in Circuits; Pip announces it and opens the page.
 
-- [] #101 Lets add an epic Transformer like battle like in Power Rangers, where the 10 Masters merge together and transform into a huge Transformer Robot that Flux has to fight right after Vex has been defeated(A checkpoint lets him restart from after Vex defeat to keep frustration low even on repeated death).
+- [x] #101 Lets add an epic Transformer like battle like in Power Rangers, where the 10 Masters merge together and transform into a huge Transformer Robot that Flux has to fight right after Vex has been defeated(A checkpoint lets him restart from after Vex defeat to keep frustration low even on repeated death).
  This fight against the "Grand Master Bot" is especially epic as the Grand Master Bot can use all Special Weapon shots and is kind of a random action game.
  Flux has to hit weak spots highlighted by Atlas on the Grand Master Bot to slowly disessable the Grand Master Bot and first shoot of his robot arms, then his feet, then his head and finally the body.
  A cutscene is played after Vex has been defeated: (wait for the boss defeated label to disappear)
@@ -151,15 +152,18 @@ Wait for my "go" to start implementation, ask to review the decisions first.
  and some mechanical robot sounds, after ~5 seconds the Grand Master Bot is introduced who drops in from the sky with the iconic assembling from all the Master bodies like a Power Rangers Transformer robot.
  Give the Grand Master Bot a unique attack pattern and Special attack which only he does.
  This is the final challenge and can be a bit harder as this is the end of the game.
+  Done (Phase 7): the red button, the rumble, the ten Masters assembling on the roof (skippable); arms, feet, head, core with Atlas marking the weak spot; its own Prism Cannon; ~106 s for the reference player; retry point at the fight's start.
  
-- [] #102 After defeating Vex and the Grand Master Bot, cybercity is saved and Vex's plan destroyed.
+- [x] #102 After defeating Vex and the Grand Master Bot, cybercity is saved and Vex's plan destroyed.
  Run an epic and ~2 minute long outro cutscene showing the implications for the new freed city the gauss revival scene and the
  remaining story-arc scenes that were planned. I think it makes sense to end the outro on the city skyline showing a button "Start Next Game +",
  which will let the player replay the whole story and mission on a ~25% harder challenge (mostly 25% more hp and the bosses have ~15% faster reaction times beetween attacks and try to catch the player off guard more often).
+  Done (Phase 8): "First Free Morning", ~100 s, skippable: the relays freed, Gauss waking, sunrise, credits with the Masters' portraits, end card with Start New Game+ (confirmed) or Back to the Lab; Gauss stays awake in the Lab. New Game+ = +25 % health, bosses ~15 % quicker.
 
-- [] #103 I would like to improve the mission selection screen(the actual story progression) to something more like in the MegaMan 2 till X games, where They had a screen
+- [x] #103 I would like to improve the mission selection screen(the actual story progression) to something more like in the MegaMan 2 till X games, where They had a screen
  with all the Android portraits to choose the next level/mission, make a web-search please to understand what I mean.
  keep the linear story progress, but show the Masters Portrait on the mission card please along with the mission name and colored card border fitting the Masters powers.
+  Done (Phase 5): portrait tiles in each Master's colour (beaten / next / locked), the story card in the Master's colour, a boss splash during the mission load; the story stays linear.
  
 
 - [x] #104 Master colours: some of the new Masters' colours in the story docs clash with the colours that were freed up when the roster grew to 10 Masters.
@@ -173,21 +177,49 @@ Wait for my "go" to start implementation, ask to review the decisions first.
 
 - [x] #107 Crumbling slabs in the old stages (Blaze, Frost, Volt, Gale and the Tower): 1–2 spots each, deferred from the stage retrofit.
 
-- [ ] #108 The Scrapper's magnet crane: a crane over the Scrapper boss arena that picks up and drops breakable crates (energy pills inside; a hazard where they land), deferred from the boss-room ideas.
+- [x] #108 The Scrapper's magnet crane: a crane over the Scrapper boss arena that picks up and drops breakable crates (energy pills inside; a hazard where they land), deferred from the boss-room ideas.
+  Done (Phase 4.1): works in the Scrapper's second half only (first fight unchanged); a crate every 8 s on a ring near Flux, 6 % of the Scrapper's health if it lands on him, soft cover with an energy pill.
 
-- [ ] #109 Core Descent for Vex: the roof fight in lightning, then a fall into the reactor hall that cycles the Master hazards, then a small ring around the Core. The fortress currently has a single arena.
+- [x] #109 Core Descent for Vex: the roof fight in lightning, then a fall into the reactor hall that cycles the Master hazards, then a small ring around the Core. The fortress currently has a single arena.
+  Done (Phase 6): roof in lightning, reactor hall at 65 %, Core ring at 30 %, a fall scene between them and a retry point at each.
 
-- [ ] #110 Neon's blackout pulses: the Blackout Boulevard should go dark in timed pulses (lights and light bridges off), so the player has to time the crossings.
+- [x] #110 Neon's blackout pulses: the Blackout Boulevard should go dark in timed pulses (lights and light bridges off), so the player has to time the crossings.
+  Done (Phase 4.2): 9 s cycle (1 s warning, 2 s dark), max 3 flashes a second; the Blink Run's bridges go out with the dark; the boss arena keeps its lights.
 
-- [ ] #111 Drill's mine cart: a mine cart ride section in the Deep Mine.
+- [x] #111 Drill's mine cart: a mine cart ride section in the Deep Mine.
+  Done (Phase 4.3): an optional ~15 s ore-cart ride from the Chasm over a trestle, a steep drop and across the Mole Warren (the stage had no room for a longer one).
 
-- [ ] #112 IOS playtime is significantly lower than the Androids playtime, Android 28min vs 5 min on IOS, or another day: Android 16min, IOS 1 min. Is there maybe some issue with layout or buttons not working on ios?
+- [x] #112 IOS playtime is significantly lower than the Androids playtime, Android 28min vs 5 min on IOS, or another day: Android 16min, IOS 1 min. Is there maybe some issue with layout or buttons not working on ios?
+  Done (Phase 1): recovery from a lost WebGL context, audio unlock that survives calls and ads, iPad = mobile layout, checklist taps fixed, a lighter iOS default (unmeasured: revert with ?perf=ios-legacy if it isn't needed).
 
-- [ ] #113 cleanup old unit tests that belong to the /world and /characters and /water routes and have no usage anymore, both end2end and unit tests, that should
+- [x] #113 cleanup old unit tests that belong to the /world and /characters and /water routes and have no usage anymore, both end2end and unit tests, that should
   drastically lower the time for test runs. Also check every unit test and e2e test for its validity and use for the current project and remove if its absolutely unrelated.
+  Done (Phase 0): no /world, /characters or /water routes in this repo (they are in 3d-world and runic-journey); one dead test removed, old-game fixtures renamed, tests run without jsdom where possible: ~43 s -> ~30 s.
 
-- [ ] #114 'F1' for help does nothing when clicked and/or pressed.
+- [x] #114 'F1' for help does nothing when clicked and/or pressed.
   There is an abnormal number of [platform] Get language (Playgama build, but should be fixed on all). Do not call get language more than once after starting the game as it will negatively impact the game's performance.
   Consider refining sound design for a better player experience.
+  Done (Phases 1b, 3.1, 10b): F1 / help opens the controls legend everywhere; the platform language is read once; the mix (voice bus, ducking, variation, caps), a low-health heartbeat, button and close sounds.
 
-- [ ] #115 Use the new-game-playbook to apply best practices for platform builds and platform fit to this project, especially language selection and progress saving and loading.
+- [x] #115 Use the new-game-playbook to apply best practices for platform builds and platform fit to this project, especially language selection and progress saving and loading.
+  Done (Phase 1b): the portal language is never stored as the player's choice (explicit-choice flag), Options shows the live language, GamePix language used, Yandex cloud load retries and merges by progress. Open: an Arabic RTL check in the Playgama QA Tool.
+
+- [x] #116 add the remaining language locales from the new-web-game-playbook to the game, so the game can be played in all languages that are supported by the new-web-game-playbook.
+
+- [ ] #117 Let's start on creating an voice-over pipeline. In general this is a very task to voice over NPCs and the player with manually voiced 
+ sound files, especially if you have to pitch and change the sound style of the spoken VO in audacity, which I did for another project. 
+ Therefore, I would like to automate it if possible. Elevenlabs offers the best models for this as far as I know but has low rate limits.
+ Creating a Gemini-like voice-over pipeline with free accounts of elevenlabs is only the very last possibility for me as it would be quite cumbersome and the paid license is ways to expensive for me now.
+ Therefore, let's first do a web-search to find other ways (python based LLMs or Node.js/Npm based LLMs to do voice over in a real fast pipeline).
+ The web research should also include if its possible to change the voice pronounciation and tone and speed based on a characters description design,
+ so we can have very differently speaking voices for each character according to his age, gender, character attributes etc.. If so, you would need to create the descriptions from our story files.
+ The optimal approach would be to have a npm package that can take a character description or file (and Stage direction on how to say the sentence: "shout"/"calm"/"lovely"/etc. + current situation) that helps the voice model 
+ to perfectly say the sentence in questions and that needs no further editing after the file was produced.
+ compare multiple model and generators and test them in a vo-test-install branch with 3 sample texts (and above mentioned stage directions etc.) before choosing the best fitting that created the best voice output.
+ Let me judge on the quality and which is better in a structured browser report.
+ In any case the resulting file needs to be saved in .ogg format (quality level 2 in audacity was good enough for me in  the past for a minimal sound file and a minimal footprint on the game bundle), this files then will be compressed again with a audio compressor
+ (I judge the quality loss versus the uncompressed version in a structured browser report).
+ for this voice over task to work well, we need a package.json script that collects
+ all voice-lines in english and german and with their potential stage directions and their character descriptions(or generates some character description cards).
+ The package.json script also needs to have a -samples run with 3 samples for each language.
+ After the pipeline is fully built and runs, we can create a skill from the learnings to recreate this pipeline in other projects, not only games.

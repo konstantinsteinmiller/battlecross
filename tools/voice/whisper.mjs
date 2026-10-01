@@ -41,6 +41,8 @@ export const transcribe = async (items) => {
     console.warn('  no Whisper environment (pnpm voice:setup whisper): skipping the read-back')
     return {}
   }
-  const r = await runPython('whisper', 'run_whisper.py', { jobs: items }, { label: 'whisper' })
+  // The cast's names as a spelling hint (Whisper hears "Flux" as "Phlox" without it).
+  const prompt = 'Flux, Vex, Atlas, Gauss, Pip.'
+  const r = await runPython('whisper', 'run_whisper.py', { jobs: items.map(i => ({ ...i, prompt })) }, { label: 'whisper' })
   return Object.fromEntries(r.results.map(x => [x.id, x.text ?? null]))
 }

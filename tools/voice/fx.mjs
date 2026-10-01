@@ -24,7 +24,7 @@ export const vexPlace = (key) =>
 
 const PLACES = {
   // A hacked screen or a hub transmission: a narrow band, grit, no room.
-  broadcast: `${band(250, 4500)},acrusher=bits=6:mode=lin:mix=0.15:aa=1`,
+  broadcast: `${band(250, 4500)},acrusher=bits=8:mode=lin:mix=0.08:aa=1`,
   // The arena PA: one slap at 110 ms and a short hall.
   pa: 'aecho=1:0.9:110|43|67|89:0.15|0.12|0.09|0.07',
   // In person, a small hard room close up.
@@ -72,13 +72,15 @@ export const chainFor = (speaker, key, { dry = false } = {}) => {
       return `[0:a]${prep},${narrow ? band(400, 4000) : band(280, 6200)},${eq(700, -2)},${eq(3000, 3)},aecho=1:1:14:${doubler},${ring(1200, 0.06)}${narrow ? ',acrusher=bits=10:mode=lin:mix=0.3:aa=1' : ''}[fx]`
     }
     case 'vex': {
-      // Main layer −2 st with a 98 Hz square gated by the voice's energy over 3 kHz (the consonant buzz);
-      // a sub layer an octave down, crushed to 8 kHz / 24 levels, dark, at −12 dB; then one voice, toned and placed.
+      // Main layer −2 st with a 98 Hz square gated by the voice's energy over 3 kHz (the consonant buzz,
+      // kept faint); a sub layer an octave down, dark, at −12 dB; then one voice, toned and placed.
+      // The Audacity chain crushed the sub layer (8 kHz / 24 levels): the user heard it as crisping on
+      // the Blaze Master line, so the sub layer is clean and the buzz half as loud (2026-10-02).
       const sub = key !== 'vex.sting.doctorIn'
       const place = PLACES[vexPlace(key)]
       const main = `[m]rubberband=pitch=${semis(-2)},asplit=2[m1][m2]`
-      const buzz = `[m2]highpass=f=3000:poles=2,aeval=exprs='abs(val(0))':channel_layout=mono,lowpass=f=30,aeval=exprs='0.25*max(0\\,3*val(0)-0.06)*if(lt(mod(t*98\\,1)\\,0.5)\\,1\\,-1)':channel_layout=mono[bz]`
-      const subL = `[s]rubberband=pitch=0.5,aresample=8000,acrusher=bits=5:mode=lin:aa=0,aresample=48000,lowpass=f=2500:poles=2,highpass=f=60:poles=2,volume=0.2512[sb]`
+      const buzz = `[m2]highpass=f=3000:poles=2,aeval=exprs='abs(val(0))':channel_layout=mono,lowpass=f=30,aeval=exprs='0.12*max(0\\,3*val(0)-0.06)*if(lt(mod(t*98\\,1)\\,0.5)\\,1\\,-1)':channel_layout=mono[bz]`
+      const subL = `[s]rubberband=pitch=0.5,lowpass=f=2500:poles=2,highpass=f=60:poles=2,volume=0.2512[sb]`
       const mixIn = sub ? '[m1][bz][sb]amix=inputs=3:normalize=0' : '[m1][bz]amix=inputs=2:normalize=0'
       return `[0:a]${prep},asplit=2[m][s];${main};${buzz};${sub ? subL : '[s]anullsink'};${mixIn},${band(110, 8000)},${eq(180, 2)},${eq(800, -2)},${eq(3500, 3)},${place}[fx]`
     }

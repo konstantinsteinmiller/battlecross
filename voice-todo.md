@@ -17,8 +17,10 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 - **Missing files are fine.** The build lists the files that exist, so a
   line without one is never requested (no 404, nothing in the console); it
   just shows its bubble. A file that fails to decode is skipped silently.
-- **Format:** mono, 44.1 kHz, about −16 LUFS, peaks under −3 dBFS, no
-  leading silence (a line plays the moment its bubble pops), under ~3 s.
+- **Format:** mono, about −16 LUFS, peaks under −3 dBFS, no leading
+  silence (a line plays the moment its bubble pops), under ~3 s. `pnpm
+  voice:gen` writes them as Opus 24 kbps in an `.ogg` file (see
+  story-voice-over.md, "The pipeline").
 - **Timing:** the bubble stays up for the recording's length (+0.35 s).
 - Picked up at build time; the dev server reloads by itself.
 
