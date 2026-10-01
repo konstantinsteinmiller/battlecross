@@ -15,7 +15,7 @@ import { LANGUAGES } from '@/utils/enums'
 import { initAds } from '@/use/useAds'
 import { installGamePauseAudio } from '@/use/useGamePauseAudio'
 import { onPauseChange } from '@/use/useGamePause'
-import useUser, { clearLanguageChoice, isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
+import useUser, { clearLanguageChoice, hasLanguageChoice, isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
 import { followPortalLanguage, notePortalLanguageChange } from '@/i18n/portalLanguage'
 import { PLURAL_RULES } from '@/i18n/plural'
 import { isDebug } from '@/use/useMatch.ts'
@@ -129,6 +129,7 @@ const bootstrap = async () => {
   let yaLocale: string | null = null
   let pkLocale: string | null = null
   let pgLocale: string | null = null
+  let gpLocale: string | null = null
   if (isCrazyWeb) {
     const cg = await import('@/use/useCrazyGames')
     await cg.initCrazyGames()
@@ -168,6 +169,7 @@ const bootstrap = async () => {
     const { gamepixPlugin, gamePixGameLoadingStart } = await import('@/utils/gamepixPlugin')
     await gamepixPlugin()
     gamePixGameLoadingStart()
+    gpLocale = (await import('@/utils/gamepixPlugin')).gamePixLocale.value
   } else if (isYandex) {
     // **Awaited** init — must finish BEFORE `saveManager.init()` runs hydrate.
     // YandexStrategy's `hydrate()` reads `player.getData()` for the
@@ -411,7 +413,7 @@ const bootstrap = async () => {
   // `cgLocale` / `yaLocale` were captured up in their init arms; null on
   // other builds. Yandex returns ISO-639-1 (`en`, `ru`, `tr`, etc.);
   // anything we don't ship maps to the resolver's fallback chain.
-  const portalLocaleHint = cgLocale ?? yaLocale ?? pkLocale ?? pgLocale
+  const portalLocaleHint = cgLocale ?? yaLocale ?? pkLocale ?? pgLocale ?? gpLocale
   const portalLocale = portalLocaleHint && LANGUAGES.includes(portalLocaleHint) ? portalLocaleHint : null
 
   // PLAYGAMA: the stored in-game choice wins while the portal language is
@@ -422,9 +424,11 @@ const bootstrap = async () => {
   // two locale loads. The portal value itself is never persisted.
   let bootLocaleHint = portalLocale
   if (import.meta.env.VITE_APP_PLAYGAMA === 'true') {
-    if (pgLocale && notePortalLanguageChange(pgLocale) && hasState(LANGUAGE_KEY)) clearLanguageChoice(pgLocale)
-    if (hasState(LANGUAGE_KEY)) bootLocaleHint = null
+    if (pgLocale && notePortalLanguageChange(pgLocale) && hasLanguageChoice()) clearLanguageChoice(pgLocale)
   }
+  // Every portal: the player's own choice beats the portal language; anything
+  // else stored (an older build's portal seed) does not.
+  if (hasLanguageChoice()) bootLocaleHint = null
 
   const { default: App } = await import('@/App.vue')
 
@@ -472,7 +476,7 @@ const bootstrap = async () => {
   // useUser.ts deliberately does NOT seed a language default, so the
   // null/non-null probe here is a reliable signal.
   {
-    const { userLanguage: storedLang, setSettingValue } = useUser()
+    const { userLanguage: storedLang } = useUser()
     const { isDbInitialized: dbReady } = await import('@/use/useMatch')
     let stopLangSync: (() => void) | null = null
     stopLangSync = watch(
@@ -486,17 +490,18 @@ const bootstrap = async () => {
         // resolves a cloud value AFTER the early reload (Glitch's HTTP
         // strategy resolves out-of-band in some flows, etc.). Idempotent.
         reloadGameState()
-        const hasStoredLanguage = hasState(LANGUAGE_KEY)
+        const chosen = hasLanguageChoice()
         // POKI is deliberately NOT in this seed. `PokiSDK.getLanguage()` is the
         // Poki site's language (`?iso_lang`, else the browser's): platform
         // state, not a player choice. Written into the player's key it would
         // outrank every later visit through Poki's cloud save — a player who
         // once came in via poki.com/en would stay English on poki.com/de. It
         // still picks the first-paint locale above (`portalLocaleHint`).
-        const portalSeed = cgLocale ?? yaLocale
-        if (!hasStoredLanguage && portalSeed && LANGUAGES.includes(portalSeed)) {
-          setSettingValue('language', portalSeed)
-        }
+        // CRAZYGAMES and YANDEX used to be seeded here — the portal language
+        // written into the player's key on first boot — with exactly that
+        // result through their cloud saves (#115). They follow the same rule
+        // as Poki and Playgama now: the portal language picks the first paint
+        // (`portalLocaleHint`) and is never stored.
         // Apply whichever language is now authoritative — the stored
         // value (cloud-hydrated or just-seeded). Never the portal locale
         // unconditionally, because that's what was overwriting an
@@ -510,9 +515,12 @@ const bootstrap = async () => {
         // YouTube-shaped browser run, where `getLanguage()` said 'de'. POKI
         // likewise: its hint is never stored (above), so the 'en' default must
         // not overwrite it either.
-        const portalHintOnly = (import.meta.env.VITE_APP_PLAYGAMA === 'true' || import.meta.env.VITE_APP_POKI === 'true')
-          && !hasStoredLanguage
-        if (!portalHintOnly && isSupportedLocale(storedLang.value)) {
+        // A stored language WITHOUT the choice flag only applies where no portal
+        // spoke: never on Playgama / Poki (their old builds stored the portal
+        // value), and never over a portal language that is showing.
+        const hintBuild = import.meta.env.VITE_APP_PLAYGAMA === 'true' || import.meta.env.VITE_APP_POKI === 'true'
+        const applyStored = hasState(LANGUAGE_KEY) && (chosen || (!portalLocale && !hintBuild))
+        if (applyStored && isSupportedLocale(storedLang.value)) {
           setI18nLocale(i18n, storedLang.value)
         }
       },
@@ -522,27 +530,25 @@ const bootstrap = async () => {
 
   // ─── Playgama / Playables: the portal language, live ───────────────────
   //
-  // Deliberately NOT folded into `portalSeed` above, which WRITES the portal
-  // locale into the player's own language key. Platform state is not player
+  // The portal language is never written into the player's own language key
+  // (older builds did, for CrazyGames and Yandex). Platform state is not player
   // state: once written, "the portal said so" is indistinguishable from "the
   // player chose this", every later portal language is ignored, and via cloud
   // save that survives a QA re-test on the same account — the ticket Playgama
   // filed twice against chaos-arena.
   //
   // So here the portal language is APPLIED and never stored, and only while
-  // the player has made no choice of their own. It follows mid-session changes
-  // too (the plugin polls `platform.language`), because Playgama's QA Tool
-  // switches language without reloading the frame — and a portal language that
-  // CHANGED outranks an in-game choice made before it (`followPortalLanguage`:
-  // QA's localization flow picks a language in-game first, then switches the
-  // platform's).
+  // the player has made no choice of their own. The plugin reads it ONCE per
+  // page (Playgama's review: no repeated Get language calls), so this watcher
+  // only catches a first answer that lands after boot; a portal language that
+  // changed between visits outranks an earlier in-game choice
+  // (`notePortalLanguageChange` / `followPortalLanguage`).
   if (import.meta.env.VITE_APP_PLAYGAMA === 'true') {
     // (A switch between two visits was settled before the i18n instance was
-    // built — see `notePortalLanguageChange` above — so this only has to follow
-    // the language live: a late first answer, and the QA Tool's switches.)
+    // built — see `notePortalLanguageChange` above.)
     const { playgamaLocale } = await import('@/utils/playgamaPlugin')
     watch(playgamaLocale, (code) => followPortalLanguage(code, {
-      hasChoice: () => hasState(LANGUAGE_KEY),
+      hasChoice: hasLanguageChoice,
       clearChoice: clearLanguageChoice,
       apply: (c) => { void setI18nLocale(i18n, c) }
     }))

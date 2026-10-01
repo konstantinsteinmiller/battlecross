@@ -114,9 +114,18 @@ onUnmounted(() => {
 // Context menus, mouse and rocker gestures, autoscroll, the history buttons,
 // drag, selection, pinch and quick find: see `useBrowserGuard`.
 let removeBrowserGuard: (() => void) | null = null
+// Inside a portal's iframe, keys go to the portal page until the frame has
+// focus: F1 then opened the BROWSER's help instead of ours (#114). Take focus
+// at boot and on every press inside the game.
+const focusFrame = (): void => { try { window.focus() } catch { /* cross-origin quirks */ } }
+const embedded = (() => { try { return window.top !== window.self } catch { return true } })()
 onMounted(() => {
   removeBrowserGuard = installBrowserGuard()
   portraitQuery.addEventListener('change', onOrientationChange)
+  if (embedded) {
+    focusFrame()
+    window.addEventListener('pointerdown', focusFrame, { capture: true, passive: true })
+  }
 })
 onUnmounted(() => {
   removeBrowserGuard?.()

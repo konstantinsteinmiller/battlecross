@@ -26,17 +26,16 @@ const main = readFileSync(resolve(__dirname, '..', '..', 'src', 'main.ts'), 'utf
   .replace(/(^|[^:])\/\/.*$/gm, '$1')
 
 describe('poki language hint (main.ts)', () => {
-  it('never persists the Poki locale into the player language key', () => {
-    const seed = /const portalSeed\s*=\s*([^\n]+)/.exec(main)
-    expect(seed, 'portalSeed assignment not found').not.toBeNull()
-    expect(seed![1]).not.toMatch(/pkLocale/)
+  it('never persists any portal locale into the player language key', () => {
+    expect(main).not.toMatch(/portalSeed/)
+    expect(main).not.toMatch(/setSettingValue\('language'/)
   })
 
-  it('does not overwrite the hint with the default for a player who chose nothing', () => {
-    const guard = /const portalHintOnly\s*=([\s\S]*?)\n\s*if \(/.exec(main)
-    expect(guard, 'portalHintOnly guard not found').not.toBeNull()
+  it('does not overwrite the hint with a stored value the player never chose', () => {
+    const guard = /const hintBuild\s*=([^\n]+)\n\s*const applyStored\s*=([^\n]+)/.exec(main)
+    expect(guard, 'applyStored guard not found').not.toBeNull()
     expect(guard![1]).toMatch(/VITE_APP_POKI === 'true'/)
-    expect(guard![1]).toMatch(/!hasStoredLanguage/)
+    expect(guard![2]).toMatch(/chosen \|\| \(!portalLocale && !hintBuild\)/)
   })
 
   it('still lets the hint choose the first-paint locale', () => {

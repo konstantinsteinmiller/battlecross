@@ -41,6 +41,16 @@ const {
 
 const currentTab = ref('general')
 
+// The dropdown shows the language ON SCREEN, not the stored setting: a
+// first-time player on a German portal saw German text with "English"
+// selected, and picking English then changed nothing (#115). A pick is always
+// the player's choice and always applied, even when it equals the stored one.
+const chooseLanguage = (code: string): void => {
+  setSettingValue('language', code)
+  if (appI18n) void setI18nLocale(appI18n, code)
+  else locale.value = code
+}
+
 watch(userLanguage, async (newValue: string) => {
   if (appI18n) {
     await setI18nLocale(appI18n, newValue)
@@ -157,8 +167,8 @@ onUnmounted(stopCapture)
           FSelect(
             :label="t('options.language')"
             :options="languagesList"
-            :model-value="userLanguage"
-            @update:model-value="setSettingValue('language', $event)"
+            :model-value="locale"
+            @update:model-value="chooseLanguage($event)"
           )
         hr(v-if="!isMobileLandscape" class="border-slate-600 my-1 md:my-2 pt-0")
         FSlider.px-4(class="!py-1 !pb-3 w-full max-w-[min(20rem,90%)]" :model-value="userSoundVolume" @update:modelValue="setSettingValue('sound', $event)" :label="t('options.soundEffects')" :min="0" :max="1" :step="0.01")

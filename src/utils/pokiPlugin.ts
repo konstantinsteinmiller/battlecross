@@ -176,6 +176,9 @@ const waitForSdk = async (timeoutMs = SDK_WAIT_TIMEOUT_MS): Promise<PokiSDKGloba
  * first `gameplayStart()`, so boot latency is revenue).
  */
 export const readPokiLanguage = (): string | null => {
+  // Once per page: `main.ts` reads it before the SDK core lands and the init
+  // below would read it again (#114: one language read per session).
+  if (pokiLocale.value) return pokiLocale.value
   const sdk = getSdk()
   if (!sdk) return null
   try {

@@ -71,6 +71,7 @@ import {
 import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentMission } from '@/game/boot'
 import { flow, startMission, storyFor, goHub, replayIntro, INTRO_ENABLED } from '@/game/flow'
+import { toggleHelp } from '@/game/help'
 import { hud } from '@/game/state/hud'
 import { profile } from '@/game/state/profile'
 import { chargeHum } from '@/game/audio/synth'
@@ -154,13 +155,12 @@ const typing = (e: KeyboardEvent): boolean => {
 }
 
 const onKey = (e: KeyboardEvent) => {
-  // F1 and "?" are the HUD's "?" button (bring the control glyphs back): a
-  // captured mouse has no cursor to click it with. `e.key` so "?" is found
-  // on every layout. Both keys are the game's here: F1 never opens the
-  // browser's help page.
+  // F1 and "?" are the HUD's "?" button (the controls legend): a captured
+  // mouse has no cursor to click it with. `e.key` so "?" is found on every
+  // layout. Both keys are the game's here: F1 never opens the browser's help.
   if (e.code === 'F1' || (e.key === '?' && !typing(e))) {
     e.preventDefault()
-    if (!e.repeat && flow.screen === 'mission' && !flow.modal && !isGamePaused.value) currentMission()?.showHelp()
+    if (!e.repeat) toggleHelp()
     return
   }
   // F2 is the HUD's speaker button, on every screen (the lab and the menus

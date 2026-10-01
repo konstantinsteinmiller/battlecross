@@ -548,10 +548,13 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P1 #112 iOS resilience** (841344f): GL context-loss veil and
     recovery, gesture-armed audio resume for life, iPadOS = mobile, checklist
     taps, iOS low scenery + 1.5x (PERF-LEDGER 7, unmeasured).
-  - [ ] **P1b #114/#115 platform fit**: language read once (no Playgama poll),
+  - [x] **P1b #114/#115 platform fit**: language read once (no Playgama poll),
     portal language never saved as the player's choice + explicit-choice flag,
     Options shows the live language, GamePix hint, Yandex retry + merge, F1 /
-    Help opens the controls legend everywhere + frame focus.
+    Help opens the controls legend everywhere + frame focus. Open from the
+    audit: Arabic RTL proof on the built Playgama archive (QA Tool, 320×658);
+    CrazyGames keeps no device-local backup (CG forbids local data, by
+    design); ad-before-results order per portal stays as pinned.
   - [ ] **P2 #100 Overload shot** (giga re-timed: full + 3 s, 7x; Gale gate;
     bolt-priced epic-violet mod; Pip opens it).
   - [ ] **P3 Shared engines**: story-cutscene player, in-mission scenes,

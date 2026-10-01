@@ -163,7 +163,8 @@ describe('main.ts wires it on the Playgama build', () => {
   it('follows the language live through followPortalLanguage, and never stores it', () => {
     expect(main).toMatch(/watch\(playgamaLocale, \(code\) => followPortalLanguage\(code, \{/)
     expect(main).toMatch(/clearChoice: clearLanguageChoice/)
-    // The portal locale is never seeded into the player's key on this build.
-    expect(main).toMatch(/const portalSeed = cgLocale \?\? yaLocale\n/)
+    // The portal locale is never seeded into the player's key, on any build.
+    expect(main).not.toMatch(/portalSeed/)
+    expect(main).not.toMatch(/setSettingValue\('language'/)
   })
 })

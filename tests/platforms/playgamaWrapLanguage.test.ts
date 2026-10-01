@@ -76,14 +76,13 @@ describe('the Wrap site\'s language (Bridge `standalone`)', () => {
     expect(m.playgamaLocale.value).toBe('fr')
   })
 
-  it('follows a mid-session switch on the Wrap page, like any portal', async () => {
+  it('asks the Wrap page once, like any portal (no poll, #114)', async () => {
     vi.useFakeTimers()
-    let lang = 'fr'
-    const m = await load(makeBridge({ id: 'standalone', browserLanguage: 'de', wrap: { getLanguage: () => lang } }))
+    let calls = 0
+    const m = await load(makeBridge({ id: 'standalone', browserLanguage: 'de', wrap: { getLanguage: () => { calls++; return 'fr' } } }))
     expect(m.playgamaLocale.value).toBe('fr')
-    lang = 'ja'
-    await vi.advanceTimersByTimeAsync(2_100)
-    expect(m.playgamaLocale.value).toBe('ja')
+    await vi.advanceTimersByTimeAsync(60_000)
+    expect(calls).toBe(1)
   })
 
   it('falls back to the game\'s own default when the Wrap SDK supplies none', async () => {

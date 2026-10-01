@@ -6,7 +6,7 @@ import { isDbInitialized, isSplashScreenVisible } from '@/use/useMatch'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import { getState, setState, hasState, removeState, flushPersist } from '@/use/useGameState'
 import {
-  SOUND_KEY, MUSIC_KEY, LANGUAGE_KEY, DIFFICULTY_KEY, MUSIC_TRACK_KEY
+  SOUND_KEY, MUSIC_KEY, LANGUAGE_KEY, LANGUAGE_CHOSEN_KEY, DIFFICULTY_KEY, MUSIC_TRACK_KEY
 } from '@/keys'
 
 export const windowWidth = ref(window.innerWidth)
@@ -202,9 +202,22 @@ sweepLegacyKeys(sessionStorage)
  */
 export const clearLanguageChoice = (displayed: string): void => {
   removeState(LANGUAGE_KEY)
+  removeState(LANGUAGE_CHOSEN_KEY)
   flushPersist()
   userLanguage.value = displayed
 }
+
+/**
+ * Did the PLAYER choose the stored language (in Options)?
+ *
+ * "A language is stored" used to mean that, but older builds wrote the
+ * CrazyGames / Yandex / Poki portal language into the same key, and a portal
+ * value written there outranked every later portal language for good (synced
+ * through the cloud save). Only Options sets the flag, so those saves read as
+ * "no choice" and follow the portal again.
+ */
+export const hasLanguageChoice = (): boolean =>
+  hasState(LANGUAGE_KEY) && getState<boolean>(LANGUAGE_CHOSEN_KEY, false) === true
 
 // ─── Composable surface ───────────────────────────────────────────────────
 
@@ -222,6 +235,7 @@ const useUser = () => {
       case 'language':
         userLanguage.value = value as string
         setState(LANGUAGE_KEY, userLanguage.value)
+        setState(LANGUAGE_CHOSEN_KEY, true)
         break
       case 'difficulty':
         userDifficulty.value = value as Difficulties

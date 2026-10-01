@@ -35,7 +35,7 @@ import KeyCap from './KeyCap.vue'
 import BossChip from './BossChip.vue'
 import { formatCount } from '@/utils/localeNumber'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
-import { currentMission } from '@/game/boot'
+import { toggleHelp } from '@/game/help'
 import { gameMuted, toggleGameMute } from '@/use/useGameMute'
 
 defineEmits<{ pause: [] }>()
@@ -43,7 +43,7 @@ const { t, locale } = useI18n()
 const fmt = (n: number) => formatCount(Math.round(n), locale.value)
 /** Bring the control glyphs back (the coach's "?"). F1 and "?" do the same
  *  (GameScene's key handler): a captured mouse has no cursor to click with. */
-const help = () => currentMission()?.showHelp()
+const help = () => toggleHelp()
 /** Mouse + keys: both buttons wear their key, like the action buttons. */
 const desk = computed(() => hud.device === 'mouse')
 </script>

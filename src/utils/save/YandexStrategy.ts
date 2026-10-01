@@ -45,7 +45,7 @@ import type {
 } from './types'
 import { isInternalKey } from './types'
 import { STATE_KEY } from '@/use/useGameState'
-import { META_KEY } from './SaveMergePolicy'
+import { META_KEY, computeMeta, decideMerge, parseMeta, serializeMeta } from './SaveMergePolicy'
 import { isDebug } from '@/use/useMatch'
 import { getYandexPlayer } from '@/utils/yandexPlugin'
 
@@ -67,6 +67,13 @@ const TAG = '[yandex-save]'
 const dlog = (...args: unknown[]): void => {
   if (isDebug.value) console.info(...args)
 }
+
+/** Background re-reads after a failed cloud load (same ladder as CrazyGames).
+ *  Without them a session whose first `getData` failed (rate limit, network)
+ *  queued every write "until the next successful read" — which never came, so
+ *  the whole session's progress was never uploaded (#115). */
+const HYDRATE_RETRY_DELAYS_MS = [5_000, 15_000, 45_000, 120_000, 300_000]
+const HYDRATE_RETRY_LOOP_MS = 900_000
 
 const shouldMirror = (key: string): boolean =>
   !isInternalKey(key) && PORTAL_KEYS.has(key)
@@ -91,10 +98,49 @@ export class YandexStrategy implements SaveStrategy {
    *  duplicate call. Yandex's rate limit (100 / 5 min) is generous, but
    *  paid-traffic spikes are a cert-review concern. */
   private inFlight: Promise<void> | null = null
+  private local: LocalStorageAccessor | null = null
+  private retryAttempt = 0
+  private retryTimer: ReturnType<typeof setTimeout> | null = null
 
   // ─── Hydrate ────────────────────────────────────────────────────────────
 
   async hydrate(local: LocalStorageAccessor): Promise<void> {
+    this.local = local
+    await this.runHydrate(local)
+    if (this.hydrateState === 'failed-retrying') this.scheduleRetry()
+  }
+
+  async retryHydrate(local: LocalStorageAccessor): Promise<HydrateState> {
+    this.local = local
+    if (this.retryTimer) {
+      clearTimeout(this.retryTimer)
+      this.retryTimer = null
+    }
+    await this.runHydrate(local)
+    if (this.hydrateState === 'failed-retrying') this.scheduleRetry()
+    return this.hydrateState
+  }
+
+  private scheduleRetry(): void {
+    if (this.retryTimer) return
+    const delay = HYDRATE_RETRY_DELAYS_MS[this.retryAttempt] ?? HYDRATE_RETRY_LOOP_MS
+    this.retryAttempt++
+    this.retryTimer = setTimeout(() => {
+      this.retryTimer = null
+      if (this.local) void this.retryHydrate(this.local)
+    }, delay)
+  }
+
+  /** Queue the local save for upload (local won, or the cloud is empty). */
+  private pushLocal(local: LocalStorageAccessor): void {
+    for (const key of PORTAL_KEYS) {
+      const v = local.get(key)
+      if (v !== null && !this.dirty.has(key)) this.dirty.set(key, v)
+    }
+    if (this.dirty.size > 0) this.scheduleFlush()
+  }
+
+  private async runHydrate(local: LocalStorageAccessor): Promise<void> {
     const player = getYandexPlayer()
     if (!player) {
       // SDK init resolved without a player (anonymous limit, network).
@@ -108,23 +154,36 @@ export class YandexStrategy implements SaveStrategy {
     try {
       const result = await player.getData([CLOUD_BLOB_KEY])
       const cloud = result?.[CLOUD_BLOB_KEY]
-      if (!cloud || typeof cloud !== 'object') {
+      this.retryAttempt = 0
+      const { blob, meta } = (cloud && typeof cloud === 'object' ? cloud : {}) as { blob?: string; meta?: string }
+      const remoteState = typeof blob === 'string' && blob.length > 0 ? blob : null
+      if (remoteState === null) {
         dlog(`${TAG} hydrate: cloud empty → success-empty`)
         this.setState('success-empty')
+        this.pushLocal(local)
         return
       }
-      const { blob, meta } = cloud as { blob?: string; meta?: string }
-      let mirrored = 0
-      if (typeof blob === 'string' && blob.length > 0) {
-        local.set(STATE_KEY, blob)
-        mirrored++
+      // Merge by progress, like Playgama and CrazyGames: the cloud used to
+      // overwrite local unconditionally, so after a failed upload an OLDER
+      // cloud save wiped newer local progress on the next start (#115).
+      const remoteMeta = parseMeta(typeof meta === 'string' ? meta : null)
+        ?? computeMeta({ get: (k) => (k === STATE_KEY ? remoteState : null) })
+      const localMeta = parseMeta(local.get(META_KEY))
+        ?? (local.get(STATE_KEY) !== null ? computeMeta({ get: (k) => local.get(k) }) : null)
+      const resolution = decideMerge(localMeta, remoteMeta)
+      if (resolution.kind === 'remote-wins' || resolution.kind === 'remote-only') {
+        // Writes queued before the read were made against pre-hydrate state;
+        // the cloud just won, so they must not go back up over it.
+        this.dirty.clear()
+        local.set(STATE_KEY, remoteState)
+        if (remoteMeta) local.set(META_KEY, serializeMeta(remoteMeta))
+        dlog(`${TAG} hydrate: ${resolution.kind} — cloud → local`)
+        this.setState('success-with-data')
+        return
       }
-      if (typeof meta === 'string' && meta.length > 0) {
-        local.set(META_KEY, meta)
-        mirrored++
-      }
-      this.setState(mirrored > 0 ? 'success-with-data' : 'success-empty')
-      dlog(`${TAG} hydrate: mirrored ${mirrored} key(s) from cloud`)
+      dlog(`${TAG} hydrate: ${resolution.kind} — keeping local, queued for push`)
+      this.setState('success-with-data')
+      this.pushLocal(local)
     } catch (e) {
       // Cloud read failed (rate-limited, transient network). Don't latch
       // `failed-final` — flag as `failed-retrying` so SaveManager's
@@ -171,6 +230,10 @@ export class YandexStrategy implements SaveStrategy {
   }
 
   dispose(): void {
+    if (this.retryTimer) {
+      clearTimeout(this.retryTimer)
+      this.retryTimer = null
+    }
     if (this.writeTimer) {
       clearTimeout(this.writeTimer)
       this.writeTimer = null

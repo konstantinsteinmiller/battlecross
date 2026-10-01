@@ -81,6 +81,9 @@ export const PORTAL_JOINED_KEY = 'ma_portal_joined'
 export const SOUND_KEY = 'ma_user_sound_volume'
 export const MUSIC_KEY = 'ma_user_music_volume'
 export const LANGUAGE_KEY = 'ma_user_language'
+/** `true` once the PLAYER picked a language in Options. A stored language
+ *  without it (seeded from a portal by older builds) is not a choice. */
+export const LANGUAGE_CHOSEN_KEY = 'ma_user_language_chosen'
 export const DIFFICULTY_KEY = 'ma_user_difficulty'
 export const MUSIC_TRACK_KEY = 'ma_user_music_track'
 /** Look sensitivity multiplier (number, 0.4–2.0). Absent = 1. */

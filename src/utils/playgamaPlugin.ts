@@ -242,11 +242,22 @@ export const normalizePlaygamaLanguage = (raw: unknown): string | null => {
 }
 
 let lastLoggedLanguage: string | null = null
+let languageRead = false
 
-/** Read the portal language and publish it. Never clears an earlier value. */
+/**
+ * Read the portal language ONCE per page and publish it.
+ *
+ * On the Bridge every read of `platform.language` is a GET_LANGUAGE message to
+ * the platform, and Playgama's review flagged "an abnormal number of [platform]
+ * Get language" calls: this used to poll every 2 s (to follow the QA Tool's
+ * language switch without a reload) and re-read on every return to the tab.
+ * Playgama's instruction now is one read after start; a portal language change
+ * applies on the next load.
+ */
 const readPortalLanguage = (bridge: Bridge | null = sdk): void => {
   try {
-    if (!bridge) return
+    if (!bridge || languageRead) return
+    languageRead = true
     const id = bridge.platform?.id ?? ''
     if (NO_PORTAL_LANGUAGE.has(id)) return
     const raw = id === WRAP_PLATFORM_ID ? wrapSuppliedLanguage(bridge) : bridge.platform?.language
@@ -261,27 +272,9 @@ const readPortalLanguage = (bridge: Bridge | null = sdk): void => {
   }
 }
 
-/**
- * Poll for a mid-session language switch. The Bridge has no language-change
- * event, and Playgama's QA Tool flips the language WITHOUT reloading the frame
- * — a one-shot read at init fails its localization check ("the platform signal
- * to change the locale did not have any effect", filed against merge-idle-war).
- * The idle skip reads the Bridge's own visibility state, never the DOM's.
- */
-const LANGUAGE_POLL_MS = 2_000
-let languagePollId: ReturnType<typeof setInterval> | null = null
-
-const startLanguageWatch = (): void => {
-  if (languagePollId !== null || typeof window === 'undefined') return
-  languagePollId = setInterval(() => {
-    if (!bridgeHidden) readPortalLanguage()
-  }, LANGUAGE_POLL_MS)
-}
-
-/** Test-only teardown so the poll cannot leak across test files. */
+/** Test-only reset: forget that the language was read this page. */
 export const __stopPlaygamaLanguageWatch = (): void => {
-  if (languagePollId !== null) clearInterval(languagePollId)
-  languagePollId = null
+  languageRead = false
   lastLoggedLanguage = null
 }
 
@@ -320,7 +313,6 @@ export const playgamaPlugin = (): Promise<void> => {
       console.info('[playgama] Bridge v%s initialized — platform.id: %s', bridge.version, playgamaDetectedId.value)
 
       readPortalLanguage(bridge)
-      startLanguageWatch()
 
       // Initial states FIRST, then the edges. A portal that boots muted or
       // paused never sends a change event for the state it started in —
@@ -335,9 +327,6 @@ export const playgamaPlugin = (): Promise<void> => {
       bridge.on(EVENT.PAUSE_STATE_CHANGED, (paused: unknown) => setBridgePaused(!!paused))
       bridge.on(EVENT.VISIBILITY_STATE_CHANGED, (state: unknown) => {
         setBridgeHidden(state === 'hidden')
-        // Returning to the tab is a natural moment for the portal language to
-        // have changed; costs one property read.
-        if (state !== 'hidden') readPortalLanguage(bridge)
       })
       // Portal mute is its own audio slot, NOT a pause: muting the portal
       // chrome must silence the game without freezing it, and a mute that

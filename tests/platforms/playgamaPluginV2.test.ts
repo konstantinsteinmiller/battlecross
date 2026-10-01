@@ -199,14 +199,19 @@ describe('portal language', () => {
     expect(m.normalizePlaygamaLanguage(undefined)).toBeNull()
   })
 
-  it('reads the language at init, and follows a mid-session switch (QA Tool, no reload)', async () => {
+  it('reads the language ONCE at init: no poll, no re-read (Playgama review, #114)', async () => {
     vi.useFakeTimers()
     const m = await load(makeBridge({ id: 'qa_tool', language: 'fr' }))
+    // Every read of `platform.language` is a GET_LANGUAGE message on the Bridge.
+    let reads = 0
+    let value = 'fr'
+    Object.defineProperty(bridge.platform, 'language', { get: () => { reads++; return value }, configurable: true })
     await m.playgamaPlugin()
     expect(m.playgamaLocale.value).toBe('fr')
-    bridge.platform.language = 'ja'
-    await vi.advanceTimersByTimeAsync(2_100)
-    expect(m.playgamaLocale.value).toBe('ja')
+    value = 'ja'
+    await vi.advanceTimersByTimeAsync(60_000)
+    expect(reads).toBe(1)
+    expect(m.playgamaLocale.value).toBe('fr')
   })
 
   it('ignores the browser language the MOCK adapter reports', async () => {
