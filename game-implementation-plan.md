@@ -387,7 +387,7 @@ while bars and damage numbers get direct DOM writes.
     hides while `hud.pointerFree`); combat lock-on turns the camera onto any
     awake machine, so use `mission.debugCam` for prop shots.
 
-- **Chunk 19+ — cybercity-story.md batch (2026-09-30).** One writer: only the
+- **Chunk 19+ — roadmap.md batch (2026-09-30).** One writer: only the
   main session edits code; subagents research and draft translations. Full
   decision table (D0–D53) in the published report
   https://claude.ai/artifact/UDq6P14LtaQcoDAyrJ9G34 and in
@@ -538,7 +538,7 @@ while bars and damage numbers get direct DOM writes.
     5.85 s; the remaining 1.2 s intro hitch predates this work and needs a
     real-device check).
 
-- **Chunk 20 — cybercity-story.md #100–#115 (2026-10-01).** Same one-writer
+- **Chunk 20 — roadmap.md #100–#115 (2026-10-01).** Same one-writer
   method. Decisions (all defaults, accepted by the user) in
   https://claude.ai/artifact/AkWcZBqhx4iQopucLL5Pa9. #104–#107 were done before
   this chunk. Commit after every phase, then continue.
