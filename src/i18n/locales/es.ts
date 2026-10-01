@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux combate máquinas rebeldes en las calles de neón de Ampere Valley.',
-      'valley': 'Ampere Valley: una brillante ciudad de androides, unida por haces de luz. Dr. Vex toma el control de sus máquinas con una señal roja.',
+      'coldOpen': 'Flux combate máquinas rebeldes en las calles de neón de Cyber City.',
+      'valley': 'Cyber City: una brillante ciudad de androides, unida por haces de luz. Dr. Vex toma el control de sus máquinas con una señal roja.',
       'lab': 'La señal llega al laboratorio de la Prof. Gauss. Ella le da a Flux el disco Atlas y lo despierta.',
       'safeMode': 'Gauss se congela en una cápsula para mantener fuera la señal. Sigue viva.',
       'wakeUp': 'Flux despierta en el nivel 1, con Atlas en línea. La Fortaleza de Vex es mucho más fuerte, así que primero toca el Desguace.',

@@ -8,7 +8,7 @@ things:
 - **Dr. Vex's voice**, a pompous showman who speaks in ornate speech bubbles;
 - **damage barks** for Flux;
 - **enemy introductions**;
-- a **neon, cyberpunk look** for Ampere Valley.
+- a **neon, cyberpunk look** for Cyber City.
 
 It also marks a **key frame** for every beat, for storyboard and mood images.
 Voice direction is in [`story-voice-over.md`](./story-voice-over.md), and the
@@ -92,7 +92,7 @@ overhead and amber light streaks from his visor. It is the game's poster.
 
 ### Shot 1 · The valley and the Red Signal (11–21 s)
 
-**The valley, before.** Dusk over Ampere Valley. A bowl of android city
+**The valley, before.** Dusk over Cyber City. A bowl of android city
 rings Gauss's cyan lab dome, and each sector glows in its own colour:
 
 - the Scrapyard crane, yellow;
@@ -188,7 +188,7 @@ and Pip's halo spinning in the foreground.
 
 ## 2. The story in one breath
 
-> Ampere Valley is a neon city of androids linked by beams of light. Its
+> Cyber City is a neon city of androids linked by beams of light. Its
 > scheduling program, VEX, crowns itself **Dr. Vex**, "diagnoses" the valley
 > and prescribes itself as the cure. Its Red Signal takes every networked
 > machine. Prof. Gauss wakes her unfinished android **Flux**, whose blank core
@@ -210,7 +210,7 @@ the proof that learning beats overwriting.
 
 ---
 
-## 3. The look: neon Ampere Valley
+## 3. The look: neon Cyber City
 
 This is the reference for storyboard and mood images. The palette rules from
 `story.md` hold everywhere:
@@ -983,7 +983,7 @@ These change or extend the canon, so confirm them before anything is built:
 3. **The intro gains a cold open** (shot 0), and the valley and signal shots
    are merged. The 18 s cap is dropped: the cut is paced for a first watch
    (57 s) and skippable at any time.
-4. **The Ampere Valley look turns neon/cyberpunk** under Vex. The sector
+4. **The Cyber City look turns neon/cyberpunk** under Vex. The sector
    identities are unchanged.
 5. **New story beats:**
    - the Atlas/VEX sibling reveal at the midpoint;

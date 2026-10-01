@@ -592,8 +592,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': "Flux, Ampere Valley'nin neon sokaklarında azgın makinelerle savaşıyor.",
-      'valley': 'Ampere Valley: ışık hüzmeleriyle birbirine bağlı, parlak bir android şehri. Dr. Vex kırmızı bir sinyalle makinelerini ele geçiriyor.',
+      'coldOpen': "Flux, Cyber City'nin neon sokaklarında azgın makinelerle savaşıyor.",
+      'valley': 'Cyber City: ışık hüzmeleriyle birbirine bağlı, parlak bir android şehri. Dr. Vex kırmızı bir sinyalle makinelerini ele geçiriyor.',
       'lab': "Sinyal, Prof. Gauss'un laboratuvarına ulaşıyor. Gauss, Flux'a Atlas diskini veriyor ve onu uyandırıyor.",
       'safeMode': 'Gauss sinyali dışarıda tutmak için kendini bir kapsülde donduruyor. Hâlâ hayatta.',
       'wakeUp': "Flux, Atlas çevrimiçiyken seviye 1'de uyanıyor. Vex Kalesi çok daha güçlü, bu yüzden önce Hurdalık.",

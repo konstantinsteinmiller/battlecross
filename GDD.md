@@ -13,7 +13,7 @@ Blades loop: **mission → explore → fight → loot → level → next mission
 
 ## Setting
 
-Ampere Valley was an android city run by ten Core Masters, robot foremen that
+Cyber City was an android city run by ten Core Masters, robot foremen that
 each ran a sector (refinery, cryo plant, power tower, foundry, mine, harbour
 and so on). The rogue AI
 **Dr. Vex** reprogrammed them and filled the sectors with hostile machines.

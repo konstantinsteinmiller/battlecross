@@ -10,7 +10,7 @@ import { SECTOR_COLOR } from '../data/signature'
 /**
  * ─── The valley diorama ──────────────────────────────────────────────────────
  *
- * Ampere Valley in miniature (`story-arc.md` § 1 and § 3): a bowl of android
+ * Cyber City in miniature (`story-arc.md` § 1 and § 3): a bowl of android
  * city ringing Gauss's cyan lab dome, each sector glowing in its own colour at
  * its `regions.ts` map spot — the Scrapyard crane, the Refinery's three
  * chimneys, the Cryo Plant's white domes, the Volt Tower spire with its coil,
@@ -305,7 +305,7 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     lamp(`beam-${i}`, LAB_CYAN, 'relay', xform(cap(0.03, len), [mx, 1.4, mz], [Math.PI / 2, yaw, 0]), mx, mz)
   })
 
-  // ── Beyond the rim (solid look only): the rest of Ampere Valley ──
+  // ── Beyond the rim (solid look only): the rest of Cyber City ──
   // The bowl is only the valley's heart. Past its hills the city goes on —
   // skyscrapers climbing taller the farther they stand, between rolling
   // hills — up to a ring of mountains the fog turns to silhouettes. Without

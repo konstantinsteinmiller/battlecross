@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux Ampere Valley neon koʻchalarida isyonkor mashinalarga qarshi jang qiladi.',
-      'valley': 'Ampere Valley — nur tolalari bilan bogʻlangan yorqin androidlar shahri. Dr. Vex qizil signal bilan uning mashinalarini egallab oladi.',
+      'coldOpen': 'Flux Cyber City neon koʻchalarida isyonkor mashinalarga qarshi jang qiladi.',
+      'valley': 'Cyber City — nur tolalari bilan bogʻlangan yorqin androidlar shahri. Dr. Vex qizil signal bilan uning mashinalarini egallab oladi.',
       'lab': 'Signal Prof. Gauss laboratoriyasiga yetib boradi. U Fluxga Atlas diskini beradi va uni uygʻotadi.',
       'safeMode': 'Gauss signalni kiritmaslik uchun oʻzini kapsulada muzlatadi. U hali tirik.',
       'wakeUp': 'Flux 1-darajada uygʻonadi, Atlas onlayn. Vex qalʼasi ancha kuchli, shuning uchun avval Chiqindixona.',

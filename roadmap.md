@@ -14,7 +14,17 @@ I want to use this file to create some storyboard game and feel images for the s
 after your done, write me a comic.md that includes the story as prompts for each page of a comic, which I will run myself with gemini.
 include Flux's KI assistent "Atlas".
 
-- [ ] perfect block tutorial needs text explanations to be understandable and a time freeze, before the text bubble appears with a lighbox dim.
+I want to try a new working approach with Claude: 
+Don't spawn new subagents to change code, only for research or collection task (that should prevent multiple merges and too many resource heavy unit and end2end test runs in my theory and reduce the tokens spent?)
+I want you to go through the bullet points in cybercity-story.md and create and feature implementation plan using the planning mode, during which you find 
+and try to auto-resolve decision by the following ordering: What would the new-web-game-playbook decide? then -> What would a MegaMan 2-7 game do? then -> What would "Elder Scrolls: Blades" do?. write all important decisions into a 
+structured report that you open in the browser once done. The order to implement the features sequentially in is especially important to not forget new features in e.g. new levels like the tutorials, enemy placement and others.
+Also I am hoping to increase overall implementation speed and reduce tokens spent this way. Tell me if I am totally wrong here first.
+I will answer all decisions before implementing anything in Implementation mode.
+If I don't answer, take the default answer derived from the above chain or your best effort thinking for my type of web game development.
+Wait for my "go" to start implementation, ask to review the decisions first.
+
+- [x] perfect block tutorial needs text explanations to be understandable and a time freeze, before the text bubble appears with a lighbox dim.
  with a tick off after the tutorial is done. show a small tutorials finished/unfinished list somewhere in the top-right corner(fitting on all viewport sizes and not overlapping anything) 
  on the first starter mission/level, so the player knows about features he has not learnt yet, even if he skipped them unintentionally.
  give the repair kit item that Flux can find a very unique MegaMan 2-3 like style model, that differentiates well from energy pills and screw.
@@ -39,8 +49,10 @@ include Flux's KI assistent "Atlas".
  None of the players found the settingsMenu with the controls shortcut explanations. Start the game with the modal containing the controls explanations on mobile.
  Fan out subagents.
  For some reason everybody walks past the test dummy in the first starter room for some ready, so lets change it to a rotor drone that is not firing and is blueish, Flux's autoaim activate on that rotor drone, also dont show the door in the first level, but instead open it like the secret door after the successful charge shot at the dummy target.
+ The bug with the right click opening new tabs or navigating the window history is super annoying and needs to be fixed somehow.
+ Also add and alternative button with the mouse wheel click to activate block.
 
-- [ ] The second mission still shows the special weapon tutorials (showing "1" button key, when there are no enemies nearby to shoot at, this must be a bugged tutorial after the level layouts has changed for the 2nd mission, update the tutorials position).
+- [x] The second mission still shows the special weapon tutorials (showing "1" button key, when there are no enemies nearby to shoot at, this must be a bugged tutorial after the level layouts has changed for the 2nd mission, update the tutorials position).
  The current mission 2 level spawns Flux into a room with 2 enemies around him, with no breathing room and no time to 
  react and prepare for a fight. Better build another beam in room that lead through a door to the current starting room in the 
  Blaze Master level. The guarddroid is not taking damage from the flame traps in the Blaze Master mission level from the fire traps and flame pillars.
@@ -51,15 +63,16 @@ include Flux's KI assistent "Atlas".
  turns on Atlas who comes to the rescue and Flux grabs onto Atlas, who pulls him back up on to the closes platform that belongs to a valid level path.
  Improve the Flame pillar cone effect quality emitted from the wall traps and traps in Blaze Masters level and everywhere else. 
  The spikes make no sense in areas where Flux falls of the levels like in the starting room of Gale Masters level, where Atlas just instantly rescues Flux with the camera showing a cutscene on Flux and Atlas until Flux is save on the ground again.
+ The game could be balanced around the player who clicks the 3x screws rewarded ad every round, plays comfortably with all screws spent directly, the difficulty stays equal if the play clicks every second 3x screws ad or resorts to supply missions instead.
 
-- [ ] On platform levels the Guarddroid can be stunlocked (stunlock forever is not fun on any character, feels like a cheat to the player) by shooting at him from a distance with a charged shot(not fun to play and watch),
+- [x] On platform levels the Guarddroid can be stunlocked (stunlock forever is not fun on any character, feels like a cheat to the player) by shooting at him from a distance with a charged shot(not fun to play and watch),
  let's make everyone have a fallback ranged attack (not stunlockable forever) in case other attacks would not reach Flux or the robot or android or machine is on the edge of a platform and sees no way to the player android.
  if Flux is close to an edge and moves towards an edge or beyond he should first slide till the edge and then jump forward instead of sliding down, which should make platforming a lot more fun to the player and more actionable.
  The starting spaceship flying up does not look right, its tilted instead of facing up and is missing a flame thrust cone and the after effect trail is too solid and too long, which makes it look bad, fix it to make it look realistic(while keeping it very low performance impact, dont show the trail on low-end devices at all).
  The new Weapon: Flame Wave label on the result screen of a mission is too boring, lets add a colored icon that shows what type of weapon is gained, so the player is actually intrigued to see what kind of weapon he got, instead of just reading the text. The icon should be a small colored icon that shows the type of weapon gained, e.g. a flame icon for Flame Wave, a snowflake for Ice Beam, etc.
  Improve the vfx quality of all special weapons, add a small room for a lesson on the newly gained weapon to the next mission(Flame weapon gained is explained on the next mission in the Frost Master level, right in the first beam down level, where no enemies are and the gate only opens after the tutorial lesson, getting close to the closed door shows "Finish the lesson on XXXXXX" with an blue arrow pointing at the lesson location. Make resources needed for the lesson respawn, enemies spawned for a lesson should only spawn after the player started moving in the beam down level.).
  
-- [ ] the supply drop rewarded add button needs to have a better readable MovieIcon and the screw reward should adjusted to the players progress, one reward should be around half of a mission or supply run income, otherwise this rewarded ad will become unattractive over time.
+- [x] the supply drop rewarded add button needs to have a better readable MovieIcon and the screw reward should adjusted to the players progress, one reward should be around half of a mission or supply run income, otherwise this rewarded ad will become unattractive over time.
  Add a 10% kill-cam, that shows how the enemies android/machine crumbles into pieces and falls to the ground (max 3 seconds for the kill-cam cutscene), while the camera is over Fluxes shoulder showing the Flux model and the killed target (prevent camera clipping into walls with springsarms) (the game is frozen for this moment, meaning: Vfx play, 
  but no character/android/enemy/Flux moves or takes damage or falls or anything, the player can just watch the kill-cam cutscene). 
  The kill-cam should be triggered by a random chance of 10% on every enemy killed, but not on bosses or mini-bosses. The kill-cam should be skippable
@@ -74,7 +87,7 @@ include Flux's KI assistent "Atlas".
  Some machines from the first level are not reused at all in the platforming levels of mission 2-5 like the wheel dude or the guarding bot or the hard hat. 
  
  
-- [ ] the upgrades are not well balanced right now, I picked up a purple blaster and upgraded it to level 6 in one go, now I do 357 damage with one charged shot, which is 6x my previous damage, but I also installed some chips I dont remember,
+- [x] the upgrades are not well balanced right now, I picked up a purple blaster and upgraded it to level 6 in one go, now I do 357 damage with one charged shot, which is 6x my previous damage, but I also installed some chips I dont remember,
   this is not fun long term. Upgrade should be feelable progress, but not making the player op instantly, maybe I just got lucky, so instead lets add an dynamic adaptive boss difficulty that adjust the bosses hp if the player gets too op early, a good refrence fight is the Flame Master without any upgrades or chips and standard gear on Flux.
   Also enemies hp should scale slowly with mission progress, so the upgrades will be needed to compensate the difficulty increase.
   If a player falls back on relative damage power, Pip should tell him in the lab with a short text and a tutorial lesson how to upgrade his gear and weapon.
@@ -84,7 +97,7 @@ include Flux's KI assistent "Atlas".
   The freeze special weapon should not stun-lock(or stun at all as its just elemental) the enemy, but only slow down his attack charge up and movement by 30% (not effecting jump speed and length).
   using the beam up cutscene in a corridor can produce potential wall and camera clipping, close the boss room door after the player entered the room and dont let him out after the boss was killed, so Flux can only exit the level in the boss room.
   
-- [] there should be a wordless lesson on jumping over gaps and pitfalls, so the 
+- [x] there should be a wordless lesson on jumping over gaps and pitfalls, so the 
  player can learn to jump over gaps and pitfalls without having to read a text or 
  listen to a voice-over. The lesson should be in the first mission/level, 
  where the player has to jump over a gap to reach the next platform ( and again on Gale Masters level). 
@@ -93,16 +106,16 @@ include Flux's KI assistent "Atlas".
  land after the jump. The lesson should be skippable by pressing any button or key 2 times (show a skip button where the shoot and guard button would 
  be during normal play).
 
-- [] The wind is coming out of nowhere in the Gale Masters level, add a wind turbine prop rotating while the wind is coming and stoping when no wind is visible.
+- [x] The wind is coming out of nowhere in the Gale Masters level, add a wind turbine prop rotating while the wind is coming and stoping when no wind is visible.
   The Rotor drone can clip into level geometry when moving back(seen on Gale Masters level).
   On Gale Masters level, there is a secret room puzzle with non-readable puzzle hint, also the blue button is hovered by a pipe in the wall, check all puzzles if they are correct and solvable and not obstructed, save this as a rule for future puzzle builds and locations.
   Improve the boss door face over the boss door to look more like the vex face we have in the intro cutscene.
 
-- [] The shoot button (is it the tutorial lessons icon or is this intended) is shown to me even on the Gale Masters mission.
+- [x] The shoot button (is it the tutorial lessons icon or is this intended) is shown to me even on the Gale Masters mission.
   Check why it's still show and at what point it best should stop to show.
 
 
-- [ ] All boss rooms look the same right now, add 1-3 random barrels or normal crate to each boss room to allow finding energy pills and very rarely a recovery gel( ~5% chance to drop from boss barrels and crates, never more than one recovery gel per boss room dropped), also 
+- [x] All boss rooms look the same right now, add 1-3 random barrels or normal crate to each boss room to allow finding energy pills and very rarely a recovery gel( ~5% chance to drop from boss barrels and crates, never more than one recovery gel per boss room dropped), also 
   build in (1 or 2 pillars / a platform with a ladder or staircase to get to a higher position (this should not be glitchable to protect from incoming damage forever, if the bosses attack hit an obstacle 2 times in a row, even though it should have hit the player on the trajectory, the boss enrages with fuming smoke and a slightly red head and start op ranged attacks from the sky until the player is targetable with normal attacks again. Prevent other edge cases resulting of this and handle them after consultation in chat))
   What would be other not-AI-breaking additions to make each boss room unique and interesting to walk through? Make 5 suggestions and write a structured report that I can look at in the browser with example images that you can sketch with gemini or with quick and dirty 3d scenes built and screenshotted.
   The end bosses Vex level layout must be outstandingly fun and exciting and unique as it's the peak of the game. Make 3 unique suggestions for it too (taking all the edge cases into account like preventing AI exploits etc.).
@@ -110,17 +123,71 @@ include Flux's KI assistent "Atlas".
   Freeze Master should have some freeze traps/pillar(not affecting the boss) and some ground sliding ice tiles like in the level.
   Flame Master could have some fire pillars and traps in the boss room, but not affecting the boss, but only the player, no hit cutscenes on Flux during the boss fight.
 
-- [ ] I will build an audacity voice-over file modulation and sound leveling skill and package json script that executes it with Audacity remote control. Prepare each voice modulations and Audacity Effects that the skill or I need to execute in succession on each vo, so it fits in the sound design of the story, the other background music and sounds and the voice egos of each characters. Write the modulations and step-by-step instructions into the story-voice-over.md  below each of the character descriptions there.
+- [x] I will build an audacity voice-over file modulation and sound leveling skill and package json script that executes it with Audacity remote control. Prepare each voice modulations and Audacity Effects that the skill or I need to execute in succession on each vo, so it fits in the sound design of the story, the other background music and sounds and the voice egos of each characters. Write the modulations and step-by-step instructions into the story-voice-over.md  below each of the character descriptions there.
 
-- [ ] Extend the game with 5 more levels in the same pattern as the current Masters (also reuse the machines and robots while introducing potentially new machines with new mechanics and fight AI for diversity and changing challenges), adjust the story files accordingly with the new 5 Masters and their special weapon arts.
+- [x] Extend the game with 5 more levels in the same pattern as the current Masters (also reuse the machines and robots while introducing potentially new machines with new mechanics and fight AI for diversity and changing challenges), adjust the story files accordingly with the new 5 Masters and their special weapon arts.
   One level could be about using the Quadrocopter drone from the exit cutscene(maybe like the lore ride or something else or both).
   Build the new levels with new platforming aspect while reusing some of the existing platforming features and designs here and there, but every level should bring something new and fresh to the players experience.
   Take inspiration from MegaMan 2-7 levels, do a web-search on MegaMan level designs and transfer that knowledge for the new mission levels.
   Maybe build one level where the player has to use wall jumps to climb up to a secret room (needs a specific lesson until the player climbed out, could be tricky with the FPV camera, but you could make it fluently), this mechanic might be too hard for most players, so lets reward the curious ones with a temporary specials weapon a full heal capsule and a recovery gel.
   
-- [ ] Do a full rebalancing pass of all machines and robots and bosses and Flux compared to average player progression over the story mission(assuming none do supply runs and use the 3x screws button every 3rd mission and Flux only upgrading some weapons here and there but not always spending all his screws for gear and chip upgrades, but always using his after mission upgrades).    
+- [x] Do a full rebalancing pass of all machines and robots and bosses and Flux compared to average player progression over the story mission(assuming none do supply runs and use the 3x screws button every 3rd mission and Flux only upgrading some weapons here and there but not always spending all his screws for gear and chip upgrades, but always using his after mission upgrades).    
 
-- [ ] 'Vex Fortress' should be a special level (3-4 times as big as climb towers map and game duration) map with ranged robots on the fortress walls, the whole map is looking like Flux is entering a futuristing castle/fortress and there are not only the usual rooms with puzzles and secret rooms and enemies, but also 2 mini-bossos waiting, that need to be beaten, after that there is a passage platforming and another puzzle with secret rooms before the player can enter the final boss vex. Vex fortress also introduces another android or machine type not seen before with a unique weakpoint. Here there are also new platforming obstacles and platforming challenges to master, before reaching the first mini-boss. This level checkpoints for revival in case Flux dies at one of the mini-bosses or at the final boss Vex.
+- [x] 'Vex Fortress' should be a special level (3-4 times as big as climb towers map and game duration) map with ranged robots on the fortress walls, the whole map is looking like Flux is entering a futuristing castle/fortress and there are not only the usual rooms with puzzles and secret rooms and enemies, but also 2 mini-bossos waiting, that need to be beaten, after that there is a passage platforming and another puzzle with secret rooms before the player can enter the final boss vex. Vex fortress also introduces another android or machine type not seen before with a unique weakpoint. Here there are also new platforming obstacles and platforming challenges to master, before reaching the first mini-boss. This level checkpoints for revival in case Flux dies at one of the mini-bosses or at the final boss Vex.
 
-- [ ] let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
+- [x] let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
   That should make the game startup faster and happier players (should not create asset pop-ins)
+
+- [ ] #100 Lets add an extended charge shot, after the charge shot is fully loaded, another 3 seconds of charge will make it an overloaded charge shot with an even cooler and more epic
+ Bullet design and charge hold animation, this new overload charge does 1.75x more damage than the normal charge shot.
+ The overload charge shot becomes available after beating Gale Master, The player will be notified by Pip in the Lab that the overloaded charge shot is now available and needs to be unlocked with a special chip modification that is highlighted in an epic violet color(like the color of epic equipment) and a small pulse.
+ Pip opens the page for you to see the new upgrade costing (balance the upgrade appropriately)
+
+- [] #101 Lets add an epic Transformer like battle like in Power Rangers, where the 10 Masters merge together and transform into a huge Transformer Robot that Flux has to fight right after Vex has been defeated(A checkpoint lets him restart from after Vex defeat to keep frustration low even on repeated death).
+ This fight against the "Grand Master Bot" is especially epic as the Grand Master Bot can use all Special Weapon shots and is kind of a random action game.
+ Flux has to hit weak spots highlighted by Atlas on the Grand Master Bot to slowly disessable the Grand Master Bot and first shoot of his robot arms, then his feet, then his head and finally the body.
+ A cutscene is played after Vex has been defeated: (wait for the boss defeated label to disappear)
+ The Grand Master Bot is Vex's final effort to beat Flux after Vex has been beaten and falls to the ground, he pull out a device with one big red button and presses the button in the cutscene, which causes a small earthquake and some rumbling in the distance 
+ and some mechanical robot sounds, after ~5 seconds the Grand Master Bot is introduced who drops in from the sky with the iconic assembling from all the Master bodies like a Power Rangers Transformer robot.
+ Give the Grand Master Bot a unique attack pattern and Special attack which only he does.
+ This is the final challenge and can be a bit harder as this is the end of the game.
+ 
+- [] #102 After defeating Vex and the Grand Master Bot, cybercity is saved and Vex's plan destroyed.
+ Run an epic and ~2 minute long outro cutscene showing the implications for the new freed city the gauss revival scene and the
+ remaining story-arc scenes that were planned. I think it makes sense to end the outro on the city skyline showing a button "Start Next Game +",
+ which will let the player replay the whole story and mission on a ~25% harder challenge (mostly 25% more hp and the bosses have ~15% faster reaction times beetween attacks and try to catch the player off guard more often).
+
+- [] #103 I would like to improve the mission selection screen(the actual story progression) to something more like in the MegaMan 2 till X games, where They had a screen
+ with all the Android portraits to choose the next level/mission, make a web-search please to understand what I mean.
+ keep the linear story progress, but show the Masters Portrait on the mission card please along with the mission name and colored card border fitting the Masters powers.
+ 
+
+- [x] #104 Master colours: some of the new Masters' colours in the story docs clash with the colours that were freed up when the roster grew to 10 Masters.
+ Every Master needs one distinct signature colour that is the same everywhere (stage theme, boss tint, weapon, icon, card border, docs), and no two Masters should be easy to confuse.
+
+- [x] #105 New Game+ has no level room left above 40 (the Vex Fortress band ends at 40).
+ Decide how a New Game+ run scales (see #102: ~25% more HP, bosses ~15% faster) without needing new levels above 40, and make sure nothing breaks if a player goes past level 40.
+
+- [x] #106 The new boss weakness ring mostly pays off on rematches, because the story order is linear and Flux rarely owns the weapon a Master is weak to on the first fight.
+ Make the weakness matter on the first playthrough too.
+
+- [x] #107 Crumbling slabs in the old stages (Blaze, Frost, Volt, Gale and the Tower): 1–2 spots each, deferred from the stage retrofit.
+
+- [ ] #108 The Scrapper's magnet crane: a crane over the Scrapper boss arena that picks up and drops breakable crates (energy pills inside; a hazard where they land), deferred from the boss-room ideas.
+
+- [ ] #109 Core Descent for Vex: the roof fight in lightning, then a fall into the reactor hall that cycles the Master hazards, then a small ring around the Core. The fortress currently has a single arena.
+
+- [ ] #110 Neon's blackout pulses: the Blackout Boulevard should go dark in timed pulses (lights and light bridges off), so the player has to time the crossings.
+
+- [ ] #111 Drill's mine cart: a mine cart ride section in the Deep Mine.
+
+- [ ] #112 IOS playtime is significantly lower than the Androids playtime, Android 28min vs 5 min on IOS, or another day: Android 16min, IOS 1 min. Is there maybe some issue with layout or buttons not working on ios?
+
+- [ ] #113 cleanup old unit tests that belong to the /world and /characters and /water routes and have no usage anymore, both end2end and unit tests, that should
+  drastically lower the time for test runs. Also check every unit test and e2e test for its validity and use for the current project and remove if its absolutely unrelated.
+
+- [ ] #114 'F1' for help does nothing when clicked and/or pressed.
+  There is an abnormal number of [platform] Get language (Playgama build, but should be fixed on all). Do not call get language more than once after starting the game as it will negatively impact the game's performance.
+  Consider refining sound design for a better player experience.
+
+- [ ] #115 Use the new-game-playbook to apply best practices for platform builds and platform fit to this project, especially language selection and progress saving and loading.

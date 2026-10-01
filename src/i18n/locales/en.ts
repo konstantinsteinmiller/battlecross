@@ -679,8 +679,8 @@ export default {
   // shouted word. `atlas.*` are Atlas's lines: calm, dry, short.
   'story': {
     'intro': {
-      'coldOpen': 'Flux fights rogue machines on the neon streets of Ampere Valley.',
-      'valley': 'Ampere Valley: a bright android city, linked by beams of light. Dr. Vex takes over its machines with a red signal.',
+      'coldOpen': 'Flux fights rogue machines on the neon streets of Cyber City.',
+      'valley': 'Cyber City: a bright android city, linked by beams of light. Dr. Vex takes over its machines with a red signal.',
       'lab': "The signal reaches Prof. Gauss's lab. Gauss gives Flux the Atlas disc and wakes him.",
       'safeMode': 'Gauss freezes herself in a capsule to keep the signal out. She is still alive.',
       'wakeUp': 'Flux wakes at level 1, with Atlas online. The Vex Fortress is far stronger, so the Scrapyard comes first.',

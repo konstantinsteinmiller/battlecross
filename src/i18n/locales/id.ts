@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux melawan mesin-mesin liar di jalanan neon Ampere Valley.',
-      'valley': 'Ampere Valley: kota android yang terang, terhubung oleh berkas cahaya. Dr. Vex mengambil alih mesin-mesinnya dengan sinyal merah.',
+      'coldOpen': 'Flux melawan mesin-mesin liar di jalanan neon Cyber City.',
+      'valley': 'Cyber City: kota android yang terang, terhubung oleh berkas cahaya. Dr. Vex mengambil alih mesin-mesinnya dengan sinyal merah.',
       'lab': 'Sinyal itu mencapai lab Prof. Gauss. Ia memberi Flux cakram Atlas dan membangunkannya.',
       'safeMode': 'Gauss membekukan dirinya dalam kapsul agar sinyal tidak masuk. Ia masih hidup.',
       'wakeUp': 'Flux bangun di level 1, dengan Atlas aktif. Benteng Vex jauh lebih kuat, jadi Gudang Rongsok lebih dulu.',

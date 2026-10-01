@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Fluxは、Ampere Valleyのネオン街で暴走マシンと戦っている。',
-      'valley': 'Ampere Valley：光のビームで結ばれた、輝くアンドロイドの街。Dr. Vexは赤い信号でその機械を乗っ取る。',
+      'coldOpen': 'Fluxは、Cyber Cityのネオン街で暴走マシンと戦っている。',
+      'valley': 'Cyber City：光のビームで結ばれた、輝くアンドロイドの街。Dr. Vexは赤い信号でその機械を乗っ取る。',
       'lab': '信号はProf. Gaussの研究室にも届く。彼女はFluxにAtlasディスクを託し、彼を起動する。',
       'safeMode': 'Gaussは信号を防ぐため、自らをカプセルで凍結する。彼女はまだ生きている。',
       'wakeUp': 'Fluxはレベル1で目覚め、Atlasも起動する。Vex要塞ははるかに強いため、まずはスクラップヤードへ。',

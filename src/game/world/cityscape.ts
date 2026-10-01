@@ -13,7 +13,7 @@ import { sceneQuality, type SceneQuality } from '../engine/quality'
 /**
  * ─── The city around every sector ────────────────────────────────────────────
  *
- * Ampere Valley is a city, and a mission's walls are only its nearest block.
+ * Cyber City is a city, and a mission's walls are only its nearest block.
  * Beyond them stands a skyline of a far-future city (towers stepped, round,
  * twisted, needle-thin, twinned by skybridges; domes; and a handful of
  * landmarks no present-day city has: an arcology pyramid, a tower wearing a

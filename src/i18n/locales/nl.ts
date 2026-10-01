@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux vecht tegen op hol geslagen machines in de neonstraten van Ampere Valley.',
-      'valley': 'Ampere Valley: een stralende androïdenstad, verbonden door lichtstralen. Dr. Vex neemt de machines over met een rood signaal.',
+      'coldOpen': 'Flux vecht tegen op hol geslagen machines in de neonstraten van Cyber City.',
+      'valley': 'Cyber City: een stralende androïdenstad, verbonden door lichtstralen. Dr. Vex neemt de machines over met een rood signaal.',
       'lab': 'Het signaal bereikt het lab van Prof. Gauss. Zij geeft Flux de Atlas-schijf en wekt hem.',
       'safeMode': 'Gauss vriest zichzelf in in een capsule om het signaal buiten te houden. Ze leeft nog.',
       'wakeUp': 'Flux ontwaakt op niveau 1, met Atlas online. Fort Vex is veel sterker, dus eerst de Schroothoop.',

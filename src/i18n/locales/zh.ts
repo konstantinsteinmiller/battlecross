@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux在Ampere Valley的霓虹街道上与失控的机器战斗。',
-      'valley': 'Ampere Valley：一座由光束相连的璀璨仿生人城市。Dr. Vex用红色信号控制了城中的机器。',
+      'coldOpen': 'Flux在Cyber City的霓虹街道上与失控的机器战斗。',
+      'valley': 'Cyber City：一座由光束相连的璀璨仿生人城市。Dr. Vex用红色信号控制了城中的机器。',
       'lab': '信号传到了Prof. Gauss的实验室。她把Atlas圆盘交给Flux，并唤醒了他。',
       'safeMode': 'Gauss将自己冰封在舱中，以阻挡信号。她仍然活着。',
       'wakeUp': 'Flux在1级苏醒，Atlas已上线。Vex要塞强大得多，所以先去废料场。',

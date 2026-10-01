@@ -300,14 +300,14 @@ Lettering: title area at top: "MEGA DROID".
 
 ## Part 1 — Wake-Up Call
 
-### Page 1 · Ampere Valley
+### Page 1 · Cyber City
 
 **Characters:** none (city establishing shots)
 
 ```
 [STYLE]
 Comic page with 3 panels.
-Panel 1 (wide splash, top half): Dusk over Ampere Valley, a bowl-shaped neon
+Panel 1 (wide splash, top half): Dusk over Cyber City, a bowl-shaped neon
 android city. Six districts ring the valley, each glowing in its own colour:
 a yellow junkyard with a giant crane, an orange refinery with three flaming
 chimneys, white ice-blue domes, a yellow-white lightning tower spire, and
@@ -953,14 +953,14 @@ Lettering: Panel 5, Gauss's regular soft speech bubble: "Welcome home. Both
 of you."
 ```
 
-### Page 23 · Dawn over Ampere Valley
+### Page 23 · Dawn over Cyber City
 
 **Characters:** FLUX, ATLAS, PIP, GAUSS
 
 ```
 [STYLE] [FLUX] [ATLAS] [PIP] [GAUSS]
 Comic page with 2 panels.
-Panel 1 (full-width splash, 80 % of the page): Dawn over Ampere Valley. Every
+Panel 1 (full-width splash, 80 % of the page): Dawn over Cyber City. Every
 district glows in its own colour for the first time: yellow, orange, ice
 blue, yellow-white, mint, cobalt, ochre, sea blue, hot pink, lime. On the
 far cliff the black fortress spire stands

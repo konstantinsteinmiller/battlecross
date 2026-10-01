@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux chiến đấu với những cỗ máy nổi loạn trên các con phố neon của Ampere Valley.',
-      'valley': 'Ampere Valley: một thành phố android rực rỡ, nối với nhau bằng những chùm sáng. Dr. Vex chiếm quyền điều khiển máy móc ở đó bằng một tín hiệu đỏ.',
+      'coldOpen': 'Flux chiến đấu với những cỗ máy nổi loạn trên các con phố neon của Cyber City.',
+      'valley': 'Cyber City: một thành phố android rực rỡ, nối với nhau bằng những chùm sáng. Dr. Vex chiếm quyền điều khiển máy móc ở đó bằng một tín hiệu đỏ.',
       'lab': 'Tín hiệu lan tới phòng thí nghiệm của Prof. Gauss. Bà trao cho Flux đĩa Atlas và đánh thức cậu.',
       'safeMode': 'Gauss tự đóng băng trong một khoang để chặn tín hiệu. Bà vẫn còn sống.',
       'wakeUp': 'Flux tỉnh dậy ở cấp 1, với Atlas đã trực tuyến. Pháo Đài Vex mạnh hơn nhiều, nên phải đến Bãi Phế Liệu trước.',

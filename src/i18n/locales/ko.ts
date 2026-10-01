@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux는 Ampere Valley의 네온 거리에서 폭주한 기계들과 싸운다.',
-      'valley': 'Ampere Valley: 빛줄기로 이어진 눈부신 안드로이드 도시. Dr. Vex가 붉은 신호로 도시의 기계들을 장악한다.',
+      'coldOpen': 'Flux는 Cyber City의 네온 거리에서 폭주한 기계들과 싸운다.',
+      'valley': 'Cyber City: 빛줄기로 이어진 눈부신 안드로이드 도시. Dr. Vex가 붉은 신호로 도시의 기계들을 장악한다.',
       'lab': '신호가 Prof. Gauss의 연구실에 닿는다. 그녀는 Flux에게 Atlas 디스크를 건네고 그를 깨운다.',
       'safeMode': 'Gauss는 신호를 막기 위해 스스로를 캡슐 안에 냉동한다. 그녀는 아직 살아 있다.',
       'wakeUp': 'Flux가 레벨 1로 깨어나고, Atlas가 가동된다. Vex 요새는 훨씬 강하니, 고철장부터 간다.',

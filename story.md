@@ -11,14 +11,14 @@ order, and [Decisions](#decisions) records what was settled on the way.
 
 ## The short version
 
-> Dr. Vex, the program that ran Ampere Valley, has taken over its machines
+> Dr. Vex, the program that ran Cyber City, has taken over its machines
 > with the Red Signal. The one android it cannot touch is Flux. Prof. Gauss
 > woke him early, unfinished, then froze her own stasis capsule shut to
 > keep the signal out. To wake Gauss again, Flux has to grow strong enough
 > to free ten Core Masters, relight the valley's ten beam relays one sector
 > at a time, and break into the Vex Fortress.
 
-1. Ampere Valley is a city of androids. A network of beam relays links its
+1. Cyber City is a city of androids. A network of beam relays links its
    eleven sectors, and eleven Core Masters run it. Ten are foremen, one per
    sector: five in the inner ring and five more in the outer works. The
    eleventh is **VEX**, the scheduling program in the Control Spire that
@@ -104,7 +104,7 @@ shots.
 
 ## The world
 
-### Ampere Valley
+### Cyber City
 
 ```
                         Sky Docks 5              Polarity Works 6
@@ -148,7 +148,7 @@ attempt.
 
 ### The beam network
 
-Androids in Ampere Valley travel by beam. Every sector has a relay, the
+Androids in Cyber City travel by beam. Every sector has a relay, the
 eleven relays form one chain, and the lab's pad joins it at the Scrapyard.
 Everything that beams in the game uses this network: Flux deploying and
 beaming out, a rescued worker-bot, a Supply Drop, and Pip's emergency
@@ -609,7 +609,7 @@ spelling, like the rest of `en.ts`.
 | `ui.skip` | Skip | The skip button's accessible name |
 | `options.replayIntro` | Replay intro | Options, in the hub |
 | `mission.bossFreed` | {boss} freed! | A Master is beaten (the Mk-I keeps `mission.bossDown`) |
-| `story.intro.valley` | Ampere Valley: a bright android city, linked by beams of light. | Intro, shot 1 |
+| `story.intro.valley` | Cyber City: a bright android city, linked by beams of light. | Intro, shot 1 |
 | `story.intro.signal` | Dr. Vex takes over the valley's machines with a red signal. | Intro, shot 2 |
 | `story.intro.lab` | The signal reaches Prof. Gauss's lab. Gauss wakes Flux. | Intro, shot 3 |
 | `story.intro.safeMode` | Gauss freezes herself in a capsule to keep the signal out. She is still alive. | Intro, shot 4 |

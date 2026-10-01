@@ -3,7 +3,7 @@ import type { SectorId } from '../world/themes'
 import type { EncounterTable } from '../sim/spawn'
 
 /**
- * ─── Sectors of Ampere Valley ────────────────────────────────────────────────
+ * ─── Sectors of Cyber City ────────────────────────────────────────────────
  *
  * Each sector is one bright stage theme with its own machine mix, an enemy
  * level band and a Core Master at the end of its story mission. Beating the

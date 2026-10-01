@@ -590,8 +590,8 @@ export default {
 
   'story': {
     'intro': {
-      'coldOpen': 'Flux kämpft auf den Neonstraßen von Ampere Valley gegen abtrünnige Maschinen.',
-      'valley': 'Ampere Valley: eine leuchtende Android-Stadt, verbunden durch Lichtstrahlen. Dr. Vex übernimmt ihre Maschinen mit einem roten Signal.',
+      'coldOpen': 'Flux kämpft auf den Neonstraßen von Cyber City gegen abtrünnige Maschinen.',
+      'valley': 'Cyber City: eine leuchtende Android-Stadt, verbunden durch Lichtstrahlen. Dr. Vex übernimmt ihre Maschinen mit einem roten Signal.',
       'lab': 'Das Signal erreicht das Labor von Prof. Gauss. Sie übergibt Flux die Atlas-Scheibe und weckt ihn.',
       'safeMode': 'Gauss friert sich in einer Kapsel ein, um das Signal abzuhalten. Sie lebt noch.',
       'wakeUp': 'Flux erwacht auf Stufe 1, mit Atlas online. Die Festung Vex ist viel stärker, also kommt zuerst der Schrottplatz.',
