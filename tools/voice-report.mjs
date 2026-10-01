@@ -22,15 +22,15 @@
 
 import { createWriteStream, existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import PDFDocument from 'pdfkit'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const catalog = await import(join(ROOT, 'src/game/audio/voiceCatalog.ts'))
+const catalog = await import(pathToFileURL(join(ROOT, 'src/game/audio/voiceCatalog.ts')).href)
 const { VOICE_LINES, SPEAKERS, SCENES, voicePath, rawPath, fileName } = catalog
 const LOCALES = {
-  en: (await import(join(ROOT, 'src/i18n/locales/en.ts'))).default,
-  de: (await import(join(ROOT, 'src/i18n/locales/de.ts'))).default
+  en: (await import(pathToFileURL(join(ROOT, 'src/i18n/locales/en.ts')).href)).default,
+  de: (await import(pathToFileURL(join(ROOT, 'src/i18n/locales/de.ts')).href)).default
 }
 const LANGS = ['en', 'de']
 const SPEAKER_ORDER = ['atlas', 'vex', 'flux', 'gauss']
@@ -131,9 +131,11 @@ const fill = (s, params, lang) => s.replace(/\{(\w+)\}/g, (m, name) => {
   return name === name.toUpperCase() ? v.toUpperCase() : v
 })
 
-/** The line's text in `lang`, or null when that language has none yet. */
+/** The line's text in `lang`, or null when that language has none yet: the
+ *  locale's when the key is there (every live line, and the ending's
+ *  captions), else the draft. */
 const textOf = (line, lang) => {
-  const raw = line.status === 'live' ? at(LOCALES[lang], line.key) : line.draft?.[LI[lang]]
+  const raw = at(LOCALES[lang], line.key) ?? line.draft?.[LI[lang]]
   return typeof raw === 'string' && raw.trim() ? fill(raw, line.params, lang) : null
 }
 

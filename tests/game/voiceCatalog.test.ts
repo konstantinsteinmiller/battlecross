@@ -30,15 +30,21 @@ describe('the voice catalog', () => {
     }
   })
 
-  it('live lines have their text in both locales; planned lines carry a draft in both', () => {
+  it('live lines have their text in both locales; planned lines carry a draft in both (or are in both locales)', () => {
     for (const l of VOICE_LINES) {
-      if (l.status === 'live') {
+      if (l.status === 'live' || !l.draft) {
         expect(typeof at(en, l.key), `en ${l.key}`).toBe('string')
         expect(typeof at(de, l.key), `de ${l.key}`).toBe('string')
       } else {
         expect(l.draft?.[0], l.key).toBeTruthy()
         expect(l.draft?.[1], l.key).toBeTruthy()
       }
+    }
+  })
+
+  it('no line carries a draft for a key the locales already hold (the two would drift)', () => {
+    for (const l of VOICE_LINES) {
+      if (l.draft) expect(at(en, l.key), l.key).toBeUndefined()
     }
   })
 

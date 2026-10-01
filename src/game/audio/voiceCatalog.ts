@@ -21,9 +21,11 @@
  * Two kinds of line:
  * - `live`: in the game now. Its text is the locale's (`en.ts` / `de.ts`,
  *   same key), so a line changed there changes here.
- * - `planned`: from `story-voice-over.md`, not wired in yet. Its text is the
- *   draft below (English, and a German draft to be reviewed) until the key is
- *   added to the locales, which makes it live.
+ * - `planned`: from `story-voice-over.md`, not spoken in the game yet. Its
+ *   text is the draft below (English, and a German draft to be reviewed);
+ *   a planned line whose key is already in the locales (the ending's
+ *   captions, shown but not voiced) has no draft and reads the locale.
+ *   Wiring a line in makes it live (`ship` for a planned one).
  *
  * `{name}` in a draft is filled from `params` (i18n keys: weapon, boss and
  * sector names), so a variant reads with the name as the game spells it;
@@ -96,7 +98,7 @@ export const SPEAKERS: Readonly<Record<Speaker, SpeakerInfo>> = {
   },
   gauss: {
     name: 'Prof. Gauss',
-    role: ['The inventor (one optional line)', 'Die Erfinderin (eine optionale Zeile)'],
+    role: ['The inventor (the ending)', 'Die Erfinderin (das Ende)'],
     voice: [
       'Elderly, gentle, clever and a little amused. A grandmother who built half the city.',
       'Älter, sanft, klug und ein wenig amüsiert. Eine Großmutter, die die halbe Stadt gebaut hat.'
@@ -135,6 +137,10 @@ const live = (key: string, speaker: Speaker, scene: SceneId, o: Opts): VoiceLine
   ({ key, speaker, scene, status: 'live', max: 3, ...o })
 const plan = (key: string, speaker: Speaker, scene: SceneId, max: number, o: Opts): VoiceLine =>
   ({ key, speaker, scene, status: 'planned', ...o, max: o.max ?? max })
+/** A planned line that reached the game: live, its text the locale's (the
+ *  draft it was written from is dropped, so the two cannot drift). */
+const ship = (key: string, speaker: Speaker, scene: SceneId, max: number, { draft: _draft, ...o }: Opts): VoiceLine =>
+  ({ key, speaker, scene, status: 'live', ...o, max: o.max ?? max })
 
 const WEAPONS = ['scrapBurst', 'flameWave', 'iceLance', 'thunderArc', 'galeGuard', 'magnetPull', 'drillBomb', 'bubbleLance', 'neonBlade', 'droneSwarm'] as const
 /** Each Master's weakness (checked against `data/bosses.ts` by a test). */
@@ -352,21 +358,6 @@ const ATLAS_PLAN: VoiceLine[] = [
     draft: ['Because they\'re free.', 'Weil sie frei sind.'],
     direction: ['Calm, almost gentle. The thesis of the game.', 'Ruhig, fast sanft. Die Kernaussage des Spiels.']
   }),
-  plan('atlas.ending.spire', 'atlas', 'ending', 2.8, {
-    when: ['Ending: the empty Spire', 'Ende: die leere Spitze'],
-    draft: ['The Spire\'s empty. I could run all of it.', 'Die Spitze ist leer. Ich könnte alles steuern.'],
-    direction: ['Tempted. A slow realisation, not greed.', 'In Versuchung. Eine langsame Erkenntnis, keine Gier.']
-  }),
-  plan('atlas.ending.choice', 'atlas', 'ending', 2.2, {
-    when: ['Ending: Atlas chooses', 'Ende: Atlas entscheidet sich'],
-    draft: ['…No. They can run themselves.', '…Nein. Sie können sich selbst steuern.'],
-    direction: ['A decision, not a sacrifice. Peace.', 'Eine Entscheidung, kein Opfer. Frieden.']
-  }),
-  plan('atlas.ending.spark', 'atlas', 'ending', 2.2, {
-    when: ['Ending: the last shot', 'Ende: die letzte Einstellung'],
-    draft: ['Flux… did you see that spark?', 'Flux… hast du den Funken gesehen?'],
-    direction: ['Light and curious: a hook, not dread.', 'Leicht und neugierig: ein Köder, keine Angst.']
-  }),
   // Field warnings and hints
   plan('atlas.warn.boss', 'atlas', 'fieldWarn', 1.4, {
     when: ['A Core Master ahead', 'Ein Kernmeister voraus'], draft: ['Core Master ahead.', 'Kernmeister voraus.'],
@@ -507,37 +498,37 @@ const ATLAS_HINT_BLAZE: VoiceLine[] = ([
     'Forge hammers. Count the beat, then run.', 'Schmiedehämmer. Zähl den Takt, dann lauf.', 2.2, 'Steady, like a metronome.', 'Gleichmäßig, wie ein Metronom.'],
   ['drop', 'Meltdown Descent: the top of the big drop shaft', 'Kernschmelze: oben am großen Fallschacht',
     'Long way down. One ledge at a time.', 'Weit runter. Ein Sims nach dem anderen.', 2, 'Dry understatement.', 'Trockene Untertreibung.']
-] as const).map(([id, when, whenDe, en, de, max, dir, dirDe]) => plan(`atlas.hint.blaze.${id}`, 'atlas', 'act1', max, {
+] as const).map(([id, when, whenDe, en, de, max, dir, dirDe]) => ship(`atlas.hint.blaze.${id}`, 'atlas', 'act1', max, {
   when: [when, whenDe], draft: [en, de], direction: [dir, dirDe]
 }))
 
 const ATLAS_HINT_CRYO: VoiceLine[] = [
-  plan('atlas.hint.cryo.ice', 'atlas', 'fieldWarn', 2.2, {
+  ship('atlas.hint.cryo.ice', 'atlas', 'fieldWarn', 2.2, {
     when: ['Glacier Run: the first ice patch, in the lobby', 'Gletscherlauf: die erste Eisfläche, in der Halle'],
     draft: ['Ice! Let go of the stick and you\'ll keep sliding.', 'Eis! Lass den Stick los, und du rutschst weiter.'],
     direction: ['Delighted, a little mischievous.', 'Begeistert, ein bisschen verschmitzt.']
   }),
-  plan('atlas.hint.cryo.spikes', 'atlas', 'fieldWarn', 2.4, {
+  ship('atlas.hint.cryo.spikes', 'atlas', 'fieldWarn', 2.4, {
     when: ['Glacier Run: the ice bridge over the spike pit', 'Gletscherlauf: die Eisbrücke über der Stachelgrube'],
     draft: ['Spikes under that ice. Walk it straight, no sharp turns.', 'Stacheln unter dem Eis. Geh geradeaus, keine scharfen Kurven.'],
     direction: ['Careful, steady.', 'Vorsichtig, ruhig.']
   }),
-  plan('atlas.hint.cryo.frost', 'atlas', 'fieldWarn', 2.6, {
+  ship('atlas.hint.cryo.frost', 'atlas', 'fieldWarn', 2.6, {
     when: ['Glacier Run: the first frost thrower', 'Gletscherlauf: der erste Frostwerfer'],
     draft: ['Frost thrower. It glows and hisses first. Cross when it\'s quiet.', 'Frostwerfer. Erst glüht und zischt er. Geh, wenn er still ist.'],
     direction: ['Tactical, quick.', 'Taktisch, zügig.']
   }),
-  plan('atlas.hint.cryo.icicles', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.hint.cryo.icicles', 'atlas', 'fieldWarn', 2, {
     when: ['Glacier Run: the icicle hall', 'Gletscherlauf: die Eiszapfenhalle'],
     draft: ['Shadows on the floor? Icicles. Step out of the ring!', 'Schatten am Boden? Eiszapfen. Raus aus dem Ring!'],
     direction: ['A quick look up, then urgent.', 'Ein schneller Blick nach oben, dann dringend.']
   }),
-  plan('atlas.hint.cryo.pillar', 'atlas', 'fieldWarn', 2.4, {
+  ship('atlas.hint.cryo.pillar', 'atlas', 'fieldWarn', 2.4, {
     when: ['Glacier Run: a cracked ice pillar in sight', 'Gletscherlauf: eine rissige Eissäule in Sicht'],
     draft: ['That pillar\'s cracked. Shoot it, and there\'s your shortcut.', 'Die Säule hat Risse. Schieß drauf – schon hast du eine Abkürzung.'],
     direction: ['Sly, pointing out a trick.', 'Schlau, verrät einen Trick.']
   }),
-  plan('atlas.hint.cryo.stairs', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.hint.cryo.stairs', 'atlas', 'fieldWarn', 2, {
     when: ['Glacier Run: the top of the ice stairs', 'Gletscherlauf: oben an der Eistreppe'],
     draft: ['Icy stairs. Go slow — the landing\'s small.', 'Eisige Treppe. Langsam – der Absatz ist klein.'],
     direction: ['Calm warning.', 'Ruhige Warnung.']
@@ -545,54 +536,54 @@ const ATLAS_HINT_CRYO: VoiceLine[] = [
 ]
 
 const ATLAS_HINT_VOLT: VoiceLine[] = [
-  plan('atlas.hint.volt.panels', 'atlas', 'fieldWarn', 2.4, {
+  ship('atlas.hint.volt.panels', 'atlas', 'fieldWarn', 2.4, {
     when: ['Rail Rush: first coming up to the electrified floor panels', 'Rail Rush: zum ersten Mal vor den Strom-Bodenplatten'],
     draft: ['Those panels pulse. Wait on a dark row, then step.', 'Die Platten pulsieren. Warte auf einer dunklen Reihe, dann los.'],
     direction: ['A calm tip: timing, not speed.', 'Ein ruhiger Tipp: Timing, nicht Tempo.']
   }),
-  plan('atlas.hint.volt.board', 'atlas', 'fieldWarn', 2.4, {
+  ship('atlas.hint.volt.board', 'atlas', 'fieldWarn', 2.4, {
     when: ['Rail Rush: the maglev cart sets off with Flux on it', 'Rail Rush: der Magnetschwebewagen fährt mit Flux los'],
     draft: ['Hands off the controls — I\'ll drive, you shoot.', 'Hände weg vom Steuer — ich fahre, du schießt.'],
     direction: ['Gleeful, taking the wheel.', 'Vergnügt, übernimmt das Steuer.']
   }),
-  plan('atlas.hint.volt.wave', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.hint.volt.wave', 'atlas', 'fieldWarn', 2, {
     when: ['Rail Rush: the first wave of drones comes in ahead of the cart', 'Rail Rush: die erste Drohnenwelle vor dem Wagen'],
     draft: ['Drones ahead! Shoot them before they swoop.', 'Drohnen voraus! Schieß sie ab, bevor sie herabstoßen.'],
     direction: ['Quick, alert.', 'Schnell, wachsam.']
   }),
-  plan('atlas.hint.volt.dip', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.hint.volt.dip', 'atlas', 'fieldWarn', 2, {
     when: ['Rail Rush: just before the rail\'s big drop', 'Rail Rush: kurz vor dem großen Gefälle der Schiene'],
     draft: ['Big drop ahead. Hold on — keep shooting!', 'Gleich geht\'s steil runter. Festhalten — weiterschießen!'],
     direction: ['Rollercoaster thrill.', 'Achterbahn-Nervenkitzel.']
   }),
-  plan('atlas.hint.volt.arrive', 'atlas', 'fieldWarn', 1.5, {
+  ship('atlas.hint.volt.arrive', 'atlas', 'fieldWarn', 1.5, {
     when: ['Rail Rush: the cart stops at the exit station', 'Rail Rush: der Wagen hält an der Endstation'],
     draft: ['End of the line. Hop off!', 'Endstation. Steig aus!'], direction: ['Cheerful, a conductor.', 'Fröhlich, wie ein Schaffner.']
   })
 ]
 
 const ATLAS_HINT_GALE: VoiceLine[] = [
-  plan('atlas.hint.gale.leap', 'atlas', 'fieldWarn', 3, {
+  ship('atlas.hint.gale.leap', 'atlas', 'fieldWarn', 3, {
     when: ['Sky Docks: the first one-cell gap between islands', 'Himmelsdocks: die erste Ein-Feld-Lücke zwischen Inseln'],
     draft: ['Gap\'s too wide to walk. Slide off the edge — you\'ll carry.', 'Zu breit zum Gehen. Rutsch über die Kante – du fliegst mit.'],
     direction: ['Coaching, quick and sure.', 'Wie ein Trainer, schnell und sicher.']
   }),
-  plan('atlas.hint.gale.down', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.hint.gale.down', 'atlas', 'fieldWarn', 2, {
     when: ['Sky Docks: landed across the first gap', 'Himmelsdocks: über die erste Lücke gelandet'],
     draft: ['Nice leap. Now don\'t look down.', 'Schöner Sprung. Jetzt bloß nicht nach unten schauen.'],
     direction: ['Pleased, then dry.', 'Erfreut, dann trocken.']
   }),
-  plan('atlas.hint.gale.shuttle', 'atlas', 'fieldWarn', 2.6, {
+  ship('atlas.hint.gale.shuttle', 'atlas', 'fieldWarn', 2.6, {
     when: ['Sky Docks: the first shuttle over a wide gap', 'Himmelsdocks: die erste Fähre über eine breite Lücke'],
     draft: ['Shuttles. Step on when it docks, off at the other end.', 'Fähren. Aufsteigen, wenn sie anlegt, drüben wieder runter.'],
     direction: ['Coaching.', 'Wie ein Trainer.']
   }),
-  plan('atlas.hint.gale.wind', 'atlas', 'fieldWarn', 3, {
+  ship('atlas.hint.gale.wind', 'atlas', 'fieldWarn', 3, {
     when: ['Sky Docks: the mouth of the wind tunnel', 'Himmelsdocks: der Eingang des Windkanals'],
     draft: ['Wait for the gust to die, then move. Or hide behind a pillar.', 'Warte, bis die Böe abflaut, dann los. Oder duck dich hinter eine Säule.'],
     direction: ['Calm over the roar of the wind.', 'Ruhig über das Heulen des Windes hinweg.']
   }),
-  plan('atlas.hint.gale.bob', 'atlas', 'fieldWarn', 2.6, {
+  ship('atlas.hint.gale.bob', 'atlas', 'fieldWarn', 2.6, {
     when: ['Sky Docks: the first bobbing platform', 'Himmelsdocks: die erste schwebende Plattform'],
     draft: ['Bobbing platforms. Hop on at the bottom, ride it up.', 'Schwebeplattformen. Unten aufsteigen, mit nach oben fahren.'],
     direction: ['Coaching, a little playful.', 'Wie ein Trainer, ein bisschen verspielt.']
@@ -600,22 +591,22 @@ const ATLAS_HINT_GALE: VoiceLine[] = [
 ]
 
 const ATLAS_SECRET: VoiceLine[] = [
-  plan('atlas.secret.lights', 'atlas', 'fieldWarn', 3, {
+  ship('atlas.secret.lights', 'atlas', 'fieldWarn', 3, {
     when: ['First time near a lamp puzzle (copy the panel\'s on/off pattern)', 'Zum ersten Mal an einem Lampenrätsel (das An/Aus-Muster des Schilds nachmachen)'],
     draft: ['That panel shows a pattern. The lamps on the wall don\'t. Yet.', 'Das Schild zeigt ein Muster. Die Lampen an der Wand noch nicht.'],
     direction: ['Dry, a raised eyebrow; a tiny pause before "Yet."', 'Trocken, eine hochgezogene Augenbraue; kleine Pause vor "noch nicht".']
   }),
-  plan('atlas.secret.color', 'atlas', 'fieldWarn', 3, {
+  ship('atlas.secret.color', 'atlas', 'fieldWarn', 3, {
     when: ['First time near a colour puzzle (only the frame\'s colour lit)', 'Zum ersten Mal an einem Farbrätsel (nur die Farbe des Rahmens an)'],
     draft: ['That frame has a favourite colour. Only its lamps should shine.', 'Der Rahmen hat eine Lieblingsfarbe. Nur ihre Lampen sollen leuchten.'],
     direction: ['Conspiratorial, half a whisper.', 'Verschwörerisch, halb geflüstert.']
   }),
-  plan('atlas.secret.cycle', 'atlas', 'fieldWarn', 3, {
+  ship('atlas.secret.cycle', 'atlas', 'fieldWarn', 3, {
     when: ['First time near a colour-cycle puzzle (each hit steps the colour)', 'Zum ersten Mal an einem Farbwechselrätsel (jeder Treffer wechselt die Farbe)'],
     draft: ['Every hit changes a lamp\'s mind. The panel knows what it wants.', 'Jeder Treffer ändert die Meinung einer Lampe. Das Schild weiß, was es will.'],
     direction: ['Amused, like describing a fussy pet.', 'Amüsiert, als beschriebe man ein wählerisches Haustier.']
   }),
-  plan('atlas.secret.solved', 'atlas', 'fieldWarn', 2, {
+  ship('atlas.secret.solved', 'atlas', 'fieldWarn', 2, {
     when: ['A secret wall opens (puzzle solved)', 'Eine geheime Wand öffnet sich (Rätsel gelöst)'],
     draft: ['Well, well. Someone likes puzzles.', 'Sieh an. Da mag jemand Rätsel.'],
     direction: ['Impressed, pretending not to be.', 'Beeindruckt, tut aber so, als wäre es nicht so.']
@@ -849,96 +840,85 @@ const FLUX: VoiceLine[] = BARKS.flatMap(([type, max, takes, tail]) => takes.map(
     : ['Comedy first: a cartoon robot getting bonked, never a real injury.', 'Komik zuerst: ein Cartoon-Roboter kriegt eins ab, nie eine echte Verletzung.']
 })))
 
-// ── Gauss (planned, optional) ──
-const GAUSS: VoiceLine[] = [
-  plan('gauss.ending.home', 'gauss', 'ending', 2.4, {
-    when: ['Ending: back at the lab (optional line)', 'Ende: zurück im Labor (optionale Zeile)'],
-    draft: ['Welcome home. Both of you.', 'Willkommen zu Hause. Ihr beide.'], direction: ['Warm, tired and proud.', 'Warm, müde und stolz.']
-  })
-]
-
 /** Every line, speakers in cast order, scenes in playing order. */
 
 /** The finale and the new stage lines (#101, #102, #109, #110, #111): planned. */
 const FINALE: VoiceLine[] = [
-  plan('atlas.hint.vex.roof', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.vex.roof', 'atlas', 'act3', 2.4, {
     when: ["Vex Fortress: the roof fight begins, the first lightning ring", "Vex-Festung: der Kampf auf dem Dach beginnt, der erste Blitzring"],
     draft: ["Lightning! Move when the ring lights up!", "Blitze! Weg, wenn der Ring aufleuchtet!"],
     direction: ["Sharp, watching the sky.", "Scharf, den Himmel im Blick."]
   }),
-  plan('atlas.hint.vex.fall', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.vex.fall', 'atlas', 'act3', 2.4, {
     when: ["Vex Fortress: the roof collapses at 65 %", "Vex-Festung: das Dach bricht bei 65 % ein"],
     draft: ["The roof's giving way!", "Das Dach bricht ein!"],
     direction: ["Alarmed, quick.", "Alarmiert, schnell."]
   }),
-  plan('atlas.hint.vex.core', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.vex.core', 'atlas', 'act3', 2.4, {
     when: ["Vex Fortress: the drop to the Core ring at 30 %", "Vex-Festung: der Sturz zum Kernring bei 30 %"],
     draft: ["Down to the Core! Don't fall in!", "Runter zum Kern! Nicht reinfallen!"],
     direction: ["Urgent, careful.", "Dringend, vorsichtig."]
   }),
-  plan('atlas.hint.gm.button', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.button', 'atlas', 'act3', 2.4, {
     when: ["Vex Fortress: Vex falls and presses his red button", "Vex-Festung: Vex fällt und drückt seinen roten Knopf"],
     draft: ["Vex is pressing something... Brace yourself!", "Vex drückt irgendwas... Mach dich bereit!"],
     direction: ["Uneasy, bracing.", "Unruhig, angespannt."]
   }),
-  plan('atlas.hint.gm.arms', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.arms', 'atlas', 'act3', 2.4, {
     when: ["Grand Master: the fight starts, the arms are the target", "Großmeister: der Kampf beginnt, die Arme sind das Ziel"],
     draft: ["Its arms first! The cannon and the lance!", "Erst die Arme! Kanone und Lanze!"],
     direction: ["Commanding.", "Befehlend."]
   }),
-  plan('atlas.hint.gm.feet', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.feet', 'atlas', 'act3', 2.4, {
     when: ["Grand Master: both arms down, the feet next", "Großmeister: beide Arme ab, jetzt die Füße"],
     draft: ["Now the feet! Block the shockwaves!", "Jetzt die Füße! Blocke die Schockwellen!"],
     direction: ["Driving on.", "Treibend."]
   }),
-  plan('atlas.hint.gm.head', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.head', 'atlas', 'act3', 2.4, {
     when: ["Grand Master: it sinks, the head comes in reach", "Großmeister: er sinkt, der Kopf ist erreichbar"],
     draft: ["It's down low. The head is in reach!", "Er ist unten. Der Kopf ist in Reichweite!"],
     direction: ["Spotting the chance.", "Erkennt die Chance."]
   }),
-  plan('atlas.hint.gm.body', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.body', 'atlas', 'act3', 2.4, {
     when: ["Grand Master: the last part, the core", "Großmeister: das letzte Teil, der Kern"],
     draft: ["The core is open! Finish it!", "Der Kern liegt frei! Mach ihn fertig!"],
     direction: ["All in.", "Alles geben."]
   }),
-  plan('atlas.hint.gm.prism', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.gm.prism', 'atlas', 'act3', 2.4, {
     when: ["Grand Master: the Prism Cannon charges", "Großmeister: die Prismakanone lädt"],
     draft: ["Prism Cannon! Shield up!", "Prismakanone! Schild hoch!"],
     direction: ["Warning, fast.", "Warnung, schnell."]
   }),
-  plan('atlas.hint.neon.blackout', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.neon.blackout', 'atlas', 'act3', 2.4, {
     when: ["Blackout Boulevard: at the first pulse bridge", "Blackout Boulevard: an der ersten Pulsbrücke"],
     draft: ["Power's failing! Cross when the lights come back.", "Der Strom fällt aus! Rüber, wenn das Licht wieder angeht."],
     direction: ["Tense, then reassuring.", "Angespannt, dann beruhigend."]
   }),
-  plan('atlas.hint.drill.board', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.drill.board', 'atlas', 'act3', 2.4, {
     when: ["Deep Mine: boarding the ore cart", "Tiefe Mine: Einstieg in die Lore"],
     draft: ["Ore cart's rolling! I steer, you shoot the moles.", "Die Lore rollt! Ich lenke, du schießt auf die Maulwürfe."],
     direction: ["Excited.", "Begeistert."]
   }),
-  plan('atlas.hint.drill.dip', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.drill.dip', 'atlas', 'act3', 2.4, {
     when: ["Deep Mine: before the cart's steep drop", "Tiefe Mine: vor dem steilen Gefälle der Lore"],
     draft: ["Steep drop! Hold on tight!", "Steil bergab! Gut festhalten!"],
     direction: ["Bracing, thrilled.", "Festhalten, aufgekratzt."]
   }),
-  plan('atlas.hint.drill.arrive', 'atlas', 'act3', 2.4, {
+  ship('atlas.hint.drill.arrive', 'atlas', 'act3', 2.4, {
     when: ["Deep Mine: the cart stops at the warren", "Tiefe Mine: die Lore hält am Bau"],
     draft: ["Last stop. Out you hop!", "Letzter Halt. Raus mit dir!"],
     direction: ["Wry.", "Trocken."]
   }),
-  plan('gauss.ending.gauss', 'gauss', 'ending', 3.5, {
+  plan('ending.gauss', 'gauss', 'ending', 3.5, {
     when: ["The ending: Gauss steps out of her capsule", "Das Ende: Gauss steigt aus ihrer Kapsel"],
-    draft: ["Flux... you did it. You brought them all back.", "Flux... du hast es geschafft. Du hast sie alle zurückgebracht."],
     direction: ["Warm, tired, proud.", "Warm, müde, stolz."]
   }),
-  plan('atlas.ending.atlas', 'atlas', 'ending', 3.5, {
+  plan('ending.atlas', 'atlas', 'ending', 3.5, {
     when: ["The ending: Atlas and the empty Spire", "Das Ende: Atlas und der leere Turm"],
-    draft: ["The Spire is empty. I could run this city now. I won't. It's theirs.", "Der Turm ist leer. Ich könnte diese Stadt jetzt lenken. Tu ich nicht. Sie gehört ihnen."],
     direction: ["Quiet, certain, a smile in it.", "Leise, sicher, mit einem Lächeln."]
   }),
-  plan('gauss.ending.spark', 'gauss', 'ending', 3.5, {
+  plan('ending.spark', 'gauss', 'ending', 3.5, {
     when: ["The ending: the sunrise, the last line", "Das Ende: der Sonnenaufgang, die letzte Zeile"],
-    draft: ["Flux... did you see that spark?", "Flux... hast du den Funken gesehen?"],
     direction: ["Soft wonder.", "Sanftes Staunen."]
   })
 ]
@@ -946,7 +926,7 @@ const FINALE: VoiceLine[] = [
 export const VOICE_LINES: readonly VoiceLine[] = [
   ...ATLAS_LIVE, ...ATLAS_PLAN,
   ...ATLAS_HINT_BLAZE, ...ATLAS_HINT_CRYO, ...ATLAS_HINT_VOLT, ...ATLAS_HINT_GALE, ...ATLAS_SECRET,
-  ...VEX, ...FLUX, ...GAUSS, ...FINALE
+  ...VEX, ...FLUX, ...FINALE
 ]
 
 /** A key's file name, without the extension: `atlas.bossAhead` → `atlas_bossAhead`. */

@@ -596,6 +596,28 @@ while bars and damage numbers get direct DOM writes.
     2.96 MiB).
   - Deferred: outro replay menu; checkpoint retry outside the Fortress; boot
     shader time-slicing until a real iPhone is timed.
+- **Chunk 21 — roadmap.md #117 voice-over pipeline (2026-10-01).** Same
+  one-writer method, branch `vo-test-install` (merged to main after P6).
+  Decisions in https://claude.ai/code/artifact/15b92236-a0d5-4b6c-a977-edf7e755252f
+  (answered: 2 takes per line in production, picked by QA, no listening by
+  hand; the generated takes replace the hand-made `public/vo` file; the AI
+  Studio browser route is built beside the API; iOS < 17 format deferred).
+  Local engines live in `~/.vo-venvs/<engine>` (uv, outside git).
+  - [x] **P0 catalogue clean-up**: shipped lines marked live, ending keys
+    fixed, stale ending lines retired, orphaned `public/vo` removed.
+  - [ ] **P1 voice cards + line tones** (`pnpm voice:cards`).
+  - [ ] **P2 collector** (`pnpm voice:collect [--samples]`, German text
+    normaliser).
+  - [ ] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
+    −16 LUFS, OGG Vorbis q2 mono; length, loudness, clipping, Whisper).
+  - [ ] **P4 engine bake-off** (VoxCPM2, Qwen3-TTS, Chatterbox ML v3,
+    Gemini API + AI Studio browser route).
+  - [ ] **P5 compression lab** + the blind listening report (`pnpm
+    voice:compare`) — the one stop for the user's ratings.
+  - [ ] **P6 production run** (winner, every live line EN + DE, 2 takes).
+  - [ ] **P7 skill** (ask first).
+  - Deferred: a small format every browser decodes (iOS < 17); wiring Vex,
+    Flux and Gauss lines into the game.
 
 ## Resume notes
 

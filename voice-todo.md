@@ -37,15 +37,36 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 | `atlas_story_cryo.ogg` | Story mission start: Cryo Plant | Cryo Plant. Brr! Keep moving. | Kryowerk. Brr! Bleib in Bewegung. |
 | `atlas_story_volt.ogg` | Story mission start: Volt Tower | Volt Tower. My circuits tingle! | Voltturm. Meine Schaltkreise kribbeln! |
 | `atlas_story_gale.ogg` | Story mission start: Sky Docks | Sky Docks. Don't look down! | Himmelsdocks. Nicht runterschauen! |
+| `atlas_story_magnet.ogg` | Story mission start: Polarity Works | Polarity Works. My compass spins! | Polaritätswerk. Mein Kompass dreht durch! |
+| `atlas_story_drill.ogg` | Story mission start: Deep Mine | Deep Mine. Mind your head! | Tiefenmine. Kopf einziehen! |
+| `atlas_story_tide.ogg` | Story mission start: Tidewater Locks | Tidewater Locks. Splash time! | Gezeitenschleusen. Platsch-Zeit! |
+| `atlas_story_neon.ogg` | Story mission start: Blackout Boulevard | Blackout Boulevard. Lights, please! | Blackout-Boulevard. Licht an, bitte! |
+| `atlas_story_rotor.ogg` | Story mission start: Rotor Run | Rotor Run. Wind in my antenna! | Rotorflug. Wind in meiner Antenne! |
 | `atlas_story_fortress.ogg` | Story mission start: Vex Fortress | The Fortress. We end this. | Die Festung. Zeit, das zu beenden. |
-| `atlas_arc_1.ogg` | Story mission start, 1 of 5 Masters freed | One relay lit. Four to go! | Ein Relais leuchtet. Noch vier! |
-| `atlas_arc_2.ogg` | Story mission start, 2 of 5 Masters freed | Two relays! Vex is sulking. | Zwei Relais! Vex schmollt. |
-| `atlas_arc_3.ogg` | Story mission start, 3 of 5 Masters freed | Halfway there. Keep glowing! | Halbzeit. Leucht weiter! |
-| `atlas_arc_4.ogg` | Story mission start, 4 of 5 Masters freed | One Master left. Almost! | Nur noch ein Meister. Fast geschafft! |
-| `atlas_arc_5.ogg` | Story mission start, 5 of 5 Masters freed | Shield's down. Vex is next! | Schild ist weg. Jetzt ist Vex dran! |
+| `atlas_arc_1.ogg` | Story mission start, 1 of 10 Masters freed | One relay lit. Nine to go! | Ein Relais leuchtet. Noch neun! |
+| `atlas_arc_2.ogg` | Story mission start, 2 of 10 Masters freed | Two relays! Vex is sulking. | Zwei Relais! Vex schmollt. |
+| `atlas_arc_3.ogg` | Story mission start, 3 of 10 Masters freed | Three lit. Keep glowing! | Drei leuchten. Leucht weiter! |
+| `atlas_arc_4.ogg` | Story mission start, 4 of 10 Masters freed | Four down. The grid hums again. | Vier geschafft. Das Netz summt wieder. |
+| `atlas_arc_5.ogg` | Story mission start, 5 of 10 Masters freed | Halfway there! Vex is sweating. | Halbzeit! Vex kommt ins Schwitzen. |
+| `atlas_arc_6.ogg` | Story mission start, 6 of 10 Masters freed | Six relays! The city wakes up. | Sechs Relais! Die Stadt erwacht. |
+| `atlas_arc_7.ogg` | Story mission start, 7 of 10 Masters freed | Seven lit. Keep it up! | Sieben leuchten. Weiter so! |
+| `atlas_arc_8.ogg` | Story mission start, 8 of 10 Masters freed | Eight! Only two Masters left. | Acht! Nur noch zwei Meister. |
+| `atlas_arc_9.ogg` | Story mission start, 9 of 10 Masters freed | One Master left. Almost! | Nur noch ein Meister. Fast geschafft! |
+| `atlas_arc_10.ogg` | Story mission start, 10 of 10 Masters freed | Shield's down. Vex is next! | Schild ist weg. Jetzt ist Vex dran! |
 | `atlas_bossAhead.ogg` | The boss door comes into view | Boss ahead. Deep breath! | Boss voraus. Tief durchatmen! |
+| `atlas_weak_galeGuard.ogg` | The boss door comes into view, Flux carries its weakness (blazeMaster) | Gale Guard hurts this one! | Sturmschild tut ihm weh! |
+| `atlas_weak_flameWave.ogg` | The boss door comes into view, Flux carries its weakness (frostMaster) | Flame Wave hurts this one! | Flammenwelle tut ihm weh! |
+| `atlas_weak_iceLance.ogg` | The boss door comes into view, Flux carries its weakness (voltMaster) | Ice Lance hurts this one! | Eislanze tut ihm weh! |
+| `atlas_weak_thunderArc.ogg` | The boss door comes into view, Flux carries its weakness (galeMaster) | Thunder Arc hurts this one! | Donnerbogen tut ihm weh! |
+| `atlas_weak_droneSwarm.ogg` | The boss door comes into view, Flux carries its weakness (magnetMaster) | Drone Swarm hurts this one! | Drohnenschwarm tut ihm weh! |
+| `atlas_weak_magnetPull.ogg` | The boss door comes into view, Flux carries its weakness (drillMaster) | Magnet Pull hurts this one! | Magnetzug tut ihm weh! |
+| `atlas_weak_drillBomb.ogg` | The boss door comes into view, Flux carries its weakness (tideMaster) | Drill Bomb hurts this one! | Bohrbombe tut ihm weh! |
+| `atlas_weak_bubbleLance.ogg` | The boss door comes into view, Flux carries its weakness (neonMaster) | Bubble Lance hurts this one! | Blasenlanze tut ihm weh! |
+| `atlas_weak_neonBlade.ogg` | The boss door comes into view, Flux carries its weakness (rotorMaster) | Neon Blade hurts this one! | Neonklinge tut ihm weh! |
+| `atlas_noWeak.ogg` | The boss door of a Master without a weakness (the Scrapper, Vex) | No weak spot visible. Move! | Kein Schwachpunkt. Bleib in Bewegung! |
 | `atlas_bossDown.ogg` | A Core Master is beaten (freed) | Master freed! Great job! | Meister befreit! Super gemacht! |
 | `atlas_vexDown.ogg` | Vex's Mk-I is beaten | Vex is down. We did it! | Vex ist erledigt. Wir haben es geschafft! |
+| `atlas_guardDown.ogg` | A Fortress guard hall is cleared (its door opens) | Guard down! The way's open. | Wache erledigt! Der Weg ist frei. |
 | `atlas_lowHp.ogg` | Health under 30 %, no Repair Gel left | Ouch! Careful, Flux! | Autsch! Vorsicht, Flux! |
 | `atlas_lowHpGel.ogg` | Health under 30 %, a Repair Gel in the pack | Low health! Try a Repair Gel. | Du bist angeschlagen! Nimm ein Reparaturgel. |
 | `atlas_lowWe.ogg` | Special weapon energy under 20 % | Weapon energy's low! | Waffenenergie wird knapp! |
@@ -58,3 +79,42 @@ talks TO Flux. Every line is short (a speech bubble of 2–3 s).
 | `atlas_idle_2.ogg` | Small talk in a quiet stretch | You're doing great. | Du machst das super. |
 | `atlas_idle_3.ogg` | Small talk in a quiet stretch | Gauss would be proud. | Gauss wäre stolz. |
 | `atlas_idle_4.ogg` | Small talk in a quiet stretch | I like our team. | Ich mag unser Team. |
+| `atlas_hint_blaze_lava.ogg` | Meltdown Descent: the first catwalks over lava | That's lava down there. Stay on the metal. | Da unten ist Lava. Bleib auf dem Metall. |
+| `atlas_hint_blaze_leap.ogg` | Meltdown Descent: the first dash-leap gap | Too wide to walk. Slide off the edge, you'll carry. | Zu weit zum Gehen. Rutsch über die Kante, du fliegst rüber. |
+| `atlas_hint_blaze_vents.ogg` | Meltdown Descent: the flame-vent walkway | Hiss, then fire. Let the roar pass, then go. | Erst Zischen, dann Feuer. Warte das Fauchen ab, dann los. |
+| `atlas_hint_blaze_barrels.ogg` | Meltdown Descent: the ember barrels cross the stairs | Barrels! Watch the lamps, cross between them. | Fässer! Achte auf die Lampen, geh zwischen ihnen durch. |
+| `atlas_hint_blaze_hammers.ogg` | Meltdown Descent: the forge hammers over the walkway | Forge hammers. Count the beat, then run. | Schmiedehämmer. Zähl den Takt, dann lauf. |
+| `atlas_hint_blaze_drop.ogg` | Meltdown Descent: the top of the big drop shaft | Long way down. One ledge at a time. | Weit runter. Ein Sims nach dem anderen. |
+| `atlas_hint_cryo_ice.ogg` | Glacier Run: the first ice patch, in the lobby | Ice! Let go of the stick and you'll keep sliding. | Eis! Lass den Stick los, und du rutschst weiter. |
+| `atlas_hint_cryo_spikes.ogg` | Glacier Run: the ice bridge over the spike pit | Spikes under that ice. Walk it straight, no sharp turns. | Stacheln unter dem Eis. Geh geradeaus, keine scharfen Kurven. |
+| `atlas_hint_cryo_frost.ogg` | Glacier Run: the first frost thrower | Frost thrower. It glows and hisses first. Cross when it's quiet. | Frostwerfer. Erst glüht und zischt er. Geh, wenn er still ist. |
+| `atlas_hint_cryo_icicles.ogg` | Glacier Run: the icicle hall | Shadows on the floor? Icicles. Step out of the ring! | Schatten am Boden? Eiszapfen. Raus aus dem Ring! |
+| `atlas_hint_cryo_pillar.ogg` | Glacier Run: a cracked ice pillar in sight | That pillar's cracked. Shoot it, and there's your shortcut. | Die Säule hat Risse. Schieß drauf – schon hast du eine Abkürzung. |
+| `atlas_hint_cryo_stairs.ogg` | Glacier Run: the top of the ice stairs | Icy stairs. Go slow — the landing's small. | Eisige Treppe. Langsam – der Absatz ist klein. |
+| `atlas_hint_volt_panels.ogg` | Rail Rush: first coming up to the electrified floor panels | Those panels pulse. Wait on a dark row, then step. | Die Platten pulsieren. Warte auf einer dunklen Reihe, dann los. |
+| `atlas_hint_volt_board.ogg` | Rail Rush: the maglev cart sets off with Flux on it | Hands off the controls — I'll drive, you shoot. | Hände weg vom Steuer — ich fahre, du schießt. |
+| `atlas_hint_volt_wave.ogg` | Rail Rush: the first wave of drones comes in ahead of the cart | Drones ahead! Shoot them before they swoop. | Drohnen voraus! Schieß sie ab, bevor sie herabstoßen. |
+| `atlas_hint_volt_dip.ogg` | Rail Rush: just before the rail's big drop | Big drop ahead. Hold on — keep shooting! | Gleich geht's steil runter. Festhalten — weiterschießen! |
+| `atlas_hint_volt_arrive.ogg` | Rail Rush: the cart stops at the exit station | End of the line. Hop off! | Endstation. Steig aus! |
+| `atlas_hint_gale_leap.ogg` | Sky Docks: the first one-cell gap between islands | Gap's too wide to walk. Slide off the edge — you'll carry. | Zu breit zum Gehen. Rutsch über die Kante – du fliegst mit. |
+| `atlas_hint_gale_down.ogg` | Sky Docks: landed across the first gap | Nice leap. Now don't look down. | Schöner Sprung. Jetzt bloß nicht nach unten schauen. |
+| `atlas_hint_gale_shuttle.ogg` | Sky Docks: the first shuttle over a wide gap | Shuttles. Step on when it docks, off at the other end. | Fähren. Aufsteigen, wenn sie anlegt, drüben wieder runter. |
+| `atlas_hint_gale_wind.ogg` | Sky Docks: the mouth of the wind tunnel | Wait for the gust to die, then move. Or hide behind a pillar. | Warte, bis die Böe abflaut, dann los. Oder duck dich hinter eine Säule. |
+| `atlas_hint_gale_bob.ogg` | Sky Docks: the first bobbing platform | Bobbing platforms. Hop on at the bottom, ride it up. | Schwebeplattformen. Unten aufsteigen, mit nach oben fahren. |
+| `atlas_secret_lights.ogg` | First time near a lamp puzzle (copy the panel's on/off pattern) | That panel shows a pattern. The lamps on the wall don't. Yet. | Das Schild zeigt ein Muster. Die Lampen an der Wand noch nicht. |
+| `atlas_secret_color.ogg` | First time near a colour puzzle (only the frame's colour lit) | That frame has a favourite colour. Only its lamps should shine. | Der Rahmen hat eine Lieblingsfarbe. Nur ihre Lampen sollen leuchten. |
+| `atlas_secret_cycle.ogg` | First time near a colour-cycle puzzle (each hit steps the colour) | Every hit changes a lamp's mind. The panel knows what it wants. | Jeder Treffer ändert die Meinung einer Lampe. Das Schild weiß, was es will. |
+| `atlas_secret_solved.ogg` | A secret wall opens (puzzle solved) | Well, well. Someone likes puzzles. | Sieh an. Da mag jemand Rätsel. |
+| `atlas_hint_vex_roof.ogg` | Vex Fortress: the roof fight begins, the first lightning ring | Lightning! Move when the ring lights up! | Blitze! Weg, wenn der Ring aufleuchtet! |
+| `atlas_hint_vex_fall.ogg` | Vex Fortress: the roof collapses at 65 % | The roof's giving way! | Das Dach bricht ein! |
+| `atlas_hint_vex_core.ogg` | Vex Fortress: the drop to the Core ring at 30 % | Down to the Core! Don't fall in! | Runter zum Kern! Nicht reinfallen! |
+| `atlas_hint_gm_button.ogg` | Vex Fortress: Vex falls and presses his red button | Vex is pressing something... Brace yourself! | Vex drückt irgendwas... Mach dich bereit! |
+| `atlas_hint_gm_arms.ogg` | Grand Master: the fight starts, the arms are the target | Its arms first! The cannon and the lance! | Erst die Arme! Kanone und Lanze! |
+| `atlas_hint_gm_feet.ogg` | Grand Master: both arms down, the feet next | Now the feet! Block the shockwaves! | Jetzt die Füße! Blocke die Schockwellen! |
+| `atlas_hint_gm_head.ogg` | Grand Master: it sinks, the head comes in reach | It's down low. The head is in reach! | Er ist unten. Der Kopf ist in Reichweite! |
+| `atlas_hint_gm_body.ogg` | Grand Master: the last part, the core | The core is open! Finish it! | Der Kern liegt frei! Mach ihn fertig! |
+| `atlas_hint_gm_prism.ogg` | Grand Master: the Prism Cannon charges | Prism Cannon! Shield up! | Prismakanone! Schild hoch! |
+| `atlas_hint_neon_blackout.ogg` | Blackout Boulevard: at the first pulse bridge | Power's failing! Cross when the lights come back. | Der Strom fällt aus! Rüber, wenn das Licht wieder angeht. |
+| `atlas_hint_drill_board.ogg` | Deep Mine: boarding the ore cart | Ore cart's rolling! I steer, you shoot the moles. | Die Lore rollt! Ich lenke, du schießt auf die Maulwürfe. |
+| `atlas_hint_drill_dip.ogg` | Deep Mine: before the cart's steep drop | Steep drop! Hold on tight! | Steil bergab! Gut festhalten! |
+| `atlas_hint_drill_arrive.ogg` | Deep Mine: the cart stops at the warren | Last stop. Out you hop! | Letzter Halt. Raus mit dir! |

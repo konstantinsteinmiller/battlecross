@@ -12,12 +12,12 @@
 
 import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const en = (await import(join(ROOT, 'src/i18n/locales/en.ts'))).default
-const de = (await import(join(ROOT, 'src/i18n/locales/de.ts'))).default
-const { VOICE_LINES, fileName } = await import(join(ROOT, 'src/game/audio/voiceCatalog.ts'))
+const en = (await import(pathToFileURL(join(ROOT, 'src/i18n/locales/en.ts')).href)).default
+const de = (await import(pathToFileURL(join(ROOT, 'src/i18n/locales/de.ts')).href)).default
+const { VOICE_LINES, fileName } = await import(pathToFileURL(join(ROOT, 'src/game/audio/voiceCatalog.ts')).href)
 
 const at = (o, key) => key.split('.').reduce((x, k) => x?.[k], o)
 const fill = (s, params) => s.replace(/\{(\w+)\}/g, (m, n) => at(en, params?.[n] ?? '') ?? m)
