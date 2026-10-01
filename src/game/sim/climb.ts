@@ -63,6 +63,11 @@ const SNAP = 0.6
 /** Grace over a pit edge before the fall starts (s). */
 const COYOTE = 0.1
 const CLIMB_SPEED = 3.3
+/** A wall-kick: how high each kick lifts Flux (m), how fast he rises to it
+ *  (m/s), and how fast he slips back down between kicks (m/s). */
+export const KICK_UP = 1.6
+const KICK_SPEED = 7
+const KICK_SLIP = 0.9
 /** Fallen this far under the last floor over a pit: it is a pit fall. */
 const PIT_DROP = 4.5
 /** Crusher cycle (s from the warning): warn, slam, hold, rise; idle after. */
@@ -309,6 +314,8 @@ export class ClimbRun {
    *  order. */
   readonly features: StageFeature[]
   private mod: MoveMod = { friction: 1, pushX: 0, pushZ: 0 }
+  /** A wall-kick's target height (`kick`). */
+  private kickTo = -Infinity
   /** A boss's pull this step (m/s), added to the features' push. */
   private pullX = 0
   private pullZ = 0
@@ -857,11 +864,53 @@ export class ClimbRun {
     }
   }
 
+  /**
+   * A wall-kick (the Blackout Boulevard's shaft, a `kick` ladder): a slide
+   * at its foot facing the wall kicks Flux up the shaft, and each slide
+   * after that, on it, kicks him KICK_UP higher; between kicks he slips
+   * back down. True when the slide was a kick (the mission then slides no
+   * further).
+   */
+  kick(p: ClimbBody): boolean {
+    if (p.ladder >= 0) {
+      const L = this.ladders[p.ladder]!
+      if (!L.def.kick) return false
+      this.kickTo = Math.min(L.def.y1, Math.max(this.kickTo, p.y) + KICK_UP)
+      this.host.sfx('jump', L.ex, L.ez)
+      this.host.fx.sparks(L.ex, p.y + 0.4, L.ez, this.host.theme.accent, 6, 4, 0.16)
+      return true
+    }
+    if (!p.ground) return false
+    for (let n = 0; n < this.ladders.length; n++) {
+      const L = this.ladders[n]!
+      if (!L.def.kick) continue
+      const rx = p.x - L.ex
+      const rz = p.z - L.ez
+      if (Math.abs(rx * L.ax + rz * L.az) > 0.95) continue
+      const d = rx * L.nx + rz * L.nz
+      // At the foot, facing the wall.
+      const face = -(-Math.sin(p.yaw) * L.nx - Math.cos(p.yaw) * L.nz)
+      if (Math.abs(p.y - L.def.y0) > 0.35 || d <= 0 || d > PLAYER_R + 0.6 || face < 0.5) continue
+      p.ladder = n
+      p.ground = false
+      p.vx = 0
+      p.vz = 0
+      p.vy = 0
+      p.plat = -1
+      p.path = null
+      this.kickTo = Math.min(L.def.y1, p.y + KICK_UP)
+      this.host.sfx('jump', L.ex, L.ez)
+      return true
+    }
+    return false
+  }
+
   /** Grab a ladder: at its foot pushing toward the wall, or at its top
    *  walking off the edge above it. */
   private tryMount(p: ClimbBody, wx: number, wz: number): boolean {
     for (let n = 0; n < this.ladders.length; n++) {
       const L = this.ladders[n]!
+      if (L.def.kick) continue
       const rx = p.x - L.ex
       const rz = p.z - L.ez
       if (Math.abs(rx * L.ax + rz * L.az) > 0.95) continue
@@ -887,14 +936,20 @@ export class ClimbRun {
 
   private climbLadder(p: ClimbBody, out: [number, number], wx: number, wz: number, dt: number): void {
     const L = this.ladders[p.ladder]!
-    const push = -(wx * L.nx + wz * L.nz)
+    const kick = !!L.def.kick
+    // A kick shaft: the stick does nothing; each kick lifts him toward
+    // `kickTo`, and between kicks he slips back down the wall.
+    const push = kick ? (p.y >= L.def.y1 - 0.05 ? 1 : 0) : -(wx * L.nx + wz * L.nz)
     const k = Math.min(1, dt * 14)
     out[0] = p.x + (L.standX - p.x) * k
     out[1] = p.z + (L.standZ - p.z) * k
     p.vx = 0
     p.vz = 0
     p.vy = 0
-    if (Math.abs(push) > 0.2) p.y += push * CLIMB_SPEED * dt
+    if (kick) {
+      if (this.kickTo > p.y + 0.01) p.y = Math.min(this.kickTo, p.y + KICK_SPEED * dt)
+      else { p.y -= KICK_SLIP * dt; this.kickTo = p.y }
+    } else if (Math.abs(push) > 0.2) p.y += push * CLIMB_SPEED * dt
     if (p.y >= L.def.y1 - 0.02) {
       p.y = L.def.y1 - 0.02
       if (push > 0.2) {

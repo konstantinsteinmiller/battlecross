@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Acechador Luminoso',
     'puffer': 'Mina Globo',
     'mole': 'Topo Taladro',
     'polar': 'Cachorro Polar',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Acechador Luminoso | Acechadores Luminosos',
     'puffer': 'Mina Globo | Minas Globo',
     'mole': 'Topo Taladro | Topos Taladro',
     'polar': 'Cachorro Polar | Cachorros Polares',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Maestro Neón',
     'tideMaster': 'Maestro Marea',
     'drillMaster': 'Maestro Taladro',
     'magnetMaster': 'Maestro Imán',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Bulevar del Apagón',
     'tide': 'Esclusas de Marea',
     'drill': 'Mina Profunda',
     'magnet': 'Fábrica de Polaridad',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Purga del sector',
     'climb': 'Carrera de la torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea' },
+    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea', 'neon': 'Bulevar del apagón' },
     'rematch': 'Revancha: {boss}',
     'desc': {
       'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' },
     'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' },
     'drillBomb': { 'name': 'Bomba taladro', 'desc': 'Una bomba perforadora que estalla donde se detiene y golpea a todas las máquinas cercanas. Rompe la roca agrietada.' },
-    'bubbleLance': { 'name': 'Lanza Burbuja', 'desc': 'Una burbuja enorme rueda por el suelo y revienta a través de todas las máquinas a su paso.' }
+    'bubbleLance': { 'name': 'Lanza Burbuja', 'desc': 'Una burbuja enorme rueda por el suelo y revienta a través de todas las máquinas a su paso.' },
+    'neonBlade': { 'name': 'Hoja Neón', 'desc': 'Una hoja de luz que se lanza como un bumerán: corta a la ida y a la vuelta.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': '¡Vamos a entrenar el disparo cargado!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Mira a la pared y desliza. ¡Otra vez! ¡Rebota en la pared y sube!',
+        'switch': '¡Un interruptor de luz! Dispárale para cambiar los puentes.',
+        'blink': '¡Los puentes de luz parpadean! Cruza mientras brillan.',
+      },
       'tide': {
         'deep': '¡Demasiado hondo! ¡Sal del agua!',
         'valve': '¡Esclusa inundada! Dispara a la válvula para vaciarla.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
     },
     'story': {
+      'neon': 'Bulevar del Apagón. ¡Luces, por favor!',
       'tide': 'Esclusas de Marea. ¡Hora de chapotear!',
       'drill': 'Mina Profunda. ¡Cuidado con la cabeza!',
       'magnet': 'Fábrica de Polaridad. ¡Mi brújula da vueltas!',

@@ -109,7 +109,10 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
   quake: { tele: 0.9, red: true },
   tidalWave: { tele: 0.8, red: true },
   bubbleVolley: { tele: 0.6, red: false },
-  whirlpool: { tele: 1.0, red: true }
+  whirlpool: { tele: 1.0, red: true },
+  bladeBoomerang: { tele: 0.6, red: false },
+  neonVolley: { tele: 0.55, red: false },
+  laserGrid: { tele: 0.9, red: true }
 }
 
 /** The Tide Master's whirlpool: its pull (m/s, s) and the ring at its end. */
@@ -441,6 +444,46 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         return false
       }
       return e.st > 0.8
+    }
+    case 'bladeBoomerang': {
+      // Out past Flux, and back the same way: dodge it twice (or block).
+      if (e.step === 0) {
+        e.step = 1
+        const dx = p.x - e.x
+        const dz = p.z - e.z
+        const l = Math.hypot(dx, dz) || 1
+        e.tx = e.x + (dx / l) * (l + 4)
+        e.tz = e.z + (dz / l) * (l + 4)
+        w.fireEnemyShot(e, e.x + (dx / l) * s, 1.2 * s, e.z + (dz / l) * s, dx / l, 0, dz / l, 15, Math.round(e.dmg * 0.85), true)
+        w.sfx('dash', e.x, e.z)
+      }
+      if (e.step === 1 && e.st >= 0.75) {
+        e.step = 2
+        const dx = e.x - e.tx
+        const dz = e.z - e.tz
+        const l = Math.hypot(dx, dz) || 1
+        w.fireEnemyShot(e, e.tx, 1.2 * s, e.tz, dx / l, 0, dz / l, 15, Math.round(e.dmg * 0.85), true)
+      }
+      return e.st > 1.3
+    }
+    case 'neonVolley':
+      if (e.step < 2 && e.st >= e.step * 0.35) {
+        volley(w, e, 5, 1.1, 13, 0.7, true)
+        e.step++
+      }
+      return e.st > 0.9
+    case 'laserGrid': {
+      // Rings out from the Master, and a cross of waves along the floor.
+      if (e.step < 3 && e.st >= e.step * 0.5) {
+        if (e.step === 1) {
+          for (let k = 0; k < 4; k++) {
+            const a = (k * Math.PI) / 2 + Math.atan2(p.x - e.x, p.z - e.z)
+            w.spawnWave(e, e.x + Math.sin(a), e.z + Math.cos(a), Math.sin(a), Math.cos(a), 7, 1.0, 20, Math.round(e.dmg * 0.9), '#ff3fd2')
+          }
+        } else w.spawnRing(e, e.x, e.z, 8, 10, Math.round(e.dmg * 0.85), '#3ff4ff')
+        e.step++
+      }
+      return e.st > 1.6
     }
     case 'tidalWave': {
       // Two walls of water along the floor, a beat apart: slide under.

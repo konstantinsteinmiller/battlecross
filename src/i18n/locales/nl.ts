@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Gloeisluiper',
     'puffer': 'Kogelvismijn',
     'mole': 'Molboorder',
     'polar': 'Poolpup',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Gloeisluiper | Gloeisluipers',
     'puffer': 'Kogelvismijn | Kogelvismijnen',
     'mole': 'Molboorder | Molboorders',
     'polar': 'Poolpup | Poolpups',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Neonmeester',
     'tideMaster': 'Getijmeester',
     'drillMaster': 'Boormeester',
     'magnetMaster': 'Magneetmeester',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Blackoutboulevard',
     'tide': 'Getijdensluizen',
     'drill': 'Diepe Mijn',
     'magnet': 'Polariteitsfabriek',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen', 'neon': 'Blackoutboulevard' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' },
     'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' },
     'drillBomb': { 'name': 'Boorbom', 'desc': 'Een boorbom die ontploft waar hij stopt en elke machine in de buurt raakt. Breekt gebarsten rots.' },
-    'bubbleLance': { 'name': 'Bellenlans', 'desc': 'Een dikke bel rolt over de vloer en knalt door elke machine op zijn pad.' }
+    'bubbleLance': { 'name': 'Bellenlans', 'desc': 'Een dikke bel rolt over de vloer en knalt door elke machine op zijn pad.' },
+    'neonBlade': { 'name': 'Neonkling', 'desc': 'Een kling van licht die je als een boemerang gooit: hij snijdt op de heenweg én op de terugweg.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Laten we het Geladen Schot trainen!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Kijk naar de muur en glij. Nog eens! Zet je af tegen de muur, omhoog!',
+        'switch': 'Een lichtschakelaar! Schiet erop om de bruggen te wisselen.',
+        'blink': 'Lichtbruggen knipperen! Steek over zolang ze gloeien.',
+      },
       'tide': {
         'deep': 'Te diep! Uit het water!',
         'valve': 'Ondergelopen sluis! Schiet op de klep om hem leeg te laten lopen.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'neon': 'Blackoutboulevard. Licht aan, graag!',
       'tide': 'Getijdensluizen. Spettertijd!',
       'drill': 'Diepe Mijn. Let op je hoofd!',
       'magnet': 'Polariteitsfabriek. Mijn kompas tolt!',

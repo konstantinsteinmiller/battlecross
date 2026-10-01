@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Traqueur Lumineux',
     'puffer': 'Mine Fugu',
     'mole': 'Taupe Foreuse',
     'polar': 'Chiot Polaire',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Traqueur Lumineux | Traqueurs Lumineux',
     'puffer': 'Mine Fugu | Mines Fugu',
     'mole': 'Taupe Foreuse | Taupes Foreuses',
     'polar': 'Chiot Polaire | Chiots Polaires',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Maître Néon',
     'tideMaster': 'Maître Marée',
     'drillMaster': 'Maître Foreuse',
     'magnetMaster': 'Maître Aimant',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Boulevard Black-out',
     'tide': 'Écluses Marée',
     'drill': 'Mine profonde',
     'magnet': 'Usine Polarité',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée', 'neon': 'Boulevard Black-out' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." },
     'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' },
     'drillBomb': { 'name': 'Bombe foreuse', 'desc': "Une bombe foreuse qui éclate là où elle s'arrête et frappe toutes les machines autour. Brise la roche fissurée." },
-    'bubbleLance': { 'name': 'Lance-bulle', 'desc': 'Une grosse bulle roule au sol et éclate à travers chaque machine sur son passage.' }
+    'bubbleLance': { 'name': 'Lance-bulle', 'desc': 'Une grosse bulle roule au sol et éclate à travers chaque machine sur son passage.' },
+    'neonBlade': { 'name': 'Lame néon', 'desc': 'Une lame de lumière lancée comme un boomerang : elle tranche à l’aller et au retour.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Entraînons-nous au tir chargé !',
     },
     'hint': {
+      'neon': {
+        'kick': 'Face au mur, glissade. Encore ! Rebondis sur le mur et grimpe !',
+        'switch': 'Un interrupteur ! Tire dessus pour inverser les ponts.',
+        'blink': 'Les ponts de lumière clignotent ! Traverse pendant qu’ils brillent.',
+      },
       'tide': {
         'deep': 'Trop profond ! Sors de l’eau !',
         'valve': 'Écluse inondée ! Tire sur la vanne pour la vider.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'neon': 'Boulevard Black-out. La lumière, s’il te plaît !',
       'tide': 'Écluses Marée. C’est l’heure de barboter !',
       'drill': 'Mine profonde. Attention à ta tête !',
       'magnet': "Usine Polarité. Ma boussole s'affole !",

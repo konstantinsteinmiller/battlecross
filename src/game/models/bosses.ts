@@ -14,7 +14,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
  * silhouette.
  */
 
-export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'tideMaster' | 'vexMk1'
+export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'tideMaster' | 'neonMaster' | 'vexMk1'
 
 interface MasterSpec {
   main: string
@@ -213,6 +213,24 @@ export const buildTideMaster = (): Rig => masterRig({
   }
 })
 
+export const buildNeonMaster = (): Rig => masterRig({
+  main: '#2a2a3a', deep: '#14141f', accent: '#ff3fd2', glow: '#3ff4ff', skin: '#ffd2a8',
+  crest: (b) => {
+    // A neon halo over the helmet and a visor stripe.
+    b.part('head', torus(0.2, 0.025, 6, 24), '#ff3fd2', { p: [0, 0.42, -0.04], r: [Math.PI / 2 - 0.3, 0, 0], glow: true, outline: false })
+    b.part('head', rbox(0.3, 0.05, 0.05, 0.3), '#3ff4ff', { p: [0, 0.2, 0.2], glow: true, outline: false })
+    // Neon piping down the chest.
+    b.mirror((sd) => b.part('chest', rbox(0.03, 0.34, 0.03, 0.3), sd < 0 ? '#ff3fd2' : '#3ff4ff', { p: [sd * 0.1, 0.05, 0.21], glow: true, outline: false }))
+  },
+  arms: (b) => {
+    b.mirror((sd, t) => {
+      b.part(`elbow${t}`, cap(0.085, 0.1), '#14141f', { p: [0, -0.09, 0] })
+      // A blade of light on each forearm.
+      b.part(`elbow${t}`, rbox(0.04, 0.5, 0.14, 0.2), sd < 0 ? '#ff3fd2' : '#3ff4ff', { p: [sd * 0.08, -0.32, 0.05], glow: true, outline: false })
+    })
+  }
+})
+
 /** The Scrapper: a hulking junk crane — magnet claw, hammer fist, visor head. */
 export const buildScrapper = (): Rig => {
   const b = new RigBuilder()
@@ -300,6 +318,7 @@ export const buildBossRig = (id: BossId): Rig => {
     case 'magnetMaster': return buildMagnetMaster()
     case 'drillMaster': return buildDrillMaster()
     case 'tideMaster': return buildTideMaster()
+    case 'neonMaster': return buildNeonMaster()
     case 'vexMk1': return buildVex()
   }
 }
@@ -391,6 +410,13 @@ const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: n
       rX = -0.06 * bz
       buzz = 0.01 * Math.sin(10 * TAU * p)
       hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else if (id === 'neonMaster') {
+      // Blade flourish: the R blade spins a figure-eight in front
+      const sw = Math.sin(TAU * p)
+      rX = -0.6 * Math.abs(sw)
+      rY = -0.5 * sw
+      rE = -0.6 * Math.abs(sw)
+      cY = 0.1 * sw
     } else if (id === 'tideMaster') {
       // Breaststroke: both arms sweep out and round, the head bobs
       const sw = Math.sin(TAU * p)

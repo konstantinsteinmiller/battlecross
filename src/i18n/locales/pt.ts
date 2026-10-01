@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Caçador Brilhante',
     'puffer': 'Mina Baiacu',
     'mole': 'Toupeira Broca',
     'polar': 'Filhote Polar',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Caçador Brilhante | Caçadores Brilhantes',
     'puffer': 'Mina Baiacu | Minas Baiacu',
     'mole': 'Toupeira Broca | Toupeiras Broca',
     'polar': 'Filhote Polar | Filhotes Polares',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Mestre Neon',
     'tideMaster': 'Mestre Maré',
     'drillMaster': 'Mestre Broca',
     'magnetMaster': 'Mestre Ímã',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Avenida do Apagão',
     'tide': 'Eclusas da Maré',
     'drill': 'Mina Profunda',
     'magnet': 'Usina Polaridade',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré', 'neon': 'Avenida do Apagão' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' },
     'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' },
     'drillBomb': { 'name': 'Bomba Broca', 'desc': 'Uma bomba perfuradora que explode onde para, atingindo todas as máquinas ao redor. Quebra rocha rachada.' },
-    'bubbleLance': { 'name': 'Lança Bolha', 'desc': 'Uma bolha enorme rola pelo chão e estoura através de todas as máquinas no caminho.' }
+    'bubbleLance': { 'name': 'Lança Bolha', 'desc': 'Uma bolha enorme rola pelo chão e estoura através de todas as máquinas no caminho.' },
+    'neonBlade': { 'name': 'Lâmina Neon', 'desc': 'Uma lâmina de luz lançada como um bumerangue: corta na ida e na volta.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Vamos treinar o Tiro Carregado!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Fique de frente para a parede e deslize. De novo! Chute a parede e suba!',
+        'switch': 'Um interruptor de luz! Atire nele para trocar as pontes.',
+        'blink': 'As pontes de luz piscam! Atravesse enquanto brilham.',
+      },
       'tide': {
         'deep': 'Fundo demais! Saia da água!',
         'valve': 'Eclusa alagada! Atire na válvula para drenar.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'neon': 'Avenida do Apagão. Luzes, por favor!',
       'tide': 'Eclusas da Maré. Hora de chapinhar!',
       'drill': 'Mina Profunda. Cuidado com a cabeça!',
       'magnet': 'Usina Polaridade. Minha bússola tá girando!',

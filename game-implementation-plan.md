@@ -488,6 +488,17 @@ while bars and damage numbers get direct DOM writes.
       (a piercing bubble rolling along the floor); Drill weak to it. Fortress
       interim band [25, 33]. The Tide Master's `weakTo` waits for the Neon
       Blade (P7.4).
+    - [x] P7.4 Neon: Blackout Boulevard (13 sections + arena + beam room,
+      rooftops over open air), bridges of light (`sim/stages/neon.ts`: lit =
+      floor; clock blink with a flicker, or two groups swapped by a shot
+      switch), the wall-kick shaft (D2: a `kick` ladder — slide at its foot
+      facing the wall, each slide kicks KICK_UP, he slips back between;
+      Atlas's `hint.neon.kick` teaches it) up to the borrowed weapon; Glow
+      Stalker (dark, eyes, whine, lunge, parry stops it); Neon Master
+      (bladeBoomerang, dashSlash, neonVolley; laserGrid); Neon Blade (a
+      boomerang that turns at BLADE_TURN and cuts again on the way back);
+      Tide weak to it. Fortress interim band [28, 36]. The Neon Master's
+      `weakTo` waits for the Drone Swarm (P7.5).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

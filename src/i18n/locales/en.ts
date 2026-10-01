@@ -75,6 +75,7 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'stalker': 'Glow Stalker',
     'puffer': 'Puffer Mine',
     'mole': 'Mole Driller',
     'polar': 'Polar Pup',
@@ -92,6 +93,7 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'stalker': 'Glow Stalker | Glow Stalkers',
     'puffer': 'Puffer Mine | Puffer Mines',
     'mole': 'Mole Driller | Mole Drillers',
     'polar': 'Polar Pup | Polar Pups',
@@ -119,6 +121,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Neon Master',
     'tideMaster': 'Tide Master',
     'drillMaster': 'Drill Master',
     'magnetMaster': 'Magnet Master',
@@ -132,6 +135,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Blackout Boulevard',
     'tide': 'Tidewater Locks',
     'drill': 'Deep Mine',
     'magnet': 'Polarity Works',
@@ -156,7 +160,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -519,7 +523,8 @@ export default {
     'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' },
     'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' },
     'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' },
-    'bubbleLance': { 'name': 'Bubble Lance', 'desc': 'A big bubble rolls along the floor and bursts through every machine in its way.' }
+    'bubbleLance': { 'name': 'Bubble Lance', 'desc': 'A big bubble rolls along the floor and bursts through every machine in its way.' },
+    'neonBlade': { 'name': 'Neon Blade', 'desc': 'A blade of light thrown like a boomerang: it cuts on the way out and on the way back.' }
   },
 
   'options': {
@@ -666,6 +671,11 @@ export default {
       'charge': "Let's train the Charge Shot!",
     },
     'hint': {
+      'neon': {
+        'kick': 'Face the wall and slide. Again! Wall-kick up!',
+        'switch': 'A light switch! Shoot it to swap the bridges.',
+        'blink': 'Light bridges blink! Cross while they glow.',
+      },
       'tide': {
         'deep': 'Too deep! Get out of the water!',
         'valve': 'Flooded lock! Shoot the valve to drain it.',
@@ -730,6 +740,7 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'neon': 'Blackout Boulevard. Lights, please!',
       'tide': 'Tidewater Locks. Splash time!',
       'drill': 'Deep Mine. Mind your head!',
       'magnet': 'Polarity Works. My compass spins!',

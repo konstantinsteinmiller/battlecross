@@ -17,6 +17,7 @@ import type { Shot } from './world'
 import { SecretsFeature } from './secrets'
 import { MagnetFeature, polarityCues } from './stages/magnet'
 import { WaterFeature } from './stages/water'
+import { NeonFeature } from './stages/neon'
 
 /**
  * ─── Stage features: the platform stages' mechanics, one file each ───────────
@@ -128,6 +129,9 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
 
   // ── tide (Tidewater Locks) ──
   if (t.water?.length) out.push(new WaterFeature(host, t))
+
+  // ── neon (Blackout Boulevard) ──
+  if (t.neon?.length || t.neonSwitches?.length) out.push(new NeonFeature(host, t))
 
   return out
 }

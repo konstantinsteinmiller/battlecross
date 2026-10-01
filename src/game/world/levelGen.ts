@@ -110,6 +110,9 @@ export interface Ladder {
   y1: number
   /** Off the main line: it leads to a reward ledge. */
   side: boolean
+  /** A wall-kick shaft (the Blackout Boulevard's secret), not a ladder:
+   *  slide at its foot facing the wall to kick up, and again, and again. */
+  kick?: boolean
 }
 
 /** A moving platform. `v` waits at its lower stop and rides up once stood
@@ -308,6 +311,34 @@ export interface WaterZone {
   room: number
 }
 
+/** A bridge of light (the Blackout Boulevard, `world/stages/neon.ts`): a
+ *  w × d slab at top `y` over pit cells from (i, j), solid only while lit.
+ *  With a `group` it is lit while its room's switch says so (shooting the
+ *  switch swaps group 0 and group 1); without one it blinks on the clock:
+ *  lit `on` s of every `period`, offset by `phase`, flickering before it
+ *  goes dark. */
+export interface NeonBridge {
+  i: number
+  j: number
+  w: number
+  d: number
+  y: number
+  group?: 0 | 1
+  period?: number
+  phase?: number
+  on?: number
+  room: number
+}
+
+/** A light switch on a wall of cell (i, j)'s `side`: shot, it swaps which
+ *  group of its room's neon bridges is lit. */
+export interface NeonSwitch {
+  i: number
+  j: number
+  side: 'n' | 's' | 'e' | 'w'
+  room: number
+}
+
 /** A maglev rail a cart rides along: its polyline (the cart's floor at each
  *  point), speed (m/s), and the cells it is boarded at and left at. */
 export interface RailSpec {
@@ -447,6 +478,9 @@ export interface Terrain {
   magnets?: MagnetRail[]
   /** Water: tides, locks and currents (the Tidewater Locks). */
   water?: WaterZone[]
+  /** Bridges of light and their switches (the Blackout Boulevard). */
+  neon?: NeonBridge[]
+  neonSwitches?: NeonSwitch[]
   rails?: RailSpec[]
   waves?: WaveSpec[]
   vents?: VentSpec[]

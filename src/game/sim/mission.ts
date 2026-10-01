@@ -3096,8 +3096,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     // ── Slide ── (the climb: a ground move; on a ladder it lets go). A press
     // while it cools down is dropped with this step's edges, never held: no
     // surprise slide a second later.
-    if (first && inp.slideQueued && this.climb && p.ladder >= 0) this.climb.letGo(p)
-    if (first && inp.slideQueued && c.slideCd <= 0 && c.slideT <= 0 && c.power >= st.slideCost && !this.fumble.stunned && (!this.climb || this.climb.canSlide(p))) {
+    // A wall-kick shaft takes the slide as a kick (at its foot or on it).
+    const kicked = first && inp.slideQueued && !!this.climb && !this.fumble.stunned && this.climb.kick(p)
+    if (first && inp.slideQueued && this.climb && p.ladder >= 0 && !kicked) this.climb.letGo(p)
+    if (first && inp.slideQueued && !kicked && c.slideCd <= 0 && c.slideT <= 0 && c.power >= st.slideCost && !this.fumble.stunned && (!this.climb || this.climb.canSlide(p))) {
       let dx = 0
       let dz = 0
       const stick = Math.hypot(inp.moveX, inp.moveY)

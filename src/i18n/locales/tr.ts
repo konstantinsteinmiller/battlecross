@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Işıltı Avcısı',
     'puffer': 'Balon Balığı Mayını',
     'mole': 'Matkap Köstebek',
     'polar': 'Kutup Yavrusu',
@@ -78,6 +79,7 @@ export default {
   // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
   // forms are the singular on purpose.
   'enemyPlural': {
+    'stalker': 'Işıltı Avcısı | Işıltı Avcısı',
     'puffer': 'Balon Balığı Mayını | Balon Balığı Mayını',
     'mole': 'Matkap Köstebek | Matkap Köstebek',
     'polar': 'Kutup Yavrusu | Kutup Yavrusu',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Neon Ustası',
     'tideMaster': 'Gelgit Ustası',
     'drillMaster': 'Matkap Ustası',
     'magnetMaster': 'Mıknatıs Ustası',
@@ -118,6 +121,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Karartma Bulvarı',
     'tide': 'Gelgit Savakları',
     'drill': 'Derin Maden',
     'magnet': 'Kutupluluk Fabrikası',
@@ -141,7 +145,7 @@ export default {
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
     'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları' },
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları', 'neon': 'Karartma Bulvarı' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -470,7 +474,8 @@ export default {
     'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' },
     'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' },
     'drillBomb': { 'name': 'Matkap Bombası', 'desc': 'Durduğu yerde patlayıp etraftaki her makineyi vuran delici bir bomba. Çatlak kayayı kırar.' },
-    'bubbleLance': { 'name': 'Kabarcık Mızrağı', 'desc': 'Kocaman bir kabarcık yerde yuvarlanır ve yolundaki her makineyi delip geçerek patlar.' }
+    'bubbleLance': { 'name': 'Kabarcık Mızrağı', 'desc': 'Kocaman bir kabarcık yerde yuvarlanır ve yolundaki her makineyi delip geçerek patlar.' },
+    'neonBlade': { 'name': 'Neon Bıçağı', 'desc': 'Bumerang gibi fırlatılan bir ışık bıçağı: giderken de dönerken de keser.' }
   },
 
   'options': {
@@ -604,6 +609,11 @@ export default {
       'charge': 'Şarjlı atışı çalıştıralım!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Duvara dön ve kay. Bir daha! Duvardan sekip yukarı!',
+        'switch': 'Bir ışık düğmesi! Köprüleri değiştirmek için vur.',
+        'blink': 'Işık köprüleri yanıp sönüyor! Parlarken geç.',
+      },
       'tide': {
         'deep': 'Çok derin! Sudan çık!',
         'valve': 'Su basmış savak! Boşaltmak için vanayı vur.',
@@ -668,6 +678,7 @@ export default {
       'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
     },
     'story': {
+      'neon': 'Karartma Bulvarı. Işıklar lütfen!',
       'tide': 'Gelgit Savakları. Şapırtı zamanı!',
       'drill': 'Derin Maden. Başına dikkat!',
       'magnet': 'Kutupluluk Fabrikası. Pusulam fır dönüyor!',

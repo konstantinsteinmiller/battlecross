@@ -25,7 +25,7 @@ import { createNav } from '@/game/world/nav'
 import type { MapData } from '@/game/world/levelGen'
 import type { Enemy, World } from '@/game/sim/world'
 
-const HUMANOIDS: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'drillMaster', 'tideMaster']
+const HUMANOIDS: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'drillMaster', 'tideMaster', 'neonMaster']
 const ALL: BossId[] = [...HUMANOIDS, 'vexMk1']
 const ACTS: BossAct[] = ['idle', 'walk', 'tele', 'attack', 'stun', 'air']
 const DT = 1 / 60

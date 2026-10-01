@@ -130,6 +130,8 @@ const buildAura = (): Group => {
  *  machines round it take. */
 const DRILL_BLAST = 2.5
 const DRILL_SPLASH = 0.6
+/** The Neon Blade's flight left (s) when it turns back. */
+const BLADE_TURN = 0.4
 
 const chargeLevel = (s: Shot): number =>
   s.weapon === 'drillBomb' ? 2 : s.kind === 'charge3' ? 3 : s.kind === 'charge2' || s.kind === 'reflect' ? 2 : s.kind === 'charge1' || s.weapon ? 1 : 0
@@ -215,6 +217,7 @@ export class CombatSystem {
     s.t = 0
     s.element = 'none'
     s.weapon = ''
+    s.back = false
     s.homePlayer = false
     s.destructible = false
     s.burn = 0
@@ -494,6 +497,15 @@ export class CombatSystem {
         s.vz = (s.vz / nl) * sp
       }
 
+      // The Neon Blade turns at half its flight and sweeps back through the
+      // same machines (it may hit each again).
+      if (s.weapon === 'neonBlade' && s.owner === 'player' && !s.back && s.life < BLADE_TURN) {
+        s.back = true
+        s.vx = -s.vx
+        s.vy = -s.vy
+        s.vz = -s.vz
+        s.hitIds.length = 0
+      }
       // A golem's rock falls along its arc (a parried one flies back straight)
       if (s.kind === 'rock') s.vy -= ROCK_G * dt
       s.x += s.vx * dt
@@ -784,6 +796,13 @@ export class CombatSystem {
           fx.emit({ x: s.x + Math.cos(a) * 0.3 * (red ? 1 : -1), y: s.y + Math.sin(a) * 0.3, z: s.z, color: red ? '#ff4a5e' : '#5a8cff', size: 0.22, sizeEnd: 0.02, life: 0.3 })
         }
         break
+      case 'neonBlade':
+        // A spinning arc of light: sparks round it, magenta and cyan.
+        if (r() < 0.8 * k) {
+          const a = s.life * 40
+          fx.emit({ x: s.x + Math.cos(a) * 0.45, y: s.y, z: s.z + Math.sin(a) * 0.45, color: r() < 0.5 ? '#ff3fd2' : '#3ff4ff', size: 0.24, sizeEnd: 0.02, life: 0.22 })
+        }
+        break
       case 'bubbleLance':
         // Little bubbles shed behind it, rising.
         if (r() < 0.7 * k) fx.emit({ x: s.x + (r() - 0.5) * 0.6, y: s.y + (r() - 0.5) * 0.4, z: s.z + (r() - 0.5) * 0.6, vy: 1.2 + r(), color: r() < 0.5 ? '#bff0ff' : '#5fd2ff', size: 0.16, sizeEnd: 0.05, life: 0.6 })
@@ -818,6 +837,9 @@ export class CombatSystem {
         break
       case 'galeGuard':
         fx.sparks(s.x, s.y, s.z, '#7fffc8', 10, 5, 0.2)
+        break
+      case 'neonBlade':
+        fx.sparks(s.x, s.y, s.z, '#ff3fd2', 10, 6, 0.18)
         break
       case 'bubbleLance':
         fx.flash(s.x, s.y, s.z, '#bff0ff', 1.4, 0.12)

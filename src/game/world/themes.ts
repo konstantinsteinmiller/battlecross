@@ -29,7 +29,7 @@ export interface Theme {
   crateTrim: string
 }
 
-export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'fortress'
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'fortress'
 
 export const THEMES: Record<SectorId, Theme> = {
   scrapyard: {
@@ -109,6 +109,17 @@ export const THEMES: Record<SectorId, Theme> = {
     skyTop: '#3f8fd8', skyBottom: '#cfeeff', fog: '#bfe0f0', fogNear: 20, fogFar: 70,
     hemiSky: '#eaf6ff', hemiGround: '#4a5e6a', sun: '#fff6e8', sunIntensity: 1.2,
     pipe: '#ff7a3a', crate: '#a8946a', crateTrim: '#3a4048'
+  },
+  // Blackout Boulevard: rooftops at night, dark slate with magenta and
+  // cyan neon, a deep violet sky.
+  neon: {
+    id: 'neon',
+    floor: '#3a3a52', floorAlt: '#2e2e44', corridor: '#28283c',
+    wall: '#4a2a6a', wallLow: '#2a1840', trim: '#ff3fd2', pilaster: '#22222e',
+    accent: '#3ff4ff', hazard: '#ff3fd2',
+    skyTop: '#0e0a2a', skyBottom: '#5a2a8a', fog: '#2a1a4a', fogNear: 16, fogFar: 60,
+    hemiSky: '#c8b8ff', hemiGround: '#1a1428', sun: '#e8d8ff', sunIntensity: 0.95,
+    pipe: '#3ff4ff', crate: '#5a4a6a', crateTrim: '#1a1424'
   },
   fortress: {
     id: 'fortress',

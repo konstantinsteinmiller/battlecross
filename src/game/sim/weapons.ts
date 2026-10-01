@@ -227,6 +227,18 @@ export class WeaponSystem {
         h.sfx('chargeShot')
         break
       }
+      case 'neonBlade': {
+        // Thrown like a boomerang: out, then back (`CombatSystem`, BLADE_TURN).
+        const s = sys.spawnPlayerShot('charge2', mx, my, mz, dx, dy, dz, dmg, false, null)
+        this.tag(s, id, '#ff3fd2')
+        s.pierce = 99
+        s.vx *= 0.75
+        s.vy *= 0.75
+        s.vz *= 0.75
+        s.life = 0.85
+        h.sfx('dash')
+        break
+      }
       case 'galeGuard': {
         this.guardT = 8
         this.leafHitCd.clear()

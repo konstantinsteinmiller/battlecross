@@ -76,7 +76,9 @@ export const GAME_ICON_NAMES = [
   // Drill Bomb's mark: a drill bit, its spiral flutes cut as gaps.
   'drill',
   // Bubble Lance's mark: a bubble with its highlight cut out.
-  'bubble'
+  'bubble',
+  // Neon Blade's mark: a boomerang crescent with a glint.
+  'blade'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

@@ -113,6 +113,10 @@ const glyph = (id: WeaponId): BufferGeometry => {
       parts.push(xform(paint(torus(0.1, 0.035, 6, 14, Math.PI), W), [0, -0.02, 0], [0, 0, Math.PI]))
       for (const s of [-1, 1]) parts.push(xform(paint(rcyl(0.035, 0.14, 0.01, 8), W), [s * 0.1, 0.05, 0]))
       break
+    case 'neonBlade':
+      // A crescent, tips up.
+      parts.push(xform(paint(torus(0.12, 0.035, 6, 16, Math.PI * 1.2), W), [0, 0.03, 0], [0, 0, Math.PI * 1.15]))
+      break
     case 'bubbleLance':
       // A bubble and a little one.
       parts.push(xform(paint(sph(0.13, 14, 10), W), [0.02, -0.02, 0]))

@@ -74,8 +74,14 @@ export const BOSSES: Record<BossId, BossDef> = {
   // The Tidewater Locks' Master: a lance thrust, tidal waves to slide
   // under, a slow volley of bubbles; phase 2 a whirlpool that pulls.
   tideMaster: base({
-    id: 'tideMaster', hp: 760, dmg: 22, element: 'none', weakTo: null, color: '#2f9fd8',
+    id: 'tideMaster', hp: 760, dmg: 22, element: 'none', weakTo: 'neonBlade', color: '#2f9fd8',
     patterns: ['dashSlash', 'tidalWave', 'bubbleVolley'], patterns2: ['whirlpool']
+  }),
+  // The Blackout Boulevard's Master: a blade thrown out and back, a dash
+  // out of the dark, a neon volley; phase 2 a laser grid of rings.
+  neonMaster: base({
+    id: 'neonMaster', hp: 800, dmg: 23, element: 'none', weakTo: null, color: '#ff3fd2',
+    patterns: ['bladeBoomerang', 'dashSlash', 'neonVolley'], patterns2: ['laserGrid']
   }),
   vexMk1: base({
     id: 'vexMk1', hp: 1100, dmg: 22, element: 'none', weakTo: null, scale: 1, fly: 1.6, radius: 1.3, hitR: 1.3, aimY: 0.2,

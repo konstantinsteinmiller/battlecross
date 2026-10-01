@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer' | 'stalker'
 
 export interface EnemyColors {
   main: string
@@ -50,7 +50,9 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // The Mole Driller: rust-brown body, steel drill, a miner's lamp.
   mole: { main: '#b07a4a', deep: '#5a3d2a', accent: '#ffd23a', eye: '#ff6a2a', metal: '#a7afc4' },
   // The Puffer Mine: a buoy-yellow pufferfish of a mine, red spikes.
-  puffer: { main: '#ffc94a', deep: '#a8661a', accent: '#ff5a3a', eye: '#2a3a5a', metal: '#d8dde8' }
+  puffer: { main: '#ffc94a', deep: '#a8661a', accent: '#ff5a3a', eye: '#2a3a5a', metal: '#d8dde8' },
+  // The Glow Stalker: near-black plating, magenta seams, eyes that burn.
+  stalker: { main: '#22223a', deep: '#14141f', accent: '#ff3fd2', eye: '#3ff4ff', metal: '#3a3a52' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -527,6 +529,47 @@ export const posePuffer = (rig: Rig, swell: number, t: number, m?: EnemyMotion):
   const flap = Math.sin(T * 7) * 0.5
   pose(rig, 'finL', 0, 0.3 + flap, 0)
   pose(rig, 'finR', 0, -0.3 - flap, 0)
+}
+
+// ─── Glow Stalker ────────────────────────────────────────────────────────────
+
+/**
+ * A night hunter (the Blackout Boulevard): a lean dark machine that skates
+ * low on one wheel, two blade arms, and eyes that are all a player sees of
+ * it in the dark. It whines and its seams flare before it lunges (`flare`
+ * 0..1); a parry stops it cold.
+ */
+export const buildStalker = (c: EnemyColors = BASE_COLORS.stalker): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0, 0])
+    .bone('head', 'body', [0, 1.05, 0.15])
+    .bone('armL', 'body', [-0.3, 0.85, 0])
+    .bone('armR', 'body', [0.3, 0.85, 0])
+    .bone('wheel', 'body', [0, 0.22, 0])
+  b.part('body', cap(0.24, 0.5, 12, 4), c.main, { p: [0, 0.7, 0], r: [0.35, 0, 0] })
+  b.part('body', ell(0.26, 0.12, 0.3), c.deep, { p: [0, 0.4, 0] })
+  b.part('body', rbox(0.06, 0.5, 0.06, 0.3), c.accent, { p: [0, 0.72, 0.22], r: [0.35, 0, 0], glow: true, outline: false })
+  b.part('head', ell(0.2, 0.16, 0.22), c.main)
+  eye(b, 'head', [-0.08, 0.02, 0.18], 0.06, c.eye, 0, true)
+  eye(b, 'head', [0.08, 0.02, 0.18], 0.06, c.eye, 0, true)
+  b.part('wheel', torus(0.2, 0.06, 8, 18), c.metal, { r: [0, Math.PI / 2, 0] })
+  b.mirror((s, t) => {
+    b.part(`arm${t}`, cap(0.06, 0.3), c.deep, { p: [0, -0.18, 0.04] })
+    b.part(`arm${t}`, rbox(0.04, 0.5, 0.12, 0.2), c.accent, { p: [s * 0.02, -0.5, 0.12], r: [0.3, 0, 0], glow: true, outline: false })
+  })
+  return b.build({ outline: 0.015, height: 1.3 })
+}
+
+export const poseStalker = (rig: Rig, flare: number, lunge: number, t: number, m?: EnemyMotion): void => {
+  const T = m ? t * m.tempo : t
+  nudge(rig, 'body', 0, 0.04 * Math.sin(T * 2.2), 0)
+  pose(rig, 'body', 0.15 + 0.4 * lunge, m ? 0.3 * m.look * m.calm : 0, 0.05 * Math.sin(T * 1.7))
+  pose(rig, 'head', -0.2 * lunge + 0.1 * flare, 0, 0)
+  const up = -1.6 * Math.max(flare, lunge)
+  pose(rig, 'armL', up + 0.2 * Math.sin(T * 2), 0.2, -0.2)
+  pose(rig, 'armR', up + 0.2 * Math.sin(T * 2 + 1), -0.2, 0.2)
+  pose(rig, 'wheel', T * 6 * (0.3 + lunge), 0, 0)
+  scaleBone(rig, 'head', 1 + 0.06 * flare * Math.sin(T * 40))
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -1095,5 +1138,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'polar': return buildPolar(c)
     case 'mole': return buildMole(c)
     case 'puffer': return buildPuffer(c)
+    case 'stalker': return buildStalker(c)
   }
 }

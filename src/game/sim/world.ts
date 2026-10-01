@@ -173,6 +173,8 @@ export interface Shot {
   element: Element
   /** Special weapon id when kind === 'special'. */
   weapon: string
+  /** A Neon Blade on its way back (it turned at half its flight). */
+  back?: boolean
   /** Enemy orbs that steer toward the player and can be shot down. */
   homePlayer: boolean
   destructible: boolean

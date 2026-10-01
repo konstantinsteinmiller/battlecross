@@ -467,6 +467,23 @@ export const buildClimbLevel = async (
     const k = K(L.i, L.j)
     const o = owner[k]!
     if (o < 0) continue
+    if (L.kick) {
+      // A wall-kick shaft: no rungs, a column of glowing kick pads up the
+      // wall, a hand's width apart, and a neon strip either side.
+      const kx = L.di ? (L.di > 0 ? (L.i + 1) * CELL : L.i * CELL) : (L.i + 0.5) * CELL
+      const kz = L.dj ? (L.dj > 0 ? (L.j + 1) * CELL : L.j * CELL) : (L.j + 0.5) * CELL
+      const nx = -L.di
+      const nz = -L.dj
+      const ax = L.dj ? 1 : 0
+      const az = L.di ? 1 : 0
+      for (let y = L.y0 + 0.9; y < L.y1; y += 1.6) {
+        glows[o]!.push(xform(paint(rbox(ax ? 0.9 : 0.08, 0.14, az ? 0.9 : 0.08, 0.3), theme.accent), [kx + nx * 0.06, y, kz + nz * 0.06]))
+      }
+      for (const s of [-0.62, 0.62]) {
+        glows[o]!.push(xform(paint(cap(0.035, L.y1 - L.y0, 6, 2), theme.hazard), [kx + nx * 0.07 + ax * s, (L.y0 + L.y1) / 2, kz + nz * 0.07 + az * s]))
+      }
+      continue
+    }
     // The face line and the normal toward the foot.
     const ex = L.di ? (L.di > 0 ? (L.i + 1) * CELL : L.i * CELL) : (L.i + 0.5) * CELL
     const ez = L.dj ? (L.dj > 0 ? (L.j + 1) * CELL : L.j * CELL) : (L.j + 0.5) * CELL

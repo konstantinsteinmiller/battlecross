@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Pengintai Pendar',
     'puffer': 'Ranjau Buntal',
     'mole': 'Tikus Tanah Bor',
     'polar': 'Anjing Kutub',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Pengintai Pendar | Pengintai Pendar',
     'puffer': 'Ranjau Buntal | Ranjau Buntal',
     'mole': 'Tikus Tanah Bor | Tikus Tanah Bor',
     'polar': 'Anjing Kutub | Anjing Kutub',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Master Neon',
     'tideMaster': 'Master Pasang',
     'drillMaster': 'Master Bor',
     'magnetMaster': 'Master Magnet',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Bulevar Padam',
     'tide': 'Pintu Air Pasang',
     'drill': 'Tambang Dalam',
     'magnet': 'Pabrik Polaritas',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
     'stage': 'Tahap Platform',
-    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang' },
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang', 'neon': 'Bulevar Padam' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Perisai Badai', 'desc': 'Dedaunan mengitarimu, menahan tembakan dan mengiris mesin. Gunakan lagi untuk melemparkannya.' },
     'magnetPull': { 'name': 'Tarikan Magnet', 'desc': 'Ladam pelacak yang meretakkan perisai dan cangkang, serta menarik musuh terbang dari udara.' },
     'drillBomb': { 'name': 'Bom Bor', 'desc': 'Bom pengebor yang meledak di tempat ia berhenti, mengenai semua mesin di sekitarnya. Menghancurkan batu retak.' },
-    'bubbleLance': { 'name': 'Tombak Gelembung', 'desc': 'Gelembung besar menggelinding di lantai dan meletus menembus setiap mesin di jalannya.' }
+    'bubbleLance': { 'name': 'Tombak Gelembung', 'desc': 'Gelembung besar menggelinding di lantai dan meletus menembus setiap mesin di jalannya.' },
+    'neonBlade': { 'name': 'Bilah Neon', 'desc': 'Bilah cahaya yang dilempar seperti bumerang: memotong saat pergi dan saat kembali.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Ayo latih Tembakan Bermuatan!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Hadap dinding dan meluncur. Lagi! Tendang dinding, naik!',
+        'switch': 'Saklar lampu! Tembak untuk menukar jembatannya.',
+        'blink': 'Jembatan cahaya berkedip! Seberangi saat menyala.',
+      },
       'tide': {
         'deep': 'Terlalu dalam! Keluar dari air!',
         'valve': 'Pintu air banjir! Tembak katupnya untuk mengurasnya.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Master Inti menunggu. Ayo bebaskan!'
     },
     'story': {
+      'neon': 'Bulevar Padam. Nyalakan lampunya, dong!',
       'tide': 'Pintu Air Pasang. Waktunya ciprat-ciprat!',
       'drill': 'Tambang Dalam. Awas kepalamu!',
       'magnet': 'Pabrik Polaritas. Kompasku berputar-putar!',

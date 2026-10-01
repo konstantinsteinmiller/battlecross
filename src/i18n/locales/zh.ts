@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': '辉光潜行者',
     'puffer': '河豚水雷',
     'mole': '钻地鼹鼠',
     'polar': '磁极小狗',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': '辉光潜行者 | 辉光潜行者',
     'puffer': '河豚水雷 | 河豚水雷',
     'mole': '钻地鼹鼠 | 钻地鼹鼠',
     'polar': '磁极小狗 | 磁极小狗',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': '霓虹大师',
     'tideMaster': '潮汐大师',
     'drillMaster': '钻头大师',
     'magnetMaster': '磁力大师',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': '断电大道',
     'tide': '潮汐水闸',
     'drill': '深层矿井',
     'magnet': '磁极工厂',
@@ -139,7 +143,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸', 'neon': '断电大道' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' },
     'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' },
     'drillBomb': { 'name': '钻头炸弹', 'desc': '钻地炸弹，停在哪里就在哪里爆炸，命中周围所有机械。能击碎裂开的岩石。' },
-    'bubbleLance': { 'name': '泡泡长枪', 'desc': '巨大的泡泡沿着地面滚动，冲破路上的每一台机械后爆开。' }
+    'bubbleLance': { 'name': '泡泡长枪', 'desc': '巨大的泡泡沿着地面滚动，冲破路上的每一台机械后爆开。' },
+    'neonBlade': { 'name': '霓虹刃', 'desc': '像回旋镖一样掷出的光之刃：飞出去和飞回来时都能切割。' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': '我们来练习蓄力弹吧！',
     },
     'hint': {
+      'neon': {
+        'kick': '面朝墙壁滑铲。再来！蹬墙往上跳！',
+        'switch': '电灯开关！射它来切换光桥！',
+        'blink': '光桥会闪烁！趁它亮着赶紧过！',
+      },
       'tide': {
         'deep': '太深了！快离开水里！',
         'valve': '水闸被淹了！射击阀门把水排掉！',
@@ -666,6 +676,7 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'neon': '断电大道。请开灯！',
       'tide': '潮汐水闸，玩水时间到！',
       'drill': '深层矿井，小心头顶！',
       'magnet': '磁极工厂，我的指南针在乱转！',

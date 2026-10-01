@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Leuchtpirscher',
     'puffer': 'Kugelfischmine',
     'mole': 'Maulwurfbohrer',
     'polar': 'Polwelpe',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Leuchtpirscher | Leuchtpirscher',
     'puffer': 'Kugelfischmine | Kugelfischminen',
     'mole': 'Maulwurfbohrer | Maulwurfbohrer',
     'polar': 'Polwelpe | Polwelpen',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Neonmeister',
     'tideMaster': 'Gezeitenmeister',
     'drillMaster': 'Bohrmeister',
     'magnetMaster': 'Magnetmeister',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Blackout-Boulevard',
     'tide': 'Gezeitenschleusen',
     'drill': 'Tiefenmine',
     'magnet': 'Polaritätswerk',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen', 'neon': 'Blackout-Boulevard' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' },
     'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' },
     'drillBomb': { 'name': 'Bohrbombe', 'desc': 'Eine Bohrbombe, die dort platzt, wo sie stoppt, und jede Maschine ringsum trifft. Bricht rissigen Fels.' },
-    'bubbleLance': { 'name': 'Blasenlanze', 'desc': 'Eine dicke Blase rollt über den Boden und platzt durch jede Maschine auf ihrem Weg.' }
+    'bubbleLance': { 'name': 'Blasenlanze', 'desc': 'Eine dicke Blase rollt über den Boden und platzt durch jede Maschine auf ihrem Weg.' },
+    'neonBlade': { 'name': 'Neonklinge', 'desc': 'Eine Lichtklinge, geworfen wie ein Bumerang: Sie schneidet auf dem Hin- und auf dem Rückweg.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Lass uns den Ladeschuss trainieren!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Zur Wand drehen und rutschen. Nochmal! Wandsprung nach oben!',
+        'switch': 'Ein Lichtschalter! Schieß drauf, um die Brücken zu tauschen.',
+        'blink': 'Lichtbrücken blinken! Rüber, solange sie leuchten.',
+      },
       'tide': {
         'deep': 'Zu tief! Raus aus dem Wasser!',
         'valve': 'Geflutete Schleuse! Schieß aufs Ventil, um sie zu leeren.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
     },
     'story': {
+      'neon': 'Blackout-Boulevard. Licht an, bitte!',
       'tide': 'Gezeitenschleusen. Platsch-Zeit!',
       'drill': 'Tiefenmine. Kopf einziehen!',
       'magnet': 'Polaritätswerk. Mein Kompass dreht durch!',

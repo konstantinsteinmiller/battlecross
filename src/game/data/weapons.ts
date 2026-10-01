@@ -8,7 +8,7 @@ import type { Element } from './enemies'
  * through kills scored with it. Equipping one tints the arm cannon.
  */
 
-export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull' | 'drillBomb' | 'bubbleLance'
+export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull' | 'drillBomb' | 'bubbleLance' | 'neonBlade'
 
 export interface WeaponDef {
   id: WeaponId
@@ -39,7 +39,10 @@ export const WEAPONS: Record<WeaponId, WeaponDef> = {
   // everything round it, and its blast breaks cracked rock.
   drillBomb: { id: 'drillBomb', color: '#ffb12a', shell: '#6b5a4a', cost: 4, cooldown: 1.0, dmg: 2.8, element: 'none', from: 'drillMaster', xp: [16, 38] },
   // A big bubble rolling along the floor, through every machine in its way.
-  bubbleLance: { id: 'bubbleLance', color: '#5fd2ff', shell: '#1f3f6a', cost: 3, cooldown: 0.7, dmg: 2.4, element: 'none', from: 'tideMaster', xp: [16, 38] }
+  bubbleLance: { id: 'bubbleLance', color: '#5fd2ff', shell: '#1f3f6a', cost: 3, cooldown: 0.7, dmg: 2.4, element: 'none', from: 'tideMaster', xp: [16, 38] },
+  // A spinning blade of light thrown like a boomerang: it cuts on the way
+  // out and again on the way back (and through shots it meets).
+  neonBlade: { id: 'neonBlade', color: '#ff3fd2', shell: '#2a1840', cost: 3, cooldown: 0.6, dmg: 2.6, element: 'none', from: 'neonMaster', xp: [16, 38] }
 }
 
 export const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -55,7 +58,8 @@ export const WEAPON_ICON = {
   galeGuard: 'wind',
   magnetPull: 'magnet',
   drillBomb: 'drill',
-  bubbleLance: 'bubble'
+  bubbleLance: 'bubble',
+  neonBlade: 'blade'
 } as const satisfies Record<WeaponId, string>
 
 export const weaponRank = (xp: number, def: WeaponDef): 1 | 2 | 3 => (xp >= def.xp[1] ? 3 : xp >= def.xp[0] ? 2 : 1)

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'stalker': 'Predatore Luminoso',
     'puffer': 'Mina Pesce Palla',
     'mole': 'Talpa Trivella',
     'polar': 'Cucciolo Polare',
@@ -76,6 +77,7 @@ export default {
   },
 
   'enemyPlural': {
+    'stalker': 'Predatore Luminoso | Predatori Luminosi',
     'puffer': 'Mina Pesce Palla | Mine Pesce Palla',
     'mole': 'Talpa Trivella | Talpe Trivella',
     'polar': 'Cucciolo Polare | Cuccioli Polari',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'neonMaster': 'Maestro Neon',
     'tideMaster': 'Maestro Marea',
     'drillMaster': 'Maestro Trivella',
     'magnetMaster': 'Maestro Magnete',
@@ -116,6 +119,7 @@ export default {
   },
 
   'sector': {
+    'neon': 'Viale del Buio',
     'tide': 'Chiuse di Marea',
     'drill': 'Miniera Profonda',
     'magnet': 'Officina Polarità',
@@ -139,7 +143,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea', 'neon': 'Viale del buio' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -468,7 +472,8 @@ export default {
     'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' },
     'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' },
     'drillBomb': { 'name': 'Bomba Trivella', 'desc': 'Una bomba trivellante che esplode dove si ferma e colpisce tutte le macchine intorno. Spacca la roccia crepata.' },
-    'bubbleLance': { 'name': 'Lancia Bolla', 'desc': 'Una grossa bolla rotola sul pavimento e scoppia attraverso ogni macchina sul suo cammino.' }
+    'bubbleLance': { 'name': 'Lancia Bolla', 'desc': 'Una grossa bolla rotola sul pavimento e scoppia attraverso ogni macchina sul suo cammino.' },
+    'neonBlade': { 'name': 'Lama Neon', 'desc': 'Una lama di luce lanciata come un boomerang: taglia all’andata e al ritorno.' }
   },
 
   'options': {
@@ -602,6 +607,11 @@ export default {
       'charge': 'Alleniamo il Colpo Caricato!',
     },
     'hint': {
+      'neon': {
+        'kick': 'Guarda il muro e scivola. Ancora! Rimbalza sul muro e sali!',
+        'switch': 'Un interruttore! Sparagli per scambiare i ponti.',
+        'blink': 'I ponti di luce lampeggiano! Attraversa mentre brillano.',
+      },
       'tide': {
         'deep': 'Troppo profondo! Esci dall’acqua!',
         'valve': 'Chiusa allagata! Spara alla valvola per svuotarla.',
@@ -666,6 +676,7 @@ export default {
       'story': 'Un Maestro del Nucleo attende. Liberiamolo!'
     },
     'story': {
+      'neon': 'Viale del Buio. Luci, per favore!',
       'tide': 'Chiuse di Marea. È ora di sguazzare!',
       'drill': 'Miniera Profonda. Occhio alla testa!',
       'magnet': 'Officina Polarità. La mia bussola impazzisce!',

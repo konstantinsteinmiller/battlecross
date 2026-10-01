@@ -622,5 +622,11 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M12.5 4A9 9 0 1 1 12.49 4ZM12.5 6.6A6.4 6.4 0 1 0 12.51 6.6Z',
     'M9.6 8.8A1.3 1.3 0 1 1 9.59 8.8Z',
     'M4.6 2.2A2.2 2.2 0 1 1 4.59 2.2Z'
+  ],
+  // A crescent (an outer arc of radius 9 cut by an offset inner one), tips
+  // up, and a small four-point glint off its back.
+  'blade': [
+    'M3.5 8A9 9 0 0 0 20.5 8A7 7 0 0 1 3.5 8Z',
+    'M12 1.5L13 4L15.5 5L13 6L12 8.5L11 6L8.5 5L11 4Z'
   ]
 }

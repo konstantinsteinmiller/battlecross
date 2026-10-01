@@ -37,7 +37,8 @@ export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
   gale: '#7dffc4',
   magnet: '#ff5a6e',
   drill: '#ffb12a',
-  tide: '#5fd2ff'
+  tide: '#5fd2ff',
+  neon: '#ff3fd2'
 }
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
@@ -233,6 +234,16 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     toon.push(xform(paint(rcone(0.38, 0.05, 0.45, 0.04, 12), '#3a4a5a'), [x, 3.7, z]))
     toon.push(xform(paint(rbox(2.4, 1.0, 0.3, 0.2), '#2f7f8f'), [x + 1.2, 0.5, z + 1.1]))
     lamp('tide', c, 'tide', xform(rbox(2.2, 0.08, 0.06, 0.3), [x + 1.2, 0.95, z + 1.27]), x, z)
+  }
+
+  {
+    // Blackout Boulevard: a dark tower ringed in neon, a billboard beside it.
+    const [x, z] = pos.neon
+    const c = SECTOR_GLOW.neon
+    toon.push(xform(paint(rbox(1.2, 3.6, 1.2, 0.2), '#2a2a3a'), [x, 1.8, z]))
+    for (const h of [1.0, 2.0, 3.0]) lamp('neon', h === 2.0 ? '#3ff4ff' : c, 'neon', xform(rbox(1.3, 0.08, 1.3, 0.3), [x, h, z]), x, z)
+    toon.push(xform(paint(rbox(0.1, 1.6, 0.1, 0.3), '#2a2a3a'), [x + 1.3, 0.8, z + 0.5]))
+    lamp('neon', c, 'neon', xform(rbox(1.4, 0.8, 0.08, 0.2), [x + 1.3, 1.9, z + 0.5]), x, z)
   }
 
   // ── The city: towers in the ring, each with a neon band on its nearest

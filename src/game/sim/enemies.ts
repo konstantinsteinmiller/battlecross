@@ -2,7 +2,7 @@ import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseStalker, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -69,6 +69,9 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  * it at 4/s as ever. This one number is the whole switch.
  */
 export const UNAWARE_TROOPER_GUARD = 1
+
+/** The Glow Stalker lunges from this close (m). */
+export const STALKER_LUNGE_R = 6.5
 
 /** The Puffer Mine: it swells this close (m), and its burst's reach (m). */
 export const PUFFER_SWELL_R = 4.2
@@ -1428,6 +1431,52 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Glow Stalker: closes in, whines (its seams flare), lunges; a
+    //    parry stops it cold ──
+    case 'stalker': {
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 6, dt)
+        if (d > 2.6) seek(w, e, px, pz, def.speed, dt)
+        e.b = Math.max(0, e.b - dt * 3)
+        if (canAttack && d < STALKER_LUNGE_R) {
+          startTele(e, 'lunge', def.tele, false)
+          w.sfx('alert', e.x, e.z)
+        }
+      } else if (e.state === 'tele') {
+        faceTo(e, px, pz, 8, dt)
+        e.b = Math.min(1, e.st / e.teleDur)
+        if (e.st >= e.teleDur) {
+          const dx = px - e.x
+          const dz = pz - e.z
+          const l = Math.hypot(dx, dz) || 1
+          e.tx = dx / l
+          e.tz = dz / l
+          e.hitPlayer = false
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        // The lunge: fast and straight; it can be parried.
+        step(w, e, e.tx * 13 * dt, e.tz * 13 * dt)
+        if (!e.hitPlayer && Math.hypot(px - e.x, pz - e.z) < 1.0 + PLAYER_R) {
+          e.hitPlayer = true
+          const r = w.hitPlayer(e, e.dmg, { blockable: true, fromX: e.x, fromZ: e.z, kind: 'melee' })
+          if (r === 'parry') {
+            e.stunT = 2.2
+            enterState(e, 'stun')
+            break
+          }
+        }
+        if (e.st > 0.32) enterState(e, 'recover')
+      } else if (e.state === 'recover') {
+        e.b = Math.max(0, e.b - dt * 3)
+        if (e.st > 0.7) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
     // ── Puffer Mine: drifts at Flux, swells (red: get away or pop it),
     //    bursts in a ring of water and is gone ──
     case 'puffer': {
@@ -1609,6 +1658,9 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
       break
     case 'puffer':
       posePuffer(r, e.b, t, m)
+      break
+    case 'stalker':
+      poseStalker(r, e.b, e.state === 'act' ? 1 : 0, t, m)
       break
     case 'mole':
       poseMole(r, e.buried ? 0 : e.state === 'idle' || e.state === 'alert' ? 0.75 : e.a, t * (e.state === 'act' ? 28 : 8), t, m)
