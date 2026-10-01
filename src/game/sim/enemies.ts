@@ -2,7 +2,7 @@ import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -69,6 +69,10 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  * it at 4/s as ever. This one number is the whole switch.
  */
 export const UNAWARE_TROOPER_GUARD = 1
+
+/** The Polar Pup's shell: shut this long (shots TINK), then open (s). */
+export const POLAR_SHUT = 2.6
+export const POLAR_OPEN = 1.8
 
 export const createEnemy = (
   kind: EnemyKind, level: number, x: number, z: number, room: number,
@@ -564,7 +568,7 @@ const golemTick = (w: World, e: Enemy, dt: number, d: number): void => {
  */
 export const frozenDt = (e: Enemy, dt: number): number => {
   if (e.frozenT <= 0 || e.state === 'dead') return dt
-  if (e.kind !== 'heli' && e.y > (e.floor ?? 0) + 0.2) return dt
+  if (e.kind !== 'heli' && e.kind !== 'polar' && e.y > (e.floor ?? 0) + 0.2) return dt
   return dt * (1 - (e.boss ? FREEZE_SLOW_BOSS : FREEZE_SLOW))
 }
 
@@ -645,7 +649,7 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
     }
     case 'stun': {
       e.stunT -= dt
-      if (e.kind === 'heli') e.y = Math.max(0.45, e.y - dt * 6)
+      if (e.kind === 'heli' || e.kind === 'polar') e.y = Math.max(0.45, e.y - dt * 6)
       if (e.stunT <= 0) {
         e.cd = Math.max(e.cd, 0.6)
         enterState(e, 'engage')
@@ -1373,6 +1377,43 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Polar Pup: shell shut (blue, shots TINK) / open (red): it fires
+    //    only while open, a pair of slow magnet orbs ──
+    case 'polar': {
+      // The shell's clock: POLAR_SHUT s shut, POLAR_OPEN s open, its own
+      // phase per machine; a broken shell stays open.
+      const cycle = POLAR_SHUT + POLAR_OPEN
+      const u = (e.anim + e.id * 0.7) % cycle
+      const open = e.guardBreakT > 0 || e.state === 'tele' || e.state === 'act' || u >= POLAR_SHUT
+      e.guard += ((open ? 0 : 1) - e.guard) * Math.min(1, dt * 7)
+      const baseY = def.fly + Math.sin(e.anim * 1.7) * 0.1
+      if (e.state === 'engage') {
+        e.y += (baseY - e.y) * Math.min(1, dt * 3)
+        faceTo(e, px, pz, 4, dt)
+        // A slow drift round the player at range.
+        e.a += dt * 0.35 * (e.id % 2 ? 1 : -1)
+        const r = (def.range[0] + def.range[1]) / 2
+        seek(w, e, px + Math.cos(e.a) * r, pz + Math.sin(e.a) * r, def.speed * 0.7, dt)
+        if (canAttack && open && d < 14) startTele(e, 'pulse', def.tele, false)
+      } else if (e.state === 'tele') {
+        faceTo(e, px, pz, 6, dt)
+        if (e.st >= e.teleDur) {
+          const a = Math.atan2(px - e.x, pz - e.z)
+          for (const s of [-1, 1]) {
+            w.fireOrb(e, e.x + Math.sin(a + s * 0.6) * 0.5, e.y + (e.floor ?? 0), e.z + Math.cos(a + s * 0.6) * 0.5, 4.2, e.dmg)
+          }
+          w.sfx('enemyShot', e.x, e.z)
+          enterState(e, 'recover')
+        }
+      } else if (e.state === 'recover') {
+        if (e.st > 0.5) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
     // ── Crate golem: keep its distance, throw, throw, lob; hop a charge ──
     case 'golem': {
       const g = e.golem!
@@ -1466,6 +1507,9 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
       poseTrooper(r, g, e.aim, t, m.walk, m)
       break
     }
+    case 'polar':
+      posePolar(r, 1 - e.guard, t, m)
+      break
     case 'heli':
       // m.tilt: the state's tilt, eased (no pops at tele/act), plus airspeed
       poseHeli(r, t, m.tilt, t * (stunned ? 4 : 28) + m.roll, m)

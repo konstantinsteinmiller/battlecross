@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Cachorro Polar',
     'hardhat': 'Casquito',
     'trooper': 'Escudero',
     'heli': 'Dron de rotor',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Cachorro Polar | Cachorros Polares',
     'hardhat': 'Casquito | Casquitos',
     'trooper': 'Escudero | Escuderos',
     'heli': 'Dron de rotor | Drones de rotor',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Maestro Imán',
     'stand': 'Chatarrero',
     'scrapper': 'Chatarrero',
     'blazeMaster': 'Maestro Llamarada',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Fábrica de Polaridad',
     'scrapyard': 'Desguace',
     'blaze': 'Refinería Llamarada',
     'cryo': 'Planta Criogénica',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Purga del sector',
     'climb': 'Carrera de la torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo' },
+    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad' },
     'rematch': 'Revancha: {boss}',
     'desc': {
       'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Ola de llamas', 'desc': 'Una bola de fuego rueda por el suelo, atraviesa todas las máquinas a su paso y las incendia.' },
     'iceLance': { 'name': 'Lanza de hielo', 'desc': 'Una lanza perforante que enfría lo que toca y lo ralentiza.' },
     'thunderArc': { 'name': 'Arco de trueno', 'desc': 'Un rayo instantáneo que salta a las máquinas cercanas.' },
-    'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' }
+    'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' },
+    'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': '¡Vamos a entrenar el disparo cargado!',
     },
     'hint': {
+      'magnet': {
+        'panel': '¿Ves esa placa roja y azul? Dispárale para invertir el raíl.',
+        'rail': '¡Raíl magnético! Las flechas marcan la atracción. Resiste o déjate llevar.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Eso de abajo es lava. Quédate en el metal.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
     },
     'story': {
+      'magnet': 'Fábrica de Polaridad. ¡Mi brújula da vueltas!',
       'scrapyard': 'Relé del Desguace. ¡Enciéndelo!',
       'blaze': 'La Refinería. ¡Quema, quema!',
       'cryo': 'Planta Criogénica. ¡Brr! No te pares.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'La Fortaleza. Acabemos con esto.'
     },
     'arc': {
-      '1': 'Un relé encendido. ¡Quedan cuatro!',
+      '10': 'Escudo caído. ¡Ahora Vex!',
+      '9': 'Queda un Maestro. ¡Casi!',
+      '8': '¡Ocho! Solo quedan dos Maestros.',
+      '7': 'Siete encendidos. ¡Sigue así!',
+      '6': '¡Seis relés! La ciudad despierta.',
+      '1': 'Un relé encendido. ¡Quedan nueve!',
       '2': '¡Dos relés! Vex está enfurruñado.',
-      '3': 'A mitad de camino. ¡Sigue brillando!',
-      '4': 'Queda un Maestro. ¡Casi!',
-      '5': 'Escudo caído. ¡Ahora Vex!'
+      '3': 'Tres encendidos. ¡Sigue brillando!',
+      '4': 'Van cuatro. La red vuelve a zumbar.',
+      '5': '¡A mitad de camino! Vex está sudando.',
     },
     'bossAhead': 'Jefe adelante. ¡Respira hondo!',
     'bossDown': '¡Maestro liberado! ¡Buen trabajo!',

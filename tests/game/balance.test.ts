@@ -10,7 +10,7 @@ describe('the balance simulation', () => {
 
   it('plays the whole campaign: the tutorial, then every sector to its Core Master', () => {
     expect(ref[0]!.kind).toBe('tutorial')
-    expect(story.map(r => r.sector)).toEqual(['blaze', 'cryo', 'volt', 'gale', 'fortress'])
+    expect(story.map(r => r.sector)).toEqual(['blaze', 'cryo', 'volt', 'gale', 'magnet', 'fortress'])
   })
 
   it('the reference player meets each Core Master in a fight of half a minute or so, Vex longer', () => {

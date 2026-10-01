@@ -8,7 +8,7 @@ import type { Element } from './enemies'
  * through kills scored with it. Equipping one tints the arm cannon.
  */
 
-export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard'
+export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull'
 
 export interface WeaponDef {
   id: WeaponId
@@ -31,7 +31,10 @@ export const WEAPONS: Record<WeaponId, WeaponDef> = {
   flameWave: { id: 'flameWave', color: '#ff7a2a', shell: '#c0392b', cost: 4, cooldown: 0.9, dmg: 3.2, element: 'fire', from: 'blazeMaster', xp: [14, 34] },
   iceLance: { id: 'iceLance', color: '#8ff2ff', shell: '#2f78ad', cost: 4, cooldown: 1.0, dmg: 3.0, element: 'ice', from: 'frostMaster', xp: [14, 34] },
   thunderArc: { id: 'thunderArc', color: '#ffe13d', shell: '#7a4fd6', cost: 5, cooldown: 1.1, dmg: 2.6, element: 'volt', from: 'voltMaster', xp: [16, 38] },
-  galeGuard: { id: 'galeGuard', color: '#7fffc8', shell: '#1f9a7a', cost: 6, cooldown: 1.6, dmg: 2.2, element: 'wind', from: 'galeMaster', xp: [16, 38] }
+  galeGuard: { id: 'galeGuard', color: '#7fffc8', shell: '#1f9a7a', cost: 6, cooldown: 1.6, dmg: 2.2, element: 'wind', from: 'galeMaster', xp: [16, 38] },
+  // A homing horseshoe: it bends onto its mark, breaks a guard or a closed
+  // shell like a full charge, and yanks a flyer out of the air.
+  magnetPull: { id: 'magnetPull', color: '#ff4a5e', shell: '#3f7bff', cost: 3, cooldown: 0.8, dmg: 1.8, element: 'none', from: 'magnetMaster', xp: [16, 38] }
 }
 
 export const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -44,7 +47,8 @@ export const WEAPON_ICON = {
   flameWave: 'flame',
   iceLance: 'snowflake',
   thunderArc: 'bolt',
-  galeGuard: 'wind'
+  galeGuard: 'wind',
+  magnetPull: 'magnet'
 } as const satisfies Record<WeaponId, string>
 
 export const weaponRank = (xp: number, def: WeaponDef): 1 | 2 | 3 => (xp >= def.xp[1] ? 3 : xp >= def.xp[0] ? 2 : 1)

@@ -749,6 +749,14 @@ export class CombatSystem {
       case 'scrapBurst':
         if (r() < 0.45 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 2.5, vy: 1 + r() * 1.5, vz: (r() - 0.5) * 2.5, color: r() < 0.5 ? '#c9d3e6' : '#ffb04a', size: 0.14, sizeEnd: 0.03, life: 0.45, gravity: 9 })
         break
+      case 'magnetPull':
+        // Field lines: red and blue sparks curling round the shot.
+        if (r() < 0.7 * k) {
+          const a = s.life * 24
+          const red = r() < 0.5
+          fx.emit({ x: s.x + Math.cos(a) * 0.3 * (red ? 1 : -1), y: s.y + Math.sin(a) * 0.3, z: s.z, color: red ? '#ff4a5e' : '#5a8cff', size: 0.22, sizeEnd: 0.02, life: 0.3 })
+        }
+        break
       case 'galeGuard':
         if (r() < 0.6 * k) {
           const a = s.life * 20
@@ -775,6 +783,10 @@ export class CombatSystem {
         break
       case 'galeGuard':
         fx.sparks(s.x, s.y, s.z, '#7fffc8', 10, 5, 0.2)
+        break
+      case 'magnetPull':
+        fx.sparks(s.x, s.y, s.z, '#ff4a5e', 8, 5, 0.18)
+        fx.sparks(s.x, s.y, s.z, '#5a8cff', 8, 5, 0.18)
         break
     }
   }
@@ -853,6 +865,8 @@ export class CombatSystem {
     let guarded = false
     if (e.guardBreakT <= 0) {
       if (e.kind === 'hardhat' && e.guard > 0.55) guarded = true
+      // A Polar Pup's shut shell, from any side.
+      if (e.kind === 'polar' && e.guard > 0.55) guarded = true
       if (e.kind === 'trooper' && e.guard > 0.55) {
         const toShot = Math.atan2(o.fromX - e.x, o.fromZ - e.z)
         let d = toShot - e.yaw
@@ -888,6 +902,8 @@ export class CombatSystem {
     dmg = Math.max(1, Math.round(dmg))
     e.hp -= dmg
     e.flash = 1
+    // Magnet Pull yanks a flyer out of its hover: a short stun (it sags).
+    if (o.weapon === 'magnetPull' && e.def.fly > 0 && !e.boss && e.hp > 0) this.stun(e, 0.8)
     e.hurtAt = h.time
     // Knockback + stagger
     const kb = o.charge >= 2 ? 0.35 : 0.08

@@ -51,7 +51,11 @@ export const SECTORS: Sector[] = [
     encounters: { kinds: [['heli', 3], ['hopper', 2], ['trooper', 2], ['roller', 1.5], ['brute', 1.2], ['turret', 1], ['hardhat', 1]], element: 'wind', density: 1.1, eliteChance: 0.1, golems: 0.21, theme: 'gale' }
   },
   {
-    id: 'fortress', levels: [18, 26], boss: 'vexMk1', after: 'gale', mapPos: [0.24, 0.32], rooms: [10, 12],
+    id: 'magnet', levels: [16, 22], boss: 'magnetMaster', after: 'gale', mapPos: [0.88, 0.16], rooms: [9, 11],
+    encounters: { kinds: [['polar', 2.5], ['trooper', 2], ['roller', 1.5], ['heli', 1.5], ['brute', 1.2], ['turret', 1.2], ['hardhat', 1]], element: 'none', density: 1.1, eliteChance: 0.1, golems: 0.22, theme: 'magnet' }
+  },
+  {
+    id: 'fortress', levels: [19, 27], boss: 'vexMk1', after: 'magnet', mapPos: [0.24, 0.32], rooms: [10, 12],
     encounters: { kinds: [['brute', 2], ['trooper', 2], ['heli', 2], ['hopper', 2], ['roller', 2], ['turret', 1.5], ['hardhat', 1.5]], element: 'none', density: 1.15, eliteChance: 0.12, golems: 0.24, theme: 'fortress' }
   }
 ]

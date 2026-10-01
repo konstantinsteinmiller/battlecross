@@ -37,8 +37,8 @@ import { newMotion } from '@/game/models/motion'
 import { golemColors } from '@/game/sim/enemies'
 
 const host = ref<HTMLElement | null>(null)
-const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret', 'golem']
-const BOSSES: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'vexMk1']
+const ENEMIES: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret', 'golem', 'polar']
+const BOSSES: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'vexMk1']
 const models = ['hero', 'hubview', 'turn', 'gear', 'viewmodel', 'fp', 'thumb', 'props', 'enemies', 'bosses', ...ENEMIES, ...BOSSES]
 let bossRigs: Array<{ id: BossId; rig: Rig }> = []
 let enemyRigs: Array<{ kind: EnemyKind; rig: Rig }> = []

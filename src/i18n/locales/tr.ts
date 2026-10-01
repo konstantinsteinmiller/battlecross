@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Kutup Yavrusu',
     'hardhat': 'Baretli',
     'trooper': 'Kalkanlı Asker',
     'heli': 'Pervaneli Dron',
@@ -75,6 +76,7 @@ export default {
   // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
   // forms are the singular on purpose.
   'enemyPlural': {
+    'polar': 'Kutup Yavrusu | Kutup Yavrusu',
     'hardhat': 'Baretli | Baretli',
     'trooper': 'Kalkanlı Asker | Kalkanlı Asker',
     'heli': 'Pervaneli Dron | Pervaneli Dron',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Mıknatıs Ustası',
     'stand': 'Hurdacı',
     'scrapper': 'Hurdacı',
     'blazeMaster': 'Alev Ustası',
@@ -109,6 +112,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Kutupluluk Fabrikası',
     'scrapyard': 'Hurdalık',
     'blaze': 'Alev Rafinerisi',
     'cryo': 'Kriyo Tesisi',
@@ -129,7 +133,7 @@ export default {
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
     'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları' },
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -455,7 +459,8 @@ export default {
     'flameWave': { 'name': 'Alev Dalgası', 'desc': 'Bir ateş topu yerde yuvarlanarak yolundaki her makineyi delip geçer ve onları tutuşturur.' },
     'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi soğutup yavaşlatan delici bir mızrak.' },
     'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
-    'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' }
+    'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' },
+    'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' }
   },
 
   'options': {
@@ -589,6 +594,10 @@ export default {
       'charge': 'Şarjlı atışı çalıştıralım!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Şu kırmızı-mavi plakayı gördün mü? Rayı ters çevirmek için ona ateş et.',
+        'rail': 'Mıknatıslı ray! Oklar çekimi gösteriyor. Zorla geç ya da akışa kapıl.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Aşağıdaki lav. Metalin üstünde kal.',
@@ -639,6 +648,7 @@ export default {
       'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
     },
     'story': {
+      'magnet': 'Kutupluluk Fabrikası. Pusulam fır dönüyor!',
       'scrapyard': 'Hurdalık rölesi. Yak onu!',
       'blaze': 'Rafineri. Sıcak, sıcak, sıcak!',
       'cryo': 'Kriyo Tesisi. Brr! Hareket et.',
@@ -647,11 +657,16 @@ export default {
       'fortress': 'Kale. Bunu bitiriyoruz.'
     },
     'arc': {
-      '1': 'Bir röle yandı. Dört kaldı!',
+      '10': "Kalkan düştü. Sıra Vex'te!",
+      '9': 'Bir Usta kaldı. Az kaldı!',
+      '8': 'Sekiz! Sadece iki Usta kaldı.',
+      '7': 'Yedi yandı. Böyle devam!',
+      '6': 'Altı röle! Şehir uyanıyor.',
+      '1': 'Bir röle yandı. Dokuz kaldı!',
       '2': 'İki röle! Vex surat asıyor.',
-      '3': 'Yolun yarısı. Parlamaya devam!',
-      '4': 'Bir Usta kaldı. Az kaldı!',
-      '5': "Kalkan düştü. Sıra Vex'te!"
+      '3': 'Üç yandı. Parlamaya devam!',
+      '4': 'Dört tamam. Şebeke yine vızıldıyor.',
+      '5': 'Yolun yarısı! Vex terliyor.',
     },
     'bossAhead': 'İleride patron. Derin nefes!',
     'bossDown': 'Usta kurtarıldı! Harika iş!',

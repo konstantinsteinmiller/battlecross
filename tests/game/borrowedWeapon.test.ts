@@ -149,9 +149,11 @@ describe('placement', () => {
   it('positions never depend on what Flux owns; the weapon does', () => {
     for (const map of MAPS.slice(0, 80)) {
       const a = planBorrowed(map, { owned: [] })
-      const b = planBorrowed(map, { owned: ['scrapBurst', 'flameWave', 'iceLance', 'thunderArc'], slots: ['scrapBurst', 'flameWave'] })
+      // All but the last weapon owned: the last is the one not won.
+      const last = WEAPON_IDS[WEAPON_IDS.length - 1]!
+      const b = planBorrowed(map, { owned: WEAPON_IDS.filter(w => w !== last), slots: ['scrapBurst', 'flameWave'] })
       expect(b.map(s => [s.x, s.z, s.room])).toEqual(a.map(s => [s.x, s.z, s.room]))
-      for (const s of b) expect(s.weapon).toBe('galeGuard')
+      for (const s of b) expect(s.weapon).toBe(last)
     }
   })
 
@@ -172,8 +174,9 @@ describe('placement', () => {
 describe('which weapon', () => {
   it('prefers one Flux has not won, then an owned one not slotted, then any', () => {
     for (let r = 0; r < 1; r += 0.05) {
-      expect(['iceLance', 'galeGuard']).toContain(lentWeapon(r, ['scrapBurst', 'flameWave', 'thunderArc'], ['scrapBurst', '']))
-      expect(['iceLance', 'thunderArc', 'galeGuard']).toContain(lentWeapon(r, [...WEAPON_IDS], ['scrapBurst', 'flameWave']))
+      const owned = ['scrapBurst', 'flameWave', 'thunderArc'] as const
+      expect(WEAPON_IDS.filter(w => !owned.includes(w as never))).toContain(lentWeapon(r, [...owned], ['scrapBurst', '']))
+      expect(WEAPON_IDS.filter(w => w !== 'scrapBurst' && w !== 'flameWave')).toContain(lentWeapon(r, [...WEAPON_IDS], ['scrapBurst', 'flameWave']))
       expect(WEAPON_IDS).toContain(lentWeapon(r, [...WEAPON_IDS], [...WEAPON_IDS]))
     }
     expect(lentWeapon(0.999999, [], [])).toBe(WEAPON_IDS[WEAPON_IDS.length - 1])

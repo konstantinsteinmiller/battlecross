@@ -29,7 +29,7 @@ export interface Theme {
   crateTrim: string
 }
 
-export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'fortress'
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'fortress'
 
 export const THEMES: Record<SectorId, Theme> = {
   scrapyard: {
@@ -76,6 +76,17 @@ export const THEMES: Record<SectorId, Theme> = {
     skyTop: '#2f8cff', skyBottom: '#d8f0ff', fog: '#d0ecff', fogNear: 22, fogFar: 76,
     hemiSky: '#ffffff', hemiGround: '#8aa3b5', sun: '#fffbe8', sunIntensity: 1.25,
     pipe: '#ff9f5a', crate: '#d9c28a', crateTrim: '#6a5a3a'
+  },
+  // Polarity Works: a steel foundry under a red-and-blue sky of induction
+  // coils; the poles are its accent (red north, blue south).
+  magnet: {
+    id: 'magnet',
+    floor: '#8d93a3', floorAlt: '#777d8e', corridor: '#6a7080',
+    wall: '#c23a4a', wallLow: '#7e2230', trim: '#3f7bff', pilaster: '#5a6072',
+    accent: '#ff4a5e', hazard: '#3f7bff',
+    skyTop: '#3a2c6e', skyBottom: '#ff9a8a', fog: '#c89aa8', fogNear: 18, fogFar: 64,
+    hemiSky: '#ffe6ea', hemiGround: '#3a3448', sun: '#fff0e6', sunIntensity: 1.15,
+    pipe: '#3f7bff', crate: '#9a8a7a', crateTrim: '#3a3036'
   },
   fortress: {
     id: 'fortress',

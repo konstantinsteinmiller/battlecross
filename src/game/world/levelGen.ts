@@ -1,4 +1,5 @@
 import { mulberry32, randInt, shuffle, type Rng } from './rng'
+import type { EnemyKind } from '../models/enemies'
 
 /**
  * ─── Procedural sector maps ──────────────────────────────────────────────────
@@ -192,6 +193,9 @@ export interface RewardSpot {
  *  band of heights it follows the player through. */
 export interface FoePost {
   role: 'ground' | 'turret' | 'flyer'
+  /** The machine this post holds, when the level names it (a stage's own
+   *  enemy); else the role's default (`sim/climbSpawn.ts`). */
+  kind?: EnemyKind
   x: number
   z: number
   y: number
@@ -205,6 +209,7 @@ export interface FoePost {
  *  wall height keys on it). The climb's seven, then the platform stages'. */
 export type SectionKind = 'hall' | 'ladder' | 'rolling' | 'lift' | 'crusher' | 'descent' | 'arena'
   | 'drop' | 'vents' | 'hammer' | 'lava' | 'ice' | 'spikes' | 'frost' | 'icicles' | 'rail' | 'cart' | 'islands' | 'shuttle' | 'wind' | 'dock'
+  | 'magnet' | 'conveyor'
 
 // ─── Terrain extensions (the platform stages, `world/stages/`) ──────────────
 // All optional on `Terrain`: the climb sets only `chests`, and nothing reads
@@ -258,6 +263,25 @@ export interface WindZone {
   on: number
   off: number
   phase: number
+  room: number
+}
+
+/** A magnet rail (the Polarity Works, `world/stages/magnet.ts`): a strip of
+ *  floor whose field drags Flux along (dx, dz) at `strength` m/s — a push on
+ *  top of his walk, like a gust; it never lifts or drops him. Its polarity
+ *  panel, a plate on a wall of cell (i, j)'s `side`, flips the pull when
+ *  shot; `every` > 0 flips it on the clock as well (offset by `phase`). */
+export interface MagnetRail {
+  i0: number
+  j0: number
+  i1: number
+  j1: number
+  dx: number
+  dz: number
+  strength: number
+  panel?: { i: number; j: number; side: 'n' | 's' | 'e' | 'w' }
+  every?: number
+  phase?: number
   room: number
 }
 
@@ -396,6 +420,8 @@ export interface Terrain {
   /** Crumbling platforms over pits (`sim/stages/crumble.ts`). */
   crumbles?: CrumbleSpec[]
   wind?: WindZone[]
+  /** Magnet rails (the Polarity Works). */
+  magnets?: MagnetRail[]
   rails?: RailSpec[]
   waves?: WaveSpec[]
   vents?: VentSpec[]

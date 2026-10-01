@@ -142,7 +142,7 @@ export const WEAK_TO: ReadonlyArray<readonly [boss: string, weapon: string]> = [
 ]
 /** Each sector's floor level after the first (checked against `data/regions.ts`). */
 export const SECTOR_FLOOR: ReadonlyArray<readonly [sector: string, level: number]> = [
-  ['blaze', 3], ['cryo', 6], ['volt', 9], ['gale', 13], ['fortress', 18]
+  ['blaze', 3], ['cryo', 6], ['volt', 9], ['gale', 13], ['magnet', 16], ['fortress', 19]
 ]
 
 // ── Atlas: in the game now ──
@@ -179,7 +179,7 @@ const ATLAS_LIVE: VoiceLine[] = [
     when: ['A story mission starts (fallback line)', 'Eine Story-Mission beginnt (Ersatzzeile)'],
     direction: ['Determined, a small rally.', 'Entschlossen, ein kleiner Aufruf.']
   }),
-  ...(['scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'fortress'] as const).map(s => live(`atlas.story.${s}`, 'atlas', 'missionStory', {
+  ...(['scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'magnet', 'fortress'] as const).map(s => live(`atlas.story.${s}`, 'atlas', 'missionStory', {
     when: [`Story mission start: {sector}`, `Start der Story-Mission: {sector}`],
     params: { sector: `sector.${s}` },
     direction: s === 'fortress'
@@ -188,9 +188,9 @@ const ATLAS_LIVE: VoiceLine[] = [
         ? ['Playful unease: the tower is already getting to it.', 'Verspieltes Unbehagen: der Turm macht sich schon bemerkbar.']
         : ['A briefing with a grin.', 'Eine Einweisung mit einem Grinsen.']
   })),
-  ...([1, 2, 3, 4, 5] as const).map(n => live(`atlas.arc.${n}`, 'atlas', 'missionStory', {
-    when: [`Story mission start, ${n} of 5 Masters freed`, `Start einer Story-Mission, ${n} von 5 Meistern befreit`],
-    direction: n === 5
+  ...([1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const).map(n => live(`atlas.arc.${n}`, 'atlas', 'missionStory', {
+    when: [`Story mission start, ${n} of 10 Masters freed`, `Start einer Story-Mission, ${n} von 10 Meistern befreit`],
+    direction: n === 10
       ? ['Steady and ready: the last door is open.', 'Ruhig und bereit: die letzte Tür ist offen.']
       : ['The score so far, with a hint of pride.', 'Der Zwischenstand, mit einem Hauch Stolz.']
   })),
@@ -468,6 +468,7 @@ const ATLAS_PLAN: VoiceLine[] = [
     ['brute', '{enemy}. Parry, then punish.', '{enemy}. Parieren, dann zuschlagen.', 1.8],
     ['turret', '{enemy}. Keep moving.', '{enemy}. Bleib in Bewegung.', 1.6],
     ['golem', 'That crate\'s breathing. Get close.', 'Die Kiste atmet. Geh nah ran.', 2],
+    ['polar', '{enemy}. Shoot it when it opens red.', '{enemy}. Schieß, wenn es rot aufgeht.', 1.8],
     ['elite', 'Gold ring. Elite. Careful.', 'Goldring. Elite. Vorsicht.', 1.6]
   ] as const).map(([e, en, de, max]) => plan(`atlas.scan.${e}`, 'atlas', 'scan', max, {
     when: ['The first sighting of this machine', 'Die erste Sichtung dieser Maschine'],

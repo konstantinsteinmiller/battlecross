@@ -271,7 +271,7 @@ describe('gear tints', () => {
           }
         }
       }
-      expect(kits).toBe(4 * 4 * 10)
+      expect(kits).toBe(HELMETS.length * CHESTS.length * ARMS.length)
     } finally {
       profile.inv.items = saved.items
       profile.inv.equipped = saved.equipped
@@ -324,7 +324,7 @@ describe('the full-body rig', () => {
     for (const [helm, chest, arm] of BUILT) {
       pairs.add(`${helm}+${chest}`).add(`${helm}+${arm}`).add(`${chest}+${arm}`)
     }
-    expect(BUILT).toHaveLength(40)
+    expect(BUILT).toHaveLength(HELMETS.length * ARMS.length)
     expect(pairs.size).toBe(HELMETS.length * CHESTS.length + (HELMETS.length + CHESTS.length) * ARMS.length)
   })
 

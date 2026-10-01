@@ -599,5 +599,13 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M3 7.6H14A2.3 2.3 0 1 0 11.7 5.3H9.5A4.5 4.5 0 1 1 14 9.8H3A1.1 1.1 0 0 1 3 7.6Z',
     'M3 11.4H18.5A4.5 4.5 0 1 1 14 15.9H16.2A2.3 2.3 0 1 0 18.5 13.6H3A1.1 1.1 0 0 1 3 11.4Z',
     'M3 16.9H10.5A1.1 1.1 0 0 1 10.5 19.1H3A1.1 1.1 0 0 1 3 16.9Z'
+  ],
+  // A horseshoe opening up: legs 4 units thick round a bend of radius 8 / 4,
+  // the pole tips cut off by a one-unit gap (the classic two-tone magnet in
+  // one colour).
+  'magnet': [
+    'M4 6.5H8V12A4 4 0 0 0 16 12V6.5H20V12A8 8 0 0 1 4 12Z',
+    'M4 3H8V5.5H4Z',
+    'M16 3H20V5.5H16Z'
   ]
 }

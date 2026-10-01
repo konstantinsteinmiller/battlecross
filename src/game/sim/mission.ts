@@ -408,6 +408,11 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private marker!: Mesh
   private markerT = 0
   private shakeAmt = 0
+  /** A boss's pull on Flux (`World.pull`): toward (pullX, pullZ) at pullS m/s for pullT s. */
+  private pullX = 0
+  private pullZ = 0
+  private pullS = 0
+  private pullT = 0
   private lookSens: number
   private vmRoot = new Group()
   private hudT = 0
@@ -834,6 +839,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
 
   fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void {
     this.system.fireOrb(e, x, y, z, speed, dmg)
+  }
+
+  pull(x: number, z: number, speed: number, dur: number): void {
+    this.pullX = x
+    this.pullZ = z
+    this.pullS = speed
+    this.pullT = dur
   }
 
   shake(amount: number): void {
@@ -3172,12 +3184,27 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       tx = p.vx
       tz = p.vz
     }
+    // A boss's pull (the Magnet Master's Pole Pull) drags him toward its
+    // pole, a push on top of the walk; it lets go within a body's length.
+    let pvx = 0
+    let pvz = 0
+    if (this.pullT > 0) {
+      this.pullT -= dt
+      const dx = this.pullX - p.x
+      const dz = this.pullZ - p.z
+      const d = Math.hypot(dx, dz)
+      if (d > 1.2) {
+        pvx = (dx / d) * this.pullS
+        pvz = (dz / d) * this.pullS
+      }
+    }
+    if (this.climb) this.climb.setPull(pvx, pvz)
     const k = this.climb ? walkBlend(dt, c.slideT > 0, air, this.climb.moveMod(p).friction) : c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
     p.vx += (tx - p.vx) * k
     p.vz += (tz - p.vz) * k
     const out: [number, number] = [0, 0]
     if (this.climb) this.stepClimb(out, fwdX, fwdZ, rightX, rightZ, dt, c.slideT > 0)
-    else moveCircle(this.nav, p.x, p.z, p.vx * dt, p.vz * dt, PLAYER_R, out)
+    else moveCircle(this.nav, p.x, p.z, (p.vx + pvx) * dt, (p.vz + pvz) * dt, PLAYER_R, out)
     if (p.path && Math.hypot(out[0] - p.x, out[1] - p.z) < 0.002 && Math.hypot(tx, tz) > 1) p.path = null
     p.x = out[0]
     p.z = out[1]

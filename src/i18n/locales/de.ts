@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Polwelpe',
     'hardhat': 'Helmling',
     'trooper': 'Schildsoldat',
     'heli': 'Rotordrohne',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Polwelpe | Polwelpen',
     'hardhat': 'Helmling | Helmlinge',
     'trooper': 'Schildsoldat | Schildsoldaten',
     'heli': 'Rotordrohne | Rotordrohnen',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Magnetmeister',
     'stand': 'Schrottbrecher',
     'scrapper': 'Schrottbrecher',
     'blazeMaster': 'Glutmeister',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Polaritätswerk',
     'scrapyard': 'Schrottplatz',
     'blaze': 'Glutraffinerie',
     'cryo': 'Kryowerk',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Flammenwelle', 'desc': 'Ein Feuerball rollt über den Boden, durch jede Maschine auf seinem Weg, und setzt sie in Brand.' },
     'iceLance': { 'name': 'Eislanze', 'desc': 'Eine durchschlagende Lanze, die Getroffenes unterkühlt und verlangsamt.' },
     'thunderArc': { 'name': 'Donnerbogen', 'desc': 'Sofortiger Blitz, der auf Maschinen in der Nähe überspringt.' },
-    'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' }
+    'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' },
+    'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Lass uns den Ladeschuss trainieren!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Siehst du die rot-blaue Platte? Schieß drauf, um die Schiene umzupolen.',
+        'rail': 'Magnetschiene! Die Pfeile zeigen den Sog. Kämpf dagegen an oder lass dich tragen.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Da unten ist Lava. Bleib auf dem Metall.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
     },
     'story': {
+      'magnet': 'Polaritätswerk. Mein Kompass dreht durch!',
       'scrapyard': "Schrottplatz-Relais. Bring's zum Leuchten!",
       'blaze': 'Die Raffinerie. Heiß, heiß, heiß!',
       'cryo': 'Kryowerk. Brr! Bleib in Bewegung.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Die Festung. Zeit, das zu beenden.'
     },
     'arc': {
-      '1': 'Ein Relais leuchtet. Noch vier!',
+      '10': 'Schild ist weg. Jetzt ist Vex dran!',
+      '9': 'Nur noch ein Meister. Fast geschafft!',
+      '8': 'Acht! Nur noch zwei Meister.',
+      '7': 'Sieben leuchten. Weiter so!',
+      '6': 'Sechs Relais! Die Stadt erwacht.',
+      '1': 'Ein Relais leuchtet. Noch neun!',
       '2': 'Zwei Relais! Vex schmollt.',
-      '3': 'Halbzeit. Leucht weiter!',
-      '4': 'Nur noch ein Meister. Fast geschafft!',
-      '5': 'Schild ist weg. Jetzt ist Vex dran!'
+      '3': 'Drei leuchten. Leucht weiter!',
+      '4': 'Vier geschafft. Das Netz summt wieder.',
+      '5': 'Halbzeit! Vex kommt ins Schwitzen.',
     },
     'bossAhead': 'Boss voraus. Tief durchatmen!',
     'bossDown': 'Meister befreit! Super gemacht!',

@@ -14,7 +14,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
  * silhouette.
  */
 
-export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'vexMk1'
+export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'vexMk1'
 
 interface MasterSpec {
   main: string
@@ -152,6 +152,28 @@ export const buildGaleMaster = (): Rig => masterRig({
   }
 })
 
+export const buildMagnetMaster = (): Rig => masterRig({
+  main: '#c23a4a', deep: '#22306e', accent: '#3f7bff', glow: '#ffd0d6', skin: '#ffd2a8',
+  crest: (b) => {
+    // A horseshoe crown: a red U over the helmet, its pole tips blue and lit.
+    b.part('head', torus(0.17, 0.045, 8, 18, Math.PI), '#c23a4a', { p: [0, 0.34, 0], r: [0, 0, Math.PI] })
+    b.mirror((sd) => {
+      b.part('head', rcyl(0.047, 0.1, 0.015, 10), '#c23a4a', { p: [sd * 0.17, 0.39, 0] })
+      b.part('head', rcyl(0.05, 0.06, 0.015, 10), '#3f7bff', { p: [sd * 0.17, 0.46, 0], glow: true, outline: false })
+    })
+    // Pole plates on the chest: north red, south blue.
+    b.mirror((sd) => b.part('chest', rcyl(0.055, 0.025, 0.01, 16), sd < 0 ? '#ff4a5e' : '#3f7bff', { p: [sd * 0.12, 0.12, 0.19], r: [Math.PI / 2, 0, 0], glow: true, outline: false }))
+  },
+  arms: (b) => {
+    b.mirror((sd, t) => {
+      b.part(`elbow${t}`, cap(0.085, 0.1), '#22306e', { p: [0, -0.09, 0] })
+      // Horseshoe gauntlets: a U for a hand, its tips the pole colour.
+      b.part(`elbow${t}`, torus(0.09, 0.035, 8, 16, Math.PI), '#c23a4a', { p: [0, -0.22, 0], r: [0, Math.PI / 2, Math.PI] })
+      for (const s of [-1, 1]) b.part(`elbow${t}`, rcyl(0.037, 0.06, 0.01, 8), sd < 0 ? '#ff4a5e' : '#3f7bff', { p: [0, -0.32, s * 0.09], glow: true, outline: false })
+    })
+  }
+})
+
 /** The Scrapper: a hulking junk crane — magnet claw, hammer fist, visor head. */
 export const buildScrapper = (): Rig => {
   const b = new RigBuilder()
@@ -236,6 +258,7 @@ export const buildBossRig = (id: BossId): Rig => {
     case 'frostMaster': return buildFrostMaster()
     case 'voltMaster': return buildVoltMaster()
     case 'galeMaster': return buildGaleMaster()
+    case 'magnetMaster': return buildMagnetMaster()
     case 'vexMk1': return buildVex()
   }
 }
@@ -327,6 +350,15 @@ const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: n
       rX = -0.06 * bz
       buzz = 0.01 * Math.sin(10 * TAU * p)
       hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else if (id === 'magnetMaster') {
+      // Polarity clap: both gauntlets swing in, meet, and spring apart
+      const inn = bump(p, 0.05, 0.5)
+      const out = bump(p, 0.45, 0.95)
+      lX = -0.5 * inn
+      rX = -0.5 * inn
+      lY = 0.5 * inn - 0.25 * out
+      rY = -0.5 * inn + 0.25 * out
+      hX = -0.1 * out
     } else {
       // Fan flourish: the R arm sweeps across the chest and back
       const sw = Math.sin(Math.PI * p)

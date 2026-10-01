@@ -108,6 +108,11 @@ const glyph = (id: WeaponId): BufferGeometry => {
       g.computeVertexNormals()
       return paint(g, W)
     }
+    case 'magnetPull':
+      // A horseshoe opening up, its two pole tips.
+      parts.push(xform(paint(torus(0.1, 0.035, 6, 14, Math.PI), W), [0, -0.02, 0], [0, 0, Math.PI]))
+      for (const s of [-1, 1]) parts.push(xform(paint(rcyl(0.035, 0.14, 0.01, 8), W), [s * 0.1, 0.05, 0]))
+      break
     case 'galeGuard':
       // Three leaves round a centre: the orbit.
       for (let k = 0; k < 3; k++) {

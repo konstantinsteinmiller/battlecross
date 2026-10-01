@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Anjing Kutub',
     'hardhat': 'Topi Baja',
     'trooper': 'Prajurit Perisai',
     'heli': 'Drone Rotor',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Anjing Kutub | Anjing Kutub',
     'hardhat': 'Topi Baja | Topi Baja',
     'trooper': 'Prajurit Perisai | Prajurit Perisai',
     'heli': 'Drone Rotor | Drone Rotor',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Master Magnet',
     'stand': 'Si Rongsok',
     'scrapper': 'Si Rongsok',
     'blazeMaster': 'Master Api',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Pabrik Polaritas',
     'scrapyard': 'Gudang Rongsok',
     'blaze': 'Kilang Api',
     'cryo': 'Pabrik Beku',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
     'stage': 'Tahap Platform',
-    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit' },
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Gelombang Api', 'desc': 'Bola api menggelinding di lantai, menembus setiap mesin di jalurnya dan membakar mereka.' },
     'iceLance': { 'name': 'Tombak Es', 'desc': 'Tombak penembus yang mendinginkan sasarannya dan memperlambatnya.' },
     'thunderArc': { 'name': 'Busur Petir', 'desc': 'Petir instan yang menyambar berantai ke mesin di dekatnya.' },
-    'galeGuard': { 'name': 'Perisai Badai', 'desc': 'Dedaunan mengitarimu, menahan tembakan dan mengiris mesin. Gunakan lagi untuk melemparkannya.' }
+    'galeGuard': { 'name': 'Perisai Badai', 'desc': 'Dedaunan mengitarimu, menahan tembakan dan mengiris mesin. Gunakan lagi untuk melemparkannya.' },
+    'magnetPull': { 'name': 'Tarikan Magnet', 'desc': 'Ladam pelacak yang meretakkan perisai dan cangkang, serta menarik musuh terbang dari udara.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Ayo latih Tembakan Bermuatan!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Lihat pelat merah-biru itu? Tembak untuk membalik relnya.',
+        'rail': 'Rel magnet! Panah menunjukkan tarikannya. Lawan arusnya, atau ikuti saja.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Di bawah itu lava. Tetap di atas logam.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Master Inti menunggu. Ayo bebaskan!'
     },
     'story': {
+      'magnet': 'Pabrik Polaritas. Kompasku berputar-putar!',
       'scrapyard': 'Relai Gudang Rongsok. Nyalakan!',
       'blaze': 'Kilang. Panas, panas, panas!',
       'cryo': 'Pabrik Beku. Brr! Terus bergerak.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Benteng. Kita akhiri ini.'
     },
     'arc': {
-      '1': 'Satu relai menyala. Tinggal empat!',
+      '10': 'Perisai jatuh. Sekarang Vex!',
+      '9': 'Tinggal satu Master. Hampir!',
+      '8': 'Delapan! Tinggal dua Master.',
+      '7': 'Tujuh menyala. Pertahankan!',
+      '6': 'Enam relai! Kota mulai bangun.',
+      '1': 'Satu relai menyala. Tinggal sembilan!',
       '2': 'Dua relai! Vex lagi ngambek.',
-      '3': 'Setengah jalan. Terus bersinar!',
-      '4': 'Tinggal satu Master. Hampir!',
-      '5': 'Perisai jatuh. Sekarang Vex!'
+      '3': 'Tiga menyala. Terus bersinar!',
+      '4': 'Empat beres. Jaringan berdengung lagi.',
+      '5': 'Setengah jalan! Vex mulai keringatan.',
     },
     'bossAhead': 'Bos di depan. Tarik napas!',
     'bossDown': 'Master bebas! Kerja bagus!',

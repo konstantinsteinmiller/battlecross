@@ -309,6 +309,9 @@ export class ClimbRun {
    *  order. */
   readonly features: StageFeature[]
   private mod: MoveMod = { friction: 1, pushX: 0, pushZ: 0 }
+  /** A boss's pull this step (m/s), added to the features' push. */
+  private pullX = 0
+  private pullZ = 0
   /** Last checkpoint reached (−1: the pad). */
   cp = -1
   /** This step's pit fall happened (the mission restarts Flux), and how dark
@@ -476,7 +479,15 @@ export class ClimbRun {
     m.pushX = 0
     m.pushZ = 0
     for (const f of this.features) f.move?.(p, m)
+    m.pushX += this.pullX
+    m.pushZ += this.pullZ
     return m
+  }
+
+  /** The mission's boss pull for this step (`Mission.pull`). */
+  setPull(x: number, z: number): void {
+    this.pullX = x
+    this.pullZ = z
   }
 
   /** A player shot met something solid of a stage feature's (an ice

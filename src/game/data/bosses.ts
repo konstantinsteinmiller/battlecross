@@ -59,6 +59,13 @@ export const BOSSES: Record<BossId, BossDef> = {
     id: 'galeMaster', hp: 640, dmg: 19, element: 'wind', weakTo: 'flameWave', color: '#3fc0b0',
     patterns: ['featherFan', 'tornado', 'dive'], patterns2: ['featherStorm']
   }),
+  // The Polarity Works' Master: homing horseshoes, a pull to its pole, a
+  // (weak to the Drill Bomb once the Drill Master's stage is in: P7.2)
+  // rail-straight charge; phase 2 storms both poles at once.
+  magnetMaster: base({
+    id: 'magnetMaster', hp: 680, dmg: 20, element: 'none', weakTo: null, color: '#ff4a5e',
+    patterns: ['magnetMissiles', 'polePull', 'charge'], patterns2: ['polarStorm']
+  }),
   vexMk1: base({
     id: 'vexMk1', hp: 1100, dmg: 22, element: 'none', weakTo: null, scale: 1, fly: 1.6, radius: 1.3, hitR: 1.3, aimY: 0.2,
     speed: 2.2, range: [6, 11], xp: 600, bolts: [150, 220], color: '#ff3f5f',

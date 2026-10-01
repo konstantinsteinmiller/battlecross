@@ -37,9 +37,9 @@ export const spawnClimb = async (
   let ground = 0
   for (let n = 0; n < t.foes.length; n++) {
     const f = t.foes[n]!
-    let kind: EnemyKind = f.role === 'turret' ? 'turret' : f.role === 'flyer' ? 'heli' : weighted(rng, pool)
+    let kind: EnemyKind = f.kind ?? (f.role === 'turret' ? 'turret' : f.role === 'flyer' ? 'heli' : weighted(rng, pool))
     let golem = false
-    if (f.role !== 'turret' && f.role !== 'flyer') {
+    if (!f.kind && f.role !== 'turret' && f.role !== 'flyer') {
       const first = FIRST[ground++]
       if (first === 'golem') {
         if (table.theme) { kind = 'golem'; golem = true }

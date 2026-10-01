@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Poolpup',
     'hardhat': 'Bouwhelm',
     'trooper': 'Schildsoldaat',
     'heli': 'Rotordrone',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Poolpup | Poolpups',
     'hardhat': 'Bouwhelm | Bouwhelmen',
     'trooper': 'Schildsoldaat | Schildsoldaten',
     'heli': 'Rotordrone | Rotordrones',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Magneetmeester',
     'stand': 'Sloper',
     'scrapper': 'Sloper',
     'blazeMaster': 'Gloedmeester',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Polariteitsfabriek',
     'scrapyard': 'Schroothoop',
     'blaze': 'Gloedraffinaderij',
     'cryo': 'Cryocentrale',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Vlammengolf', 'desc': 'Een vuurbal rolt over de vloer, dwars door elke machine op zijn pad, en zet ze in brand.' },
     'iceLance': { 'name': 'IJslans', 'desc': 'Een doorborende lans die alles wat hij raakt onderkoelt en vertraagt.' },
     'thunderArc': { 'name': 'Donderboog', 'desc': 'Directe bliksem die overspringt op machines in de buurt.' },
-    'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' }
+    'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' },
+    'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Laten we het Geladen Schot trainen!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Zie je die rood-blauwe plaat? Schiet erop om de rail om te polen.',
+        'rail': 'Magneetrail! De pijlen tonen de trekkracht. Duw erdoorheen, of laat je meevoeren.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Daar beneden is lava. Blijf op het metaal.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'magnet': 'Polariteitsfabriek. Mijn kompas tolt!',
       'scrapyard': 'Schroothoop-relais. Laat het stralen!',
       'blaze': 'De Raffinaderij. Heet, heet, heet!',
       'cryo': 'Cryocentrale. Brr! Blijf bewegen.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Het Fort. We maken het af.'
     },
     'arc': {
-      '1': 'Eén relais aan. Nog vier!',
+      '10': 'Schild weg. Nu Vex!',
+      '9': 'Nog één Meester. Bijna!',
+      '8': 'Acht! Nog maar twee Meesters.',
+      '7': 'Zeven aan. Ga zo door!',
+      '6': 'Zes relais! De stad wordt wakker.',
+      '1': 'Eén relais aan. Nog negen!',
       '2': 'Twee relais! Vex zit te mokken.',
-      '3': 'Halverwege. Blijf stralen!',
-      '4': 'Nog één Meester. Bijna!',
-      '5': 'Schild weg. Nu Vex!'
+      '3': 'Drie aan. Blijf stralen!',
+      '4': 'Vier gedaan. Het net zoemt weer.',
+      '5': 'Halverwege! Vex zweet peentjes.',
     },
     'bossAhead': 'Baas in zicht. Diep ademhalen!',
     'bossDown': 'Meester bevrijd! Goed gedaan!',

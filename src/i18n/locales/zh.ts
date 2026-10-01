@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': '磁极小狗',
     'hardhat': '钢盔兵',
     'trooper': '盾兵',
     'heli': '旋翼无人机',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': '磁极小狗 | 磁极小狗',
     'hardhat': '钢盔兵 | 钢盔兵',
     'trooper': '盾兵 | 盾兵',
     'heli': '旋翼无人机 | 旋翼无人机',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': '磁力大师',
     'stand': '拆解者',
     'scrapper': '拆解者',
     'blazeMaster': '烈焰大师',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': '磁极工厂',
     'scrapyard': '废料场',
     'blaze': '烈焰精炼厂',
     'cryo': '冷冻工厂',
@@ -127,7 +131,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': '烈焰波', 'desc': '火球沿地面滚动，贯穿路径上的所有机械并将其点燃。' },
     'iceLance': { 'name': '寒冰枪', 'desc': '穿透性的长枪，让命中的目标冻僵减速。' },
     'thunderArc': { 'name': '雷电弧', 'desc': '瞬发闪电，会连锁到附近的机械。' },
-    'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' }
+    'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' },
+    'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': '我们来练习蓄力弹吧！',
     },
     'hint': {
+      'magnet': {
+        'panel': '看到那块红蓝板了吗？射击它就能翻转轨道。',
+        'rail': '磁力轨道！箭头指向吸力方向。顶着冲过去，或者顺势滑行。',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': '下面是岩浆。待在金属上。',
@@ -637,6 +646,7 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'magnet': '磁极工厂，我的指南针在乱转！',
       'scrapyard': '废料场中继站，点亮它！',
       'blaze': '精炼厂，好热好热！',
       'cryo': '冷冻工厂，嘶！别停下。',
@@ -645,11 +655,16 @@ export default {
       'fortress': '要塞，一决胜负吧。'
     },
     'arc': {
-      '1': '点亮一个中继站，还剩四个！',
+      '10': '护盾没了，轮到Vex！',
+      '9': '只剩一个大师，快了！',
+      '8': '八个！只剩两位大师。',
+      '7': '点亮七个，继续加油！',
+      '6': '六个中继站！城市醒来了。',
+      '1': '点亮一个中继站，还剩九个！',
       '2': '两个了！Vex在生闷气。',
-      '3': '过半啦，继续发光！',
-      '4': '只剩一个大师，快了！',
-      '5': '护盾没了，轮到Vex！'
+      '3': '点亮三个，继续发光！',
+      '4': '四个搞定，电网又嗡嗡响了。',
+      '5': '过半啦！Vex在冒汗。',
     },
     'bossAhead': '前方首领，深呼吸！',
     'bossDown': '大师解放！干得好！',

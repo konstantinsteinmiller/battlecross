@@ -34,7 +34,8 @@ export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
   blaze: '#ff7a1f',
   cryo: '#8fe3ff',
   volt: '#fff3a0',
-  gale: '#7dffc4'
+  gale: '#7dffc4',
+  magnet: '#ff5a6e'
 }
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
@@ -127,7 +128,7 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
   lamp('spire', SPIRE_WHITE, 'spire', xform(sph(0.3, 12, 8), [sx, spireTip.y, sz]), sx, sz)
   lamp('spire', SPIRE_WHITE, 'spire', xform(torus(0.55, 0.05, 6, 20), [sx, cliffH + 3.4, sz], [Math.PI / 2, 0, 0]), sx, sz)
 
-  // ── The five landmarks ──
+  // ── The landmarks ──
   const moving: { coil: Group | null; ships: Group[] } = { coil: null, ships: [] }
   {
     // Scrapyard: a yellow crane over junk heaps.
@@ -189,6 +190,20 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
       toon.push(xform(paint(rcone(0.5, 0.05, 0.7, 0.04, 10), '#9aa7bd'), [x + dx, h - 0.45, z + dz], [Math.PI, 0, 0]))
       lamp('gale', c, 'gale', xform(torus(0.8, 0.04, 6, 20), [x + dx, h + 0.1, z + dz], [Math.PI / 2, 0, 0]), x, z)
     }
+  }
+
+  {
+    // Polarity Works: a giant horseshoe magnet over the foundry, its poles
+    // lit red and blue.
+    const [x, z] = pos.magnet
+    const c = SECTOR_GLOW.magnet
+    toon.push(xform(paint(rbox(2.4, 0.8, 1.6, 0.2), '#5a6072'), [x, 0.4, z]))
+    toon.push(xform(paint(torus(0.85, 0.26, 10, 22, Math.PI), '#c23a4a'), [x, 2.6, z]))
+    for (const s of [-1, 1]) {
+      toon.push(xform(paint(rcyl(0.26, 1.2, 0.04, 12), '#c23a4a'), [x + s * 0.85, 2.0, z]))
+      lamp('magnet', s < 0 ? c : '#5a8cff', 'magnet', xform(rcyl(0.27, 0.32, 0.04, 12), [x + s * 0.85, 1.3, z]), x, z)
+    }
+    lamp('magnet', c, 'magnet', xform(torus(1.0, 0.05, 6, 22), [x, 0.82, z], [Math.PI / 2, 0, 0]), x, z)
   }
 
   // ── The city: towers in the ring, each with a neon band on its nearest

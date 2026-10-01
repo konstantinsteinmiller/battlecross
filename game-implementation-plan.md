@@ -428,7 +428,49 @@ while bars and damage numbers get direct DOM writes.
     Vex ~50 s, machines 2–3 s throughout, never "behind", ad edge on bosses
     ≤ 6%). Tuning: the adaptive boss cap 2 → 3 (the Fortress let an
     every-round ad player run 38% ahead); `PROGRESS_HP` stays 0.06.
-  - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor).
+  - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor), one
+    level per commit (P7.1 … P7.5), then the story docs (P7.6). Decisions:
+    - Order and level bands (after Gale, before the Fortress): magnet [16, 22],
+      drill [19, 25], tide [22, 28], neon [25, 31], rotor [28, 34]; fortress
+      moves to [31, 40]. Existing saves: on load, unlock every sector whose
+      `after` sector's Master is beaten (a Gale-beaten save gets Magnet).
+    - Elements: the new Masters and sectors are `element: 'none'` (no new
+      element in the counter chart); each has one `weakTo`. The new ring is a
+      closed cycle: Magnet ← drillBomb, Drill ← bubbleLance, Tide ← neonBlade,
+      Neon ← droneSwarm, Rotor ← magnetPull.
+    - Weapons (cost / cooldown / dmg): magnetPull 3/0.8/×1.8 homing, breaks a
+      guard like a level-2 charge; drillBomb 4/1.0/×2.8 lobbed, blasts r 2.5
+      and breaks cracked walls; bubbleLance 3/0.7/×2.4 slow piercing bubble
+      along the floor; neonBlade 3/0.6/×2.6 returning boomerang (hits going and
+      coming, cuts enemy shots it passes); droneSwarm 6/1.8/×2.0 total, three
+      homing mini-drones.
+    - One new gimmick per level, as a stage feature (appended to the feature
+      list: saves go by position), everything else reused:
+      Magnet "Polarity Works" — magnet rails (floor strips that drag Flux;
+      shoot a polarity panel to flip them), crumbles, leaps. Enemy Polar Pup
+      (floating orb; its shell repels shots while blue, open while red).
+      Drill "Deep Mine" — cracked walls (a level-2+ charge or a Drill Bomb
+      breaks them: shortcuts, caches), falling rocks (the icicle feature),
+      crumbling descents. Enemy Mole Driller (dust trail, surfaces, exposed).
+      Tide "Tidewater Locks" — water (slows; the level rises and falls on the
+      clock or a shot valve), bobbing pads (looping lifts). Enemy Puffer Mine
+      (swells 1.5 s, bursts in a ring: pop it early or block).
+      Neon "Blackout Boulevard" — light switches (shoot: lit bridges solid,
+      dark ones gone), blackout pulses, the wall-kick shaft secret (D2: Space
+      while facing the shaft wall kicks up a storey). Enemy Glow Stalker
+      (only eyes in the dark; whine, lunge: parry).
+      Rotor "Rotor Run" — the quadcopter ride (the rail feature on a flying
+      path), drone hops (shuttles), gusts. Enemy Hornet Rotor (spin-up, dive).
+    - Bosses reuse the World's attack parts (volley, lob, wave, ring, orb,
+      leap, dash) per new pattern; phase 2 at 50% adds one pattern.
+    - [x] P7.1 Magnet: Polarity Works stage (10 sections + arena + beam room),
+      magnet rails + polarity panels (`sim/stages/magnet.ts`), Polar Pup,
+      Magnet Master (magnetMissiles, polePull via `World.pull`, charge;
+      polarStorm), Magnet Pull, chip theme, hub landmark, Atlas arc → 10
+      relays, save migration for new sectors, all 21 locales.
+      Interim until P7.5: the Fortress band rises with each new sector
+      (now [19, 27], finally [31, 40]); the Magnet Master's `weakTo` is null
+      until the Drill Bomb exists (P7.2 sets it, and `WEAK_TO`).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

@@ -45,7 +45,9 @@ export const ENEMY_WEAK: Record<EnemyKind, WeakSpot> = {
   hopper: spot('back', 1.4, -0.62, 0.26),
   roller: spot('back', 0.95, -0.72, 0.26),
   turret: spot('core', 0.8, -0.5, 0.22),
-  golem: spot('back', 1.15, -0.55, 0.26)
+  golem: spot('back', 1.15, -0.55, 0.26),
+  // The bare core, under the shells' front seam.
+  polar: spot('core', 0, 0.22, 0.17)
 }
 
 export const BOSS_WEAK: Record<BossId, WeakSpot> = {
@@ -56,6 +58,7 @@ export const BOSS_WEAK: Record<BossId, WeakSpot> = {
   frostMaster: spot('head', 1.98, 0.08, 0.32),
   voltMaster: spot('head', 1.98, 0.08, 0.32),
   galeMaster: spot('head', 1.98, 0.08, 0.32),
+  magnetMaster: spot('head', 1.98, 0.08, 0.32),
   vexMk1: spot('dome', 0.85, 0, 0.45)
 }
 

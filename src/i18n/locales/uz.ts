@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Qutb kuchukchasi',
     'hardhat': 'Dubulgʻali',
     'trooper': 'Qalqonchi',
     'heli': 'Rotorli dron',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Qutb kuchukchasi | Qutb kuchukchasi',
     'hardhat': 'Dubulgʻali | Dubulgʻali',
     'trooper': 'Qalqonchi | Qalqonchi',
     'heli': 'Rotorli dron | Rotorli dron',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Magnit ustasi',
     'stand': 'Buzgʻunchi',
     'scrapper': 'Buzgʻunchi',
     'blazeMaster': 'Olov ustasi',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Qutblanish zavodi',
     'scrapyard': 'Chiqindixona',
     'blaze': 'Olov zavodi',
     'cryo': 'Krio zavodi',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Sektorni tozalash',
     'climb': 'Minora poygasi',
     'stage': 'Platforma bosqichi',
-    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari' },
+    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi' },
     'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Olov toʻlqini', 'desc': 'Olov shari pol boʻylab dumalab, yoʻlidagi barcha mashinalardan oʻtadi va ularni yondiradi.' },
     'iceLance': { 'name': 'Muz nayza', 'desc': 'Tekkan narsasini sovutib, sekinlashtiradigan teshuvchi nayza.' },
     'thunderArc': { 'name': 'Momaqaldiroq yoyi', 'desc': 'Yaqin mashinalarga zanjir boʻlib oʻtadigan bir zumlik chaqmoq.' },
-    'galeGuard': { 'name': 'Boʻron qalqoni', 'desc': 'Barglar atrofingizda aylanib, oʻqlarni toʻsadi va mashinalarni kesadi. Ularni uloqtirish uchun yana ishlating.' }
+    'galeGuard': { 'name': 'Boʻron qalqoni', 'desc': 'Barglar atrofingizda aylanib, oʻqlarni toʻsadi va mashinalarni kesadi. Ularni uloqtirish uchun yana ishlating.' },
+    'magnetPull': { 'name': 'Magnit tortishi', 'desc': 'Qalqon va sovutlarni yoradigan, uchuvchilarni osmondan sugʻurib oladigan nishonga intiluvchi taqa.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Zaryadli oʻqni mashq qilaylik!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Anavi qizil-koʻk plitani koʻryapsanmi? Relsni aylantirish uchun unga oʻq uz.',
+        'rail': 'Magnit relsi! Oʻqlar tortish yoʻnalishini koʻrsatadi. Kuch bilan oʻt yoki unda sirpan.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Pastda lava. Metall ustida qol.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Yadro ustasi kutmoqda. Uni ozod qilamiz!'
     },
     'story': {
+      'magnet': 'Qutblanish zavodi. Kompasim aylanib ketyapti!',
       'scrapyard': 'Chiqindixona releyi. Yoq uni!',
       'blaze': 'Zavod. Issiq, issiq, issiq!',
       'cryo': 'Krio zavodi. Brr! Toʻxtama.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Qalʼa. Buni tugatamiz.'
     },
     'arc': {
-      '1': 'Bitta rele yondi. Toʻrttasi qoldi!',
+      '10': 'Qalqon tushdi. Endi Vex!',
+      '9': 'Bitta usta qoldi. Oz qoldi!',
+      '8': 'Sakkiz! Faqat ikkita usta qoldi.',
+      '7': 'Yettitasi yondi. Shunday davom et!',
+      '6': 'Oltita rele! Shahar uygʻonyapti.',
+      '1': 'Bitta rele yondi. Toʻqqiztasi qoldi!',
       '2': 'Ikkita rele! Vex arazlayapti.',
-      '3': 'Yarim yoʻl. Porlashda davom et!',
-      '4': 'Bitta usta qoldi. Oz qoldi!',
-      '5': 'Qalqon tushdi. Endi Vex!'
+      '3': 'Uchtasi yondi. Porlashda davom et!',
+      '4': 'Toʻrttasi tayyor. Tarmoq yana gʻuvillayapti.',
+      '5': 'Yarim yoʻl! Vex terlayapti.',
     },
     'bossAhead': 'Oldinda boss. Chuqur nafas ol!',
     'bossDown': 'Usta ozod! Barakalla!',

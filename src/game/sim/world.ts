@@ -251,6 +251,8 @@ export interface World {
   spawnWave(e: Enemy, x: number, z: number, dx: number, dz: number, speed: number, halfWidth: number, range: number, dmg: number, color: string): void
   spawnRing(e: Enemy, x: number, z: number, speed: number, maxR: number, dmg: number, color: string): void
   fireOrb(e: Enemy, x: number, y: number, z: number, speed: number, dmg: number): void
+  /** Drag the player toward (x, z) at `speed` m/s for `dur` s (a boss's pull). */
+  pull?(x: number, z: number, speed: number, dur: number): void
   /** Melee / AoE / contact damage from an enemy to the player. */
   hitPlayer(e: Enemy | null, dmg: number, opts: { blockable: boolean; fromX: number; fromZ: number; kind: 'melee' | 'aoe' | 'shot'; hazard?: string }): 'hit' | 'block' | 'parry' | 'miss'
   shake(amount: number): void

@@ -15,6 +15,7 @@ import {
 import type { Quest } from '../data/quests'
 import type { SectorId } from '../world/themes'
 import { SKILL_BY_ID } from '../data/skills'
+import { SECTORS } from '../data/regions'
 import { baseStats, type PlayerStats } from '../sim/stats'
 import { DEFAULT_HERO_COLORS, type HeroColors } from '../models/hero'
 
@@ -187,6 +188,7 @@ export const loadProfile = (): void => {
   if (!Array.isArray(world.bosses)) world.bosses = []
   if (!Array.isArray(world.seen)) world.seen = []
   migrateSeen(world)
+  migrateUnlocks(world)
   profile.world = world
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
@@ -200,6 +202,19 @@ export const loadProfile = (): void => {
  */
 export const migrateSeen = (world: WorldSave): void => {
   if (world.tutorialDone && !world.seen.includes('intro')) world.seen.push('intro')
+}
+
+/**
+ * New sectors join the chain between old ones (the five Masters after the
+ * Sky Docks): a save whose Master before a sector is already beaten opens
+ * that sector now — the unlock it would have got at the time.
+ */
+export const migrateUnlocks = (world: WorldSave): void => {
+  for (const s of SECTORS) {
+    if (!s.after || world.unlocked.includes(s.id)) continue
+    const before = SECTORS.find(o => o.id === s.after)
+    if (before && world.bosses.includes(before.boss)) world.unlocked.push(s.id)
+  }
 }
 
 /** Mark a story beat as shown, and save. */

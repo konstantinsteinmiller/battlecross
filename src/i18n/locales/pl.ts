@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Polarny Szczeniak',
     'hardhat': 'Hełmiak',
     'trooper': 'Tarczownik',
     'heli': 'Dron wirnikowy',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Polarny Szczeniak | Polarne Szczeniaki',
     'hardhat': 'Hełmiak | Hełmiaki',
     'trooper': 'Tarczownik | Tarczowniki',
     'heli': 'Dron wirnikowy | Drony wirnikowe',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Mistrz Magnesu',
     'stand': 'Złomiarz',
     'scrapper': 'Złomiarz',
     'blazeMaster': 'Mistrz Ognia',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Zakłady Polaryzacji',
     'scrapyard': 'Złomowisko',
     'blaze': 'Rafineria Żaru',
     'cryo': 'Kriofabryka',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Czystka sektora',
     'climb': 'Bieg na wieżę',
     'stage': 'Etap platformowy',
-    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki' },
+    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji' },
     'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Fala płomieni', 'desc': 'Kula ognia toczy się po podłodze przez każdą maszynę na swojej drodze i podpala je.' },
     'iceLance': { 'name': 'Lodowa lanca', 'desc': 'Przebijająca lanca, która schładza i spowalnia to, co trafi.' },
     'thunderArc': { 'name': 'Łuk gromu', 'desc': 'Natychmiastowa błyskawica, która przeskakuje na pobliskie maszyny.' },
-    'galeGuard': { 'name': 'Tarcza wichru', 'desc': 'Liście krążą wokół ciebie, blokując strzały i tnąc maszyny. Użyj ponownie, by nimi cisnąć.' }
+    'galeGuard': { 'name': 'Tarcza wichru', 'desc': 'Liście krążą wokół ciebie, blokując strzały i tnąc maszyny. Użyj ponownie, by nimi cisnąć.' },
+    'magnetPull': { 'name': 'Magnetyczny chwyt', 'desc': 'Samonaprowadzająca podkowa, która kruszy tarcze i pancerze i ściąga latające maszyny z nieba.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Potrenujmy strzał naładowany!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Widzisz tę czerwono-niebieską płytę? Strzel w nią, by odwrócić szynę.',
+        'rail': 'Szyna magnetyczna! Strzałki pokazują przyciąganie. Przebij się albo daj się nieść.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Tam na dole jest lawa. Trzymaj się metalu.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Czeka Mistrz Rdzenia. Uwolnijmy go!'
     },
     'story': {
+      'magnet': 'Zakłady Polaryzacji. Mój kompas wariuje!',
       'scrapyard': 'Przekaźnik na Złomowisku. Rozświetl go!',
       'blaze': 'Rafineria. Gorąco, gorąco!',
       'cryo': 'Kriofabryka. Brr! Nie stój w miejscu.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Twierdza. Kończymy z tym.'
     },
     'arc': {
-      '1': 'Jeden przekaźnik świeci. Zostały cztery!',
+      '10': 'Tarcza padła. Teraz Vex!',
+      '9': 'Został jeden Mistrz. Prawie!',
+      '8': 'Osiem! Zostało tylko dwóch Mistrzów.',
+      '7': 'Siedem świeci. Tak trzymaj!',
+      '6': 'Sześć przekaźników! Miasto się budzi.',
+      '1': 'Jeden przekaźnik świeci. Zostało dziewięć!',
       '2': 'Dwa przekaźniki! Vex się dąsa.',
-      '3': 'Połowa drogi. Świeć dalej!',
-      '4': 'Został jeden Mistrz. Prawie!',
-      '5': 'Tarcza padła. Teraz Vex!'
+      '3': 'Trzy świecą. Świeć dalej!',
+      '4': 'Cztery z głowy. Sieć znów szumi.',
+      '5': 'Połowa drogi! Vex się poci.',
     },
     'bossAhead': 'Boss przed nami. Weź głęboki oddech!',
     'bossDown': 'Mistrz uwolniony! Świetna robota!',

@@ -122,7 +122,7 @@ interface SecretRt {
 const ease = (k: number) => k * k * (3 - 2 * k)
 
 /** Segment (a → b) within `r` of point c. */
-const segNear = (
+export const segNear = (
   ax: number, ay: number, az: number, bx: number, by: number, bz: number, cx: number, cy: number, cz: number, r: number
 ): boolean => {
   const dx = bx - ax

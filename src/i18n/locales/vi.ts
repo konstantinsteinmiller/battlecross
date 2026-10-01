@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Cún Từ Cực',
     'hardhat': 'Nón Sắt',
     'trooper': 'Lính Khiên',
     'heli': 'Drone Cánh Quạt',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Cún Từ Cực | Cún Từ Cực',
     'hardhat': 'Nón Sắt | Nón Sắt',
     'trooper': 'Lính Khiên | Lính Khiên',
     'heli': 'Drone Cánh Quạt | Drone Cánh Quạt',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Chúa Tể Nam Châm',
     'stand': 'Gã Phế Liệu',
     'scrapper': 'Gã Phế Liệu',
     'blazeMaster': 'Chúa Tể Lửa',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Xưởng Từ Cực',
     'scrapyard': 'Bãi Phế Liệu',
     'blaze': 'Lò Luyện Lửa',
     'cryo': 'Xưởng Đông Lạnh',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
     'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây' },
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Sóng Lửa', 'desc': 'Quả cầu lửa lăn dọc sàn, xuyên qua mọi cỗ máy trên đường và thiêu cháy chúng.' },
     'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu làm lạnh cóng mục tiêu và khiến nó chậm lại.' },
     'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
-    'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' }
+    'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' },
+    'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Cùng luyện Phát Tụ Lực nào!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Thấy tấm đỏ-xanh kia không? Bắn nó để đảo chiều ray.',
+        'rail': 'Ray nam châm! Mũi tên chỉ hướng lực hút. Cố vượt qua, hoặc cứ lướt theo.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Dưới kia là dung nham. Đứng trên kim loại thôi.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
     },
     'story': {
+      'magnet': 'Xưởng Từ Cực. La bàn của tớ quay mòng mòng!',
       'scrapyard': 'Trạm tiếp sóng Bãi Phế Liệu. Thắp sáng nó!',
       'blaze': 'Lò Luyện. Nóng, nóng, nóng!',
       'cryo': 'Xưởng Đông Lạnh. Brr! Cứ di chuyển.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'Pháo Đài. Kết thúc thôi.'
     },
     'arc': {
-      '1': 'Một trạm đã sáng. Còn bốn!',
+      '10': 'Khiên vỡ rồi. Tới Vex!',
+      '9': 'Còn một Chúa Tể. Sắp xong!',
+      '8': 'Tám! Chỉ còn hai Chúa Tể.',
+      '7': 'Bảy trạm sáng. Cứ thế nhé!',
+      '6': 'Sáu trạm! Thành phố đang thức giấc.',
+      '1': 'Một trạm đã sáng. Còn chín!',
       '2': 'Hai trạm! Vex đang dỗi.',
-      '3': 'Được nửa đường. Cứ tỏa sáng!',
-      '4': 'Còn một Chúa Tể. Sắp xong!',
-      '5': 'Khiên vỡ rồi. Tới Vex!'
+      '3': 'Ba trạm sáng. Cứ tỏa sáng!',
+      '4': 'Xong bốn. Lưới điện lại rì rầm.',
+      '5': 'Được nửa đường! Vex toát mồ hôi rồi.',
     },
     'bossAhead': 'Trùm phía trước. Hít sâu!',
     'bossDown': 'Chúa Tể được giải phóng! Giỏi lắm!',

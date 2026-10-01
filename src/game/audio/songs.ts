@@ -22,7 +22,7 @@ import { mulberry32, type Rng } from '../world/rng'
  * minute, and swaps to `boss` for a Core Master fight.
  */
 
-export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'fortress' | 'boss' | 'intro'
+export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'fortress' | 'boss' | 'intro'
 /** A song: an area theme (by its track id), one of the two rotation songs, or the boss. */
 export type SongId = TrackId | 'drift' | 'circuit'
 
@@ -717,6 +717,9 @@ const CHIP: Record<ChipId, ChipSpec> = {
   cryo: { bpm: 144, root: 38, mode: DORIAN, progA: [0, 3, 0, 4], progB: [5, 3, 1, 4], seed: 43, leadDuty: 0.125, arpDuty: 0.25, drums: 'march' },
   volt: { bpm: 168, root: 42, mode: MINOR, progA: [0, 2, 5, 4], progB: [3, 5, 6, 4], seed: 54, leadDuty: 0.25, arpDuty: 0.125, drums: 'drive' },
   gale: { bpm: 150, root: 43, mode: LYDIAN, progA: [0, 1, 0, 4], progB: [5, 3, 1, 4], seed: 65, leadDuty: 0.25, arpDuty: 0.125, drums: 'march' },
+  // The Polarity Works: a driving minor groove that swings between two
+  // poles (the progression rocks i ↔ ♭VI), square lead.
+  magnet: { bpm: 156, root: 41, mode: MINOR, progA: [0, 5, 0, 5], progB: [3, 6, 4, 4], seed: 87, leadDuty: 0.5, arpDuty: 0.125, drums: 'drive' },
   fortress: { bpm: 162, root: 36, mode: PHRYG, progA: [0, 1, 0, 6], progB: [5, 3, 1, 0], seed: 76, leadDuty: 0.5, arpDuty: 0.25, drums: 'drive' }
 }
 

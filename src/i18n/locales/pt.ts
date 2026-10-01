@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Filhote Polar',
     'hardhat': 'Capacetinho',
     'trooper': 'Soldado-Escudo',
     'heli': 'Drone Hélice',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Filhote Polar | Filhotes Polares',
     'hardhat': 'Capacetinho | Capacetinhos',
     'trooper': 'Soldado-Escudo | Soldados-Escudo',
     'heli': 'Drone Hélice | Drones Hélice',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Mestre Ímã',
     'stand': 'Sucateiro',
     'scrapper': 'Sucateiro',
     'blazeMaster': 'Mestre Chama',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Usina Polaridade',
     'scrapyard': 'Ferro-Velho',
     'blaze': 'Refinaria em Brasa',
     'cryo': 'Usina Crio',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Onda de Chamas', 'desc': 'Uma bola de fogo rola pelo chão, atravessa todas as máquinas no caminho e as incendeia.' },
     'iceLance': { 'name': 'Lança de Gelo', 'desc': 'Uma lança perfurante que resfria o que atinge e o deixa mais lento.' },
     'thunderArc': { 'name': 'Arco Trovão', 'desc': 'Um raio instantâneo que salta para as máquinas próximas.' },
-    'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' }
+    'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' },
+    'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Vamos treinar o Tiro Carregado!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Viu aquela placa vermelha e azul? Atira nela pra inverter o trilho.',
+        'rail': 'Trilho magnético! As setas mostram a puxada. Força contra ou pega carona.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': 'Aquilo lá embaixo é lava. Fica no metal.',
@@ -637,6 +646,7 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'magnet': 'Usina Polaridade. Minha bússola tá girando!',
       'scrapyard': 'Relé do Ferro-Velho. Bora acender!',
       'blaze': 'A Refinaria. Quente, quente, quente!',
       'cryo': 'Usina Crio. Brr! Não fica parado.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'A Fortaleza. Vamos acabar com isso.'
     },
     'arc': {
-      '1': 'Um relé aceso. Faltam quatro!',
+      '10': 'Escudo caiu. Agora é o Vex!',
+      '9': 'Falta um Mestre. Quase lá!',
+      '8': 'Oito! Só faltam dois Mestres.',
+      '7': 'Sete acesos. Continua assim!',
+      '6': 'Seis relés! A cidade tá acordando.',
+      '1': 'Um relé aceso. Faltam nove!',
       '2': 'Dois relés! Vex tá emburrado.',
-      '3': 'Metade do caminho. Continua brilhando!',
-      '4': 'Falta um Mestre. Quase lá!',
-      '5': 'Escudo caiu. Agora é o Vex!'
+      '3': 'Três acesos. Continua brilhando!',
+      '4': 'Quatro já foram. A rede zumbe de novo.',
+      '5': 'Metade do caminho! Vex tá suando.',
     },
     'bossAhead': 'Chefe à frente. Respira fundo!',
     'bossDown': 'Mestre libertado! Mandou bem!',

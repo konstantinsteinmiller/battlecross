@@ -100,8 +100,18 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
   tornado: { tele: 0.8, red: true },
   dive: { tele: 0.9, red: false },
   featherStorm: { tele: 0.8, red: false },
-  lobBarrage: { tele: 0.8, red: true }
+  lobBarrage: { tele: 0.8, red: true },
+  magnetMissiles: { tele: 0.7, red: false },
+  polePull: { tele: 0.9, red: true },
+  polarStorm: { tele: 0.8, red: false }
 }
+
+/** The Magnet Master's Pole Pull: how long it drags, how hard (m/s — under
+ *  Flux's walk, so walking away holds him and a slide breaks free), and the
+ *  reach of its clamp at the end. */
+const POLE_PULL_T = 1.8
+const POLE_PULL_S = 3.4
+const POLE_CLAMP_R = 2.4
 
 // ─── Intro / phase control (called by the mission) ──────────────────────────
 
@@ -537,6 +547,42 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         e.step++
       }
       return e.st > 1.0
+    }
+    case 'magnetMissiles':
+    case 'polarStorm': {
+      // Horseshoes that home: three (a storm: two rounds of four with a
+      // ring between).
+      const storm = e.attack === 'polarStorm'
+      const n = storm ? 8 : 3
+      const gap = 0.18
+      if (e.step < n && e.st >= e.step * gap + (storm && e.step >= 4 ? 0.5 : 0)) {
+        const a = Math.atan2(p.x - e.x, p.z - e.z) + ((e.step % 4) - 1.5) * 0.45
+        w.fireOrb(e, e.x + Math.sin(a) * s, 1.5 * s, e.z + Math.cos(a) * s, 6.2, Math.round(e.dmg * 0.8))
+        if (storm && e.step === 3) w.spawnRing(e, e.x, e.z, 8, 9, Math.round(e.dmg * 0.8), '#5a8cff')
+        e.step++
+      }
+      return e.st > n * gap + (storm ? 0.9 : 0.3)
+    }
+    case 'polePull': {
+      // The poles light, the floor between hums: Flux is dragged in. At the
+      // end the clamp shuts on whoever is close.
+      if (e.step === 0) {
+        e.step = 1
+        w.pull?.(e.x, e.z, POLE_PULL_S, POLE_PULL_T)
+        w.sfx('alert', e.x, e.z)
+      }
+      if (Math.random() < 0.6) {
+        const k = Math.random()
+        const red = Math.random() < 0.5
+        w.fx.emit({ x: e.x + (p.x - e.x) * k, y: 0.3 + Math.random() * 1.6, z: e.z + (p.z - e.z) * k, vx: (e.x - p.x) * 0.6, vz: (e.z - p.z) * 0.6, color: red ? '#ff4a5e' : '#5a8cff', size: 0.25, sizeEnd: 0.04, life: 0.35 })
+      }
+      if (e.step === 1 && e.st >= POLE_PULL_T) {
+        e.step = 2
+        w.shocks.spawn(e.x, 0.05, e.z, POLE_CLAMP_R, def.color, 0.35)
+        w.sfx('punch', e.x, e.z)
+        if (d < POLE_CLAMP_R + PLAYER_R) w.hitPlayer(e, Math.round(e.dmg * 1.3), { blockable: true, fromX: e.x, fromZ: e.z, kind: 'melee' })
+      }
+      return e.st > POLE_PULL_T + 0.35
     }
     case 'dive': {
       if (e.step === 0) {

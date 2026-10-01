@@ -33,7 +33,7 @@ export type AtlasLine =
   | 'landed'
   | 'brief.tutorial' | 'brief.job' | 'brief.climb' | 'brief.story'
   | `story.${SectorId}`
-  | 'arc.1' | 'arc.2' | 'arc.3' | 'arc.4' | 'arc.5'
+  | `arc.${number}`
   | 'bossAhead' | 'bossDown' | 'vexDown'
   | 'lowHp' | 'lowHpGel' | 'lowWe'
   | 'trap' | 'plate'
@@ -43,12 +43,16 @@ export type AtlasLine =
   /** A lesson room's gold intro, and its hint when the player is stuck. */
   | `train.${string}` | `help.${string}`
 
+/** The relays to light before Vex's shield falls (the Core Masters, the
+ *  Scrapper's included): one progress line each (`arc.1` … `arc.10`). */
+export const ARC_LINES = 10
+
 /** Every fixed mission line, for the voice list and the preload (a stage's
  *  `hint.*` / `secret.*` lines are its own, fetched when said). */
 export const ATLAS_LINES: readonly AtlasLine[] = [
   'landed', 'brief.tutorial', 'brief.job', 'brief.climb', 'brief.story',
-  'story.scrapyard', 'story.blaze', 'story.cryo', 'story.volt', 'story.gale', 'story.fortress',
-  'arc.1', 'arc.2', 'arc.3', 'arc.4', 'arc.5',
+  'story.scrapyard', 'story.blaze', 'story.cryo', 'story.volt', 'story.gale', 'story.magnet', 'story.fortress',
+  ...Array.from({ length: ARC_LINES }, (_, n) => `arc.${n + 1}` as AtlasLine),
   'bossAhead', 'bossDown', 'vexDown', 'lowHp', 'lowHpGel', 'lowWe', 'trap', 'plate',
   'objective', 'exit', 'levelUp', 'idle.1', 'idle.2', 'idle.3', 'idle.4'
 ]
@@ -191,7 +195,7 @@ export class AtlasDirector {
     else if (i.template === 'climb') this.say('brief.climb')
     else if (i.kind === 'story') {
       this.say(`story.${i.sector}` as AtlasLine)
-      if (i.freed >= 1 && i.freed <= 5) this.say(`arc.${i.freed}` as AtlasLine)
+      if (i.freed >= 1 && i.freed <= ARC_LINES) this.say(`arc.${i.freed}` as AtlasLine)
     } else this.say('brief.job')
   }
 

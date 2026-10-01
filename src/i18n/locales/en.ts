@@ -75,6 +75,7 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'polar': 'Polar Pup',
     'hardhat': 'Hardhat',
     'trooper': 'Shield Trooper',
     'heli': 'Rotor Drone',
@@ -89,6 +90,7 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'polar': 'Polar Pup | Polar Pups',
     'hardhat': 'Hardhat | Hardhats',
     'trooper': 'Shield Trooper | Shield Troopers',
     'heli': 'Rotor Drone | Rotor Drones',
@@ -113,6 +115,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Magnet Master',
     'stand': 'Scrapper',
     'scrapper': 'Scrapper',
     'blazeMaster': 'Blaze Master',
@@ -123,6 +126,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Polarity Works',
     'scrapyard': 'Scrapyard',
     'blaze': 'Blaze Refinery',
     'cryo': 'Cryo Plant',
@@ -144,7 +148,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -504,7 +508,8 @@ export default {
     'flameWave': { 'name': 'Flame Wave', 'desc': 'A fireball rolls along the floor through every machine in its path and sets them burning.' },
     'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that chills what it hits and slows it down.' },
     'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
-    'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' }
+    'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' },
+    'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' }
   },
 
   'options': {
@@ -651,6 +656,10 @@ export default {
       'charge': "Let's train the Charge Shot!",
     },
     'hint': {
+      'magnet': {
+        'panel': 'See that red-blue plate? Shoot it to flip the rail.',
+        'rail': 'Magnet rail! The arrows show the pull. Push through, or ride it.',
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': "That's lava down there. Stay on the metal.",
@@ -701,6 +710,7 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'magnet': 'Polarity Works. My compass spins!',
       'scrapyard': 'Scrapyard relay. Light it up!',
       'blaze': 'The Refinery. Hot, hot, hot!',
       'cryo': 'Cryo Plant. Brr! Keep moving.',
@@ -709,11 +719,16 @@ export default {
       'fortress': 'The Fortress. We end this.'
     },
     'arc': {
-      '1': 'One relay lit. Four to go!',
+      '10': "Shield's down. Vex is next!",
+      '9': 'One Master left. Almost!',
+      '8': 'Eight! Only two Masters left.',
+      '7': 'Seven lit. Keep it up!',
+      '6': 'Six relays! The city wakes up.',
+      '1': 'One relay lit. Nine to go!',
       '2': 'Two relays! Vex is sulking.',
-      '3': 'Halfway there. Keep glowing!',
-      '4': 'One Master left. Almost!',
-      '5': "Shield's down. Vex is next!"
+      '3': 'Three lit. Keep glowing!',
+      '4': 'Four down. The grid hums again.',
+      '5': 'Halfway there! Vex is sweating.',
     },
     'bossAhead': 'Boss ahead. Deep breath!',
     'bossDown': 'Master freed! Great job!',

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Chiot Polaire',
     'hardhat': 'Casqué',
     'trooper': 'Soldat à bouclier',
     'heli': 'Drone à rotor',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Chiot Polaire | Chiots Polaires',
     'hardhat': 'Casqué | Casqués',
     'trooper': 'Soldat à bouclier | Soldats à bouclier',
     'heli': 'Drone à rotor | Drones à rotor',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Maître Aimant',
     'stand': 'Ferrailleur',
     'scrapper': 'Ferrailleur',
     'blazeMaster': 'Maître Brasier',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Usine Polarité',
     'scrapyard': 'Casse',
     'blaze': 'Raffinerie Brasier',
     'cryo': 'Usine Cryo',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Vague de flammes', 'desc': 'Une boule de feu roule au sol, traverse toutes les machines sur son passage et les embrase.' },
     'iceLance': { 'name': 'Lance de glace', 'desc': "Une lance perforante qui glace ce qu'elle touche et le ralentit." },
     'thunderArc': { 'name': 'Arc de foudre', 'desc': 'Un éclair instantané qui se propage aux machines proches.' },
-    'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." }
+    'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." },
+    'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Entraînons-nous au tir chargé !',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Tu vois la plaque rouge et bleue ? Tire dessus pour inverser le rail.',
+        'rail': "Rail magnétique ! Les flèches montrent l'attraction. Résiste, ou laisse-toi porter.",
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': "C'est de la lave en bas. Reste sur le métal.",
@@ -637,6 +646,7 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'magnet': "Usine Polarité. Ma boussole s'affole !",
       'scrapyard': 'Relais de la Casse. Allume-le !',
       'blaze': 'La Raffinerie. Chaud, chaud, chaud !',
       'cryo': 'Usine Cryo. Brr ! Continue de bouger.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'La Forteresse. On en finit.'
     },
     'arc': {
-      '1': 'Un relais allumé. Plus que quatre !',
+      '10': 'Bouclier tombé. À Vex, maintenant !',
+      '9': "Plus qu'un Maître. Presque !",
+      '8': 'Huit ! Plus que deux Maîtres.',
+      '7': 'Sept allumés. Continue comme ça !',
+      '6': 'Six relais ! La ville se réveille.',
+      '1': 'Un relais allumé. Plus que neuf !',
       '2': 'Deux relais ! Vex boude.',
-      '3': 'À mi-chemin. Continue de briller !',
-      '4': "Plus qu'un Maître. Presque !",
-      '5': 'Bouclier tombé. À Vex, maintenant !'
+      '3': 'Trois allumés. Continue de briller !',
+      '4': 'Et de quatre. Le réseau ronronne à nouveau.',
+      '5': 'À mi-chemin ! Vex transpire.',
     },
     'bossAhead': 'Boss en vue. Respire à fond !',
     'bossDown': 'Maître libéré ! Bien joué !',

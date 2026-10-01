@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'polar': 'Cucciolo Polare',
     'hardhat': 'Caschetto',
     'trooper': 'Soldato Scudo',
     'heli': 'Drone Rotore',
@@ -73,6 +74,7 @@ export default {
   },
 
   'enemyPlural': {
+    'polar': 'Cucciolo Polare | Cuccioli Polari',
     'hardhat': 'Caschetto | Caschetti',
     'trooper': 'Soldato Scudo | Soldati Scudo',
     'heli': 'Drone Rotore | Droni Rotore',
@@ -97,6 +99,7 @@ export default {
   },
 
   'boss': {
+    'magnetMaster': 'Maestro Magnete',
     'stand': 'Rottamatore',
     'scrapper': 'Rottamatore',
     'blazeMaster': 'Maestro Fiamma',
@@ -107,6 +110,7 @@ export default {
   },
 
   'sector': {
+    'magnet': 'Officina Polarità',
     'scrapyard': 'Discarica',
     'blaze': 'Raffineria Rovente',
     'cryo': 'Impianto Crio',
@@ -127,7 +131,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -453,7 +457,8 @@ export default {
     'flameWave': { 'name': 'Onda di Fuoco', 'desc': 'Una palla di fuoco rotola sul pavimento, attraversa ogni macchina sul suo cammino e le incendia.' },
     'iceLance': { 'name': 'Lancia di Ghiaccio', 'desc': 'Una lancia perforante che raffredda ciò che colpisce e lo rallenta.' },
     'thunderArc': { 'name': 'Arco Tonante', 'desc': 'Un fulmine istantaneo che rimbalza sulle macchine vicine.' },
-    'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' }
+    'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' },
+    'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' }
   },
 
   'options': {
@@ -587,6 +592,10 @@ export default {
       'charge': 'Alleniamo il Colpo Caricato!',
     },
     'hint': {
+      'magnet': {
+        'panel': 'Vedi quella piastra rossa e blu? Sparale per invertire il binario.',
+        'rail': "Binario magnetico! Le frecce mostrano l'attrazione. Resisti, o fatti portare.",
+      },
       'blaze': {
         // Meltdown Descent (blaze stage)
         'lava': "Laggiù c'è lava. Resta sul metallo.",
@@ -637,6 +646,7 @@ export default {
       'story': 'Un Maestro del Nucleo attende. Liberiamolo!'
     },
     'story': {
+      'magnet': 'Officina Polarità. La mia bussola impazzisce!',
       'scrapyard': 'Relè della Discarica. Accendilo!',
       'blaze': 'La Raffineria. Scotta, scotta, scotta!',
       'cryo': 'Impianto Crio. Brr! Continua a muoverti.',
@@ -645,11 +655,16 @@ export default {
       'fortress': 'La Fortezza. Chiudiamo la partita.'
     },
     'arc': {
-      '1': 'Un relè acceso. Ne mancano quattro!',
+      '10': 'Scudo giù. Ora tocca a Vex!',
+      '9': 'Manca un Maestro. Quasi fatto!',
+      '8': 'Otto! Mancano solo due Maestri.',
+      '7': 'Sette accesi. Continua così!',
+      '6': 'Sei relè! La città si sveglia.',
+      '1': 'Un relè acceso. Ne mancano nove!',
       '2': 'Due relè! Vex tiene il broncio.',
-      '3': 'A metà strada. Continua a brillare!',
-      '4': 'Manca un Maestro. Quasi fatto!',
-      '5': 'Scudo giù. Ora tocca a Vex!'
+      '3': 'Tre accesi. Continua a brillare!',
+      '4': 'Quattro fatti. La rete ronza di nuovo.',
+      '5': 'A metà strada! Vex suda freddo.',
     },
     'bossAhead': 'Boss in arrivo. Respiro profondo!',
     'bossDown': 'Maestro liberato! Ottimo lavoro!',

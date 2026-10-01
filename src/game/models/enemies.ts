@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar'
 
 export interface EnemyColors {
   main: string
@@ -44,7 +44,9 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // main = the crate's wood, deep = its trim, eye = the theme accent (the
   // crate's nubs, its visor and core), accent = the iron bands on its limbs
   // (an elite's gold), metal = its stone. This is the Scrapyard's crate.
-  golem: { main: '#c68a3e', deep: '#5f4630', accent: '#646b7a', eye: '#ffcf5a', metal: '#8e877b' }
+  golem: { main: '#c68a3e', deep: '#5f4630', accent: '#646b7a', eye: '#ffcf5a', metal: '#8e877b' },
+  // The Polar Pup: blue shells (south, closed) round a red core (north).
+  polar: { main: '#3f6bff', deep: '#22306e', accent: '#ff4a5e', eye: '#ff4a5e', metal: '#9aa3b8' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -396,6 +398,46 @@ export const poseHeli = (rig: Rig, t: number, tilt: number, spin: number, m?: En
   pose(rig, 'body', tilt, 0, Math.sin(t * 2.3) * 0.08)
   pose(rig, 'clawL', Math.sin(t * 3) * 0.2 - tilt * 0.8, 0, -0.2)
   pose(rig, 'clawR', Math.sin(t * 3 + 1) * 0.2 - tilt * 0.8, 0, 0.2)
+}
+
+// ─── Polar Pup ───────────────────────────────────────────────────────────────
+
+/**
+ * A floating magnet orb (the Polarity Works): two blue half-shells hinged at
+ * its crown close over a red core. Closed, the shells repel shots (TINK);
+ * open, the core shows and it fires. `open` 0..1 swings the shells apart.
+ */
+export const buildPolar = (c: EnemyColors = BASE_COLORS.polar): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0, 0])
+    .bone('shellL', 'body', [0, 0.3, 0])
+    .bone('shellR', 'body', [0, 0.3, 0])
+  // The core: a red ball with a white-hot eye and a steel equator.
+  b.part('body', sph(0.24, 16, 12), c.accent)
+  eye(b, 'body', [0, 0.02, 0.2], 0.11, '#ffffff', 0, true)
+  b.part('body', torus(0.26, 0.03, 6, 22), c.metal, { r: [Math.PI / 2, 0, 0] })
+  // Fins under it (the magnet's legs), and a pole stud on top.
+  b.mirror((s) => {
+    b.part('body', rcone(0.06, 0.02, 0.22, 0.02, 8), c.metal, { p: [s * 0.14, -0.34, 0], r: [0, 0, s * 0.35] })
+  })
+  b.part('body', sph(0.06, 10, 8), c.accent, { p: [0, 0.38, 0], glow: true, outline: false })
+  // The shells: half-domes facing −X and +X, hung from the crown hinge.
+  // Each a quarter-sphere deep, so shut they meet at the front seam and
+  // open they lift like a clam's halves, never wider than the body.
+  b.part('shellL', dome(0.3, Math.PI / 2, 18, 8), c.main, { p: [0, -0.3, 0], r: [0, 0, Math.PI / 2] })
+  b.part('shellR', dome(0.3, Math.PI / 2, 18, 8), c.main, { p: [0, -0.3, 0], r: [0, 0, -Math.PI / 2] })
+  return b.build({ outline: 0.015, height: 0.8 })
+}
+
+/** `open`: 0 shut (blue), 1 wide open (the red core bare). */
+export const posePolar = (rig: Rig, open: number, t: number, m?: EnemyMotion): void => {
+  const bob = m ? 0.05 * Math.sin(t * m.tempo * 1.7) : 0.05 * Math.sin(t * 1.7)
+  nudge(rig, 'body', 0, bob, 0)
+  pose(rig, 'body', 0.06 * Math.sin(t * 1.1), m ? 0.3 * m.look * m.calm : 0, 0.05 * Math.sin(t * 1.4))
+  // The shells swing up about the crown; a shiver while they are shut.
+  const shiver = (1 - open) * 0.03 * Math.sin(t * 23)
+  pose(rig, 'shellL', 0, 0, open * 0.62 + shiver)
+  pose(rig, 'shellR', 0, 0, -open * 0.62 - shiver)
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -961,5 +1003,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'brute': return buildBrute(c)
     case 'turret': return buildTurret(c)
     case 'golem': return buildGolem(c)
+    case 'polar': return buildPolar(c)
   }
 }

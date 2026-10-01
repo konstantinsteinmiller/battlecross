@@ -15,6 +15,7 @@ import { WaveFeature } from './stages/waves'
 import { ShockFeature } from './stages/shock'
 import type { Shot } from './world'
 import { SecretsFeature } from './secrets'
+import { MagnetFeature, polarityCues } from './stages/magnet'
 
 /**
  * ─── Stage features: the platform stages' mechanics, one file each ───────────
@@ -118,6 +119,9 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
 
   // ── any stage (appended last: older saves keep their feature slots) ──
   if (t.crumbles?.length) out.push(new CrumbleFeature(host, t))
+
+  // ── magnet (Polarity Works), after every older slot ──
+  if (t.magnets?.length) out.push(new MagnetFeature(host, t), polarityCues(host, t))
 
   return out
 }

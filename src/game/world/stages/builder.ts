@@ -2,7 +2,7 @@ import {
   CELL, Cell, Ramp, cellCenter, type MapData, type Room, type RoomRole, type Door, type Terrain, type SectionKind,
   type Ladder, type Lift, type Crusher, type RollerLane, type Checkpoint, type RewardSpot, type FoePost,
   type ChestSpot, type SecretSpec, type PitKind, type WindZone, type RailSpec, type WaveSpec, type VentSpec, type NavLink,
-  type IcePillar, type IcicleSpec, type CrumbleSpec
+  type IcePillar, type IcicleSpec, type CrumbleSpec, type MagnetRail
 } from '../levelGen'
 
 /**
@@ -70,6 +70,7 @@ export class Builder {
   /** Per room; only rooms given a kind other than 'void' need an entry. */
   pitKinds: PitKind[] = []
   wind: WindZone[] = []
+  magnets: MagnetRail[] = []
   rails: RailSpec[] = []
   waves: WaveSpec[] = []
   vents: VentSpec[] = []
@@ -216,12 +217,13 @@ export class Builder {
   }
 
   /** A machine's post, leashed to a rectangle of cells (inclusive). */
-  foe(role: FoePost['role'], i: number, j: number, yaw: number, box: [number, number, number, number], fly?: [number, number]): void {
+  foe(role: FoePost['role'], i: number, j: number, yaw: number, box: [number, number, number, number], fly?: [number, number], kind?: FoePost['kind']): void {
     const [i0, j0, i1, j1] = box
     const pad = 0.75
     this.foes.push({
       role, x: cellCenter(i), z: cellCenter(j), y: this.floor[this.k(i, j)]!, yaw, room: this.room[this.k(i, j)]!,
-      leash: [i0 * CELL + pad, j0 * CELL + pad, (i1 + 1) * CELL - pad, (j1 + 1) * CELL - pad], fly
+      leash: [i0 * CELL + pad, j0 * CELL + pad, (i1 + 1) * CELL - pad, (j1 + 1) * CELL - pad], fly,
+      ...(kind ? { kind } : {})
     })
   }
 
@@ -367,6 +369,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
     terrain.pitKind = b.rooms.map((_, id) => b.pitKinds[id] ?? 'void')
   }
   if (b.wind.length) terrain.wind = b.wind
+  if (b.magnets.length) terrain.magnets = b.magnets
   if (b.rails.length) terrain.rails = b.rails
   if (b.waves.length) terrain.waves = b.waves
   if (b.vents.length) terrain.vents = b.vents
@@ -435,6 +438,13 @@ export const mirrorX = (m: MapData): MapData => {
   if (t.ice) terrain.ice = flip(t.ice)
   if (t.pitKind) terrain.pitKind = t.pitKind.slice()
   if (t.wind) terrain.wind = t.wind.map(w => ({ ...w, i0: mi(w.i1), i1: mi(w.i0), dx: -w.dx }))
+  if (t.magnets) {
+    const side = { n: 'n', s: 's', e: 'w', w: 'e' } as const
+    terrain.magnets = t.magnets.map(r => ({
+      ...r, i0: mi(r.i1), i1: mi(r.i0), dx: -r.dx,
+      ...(r.panel ? { panel: { ...r.panel, i: mi(r.panel.i), side: side[r.panel.side] } } : {})
+    }))
+  }
   if (t.rails) {
     terrain.rails = t.rails.map(r => ({
       ...r, points: r.points.map(p => ({ ...p, x: X - p.x })),
