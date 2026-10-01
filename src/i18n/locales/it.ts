@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Maestro Gelo',
     'voltMaster': 'Maestro Volt',
     'galeMaster': 'Maestro Vento',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robot Gran Maestro'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Livello completato',
     'bossDown': 'Nemico sconfitto!',
-    'gameOver': 'Game Over!'
+    'gameOver': 'Game Over!',
+    'grandMaster': 'Gran Maestro!'
   },
   'pause': {
     'title': 'IN PAUSA',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Fulmini! Spostati quando l’anello si accende!',
         'fall': 'Il tetto sta cedendo!',
         'core': 'Giù al Nucleo! Non caderci dentro!'
+      },
+      'gm': {
+        'button': 'Sta premendo qualcosa... Preparati!',
+        'arms': 'Prima le braccia! Il cannone e la lancia!',
+        'feet': 'Ora i piedi! Para le onde d\'urto!',
+        'head': 'È abbassato. La testa è a portata!',
+        'body': 'Il nucleo è scoperto! Finiscilo!',
+        'prism': 'Cannone Prisma! Scudo su!'
       }
     },
     'secret': {

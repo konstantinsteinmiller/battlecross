@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Maître Givre',
     'voltMaster': 'Maître Volt',
     'galeMaster': 'Maître Rafale',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robot Grand Maître'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Niveau terminé',
     'bossDown': 'Ennemi vaincu !',
-    'gameOver': 'Partie terminée !'
+    'gameOver': 'Partie terminée !',
+    'grandMaster': 'Grand Maître !'
   },
   'pause': {
     'title': 'PAUSE',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Foudre ! Bouge quand l’anneau s’allume !',
         'fall': 'Le toit s’effondre !',
         'core': 'Direction le Noyau ! Ne tombe pas dedans !'
+      },
+      'gm': {
+        'button': 'Il appuie sur quelque chose... Prépare-toi !',
+        'arms': 'Les bras d\'abord ! Le canon et la lance !',
+        'feet': 'Maintenant les pieds ! Bloque les ondes de choc !',
+        'head': 'Il est à terre. La tête est à ta portée !',
+        'body': 'Le noyau est exposé ! Achève-le !',
+        'prism': 'Canon Prisme ! Bouclier levé !'
       }
     },
     'secret': {

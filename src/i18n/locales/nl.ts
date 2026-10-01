@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Vorstmeester',
     'voltMaster': 'Voltmeester',
     'galeMaster': 'Stormmeester',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Grootmeester-bot'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Level voltooid',
     'bossDown': 'Vijand verslagen!',
-    'gameOver': 'Game over!'
+    'gameOver': 'Game over!',
+    'grandMaster': 'Grootmeester!'
   },
   'pause': {
     'title': 'GEPAUZEERD',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Bliksem! Beweeg als de ring oplicht!',
         'fall': 'Het dak bezwijkt!',
         'core': 'Naar de Kern! Val er niet in!'
+      },
+      'gm': {
+        'button': 'Hij drukt ergens op... Zet je schrap!',
+        'arms': 'Eerst de armen! Het kanon en de lans!',
+        'feet': 'Nu de voeten! Blokkeer de schokgolven!',
+        'head': 'Hij zit laag. Het hoofd is binnen bereik!',
+        'body': 'De kern ligt open! Maak hem af!',
+        'prism': 'Prismakanon! Schild omhoog!'
       }
     },
     'secret': {

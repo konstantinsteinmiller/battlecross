@@ -42,7 +42,7 @@ import { BANNER_REF_SIZE, fitBannerFontSize } from './bannerFit'
 const { t, locale } = useI18n({ useScope: 'global' })
 
 /** The largest size each card wants, px. The red cards are the loud ones. */
-const DESIGN_MAX: Record<BannerKind, number> = { cleared: 112, bossDown: 150, gameOver: 150 }
+const DESIGN_MAX: Record<BannerKind, number> = { cleared: 112, bossDown: 150, gameOver: 150, grandMaster: 150 }
 /** Scripts without capitals. A Han, Hangul, Thai, Devanagari or Arabic glyph
  *  fills more of its em than a Latin capital does, so these set a size
  *  smaller to look as large, and they are never tracked (see index.sass). */

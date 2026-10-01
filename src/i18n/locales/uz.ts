@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Ayoz ustasi',
     'voltMaster': 'Volt ustasi',
     'galeMaster': 'Boʻron ustasi',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Buyuk Usta bot'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Bosqich yakunlandi',
     'bossDown': 'Dushman yengildi!',
-    'gameOver': 'Oʻyin tugadi!'
+    'gameOver': 'Oʻyin tugadi!',
+    'grandMaster': 'Buyuk Usta!'
   },
   'pause': {
     'title': 'PAUZA',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Chaqmoq! Halqa yonganda qoch!',
         'fall': 'Tom qulayapti!',
         'core': 'Yadroga tushamiz! Yiqilib ketma!'
+      },
+      'gm': {
+        'button': 'U nimanidir bosyapti... Tayyor tur!',
+        'arms': 'Avval qoʻllari! Toʻp va nayza!',
+        'feet': 'Endi oyoqlari! Zarba toʻlqinlarini toʻsib qol!',
+        'head': 'U pastga egildi. Boshi yetarli masofada!',
+        'body': 'Yadro ochiq! Uni tugat!',
+        'prism': 'Prizma toʻpi! Qalqonni koʻtar!'
       }
     },
     'secret': {

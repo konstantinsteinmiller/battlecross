@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Chúa Tể Băng',
     'voltMaster': 'Chúa Tể Điện',
     'galeMaster': 'Chúa Tể Gió',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robot Đại Chúa Tể'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Hoàn thành màn',
     'bossDown': 'Hạ gục kẻ địch!',
-    'gameOver': 'Trò chơi kết thúc!'
+    'gameOver': 'Trò chơi kết thúc!',
+    'grandMaster': 'Đại Chúa Tể!'
   },
   'pause': {
     'title': 'TẠM DỪNG',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Sét! Vòng sáng lên thì né ngay!',
         'fall': 'Mái nhà sập rồi!',
         'core': 'Xuống Lõi thôi! Đừng rơi vào!'
+      },
+      'gm': {
+        'button': 'Hắn đang bấm gì đó... Chuẩn bị đi!',
+        'arms': 'Bắn tay trước! Khẩu pháo và cây thương!',
+        'feet': 'Giờ tới chân! Chặn sóng xung kích!',
+        'head': 'Nó hạ thấp rồi. Đầu nó trong tầm bắn!',
+        'body': 'Lõi lộ ra rồi! Kết liễu nó!',
+        'prism': 'Pháo Lăng Kính! Giơ khiên lên!'
       }
     },
     'secret': {

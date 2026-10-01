@@ -11,7 +11,7 @@ import { shallowReactive } from 'vue'
  * `banner` and replays its entrance whenever `seq` changes.
  */
 
-export type BannerKind = 'cleared' | 'bossDown' | 'gameOver'
+export type BannerKind = 'cleared' | 'bossDown' | 'gameOver' | 'grandMaster'
 
 export const banner = shallowReactive({
   kind: '' as BannerKind | '',
@@ -23,7 +23,9 @@ export const banner = shallowReactive({
 export const BANNER_HOLD: Record<BannerKind, number> = {
   cleared: 2.2,
   bossDown: 3,
-  gameOver: 2.6
+  gameOver: 2.6,
+  // The giant wakes (#101): its name across the screen.
+  grandMaster: 2.6
 }
 
 /** How much sooner than `BANNER_HOLD` the card's own animation ends, so it

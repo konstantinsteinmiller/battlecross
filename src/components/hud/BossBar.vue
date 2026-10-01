@@ -5,6 +5,8 @@
         GameIcon(name="skull")
       div.track
         div.fill(:style="{ height: segPct + '%' }")
+        //- A multi-part boss: where each part's share ends.
+        span.mark(v-for="m in hud.bossMarks" :key="m" :style="{ bottom: (m * 100) + '%' }")
   Transition(name="bbn")
     div.bb-name(v-if="hud.bossName" aria-hidden="true")
       span.skull
@@ -74,6 +76,13 @@ const segPct = computed(() => (Math.ceil(Math.min(1, Math.max(0, hud.bossHp01)) 
     inset: 0
     background: repeating-linear-gradient(to top, transparent 0, transparent calc(100% / 28 - 1.5px), #0b1433 calc(100% / 28 - 1.5px), #0b1433 calc(100% / 28))
     pointer-events: none
+.mark
+  position: absolute
+  left: -2px
+  right: -2px
+  height: 2px
+  background: #ffd84a
+  z-index: 1
 .fill
   position: absolute
   left: 0

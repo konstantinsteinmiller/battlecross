@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Maestro Escarcha',
     'voltMaster': 'Maestro Voltio',
     'galeMaster': 'Maestro Vendaval',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robot Gran Maestro'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Nivel superado',
     'bossDown': '¡Enemigo derrotado!',
-    'gameOver': '¡Fin del juego!'
+    'gameOver': '¡Fin del juego!',
+    'grandMaster': '¡Gran Maestro!'
   },
   'pause': {
     'title': 'PAUSA',
@@ -689,6 +691,14 @@ export default {
         'roof': '¡Rayos! ¡Muévete cuando se encienda el anillo!',
         'fall': '¡El techo se hunde!',
         'core': '¡Al Núcleo! ¡No te caigas dentro!'
+      },
+      'gm': {
+        'button': 'Está pulsando algo... ¡Prepárate!',
+        'arms': '¡Primero los brazos! ¡El cañón y la lanza!',
+        'feet': '¡Ahora los pies! ¡Bloquea las ondas de choque!',
+        'head': 'Está agachado. ¡La cabeza está a tu alcance!',
+        'body': '¡El núcleo está abierto! ¡Acaba con él!',
+        'prism': '¡Cañón Prisma! ¡Escudo arriba!'
       }
     },
     'secret': {

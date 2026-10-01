@@ -572,7 +572,8 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P5 #103 stage-select missions** (portrait grid, colour borders,
     boss splash in the load window).
   - [x] **P6 #109 Core Descent** (roof → reactor hall → Core ring): `sim/coreDescent.ts`, `Terrain.bossStages`, a fall scene to black at 65 % and 30 %, a retry point per landing (`MissionSnapshot.vex`), lightning drops on the roof, the molten Core in the ring.
-  - [ ] **P7 #101 Grand Master Bot** (7.1 rig + red-button assembly, 7.2 the
+  - [x] **P7 #101 Grand Master Bot** (`sim/grandMaster.ts`, a Fortress
+    climb feature: its parts' health rides in the climb's save) (7.1 rig + red-button assembly, 7.2 the
     four-part fight on the roof, Prism Cannon, checkpoint after Vex).
   - [ ] **P8 #102 outro + New Game+** (~2 min, skippable, credits, end card).
   - [ ] **P9 story/docs catch-up** (comic skipped).

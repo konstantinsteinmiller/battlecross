@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Mistrz Mrozu',
     'voltMaster': 'Mistrz Prądu',
     'galeMaster': 'Mistrz Wichru',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robot Wielki Mistrz'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Poziom ukończony',
     'bossDown': 'Wróg pokonany!',
-    'gameOver': 'Koniec gry!'
+    'gameOver': 'Koniec gry!',
+    'grandMaster': 'Wielki Mistrz!'
   },
   'pause': {
     'title': 'PAUZA',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Pioruny! Uciekaj, gdy pierścień się zaświeci!',
         'fall': 'Dach się zapada!',
         'core': 'W dół, do Rdzenia! Nie wpadnij!'
+      },
+      'gm': {
+        'button': 'Coś naciska... Przygotuj się!',
+        'arms': 'Najpierw ramiona! Działo i lanca!',
+        'feet': 'Teraz stopy! Blokuj fale uderzeniowe!',
+        'head': 'Jest nisko. Głowa w zasięgu!',
+        'body': 'Rdzeń odsłonięty! Wykończ go!',
+        'prism': 'Działo Pryzmatu! Tarcza w górę!'
       }
     },
     'secret': {

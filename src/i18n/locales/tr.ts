@@ -126,7 +126,8 @@ export default {
     'frostMaster': 'Ayaz Ustası',
     'voltMaster': 'Volt Ustası',
     'galeMaster': 'Fırtına Ustası',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Büyük Usta Bot'
   },
 
   'sector': {
@@ -273,7 +274,8 @@ export default {
   'banner': {
     'cleared': 'Bölüm tamamlandı',
     'bossDown': 'Düşman yenildi!',
-    'gameOver': 'Oyun bitti!'
+    'gameOver': 'Oyun bitti!',
+    'grandMaster': 'Büyük Usta!'
   },
   'pause': {
     'title': 'DURAKLATILDI',
@@ -691,6 +693,14 @@ export default {
         'roof': 'Yıldırım! Halka yanınca kaç!',
         'fall': 'Çatı çöküyor!',
         'core': 'Çekirdeğe iniyoruz! Düşme sakın!'
+      },
+      'gm': {
+        'button': 'Bir şeye basıyor... Hazırlan!',
+        'arms': 'Önce kolları! Top ve mızrak!',
+        'feet': 'Şimdi ayaklar! Şok dalgalarını blokla!',
+        'head': 'Eğildi. Kafası menzilde!',
+        'body': 'Çekirdek açık! İşini bitir!',
+        'prism': 'Prizma Topu! Kalkanı kaldır!'
       }
     },
     'secret': {

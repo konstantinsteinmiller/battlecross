@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'フロストマスター',
     'voltMaster': 'ボルトマスター',
     'galeMaster': 'ゲイルマスター',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'グランドマスターボット'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'ステージクリア',
     'bossDown': '敵を撃破！',
-    'gameOver': 'ゲームオーバー！'
+    'gameOver': 'ゲームオーバー！',
+    'grandMaster': 'グランドマスター！'
   },
   'pause': {
     'title': 'ポーズ中',
@@ -689,6 +691,14 @@ export default {
         'roof': '雷だ！リングが光ったら動いて！',
         'fall': '屋根が崩れる！',
         'core': 'コアまで降りるよ！落ちないで！'
+      },
+      'gm': {
+        'button': '何か押してる…気をつけて！',
+        'arms': 'まずは腕！キャノンとランスだよ！',
+        'feet': '次は足！衝撃波をガードして！',
+        'head': '低くなった。頭を狙えるよ！',
+        'body': 'コアがむき出し！とどめだ！',
+        'prism': 'プリズムキャノン！シールドを構えて！'
       }
     },
     'secret': {

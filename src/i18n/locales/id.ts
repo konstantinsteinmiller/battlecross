@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Master Beku',
     'voltMaster': 'Master Volt',
     'galeMaster': 'Master Badai',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Bot Master Agung'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Level selesai',
     'bossDown': 'Musuh dikalahkan!',
-    'gameOver': 'Permainan berakhir!'
+    'gameOver': 'Permainan berakhir!',
+    'grandMaster': 'Master Agung!'
   },
   'pause': {
     'title': 'JEDA',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Petir! Bergerak saat cincinnya menyala!',
         'fall': 'Atapnya runtuh!',
         'core': 'Turun ke Inti! Jangan sampai jatuh!'
+      },
+      'gm': {
+        'button': 'Dia menekan sesuatu... Bersiaplah!',
+        'arms': 'Lengannya dulu! Meriam dan tombaknya!',
+        'feet': 'Sekarang kakinya! Tahan gelombang kejutnya!',
+        'head': 'Dia merunduk. Kepalanya terjangkau!',
+        'body': 'Intinya terbuka! Habisi dia!',
+        'prism': 'Meriam Prisma! Angkat perisai!'
       }
     },
     'secret': {

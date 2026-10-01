@@ -124,7 +124,8 @@ export default {
     'frostMaster': '빙결 마스터',
     'voltMaster': '전격 마스터',
     'galeMaster': '질풍 마스터',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': '그랜드 마스터 봇'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': '스테이지 클리어',
     'bossDown': '적 처치!',
-    'gameOver': '게임 오버!'
+    'gameOver': '게임 오버!',
+    'grandMaster': '그랜드 마스터!'
   },
   'pause': {
     'title': '일시정지',
@@ -689,6 +691,14 @@ export default {
         'roof': '번개야! 고리가 빛나면 피해!',
         'fall': '지붕이 무너진다!',
         'core': '코어까지 내려가자! 빠지지 마!'
+      },
+      'gm': {
+        'button': '뭔가 누르고 있어... 대비해!',
+        'arms': '팔부터! 캐논과 랜스!',
+        'feet': '이제 발! 충격파를 막아!',
+        'head': '자세가 낮아졌어. 머리가 닿아!',
+        'body': '코어가 열렸어! 끝내!',
+        'prism': '프리즘 캐논! 방패 들어!'
       }
     },
     'secret': {

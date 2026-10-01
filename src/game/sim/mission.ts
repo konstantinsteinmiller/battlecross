@@ -68,6 +68,7 @@ import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './tra
 import { BossArena, type ArenaHost } from './bossArena'
 import { BossCrane } from './bossCrane'
 import { CoreDescent } from './coreDescent'
+import { GrandMaster } from './grandMaster'
 import { bossHpMul, PROGRESS_HP } from './adaptive'
 import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
@@ -511,6 +512,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   crane: BossCrane | null = null
   /** Vex's Core Descent (`sim/coreDescent.ts`), in the Fortress only. */
   descent: CoreDescent | null = null
+  /** The Grand Master Bot (`sim/grandMaster.ts`): after Vex, on the roof. */
+  finale: GrandMaster | null = null
   /** The molten Core in the ring's pit (the Core Descent's last stage). */
   private coreGlow: Mesh | null = null
   /** A snapshot's Core Descent stage, applied once the climb has placed Flux. */
@@ -730,6 +733,35 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         hitPlayer: (e, d, o) => self.hitPlayer(e, d, o),
         hurtMachines: (c, x, z, hit) => self.hurtMachines(c, x, z, hit)
       }, stages)
+      // The Grand Master (#101): it wakes when Vex falls. A climb feature, last
+      // in the list, so its state rides in the climb's save.
+      const roof = this.map.rooms[stages[0]!]
+      if (roof && this.climb && this.boss) {
+        const vex = this.boss
+        this.finale = new GrandMaster({
+          get player() { return self.player },
+          get combat() { return self.combat },
+          vex,
+          get dmg() { return vex.dmg },
+          markers: this.markers,
+          shocks: this.shocks,
+          fx: this.fx,
+          propParent: (x, z) => self.propParent(x, z),
+          sfx: (n, x, z) => self.sfx(n, x, z),
+          say: (l) => self.say(l),
+          shake: (a) => self.shake(a),
+          hitPlayer: (e, d, o) => self.hitPlayer(e, d, o),
+          hurtMachines: (c, x, z, hit) => self.hurtMachines(c, x, z, hit),
+          fireEnemyShot: (e, x, y, z, dx, dy, dz, sp, d, b) => self.system.spawnEnemyShot(e, x, y, z, dx, dy, dz, sp, d, b),
+          spawnWave: (e, x, z, dx, dz, sp, hw, range, d, c) => self.spawnWave(e, x, z, dx, dz, sp, hw, range, d, c),
+          pull: (x, z, sp, dur) => self.pull(x, z, sp, dur),
+          skyFlash: (a) => self.skyFlash(a),
+          keepRetryPoint: () => self.keepRetryPoint(),
+          pressed: () => self.input.anyPressed,
+          onDefeated: () => self.finaleDone()
+        }, roof)
+        this.climb.features.push(this.finale)
+      }
       // The Core itself, molten in the ring's pit: it breathes (see update).
       const ring = this.map.rooms[stages[stages.length - 1]!]
       if (ring) {
@@ -1313,6 +1345,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         this.bossBannered.add(e)
         showBanner('bossDown')
         this.atlas?.event(this.boss?.bossId === 'vexMk1' ? 'vexDown' : 'bossDown')
+        // Vex presses his button: the Grand Master (#101).
+        if (e.bossId === 'vexMk1') this.finale?.start(e.x, e.z)
       }
     }
     this.objects.onEnemyKilled(e)
@@ -1503,6 +1537,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   }
 
   onObjectiveDone(): void {
+    // Vex is down, but the Grand Master is coming: the objective waits for it.
+    if (this.finale && this.finale.state !== 'done') return
     hud.objectiveDone = true
     pushHud({ t: 'toast', key: 'mission.objectiveDone', color: '#8dff7a' })
     pushHud({ t: 'flash', color: '#8dff7a', strength: 0.3 })
@@ -1643,6 +1679,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.arenaLight += (want - this.arenaLight) * Math.min(1, dt * (want < this.arenaLight ? 30 : 6))
     const red = live && frac < 0.25 ? 1 : 0
     h.color.copy(this.hemiBase).lerp(ARENA_RED, 0.4 * red)
+  }
+
+  /** The Grand Master has fallen: now the objective is done, the exit open. */
+  private finaleDone(): void {
+    this.dirty = true
+    this.onObjectiveDone()
+    this.atlas?.event('vexDown')
   }
 
   /** A stage feature asks for darkness this frame (the darkest ask wins). */
@@ -2093,6 +2136,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    */
   beamOut(): void {
     if (hud.phase !== 'play' || !this.objects.objective.done || this.exit.active) return
+    // Not while the Grand Master stands (or before it has come).
+    if (this.finale && this.finale.state !== 'done') return
     hud.phase = 'beamOut'
     this.phaseT = 0
     const c = this.combat
@@ -4093,7 +4138,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       n: ob.progress, total: ob.count,
       target: this.quest?.target ? (ob.template === 'kill' ? `enemyPlural.${this.quest.target}` : `enemy.${this.quest.target}`) : ''
     }
-    hud.objectiveDone = ob.done
+    // Vex down is not the end while the Grand Master still stands.
+    hud.objectiveDone = ob.done && (!this.finale || this.finale.state === 'done')
     const it = this.interact
     hud.interactKey = !it ? '' : it.kind === 'chest' ? 'interact.chest' : it.kind === 'npc' ? 'interact.rescue' : 'interact.bossDoor'
     const p = this.player
@@ -4124,7 +4170,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.borrowed.writeHud(this.weapons.cooldown[2] <= 0, !!hud.lesson)
     // Boss bar: fills segment by segment during the entrance, then tracks HP
     const b = this.boss
-    if (b && this.bossStarted) {
+    // (The Grand Master keeps the bar its own while it is up.)
+    const giant = this.finale && this.finale.state !== 'dormant' && this.finale.state !== 'done'
+    if (b && this.bossStarted && !giant) {
       this.bossBarT += 1 / 15
       const fill = Math.min(1, this.bossBarT / (BOSS_INTRO_T * 0.7))
       hud.bossHp01 = b.state === 'dead' ? 0 : Math.min(fill, b.hp / b.maxHp)

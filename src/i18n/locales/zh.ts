@@ -124,7 +124,8 @@ export default {
     'frostMaster': '冰霜大师',
     'voltMaster': '伏特大师',
     'galeMaster': '疾风大师',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': '至尊大师机器人'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': '关卡完成',
     'bossDown': '击败敌人！',
-    'gameOver': '游戏结束！'
+    'gameOver': '游戏结束！',
+    'grandMaster': '至尊大师！'
   },
   'pause': {
     'title': '已暂停',
@@ -689,6 +691,14 @@ export default {
         'roof': '闪电！光圈一亮就快躲开！',
         'fall': '屋顶要塌了！',
         'core': '下到核心！别掉进去！'
+      },
+      'gm': {
+        'button': '他在按什么东西……做好准备！',
+        'arms': '先打手臂！炮臂和长枪！',
+        'feet': '现在打脚！挡住冲击波！',
+        'head': '它压低了。头部够得着了！',
+        'body': '核心暴露了！干掉它！',
+        'prism': '棱镜炮！举起护盾！'
       }
     },
     'secret': {

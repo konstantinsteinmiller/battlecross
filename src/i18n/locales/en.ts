@@ -140,7 +140,9 @@ export default {
     'frostMaster': 'Frost Master',
     'voltMaster': 'Volt Master',
     'galeMaster': 'Gale Master',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    // The ten Masters in one body (#101).
+    'grandMaster': 'Grand Master Bot'
   },
 
   'sector': {
@@ -303,7 +305,8 @@ export default {
   'banner': {
     'cleared': 'Level cleared',
     'bossDown': 'Enemy defeated!',
-    'gameOver': 'Game Over!'
+    'gameOver': 'Game Over!',
+    'grandMaster': 'Grand Master!'
   },
   'pause': {
     'title': 'PAUSED',
@@ -706,6 +709,15 @@ export default {
         'valve': 'Flooded lock! Shoot the valve to drain it.',
         'rise': "The tide's coming in. Up the steps!",
         'wade': 'Water! Wading slows you down.',
+      },
+      // The Grand Master Bot (#101): Atlas through the fight, part by part.
+      'gm': {
+        'button': "He's pressing something... Brace yourself!",
+        'arms': 'Its arms first! The cannon and the lance!',
+        'feet': 'Now the feet! Block the shockwaves!',
+        'head': "It's down low. The head is in reach!",
+        'body': 'The core is open! Finish it!',
+        'prism': 'Prism Cannon! Shield up!',
       },
       // The Core Descent (#109): Vex's three stages.
       'vex': {

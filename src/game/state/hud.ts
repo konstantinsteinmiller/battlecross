@@ -47,6 +47,9 @@ export const hud = shallowReactive({
   /** Boss bar. */
   bossName: '',
   bossHp01: 0,
+  /** Marks across the boss bar (0..1 of it): where a multi-part boss's
+   *  phases end (the Grand Master's arms, feet, head). Empty for one body. */
+  bossMarks: [] as number[],
   /** The mission's Core Master for the top row's mystery chip ('' = a map
    *  without a boss), and whether it has fallen. The chip reveals the face
    *  once the fight begins (`bossName` set). */

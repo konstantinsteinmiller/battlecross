@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Frostmeister',
     'voltMaster': 'Voltmeister',
     'galeMaster': 'Sturmmeister',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Großmeister-Bot'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Level geschafft',
     'bossDown': 'Gegner besiegt!',
-    'gameOver': 'Game Over!'
+    'gameOver': 'Game Over!',
+    'grandMaster': 'Großmeister!'
   },
   'pause': {
     'title': 'PAUSIERT',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Blitze! Weg, wenn der Ring aufleuchtet!',
         'fall': 'Das Dach bricht ein!',
         'core': 'Runter zum Kern! Nicht reinfallen!'
+      },
+      'gm': {
+        'button': 'Er drückt irgendwas... Mach dich bereit!',
+        'arms': 'Erst die Arme! Kanone und Lanze!',
+        'feet': 'Jetzt die Füße! Blocke die Schockwellen!',
+        'head': 'Er ist unten. Der Kopf ist in Reichweite!',
+        'body': 'Der Kern liegt frei! Mach ihn fertig!',
+        'prism': 'Prismakanone! Schild hoch!'
       }
     },
     'secret': {

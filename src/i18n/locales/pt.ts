@@ -124,7 +124,8 @@ export default {
     'frostMaster': 'Mestre Gelo',
     'voltMaster': 'Mestre Volt',
     'galeMaster': 'Mestre Vento',
-    'vexMk1': 'Dr. Vex Mk-I'
+    'vexMk1': 'Dr. Vex Mk-I',
+    'grandMaster': 'Robô Grão-Mestre'
   },
 
   'sector': {
@@ -271,7 +272,8 @@ export default {
   'banner': {
     'cleared': 'Fase concluída',
     'bossDown': 'Inimigo derrotado!',
-    'gameOver': 'Fim de jogo!'
+    'gameOver': 'Fim de jogo!',
+    'grandMaster': 'Grão-Mestre!'
   },
   'pause': {
     'title': 'PAUSADO',
@@ -689,6 +691,14 @@ export default {
         'roof': 'Raios! Saia quando o anel acender!',
         'fall': 'O telhado está cedendo!',
         'core': 'Rumo ao Núcleo! Não caia lá dentro!'
+      },
+      'gm': {
+        'button': 'Ele está apertando algo... Se prepara!',
+        'arms': 'Primeiro os braços! O canhão e a lança!',
+        'feet': 'Agora os pés! Bloqueia as ondas de choque!',
+        'head': 'Ele abaixou. A cabeça está ao alcance!',
+        'body': 'O núcleo está aberto! Acaba com ele!',
+        'prism': 'Canhão Prisma! Escudo pra cima!'
       }
     },
     'secret': {
