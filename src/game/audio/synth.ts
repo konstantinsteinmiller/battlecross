@@ -1,5 +1,5 @@
 import { registerOneShotSource } from '@/use/useAssets'
-import { audio, canPlay, noise, pulse, midiHz } from './engine'
+import { audio, canPlay, noise, pulse, midiHz, duckMusic } from './engine'
 import { setSfxPlayer, type SfxName } from './sfx'
 import { SFX_FILES } from '../assets/overrides'
 
@@ -37,6 +37,9 @@ const panners: StereoPannerNode[] = []
 /** A muffled sound's low-pass (see `play`): while its recipe runs, every
  *  voice routes through it on its way to the sfx bus. */
 let route: BiquadFilterNode | null = null
+/** The current recipe's pitch factor (see `VARY`): every voice it starts is
+ *  tuned by it. 1 outside `play`. */
+let pitch = 1
 
 const out = (pan: number): AudioNode | null => {
   const a = audio()
@@ -66,10 +69,10 @@ const tone = (o: ToneOpts): void => {
     const w = pulse(o.wave === 'p12' ? 0.125 : o.wave === 'p25' ? 0.25 : 0.5)
     if (w) osc.setPeriodicWave(w)
   }
-  osc.frequency.setValueAtTime(o.f0, t)
+  osc.frequency.setValueAtTime(o.f0 * pitch, t)
   if (o.f1 !== undefined) {
-    if (o.exp !== false) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.f1), t + o.dur)
-    else osc.frequency.linearRampToValueAtTime(o.f1, t + o.dur)
+    if (o.exp !== false) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.f1 * pitch), t + o.dur)
+    else osc.frequency.linearRampToValueAtTime(o.f1 * pitch, t + o.dur)
   }
   if (o.vib) {
     const lfo = a.ctx.createOscillator()
@@ -115,8 +118,8 @@ const burst = (o: NoiseOpts): void => {
   const f = a.ctx.createBiquadFilter()
   f.type = o.type ?? 'lowpass'
   f.Q.value = o.q ?? 0.8
-  f.frequency.setValueAtTime(o.f0 ?? 4000, t)
-  if (o.f1 !== undefined) f.frequency.exponentialRampToValueAtTime(Math.max(40, o.f1), t + o.dur)
+  f.frequency.setValueAtTime((o.f0 ?? 4000) * pitch, t)
+  if (o.f1 !== undefined) f.frequency.exponentialRampToValueAtTime(Math.max(40, o.f1 * pitch), t + o.dur)
   const g = a.ctx.createGain()
   g.gain.setValueAtTime(o.vol, t)
   g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur)
@@ -142,8 +145,33 @@ const GAP: Partial<Record<SfxName, number>> = {
   // Hits from several sides at once: one hurt, not a stutter of them.
   hurt: 0.13,
   // The incoming-shot warning: a volley whizzes once.
-  whizz: 0.5
+  whizz: 0.5,
+  // Heavy hits: a stampede is one thud per beat, not a drum roll.
+  stomp: 0.09, hitHeavy: 0.06, crit: 0.06, punch: 0.07, dash: 0.1, lob: 0.08
 }
+
+/**
+ * The sounds heard dozens of times a minute get a small random pitch (±4 %)
+ * and level (±10 %) each time, so a fight is not one sample on repeat.
+ */
+const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
+  'shoot', 'hit', 'hitHeavy', 'bolt', 'tink', 'explode', 'stomp', 'enemyShot', 'punch', 'crit'
+])
+
+/** The big stings: the music steps back under them (seconds). */
+const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.6, levelUp: 1.4 }
+
+/**
+ * At most this many sounds start in any `CAP_WINDOW` seconds. A big fight can
+ * fire hits, shots, sparks and stomps at once; past the cap the frequent small
+ * sounds are dropped, never the rare important ones (`NEVER_DROP`).
+ */
+const CAP = 24
+const CAP_WINDOW = 0.25
+const recent: number[] = []
+const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
+  'hurt', 'bossIntro', 'levelUp', 'charge1', 'charge2', 'charge3', 'chargeShot', 'chargeShotBig', 'parry', 'denied', 'uiClick', 'uiOpen', 'objective'
+])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
 const OPEN_HZ = 16000
@@ -481,6 +509,7 @@ const playFile = (buf: AudioBuffer, pan: number, gain: number): void => {
   if (!dest) return
   const src = a.ctx.createBufferSource()
   src.buffer = buf
+  src.playbackRate.value = pitch
   const g = a.ctx.createGain()
   g.gain.value = FILE_GAIN * gain
   src.connect(g).connect(dest)
@@ -496,8 +525,15 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
   const now = a.ctx.currentTime
   const last = lastAt.get(name) ?? -1
   if (now - last < gap) return
+  while (recent.length && now - recent[0]! > CAP_WINDOW) recent.shift()
+  if (recent.length >= CAP && !NEVER_DROP.has(name)) return
+  recent.push(now)
   lastAt.set(name, now)
-  const g = Math.max(0.05, Math.min(1.4, gain))
+  const vary = VARY.has(name)
+  const g = Math.max(0.05, Math.min(1.4, gain * (vary ? 0.9 + Math.random() * 0.2 : 1)))
+  pitch = vary ? 0.96 + Math.random() * 0.08 : 1
+  const duckFor = DUCK_FOR[name]
+  if (duckFor) duckMusic(duckFor)
   // Muffled: one low-pass in front of the SAME sfx bus, so the mute, the
   // volume and the ad gates hold for it like for any other sound.
   if (muffle > 0.01) {
@@ -507,6 +543,9 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
       route.frequency.value = muffleHz(muffle)
       route.Q.value = 0.7
       route.connect(a.sfx)
+      // Every voice of a recipe ends within ~2 s; then the filter goes too.
+      const r = route
+      setTimeout(() => { try { r.disconnect() } catch { /* gone */ } }, 2500)
     } catch { route = null }
   }
   try {
@@ -515,6 +554,7 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
     else RECIPES[name]?.(pan, g)
   } catch { /* a voice failed to start — never fatal */ } finally {
     route = null
+    pitch = 1
   }
 }
 

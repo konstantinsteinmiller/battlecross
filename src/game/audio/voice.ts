@@ -1,4 +1,4 @@
-import { audio } from './engine'
+import { audio, duckMusic } from './engine'
 import { VOICE_FILES } from '../assets/overrides'
 import { registerOneShotSource } from '@/use/useAssets'
 
@@ -136,10 +136,10 @@ export const playVoice = (id: string): number | null => {
     stopVoice()
     const src = a.ctx.createBufferSource()
     src.buffer = buf
-    const g = a.ctx.createGain()
-    g.gain.value = 1
-    src.connect(g).connect(a.sfx)
+    src.connect(a.voice)
     src.start()
+    // The music steps back while someone speaks.
+    duckMusic(buf.duration)
     src.onended = () => { if (current === src) current = null }
     registerOneShotSource(src)
     current = src

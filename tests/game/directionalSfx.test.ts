@@ -24,7 +24,8 @@ const g = vi.hoisted(() => ({
   nodes: [] as unknown[],
   playable: true,
   ctx: null as unknown,
-  bus: null as unknown
+  bus: null as unknown,
+  ducks: [] as number[]
 }))
 const node = (kind: string, extra: Record<string, unknown> = {}): FakeNode => {
   const n: FakeNode = {
@@ -52,7 +53,8 @@ vi.mock('@/game/audio/engine', () => ({
   canPlay: () => g.playable,
   noise: () => ({}),
   pulse: () => null,
-  midiHz: (m: number) => 440 * Math.pow(2, (m - 69) / 12)
+  midiHz: (m: number) => 440 * Math.pow(2, (m - 69) / 12),
+  duckMusic: (sec: number) => { g.ducks.push(sec) }
 }))
 vi.mock('@/use/useAssets', () => ({ registerOneShotSource: vi.fn() }))
 vi.mock('@/game/assets/overrides', () => ({ SFX_FILES: new Map() }))
@@ -186,5 +188,38 @@ describe('throttle and mute', () => {
     setSfxPlayer(null)
     expect(() => feedDamage({ x: 0, z: 0, yaw: 0 }, null, 0, 10, 10, 100)).not.toThrow()
     expect(g.nodes).toHaveLength(0)
+  })
+})
+
+// ─── The mix (#114) ──────────────────────────────────────────────────────────
+
+describe('the mix', () => {
+  const firstPitch = () => (of('osc')[0]!.frequency as { setValueAtTime: { mock: { calls: number[][] } } }).setValueAtTime.mock.calls[0]![0]!
+
+  it('a frequent sound varies a little in pitch each time; a rare one does not', () => {
+    const seen = new Set<number>()
+    for (let i = 0; i < 8; i++) {
+      g.nodes.length = 0
+      ctx().currentTime = (clock += 1)
+      sfx('shoot')
+      const f = firstPitch()
+      expect(f).toBeGreaterThan(1500 * 0.959)
+      expect(f).toBeLessThan(1500 * 1.041)
+      seen.add(Math.round(f))
+    }
+    expect(seen.size).toBeGreaterThan(1)
+    g.nodes.length = 0
+    ctx().currentTime = (clock += 1)
+    sfx('denied')
+    expect(firstPitch()).toBeCloseTo(140, 6)
+  })
+
+  it('the music steps back under the big stings', () => {
+    g.ducks.length = 0
+    sfx('bossIntro')
+    expect(g.ducks.length).toBe(1)
+    expect(g.ducks[0]).toBeGreaterThan(1)
+    sfx('hit')
+    expect(g.ducks.length).toBe(1)
   })
 })
