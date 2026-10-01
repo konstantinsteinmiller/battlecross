@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': '花费螺丝强化臂炮：伤害更高。',
     'pickArmor': '现在选择你的胸甲。',
     'upgradeArmor': '把它也强化一下：防御更高。',
-    'deploy': '一切就绪——回到任务吧！'
+    'deploy': '一切就绪——回到任务吧！',
+    'overload': '皮普：疾风大师的核心教了我一招。满蓄力后再按住3秒：过载！'
   },
   'loot': {
     'upgrade': '升级！',
@@ -388,7 +389,9 @@ export default {
     'requires': '需要{name}达到{n}级',
     'install': '安装芯片',
     'maxed': '已满能',
-    'respec': '重置电路'
+    'respec': '重置电路',
+    'requiresBoss': '需先击败{name}',
+    'unlock': '解锁'
   },
   'skill': {
     'rapid': { 'name': '速射弹', 'desc': '每枚芯片：普通弹伤害+10%。' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': '超级蓄力', 'desc': '每枚芯片：蓄力弹伤害+12%。' },
     'perfectTiming': { 'name': '完美时机', 'desc': '完美松手判定更宽，暴击更强。' },
     'piercing': { 'name': '穿透核心', 'desc': '半蓄力弹也能击破护盾和头盔。' },
-    'giga': { 'name': '过载蓄力', 'desc': '满蓄力后继续按住，释放毁灭性的第三段蓄力。' },
+    'giga': { 'name': '过载蓄力', 'desc': '满蓄力后再按住3秒：射击威力提升至1.75×。' },
     'frame': { 'name': '强化机体', 'desc': '每枚芯片：最大生命值+8%。' },
     'barrier': { 'name': '屏障调校', 'desc': '格挡消耗更少动力，承受的伤害也更低。' },
     'autoRepair': { 'name': '自动修复', 'desc': '每枚芯片：脱战时每秒恢复1%生命值。' },

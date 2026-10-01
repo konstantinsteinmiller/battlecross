@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Dùng bu lông để nâng cấp pháo: thêm sát thương.',
     'pickArmor': 'Giờ hãy chọn giáp ngực.',
     'upgradeArmor': 'Nâng cấp cả nó nữa: thêm phòng thủ.',
-    'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!'
+    'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!',
+    'overload': 'Pip: Lõi của Chúa Tể Gió đã dạy tớ một mẹo. Giữ tụ lực đầy thêm 3 giây: QUÁ TẢI!'
   },
   'loot': {
     'upgrade': 'Nâng cấp!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Cần {name} hạng {n}',
     'install': 'Lắp chip',
     'maxed': 'Đã tối đa',
-    'respec': 'Đặt lại mạch'
+    'respec': 'Đặt lại mạch',
+    'requiresBoss': 'Hãy đánh bại {name} trước',
+    'unlock': 'Mở khóa'
   },
   'skill': {
     'rapid': { 'name': 'Đạn Liên Thanh', 'desc': 'Sát thương bắn nhanh +10% mỗi chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Tụ Lực Mega', 'desc': 'Sát thương phát tụ lực +12% mỗi chip.' },
     'perfectTiming': { 'name': 'Căn Giờ Hoàn Hảo', 'desc': 'Khoảng thả hoàn hảo rộng hơn và chí mạng mạnh hơn.' },
     'piercing': { 'name': 'Lõi Xuyên Phá', 'desc': 'Phát tụ lực một nửa cũng phá được khiên và mũ.' },
-    'giga': { 'name': 'Tụ Lực Quá Tải', 'desc': 'Tiếp tục giữ sau khi tụ đầy để đạt cấp ba hủy diệt.' },
+    'giga': { 'name': 'Quá Tải', 'desc': 'Giữ tụ lực đầy thêm 3 giây: phát bắn mạnh hơn 1,75×.' },
     'frame': { 'name': 'Khung Gia Cố', 'desc': 'Máu tối đa +8% mỗi chip.' },
     'barrier': { 'name': 'Tinh Chỉnh Rào Chắn', 'desc': 'Chặn tốn ít thể lực hơn và lọt ít sát thương hơn.' },
     'autoRepair': { 'name': 'Tự Sửa Chữa', 'desc': 'Hồi 1% máu mỗi giây khi ngoài giao tranh, mỗi chip.' },

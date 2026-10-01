@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Pakai baut untuk meningkatkan meriammu: kerusakan lebih besar.',
     'pickArmor': 'Sekarang pilih zirah dadamu.',
     'upgradeArmor': 'Tingkatkan juga: pertahanan lebih kuat.',
-    'deploy': 'Semua siap — kembali ke misi!'
+    'deploy': 'Semua siap — kembali ke misi!',
+    'overload': 'Pip: Inti Master Badai mengajariku satu trik. Tahan muatan penuh 3 detik lagi: MUATAN BERLEBIH!'
   },
   'loot': {
     'upgrade': 'Peningkatan!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Butuh {name} tingkat {n}',
     'install': 'Pasang chip',
     'maxed': 'Daya penuh',
-    'respec': 'Atur ulang sirkuit'
+    'respec': 'Atur ulang sirkuit',
+    'requiresBoss': 'Kalahkan {name} dulu',
+    'unlock': 'Buka'
   },
   'skill': {
     'rapid': { 'name': 'Peluru Cepat', 'desc': 'Kerusakan tembakan cepat +10% per chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Muatan Mega', 'desc': 'Kerusakan tembakan bermuatan +12% per chip.' },
     'perfectTiming': { 'name': 'Timing Sempurna', 'desc': 'Jendela lepas sempurna lebih lebar dan kritis lebih kuat.' },
     'piercing': { 'name': 'Inti Penembus', 'desc': 'Tembakan setengah muatan juga menghancurkan perisai dan helm.' },
-    'giga': { 'name': 'Muatan Berlebih', 'desc': 'Terus tahan melewati muatan penuh untuk tingkat ketiga yang dahsyat.' },
+    'giga': { 'name': 'Muatan Berlebih', 'desc': 'Tahan muatan penuh 3 detik lagi: tembakan menghantam 1,75× lebih keras.' },
     'frame': { 'name': 'Rangka Diperkuat', 'desc': 'Kesehatan maks +8% per chip.' },
     'barrier': { 'name': 'Setelan Penghalang', 'desc': 'Memblok memakai lebih sedikit tenaga dan meloloskan lebih sedikit kerusakan.' },
     'autoRepair': { 'name': 'Perbaikan Otomatis', 'desc': 'Pulihkan 1% kesehatan per detik di luar pertarungan, per chip.' },

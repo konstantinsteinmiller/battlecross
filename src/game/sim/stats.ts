@@ -78,7 +78,9 @@ export const baseStats = (): PlayerStats => ({
 // Charge timing (seconds at chargeTimeMul = 1)
 export const CHARGE_L1 = 0.55
 export const CHARGE_L2 = 1.2
-export const CHARGE_L3 = 2.1
+/** The Overload (#100): this much longer than a full charge, whatever the
+ *  charge-speed upgrades — they shorten the first two levels only. */
+export const OVERLOAD_EXTRA = 3
 export const PERFECT_DELAY = 0.08
 export const PERFECT_LEN = 0.24
 
@@ -87,6 +89,8 @@ export interface ChargeInfo {
   /** 0..1 progress toward the next level (for the ring). */
   toL1: number
   toL2: number
+  /** 0..1 progress from full charge to the Overload (0 without it). */
+  toL3: number
   perfect: boolean
   /** Perfect window has passed (release now is a normal full charge). */
   late: boolean
@@ -95,7 +99,7 @@ export interface ChargeInfo {
 export const chargeInfo = (t: number, s: PlayerStats): ChargeInfo => {
   const l1 = CHARGE_L1 * s.chargeTimeMul
   const l2 = CHARGE_L2 * s.chargeTimeMul
-  const l3 = CHARGE_L3 * s.chargeTimeMul
+  const l3 = l2 + OVERLOAD_EXTRA
   const p0 = l2 + PERFECT_DELAY
   const p1 = p0 + PERFECT_LEN * s.perfectMul
   const level: ChargeInfo['level'] = s.giga && t >= l3 ? 3 : t >= l2 ? 2 : t >= l1 ? 1 : 0
@@ -103,6 +107,7 @@ export const chargeInfo = (t: number, s: PlayerStats): ChargeInfo => {
     level,
     toL1: Math.min(1, t / l1),
     toL2: Math.min(1, Math.max(0, (t - l1) / (l2 - l1))),
+    toL3: s.giga ? Math.min(1, Math.max(0, (t - l2) / OVERLOAD_EXTRA)) : 0,
     perfect: level === 2 && t >= p0 && t <= p1,
     late: t > p1
   }

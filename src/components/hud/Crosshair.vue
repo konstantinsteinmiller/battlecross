@@ -55,7 +55,12 @@ onMounted(() => {
     l2.value!.style.strokeDashoffset = `${C2 * (1 - (showing ? info.toL2 : 0))}`
     const full = info.level >= 2
     const flick = full && Math.floor(t * 24) % 2 === 0
-    xh.value.dataset.state = info.perfect ? 'perfect' : full ? (flick ? 'full' : 'full2') : info.level === 1 ? 'l1' : 'idle'
+    // Past full charge with the Overload: the inner ring refills in violet.
+    if (info.toL3 > 0) l1.value!.style.strokeDashoffset = `${C1 * (1 - info.toL3)}`
+    xh.value.dataset.state = info.perfect ? 'perfect'
+      : info.level === 3 ? 'over'
+        : info.toL3 > 0 ? 'build'
+          : full ? (flick ? 'full' : 'full2') : info.level === 1 ? 'l1' : 'idle'
     xh.value.style.transform = `translate(-50%, -50%) scale(${1 + (showing ? 0.25 + info.toL2 * 0.25 : 0) + c.recoil * 0.12})`
     // Lock bracket
     const tg = c.target
@@ -121,6 +126,14 @@ onUnmounted(() => off?.())
     stroke: #ffffff
   &[data-state='full2'] .l2
     stroke: #3cc8ff
+  &[data-state='build'] .l1
+    stroke: #b46cff
+  &[data-state='over']
+    .l1, .l2
+      stroke: #b46cff
+      filter: drop-shadow(0 0 6px #d38bff)
+    .dot
+      fill: #fff6d6
   &[data-state='perfect']
     .l1, .l2
       stroke: #ffd84a

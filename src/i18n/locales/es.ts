@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Gasta tornillos para mejorar tu cañón: más daño.',
     'pickArmor': 'Ahora elige tu armadura de pecho.',
     'upgradeArmor': 'Mejórala también: más defensa.',
-    'deploy': '¡Todo listo, de vuelta a las misiones!'
+    'deploy': '¡Todo listo, de vuelta a las misiones!',
+    'overload': 'Pip: El núcleo del Maestro Vendaval me enseñó un truco. Mantén la carga completa 3 segundos más: ¡SOBRECARGA!'
   },
   'loot': {
     'upgrade': '¡Mejora!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Requiere {name} (rango {n})',
     'install': 'Instalar chip',
     'maxed': 'A plena potencia',
-    'respec': 'Reiniciar circuitos'
+    'respec': 'Reiniciar circuitos',
+    'requiresBoss': 'Derrota primero a {name}',
+    'unlock': 'Desbloquear'
   },
   'skill': {
     'rapid': { 'name': 'Balas rápidas', 'desc': 'Daño de bala +10 % por chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Megacarga', 'desc': 'Daño del disparo cargado +12 % por chip.' },
     'perfectTiming': { 'name': 'Sincronía perfecta', 'desc': 'Ventana de liberación perfecta más amplia y críticos más fuertes.' },
     'piercing': { 'name': 'Núcleo perforante', 'desc': 'Los disparos semicargados también rompen escudos y cascos.' },
-    'giga': { 'name': 'Sobrecarga', 'desc': 'Mantén pulsado más allá de la carga completa para un devastador tercer nivel.' },
+    'giga': { 'name': 'Sobrecarga', 'desc': 'Mantén la carga completa 3 segundos más: el disparo golpea 1,75× más fuerte.' },
     'frame': { 'name': 'Chasis reforzado', 'desc': 'Salud máx. +8 % por chip.' },
     'barrier': { 'name': 'Ajuste de barrera', 'desc': 'Bloquear gasta menos potencia y deja pasar menos daño.' },
     'autoRepair': { 'name': 'Autorreparación', 'desc': 'Regenera un 1 % de salud por segundo fuera de combate, por chip.' },

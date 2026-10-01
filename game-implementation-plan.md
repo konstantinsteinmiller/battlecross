@@ -555,8 +555,9 @@ while bars and damage numbers get direct DOM writes.
     audit: Arabic RTL proof on the built Playgama archive (QA Tool, 320×658);
     CrazyGames keeps no device-local backup (CG forbids local data, by
     design); ad-before-results order per portal stays as pinned.
-  - [ ] **P2 #100 Overload shot** (giga re-timed: full + 3 s, 7x; Gale gate;
-    bolt-priced epic-violet mod; Pip opens it).
+  - [x] **P2 #100 Overload shot** (giga re-timed: full + 3 s, 7x; Gale gate;
+    bolt-priced epic-violet mod at 2300 bolts, outside chips and respec; Pip
+    opens Circuits on it after the Gale Master).
   - [ ] **P3 Shared engines**: story-cutscene player, in-mission scenes,
     retry-from-checkpoint (Fortress), multi-room boss, multi-part boss +
     segmented bar + Atlas markers, drop hazards + movable crates, stage light

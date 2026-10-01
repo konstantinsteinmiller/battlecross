@@ -236,7 +236,8 @@ export default {
     'upgradeBuster': 'Kol topunu geliştirmek için cıvata harca: daha fazla hasar.',
     'pickArmor': 'Şimdi göğüs zırhını seç.',
     'upgradeArmor': 'Onu da geliştir: daha fazla savunma.',
-    'deploy': 'Her şey hazır — görevlere geri dön!'
+    'deploy': 'Her şey hazır — görevlere geri dön!',
+    'overload': 'Pip: Fırtına Ustası\'nın çekirdeği bana bir numara öğretti. Tam şarjı 3 saniye daha basılı tut: AŞIRI YÜK!'
   },
   'loot': {
     'upgrade': 'Yükseltme!',
@@ -390,7 +391,9 @@ export default {
     'requires': 'Gerekli: {name} kademe {n}',
     'install': 'Çipi tak',
     'maxed': 'Tam güç',
-    'respec': 'Devreleri sıfırla'
+    'respec': 'Devreleri sıfırla',
+    'requiresBoss': 'Önce yenilmeli: {name}',
+    'unlock': 'Kilidi aç'
   },
   'skill': {
     'rapid': { 'name': 'Seri Mermi', 'desc': 'Hızlı atış hasarı çip başına +%10.' },
@@ -398,7 +401,7 @@ export default {
     'megaCharge': { 'name': 'Mega Şarj', 'desc': 'Şarjlı atış hasarı çip başına +%12.' },
     'perfectTiming': { 'name': 'Kusursuz Zamanlama', 'desc': 'Daha geniş kusursuz bırakma aralığı ve daha güçlü kritikler.' },
     'piercing': { 'name': 'Delici Çekirdek', 'desc': 'Yarı şarjlı atışlar da kalkanları ve kaskları kırar.' },
-    'giga': { 'name': 'Aşırı Şarj', 'desc': 'Tam şarjdan sonra da basılı tutarak yıkıcı bir üçüncü seviyeye ulaş.' },
+    'giga': { 'name': 'Aşırı Yük', 'desc': 'Tam şarjı 3 saniye daha basılı tut: atış 1,75× daha sert vurur.' },
     'frame': { 'name': 'Güçlendirilmiş Gövde', 'desc': 'Maks. can çip başına +%8.' },
     'barrier': { 'name': 'Bariyer Ayarı', 'desc': 'Bloklamak daha az güç harcar ve daha az hasar geçirir.' },
     'autoRepair': { 'name': 'Otomatik Onarım', 'desc': 'Çatışma dışında, çip başına saniyede %1 can yeniler.' },

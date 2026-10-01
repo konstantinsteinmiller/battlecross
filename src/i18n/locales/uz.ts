@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Qoʻl toʻpini yaxshilash uchun boltlarni sarflang: koʻproq zarar.',
     'pickArmor': 'Endi koʻkrak zirhini tanlang.',
     'upgradeArmor': 'Uni ham yaxshilang: koʻproq himoya.',
-    'deploy': 'Hammasi tayyor — missiyalarga qaytamiz!'
+    'deploy': 'Hammasi tayyor — missiyalarga qaytamiz!',
+    'overload': 'Pip: Boʻron ustasining yadrosi menga bir hiyla oʻrgatdi. Toʻliq zaryadni yana 3 soniya ushlab tur: OʻTA YUKLANISH!'
   },
   'loot': {
     'upgrade': 'Yaxshilash!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Talab: {name}, {n}-bosqich',
     'install': 'Chipni oʻrnatish',
     'maxed': 'Toʻliq quvvatda',
-    'respec': 'Sxemalarni qayta sozlash'
+    'respec': 'Sxemalarni qayta sozlash',
+    'requiresBoss': 'Avval yenging: {name}',
+    'unlock': 'Ochish'
   },
   'skill': {
     'rapid': { 'name': 'Tezkor oʻqlar', 'desc': 'Oddiy oʻq zarari har chipga +10%.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Mega zaryad', 'desc': 'Zaryadli oʻq zarari har chipga +12%.' },
     'perfectTiming': { 'name': 'Mukammal lahza', 'desc': 'Mukammal qoʻyib yuborish oynasi kengroq, kritik zarbalar kuchliroq.' },
     'piercing': { 'name': 'Teshuvchi yadro', 'desc': 'Yarim zaryadli oʻqlar ham qalqon va dubulgʻalarni sindiradi.' },
-    'giga': { 'name': 'Oʻta zaryad', 'desc': 'Toʻliq zaryaddan keyin ham bosib turing — vayronkor uchinchi daraja ochiladi.' },
+    'giga': { 'name': 'Oʻta yuklanish', 'desc': 'Toʻliq zaryadni yana 3 soniya ushlab turing: oʻq 1,75× kuchliroq uradi.' },
     'frame': { 'name': 'Mustahkam korpus', 'desc': 'Maks. sogʻliq har chipga +8%.' },
     'barrier': { 'name': 'Toʻsiqni sozlash', 'desc': 'Blok kamroq quvvat sarflaydi va kamroq zarar oʻtkazadi.' },
     'autoRepair': { 'name': 'Avtotaʼmir', 'desc': 'Jangdan tashqarida har chip soniyasiga 1% sogʻliqni tiklaydi.' },

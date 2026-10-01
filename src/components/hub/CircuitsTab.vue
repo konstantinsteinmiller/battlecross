@@ -28,7 +28,7 @@
           v-for="n in nodes"
           :key="n.id"
           type="button"
-          :class="{ sel: selected === n.id, locked: !nodeUnlocked(n, profile.hero.skills), maxed: rank(n.id) >= n.ranks, owned: rank(n.id) > 0 }"
+          :class="{ sel: selected === n.id, locked: !nodeUnlocked(n, profile.hero.skills, profile.hero.weapons), maxed: rank(n.id) >= n.ranks, owned: rank(n.id) > 0, mod: !!n.mod, ready: !!n.mod && rank(n.id) === 0 && nodeUnlocked(n, profile.hero.skills, profile.hero.weapons) }"
           :style="{ left: (cx(n.pos[0]) / 3) + '%', top: (cy(n.pos[1]) / 3) + '%' }"
           @click="selected = n.id"
         )
@@ -37,12 +37,28 @@
           span.pips
             span.pip(v-for="k in n.ranks" :key="k" :class="{ on: k <= rank(n.id) }")
       div.detail(v-if="sel")
-        div.d-name {{ t(`skill.${sel.id}.name`) }}
-        div.d-rank {{ t('circuits.rank', { n: rank(sel.id), max: sel.ranks }) }}
+        div.d-name(:class="{ mod: !!sel.mod }") {{ t(`skill.${sel.id}.name`) }}
+        div.d-rank(v-if="!sel.mod") {{ t('circuits.rank', { n: rank(sel.id), max: sel.ranks }) }}
         div.d-desc {{ t(`skill.${sel.id}.desc`) }}
-        div.d-req(v-if="sel.req && !nodeUnlocked(sel, profile.hero.skills)")
+        div.d-req(v-if="sel.mod && !nodeUnlocked(sel, profile.hero.skills, profile.hero.weapons)")
+          | {{ t('circuits.requiresBoss', { name: t('boss.galeMaster') }) }}
+        div.d-req(v-else-if="sel.req && !nodeUnlocked(sel, profile.hero.skills)")
           | {{ t('circuits.requires', { name: t(`skill.${sel.req.id}.name`), n: sel.req.rank }) }}
+        //- A mod is bought with bolts, once: the price wears the nut.
+        button.install.buy(
+          v-if="sel.mod"
+          type="button"
+          :disabled="!canBuyMod(sel, profile.hero.skills, profile.bolts, profile.hero.weapons)"
+          @click="install"
+        )
+          span(v-if="rank(sel.id) >= sel.ranks") {{ t('circuits.maxed') }}
+          template(v-else)
+            span {{ t('circuits.unlock') }}
+            span.cost
+              GameIcon.ci(name="nut")
+              | {{ sel.mod.bolts }}
         button.install(
+          v-else
           type="button"
           :disabled="!canRankUp(sel, profile.hero.skills, chipsAvailable())"
           @click="install"
@@ -57,10 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import { SKILLS, SKILL_BY_ID, BOARDS, nodeUnlocked, canRankUp, respecCost, type Board } from '@/game/data/skills'
+import { SKILLS, SKILL_BY_ID, BOARDS, nodeUnlocked, canRankUp, canBuyMod, chipsSpent, respecCost, type Board } from '@/game/data/skills'
+import { circuitsFocus } from './hubLesson'
 import { profile, chipsAvailable, rankUpSkill, respecSkills } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 
@@ -76,7 +93,15 @@ const selected = ref(firstOf('buster'))
 const nodes = computed(() => SKILLS.filter(s => s.board === board.value))
 const sel = computed(() => SKILL_BY_ID[selected.value] ?? null)
 const rank = (id: string) => profile.hero.skills[id] ?? 0
-const spent = computed(() => Object.values(profile.hero.skills).reduce((a, b) => a + b, 0))
+const spent = computed(() => chipsSpent(profile.hero.skills))
+// Opened by Pip's notice: straight onto that node.
+watch(circuitsFocus, (id) => {
+  const node = id ? SKILL_BY_ID[id] : undefined
+  if (!node) return
+  board.value = node.board
+  selected.value = node.id
+  circuitsFocus.value = null
+}, { immediate: true })
 const cx = (c: number) => 50 + c * 100
 const cy = (r: number) => 50 + r * 100
 const install = () => {
@@ -179,11 +204,39 @@ const respec = () => {
   &.maxed
     background: radial-gradient(circle at 40% 30%, #fff8c0, #ffd23a 55%, #e08a00)
     color: #141a33
+  // A mod wears the epic violet (the prototype tier's), and pulses while it
+  // can be bought.
+  &.mod
+    border-color: #b46cff
+    background: radial-gradient(circle at 40% 30%, #e7d2ff, #8a4ad8 60%, #4a1f86)
+    color: #fff
+  &.mod.ready
+    animation: mod-pulse 1.4s ease-in-out infinite
+  &.mod.owned
+    background: radial-gradient(circle at 40% 30%, #fff6d6, #b46cff 55%, #6a2fbf)
   &.locked
     filter: grayscale(0.9) brightness(0.55)
   &.sel
     outline: 3px solid #ffd84a
     outline-offset: 2px
+@keyframes mod-pulse
+  0%, 100%
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(180, 108, 255, 0.7)
+  50%
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 0 0 9px rgba(180, 108, 255, 0)
+@media (prefers-reduced-motion: reduce)
+  .node.mod.ready
+    animation: none
+    outline: 3px solid #d38bff
+.d-name.mod
+  color: #d38bff
+.install.buy
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  border-color: #4a1f86
+  background: linear-gradient(#c79bff, #8a4ad8)
+  color: #fff
 .n-ico
   width: 46%
   height: 46%

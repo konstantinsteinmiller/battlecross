@@ -7,7 +7,7 @@
  * (`state/damageFeed.ts`), which a pan alone cannot tell from one in front.
  */
 export type SfxName =
-  | 'shoot' | 'charge1' | 'charge2' | 'chargeShot' | 'chargeShotBig' | 'hit' | 'hitHeavy' | 'crit' | 'tink'
+  | 'shoot' | 'charge1' | 'charge2' | 'charge3' | 'chargeShot' | 'chargeShotBig' | 'hit' | 'hitHeavy' | 'crit' | 'tink'
   | 'guardBreak' | 'explode' | 'enemyShot' | 'lob' | 'jump' | 'stomp' | 'dash' | 'bonk' | 'punch' | 'alert'
   | 'hurt' | 'block' | 'parry' | 'guardCrack' | 'slide' | 'bolt' | 'heal' | 'energy' | 'door' | 'beamIn'
   | 'beamOut' | 'levelUp' | 'chestOpen' | 'loot' | 'tank' | 'weapon' | 'denied' | 'uiClick' | 'uiOpen'

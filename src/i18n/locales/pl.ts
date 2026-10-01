@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Wydaj śruby, by ulepszyć działo: więcej obrażeń.',
     'pickArmor': 'Teraz wybierz pancerz korpusu.',
     'upgradeArmor': 'Jego też ulepsz: więcej obrony.',
-    'deploy': 'Gotowe — wracamy do misji!'
+    'deploy': 'Gotowe — wracamy do misji!',
+    'overload': 'Pip: Rdzeń Mistrza Wichru nauczył mnie sztuczki. Przytrzymaj pełny ładunek jeszcze 3 sekundy: PRZECIĄŻENIE!'
   },
   'loot': {
     'upgrade': 'Ulepszenie!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Wymaga: {name}, ranga {n}',
     'install': 'Zainstaluj chip',
     'maxed': 'Pełna moc',
-    'respec': 'Resetuj obwody'
+    'respec': 'Resetuj obwody',
+    'requiresBoss': 'Najpierw pokonaj: {name}',
+    'unlock': 'Odblokuj'
   },
   'skill': {
     'rapid': { 'name': 'Szybkie pociski', 'desc': 'Obrażenia szybkich strzałów +10% na chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Mega ładunek', 'desc': 'Obrażenia strzału naładowanego +12% na chip.' },
     'perfectTiming': { 'name': 'Idealne wyczucie', 'desc': 'Szersze okno na idealne puszczenie i mocniejsze trafienia krytyczne.' },
     'piercing': { 'name': 'Przebijający rdzeń', 'desc': 'Strzały naładowane w połowie też przebijają tarcze i hełmy.' },
-    'giga': { 'name': 'Przeciążenie', 'desc': 'Trzymaj dalej po pełnym naładowaniu, by uzyskać niszczycielski trzeci poziom.' },
+    'giga': { 'name': 'Przeciążenie', 'desc': 'Przytrzymaj pełny ładunek jeszcze 3 sekundy: strzał uderza 1,75× mocniej.' },
     'frame': { 'name': 'Wzmocniony korpus', 'desc': 'Maks. zdrowie +8% na chip.' },
     'barrier': { 'name': 'Strojenie bariery', 'desc': 'Blokowanie zużywa mniej mocy i przepuszcza mniej obrażeń.' },
     'autoRepair': { 'name': 'Autonaprawa', 'desc': 'Odnawia 1% zdrowia na sekundę poza walką, na chip.' },

@@ -231,6 +231,8 @@ const _portal = new Sphere()
 const _stray: [number, number, number] = [0, 0, 0]
 /** The fumbling muzzle's sputter colours (`syncViewmodel`). */
 const FUMBLE_SPARKS = ['#ff5a3a', '#ffd84a', '#7ff4ff', '#ffffff']
+/** The Overload's violet (the prototype tier's), mixed into the core as it builds. */
+const OVERLOAD_VIOLET = new Color('#b46cff')
 /** After a manual look, the soft lock-on stands aside this long (s). */
 const LOCK_YIELD = 1.1
 /** A lock-on target out of sight keeps the lock this long (s), so a machine
@@ -3116,7 +3118,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       const before = chargeInfo(c.charge, st).level
       c.charge += dt
       const after = chargeInfo(c.charge, st).level
-      if (after > before) sfx(after === 1 ? 'charge1' : 'charge2')
+      if (after > before) sfx(after === 1 ? 'charge1' : after === 2 ? 'charge2' : 'charge3')
     }
     if (first && inp.fireCancelled) {
       // The press became a look drag: the charge is dropped, not fired.
@@ -4330,7 +4332,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     vm.scale.setScalar(portrait ? 0.62 : 0.82)
     // Charge glow: grows through lv1, flickers at full charge (the classic)
     const info = chargeInfo(c.charging ? c.charge : 0, this.stats)
-    if (c.charging && info.toL1 > 0.2 && hud.phase === 'play') chargeHum(info.toL1 * 0.5 + info.toL2 * 0.5, info.level >= 2)
+    if (c.charging && info.toL1 > 0.2 && hud.phase === 'play') chargeHum(info.toL1 * 0.5 + info.toL2 * 0.5, info.level >= 2, info.level === 3)
     else chargeHum(null)
     const coreMat = this.vm.coreMat
     const haloMat = this.vm.haloMat
@@ -4341,10 +4343,28 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       haloMat.opacity = (0.2 + Math.random() * 0.35) * fl
       this.vm.core.scale.setScalar(1 + Math.random() * 0.8 * fl)
       this.vm.halo.scale.setScalar(0.5 + Math.random() * 0.5 * fl)
+    } else if (c.charging && info.level === 3) {
+      // Overloaded: a gold-white core in a violet halo that breathes and
+      // turns (2.5 Hz, under the 3-flashes-a-second line), the arm trembling
+      // and spitting violet sparks.
+      const pulse = 0.5 + 0.5 * Math.sin(this.time * Math.PI * 5)
+      coreMat.color.set('#fff6d6')
+      haloMat.color.set(pulse > 0.5 ? '#b46cff' : '#d38bff')
+      haloMat.opacity = 0.6 + 0.3 * pulse
+      this.vm.core.scale.setScalar(2.5 + pulse * 0.3)
+      this.vm.halo.scale.setScalar(2.0 + pulse * 0.4)
+      this.vm.halo.rotation.z += dt * 5
+      vm.rotation.z += Math.sin(this.time * 47) * 0.012
+      if (Math.random() < 0.3) {
+        const m = this.muzzle()
+        this.fx.sparks(m[0], m[1], m[2], '#d38bff', 2, 3, 0.08)
+      }
     } else if (c.charging && info.toL1 > 0.25) {
       const lv = info.level
       const flick = lv >= 2 ? (Math.floor(this.time * 30) % 2 === 0 ? 1 : 0.55) : 1
       if (info.perfect) coreMat.color.set('#ffd84a')
+      // Building toward the Overload: the full-charge cyan bleeds to violet.
+      else if (lv >= 2 && info.toL3 > 0) coreMat.color.set('#7ff4ff').lerp(OVERLOAD_VIOLET, info.toL3 * 0.7)
       else if (lv >= 2) coreMat.color.set('#7ff4ff')
       else if (lv === 1) coreMat.color.set('#c8ff7a')
       else coreMat.color.copy(this.vm.coreColor)

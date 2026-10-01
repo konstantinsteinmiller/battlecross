@@ -255,6 +255,8 @@ export default {
   'hubLesson': {
     'earnBolts': 'Not enough bolts? Watch a short video for a top-up.',
     'catchUp': "Pip: Your cannon is falling behind the machines out there. Let's upgrade it!",
+    // After the Gale Master: the Overload mod is ready to buy (#100).
+    'overload': "Pip: The Gale Master's core taught me a trick. Hold a full charge 3 more seconds: OVERLOAD!",
     'workshop': 'Open the Workshop.',
     'upgradeBuster': 'Spend bolts to upgrade your cannon: more damage.',
     'pickArmor': 'Now select your chest armor.',
@@ -434,6 +436,8 @@ export default {
     'chips': 'Skill Chips: {n}',
     'rank': 'Rank {n}/{max}',
     'requires': 'Requires {name} rank {n}',
+    'requiresBoss': 'Defeat the {name} first',
+    'unlock': 'Unlock',
     'install': 'Install chip',
     'maxed': 'Fully powered',
     'respec': 'Reset circuits'
@@ -444,7 +448,7 @@ export default {
     'megaCharge': { 'name': 'Mega Charge', 'desc': 'Charged shot damage +12% per chip.' },
     'perfectTiming': { 'name': 'Perfect Timing', 'desc': 'Wider perfect-release window and stronger criticals.' },
     'piercing': { 'name': 'Piercing Core', 'desc': 'Half-charged shots break shields and helmets too.' },
-    'giga': { 'name': 'Overcharge', 'desc': 'Keep holding past full charge for a devastating third level.' },
+    'giga': { 'name': 'Overload', 'desc': 'Hold a full charge 3 more seconds: the shot hits 1.75× harder.' },
     'frame': { 'name': 'Reinforced Frame', 'desc': 'Max health +8% per chip.' },
     'barrier': { 'name': 'Barrier Tuning', 'desc': 'Blocking costs less power and lets less damage through.' },
     'autoRepair': { 'name': 'Auto-Repair', 'desc': 'Regenerate 1% health per second out of combat, per chip.' },

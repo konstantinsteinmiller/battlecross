@@ -1,4 +1,5 @@
 import type { GameIconName } from '@/components/icons/iconNames'
+import type { WeaponId } from './weapons'
 
 /**
  * ─── The three circuit boards ────────────────────────────────────────────────
@@ -19,9 +20,21 @@ export interface SkillNode {
   board: Board
   ranks: number
   req: { id: string; rank: number } | null
+  /** A MOD: bought once with bolts instead of a chip, and opened by owning a
+   *  weapon (a beaten Master) rather than by a requirement node. Outside the
+   *  chip count and the respec. */
+  mod?: { bolts: number; gate: WeaponId }
   icon: GameIconName
   pos: [number, number]
 }
+
+/**
+ * The Overload mod's price: about 1.5 story missions' bolts at the Magnet step
+ * (the sim's reference player earns ~1,540 there and holds ~6,300 after the
+ * Gale Master, so it is affordable at once but not free). Pinned in
+ * `tests/game/balance.test.ts`.
+ */
+export const OVERLOAD_PRICE = 2300
 
 export const SKILLS: SkillNode[] = [
   // ── Buster ──
@@ -30,7 +43,8 @@ export const SKILLS: SkillNode[] = [
   { id: 'megaCharge', board: 'buster', ranks: 5, req: { id: 'rapid', rank: 1 }, icon: 'flare', pos: [2, 1] },
   { id: 'perfectTiming', board: 'buster', ranks: 3, req: { id: 'quickCharge', rank: 1 }, icon: 'star', pos: [0, 2] },
   { id: 'piercing', board: 'buster', ranks: 1, req: { id: 'megaCharge', rank: 2 }, icon: 'range', pos: [2, 2] },
-  { id: 'giga', board: 'buster', ranks: 1, req: { id: 'megaCharge', rank: 3 }, icon: 'rocket', pos: [1, 2] },
+  // The Overload (#100): the Gale Master's Gale Guard opens it.
+  { id: 'giga', board: 'buster', ranks: 1, req: null, icon: 'rocket', pos: [1, 2], mod: { bolts: OVERLOAD_PRICE, gate: 'galeGuard' } },
   // ── Armor ──
   { id: 'frame', board: 'armor', ranks: 5, req: null, icon: 'heart', pos: [1, 0] },
   { id: 'barrier', board: 'armor', ranks: 3, req: { id: 'frame', rank: 1 }, icon: 'shield', pos: [0, 1] },
@@ -47,18 +61,26 @@ export const SKILLS: SkillNode[] = [
   { id: 'tankCap', board: 'core', ranks: 2, req: { id: 'magnet', rank: 2 }, icon: 'flask', pos: [1, 2] }
 ]
 
+/** Chips socketed: every rank of every node that is not a mod. */
+export const chipsSpent = (ranks: Record<string, number>): number =>
+  Object.entries(ranks).reduce((a, [id, r]) => a + (SKILL_BY_ID[id]?.mod ? 0 : r), 0)
+
 export const SKILL_BY_ID: Record<string, SkillNode> = Object.fromEntries(SKILLS.map(s => [s.id, s]))
 
 export const BOARDS: Board[] = ['buster', 'armor', 'core']
 
-export const nodeUnlocked = (node: SkillNode, ranks: Record<string, number>): boolean =>
-  !node.req || (ranks[node.req.id] ?? 0) >= node.req.rank
+export const nodeUnlocked = (node: SkillNode, ranks: Record<string, number>, weapons: readonly string[] = []): boolean =>
+  node.mod ? weapons.includes(node.mod.gate) : !node.req || (ranks[node.req.id] ?? 0) >= node.req.rank
 
 export const canRankUp = (node: SkillNode, ranks: Record<string, number>, chips: number): boolean =>
-  chips > 0 && nodeUnlocked(node, ranks) && (ranks[node.id] ?? 0) < node.ranks
+  !node.mod && chips > 0 && nodeUnlocked(node, ranks) && (ranks[node.id] ?? 0) < node.ranks
+
+/** A mod the player can buy right now. */
+export const canBuyMod = (node: SkillNode, ranks: Record<string, number>, bolts: number, weapons: readonly string[]): boolean =>
+  !!node.mod && (ranks[node.id] ?? 0) < node.ranks && nodeUnlocked(node, ranks, weapons) && bolts >= node.mod.bolts
 
 /** Respec price in bolts: grows with how many chips are socketed. */
 export const respecCost = (ranks: Record<string, number>): number => {
-  const n = Object.values(ranks).reduce((a, b) => a + b, 0)
+  const n = chipsSpent(ranks)
   return n === 0 ? 0 : 60 + n * 25
 }

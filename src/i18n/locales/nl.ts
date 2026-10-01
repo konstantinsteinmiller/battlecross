@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Besteed bouten om je kanon te upgraden: meer schade.',
     'pickArmor': 'Kies nu je borstpantser.',
     'upgradeArmor': 'Upgrade dat ook: meer verdediging.',
-    'deploy': 'Klaar — terug naar de missies!'
+    'deploy': 'Klaar — terug naar de missies!',
+    'overload': 'Pip: De kern van de Stormmeester leerde me een trucje. Houd een volle lading nog 3 seconden vast: OVERBELASTING!'
   },
   'loot': {
     'upgrade': 'Upgrade!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Vereist {name} (rang {n})',
     'install': 'Chip plaatsen',
     'maxed': 'Volledig opgeladen',
-    'respec': 'Circuits resetten'
+    'respec': 'Circuits resetten',
+    'requiresBoss': 'Versla eerst {name}',
+    'unlock': 'Vrijspelen'
   },
   'skill': {
     'rapid': { 'name': 'Snelle kogels', 'desc': 'Kogelschade +10% per chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Megalading', 'desc': 'Schade van geladen schoten +12% per chip.' },
     'perfectTiming': { 'name': 'Perfecte timing', 'desc': 'Ruimer venster voor perfect loslaten en sterkere kritieke treffers.' },
     'piercing': { 'name': 'Doorborende kern', 'desc': 'Half geladen schoten breken ook door schilden en helmen.' },
-    'giga': { 'name': 'Overlading', 'desc': 'Blijf na volle lading vasthouden voor een verwoestend derde niveau.' },
+    'giga': { 'name': 'Overbelasting', 'desc': 'Houd een volle lading nog 3 seconden vast: het schot raakt 1,75× harder.' },
     'frame': { 'name': 'Versterkt chassis', 'desc': 'Max. gezondheid +8% per chip.' },
     'barrier': { 'name': 'Barrière-afstelling', 'desc': 'Blokkeren kost minder kracht en laat minder schade door.' },
     'autoRepair': { 'name': 'Auto-reparatie', 'desc': 'Herstel buiten gevechten 1% gezondheid per seconde, per chip.' },

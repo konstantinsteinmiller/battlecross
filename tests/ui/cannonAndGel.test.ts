@@ -97,7 +97,7 @@ describe('the English source', () => {
     expect(en.slot.buster).toBe('Cannon')
     expect(en.board.buster).toBe('Cannon')
     expect(en.item.arm_standard).toBe('Standard Cannon')
-    expect(en.skill.giga.name).toBe('Overcharge')
+    expect(en.skill.giga.name).toBe('Overload')
     expect(en.workshop.tankName).toBe('Repair Gel')
     expect(en.defeat.useTank).toBe('Reboot with Repair Gel ({n})')
   })
@@ -132,7 +132,7 @@ describe('every locale says cannon and repair gel', () => {
     expect(missing).toEqual([])
   })
 
-  it.each(LANGUAGES)('%s: the Overcharge skill is its own name, not a kind of cannon', async (code) => {
+  it.each(LANGUAGES)('%s: the Overload skill is its own name, not a kind of cannon', async (code) => {
     const m = await load(code)
     const name = str(m, 'skill.giga.name')
     expect(name.trim().length).toBeGreaterThan(2)

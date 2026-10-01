@@ -14,7 +14,7 @@ import {
 } from '../data/items'
 import type { Quest } from '../data/quests'
 import type { SectorId } from '../world/themes'
-import { SKILL_BY_ID } from '../data/skills'
+import { SKILL_BY_ID, chipsSpent, canBuyMod } from '../data/skills'
 import { SECTORS } from '../data/regions'
 import { baseStats, type PlayerStats } from '../sim/stats'
 import { DEFAULT_HERO_COLORS, type HeroColors } from '../models/hero'
@@ -305,8 +305,9 @@ export const initProfile = (): void => {
 // ─── Progression ─────────────────────────────────────────────────────────────
 
 export const chipsAvailable = (): number => {
-  const spent = Object.values(profile.hero.skills).reduce((a, b) => a + b, 0)
-  return Math.max(0, profile.level - 1 - spent)
+  // Mods are bought with bolts: a save that installed the old Overcharge with
+  // a chip gets that chip back.
+  return Math.max(0, profile.level - 1 - chipsSpent(profile.hero.skills))
 }
 
 export const xp01 = (): number => profile.hero.xp / Math.max(1, xpToNext(profile.level))
@@ -346,6 +347,13 @@ export const rankUpSkill = (id: string): boolean => {
   if (!node) return false
   const ranks = profile.hero.skills
   const cur = ranks[id] ?? 0
+  if (node.mod) {
+    if (!canBuyMod(node, ranks, profile.bolts, profile.hero.weapons)) return false
+    profile.bolts -= node.mod.bolts
+    ranks[id] = cur + 1
+    saveProfile()
+    return true
+  }
   if (cur >= node.ranks || chipsAvailable() <= 0) return false
   if (node.req && (ranks[node.req.id] ?? 0) < node.req.rank) return false
   ranks[id] = cur + 1
@@ -356,7 +364,8 @@ export const rankUpSkill = (id: string): boolean => {
 export const respecSkills = (cost: number): boolean => {
   if (profile.bolts < cost) return false
   profile.bolts -= cost
-  profile.hero.skills = {}
+  // Mods were bought with bolts and stay; only chips come back.
+  profile.hero.skills = Object.fromEntries(Object.entries(profile.hero.skills).filter(([id]) => SKILL_BY_ID[id]?.mod))
   saveProfile()
   return true
 }

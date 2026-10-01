@@ -52,6 +52,9 @@ export const hubTab = computed<HubTab>({
 })
 /** The Workshop's selected item id (WorkshopTab binds it). */
 export const workshopSel = ref<string | null>(null)
+/** A Circuits node to open on (Pip's Overload notice sets it; CircuitsTab
+ *  takes it on mount and clears it). */
+export const circuitsFocus = ref<string | null>(null)
 
 export const hubLesson = reactive({
   step: null as HubStep | null,

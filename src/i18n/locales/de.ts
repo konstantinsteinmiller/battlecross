@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Gib Bolzen aus, um deine Kanone zu verbessern: mehr Schaden.',
     'pickArmor': 'Wähle jetzt deine Brustpanzerung.',
     'upgradeArmor': 'Verbessere sie auch: mehr Schutz.',
-    'deploy': 'Alles bereit – zurück zu den Missionen!'
+    'deploy': 'Alles bereit – zurück zu den Missionen!',
+    'overload': 'Pip: Der Kern des Sturmmeisters hat mir einen Trick verraten. Halte die volle Ladung 3 Sekunden länger: ÜBERLADUNG!'
   },
   'loot': {
     'upgrade': 'Verbesserung!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Erfordert {name} (Rang {n})',
     'install': 'Chip einsetzen',
     'maxed': 'Volle Leistung',
-    'respec': 'Schaltkreise zurücksetzen'
+    'respec': 'Schaltkreise zurücksetzen',
+    'requiresBoss': 'Zuerst {name} besiegen',
+    'unlock': 'Freischalten'
   },
   'skill': {
     'rapid': { 'name': 'Kugelhagel', 'desc': 'Kugelschaden +10% pro Chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Megaladung', 'desc': 'Ladeschuss-Schaden +12% pro Chip.' },
     'perfectTiming': { 'name': 'Perfektes Timing', 'desc': 'Größeres Zeitfenster fürs perfekte Loslassen und stärkere kritische Treffer.' },
     'piercing': { 'name': 'Durchschlagskern', 'desc': 'Halb geladene Schüsse brechen auch Schilde und Helme.' },
-    'giga': { 'name': 'Überladung', 'desc': 'Halte über die volle Ladung hinaus für eine verheerende dritte Stufe.' },
+    'giga': { 'name': 'Überladung', 'desc': 'Halte die volle Ladung 3 Sekunden länger: Der Schuss trifft 1,75× härter.' },
     'frame': { 'name': 'Verstärktes Chassis', 'desc': 'Max. Gesundheit +8% pro Chip.' },
     'barrier': { 'name': 'Barrieren-Tuning', 'desc': 'Blocken kostet weniger Kraft und lässt weniger Schaden durch.' },
     'autoRepair': { 'name': 'Auto-Reparatur', 'desc': 'Regeneriert außerhalb von Kämpfen 1% Gesundheit pro Sekunde, pro Chip.' },

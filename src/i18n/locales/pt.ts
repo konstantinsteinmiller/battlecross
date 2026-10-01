@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Gaste parafusos para melhorar seu canhão: mais dano.',
     'pickArmor': 'Agora selecione sua armadura peitoral.',
     'upgradeArmor': 'Melhore-a também: mais defesa.',
-    'deploy': 'Tudo pronto — de volta às missões!'
+    'deploy': 'Tudo pronto — de volta às missões!',
+    'overload': 'Pip: O núcleo do Mestre Vento me ensinou um truque. Segure a carga total por mais 3 segundos: SOBRECARGA!'
   },
   'loot': {
     'upgrade': 'Melhoria!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Requer {name} no grau {n}',
     'install': 'Instalar chip',
     'maxed': 'Potência máxima',
-    'respec': 'Resetar circuitos'
+    'respec': 'Resetar circuitos',
+    'requiresBoss': 'Derrote {name} primeiro',
+    'unlock': 'Desbloquear'
   },
   'skill': {
     'rapid': { 'name': 'Tiros Rápidos', 'desc': 'Dano do tiro rápido +10% por chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Mega Carga', 'desc': 'Dano do tiro carregado +12% por chip.' },
     'perfectTiming': { 'name': 'Timing Perfeito', 'desc': 'Janela maior para soltar no momento perfeito e críticos mais fortes.' },
     'piercing': { 'name': 'Núcleo Perfurante', 'desc': 'Tiros meio carregados também quebram escudos e capacetes.' },
-    'giga': { 'name': 'Sobrecarga', 'desc': 'Continue segurando após a carga total para um devastador terceiro nível.' },
+    'giga': { 'name': 'Sobrecarga', 'desc': 'Segure a carga total por mais 3 segundos: o tiro acerta 1,75× mais forte.' },
     'frame': { 'name': 'Chassi Reforçado', 'desc': 'Vida máxima +8% por chip.' },
     'barrier': { 'name': 'Ajuste de Barreira', 'desc': 'Bloquear gasta menos potência e deixa passar menos dano.' },
     'autoRepair': { 'name': 'Autorreparo', 'desc': 'Regenera 1% de vida por segundo fora de combate, por chip.' },

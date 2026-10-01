@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Dépense des boulons pour améliorer ton canon : plus de dégâts.',
     'pickArmor': 'Sélectionne maintenant ton armure de torse.',
     'upgradeArmor': 'Améliore-la aussi : plus de défense.',
-    'deploy': 'Tout est prêt — retour aux missions !'
+    'deploy': 'Tout est prêt — retour aux missions !',
+    'overload': 'Pip : Le noyau du Maître Rafale m\'a appris une astuce. Maintiens la pleine charge 3 secondes de plus : SURCHARGE !'
   },
   'loot': {
     'upgrade': 'Amélioration !',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Nécessite {name} (rang {n})',
     'install': 'Installer la puce',
     'maxed': 'Pleine puissance',
-    'respec': 'Réinitialiser les circuits'
+    'respec': 'Réinitialiser les circuits',
+    'requiresBoss': 'Bats d\'abord {name}',
+    'unlock': 'Débloquer'
   },
   'skill': {
     'rapid': { 'name': 'Balles rapides', 'desc': 'Dégâts des balles +10 % par puce.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Méga-charge', 'desc': 'Dégâts du tir chargé +12 % par puce.' },
     'perfectTiming': { 'name': 'Timing parfait', 'desc': 'Fenêtre de relâchement parfait élargie et critiques plus puissants.' },
     'piercing': { 'name': 'Noyau perforant', 'desc': 'Les tirs à demi chargés brisent aussi boucliers et casques.' },
-    'giga': { 'name': 'Surcharge', 'desc': 'Maintiens au-delà de la pleine charge pour un troisième niveau dévastateur.' },
+    'giga': { 'name': 'Surcharge', 'desc': 'Maintiens la pleine charge 3 secondes de plus : le tir frappe 1,75× plus fort.' },
     'frame': { 'name': 'Châssis renforcé', 'desc': 'Santé max +8 % par puce.' },
     'barrier': { 'name': 'Réglage de barrière', 'desc': 'Bloquer coûte moins de puissance et laisse passer moins de dégâts.' },
     'autoRepair': { 'name': 'Auto-réparation', 'desc': 'Régénère 1 % de santé par seconde hors combat, par puce.' },

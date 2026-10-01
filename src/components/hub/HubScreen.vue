@@ -75,6 +75,7 @@
       GameIcon.lt-ico(name="lock")
       span.lt-text {{ t('hub.unlock.hint', left(hint.id)) }}
     HubLesson
+    PipNotice
 </template>
 
 <script setup lang="ts">
@@ -87,6 +88,7 @@ import HeroTab from './HeroTab.vue'
 import CircuitsTab from './CircuitsTab.vue'
 import WorkshopTab from './WorkshopTab.vue'
 import HubLesson from './HubLesson.vue'
+import PipNotice from './PipNotice.vue'
 import { hubTab, type HubTab } from './hubLesson'
 import {
   HUB_UNLOCKS, FLOOR_TIP, isFresh, isUnlocked, missionsLeft, needFor, openedTip, placeTip, toAnnounce,

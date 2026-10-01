@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': '나사를 써서 캐논을 강화하세요: 피해 증가.',
     'pickArmor': '이제 가슴 아머를 선택하세요.',
     'upgradeArmor': '이것도 강화하세요: 방어력 증가.',
-    'deploy': '준비 완료 — 미션으로 돌아가요!'
+    'deploy': '준비 완료 — 미션으로 돌아가요!',
+    'overload': '핍: 질풍 마스터의 코어에서 비법을 배웠어. 풀 차지 상태로 3초 더 누르고 있어: 오버로드!'
   },
   'loot': {
     'upgrade': '업그레이드!',
@@ -388,7 +389,9 @@ export default {
     'requires': '{name} 랭크 {n} 필요',
     'install': '칩 장착',
     'maxed': '풀 파워',
-    'respec': '회로 초기화'
+    'respec': '회로 초기화',
+    'requiresBoss': '{name} 처치 필요',
+    'unlock': '해금'
   },
   'skill': {
     'rapid': { 'name': '속사 강화', 'desc': '칩당 일반 탄 피해 +10%.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': '메가 차지', 'desc': '칩당 차지 샷 피해 +12%.' },
     'perfectTiming': { 'name': '퍼펙트 타이밍', 'desc': '퍼펙트 릴리스 판정이 넓어지고 치명타가 강해집니다.' },
     'piercing': { 'name': '관통 코어', 'desc': '하프 차지 샷으로도 방패와 헬멧을 부술 수 있습니다.' },
-    'giga': { 'name': '오버 차지', 'desc': '풀 차지 후에도 계속 누르면 파괴적인 3단계 차지가 발동합니다.' },
+    'giga': { 'name': '오버로드', 'desc': '풀 차지 상태로 3초 더 누르고 있으면 샷 위력이 1.75×가 됩니다.' },
     'frame': { 'name': '강화 프레임', 'desc': '칩당 최대 체력 +8%.' },
     'barrier': { 'name': '배리어 튜닝', 'desc': '막기에 드는 파워가 줄고 받는 피해도 줄어듭니다.' },
     'autoRepair': { 'name': '자동 수리', 'desc': '칩당 비전투 시 초당 체력 1% 재생.' },

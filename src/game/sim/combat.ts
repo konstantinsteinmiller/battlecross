@@ -61,7 +61,8 @@ const SHOT_LOOK: Record<string, { core: string; glow: string; r: number; g: numb
   pellet: { core: '#fff6b0', glow: '#ffe066', r: 0.085, g: 0.55 },
   charge1: { core: '#eaffb0', glow: '#9dff5a', r: 0.15, g: 1.0 },
   charge2: { core: '#e6fbff', glow: '#3ce0ff', r: 0.24, g: 1.9 },
-  charge3: { core: '#fff0ff', glow: '#ff5fd8', r: 0.36, g: 2.8 },
+  // The Overload: a gold-white core in the epic violet (the prototype tier's).
+  charge3: { core: '#fff6d6', glow: '#b46cff', r: 0.42, g: 3.2 },
   enemy: { core: '#fff0e0', glow: '#ff5a3a', r: 0.12, g: 0.8 },
   shell: { core: '#3b4458', glow: '#ff7a3a', r: 0.22, g: 1.0 },
   reflect: { core: '#ffffff', glow: '#7ff4ff', r: 0.16, g: 1.2 },
@@ -83,7 +84,7 @@ type ChargeKind = 'charge1' | 'charge2' | 'charge3'
 const CHARGE_AURA: Record<ChargeKind, { tail: number; rings: number; crackle: number }> = {
   charge1: { tail: 4, rings: 1, crackle: 0 },
   charge2: { tail: 6, rings: 2, crackle: 0.45 },
-  charge3: { tail: 8, rings: 3, crackle: 0.9 }
+  charge3: { tail: 10, rings: 3, crackle: 1 }
 }
 const MAX_RINGS = 3
 /** Rings shed per second (each one's cycle). */

@@ -160,6 +160,8 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   },
   charge1: (p, g) => arp([79, 84], 0.045, 'p12', 0.16 * g, 0.06, 0, p),
   charge2: (p, g) => arp([84, 88, 91, 96], 0.035, 'p12', 0.18 * g, 0.05, 0, p),
+  // The Overload locks in: a lower, wider run on a rounder wave than charge2.
+  charge3: (p, g) => arp([72, 79, 84, 88, 91], 0.04, 'p25', 0.2 * g, 0.08, 0, p),
   chargeShot: (p, g) => {
     tone({ wave: 'p50', f0: 900, f1: 180, dur: 0.18, vol: 0.32 * g, pan: p })
     burst({ dur: 0.12, vol: 0.18 * g, f0: 5000, f1: 800, pan: p })
@@ -531,7 +533,7 @@ let humLfo: OscillatorNode | null = null
 let humLfoGain: GainNode | null = null
 
 /** `k01` 0..1 toward full charge; `full` once fully charged; null stops it. */
-export const chargeHum = (k01: number | null, full = false): void => {
+export const chargeHum = (k01: number | null, full = false, over = false): void => {
   const a = audio()
   if (!a) return
   const t = a.ctx.currentTime
@@ -564,8 +566,10 @@ export const chargeHum = (k01: number | null, full = false): void => {
     humLfo.start(t)
     registerOneShotSource(humOsc)
   }
-  const f = full ? 1320 : 180 + k01 * 900
+  // Overloaded: an octave down from the full-charge whine, with a wide, slow
+  // wobble — heavier, not shriller.
+  const f = over ? 660 : full ? 1320 : 180 + k01 * 900
   humOsc.frequency.setTargetAtTime(f, t, 0.03)
-  humLfoGain!.gain.setTargetAtTime(full ? 90 : 8, t, 0.05)
-  humGain!.gain.setTargetAtTime(full ? 0.07 : 0.03 + k01 * 0.03, t, 0.03)
+  humLfoGain!.gain.setTargetAtTime(over ? 140 : full ? 90 : 8, t, 0.05)
+  humGain!.gain.setTargetAtTime(over ? 0.08 : full ? 0.07 : 0.03 + k01 * 0.03, t, 0.03)
 }

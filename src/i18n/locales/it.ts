@@ -234,7 +234,8 @@ export default {
     'upgradeBuster': 'Spendi bulloni per potenziare il cannone: più danno.',
     'pickArmor': 'Ora seleziona la tua corazza.',
     'upgradeArmor': 'Potenzia anche quella: più difesa.',
-    'deploy': 'Tutto pronto — si torna alle missioni!'
+    'deploy': 'Tutto pronto — si torna alle missioni!',
+    'overload': 'Pip: Il nucleo del Maestro Vento mi ha insegnato un trucco. Tieni la carica piena per altri 3 secondi: SOVRACCARICO!'
   },
   'loot': {
     'upgrade': 'Miglioramento!',
@@ -388,7 +389,9 @@ export default {
     'requires': 'Richiede {name} al grado {n}',
     'install': 'Installa chip',
     'maxed': 'Piena potenza',
-    'respec': 'Azzera circuiti'
+    'respec': 'Azzera circuiti',
+    'requiresBoss': 'Sconfiggi prima {name}',
+    'unlock': 'Sblocca'
   },
   'skill': {
     'rapid': { 'name': 'Colpi Rapidi', 'desc': 'Danno dei colpi rapidi +10% per chip.' },
@@ -396,7 +399,7 @@ export default {
     'megaCharge': { 'name': 'Mega Carica', 'desc': 'Danno del colpo caricato +12% per chip.' },
     'perfectTiming': { 'name': 'Tempismo Perfetto', 'desc': 'Finestra di rilascio perfetto più ampia e critici più forti.' },
     'piercing': { 'name': 'Nucleo Perforante', 'desc': 'Anche i colpi a mezza carica sfondano scudi ed elmetti.' },
-    'giga': { 'name': 'Sovraccarico', 'desc': 'Continua a tenere premuto oltre la carica piena per un devastante terzo livello.' },
+    'giga': { 'name': 'Sovraccarico', 'desc': 'Tieni la carica piena per altri 3 secondi: il colpo è 1,75× più potente.' },
     'frame': { 'name': 'Telaio Rinforzato', 'desc': 'Salute massima +8% per chip.' },
     'barrier': { 'name': 'Barriera Calibrata', 'desc': 'Bloccare costa meno potenza e lascia passare meno danni.' },
     'autoRepair': { 'name': 'Autoriparazione', 'desc': "Rigenera l'1% di salute al secondo fuori dal combattimento, per chip." },
