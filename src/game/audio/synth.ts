@@ -161,6 +161,9 @@ const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
 /** The big stings: the music steps back under them (seconds). */
 const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.6, levelUp: 1.4 }
 
+/** The loudest hits, trimmed 2–3 dB under the frequent ones (#114 mix pass). */
+const TRIM: Partial<Record<SfxName, number>> = { explode: 0.75, stomp: 0.8, chargeShotBig: 0.85 }
+
 /**
  * At most this many sounds start in any `CAP_WINDOW` seconds. A big fight can
  * fire hits, shots, sparks and stomps at once; past the cap the frequent small
@@ -170,7 +173,7 @@ const CAP = 24
 const CAP_WINDOW = 0.25
 const recent: number[] = []
 const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
-  'hurt', 'bossIntro', 'levelUp', 'charge1', 'charge2', 'charge3', 'chargeShot', 'chargeShotBig', 'parry', 'denied', 'uiClick', 'uiOpen', 'objective'
+  'hurt', 'bossIntro', 'levelUp', 'charge1', 'charge2', 'charge3', 'chargeShot', 'chargeShotBig', 'parry', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'objective', 'heartbeat'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -476,7 +479,9 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   // ── UI ──
   denied: (_p, g) => tone({ wave: 'p50', f0: 140, f1: 110, dur: 0.14, vol: 0.18 * g }),
   uiClick: (_p, g) => tone({ wave: 'p12', f0: 1800, dur: 0.035, vol: 0.1 * g }),
-  uiOpen: (_p, g) => arp([79, 86], 0.045, 'p12', 0.12 * g, 0.06)
+  uiOpen: (_p, g) => arp([79, 86], 0.045, 'p12', 0.12 * g, 0.06),
+  // The mirror of uiOpen: down, softer (#114).
+  uiClose: (_p, g) => arp([84, 77], 0.04, 'p25', 0.08 * g, 0.05)
 }
 
 // ─── Drop-in SFX files ───────────────────────────────────────────────────────
@@ -535,7 +540,7 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
   recent.push(now)
   lastAt.set(name, now)
   const vary = VARY.has(name)
-  const g = Math.max(0.05, Math.min(1.4, gain * (vary ? 0.9 + Math.random() * 0.2 : 1)))
+  const g = Math.max(0.05, Math.min(1.4, gain * (TRIM[name] ?? 1) * (vary ? 0.9 + Math.random() * 0.2 : 1)))
   pitch = vary ? 0.96 + Math.random() * 0.08 : 1
   const duckFor = DUCK_FOR[name]
   if (duckFor) duckMusic(duckFor)

@@ -75,6 +75,7 @@ const markClosed = (): void => { releaseModalOpen?.(); releaseModalOpen = null }
 
 watch(() => props.modelValue, (open, prev) => {
   if (open && !prev) sfx('uiOpen')
+  else if (!open && prev) sfx('uiClose')
   if (open) { markOpen(); void attachObserver() } else { markClosed(); observer?.disconnect() }
 })
 

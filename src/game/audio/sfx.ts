@@ -22,7 +22,7 @@ export type SfxName =
   | 'fumble'
   // The intro cutscene (`story/introScript.ts`)
   | 'synthPulse' | 'tapeRewind' | 'relayChime' | 'vexGlitch' | 'relayOut' | 'alarm' | 'capsule' | 'freeze'
-  | 'heartbeat' | 'pipChirp' | 'bootUp'
+  | 'heartbeat' | 'pipChirp' | 'bootUp' | 'uiClose'
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void
 let player: Player | null = null

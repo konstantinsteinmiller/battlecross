@@ -581,7 +581,13 @@ while bars and damage numbers get direct DOM writes.
     their interstitial; New Game+ from the card (confirmed); Gauss awake in
     the lab afterwards (`seen: 'ending'`).
   - [ ] **P9 story/docs catch-up** (comic skipped).
-  - [ ] **P10 final balance**; **P10b #114 sound pass**; **P11 boot/perf**.
+  - [x] **P10 final balance**: the Grand Master ~106 s for the reference
+    player (pinned 80–150 s), Vex 43 s, nothing else moved.
+  - [x] **P10b #114 sound pass**: a low-health heartbeat (under 25 %, quicker
+    lower), a click on every FButton, a close blip for every modal, the
+    loudest hits trimmed 2–3 dB. Song loudness left as composed (needs a
+    listening pass, not a constant).
+  - [ ] **P11 boot/perf**.
   - Deferred: outro replay menu; checkpoint retry outside the Fortress; boot
     shader time-slicing until a real iPhone is timed.
 

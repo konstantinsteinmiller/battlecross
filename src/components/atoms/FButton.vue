@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { sfx } from '@/game/audio/sfx'
 import { resolveIconLabel } from '@/components/icons/iconLabels'
 import type { GameIconName } from '@/components/icons/iconNames'
 
@@ -76,7 +77,13 @@ const props = withDefaults(defineProps<Props>(), {
   emphasis: 1
 })
 
-defineEmits(['click'])
+const emit = defineEmits(['click'])
+/** Every button answers with a click (#114: buttons were silent). */
+const onClick = (): void => {
+  if (props.isDisabled) return
+  sfx('uiClick')
+  emit('click')
+}
 
 const { t, te } = useI18n()
 
@@ -213,7 +220,7 @@ const styleVars = computed(() => {
     ]"
     :aria-label="resolvedAriaLabel"
     :disabled="isDisabled"
-    @click="!isDisabled && $emit('click')"
+    @click="onClick"
   )
     //- 3D depth plate behind the body.
     span.f-button__shadow(aria-hidden="true")

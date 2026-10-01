@@ -234,6 +234,8 @@ const _portal = new Sphere()
 const _stray: [number, number, number] = [0, 0, 0]
 /** The fumbling muzzle's sputter colours (`syncViewmodel`). */
 const FUMBLE_SPARKS = ['#ff5a3a', '#ffd84a', '#7ff4ff', '#ffffff']
+/** Under this share of health, the heartbeat plays. */
+const LOW_HP_BEAT = 0.25
 /** A blackout's sky and fog, and a lightning flash's. */
 const NIGHT = new Color('#04050b')
 const FLASH_WHITE = new Color('#e8eeff')
@@ -514,6 +516,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   descent: CoreDescent | null = null
   /** The Grand Master Bot (`sim/grandMaster.ts`): after Vex, on the roof. */
   finale: GrandMaster | null = null
+  /** The low-health heartbeat's countdown (s). */
+  private heartT = 0
   /** The molten Core in the ring's pit (the Core Descent's last stage). */
   private coreGlow: Mesh | null = null
   /** A snapshot's Core Descent stage, applied once the climb has placed Flux. */
@@ -2480,6 +2484,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     }
     this.arenaDressing(dt)
     this.applyStageLight(dt)
+    // Low health: a heartbeat, quicker the lower it gets (#114 sound pass).
+    const hp01 = this.combat.hp / Math.max(1, this.combat.maxHp)
+    if (hud.phase === 'play' && !this.combat.dead && hp01 < LOW_HP_BEAT) {
+      this.heartT -= dt
+      if (this.heartT <= 0) {
+        this.heartT = 0.65 + 2 * hp01
+        sfx('heartbeat')
+      }
+    } else this.heartT = 0
     // Entering the boss room triggers the Core Master
     if (this.boss && !this.bossStarted && this.bossRoom && hud.phase === 'play') {
       const i = Math.floor(p.x / CELL)
