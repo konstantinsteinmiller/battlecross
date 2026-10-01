@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // A level-lab test run (DEV: `/levels` → Play loads `#/?level=…`): the game
 // boots straight into that level, and the run never touches the save.
 //

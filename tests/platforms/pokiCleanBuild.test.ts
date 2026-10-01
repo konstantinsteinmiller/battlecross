@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The cheat flag does nothing on a build without dev tooling ─────────────
 //
 // Poki's release must be a clean build ("no debug code, no dev artifacts").

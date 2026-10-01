@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // End-to-end scenario tests for the bulletproof-save protocol. Each
 // scenario simulates a real-world failure mode that previously cost
 // players progress and asserts that the new strategy + manager

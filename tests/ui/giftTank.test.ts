@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Gel for the road: the Missions tab's offer ──────────────────────────────
 //
 // Where the player is about to deploy, a rewarded video packs one Repair Gel

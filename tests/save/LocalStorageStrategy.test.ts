@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { LocalStorageStrategy } from '@/utils/save/LocalStorageStrategy'
 import { SaveManager } from '@/utils/save/SaveManager'

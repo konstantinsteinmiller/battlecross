@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Where the damage comes from ─────────────────────────────────────────────
 //
 // A playtester found the heart, the red pulse and the vignette, and still did

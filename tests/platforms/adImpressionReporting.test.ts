@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The ad-open (impression) contract, and the wiring every provider owes it.
 //
 // `useAds` arms a 6 s "the ad never opened" cap around every request so an SDK

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── A hard hit can shake Flux's charge loose ────────────────────────────────
 //
 // Charging the buster when a machine lands a hard hit (a Core Master's, or

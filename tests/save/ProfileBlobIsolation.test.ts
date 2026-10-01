@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The profile and the save blob never share an object ────────────────────
 //
 // THE BUG THIS FILE EXISTS TO PREVENT:

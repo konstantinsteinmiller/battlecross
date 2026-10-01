@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The health bar answers every hit ────────────────────────────────────────
 //
 // A playtester never looked at the health bar. Now a hit leaves the lost chunk

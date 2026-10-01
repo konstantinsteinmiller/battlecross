@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The intro cutscene, "Wake-Up Call" (story-arc.md § 1, story.md § Intro).
 //
 // The script is pure data and pure functions of time, so it is checked without

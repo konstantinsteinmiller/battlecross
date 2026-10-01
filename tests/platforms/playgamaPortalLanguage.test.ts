@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Playgama: a portal language CHANGE outranks the player's choice ────────
 //
 // The contract (portal-platform-signals, Traps C / C2): the portal language is

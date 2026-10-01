@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Borrowed weapons (src/game/sim/borrowed.ts): the capsule that lends a copied
 // weapon for one mission. Pinned here: where capsules go (from the map seed,
 // on a stream of their own, never in the tutorial), what they lend, the

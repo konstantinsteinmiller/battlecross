@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Poki's mobile pill stays off our HUD ────────────────────────────────────
 //
 // On mobile, poki.com draws its nav pill over the game frame's LEFT edge: a

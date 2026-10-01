@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Poki ad lifecycle ──────────────────────────────────────────────────────
 //
 // Covers the two Poki-specific ad behaviours that differ from every other

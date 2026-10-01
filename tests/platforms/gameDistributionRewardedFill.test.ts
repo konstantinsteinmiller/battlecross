@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Unit tests for the GameDistribution preload-backed rewarded FILL signal.
 //
 // The fix under test: the rewarded watch-ad button must only appear when the

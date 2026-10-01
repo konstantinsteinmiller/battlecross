@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Bolts are a nut; ⚡ is energy ──────────────────────────────────────────
 //
 // From a blind playtest. The Bolts currency wore the lightning glyph, the same

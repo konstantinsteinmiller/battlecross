@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The audio-layer guarantee behind the GamePix "music under interstitial" fix.

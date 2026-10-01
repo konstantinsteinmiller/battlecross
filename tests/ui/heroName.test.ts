@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The hero is Flux, and the lab says so ───────────────────────────────────
 //
 // The hero was called Cobalt, and a player who opened the "Cobalt" tab in the

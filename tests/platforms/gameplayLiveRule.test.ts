@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // What counts as LIVE GAMEPLAY — the predicate behind every portal's
 // gameplayStart / gameplayStop bracket.
 //

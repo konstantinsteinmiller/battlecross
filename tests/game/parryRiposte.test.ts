@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // A parry (a block pressed just as the hit lands) stuns the machine — and
 // drops the shield for a short counter window, so the stunned machine can be
 // shot at once. In a playtest the shield stayed up while the right button was

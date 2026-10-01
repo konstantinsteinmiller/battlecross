@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Keyboard layout + key bindings (src/game/engine/keyBindings.ts, keyLabels.ts,
 // input.ts): keys are PHYSICAL and rebindable; what they are CALLED follows
 // the detected layout (the Keyboard API, else the keys the player types, else

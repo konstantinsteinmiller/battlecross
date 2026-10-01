@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The objective trail's gating in the mission (`Mission.updateTrail`, the
 // trail itself in src/game/fx/objectiveTrail.ts): in the tutorial walkthrough
 // it leads to the walkthrough's own goal (`Walkthrough.goal`, pinned in

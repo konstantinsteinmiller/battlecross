@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Flux's speech bubble ────────────────────────────────────────────────────
 //
 // When a hard hit shakes Flux's charge loose (`sim/fumble.ts`) he blurts one

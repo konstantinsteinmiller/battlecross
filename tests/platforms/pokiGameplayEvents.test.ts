@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Poki gameplay-bracket guard ────────────────────────────────────────────
 //
 // This is the highest-value test in the Poki integration, because the bugs it

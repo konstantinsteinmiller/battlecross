@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Touch controls on a phone (src/game/engine/input.ts): a mouse is treated as
 // a finger there and never turns the HUD into the desktop one, and the resting
 // joystick grabs by its centre. jsdom has no PointerEvent, so pointer events

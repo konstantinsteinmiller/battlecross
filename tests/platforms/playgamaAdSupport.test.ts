@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Playgama: ask the platform before every ad ─────────────────────────────
 //
 // Playgama's rule for the archive it also forwards to YouTube Playables: the

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CrazyGamesStrategy } from '@/utils/save/CrazyGamesStrategy'
 import { SaveManager } from '@/utils/save/SaveManager'
@@ -231,7 +232,7 @@ describe('CrazyGamesStrategy (per-key)', () => {
   })
 
   // ─── Cloud-only mode (CG QA requirement) ────────────────────────────────
-  // Requirement: on CrazyGames builds, gameplay state ("spinner_*", "ca_*")
+  // Requirement: on CrazyGames builds, gameplay state ("ma_*")
   // and our save bookkeeping ("__save_internal__*", "__save_meta__") MUST
   // NOT live in raw localStorage. Only "fps", "debug", "cheat",
   // "campaign-test", "full_unlocked" (developer toggles touched from
@@ -303,7 +304,7 @@ describe('CrazyGamesStrategy (per-key)', () => {
 
   it('cloud-only mode: scrubs pre-existing payload + bookkeeping at boot, preserves dev toggles', async () => {
     // Simulates upgrading a returning player from per-key-raw-mirror
-    // mode to cloud-only mode: their localStorage already has spinner_*
+    // mode to cloud-only mode: their localStorage already has ma_*
     // entries, the META blob, and the manifest. After construction
     // every gameplay/bookkeeping key must be gone from raw, but the
     // values must survive in BlobStorage's in-memory state so the
@@ -350,7 +351,7 @@ describe('CrazyGamesStrategy (per-key)', () => {
   })
 
   it('cloud-only mode: saveDataVersion bumps AFTER patchLocalStorage, not during hydrate', async () => {
-    // Regression for the timing bug: composables (useUser, useSpinnerCampaign,
+    // Regression for the timing bug: composables (useUser, useGameState,
     // etc.) watch `saveDataVersion` and re-read localStorage when it bumps.
     // If the bump fires DURING hydrate, the watcher runs before
     // `patchLocalStorage()` installs the BlobStorage proxy — every read

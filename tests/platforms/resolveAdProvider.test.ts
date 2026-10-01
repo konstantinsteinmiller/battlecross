@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Characterization tests for the ad-provider resolver.
 //
 // Branches now key off `import.meta.env.VITE_APP_*` literals (so Rollup

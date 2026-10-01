@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The big moment banners (src/game/state/banner.ts) raised by the mission:
 // ENEMY DEFEATED when a Core Master falls — once per boss, never for an
 // ordinary machine — and GAME OVER when Flux goes down, with the defeat

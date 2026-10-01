@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The damage markers on screen ────────────────────────────────────────────
 //
 // `DamageMarkers.vue` draws the feed (`state/damageFeed.ts`) from the HUD

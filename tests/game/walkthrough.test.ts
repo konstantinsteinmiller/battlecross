@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The tutorial walkthrough (src/game/sim/walkthrough.ts): every door on the
 // path from the pad to the Scrapper starts locked, and each room's door out
 // opens only once its lesson is DONE — the drone popped, the Hardhat down and

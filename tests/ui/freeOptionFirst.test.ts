@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Poki: the free choice comes first, and is never the smaller one ─────────
 //
 // Poki's monetization rules (integrate-poki REQUIREMENTS §3): "The free/standard

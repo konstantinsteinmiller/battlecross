@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The Slide wears `dodge`, not an arrow ──────────────────────────────────
 //
 // From a phone playtest. The Slide button (and its coach hint and its row in

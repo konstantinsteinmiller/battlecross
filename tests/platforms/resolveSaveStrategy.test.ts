@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Characterization tests for the save-strategy resolver.
 //
 // Branches now key off `import.meta.env.VITE_APP_*` literals (so Rollup
@@ -17,9 +18,11 @@ const allOff: PlatformFlags = {
   isItch: false,
   isGlitch: false,
   isGameDistribution: false,
+  isPlaygama: false,
+  isGamepix: false,
   isGameMonetize: false,
-  isY8: false,
-  isGamePix: false
+  isYandex: false,
+  isPoki: false
 }
 
 const ALL_PLATFORM_ENVS = [
@@ -89,7 +92,7 @@ describe('resolveSaveStrategy', () => {
   it('returns YandexStrategy when isYandex env is set', async () => {
     vi.stubEnv('VITE_APP_YANDEX', 'true')
     const resolveSaveStrategy = await loadResolver()
-    const strategy = await resolveSaveStrategy({ ...allOff, isYandex: true } as any)
+    const strategy = await resolveSaveStrategy({ ...allOff, isYandex: true })
     expect(strategy.name).toBe('yandex')
   })
 
@@ -110,7 +113,7 @@ describe('resolveSaveStrategy', () => {
     // purely so `SaveManager.strategyName` reports `poki` during QA.
     vi.stubEnv('VITE_APP_POKI', 'true')
     const resolveSaveStrategy = await loadResolver()
-    const strategy = await resolveSaveStrategy({ ...allOff, isPoki: true } as never)
+    const strategy = await resolveSaveStrategy({ ...allOff, isPoki: true })
     expect(strategy.name).toBe('poki')
     // No remote to fail on, so the flush guard must never engage.
     expect(strategy.hydrateState).toBe('success-with-data')

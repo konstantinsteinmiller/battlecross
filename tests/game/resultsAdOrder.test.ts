@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The interstitial comes AFTER the result screen: the results open at once,
 // and the ad plays when the player taps Continue — the screen closes first, so
 // the ad never opens on top of it, and the hub only comes up once the ad is

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GlitchStrategy, type ConflictResolver } from '@/utils/save/GlitchStrategy'
 import { SaveManager } from '@/utils/save/SaveManager'

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Drag-to-scroll strips (`use/useDragScroll.ts`), e.g. the hub's sector
 // strip: a picked card scrolls fully into view, moving the strip as little as
 // possible, and never when it is already in view.

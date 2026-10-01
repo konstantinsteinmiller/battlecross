@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Desktop input (src/game/engine/input.ts): the keys a playtest asked for
 // (Space dodges, B beams out, the left mouse button charges), the captured
 // mouse (movement looks, buttons read from MOUSE events so a second button

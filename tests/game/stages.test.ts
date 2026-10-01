@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The platform stages' foundation (`world/stages/`, `sim/stageFeatures.ts`,
 // the terrain extensions): what the four hand-built levels will stand on.
 //

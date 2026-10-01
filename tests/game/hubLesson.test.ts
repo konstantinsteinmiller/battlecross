@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The upgrade tour (src/components/hub/hubLesson.ts). Its steps follow the
 // game's own state — the open tab, the selected item, the two upgrade
 // levels — never a timer, so a player who side-steps is guided back. It runs

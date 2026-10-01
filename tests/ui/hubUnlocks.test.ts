@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The lab's menus open one at a time ──────────────────────────────────────
 //
 // Every lab menu was open from the first visit, which was a lot to take in

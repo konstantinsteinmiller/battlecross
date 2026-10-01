@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Regression coverage for the GamePix "state resets on every reload" bug.
 //
 // Root cause: the GamePix v3 SDK exposes `window.GamePix.localStorage` whose
@@ -66,7 +67,7 @@ afterEach(() => {
 
 describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)', () => {
   it('waits for late-arriving portal data instead of latching success-empty', async () => {
-    const cloud = JSON.stringify({ spinner_coins: 777, spinner_campaign_stage: 4 })
+    const cloud = JSON.stringify({ ma_bolts: 777, ma_story: 4 })
     installFakePortal({ seed: { [STATE_KEY]: cloud }, readyAfterMs: 1200 })
     const local = makeLocal()
     const strat = new GamePixStrategy()
@@ -84,7 +85,7 @@ describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)'
     // The real GamePix portal `getItem` resolves a Promise (vs the localhost
     // test SDK's sync string). The old code did `typeof value === 'string'` on
     // the Promise → false → mirrored nothing → reset. Now we await it.
-    const cloud = JSON.stringify({ spinner_coins: 321, spinner_campaign_stage: 6 })
+    const cloud = JSON.stringify({ ma_bolts: 321, ma_story: 6 })
     installFakePortal({ seed: { [STATE_KEY]: cloud }, readyAfterMs: 0, asyncGet: true })
     const local = makeLocal()
     const strat = new GamePixStrategy()
@@ -98,7 +99,7 @@ describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)'
   })
 
   it('handles async getItem that also loads late', async () => {
-    const cloud = JSON.stringify({ spinner_coins: 42 })
+    const cloud = JSON.stringify({ ma_bolts: 42 })
     installFakePortal({ seed: { [STATE_KEY]: cloud }, readyAfterMs: 1000, asyncGet: true })
     const local = makeLocal()
     const strat = new GamePixStrategy()
@@ -112,7 +113,7 @@ describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)'
   })
 
   it('restores immediately when portal data is already present (returning player, fast path)', async () => {
-    const cloud = JSON.stringify({ spinner_coins: 50 })
+    const cloud = JSON.stringify({ ma_bolts: 50 })
     installFakePortal({ seed: { [STATE_KEY]: cloud }, readyAfterMs: 0 })
     const local = makeLocal()
     const strat = new GamePixStrategy()
@@ -144,7 +145,7 @@ describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)'
     // only. We assert the hydrate promise settles well before the 3s timeout.
     installFakePortal({ seed: {}, readyAfterMs: 0 }) // portal reachable, empty
     const local = makeLocal()
-    local.set(STATE_KEY, JSON.stringify({ spinner_coins: 10 })) // raw-seed fallback
+    local.set(STATE_KEY, JSON.stringify({ ma_bolts: 10 })) // raw-seed fallback
 
     const strat = new GamePixStrategy()
     let settled = false
@@ -154,13 +155,13 @@ describe('GamePixStrategy.hydrate — async portal-data load (reload-reset bug)'
     await p
     expect(settled).toBe(true)
     // The local seed is untouched — the game still has its save.
-    expect(local.get(STATE_KEY)).toBe(JSON.stringify({ spinner_coins: 10 }))
+    expect(local.get(STATE_KEY)).toBe(JSON.stringify({ ma_bolts: 10 }))
   })
 
   it('does NOT overwrite the local seed when the portal is slow — data wins once it loads', async () => {
     // Portal has the real save but it loads at 1s. Proves the poll keeps
     // waiting past the point where the old code (single read at ~0ms) gave up.
-    const cloud = JSON.stringify({ spinner_coins: 999 })
+    const cloud = JSON.stringify({ ma_bolts: 999 })
     installFakePortal({ seed: { [STATE_KEY]: cloud }, readyAfterMs: 1000 })
     const local = makeLocal()
     const strat = new GamePixStrategy()

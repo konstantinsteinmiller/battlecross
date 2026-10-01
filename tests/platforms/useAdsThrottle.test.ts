@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Integration test: useAds composes the rewarded-ad throttle so all three
 // reward placements (RouletteWheel respin, AdRewardButton, 2x speed boost)
 // hide once the player burns their watch budget — without per-component

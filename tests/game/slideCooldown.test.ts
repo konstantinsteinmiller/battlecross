@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The slide (the dodge, Space / the slide button) cools down for 1.5 s from
 // the start of one slide to the start of the next; spammed, it made every
 // fight too easy (it was 0.7 s). Slide Boosters still shorten it. Driven

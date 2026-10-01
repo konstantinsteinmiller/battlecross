@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Vex Fortress (`world/stages/fortress.ts`): the last story stage — three
 // acts, two mini-boss guard halls (the way out of each held until its
 // guards are down), a checkpoint before each of them and before Vex, every

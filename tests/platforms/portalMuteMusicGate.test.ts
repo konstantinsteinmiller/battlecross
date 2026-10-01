@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The portal mute has to stop music that has not STARTED yet.
 //
 // This pins the exact flow portal QA runs and the exact way the obvious

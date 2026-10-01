@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── playgamaPlugin on Bridge v2 ────────────────────────────────────────────
 //
 // v2 changed the shape of everything the plugin touches: modules forward events
@@ -51,7 +52,7 @@ const load = async (b = makeBridge()) => {
   bridge = b
   vi.resetModules()
   vi.stubEnv('VITE_APP_PLAYGAMA', 'true')
-  vi.stubEnv('VITE_PLAYGAMA_LEADERBOARD_ID', 'survivalist_2026')
+  vi.stubEnv('VITE_PLAYGAMA_LEADERBOARD_ID', 'mega_droid_xp')
   vi.doMock('@/utils/playgamaBridgeLoader', () => ({ loadPlaygamaBridge: async () => bridge }))
   vi.doMock('@/use/useGamePause', () => pause)
   vi.doMock('@/use/useGamePauseAudio', () => audio)

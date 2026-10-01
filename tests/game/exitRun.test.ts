@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The exit cutscene (src/game/sim/exitRun.ts, wired in sim/mission.ts): the
 // lab's drone flies in, Flux walks to it and hops on, it lifts off under the
 // LEVEL CLEARED banner, and the mission finishes BANNER_HOLD.cleared later —

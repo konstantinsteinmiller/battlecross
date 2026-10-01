@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { BoardSnapshot } from '@/use/leaderboardSnapshot'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'

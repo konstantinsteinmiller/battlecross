@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The portal's own leaderboard is actually fed ───────────────────────────
 //
 // `usePortalLeaderboard` (Playgama's SaaS board on playgama.com, YouTube's own

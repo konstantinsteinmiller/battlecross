@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // GameMonetize: the ad-OPEN edge the game reports back to `useAds`.
 //
 // `useAds` releases its wait 6 s in unless the provider reports that a real ad

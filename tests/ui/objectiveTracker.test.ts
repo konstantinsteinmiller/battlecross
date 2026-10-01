@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The objective names the boss it means ──────────────────────────────────
 //
 // From a blind playtest. The replayed Scrapyard story mission is titled

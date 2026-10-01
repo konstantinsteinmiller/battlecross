@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Unit tests for the rewarded-ad rolling-window throttle. Verifies the
 // 5-in-10-min cap, expiry, persistence, and graceful handling of a
 // corrupted localStorage blob. Module is reloaded per test (`vi.resetModules`)

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The level-up pick says how many, which one, and that the click counted ──
 //
 // From a playtest: after a mission with several level-ups, "the upgrade modal

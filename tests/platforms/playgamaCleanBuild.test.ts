@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The Playgama release: the Playgama path and nothing else ───────────────
 //
 // The `build:playgama` archive goes to developer.playgama.com AND, forwarded by

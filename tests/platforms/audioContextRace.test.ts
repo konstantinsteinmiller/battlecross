@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The AudioContext suspend/resume race (src/use/useAssets.ts, syncContextState).
 //
 // `suspend()` / `resume()` are async: `ctx.state` keeps its old value until the

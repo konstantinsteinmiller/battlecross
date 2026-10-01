@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The level lab's catalog (`data/levelCatalog.ts`, DEV route `/levels`): every
 // level the game can generate, each built by the game's own quest builder.
 //

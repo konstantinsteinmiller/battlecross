@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Integration test: every ad placement on every build flows through
 // `useAds.showRewardedAd` / `showMidgameAd`, which flip the unified pause
 // gate (`isAdShowing`). That gate drives BOTH the render-loop early-return

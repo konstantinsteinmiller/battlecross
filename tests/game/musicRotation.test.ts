@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
 
 vi.mock('virtual:asset-overrides', () => ({ default: { sfx: [], music: [], textures: [] } }))

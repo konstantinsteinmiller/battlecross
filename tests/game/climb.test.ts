@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // The climb ("Tower Run", `world/climbGen.ts`): a hand-authored platforming
 // stage on floor heights, ending in the sector's Core Master at y = 0.
 //

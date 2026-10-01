@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The lock-on HUD dims for a target out of sight ──────────────────────────
 //
 // While the lock's grace holds a target that has gone out of sight (behind a

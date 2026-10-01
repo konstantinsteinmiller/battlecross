@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── Playgama Wrap: the site's language is a portal language ────────────────
 //
 // On a Playgama Wrap site Bridge 2.2.0 runs its `standalone` adapter, which

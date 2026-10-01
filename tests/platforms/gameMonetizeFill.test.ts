@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Fill-gating tests for the GameMonetize plugin.
 //
 // The watch-ad button must only appear when a rewarded ad is ACTUALLY loaded —

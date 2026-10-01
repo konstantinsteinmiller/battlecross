@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The big moment banners ─────────────────────────────────────────────────
 //
 // "LEVEL CLEARED" in blue as the exit drone lifts off, "ENEMY DEFEATED!" and

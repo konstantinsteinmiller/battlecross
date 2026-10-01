@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Unit tests for the StageBadge → vConsole chord. Mocks `mobileCheck` and
 // the `windowWidth` ref so `isMobilePortrait` returns true; without that,
 // `registerChordTap` is intentionally a no-op (the chord only works on

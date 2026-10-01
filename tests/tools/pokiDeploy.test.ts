@@ -74,7 +74,7 @@ describe('gameId guard (lib/target.mjs)', () => {
 })
 
 describe('poki.config.mjs is Mega Droid\'s', () => {
-  it('names, packs and versions the right game, and has no gameId yet', async () => {
+  it('names, packs and versions the right game, under its registered gameId', async () => {
     const { default: cfg } = await load('poki.config.mjs')
     const { checkGameId } = await load('lib/target.mjs')
     expect(cfg.gameName).toBe('Mega Droid')
@@ -83,8 +83,8 @@ describe('poki.config.mjs is Mega Droid\'s', () => {
     expect(cfg.dist).toBe('dist')
     expect(cfg.build).toBe('pnpm build:poki')
     expect(cfg.versionName('0.1.1')).toBe('Mega Droid 0.1.1')
-    expect(cfg.gameId).toBeNull()
-    expect(checkGameId(cfg.gameId).ok).toBe(false)
+    expect(cfg.gameId).toBe('9b504ac8-a798-4111-b0e5-a7c569fcec46')
+    expect(checkGameId(cfg.gameId).ok).toBe(true)
     expect(cfg.declares).toEqual({ usernames: false, chat: false })
     expect(cfg.allowHosts).toEqual([])
   })

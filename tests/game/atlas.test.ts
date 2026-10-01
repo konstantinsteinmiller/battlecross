@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // Atlas, Flux's AI companion (`sim/atlas.ts`, `audio/voice.ts`).
 //
 // What it says and when: a briefing on the way in, then the story so far;

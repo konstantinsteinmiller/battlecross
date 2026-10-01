@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 // ─── The lock-on and line of sight ───────────────────────────────────────────
 //
 // A lock-on target that goes out of sight keeps the lock for a grace
