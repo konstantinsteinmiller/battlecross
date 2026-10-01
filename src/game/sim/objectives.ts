@@ -59,6 +59,10 @@ export interface Crate {
   y: number
   /** A boss arena's prop: its own drops (`sim/bossArena.ts`). */
   arena?: boolean
+  /** Breaks to any shot, not only a charge (the Scrapper's crane drops them). */
+  soft?: boolean
+  /** Dropped by the Scrapper's crane: an energy pill, nothing else. */
+  crane?: boolean
 }
 
 export interface Core {
@@ -564,7 +568,7 @@ export class MissionObjects {
       if (Math.hypot(c.x - x, c.z - z) > (c.kind === 'barrel' ? 0.5 : 0.62) + r) continue
       // Crates stand against walls: a shot on the far side stops on the wall
       if (!hasLineOfSight(this.host.nav, x, z, c.x, c.z)) continue
-      if (c.kind === 'crate' && charge <= 0) {
+      if (c.kind === 'crate' && charge <= 0 && !c.soft) {
         const h = this.host
         c.hitT = 0.45
         h.fx.sparks(x, y, z, '#ffffff', 6, 4, 0.14)

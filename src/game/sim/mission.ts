@@ -66,6 +66,7 @@ import { cineWorld, type CineWorld, type CineBox } from './cineCam'
 import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
 import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './training'
 import { BossArena, type ArenaHost } from './bossArena'
+import { BossCrane } from './bossCrane'
 import { bossHpMul, PROGRESS_HP } from './adaptive'
 import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
@@ -505,6 +506,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private readonly fogBase = new Color()
   /** The boss arena's props, cover and anti-cheese (`sim/bossArena.ts`). */
   arena: BossArena | null = null
+  /** The Scrapper's magnet crane (`sim/bossCrane.ts`), in his arena only. */
+  crane: BossCrane | null = null
   /** Doors hidden behind a false wall until released (the tutorial's first). */
   private readonly falseWalls = new Map<number, { mesh: Mesh; t: number; x: number; z: number }>()
   /** The gap lesson's take-off and landing arrows (the built tutorial). */
@@ -697,6 +700,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       }
     }
     if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
+    // The Scrapper fights under his magnet crane (#108).
+    if (this.boss?.bossId === 'scrapper' && this.bossRoom) this.crane = new BossCrane(this, this.bossRoom)
     if (setup.stage) this.placeStageProps()
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
     this.scene.add(this.weapons.root)
@@ -1416,6 +1421,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   }
 
   onCrateBroken(c: Crate): void {
+    // The crane's crates: an energy pill, nothing else.
+    if (c.crane) {
+      this.crane?.forget(c)
+      this.system.spawnPickup(Math.random() < 0.55 ? 'we' : 'hp', 0, c.x, c.y + 0.8, c.z)
+      return
+    }
     // A boss arena's prop: a pill always, a Repair Gel rarely (one a room).
     if (c.arena && this.arena) {
       const d = this.arena.drop()
@@ -1494,6 +1505,24 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
 
   addArenaCrate(x: number, z: number, yaw: number, kind: 'crate' | 'barrel', y: number): Crate | null {
     return this.objects.addCrate(x, z, yaw, kind, y)
+  }
+
+  /** The crane lifts a crate away: gone without a drop. */
+  liftCrate(c: Crate): void {
+    if (c.broken) return
+    c.broken = true
+    c.mesh.root.visible = false
+    this.nav.props[c.navIdx]!.active = false
+    this.fx.sparks(c.x, c.y + 1, c.z, '#d8dde6', 6, 3, 0.12)
+  }
+
+  /** A hazard of the arena's own lands on the boss: `frac` of its health. */
+  hurtBoss(boss: Enemy, frac: number, x: number, z: number): void {
+    if (boss.state === 'dead') return
+    this.system.damageEnemy(boss, Math.round(boss.maxHp * frac), {
+      crit: false, charge: 0, fromX: x, fromZ: z, x: boss.x, y: boss.y + 1.6, z: boss.z, color: '#ffb12a'
+    })
+    this.shake(0.3)
   }
 
   onShotBlocked(s: Shot): void {
@@ -2331,6 +2360,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     // The arena's anti-cheese: a boss that cannot reach Flux enrages.
     const boss = this.boss
     if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play') this.arena.update(dt, boss)
+    if (this.crane && boss) {
+      const live = this.bossStarted && boss.state !== 'dead' && hud.phase === 'play' && boss.hp <= boss.maxHp * 0.5
+      this.crane.update(dt, boss, live, hud.phase === 'play' && !flow.modal)
+    }
     this.arenaDressing(dt)
     this.applyStageLight(dt)
     // Entering the boss room triggers the Core Master
@@ -4511,6 +4544,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   }
 
   dispose(): void {
+    this.crane?.dispose()
     this.city?.dispose()
     this.trail?.dispose()
     this.climb?.dispose()
