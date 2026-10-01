@@ -79,7 +79,7 @@ import { perfFlag } from '@/use/perfVariants'
 import { roomCenter, cellCenter, type Room } from '../world/levelGen'
 import { Locator, type LocatorInput } from './locator'
 import { generateClimb } from '../world/climbGen'
-import { generateStage } from '../world/stages'
+import { loadStage } from '../world/stages/load'
 import { mulberry32 } from '../world/rng'
 import { generateWakeUpCall } from '../world/stages/tutorial'
 import { buildClimbLevel } from '../world/climbMesh'
@@ -546,7 +546,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.map = setup.tutorial
       ? generateWakeUpCall(setup.seed)
       : setup.stage
-      ? generateStage(setup.stage, setup.seed)
+      ? await loadStage(setup.stage, setup.seed)
       : setup.climb ? generateClimb(setup.seed) : generateMap({ seed: setup.seed, rooms: setup.rooms, boss: setup.boss })
     this.nav = createNav(this.map)
     onProgress(0.04)

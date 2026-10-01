@@ -127,6 +127,35 @@ the mission behind it, time-sliced. The lab loop is paused for the build,
 because the overlay covers it anyway. Build time: 11.9 s → 5.8 s at 4×, and
 1.47 → 1.28 s at 1×.
 
+### 6. Boot after the second shift: stages on demand, no sync shader logs — KEPT
+
+The five new Masters, the Fortress stage and their features grew the engine
+chunk from 1129 KB (350 KB gz, before the cybercity work) to 1442 KB
+(477 KB gz). Measured with `scripts/boot-timeline.mjs --throttle 4` on built
+bundles, headless Chrome (software GL), three runs each; and a CPU profile
+of the intro's first frames.
+
+What changed:
+- Each platform stage's generator is its own chunk, loaded when its
+  mission is built (`world/stages/load.ts`). The quest board and the boot
+  path import only `stages/meta.ts`. The ten chunks are 5–9 KB each.
+- `renderer.debug.checkShaderErrors` is off in a production build: the
+  info-log reads after each link are synchronous.
+- The boot precompile shows hidden objects for the `compile` call (the
+  intro's showcase props, cards, streamed sets), so they do not compile on
+  their first draw mid-play.
+
+Numbers (4×, built): engine chunk 1442 → 1382 KB (477 → 458 KB gz); long
+tasks 6.05 s → 5.85 s total, the longest 1.38 → 1.24 s; playable after
+~8.3 s (the old build, before the new content: ~7.9–8.8 s).
+
+What is left: the longest task (~1.2 s at the intro's first frames) is
+three.js building a new program's uniform table, which waits for the link.
+It was there before this work too. Software GL in headless Chrome has no
+`KHR_parallel_shader_compile`, so the boot's readiness poll cannot wait for
+the links there; on GPUs with the extension the poll does. Confirm on a real
+phone before acting on it.
+
 ## Open hypotheses (not applied, not measured)
 
 - The inverted-hull outline doubles every decor and character triangle.

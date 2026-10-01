@@ -41,6 +41,10 @@ export const getRenderer = (): WebGLRenderer => {
     stencil: false,
     preserveDrawingBuffer: false
   })
+  // The info-log reads after every link are synchronous: each new program
+  // stalls the main thread until the GPU has compiled it. Dev keeps them
+  // (shader errors are worth seeing); a build does not pay for them.
+  renderer.debug.checkShaderErrors = !import.meta.env.PROD
   renderer.setPixelRatio(dpr)
   renderer.outputColorSpace = SRGBColorSpace
   renderer.toneMapping = NoToneMapping

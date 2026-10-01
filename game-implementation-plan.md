@@ -532,7 +532,11 @@ while bars and damage numbers get direct DOM writes.
     3% faster on a boss (35–40% on machines at the Magnet step, bounded by
     the upgrade cap). Pinned in `tests/game/balance.test.ts`. No constant
     needed changing after P6.
-  - [ ] **P10 Boot hot-path pass.**
+  - [x] **P10 Boot hot-path pass**: stage generators on demand
+    (`stages/load.ts`, `stages/meta.ts`), shader error checks off in a build,
+    hidden objects precompiled; PERF-LEDGER entry 6 (4×: long tasks 6.05 →
+    5.85 s; the remaining 1.2 s intro hitch predates this work and needs a
+    real-device check).
 
 ## Resume notes
 

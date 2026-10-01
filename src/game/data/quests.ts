@@ -2,7 +2,7 @@ import type { SectorId } from '../world/themes'
 import type { EnemyKind } from '../models/enemies'
 import { SECTOR_BY_ID, enemyLevelFor, type Sector } from './regions'
 import { mulberry32, randInt, pick, weighted } from '../world/rng'
-import { STAGE_LENGTH, isStageSector } from '../world/stages'
+import { STAGE_LENGTH, isStageSector } from '../world/stages/meta'
 import type { Rarity } from './items'
 
 /**

@@ -11,6 +11,9 @@ import { generateTidewaterLocks } from './tide'
 import { generateBlackoutBoulevard } from './neon'
 import { generateRotorRun } from './rotor'
 import { generateVexFortress } from './fortress'
+import { isStageSector, type StageSector } from './meta'
+
+export { STAGE_LENGTH, isStageSector, type StageSector } from './meta'
 
 /**
  * ─── The platform stages ─────────────────────────────────────────────────────
@@ -33,11 +36,7 @@ import { generateVexFortress } from './fortress'
  * Each story level is about a tenth longer than the one before it.
  */
 
-export type StageSector = 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'rotor' | 'fortress'
 
-/** Sections per stage, the arena not counted (the climb has six): the
- *  Meltdown's seven, then about a tenth more each (×1.1, ×1.21, ×1.33). */
-export const STAGE_LENGTH: Record<StageSector, number> = { blaze: 7, cryo: 8, volt: 8, gale: 9, magnet: 10, drill: 11, tide: 12, neon: 13, rotor: 13, fortress: 17 }
 
 const GENERATORS: Record<StageSector, (seed: number) => MapData> = {
   blaze: generateMeltdown,
@@ -52,7 +51,6 @@ const GENERATORS: Record<StageSector, (seed: number) => MapData> = {
   fortress: generateVexFortress
 }
 
-export const isStageSector = (s: SectorId): s is StageSector => s in STAGE_LENGTH
 
 /** The stage map of `sector` for `seed` (deterministic: a resume rebuilds
  *  it). A sector without a stage gets the Tower Run. */

@@ -58,8 +58,19 @@ const precompile = async (
       reps.push(o)
     })
     const pending = new Set<Material>()
+    // `compile` walks only what is visible: a prop hidden until its moment
+    // (a lesson's card, the intro's showcase props, a set that streams in
+    // later) would compile on its first draw, mid-play. Shown for the call,
+    // with its hidden ancestors, then put back.
+    const hidden: Object3D[] = []
     for (let i = 0; i < reps.length; i++) {
-      for (const m of renderer.compile(reps[i]!, mode.camera, mode.scene)) pending.add(m)
+      hidden.length = 0
+      for (let o: Object3D | null = reps[i]!; o; o = o.parent) if (!o.visible) { hidden.push(o); o.visible = true }
+      try {
+        for (const m of renderer.compile(reps[i]!, mode.camera, mode.scene)) pending.add(m)
+      } finally {
+        for (const o of hidden) o.visible = false
+      }
       onProgress((i + 1) / reps.length * 0.8)
       await slice()
     }
