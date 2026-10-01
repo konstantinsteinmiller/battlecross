@@ -373,6 +373,12 @@ export const startMission = async (quest: Quest, snapshot: MissionSnapshot | nul
   }
 }
 
+/** "Retry from checkpoint": the mission again, from that snapshot. */
+export const retryFromSnapshot = async (s: MissionSnapshot): Promise<void> => {
+  flow.modal = ''
+  await startMission(s.quest, s)
+}
+
 export const goHub = (): void => {
   if (!hubFactory) return
   flow.modal = ''

@@ -265,7 +265,8 @@ export default {
     'kept': '目前获得的奖励将会保留：',
     'useTank': '用修理凝胶重启（{n}）',
     'rebootAd': '立即重启',
-    'retreat': '撤回实验室'
+    'retreat': '撤回实验室',
+    'retryCheckpoint': '从检查点重试'
   },
   'banner': {
     'cleared': '关卡完成',

@@ -293,7 +293,9 @@ export default {
     'kept': 'You keep what you earned so far:',
     'useTank': 'Reboot with Repair Gel ({n})',
     'rebootAd': 'Reboot now',
-    'retreat': 'Retreat to the lab'
+    'retreat': 'Retreat to the lab',
+    // The Fortress: back to the last checkpoint, free, at full health.
+    'retryCheckpoint': 'Retry from checkpoint'
   },
   // ─── The big moment banners (`BigBanner.vue`) ─────────────────────────────
   // One line across the screen, uppercased by CSS in cased scripts, sized to

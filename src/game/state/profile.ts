@@ -564,7 +564,19 @@ export interface MissionSnapshot {
   /** The borrowed weapon (`sim/borrowed.ts`): the weapon carried and its
    *  charges left, and the capsules already taken. Never in the profile. */
   borrowed?: { w: string; shots: number; got: number[] }
+  /** The Fortress's last checkpoint as a snapshot of its own (full health,
+   *  everything as it stood there): "Retry from checkpoint" restarts the
+   *  mission from it. Kept in the resume snapshot so it survives a reload. */
+  checkpoint?: MissionSnapshot
+  /** This snapshot IS a checkpoint (a retry started from it). */
+  atCheckpoint?: boolean
 }
+
+/** The retry point a mission built from `s` keeps: `s` itself when it is a
+ *  checkpoint (a retry), else the one it carried (a reload), else none. Never
+ *  nested: a checkpoint does not carry another. */
+export const retryPointOf = (s: MissionSnapshot): MissionSnapshot | null =>
+  s.atCheckpoint ? { ...s, checkpoint: undefined } : s.checkpoint ?? null
 
 /** The resume point, as a copy (the mission it seeds is not a checkpoint). */
 export const readSnapshot = (): MissionSnapshot | null => {

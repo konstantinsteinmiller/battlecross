@@ -265,7 +265,8 @@ export default {
     'kept': 'Bạn vẫn giữ những gì đã kiếm được:',
     'useTank': 'Khởi động lại bằng Gel Sửa Chữa ({n})',
     'rebootAd': 'Khởi động lại ngay',
-    'retreat': 'Rút về phòng thí nghiệm'
+    'retreat': 'Rút về phòng thí nghiệm',
+    'retryCheckpoint': 'Thử lại từ điểm lưu'
   },
   'banner': {
     'cleared': 'Hoàn thành màn',

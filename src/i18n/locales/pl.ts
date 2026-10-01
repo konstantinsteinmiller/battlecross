@@ -265,7 +265,8 @@ export default {
     'kept': 'Zdobyte dotąd nagrody zostają z tobą:',
     'useTank': 'Użyj żelu naprawczego ({n})',
     'rebootAd': 'Restartuj teraz',
-    'retreat': 'Wróć do laboratorium'
+    'retreat': 'Wróć do laboratorium',
+    'retryCheckpoint': 'Wznów od punktu kontrolnego'
   },
   'banner': {
     'cleared': 'Poziom ukończony',

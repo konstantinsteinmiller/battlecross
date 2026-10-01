@@ -265,7 +265,8 @@ export default {
     'kept': 'Wat je tot nu toe hebt verdiend, houd je:',
     'useTank': 'Herstart met reparatiegel ({n})',
     'rebootAd': 'Nu herstarten',
-    'retreat': 'Terug naar het lab'
+    'retreat': 'Terug naar het lab',
+    'retryCheckpoint': 'Opnieuw vanaf checkpoint'
   },
   'banner': {
     'cleared': 'Level voltooid',

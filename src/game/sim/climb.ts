@@ -171,6 +171,8 @@ export interface ClimbHost {
    *  says is in it loses `cost01` of ITS max health, halved (`hurtMachines`). */
   hurtMachines?(cost01: number, fromX: number, fromZ: number, hits: (x: number, y: number, z: number) => boolean): void
   sfx(name: string, x?: number, z?: number): void
+  /** Flux reached checkpoint `n` (the Fortress keeps a retry point there). */
+  onCheckpoint?(n: number): void
   /** The stage's lights this frame (`sim/lightPulse.ts`): 0 lit .. 1 dark. The
    *  darkest request of the frame wins; nothing asked means lit. */
   stageDark?(dark01: number): void
@@ -552,6 +554,7 @@ export class ClimbRun {
         this.cp = n
         const c = this.t.checkpoints[n]!
         this.host.fx.riseRing(c.x, c.y + 0.1, c.z, '#7ff4ff', 0.7, 14)
+        this.host.onCheckpoint?.(n)
         break
       }
     }

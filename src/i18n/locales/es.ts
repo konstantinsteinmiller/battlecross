@@ -265,7 +265,8 @@ export default {
     'kept': 'Conservas lo que has ganado hasta ahora:',
     'useTank': 'Reiniciar con gel ({n})',
     'rebootAd': 'Reiniciar ya',
-    'retreat': 'Volver al laboratorio'
+    'retreat': 'Volver al laboratorio',
+    'retryCheckpoint': 'Reintentar desde el control'
   },
   'banner': {
     'cleared': 'Nivel superado',

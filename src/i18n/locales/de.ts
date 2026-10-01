@@ -265,7 +265,8 @@ export default {
     'kept': 'Was du bisher verdient hast, behältst du:',
     'useTank': 'Neustart mit Reparaturgel ({n})',
     'rebootAd': 'Jetzt neu starten',
-    'retreat': 'Rückzug ins Labor'
+    'retreat': 'Rückzug ins Labor',
+    'retryCheckpoint': 'Ab Checkpoint neu starten'
   },
   'banner': {
     'cleared': 'Level geschafft',

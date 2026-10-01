@@ -265,7 +265,8 @@ export default {
     'kept': 'Hozirgacha topganlaringiz sizda qoladi:',
     'useTank': 'Taʼmir geli bilan qayta yoqish ({n})',
     'rebootAd': 'Hozir qayta yoqish',
-    'retreat': 'Laboratoriyaga chekinish'
+    'retreat': 'Laboratoriyaga chekinish',
+    'retryCheckpoint': 'Nazorat nuqtasidan qayta'
   },
   'banner': {
     'cleared': 'Bosqich yakunlandi',

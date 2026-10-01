@@ -265,7 +265,8 @@ export default {
     'kept': '지금까지 얻은 보상은 그대로 유지됩니다:',
     'useTank': '수리 젤로 재가동 ({n})',
     'rebootAd': '지금 재가동',
-    'retreat': '연구소로 후퇴'
+    'retreat': '연구소로 후퇴',
+    'retryCheckpoint': '체크포인트부터 재도전'
   },
   'banner': {
     'cleared': '스테이지 클리어',

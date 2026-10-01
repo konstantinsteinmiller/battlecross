@@ -12,6 +12,14 @@
             GameIcon.mini(name="nut")
     template(#footer)
       div.actions
+        //- The Fortress: back to the last checkpoint, free, at full health.
+        FButton(
+          v-if="canRetry"
+          type="success"
+          icon="replay"
+          :label="t('defeat.retryCheckpoint')"
+          @click="retryCheckpoint"
+        )
         FButton(
           v-if="hud.tanks > 0"
           type="success"
@@ -69,6 +77,12 @@ const tally = computed(() => {
   const m = currentMission()
   return { xp: m?.xp ?? 0, bolts: m?.bolts ?? 0 }
 })
+
+// Read when the modal opens (the mission is not reactive).
+const canRetry = computed(() => open.value && !!currentMission()?.canRetryCheckpoint)
+const retryCheckpoint = () => {
+  currentMission()?.retryFromCheckpoint()
+}
 
 const useTank = () => {
   if (profile.inv.tanks <= 0) return

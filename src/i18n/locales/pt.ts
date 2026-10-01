@@ -265,7 +265,8 @@ export default {
     'kept': 'Você mantém o que ganhou até agora:',
     'useTank': 'Usar Gel de Reparo ({n})',
     'rebootAd': 'Reiniciar agora',
-    'retreat': 'Recuar ao laboratório'
+    'retreat': 'Recuar ao laboratório',
+    'retryCheckpoint': 'Tentar do checkpoint'
   },
   'banner': {
     'cleared': 'Fase concluída',

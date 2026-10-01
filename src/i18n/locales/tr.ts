@@ -267,7 +267,8 @@ export default {
     'kept': 'Şu ana kadar kazandıkların sende kalıyor:',
     'useTank': 'Tamir Jeli kullan ({n})',
     'rebootAd': 'Hemen yeniden başlat',
-    'retreat': 'Laboratuvara çekil'
+    'retreat': 'Laboratuvara çekil',
+    'retryCheckpoint': 'Kontrol noktasından dene'
   },
   'banner': {
     'cleared': 'Bölüm tamamlandı',

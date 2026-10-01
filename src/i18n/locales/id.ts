@@ -265,7 +265,8 @@ export default {
     'kept': 'Kamu tetap membawa hasil sejauh ini:',
     'useTank': 'Reboot dengan Gel Perbaikan ({n})',
     'rebootAd': 'Reboot sekarang',
-    'retreat': 'Mundur ke lab'
+    'retreat': 'Mundur ke lab',
+    'retryCheckpoint': 'Ulangi dari checkpoint'
   },
   'banner': {
     'cleared': 'Level selesai',

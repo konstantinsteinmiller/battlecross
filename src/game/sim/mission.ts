@@ -56,10 +56,10 @@ import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
 import { MissionObjects, CHEST_DY, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
 import {
-  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, xp01, heroColors, markTip, type MissionSnapshot
+  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, retryPointOf, xp01, heroColors, markTip, type MissionSnapshot
 } from '../state/profile'
 import { rollItem, type Item } from '../data/items'
-import { flow, finishMission } from '../flow'
+import { flow, finishMission, retryFromSnapshot } from '../flow'
 import { showBanner, clearBanner, BANNER_HOLD } from '../state/banner'
 import { ExitRun, ExitCamera, planExit, newExitPose, type ExitEvent, type ExitHost } from './exitRun'
 import { cineWorld, type CineWorld, type CineBox } from './cineCam'
@@ -2117,10 +2117,60 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
 
   private writeSnap(): void {
     if (!this.quest || this.finished) return
+    writeSnapshot(this.buildSnap())
+  }
+
+  // ─── Retry from checkpoint (the Fortress) ──────────────────────────────────
+  //
+  // The Fortress is long, with mini-bosses, Vex and what follows him: a death
+  // there offers a free "Retry from checkpoint" beside the gel and the ad
+  // revive. The checkpoint is the whole mission as it stood when Flux reached
+  // it (every machine down stays down, every door open stays open), at full
+  // health, and a retry rebuilds the mission from it like a reload would.
+
+  /** The last checkpoint, or null (none reached, or not a Fortress run). */
+  private cpSnap: MissionSnapshot | null = null
+
+  /** Whether this mission keeps checkpoints to retry from. */
+  get keepsCheckpoints(): boolean {
+    return this.quest?.sector === 'fortress'
+  }
+
+  /** A checkpoint to retry from is there. */
+  get canRetryCheckpoint(): boolean {
+    return !!this.cpSnap && !this.finished
+  }
+
+  /** The climb reached a checkpoint tile. */
+  onCheckpoint(_n: number): void {
+    this.keepRetryPoint()
+  }
+
+  /** Keep a retry point HERE (a checkpoint tile, a boss stage's start). */
+  keepRetryPoint(): void {
+    if (!this.keepsCheckpoints || !this.quest || this.finished) return
+    const s = this.buildSnap()
+    s.hp = Math.round(this.combat.maxHp)
+    s.we = this.combat.maxWe
+    s.atCheckpoint = true
+    this.cpSnap = s
+    this.dirty = true
+  }
+
+  /** Defeat modal → "Retry from checkpoint". */
+  retryFromCheckpoint(): void {
+    const s = this.cpSnap
+    if (!s || this.finished) return
+    this.finished = true
+    writeSnapshot({ ...s, checkpoint: s })
+    void retryFromSnapshot(s)
+  }
+
+  private buildSnap(): MissionSnapshot {
     const killed: number[] = []
     this.enemies.forEach((e, i) => { if (e.state === 'dead') killed.push(i) })
-    writeSnapshot({
-      quest: this.quest,
+    return {
+      quest: this.quest!,
       killed,
       opened: this.objects.chests.filter(c => c.opened).map(c => c.id),
       doors: this.doors.filter(d => d.opening).map(d => d.id),
@@ -2141,8 +2191,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       done: false,
       walk: this.walk?.save(),
       climb: this.climb?.save(),
-      borrowed: this.borrowed.save()
-    })
+      borrowed: this.borrowed.save(),
+      checkpoint: this.cpSnap ?? undefined
+    }
   }
 
   private applySnapshot(s: MissionSnapshot): void {
@@ -2201,6 +2252,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.time = s.t
     // Which walkthrough doors are earned; `start()` locks the rest after this.
     this.walk?.restore(s.walk)
+    // The retry point carries over a reload, and a retry keeps its own.
+    this.cpSnap = retryPointOf(s)
     // The borrowed weapon's charges left, and the capsules already taken.
     this.borrowed.restore(s.borrowed)
     if (this.climb) {

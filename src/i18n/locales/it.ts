@@ -265,7 +265,8 @@ export default {
     'kept': 'Tieni ciò che hai guadagnato finora:',
     'useTank': 'Usa Gel Riparatore ({n})',
     'rebootAd': 'Riavvia ora',
-    'retreat': 'Ritirati al laboratorio'
+    'retreat': 'Ritirati al laboratorio',
+    'retryCheckpoint': 'Riprova dal checkpoint'
   },
   'banner': {
     'cleared': 'Livello completato',
