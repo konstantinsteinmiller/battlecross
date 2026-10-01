@@ -645,7 +645,7 @@ export interface Cityscape {
   dispose(): void
 }
 
-const NIGHT: Record<string, number> = { scrapyard: 0.15, blaze: 0.45, cryo: 0.1, volt: 1, gale: 0.1, magnet: 0.55, drill: 0.35, fortress: 0.9 }
+const NIGHT: Record<string, number> = { scrapyard: 0.15, blaze: 0.45, cryo: 0.1, volt: 1, gale: 0.1, magnet: 0.55, drill: 0.35, tide: 0.1, fortress: 0.9 }
 
 /** Seconds between one vehicle joining the sky and the next. */
 const TRICKLE = 0.3

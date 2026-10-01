@@ -22,7 +22,7 @@ import { mulberry32, type Rng } from '../world/rng'
  * minute, and swaps to `boss` for a Core Master fight.
  */
 
-export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'fortress' | 'boss' | 'intro'
+export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'fortress' | 'boss' | 'intro'
 /** A song: an area theme (by its track id), one of the two rotation songs, or the boss. */
 export type SongId = TrackId | 'drift' | 'circuit'
 
@@ -723,6 +723,9 @@ const CHIP: Record<ChipId, ChipSpec> = {
   // The Deep Mine: a marching phrygian dig, low and steady, the arp in
   // wide duty for a hollow, tunnel-ish ring.
   drill: { bpm: 146, root: 38, mode: PHRYG, progA: [0, 1, 0, 4], progB: [3, 4, 1, 0], seed: 98, leadDuty: 0.25, arpDuty: 0.5, drums: 'march' },
+  // The Tidewater Locks: a rolling dorian swell in half time, a thin
+  // lead over a mid arp, like light on water.
+  tide: { bpm: 138, root: 43, mode: DORIAN, progA: [0, 3, 4, 3], progB: [5, 4, 1, 4], seed: 109, leadDuty: 0.125, arpDuty: 0.25, drums: 'half' },
   fortress: { bpm: 162, root: 36, mode: PHRYG, progA: [0, 1, 0, 6], progB: [5, 3, 1, 0], seed: 76, leadDuty: 0.5, arpDuty: 0.25, drums: 'drive' }
 }
 

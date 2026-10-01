@@ -479,6 +479,15 @@ while bars and damage numbers get direct DOM writes.
       (burrow, drillBombs, charge; quake); Drill Bomb (bores on, bursts r 2.5,
       60% splash); Magnet weak to it now. Fortress interim band [22, 30].
       The Drill Master's `weakTo` waits for the Bubble Lance (P7.3).
+    - [x] P7.3 Tide: Tidewater Locks (12 sections + arena + beam room, up
+      with the tide to 14 m and down the spillway), water (`sim/stages/
+      water.ts`: wading slows via `MoveMod.speed`, over DEEP it hurts on a
+      tick; tide clock, valve-drained lock, currents), buoys; Puffer Mine
+      (drifts, swells 1.5 s, bursts in a ring and is gone); Tide Master
+      (dashSlash, tidalWave, bubbleVolley; whirlpool pull); Bubble Lance
+      (a piercing bubble rolling along the floor); Drill weak to it. Fortress
+      interim band [25, 33]. The Tide Master's `weakTo` waits for the Neon
+      Blade (P7.4).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Balon Balığı Mayını',
     'mole': 'Matkap Köstebek',
     'polar': 'Kutup Yavrusu',
     'hardhat': 'Baretli',
@@ -77,6 +78,7 @@ export default {
   // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
   // forms are the singular on purpose.
   'enemyPlural': {
+    'puffer': 'Balon Balığı Mayını | Balon Balığı Mayını',
     'mole': 'Matkap Köstebek | Matkap Köstebek',
     'polar': 'Kutup Yavrusu | Kutup Yavrusu',
     'hardhat': 'Baretli | Baretli',
@@ -103,6 +105,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Gelgit Ustası',
     'drillMaster': 'Matkap Ustası',
     'magnetMaster': 'Mıknatıs Ustası',
     'stand': 'Hurdacı',
@@ -115,6 +118,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Gelgit Savakları',
     'drill': 'Derin Maden',
     'magnet': 'Kutupluluk Fabrikası',
     'scrapyard': 'Hurdalık',
@@ -137,7 +141,7 @@ export default {
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
     'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden' },
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -465,7 +469,8 @@ export default {
     'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
     'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' },
     'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' },
-    'drillBomb': { 'name': 'Matkap Bombası', 'desc': 'Durduğu yerde patlayıp etraftaki her makineyi vuran delici bir bomba. Çatlak kayayı kırar.' }
+    'drillBomb': { 'name': 'Matkap Bombası', 'desc': 'Durduğu yerde patlayıp etraftaki her makineyi vuran delici bir bomba. Çatlak kayayı kırar.' },
+    'bubbleLance': { 'name': 'Kabarcık Mızrağı', 'desc': 'Kocaman bir kabarcık yerde yuvarlanır ve yolundaki her makineyi delip geçerek patlar.' }
   },
 
   'options': {
@@ -599,6 +604,12 @@ export default {
       'charge': 'Şarjlı atışı çalıştıralım!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Çok derin! Sudan çık!',
+        'valve': 'Su basmış savak! Boşaltmak için vanayı vur.',
+        'rise': 'Sular yükseliyor. Basamaklara çık!',
+        'wade': 'Su! İçinde yürümek seni yavaşlatır.',
+      },
       'drill': {
         'drop': 'Kaya düşüyor! Gölgelerden çık.',
         'rock': 'Çatlak kaya! Tam şarjlı atış onu kırar.',
@@ -657,6 +668,7 @@ export default {
       'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
     },
     'story': {
+      'tide': 'Gelgit Savakları. Şapırtı zamanı!',
       'drill': 'Derin Maden. Başına dikkat!',
       'magnet': 'Kutupluluk Fabrikası. Pusulam fır dönüyor!',
       'scrapyard': 'Hurdalık rölesi. Yak onu!',

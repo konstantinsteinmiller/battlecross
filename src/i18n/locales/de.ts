@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Kugelfischmine',
     'mole': 'Maulwurfbohrer',
     'polar': 'Polwelpe',
     'hardhat': 'Helmling',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Kugelfischmine | Kugelfischminen',
     'mole': 'Maulwurfbohrer | Maulwurfbohrer',
     'polar': 'Polwelpe | Polwelpen',
     'hardhat': 'Helmling | Helmlinge',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Gezeitenmeister',
     'drillMaster': 'Bohrmeister',
     'magnetMaster': 'Magnetmeister',
     'stand': 'Schrottbrecher',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Gezeitenschleusen',
     'drill': 'Tiefenmine',
     'magnet': 'Polaritätswerk',
     'scrapyard': 'Schrottplatz',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Donnerbogen', 'desc': 'Sofortiger Blitz, der auf Maschinen in der Nähe überspringt.' },
     'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' },
     'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' },
-    'drillBomb': { 'name': 'Bohrbombe', 'desc': 'Eine Bohrbombe, die dort platzt, wo sie stoppt, und jede Maschine ringsum trifft. Bricht rissigen Fels.' }
+    'drillBomb': { 'name': 'Bohrbombe', 'desc': 'Eine Bohrbombe, die dort platzt, wo sie stoppt, und jede Maschine ringsum trifft. Bricht rissigen Fels.' },
+    'bubbleLance': { 'name': 'Blasenlanze', 'desc': 'Eine dicke Blase rollt über den Boden und platzt durch jede Maschine auf ihrem Weg.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Lass uns den Ladeschuss trainieren!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Zu tief! Raus aus dem Wasser!',
+        'valve': 'Geflutete Schleuse! Schieß aufs Ventil, um sie zu leeren.',
+        'rise': 'Die Flut kommt. Rauf auf die Stufen!',
+        'wade': 'Wasser! Waten bremst dich aus.',
+      },
       'drill': {
         'drop': 'Steinschlag! Raus aus den Schatten.',
         'rock': 'Rissiger Fels! Ein voller Ladeschuss knackt ihn.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
     },
     'story': {
+      'tide': 'Gezeitenschleusen. Platsch-Zeit!',
       'drill': 'Tiefenmine. Kopf einziehen!',
       'magnet': 'Polaritätswerk. Mein Kompass dreht durch!',
       'scrapyard': "Schrottplatz-Relais. Bring's zum Leuchten!",

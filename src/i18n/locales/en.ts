@@ -75,6 +75,7 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'puffer': 'Puffer Mine',
     'mole': 'Mole Driller',
     'polar': 'Polar Pup',
     'hardhat': 'Hardhat',
@@ -91,6 +92,7 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'puffer': 'Puffer Mine | Puffer Mines',
     'mole': 'Mole Driller | Mole Drillers',
     'polar': 'Polar Pup | Polar Pups',
     'hardhat': 'Hardhat | Hardhats',
@@ -117,6 +119,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Tide Master',
     'drillMaster': 'Drill Master',
     'magnetMaster': 'Magnet Master',
     'stand': 'Scrapper',
@@ -129,6 +132,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Tidewater Locks',
     'drill': 'Deep Mine',
     'magnet': 'Polarity Works',
     'scrapyard': 'Scrapyard',
@@ -152,7 +156,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -514,7 +518,8 @@ export default {
     'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
     'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' },
     'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' },
-    'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' }
+    'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' },
+    'bubbleLance': { 'name': 'Bubble Lance', 'desc': 'A big bubble rolls along the floor and bursts through every machine in its way.' }
   },
 
   'options': {
@@ -661,6 +666,12 @@ export default {
       'charge': "Let's train the Charge Shot!",
     },
     'hint': {
+      'tide': {
+        'deep': 'Too deep! Get out of the water!',
+        'valve': 'Flooded lock! Shoot the valve to drain it.',
+        'rise': "The tide's coming in. Up the steps!",
+        'wade': 'Water! Wading slows you down.',
+      },
       'drill': {
         'drop': 'Rocks falling! Step out of the shadows.',
         'rock': 'Cracked rock! A full charge will break it.',
@@ -719,6 +730,7 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'tide': 'Tidewater Locks. Splash time!',
       'drill': 'Deep Mine. Mind your head!',
       'magnet': 'Polarity Works. My compass spins!',
       'scrapyard': 'Scrapyard relay. Light it up!',

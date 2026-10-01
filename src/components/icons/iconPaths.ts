@@ -615,5 +615,12 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M6.5 7H17.5L16.6 9.6L7.2 11Z',
     'M7.9 12.6L16 11.2L14.9 14.3L9 15.4Z',
     'M9.6 17L14.3 16.1L12 22Z'
+  ],
+  // A big bubble (a ring 2.6 units thick, centre 12.5/13) with a small one
+  // beside it, and the big one's glint as a separate fleck inside the ring.
+  'bubble': [
+    'M12.5 4A9 9 0 1 1 12.49 4ZM12.5 6.6A6.4 6.4 0 1 0 12.51 6.6Z',
+    'M9.6 8.8A1.3 1.3 0 1 1 9.59 8.8Z',
+    'M4.6 2.2A2.2 2.2 0 1 1 4.59 2.2Z'
   ]
 }

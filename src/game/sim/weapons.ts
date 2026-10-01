@@ -216,6 +216,17 @@ export class WeaponSystem {
         h.sfx('lob')
         break
       }
+      case 'bubbleLance': {
+        // A big bubble rolling along the floor, through every machine.
+        const s = sys.spawnPlayerShot('charge2', h.player.x + dx * 0.8, (h.player.y ?? 0) + 0.7, h.player.z + dz * 0.8, dx, 0, dz, dmg, false, null)
+        this.tag(s, id, '#5fd2ff')
+        s.pierce = 99
+        s.vx *= 0.6
+        s.vz *= 0.6
+        s.life = 1.8
+        h.sfx('chargeShot')
+        break
+      }
       case 'galeGuard': {
         this.guardT = 8
         this.leafHitCd.clear()

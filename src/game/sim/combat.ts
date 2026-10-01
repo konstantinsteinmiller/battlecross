@@ -784,6 +784,10 @@ export class CombatSystem {
           fx.emit({ x: s.x + Math.cos(a) * 0.3 * (red ? 1 : -1), y: s.y + Math.sin(a) * 0.3, z: s.z, color: red ? '#ff4a5e' : '#5a8cff', size: 0.22, sizeEnd: 0.02, life: 0.3 })
         }
         break
+      case 'bubbleLance':
+        // Little bubbles shed behind it, rising.
+        if (r() < 0.7 * k) fx.emit({ x: s.x + (r() - 0.5) * 0.6, y: s.y + (r() - 0.5) * 0.4, z: s.z + (r() - 0.5) * 0.6, vy: 1.2 + r(), color: r() < 0.5 ? '#bff0ff' : '#5fd2ff', size: 0.16, sizeEnd: 0.05, life: 0.6 })
+        break
       case 'drillBomb':
         // Grit and sparks off the spinning bit.
         if (r() < 0.6 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 3, vy: 1 + r() * 1.5, vz: (r() - 0.5) * 3, color: r() < 0.5 ? '#ffd35a' : '#8a6a52', size: 0.13, sizeEnd: 0.02, life: 0.4, gravity: 8 })
@@ -814,6 +818,10 @@ export class CombatSystem {
         break
       case 'galeGuard':
         fx.sparks(s.x, s.y, s.z, '#7fffc8', 10, 5, 0.2)
+        break
+      case 'bubbleLance':
+        fx.flash(s.x, s.y, s.z, '#bff0ff', 1.4, 0.12)
+        fx.sparks(s.x, s.y, s.z, '#5fd2ff', 12, 5, 0.2)
         break
       case 'magnetPull':
         fx.sparks(s.x, s.y, s.z, '#ff4a5e', 8, 5, 0.18)

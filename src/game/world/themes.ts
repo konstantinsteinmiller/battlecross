@@ -29,7 +29,7 @@ export interface Theme {
   crateTrim: string
 }
 
-export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'fortress'
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'fortress'
 
 export const THEMES: Record<SectorId, Theme> = {
   scrapyard: {
@@ -98,6 +98,17 @@ export const THEMES: Record<SectorId, Theme> = {
     skyTop: '#2b2236', skyBottom: '#c98a52', fog: '#8a6a52', fogNear: 14, fogFar: 54,
     hemiSky: '#ffe2b8', hemiGround: '#3a2c22', sun: '#ffe6c2', sunIntensity: 1.05,
     pipe: '#8c8f99', crate: '#9a7a52', crateTrim: '#3a2a1e'
+  },
+  // Tidewater Locks: harbour concrete, teal lock walls, buoy-yellow trim,
+  // a bright sea sky.
+  tide: {
+    id: 'tide',
+    floor: '#7f95a3', floorAlt: '#6c8290', corridor: '#5f7482',
+    wall: '#2f7f8f', wallLow: '#1f5966', trim: '#ffd23a', pilaster: '#3a4a5a',
+    accent: '#5fd2ff', hazard: '#ff7a3a',
+    skyTop: '#3f8fd8', skyBottom: '#cfeeff', fog: '#bfe0f0', fogNear: 20, fogFar: 70,
+    hemiSky: '#eaf6ff', hemiGround: '#4a5e6a', sun: '#fff6e8', sunIntensity: 1.2,
+    pipe: '#ff7a3a', crate: '#a8946a', crateTrim: '#3a4048'
   },
   fortress: {
     id: 'fortress',

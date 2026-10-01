@@ -2,7 +2,7 @@ import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -69,6 +69,10 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  * it at 4/s as ever. This one number is the whole switch.
  */
 export const UNAWARE_TROOPER_GUARD = 1
+
+/** The Puffer Mine: it swells this close (m), and its burst's reach (m). */
+export const PUFFER_SWELL_R = 4.2
+export const PUFFER_RING = 4
 
 /** The Mole Driller: how long it takes to dig in (s), how close (m) it must
  *  tunnel before it strikes, the strike's reach (m), and how long it stays
@@ -578,7 +582,7 @@ const golemTick = (w: World, e: Enemy, dt: number, d: number): void => {
  */
 export const frozenDt = (e: Enemy, dt: number): number => {
   if (e.frozenT <= 0 || e.state === 'dead') return dt
-  if (e.kind !== 'heli' && e.kind !== 'polar' && e.y > (e.floor ?? 0) + 0.2) return dt
+  if (e.kind !== 'heli' && e.kind !== 'polar' && e.kind !== 'puffer' && e.y > (e.floor ?? 0) + 0.2) return dt
   return dt * (1 - (e.boss ? FREEZE_SLOW_BOSS : FREEZE_SLOW))
 }
 
@@ -659,7 +663,7 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
     }
     case 'stun': {
       e.stunT -= dt
-      if (e.kind === 'heli' || e.kind === 'polar') e.y = Math.max(0.45, e.y - dt * 6)
+      if (e.kind === 'heli' || e.kind === 'polar' || e.kind === 'puffer') e.y = Math.max(0.45, e.y - dt * 6)
       if (e.stunT <= 0) {
         e.cd = Math.max(e.cd, 0.6)
         enterState(e, 'engage')
@@ -1424,6 +1428,35 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Puffer Mine: drifts at Flux, swells (red: get away or pop it),
+    //    bursts in a ring of water and is gone ──
+    case 'puffer': {
+      const baseY = def.fly + Math.sin(e.anim * 1.9) * 0.12
+      e.y += (baseY - e.y) * Math.min(1, dt * 3)
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 4, dt)
+        seek(w, e, px, pz, def.speed, dt)
+        e.b = Math.max(0, e.b - dt * 2)
+        if (e.cd <= 0 && d < PUFFER_SWELL_R) startTele(e, 'swell', def.tele, true)
+      } else if (e.state === 'tele') {
+        // Swelling: slower, spikes out, a hiss.
+        seek(w, e, px, pz, def.speed * 0.35, dt)
+        e.b = Math.min(1, e.st / e.teleDur)
+        if (e.st >= e.teleDur) {
+          w.spawnRing(e, e.x, e.z, 7, PUFFER_RING, e.dmg, '#5fd2ff')
+          w.fx.sparks(e.x, e.y + (e.floor ?? 0), e.z, '#bff0ff', 22, 7, 0.24)
+          w.sfx('explode', e.x, e.z)
+          w.shake(0.2)
+          // It is spent: gone with its burst (no bolts: it popped itself).
+          e.hp = 0
+          e.state = 'dead'
+          e.deathT = 0
+          e.st = 0
+        }
+      }
+      break
+    }
+
     // ── Mole Driller: travels under the floor (a dust trail), bursts up
     //    under Flux on a red marker, stays out a while (open to fire),
     //    digs back in ──
@@ -1573,6 +1606,9 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
     }
     case 'polar':
       posePolar(r, 1 - e.guard, t, m)
+      break
+    case 'puffer':
+      posePuffer(r, e.b, t, m)
       break
     case 'mole':
       poseMole(r, e.buried ? 0 : e.state === 'idle' || e.state === 'alert' ? 0.75 : e.a, t * (e.state === 'act' ? 28 : 8), t, m)

@@ -68,8 +68,14 @@ export const BOSSES: Record<BossId, BossDef> = {
   // The Deep Mine's Master: it burrows and bursts up under Flux, lobs
   // drill bombs, charges; phase 2 shakes the mine (rings and falling rock).
   drillMaster: base({
-    id: 'drillMaster', hp: 720, dmg: 21, element: 'none', weakTo: null, color: '#ffc21a',
+    id: 'drillMaster', hp: 720, dmg: 21, element: 'none', weakTo: 'bubbleLance', color: '#ffc21a',
     patterns: ['burrow', 'drillBombs', 'charge'], patterns2: ['quake']
+  }),
+  // The Tidewater Locks' Master: a lance thrust, tidal waves to slide
+  // under, a slow volley of bubbles; phase 2 a whirlpool that pulls.
+  tideMaster: base({
+    id: 'tideMaster', hp: 760, dmg: 22, element: 'none', weakTo: null, color: '#2f9fd8',
+    patterns: ['dashSlash', 'tidalWave', 'bubbleVolley'], patterns2: ['whirlpool']
   }),
   vexMk1: base({
     id: 'vexMk1', hp: 1100, dmg: 22, element: 'none', weakTo: null, scale: 1, fly: 1.6, radius: 1.3, hitR: 1.3, aimY: 0.2,

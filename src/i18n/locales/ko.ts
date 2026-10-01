@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': '복어 기뢰',
     'mole': '두더지 드릴러',
     'polar': '폴라 강아지',
     'hardhat': '헬멧봇',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': '복어 기뢰 | 복어 기뢰',
     'mole': '두더지 드릴러 | 두더지 드릴러',
     'polar': '폴라 강아지 | 폴라 강아지',
     'hardhat': '헬멧봇 | 헬멧봇',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': '조수 마스터',
     'drillMaster': '드릴 마스터',
     'magnetMaster': '자석 마스터',
     'stand': '스크래퍼',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': '조수 갑문',
     'drill': '깊은 광산',
     'magnet': '극성 공장',
     'scrapyard': '고철장',
@@ -135,7 +139,7 @@ export default {
     'purge': '구역 소탕',
     'climb': '타워 런',
     'stage': '플랫폼 스테이지',
-    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인' },
+    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스' },
     'rematch': '재대결: {boss}',
     'desc': {
       'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': '썬더 아크', 'desc': '근처 기계로 연쇄되는 즉발 번개.' },
     'galeGuard': { 'name': '질풍 가드', 'desc': '나뭇잎이 주위를 돌며 탄을 막고 기계를 베어냅니다. 다시 사용하면 날려 보냅니다.' },
     'magnetPull': { 'name': '마그넷 풀', 'desc': '유도 말굽 자석. 방패와 껍질을 깨고 날아다니는 기계를 공중에서 끌어내립니다.' },
-    'drillBomb': { 'name': '드릴 봄', 'desc': '멈춘 자리에서 터져 주변의 모든 기계를 공격하는 굴착 폭탄. 금 간 바위를 부숩니다.' }
+    'drillBomb': { 'name': '드릴 봄', 'desc': '멈춘 자리에서 터져 주변의 모든 기계를 공격하는 굴착 폭탄. 금 간 바위를 부숩니다.' },
+    'bubbleLance': { 'name': '버블 랜스', 'desc': '커다란 거품이 바닥을 굴러가며 길목의 모든 기계를 뚫고 터집니다.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': '차지 샷을 연습해봐요!',
     },
     'hint': {
+      'tide': {
+        'deep': '너무 깊어! 물 밖으로 나가!',
+        'valve': '물에 잠긴 갑문! 밸브를 쏴서 물을 빼!',
+        'rise': '물이 차오른다. 계단 위로!',
+        'wade': '물이다! 물속에선 느려져.',
+      },
       'drill': {
         'drop': '낙석이야! 그림자 밖으로 피해!',
         'rock': '금 간 바위다! 풀 차지 샷이면 부술 수 있어!',
@@ -655,6 +666,7 @@ export default {
       'story': '코어 마스터가 기다려. 풀어주자!'
     },
     'story': {
+      'tide': '조수 갑문. 첨벙첨벙 시간이야!',
       'drill': '깊은 광산. 머리 조심!',
       'magnet': '극성 공장. 나침반이 빙글빙글 돌아!',
       'scrapyard': '고철장 중계기. 불을 켜자!',

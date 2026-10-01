@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Thủy Lôi Cá Nóc',
     'mole': 'Chuột Chũi Khoan',
     'polar': 'Cún Từ Cực',
     'hardhat': 'Nón Sắt',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Thủy Lôi Cá Nóc | Thủy Lôi Cá Nóc',
     'mole': 'Chuột Chũi Khoan | Chuột Chũi Khoan',
     'polar': 'Cún Từ Cực | Cún Từ Cực',
     'hardhat': 'Nón Sắt | Nón Sắt',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Chúa Tể Thủy Triều',
     'drillMaster': 'Chúa Tể Mũi Khoan',
     'magnetMaster': 'Chúa Tể Nam Châm',
     'stand': 'Gã Phế Liệu',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Âu Thuyền Thủy Triều',
     'drill': 'Mỏ Sâu',
     'magnet': 'Xưởng Từ Cực',
     'scrapyard': 'Bãi Phế Liệu',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
     'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu' },
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
     'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' },
     'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' },
-    'drillBomb': { 'name': 'Bom Khoan', 'desc': 'Quả bom khoan nổ tung ngay chỗ nó dừng, trúng mọi cỗ máy xung quanh. Phá được đá nứt.' }
+    'drillBomb': { 'name': 'Bom Khoan', 'desc': 'Quả bom khoan nổ tung ngay chỗ nó dừng, trúng mọi cỗ máy xung quanh. Phá được đá nứt.' },
+    'bubbleLance': { 'name': 'Thương Bong Bóng', 'desc': 'Một bong bóng to lăn dọc mặt đất và nổ xuyên qua mọi cỗ máy trên đường đi.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Cùng luyện Phát Tụ Lực nào!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Sâu quá! Ra khỏi nước mau!',
+        'valve': 'Âu thuyền ngập nước! Bắn van để rút nước.',
+        'rise': 'Thủy triều đang lên. Leo lên bậc thang!',
+        'wade': 'Nước! Lội nước làm cậu chậm lại.',
+      },
       'drill': {
         'drop': 'Đá rơi! Ra khỏi vùng bóng!',
         'rock': 'Đá nứt! Phát tụ lực đầy sẽ phá được nó.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
     },
     'story': {
+      'tide': 'Âu Thuyền Thủy Triều. Đến giờ té nước!',
       'drill': 'Mỏ Sâu. Coi chừng đầu!',
       'magnet': 'Xưởng Từ Cực. La bàn của tớ quay mòng mòng!',
       'scrapyard': 'Trạm tiếp sóng Bãi Phế Liệu. Thắp sáng nó!',

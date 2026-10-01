@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer'
 
 export interface EnemyColors {
   main: string
@@ -48,7 +48,9 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // The Polar Pup: blue shells (south, closed) round a red core (north).
   polar: { main: '#3f6bff', deep: '#22306e', accent: '#ff4a5e', eye: '#ff4a5e', metal: '#9aa3b8' },
   // The Mole Driller: rust-brown body, steel drill, a miner's lamp.
-  mole: { main: '#b07a4a', deep: '#5a3d2a', accent: '#ffd23a', eye: '#ff6a2a', metal: '#a7afc4' }
+  mole: { main: '#b07a4a', deep: '#5a3d2a', accent: '#ffd23a', eye: '#ff6a2a', metal: '#a7afc4' },
+  // The Puffer Mine: a buoy-yellow pufferfish of a mine, red spikes.
+  puffer: { main: '#ffc94a', deep: '#a8661a', accent: '#ff5a3a', eye: '#2a3a5a', metal: '#d8dde8' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -482,6 +484,49 @@ export const poseMole = (rig: Rig, rise: number, spin: number, t: number, m?: En
   const dig = Math.sin(t * 9) * 0.5 * (1 - rise)
   pose(rig, 'pawL', -0.3 + dig, 0, 0.2)
   pose(rig, 'pawR', -0.3 - dig, 0, -0.2)
+}
+
+// ─── Puffer Mine ─────────────────────────────────────────────────────────────
+
+/**
+ * A floating mine shaped like a pufferfish (the Tidewater Locks): a round
+ * body ringed with spikes, two fins, big eyes. It drifts at Flux and swells
+ * (`swell` 0..1: the body grows, the spikes stand out) before it bursts in a
+ * ring of water. Pop it early from range, or block the ring.
+ */
+const PUFFER_SPIKES: Array<[number, number]> = []
+for (let a = 0; a < 3; a++) for (let k = 0; k < 8; k++) PUFFER_SPIKES.push([(k / 8) * Math.PI * 2 + a * 0.4, (a - 1) * 0.6])
+
+export const buildPuffer = (c: EnemyColors = BASE_COLORS.puffer): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0, 0])
+    .bone('spikes', 'body', [0, 0, 0])
+    .bone('finL', 'body', [-0.36, -0.02, -0.05])
+    .bone('finR', 'body', [0.36, -0.02, -0.05])
+  b.part('body', sph(0.36, 18, 14), c.main)
+  b.part('body', ell(0.3, 0.16, 0.3), c.deep, { p: [0, -0.18, 0] })
+  eye(b, 'body', [-0.13, 0.08, 0.3], 0.09, c.eye, 0, false)
+  eye(b, 'body', [0.13, 0.08, 0.3], 0.09, c.eye, 0, false)
+  b.part('body', ell(0.07, 0.04, 0.05), c.accent, { p: [0, -0.06, 0.34] })
+  for (const [yaw, pitch] of PUFFER_SPIKES) {
+    const x = Math.sin(yaw) * Math.cos(pitch) * 0.36
+    const y = Math.sin(pitch) * 0.36
+    const z = Math.cos(yaw) * Math.cos(pitch) * 0.36
+    b.part('spikes', rcone(0.035, 0.005, 0.14, 0.005, 6), c.accent, { p: [x, y, z], r: [Math.PI / 2 - pitch, yaw, 0] })
+  }
+  b.mirror((s, t) => b.part(`fin${t}`, ell(0.03, 0.1, 0.13), c.deep, { p: [s * 0.04, 0, 0] }))
+  return b.build({ outline: 0.015, height: 0.8 })
+}
+
+export const posePuffer = (rig: Rig, swell: number, t: number, m?: EnemyMotion): void => {
+  const T = m ? t * m.tempo : t
+  scaleBone(rig, 'body', 1 + 0.55 * swell)
+  scaleBone(rig, 'spikes', 1 + 0.4 * swell)
+  nudge(rig, 'body', 0, 0.06 * Math.sin(T * 1.9), 0)
+  pose(rig, 'body', 0.05 * Math.sin(T * 1.2), m ? 0.25 * m.look * m.calm : 0, 0.08 * Math.sin(T * 1.6) + (swell > 0 ? 0.05 * Math.sin(T * 30) * swell : 0))
+  const flap = Math.sin(T * 7) * 0.5
+  pose(rig, 'finL', 0, 0.3 + flap, 0)
+  pose(rig, 'finR', 0, -0.3 - flap, 0)
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -1049,5 +1094,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'golem': return buildGolem(c)
     case 'polar': return buildPolar(c)
     case 'mole': return buildMole(c)
+    case 'puffer': return buildPuffer(c)
   }
 }

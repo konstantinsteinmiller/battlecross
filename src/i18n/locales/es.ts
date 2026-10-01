@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Mina Globo',
     'mole': 'Topo Taladro',
     'polar': 'Cachorro Polar',
     'hardhat': 'Casquito',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Mina Globo | Minas Globo',
     'mole': 'Topo Taladro | Topos Taladro',
     'polar': 'Cachorro Polar | Cachorros Polares',
     'hardhat': 'Casquito | Casquitos',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Maestro Marea',
     'drillMaster': 'Maestro Taladro',
     'magnetMaster': 'Maestro Imán',
     'stand': 'Chatarrero',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Esclusas de Marea',
     'drill': 'Mina Profunda',
     'magnet': 'Fábrica de Polaridad',
     'scrapyard': 'Desguace',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Purga del sector',
     'climb': 'Carrera de la torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda' },
+    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea' },
     'rematch': 'Revancha: {boss}',
     'desc': {
       'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Arco de trueno', 'desc': 'Un rayo instantáneo que salta a las máquinas cercanas.' },
     'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' },
     'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' },
-    'drillBomb': { 'name': 'Bomba taladro', 'desc': 'Una bomba perforadora que estalla donde se detiene y golpea a todas las máquinas cercanas. Rompe la roca agrietada.' }
+    'drillBomb': { 'name': 'Bomba taladro', 'desc': 'Una bomba perforadora que estalla donde se detiene y golpea a todas las máquinas cercanas. Rompe la roca agrietada.' },
+    'bubbleLance': { 'name': 'Lanza Burbuja', 'desc': 'Una burbuja enorme rueda por el suelo y revienta a través de todas las máquinas a su paso.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': '¡Vamos a entrenar el disparo cargado!',
     },
     'hint': {
+      'tide': {
+        'deep': '¡Demasiado hondo! ¡Sal del agua!',
+        'valve': '¡Esclusa inundada! Dispara a la válvula para vaciarla.',
+        'rise': '¡Sube la marea! ¡Arriba por los escalones!',
+        'wade': '¡Agua! Vadear te frena.',
+      },
       'drill': {
         'drop': '¡Caen rocas! Sal de las sombras.',
         'rock': '¡Roca agrietada! Un disparo cargado al máximo la rompe.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
     },
     'story': {
+      'tide': 'Esclusas de Marea. ¡Hora de chapotear!',
       'drill': 'Mina Profunda. ¡Cuidado con la cabeza!',
       'magnet': 'Fábrica de Polaridad. ¡Mi brújula da vueltas!',
       'scrapyard': 'Relé del Desguace. ¡Enciéndelo!',

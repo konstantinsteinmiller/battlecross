@@ -74,7 +74,9 @@ export const GAME_ICON_NAMES = [
   // Magnet Pull's mark: a horseshoe magnet, its pole tips set apart.
   'magnet',
   // Drill Bomb's mark: a drill bit, its spiral flutes cut as gaps.
-  'drill'
+  'drill',
+  // Bubble Lance's mark: a bubble with its highlight cut out.
+  'bubble'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

@@ -36,7 +36,8 @@ export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
   volt: '#fff3a0',
   gale: '#7dffc4',
   magnet: '#ff5a6e',
-  drill: '#ffb12a'
+  drill: '#ffb12a',
+  tide: '#5fd2ff'
 }
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
@@ -220,6 +221,18 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     toon.push(xform(paint(rcone(0.55, 0.05, 1.8, 0.04, 12), '#c9a227'), [x + 1.4, 0.9, z + 0.6], [Math.PI, 0, 0.2]))
     toon.push(xform(paint(rbox(2.0, 0.5, 1.4, 0.2), '#4a3d32'), [x, 0.25, z]))
     lamp('drill', c, 'drill', xform(rbox(1.6, 0.1, 0.05, 0.3), [x, 0.45, z + 0.72]), x, z)
+  }
+
+  {
+    // The Tidewater Locks: a striped lighthouse by a lock gate.
+    const [x, z] = pos.tide
+    const c = SECTOR_GLOW.tide
+    toon.push(xform(paint(rcone(0.6, 0.35, 3.0, 0.06, 14), '#f4f7ff'), [x, 1.5, z]))
+    for (const h of [0.8, 1.8]) toon.push(xform(paint(rcyl(0.53 - h * 0.07, 0.35, 0.03, 14), '#ff5a3a'), [x, h, z]))
+    lamp('tide', c, 'tide', xform(sph(0.3, 10, 8), [x, 3.25, z]), x, z)
+    toon.push(xform(paint(rcone(0.38, 0.05, 0.45, 0.04, 12), '#3a4a5a'), [x, 3.7, z]))
+    toon.push(xform(paint(rbox(2.4, 1.0, 0.3, 0.2), '#2f7f8f'), [x + 1.2, 0.5, z + 1.1]))
+    lamp('tide', c, 'tide', xform(rbox(2.2, 0.08, 0.06, 0.3), [x + 1.2, 0.95, z + 1.27]), x, z)
   }
 
   // ── The city: towers in the ring, each with a neon band on its nearest

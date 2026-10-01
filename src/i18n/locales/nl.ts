@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Kogelvismijn',
     'mole': 'Molboorder',
     'polar': 'Poolpup',
     'hardhat': 'Bouwhelm',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Kogelvismijn | Kogelvismijnen',
     'mole': 'Molboorder | Molboorders',
     'polar': 'Poolpup | Poolpups',
     'hardhat': 'Bouwhelm | Bouwhelmen',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Getijmeester',
     'drillMaster': 'Boormeester',
     'magnetMaster': 'Magneetmeester',
     'stand': 'Sloper',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Getijdensluizen',
     'drill': 'Diepe Mijn',
     'magnet': 'Polariteitsfabriek',
     'scrapyard': 'Schroothoop',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Donderboog', 'desc': 'Directe bliksem die overspringt op machines in de buurt.' },
     'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' },
     'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' },
-    'drillBomb': { 'name': 'Boorbom', 'desc': 'Een boorbom die ontploft waar hij stopt en elke machine in de buurt raakt. Breekt gebarsten rots.' }
+    'drillBomb': { 'name': 'Boorbom', 'desc': 'Een boorbom die ontploft waar hij stopt en elke machine in de buurt raakt. Breekt gebarsten rots.' },
+    'bubbleLance': { 'name': 'Bellenlans', 'desc': 'Een dikke bel rolt over de vloer en knalt door elke machine op zijn pad.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Laten we het Geladen Schot trainen!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Te diep! Uit het water!',
+        'valve': 'Ondergelopen sluis! Schiet op de klep om hem leeg te laten lopen.',
+        'rise': 'Het tij komt op. De trap op!',
+        'wade': 'Water! Waden remt je af.',
+      },
       'drill': {
         'drop': 'Vallende stenen! Stap uit de schaduwen.',
         'rock': 'Gebarsten rots! Een volledig geladen schot breekt hem.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'tide': 'Getijdensluizen. Spettertijd!',
       'drill': 'Diepe Mijn. Let op je hoofd!',
       'magnet': 'Polariteitsfabriek. Mijn kompas tolt!',
       'scrapyard': 'Schroothoop-relais. Laat het stralen!',

@@ -59,7 +59,11 @@ export const SECTORS: Sector[] = [
     encounters: { kinds: [['mole', 2.5], ['hardhat', 2], ['brute', 1.5], ['roller', 1.5], ['trooper', 1.2], ['turret', 1.2], ['polar', 0.8]], element: 'none', density: 1.12, eliteChance: 0.11, golems: 0.24, theme: 'drill' }
   },
   {
-    id: 'fortress', levels: [22, 30], boss: 'vexMk1', after: 'drill', mapPos: [0.24, 0.32], rooms: [10, 12],
+    id: 'tide', levels: [22, 28], boss: 'tideMaster', after: 'drill', mapPos: [0.92, 0.86], rooms: [10, 12],
+    encounters: { kinds: [['puffer', 2.5], ['heli', 2], ['trooper', 1.5], ['roller', 1.2], ['brute', 1.2], ['turret', 1.2], ['polar', 0.8], ['mole', 0.6]], element: 'none', density: 1.14, eliteChance: 0.11, golems: 0.25, theme: 'tide' }
+  },
+  {
+    id: 'fortress', levels: [25, 33], boss: 'vexMk1', after: 'tide', mapPos: [0.24, 0.32], rooms: [10, 12],
     encounters: { kinds: [['brute', 2], ['trooper', 2], ['heli', 2], ['hopper', 2], ['roller', 2], ['turret', 1.5], ['hardhat', 1.5]], element: 'none', density: 1.15, eliteChance: 0.12, golems: 0.24, theme: 'fortress' }
   }
 ]

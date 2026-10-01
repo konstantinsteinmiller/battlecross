@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Mina Pesce Palla',
     'mole': 'Talpa Trivella',
     'polar': 'Cucciolo Polare',
     'hardhat': 'Caschetto',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Mina Pesce Palla | Mine Pesce Palla',
     'mole': 'Talpa Trivella | Talpe Trivella',
     'polar': 'Cucciolo Polare | Cuccioli Polari',
     'hardhat': 'Caschetto | Caschetti',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Maestro Marea',
     'drillMaster': 'Maestro Trivella',
     'magnetMaster': 'Maestro Magnete',
     'stand': 'Rottamatore',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Chiuse di Marea',
     'drill': 'Miniera Profonda',
     'magnet': 'Officina Polarità',
     'scrapyard': 'Discarica',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Arco Tonante', 'desc': 'Un fulmine istantaneo che rimbalza sulle macchine vicine.' },
     'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' },
     'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' },
-    'drillBomb': { 'name': 'Bomba Trivella', 'desc': 'Una bomba trivellante che esplode dove si ferma e colpisce tutte le macchine intorno. Spacca la roccia crepata.' }
+    'drillBomb': { 'name': 'Bomba Trivella', 'desc': 'Una bomba trivellante che esplode dove si ferma e colpisce tutte le macchine intorno. Spacca la roccia crepata.' },
+    'bubbleLance': { 'name': 'Lancia Bolla', 'desc': 'Una grossa bolla rotola sul pavimento e scoppia attraverso ogni macchina sul suo cammino.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Alleniamo il Colpo Caricato!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Troppo profondo! Esci dall’acqua!',
+        'valve': 'Chiusa allagata! Spara alla valvola per svuotarla.',
+        'rise': 'Arriva la marea. Su per i gradini!',
+        'wade': 'Acqua! Guadare ti rallenta.',
+      },
       'drill': {
         'drop': 'Cadono massi! Esci dalle ombre.',
         'rock': 'Roccia crepata! Un colpo a carica piena la spacca.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Un Maestro del Nucleo attende. Liberiamolo!'
     },
     'story': {
+      'tide': 'Chiuse di Marea. È ora di sguazzare!',
       'drill': 'Miniera Profonda. Occhio alla testa!',
       'magnet': 'Officina Polarità. La mia bussola impazzisce!',
       'scrapyard': 'Relè della Discarica. Accendilo!',

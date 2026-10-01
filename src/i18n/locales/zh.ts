@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': '河豚水雷',
     'mole': '钻地鼹鼠',
     'polar': '磁极小狗',
     'hardhat': '钢盔兵',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': '河豚水雷 | 河豚水雷',
     'mole': '钻地鼹鼠 | 钻地鼹鼠',
     'polar': '磁极小狗 | 磁极小狗',
     'hardhat': '钢盔兵 | 钢盔兵',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': '潮汐大师',
     'drillMaster': '钻头大师',
     'magnetMaster': '磁力大师',
     'stand': '拆解者',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': '潮汐水闸',
     'drill': '深层矿井',
     'magnet': '磁极工厂',
     'scrapyard': '废料场',
@@ -135,7 +139,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': '雷电弧', 'desc': '瞬发闪电，会连锁到附近的机械。' },
     'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' },
     'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' },
-    'drillBomb': { 'name': '钻头炸弹', 'desc': '钻地炸弹，停在哪里就在哪里爆炸，命中周围所有机械。能击碎裂开的岩石。' }
+    'drillBomb': { 'name': '钻头炸弹', 'desc': '钻地炸弹，停在哪里就在哪里爆炸，命中周围所有机械。能击碎裂开的岩石。' },
+    'bubbleLance': { 'name': '泡泡长枪', 'desc': '巨大的泡泡沿着地面滚动，冲破路上的每一台机械后爆开。' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': '我们来练习蓄力弹吧！',
     },
     'hint': {
+      'tide': {
+        'deep': '太深了！快离开水里！',
+        'valve': '水闸被淹了！射击阀门把水排掉！',
+        'rise': '潮水涨上来了，快上台阶！',
+        'wade': '有水！蹚水会变慢。',
+      },
       'drill': {
         'drop': '落石！快离开阴影！',
         'rock': '裂开的岩石！满蓄力弹就能击碎它！',
@@ -655,6 +666,7 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'tide': '潮汐水闸，玩水时间到！',
       'drill': '深层矿井，小心头顶！',
       'magnet': '磁极工厂，我的指南针在乱转！',
       'scrapyard': '废料场中继站，点亮它！',

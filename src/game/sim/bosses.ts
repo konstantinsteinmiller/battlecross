@@ -106,8 +106,15 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
   polarStorm: { tele: 0.8, red: false },
   burrow: { tele: 0.6, red: true },
   drillBombs: { tele: 0.7, red: true },
-  quake: { tele: 0.9, red: true }
+  quake: { tele: 0.9, red: true },
+  tidalWave: { tele: 0.8, red: true },
+  bubbleVolley: { tele: 0.6, red: false },
+  whirlpool: { tele: 1.0, red: true }
 }
+
+/** The Tide Master's whirlpool: its pull (m/s, s) and the ring at its end. */
+const WHIRL_S = 3.8
+const WHIRL_T = 2.2
 
 /** The Drill Master's burrow: how long it tunnels after Flux (s), how fast
  *  (m/s), the warning before it bursts up (s, the marker) and its reach (m). */
@@ -434,6 +441,44 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         return false
       }
       return e.st > 0.8
+    }
+    case 'tidalWave': {
+      // Two walls of water along the floor, a beat apart: slide under.
+      if (e.step < 2 && e.st >= e.step * 0.6) {
+        const a = Math.atan2(p.x - e.x, p.z - e.z) + (e.step === 0 ? -0.12 : 0.12)
+        w.spawnWave(e, e.x + Math.sin(a) * 1.2, e.z + Math.cos(a) * 1.2, Math.sin(a), Math.cos(a), 7.5, 1.3, 24, Math.round(e.dmg * 1.05), '#5fd2ff')
+        w.sfx('dash', e.x, e.z)
+        e.step++
+      }
+      return e.st > 1.5
+    }
+    case 'bubbleVolley': {
+      // Slow bubbles that drift after Flux: four, a fan.
+      if (e.step < 4 && e.st >= e.step * 0.14) {
+        const a = Math.atan2(p.x - e.x, p.z - e.z) + (e.step - 1.5) * 0.4
+        w.fireOrb(e, e.x + Math.sin(a) * s, 1.4 * s, e.z + Math.cos(a) * s, 4.6, Math.round(e.dmg * 0.75))
+        e.step++
+      }
+      return e.st > 0.9
+    }
+    case 'whirlpool': {
+      // The arena swirls round the Master: Flux is drawn in; at the end a
+      // ring bursts out from it.
+      if (e.step === 0) {
+        e.step = 1
+        w.pull?.(e.x, e.z, WHIRL_S, WHIRL_T)
+        w.sfx('alert', e.x, e.z)
+      }
+      if (Math.random() < 0.7) {
+        const a = e.st * 6 + Math.random() * 6.28
+        const r = 1.5 + Math.random() * 4
+        w.fx.emit({ x: e.x + Math.cos(a) * r, y: 0.2, z: e.z + Math.sin(a) * r, vx: -Math.sin(a) * 3, vz: Math.cos(a) * 3, color: Math.random() < 0.5 ? '#5fd2ff' : '#bff0ff', size: 0.35, sizeEnd: 0.05, life: 0.5 })
+      }
+      if (e.step === 1 && e.st >= WHIRL_T) {
+        e.step = 2
+        w.spawnRing(e, e.x, e.z, 9, 9, Math.round(e.dmg * 0.9), '#5fd2ff')
+      }
+      return e.st > WHIRL_T + 0.5
     }
     case 'fireWave':
     case 'tornado': {

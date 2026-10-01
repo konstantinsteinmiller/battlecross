@@ -449,7 +449,7 @@ describe('stage features', () => {
       move: (_p, out) => { out.friction *= 0.3; out.pushX += 2; out.pushZ -= 1 }
     })
     const p = body(cellCenter(1), cellCenter(1))
-    expect(run.moveMod(p)).toEqual({ friction: 0.3, pushX: 2, pushZ: -1 })
+    expect(run.moveMod(p)).toEqual({ friction: 0.3, pushX: 2, pushZ: -1, speed: 1 })
     // Pushed: 2 m/s along X, 1 m/s against Z with no walk of its own.
     const out: [number, number] = [0, 0]
     run.stepBody(p, out, 0, 0, 0.5, false)

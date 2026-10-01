@@ -2,7 +2,7 @@ import {
   CELL, Cell, Ramp, cellCenter, type MapData, type Room, type RoomRole, type Door, type Terrain, type SectionKind,
   type Ladder, type Lift, type Crusher, type RollerLane, type Checkpoint, type RewardSpot, type FoePost,
   type ChestSpot, type SecretSpec, type PitKind, type WindZone, type RailSpec, type WaveSpec, type VentSpec, type NavLink,
-  type IcePillar, type IcicleSpec, type CrumbleSpec, type MagnetRail
+  type IcePillar, type IcicleSpec, type CrumbleSpec, type MagnetRail, type WaterZone
 } from '../levelGen'
 
 /**
@@ -71,6 +71,7 @@ export class Builder {
   pitKinds: PitKind[] = []
   wind: WindZone[] = []
   magnets: MagnetRail[] = []
+  water: WaterZone[] = []
   rails: RailSpec[] = []
   waves: WaveSpec[] = []
   vents: VentSpec[] = []
@@ -370,6 +371,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
   }
   if (b.wind.length) terrain.wind = b.wind
   if (b.magnets.length) terrain.magnets = b.magnets
+  if (b.water.length) terrain.water = b.water
   if (b.rails.length) terrain.rails = b.rails
   if (b.waves.length) terrain.waves = b.waves
   if (b.vents.length) terrain.vents = b.vents
@@ -443,6 +445,14 @@ export const mirrorX = (m: MapData): MapData => {
     terrain.magnets = t.magnets.map(r => ({
       ...r, i0: mi(r.i1), i1: mi(r.i0), dx: -r.dx,
       ...(r.panel ? { panel: { ...r.panel, i: mi(r.panel.i), side: side[r.panel.side] } } : {})
+    }))
+  }
+  if (t.water) {
+    const side = { n: 'n', s: 's', e: 'w', w: 'e' } as const
+    terrain.water = t.water.map(z => ({
+      ...z, i0: mi(z.i1), i1: mi(z.i0),
+      ...(z.dx ? { dx: -z.dx } : {}),
+      ...(z.valve ? { valve: { ...z.valve, i: mi(z.valve.i), side: side[z.valve.side] } } : {})
     }))
   }
   if (t.rails) {

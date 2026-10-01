@@ -14,7 +14,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
  * silhouette.
  */
 
-export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'vexMk1'
+export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'tideMaster' | 'vexMk1'
 
 interface MasterSpec {
   main: string
@@ -194,6 +194,25 @@ export const buildDrillMaster = (): Rig => masterRig({
   }
 })
 
+export const buildTideMaster = (): Rig => masterRig({
+  main: '#2f9fd8', deep: '#1f3f6a', accent: '#ffd23a', glow: '#bff0ff', skin: '#ffd2a8',
+  crest: (b) => {
+    // A dorsal fin over the helmet, and a diver's visor ring.
+    b.part('head', ell(0.04, 0.2, 0.17), '#1f3f6a', { p: [0, 0.4, -0.06], r: [-0.3, 0, 0] })
+    b.part('head', torus(0.12, 0.025, 6, 18), '#ffd23a', { p: [0, 0.2, 0.2] })
+    // Bubble tanks on the back.
+    b.mirror((sd) => b.part('chest', rcyl(0.07, 0.3, 0.03, 12), '#bff0ff', { p: [sd * 0.11, 0.08, -0.24], glow: true, outline: false }))
+  },
+  arms: (b) => {
+    b.mirror((sd, t) => {
+      b.part(`elbow${t}`, cap(0.085, 0.1), '#1f3f6a', { p: [0, -0.09, 0] })
+      // A lance on each forearm, a bubble at its tip.
+      b.part(`elbow${t}`, rcone(0.06, 0.012, 0.42, 0.01, 10), '#ffd23a', { p: [sd * 0.02, -0.36, 0.03], r: [Math.PI, 0, 0] })
+      b.part(`elbow${t}`, sph(0.06, 10, 8), '#bff0ff', { p: [sd * 0.02, -0.6, 0.03], glow: true, outline: false })
+    })
+  }
+})
+
 /** The Scrapper: a hulking junk crane — magnet claw, hammer fist, visor head. */
 export const buildScrapper = (): Rig => {
   const b = new RigBuilder()
@@ -280,6 +299,7 @@ export const buildBossRig = (id: BossId): Rig => {
     case 'galeMaster': return buildGaleMaster()
     case 'magnetMaster': return buildMagnetMaster()
     case 'drillMaster': return buildDrillMaster()
+    case 'tideMaster': return buildTideMaster()
     case 'vexMk1': return buildVex()
   }
 }
@@ -371,6 +391,14 @@ const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: n
       rX = -0.06 * bz
       buzz = 0.01 * Math.sin(10 * TAU * p)
       hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else if (id === 'tideMaster') {
+      // Breaststroke: both arms sweep out and round, the head bobs
+      const sw = Math.sin(TAU * p)
+      lY = 0.5 * Math.max(0, sw)
+      rY = -0.5 * Math.max(0, sw)
+      lX = -0.3 * Math.max(0, -sw)
+      rX = -0.3 * Math.max(0, -sw)
+      hX = 0.08 * Math.sin(2 * TAU * p)
     } else if (id === 'drillMaster') {
       // Drill rev: both forearms buzz, the head ducks to the noise
       const rev = Math.sin(Math.PI * p)

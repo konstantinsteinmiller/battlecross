@@ -478,6 +478,7 @@ export class ClimbRun {
     m.friction = 1
     m.pushX = 0
     m.pushZ = 0
+    m.speed = 1
     for (const f of this.features) f.move?.(p, m)
     m.pushX += this.pullX
     m.pushZ += this.pullZ

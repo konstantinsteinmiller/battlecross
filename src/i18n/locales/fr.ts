@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Mine Fugu',
     'mole': 'Taupe Foreuse',
     'polar': 'Chiot Polaire',
     'hardhat': 'Casqué',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Mine Fugu | Mines Fugu',
     'mole': 'Taupe Foreuse | Taupes Foreuses',
     'polar': 'Chiot Polaire | Chiots Polaires',
     'hardhat': 'Casqué | Casqués',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Maître Marée',
     'drillMaster': 'Maître Foreuse',
     'magnetMaster': 'Maître Aimant',
     'stand': 'Ferrailleur',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Écluses Marée',
     'drill': 'Mine profonde',
     'magnet': 'Usine Polarité',
     'scrapyard': 'Casse',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Arc de foudre', 'desc': 'Un éclair instantané qui se propage aux machines proches.' },
     'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." },
     'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' },
-    'drillBomb': { 'name': 'Bombe foreuse', 'desc': "Une bombe foreuse qui éclate là où elle s'arrête et frappe toutes les machines autour. Brise la roche fissurée." }
+    'drillBomb': { 'name': 'Bombe foreuse', 'desc': "Une bombe foreuse qui éclate là où elle s'arrête et frappe toutes les machines autour. Brise la roche fissurée." },
+    'bubbleLance': { 'name': 'Lance-bulle', 'desc': 'Une grosse bulle roule au sol et éclate à travers chaque machine sur son passage.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Entraînons-nous au tir chargé !',
     },
     'hint': {
+      'tide': {
+        'deep': 'Trop profond ! Sors de l’eau !',
+        'valve': 'Écluse inondée ! Tire sur la vanne pour la vider.',
+        'rise': 'La marée monte. Grimpe les marches !',
+        'wade': 'De l’eau ! Patauger te ralentit.',
+      },
       'drill': {
         'drop': 'Chute de pierres ! Sors des ombres.',
         'rock': 'Roche fissurée ! Un tir chargé à fond la brisera.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'tide': 'Écluses Marée. C’est l’heure de barboter !',
       'drill': 'Mine profonde. Attention à ta tête !',
       'magnet': "Usine Polarité. Ma boussole s'affole !",
       'scrapyard': 'Relais de la Casse. Allume-le !',

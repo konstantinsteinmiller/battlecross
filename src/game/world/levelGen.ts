@@ -209,7 +209,7 @@ export interface FoePost {
  *  wall height keys on it). The climb's seven, then the platform stages'. */
 export type SectionKind = 'hall' | 'ladder' | 'rolling' | 'lift' | 'crusher' | 'descent' | 'arena'
   | 'drop' | 'vents' | 'hammer' | 'lava' | 'ice' | 'spikes' | 'frost' | 'icicles' | 'rail' | 'cart' | 'islands' | 'shuttle' | 'wind' | 'dock'
-  | 'magnet' | 'conveyor'
+  | 'magnet' | 'conveyor' | 'water'
 
 // ─── Terrain extensions (the platform stages, `world/stages/`) ──────────────
 // All optional on `Terrain`: the climb sets only `chests`, and nothing reads
@@ -282,6 +282,29 @@ export interface MagnetRail {
   panel?: { i: number; j: number; side: 'n' | 's' | 'e' | 'w' }
   every?: number
   phase?: number
+  room: number
+}
+
+/** Water over a rectangle of cells (the Tidewater Locks,
+ *  `world/stages/tide.ts`): its surface stands between `lo` and `hi` (world
+ *  y). On the clock (`period` > 0) the tide rises, holds, falls and holds;
+ *  with a `valve` (a wheel on a wall) it stands at `hi` until the valve is
+ *  shot, then drains to `lo` for good; otherwise it holds at `lo`. In it
+ *  Flux wades slower the deeper it is; over his chest it hurts. A current
+ *  (dx, dz, `strength` m/s) pushes whoever wades in it. */
+export interface WaterZone {
+  i0: number
+  j0: number
+  i1: number
+  j1: number
+  lo: number
+  hi: number
+  period?: number
+  phase?: number
+  valve?: { i: number; j: number; side: 'n' | 's' | 'e' | 'w' }
+  dx?: number
+  dz?: number
+  strength?: number
   room: number
 }
 
@@ -422,6 +445,8 @@ export interface Terrain {
   wind?: WindZone[]
   /** Magnet rails (the Polarity Works). */
   magnets?: MagnetRail[]
+  /** Water: tides, locks and currents (the Tidewater Locks). */
+  water?: WaterZone[]
   rails?: RailSpec[]
   waves?: WaveSpec[]
   vents?: VentSpec[]

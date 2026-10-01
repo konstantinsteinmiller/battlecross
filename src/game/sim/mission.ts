@@ -3199,7 +3199,13 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       }
     }
     if (this.climb) this.climb.setPull(pvx, pvz)
-    const k = this.climb ? walkBlend(dt, c.slideT > 0, air, this.climb.moveMod(p).friction) : c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
+    const mod = this.climb?.moveMod(p)
+    // Wading (the Tidewater Locks' water): the walk slows; a slide too.
+    if (mod?.speed !== undefined && mod.speed < 1 && !air) {
+      tx *= mod.speed
+      tz *= mod.speed
+    }
+    const k = mod ? walkBlend(dt, c.slideT > 0, air, mod.friction) : c.slideT > 0 ? 1 : Math.min(1, dt * ACCEL)
     p.vx += (tx - p.vx) * k
     p.vz += (tz - p.vz) * k
     const out: [number, number] = [0, 0]

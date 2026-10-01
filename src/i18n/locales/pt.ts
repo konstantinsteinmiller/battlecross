@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'puffer': 'Mina Baiacu',
     'mole': 'Toupeira Broca',
     'polar': 'Filhote Polar',
     'hardhat': 'Capacetinho',
@@ -75,6 +76,7 @@ export default {
   },
 
   'enemyPlural': {
+    'puffer': 'Mina Baiacu | Minas Baiacu',
     'mole': 'Toupeira Broca | Toupeiras Broca',
     'polar': 'Filhote Polar | Filhotes Polares',
     'hardhat': 'Capacetinho | Capacetinhos',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'tideMaster': 'Mestre Maré',
     'drillMaster': 'Mestre Broca',
     'magnetMaster': 'Mestre Ímã',
     'stand': 'Sucateiro',
@@ -113,6 +116,7 @@ export default {
   },
 
   'sector': {
+    'tide': 'Eclusas da Maré',
     'drill': 'Mina Profunda',
     'magnet': 'Usina Polaridade',
     'scrapyard': 'Ferro-Velho',
@@ -135,7 +139,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -463,7 +467,8 @@ export default {
     'thunderArc': { 'name': 'Arco Trovão', 'desc': 'Um raio instantâneo que salta para as máquinas próximas.' },
     'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' },
     'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' },
-    'drillBomb': { 'name': 'Bomba Broca', 'desc': 'Uma bomba perfuradora que explode onde para, atingindo todas as máquinas ao redor. Quebra rocha rachada.' }
+    'drillBomb': { 'name': 'Bomba Broca', 'desc': 'Uma bomba perfuradora que explode onde para, atingindo todas as máquinas ao redor. Quebra rocha rachada.' },
+    'bubbleLance': { 'name': 'Lança Bolha', 'desc': 'Uma bolha enorme rola pelo chão e estoura através de todas as máquinas no caminho.' }
   },
 
   'options': {
@@ -597,6 +602,12 @@ export default {
       'charge': 'Vamos treinar o Tiro Carregado!',
     },
     'hint': {
+      'tide': {
+        'deep': 'Fundo demais! Saia da água!',
+        'valve': 'Eclusa alagada! Atire na válvula para drenar.',
+        'rise': 'A maré está subindo. Suba os degraus!',
+        'wade': 'Água! Andar nela te deixa lento.',
+      },
       'drill': {
         'drop': 'Pedras caindo! Saia das sombras.',
         'rock': 'Rocha rachada! Um tiro com carga total quebra ela.',
@@ -655,6 +666,7 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'tide': 'Eclusas da Maré. Hora de chapinhar!',
       'drill': 'Mina Profunda. Cuidado com a cabeça!',
       'magnet': 'Usina Polaridade. Minha bússola tá girando!',
       'scrapyard': 'Relé do Ferro-Velho. Bora acender!',

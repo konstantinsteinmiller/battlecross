@@ -49,7 +49,9 @@ export const ENEMY_WEAK: Record<EnemyKind, WeakSpot> = {
   // The bare core, under the shells' front seam.
   polar: spot('core', 0, 0.22, 0.17),
   // The engine on its back.
-  mole: spot('back', 0.6, -0.42, 0.2)
+  mole: spot('back', 0.6, -0.42, 0.2),
+  // Its mouth, under the eyes.
+  puffer: spot('core', -0.06, 0.34, 0.15)
 }
 
 export const BOSS_WEAK: Record<BossId, WeakSpot> = {
@@ -62,6 +64,7 @@ export const BOSS_WEAK: Record<BossId, WeakSpot> = {
   galeMaster: spot('head', 1.98, 0.08, 0.32),
   magnetMaster: spot('head', 1.98, 0.08, 0.32),
   drillMaster: spot('head', 1.98, 0.08, 0.32),
+  tideMaster: spot('head', 1.98, 0.08, 0.32),
   vexMk1: spot('dome', 0.85, 0, 0.45)
 }
 

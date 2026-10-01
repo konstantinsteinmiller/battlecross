@@ -16,6 +16,7 @@ import { ShockFeature } from './stages/shock'
 import type { Shot } from './world'
 import { SecretsFeature } from './secrets'
 import { MagnetFeature, polarityCues } from './stages/magnet'
+import { WaterFeature } from './stages/water'
 
 /**
  * ─── Stage features: the platform stages' mechanics, one file each ───────────
@@ -74,6 +75,8 @@ export interface MoveMod {
   friction: number
   pushX: number
   pushZ: number
+  /** The walk's top speed, multiplied (water: < 1). Absent: 1. */
+  speed?: number
 }
 
 /** What of the climb's run a feature may drive (a secret's false wall). */
@@ -122,6 +125,9 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
 
   // ── magnet (Polarity Works), after every older slot ──
   if (t.magnets?.length) out.push(new MagnetFeature(host, t), polarityCues(host, t))
+
+  // ── tide (Tidewater Locks) ──
+  if (t.water?.length) out.push(new WaterFeature(host, t))
 
   return out
 }
