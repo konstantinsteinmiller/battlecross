@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Cadono massi! Esci dalle ombre.',
         'rock': 'Roccia crepata! Un colpo a carica piena la spacca.',
+        'board': 'Il carrello parte! Guido io, tu spara alle talpe.',
+        'dip': 'Discesa ripida! Tieniti forte!',
+        'arrive': 'Ultima fermata. Giù, salta!'
       },
       'magnet': {
         'panel': 'Vedi quella piastra rossa e blu? Sparale per invertire il binario.',

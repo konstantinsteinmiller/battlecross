@@ -645,6 +645,9 @@ export default {
       'drill': {
         'drop': 'Kaya düşüyor! Gölgelerden çık.',
         'rock': 'Çatlak kaya! Tam şarjlı atış onu kırar.',
+        'board': 'Maden arabası yola çıktı! Ben sürerim, sen köstebekleri vur.',
+        'dip': 'Dik iniş! Sıkı tutun!',
+        'arrive': 'Son durak. Atla bakalım!'
       },
       'magnet': {
         'panel': 'Şu kırmızı-mavi plakayı gördün mü? Rayı ters çevirmek için ona ateş et.',

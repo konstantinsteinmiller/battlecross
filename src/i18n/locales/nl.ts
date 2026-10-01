@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Vallende stenen! Stap uit de schaduwen.',
         'rock': 'Gebarsten rots! Een volledig geladen schot breekt hem.',
+        'board': 'Het mijnkarretje rolt! Ik stuur, jij schiet de mollen.',
+        'dip': 'Steile afdaling! Hou je goed vast!',
+        'arrive': 'Laatste halte. Spring er maar uit!'
       },
       'magnet': {
         'panel': 'Zie je die rood-blauwe plaat? Schiet erop om de rail om te polen.',

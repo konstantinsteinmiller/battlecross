@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Toshlar tushyapti! Soyalardan chiq.',
         'rock': 'Yorilgan tosh! Toʻliq zaryadli oʻq uni sindiradi.',
+        'board': 'Ruda aravasi yurdi! Men boshqaraman, sen koʻrsichqonlarni ot.',
+        'dip': 'Tik pastlik! Mahkam ushla!',
+        'arrive': 'Oxirgi bekat. Sakrab tush!'
       },
       'magnet': {
         'panel': 'Anavi qizil-koʻk plitani koʻryapsanmi? Relsni aylantirish uchun unga oʻq uz.',

@@ -218,3 +218,64 @@ describe('the mine\'s rock', () => {
     expect(said).toContain('hint.drill.drop')
   })
 })
+
+// ─── The mine cart (#111) ────────────────────────────────────────────────────
+
+import { cellCenter } from '@/game/world/levelGen'
+import { groundAt } from '@/game/world/nav'
+import { ClimbRun, type ClimbBody } from '@/game/sim/climb'
+import { RailFeature } from '@/game/sim/stages/rail'
+
+describe('the mine cart', () => {
+  const DT = 1 / 60
+  const body = (x: number, z: number, y = 0): ClimbBody => ({
+    x, z, y, vx: 0, vz: 0, vy: 0, yaw: 0, ground: true, ladder: -1, plat: -1, air: 0, safeY: y, mantle: 0, mx: 0, mz: 0, path: null
+  })
+  const step = (run: ClimbRun, p: ClimbBody, time: number): void => {
+    run.update(DT, time, p, true)
+    const out: [number, number] = [0, 0]
+    if (!run.locksMove()) { p.vx = 0; p.vz = 0 }
+    run.stepBody(p, out, 0, 0, DT, false)
+    p.x = out[0]
+    p.z = out[1]
+  }
+
+  it('waits where the corridor comes into the chasm, linked to the warren\'s west door, mirror and all', () => {
+    for (const seed of SEEDS.slice(0, 8)) {
+      const m = generateDeepMine(seed)
+      const r = m.terrain!.rails![0]!
+      const first = r.points[0]!
+      const last = r.points[r.points.length - 1]!
+      expect([first.x, first.z]).toEqual([cellCenter(r.boardAt.i), cellCenter(r.boardAt.j)])
+      expect([last.x, last.z]).toEqual([cellCenter(r.exitAt.i), cellCenter(r.exitAt.j)])
+      expect(m.terrain!.links!.some(l => l.kind === 'rail')).toBe(true)
+      // A trestle over the chasm: it climbs, then takes a steep drop.
+      expect(Math.max(...r.points.map(p => p.y))).toBeGreaterThan(first.y + 2)
+    }
+  })
+
+  it('its slot comes after every older one, so old Deep Mine saves keep theirs', () => {
+    const m = generateDeepMine(SEEDS[1]!)
+    const run = new ClimbRun(hostFor(m), 1)
+    expect(run.features.map(f => f.constructor.name)).toEqual(['IcePillars', 'Icicles', 'SecretsFeature', 'CrumbleFeature', 'RailFeature'])
+  })
+
+  it('an ore tub on a sleepered track carries Flux to the warren\'s west door, with the mine\'s own lines', () => {
+    const m = generateDeepMine(SEEDS[3]!)
+    const said: AtlasLine[] = []
+    const run = new ClimbRun(hostFor(m, said), 1)
+    const rail = run.features.find((f): f is RailFeature => f instanceof RailFeature)!
+    const r = m.terrain!.rails![0]!
+    const x = cellCenter(r.boardAt.i)
+    const z = cellCenter(r.boardAt.j)
+    const p = body(x, z, groundAt(m, x, z))
+    let time = 0
+    let steps = 0
+    while (rail.state !== 'done' && steps++ < 60 * 60) step(run, p, (time += DT))
+    expect(rail.state).toBe('done')
+    expect(steps * DT).toBeGreaterThan(12)
+    expect(Math.floor(p.x / CELL)).toBe(r.exitAt.i)
+    expect(Math.floor(p.z / CELL)).toBe(r.exitAt.j)
+    expect(said).toEqual(expect.arrayContaining(['hint.drill.board', 'hint.drill.dip', 'hint.drill.arrive']))
+  })
+})

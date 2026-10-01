@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Pedras caindo! Saia das sombras.',
         'rock': 'Rocha rachada! Um tiro com carga total quebra ela.',
+        'board': 'O vagonete partiu! Eu dirijo, você atira nas toupeiras.',
+        'dip': 'Descida íngreme! Segure firme!',
+        'arrive': 'Última parada. Pode pular!'
       },
       'magnet': {
         'panel': 'Viu aquela placa vermelha e azul? Atira nela pra inverter o trilho.',

@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': '¡Caen rocas! Sal de las sombras.',
         'rock': '¡Roca agrietada! Un disparo cargado al máximo la rompe.',
+        'board': '¡La vagoneta arranca! Yo conduzco, tú dispara a los topos.',
+        'dip': '¡Bajada empinada! ¡Agárrate fuerte!',
+        'arrive': 'Última parada. ¡Abajo!'
       },
       'magnet': {
         'panel': '¿Ves esa placa roja y azul? Dispárale para invertir el raíl.',

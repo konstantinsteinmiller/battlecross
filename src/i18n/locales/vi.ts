@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Đá rơi! Ra khỏi vùng bóng!',
         'rock': 'Đá nứt! Phát tụ lực đầy sẽ phá được nó.',
+        'board': 'Xe goòng chạy rồi! Tôi lái, cậu bắn lũ chuột chũi.',
+        'dip': 'Dốc đứng! Bám chặt vào!',
+        'arrive': 'Trạm cuối. Nhảy xuống thôi!'
       },
       'magnet': {
         'panel': 'Thấy tấm đỏ-xanh kia không? Bắn nó để đảo chiều ray.',

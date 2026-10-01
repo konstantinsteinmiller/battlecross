@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Steinschlag! Raus aus den Schatten.',
         'rock': 'Rissiger Fels! Ein voller Ladeschuss knackt ihn.',
+        'board': 'Die Lore rollt! Ich lenke, du schießt auf die Maulwürfe.',
+        'dip': 'Steil bergab! Gut festhalten!',
+        'arrive': 'Letzter Halt. Raus mit dir!'
       },
       'magnet': {
         'panel': 'Siehst du die rot-blaue Platte? Schieß drauf, um die Schiene umzupolen.',

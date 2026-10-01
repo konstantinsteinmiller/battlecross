@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Chute de pierres ! Sors des ombres.',
         'rock': 'Roche fissurée ! Un tir chargé à fond la brisera.',
+        'board': 'Le wagonnet roule ! Je conduis, tu tires sur les taupes.',
+        'dip': 'Grosse pente ! Accroche-toi bien !',
+        'arrive': 'Dernier arrêt. Tout le monde descend !'
       },
       'magnet': {
         'panel': 'Tu vois la plaque rouge et bleue ? Tire dessus pour inverser le rail.',

@@ -1,6 +1,7 @@
 import { CELL, Ramp, cellCenter, type MapData, type Lift } from '../levelGen'
 import { mulberry32 } from '../rng'
 import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './builder'
+import { railCourse } from './volt'
 
 /**
  * ─── Deep Mine (the drill sector's story stage) ─────────────────────────────
@@ -22,8 +23,11 @@ import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './buil
  *   3 Terraces        drops a storey at a time under falling stalactites
  *   4 Mine elevator   a lift down two storeys over the shaft
  *   5 Rockfall tunnel stalactites in a row, boulders to duck behind
- *   6 Chasm           islands over one-cell gaps; a crumbling slab
- *   7 Mole warren     a fight among boulders: three Mole Drillers
+ *   6 Chasm           islands over one-cell gaps; a crumbling slab — or the
+ *                     MINE CART (#111): up a trestle over the chasm, down
+ *                     the steep drop, north through the corridor and across
+ *   7 Mole warren     a fight among boulders: three Mole Drillers (the
+ *                     cart's run ends at the warren's west door)
  *   8 Weapon cave     the borrowed weapon sealed behind cracked rock
  *   9 Stair descent   down a flight under stalactites
  *  10 Lamp gallery    a secret alcove behind its south wall
@@ -161,6 +165,15 @@ export const generateDeepMine = (seed: number): MapData => {
   b.foe('flyer', 19, 17, YAW_NX, [13, 17, 26, 20], [L(4), L(3)])
   b.foe('ground', 15, 20, YAW_NX, [13, 17, 16, 20], undefined, 'mole')
   b.corridor(14, 16, 0, -1, 2, L(4))
+  // The mine cart (#111): it waits where the corridor comes in, climbs onto a
+  // trestle over the chasm, takes the steep drop, turns north through the
+  // corridor and runs across the Mole Warren to its west door. The islands
+  // stay a walk for whoever steps past it.
+  const mine = railCourse([
+    [26, 18, L(4)], [22, 18, L(4) + 2.4], [17, 18, L(4) + 2.4], [14, 18, L(4)], [14, 12, L(4)], [9, 12, L(4)]
+  ])
+  b.rails.push({ points: mine, speed: 5, room: 5, boardAt: { i: 26, j: 18 }, exitAt: { i: 9, j: 12 } })
+  b.link([26, 18], [9, 12], 'rail')
 
   // ── 7 Mole warren ─────────────────────────────────────────────────────────
   b.addRoom(9, 9, 8, 6, 'combat', 'hall', L(4))

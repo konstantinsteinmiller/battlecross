@@ -110,7 +110,8 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
   if (t.icicles) out.push(new Icicles(host, t))
 
   // ── volt (Rail Rush) ──
-  const rail = t.rails?.[0] ? new RailFeature(host, t.rails[0]) : null
+  // (The Deep Mine's cart came later: its slot is at the end.)
+  const rail = t.rails?.[0] && host.theme.id !== 'drill' ? new RailFeature(host, t.rails[0]) : null
   if (rail) out.push(rail)
   if (t.waves) out.push(new WaveFeature(host, t.waves, rail))
   if (t.vents?.some(v => v.kind === 'shock')) out.push(new ShockFeature(host, t.vents))
@@ -132,6 +133,9 @@ export const buildStageFeatures = (host: ClimbHost, t: Terrain, run: StageRun): 
 
   // ── neon (Blackout Boulevard) ──
   if (t.neon?.length || t.neonSwitches?.length) out.push(new NeonFeature(host, t))
+
+  // ── drill (Deep Mine): the mine cart (#111), after every older slot ──
+  if (host.theme.id === 'drill' && t.rails?.[0]) out.push(new RailFeature(host, t.rails[0]))
 
   return out
 }

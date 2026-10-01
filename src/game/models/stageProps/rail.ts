@@ -46,9 +46,11 @@ const PYLON_EVERY = 9
  * `bottomAt(x, z)` (a floor under it, or the pit's bottom) where that is
  * more than a metre down.
  */
-export const buildRail = (theme: Theme, points: ReadonlyArray<{ x: number; y: number; z: number }>, bottomAt: (x: number, z: number) => number): RailMesh => {
+export const buildRail = (theme: Theme, points: ReadonlyArray<{ x: number; y: number; z: number }>, bottomAt: (x: number, z: number) => number, mine = false): RailMesh => {
   const toon: BufferGeometry[] = []
   const strips: BufferGeometry[] = []
+  // The Deep Mine's track (#111): wooden sleepers under two steel rails.
+  let tie = 0
   let run = PYLON_EVERY / 2
   for (let n = 1; n < points.length; n++) {
     const a = points[n - 1]!
@@ -63,6 +65,15 @@ export const buildRail = (theme: Theme, points: ReadonlyArray<{ x: number; y: nu
     const rot: [number, number, number] = [0, Math.atan2(-dz, dx), Math.atan2(dy, h)]
     const mid: [number, number, number] = [(a.x + c.x) / 2, (a.y + c.y) / 2, (a.z + c.z) / 2]
     toon.push(xform(paint(rbox(len + 0.12, 0.34, 0.62, 0.3, 8, 6), theme.pilaster), [mid[0], mid[1] - 0.62, mid[2]], rot))
+    if (mine) {
+      for (tie += len; tie >= MINE_TIE_EVERY; tie -= MINE_TIE_EVERY) {
+        const k = 1 - (tie - MINE_TIE_EVERY) / len
+        const tx = a.x + dx * Math.max(0, Math.min(1, k))
+        const ty = a.y + dy * Math.max(0, Math.min(1, k))
+        const tz = a.z + dz * Math.max(0, Math.min(1, k))
+        toon.push(xform(paint(rbox(0.22, 0.14, 1.9, 0.2, 4, 4), MINE_WOOD), [tx, ty - 0.42, tz], rot))
+      }
+    }
     for (const side of [-1, 1]) {
       const sx = Math.sin(rot[1]) * side * 0.24
       const sz = Math.cos(rot[1]) * side * 0.24
@@ -85,6 +96,12 @@ export const buildRail = (theme: Theme, points: ReadonlyArray<{ x: number; y: nu
   if (strips.length) root.add(new Mesh(merge(strips), stripMat))
   return { root, stripMat }
 }
+
+/** Sleepers under the mine track: one every this many metres, in old wood. */
+const MINE_TIE_EVERY = 0.9
+const MINE_WOOD = '#6b4a2b'
+const MINE_IRON = '#59606e'
+const MINE_RUST = '#9a5a2a'
 
 export interface CartMesh {
   root: Group
@@ -156,6 +173,37 @@ export const buildCart = (theme: Theme): CartMesh => {
   const root = assemble(toon, glowG)
   const padMat = new MeshBasicMaterial({ color: new Color(theme.pipe), toneMapped: false })
   const pads = merge([-0.75, 0.75].map(sz => xform(rbox(1.7, 0.1, 0.5, 0.5, 8, 4), [0, -0.72, sz])))
+  root.add(new Mesh(pads, padMat))
+  return { root, padMat }
+}
+
+/**
+ * The Deep Mine's ride (#111): an iron ore tub on four wheels, rust-streaked,
+ * a lamp at the front. Same footprint as the maglev cart (deck top at the
+ * group's origin, facing −Z), so the ride carries Flux the same way; the
+ * "pads" are the axle glow.
+ */
+export const buildMineCart = (theme: Theme): CartMesh => {
+  const toon: BufferGeometry[] = []
+  const glowG: BufferGeometry[] = []
+  toon.push(paintBy(xform(rbox(2.3, 0.3, 2.5, 0.25), [0, -0.18, 0]), (_x, y, z) => (Math.floor((z + y) * 2.2) & 1 ? MINE_IRON : MINE_RUST)))
+  toon.push(xform(paint(rbox(2.0, 0.05, 2.2, 0.2), '#2a2420'), [0, 0, 0]))
+  for (const sx of [-1, 1]) {
+    toon.push(xform(paint(rbox(0.16, 0.72, 2.4, 0.3), MINE_IRON), [sx * 1.12, 0.3, 0]))
+    toon.push(xform(paint(rbox(0.22, 0.1, 2.5, 0.4), MINE_RUST), [sx * 1.12, 0.68, 0]))
+  }
+  for (const sz of [-1, 1]) toon.push(xform(paint(rbox(2.3, 0.62, 0.16, 0.3), MINE_IRON), [0, 0.27, sz * 1.2]))
+  for (const sx of [-0.85, 0.85]) {
+    for (const sz of [-0.8, 0.8]) {
+      toon.push(xform(paint(rcyl(0.32, 0.22, 0.06, 14), '#2b2f38'), [sx, -0.52, sz], [0, 0, Math.PI / 2]))
+      toon.push(xform(paint(torus(0.3, 0.05, 6, 16), theme.accent), [sx * 1.06, -0.52, sz], [0, Math.PI / 2, 0]))
+    }
+  }
+  // The lamp on the front lip, low: the rider's view clears it.
+  glowG.push(xform(paint(sph(0.09, 10, 6), '#ffe0a0'), [0, -0.12, -1.3]))
+  const root = assemble(toon, glowG)
+  const padMat = new MeshBasicMaterial({ color: new Color(theme.pipe), toneMapped: false })
+  const pads = merge([-0.8, 0.8].map(sz => xform(rcyl(0.07, 1.9, 0.02, 8), [0, -0.52, sz], [0, 0, Math.PI / 2])))
   root.add(new Mesh(pads, padMat))
   return { root, padMat }
 }

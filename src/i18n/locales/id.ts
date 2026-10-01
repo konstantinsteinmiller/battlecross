@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Batu berjatuhan! Keluar dari bayangan.',
         'rock': 'Batu retak! Tembakan bermuatan penuh bisa menghancurkannya.',
+        'board': 'Lori tambang melaju! Aku menyetir, kamu tembak tikus tanahnya.',
+        'dip': 'Turunan curam! Pegangan erat!',
+        'arrive': 'Pemberhentian terakhir. Ayo turun!'
       },
       'magnet': {
         'panel': 'Lihat pelat merah-biru itu? Tembak untuk membalik relnya.',

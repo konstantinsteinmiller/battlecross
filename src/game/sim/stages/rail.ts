@@ -1,7 +1,7 @@
 import { Color } from 'three'
 import { CELL, type RailSpec } from '../../world/levelGen'
 import { groundAt } from '../../world/nav'
-import { buildRail, buildCart, buildQuadcopter, type CartMesh, type RailMesh } from '../../models/stageProps/rail'
+import { buildRail, buildCart, buildMineCart, buildQuadcopter, type CartMesh, type RailMesh } from '../../models/stageProps/rail'
 import type { ClimbBody, ClimbHost } from '../climb'
 import type { StageFeature } from '../stageFeatures'
 
@@ -58,6 +58,9 @@ export interface RailPoint {
 const STRIP_A = new Color('#ffe13d')
 const STRIP_B = new Color('#fffbe0')
 const STRIP_DIM = new Color('#8a6a10')
+/** The mine track's steel rails: they glint, they do not crackle. */
+const STEEL = new Color('#c9ced8')
+const STEEL_GLINT = new Color('#ffffff')
 
 export class RailFeature implements StageFeature {
   readonly def: RailSpec
@@ -85,6 +88,10 @@ export class RailFeature implements StageFeature {
   private dipSaid = false
   /** The Rotor Run's flight (a quadcopter, no track). */
   private air = false
+  /** The Deep Mine's ore tub on a sleepered track (#111). */
+  private mine = false
+  /** Atlas's lines for this ride: the volt's, the rotor's or the mine's. */
+  private lines = 'volt'
   private spark = 0
   private readonly host: ClimbHost
   private readonly bi: number
@@ -121,13 +128,15 @@ export class RailFeature implements StageFeature {
       const j = Math.floor(z / CELL)
       const r = i >= 0 && j >= 0 && i < map.w && j < map.h ? map.room[j * map.w + i]! : -1
       return r >= 0 ? t.pitBottom[r] ?? -12 : -12
-    })
+    }, host.theme.id === 'drill')
     host.scene.add(this.rail.root)
     // The Rotor Run flies its course: no track, a quadcopter for a cart,
     // and Atlas's own lines.
     this.air = host.theme.id === 'rotor'
+    this.mine = host.theme.id === 'drill'
+    this.lines = this.air ? 'rotor' : this.mine ? 'drill' : 'volt'
     this.rail.root.visible = !this.air
-    this.cart = this.air ? buildQuadcopter(host.theme) : buildCart(host.theme)
+    this.cart = this.air ? buildQuadcopter(host.theme) : this.mine ? buildMineCart(host.theme) : buildCart(host.theme)
     host.scene.add(this.cart.root)
     this.place(0)
   }
@@ -235,13 +244,14 @@ export class RailFeature implements StageFeature {
       this.place(this.s + this.v * dt)
       if (!this.dipSaid && this.s >= this.dipAt) {
         this.dipSaid = true
-        host.say(this.air ? 'hint.rotor.dip' : 'hint.volt.dip')
+        host.say(`hint.${this.lines}.dip`)
       }
       if (this.s >= this.length - 1e-3) this.arrive(p)
     }
     // The strips crackle; the magnet pads glow while it rides.
     const f = Math.sin(time * 37) * Math.sin(time * 23 + 1.3)
-    this.rail.stripMat.color.copy(f > 0.55 ? STRIP_B : f < -0.7 ? STRIP_DIM : STRIP_A)
+    if (this.mine) this.rail.stripMat.color.copy(f > 0.8 ? STEEL_GLINT : STEEL)
+    else this.rail.stripMat.color.copy(f > 0.55 ? STRIP_B : f < -0.7 ? STRIP_DIM : STRIP_A)
     if (this.state === 'ride') this.cart.padMat.color.copy(f > 0 ? STRIP_B : STRIP_A)
     // A quadcopter's rotors: idling in its slot, flat out in flight.
     if (this.cart.rotors) {
@@ -274,7 +284,7 @@ export class RailFeature implements StageFeature {
     p.path = null
     this.host.sfx('liftOff', this.x, this.z)
     this.host.shake(0.12)
-    this.host.say(this.air ? 'hint.rotor.board' : 'hint.volt.board')
+    this.host.say(`hint.${this.lines}.board`)
   }
 
   /** In the exit slot: stop, let go, stay. */
@@ -294,7 +304,7 @@ export class RailFeature implements StageFeature {
     this.host.sfx('deckLand', this.x, this.z)
     this.host.shake(0.1)
     this.host.fx.sparks(this.x, this.y + 0.1, this.z, '#ffe13d', 14, 6, 0.16)
-    this.host.say(this.air ? 'hint.rotor.arrive' : 'hint.volt.arrive')
+    this.host.say(`hint.${this.lines}.arrive`)
   }
 
   carry(p: ClimbBody, out: [number, number], dt: number): boolean {

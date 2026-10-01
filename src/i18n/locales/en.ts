@@ -710,6 +710,10 @@ export default {
       'drill': {
         'drop': 'Rocks falling! Step out of the shadows.',
         'rock': 'Cracked rock! A full charge will break it.',
+        // The mine cart (#111).
+        'board': "Ore cart's rolling! I steer, you shoot the moles.",
+        'dip': 'Steep drop! Hold on tight!',
+        'arrive': 'Last stop. Out you hop!',
       },
       'magnet': {
         'panel': 'See that red-blue plate? Shoot it to flip the rail.',

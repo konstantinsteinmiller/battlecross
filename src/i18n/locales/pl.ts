@@ -643,6 +643,9 @@ export default {
       'drill': {
         'drop': 'Spadające skały! Wyjdź z cieni.',
         'rock': 'Pęknięta skała! Pełny strzał naładowany ją rozbije.',
+        'board': 'Wózek rusza! Ja steruję, ty strzelaj do kretów.',
+        'dip': 'Stromy zjazd! Trzymaj się mocno!',
+        'arrive': 'Ostatni przystanek. Wyskakuj!'
       },
       'magnet': {
         'panel': 'Widzisz tę czerwono-niebieską płytę? Strzel w nią, by odwrócić szynę.',

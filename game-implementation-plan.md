@@ -558,13 +558,17 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P2 #100 Overload shot** (giga re-timed: full + 3 s, 7x; Gale gate;
     bolt-priced epic-violet mod at 2300 bolts, outside chips and respec; Pip
     opens Circuits on it after the Gale Master).
-  - [ ] **P3 Shared engines**: story-cutscene player, in-mission scenes,
-    retry-from-checkpoint (Fortress), multi-room boss, multi-part boss +
-    segmented bar + Atlas markers, drop hazards + movable crates, stage light
-    pulse, baked Master portraits, audio mix engine (voice bus, ducking,
-    variation, voice cap, SFX low-pass, limiter).
-  - [ ] **P4 Retrofits**: 4.1 Scrapper crane (#108), 4.2 Neon blackout pulses
-    (#110), 4.3 Deep Mine cart (#111).
+  - [x] **P3 Shared engines**: 3.1 audio mix (voice bus, ducking,
+    variation, voice cap, SFX low-pass, limiter), 3.2 drops on a telegraph,
+    3.3 stage light + blackout clock, 3.4 baked Master portraits
+    (`pnpm art:portraits`), 3.5 retry from checkpoint (Fortress). The
+    single-consumer engines (story-cutscene player, in-mission scenes,
+    multi-room boss, multi-part boss + segmented bar) land as their own
+    commits right before their content in P6–P8.
+  - [x] **P4 Retrofits**: 4.1 Scrapper crane (#108, phase 2 only, both
+    arenas), 4.2 Neon blackout (#110, 9 s clock, Blink Run pulse bridges),
+    4.3 Deep Mine cart (#111: optional ~15 s ride, trestle + drop + warren;
+    the islands stay a walk; its feature slot is last).
   - [ ] **P5 #103 stage-select missions** (portrait grid, colour borders,
     boss splash in the load window).
   - [ ] **P6 #109 Core Descent** (roof → reactor hall → Core ring).
