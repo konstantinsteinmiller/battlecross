@@ -632,6 +632,7 @@ export default {
         'kick': 'Devorga qarab sirpan. Yana! Devordan depsinib yuqoriga!',
         'switch': 'Chiroq tugmasi! Koʻpriklarni almashtirish uchun uni ot.',
         'blink': 'Yorugʻlik koʻpriklari miltillaydi! Yonib turganda oʻt.',
+        'blackout': 'Tok oʻchyapti! Chiroqlar qayta yonganda oʻt.'
       },
       'tide': {
         'deep': 'Juda chuqur! Suvdan chiq!',

@@ -634,6 +634,7 @@ export default {
         'kick': 'Duvara dön ve kay. Bir daha! Duvardan sekip yukarı!',
         'switch': 'Bir ışık düğmesi! Köprüleri değiştirmek için vur.',
         'blink': 'Işık köprüleri yanıp sönüyor! Parlarken geç.',
+        'blackout': 'Elektrik gidiyor! Işıklar gelince geç.'
       },
       'tide': {
         'deep': 'Çok derin! Sudan çık!',

@@ -632,6 +632,7 @@ export default {
         'kick': 'Fique de frente para a parede e deslize. De novo! Chute a parede e suba!',
         'switch': 'Um interruptor de luz! Atire nele para trocar as pontes.',
         'blink': 'As pontes de luz piscam! Atravesse enquanto brilham.',
+        'blackout': 'A energia está caindo! Atravesse quando as luzes voltarem.'
       },
       'tide': {
         'deep': 'Fundo demais! Saia da água!',

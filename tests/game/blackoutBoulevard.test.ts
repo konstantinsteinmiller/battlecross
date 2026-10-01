@@ -20,6 +20,8 @@ import { THEMES } from '@/game/world/themes'
 import { SECTOR_BY_ID } from '@/game/data/regions'
 import { ClimbRun, KICK_UP, type ClimbBody, type ClimbHost } from '@/game/sim/climb'
 import { NeonFeature, clockLit, clockFlicker, FLICKER } from '@/game/sim/stages/neon'
+import { BLACKOUT, lightWindow } from '@/game/sim/lightPulse'
+import { WALK_SPEED } from '@/game/sim/constants'
 import type { Shot } from '@/game/sim/world'
 import type { AtlasLine } from '@/game/sim/atlas'
 
@@ -169,6 +171,55 @@ describe('bridges of light', () => {
       const o = t.neonSwitches![n]!
       expect(s.side).toBe(o.side === 'e' ? 'w' : o.side === 'w' ? 'e' : o.side)
     })
+  })
+})
+
+describe('the blackout (#110)', () => {
+  const map = generateBlackoutBoulevard(0)
+  const t = map.terrain!
+  const pulse = t.neon!.filter(n => n.pulse)
+  // Mid-dark and mid-light of the cycle.
+  const DARK = BLACKOUT.warn + BLACKOUT.dark / 2
+  const LIGHT = BLACKOUT.warn + BLACKOUT.dark + 2
+
+  it('runs the BLACKOUT clock, kept by the mirror; the Blink Run has two pulse bridges', () => {
+    expect(t.blackout).toEqual(BLACKOUT)
+    expect(mirrorX(map).terrain!.blackout).toEqual(BLACKOUT)
+    expect(pulse).toHaveLength(2)
+    expect(pulse.every(n => n.period === undefined && n.group === undefined)).toBe(true)
+  })
+
+  it('a pulse bridge goes out with the dark and back with the light; the stage dims, with a whine first', () => {
+    const sfx: string[] = []
+    const dark: number[] = []
+    const host = { ...hostFor(map, [], sfx), stageDark: (k: number) => { dark.push(k) } }
+    const f = new NeonFeature(host, t)
+    const pb = f.bridges.filter(b => b.def.pulse)
+    const at = (time: number) => { dark.length = 0; f.update(1 / 60, time, body(map.start.x, map.start.z), true) }
+    at(0.1)
+    expect(sfx).toContain('relayOut')
+    at(DARK)
+    expect(pb.every(b => b.plat.top < -100)).toBe(true)
+    expect(Math.max(...dark)).toBe(1)
+    at(LIGHT)
+    expect(pb.every(b => b.plat.top > -100)).toBe(true)
+    expect(Math.max(...dark)).toBe(0)
+  })
+
+  it('the boss arena keeps its lights', () => {
+    const dark: number[] = []
+    const host = { ...hostFor(map), stageDark: (k: number) => { dark.push(k) } }
+    const f = new NeonFeature(host, t)
+    const arena = map.rooms.find(r => r.role === 'boss')!
+    f.update(1 / 60, DARK, body((arena.x0 + 3) * CELL, (arena.z0 + 3) * CELL), true)
+    expect(dark).toHaveLength(0)
+  })
+
+  it('every pulse bridge is crossed at a walk in well under half the light', () => {
+    for (const n of pulse) {
+      const span = Math.max(n.w, n.d) * CELL + CELL
+      expect(span / WALK_SPEED).toBeLessThan(lightWindow() / 2)
+    }
   })
 })
 

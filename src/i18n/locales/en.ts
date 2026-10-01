@@ -698,6 +698,8 @@ export default {
         'kick': 'Face the wall and slide. Again! Wall-kick up!',
         'switch': 'A light switch! Shoot it to swap the bridges.',
         'blink': 'Light bridges blink! Cross while they glow.',
+        // #110: the whole boulevard goes dark on a clock, these bridges with it.
+        'blackout': "Power's failing! Cross when the lights come back.",
       },
       'tide': {
         'deep': 'Too deep! Get out of the water!',

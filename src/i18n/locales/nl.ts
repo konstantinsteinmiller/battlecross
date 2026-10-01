@@ -632,6 +632,7 @@ export default {
         'kick': 'Kijk naar de muur en glij. Nog eens! Zet je af tegen de muur, omhoog!',
         'switch': 'Een lichtschakelaar! Schiet erop om de bruggen te wisselen.',
         'blink': 'Lichtbruggen knipperen! Steek over zolang ze gloeien.',
+        'blackout': 'De stroom valt uit! Steek over als het licht terugkomt.'
       },
       'tide': {
         'deep': 'Te diep! Uit het water!',

@@ -632,6 +632,7 @@ export default {
         'kick': 'Mira a la pared y desliza. ¡Otra vez! ¡Rebota en la pared y sube!',
         'switch': '¡Un interruptor de luz! Dispárale para cambiar los puentes.',
         'blink': '¡Los puentes de luz parpadean! Cruza mientras brillan.',
+        'blackout': '¡Se va la luz! Cruza cuando vuelvan las luces.'
       },
       'tide': {
         'deep': '¡Demasiado hondo! ¡Sal del agua!',

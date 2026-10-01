@@ -632,6 +632,7 @@ export default {
         'kick': 'Guarda il muro e scivola. Ancora! Rimbalza sul muro e sali!',
         'switch': 'Un interruttore! Sparagli per scambiare i ponti.',
         'blink': 'I ponti di luce lampeggiano! Attraversa mentre brillano.',
+        'blackout': 'Salta la corrente! Attraversa quando tornano le luci.'
       },
       'tide': {
         'deep': 'Troppo profondo! Esci dall’acqua!',

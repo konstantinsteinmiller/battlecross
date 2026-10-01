@@ -632,6 +632,7 @@ export default {
         'kick': 'Quay mặt vào tường rồi trượt. Lần nữa! Đạp tường bật lên!',
         'switch': 'Công tắc đèn! Bắn nó để đổi cầu nhé.',
         'blink': 'Cầu ánh sáng nhấp nháy! Băng qua khi nó sáng nhé.',
+        'blackout': 'Mất điện rồi! Băng qua khi đèn sáng lại nhé.'
       },
       'tide': {
         'deep': 'Sâu quá! Ra khỏi nước mau!',

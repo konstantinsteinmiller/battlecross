@@ -19,7 +19,7 @@ import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './buil
  *                     the next one (and the first goes dark)
  *   5 Billboard drop  down a storey
  *   6 Roof garden     a fight; the wall-kick shaft up to the weapon ledge
- *   7 Blink run       two fast-blinking bridges in a row
+ *   7 Blink run       two pulse bridges in a row: out with the blackout
  *   8 Neon gallery    a fight among billboards
  *   9 Switch gauntlet the switch again, a Stalker on the middle roof
  *  10 Fire escape     two flights down
@@ -27,6 +27,11 @@ import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './buil
  *  12 Sign shop       a secret alcove behind its north wall
  *  13 Approach        down to the boss shutter
  *  14 Arena           the Neon Master, floor at y = 0
+ *
+ * And the BLACKOUT (#110): every BLACKOUT_PERIOD s the whole boulevard goes
+ * dark (a two-dip warning and a power-down whine first), and the Blink Run's
+ * pulse bridges go out with it. The light is the longest part of the cycle,
+ * and a pulse bridge is crossed well inside it; the boss arena keeps its lights.
  *
  * Every leap gap is one cell between equal floors, each with its `link`.
  * Deterministic from the seed: the hand and the bridges' rhythm vary —
@@ -43,6 +48,10 @@ const COVER_H = 2.5
 export const generateBlackoutBoulevard = (seed: number): MapData => {
   const rng = mulberry32(seed ^ 0x4e0b1)
   const b = new Builder(GRID_W, GRID_H)
+  // The blackout (#110): `sim/lightPulse.ts`'s BLACKOUT rhythm — a 1 s warning,
+  // 2 s dark, 6 s light. A fixed phase: no draw, the rest of the stage rolls
+  // exactly as before.
+  b.blackout = { period: 9, warn: 1, dark: 2, phase: 0 }
   const island = (i0: number, j0: number, i1: number, j1: number, y: number) => {
     for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) b.pit[b.k(i, j)] = 0
     b.level(i0, j0, i1, j1, y)
@@ -142,9 +151,9 @@ export const generateBlackoutBoulevard = (seed: number): MapData => {
   island(9, 17, 10, 22, M)
   island(5, 17, 6, 22, M)
   island(1, 17, 2, 22, M)
-  const p2 = 3 + rng() * 0.6
-  b.bridge(7, 19, M, 2, 2, { period: p2, phase: 0, on: p2 * 0.6 })
-  b.bridge(3, 19, M, 2, 2, { period: p2, phase: p2 * 0.5, on: p2 * 0.6 })
+  rng() // (the old blink rhythm's draw, kept so the rest of the stage rolls the same)
+  b.bridge(7, 19, M, 2, 2, { pulse: true })
+  b.bridge(3, 19, M, 2, 2, { pulse: true })
   b.checkpoint(10, 20, YAW_NX, cells(9, 18, 10, 21))
   b.checkpoint(6, 20, YAW_NX, cells(5, 18, 6, 21))
   b.checkpoint(2, 20, YAW_PZ, cells(1, 18, 2, 21))

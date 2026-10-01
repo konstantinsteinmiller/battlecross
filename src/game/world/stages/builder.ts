@@ -2,7 +2,7 @@ import {
   CELL, Cell, Ramp, cellCenter, type MapData, type Room, type RoomRole, type Door, type Terrain, type SectionKind,
   type Ladder, type Lift, type Crusher, type RollerLane, type Checkpoint, type RewardSpot, type FoePost,
   type ChestSpot, type SecretSpec, type PitKind, type WindZone, type RailSpec, type WaveSpec, type VentSpec, type NavLink,
-  type IcePillar, type IcicleSpec, type CrumbleSpec, type MagnetRail, type WaterZone, type NeonBridge, type NeonSwitch
+  type IcePillar, type IcicleSpec, type CrumbleSpec, type MagnetRail, type WaterZone, type NeonBridge, type NeonSwitch, type BlackoutSpec
 } from '../levelGen'
 
 /**
@@ -73,6 +73,8 @@ export class Builder {
   magnets: MagnetRail[] = []
   water: WaterZone[] = []
   neon: NeonBridge[] = []
+  /** The stage's blackout clock (`Terrain.blackout`), if it has one. */
+  blackout: BlackoutSpec | null = null
   neonSwitches: NeonSwitch[] = []
   /** Rooms whose way out stays shut until their machines are down. */
   guards: number[] = []
@@ -175,7 +177,7 @@ export class Builder {
 
   /** A bridge of light (`sim/stages/neon.ts`) at top `y` over the w × d
    *  cells from (i, j), which become pit: solid only while lit. */
-  bridge(i: number, j: number, y: number, w: number, d: number, o: Pick<NeonBridge, 'group' | 'period' | 'phase' | 'on'>): void {
+  bridge(i: number, j: number, y: number, w: number, d: number, o: Pick<NeonBridge, 'group' | 'period' | 'phase' | 'on' | 'pulse'>): void {
     this.pits(i, j, i + w - 1, j + d - 1)
     this.neon.push({ i, j, y, w, d, ...o, room: this.room[this.k(i, j)]! })
   }
@@ -387,6 +389,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
   if (b.guards.length) terrain.guards = b.guards
   if (b.neon.length) terrain.neon = b.neon
   if (b.neonSwitches.length) terrain.neonSwitches = b.neonSwitches
+  if (b.blackout) terrain.blackout = b.blackout
   if (b.rails.length) terrain.rails = b.rails
   if (b.waves.length) terrain.waves = b.waves
   if (b.vents.length) terrain.vents = b.vents
@@ -471,6 +474,7 @@ export const mirrorX = (m: MapData): MapData => {
     }))
   }
   if (t.neon) terrain.neon = t.neon.map(n => ({ ...n, i: mi(n.i + n.w - 1) }))
+  if (t.blackout) terrain.blackout = { ...t.blackout }
   if (t.neonSwitches) {
     const side = { n: 'n', s: 's', e: 'w', w: 'e' } as const
     terrain.neonSwitches = t.neonSwitches.map(s => ({ ...s, i: mi(s.i), side: side[s.side] }))

@@ -329,7 +329,17 @@ export interface NeonBridge {
   period?: number
   phase?: number
   on?: number
+  /** Lit except while the stage's blackout is out (`Terrain.blackout`). */
+  pulse?: boolean
   room: number
+}
+
+/** A stage that goes dark on a clock (`sim/lightPulse.ts`'s `PulseSpec`). */
+export interface BlackoutSpec {
+  period: number
+  warn: number
+  dark: number
+  phase: number
 }
 
 /** A light switch on a wall of cell (i, j)'s `side`: shot, it swaps which
@@ -486,6 +496,8 @@ export interface Terrain {
   /** Bridges of light and their switches (the Blackout Boulevard). */
   neon?: NeonBridge[]
   neonSwitches?: NeonSwitch[]
+  /** The stage's lights go out on this clock (the Blackout Boulevard). */
+  blackout?: BlackoutSpec
   rails?: RailSpec[]
   waves?: WaveSpec[]
   vents?: VentSpec[]

@@ -632,6 +632,7 @@ export default {
         'kick': 'Face au mur, glissade. Encore ! Rebondis sur le mur et grimpe !',
         'switch': 'Un interrupteur ! Tire dessus pour inverser les ponts.',
         'blink': 'Les ponts de lumière clignotent ! Traverse pendant qu’ils brillent.',
+        'blackout': 'Le courant lâche ! Traverse quand la lumière revient.'
       },
       'tide': {
         'deep': 'Trop profond ! Sors de l’eau !',

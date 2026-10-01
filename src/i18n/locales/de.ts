@@ -632,6 +632,7 @@ export default {
         'kick': 'Zur Wand drehen und rutschen. Nochmal! Wandsprung nach oben!',
         'switch': 'Ein Lichtschalter! Schieß drauf, um die Brücken zu tauschen.',
         'blink': 'Lichtbrücken blinken! Rüber, solange sie leuchten.',
+        'blackout': 'Der Strom fällt aus! Rüber, wenn das Licht wieder angeht.'
       },
       'tide': {
         'deep': 'Zu tief! Raus aus dem Wasser!',

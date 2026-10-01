@@ -632,6 +632,7 @@ export default {
         'kick': 'Stań twarzą do ściany i wślizg. Jeszcze raz! Odbij się od ściany w górę!',
         'switch': 'Włącznik światła! Strzel w niego, by zamienić mosty.',
         'blink': 'Mosty świetlne migają! Przejdź, gdy świecą.',
+        'blackout': 'Prąd siada! Przejdź, gdy światła wrócą.'
       },
       'tide': {
         'deep': 'Za głęboko! Wyjdź z wody!',

@@ -6,6 +6,7 @@ import type { ClimbBody, ClimbHost } from '../climb'
 import type { Shot } from '../world'
 import { segNear } from '../secrets'
 import { AtlasCue, type StageFeature } from '../stageFeatures'
+import { pulseAt, type PulseState } from '../lightPulse'
 
 /**
  * ─── Bridges of light (the Blackout Boulevard, `world/stages/neon.ts`) ───────
@@ -68,9 +69,14 @@ export class NeonFeature implements StageFeature {
   /** The lit group of each room with a switch. */
   readonly group = new Map<number, 0 | 1>()
   private readonly cues: AtlasCue[] = []
+  private readonly t: Terrain
+  /** The blackout this frame (null: the stage has none). */
+  private pulse: PulseState | null = null
+  private wasWarning = false
 
   constructor(host: ClimbHost, t: Terrain) {
     this.host = host
+    this.t = t
     const nav = host.nav
     for (const d of t.neon ?? []) {
       const x0 = d.i * CELL
@@ -99,6 +105,8 @@ export class NeonFeature implements StageFeature {
     }
     const clock = this.bridges.find(b => b.def.group === undefined)
     if (clock) this.cues.push(new AtlasCue(host, 'hint.neon.blink', clock.x, clock.z, clock.def.y, 6))
+    const pulseBridge = this.bridges.find(b => b.def.pulse)
+    if (pulseBridge) this.cues.push(new AtlasCue(host, 'hint.neon.blackout', pulseBridge.x, pulseBridge.z, pulseBridge.def.y, 7))
     const sw = this.switches[0]
     if (sw) this.cues.push(new AtlasCue(host, 'hint.neon.switch', sw.x, sw.z, sw.y - BUTTON_Y, 6))
     // The wall-kick shaft's foot: the one line that teaches it.
@@ -109,6 +117,7 @@ export class NeonFeature implements StageFeature {
 
   update(dt: number, time: number, p: ClimbBody, playing: boolean): void {
     for (const s of this.switches) s.flash = Math.max(0, s.flash - dt)
+    if (this.t.blackout) this.blackout(time, p)
     this.apply(time)
     for (const c of this.cues) c.update(p, playing)
   }
@@ -139,6 +148,21 @@ export class NeonFeature implements StageFeature {
     this.apply(0)
   }
 
+  /** The stage goes dark on its clock, except in the boss arena (the
+   *  Master's fight keeps its lights): the mission dims the scene, and the
+   *  warning plays its whine once a cycle. */
+  private blackout(time: number, p: ClimbBody): void {
+    const st = pulseAt(time, this.t.blackout!)
+    this.pulse = st
+    const map = this.host.map
+    const k = Math.floor(p.z / CELL) * map.w + Math.floor(p.x / CELL)
+    const room = map.room[k] ?? -1
+    const inArena = room >= 0 && map.rooms[room]?.role === 'boss'
+    if (!inArena) this.host.stageDark?.(st.dark01)
+    if (st.warning && !this.wasWarning && !inArena) this.host.sfx('relayOut', p.x, p.z)
+    this.wasWarning = st.warning
+  }
+
   /** Light and solidity of every bridge, and the switches' rings. */
   private apply(time: number): void {
     for (const b of this.bridges) {
@@ -146,7 +170,11 @@ export class NeonFeature implements StageFeature {
       let lit: boolean
       let flicker = false
       if (d.group !== undefined) lit = (this.group.get(d.room) ?? 0) === d.group
-      else {
+      else if (d.pulse) {
+        // Out with the blackout; it stutters through the warning's dips.
+        lit = !(this.pulse?.out ?? false)
+        flicker = !!this.pulse?.warning
+      } else {
         lit = clockLit(d, time)
         flicker = clockFlicker(d, time)
       }

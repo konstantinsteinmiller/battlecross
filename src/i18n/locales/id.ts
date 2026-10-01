@@ -632,6 +632,7 @@ export default {
         'kick': 'Hadap dinding dan meluncur. Lagi! Tendang dinding, naik!',
         'switch': 'Saklar lampu! Tembak untuk menukar jembatannya.',
         'blink': 'Jembatan cahaya berkedip! Seberangi saat menyala.',
+        'blackout': 'Listriknya padam! Seberangi saat lampu menyala lagi.'
       },
       'tide': {
         'deep': 'Terlalu dalam! Keluar dari air!',
