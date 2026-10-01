@@ -720,6 +720,18 @@ export default {
       '5': 'Yolun yarısı! Vex terliyor.',
     },
     'bossAhead': 'İleride patron. Derin nefes!',
+    'noWeak': 'Zayıf nokta yok. Hareket et!',
+    'weak': {
+      'flameWave': 'Alev Dalgası buna çok etkili!',
+      'iceLance': 'Buz Mızrağı buna çok etkili!',
+      'thunderArc': 'Yıldırım Arkı buna çok etkili!',
+      'galeGuard': 'Fırtına Kalkanı buna çok etkili!',
+      'magnetPull': 'Mıknatıs Çekimi buna çok etkili!',
+      'drillBomb': 'Matkap Bombası buna çok etkili!',
+      'bubbleLance': 'Kabarcık Mızrağı buna çok etkili!',
+      'neonBlade': 'Neon Bıçağı buna çok etkili!',
+      'droneSwarm': 'Dron Sürüsü buna çok etkili!'
+    },
     'bossDown': 'Usta kurtarıldı! Harika iş!',
     'vexDown': 'Vex yenildi. Başardık!',
     'lowHp': 'Ah! Dikkat, Flux!',

@@ -64,6 +64,8 @@ export interface WorldSave {
   unlocked: SectorId[]
   bosses: string[]
   tutorialDone: boolean
+  /** New Game+ cycle: 0 on the first run (`sim/ngPlus.ts`). */
+  ngPlus: number
   selected: SectorId
   /** Story beats already shown (`story.md` § What this changes: `intro`, and
    *  later `relay:<sector>`, `vex:<boss>`, `blueprint`, `breach`, `ending`). */
@@ -125,7 +127,7 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
-  world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, selected: 'scrapyard', seen: [] },
+  world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, ngPlus: 0, selected: 'scrapyard', seen: [] },
   stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0, boltsAvg: 0 },
   tips: {}
 })
@@ -187,6 +189,7 @@ export const loadProfile = (): void => {
   if (!Array.isArray(world.unlocked) || !world.unlocked.length) world.unlocked = ['scrapyard']
   if (!Array.isArray(world.bosses)) world.bosses = []
   if (!Array.isArray(world.seen)) world.seen = []
+  world.ngPlus = Math.max(0, Math.round(num(world.ngPlus, 0)))
   migrateSeen(world)
   migrateUnlocks(world)
   profile.world = world
@@ -263,6 +266,25 @@ export const saveProfile = (): void => {
  * be, and the flag clears so it is paid exactly once. Saved at once, so the
  * blob never holds the flag and the gel it became side by side.
  */
+/**
+ * Start New Game+ (`sim/ngPlus.ts`): the story from the Scrapyard again, one
+ * cycle harder. Flux keeps everything he is — level, gear, chips, skills,
+ * copied weapons, bolts, stats — and the tutorial stays done; the sectors
+ * lock again and every Master waits to be beaten anew. Story beats already
+ * seen do not replay.
+ */
+export const startNewGamePlus = (): void => {
+  const w = profile.world
+  w.ngPlus = (w.ngPlus ?? 0) + 1
+  w.unlocked = ['scrapyard']
+  w.bosses = []
+  w.selected = 'scrapyard'
+  w.tutorialDone = true
+  profile.quests.storyAttempts = {}
+  profile.quests.jobs = []
+  saveProfile()
+}
+
 export const claimGiftTank = (): boolean => {
   if (!profile.inv.giftTank) return false
   profile.inv.giftTank = false

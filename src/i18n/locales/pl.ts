@@ -718,6 +718,18 @@ export default {
       '5': 'Połowa drogi! Vex się poci.',
     },
     'bossAhead': 'Boss przed nami. Weź głęboki oddech!',
+    'noWeak': 'Nie widzę słabego punktu. Ruszaj się!',
+    'weak': {
+      'flameWave': 'Fala płomieni go rani!',
+      'iceLance': 'Lodowa lanca go rani!',
+      'thunderArc': 'Łuk gromu go rani!',
+      'galeGuard': 'Tarcza wichru go rani!',
+      'magnetPull': 'Magnetyczny chwyt go rani!',
+      'drillBomb': 'Bomba wiertnicza go rani!',
+      'bubbleLance': 'Lanca bąbelkowa go rani!',
+      'neonBlade': 'Neonowe ostrze go rani!',
+      'droneSwarm': 'Rój dronów go rani!'
+    },
     'bossDown': 'Mistrz uwolniony! Świetna robota!',
     'vexDown': 'Vex pokonany. Udało się!',
     'lowHp': 'Au! Ostrożnie, Flux!',

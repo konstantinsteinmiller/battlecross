@@ -139,16 +139,40 @@ them, their eyes and chest core glow RED; once freed they return to their
 own colour.
 - BLAZE MASTER: orange-red armour, a crest of three stacked flame cones on
   its helmet, flared flame-nozzle forearm cannons. Loud, proud. Freed colour:
-  gold.
+  orange.
 - FROST MASTER: ice-blue armour, a crown of ice crystals, crystal blades on
   its forearms. Calm, exact. Freed colour: ice blue.
 - VOLT MASTER: yellow armour, a zig-zag lightning antenna of three tilted
   cones, coil gauntlets with glowing balls. Twitchy, fast. Freed colour:
-  bright yellow.
+  yellow-white.
 - GALE MASTER: mint-teal armour, fan fins either side of its helmet, a small
   propeller hub on top, a flowing wing cape. Free spirit. Freed colour: mint.
-MODE: insert-after
-NEW TEXT:
+```
+
+**[SECOND-SHIFT]** (the outer works' Masters; use only the ones on the page)
+```
+The second shift: five more Core Masters, the foremen of the valley's outer
+works. They are built on the same chibi frame as the first four, bigger
+than Flux (1.35×), with stern eyes and tool weapon arms. While the villain
+controls them, their eyes and chest core glow RED; once freed they return
+to their own colour.
+- MAGNET MASTER: cobalt-blue armour with silver trim, a horseshoe crown over
+  its helmet with glowing pole tips, one red and one blue pole plate on its
+  chest (those two stay red and blue either way), and horseshoe gauntlets
+  for hands. Stubborn, two-sided. Freed colour: cobalt.
+- DRILL MASTER: ochre armour over dark brown, hazard stripes on its
+  shoulders, a banded steel drill cone with a small lamp as its crest, and
+  steel drill bits for forearms. Quiet, patient. Freed colour: ochre.
+- TIDE MASTER: deep sea-blue armour with navy plates and yellow diving trim,
+  a dorsal fin over its helmet, a round diver's visor ring, bubble tanks on
+  its back, and a lance on each forearm with a bubble at its tip.
+  Easygoing. Freed colour: sea blue.
+- NEON MASTER: dark charcoal armour piped with HOT-PINK neon tubes, a neon
+  halo over its helmet, a glowing visor stripe, and a blade of light on each
+  forearm. A show-off. Freed colour: hot pink.
+- ROTOR MASTER: lime-green and white armour, a rotor mast with two blades on
+  its helmet, pilot goggles, two ducted fans on its back, and a little rotor
+  on each fist. Restless, happiest up high. Freed colour: lime.
 ```
 
 **[MACHINES]** (the rank-and-file enemies)
@@ -160,6 +184,17 @@ shield), ROTOR DRONE (a flying bot with a helicopter rotor), STOMPER (a
 squat hopping bot), GEAR ROLLER (a bot riding a big gear wheel), GUARDROID
 (a heavy brute bot with huge fists), WALL CANNON (a turret in a wall), and
 CRATE GOLEM (a supply crate that unfolds into a rock-throwing golem).
+```
+
+**[SHIFT-MACHINES]** (the outer works' enemies)
+```
+The villain's outer-works machines, cartoonish like the rest, with glowing
+red eyes: POLAR PUP (a floating orb in a blue shell that splits open, red
+inside, to fire), MOLE DRILLER (a burrowing bot with a drill nose that
+bursts up out of the floor), PUFFER MINE (a round drifting sea mine that
+swells up before it bursts), GLOW STALKER (a dark, lanky bot in the
+shadows, showing only two glowing eyes) and HORNET ROTOR (a small,
+wasp-like attack drone that spins up red and dives).
 ```
 
 ---
@@ -225,8 +260,20 @@ and Gale Master, full body and front view, all to scale next to a small
 Flux silhouette for size. Draw each one twice, top row CONTROLLED (red
 glowing eyes and chest core) and bottom row FREED (eyes in its own colour,
 relaxed pose).
-MODE: insert-after
-NEW TEXT:
+```
+
+### R6 · The second shift
+
+```
+[STYLE] [SECOND-SHIFT] [SHIFT-MACHINES]
+A character lineup sheet, landscape 3:2, plain light-grey background. From
+left to right stand Magnet Master, Drill Master, Tide Master, Neon Master
+and Rotor Master, full body and front view, all to scale next to a small
+Flux silhouette for size. Draw each one twice, top row CONTROLLED (red
+glowing eyes and chest core) and bottom row FREED (eyes in its own colour,
+relaxed pose). Along the bottom edge, smaller, the five outer-works machines
+stand in a row: Polar Pup (shell closed and open), Mole Driller, Puffer Mine
+(small and swollen), Glow Stalker and Hornet Rotor.
 ```
 
 ---
@@ -289,7 +336,7 @@ Panel 2 (wide): A red shock-ring rolls out from the Spire across the whole
 valley. Everything it passes (billboards, windows, the light beams between
 towers) flips from its own colour to red. The left of the panel is still
 colourful and the right is already crimson.
-Panel 3: A close-up of Blaze Master's face in a refinery. Its gold eyes
+Panel 3: A close-up of Blaze Master's face in a refinery. Its orange eyes
 flicker, then lock RED.
 Panel 4: On the street, the friendly worker robots freeze in confusion as
 the security machines around them turn red-eyed and raise their weapons.
@@ -451,7 +498,7 @@ flames burst up.
 Panel 2: Flux's charged amber shot hits Blaze Master's chest core. The red
 chip shatters in a ring of orbs.
 Panel 3: Blaze Master kneels. Its flame crest cools from red-hot to calm
-gold. It thumps a fist to its chest in respect toward Flux.
+orange. It thumps a fist to its chest in respect toward Flux.
 Panel 4: Flux's arm cannon glows orange with a new flame pattern (the copied
 weapon). In an inset, Vex's face on a lab screen is irritated, one eye
 twitching.
@@ -566,7 +613,7 @@ sparking red. Vex's hologram does jazz hands with its claws.
 Panel 2: Chain lightning arcs from Volt Master's coil gauntlets. Flux gets
 zapped, his outline flashing like an X-ray.
 Panel 3: Flux fires an ice-blue lance that pierces through the lightning.
-Panel 4: Volt Master's antenna stops sparking red and turns bright yellow.
+Panel 4: Volt Master's antenna stops sparking red and turns yellow-white.
 It gives Flux a quick salute and blinks away in a flash.
 Panel 5: Back in the lab, Vex's face on the screens stutters and glitches,
 forcing a smile.
@@ -605,8 +652,141 @@ parts reach the Fortress."
 
 ### Page 25 · Polarity Works
 
-**Characters:** FLUX, ATLAS, PIP, VEX, SECOND-SHIFT (Magnet)
+**Characters:** FLUX, ATLAS, PIP, VEX, SECOND-SHIFT (Magnet), SHIFT-MACHINES
+(Polar Pup)
 
+```
+[STYLE] [FLUX] [ATLAS] [PIP] [VEX] [SECOND-SHIFT] [SHIFT-MACHINES]
+Comic page with 5 panels.
+Panel 1: In the lab, Pip's hologram of the valley. Five relays glow in
+yellow, orange, ice blue, yellow-white and mint, but the red shield dome over
+the black fortress stays whole. At the valley's edge five more relays flare
+red, and five red supply lines run from them into the fortress. On the lab
+screens Vex's face smirks.
+Panel 2 (wide): A steel foundry at night: casting halls, red-hot pours, red
+and blue pole lamps along magnet rails. A huge claw casting swings from a
+crane shuttle over the pour, heading for the distant fortress.
+Panel 3: Flux is dragged along a magnet rail, chevrons glowing under his
+feet, as he shoots a polarity panel to flip it. Beside him a Polar Pup's
+blue shell splits open red to fire.
+Panel 4: Magnet Master in the casting hall, cobalt armour, the pole tips of
+its horseshoe crown glowing RED, homing horseshoe missiles curving toward
+Flux. Vex's hologram presents it like a ringmaster. Flux charges a big amber
+shot.
+Panel 5: Magnet Master lowers its horseshoe. Its pole tips flip from red back
+to cobalt and silver, and behind it a tram glides along the magnet rail
+instead of a claw. Flux's arm cannon glows cobalt.
+Lettering: Panel 1, Vex's ornate bubble: "Fine! I have MORE Masters." Panel
+1, Pip's bubble: a skull icon. Panel 2, Atlas caption: "A foundry. It's
+casting claws." Panel 4, Vex's ornate bubble: "Attractive, isn't it? MAGNET
+MASTER!" Panel 5, Atlas caption: "The foundry's cold. No more claws."
+```
+
+### Page 26 · Deep Mine
+
+**Characters:** FLUX, ATLAS, VEX, SECOND-SHIFT (Drill), SHIFT-MACHINES (Mole
+Driller)
+
+```
+[STYLE] [FLUX] [ATLAS] [VEX] [SECOND-SHIFT] [SHIFT-MACHINES]
+Comic page with 5 panels.
+Panel 1 (wide): A mine headframe over a deep shaft at night, red cage lamps
+glowing, ore carts climbing a track toward the distant black fortress.
+Panel 2: Deep in the shaft two mine cages pass each other, one going up and
+one going down. Flux rides one. In the gallery beside it a Mole Driller
+bursts up out of the floor on a red marker.
+Panel 3: Drill Master erupts out of the arena floor in a spray of rock, its
+drill-bit crest spinning RED. Vex's hologram leans in like a doctor with a
+stethoscope.
+Panel 4: Flux fires a cobalt Magnet Pull horseshoe. It clamps onto Drill
+Master's drill arm and yanks it off balance.
+Panel 5: Drill Master kneels. Its drill-bit crest stops spinning and glows
+ochre. Behind it, the mine cages carry stranded worker-bots up into
+daylight.
+Lettering: Panel 1, Atlas caption: "Ore for its armor. Dug right here."
+Panel 3, Vex's ornate bubble: "Time for a deep check-up! DRILL MASTER!"
+Panel 4, Atlas caption: "Magnet Pull hurts this one!" Panel 5, Atlas
+caption: "The mine's quiet. No more ore."
+```
+
+### Page 27 · Tidewater Locks
+
+**Characters:** FLUX, ATLAS, VEX, SECOND-SHIFT (Tide), SHIFT-MACHINES
+(Puffer Mine)
+
+```
+[STYLE] [FLUX] [ATLAS] [VEX] [SECOND-SHIFT] [SHIFT-MACHINES]
+Comic page with 5 panels.
+Panel 1 (wide): A harbour of locks and canals at night. A convoy of barges
+with red running lights moves up the canal toward the distant fortress, and
+the tide creeps up a flight of stone steps.
+Panel 2: Flux wades knee-deep through a flooded lock while Puffer Mines drift
+and swell around him. He shoots a glowing valve on the lock wall.
+Panel 3: Tide Master rises out of the water, its fin crest glowing RED, its
+lances raised, a tidal wave rolling up behind it. Vex's hologram swings a
+claw like a game-show host.
+Panel 4: Flux fires an ochre Drill Bomb. It bores through the spray and
+bursts against Tide Master's chest.
+Panel 5: Tide Master's fin crest drains from red to sea blue, and it swings
+the great lock gates shut. The barges stay moored, and the water runs clean.
+Lettering: Panel 1, Atlas caption: "Barges now. Vex found another way."
+Panel 3, Vex's ornate bubble: "Wave goodbye, droid! TIDE MASTER!" Panel 4,
+Atlas caption: "Drill Bomb hurts this one!" Panel 5, Atlas caption: "Locks
+shut. The barges stay home."
+```
+
+### Page 28 · Blackout Boulevard
+
+**Characters:** FLUX, ATLAS, VEX, SECOND-SHIFT (Neon), SHIFT-MACHINES (Glow
+Stalker)
+
+```
+[STYLE] [FLUX] [ATLAS] [VEX] [SECOND-SHIFT] [SHIFT-MACHINES]
+Comic page with 5 panels.
+Panel 1 (wide): Rooftops over a blacked-out downtown at night. Only Vex's
+red billboards are lit, and bridges of light flicker across the open air
+between the roofs.
+Panel 2: A light bridge blinks out under Flux's feet and he leaps for the
+next roof. In the dark beside him, a Glow Stalker's two eyes glint.
+Panel 3: Neon Master strikes a pose on a rooftop, its neon tubes glowing
+RED, throwing a blade of light like a boomerang. Vex's hologram frames the
+shot with its claw-hands like a film director.
+Panel 4: Flux fires a sea-blue Bubble Lance. A big bubble rolls along the
+roof and bursts against Neon Master.
+Panel 5: Neon Master's tubes flip to hot pink. Block by block the boulevard
+lights up, windows coming back on, while Vex's billboards go dark.
+Lettering: Panel 1, Atlas caption: "Lights out. Except Vex's face." Panel 3,
+Vex's ornate bubble: "Lights! Camera! NEON MASTER!" Panel 4, Atlas caption:
+"Bubble Lance hurts this one!" Panel 5, Atlas caption: "Lights on. Vex lost
+its screens."
+```
+
+### Page 29 · Rotor Run
+
+**Characters:** FLUX, ATLAS, VEX, SECOND-SHIFT (Rotor), SHIFT-MACHINES
+(Hornet Rotor)
+
+```
+[STYLE] [FLUX] [ATLAS] [VEX] [SECOND-SHIFT] [SHIFT-MACHINES]
+Comic page with 5 panels.
+Panel 1 (wide): A sky airfield high above the valley. Swarms of cargo drones
+with red rotor lights stream toward the distant fortress spire.
+Panel 2: Flux rides a cargo quadcopter across an open span in a crosswind,
+while Hornet Rotors spin up red and dive at him.
+Panel 3: Rotor Master hovers in a swarm of drones, the rotors on its helmet
+whirling RED, a downdraft blasting Flux back. Vex's hologram presents it,
+grand but sweating.
+Panel 4: Flux throws a hot-pink Neon Blade. It cuts through the drone swarm
+and hits Rotor Master on its way back.
+Panel 5: Rotor Master's rotors spin down from red to lime. The cargo drones
+turn round and fly down to a crowd of waving worker-bots.
+Lettering: Panel 1, Atlas caption: "Drones. Its last supply line." Panel 3,
+Vex's ornate bubble: "The grand finale! ROTOR MASTER!" Panel 4, Atlas
+caption: "Neon Blade hurts this one!" Panel 5, Atlas caption: "Every line's
+cut. Vex is alone."
+```
+
+### Page 16 · The Breach
 
 **Characters:** FLUX, PIP, ATLAS, VEX
 
@@ -683,10 +863,11 @@ Panel 2, Atlas caption: "That's Vex. The real one." Panel 3, Atlas caption:
 
 ### Page 19 · The relays hold
 
-MODE: replace
-NEW TEXT:
+**Characters:** FLUX, ATLAS, MK-I, VEX, MASTERS and SECOND-SHIFT (all nine,
+tiny, far away)
+
 ```
-[STYLE] [FLUX] [ATLAS] [MK-I] [VEX] [MASTERS]
+[STYLE] [FLUX] [ATLAS] [MK-I] [VEX] [MASTERS] [SECOND-SHIFT]
 Comic page with 5 panels.
 Panel 1: The damaged Mk-I rears up, its cracked dome crackling. Vex, furious,
 monocle flying off, sends out a huge red pulse.
@@ -734,10 +915,10 @@ Panel 5, Atlas caption: "…No. They can run themselves."
 
 ### Page 21 · The valley wakes
 
-MODE: replace
-NEW TEXT:
+**Characters:** MASTERS, SECOND-SHIFT, MACHINES (friendly worker-bots)
+
 ```
-[STYLE] [MASTERS]
+[STYLE] [MASTERS] [SECOND-SHIFT]
 Comic page with 4 panels.
 Panel 1 (wide): Seen from high above, the red glow rolls back into the black
 fortress and vanishes.

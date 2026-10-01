@@ -718,6 +718,18 @@ export default {
       '5': 'À mi-chemin ! Vex transpire.',
     },
     'bossAhead': 'Boss en vue. Respire à fond !',
+    'noWeak': 'Pas de point faible. Reste mobile !',
+    'weak': {
+      'flameWave': 'Vague de flammes lui fait mal !',
+      'iceLance': 'Lance de glace lui fait mal !',
+      'thunderArc': 'Arc de foudre lui fait mal !',
+      'galeGuard': 'Bouclier rafale lui fait mal !',
+      'magnetPull': 'Aimant tracteur lui fait mal !',
+      'drillBomb': 'Bombe foreuse lui fait mal !',
+      'bubbleLance': 'Lance-bulle lui fait mal !',
+      'neonBlade': 'Lame néon lui fait mal !',
+      'droneSwarm': 'Essaim de drones lui fait mal !'
+    },
     'bossDown': 'Maître libéré ! Bien joué !',
     'vexDown': 'Vex est vaincu. On a réussi !',
     'lowHp': 'Aïe ! Attention, Flux !',

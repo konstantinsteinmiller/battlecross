@@ -378,7 +378,7 @@ describe('ice', () => {
 
   it('the Glacier builds its features in a fixed order; the Tower Run none', () => {
     const run = new ClimbRun(hostFor(generateGlacier(3)), 1)
-    expect(run.features.map(f => f.constructor.name)).toEqual(['IceFeature', 'FrostThrowers', 'IcePillars', 'Icicles', 'SecretsFeature'])
+    expect(run.features.map(f => f.constructor.name)).toEqual(['IceFeature', 'FrostThrowers', 'IcePillars', 'Icicles', 'SecretsFeature', 'CrumbleFeature'])
   })
 
   it('friction on ice cells only, on the ground only', () => {

@@ -718,6 +718,18 @@ export default {
       '5': 'A metà strada! Vex suda freddo.',
     },
     'bossAhead': 'Boss in arrivo. Respiro profondo!',
+    'noWeak': 'Nessun punto debole. Muoviti sempre!',
+    'weak': {
+      'flameWave': 'Onda di Fuoco gli fa male!',
+      'iceLance': 'Lancia di Ghiaccio gli fa male!',
+      'thunderArc': 'Arco Tonante gli fa male!',
+      'galeGuard': 'Scudo di Vento gli fa male!',
+      'magnetPull': 'Richiamo Magnetico gli fa male!',
+      'drillBomb': 'Bomba Trivella gli fa male!',
+      'bubbleLance': 'Lancia Bolla gli fa male!',
+      'neonBlade': 'Lama Neon gli fa male!',
+      'droneSwarm': 'Sciame di Droni gli fa male!'
+    },
     'bossDown': 'Maestro liberato! Ottimo lavoro!',
     'vexDown': "Vex è a terra. Ce l'abbiamo fatta!",
     'lowHp': 'Ahi! Attento, Flux!',

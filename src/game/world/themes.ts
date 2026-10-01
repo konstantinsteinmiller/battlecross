@@ -82,10 +82,10 @@ export const THEMES: Record<SectorId, Theme> = {
   magnet: {
     id: 'magnet',
     floor: '#8d93a3', floorAlt: '#777d8e', corridor: '#6a7080',
-    wall: '#c23a4a', wallLow: '#7e2230', trim: '#3f7bff', pilaster: '#5a6072',
-    accent: '#ff4a5e', hazard: '#3f7bff',
-    skyTop: '#3a2c6e', skyBottom: '#ff9a8a', fog: '#c89aa8', fogNear: 18, fogFar: 64,
-    hemiSky: '#ffe6ea', hemiGround: '#3a3448', sun: '#fff0e6', sunIntensity: 1.15,
+    wall: '#3a5cb0', wallLow: '#22386e', trim: '#c9d3e6', pilaster: '#5a6072',
+    accent: '#3f7bff', hazard: '#ff4a5e',
+    skyTop: '#2c2e6e', skyBottom: '#9ab4ff', fog: '#9aa6c8', fogNear: 18, fogFar: 64,
+    hemiSky: '#e8eeff', hemiGround: '#3a3448', sun: '#fff0e6', sunIntensity: 1.15,
     pipe: '#3f7bff', crate: '#9a8a7a', crateTrim: '#3a3036'
   },
   // Deep Mine: timbered rock under amber work lamps, hazard yellow trim, a
@@ -94,7 +94,7 @@ export const THEMES: Record<SectorId, Theme> = {
     id: 'drill',
     floor: '#8a7560', floorAlt: '#75624f', corridor: '#6a5848',
     wall: '#7a5a3e', wallLow: '#4a3d32', trim: '#ffc21a', pilaster: '#3f4654',
-    accent: '#ffb12a', hazard: '#ffd23a',
+    accent: '#c8862a', hazard: '#ffd23a',
     skyTop: '#2b2236', skyBottom: '#c98a52', fog: '#8a6a52', fogNear: 14, fogFar: 54,
     hemiSky: '#ffe2b8', hemiGround: '#3a2c22', sun: '#ffe6c2', sunIntensity: 1.05,
     pipe: '#8c8f99', crate: '#9a7a52', crateTrim: '#3a2a1e'
@@ -126,7 +126,7 @@ export const THEMES: Record<SectorId, Theme> = {
   rotor: {
     id: 'rotor',
     floor: '#c8ccd6', floorAlt: '#b0b6c2', corridor: '#9aa2b0',
-    wall: '#ff8a2a', wallLow: '#b85a14', trim: '#ffffff', pilaster: '#5a6478',
+    wall: '#6f9a34', wallLow: '#3f5c1c', trim: '#ffffff', pilaster: '#5a6478',
     accent: '#b8ff5a', hazard: '#ff4a3a',
     skyTop: '#4a9aff', skyBottom: '#ffe0b0', fog: '#f0dcc0', fogNear: 24, fogFar: 80,
     hemiSky: '#ffffff', hemiGround: '#8a8070', sun: '#fff2d8', sunIntensity: 1.3,

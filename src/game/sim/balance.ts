@@ -14,6 +14,7 @@
  * `scripts/balance-sim.mjs` prints the tables; `tests/game/balance.test.ts`
  * holds the targets.
  */
+import { ngHpMul, ngTempo } from './ngPlus'
 import { ENEMIES, scaleHp, scaleDmg, scaleXp } from '../data/enemies'
 import { BOSSES } from '../data/bosses'
 import type { BossId } from '../models/bosses'
@@ -64,6 +65,8 @@ const MEGA_CHARGE_MAX = 5
 
 export interface MissionRow {
   n: number
+  /** New Game+ cycle (0: the first run). */
+  cycle: number
   sector: string
   kind: 'tutorial' | 'job' | 'story'
   level: number
@@ -111,7 +114,7 @@ const average = (sector: Sector, level: number): { hp: number; dmg: number; bolt
 
 /** Play the campaign as `p`: the tutorial, then per sector its jobs and its
  *  story mission (the Core Master). */
-export const simulate = (p: PlayerProfile): MissionRow[] => {
+export const simulate = (p: PlayerProfile, cycles = 0): MissionRow[] => {
   const rows: MissionRow[] = []
   let level = 1
   let xp = 0
@@ -152,22 +155,25 @@ export const simulate = (p: PlayerProfile): MissionRow[] => {
     }
   }
 
-  const play = (sector: Sector, kind: MissionRow['kind']): void => {
+  const play = (sector: Sector, kind: MissionRow['kind'], cycle = 0): void => {
     n++
-    const lvl = kind === 'tutorial' ? 1 : enemyLevelFor(sector, level, kind === 'story' ? 1 : 0)
+    const lvl = kind === 'tutorial' ? 1 : enemyLevelFor(sector, level, kind === 'story' ? 1 : 0, cycle)
     const foe = average(sector, lvl)
     const s = stats()
     const pw = powerIndex(s)
     const dps = pw * HITS_PER_S
-    const toughen = 1 + PROGRESS_HP * bosses
+    // New Game+ (`ngPlus.ts`): every Master counts as beaten, and a cycle's
+    // extra health on top; its bosses hit as often again as they are quicker.
+    const ngHp = ngHpMul(cycle)
+    const toughen = (1 + PROGRESS_HP * (cycle > 0 ? SECTORS.length - 1 : bosses)) * ngHp
     const foeTtk = (foe.hp * toughen) / dps
     let bossTtk = 0
     let bossTtd = 0
     if (kind !== 'job') {
       const def = BOSSES[sector.boss as BossId]
-      const hp = scaleHp(def.hp, lvl) * (kind === 'tutorial' ? 1 : bossHpMul(s, lvl))
+      const hp = scaleHp(def.hp, lvl) * (kind === 'tutorial' ? 1 : bossHpMul(s, lvl)) * ngHp
       bossTtk = hp / dps
-      bossTtd = s.maxHp / (scaleDmg(def.dmg, lvl) * s.damageTakenMul * BOSS_HITS_PER_S)
+      bossTtd = s.maxHp / (scaleDmg(def.dmg, lvl) * s.damageTakenMul * BOSS_HITS_PER_S / ngTempo(cycle))
     }
     // The income: the quest, the machines, the chests, the boss's drop.
     const template = kind === 'tutorial' ? 'tutorial' : kind === 'story' ? 'stage' : 'kill'
@@ -190,10 +196,10 @@ export const simulate = (p: PlayerProfile): MissionRow[] => {
     }
     if (kind !== 'job') bosses++
     const fortress = kind === 'story' && sector.id === 'fortress'
-    const gateTtk = fortress ? Math.round(scaleHp(ENEMIES.gatekeeper.hp, lvl) / dps) : 0
-    const twinTtk = fortress ? Math.round(scaleHp(ENEMIES.echo.hp, lvl) / dps) : 0
+    const gateTtk = fortress ? Math.round(scaleHp(ENEMIES.gatekeeper.hp, lvl) * ngHp / dps) : 0
+    const twinTtk = fortress ? Math.round(scaleHp(ENEMIES.echo.hp, lvl) * ngHp / dps) : 0
     rows.push({
-      n, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm), gateTtk, twinTtk,
+      n, cycle, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm), gateTtk, twinTtk,
       power: Math.round(pw * 10) / 10, ratio: Math.round(powerRatio(s, lvl) * 100) / 100,
       foeTtk: Math.round(foeTtk * 10) / 10, bossTtk: Math.round(bossTtk), bossTtd: Math.round(bossTtd),
       income: paid, bank: Math.round(bank)
@@ -205,6 +211,14 @@ export const simulate = (p: PlayerProfile): MissionRow[] => {
     if (sector.id === 'scrapyard') { play(sector, 'tutorial'); continue }
     for (let j = 0; j < p.jobsPerSector; j++) play(sector, 'job')
     play(sector, 'story')
+  }
+  // New Game+: the story again, gear kept, the tutorial done (the Scrapyard
+  // is its labyrinth to the Scrapper).
+  for (let c = 1; c <= cycles; c++) {
+    for (const sector of SECTORS) {
+      for (let j = 0; j < (sector.id === 'scrapyard' ? 0 : p.jobsPerSector); j++) play(sector, 'job', c)
+      play(sector, 'story', c)
+    }
   }
   return rows
 }

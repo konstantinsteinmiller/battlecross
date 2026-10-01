@@ -718,6 +718,18 @@ export default {
       '5': 'Được nửa đường! Vex toát mồ hôi rồi.',
     },
     'bossAhead': 'Trùm phía trước. Hít sâu!',
+    'noWeak': 'Không thấy điểm yếu. Cứ di chuyển!',
+    'weak': {
+      'flameWave': 'Sóng Lửa khắc chế tên này!',
+      'iceLance': 'Giáo Băng khắc chế tên này!',
+      'thunderArc': 'Hồ Quang Sấm khắc chế tên này!',
+      'galeGuard': 'Khiên Gió khắc chế tên này!',
+      'magnetPull': 'Lực Hút Nam Châm khắc chế tên này!',
+      'drillBomb': 'Bom Khoan khắc chế tên này!',
+      'bubbleLance': 'Thương Bong Bóng khắc chế tên này!',
+      'neonBlade': 'Lưỡi Neon khắc chế tên này!',
+      'droneSwarm': 'Bầy Drone khắc chế tên này!'
+    },
     'bossDown': 'Chúa Tể được giải phóng! Giỏi lắm!',
     'vexDown': 'Vex gục rồi. Ta làm được!',
     'lowHp': 'Ui! Cẩn thận, Flux!',

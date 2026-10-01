@@ -287,6 +287,9 @@ export const generateRailRush = (seed: number): MapData => {
   b.level(16, 27, 18, 32, L(0))
   b.pits(13, 27, 13, 27)
   b.link([12, 27], [14, 27], 'leap')
+  // The gap to the weapon ledge holds a crumbling slab: step on it and keep
+  // moving, or leap it.
+  b.crumble(13, 27, L(2), 1, 1)
   b.rewards.push({ x: cellCenter(14), z: cellCenter(27), y: L(2), room: 7, kind: 'weapon' })
   b.checkpoint(11, 30, YAW_PX, [[11, 28], [11, 29], [11, 30], [11, 31], [11, 32]])
   b.foe('turret', 15, 32, YAW_NZ, [15, 32, 15, 32])

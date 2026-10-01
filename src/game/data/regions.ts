@@ -1,3 +1,4 @@
+import { MAX_LEVEL } from './progression'
 import type { SectorId } from '../world/themes'
 import type { EncounterTable } from '../sim/spawn'
 
@@ -78,6 +79,8 @@ export const SECTORS: Sector[] = [
 
 export const SECTOR_BY_ID = Object.fromEntries(SECTORS.map(s => [s.id, s])) as Record<SectorId, Sector>
 
-/** Blades-style soft scaling: enemies track the player inside the band. */
-export const enemyLevelFor = (sector: Sector, playerLevel: number, delta = 0): number =>
-  Math.max(sector.levels[0], Math.min(sector.levels[1], playerLevel + delta))
+/** Blades-style soft scaling: enemies track the player inside the band. In
+ *  New Game+ (`ng` > 0, `sim/ngPlus.ts`) the band's top lifts to the level
+ *  cap, so the machines keep tracking a Flux already past the band. */
+export const enemyLevelFor = (sector: Sector, playerLevel: number, delta = 0, ng = 0): number =>
+  Math.max(sector.levels[0], Math.min(ng > 0 ? MAX_LEVEL : sector.levels[1], playerLevel + delta))

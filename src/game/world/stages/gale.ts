@@ -98,6 +98,9 @@ export const generateSkyDocks = (seed: number): MapData => {
   leaps(10, 0, 1, 0, [1, 2, 3])
   leaps(13, 0, 1, 0, [2, 3])
   leaps(16, 0, 1, 0, [2, 3, 4])
+  // The last gap of the first leaps holds a crumbling slab in its middle row
+  // (the other two stay open sky): a bridge that only lasts a moment.
+  b.crumble(17, 3, L(0), 1, 1)
   b.rewards.push({ x: cellCenter(13), z: cellCenter(1), y: L(0), room: 1, kind: 'bolts' })
   b.checkpoint(9, 2, YAW_PX, cells(9, 1, 10, 4))
   b.foe('flyer', 16, 3, YAW_NX, [9, 1, 22, 4], [L(0), L(1)])
@@ -202,6 +205,7 @@ export const generateSkyDocks = (seed: number): MapData => {
   island(1, 19, 1, 20, L(3))
   island(4, 23, 6, 23, L(3))
   leaps(8, 0, -1, 0, [19, 20, 21])
+  b.crumble(7, 20, L(3), 1, 1)
   leaps(0, 21, 0, 1, [5, 6])
   leaps(5, 0, -1, 0, [19, 20], true)
   leaps(3, 0, -1, 0, [19, 20], true)

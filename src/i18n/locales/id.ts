@@ -718,6 +718,18 @@ export default {
       '5': 'Setengah jalan! Vex mulai keringatan.',
     },
     'bossAhead': 'Bos di depan. Tarik napas!',
+    'noWeak': 'Tak ada titik lemah. Terus bergerak!',
+    'weak': {
+      'flameWave': 'Gelombang Api ampuh melawannya!',
+      'iceLance': 'Tombak Es ampuh melawannya!',
+      'thunderArc': 'Busur Petir ampuh melawannya!',
+      'galeGuard': 'Perisai Badai ampuh melawannya!',
+      'magnetPull': 'Tarikan Magnet ampuh melawannya!',
+      'drillBomb': 'Bom Bor ampuh melawannya!',
+      'bubbleLance': 'Tombak Gelembung ampuh melawannya!',
+      'neonBlade': 'Bilah Neon ampuh melawannya!',
+      'droneSwarm': 'Kawanan Drone ampuh melawannya!'
+    },
     'bossDown': 'Master bebas! Kerja bagus!',
     'vexDown': 'Vex tumbang. Kita berhasil!',
     'lowHp': 'Aduh! Hati-hati, Flux!',

@@ -7,7 +7,7 @@
         type="button"
         :class="{ on: sel === s.id, locked: !unlocked(s.id), cleared: cleared(s.id) }"
         :data-sector="s.id"
-        :style="{ '--c1': THEMES[s.id].wall, '--c2': THEMES[s.id].accent }"
+        :style="{ '--c1': SECTOR_COLOR[s.id], '--c2': SECTOR_COLOR[s.id] }"
         @click="select(s.id)"
       )
         span.s-orb
@@ -56,7 +56,8 @@ import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import QuestCard from './QuestCard.vue'
 import { SECTORS, SECTOR_BY_ID } from '@/game/data/regions'
-import { THEMES, type SectorId } from '@/game/world/themes'
+import type { SectorId } from '@/game/world/themes'
+import { SECTOR_COLOR } from '@/game/data/signature'
 import { profile, saveProfile, computeStats } from '@/game/state/profile'
 import { storyFor, startMission, rerollJob } from '@/game/flow'
 import type { Quest } from '@/game/data/quests'
@@ -157,7 +158,7 @@ const claimGift = async () => {
   padding: 8px 4px
   border-radius: 14px
   border: 3px solid #141a33
-  background: linear-gradient(var(--c1), color-mix(in srgb, var(--c1) 55%, #0b1433))
+  background: linear-gradient(color-mix(in srgb, var(--c1) 62%, #0b1433), color-mix(in srgb, var(--c1) 30%, #0b1433))
   color: #fff
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35)
   &.on

@@ -540,7 +540,6 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | --- | --- | --- | --- | --- | --- |
 | `atlas_blaze_beamin` | `atlas.sector.blaze` | Atlas | "Refinery. It runs hot. Mind the vents." | Brisk briefing. | 2.4 s |
 | `vex_present_blaze` | `vex.present.blaze` | Vex | "The oldest! The hottest! BLAZE MASTER!" | A full boxing-announcer build. | 3.0 s |
-| `atlas_no_weakness` | `atlas.boss.noWeak` | Atlas | "No weak spot I can see. Stay moving." | Focused. | 2.2 s |
 | `atlas_weapon_copied` | `atlas.story.copied` | Atlas | "{weapon} copied." | Crisp. *Record one per weapon:* Scrap Burst, Flame Wave, Ice Lance, Thunder Arc, Gale Guard, Magnet Pull, Drill Bomb, Bubble Lance, Neon Blade, Drone Swarm. | 1.6 s |
 | `vex_hub_blaze` | `vex.hub.blaze` | Vex | "Side effect noted. Increasing the dose." | Clinical and irritated, like a doctor annoyed at a chart. | 2.8 s |
 | `atlas_cryo_beamin` | `atlas.sector.cryo` | Atlas | "Coolant's flowing uphill. To the Fortress." | Noticing something, suspicious. | 2.4 s |
@@ -646,7 +645,8 @@ count now runs to ten:
 | VO id | Key | Line | Direction | Max |
 | --- | --- | --- | --- | --- |
 | `atlas_boss_ahead` | `atlas.warn.boss` | "Core Master ahead." | Alert. | 1.4 s |
-| `atlas_weak_to` | `atlas.warn.weakTo` | "{boss}. {weapon} hurts it." | Tactical. *Record per pairing* (9 Masters × their weapon), or record the halves and splice them. | 2.2 s |
+| `atlas_weak_<weapon>` | `atlas.weak.<weapon>` | "{weapon} hurts this one!" | Tactical, a quick tip with a grin. **Live:** said right after "Boss ahead" when Flux carries the Master's weakness. *Record one per weapon* (Gale Guard, Flame Wave, Ice Lance, Thunder Arc, Drone Swarm, Magnet Pull, Drill Bomb, Bubble Lance, Neon Blade). | 2.2 s |
+| `atlas_noWeak` | `atlas.noWeak` | "No weak spot I can see. Stay moving." | Focused. **Live:** the Scrapper's and Vex's boss doors. | 2.2 s |
 | `atlas_use_gel_first` | `atlas.warn.gelFirst` | "Plating's cracking. Use a gel." | Concerned, a clear instruction. | 2.0 s |
 | `atlas_use_gel` | `atlas.warn.gel` | "Gel." | A quick nudge. | 0.6 s |
 | `atlas_critical_first` | `atlas.warn.criticalFirst` | "Critical! Back off!" | Tight and fast, **not** loud. | 1.2 s |

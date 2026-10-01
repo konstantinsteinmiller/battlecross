@@ -1,3 +1,4 @@
+import { ngHpMul, ngTempo, ngFollowUp } from './ngPlus'
 import {
   Scene, PerspectiveCamera, Fog, HemisphereLight, DirectionalLight, Color, Vector3, Raycaster, Vector2,
   Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight,
@@ -75,6 +76,7 @@ import {
 import { updateBoss, syncBossVisual, startBossIntro, BOSS_INTRO_T, bossRoomOf } from './bosses'
 import { WeaponSystem } from './weapons'
 import { WEAPONS, type WeaponId } from '../data/weapons'
+import type { BossDef } from '../data/bosses'
 import { perfFlag } from '@/use/perfVariants'
 import { roomCenter, cellCenter, type Room } from '../world/levelGen'
 import { Locator, type LocatorInput } from './locator'
@@ -663,6 +665,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       this.boss.hp = this.boss.maxHp
     }
     for (const e of this.enemies) if (!e.boss) this.toughen(e)
+    // New Game+ (`sim/ngPlus.ts`): every machine and boss a cycle tougher,
+    // bosses quicker. The tutorial is never replayed in a New Game+.
+    const ng = this.setup.tutorial ? 0 : profile.world.ngPlus
+    if (ng > 0) {
+      const hpMul = ngHpMul(ng)
+      for (const e of this.enemies) {
+        e.maxHp = Math.round(e.maxHp * hpMul)
+        e.hp = e.maxHp
+        if (e.boss) { e.tempo = ngTempo(ng); e.followUp = ngFollowUp(ng) }
+      }
+    }
     if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
     if (setup.stage) this.placeStageProps()
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
@@ -1533,7 +1546,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private toughen(e: Enemy): void {
     if (e.boss || (e as { toughened?: boolean }).toughened) return
     ;(e as { toughened?: boolean }).toughened = true
-    const mul = 1 + PROGRESS_HP * profile.world.bosses.length
+    // New Game+: every Core Master was beaten once already.
+    const beaten = profile.world.ngPlus > 0 ? Object.values(SECTOR_BY_ID).filter(s => s.boss !== 'vexMk1').length : profile.world.bosses.length
+    const mul = 1 + PROGRESS_HP * beaten
     e.maxHp = Math.round(e.maxHp * mul)
     e.hp = Math.round(e.hp * mul)
   }
@@ -3603,6 +3618,18 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    * the light fades) so the way out reads as safe. The first time Flux has the
    * shutter in sight from ~9 m, a klaxon and a faint red pulse announce it.
    */
+  /** Atlas names the Master's weakness right after the boss warning, when
+   *  Flux carries that weapon (the rings run with the story, so on a first
+   *  run that is most Masters); a Master with no weakness gets `noWeak`. One
+   *  with a weakness Flux has not copied yet: nothing, it is found by trying. */
+  private sayWeakness(): void {
+    const b = this.boss
+    if (!b || !this.atlas) return
+    const weak = (b.def as BossDef).weakTo
+    if (!weak) this.atlas.say('noWeak')
+    else if (profile.hero.weapons.includes(weak)) this.atlas.say(`weak.${weak}`)
+  }
+
   private updateBossDoorFx(d: DoorState, dt: number): void {
     const fx = d.mesh.warn!
     const bossAlive = !!this.boss && this.boss.state !== 'dead'
@@ -3630,6 +3657,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         this.bossWarned = true
         this.sfx('bossWarn', d.x, d.z)
         this.atlas?.event('bossAhead')
+        this.sayWeakness()
         this.shake(0.12)
         pushHud({ t: 'flash', color: '#ff3040', strength: 0.16 })
       }

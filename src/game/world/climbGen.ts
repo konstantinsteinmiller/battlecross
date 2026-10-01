@@ -117,6 +117,9 @@ export const generateClimb = (seed: number): MapData => {
   // a lift up to the upper level around it. Rotor Drones patrol the heights.
   b.addRoom(21, 1, 7, 4, 'combat', 'lift', L(3))
   b.pits(22, 1, 24, 4)
+  // Along the pit's far edge a path of crumbling slabs: run it without
+  // waiting for the shuttle, and do not stop. No seed numbers drawn.
+  for (let i = 22; i <= 24; i++) b.crumble(i, 4, L(3), 1, 1)
   b.level(26, 1, 27, 4, L(4))
   b.pits(26, 2, 26, 2)
   const shuttle = 2.3 + rng() * 0.8

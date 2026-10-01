@@ -718,6 +718,18 @@ export default {
       '5': 'Halbzeit! Vex kommt ins Schwitzen.',
     },
     'bossAhead': 'Boss voraus. Tief durchatmen!',
+    'noWeak': 'Kein Schwachpunkt. Bleib in Bewegung!',
+    'weak': {
+      'flameWave': 'Flammenwelle tut ihm weh!',
+      'iceLance': 'Eislanze tut ihm weh!',
+      'thunderArc': 'Donnerbogen tut ihm weh!',
+      'galeGuard': 'Sturmschild tut ihm weh!',
+      'magnetPull': 'Magnetzug tut ihm weh!',
+      'drillBomb': 'Bohrbombe tut ihm weh!',
+      'bubbleLance': 'Blasenlanze tut ihm weh!',
+      'neonBlade': 'Neonklinge tut ihm weh!',
+      'droneSwarm': 'Drohnenschwarm tut ihm weh!'
+    },
     'bossDown': 'Meister befreit! Super gemacht!',
     'vexDown': 'Vex ist erledigt. Wir haben es geschafft!',
     'lowHp': 'Autsch! Vorsicht, Flux!',

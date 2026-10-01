@@ -718,6 +718,18 @@ export default {
       '5': '过半啦！Vex在冒汗。',
     },
     'bossAhead': '前方首领，深呼吸！',
+    'noWeak': '看不到弱点，保持移动！',
+    'weak': {
+      'flameWave': '烈焰波对它很有效！',
+      'iceLance': '寒冰枪对它很有效！',
+      'thunderArc': '雷电弧对它很有效！',
+      'galeGuard': '疾风护盾对它很有效！',
+      'magnetPull': '磁力牵引对它很有效！',
+      'drillBomb': '钻头炸弹对它很有效！',
+      'bubbleLance': '泡泡长枪对它很有效！',
+      'neonBlade': '霓虹刃对它很有效！',
+      'droneSwarm': '无人机蜂群对它很有效！'
+    },
     'bossDown': '大师解放！干得好！',
     'vexDown': 'Vex倒下了，我们做到了！',
     'lowHp': '哎哟！小心，Flux！',

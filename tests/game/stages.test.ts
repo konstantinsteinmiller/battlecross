@@ -440,11 +440,28 @@ describe('stage features', () => {
     return { run, host }
   }
 
-  it('the climb builds only its secret\'s (no stage mechanic of its own)', () => {
+  it('the climb builds only its secret\'s and its crumbling path (no sector mechanic)', () => {
     const map = generateClimb(7)
     const f = new ClimbRun(hostFor(map), 1).features
-    expect(f).toHaveLength(1)
+    expect(f.map(x => x.constructor.name)).toEqual(['SecretsFeature', 'CrumbleFeature'])
     expect(f[0]).toBeInstanceOf(SecretsFeature)
+  })
+
+  it('every old stage and the Tower hold 1-3 crumbling slabs, each over a gap that stays crossable without it', () => {
+    const maps = [generateMeltdown(5), generateGlacier(5), generateRailRush(5), generateSkyDocks(5), generateClimb(5)]
+    for (const m of maps) {
+      const t = m.terrain!
+      expect(t.crumbles?.length, m.terrain!.sections[0]?.kind).toBeGreaterThanOrEqual(1)
+      for (const c of t.crumbles!) {
+        const k = c.j * m.w + c.i
+        expect(t.pit[k], `slab at ${c.i},${c.j}`).toBe(1)
+        // A leap link spans the slab's cell, or (the Tower) a lift crosses
+        // the same pit: the slab is a shortcut, never the only way.
+        const leapOver = (t.links ?? []).some(l => l.kind === 'leap' && (l.from[0] + l.to[0]) / 2 === c.i && (l.from[1] + l.to[1]) / 2 === c.j)
+        const shuttle = t.lifts.some(lf => lf.kind === 'h')
+        expect(leapOver || shuttle, `slab at ${c.i},${c.j}`).toBe(true)
+      }
+    }
   })
 
   it('friction and push reach the walk; update runs each step', () => {

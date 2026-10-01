@@ -212,20 +212,36 @@ landing with a shock ring while the shutter slams behind the player.
 | Boss | Sector | Patterns | Drops weapon | Weak to |
 | --- | --- | --- | --- | --- |
 | Scrapper (mini, tutorial) | Scrapyard | charge, scrap toss, stomp | **Scrap Burst** (3-way spread) | — |
-| Blaze Master | Blaze Refinery | fire wave, leaping slam, flame ring | **Flame Wave** (ground fire, burn DoT) | Ice Lance |
-| Frost Master | Cryo Plant | ice lance volley, freeze floor, dash | **Ice Lance** (piercing, freezes) | Thunder Arc |
-| Volt Master | Volt Tower | chain lightning, orb storm, teleport | **Thunder Arc** (chains to 3) | Gale Guard |
-| Gale Master | Sky Docks | tornado push, feather blades, dive | **Gale Guard** (orbiting shield, throwable) | Flame Wave |
-| Magnet Master | Polarity Works | homing horseshoe missiles, Pole Pull (drags Flux in, then a clamp), rail-straight charge; phase 2: Polar Storm | **Magnet Pull** (homing horseshoe; cracks guards and shells, yanks flyers down) | Drill Bomb |
-| Drill Master | Deep Mine | burrow and erupt under Flux, drill bombs, charge; phase 2: quake (rings, falling rock) | **Drill Bomb** (bores on, bursts, splashes; breaks cracked rock) | Bubble Lance |
-| Tide Master | Tidewater Locks | lance thrust, tidal waves (slide under), slow bubble volley; phase 2: whirlpool pull | **Bubble Lance** (a bubble rolling along the floor through every machine) | Neon Blade |
-| Neon Master | Blackout Boulevard | blade thrown out and back, dash, neon volley; phase 2: laser grid | **Neon Blade** (a boomerang that cuts going and coming) | Drone Swarm |
-| Rotor Master | Rotor Run | drone swarm, downdraft (blows Flux back), dive; phase 2: rotor storm | **Drone Swarm** (three homing drones) | Magnet Pull |
+| Blaze Master | Blaze Refinery | fire wave, leaping slam, flame ring | **Flame Wave** (ground fire, burn DoT) | Gale Guard |
+| Frost Master | Cryo Plant | ice lance volley, freeze floor, dash | **Ice Lance** (piercing, freezes) | Flame Wave |
+| Volt Master | Volt Tower | chain lightning, orb storm, teleport | **Thunder Arc** (chains to 3) | Ice Lance |
+| Gale Master | Sky Docks | tornado push, feather blades, dive | **Gale Guard** (orbiting shield, throwable) | Thunder Arc |
+| Magnet Master | Polarity Works | homing horseshoe missiles, Pole Pull (drags Flux in, then a clamp), rail-straight charge; phase 2: Polar Storm | **Magnet Pull** (homing horseshoe; cracks guards and shells, yanks flyers down) | Drone Swarm |
+| Drill Master | Deep Mine | burrow and erupt under Flux, drill bombs, charge; phase 2: quake (rings, falling rock) | **Drill Bomb** (bores on, bursts, splashes; breaks cracked rock) | Magnet Pull |
+| Tide Master | Tidewater Locks | lance thrust, tidal waves (slide under), slow bubble volley; phase 2: whirlpool pull | **Bubble Lance** (a bubble rolling along the floor through every machine) | Drill Bomb |
+| Neon Master | Blackout Boulevard | blade thrown out and back, dash, neon volley; phase 2: laser grid | **Neon Blade** (a boomerang that cuts going and coming) | Bubble Lance |
+| Rotor Master | Rotor Run | drone swarm, downdraft (blows Flux back), dive; phase 2: rotor storm | **Drone Swarm** (three homing drones) | Neon Blade |
 | Dr. Vex Mk-I | Vex Fortress | every pattern above, 3 phases | — (credits + New Game+) | none |
 
-The five new Masters form a second weakness ring, closed on itself: Drill
-Bomb beats Magnet, Bubble Lance beats Drill, Neon Blade beats Tide, Drone
-Swarm beats Neon, and Magnet Pull beats Rotor. The first ring is unchanged. Sector bands:
+Both weakness rings run **with** the story order: each Master is weak to the
+weapon of the Master freed just before it, and each ring's first Master
+loops round to its ring's last. The first ring: Gale Guard beats Blaze,
+Flame Wave beats Frost, Ice Lance beats Volt, Thunder Arc beats Gale. The
+five new Masters form a second ring, closed on itself: Drone Swarm beats
+Magnet, Magnet Pull beats Drill, Drill Bomb beats Tide, Bubble Lance beats
+Neon, and Neon Blade beats Rotor. So on a first run only the two ring
+openers, Blaze and Magnet, are fought without their weakness in hand; the
+other seven meet the weapon Flux has just copied. Elemental machines follow
+the first ring (× 1.75): fire is weak to wind, ice to fire, volt to ice,
+wind to volt.
+
+At the boss door, right after "Boss ahead. Deep breath!", Atlas says
+"{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux carries the
+Master's weakness, and "No weak spot I can see. Stay moving."
+(`atlas.noWeak`) at the Scrapper's and Vex's doors, which have none. For a
+Master whose weakness Flux hasn't copied yet, Atlas says nothing.
+
+Sector bands:
 Polarity Works 16–22, Deep Mine 19–25, Tidewater Locks 22–28, Blackout
 Boulevard 25–31, Rotor Run 28–34, Vex Fortress 31–40. The Fortress shield
 falls after the tenth relay (the Rotor Master).

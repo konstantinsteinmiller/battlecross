@@ -718,6 +718,18 @@ export default {
       '5': 'Yarim yoʻl! Vex terlayapti.',
     },
     'bossAhead': 'Oldinda boss. Chuqur nafas ol!',
+    'noWeak': 'Zaif joyi koʻrinmaydi. Harakatda boʻl!',
+    'weak': {
+      'flameWave': 'Zaif joyi — Olov toʻlqini!',
+      'iceLance': 'Zaif joyi — Muz nayza!',
+      'thunderArc': 'Zaif joyi — Momaqaldiroq yoyi!',
+      'galeGuard': 'Zaif joyi — Boʻron qalqoni!',
+      'magnetPull': 'Zaif joyi — Magnit tortishi!',
+      'drillBomb': 'Zaif joyi — Burgʻu bombasi!',
+      'bubbleLance': 'Zaif joyi — Pufak nayzasi!',
+      'neonBlade': 'Zaif joyi — Neon tigʻi!',
+      'droneSwarm': 'Zaif joyi — Dron toʻdasi!'
+    },
     'bossDown': 'Usta ozod! Barakalla!',
     'vexDown': 'Vex yengildi. Uddaladik!',
     'lowHp': 'Voy! Ehtiyot boʻl, Flux!',

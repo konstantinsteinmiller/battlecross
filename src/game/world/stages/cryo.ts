@@ -77,6 +77,9 @@ export const generateGlacier = (seed: number): MapData => {
   b.ice(spur, 3, spur, 3)
   b.rewards.push({ x: cellCenter(spur), z: cellCenter(2), y: TOP, room: 1, kind: 'bolts' })
   b.link([14, 4], [16, 4], 'leap')
+  // A crumbling slab in the gap past the stepping stone: a careful walker's
+  // bridge, if it is crossed before it drops into the spikes.
+  b.crumble(15, 4, TOP, 1, 1)
   b.checkpoint(10, 4, YAW_PX, [[10, 2], [10, 3], [10, 4], [10, 5], [10, 6]])
   b.foe('turret', 16, 6, YAW_NX, [16, 6, 16, 6])
   b.corridor(17, 4, 1, 0, 2, TOP)

@@ -28,6 +28,8 @@
  */
 
 import type { SectorId } from '../world/themes'
+import type { WeaponId } from '../data/weapons'
+import { BOSSES } from '../data/bosses'
 
 export type AtlasLine =
   | 'landed'
@@ -35,6 +37,9 @@ export type AtlasLine =
   | `story.${SectorId}`
   | `arc.${number}`
   | 'bossAhead' | 'bossDown' | 'vexDown' | 'guardDown'
+  /** After `bossAhead`: the weapon the Master is weak to (Flux carries it),
+   *  or that this one has no weakness at all. */
+  | `weak.${WeaponId}` | 'noWeak'
   | 'lowHp' | 'lowHpGel' | 'lowWe'
   | 'trap' | 'plate'
   | 'objective' | 'exit' | 'levelUp'
@@ -55,6 +60,7 @@ export const ATLAS_LINES: readonly AtlasLine[] = [
   'story.neon', 'story.rotor', 'story.fortress',
   ...Array.from({ length: ARC_LINES }, (_, n) => `arc.${n + 1}` as AtlasLine),
   'bossAhead', 'bossDown', 'vexDown', 'guardDown', 'lowHp', 'lowHpGel', 'lowWe', 'trap', 'plate',
+  ...Object.values(BOSSES).flatMap(b => b.weakTo ? [`weak.${b.weakTo}` as AtlasLine] : []), 'noWeak',
   'objective', 'exit', 'levelUp', 'idle.1', 'idle.2', 'idle.3', 'idle.4'
 ]
 
@@ -70,7 +76,7 @@ const PRIO: Partial<Record<AtlasLine, number>> = {
  *  nudges keep the default. */
 const HINT_PRIO = 7
 const prioOf = (l: AtlasLine): number =>
-  PRIO[l] ?? (l.startsWith('idle') ? 1 : l.startsWith('train.') ? 8 : l.startsWith('hint.') || l.startsWith('help.') ? HINT_PRIO : 3)
+  PRIO[l] ?? (l === 'noWeak' || l.startsWith('weak.') ? 8 : l.startsWith('idle') ? 1 : l.startsWith('train.') ? 8 : l.startsWith('hint.') || l.startsWith('help.') ? HINT_PRIO : 3)
 
 /** Seconds before the same line may come back (default: once a mission). */
 const COOLDOWN: Partial<Record<AtlasLine, number>> = {

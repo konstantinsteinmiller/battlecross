@@ -139,7 +139,7 @@ const plan = (key: string, speaker: Speaker, scene: SceneId, max: number, o: Opt
 const WEAPONS = ['scrapBurst', 'flameWave', 'iceLance', 'thunderArc', 'galeGuard', 'magnetPull', 'drillBomb', 'bubbleLance', 'neonBlade', 'droneSwarm'] as const
 /** Each Master's weakness (checked against `data/bosses.ts` by a test). */
 export const WEAK_TO: ReadonlyArray<readonly [boss: string, weapon: string]> = [
-  ['blazeMaster', 'iceLance'], ['frostMaster', 'thunderArc'], ['voltMaster', 'galeGuard'], ['galeMaster', 'flameWave'], ['magnetMaster', 'drillBomb'], ['drillMaster', 'bubbleLance'], ['tideMaster', 'neonBlade'], ['neonMaster', 'droneSwarm'], ['rotorMaster', 'magnetPull']
+  ['blazeMaster', 'galeGuard'], ['frostMaster', 'flameWave'], ['voltMaster', 'iceLance'], ['galeMaster', 'thunderArc'], ['magnetMaster', 'droneSwarm'], ['drillMaster', 'magnetPull'], ['tideMaster', 'drillBomb'], ['neonMaster', 'bubbleLance'], ['rotorMaster', 'neonBlade']
 ]
 /** Each sector's floor level after the first (checked against `data/regions.ts`). */
 export const SECTOR_FLOOR: ReadonlyArray<readonly [sector: string, level: number]> = [
@@ -198,6 +198,17 @@ const ATLAS_LIVE: VoiceLine[] = [
   live('atlas.bossAhead', 'atlas', 'missionWarn', {
     when: ['The boss door comes into view', 'Die Boss-Tür kommt in Sicht'],
     direction: ['Alert, then a calming breath.', 'Wachsam, dann ein beruhigender Atemzug.']
+  }),
+  // Right after `bossAhead`: the weapon this Master is weak to, when Flux
+  // carries it; a Master without a weakness (the Scrapper, Vex) gets
+  // `noWeak`. One line per weapon, so each can have its own recording.
+  ...WEAK_TO.map(([b, w]) => live(`atlas.weak.${w}`, 'atlas', 'missionWarn', {
+    when: [`The boss door comes into view, Flux carries its weakness (${b})`, `Die Boss-Tür kommt in Sicht, Flux trägt seine Schwäche (${b})`],
+    direction: ['Tactical, a quick tip with a grin.', 'Taktisch, ein schneller Tipp mit einem Grinsen.']
+  })),
+  live('atlas.noWeak', 'atlas', 'missionWarn', {
+    when: ['The boss door of a Master without a weakness (the Scrapper, Vex)', 'Die Boss-Tür eines Meisters ohne Schwäche (Schrotter, Vex)'],
+    direction: ['Focused.', 'Konzentriert.']
   }),
   live('atlas.bossDown', 'atlas', 'missionWarn', {
     when: ['A Core Master is beaten (freed)', 'Ein Kernmeister ist besiegt (befreit)'],
@@ -265,11 +276,6 @@ const ATLAS_PLAN: VoiceLine[] = [
     when: ['Beam-in: Blaze Refinery', 'Ankunft: Glutraffinerie'],
     draft: ['Refinery. It runs hot. Mind the vents.', 'Raffinerie. Hier wird\'s heiß. Achte auf die Düsen.'],
     direction: ['Brisk briefing.', 'Zügige Einweisung.']
-  }),
-  plan('atlas.boss.noWeak', 'atlas', 'act1', 2.2, {
-    when: ['A boss fight with no known weakness', 'Ein Bosskampf ohne bekannte Schwäche'],
-    draft: ['No weak spot I can see. Stay moving.', 'Keine Schwachstelle zu sehen. Bleib in Bewegung.'],
-    direction: ['Focused.', 'Konzentriert.']
   }),
   ...WEAPONS.map(w => plan(`atlas.story.copied.${w}`, 'atlas', 'act1', 1.6, {
     when: ['A Master is freed: its weapon is copied', 'Ein Meister ist befreit: seine Waffe wird kopiert'],
@@ -366,12 +372,6 @@ const ATLAS_PLAN: VoiceLine[] = [
     when: ['A Core Master ahead', 'Ein Kernmeister voraus'], draft: ['Core Master ahead.', 'Kernmeister voraus.'],
     direction: ['Alert.', 'Wachsam.']
   }),
-  ...WEAK_TO.map(([b, w]) => plan(`atlas.warn.weakTo.${b}`, 'atlas', 'fieldWarn', 2.2, {
-    when: ['Boss intro: naming its weakness', 'Boss-Auftritt: nennt seine Schwäche'],
-    draft: ['{boss}. {weapon} hurts it.', '{boss}. {weapon} tut ihm weh.'],
-    params: { boss: `boss.${b}`, weapon: `weapon.${w}.name` },
-    direction: ['Tactical.', 'Taktisch.']
-  })),
   plan('atlas.warn.gelFirst', 'atlas', 'fieldWarn', 2, {
     when: ['Low health the first time, a gel in the pack', 'Zum ersten Mal wenig Gesundheit, ein Gel im Gepäck'],
     draft: ['Plating\'s cracking. Use a gel.', 'Die Panzerung bricht. Nimm ein Gel.'],

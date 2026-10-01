@@ -196,7 +196,7 @@ export class WeaponSystem {
         // the nearest in front).
         const home = tgt ?? this.nearestInFront()
         const s = sys.spawnPlayerShot('charge1', mx, my, mz, dx, dy, dz, dmg, false, home)
-        this.tag(s, id, '#ff4a5e')
+        this.tag(s, id, WEAPONS.magnetPull.color)
         s.vx *= 0.8
         s.vy *= 0.8
         s.vz *= 0.8

@@ -1,3 +1,4 @@
+import { NG_FOLLOW_CD } from './ngPlus'
 import { Group } from 'three'
 import type { Enemy, World } from './world'
 import { BOSSES, type BossDef } from '../data/bosses'
@@ -262,7 +263,7 @@ const bossTick = (w: World, e: Enemy, dt: number, room: Room | null): void => {
         if (pick === e.attack && pool.length > 1) pick = pool[(pool.indexOf(pick) + 1) % pool.length]!
         const meta = PATTERN[pick] ?? { tele: 0.8, red: false }
         e.attack = pick
-        e.teleDur = meta.tele * (e.phase2 ? 0.85 : 1)
+        e.teleDur = meta.tele * (e.phase2 ? 0.85 : 1) * (e.tempo ?? 1)
         e.teleRed = meta.red
         e.state = 'tele'
         e.st = 0
@@ -302,7 +303,9 @@ const bossTick = (w: World, e: Enemy, dt: number, room: Room | null): void => {
       if (e.st > (e.phase2 ? 0.45 : 0.7)) {
         e.state = 'engage'
         e.st = 0
-        e.cd = def.cooldown * (e.phase2 ? 0.7 : 1) * (0.8 + Math.random() * 0.4)
+        e.cd = def.cooldown * (e.phase2 ? 0.7 : 1) * (0.8 + Math.random() * 0.4) * (e.tempo ?? 1)
+        // New Game+: now and then the next attack comes straight away.
+        if (e.followUp && Math.random() < e.followUp) e.cd = Math.min(e.cd, NG_FOLLOW_CD)
       }
       break
     }

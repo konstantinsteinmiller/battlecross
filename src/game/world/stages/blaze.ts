@@ -79,6 +79,10 @@ export const generateMeltdown = (seed: number): MapData => {
   floor(16, 1, 17, 2, L(5))
   b.link([12, 3], [14, 3], 'leap')
   b.link([12, 4], [14, 4], 'leap')
+  // Two crumbling slabs bridge the lava gap: walk on and keep going (they
+  // shake, then drop), or leap it as before.
+  b.crumble(13, 3, L(6), 1, 1)
+  b.crumble(13, 4, L(6), 1, 1)
   b.checkpoint(10, 4, YAW_PX, [[10, 3], [10, 4], [10, 5]])
   b.checkpoint(14, 4, YAW_PX, [[14, 3], [14, 4]])
   b.chest(17, 1, YAW_NZ)

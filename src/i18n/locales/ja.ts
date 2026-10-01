@@ -718,6 +718,18 @@ export default {
       '5': '折り返し地点！Vexが冷や汗かいてる。',
     },
     'bossAhead': 'ボスが近い。深呼吸！',
+    'noWeak': '弱点は見えない。動き続けて！',
+    'weak': {
+      'flameWave': 'フレイムウェーブが効くよ！',
+      'iceLance': 'アイスランスが効くよ！',
+      'thunderArc': 'サンダーアークが効くよ！',
+      'galeGuard': 'ゲイルガードが効くよ！',
+      'magnetPull': 'マグネットプルが効くよ！',
+      'drillBomb': 'ドリルボムが効くよ！',
+      'bubbleLance': 'バブルランスが効くよ！',
+      'neonBlade': 'ネオンブレードが効くよ！',
+      'droneSwarm': 'ドローンスウォームが効くよ！'
+    },
     'bossDown': 'マスター解放！よくやったね！',
     'vexDown': 'Vexを倒した。やったね！',
     'lowHp': 'いたっ！気をつけて、Flux！',

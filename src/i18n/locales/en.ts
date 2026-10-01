@@ -782,6 +782,18 @@ export default {
       '5': 'Halfway there! Vex is sweating.',
     },
     'bossAhead': 'Boss ahead. Deep breath!',
+    'noWeak': 'No weak spot I can see. Stay moving.',
+    'weak': {
+      'flameWave': 'Flame Wave hurts this one!',
+      'iceLance': 'Ice Lance hurts this one!',
+      'thunderArc': 'Thunder Arc hurts this one!',
+      'galeGuard': 'Gale Guard hurts this one!',
+      'magnetPull': 'Magnet Pull hurts this one!',
+      'drillBomb': 'Drill Bomb hurts this one!',
+      'bubbleLance': 'Bubble Lance hurts this one!',
+      'neonBlade': 'Neon Blade hurts this one!',
+      'droneSwarm': 'Drone Swarm hurts this one!'
+    },
     'bossDown': 'Master freed! Great job!',
     'vexDown': 'Vex is down. We did it!',
     'lowHp': 'Ouch! Careful, Flux!',

@@ -183,8 +183,9 @@ language, on a phone 320 px wide.
   face, a controlled Master's eyes and chest core, a jammed relay, the
   Fortress. The UI already uses red this way: the boss name card has a red
   stripe, and the Fortress theme's accent is red. A machine in its **own
-  colour** is free. A freed Master's eyes return to its element glow, and a
-  freed relay shines in its sector colour. **Cyan** belongs to Gauss's lab,
+  colour** is free. A freed Master's eyes return to its signature colour,
+  and a freed relay shines in that same colour (the list is in
+  `story-arc.md` § 3). **Cyan** belongs to Gauss's lab,
   Pip and the beam. **Amber** is Flux's: his eye-lights, his chest reactor
   and his charge. Vex's factory machines keep their signature colours. They
   never belonged to anyone else, so there is nothing to free.
@@ -223,7 +224,8 @@ as it is built now: the Scrapyard, the coach, the Scrapper. The Scrapper is
 the valley's junk crane, the one that sorted scrap for the worker-bots.
 Under the signal it smashes everything, and its crushers press out Hardhats
 for Vex. When Flux beats it, the red chip bursts out of it (the orb-ring
-burst), its visor fades from red to amber, and it sets its hammer down.
+burst), its visor fades from red to warm yellow, and it sets its hammer
+down.
 Flux copies Scrap Burst, the Scrapyard relay lights up again, and the
 Blaze Refinery opens.
 
@@ -241,7 +243,7 @@ Master leaves him is the key to the next Master.
 
 - **Blaze Refinery (Lv 3–8).** Vex's forge casts plates for its machines and
   for its body. **Blaze Master** is the oldest foreman: loud, proud and
-  hot-headed. Once freed, its crest cools from red-hot to gold. It thumps a
+  hot-headed. Once freed, its crest cools from red-hot to orange. It thumps a
   fist to its chest for Flux and beams home.
 - **Cryo Plant (Lv 6–11).** The coolant plant keeps the valley's machines
   from overheating. Vex pipes the coolant up to the Fortress, because
@@ -276,12 +278,13 @@ Master leaves him is the key to the next Master.
 
 Gauss gave the valley's outer works foremen of their own, five more Masters
 on Flux's frame, built as a second balanced crew. Each one's weapon stops
-another one in the crew: Drill Bomb beats Magnet, Bubble Lance beats Drill,
-Neon Blade beats Tide, Drone Swarm beats Neon, and Magnet Pull beats Rotor.
-This ring runs against the unlock order, so on a first run only the Rotor
-Master meets a weapon Flux already has. The others pay off on rematches, or
-through a weapon capsule that lends a weapon from further ahead. The first
-crew's ring is unchanged. Vex held the second crew back as its reserve, each
+the next one round its ring: Drone Swarm beats Magnet, Magnet Pull beats
+Drill, Drill Bomb beats Tide, Bubble Lance beats Neon, and Neon Blade beats
+Rotor. Like the first crew's ring, it runs with the unlock order, so on a
+first run every Master of the second shift but the first meets the weapon
+Flux copied just before it. The Magnet Master opens the ring, as Blaze
+opens the first, and is fought without its weakness unless a weapon capsule
+lends Drone Swarm early. Vex held the second crew back as its reserve, each
 one running a back-up supply line, and wired the shield to all ten relays.
 
 - **Polarity Works (Lv 16–22).** A steel foundry under red and blue poles,
@@ -363,9 +366,10 @@ This sting ships only together with New Game+ (see [Decisions](#decisions)).
 It lasts about three seconds. The screen goes black, one red pixel appears,
 and the skull faceplate assembles out of glitch blocks. The red spark made
 it into the network, and the Masters come back as Mk-II versions.
-(Open: these were planned at Lv 26–40, the range the level cap left open.
-The Fortress now runs to Lv 40, the cap itself, so New Game+ needs a
-higher cap or its own scaling.)
+(Decided: New Game+ keeps the cap at Lv 40 and scales on its own. Each
+sector's level band lifts to the cap, so the machines track Flux all the
+way; every machine and boss gets +25% health a cycle, and the bosses are
+15% quicker with the odd follow-up attack. See `sim/ngPlus.ts`.)
 
 ## Intro cutscene: "Wake-Up Call"
 
@@ -439,7 +443,8 @@ its tip flashes red. Vex's face glitches on above it: a red hologram of the
 skull faceplate the Mk-I will wear at the end. A red ring rolls out across
 the valley (the shock-ring effect, tinted and scaled up). Wherever it
 passes, relay beams turn red and each landmark's lights flip to red. At
-4.3–5.1 s a cut-in shows Blaze Master's face, its gold eyes flickering, then
+4.3–5.1 s a cut-in shows Blaze Master's face, its orange eyes flickering,
+then
 locking red. Then the wide shot returns as the ring rolls on toward the lab.
 *Sound:* the Vex motif (three falling square-wave notes over a bit-crushed
 noise sweep), with a falling blip for each relay that goes out.
@@ -587,12 +592,13 @@ build order. In short:
    network and Gauss's stasis. The Core Masters table gets the turned
    weakness ring. § Feel says "the first 10 seconds are already gameplay",
    and with the intro that holds only for players who skip.
-2. **The weakness ring turns one step.** This changes `weakTo` in
-   `data/bosses.ts` and `COUNTER` (see [Decisions](#decisions)).
+2. **The weakness rings run with the story order.** Done: `weakTo` in
+   `data/bosses.ts` and `COUNTER` follow both rings, and Atlas names the
+   weakness at the boss door (see [Decisions](#decisions)).
 3. **Masters are freed, not destroyed.** The orb-ring burst stays, now read
    as the red chip breaking, and the kneel and beam-out follow it. A
    Master's eyes, chest core and crest glow red while Vex controls it, and
-   return to its element colour once it is freed.
+   return to its signature colour once it is freed.
 4. **Hub.** Gauss's capsule stands behind the pad, in frame in both
    orientations. The lab's two existing glass tubes (x = ±5.4) are out of
    frame in portrait, and at or past the edges of the landscape shot.
@@ -618,22 +624,31 @@ wrong.
   come back. It costs little, because the orb-ring burst stays and only one
   new line joins the locales.
 - **The weakness ring turns one step, so each copied weapon is the key to
-  the next Master.** Frost Master becomes weak to Flame Wave, Volt Master to
-  Ice Lance, Gale Master to Thunder Arc, and Blaze Master to Gale Guard. The
-  elemental machines follow the same ring. Before, the ring ran against the
+  the next Master.** Applied in `data/bosses.ts`: Frost Master is weak to
+  Flame Wave, Volt Master to Ice Lance, Gale Master to Thunder Arc, and Blaze
+  Master to Gale Guard. The elemental machines follow the same ring in
+  `COUNTER`: fire is weak to wind, ice to fire, volt to ice, wind to volt.
+  Before, the ring ran against the
   unlock order: on a first run, only the Gale Master and the Sky Docks
   machines were weak to a weapon Flux already had. Now three of the four
   Masters are, and so are the machines of the Cryo Plant, the Volt Tower and
   the Sky Docks. This is the classic weapon-copy loop, and it gives the
   special-weapon lesson from chunk 15 something to pay off. Blaze Master is
   the one fought without its weakness, like the first boss of any run.
-- **The second shift has its own ring, and it is not turned.** Magnet Master
-  is weak to Drill Bomb, Drill Master to Bubble Lance, Tide Master to Neon
-  Blade, Neon Master to Drone Swarm, and Rotor Master to Magnet Pull, as
-  `data/bosses.ts` has it. It closes on itself and doesn't touch the first
-  ring. On a first run only the Rotor Master meets a weapon Flux already
-  owns. The rest are the classic "come back with the right weapon" Masters
-  for rematches, and a weapon capsule can lend their weakness early.
+- **The second shift has its own ring, and it is turned too.** Magnet
+  Master is weak to Drone Swarm, Drill Master to Magnet Pull, Tide Master to
+  Drill Bomb, Neon Master to Bubble Lance, and Rotor Master to Neon Blade, as
+  `data/bosses.ts` now has it. It closes on itself and doesn't touch the
+  first ring. Like the first, it runs with the unlock order: each Master is
+  weak to the weapon of the one freed just before it, so on a first run four
+  of the five meet a weapon Flux already owns. The Magnet Master opens the
+  ring and is the one fought without its weakness, like Blaze; a weapon
+  capsule can lend Drone Swarm early.
+- **Atlas names the weakness live.** Right after "Boss ahead. Deep breath!"
+  Atlas says "{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux
+  carries the Master's weakness, and "No weak spot I can see. Stay moving."
+  (`atlas.noWeak`) at the Scrapper's and Vex's doors, which have none. For a
+  Master whose weakness Flux hasn't copied yet, it says nothing.
 - **Ten relays, and the Breach after the tenth.** The Fortress shield is
   wired to all ten relays, so the Breach plays after the Rotor Master. After
   the Gale Master a shorter beat, the reserve, shows the five relays still
@@ -642,8 +657,11 @@ wrong.
 - **The Mk-II sting waits for New Game+.** A teaser for a mode that isn't
   coming would be a broken promise. The ending keeps the red spark escaping,
   which leaves the door open without naming anything. New Game+ is in the
-  GDD but not in any chunk yet. The Fortress now tops out at 40, the level
-  cap, so New Game+ also needs a higher cap or a scaling of its own.
+  GDD; its scaling is built (`sim/ngPlus.ts`), its entry from the outro is
+  #102. The level cap stays at 40: in New Game+ every sector's band lifts
+  to the cap, machines and bosses get +25% health a cycle (up to ×2), and
+  bosses 15% quicker tells and cooldowns (down to ×0.6) with the odd
+  follow-up attack. Flux keeps everything; the story relocks.
 - **The intro ships on every build**, behind `VITE_APP_INTRO`. It gets
   switched off wherever a portal's conversion-to-play drops.
 - **Screen-reader lines: yes.** Each story beat gets one, the same pattern

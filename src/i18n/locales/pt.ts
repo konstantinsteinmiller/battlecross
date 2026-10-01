@@ -718,6 +718,18 @@ export default {
       '5': 'Metade do caminho! Vex tá suando.',
     },
     'bossAhead': 'Chefe à frente. Respira fundo!',
+    'noWeak': 'Sem ponto fraco. Fica em movimento!',
+    'weak': {
+      'flameWave': 'É fraco contra Onda de Chamas!',
+      'iceLance': 'É fraco contra Lança de Gelo!',
+      'thunderArc': 'É fraco contra Arco Trovão!',
+      'galeGuard': 'É fraco contra Guarda Vendaval!',
+      'magnetPull': 'É fraco contra Puxão Ímã!',
+      'drillBomb': 'É fraco contra Bomba Broca!',
+      'bubbleLance': 'É fraco contra Lança Bolha!',
+      'neonBlade': 'É fraco contra Lâmina Neon!',
+      'droneSwarm': 'É fraco contra Enxame de Drones!'
+    },
     'bossDown': 'Mestre libertado! Mandou bem!',
     'vexDown': 'Vex caiu. Conseguimos!',
     'lowHp': 'Ai! Cuidado, Flux!',

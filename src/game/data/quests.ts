@@ -74,13 +74,13 @@ export const tutorialQuest = (): Quest => ({
 
 /** A sector's story mission: its platform stage where it has one, else
  *  the labyrinth to its Core Master (`bossQuest`). */
-export const storyQuest = (sector: Sector, playerLevel: number, attempt: number): Quest =>
-  isStageSector(sector.id) ? stageQuest(sector, playerLevel, attempt) : bossQuest(sector, playerLevel, attempt)
+export const storyQuest = (sector: Sector, playerLevel: number, attempt: number, ng = 0): Quest =>
+  isStageSector(sector.id) ? stageQuest(sector, playerLevel, attempt, ng) : bossQuest(sector, playerLevel, attempt, ng)
 
 /** The room labyrinth to a Core Master: the Fortress's story mission (and
  *  the Scrapyard's replay), and the lab's showdown in any sector. */
-export const bossQuest = (sector: Sector, playerLevel: number, attempt: number): Quest => {
-  const level = enemyLevelFor(sector, playerLevel, 1)
+export const bossQuest = (sector: Sector, playerLevel: number, attempt: number, ng = 0): Quest => {
+  const level = enemyLevelFor(sector, playerLevel, 1, ng)
   return {
     id: `story_${sector.id}`,
     kind: 'story',
@@ -97,8 +97,8 @@ export const bossQuest = (sector: Sector, playerLevel: number, attempt: number):
 
 /** A platform stage (`world/stages/`): its sections and the arena are the
  *  rooms; the seed is the attempt's, as a labyrinth's. */
-const stageQuest = (sector: Sector, playerLevel: number, attempt: number): Quest => {
-  const level = enemyLevelFor(sector, playerLevel, 1)
+const stageQuest = (sector: Sector, playerLevel: number, attempt: number, ng = 0): Quest => {
+  const level = enemyLevelFor(sector, playerLevel, 1, ng)
   return {
     id: `story_${sector.id}`,
     kind: 'story',
@@ -118,11 +118,11 @@ const stageQuest = (sector: Sector, playerLevel: number, attempt: number): Quest
  * is already down, ending in a rematch with it. `sectors` are the eligible
  * ones (see `climbSectors`).
  */
-export const climbJob = (seed: number, sectors: SectorId[], playerLevel: number): Quest => {
+export const climbJob = (seed: number, sectors: SectorId[], playerLevel: number, ng = 0): Quest => {
   const rng = mulberry32(seed ^ 0x7c1b)
   const sid = pick(rng, sectors)
   const sector = SECTOR_BY_ID[sid]
-  const level = enemyLevelFor(sector, playerLevel, randInt(rng, 0, 1))
+  const level = enemyLevelFor(sector, playerLevel, randInt(rng, 0, 1), ng)
   return {
     id: `job_${seed.toString(36)}`,
     kind: 'job',
@@ -146,14 +146,14 @@ export const climbSectors = (unlocked: readonly SectorId[], bosses: readonly str
  * the classic six templates, drawn exactly as before, so a board rolled
  * without climbs is unchanged seed for seed).
  */
-export const rollJob = (seed: number, sectors: SectorId[], playerLevel: number, climbs: readonly SectorId[] = []): Quest => {
+export const rollJob = (seed: number, sectors: SectorId[], playerLevel: number, climbs: readonly SectorId[] = [], ng = 0): Quest => {
   const rng = mulberry32(seed)
   const sid = pick(rng, sectors)
   const sector = SECTOR_BY_ID[sid]
   const climb: [QuestTemplate, number] = ['climb', CLIMB_WEIGHT]
   const template = weighted(rng, climbs.length ? [...JOB_TEMPLATES, climb] : JOB_TEMPLATES)
-  if (template === 'climb') return climbJob(seed, [...climbs], playerLevel)
-  const level = enemyLevelFor(sector, playerLevel, randInt(rng, -1, 1))
+  if (template === 'climb') return climbJob(seed, [...climbs], playerLevel, ng)
+  const level = enemyLevelFor(sector, playerLevel, randInt(rng, -1, 1), ng)
   const kinds = sector.encounters.kinds.filter(([k]) => k !== 'turret').map(([k, w]) => [k, w] as const)
   let target: EnemyKind | null = null
   let count = 1

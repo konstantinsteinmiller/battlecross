@@ -368,9 +368,9 @@ describe('the rail cart', () => {
     return { map, host, run, rail: railOf(run), waves: wavesOf(run) }
   }
 
-  it('the stage builds its features in a fixed order: rail, waves, panels, secret', () => {
+  it('the stage builds its features in a fixed order: rail, waves, panels, secret, crumbling slab', () => {
     const { run } = setup()
-    expect(run.features.map(f => f.constructor.name)).toEqual(['RailFeature', 'WaveFeature', 'ShockFeature', 'SecretsFeature'])
+    expect(run.features.map(f => f.constructor.name)).toEqual(['RailFeature', 'WaveFeature', 'ShockFeature', 'SecretsFeature', 'CrumbleFeature'])
   })
 
   it('stepping onto it starts the ride after a beat; stepping off before that does not', () => {

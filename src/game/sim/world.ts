@@ -114,6 +114,10 @@ export interface Enemy {
   /** Boss-only: which Core Master, whether phase 2 has begun. */
   bossId: import('../models/bosses').BossId | null
   phase2: boolean
+  /** Boss-only, New Game+ (`sim/ngPlus.ts`): tells and cooldowns × this,
+   *  and the chance of a quick follow-up attack. Absent: 1 and none. */
+  tempo?: number
+  followUp?: number
   /** Status effects from special weapons. */
   burnT: number
   burnDps: number

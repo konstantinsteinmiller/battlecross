@@ -718,6 +718,18 @@ export default {
       '5': '절반 왔어! Vex가 진땀 빼고 있어.',
     },
     'bossAhead': '앞에 보스야. 심호흡!',
+    'noWeak': '약점이 안 보여. 계속 움직여!',
+    'weak': {
+      'flameWave': '화염파가 잘 먹혀!',
+      'iceLance': '얼음창이 잘 먹혀!',
+      'thunderArc': '썬더 아크가 잘 먹혀!',
+      'galeGuard': '질풍 가드가 잘 먹혀!',
+      'magnetPull': '마그넷 풀이 잘 먹혀!',
+      'drillBomb': '드릴 봄이 잘 먹혀!',
+      'bubbleLance': '버블 랜스가 잘 먹혀!',
+      'neonBlade': '네온 블레이드가 잘 먹혀!',
+      'droneSwarm': '드론 스웜이 잘 먹혀!'
+    },
     'bossDown': '마스터 해방! 잘했어!',
     'vexDown': 'Vex 쓰러뜨렸어. 해냈다!',
     'lowHp': '아야! 조심해, Flux!',

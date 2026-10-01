@@ -5,6 +5,7 @@ import { rcyl, rcone, rbox, torus, sph, ell, dome, rock, cap, xform, paint, merg
 import { toonVC, outlineMat } from './toon'
 import { SECTORS } from '../data/regions'
 import type { SectorId } from '../world/themes'
+import { SECTOR_COLOR } from '../data/signature'
 
 /**
  * ─── The valley diorama ──────────────────────────────────────────────────────
@@ -29,18 +30,7 @@ import type { SectorId } from '../world/themes'
 
 /** Sector colours as the story's palette gives them (§ 3: a sector's own
  *  colour means it is free). */
-export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
-  scrapyard: '#ffd21f',
-  blaze: '#ff7a1f',
-  cryo: '#8fe3ff',
-  volt: '#fff3a0',
-  gale: '#7dffc4',
-  magnet: '#ff5a6e',
-  drill: '#ffb12a',
-  tide: '#5fd2ff',
-  neon: '#ff3fd2',
-  rotor: '#b8ff5a'
-}
+export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = (({ fortress: _, ...free }) => free)(SECTOR_COLOR)
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
 const VEX_RED = '#ff2d3f'

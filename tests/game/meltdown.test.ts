@@ -359,10 +359,12 @@ describe('generateMeltdown', () => {
     const run = { openSecret: () => {}, secretOpen: () => false }
     const feats = buildStageFeatures(host, m.terrain!, run)
     expect(feats[0]).toBeInstanceOf(VentFeature)
-    // Vents, Atlas's tips, and the secret room's puzzle.
-    expect(feats).toHaveLength(3)
-    // A Tower Run in the same sector builds neither: only its secret.
-    expect(buildStageFeatures(host, generateClimb(7).terrain!, run)).toHaveLength(1)
+    // Vents, Atlas's tips, the secret room's puzzle, the catwalk's
+    // crumbling slabs.
+    expect(feats).toHaveLength(4)
+    // A Tower Run in the same sector builds neither: only its secret and its
+    // crumbling path.
+    expect(buildStageFeatures(host, generateClimb(7).terrain!, run)).toHaveLength(2)
     const said: AtlasLine[] = []
     const cues = meltdownCues(hostFor(m, { said }), m.terrain!)
     const t = m.terrain!
@@ -377,11 +379,11 @@ describe('generateMeltdown', () => {
   it('runs under ClimbRun: the features ride in its save', () => {
     const m = generateMeltdown(11)
     const run = new ClimbRun(hostFor(m), 3)
-    // Vents, Atlas's tips, the secret room's puzzle.
-    expect(run.features).toHaveLength(3)
+    // Vents, Atlas's tips, the secret room's puzzle, the crumbling slabs.
+    expect(run.features).toHaveLength(4)
     const p = body(m.start.x, m.start.z, 21)
     for (let n = 0; n < 30; n++) run.update(DT, n * DT, p, true)
-    expect(run.save().feat).toHaveLength(3)
+    expect(run.save().feat).toHaveLength(4)
   })
 })
 

@@ -107,7 +107,7 @@ on above it. Its first **speech bubble** pops up: ornate, gilded and red:
 > **"Diagnosis: this valley is SICK. The cure… is ME!"**
 
 A red ring rolls out across the valley. Each billboard, relay and window it
-passes flips to red. A 1.6 s cut-in shows Blaze Master's gold eyes
+passes flips to red. A 1.6 s cut-in shows Blaze Master's orange eyes
 flickering, then locking red, and cuts straight to the lab.
 
 *Pacing:* 3.6 s of the bright valley under a slow aerial drift, the relays
@@ -226,7 +226,7 @@ and daylight comes back in the hub's sector view.
 | Sector | Under Vex (red) | Freed (own colour) | Signature set piece |
 | --- | --- | --- | --- |
 | **Scrapyard** (Lv 1–4) | Junk canyons under a broken neon overpass; red crusher lamps; Hardhats stamped out of crushed cars | Warm yellow floodlights; the crane sets its hammer down | The giant crane silhouetted against a red billboard |
-| **Blaze Refinery** (Lv 3–8) | Molten channels, red-hot chimneys, orange neon gone blood-red; heat haze | Gold forge light; chimneys burn clean orange | A catwalk over a lava channel, with the flame crest glowing through smoke |
+| **Blaze Refinery** (Lv 3–8) | Molten channels, red-hot chimneys, orange neon gone blood-red; heat haze | Orange forge light; the chimneys burn clean | A catwalk over a lava channel, with the flame crest glowing through smoke |
 | **Cryo Plant** (Lv 6–11) | White domes stained red from inside; coolant pipes running uphill toward the Fortress | Crisp ice-blue; fog; frost on the neon | Pipes climbing a cliff into red clouds (the supply line) |
 | **Volt Tower** (Lv 9–15) | The downtown: rain, dense holo-ads, Vex's face everywhere; the Red Signal's power station | Yellow-white lightning, back to ad colours | The cold-open street; the tower's coil spitting red arcs |
 | **Sky Docks** (Lv 13–19) | Floating pads, airships in convoy hauling parts to the Fortress; red running lights | Mint sails; the airships turn around | Airships in a line across the moon, heading for the Spire |
@@ -236,6 +236,35 @@ and daylight comes back in the hub's sector view.
 | **Blackout Boulevard** (Lv 25–31) | Rooftops over a blacked-out downtown. Only Vex's billboards stay lit, and bridges of light flicker over open air | Hot-pink neon; every window comes back on, block by block | A light bridge blinking out under Flux's feet, the dark city far below |
 | **Rotor Run** (Lv 28–34) | A sky airfield; swarms of cargo drones streaming toward the Spire; red rotor lights | Lime running lights; the drones deliver to the worker-bots | Flux on a cargo quadcopter crossing an open span through a swarm of Hornet Rotors |
 | **Vex Fortress** (Lv 31–40) | The Control Spire rebuilt: black glass, red veins, a skull-shaped crown, the shield dome | After the ending: dark, then the relay glows **white** | Ten coloured beams striking the red shield dome at one point |
+
+**Signature colours.** Each Master has one colour it is known by
+everywhere: its boss tint, the weapon Flux copies from it, its relay's glow
+once freed, and its hub tile and mission card. The list is mirrored in
+`src/game/data/signature.ts`, and a test (`tests/game/signatureColors.test.ts`)
+enforces it: no two Masters closer than ΔE 24, and none close to Vex's red
+or the lab's cyan. Ice blue and sea blue share a hue, so they are split by
+lightness (pale ice, deep sea); so are the warm yellows (the Scrapper's
+yellow, Volt's pale yellow-white, Drill's dark ochre).
+
+| Master | Colour | Hex |
+| --- | --- | --- |
+| Scrapper | warm yellow | `#ffc21a` |
+| Blaze Master | orange | `#ff6a2a` |
+| Frost Master | ice blue (pale, frost-white) | `#cfe6ff` |
+| Volt Master | yellow-white | `#fff07a` |
+| Gale Master | mint | `#7dffc4` |
+| Magnet Master | cobalt, with silver trim | `#3f7bff` |
+| Drill Master | ochre | `#c8862a` |
+| Tide Master | sea blue (deep) | `#1f8fd6` |
+| Neon Master | hot pink | `#ff3fd2` |
+| Rotor Master | lime | `#b8ff5a` |
+| Dr. Vex Mk-I | red: control | `#ff2d3f` |
+
+Red is Vex's control, cyan (`#4fd8ff`) is Gauss's lab, Pip and Atlas, and
+amber is Flux, so no Master wears them. Blaze glows orange once freed, never
+gold, which would read as the Scrapper's yellow. The Magnet Master is cobalt
+and silver, not red; only its two pole plates stay red and blue. The Rotor
+Master is lime and white, not orange.
 
 ---
 
@@ -309,8 +338,10 @@ the boss door and the **Scrapper**.
   signal. It's… big."
 - At the boss intro, Vex presents it:
   VB: **"Warm up act! The SCRAPPER!"**
-- When the Scrapper is freed, the red chip bursts out, the visor goes amber
-  and the hammer goes down. A: "Relay one lit. Nine to go."
+- The Scrapper has no weakness. Right after "Boss ahead. Deep breath!",
+  A: "No weak spot I can see. Stay moving."
+- When the Scrapper is freed, the red chip bursts out, the visor goes warm
+  yellow and the hammer goes down. A: "Relay one lit. Nine to go."
 - **Hub, first visit:** Vex's face glitches on the lab screens.
   VB: **"A junk crane? How… adorable."**
 
@@ -326,9 +357,11 @@ visor fading from red to warm yellow, with Flux's buster still smoking.
 - First elemental machine, A: "Fire-coated. It shrugs off fire." This is a
   one-time enemy introduction for elemental variants.
 - Boss intro, VB: **"The oldest! The hottest! BLAZE MASTER!"**
-- Blaze Master is fought without its weakness, as `story.md` decides: it is
-  the first real Master. A: "No weak spot I can see. Stay moving."
-- Freed: the crest cools from red-hot to gold, and it thumps its chest and
+- Blaze Master is weak to Gale Guard, which Flux copies only at the Sky
+  Docks. It opens the first ring, so it is fought without its weakness on a
+  first run, as `story.md` decides, and Atlas says nothing about one. On a
+  rematch with Gale Guard, A: "Gale Guard hurts this one!"
+- Freed: the crest cools from red-hot to orange, and it thumps its chest and
   beams home. A: "Flame Wave copied."
 - Hub, VB: **"Side effect noted. Increasing the dose."**
 
@@ -336,7 +369,8 @@ visor fading from red to warm yellow, with Flux's buster still smoking.
 
 - Beam-in, A: "Coolant's flowing uphill. To the Fortress."
 - Boss intro, VB: **"Chill, little droid. FROST MASTER!"**
-- Weakness hint, A: "Frost Master. Flame Wave melts it."
+- Weakness hint, right after "Boss ahead. Deep breath!", A: "Flame Wave
+  hurts this one!"
 - Freed: the red drains out of its crystal crown, and it leaves a **data
   core**. A: "It left us something."
 
@@ -376,6 +410,7 @@ powers the Red Signal, so the signal is **strongest** here.
 - VB (monocle pops out): **"Unwritable?! How RUDE."**
 - A (clear again): "…You kept it out. Thank you."
 - Boss intro, VB: **"Blink and you'll miss it! VOLT MASTER!"**
+- Weakness hint, A: "Ice Lance hurts this one!"
 - Freed: its antenna stops sparking red, and it blinks out rather than
   beaming. A: "The signal's lost its power station."
 - Hub: Vex's face stutters on the screens, VB (glitching): **"I am…
@@ -390,6 +425,7 @@ frame Flux's amber reactor glow floods outward and pushes it back.
 - Beam-in, A: "Every part for its body goes through here."
 - Boss intro, VB: **"Next, please! GALE MASTER, blow him away!"** (No
   longer "Last one!": five more Masters wait behind it.)
+- Weakness hint, A: "Thunder Arc hurts this one!"
 - Freed: the wing cape flares back to mint, and the airships **turn
   around**. A: "No more parts reach the Fortress."
 
@@ -427,10 +463,10 @@ poles. Vex casts the Mk-I's claws here and ships them up on magnet rails.
 - Boss intro, VB: **"Attractive, isn't it? MAGNET MASTER!"**
 - The fight: homing horseshoe missiles, **Pole Pull** (it drags Flux in,
   then clamps), and a charge straight down a rail. In phase 2 it adds a
-  **Polar Storm**. It is weak to Drill Bomb, which Flux doesn't have yet. Like
-  Blaze, it opens its ring and is fought without its weakness on a first run.
-  A: "No weak spot I can see. Stay moving." The exception is a weapon
-  capsule lending Drill Bomb ahead of time.
+  **Polar Storm**. It is weak to Drone Swarm, the Rotor Master's weapon,
+  which Flux doesn't have yet. Like Blaze, it opens its ring and is fought
+  without its weakness on a first run, and Atlas says nothing about one.
+  The exception is a weapon capsule lending Drone Swarm ahead of time.
 - Freed: its pole tips flip from red back to cobalt and silver, and it lowers
   its horseshoe. The magnet rails carry the valley's trams again instead of
   claws. A: "The foundry's cold. No more claws." Flux copies **Magnet Pull**.
@@ -447,7 +483,8 @@ armour comes out of this shaft.
 - Boss intro, VB: **"Time for a deep check-up! DRILL MASTER!"**
 - The fight: it burrows and erupts under Flux, lobs drill bombs and
   charges. In phase 2 it starts a quake: rings on the floor and falling rock.
-  It is weak to Bubble Lance.
+  It is weak to Magnet Pull, copied at the foundry. A: "Magnet Pull hurts
+  this one!"
 - Freed: its drill-bit crest stops spinning red and glows ochre, and the
   cages carry stranded worker-bots up to daylight. A: "The mine's quiet. No
   more ore." Flux copies **Drill Bomb**.
@@ -463,7 +500,7 @@ barges its freight up the canal.
 - Boss intro, VB: **"Wave goodbye, droid! TIDE MASTER!"**
 - The fight: a lance thrust, tidal waves to slide under and a slow bubble
   volley. In phase 2 it adds a whirlpool that pulls Flux in. It is weak to
-  Neon Blade.
+  Drill Bomb, copied in the mine. A: "Drill Bomb hurts this one!"
 - Freed: its fin crest drains from red to sea blue, and it shuts the lock
   gates. The barges stay home, and the harbour pumps clean water into the
   valley again. A: "Locks shut. The barges stay home." Flux copies **Bubble
@@ -480,7 +517,8 @@ this is the Red Signal's screen network.
   (slide at its foot facing the wall, again and again) climbs to a reward.
 - Boss intro, VB: **"Lights! Camera! NEON MASTER!"**
 - The fight: a blade thrown out and back, a dash and a neon volley. In phase
-  2 it adds a laser grid. It is weak to Drone Swarm.
+  2 it adds a laser grid. It is weak to Bubble Lance, copied at the locks.
+  A: "Bubble Lance hurts this one!"
 - Freed: its neon tubes flip from red to hot pink, and the boulevard lights
   up block by block as Vex's billboards go dark. A: "Lights on. Vex lost its
   screens." Flux copies **Neon Blade**.
@@ -495,8 +533,8 @@ cargo drones carrying what the airships no longer will.
   wind tunnel follow.
 - Boss intro, VB: **"The grand finale! ROTOR MASTER!"**
 - The fight: a drone swarm, a downdraft that blows Flux back, and a dive. In
-  phase 2 it adds a rotor storm. It is weak to Magnet Pull, so it is the one
-  Master of this ring Flux meets with its weakness already in hand.
+  phase 2 it adds a rotor storm. It is weak to Neon Blade, copied on the
+  boulevard. A: "Neon Blade hurts this one!"
 - Freed: its rotors spin down from red to lime, and the cargo drones turn
   round and fly for the worker-bots instead. A: "Every line's cut. Vex is
   alone." Flux copies **Drone Swarm**.
@@ -544,8 +582,10 @@ story beats:
   A: "That's Vex. The real one."
 - **Phase 1** (the `patterns` in `data/bosses.ts`): Vex fights with the
   Masters' stolen moves (flame burst, ice volley, orb storm, lob barrage).
-  It has no weakness, because it took a piece of every Master. Atlas calls
-  each element as it winds up ("Fire!", "Ice!") on the first cycle only.
+  It has no weakness, because it took a piece of every Master. At its door,
+  right after "Boss ahead. Deep breath!", A: "No weak spot I can see. Stay
+  moving." Atlas calls each element as it winds up ("Fire!", "Ice!") on the
+  first cycle only.
 - **Phase 2 at half health: the relays hold.** The dome cracks. Vex fires
   one last **Red Signal** from the Mk-I to re-take the freed Masters. The
   red ring rolls out of the arena windows across the valley, hits the relay
@@ -630,34 +670,34 @@ spine behind the story.
      A: "Blaze runs level 3 and up."
    - When Flux is under the floor, A: "They'll outclass you. Train first."
      This is a warning, never a lock.
-3. **Each Master's weapon opens the next Master.** This uses the turned
-   weakness ring from `story.md`'s Decisions:
+3. **Each Master's weapon opens the next Master.** Both weakness rings run
+   with the story order, as `story.md`'s Decisions set and `data/bosses.ts`
+   now has them:
    - Flame Wave beats Frost;
    - Ice Lance beats Volt;
    - Thunder Arc beats Gale;
    - Gale Guard beats Blaze (on a rematch).
 
-   Atlas names the counter at each boss intro, **reading `weakTo` from the
-   live data**, never from a hard-coded line.
-   > ⚠️ `src/game/data/bosses.ts` still has the **old** ring (Blaze → Ice
-   > Lance, Frost → Thunder Arc, Volt → Gale Guard, Gale → Flame Wave).
-   > `story.md` decided to turn it but the data hasn't been changed yet.
-   > The Atlas hint lines above assume the turned ring.
-
    The five Masters of the second shift form a **second ring**, closed on
-   itself and already in `data/bosses.ts` as written (it doesn't wait for
-   the turn above):
-   - Drill Bomb beats Magnet;
-   - Bubble Lance beats Drill;
-   - Neon Blade beats Tide;
-   - Drone Swarm beats Neon;
-   - Magnet Pull beats Rotor.
+   itself and turned the same way:
+   - Magnet Pull beats Drill;
+   - Drill Bomb beats Tide;
+   - Bubble Lance beats Neon;
+   - Neon Blade beats Rotor;
+   - Drone Swarm beats Magnet (on a rematch).
 
-   This ring runs against the unlock order. On a first run only the Rotor
-   Master meets a weapon Flux already owns (Magnet Pull). The other four
-   are each weak to the next Master's weapon, so their weakness pays off on
-   Tower Run rematches, and early through a weapon capsule, which prefers
-   to lend a weapon Flux hasn't won yet.
+   On a first run only the two ring openers, Blaze and Magnet, are fought
+   without their weakness in hand; the other seven meet the weapon Flux
+   copied just before. A weapon capsule, which prefers to lend a weapon Flux
+   hasn't won yet, can bring an opener's weakness early, and Tower Run
+   rematches pay it off.
+
+   Atlas names the counter live, **reading `weakTo` from the data**, never
+   from a hard-coded line: right after "Boss ahead. Deep breath!" it says
+   "{weapon} hurts this one!" (`atlas.weak.<weapon>`) when Flux carries the
+   weakness, and "No weak spot I can see. Stay moving." (`atlas.noWeak`) at
+   the Scrapper's and Vex's doors. For a Master whose weakness Flux hasn't
+   copied yet, it says nothing.
 4. **The reserve, then the Breach.** Freeing the Gale Master lights the
    fifth relay, but the shield holds. On the next hub visit Vex shows its
    reserve, and Polarity Works opens. Freeing the Rotor Master lights the
@@ -774,7 +814,8 @@ drop-in.
 | Trigger (existing system) | Glyph | Line (first / later) |
 | --- | --- | --- |
 | Boss door danger kit, first sight | skull | "Core Master signal. It's… big." / "Core Master ahead." |
-| Boss intro, Flux owns its weakness | weapon icon | "{boss}. {weapon} hurts it." |
+| Boss door, right after "Boss ahead. Deep breath!", Flux owns its weakness | weapon icon | "{weapon} hurts this one!" (`atlas.weak.<weapon>`) |
+| Boss door, the Scrapper or Vex (no weakness) | weapon icon ✗ | "No weak spot I can see. Stay moving." (`atlas.noWeak`) |
 | HP < 50 %, gel carried (gel lesson moment) | heart + gel | "Plating's cracking. Use a gel." / "Gel." |
 | HP < 25 % | heart, blinking | "Critical! Back off!" / "Critical!" |
 | HP < 25 %, no gel | heart + ✗ gel | "No gel left. Play it safe." |
@@ -883,11 +924,13 @@ These change or extend the canon, so confirm them before anything is built:
    - Atlas's choice at the empty Spire;
    - the empty assembly bays in the Fortress.
 6. **Gauss's optional single line** at the end.
-7. **Data:** the weakness ring in `data/bosses.ts` still needs the turn
-   `story.md` decided on, before the Atlas weakness hints are right.
+7. **Data (done):** both weakness rings in `data/bosses.ts` (and the
+   machines' `COUNTER`) now run with the story order, so the Atlas weakness
+   hints are right.
 8. **The second shift: ten Masters, ten relays.** Five new Core Masters
    (Magnet, Drill, Tide, Neon, Rotor) sit between the Sky Docks and the
    Fortress. The shield falls only after the tenth relay, so the Breach moves
    from after the Gale Master to after the Rotor Master. A new hub beat, the
    reserve, plays after the Gale Master. The Fortress band moves to Lv
-   31–40, and the new Masters form a second weakness ring of their own.
+   31–40, and the new Masters form a second weakness ring of their own,
+   which runs with the story order like the first.

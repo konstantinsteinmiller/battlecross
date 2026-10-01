@@ -561,13 +561,13 @@ export const ensureJobs = (): void => {
   const climbs = climbsNow()
   while (q.jobs.length < 3) {
     q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-    q.jobs.push(rollJob(q.jobSeed, sectors, profile.level, climbs))
+    q.jobs.push(rollJob(q.jobSeed, sectors, profile.level, climbs, profile.world.ngPlus))
   }
   if (climbs.length && !profile.tips[CLIMB_OFFERED]) {
     profile.tips[CLIMB_OFFERED] = true
     if (!q.jobs.some(j => j.template === 'climb')) {
       q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-      q.jobs[q.jobs.length - 1] = climbJob(q.jobSeed, climbs, profile.level)
+      q.jobs[q.jobs.length - 1] = climbJob(q.jobSeed, climbs, profile.level, profile.world.ngPlus)
     }
   }
 }
@@ -577,7 +577,7 @@ export const rerollJob = (id: string): void => {
   const i = q.jobs.findIndex(j => j.id === id)
   if (i < 0) return
   q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-  q.jobs[i] = rollJob(q.jobSeed, profile.world.unlocked, profile.level, climbsNow())
+  q.jobs[i] = rollJob(q.jobSeed, profile.world.unlocked, profile.level, climbsNow(), profile.world.ngPlus)
   saveProfile()
 }
 
@@ -589,7 +589,7 @@ export const storyFor = (sector: SectorId): Quest | null => {
   const tutorial = tutorialQuest()
   if (sector === tutorial.sector && !profile.world.tutorialDone) return tutorial
   if (profile.world.bosses.includes(s.boss)) return null
-  return storyQuest(s, profile.level, profile.quests.storyAttempts[`story_${sector}`] ?? 0)
+  return storyQuest(s, profile.level, profile.quests.storyAttempts[`story_${sector}`] ?? 0, profile.world.ngPlus)
 }
 
 export const statsNow = () => computeStats()

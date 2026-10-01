@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.qcard(:class="{ story, climb }" :style="{ '--c1': THEMES[quest.sector].wall }")
+  div.qcard(:class="{ story, climb }" :style="{ '--c1': SECTOR_COLOR[quest.sector] }")
     div.q-icon
       GameIcon(:name="ICON[quest.template]")
     div.q-body
@@ -31,7 +31,7 @@ import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import type { GameIconName } from '@/components/icons/iconNames'
 import type { Quest, QuestTemplate } from '@/game/data/quests'
-import { THEMES } from '@/game/world/themes'
+import { SECTOR_COLOR } from '@/game/data/signature'
 import { SECTOR_BY_ID } from '@/game/data/regions'
 
 const props = defineProps<{ quest: Quest; story?: boolean }>()

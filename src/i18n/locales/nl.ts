@@ -718,6 +718,18 @@ export default {
       '5': 'Halverwege! Vex zweet peentjes.',
     },
     'bossAhead': 'Baas in zicht. Diep ademhalen!',
+    'noWeak': 'Geen zwakke plek. Blijf bewegen!',
+    'weak': {
+      'flameWave': 'Vlammengolf doet hem pijn!',
+      'iceLance': 'IJslans doet hem pijn!',
+      'thunderArc': 'Donderboog doet hem pijn!',
+      'galeGuard': 'Stormschild doet hem pijn!',
+      'magnetPull': 'Magneettrek doet hem pijn!',
+      'drillBomb': 'Boorbom doet hem pijn!',
+      'bubbleLance': 'Bellenlans doet hem pijn!',
+      'neonBlade': 'Neonkling doet hem pijn!',
+      'droneSwarm': 'Dronezwerm doet hem pijn!'
+    },
     'bossDown': 'Meester bevrijd! Goed gedaan!',
     'vexDown': 'Vex is verslagen. Het is gelukt!',
     'lowHp': 'Au! Voorzichtig, Flux!',

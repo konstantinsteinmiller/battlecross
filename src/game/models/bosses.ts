@@ -79,7 +79,7 @@ const cones = (b: RigBuilder, bone: string, pts: Array<[number, number, number, 
 }
 
 export const buildBlazeMaster = (): Rig => masterRig({
-  main: '#e0442a', deep: '#8a1f16', accent: '#ffb23a', glow: '#fff27a', skin: '#ffd2a8',
+  main: '#f0582a', deep: '#8a2a16', accent: '#ffb23a', glow: '#fff27a', skin: '#ffd2a8',
   crest: (b) => {
     // Flame crest: three stacked glowing cones on the helmet
     cones(b, 'head', [[0, 0.44, -0.02, 0.26, 0.09, 0], [-0.09, 0.38, 0.0, 0.18, 0.06, 0.4], [0.09, 0.38, 0.0, 0.18, 0.06, -0.4]], '#ffb23a', true)
@@ -153,12 +153,12 @@ export const buildGaleMaster = (): Rig => masterRig({
 })
 
 export const buildMagnetMaster = (): Rig => masterRig({
-  main: '#c23a4a', deep: '#22306e', accent: '#3f7bff', glow: '#ffd0d6', skin: '#ffd2a8',
+  main: '#3f7bff', deep: '#22306e', accent: '#c9d3e6', glow: '#d6e4ff', skin: '#ffd2a8',
   crest: (b) => {
-    // A horseshoe crown: a red U over the helmet, its pole tips blue and lit.
-    b.part('head', torus(0.17, 0.045, 8, 18, Math.PI), '#c23a4a', { p: [0, 0.34, 0], r: [0, 0, Math.PI] })
+    // A horseshoe crown: a cobalt U over the helmet, its pole tips lit.
+    b.part('head', torus(0.17, 0.045, 8, 18, Math.PI), '#3f7bff', { p: [0, 0.34, 0], r: [0, 0, Math.PI] })
     b.mirror((sd) => {
-      b.part('head', rcyl(0.047, 0.1, 0.015, 10), '#c23a4a', { p: [sd * 0.17, 0.39, 0] })
+      b.part('head', rcyl(0.047, 0.1, 0.015, 10), '#3f7bff', { p: [sd * 0.17, 0.39, 0] })
       b.part('head', rcyl(0.05, 0.06, 0.015, 10), '#3f7bff', { p: [sd * 0.17, 0.46, 0], glow: true, outline: false })
     })
     // Pole plates on the chest: north red, south blue.
@@ -168,14 +168,14 @@ export const buildMagnetMaster = (): Rig => masterRig({
     b.mirror((sd, t) => {
       b.part(`elbow${t}`, cap(0.085, 0.1), '#22306e', { p: [0, -0.09, 0] })
       // Horseshoe gauntlets: a U for a hand, its tips the pole colour.
-      b.part(`elbow${t}`, torus(0.09, 0.035, 8, 16, Math.PI), '#c23a4a', { p: [0, -0.22, 0], r: [0, Math.PI / 2, Math.PI] })
+      b.part(`elbow${t}`, torus(0.09, 0.035, 8, 16, Math.PI), '#3f7bff', { p: [0, -0.22, 0], r: [0, Math.PI / 2, Math.PI] })
       for (const s of [-1, 1]) b.part(`elbow${t}`, rcyl(0.037, 0.06, 0.01, 8), sd < 0 ? '#ff4a5e' : '#3f7bff', { p: [0, -0.32, s * 0.09], glow: true, outline: false })
     })
   }
 })
 
 export const buildDrillMaster = (): Rig => masterRig({
-  main: '#ffc21a', deep: '#4a3d32', accent: '#a7afc4', glow: '#ffe08a', skin: '#ffd2a8',
+  main: '#c8862a', deep: '#4a3d32', accent: '#a7afc4', glow: '#ffe08a', skin: '#ffd2a8',
   crest: (b) => {
     // A drill for a crest: a steel cone on the helmet, banded, and a lamp.
     b.part('head', rcone(0.13, 0.02, 0.36, 0.02, 12), '#a7afc4', { p: [0, 0.48, -0.02] })
@@ -189,13 +189,13 @@ export const buildDrillMaster = (): Rig => masterRig({
       b.part(`elbow${t}`, cap(0.085, 0.1), '#4a3d32', { p: [0, -0.09, 0] })
       // Drill hands: a banded steel cone pointing down the forearm.
       b.part(`elbow${t}`, rcone(0.11, 0.015, 0.34, 0.02, 12), '#a7afc4', { p: [0, -0.34, 0], r: [Math.PI, 0, 0] })
-      b.part(`elbow${t}`, torus(0.1, 0.022, 6, 14), '#ffc21a', { p: [0, -0.22, 0], r: [Math.PI / 2, 0, 0] })
+      b.part(`elbow${t}`, torus(0.1, 0.022, 6, 14), '#c8862a', { p: [0, -0.22, 0], r: [Math.PI / 2, 0, 0] })
     })
   }
 })
 
 export const buildTideMaster = (): Rig => masterRig({
-  main: '#2f9fd8', deep: '#1f3f6a', accent: '#ffd23a', glow: '#bff0ff', skin: '#ffd2a8',
+  main: '#1f8fd6', deep: '#163a66', accent: '#ffd23a', glow: '#bff0ff', skin: '#ffd2a8',
   crest: (b) => {
     // A dorsal fin over the helmet, and a diver's visor ring.
     b.part('head', ell(0.04, 0.2, 0.17), '#1f3f6a', { p: [0, 0.4, -0.06], r: [-0.3, 0, 0] })
@@ -214,25 +214,25 @@ export const buildTideMaster = (): Rig => masterRig({
 })
 
 export const buildNeonMaster = (): Rig => masterRig({
-  main: '#2a2a3a', deep: '#14141f', accent: '#ff3fd2', glow: '#3ff4ff', skin: '#ffd2a8',
+  main: '#2a2a3a', deep: '#14141f', accent: '#ff3fd2', glow: '#a85cff', skin: '#ffd2a8',
   crest: (b) => {
     // A neon halo over the helmet and a visor stripe.
     b.part('head', torus(0.2, 0.025, 6, 24), '#ff3fd2', { p: [0, 0.42, -0.04], r: [Math.PI / 2 - 0.3, 0, 0], glow: true, outline: false })
-    b.part('head', rbox(0.3, 0.05, 0.05, 0.3), '#3ff4ff', { p: [0, 0.2, 0.2], glow: true, outline: false })
+    b.part('head', rbox(0.3, 0.05, 0.05, 0.3), '#a85cff', { p: [0, 0.2, 0.2], glow: true, outline: false })
     // Neon piping down the chest.
-    b.mirror((sd) => b.part('chest', rbox(0.03, 0.34, 0.03, 0.3), sd < 0 ? '#ff3fd2' : '#3ff4ff', { p: [sd * 0.1, 0.05, 0.21], glow: true, outline: false }))
+    b.mirror((sd) => b.part('chest', rbox(0.03, 0.34, 0.03, 0.3), sd < 0 ? '#ff3fd2' : '#a85cff', { p: [sd * 0.1, 0.05, 0.21], glow: true, outline: false }))
   },
   arms: (b) => {
     b.mirror((sd, t) => {
       b.part(`elbow${t}`, cap(0.085, 0.1), '#14141f', { p: [0, -0.09, 0] })
       // A blade of light on each forearm.
-      b.part(`elbow${t}`, rbox(0.04, 0.5, 0.14, 0.2), sd < 0 ? '#ff3fd2' : '#3ff4ff', { p: [sd * 0.08, -0.32, 0.05], glow: true, outline: false })
+      b.part(`elbow${t}`, rbox(0.04, 0.5, 0.14, 0.2), sd < 0 ? '#ff3fd2' : '#a85cff', { p: [sd * 0.08, -0.32, 0.05], glow: true, outline: false })
     })
   }
 })
 
 export const buildRotorMaster = (): Rig => masterRig({
-  main: '#ff8a2a', deep: '#3a3f4f', accent: '#ffffff', glow: '#ffe9a0', skin: '#ffd2a8',
+  main: '#a6e64a', deep: '#3a3f4f', accent: '#ffffff', glow: '#eaffc0', skin: '#ffd2a8',
   crest: (b) => {
     // A rotor mast on the helmet, two blades across it; goggles.
     b.part('head', rcyl(0.03, 0.2, 0.01, 8), '#3a3f4f', { p: [0, 0.44, -0.02] })
@@ -246,7 +246,7 @@ export const buildRotorMaster = (): Rig => masterRig({
     b.mirror((_sd, t) => {
       b.part(`elbow${t}`, cap(0.085, 0.1), '#3a3f4f', { p: [0, -0.09, 0] })
       // A little rotor on each fist.
-      b.part(`elbow${t}`, rcyl(0.06, 0.08, 0.02, 10), '#ff8a2a', { p: [0, -0.22, 0] })
+      b.part(`elbow${t}`, rcyl(0.06, 0.08, 0.02, 10), '#a6e64a', { p: [0, -0.22, 0] })
       b.part(`elbow${t}`, rbox(0.32, 0.02, 0.05, 0.3), '#ffffff', { p: [0, -0.27, 0] })
     })
   }

@@ -718,6 +718,18 @@ export default {
       '5': '¡A mitad de camino! Vex está sudando.',
     },
     'bossAhead': 'Jefe adelante. ¡Respira hondo!',
+    'noWeak': 'No le veo punto débil. ¡No pares!',
+    'weak': {
+      'flameWave': '¡Ola de llamas le hace daño!',
+      'iceLance': '¡Lanza de hielo le hace daño!',
+      'thunderArc': '¡Arco de trueno le hace daño!',
+      'galeGuard': '¡Escudo vendaval le hace daño!',
+      'magnetPull': '¡Atracción Imán le hace daño!',
+      'drillBomb': '¡Bomba taladro le hace daño!',
+      'bubbleLance': '¡Lanza Burbuja le hace daño!',
+      'neonBlade': '¡Hoja Neón le hace daño!',
+      'droneSwarm': '¡Enjambre de drones le hace daño!'
+    },
     'bossDown': '¡Maestro liberado! ¡Buen trabajo!',
     'vexDown': 'Vex ha caído. ¡Lo logramos!',
     'lowHp': '¡Ay! ¡Cuidado, Flux!',
