@@ -421,7 +421,13 @@ while bars and damage numbers get direct DOM writes.
     finish, a Repair Gel; then the freeze and the rewind. Skyline rockets fly
     nose-first along their climb, with a thrust cone and a short see-through
     trail (none on the low tier).
-  - [ ] **P6 Balance pass 1** (`scripts/balance-sim.mjs`).
+  - [x] **P6 Balance pass 1**: `sim/balance.ts` plays the campaign on paper
+    with the game's own tables for three profiles (reference: ×3 every 3rd
+    mission, spends 60%; every-round ad; no ads); `scripts/balance-sim.mjs`
+    prints it, `tests/game/balance.test.ts` pins the targets (Masters ~26–31 s,
+    Vex ~50 s, machines 2–3 s throughout, never "behind", ad edge on bosses
+    ≤ 6%). Tuning: the adaptive boss cap 2 → 3 (the Fortress let an
+    every-round ad player run 38% ahead); `PROGRESS_HP` stays 0.06.
   - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**

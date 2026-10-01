@@ -40,7 +40,7 @@ export const JOB_TEMPLATES: Array<[QuestTemplate, number]> = [
  *  (it is a rematch at the top of that sector's tower). */
 export const CLIMB_WEIGHT = 1.4
 
-const rewardFor = (template: QuestTemplate, level: number, story: boolean): Quest['reward'] => {
+export const rewardFor = (template: QuestTemplate, level: number, story: boolean): Quest['reward'] => {
   const base = 40 + level * 18
   const mul: Record<QuestTemplate, number> = {
     tutorial: 1.2, boss: 2.6, kill: 1, collect: 1.05, rescue: 1.15, elite: 1.35, supply: 1.1, purge: 1.3, climb: 2.6, stage: 2.6

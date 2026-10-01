@@ -17,8 +17,11 @@ import type { PlayerStats } from './stats'
  * `tests/game/adaptive.test.ts`.
  */
 
+/** Machines' extra health per Core Master beaten (`sim/balance.ts`). */
+export const PROGRESS_HP = 0.06
+
 export const BOSS_ABSORB = 0.85
-export const BOSS_CAP = 2
+export const BOSS_CAP = 3
 /** Power under this share of the reference: the player is falling behind. */
 export const BEHIND_AT = 0.8
 /** The standard arm's base damage (items.ts `arm_standard`). */

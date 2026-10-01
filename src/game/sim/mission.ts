@@ -65,7 +65,7 @@ import { cineWorld, type CineWorld, type CineBox } from './cineCam'
 import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
 import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './training'
 import { BossArena, type ArenaHost } from './bossArena'
-import { bossHpMul } from './adaptive'
+import { bossHpMul, PROGRESS_HP } from './adaptive'
 import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
 import { killCamsEnabled, setKillCamsEnabled } from '@/use/useKillCam'
@@ -150,8 +150,6 @@ const HAZARD_MACHINE_SHARE = 0.5
 const HAZARD_CD = 0.8
 /** The arena's light, burning low as the boss falls. */
 const ARENA_RED = new Color('#ff5a3a')
-/** Machines' extra health per Core Master beaten (tuned by the balance sim). */
-const PROGRESS_HP = 0.06
 /** A hazard's first-hit freeze-frame (s). */
 const TRAP_CAM_DUR = 1.5
 /** The pit rescue: its length with a spiked floor and without (s), the
