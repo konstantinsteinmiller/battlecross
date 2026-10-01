@@ -606,7 +606,7 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P0 catalogue clean-up**: shipped lines marked live, ending keys
     fixed, stale ending lines retired, orphaned `public/vo` removed.
   - [x] **P1 voice cards + line tones** (`pnpm voice:cards`).
-  - [ ] **P2 collector** (`pnpm voice:collect [--samples]`, German text
+  - [x] **P2 collector** (`pnpm voice:collect [--samples]`, German text
     normaliser).
   - [ ] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
     −16 LUFS, OGG Vorbis q2 mono; length, loudness, clipping, Whisper).

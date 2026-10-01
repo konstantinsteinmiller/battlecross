@@ -99,3 +99,9 @@ __screenshots__/
 # Written by `pnpm deploy:poki` (tools/poki-deploy) — one run’s QA evidence.
 /poki-qa-report.json
 /promotion-backup/
+
+# Voice-over pipeline work files (`pnpm voice:*`): jobs and takes are
+# rebuilt on demand; vo-src/refs (the frozen reference voices) is committed.
+/vo-src/jobs/
+/vo-src/gen/
+/vo-src/compare/

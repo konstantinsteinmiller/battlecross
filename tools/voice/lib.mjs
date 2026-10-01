@@ -58,3 +58,7 @@ export const args = (argv = process.argv.slice(2)) => {
   }
   return o
 }
+
+/** `voice:collect --samples`: one calm, one urgent and one shouted line — two
+ *  voices, three deliveries, a name in capitals — to compare engines on. */
+export const SAMPLE_KEYS = ['story.atlas.goodMorning', 'atlas.lowHp', 'vex.present.blaze']
