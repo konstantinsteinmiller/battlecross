@@ -239,6 +239,27 @@ export class WeaponSystem {
         h.sfx('dash')
         break
       }
+      case 'droneSwarm': {
+        // Three drones, each after its own machine (nearest first; one
+        // machine gets them all if it is alone), fanning out as they go.
+        const yaw = Math.atan2(dx, dz)
+        const marks = h.enemies
+          .filter(e => e.state !== 'dead' && !e.offstage && !e.buried && Math.hypot(e.x - h.player.x, e.z - h.player.z) < 20)
+          .sort((a, b) => Math.hypot(a.x - h.player.x, a.z - h.player.z) - Math.hypot(b.x - h.player.x, b.z - h.player.z))
+        for (let k = 0; k < 3; k++) {
+          const a = yaw + (k - 1) * 0.55
+          const home = tgt && k === 1 ? tgt : marks[k] ?? marks[0] ?? tgt
+          const s = sys.spawnPlayerShot('charge1', mx, my + 0.2, mz, Math.sin(a), dy + 0.15, Math.cos(a), Math.round(dmg * 0.7), false, home)
+          this.tag(s, id, '#b8ff5a')
+          s.turn = 5
+          s.vx *= 0.7
+          s.vy *= 0.7
+          s.vz *= 0.7
+          s.life = 2.2
+        }
+        h.sfx('weapon')
+        break
+      }
       case 'galeGuard': {
         this.guardT = 8
         this.leafHitCd.clear()

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Ong Bắp Cày Cánh Quạt',
     'stalker': 'Kẻ Rình Phát Sáng',
     'puffer': 'Thủy Lôi Cá Nóc',
     'mole': 'Chuột Chũi Khoan',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Ong Bắp Cày Cánh Quạt | Ong Bắp Cày Cánh Quạt',
     'stalker': 'Kẻ Rình Phát Sáng | Kẻ Rình Phát Sáng',
     'puffer': 'Thủy Lôi Cá Nóc | Thủy Lôi Cá Nóc',
     'mole': 'Chuột Chũi Khoan | Chuột Chũi Khoan',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Chúa Tể Cánh Quạt',
     'neonMaster': 'Chúa Tể Neon',
     'tideMaster': 'Chúa Tể Thủy Triều',
     'drillMaster': 'Chúa Tể Mũi Khoan',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Đường Bay Cánh Quạt',
     'neon': 'Đại Lộ Mất Điện',
     'tide': 'Âu Thuyền Thủy Triều',
     'drill': 'Mỏ Sâu',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
     'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều', 'neon': 'Đại Lộ Mất Điện' },
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều', 'neon': 'Đại Lộ Mất Điện', 'rotor': 'Đường Bay Cánh Quạt' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' },
     'drillBomb': { 'name': 'Bom Khoan', 'desc': 'Quả bom khoan nổ tung ngay chỗ nó dừng, trúng mọi cỗ máy xung quanh. Phá được đá nứt.' },
     'bubbleLance': { 'name': 'Thương Bong Bóng', 'desc': 'Một bong bóng to lăn dọc mặt đất và nổ xuyên qua mọi cỗ máy trên đường đi.' },
-    'neonBlade': { 'name': 'Lưỡi Neon', 'desc': 'Lưỡi dao ánh sáng ném đi như boomerang: chém cả lúc bay đi lẫn lúc bay về.' }
+    'neonBlade': { 'name': 'Lưỡi Neon', 'desc': 'Lưỡi dao ánh sáng ném đi như boomerang: chém cả lúc bay đi lẫn lúc bay về.' },
+    'droneSwarm': { 'name': 'Bầy Drone', 'desc': 'Ba drone tí hon tự tìm ba cỗ máy, vòng qua mọi chỗ nấp.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Cùng luyện Phát Tụ Lực nào!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Hạ cánh. Xuống thôi!',
+        'dip': 'Bám chắc, ta bổ nhào đây!',
+        'board': 'Lên nào! Tôi bay, cậu bắn.',
+      },
       'neon': {
         'kick': 'Quay mặt vào tường rồi trượt. Lần nữa! Đạp tường bật lên!',
         'switch': 'Công tắc đèn! Bắn nó để đổi cầu nhé.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
     },
     'story': {
+      'rotor': 'Đường Bay Cánh Quạt. Gió lùa ăng-ten tớ!',
       'neon': 'Đại Lộ Mất Điện. Bật đèn lên nào!',
       'tide': 'Âu Thuyền Thủy Triều. Đến giờ té nước!',
       'drill': 'Mỏ Sâu. Coi chừng đầu!',

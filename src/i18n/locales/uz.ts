@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Rotorli qovogʻari',
     'stalker': 'Yorqin ovchi',
     'puffer': 'Puffer baliq minasi',
     'mole': 'Burgʻuvchi koʻrsichqon',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Rotorli qovogʻari | Rotorli qovogʻari',
     'stalker': 'Yorqin ovchi | Yorqin ovchi',
     'puffer': 'Puffer baliq minasi | Puffer baliq minasi',
     'mole': 'Burgʻuvchi koʻrsichqon | Burgʻuvchi koʻrsichqon',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Rotor ustasi',
     'neonMaster': 'Neon ustasi',
     'tideMaster': 'Toʻlqin ustasi',
     'drillMaster': 'Burgʻu ustasi',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rotor parvozi',
     'neon': 'Zulmat bulvari',
     'tide': 'Toʻlqin shlyuzlari',
     'drill': 'Chuqur kon',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Sektorni tozalash',
     'climb': 'Minora poygasi',
     'stage': 'Platforma bosqichi',
-    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi', 'drill': 'Chuqur kon', 'tide': 'Toʻlqin shlyuzlari', 'neon': 'Zulmat bulvari' },
+    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi', 'drill': 'Chuqur kon', 'tide': 'Toʻlqin shlyuzlari', 'neon': 'Zulmat bulvari', 'rotor': 'Rotor parvozi' },
     'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Magnit tortishi', 'desc': 'Qalqon va sovutlarni yoradigan, uchuvchilarni osmondan sugʻurib oladigan nishonga intiluvchi taqa.' },
     'drillBomb': { 'name': 'Burgʻu bombasi', 'desc': 'Toʻxtagan joyida portlab, atrofdagi har bir mashinaga tegadigan burgʻu bomba. Yorilgan toshni sindiradi.' },
     'bubbleLance': { 'name': 'Pufak nayzasi', 'desc': 'Katta pufak pol boʻylab dumalaydi va yoʻlidagi har bir mashinani teshib oʻtib yoriladi.' },
-    'neonBlade': { 'name': 'Neon tigʻi', 'desc': 'Bumerang kabi otiladigan yorugʻlik tigʻi: borishda ham, qaytishda ham kesadi.' }
+    'neonBlade': { 'name': 'Neon tigʻi', 'desc': 'Bumerang kabi otiladigan yorugʻlik tigʻi: borishda ham, qaytishda ham kesadi.' },
+    'droneSwarm': { 'name': 'Dron toʻdasi', 'desc': 'Uchta kichkina dron uchta mashinani topadi, har qanday panani aylanib oʻtadi.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Zaryadli oʻqni mashq qilaylik!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Qoʻndik. Tush!',
+        'dip': 'Mahkam ushla, shoʻngʻiyapmiz!',
+        'board': 'Hamma bortga! Men uchaman, sen otasan.',
+      },
       'neon': {
         'kick': 'Devorga qarab sirpan. Yana! Devordan depsinib yuqoriga!',
         'switch': 'Chiroq tugmasi! Koʻpriklarni almashtirish uchun uni ot.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Yadro ustasi kutmoqda. Uni ozod qilamiz!'
     },
     'story': {
+      'rotor': 'Rotor parvozi. Antennamda shamol!',
       'neon': 'Zulmat bulvari. Chiroqlarni yoqing!',
       'tide': 'Toʻlqin shlyuzlari. Shalop-shulup vaqti!',
       'drill': 'Chuqur kon. Boshingni ehtiyot qil!',

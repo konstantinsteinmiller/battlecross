@@ -14,7 +14,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
  * silhouette.
  */
 
-export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'tideMaster' | 'neonMaster' | 'vexMk1'
+export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'tideMaster' | 'neonMaster' | 'rotorMaster' | 'vexMk1'
 
 interface MasterSpec {
   main: string
@@ -231,6 +231,27 @@ export const buildNeonMaster = (): Rig => masterRig({
   }
 })
 
+export const buildRotorMaster = (): Rig => masterRig({
+  main: '#ff8a2a', deep: '#3a3f4f', accent: '#ffffff', glow: '#ffe9a0', skin: '#ffd2a8',
+  crest: (b) => {
+    // A rotor mast on the helmet, two blades across it; goggles.
+    b.part('head', rcyl(0.03, 0.2, 0.01, 8), '#3a3f4f', { p: [0, 0.44, -0.02] })
+    b.part('head', rbox(0.7, 0.03, 0.08, 0.3), '#ffffff', { p: [0, 0.55, -0.02] })
+    b.part('head', rbox(0.08, 0.03, 0.7, 0.3), '#ffffff', { p: [0, 0.56, -0.02] })
+    b.part('head', rbox(0.3, 0.07, 0.06, 0.3), '#b8ff5a', { p: [0, 0.22, 0.2], glow: true, outline: false })
+    // Two ducted fans on the back.
+    b.mirror((sd) => b.part('chest', torus(0.13, 0.04, 6, 16), '#3a3f4f', { p: [sd * 0.18, 0.12, -0.24], r: [Math.PI / 2, 0, 0] }))
+  },
+  arms: (b) => {
+    b.mirror((_sd, t) => {
+      b.part(`elbow${t}`, cap(0.085, 0.1), '#3a3f4f', { p: [0, -0.09, 0] })
+      // A little rotor on each fist.
+      b.part(`elbow${t}`, rcyl(0.06, 0.08, 0.02, 10), '#ff8a2a', { p: [0, -0.22, 0] })
+      b.part(`elbow${t}`, rbox(0.32, 0.02, 0.05, 0.3), '#ffffff', { p: [0, -0.27, 0] })
+    })
+  }
+})
+
 /** The Scrapper: a hulking junk crane — magnet claw, hammer fist, visor head. */
 export const buildScrapper = (): Rig => {
   const b = new RigBuilder()
@@ -319,6 +340,7 @@ export const buildBossRig = (id: BossId): Rig => {
     case 'drillMaster': return buildDrillMaster()
     case 'tideMaster': return buildTideMaster()
     case 'neonMaster': return buildNeonMaster()
+    case 'rotorMaster': return buildRotorMaster()
     case 'vexMk1': return buildVex()
   }
 }
@@ -410,6 +432,12 @@ const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: n
       rX = -0.06 * bz
       buzz = 0.01 * Math.sin(10 * TAU * p)
       hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else if (id === 'rotorMaster') {
+      // Rotor check: both arms out level, fists spinning, a turn of the head
+      const out = Math.sin(Math.PI * p)
+      lY = 0.8 * out
+      rY = -0.8 * out
+      hY = 0.3 * Math.sin(TAU * p)
     } else if (id === 'neonMaster') {
       // Blade flourish: the R blade spins a figure-eight in front
       const sw = Math.sin(TAU * p)

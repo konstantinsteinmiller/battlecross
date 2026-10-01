@@ -112,8 +112,15 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
   whirlpool: { tele: 1.0, red: true },
   bladeBoomerang: { tele: 0.6, red: false },
   neonVolley: { tele: 0.55, red: false },
-  laserGrid: { tele: 0.9, red: true }
+  laserGrid: { tele: 0.9, red: true },
+  droneSwarm: { tele: 0.6, red: false },
+  downdraft: { tele: 0.8, red: true },
+  rotorStorm: { tele: 0.8, red: false }
 }
+
+/** The Rotor Master's downdraft: it blows Flux away (m/s, s). */
+const DOWNDRAFT_S = 4.4
+const DOWNDRAFT_T = 1.6
 
 /** The Tide Master's whirlpool: its pull (m/s, s) and the ring at its end. */
 const WHIRL_S = 3.8
@@ -444,6 +451,35 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         return false
       }
       return e.st > 0.8
+    }
+    case 'droneSwarm':
+    case 'rotorStorm': {
+      // Little drones that home on Flux: five (a storm: two waves and a ring).
+      const storm = e.attack === 'rotorStorm'
+      const n = storm ? 10 : 5
+      if (e.step < n && e.st >= e.step * 0.12 + (storm && e.step >= 5 ? 0.6 : 0)) {
+        const a = Math.atan2(p.x - e.x, p.z - e.z) + ((e.step % 5) - 2) * 0.5
+        w.fireOrb(e, e.x + Math.sin(a) * s, 1.8 * s, e.z + Math.cos(a) * s, 5.8, Math.round(e.dmg * 0.65))
+        if (storm && e.step === 4) w.spawnRing(e, e.x, e.z, 8, 9, Math.round(e.dmg * 0.8), '#b8ff5a')
+        e.step++
+      }
+      return e.st > n * 0.12 + (storm ? 1.1 : 0.4)
+    }
+    case 'downdraft': {
+      // The fans roar: Flux is blown back across the arena, a gust wave
+      // with him to slide under.
+      if (e.step === 0) {
+        e.step = 1
+        w.pull?.(e.x, e.z, -DOWNDRAFT_S, DOWNDRAFT_T)
+        const a = Math.atan2(p.x - e.x, p.z - e.z)
+        w.spawnWave(e, e.x + Math.sin(a), e.z + Math.cos(a), Math.sin(a), Math.cos(a), 8, 1.2, 22, Math.round(e.dmg * 0.9), '#ffe9a0')
+        w.sfx('gust', e.x, e.z)
+      }
+      if (Math.random() < 0.7) {
+        const a = Math.atan2(p.x - e.x, p.z - e.z) + (Math.random() - 0.5)
+        w.fx.emit({ x: e.x + Math.sin(a) * 1.5, y: 0.4 + Math.random() * 1.8, z: e.z + Math.cos(a) * 1.5, vx: Math.sin(a) * 9, vz: Math.cos(a) * 9, color: '#ffffff', size: 0.3, sizeEnd: 0.05, life: 0.45 })
+      }
+      return e.st > DOWNDRAFT_T
     }
     case 'bladeBoomerang': {
       // Out past Flux, and back the same way: dodge it twice (or block).

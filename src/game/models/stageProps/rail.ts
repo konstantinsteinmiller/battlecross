@@ -1,5 +1,5 @@
 import { Group, Mesh, MeshBasicMaterial, Color, type BufferGeometry } from 'three'
-import { rcyl, rbox, sph, xform, paint, paintBy, merge } from '../kit'
+import { rcyl, rbox, sph, torus, xform, paint, paintBy, merge } from '../kit'
 import { toonVC, glowVC, outlineMat } from '../toon'
 import type { Theme } from '../../world/themes'
 
@@ -90,6 +90,48 @@ export interface CartMesh {
   root: Group
   /** The magnet pads under the deck: bright while it rides. */
   padMat: MeshBasicMaterial
+  /** A quadcopter's four rotors (spun by the ride), none on a cart. */
+  rotors?: Group[]
+}
+
+/**
+ * The Rotor Run's ride: a cargo quadcopter, its deck top at the group's
+ * origin (the cart's footprint, so the ride carries Flux the same way),
+ * facing −Z: a railed deck on four arms, a rotor in a ring at each corner,
+ * running lights (the "pads": bright while it flies).
+ */
+export const buildQuadcopter = (theme: Theme): CartMesh => {
+  const toon: BufferGeometry[] = []
+  const glowG: BufferGeometry[] = []
+  toon.push(paintBy(xform(rbox(2.5, 0.3, 2.6, 0.25), [0, -0.17, 0]), stripes(1.6)))
+  toon.push(xform(paint(rbox(2.2, 0.05, 2.3, 0.2), '#2a2d3e'), [0, 0.0, 0]))
+  for (const sx of [-1, 1]) toon.push(xform(paint(rbox(0.12, 0.5, 2.5, 0.3), theme.pilaster), [sx * 1.2, 0.25, 0]))
+  toon.push(xform(paint(rbox(1.0, 0.4, 0.8, 0.35), theme.pilaster), [0, -0.5, 0]))
+  const rotors: Group[] = []
+  const root = new Group()
+  for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
+    toon.push(xform(paint(rbox(1.1, 0.12, 0.16, 0.3), theme.pilaster), [sx * 1.55, -0.2, sz * 1.55], [0, sx * sz > 0 ? -Math.PI / 4 : Math.PI / 4, 0]))
+    toon.push(xform(paint(torus(0.75, 0.08, 6, 24), DANGER_BLACK), [sx * 2.05, -0.15, sz * 2.05], [Math.PI / 2, 0, 0]))
+    glowG.push(xform(paint(sph(0.1, 8, 6), sz < 0 ? '#ff4a4a' : '#5dff8a'), [sx * 2.05, -0.05, sz * 2.05 + sz * 0.78]))
+  }
+  const body = assemble(toon, glowG)
+  root.add(body)
+  for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
+    const g = new Group()
+    g.position.set(sx * 2.05, -0.1, sz * 2.05)
+    const blade = merge([
+      xform(paint(rbox(1.3, 0.03, 0.16, 0.5, 6, 2), '#e8ecf4'), [0, 0, 0]),
+      xform(paint(rbox(0.16, 0.03, 1.3, 0.5, 6, 2), '#e8ecf4'), [0, 0, 0]),
+      xform(paint(rcyl(0.1, 0.12, 0.03, 10), DANGER_YELLOW), [0, 0, 0])
+    ])
+    g.add(new Mesh(blade, toonVC()))
+    rotors.push(g)
+    root.add(g)
+  }
+  const padMat = new MeshBasicMaterial({ color: new Color(theme.pipe), toneMapped: false })
+  const pads = merge([-0.75, 0.75].map(sz => xform(rbox(1.7, 0.08, 0.3, 0.5, 8, 4), [0, -0.34, sz])))
+  root.add(new Mesh(pads, padMat))
+  return { root, padMat, rotors }
 }
 
 /**

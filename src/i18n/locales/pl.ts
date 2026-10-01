@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Szerszeń wirnikowy',
     'stalker': 'Świetlny Łowca',
     'puffer': 'Mina Rozdymka',
     'mole': 'Kret Wiertacz',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Szerszeń wirnikowy | Szerszenie wirnikowe',
     'stalker': 'Świetlny Łowca | Świetlni Łowcy',
     'puffer': 'Mina Rozdymka | Miny Rozdymki',
     'mole': 'Kret Wiertacz | Krety Wiertacze',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Mistrz Wirnika',
     'neonMaster': 'Mistrz Neonu',
     'tideMaster': 'Mistrz Pływu',
     'drillMaster': 'Mistrz Wiertła',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Wirnikowy Rajd',
     'neon': 'Aleja Zaciemnienia',
     'tide': 'Śluzy Pływowe',
     'drill': 'Głęboka Kopalnia',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Czystka sektora',
     'climb': 'Bieg na wieżę',
     'stage': 'Etap platformowy',
-    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji', 'drill': 'Głęboka kopalnia', 'tide': 'Śluzy pływowe', 'neon': 'Aleja zaciemnienia' },
+    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji', 'drill': 'Głęboka kopalnia', 'tide': 'Śluzy pływowe', 'neon': 'Aleja zaciemnienia', 'rotor': 'Wirnikowy rajd' },
     'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Magnetyczny chwyt', 'desc': 'Samonaprowadzająca podkowa, która kruszy tarcze i pancerze i ściąga latające maszyny z nieba.' },
     'drillBomb': { 'name': 'Bomba wiertnicza', 'desc': 'Wiercąca bomba, która wybucha tam, gdzie się zatrzyma, trafiając każdą maszynę wokół. Kruszy pękniętą skałę.' },
     'bubbleLance': { 'name': 'Lanca bąbelkowa', 'desc': 'Wielka bańka toczy się po podłodze i pęka, przebijając każdą maszynę na swojej drodze.' },
-    'neonBlade': { 'name': 'Neonowe ostrze', 'desc': 'Ostrze ze światła rzucane jak bumerang: tnie w locie tam i z powrotem.' }
+    'neonBlade': { 'name': 'Neonowe ostrze', 'desc': 'Ostrze ze światła rzucane jak bumerang: tnie w locie tam i z powrotem.' },
+    'droneSwarm': { 'name': 'Rój dronów', 'desc': 'Trzy małe drony namierzają trzy maszyny i omijają każdą osłonę.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Potrenujmy strzał naładowany!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Lądujemy. Wysiadaj!',
+        'dip': 'Trzymaj się, nurkujemy!',
+        'board': 'Wsiadaj! Ja lecę, ty strzelasz.',
+      },
       'neon': {
         'kick': 'Stań twarzą do ściany i wślizg. Jeszcze raz! Odbij się od ściany w górę!',
         'switch': 'Włącznik światła! Strzel w niego, by zamienić mosty.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Czeka Mistrz Rdzenia. Uwolnijmy go!'
     },
     'story': {
+      'rotor': 'Wirnikowy Rajd. Wiatr w mojej antenie!',
       'neon': 'Aleja Zaciemnienia. Światła, proszę!',
       'tide': 'Śluzy Pływowe. Czas na chlapanie!',
       'drill': 'Głęboka Kopalnia. Uważaj na głowę!',

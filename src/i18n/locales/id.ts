@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Rotor Tawon',
     'stalker': 'Pengintai Pendar',
     'puffer': 'Ranjau Buntal',
     'mole': 'Tikus Tanah Bor',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Rotor Tawon | Rotor Tawon',
     'stalker': 'Pengintai Pendar | Pengintai Pendar',
     'puffer': 'Ranjau Buntal | Ranjau Buntal',
     'mole': 'Tikus Tanah Bor | Tikus Tanah Bor',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Master Rotor',
     'neonMaster': 'Master Neon',
     'tideMaster': 'Master Pasang',
     'drillMaster': 'Master Bor',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Laju Rotor',
     'neon': 'Bulevar Padam',
     'tide': 'Pintu Air Pasang',
     'drill': 'Tambang Dalam',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
     'stage': 'Tahap Platform',
-    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang', 'neon': 'Bulevar Padam' },
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang', 'neon': 'Bulevar Padam', 'rotor': 'Laju Rotor' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Tarikan Magnet', 'desc': 'Ladam pelacak yang meretakkan perisai dan cangkang, serta menarik musuh terbang dari udara.' },
     'drillBomb': { 'name': 'Bom Bor', 'desc': 'Bom pengebor yang meledak di tempat ia berhenti, mengenai semua mesin di sekitarnya. Menghancurkan batu retak.' },
     'bubbleLance': { 'name': 'Tombak Gelembung', 'desc': 'Gelembung besar menggelinding di lantai dan meletus menembus setiap mesin di jalannya.' },
-    'neonBlade': { 'name': 'Bilah Neon', 'desc': 'Bilah cahaya yang dilempar seperti bumerang: memotong saat pergi dan saat kembali.' }
+    'neonBlade': { 'name': 'Bilah Neon', 'desc': 'Bilah cahaya yang dilempar seperti bumerang: memotong saat pergi dan saat kembali.' },
+    'droneSwarm': { 'name': 'Kawanan Drone', 'desc': 'Tiga drone kecil memburu tiga mesin, mengitari perlindungan apa pun.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Ayo latih Tembakan Bermuatan!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Mendarat. Turun!',
+        'dip': 'Pegangan, kita menukik!',
+        'board': 'Ayo naik! Aku terbang, kamu menembak.',
+      },
       'neon': {
         'kick': 'Hadap dinding dan meluncur. Lagi! Tendang dinding, naik!',
         'switch': 'Saklar lampu! Tembak untuk menukar jembatannya.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Master Inti menunggu. Ayo bebaskan!'
     },
     'story': {
+      'rotor': 'Laju Rotor. Angin di antenaku!',
       'neon': 'Bulevar Padam. Nyalakan lampunya, dong!',
       'tide': 'Pintu Air Pasang. Waktunya ciprat-ciprat!',
       'drill': 'Tambang Dalam. Awas kepalamu!',

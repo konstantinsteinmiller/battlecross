@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Hornissenrotor',
     'stalker': 'Leuchtpirscher',
     'puffer': 'Kugelfischmine',
     'mole': 'Maulwurfbohrer',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Hornissenrotor | Hornissenrotoren',
     'stalker': 'Leuchtpirscher | Leuchtpirscher',
     'puffer': 'Kugelfischmine | Kugelfischminen',
     'mole': 'Maulwurfbohrer | Maulwurfbohrer',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Rotormeister',
     'neonMaster': 'Neonmeister',
     'tideMaster': 'Gezeitenmeister',
     'drillMaster': 'Bohrmeister',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rotorflug',
     'neon': 'Blackout-Boulevard',
     'tide': 'Gezeitenschleusen',
     'drill': 'Tiefenmine',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen', 'neon': 'Blackout-Boulevard' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen', 'neon': 'Blackout-Boulevard', 'rotor': 'Rotorflug' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' },
     'drillBomb': { 'name': 'Bohrbombe', 'desc': 'Eine Bohrbombe, die dort platzt, wo sie stoppt, und jede Maschine ringsum trifft. Bricht rissigen Fels.' },
     'bubbleLance': { 'name': 'Blasenlanze', 'desc': 'Eine dicke Blase rollt über den Boden und platzt durch jede Maschine auf ihrem Weg.' },
-    'neonBlade': { 'name': 'Neonklinge', 'desc': 'Eine Lichtklinge, geworfen wie ein Bumerang: Sie schneidet auf dem Hin- und auf dem Rückweg.' }
+    'neonBlade': { 'name': 'Neonklinge', 'desc': 'Eine Lichtklinge, geworfen wie ein Bumerang: Sie schneidet auf dem Hin- und auf dem Rückweg.' },
+    'droneSwarm': { 'name': 'Drohnenschwarm', 'desc': 'Drei kleine Drohnen suchen sich drei Maschinen, um jede Deckung herum.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Lass uns den Ladeschuss trainieren!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Aufgesetzt. Steig aus!',
+        'dip': 'Festhalten, Sturzflug!',
+        'board': 'Alle einsteigen! Ich fliege, du schießt.',
+      },
       'neon': {
         'kick': 'Zur Wand drehen und rutschen. Nochmal! Wandsprung nach oben!',
         'switch': 'Ein Lichtschalter! Schieß drauf, um die Brücken zu tauschen.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
     },
     'story': {
+      'rotor': 'Rotorflug. Wind in meiner Antenne!',
       'neon': 'Blackout-Boulevard. Licht an, bitte!',
       'tide': 'Gezeitenschleusen. Platsch-Zeit!',
       'drill': 'Tiefenmine. Kopf einziehen!',

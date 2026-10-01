@@ -75,6 +75,7 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'hornet': 'Hornet Rotor',
     'stalker': 'Glow Stalker',
     'puffer': 'Puffer Mine',
     'mole': 'Mole Driller',
@@ -93,6 +94,7 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'hornet': 'Hornet Rotor | Hornet Rotors',
     'stalker': 'Glow Stalker | Glow Stalkers',
     'puffer': 'Puffer Mine | Puffer Mines',
     'mole': 'Mole Driller | Mole Drillers',
@@ -121,6 +123,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Rotor Master',
     'neonMaster': 'Neon Master',
     'tideMaster': 'Tide Master',
     'drillMaster': 'Drill Master',
@@ -135,6 +138,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rotor Run',
     'neon': 'Blackout Boulevard',
     'tide': 'Tidewater Locks',
     'drill': 'Deep Mine',
@@ -160,7 +164,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard', 'rotor': 'Rotor Run' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -524,7 +528,8 @@ export default {
     'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' },
     'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' },
     'bubbleLance': { 'name': 'Bubble Lance', 'desc': 'A big bubble rolls along the floor and bursts through every machine in its way.' },
-    'neonBlade': { 'name': 'Neon Blade', 'desc': 'A blade of light thrown like a boomerang: it cuts on the way out and on the way back.' }
+    'neonBlade': { 'name': 'Neon Blade', 'desc': 'A blade of light thrown like a boomerang: it cuts on the way out and on the way back.' },
+    'droneSwarm': { 'name': 'Drone Swarm', 'desc': 'Three little drones seek out three machines, round any cover.' }
   },
 
   'options': {
@@ -671,6 +676,11 @@ export default {
       'charge': "Let's train the Charge Shot!",
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Touchdown. Hop off!',
+        'dip': "Hold on, we're diving!",
+        'board': 'All aboard! I fly, you shoot.',
+      },
       'neon': {
         'kick': 'Face the wall and slide. Again! Wall-kick up!',
         'switch': 'A light switch! Shoot it to swap the bridges.',
@@ -740,6 +750,7 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'rotor': 'Rotor Run. Wind in my antenna!',
       'neon': 'Blackout Boulevard. Lights, please!',
       'tide': 'Tidewater Locks. Splash time!',
       'drill': 'Deep Mine. Mind your head!',

@@ -22,7 +22,7 @@ import { mulberry32, type Rng } from '../world/rng'
  * minute, and swaps to `boss` for a Core Master fight.
  */
 
-export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'fortress' | 'boss' | 'intro'
+export type TrackId = 'hub' | 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'rotor' | 'fortress' | 'boss' | 'intro'
 /** A song: an area theme (by its track id), one of the two rotation songs, or the boss. */
 export type SongId = TrackId | 'drift' | 'circuit'
 
@@ -729,6 +729,9 @@ const CHIP: Record<ChipId, ChipSpec> = {
   // Blackout Boulevard: a fast synth-wave drive in minor, a wide square
   // lead and a fizzing narrow arp.
   neon: { bpm: 164, root: 45, mode: MINOR, progA: [0, 5, 3, 6], progB: [0, 5, 6, 4], seed: 120, leadDuty: 0.5, arpDuty: 0.125, drums: 'drive' },
+  // The Rotor Run: the fastest of them, a bright lydian chase, the lead
+  // pushing up a fourth.
+  rotor: { bpm: 168, root: 40, mode: LYDIAN, progA: [0, 1, 4, 1], progB: [5, 4, 1, 0], seed: 131, leadDuty: 0.25, arpDuty: 0.125, drums: 'drive' },
   fortress: { bpm: 162, root: 36, mode: PHRYG, progA: [0, 1, 0, 6], progB: [5, 3, 1, 0], seed: 76, leadDuty: 0.5, arpDuty: 0.25, drums: 'drive' }
 }
 

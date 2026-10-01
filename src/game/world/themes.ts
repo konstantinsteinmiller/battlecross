@@ -29,7 +29,7 @@ export interface Theme {
   crateTrim: string
 }
 
-export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'fortress'
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'tide' | 'neon' | 'rotor' | 'fortress'
 
 export const THEMES: Record<SectorId, Theme> = {
   scrapyard: {
@@ -120,6 +120,17 @@ export const THEMES: Record<SectorId, Theme> = {
     skyTop: '#0e0a2a', skyBottom: '#5a2a8a', fog: '#2a1a4a', fogNear: 16, fogFar: 60,
     hemiSky: '#c8b8ff', hemiGround: '#1a1428', sun: '#e8d8ff', sunIntensity: 0.95,
     pipe: '#3ff4ff', crate: '#5a4a6a', crateTrim: '#1a1424'
+  },
+  // Rotor Run: a sky airfield in the afternoon — pale decks, safety-orange
+  // walls, white trim, a warm wide sky.
+  rotor: {
+    id: 'rotor',
+    floor: '#c8ccd6', floorAlt: '#b0b6c2', corridor: '#9aa2b0',
+    wall: '#ff8a2a', wallLow: '#b85a14', trim: '#ffffff', pilaster: '#5a6478',
+    accent: '#b8ff5a', hazard: '#ff4a3a',
+    skyTop: '#4a9aff', skyBottom: '#ffe0b0', fog: '#f0dcc0', fogNear: 24, fogFar: 80,
+    hemiSky: '#ffffff', hemiGround: '#8a8070', sun: '#fff2d8', sunIntensity: 1.3,
+    pipe: '#3fb8ff', crate: '#c9a46a', crateTrim: '#5a4a32'
   },
   fortress: {
     id: 'fortress',

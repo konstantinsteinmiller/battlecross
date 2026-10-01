@@ -628,5 +628,12 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
   'blade': [
     'M3.5 8A9 9 0 0 0 20.5 8A7 7 0 0 1 3.5 8Z',
     'M12 1.5L13 4L15.5 5L13 6L12 8.5L11 6L8.5 5L11 4Z'
+  ],
+  // Three drones in a triangle: a round body (r 2.6) and a rotor bar over
+  // it, one unit clear of it.
+  'drones': [
+    'M12 7A2.6 2.6 0 1 1 11.99 7Z', 'M8.5 2.2H15.5V3.6H8.5Z',
+    'M6 17A2.6 2.6 0 1 1 5.99 17Z', 'M2.5 12.2H9.5V13.6H2.5Z',
+    'M18 17A2.6 2.6 0 1 1 17.99 17Z', 'M14.5 12.2H21.5V13.6H14.5Z'
   ]
 }

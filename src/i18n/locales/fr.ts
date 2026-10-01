@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Rotor frelon',
     'stalker': 'Traqueur Lumineux',
     'puffer': 'Mine Fugu',
     'mole': 'Taupe Foreuse',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Rotor frelon | Rotors frelons',
     'stalker': 'Traqueur Lumineux | Traqueurs Lumineux',
     'puffer': 'Mine Fugu | Mines Fugu',
     'mole': 'Taupe Foreuse | Taupes Foreuses',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Maître Rotor',
     'neonMaster': 'Maître Néon',
     'tideMaster': 'Maître Marée',
     'drillMaster': 'Maître Foreuse',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rallye Rotor',
     'neon': 'Boulevard Black-out',
     'tide': 'Écluses Marée',
     'drill': 'Mine profonde',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée', 'neon': 'Boulevard Black-out' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée', 'neon': 'Boulevard Black-out', 'rotor': 'Rallye Rotor' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' },
     'drillBomb': { 'name': 'Bombe foreuse', 'desc': "Une bombe foreuse qui éclate là où elle s'arrête et frappe toutes les machines autour. Brise la roche fissurée." },
     'bubbleLance': { 'name': 'Lance-bulle', 'desc': 'Une grosse bulle roule au sol et éclate à travers chaque machine sur son passage.' },
-    'neonBlade': { 'name': 'Lame néon', 'desc': 'Une lame de lumière lancée comme un boomerang : elle tranche à l’aller et au retour.' }
+    'neonBlade': { 'name': 'Lame néon', 'desc': 'Une lame de lumière lancée comme un boomerang : elle tranche à l’aller et au retour.' },
+    'droneSwarm': { 'name': 'Essaim de drones', 'desc': 'Trois petits drones traquent trois machines, en contournant tout abri.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Entraînons-nous au tir chargé !',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Atterrissage. Descends !',
+        'dip': 'Accroche-toi, on pique !',
+        'board': 'En voiture ! Je vole, tu tires.',
+      },
       'neon': {
         'kick': 'Face au mur, glissade. Encore ! Rebondis sur le mur et grimpe !',
         'switch': 'Un interrupteur ! Tire dessus pour inverser les ponts.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'rotor': 'Rallye Rotor. Du vent dans mon antenne !',
       'neon': 'Boulevard Black-out. La lumière, s’il te plaît !',
       'tide': 'Écluses Marée. C’est l’heure de barboter !',
       'drill': 'Mine profonde. Attention à ta tête !',

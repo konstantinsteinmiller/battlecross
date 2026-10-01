@@ -80,8 +80,14 @@ export const BOSSES: Record<BossId, BossDef> = {
   // The Blackout Boulevard's Master: a blade thrown out and back, a dash
   // out of the dark, a neon volley; phase 2 a laser grid of rings.
   neonMaster: base({
-    id: 'neonMaster', hp: 800, dmg: 23, element: 'none', weakTo: null, color: '#ff3fd2',
+    id: 'neonMaster', hp: 800, dmg: 23, element: 'none', weakTo: 'droneSwarm', color: '#ff3fd2',
     patterns: ['bladeBoomerang', 'dashSlash', 'neonVolley'], patterns2: ['laserGrid']
+  }),
+  // The Rotor Run's Master: a swarm of drones, a downdraft that blows Flux
+  // back, a dive from above; phase 2 a storm of drones and rings.
+  rotorMaster: base({
+    id: 'rotorMaster', hp: 840, dmg: 24, element: 'none', weakTo: 'magnetPull', color: '#ff8a2a',
+    patterns: ['droneSwarm', 'downdraft', 'dive'], patterns2: ['rotorStorm']
   }),
   vexMk1: base({
     id: 'vexMk1', hp: 1100, dmg: 22, element: 'none', weakTo: null, scale: 1, fly: 1.6, radius: 1.3, hitR: 1.3, aimY: 0.2,

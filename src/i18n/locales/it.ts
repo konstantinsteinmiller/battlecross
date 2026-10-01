@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Rotore Calabrone',
     'stalker': 'Predatore Luminoso',
     'puffer': 'Mina Pesce Palla',
     'mole': 'Talpa Trivella',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Rotore Calabrone | Rotori Calabrone',
     'stalker': 'Predatore Luminoso | Predatori Luminosi',
     'puffer': 'Mina Pesce Palla | Mine Pesce Palla',
     'mole': 'Talpa Trivella | Talpe Trivella',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Maestro Rotore',
     'neonMaster': 'Maestro Neon',
     'tideMaster': 'Maestro Marea',
     'drillMaster': 'Maestro Trivella',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Volo a Rotore',
     'neon': 'Viale del Buio',
     'tide': 'Chiuse di Marea',
     'drill': 'Miniera Profonda',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea', 'neon': 'Viale del buio' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea', 'neon': 'Viale del buio', 'rotor': 'Volo a rotore' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' },
     'drillBomb': { 'name': 'Bomba Trivella', 'desc': 'Una bomba trivellante che esplode dove si ferma e colpisce tutte le macchine intorno. Spacca la roccia crepata.' },
     'bubbleLance': { 'name': 'Lancia Bolla', 'desc': 'Una grossa bolla rotola sul pavimento e scoppia attraverso ogni macchina sul suo cammino.' },
-    'neonBlade': { 'name': 'Lama Neon', 'desc': 'Una lama di luce lanciata come un boomerang: taglia all’andata e al ritorno.' }
+    'neonBlade': { 'name': 'Lama Neon', 'desc': 'Una lama di luce lanciata come un boomerang: taglia all’andata e al ritorno.' },
+    'droneSwarm': { 'name': 'Sciame di Droni', 'desc': 'Tre piccoli droni inseguono tre macchine, aggirando ogni riparo.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Alleniamo il Colpo Caricato!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Atterrati. Scendi!',
+        'dip': 'Tieniti forte, si scende in picchiata!',
+        'board': 'Tutti a bordo! Volo io, tu spari.',
+      },
       'neon': {
         'kick': 'Guarda il muro e scivola. Ancora! Rimbalza sul muro e sali!',
         'switch': 'Un interruttore! Sparagli per scambiare i ponti.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Un Maestro del Nucleo attende. Liberiamolo!'
     },
     'story': {
+      'rotor': 'Volo a Rotore. Vento nell’antenna!',
       'neon': 'Viale del Buio. Luci, per favore!',
       'tide': 'Chiuse di Marea. È ora di sguazzare!',
       'drill': 'Miniera Profonda. Occhio alla testa!',

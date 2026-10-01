@@ -38,7 +38,8 @@ export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
   magnet: '#ff5a6e',
   drill: '#ffb12a',
   tide: '#5fd2ff',
-  neon: '#ff3fd2'
+  neon: '#ff3fd2',
+  rotor: '#b8ff5a'
 }
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
@@ -244,6 +245,19 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     for (const h of [1.0, 2.0, 3.0]) lamp('neon', h === 2.0 ? '#3ff4ff' : c, 'neon', xform(rbox(1.3, 0.08, 1.3, 0.3), [x, h, z]), x, z)
     toon.push(xform(paint(rbox(0.1, 1.6, 0.1, 0.3), '#2a2a3a'), [x + 1.3, 0.8, z + 0.5]))
     lamp('neon', c, 'neon', xform(rbox(1.4, 0.8, 0.08, 0.2), [x + 1.3, 1.9, z + 0.5]), x, z)
+  }
+
+  {
+    // The Rotor Run: a control tower with a quadcopter parked on its top.
+    const [x, z] = pos.rotor
+    const c = SECTOR_GLOW.rotor
+    toon.push(xform(paint(rcyl(0.45, 3.0, 0.06, 12), '#c8ccd6'), [x, 1.5, z]))
+    toon.push(xform(paint(rcyl(1.1, 0.25, 0.06, 18), '#ff8a2a'), [x, 3.1, z]))
+    toon.push(xform(paint(rbox(0.9, 0.18, 0.9, 0.3), '#5a6478'), [x, 3.35, z]))
+    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
+      lamp('rotor', c, 'rotor', xform(torus(0.28, 0.04, 6, 16), [x + sx * 0.6, 3.4, z + sz * 0.6], [Math.PI / 2, 0, 0]), x, z)
+    }
+    lamp('rotor', c, 'rotor', xform(torus(1.1, 0.04, 6, 24), [x, 3.24, z], [Math.PI / 2, 0, 0]), x, z)
   }
 
   // ── The city: towers in the ring, each with a neon band on its nearest

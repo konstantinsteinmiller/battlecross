@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': '호넷 로터',
     'stalker': '글로우 스토커',
     'puffer': '복어 기뢰',
     'mole': '두더지 드릴러',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': '호넷 로터 | 호넷 로터',
     'stalker': '글로우 스토커 | 글로우 스토커',
     'puffer': '복어 기뢰 | 복어 기뢰',
     'mole': '두더지 드릴러 | 두더지 드릴러',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': '로터 마스터',
     'neonMaster': '네온 마스터',
     'tideMaster': '조수 마스터',
     'drillMaster': '드릴 마스터',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': '회전익 항로',
     'neon': '정전 대로',
     'tide': '조수 갑문',
     'drill': '깊은 광산',
@@ -143,7 +147,7 @@ export default {
     'purge': '구역 소탕',
     'climb': '타워 런',
     'stage': '플랫폼 스테이지',
-    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스', 'neon': '블랙아웃 불러바드' },
+    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스', 'neon': '블랙아웃 불러바드', 'rotor': '로터 런' },
     'rematch': '재대결: {boss}',
     'desc': {
       'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': '마그넷 풀', 'desc': '유도 말굽 자석. 방패와 껍질을 깨고 날아다니는 기계를 공중에서 끌어내립니다.' },
     'drillBomb': { 'name': '드릴 봄', 'desc': '멈춘 자리에서 터져 주변의 모든 기계를 공격하는 굴착 폭탄. 금 간 바위를 부숩니다.' },
     'bubbleLance': { 'name': '버블 랜스', 'desc': '커다란 거품이 바닥을 굴러가며 길목의 모든 기계를 뚫고 터집니다.' },
-    'neonBlade': { 'name': '네온 블레이드', 'desc': '부메랑처럼 던지는 빛의 칼날. 날아갈 때도, 돌아올 때도 벱니다.' }
+    'neonBlade': { 'name': '네온 블레이드', 'desc': '부메랑처럼 던지는 빛의 칼날. 날아갈 때도, 돌아올 때도 벱니다.' },
+    'droneSwarm': { 'name': '드론 스웜', 'desc': '작은 드론 세 대가 기계 셋을 찾아갑니다. 엄폐물도 돌아서 갑니다.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': '차지 샷을 연습해봐요!',
     },
     'hint': {
+      'rotor': {
+        'arrive': '착륙이야. 내려!',
+        'dip': '꽉 잡아, 급강하한다!',
+        'board': '다들 타! 비행은 내가, 사격은 네가.',
+      },
       'neon': {
         'kick': '벽을 보고 슬라이딩. 한 번 더! 벽을 차고 위로!',
         'switch': '전등 스위치! 쏴서 다리를 바꿔!',
@@ -676,6 +686,7 @@ export default {
       'story': '코어 마스터가 기다려. 풀어주자!'
     },
     'story': {
+      'rotor': '회전익 항로. 안테나에 바람이 솔솔!',
       'neon': '정전 대로. 불 좀 켜 줘!',
       'tide': '조수 갑문. 첨벙첨벙 시간이야!',
       'drill': '깊은 광산. 머리 조심!',

@@ -1,7 +1,7 @@
 import { Color } from 'three'
 import { CELL, type RailSpec } from '../../world/levelGen'
 import { groundAt } from '../../world/nav'
-import { buildRail, buildCart, type CartMesh, type RailMesh } from '../../models/stageProps/rail'
+import { buildRail, buildCart, buildQuadcopter, type CartMesh, type RailMesh } from '../../models/stageProps/rail'
 import type { ClimbBody, ClimbHost } from '../climb'
 import type { StageFeature } from '../stageFeatures'
 
@@ -83,6 +83,8 @@ export class RailFeature implements StageFeature {
   private oz = 0
   private dipAt: number
   private dipSaid = false
+  /** The Rotor Run's flight (a quadcopter, no track). */
+  private air = false
   private spark = 0
   private readonly host: ClimbHost
   private readonly bi: number
@@ -121,7 +123,11 @@ export class RailFeature implements StageFeature {
       return r >= 0 ? t.pitBottom[r] ?? -12 : -12
     })
     host.scene.add(this.rail.root)
-    this.cart = buildCart(host.theme)
+    // The Rotor Run flies its course: no track, a quadcopter for a cart,
+    // and Atlas's own lines.
+    this.air = host.theme.id === 'rotor'
+    this.rail.root.visible = !this.air
+    this.cart = this.air ? buildQuadcopter(host.theme) : buildCart(host.theme)
     host.scene.add(this.cart.root)
     this.place(0)
   }
@@ -229,7 +235,7 @@ export class RailFeature implements StageFeature {
       this.place(this.s + this.v * dt)
       if (!this.dipSaid && this.s >= this.dipAt) {
         this.dipSaid = true
-        host.say('hint.volt.dip')
+        host.say(this.air ? 'hint.rotor.dip' : 'hint.volt.dip')
       }
       if (this.s >= this.length - 1e-3) this.arrive(p)
     }
@@ -237,6 +243,11 @@ export class RailFeature implements StageFeature {
     const f = Math.sin(time * 37) * Math.sin(time * 23 + 1.3)
     this.rail.stripMat.color.copy(f > 0.55 ? STRIP_B : f < -0.7 ? STRIP_DIM : STRIP_A)
     if (this.state === 'ride') this.cart.padMat.color.copy(f > 0 ? STRIP_B : STRIP_A)
+    // A quadcopter's rotors: idling in its slot, flat out in flight.
+    if (this.cart.rotors) {
+      const spin = (this.state === 'ride' ? 34 : this.state === 'board' ? 20 : 6) * dt
+      for (const r of this.cart.rotors) r.rotation.y += spin
+    }
     this.spark -= dt
     if (this.spark <= 0) {
       this.spark = SPARK_EVERY
@@ -263,7 +274,7 @@ export class RailFeature implements StageFeature {
     p.path = null
     this.host.sfx('liftOff', this.x, this.z)
     this.host.shake(0.12)
-    this.host.say('hint.volt.board')
+    this.host.say(this.air ? 'hint.rotor.board' : 'hint.volt.board')
   }
 
   /** In the exit slot: stop, let go, stay. */
@@ -283,7 +294,7 @@ export class RailFeature implements StageFeature {
     this.host.sfx('deckLand', this.x, this.z)
     this.host.shake(0.1)
     this.host.fx.sparks(this.x, this.y + 0.1, this.z, '#ffe13d', 14, 6, 0.16)
-    this.host.say('hint.volt.arrive')
+    this.host.say(this.air ? 'hint.rotor.arrive' : 'hint.volt.arrive')
   }
 
   carry(p: ClimbBody, out: [number, number], dt: number): boolean {

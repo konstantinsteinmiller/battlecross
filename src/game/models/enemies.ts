@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer' | 'stalker'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer' | 'stalker' | 'hornet'
 
 export interface EnemyColors {
   main: string
@@ -52,7 +52,9 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // The Puffer Mine: a buoy-yellow pufferfish of a mine, red spikes.
   puffer: { main: '#ffc94a', deep: '#a8661a', accent: '#ff5a3a', eye: '#2a3a5a', metal: '#d8dde8' },
   // The Glow Stalker: near-black plating, magenta seams, eyes that burn.
-  stalker: { main: '#22223a', deep: '#14141f', accent: '#ff3fd2', eye: '#3ff4ff', metal: '#3a3a52' }
+  stalker: { main: '#22223a', deep: '#14141f', accent: '#ff3fd2', eye: '#3ff4ff', metal: '#3a3a52' },
+  // The Hornet Rotor: wasp stripes, a stinger, twin rotors.
+  hornet: { main: '#ffd23a', deep: '#22232e', accent: '#ff4a3a', eye: '#ff2a2a', metal: '#c8ccd6' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -570,6 +572,42 @@ export const poseStalker = (rig: Rig, flare: number, lunge: number, t: number, m
   pose(rig, 'armR', up + 0.2 * Math.sin(T * 2 + 1), -0.2, 0.2)
   pose(rig, 'wheel', T * 6 * (0.3 + lunge), 0, 0)
   scaleBone(rig, 'head', 1 + 0.06 * flare * Math.sin(T * 40))
+}
+
+// ─── Hornet Rotor ────────────────────────────────────────────────────────────
+
+/**
+ * A wasp of a drone (the Rotor Run): a striped body, a stinger, twin
+ * rotors. It hovers at range, spins its rotors up red (`spin` 0..1, the
+ * telegraph) and dives in a straight line that does not turn: sidestep, or
+ * parry and it crashes.
+ */
+export const buildHornet = (c: EnemyColors = BASE_COLORS.hornet): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0, 0])
+    .bone('rotorL', 'body', [-0.32, 0.3, 0])
+    .bone('rotorR', 'body', [0.32, 0.3, 0])
+  b.part('body', ell(0.26, 0.24, 0.42, 16, 12), c.main)
+  for (let k = 0; k < 3; k++) b.part('body', torus(0.24 - Math.abs(k - 1) * 0.04, 0.03, 6, 18), c.deep, { p: [0, 0, -0.12 + k * 0.12] })
+  b.part('body', rcone(0.1, 0.01, 0.3, 0.01, 8), c.deep, { p: [0, -0.02, -0.5], r: [-Math.PI / 2, 0, 0] })
+  eye(b, 'body', [-0.1, 0.06, 0.34], 0.07, c.eye, 0, true)
+  eye(b, 'body', [0.1, 0.06, 0.34], 0.07, c.eye, 0, true)
+  b.mirror((s, t) => {
+    b.part('body', rbox(0.3, 0.05, 0.06, 0.3), c.metal, { p: [s * 0.18, 0.22, 0] })
+    b.part(`rotor${t}`, sph(0.04, 8, 6), c.accent)
+    b.part(`rotor${t}`, ell(0.3, 0.015, 0.05), c.metal, { p: [0, 0.02, 0] })
+    b.part(`rotor${t}`, ell(0.05, 0.015, 0.3), c.metal, { p: [0, 0.02, 0] })
+  })
+  return b.build({ outline: 0.015, height: 0.8 })
+}
+
+export const poseHornet = (rig: Rig, spin: number, dive: number, t: number, m?: EnemyMotion): void => {
+  const T = m ? t * m.tempo : t
+  nudge(rig, 'body', 0, 0.05 * Math.sin(T * 3) * (1 - dive), 0)
+  pose(rig, 'body', 0.6 * dive - 0.15 * spin, m ? 0.3 * m.look * m.calm : 0, 0.06 * Math.sin(T * 2.4))
+  const r = T * (20 + 40 * spin)
+  pose(rig, 'rotorL', 0, r, 0)
+  pose(rig, 'rotorR', 0, -r, 0)
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -1139,5 +1177,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'mole': return buildMole(c)
     case 'puffer': return buildPuffer(c)
     case 'stalker': return buildStalker(c)
+    case 'hornet': return buildHornet(c)
   }
 }

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': '黄蜂旋翼',
     'stalker': '辉光潜行者',
     'puffer': '河豚水雷',
     'mole': '钻地鼹鼠',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': '黄蜂旋翼 | 黄蜂旋翼',
     'stalker': '辉光潜行者 | 辉光潜行者',
     'puffer': '河豚水雷 | 河豚水雷',
     'mole': '钻地鼹鼠 | 钻地鼹鼠',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': '旋翼大师',
     'neonMaster': '霓虹大师',
     'tideMaster': '潮汐大师',
     'drillMaster': '钻头大师',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': '旋翼疾飞',
     'neon': '断电大道',
     'tide': '潮汐水闸',
     'drill': '深层矿井',
@@ -143,7 +147,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸', 'neon': '断电大道' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸', 'neon': '断电大道', 'rotor': '旋翼疾飞' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' },
     'drillBomb': { 'name': '钻头炸弹', 'desc': '钻地炸弹，停在哪里就在哪里爆炸，命中周围所有机械。能击碎裂开的岩石。' },
     'bubbleLance': { 'name': '泡泡长枪', 'desc': '巨大的泡泡沿着地面滚动，冲破路上的每一台机械后爆开。' },
-    'neonBlade': { 'name': '霓虹刃', 'desc': '像回旋镖一样掷出的光之刃：飞出去和飞回来时都能切割。' }
+    'neonBlade': { 'name': '霓虹刃', 'desc': '像回旋镖一样掷出的光之刃：飞出去和飞回来时都能切割。' },
+    'droneSwarm': { 'name': '无人机蜂群', 'desc': '三架小无人机追踪三台机械，能绕过任何掩体。' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': '我们来练习蓄力弹吧！',
     },
     'hint': {
+      'rotor': {
+        'arrive': '着陆。下来吧！',
+        'dip': '抓稳，我们要俯冲了！',
+        'board': '全体登机！我来飞，你来射。',
+      },
       'neon': {
         'kick': '面朝墙壁滑铲。再来！蹬墙往上跳！',
         'switch': '电灯开关！射它来切换光桥！',
@@ -676,6 +686,7 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'rotor': '旋翼疾飞，风吹我的天线！',
       'neon': '断电大道。请开灯！',
       'tide': '潮汐水闸，玩水时间到！',
       'drill': '深层矿井，小心头顶！',

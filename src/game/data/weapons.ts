@@ -8,7 +8,7 @@ import type { Element } from './enemies'
  * through kills scored with it. Equipping one tints the arm cannon.
  */
 
-export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull' | 'drillBomb' | 'bubbleLance' | 'neonBlade'
+export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull' | 'drillBomb' | 'bubbleLance' | 'neonBlade' | 'droneSwarm'
 
 export interface WeaponDef {
   id: WeaponId
@@ -42,7 +42,10 @@ export const WEAPONS: Record<WeaponId, WeaponDef> = {
   bubbleLance: { id: 'bubbleLance', color: '#5fd2ff', shell: '#1f3f6a', cost: 3, cooldown: 0.7, dmg: 2.4, element: 'none', from: 'tideMaster', xp: [16, 38] },
   // A spinning blade of light thrown like a boomerang: it cuts on the way
   // out and again on the way back (and through shots it meets).
-  neonBlade: { id: 'neonBlade', color: '#ff3fd2', shell: '#2a1840', cost: 3, cooldown: 0.6, dmg: 2.6, element: 'none', from: 'neonMaster', xp: [16, 38] }
+  neonBlade: { id: 'neonBlade', color: '#ff3fd2', shell: '#2a1840', cost: 3, cooldown: 0.6, dmg: 2.6, element: 'none', from: 'neonMaster', xp: [16, 38] },
+  // Three little drones that seek out three machines (round cover, from
+  // any side): costly, and never wasted.
+  droneSwarm: { id: 'droneSwarm', color: '#b8ff5a', shell: '#3a3f4f', cost: 6, cooldown: 1.8, dmg: 2.0, element: 'none', from: 'rotorMaster', xp: [16, 38] }
 }
 
 export const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -59,7 +62,8 @@ export const WEAPON_ICON = {
   magnetPull: 'magnet',
   drillBomb: 'drill',
   bubbleLance: 'bubble',
-  neonBlade: 'blade'
+  neonBlade: 'blade',
+  droneSwarm: 'drones'
 } as const satisfies Record<WeaponId, string>
 
 export const weaponRank = (xp: number, def: WeaponDef): 1 | 2 | 3 => (xp >= def.xp[1] ? 3 : xp >= def.xp[0] ? 2 : 1)

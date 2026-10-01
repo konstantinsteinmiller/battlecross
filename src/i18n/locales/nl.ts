@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Hoornaarrotor',
     'stalker': 'Gloeisluiper',
     'puffer': 'Kogelvismijn',
     'mole': 'Molboorder',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Hoornaarrotor | Hoornaarrotors',
     'stalker': 'Gloeisluiper | Gloeisluipers',
     'puffer': 'Kogelvismijn | Kogelvismijnen',
     'mole': 'Molboorder | Molboorders',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Rotormeester',
     'neonMaster': 'Neonmeester',
     'tideMaster': 'Getijmeester',
     'drillMaster': 'Boormeester',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rotorrun',
     'neon': 'Blackoutboulevard',
     'tide': 'Getijdensluizen',
     'drill': 'Diepe Mijn',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen', 'neon': 'Blackoutboulevard' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen', 'neon': 'Blackoutboulevard', 'rotor': 'Rotorrun' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' },
     'drillBomb': { 'name': 'Boorbom', 'desc': 'Een boorbom die ontploft waar hij stopt en elke machine in de buurt raakt. Breekt gebarsten rots.' },
     'bubbleLance': { 'name': 'Bellenlans', 'desc': 'Een dikke bel rolt over de vloer en knalt door elke machine op zijn pad.' },
-    'neonBlade': { 'name': 'Neonkling', 'desc': 'Een kling van licht die je als een boemerang gooit: hij snijdt op de heenweg én op de terugweg.' }
+    'neonBlade': { 'name': 'Neonkling', 'desc': 'Een kling van licht die je als een boemerang gooit: hij snijdt op de heenweg én op de terugweg.' },
+    'droneSwarm': { 'name': 'Dronezwerm', 'desc': 'Drie kleine drones zoeken drie machines op, om elke dekking heen.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Laten we het Geladen Schot trainen!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Geland. Stap maar uit!',
+        'dip': 'Hou je vast, we duiken!',
+        'board': 'Instappen! Ik vlieg, jij schiet.',
+      },
       'neon': {
         'kick': 'Kijk naar de muur en glij. Nog eens! Zet je af tegen de muur, omhoog!',
         'switch': 'Een lichtschakelaar! Schiet erop om de bruggen te wisselen.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'rotor': 'Rotorrun. Wind in mijn antenne!',
       'neon': 'Blackoutboulevard. Licht aan, graag!',
       'tide': 'Getijdensluizen. Spettertijd!',
       'drill': 'Diepe Mijn. Let op je hoofd!',

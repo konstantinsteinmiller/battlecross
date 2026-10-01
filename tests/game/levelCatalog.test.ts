@@ -62,7 +62,7 @@ describe('level catalog: every entry is a real level', () => {
   })
 
   it('lists every sector for every type but the tutorial (one level) and the stages (their four sectors)', () => {
-    const stages = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon']
+    const stages = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon', 'rotor']
     for (const t of levelTypes()) {
       expect(t.sectors).toEqual(t.template === 'tutorial' ? ['scrapyard'] : t.template === 'stage' ? stages : SECTORS.map(s => s.id))
     }

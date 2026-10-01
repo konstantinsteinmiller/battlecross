@@ -354,7 +354,7 @@ export interface RailSpec {
 export interface WaveSpec {
   room: number
   trigger: { i: number; j: number } | 'rail'
-  kind: 'heli'
+  kind: 'heli' | 'hornet'
   count: number
   every: number
   total: number

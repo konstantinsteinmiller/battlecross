@@ -138,11 +138,11 @@ const plan = (key: string, speaker: Speaker, scene: SceneId, max: number, o: Opt
 const WEAPONS = ['scrapBurst', 'flameWave', 'iceLance', 'thunderArc', 'galeGuard'] as const
 /** Each Master's weakness (checked against `data/bosses.ts` by a test). */
 export const WEAK_TO: ReadonlyArray<readonly [boss: string, weapon: string]> = [
-  ['blazeMaster', 'iceLance'], ['frostMaster', 'thunderArc'], ['voltMaster', 'galeGuard'], ['galeMaster', 'flameWave'], ['magnetMaster', 'drillBomb'], ['drillMaster', 'bubbleLance'], ['tideMaster', 'neonBlade']
+  ['blazeMaster', 'iceLance'], ['frostMaster', 'thunderArc'], ['voltMaster', 'galeGuard'], ['galeMaster', 'flameWave'], ['magnetMaster', 'drillBomb'], ['drillMaster', 'bubbleLance'], ['tideMaster', 'neonBlade'], ['neonMaster', 'droneSwarm'], ['rotorMaster', 'magnetPull']
 ]
 /** Each sector's floor level after the first (checked against `data/regions.ts`). */
 export const SECTOR_FLOOR: ReadonlyArray<readonly [sector: string, level: number]> = [
-  ['blaze', 3], ['cryo', 6], ['volt', 9], ['gale', 13], ['magnet', 16], ['drill', 19], ['tide', 22], ['neon', 25], ['fortress', 28]
+  ['blaze', 3], ['cryo', 6], ['volt', 9], ['gale', 13], ['magnet', 16], ['drill', 19], ['tide', 22], ['neon', 25], ['rotor', 28], ['fortress', 31]
 ]
 
 // ── Atlas: in the game now ──
@@ -469,6 +469,7 @@ const ATLAS_PLAN: VoiceLine[] = [
     ['turret', '{enemy}. Keep moving.', '{enemy}. Bleib in Bewegung.', 1.6],
     ['golem', 'That crate\'s breathing. Get close.', 'Die Kiste atmet. Geh nah ran.', 2],
     ['polar', '{enemy}. Shoot it when it opens red.', '{enemy}. Schieß, wenn es rot aufgeht.', 1.8],
+    ['hornet', '{enemy}. It dives straight: sidestep!', '{enemy}. Er stürzt geradeaus: zur Seite!', 1.6],
     ['stalker', '{enemy}. Watch for its eyes, parry the lunge.', '{enemy}. Achte auf die Augen, pariere den Sprung.', 1.8],
     ['puffer', '{enemy}. Pop it before it swells.', '{enemy}. Platz ihn, bevor er anschwillt.', 1.6],
     ['mole', '{enemy}. Keep moving, hit it when it pops up.', '{enemy}. Bleib in Bewegung, triff ihn, wenn er auftaucht.', 1.8],

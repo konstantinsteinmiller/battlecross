@@ -499,6 +499,14 @@ while bars and damage numbers get direct DOM writes.
       boomerang that turns at BLADE_TURN and cuts again on the way back);
       Tide weak to it. Fortress interim band [28, 36]. The Neon Master's
       `weakTo` waits for the Drone Swarm (P7.5).
+    - [x] P7.5 Rotor: Rotor Run (13 sections + arena + beam room, a sky
+      airfield), the quadcopter flight (the rail ride on the rotor theme: no
+      track, `buildQuadcopter`, its own lines; the course stays inside one
+      open span), hornet waves, crosswind, shuttle and bobbing drones, a wind
+      tunnel; Hornet Rotor (spin-up, straight dive, parry crashes it); Rotor
+      Master (droneSwarm, downdraft — a negative pull —, dive; rotorStorm;
+      weak to Magnet Pull); Drone Swarm (three homing drones); Neon weak to
+      it. The Fortress's final band [31, 40]; the weakness ring is closed.
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

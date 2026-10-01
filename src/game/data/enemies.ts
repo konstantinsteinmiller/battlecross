@@ -51,6 +51,10 @@ export const ENEMIES: Record<EnemyKind, EnemyDef> = {
     kind: 'trooper', hp: 55, dmg: 8, speed: 2.3, radius: 0.55, hitR: 0.72, aimY: 1.05, fly: 0,
     aggro: 16, range: [5, 10], xp: 20, bolts: [5, 9], cooldown: 2.1, tele: 0.5, unblockable: false, armor: 1
   },
+  hornet: {
+    kind: 'hornet', hp: 44, dmg: 17, speed: 3.8, radius: 0.45, hitR: 0.55, aimY: 0, fly: 2.4,
+    aggro: 18, range: [5, 9], xp: 22, bolts: [5, 9], cooldown: 2.4, tele: 0.7, unblockable: false, armor: 1
+  },
   stalker: {
     kind: 'stalker', hp: 70, dmg: 18, speed: 3.6, radius: 0.5, hitR: 0.6, aimY: 0.85, fly: 0,
     aggro: 16, range: [1, 3], xp: 26, bolts: [6, 11], cooldown: 1.8, tele: 0.6, unblockable: false, armor: 1

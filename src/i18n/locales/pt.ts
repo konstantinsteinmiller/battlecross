@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'hornet': 'Hélice Vespa',
     'stalker': 'Caçador Brilhante',
     'puffer': 'Mina Baiacu',
     'mole': 'Toupeira Broca',
@@ -77,6 +78,7 @@ export default {
   },
 
   'enemyPlural': {
+    'hornet': 'Hélice Vespa | Hélices Vespa',
     'stalker': 'Caçador Brilhante | Caçadores Brilhantes',
     'puffer': 'Mina Baiacu | Minas Baiacu',
     'mole': 'Toupeira Broca | Toupeiras Broca',
@@ -105,6 +107,7 @@ export default {
   },
 
   'boss': {
+    'rotorMaster': 'Mestre Hélice',
     'neonMaster': 'Mestre Neon',
     'tideMaster': 'Mestre Maré',
     'drillMaster': 'Mestre Broca',
@@ -119,6 +122,7 @@ export default {
   },
 
   'sector': {
+    'rotor': 'Rota da Hélice',
     'neon': 'Avenida do Apagão',
     'tide': 'Eclusas da Maré',
     'drill': 'Mina Profunda',
@@ -143,7 +147,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré', 'neon': 'Avenida do Apagão' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré', 'neon': 'Avenida do Apagão', 'rotor': 'Rota da Hélice' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -473,7 +477,8 @@ export default {
     'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' },
     'drillBomb': { 'name': 'Bomba Broca', 'desc': 'Uma bomba perfuradora que explode onde para, atingindo todas as máquinas ao redor. Quebra rocha rachada.' },
     'bubbleLance': { 'name': 'Lança Bolha', 'desc': 'Uma bolha enorme rola pelo chão e estoura através de todas as máquinas no caminho.' },
-    'neonBlade': { 'name': 'Lâmina Neon', 'desc': 'Uma lâmina de luz lançada como um bumerangue: corta na ida e na volta.' }
+    'neonBlade': { 'name': 'Lâmina Neon', 'desc': 'Uma lâmina de luz lançada como um bumerangue: corta na ida e na volta.' },
+    'droneSwarm': { 'name': 'Enxame de Drones', 'desc': 'Três dronezinhos caçam três máquinas, contornando qualquer cobertura.' }
   },
 
   'options': {
@@ -607,6 +612,11 @@ export default {
       'charge': 'Vamos treinar o Tiro Carregado!',
     },
     'hint': {
+      'rotor': {
+        'arrive': 'Pousamos. Pode descer!',
+        'dip': 'Segure firme, vamos mergulhar!',
+        'board': 'Todos a bordo! Eu voo, você atira.',
+      },
       'neon': {
         'kick': 'Fique de frente para a parede e deslize. De novo! Chute a parede e suba!',
         'switch': 'Um interruptor de luz! Atire nele para trocar as pontes.',
@@ -676,6 +686,7 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'rotor': 'Rota da Hélice. Vento na minha antena!',
       'neon': 'Avenida do Apagão. Luzes, por favor!',
       'tide': 'Eclusas da Maré. Hora de chapinhar!',
       'drill': 'Mina Profunda. Cuidado com a cabeça!',

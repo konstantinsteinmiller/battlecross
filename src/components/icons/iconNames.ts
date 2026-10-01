@@ -78,7 +78,9 @@ export const GAME_ICON_NAMES = [
   // Bubble Lance's mark: a bubble with its highlight cut out.
   'bubble',
   // Neon Blade's mark: a boomerang crescent with a glint.
-  'blade'
+  'blade',
+  // Drone Swarm's mark: three little drones, each a body under a rotor bar.
+  'drones'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

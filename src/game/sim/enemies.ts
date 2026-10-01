@@ -2,7 +2,7 @@ import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseStalker, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseStalker, poseHornet, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -69,6 +69,9 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  * it at 4/s as ever. This one number is the whole switch.
  */
 export const UNAWARE_TROOPER_GUARD = 1
+
+/** The Hornet Rotor's dive speed (m/s). */
+export const HORNET_DIVE = 13
 
 /** The Glow Stalker lunges from this close (m). */
 export const STALKER_LUNGE_R = 6.5
@@ -585,7 +588,7 @@ const golemTick = (w: World, e: Enemy, dt: number, d: number): void => {
  */
 export const frozenDt = (e: Enemy, dt: number): number => {
   if (e.frozenT <= 0 || e.state === 'dead') return dt
-  if (e.kind !== 'heli' && e.kind !== 'polar' && e.kind !== 'puffer' && e.y > (e.floor ?? 0) + 0.2) return dt
+  if (e.kind !== 'heli' && e.kind !== 'polar' && e.kind !== 'puffer' && e.kind !== 'hornet' && e.y > (e.floor ?? 0) + 0.2) return dt
   return dt * (1 - (e.boss ? FREEZE_SLOW_BOSS : FREEZE_SLOW))
 }
 
@@ -666,7 +669,7 @@ export const updateEnemy = (w: World, e: Enemy, dt: number): void => {
     }
     case 'stun': {
       e.stunT -= dt
-      if (e.kind === 'heli' || e.kind === 'polar' || e.kind === 'puffer') e.y = Math.max(0.45, e.y - dt * 6)
+      if (e.kind === 'heli' || e.kind === 'polar' || e.kind === 'puffer' || e.kind === 'hornet') e.y = Math.max(0.45, e.y - dt * 6)
       if (e.stunT <= 0) {
         e.cd = Math.max(e.cd, 0.6)
         enterState(e, 'engage')
@@ -1431,6 +1434,59 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Hornet Rotor: hovers at range, spins up red, dives straight
+    //    through where Flux stood (it does not turn); a parry crashes it ──
+    case 'hornet': {
+      const baseY = def.fly + Math.sin(e.anim * 2.6) * 0.15
+      if (e.state === 'engage') {
+        e.y += (baseY - e.y) * Math.min(1, dt * 3)
+        faceTo(e, px, pz, 5, dt)
+        e.a += dt * 0.8 * (e.id % 2 ? 1 : -1)
+        const r = (def.range[0] + def.range[1]) / 2
+        seek(w, e, px + Math.cos(e.a) * r, pz + Math.sin(e.a) * r, def.speed, dt)
+        e.b = Math.max(0, e.b - dt * 3)
+        if (canAttack && d < 14) {
+          startTele(e, 'dive', def.tele, false)
+          // The line is set now: where Flux stands at the spin-up.
+          const dx = px - e.x
+          const dz = pz - e.z
+          const l = Math.hypot(dx, dz) || 1
+          e.tx = dx / l
+          e.tz = dz / l
+          w.sfx('alert', e.x, e.z)
+        }
+      } else if (e.state === 'tele') {
+        e.b = Math.min(1, e.st / e.teleDur)
+        e.yaw = Math.atan2(e.tx, e.tz)
+        if (e.st >= e.teleDur) {
+          e.hitPlayer = false
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        // Straight on at head height; it cannot turn.
+        const frac = step(w, e, e.tx * HORNET_DIVE * dt, e.tz * HORNET_DIVE * dt)
+        e.y += (1.25 - e.y) * Math.min(1, dt * 6)
+        if (!e.hitPlayer && Math.hypot(px - e.x, pz - e.z) < 0.95 + PLAYER_R) {
+          e.hitPlayer = true
+          const r = w.hitPlayer(e, e.dmg, { blockable: true, fromX: e.x, fromZ: e.z, kind: 'melee' })
+          if (r === 'parry') {
+            e.stunT = 2.4
+            enterState(e, 'stun')
+            break
+          }
+        }
+        if (e.st > 1.1 || frac < 0.3) enterState(e, 'recover')
+      } else if (e.state === 'recover') {
+        e.b = Math.max(0, e.b - dt * 2)
+        e.y += (baseY - e.y) * Math.min(1, dt * 2)
+        if (e.st > 0.9) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
     // ── Glow Stalker: closes in, whines (its seams flare), lunges; a
     //    parry stops it cold ──
     case 'stalker': {
@@ -1658,6 +1714,9 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
       break
     case 'puffer':
       posePuffer(r, e.b, t, m)
+      break
+    case 'hornet':
+      poseHornet(r, e.b, e.state === 'act' ? 1 : 0, t, m)
       break
     case 'stalker':
       poseStalker(r, e.b, e.state === 'act' ? 1 : 0, t, m)

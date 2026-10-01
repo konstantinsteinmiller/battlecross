@@ -12,7 +12,7 @@ import { initialState, press, solved } from '@/game/sim/secrets'
 import type { SecretSpec } from '@/game/world/levelGen'
 import type { SectorId } from '@/game/world/themes'
 
-const STAGES: SectorId[] = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon']
+const STAGES: SectorId[] = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon', 'rotor']
 
 /** Breadth-first over button presses: can the puzzle be solved at all? Each
  *  button has at most four states, so the space stays tiny. */

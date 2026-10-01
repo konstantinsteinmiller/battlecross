@@ -796,6 +796,13 @@ export class CombatSystem {
           fx.emit({ x: s.x + Math.cos(a) * 0.3 * (red ? 1 : -1), y: s.y + Math.sin(a) * 0.3, z: s.z, color: red ? '#ff4a5e' : '#5a8cff', size: 0.22, sizeEnd: 0.02, life: 0.3 })
         }
         break
+      case 'droneSwarm':
+        // A rotor's whirl of lime sparks and a thin exhaust.
+        if (r() < 0.6 * k) {
+          const a = s.life * 50
+          fx.emit({ x: s.x + Math.cos(a) * 0.25, y: s.y + 0.1, z: s.z + Math.sin(a) * 0.25, color: '#b8ff5a', size: 0.14, sizeEnd: 0.02, life: 0.2 })
+        }
+        break
       case 'neonBlade':
         // A spinning arc of light: sparks round it, magenta and cyan.
         if (r() < 0.8 * k) {
@@ -837,6 +844,9 @@ export class CombatSystem {
         break
       case 'galeGuard':
         fx.sparks(s.x, s.y, s.z, '#7fffc8', 10, 5, 0.2)
+        break
+      case 'droneSwarm':
+        fx.orbBurst(s.x, s.y, s.z, '#b8ff5a', 0.6)
         break
       case 'neonBlade':
         fx.sparks(s.x, s.y, s.z, '#ff3fd2', 10, 6, 0.18)
