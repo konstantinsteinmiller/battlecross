@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Plataformas móveis. Suba quando atracar, desça do outro lado.',
         'wind': 'Espere a rajada passar e avance. Ou se esconda atrás de um pilar.',
         'bob': 'Plataformas flutuantes. Suba embaixo e deixe que ela te leve para cima.'
+      },
+      'vex': {
+        'roof': 'Raios! Saia quando o anel acender!',
+        'fall': 'O telhado está cedendo!',
+        'core': 'Rumo ao Núcleo! Não caia lá dentro!'
       }
     },
     'secret': {

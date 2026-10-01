@@ -570,6 +570,8 @@ export interface MissionSnapshot {
   checkpoint?: MissionSnapshot
   /** This snapshot IS a checkpoint (a retry started from it). */
   atCheckpoint?: boolean
+  /** The Core Descent (#109): the stage Vex is fought in and his health. */
+  vex?: { stage: number; hp: number }
 }
 
 /** The retry point a mission built from `s` keeps: `s` itself when it is a

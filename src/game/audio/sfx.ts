@@ -11,7 +11,7 @@ export type SfxName =
   | 'guardBreak' | 'explode' | 'enemyShot' | 'lob' | 'jump' | 'stomp' | 'dash' | 'bonk' | 'punch' | 'alert'
   | 'hurt' | 'block' | 'parry' | 'guardCrack' | 'slide' | 'bolt' | 'heal' | 'energy' | 'door' | 'beamIn'
   | 'beamOut' | 'levelUp' | 'chestOpen' | 'loot' | 'tank' | 'weapon' | 'denied' | 'uiClick' | 'uiOpen'
-  | 'objective' | 'bossIntro' | 'death' | 'locate' | 'bossWarn'
+  | 'objective' | 'bossIntro' | 'death' | 'locate' | 'bossWarn' | 'thunder'
   | 'attrPick'
   | 'trapHiss' | 'flameJet' | 'bladeWhoosh' | 'trapClick'
   // The Sky Docks' wind tunnel (`sim/stages/wind.ts`)

@@ -684,6 +684,11 @@ export default {
         'shuttle': "Navettes. Monte quand elle accoste, descends de l'autre côté.",
         'wind': 'Attends que la rafale retombe, puis avance. Ou abrite-toi derrière un pilier.',
         'bob': 'Plateformes flottantes. Monte en bas, laisse-toi porter.'
+      },
+      'vex': {
+        'roof': 'Foudre ! Bouge quand l’anneau s’allume !',
+        'fall': 'Le toit s’effondre !',
+        'core': 'Direction le Noyau ! Ne tombe pas dedans !'
       }
     },
     'secret': {

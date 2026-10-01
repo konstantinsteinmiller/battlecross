@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Shattllar. Toʻxtaganda min, narigi tomonda tush.',
         'wind': 'Shamol tinguncha kut, keyin yur. Yoki ustun ortiga yashirin.',
         'bob': 'Tebranuvchi platformalar. Pastda min, u seni tepaga olib chiqadi.'
+      },
+      'vex': {
+        'roof': 'Chaqmoq! Halqa yonganda qoch!',
+        'fall': 'Tom qulayapti!',
+        'core': 'Yadroga tushamiz! Yiqilib ketma!'
       }
     },
     'secret': {

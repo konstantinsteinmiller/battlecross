@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Platform antar. Naik saat merapat, turun di seberang.',
         'wind': 'Tunggu embusan reda, lalu maju. Atau sembunyi di balik pilar.',
         'bob': 'Platform naik-turun. Naik di bawah, biarkan ia mengangkatmu.'
+      },
+      'vex': {
+        'roof': 'Petir! Bergerak saat cincinnya menyala!',
+        'fall': 'Atapnya runtuh!',
+        'core': 'Turun ke Inti! Jangan sampai jatuh!'
       }
     },
     'secret': {

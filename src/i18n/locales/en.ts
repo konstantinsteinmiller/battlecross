@@ -707,6 +707,12 @@ export default {
         'rise': "The tide's coming in. Up the steps!",
         'wade': 'Water! Wading slows you down.',
       },
+      // The Core Descent (#109): Vex's three stages.
+      'vex': {
+        'roof': 'Lightning! Move when the ring lights up!',
+        'fall': "The roof's giving way!",
+        'core': "Down to the Core! Don't fall in!",
+      },
       'drill': {
         'drop': 'Rocks falling! Step out of the shadows.',
         'rock': 'Cracked rock! A full charge will break it.',

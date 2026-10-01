@@ -498,6 +498,10 @@ export interface Terrain {
   neonSwitches?: NeonSwitch[]
   /** The stage's lights go out on this clock (the Blackout Boulevard). */
   blackout?: BlackoutSpec
+  /** The final boss's stages, in order (room ids): the Fortress's Core
+   *  Descent (#109) — the roof, the reactor hall, the Core ring. The first is
+   *  the boss room; the boss and Flux are carried from one to the next. */
+  bossStages?: number[]
   rails?: RailSpec[]
   waves?: WaveSpec[]
   vents?: VentSpec[]

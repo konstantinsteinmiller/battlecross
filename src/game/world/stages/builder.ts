@@ -75,6 +75,8 @@ export class Builder {
   neon: NeonBridge[] = []
   /** The stage's blackout clock (`Terrain.blackout`), if it has one. */
   blackout: BlackoutSpec | null = null
+  /** The final boss's stage rooms (`Terrain.bossStages`). */
+  bossStages: number[] = []
   neonSwitches: NeonSwitch[] = []
   /** Rooms whose way out stays shut until their machines are down. */
   guards: number[] = []
@@ -390,6 +392,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
   if (b.neon.length) terrain.neon = b.neon
   if (b.neonSwitches.length) terrain.neonSwitches = b.neonSwitches
   if (b.blackout) terrain.blackout = b.blackout
+  if (b.bossStages.length) terrain.bossStages = b.bossStages
   if (b.rails.length) terrain.rails = b.rails
   if (b.waves.length) terrain.waves = b.waves
   if (b.vents.length) terrain.vents = b.vents
@@ -475,6 +478,7 @@ export const mirrorX = (m: MapData): MapData => {
   }
   if (t.neon) terrain.neon = t.neon.map(n => ({ ...n, i: mi(n.i + n.w - 1) }))
   if (t.blackout) terrain.blackout = { ...t.blackout }
+  if (t.bossStages) terrain.bossStages = t.bossStages.slice()
   if (t.neonSwitches) {
     const side = { n: 'n', s: 's', e: 'w', w: 'e' } as const
     terrain.neonSwitches = t.neonSwitches.map(s => ({ ...s, i: mi(s.i), side: side[s.side] }))

@@ -2,7 +2,7 @@ import { ngHpMul, ngTempo, ngFollowUp } from './ngPlus'
 import {
   Scene, PerspectiveCamera, Fog, HemisphereLight, DirectionalLight, Color, Vector3, Raycaster, Vector2,
   Mesh, RingGeometry, MeshBasicMaterial, AdditiveBlending, DoubleSide, Group, AmbientLight,
-  Frustum, Matrix4, Sphere, WebGLRenderTarget, Quaternion, Euler, BoxGeometry, MeshToonMaterial, Shape, ShapeGeometry, type Object3D
+  Frustum, Matrix4, Sphere, SphereGeometry, WebGLRenderTarget, Quaternion, Euler, BoxGeometry, MeshToonMaterial, Shape, ShapeGeometry, type Object3D
 } from 'three'
 import type { GameMode } from '../engine/app'
 import { buildCityscape, type Cityscape } from '../world/cityscape'
@@ -67,6 +67,7 @@ import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
 import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './training'
 import { BossArena, type ArenaHost } from './bossArena'
 import { BossCrane } from './bossCrane'
+import { CoreDescent } from './coreDescent'
 import { bossHpMul, PROGRESS_HP } from './adaptive'
 import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
@@ -508,6 +509,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   arena: BossArena | null = null
   /** The Scrapper's magnet crane (`sim/bossCrane.ts`), in his arena only. */
   crane: BossCrane | null = null
+  /** Vex's Core Descent (`sim/coreDescent.ts`), in the Fortress only. */
+  descent: CoreDescent | null = null
+  /** The molten Core in the ring's pit (the Core Descent's last stage). */
+  private coreGlow: Mesh | null = null
+  /** A snapshot's Core Descent stage, applied once the climb has placed Flux. */
+  private pendingVex: { stage: number; hp: number } | null = null
   /** Doors hidden behind a false wall until released (the tutorial's first). */
   private readonly falseWalls = new Map<number, { mesh: Mesh; t: number; x: number; z: number }>()
   /** The gap lesson's take-off and landing arrows (the built tutorial). */
@@ -702,6 +709,49 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
     // The Scrapper fights under his magnet crane (#108).
     if (this.boss?.bossId === 'scrapper' && this.bossRoom) this.crane = new BossCrane(this, this.bossRoom)
+    // Vex is fought on the roof, in the reactor hall and on the Core ring (#109).
+    const stages = this.map.terrain?.bossStages
+    if (this.boss && stages && stages.length > 1) {
+      const self = this
+      this.descent = new CoreDescent({
+        get player() { return self.player },
+        get combat() { return self.combat },
+        rooms: this.map.rooms,
+        markers: this.markers,
+        shocks: this.shocks,
+        fx: this.fx,
+        setBossRoom: (r) => { self.bossRoom = r },
+        keepRetryPoint: () => self.keepRetryPoint(),
+        stageDark: (k) => self.stageDark(k),
+        skyFlash: (a) => self.skyFlash(a),
+        say: (l) => self.say(l),
+        sfx: (n, x, z) => self.sfx(n, x, z),
+        shake: (a) => self.shake(a),
+        hitPlayer: (e, d, o) => self.hitPlayer(e, d, o),
+        hurtMachines: (c, x, z, hit) => self.hurtMachines(c, x, z, hit)
+      }, stages)
+      // The Core itself, molten in the ring's pit: it breathes (see update).
+      const ring = this.map.rooms[stages[stages.length - 1]!]
+      if (ring) {
+        const cx = (ring.x0 + ring.w / 2) * CELL
+        const cz = (ring.z0 + ring.h / 2) * CELL
+        // A white-hot heart in an additive orange shell, an energy ring round it.
+        const core = new Group()
+        core.add(new Mesh(new SphereGeometry(1.3, 24, 16), new MeshBasicMaterial({ color: '#fff1b0', toneMapped: false })))
+        this.coreGlow = new Mesh(new SphereGeometry(2.1, 24, 16), new MeshBasicMaterial({
+          color: '#ff7a2a', transparent: true, opacity: 0.5, blending: AdditiveBlending, depthWrite: false, toneMapped: false
+        }))
+        core.add(this.coreGlow)
+        const band = new Mesh(new RingGeometry(2.5, 2.75, 48), new MeshBasicMaterial({
+          color: '#ffb04a', transparent: true, opacity: 0.7, blending: AdditiveBlending, depthWrite: false, side: DoubleSide, toneMapped: false
+        }))
+        band.rotation.x = -Math.PI / 2
+        band.name = 'band'
+        core.add(band)
+        core.position.set(cx, -1.4, cz)
+        this.propParent(cx, cz).add(core)
+      }
+    }
     if (setup.stage) this.placeStageProps()
     this.weapons = new WeaponSystem(this, profile.hero.weaponXp)
     this.scene.add(this.weapons.root)
@@ -710,6 +760,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.lessons = new LessonDirector(this, { guided: !!plan })
     if (plan) this.walk = new Walkthrough(this, plan, chest)
     if (setup.snapshot) this.applySnapshot(setup.snapshot)
+    if (this.pendingVex && this.descent && this.boss) {
+      this.descent.restore(this.boss, this.pendingVex.stage, this.pendingVex.hp)
+      this.pendingVex = null
+    }
     // Before the precompile: the training drone's materials compile with the
     // sector. Only while the walkthrough's first room is still to learn.
     if (this.walk?.needsDrone) this.lessons.placeTarget()
@@ -1571,7 +1625,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private arenaDressing(dt: number): void {
     const h = this.hemi
     const b = this.boss
-    const room = this.arena?.room
+    // The room the fight is in now (the Core Descent moves it).
+    const room = this.bossRoom ?? this.arena?.room
     if (!h || !b || !room) return
     const live = this.bossStarted && b.state !== 'dead'
     const frac = live ? b.hp / Math.max(1, b.maxHp) : 1
@@ -2221,7 +2276,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       walk: this.walk?.save(),
       climb: this.climb?.save(),
       borrowed: this.borrowed.save(),
-      checkpoint: this.cpSnap ?? undefined
+      checkpoint: this.cpSnap ?? undefined,
+      vex: this.descent && this.boss && this.descent.stage > 0 ? { stage: this.descent.stage, hp: Math.round(this.boss.hp) } : undefined
     }
   }
 
@@ -2283,6 +2339,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.walk?.restore(s.walk)
     // The retry point carries over a reload, and a retry keeps its own.
     this.cpSnap = retryPointOf(s)
+    // Vex's stage and health (the Core Descent), after the climb placed Flux.
+    if (s.vex && this.descent && this.boss) this.pendingVex = s.vex
     // The borrowed weapon's charges left, and the capsules already taken.
     this.borrowed.restore(s.borrowed)
     if (this.climb) {
@@ -2359,7 +2417,18 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     }
     // The arena's anti-cheese: a boss that cannot reach Flux enrages.
     const boss = this.boss
-    if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play') this.arena.update(dt, boss)
+    if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play' && !this.descent?.falling) this.arena.update(dt, boss)
+    if (this.coreGlow) {
+      const k = 0.5 + 0.5 * Math.sin(this.time * 2.4)
+      ;(this.coreGlow.material as MeshBasicMaterial).opacity = 0.35 + 0.25 * k
+      this.coreGlow.scale.setScalar(1 + 0.08 * k)
+      const band = this.coreGlow.parent?.getObjectByName('band')
+      if (band) { band.rotation.z += dt * 0.6; band.position.y = 1.2 + 0.25 * Math.sin(this.time * 1.3) }
+    }
+    if (this.descent && boss) {
+      const live = this.bossStarted && boss.state !== 'dead' && hud.phase === 'play'
+      this.descent.update(dt, boss, live, hud.phase === 'play' && !flow.modal)
+    }
     if (this.crane && boss) {
       const live = this.bossStarted && boss.state !== 'dead' && hud.phase === 'play' && boss.hp <= boss.maxHp * 0.5
       this.crane.update(dt, boss, live, hud.phase === 'play' && !flow.modal)

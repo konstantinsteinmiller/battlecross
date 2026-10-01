@@ -684,6 +684,11 @@ export default {
         'shuttle': "Navette. Sali quando attracca, scendi dall'altra parte.",
         'wind': 'Aspetta che la raffica cali, poi muoviti. O riparati dietro un pilastro.',
         'bob': 'Piattaforme ondeggianti. Sali in basso e fatti portare su.'
+      },
+      'vex': {
+        'roof': 'Fulmini! Spostati quando l’anello si accende!',
+        'fall': 'Il tetto sta cedendo!',
+        'core': 'Giù al Nucleo! Non caderci dentro!'
       }
     },
     'secret': {

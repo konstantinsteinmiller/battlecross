@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Tàu con thoi. Lên khi nó cập bến, xuống ở bờ bên kia.',
         'wind': 'Đợi cơn gió lặng rồi hãy đi. Hoặc nấp sau cột.',
         'bob': 'Bệ nhấp nhô. Lên ở dưới, nó sẽ đưa cậu lên.'
+      },
+      'vex': {
+        'roof': 'Sét! Vòng sáng lên thì né ngay!',
+        'fall': 'Mái nhà sập rồi!',
+        'core': 'Xuống Lõi thôi! Đừng rơi vào!'
       }
     },
     'secret': {

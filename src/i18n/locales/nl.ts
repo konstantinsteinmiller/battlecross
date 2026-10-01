@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Pendels. Stap op als hij aanmeert, aan de overkant eraf.',
         'wind': 'Wacht tot de windvlaag gaat liggen, dan lopen. Of schuil achter een pilaar.',
         'bob': 'Deinende platforms. Stap onderaan op en ga mee omhoog.'
+      },
+      'vex': {
+        'roof': 'Bliksem! Beweeg als de ring oplicht!',
+        'fall': 'Het dak bezwijkt!',
+        'core': 'Naar de Kern! Val er niet in!'
       }
     },
     'secret': {

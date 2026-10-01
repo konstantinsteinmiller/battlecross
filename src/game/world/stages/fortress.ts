@@ -33,8 +33,13 @@ import { Builder, finish, mirrorX, YAW_PX, YAW_NX, YAW_PZ, YAW_NZ } from './buil
  *   15 Spire lift      cages down two storeys
  *   16 Reactor run     fire vents and shock panels in turn
  *   17 Antechamber     a last checkpoint, steps down to the shutter
- *   18 Arena           Dr. Vex, floor at y = 0: the reactor's hazards
- *                      (fire, shock, gusts) cycling round it
+ *   18 Arena           Dr. Vex in three stages, the Core Descent (#109):
+ *                      the Spire's roof under a lightning storm; at 65 %
+ *                      the roof gives way and the fight falls into the
+ *                      reactor hall, its hazards (fire, shock, gusts)
+ *                      cycling round it; at 30 % the floor goes again and
+ *                      it ends on a narrow ring round the Core. The hall and
+ *                      the ring have no doors: the falls carry Flux there.
  *
  * Deterministic from the seed: the hand and the clocks vary, never the
  * route.
@@ -290,19 +295,31 @@ export const generateVexFortress = (seed: number): MapData => {
   b.foe('ground', 31, 47, YAW_PX, [30, 46, 32, 51], undefined, 'stalker')
   b.corridor(29, 49, -1, 0, 2, 0, true)
 
-  // ── 18 Arena: the reactor hall ────────────────────────────────────────────
-  // Dr. Vex. Round it the reactor cycles the Masters' hazards on one
-  // clock: fire from the walls, then live panels, then a gust (Flux only).
+  // ── 18 Arena: the Core Descent (#109) ─────────────────────────────────────
+  // Stage 1, the Spire's roof: Dr. Vex under a lightning storm (the strikes
+  // and the sky are the mission's, `sim/coreDescent.ts`).
   b.addRoom(21, 46, 7, 7, 'boss', 'arena', 0)
+  const roof = room()
+  // Stage 2, the reactor hall: the reactor cycles the Masters' hazards on
+  // one clock — fire from the walls, then live panels, then a gust (Flux
+  // only). No doors: the roof's collapse drops the fight in here.
+  b.addRoom(11, 46, 7, 7, 'combat', 'arena', 0)
   const ar = room()
   const cyc = 12
   for (const [j, d] of [[47, 1], [51, 1], [49, -1]] as const) {
-    b.vents.push({ i: d > 0 ? 21 : 27, j, dx: d, dz: 0, y: VENT_MOUTH, period: cyc, phase: 0, on: 2, room: ar, kind: 'fire' })
+    b.vents.push({ i: d > 0 ? 11 : 17, j, dx: d, dz: 0, y: VENT_MOUTH, period: cyc, phase: 0, on: 2, room: ar, kind: 'fire' })
   }
-  for (const [i, j] of [[22, 47], [24, 49], [26, 51], [26, 47], [22, 51]] as const) {
+  for (const [i, j] of [[12, 47], [14, 49], [16, 51], [16, 47], [12, 51]] as const) {
     b.vents.push({ i, j, dx: 0, dz: 0, y: 0, period: cyc, phase: -4, on: 2, room: ar, kind: 'shock' })
   }
-  b.wind.push({ i0: 21, j0: 46, i1: 27, j1: 52, dx: 1, dz: 0, strength: 2.6, on: 2.2, off: cyc - 2.2, phase: -8, room: ar })
+  b.wind.push({ i0: 11, j0: 46, i1: 17, j1: 52, dx: 1, dz: 0, strength: 2.6, on: 2.2, off: cyc - 2.2, phase: -8, room: ar })
+  // Stage 3, the Core ring: a two-cell walkway round the Core's 3 × 3 pit
+  // (molten: a fall costs health and Atlas pulls him out).
+  b.addRoom(2, 46, 7, 7, 'combat', 'arena', 0)
+  const ring = room()
+  b.pits(4, 48, 6, 50)
+  b.pitKind(ring, 'lava')
+  b.bossStages = [roof, ar, ring]
 
   // The beam-in room: south of the beach, its door into it.
   b.beamRoom(3, 7, 4, 3, 5, 6, 0, -1, 1)

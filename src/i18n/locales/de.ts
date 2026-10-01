@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Fähren. Aufsteigen, wenn sie anlegt, drüben wieder runter.',
         'wind': 'Warte, bis die Böe abflaut, dann los. Oder duck dich hinter eine Säule.',
         'bob': 'Schwebeplattformen. Unten aufsteigen, mit nach oben fahren.'
+      },
+      'vex': {
+        'roof': 'Blitze! Weg, wenn der Ring aufleuchtet!',
+        'fall': 'Das Dach bricht ein!',
+        'core': 'Runter zum Kern! Nicht reinfallen!'
       }
     },
     'secret': {

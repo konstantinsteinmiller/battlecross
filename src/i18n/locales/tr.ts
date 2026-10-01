@@ -686,6 +686,11 @@ export default {
         'shuttle': 'Mekikler. Yanaşınca bin, öbür tarafta in.',
         'wind': 'Rüzgâr dinene kadar bekle, sonra ilerle. Ya da bir sütunun arkasına saklan.',
         'bob': 'Salınan platformlar. Aşağıda bin, seni yukarı taşısın.'
+      },
+      'vex': {
+        'roof': 'Yıldırım! Halka yanınca kaç!',
+        'fall': 'Çatı çöküyor!',
+        'core': 'Çekirdeğe iniyoruz! Düşme sakın!'
       }
     },
     'secret': {

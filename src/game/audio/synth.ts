@@ -374,6 +374,11 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   },
   // First sight of the boss shutter: a low klaxon pair over a rumble — the
   // door says "a Core Master is behind this" before the name card does.
+  // The Fortress roof's lightning (#109): a crack, then the rumble rolling off.
+  thunder: (p, g) => {
+    burst({ dur: 0.12, vol: 0.32 * g, type: 'highpass', f0: 2200, f1: 900, pan: p })
+    burst({ dur: 1.3, vol: 0.4 * g, type: 'lowpass', f0: 700, f1: 60, at: 0.05, pan: p })
+  },
   bossWarn: (p, g) => {
     tone({ wave: 'p50', f0: 196, f1: 185, dur: 0.28, vol: 0.16 * g, pan: p })
     tone({ wave: 'p50', f0: 165, f1: 156, dur: 0.34, vol: 0.16 * g, at: 0.32, pan: p })

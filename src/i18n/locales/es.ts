@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Lanzaderas. Sube cuando atraque y baja al otro lado.',
         'wind': 'Espera a que pase la ráfaga y avanza. O escóndete tras un pilar.',
         'bob': 'Plataformas flotantes. Súbete abajo y deja que te eleve.'
+      },
+      'vex': {
+        'roof': '¡Rayos! ¡Muévete cuando se encienda el anillo!',
+        'fall': '¡El techo se hunde!',
+        'core': '¡Al Núcleo! ¡No te caigas dentro!'
       }
     },
     'secret': {

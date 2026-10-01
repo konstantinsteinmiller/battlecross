@@ -86,12 +86,16 @@ describe('generateVexFortress', () => {
     }
   })
 
-  it('seventeen sections and the arena, the longest stage; both hands', () => {
+  it('seventeen sections and the three-stage arena, the longest stage; both hands', () => {
     const mirrored = new Set<boolean>()
     for (const seed of SEEDS) {
       const m = generateVexFortress(seed)
       const t = m.terrain!
-      expect(t.sections.length - 1 - (m.beam ? 1 : 0)).toBe(STAGE_LENGTH.fortress)
+      // The Core Descent (#109): roof, reactor hall, Core ring.
+      expect(t.bossStages).toHaveLength(3)
+      expect(t.bossStages!.map(id => t.sections[id])).toEqual(['arena', 'arena', 'arena'])
+      expect(m.rooms[t.bossStages![0]!]!.role).toBe('boss')
+      expect(t.sections.length - 3 - (m.beam ? 1 : 0)).toBe(STAGE_LENGTH.fortress)
       expect(STAGE_LENGTH.fortress).toBe(Math.max(...Object.values(STAGE_LENGTH)))
       mirrored.add(m.start.x > m.w * CELL / 2)
     }
@@ -147,13 +151,16 @@ describe('generateVexFortress', () => {
     expect(t.foes.filter(f => f.kind === 'warden').length).toBeGreaterThanOrEqual(5)
     const arena = m.rooms.find(r => r.role === 'boss')!
     expect([arena.w, arena.h]).toEqual([7, 7])
-    const av = t.vents!.filter(v => v.room === arena.id)
+    // The hazards cycle in the second stage, the reactor hall.
+    const hall = m.rooms[t.bossStages![1]!]!
+    expect([hall.w, hall.h]).toEqual([7, 7])
+    const av = t.vents!.filter(v => v.room === hall.id)
     expect(av.some(v => v.kind === 'fire') && av.some(v => v.kind === 'shock')).toBe(true)
-    expect(t.wind!.some(w => w.room === arena.id)).toBe(true)
+    expect(t.wind!.some(w => w.room === hall.id)).toBe(true)
     // One clock, three hazards in turn: their live windows never overlap.
     const fire = av.find(v => v.kind === 'fire')!
     const shock = av.find(v => v.kind === 'shock')!
-    const gust = t.wind!.find(w => w.room === arena.id)!
+    const gust = t.wind!.find(w => w.room === hall.id)!
     const on = (period: number, phase: number, len: number, time: number) => ((((time + phase) % period) + period) % period) < len
     for (let s = 0; s < fire.period; s += 0.1) {
       const live = [on(fire.period, fire.phase, fire.on, s), on(shock.period, shock.phase, shock.on, s), on(gust.on + gust.off, gust.phase, gust.on, s)]

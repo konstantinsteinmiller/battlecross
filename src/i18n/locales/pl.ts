@@ -684,6 +684,11 @@ export default {
         'shuttle': 'Wahadłowce. Wsiadaj, gdy przybije, wysiadaj po drugiej stronie.',
         'wind': 'Poczekaj, aż podmuch ucichnie, i ruszaj. Albo schowaj się za filarem.',
         'bob': 'Pływające platformy. Wskocz na dole i daj się wynieść w górę.'
+      },
+      'vex': {
+        'roof': 'Pioruny! Uciekaj, gdy pierścień się zaświeci!',
+        'fall': 'Dach się zapada!',
+        'core': 'W dół, do Rdzenia! Nie wpadnij!'
       }
     },
     'secret': {
