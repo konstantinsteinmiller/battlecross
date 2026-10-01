@@ -13,12 +13,13 @@ order, and [Decisions](#decisions) records what was settled on the way.
 > with the Red Signal. The one android it cannot touch is Flux. Prof. Gauss
 > woke him early, unfinished, then froze her own stasis capsule shut to
 > keep the signal out. To wake Gauss again, Flux has to grow strong enough
-> to free five Core Masters, relight the valley's beam relays one sector at a
-> time, and break into the Vex Fortress.
+> to free ten Core Masters, relight the valley's ten beam relays one sector
+> at a time, and break into the Vex Fortress.
 
-1. Ampere Valley is a city of androids. A ring of beam relays links its six
-   sectors, and six Core Masters run it. Five are foremen, one per sector.
-   The sixth is **VEX**, the scheduling program in the Control Spire that
+1. Ampere Valley is a city of androids. A network of beam relays links its
+   eleven sectors, and eleven Core Masters run it. Ten are foremen, one per
+   sector: five in the inner ring and five more in the outer works. The
+   eleventh is **VEX**, the scheduling program in the Control Spire that
    tells the foremen what to do.
 2. VEX decides the valley would run better if it ran everything itself. It
    gives itself a title, **Dr. Vex**, and broadcasts the **Red Signal**. The
@@ -30,11 +31,11 @@ order, and [Decisions](#decisions) records what was settled on the way.
    reaches the lab, Gauss wakes Flux, then steps into a stasis capsule and
    freezes it shut before the signal can get in.
 4. Flux wakes at level 1 with blank circuit boards. The Fortress is
-   level 18 and sits behind a shield.
+   level 31 and sits behind a shield.
 5. So he goes sector by sector. In each one he frees the Master, copies its
    weapon and relights its relay, and that lets Pip's beam reach the next
    sector. Every fight makes him stronger.
-6. Once all five relays are lit, Pip fires them together and the Fortress
+6. Once all ten relays are lit, Pip fires them together and the Fortress
    shield breaks. Flux beats Vex's first body, the **Mk-I**. The signal
    stops and Gauss wakes.
 7. Just before the end, something red slips out along the Fortress antenna.
@@ -58,9 +59,9 @@ too, so Flux can never stop.
 | Level-up: +1 Skill Chip | The core turns what it learned into a new chip for the boards Gauss left blank. |
 | Level-up: Frame, Reactor or Servos | Flux finishes his own body: plating (max HP), weapon reactor (WE), servos (Power). |
 | Enemy level follows yours: ±1 inside the sector's band, +1 on story missions | Vex watches every fight from the Fortress and patches its machines to keep up. It guards its Masters with its newest ones. |
-| A sector's lowest level: 1, 3, 6, 9, 13, 18 | The grade Vex gave that sector's Master. Arrive below it and everything there outclasses you. |
-| A sector's highest level: 4, 8, 11, 15, 19, 26 | The best that sector's factory can build. Grow past it and the sector can't keep up. |
-| The Fortress is Lv 18–26 | Vex's own body, built out of all five sectors. Below Lv 18, everything in there outclasses Flux. |
+| A sector's lowest level: 1, 3, 6, 9, 13, 16, 19, 22, 25, 28, 31 | The grade Vex gave that sector's Master. Arrive below it and everything there outclasses you. |
+| A sector's highest level: 4, 8, 11, 15, 19, 22, 25, 28, 31, 34, 40 | The best that sector's factory can build. Grow past it and the sector can't keep up. |
+| The Fortress is Lv 31–40 | Vex's own body, built out of all ten sectors. Below Lv 31, everything in there outclasses Flux. |
 | Jobs between story missions | Where Flux grows until he can face the next Master. |
 | Special weapons | A freed Master's weapon program. Flux is built on the Masters' frame, so his buster can run it. |
 | Bolts and the Workshop | Salvage from Vex's machines. Pip's fabricator turns it into better parts. |
@@ -79,14 +80,17 @@ shots.
    pass one on, and it only comes free when its Master does. So the sectors
    open one at a time, in ring order, which is the `after` chain in
    `regions.ts`.
-2. **The Fortress needs all five.** Its relay catches a beam too, but the
-   shield around the Fortress stops any single beam. Once the fifth relay is
-   free, Pip fires all five at one point. That is **the Breach**, and it is
-   the only way in.
+2. **The Fortress needs all ten.** Its relay catches a beam too, but the
+   shield around the Fortress stops any single beam. Vex wired it to ten
+   relays, the inner five and the five outer works it kept in reserve. Once
+   the tenth relay is free, Pip fires all ten at one point. That is **the
+   Breach**, and it is the only way in.
 3. **Each Master is one of Vex's supply lines.** Scrap metal, forged plates,
    coolant, power and airship freight all go into the body Vex is building
-   in the Fortress. Every sector Flux frees leaves that body less
-   finished, which is why the finale is only the Mk-I.
+   in the Fortress. Behind them run the back-up lines: cast claws, ore,
+   barge freight, the screen network and cargo drones. Every sector Flux
+   frees leaves that body less finished, which is why the finale is only
+   the Mk-I.
 4. **Freed sectors don't stay clean.** While the Fortress keeps
    broadcasting, Vex's factories keep turning out machines and worker-bots
    keep getting stranded. That is the job board, and it covers every sector
@@ -97,17 +101,26 @@ shots.
 ### Ampere Valley
 
 ```
-                  Sky Docks 5
-     Fortress 6                  Volt Tower 4
-                     (lab)
-     Scrapyard 1                 Cryo Plant 3
-                Blaze Refinery 2
+                        Sky Docks 5              Polarity Works 6
+        Fortress 11              Blackout Boulevard 9   Volt Tower 4
+  Deep Mine 7               (lab)
+                   Rotor Run 10            Cryo Plant 3
+         Scrapyard 1
+                      Blaze Refinery 2                Tidewater Locks 8
 ```
 
-The six sectors ring the valley, and Gauss's lab sits in the middle. The
-sectors open anticlockwise, from the Scrapyard in the south-west round to
-the Sky Docks in the north. The old Control Spire stands on the north-west
-cliff and closes the ring, and Vex has rebuilt it into the Vex Fortress.
+The first five sectors ring the valley, and Gauss's lab sits in the middle.
+They open anticlockwise, from the Scrapyard in the south-west round to the
+Sky Docks in the north. The five outer works (the second shift) open after
+them and zig-zag across the valley: Polarity Works in the north-east, the
+Deep Mine in the west, the Tidewater Locks in the south-east, Blackout
+Boulevard on the rooftops beside the Volt Tower, and the Rotor Run's
+airfield just south-west of the lab. The old Control Spire stands on the
+north-west cliff, and Vex has rebuilt it into the Vex Fortress.
+
+The unlock order (the `after` chain in `regions.ts`): Scrapyard → Blaze
+Refinery → Cryo Plant → Volt Tower → Sky Docks → Polarity Works → Deep
+Mine → Tidewater Locks → Blackout Boulevard → Rotor Run → Vex Fortress.
 This is the layout the `mapPos` values in `regions.ts` already describe; no
 view draws them yet.
 
@@ -129,8 +142,8 @@ attempt.
 
 ### The beam network
 
-Androids in Ampere Valley travel by beam. Every sector has a relay, the six
-relays form a ring, and the lab's pad joins the ring at the Scrapyard.
+Androids in Ampere Valley travel by beam. Every sector has a relay, the
+eleven relays form one chain, and the lab's pad joins it at the Scrapyard.
 Everything that beams in the game uses this network: Flux deploying and
 beaming out, a rescued worker-bot, a Supply Drop, and Pip's emergency
 pull-back on *System down*.
@@ -145,8 +158,9 @@ pull-back on *System down*.
 | **Dr. Vex** (it) | VEX, the valley's scheduling program | Took the valley with the Red Signal and is building itself a body. Appears only as a red hologram until the Mk-I. |
 | **The Scrapper** (it) | The Scrapyard's junk crane, not one of Gauss's androids | The first Master, and the weakest. |
 | **Blaze, Frost, Volt and Gale Master** | Gauss's four foremen: Flux's frame at ×1.35 | One per sector. Freed, not scrapped, and each one's weapon becomes Flux's. |
+| **Magnet, Drill, Tide, Neon and Rotor Master** | Gauss's second shift: the five foremen of the outer works, also on Flux's frame at ×1.35 | Vex's reserve, one per outer sector. Freed like the first four, and each one's weapon becomes Flux's. |
 | **Worker-bots** | The valley's everyday androids | Too simple to run Vex's combat code, so Vex cut them off the beam network instead. Stranded. |
-| **Vex's machines** | Hardhats, Shield Troopers, Rotor Drones, Stompers, Gear Rollers, Guardroids, Wall Cannons | Built in Vex's factories, with no minds of their own. Fair game. |
+| **Vex's machines** | Hardhats, Shield Troopers, Rotor Drones, Stompers, Gear Rollers, Guardroids, Wall Cannons, and in the outer works Polar Pups, Mole Drillers, Puffer Mines, Glow Stalkers and Hornet Rotors | Built in Vex's factories, with no minds of their own. Fair game. |
 
 **Gauss's look.** This is the one new character model. She stands a head
 taller than Flux: thin, slightly stooped, in a long white coat. A brass
@@ -194,8 +208,13 @@ language, on a phone 320 px wide.
 | 2 | Blaze Refinery | 3–8 | Blaze Master | The forge: plates for the machines and for Vex's body | Flame Wave · Cryo Plant opens |
 | 3 | Cryo Plant | 6–11 | Frost Master | Coolant, piped up to the Fortress | Ice Lance · Volt Tower opens · the blueprint |
 | 4 | Volt Tower | 9–15 | Volt Master | Power for the Red Signal | Thunder Arc · Sky Docks open · the signal falters |
-| 5 | Sky Docks | 13–19 | Gale Master | Airships hauling every sector's parts to the Fortress | Gale Guard · the Breach |
-| 6 | Vex Fortress | 18–26 | Dr. Vex Mk-I | Its own body | The ending |
+| 5 | Sky Docks | 13–19 | Gale Master | Airships hauling every sector's parts to the Fortress | Gale Guard · Polarity Works opens · Vex shows its reserve |
+| 6 | Polarity Works | 16–22 | Magnet Master | The foundry: claws for its body, shipped up on magnet rails | Magnet Pull · Deep Mine opens |
+| 7 | Deep Mine | 19–25 | Drill Master | Ore for its armour | Drill Bomb · Tidewater Locks open |
+| 8 | Tidewater Locks | 22–28 | Tide Master | Barges carrying the freight the airships no longer will | Bubble Lance · Blackout Boulevard opens |
+| 9 | Blackout Boulevard | 25–31 | Neon Master | The Red Signal's screens, with the city blacked out around them | Neon Blade · Rotor Run opens · the city lights come back |
+| 10 | Rotor Run | 28–34 | Rotor Master | Cargo drones: its last supply line | Drone Swarm · the Breach |
+| 11 | Vex Fortress | 31–40 | Dr. Vex Mk-I | Its own body | The ending |
 
 ### Prologue — Wake-Up Call
 
@@ -246,14 +265,65 @@ Master leaves him is the key to the next Master.
   to the Fortress. **Gale Master** is the free spirit Vex chained to one
   route. Once freed, its wing cape flares back to mint and the airships turn
   around. No more parts reach the Fortress.
-- **The Breach.** On the next hub visit the menus slide away and the camera
-  rises to Pip's hologram of the valley. The five relays light up one by
+- **The reserve.** On the next hub visit the camera rises to Pip's hologram
+  for the Breach, and the shield holds. Five more relays blink red at the
+  valley's edge, and five supply lines that were dark until now light up
+  red and run into the Fortress. Vex's face grins on the lab screens and
+  Pip shows `skull`. Polarity Works opens on the sector strip. It takes
+  about 4 s.
+
+### Act IIb — The Second Shift
+
+Gauss gave the valley's outer works foremen of their own, five more Masters
+on Flux's frame, built as a second balanced crew. Each one's weapon stops
+another one in the crew: Drill Bomb beats Magnet, Bubble Lance beats Drill,
+Neon Blade beats Tide, Drone Swarm beats Neon, and Magnet Pull beats Rotor.
+This ring runs against the unlock order, so on a first run only the Rotor
+Master meets a weapon Flux already has. The others pay off on rematches, or
+through a weapon capsule that lends a weapon from further ahead. The first
+crew's ring is unchanged. Vex held the second crew back as its reserve, each
+one running a back-up supply line, and wired the shield to all ten relays.
+
+- **Polarity Works (Lv 16–22).** A steel foundry under red and blue poles,
+  where Vex casts the claws for its body and ships them up on magnet rails.
+  **Magnet Master** is the stubborn one, and it has two sides: it pulls its
+  friends close and pushes trouble away. Once freed, its pole tips flip
+  from red back to cobalt and silver, and it lowers its horseshoe. The rails
+  carry the valley's trams again. On the next hub visit Vex's face on the
+  lab screens jerks back, as if pushed.
+- **Deep Mine (Lv 19–25).** A shaft from the headframe 18 m down, where the
+  ore for Vex's armour is dug. **Drill Master** is quiet and patient, and
+  never stops digging. Once freed, its drill-bit crest stops spinning red and
+  glows ochre, and the mine's cages carry stranded worker-bots up to
+  daylight. On the next hub visit Vex's face sinks to the bottom edge of the
+  lab screens, sulking.
+- **Tidewater Locks (Lv 22–28).** The harbour. With the airships gone, Vex
+  barges its freight up the canal. **Tide Master** is easygoing and rolls
+  with whatever comes, until Vex made it hold back the tide. Once freed,
+  its fin crest drains from red to sea blue, and it shuts the lock gates.
+  The barges stay home. On the next hub visit Vex's face wobbles on the lab
+  screens like a reflection in water.
+- **Blackout Boulevard (Lv 25–31).** The rooftops downtown at night. Vex
+  blacked out the city so that only its own billboards shine: the Red
+  Signal's screen network. **Neon Master** is the show-off, the one who lit
+  the valley's nights. Once freed, its tubes flip from red to hot pink,
+  the boulevard lights up block by block, and Vex's billboards go dark. On
+  the next hub visit Vex's face flinches on the lab screens and squints
+  into the light.
+- **Rotor Run (Lv 28–34).** The sky airfield and Vex's last supply line:
+  cargo drones carrying what the airships no longer will. **Rotor Master**
+  is restless and happiest high up. Once freed, its rotors spin down from
+  red to lime, and the drones turn round and fly for the worker-bots. No
+  more parts of any kind reach the Fortress.
+- **The Breach.** On the next hub visit after the Rotor Master the menus
+  slide away, Vex's face on the lab screens panics, and the camera
+  rises to Pip's hologram of the valley. The ten relays light up one by
   one in their sector colours, and each fires at the Fortress shield. The
   beams meet, the shield cracks and shatters, and Vex's face tears apart in
   red static. The Vex Fortress unlocks on the sector strip, and Pip shows
   `unlock`. It takes about 6 s.
 
-### Act III — The Fortress (Lv 18–26)
+### Act III — The Fortress (Lv 31–40)
 
 Vex has rebuilt the Control Spire into a fortress. At the top waits the
 **Mk-I**, Vex's first body. Vex launched it unfinished, because Flux cut
@@ -292,8 +362,10 @@ time.
 This sting ships only together with New Game+ (see [Decisions](#decisions)).
 It lasts about three seconds. The screen goes black, one red pixel appears,
 and the skull faceplate assembles out of glitch blocks. The red spark made
-it into the network, and the Masters come back as Mk-II versions at
-Lv 26–40, the range the level cap leaves open.
+it into the network, and the Masters come back as Mk-II versions.
+(Open: these were planned at Lv 26–40, the range the level cap left open.
+The Fortress now runs to Lv 40, the cap itself, so New Game+ needs a
+higher cap or its own scaling.)
 
 ## Intro cutscene: "Wake-Up Call"
 
@@ -395,7 +467,7 @@ eye huge, then squints happily. The HUD boots up around the view: the
 28-segment health bar ticks full, and the `Lv 1` tag pops in. Pip backs off
 and projects the valley hologram between Flux and the pad. The hologram
 shows the ring with five sectors in red, and the Fortress on its cliff
-inside a red shield, tagged `Lv 18–26`. The Scrapyard relay blinks cyan,
+inside a red shield, tagged `Lv 31–40`. The Scrapyard relay blinks cyan,
 tagged `Lv 1–4`. *Sound:* a rising boot chime, the classic tick-fill of the
 health bar, and Pip's two-note chirp.
 
@@ -473,7 +545,8 @@ composer.
 | Every hub visit | Hub backdrop | Gauss asleep in the frosted capsule behind Flux, with the heartbeat light | Capsule in frame |
 | After each Master | Hub backdrop | Vex's red face glitches on the lab screens, angrier each time | Screen swap |
 | After Cryo | Hub | The blueprint | Hub beat, about 4 s |
-| After Gale | Hub | The Breach | Hub beat, about 6 s |
+| After Gale | Hub | The reserve: five more relays flare red, the shield holds | Hub beat, about 4 s |
+| After the Rotor Master | Hub | The Breach | Hub beat, about 6 s |
 | After the Mk-I | After the results screen | The ending and the credits (the Mk-II sting waits for New Game+) | The ending |
 | Post-game | Hub backdrop | Gauss awake at the console | Gauss idle pose |
 
@@ -496,7 +569,8 @@ spelling, like the rest of `en.ts`.
 | `story.intro.wakeUp` | Flux wakes at level 1. The Vex Fortress is far stronger, so the Scrapyard comes first. | Intro, shot 5 |
 | `story.intro.beam` | Flux beams out to the Scrapyard. | Intro, shot 6 |
 | `story.blueprint` | The data core shows Vex's plan: a body built from all five sectors. | Hub, after the Cryo Plant |
-| `story.breach` | Five relays fire together and break the Fortress shield. The Vex Fortress is open. | Hub, after the Sky Docks |
+| `story.reserve` | The shield holds. Vex calls up five more Core Masters, and five more relays turn red. | Hub, after the Sky Docks |
+| `story.breach` | Ten relays fire together and break the Fortress shield. The Vex Fortress is open. | Hub, after the Rotor Run |
 | `story.ending.crash` | Vex's body falls, and a red spark escapes into the sky. | Ending, shot 1 |
 | `story.ending.valley` | The red signal fades, and the valley's colors come back. | Ending, shot 2 |
 | `story.ending.lab` | The frost melts. Gauss wakes and welcomes Flux home. | Ending, shot 3 |
@@ -525,7 +599,7 @@ build order. In short:
 5. **Save.** `profile.world.seen` lists the story beats already shown. It
    lives in `ma_world` with the other first-time flags. Beats already
    behind a player on an existing save are marked seen on load.
-6. **Strings.** The 15 keys in [New strings](#new-strings).
+6. **Strings.** The 16 keys in [New strings](#new-strings).
 7. **Platforms.** A `VITE_APP_INTRO` switch per build, on by default.
 
 ## Decisions
@@ -553,11 +627,23 @@ wrong.
   the Sky Docks. This is the classic weapon-copy loop, and it gives the
   special-weapon lesson from chunk 15 something to pay off. Blaze Master is
   the one fought without its weakness, like the first boss of any run.
+- **The second shift has its own ring, and it is not turned.** Magnet Master
+  is weak to Drill Bomb, Drill Master to Bubble Lance, Tide Master to Neon
+  Blade, Neon Master to Drone Swarm, and Rotor Master to Magnet Pull, as
+  `data/bosses.ts` has it. It closes on itself and doesn't touch the first
+  ring. On a first run only the Rotor Master meets a weapon Flux already
+  owns. The rest are the classic "come back with the right weapon" Masters
+  for rematches, and a weapon capsule can lend their weakness early.
+- **Ten relays, and the Breach after the tenth.** The Fortress shield is
+  wired to all ten relays, so the Breach plays after the Rotor Master. After
+  the Gale Master a shorter beat, the reserve, shows the five relays still
+  to light. Atlas's relay count (`atlas.arc.1`–`.10`) follows the same
+  ten.
 - **The Mk-II sting waits for New Game+.** A teaser for a mode that isn't
   coming would be a broken promise. The ending keeps the red spark escaping,
   which leaves the door open without naming anything. New Game+ is in the
-  GDD but not in any chunk yet. It is also where levels 27–40 would come
-  from, since the Fortress tops out at 26.
+  GDD but not in any chunk yet. The Fortress now tops out at 40, the level
+  cap, so New Game+ also needs a higher cap or a scaling of its own.
 - **The intro ships on every build**, behind `VITE_APP_INTRO`. It gets
   switched off wherever a portal's conversion-to-play drops.
 - **Screen-reader lines: yes.** Each story beat gets one, the same pattern
@@ -568,4 +654,8 @@ wrong.
 - **Story beats never replay history.** On an existing save, every beat
   whose trigger is already behind the player is marked seen on load.
   Someone past the Sky Docks gets no pile of cutscenes after the update.
+  *Proposed, to confirm against the code:* a save that beat the Gale Master
+  before the second shift existed has seen the old Breach, but the shield is
+  whole again. It gets the reserve beat once, and the Breach plays again
+  after the Rotor Master.
   Gauss's capsule still appears, because it is a state, not a beat.

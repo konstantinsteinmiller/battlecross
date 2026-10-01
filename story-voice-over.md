@@ -385,6 +385,14 @@ plus `tear` for the static rip.
 | `vex_present_volt` | PA | 1 | |
 | `vex_perfectly_fine` | broadcast | 2 | `stutter` labels on "per-", "-fect-" and "-ly"; the crush at level 3 on "FINE" (`crush` label) |
 | `vex_present_gale` | PA | 1 | |
+| `vex_more_masters` | broadcast | 1 | |
+| `vex_present_magnet`, `vex_present_drill`, `vex_present_tide` | PA | 1 | |
+| `vex_impossible` | broadcast | 1 | a `stutter` label on "Im-" |
+| `vex_new_low` | broadcast | 1 | |
+| `vex_tide_turn` | broadcast | 1 | a `wobble` label on "…Won't it?": the doubt |
+| `vex_present_neon`, `vex_present_rotor` | PA | 2 | |
+| `vex_lights_on` | broadcast | 2 | the crush at level 3 on "ON" (`crush` label) |
+| `vex_nurse` | broadcast | 2 | a `tear` label over the second "NURSE!" (below), leading into `vex_patented` |
 | `vex_patented` | broadcast | 2 | a `tear` label over "PATENTED" (below) |
 | `vex_clinic`, `vex_behold` | clinic | 0 | the laugh file, if any, gets the same chain and a 250 ms tail |
 | `vex_obey` | clinic | 1 | |
@@ -523,7 +531,7 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | --- | --- | --- | --- | --- | --- |
 | `atlas_boss_signal_first` | `atlas.boss.signalFirst` | Atlas | "Core Master signal. It's… big." | Deadpan understatement, with a pause before "big". | 2.2 s |
 | `vex_present_scrapper` | `vex.present.scrapper` | Vex | "Warm up act! The SCRAPPER!" | A ringmaster, a bit dismissive. | 2.5 s |
-| `atlas_relay_one` | `atlas.story.relayOne` | Atlas | "Relay one lit. Four to go." | The first small win. A hint of a smile. | 2.0 s |
+| `atlas_relay_one` | `atlas.story.relayOne` | Atlas | "Relay one lit. Nine to go." | The first small win, and a long road ahead. A hint of a smile. | 2.0 s |
 | `vex_hub_scrapper` | `vex.hub.scrapper` | Vex | "A junk crane? How… adorable." | Mock-sweet, patronizing. | 2.5 s |
 
 ### Act I: Heat and Ice
@@ -533,7 +541,7 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | `atlas_blaze_beamin` | `atlas.sector.blaze` | Atlas | "Refinery. It runs hot. Mind the vents." | Brisk briefing. | 2.4 s |
 | `vex_present_blaze` | `vex.present.blaze` | Vex | "The oldest! The hottest! BLAZE MASTER!" | A full boxing-announcer build. | 3.0 s |
 | `atlas_no_weakness` | `atlas.boss.noWeak` | Atlas | "No weak spot I can see. Stay moving." | Focused. | 2.2 s |
-| `atlas_weapon_copied` | `atlas.story.copied` | Atlas | "{weapon} copied." | Crisp. *Record one per weapon:* Scrap Burst, Flame Wave, Ice Lance, Thunder Arc, Gale Guard. | 1.6 s |
+| `atlas_weapon_copied` | `atlas.story.copied` | Atlas | "{weapon} copied." | Crisp. *Record one per weapon:* Scrap Burst, Flame Wave, Ice Lance, Thunder Arc, Gale Guard, Magnet Pull, Drill Bomb, Bubble Lance, Neon Blade, Drone Swarm. | 1.6 s |
 | `vex_hub_blaze` | `vex.hub.blaze` | Vex | "Side effect noted. Increasing the dose." | Clinical and irritated, like a doctor annoyed at a chart. | 2.8 s |
 | `atlas_cryo_beamin` | `atlas.sector.cryo` | Atlas | "Coolant's flowing uphill. To the Fortress." | Noticing something, suspicious. | 2.4 s |
 | `vex_present_frost` | `vex.present.frost` | Vex | "Chill, little droid. FROST MASTER!" | Smug about the pun. | 2.8 s |
@@ -559,10 +567,55 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | `atlas_power_station` | `atlas.story.voltFreed` | Atlas | "The signal's lost its power station." | Satisfied. | 2.2 s |
 | `vex_perfectly_fine` | `vex.hub.volt` | Vex | "I am… per-fect-ly… FINE." | Forced calm that cracks on "FINE". Post adds stutter. | 2.8 s |
 | `atlas_docks_beamin` | `atlas.sector.gale` | Atlas | "Every part for its body goes through here." | A briefing with purpose. | 2.4 s |
-| `vex_present_gale` | `vex.present.gale` | Vex | "Last one! GALE MASTER, blow him away!" | Desperate showmanship. | 3.0 s |
+| `vex_present_gale` | `vex.present.gale` | Vex | "Next, please! GALE MASTER, blow him away!" | Brisk showmanship: a doctor calling the next patient. Not desperate yet, because he still has a reserve. | 3.0 s |
 | `atlas_no_more_parts` | `atlas.story.galeFreed` | Atlas | "No more parts reach the Fortress." | Quiet triumph. | 2.2 s |
+| `vex_more_masters` | `vex.hub.gale` | Vex | "Fine! I have MORE Masters." | Huffy, then smug again: he has a trick left. Sets up the second shift. | 2.4 s |
+
+### Act IIb: The Second Shift
+
+| VO id | Key | Who | Line | Direction | Max |
+| --- | --- | --- | --- | --- | --- |
+| `atlas_works_beamin` | `atlas.sector.magnet` | Atlas | "A foundry. It's casting claws." | Noticing something; a little grim. | 2.2 s |
+| `vex_present_magnet` | `vex.present.magnet` | Vex | "Attractive, isn't it? MAGNET MASTER!" | Silky, pleased with the pun. A ringmaster leaning on "attractive". | 2.8 s |
+| `atlas_no_more_claws` | `atlas.story.magnetFreed` | Atlas | "The foundry's cold. No more claws." | Satisfied. | 2.2 s |
+| `vex_impossible` | `vex.hub.magnet` | Vex | "Repelled? Me? Im-POSSIBLE!" | Offended vanity; breaks "Im-POSSIBLE" in two. | 2.4 s |
+| `atlas_mine_beamin` | `atlas.sector.drill` | Atlas | "Ore for its armor. Dug right here." | Low and close, like a voice down a shaft. | 2.2 s |
+| `vex_present_drill` | `vex.present.drill` | Vex | "Time for a deep check-up! DRILL MASTER!" | Bedside manner gone theatrical; leans into "deep". | 3.0 s |
+| `atlas_no_more_ore` | `atlas.story.drillFreed` | Atlas | "The mine's quiet. No more ore." | Quiet, a breath out. | 2.2 s |
+| `vex_new_low` | `vex.hub.drill` | Vex | "Hmph. A new low. Literally." | Sulky and deadpan, then pleased with his own pun on "Literally." | 2.4 s |
+| `atlas_locks_beamin` | `atlas.sector.tide` | Atlas | "Barges now. Vex found another way." | Wry: Vex is resourceful. | 2.2 s |
+| `vex_present_tide` | `vex.present.tide` | Vex | "Wave goodbye, droid! TIDE MASTER!" | Grand and splashy, a game-show host swinging his arm. | 2.8 s |
+| `atlas_barges_home` | `atlas.story.tideFreed` | Atlas | "Locks shut. The barges stay home." | Pleased, a small smile. | 2.2 s |
+| `vex_tide_turn` | `vex.hub.tide` | Vex | "The tide will turn! …Won't it?" | Defiant, then a small, doubtful pause before "…Won't it?" | 2.6 s |
+| `atlas_boulevard_beamin` | `atlas.sector.neon` | Atlas | "Lights out. Except Vex's face." | Dry, almost a joke. | 2.0 s |
+| `vex_present_neon` | `vex.present.neon` | Vex | "Lights! Camera! NEON MASTER!" | Pure showbiz: a director calling the shot, then the name in lights. | 2.6 s |
+| `atlas_lights_on` | `atlas.story.neonFreed` | Atlas | "Lights on. Vex lost its screens." | Delighted, warm. | 2.2 s |
+| `vex_lights_on` | `vex.hub.neon` | Vex | "Who turned the lights ON?!" | Shrieking, squinting at the light. Post adds the glitch. | 2.2 s |
+| `atlas_airfield_beamin` | `atlas.sector.rotor` | Atlas | "Drones. Its last supply line." | Focused: the end is in sight. | 2.0 s |
+| `vex_present_rotor` | `vex.present.rotor` | Vex | "The grand finale! ROTOR MASTER!" | The last card. Still the showman, but the voice strains at the top. | 2.8 s |
+| `atlas_vex_alone` | `atlas.story.rotorFreed` | Atlas | "Every line's cut. Vex is alone." | Quiet triumph, with weight to it. | 2.2 s |
+| `vex_nurse` | `vex.hub.rotor` | Vex | "Ten relays?! Nurse! NURSE!" | Panic: calling for a nurse who never comes. The tantrum builds into the Breach. Post adds the static tear. | 2.4 s |
 | `vex_patented` | `vex.hub.breach` | Vex | "No, no, NO! That shield was PATENTED!" | Full tantrum. Post adds the static tear. | 3.0 s |
 | `atlas_shield_down` | `atlas.story.breach` | Atlas | "Shield's down. The Fortress is open." | Steady; this is it. | 2.2 s |
+
+### Atlas: the relay count (live)
+
+At each story mission's start, Atlas counts the relays lit so far. These
+lines are already in the game (`atlas.arc.<n>`, the locale's text), and the
+count now runs to ten:
+
+| Key | Line | Direction | Max |
+| --- | --- | --- | --- |
+| `atlas.arc.1` | "One relay lit. Nine to go!" | The score so far, with a hint of pride. | 3.0 s |
+| `atlas.arc.2` | "Two relays! Vex is sulking." | The same. | 3.0 s |
+| `atlas.arc.3` | "Three lit. Keep glowing!" | The same. | 3.0 s |
+| `atlas.arc.4` | "Four down. The grid hums again." | The same. | 3.0 s |
+| `atlas.arc.5` | "Halfway there! Vex is sweating." | The same. | 3.0 s |
+| `atlas.arc.6` | "Six relays! The city wakes up." | The same. | 3.0 s |
+| `atlas.arc.7` | "Seven lit. Keep it up!" | The same. | 3.0 s |
+| `atlas.arc.8` | "Eight! Only two Masters left." | The same. | 3.0 s |
+| `atlas.arc.9` | "One Master left. Almost!" | The same. | 3.0 s |
+| `atlas.arc.10` | "Shield's down. Vex is next!" | Steady and ready: the last door is open. | 3.0 s |
 
 ### Act III: The Fortress
 
@@ -593,7 +646,7 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | VO id | Key | Line | Direction | Max |
 | --- | --- | --- | --- | --- |
 | `atlas_boss_ahead` | `atlas.warn.boss` | "Core Master ahead." | Alert. | 1.4 s |
-| `atlas_weak_to` | `atlas.warn.weakTo` | "{boss}. {weapon} hurts it." | Tactical. *Record per pairing* (5 Masters × their weapon), or record the halves and splice them. | 2.2 s |
+| `atlas_weak_to` | `atlas.warn.weakTo` | "{boss}. {weapon} hurts it." | Tactical. *Record per pairing* (9 Masters × their weapon), or record the halves and splice them. | 2.2 s |
 | `atlas_use_gel_first` | `atlas.warn.gelFirst` | "Plating's cracking. Use a gel." | Concerned, a clear instruction. | 2.0 s |
 | `atlas_use_gel` | `atlas.warn.gel` | "Gel." | A quick nudge. | 0.6 s |
 | `atlas_critical_first` | `atlas.warn.criticalFirst` | "Critical! Back off!" | Tight and fast, **not** loud. | 1.2 s |
@@ -629,6 +682,11 @@ locales when this is implemented. "Max" is the cap on the delivered length.
 | `atlas_scan_brute` | `atlas.scan.brute` | "Guardroid. Parry, then punish." | 1.8 s |
 | `atlas_scan_turret` | `atlas.scan.turret` | "Wall Cannon. Keep moving." | 1.6 s |
 | `atlas_scan_golem` | `atlas.scan.golem` | "That crate's breathing. Get close." | 2.0 s |
+| `atlas_scan_polar` | `atlas.scan.polar` | "Polar Pup. Shoot it when it opens red." | 1.8 s |
+| `atlas_scan_mole` | `atlas.scan.mole` | "Mole Driller. Keep moving, hit it when it pops up." | 1.8 s |
+| `atlas_scan_puffer` | `atlas.scan.puffer` | "Puffer Mine. Pop it before it swells." | 1.6 s |
+| `atlas_scan_stalker` | `atlas.scan.stalker` | "Glow Stalker. Watch for its eyes, parry the lunge." | 1.8 s |
+| `atlas_scan_hornet` | `atlas.scan.hornet` | "Hornet Rotor. It dives straight: sidestep!" | 1.6 s |
 | `atlas_scan_elite` | `atlas.scan.elite` | "Gold ring. Elite. Careful." | 1.6 s |
 | `atlas_scan_fire` / `_ice` / `_volt` / `_wind` | `atlas.scan.fire` … | "Fire-coated. It shrugs off fire." (and the same for each element) | 2.0 s |
 

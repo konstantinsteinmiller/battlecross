@@ -150,7 +150,7 @@ dimmed to blue, and the red lightning dying against the frost.
 As in `story.md`: the eyelid-bar blinks, then the blur sharpens on the
 frosted capsule. Pip pops in with a huge eye, then squints happily. The HUD
 boots, the health bar ticks full and `Lv 1` pops in. Pip's valley hologram
-shows five red sectors and the Fortress in a red shield tagged `Lv 18–26`.
+shows ten red sectors and the Fortress in a red shield tagged `Lv 31–40`.
 
 **New:** the HUD boot ends with **Atlas's glyph** spinning up in its HUD
 slot, and the first line of the game:
@@ -190,9 +190,9 @@ and Pip's halo spinning in the foreground.
 > and prescribes itself as the cure. Its Red Signal takes every networked
 > machine. Prof. Gauss wakes her unfinished android **Flux**, whose blank core
 > the signal can't write to. She gives him **Atlas**, her field guide, and
-> freezes herself to stay free. Flux frees the five Core Masters one sector
-> at a time and copies their weapons, and each weapon is the key to the next
-> Master. He relights the relay ring, Pip fires the five relays together to
+> freezes herself to stay free. Flux frees the ten Core Masters one sector
+> at a time and copies their weapons, and each weapon is the key to another
+> Master. He relights all ten relays, Pip fires them together to
 > break the Fortress shield, and Flux climbs the Control Spire to scrap
 > Vex's stolen body, the **Mk-I**. At the top, Atlas could take the empty
 > Spire and run the valley. It chooses not to. Gauss wakes. A red spark gets
@@ -230,7 +230,12 @@ and daylight comes back in the hub's sector view.
 | **Cryo Plant** (Lv 6–11) | White domes stained red from inside; coolant pipes running uphill toward the Fortress | Crisp ice-blue; fog; frost on the neon | Pipes climbing a cliff into red clouds (the supply line) |
 | **Volt Tower** (Lv 9–15) | The downtown: rain, dense holo-ads, Vex's face everywhere; the Red Signal's power station | Yellow-white lightning, back to ad colours | The cold-open street; the tower's coil spitting red arcs |
 | **Sky Docks** (Lv 13–19) | Floating pads, airships in convoy hauling parts to the Fortress; red running lights | Mint sails; the airships turn around | Airships in a line across the moon, heading for the Spire |
-| **Vex Fortress** (Lv 18–26) | The Control Spire rebuilt: black glass, red veins, a skull-shaped crown, the shield dome | After the ending: dark, then the relay glows **white** | Five coloured beams striking the red shield dome at one point |
+| **Polarity Works** (Lv 16–22) | A steel foundry at night: casting halls, red-hot pours, red and blue pole lamps on the magnet rails, claw castings hauled toward the Fortress | Cobalt and silver; the pour cools, and trams run on the rails again | A claw casting swinging from a crane shuttle over the pour |
+| **Deep Mine** (Lv 19–25) | A headframe over an 18 m shaft; red cage lamps; ore carts climbing toward the Fortress | Ochre lamp-light; the cages carry worker-bots up to daylight | The two cages passing in the shaft, one going up, one going down |
+| **Tidewater Locks** (Lv 22–28) | A harbour of locks and canals; barges in convoy with red running lights; a tide that keeps rising | Sea blue; the lock gates shut and the water runs clean | A flooded lock with a barge stuck halfway, its valve glowing |
+| **Blackout Boulevard** (Lv 25–31) | Rooftops over a blacked-out downtown. Only Vex's billboards stay lit, and bridges of light flicker over open air | Hot-pink neon; every window comes back on, block by block | A light bridge blinking out under Flux's feet, the dark city far below |
+| **Rotor Run** (Lv 28–34) | A sky airfield; swarms of cargo drones streaming toward the Spire; red rotor lights | Lime running lights; the drones deliver to the worker-bots | Flux on a cargo quadcopter crossing an open span through a swarm of Hornet Rotors |
+| **Vex Fortress** (Lv 31–40) | The Control Spire rebuilt: black glass, red veins, a skull-shaped crown, the shield dome | After the ending: dark, then the relay glows **white** | Ten coloured beams striking the red shield dome at one point |
 
 ---
 
@@ -281,7 +286,8 @@ his patient and every fight as his stage.
   Keep each bubble to **8 words or fewer** (it has to fit 320 px in 21
   languages). Bubbles appear only in cutscenes, hub beats and boss intros,
   **never over live gameplay**.
-- **Arc:** smug (Act I), then irritated (Act II), then unravelling (Act III).
+- **Arc:** smug (Act I), then irritated (Act II), then rattled as the
+  reserve falls (Act IIb), then unravelling (Act III).
   The glitch on its hologram gets worse each time, which `story.md` already
   plans ("angrier each time").
 
@@ -304,7 +310,7 @@ the boss door and the **Scrapper**.
 - At the boss intro, Vex presents it:
   VB: **"Warm up act! The SCRAPPER!"**
 - When the Scrapper is freed, the red chip bursts out, the visor goes amber
-  and the hammer goes down. A: "Relay one lit. Four to go."
+  and the hammer goes down. A: "Relay one lit. Nine to go."
 - **Hub, first visit:** Vex's face glitches on the lab screens.
   VB: **"A junk crane? How… adorable."**
 
@@ -382,35 +388,156 @@ frame Flux's amber reactor glow floods outward and pushes it back.
 **Sky Docks (Lv 13–19).**
 
 - Beam-in, A: "Every part for its body goes through here."
-- Boss intro, VB: **"Last one! GALE MASTER, blow him away!"**
+- Boss intro, VB: **"Next, please! GALE MASTER, blow him away!"** (No
+  longer "Last one!": five more Masters wait behind it.)
 - Freed: the wing cape flares back to mint, and the airships **turn
   around**. A: "No more parts reach the Fortress."
 
-**The Breach (hub, about 6 s, as in `story.md`).** The five relays fire,
-one beam each, at one point on the shield. It cracks and shatters.
+**The reserve (hub, about 4 s).** Pip's hologram comes up for the Breach,
+and the shield holds. Five more relays blink red beyond the ring, and five
+new supply lines, dark until now, light up red and run into the Fortress.
+
+- VB (smug again): **"Fine! I have MORE Masters."**
+- Pip shows `skull`.
+
+**Key frame:** Pip's valley hologram. Five relays shine in their colours,
+but the red dome over the Spire is whole. Out at the valley's edge five more
+relays flare red, while Vex's hologram face smirks over the dome.
+
+### Act IIb — The Second Shift
+
+The airships turned around, but the shield still stands, because Vex kept
+a reserve. When Gauss built the valley's outer works (the foundry, the deep
+mine, the harbour locks, the night boulevard and the airfield), she gave
+each one a foreman of its own: five more Masters on Flux's frame, built as
+a second balanced crew. The Red Signal took them along with the rest. Vex
+held them back, each running a back-up supply line to the Fortress, and
+wired the shield to **ten relays**. Now it sends them in one at a time,
+every band higher than the last, and its showman act starts to fray.
+
+Each relay Flux frees gives the city something back.
+
+**Polarity Works (Lv 16–22).** The steel foundry, under red and blue
+poles. Vex casts the Mk-I's claws here and ships them up on magnet rails.
+
+- Beam-in, A: "A foundry. It's casting claws."
+- The stage: magnet rails drag Flux (chevrons show the pull), and he
+  shoots polarity panels to flip them. Some rails flip on the clock, crane
+  shuttles cross the casting hall, and a weapon chain waits off the route.
+- Boss intro, VB: **"Attractive, isn't it? MAGNET MASTER!"**
+- The fight: homing horseshoe missiles, **Pole Pull** (it drags Flux in,
+  then clamps), and a charge straight down a rail. In phase 2 it adds a
+  **Polar Storm**. It is weak to Drill Bomb, which Flux doesn't have yet. Like
+  Blaze, it opens its ring and is fought without its weakness on a first run.
+  A: "No weak spot I can see. Stay moving." The exception is a weapon
+  capsule lending Drill Bomb ahead of time.
+- Freed: its pole tips flip from red back to cobalt and silver, and it lowers
+  its horseshoe. The magnet rails carry the valley's trams again instead of
+  claws. A: "The foundry's cold. No more claws." Flux copies **Magnet Pull**.
+- Hub, VB: **"Repelled? Me? Im-POSSIBLE!"**
+
+**Deep Mine (Lv 19–25).** From the headframe, 18 m down. The ore for Vex's
+armour comes out of this shaft.
+
+- Beam-in, A: "Ore for its armor. Dug right here."
+- The stage: boulders block the galleries, and the cracked ones break only
+  to a full charge or a Drill Bomb. Stalactites drop behind shadow rings. Flux
+  rides a two-cage mine elevator, crosses a chasm and a mole warren, and finds
+  a weapon cave sealed by cracked rock.
+- Boss intro, VB: **"Time for a deep check-up! DRILL MASTER!"**
+- The fight: it burrows and erupts under Flux, lobs drill bombs and
+  charges. In phase 2 it starts a quake: rings on the floor and falling rock.
+  It is weak to Bubble Lance.
+- Freed: its drill-bit crest stops spinning red and glows ochre, and the
+  cages carry stranded worker-bots up to daylight. A: "The mine's quiet. No
+  more ore." Flux copies **Drill Bomb**.
+- Hub, VB: **"Hmph. A new low. Literally."**
+
+**Tidewater Locks (Lv 22–28).** The harbour. With the airships gone, Vex
+barges its freight up the canal.
+
+- Beam-in, A: "Barges now. Vex found another way."
+- The stage: wading slows Flux, and deep water hurts. The tide rises on
+  the clock up a flight of steps, a flooded lock drains when he shoots its
+  valve, a canal current pushes him, buoys bob, and a spillway runs down.
+- Boss intro, VB: **"Wave goodbye, droid! TIDE MASTER!"**
+- The fight: a lance thrust, tidal waves to slide under and a slow bubble
+  volley. In phase 2 it adds a whirlpool that pulls Flux in. It is weak to
+  Neon Blade.
+- Freed: its fin crest drains from red to sea blue, and it shuts the lock
+  gates. The barges stay home, and the harbour pumps clean water into the
+  valley again. A: "Locks shut. The barges stay home." Flux copies **Bubble
+  Lance**.
+- Hub, VB: **"The tide will turn! …Won't it?"**
+
+**Blackout Boulevard (Lv 25–31).** The rooftops downtown at night, over
+open air. Vex blacked out the city so that only its own billboards shine:
+this is the Red Signal's screen network.
+
+- Beam-in, A: "Lights out. Except Vex's face."
+- The stage: bridges of light are floor only while they are lit. Some blink
+  on the clock and some swap with a light switch. A secret wall-kick shaft
+  (slide at its foot facing the wall, again and again) climbs to a reward.
+- Boss intro, VB: **"Lights! Camera! NEON MASTER!"**
+- The fight: a blade thrown out and back, a dash and a neon volley. In phase
+  2 it adds a laser grid. It is weak to Drone Swarm.
+- Freed: its neon tubes flip from red to hot pink, and the boulevard lights
+  up block by block as Vex's billboards go dark. A: "Lights on. Vex lost its
+  screens." Flux copies **Neon Blade**.
+- Hub, VB (squinting, glitching): **"Who turned the lights ON?!"**
+
+**Rotor Run (Lv 28–34).** The sky airfield and Vex's last supply line:
+cargo drones carrying what the airships no longer will.
+
+- Beam-in, A: "Drones. Its last supply line."
+- The stage: a cargo quadcopter flight round an open span, with Hornet
+  Rotors coming in waves. Crosswinds, shuttle drones, bobbing drones and a
+  wind tunnel follow.
+- Boss intro, VB: **"The grand finale! ROTOR MASTER!"**
+- The fight: a drone swarm, a downdraft that blows Flux back, and a dive. In
+  phase 2 it adds a rotor storm. It is weak to Magnet Pull, so it is the one
+  Master of this ring Flux meets with its weakness already in hand.
+- Freed: its rotors spin down from red to lime, and the cargo drones turn
+  round and fly for the worker-bots instead. A: "Every line's cut. Vex is
+  alone." Flux copies **Drone Swarm**.
+- Hub: the Breach starts with Vex already panicking. VB: **"Ten relays?!
+  Nurse! NURSE!"**
+
+**Key frame (Act IIb):** night over the valley's outer edge. Five relays
+light one after another in cobalt, ochre, sea blue, hot pink and lime: a
+foundry, a mine headframe, harbour locks, a rooftop boulevard and a sky
+airfield. Their beams reach in toward the five already burning round the
+lab.
+
+**The Breach (hub, about 6 s, as in `story.md`, now after the Rotor
+Master).** The ten relays fire, one beam each, at one point on the shield.
+It cracks and shatters.
 
 - VB, then torn apart by static: **"No, no, NO! That shield was PATENTED!"**
 - A: "Shield's down. The Fortress is open."
 - Pip shows `unlock`.
 
-**Key frame:** Pip's valley hologram. Five beams in yellow, orange, ice
-blue, yellow-white and mint converge on one crack in a red dome over a black
-spire, while Vex's hologram face shatters like glass.
+**Key frame:** Pip's valley hologram. Ten beams in yellow, orange, ice
+blue, yellow-white, mint, cobalt, ochre, sea blue, hot pink and lime
+converge on one crack in a red dome over a black spire, while Vex's hologram
+face shatters like glass.
 
 ### Act III — The Fortress: how Flux reaches the end boss
 
 See [section 6](#6-the-road-to-the-end-boss) for the gameplay route. The
 story beats:
 
-- **Fortress beam-in** (Lv 18–26). The black glass halls are lined with
+- **Fortress beam-in** (Lv 31–40). The black glass halls are lined with
   **empty assembly bays**. Each sector Flux freed left a bay unfinished: no
   armour plates (Blaze), no coolant (Cryo), dead power rails (Volt), no
-  freight (Gale). You walk past the body parts Vex never got.
+  freight (Gale), no claws (Magnet), no ore (Drill), empty barge docks
+  (Tide), blank screens (Neon), no drones (Rotor). You walk past the body
+  parts Vex never got.
   A: "Half-built. You did that."
 - Vex, on the Fortress's own screens, VB: **"Welcome to my clinic! Take a
   seat… FOREVER!"**
 - **The Mk-I's entrance.** The boss shutter opens on a round arena at the
-  top of the Spire. Through its windows the five relays glow around the
+  top of the Spire. Through its windows the ten relays glow around the
   valley in their colours. The **Mk-I** drops in: the skull-faced capsule
   with claws and a glass dome, and Vex's hologram flickers inside the dome.
   VB: **"Behold! My new body! Mark ONE!"**
@@ -438,7 +565,7 @@ story beats:
 
 **Key frame (Act III poster):** the round arena at the Spire's peak, the
 skull-capsule Mk-I hovering with claws spread, its dome cracked. Outside,
-the red shock-ring shatters against a ring of five coloured relay lights.
+the red shock-ring shatters against a ring of ten coloured relay lights.
 Flux's charge shot glows amber, aimed at the crack.
 
 ### Ending — Sunrise (about 20 s, skippable, after the results screen)
@@ -488,12 +615,15 @@ bubble: **"The doctor… is IN."**
 How the player gets from the tutorial to the Mk-I. This is the gameplay
 spine behind the story.
 
-1. **Scrapyard → Sky Docks in ring order.** Each sector's story mission
+1. **Scrapyard → Rotor Run in unlock order** (Scrapyard, Blaze Refinery,
+   Cryo Plant, Volt Tower, Sky Docks, Polarity Works, Deep Mine, Tidewater
+   Locks, Blackout Boulevard, Rotor Run). Each sector's story mission
    ("Core Master Showdown") opens when the one before it is beaten (the
    `after` chain in `data/regions.ts`). Story missions spawn enemies at +1
    level.
 2. **Grow between Masters.** The bands overlap (1–4, 3–8, 6–11, 9–15,
-   13–19), so the player takes **jobs** in freed sectors (Scrap Duty, Data
+   13–19, 16–22, 19–25, 22–28, 25–31, 28–34), so the player takes **jobs**
+   in freed sectors (Scrap Duty, Data
    Recovery, Rescue Op, Elite Hunt, Supply Run, Sector Purge) and
    **Tower Runs** (the climb and rematch) to reach each band.
    - Atlas nudges with the sector's floor level on the mission card.
@@ -513,17 +643,38 @@ spine behind the story.
    > Lance, Frost → Thunder Arc, Volt → Gale Guard, Gale → Flame Wave).
    > `story.md` decided to turn it but the data hasn't been changed yet.
    > The Atlas hint lines above assume the turned ring.
-4. **The Breach.** Freeing the Gale Master lights the fifth relay. On the
-   next hub visit the Breach plays and the **Vex Fortress** unlocks.
-5. **The Fortress, Lv 18–26.** Its story mission is the longest room map
+
+   The five Masters of the second shift form a **second ring**, closed on
+   itself and already in `data/bosses.ts` as written (it doesn't wait for
+   the turn above):
+   - Drill Bomb beats Magnet;
+   - Bubble Lance beats Drill;
+   - Neon Blade beats Tide;
+   - Drone Swarm beats Neon;
+   - Magnet Pull beats Rotor.
+
+   This ring runs against the unlock order. On a first run only the Rotor
+   Master meets a weapon Flux already owns (Magnet Pull). The other four
+   are each weak to the next Master's weapon, so their weakness pays off on
+   Tower Run rematches, and early through a weapon capsule, which prefers
+   to lend a weapon Flux hasn't won yet.
+4. **The reserve, then the Breach.** Freeing the Gale Master lights the
+   fifth relay, but the shield holds. On the next hub visit Vex shows its
+   reserve, and Polarity Works opens. Freeing the Rotor Master lights the
+   **tenth** relay. On the next hub visit the Breach plays and the **Vex
+   Fortress** unlocks.
+5. **The Fortress, Lv 31–40.** Its story mission is the longest room map
    (10–12 rooms, the densest encounters, 12 % elites). It passes the empty
    assembly bays and ends at the boss shutter at the Spire's top.
    - A Fortress **Tower Run** (the climb kit: ladders, lifts, crushers, up
      the Spire's antenna) makes a natural second route. It would be a
      **proposal**, and the Tower Run already exists as a job type.
 6. **The Mk-I**, two phases, as in section 5. This is the only final boss;
-   more bosses wait for New Game+ (the Mk-II and Master Mk-II rematches at
-   Lv 26–40, per `story.md`).
+   more bosses wait for New Game+ (the Mk-II and Master Mk-II rematches,
+   per `story.md`).
+   > ⚠️ `story.md` put the Mk-II at Lv 26–40, "the range the level cap
+   > leaves open". The Fortress now runs to Lv 40, the cap itself, so New
+   > Game+ needs a higher cap or its own scaling. This is an open decision.
 
 ---
 
@@ -540,6 +691,22 @@ ringmaster's announcement**, with the Master's eyes glowing red.
 
 - It runs **alongside** the existing entrance and never makes it longer.
 - The lines are in section 5, one per Master.
+
+| Master | Vex presents |
+| --- | --- |
+| Scrapper | **"Warm up act! The SCRAPPER!"** |
+| Blaze Master | **"The oldest! The hottest! BLAZE MASTER!"** |
+| Frost Master | **"Chill, little droid. FROST MASTER!"** |
+| Volt Master | **"Blink and you'll miss it! VOLT MASTER!"** |
+| Gale Master | **"Next, please! GALE MASTER, blow him away!"** |
+| Magnet Master | **"Attractive, isn't it? MAGNET MASTER!"** |
+| Drill Master | **"Time for a deep check-up! DRILL MASTER!"** |
+| Tide Master | **"Wave goodbye, droid! TIDE MASTER!"** |
+| Neon Master | **"Lights! Camera! NEON MASTER!"** |
+| Rotor Master | **"The grand finale! ROTOR MASTER!"** |
+
+The Master's name is filled in from its boss key, in capitals, so it reads
+as the game spells it in every locale.
 
 ### Atlas scans: machine intros
 
@@ -566,6 +733,11 @@ type can spawn there.
 | Guardroid | heavy fist + parry | "Guardroid. Parry, then punish." |
 | Wall Cannon | wall + slide | "Wall Cannon. Keep moving." |
 | Crate Golem | crate + footsteps toward | "That crate's breathing. Get close." |
+| Polar Pup | blue shell ✗ pellet, red open + crosshair | "Polar Pup. Shoot it when it opens red." |
+| Mole Driller | red floor marker + arrow up | "Mole Driller. Keep moving, hit it when it pops up." |
+| Puffer Mine | swelling ring + crosshair | "Puffer Mine. Pop it before it swells." |
+| Glow Stalker | two eyes + parry | "Glow Stalker. Watch for its eyes, parry the lunge." |
+| Hornet Rotor | red rotor + arrow sideways | "Hornet Rotor. It dives straight: sidestep!" |
 | Elite (gold ring) | gold ring + skull | "Gold ring. Elite. Careful." |
 | First elemental machine | element icon + shield | "Fire-coated. It shrugs off fire." (one line per element) |
 
@@ -618,6 +790,7 @@ drop-in.
 | Rescue job, worker-bot near | worker-bot | "Worker-bot signal. Faint. Close." |
 | Chest loot is an upgrade | up-arrow | "That's an upgrade." |
 | Level-up | chip | "New chip compiled." |
+| Story mission start (relays lit so far) | relay ring, lit count | One line per count: "One relay lit. Nine to go!" … "One Master left. Almost!" (9) … "Shield's down. Vex is next!" (10) (`atlas.arc.1`–`.10`) |
 | Objective complete | check | "Done. Call the drone when ready." |
 | *System down*, Pip's pull-back | Pip's eye | "Rebooting… Pip's got you." |
 | Levers / switches | lever | *No levers in the level kit yet.* Suggested line when they exist: "Switch. Try it." |
@@ -712,3 +885,9 @@ These change or extend the canon, so confirm them before anything is built:
 6. **Gauss's optional single line** at the end.
 7. **Data:** the weakness ring in `data/bosses.ts` still needs the turn
    `story.md` decided on, before the Atlas weakness hints are right.
+8. **The second shift: ten Masters, ten relays.** Five new Core Masters
+   (Magnet, Drill, Tide, Neon, Rotor) sit between the Sky Docks and the
+   Fortress. The shield falls only after the tenth relay, so the Breach moves
+   from after the Gale Master to after the Rotor Master. A new hub beat, the
+   reserve, plays after the Gale Master. The Fortress band moves to Lv
+   31–40, and the new Masters form a second weakness ring of their own.

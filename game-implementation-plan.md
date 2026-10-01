@@ -428,7 +428,7 @@ while bars and damage numbers get direct DOM writes.
     Vex ~50 s, machines 2–3 s throughout, never "behind", ad edge on bosses
     ≤ 6%). Tuning: the adaptive boss cap 2 → 3 (the Fortress let an
     every-round ad player run 38% ahead); `PROGRESS_HP` stays 0.06.
-  - [ ] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor), one
+  - [x] **P7 Five new Masters** (Magnet, Drill, Tide, Neon, Rotor), one
     level per commit (P7.1 … P7.5), then the story docs (P7.6). Decisions:
     - Order and level bands (after Gale, before the Fortress): magnet [16, 22],
       drill [19, 25], tide [22, 28], neon [25, 31], rotor [28, 34]; fortress
@@ -507,6 +507,14 @@ while bars and damage numbers get direct DOM writes.
       Master (droneSwarm, downdraft — a negative pull —, dive; rotorStorm;
       weak to Magnet Pull); Drone Swarm (three homing drones); Neon weak to
       it. The Fortress's final band [31, 40]; the weakness ring is closed.
+    - [x] P7.6 Story: Act IIb "The Second Shift" (Vex's reserve of five
+      Masters, ten relays, the Breach after the Rotor Master; after Gale "the
+      reserve" beat) across story-arc / story / comic (pages 25–29, R6) /
+      story-voice-over / GDD; planned voice lines (scene `shift`) for Vex's
+      intros and hub reactions and Atlas's sector and freed lines. Open: the
+      Masters' tints vs the docs' freed colours, New Game+ has no level room
+      past 40, the new ring pays off on rematches (only Rotor meets an owned
+      weapon on a first run).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

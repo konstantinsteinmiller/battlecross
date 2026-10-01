@@ -13,8 +13,9 @@ Blades loop: **mission → explore → fight → loot → level → next mission
 
 ## Setting
 
-Ampere Valley was an android city run by six Core Masters, robot foremen that
-each ran a sector (refinery, cryo plant, power tower and so on). The rogue AI
+Ampere Valley was an android city run by ten Core Masters, robot foremen that
+each ran a sector (refinery, cryo plant, power tower, foundry, mine, harbour
+and so on). The rogue AI
 **Dr. Vex** reprogrammed them and filled the sectors with hostile machines.
 
 The player is **Flux**, a combat android in pearl-white armour over a
@@ -165,7 +166,7 @@ No sentences. Every control is taught by a **glyph** where the action happens
 | Slide | 0.28 s dash of 4.2 m, i-frames 0.22 s, cost 25 Power, cooldown 1.5 s start to start (Slide Boosters cut it 15 % per rank, never below 1.0 s: 1.275 s, 1.05 s, 1.0 s). A press during the cooldown is dropped, not queued |
 | Power | 100 base, regenerates 22/s when not blocking (1 s delay after spending) |
 | Weapon Energy (WE) | 28 segments base (the classic bar). Special weapons spend it. Refilled by WE capsules and by leveling |
-| Borrowed weapon | a capsule's copied weapon for the mission: **no WE**, one charge per shot (Scrap Burst 10, Flame Wave 8, Ice Lance 8, Thunder Arc 6, Gale Guard 6), own cooldown; see *Borrowed weapons* |
+| Borrowed weapon | a capsule's copied weapon for the mission: **no WE**, one charge per shot (Scrap Burst 10, Flame Wave 8, Ice Lance 8, Thunder Arc 6, Gale Guard 6, Magnet Pull 8, Drill Bomb 6, Bubble Lance 8, Neon Blade 8, Drone Swarm 6), own cooldown; see *Borrowed weapons* |
 | Health | 28 segments shown; internally `maxHp` (100 base), the bar draws `ceil(hp / maxHp × 28)` segments. A heart heads the bar (a bolt heads the weapon-energy bar); under 30 % it turns red, pumps, and a red edge vignette beats with it |
 | Enemy energy | Mega Man segmented bars: the target frame shows 20 chunky cells (the last lit one blinks at ≤ 20 %, elites ringed in gold); a boss's 28-segment bar stands third beside the player's two, filling step by step on its intro |
 | Hit-stun on Flux | 0.25 s flinch, 0.8 s i-frames with blink (classic) |
@@ -187,6 +188,11 @@ flashes white. That is the parry window.
 | `roller` | Gear Roller | Rolls in a straight charge, stuns itself on walls | sidestep and punish |
 | `brute` | Guardroid | Big and slow: two-hit punch combo plus a ground slam | block, then parry |
 | `turret` | Wall Cannon | Stationary, lobs arcing shells | move while shooting |
+| `polar` | Polar Pup | Floating orb (Polarity Works). Its blue shell repels shots; it opens red to fire | shoot into the open shell |
+| `mole` | Mole Driller | Tunnels under the floor (Deep Mine) and bursts up on a red marker | keep moving, punish when it surfaces |
+| `puffer` | Puffer Mine | Drifts (Tidewater Locks), swells, and bursts in a ring | pop it early, or get clear |
+| `stalker` | Glow Stalker | Dark, shows only its eyes (Blackout Boulevard). It whines, then lunges | read the tell, parry stops it |
+| `hornet` | Hornet Rotor | Spins up red, then dives straight (Rotor Run) | sidestep, or parry and it crashes |
 | `golem` | Crate Golem | Sleeps as the sector's supply crate against a wall: never noticed, locked on to or woken by noise, and the first hit of anything only wakes it (TINK, no damage; untouchable through its 0.8 s unfold). Awake it keeps 6–12 m, backing off faster than it closes, throws two rocks (orange: block, parry them back) then lobs a boulder at your feet (red, floor marker). A charged shot fired from beyond 5 m it hops out of the line of (sides alternate, 1.2–1.6 s cooldown, never mid-wind-up, not when walled in); pellets and copied weapons it never dodges. Placed apart from the sector tables (14–24 % of combat rooms), never in the tutorial, never a job target; purge counts it (the trail leads to it last) | get close — or corner it, bait the hop, parry its rocks |
 
 Region variants tint the same rig and add an element: **Blaze** (fire, burn
@@ -210,7 +216,19 @@ landing with a shock ring while the shutter slams behind the player.
 | Frost Master | Cryo Plant | ice lance volley, freeze floor, dash | **Ice Lance** (piercing, freezes) | Thunder Arc |
 | Volt Master | Volt Tower | chain lightning, orb storm, teleport | **Thunder Arc** (chains to 3) | Gale Guard |
 | Gale Master | Sky Docks | tornado push, feather blades, dive | **Gale Guard** (orbiting shield, throwable) | Flame Wave |
+| Magnet Master | Polarity Works | homing horseshoe missiles, Pole Pull (drags Flux in, then a clamp), rail-straight charge; phase 2: Polar Storm | **Magnet Pull** (homing horseshoe; cracks guards and shells, yanks flyers down) | Drill Bomb |
+| Drill Master | Deep Mine | burrow and erupt under Flux, drill bombs, charge; phase 2: quake (rings, falling rock) | **Drill Bomb** (bores on, bursts, splashes; breaks cracked rock) | Bubble Lance |
+| Tide Master | Tidewater Locks | lance thrust, tidal waves (slide under), slow bubble volley; phase 2: whirlpool pull | **Bubble Lance** (a bubble rolling along the floor through every machine) | Neon Blade |
+| Neon Master | Blackout Boulevard | blade thrown out and back, dash, neon volley; phase 2: laser grid | **Neon Blade** (a boomerang that cuts going and coming) | Drone Swarm |
+| Rotor Master | Rotor Run | drone swarm, downdraft (blows Flux back), dive; phase 2: rotor storm | **Drone Swarm** (three homing drones) | Magnet Pull |
 | Dr. Vex Mk-I | Vex Fortress | every pattern above, 3 phases | — (credits + New Game+) | none |
+
+The five new Masters form a second weakness ring, closed on itself: Drill
+Bomb beats Magnet, Bubble Lance beats Drill, Neon Blade beats Tide, Drone
+Swarm beats Neon, and Magnet Pull beats Rotor. The first ring is unchanged. Sector bands:
+Polarity Works 16–22, Deep Mine 19–25, Tidewater Locks 22–28, Blackout
+Boulevard 25–31, Rotor Run 28–34, Vex Fortress 31–40. The Fortress shield
+falls after the tenth relay (the Rotor Master).
 
 ## Progression
 
@@ -278,7 +296,8 @@ show Mega Man took an android's skill for a while; here a mission can leave a
 - *The capsule* never reads as a health or energy pill: an upright glass
   capsule hovering over an emitter plate, everything in the weapon's colour —
   the orb inside, a small hologram of the weapon over it (three shards, a
-  flame, a lance, a lightning bolt, three leaves), a tilted halo ring
+  flame, a lance, a lightning bolt, three leaves, a horseshoe, a drill bit,
+  a bubble and a little one, a crescent, three little drones), a tilted halo ring
   wobbling round it, and a column of light out of the plate that fades
   upward, so it is seen from across a room. Walking into it takes it: an orb
   burst and a rising ring in its colour, a "weapon get" jingle, a toast with
@@ -289,7 +308,8 @@ show Mega Man took an android's skill for a while; here a mission can leave a
   fires through the real weapon system — same look, pierce, freeze, burn,
   boss weakness — at the rank Flux has for it (rank 1 if never owned). **No
   Weapon Energy**: each shot spends one charge (Scrap Burst 10, Flame Wave 8,
-  Ice Lance 8, Thunder Arc 6, Gale Guard 6; Gale Guard's charge is the cast,
+  Ice Lance 8, Thunder Arc 6, Gale Guard 6, Magnet Pull 8, Drill Bomb 6,
+  Bubble Lance 8, Neon Blade 8, Drone Swarm 6; Gale Guard's charge is the cast,
   hurling the leaves rides on it; a Thunder Arc with nothing to hit spends
   nothing). At 0 it pops at the muzzle with a falling blip and the button
   pops out. It never enters the hero's weapons or slots and never outlives

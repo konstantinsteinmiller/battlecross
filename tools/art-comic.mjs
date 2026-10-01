@@ -41,7 +41,10 @@ const SHEET = {
   VEX: 'R4.jpg',
   'MK-I': 'R4.jpg',
   SCRAPPER: 'R5.jpg',
-  MASTERS: 'R5.jpg'
+  MASTERS: 'R5.jpg',
+  // The second shift (the five Masters after Gale) and their machines.
+  'SECOND-SHIFT': 'R6.jpg',
+  'SHIFT-MACHINES': 'R6.jpg'
 }
 // Gemini copies designs well from a few images; past this it starts averaging.
 const MAX_ATTACH = 4

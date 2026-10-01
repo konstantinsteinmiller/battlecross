@@ -59,15 +59,15 @@ export const SECTORS: Sector[] = [
     encounters: { kinds: [['mole', 2.5], ['hardhat', 2], ['brute', 1.5], ['roller', 1.5], ['trooper', 1.2], ['turret', 1.2], ['polar', 0.8]], element: 'none', density: 1.12, eliteChance: 0.11, golems: 0.24, theme: 'drill' }
   },
   {
-    id: 'tide', levels: [22, 28], boss: 'tideMaster', after: 'drill', mapPos: [0.92, 0.86], rooms: [10, 12],
+    id: 'tide', levels: [22, 28], boss: 'tideMaster', after: 'drill', mapPos: [0.86, 0.8], rooms: [10, 12],
     encounters: { kinds: [['puffer', 2.5], ['heli', 2], ['trooper', 1.5], ['roller', 1.2], ['brute', 1.2], ['turret', 1.2], ['polar', 0.8], ['mole', 0.6]], element: 'none', density: 1.14, eliteChance: 0.11, golems: 0.25, theme: 'tide' }
   },
   {
-    id: 'neon', levels: [25, 31], boss: 'neonMaster', after: 'tide', mapPos: [0.62, 0.5], rooms: [10, 12],
+    id: 'neon', levels: [25, 31], boss: 'neonMaster', after: 'tide', mapPos: [0.64, 0.38], rooms: [10, 12],
     encounters: { kinds: [['stalker', 2.5], ['heli', 2], ['trooper', 1.5], ['puffer', 1], ['brute', 1.2], ['turret', 1.2], ['polar', 1], ['mole', 0.6]], element: 'none', density: 1.16, eliteChance: 0.12, golems: 0.25, theme: 'neon' }
   },
   {
-    id: 'rotor', levels: [28, 34], boss: 'rotorMaster', after: 'neon', mapPos: [0.4, 0.52], rooms: [10, 12],
+    id: 'rotor', levels: [28, 34], boss: 'rotorMaster', after: 'neon', mapPos: [0.36, 0.64], rooms: [10, 12],
     encounters: { kinds: [['hornet', 2.5], ['heli', 2], ['trooper', 1.2], ['polar', 1], ['stalker', 1], ['puffer', 0.8], ['brute', 1], ['turret', 1.2]], element: 'none', density: 1.18, eliteChance: 0.12, golems: 0.26, theme: 'rotor' }
   },
   {

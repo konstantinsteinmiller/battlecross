@@ -1,12 +1,13 @@
 # Mega Droid — comic prompts (for Gemini)
 
 This is the story from [`story-arc.md`](./story-arc.md) as a comic, one prompt
-per page, ready to run in Gemini's image generation. It covers 5 character
-reference sheets, a cover and 23 pages.
+per page, ready to run in Gemini's image generation. It covers 6 character
+reference sheets, a cover and 28 pages. Pages 25–29 (the second shift) are
+read between pages 15 and 16.
 
 ## How to use
 
-1. **Make the reference sheets first** (R1–R5). Save the images.
+1. **Make the reference sheets first** (R1–R6). Save the images.
 2. For every page, **start the message with the STYLE block**, then the
    **CHARACTER blocks** the page lists, then the **page prompt**.
 3. **Attach the matching reference sheets** as images. The STYLE block
@@ -146,6 +147,8 @@ own colour.
   bright yellow.
 - GALE MASTER: mint-teal armour, fan fins either side of its helmet, a small
   propeller hub on top, a flowing wing cape. Free spirit. Freed colour: mint.
+MODE: insert-after
+NEW TEXT:
 ```
 
 **[MACHINES]** (the rank-and-file enemies)
@@ -222,6 +225,8 @@ and Gale Master, full body and front view, all to scale next to a small
 Flux silhouette for size. Draw each one twice, top row CONTROLLED (red
 glowing eyes and chest core) and bottom row FREED (eyes in its own colour,
 relaxed pose).
+MODE: insert-after
+NEW TEXT:
 ```
 
 ---
@@ -333,8 +338,8 @@ Panel 4: First person, sharper now: Pip's huge cyan eye pops right into the
 frame, wide with excitement. Around the frame's edges, a heads-up display
 boots up, with a segmented health bar and a small "Lv 1" tag. A little cyan
 globe (Atlas) spins up in the corner.
-Panel 5: First person: Pip projects a cyan hologram map of the valley ring.
-Five districts show red, and on the cliff sits a black fortress inside a red
+Panel 5: First person: Pip projects a cyan hologram map of the valley.
+Ten districts show red, and on the cliff sits a black fortress inside a red
 shield dome. One junkyard district blinks cyan.
 Lettering: Panel 4, Atlas caption: "Core online. Good morning, Flux."
 Panel 5, Atlas caption: "Scrapyard first. One relay at a time." Panel 2 SFX:
@@ -402,7 +407,7 @@ yellow, and a beam of light shoots from it toward the next district on the
 horizon.
 Panel 4: Back in the lab, Flux stands with Pip spinning happily. Behind
 them, on the lab's screens, Vex's red face glitches on, smirking.
-Lettering: Panel 3, Atlas caption: "Relay one lit. Four to go." Panel 4,
+Lettering: Panel 3, Atlas caption: "Relay one lit. Nine to go." Panel 4,
 Pip's bubble: a check icon. Panel 4, Vex's ornate bubble: "A junk crane?
 How… adorable."
 ```
@@ -589,12 +594,19 @@ Panel 4: Flux's crackling yellow Thunder Arc strikes Gale Master mid-dive.
 Panel 5: Gale Master's cape flares back to mint. In the background, the
 whole airship convoy turns around and sails away from the fortress.
 Lettering: Panel 1, Atlas caption: "Every part for its body goes through
-here." Panel 3, Vex's ornate bubble: "Last one! GALE MASTER, blow him
-away!" Panel 2, Flux SFX: "Whoa-oa-oa!" Panel 5, Atlas caption: "No more
+here." Panel 3, Vex's ornate bubble: "Next, please! GALE MASTER, blow
+him away!" Panel 2, Flux SFX: "Whoa-oa-oa!" Panel 5, Atlas caption: "No more
 parts reach the Fortress."
 ```
 
-### Page 16 · The Breach
+---
+
+## Part 3b — The Second Shift
+
+### Page 25 · Polarity Works
+
+**Characters:** FLUX, ATLAS, PIP, VEX, SECOND-SHIFT (Magnet)
+
 
 **Characters:** FLUX, PIP, ATLAS, VEX
 
@@ -602,17 +614,19 @@ parts reach the Fortress."
 [STYLE] [FLUX] [PIP] [ATLAS] [VEX]
 Comic page with 4 panels.
 Panel 1: In the lab, Pip projects a big hologram of the valley. Flux and the
-Atlas globe watch.
-Panel 2 (wide, the biggest panel): The valley at night. Five relay towers
-around the ring each fire a thick beam of light, in yellow, orange, ice
-blue, yellow-white and mint. All five meet at one point on the red shield
-dome over the black fortress, and the shield cracks like glass.
+Atlas globe watch. On the lab screens Vex panics, clutching its skull.
+Panel 2 (wide, the biggest panel): The valley at night. Ten relay towers
+across the valley each fire a thick beam of light, in yellow, orange, ice
+blue, yellow-white, mint, cobalt, ochre, sea blue, hot pink and lime. All
+ten meet at one point on the red shield dome over the black fortress, and
+the shield cracks like glass.
 Panel 3: The shield shatters. Vex's giant hologram face tears apart in red
 static, mid-scream.
 Panel 4: Pip spins in joy, its bubble showing an unlocked-padlock icon.
 Flux clenches his fist.
-Lettering: Panel 3, Vex's torn bubble: "No, no, NO! That shield was
-PATENTED!" Panel 4, Atlas caption: "Shield's down. The Fortress is open."
+Lettering: Panel 1, Vex's ornate bubble: "Ten relays?! Nurse! NURSE!" Panel
+3, Vex's torn bubble: "No, no, NO! That shield was PATENTED!" Panel 4, Atlas
+caption: "Shield's down. The Fortress is open."
 Panel 2 SFX: "KRAAASH!"
 ```
 
@@ -629,8 +643,9 @@ Panel 2 SFX: "KRAAASH!"
 Comic page with 5 panels. Setting: the Vex Fortress, halls of black glass
 with glowing red veins and a skull motif everywhere.
 Panel 1 (wide): Flux walks down a vast hall lined with EMPTY robot assembly
-bays: unfinished armour frames with missing plates, dry coolant pipes, dead
-power rails, empty freight racks. The body parts the villain never got.
+bays: unfinished armour frames with missing plates and missing claws, dry
+coolant pipes, dead power rails, empty freight racks, empty ore bins, dark
+screens and empty drone cradles. The body parts the villain never got.
 Panel 2: A Guardroid and a Shield Trooper charge. Flux parries the Guardroid's
 huge fist, sparks flying.
 Panel 3: Flux climbs a ladder up a vertical shaft inside the spire while a
@@ -651,7 +666,7 @@ Take a seat… FOREVER!"
 ```
 [STYLE] [FLUX] [ATLAS] [MK-I] [VEX]
 Comic page with 5 panels. Setting: a round arena at the peak of the spire,
-tall windows all around showing the night valley, with five relay lights
+tall windows all around showing the night valley, with ten relay lights
 glowing in their colours around the ring.
 Panel 1 (big): The Mk-I descends from above on red thrusters, claws spread,
 Vex's hologram grinning inside the glass dome.
@@ -668,8 +683,8 @@ Panel 2, Atlas caption: "That's Vex. The real one." Panel 3, Atlas caption:
 
 ### Page 19 · The relays hold
 
-**Characters:** FLUX, ATLAS, MK-I, VEX, MASTERS (all four, tiny, far away)
-
+MODE: replace
+NEW TEXT:
 ```
 [STYLE] [FLUX] [ATLAS] [MK-I] [VEX] [MASTERS]
 Comic page with 5 panels.
@@ -677,10 +692,11 @@ Panel 1: The damaged Mk-I rears up, its cracked dome crackling. Vex, furious,
 monocle flying off, sends out a huge red pulse.
 Panel 2 (wide): Seen from outside the spire, a red shock-ring rolls out
 across the whole valley.
-Panel 3 (wide): The red ring hits the circle of five coloured relay towers
-and SHATTERS against them like a wave on rocks. Every relay stays in its own
-colour. In four tiny insets, the four freed Masters (Blaze, Frost, Volt,
-Gale) look up, their eyes staying in their own colours.
+Panel 3 (wide): The red ring hits the ten coloured relay towers across the
+valley and SHATTERS against them like a wave on rocks. Every relay stays in
+its own colour. In two tiny group insets, the freed Masters look up, their
+eyes staying in their own colours: Blaze, Frost, Volt and Gale in one, and
+Magnet, Drill, Tide, Neon and Rotor in the other.
 Panel 4: Inside, Vex's hologram clutches its skull with both claw-hands in
 disbelief.
 Panel 5: Flux raises his cannon, charging, with Atlas glowing steady at his
@@ -718,19 +734,21 @@ Panel 5, Atlas caption: "…No. They can run themselves."
 
 ### Page 21 · The valley wakes
 
-**Characters:** MASTERS, MACHINES (friendly worker-bots)
-
+MODE: replace
+NEW TEXT:
 ```
 [STYLE] [MASTERS]
 Comic page with 4 panels.
 Panel 1 (wide): Seen from high above, the red glow rolls back into the black
 fortress and vanishes.
 Panel 2: One relay tower after another flips from red to its own colour
-around the ring: yellow, orange, ice blue, yellow-white, mint.
+across the valley: yellow, orange, ice blue, yellow-white, mint, cobalt,
+ochre, sea blue, hot pink, lime.
 Panel 3: Airships lift from the sky-docks with mint sails. Friendly
 worker-bots pour out into the streets, waving.
-Panel 4: The four freed Masters stand on a ridge together, each in its own
-colour, looking toward the lab dome.
+Panel 4: The nine freed Masters stand on a ridge together, each in its own
+colour, looking toward the lab dome: Blaze, Frost, Volt and Gale in front,
+Magnet, Drill, Tide, Neon and Rotor beside them.
 Lettering: none (a wordless page).
 ```
 
@@ -763,7 +781,8 @@ of you."
 Comic page with 2 panels.
 Panel 1 (full-width splash, 80 % of the page): Dawn over Ampere Valley. Every
 district glows in its own colour for the first time: yellow, orange, ice
-blue, yellow-white, mint. On the far cliff the black fortress spire stands
+blue, yellow-white, mint, cobalt, ochre, sea blue, hot pink, lime. On the
+far cliff the black fortress spire stands
 dark, crowned with one calm WHITE light. In the foreground, on the lab
 dome's balcony, stand Flux, Gauss and Pip, seen from behind, looking out,
 with the tiny cyan Atlas globe at Flux's shoulder.
