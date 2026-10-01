@@ -11,7 +11,7 @@ platform/infra layer untouched in behaviour:
 - `src/platforms/*`, `src/utils/save/*` (SaveManager + strategies), ads
   providers, portal plugins, `useAds`, `useAdGate`, `useGamePause`,
   `useGamePauseAudio`, `useModalState`, `useGameplayLifecycle`, `useSaveStatus`,
-  `useUser`, `useMatch`, `useHaptics`, the i18n loader and its 21 locales,
+  `useUser`, `useMatch`, `useHaptics`, the i18n loader and its 39 locales,
   `FModal`, `FButton`, `GameIcon`, `OptionsModal`, `SaveStatusBanner`,
   `AdsBlockedModal`, `FPerfMeter`, `usePerfProbe`, `perfVariants`, the build
   scripts and `vite.config.ts`.

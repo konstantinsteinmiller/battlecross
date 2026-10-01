@@ -5,6 +5,9 @@ import GameIcon from '@/components/icons/GameIcon.vue'
 interface Option {
   value: string | number
   label: string
+  /** The label's own language (a language picker's autonyms): its font
+   *  fallback and its uppercasing follow it, not the UI's language. */
+  lang?: string
 }
 
 interface Props {
@@ -29,6 +32,7 @@ const selectedLabel = computed(() => {
   const option = props.options.find(opt => opt.value === props.modelValue)
   return option ? option.label : props.placeholder
 })
+const selectedLang = computed(() => props.options.find(opt => opt.value === props.modelValue)?.lang)
 
 const toggle = () => (isOpen.value = !isOpen.value)
 
@@ -68,7 +72,7 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
         span(class="absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-white/25")
 
         //- Selected Text
-        span.f-select__value(class="text relative block tracking-wide text-white uppercase truncate mr-2") {{ selectedLabel }}
+        span.f-select__value(class="text relative block tracking-wide text-white uppercase truncate mr-2" :lang="selectedLang") {{ selectedLabel }}
 
         //- Arrow Icon
         span.f-select__caret-wrap(
@@ -98,7 +102,7 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
             //- Option Shine (only for selected/hover)
             span(class="absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-white/10")
 
-            span.f-select__option(class="text relative block text-white uppercase tracking-wide") {{ option.label }}
+            span.f-select__option(class="text relative block text-white uppercase tracking-wide" :lang="option.lang") {{ option.label }}
 </template>
 
 <style scoped lang="sass">

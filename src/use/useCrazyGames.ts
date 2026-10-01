@@ -207,9 +207,8 @@ const captureSdkProfile = async (): Promise<void> => {
       info?.userLocale ??
       info?.language ??
       null
-    if (typeof raw === 'string' && raw.length >= 2) {
-      crazyLocale.value = raw.split(/[-_]/)[0]!.toLowerCase()
-    }
+    // The whole tag: `main.ts` maps it region-aware (pt-PT, zh-TW).
+    if (typeof raw === 'string' && raw.length >= 2) crazyLocale.value = raw.trim()
   } catch (e) {
     console.warn('[crazygames] systemInfo locale read failed', e)
   }

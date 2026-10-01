@@ -2,6 +2,7 @@ import type { I18n } from 'vue-i18n'
 import { LANGUAGES } from '@/utils/enums'
 import { getState } from '@/use/useGameState'
 import { LANGUAGE_KEY } from '@/keys'
+import { toLocale } from './localeTag'
 
 // Read straight off `import.meta.env` rather than importing `isPlaygama` from
 // `@/use/useUser`: this module runs during the i18n bootstrap, before the app
@@ -121,10 +122,9 @@ export const resolveInitialLocale = (preferred?: string | null): string => {
   // runtime: a call that never ships cannot be flagged by a reviewer grepping
   // the archive. Rungs 1 and 2 above already carry the portal locale.
   if (!isPlaygama) {
-    const nav = typeof navigator !== 'undefined'
-      ? navigator.language?.split('-')[0]
-      : undefined
-    if (isSupportedLocale(nav)) return nav
+    // Region-aware: pt-PT and zh-TW have their own files (`localeTag.ts`).
+    const nav = typeof navigator !== 'undefined' ? toLocale(navigator.language) : null
+    if (nav) return nav
   }
   return 'en'
 }

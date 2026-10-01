@@ -193,7 +193,10 @@ describe('portal language', () => {
   it('normalises portal tags to shipped codes, and refuses unshipped ones', async () => {
     const m = await load()
     expect(m.normalizePlaygamaLanguage('de-DE')).toBe('de')
-    expect(m.normalizePlaygamaLanguage('zh-Hant')).toBe('zh')
+    expect(m.normalizePlaygamaLanguage('zh-Hant')).toBe('zh-TW')
+    expect(m.normalizePlaygamaLanguage('PT_PT')).toBe('pt-PT')
+    expect(m.normalizePlaygamaLanguage('pt-BR')).toBe('pt')
+    expect(m.normalizePlaygamaLanguage('UA')).toBe('uk')
     expect(m.normalizePlaygamaLanguage('deu')).toBe('de')
     expect(m.normalizePlaygamaLanguage('xx')).toBeNull()
     expect(m.normalizePlaygamaLanguage(undefined)).toBeNull()

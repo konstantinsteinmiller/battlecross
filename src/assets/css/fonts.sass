@@ -8,3 +8,14 @@
   // faces for every other script, so a translated label never falls to a
   // generic monospace.
   --font-pixel: 'Press Start 2P', var(--font-ui)
+
+// Greek: Russo One has no Greek, so a Greek word would mix two faces (its
+// Latin digits and punctuation in Russo, the letters in the fallback). Greek
+// sets wholly in a system sans instead.
+html:lang(el)
+  --font-ui: 'Segoe UI', 'Noto Sans', 'Helvetica Neue', Arial, system-ui, sans-serif
+
+// Traditional Chinese: the Traditional faces before the Simplified ones, or
+// shared characters take the mainland glyph shapes.
+html:lang(zh-Hant)
+  --font-ui: 'Russo One', 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans CJK TC', 'Noto Sans TC', 'Hiragino Sans', system-ui, sans-serif

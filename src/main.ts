@@ -11,7 +11,7 @@ import {
   setI18nLocale,
   isSupportedLocale
 } from '@/i18n'
-import { LANGUAGES } from '@/utils/enums'
+import { bcp47For, toLocale } from '@/i18n/localeTag'
 import { initAds } from '@/use/useAds'
 import { installGamePauseAudio } from '@/use/useGamePauseAudio'
 import { onPauseChange } from '@/use/useGamePause'
@@ -414,7 +414,7 @@ const bootstrap = async () => {
   // other builds. Yandex returns ISO-639-1 (`en`, `ru`, `tr`, etc.);
   // anything we don't ship maps to the resolver's fallback chain.
   const portalLocaleHint = cgLocale ?? yaLocale ?? pkLocale ?? pgLocale ?? gpLocale
-  const portalLocale = portalLocaleHint && LANGUAGES.includes(portalLocaleHint) ? portalLocaleHint : null
+  const portalLocale = toLocale(portalLocaleHint)
 
   // PLAYGAMA: the stored in-game choice wins while the portal language is
   // steady, and a portal language that CHANGED since this device last saw it
@@ -462,7 +462,7 @@ const bootstrap = async () => {
     const g = i18n.global
     watch(
       () => (typeof g.locale === 'string' ? g.locale : g.locale.value) as string,
-      (code) => { document.documentElement.lang = code },
+      (code) => { document.documentElement.lang = bcp47For(code) },
       { immediate: true }
     )
   }

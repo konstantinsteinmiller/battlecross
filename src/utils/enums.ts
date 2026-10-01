@@ -36,16 +36,35 @@ export const LANGUAGES: Array<string> = [
   'tr',
   'uk',
   'uz',
-  'vi'
+  'vi',
+  // The rest of the portal locale set (#116: Playgama + Wavedash).
+  'pt-PT',
+  'zh-TW',
+  'sv',
+  'nb',
+  'da',
+  'fi',
+  'ca',
+  'gl',
+  'az',
+  'cs',
+  'hr',
+  'ro',
+  'hu',
+  'lv',
+  'lt',
+  'eo',
+  'el',
+  'bg'
 ]
 
 // Native name (autonym) for each language, shown in the picker so every option
 // is legible regardless of the active UI language — the standard for language
-// switchers, and it avoids translating 21 language names into 21 languages.
+// switchers, and it avoids translating every language name into every language.
 export const LANGUAGE_AUTONYMS: Record<string, string> = {
   en: 'English',
   ar: 'العربية',
-  zh: '中文',
+  zh: '简体中文',
   de: 'Deutsch',
   nl: 'Nederlands',
   es: 'Español',
@@ -57,11 +76,29 @@ export const LANGUAGE_AUTONYMS: Record<string, string> = {
   ko: '한국어',
   kk: 'Қазақша',
   pl: 'Polski',
-  pt: 'Português',
+  pt: 'Português (Brasil)',
   ru: 'Русский',
   th: 'ไทย',
   tr: 'Türkçe',
   uk: 'Українська',
   uz: 'Oʻzbekcha',
-  vi: 'Tiếng Việt'
+  vi: 'Tiếng Việt',
+  'pt-PT': 'Português (Portugal)',
+  'zh-TW': '繁體中文',
+  sv: 'Svenska',
+  nb: 'Norsk bokmål',
+  da: 'Dansk',
+  fi: 'Suomi',
+  ca: 'Català',
+  gl: 'Galego',
+  az: 'Azərbaycanca',
+  cs: 'Čeština',
+  hr: 'Hrvatski',
+  ro: 'Română',
+  hu: 'Magyar',
+  lv: 'Latviešu',
+  lt: 'Lietuvių',
+  eo: 'Esperanto',
+  el: 'Ελληνικά',
+  bg: 'Български'
 }

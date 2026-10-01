@@ -56,13 +56,19 @@ const GEL_KEYS = [
 const CANNON: Record<string, string> = {
   en: 'cannon', de: 'kanone', es: 'cañón', fr: 'canon', it: 'cannone', pt: 'canhão', nl: 'kanon',
   pl: 'dział', tr: 'top', id: 'meriam', vi: 'pháo', ru: 'пушк', uk: 'гармат', kk: 'зеңбіре',
-  uz: 'toʻp', ja: 'キャノン', ko: '캐논', th: 'ปืนใหญ่', hi: 'तोप', ar: 'مدفع', zh: '臂炮'
+  uz: 'toʻp', ja: 'キャノン', ko: '캐논', th: 'ปืนใหญ่', hi: 'तोप', ar: 'مدفع', zh: '臂炮',
+  'pt-PT': 'canhão', 'zh-TW': '臂砲', sv: 'kanon', nb: 'kanon', da: 'kanon', fi: 'tykk', ca: 'canó', gl: 'canón',
+  az: 'top', cs: 'děl', hr: 'top', ro: 'tun', hu: 'ágyú', lv: 'lielgabal', lt: 'patrank', eo: 'kanon',
+  el: 'κανόν', bg: 'оръди'
 }
 /** …and for the gel (Portuguese pluralises it to "géis"). */
 const GEL: Record<string, string[]> = {
   en: ['gel'], de: ['gel'], es: ['gel'], fr: ['gel'], it: ['gel'], pt: ['gel', 'géis'], nl: ['gel'],
   pl: ['żel'], tr: ['jel'], id: ['gel'], vi: ['gel'], ru: ['гел'], uk: ['гел'], kk: ['гел'],
-  uz: ['gel'], ja: ['ジェル'], ko: ['젤'], th: ['เจล'], hi: ['जेल'], ar: ['جل'], zh: ['凝胶']
+  uz: ['gel'], ja: ['ジェル'], ko: ['젤'], th: ['เจล'], hi: ['जेल'], ar: ['جل'], zh: ['凝胶'],
+  'pt-PT': ['gel', 'géis'], 'zh-TW': ['凝膠'], sv: ['gel'], nb: ['gel'], da: ['gel'], fi: ['geel'], ca: ['gel'],
+  gl: ['xel'], az: ['gel'], cs: ['gel'], hr: ['gel'], ro: ['gel'], hu: ['zselé'], lv: ['gel'], lt: ['gel'],
+  eo: ['ĝel'], el: ['τζελ'], bg: ['гел']
 }
 
 /** Words no locale may use again: MegaMan's, in Latin script. */

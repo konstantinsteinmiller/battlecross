@@ -16,7 +16,7 @@ Mega Droid
 ```
 
 It must match the title shown in the game, which is "Mega Droid" in every
-one of the 21 languages (the `gameName` key). Playgama's moderation checklist
+one of the 39 languages (the `gameName` key). Playgama's moderation checklist
 rejects a game whose name differs between the game and the draft.
 
 ## Short description (one line, 129 characters)
@@ -32,7 +32,7 @@ Rogue machines have overrun the city's sectors, and only Flux can win them back.
 
 Hold to charge your cannon and let go in the flash for a critical hit. Raise your shield to block, time it as the warning ring closes to parry, and slide out of the way of anything you can't block. Crack open supply chests for new gear, level up, plug skill chips into three circuit boards and upgrade your kit in the Workshop. Beat a sector's boss to win its special weapon: fire, ice, lightning, wind or scrap.
 
-Story missions, endless jobs and three difficulty levels. Your progress saves by itself, and it plays in 21 languages, in portrait or landscape, on phone, tablet and desktop.
+Story missions, endless jobs and three difficulty levels. Your progress saves by itself, and it plays in 39 languages, in portrait or landscape, on phone, tablet and desktop.
 ```
 
 ## How to play
@@ -65,20 +65,27 @@ Phone and tablet
 - Genres (main first): Action, Shooter, Adventure, RPG
 - Tags: robots, shooter, first-person, 3D, sci-fi, action RPG, loot, boss fights, upgrades, casual
 
-## Game languages (21)
+## Game languages (all 23 of the form's list)
 
-The game ships these locales and picks the player's language by itself. Tick
-each one the form's list offers:
+The game ships 39 locales (the Playgama + Wavedash portal set) and picks the
+player's language by itself. Tick every one the form's list offers — the game
+covers all 23 (`supportedLanguages` enum):
 
-| Language | Code | Language | Code | Language | Code |
+| Language | Enum | Language | Enum | Language | Enum |
 | --- | --- | --- | --- | --- | --- |
-| English | en | Hindi | hi | Portuguese | pt |
-| Arabic | ar | Indonesian | id | Russian | ru |
-| Chinese (Simplified) | zh | Italian | it | Spanish | es |
-| Dutch | nl | Japanese | ja | Thai | th |
-| French | fr | Kazakh | kk | Turkish | tr |
-| German | de | Korean | ko | Ukrainian | uk |
-| Polish | pl | Uzbek | uz | Vietnamese | vi |
+| English | EN | Hindi | HI | Portuguese (Brazil) | PT_BR |
+| Arabic | AR | Indonesian | ID | Portuguese (Portugal) | PT_PT |
+| Azerbaijani | AZ | Italian | IT | Russian | RU |
+| Chinese (Simplified) | ZH | Japanese | JA | Spanish | ES |
+| Dutch | NL | Kazakh | KK | Thai | TH |
+| French | FR | Korean | KO | Turkish | TR |
+| German | DE | Polish | PL | Ukrainian | UA |
+| Uzbek | UZ | Vietnamese | VI | | |
+
+The other 16 locales (Swedish, Norwegian, Danish, Finnish, Catalan, Galician,
+Czech, Croatian, Romanian, Hungarian, Latvian, Lithuanian, Esperanto, Greek,
+Bulgarian, Chinese (Traditional)) are not on Playgama's list; players reach
+them through the portal language or the in-game picker.
 
 ## Other form settings
 

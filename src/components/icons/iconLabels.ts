@@ -15,7 +15,7 @@ import type { GameIconName } from './iconNames'
  *
  * Where the game already names an action, the key points at THAT string rather
  * than a second translation of the same word — the settings cog is
- * `options.title` in twenty-one languages already. Only the generic transport
+ * `options.title` in every shipped language already. Only the generic transport
  * and navigation glyphs, which the game had no word for, get keys of their own
  * under `ui.*`.
  */

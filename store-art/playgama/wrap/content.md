@@ -18,7 +18,7 @@ Mega Droid
 <p><strong>Rogue machines have overrun the city's sectors. Only Flux can win them back.</strong></p>
 <p>Flux is a pearl-white combat android with glowing amber eyes and a cannon for a forearm. Every mission beams him into a freshly built sector: explore it room by room in first person, blast the machines in your way and take down the boss at the end.</p>
 <p>Charge your cannon for big hits, block and parry incoming fire, and slide out of danger. Loot new gear, level up, wire fresh skills into your circuits, and win every boss's special weapon for yourself.</p>
-<p>Built for quick action sessions and long upgrade runs alike: free in the browser on phone, tablet and desktop, in portrait or landscape, in 21 languages.</p>
+<p>Built for quick action sessions and long upgrade runs alike: free in the browser on phone, tablet and desktop, in portrait or landscape, in 39 languages.</p>
 ```
 
 ### How to Play
@@ -40,7 +40,7 @@ Charge shots with a perfect-timing critical hit, shield blocks, parries and a do
 5 special weapons won from bosses: fire, ice, lightning, wind and scrap
 Gear in 4 rarities, Workshop upgrades and 18 skills on 3 circuit boards
 Story missions plus endless jobs: hunt, recover, rescue, supply and purge
-Autosave with mission resume, 3 difficulty levels, 21 languages, portrait or landscape
+Autosave with mission resume, 3 difficulty levels, 39 languages, portrait or landscape
 ```
 
 ### FAQ (question / answer pairs)

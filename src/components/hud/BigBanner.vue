@@ -46,7 +46,7 @@ const DESIGN_MAX: Record<BannerKind, number> = { cleared: 112, bossDown: 150, ga
 /** Scripts without capitals. A Han, Hangul, Thai, Devanagari or Arabic glyph
  *  fills more of its em than a Latin capital does, so these set a size
  *  smaller to look as large, and they are never tracked (see index.sass). */
-const CASELESS = new Set(['ja', 'zh', 'ko', 'th', 'hi', 'ar'])
+const CASELESS = new Set(['ja', 'zh', 'zh-TW', 'ko', 'th', 'hi', 'ar'])
 const CASELESS_SCALE = 0.86
 
 const root = ref<HTMLElement | null>(null)

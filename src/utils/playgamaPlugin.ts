@@ -54,7 +54,7 @@ import { isPlaygama } from '@/use/useUser'
 import { isDebug } from '@/use/useMatch'
 import { pauseGame, resumeGame } from '@/use/useGamePause'
 import { setPlatformAudioMuted } from '@/use/useGamePauseAudio'
-import { LANGUAGES } from '@/utils/enums'
+import { toLocale } from '@/i18n/localeTag'
 import type { SaveStrategy } from '@/utils/save/types'
 // Static import — the obfuscator's `stringArray` mangles dynamic-import
 // literals, which on the Playgama QA Tool surfaced as
@@ -219,27 +219,14 @@ const wrapSuppliedLanguage = (bridge: Bridge): unknown => {
   }
 }
 
-const LANGUAGE_ALIASES: Record<string, string> = {
-  jpn: 'ja', kor: 'ko', cmn: 'zh', chi: 'zh', zho: 'zh',
-  eng: 'en', deu: 'de', ger: 'de', spa: 'es', fra: 'fr', fre: 'fr',
-  rus: 'ru', ara: 'ar', ukr: 'uk', tur: 'tr', pol: 'pl', nld: 'nl',
-  dut: 'nl', ita: 'it', por: 'pt', hin: 'hi', tha: 'th', vie: 'vi',
-  ind: 'id', kaz: 'kk', uzb: 'uz'
-}
-
 /**
  * BCP-47 / ISO-639 tag → an internal code from `LANGUAGES`, or `null` for a
  * language this game does not ship. `null`, never the raw code, so an unshipped
  * portal language cannot knock the player out of a language they chose.
- * Script and region subtags collapse (`zh-Hant` → `zh`, `pt-BR` → `pt`).
+ * Region-aware where the game ships two variants (`pt_PT` → `pt-PT`,
+ * `zh-Hant` → `zh-TW`, `pt-BR` → `pt`); see `i18n/localeTag.ts`.
  */
-export const normalizePlaygamaLanguage = (raw: unknown): string | null => {
-  if (typeof raw !== 'string') return null
-  const base = raw.toLowerCase().trim().split(/[-_]/)[0]
-  if (!base) return null
-  const code = LANGUAGE_ALIASES[base] ?? base
-  return LANGUAGES.includes(code) ? code : null
-}
+export const normalizePlaygamaLanguage = (raw: unknown): string | null => toLocale(raw)
 
 let lastLoggedLanguage: string | null = null
 let languageRead = false

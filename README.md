@@ -60,7 +60,7 @@ The game starts right in the first mission. There is no menu.
   per-portal cloud strategies, including a resumable mid-mission snapshot.
   Saves from before the rename (`mega_adventure_*` keys) move onto the new
   keys once, on boot and on the first cloud read (`src/legacyKeys.ts`).
-- **21 languages**, including RTL Arabic and CJK, with a parity test.
+- **39 languages** (the Playgama + Wavedash portal set), including RTL Arabic, Greek and Simplified + Traditional Chinese, with a parity test.
 
 ## Where things are
 

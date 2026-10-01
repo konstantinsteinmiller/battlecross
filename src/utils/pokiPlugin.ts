@@ -183,7 +183,8 @@ export const readPokiLanguage = (): string | null => {
   if (!sdk) return null
   try {
     const raw = sdk.getLanguage?.()
-    const code = typeof raw === 'string' ? raw.trim().toLowerCase().split('-')[0] : ''
+    // The whole tag: `main.ts` maps it region-aware (pt-PT, zh-TW).
+    const code = typeof raw === 'string' ? raw.trim() : ''
     if (code) pokiLocale.value = code
     return code || null
   } catch (e) {

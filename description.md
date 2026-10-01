@@ -44,7 +44,7 @@ H uses Repair Gel, E interacts, B beams out and Tab switches target.
   rescue, supply and purge.
 - Progress saves automatically, and an unfinished mission resumes where you
   left it.
-- 21 languages, plays in portrait or landscape, and runs well on phones.
+- 39 languages, plays in portrait or landscape, and runs well on phones.
 
 ## Tags
 

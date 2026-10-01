@@ -8,6 +8,7 @@ import FButton from '@/components/atoms/FButton.vue'
 import FSlider from '@/components/atoms/FSlider.vue'
 import FSelect from '@/components/atoms/FSelect.vue'
 import { LANGUAGES, LANGUAGE_AUTONYMS, DIFFICULTY } from '@/utils/enums'
+import { bcp47For } from '@/i18n/localeTag'
 import { hapticsAvailable, hapticsEnabled, setHapticsEnabled } from '@/use/useHaptics'
 import { killCamsEnabled, setKillCamsEnabled } from '@/use/useKillCam'
 import { touchFirst } from '@/game/engine/input'
@@ -80,7 +81,8 @@ const tabs = computed(() => {
 const languagesList = computed(() =>
   LANGUAGES.map(loc => ({
     value: loc,
-    label: LANGUAGE_AUTONYMS[loc] ?? loc
+    label: LANGUAGE_AUTONYMS[loc] ?? loc,
+    lang: bcp47For(loc)
   }))
 )
 

@@ -717,7 +717,8 @@ const captureLocale = (): void => {
   if (!sdk) return
   const raw = callFirstAvailable<string>(sdk, ['lang', 'getLocale', 'getLanguage'])
   if (typeof raw !== 'string' || raw.length < 2) return
-  const code = raw.split(/[-_]/)[0]!.toLowerCase()
+  // The whole tag: `main.ts` maps it region-aware (pt-PT, zh-TW).
+  const code = raw.trim()
   gamePixLocale.value = code
   if (isDebug.value) console.info(`[gamepix] locale captured: ${code}`)
 }

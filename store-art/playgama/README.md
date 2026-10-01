@@ -15,7 +15,7 @@ Nothing here ships in the game: only `public/` goes into the build.
 | Title (`title`) | `Mega Droid` (must match the in-game title) |
 | Description (`description`) | `game-form.md` → Description |
 | How to play (`howToPlayText`) | `game-form.md` → How to play |
-| Game Languages (`supportedLanguages`) | `game-form.md` → the 21 languages |
+| Game Languages (`supportedLanguages`) | `game-form.md` → all 23 of the form's languages |
 | Supported Devices (`supportedDevices`) | Desktop, Android, iOS |
 | Screen Orientation (`isHorizontal`, `isVertical`) | both on |
 | Game Features (`leaderboards`, `multiplayer`, `social`) | all off (see `game-form.md`) |
