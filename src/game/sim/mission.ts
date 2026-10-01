@@ -66,9 +66,9 @@ import { cineWorld, type CineWorld, type CineBox } from './cineCam'
 import { FreezeDirector, type FreezeKind, type FreezeSpec } from './freezeCam'
 import { Training, TUTORIAL_TRAINING, type TrainHost, type TrainId } from './training'
 import { BossArena, type ArenaHost } from './bossArena'
-import { BossCrane } from './bossCrane'
-import { CoreDescent } from './coreDescent'
-import { GrandMaster } from './grandMaster'
+import type { BossCrane } from './bossCrane'
+import type { CoreDescent } from './coreDescent'
+import type { GrandMaster } from './grandMaster'
 import { bossHpMul, PROGRESS_HP } from './adaptive'
 import { DemoDriver, chargeDemo, blockDemo, slideDemo, gapDemo, gelDemo, type DemoScript } from './demo'
 import { wantsKillCam, KILLCAM_DUR, KILLCAM_HAZARD_R, KILLCAM_ALERT_R } from './killCam'
@@ -715,11 +715,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     }
     if (this.boss && this.bossRoom) this.arena = new BossArena(this, this.bossRoom, (setup.quest?.seed ?? 1) ^ 0x51ab)
     // The Scrapper fights under his magnet crane (#108).
-    if (this.boss?.bossId === 'scrapper' && this.bossRoom) this.crane = new BossCrane(this, this.bossRoom)
+    // (Loaded with the Scrapper's arena only: no other map pays for it.)
+    if (this.boss?.bossId === 'scrapper' && this.bossRoom) {
+      const { BossCrane } = await import('./bossCrane')
+      this.crane = new BossCrane(this, this.bossRoom)
+    }
     // Vex is fought on the roof, in the reactor hall and on the Core ring (#109).
     const stages = this.map.terrain?.bossStages
     if (this.boss && stages && stages.length > 1) {
       const self = this
+      // The Fortress's finale is its own chunk: loaded with the Fortress only.
+      const [{ CoreDescent }, { GrandMaster }] = await Promise.all([import('./coreDescent'), import('./grandMaster')])
       this.descent = new CoreDescent({
         get player() { return self.player },
         get combat() { return self.combat },

@@ -90,7 +90,7 @@ export interface EndingHandle extends Pick<import('./engine/app').GameMode, 'sce
   advance(): void
   choose(choice: 'ngplus' | 'lab'): void
 }
-type EndingFactory = (opts: { onEnd: (choice: 'ngplus' | 'lab') => void }) => EndingHandle
+type EndingFactory = (opts: { onEnd: (choice: 'ngplus' | 'lab') => void }) => Promise<EndingHandle>
 let missionFactory: MissionFactory | null = null
 let hubFactory: HubFactory | null = null
 let introFactory: IntroFactory | null = null
@@ -112,14 +112,14 @@ let pendingEnding = false
  * The ending (#102), after the Fortress's results (and the interstitial, if
  * one was due — never during it). Its card offers a New Game+ run or the lab.
  */
-export const startEnding = (): void => {
+export const startEnding = async (): Promise<void> => {
   if (!endingFactory) { goHub(); return }
   flow.modal = ''
   flow.screen = 'ending'
   hud.phase = 'done'
   hud.combat = false
   hud.bossName = ''
-  const m = endingFactory({
+  const m = await endingFactory({
     onEnd: (choice) => {
       endingLive = null
       if (!profile.world.seen.includes('ending')) profile.world.seen.push('ending')
@@ -580,7 +580,7 @@ export const leaveResults = async (): Promise<void> => {
     leavingResults = false
     if (pendingEnding) {
       pendingEnding = false
-      startEnding()
+      void startEnding()
     } else goHub()
   }
 }

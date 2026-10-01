@@ -168,6 +168,25 @@ phone before acting on it.
   has no memory killer. To keep or revert it: a real iPhone, Safari Web
   Inspector, both arms, memory and frame time after 5 min in a mission.
 
+### 8. Chunk 20's weight, and the finale on demand — KEPT (2026-10-01)
+
+- Measured: the default build (obfuscated) against 947ce03, gzip. Boot
+  372.5 → 453.5 KB, GameScene 69.9 → 111.0 KB, index 81.6 → 96.1 KB, each
+  locale +2.5–3 KB (the new strings). The growth is the new code itself
+  (obfuscation roughly triples it), not a lost code split: the stage
+  generators still load on demand.
+- Change: the Grand Master + Core Descent (6.7 + ~1 KB), the Scrapper's crane
+  (2.3 KB) and the ending film are their own chunks now, fetched with the
+  Fortress, the Scrapper's arena and the ending only (boot −11.6 KB gz from
+  the first measure). The ending's layer reads a tiny state module so it
+  never pulls the film in.
+- The Playgama/YouTube build: the youtube-fit audit gives the same verdict
+  before and after (its 9 MUST failures are the bridge library's SDK strings,
+  handled by the release pipeline, unchanged by this chunk); initial load
+  2.96 MiB, well under the 5 MiB ideal.
+- Not measured: frame time in the Grand Master fight on a phone (≈12 extra
+  draw calls: six parts with outlines, the marker, the beams).
+
 ## Open hypotheses (not applied, not measured)
 
 - The inverted-hull outline doubles every decor and character triangle.

@@ -1,4 +1,3 @@
-import { reactive } from 'vue'
 import {
   Color, DirectionalLight, Fog, Group, HemisphereLight, PerspectiveCamera, Scene, Vector3
 } from 'three'
@@ -20,6 +19,9 @@ import {
   CARD_FROM, CREDITS_FROM, FREE_FROM, FREE_TO, LAB_FROM, OPEN_FROM, OPEN_TO, STEP_FROM, STEP_TO, SUNRISE_FROM, THAW_FROM, THAW_TO,
   captionAt, nextBeat, ramp, shotAt, type Speaker
 } from './endingScript'
+import { endingUi } from './endingUi'
+
+export { endingUi }
 
 /**
  * ─── The ending, "First Free Morning" (#102) ─────────────────────────────────
@@ -31,20 +33,6 @@ import {
  * to the card; a tap jumps to the next line. No ads and no gameplay bracket
  * run here (the screen is not a mission).
  */
-
-/** What the layer shows, updated each step. */
-export const endingUi = reactive({
-  on: false,
-  t: 0,
-  caption: '' as string,
-  speaker: '' as Speaker,
-  /** Bumped whenever a new caption comes up (the layer replays its entrance). */
-  seq: 0,
-  credits: false,
-  card: false,
-  /** The roll's progress, 0..1. */
-  roll: 0
-})
 
 export interface EndingOptions {
   /** The player chose on the card: a New Game+ run, or back to the lab. */

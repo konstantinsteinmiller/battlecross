@@ -49,7 +49,7 @@ import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import MasterPortrait from '@/components/atoms/MasterPortrait.vue'
-import { endingUi } from '@/game/story/ending'
+import { endingUi } from '@/game/story/endingUi'
 import { endingLive } from '@/game/flow'
 import type { BossId } from '@/game/models/bosses'
 

@@ -590,7 +590,10 @@ while bars and damage numbers get direct DOM writes.
     lower), a click on every FButton, a close blip for every modal, the
     loudest hits trimmed 2–3 dB. Song loudness left as composed (needs a
     listening pass, not a constant).
-  - [ ] **P11 boot/perf**.
+  - [x] **P11 boot/perf**: the finale (Grand Master + Core Descent), the
+    Scrapper's crane and the ending film load on demand; PERF-LEDGER 8
+    (sizes against 947ce03; the youtube-fit verdict unchanged, initial load
+    2.96 MiB).
   - Deferred: outro replay menu; checkpoint retry outside the Fortress; boot
     shader time-slicing until a real iPhone is timed.
 

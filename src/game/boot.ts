@@ -6,7 +6,6 @@ import { bakeTextures, loadTextureOverrides } from './world/textures'
 import { Mission, setupFromQuest } from './sim/mission'
 import { HubMode } from './sim/hub'
 import { IntroMode } from './story/intro'
-import { EndingMode } from './story/ending'
 import { app, type GameMode } from './engine/app'
 import { initProfile } from './state/profile'
 import { registerModeFactories, createBootMode, ensureJobs } from './flow'
@@ -110,7 +109,8 @@ registerModeFactories(
   },
   () => new HubMode(),
   (opts) => new IntroMode(opts),
-  (opts) => new EndingMode(opts)
+  // The ending's own chunk, fetched when the Fortress is won.
+  async (opts) => new (await import('./story/ending')).EndingMode(opts)
 )
 
 let prepared: GameMode | null = null
