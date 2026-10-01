@@ -538,6 +538,40 @@ while bars and damage numbers get direct DOM writes.
     5.85 s; the remaining 1.2 s intro hitch predates this work and needs a
     real-device check).
 
+- **Chunk 20 — cybercity-story.md #100–#115 (2026-10-01).** Same one-writer
+  method. Decisions (all defaults, accepted by the user) in
+  https://claude.ai/artifact/AkWcZBqhx4iQopucLL5Pa9. #104–#107 were done before
+  this chunk. Commit after every phase, then continue.
+  - [x] **P0 #113 test cleanup** (b451b57): no /world, /characters or /water
+    routes here; dead test out, predecessor fixtures re-keyed, Node test env
+    by default (jsdom opt-in per file), full run ~43 s → ~30 s.
+  - [x] **P1 #112 iOS resilience** (841344f): GL context-loss veil and
+    recovery, gesture-armed audio resume for life, iPadOS = mobile, checklist
+    taps, iOS low scenery + 1.5x (PERF-LEDGER 7, unmeasured).
+  - [ ] **P1b #114/#115 platform fit**: language read once (no Playgama poll),
+    portal language never saved as the player's choice + explicit-choice flag,
+    Options shows the live language, GamePix hint, Yandex retry + merge, F1 /
+    Help opens the controls legend everywhere + frame focus.
+  - [ ] **P2 #100 Overload shot** (giga re-timed: full + 3 s, 7x; Gale gate;
+    bolt-priced epic-violet mod; Pip opens it).
+  - [ ] **P3 Shared engines**: story-cutscene player, in-mission scenes,
+    retry-from-checkpoint (Fortress), multi-room boss, multi-part boss +
+    segmented bar + Atlas markers, drop hazards + movable crates, stage light
+    pulse, baked Master portraits, audio mix engine (voice bus, ducking,
+    variation, voice cap, SFX low-pass, limiter).
+  - [ ] **P4 Retrofits**: 4.1 Scrapper crane (#108), 4.2 Neon blackout pulses
+    (#110), 4.3 Deep Mine cart (#111).
+  - [ ] **P5 #103 stage-select missions** (portrait grid, colour borders,
+    boss splash in the load window).
+  - [ ] **P6 #109 Core Descent** (roof → reactor hall → Core ring).
+  - [ ] **P7 #101 Grand Master Bot** (7.1 rig + red-button assembly, 7.2 the
+    four-part fight on the roof, Prism Cannon, checkpoint after Vex).
+  - [ ] **P8 #102 outro + New Game+** (~2 min, skippable, credits, end card).
+  - [ ] **P9 story/docs catch-up** (comic skipped).
+  - [ ] **P10 final balance**; **P10b #114 sound pass**; **P11 boot/perf**.
+  - Deferred: outro replay menu; checkpoint retry outside the Fortress; boot
+    shader time-slicing until a real iPhone is timed.
+
 ## Resume notes
 
 - Dev server: `pnpm dev` (port 2194 — 2050/2077/2193 belong to other games
