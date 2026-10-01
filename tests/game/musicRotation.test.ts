@@ -5,7 +5,7 @@ vi.mock('virtual:asset-overrides', () => ({ default: { sfx: [], music: [], textu
 import { getSong, songSeconds, type SongId } from '@/game/audio/songs'
 import { songFor, shouldRotate, keepsPlaying, ROTATION_SIZE, ROTATE_AFTER_S } from '@/game/audio/music'
 
-const AREAS = ['hub', 'scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'magnet', 'fortress'] as const
+const AREAS = ['hub', 'scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'fortress'] as const
 const ALL: SongId[] = [...AREAS, 'drift', 'circuit', 'boss']
 const CHIP = /^c[A-Z]/
 

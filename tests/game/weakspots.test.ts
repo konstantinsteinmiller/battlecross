@@ -44,7 +44,7 @@ const body = (o: Partial<WeakBody> = {}): WeakBody =>
 
 describe('Weak spots: the data', () => {
   const kinds: EnemyKind[] = ['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret', 'golem']
-  const bosses: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'vexMk1']
+  const bosses: BossId[] = ['scrapper', 'blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'drillMaster', 'vexMk1']
 
   it('every machine and every boss has one', () => {
     for (const k of kinds) expect(ENEMY_WEAK[k], k).toBeDefined()
@@ -52,7 +52,7 @@ describe('Weak spots: the data', () => {
   })
   it('the androids are hit in the head', () => {
     for (const k of ['hardhat', 'trooper', 'brute'] as const) expect(ENEMY_WEAK[k].part).toBe('head')
-    for (const b of ['blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster'] as const) expect(BOSS_WEAK[b].part).toBe('head')
+    for (const b of ['blazeMaster', 'frostMaster', 'voltMaster', 'galeMaster', 'magnetMaster', 'drillMaster'] as const) expect(BOSS_WEAK[b].part).toBe('head')
   })
   it('the robots are open at the back or the tail', () => {
     for (const k of ['heli', 'hopper', 'roller', 'turret', 'golem'] as const) {

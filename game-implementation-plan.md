@@ -471,6 +471,14 @@ while bars and damage numbers get direct DOM writes.
       Interim until P7.5: the Fortress band rises with each new sector
       (now [19, 27], finally [31, 40]); the Magnet Master's `weakTo` is null
       until the Drill Bomb exists (P7.2 sets it, and `WEAK_TO`).
+    - [x] P7.2 Drill: Deep Mine (11 sections + arena + beam room, 18 m down to
+      0), boulders (plain walls; cracked ones break only to a level-2 charge
+      or a Drill Bomb — the ice pillars on the drill theme), stalactites (the
+      icicles on the drill theme), a two-cage mine elevator; Mole Driller
+      (tunnels `buried`, bursts up on a red marker, out 1.8 s); Drill Master
+      (burrow, drillBombs, charge; quake); Drill Bomb (bores on, bursts r 2.5,
+      60% splash); Magnet weak to it now. Fortress interim band [22, 30].
+      The Drill Master's `weakTo` waits for the Bubble Lance (P7.3).
   - [ ] **P8 Vex Fortress** (Core Descent finale).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**

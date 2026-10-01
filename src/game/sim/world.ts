@@ -44,6 +44,9 @@ export interface Enemy {
   /** A boss before its entrance: not in the arena yet, so it is not drawn,
    *  hit, aimed at, woken or bumped into. Its intro drops it in. */
   offstage?: boolean
+  /** Under the floor (a Mole Driller between surfacings, the Drill Master's
+   *  burrow): not drawn, hit or aimed at; it still moves and acts. */
+  buried?: boolean
   /** A machine asleep in disguise (the crate golem as a supply crate): drawn
    *  and hit like the prop it pretends to be, but never noticed, aimed at or
    *  locked on to as a machine, never woken by sight, noise or a room-mate —

@@ -2,7 +2,7 @@ import {
   Group, Mesh, MeshBasicMaterial, AdditiveBlending, Color, DoubleSide, CylinderGeometry, Float32BufferAttribute,
   Shape, ExtrudeGeometry, type BufferGeometry
 } from 'three'
-import { rcyl, torus, sph, cap, ell, rbox, lathe, xform, paint, merge } from './kit'
+import { rcyl, rcone, torus, sph, cap, ell, rbox, lathe, xform, paint, merge } from './kit'
 import { toonVC, glowVC, outlineMat } from './toon'
 import { WEAPONS, type WeaponId } from '../data/weapons'
 
@@ -112,6 +112,11 @@ const glyph = (id: WeaponId): BufferGeometry => {
       // A horseshoe opening up, its two pole tips.
       parts.push(xform(paint(torus(0.1, 0.035, 6, 14, Math.PI), W), [0, -0.02, 0], [0, 0, Math.PI]))
       for (const s of [-1, 1]) parts.push(xform(paint(rcyl(0.035, 0.14, 0.01, 8), W), [s * 0.1, 0.05, 0]))
+      break
+    case 'drillBomb':
+      // A drill bit pointing down, banded.
+      parts.push(xform(paint(rcone(0.1, 0.01, 0.3, 0.01, 10), W), [0, -0.04, 0], [Math.PI, 0, 0]))
+      parts.push(xform(paint(rcyl(0.045, 0.1, 0.01, 8), W), [0, 0.16, 0]))
       break
     case 'galeGuard':
       // Three leaves round a centre: the orbit.

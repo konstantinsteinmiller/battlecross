@@ -31,7 +31,7 @@ const flag = (name) => { const i = argv.indexOf(name); if (i < 0) return null; c
 const OUT = flag('--out')
 const SECONDS = Number(flag('--seconds') ?? 0)
 const STEMS = argv.includes('--stems') ? (argv.splice(argv.indexOf('--stems'), 1), true) : false
-const ALL = ['hub', 'scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'magnet', 'fortress', 'drift', 'circuit', 'boss']
+const ALL = ['hub', 'scrapyard', 'blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'fortress', 'drift', 'circuit', 'boss']
 const ids = argv.length ? argv : ALL
 
 // 1. Bundle songs.ts for the browser with Vite's own build (no extra deps).

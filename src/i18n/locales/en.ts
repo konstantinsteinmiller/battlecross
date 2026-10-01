@@ -75,6 +75,7 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'mole': 'Mole Driller',
     'polar': 'Polar Pup',
     'hardhat': 'Hardhat',
     'trooper': 'Shield Trooper',
@@ -90,6 +91,7 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'mole': 'Mole Driller | Mole Drillers',
     'polar': 'Polar Pup | Polar Pups',
     'hardhat': 'Hardhat | Hardhats',
     'trooper': 'Shield Trooper | Shield Troopers',
@@ -115,6 +117,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Drill Master',
     'magnetMaster': 'Magnet Master',
     'stand': 'Scrapper',
     'scrapper': 'Scrapper',
@@ -126,6 +129,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Deep Mine',
     'magnet': 'Polarity Works',
     'scrapyard': 'Scrapyard',
     'blaze': 'Blaze Refinery',
@@ -148,7 +152,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -509,7 +513,8 @@ export default {
     'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that chills what it hits and slows it down.' },
     'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
     'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' },
-    'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' }
+    'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' },
+    'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' }
   },
 
   'options': {
@@ -656,6 +661,10 @@ export default {
       'charge': "Let's train the Charge Shot!",
     },
     'hint': {
+      'drill': {
+        'drop': 'Rocks falling! Step out of the shadows.',
+        'rock': 'Cracked rock! A full charge will break it.',
+      },
       'magnet': {
         'panel': 'See that red-blue plate? Shoot it to flip the rail.',
         'rail': 'Magnet rail! The arrows show the pull. Push through, or ride it.',
@@ -710,6 +719,7 @@ export default {
       'story': "A Core Master waits. Let's free it!"
     },
     'story': {
+      'drill': 'Deep Mine. Mind your head!',
       'magnet': 'Polarity Works. My compass spins!',
       'scrapyard': 'Scrapyard relay. Light it up!',
       'blaze': 'The Refinery. Hot, hot, hot!',

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Molboorder',
     'polar': 'Poolpup',
     'hardhat': 'Bouwhelm',
     'trooper': 'Schildsoldaat',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Molboorder | Molboorders',
     'polar': 'Poolpup | Poolpups',
     'hardhat': 'Bouwhelm | Bouwhelmen',
     'trooper': 'Schildsoldaat | Schildsoldaten',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Boormeester',
     'magnetMaster': 'Magneetmeester',
     'stand': 'Sloper',
     'scrapper': 'Sloper',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Diepe Mijn',
     'magnet': 'Polariteitsfabriek',
     'scrapyard': 'Schroothoop',
     'blaze': 'Gloedraffinaderij',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'IJslans', 'desc': 'Een doorborende lans die alles wat hij raakt onderkoelt en vertraagt.' },
     'thunderArc': { 'name': 'Donderboog', 'desc': 'Directe bliksem die overspringt op machines in de buurt.' },
     'galeGuard': { 'name': 'Stormschild', 'desc': 'Bladeren cirkelen om je heen, blokkeren schoten en snijden machines aan stukken. Gebruik opnieuw om ze weg te slingeren.' },
-    'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' }
+    'magnetPull': { 'name': 'Magneettrek', 'desc': 'Een zoekend hoefijzer dat schilden en schalen kraakt en vliegers uit de lucht trekt.' },
+    'drillBomb': { 'name': 'Boorbom', 'desc': 'Een boorbom die ontploft waar hij stopt en elke machine in de buurt raakt. Breekt gebarsten rots.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Laten we het Geladen Schot trainen!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Vallende stenen! Stap uit de schaduwen.',
+        'rock': 'Gebarsten rots! Een volledig geladen schot breekt hem.',
+      },
       'magnet': {
         'panel': 'Zie je die rood-blauwe plaat? Schiet erop om de rail om te polen.',
         'rail': 'Magneetrail! De pijlen tonen de trekkracht. Duw erdoorheen, of laat je meevoeren.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Een Kernmeester wacht. Laten we hem bevrijden!'
     },
     'story': {
+      'drill': 'Diepe Mijn. Let op je hoofd!',
       'magnet': 'Polariteitsfabriek. Mijn kompas tolt!',
       'scrapyard': 'Schroothoop-relais. Laat het stralen!',
       'blaze': 'De Raffinaderij. Heet, heet, heet!',

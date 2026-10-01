@@ -103,8 +103,18 @@ const PATTERN: Record<string, { tele: number; red: boolean }> = {
   lobBarrage: { tele: 0.8, red: true },
   magnetMissiles: { tele: 0.7, red: false },
   polePull: { tele: 0.9, red: true },
-  polarStorm: { tele: 0.8, red: false }
+  polarStorm: { tele: 0.8, red: false },
+  burrow: { tele: 0.6, red: true },
+  drillBombs: { tele: 0.7, red: true },
+  quake: { tele: 0.9, red: true }
 }
+
+/** The Drill Master's burrow: how long it tunnels after Flux (s), how fast
+ *  (m/s), the warning before it bursts up (s, the marker) and its reach (m). */
+const BURROW_T = 1.5
+const BURROW_SPEED = 6.5
+const BURROW_WARN = 0.7
+const BURROW_R = 2.3
 
 /** The Magnet Master's Pole Pull: how long it drags, how hard (m/s — under
  *  Flux's walk, so walking away holds him and a slide breaks free), and the
@@ -583,6 +593,74 @@ const runPattern = (w: World, e: Enemy, dt: number, d: number, room: Room | null
         if (d < POLE_CLAMP_R + PLAYER_R) w.hitPlayer(e, Math.round(e.dmg * 1.3), { blockable: true, fromX: e.x, fromZ: e.z, kind: 'melee' })
       }
       return e.st > POLE_PULL_T + 0.35
+    }
+    case 'burrow': {
+      // Down into the floor (untouchable), a dust trail chasing Flux; the
+      // marker shows where it will burst up, then it does.
+      if (e.step === 0) {
+        e.step = 1
+        e.a = 0
+        e.buried = true
+        w.fx.sparks(e.x, 0.3, e.z, '#8a6a52', 20, 6, 0.3)
+        w.sfx('stomp', e.x, e.z)
+      }
+      if (e.step === 1) {
+        const dx = p.x - e.x
+        const dz = p.z - e.z
+        const l = Math.hypot(dx, dz)
+        if (l > 0.3) step(w, e, (dx / l) * BURROW_SPEED * dt, (dz / l) * BURROW_SPEED * dt)
+        if (Math.random() < 0.7) w.fx.emit({ x: e.x + (Math.random() - 0.5) * 1.2, y: 0.1, z: e.z + (Math.random() - 0.5) * 1.2, vy: 1.5 + Math.random() * 1.5, color: Math.random() < 0.5 ? '#8a6a52' : '#c9b08a', size: 0.5, sizeEnd: 0.1, life: 0.55, gravity: 3 })
+        if (e.st >= BURROW_T - BURROW_WARN && e.a === 0) {
+          e.a = 1
+          w.markers.spawn(e.x, e.z, BURROW_R, BURROW_WARN + 0.2)
+        }
+        if (e.st >= BURROW_T) {
+          e.step = 2
+          e.a = 0
+          e.buried = false
+          w.shocks.spawn(e.x, 0.05, e.z, BURROW_R + 0.6, def.color, 0.45)
+          w.fx.sparks(e.x, 0.5, e.z, '#ffd35a', 26, 9, 0.28)
+          w.shake(0.5)
+          w.sfx('stomp', e.x, e.z)
+          if (d < BURROW_R + PLAYER_R) w.hitPlayer(e, Math.round(e.dmg * 1.3), { blockable: false, fromX: e.x, fromZ: e.z, kind: 'aoe' })
+        }
+        return false
+      }
+      return e.st > BURROW_T + 0.5
+    }
+    case 'drillBombs': {
+      // Two bombs lobbed either side of Flux, then one at him.
+      const n = 3
+      if (e.step < n && e.st >= e.step * 0.22) {
+        const ang = Math.atan2(p.x - e.x, p.z - e.z) + Math.PI / 2
+        const off = e.step === 2 ? 0 : (e.step === 0 ? -2.4 : 2.4)
+        const tx = p.x + Math.sin(ang) * off
+        const tz = p.z + Math.cos(ang) * off
+        w.markers.spawn(tx, tz, 1.9, 1.05)
+        w.lobShell(e, tx, tz, 1.0, Math.round(e.dmg * 0.95))
+        w.sfx('lob', e.x, e.z)
+        e.step++
+      }
+      return e.st > n * 0.22 + 0.4
+    }
+    case 'quake': {
+      // The mine shakes: two rings, and rock falls round Flux.
+      if (e.step < 2 && e.st >= e.step * 0.7) {
+        w.spawnRing(e, e.x, e.z, 8, 10, Math.round(e.dmg * 0.85), '#ffc21a')
+        w.shake(0.45)
+        if (e.step === 0) {
+          for (let k = 0; k < 4; k++) {
+            const a = Math.random() * Math.PI * 2
+            const r = 1.5 + Math.random() * 3
+            const tx = p.x + Math.cos(a) * r
+            const tz = p.z + Math.sin(a) * r
+            w.markers.spawn(tx, tz, 1.6, 1.2)
+            w.lobShell(e, tx, tz, 1.1, Math.round(e.dmg * 0.8))
+          }
+        }
+        e.step++
+      }
+      return e.st > 1.7
     }
     case 'dive': {
       if (e.step === 0) {

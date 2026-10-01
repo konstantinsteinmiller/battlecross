@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Matkap Köstebek',
     'polar': 'Kutup Yavrusu',
     'hardhat': 'Baretli',
     'trooper': 'Kalkanlı Asker',
@@ -76,6 +77,7 @@ export default {
   // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
   // forms are the singular on purpose.
   'enemyPlural': {
+    'mole': 'Matkap Köstebek | Matkap Köstebek',
     'polar': 'Kutup Yavrusu | Kutup Yavrusu',
     'hardhat': 'Baretli | Baretli',
     'trooper': 'Kalkanlı Asker | Kalkanlı Asker',
@@ -101,6 +103,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Matkap Ustası',
     'magnetMaster': 'Mıknatıs Ustası',
     'stand': 'Hurdacı',
     'scrapper': 'Hurdacı',
@@ -112,6 +115,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Derin Maden',
     'magnet': 'Kutupluluk Fabrikası',
     'scrapyard': 'Hurdalık',
     'blaze': 'Alev Rafinerisi',
@@ -133,7 +137,7 @@ export default {
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
     'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası' },
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -460,7 +464,8 @@ export default {
     'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi soğutup yavaşlatan delici bir mızrak.' },
     'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
     'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' },
-    'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' }
+    'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' },
+    'drillBomb': { 'name': 'Matkap Bombası', 'desc': 'Durduğu yerde patlayıp etraftaki her makineyi vuran delici bir bomba. Çatlak kayayı kırar.' }
   },
 
   'options': {
@@ -594,6 +599,10 @@ export default {
       'charge': 'Şarjlı atışı çalıştıralım!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Kaya düşüyor! Gölgelerden çık.',
+        'rock': 'Çatlak kaya! Tam şarjlı atış onu kırar.',
+      },
       'magnet': {
         'panel': 'Şu kırmızı-mavi plakayı gördün mü? Rayı ters çevirmek için ona ateş et.',
         'rail': 'Mıknatıslı ray! Oklar çekimi gösteriyor. Zorla geç ya da akışa kapıl.',
@@ -648,6 +657,7 @@ export default {
       'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
     },
     'story': {
+      'drill': 'Derin Maden. Başına dikkat!',
       'magnet': 'Kutupluluk Fabrikası. Pusulam fır dönüyor!',
       'scrapyard': 'Hurdalık rölesi. Yak onu!',
       'blaze': 'Rafineri. Sıcak, sıcak, sıcak!',

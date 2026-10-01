@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Chuột Chũi Khoan',
     'polar': 'Cún Từ Cực',
     'hardhat': 'Nón Sắt',
     'trooper': 'Lính Khiên',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Chuột Chũi Khoan | Chuột Chũi Khoan',
     'polar': 'Cún Từ Cực | Cún Từ Cực',
     'hardhat': 'Nón Sắt | Nón Sắt',
     'trooper': 'Lính Khiên | Lính Khiên',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Chúa Tể Mũi Khoan',
     'magnetMaster': 'Chúa Tể Nam Châm',
     'stand': 'Gã Phế Liệu',
     'scrapper': 'Gã Phế Liệu',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Mỏ Sâu',
     'magnet': 'Xưởng Từ Cực',
     'scrapyard': 'Bãi Phế Liệu',
     'blaze': 'Lò Luyện Lửa',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
     'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực' },
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu làm lạnh cóng mục tiêu và khiến nó chậm lại.' },
     'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
     'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' },
-    'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' }
+    'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' },
+    'drillBomb': { 'name': 'Bom Khoan', 'desc': 'Quả bom khoan nổ tung ngay chỗ nó dừng, trúng mọi cỗ máy xung quanh. Phá được đá nứt.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Cùng luyện Phát Tụ Lực nào!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Đá rơi! Ra khỏi vùng bóng!',
+        'rock': 'Đá nứt! Phát tụ lực đầy sẽ phá được nó.',
+      },
       'magnet': {
         'panel': 'Thấy tấm đỏ-xanh kia không? Bắn nó để đảo chiều ray.',
         'rail': 'Ray nam châm! Mũi tên chỉ hướng lực hút. Cố vượt qua, hoặc cứ lướt theo.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
     },
     'story': {
+      'drill': 'Mỏ Sâu. Coi chừng đầu!',
       'magnet': 'Xưởng Từ Cực. La bàn của tớ quay mòng mòng!',
       'scrapyard': 'Trạm tiếp sóng Bãi Phế Liệu. Thắp sáng nó!',
       'blaze': 'Lò Luyện. Nóng, nóng, nóng!',

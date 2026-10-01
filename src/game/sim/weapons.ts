@@ -71,7 +71,7 @@ export class WeaponSystem {
     let best: Enemy | null = null
     let bestScore = Infinity
     for (const e of h.enemies) {
-      if (e.state === 'dead' || e.offstage) continue
+      if (e.state === 'dead' || e.offstage || e.buried) continue
       const d = Math.hypot(e.x - x, e.z - z)
       if (d > 20 || d < 0.5) continue
       let da = Math.atan2(e.x - x, e.z - z) - a
@@ -204,6 +204,18 @@ export class WeaponSystem {
         h.sfx('chargeShot')
         break
       }
+      case 'drillBomb': {
+        // It bores straight on, slower than a shot, spinning; it bursts
+        // where it stops (`CombatSystem.kill`), or at the end of its fuse.
+        const s = sys.spawnPlayerShot('charge2', mx, my, mz, dx, dy, dz, dmg, false, null)
+        this.tag(s, id, '#ffb12a')
+        s.vx *= 0.7
+        s.vy *= 0.7
+        s.vz *= 0.7
+        s.life = 1.3
+        h.sfx('lob')
+        break
+      }
       case 'galeGuard': {
         this.guardT = 8
         this.leafHitCd.clear()
@@ -229,7 +241,7 @@ export class WeaponSystem {
     let best: Enemy | null = null
     let bestD = 18
     for (const e of h.enemies) {
-      if (e.state === 'dead' || e.offstage) continue
+      if (e.state === 'dead' || e.offstage || e.buried) continue
       const d = Math.hypot(e.x - h.player.x, e.z - h.player.z)
       const a = Math.atan2(-(e.x - h.player.x), -(e.z - h.player.z))
       let da = a - h.player.yaw

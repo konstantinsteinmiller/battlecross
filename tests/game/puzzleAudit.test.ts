@@ -13,7 +13,7 @@ import { CELL, type MapData } from '@/game/world/levelGen'
 import { createNav, floorAt, hasLineOfSight } from '@/game/world/nav'
 import type { SectorId } from '@/game/world/themes'
 
-const STAGES: SectorId[] = ['blaze', 'cryo', 'volt', 'gale', 'magnet']
+const STAGES: SectorId[] = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill']
 
 /** A cell Flux can stand on (a room or corridor cell with a floor). */
 const standable = (m: MapData, i: number, j: number): boolean => {

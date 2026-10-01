@@ -126,8 +126,13 @@ const buildAura = (): Group => {
 
 /** How charged a player shot is: 0 for a quick pellet; a copied weapon's
  *  shots and reflected shots count as charged. */
+/** The Drill Bomb's burst: its reach (m) and the share of its damage the
+ *  machines round it take. */
+const DRILL_BLAST = 2.5
+const DRILL_SPLASH = 0.6
+
 const chargeLevel = (s: Shot): number =>
-  s.kind === 'charge3' ? 3 : s.kind === 'charge2' || s.kind === 'reflect' ? 2 : s.kind === 'charge1' || s.weapon ? 1 : 0
+  s.weapon === 'drillBomb' ? 2 : s.kind === 'charge3' ? 3 : s.kind === 'charge2' || s.kind === 'reflect' ? 2 : s.kind === 'charge1' || s.weapon ? 1 : 0
 
 /** A wall of fire / wind sliding along the floor (boss attack — slide past it). */
 interface Wave {
@@ -556,7 +561,7 @@ export class CombatSystem {
           s.pierce--
         }
         for (const e of h.enemies) {
-          if (e.state === 'dead' || e.offstage || s.hitIds.includes(e.id)) continue
+          if (e.state === 'dead' || e.offstage || e.buried || s.hitIds.includes(e.id)) continue
           // A shot aimed at this machine's weak spot: on the spot, it lands
           // there; still closing on it, the body does not catch it first;
           // once it has passed it by, it is an ordinary shot.
@@ -692,6 +697,7 @@ export class CombatSystem {
   }
 
   private kill(s: Shot): void {
+    if (s.active && s.weapon === 'drillBomb' && s.owner === 'player') this.blast(s)
     s.active = false
     s.sprite.visible = false
     if (s.core) s.core.visible = false
@@ -702,6 +708,27 @@ export class CombatSystem {
       this.rubble.drop(s.rock)
       s.rock = null
     }
+  }
+
+  /** A Drill Bomb bursts: every machine within DRILL_BLAST takes part of
+   *  its damage (the one it struck took the full hit already), and the
+   *  blast cracks open cracked rock in reach. */
+  private blast(s: Shot): void {
+    const h = this.host
+    h.fx.orbBurst(s.x, s.y, s.z, '#ffb12a', 1.2)
+    h.fx.sparks(s.x, s.y, s.z, '#ffe08a', 18, 8, 0.26)
+    h.fx.sparks(s.x, s.y, s.z, '#8a6a52', 12, 5, 0.3)
+    h.shake(0.25)
+    h.sfx('explode', s.x, s.z)
+    for (const e of h.enemies) {
+      if (e.state === 'dead' || e.offstage || e.buried || s.hitIds.includes(e.id)) continue
+      const ey = e.y + (e.floor ?? 0) + e.def.aimY
+      if ((e.x - s.x) ** 2 + (ey - s.y) ** 2 + (e.z - s.z) ** 2 > (DRILL_BLAST + e.def.hitR) ** 2) continue
+      if (!hasLineOfSight(h.nav, s.x, s.z, e.x, e.z)) continue
+      e.lastWeapon = 'drillBomb'
+      this.damageEnemy(e, Math.round(s.dmg * DRILL_SPLASH), { crit: false, charge: 2, fromX: s.x, fromZ: s.z, x: e.x, y: ey, z: e.z, color: '#ffb12a', special: true, weapon: 'drillBomb' })
+    }
+    h.shotHitsProp?.(s.x, s.y, s.z, DRILL_BLAST, s.dmg, 2)
   }
 
   /** Parried enemy shot flies back at its owner, twice as hard. */
@@ -756,6 +783,10 @@ export class CombatSystem {
           const red = r() < 0.5
           fx.emit({ x: s.x + Math.cos(a) * 0.3 * (red ? 1 : -1), y: s.y + Math.sin(a) * 0.3, z: s.z, color: red ? '#ff4a5e' : '#5a8cff', size: 0.22, sizeEnd: 0.02, life: 0.3 })
         }
+        break
+      case 'drillBomb':
+        // Grit and sparks off the spinning bit.
+        if (r() < 0.6 * k) fx.emit({ x: s.x, y: s.y, z: s.z, vx: (r() - 0.5) * 3, vy: 1 + r() * 1.5, vz: (r() - 0.5) * 3, color: r() < 0.5 ? '#ffd35a' : '#8a6a52', size: 0.13, sizeEnd: 0.02, life: 0.4, gravity: 8 })
         break
       case 'galeGuard':
         if (r() < 0.6 * k) {
@@ -825,7 +856,7 @@ export class CombatSystem {
   damageEnemy(e: Enemy, amount: number, o: { crit: boolean; charge: number; fromX: number; fromZ: number; x: number; y: number; z: number; color: string; element?: string; special?: boolean; weapon?: string; weakSpot?: boolean }): void {
     const h = this.host
     // A boss not yet in the arena takes nothing and shows nothing.
-    if (e.state === 'dead' || e.offstage) return
+    if (e.state === 'dead' || e.offstage || e.buried) return
     // Bosses are untouchable during their entrance and their phase-2 roar.
     if (e.boss && (e.state === 'idle' || e.state === 'alert' || (e.state === 'act' && e.attack === 'roar'))) {
       h.fx.sparks(o.x, o.y, o.z, '#ffffff', 6, 4, 0.14)

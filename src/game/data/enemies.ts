@@ -51,6 +51,10 @@ export const ENEMIES: Record<EnemyKind, EnemyDef> = {
     kind: 'trooper', hp: 55, dmg: 8, speed: 2.3, radius: 0.55, hitR: 0.72, aimY: 1.05, fly: 0,
     aggro: 16, range: [5, 10], xp: 20, bolts: [5, 9], cooldown: 2.1, tele: 0.5, unblockable: false, armor: 1
   },
+  mole: {
+    kind: 'mole', hp: 62, dmg: 15, speed: 3.2, radius: 0.5, hitR: 0.62, aimY: 0.45, fly: 0,
+    aggro: 14, range: [0, 2], xp: 24, bolts: [6, 10], cooldown: 2.0, tele: 0.8, unblockable: true, armor: 1
+  },
   polar: {
     kind: 'polar', hp: 48, dmg: 12, speed: 2.2, radius: 0.48, hitR: 0.55, aimY: 0, fly: 1.9,
     aggro: 16, range: [5, 10], xp: 22, bolts: [5, 9], cooldown: 2.6, tele: 0.6, unblockable: false, armor: 1

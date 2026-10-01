@@ -1,6 +1,7 @@
 import type { Group } from 'three'
 import { cellCenter, type IcePillar, type Terrain } from '../../world/levelGen'
 import { buildIcePillar, PILLAR_H } from '../../models/stageProps/frost'
+import { buildBoulder } from '../../models/stageProps/rock'
 import type { ClimbBody, ClimbHost } from '../climb'
 import { AtlasCue, type StageFeature } from '../stageFeatures'
 
@@ -37,9 +38,13 @@ export class IcePillars implements StageFeature {
   private readonly host: ClimbHost
   readonly pillars: PillarRt[] = []
   private readonly cue: AtlasCue | null = null
+  /** The Deep Mine's boulders: stone, and a cracked one gives way only to a
+   *  full charge (level 2+) or a Drill Bomb; anything less chips it. */
+  private readonly rock: boolean
 
   constructor(host: ClimbHost, t: Terrain) {
     this.host = host
+    this.rock = host.theme.id === 'drill'
     const W = host.map.w
     for (const d of t.icePillars ?? []) {
       const x = cellCenter(d.i)
@@ -48,14 +53,14 @@ export class IcePillars implements StageFeature {
       const y = t.floor[k]!
       const prop = { x, z, r: PILLAR_R, active: true }
       host.nav.props.push(prop)
-      const mesh = buildIcePillar(d.cracked)
+      const mesh = this.rock ? buildBoulder(d.cracked) : buildIcePillar(d.cracked)
       mesh.position.set(x, y, z)
       mesh.rotation.y = d.i * 1.7 + d.j * 0.9
       host.propParent(x, z).add(mesh)
       this.pillars.push({ def: d, x, y, z, k, prop, mesh, hp: CRACK_HP, broken: false })
     }
     const c = this.pillars.find(p => p.def.cracked)
-    if (c) this.cue = new AtlasCue(host, 'hint.cryo.pillar', c.x, c.z, c.y, 8)
+    if (c) this.cue = new AtlasCue(host, this.rock ? 'hint.drill.rock' : 'hint.cryo.pillar', c.x, c.z, c.y, 8)
   }
 
   update(_dt: number, _time: number, p: ClimbBody, playing: boolean): void {
@@ -68,8 +73,9 @@ export class IcePillars implements StageFeature {
       if (p.broken || y < p.y - 0.2 || y > p.y + PILLAR_H + 0.8) continue
       const rr = PILLAR_R + r
       if ((x - p.x) ** 2 + (z - p.z) ** 2 > rr * rr) continue
-      if (!p.def.cracked) {
+      if (!p.def.cracked || (this.rock && charge < 2)) {
         this.host.sfx('tink', x, z)
+        if (this.rock && p.def.cracked) this.host.fx.sparks(x, y, z, '#c9b08a', 6, 3, 0.16)
         return true
       }
       p.hp -= charge > 0 ? CRACK_HP : 1
@@ -91,8 +97,10 @@ export class IcePillars implements StageFeature {
     if (!loud) return
     this.host.sfx('guardBreak', p.x, p.z)
     this.host.shake(0.12)
-    for (let n = 0; n < 3; n++) this.host.fx.sparks(p.x, p.y + 0.8 + n * 1.2, p.z, n & 1 ? '#bfeaff' : '#ffffff', 12, 7, 0.26)
-    this.host.shocks.spawn(p.x, p.y + 0.05, p.z, 2, '#bff4ff', 0.4)
+    const a = this.rock ? '#8a6a52' : '#bfeaff'
+    const b = this.rock ? '#ffb12a' : '#ffffff'
+    for (let n = 0; n < 3; n++) this.host.fx.sparks(p.x, p.y + 0.8 + n * 1.2, p.z, n & 1 ? a : b, 12, 7, 0.26)
+    this.host.shocks.spawn(p.x, p.y + 0.05, p.z, 2, this.rock ? '#ffb12a' : '#bff4ff', 0.4)
   }
 
   save(): unknown {

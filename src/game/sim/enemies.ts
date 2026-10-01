@@ -2,7 +2,7 @@ import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -70,6 +70,14 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  */
 export const UNAWARE_TROOPER_GUARD = 1
 
+/** The Mole Driller: how long it takes to dig in (s), how close (m) it must
+ *  tunnel before it strikes, the strike's reach (m), and how long it stays
+ *  out after (s, open to fire). */
+export const MOLE_DIG = 0.4
+export const MOLE_STRIKE = 6
+export const MOLE_REACH = 1.6
+export const MOLE_OUT = 1.8
+
 /** The Polar Pup's shell: shut this long (shots TINK), then open (s). */
 export const POLAR_SHUT = 2.6
 export const POLAR_OPEN = 1.8
@@ -103,6 +111,8 @@ export const createEnemy = (
     rig, root, shadow: makeBlobShadow(def.radius * 1.1 * scale), ring: makeTeleRing(), deathT: 0,
     guardBreakT: 0, hurtAt: -10, bossId: null, phase2: false, burnT: 0, burnDps: 0, frozenT: 0, lastWeapon: ''
   }
+  // A Mole Driller waits half dug in until it wakes and digs under.
+  if (kind === 'mole') e.a = 0.75
   if (golem) {
     // Asleep as a crate; `hold` keeps gunfire from waking it (mission.makeNoise)
     // and puts it last on the objective trail, like a lesson's sleeping drone
@@ -1414,6 +1424,60 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Mole Driller: travels under the floor (a dust trail), bursts up
+    //    under Flux on a red marker, stays out a while (open to fire),
+    //    digs back in ──
+    case 'mole': {
+      if (e.state === 'engage') {
+        if (!e.buried) {
+          // Just woken, or back from a surfacing: dig in.
+          e.a = Math.max(0, e.a - dt / MOLE_DIG)
+          faceTo(e, px, pz, 4, dt)
+          if (e.a <= 0) e.buried = true
+          break
+        }
+        // Under the floor: chase, kicking up a trail of dust.
+        seek(w, e, px, pz, def.speed, dt)
+        if (Math.random() < dt * 30) {
+          w.fx.emit({ x: e.x + (Math.random() - 0.5) * 0.6, y: (e.floor ?? 0) + 0.1, z: e.z + (Math.random() - 0.5) * 0.6, vx: (Math.random() - 0.5) * 1.5, vy: 1 + Math.random(), vz: (Math.random() - 0.5) * 1.5, color: Math.random() < 0.5 ? '#8a6a52' : '#b8a088', size: 0.35, sizeEnd: 0.08, life: 0.5, gravity: 3 })
+        }
+        if (e.cd <= 0 && d < MOLE_STRIKE) {
+          startTele(e, 'erupt', def.tele, true)
+          e.tx = px
+          e.tz = pz
+          w.markers.spawn(px, pz, MOLE_REACH, def.tele + 0.25)
+          w.sfx('alert', e.x, e.z)
+        }
+      } else if (e.state === 'tele') {
+        // Tunnels in under the marked spot.
+        seek(w, e, e.tx, e.tz, def.speed * 2, dt)
+        if (Math.random() < dt * 40) w.fx.emit({ x: e.tx + (Math.random() - 0.5) * 1.6, y: (e.floor ?? 0) + 0.1, z: e.tz + (Math.random() - 0.5) * 1.6, vy: 1.5 + Math.random(), color: '#8a6a52', size: 0.3, sizeEnd: 0.05, life: 0.45, gravity: 4 })
+        if (e.st >= e.teleDur) {
+          e.x = e.px = e.tx
+          e.z = e.pz = e.tz
+          e.buried = false
+          e.hitPlayer = false
+          w.fx.sparks(e.x, (e.floor ?? 0) + 0.4, e.z, '#ffd23a', 14, 7, 0.22)
+          w.shocks.spawn(e.x, (e.floor ?? 0) + 0.05, e.z, MOLE_REACH, '#ff7a3a', 0.3)
+          w.sfx('stomp', e.x, e.z)
+          w.shake(0.2)
+          if (Math.hypot(px - e.x, pz - e.z) < MOLE_REACH + PLAYER_R) {
+            w.hitPlayer(e, e.dmg, { blockable: false, fromX: e.x, fromZ: e.z, kind: 'aoe' })
+          }
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        // Out of the ground, drill spinning: the window to hit it.
+        e.a = Math.min(1, e.a + dt / 0.25)
+        faceTo(e, px, pz, 5, dt)
+        if (e.st > MOLE_OUT) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
     // ── Crate golem: keep its distance, throw, throw, lob; hop a charge ──
     case 'golem': {
       const g = e.golem!
@@ -1509,6 +1573,9 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
     }
     case 'polar':
       posePolar(r, 1 - e.guard, t, m)
+      break
+    case 'mole':
+      poseMole(r, e.buried ? 0 : e.state === 'idle' || e.state === 'alert' ? 0.75 : e.a, t * (e.state === 'act' ? 28 : 8), t, m)
       break
     case 'heli':
       // m.tilt: the state's tilt, eased (no pops at tele/act), plus airspeed

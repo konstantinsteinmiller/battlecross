@@ -1,4 +1,4 @@
-import { RigBuilder, sph, ell, cap, torus, rcyl, rcone, dome, paintBy, xform, type Rig, pose, nudge, scaleBone } from './kit'
+import { RigBuilder, sph, ell, cap, torus, rcyl, rcone, rbox, dome, paintBy, xform, type Rig, pose, nudge, scaleBone } from './kit'
 import { PAL } from './palette'
 import type { BufferGeometry } from 'three'
 import { BOSS_GAIT, BOSS_FIDGET_LEN, TAU, bump, frac, fidgetEnv, fidgetPIn, gaitAmp, type EnemyMotion } from './motion'
@@ -14,7 +14,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop } from './gait'
  * silhouette.
  */
 
-export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'vexMk1'
+export type BossId = 'scrapper' | 'blazeMaster' | 'frostMaster' | 'voltMaster' | 'galeMaster' | 'magnetMaster' | 'drillMaster' | 'vexMk1'
 
 interface MasterSpec {
   main: string
@@ -174,6 +174,26 @@ export const buildMagnetMaster = (): Rig => masterRig({
   }
 })
 
+export const buildDrillMaster = (): Rig => masterRig({
+  main: '#ffc21a', deep: '#4a3d32', accent: '#a7afc4', glow: '#ffe08a', skin: '#ffd2a8',
+  crest: (b) => {
+    // A drill for a crest: a steel cone on the helmet, banded, and a lamp.
+    b.part('head', rcone(0.13, 0.02, 0.36, 0.02, 12), '#a7afc4', { p: [0, 0.48, -0.02] })
+    for (let k = 0; k < 2; k++) b.part('head', torus(0.11 - k * 0.04, 0.02, 6, 14), '#4a3d32', { p: [0, 0.38 + k * 0.1, -0.02], r: [Math.PI / 2, 0, 0] })
+    b.part('head', sph(0.05, 10, 8), '#ffe08a', { p: [0, 0.26, 0.2], glow: true, outline: false })
+    // Hazard stripes on the shoulders.
+    b.mirror((sd) => b.part('chest', rbox(0.14, 0.06, 0.2, 0.2), '#4a3d32', { p: [sd * 0.3, 0.26, 0], r: [0, 0, sd * 0.3] }))
+  },
+  arms: (b) => {
+    b.mirror((_sd, t) => {
+      b.part(`elbow${t}`, cap(0.085, 0.1), '#4a3d32', { p: [0, -0.09, 0] })
+      // Drill hands: a banded steel cone pointing down the forearm.
+      b.part(`elbow${t}`, rcone(0.11, 0.015, 0.34, 0.02, 12), '#a7afc4', { p: [0, -0.34, 0], r: [Math.PI, 0, 0] })
+      b.part(`elbow${t}`, torus(0.1, 0.022, 6, 14), '#ffc21a', { p: [0, -0.22, 0], r: [Math.PI / 2, 0, 0] })
+    })
+  }
+})
+
 /** The Scrapper: a hulking junk crane — magnet claw, hammer fist, visor head. */
 export const buildScrapper = (): Rig => {
   const b = new RigBuilder()
@@ -259,6 +279,7 @@ export const buildBossRig = (id: BossId): Rig => {
     case 'voltMaster': return buildVoltMaster()
     case 'galeMaster': return buildGaleMaster()
     case 'magnetMaster': return buildMagnetMaster()
+    case 'drillMaster': return buildDrillMaster()
     case 'vexMk1': return buildVex()
   }
 }
@@ -350,6 +371,12 @@ const animateHumanoidBoss = (rig: Rig, id: BossId, t: number, act: BossAct, k: n
       rX = -0.06 * bz
       buzz = 0.01 * Math.sin(10 * TAU * p)
       hZ = 0.1 * Math.sin(3 * TAU * p)
+    } else if (id === 'drillMaster') {
+      // Drill rev: both forearms buzz, the head ducks to the noise
+      const rev = Math.sin(Math.PI * p)
+      lE = -0.4 * rev + 0.05 * Math.sin(12 * TAU * p) * rev
+      rE = -0.4 * rev - 0.05 * Math.sin(12 * TAU * p) * rev
+      hX = 0.12 * rev
     } else if (id === 'magnetMaster') {
       // Polarity clap: both gauntlets swing in, meet, and spring apart
       const inn = bump(p, 0.05, 0.5)

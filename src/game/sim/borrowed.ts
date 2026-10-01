@@ -56,7 +56,7 @@ export const CAPSULE_CHANCE = 0.35
 /** Charges per capsule: the cheap spread gets the most, the costly verbs fewer
  *  (they are the same shots the Weapon Energy bar would pay 4–6 for). */
 export const LENT_SHOTS: Record<WeaponId, number> = {
-  scrapBurst: 10, flameWave: 8, iceLance: 8, thunderArc: 6, galeGuard: 6, magnetPull: 8
+  scrapBurst: 10, flameWave: 8, iceLance: 8, thunderArc: 6, galeGuard: 6, magnetPull: 8, drillBomb: 6
 }
 /** The first-take teach, once per profile (`profile.tips`). */
 export const TEACH_TIP = 'lesson:borrowed'

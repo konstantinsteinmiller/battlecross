@@ -174,7 +174,8 @@ export const BOSS_GAIT: Partial<Record<BossId, GaitSpec>> = {
   frostMaster: MASTER_GAIT,
   voltMaster: MASTER_GAIT,
   galeMaster: MASTER_GAIT,
-  magnetMaster: MASTER_GAIT
+  magnetMaster: MASTER_GAIT,
+  drillMaster: MASTER_GAIT
 }
 
 /**
@@ -252,7 +253,9 @@ export const FIDGET_LEN: Record<EnemyKind, readonly number[]> = {
   // unaware again)
   golem: [],
   // None: it hovers and hums; its shell's shiver is its idle.
-  polar: []
+  polar: [],
+  // None: unaware it sits half dug in, paws scraping (its pose's idle).
+  mole: []
 }
 
 export const smoothstep = (a: number, b: number, x: number): number => {
@@ -282,6 +285,8 @@ export const BOSS_FIDGET_LEN: Record<BossId, readonly number[]> = {
   galeMaster: [0.6, 0.7],
   // shoulder roll, polarity clap
   magnetMaster: [0.6, 0.8],
+  // shoulder roll, drill rev
+  drillMaster: [0.6, 0.7],
   vexMk1: []
 }
 

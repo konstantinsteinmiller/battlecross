@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Maulwurfbohrer',
     'polar': 'Polwelpe',
     'hardhat': 'Helmling',
     'trooper': 'Schildsoldat',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Maulwurfbohrer | Maulwurfbohrer',
     'polar': 'Polwelpe | Polwelpen',
     'hardhat': 'Helmling | Helmlinge',
     'trooper': 'Schildsoldat | Schildsoldaten',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Bohrmeister',
     'magnetMaster': 'Magnetmeister',
     'stand': 'Schrottbrecher',
     'scrapper': 'Schrottbrecher',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Tiefenmine',
     'magnet': 'Polaritätswerk',
     'scrapyard': 'Schrottplatz',
     'blaze': 'Glutraffinerie',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Eislanze', 'desc': 'Eine durchschlagende Lanze, die Getroffenes unterkühlt und verlangsamt.' },
     'thunderArc': { 'name': 'Donnerbogen', 'desc': 'Sofortiger Blitz, der auf Maschinen in der Nähe überspringt.' },
     'galeGuard': { 'name': 'Sturmschild', 'desc': 'Blätter kreisen um dich, blocken Schüsse und zerschneiden Maschinen. Erneut einsetzen, um sie zu schleudern.' },
-    'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' }
+    'magnetPull': { 'name': 'Magnetzug', 'desc': 'Ein zielsuchendes Hufeisen, das Schilde und Panzer knackt und Flieger vom Himmel zieht.' },
+    'drillBomb': { 'name': 'Bohrbombe', 'desc': 'Eine Bohrbombe, die dort platzt, wo sie stoppt, und jede Maschine ringsum trifft. Bricht rissigen Fels.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Lass uns den Ladeschuss trainieren!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Steinschlag! Raus aus den Schatten.',
+        'rock': 'Rissiger Fels! Ein voller Ladeschuss knackt ihn.',
+      },
       'magnet': {
         'panel': 'Siehst du die rot-blaue Platte? Schieß drauf, um die Schiene umzupolen.',
         'rail': 'Magnetschiene! Die Pfeile zeigen den Sog. Kämpf dagegen an oder lass dich tragen.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Ein Kernmeister wartet. Holen wir ihn raus!'
     },
     'story': {
+      'drill': 'Tiefenmine. Kopf einziehen!',
       'magnet': 'Polaritätswerk. Mein Kompass dreht durch!',
       'scrapyard': "Schrottplatz-Relais. Bring's zum Leuchten!",
       'blaze': 'Die Raffinerie. Heiß, heiß, heiß!',

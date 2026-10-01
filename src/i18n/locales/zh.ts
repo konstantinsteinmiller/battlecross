@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': '钻地鼹鼠',
     'polar': '磁极小狗',
     'hardhat': '钢盔兵',
     'trooper': '盾兵',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': '钻地鼹鼠 | 钻地鼹鼠',
     'polar': '磁极小狗 | 磁极小狗',
     'hardhat': '钢盔兵 | 钢盔兵',
     'trooper': '盾兵 | 盾兵',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': '钻头大师',
     'magnetMaster': '磁力大师',
     'stand': '拆解者',
     'scrapper': '拆解者',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': '深层矿井',
     'magnet': '磁极工厂',
     'scrapyard': '废料场',
     'blaze': '烈焰精炼厂',
@@ -131,7 +135,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': '寒冰枪', 'desc': '穿透性的长枪，让命中的目标冻僵减速。' },
     'thunderArc': { 'name': '雷电弧', 'desc': '瞬发闪电，会连锁到附近的机械。' },
     'galeGuard': { 'name': '疾风护盾', 'desc': '树叶环绕在你身边，阻挡子弹并切割机械。再次使用可将其掷出。' },
-    'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' }
+    'magnetPull': { 'name': '磁力牵引', 'desc': '追踪马蹄磁铁，能击碎护盾和外壳，还能把飞行的敌人从空中拽下来。' },
+    'drillBomb': { 'name': '钻头炸弹', 'desc': '钻地炸弹，停在哪里就在哪里爆炸，命中周围所有机械。能击碎裂开的岩石。' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': '我们来练习蓄力弹吧！',
     },
     'hint': {
+      'drill': {
+        'drop': '落石！快离开阴影！',
+        'rock': '裂开的岩石！满蓄力弹就能击碎它！',
+      },
       'magnet': {
         'panel': '看到那块红蓝板了吗？射击它就能翻转轨道。',
         'rail': '磁力轨道！箭头指向吸力方向。顶着冲过去，或者顺势滑行。',
@@ -646,6 +655,7 @@ export default {
       'story': '核心大师在等着，去解救它吧！'
     },
     'story': {
+      'drill': '深层矿井，小心头顶！',
       'magnet': '磁极工厂，我的指南针在乱转！',
       'scrapyard': '废料场中继站，点亮它！',
       'blaze': '精炼厂，好热好热！',

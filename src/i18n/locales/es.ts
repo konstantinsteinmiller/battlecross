@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Topo Taladro',
     'polar': 'Cachorro Polar',
     'hardhat': 'Casquito',
     'trooper': 'Escudero',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Topo Taladro | Topos Taladro',
     'polar': 'Cachorro Polar | Cachorros Polares',
     'hardhat': 'Casquito | Casquitos',
     'trooper': 'Escudero | Escuderos',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Maestro Taladro',
     'magnetMaster': 'Maestro Imán',
     'stand': 'Chatarrero',
     'scrapper': 'Chatarrero',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Mina Profunda',
     'magnet': 'Fábrica de Polaridad',
     'scrapyard': 'Desguace',
     'blaze': 'Refinería Llamarada',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Purga del sector',
     'climb': 'Carrera de la torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad' },
+    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda' },
     'rematch': 'Revancha: {boss}',
     'desc': {
       'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Lanza de hielo', 'desc': 'Una lanza perforante que enfría lo que toca y lo ralentiza.' },
     'thunderArc': { 'name': 'Arco de trueno', 'desc': 'Un rayo instantáneo que salta a las máquinas cercanas.' },
     'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' },
-    'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' }
+    'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' },
+    'drillBomb': { 'name': 'Bomba taladro', 'desc': 'Una bomba perforadora que estalla donde se detiene y golpea a todas las máquinas cercanas. Rompe la roca agrietada.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': '¡Vamos a entrenar el disparo cargado!',
     },
     'hint': {
+      'drill': {
+        'drop': '¡Caen rocas! Sal de las sombras.',
+        'rock': '¡Roca agrietada! Un disparo cargado al máximo la rompe.',
+      },
       'magnet': {
         'panel': '¿Ves esa placa roja y azul? Dispárale para invertir el raíl.',
         'rail': '¡Raíl magnético! Las flechas marcan la atracción. Resiste o déjate llevar.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
     },
     'story': {
+      'drill': 'Mina Profunda. ¡Cuidado con la cabeza!',
       'magnet': 'Fábrica de Polaridad. ¡Mi brújula da vueltas!',
       'scrapyard': 'Relé del Desguace. ¡Enciéndelo!',
       'blaze': 'La Refinería. ¡Quema, quema!',

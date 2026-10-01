@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Toupeira Broca',
     'polar': 'Filhote Polar',
     'hardhat': 'Capacetinho',
     'trooper': 'Soldado-Escudo',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Toupeira Broca | Toupeiras Broca',
     'polar': 'Filhote Polar | Filhotes Polares',
     'hardhat': 'Capacetinho | Capacetinhos',
     'trooper': 'Soldado-Escudo | Soldados-Escudo',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Mestre Broca',
     'magnetMaster': 'Mestre Ímã',
     'stand': 'Sucateiro',
     'scrapper': 'Sucateiro',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Mina Profunda',
     'magnet': 'Usina Polaridade',
     'scrapyard': 'Ferro-Velho',
     'blaze': 'Refinaria em Brasa',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Lança de Gelo', 'desc': 'Uma lança perfurante que resfria o que atinge e o deixa mais lento.' },
     'thunderArc': { 'name': 'Arco Trovão', 'desc': 'Um raio instantâneo que salta para as máquinas próximas.' },
     'galeGuard': { 'name': 'Guarda Vendaval', 'desc': 'Folhas orbitam ao seu redor, bloqueando tiros e cortando máquinas. Use de novo para arremessá-las.' },
-    'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' }
+    'magnetPull': { 'name': 'Puxão Ímã', 'desc': 'Uma ferradura teleguiada que racha escudos e carapaças e arranca voadores do céu.' },
+    'drillBomb': { 'name': 'Bomba Broca', 'desc': 'Uma bomba perfuradora que explode onde para, atingindo todas as máquinas ao redor. Quebra rocha rachada.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Vamos treinar o Tiro Carregado!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Pedras caindo! Saia das sombras.',
+        'rock': 'Rocha rachada! Um tiro com carga total quebra ela.',
+      },
       'magnet': {
         'panel': 'Viu aquela placa vermelha e azul? Atira nela pra inverter o trilho.',
         'rail': 'Trilho magnético! As setas mostram a puxada. Força contra ou pega carona.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Um Mestre do Núcleo espera. Vamos libertá-lo!'
     },
     'story': {
+      'drill': 'Mina Profunda. Cuidado com a cabeça!',
       'magnet': 'Usina Polaridade. Minha bússola tá girando!',
       'scrapyard': 'Relé do Ferro-Velho. Bora acender!',
       'blaze': 'A Refinaria. Quente, quente, quente!',

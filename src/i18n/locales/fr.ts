@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Taupe Foreuse',
     'polar': 'Chiot Polaire',
     'hardhat': 'Casqué',
     'trooper': 'Soldat à bouclier',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Taupe Foreuse | Taupes Foreuses',
     'polar': 'Chiot Polaire | Chiots Polaires',
     'hardhat': 'Casqué | Casqués',
     'trooper': 'Soldat à bouclier | Soldats à bouclier',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Maître Foreuse',
     'magnetMaster': 'Maître Aimant',
     'stand': 'Ferrailleur',
     'scrapper': 'Ferrailleur',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Mine profonde',
     'magnet': 'Usine Polarité',
     'scrapyard': 'Casse',
     'blaze': 'Raffinerie Brasier',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Lance de glace', 'desc': "Une lance perforante qui glace ce qu'elle touche et le ralentit." },
     'thunderArc': { 'name': 'Arc de foudre', 'desc': 'Un éclair instantané qui se propage aux machines proches.' },
     'galeGuard': { 'name': 'Bouclier rafale', 'desc': "Des feuilles tournoient autour de toi, bloquent les tirs et tranchent les machines. Réutilise l'arme pour les projeter." },
-    'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' }
+    'magnetPull': { 'name': 'Aimant tracteur', 'desc': 'Un fer à cheval à tête chercheuse qui brise boucliers et carapaces et arrache les volants du ciel.' },
+    'drillBomb': { 'name': 'Bombe foreuse', 'desc': "Une bombe foreuse qui éclate là où elle s'arrête et frappe toutes les machines autour. Brise la roche fissurée." }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Entraînons-nous au tir chargé !',
     },
     'hint': {
+      'drill': {
+        'drop': 'Chute de pierres ! Sors des ombres.',
+        'rock': 'Roche fissurée ! Un tir chargé à fond la brisera.',
+      },
       'magnet': {
         'panel': 'Tu vois la plaque rouge et bleue ? Tire dessus pour inverser le rail.',
         'rail': "Rail magnétique ! Les flèches montrent l'attraction. Résiste, ou laisse-toi porter.",
@@ -646,6 +655,7 @@ export default {
       'story': 'Un Maître du Noyau attend. Libérons-le !'
     },
     'story': {
+      'drill': 'Mine profonde. Attention à ta tête !',
       'magnet': "Usine Polarité. Ma boussole s'affole !",
       'scrapyard': 'Relais de la Casse. Allume-le !',
       'blaze': 'La Raffinerie. Chaud, chaud, chaud !',

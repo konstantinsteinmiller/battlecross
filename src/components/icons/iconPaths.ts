@@ -607,5 +607,13 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     'M4 6.5H8V12A4 4 0 0 0 16 12V6.5H20V12A8 8 0 0 1 4 12Z',
     'M4 3H8V5.5H4Z',
     'M16 3H20V5.5H16Z'
+  ],
+  // A drill bit pointing down: a shank on top, then a cone in three bands
+  // split by slanted one-unit gaps (the flutes), ending in a point.
+  'drill': [
+    'M9.5 2H14.5V5.5H9.5Z',
+    'M6.5 7H17.5L16.6 9.6L7.2 11Z',
+    'M7.9 12.6L16 11.2L14.9 14.3L9 15.4Z',
+    'M9.6 17L14.3 16.1L12 22Z'
   ]
 }

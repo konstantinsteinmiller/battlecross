@@ -8,7 +8,7 @@ import type { Element } from './enemies'
  * through kills scored with it. Equipping one tints the arm cannon.
  */
 
-export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull'
+export type WeaponId = 'scrapBurst' | 'flameWave' | 'iceLance' | 'thunderArc' | 'galeGuard' | 'magnetPull' | 'drillBomb'
 
 export interface WeaponDef {
   id: WeaponId
@@ -34,7 +34,10 @@ export const WEAPONS: Record<WeaponId, WeaponDef> = {
   galeGuard: { id: 'galeGuard', color: '#7fffc8', shell: '#1f9a7a', cost: 6, cooldown: 1.6, dmg: 2.2, element: 'wind', from: 'galeMaster', xp: [16, 38] },
   // A homing horseshoe: it bends onto its mark, breaks a guard or a closed
   // shell like a full charge, and yanks a flyer out of the air.
-  magnetPull: { id: 'magnetPull', color: '#ff4a5e', shell: '#3f7bff', cost: 3, cooldown: 0.8, dmg: 1.8, element: 'none', from: 'magnetMaster', xp: [16, 38] }
+  magnetPull: { id: 'magnetPull', color: '#ff4a5e', shell: '#3f7bff', cost: 3, cooldown: 0.8, dmg: 1.8, element: 'none', from: 'magnetMaster', xp: [16, 38] },
+  // A boring bomb: it bores straight on and bursts where it stops, hurting
+  // everything round it, and its blast breaks cracked rock.
+  drillBomb: { id: 'drillBomb', color: '#ffb12a', shell: '#6b5a4a', cost: 4, cooldown: 1.0, dmg: 2.8, element: 'none', from: 'drillMaster', xp: [16, 38] }
 }
 
 export const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -48,7 +51,8 @@ export const WEAPON_ICON = {
   iceLance: 'snowflake',
   thunderArc: 'bolt',
   galeGuard: 'wind',
-  magnetPull: 'magnet'
+  magnetPull: 'magnet',
+  drillBomb: 'drill'
 } as const satisfies Record<WeaponId, string>
 
 export const weaponRank = (xp: number, def: WeaponDef): 1 | 2 | 3 => (xp >= def.xp[1] ? 3 : xp >= def.xp[0] ? 2 : 1)

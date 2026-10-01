@@ -6,6 +6,7 @@ import { generateGlacier } from './cryo'
 import { generateRailRush } from './volt'
 import { generateSkyDocks } from './gale'
 import { generatePolarityWorks } from './magnet'
+import { generateDeepMine } from './drill'
 
 /**
  * ─── The platform stages ─────────────────────────────────────────────────────
@@ -19,22 +20,24 @@ import { generatePolarityWorks } from './magnet'
  *   volt   Rail Rush          a maglev cart ride under waves of flyers
  *   gale   Sky Docks          floating platforms and a wind tunnel
  *   magnet Polarity Works     magnet rails, polarity panels, crane shuttles
+ *   drill  Deep Mine          boulders, falling rock, a mine elevator, moles
  *
  * Each story level is about a tenth longer than the one before it.
  */
 
-export type StageSector = 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet'
+export type StageSector = 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill'
 
 /** Sections per stage, the arena not counted (the climb has six): the
  *  Meltdown's seven, then about a tenth more each (×1.1, ×1.21, ×1.33). */
-export const STAGE_LENGTH: Record<StageSector, number> = { blaze: 7, cryo: 8, volt: 8, gale: 9, magnet: 10 }
+export const STAGE_LENGTH: Record<StageSector, number> = { blaze: 7, cryo: 8, volt: 8, gale: 9, magnet: 10, drill: 11 }
 
 const GENERATORS: Record<StageSector, (seed: number) => MapData> = {
   blaze: generateMeltdown,
   cryo: generateGlacier,
   volt: generateRailRush,
   gale: generateSkyDocks,
-  magnet: generatePolarityWorks
+  magnet: generatePolarityWorks,
+  drill: generateDeepMine
 }
 
 export const isStageSector = (s: SectorId): s is StageSector => s in STAGE_LENGTH

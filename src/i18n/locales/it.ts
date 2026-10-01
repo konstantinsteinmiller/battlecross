@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Talpa Trivella',
     'polar': 'Cucciolo Polare',
     'hardhat': 'Caschetto',
     'trooper': 'Soldato Scudo',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Talpa Trivella | Talpe Trivella',
     'polar': 'Cucciolo Polare | Cuccioli Polari',
     'hardhat': 'Caschetto | Caschetti',
     'trooper': 'Soldato Scudo | Soldati Scudo',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Maestro Trivella',
     'magnetMaster': 'Maestro Magnete',
     'stand': 'Rottamatore',
     'scrapper': 'Rottamatore',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Miniera Profonda',
     'magnet': 'Officina Polarità',
     'scrapyard': 'Discarica',
     'blaze': 'Raffineria Rovente',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Lancia di Ghiaccio', 'desc': 'Una lancia perforante che raffredda ciò che colpisce e lo rallenta.' },
     'thunderArc': { 'name': 'Arco Tonante', 'desc': 'Un fulmine istantaneo che rimbalza sulle macchine vicine.' },
     'galeGuard': { 'name': 'Scudo di Vento', 'desc': 'Foglie ti orbitano intorno, bloccano i colpi e tagliano le macchine. Usala di nuovo per scagliarle.' },
-    'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' }
+    'magnetPull': { 'name': 'Richiamo Magnetico', 'desc': 'Un ferro di cavallo a ricerca che spacca scudi e gusci e strappa i volanti dal cielo.' },
+    'drillBomb': { 'name': 'Bomba Trivella', 'desc': 'Una bomba trivellante che esplode dove si ferma e colpisce tutte le macchine intorno. Spacca la roccia crepata.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Alleniamo il Colpo Caricato!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Cadono massi! Esci dalle ombre.',
+        'rock': 'Roccia crepata! Un colpo a carica piena la spacca.',
+      },
       'magnet': {
         'panel': 'Vedi quella piastra rossa e blu? Sparale per invertire il binario.',
         'rail': "Binario magnetico! Le frecce mostrano l'attrazione. Resisti, o fatti portare.",
@@ -646,6 +655,7 @@ export default {
       'story': 'Un Maestro del Nucleo attende. Liberiamolo!'
     },
     'story': {
+      'drill': 'Miniera Profonda. Occhio alla testa!',
       'magnet': 'Officina Polarità. La mia bussola impazzisce!',
       'scrapyard': 'Relè della Discarica. Accendilo!',
       'blaze': 'La Raffineria. Scotta, scotta, scotta!',

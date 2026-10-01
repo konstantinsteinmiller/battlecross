@@ -72,7 +72,9 @@ export const GAME_ICON_NAMES = [
   // Gale Guard's mark: three gusts, the top and middle ones curling off.
   'wind',
   // Magnet Pull's mark: a horseshoe magnet, its pole tips set apart.
-  'magnet'
+  'magnet',
+  // Drill Bomb's mark: a drill bit, its spiral flutes cut as gaps.
+  'drill'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

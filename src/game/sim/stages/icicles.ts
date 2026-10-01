@@ -1,6 +1,7 @@
 import type { Group } from 'three'
 import { cellCenter, type IcicleSpec, type Terrain } from '../../world/levelGen'
 import { buildIcicle } from '../../models/stageProps/frost'
+import { buildStalactite } from '../../models/stageProps/rock'
 import type { ClimbBody, ClimbHost } from '../climb'
 import { PLAYER_R } from '../constants'
 import { AtlasCue, type StageFeature } from '../stageFeatures'
@@ -39,20 +40,23 @@ export class Icicles implements StageFeature {
   private readonly host: ClimbHost
   readonly icicles: IcicleRt[] = []
   private readonly cue: AtlasCue | null = null
+  /** The Deep Mine drops stalactites instead (same rhythm, same marker). */
+  private readonly rock: boolean
 
   constructor(host: ClimbHost, t: Terrain) {
     this.host = host
+    this.rock = host.theme.id === 'drill'
     for (const d of t.icicles ?? []) {
       const x = cellCenter(d.i)
       const z = cellCenter(d.j)
-      const mesh = buildIcicle()
+      const mesh = this.rock ? buildStalactite() : buildIcicle()
       mesh.position.set(x, d.y + ICICLE_H, z)
       mesh.rotation.y = d.i * 2.3 + d.j
       host.propParent(x, z).add(mesh)
       this.icicles.push({ def: d, x, z, mesh, warned: -1, landed: -1 })
     }
     const f = this.icicles[0]
-    if (f) this.cue = new AtlasCue(host, 'hint.cryo.icicles', f.x, f.z, f.def.y, 8)
+    if (f) this.cue = new AtlasCue(host, this.rock ? 'hint.drill.drop' : 'hint.cryo.icicles', f.x, f.z, f.def.y, 8)
   }
 
   update(_dt: number, time: number, p: ClimbBody, playing: boolean): void {
@@ -102,13 +106,13 @@ export class Icicles implements StageFeature {
   private crash(c: IcicleRt, p: ClimbBody, playing: boolean): void {
     const y = c.def.y
     this.host.sfx('guardCrack', c.x, c.z)
-    this.host.fx.sparks(c.x, y + 0.3, c.z, '#dff8ff', 14, 5, 0.22)
-    this.host.shocks.spawn(c.x, y + 0.05, c.z, ICICLE_REACH + 0.4, '#bff4ff', 0.3)
+    this.host.fx.sparks(c.x, y + 0.3, c.z, this.rock ? '#a08a6a' : '#dff8ff', 14, 5, 0.22)
+    this.host.shocks.spawn(c.x, y + 0.05, c.z, ICICLE_REACH + 0.4, this.rock ? '#ffb12a' : '#bff4ff', 0.3)
     this.host.hurtMachines?.(ICICLE_COST, c.x, c.z, (x, yy, z) => Math.abs(yy - y) < 1.2 && (x - c.x) ** 2 + (z - c.z) ** 2 < (ICICLE_REACH + 0.4) ** 2)
     if (!playing || Math.abs(p.y - y) > 1.2) return
     const reach = ICICLE_REACH + PLAYER_R * 0.6
     if ((p.x - c.x) ** 2 + (p.z - c.z) ** 2 > reach * reach) return
-    this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * ICICLE_COST), { blockable: false, fromX: c.x, fromZ: c.z, kind: 'aoe', hazard: 'ice' })
+    this.host.hitPlayer(null, Math.round(this.host.combat.maxHp * ICICLE_COST), { blockable: false, fromX: c.x, fromZ: c.z, kind: 'aoe', hazard: this.rock ? 'rock' : 'ice' })
   }
 
   save(): unknown {

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Tikus Tanah Bor',
     'polar': 'Anjing Kutub',
     'hardhat': 'Topi Baja',
     'trooper': 'Prajurit Perisai',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Tikus Tanah Bor | Tikus Tanah Bor',
     'polar': 'Anjing Kutub | Anjing Kutub',
     'hardhat': 'Topi Baja | Topi Baja',
     'trooper': 'Prajurit Perisai | Prajurit Perisai',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Master Bor',
     'magnetMaster': 'Master Magnet',
     'stand': 'Si Rongsok',
     'scrapper': 'Si Rongsok',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Tambang Dalam',
     'magnet': 'Pabrik Polaritas',
     'scrapyard': 'Gudang Rongsok',
     'blaze': 'Kilang Api',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
     'stage': 'Tahap Platform',
-    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas' },
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Tombak Es', 'desc': 'Tombak penembus yang mendinginkan sasarannya dan memperlambatnya.' },
     'thunderArc': { 'name': 'Busur Petir', 'desc': 'Petir instan yang menyambar berantai ke mesin di dekatnya.' },
     'galeGuard': { 'name': 'Perisai Badai', 'desc': 'Dedaunan mengitarimu, menahan tembakan dan mengiris mesin. Gunakan lagi untuk melemparkannya.' },
-    'magnetPull': { 'name': 'Tarikan Magnet', 'desc': 'Ladam pelacak yang meretakkan perisai dan cangkang, serta menarik musuh terbang dari udara.' }
+    'magnetPull': { 'name': 'Tarikan Magnet', 'desc': 'Ladam pelacak yang meretakkan perisai dan cangkang, serta menarik musuh terbang dari udara.' },
+    'drillBomb': { 'name': 'Bom Bor', 'desc': 'Bom pengebor yang meledak di tempat ia berhenti, mengenai semua mesin di sekitarnya. Menghancurkan batu retak.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Ayo latih Tembakan Bermuatan!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Batu berjatuhan! Keluar dari bayangan.',
+        'rock': 'Batu retak! Tembakan bermuatan penuh bisa menghancurkannya.',
+      },
       'magnet': {
         'panel': 'Lihat pelat merah-biru itu? Tembak untuk membalik relnya.',
         'rail': 'Rel magnet! Panah menunjukkan tarikannya. Lawan arusnya, atau ikuti saja.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Master Inti menunggu. Ayo bebaskan!'
     },
     'story': {
+      'drill': 'Tambang Dalam. Awas kepalamu!',
       'magnet': 'Pabrik Polaritas. Kompasku berputar-putar!',
       'scrapyard': 'Relai Gudang Rongsok. Nyalakan!',
       'blaze': 'Kilang. Panas, panas, panas!',

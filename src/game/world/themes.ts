@@ -29,7 +29,7 @@ export interface Theme {
   crateTrim: string
 }
 
-export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'fortress'
+export type SectorId = 'scrapyard' | 'blaze' | 'cryo' | 'volt' | 'gale' | 'magnet' | 'drill' | 'fortress'
 
 export const THEMES: Record<SectorId, Theme> = {
   scrapyard: {
@@ -87,6 +87,17 @@ export const THEMES: Record<SectorId, Theme> = {
     skyTop: '#3a2c6e', skyBottom: '#ff9a8a', fog: '#c89aa8', fogNear: 18, fogFar: 64,
     hemiSky: '#ffe6ea', hemiGround: '#3a3448', sun: '#fff0e6', sunIntensity: 1.15,
     pipe: '#3f7bff', crate: '#9a8a7a', crateTrim: '#3a3036'
+  },
+  // Deep Mine: timbered rock under amber work lamps, hazard yellow trim, a
+  // dusk-orange shaft of sky far above.
+  drill: {
+    id: 'drill',
+    floor: '#8a7560', floorAlt: '#75624f', corridor: '#6a5848',
+    wall: '#7a5a3e', wallLow: '#4a3d32', trim: '#ffc21a', pilaster: '#3f4654',
+    accent: '#ffb12a', hazard: '#ffd23a',
+    skyTop: '#2b2236', skyBottom: '#c98a52', fog: '#8a6a52', fogNear: 14, fogFar: 54,
+    hemiSky: '#ffe2b8', hemiGround: '#3a2c22', sun: '#ffe6c2', sunIntensity: 1.05,
+    pipe: '#8c8f99', crate: '#9a7a52', crateTrim: '#3a2a1e'
   },
   fortress: {
     id: 'fortress',

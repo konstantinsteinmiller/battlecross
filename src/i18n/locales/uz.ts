@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Burgʻuvchi koʻrsichqon',
     'polar': 'Qutb kuchukchasi',
     'hardhat': 'Dubulgʻali',
     'trooper': 'Qalqonchi',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Burgʻuvchi koʻrsichqon | Burgʻuvchi koʻrsichqon',
     'polar': 'Qutb kuchukchasi | Qutb kuchukchasi',
     'hardhat': 'Dubulgʻali | Dubulgʻali',
     'trooper': 'Qalqonchi | Qalqonchi',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Burgʻu ustasi',
     'magnetMaster': 'Magnit ustasi',
     'stand': 'Buzgʻunchi',
     'scrapper': 'Buzgʻunchi',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Chuqur kon',
     'magnet': 'Qutblanish zavodi',
     'scrapyard': 'Chiqindixona',
     'blaze': 'Olov zavodi',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Sektorni tozalash',
     'climb': 'Minora poygasi',
     'stage': 'Platforma bosqichi',
-    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi' },
+    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi', 'drill': 'Chuqur kon' },
     'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Muz nayza', 'desc': 'Tekkan narsasini sovutib, sekinlashtiradigan teshuvchi nayza.' },
     'thunderArc': { 'name': 'Momaqaldiroq yoyi', 'desc': 'Yaqin mashinalarga zanjir boʻlib oʻtadigan bir zumlik chaqmoq.' },
     'galeGuard': { 'name': 'Boʻron qalqoni', 'desc': 'Barglar atrofingizda aylanib, oʻqlarni toʻsadi va mashinalarni kesadi. Ularni uloqtirish uchun yana ishlating.' },
-    'magnetPull': { 'name': 'Magnit tortishi', 'desc': 'Qalqon va sovutlarni yoradigan, uchuvchilarni osmondan sugʻurib oladigan nishonga intiluvchi taqa.' }
+    'magnetPull': { 'name': 'Magnit tortishi', 'desc': 'Qalqon va sovutlarni yoradigan, uchuvchilarni osmondan sugʻurib oladigan nishonga intiluvchi taqa.' },
+    'drillBomb': { 'name': 'Burgʻu bombasi', 'desc': 'Toʻxtagan joyida portlab, atrofdagi har bir mashinaga tegadigan burgʻu bomba. Yorilgan toshni sindiradi.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Zaryadli oʻqni mashq qilaylik!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Toshlar tushyapti! Soyalardan chiq.',
+        'rock': 'Yorilgan tosh! Toʻliq zaryadli oʻq uni sindiradi.',
+      },
       'magnet': {
         'panel': 'Anavi qizil-koʻk plitani koʻryapsanmi? Relsni aylantirish uchun unga oʻq uz.',
         'rail': 'Magnit relsi! Oʻqlar tortish yoʻnalishini koʻrsatadi. Kuch bilan oʻt yoki unda sirpan.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Yadro ustasi kutmoqda. Uni ozod qilamiz!'
     },
     'story': {
+      'drill': 'Chuqur kon. Boshingni ehtiyot qil!',
       'magnet': 'Qutblanish zavodi. Kompasim aylanib ketyapti!',
       'scrapyard': 'Chiqindixona releyi. Yoq uni!',
       'blaze': 'Zavod. Issiq, issiq, issiq!',

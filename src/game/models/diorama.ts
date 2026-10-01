@@ -35,7 +35,8 @@ export const SECTOR_GLOW: Record<Exclude<SectorId, 'fortress'>, string> = {
   cryo: '#8fe3ff',
   volt: '#fff3a0',
   gale: '#7dffc4',
-  magnet: '#ff5a6e'
+  magnet: '#ff5a6e',
+  drill: '#ffb12a'
 }
 const LAB_CYAN = '#4fd8ff'
 const SPIRE_WHITE = '#f4f7ff'
@@ -204,6 +205,21 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
       lamp('magnet', s < 0 ? c : '#5a8cff', 'magnet', xform(rcyl(0.27, 0.32, 0.04, 12), [x + s * 0.85, 1.3, z]), x, z)
     }
     lamp('magnet', c, 'magnet', xform(torus(1.0, 0.05, 6, 22), [x, 0.82, z], [Math.PI / 2, 0, 0]), x, z)
+  }
+
+  {
+    // The Deep Mine: a headframe over the shaft, its wheel lit, a giant
+    // drill bit planted beside it.
+    const [x, z] = pos.drill
+    const c = SECTOR_GLOW.drill
+    for (const s of [-1, 1]) {
+      toon.push(xform(paint(rbox(0.16, 3.2, 0.16, 0.2), '#6b5a4a'), [x + s * 0.55, 1.6, z], [0, 0, -s * 0.12]))
+    }
+    toon.push(xform(paint(rbox(1.5, 0.16, 0.2, 0.2), '#6b5a4a'), [x, 3.1, z]))
+    lamp('drill', c, 'drill', xform(torus(0.42, 0.06, 6, 20), [x, 3.35, z]), x, z)
+    toon.push(xform(paint(rcone(0.55, 0.05, 1.8, 0.04, 12), '#c9a227'), [x + 1.4, 0.9, z + 0.6], [Math.PI, 0, 0.2]))
+    toon.push(xform(paint(rbox(2.0, 0.5, 1.4, 0.2), '#4a3d32'), [x, 0.25, z]))
+    lamp('drill', c, 'drill', xform(rbox(1.6, 0.1, 0.05, 0.3), [x, 0.45, z + 0.72]), x, z)
   }
 
   // ── The city: towers in the ring, each with a neon band on its nearest

@@ -60,6 +60,7 @@ export default {
   },
 
   'enemy': {
+    'mole': 'Kret Wiertacz',
     'polar': 'Polarny Szczeniak',
     'hardhat': 'Hełmiak',
     'trooper': 'Tarczownik',
@@ -74,6 +75,7 @@ export default {
   },
 
   'enemyPlural': {
+    'mole': 'Kret Wiertacz | Krety Wiertacze',
     'polar': 'Polarny Szczeniak | Polarne Szczeniaki',
     'hardhat': 'Hełmiak | Hełmiaki',
     'trooper': 'Tarczownik | Tarczowniki',
@@ -99,6 +101,7 @@ export default {
   },
 
   'boss': {
+    'drillMaster': 'Mistrz Wiertła',
     'magnetMaster': 'Mistrz Magnesu',
     'stand': 'Złomiarz',
     'scrapper': 'Złomiarz',
@@ -110,6 +113,7 @@ export default {
   },
 
   'sector': {
+    'drill': 'Głęboka Kopalnia',
     'magnet': 'Zakłady Polaryzacji',
     'scrapyard': 'Złomowisko',
     'blaze': 'Rafineria Żaru',
@@ -131,7 +135,7 @@ export default {
     'purge': 'Czystka sektora',
     'climb': 'Bieg na wieżę',
     'stage': 'Etap platformowy',
-    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji' },
+    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji', 'drill': 'Głęboka kopalnia' },
     'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
@@ -458,7 +462,8 @@ export default {
     'iceLance': { 'name': 'Lodowa lanca', 'desc': 'Przebijająca lanca, która schładza i spowalnia to, co trafi.' },
     'thunderArc': { 'name': 'Łuk gromu', 'desc': 'Natychmiastowa błyskawica, która przeskakuje na pobliskie maszyny.' },
     'galeGuard': { 'name': 'Tarcza wichru', 'desc': 'Liście krążą wokół ciebie, blokując strzały i tnąc maszyny. Użyj ponownie, by nimi cisnąć.' },
-    'magnetPull': { 'name': 'Magnetyczny chwyt', 'desc': 'Samonaprowadzająca podkowa, która kruszy tarcze i pancerze i ściąga latające maszyny z nieba.' }
+    'magnetPull': { 'name': 'Magnetyczny chwyt', 'desc': 'Samonaprowadzająca podkowa, która kruszy tarcze i pancerze i ściąga latające maszyny z nieba.' },
+    'drillBomb': { 'name': 'Bomba wiertnicza', 'desc': 'Wiercąca bomba, która wybucha tam, gdzie się zatrzyma, trafiając każdą maszynę wokół. Kruszy pękniętą skałę.' }
   },
 
   'options': {
@@ -592,6 +597,10 @@ export default {
       'charge': 'Potrenujmy strzał naładowany!',
     },
     'hint': {
+      'drill': {
+        'drop': 'Spadające skały! Wyjdź z cieni.',
+        'rock': 'Pęknięta skała! Pełny strzał naładowany ją rozbije.',
+      },
       'magnet': {
         'panel': 'Widzisz tę czerwono-niebieską płytę? Strzel w nią, by odwrócić szynę.',
         'rail': 'Szyna magnetyczna! Strzałki pokazują przyciąganie. Przebij się albo daj się nieść.',
@@ -646,6 +655,7 @@ export default {
       'story': 'Czeka Mistrz Rdzenia. Uwolnijmy go!'
     },
     'story': {
+      'drill': 'Głęboka Kopalnia. Uważaj na głowę!',
       'magnet': 'Zakłady Polaryzacji. Mój kompas wariuje!',
       'scrapyard': 'Przekaźnik na Złomowisku. Rozświetl go!',
       'blaze': 'Rafineria. Gorąco, gorąco!',

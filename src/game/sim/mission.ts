@@ -3665,7 +3665,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       const alive = e.state !== 'dead' || e.deathT < 0.2
       const near = Math.hypot(e.x - p.x, e.z - p.z) < far
       const o = cellOwner(e.x, e.z)
-      e.root.visible = alive && !e.offstage && near && (o < 0 || vis[o] === 1)
+      e.root.visible = alive && !e.offstage && !e.buried && near && (o < 0 || vis[o] === 1)
       e.shadow.visible = e.root.visible
     }
   }

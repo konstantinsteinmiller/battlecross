@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole'
 
 export interface EnemyColors {
   main: string
@@ -46,7 +46,9 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // (an elite's gold), metal = its stone. This is the Scrapyard's crate.
   golem: { main: '#c68a3e', deep: '#5f4630', accent: '#646b7a', eye: '#ffcf5a', metal: '#8e877b' },
   // The Polar Pup: blue shells (south, closed) round a red core (north).
-  polar: { main: '#3f6bff', deep: '#22306e', accent: '#ff4a5e', eye: '#ff4a5e', metal: '#9aa3b8' }
+  polar: { main: '#3f6bff', deep: '#22306e', accent: '#ff4a5e', eye: '#ff4a5e', metal: '#9aa3b8' },
+  // The Mole Driller: rust-brown body, steel drill, a miner's lamp.
+  mole: { main: '#b07a4a', deep: '#5a3d2a', accent: '#ffd23a', eye: '#ff6a2a', metal: '#a7afc4' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -438,6 +440,48 @@ export const posePolar = (rig: Rig, open: number, t: number, m?: EnemyMotion): v
   const shiver = (1 - open) * 0.03 * Math.sin(t * 23)
   pose(rig, 'shellL', 0, 0, open * 0.62 + shiver)
   pose(rig, 'shellR', 0, 0, -open * 0.62 - shiver)
+}
+
+// ─── Mole Driller ────────────────────────────────────────────────────────────
+
+/**
+ * A digging robot (the Deep Mine): a squat body with a steel drill for a
+ * nose, two shovel paws and a miner's lamp. It travels under the floor and
+ * bursts up where Flux stands; `rise` 0..1 lifts it out of the ground (0:
+ * below the floor, the drill tip last to go).
+ */
+export const buildMole = (c: EnemyColors = BASE_COLORS.mole): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0, 0])
+    .bone('drill', 'body', [0, 0.46, 0.42])
+    .bone('pawL', 'body', [-0.3, 0.22, 0.28])
+    .bone('pawR', 'body', [0.3, 0.22, 0.28])
+  b.part('body', ell(0.44, 0.36, 0.5, 18, 12), c.main, { p: [0, 0.42, 0] })
+  b.part('body', ell(0.36, 0.16, 0.42), c.deep, { p: [0, 0.14, 0] })
+  eye(b, 'body', [-0.14, 0.58, 0.36], 0.08, c.eye, 0, true)
+  eye(b, 'body', [0.14, 0.58, 0.36], 0.08, c.eye, 0, true)
+  // The miner's lamp on its crown.
+  b.part('body', rcyl(0.09, 0.08, 0.02, 12), c.metal, { p: [0, 0.8, 0.1] })
+  b.part('body', sph(0.07, 10, 8), c.accent, { p: [0, 0.82, 0.18], glow: true, outline: false })
+  // The engine on its back (its weak spot).
+  b.part('body', rbox(0.3, 0.2, 0.18, 0.3), c.metal, { p: [0, 0.6, -0.42] })
+  // The drill: a banded steel cone along +Z.
+  b.part('drill', rcone(0.2, 0.02, 0.6, 0.02, 12), c.metal, { p: [0, 0, 0.28], r: [Math.PI / 2, 0, 0] })
+  for (let k = 0; k < 3; k++) b.part('drill', torus(0.17 - k * 0.05, 0.02, 6, 16), c.deep, { p: [0, 0, 0.1 + k * 0.16] })
+  b.mirror((s, t) => {
+    b.part(`paw${t}`, ell(0.13, 0.05, 0.16), c.metal, { p: [s * 0.04, -0.1, 0.06] })
+  })
+  return b.build({ outline: 0.015, height: 0.9 })
+}
+
+export const poseMole = (rig: Rig, rise: number, spin: number, t: number, m?: EnemyMotion): void => {
+  const sink = -1.0 * (1 - rise)
+  nudge(rig, 'body', 0, sink + 0.03 * Math.sin(t * 3), 0)
+  pose(rig, 'body', 0.35 * (1 - rise) + 0.04 * Math.sin(t * 2), m ? 0.3 * m.look * m.calm : 0, 0)
+  pose(rig, 'drill', 0, 0, spin)
+  const dig = Math.sin(t * 9) * 0.5 * (1 - rise)
+  pose(rig, 'pawL', -0.3 + dig, 0, 0.2)
+  pose(rig, 'pawR', -0.3 - dig, 0, -0.2)
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -1004,5 +1048,6 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'turret': return buildTurret(c)
     case 'golem': return buildGolem(c)
     case 'polar': return buildPolar(c)
+    case 'mole': return buildMole(c)
   }
 }
