@@ -525,7 +525,13 @@ while bars and damage numbers get direct DOM writes.
     their Masters' rigs, taking turns, the last one faster) — and Vex in the
     reactor hall, its fire, shock and gusts cycling on one clock. The Core
     Descent's roof-then-fall staging is not built (one arena; noted).
-  - [ ] **P9 Final balance.**
+  - [x] **P9 Final balance**: the sim plays all ten Masters and the
+    Fortress stage with its final bands. Reference player: Masters 26–34 s,
+    the Gatekeeper ~21 s, each Twin Master ~11 s, Vex ~43 s; machines
+    1.9–3.1 s throughout; never "behind"; the every-round ad player at most
+    3% faster on a boss (35–40% on machines at the Magnet step, bounded by
+    the upgrade cap). Pinned in `tests/game/balance.test.ts`. No constant
+    needed changing after P6.
   - [ ] **P10 Boot hot-path pass.**
 
 ## Resume notes

@@ -78,6 +78,10 @@ export interface MissionRow {
    *  player lasts against it without a gel (s). */
   bossTtk: number
   bossTtd: number
+  /** The Fortress's mini-bosses' times to kill (s): the Gatekeeper, one of
+   *  the Twin Masters (0 elsewhere). */
+  gateTtk: number
+  twinTtk: number
   income: number
   bank: number
 }
@@ -185,8 +189,11 @@ export const simulate = (p: PlayerProfile): MissionRow[] => {
       if (armMain(found) > armMain(arm)) arm = found
     }
     if (kind !== 'job') bosses++
+    const fortress = kind === 'story' && sector.id === 'fortress'
+    const gateTtk = fortress ? Math.round(scaleHp(ENEMIES.gatekeeper.hp, lvl) / dps) : 0
+    const twinTtk = fortress ? Math.round(scaleHp(ENEMIES.echo.hp, lvl) / dps) : 0
     rows.push({
-      n, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm),
+      n, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm), gateTtk, twinTtk,
       power: Math.round(pw * 10) / 10, ratio: Math.round(powerRatio(s, lvl) * 100) / 100,
       foeTtk: Math.round(foeTtk * 10) / 10, bossTtk: Math.round(bossTtk), bossTtd: Math.round(bossTtd),
       income: paid, bank: Math.round(bank)

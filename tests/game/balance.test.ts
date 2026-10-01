@@ -34,6 +34,14 @@ describe('the balance simulation', () => {
     for (const r of story) expect(r.bossTtd * 3).toBeGreaterThanOrEqual(r.bossTtk * 0.5)
   })
 
+  it('the Fortress mini-bosses are proper fights, shorter than Vex: the Gatekeeper, then each Twin Master', () => {
+    const f = story.find(r => r.sector === 'fortress')!
+    expect(f.gateTtk).toBeGreaterThanOrEqual(12)
+    expect(f.gateTtk).toBeLessThan(f.bossTtk)
+    expect(f.twinTtk).toBeGreaterThanOrEqual(6)
+    expect(f.twinTtk * 2).toBeLessThanOrEqual(f.bossTtk + 10)
+  })
+
   it('the reference player is never flagged as falling behind', () => {
     for (const r of ref) expect(r.ratio).toBeGreaterThanOrEqual(0.8)
   })
