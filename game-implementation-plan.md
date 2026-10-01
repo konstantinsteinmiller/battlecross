@@ -605,7 +605,7 @@ while bars and damage numbers get direct DOM writes.
   Local engines live in `~/.vo-venvs/<engine>` (uv, outside git).
   - [x] **P0 catalogue clean-up**: shipped lines marked live, ending keys
     fixed, stale ending lines retired, orphaned `public/vo` removed.
-  - [ ] **P1 voice cards + line tones** (`pnpm voice:cards`).
+  - [x] **P1 voice cards + line tones** (`pnpm voice:cards`).
   - [ ] **P2 collector** (`pnpm voice:collect [--samples]`, German text
     normaliser).
   - [ ] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
