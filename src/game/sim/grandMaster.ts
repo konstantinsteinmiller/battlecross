@@ -15,6 +15,9 @@ import type { ClimbBody } from './climb'
 import type { StageFeature } from './stageFeatures'
 import type { Enemy, Shot } from './world'
 import { Drops, type DropHost } from './drops'
+import { GM_HP_MUL, WEAK_SPOT_MUL, WEAKNESS_MUL } from './grandMasterTune'
+
+export { GM_HP_MUL, WEAK_SPOT_MUL, WEAKNESS_MUL }
 
 /**
  * ─── The Grand Master Bot (#101) ─────────────────────────────────────────────
@@ -66,11 +69,6 @@ interface Part {
 export const GM_PHASES: PartId[][] = [['armL', 'armR'], ['footL', 'footR'], ['head'], ['body']]
 /** Shares of the giant's health. */
 const SHARES: Record<PartId, number> = { armL: 0.125, armR: 0.125, footL: 0.125, footR: 0.125, head: 0.2, body: 0.3 }
-/** The giant's health against Vex's own (his max). */
-export const GM_HP_MUL = 2.5
-/** A hit on the weak spot itself, and with the part's weakness. */
-export const WEAK_SPOT_MUL = 1.5
-export const WEAKNESS_MUL = 2
 const PART_OF: Record<PartId, BossId> = {
   footL: 'drillMaster', footR: 'tideMaster', body: 'scrapper', armL: 'blazeMaster', armR: 'frostMaster', head: 'neonMaster'
 }

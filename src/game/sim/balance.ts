@@ -20,6 +20,7 @@ import { BOSSES } from '../data/bosses'
 import type { BossId } from '../models/bosses'
 import { RARITY_MUL, MAX_UPG, upgradeCost, mainStat, type Item, type Rarity } from '../data/items'
 import { xpToNext, MAX_LEVEL } from '../data/progression'
+import { GM_HP_MUL } from './grandMasterTune'
 import { rewardFor } from '../data/quests'
 import { SECTORS, enemyLevelFor, type Sector } from '../data/regions'
 import { bossHpMul, powerIndex, powerRatio, refPower, PROGRESS_HP } from './adaptive'
@@ -85,6 +86,9 @@ export interface MissionRow {
    *  the Twin Masters (0 elsewhere). */
   gateTtk: number
   twinTtk: number
+  /** The Grand Master Bot's time to kill (s), after Vex (#101; 0 elsewhere):
+   *  its parts share GM_HP_MUL of Vex's health. */
+  gmTtk: number
   income: number
   bank: number
 }
@@ -198,8 +202,9 @@ export const simulate = (p: PlayerProfile, cycles = 0): MissionRow[] => {
     const fortress = kind === 'story' && sector.id === 'fortress'
     const gateTtk = fortress ? Math.round(scaleHp(ENEMIES.gatekeeper.hp, lvl) * ngHp / dps) : 0
     const twinTtk = fortress ? Math.round(scaleHp(ENEMIES.echo.hp, lvl) * ngHp / dps) : 0
+    const gmTtk = fortress ? Math.round(bossTtk * GM_HP_MUL) : 0
     rows.push({
-      n, cycle, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm), gateTtk, twinTtk,
+      n, cycle, sector: sector.id, kind, level: lvl, playerLevel: level, arm: armName(arm), gateTtk, twinTtk, gmTtk,
       power: Math.round(pw * 10) / 10, ratio: Math.round(powerRatio(s, lvl) * 100) / 100,
       foeTtk: Math.round(foeTtk * 10) / 10, bossTtk: Math.round(bossTtk), bossTtd: Math.round(bossTtd),
       income: paid, bank: Math.round(bank)

@@ -34,6 +34,13 @@ describe('the balance simulation', () => {
     for (const r of story) expect(r.bossTtd * 3).toBeGreaterThanOrEqual(r.bossTtk * 0.5)
   })
 
+  it('the Grand Master is the longest fight of the game: about two minutes for the reference player (#101)', () => {
+    const f = simulate(REFERENCE).find(r => r.sector === 'fortress' && r.kind === 'story')!
+    expect(f.gmTtk).toBeGreaterThan(f.bossTtk)
+    expect(f.gmTtk).toBeGreaterThanOrEqual(80)
+    expect(f.gmTtk).toBeLessThanOrEqual(150)
+  })
+
   it('the Fortress mini-bosses are proper fights, shorter than Vex: the Gatekeeper, then each Twin Master', () => {
     const f = story.find(r => r.sector === 'fortress')!
     expect(f.gateTtk).toBeGreaterThanOrEqual(12)
