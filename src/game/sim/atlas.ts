@@ -34,7 +34,7 @@ export type AtlasLine =
   | 'brief.tutorial' | 'brief.job' | 'brief.climb' | 'brief.story'
   | `story.${SectorId}`
   | `arc.${number}`
-  | 'bossAhead' | 'bossDown' | 'vexDown'
+  | 'bossAhead' | 'bossDown' | 'vexDown' | 'guardDown'
   | 'lowHp' | 'lowHpGel' | 'lowWe'
   | 'trap' | 'plate'
   | 'objective' | 'exit' | 'levelUp'
@@ -54,7 +54,7 @@ export const ATLAS_LINES: readonly AtlasLine[] = [
   'story.scrapyard', 'story.blaze', 'story.cryo', 'story.volt', 'story.gale', 'story.magnet', 'story.drill', 'story.tide',
   'story.neon', 'story.rotor', 'story.fortress',
   ...Array.from({ length: ARC_LINES }, (_, n) => `arc.${n + 1}` as AtlasLine),
-  'bossAhead', 'bossDown', 'vexDown', 'lowHp', 'lowHpGel', 'lowWe', 'trap', 'plate',
+  'bossAhead', 'bossDown', 'vexDown', 'guardDown', 'lowHp', 'lowHpGel', 'lowWe', 'trap', 'plate',
   'objective', 'exit', 'levelUp', 'idle.1', 'idle.2', 'idle.3', 'idle.4'
 ]
 

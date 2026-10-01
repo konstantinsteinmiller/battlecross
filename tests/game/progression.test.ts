@@ -95,12 +95,12 @@ describe('missions', () => {
     }
   })
 
-  it('story missions end in a Core Master fight: a platform stage in four sectors, the labyrinth in the Fortress', () => {
+  it('story missions end in a Core Master fight: a platform stage in every sector after the Scrapyard', () => {
     for (const s of SECTORS) {
       if (s.id === 'scrapyard') continue
       const q = storyQuest(SECTOR_BY_ID[s.id], 10, 0)
       expect(q.kind).toBe('story')
-      expect(q.template).toBe(s.id === 'fortress' ? 'boss' : 'stage')
+      expect(q.template).toBe('stage')
       expect(q.reward.guaranteed).toBe('prototype')
     }
   })

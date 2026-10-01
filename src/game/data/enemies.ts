@@ -51,6 +51,18 @@ export const ENEMIES: Record<EnemyKind, EnemyDef> = {
     kind: 'trooper', hp: 55, dmg: 8, speed: 2.3, radius: 0.55, hitR: 0.72, aimY: 1.05, fly: 0,
     aggro: 16, range: [5, 10], xp: 20, bolts: [5, 9], cooldown: 2.1, tele: 0.5, unblockable: false, armor: 1
   },
+  warden: {
+    kind: 'warden', hp: 110, dmg: 18, speed: 0.8, radius: 0.7, hitR: 0.8, aimY: 0.95, fly: 0,
+    aggro: 18, range: [4, 14], xp: 30, bolts: [8, 13], cooldown: 2.6, tele: 1.0, unblockable: false, armor: 1
+  },
+  gatekeeper: {
+    kind: 'gatekeeper', hp: 900, dmg: 24, speed: 1.1, radius: 1.4, hitR: 1.5, aimY: 1.4, fly: 0,
+    aggro: 22, range: [5, 11], xp: 160, bolts: [60, 90], cooldown: 1.6, tele: 0.9, unblockable: false, armor: 1
+  },
+  echo: {
+    kind: 'echo', hp: 480, dmg: 22, speed: 2.4, radius: 0.9, hitR: 1.0, aimY: 1.5, fly: 0,
+    aggro: 22, range: [5, 9], xp: 120, bolts: [40, 60], cooldown: 1.5, tele: 0.75, unblockable: false, armor: 1
+  },
   hornet: {
     kind: 'hornet', hp: 44, dmg: 17, speed: 3.8, radius: 0.45, hitR: 0.55, aimY: 0, fly: 2.4,
     aggro: 18, range: [5, 9], xp: 22, bolts: [5, 9], cooldown: 2.4, tele: 0.7, unblockable: false, armor: 1

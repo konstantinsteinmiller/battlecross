@@ -74,6 +74,8 @@ export class Builder {
   water: WaterZone[] = []
   neon: NeonBridge[] = []
   neonSwitches: NeonSwitch[] = []
+  /** Rooms whose way out stays shut until their machines are down. */
+  guards: number[] = []
   rails: RailSpec[] = []
   waves: WaveSpec[] = []
   vents: VentSpec[] = []
@@ -227,13 +229,14 @@ export class Builder {
   }
 
   /** A machine's post, leashed to a rectangle of cells (inclusive). */
-  foe(role: FoePost['role'], i: number, j: number, yaw: number, box: [number, number, number, number], fly?: [number, number], kind?: FoePost['kind']): void {
+  foe(role: FoePost['role'], i: number, j: number, yaw: number, box: [number, number, number, number], fly?: [number, number], kind?: FoePost['kind'], echo?: string): void {
     const [i0, j0, i1, j1] = box
     const pad = 0.75
     this.foes.push({
       role, x: cellCenter(i), z: cellCenter(j), y: this.floor[this.k(i, j)]!, yaw, room: this.room[this.k(i, j)]!,
       leash: [i0 * CELL + pad, j0 * CELL + pad, (i1 + 1) * CELL - pad, (j1 + 1) * CELL - pad], fly,
-      ...(kind ? { kind } : {})
+      ...(kind ? { kind } : {}),
+      ...(echo ? { echo } : {})
     })
   }
 
@@ -381,6 +384,7 @@ export const finish = (b: Builder, start: { x: number; z: number; yaw: number },
   if (b.wind.length) terrain.wind = b.wind
   if (b.magnets.length) terrain.magnets = b.magnets
   if (b.water.length) terrain.water = b.water
+  if (b.guards.length) terrain.guards = b.guards
   if (b.neon.length) terrain.neon = b.neon
   if (b.neonSwitches.length) terrain.neonSwitches = b.neonSwitches
   if (b.rails.length) terrain.rails = b.rails

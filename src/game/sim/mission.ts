@@ -2249,6 +2249,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     this.stepTraining(lt.playing)
     this.training.update(this.time, lt.playing)
     this.updateDoorPrompt(dt, lt.playing)
+    this.stepGuards()
     // Traps run on the mission's dt (hit-stop slows them) and park in a fight
     // that reaches them (`fightNear`).
     const tt = this.trapTick
@@ -2531,6 +2532,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       if (profile.tips[`train:${id}`]) this.training.done.add(id)
     }
     this.setupBeamLesson()
+    this.setupGuards()
     const walk = this.walk
     if (!walk) return
     for (const g of walk.plan.gates) {
@@ -2559,6 +2561,32 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    * lesson is done. It is slotted first if it is not (a weapon the player
    * cannot fire cannot be taught). No weapon to teach: the door just opens.
    */
+  /** The guard rooms' exits, held at the start (`Terrain.guards`). */
+  private guardDoors: Array<{ room: number; door: number }> = []
+
+  /** A mini-boss hall: its way out (the door from it) stays shut while a
+   *  machine in it stands; the last one down opens it. */
+  private setupGuards(): void {
+    for (const room of this.map.terrain?.guards ?? []) {
+      const d = this.map.doors.find(x => x.from === room && !x.boss)
+      if (!d) continue
+      this.holdDoor(d.id)
+      this.guardDoors.push({ room, door: d.id })
+    }
+  }
+
+  private stepGuards(): void {
+    for (let n = this.guardDoors.length - 1; n >= 0; n--) {
+      const g = this.guardDoors[n]!
+      if (this.enemies.some(e => e.room === g.room && e.state !== 'dead' && !e.offstage)) continue
+      // Spawned and all down (a room still waiting on its spawns has none).
+      if (!this.enemies.some(e => e.room === g.room)) continue
+      this.guardDoors.splice(n, 1)
+      this.releaseDoor(g.door)
+      this.say('guardDown')
+    }
+  }
+
   private setupBeamLesson(): void {
     const beam = this.map.beam
     if (!beam || this.setup.tutorial) return

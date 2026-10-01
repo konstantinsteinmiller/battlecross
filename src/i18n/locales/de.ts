@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Meister-Echo',
+    'gatekeeper': 'Torwächter',
+    'warden': 'Wächter',
     'hornet': 'Hornissenrotor',
     'stalker': 'Leuchtpirscher',
     'puffer': 'Kugelfischmine',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Meister-Echo | Meister-Echos',
+    'gatekeeper': 'Torwächter | Torwächter',
+    'warden': 'Wächter | Wächter',
     'hornet': 'Hornissenrotor | Hornissenrotoren',
     'stalker': 'Leuchtpirscher | Leuchtpirscher',
     'puffer': 'Kugelfischmine | Kugelfischminen',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Sektorsäuberung',
     'climb': 'Turmlauf',
     'stage': 'Plattform-Etappe',
-    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen', 'neon': 'Blackout-Boulevard', 'rotor': 'Rotorflug' },
+    'stageName': { 'blaze': 'Schmelzabstieg', 'cryo': 'Gletscherlauf', 'volt': 'Schienenrausch', 'gale': 'Himmelsdocks', 'magnet': 'Polaritätswerk', 'drill': 'Tiefenmine', 'tide': 'Gezeitenschleusen', 'neon': 'Blackout-Boulevard', 'rotor': 'Rotorflug', 'fortress': 'Festung Vex' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Kämpf dich durch den Schrottplatz und schalte den Schrottbrecher aus.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Wache erledigt! Der Weg ist frei.',
     'help': {
       'weapon': 'Wähl deine neue Waffe und feure auf die Drohnen!',
       'gap': 'Lauf geradeaus auf die Kante zu, dann springst du automatisch rüber!',

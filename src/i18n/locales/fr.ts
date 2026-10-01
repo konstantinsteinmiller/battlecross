@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Écho de Maître',
+    'gatekeeper': 'Portier',
+    'warden': 'Gardien',
     'hornet': 'Rotor frelon',
     'stalker': 'Traqueur Lumineux',
     'puffer': 'Mine Fugu',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Écho de Maître | Échos de Maître',
+    'gatekeeper': 'Portier | Portiers',
+    'warden': 'Gardien | Gardiens',
     'hornet': 'Rotor frelon | Rotors frelons',
     'stalker': 'Traqueur Lumineux | Traqueurs Lumineux',
     'puffer': 'Mine Fugu | Mines Fugu',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Purge du secteur',
     'climb': 'Course à la tour',
     'stage': 'Niveau de plateformes',
-    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée', 'neon': 'Boulevard Black-out', 'rotor': 'Rallye Rotor' },
+    'stageName': { 'blaze': 'Descente en fusion', 'cryo': 'Course glaciaire', 'volt': 'Rail express', 'gale': 'Docks célestes', 'magnet': 'Usine Polarité', 'drill': 'Mine profonde', 'tide': 'Écluses Marée', 'neon': 'Boulevard Black-out', 'rotor': 'Rallye Rotor', 'fortress': 'Forteresse de Vex' },
     'rematch': 'Revanche : {boss}',
     'desc': {
       'tutorial': 'Fraie-toi un chemin à travers la Casse et abats le Ferrailleur.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Garde à terre ! La voie est libre.',
     'help': {
       'weapon': 'Choisis ta nouvelle arme et tire sur les drones !',
       'gap': 'Marche droit vers le bord, tu sauteras automatiquement !',

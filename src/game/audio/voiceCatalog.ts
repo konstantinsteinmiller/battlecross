@@ -207,6 +207,10 @@ const ATLAS_LIVE: VoiceLine[] = [
     when: ['Vex\'s Mk-I is beaten', 'Vex\' Mk-I ist besiegt'],
     direction: ['Triumph, still not shouting.', 'Triumph, trotzdem nicht geschrien.']
   }),
+  live('atlas.guardDown', 'atlas', 'missionWarn', {
+    when: ['A Fortress guard hall is cleared (its door opens)', 'Eine Wachhalle der Festung ist frei (ihre Tür öffnet sich)'],
+    direction: ['A quick breath, then onward.', 'Kurz durchatmen, dann weiter.']
+  }),
   live('atlas.lowHp', 'atlas', 'missionWarn', {
     when: ['Health under 30 %, no Repair Gel left', 'Gesundheit unter 30 %, kein Reparaturgel mehr'],
     direction: ['Worried, quick, not loud.', 'Besorgt, schnell, nicht laut.']
@@ -470,6 +474,7 @@ const ATLAS_PLAN: VoiceLine[] = [
     ['turret', '{enemy}. Keep moving.', '{enemy}. Bleib in Bewegung.', 1.6],
     ['golem', 'That crate\'s breathing. Get close.', 'Die Kiste atmet. Geh nah ran.', 2],
     ['polar', '{enemy}. Shoot it when it opens red.', '{enemy}. Schieß, wenn es rot aufgeht.', 1.8],
+    ['warden', '{enemy}. Hit the core when it opens.', '{enemy}. Triff den Kern, wenn er aufgeht.', 1.8],
     ['hornet', '{enemy}. It dives straight: sidestep!', '{enemy}. Er stürzt geradeaus: zur Seite!', 1.6],
     ['stalker', '{enemy}. Parry the lunge.', '{enemy}. Pariere den Sprung.', 1.8],
     ['puffer', '{enemy}. Pop it before it swells.', '{enemy}. Platz ihn, bevor er anschwillt.', 1.6],

@@ -1,3 +1,4 @@
+import type { BossId } from '../models/bosses'
 import type { Group, Mesh, Object3D, Sprite } from 'three'
 import type { Rig } from '../models/kit'
 import type { EnemyKind } from '../models/enemies'
@@ -47,6 +48,8 @@ export interface Enemy {
   /** Under the floor (a Mole Driller between surfacings, the Drill Master's
    *  burrow): not drawn, hit or aimed at; it still moves and acts. */
   buried?: boolean
+  /** A Master's echo (the Fortress's Twin Masters): whose rig and attacks. */
+  echoOf?: BossId
   /** A machine asleep in disguise (the crate golem as a supply crate): drawn
    *  and hit like the prop it pretends to be, but never noticed, aimed at or
    *  locked on to as a machine, never woken by sight, noise or a room-mate —

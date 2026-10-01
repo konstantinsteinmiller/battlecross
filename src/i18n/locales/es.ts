@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Eco de Maestro',
+    'gatekeeper': 'Guardapuertas',
+    'warden': 'Centinela',
     'hornet': 'Rotor avispón',
     'stalker': 'Acechador Luminoso',
     'puffer': 'Mina Globo',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Eco de Maestro | Ecos de Maestro',
+    'gatekeeper': 'Guardapuertas | Guardapuertas',
+    'warden': 'Centinela | Centinelas',
     'hornet': 'Rotor avispón | Rotores avispón',
     'stalker': 'Acechador Luminoso | Acechadores Luminosos',
     'puffer': 'Mina Globo | Minas Globo',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Purga del sector',
     'climb': 'Carrera de la torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea', 'neon': 'Bulevar del apagón', 'rotor': 'Ruta del rotor' },
+    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea', 'neon': 'Bulevar del apagón', 'rotor': 'Ruta del rotor', 'fortress': 'Fortaleza de Vex' },
     'rematch': 'Revancha: {boss}',
     'desc': {
       'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': '¡Guardia caído! El camino está libre.',
     'help': {
       'weapon': '¡Elige tu arma nueva y dispara a los drones!',
       'gap': '¡Camina derecho hacia el borde y saltarás al otro lado!',

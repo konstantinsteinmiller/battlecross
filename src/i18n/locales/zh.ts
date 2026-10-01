@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': '大师回响',
+    'gatekeeper': '守门者',
+    'warden': '守卫者',
     'hornet': '黄蜂旋翼',
     'stalker': '辉光潜行者',
     'puffer': '河豚水雷',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': '大师回响 | 大师回响',
+    'gatekeeper': '守门者 | 守门者',
+    'warden': '守卫者 | 守卫者',
     'hornet': '黄蜂旋翼 | 黄蜂旋翼',
     'stalker': '辉光潜行者 | 辉光潜行者',
     'puffer': '河豚水雷 | 河豚水雷',
@@ -147,7 +153,7 @@ export default {
     'purge': '区域肃清',
     'climb': '高塔冲刺',
     'stage': '平台关卡',
-    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸', 'neon': '断电大道', 'rotor': '旋翼疾飞' },
+    'stageName': { 'blaze': '熔炉下行', 'cryo': '冰川疾行', 'volt': '磁轨冲刺', 'gale': '天空船坞', 'magnet': '磁极工厂', 'drill': '深层矿井', 'tide': '潮汐水闸', 'neon': '断电大道', 'rotor': '旋翼疾飞', 'fortress': 'Vex要塞' },
     'rematch': '再战：{boss}',
     'desc': {
       'tutorial': '杀出废料场，击败拆解者。',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': '守卫倒下！路通了。',
     'help': {
       'weapon': '选好新武器，朝无人机开火！',
       'gap': '朝边缘直走就能自动跳过去！',

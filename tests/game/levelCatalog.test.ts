@@ -62,7 +62,7 @@ describe('level catalog: every entry is a real level', () => {
   })
 
   it('lists every sector for every type but the tutorial (one level) and the stages (their four sectors)', () => {
-    const stages = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon', 'rotor']
+    const stages = ['blaze', 'cryo', 'volt', 'gale', 'magnet', 'drill', 'tide', 'neon', 'rotor', 'fortress']
     for (const t of levelTypes()) {
       expect(t.sectors).toEqual(t.template === 'tutorial' ? ['scrapyard'] : t.template === 'stage' ? stages : SECTORS.map(s => s.id))
     }
@@ -180,7 +180,7 @@ describe('level catalog: the address', () => {
     expect(q).toEqual(climbJob(7, ['blaze'], 9))
     expect(levelFromHash('#?level=boss&sector=cryo&seed=0&plevel=8')).toEqual(bossQuest(SECTOR_BY_ID.cryo, 8, 0))
     expect(levelFromHash('#/?level=stage&sector=cryo&seed=0&plevel=8')).toEqual(storyQuest(SECTOR_BY_ID.cryo, 8, 0))
-    expect(levelFromHash('#/?level=stage&sector=fortress&seed=0&plevel=8')).toBeNull()
+    expect(levelFromHash('#/?level=stage&sector=scrapyard&seed=0&plevel=8')).toBeNull()
     expect(levelFromHash('#/levels?level=climb&sector=blaze&seed=7&plevel=9')).toBeNull()
     expect(levelFromHash('#/models?level=climb')).toBeNull()
     expect(levelFromHash('#/')).toBeNull()

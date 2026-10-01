@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Usta Yankısı',
+    'gatekeeper': 'Kapı Bekçisi',
+    'warden': 'Muhafız',
     'hornet': 'Pervaneli Eşek Arısı',
     'stalker': 'Işıltı Avcısı',
     'puffer': 'Balon Balığı Mayını',
@@ -80,6 +83,9 @@ export default {
   // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
   // forms are the singular on purpose.
   'enemyPlural': {
+    'echo': 'Usta Yankısı | Usta Yankısı',
+    'gatekeeper': 'Kapı Bekçisi | Kapı Bekçisi',
+    'warden': 'Muhafız | Muhafız',
     'hornet': 'Pervaneli Eşek Arısı | Pervaneli Eşek Arısı',
     'stalker': 'Işıltı Avcısı | Işıltı Avcısı',
     'puffer': 'Balon Balığı Mayını | Balon Balığı Mayını',
@@ -149,7 +155,7 @@ export default {
     'purge': 'Bölge Temizliği',
     'climb': 'Kule Koşusu',
     'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları', 'neon': 'Karartma Bulvarı', 'rotor': 'Pervane Uçuşu' },
+    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları', 'neon': 'Karartma Bulvarı', 'rotor': 'Pervane Uçuşu', 'fortress': 'Vex Kalesi' },
     'rematch': 'Rövanş: {boss}',
     'desc': {
       'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
@@ -597,6 +603,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Bekçi düştü! Yol açık.',
     'help': {
       'weapon': 'Yeni silahını seç ve dronlara ateş et!',
       'gap': 'Kenara doğru dümdüz yürü, otomatik olarak atlarsın!',

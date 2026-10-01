@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Eco del Maestro',
+    'gatekeeper': 'Custode del Cancello',
+    'warden': 'Guardiano',
     'hornet': 'Rotore Calabrone',
     'stalker': 'Predatore Luminoso',
     'puffer': 'Mina Pesce Palla',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Eco del Maestro | Echi del Maestro',
+    'gatekeeper': 'Custode del Cancello | Custodi del Cancello',
+    'warden': 'Guardiano | Guardiani',
     'hornet': 'Rotore Calabrone | Rotori Calabrone',
     'stalker': 'Predatore Luminoso | Predatori Luminosi',
     'puffer': 'Mina Pesce Palla | Mine Pesce Palla',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Bonifica del Settore',
     'climb': 'Corsa alla torre',
     'stage': 'Livello a piattaforme',
-    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea', 'neon': 'Viale del buio', 'rotor': 'Volo a rotore' },
+    'stageName': { 'blaze': 'Discesa fusa', 'cryo': 'Corsa sul ghiacciaio', 'volt': 'Corsa sui binari', 'gale': 'Moli del cielo', 'magnet': 'Officina Polarità', 'drill': 'Miniera profonda', 'tide': 'Chiuse di marea', 'neon': 'Viale del buio', 'rotor': 'Volo a rotore', 'fortress': 'Fortezza di Vex' },
     'rematch': 'Rivincita: {boss}',
     'desc': {
       'tutorial': 'Fatti strada nella Discarica e abbatti il Rottamatore.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Guardia giù! La strada è libera.',
     'help': {
       'weapon': 'Scegli la tua nuova arma e spara ai droni!',
       'gap': "Cammina dritto verso il bordo e salterai dall'altra parte!",

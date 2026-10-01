@@ -1,8 +1,9 @@
+import { buildBossRig, poseBoss, type BossId } from '../models/bosses'
 import { Group } from 'three'
 import type { Enemy, Shot, World } from './world'
 import { ENEMIES, scaleDmg, scaleHp, type Element } from '../data/enemies'
 import {
-  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseStalker, poseHornet, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
+  buildEnemyRig, poseHardhat, poseTrooper, poseHeli, posePolar, poseMole, posePuffer, poseStalker, poseHornet, poseWarden, poseGatekeeper, poseHopper, poseRoller, poseBrute, poseTurret, poseGolem,
   BASE_COLORS, type EnemyKind, type EnemyColors
 } from '../models/enemies'
 import { makeTeleRing, setTeleRing, makeBlobShadow } from '../fx/markers'
@@ -70,6 +71,15 @@ export const golemColors = (theme: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>
  */
 export const UNAWARE_TROOPER_GUARD = 1
 
+/** A Master's echo is drawn at this share of its Master's size. */
+export const ECHO_SCALE = 0.82
+/** The Warden's shutters stay open this long after it fires (s). */
+export const WARDEN_OPEN = 1.7
+/** The Gatekeeper: its chest hatch stays open after a barrage (s), and its
+ *  stomp's reach (m). */
+export const GATE_OPEN = 2.4
+export const GATE_STOMP_R = 3.2
+
 /** The Hornet Rotor's dive speed (m/s). */
 export const HORNET_DIVE = 13
 
@@ -94,19 +104,21 @@ export const POLAR_OPEN = 1.8
 
 export const createEnemy = (
   kind: EnemyKind, level: number, x: number, z: number, room: number,
-  opts: { elite?: boolean; element?: Element; theme?: Pick<Theme, 'crate' | 'crateTrim' | 'accent'> } = {}
+  opts: { elite?: boolean; element?: Element; theme?: Pick<Theme, 'crate' | 'crateTrim' | 'accent'>; echo?: BossId } = {}
 ): Enemy => {
   const golem = kind === 'golem'
   // A golem's own copy: its hit volume shrinks to a crate's while it sleeps
   const def = golem ? { ...ENEMIES.golem, aimY: GOLEM_SLEEP_AIM, hitR: GOLEM_SLEEP_HIT } : ENEMIES[kind]
   const elite = !!opts.elite
   const element = golem ? 'none' : opts.element ?? 'none'
-  const rig = buildEnemyRig(kind, golem && opts.theme ? golemColors(opts.theme, elite) : colorsFor(kind, element, elite))
+  // A Master's echo wears its Master's rig, a little smaller.
+  const echo = kind === 'echo' ? opts.echo ?? 'blazeMaster' : undefined
+  const rig = echo ? buildBossRig(echo) : buildEnemyRig(kind, golem && opts.theme ? golemColors(opts.theme, elite) : colorsFor(kind, element, elite))
   const root = new Group()
   root.add(rig.root)
   const scale = elite ? 1.18 : 1
   // An elite golem sleeps crate-sized and grows as it unfolds (syncEnemyVisual)
-  rig.root.scale.setScalar(golem ? 1 : scale)
+  rig.root.scale.setScalar(golem ? 1 : echo ? ECHO_SCALE : scale)
   const hp = Math.round(scaleHp(def.hp, level) * (elite ? 2.5 : 1))
   const id = nextId++
   const e: Enemy = {
@@ -123,6 +135,12 @@ export const createEnemy = (
   }
   // A Mole Driller waits half dug in until it wakes and digs under.
   if (kind === 'mole') e.a = 0.75
+  // The Fortress's armour starts shut.
+  if (kind === 'warden' || kind === 'gatekeeper') e.guard = 1
+  if (echo) {
+    e.echoOf = echo
+    e.nameKey = `boss.${echo}`
+  }
   if (golem) {
     // Asleep as a crate; `hold` keeps gunfire from waking it (mission.makeNoise)
     // and puts it last on the objective trail, like a lesson's sleeping drone
@@ -1434,6 +1452,138 @@ const runArchetype = (w: World, e: Enemy, dt: number, d: number): void => {
       break
     }
 
+    // ── Warden: turns, charges its cannon (the core glows through the
+    //    seams), fires three; then its shutters stay open a while ──
+    case 'warden': {
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 2, dt)
+        e.guard += (1 - e.guard) * Math.min(1, dt * 6)
+        e.b = Math.max(0, e.b - dt * 3)
+        if (canAttack && d < 18) startTele(e, 'cannon', def.tele, false)
+      } else if (e.state === 'tele') {
+        faceTo(e, px, pz, 3, dt)
+        e.b = Math.min(1, e.st / e.teleDur)
+        if (e.st >= e.teleDur) {
+          const ang = Math.atan2(px - e.x, pz - e.z)
+          for (const off of [-0.18, 0, 0.18]) {
+            const a = ang + off
+            w.fireEnemyShot(e, e.x + Math.sin(a) * 0.7, 1.25, e.z + Math.cos(a) * 0.7, Math.sin(a), 0, Math.cos(a), 12, Math.round(e.dmg * 0.7), true)
+          }
+          w.sfx('enemyShot', e.x, e.z)
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        // Spent: the shutters open, the core bare.
+        e.guard += (0 - e.guard) * Math.min(1, dt * 10)
+        e.b = Math.max(0, e.b - dt * 2)
+        if (e.st > WARDEN_OPEN) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
+    // ── Gatekeeper (mini-boss): walks in, a shell barrage (then its chest
+    //    hatch opens), a twin-cannon volley, a stomp when close ──
+    case 'gatekeeper': {
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 1.4, dt)
+        e.guard += (1 - e.guard) * Math.min(1, dt * 4)
+        const [lo, hi] = def.range
+        if (d > hi) seek(w, e, px, pz, def.speed, dt)
+        else if (d < lo) seek(w, e, e.x + (e.x - px), e.z + (e.z - pz), def.speed * 0.6, dt)
+        if (canAttack) {
+          const move = d < 4.5 ? 'stomp' : e.step % 2 === 0 ? 'barrage' : 'cannon'
+          startTele(e, move, move === 'stomp' ? 0.8 : def.tele, move !== 'cannon')
+          if (move === 'stomp') w.markers.spawn(e.x, e.z, GATE_STOMP_R, 1.0)
+        }
+      } else if (e.state === 'tele') {
+        faceTo(e, px, pz, 2, dt)
+        if (e.st >= e.teleDur) {
+          if (e.attack === 'barrage') {
+            for (let k = 0; k < 4; k++) {
+              const a = Math.random() * Math.PI * 2
+              const r = k === 0 ? 0 : 1.6 + Math.random() * 2.4
+              const tx = px + Math.cos(a) * r
+              const tz = pz + Math.sin(a) * r
+              w.markers.spawn(tx, tz, 1.8, 1.15)
+              w.lobShell(e, tx, tz, 1.1, Math.round(e.dmg * 0.8))
+            }
+            w.sfx('lob', e.x, e.z)
+          } else if (e.attack === 'cannon') {
+            const ang = Math.atan2(px - e.x, pz - e.z)
+            for (const off of [-0.3, -0.15, 0, 0.15, 0.3]) {
+              const a = ang + off
+              w.fireEnemyShot(e, e.x + Math.sin(a) * 1.4, 1.9, e.z + Math.cos(a) * 1.4, Math.sin(a), 0, Math.cos(a), 13, Math.round(e.dmg * 0.6), true)
+            }
+            w.sfx('enemyShot', e.x, e.z)
+          } else {
+            w.shocks.spawn(e.x, (e.floor ?? 0) + 0.05, e.z, GATE_STOMP_R, '#ff3f5f', 0.4)
+            w.shake(0.5)
+            w.sfx('stomp', e.x, e.z)
+            if (d < GATE_STOMP_R + PLAYER_R) w.hitPlayer(e, Math.round(e.dmg * 1.2), { blockable: false, fromX: e.x, fromZ: e.z, kind: 'aoe' })
+          }
+          e.step++
+          enterState(e, 'act')
+        }
+      } else if (e.state === 'act') {
+        // After a barrage the chest hatch opens a while; else a short beat.
+        const window = e.attack === 'barrage' ? GATE_OPEN : 0.5
+        if (e.attack === 'barrage') e.guard += (0 - e.guard) * Math.min(1, dt * 6)
+        if (e.st > window) {
+          e.cd = cooldown()
+          enterState(e, 'engage')
+        }
+      }
+      e.b += dt * (e.state === 'engage' && d > def.range[1] ? 1.2 : 0)
+      break
+    }
+
+    // ── A Master's echo (the Twin Masters): strafes at range and fires its
+    //    Master's own volleys; two take turns, and the last one left speeds
+    //    up ──
+    case 'echo': {
+      const twin = w.enemies.some(o => o !== e && o.kind === 'echo' && o.room === e.room && o.state !== 'dead')
+      const busy = w.enemies.some(o => o !== e && o.kind === 'echo' && o.room === e.room && (o.state === 'tele' || o.state === 'act'))
+      if (e.state === 'engage') {
+        faceTo(e, px, pz, 5, dt)
+        e.a += dt * 0.5 * (e.id % 2 ? 1 : -1)
+        const r = (def.range[0] + def.range[1]) / 2
+        seek(w, e, px + Math.cos(e.a) * r, pz + Math.sin(e.a) * r, def.speed, dt)
+        if (canAttack && !busy) startTele(e, e.step % 2 === 0 ? 'volley' : 'lob', def.tele * (twin ? 1 : 0.75), e.step % 2 === 1)
+      } else if (e.state === 'tele') {
+        faceTo(e, px, pz, 7, dt)
+        if (e.st >= e.teleDur) {
+          const fire = e.echoOf === 'blazeMaster'
+          if (e.attack === 'volley') {
+            const ang = Math.atan2(px - e.x, pz - e.z)
+            const n = fire ? 5 : 3
+            for (let k = 0; k < n; k++) {
+              const a = ang + (k / (n - 1) - 0.5) * (fire ? 0.9 : 0.25)
+              w.fireEnemyShot(e, e.x + Math.sin(a) * 0.8, 1.5, e.z + Math.cos(a) * 0.8, Math.sin(a), 0, Math.cos(a), fire ? 11 : 16, Math.round(e.dmg * (fire ? 0.6 : 0.75)), true)
+            }
+            w.sfx('enemyShot', e.x, e.z)
+          } else {
+            const pts: Array<[number, number]> = [[px, pz], [px + 2.2, pz + 1.2], [px - 2, pz - 1.4]]
+            for (const [x, z] of pts) {
+              w.markers.spawn(x, z, 1.6, 1.0)
+              w.lobShell(e, x, z, 0.95, Math.round(e.dmg * 0.85))
+            }
+            w.sfx('lob', e.x, e.z)
+          }
+          e.step++
+          enterState(e, 'recover')
+        }
+      } else if (e.state === 'recover') {
+        if (e.st > (twin ? 0.7 : 0.4)) {
+          e.cd = def.cooldown * (twin ? 1 : 0.6) * (0.8 + Math.random() * 0.4)
+          enterState(e, 'engage')
+        }
+      }
+      break
+    }
+
     // ── Hornet Rotor: hovers at range, spins up red, dives straight
     //    through where Flux stood (it does not turn); a parry crashes it ──
     case 'hornet': {
@@ -1718,6 +1868,18 @@ export const syncEnemyVisual = (e: Enemy, alpha: number, time: number): void => 
     case 'hornet':
       poseHornet(r, e.b, e.state === 'act' ? 1 : 0, t, m)
       break
+    case 'warden':
+      poseWarden(r, 1 - e.guard, e.b, t, m)
+      break
+    case 'gatekeeper':
+      poseGatekeeper(r, 1 - e.guard, e.state === 'tele' ? Math.min(1, e.st / e.teleDur) : 0, e.b, t, m)
+      break
+    case 'echo': {
+      const act = e.state === 'tele' ? 'tele' : e.state === 'act' || e.state === 'recover' ? 'attack' : e.state === 'stun' ? 'stun' : m.walk > 0.2 ? 'walk' : 'idle'
+      const k = e.state === 'tele' ? Math.min(1, e.st / e.teleDur) : e.state === 'recover' ? Math.min(1, e.st / 0.25) : 0
+      poseBoss(r, e.echoOf ?? 'blazeMaster', t, act, k, m)
+      break
+    }
     case 'stalker':
       poseStalker(r, e.b, e.state === 'act' ? 1 : 0, t, m)
       break

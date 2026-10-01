@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Echo Mistrza',
+    'gatekeeper': 'Odźwierny',
+    'warden': 'Strażnik',
     'hornet': 'Szerszeń wirnikowy',
     'stalker': 'Świetlny Łowca',
     'puffer': 'Mina Rozdymka',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Echo Mistrza | Ech Mistrza',
+    'gatekeeper': 'Odźwierny | Odźwiernych',
+    'warden': 'Strażnik | Strażników',
     'hornet': 'Szerszeń wirnikowy | Szerszenie wirnikowe',
     'stalker': 'Świetlny Łowca | Świetlni Łowcy',
     'puffer': 'Mina Rozdymka | Miny Rozdymki',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Czystka sektora',
     'climb': 'Bieg na wieżę',
     'stage': 'Etap platformowy',
-    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji', 'drill': 'Głęboka kopalnia', 'tide': 'Śluzy pływowe', 'neon': 'Aleja zaciemnienia', 'rotor': 'Wirnikowy rajd' },
+    'stageName': { 'blaze': 'Zjazd w żar', 'cryo': 'Lodowcowy bieg', 'volt': 'Szynowy pęd', 'gale': 'Podniebne doki', 'magnet': 'Zakłady polaryzacji', 'drill': 'Głęboka kopalnia', 'tide': 'Śluzy pływowe', 'neon': 'Aleja zaciemnienia', 'rotor': 'Wirnikowy rajd', 'fortress': 'Twierdza Vex' },
     'rematch': 'Rewanż: {boss}',
     'desc': {
       'tutorial': 'Przebij się przez Złomowisko i pokonaj Złomiarza.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Strażnik padł! Droga wolna.',
     'help': {
       'weapon': 'Wybierz nową broń i strzelaj do dronów!',
       'gap': 'Idź prosto w stronę krawędzi, a automatycznie przeskoczysz!',

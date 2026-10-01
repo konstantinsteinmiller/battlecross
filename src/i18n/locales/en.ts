@@ -75,6 +75,9 @@ export default {
 
   // Enemy display names (target frame, bestiary, job board).
   'enemy': {
+    'echo': 'Master Echo',
+    'gatekeeper': 'Gatekeeper',
+    'warden': 'Warden',
     'hornet': 'Hornet Rotor',
     'stalker': 'Glow Stalker',
     'puffer': 'Puffer Mine',
@@ -94,6 +97,9 @@ export default {
 
   // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
   'enemyPlural': {
+    'echo': 'Master Echo | Master Echoes',
+    'gatekeeper': 'Gatekeeper | Gatekeepers',
+    'warden': 'Warden | Wardens',
     'hornet': 'Hornet Rotor | Hornet Rotors',
     'stalker': 'Glow Stalker | Glow Stalkers',
     'puffer': 'Puffer Mine | Puffer Mines',
@@ -164,7 +170,7 @@ export default {
     'purge': 'Sector Purge',
     'climb': 'Tower Run',
     'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard', 'rotor': 'Rotor Run' },
+    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard', 'rotor': 'Rotor Run', 'fortress': 'Vex Fortress' },
     'rematch': 'Rematch: {boss}',
     'desc': {
       'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
@@ -659,6 +665,7 @@ export default {
   // short line each (they sit in a small speech bubble for 2–3 s). Each key is
   // also the name of its optional voice file (voice-todo.md).
   'atlas': {
+    'guardDown': "Guard down! The way's open.",
     'help': {
       'weapon': 'Pick your new weapon and fire at the drones!',
       'gap': "Walk straight at the edge and you'll leap across!",

@@ -1,3 +1,4 @@
+import type { BossId } from '../models/bosses'
 import type { EnemyKind } from '../models/enemies'
 import type { MapData } from '../world/levelGen'
 import { mulberry32, weighted } from '../world/rng'
@@ -47,7 +48,7 @@ export const spawnClimb = async (
     }
     const e = golem
       ? createEnemy('golem', level, f.x, f.z, f.room, { theme: THEMES[table.theme!] })
-      : createEnemy(kind, level, f.x, f.z, f.room, { element: table.element })
+      : createEnemy(kind, level, f.x, f.z, f.room, { element: table.element, echo: f.echo as BossId | undefined })
     // Posts face the game's way (forward = −sin, −cos); machines face (sin, cos).
     e.yaw = f.yaw + Math.PI
     e.floor = f.y

@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Gema Master',
+    'gatekeeper': 'Penjaga Gerbang',
+    'warden': 'Penjaga',
     'hornet': 'Rotor Tawon',
     'stalker': 'Pengintai Pendar',
     'puffer': 'Ranjau Buntal',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Gema Master | Gema Master',
+    'gatekeeper': 'Penjaga Gerbang | Penjaga Gerbang',
+    'warden': 'Penjaga | Penjaga',
     'hornet': 'Rotor Tawon | Rotor Tawon',
     'stalker': 'Pengintai Pendar | Pengintai Pendar',
     'puffer': 'Ranjau Buntal | Ranjau Buntal',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Pembersihan Sektor',
     'climb': 'Lari Menara',
     'stage': 'Tahap Platform',
-    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang', 'neon': 'Bulevar Padam', 'rotor': 'Laju Rotor' },
+    'stageName': { 'blaze': 'Turunan Lebur', 'cryo': 'Lari Gletser', 'volt': 'Laju Rel', 'gale': 'Dermaga Langit', 'magnet': 'Pabrik Polaritas', 'drill': 'Tambang Dalam', 'tide': 'Pintu Air Pasang', 'neon': 'Bulevar Padam', 'rotor': 'Laju Rotor', 'fortress': 'Benteng Vex' },
     'rematch': 'Tanding ulang: {boss}',
     'desc': {
       'tutorial': 'Terobos Gudang Rongsok dan kalahkan Si Rongsok.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Penjaga tumbang! Jalan terbuka.',
     'help': {
       'weapon': 'Pilih senjata barumu dan tembak drone-drone itu!',
       'gap': 'Jalan lurus ke tepi dan kamu akan melompat otomatis!',

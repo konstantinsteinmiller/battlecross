@@ -264,7 +264,11 @@ export const FIDGET_LEN: Record<EnemyKind, readonly number[]> = {
   // None: it sways on its wheel (its pose's idle).
   stalker: [],
   // None: it hovers and buzzes (its pose's idle).
-  hornet: []
+  hornet: [],
+  // None: the Fortress's machines stand their post.
+  warden: [],
+  gatekeeper: [],
+  echo: []
 }
 
 export const smoothstep = (a: number, b: number, x: number): number => {

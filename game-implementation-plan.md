@@ -515,7 +515,16 @@ while bars and damage numbers get direct DOM writes.
       Masters' tints vs the docs' freed colours, New Game+ has no level room
       past 40, the new ring pays off on rematches (only Rotor meets an owned
       weapon on a first run).
-  - [ ] **P8 Vex Fortress** (Core Descent finale).
+  - [x] **P8 Vex Fortress**: the Fortress is a stage now (17 sections +
+    arena, three acts — Outer Wall, the Works, the Spire): Wardens (shell
+    shut until they fire), sniper turrets on wall ledges, every Master's
+    trick once more, a puzzle vault, two guard halls (`Terrain.guards`: the
+    way out held until the hall's machines are down) with a checkpoint at
+    each door — the Gatekeeper tank (front armour, open back reactor, chest
+    hatch after a barrage) and the Twin Masters (Blaze and Frost echoes in
+    their Masters' rigs, taking turns, the last one faster) — and Vex in the
+    reactor hall, its fire, shock and gusts cycling on one clock. The Core
+    Descent's roof-then-fall staging is not built (one arena; noted).
   - [ ] **P9 Final balance.**
   - [ ] **P10 Boot hot-path pass.**
 

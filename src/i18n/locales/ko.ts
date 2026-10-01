@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': '마스터 에코',
+    'gatekeeper': '게이트키퍼',
+    'warden': '워든',
     'hornet': '호넷 로터',
     'stalker': '글로우 스토커',
     'puffer': '복어 기뢰',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': '마스터 에코 | 마스터 에코',
+    'gatekeeper': '게이트키퍼 | 게이트키퍼',
+    'warden': '워든 | 워든',
     'hornet': '호넷 로터 | 호넷 로터',
     'stalker': '글로우 스토커 | 글로우 스토커',
     'puffer': '복어 기뢰 | 복어 기뢰',
@@ -147,7 +153,7 @@ export default {
     'purge': '구역 소탕',
     'climb': '타워 런',
     'stage': '플랫폼 스테이지',
-    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스', 'neon': '블랙아웃 불러바드', 'rotor': '로터 런' },
+    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스', 'neon': '블랙아웃 불러바드', 'rotor': '로터 런', 'fortress': 'Vex 포트리스' },
     'rematch': '재대결: {boss}',
     'desc': {
       'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': '경비 격파! 길이 열렸어.',
     'help': {
       'weapon': '새 무기를 골라서 드론에게 쏘세요!',
       'gap': '가장자리를 향해 똑바로 걸으면 자동으로 뛰어넘어요!',

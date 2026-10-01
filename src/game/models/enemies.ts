@@ -22,7 +22,7 @@ import { legL, legR, gaitDir, gaitLegs, stanceDrop, poseLegs } from './gait'
  * and elites (gold trim) reuse the same rig.
  */
 
-export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer' | 'stalker' | 'hornet'
+export type EnemyKind = 'hardhat' | 'trooper' | 'heli' | 'hopper' | 'roller' | 'brute' | 'turret' | 'golem' | 'polar' | 'mole' | 'puffer' | 'stalker' | 'hornet' | 'warden' | 'gatekeeper' | 'echo'
 
 export interface EnemyColors {
   main: string
@@ -54,7 +54,12 @@ export const BASE_COLORS: Record<EnemyKind, EnemyColors> = {
   // The Glow Stalker: near-black plating, magenta seams, eyes that burn.
   stalker: { main: '#22223a', deep: '#14141f', accent: '#ff3fd2', eye: '#3ff4ff', metal: '#3a3a52' },
   // The Hornet Rotor: wasp stripes, a stinger, twin rotors.
-  hornet: { main: '#ffd23a', deep: '#22232e', accent: '#ff4a3a', eye: '#ff2a2a', metal: '#c8ccd6' }
+  hornet: { main: '#ffd23a', deep: '#22232e', accent: '#ff4a3a', eye: '#ff2a2a', metal: '#c8ccd6' },
+  // The Fortress's machines: Vex's black-and-red.
+  warden: { main: '#3a3e4c', deep: '#1c1e26', accent: '#ff3f5f', eye: '#ff3f5f', metal: '#8a8f9e' },
+  gatekeeper: { main: '#454a5a', deep: '#22252e', accent: '#ff3f5f', eye: '#ffcf3a', metal: '#8a8f9e' },
+  // A Master's echo wears its Master's rig (`buildEnemyRig` with a boss id).
+  echo: { main: '#ff3f5f', deep: '#22252e', accent: '#ff3f5f', eye: '#ff3f5f', metal: '#8a8f9e' }
 }
 
 // ─── Motion layer (idle, walk, eased attacks) ────────────────────────────────
@@ -608,6 +613,81 @@ export const poseHornet = (rig: Rig, spin: number, dive: number, t: number, m?: 
   const r = T * (20 + 40 * spin)
   pose(rig, 'rotorL', 0, r, 0)
   pose(rig, 'rotorR', 0, -r, 0)
+}
+
+// ─── Warden ──────────────────────────────────────────────────────────────────
+
+/**
+ * The Fortress's sentry: an armoured dome on three legs with a cannon. Its
+ * shell turns every shot; its two front shutters slide open only after it
+ * fires (`open` 0..1), the red core bare — that is the moment.
+ */
+export const buildWarden = (c: EnemyColors = BASE_COLORS.warden): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 0.9, 0])
+    .bone('shutL', 'body', [-0.02, 0, 0.3])
+    .bone('shutR', 'body', [0.02, 0, 0.3])
+    .bone('gun', 'body', [0, 0.32, 0.2])
+  b.part('body', dome(0.62, Math.PI / 2, 20, 10), c.main, { p: [0, -0.1, 0] })
+  b.part('body', rcyl(0.62, 0.22, 0.05, 20), c.deep, { p: [0, -0.18, 0] })
+  b.part('body', sph(0.3, 14, 10), c.accent, { p: [0, 0.05, 0.18], glow: true, outline: false })
+  for (let k = 0; k < 3; k++) {
+    const a = (k / 3) * Math.PI * 2 + Math.PI / 6
+    b.part('body', cap(0.07, 0.6), c.metal, { p: [Math.sin(a) * 0.45, -0.55, Math.cos(a) * 0.45], r: [Math.cos(a) * 0.4, 0, -Math.sin(a) * 0.4] })
+    b.part('body', ell(0.14, 0.06, 0.14), c.deep, { p: [Math.sin(a) * 0.62, -0.88, Math.cos(a) * 0.62] })
+  }
+  b.mirror((s, t) => b.part(`shut${t}`, rbox(0.34, 0.5, 0.08, 0.3), c.main, { p: [s * 0.17, 0.05, 0.38], r: [0, s * 0.35, 0] }))
+  b.part('gun', rcyl(0.08, 0.5, 0.02, 10), c.metal, { p: [0, 0.05, 0.25], r: [Math.PI / 2, 0, 0] })
+  eye(b, 'body', [0, 0.35, 0.5], 0.08, c.eye, 0, true)
+  return b.build({ outline: 0.02, height: 1.6 })
+}
+
+export const poseWarden = (rig: Rig, open: number, charge: number, t: number, m?: EnemyMotion): void => {
+  const T = m ? t * m.tempo : t
+  nudge(rig, 'body', 0, 0.02 * Math.sin(T * 2), 0)
+  pose(rig, 'body', 0, m ? 0.25 * m.look * m.calm : 0, 0)
+  // The shutters slide apart (and swing out) to bare the core.
+  nudge(rig, 'shutL', -0.3 * open, 0, 0)
+  nudge(rig, 'shutR', 0.3 * open, 0, 0)
+  pose(rig, 'shutL', 0, -0.6 * open, 0)
+  pose(rig, 'shutR', 0, 0.6 * open, 0)
+  pose(rig, 'gun', -0.1 * charge + 0.04 * Math.sin(T * 30) * charge, 0, 0)
+}
+
+// ─── Gatekeeper ──────────────────────────────────────────────────────────────
+
+/**
+ * The Fortress's first mini-boss: a four-legged tank walker with a turret.
+ * Its armour turns shots from the front; the reactor on its back is open,
+ * and after a barrage the hatch on its chest opens (`open`) for a while.
+ */
+export const buildGatekeeper = (c: EnemyColors = BASE_COLORS.gatekeeper): Rig => {
+  const b = new RigBuilder()
+  b.bone('body', null, [0, 1.3, 0])
+    .bone('turret', 'body', [0, 0.55, 0])
+    .bone('hatch', 'body', [0, 0.1, 0.92])
+  b.part('body', rbox(1.8, 0.8, 2.1, 0.25), c.main)
+  b.part('body', rbox(1.6, 0.25, 1.9, 0.2), c.deep, { p: [0, -0.45, 0] })
+  b.part('body', rbox(0.7, 0.5, 0.3, 0.3), c.accent, { p: [0, 0.1, -1.05], glow: true, outline: false })
+  b.part('body', sph(0.32, 14, 10), c.accent, { p: [0, 0.1, 0.78], glow: true, outline: false })
+  for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
+    b.part('body', cap(0.16, 0.9), c.metal, { p: [sx * 0.95, -0.75, sz * 0.8], r: [sz * 0.25, 0, -sx * 0.25] })
+    b.part('body', rbox(0.42, 0.18, 0.5, 0.3), c.deep, { p: [sx * 1.1, -1.22, sz * 0.92] })
+  }
+  b.part('turret', rcyl(0.6, 0.4, 0.08, 18), c.main)
+  b.mirror((s) => b.part('turret', rcyl(0.1, 1.1, 0.03, 10), c.metal, { p: [s * 0.22, 0.05, 0.75], r: [Math.PI / 2, 0, 0] }))
+  eye(b, 'turret', [0, 0.12, 0.55], 0.12, c.eye, 0, true)
+  b.part('hatch', rbox(0.9, 0.5, 0.12, 0.3), c.main, { p: [0, 0, 0.06] })
+  return b.build({ outline: 0.03, height: 2.6 })
+}
+
+export const poseGatekeeper = (rig: Rig, open: number, aim: number, step: number, t: number, m?: EnemyMotion): void => {
+  const T = m ? t * m.tempo : t
+  nudge(rig, 'body', 0, 0.06 * Math.abs(Math.sin(step * Math.PI)) + 0.02 * Math.sin(T * 1.5), 0)
+  pose(rig, 'body', 0.03 * Math.sin(step * Math.PI * 2), 0, 0.04 * Math.sin(step * Math.PI))
+  pose(rig, 'turret', -0.2 * aim, m ? 0.2 * m.look : 0, 0)
+  // The chest hatch swings up on its top edge.
+  pose(rig, 'hatch', -1.3 * open, 0, 0)
 }
 
 // ─── Stomper ─────────────────────────────────────────────────────────────────
@@ -1178,5 +1258,9 @@ export const buildEnemyRig = (kind: EnemyKind, colors?: EnemyColors): Rig => {
     case 'puffer': return buildPuffer(c)
     case 'stalker': return buildStalker(c)
     case 'hornet': return buildHornet(c)
+    case 'warden': return buildWarden(c)
+    case 'gatekeeper': return buildGatekeeper(c)
+    // Built from its Master's rig by `createEnemy` (it knows which).
+    case 'echo': return buildWarden(c)
   }
 }

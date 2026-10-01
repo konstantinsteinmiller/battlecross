@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Eco de Mestre',
+    'gatekeeper': 'Guardião do Portão',
+    'warden': 'Sentinela',
     'hornet': 'Hélice Vespa',
     'stalker': 'Caçador Brilhante',
     'puffer': 'Mina Baiacu',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Eco de Mestre | Ecos de Mestre',
+    'gatekeeper': 'Guardião do Portão | Guardiões do Portão',
+    'warden': 'Sentinela | Sentinelas',
     'hornet': 'Hélice Vespa | Hélices Vespa',
     'stalker': 'Caçador Brilhante | Caçadores Brilhantes',
     'puffer': 'Mina Baiacu | Minas Baiacu',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Limpeza do Setor',
     'climb': 'Corrida da Torre',
     'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré', 'neon': 'Avenida do Apagão', 'rotor': 'Rota da Hélice' },
+    'stageName': { 'blaze': 'Descida Derretida', 'cryo': 'Corrida Glacial', 'volt': 'Corrida nos Trilhos', 'gale': 'Docas do Céu', 'magnet': 'Usina Polaridade', 'drill': 'Mina Profunda', 'tide': 'Eclusas da Maré', 'neon': 'Avenida do Apagão', 'rotor': 'Rota da Hélice', 'fortress': 'Fortaleza Vex' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Abra caminho pelo Ferro-Velho e derrube o Sucateiro.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Guarda caiu! O caminho está livre.',
     'help': {
       'weapon': 'Escolha sua nova arma e atire nos drones!',
       'gap': 'Ande reto até a borda e você pulará automaticamente!',

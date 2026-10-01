@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Meester-echo',
+    'gatekeeper': 'Poortwachter',
+    'warden': 'Wachter',
     'hornet': 'Hoornaarrotor',
     'stalker': 'Gloeisluiper',
     'puffer': 'Kogelvismijn',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Meester-echo | Meester-echo’s',
+    'gatekeeper': 'Poortwachter | Poortwachters',
+    'warden': 'Wachter | Wachters',
     'hornet': 'Hoornaarrotor | Hoornaarrotors',
     'stalker': 'Gloeisluiper | Gloeisluipers',
     'puffer': 'Kogelvismijn | Kogelvismijnen',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Sectorzuivering',
     'climb': 'Torenrun',
     'stage': 'Platformlevel',
-    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen', 'neon': 'Blackoutboulevard', 'rotor': 'Rotorrun' },
+    'stageName': { 'blaze': 'Smeltafdaling', 'cryo': 'Gletsjerrun', 'volt': 'Railrace', 'gale': 'Hemeldokken', 'magnet': 'Polariteitsfabriek', 'drill': 'Diepe Mijn', 'tide': 'Getijdensluizen', 'neon': 'Blackoutboulevard', 'rotor': 'Rotorrun', 'fortress': 'Fort Vex' },
     'rematch': 'Revanche: {boss}',
     'desc': {
       'tutorial': 'Vecht je een weg door de Schroothoop en schakel de Sloper uit.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Bewaker neer! De weg is vrij.',
     'help': {
       'weapon': 'Kies je nieuwe wapen en vuur op de drones!',
       'gap': 'Loop recht op de rand af en je springt er vanzelf overheen!',

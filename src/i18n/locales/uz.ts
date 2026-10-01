@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Usta aks-sadosi',
+    'gatekeeper': 'Darvozabon',
+    'warden': 'Qoʻriqchi',
     'hornet': 'Rotorli qovogʻari',
     'stalker': 'Yorqin ovchi',
     'puffer': 'Puffer baliq minasi',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Usta aks-sadosi | Usta aks-sadosi',
+    'gatekeeper': 'Darvozabon | Darvozabon',
+    'warden': 'Qoʻriqchi | Qoʻriqchi',
     'hornet': 'Rotorli qovogʻari | Rotorli qovogʻari',
     'stalker': 'Yorqin ovchi | Yorqin ovchi',
     'puffer': 'Puffer baliq minasi | Puffer baliq minasi',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Sektorni tozalash',
     'climb': 'Minora poygasi',
     'stage': 'Platforma bosqichi',
-    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi', 'drill': 'Chuqur kon', 'tide': 'Toʻlqin shlyuzlari', 'neon': 'Zulmat bulvari', 'rotor': 'Rotor parvozi' },
+    'stageName': { 'blaze': 'Erish tushishi', 'cryo': 'Muzlik yugurishi', 'volt': 'Relsda shitob', 'gale': 'Osmon doklari', 'magnet': 'Qutblanish zavodi', 'drill': 'Chuqur kon', 'tide': 'Toʻlqin shlyuzlari', 'neon': 'Zulmat bulvari', 'rotor': 'Rotor parvozi', 'fortress': 'Vex qalʼasi' },
     'rematch': 'Qayta jang: {boss}',
     'desc': {
       'tutorial': 'Chiqindixona orqali jang qilib oʻting va Buzgʻunchini yenging.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Qoʻriqchi yiqildi! Yoʻl ochiq.',
     'help': {
       'weapon': 'Yangi qurolingizni tanlang va dronlarga oting!',
       'gap': 'Chekkaga qarab toʻgʻri yuring, oʻzingiz sakrab oʻtasiz!',

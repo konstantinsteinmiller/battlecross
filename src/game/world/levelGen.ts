@@ -199,6 +199,8 @@ export interface FoePost {
   /** The machine this post holds, when the level names it (a stage's own
    *  enemy); else the role's default (`sim/climbSpawn.ts`). */
   kind?: EnemyKind
+  /** An `echo` post's Master (the Fortress's Twin Masters). */
+  echo?: string
   x: number
   z: number
   y: number
@@ -478,6 +480,9 @@ export interface Terrain {
   magnets?: MagnetRail[]
   /** Water: tides, locks and currents (the Tidewater Locks). */
   water?: WaterZone[]
+  /** Guard rooms (the Fortress's mini-boss halls): the way out of each
+   *  stays shut until every machine in it is down. */
+  guards?: number[]
   /** Bridges of light and their switches (the Blackout Boulevard). */
   neon?: NeonBridge[]
   neonSwitches?: NeonSwitch[]

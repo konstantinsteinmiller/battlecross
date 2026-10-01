@@ -55,7 +55,13 @@ export const ENEMY_WEAK: Record<EnemyKind, WeakSpot> = {
   // The head, its eyes.
   stalker: spot('head', 1.05, 0.2, 0.18),
   // Its stinger end.
-  hornet: spot('tail', -0.02, -0.5, 0.17)
+  hornet: spot('tail', -0.02, -0.5, 0.17),
+  // Its core, bare when the shutters open.
+  warden: spot('core', 0.95, 0.3, 0.25),
+  // The reactor on its back.
+  gatekeeper: spot('back', 1.4, -1.1, 0.35),
+  // A Master's head.
+  echo: spot('head', 1.7, 0.08, 0.3)
 }
 
 export const BOSS_WEAK: Record<BossId, WeakSpot> = {

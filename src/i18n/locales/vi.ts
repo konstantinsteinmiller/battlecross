@@ -60,6 +60,9 @@ export default {
   },
 
   'enemy': {
+    'echo': 'Bóng Vọng Chúa Tể',
+    'gatekeeper': 'Kẻ Giữ Cổng',
+    'warden': 'Lính Gác',
     'hornet': 'Ong Bắp Cày Cánh Quạt',
     'stalker': 'Kẻ Rình Phát Sáng',
     'puffer': 'Thủy Lôi Cá Nóc',
@@ -78,6 +81,9 @@ export default {
   },
 
   'enemyPlural': {
+    'echo': 'Bóng Vọng Chúa Tể | Bóng Vọng Chúa Tể',
+    'gatekeeper': 'Kẻ Giữ Cổng | Kẻ Giữ Cổng',
+    'warden': 'Lính Gác | Lính Gác',
     'hornet': 'Ong Bắp Cày Cánh Quạt | Ong Bắp Cày Cánh Quạt',
     'stalker': 'Kẻ Rình Phát Sáng | Kẻ Rình Phát Sáng',
     'puffer': 'Thủy Lôi Cá Nóc | Thủy Lôi Cá Nóc',
@@ -147,7 +153,7 @@ export default {
     'purge': 'Càn Quét Khu Vực',
     'climb': 'Leo Tháp',
     'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều', 'neon': 'Đại Lộ Mất Điện', 'rotor': 'Đường Bay Cánh Quạt' },
+    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều', 'neon': 'Đại Lộ Mất Điện', 'rotor': 'Đường Bay Cánh Quạt', 'fortress': 'Pháo Đài Vex' },
     'rematch': 'Tái đấu: {boss}',
     'desc': {
       'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
@@ -595,6 +601,7 @@ export default {
     }
   },
   'atlas': {
+    'guardDown': 'Hạ gục lính gác! Đường đã mở.',
     'help': {
       'weapon': 'Chọn vũ khí mới và bắn vào lũ drone!',
       'gap': 'Đi thẳng về phía mép, cậu sẽ tự động nhảy qua!',

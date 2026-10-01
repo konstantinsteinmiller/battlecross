@@ -123,7 +123,7 @@ const slideAt = (gap: number, x0: number, stick: boolean): 'across' | 'fell' => 
 // ─── Story routing ───────────────────────────────────────────────────────────
 
 describe('the story routes four sectors to their platform stage', () => {
-  it('storyQuest: a stage for Blaze, Cryo, Volt and Gale, the labyrinth for the Fortress', () => {
+  it('storyQuest: a stage for Blaze, Cryo, Volt and Gale, the labyrinth for the Scrapyard replay', () => {
     for (const id of ['blaze', 'cryo', 'volt', 'gale'] as const) {
       const q = storyQuest(SECTOR_BY_ID[id], 10, 0)
       expect(q.template).toBe('stage')
@@ -135,9 +135,14 @@ describe('the story routes four sectors to their platform stage', () => {
       expect(setup.stage).toBe(id)
       expect(setup.boss).toBe(false)
     }
+    // The Fortress is a stage too now (its labyrinth was the old finale).
     const f = storyQuest(SECTOR_BY_ID.fortress, 10, 0)
-    expect(f.template).toBe('boss')
-    expect(setupFromQuest(f, null).stage).toBeUndefined()
+    expect(f.template).toBe('stage')
+    expect(setupFromQuest(f, null).stage).toBe('fortress')
+    // The Scrapyard's replay is still the labyrinth.
+    const s = storyQuest(SECTOR_BY_ID.scrapyard, 3, 0)
+    expect(s.template).toBe('boss')
+    expect(setupFromQuest(s, null).stage).toBeUndefined()
     // A climb job is not a stage.
     expect(setupFromQuest(climbJob(5, ['blaze'], 8), null).stage).toBeUndefined()
   })
@@ -155,7 +160,7 @@ describe('the story routes four sectors to their platform stage', () => {
       expect(generateStage('cryo', seed)).toEqual(generateGlacier(seed))
       expect(generateStage('volt', seed)).toEqual(generateRailRush(seed))
       expect(generateStage('gale', seed)).toEqual(generateSkyDocks(seed))
-      expect(generateStage('fortress', seed)).toEqual(generateClimb(seed))
+      expect(generateStage('scrapyard', seed)).toEqual(generateClimb(seed))
       for (const s of ['blaze', 'cryo', 'volt', 'gale'] as const) {
         const m = generateStage(s, seed)
         expect(m.terrain).toBeDefined()

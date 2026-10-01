@@ -936,8 +936,15 @@ export class CombatSystem {
     let guarded = false
     if (e.guardBreakT <= 0) {
       if (e.kind === 'hardhat' && e.guard > 0.55) guarded = true
-      // A Polar Pup's shut shell, from any side.
-      if (e.kind === 'polar' && e.guard > 0.55) guarded = true
+      // A Polar Pup's shut shell, a Warden's shutters: from any side.
+      if ((e.kind === 'polar' || e.kind === 'warden') && e.guard > 0.55) guarded = true
+      // The Gatekeeper's armour: from the front only (its back is open).
+      if (e.kind === 'gatekeeper' && e.guard > 0.55) {
+        let d = Math.atan2(o.fromX - e.x, o.fromZ - e.z) - e.yaw
+        while (d > Math.PI) d -= Math.PI * 2
+        while (d < -Math.PI) d += Math.PI * 2
+        if (Math.abs(d) < 1.3) guarded = true
+      }
       if (e.kind === 'trooper' && e.guard > 0.55) {
         const toShot = Math.atan2(o.fromX - e.x, o.fromZ - e.z)
         let d = toShot - e.yaw
