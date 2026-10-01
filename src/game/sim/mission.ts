@@ -231,6 +231,9 @@ const _portal = new Sphere()
 const _stray: [number, number, number] = [0, 0, 0]
 /** The fumbling muzzle's sputter colours (`syncViewmodel`). */
 const FUMBLE_SPARKS = ['#ff5a3a', '#ffd84a', '#7ff4ff', '#ffffff']
+/** A blackout's sky and fog, and a lightning flash's. */
+const NIGHT = new Color('#04050b')
+const FLASH_WHITE = new Color('#e8eeff')
 /** The Overload's violet (the prototype tier's), mixed into the core as it builds. */
 const OVERLOAD_VIOLET = new Color('#b46cff')
 /** After a manual look, the soft lock-on stands aside this long (s). */
@@ -489,6 +492,17 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   /** The sky light (the boss fight's set dressing dims and reddens it). */
   private hemi: HemisphereLight | null = null
   private readonly hemiBase = new Color()
+  /** The stage's light (`stageDark`, `skyFlash`): the sun, the sky light's
+   *  level as the arena dressing wants it, this frame's darkness and the
+   *  flash fading out, and the sky and fog colours as built. */
+  private sun: DirectionalLight | null = null
+  private sunBase = 1
+  private arenaLight = 1.05
+  private darkWant = 0
+  private dark = 0
+  private flash = 0
+  private readonly skyBase = new Color()
+  private readonly fogBase = new Color()
   /** The boss arena's props, cover and anti-cheese (`sim/bossArena.ts`). */
   arena: BossArena | null = null
   /** Doors hidden behind a false wall until released (the tutorial's first). */
@@ -577,6 +591,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const sun = new DirectionalLight(new Color(th.sun), th.sunIntensity)
     sun.position.set(0.45, 1, 0.3)
     this.scene.add(hemi, sun)
+    this.sun = sun
+    this.sunBase = th.sunIntensity
+    this.skyBase.set(th.skyBottom)
+    this.fogBase.set(th.fog)
 
     for (const d of this.map.doors) {
       // The corridor lies on the -dir side of the frame (local Z after the turn).
@@ -1538,9 +1556,41 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         this.fx.emit({ x, y: 6.5, z, vx: 0, vy: -1, vz: 0, color: Math.random() < 0.5 ? '#ffd35a' : '#ff7a2a', size: 0.14, sizeEnd: 0.02, life: 1.2, gravity: 7 })
       }
     }
-    h.intensity += (want - h.intensity) * Math.min(1, dt * (want < h.intensity ? 30 : 6))
+    this.arenaLight += (want - this.arenaLight) * Math.min(1, dt * (want < this.arenaLight ? 30 : 6))
     const red = live && frac < 0.25 ? 1 : 0
     h.color.copy(this.hemiBase).lerp(ARENA_RED, 0.4 * red)
+  }
+
+  /** A stage feature asks for darkness this frame (the darkest ask wins). */
+  stageDark(dark01: number): void {
+    this.darkWant = Math.max(this.darkWant, Math.max(0, Math.min(1, dark01)))
+  }
+
+  /** Lightning: the sky flashes and fades on its own. */
+  skyFlash(amount: number): void {
+    this.flash = Math.max(this.flash, Math.max(0, Math.min(1, amount)))
+  }
+
+  /**
+   * The stage's light, once a frame after everything that asks for it: the
+   * sky light (at the arena dressing's level), the sun, the skyline windows
+   * and the sky and fog colours, all scaled by the frame's darkness, plus a
+   * lightning flash. A blackout keeps 15 % of the light: platform edges, the
+   * HUD and the machines' eyes stay readable.
+   */
+  private applyStageLight(dt: number): void {
+    const d = this.darkWant
+    this.darkWant = 0
+    const flashWas = this.flash
+    this.flash = Math.max(0, this.flash - dt * 4)
+    const changed = d !== this.dark || flashWas > 0
+    this.dark = d
+    if (this.hemi) this.hemi.intensity = this.arenaLight * (1 - 0.85 * d) + this.flash * 1.4
+    if (!changed) return
+    if (this.sun) this.sun.intensity = this.sunBase * (1 - 0.9 * d) + this.flash * 0.8
+    this.city?.setLight(1 - d + this.flash)
+    if (this.scene.background instanceof Color) this.scene.background.copy(this.skyBase).lerp(NIGHT, 0.75 * d).lerp(FLASH_WHITE, 0.35 * this.flash)
+    this.scene.fog?.color.copy(this.fogBase).lerp(NIGHT, 0.75 * d)
   }
 
   /** Story progress toughens machines: PROGRESS_HP more health per Core
@@ -2229,6 +2279,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const boss = this.boss
     if (this.arena && boss && this.bossStarted && boss.state !== 'dead' && hud.phase === 'play') this.arena.update(dt, boss)
     this.arenaDressing(dt)
+    this.applyStageLight(dt)
     // Entering the boss room triggers the Core Master
     if (this.boss && !this.bossStarted && this.bossRoom && hud.phase === 'play') {
       const i = Math.floor(p.x / CELL)

@@ -171,6 +171,11 @@ export interface ClimbHost {
    *  says is in it loses `cost01` of ITS max health, halved (`hurtMachines`). */
   hurtMachines?(cost01: number, fromX: number, fromZ: number, hits: (x: number, y: number, z: number) => boolean): void
   sfx(name: string, x?: number, z?: number): void
+  /** The stage's lights this frame (`sim/lightPulse.ts`): 0 lit .. 1 dark. The
+   *  darkest request of the frame wins; nothing asked means lit. */
+  stageDark?(dark01: number): void
+  /** A sky flash (lightning), 0..1, fading on its own. */
+  skyFlash?(amount: number): void
   shake(amount: number): void
   onPickup(kind: PickupKind, value: number): void
   propParent(x: number, z: number): Object3D

@@ -642,6 +642,8 @@ export interface Cityscape {
    * True once everything is in.
    */
   stream(budgetMs: number): boolean
+  /** The windows' light, 0 (a blackout) .. 1 (as built). */
+  setLight(k01: number): void
   dispose(): void
 }
 
@@ -683,6 +685,7 @@ export const buildCityscape = async (
     lit: new Color('#ffe2a8').lerp(new Color(theme.accent), 0.3),
     night
   }
+  const litBase = look.lit.clone()
   const bodyMat = cityMat(look, 'body', 0.6)
   const glowMat = cityMat(look, 'glow', 0.32)
   const vehMat = cityMat(look, 'glow', 0.5)
@@ -1032,6 +1035,8 @@ export const buildCityscape = async (
     quality,
     update,
     stream,
+    // `look.lit` is the one colour every city material's `uLit` points at.
+    setLight: (k01: number) => { look.lit.copy(litBase).multiplyScalar(Math.max(0, Math.min(1, k01))) },
     dispose: () => {
       root.traverse((o) => {
         const mesh = o as Mesh
