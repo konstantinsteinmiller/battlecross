@@ -1,6 +1,8 @@
 <template lang="pug">
   div.qcard(:class="{ story, climb }" :style="{ '--c1': SECTOR_COLOR[quest.sector] }")
-    div.q-icon
+    //- A story mission wears its Master's face and colour (#103).
+    MasterPortrait.q-face(v-if="story" :id="boss" state="next" :size="52")
+    div.q-icon(v-else)
       GameIcon(:name="ICON[quest.template]")
     div.q-body
       div.q-title {{ story && quest.template === 'boss' ? t('quest.bossTitle', { boss: t(`boss.${SECTOR_BY_ID[quest.sector].boss}`) }) : quest.template === 'stage' ? t(`quest.stageName.${quest.sector}`) : t(`quest.${quest.template}`) }}
@@ -9,6 +11,7 @@
         //- A climb ends in a rematch: the boss named on the card, in the
         //- boss's red, so the tower is not read as one more job.
         span.chip.rematch(v-if="climb") {{ t('quest.rematch', { boss: params.boss }) }}
+        span.chip.master(v-if="story") {{ params.boss }}
         span.chip.sector {{ t(`sector.${quest.sector}`) }}
         span.chip.lvl {{ t('enemy.level', { n: quest.level }) }}
         span.chip.xp {{ t('combat.xp', { n: quest.reward.xp }) }}
@@ -33,6 +36,8 @@ import type { GameIconName } from '@/components/icons/iconNames'
 import type { Quest, QuestTemplate } from '@/game/data/quests'
 import { SECTOR_COLOR } from '@/game/data/signature'
 import { SECTOR_BY_ID } from '@/game/data/regions'
+import MasterPortrait from '@/components/atoms/MasterPortrait.vue'
+import type { BossId } from '@/game/models/bosses'
 
 const props = defineProps<{ quest: Quest; story?: boolean }>()
 defineEmits<{ deploy: []; reroll: [] }>()
@@ -41,6 +46,7 @@ const ICON: Record<QuestTemplate, GameIconName> = {
   tutorial: 'star', boss: 'skull', kill: 'bomb', collect: 'gem', rescue: 'heart', elite: 'trophy', supply: 'chest', purge: 'flame',
   climb: 'up', stage: 'rocket'
 }
+const boss = computed(() => SECTOR_BY_ID[props.quest.sector].boss as BossId)
 /** A Tower Run: its own livery (hazard stripes, a climbing arrow). */
 const climb = computed(() => props.quest.template === 'climb')
 const params = computed(() => ({
@@ -64,9 +70,10 @@ const params = computed(() => ({
   border-radius: 14px
   border: 2px solid #141a33
   background: linear-gradient(90deg, color-mix(in srgb, var(--c1) 40%, #16244e), rgba(22, 36, 78, 0.9) 60%)
+  // A story mission: framed in its Master's signature colour (was gold).
   &.story
-    border-color: #ffd84a
-    box-shadow: 0 0 14px rgba(255, 216, 74, 0.25)
+    border: 3px solid var(--c1)
+    box-shadow: 0 0 14px color-mix(in srgb, var(--c1) 35%, transparent)
 .q-icon
   width: clamp(36px, 8vmin, 48px)
   height: clamp(36px, 8vmin, 48px)

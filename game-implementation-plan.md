@@ -569,7 +569,7 @@ while bars and damage numbers get direct DOM writes.
     arenas), 4.2 Neon blackout (#110, 9 s clock, Blink Run pulse bridges),
     4.3 Deep Mine cart (#111: optional ~15 s ride, trestle + drop + warren;
     the islands stay a walk; its feature slot is last).
-  - [ ] **P5 #103 stage-select missions** (portrait grid, colour borders,
+  - [x] **P5 #103 stage-select missions** (portrait grid, colour borders,
     boss splash in the load window).
   - [ ] **P6 #109 Core Descent** (roof → reactor hall → Core ring).
   - [ ] **P7 #101 Grand Master Bot** (7.1 rig + red-button assembly, 7.2 the

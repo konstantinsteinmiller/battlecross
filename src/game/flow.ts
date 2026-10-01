@@ -60,6 +60,9 @@ export const flow = reactive({
   levelAtStart: 1,
   /** A mission is being built behind the hub → mission beam overlay. */
   loading: false,
+  /** The Master a story mission being built ends with (the loading screen's
+   *  boss splash), or '' for a job. */
+  loadingBoss: '' as string,
   /** 0..1 progress of that build. */
   loadProgress: 0,
   /** The sector being built (the overlay's label). */
@@ -352,6 +355,7 @@ export const startMission = async (quest: Quest, snapshot: MissionSnapshot | nul
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingSector = quest.sector
+  flow.loadingBoss = quest.template === 'stage' || quest.template === 'boss' ? SECTOR_BY_ID[quest.sector].boss : ''
   try {
     // The beam is on screen before the build starts, and the lab stops
     // drawing behind it: the build gets the whole CPU (the overlay covers

@@ -20,8 +20,8 @@ import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { MASTER_COLOR } from '@/game/data/signature'
 import type { BossId } from '@/game/models/bosses'
+import type { PortraitState } from './portraitState'
 
-export type PortraitState = 'plain' | 'next' | 'beaten' | 'locked'
 
 const props = withDefaults(defineProps<{ id: BossId; state?: PortraitState; size?: number }>(), {
   state: 'plain',

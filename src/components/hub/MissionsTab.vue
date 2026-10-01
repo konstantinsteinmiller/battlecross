@@ -1,18 +1,19 @@
 <template lang="pug">
   div.missions.sheet
     div.sectors(ref="strip")
+      //- The stage select (#103): each Master's portrait on a tile in their
+      //- signature colour — beaten ones greyed with a tick, the next one
+      //- pulsing, locked ones a silhouette. The story stays linear.
       button.sector(
         v-for="s in SECTORS"
         :key="s.id"
         type="button"
-        :class="{ on: sel === s.id, locked: !unlocked(s.id), cleared: cleared(s.id) }"
+        :class="{ on: sel === s.id, locked: !unlocked(s.id), cleared: cleared(s.id), finale: s.id === 'fortress' }"
         :data-sector="s.id"
         :style="{ '--c1': SECTOR_COLOR[s.id], '--c2': SECTOR_COLOR[s.id] }"
         @click="select(s.id)"
       )
-        span.s-orb
-          GameIcon(v-if="!unlocked(s.id)" name="lock")
-          GameIcon(v-else-if="cleared(s.id)" name="check")
+        MasterPortrait.s-face(:id="bossOf(s.id)" :state="faceState(s.id)" :size="40")
         span.s-name {{ t(`sector.${s.id}`) }}
         span.s-lvl {{ t('hub.levels', { a: s.levels[0], b: s.levels[1] }) }}
     div.scroll
@@ -55,6 +56,9 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import QuestCard from './QuestCard.vue'
+import MasterPortrait from '@/components/atoms/MasterPortrait.vue'
+import type { PortraitState } from '@/components/atoms/portraitState'
+import type { BossId } from '@/game/models/bosses'
 import { SECTORS, SECTOR_BY_ID } from '@/game/data/regions'
 import type { SectorId } from '@/game/world/themes'
 import { SECTOR_COLOR } from '@/game/data/signature'
@@ -73,6 +77,11 @@ const cleared = (id: SectorId) => profile.world.bosses.includes(SECTOR_BY_ID[id]
 const firstOpenStory = SECTORS.find(s => unlocked(s.id) && !cleared(s.id))?.id ?? profile.world.selected
 const sel = ref<SectorId>(firstOpenStory)
 const story = computed(() => storyFor(sel.value))
+/** The sector to play next (the first open one not cleared). */
+const nextUp = computed(() => SECTORS.find(s => unlocked(s.id) && !cleared(s.id))?.id ?? null)
+const bossOf = (id: SectorId): BossId => SECTOR_BY_ID[id].boss as BossId
+const faceState = (id: SectorId): PortraitState =>
+  !unlocked(id) ? 'locked' : cleared(id) ? 'beaten' : id === nextUp.value ? 'next' : 'plain'
 const prevBoss = (id: SectorId) => {
   const s = SECTOR_BY_ID[id]
   return s.after ? SECTOR_BY_ID[s.after].boss : ''
@@ -166,16 +175,16 @@ const claimGift = async () => {
     transform: translateY(-2px)
   &.locked
     filter: grayscale(0.85) brightness(0.6)
-.s-orb
-  width: clamp(26px, 6vmin, 34px)
-  height: clamp(26px, 6vmin, 34px)
-  border-radius: 50%
-  border: 2px solid #141a33
-  background: radial-gradient(circle at 40% 30%, #fff, var(--c2) 60%)
-  color: #141a33
-  padding: 5px
-.cleared .s-orb
-  background: radial-gradient(circle at 40% 30%, #fff, #8dff7a 60%)
+.sector
+  // The tile's rim is the Master's colour too.
+  border-color: var(--c1)
+  &.locked
+    border-color: #141a33
+  // The Fortress (Vex): the wide final tile.
+  &.finale
+    width: clamp(96px, 22vmin, 128px)
+.locked .s-face
+  filter: none
 .s-name
   font-size: clamp(10px, 2.3vmin, 13px)
   text-align: center

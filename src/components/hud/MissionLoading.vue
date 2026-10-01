@@ -3,6 +3,12 @@
     div.mission-loading.no-os-ui(v-if="flow.loading")
       div.beam(aria-hidden="true")
       div.card
+        //- The boss splash (#103, Mega Man's stage-select intro): the Master
+        //- strikes in and the name types on — inside the build's own wait,
+        //- never adding to it.
+        div.splash(v-if="flow.loadingBoss" aria-hidden="true")
+          MasterPortrait.face(:id="loadingBoss" :size="104")
+          div.name {{ t(`boss.${flow.loadingBoss}`) }}
         div.sector(v-if="flow.loadingSector") {{ t(`sector.${flow.loadingSector}`) }}
         div.bar(
           role="progressbar"
@@ -17,8 +23,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { flow } from '@/game/flow'
+import MasterPortrait from '@/components/atoms/MasterPortrait.vue'
+import type { BossId } from '@/game/models/bosses'
 
 /**
  * Hub → mission: the teleport beam shown the instant Deploy is tapped, while
@@ -27,6 +36,7 @@ import { flow } from '@/game/flow'
  * as the boot loader, animated by transform on the compositor.
  */
 const { t } = useI18n()
+const loadingBoss = computed(() => flow.loadingBoss as BossId)
 </script>
 
 <style scoped lang="sass">
@@ -56,6 +66,31 @@ const { t } = useI18n()
   align-items: center
   gap: 12px
   padding-top: 38vh
+  &:has(.splash)
+    padding-top: 18vh
+.splash
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 10px
+.face
+  animation: strike-in 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both
+.name
+  font-family: var(--font-ui)
+  font-size: clamp(1.3rem, 6vmin, 2.2rem)
+  color: #ffd84a
+  text-shadow: 0 3px 0 #141a33
+  letter-spacing: 0.05em
+  white-space: nowrap
+  // Typed on, left to right (a reveal, so every script types the same).
+  animation: type-on 0.7s steps(14) 0.25s both
+@keyframes strike-in
+  from
+    transform: translateY(-40px) scale(0.6)
+    opacity: 0
+@keyframes type-on
+  from
+    clip-path: inset(0 100% 0 0)
 .sector
   font-family: var(--font-ui)
   font-size: clamp(1.1rem, 5vmin, 1.8rem)
@@ -101,6 +136,6 @@ const { t } = useI18n()
 .beam-enter-from, .beam-leave-to
   opacity: 0
 @media (prefers-reduced-motion: reduce)
-  .beam
+  .beam, .face, .name
     animation: none
 </style>
