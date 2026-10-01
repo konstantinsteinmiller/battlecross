@@ -610,7 +610,7 @@ while bars and damage numbers get direct DOM writes.
     normaliser).
   - [x] **P3 post chain + QA** (Audacity chains as ffmpeg filters, trim,
     −16 LUFS, OGG Vorbis q2 mono; length, loudness, clipping, Whisper).
-  - [ ] **P4 engine bake-off** (VoxCPM2, Qwen3-TTS, Chatterbox ML v3,
+  - [x] **P4 engine bake-off** (VoxCPM2, Qwen3-TTS, Chatterbox ML v3,
     Gemini API + AI Studio browser route).
   - [ ] **P5 compression lab** + the blind listening report (`pnpm
     voice:compare`) — the one stop for the user's ratings.

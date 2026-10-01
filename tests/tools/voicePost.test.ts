@@ -10,7 +10,7 @@ import { chainFor, dynamicsFor, tailFor, vexPlace } from '../../tools/voice/fx.m
 // @ts-expect-error plain .mjs tool modules, no types
 import { ffmpeg, measure, processTake } from '../../tools/voice/post.mjs'
 // @ts-expect-error plain .mjs tool modules, no types
-import { judge, pickBest, wer } from '../../tools/voice/qa.mjs'
+import { cer, judge, pickBest, wer } from '../../tools/voice/qa.mjs'
 
 const dir = mkdtempSync(join(tmpdir(), 'voice-post-'))
 afterAll(() => rmSync(dir, { recursive: true, force: true }))
@@ -68,6 +68,7 @@ describe('automatic QA', () => {
     expect(wer('Core online. Good morning, Flux.', 'core online good morning flux')).toBe(0)
     expect(wer('Kern online. Guten Morgen, Flux.', 'Kern Online, guten Morgen Flucks')).toBeCloseTo(0.2)
     expect(wer('Schöne Grüße', 'schone grusse')).toBe(0)
+    expect(cer('The oldest! Blaze Master!', 'THE OLDEST, BLAZEMASTER!')).toBe(0)
   })
 
   it('fails a take on words, length, level or clipping, and says why', () => {
@@ -75,7 +76,10 @@ describe('automatic QA', () => {
     expect(judge(good, 3)).toMatchObject({ ok: true })
     expect(judge({ ...good, heard: 'Oh, careful Flux.' }, 3).ok).toBe(true) // one word of three may be misheard
     expect(judge({ ...good, heard: 'Oh, terrible fox.' }, 3).ok).toBe(false)
-    expect(judge({ ...good, seconds: 3.4 }, 3).reasons[0]).toMatch(/length/)
+    expect(judge({ ...good, text: 'Der Älteste! Der Heißeste! Glutmeister!', heard: 'Der älteste, der heißeste Clubmeister.' }, 3).ok).toBe(false)
+    expect(judge({ ...good, text: 'The hottest! Blaze Master!', heard: 'The hottest, BLAZEMASTER!' }, 3).ok).toBe(true)
+    expect(judge({ ...good, seconds: 3.4 }, 3)).toMatchObject({ ok: true, warnings: [expect.stringMatching(/long/)] })
+    expect(judge({ ...good, seconds: 4.6 }, 3).reasons[0]).toMatch(/length/)
     expect(judge({ ...good, lufs: -20 }, 3).reasons[0]).toMatch(/loudness/)
     expect(judge({ ...good, peak: -0.2 }, 3).reasons[0]).toMatch(/peak/)
   })
