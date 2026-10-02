@@ -643,7 +643,7 @@ while bars and damage numbers get direct DOM writes.
   - [x] **P8 skill**: `~/.claude/skills/voice-over-pipeline` (the toolchain,
     its tests and the runtime references as templates; engines, QA rules and
     wiring patterns as its notes).
-  - [ ] **Merge `vo-test-install` into main** (asked for 2026-10-02).
+  - [x] **Merge `vo-test-install` into main** (fast-forward, 2026-10-02; not pushed).
 - **Chunk 22 — roadmap.md #118, #119 (2026-10-02).**
   - [x] **#118** the boss was on the HUD twice (a "?" chip and the objective
     card's portrait): the chip is the objective locator's clock now, no boss.
