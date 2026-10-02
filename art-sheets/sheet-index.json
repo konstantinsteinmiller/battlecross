@@ -28,10 +28,10 @@
           "h": 256,
           "target": "images/items/rustedShortsword.webp",
           "fit": {
-            "h": 0.613,
-            "w": 0.527,
-            "bottom": 0.824,
-            "cx": 0.482
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
           }
         },
         {
@@ -44,10 +44,10 @@
           "h": 256,
           "target": "images/items/apprenticeStaff.webp",
           "fit": {
-            "h": 0.691,
-            "w": 0.453,
-            "bottom": 0.844,
-            "cx": 0.539
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
           }
         },
         {
@@ -60,10 +60,10 @@
           "h": 256,
           "target": "images/items/scoutsHandgun.webp",
           "fit": {
-            "h": 0.543,
-            "w": 0.66,
-            "bottom": 0.82,
-            "cx": 0.49
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
           }
         },
         {
@@ -76,10 +76,10 @@
           "h": 256,
           "target": "images/items/ironBroadsword.webp",
           "fit": {
-            "h": 0.613,
-            "w": 0.527,
-            "bottom": 0.824,
-            "cx": 0.482
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
           }
         },
         {
@@ -92,10 +92,10 @@
           "h": 256,
           "target": "images/items/vipinsStiletto.webp",
           "fit": {
-            "h": 0.445,
-            "w": 0.395,
-            "bottom": 0.746,
-            "cx": 0.475
+            "h": 0.836,
+            "w": 0.742,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         },
         {
@@ -108,10 +108,10 @@
           "h": 256,
           "target": "images/items/aetherCarbine.webp",
           "fit": {
-            "h": 0.543,
-            "w": 0.66,
-            "bottom": 0.82,
-            "cx": 0.49
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
           }
         },
         {
@@ -124,10 +124,10 @@
           "h": 256,
           "target": "images/items/ashenGreatsword.webp",
           "fit": {
-            "h": 0.645,
-            "w": 0.559,
-            "bottom": 0.828,
-            "cx": 0.49
+            "h": 0.84,
+            "w": 0.727,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         },
         {
@@ -140,10 +140,10 @@
           "h": 256,
           "target": "images/items/archmageWand.webp",
           "fit": {
-            "h": 0.723,
-            "w": 0.582,
-            "bottom": 0.816,
-            "cx": 0.549
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
           }
         },
         {
@@ -156,10 +156,10 @@
           "h": 256,
           "target": "images/items/chronoBlade.webp",
           "fit": {
-            "h": 0.613,
-            "w": 0.527,
-            "bottom": 0.824,
-            "cx": 0.482
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
           }
         },
         {
@@ -172,10 +172,10 @@
           "h": 256,
           "target": "images/items/bloodForgedAxe.webp",
           "fit": {
-            "h": 0.648,
-            "w": 0.527,
-            "bottom": 0.844,
-            "cx": 0.568
+            "h": 0.844,
+            "w": 0.684,
+            "bottom": 0.922,
+            "cx": 0.502
           }
         },
         {
@@ -188,10 +188,10 @@
           "h": 256,
           "target": "images/items/voidCannon.webp",
           "fit": {
-            "h": 0.645,
-            "w": 0.715,
-            "bottom": 0.836,
-            "cx": 0.494
+            "h": 0.75,
+            "w": 0.84,
+            "bottom": 0.875,
+            "cx": 0.502
           }
         },
         {
@@ -204,10 +204,10 @@
           "h": 256,
           "target": "images/items/dragonSmasher.webp",
           "fit": {
-            "h": 0.742,
-            "w": 0.59,
-            "bottom": 0.844,
-            "cx": 0.58
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
           }
         }
       ]
@@ -238,10 +238,10 @@
           "h": 256,
           "target": "images/items/bladeOfTheUnbound.webp",
           "fit": {
-            "h": 0.613,
-            "w": 0.527,
-            "bottom": 0.824,
-            "cx": 0.482
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
           }
         },
         {
@@ -254,10 +254,10 @@
           "h": 256,
           "target": "images/items/aetheriumDestroyer.webp",
           "fit": {
-            "h": 0.543,
-            "w": 0.66,
-            "bottom": 0.82,
-            "cx": 0.49
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
           }
         },
         {
@@ -270,9 +270,9 @@
           "h": 256,
           "target": "images/items/woodenBuckler.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.539,
-            "bottom": 0.84,
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -286,9 +286,9 @@
           "h": 256,
           "target": "images/items/tomeOfNovices.webp",
           "fit": {
-            "h": 0.625,
-            "w": 0.578,
-            "bottom": 0.82,
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -302,9 +302,9 @@
           "h": 256,
           "target": "images/items/ironShield.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.539,
-            "bottom": 0.84,
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -318,10 +318,10 @@
           "h": 256,
           "target": "images/items/syringeOfTheAdept.webp",
           "fit": {
-            "h": 0.59,
-            "w": 0.586,
-            "bottom": 0.789,
-            "cx": 0.508
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
           }
         },
         {
@@ -334,9 +334,9 @@
           "h": 256,
           "target": "images/items/aethericBattery.webp",
           "fit": {
-            "h": 0.656,
-            "w": 0.539,
-            "bottom": 0.836,
+            "h": 0.836,
+            "w": 0.695,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -350,9 +350,9 @@
           "h": 256,
           "target": "images/items/aegisTowerShield.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.539,
-            "bottom": 0.84,
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -366,9 +366,9 @@
           "h": 256,
           "target": "images/items/orbOfEternalFlame.webp",
           "fit": {
-            "h": 0.598,
-            "w": 0.578,
-            "bottom": 0.844,
+            "h": 0.84,
+            "w": 0.805,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -382,9 +382,9 @@
           "h": 256,
           "target": "images/items/shieldOfTheFallen.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.539,
-            "bottom": 0.84,
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -416,9 +416,9 @@
           "h": 256,
           "target": "images/items/paddedTunic.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.641,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -432,9 +432,9 @@
           "h": 256,
           "target": "images/items/leatherDoublet.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.641,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -448,9 +448,9 @@
           "h": 256,
           "target": "images/items/chainmailVest.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -464,9 +464,9 @@
           "h": 256,
           "target": "images/items/scholarsRobe.webp",
           "fit": {
-            "h": 0.703,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -480,9 +480,9 @@
           "h": 256,
           "target": "images/items/reinforcedPlate.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -496,9 +496,9 @@
           "h": 256,
           "target": "images/items/assassinsGarb.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.641,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -512,9 +512,9 @@
           "h": 256,
           "target": "images/items/chronoWeaverCloak.webp",
           "fit": {
-            "h": 0.703,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -528,9 +528,9 @@
           "h": 256,
           "target": "images/items/bloodSoakedPlate.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -544,9 +544,9 @@
           "h": 256,
           "target": "images/items/exoArmorChassis.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -560,9 +560,9 @@
           "h": 256,
           "target": "images/items/dragonscaleHauberk.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -576,9 +576,9 @@
           "h": 256,
           "target": "images/items/vestmentsOfSovereign.webp",
           "fit": {
-            "h": 0.703,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -592,9 +592,9 @@
           "h": 256,
           "target": "images/items/armorOfTheTitan.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.641,
-            "bottom": 0.859,
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -626,9 +626,9 @@
           "h": 256,
           "target": "images/items/copperBand.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -642,9 +642,9 @@
           "h": 256,
           "target": "images/items/ringOfMending.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -658,9 +658,9 @@
           "h": 256,
           "target": "images/items/bandOfSwiftness.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -674,9 +674,9 @@
           "h": 256,
           "target": "images/items/castersEmblem.webp",
           "fit": {
-            "h": 0.695,
-            "w": 0.414,
-            "bottom": 0.836,
+            "h": 0.844,
+            "w": 0.492,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -690,9 +690,9 @@
           "h": 256,
           "target": "images/items/infiltratorsCharm.webp",
           "fit": {
-            "h": 0.695,
-            "w": 0.414,
-            "bottom": 0.836,
+            "h": 0.844,
+            "w": 0.492,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -706,9 +706,9 @@
           "h": 256,
           "target": "images/items/timekeepersHourglass.webp",
           "fit": {
-            "h": 0.672,
-            "w": 0.477,
-            "bottom": 0.836,
+            "h": 0.844,
+            "w": 0.594,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -722,9 +722,9 @@
           "h": 256,
           "target": "images/items/ringOfTheVampyre.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -738,9 +738,9 @@
           "h": 256,
           "target": "images/items/sovereignsSignet.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -754,9 +754,9 @@
           "h": 256,
           "target": "images/items/heartOfTheMountain.webp",
           "fit": {
-            "h": 0.641,
-            "w": 0.68,
-            "bottom": 0.84,
+            "h": 0.789,
+            "w": 0.844,
+            "bottom": 0.895,
             "cx": 0.5
           }
         },
@@ -770,9 +770,9 @@
           "h": 256,
           "target": "images/items/ringOfAbsolutePower.webp",
           "fit": {
-            "h": 0.68,
-            "w": 0.547,
-            "bottom": 0.84,
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
             "cx": 0.5
           }
         }
@@ -804,10 +804,10 @@
           "h": 288,
           "target": "images/skills/shieldSlam.webp",
           "fit": {
-            "h": 0.668,
-            "w": 0.73,
-            "bottom": 0.797,
-            "cx": 0.514
+            "h": 0.766,
+            "w": 0.836,
+            "bottom": 0.883,
+            "cx": 0.5
           }
         },
         {
@@ -819,10 +819,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/aegisAura.webp",
+          "round": true,
           "fit": {
-            "h": 0.711,
-            "w": 0.711,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -836,9 +837,9 @@
           "h": 288,
           "target": "images/skills/radiantStrike.webp",
           "fit": {
-            "h": 0.813,
-            "w": 0.813,
-            "bottom": 0.906,
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -851,10 +852,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/fortitude.webp",
+          "round": true,
           "fit": {
-            "h": 0.676,
-            "w": 0.539,
-            "bottom": 0.84,
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -868,10 +870,10 @@
           "h": 288,
           "target": "images/skills/tauntingCry.webp",
           "fit": {
-            "h": 0.555,
-            "w": 0.727,
-            "bottom": 0.777,
-            "cx": 0.543
+            "h": 0.641,
+            "w": 0.836,
+            "bottom": 0.82,
+            "cx": 0.5
           }
         },
         {
@@ -884,9 +886,9 @@
           "h": 288,
           "target": "images/skills/holyBastion.webp",
           "fit": {
-            "h": 0.707,
-            "w": 0.711,
-            "bottom": 0.82,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         }
@@ -918,10 +920,10 @@
           "h": 288,
           "target": "images/skills/shadowstep.webp",
           "fit": {
-            "h": 0.641,
-            "w": 0.75,
-            "bottom": 0.82,
-            "cx": 0.48
+            "h": 0.719,
+            "w": 0.84,
+            "bottom": 0.859,
+            "cx": 0.498
           }
         },
         {
@@ -933,11 +935,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/lethality.webp",
+          "round": true,
           "fit": {
-            "h": 0.684,
-            "w": 0.703,
-            "bottom": 0.797,
-            "cx": 0.535
+            "h": 0.672,
+            "w": 0.695,
+            "bottom": 0.836,
+            "cx": 0.5
           }
         },
         {
@@ -950,10 +953,10 @@
           "h": 288,
           "target": "images/skills/venomousBlade.webp",
           "fit": {
-            "h": 0.527,
-            "w": 0.609,
-            "bottom": 0.793,
-            "cx": 0.48
+            "h": 0.727,
+            "w": 0.844,
+            "bottom": 0.863,
+            "cx": 0.5
           }
         },
         {
@@ -965,11 +968,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/evasion.webp",
+          "round": true,
           "fit": {
-            "h": 0.609,
-            "w": 0.664,
-            "bottom": 0.789,
-            "cx": 0.422
+            "h": 0.621,
+            "w": 0.68,
+            "bottom": 0.813,
+            "cx": 0.5
           }
         },
         {
@@ -982,10 +986,10 @@
           "h": 288,
           "target": "images/skills/smokeBomb.webp",
           "fit": {
-            "h": 0.734,
-            "w": 0.648,
-            "bottom": 0.852,
-            "cx": 0.508
+            "h": 0.836,
+            "w": 0.734,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         },
         {
@@ -998,9 +1002,9 @@
           "h": 288,
           "target": "images/skills/danceOfBlades.webp",
           "fit": {
-            "h": 0.582,
-            "w": 0.648,
-            "bottom": 0.711,
+            "h": 0.754,
+            "w": 0.844,
+            "bottom": 0.875,
             "cx": 0.5
           }
         }
@@ -1032,10 +1036,10 @@
           "h": 288,
           "target": "images/skills/fireball.webp",
           "fit": {
-            "h": 0.758,
-            "w": 0.645,
-            "bottom": 0.859,
-            "cx": 0.443
+            "h": 0.836,
+            "w": 0.711,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         },
         {
@@ -1047,10 +1051,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/cauterize.webp",
+          "round": true,
           "fit": {
-            "h": 0.66,
-            "w": 0.477,
-            "bottom": 0.805,
+            "h": 0.84,
+            "w": 0.609,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1064,9 +1069,9 @@
           "h": 288,
           "target": "images/skills/flamePillar.webp",
           "fit": {
-            "h": 0.715,
-            "w": 0.656,
-            "bottom": 0.844,
+            "h": 0.84,
+            "w": 0.766,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1079,11 +1084,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/pyromaniac.webp",
+          "round": true,
           "fit": {
-            "h": 0.676,
-            "w": 0.691,
-            "bottom": 0.805,
-            "cx": 0.541
+            "h": 0.789,
+            "w": 0.809,
+            "bottom": 0.895,
+            "cx": 0.498
           }
         },
         {
@@ -1096,9 +1102,9 @@
           "h": 288,
           "target": "images/skills/combustion.webp",
           "fit": {
-            "h": 0.754,
-            "w": 0.766,
-            "bottom": 0.867,
+            "h": 0.828,
+            "w": 0.836,
+            "bottom": 0.914,
             "cx": 0.5
           }
         },
@@ -1112,10 +1118,10 @@
           "h": 288,
           "target": "images/skills/cataclysm.webp",
           "fit": {
-            "h": 0.754,
-            "w": 0.734,
-            "bottom": 0.859,
-            "cx": 0.527
+            "h": 0.84,
+            "w": 0.813,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         }
       ]
@@ -1146,9 +1152,9 @@
           "h": 288,
           "target": "images/skills/royalGuard.webp",
           "fit": {
-            "h": 0.641,
-            "w": 0.508,
-            "bottom": 0.754,
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1161,11 +1167,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/inspiringPresence.webp",
+          "round": true,
           "fit": {
-            "h": 0.637,
-            "w": 0.766,
-            "bottom": 0.75,
-            "cx": 0.496
+            "h": 0.66,
+            "w": 0.797,
+            "bottom": 0.832,
+            "cx": 0.5
           }
         },
         {
@@ -1178,9 +1185,9 @@
           "h": 288,
           "target": "images/skills/commandFocus.webp",
           "fit": {
-            "h": 0.82,
-            "w": 0.82,
-            "bottom": 0.91,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1193,11 +1200,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/sovereignsTribute.webp",
+          "round": true,
           "fit": {
-            "h": 0.605,
-            "w": 0.488,
-            "bottom": 0.863,
-            "cx": 0.459
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         },
         {
@@ -1210,10 +1218,10 @@
           "h": 288,
           "target": "images/skills/bannerOfVictory.webp",
           "fit": {
-            "h": 0.742,
-            "w": 0.543,
-            "bottom": 0.871,
-            "cx": 0.518
+            "h": 0.844,
+            "w": 0.617,
+            "bottom": 0.922,
+            "cx": 0.5
           }
         },
         {
@@ -1226,9 +1234,9 @@
           "h": 288,
           "target": "images/skills/armyOfTheRealm.webp",
           "fit": {
-            "h": 0.5,
-            "w": 0.742,
-            "bottom": 0.691,
+            "h": 0.57,
+            "w": 0.836,
+            "bottom": 0.785,
             "cx": 0.5
           }
         }
@@ -1260,9 +1268,9 @@
           "h": 288,
           "target": "images/skills/temporalStasis.webp",
           "fit": {
-            "h": 0.742,
-            "w": 0.742,
-            "bottom": 0.871,
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1276,10 +1284,10 @@
           "h": 288,
           "target": "images/skills/hasteField.webp",
           "fit": {
-            "h": 0.727,
-            "w": 0.691,
-            "bottom": 0.922,
-            "cx": 0.541
+            "h": 0.836,
+            "w": 0.801,
+            "bottom": 0.918,
+            "cx": 0.498
           }
         },
         {
@@ -1291,11 +1299,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/timeDistort.webp",
+          "round": true,
           "fit": {
-            "h": 0.664,
-            "w": 0.773,
-            "bottom": 0.859,
-            "cx": 0.508
+            "h": 0.625,
+            "w": 0.727,
+            "bottom": 0.813,
+            "cx": 0.5
           }
         },
         {
@@ -1308,9 +1317,9 @@
           "h": 288,
           "target": "images/skills/paradoxShift.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.68,
-            "bottom": 0.887,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1323,10 +1332,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/entropy.webp",
+          "round": true,
           "fit": {
-            "h": 0.742,
-            "w": 0.742,
-            "bottom": 0.871,
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1340,10 +1350,10 @@
           "h": 288,
           "target": "images/skills/chronoRewind.webp",
           "fit": {
-            "h": 0.684,
-            "w": 0.668,
-            "bottom": 0.805,
-            "cx": 0.471
+            "h": 0.836,
+            "w": 0.82,
+            "bottom": 0.918,
+            "cx": 0.5
           }
         }
       ]
@@ -1374,9 +1384,9 @@
           "h": 288,
           "target": "images/skills/sanguineFlask.webp",
           "fit": {
-            "h": 0.691,
-            "w": 0.539,
-            "bottom": 0.82,
+            "h": 0.84,
+            "w": 0.648,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1389,11 +1399,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/bloodTransmutation.webp",
+          "round": true,
           "fit": {
-            "h": 0.695,
-            "w": 0.832,
-            "bottom": 0.84,
-            "cx": 0.498
+            "h": 0.656,
+            "w": 0.789,
+            "bottom": 0.828,
+            "cx": 0.5
           }
         },
         {
@@ -1406,9 +1417,9 @@
           "h": 288,
           "target": "images/skills/essenceHarvest.webp",
           "fit": {
-            "h": 0.813,
-            "w": 0.688,
-            "bottom": 0.906,
+            "h": 0.844,
+            "w": 0.711,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1421,10 +1432,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/hemophilia.webp",
+          "round": true,
           "fit": {
-            "h": 0.621,
-            "w": 0.648,
-            "bottom": 0.805,
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
             "cx": 0.5
           }
         },
@@ -1438,9 +1450,9 @@
           "h": 288,
           "target": "images/skills/mutagenicRage.webp",
           "fit": {
-            "h": 0.676,
-            "w": 0.68,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1454,9 +1466,9 @@
           "h": 288,
           "target": "images/skills/philosophersCrucible.webp",
           "fit": {
-            "h": 0.688,
-            "w": 0.758,
-            "bottom": 0.855,
+            "h": 0.758,
+            "w": 0.836,
+            "bottom": 0.879,
             "cx": 0.5
           }
         }
@@ -1488,10 +1500,10 @@
           "h": 288,
           "target": "images/skills/aetherPistol.webp",
           "fit": {
-            "h": 0.707,
-            "w": 0.762,
-            "bottom": 0.82,
-            "cx": 0.541
+            "h": 0.781,
+            "w": 0.84,
+            "bottom": 0.891,
+            "cx": 0.498
           }
         },
         {
@@ -1504,10 +1516,10 @@
           "h": 288,
           "target": "images/skills/deployTurret.webp",
           "fit": {
-            "h": 0.543,
-            "w": 0.609,
-            "bottom": 0.855,
-            "cx": 0.566
+            "h": 0.75,
+            "w": 0.84,
+            "bottom": 0.875,
+            "cx": 0.502
           }
         },
         {
@@ -1520,9 +1532,9 @@
           "h": 288,
           "target": "images/skills/ventHeat.webp",
           "fit": {
-            "h": 0.641,
-            "w": 0.711,
-            "bottom": 0.82,
+            "h": 0.758,
+            "w": 0.836,
+            "bottom": 0.879,
             "cx": 0.5
           }
         },
@@ -1535,11 +1547,12 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/thermalOverload.webp",
+          "round": true,
           "fit": {
-            "h": 0.75,
-            "w": 0.488,
-            "bottom": 0.871,
-            "cx": 0.557
+            "h": 0.816,
+            "w": 0.531,
+            "bottom": 0.91,
+            "cx": 0.5
           }
         },
         {
@@ -1552,9 +1565,9 @@
           "h": 288,
           "target": "images/skills/orbitalBeam.webp",
           "fit": {
-            "h": 0.793,
-            "w": 0.641,
-            "bottom": 0.871,
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -1568,9 +1581,9 @@
           "h": 288,
           "target": "images/skills/exoSuit.webp",
           "fit": {
-            "h": 0.699,
-            "w": 0.539,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.648,
+            "bottom": 0.918,
             "cx": 0.5
           }
         }
@@ -1602,9 +1615,9 @@
           "h": 288,
           "target": "images/skills/stoneSpike.webp",
           "fit": {
-            "h": 0.723,
-            "w": 0.719,
-            "bottom": 0.844,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1618,9 +1631,9 @@
           "h": 288,
           "target": "images/skills/earthBarrier.webp",
           "fit": {
-            "h": 0.461,
-            "w": 0.68,
-            "bottom": 0.738,
+            "h": 0.57,
+            "w": 0.844,
+            "bottom": 0.785,
             "cx": 0.5
           }
         },
@@ -1634,9 +1647,9 @@
           "h": 288,
           "target": "images/skills/seismicShock.webp",
           "fit": {
-            "h": 0.621,
-            "w": 0.758,
-            "bottom": 0.859,
+            "h": 0.688,
+            "w": 0.836,
+            "bottom": 0.844,
             "cx": 0.5
           }
         },
@@ -1649,10 +1662,11 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/earthenSkin.webp",
+          "round": true,
           "fit": {
-            "h": 0.688,
-            "w": 0.539,
-            "bottom": 0.844,
+            "h": 0.836,
+            "w": 0.656,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1666,9 +1680,9 @@
           "h": 288,
           "target": "images/skills/petrify.webp",
           "fit": {
-            "h": 0.699,
-            "w": 0.445,
-            "bottom": 0.855,
+            "h": 0.836,
+            "w": 0.531,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -1682,9 +1696,9 @@
           "h": 288,
           "target": "images/skills/tectonicRupture.webp",
           "fit": {
-            "h": 0.586,
-            "w": 0.773,
-            "bottom": 0.859,
+            "h": 0.637,
+            "w": 0.836,
+            "bottom": 0.82,
             "cx": 0.5
           }
         }
@@ -2122,9 +2136,9 @@
           "h": 256,
           "target": "images/ui/coin.webp",
           "fit": {
-            "h": 0.707,
-            "w": 0.695,
-            "bottom": 0.84,
+            "h": 0.836,
+            "w": 0.82,
+            "bottom": 0.918,
             "cx": 0.5
           }
         }
@@ -2135,7 +2149,7 @@
     {
       "id": "bg-ui-map",
       "file": "bg-ui-map.png",
-      "title": "UI: the world map parchment",
+      "title": "UI: the world map terrain",
       "width": 1376,
       "height": 768,
       "target": "images/ui/map.webp",

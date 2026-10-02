@@ -8,6 +8,10 @@ and where the sliced result lands; it stays OUTSIDE the fence, so copy the
 fenced text only (a markdown preview gives it a copy button). Save the return
 as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.
 
+A block with an "Attach, in this order" line goes out with finished paintings
+as well: attach those FIRST and the reference LAST (the model takes the grid
+from the last image). `pnpm art:desk` does this by itself.
+
 ## Portraits: townsfolk  (sheet-portraits-town.png → images/portraits/)
 
 ```text
@@ -16,6 +20,7 @@ One square image, 768 x 768 pixels (1:1), holding 9 separate small drawings laid
 · 9 panels. Not 1, not 6, not 12. Exactly 3 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 
 EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
 · Head, neck and the top of the shoulders, cut off flat along a level line exactly where the reference cuts it. No arms, no hands, no weapon, no body below the cut.
@@ -75,6 +80,7 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · Each panel holds exactly one bust, facing front, cut flat along the bottom.
 · There is not one arm, hand or weapon anywhere in it.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 768 x 768 pixels (1:1, square), or the same shape larger. If your tool has an aspect-ratio control, set it to 1:1 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
@@ -88,6 +94,7 @@ One square image, 768 x 768 pixels (1:1), holding 9 separate small drawings laid
 · 9 panels. Not 1, not 6, not 12. Exactly 3 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 · 1 panel is BLANK in the reference. Leave it flat magenta: do not invent anything for it.
 
 EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
@@ -148,6 +155,7 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · Each panel holds exactly one bust, facing front, cut flat along the bottom.
 · There is not one arm, hand or weapon anywhere in it.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 768 x 768 pixels (1:1, square), or the same shape larger. If your tool has an aspect-ratio control, set it to 1:1 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
@@ -161,6 +169,7 @@ One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings l
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 · The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 · 1 panel is BLANK in the reference. Leave it flat magenta: do not invent anything for it.
 
@@ -219,6 +228,7 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · Each panel holds exactly one bust, facing front, cut flat along the bottom.
 · There is not one arm, hand or weapon anywhere in it.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.

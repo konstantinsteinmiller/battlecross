@@ -19,11 +19,12 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { ITEMS } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import {
-  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, NOTATION, SCENERY, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
+  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, NOTATION, READABLE, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
@@ -238,6 +239,8 @@ describe('what a prompt says', () => {
       expect(text, s.stem).toContain(GLOW)
       const effect = s.kind === 'skills'
       for (const clause of [NOTATION, FINISH, SEE_THROUGH]) expect(text.includes(clause), `${s.stem}: ${clause.slice(0, 24)}`).toBe(effect)
+      // Icons are seen at 40 px, and say so; a bust is shown larger.
+      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits')
       // Shape first, and repeated last.
       expect(text.split('\n')[2], s.stem).toMatch(/^WHAT COMES BACK IS /)
       expect(text.split('\n').at(-1), s.stem).toMatch(/^OUTPUT: /)
@@ -251,8 +254,41 @@ describe('what a prompt says', () => {
     }
     expect(textOf('bg-ui-map')).toContain(STYLE_BACKDROP)
     expect(textOf('bg-ground')).toContain(STYLE_GREY)
-    // The map: the game draws its markers OVER the picture.
-    expect(textOf('bg-ui-map')).toMatch(/draws every place marker, every road and every name OVER this picture/)
+    // The map: the terrain is painted (roads and bare sites included); the
+    // game draws its landmarks OVER the picture, so the sites stay empty.
+    expect(textOf('bg-ui-map')).toMatch(/draws every landmark, every place marker and every name OVER this picture/)
+    expect(textOf('bg-ui-map')).toMatch(/keep the clearings EMPTY/)
+  })
+
+  it('a skill sheet demands painted volume, names the flat answer as wrong, and goes out with painted weapons as finish references', () => {
+    // The first skill sheets came back as flat single-colour shapes while the
+    // weapons, from the same style block, came back with volume.
+    for (const cls of CLASS_IDS) {
+      const stem = `sheet-skills-${cls}`
+      const text = textOf(stem)
+      expect(text, stem).toContain('PAINTED VOLUME — this is what the sheet is judged on.')
+      expect(text, stem).toMatch(/a LIT side and a SHADOW side that meet along a hard edge/)
+      expect(text, stem).toMatch(/A shape filled with ONE flat colour is the wrong answer/)
+      expect(text, stem).toContain('The accent colour stays the dominant colour of every panel.')
+      // The volume is asked for BEFORE the style block, not after it.
+      expect(text.indexOf(FINISH), stem).toBeLessThan(text.indexOf(STYLE_PART))
+      // "Icon" and "emblem" are a style, and it is the flat one.
+      expect(text, stem).not.toMatch(/\bemblem|\bICONS?\b/)
+      // A passive is cropped to a circle; the frame must not be painted.
+      expect(text, stem).not.toMatch(/ROUND frame/)
+      expect(text, stem).toContain('Do NOT draw a circle, ring, disc or badge around or behind it.')
+      // Three finish references, then the layout reference, and the prompt says which is which.
+      const block = blocks.find(b => b.stem === stem)!
+      expect(block.styleRefs).toEqual(SKILL_FINISH_REFS)
+      expect(text, stem).toContain('ATTACHED IMAGES — there are 4')
+      expect(text, stem).toContain('The LAST image is the LAYOUT reference')
+      expect(text, stem).toMatch(/They are never subjects/)
+    }
+    // Shipped files, by the names the build loads them under.
+    expect(SKILL_FINISH_REFS).toHaveLength(3)
+    for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
+    // Nothing else is sent with more than its own reference.
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -270,11 +306,17 @@ describe('what a prompt says', () => {
     expect(textOf('sheet-portraits-speakers')).toContain('The panels are NOT square')
     expect(arms).not.toContain('NOT square')
     // The size is a share of the PANEL, so the same drawing reads smaller in a taller one.
-    expect(pyro).toContain('wider than about 80% of its panel or taller than about 71%')
+    expect(pyro).toContain('wider than about 84% of its panel or taller than about 75%')
     expect(textOf('sheet-skills-pyro')).toContain(`orange (about ${CLASSES.pyro.color})`)
     expect(textOf('bg-ui-map')).toContain('1376 x 768 pixels (16:9)')
     // Nominal until the bench has measured; the measured extent afterwards.
-    expect(arms).toContain('wider than about 80% of its panel or taller than about 80%')
+    // An icon is drawn LARGE in its panel (ICON_FILL), so that it is painted large.
+    expect(ICON_FILL).toBe(0.84)
+    expect(arms).toContain('wider than about 84% of its panel or taller than about 84%')
+    expect(arms).toContain('Paint each one as LARGE as the reference shows it')
+    // A bust keeps its box, and its prompt does not ask for more.
+    expect(textOf('sheet-portraits-town')).toContain('wider than about 80% of its panel or taller than about 80%')
+    expect(textOf('sheet-portraits-town')).not.toContain('Paint each one as LARGE')
     const fits: Fits = { 'images/items/woodenBuckler.webp': { h: 0.61, w: 0.47, bottom: 0.8, cx: 0.5 } }
     expect(promptBlocks(fits).find(b => b.stem === 'sheet-items-arms')!.text).toContain('wider than about 47% of its panel or taller than about 61%')
   })
@@ -304,6 +346,8 @@ describe('the prompt documents', () => {
       expect(job!.doc).toBe(b.doc)
       expect(job!.title).toBe(b.title)
       expect(job!.target, b.stem).toMatch(/^images\//)
+      // What the desk attaches BEFORE the layout reference: exactly the manifest's list.
+      expect(job!.styleRefs, b.stem).toEqual([...(b.styleRefs ?? [])])
       // The heading never leaks into what is sent.
       expect(job!.prompt).not.toContain(`${b.stem}.png`)
     }
@@ -436,4 +480,200 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
     expect(run.stdout).toContain('wrote 0 file(s), 1 FAILED')
     expect(existsSync(out)).toBe(false)
   })
+})
+
+// ─── The cut itself, in the browser the slicer drives ───────────────────────
+//
+// The first real item sheet came back with the panel grid DRAWN IN: a pale
+// magenta line (#fb51f8) around every panel. Its green is over the channel
+// key's ceiling, so the lines stayed, were measured as the drawing's extent,
+// and all twelve icons shipped shrunken inside a pink rectangle. Pinned here,
+// on fakes built from the committed references:
+//
+//   1. a drawn grid in a lighter AND a darker shade of the ground is keyed
+//      out: nothing opaque is left along an icon's border, and the icon is
+//      the size the fill rule gives it, with or without the grid;
+//   2. a grid that is NOT a shade of the ground (white) cannot shrink an icon
+//      either: the boundary band is never measured;
+//   3. the colours the widened key must not take survive it: the
+//      Shadowblade's violet, the tier-4 purple, the alchemist's crimson.
+//
+// It needs Chrome (the slicer decodes and encodes there); without one the
+// suite says so and skips, as the slicer itself would refuse to run.
+describe('the slicer keys out a drawn panel grid without touching the palette', () => {
+  const CHROME = [
+    'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium'
+  ].find(p => existsSync(p))
+  const INDEX = join(ROOT, 'art-sheets', 'sheet-index.json')
+  const SCRATCH = join(ROOT, 'node_modules', '.tmp', `art-slice-test-${process.pid}`)
+  const can = !!CHROME && existsSync(INDEX)
+  // The model's own 4:3 return size.
+  const W = 1200
+  const H = 896
+
+  interface Px { data: Buffer; w: number; h: number }
+  const read = async (dir: string, target: string): Promise<Px> => {
+    // From bytes, never from a path: sharp keeps a file it opened by name
+    // open, and Windows then refuses to delete the scratch folder.
+    const { data, info } = await sharp(readFileSync(join(SCRATCH, dir, target))).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    return { data, w: info.width, h: info.height }
+  }
+  /** The solid box (alpha over 140), and how many solid pixels pass `pick`. */
+  const look = (p: Px, pick: (r: number, g: number, b: number) => boolean = () => true) => {
+    let x0 = p.w, y0 = p.h, x1 = -1, y1 = -1, n = 0, rim = 0
+    for (let y = 0; y < p.h; y++) {
+      for (let x = 0; x < p.w; x++) {
+        const i = (y * p.w + x) * 4
+        if (p.data[i + 3]! <= 140) continue
+        if (x < 3 || y < 3 || x >= p.w - 3 || y >= p.h - 3) rim++
+        if (x < x0) x0 = x
+        if (x > x1) x1 = x
+        if (y < y0) y0 = y
+        if (y > y1) y1 = y
+        if (pick(p.data[i]!, p.data[i + 1]!, p.data[i + 2]!)) n++
+      }
+    }
+    // Where the box sits, and how far its farthest solid pixel is from its middle.
+    const cx = (x0 + x1 + 1) / 2
+    const cy = (y0 + y1 + 1) / 2
+    let far = 0
+    for (let y = y0; y <= y1; y++) {
+      for (let x = x0; x <= x1; x++) {
+        if (p.data[(y * p.w + x) * 4 + 3]! > 140) far = Math.max(far, Math.hypot(x + 0.5 - cx, y + 0.5 - cy))
+      }
+    }
+    return { w: x1 - x0 + 1, h: y1 - y0 + 1, n, rim, cx, cy, far }
+  }
+  const hue = (r: number, g: number, b: number): number => {
+    const mx = Math.max(r, g, b)
+    const mn = Math.min(r, g, b)
+    if (mx - mn < 40) return -1
+    const h = mx === r ? ((g - b) / (mx - mn)) * 60 : mx === g ? 120 + ((b - r) / (mx - mn)) * 60 : 240 + ((r - g) / (mx - mn)) * 60
+    return (h + 360) % 360
+  }
+
+  /** A reference at the model's size, as a JPEG, with a grid drawn along every cut. */
+  const fake = async (stem: string, dir: string, cols: number, rows: number, line: string | null): Promise<void> => {
+    mkdirSync(join(SCRATCH, dir), { recursive: true })
+    const bars: Array<{ input: { create: { width: number; height: number; channels: 3; background: string } }; left: number; top: number }> = []
+    if (line) {
+      const bar = (left: number, top: number, width: number, height: number): void => {
+        bars.push({ input: { create: { width, height, channels: 3, background: line } }, left: Math.max(0, left), top: Math.max(0, top) })
+      }
+      // 12 px across each interior cut, 6 px along the frame: what came back.
+      for (let c = 1; c < cols; c++) bar(Math.round((W * c) / cols) - 6, 0, 12, H)
+      for (let r = 1; r < rows; r++) bar(0, Math.round((H * r) / rows) - 6, W, 12)
+      bar(0, 0, W, 6); bar(0, H - 6, W, 6); bar(0, 0, 6, H); bar(W - 6, 0, 6, H)
+    }
+    const base = await sharp(readFileSync(join(ROOT, 'art-sheets', `${stem}.png`))).resize(W, H, { fit: 'fill' }).png().toBuffer()
+    writeFileSync(join(SCRATCH, dir, `${stem}.jpg`), await sharp(base).composite(bars).jpeg({ quality: 88 }).toBuffer())
+  }
+  const slice = (dir: string) => spawnSync(process.execPath, [join(ROOT, 'tools', 'slice-sheets.mjs'), '--out', join(SCRATCH, dir, 'out'), join(SCRATCH, dir)], { cwd: ROOT, encoding: 'utf-8', timeout: 120_000 })
+
+  afterAll(() => rmSync(SCRATCH, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }))
+
+  it.skipIf(!can)('a pale, a dark and a white grid all leave the icons whole, clean-edged and full size', async () => {
+    const index = JSON.parse(readFileSync(INDEX, 'utf-8'))
+    const sheet = index.sheets.find((s: any) => s.id === 'sheet-items-weapons')
+    await fake('sheet-items-weapons', 'plain', 4, 3, null)
+    await fake('sheet-items-weapons', 'pale', 4, 3, '#fb51f8')
+    await fake('sheet-items-weapons', 'dark', 4, 3, '#b000b0')
+    await fake('sheet-items-weapons', 'white', 4, 3, '#ffffff')
+    const runs = Object.fromEntries(['plain', 'pale', 'dark', 'white'].map(d => [d, slice(d)]))
+    for (const [d, run] of Object.entries(runs)) expect(run.status, `${d}: ${run.stderr}`).toBe(0)
+    // The grid is noticed and said, not silently absorbed.
+    expect(runs.plain!.stderr).not.toContain('panel edges were DRAWN IN')
+    for (const d of ['pale', 'dark', 'white']) expect(runs[d]!.stderr, d).toContain('panel edges were DRAWN IN on 12 of 12 panels')
+
+    for (const c of sheet.cells) {
+      const plain = look(await read('plain', join('out', c.target)))
+      // THE FILL RULE: an icon is trimmed to its own paint and scaled until
+      // its longest side is 90 % of the 192 px file, centred — unless that
+      // would enlarge the painting by more than a quarter, which is where it
+      // stops. (It used to be registered onto the drawing's measured size,
+      // and read smaller than the vector glyph it replaced.)
+      const painted = Math.max(c.fit.w, c.fit.h) * (W / 4)
+      const want = Math.min(0.9 * 192, 1.25 * painted)
+      expect(Math.abs(Math.max(plain.w, plain.h) - want), `${c.id}: longest side ${Math.max(plain.w, plain.h)}, wanted ${want.toFixed(0)}`).toBeLessThanOrEqual(5)
+      expect(Math.abs(plain.cx - 96), `${c.id} is centred across`).toBeLessThanOrEqual(2)
+      expect(Math.abs(plain.cy - 96), `${c.id} is centred down`).toBeLessThanOrEqual(2)
+      for (const d of ['pale', 'dark', 'white']) {
+        const got = look(await read(d, join('out', c.target)))
+        // No line left along the border …
+        expect(got.rim, `${d}/${c.id}: opaque pixels on the border`).toBe(0)
+        // … and the icon is not shrunk into the frame the line drew.
+        expect(Math.abs(got.w - plain.w), `${d}/${c.id} width ${got.w} vs ${plain.w}`).toBeLessThanOrEqual(3)
+        expect(Math.abs(got.h - plain.h), `${d}/${c.id} height ${got.h} vs ${plain.h}`).toBeLessThanOrEqual(3)
+        expect(got.n / plain.n, `${d}/${c.id} lost paint`).toBeGreaterThan(0.97)
+      }
+    }
+  }, 180_000)
+
+  it.skipIf(!can)('violet, purple and crimson survive the wider key', async () => {
+    // Skill sheets are 3 x 2; the armour sheet holds the tier-4 purple robe.
+    await fake('sheet-skills-shadow', 'hues-plain', 3, 2, null)
+    await fake('sheet-skills-blood', 'hues-plain', 3, 2, null)
+    await fake('sheet-items-armor', 'hues-plain', 4, 3, null)
+    await fake('sheet-skills-shadow', 'hues-grid', 3, 2, '#fb51f8')
+    await fake('sheet-skills-blood', 'hues-grid', 3, 2, '#fb51f8')
+    await fake('sheet-items-armor', 'hues-grid', 4, 3, '#fb51f8')
+    for (const d of ['hues-plain', 'hues-grid']) { const run = slice(d); expect(run.status, `${d}: ${run.stderr}`).toBe(0) }
+
+    const between = (lo: number, hi: number) => (r: number, g: number, b: number): boolean => { const h = hue(r, g, b); return h >= lo && h <= hi }
+    const cases: Array<[string, string, (r: number, g: number, b: number) => boolean, number]> = [
+      ['violet', 'images/skills/shadowstep.webp', between(240, 285), 2000],
+      ['violet', 'images/skills/danceOfBlades.webp', between(240, 285), 400],
+      ['purple', 'images/items/chronoWeaverCloak.webp', between(255, 290), 2000],
+      ['crimson', 'images/skills/sanguineFlask.webp', (r, g, b) => { const h = hue(r, g, b); return h >= 335 || (h >= 0 && h <= 10) }, 800],
+      ['crimson', 'images/skills/mutagenicRage.webp', (r, g, b) => { const h = hue(r, g, b); return h >= 335 || (h >= 0 && h <= 10) }, 4000]
+    ]
+    for (const [name, target, pick, floor] of cases) {
+      const plain = look(await read('hues-plain', join('out', target)), pick)
+      const grid = look(await read('hues-grid', join('out', target)), pick)
+      // The colour is there in quantity, solid, and a drawn grid costs none of it.
+      expect(plain.n, `${name} in ${target}`).toBeGreaterThan(floor)
+      expect(grid.n / plain.n, `${name} in ${target} with a grid`).toBeGreaterThan(0.97)
+      expect(grid.rim, `${target}: opaque pixels on the border`).toBe(0)
+    }
+
+    // A PASSIVE is shown in a round frame, so it is fitted inside the circle:
+    // its farthest pixel from the middle lands at 88 % of the radius, and no
+    // corner of it is cut off. An active fills the square instead.
+    const index = JSON.parse(readFileSync(INDEX, 'utf-8'))
+    const cells = index.sheets.find((s: any) => s.id === 'sheet-skills-shadow').cells
+    expect(cells.filter((c: any) => c.round).map((c: any) => c.id)).toEqual(['lethality', 'evasion'])
+    for (const c of cells) {
+      const got = look(await read('hues-plain', join('out', c.target)))
+      const longest = Math.max(got.w, got.h)
+      if (c.round) {
+        expect(got.far, `${c.id} stays inside the round frame`).toBeLessThanOrEqual(0.44 * 192 + 2)
+        expect(got.far, `${c.id} is as big as the circle allows`).toBeGreaterThanOrEqual(0.44 * 192 - 4)
+      } else {
+        expect(Math.abs(longest - 0.9 * 192), `${c.id}: longest side ${longest}`).toBeLessThanOrEqual(5)
+      }
+      expect(Math.abs(got.cx - 96) + Math.abs(got.cy - 96), `${c.id} is centred`).toBeLessThanOrEqual(3)
+    }
+  }, 180_000)
+
+  it.skipIf(!can)('a bust is still registered onto its drawing: full width of the frame, sitting on the bottom edge', async () => {
+    await fake('sheet-portraits-speakers', 'busts', 3, 2, null)
+    const run = slice('busts')
+    expect(run.status, run.stderr).toBe(0)
+    const index = JSON.parse(readFileSync(INDEX, 'utf-8'))
+    for (const c of index.sheets.find((s: any) => s.id === 'sheet-portraits-speakers').cells) {
+      const p = await read('busts', join('out', c.target))
+      expect([p.w, p.h]).toEqual([256, 256])
+      // The bottom row of the file is the bust's cut line: paint all the way down.
+      let bottom = 0
+      for (let x = 0; x < p.w; x++) if (p.data[((p.h - 2) * p.w + x) * 4 + 3]! > 140) bottom++
+      expect(bottom, `${c.id} sits on the bottom edge`).toBeGreaterThan(p.w * 0.5)
+      // And it is the size the reference drew it at (the fit, over the 80 % box the file keeps).
+      const got = look(p)
+      expect(Math.abs(got.w - (c.fit.w / 0.8) * 256), `${c.id} width ${got.w}`).toBeLessThanOrEqual(8)
+    }
+  }, 180_000)
 })

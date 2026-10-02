@@ -41,6 +41,21 @@ export const TALL = 288
  *  The margin around it is not empty by rule: a glyph that runs past its box
  *  is drawn whole (see `placeOf` in the bench). */
 export const REF_SCALE = 0.8
+/**
+ * How much of its panel an ICON's longest side takes on a reference sheet
+ * (items, skills, the coin; not the busts, which stay on their box).
+ *
+ * The image model paints a thing at the size the reference shows it, and
+ * with detail to match: at the glyph's own inset an icon was 55 to 70 % of
+ * its panel, and came back small, fine-lined and hard to read at 40 px. At
+ * 84 % it is drawn, and painted, large and bold, and still keeps 8 % of
+ * plain ground on every side so nothing touches a cut line. The slicer trims
+ * an icon to its own paint, so this size never reaches the game.
+ */
+export const ICON_FILL = 0.84
+/** An icon shown in a round frame stays inside its panel's inscribed circle:
+ *  its farthest point from the middle, as a share of half the panel. */
+export const ICON_FILL_ROUND = 0.9
 
 // ─── What the renderer can load ──────────────────────────────────────────────
 
@@ -274,6 +289,13 @@ export interface ArtSet {
   cells: ReadonlyArray<SheetCell | null>
   /** One accent for the whole sheet (a class's skills). */
   accent?: { hex: string; name: string }
+  /**
+   * FINISH references: shipped paintings (project-relative paths) attached
+   * BEFORE the layout reference, to show what "painted" means in this game.
+   * The prompt document names them on an `Attach, in this order:` line under
+   * the heading, which is how the Art Desk learns to attach them.
+   */
+  styleRefs?: readonly string[]
 }
 
 export interface ArtScenery {
@@ -328,11 +350,20 @@ const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
   cells: grid(items.map(itemCell), 4, 3)
 })
 
+/**
+ * What a skill sheet is shown as "finished": three painted weapons, the icons
+ * whose volume came back right. Single square sprites, as the pipeline's
+ * rules ask (a sheet of another subject is read as subjects to copy), and the
+ * prompt says they are never subjects.
+ */
+export const SKILL_FINISH_REFS: readonly string[] = ['ironBroadsword', 'dragonSmasher', 'voidCannon'].map(id => `public/${artTarget('items', id)}`)
+
 const skillSet = (cls: ClassId): ArtSet => ({
   stem: `sheet-skills-${cls}`,
   title: `Skill icons: ${CLASS_NAME[cls]}`,
   kind: 'skills', doc: 'PROMPTS-SKILLS.md', cols: 3, rows: 2, panelH: TALL, maxEdge: 192, crop: 1, anchor: 'centre',
   accent: { hex: CLASSES[cls].color, name: CLASS_HUE[cls] },
+  styleRefs: SKILL_FINISH_REFS,
   cells: grid(skillsOf(cls).map(s => ({
     id: s.id, draw: 'skill' as const, label: labelOf(s.id), blurb: need(SKILL_BLURBS, s.id), target: artTarget('skills', s.id),
     glyph: `skill.${s.id}`, tint: CLASSES[cls].color, tintName: CLASS_HUE[cls], round: s.kind === 'passive'
@@ -370,7 +401,7 @@ export const SINGLES: readonly ArtSet[] = [
 
 export const SCENERY: readonly ArtScenery[] = [
   {
-    stem: 'bg-ui-map', title: 'UI: the world map parchment', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    stem: 'bg-ui-map', title: 'UI: the world map terrain', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: artTarget('ui', 'map'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: 'World map'
   },
   {
@@ -398,23 +429,14 @@ export const manifestTargets = (): Map<string, string> => {
 
 // ─── The world map plate ─────────────────────────────────────────────────────
 //
-// The parchment `WorldMap.vue` paints in CSS until `images/ui/map.webp`
-// exists: a tan sheet with one soft tint per region. Kept here as data so the
-// bench can draw the same plate on a canvas. If the CSS changes, change this.
-
-export interface MapBlob { at: [number, number]; rgb: [number, number, number]; alpha: number; reach: number }
-export const MAP_PLATE: { base: Array<[number, string]>; angle: number; blobs: MapBlob[] } = {
-  angle: 160,
-  base: [[0, '#ecd9a8'], [0.55, '#dcc188'], [1, '#c9a66b']],
-  blobs: [
-    { at: [0.22, 0.78], rgb: [111, 191, 74], alpha: 0.5, reach: 0.26 },
-    { at: [0.44, 0.52], rgb: [47, 154, 90], alpha: 0.45, reach: 0.24 },
-    { at: [0.44, 0.34], rgb: [224, 96, 58], alpha: 0.4, reach: 0.22 },
-    { at: [0.68, 0.28], rgb: [143, 208, 240], alpha: 0.6, reach: 0.24 },
-    { at: [0.84, 0.18], rgb: [138, 90, 224], alpha: 0.45, reach: 0.26 },
-    { at: [0.8, 0.62], rgb: [63, 192, 176], alpha: 0.4, reach: 0.22 }
-  ]
-}
+// The terrain `WorldMap.vue` draws under its landmarks until
+// `images/ui/map.webp` exists: sea and coast, a region of terrain per stretch
+// of the journey, rivers, bridges, the roads' beds and the bare sites the
+// landmarks stand on. It is built from data in
+// `components/screens/map/terrain.ts` (`mapPlateSvg`), and the bench bakes that
+// same drawing as the reference. The landmarks, the travelled roads, the names
+// and everything that moves are drawn by the game OVER the plate, painted or
+// not: `mapPrompt` below tells the painter to leave them out.
 
 // ─── The index: what the slicer and the desk read ────────────────────────────
 
@@ -423,7 +445,7 @@ export interface Fit { h: number; w: number; bottom: number; cx: number }
 /** Measured fits, keyed by TARGET: the one name no two panels share. */
 export type Fits = Readonly<Record<string, Fit>>
 
-export interface IndexCell { id: string; label: string; variant: string; x: number; y: number; w: number; h: number; target: string; fit?: Fit }
+export interface IndexCell { id: string; label: string; variant: string; x: number; y: number; w: number; h: number; target: string; round?: true; fit?: Fit }
 export interface IndexSheet {
   id: string
   kind: 'set' | 'single'
@@ -461,7 +483,8 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
           // The PANEL's rect. The slicer cuts the square in its middle, and a
           // fit is a fraction of that square, never of the taller panel.
           id: c.id, label: c.label, variant: s.kind, x: (i % s.cols) * CELL, y: Math.floor(i / s.cols) * panelHeight(s), w: CELL, h: panelHeight(s),
-          target: c.target, ...(fits?.[c.target] ? { fit: fits[c.target] } : {})
+          // `round`: shown in a round frame, so the slicer fits it inside the circle.
+          target: c.target, ...(c.round ? { round: true as const } : {}), ...(fits?.[c.target] ? { fit: fits[c.target] } : {})
         }]
       : []))
   })),
@@ -531,7 +554,36 @@ export const GLOW = 'KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out in
 
 /** Effects only: the flat placeholder is notation, and what "painted" means. */
 export const NOTATION = '· The reference\'s flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.'
-export const FINISH = '· FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE\'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.'
+/**
+ * Effects only: what "painted" means, spelled out. The first skill sheets
+ * came back as flat single-colour shapes with an outline (the reference,
+ * neatly redrawn) while the weapons, from the same style block, came back
+ * with real volume: an object brings its own material to shade, a symbol
+ * does not. So the volume is demanded here, part by part, and the flat
+ * answer is named as the wrong one.
+ */
+export const FINISH = [
+  'PAINTED VOLUME — this is what the sheet is judged on.',
+  '· Every shape is a chunky, solid, three-dimensional thing lit from the upper left: a LIT side and a SHADOW side that meet along a hard edge (two-tone cel shading), a thin rim light on the shadow side, and a few crisp white highlights.',
+  '· Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.',
+  '· A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE\'S OWN COLOUR on fire, light and energy.',
+  '· A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.',
+  '· The silhouette is the reference\'s, unchanged. Put the volume INSIDE the outline; do not add parts around it.',
+  '· The accent colour stays the dominant colour of every panel.'
+].join('\n')
+
+/**
+ * Icons are drawn at 40 px in the HUD. The first painted icons carried detail
+ * that turned to mud there, so the size they are seen at is part of the brief.
+ */
+export const READABLE = [
+  'READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.',
+  '· Bold, chunky shapes and a thick outline. Few parts, each one large.',
+  '· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.',
+  '· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.',
+  '· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.',
+  '· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.'
+].join('\n')
 export const SEE_THROUGH = 'NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, solid colour; light is painted as solid shapes (hard-edged rays, solid rim bands), never as a soft bloom around a shape and never half-transparent or ghostly.'
 
 const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a)
@@ -552,7 +604,9 @@ const extent = (s: ArtSet, fits?: Fits): { w: number; h: number } => {
     const f = c ? fits?.[c.target] : undefined
     if (f) { w = Math.max(w, f.w); h = Math.max(h, f.h) }
   }
-  const e = w > 0 && h > 0 ? { w, h } : { w: REF_SCALE, h: REF_SCALE }
+  // Not measured yet: what the bench aims for. An icon's longest side, a bust's box.
+  const nominal = s.anchor === 'centre' ? ICON_FILL : REF_SCALE
+  const e = w > 0 && h > 0 ? { w, h } : { w: nominal, h: nominal }
   // A fit is measured on the drawing's square; the prompt speaks of the PANEL,
   // which may be taller than that square.
   return { w: e.w, h: (e.h * CELL) / panelHeight(s) }
@@ -566,7 +620,10 @@ const panelList = (s: ArtSet, withTint: boolean): string[] =>
     const at = `Panel ${i + 1} (row ${Math.floor(i / s.cols) + 1}, column ${(i % s.cols) + 1})`
     if (!c) return `${at}: BLANK — flat magenta and nothing else.`
     const tint = withTint && c.tint ? ` Accent, where the reference shows one: ${c.tintName} (about ${c.tint}).` : ''
-    return `${at}: ${c.blurb}.${tint}${c.round ? ' Shown inside a ROUND frame: keep it clear of the panel\'s four corners.' : ''}`
+    // No "frame", no "round": the first passives came back with the frame PAINTED,
+    // a dark ring or disc around the drawing. Say where the paint may go, and
+    // name the ring as the thing not to draw.
+    return `${at}: ${c.blurb}.${tint}${c.round ? ' Keep this one compact, well away from its panel\'s four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.' : ''}`
   })
 
 const comesBack = (s: ArtSet, noun: string): string[] => {
@@ -579,8 +636,27 @@ const comesBack = (s: ArtSet, noun: string): string[] => {
     `· ${n} panels. Not 1, not ${n - s.cols}, not ${n + s.cols}. Exactly ${s.rows} rows of ${s.cols} — do not add a row and do not drop one.`,
     `· ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.`,
     '· Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.',
+    // Written after a return that did exactly this: "magenta included" was
+    // read as the pure colour only, and the grid came back in a paler shade.
+    '· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.',
     ...(panelHeight(s) !== CELL ? [`· The panels are NOT square: each is a little taller than it is wide (${ratio(CELL, panelHeight(s))}), because the canvas divides into ${s.cols} equal columns and ${s.rows} equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.`] : []),
     ...(blanks ? [`· ${blanks} panel${blanks > 1 ? 's are' : ' is'} BLANK in the reference. Leave ${blanks > 1 ? 'them' : 'it'} flat magenta: do not invent anything for ${blanks > 1 ? 'them' : 'it'}.`] : [])
+  ]
+}
+
+/**
+ * Which attached image is which, when a sheet goes out with finish references.
+ * The model takes its grid and shape from the LAST image it is given and reads
+ * any other as something to copy, so both facts are said in words.
+ */
+const attached = (s: ArtSet): string[] => {
+  const n = s.styleRefs?.length ?? 0
+  if (!n) return []
+  return [
+    '',
+    `ATTACHED IMAGES — there are ${n + 1}, and they do two different jobs.`,
+    `· The first ${n} are FINISH references: finished paintings from this same game. Take the FINISH from them and nothing else — how thick the outline is, how the lit side and the shadow side meet along a hard edge, where the highlights sit. They are never subjects: nothing they show may appear in any panel unless the layout reference shows it there.`,
+    '· The LAST image is the LAYOUT reference: the grid, and the shape, size and place of each panel. Wherever this text says "the reference", it means that last image.'
   ]
 }
 
@@ -589,6 +665,7 @@ const sizeClause = (s: ArtSet, fits?: Fits): string[] => {
   return [
     'SIZE AND PLACE — measure against the PANEL, not against the paper.',
     `· In the reference no drawing is wider than about ${pct(e.w)}% of its panel or taller than about ${pct(e.h)}%, and every panel keeps a clear magenta margin on all four sides.`,
+    ...(s.anchor === 'centre' ? ['· Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.'] : []),
     '· Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.',
     '· Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.'
   ]
@@ -605,6 +682,7 @@ const checks = (s: ArtSet, lines: string[]): string[] => {
     `· The canvas is ${shapeWord(width, height)}, ${ratio(width, height)}.`,
     ...lines,
     '· Nothing in any panel reaches its panel\'s edge.',
+    '· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.',
     '· Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.'
   ]
 }
@@ -631,13 +709,18 @@ const itemPrompt = (s: ArtSet, fits?: Fits): string => {
     '',
     STYLE_PART,
     '',
+    READABLE,
+    '',
     ...sizeClause(s, fits),
     '',
     BACKGROUND,
     '',
     GLOW,
     '',
-    ...checks(s, ['· Each panel holds exactly one object and nothing else.']),
+    ...checks(s, [
+      '· Each panel holds exactly one object and nothing else.',
+      '· Every object would still be recognised 40 pixels wide.'
+    ]),
     '',
     output(width, height)
   ].join('\n')
@@ -649,11 +732,14 @@ const skillPrompt = (s: ArtSet, fits?: Fits): string => {
   return [
     heading(s.title, s.stem, 'images/skills/'),
     '',
-    ...comesBack(s, 'icon'),
+    // "Object", not "icon" or "emblem": those two words are a style, and the
+    // first skill sheets came back in it — flat, like an icon font.
+    ...comesBack(s, 'object'),
+    ...attached(s),
     '',
-    'EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.',
+    'EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL, AND NOT A SCENE.',
     '· Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.',
-    '· The game draws its own coloured frame around each icon. Nothing here sits on a tile, badge or ring.',
+    '· The game draws its own coloured frame around each one. Nothing here sits on a tile, badge, ring or disc.',
     '',
     'WHAT EACH PANEL IS:',
     ...panelList(s, false),
@@ -662,11 +748,14 @@ const skillPrompt = (s: ArtSet, fits?: Fits): string => {
     '',
     'THE VIEW — flat and front-on, the way the reference shows it, at the same tilt. No three-quarter view, no perspective, no foreshortening.',
     '',
-    `ONE HAND — all ${s.cells.filter(c => c).length} icons belong to one set: the same line weight, the same shading, the same light from the upper left, the same accent colour.`,
+    `ONE HAND — all ${s.cells.filter(c => c).length} belong to one set, painted by the same artist in the same sitting: the same line weight, the same two-step shading, the same light from the upper left, the same accent colour. A sheet where one panel has volume and the next is flat is not one set.`,
+    '',
+    FINISH,
     '',
     STYLE_PART,
     NOTATION,
-    FINISH,
+    '',
+    READABLE,
     '',
     ...sizeClause(s, fits),
     '',
@@ -677,8 +766,10 @@ const skillPrompt = (s: ArtSet, fits?: Fits): string => {
     SEE_THROUGH,
     '',
     ...checks(s, [
-      '· Each panel holds exactly one emblem and nothing else.',
+      '· Each panel holds exactly one thing and nothing else, and no ring, disc or badge sits around or behind it.',
+      '· Every shape has a lit side and a shadow side: not one of them is a single flat colour.',
       '· No panel is a flat copy of the reference\'s plain shapes.',
+      '· Every panel would still be recognised 40 pixels wide.',
       '· Nothing anywhere is half-transparent, hazy or glowing out into the magenta.'
     ]),
     '',
@@ -743,9 +834,11 @@ const singlePrompt = (s: ArtSet, fits?: Fits): string => {
     '',
     STYLE_PART,
     '',
+    READABLE,
+    '',
     'SIZE AND PLACE — measure against the image, not against a guess.',
     `· In the reference the object is about ${pct(e.w)}% of the image's width and ${pct(e.h)}% of its height, centred, with a clear magenta margin on all four sides. Keep it there.`,
-    '· It is shown at the size of a single letter in the game, so it must read at a glance: the simplest version of itself.',
+    '· In the game it is shown smaller still, at the size of a single letter: the simplest version of itself.',
     '',
     BACKGROUND,
     '',
@@ -762,27 +855,39 @@ const singlePrompt = (s: ArtSet, fits?: Fits): string => {
 const mapPrompt = (a: ArtScenery): string => [
   heading(a.title, a.stem, a.target),
   '',
-  'WHAT COMES BACK IS ONE FULL-BLEED PARCHMENT MAP SHEET, WITH NOTHING MARKED ON IT.',
+  'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.',
   `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
   '',
-  'IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the background the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge.',
+  'IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper\'s edge itself).',
   '',
-  'WHAT IT IS: a hand-painted sheet of warm tan parchment showing a stretch of country from above, as soft regions of terrain colour that melt into the parchment between them. Following the reference: gentle green grassland at the lower left; darker green woodland in the middle; warm ash-red badlands above the middle; pale icy blue snowfields at the upper right of centre; violet haze in the far upper right corner; sea-green lowlands at the right of centre.',
+  'WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the attached reference. Every coast, region, river, bridge, road and clearing stays exactly where the reference has it: the game lays its own drawings over the picture by position. In the reference:',
+  '· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.',
+  '· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.',
+  '· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.',
+  '· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.',
+  '· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.',
+  '· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.',
+  '· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.',
+  '· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.',
+  '· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.',
+  '· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.',
+  '· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.',
+  '· Pale dirt roads wind between sixteen bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.',
   '',
-  'WHAT IT IS NOT — read this twice. The game draws every place marker, every road and every name OVER this picture, at positions it computes itself. So NOTHING painted here may look like a place: no towns, no castles, no towers, no houses, no camps, no roads, no paths, no dotted lines, no bridges, no flags, no crosses, no compass rose, no ships, no creatures, no banners, no text, no letters, no numbers. A painted town would sit beside the real marker and read as a second, wrong one.',
-  '· Terrain texture is welcome, kept small and even: tiny hill bumps, tree dots, short grass ticks, ripple marks, drifts. Nothing larger than a fingernail, nothing that reads as a landmark, nothing that draws the eye to one spot.',
-  '· Keep it calm and fairly light: dark ink labels and bright round markers sit on every part of it, and both must stay readable.',
+  'WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the sixteen clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.',
+  '· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.',
+  '· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.',
   '',
-  'COLOUR — the reference\'s own: warm tan paper, with each region\'s colour laid softly over it where the reference shows it. Keep the regions where they are; their exact outlines are free.',
+  'COLOUR — the reference\'s own, region by region. Take the HUES from it, not the flatness.',
   '',
-  'THE VIEW — straight down, flat, like a printed map. No horizon, no perspective, no tilt.',
+  'THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.',
   '',
   STYLE_BACKDROP,
   '',
   'BEFORE YOU CALL IT FINISHED, check:',
-  '· The paper reaches all four edges of the image; there is no magenta and no border.',
-  '· There is not one building, road, marker, symbol or letter anywhere in it.',
-  '· The six regions sit where the reference has them.',
+  '· The picture reaches all four edges of the image; there is no magenta and no border.',
+  '· Laid over the reference, every coast, river, bridge, road and clearing is where the reference has it.',
+  '· The sixteen clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.',
   '',
   `OUTPUT: one image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}, ${shapeWord(a.width, a.height)}). If your tool has an aspect-ratio control, set it to ${ratio(a.width, a.height)}. PNG. No labels, captions, numbers or watermarks.`
 ].join('\n')
@@ -816,14 +921,21 @@ const groundPrompt = (a: ArtScenery): string => [
   'OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.'
 ].join('\n')
 
-export interface PromptBlock { doc: string; stem: string; title: string; text: string }
+export interface PromptBlock {
+  doc: string
+  stem: string
+  title: string
+  text: string
+  /** Finish references to attach BEFORE the layout reference (project-relative). */
+  styleRefs?: readonly string[]
+}
 
 const setPrompt = (s: ArtSet, fits?: Fits): string =>
   s.kind === 'items' ? itemPrompt(s, fits) : s.kind === 'skills' ? skillPrompt(s, fits) : portraitPrompt(s, fits)
 
 /** One block per reference, in document order. `text` is `# heading`, a blank line, the prompt. */
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
-  ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits) })),
+  ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: singlePrompt(s, fits) })),
   ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : groundPrompt(a) }))
 ]
@@ -836,12 +948,16 @@ const fenceFor = (body: string): string => {
 }
 
 /** `# Title (ref.png → target)` + prompt → a `##` heading OUTSIDE a fenced block. */
-const block = (text: string): string => {
+const block = (b: PromptBlock): string => {
+  const text = b.text
   const cut = text.indexOf('\n')
   const head = (cut < 0 ? text : text.slice(0, cut)).replace(/^#+\s*/, '')
   const bodyText = (cut < 0 ? '' : text.slice(cut + 1)).replace(/^\n+/, '')
   const fence = fenceFor(bodyText)
-  return [`## ${head}`, '', `${fence}text`, bodyText, fence].join('\n')
+  // The operator's line, and the Art Desk's: which finished paintings go in
+  // BEFORE the layout reference (the model takes its grid from the last image).
+  const attach = b.styleRefs?.length ? [`Attach, in this order: ${b.styleRefs.map(f => `\`${f}\``).join(', ')}, then the reference named in the heading.`, ''] : []
+  return [`## ${head}`, '', ...attach, `${fence}text`, bodyText, fence].join('\n')
 }
 
 const DOC_TITLES: Readonly<Record<string, string>> = {
@@ -861,6 +977,10 @@ const docIntro = (name: string): string[] => [
   'and where the sliced result lands; it stays OUTSIDE the fence, so copy the',
   'fenced text only (a markdown preview gives it a copy button). Save the return',
   'as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.',
+  '',
+  'A block with an "Attach, in this order" line goes out with finished paintings',
+  'as well: attach those FIRST and the reference LAST (the model takes the grid',
+  'from the last image). `pnpm art:desk` does this by itself.',
   ''
 ]
 
@@ -871,7 +991,7 @@ export const promptDocs = (fits?: Fits): Record<string, string> => {
   for (const name of Object.keys(DOC_TITLES)) {
     const mine = blocks.filter(b => b.doc === name)
     if (!mine.length) continue
-    out[name] = [...docIntro(name), ...mine.flatMap(b => [block(b.text), ''])].join('\n')
+    out[name] = [...docIntro(name), ...mine.flatMap(b => [block(b), ''])].join('\n')
   }
   return out
 }

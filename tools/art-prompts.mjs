@@ -20,7 +20,7 @@
  *   node --import ./tools/ts-resolve.mjs tools/art-prompts.mjs
  */
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -62,6 +62,34 @@ for (const [name, text] of Object.entries(docs)) {
   }
   writeFileSync(file, text, 'utf-8')
   console.log(`  ✓ ${name}  ${(text.length / 1024).toFixed(0)} kB`)
+}
+
+// ─── The index: the manifest's layout, the bench's measurements ─────────────
+//
+// `sheet-index.json` holds two kinds of fact. The FITS are measured off the
+// drawings and only the bench can produce them. Everything else (which panel
+// is which file, its rect, its output size, whether it sits in a round frame)
+// is the manifest's, and a manifest edit that changes none of the drawings
+// should not need a browser to reach the slicer. So the index is rewritten
+// here from the manifest with the fits it already carries; a sheet whose
+// DRAWING changed still needs `pnpm art:export`. Never created here: with no
+// index there are no fits, and the export is the thing to run.
+if (existsSync(INDEX)) {
+  const next = `${JSON.stringify(manifest.sheetIndex(fits), null, 2)}\n`
+  if (readFileSync(INDEX, 'utf-8').replace(/\r\n/g, '\n') === next) {
+    console.log('  = sheet-index.json  unchanged')
+  } else {
+    stale++
+    if (CHECK) {
+      console.error('  ! sheet-index.json is out of date — run pnpm art:prompts')
+    } else {
+      // A temp file and a rename, so the slicer or the desk never reads half of it.
+      const tmp = `${INDEX}.${process.pid}.tmp`
+      writeFileSync(tmp, next, 'utf-8')
+      renameSync(tmp, INDEX)
+      console.log('  ✓ sheet-index.json  layout refreshed from the manifest (fits kept)')
+    }
+  }
 }
 
 // ─── What is painted, what is not, and what has gone out of date ────────────

@@ -196,11 +196,42 @@ function pageCut(plan, o) {
     return JSON.stringify(res)
   }
 
+  /**
+   * Is this colour the GROUND'S HUE, whatever its lightness?
+   *
+   * The first real item sheet came back with the panel grid drawn in: a pale
+   * magenta line (#fb51f8) around every panel, in spite of the prompt. Its
+   * green is over the channel key's ceiling, so the lines stayed, were
+   * measured as the drawing's extent, and every icon shipped shrunken inside
+   * a pink rectangle.
+   *
+   * Magenta is hue 300. A shade of it stays at 300 however light or dark, and
+   * nothing in the game's palette is near it: violet is about 255, the tier-4
+   * purple 270, hot pink 317, crimson 345, skin and blush around 0. So 300
+   * +- 14 with real saturation is ground — but ONLY where the caller says so
+   * (connected to keyed ground, or on a panel's boundary band): a
+   * magenta-ish gem walled in by its own outline is artwork.
+   */
+  const groundHue = (r, g, b) => {
+    const mx = Math.max(r, g, b)
+    const mn = Math.min(r, g, b)
+    // Green is the low channel of every magenta; this also drops greys.
+    if (mn !== g || mx - mn < 60) return false
+    const l = (mx + mn) / 510
+    if (l < 0.3 || l > 0.93) return false
+    const s = (mx - mn) / (l > 0.5 ? 510 - mx - mn : mx + mn)
+    if (s < 0.55) return false
+    const h = mx === r ? 360 - (60 * (b - g)) / (mx - mn) : 240 + (60 * (r - g)) / (mx - mn)
+    return h >= 286 && h <= 314
+  }
+
   // ── What ground did it come back on, and is the grid where it went out? ──
   const [, fc] = mk(W0, H0)
   fc.drawImage(img, 0, 0)
   const fd = fc.getImageData(0, 0, W0, H0).data
-  const isKey = (i) => fd[i + 1] < 70 && fd[i] > 190 && fd[i + 2] > 190
+  // Ground here is the keyed colour OR a lighter / darker shade of it: a
+  // model that draws the panel grid in pale magenta has still painted ground.
+  const isKey = (i) => (fd[i + 1] < 70 && fd[i] > 190 && fd[i + 2] > 190) || groundHue(fd[i], fd[i + 1], fd[i + 2])
   {
     const counts = new Map()
     let ring = 0
@@ -262,6 +293,14 @@ function pageCut(plan, o) {
     const SH = p.sh
     const N = W * H
     let keyed = 0
+    // Pixels taken as a SHADE of the ground (a drawn panel edge), for the report.
+    let shade = 0
+    // The panel's BOUNDARY BAND: the strip along its four edges where the
+    // reference holds nothing but ground (every drawing keeps a wider margin
+    // than this). A line the model drew along the cut lands here.
+    const BX = Math.max(4, Math.round(W * 0.045))
+    const BY = Math.max(4, Math.round(H * 0.045))
+    const inBand = (x, y) => x < BX || x >= W - BX || y < BY || y >= H - BY
 
     if (o.chroma) {
       // A CHANNEL test, not a distance-to-magenta one. Pure magenta is the
@@ -271,6 +310,43 @@ function pageCut(plan, o) {
       for (let k = 0; k < N; k++) {
         const i = k * 4
         if (d[i + 1] < 70 && d[i] > 190 && d[i + 2] > 190) { bg[k] = 1; d[i + 3] = 0; keyed++ }
+      }
+      // ── Shades of the ground: drawn panel edges, gutters, smeared borders ──
+      //
+      // `groundHue` (above) says a pixel is a lighter or darker magenta. That
+      // is ground when it is CONNECTED to ground the key already found, or
+      // when it lies on the panel's boundary band, where the reference has
+      // nothing but ground. Flooding from those two keeps it out of the
+      // drawing: a magenta-ish jewel inside an outline is never reached.
+      {
+        const queue = []
+        for (let k = 0; k < N; k++) {
+          if (bg[k]) { queue.push(k); continue }
+          const x = k % W
+          const y = (k / W) | 0
+          if (!(x < BX || x >= W - BX || y < BY || y >= H - BY)) continue
+          const i = k * 4
+          if (groundHue(d[i], d[i + 1], d[i + 2])) { bg[k] = 1; d[i + 3] = 0; keyed++; shade++; queue.push(k) }
+        }
+        while (queue.length) {
+          const k = queue.pop()
+          const x = k % W
+          const y = (k / W) | 0
+          const reach = (nk) => {
+            if (bg[nk]) return
+            const i = nk * 4
+            if (!groundHue(d[i], d[i + 1], d[i + 2])) return
+            bg[nk] = 1
+            d[i + 3] = 0
+            keyed++
+            shade++
+            queue.push(nk)
+          }
+          if (x > 0) reach(k - 1)
+          if (x < W - 1) reach(k + 1)
+          if (y > 0) reach(k - W)
+          if (y < H - 1) reach(k + W)
+        }
       }
       // De-fringe ONLY where art meets keyed background. Anti-aliasing leaves
       // a pink rim there; running this over the whole panel instead would
@@ -475,33 +551,138 @@ function pageCut(plan, o) {
       }
     }
 
+    // ── Whatever is left that lives ONLY in the boundary band ──
+    //
+    // A drawn panel edge that is not a shade of the ground (a white line, a
+    // grey one, the rim a key left behind) survives everything above. What
+    // gives it away is where it is: a piece of paint that never leaves the
+    // boundary band is not part of a drawing, which keeps a wider margin than
+    // that. A drawing that reaches INTO the band is connected to the rest of
+    // itself and is left alone.
+    let strays = 0
+    if (keyed > 0) {
+      const seen = new Uint8Array(N)
+      for (let k0 = 0; k0 < N; k0++) {
+        if (seen[k0] || d[k0 * 4 + 3] <= 8) continue
+        const part = [k0]
+        seen[k0] = 1
+        let inside = false
+        for (let n = 0; n < part.length; n++) {
+          const k = part[n]
+          const x = k % W
+          const y = (k / W) | 0
+          if (!inBand(x, y)) inside = true
+          const step = (nk) => { if (!seen[nk] && d[nk * 4 + 3] > 8) { seen[nk] = 1; part.push(nk) } }
+          if (x > 0) step(k - 1)
+          if (x < W - 1) step(k + 1)
+          if (y > 0) step(k - W)
+          if (y < H - 1) step(k + W)
+        }
+        if (!inside) { for (const k of part) d[k * 4 + 3] = 0; strays += part.length }
+      }
+      if (strays) cc.putImageData(id, 0, 0)
+    }
+
     // The drawing's box, on SOLID pixels (alpha over 140) — the same floor the
     // bench measured the reference with. A soft edge is light, not extent.
+    //
+    // Never from the boundary band: a line that survived there (it touched
+    // the drawing, so the pass above kept it) must not be taken for the
+    // drawing's extent. That is how a pink frame once shrank twelve icons.
     let x0 = W
     let y0 = H
     let x1 = -1
     let y1 = -1
     let opaque = 0
     let onFrame = 0
+    let banded = null
     for (let y = 0; y < H; y++) {
       for (let x = 0; x < W; x++) {
         const a = d[(y * W + x) * 4 + 3]
         if (a > 8) opaque++
         if (a <= 140) continue
+        if (x === 0 || y === 0 || x === W - 1 || y === H - 1) onFrame++
+        if (inBand(x, y)) {
+          banded ??= { x0: x, y0: y, x1: x, y1: y }
+          if (x < banded.x0) banded.x0 = x
+          if (x > banded.x1) banded.x1 = x
+          if (y < banded.y0) banded.y0 = y
+          if (y > banded.y1) banded.y1 = y
+          continue
+        }
         if (x < x0) x0 = x
         if (x > x1) x1 = x
         if (y < y0) y0 = y
         if (y > y1) y1 = y
-        if (x === 0 || y === 0 || x === W - 1 || y === H - 1) onFrame++
       }
     }
+    // Nothing outside the band at all: then the band is all there is.
+    if (x1 < 0 && banded) ({ x0, y0, x1, y1 } = banded)
     if (x1 < 0) { res.cells.push({ id: p.id, target: p.target, empty: true }); continue }
     // As fractions of the SQUARE, like the fit the bench measured: outside
     // 0..1 where the painting runs past it.
     const box = { x0: (x0 - OX) / SW, y0: (y0 - OY) / SH, x1: (x1 + 1 - OX) / SW, y1: (y1 + 1 - OY) / SH }
     const bboxFill = opaque / ((x1 - x0 + 1) * (y1 - y0 + 1))
 
-    // ── Register it onto the drawing it replaces ──
+    // ── An ICON fills its square ──
+    //
+    // The first nine painted sheets were registered onto the drawing's
+    // measured size, like the portraits still are, and at the HUD's 40 px the
+    // painted icons read WORSE than the vector glyphs they replaced: a
+    // painted object carries detail a glyph does not, and it sat small in its
+    // file with a wide empty margin. An icon has nothing to line up with (the
+    // game draws its frame around the file), so the only thing registration
+    // bought was that margin.
+    //
+    // So an icon is trimmed to its own content and scaled until its longest
+    // side is `FILL` of the edge, centred. A passive is shown in a ROUND
+    // frame, so it is fitted inside the inscribed circle instead: its
+    // farthest pixel from the middle lands at `FILL_ROUND` of the radius.
+    //
+    // Never enlarged past `UPSCALE` times what the painter delivered: beyond
+    // that the file gains blur, not readability, and a small margin is the
+    // honest result.
+    if (o.fill) {
+      const FILL = 0.9
+      const FILL_ROUND = 0.88
+      const UPSCALE = 1.25
+      // A sheet that came back slightly squashed is undone here: one side of
+      // the square is the unit, and the other axis is stretched to match it.
+      const S = Math.max(SW, SH)
+      const nx = S / SW
+      const ny = S / SH
+      const cx = (x0 + x1 + 1) / 2
+      const cy = (y0 + y1 + 1) / 2
+      const long = Math.max((x1 - x0 + 1) * nx, (y1 - y0 + 1) * ny)
+      let k = (FILL * p.out) / long
+      if (p.round) {
+        let far = 0
+        for (let y = y0; y <= y1; y++) {
+          for (let x = x0; x <= x1; x++) {
+            if (d[(y * W + x) * 4 + 3] <= 140) continue
+            const dist = Math.hypot((x + 0.5 - cx) * nx, (y + 0.5 - cy) * ny)
+            if (dist > far) far = dist
+          }
+        }
+        if (far > 0) k = Math.min(k, (FILL_ROUND * p.out) / 2 / far)
+      }
+      const capped = k > UPSCALE
+      if (capped) k = UPSCALE
+      const [dst, dc] = mk(p.out, p.out)
+      dc.translate(p.out / 2, p.out / 2)
+      dc.scale(k * nx, k * ny)
+      dc.translate(-cx, -cy)
+      dc.drawImage(cell, 0, 0)
+      res.cells.push({
+        id: p.id, target: p.target, w: p.out, h: p.out,
+        keyed: keyed / N, shade: shade / N, strays: strays / N, coverage: opaque / N, bboxFill, onFrame,
+        fill: { k: +k.toFixed(3), capped, round: !!p.round, long: Math.round(long) },
+        dataUrl: dst.toDataURL('image/webp', o.quality)
+      })
+      continue
+    }
+
+    // ── Register it onto the drawing it replaces ── (portraits)
     //
     // A return arrives at a different size and position from the reference,
     // always. Each panel of a SET is its own object, so each is fitted onto
@@ -548,7 +729,7 @@ function pageCut(plan, o) {
     dc.drawImage(src, (SW - cw) / 2, (SH - ch) / 2, cw, ch, 0, 0, p.out, p.out)
     res.cells.push({
       id: p.id, target: p.target, w: p.out, h: p.out,
-      keyed: keyed / N, coverage: opaque / N, bboxFill, onFrame, fitNote,
+      keyed: keyed / N, shade: shade / N, strays: strays / N, coverage: opaque / N, bboxFill, onFrame, fitNote,
       dataUrl: dst.toDataURL('image/webp', o.quality)
     })
   }
@@ -576,13 +757,19 @@ Slice repainted reference sheets back into the game's drop-in files.
   --no-chroma      Keep the magenta background instead of keying it out.
   --no-auto-bg     Do not flood a white or cream background away when no
                    magenta was found.
-  --no-fit         Cut the panels where they landed, without registering them
-                   onto the box the bench measured on the drawing.
+  --no-fit         Cut the panels where they landed: an icon is not trimmed and
+                   scaled to fill its square, a bust is not registered onto
+                   the box the bench measured on the drawing.
   --dry            Print the plan and write nothing.
   --stale-ok       Slice a painting even though its reference was redrawn
                    since it was painted. Off by default: the receipt in
                    painted/.sliced.json is what stops a re-cut drawing being
-                   overwritten by a painting of the old one.
+                   overwritten by a painting of the old one. A refused
+                   painting and the files cut from it stay where they are.
+  --park           With a refusal: move the refused painting to painted/stale/
+                   and the files cut from it out of the game, so the game
+                   draws those again. For a drawing whose SHAPE was re-cut,
+                   where the old art is wrong rather than merely older.
   --index <file>   Read another sheet index (tests).
 `
 
@@ -616,6 +803,7 @@ const main = async () => {
 
   const DRY = flag('--dry')
   const STALE_OK = flag('--stale-ok')
+  const PARK = flag('--park')
   const OUT_ROOT = resolve(ROOT, opts['--out'] ?? 'public')
   const QUALITY = num('--quality', 0.92)
   const FORCE_SHEET = opts['--sheet'] ?? null
@@ -721,7 +909,9 @@ const main = async () => {
         ok: false, rev,
         why: `the reference was REDRAWN after this was painted (${seen.rev} → ${rev}).`
           + `\n    ${relative(ROOT, ref)} is not the picture this file was painted over any more.`
-          + '\n    Repaint it from the new sheet, or pass --stale-ok to cut it anyway.'
+          + '\n    It is NOT re-cut. What is in the game from it stays in the game until a new painting replaces it:'
+          + '\n    repaint it from the new sheet (the Art Desk lists it under "To paint"), pass --stale-ok to cut it anyway,'
+          + '\n    or pass --park to take it and its files out of the game.'
       }
     }
     if (!seen && statSync(ref).mtimeMs > statSync(file).mtimeMs + 60_000) {
@@ -741,9 +931,16 @@ const main = async () => {
    * it. Leaving those ships the old shape for the drawables that were painted
    * while the rest draw themselves correctly: the re-cut, visibly broken in
    * half. With them gone the game falls back to the corrected drawing.
+   *
+   * ONLY ON REQUEST (`--park`). It used to happen on every refusal, and the
+   * first time a reference changed for a reason other than its shape (every
+   * icon was drawn larger in its panel) one folder-wide run would have taken
+   * six sheets of good painted icons out of the game, a day before their
+   * re-rolls. A refusal now leaves the painting and its files alone: the
+   * status says "repaint", and the new painting replaces them when it comes.
    */
   const park = (file, sheet, why) => {
-    if (dirname(resolve(file)) !== PAINTED) return
+    if (!PARK || dirname(resolve(file)) !== PAINTED) return
     const stale = join(PAINTED, 'stale')
     const cut = sheet.cells.map((c) => safeTarget(c.target)).filter((t) => t && existsSync(t))
     if (DRY) {
@@ -770,6 +967,7 @@ const main = async () => {
   let written = 0
   let skipped = 0
   let failed = 0
+  let waiting = 0
   const jobs = []
   for (const file of inputs) {
     let sheet
@@ -784,7 +982,11 @@ const main = async () => {
     if (!fresh.ok && !STALE_OK) {
       console.error(`\n✗ ${basename(file)} — ${fresh.why}`)
       park(file, sheet, fresh.why)
-      failed++
+      // Named on the command line, it is a failure: the caller asked for this
+      // one. Found in a folder-wide run, it is a painting waiting for its
+      // re-roll, and must not fail the sheets beside it.
+      if (files.length) failed++
+      else waiting++
       continue
     }
     jobs.push({ file, sheet, fresh })
@@ -794,6 +996,7 @@ const main = async () => {
     if (receiptDirty && !DRY) writeReceipt()
     console.log(`\n${DRY ? 'would write' : 'wrote'} ${written} file(s)`
       + `${skipped ? `, skipped ${skipped} empty` : ''}`
+      + `${waiting ? `, ${waiting} left alone (their reference changed: repaint)` : ''}`
       + `${failed ? `, ${failed} FAILED` : ''}`)
     if (written && !DRY) {
       console.log('\nTo see it: `pnpm dev`, then /#/models → "Painted vs drawn" (a running dev server reloads by itself).')
@@ -801,7 +1004,7 @@ const main = async () => {
     }
     return code
   }
-  if (!jobs.length) process.exit(finish(1))
+  if (!jobs.length) process.exit(finish(failed || !waiting ? 1 : 0))
 
   // ─── Chrome, for decode / key / crop / WebP encode ────────────────────────
   const chromePath = CHROME_CANDIDATES.find((p) => existsSync(p))
@@ -936,6 +1139,8 @@ const main = async () => {
             px: Math.round(c.x * sx), py: Math.round(c.y * sy), pw: Math.round(c.w * sx), ph: Math.round(c.h * sy),
             ox: Math.round(((c.w - side) / 2) * sx), oy: Math.round(((c.h - side) / 2) * sy), sw, sh,
             crop: sheet.crop,
+            // Shown in a round frame (a passive skill): fitted inside the circle.
+            round: !!c.round,
             fit: flag('--no-fit') ? null : (c.fit ?? null),
             // Never upsample: a return buys file size and no detail above what it came back at.
             out: SIZE_FORCED ? SIZE : Math.max(1, Math.min(edgeCap(sheet), Math.round(Math.min(sw, sh) * sheet.crop)))
@@ -946,6 +1151,9 @@ const main = async () => {
       const cut = await send('Runtime.evaluate', {
         expression: `(${pageCut.toString()})(${JSON.stringify(plan)}, ${JSON.stringify({
           kind: sheet.kind, cols: sheet.cols, rows: sheet.rows, anchor: sheet.anchor, tileable: sheet.tileable,
+          // Icons (everything that hangs from its middle) fill their square;
+          // busts are registered onto the drawing by their bottom edge.
+          fill: sheet.anchor === 'centre' && !flag('--no-fit'),
           chroma: !flag('--no-chroma'), autoBg: !flag('--no-auto-bg'), quality: QUALITY
         })})`,
         returnByValue: true
@@ -962,8 +1170,16 @@ const main = async () => {
         console.warn(`  ! paint crosses the cut between ${l.axis}s ${l.n} and ${l.n + 1}`
           + ` (${(l.share * 100).toFixed(0)}% clear). A drawing leans into its neighbour, or the grid was re-composed — check both panels.`)
       }
-      if (sheet.kind !== 'scenery' && !sheet.cells.some((c) => c.fit) && !flag('--no-fit')) {
+      if (sheet.kind !== 'scenery' && sheet.anchor !== 'centre' && !sheet.cells.some((c) => c.fit) && !flag('--no-fit')) {
         console.warn('  ! the index carries no measured fits for this sheet — panels are cut where they landed. Run pnpm art:export.')
+      }
+
+      // A model that draws the grid has painted over the ground, and the key
+      // has to guess what was line and what was art. It is removed, and said.
+      const edged = res.cells.filter((r) => !r.empty && ((r.shade ?? 0) + (r.strays ?? 0)) > 0.01)
+      if (edged.length) {
+        console.warn(`  ! panel edges were DRAWN IN on ${edged.length} of ${res.cells.length} panels (a lighter or darker shade of the ground, or a line along the cut).`)
+        console.warn('    They were keyed out and left out of the fit. Check the icons; the prompt asks for no panel edges.')
       }
 
       let wroteHere = 0
@@ -984,6 +1200,11 @@ const main = async () => {
           failed++
           continue
         }
+        if (r.fill) {
+          console.log(`    · ${r.id}: ${r.fill.long} px of paint ${r.fill.k >= 1 ? 'enlarged' : 'reduced'} to ${(r.fill.k * 100).toFixed(0)}%`
+            + (r.fill.round ? ', inside the round frame' : '')
+            + (r.fill.capped ? ' — CAPPED: it was painted small, so it does not fill its square. A re-roll would.' : '.'))
+        }
         if (r.fitNote?.wild) {
           console.warn(`    ! ${r.id} measured ${r.fitNote.wild}x off its reference — too wild to trust, left as painted. Check it.`)
         } else if (r.fitNote) {
@@ -991,7 +1212,7 @@ const main = async () => {
             + ` moved ${(r.fitNote.dx * 100).toFixed(0)}% / ${(r.fitNote.dy * 100).toFixed(0)}% of a panel.`)
         }
         if (r.onFrame > 0) {
-          console.warn(`    ! ${r.id} touches the edge of its panel: it, or a neighbour, crossed the cut line, and the fit was measured with that in it.`)
+          console.warn(`    ! ${r.id}: paint touches the edge of its panel. It, or a neighbour, crossed the cut line — look at that icon.`)
         }
         // An icon is meant to sit ON the game's own frame, so a ground that
         // survived is welded in. What gives a card away is that it fills its

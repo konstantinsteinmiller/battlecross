@@ -38,12 +38,15 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, MAP_PLATE, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
+  CELL, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
   type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
 import { PORTRAIT_ART, UI_ART } from '@/game/assets/overrides'
 import { MAP } from '@/game/data/zones'
 import { groundDetail } from '@/game/gfx/textures'
+import { MAP_H, MAP_W } from '@/components/screens/map/geo'
+import { mapPlateSvg } from '@/components/screens/map/terrain'
+import { landmarkSvg } from '@/components/screens/map/landmarks'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import Portrait from '@/components/art/Portrait.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
@@ -98,18 +101,58 @@ const canvas = (w: number, h: number): [HTMLCanvasElement, CanvasRenderingContex
 const PAINT = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-linejoin', 'stroke-linecap', 'stroke-dasharray', 'opacity']
 
 /**
- * Where a drawing goes in its panel: `[offset, size]`, px.
+ * Where a drawing goes in its panel's square: `[x, y, size]`, px.
  *
- * A glyph's 48-unit box sits on the middle 80 % of the panel, but the panel
- * shows the WHOLE drawing: several glyphs run past their box (the game's own
- * icon clips them there), and a painter handed a droplet with a straight cut
- * down one side paints the cut. `ArtIcon` draws a painted file edge to edge,
- * so what lies outside the box is in the picture, not lost.
+ * AN ICON FILLS ITS PANEL. The image is the WHOLE drawing (several glyphs run
+ * past their 48-unit box, and a painter handed a droplet with a straight cut
+ * down one side paints the cut), and it is scaled about its own solid box
+ * until its longest side takes `ICON_FILL` of the panel, centred. It used to
+ * sit at the glyph's inset in the game, 55 to 70 % of the panel, and the model
+ * painted it that small: the first icons read worse at 40 px than the vectors
+ * they replaced. Drawn large, it is painted large, with shapes to match. An
+ * icon shown in a round frame is kept inside the panel's inscribed circle.
+ * The slicer trims an icon to its own paint, so where the drawing sat in the
+ * game's frame no longer has to survive the round trip.
  *
  * A bust is the exception: its flat bottom IS the edge of the frame
- * `Portrait` puts it in, so it is cut at its box like the vector is.
+ * `Portrait` puts it in, so it stays on its box, cut there like the vector.
  */
-const placeOf = (c: SheetCell): [number, number] => (c.draw === 'portrait' ? [OFF, SIZE] : [0, CELL])
+const placeOf = (c: SheetCell, img: HTMLImageElement): [number, number, number] => {
+  if (c.draw === 'portrait') return [OFF, OFF, SIZE]
+  // Measured at twice the panel, so the box is good to half a pixel.
+  const R = CELL * 2
+  const [, g] = canvas(R, R)
+  g.drawImage(img, 0, 0, R, R)
+  const d = g.getImageData(0, 0, R, R).data
+  let x0 = R
+  let y0 = R
+  let x1 = -1
+  let y1 = -1
+  for (let y = 0; y < R; y++) {
+    for (let x = 0; x < R; x++) {
+      if ((d[(y * R + x) * 4 + 3] ?? 0) <= 140) continue
+      if (x < x0) x0 = x
+      if (x > x1) x1 = x
+      if (y < y0) y0 = y
+      if (y > y1) y1 = y
+    }
+  }
+  if (x1 < 0) return [0, 0, CELL]
+  const cx = (x0 + x1 + 1) / 2
+  const cy = (y0 + y1 + 1) / 2
+  let k = (ICON_FILL * R) / Math.max(x1 - x0 + 1, y1 - y0 + 1)
+  if (c.round) {
+    let far = 0
+    for (let y = y0; y <= y1; y++) {
+      for (let x = x0; x <= x1; x++) {
+        if ((d[(y * R + x) * 4 + 3] ?? 0) > 140) far = Math.max(far, Math.hypot(x + 0.5 - cx, y + 0.5 - cy))
+      }
+    }
+    if (far > 0) k = Math.min(k, (ICON_FILL_ROUND * R) / 2 / far)
+  }
+  // The box's middle on the panel's middle.
+  return [CELL / 2 - (cx / 2) * k, CELL / 2 - (cy / 2) * k, CELL * k]
+}
 
 /** The drawing in one stage cell, as an image. Gives up after 20 s and names it. */
 const drawingOf = async (c: SheetCell): Promise<HTMLImageElement> => {
@@ -145,9 +188,9 @@ const drawingOf = async (c: SheetCell): Promise<HTMLImageElement> => {
 
 /** The drawing's SOLID box (alpha over 140: a soft edge is light, not extent),
  *  measured on a transparent panel, since magenta has no alpha to measure. */
-const measure = (img: HTMLImageElement, at: number, size: number): Fit | null => {
+const measure = (img: HTMLImageElement, x: number, y: number, size: number): Fit | null => {
   const [, g] = canvas(CELL, CELL)
-  g.drawImage(img, at, at, size, size)
+  g.drawImage(img, x, y, size, size)
   const d = g.getImageData(0, 0, CELL, CELL).data
   let x0 = CELL
   let y0 = CELL
@@ -191,9 +234,9 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
   for (const [i, c] of s.cells.entries()) {
     if (!c) continue
     const img = await drawingOf(c)
-    const [at, size] = placeOf(c)
-    g.drawImage(img, (i % s.cols) * CELL + at, Math.floor(i / s.cols) * ph + lift + at, size, size)
-    const fit = measure(img, at, size)
+    const [x, y, size] = placeOf(c, img)
+    g.drawImage(img, (i % s.cols) * CELL + x, Math.floor(i / s.cols) * ph + lift + y, size, size)
+    const fit = measure(img, x, y, size)
     if (fit) fits[c.target] = fit
     n++
   }
@@ -212,52 +255,42 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
   return { stem: s.stem, title: s.title, width, height, note: `${n} panel${n === 1 ? '' : 's'}, ${s.cols} × ${s.rows}${ph === CELL ? '' : `, panels ${CELL} × ${ph}`}`, clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
 }
 
-/** The parchment `WorldMap.vue` paints in CSS, as the same gradients on a canvas. */
-const bakeMap = (a: ArtScenery): View => {
+/** A standalone SVG document as an image. */
+const svgImage = async (svg: string): Promise<HTMLImageElement> => {
+  const img = new Image()
+  img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+  await Promise.race([
+    img.decode(),
+    new Promise((_, no) => setTimeout(() => no(new Error('the map plate did not render in 20 s')), 20_000))
+  ])
+  return img
+}
+
+/**
+ * The terrain plate `WorldMap.vue` draws under its landmarks
+ * (`screens/map/terrain.ts`): sea, coast, regions, rivers, the roads' beds
+ * and the bare sites. Never the painted file it may be replaced by: the plate
+ * is built from the drawing's own data, which has no override.
+ */
+const bakeMap = async (a: ArtScenery): Promise<View> => {
   const { width: W, height: H } = a
   const [clean, g] = canvas(W, H)
-  const rad = (MAP_PLATE.angle * Math.PI) / 180
-  const dx = Math.sin(rad)
-  const dy = -Math.cos(rad)
-  const len = Math.abs(W * dx) + Math.abs(H * dy)
-  const base = g.createLinearGradient(W / 2 - (dx * len) / 2, H / 2 - (dy * len) / 2, W / 2 + (dx * len) / 2, H / 2 + (dy * len) / 2)
-  for (const [at, colour] of MAP_PLATE.base) base.addColorStop(at, colour)
-  g.fillStyle = base
-  g.fillRect(0, 0, W, H)
-  // CSS paints its first layer on top, so the list is drawn back to front.
-  for (const b of [...MAP_PLATE.blobs].reverse()) {
-    const cx = b.at[0] * W
-    const cy = b.at[1] * H
-    // `ellipse at x y` with the default farthest-corner size.
-    const rx = Math.max(cx, W - cx) * Math.SQRT2
-    const ry = Math.max(cy, H - cy) * Math.SQRT2
-    g.save()
-    g.translate(cx, cy)
-    g.scale(rx, ry)
-    const grad = g.createRadialGradient(0, 0, 0, 0, 0, 1)
-    grad.addColorStop(0, `rgba(${b.rgb.join(', ')}, ${b.alpha})`)
-    grad.addColorStop(b.reach, `rgba(${b.rgb.join(', ')}, 0)`)
-    g.fillStyle = grad
-    g.fillRect(-cx / rx, -cy / ry, W / rx, H / ry)
-    g.restore()
-  }
-  // The key shows where the game puts its markers, so a return can be checked
-  // against them. The painter never sees it.
+  g.drawImage(await svgImage(mapPlateSvg()), 0, 0, W, H)
+  // The key shows what the game draws over the plate, so a return can be
+  // checked against it: every landmark on its site. The painter never sees it.
   const [key, k] = canvas(W, H)
   k.drawImage(clean, 0, 0)
+  // A landmark's box is 120 sheet units, its foot at 50 %, 80 % of it.
+  const bw = (120 / MAP_W) * W
+  const bh = (120 / MAP_H) * H
   for (const n of MAP) {
     const x = n.at[0] * W
     const y = n.at[1] * H
-    k.beginPath()
-    k.arc(x, y, 26, 0, Math.PI * 2)
-    k.fillStyle = 'rgba(255, 255, 255, 0.85)'
-    k.fill()
-    k.lineWidth = 3
-    k.strokeStyle = INK
-    k.stroke()
-    caption(k, n.id, x - 50, y + 54, 100)
+    const mark = await svgImage(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="240" height="240" overflow="visible">${landmarkSvg(n.id)}</svg>`)
+    k.drawImage(mark, x - bw / 2, y - bh * 0.8, bw, bh)
+    caption(k, n.id, x - 50, y + bh * 0.2 + 26, 100)
   }
-  return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque backdrop; the key shows where the game draws its markers', clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
+  return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque backdrop; the key shows the landmarks the game draws over it', clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
 }
 
 /** The game's own baked ground detail, twice across and twice down, so the
@@ -274,7 +307,7 @@ onMounted(async () => {
   try {
     await nextTick()
     for (const s of sets) views.value.push(await bakeSet(s))
-    for (const a of scenery) views.value.push(a.plate === 'map' ? bakeMap(a) : bakeGround(a))
+    for (const a of scenery) views.value.push(a.plate === 'map' ? await bakeMap(a) : bakeGround(a))
     status.value = ''
     ready.value = true
   } catch (e) {

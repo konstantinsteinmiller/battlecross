@@ -45,8 +45,13 @@ pnpm art:slice             # cut everything in painted/
 ```
 
 Run `art:export` only when a DRAWING changed (`src/components/art/`).
-A painting made from the old drawing is then refused by the slicer and parked
-in `painted/stale/`, with the files that were cut from it.
+A painting made from the old drawing is then NOT re-cut (`pnpm art:slice`
+says so and leaves it alone), and `PAINT-STATUS.md` and the Art Desk mark it
+"repaint". What is in the game from it stays in the game until the new
+painting replaces it: the desk archives the old one to `painted/replaced/` and
+cuts the new one over the same files. `pnpm art:slice --park` is for a drawing
+whose SHAPE was re-cut: it moves the old painting to `painted/stale/` and takes
+the files cut from it out of the game, so the game draws those again.
 
 ## Rules the slicer holds
 
@@ -60,7 +65,16 @@ in `painted/stale/`, with the files that were cut from it.
 - Icons and portraits come back on flat magenta `#FF00FF` and are keyed to
   transparent; the game keeps drawing its own tier or class frame around them.
   The map and the ground are opaque and are never keyed.
-- Every panel is registered onto the drawing it replaces (its measured fit),
-  so an icon painted larger or off-centre still lands where the vector was.
+- An ICON (items, skills, the coin) is trimmed to its own paint and scaled
+  until its longest side is 90 % of the file, centred; a passive skill is
+  fitted inside the round frame it is shown in. It is never enlarged by more
+  than a quarter over what was painted. The references draw every icon large
+  (84 % of its panel) for the same reason: it is painted the size it is shown.
+- A PORTRAIT is registered onto the drawing it replaces (its measured fit),
+  sitting on the bottom edge of its frame.
+- Panel edges the model draws in (a paler or darker magenta line, or any line
+  along the cut) are keyed out and never measured.
+- The skill sheets go out with three painted weapon icons as finish
+  references, attached BEFORE the sheet (the prompt documents say which).
 - Output sizes: items and skills 192 px, portraits 256 px, the coin 64 px,
   the map 1376 × 768, the ground 256 px.

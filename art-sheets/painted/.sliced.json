@@ -1,0 +1,53 @@
+{
+  "note": "written by tools/slice-sheets.mjs — the reference revision each painting was cut against",
+  "files": {
+    "sheet-items-weapons.jpg": {
+      "sheet": "sheet-items-weapons",
+      "rev": "aaa238ad3ac4",
+      "painting": "3142b7d26cbb",
+      "at": "2026-10-02T22:07:26.369Z"
+    },
+    "sheet-skills-pyro.jpg": {
+      "sheet": "sheet-skills-pyro",
+      "rev": "bf7f6895ed98",
+      "painting": "ddde2c5089dd",
+      "at": "2026-10-02T22:07:31.301Z"
+    },
+    "sheet-portraits-town.jpg": {
+      "sheet": "sheet-portraits-town",
+      "rev": "3732e628fe79",
+      "painting": "006d223e5d03",
+      "at": "2026-10-02T21:19:49.928Z"
+    },
+    "sheet-portraits-trainers.jpg": {
+      "sheet": "sheet-portraits-trainers",
+      "rev": "770414fa440b",
+      "painting": "df9b06a4281c",
+      "at": "2026-10-02T21:21:24.950Z"
+    },
+    "sheet-skills-aegis.jpg": {
+      "sheet": "sheet-skills-aegis",
+      "rev": "f10c7172ee83",
+      "painting": "bd5e78f51776",
+      "at": "2026-10-02T22:07:28.068Z"
+    },
+    "sheet-skills-shadow.jpg": {
+      "sheet": "sheet-skills-shadow",
+      "rev": "337326d437d3",
+      "painting": "8d7b09010533",
+      "at": "2026-10-02T22:07:29.732Z"
+    },
+    "sheet-skills-sovereign.jpg": {
+      "sheet": "sheet-skills-sovereign",
+      "rev": "f0fbeabf2aec",
+      "painting": "ebcc6dd97de5",
+      "at": "2026-10-02T22:07:32.943Z"
+    },
+    "sheet-skills-chrono.jpg": {
+      "sheet": "sheet-skills-chrono",
+      "rev": "ff0d9031f4f1",
+      "painting": "e4a31515a244",
+      "at": "2026-10-02T22:07:34.600Z"
+    }
+  }
+}

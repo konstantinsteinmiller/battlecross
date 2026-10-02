@@ -8,6 +8,10 @@ and where the sliced result lands; it stays OUTSIDE the fence, so copy the
 fenced text only (a markdown preview gives it a copy button). Save the return
 as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.
 
+A block with an "Attach, in this order" line goes out with finished paintings
+as well: attach those FIRST and the reference LAST (the model takes the grid
+from the last image). `pnpm art:desk` does this by itself.
+
 ## Item icons: weapons  (sheet-items-weapons.png → images/items/)
 
 ```text
@@ -16,6 +20,7 @@ One landscape image, 1024 x 768 pixels (4:3), holding 12 separate small drawings
 · 12 panels. Not 1, not 8, not 16. Exactly 3 rows of 4 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 
 EACH PANEL IS ONE OBJECT, NOT A SCENE.
 · Paint ONLY the object the reference shows in that panel. No hand holding it, no wearer, no mannequin, no stand, no ground, no shadow, no sparkle cloud, no scenery.
@@ -54,8 +59,16 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 72% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
+· Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -75,7 +88,9 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · 4 panels across, 3 down, 12 in all.
 · The canvas is landscape, 4:3.
 · Each panel holds exactly one object and nothing else.
+· Every object would still be recognised 40 pixels wide.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 1024 x 768 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
@@ -89,6 +104,7 @@ One landscape image, 1024 x 768 pixels (4:3), holding 12 separate small drawings
 · 12 panels. Not 1, not 8, not 16. Exactly 3 rows of 4 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 · 2 panels are BLANK in the reference. Leave them flat magenta: do not invent anything for them.
 
 EACH PANEL IS ONE OBJECT, NOT A SCENE.
@@ -128,8 +144,16 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 66% of its panel or taller than about 68%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
+· Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -149,7 +173,9 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · 4 panels across, 3 down, 12 in all.
 · The canvas is landscape, 4:3.
 · Each panel holds exactly one object and nothing else.
+· Every object would still be recognised 40 pixels wide.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 1024 x 768 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
@@ -163,6 +189,7 @@ One landscape image, 1024 x 768 pixels (4:3), holding 12 separate small drawings
 · 12 panels. Not 1, not 8, not 16. Exactly 3 rows of 4 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 
 EACH PANEL IS ONE OBJECT, NOT A SCENE.
 · Paint ONLY the object the reference shows in that panel. No hand holding it, no wearer, no mannequin, no stand, no ground, no shadow, no sparkle cloud, no scenery.
@@ -201,8 +228,16 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 64% of its panel or taller than about 70%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 80% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
+· Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -222,7 +257,9 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · 4 panels across, 3 down, 12 in all.
 · The canvas is landscape, 4:3.
 · Each panel holds exactly one object and nothing else.
+· Every object would still be recognised 40 pixels wide.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 1024 x 768 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
@@ -236,6 +273,7 @@ One landscape image, 1024 x 768 pixels (4:3), holding 12 separate small drawings
 · 12 panels. Not 1, not 8, not 16. Exactly 3 rows of 4 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
 · 2 panels are BLANK in the reference. Leave them flat magenta: do not invent anything for them.
 
 EACH PANEL IS ONE OBJECT, NOT A SCENE.
@@ -275,8 +313,16 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 68% of its panel or taller than about 70%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
+· Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -296,7 +342,9 @@ BEFORE YOU CALL IT FINISHED, count and check:
 · 4 panels across, 3 down, 12 in all.
 · The canvas is landscape, 4:3.
 · Each panel holds exactly one object and nothing else.
+· Every object would still be recognised 40 pixels wide.
 · Nothing in any panel reaches its panel's edge.
+· No line of any kind, in any shade, runs between the panels or around the canvas: the ground is one flat field.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
 OUTPUT: one image, 1024 x 768 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.

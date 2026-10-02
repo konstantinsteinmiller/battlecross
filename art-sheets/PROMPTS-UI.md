@@ -8,6 +8,10 @@ and where the sliced result lands; it stays OUTSIDE the fence, so copy the
 fenced text only (a markdown preview gives it a copy button). Save the return
 as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.
 
+A block with an "Attach, in this order" line goes out with finished paintings
+as well: attach those FIRST and the reference LAST (the model takes the grid
+from the last image). `pnpm art:desk` does this by itself.
+
 ## UI: the gold coin  (single-ui-coin.png → images/ui/coin.webp)
 
 ```text
@@ -34,9 +38,16 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
 SIZE AND PLACE — measure against the image, not against a guess.
-· In the reference the object is about 70% of the image's width and 71% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
-· It is shown at the size of a single letter in the game, so it must read at a glance: the simplest version of itself.
+· In the reference the object is about 82% of the image's width and 84% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
+· In the game it is shown smaller still, at the size of a single letter: the simplest version of itself.
 
 BACKGROUND — this matters more than the style.
 Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
@@ -57,23 +68,35 @@ BEFORE YOU CALL IT FINISHED, check:
 OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
 ```
 
-## UI: the world map parchment  (bg-ui-map.png → images/ui/map.webp)
+## UI: the world map terrain  (bg-ui-map.png → images/ui/map.webp)
 
 ```text
-WHAT COMES BACK IS ONE FULL-BLEED PARCHMENT MAP SHEET, WITH NOTHING MARKED ON IT.
+WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
-IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the background the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge.
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
 
-WHAT IT IS: a hand-painted sheet of warm tan parchment showing a stretch of country from above, as soft regions of terrain colour that melt into the parchment between them. Following the reference: gentle green grassland at the lower left; darker green woodland in the middle; warm ash-red badlands above the middle; pale icy blue snowfields at the upper right of centre; violet haze in the far upper right corner; sea-green lowlands at the right of centre.
+WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the attached reference. Every coast, region, river, bridge, road and clearing stays exactly where the reference has it: the game lays its own drawings over the picture by position. In the reference:
+· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.
+· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.
+· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.
+· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.
+· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.
+· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.
+· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.
+· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.
+· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
+· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
+· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
+· Pale dirt roads wind between sixteen bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.
 
-WHAT IT IS NOT — read this twice. The game draws every place marker, every road and every name OVER this picture, at positions it computes itself. So NOTHING painted here may look like a place: no towns, no castles, no towers, no houses, no camps, no roads, no paths, no dotted lines, no bridges, no flags, no crosses, no compass rose, no ships, no creatures, no banners, no text, no letters, no numbers. A painted town would sit beside the real marker and read as a second, wrong one.
-· Terrain texture is welcome, kept small and even: tiny hill bumps, tree dots, short grass ticks, ripple marks, drifts. Nothing larger than a fingernail, nothing that reads as a landmark, nothing that draws the eye to one spot.
-· Keep it calm and fairly light: dark ink labels and bright round markers sit on every part of it, and both must stay readable.
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the sixteen clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the reference's own: warm tan paper, with each region's colour laid softly over it where the reference shows it. Keep the regions where they are; their exact outlines are free.
+COLOUR — the reference's own, region by region. Take the HUES from it, not the flatness.
 
-THE VIEW — straight down, flat, like a printed map. No horizon, no perspective, no tilt.
+THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
 STYLE — the same hand as every other picture in this game.
 · Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
@@ -88,9 +111,9 @@ STYLE — the same hand as every other picture in this game.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 
 BEFORE YOU CALL IT FINISHED, check:
-· The paper reaches all four edges of the image; there is no magenta and no border.
-· There is not one building, road, marker, symbol or letter anywhere in it.
-· The six regions sit where the reference has them.
+· The picture reaches all four edges of the image; there is no magenta and no border.
+· Laid over the reference, every coast, river, bridge, road and clearing is where the reference has it.
+· The sixteen clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 
 OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
 ```

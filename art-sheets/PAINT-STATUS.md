@@ -4,27 +4,27 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**0 sliced · 0 need a repaint · 0 painted, unreceipted · 18 outstanding**
+**3 sliced · 6 need a repaint · 0 painted, unreceipted · 9 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
-| · | **Item icons: weapons** | `PROMPTS-ITEMS.md` | `sheet-items-weapons.png` (rev `aaa238ad3ac4`) | not painted yet |
-| · | **Item icons: top weapons and off-hands** | `PROMPTS-ITEMS.md` | `sheet-items-arms.png` (rev `e730ef4dd576`) | not painted yet |
-| · | **Item icons: body armour** | `PROMPTS-ITEMS.md` | `sheet-items-armor.png` (rev `a93211cf01ab`) | not painted yet |
-| · | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `5bdf2f8ce759`) | not painted yet |
-| · | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `f10c7172ee83`) | not painted yet |
-| · | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `337326d437d3`) | not painted yet |
-| · | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `bf7f6895ed98`) | not painted yet |
-| · | **Skill icons: Grand Sovereign** | `PROMPTS-SKILLS.md` | `sheet-skills-sovereign.png` (rev `f0fbeabf2aec`) | not painted yet |
-| · | **Skill icons: Chrono-Weaver** | `PROMPTS-SKILLS.md` | `sheet-skills-chrono.png` (rev `ff0d9031f4f1`) | not painted yet |
-| · | **Skill icons: Blood Alchemist** | `PROMPTS-SKILLS.md` | `sheet-skills-blood.png` (rev `63836ebc06e2`) | not painted yet |
-| · | **Skill icons: Aether-Tech** | `PROMPTS-SKILLS.md` | `sheet-skills-aether.png` (rev `336b2333e011`) | not painted yet |
-| · | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `de5cb10867f0`) | not painted yet |
-| · | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | not painted yet |
-| · | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | not painted yet |
-| · | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | not painted yet |
-| · | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `76ec5f111597`) | not painted yet |
-| · | **UI: the world map parchment** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `134e771d8287`) | not painted yet |
+| ! | **Item icons: weapons** | `PROMPTS-ITEMS.md` | `sheet-items-weapons.png` (rev `3d2c36de40a5`) | REPAINT — the reference changed (aaa238ad3ac4 → 3d2c36de40a5) |
+| · | **Item icons: top weapons and off-hands** | `PROMPTS-ITEMS.md` | `sheet-items-arms.png` (rev `f2a5792a725d`) | not painted yet |
+| · | **Item icons: body armour** | `PROMPTS-ITEMS.md` | `sheet-items-armor.png` (rev `dcfec1447f6e`) | not painted yet |
+| · | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | not painted yet |
+| ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `41ace8182dfc`) | REPAINT — the reference changed (f10c7172ee83 → 41ace8182dfc) |
+| ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `2cfb44cfe91f`) | REPAINT — the reference changed (337326d437d3 → 2cfb44cfe91f) |
+| ! | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `11c33b95224f`) | REPAINT — the reference changed (bf7f6895ed98 → 11c33b95224f) |
+| ! | **Skill icons: Grand Sovereign** | `PROMPTS-SKILLS.md` | `sheet-skills-sovereign.png` (rev `8f5bbb595a22`) | REPAINT — the reference changed (f0fbeabf2aec → 8f5bbb595a22) |
+| ! | **Skill icons: Chrono-Weaver** | `PROMPTS-SKILLS.md` | `sheet-skills-chrono.png` (rev `31ab3a6fd666`) | REPAINT — the reference changed (ff0d9031f4f1 → 31ab3a6fd666) |
+| · | **Skill icons: Blood Alchemist** | `PROMPTS-SKILLS.md` | `sheet-skills-blood.png` (rev `e804ce33c01a`) | not painted yet |
+| · | **Skill icons: Aether-Tech** | `PROMPTS-SKILLS.md` | `sheet-skills-aether.png` (rev `bc36381ba573`) | not painted yet |
+| · | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `f6c6e1ae01f5`) | not painted yet |
+| ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
+| ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
+| ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-02 |
+| · | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | not painted yet |
+| · | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | not painted yet |
 | · | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | not painted yet |
 
 ## What the marks mean

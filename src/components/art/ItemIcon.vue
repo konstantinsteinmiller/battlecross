@@ -10,8 +10,13 @@ import ArtIcon from './ArtIcon.vue'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { ITEM_ART } from '@/game/assets/overrides'
 
-const props = withDefaults(defineProps<{ id: string; dim?: boolean }>(), { dim: false })
+const props = withDefaults(defineProps<{
+  id: string
+  dim?: boolean
+  /** Dev benches: the vector drawing even when a painted file exists. */
+  drawn?: boolean
+}>(), { dim: false, drawn: false })
 const item = computed(() => ITEM_BY_ID[props.id])
 const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1] ?? '#c9d2e3')
-const src = computed(() => ITEM_ART.get(props.id) ?? '')
+const src = computed(() => (props.drawn ? '' : ITEM_ART.get(props.id) ?? ''))
 </script>

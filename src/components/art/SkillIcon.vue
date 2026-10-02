@@ -10,7 +10,12 @@ import ArtIcon from './ArtIcon.vue'
 import { SKILL_BY_ID } from '@/game/data/skills'
 import { SKILL_ART } from '@/game/assets/overrides'
 
-const props = withDefaults(defineProps<{ id: string; dim?: boolean }>(), { dim: false })
+const props = withDefaults(defineProps<{
+  id: string
+  dim?: boolean
+  /** Dev benches: the vector drawing even when a painted file exists. */
+  drawn?: boolean
+}>(), { dim: false, drawn: false })
 const skill = computed(() => SKILL_BY_ID[props.id])
-const src = computed(() => SKILL_ART.get(props.id) ?? '')
+const src = computed(() => (props.drawn ? '' : SKILL_ART.get(props.id) ?? ''))
 </script>

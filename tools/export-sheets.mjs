@@ -85,7 +85,9 @@ try {
     let up = false
     for (let i = 0; i < 120 && !up; i++) {
       if (vite.exitCode !== null) throw new Error(`the dev server exited (${vite.exitCode}):\n${out.trim()}`)
-      try { up = (await fetch(`${base}/`)).ok } catch { /* not up yet */ }
+      // A busy machine takes most of a minute to answer the first request (the
+      // whole style sheet is compiled for it), so the wait is long but bounded.
+      try { up = (await fetch(`${base}/`, { signal: AbortSignal.timeout(180_000) })).ok } catch { /* not up yet */ }
       if (!up) await sleep(500)
     }
     if (!up) throw new Error(`the dev server did not answer at ${base}:\n${out.trim()}`)
@@ -136,10 +138,10 @@ try {
   // can need one reload of its own, which the blocked socket cannot deliver.
   let ready = false
   for (let attempt = 0; attempt < 3 && !ready; attempt++) {
-    if (attempt === 0) await page.goto(url, { waitUntil: 'load' })
-    else { console.log('  · not ready, reloading'); await page.reload({ waitUntil: 'load' }) }
+    if (attempt === 0) await page.goto(url, { waitUntil: 'load', timeout: 240_000 })
+    else { console.log('  · not ready, reloading'); await page.reload({ waitUntil: 'load', timeout: 240_000 }) }
     const started = Date.now()
-    while (Date.now() - started < 60_000 && !ready) {
+    while (Date.now() - started < 120_000 && !ready) {
       const st = await page.evaluate(() => ({
         ready: !!document.querySelector('.art-sheets[data-ready="1"]'),
         status: document.querySelector('.art-sheets .bar .status')?.textContent?.trim() ?? ''

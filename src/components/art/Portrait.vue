@@ -72,7 +72,9 @@ const props = withDefaults(defineProps<{
   /** A look id, or `hero`. */
   look: string
   ring?: string
-}>(), { ring: '#ffd24a' })
+  /** Dev benches: the vector bust even when a painted file exists. */
+  drawn?: boolean
+}>(), { ring: '#ffd24a', drawn: false })
 
 const base: Look = { skin: '#e2b08a', hair: '#5a3b24', head: 'short', top: '#4a5fd6', bottom: '#3a4a6a', trim: '#c9a24a', outfit: 'tunic', held: 'none', off: 'none' }
 /** Speakers that are not two-legged rigs. */
@@ -86,7 +88,7 @@ const l = computed<Look>(() => {
   if (props.look === 'hero') return heroLook(profile.inv.equipped)
   return LOOKS[props.look] ?? { ...base, ...(CREATURES[props.look] ?? {}) }
 })
-const src = computed(() => PORTRAIT_ART.get(props.look) ?? '')
+const src = computed(() => (props.drawn ? '' : PORTRAIT_ART.get(props.look) ?? ''))
 const hairCap = computed(() => ['short', 'long', 'bun', 'spiky', 'crown', 'horns', 'goggles'].includes(l.value.head))
 const metal = computed(() => l.value.metal ?? '#c9d3e4')
 const eye = computed(() => l.value.eyeGlow ?? '#241a2e')

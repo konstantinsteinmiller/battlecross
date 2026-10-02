@@ -61,11 +61,14 @@ const soft = computed(() => `color-mix(in srgb, ${props.tint} 45%, #ffffff)`)
   inset: 0
   width: 100%
   height: 100%
+// A painted file is cut with its object filling about 90 % of the square
+// (`tools/slice-sheets.mjs`). Drawn at 92 % of the chip that is 83 % of it:
+// the size of the boldest vector glyphs, and clear of the inset ring.
 .art-icon__img
-  inset: 0
-  width: 100%
-  height: 100%
-  object-fit: cover
+  inset: 4%
+  width: 92%
+  height: 92%
+  object-fit: contain
 .art-icon__gloss
   position: absolute
   inset: 6% 8% 52% 8%

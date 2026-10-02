@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { UI_ART } from '@/game/assets/overrides'
 
+const props = withDefaults(defineProps<{
+  /** Dev benches: the drawn coin even when a painted file exists. */
+  drawn?: boolean
+}>(), { drawn: false })
+
 // The coin is drawn; `public/images/ui/coin.webp` replaces it.
-const src = UI_ART.get('coin') ?? ''
+const src = props.drawn ? '' : UI_ART.get('coin') ?? ''
 </script>
 
 <template lang="pug">
