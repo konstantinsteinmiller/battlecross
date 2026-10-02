@@ -1,5 +1,5 @@
 import { audio, audioAllowed } from './engine'
-import { getSong, makeOut, playStep, playJingleNotes, type Out, type Song, type SongId, type TrackId } from './songs'
+import { getSong, makeOut, playStep, playJingleNotes, stepSeconds, type Out, type Song, type SongId, type TrackId } from './songs'
 import { MUSIC_FILES } from '../assets/overrides'
 import { registerHtmlAudio, unregisterHtmlAudio } from '@/use/useAssets'
 
@@ -8,50 +8,51 @@ export type { TrackId, SongId }
 /**
  * ─── Music ───────────────────────────────────────────────────────────────────
  *
- * A lookahead step sequencer on the shared AudioContext, playing the songs in
+ * A lookahead step sequencer on the shared AudioContext, playing the score in
  * `songs.ts`. Because it runs on the shared context, the ad / pause / mute
  * gates silence it automatically.
  *
- * THE ROTATION. The game asks for music by AREA (`playMusic('hub' | sector |
- * 'boss')`). Outside a boss fight the sequencer does not loop that area's theme
- * forever — a 25-second pulse-wave loop on repeat is what gets the music muted
- * in the first minute. It rotates instead:
+ * THE ROTATION. The game asks for music by TRACK (`playMusic('town' |
+ * 'meadow' | … | 'boss')`, see `themes.ts` for which zone plays which). A zone
+ * visit lasts two to five minutes and its theme about seventy seconds, so the
+ * sequencer does not loop the theme for the whole visit. It alternates:
  *
- *     area theme  →  "Neon Drift" (synthwave)  →  "Deep Circuit" (lo-fi)  → …
+ *     the zone's theme  →  "The Long Road" (the travelling piece)  →  theme  → …
  *
- * moving on at the end of a pass once the current song has played
- * `ROTATE_AFTER_S` (the chip themes play twice, the scored songs once). The
- * rotation position is kept across areas: a song that is playing carries on
- * through a hub → mission change, and only slot 0 follows the area.
+ * handing over at the end of a pass once the current song has played
+ * `ROTATE_AFTER_S` (every piece is longer than that, so each plays once). The
+ * travelling piece is written for the same instruments as the themes; it is
+ * the walk between two hearings of the tune, not a change of style. The
+ * rotation position is kept across areas: the travelling piece carries on
+ * through a town → zone change, and only slot 0 follows the area.
  *
- * A Core Master fight interrupts the rotation with its own song and loops it
- * (skipping the intro on repeats) for as long as the fight lasts.
+ * A boss fight interrupts the rotation with its own song (`'boss'`), crossfaded
+ * in, and loops it — skipping its intro on repeats — for as long as the fight
+ * lasts; the zone's theme fades back in afterwards.
  */
 
-/** Songs 2 and 3 of the rotation; song 1 is the area's own theme. */
-const ROTATION: readonly SongId[] = ['drift', 'circuit']
+/** Song 2 of the rotation; song 1 is the area's own theme. */
+const ROTATION: readonly SongId[] = ['journey']
 export const ROTATION_SIZE = ROTATION.length + 1
 /** A song keeps playing whole passes until it has run at least this long. */
 export const ROTATE_AFTER_S = 45
 /** The first music of the session fades in gently rather than arriving at full level. */
 export const FIRST_FADE_S = 4
-/** Songs that loop and never rotate: the boss fight, and the intro cutscene's
- *  score (scored to the picture, `story/introScript.ts`). */
-const OWN_SONG = (id: TrackId | SongId | null): boolean => id === 'boss' || id === 'intro'
-
-/**
- * Where a song should START, in seconds, if not at its top: the intro's score
- * follows the cutscene clock, so music that could only start once the player's
- * first tap unlocked the audio (or that an ad stopped) joins at the shot on
- * screen instead of at bar 1. The cutscene registers it while it plays.
- */
-let startHint: ((id: SongId) => number) | null = null
-export const setSongStartHint = (fn: ((id: SongId) => number) | null): void => {
-  startHint = fn
-}
+/** Songs that loop and never rotate: the boss fight. */
+const OWN_SONG = (id: TrackId | SongId | null): boolean => id === 'boss'
 
 /** Song-to-song handover: the outgoing song's tail fades under the incoming one. */
 const HANDOVER_FADE_S = 2.5
+/**
+ * Crossfades when the game changes track, as [out, in] seconds. The boss
+ * arrives fast (its first bar is a drum blow) and leaves slowly; one area's
+ * theme gives way to the next in under a second.
+ */
+export const CROSSFADE = {
+  toBoss: [0.9, 0.25],
+  fromBoss: [2.2, 1.6],
+  area: [0.6, 0.35]
+} as const
 
 /** The song an area plays at a rotation slot. */
 export const songFor = (area: TrackId, slot: number): SongId =>
@@ -63,7 +64,7 @@ export const shouldRotate = (area: TrackId | null, playing: SongId | null, playe
 
 /**
  * Whether a request for `area` can leave the current song alone. The same song
- * obviously can; so can a rotation song (slot 1 or 2) when the player moves
+ * obviously can; so can the travelling piece (slot 1) when the player moves
  * between non-boss areas — only the area theme is tied to the area.
  */
 export const keepsPlaying = (area: TrackId, playing: SongId | null, slot: number): boolean => {
@@ -87,6 +88,8 @@ let played = 0
 /** Where a paused song picks up: the start of the bar it was stopped in. */
 let resume: { id: SongId; step: number; played: number } | null = null
 let everStarted = false
+/** A result jingle still ringing (the next music fades it out). */
+let jingle: Out | null = null
 
 const retire = (o: Out, at: number, fade: number): void => {
   const g = o.master.gain
@@ -107,13 +110,12 @@ const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: b
   o.master.gain.setValueAtTime(0.0001, a.ctx.currentTime)
   o.master.gain.setValueAtTime(0.0001, t0)
   o.master.gain.exponentialRampToValueAtTime(s.gain, t0 + Math.max(0.03, fadeIn))
-  if (allowResume && resume && resume.id === id && !OWN_SONG(id)) {
-    stepIdx = resume.step
+  // A song the gates stopped (an ad, a pause, a mute) picks up at its bar.
+  if (allowResume && resume && resume.id === id) {
+    stepIdx = Math.min(resume.step, s.steps.length - 1)
     played = resume.played
   } else {
-    // Join a scored song where the picture is (see `setSongStartHint`).
-    const sec = startHint?.(id) ?? 0
-    stepIdx = Math.max(0, Math.min(s.steps.length - 1, Math.round(sec / (60 / s.bpm / 4))))
+    stepIdx = 0
     played = 0
   }
   resume = null
@@ -130,7 +132,7 @@ const endOfPass = (): void => {
   if (!song || !out) return
   if (shouldRotate(area, playing, played)) {
     slot = (slot + 1) % ROTATION_SIZE
-    const next = songFor(area ?? 'hub', slot)
+    const next = songFor(area ?? 'town', slot)
     if (MUSIC_FILES.has(next)) {
       stopMusic(0.8)
       begin(next)
@@ -140,7 +142,7 @@ const endOfPass = (): void => {
     startSong(next, nextTime, 0.03, false)
     return
   }
-  stepIdx = song.loopBar * 16
+  stepIdx = song.loopBar * song.barSteps
 }
 
 const tick = (): void => {
@@ -154,7 +156,7 @@ const tick = (): void => {
       if (timer === null || !song) return
       continue
     }
-    const spb = 60 / song.bpm / 4
+    const spb = stepSeconds(song)
     playStep(out, song, stepIdx, nextTime, spb)
     nextTime += spb
     played += spb
@@ -231,9 +233,6 @@ const startFileSong = (id: SongId, url: string, fadeIn: number): boolean => {
   const rotating = !OWN_SONG(id)
   const f = startFile(url, !rotating, fadeIn)
   if (!f) return false
-  // A scored file joins where the picture is, like the composed score.
-  const sec = startHint?.(id) ?? 0
-  if (sec > 0) f.el.currentTime = sec
   playing = id
   fileEl = f.el
   fileGain = f.gain
@@ -245,7 +244,7 @@ const startFileSong = (id: SongId, url: string, fadeIn: number): boolean => {
       if (shouldRotate(area, playing, filePlayed)) {
         slot = (slot + 1) % ROTATION_SIZE
         stopMusic(0.05)
-        begin(songFor(area ?? 'hub', slot))
+        begin(songFor(area ?? 'town', slot))
       } else {
         f.el.currentTime = 0
         f.el.play().catch(() => { /* the gates retry */ })
@@ -255,17 +254,21 @@ const startFileSong = (id: SongId, url: string, fadeIn: number): boolean => {
   return true
 }
 
-/** Start a song from a file if one was dropped in, else compose it. */
-const begin = (id: SongId): void => {
-  // The intro's score opens on a hit: no gentle first-of-session fade.
-  const fadeIn = id === 'intro' ? 0.04 : everStarted ? 0.35 : FIRST_FADE_S
+/** Start a song from a file if one was dropped in, else from the score. */
+const begin = (id: SongId, fade: number = 0.35): void => {
+  const fadeIn = everStarted ? fade : FIRST_FADE_S
   everStarted = true
   const url = MUSIC_FILES.get(id)
   if (url && startFileSong(id, url, fadeIn)) return
   startSong(id, null, fadeIn, true)
 }
 
-/** Ask for an area's music. Leaves a song alone that may keep playing (see `keepsPlaying`). */
+/**
+ * Ask for a track's music. Leaves a song alone that may keep playing (see
+ * `keepsPlaying`), so it is safe to call again and again with the same track.
+ * A change of track is a crossfade (`CROSSFADE`): the old song's notes ring
+ * out under the new one's first bar.
+ */
 export const playMusic = (id: TrackId): void => {
   const a = audio()
   if (!a) {
@@ -274,11 +277,21 @@ export const playMusic = (id: TrackId): void => {
   }
   area = id
   if (isMusicRunning() && keepsPlaying(id, playing, slot)) return
-  stopMusic(0.15)
-  begin(songFor(id, slot))
+  const switching = isMusicRunning()
+  const [fadeOut, fadeIn] = OWN_SONG(id) ? CROSSFADE.toBoss : OWN_SONG(playing) ? CROSSFADE.fromBoss : CROSSFADE.area
+  // A boss fight ends on the zone's own theme, not in the middle of the rotation.
+  if (OWN_SONG(id)) slot = 0
+  if (jingle) {
+    retire(jingle, a.ctx.currentTime, 0.4)
+    jingle = null
+  }
+  stopMusic(switching ? fadeOut : 0.15)
+  // A song the game replaced does not resume; only one the gates stopped does.
+  if (switching) resume = null
+  begin(songFor(id, slot), switching ? fadeIn : 0.35)
 }
 
-/** Stop with a short fade. A rotation song picks up at the same bar next time. */
+/** Stop with a short fade. The song picks up at the same bar if it is asked for again. */
 export const stopMusic = (fade = 0.25): void => {
   pending = null
   if (timer !== null) {
@@ -287,7 +300,7 @@ export const stopMusic = (fade = 0.25): void => {
   }
   const a = audio()
   if (out && a) retire(out, a.ctx.currentTime, fade)
-  if (song && playing) resume = { id: playing, step: Math.floor(stepIdx / 16) * 16, played }
+  if (song && playing) resume = { id: playing, step: Math.floor(stepIdx / song.barSteps) * song.barSteps, played }
   out = null
   song = null
   if (fileEl && fileGain) stopFile(fileEl, fileGain, fade)
@@ -297,20 +310,26 @@ export const stopMusic = (fade = 0.25): void => {
 }
 
 export const isMusicRunning = (): boolean => timer !== null || fileEl !== null
-/** The song playing now (an area theme, `drift`, `circuit` or `boss`). */
+/** The song playing now (an area theme, `journey` or `boss`). */
 export const currentMusic = (): SongId | null => playing
 
-/** Short fanfares (not looped). */
+/** The result jingles (not looped). */
 export const playJingle = (kind: 'victory' | 'defeat'): void => {
   const a = audio()
   if (!a) return
   stopMusic(0.1)
+  // The fight is over: whatever plays next starts from its top.
+  resume = null
   const url = MUSIC_FILES.get(kind)
   if (url) {
     const f = startFile(url, false)
     if (f) f.el.addEventListener('ended', () => stopFile(f.el, f.gain, 0.05), { once: true })
     return
   }
-  const o = playJingleNotes(a.ctx, a.music, kind)
-  setTimeout(() => o.dispose(), 2500)
+  const j = playJingleNotes(a.ctx, a.music, kind)
+  jingle = j.out
+  setTimeout(() => {
+    j.out.dispose()
+    if (jingle === j.out) jingle = null
+  }, (j.seconds + 0.5) * 1000)
 }

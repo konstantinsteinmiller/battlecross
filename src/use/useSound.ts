@@ -6,7 +6,7 @@ import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 
 import { ref, onMounted, watch, onUnmounted } from 'vue'
-import { playMusic, stopMusic, type TrackId } from '@/game/audio/music'
+import { isMusicRunning, playMusic, stopMusic, type TrackId } from '@/game/audio/music'
 
 // We keep the audio instance outside the hook so it's a true Singleton
 const bgMusic = ref<HTMLAudioElement | null>(null)
@@ -36,24 +36,47 @@ let restartTrack: (() => void) | null = null
 let retrackSynth: (() => void) | null = null
 /** True while the synthesized score (not a drop-in file) is the music source. */
 let usingSynth = false
-/** Which part of the game is on screen — picks the synthesized track. */
-const gameTrack = ref<TrackId>('hub')
+/** Which place is on screen — picks the track of the score. */
+const gameTrack = ref<TrackId>('town')
+/** A boss is awake: its fight music takes over from the place's own. */
+const bossAwake = ref(false)
 const synthTrack = (): TrackId => {
   const { userMusicTrack } = useUser()
-  // "Calm" option: the lab theme everywhere; otherwise the sector / boss theme.
-  return userMusicTrack.value === 'cozy' ? 'hub' : gameTrack.value
+  // "Calm" option: the town theme everywhere, a boss fight included.
+  if (userMusicTrack.value === 'cozy') return 'town'
+  return bossAwake.value ? 'boss' : gameTrack.value
 }
 /** Start the game's music (sets the play intent). Safe to call repeatedly. */
 export const startGameMusic = (): void => {
   restartTrack?.()
 }
 
-/** Called by the game on mode / sector / boss changes. */
+/** Called by the game when the place changes. A new place has no boss awake in it. */
 export const setMusicTrack = (id: TrackId): void => {
-  if (gameTrack.value === id) return
+  if (gameTrack.value === id && !bossAwake.value) return
   gameTrack.value = id
+  bossAwake.value = false
   retrackSynth?.()
 }
+
+/**
+ * Boss fight music on / off: `true` when a boss wakes, `false` when it dies or
+ * the hero leaves. The sequencer crossfades to the boss theme and back to the
+ * place's own (`CROSSFADE` in `music.ts`).
+ *
+ * Safe to call every frame: it only acts on a change. It changes WHICH track
+ * is wanted, never whether music plays, so every gate holds — muted, paused,
+ * under an ad or stopped for a result screen it only records the state, and the
+ * next start picks the right track. The "Calm" music style keeps the town
+ * theme through a boss fight too.
+ */
+export const setBossMusic = (on: boolean): void => {
+  if (bossAwake.value === on) return
+  bossAwake.value = on
+  retrackSynth?.()
+}
+/** Whether the boss theme is the wanted track (it may still be gated silent). */
+export const isBossMusic = (): boolean => bossAwake.value
 
 /**
  * Bring the battle music back after an ad that interrupted a LIVE run.
@@ -188,7 +211,7 @@ export const useMusic = () => {
     const src = prependBaseUrl('audio/music/' + currentTrackFile())
     const cached = resourceCache.audio.get(src)
     if (!cached) {
-      // No drop-in music file → the synthesized chiptune score.
+      // No drop-in music file → the composed score (`game/audio/songs.ts`).
       usingSynth = true
       bgMusic.value.pause()
       if (blocked()) return
@@ -271,7 +294,9 @@ export const useMusic = () => {
 
   const startBattleMusic = () => {
     if (!bgMusic.value) return
-    if (shouldPlay.value && isPlaying.value) return
+    // "Playing" has to be true of the sequencer too: a result jingle stops the
+    // score without going through here, and the next start must bring it back.
+    if (shouldPlay.value && isPlaying.value && (!usingSynth || isMusicRunning())) return
     shouldPlay.value = true
     loadAndPlayTrack()
   }
