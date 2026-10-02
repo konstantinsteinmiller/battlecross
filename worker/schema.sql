@@ -4,9 +4,9 @@ CREATE TABLE IF NOT EXISTS scores (
   id         TEXT PRIMARY KEY,
   name       TEXT NOT NULL,
   -- THE score the board is ordered by: this player's LIFETIME XP (the point
-  -- total, still counting past the level-40 cap). It only ever grows.
+  -- total, still counting past the level-30 cap). It only ever grows.
   score      INTEGER NOT NULL,
-  -- Shown beside the rank, never ordered by: the HERO LEVEL (1-40).
+  -- Shown beside the rank, never ordered by: the HERO LEVEL (1-30).
   flair      INTEGER NOT NULL,
   updated_at INTEGER NOT NULL
 );

@@ -8,7 +8,7 @@ describe('the test environment', () => {
   })
 
   it('refuses a request to a live host', async () => {
-    await expect(fetch('https://mega-adventure-leaderboard.rodent-race.workers.dev/top'))
+    await expect(fetch('https://battlecross-leaderboard.rodent-race.workers.dev/top'))
       .rejects.toThrow(/blocked a live network request/)
   })
 })

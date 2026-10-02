@@ -27,6 +27,9 @@
         div
           dt {{ t('results.time') }}
           dd {{ clock(r.seconds) }}
+      //- Where this hero stands among everyone's: nothing at all on a build
+      //- without a board, or before a placing can be stated as a number.
+      RankBadge.results__rank(:score="lifetimeXp()")
       ul.results__loot(v-if="r.items.length")
         li.loot(v-for="(it, i) in r.items" :key="i" :style="{ '--tier': TIER_COLOR[ITEM_BY_ID[it.id] ? ITEM_BY_ID[it.id].tier : 1], animationDelay: `${i * 90}ms` }")
           span.loot__icon
@@ -58,6 +61,8 @@ import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
+import RankBadge from '@/components/molecules/RankBadge.vue'
+import { lifetimeXp } from '@/game/state/profile'
 
 const { t } = useI18n()
 const r = computed(() => flow.results)

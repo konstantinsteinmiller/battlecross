@@ -42,7 +42,8 @@
     "art:desk": "node tools/art-desk/server.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs"
+    "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs",
+    "qa:hydrate": "node scripts/hydrate-check.mjs"
   },
   "dependencies": {
     "@playgama/bridge": "^2.2.0",

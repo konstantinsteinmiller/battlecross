@@ -41,7 +41,7 @@
         span.node__label {{ t(`node.${n.id}.name`) }}
     div.wmap__bottom
       FButton(v-if="canReturn" :label="t('map.back')" type="secondary" size="sm" icon="back" icon-position="left" @click="closeMap")
-      MenuButtons
+      MenuButtons(board)
     //- The picked place.
     Transition(name="card")
       //- Docked away from the picked place, so it never covers it.

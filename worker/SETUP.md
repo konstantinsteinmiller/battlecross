@@ -1,17 +1,23 @@
 # Leaderboard setup, start to finish
 
-**Deployed 2026-09-24:** `https://mega-adventure-leaderboard.rodent-race.workers.dev`
-on the Cloudflare account `rodent.race.app@gmail.com` (pinned as `account_id`
-in `wrangler.toml`), D1 `mega-adventure-leaderboard`, `SCORE_SECRET` set (the
-same value as `VITE_LEADERBOARD_SECRET` in the gitignored `.env`). Steps 3-7
-below are done; they stay as the runbook for a rebuild.
+**Deployed 2026-10-02:** `https://battlecross-leaderboard.rodent-race.workers.dev`
+on the studio's Cloudflare account (pinned as `account_id` in
+`wrangler.toml`), D1 `battlecross-leaderboard`, `SCORE_SECRET` set (the same
+value as `VITE_LEADERBOARD_SECRET` in the gitignored `.env`). Steps 3-7 below
+are done; they stay as the runbook for a rebuild.
 
 Every command below is run in PowerShell on Windows, from the repo root unless
-it says otherwise. `mega-adventure-leaderboard` (Worker and D1) keeps the game's
-slug from before its rename to Battlecross, on purpose: a new Worker `name`
-deploys a second Worker at a new URL, and a new `database_name` breaks every
-`wrangler d1` command against the live data. A rebuild for ANOTHER game
-substitutes that game's slug everywhere.
+it says otherwise. The Worker and the database carry THIS game's slug. This
+folder was copied from the predecessor's repo and pointed at that game's live
+Worker and database; never reuse another game's names or ids here — a deploy
+would replace that game's Worker and write this game's rows into its data.
+
+The dev server never posts (`.env.development` blanks the URL), so test
+sessions and automated browser checks put no rows on the players' board.
+
+On Windows, `wrangler secret put` does not reliably read a piped value: use
+`wrangler secret bulk <file.json>` with `{ "SCORE_SECRET": "…" }` and delete
+the file, then confirm an UNSIGNED `POST /score` answers 401.
 
 Nothing here touches the game's behaviour until step 7: until
 `VITE_LEADERBOARD_URL` is set, the client treats the board as "feature off" and
@@ -47,7 +53,7 @@ npx wrangler whoami
 ## 3. Create the database
 
 ```powershell
-npx wrangler d1 create mega-adventure-leaderboard
+npx wrangler d1 create battlecross-leaderboard
 ```
 
 It prints a block like this:
@@ -55,7 +61,7 @@ It prints a block like this:
 ```toml
 [[d1_databases]]
 binding = "DB"
-database_name = "mega-adventure-leaderboard"
+database_name = "battlecross-leaderboard"
 database_id = "0f2c9a51-....-............"
 ```
 
@@ -73,7 +79,7 @@ local emulator). Wrangler asks before touching remote data — answer `y`. You
 should see two `CREATE TABLE` statements and one `CREATE INDEX` execute.
 
 Verify from the dashboard if you like: **Storage & Databases → D1 →
-mega-adventure-leaderboard → Tables** should now list `scores` and `board_cache`.
+battlecross-leaderboard → Tables** should now list `scores` and `board_cache`.
 
 ## 5. Deploy
 
@@ -85,8 +91,8 @@ On a brand-new account this asks you to register a `workers.dev` subdomain
 first — pick anything, it becomes part of the URL. When it finishes it prints:
 
 ```
-Published mega-adventure-leaderboard
-  https://mega-adventure-leaderboard.rodent-race.workers.dev
+Published battlecross-leaderboard
+  https://battlecross-leaderboard.rodent-race.workers.dev
 ```
 
 **That URL is what the game needs.** Keep it.
@@ -94,7 +100,7 @@ Published mega-adventure-leaderboard
 ## 6. Check it is alive
 
 ```powershell
-$BOARD = 'https://mega-adventure-leaderboard.rodent-race.workers.dev'
+$BOARD = 'https://battlecross-leaderboard.rodent-race.workers.dev'
 
 # The board — empty at this point, which is the correct answer.
 Invoke-RestMethod "$BOARD/top"
@@ -121,11 +127,11 @@ Invoke-RestMethod -Method Post -ContentType 'application/json' -Body $bad "$BOAR
 Delete the test row when you are done:
 
 ```powershell
-npx wrangler d1 execute mega-adventure-leaderboard --remote `
+npx wrangler d1 execute battlecross-leaderboard --remote `
   --command "DELETE FROM scores WHERE id = 'testplayer01'"
 # The cached blob still holds the old table until BOARD_TTL_MS expires and a
 # read rebuilds it (writes no longer rebuild) — clear it to see the change now:
-npx wrangler d1 execute mega-adventure-leaderboard --remote --command "DELETE FROM board_cache"
+npx wrangler d1 execute battlecross-leaderboard --remote --command "DELETE FROM board_cache"
 ```
 
 ## 7. Point the game at it
@@ -133,7 +139,7 @@ npx wrangler d1 execute mega-adventure-leaderboard --remote --command "DELETE FR
 In the repo root, edit `.env`:
 
 ```
-VITE_LEADERBOARD_URL=https://mega-adventure-leaderboard.rodent-race.workers.dev
+VITE_LEADERBOARD_URL=https://battlecross-leaderboard.rodent-race.workers.dev
 VITE_LEADERBOARD_SECRET=
 ```
 
@@ -221,14 +227,14 @@ Then `npm run deploy` again.
 ## Watching it in production
 
 * **Live logs:** `npx wrangler tail` (from `worker/`), or the dashboard under
-  **Workers & Pages → mega-adventure-leaderboard → Logs**.
+  **Workers & Pages → battlecross-leaderboard → Logs**.
 * **Quota use:** same page, **Metrics**. Watch requests/day (100 k) and D1 rows
   **written**/day (100 k). Reads are effectively free under this design: a view
   costs one row or zero, and a submission three. The fixed ceiling is the two
   materialised rebuilds — the board every `BOARD_TTL_MS` and the histogram every
   `DIST_TTL_MS` — which together are a low tens of thousands of rows a day
   whatever the traffic does.
-* **The data:** **Storage & Databases → D1 → mega-adventure-leaderboard → Console**
+* **The data:** **Storage & Databases → D1 → battlecross-leaderboard → Console**
   runs SQL straight from the browser, e.g.
   `SELECT * FROM scores ORDER BY score DESC LIMIT 20;`
 
@@ -240,9 +246,9 @@ the current build repopulate. The rows cannot be merged reliably.
 
 ```powershell
 cd worker
-npx wrangler d1 execute mega-adventure-leaderboard --remote --command "DELETE FROM scores"
+npx wrangler d1 execute battlecross-leaderboard --remote --command "DELETE FROM scores"
 # The materialised top-N is a separate row and does not clear itself.
-npx wrangler d1 execute mega-adventure-leaderboard --remote --command "DELETE FROM board_cache"
+npx wrangler d1 execute battlecross-leaderboard --remote --command "DELETE FROM board_cache"
 ```
 
 ## The histogram on `/top`, and the baked board

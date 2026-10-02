@@ -8,6 +8,7 @@
     FHudButton(tone="blue" icon="bag" :aria-label="t('menu.inventory')" @click="open('inventory')")
       template(v-if="profile.inv.fresh.length > 0" #badge)
         FHudBadge(tone="green") {{ profile.inv.fresh.length }}
+    LeaderboardButton(v-if="board")
 </template>
 
 <script setup lang="ts">
@@ -19,10 +20,16 @@
 import { useI18n } from 'vue-i18n'
 import FHudButton from '@/components/atoms/FHudButton.vue'
 import FHudBadge from '@/components/atoms/FHudBadge.vue'
+import LeaderboardButton from '@/components/game/LeaderboardButton.vue'
 import { flow, openMap } from '@/game/flow'
 import { profile } from '@/game/state/profile'
 
-withDefaults(defineProps<{ map?: boolean }>(), { map: false })
+withDefaults(defineProps<{
+  /** The world-map button (a town has it; the map itself does not). */
+  map?: boolean
+  /** The leaderboard button (the map has the room for it). */
+  board?: boolean
+}>(), { map: false, board: false })
 const { t } = useI18n()
 
 const open = (panel: 'map' | 'character' | 'skills' | 'inventory'): void => {

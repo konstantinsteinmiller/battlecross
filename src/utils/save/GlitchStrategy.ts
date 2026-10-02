@@ -289,9 +289,14 @@ export class GlitchStrategy implements SaveStrategy {
     const delay = this.retryAttempt < HYDRATE_RETRY_DELAYS_MS.length
       ? HYDRATE_RETRY_DELAYS_MS[this.retryAttempt]!
       : HYDRATE_RETRY_LOOP_MS
-    this.retryAttempt++
+    // The ladder advances only when ITS OWN timer fires. The boot sanity guard
+    // (SaveManager.init) and the banner's Retry button also come through
+    // `retryHydrate`; counting those would spend the short rungs before the
+    // game has even started, and the first background retry after a failed
+    // boot would come minutes later instead of five seconds later.
     this.retryTimer = setTimeout(() => {
       this.retryTimer = null
+      this.retryAttempt++
       const local = this.local
       if (!local) return
       void this.retryHydrate(local)
