@@ -1,17 +1,20 @@
 <template lang="pug">
-  span.gold-pill(role="img" :aria-label="t('hud.gold', { n: fmt(profile.gold) })")
+  span.gold-pill(role="img" :class="{ 'is-up': dir > 0, 'is-down': dir < 0 }" :aria-label="t('hud.gold', { n: fmt(profile.gold) })")
     IconCoin.gold-pill__coin
-    span {{ fmt(profile.gold) }}
+    span.gold-pill__n {{ fmt(shown) }}
 </template>
 
 <script setup lang="ts">
-/** The purse, wherever it is spent. */
+/** The purse, wherever it is spent. The number rolls to its new value: gold
+ *  is seen leaving and arriving, not swapped for another figure. */
 import { useI18n } from 'vue-i18n'
 import { profile } from '@/game/state/profile'
 import { fmt } from '@/utils/format'
 import IconCoin from '@/components/icons/IconCoin.vue'
+import { useRolling } from './fx'
 
 const { t } = useI18n()
+const { shown, dir } = useRolling(() => profile.gold)
 </script>
 
 <style scoped lang="sass">
@@ -31,9 +34,15 @@ const { t } = useI18n()
   font-size: clamp(0.84rem, 3.5vmin, 1.1rem)
   line-height: 1
   text-shadow: var(--bc-text-outline-thin)
+  font-variant-numeric: tabular-nums
 .gold-pill__coin
   width: 1.25em
   height: 1.25em
   user-select: none
   -webkit-user-drag: none
+// While it rolls, the figure wears the direction it is going.
+.is-up .gold-pill__n
+  color: var(--bc-text-good)
+.is-down .gold-pill__n
+  color: var(--bc-text-bad)
 </style>

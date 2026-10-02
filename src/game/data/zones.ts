@@ -1,5 +1,5 @@
 import type { ClassId } from './skills'
-import type { ZoneId } from './items'
+import type { ItemSlot, ZoneId } from './items'
 
 /**
  * ─── The world (GDD §3.1, §6.2) ──────────────────────────────────────────────
@@ -175,7 +175,7 @@ export interface NpcDef {
   /** Trainers: the class they teach. */
   cls?: ClassId
   /** Shops: what they stock. */
-  stock?: { slots: Array<'main' | 'off' | 'body' | 'trinket'>; tiers: number[] }
+  stock?: { slots: ItemSlot[]; tiers: number[] }
   /** Quest givers: the quest id. */
   quest?: string
   /** Shown only while every flag in `needs` is set and none in `not`. */
@@ -202,7 +202,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   sunford: {
     id: 'sunford', theme: 'town',
     npcs: [
-      { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.24, 0.38], stock: { slots: ['main', 'off', 'body'], tiers: [1] } },
+      { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.24, 0.38], stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [1] } },
       { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.74, 0.62], stock: { slots: ['trinket'], tiers: [1, 2] } },
       { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.36, 0.2], cls: 'aegis' },
       { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.68, 0.24], cls: 'pyro' },
@@ -217,8 +217,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
     npcs: [
       { id: 'captainHale', role: 'quest', look: 'captain', at: [0.5, 0.36], quest: 'siege', not: ['oakhavenFallen'] },
       // Defended: a prosperous trade hub with high-tier armourers.
-      { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['body', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
-      { id: 'oakMasterArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['body', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
+      { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
+      { id: 'oakMasterArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
       { id: 'oakWeapons', role: 'shop', look: 'peddler', at: [0.74, 0.44], stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
       { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.8, 0.7], cls: 'shadow' },
       { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.18], cls: 'sovereign', not: ['oakhavenFallen'] },
@@ -236,9 +236,9 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'ironWeapons', role: 'shop', look: 'dwarf', at: [0.26, 0.42], stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
       // The Circle's study of the core arms the town with aether-works.
       { id: 'ironAetherWorks', role: 'shop', look: 'tinker', at: [0.26, 0.42], stock: { slots: ['main', 'off'], tiers: [3, 4, 5] }, needs: ['coreCircle'] },
-      { id: 'ironArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['body', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
+      { id: 'ironArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
       // The Order's thanks: its own armourers move in.
-      { id: 'ironOrderArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['body', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
+      { id: 'ironOrderArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
       { id: 'trainerGeo', role: 'trainer', look: 'trainerGeo', at: [0.34, 0.2], cls: 'geo' },
       { id: 'trainerAether', role: 'trainer', look: 'trainerAether', at: [0.68, 0.22], cls: 'aether' },
       { id: 'ironHealer', role: 'healer', look: 'healer', at: [0.2, 0.7] },

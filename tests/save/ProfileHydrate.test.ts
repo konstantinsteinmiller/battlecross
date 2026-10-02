@@ -81,7 +81,9 @@ describe('booting from the state blob', () => {
     expect(profile.hero.learned).toEqual(['shieldSlam', 'fireball', 'aegisAura'])
     expect(profile.hero.active.slice(0, 2)).toEqual(['shieldSlam', 'fireball'])
     expect(profile.hero.passive[0]).toBe('aegisAura')
-    expect(profile.inv.equipped).toEqual(DEVELOPED.bc_inventory.equipped)
+    // The save is from before helmets, gloves and boots: its five slots are
+    // as worn, and the three it has never heard of are empty.
+    expect(profile.inv.equipped).toEqual({ ...DEVELOPED.bc_inventory.equipped, head: null, hands: null, feet: null })
     expect(profile.inv.potions).toBe(4)
     expect(profile.quests.done).toEqual({ goblinKing: 'pact' })
     expect(profile.quests.rep.syndicate).toBe(1)
@@ -132,6 +134,48 @@ describe('booting from the state blob', () => {
     expect(profile.inv.potions).toBe(5)
     expect(profile.world.cleared).toEqual(['plains'])
     expect(profile.world.at).toBe('plains')
+  })
+
+  it('an old-shape save (five equipment slots, version 1) loads into eight, and the next checkpoint writes all eight', async () => {
+    expect(Object.keys(DEVELOPED.bc_inventory.equipped).sort()).toEqual(['body', 'main', 'off', 'trinket1', 'trinket2'])
+    localStorage.setItem(STATE_KEY, JSON.stringify(DEVELOPED))
+    const { initProfile, profile, equipItem, gainItem, computeStats, saveProfile, state, SAVE_VERSION } = await boot()
+    const { EQUIP_SLOTS } = await import('@/game/data/items')
+    initProfile()
+    expect(Object.keys(profile.inv.equipped).sort()).toEqual([...EQUIP_SLOTS].sort())
+    expect(profile.inv.equipped).toMatchObject({ main: 'ironBroadsword', off: 'woodenBuckler', body: 'paddedTunic', trinket1: 'copperBand', trinket2: null, head: null, hands: null, feet: null })
+    // Nothing the old save owned is lost, and the new slots work on it at once.
+    expect(profile.inv.items).toEqual(DEVELOPED.bc_inventory.items)
+    const armor = computeStats().armor
+    gainItem('quiltedCap')
+    expect(equipItem('quiltedCap')).toBe('head')
+    expect(computeStats().armor).toBeGreaterThan(armor)
+    saveProfile()
+    state.flushPersist()
+    const blob = JSON.parse(localStorage.getItem(STATE_KEY)!) as { bc_version: number; bc_inventory: { equipped: Record<string, string | null> } }
+    expect(SAVE_VERSION).toBe(2)
+    expect(blob.bc_version).toBe(2)
+    expect(blob.bc_inventory.equipped).toEqual({ main: 'ironBroadsword', off: 'woodenBuckler', head: 'quiltedCap', body: 'paddedTunic', hands: null, feet: null, trinket1: 'copperBand', trinket2: null })
+  })
+
+  it('a new-shape save keeps its helmet, gloves and boots; one in the wrong slot, unowned, or the same ring twice is taken off', async () => {
+    const worn = { ...DEVELOPED.bc_inventory.equipped, head: 'stalkersHood', hands: 'hideGloves', feet: 'trailBoots' }
+    const items = [...DEVELOPED.bc_inventory.items, 'stalkersHood', 'hideGloves', 'trailBoots']
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...DEVELOPED, bc_version: 2, bc_inventory: { ...DEVELOPED.bc_inventory, items, equipped: worn } }))
+    const first = await boot()
+    first.initProfile()
+    expect(first.profile.inv.equipped).toEqual(worn)
+    expect(first.totalAttrs().dex).toBe(7 + 4 + 1)
+
+    drainAndResetModules()
+    localStorage.setItem(STATE_KEY, JSON.stringify({
+      ...DEVELOPED, bc_version: 2,
+      bc_inventory: { ...DEVELOPED.bc_inventory, items, equipped: { main: 'ironBroadsword', off: null, body: null, head: 'trailBoots', hands: 'ironGauntlets', feet: '', trinket1: 'copperBand', trinket2: 'copperBand', cloak: 'stalkersHood' } }
+    }))
+    const second = await boot()
+    second.initProfile()
+    // Boots on the head, gauntlets nobody owns, an empty string, a slot the game does not have.
+    expect(second.profile.inv.equipped).toEqual({ main: 'ironBroadsword', off: null, head: null, body: null, hands: null, feet: null, trinket1: 'copperBand', trinket2: null })
   })
 
   it('survives a blob that is not JSON', async () => {

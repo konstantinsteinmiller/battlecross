@@ -154,6 +154,77 @@ describe('gear and shops (GDD §6)', () => {
     expect(eq.trinket2).not.toBe('ringOfMending')
   })
 
+  it('a helmet, gloves and boots each go in their own slot, and replace what was worn there (D39)', () => {
+    p.profile.level = 10
+    for (const id of ['quiltedCap', 'stalkersHood', 'hideGloves', 'ironGauntlets', 'trailBoots', 'pathfindersBoots']) expect(p.gainItem(id).added, id).toBe(true)
+    // A fresh hero wears none of them: the first finds matter.
+    expect(p.profile.inv.equipped).toMatchObject({ head: null, hands: null, feet: null })
+    expect(p.equipItem('quiltedCap')).toBe('head')
+    expect(p.equipItem('hideGloves')).toBe('hands')
+    expect(p.equipItem('trailBoots')).toBe('feet')
+    expect(p.profile.inv.equipped).toMatchObject({ head: 'quiltedCap', hands: 'hideGloves', feet: 'trailBoots', main: 'rustedShortsword', body: 'paddedTunic' })
+    expect(p.equippedIn('hideGloves')).toBe('hands')
+    // A better one takes the slot; the old one stays in the bag, unworn.
+    expect(p.equipItem('stalkersHood')).toBe('head')
+    expect(p.equippedIn('quiltedCap')).toBeNull()
+    expect(p.owns('quiltedCap')).toBe(true)
+    // Worn gear is not sold; taken off, it is.
+    expect(p.sellItem('stalkersHood')).toBe(false)
+    p.unequip('head')
+    expect(p.profile.inv.equipped.head).toBeNull()
+    expect(p.sellItem('stalkersHood')).toBe(true)
+    expect(p.owns('stalkersHood')).toBe(false)
+  })
+
+  it('an item dropped on a slot it does not fit is refused; a named slot it fits takes it', () => {
+    p.profile.level = 10
+    for (const id of ['quiltedCap', 'ironGauntlets', 'pathfindersBoots', 'copperBand']) p.gainItem(id)
+    expect(p.fitsSlot('quiltedCap', 'head')).toBe(true)
+    expect(p.fitsSlot('quiltedCap', 'feet')).toBe(false)
+    expect(p.fitsSlot('copperBand', 'trinket2')).toBe(true)
+    expect(p.fitsSlot('plasmaRifle', 'main')).toBe(false)
+    expect(p.equipItem('quiltedCap', 'feet')).toBeNull()
+    expect(p.equipItem('ironGauntlets', 'head')).toBeNull()
+    expect(p.equipItem('copperBand', 'hands')).toBeNull()
+    expect(p.profile.inv.equipped).toMatchObject({ head: null, hands: null, feet: null, trinket1: null })
+    expect(p.equipItem('quiltedCap', 'head')).toBe('head')
+    expect(p.equipItem('ironGauntlets', 'hands')).toBe('hands')
+    expect(p.equipItem('pathfindersBoots', 'feet')).toBe('feet')
+    expect(p.equipItem('copperBand', 'trinket2')).toBe('trinket2')
+  })
+
+  it('they need their level, are bought and sold like the rest, and a second copy is gold', () => {
+    p.gainItem('ironcladHelm')
+    expect(p.canEquip('ironcladHelm')).toBe(false)
+    expect(p.equipItem('ironcladHelm')).toBeNull()
+    p.profile.level = 12
+    expect(p.equipItem('ironcladHelm')).toBe('head')
+    expect(p.gainItem('ironcladHelm').gold).toBeGreaterThan(0)
+    p.profile.gold = 100_000
+    const cost = p.buyCost('forgeplateGreaves')
+    expect(cost).toBeGreaterThan(0)
+    expect(p.buyItem('forgeplateGreaves')).toBe(true)
+    expect(p.profile.gold).toBe(100_000 - cost)
+    expect(p.profile.inv.fresh).toContain('forgeplateGreaves')
+    const gold = p.profile.gold
+    expect(p.sellItem('forgeplateGreaves')).toBe(true)
+    expect(p.profile.gold - gold).toBeLessThan(cost)
+  })
+
+  it('all eight slots feed the stats: a helmet, gloves and boots show on the sheet', () => {
+    p.profile.level = 25
+    const before = p.computeStats()
+    for (const id of ['wyrmguardGreathelm', 'duelistsGrips', 'mistwalkerBoots']) { p.gainItem(id); expect(p.equipItem(id), id).not.toBeNull() }
+    const after = p.computeStats()
+    expect(after.armor).toBeGreaterThan(before.armor + 40)
+    expect(after.attackSpeed).toBeGreaterThan(before.attackSpeed)
+    expect(after.moveSpeed).toBeGreaterThan(before.moveSpeed)
+    expect(p.totalAttrs().int).toBe(p.profile.hero.attrs.int + 12)
+    // Taken off again, the hero is who he was.
+    p.unequip('head'); p.unequip('hands'); p.unequip('feet')
+    expect(p.computeStats()).toEqual(before)
+  })
+
   it('wearing something changes the hero\'s stats', () => {
     const before = p.computeStats()
     p.profile.level = 6
@@ -176,6 +247,41 @@ describe('gear and shops (GDD §6)', () => {
     expect(p.sellItem('copperBand')).toBe(true)
     expect(p.profile.gold - gold).toBeLessThan(cost)
     expect(p.owns('copperBand')).toBe(false)
+  })
+
+  it('a sale can be bought back at the price paid, until the visit ends (D38)', () => {
+    p.profile.gold = 1000
+    p.buyItem('copperBand')
+    p.buyItem('ringOfMending')
+    expect(p.buyBack).toEqual([])
+    expect(p.buyBackItem('copperBand')).toBe(false)
+    const before = p.profile.gold
+    expect(p.sellItem('copperBand')).toBe(true)
+    const paid = p.profile.gold - before
+    expect(p.buyBack).toEqual([{ id: 'copperBand', gold: paid }])
+    expect(p.buyBackCost('copperBand')).toBe(paid)
+    expect(p.buyBackCost('ringOfMending')).toBe(0)
+    // Back for exactly what the merchant paid: no gain, no loss.
+    expect(p.buyBackItem('copperBand')).toBe(true)
+    expect(p.profile.gold).toBe(before)
+    expect(p.owns('copperBand')).toBe(true)
+    expect(p.buyBack).toEqual([])
+    // Not a "new" item again, and not twice.
+    expect(p.profile.inv.fresh).not.toContain('copperBand')
+    expect(p.buyBackItem('copperBand')).toBe(false)
+    // It needs the gold it fetched.
+    p.sellItem('copperBand')
+    p.sellItem('ringOfMending')
+    expect(p.buyBack.map(b => b.id)).toEqual(['copperBand', 'ringOfMending'])
+    p.profile.gold = 0
+    expect(p.buyBackItem('ringOfMending')).toBe(false)
+    expect(p.owns('ringOfMending')).toBe(false)
+    // The conversation ends: what was sold stays sold.
+    p.profile.gold = 10_000
+    p.clearBuyBack()
+    expect(p.buyBack).toEqual([])
+    expect(p.buyBackItem('copperBand')).toBe(false)
+    expect(p.profile.gold).toBe(10_000)
   })
 
   it('the belt grows from three potions to five, each slot dearer', () => {

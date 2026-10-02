@@ -34,6 +34,10 @@ The ones most worth a look before much is built on them:
 | 18 | **After the boss falls.** The hero now walks to the finale chest and opens it by himself, then the result screen comes. Keeping control instead would let the player go back for chests they missed, but the visit would need an explicit "leave" (an exit, or a button). | Automatic walk to the chest | Keep control, with a "Leave" button that appears after the boss: exploring is the point of the new chests |
 | 19 | **Mana potion price** at the healer: 20 + 6 × hero level gold each. | 20 + 6 × level | Keep, re-check when the balance pass runs |
 | 20 | **How often the over-levelled optional champion appears:** 6 to 16 % of visits, by zone. | 6–16 % | Keep; raise if players never meet one |
+| 21 | **World map info card on desktop.** It docks top or bottom centre of the map and can cover a neighbouring place. Dock it in the table margin beside the map instead? | Over the map | Move it to the margin on wide screens |
+| 22 | **The hero's speech bubble** is labelled "You". Should the hero have a name (fixed, or chosen by the player)? | "You" | Keep until a name-entry step exists |
+| 23 | **Voice-over fallback.** When a language has no recording for a line, the English recording plays under the translated text. Silence instead? | English recording | Keep: a voice is better than none |
+| 24 | **Three small gifts in conversations** are new rewards: Elder Mara 60 gold, Madam Ash 250 gold, a copper band from Tilly at Charisma 8. | In | Keep; covered by the balance re-check |
 
 ## Needs an action from the owner before a submission
 

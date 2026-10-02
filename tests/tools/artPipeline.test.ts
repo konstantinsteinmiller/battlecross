@@ -47,15 +47,22 @@ const fakeFits = (): Fits => Object.fromEntries([...manifestTargets().keys()]
 describe('the manifest covers the game', () => {
   const targets = manifestTargets()
 
-  it('every item has a panel: 44 ids on four 4x3 sheets, in items.ts order', () => {
+  it('every item has a panel: 62 ids on six 4x3 sheets, in items.ts order', () => {
     const main = ITEMS.filter(i => i.slot === 'main').map(i => i.id)
     const bySlot = (slot: string): string[] => ITEMS.filter(i => i.slot === slot).map(i => i.id)
-    expect(ITEMS).toHaveLength(44)
+    expect(ITEMS).toHaveLength(62)
     expect(idsOf('sheet-items-weapons')).toEqual(main.slice(0, 12))
     expect(idsOf('sheet-items-arms')).toEqual([...main.slice(12), ...bySlot('off')])
     expect(idsOf('sheet-items-armor')).toEqual(bySlot('body'))
     expect(idsOf('sheet-items-trinkets')).toEqual(bySlot('trinket'))
     expect([blanksOf('sheet-items-weapons'), blanksOf('sheet-items-arms'), blanksOf('sheet-items-armor'), blanksOf('sheet-items-trinkets')]).toEqual([0, 2, 0, 2])
+    // Helmets, gloves and boots (D39): a slot is never split across two sheets.
+    expect(idsOf('sheet-items-headgear')).toEqual([...bySlot('head'), ...bySlot('hands')])
+    expect(idsOf('sheet-items-boots')).toEqual(bySlot('feet'))
+    expect([blanksOf('sheet-items-headgear'), blanksOf('sheet-items-boots')]).toEqual([0, 6])
+    const itemSheets = SETS.filter(x => x.kind === 'items')
+    expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots'])
+    for (const x of itemSheets) expect([x.cols, x.rows, x.cells.length], x.stem).toEqual([4, 3, 12])
     for (const it of ITEMS) expect(targets.has(`images/items/${it.id}.webp`), it.id).toBe(true)
     expect([...ART_CATALOGUE.items].sort()).toEqual(ITEMS.map(i => i.id).sort())
   })
@@ -114,7 +121,7 @@ describe('the manifest covers the game', () => {
       expect(seen.has(a.target), `duplicate target ${a.target}`).toBe(false)
       seen.add(a.target)
     }
-    expect(seen.size).toBe(44 + 48 + 22 + 1 + 2)
+    expect(seen.size).toBe(62 + 48 + 22 + 1 + 2)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -448,14 +455,14 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Four sheets are 1024x768 and nine are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(4)
+    // Six sheets are 1024x768 and nine are 768x576: shape says nothing.
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(6)
     expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(9)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)
       'sheet-items-arms-old.png',          // a dash continues a stem: this is another sheet's name
-      'sheet-items.png',                   // a prefix of four sheets is none of them
+      'sheet-items.png',                   // a prefix of six sheets is none of them
       'weapons.png',                       // a bare id
       'ground.png',
       'coin.png',

@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { ITEMS, ITEM_BY_ID, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, priceOf, sellValue, slotOf, type ZoneId } from '@/game/data/items'
+import { ITEMS, ITEM_BY_ID, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
+import { ZONE_LOOT } from '@/game/data/loot'
+import { GLYPHS } from '@/components/art/glyphs'
+import { modLines } from '@/components/game/modLines'
+import { heroStats } from '@/game/sim/stats'
 import { SKILLS, SKILL_BY_ID, CLASSES, CLASS_IDS, ACTIVE_SLOTS, PASSIVE_SLOTS, meetsSkill, skillsOf } from '@/game/data/skills'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, statPower } from '@/game/data/attributes'
 import { MAX_LEVEL, addXp, killGold, killXp, skillPrice, xpToNext, xpToReach } from '@/game/data/progression'
@@ -13,17 +17,25 @@ import { QUESTS } from '@/game/data/quests'
  * the document fails here, by name.
  */
 
+const NEW_SLOTS = ['head', 'hands', 'feet'] as const
+
 describe('items (GDD §6)', () => {
-  it('is the master database: 44 named items, 14 weapons, 8 off-hands, 12 armours, 10 trinkets', () => {
-    expect(ITEMS).toHaveLength(44)
-    expect(new Set(ITEMS.map(i => i.id)).size).toBe(44)
+  it('is the master database: the 44 named items of the tables (14 weapons, 8 off-hands, 12 armours, 10 trinkets), and nothing twice', () => {
+    expect(new Set(ITEMS.map(i => i.id)).size).toBe(ITEMS.length)
     const by = (slot: string): number => ITEMS.filter(i => i.slot === slot).length
     expect([by('main'), by('off'), by('body'), by('trinket')]).toEqual([14, 8, 12, 10])
+    // Every item is in a slot the hero has; what is not in the tables is head, hands or feet.
+    const slots = new Set<ItemSlot>(EQUIP_SLOTS.map(slotOf))
+    for (const i of ITEMS) expect(slots.has(i.slot), i.id).toBe(true)
+    expect(ITEMS).toHaveLength(44 + NEW_SLOTS.reduce((n, s) => n + by(s), 0))
   })
 
-  it('has five equipment slots: main hand, off hand, body, two trinkets', () => {
-    expect(EQUIP_SLOTS).toEqual(['main', 'off', 'body', 'trinket1', 'trinket2'])
+  it('has eight equipment slots: main hand, off hand, head, body, hands, feet, two trinkets (D39)', () => {
+    expect(EQUIP_SLOTS).toEqual(['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket1', 'trinket2'])
     expect(slotOf('trinket2')).toBe('trinket')
+    for (const s of NEW_SLOTS) expect(slotOf(s)).toBe(s)
+    expect(Object.keys(noGear())).toEqual([...EQUIP_SLOTS])
+    expect(Object.values(noGear()).every(v => v === null)).toBe(true)
   })
 
   it('keeps every item inside its tier\'s level band (§6.2)', () => {
@@ -69,7 +81,8 @@ describe('items (GDD §6)', () => {
     for (const i of ITEMS) expect(ZONES[i.drop.zone], i.id).toBeDefined()
     for (const z of ZONE_IDS) expect(itemsOfZone(z).length, z).toBeGreaterThan(0)
     expect(itemsOfZone('fortress', 'secret').map(i => i.id)).toEqual(['ringOfAbsolutePower'])
-    expect(itemsOfZone('rift', 'boss').map(i => i.id).sort()).toEqual(['aetheriumDestroyer', 'armorOfTheTitan'])
+    // The Void Lord's two from the tables, and the legendary boots of D39.
+    expect(itemsOfZone('rift', 'boss').map(i => i.id).sort()).toEqual(['aetheriumDestroyer', 'armorOfTheTitan', 'treadsOfTheHorizon'])
   })
 
   it('prices rise with the tier, and legendaries are found, never sold', () => {
@@ -79,6 +92,125 @@ describe('items (GDD §6)', () => {
       expect(sellValue(i), i.id).toBeGreaterThan(0)
       if (i.tier < 6) expect(sellValue(i), i.id).toBeLessThan(priceOf(i))
     }
+  })
+})
+
+/**
+ * Helmets, gloves and boots (D39): not in the GDD's tables, so what is pinned
+ * here is the RULE they were made by, not eighteen rows of numbers.
+ */
+describe('head, hands and feet (D39)', () => {
+  const of = (slot: ItemSlot): ItemDef[] => ITEMS.filter(i => i.slot === slot)
+  const KINDS: Record<string, string[]> = {
+    head: ['hood', 'cap', 'helm', 'greathelm', 'circlet', 'hat'],
+    hands: ['gloves', 'gauntlets'],
+    feet: ['boots', 'greaves']
+  }
+  /** An item's attribute points (the six attributes, summed). */
+  const points = (i: ItemDef): number => ATTRS.reduce((n, a) => n + (i.mods[a] ?? 0), 0)
+  const bodyOf = (tier: number): ItemDef[] => of('body').filter(i => i.tier === tier)
+  const mean = (v: number[]): number => v.reduce((a, b) => a + b, 0) / v.length
+
+  it('each slot has one piece per tier, of a kind the hero model can show', () => {
+    for (const slot of NEW_SLOTS) {
+      expect(of(slot).map(i => i.tier), slot).toEqual([1, 2, 3, 4, 5, 6])
+      for (const i of of(slot)) expect(KINDS[slot], i.id).toContain(i.kind)
+    }
+    // Every kind is used: a mage, a rogue and a knight each find theirs.
+    for (const slot of NEW_SLOTS) expect(new Set(of(slot).map(i => i.kind)), slot).toEqual(new Set(KINDS[slot]))
+  })
+
+  it('every kind has its drawing and every modifier its line', () => {
+    for (const slot of NEW_SLOTS) {
+      for (const i of of(slot)) {
+        expect(GLYPHS[i.kind], i.kind).toBeTruthy()
+        expect(modLines(i.mods).map(l => l.id).sort(), i.id).toEqual(Object.keys(i.mods).sort())
+      }
+    }
+  })
+
+  it('the slots have their identities: plate carries armour, gloves quicken or sharpen, boots move', () => {
+    for (const i of ITEMS.filter(x => ['helm', 'greathelm', 'gauntlets', 'greaves'].includes(x.kind))) expect(i.mods.armor, i.id).toBeGreaterThan(0)
+    for (const i of ITEMS.filter(x => x.kind === 'gloves')) {
+      expect((i.mods.attackSpeed ?? 0) + (i.mods.critChance ?? 0) + (i.mods.spellCrit ?? 0) + (i.mods.critDamage ?? 0), i.id).toBeGreaterThan(0)
+    }
+    for (const i of ITEMS.filter(x => x.kind === 'boots')) expect(i.mods.moveSpeed, i.id).toBeGreaterThan(0)
+    // Their armour is a modifier; the Armor Value stays the body's (see "every weapon swings…").
+    for (const slot of NEW_SLOTS) for (const i of of(slot)) expect(i.armor, i.id).toBeUndefined()
+  })
+
+  it('together they are worth about one more body armour of the tier, never more', () => {
+    for (let tier = 1; tier <= 6; tier++) {
+      const body = bodyOf(tier)
+      const three = NEW_SLOTS.map(s => of(s).find(i => i.tier === tier)!)
+      const pts = three.reduce((n, i) => n + points(i), 0)
+      const armor = three.reduce((n, i) => n + (i.mods.armor ?? 0), 0)
+      // Attribute points: at most the tier's richest body armour (a point of rounding at tier 1).
+      expect(pts, `tier ${tier} points`).toBeLessThanOrEqual(Math.max(...body.map(points)) + 1)
+      expect(pts, `tier ${tier} points`).toBeGreaterThanOrEqual(mean(body.map(points)) * 0.5)
+      // Armour: never more than the tier's heaviest plate.
+      expect(armor, `tier ${tier} armour`).toBeLessThanOrEqual(Math.max(...body.map(i => i.armor ?? 0)))
+      // No single piece carries more than 45 % of a body armour's points.
+      for (const i of three) expect(points(i), i.id).toBeLessThanOrEqual(Math.max(...body.map(points)) * 0.45 + 1)
+    }
+  })
+
+  it('a percentage on one of them stays small: a legendary may carry the whole of it, the rest about half', () => {
+    // The most each modifier may be on these slots (a trinket built around one carries as much or more).
+    const most: Record<string, number> = { moveSpeed: 0.1, dodge: 0.08, attackSpeed: 0.1, critChance: 0.04, spellCrit: 0.06, critDamage: 0.15, cdr: 0.06, stunDurationCut: 0.2 }
+    for (const slot of NEW_SLOTS) {
+      for (const i of of(slot)) {
+        for (const k in i.mods) {
+          if ((ATTRS as readonly string[]).includes(k) || k === 'armor' || k === 'maxMana') continue
+          expect(most[k], `${i.id}: ${k} is a modifier these slots use`).toBeDefined()
+          expect(i.mods[k as keyof typeof i.mods]!, `${i.id}: ${k}`).toBeLessThanOrEqual(most[k]! * (i.tier === 6 ? 1 : 0.55) + 1e-9)
+        }
+      }
+    }
+  })
+
+  it('wearing them moves the stats they name, through the same sum as the rest of the gear', () => {
+    const bare = heroStats({ level: 30, attrs: startAttrs(), equipped: noGear(), passives: [] })
+    const worn = heroStats({ level: 30, attrs: startAttrs(), equipped: { ...noGear(), head: 'wyrmguardGreathelm', hands: 'gripsOfTheTempest', feet: 'treadsOfTheHorizon' }, passives: [] })
+    expect(worn.armor).toBeGreaterThan(bare.armor + 44)
+    expect(worn.attackSpeed).toBeGreaterThan(bare.attackSpeed + 0.1)
+    expect(worn.critChance).toBeGreaterThan(bare.critChance + 0.04)
+    expect(worn.moveSpeed).toBeGreaterThan(bare.moveSpeed)
+    expect(worn.dodge).toBeCloseTo(0.08)
+    expect(worn.maxHp).toBeGreaterThan(bare.maxHp)
+    // A helmet is not plate BODY armour: STR's affinity does not multiply it.
+    const greathelm = ITEM_BY_ID.wyrmguardGreathelm!
+    const strong = { ...startAttrs(), str: 60 }
+    const helmed = heroStats({ level: 30, attrs: strong, equipped: { ...noGear(), head: greathelm.id }, passives: [] })
+    const same = heroStats({ level: 30, attrs: { ...strong, str: strong.str + greathelm.mods.str!, end: strong.end + greathelm.mods.end! }, equipped: noGear(), passives: [] })
+    expect(helmed.armor - same.armor).toBeCloseTo(greathelm.mods.armor!)
+  })
+
+  it('they are found across all twelve zones, in the chests of their zone, and sold by the armourers of their tier', () => {
+    const three = NEW_SLOTS.flatMap(of)
+    expect(new Set(three.map(i => i.drop.zone)).size).toBe(ZONE_IDS.length)
+    for (const i of three) {
+      // A drop in the tier's own zones (§6.2).
+      expect(Math.min(6, Math.ceil(ZONES[i.drop.zone].max / 5)), i.id).toBe(i.tier)
+      if (i.drop.src === 'mob' || i.drop.src === 'chest') expect(ZONE_LOOT[i.drop.zone].items, i.id).toContain(i.id)
+      else expect(i.drop.src, i.id).toBe('boss')
+      const sellers = Object.values(TOWNS).flatMap(t => t.npcs).filter(n => n.role === 'shop' && n.stock!.slots.includes(i.slot) && n.stock!.tiers.includes(i.tier))
+      if (i.tier === 6) expect(priceOf(i), i.id).toBe(0)
+      else {
+        expect(sellers.length, i.id).toBeGreaterThan(0)
+        expect(priceOf(i), i.id).toBeGreaterThan(0)
+      }
+    }
+    // Every chest table holds at least one of them (the Rift's holds the Fortress's).
+    const isNew = (id: string): boolean => (NEW_SLOTS as readonly string[]).includes(ITEM_BY_ID[id]!.slot)
+    for (const z of ZONE_IDS) expect(ZONE_LOOT[z].items.some(isNew), z).toBe(true)
+    // An armourer sells all three, and the towns keep their tiers: Sunford 1, Oakhaven from 2, Ironhold from 3.
+    for (const n of Object.values(TOWNS).flatMap(t => t.npcs)) {
+      if (n.role !== 'shop' || !n.stock!.slots.includes('body')) continue
+      for (const s of NEW_SLOTS) expect(n.stock!.slots, n.id).toContain(s)
+    }
+    const from = (town: keyof typeof TOWNS): number => Math.min(...TOWNS[town].npcs.filter(n => n.role === 'shop' && n.stock!.slots.includes('head')).flatMap(n => n.stock!.tiers))
+    expect([from('sunford'), from('oakhaven'), from('ironhold')]).toEqual([1, 2, 3])
   })
 })
 

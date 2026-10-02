@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { ENEMIES, MINIONS } from '@/game/data/enemies'
-import { ITEMS, ITEM_BY_ID, type EquipSlot } from '@/game/data/items'
+import { EQUIP_SLOTS, ITEMS, ITEM_BY_ID, type EquipSlot } from '@/game/data/items'
 import { buildHumanoid, type Look } from '@/game/gfx/rigs/humanoid'
 import { LOOKS, heroLook, lookKey } from '@/game/gfx/rigs/looks'
 
@@ -18,7 +18,8 @@ const NEEDED = [
   'legL', 'legR', 'shinL', 'shinR', 'footL', 'footR', 'hairF', 'hairB'
 ]
 
-const bare: Record<EquipSlot, string | null> = { main: null, off: null, body: null, trinket1: null, trinket2: null }
+/** Every slot the game has, empty. */
+const bare = Object.fromEntries(EQUIP_SLOTS.map(s => [s, null])) as Record<EquipSlot, string | null>
 
 describe('humanoid rig', () => {
   it('builds every look at every detail level, with the bones the animation poses', () => {
@@ -121,6 +122,19 @@ describe('worn gear on the hero', () => {
     expect(withGear({ feet: 'tBoots' }).boots).toBe('cloth')
     expect(withGear({ feet: 'tBoots4' }).boots).toBe('leather')
     expect(withGear({ feet: 'tGreaves' }).boots).toBe('plate')
+  })
+
+  it('shows every head, hand and foot item the game ships as its own layer', () => {
+    const worn = ITEMS.filter(i => (i.slot as string) === 'head' || (i.slot as string) === 'hands' || (i.slot as string) === 'feet')
+    for (const it of worn) {
+      const slot = it.slot as string
+      const look = heroLook({ ...bare, [slot]: it.id } as Record<EquipSlot, string | null>)
+      if (slot === 'head') expect(look.head, it.id).not.toBe('short')
+      if (slot === 'hands') expect(look.gloves, it.id).toBeDefined()
+      if (slot === 'feet') expect(look.boots, it.id).toBeDefined()
+      expect(lookKey(look), it.id).not.toBe(lookKey(heroLook(bare)))
+      expect(buildHumanoid(look, 2).tris, it.id).toBeLessThanOrEqual(HERO_BUDGET)
+    }
   })
 
   it('builds every gear layer within the hero budget, and each one is its own template', () => {

@@ -8,7 +8,7 @@ import {
 import { ATTRS, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
-import { EQUIP_SLOTS, ITEM_BY_ID, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
+import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
 import { MAP, NODE_BY_ID, nodeOpen, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
@@ -26,8 +26,9 @@ import type { UnitStats } from '../sim/types'
  * older save (or a partial cloud row) always hydrates into a complete profile.
  */
 
-/** Bumped when a structured field changes shape. */
-export const SAVE_VERSION = 1
+/** Bumped when a structured field changes shape. 2: three more equipment
+ *  slots (head, hands, feet); a version 1 save loads with them empty. */
+export const SAVE_VERSION = 2
 
 export interface HeroSave {
   /** XP into the current level. */
@@ -44,8 +45,10 @@ export interface HeroSave {
 }
 
 export interface InventorySave {
-  /** Owned item ids (each of the 44 named items is owned once). */
+  /** Owned item ids (each named item is owned once). */
   items: string[]
+  /** What is worn, by slot (null: empty). Head, hands and feet came with
+   *  save version 2; an older save has no such keys and loads them empty. */
   equipped: Record<EquipSlot, string | null>
   /** Ids the player has not looked at yet (the "NEW" dot). */
   fresh: string[]
@@ -119,7 +122,8 @@ const defaultHero = (): HeroSave => {
 
 const defaultInv = (): InventorySave => ({
   items: ['rustedShortsword', 'woodenBuckler', 'paddedTunic'],
-  equipped: { main: 'rustedShortsword', off: 'woodenBuckler', body: 'paddedTunic', trinket1: null, trinket2: null },
+  // No cap, gloves or boots: the first ones found are the first ones worn.
+  equipped: { ...noGear(), main: 'rustedShortsword', off: 'woodenBuckler', body: 'paddedTunic' },
   fresh: [],
   potions: 3,
   manaPotions: 0
@@ -189,11 +193,16 @@ export const loadProfile = (): void => {
 
   const inv = obj(stored(INVENTORY_KEY), d.inv)
   inv.items = [...new Set(strs(inv.items).filter(id => ITEM_BY_ID[id]))]
-  const eq = obj(inv.equipped, d.inv.equipped)
+  // Exactly the slots the game has now: a slot an older save does not know
+  // (head, hands, feet) is empty, and a key it no longer knows is dropped.
+  const worn = obj(inv.equipped, d.inv.equipped)
+  const eq = noGear()
   for (const s of EQUIP_SLOTS) {
-    const id = eq[s]
-    if (!id || !inv.items.includes(id) || ITEM_BY_ID[id]?.slot !== slotOf(s)) eq[s] = null
+    const id = worn[s]
+    if (typeof id === 'string' && id && inv.items.includes(id) && ITEM_BY_ID[id]?.slot === slotOf(s)) eq[s] = id
   }
+  // One ring cannot be worn on both hands.
+  if (eq.trinket2 && eq.trinket2 === eq.trinket1) eq.trinket2 = null
   inv.equipped = eq
   inv.fresh = strs(inv.fresh).filter(id => inv.items.includes(id))
   inv.potions = Math.max(1, Math.min(5, Math.round(num(inv.potions, 3))))
@@ -402,10 +411,16 @@ export const canEquip = (id: string): boolean => {
   return !!it && owns(id) && profile.level >= it.level
 }
 
-/** Equip an item (a trinket goes to the free trinket slot, else the first). */
+/** Does this item go in that slot? (A helmet is not worn on the feet.) */
+export const fitsSlot = (id: string, slot: EquipSlot): boolean => ITEM_BY_ID[id]?.slot === slotOf(slot)
+
+/** Equip an item: it goes in its own slot (head, hands, feet…), replacing
+ *  what was there; a trinket goes to the free trinket slot, else the first.
+ *  `into` names the slot it was dropped on: one it does not fit refuses it. */
 export const equipItem = (id: string, into?: EquipSlot): EquipSlot | null => {
   const it = ITEM_BY_ID[id]
   if (!it || !canEquip(id)) return null
+  if (into && !fitsSlot(id, into)) return null
   let slot: EquipSlot
   if (it.slot === 'trinket') {
     const cur = equippedIn(id)
@@ -422,6 +437,7 @@ export const equipItem = (id: string, into?: EquipSlot): EquipSlot | null => {
 }
 
 export const unequip = (slot: EquipSlot): void => {
+  if (!EQUIP_SLOTS.includes(slot)) return
   profile.inv.equipped[slot] = null
   saveProfile()
 }
@@ -452,9 +468,41 @@ export const sellItem = (id: string): boolean => {
   if (!it || !owns(id) || equippedIn(id)) return false
   profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
-  profile.gold += sellValue(it)
+  const gold = sellValue(it)
+  profile.gold += gold
+  buyBack.push({ id, gold })
   saveProfile()
   return true
+}
+
+// ─── Buy-back (D38) ──────────────────────────────────────────────────────────
+
+/**
+ * What the hero sold during THIS visit to a merchant, oldest first, with the
+ * gold each fetched. A sale can be undone at exactly the price paid while the
+ * conversation lasts; the trade screen empties the list when it ends
+ * (`clearBuyBack`). Never saved: after a reload a sale is final.
+ */
+export const buyBack: Array<{ id: string; gold: number }> = reactive([])
+
+/** What buying a sold item back costs (0: it is not on the buy-back row). */
+export const buyBackCost = (id: string): number => buyBack.find(b => b.id === id)?.gold ?? 0
+
+/** Take a sold item back for what the merchant paid. */
+export const buyBackItem = (id: string): boolean => {
+  const at = buyBack.findIndex(b => b.id === id)
+  const sold = buyBack[at]
+  if (!sold || !ITEM_BY_ID[id] || owns(id) || profile.gold < sold.gold) return false
+  profile.gold -= sold.gold
+  profile.inv.items.push(id)
+  buyBack.splice(at, 1)
+  saveProfile()
+  return true
+}
+
+/** The visit is over: what was sold stays sold. */
+export const clearBuyBack = (): void => {
+  buyBack.length = 0
 }
 
 /** A fourth and fifth potion, sold by the healers. */

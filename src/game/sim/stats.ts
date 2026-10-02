@@ -8,7 +8,7 @@ import type { DamageType, UnitStats } from './types'
  * ─── Derived stats ───────────────────────────────────────────────────────────
  *
  * The hero's combat stats from the three things the player builds with:
- * attribute points, the five equipped items and the three equipped passives
+ * attribute points, the eight equipped items and the three equipped passives
  * (GDD §4.1). Pure: the same function feeds the fight, the character sheet's
  * preview ("what would +1 STR give me") and the balance tests.
  */

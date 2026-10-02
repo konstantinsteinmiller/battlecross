@@ -360,7 +360,8 @@ export class Vfx {
   impact(o: ImpactOpts): void {
     const ps = this.particles
     const sp = this.sprites
-    const col = o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : TYPE_COLOR[o.type]
+    // A plain blow is drawn warm, not white: white is nothing at all on snow.
+    const col = o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : o.type === 'physical' || o.type === 'true' ? '#ffe9a0' : TYPE_COLOR[o.type]
     if (o.dot) { this.tick(o, col); return }
     const k = (o.crit ? 1.5 : o.heavy ? 1.22 : 1) * Math.min(1.5, Math.max(0.85, 0.7 + o.size * 0.55))
     if (this.impactsLeft <= 0) { ps.flash(o.x, o.y, o.z, col, 1.1 * k, 0.1); return }
@@ -381,12 +382,12 @@ export class Vfx {
         if (blow === 'slash') {
           // The cut: a hard-edged mark across the blow, and sparks thrown off it.
           const tilt = rnd() * 1.4
-          sp.emit({ x, y, z, dx: px, dy: tilt, dz: pz, color: col, size: 1.05 * k, sizeEnd: 1.4 * k, aspect: 0.5, life: 0.18, shape: SHAPE.slash, hold: 0.45 })
+          sp.emit({ x, y, z, dx: px, dy: tilt, dz: pz, color: col, size: 1.05 * k, sizeEnd: 1.4 * k, aspect: 0.5, life: 0.18, shape: SHAPE.slash, hold: 0.45, add: 0.6 })
           if (o.crit) sp.emit({ x, y, z, dx: px, dy: -tilt - 0.8, dz: pz, color: '#ffd700', size: 1.15 * k, sizeEnd: 1.5 * k, aspect: 0.5, life: 0.2, shape: SHAPE.slash, hold: 0.45 })
           this.spray(o, this.n(o.heavy ? 9 : 6), 8 * k, col, 0.8)
         } else if (blow === 'blunt') {
           // A star where it landed, a ring of dust kicked off the ground.
-          sp.emit({ x, y, z, color: col, size: 0.95 * k, sizeEnd: 1.45 * k, rot: Math.random() * 1.6, life: 0.15, shape: SHAPE.star, hold: 0.4 })
+          sp.emit({ x, y, z, color: col, size: 0.95 * k, sizeEnd: 1.45 * k, rot: Math.random() * 1.6, life: 0.15, shape: SHAPE.star, hold: 0.4, add: 0.6 })
           sp.emit({ x, y: 0.12, z, dx: 1, dy: 0, dz: 0, color: '#f0e4cc', size: 0.6 * k, sizeEnd: 2.0 * k, aspect: 0.5, life: 0.28, shape: SHAPE.ring, add: 0.3 })
           for (let i = 0; i < this.n(5); i++) {
             const a = Math.random() * Math.PI * 2
@@ -395,7 +396,7 @@ export class Vfx {
           this.spray(o, this.n(4), 6 * k, col, 1.2, 0.24)
         } else {
           // The point: a needle straight through, and little else.
-          sp.emit({ x, y, z, dx: dx || 1, dy: 0, dz, color: col, size: 1.4 * k, sizeEnd: 1.9 * k, life: 0.12, shape: SHAPE.needle, hold: 0.5 })
+          sp.emit({ x, y, z, dx: dx || 1, dy: 0, dz, color: col, size: 1.4 * k, sizeEnd: 1.9 * k, life: 0.12, shape: SHAPE.needle, hold: 0.5, add: 0.6 })
           sp.emit({ x, y, z, color: '#ffffff', size: 0.25 * k, sizeEnd: 0.7 * k, life: 0.15, shape: SHAPE.ring })
           this.spray(o, this.n(4), 11 * k, col, 0.25, 0.4, 1)
         }

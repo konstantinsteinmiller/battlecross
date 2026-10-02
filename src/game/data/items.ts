@@ -9,20 +9,32 @@ import type { Mods } from './mods'
  * location. Nothing is rolled: an Iron Broadsword is the same sword for every
  * player, which is what lets a quest or a boss promise a specific reward.
  *
- * Five equipment slots: main hand, off hand, body, and two trinkets.
+ * And the eighteen pieces of decision D39 (helmets, gloves and boots), which
+ * the GDD's tables do not have: six per slot, one per tier, in the tables'
+ * own naming and at a share of a body armour's budget (see the section below).
+ *
+ * Eight equipment slots: main hand, off hand, head, body, hands, feet and two
+ * trinkets.
  */
 
-export type ItemSlot = 'main' | 'off' | 'body' | 'trinket'
-export type EquipSlot = 'main' | 'off' | 'body' | 'trinket1' | 'trinket2'
-export const EQUIP_SLOTS: readonly EquipSlot[] = ['main', 'off', 'body', 'trinket1', 'trinket2']
+export type ItemSlot = 'main' | 'off' | 'head' | 'body' | 'hands' | 'feet' | 'trinket'
+export type EquipSlot = 'main' | 'off' | 'head' | 'body' | 'hands' | 'feet' | 'trinket1' | 'trinket2'
+export const EQUIP_SLOTS: readonly EquipSlot[] = ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket1', 'trinket2']
 
 export const slotOf = (e: EquipSlot): ItemSlot => (e === 'trinket1' || e === 'trinket2' ? 'trinket' : e)
+
+/** Every slot empty: a bare hero, a build to fill in. */
+export const noGear = (): Record<EquipSlot, string | null> =>
+  ({ main: null, off: null, head: null, body: null, hands: null, feet: null, trinket1: null, trinket2: null })
 
 /** What the item looks like in the hand / on the body, and its icon. */
 export type ItemKind =
   | 'sword' | 'dagger' | 'greatsword' | 'axe' | 'hammer' | 'staff' | 'wand' | 'gun' | 'cannon'
   | 'shield' | 'tome' | 'orb' | 'syringe' | 'battery'
   | 'robe' | 'leather' | 'plate'
+  | 'hood' | 'cap' | 'helm' | 'greathelm' | 'circlet' | 'hat'
+  | 'gloves' | 'gauntlets'
+  | 'boots' | 'greaves'
   | 'ring' | 'charm' | 'hourglass' | 'heart'
 
 export type ZoneId =
@@ -95,6 +107,38 @@ export const ITEMS: readonly ItemDef[] = [
   { id: 'dragonscaleHauberk', slot: 'body', kind: 'plate', tier: 5, level: 25, mods: { str: 55, end: 40 }, armor: 140, drop: { zone: 'peak', src: 'boss' } },
   { id: 'vestmentsOfSovereign', slot: 'body', kind: 'robe', tier: 6, level: 28, mods: { cha: 60, int: 50 }, armor: 110, drop: { zone: 'fortress', src: 'chest' } },
   { id: 'armorOfTheTitan', slot: 'body', kind: 'plate', tier: 6, level: 30, mods: { str: 85, end: 85 }, armor: 220, drop: { zone: 'rift', src: 'boss' } },
+
+  // ── Head, hands and feet (D39) ───────────────────────────────────────────
+  //
+  // Not in the GDD's tables. One piece per slot per tier, so the three slots
+  // together are worth about ONE more body armour of the tier: head 35 %,
+  // hands 30 %, feet 35 % of its attribute points, and (plate) of its armour.
+  // A piece that is not plate trades the armour for a small percentage.
+  //   head:  defence, mana, a sharper eye       (helms are plate, hoods and caps leather, circlets and hats cloth)
+  //   hands: attack speed, criticals            (gauntlets are plate, gloves leather or cloth)
+  //   feet:  move speed, dodge, standing firm   (greaves are plate, boots leather or cloth)
+  // Their armour is a modifier (`mods.armor`), not an Armor Value: STR's
+  // heavy-armour affinity stays the body's own.
+  { id: 'quiltedCap', slot: 'head', kind: 'cap', tier: 1, level: 2, mods: { end: 2, armor: 4 }, drop: { zone: 'hollows', src: 'mob' } },
+  { id: 'stalkersHood', slot: 'head', kind: 'hood', tier: 2, level: 7, mods: { dex: 4, skl: 2, critChance: 0.02 }, unique: true, drop: { zone: 'woods', src: 'chest' } },
+  { id: 'ironcladHelm', slot: 'head', kind: 'helm', tier: 3, level: 12, mods: { end: 8, str: 5, armor: 18 }, drop: { zone: 'crags', src: 'mob' } },
+  { id: 'seersCirclet', slot: 'head', kind: 'circlet', tier: 4, level: 18, mods: { int: 14, cha: 6, maxMana: 40 }, unique: true, drop: { zone: 'temple', src: 'chest' } },
+  { id: 'wyrmguardGreathelm', slot: 'head', kind: 'greathelm', tier: 5, level: 24, mods: { end: 18, str: 12, armor: 44 }, drop: { zone: 'peak', src: 'mob' } },
+  { id: 'hatOfTheStarweaver', slot: 'head', kind: 'hat', tier: 6, level: 28, mods: { int: 30, skl: 18, cdr: 0.06 }, unique: true, drop: { zone: 'fortress', src: 'chest' } },
+
+  { id: 'hideGloves', slot: 'hands', kind: 'gloves', tier: 1, level: 3, mods: { dex: 1, skl: 1, attackSpeed: 0.02 }, unique: true, drop: { zone: 'hollows', src: 'chest' } },
+  { id: 'ironGauntlets', slot: 'hands', kind: 'gauntlets', tier: 2, level: 8, mods: { str: 4, end: 2, armor: 7 }, drop: { zone: 'outskirts', src: 'mob' } },
+  { id: 'emberweaveGloves', slot: 'hands', kind: 'gloves', tier: 3, level: 13, mods: { int: 10, spellCrit: 0.03 }, unique: true, drop: { zone: 'crags', src: 'chest' } },
+  { id: 'duelistsGrips', slot: 'hands', kind: 'gloves', tier: 4, level: 19, mods: { dex: 12, skl: 6, attackSpeed: 0.05 }, unique: true, drop: { zone: 'tundra', src: 'mob' } },
+  { id: 'voidforgedGauntlets', slot: 'hands', kind: 'gauntlets', tier: 5, level: 22, mods: { str: 14, end: 8, armor: 34, critDamage: 0.08 }, unique: true, drop: { zone: 'citadel', src: 'chest' } },
+  { id: 'gripsOfTheTempest', slot: 'hands', kind: 'gloves', tier: 6, level: 29, mods: { dex: 24, skl: 18, attackSpeed: 0.1, critChance: 0.04 }, unique: true, drop: { zone: 'fortress', src: 'boss' } },
+
+  { id: 'trailBoots', slot: 'feet', kind: 'boots', tier: 1, level: 1, mods: { end: 1, moveSpeed: 0.03 }, unique: true, drop: { zone: 'plains', src: 'mob' } },
+  { id: 'pathfindersBoots', slot: 'feet', kind: 'boots', tier: 2, level: 9, mods: { dex: 5, moveSpeed: 0.04, dodge: 0.02 }, unique: true, drop: { zone: 'outskirts', src: 'chest' } },
+  { id: 'forgeplateGreaves', slot: 'feet', kind: 'greaves', tier: 3, level: 14, mods: { end: 9, str: 5, armor: 16, stunDurationCut: 0.1 }, unique: true, drop: { zone: 'mines', src: 'chest' } },
+  { id: 'mistwalkerBoots', slot: 'feet', kind: 'boots', tier: 4, level: 17, mods: { int: 12, end: 6, moveSpeed: 0.05 }, unique: true, drop: { zone: 'temple', src: 'mob' } },
+  { id: 'stormstrideGreaves', slot: 'feet', kind: 'greaves', tier: 5, level: 23, mods: { end: 14, str: 14, armor: 40, moveSpeed: 0.04 }, unique: true, drop: { zone: 'citadel', src: 'mob' } },
+  { id: 'treadsOfTheHorizon', slot: 'feet', kind: 'boots', tier: 6, level: 30, mods: { dex: 26, end: 20, moveSpeed: 0.1, dodge: 0.08 }, unique: true, drop: { zone: 'rift', src: 'boss' } },
 
   // ── Trinkets & rings ──────────────────────────────────────────────────────
   { id: 'copperBand', slot: 'trinket', kind: 'ring', tier: 1, level: 2, mods: { strOrDex: 3, moveSpeed: 0.02 }, unique: true, drop: { zone: 'plains', src: 'chest' } },

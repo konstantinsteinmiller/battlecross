@@ -80,7 +80,7 @@ export const artTarget = (kind: ArtKind, id: string): string => `images/${kind}/
 
 // ─── Blurbs: WHAT IT IS, in material and shape ───────────────────────────────
 //
-// 44 items share 21 kind glyphs, so the blurb is what tells two swords apart.
+// 62 items share 31 kind glyphs, so the blurb is what tells two swords apart.
 // Two rules, both learned from returns that could not be used:
 //   · every noun is a thing the painter draws, so no lore nouns and no
 //     metaphors ("heart of the mountain" paints a heart, "dragon smasher" a
@@ -125,6 +125,27 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
   dragonscaleHauberk: 'a breastplate covered in rows of large overlapping rounded scales, with short scaled shoulder plates and one round boss on the chest',
   vestmentsOfSovereign: 'a long ceremonial cloth robe with wide short sleeves, a deep V collar, a broad gold trim band down the front and a gold hem',
   armorOfTheTitan: 'a massive, thick-plated breastplate of gold-edged steel with large rounded shoulder plates, a raised centre ridge and one large round boss on the chest',
+  // Head: seen from the front, never on a head (a face is a subject of its own)
+  quiltedCap: 'a round, close-fitting skullcap of quilted cloth with diamond stitching, a thick rolled brim band and a small round button on top',
+  stalkersHood: 'an empty soft cloth hood seen from the front: a pointed peak, a deep dark oval opening where a face would be, and two short ties hanging at the bottom',
+  ironcladHelm: 'an empty open-faced steel helmet seen from the front: a round dome with a centre ridge, a riveted brow band, a short stubby crest block on top and a narrow gap down the front',
+  seersCirclet: 'a thin gold headband seen from the front, rising to a point in the middle that holds one large diamond-cut stone, with one tiny round stone on each side',
+  wyrmguardGreathelm: 'an empty closed bucket-shaped steel helmet seen from the front: a flat-topped barrel with one dark T-shaped slit, a centre ridge and two round rivets on the cheeks',
+  hatOfTheStarweaver: 'a tall pointed cloth hat with a wide round brim, its tip bent slightly to one side, a broad gold band around the base of the cone and one small four-pointed star on the cone',
+  // Hands: ONE glove, fingers up, nothing inside it
+  hideGloves: 'one empty mitten of rough brown leather seen from the back, fingers up: a rounded hand, a separate thumb, two stitched seam lines and a wide turned-back cuff',
+  ironGauntlets: 'one empty iron plate gauntlet seen from the back, fingers up: a boxy hand of riveted plates with a knuckle band, a separate thumb plate and a wide flared wrist cuff',
+  emberweaveGloves: 'one empty fine cloth glove seen from the back, fingers up: a slim rounded hand, a separate thumb, a wide cuff with a pale trim line and one small flame-shaped patch stitched on the back of the hand',
+  duelistsGrips: 'one empty fitted glove of dark leather seen from the back, fingers up: a rounded hand with a padded knuckle strip, a separate thumb and a narrow buckled wrist strap',
+  voidforgedGauntlets: 'one empty heavy plate gauntlet of dark steel seen from the back, fingers up: thick layered plates, a studded knuckle band, a separate thumb plate and a long flared cuff with a bright rim',
+  gripsOfTheTempest: 'one empty ornate leather glove seen from the back, fingers up: a rounded hand with gold stitching, a separate thumb, one small lightning-bolt plate on the back of the hand and a wide gold-edged cuff',
+  // Feet: ONE boot from the side, toe to the right
+  trailBoots: 'one worn ankle boot of soft brown leather seen from the side, toe pointing right: a rounded toe, a folded cuff, a thick dark sole and one creased seam at the ankle',
+  pathfindersBoots: 'one calf-high leather boot seen from the side, toe pointing right: a folded cuff, two small buckled straps across the shin and a thick dark sole',
+  forgeplateGreaves: 'one armoured steel boot seen from the side, toe pointing right: banded shin plates, a flared knee guard on top, a rounded steel toe cap and a thick dark sole',
+  mistwalkerBoots: 'one soft cloth boot seen from the side, toe pointing right: a slim toe curling slightly up, a wide cuff with a pale trim band, cloth wrappings around the ankle and a thin sole',
+  stormstrideGreaves: 'one heavy armoured steel boot seen from the side, toe pointing right: thick overlapping shin plates, a large pointed knee guard, one small fin-shaped flange at the heel and a thick dark sole',
+  treadsOfTheHorizon: 'one ornate tall leather boot seen from the side, toe pointing right: gold edging along the cuff and the sole, one small wing-shaped ornament at the ankle and a gold toe cap',
   // Trinkets
   copperBand: 'a plain, slightly dented copper finger ring set with one small rough-cut stone on top',
   ringOfMending: 'a smooth gold finger ring set with one round polished stone on top, held by four tiny claws',
@@ -344,6 +365,10 @@ const main = ITEMS.filter(i => i.slot === 'main')
 const off = ITEMS.filter(i => i.slot === 'off')
 const body = ITEMS.filter(i => i.slot === 'body')
 const trinkets = ITEMS.filter(i => i.slot === 'trinket')
+// Helmets, gloves and boots (D39): eighteen pieces on two sheets, a slot never split across them.
+const head = ITEMS.filter(i => i.slot === 'head')
+const hands = ITEMS.filter(i => i.slot === 'hands')
+const feet = ITEMS.filter(i => i.slot === 'feet')
 
 const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
   stem, title, kind: 'items', doc: 'PROMPTS-ITEMS.md', cols: 4, rows: 3, maxEdge: 192, crop: 1, anchor: 'centre',
@@ -385,6 +410,8 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-arms', 'Item icons: top weapons and off-hands', [...main.slice(12), ...off]),
   itemSet('sheet-items-armor', 'Item icons: body armour', body),
   itemSet('sheet-items-trinkets', 'Item icons: trinkets', trinkets),
+  itemSet('sheet-items-headgear', 'Item icons: headgear and gloves', [...head, ...hands]),
+  itemSet('sheet-items-boots', 'Item icons: boots', feet),
   ...CLASS_IDS.map(skillSet),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),

@@ -51,10 +51,13 @@ void main() {
   // Two tones: a white core hugging the outer edge, the colour behind it.
   float core = smoothstep(0.62, 0.7, w - u * 0.25) * (1.0 - smoothstep(0.35, 0.8, u));
   float fade = 1.0 - smoothstep(0.55, 1.0, u);
-  vec3 col = mix(vColor.rgb, vec3(1.0), core);
-  float a = body * fade * vColor.a * mix(0.72, 1.0, core);
-  // Premultiplied, a little additive: it glows on dark ground and still reads on snow.
-  gl_FragColor = vec4(col * a, a * 0.8);
+  // A darker line of the same colour along both edges: on snow, where a white
+  // core is white on white, it is the edges that draw the swoosh.
+  float ink = max(smoothstep(0.93, 0.97, w), 1.0 - smoothstep(inner + 0.06, inner + 0.16, w)) * (1.0 - core);
+  vec3 col = mix(mix(vColor.rgb, vColor.rgb * 0.45, ink * 0.8), vec3(1.0), core);
+  float a = body * fade * vColor.a * mix(0.8, 1.0, max(core, ink));
+  // Premultiplied, a little additive: it glows on dark ground and still covers on snow.
+  gl_FragColor = vec4(col * a, a * mix(0.85, 1.0, ink));
   #include <colorspace_fragment>
 }
 `
@@ -85,6 +88,7 @@ const upload = (a: BufferAttribute, n: number): void => {
 const _base = new Vector3()
 const _tip = new Vector3()
 const _c = new Color()
+const _hsl = { h: 0, s: 0, l: 0 }
 
 /** Catmull-Rom through p1..p2 (p0, p3 are the neighbours). */
 const cr = (p0: number, p1: number, p2: number, p3: number, t: number): number => {
@@ -166,7 +170,9 @@ export class Trails {
     _tip.set(0, 0, reach * (heavy ? 1.08 : 1)).applyMatrix4(m)
     _base.set(0, 0, reach * edge).applyMatrix4(m)
     const t = this.slot(key)
-    _c.set(color)
+    // Vivid whatever it was given: a pale weapon colour would vanish on a pale ground.
+    _c.set(color).getHSL(_hsl)
+    _c.setHSL(_hsl.h, Math.min(1, _hsl.s * 1.35 + 0.1), Math.min(0.62, Math.max(0.5, _hsl.l)))
     t.r = _c.r
     t.g = _c.g
     t.b = _c.b

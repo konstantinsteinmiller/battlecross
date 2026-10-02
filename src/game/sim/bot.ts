@@ -1,7 +1,7 @@
 import { startAttrs, ATTRS, type Attr, type AttrBlock } from '../data/attributes'
 import { POINTS_PER_LEVEL } from '../data/attributes'
 import { SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
-import { ITEMS, type EquipSlot, type ZoneId } from '../data/items'
+import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
 import { castSkill, createHero, orderAttack, orderMove, slotState, useManaPotion, usePotion } from './hero'
@@ -52,13 +52,13 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
   attrs[a] += Math.ceil(points * 0.6)
   attrs[b] += Math.floor(points * 0.3)
   attrs.end += points - Math.ceil(points * 0.6) - Math.floor(points * 0.3)
-  const equipped: Record<EquipSlot, string | null> = { main: null, off: null, body: null, trinket1: null, trinket2: null }
+  const equipped = noGear()
   if (o.geared !== false) {
     const score = (id: string): number => {
       const it = ITEMS.find(i => i.id === id)!
       return (it.mods[a] ?? 0) * 2 + (it.mods[b] ?? 0) + (it.mods.end ?? 0) * 0.5 + (it.armor ?? 0) * 0.2 + it.tier
     }
-    const best = (slot: string, skip?: string | null): string | null => {
+    const best = (slot: ItemSlot, skip?: string | null): string | null => {
       const pool = ITEMS.filter(i => i.slot === slot && i.level <= o.level && i.id !== skip)
       // A weapon must be one the class's attribute actually swings.
       const fit = slot === 'main' ? pool.filter(i => i.weapon?.scale === a || i.weapon?.scale === b) : pool
@@ -67,7 +67,10 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
     }
     equipped.main = best('main')
     equipped.off = best('off')
+    equipped.head = best('head')
     equipped.body = best('body')
+    equipped.hands = best('hands')
+    equipped.feet = best('feet')
     equipped.trinket1 = best('trinket')
     equipped.trinket2 = best('trinket', equipped.trinket1)
   }

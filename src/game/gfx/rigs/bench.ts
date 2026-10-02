@@ -4,6 +4,7 @@ import {
 import { updateCelFrame } from '../cel'
 import { makeBlobShadow } from '../markers'
 import { Trails } from '../trails'
+import { EQUIP_SLOTS, type EquipSlot } from '../../data/items'
 import type { Action, Unit } from '../../sim/types'
 import { animate } from './anim'
 import { LOOKS, heroLook } from './looks'
@@ -58,6 +59,10 @@ export interface Bench {
 
 const GROUND = '#6fae5a'
 
+/** The hero in a starter sword and nothing else (whatever slots the game has). */
+const starter = (): Record<EquipSlot, string | null> =>
+  ({ ...(Object.fromEntries(EQUIP_SLOTS.map(s => [s, null])) as Record<EquipSlot, string | null>), main: 'rustedShortsword' })
+
 const fakeUnit = (id: number, o: { style: 'melee' | 'ranged' | 'magic'; heavy: boolean; dual: boolean }): Unit => ({
   id, kind: 'hero', team: 0, rank: 'hero', level: 1, x: 0, z: 0, px: 0, pz: 0, vx: 0, vz: 0, facing: 0, r: 0.45, h: 1.45,
   hp: 10, mana: 0, shield: 0, shieldT: 0, alive: true, deadT: 0,
@@ -104,7 +109,7 @@ export const mountBench = (host: HTMLElement): Bench => {
   }
 
   const lookOf = (o: { look: string; held?: Held; off?: OffHand }): Look => {
-    const base = o.look === 'hero' ? heroLook({ main: 'rustedShortsword', off: null, body: null, trinket1: null, trinket2: null }) : LOOKS[o.look] ?? LOOKS.bandit!
+    const base = o.look === 'hero' ? heroLook(starter()) : LOOKS[o.look] ?? LOOKS.bandit!
     return { ...base, held: o.held ?? base.held, off: o.off ?? base.off }
   }
 
@@ -247,7 +252,7 @@ export const mountBench = (host: HTMLElement): Bench => {
     gear() {
       clear()
       liveOpts = null
-      const base = heroLook({ main: 'rustedShortsword', off: null, body: null, trinket1: null, trinket2: null })
+      const base = heroLook(starter())
       const heads: HeadGear[] = ['short', 'hood', 'leathercap', 'helm', 'greathelm', 'circlet', 'hat', 'wizard', 'cap']
       const kinds: GearKind[] = ['none', 'cloth', 'leather', 'plate']
       const tiers = ['#c9a24a', '#5fd08a', '#5f9fff', '#b06aff']

@@ -1,0 +1,95 @@
+// ─── The big screens' shared surfaces (D38 to D41) ───────────────────────────
+//
+// Emits no CSS of its own: `@use '@/components/game/screen'` in a component of
+// the trade table or the hero's book and call these. Everything reads the
+// tokens in `theme.sass`.
+@use '@/assets/css/cel'
+
+/// The ink set on parchment (what `FModal` gives its page).
+@mixin on-paper
+  --bc-on: var(--bc-paper-ink)
+  --bc-on-soft: var(--bc-paper-ink-soft)
+  --bc-on-mute: var(--bc-paper-ink-soft)
+  --bc-on-accent: var(--bc-gold-deep)
+  --bc-on-good: var(--bc-green-deep)
+  --bc-on-bad: var(--bc-red-lo)
+  --bc-cell: rgba(var(--bc-paper-ink-rgb), 0.11)
+  --bc-cell-alt: rgba(var(--bc-paper-ink-rgb), 0.05)
+  --bc-rule: rgba(var(--bc-paper-ink-rgb), 0.24)
+  color: var(--bc-paper-ink)
+
+/// A parchment page: an ink outline, a lit band along the top, a lip at the foot.
+@mixin page($r: var(--bc-r-lg))
+  +on-paper
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: $r
+  background: linear-gradient(180deg, var(--bc-paper-hi) 0, var(--bc-paper-hi) 0.45rem, var(--bc-paper) 0.45rem, var(--bc-paper) calc(100% - 0.4rem), var(--bc-paper-lo) calc(100% - 0.4rem), var(--bc-paper-lo) 100%)
+  box-shadow: var(--bc-drop-soft)
+
+/// A dark plate that sets light lettering: a shelf, the bag, a strip of stats.
+/// `$tone`: wood, slate or leather.
+@mixin plate($tone: 'wood', $r: var(--bc-r-lg))
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: $r
+  background: linear-gradient(180deg, var(--bc-#{$tone}-hi) 0, var(--bc-#{$tone}-hi) 0.4rem, var(--bc-#{$tone}) 0.4rem, var(--bc-#{$tone}) calc(100% - 0.4rem), var(--bc-#{$tone}-lo) calc(100% - 0.4rem), var(--bc-#{$tone}-lo) 100%)
+  box-shadow: var(--bc-drop-soft)
+  color: var(--bc-text)
+
+/// A caption over a group: small capitals with an ink outline (set on art).
+@mixin caption
+  margin: 0
+  +cel.label
+  font-size: clamp(0.66rem, 2.7vmin, 0.86rem)
+  font-weight: inherit
+  line-height: 1.1
+  letter-spacing: 0.06em
+  text-transform: uppercase
+  text-shadow: var(--bc-text-outline-thin)
+
+/// A small two-tone tag: a price, a level, a count.
+@mixin tag($tone: 'stone')
+  +cel.tone($tone)
+  display: inline-flex
+  align-items: center
+  gap: 0.25em
+  padding: 0.1em 0.5em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  +cel.fill(48%, 100%)
+  +cel.label
+  font-size: clamp(0.62rem, 2.5vmin, 0.8rem)
+  line-height: 1.25
+  white-space: nowrap
+  text-shadow: var(--bc-text-outline-thin)
+
+/// A button that is a bare picture (a cell, a socket): no chrome of its own.
+@mixin bare-button
+  position: relative
+  display: block
+  margin: 0
+  padding: 0
+  border: 0
+  background: none
+  color: inherit
+  font: inherit
+  cursor: pointer
+  touch-action: manipulation
+  user-select: none
+  -webkit-user-select: none
+  -webkit-touch-callout: none
+  -webkit-tap-highlight-color: transparent
+  +cel.focus-ring
+
+/// "This is the one": a white ring and a gold glow round the chosen thing.
+@mixin chosen
+  outline: 3px solid var(--bc-white)
+  outline-offset: 1px
+  box-shadow: var(--bc-glow-gold)
+
+/// A page that scrolls inside the screen.
+@mixin scroller
+  min-height: 0
+  overflow-y: auto
+  overscroll-behavior: contain
+  -webkit-overflow-scrolling: touch
+  +cel.scrollbar

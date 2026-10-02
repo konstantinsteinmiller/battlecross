@@ -23,6 +23,11 @@ import { ZONES, ZONE_IDS } from './zones'
  * so its chests hold the Dread Fortress's.) An item the hero already owns becomes gold on
  * the way to the bag, exactly as a second copy from a kill does.
  *
+ * The list is derived, so a new piece is in its zone's chests the moment its
+ * drop names the zone: the helmets, gloves and boots of D39 are in every
+ * zone's table this way (the Void Rift's own piece is its boss's, so its
+ * chests hold the Dread Fortress's hat).
+ *
  * Nothing here is random: the table is data, and the visit's seed makes the
  * draws (`sim/interact.ts`).
  */
