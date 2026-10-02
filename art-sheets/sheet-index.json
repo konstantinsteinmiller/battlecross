@@ -2482,6 +2482,39 @@
       "bg": "opaque"
     },
     {
+      "id": "bg-ui-trade",
+      "file": "bg-ui-trade.png",
+      "title": "UI: the trade table backdrop",
+      "width": 1376,
+      "height": 768,
+      "target": "images/ui/bg-trade.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "bg-ui-inventory",
+      "file": "bg-ui-inventory.png",
+      "title": "UI: the equipment backdrop",
+      "width": 1376,
+      "height": 768,
+      "target": "images/ui/bg-inventory.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "bg-ui-skills",
+      "file": "bg-ui-skills.png",
+      "title": "UI: the skills backdrop",
+      "width": 1376,
+      "height": 768,
+      "target": "images/ui/bg-skills.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
       "id": "bg-ground",
       "file": "bg-ground.png",
       "title": "Texture: the ground detail",

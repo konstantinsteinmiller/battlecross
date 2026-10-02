@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**2 sliced · 7 need a repaint · 0 painted, unreceipted · 11 outstanding**
+**2 sliced · 7 need a repaint · 0 painted, unreceipted · 14 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -27,6 +27,9 @@ after painting or slicing anything.
 | ! | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | REPAINT — the old one is parked in `painted/stale/` |
 | · | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | not painted yet |
 | · | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | not painted yet |
+| · | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | not painted yet |
+| · | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | not painted yet |
+| · | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | not painted yet |
 | · | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | not painted yet |
 
 ## What the marks mean

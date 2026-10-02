@@ -1,4 +1,4 @@
-import { EQUIP_SLOTS, ITEM_BY_ID, slotOf, type EquipSlot } from '@/game/data/items'
+import { EQUIP_SLOTS, ITEM_BY_ID, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
 import type { AttrBlock } from '@/game/data/attributes'
 import { heroStats } from '@/game/sim/stats'
 import type { UnitStats } from '@/game/sim/types'
@@ -101,3 +101,12 @@ export const statsWith = (slot: EquipSlot, id: string | null): UnitStats => {
 
 /** The hero's stats with these attribute points instead of his own. */
 export const statsWithAttrs = (attrs: AttrBlock): UnitStats => heroStats(heroBuild(attrs))
+
+// ─── The bag's order ─────────────────────────────────────────────────────────
+
+/** Gear in body order: what is held, then head to foot, then the trinkets. */
+export const SLOT_ORDER: readonly ItemSlot[] = ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']
+
+/** By kind of gear, the best first within a kind. */
+export const bySlot = (a: ItemDef, b: ItemDef): number =>
+  SLOT_ORDER.indexOf(a.slot) - SLOT_ORDER.indexOf(b.slot) || b.tier - a.tier || b.level - a.level

@@ -4,6 +4,7 @@ import { SKILL_BY_ID } from '../data/skills'
 import type { Unit } from '../sim/types'
 import type { RigView } from './rigs'
 import { TYPE_COLOR, type Blow, type Vfx } from './vfx'
+import { groundAt } from './ground'
 
 /**
  * ─── What a unit's own motion leaves in the air ──────────────────────────────
@@ -75,14 +76,16 @@ export const trackUnit = (vfx: Vfx, v: RigView, u: Unit): void => {
         // Nothing was hit: the blade cut air.
         if (!v.fxHit) { vfx.trails.dim(key, 0.38); vfx.trails.dim(key + 1, 0.38) }
       } else if (tipOf(v, v.combo % 2 === 1 && v.set.dual && v.set.style === 'gun', _p)) {
-        if (u.s.atkStyle === 'magic') vfx.castFlash(_p.x, _p.y, _p.z, TYPE_COLOR[u.s.atkType] === '#ffffff' ? v.color : TYPE_COLOR[u.s.atkType])
+        // The pose is in the world; an effect's height is over the ground.
+        const py = _p.y - groundAt(_p.x, _p.z)
+        if (u.s.atkStyle === 'magic') vfx.castFlash(_p.x, py, _p.z, TYPE_COLOR[u.s.atkType] === '#ffffff' ? v.color : TYPE_COLOR[u.s.atkType])
         else if (v.held === 'bow' || v.held === 'sling') vfx.wind(_p.x - dx * 0.2, _p.z - dz * 0.2, _p.x + dx * 1.1, _p.z + dz * 1.1, '#ffffff')
-        else vfx.muzzle(_p.x, _p.y, _p.z, dx, dz, v.color, v.held === 'cannon' || v.family === 'turret' && u.kind === 'rocketTurret')
+        else vfx.muzzle(_p.x, py, _p.z, dx, dz, v.color, v.held === 'cannon' || v.family === 'turret' && u.kind === 'rocketTurret')
       }
     } else if (a.slot >= 0) {
       // A hero's skill leaves his hands in its own colour.
       const def = SKILL_BY_ID[a.id]
-      if (def && tipOf(v, false, _p)) vfx.castFlash(_p.x, _p.y, _p.z, def.color, def.cast >= 0.4)
+      if (def && tipOf(v, false, _p)) vfx.castFlash(_p.x, _p.y - groundAt(_p.x, _p.z), _p.z, def.color, def.cast >= 0.4)
     } else if (a.ability >= 0) {
       // An enemy's ability that is thrown, shot or called down.
       const k = a.id
@@ -90,7 +93,7 @@ export const trackUnit = (vfx: Vfx, v: RigView, u: Unit): void => {
         const def = ENEMY_BY_ID[u.kind]
         const col = def?.abilities[a.ability]?.color ?? def?.color ?? v.color
         if ((k === 'shot' || k === 'volley') && (v.held === 'bow' || v.held === 'sling')) vfx.wind(_p.x, _p.z, _p.x + dx * 1.2, _p.z + dz * 1.2, '#ffffff')
-        else vfx.castFlash(_p.x, _p.y, _p.z, col, u.rank === 'boss')
+        else vfx.castFlash(_p.x, _p.y - groundAt(_p.x, _p.z), _p.z, col, u.rank === 'boss')
       }
     }
   }

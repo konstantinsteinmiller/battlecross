@@ -357,6 +357,8 @@ const drag = useDrag<Held>({
   gap: clamp(0.4rem, 1.8vmin, 0.8rem)
   min-width: 0
   min-height: 0
+  align-self: start
+  max-height: 100%
   padding: clamp(0.5rem, 2.2vmin, 0.9rem)
   +screen.page
   container-type: inline-size
@@ -576,9 +578,12 @@ const drag = useDrag<Held>({
     touch-action: pan-y
   .codex
     flex: 0 0 auto
+    align-self: stretch
+    max-height: none
     overflow: visible
   .skills__card
     flex: 0 0 auto
+    align-self: stretch
     max-height: none
     overflow: visible
 

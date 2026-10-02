@@ -206,6 +206,7 @@ export default {
     'cha': { 'name': 'Charisma', 'short': 'CHA', 'desc': 'Minions, shop prices, rewards, dialogue options.' }
   },
   'stat': {
+    'damage': 'Damage',
     'health': 'Health',
     'mana': 'Mana',
     'armor': 'Armor',
@@ -222,7 +223,8 @@ export default {
   'sheet': {
     'points': '{n} points to spend',
     'raise': 'Raise {attr}',
-    'maxLevel': 'Highest level reached'
+    'maxLevel': 'Highest level reached',
+    'next': 'Next point:'
   },
 
   // ─── Skills ───────────────────────────────────────────────────────────────
@@ -234,7 +236,14 @@ export default {
     'emptySlot': 'Empty slot {n}',
     'equip': 'Slot it',
     'remove': 'Remove',
-    'unmet': 'You no longer meet its requirements.'
+    'unmet': 'You no longer meet its requirements.',
+    'how': 'Tap a skill, then a slot, or drag it there. Drag it off a slot to take it out.',
+    'howSlot': 'Now tap a slot to put it in.',
+    'classCount': '{cls}: {n} of {total} learned',
+    'hint': {
+      'met': 'Learn it from {name} in {place}.',
+      'unmet': 'A trainer in {place} teaches this.'
+    }
   },
   'class': {
     'aegis': { 'name': 'Aegis Knight', 'desc': 'Shield and holy steel. Takes the hits so nothing else has to.' },
@@ -476,18 +485,42 @@ export default {
   'bag': {
     'equip': 'Equip',
     'unequip': 'Take off',
-    'tooLow': 'Needs level {n}.'
+    'tooLow': 'Needs level {n}.',
+    'worn': 'You are wearing this. Take it off to sell it.',
+    'versus': 'Compared with {item}',
+    'hint': 'Tap an item to look at it. Tap it again, or drag it onto a slot, to wear it.',
+    'empty': 'Nothing of this kind in the bag.',
+    'slotEmpty': '{slot}: empty',
+    'slotHolds': '{slot}: {item}',
+    'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets' },
+    'sort': { 'slot': 'Type', 'tier': 'Tier', 'level': 'Level' },
+    'sortBy': 'Sort by: {by}'
   },
   'shop': {
     'buy': 'Buy',
     'sell': 'Sell',
     'owned': 'Owned',
-    'empty': 'Nothing on the shelves today.'
+    'empty': 'Nothing on the shelves today.',
+    'goods': 'For sale',
+    'price': 'Price',
+    'value': 'They pay',
+    'hint': 'Tap something on the shelf or in your bag to put it on the table, or drag it across.',
+    'buyBack': 'Sold today',
+    'buyBackOne': 'Buy back',
+    'deal': 'Deal!',
+    'say': {
+      'buy': 'A fine choice. Look after it.',
+      'sell': 'I will find it a good home.',
+      'back': 'Changed your mind? Here, as it was.',
+      'poor': 'Come back with a heavier purse.'
+    }
   },
   'trainer': {
     'learn': 'Learn',
     'known': 'Learned',
     'friend': '{faction} honours its friends: 20% off.',
+    'fee': 'Fee',
+    'hint': 'Choose a lesson. A green edge means you can learn it now.',
     'block': {
       'level': 'Your level is too low.',
       'attrs': 'Your attributes are too low.',
@@ -498,7 +531,14 @@ export default {
     'talk': 'Sit. Rest. You leave here whole, with every flask filled. If you want to carry more of them, that I can sell you.',
     'note': 'You carry {n} potions into every zone.',
     'buy': 'One more flask · {n}',
-    'full': 'Your belt holds all it can.'
+    'full': 'Your belt holds all it can.',
+    'belt': 'Potion belt',
+    'mana': {
+      'title': 'Mana potions',
+      'note': 'In stock: {n} of {max}. They stay with you between visits.',
+      'buy': 'One mana potion · {n}',
+      'full': 'Your stock is full.'
+    }
   },
   'faction': {
     'order': 'The Iron Order',

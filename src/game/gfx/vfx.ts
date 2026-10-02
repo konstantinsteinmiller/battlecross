@@ -1,6 +1,6 @@
 import {
   AdditiveBlending, CircleGeometry, Color, CylinderGeometry, DoubleSide, Group, Mesh, MeshBasicMaterial, NormalBlending,
-  PlaneGeometry, RingGeometry, SphereGeometry, type BufferGeometry, type Scene
+  PlaneGeometry, RingGeometry, SphereGeometry, Vector3, type BufferGeometry, type Scene
 } from 'three'
 import type { DamageType, Projectile, SimEvent, Telegraph, Unit } from '../sim/types'
 import { sceneQuality } from '../engine/quality'
@@ -8,6 +8,7 @@ import { Particles, SHAPE, Sprites } from './particles'
 import { Telegraphs } from './telegraphs'
 import { glowTexture, ringTexture } from './textures'
 import { Trails } from './trails'
+import { groundAt } from './ground'
 
 /**
  * ─── Effects ─────────────────────────────────────────────────────────────────
@@ -67,6 +68,9 @@ interface Pooled {
   dur: number
   active: boolean
 }
+
+const _n = new Vector3()
+const _zAxis = new Vector3(0, 0, 1)
 
 const basic = (additive: boolean, map = false): MeshBasicMaterial => new MeshBasicMaterial({
   color: 0xffffff, transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
@@ -145,6 +149,23 @@ export class Vfx {
 
   // ─── Primitives ────────────────────────────────────────────────────────────
 
+  /**
+   * Lay a flat mark (a ring, a disc) on the ground round (x, z): tilted to the
+   * slope across its radius and set `lift` above the higher of the centre and
+   * the rim, so a ring on a hillside neither floats off it nor cuts into it.
+   */
+  private lay(mesh: Mesh, x: number, z: number, r: number, lift: number): void {
+    const c = groundAt(x, z)
+    const rr = Math.max(0.4, r)
+    const ex = groundAt(x + rr, z)
+    const wx = groundAt(x - rr, z)
+    const sz = groundAt(x, z + rr)
+    const nz = groundAt(x, z - rr)
+    _n.set(-(ex - wx) / (2 * rr), 1, -(sz - nz) / (2 * rr)).normalize()
+    mesh.quaternion.setFromUnitVectors(_zAxis, _n)
+    mesh.position.set(x, Math.max(c, (ex + wx + sz + nz) / 4) + lift, z)
+  }
+
   ring(x: number, z: number, r0: number, r1: number, color: string, dur = 0.45, y = 0.06): void {
     let p = this.rings.find(q => !q.active)
     if (!p) {
@@ -162,7 +183,7 @@ export class Vfx {
     p.r0 = r0
     p.r1 = r1
     p.mat.color.set(color)
-    p.mesh.position.set(x, y, z)
+    this.lay(p.mesh, x, z, r1, y)
     p.mesh.visible = true
   }
 
@@ -206,7 +227,7 @@ export class Vfx {
     p.half = half
     p.breath = breath
     p.mat.color.set(color)
-    p.mesh.position.set(x, breath ? 0.5 : 0.7, z)
+    p.mesh.position.set(x, (breath ? 0.5 : 0.7) + groundAt(x, z), z)
     // The sector is cut around +Y in the XY plane. Laid flat (X by −90°) that
     // points at −Z, so a further half turn about Y brings it to heading 0 = +Z.
     p.mesh.rotation.set(-Math.PI / 2, a + Math.PI, 0, 'YXZ')
@@ -230,7 +251,7 @@ export class Vfx {
     p.r = r
     p.kind = kind
     p.mat.color.set(color)
-    p.mesh.position.set(x, 0.04, z)
+    this.lay(p.mesh, x, z, r, 0.04)
     p.mesh.scale.setScalar(r)
     p.mesh.visible = true
     return p
@@ -254,7 +275,7 @@ export class Vfx {
     p.dur = dur
     p.w = w
     p.mat.color.set(color)
-    p.mesh.position.set((x0 + x1) / 2, y, (z0 + z1) / 2)
+    p.mesh.position.set((x0 + x1) / 2, y + groundAt((x0 + x1) / 2, (z0 + z1) / 2), (z0 + z1) / 2)
     // Turned in its own plane first (Z), then laid flat: local +X runs A → B.
     p.mesh.rotation.set(-Math.PI / 2, 0, -Math.atan2(dz, dx), 'XYZ')
     p.mesh.scale.set(len, w * 2, 1)
@@ -276,7 +297,7 @@ export class Vfx {
     p.mat.color.set(color)
     p.mat.opacity = 1
     p.mesh.scale.setScalar(size)
-    p.mesh.position.set(x0, y0, z0)
+    p.mesh.position.set(x0, y0 + groundAt(x0, z0), z0)
     p.mesh.visible = true
   }
 
@@ -290,7 +311,7 @@ export class Vfx {
     }
     const m = d.fill.material as MeshBasicMaterial
     m.color.set(color)
-    d.fill.position.set(x, h / 2, z)
+    d.fill.position.set(x, h / 2 + groundAt(x, z), z)
     d.fill.scale.set(r * 0.8, h, r * 0.8)
     d.fill.visible = true
     d.pulse = h
@@ -766,7 +787,8 @@ export class Vfx {
       }
       // Lead the mesh by the part of a step the render is ahead of the sim.
       const lead = alpha * (1 / 60)
-      m.position.set(p.x + p.vx * lead, p.y, p.z + p.vz * lead)
+      // A shot's height is over the ground under it: it climbs a hill with the hill.
+      m.position.set(p.x + p.vx * lead, p.y + groundAt(p.x, p.z), p.z + p.vz * lead)
       if (Math.random() < dt * (this.low ? 30 : 70)) {
         this.particles.emit({
           x: m.position.x, y: p.y, z: m.position.z, vx: (Math.random() - 0.5) * 0.8, vy: 0.4 + Math.random() * 0.6, vz: (Math.random() - 0.5) * 0.8,
@@ -839,7 +861,7 @@ export class Vfx {
       const x = p.x0 + (p.x1 - p.x0) * k
       const z = p.z0 + (p.z1 - p.z0) * k
       const y = p.y0 + (p.y1 - p.y0) * k + Math.sin(k * Math.PI) * p.arc
-      p.mesh.position.set(x, y, z)
+      p.mesh.position.set(x, y + groundAt(x, z), z)
       this.particles.emit({ x, y, z, vx: (Math.random() - 0.5), vy: Math.random(), vz: (Math.random() - 0.5), color: p.trail, size: p.size * 1.6, sizeEnd: 0.05, life: 0.3 })
       if (k >= 1) { p.active = false; p.mesh.visible = false }
     }

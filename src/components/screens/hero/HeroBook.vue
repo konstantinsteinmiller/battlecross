@@ -1,5 +1,5 @@
 <template lang="pug">
-  ScreenShell.book(:art="ART[page]" :label="t(`menu.${page}`)" @close="closeModal")
+  ScreenShell(:art="ART[page]" :label="t(`menu.${page}`)" @close="closeModal")
     template(#lead)
       //- The book's three pages, as tabs standing on the top bar.
       nav.book__tabs(role="tablist")

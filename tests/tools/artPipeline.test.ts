@@ -93,12 +93,20 @@ describe('the manifest covers the game', () => {
     expect(ART_CATALOGUE.portraits).toHaveLength(22)
   })
 
-  it('the coin, the map and the ground are there, at their sizes', () => {
+  it('the coin, the map, the three screen backdrops and the ground are there, at their sizes', () => {
     expect(idsOf('single-ui-coin')).toEqual(['coin'])
     expect(SINGLES[0]!.maxEdge).toBe(64)
     expect(SCENERY.map(a => [a.stem, a.width, a.height, a.target, a.bg, a.tileable])).toEqual([
       ['bg-ui-map', 1376, 768, 'images/ui/map.webp', 'opaque', false],
+      // D45: the trade table, the equipment and the skills screens.
+      ['bg-ui-trade', 1376, 768, 'images/ui/bg-trade.webp', 'opaque', false],
+      ['bg-ui-inventory', 1376, 768, 'images/ui/bg-inventory.webp', 'opaque', false],
+      ['bg-ui-skills', 1376, 768, 'images/ui/bg-skills.webp', 'opaque', false],
       ['bg-ground', 512, 512, 'images/textures/ground.webp', 'opaque', true]
+    ])
+    // The screen's own name for it: what `UI_ART.get('bg-<name>')` looks up.
+    expect(SCENERY.filter(a => a.plate === 'screen').map(a => [a.screen!.name, a.target])).toEqual([
+      ['trade', 'images/ui/bg-trade.webp'], ['inventory', 'images/ui/bg-inventory.webp'], ['skills', 'images/ui/bg-skills.webp']
     ])
   })
 
@@ -117,11 +125,13 @@ describe('the manifest covers the game', () => {
       }
     }
     for (const a of SCENERY) {
-      expect(a.target).toMatch(new RegExp(`^images/(${folders.join('|')})/[A-Za-z0-9]+\\.webp$`))
+      // A backdrop's name may carry a dash (`bg-trade`): the file name is the id.
+      expect(a.target).toMatch(new RegExp(`^images/(${folders.join('|')})/[A-Za-z0-9]+(-[A-Za-z0-9]+)*\\.webp$`))
       expect(seen.has(a.target), `duplicate target ${a.target}`).toBe(false)
       seen.add(a.target)
     }
-    expect(seen.size).toBe(62 + 48 + 22 + 1 + 2)
+    // Items, skills, portraits, the coin; the map, the ground and the three screen backdrops.
+    expect(seen.size).toBe(62 + 48 + 22 + 1 + 2 + 3)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -261,6 +271,17 @@ describe('what a prompt says', () => {
     }
     expect(textOf('bg-ui-map')).toContain(STYLE_BACKDROP)
     expect(textOf('bg-ground')).toContain(STYLE_GREY)
+    // A screen's backdrop: the interface always covers its middle, so the
+    // objects stay at the sides and nothing in it may read as lettering or a button.
+    for (const stem of ['bg-ui-trade', 'bg-ui-inventory', 'bg-ui-skills']) {
+      const text = textOf(stem)
+      expect(text, stem).toContain(STYLE_BACKDROP)
+      expect(text, stem).toContain('THE CALM MIDDLE')
+      expect(text, stem).toContain('from 28% to 72% across')
+      expect(text, stem).toMatch(/no text, no letters/)
+      expect(text.split('\n')[2], stem).toMatch(/^WHAT COMES BACK IS /)
+      expect(text.split('\n').at(-1), stem).toMatch(/^OUTPUT: one image, 1376 x 768 pixels \(16:9/)
+    }
     // The map: the terrain is painted (roads and bare sites included); the
     // game draws its landmarks OVER the picture, so the sites stay empty.
     expect(textOf('bg-ui-map')).toMatch(/draws every landmark, every place marker and every name OVER this picture/)
@@ -377,8 +398,9 @@ describe('the prompt documents', () => {
             expect(pendingHeading, `${name}: a heading with no block before "${line}"`).toBe(false)
             pendingHeading = true
             mine++
-            // The last parenthesis ties the block to its reference image.
-            expect(line, name).toMatch(/\((?:sheet|single|bg)-[a-z0-9-]+\.png → images\/[A-Za-z0-9/.]+\)$/)
+            // The last parenthesis ties the block to its reference image (a
+            // backdrop's file name may carry a dash: `images/ui/bg-trade.webp`).
+            expect(line, name).toMatch(/\((?:sheet|single|bg)-[a-z0-9-]+\.png → images\/[A-Za-z0-9/.-]+\)$/)
             continue
           }
           const m = /^(`{3,})text$/.exec(line)

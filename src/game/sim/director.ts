@@ -5,6 +5,7 @@ import { applyStatus } from './combat'
 import { FINALE_BEAT, FINALE_WAIT, openChest, orderOpen, populateFeatures, stepPlates } from './interact'
 import { spawnEnemy, spawnMinion } from './spawn'
 import { plainStats } from './stats'
+import { spawnTownPeople } from './townLife'
 import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
 
@@ -63,7 +64,9 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
 }
 
 /** Put a town's people on the map (they never fight). */
-export const populateTown = (sim: Sim, plan: ZonePlan): void => {
+export const populateTown = (sim: Sim, plan: ZonePlan, o: { lite?: boolean; visit?: number } = {}): void => {
+  // A town's people go about their day (`townLife.ts`).
+  if (plan.town) { spawnTownPeople(sim, plan.town, o); return }
   for (const n of plan.npcs) {
     sim.addUnit({
       kind: n.look, team: 0, rank: 'npc', level: 1, x: n.x, z: n.z, r: 0.5, h: 1.45,

@@ -93,7 +93,8 @@ export const useDrag = <T>(opts: DragOptions<T>): {
     if (touch && !prefersReducedMotion()) { try { navigator.vibrate?.(10) } catch { /* not allowed */ } }
     opts.onStart?.(pending)
     // The ghost mounts with `state.active`: place it once it exists.
-    requestAnimationFrame(() => { place(); hit() })
+    const next = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : (fn: () => void) => window.setTimeout(fn, 16)
+    next(() => { place(); hit() })
   }
 
   const swallowClick = (e: Event): void => { e.stopPropagation(); e.preventDefault() }
@@ -124,7 +125,7 @@ export const useDrag = <T>(opts: DragOptions<T>): {
       if (touch) {
         // The finger is scrolling: this press is not a pick-up.
         if (far > HOLD_SLOP_PX) end()
-      } else if (far > MOVE_PX) begin()
+      } else if (far > MOVE_PX) { begin(); hit() }
       return
     }
     place()

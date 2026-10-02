@@ -159,19 +159,91 @@ export const ZONE_FEATURES: Readonly<Record<ZoneId, ZoneFeatures>> = {
 /** Waves the colosseum throws before it pays out. */
 export const ARENA_WAVES = 8
 
+// ─── The lie of the land (roadmap #57) ───────────────────────────────────────
+
+/**
+ * How a zone's ground rises and falls. Heights are cosmetic for the fight
+ * (no high-ground bonus, no fall damage); only a ledge's cliff edge changes
+ * where a body can walk, and every ledge has a ramp.
+ */
+export interface ZoneRelief {
+  /** Rolling ground everywhere, metres either way: nothing is dead flat. */
+  roll: number
+  /** How far the road rises or falls from one clearing to the next (metres),
+   *  and which way: `up` climbs to the finale, `down` delves, `mixed` both. */
+  climb: [number, number]
+  trend: 'up' | 'down' | 'mixed'
+  /** A ledge in a clearing (a cliff edge with a ramp): the chance per visit,
+   *  the most a visit has, and its height in metres. */
+  ledge: number
+  ledges: number
+  step: [number, number]
+  /** A raised dais the finale stands on (chance per visit). */
+  dais: number
+  /** Built terraces: cliffs of dressed stone and ramps of steps. */
+  stairs?: boolean
+}
+
+export const ZONE_RELIEF: Readonly<Record<ZoneId, ZoneRelief>> = {
+  plains: { roll: 0.32, climb: [0.2, 0.7], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0 },
+  hollows: { roll: 0.26, climb: [0.4, 1.0], trend: 'down', ledge: 0.55, ledges: 2, step: [1.1, 1.5], dais: 0.3 },
+  woods: { roll: 0.32, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.65, ledges: 1, step: [1.1, 1.4], dais: 0 },
+  outskirts: { roll: 0.3, climb: [0.2, 0.6], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0.2 },
+  crags: { roll: 0.26, climb: [0.6, 1.3], trend: 'up', ledge: 0.65, ledges: 2, step: [1.3, 1.7], dais: 0.4 },
+  mines: { roll: 0.16, climb: [0.5, 1.1], trend: 'down', ledge: 0.7, ledges: 2, step: [1.2, 1.6], dais: 0.3, stairs: true },
+  tundra: { roll: 0.46, climb: [0.2, 0.8], trend: 'mixed', ledge: 0.5, ledges: 1, step: [1.1, 1.4], dais: 0.3 },
+  temple: { roll: 0.1, climb: [0.4, 0.9], trend: 'up', ledge: 0.6, ledges: 2, step: [1.1, 1.4], dais: 0.7, stairs: true },
+  citadel: { roll: 0.16, climb: [0.4, 1.0], trend: 'up', ledge: 0.6, ledges: 2, step: [1.2, 1.5], dais: 0.6, stairs: true },
+  peak: { roll: 0.3, climb: [0.9, 1.5], trend: 'up', ledge: 0.7, ledges: 2, step: [1.4, 1.8], dais: 0.5 },
+  fortress: { roll: 0.1, climb: [0.5, 1.0], trend: 'up', ledge: 0.7, ledges: 2, step: [1.2, 1.5], dais: 0.8, stairs: true },
+  rift: { roll: 0.22, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
+}
+
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
 export type TownId = 'sunford' | 'oakhaven' | 'ironhold'
 
 export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'talk'
 
+/**
+ * Where a townsperson spends the day (roadmap #41, #42):
+ *   inside  in their house, at work in a furnished room the hero walks into;
+ *   porch   just in front of their house (a smith at the anvil before the forge);
+ *   yard    in the fenced yard beside their house (a training ground);
+ *   street  out in the square or the street, with no house of their own.
+ */
+export type NpcPlace = 'inside' | 'porch' | 'yard' | 'street'
+
+/** The kinds of house a town is built from (`gfx/houses.ts` draws each, and a
+ *  ruin of each). */
+export type HouseKind = 'cottage' | 'townhouse' | 'workshop' | 'tavern' | 'hall' | 'chapel'
+
+/** What a townsperson does with the day (their routine, `sim/townLife.ts`). */
+export type TownJob =
+  | 'smith' | 'merchant' | 'elder' | 'healer' | 'scholar' | 'knight' | 'rogue' | 'noble' | 'alchemist' | 'tinker'
+  | 'geo' | 'captain' | 'fence' | 'boss' | 'guard' | 'villager' | 'farmer' | 'child' | 'drinker' | 'survivor' | 'thug'
+  | 'miner'
+
+/** A town's character: what its houses are made of and how they are dressed. */
+export type TownStyle = 'rural' | 'mercantile' | 'mountain'
+
 export interface NpcDef {
   id: string
   role: NpcRole
   /** Rig look (see `gfx/rigs/humanoid.ts`). */
   look: string
-  /** Where it stands, in the town's own 0..1 square. */
+  /**
+   * Where they are, in the town's own 0..1 square: the door of their house
+   * (inside, porch, yard), or the spot they keep to (street). People who share
+   * a spot never stand in the same world state, and share a house.
+   */
   at: [number, number]
+  /** Where they spend the day (default: in the street). */
+  place?: NpcPlace
+  /** The house built for them (default: by role and place). */
+  house?: HouseKind
+  /** Their routine (default: by look and role). */
+  job?: TownJob
   /** Trainers: the class they teach. */
   cls?: ClassId
   /** Shops: what they stock. */
@@ -183,11 +255,36 @@ export interface NpcDef {
   not?: string[]
 }
 
+/** A townsperson with no part to play in the story: they make a town feel lived in. */
+export interface TownFolkDef {
+  id: string
+  look: string
+  job: TownJob
+  /** Where they spend the day, in the town's 0..1 square. */
+  at: [number, number]
+  /** Kept on a weak device (the others are left out first). */
+  lite?: boolean
+  needs?: string[]
+  not?: string[]
+}
+
+/** A house that is nobody's in particular: a landmark of the town (its tavern). */
+export interface TownHouseDef {
+  kind: HouseKind
+  /** Its door, in the town's 0..1 square. */
+  at: [number, number]
+}
+
 export interface TownDef {
   id: TownId
   /** The theme: a ruined town draws (and sounds) different. */
   theme: ThemeId
+  style: TownStyle
+  /** The world flag that leaves the town a ruin (its houses burnt, its people few). */
+  fallen?: string
   npcs: NpcDef[]
+  houses: TownHouseDef[]
+  folk: TownFolkDef[]
 }
 
 /**
@@ -199,51 +296,87 @@ export interface TownDef {
  *   oracleFreed / oracleSlain; dragonPact / dragonSlain.
  */
 export const TOWNS: Readonly<Record<TownId, TownDef>> = {
+  // Rural and warm: thatch and timber, gardens, a tavern at the head of the square.
   sunford: {
-    id: 'sunford', theme: 'town',
+    id: 'sunford', theme: 'town', style: 'rural',
     npcs: [
-      { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.24, 0.38], stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [1] } },
-      { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.74, 0.62], stock: { slots: ['trinket'], tiers: [1, 2] } },
-      { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.36, 0.2], cls: 'aegis' },
-      { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.68, 0.24], cls: 'pyro' },
-      { id: 'elderMara', role: 'quest', look: 'elder', at: [0.5, 0.42], quest: 'goblinKing' },
-      { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.2, 0.68] },
+      { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.2, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [1] } },
+      { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.6, 0.54], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [1, 2] } },
+      // The knight drills in his yard; the pyromancer keeps to her books.
+      { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.2, 0.15], place: 'yard', house: 'hall', cls: 'aegis' },
+      { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.8, 0.15], place: 'inside', house: 'hall', cls: 'pyro' },
+      { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },
+      { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.84, 0.48], place: 'inside', house: 'chapel' },
       // The pact's price and prize: goblins trading rarities in the square.
-      { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.82, 0.36], stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] }
+      { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.6, 0.3], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] }
+    ],
+    houses: [{ kind: 'tavern', at: [0.5, 0.15] }],
+    folk: [
+      { id: 'squire', look: 'squire', job: 'guard', at: [0.26, 0.15] },
+      { id: 'drinker', look: 'villager', job: 'drinker', at: [0.44, 0.24], lite: true },
+      { id: 'farmer', look: 'farmer', job: 'farmer', at: [0.3, 0.86] },
+      { id: 'washer', look: 'villagerF', job: 'villager', at: [0.72, 0.86], lite: true },
+      { id: 'kidA', look: 'child', job: 'child', at: [0.46, 0.62] },
+      { id: 'kidB', look: 'childF', job: 'child', at: [0.54, 0.62] }
     ]
   },
+  // Bigger and mercantile: two storeys, shop fronts, a fountain, the watch.
   oakhaven: {
-    id: 'oakhaven', theme: 'town',
+    id: 'oakhaven', theme: 'town', style: 'mercantile', fallen: 'oakhavenFallen',
     npcs: [
-      { id: 'captainHale', role: 'quest', look: 'captain', at: [0.5, 0.36], quest: 'siege', not: ['oakhavenFallen'] },
+      { id: 'captainHale', role: 'quest', look: 'captain', at: [0.82, 0.15], place: 'yard', house: 'hall', job: 'captain', quest: 'siege', not: ['oakhavenFallen'] },
       // Defended: a prosperous trade hub with high-tier armourers.
-      { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
-      { id: 'oakMasterArmorer', role: 'shop', look: 'smith', at: [0.26, 0.4], stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
-      { id: 'oakWeapons', role: 'shop', look: 'peddler', at: [0.74, 0.44], stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
-      { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.8, 0.7], cls: 'shadow' },
-      { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.18], cls: 'sovereign', not: ['oakhavenFallen'] },
-      { id: 'oakHealer', role: 'healer', look: 'healer', at: [0.2, 0.7], not: ['oakhavenFallen'] },
-      // Betrayed: a ruin with a black market, and the alchemist it shelters.
-      { id: 'blackMarket', role: 'shop', look: 'fence', at: [0.3, 0.46], stock: { slots: ['main', 'trinket'], tiers: [2, 3, 4] }, needs: ['oakhavenFallen'] },
-      { id: 'trainerBlood', role: 'trainer', look: 'trainerBlood', at: [0.62, 0.3], cls: 'blood', needs: ['oakhavenFallen'] },
-      { id: 'syndicateBoss', role: 'talk', look: 'fence', at: [0.5, 0.5], needs: ['oakhavenFallen'] }
+      { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
+      { id: 'oakMasterArmorer', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
+      { id: 'oakWeapons', role: 'shop', look: 'peddler', at: [0.3, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
+      { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.86, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
+      { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.15], place: 'inside', house: 'hall', cls: 'sovereign', not: ['oakhavenFallen'] },
+      { id: 'oakHealer', role: 'healer', look: 'healer', at: [0.18, 0.15], place: 'inside', house: 'chapel', not: ['oakhavenFallen'] },
+      // Betrayed: a ruin with a black market, and the alchemist it shelters in
+      // what was the healer's chapel.
+      { id: 'blackMarket', role: 'shop', look: 'fence', at: [0.36, 0.4], place: 'street', job: 'fence', stock: { slots: ['main', 'trinket'], tiers: [2, 3, 4] }, needs: ['oakhavenFallen'] },
+      { id: 'trainerBlood', role: 'trainer', look: 'trainerBlood', at: [0.18, 0.15], place: 'inside', house: 'chapel', cls: 'blood', needs: ['oakhavenFallen'] },
+      { id: 'syndicateBoss', role: 'talk', look: 'fence', at: [0.6, 0.42], place: 'street', job: 'boss', needs: ['oakhavenFallen'] }
+    ],
+    houses: [{ kind: 'tavern', at: [0.78, 0.76] }],
+    folk: [
+      { id: 'guardA', look: 'townGuard', job: 'guard', at: [0.88, 0.15], not: ['oakhavenFallen'] },
+      { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.5, 0.58], lite: true, not: ['oakhavenFallen'] },
+      { id: 'merchantF', look: 'merchantF', job: 'villager', at: [0.42, 0.5], lite: true, not: ['oakhavenFallen'] },
+      { id: 'drinker', look: 'villager', job: 'drinker', at: [0.72, 0.86], not: ['oakhavenFallen'] },
+      { id: 'kidA', look: 'child', job: 'child', at: [0.44, 0.64], not: ['oakhavenFallen'] },
+      { id: 'kidB', look: 'childF', job: 'child', at: [0.56, 0.64], not: ['oakhavenFallen'] },
+      // What is left of the town huddles round a fire; the Syndicate's men watch.
+      { id: 'survivorA', look: 'survivor', job: 'survivor', at: [0.54, 0.46], lite: true, needs: ['oakhavenFallen'] },
+      { id: 'survivorB', look: 'villagerF', job: 'survivor', at: [0.66, 0.46], needs: ['oakhavenFallen'] },
+      { id: 'thugA', look: 'syndicate', job: 'thug', at: [0.3, 0.52], lite: true, needs: ['oakhavenFallen'] },
+      { id: 'thugB', look: 'syndicate', job: 'thug', at: [0.7, 0.28], needs: ['oakhavenFallen'] }
     ]
   },
+  // Mountain stone and slate: forges everywhere, and dwarves at work in them.
   ironhold: {
-    id: 'ironhold', theme: 'town',
+    id: 'ironhold', theme: 'town', style: 'mountain',
     npcs: [
-      { id: 'forgemaster', role: 'quest', look: 'dwarf', at: [0.5, 0.36], quest: 'core' },
-      { id: 'ironWeapons', role: 'shop', look: 'dwarf', at: [0.26, 0.42], stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
+      { id: 'forgemaster', role: 'quest', look: 'dwarf', at: [0.5, 0.15], place: 'porch', house: 'workshop', job: 'smith', quest: 'core' },
+      { id: 'ironWeapons', role: 'shop', look: 'dwarf', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
       // The Circle's study of the core arms the town with aether-works.
-      { id: 'ironAetherWorks', role: 'shop', look: 'tinker', at: [0.26, 0.42], stock: { slots: ['main', 'off'], tiers: [3, 4, 5] }, needs: ['coreCircle'] },
-      { id: 'ironArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
+      { id: 'ironAetherWorks', role: 'shop', look: 'tinker', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'tinker', stock: { slots: ['main', 'off'], tiers: [3, 4, 5] }, needs: ['coreCircle'] },
+      { id: 'ironArmor', role: 'shop', look: 'smith', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
       // The Order's thanks: its own armourers move in.
-      { id: 'ironOrderArmor', role: 'shop', look: 'smith', at: [0.74, 0.42], stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
-      { id: 'trainerGeo', role: 'trainer', look: 'trainerGeo', at: [0.34, 0.2], cls: 'geo' },
-      { id: 'trainerAether', role: 'trainer', look: 'trainerAether', at: [0.68, 0.22], cls: 'aether' },
-      { id: 'ironHealer', role: 'healer', look: 'healer', at: [0.2, 0.7] },
+      { id: 'ironOrderArmor', role: 'shop', look: 'smith', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
+      { id: 'trainerGeo', role: 'trainer', look: 'trainerGeo', at: [0.18, 0.15], place: 'yard', house: 'hall', cls: 'geo' },
+      { id: 'trainerAether', role: 'trainer', look: 'trainerAether', at: [0.82, 0.15], place: 'inside', house: 'hall', cls: 'aether' },
+      { id: 'ironHealer', role: 'healer', look: 'healer', at: [0.08, 0.48], place: 'inside', house: 'chapel' },
       // Oakhaven's exiled lord teaches from here once his town has fallen.
-      { id: 'exiledSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.8, 0.68], cls: 'sovereign', needs: ['oakhavenFallen'] }
+      { id: 'exiledSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.8, 0.76], place: 'porch', house: 'townhouse', cls: 'sovereign', needs: ['oakhavenFallen'] }
+    ],
+    houses: [{ kind: 'tavern', at: [0.22, 0.76] }],
+    folk: [
+      { id: 'guardA', look: 'dwarfGuard', job: 'guard', at: [0.26, 0.15] },
+      { id: 'guardB', look: 'dwarfGuard', job: 'guard', at: [0.14, 0.15], lite: true },
+      { id: 'minerA', look: 'miner', job: 'miner', at: [0.38, 0.86], lite: true },
+      { id: 'minerB', look: 'miner', job: 'drinker', at: [0.2, 0.86] },
+      { id: 'kidA', look: 'child', job: 'child', at: [0.56, 0.62] }
     ]
   }
 }

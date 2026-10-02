@@ -1,0 +1,253 @@
+// ─── The trade table's layout, shared by the merchant, trainer and healer ───
+//
+// `@use`d inside each scene's SCOPED style block, so these rules are scoped to
+// that scene. Three columns side by side (the other party's side, the table,
+// the hero's side); in portrait the two sides stack and the table becomes a
+// bottom sheet that rises when something is put on it.
+@use '@/assets/css/cel'
+@use '@/components/game/screen'
+
+.trade
+  --gap: clamp(0.35rem, 1.6vmin, 0.8rem)
+  --cell: clamp(3rem, 12.5vmin, 4.2rem)
+  position: relative
+  flex: 1 1 auto
+  min-height: 0
+  display: grid
+  gap: var(--gap)
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr)
+  grid-template-rows: minmax(0, 1fr) auto
+  grid-template-areas: "left table right" "left back right"
+  width: 100%
+  max-width: 82rem
+  margin-inline: auto
+
+// ── A side: a panel with a caption and a scrolling grid ──────────────────────
+.trade__side
+  display: flex
+  flex-direction: column
+  min-width: 0
+  min-height: 0
+  overflow: hidden
+  transition: box-shadow 140ms ease-out
+.trade__shelf, .trade__left
+  grid-area: left
+  +screen.plate('wood')
+.trade__bag, .trade__right
+  grid-area: right
+  +screen.plate('leather')
+// "Let go here": the side that would take what is carried.
+.trade__side.is-target
+  box-shadow: inset 0 0 0 4px var(--bc-gold-hi), var(--bc-drop-soft)
+.trade__side.is-over
+  box-shadow: inset 0 0 0 5px var(--bc-green-hi), var(--bc-drop-soft)
+.trade__cap
+  +screen.caption
+  flex: 0 0 auto
+  padding: clamp(0.35rem, 1.5vmin, 0.55rem) clamp(0.5rem, 2vmin, 0.8rem)
+  border-bottom: var(--bc-ol-thin) solid var(--bc-ink)
+  background: rgba(var(--bc-ink-rgb), 0.22)
+  text-align: start
+.trade__scroll
+  flex: 1 1 auto
+  padding: clamp(0.45rem, 1.9vmin, 0.8rem)
+  +screen.scroller
+  touch-action: pan-y
+.trade__grid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(var(--cell), 1fr))
+  gap: clamp(0.45rem, 2vmin, 0.8rem) clamp(0.35rem, 1.6vmin, 0.6rem)
+.trade__empty
+  margin: 0.6rem 0
+  color: var(--bc-text-soft)
+  font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
+  text-align: center
+.trade__owned
+  +screen.tag('green')
+.ware, .cell, .back
+  font-size: clamp(0.6rem, 2.4vmin, 0.78rem)
+
+// ── The table ────────────────────────────────────────────────────────────────
+.trade__table
+  grid-area: table
+  position: relative
+  display: flex
+  flex-direction: column
+  gap: var(--gap)
+  min-width: 0
+  min-height: 0
+  padding-bottom: 0.4rem
+// The card (and what wearing it would change) scrolls inside the table; the
+// price, the reason and the action under it are always in view.
+.trade__paper
+  display: flex
+  flex-direction: column
+  gap: var(--gap)
+  flex: 0 1 auto
+  min-height: 0
+  // Room for the card's drop shadow inside the scroller.
+  padding-bottom: 0.25rem
+  +screen.scroller
+.trade__sheet-close
+  display: none
+.trade__hint
+  margin: auto 0
+  padding: clamp(0.6rem, 2.6vmin, 1rem)
+  +screen.page(var(--bc-r-md))
+  color: var(--bc-paper-ink-soft)
+  font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
+  line-height: 1.35
+  text-align: center
+.trade__changes
+  flex: 0 0 auto
+  padding: 0.35rem
+  +screen.plate('slate', var(--bc-r-md))
+// The price, set out on the cloth.
+.trade__deal
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 0.6rem
+  padding: 0.35rem 0.6rem
+  +screen.plate('slate', var(--bc-r-md))
+.trade__deal-label
+  +screen.caption
+.trade__deal-price
+  font-size: clamp(1rem, 4.4vmin, 1.4rem)
+.trade__why
+  margin: 0
+  +cel.label
+  color: var(--bc-text-bad)
+  font-size: clamp(0.72rem, 3vmin, 0.92rem)
+  line-height: 1.25
+  text-align: end
+  text-shadow: var(--bc-text-outline-thin)
+.shop__actions, .trainer__actions, .heal__actions
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  flex-wrap: wrap
+  gap: 0.5rem
+  padding-bottom: var(--bc-press)
+
+// ── The buy-back row, under the table ────────────────────────────────────────
+.trade__back
+  grid-area: back
+  display: flex
+  flex-direction: column
+  min-width: 0
+  +screen.plate('slate', var(--bc-r-md))
+  overflow: hidden
+.trade__back-row
+  display: flex
+  gap: clamp(0.4rem, 1.8vmin, 0.7rem)
+  padding: clamp(0.4rem, 1.8vmin, 0.7rem)
+  overflow-x: auto
+  touch-action: pan-x
+  +cel.scrollbar
+  .back
+    flex: 0 0 var(--cell)
+
+// ── What is carried ──────────────────────────────────────────────────────────
+.drag-ghost
+  position: fixed
+  left: 0
+  top: 0
+  z-index: var(--bc-z-veil)
+  width: clamp(3.2rem, 15vmin, 4.6rem)
+  margin: calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.62) 0 0 calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5)
+  pointer-events: none
+  filter: drop-shadow(0 0.5rem 0 rgba(var(--bc-ink-rgb), 0.35))
+  rotate: -6deg
+  will-change: transform
+
+// ── Portrait: the sides stack; the table is a bottom sheet ───────────────────
+@media (max-aspect-ratio: 1/1)
+  .trade
+    grid-template-columns: minmax(0, 1fr)
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr)
+    grid-template-areas: "left" "back" "right"
+    max-width: 44rem
+  .trade__table
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 4
+    max-height: 72%
+    padding: clamp(0.5rem, 2.2vmin, 0.8rem)
+    +screen.plate('wood')
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
+    box-shadow: 0 -0.3rem 0 rgba(var(--bc-ink-rgb), 0.3)
+    overflow: visible
+    transform: translateY(108%)
+    transition: transform 260ms var(--bc-ease-out)
+    &.is-open
+      transform: translateY(0)
+  // A piece from the bag is discussed over the SHELF: the sheet comes down
+  // from the top, and the bag it was picked from stays in view.
+  .trade.from-bag .trade__table
+    top: 0
+    bottom: auto
+    border-radius: 0 0 var(--bc-r-lg) var(--bc-r-lg)
+    box-shadow: 0 0.3rem 0 rgba(var(--bc-ink-rgb), 0.3)
+    transform: translateY(-108%)
+    &.is-open
+      transform: translateY(0)
+    .trade__sheet-close
+      top: auto
+      bottom: -1.4rem
+  // While a thing is carried across, the sheet gets out of the way.
+  .trade.is-dragging .trade__table
+    transform: translateY(108%)
+  .trade.from-bag.is-dragging .trade__table
+    transform: translateY(-108%)
+  .trade__hint
+    display: none
+  .trade__sheet-close
+    +screen.bare-button
+    +cel.tone('stone')
+    position: absolute
+    right: 0.4rem
+    top: -1.4rem
+    z-index: 7
+    display: block
+    width: 2.75rem
+    height: 2.75rem
+    padding: 0.7rem
+    border: var(--bc-ol) solid var(--bc-ink)
+    border-radius: 50%
+    +cel.fill(48%, 100%)
+    color: var(--bc-text)
+    :deep(svg)
+      display: block
+      width: 100%
+      height: 100%
+
+@media (min-aspect-ratio: 1/1) and (max-height: 30rem)
+  .trade
+    --cell: 2.9rem
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr)
+  // A phone on its side: the table keeps most of its height for the card.
+  .trade__paper
+    flex: 1 1 auto
+    min-height: 6rem
+  .trade__deal
+    padding-block: 0.15rem
+  .trade__back
+    flex-direction: row
+    align-items: center
+    .trade__cap
+      border-bottom: 0
+      writing-mode: vertical-rl
+      transform: rotate(180deg)
+      padding: 0.3rem 0.2rem
+      font-size: 0.6rem
+  .trade__back-row
+    --cell: 2.6rem
+    padding: 0.3rem
+
+@media (prefers-reduced-motion: reduce)
+  .trade__table
+    transition: none

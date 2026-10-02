@@ -1,4 +1,5 @@
 import { PerspectiveCamera, Vector3 } from 'three'
+import { groundAt } from '../gfx/ground'
 
 /**
  * ─── The follow camera ───────────────────────────────────────────────────────
@@ -33,6 +34,9 @@ const COS_P = Math.cos(CAM_PITCH)
 
 const _dir = new Vector3()
 const _proj = new Vector3()
+/** How far above and below the view's height a tap's ray looks for ground (m), and its step. */
+const GROUND_BAND = 6
+const MARCH = 0.35
 
 export class FollowCam {
   readonly camera = new PerspectiveCamera(CAM_FOV, 1, 1, 220)
@@ -75,8 +79,10 @@ export class FollowCam {
     this.snapNext = true
   }
 
-  /** Ease toward (x, z), leading a little in the walking direction. */
-  follow(x: number, z: number, vx: number, vz: number, dt: number): void {
+  /** Ease toward (x, z) on ground at height `y`, leading a little in the
+   *  walking direction. The height eases slower than the ground plan does, so a
+   *  bumpy path does not bob the view. */
+  follow(x: number, z: number, vx: number, vz: number, dt: number, y = 0): void {
     const k = 1 - Math.exp(-dt * 3)
     this.leadX += (vx * 0.28 - this.leadX) * k
     this.leadZ += (vz * 0.28 - this.leadZ) * k
@@ -84,12 +90,13 @@ export class FollowCam {
     const tz = z + this.leadZ
     if (this.snapNext) {
       this.snapNext = false
-      this.target.set(tx, 0, tz)
+      this.target.set(tx, y, tz)
       return
     }
     const f = 1 - Math.exp(-dt * 7)
     this.target.x += (tx - this.target.x) * f
     this.target.z += (tz - this.target.z) * f
+    this.target.y += (y - this.target.y) * (1 - Math.exp(-dt * 3.5))
   }
 
   /** GDD: light hit +0.2, critical / explosion +0.6. Capped at 1. */
@@ -128,8 +135,8 @@ export class FollowCam {
     const oz = s > 0 ? (Math.random() * 2 - 1) * s : 0
     const d = this.dist * this.zoom
     const c = this.camera
-    c.position.set(this.target.x + ox, SIN_P * d + oy, this.target.z + COS_P * d + oz)
-    c.lookAt(this.target.x + ox * 0.6, 0.6, this.target.z + oz * 0.6)
+    c.position.set(this.target.x + ox, this.target.y + SIN_P * d + oy, this.target.z + COS_P * d + oz)
+    c.lookAt(this.target.x + ox * 0.6, this.target.y + 0.6, this.target.z + oz * 0.6)
     c.updateMatrixWorld()
   }
 
@@ -138,14 +145,53 @@ export class FollowCam {
     return this.dist * this.zoom
   }
 
-  /** Surface pixel → the ground plane (y = 0). False when the ray misses it. */
+  /**
+   * Surface pixel → the point of the GROUND under it (`gfx/ground.ts`): the
+   * ray is marched down through the band of heights near the view and the
+   * first crossing is refined, so a tap on a hillside lands where the finger
+   * is, and a tap on a ledge lands on the ledge, not on the ground behind it.
+   * False when the ray misses.
+   */
   screenToGround(sx: number, sy: number, out: { x: number; z: number }): boolean {
     const c = this.camera
     _dir.set((sx / this.width) * 2 - 1, -(sy / this.height) * 2 + 1, 0.5).unproject(c).sub(c.position)
     if (_dir.y > -1e-5) return false
-    const t = -c.position.y / _dir.y
-    out.x = c.position.x + _dir.x * t
-    out.z = c.position.z + _dir.z * t
+    _dir.normalize()
+    const ox = c.position.x
+    const oy = c.position.y
+    const oz = c.position.z
+    // Where the ray meets the planes a few metres above and below the view's own height.
+    const top = this.target.y + GROUND_BAND
+    const bottom = this.target.y - GROUND_BAND
+    let t0 = Math.max(0, (oy - top) / -_dir.y)
+    const t1 = (oy - bottom) / -_dir.y
+    const above = (t: number): number => oy + _dir.y * t - groundAt(ox + _dir.x * t, oz + _dir.z * t)
+    let a0 = above(t0)
+    let hit = -1
+    for (let t = t0 + MARCH; t <= t1 + MARCH; t += MARCH) {
+      const a = above(t)
+      if (a <= 0) {
+        // Crossed between t0 and t: halve the bracket a few times.
+        let lo = t0
+        let hi = t
+        for (let k = 0; k < 8; k++) {
+          const mid = (lo + hi) / 2
+          if (above(mid) > 0) lo = mid
+          else hi = mid
+        }
+        hit = (lo + hi) / 2
+        break
+      }
+      t0 = t
+      a0 = a
+    }
+    if (hit < 0) {
+      // Past the band (off the land): the plane at the view's height.
+      if (a0 > 0) hit = (oy - this.target.y) / -_dir.y
+      else return false
+    }
+    out.x = ox + _dir.x * hit
+    out.z = oz + _dir.z * hit
     return true
   }
 

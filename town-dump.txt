@@ -1,0 +1,249 @@
+== sunford 
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TTT
+TT%HHHHHH++++++%HHHHHHH%%HHHHHHH%%%%TT
+TT%HHHHHH+,,@o+%HHHHHHH%%H_____HHHH%TT
+TT%HHHHHH+,,,,+%HHHHHHH%%H_____HHHH%TT
+TT.HHHHHH+,@,o+.HHHHHHH..H____@HHHH.TT
+TT.HHHHHH++,,++.HHHHHHH..HHHDHHHHHH.TT
+TT.===========o##o###o##o==========.TT
+TT.===========###@####o##==========.TT
+TT.==o=====o==###########====o=====.TT
+TT.%%%%%%%%%..###########.%%%%%%%%%.TT
+TT.%%%%%%%%%..##@########.%%%%%%%%%.TT
+TT.%%%%HHHHH..###o#o#o###.HHHHHHHHH.TT
+TT.HHHHHHHHH..###########.H____HHHH.TT
+TT.HHHHHHHHH..###########.H@___HHHH.TT
+TT.HHHHHHHHH..###########.HHHDHH%.%.TT
+TT.=====o@o===###########==========.TT
+TT.===========#o######@o#==========.TT
+TT.========o==o####@##ooo====o=====.TT
+TT..%%%%%%%.%%%..@===..%%%%.%%%.....TT
+TT..%%%%%%%.%%%...===..%%%%.%%%.....TT
+TT..HHHHHHH.HHH...===..HHHH.HHH.....TT
+TT..HHHHHHH.HHH...===..HHHH.HHH.....TT
+TT..HHHHHHH.HHH...===..HHHH.HHH.....TT
+TT................===...............TT
+TT................===...............TT
+TT..........@.....===....@..........TT
+TT.......oooo.o...===......oo.......TT
+TT.......oooo.....===o...o..........TT
+TT........o.......===..............TTT
+TTT...............===.............TTTT
+TTTT..............===...........TTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+0 hall trainerAegis [trainerAegis] i3 j4 6x5 door5 infalse s2
+1 tavern - [] i16 j4 7x5 door19 infalse s2
+2 hall trainerPyro [trainerPyro] i25 j4 7x5 door28 intrue s2
+3 cottage - [] i32 j5 3x4 door33 infalse s1
+4 cottage - [] i3 j15 4x3 door5 infalse s1
+5 workshop sunfordSmith [sunfordSmith] i7 j14 5x4 door9 infalse s1
+6 chapel sunfordHealer [sunfordHealer] i26 j14 6x4 door29 intrue s2
+7 cottage - [] i32 j14 3x3 door33 infalse s1
+8 cottage - [] i4 j23 3x3 door5 infalse s1
+9 cottage - [] i7 j23 4x3 door8 infalse s1
+10 cottage - [] i12 j23 3x3 door13 infalse s1
+11 cottage - [] i23 j23 4x3 door24 infalse s1
+12 cottage - [] i28 j23 3x3 door29 infalse s1
+sunfordSmith smith porch 9.5,18.4 st17 room-1
+sunfordPeddler merchant street 22.5,19.5 st18 room-1
+trainerAegis knight yard 12.5,5.5 st6 room-1
+trainerPyro scholar inside 30.9,7.5 st20 room2
+elderMara elder street 16.5,13.5 st0 room-1
+sunfordHealer healer inside 27.1,16.5 st21 room6
+squire guard street 11.5,7.5 st-1 room-1
+drinker drinker street 17.5,10.5 st-1 room-1
+farmer farmer street 12.5,28.5 st-1 room-1
+washer villager street 25.5,28.5 st-1 room-1
+kidA child street 17.5,21.5 st-1 room-1
+kidB child street 19.5,20.5 st-1 room-1
+== oakhaven 
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TTT
+TT%%%%%HHHHH%%%%HHHHHH+++++++HHHHHH%TT
+TT%HHHHH___HHHHHH____H+o@,,,+HHHHHH%TT
+TT%HHHHH___HHHHHH____H+,,,,,+HHHHHH%TT
+TT.HHHHH__@HHHHHH@___H+o,,,,+HHHHHH.TT
+TT.HHHHHHDHHHHHHHHHDHH++,,,++HHHHHH.TT
+TT.===========##########o===@======.TT
+TT.===========########o##==========.TT
+TT.==o=====o==###########====o=====.TT
+TT..%%%%%%%%%%###########%%%%%%%%%%.TT
+TT..%%%%%%%%%%####ooo####%%%%%%%%%%.TT
+TT..HHHHHHHHHH##o#ooo#o##HHHHHHH%%%.TT
+TT..HHHHHHH__H####ooo####HHHH__HHHH.TT
+TT..HHHHHHH_@H###########HHHH_@HHHH.TT
+TT..HHHHHHHDHH###########%.%HDHHHHH.TT
+TT.===o@o=====##@########==========.TT
+TT.===========#o#######o#==========.TT
+TT.==o========o####@####o====o=====.TT
+TT.%%%..%%%%.%%%..===@..%%%%%%.%%%%.TT
+TT.%%%..%%%%.%%%.@===...%%%%%%.%%%%.TT
+TT.HHH..HHHH.HHH..===...HHHHHH.HHHH.TT
+TT.HHH..HHHH.HHH..===...HHHHHH.HHHH.TT
+TT.HHH..HHHH.HHH..===...HHHHHH.HHHH.TT
+TT................===....o...o......TT
+TT................===...............TT
+TT................===....@..........TT
+TT.......oooo.o...===......oo.......TT
+TT.......oooo.....===o...o..........TT
+TT........o.......===..............TTT
+TTT...............===.............TTTT
+TTTT..............===...........TTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+0 townhouse - [] i3 j5 4x4 door5 infalse s2
+1 chapel oakHealer [oakHealer,trainerBlood] i7 j4 5x5 door9 intrue s2
+2 townhouse - [] i12 j5 4x4 door14 infalse s2
+3 hall trainerSovereign [trainerSovereign] i16 j4 6x5 door19 intrue s2
+4 hall captainHale [captainHale] i29 j4 6x5 door32 infalse s2
+5 workshop oakArmorer [oakArmorer,oakMasterArmorer] i4 j14 6x4 door7 infalse s1
+6 townhouse oakWeapons [oakWeapons] i10 j14 4x4 door11 intrue s2
+7 cottage - [] i25 j14 3x3 door26 infalse s1
+8 townhouse trainerShadow [trainerShadow] i28 j14 4x4 door29 intrue s2
+9 cottage - [] i32 j15 3x3 door33 infalse s1
+10 cottage - [] i3 j23 3x3 door4 infalse s1
+11 cottage - [] i8 j23 4x3 door9 infalse s1
+12 cottage - [] i13 j23 3x3 door14 infalse s1
+13 tavern - [] i24 j23 6x3 door27 infalse s1
+14 cottage - [] i31 j23 4x3 door32 infalse s1
+captainHale captain yard 24.5,5.5 st7 room-1
+oakArmorer smith porch 7.5,18.4 st15 room-1
+oakWeapons merchant inside 12.9,16.5 st16 room6
+trainerShadow rogue inside 30.9,16.5 st17 room8
+trainerSovereign noble inside 17.1,7.5 st18 room3
+oakHealer healer inside 10.9,7.5 st19 room1
+guardA guard street 28.5,9.5 st-1 room-1
+guardB guard street 19.5,20.5 st-1 room-1
+merchantF villager street 16.5,18.5 st-1 room-1
+drinker drinker street 25.5,28.5 st-1 room-1
+kidA child street 17.5,22.5 st-1 room-1
+kidB child street 21.5,21.5 st-1 room-1
+== oakhaven oakhavenFallen
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TTT
+TT%%%%%HHHHH%%%%HHHHHH+++++++HHHHHH%TT
+TT%HHHHH___HHHHHH____H+o,,,,+HHHHHH%TT
+TT%HHHHH___HHHHHH____H+,,,,,+HHHHHH%TT
+TT.HHHHH__@HHHHHH____H+o,,,,+HHHHHH.TT
+TT.HHHHHHDHHHHHHHHHDHH++,,,++HHHHHH.TT
+TT.===========##########o==========.TT
+TT.===========########o##==========.TT
+TT.==o=====o==###########@===o=====.TT
+TT..%%%%%%%%%%###########%%%%%%%%%%.TT
+TT..%%%%%%%%%%####ooo####%%%%%%%%%%.TT
+TT..HHHHHHHHHH##o#ooo#o##HHHHHHH%%%.TT
+TT..HHHHHHH__H@###ooo#@o#HHHH__HHHH.TT
+TT..HHHHHHH__Hoo#######@#HHHH_@HHHH.TT
+TT..HHHHHHHDHH#####@#####%.%HDHHHHH.TT
+TT.===o=o===@=###########======o===.TT
+TT.===========#o#######o#==========.TT
+TT.========o==o#########o====o=====.TT
+TT.%%%..%%%%.%%%..===...%%%%%%.%%%%.TT
+TT.%%%..%%%%.%%%..===...%%%%%%.%%%%.TT
+TT.HHH..HHHH.HHH..===...HHHHHH.HHHH.TT
+TT.HHH..HHHH.HHH..===...HHHHHH.HHHH.TT
+TT.HHHo.HHHH.HHH..===...HHHHHH.HHHH.TT
+TT................===....o...o......TT
+TT................===...............TT
+TT................===.......o.......TT
+TT.......oooo.o...===......oo.......TT
+TT.......oooo.....===o...o..........TT
+TT........o.......===..............TTT
+TTT...............===.............TTTT
+TTTT..............===...........TTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+0 townhouse - [] i3 j5 4x4 door5 infalse s2
+1 chapel trainerBlood [oakHealer,trainerBlood] i7 j4 5x5 door9 intrue s2
+2 townhouse - [] i12 j5 4x4 door14 infalse s2
+3 hall - [trainerSovereign] i16 j4 6x5 door19 intrue s2
+4 hall - [captainHale] i29 j4 6x5 door32 infalse s2
+5 workshop - [oakArmorer,oakMasterArmorer] i4 j14 6x4 door7 infalse s1
+6 townhouse - [oakWeapons] i10 j14 4x4 door11 intrue s2
+7 cottage - [] i25 j14 3x3 door26 infalse s1
+8 townhouse trainerShadow [trainerShadow] i28 j14 4x4 door29 intrue s2
+9 cottage - [] i32 j15 3x3 door33 infalse s1
+10 cottage - [] i3 j23 3x3 door4 infalse s1
+11 cottage - [] i8 j23 4x3 door9 infalse s1
+12 cottage - [] i13 j23 3x3 door14 infalse s1
+13 tavern - [] i24 j23 6x3 door27 infalse s1
+14 cottage - [] i31 j23 4x3 door32 infalse s1
+trainerShadow rogue inside 30.9,16.5 st15 room8
+blackMarket fence street 14.5,15.5 st16 room-1
+trainerBlood alchemist inside 10.9,7.5 st18 room1
+syndicateBoss boss street 22.5,15.5 st19 room-1
+survivorA survivor street 19.5,17.5 st-1 room-1
+survivorB survivor street 23.5,16.5 st-1 room-1
+thugA thug street 12.5,18.5 st-1 room-1
+thugB thug street 25.5,11.5 st-1 room-1
+== ironhold 
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TTT
+TT%HHHHHH++++++%%%%%%%HHHHHHHHHH%%%%TT
+TT%HHHHHH+,,@o+%HHHHHHHHHH_____HHHH%TT
+TT%HHHHHH+,,,,+%HHHHHHHHHH_____HHHH%TT
+TT.HHHHHH+,@,o+.HHHHHHHHHH____@HHHH.TT
+TT.HHHHHH++,,++.HHHHHH%.%HHHDHHHHHH.TT
+TT.===@=======o##o@o####o==========.TT
+TT.===========########o##==========.TT
+TT.==o=====o==###########====o=====.TT
+TT.%%%%%.%%%%%###########%%%%%%%%%%.TT
+TT.%%%%%.%%%%%###########%%%%%%%%%%.TT
+TT.HHHHH.HHHHH###o#o#o###HHHHHH%%%%.TT
+TT.H___H.HHHHH###########HHHHHHHHHH.TT
+TT.H__@H.HHHHH###########HHHHHHHHHH.TT
+TT.HHDHH.HHHHH###########HHHHHHHHHH.TT
+TT.=======o@o=###########==o@o=====.TT
+TT.===========#o#######o#==========.TT
+TT.==o========o####@####o====o=====.TT
+TT.%%%%%%%%%%%%%%.===.%%%.%%%%.%%%%.TT
+TT.%%%%%%%%%%%%%%.===.%%%.%%%%.%%%%.TT
+TT.HHHHHHHHHHHHHH.===.HHH.HHHH.HHHH.TT
+TT.HHHHHHHHHHHHHH.===.HHH.HHHH.HHHH.TT
+TT.HHHHHHHHHHHHHH.===.HHH.HHHH.HHHH.TT
+TT......o...o.....===...............TT
+TT................===...............TT
+TT.......@.....@..===...............TT
+TT.......oooo.o...===......oo.......TT
+TT.......oooo.....===o...o..........TT
+TT........o.......===..............TTT
+TTT...............===.............TTTT
+TTTT..............===...........TTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+0 hall trainerGeo [trainerGeo] i3 j4 6x5 door5 infalse s2
+1 workshop forgemaster [forgemaster] i16 j5 6x4 door18 infalse s1
+2 cottage - [] i22 j4 3x4 door23 infalse s1
+3 hall trainerAether [trainerAether] i25 j4 7x5 door28 intrue s2
+4 cottage - [] i32 j5 3x4 door33 infalse s1
+5 chapel ironHealer [ironHealer] i3 j14 5x4 door5 intrue s1
+6 workshop ironWeapons [ironWeapons,ironAetherWorks] i9 j14 5x4 door11 infalse s1
+7 workshop ironArmor [ironArmor,ironOrderArmor] i25 j14 6x4 door28 infalse s1
+8 cottage - [] i31 j15 4x3 door33 infalse s1
+9 cottage - [] i3 j23 4x3 door4 infalse s1
+10 tavern - [] i7 j23 7x3 door10 infalse s1
+11 cottage - [] i14 j23 3x3 door15 infalse s1
+12 cottage - [] i22 j23 3x3 door23 infalse s1
+13 townhouse - [exiledSovereign] i26 j23 4x3 door27 infalse s1
+14 cottage - [] i31 j23 4x3 door32 infalse s1
+forgemaster smith porch 18.5,9.4 st16 room-1
+ironWeapons smith porch 11.5,18.4 st17 room-1
+ironArmor smith porch 28.5,18.4 st18 room-1
+trainerGeo geo yard 12.5,5.5 st6 room-1
+trainerAether tinker inside 30.9,7.5 st19 room3
+ironHealer healer inside 6.9,16.5 st20 room5
+guardA guard street 11.5,7.5 st-1 room-1
+guardB guard street 6.5,9.5 st-1 room-1
+minerA miner street 15.5,28.5 st-1 room-1
+minerB drinker street 9.5,28.5 st-1 room-1
+kidA child street 19.5,20.5 st-1 room-1

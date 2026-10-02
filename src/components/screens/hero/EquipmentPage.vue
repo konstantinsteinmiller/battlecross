@@ -1,9 +1,22 @@
 <template lang="pug">
-  div.equip(:class="{ 'has-sel': !!sel, 'is-dragging': drag.state.active }" :style="{ '--sheet-h': (sel ? sheetH : 0) + 'px' }")
+  div.equip(:class="{ 'has-sel': !!sel, 'is-dragging': drag.state.active }")
     //- ── The paper-doll: the hero, and a socket for every slot round him ─────
     section.equip__doll
       div.doll
         HeroDoll.doll__figure(ref="doll")
+        //- A phone in portrait has no column for the card: the piece in hand
+        //- stands on the hero's plinth in his place.
+        EquipCard.doll__card(
+          v-if="portrait && sel"
+          :id="sel"
+          :against="against"
+          :worn="!!wornSlot"
+          :can-wear="canEquip(sel)"
+          :level="levelOf(sel)"
+          @equip="doEquip(sel)"
+          @unequip="wornSlot && doUnequip(wornSlot)"
+          @close="sel = ''"
+        )
         button.doll__socket(
           v-for="s in EQUIP_SLOTS"
           :key="s"
@@ -28,7 +41,7 @@
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
       //- The numbers the gear adds up to. A selection shows what it would
       //- change before anything is put on.
-      StatList.equip__stats(:rows="rows" :layout="roomy ? 'rows' : 'grid'")
+      StatList.equip__stats(:rows="rows" layout="grid")
 
     //- ── The bag ─────────────────────────────────────────────────────────────
     section.equip__bag.bag(data-drop="bag" :class="{ 'is-target': drag.state.active && drag.state.payload && drag.state.payload.from !== 'bag' }")
@@ -62,15 +75,18 @@
           )
 
     //- ── The item in hand: its card, the comparison, what can be done ────────
-    section.equip__card(ref="sheet" :class="{ 'is-open': !!sel }")
-      template(v-if="sel")
-        button.equip__card-close(type="button" :aria-label="t('close')" @click="sel = ''")
-          GameIcon(name="close")
-        ItemCard(:id="sel" :against="against" show-source)
-        p.equip__note.is-bad(v-if="!wornSlot && !canEquip(sel)") {{ t('bag.tooLow', { n: ITEM_BY_ID[sel].level }) }}
-        div.bag__actions
-          FButton(v-if="wornSlot" :label="t('bag.unequip')" type="danger" size="sm" @click="doUnequip(wornSlot)")
-          FButton(v-else :label="t('bag.equip')" type="success" size="sm" :is-disabled="!canEquip(sel)" @click="doEquip(sel)")
+    section.equip__card(v-if="!portrait")
+      EquipCard(
+        v-if="sel"
+        :id="sel"
+        :against="against"
+        :worn="!!wornSlot"
+        :can-wear="canEquip(sel)"
+        :level="levelOf(sel)"
+        @equip="doEquip(sel)"
+        @unequip="wornSlot && doUnequip(wornSlot)"
+        @close="sel = ''"
+      )
       p.equip__hint(v-else) {{ t('bag.hint') }}
 
     //- What is being carried across the screen.
@@ -98,17 +114,15 @@
  * follows the rules if a slot is ever added or dropped. Every change goes
  * through `equipItem` / `unequip`; the page only asks and shows.
  */
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EQUIP_SLOTS, ITEM_BY_ID, TIER_COLOR, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
 import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
-import FButton from '@/components/atoms/FButton.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
-import ItemCard from '@/components/game/ItemCard.vue'
 import ItemCell from '@/components/game/ItemCell.vue'
 import StatList from '@/components/game/StatList.vue'
 import { KEY_STATS, slotFor, statRows, statsWith, wornAgainst } from '@/components/game/heroSheet'
@@ -116,6 +130,7 @@ import { burst, shake, thunk } from '@/components/game/fx'
 import { useDrag } from '@/components/game/useDrag'
 import { useMedia } from '@/components/game/useMedia'
 import HeroDoll from './HeroDoll.vue'
+import EquipCard from './EquipCard.vue'
 
 const { t } = useI18n()
 
@@ -149,6 +164,7 @@ const nextSort = (): void => { sort.value = SORTS[(SORTS.indexOf(sort.value) + 1
 // ── What is worn, and what the selection would do ────────────────────────────
 const worn = computed(() => profile.inv.equipped)
 const tierOf = (id: string): string => TIER_COLOR[ITEM_BY_ID[id]?.tier ?? 1] ?? ''
+const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
 const wornSlot = computed<EquipSlot | null>(() => (sel.value ? equippedIn(sel.value) : null))
 const against = computed(() => (sel.value && !wornSlot.value ? wornAgainst(sel.value) : null))
 
@@ -189,7 +205,8 @@ const doEquip = (id: string, into?: EquipSlot): boolean => {
     return false
   }
   sfx('uiEquip')
-  sel.value = id
+  // On a phone the card steps off the plinth so he can be seen wearing it.
+  sel.value = portrait.value ? '' : id
   // The piece lands in its socket with a thunk and a spark, and he nods.
   void nextTick(() => {
     const el = socketEl(slot)
@@ -244,16 +261,8 @@ const drag = useDrag<Held>({
   onStart: (p) => { select(p.id) }
 })
 
-// ── The card as a bottom sheet (portrait): the bag keeps clear of it ─────────
-const sheet = ref<HTMLElement | null>(null)
-const sheetH = ref(0)
-let ro: ResizeObserver | null = null
-onMounted(() => {
-  if (!sheet.value || typeof ResizeObserver === 'undefined') return
-  ro = new ResizeObserver(() => { sheetH.value = Math.round(sheet.value?.getBoundingClientRect().height ?? 0) })
-  ro.observe(sheet.value)
-})
-onUnmounted(() => { ro?.disconnect(); ro = null })
+/** A phone in portrait: the card takes the hero's place instead of a column. */
+const portrait = useMedia('(max-aspect-ratio: 1/1)')
 </script>
 
 <style scoped lang="sass">
@@ -284,7 +293,7 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   min-height: 0
   +screen.scroller
 .doll
-  flex: 1 1 auto
+  flex: 0 0 auto
   display: grid
   grid-template-columns: var(--sock) minmax(0, 1fr) var(--sock)
   grid-template-rows: repeat(4, minmax(calc(var(--sock) + 1.05em), auto))
@@ -297,6 +306,12 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   font-size: clamp(0.56rem, 2.2vmin, 0.74rem)
 .doll__figure
   grid-area: fig
+.doll__card
+  grid-area: fig
+  z-index: 2
+  align-self: stretch
+  min-height: 0
+  max-height: 100%
 .doll__socket
   +screen.bare-button
   display: flex
@@ -432,11 +447,9 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   min-height: 0
   align-self: start
   max-height: 100%
-  +screen.scroller
-  // Room for the card's drop shadow and the buttons' depth plates.
+  // Room for the buttons' depth plates.
   padding-bottom: 0.4rem
-.equip__card-close
-  display: none
+  overflow: visible
 .equip__hint
   margin: 0
   padding: clamp(0.6rem, 2.6vmin, 1rem)
@@ -445,22 +458,6 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
   line-height: 1.35
   text-align: start
-.equip__note
-  margin: 0
-  +cel.label
-  font-size: clamp(0.72rem, 3vmin, 0.9rem)
-  text-shadow: var(--bc-text-outline-thin)
-  text-align: end
-  &.is-bad
-    color: var(--bc-text-bad)
-.bag__actions
-  display: flex
-  align-items: center
-  justify-content: flex-end
-  flex-wrap: wrap
-  gap: 0.5rem
-  // The buttons stand on depth plates.
-  padding-bottom: var(--bc-press)
 
 // ── What is carried ──────────────────────────────────────────────────────────
 .drag-ghost
@@ -475,7 +472,7 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   rotate: -6deg
   will-change: transform
 
-// ── Portrait: the doll above, the bag below, the card a bottom sheet ─────────
+// ── Portrait: the doll above, the bag below; the card on the plinth ──────────
 @media (max-aspect-ratio: 1/1)
   .equip
     grid-template-columns: minmax(0, 1fr)
@@ -485,46 +482,6 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
     overflow: visible
   .doll
     max-height: none
-  .bag__scroll
-    // The last rows can still be scrolled out from under the open sheet.
-    padding-bottom: calc(var(--sheet-h, 0px) + 0.6rem)
-  .equip__card
-    position: absolute
-    left: 0
-    right: 0
-    bottom: 0
-    z-index: 4
-    max-height: 62%
-    padding: clamp(0.5rem, 2.2vmin, 0.8rem)
-    +screen.plate('wood')
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0
-    box-shadow: 0 -0.3rem 0 rgba(var(--bc-ink-rgb), 0.3)
-    transform: translateY(105%)
-    transition: transform 260ms var(--bc-ease-out)
-    &.is-open
-      transform: translateY(0)
-  .equip__hint
-    display: none
-  .equip__card-close
-    +screen.bare-button
-    +cel.tone('stone')
-    position: absolute
-    right: 0.4rem
-    top: -1.4rem
-    z-index: 2
-    display: block
-    width: 2.75rem
-    height: 2.75rem
-    padding: 0.7rem
-    border: var(--bc-ol) solid var(--bc-ink)
-    border-radius: 50%
-    +cel.fill(48%, 100%)
-    color: var(--bc-text)
-    :deep(svg)
-      display: block
-      width: 100%
-      height: 100%
 
 // ── A short landscape (a phone on its side): everything a size down ──────────
 @media (min-aspect-ratio: 1/1) and (max-height: 30rem)
@@ -544,6 +501,4 @@ onUnmounted(() => { ro?.disconnect(); ro = null })
   .doll__socket.is-target :deep(.f-socket)
     animation: none
     filter: drop-shadow(0 0 0.45rem var(--bc-gold-hi))
-  .equip__card
-    transition: none
 </style>

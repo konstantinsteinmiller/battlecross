@@ -6,7 +6,8 @@ import type { LiquidId, ThemeId } from '../data/zones'
 import { CELL } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
 import type { ZonePlan } from '../sim/zoneGen'
-import { K_BLOCK, K_BRIDGE, K_FORD, K_GROUND, K_WATER, riverRow } from '../sim/zoneFeatures'
+import { K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_RAMP, K_WATER, riverRow } from '../sim/zoneFeatures'
+import { groundAt } from './ground'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { celVC, celVCMap, glowVC, outlineMat, setCelMood } from './cel'
@@ -27,6 +28,14 @@ import { groundDetail } from './textures'
  *
  * So a zone is ~12–16 draw calls of scenery whatever its size, with no per-
  * frame work at all: nothing here moves.
+ *
+ * The ground has the zone's relief (`sim/relief.ts`, read through
+ * `gfx/ground.ts`): every vertex takes its height and the slope's normal, the
+ * slopes that face the light are a little lighter and the others a little
+ * darker (so a hill reads without a shadow map), a ledge's cliff is rock
+ * banded in the theme's stone with a crag of outlined boulders along it, and
+ * a ramp is a worn way up (built steps in a dressed-stone zone). Everything
+ * that stands on the ground stands on its height.
  *
  * Water and caves are part of the ground: the ground mesh DIPS under every wet
  * cell (the bank is the slope, the bed is its floor) and takes the cave's
@@ -310,6 +319,41 @@ const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
   arena: [{ build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
 }
 
+/** A ledge's stone, per theme: its dark and light tone, and whether it is
+ *  dressed (cut blocks and built steps) or wild (crags and a worn ramp). */
+const CLIFF: Readonly<Record<ThemeId, { a: string; b: string; dressed: boolean }>> = {
+  plains: { a: '#8c969a', b: '#b4bec2', dressed: false },
+  cave: { a: '#5e5048', b: '#857468', dressed: false },
+  forest: { a: '#6e7e74', b: '#96a69a', dressed: false },
+  farm: { a: '#9a8a6a', b: '#c4b496', dressed: false },
+  ash: { a: '#34282a', b: '#56444a', dressed: false },
+  mine: { a: '#4e4858', b: '#726c7c', dressed: true },
+  snow: { a: '#98aebe', b: '#e4f2ff', dressed: false },
+  temple: { a: '#6e8e88', b: '#b8c8b8', dressed: true },
+  void: { a: '#241848', b: '#3e2c70', dressed: true },
+  peak: { a: '#4e4446', b: '#76686a', dressed: false },
+  fortress: { a: '#34262e', b: '#56444e', dressed: true },
+  rift: { a: '#180e38', b: '#30206a', dressed: false },
+  town: { a: '#8c969a', b: '#b4bec2', dressed: false },
+  ruin: { a: '#54504a', b: '#706a5e', dressed: true },
+  arena: { a: '#a89070', b: '#d0b890', dressed: true }
+}
+
+/** A low stone on a ledge's brow (outlined: it inks the edge of the drop). */
+const browStone = (a: string, b: string) => () => ({
+  lit: [P(rock(0.36, 7, 9, 7), b, [0, 0.08, 0], [0, 0, 0], [1.3, 0.75, 1]), P(rock(0.2, 13, 8, 6), a, [0.26, 0.04, 0.12])]
+})
+/** A cut coping stone along a built terrace's edge. */
+const coping = (a: string, b: string) => () => ({
+  lit: [P(rbox(1.56, 0.2, 0.42, 0.3, 10, 6), b, [0, 0.06, 0]), P(rbox(1.5, 0.5, 0.3, 0.3, 10, 6), a, [0, -0.25, 0.08])]
+})
+/** One step of a built ramp (laid across the way up). */
+const tread = (a: string, b: string) => () => ({
+  lit: [P(rbox(1.5, 0.34, 0.74, 0.25, 10, 6), b, [0, -0.1, 0]), P(rbox(1.52, 0.1, 0.1, 0.4, 8, 4), a, [0, 0.07, 0.34])]
+})
+/** A stone that lines a ramp. */
+const kerb = (a: string, b: string) => () => ({ lit: [P(rock(0.32, 31, 8, 6), b, [0, 0.12, 0]), P(rock(0.2, 37, 7, 5), a, [0.18, 0.06, 0.12])] })
+
 // ── Value noise for the ground's mottling ────────────────────────────────────
 
 const hash = (x: number, y: number, seed: number): number => {
@@ -348,15 +392,19 @@ const _q = new Quaternion()
 const _p = new Vector3()
 const _s = new Vector3()
 const _up = new Vector3(0, 1, 0)
+const _nrm = new Vector3()
 
 /** Side of a scenery tile, metres. One InstancedMesh per shape per tile: an
  *  instanced mesh is culled as a whole, so a zone-wide one is drawn in full on
  *  every frame however little of it is on screen. */
 const TILE = 15
 
-const instanced = (shape: PropShape, places: Array<[number, number, number, number]>, outline: boolean, root: Group, owned: BufferGeometry[]): void => {
+/** x, z, turn, scale, and (optionally) the height to stand at. */
+type Place = [number, number, number, number, number?]
+
+const instanced = (shape: PropShape, places: Place[], outline: boolean, root: Group, owned: BufferGeometry[]): void => {
   if (!places.length) return
-  const tiles = new Map<number, Array<[number, number, number, number]>>()
+  const tiles = new Map<number, Place[]>()
   for (const p of places) {
     const key = Math.floor(p[0] / TILE) * 4096 + Math.floor(p[1] / TILE)
     const list = tiles.get(key)
@@ -372,9 +420,10 @@ const instanced = (shape: PropShape, places: Array<[number, number, number, numb
       const mesh = new InstancedMesh(geo, lit ? celVC() : glowVC(), list.length)
       const line = lit && outline ? new InstancedMesh(geo, outlineMat(), list.length) : null
       for (let i = 0; i < list.length; i++) {
-        const [x, z, rot, sc] = list[i]!
+        const [x, z, rot, sc, y] = list[i]!
         _q.setFromAxisAngle(_up, rot)
-        _p.set(x, 0, z)
+        // On the ground's height, unless the place says where.
+        _p.set(x, y ?? groundAt(x, z), z)
         _s.set(sc, sc, sc)
         _m.compose(_p, _q, _s)
         mesh.setMatrixAt(i, _m)
@@ -406,26 +455,6 @@ const pickShape = (shapes: PropShape[], r: number): number => {
   return 0
 }
 
-/** A town house: walls, a pitched roof, a door and lit windows. */
-const house = (x: number, z: number, w: number, d: number, style: number, ruined: boolean): { lit: BufferGeometry[]; glow: BufferGeometry[] } => {
-  const walls = ['#f0e4c8', '#e8d0b0', '#d8e4e8', '#f0d8c0'][style % 4]!
-  const roofs = ['#c9483a', '#4a7ad0', '#5fa84a', '#a05ad0'][style % 4]!
-  const hgt = 1.9
-  const lit: BufferGeometry[] = [
-    P(rbox(w, hgt, d, 0.28, 12, 8), ruined ? '#8a8478' : walls, [x, hgt / 2, z]),
-    P(rbox(0.6, 0.95, 0.12, 0.5, 8, 6), '#7a5a3a', [x, 0.48, z + d / 2])
-  ]
-  const glow: BufferGeometry[] = []
-  if (ruined) {
-    lit.push(P(rock(0.6, 31), '#6a645a', [x + w * 0.3, hgt, z]), P(rock(0.5, 37), '#6a645a', [x - w * 0.35, 0.3, z + d * 0.6]))
-  } else {
-    // A four-sided roof: a cone with four segments, turned to sit square.
-    lit.push(P(rcone(Math.max(w, d) * 0.78, 0.12, 1.3, 0.06, 4), roofs, [x, hgt + 0.6, z], [0, Math.PI / 4, 0], [w / Math.max(w, d), 1, d / Math.max(w, d)]))
-    lit.push(P(rbox(0.3, 0.7, 0.3, 0.5, 8, 6), '#a89888', [x + w * 0.25, hgt + 0.9, z - d * 0.1]))
-    for (const sx of [-1, 1]) glow.push(P(rbox(0.42, 0.42, 0.06, 0.5, 8, 6), '#ffe9a8', [x + sx * w * 0.28, 1.1, z + d / 2 + 0.02]))
-  }
-  return { lit, glow }
-}
 
 /**
  * Build a zone's scenery from its plan. Time-sliced (`slice`) so the loader
@@ -528,6 +557,20 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   const cR = new Color(theme.rim)
   const c = new Color()
   const c2 = new Color()
+  // Ledges: which cells are a cliff edge and which a ramp.
+  const cliffMask = new Uint8Array(w * h)
+  const rampMask = new Uint8Array(w * h)
+  let anyCliff = false
+  for (let k = 0; k < w * h; k++) {
+    if (plan.kind[k] === K_CLIFF) { cliffMask[k] = 1; anyCliff = true }
+    if (plan.kind[k] === K_RAMP) { rampMask[k] = 1; anyCliff = true }
+  }
+  const rockLook = CLIFF[themeId]
+  let meanH = 0
+  for (const v of plan.height) meanH += v
+  meanH /= Math.max(1, plan.height.length)
+  const cRockA = new Color(rockLook.a)
+  const cRockB = new Color(rockLook.b)
   const cBed = new Color(liquid?.bed ?? '#000000')
   const cBank = new Color(liquid?.bank ?? '#000000')
   const cCaveA = new Color(CAVE.ground[0])
@@ -587,6 +630,49 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       const cj = Math.min(h - 1, Math.floor(gj / SUB))
       c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, Math.min(1, d / 2.5))
     }
+    // A cliff is banded stone; a ramp is worn like a trail.
+    if (anyCliff) {
+      const cl = shareAt(cliffMask, gi, gj)
+      if (cl > 0) c.lerp(c2.copy(cRockA).lerp(cRockB, n > 0.5 ? 0.85 : 0.25), Math.min(1, cl * 1.6))
+      const rp = shareAt(rampMask, gi, gj)
+      if (rp > 0) c.lerp(cT, Math.min(0.75, rp))
+    }
+    // The relief: the slope's normal, and a light hill shade baked in (a
+    // slope that faces the light a little lighter, one turned away darker).
+    let gy = groundAt(x, z)
+    const gx = (groundAt(x + 0.4, z) - groundAt(x - 0.4, z)) / 0.8
+    const gz = (groundAt(x, z + 0.4) - groundAt(x, z - 0.4)) / 0.8
+    c.multiplyScalar(1 + Math.max(-0.3, Math.min(0.3, -(gx * 0.4 + gz * 0.42) * 1.1)))
+    _nrm.set(-gx, 1, -gz).normalize()
+    // Higher ground a touch lighter, lower a touch darker: a terrace reads as a level.
+    c.multiplyScalar(1 + Math.max(-0.12, Math.min(0.12, (gy - meanH) * 0.06)))
+    // At a cliff's foot the ground lies in its shadow.
+    if (anyCliff) {
+      const cl = shareAt(cliffMask, gi, gj)
+      if (cl > 0 && cl < 1) {
+        const ci = Math.min(w - 1, Math.floor(gi / SUB))
+        const cj = Math.min(h - 1, Math.floor(gj / SUB))
+        const near0 = groundAt((ci + 0.5) * CELL, (cj + 0.5) * CELL)
+        if (gy <= near0 + 0.05) c.multiplyScalar(0.8)
+      }
+    }
+    // Inside a cliff cell the face is steep, not a ramp: its own vertices are
+    // drawn toward its foot or its brow, and it is dark stone with a light brow.
+    if (anyCliff && shareAt(cliffMask, gi, gj) >= 1) {
+      const ci = Math.min(w - 1, Math.floor(gi / SUB))
+      const cj = Math.min(h - 1, Math.floor(gj / SUB))
+      const W1 = w + 1
+      const hs = plan.height
+      const lo = Math.min(hs[cj * W1 + ci]!, hs[cj * W1 + ci + 1]!, hs[(cj + 1) * W1 + ci]!, hs[(cj + 1) * W1 + ci + 1]!)
+      const hi = Math.max(hs[cj * W1 + ci]!, hs[cj * W1 + ci + 1]!, hs[(cj + 1) * W1 + ci]!, hs[(cj + 1) * W1 + ci + 1]!)
+      if (hi - lo > 0.3) {
+        const t = Math.max(0, Math.min(1, (gy - lo) / (hi - lo)))
+        const s = t * t * (3 - 2 * t)
+        gy = lo + (hi - lo) * (s * s * (3 - 2 * s))
+        c.copy(cRockA).lerp(cRockB, t > 0.82 ? 0.9 : n * 0.3)
+        if (t < 0.15) c.multiplyScalar(0.82)
+      }
+    }
     // Water: the ground dips to the bed (the slope is the bank), the bank
     // takes the liquid's tint and the bed its colour.
     let y = 0
@@ -600,10 +686,10 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       }
     }
     vmap[key] = pos.length / 3
-    pos.push(x, y, z)
+    pos.push(x, y + gy, z)
     col.push(c.r, c.g, c.b)
     uv.push(x / 5, z / 5)
-    nor.push(0, 1, 0)
+    nor.push(_nrm.x, _nrm.y, _nrm.z)
     return vmap[key]!
   }
   for (let j = 0; j < h; j++) {
@@ -662,9 +748,13 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
         const n = noise(x * 0.11, z * 0.11, plan.seed + 3)
         c.copy(cR).lerp(cF, Math.max(0, Math.min(1, (d - 3) / 5)) * (0.45 + 0.55 * n))
         const k = j * fw + i
-        // Under water the sheet drops below the bed, so it never shows through.
+        // Under water the sheet drops below the bed, so it never shows through;
+        // under the detailed ground it keeps a hand's breadth below it (a
+        // bilinear cell and the sheet's flat halves never cross).
         const sunk = anyWet && (wetCell(plan, ci, cj) || wetCell(plan, ci - 1, cj) || wetCell(plan, ci, cj - 1) || wetCell(plan, ci - 1, cj - 1))
-        fpos[k * 3] = x; fpos[k * 3 + 1] = sunk ? BED_Y - 0.3 : -0.03; fpos[k * 3 + 2] = z
+        const inGrid = ci >= 0 && cj >= 0 && ci <= w && cj <= h
+        const under = inGrid && near[Math.min(h - 1, cj) * w + Math.min(w - 1, ci)]! <= 3
+        fpos[k * 3] = x; fpos[k * 3 + 1] = groundAt(x, z) + (sunk ? BED_Y - 0.3 : under ? -0.14 : -0.03); fpos[k * 3 + 2] = z
         fcol[k * 3] = c.r; fcol[k * 3 + 1] = c.g; fcol[k * 3 + 2] = c.b
         fuv[k * 2] = x / 5; fuv[k * 2 + 1] = z / 5
         fnor[k * 3 + 1] = 1
@@ -767,6 +857,81 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   for (let n = 0; n < caveShapes.length; n++) instanced(caveShapes[n]!, cavePlaces[n]!, true, root, owned)
   for (let n = 0; n < lowShapes.length; n++) instanced(lowShapes[n]!, lowPlaces[n]!, true, root, owned)
 
+  // ── Ledges: a crag (or a wall of cut blocks) along each cliff edge, and the ramp's steps or kerbs ──
+  if (anyCliff) {
+    const wall: Place[] = []
+    const steps: Place[] = []
+    const kerbs: Place[] = []
+    const corner = (i: number, j: number): number => plan.height[j * (w + 1) + i]!
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        const k = j * w + i
+        const cx0 = (i + 0.5) * CELL
+        const cz0 = (j + 0.5) * CELL
+        if (cliffMask[k]) {
+          const c00 = corner(i, j)
+          const c10 = corner(i + 1, j)
+          const c01 = corner(i, j + 1)
+          const c11 = corner(i + 1, j + 1)
+          const lo = Math.min(c00, c10, c01, c11)
+          const hi = Math.max(c00, c10, c01, c11)
+          if (hi - lo < 0.3) continue
+          // The brow is the ledge's own straight line: every stone on it sits
+          // exactly there and turns its way, so the edge reads as one line.
+          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.5)
+          let ux = (c10 + c11 - c00 - c01) / 2
+          let uz = (c01 + c11 - c00 - c10) / 2
+          const ul = Math.hypot(ux, uz) || 1
+          ux /= ul
+          uz /= ul
+          let bx = cx0 + ux * 0.5
+          let bz = cz0 + uz * 0.5
+          if (l) {
+            ux = l.ux
+            uz = l.uz
+            const sc = (cx0 - l.x) * ux + (cz0 - l.z) * uz
+            bx = cx0 + ux * (l.d0 + 0.32 - sc)
+            bz = cz0 + uz * (l.d0 + 0.32 - sc)
+          }
+          const yaw = Math.atan2(ux, uz) + Math.PI / 2
+          if (rockLook.dressed) {
+            // A coping stone along the terrace's edge: the line the eye reads as a drop.
+            wall.push([bx, bz, yaw, 1, hi + 0.01])
+          } else {
+            // Stones along the brow, and now and then a boulder fallen to the foot.
+            wall.push([bx + uz * 0.35, bz - ux * 0.35, rng() * 6, 0.75 + rng() * 0.3, hi - 0.06])
+            wall.push([bx - uz * 0.35, bz + ux * 0.35, rng() * 6, 0.6 + rng() * 0.3, hi - 0.06])
+            if (rng() < 0.3) kerbs.push([cx0 - ux * 0.6, cz0 - uz * 0.6, rng() * 6, 1.2 + rng() * 0.5, lo])
+          }
+        } else if (rampMask[k]) {
+          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.4)
+          const yaw = l ? Math.atan2(l.ux, l.uz) : 0
+          if (rockLook.dressed && l) {
+            // Two treads to a cell, each at the ground's height where it lies.
+            for (const f of [-0.25, 0.25]) {
+              const px = cx0 + l.ux * f * CELL
+              const pz = cz0 + l.uz * f * CELL
+              steps.push([px, pz, yaw, 1, groundAt(px, pz)])
+            }
+          } else {
+            // Stones along the sides where the ramp meets the cliff.
+            for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+              if (!cliffMask[(j + dj) * w + i + di]) continue
+              const px = cx0 + di * 0.55
+              const pz = cz0 + dj * 0.55
+              kerbs.push([px, pz, rng() * 6, 0.8 + rng() * 0.4, groundAt(px, pz)])
+            }
+          }
+        }
+      }
+    }
+    const look = rockLook
+    instanced({ build: look.dressed ? coping(look.a, look.b) : browStone(look.a, look.b), w: 1, s: [1, 1] }, wall, true, root, owned)
+    if (steps.length) instanced({ build: tread(look.a, look.b), w: 1, s: [1, 1] }, steps, true, root, owned)
+    if (kerbs.length) instanced({ build: kerb(look.a, look.b), w: 1, s: [1, 1] }, kerbs, true, root, owned)
+    await slice()
+  }
+
   // ── Decor scattered through the clearings (never on the trail) ──
   const decorPlaces: Array<Array<[number, number, number, number]>> = theme.decor.map(() => [])
   const density = low ? 0.05 : 0.11
@@ -793,28 +958,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   for (let n = 0; n < caveDecor.length; n++) instanced(caveDecor[n]!, caveDecorPlaces[n]!, false, root, owned)
   await slice()
 
-  // ── Houses ──
-  if (plan.buildings.length) {
-    const lit: BufferGeometry[] = []
-    const glow: BufferGeometry[] = []
-    for (const b of plan.buildings) {
-      const part = house(b.x, b.z, b.w, b.d, b.style, themeId === 'ruin')
-      lit.push(...part.lit)
-      glow.push(...part.glow)
-    }
-    const g = merge(lit)
-    owned.push(g)
-    root.add(new Mesh(g, celVC()))
-    const o = new Mesh(g, outlineMat())
-    o.renderOrder = -1
-    root.add(o)
-    if (glow.length) {
-      const gg = merge(glow)
-      owned.push(gg)
-      root.add(new Mesh(gg, glowVC()))
-    }
-    await slice()
-  }
+  // A town's houses, props and people are `gfx/townView.ts`.
 
   scene.add(root)
   return {
@@ -868,7 +1012,7 @@ export class WallRocks {
         const i = cell % gridW
         const j = (cell - i) / gridW
         r.mesh.geometry = r.line.geometry = fx === 'rubble' ? this.rubble! : this.geo!
-        r.mesh.position.set((i + 0.5) * CELL, 0, (j + 0.5) * CELL)
+        r.mesh.position.set((i + 0.5) * CELL, groundAt((i + 0.5) * CELL, (j + 0.5) * CELL), (j + 0.5) * CELL)
         r.mesh.rotation.y = (cell * 2.39996) % (Math.PI * 2)
         r.cell = cell
         r.t = 0

@@ -50,6 +50,7 @@ import { landmarkSvg } from '@/components/screens/map/landmarks'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import Portrait from '@/components/art/Portrait.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
+import { BACKDROP_SAFE, backdropSvg } from '@/components/game/backdrops'
 
 // THE REFERENCE MUST NEVER BE THE SHIPPED PAINTING OF ITSELF. `Portrait` and
 // `IconCoin` show a painted file when one exists, so an export after the first
@@ -293,6 +294,31 @@ const bakeMap = async (a: ArtScenery): Promise<View> => {
   return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque backdrop; the key shows the landmarks the game draws over it', clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
 }
 
+/**
+ * A big screen's backdrop (`components/game/backdrops.ts`): the drawing the
+ * screen shows until `images/ui/bg-<name>.webp` exists. The key marks the calm
+ * middle the interface always covers, so a return can be checked against it.
+ */
+const bakeScreen = async (a: ArtScenery): Promise<View> => {
+  const { width: W, height: H } = a
+  const [clean, g] = canvas(W, H)
+  g.drawImage(await svgImage(backdropSvg(a.screen!.name)), 0, 0, W, H)
+  const [key, k] = canvas(W, H)
+  k.drawImage(clean, 0, 0)
+  const x0 = W * BACKDROP_SAFE[0]
+  const x1 = W * BACKDROP_SAFE[1]
+  k.fillStyle = 'rgba(15, 12, 25, 0.35)'
+  k.fillRect(x0, 0, x1 - x0, H)
+  k.fillRect(0, 0, W, H * 0.12)
+  k.strokeStyle = '#ffffff'
+  k.lineWidth = 3
+  k.setLineDash([12, 10])
+  k.strokeRect(x0, 0, x1 - x0, H)
+  caption(k, 'calm middle: the interface always covers it', x0 + 8, H / 2, x1 - x0 - 16)
+  caption(k, 'the top bar covers this', 8, H * 0.12 - 4, 260)
+  return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque backdrop; the key marks the calm middle and the top bar', clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
+}
+
 /** The game's own baked ground detail, twice across and twice down, so the
  *  reference shows the repeat. Never the drop-in: the bench does not load it. */
 const bakeGround = (a: ArtScenery): View => {
@@ -307,7 +333,7 @@ onMounted(async () => {
   try {
     await nextTick()
     for (const s of sets) views.value.push(await bakeSet(s))
-    for (const a of scenery) views.value.push(a.plate === 'map' ? await bakeMap(a) : bakeGround(a))
+    for (const a of scenery) views.value.push(a.plate === 'map' ? await bakeMap(a) : a.plate === 'screen' ? await bakeScreen(a) : bakeGround(a))
     status.value = ''
     ready.value = true
   } catch (e) {

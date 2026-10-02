@@ -3,11 +3,13 @@ import { ENEMY_BY_ID } from '../data/enemies'
 import { CELL, SOLID_LOW, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import {
-  K_BLOCK, K_WATER, addFeatures, noFeatures,
+  K_BLOCK, K_CLIFF, K_WATER, addFeatures, noFeatures,
   type CavePlan, type ChestPlan, type CrossingPlan, type DoorPlan, type OptionalPackPlan, type PlatePlan, type PuzzlePlan,
-  type RiverPlan, type SignPlan
+  type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan
 } from './zoneFeatures'
-import type { LiquidId } from '../data/zones'
+import { ZONE_RELIEF, type LiquidId } from '../data/zones'
+import { buildRelief, buildTownRelief } from './relief'
+import { layTown, type TownPlan } from './town'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -80,6 +82,10 @@ export interface ZonePlan {
   /** 1 = opened by a side feature (a corner, an alcove, a cave): a small
    *  place the view must not hide behind tall scenery. */
   side: Uint8Array
+  /** The ground's height at every grid CORNER, (w + 1) × (h + 1) of them
+   *  (`sim/ground.ts` reads it). Cosmetic, except that a ledge's cliff edge is
+   *  a `K_CLIFF` cell nobody walks across. */
+  height: Float32Array
   clearings: Clearing[]
   start: { x: number; z: number }
   /** The MAIN chain's packs: one per clearing, the finale last. */
@@ -101,8 +107,15 @@ export interface ZonePlan {
   ponds: Array<{ x: number; z: number; r: number }>
   crossings: CrossingPlan[]
   signs: SignPlan[]
+  /** Ledges (a cliff edge with a ramp), the finale's dais, and the side places
+   *  the relief lifts or sinks. */
+  ledges: LedgePlan[]
+  dais: DaisPlan | null
+  lobes: LobePlan[]
   buildings: BuildingPlan[]
   npcs: NpcPlan[]
+  /** A town's houses, props, places and people (`town.ts`); absent elsewhere. */
+  town?: TownPlan
   /** Where arena waves come in. */
   gates: Array<[number, number]>
 }
@@ -118,7 +131,7 @@ export const fillGrid = (g: Grid, plan: ZonePlan, doorsOpen = false): Grid => {
   for (let k = 0; k < plan.solid.length; k++) {
     let v = plan.solid[k]! ? SOLID_TERRAIN : 0
     const kd = plan.kind[k]!
-    if (kd === K_WATER || kd === K_BLOCK) v |= SOLID_LOW
+    if (kd === K_WATER || kd === K_BLOCK || kd === K_CLIFF) v |= SOLID_LOW
     if (plan.sealed[k]! && !doorsOpen) v |= SOLID_SEALED
     g.solid[k] = v
   }
@@ -301,8 +314,15 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const side = new Uint8Array(W * h)
   for (const k of secretCells) if (!solid[k]) side[k] = 1
   const features = addFeatures({ def, seed, w: W, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare })
+  // The secret's pocket is a side place too: it lies a little above its clearing.
+  const lobes = features.lobes.slice()
+  if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
+  const height = buildRelief({
+    seed, w: W, h, kind, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
+    relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial
+  })
   return {
-    seed, w: W, h, solid, trail, kind, cave, sealed, side, clearings,
+    seed, w: W, h, solid, trail, kind, cave, sealed, side, height, clearings,
     start: { x: clearings[0]!.x, z: clearings[0]!.z },
     packs,
     chest,
@@ -314,93 +334,33 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   }
 }
 
-/** A town: an open square ringed by houses, its people standing in it. */
+/**
+ * A town: rows of houses facing the camera along two streets, a square in the
+ * middle, the green the road comes in by (`town.ts` lays it out and dresses
+ * it). Its people are `npcs` (the cast) and `town.people` (everybody).
+ */
 export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: number): ZonePlan => {
-  const rng = mulberry32(seed)
-  const w = 30
-  const h = 30
-  const solid = new Uint8Array(w * h).fill(1)
-  const trail = new Uint8Array(w * h)
-  carveDisc(solid, w, h, w / 2, h / 2, 11.5, rng)
-  // Streets: a cross through the square.
-  carveLine(solid, trail, w, h, w / 2, 4, w / 2, h - 4, 1.6)
-  carveLine(solid, trail, w, h, 5, h / 2, w - 5, h / 2, 1.2)
-
-  const buildings: BuildingPlan[] = []
-  const npcs: NpcPlan[] = []
-  const span = 17 * CELL
-  const ox = (w / 2) * CELL - span / 2
-  const oz = (h / 2) * CELL - span / 2
-  const present = def.npcs.filter(n => (!n.needs || n.needs.every(f => flags.has(f))) && !(n.not && n.not.some(f => flags.has(f))))
-  for (const n of present) npcs.push({ id: n.id, look: n.look, x: ox + n.at[0] * span, z: oz + n.at[1] * span, facing: 0 })
-
-  // Shops and trainers stand in front of their house. A house is only built
-  // where it swallows nobody: its footprint must leave every person's cell
-  // (and the cells around it) open, or that person could not be walked up to.
-  const keep = new Uint8Array(w * h)
-  for (const p of npcs) {
-    const ci = Math.floor(p.x / CELL)
-    const cj = Math.floor(p.z / CELL)
-    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
-      const i = ci + di
-      const j = cj + dj
-      if (i >= 0 && j >= 0 && i < w && j < h) keep[j * w + i] = 1
-    }
-  }
-  const built = new Uint8Array(w * h)
-  const footprint = (bx: number, bz: number, bw: number, bd: number): number[] | null => {
-    const cells: number[] = []
-    const i0 = Math.floor((bx - bw / 2) / CELL)
-    const i1 = Math.floor((bx + bw / 2) / CELL)
-    const j0 = Math.floor((bz - bd / 2) / CELL)
-    const j1 = Math.floor((bz + bd / 2) / CELL)
-    for (let j = j0; j <= j1; j++) {
-      for (let i = i0; i <= i1; i++) {
-        if (i < 0 || j < 0 || i >= w || j >= h) return null
-        const k = j * w + i
-        if (keep[k] || built[k] || trail[k]) return null
-        cells.push(k)
-      }
-    }
-    return cells
-  }
-  for (let n = 0; n < present.length; n++) {
-    const def1 = present[n]!
-    if (def1.role !== 'shop' && def1.role !== 'trainer') continue
-    const p = npcs[n]!
-    const bw = 4.2 + rng() * 1.2
-    const bd = 3.6 + rng() * 0.8
-    const style = Math.floor(rng() * 4)
-    // Behind them first; then further back, then to either side.
-    const back = bd / 2 + 2.2
-    const side = bw / 2 + 2.4
-    const tries: Array<[number, number]> = [
-      [0, -back], [0, -back - CELL], [-CELL, -back], [CELL, -back], [-2 * CELL, -back], [2 * CELL, -back],
-      [-CELL, -back - CELL], [CELL, -back - CELL], [0, -back - 2 * CELL],
-      // Someone standing on a street has their house beside them.
-      [-side, -CELL], [side, -CELL], [-side, 0], [side, 0], [-side - CELL, -CELL], [side + CELL, -CELL],
-      [-3 * CELL, -back], [3 * CELL, -back]
-    ]
-    for (const [dx, dz] of tries) {
-      const cells = footprint(p.x + dx, p.z + dz, bw, bd)
-      if (!cells) continue
-      for (const k of cells) { built[k] = 1; solid[k] = 1 }
-      buildings.push({ x: p.x + dx, z: p.z + dz, w: bw, d: bd, style })
-      break
-    }
-  }
+  const t = layTown(def, flags, seed)
+  const { w, h } = t
+  // Everyone's spot and every house stands level on the gentle slope.
+  const level: Array<{ x: number; z: number }> = t.town.people.map(p => ({ x: p.x, z: p.z }))
+  for (const s of t.town.spots) level.push({ x: s.x, z: s.z })
+  for (const p of t.town.props) if (p.cells.length) level.push({ x: p.x, z: p.z })
   return {
-    seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
+    seed, w, h, solid: t.solid, trail: t.trail, kind: t.kind, cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
     side: new Uint8Array(w * h),
+    // A gentle slope, with every house and every townsperson on level ground.
+    height: buildTownRelief(w, h, seed, t.buildings, level),
     ...noFeatures(),
-    clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: 11.5 * CELL, role: 'start' }],
-    start: { x: (w / 2) * CELL, z: oz + span * 0.9 },
+    clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: Math.min(w, h) * 0.45 * CELL, role: 'start' }],
+    start: t.start,
     packs: [],
     chest: null,
     secret: null,
-    buildings,
-    npcs,
-    gates: []
+    buildings: t.buildings,
+    npcs: t.npcs,
+    gates: [],
+    town: t.town
   }
 }
 
@@ -423,6 +383,8 @@ export const generateArena = (seed: number): ZonePlan => {
   return {
     seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
     side: new Uint8Array(w * h),
+    // The colosseum's sand is raked flat.
+    height: new Float32Array((w + 1) * (h + 1)),
     ...noFeatures(),
     clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: R * CELL, role: 'finale' }],
     start: { x: (w / 2) * CELL, z: (h / 2) * CELL },

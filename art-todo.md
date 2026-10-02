@@ -81,6 +81,9 @@ Shown round, in dialogues, shops, trainers and the hero frame.
 | --- | --- | --- |
 | `map` | The world map's terrain: sea and coast, the regions, rivers, bridges, the roads' beds and the sixteen bare sites (drawn by `src/components/screens/map/terrain.ts` until this file exists). The landmarks, the travelled roads, the names, the clouds and everything that moves are drawn over it by the game, so the sites stay EMPTY; they stand at `MAP[].at` in `src/game/data/zones.ts`, as fractions of the sheet | 1376 × 768 from the pipeline (any 16:9 up to 2048 wide), stretched to the sheet |
 | `coin` | The gold coin beside every price | 64 × 64 from the pipeline (up to 128) |
+| `bg-trade` | The trade table's backdrop (merchant, trainer, healer): honey-brown counter planks with a teal cloth runner down the middle; a lantern, a ledger and coins on the left, brass scales, weights and a purse on the right. Drawn by `src/components/game/backdrops.ts` until this file exists; reference `art-sheets/bg-ui-trade.png` | 1376 × 768 from the pipeline (any 16:9 up to 2048 wide), shown `cover` |
+| `bg-inventory` | The equipment page's backdrop (and the character page's): the inside of an open satchel, green quilted lining in a stitched leather rim, two straps over the top; a weapon rack on the left, an armour stand on the right. Reference `art-sheets/bg-ui-inventory.png` | as `bg-trade` |
+| `bg-skills` | The skills page's backdrop: a star codex, indigo sky in a brass frame with the eight class gems down its sides; constellations at the sides, faint astrolabe rings in the middle. Reference `art-sheets/bg-ui-skills.png` | as `bg-trade` |
 | `skill-frame` | The frame of a battle skill button (`FSocket`, square): an ornate metal-and-gem socket drawn OVER the skill's icon. The centre window is transparent (the icon, the cooldown sweep and the glass highlight show through it); the gem on the crown may stand up to 5 % above the square. Neutral metal: the class colour stays in the icon | 256 × 256, transparent; window = the centre 70 % (a rounded square, corner radius 16 % of the frame) |
 | `skill-frame-potion` | The frame of the two belt flasks (`FSocket`, round): a round glass-and-metal socket with a corked neck on top, drawn over the liquid. Used for both the health and the mana flask (the liquid and the emblem carry the colour) | 256 × 256, transparent; window = a centred circle, 70 % of the frame |
 | `bar-frame-plain` | A plain bar's frame (a normal enemy's health, the travel bar). Three-sliced: the two 64 px end caps keep their shape, the 384 px middle stretches to the bar's length. The bar itself shows through the window; keep the paint within 16 px above and below it | 512 × 128, transparent; window = 384 × 32, centred |
@@ -89,6 +92,14 @@ Shown round, in dialogues, shops, trainers and the hero frame.
 | `bar-frame-elite` | A locked elite's frame: silver, a wing on each cap | as `bar-frame-plain` |
 | `bar-frame-champion` | A champion's frame: gold, a crest over the middle (it may use the full 48 px above the window), pointed caps | as `bar-frame-plain` |
 | `bar-frame-boss` | The boss plate's frame, the most ornate: a crown between horns over the middle (the full 48 px above the window), a wing and a gem on each cap | as `bar-frame-plain` |
+
+The three screen backdrops are shown `cover`: a phone held upright sees only
+the middle quarter of the sheet, a desktop all of it. THE CONTENT-SAFE AREA:
+the middle 44 % of the width (x 28 % to 72 %) is always under the interface's
+panels and lettering, so it stays one calm, even surface with no objects; the
+objects live in the outer 28 % at each side, and nothing important sits in
+the top 12 % (the screen's bar of tabs and buttons). The bench's key sheets
+(`bg-ui-*-key.png`) mark both bands.
 
 The frames are drawn in code until a file exists (`src/components/atoms/FSocket.vue`,
 `FBar.vue`); a file dropped in replaces the drawn frame only, never the fill, the

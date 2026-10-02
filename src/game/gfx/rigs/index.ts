@@ -5,6 +5,7 @@ import { clipSet, styleOf, type ClipSet } from './clips'
 import { buildHumanoid, WEAPON_EDGE, WEAPON_REACH, type Held, type Look, type OffHand } from './humanoid'
 import { LOOKS, lookKey } from './looks'
 import { N, type Clip, type Pose } from './pose'
+import type { LoopClip } from './townClips'
 import type { Action, Unit } from '../../sim/types'
 
 /**
@@ -56,7 +57,10 @@ export interface RigView {
   from: Pose
   blendT: number
   blendDur: number
-  blendKey: Clip | null
+  blendKey: object | null
+  /** A townsperson's loop (`townClips.ts`) and how far into it they are; null for everybody else. */
+  loop: LoopClip | null
+  loopT: number
   /** The clip in hand, the action it belongs to, where its strike begins
    *  (0..1 of the wind-up), seconds since its hit (−1: not yet), and how long
    *  its follow-through runs. */
@@ -250,6 +254,8 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     blendT: 1,
     blendDur: 0,
     blendKey: null,
+    loop: null,
+    loopT: 0,
     clip: null,
     clipSrc: null,
     clipS: 0.7,

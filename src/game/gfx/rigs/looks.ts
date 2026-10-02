@@ -63,6 +63,18 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   fence: L({ skin: '#c9906e', top: '#2f2a44', bottom: '#201c30', head: 'hood', hair: '#2f2a44', outfit: 'robe', held: 'none', off: 'orb', trim: '#9c7bff', glow: '#b48cff' }),
   dwarf: L({ skin: '#e2a888', top: '#6a4a34', bottom: '#4a3424', head: 'helm', hair: '#8a8fa0', outfit: 'apron', held: 'hammer', beard: '#c9783a', bulk: 1.18, trim: '#c9a24a', metal: '#b9c4d6' }),
   tinker: L({ skin: '#e2b08a', top: '#4a7a8a', bottom: '#3a4a54', head: 'goggles', hair: '#e8c44a', outfit: 'apron', held: 'gun', trim: '#4ff0c8', glow: '#4ff0c8' }),
+  // The folk of the towns (no part in the story: `data/zones.ts` TownDef.folk).
+  villager: L({ skin: '#e8b890', top: '#c97a3a', bottom: '#5a4a3a', head: 'short', hair: '#7a4a2a', outfit: 'tunic', trim: '#5a3a24' }),
+  villagerF: L({ skin: '#f0c8a8', top: '#d86a7a', bottom: '#f4ead2', head: 'bun', hair: '#b8642a', outfit: 'robe', trim: '#f4ead2' }),
+  farmer: L({ skin: '#d9a47e', top: '#7aa84a', bottom: '#6a5a3a', head: 'cap', hair: '#c8a050', outfit: 'apron', trim: '#a8884a' }),
+  child: L({ skin: '#f2c8a0', top: '#4f8fd6', bottom: '#4a4458', head: 'spiky', hair: '#e8b84a', outfit: 'tunic', trim: '#ffd84a' }),
+  childF: L({ skin: '#e8b890', top: '#ffb04a', bottom: '#8a5ab0', head: 'long', hair: '#5a3424', outfit: 'robe', trim: '#ff8ab0' }),
+  squire: L({ skin: '#f0c8a8', top: '#8a9ab8', bottom: '#4a4458', head: 'leathercap', hair: '#a85a3a', style: 'short', headCol: '#8a5f3a', outfit: 'leather', held: 'sword', trim: '#3f5fd6' }),
+  townGuard: L({ skin: '#e2b08a', top: '#3f5fd6', bottom: '#2f3a5a', head: 'helm', hair: '#c9d3e4', outfit: 'plate', held: 'sword', off: 'shield', trim: '#c9d3e4', metal: '#d8dde8' }),
+  merchantF: L({ skin: '#c9906e', top: '#3f9a8a', bottom: '#f2e0b0', head: 'bun', hair: '#2a2028', outfit: 'robe', trim: '#ffd24a', off: 'tome' }),
+  survivor: L({ skin: '#d9a47e', top: '#7a6a5a', bottom: '#4a4038', head: 'bandana', hair: '#6a5a4a', outfit: 'rags', trim: '#5a4a3a' }),
+  miner: L({ skin: '#e2a888', top: '#5a6a7a', bottom: '#3a3430', head: 'helm', hair: '#d8a050', headCol: '#c9a24a', outfit: 'apron', beard: '#a85a2a', bulk: 1.15, trim: '#8a6a4a' }),
+  dwarfGuard: L({ skin: '#e2a888', top: '#6a4a34', bottom: '#3a3430', head: 'helm', hair: '#8a8fa0', outfit: 'plate', held: 'axe', off: 'shield', beard: '#5a3424', bulk: 1.18, trim: '#c9a24a', metal: '#b9c4d6' }),
 
   // ── Trainers (one per class, dressed as its archetype) ──
   trainerAegis: L({ skin: '#e8b890', top: '#c9d3e4', bottom: '#5a6a88', head: 'helm', hair: '#c9d3e4', outfit: 'plate', held: 'sword', off: 'shield', pauldrons: true, trim: '#ffd84a', cape: '#3f5fd6', metal: '#eef2fa' }),

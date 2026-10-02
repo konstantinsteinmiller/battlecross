@@ -118,6 +118,129 @@ BEFORE YOU CALL IT FINISHED, check:
 OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
 ```
 
+## UI: the trade table backdrop  (bg-ui-trade.png → images/ui/bg-trade.webp)
+
+```text
+WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED BACKDROP FOR A GAME SCREEN: A STILL LIFE WITH NO PEOPLE AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.
+
+WHAT IT IS: a merchant's wooden counter seen from straight above: warm honey-brown planks running across the whole picture, with a long runner of deep teal cloth laid down the middle from the top edge to the bottom edge, a gold band along each of its long sides. Repaint the attached reference: every object stays where the reference has it, at its size.
+· LEFT: on the planks left of the cloth: a brass lantern with a glowing glass body standing near the top, a hard-edged pool of warm light on the wood around it, a small stack of gold coins, and an open ledger with a quill lying across it near the bottom.
+· RIGHT: on the planks right of the cloth: brass merchant's scales near the top (one pan lower, holding a few coins), three small steel weights in a row above them, and an untied leather coin purse near the bottom with coins spilling from it.
+· MIDDLE: the teal cloth with a quiet woven diamond pattern, tone on tone.
+
+THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
+
+WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
+
+COLOUR — the reference's own, object by object. Take the HUES from it, not the flatness.
+
+THE VIEW — as the reference: straight on, flat, the objects as simple upright shapes. No perspective that tilts the surface away, no depth blur.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no added border.
+· Laid over the reference, every object is where the reference has it.
+· The middle band is calm and even, with not one object in it, and there is not one letter anywhere.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the equipment backdrop  (bg-ui-inventory.png → images/ui/bg-inventory.webp)
+
+```text
+WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED BACKDROP FOR A GAME SCREEN: A STILL LIFE WITH NO PEOPLE AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.
+
+WHAT IT IS: the inside of an open adventurer's satchel seen from the front: a deep green quilted lining filling the picture, framed by the bag's stitched tan leather rim along all four edges, with two leather straps and brass buckles hanging over the top rim. Repaint the attached reference: every object stays where the reference has it, at its size.
+· LEFT: a wooden weapon rack standing in the bag: two posts and two rails, a sword hanging point down, an axe beside it, and a round blue shield leaning at its foot.
+· RIGHT: a wooden armour stand: a post on a foot, a steel breastplate hung on its shoulder bar and a steel helmet with a red plume on top.
+· MIDDLE: the quilted green lining, lit a little lighter toward the middle.
+
+THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
+
+WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
+
+COLOUR — the reference's own, object by object. Take the HUES from it, not the flatness.
+
+THE VIEW — as the reference: straight on, flat, the objects as simple upright shapes. No perspective that tilts the surface away, no depth blur.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no added border.
+· Laid over the reference, every object is where the reference has it.
+· The middle band is calm and even, with not one object in it, and there is not one letter anywhere.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the skills backdrop  (bg-ui-skills.png → images/ui/bg-skills.webp)
+
+```text
+WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED BACKDROP FOR A GAME SCREEN: A STILL LIFE WITH NO PEOPLE AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.
+
+WHAT IT IS: a page of a star codex: a deep indigo night sky filling the picture inside a brass frame along all four edges, with turned brass ornaments in the corners and four coloured gems set into the frame down each side. Repaint the attached reference: every object stays where the reference has it, at its size.
+· LEFT: two constellations of four-pointed stars joined by dotted lines (one shaped like a sword in pale blue, one like a flame in orange), a shooting star, and many small stars.
+· RIGHT: two more constellations (a shield in pale gold, an hourglass in lilac), a shooting star near the bottom, and many small stars.
+· MIDDLE: the dark sky with the faint rings and tick marks of an astrolabe, and only a few faint stars.
+
+THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
+
+WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
+
+COLOUR — the reference's own, object by object. Take the HUES from it, not the flatness.
+
+THE VIEW — as the reference: straight on, flat, the objects as simple upright shapes. No perspective that tilts the surface away, no depth blur.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no added border.
+· Laid over the reference, every object is where the reference has it.
+· The middle band is calm and even, with not one object in it, and there is not one letter anywhere.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
 ## Texture: the ground detail  (bg-ground.png → images/textures/ground.webp)
 
 ```text

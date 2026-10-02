@@ -76,3 +76,48 @@ Not measured: a real phone's GPU. The preview and bar shaders do more per pixel
 than the flat fills they replace (a boss's 8 m slam covers most of a phone's
 screen for a second). If a device shows it, the first thing to cut is the
 chevron and hatch terms in `gfx/telegraphs.ts`, behind `sceneQuality() === 'low'`.
+
+## 2026-10-03: elevation (roadmap #57)
+
+What changed on the frame: the ground mesh has real heights and normals (same
+vertex count); ledges add a few instanced draws (brow stones, steps, kerbs) on
+zones that have one; ground marks (hero / target rings, aim previews) and the
+attack previews are fine grids (16 × 16) whose vertices read the height field
+from a float texture in the vertex shader (`gfx/ground.ts`); everything else
+that stands on the ground calls `groundAt(x, z)`, four array reads.
+
+Method: the Frost Jarl's court as above, phone 390 × 780, 4× CPU throttle,
+`?scenery=low`. A/B arm: `?relief=0` (DEV only) lays the place flat with
+everything else identical. Arms interleaved, two runs each.
+
+| Run | Frames in 24 s | Work p50 | Work p95 | Interval p50 |
+| --- | --- | --- | --- | --- |
+| before (morning, old build, machine busy) | 132 | 42.8 ms | 81.1 ms | 83.4 ms |
+| flat, run 1 | 37 | 72.1 ms | 133.5 ms | 150.0 ms |
+| relief, run 1 | 15 | 60.9 ms | 114.3 ms | 133.4 ms |
+| flat, run 2 | 31 | 67.9 ms | 106.6 ms | 133.3 ms |
+| relief, run 2 | 48 | 62.4 ms | 98.3 ms | 116.7 ms |
+
+Read: relief and flat are inside each other's noise. The whole build is
+slower than in the morning in BOTH arms; that drop is not the relief (the flat
+arm has it too) and arrived with other work in the tree since (characters
+with more gear slots, the town rebuild); it needs its own look.
+
+Deterministic counts, one frame of the same fight (no throttle):
+
+| | Draw calls | Triangles | CPU per `render()` |
+| --- | --- | --- | --- |
+| flat, low | 77 | 129 150 | 1.93 ms |
+| relief, low | 77 | 129 150 | 1.43 ms |
+| flat, full | 84 | 171 302 | 1.91 ms |
+| relief, full | 86 | 173 462 | 2.08 ms |
+
+CPU profile (12 s, no throttle): 83 % idle; no file of the levels work above
+0.1 % self time. Hiding every ground-reading material (the marks and the
+previews) changed frames in 5 s from 24 to 25: the vertex texture reads are
+not where a frame goes.
+
+Kept. Not measured: a real phone GPU's cost of the vertex texture fetch (four
+per vertex on ~2.6 k mark / preview vertices). If a device shows it, the
+first cut is the tessellation (`TESS` in `telegraphs.ts`, the marks' 16 × 16
+plane) behind `sceneQuality() === 'low'`.

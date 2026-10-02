@@ -16,6 +16,7 @@ import { pushHud } from '../state/hud'
 import { celVC, glowVC, outlineMat, setCelMood } from './cel'
 import { cap, dome, merge, paint, paintBy, rbox, rcone, rcyl, rock, sph, torus, xform } from './kit'
 import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
+import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 
 /**
@@ -180,6 +181,8 @@ interface PlateView {
   root: Group
   mat: MeshBasicMaterial
   halo: Mesh
+  /** The ground's height under it. */
+  gy: number
   color: Color
   /** 0 dark .. 1 lit, eased. */
   lit: number
@@ -267,13 +270,27 @@ export class LevelProps {
       this.buildWater(plan, plan.liquid)
       this.dressWater(plan, plan.liquid, lit, glow)
     }
+    // Each piece is built on flat ground at 0 and set down on the ground's height where it stands.
+    const lift = (y: number, fn: () => void): void => {
+      const l0 = lit.length
+      const g0 = glow.length
+      fn()
+      for (let q = l0; q < lit.length; q++) lit[q]!.translate(0, y, 0)
+      for (let q = g0; q < glow.length; q++) glow[q]!.translate(0, y, 0)
+    }
     for (const cr of plan.crossings) {
-      if (cr.kind === 'bridge') this.buildBridge(plan, cr.i0, cr.i1, cr.j0, cr.j1, lit)
+      if (cr.kind === 'bridge') lift(groundAt(cr.x, cr.z), () => this.buildBridge(plan, cr.i0, cr.i1, cr.j0, cr.j1, lit))
       else this.buildFord(plan, cr.cells, lit)
     }
-    for (const cv of plan.caves) this.buildMouth(cv.mouth.x, cv.mouth.z, cv.mouth.a, lit, glow)
-    for (const s of plan.signs) this.buildSign(s.x, s.z, s.a, lit, glow)
-    if (plan.puzzle) this.buildHint(plan, lit)
+    // A cave's mouth stands on the lower of its two feet, so neither floats.
+    for (const cv of plan.caves) {
+      const m = cv.mouth
+      const px = Math.cos(m.a) * 1.55
+      const pz = -Math.sin(m.a) * 1.55
+      lift(Math.min(groundAt(m.x + px, m.z + pz), groundAt(m.x - px, m.z - pz), groundAt(m.x, m.z)), () => this.buildMouth(m.x, m.z, m.a, lit, glow))
+    }
+    for (const s of plan.signs) lift(groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
+    if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
     if (lit.length) {
       const g = merge(lit)
       this.owned.push(g)
@@ -316,7 +333,9 @@ export class LevelProps {
       const hit = vmap.get(key)
       if (hit !== undefined) return hit
       const n = pos.length / 3
-      pos.push((i0 + gi / SUB) * CELL, WATER_Y, (gj / SUB) * CELL)
+      const vx = (i0 + gi / SUB) * CELL
+      const vz = (gj / SUB) * CELL
+      pos.push(vx, groundAt(vx, vz) + WATER_Y, vz)
       shore.push(1 - wetShare(gi, gj))
       vmap.set(key, n)
       return n
@@ -388,6 +407,8 @@ export class LevelProps {
         if (kind[j * w + i] !== K_WATER) continue
         const x = (i + 0.5) * CELL
         const z = (j + 0.5) * CELL
+        // This body of water's surface (it lies level: \`sim/relief.ts\`).
+        const wy = groundAt(x, z) + WATER_Y
         // Which sides are bank?
         const banks: Array<[number, number]> = []
         for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
@@ -406,28 +427,28 @@ export class LevelProps {
               const a = rot + q * 1.7
               const d = 0.08 + q * 0.05
               const hgt = 0.55 + rng() * 0.5
-              lit.push(P(rcone(0.035, 0.01, hgt, 0.01, 5), q % 2 ? '#5fae4a' : '#4a9a44', [bx + Math.cos(a) * d, WATER_Y + hgt / 2, bz + Math.sin(a) * d], [(rng() - 0.5) * 0.25, 0, (rng() - 0.5) * 0.25]))
+              lit.push(P(rcone(0.035, 0.01, hgt, 0.01, 5), q % 2 ? '#5fae4a' : '#4a9a44', [bx + Math.cos(a) * d, wy + hgt / 2, bz + Math.sin(a) * d], [(rng() - 0.5) * 0.25, 0, (rng() - 0.5) * 0.25]))
             }
-            lit.push(P(cap(0.05, 0.16, 6, 2), '#7a4a2a', [bx, WATER_Y + 0.95, bz]))
+            lit.push(P(cap(0.05, 0.16, 6, 2), '#7a4a2a', [bx, wy + 0.95, bz]))
           } else if (liquid === 'ice') {
-            lit.push(P(rock(0.36, 3 + Math.floor(rng() * 20), 7, 5), '#eaf7ff', [bx, WATER_Y + 0.06, bz], [0, rot, 0], [1, 0.5, 1]))
+            lit.push(P(rock(0.36, 3 + Math.floor(rng() * 20), 7, 5), '#eaf7ff', [bx, wy + 0.06, bz], [0, rot, 0], [1, 0.5, 1]))
           } else if (liquid === 'lava') {
-            lit.push(P(rock(0.34, 3 + Math.floor(rng() * 20), 7, 5), '#2c2024', [bx, WATER_Y + 0.08, bz], [0, rot, 0], [1, 0.7, 1]))
-            glow.push(P(sph(0.07, 6, 5), '#ffb02a', [bx + 0.12, WATER_Y + 0.26, bz - 0.06]))
+            lit.push(P(rock(0.34, 3 + Math.floor(rng() * 20), 7, 5), '#2c2024', [bx, wy + 0.08, bz], [0, rot, 0], [1, 0.7, 1]))
+            glow.push(P(sph(0.07, 6, 5), '#ffb02a', [bx + 0.12, wy + 0.26, bz - 0.06]))
           } else {
             const hex = liquid === 'void' ? '#d0a8ff' : '#7dffd0'
-            lit.push(P(rock(0.26, 3 + Math.floor(rng() * 20), 7, 5), liquid === 'void' ? '#2a1c50' : '#3a4a52', [bx, WATER_Y + 0.08, bz], [0, rot, 0]))
-            glow.push(P(rcone(0.07, 0.01, 0.5, 0.01, 5), hex, [bx, WATER_Y + 0.4, bz], [0, 0, (rng() - 0.5) * 0.5]))
+            lit.push(P(rock(0.26, 3 + Math.floor(rng() * 20), 7, 5), liquid === 'void' ? '#2a1c50' : '#3a4a52', [bx, wy + 0.08, bz], [0, rot, 0]))
+            glow.push(P(rcone(0.07, 0.01, 0.5, 0.01, 5), hex, [bx, wy + 0.4, bz], [0, 0, (rng() - 0.5) * 0.5]))
           }
         } else if (r > 0.86 - 0.08 * density) {
           const lx = x + (rng() - 0.5) * 0.8
           const lz = z + (rng() - 0.5) * 0.8
           if (liquid === 'water') {
             // A lily pad, sometimes in flower.
-            lit.push(P(rcyl(0.24, 0.03, 0.012, 9, 1), '#4fa84a', [lx, WATER_Y + 0.02, lz], [0, rng() * 6, 0]))
-            if (rng() < 0.4) lit.push(P(sph(0.08, 7, 5), rng() < 0.5 ? '#ff9ac0' : '#fff4f8', [lx + 0.05, WATER_Y + 0.09, lz]))
+            lit.push(P(rcyl(0.24, 0.03, 0.012, 9, 1), '#4fa84a', [lx, wy + 0.02, lz], [0, rng() * 6, 0]))
+            if (rng() < 0.4) lit.push(P(sph(0.08, 7, 5), rng() < 0.5 ? '#ff9ac0' : '#fff4f8', [lx + 0.05, wy + 0.09, lz]))
           } else if (liquid === 'ice') {
-            lit.push(P(rcyl(0.34, 0.07, 0.03, 6, 1), '#f4fbff', [lx, WATER_Y + 0.03, lz], [0, rng() * 6, 0], [1, 1, 0.75]))
+            lit.push(P(rcyl(0.34, 0.07, 0.03, 6, 1), '#f4fbff', [lx, wy + 0.03, lz], [0, rng() * 6, 0], [1, 1, 0.75]))
           }
         }
       }
@@ -486,7 +507,7 @@ export class LevelProps {
       spots.forEach(([dx, dz, r], q) => {
         const g = rock(r, k * 7 + q, 9, 6)
         paintBy(g, (_x, y) => (y > r * 0.3 ? (hot ? '#6a5a5e' : '#b6bcc0') : hot ? '#3a2e30' : '#8a9296'))
-        lit.push(xform(g, [x + dx, WATER_Y + 0.02, z + dz], [0, q * 1.3 + k, 0], [1, 0.42, 1]))
+        lit.push(xform(g, [x + dx, groundAt(x, z) + WATER_Y + 0.02, z + dz], [0, q * 1.3 + k, 0], [1, 0.42, 1]))
       })
     }
   }
@@ -556,7 +577,7 @@ export class LevelProps {
     xform(frame, [0, 0, 0], [tilt, 0, 0])
     lit.push(xform(frame, [x, 0.2, z + 0.12]))
     const face = new Group()
-    face.position.set(x, 0.2, z + 0.12)
+    face.position.set(x, 0.2 + groundAt(x, z), z + 0.12)
     face.rotation.x = tilt
     for (let q = 0; q < n; q++) {
       const plate = plan.plates.find(p => p.id === pz.order[q])
@@ -596,7 +617,7 @@ export class LevelProps {
     this.owned.push(halo)
     for (const p of plan.plates) {
       const root = new Group()
-      root.position.set(p.x, 0, p.z)
+      root.position.set(p.x, groundAt(p.x, p.z), p.z)
       root.add(new Mesh(slab, celVC()))
       const line = new Mesh(slab, outlineMat())
       line.renderOrder = -1
@@ -613,12 +634,12 @@ export class LevelProps {
       const haloMat = new MeshBasicMaterial({ color, transparent: true, opacity: 0, depthWrite: false, blending: AdditiveBlending, toneMapped: false })
       this.mats.push(haloMat)
       const ring = new Mesh(halo, haloMat)
-      ring.position.set(p.x, 0.05, p.z)
+      ring.position.set(p.x, 0.05 + groundAt(p.x, p.z), p.z)
       ring.renderOrder = 3
       ring.visible = false
       this.root.add(ring)
       this.root.add(root)
-      this.plates.push({ id: p.id, root, mat, halo: ring, color, lit: 0, aim: 0, press: 0, wrong: 0, x: p.x, z: p.z })
+      this.plates.push({ id: p.id, root, mat, halo: ring, color, lit: 0, aim: 0, press: 0, wrong: 0, x: p.x, z: p.z, gy: groundAt(p.x, p.z) })
     }
   }
 
@@ -662,7 +683,7 @@ export class LevelProps {
       const sink = u * u
       const shudder = u > 0 && u < 1 ? Math.sin(t * 60 + n) * 0.04 * (1 - u) : 0
       _q.setFromAxisAngle(_up, r.rot + u * 0.5)
-      _p.set(r.x + shudder, -sink * 2.2, r.z)
+      _p.set(r.x + shudder, groundAt(r.x, r.z) - sink * 2.2, r.z)
       const s = r.s * (1 - sink * 0.35)
       _s.set(s, s, s)
       _m.compose(_p, _q, _s)
@@ -686,7 +707,7 @@ export class LevelProps {
       }
       const look = CHEST_LOOK[c.tier]
       const root = new Group()
-      root.position.set(c.x, 0, c.z)
+      root.position.set(c.x, groundAt(c.x, c.z), c.z)
       // Its front faces where the hero will stand.
       root.rotation.y = Math.atan2(c.sx - c.x, c.sz - c.z)
       root.scale.setScalar(look.scale)
@@ -883,7 +904,7 @@ export class LevelProps {
       v.lit += (v.aim - v.lit) * Math.min(1, dt * 10)
       if (v.press > 0) v.press = Math.max(0, v.press - dt * 3.2)
       if (v.wrong > 0) v.wrong = Math.max(0, v.wrong - dt * 2.4)
-      v.root.position.y = -0.07 * Math.sin(Math.min(1, v.press) * Math.PI)
+      v.root.position.y = v.gy - 0.07 * Math.sin(Math.min(1, v.press) * Math.PI)
       // Dim until it is pressed in turn; a lit plate breathes.
       const k = 0.42 + v.lit * (0.7 + 0.1 * Math.sin(this.time * 4 + v.id))
       v.mat.color.copy(v.color).multiplyScalar(k)

@@ -103,17 +103,23 @@ describe('towns', () => {
     })
   }
 
-  it('shopkeepers and trainers stand in front of a house that swallows nobody', () => {
+  // Towns are streets of houses now (roadmap #41): besides the cast's own
+  // houses there are houses that are nobody's, so the count is of the OWNED
+  // ones; and a house may be walked into, so "inside" means inside its walls
+  // unless it is that person's own room (`town.test.ts` covers the rest).
+  it('shopkeepers and trainers each have a house of their own, which swallows nobody', () => {
     for (const town of Object.keys(TOWNS) as TownId[]) {
       const plan = generateTown(TOWNS[town], new Set(), 7)
-      const need = townNpcs(town, new Set()).filter(n => n.role === 'shop' || n.role === 'trainer').length
-      expect(plan.buildings.length, town).toBeGreaterThanOrEqual(need - 1)
-      expect(plan.buildings.length, town).toBeLessThanOrEqual(need)
-      for (const b of plan.buildings) {
+      const owners = townNpcs(town, new Set()).filter(n => (n.role === 'shop' || n.role === 'trainer') && (n.place ?? 'street') !== 'street')
+      const owned = plan.town!.houses.filter(h => h.owner)
+      for (const n of owners) expect(owned.filter(h => h.owner === n.id).length, `${town}: ${n.id}`).toBe(1)
+      for (const [bi, b] of plan.buildings.entries()) {
         expect(b.w).toBeGreaterThan(CELL)
+        const h = plan.town!.houses[bi]!
         for (const n of plan.npcs) {
           const inside = Math.abs(n.x - b.x) < b.w / 2 && Math.abs(n.z - b.z) < b.d / 2
-          expect(inside, `${town}: ${n.id} is inside a house`).toBe(false)
+          const ownRoom = h.inside && h.owner === n.id
+          expect(inside && !ownRoom, `${town}: ${n.id} is inside a house`).toBe(false)
         }
       }
     }

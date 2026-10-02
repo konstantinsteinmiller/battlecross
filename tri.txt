@@ -1,0 +1,13 @@
+hall false base 162 4764 36 cut -
+tavern false base 162 5316 50 cut -
+hall true base 70 1876 88 cut 102/3966
+cottage false base 462 1108 8 cut -
+cottage false base 462 1130 8 cut -
+workshop false base 154 2088 112 cut -
+chapel true base 70 1602 88 cut 100/3060
+cottage false base 462 1104 18 cut -
+cottage false base 462 1004 14 cut -
+cottage false base 150 1218 4 cut -
+cottage false base 462 974 2 cut -
+cottage false base 462 1212 18 cut -
+cottage false base 462 1006 6 cut -

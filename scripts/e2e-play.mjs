@@ -300,7 +300,7 @@ const playDesktop = async () => {
   await page.waitForTimeout(300)
   const bought = await game(page, () => ({ n: window.__game.profile.inv.items.length, gold: window.__game.profile.gold, last: window.__game.profile.inv.items.at(-1) }))
   check('buying an item takes the gold and puts it in the bag', n > 0 && bought.n === owned0 + 1 && bought.gold < 5000, `${bought.last}, gold ${bought.gold}`)
-  await page.locator('.f-modal__close').click()
+  await page.locator('.screen__close').click()
   await page.waitForTimeout(500)
   const resumed = await game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal, line: window.__game.talk.line?.id ?? '' }))
   check('closing the shop returns to the conversation (a parting line)', resumed.talk === 'npc' && resumed.modal === '' && resumed.line === 'dlg.sunfordSmith.shopBack.1', JSON.stringify(resumed))
@@ -329,7 +329,7 @@ const playDesktop = async () => {
   await shot(page, 'play-6-bag')
 
   // The character tab: spend a point with "+".
-  await page.locator('.f-tabs__tab').first().click()
+  await page.locator('.book__tab[data-page="character"]').click()
   await page.waitForFunction(() => window.__game.flow.modal === 'character', null, { timeout: 5000 })
   const pts = await game(page, () => ({ points: window.__game.profile.hero.points, str: window.__game.profile.hero.attrs.str }))
   await page.locator('.attr__plus').first().click()
@@ -337,7 +337,7 @@ const playDesktop = async () => {
   const pts2 = await game(page, () => ({ points: window.__game.profile.hero.points, str: window.__game.profile.hero.attrs.str }))
   check('"+" on the character sheet spends a point on Strength', pts.points > 0 && pts2.points === pts.points - 1 && pts2.str === pts.str + 1, `points ${pts.points}→${pts2.points}`)
   await shot(page, 'play-7-sheet')
-  await page.locator('.f-modal__close').click()
+  await page.locator('.screen__close').click()
   await page.waitForTimeout(400)
 
   // The trainer: learn Fireball, and find it slotted.
@@ -359,7 +359,7 @@ const playDesktop = async () => {
   const learned = await game(page, () => ({ learned: [...window.__game.profile.hero.learned], active: [...window.__game.profile.hero.active] }))
   check('learning Fireball costs gold and slots it next to Shield Slam', learned.learned.includes('fireball') && learned.active[1] === 'fireball', learned.active.join(','))
   await shot(page, 'play-8-trainer')
-  await page.locator('.f-modal__close').click()
+  await page.locator('.screen__close').click()
   await page.waitForTimeout(500)
   await endTalk(page)
   await page.waitForTimeout(400)
@@ -546,12 +546,20 @@ const layout = async () => {
     await game(page, () => { window.__game.flow.modal = 'character' })
     await page.waitForTimeout(600)
     const hero = await page.evaluate(() => {
-      const f = document.querySelector('.f-modal__frame')?.getBoundingClientRect()
-      const tabs = [...document.querySelectorAll('.f-tabs__tab')].map(t => t.getBoundingClientRect())
+      const f = document.querySelector('.screen__body')?.getBoundingClientRect()
+      const tabs = [...document.querySelectorAll('.book__tab')].map(t => t.getBoundingClientRect())
+      const close = document.querySelector('.screen__close')?.getBoundingClientRect()
       const plus = [...document.querySelectorAll('.attr__plus')].map(t => t.getBoundingClientRect())
-      return { fx: f?.left ?? -1, fr: f?.right ?? 1e9, fb: f?.bottom ?? 1e9, fy: f?.top ?? -1, vw: innerWidth, vh: innerHeight, tabsIn: tabs.every(t => t.left >= -1 && t.right <= innerWidth + 1 && t.top >= -1), plusMin: Math.min(...plus.map(p => Math.min(p.width, p.height))), n: plus.length }
+      const page = document.scrollingElement
+      return {
+        fx: f?.left ?? -1, fr: f?.right ?? 1e9, fb: f?.bottom ?? 1e9, fy: f?.top ?? -1, vw: innerWidth, vh: innerHeight,
+        tabsIn: tabs.length === 3 && tabs.every(t => t.left >= -1 && t.right <= innerWidth + 1 && t.top >= -1 && t.height >= 43.5),
+        closeIn: !!close && close.right <= innerWidth + 1 && close.top >= -1 && close.width >= 43.5,
+        plusMin: Math.min(...plus.map(p => Math.min(p.width, p.height))), n: plus.length,
+        scrolls: page ? page.scrollWidth > innerWidth + 1 || page.scrollHeight > innerHeight + 1 : false
+      }
     })
-    check(`${v.name}: the hero window and its three tabs fit; the six "+" buttons are at least 40 px`, hero.fx >= -1 && hero.fr <= hero.vw + 1 && hero.fb <= hero.vh + 1 && hero.tabsIn && hero.n === 6 && hero.plusMin >= 39.5, `frame ${Math.round(hero.fx)}..${Math.round(hero.fr)} of ${hero.vw}, "+" ${Math.round(hero.plusMin)} px`)
+    check(`${v.name}: the hero's book, its three page tabs and its close button fit; the six "+" buttons are at least 40 px`, hero.fx >= -1 && hero.fr <= hero.vw + 1 && hero.fb <= hero.vh + 1 && hero.tabsIn && hero.closeIn && !hero.scrolls && hero.n === 6 && hero.plusMin >= 39.5, `body ${Math.round(hero.fx)}..${Math.round(hero.fr)} of ${hero.vw}, "+" ${Math.round(hero.plusMin)} px, tabs ${hero.tabsIn}, close ${hero.closeIn}`)
     await shot(page, `layout-${v.w}x${v.h}-sheet`)
     check(`${v.name}: no console errors`, b.errors.length === 0, [...new Set(b.errors)].slice(0, 2).join(' | '))
     await b.ctx.close()

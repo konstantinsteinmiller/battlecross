@@ -3,6 +3,7 @@ import {
   DynamicDrawUsage, InstancedBufferAttribute, InstancedBufferGeometry, Mesh, OneFactor, OneMinusSrcAlphaFactor, type Texture
 } from 'three'
 import { glowTexture } from './textures'
+import { groundAt } from './ground'
 
 /**
  * ─── Pooled additive particles ───────────────────────────────────────────────
@@ -119,7 +120,8 @@ export class Particles {
     if (this.n < this.cap) i = this.n++
     else i = Math.floor(Math.random() * this.cap) // pool full: recycle a random slot
     this.pos[i * 3] = s.x
-    this.pos[i * 3 + 1] = s.y
+    // A spec's height is over the ground under it (`gfx/ground.ts`).
+    this.pos[i * 3 + 1] = s.y + groundAt(s.x, s.z)
     this.pos[i * 3 + 2] = s.z
     this.vel[i * 3] = s.vx ?? 0
     this.vel[i * 3 + 1] = s.vy ?? 0
@@ -476,7 +478,7 @@ export class Sprites {
     else i = Math.floor(Math.random() * this.cap) // pool full: recycle a random slot
     const i4 = i * 4
     this.pos[i4] = s.x
-    this.pos[i4 + 1] = s.y
+    this.pos[i4 + 1] = s.y + groundAt(s.x, s.z)
     this.pos[i4 + 2] = s.z
     this.pos[i4 + 3] = s.size
     this.vel[i * 3] = s.vx ?? 0

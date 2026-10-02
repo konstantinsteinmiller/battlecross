@@ -8,6 +8,7 @@ import { stepDirector } from './director'
 import { stepHero } from './hero'
 import { finishOpen } from './interact'
 import { HERO_SKILLS } from './heroSkills'
+import { stepTownLife } from './townLife'
 import type { ZonePlan } from './zoneGen'
 import type { Unit } from './types'
 import type { Sim } from './world'
@@ -87,6 +88,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
     else stepAlly(sim, u, dt)
   }
 
+  if (sim.mode === 'town') stepTownLife(sim, dt)
   separate(sim, dt)
   stepProjectiles(sim, dt)
   stepFields(sim, dt)

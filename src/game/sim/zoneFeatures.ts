@@ -1,4 +1,4 @@
-import { ZONE_FEATURES, type LiquidId, type ZoneDef } from '../data/zones'
+import { ZONE_FEATURES, ZONE_RELIEF, type LiquidId, type ZoneDef } from '../data/zones'
 import { ENEMY_BY_ID } from '../data/enemies'
 import type { ChestTier } from '../data/loot'
 import { CELL } from './grid'
@@ -36,8 +36,13 @@ export const K_FORD = 3
 export const K_BLOCK = 4
 /** A pressure plate (walkable). */
 export const K_PLATE = 5
+/** A ledge's cliff edge: the ground steps up here, so nobody walks across it.
+ *  It is seen and shot over, like water. */
+export const K_CLIFF = 6
+/** The ramp up a ledge (walkable; worn, or built as steps). */
+export const K_RAMP = 7
 
-export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 'cave' | 'lagoon' | 'nook' | 'tutorial'
+export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 'cave' | 'lagoon' | 'nook' | 'tutorial' | 'ledge'
 
 export interface ChestPlan {
   id: number
@@ -128,6 +133,46 @@ export interface SignPlan {
   a: number
 }
 
+/**
+ * A ledge across part of a clearing: past the line `d0` metres out from the
+ * clearing's centre along (ux, uz) the ground stands `step` metres higher,
+ * and the line itself is a cliff edge, except for a ramp `half` metres either
+ * side of `t0` (measured across the line), which climbs over `run` metres.
+ */
+export interface LedgePlan {
+  /** The clearing's centre and radius (metres). */
+  x: number
+  z: number
+  r: number
+  ux: number
+  uz: number
+  d0: number
+  t0: number
+  half: number
+  run: number
+  step: number
+  /** A cell on top that must be reachable (by the ramp). */
+  probe: number
+}
+
+/** The raised floor a finale stands on: a plateau of radius `r`, sloping down to `rim`. */
+export interface DaisPlan {
+  x: number
+  z: number
+  r: number
+  rim: number
+  h: number
+}
+
+/** A side place off clearing `k` and how far above (or below) it it lies. */
+export interface LobePlan {
+  x: number
+  z: number
+  r: number
+  k: number
+  lift: number
+}
+
 export interface Features {
   liquid: LiquidId | null
   chests: ChestPlan[]
@@ -141,11 +186,14 @@ export interface Features {
   crossings: CrossingPlan[]
   /** Skull posts by a champion's path. */
   signs: SignPlan[]
+  ledges: LedgePlan[]
+  dais: DaisPlan | null
+  lobes: LobePlan[]
 }
 
 export const noFeatures = (): Features => ({
   liquid: null, chests: [], plates: [], puzzle: null, doors: [], optionalPacks: [], caves: [], rivers: [], ponds: [],
-  crossings: [], signs: []
+  crossings: [], signs: [], ledges: [], dais: null, lobes: []
 })
 
 /** The river's centre row at column `i` (also past the grid: the view carries it on). */
@@ -176,6 +224,7 @@ export interface FeatureCtx {
 }
 
 const FEATURE_SALT = 0x5f3c9a17
+const LEDGE_SALT = 0x3b9e14d1
 
 export const addFeatures = (c: FeatureCtx): Features => {
   const { w, h, solid, trail, kind, cave, sealed, side: off, cs } = c
@@ -193,7 +242,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
 
   // ── Walking the plan ──
   const open = (k: number, doorsOpen: boolean): boolean =>
-    !solid[k] && kind[k] !== K_WATER && kind[k] !== K_BLOCK && (doorsOpen || !sealed[k])
+    !solid[k] && kind[k] !== K_WATER && kind[k] !== K_BLOCK && kind[k] !== K_CLIFF && (doorsOpen || !sealed[k])
   const queue = new Int32Array(w * h)
   const flood = (doorsOpen: boolean): Uint8Array => {
     const seen = new Uint8Array(w * h)
@@ -229,6 +278,13 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const j = (k - i) / w
     return !!(seen[k] || seen[k - 1] || seen[k + 1] || (j > 0 && seen[k - w]) || (j < h - 1 && seen[k + w]))
   }
+  /** Open ground (outside a sealed pocket) that cannot be walked to. */
+  const stranded = (): number => {
+    const a = flood(false)
+    let n0 = 0
+    for (let k = 0; k < w * h; k++) if (!a[k] && !sealed[k] && open(k, false)) n0++
+    return n0
+  }
   /** Everything that must be walkable to still is. */
   const sound = (): boolean => {
     const a = flood(false)
@@ -240,6 +296,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     for (const p of out.optionalPacks) if (!a[cellAt(p.x, p.z)]) return false
     for (const cv of out.caves) if (!a[cellAt(cv.x, cv.z)]) return false
     for (const cr of out.crossings) for (const k of cr.cells) if (!a[k]) return false
+    for (const l of out.ledges) if (!a[l.probe]) return false
     // A sealed pocket has no back way in: its chest waits for the door.
     for (const ch of out.chests) if (ch.door >= 0 && a[cellAt(ch.sx, ch.sz)]) return false
     return true
@@ -251,7 +308,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
   /** Lay a feature; take it back if it fails or leaves the plan unsound. */
   const attempt = (fn: () => boolean): boolean => {
     const snap = [solid.slice(), trail.slice(), kind.slice(), cave.slice(), sealed.slice(), claimed.slice(), off.slice()]
-    const len = [out.chests.length, out.plates.length, out.doors.length, out.optionalPacks.length, out.caves.length, out.rivers.length, out.ponds.length, out.crossings.length, out.signs.length]
+    const len = [out.chests.length, out.plates.length, out.doors.length, out.optionalPacks.length, out.caves.length, out.rivers.length, out.ponds.length, out.crossings.length, out.signs.length, out.ledges.length, out.lobes.length]
     const puzzle = out.puzzle
     const lobes = [...used]
     if (fn() && sound()) return true
@@ -260,6 +317,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     solid.set(snap[0]!); trail.set(snap[1]!); kind.set(snap[2]!); cave.set(snap[3]!); sealed.set(snap[4]!); claimed.set(snap[5]!); off.set(snap[6]!)
     out.chests.length = len[0]!; out.plates.length = len[1]!; out.doors.length = len[2]!; out.optionalPacks.length = len[3]!
     out.caves.length = len[4]!; out.rivers.length = len[5]!; out.ponds.length = len[6]!; out.crossings.length = len[7]!; out.signs.length = len[8]!
+    out.ledges.length = len[9]!; out.lobes.length = len[10]!
     out.puzzle = puzzle
     return false
   }
@@ -497,6 +555,98 @@ export const addFeatures = (c: FeatureCtx): Features => {
     }
   }
 
+  // ── Ledges and the finale's dais (roadmap #57), on a stream of their own so
+  //    the rest of a seed's layout is what it was before the land had relief ──
+  const rel = ZONE_RELIEF[c.def.id]
+  const lrng: Rng = mulberry32((c.seed ^ LEDGE_SALT) >>> 0)
+  if (!c.tutorial && lrng() < rel.dais) {
+    const fin = cs[n]!
+    out.dais = { x: cx(fin.i), z: cx(fin.j), r: fin.r * CELL * 0.42, rim: fin.r * CELL * 0.8, h: 0.75 + lrng() * 0.35 }
+  }
+  const ledge = (withChest: boolean): boolean => attempt(() => {
+    // Never on a boss's floor, nor across a dais.
+    const kHi = boss || out.dais ? n - 1 : n
+    const k = Math.floor(lrng() * (kHi + 1))
+    const from = cs[k]!
+    // The terrace lies up-screen of its edge, so the camera looks at the
+    // cliff's face, not over its back.
+    const th = -Math.PI / 2 + (lrng() - 0.5) * 1.9
+    const ux = Math.cos(th)
+    const uz = Math.sin(th)
+    const R = from.r
+    const d0 = R * (0.3 + lrng() * 0.15)
+    const step = rel.step[0] + lrng() * (rel.step[1] - rel.step[0])
+    const e = 0.5 * (Math.abs(ux) + Math.abs(uz))
+    const half = 1.55
+    const run = step > 1.5 ? 1.9 : 1.7
+    const reach = R * 1.3 + 1
+    const RR = Math.ceil(reach)
+    // Where across the line the ramp goes: somewhere in the middle half of it.
+    const across: number[] = []
+    for (let dj = -RR; dj <= RR; dj++) for (let di = -RR; di <= RR; di++) {
+      const i = from.i + di
+      const j = from.j + dj
+      if (!inside(i, j) || solid[j * w + i] || Math.hypot(di, dj) > reach) continue
+      if (Math.abs(di * ux + dj * uz - d0) <= e + 0.15) across.push(-di * uz + dj * ux)
+    }
+    if (across.length < 4) return false
+    across.sort((a, b) => a - b)
+    const t0 = across[Math.floor((0.25 + 0.5 * lrng()) * across.length)]!
+    const cliff: number[] = []
+    const ramp: number[] = []
+    const tops: Array<[number, number]> = []
+    let top = -1
+    let far = -Infinity
+    for (let dj = -RR; dj <= RR; dj++) for (let di = -RR; di <= RR; di++) {
+      const i = from.i + di
+      const j = from.j + dj
+      if (!inside(i, j) || Math.hypot(di, dj) > reach) continue
+      const kk = j * w + i
+      if (solid[kk]) continue
+      const sc = di * ux + dj * uz
+      const tc = -di * uz + dj * ux
+      if (Math.abs(tc - t0) + e <= half && Math.abs(sc - d0) <= run) {
+        if (kind[kk] !== K_GROUND || claimed[kk] || sealed[kk]) return false
+        ramp.push(kk)
+      } else if (Math.abs(sc - d0) <= e + 0.15) {
+        // The edge never cuts the road, a feature or a door.
+        if (kind[kk] !== K_GROUND || claimed[kk] || trail[kk] || sealed[kk] || cave[kk]) return false
+        cliff.push(kk)
+      } else if (sc > d0 && kind[kk] === K_GROUND && !claimed[kk]) {
+        tops.push([kk, sc])
+        if (sc > far) { far = sc; top = kk }
+      }
+    }
+    if (cliff.length < 3 || ramp.length < 2 || top < 0) return false
+    const cutOff0 = stranded()
+    for (const kk of cliff) { kind[kk] = K_CLIFF; claimed[kk] = 1 }
+    for (const kk of ramp) { kind[kk] = K_RAMP; claimed[kk] = 1 }
+    // The edge must not leave a scrap of ground nobody can walk to.
+    if (stranded() > cutOff0) return false
+    out.ledges.push({ x: cx(from.i), z: cx(from.j), r: R * CELL, ux, uz, d0: d0 * CELL, t0: t0 * CELL, half: half * CELL, run: run * CELL, step, probe: top })
+    if (withChest) {
+      // Something up there for the climb, as far back on the top as will take it.
+      tops.sort((p, q) => q[1] - p[1])
+      let placed = false
+      const tier = lrng() < 0.5 ? 'iron' : 'wood'
+      for (const [kk] of tops.slice(0, 8)) {
+        const ti = kk % w
+        if (addChest(ti, (kk - ti) / w, tier, 'ledge', from.i, from.j)) { placed = true; break }
+      }
+      if (!placed) return false
+      out.ledges[out.ledges.length - 1]!.probe = cellAt(out.chests[out.chests.length - 1]!.sx, out.chests[out.chests.length - 1]!.sz)
+    }
+    return true
+  })
+  if (!c.tutorial) {
+    for (let q = 0; q < rel.ledges; q++) {
+      if (lrng() >= rel.ledge) continue
+      // A ledge mostly has something up there for the climb.
+      const withChest = lrng() < 0.65
+      for (let tries = 0; tries < 10; tries++) if (ledge(withChest)) break
+    }
+  }
+
   // ── Side features, in an order the seed picks, up to the visit's chest count ──
   const want = int(f.chests[0], f.chests[1])
   const side = (): number => out.chests.filter(ch => ch.role !== 'finale' && ch.role !== 'secret').length
@@ -507,6 +657,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const s = site(1, midHi, rr, 2.4)
     if (!s) return false
     const from = cs[s.k]!
+    // A champion waits on a knoll; a guard a little above the clearing.
+    out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: champion ? 0.75 : 0.3 })
     line(from.i, from.j, s.i, s.j, champion ? 1.25 : 1.05, false)
     disc(s.i, s.j, rr, true)
     const pack = out.optionalPacks.length
@@ -578,6 +730,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
     }
     if (!addChest(Math.round(s.i + ux * (rr - 1.2)), Math.round(s.j + uz * (rr - 1.2)), 'iron', 'cave', s.i, s.j, -1, guard)) return false
     out.caves.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, mouth: { x: cx(mouthI), z: cx(mouthJ), a: ma } })
+    // A cave goes down into the hill.
+    out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: -0.55 })
     return true
   })
 
@@ -632,6 +786,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const js = cells.map(kk => Math.floor(kk / w))
     out.crossings.push({ kind: 'ford', cells, x: cx(si / cells.length), z: cx(sj / cells.length), i0: Math.min(...is), i1: Math.max(...is), j0: Math.min(...js), j1: Math.max(...js) })
     out.ponds.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL })
+    out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: -0.3 })
     return true
   })
 
@@ -708,6 +863,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
       if (order.some((v, m) => v !== first + m)) break
     }
     out.puzzle = { order, hint: { x: cx(hint % w), z: cx(Math.floor(hint / w)) }, door: id }
+    out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: 0.15 })
     return true
   })
 
@@ -721,6 +877,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
       const from = cs[s.k]!
       line(from.i, from.j, s.i, s.j, 0.9, false)
       disc(s.i, s.j, 1.3, false)
+      out.lobes.push({ x: cx(s.i), z: cx(s.j), r: 1.3 * CELL, k: s.k, lift: 0.25 })
       return addChest(s.i, s.j, 'wood', 'nook', from.i, from.j)
     })) return true
     for (let tries = 0; tries < 10; tries++) {
@@ -796,6 +953,12 @@ export const addFeatures = (c: FeatureCtx): Features => {
         return true
       })) break
     }
+  }
+  // Open ground nobody can walk to (a scrap boxed in by boulders) is rock:
+  // a blink or a shove must never leave a body somewhere it cannot leave.
+  {
+    const a = flood(false)
+    for (let k = 0; k < w * h; k++) if (!a[k] && !sealed[k] && open(k, false)) solid[k] = 1
   }
   return out
 }

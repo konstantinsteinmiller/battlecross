@@ -17,7 +17,9 @@ import { generateArena, generateTown, generateZone, type ZonePlan } from '../sim
 import { Sim, findStatus } from '../sim/world'
 import type { SimEvent, Unit } from '../sim/types'
 import { updateCelFrame } from '../gfx/cel'
-import { BAR_RANK, HealthBars, Markers, makeBlobShadow, type BarRank } from '../gfx/markers'
+import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
+import { clearGround, groundAt, setGround } from '../gfx/ground'
+import type { HeightField } from '../sim/ground'
 import { blowOf, trackUnit } from '../gfx/combatFx'
 import { animate, squash, struck } from '../gfx/rigs/anim'
 import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rigs'
@@ -25,6 +27,9 @@ import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
 import { LevelProps } from '../gfx/levelProps'
+import { TownView } from '../gfx/townView'
+import { townCanTalk } from '../sim/town'
+import { townAddress, townGreet } from '../sim/townLife'
 import { POTION_CD, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
@@ -124,8 +129,12 @@ export class ZoneMode implements GameMode {
   private markers!: Markers
   private bars!: HealthBars
   private walls = new WallRocks()
+  /** The height of this place's ground. */
+  private field: HeightField | null = null
   /** Chests, plates, doors, bridges and the water (`gfx/levelProps.ts`). */
   private props: LevelProps | null = null
+  /** A town's houses, props and life (`gfx/townView.ts`). */
+  private town: TownView | null = null
   private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
   private chestOpen = 0
   private views = new Map<number, View>()
@@ -185,7 +194,8 @@ export class ZoneMode implements GameMode {
       manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
-    else if (setup.kind === 'town') populateTown(sim, plan)
+    // A weak device leaves out most of the folk; every visit is a different day.
+    else if (setup.kind === 'town') populateTown(sim, plan, { lite: sceneQuality() === 'low', visit: profile.world.visits[setup.town!] ?? 0 })
     else sim.wave.rest = 1.6
     if (setup.dragonAlly) summonDragonAlly(sim)
     sim.events.length = 0
@@ -193,6 +203,11 @@ export class ZoneMode implements GameMode {
     await slice()
 
     m.scene.add(new AmbientLight(0xffffff, 1))
+    // The ground everything in this place stands on (`gfx/ground.ts`).
+    // DEV: `?relief=0` lays every place flat (the perf A/B arm of roadmap #57).
+    if (import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('relief') === '0') plan.height.fill(0)
+    m.field = { w: plan.w, h: plan.h, height: plan.height }
+    setGround(m.field)
     m.terrain = await buildTerrain(plan, setup.theme, m.scene, slice)
     onProgress(0.5)
 
@@ -222,6 +237,7 @@ export class ZoneMode implements GameMode {
       m.props = new LevelProps(sim, m.vfx, m.terrain.theme, n => m.cam.addTrauma(n))
       m.props.build(plan, m.scene)
     }
+    if (setup.kind === 'town' && plan.town) m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
     if (setup.kind === 'arena' && plan.chest) {
       m.chest = buildChest()
       m.chest.root.position.set(plan.chest.x, 0, plan.chest.z)
@@ -234,7 +250,7 @@ export class ZoneMode implements GameMode {
     }
     onProgress(0.95)
     m.cam.snap()
-    m.cam.follow(plan.start.x, plan.start.z, 0, 0, 0.016)
+    m.cam.follow(plan.start.x, plan.start.z, 0, 0, 0.016, groundAt(plan.start.x, plan.start.z))
     m.syncHud(true)
     onProgress(1)
     return m
@@ -254,6 +270,7 @@ export class ZoneMode implements GameMode {
     const w = this.views.get(id)
     if (!w) return
     this.scene.remove(w.v.rig.root, w.shadow)
+    this.town?.drop(id)
     w.v.rig.material.dispose()
     this.views.delete(id)
   }
@@ -361,7 +378,9 @@ export class ZoneMode implements GameMode {
       let best: Unit | undefined
       let bd = 4
       for (const n of sim.units) {
-        if (n.rank !== 'npc') continue
+        if (n.rank !== 'npc' || !n.npc) continue
+        // Not through a wall: in the same room, or either side of a doorway.
+        if (this.plan.town && !townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
         const d = Math.hypot(n.x - u.x, n.z - u.z)
         if (d < bd) { bd = d; best = n }
       }
@@ -482,6 +501,8 @@ export class ZoneMode implements GameMode {
           if (e.id === 'interact') {
             const npc = e.unit ? sim.get(e.unit)?.npc : undefined
             if (npc) this.cb.onInteract(npc)
+            // One of the folk, walked up to: a wave and a bubble.
+            else if (e.unit) townGreet(sim, e.unit)
             break
           }
           this.vfx.play(e, id => sim.get(id)?.h ?? 1.2)
@@ -628,7 +649,9 @@ export class ZoneMode implements GameMode {
     const hz = hero.pz + (hero.z - hero.pz) * a
     // A conversation eases the view from the hero to a frame for both speakers.
     const tk = this.talkFrame(hx, hz, dt)
-    this.cam.follow(hx + this.talkDx * tk, hz + this.talkDz * tk, hero.vx, hero.vz, dt)
+    // A place built behind the veil (or by the recorder) may have set its own ground since.
+    setGround(this.field)
+    this.cam.follow(hx + this.talkDx * tk, hz + this.talkDz * tk, hero.vx, hero.vz, dt, groundAt(hx, hz))
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
 
@@ -636,6 +659,7 @@ export class ZoneMode implements GameMode {
     const reach = this.cam.dist * this.cam.zoom * 0.62 + 7
     const reach2 = reach * reach
     this.bars.begin(dt)
+    this.town?.begin()
     for (const [id, w] of this.views) {
       const u = sim.get(id)
       if (!u || w.v.gone) { this.dropView(id); continue }
@@ -647,18 +671,19 @@ export class ZoneMode implements GameMode {
       w.v.rig.root.visible = seen
       w.shadow.visible = seen && u.alive
       if (!seen) continue
+      // A townsperson's loop, held prop and bubble are set before the pose is made.
+      if (u.rank === 'npc') this.town?.pose(w.v, u, fxDt)
       animate(w.v, u, x, z, this.time, fxDt)
       // Swing trails, muzzle flashes and the like are read off the pose just made.
       trackUnit(this.vfx, w.v, u)
-      w.shadow.position.x = w.v.x
-      w.shadow.position.z = w.v.z
+      placeBlobShadow(w.shadow, w.v.x, w.v.z)
       if (u.alive && u.rank !== 'npc' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
         // The frame says how special it is (D42); allies are green, the hero's own summons teal.
         const ours = u.team === 0
         const rank: BarRank = ours ? BAR_RANK.ally : barRank(u)
         const col = ours ? (u.ownerId === hero.id ? '#3fd8c8' : '#5fe08a') : rank === BAR_RANK.elite ? '#ffb02a' : rank === BAR_RANK.champion ? '#ff7a3a' : '#ff5a5a'
         this.bars.add(
-          id, w.v.x, u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float + (rank === BAR_RANK.boss ? 0.25 : 0), w.v.z,
+          id, w.v.x, groundAt(w.v.x, w.v.z) + u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float + (rank === BAR_RANK.boss ? 0.25 : 0), w.v.z,
           u.hp / u.s.maxHp, u.shield / u.s.maxHp, col, Math.min(1.5, 0.7 + u.r * 0.7), rank,
           // A level on anything framed; a skull on anything well above him.
           ours ? 0 : u.level >= sim.hero.level + 3 ? -1 : rank >= BAR_RANK.elite ? u.level : 0
@@ -666,6 +691,7 @@ export class ZoneMode implements GameMode {
       }
     }
     this.bars.end()
+    this.town?.update(fxDt, hx, hz, sim.get(this.talkNpc), this.cam.target.x, this.cam.target.z)
     // DEV: the recorder's textless cut hides what the renderer itself paints.
     if (PREVIEW_FEED === 'pure') { this.bars.mesh.visible = false; this.markers.root.visible = false }
     this.statusFx(fxDt)
@@ -713,7 +739,7 @@ export class ZoneMode implements GameMode {
     r.render(this.scene, this.camera)
 
     // ── HUD ──
-    if (this.cam.project(hx, 1.6, hz, screen)) { hudLive.heroX = screen.x; hudLive.heroY = screen.y }
+    if (this.project(hx, 1.6, hz, screen)) { hudLive.heroX = screen.x; hudLive.heroY = screen.y }
     this.hudT -= dt
     if (this.hudT <= 0) {
       this.hudT = 1 / 15
@@ -834,6 +860,7 @@ export class ZoneMode implements GameMode {
       let bd = 3.2
       for (const n of sim.units) {
         if (n.rank !== 'npc' || !n.npc) continue
+        if (this.plan.town && !townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
         const d = Math.hypot(n.x - u.x, n.z - u.z)
         if (d < bd) { bd = d; near = n.npc }
       }
@@ -857,9 +884,11 @@ export class ZoneMode implements GameMode {
     if (was) was.facing = this.talkFace
     this.talkNpc = 0
     this.talkOn = on
-    if (!on) { this.talkHold = 0.3; return }
+    if (!on) { this.talkHold = 0.3; townAddress(sim, 0); return }
     const npc = npcId ? sim.units.find(u => u.npc === npcId) : undefined
     if (npc) { this.talkNpc = npc.id; this.talkFace = npc.facing }
+    // They stop what they are doing and turn to him (`sim/townLife.ts`).
+    townAddress(sim, npc ? npc.id : 0)
     // Whatever he was on his way to, he stands and listens.
     const h = sim.hero
     h.order.kind = 'none'
@@ -918,7 +947,7 @@ export class ZoneMode implements GameMode {
   speakerAnchor(who: 'hero' | 'npc', out: { x: number; y: number }, feet = false): boolean {
     const u = who === 'hero' ? this.sim.hero.unit : this.sim.get(this.talkNpc)
     if (!u) return false
-    return this.cam.project(u.x, feet ? -0.2 : u.h + 0.5, u.z, out)
+    return this.project(u.x, feet ? -0.2 : u.h + 0.5, u.z, out)
   }
 
   /** A speaker starts a line: a small bounce, so the eye finds who is talking. */
@@ -928,9 +957,10 @@ export class ZoneMode implements GameMode {
     if (w) squash(w.v, 0.16)
   }
 
-  /** World point → surface pixels (damage text, coach glyphs). */
+  /** A point `y` metres above the ground at (x, z) → surface pixels (damage
+   *  text, pins, coach glyphs). */
   project(x: number, y: number, z: number, out: { x: number; y: number }): boolean {
-    return this.cam.project(x, y, z, out)
+    return this.cam.project(x, y + groundAt(x, z), z, out)
   }
 
   resize(w: number, h: number): void {
@@ -951,8 +981,10 @@ export class ZoneMode implements GameMode {
     this.bars.dispose()
     this.walls.dispose()
     this.props?.dispose()
+    this.town?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
+    clearGround(this.field)
     this.scene.clear()
   }
 }

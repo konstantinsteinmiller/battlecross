@@ -118,7 +118,7 @@ const tradeSvg = (): string => {
     }
   }
   // The lantern's light: two hard steps on the boards.
-  s += C(196, 214, 250, '#ffd98a', 0, 0.14) + C(196, 214, 160, '#ffe9a8', 0, 0.16)
+  s += C(196, 214, 196, '#ffd98a', 0, 0.14) + C(196, 214, 160, '#ffe9a8', 0, 0.16)
 
   // The cloth: a runner down the middle of the table, where the deal is laid.
   const X0 = 372
@@ -185,7 +185,7 @@ const tradeSvg = (): string => {
     pan(-166, 72, coin(-178, 60, 17) + coin(-152, 56, 17) + coin(-166, 46, 17)),
     pan(166, 44, R(148, 12, 36, 32, 6, STEEL.base, 4) + R(158, 2, 16, 12, 4, STEEL.lo, 4))
   ].join('')
-  s += G('translate(1180 300)', scales)
+  s += G('translate(1198 300) scale(0.82)', scales)
 
   // The purse, untied, coins spilling toward the cloth.
   const purse = [
@@ -323,7 +323,7 @@ const skillsSvg = (): string => {
     const r0 = i % 4 ? 318 : 306
     ticks += `M${n1(cx + Math.cos(a) * r0)} ${n1(cy + Math.sin(a) * r0)}L${n1(cx + Math.cos(a) * 332)} ${n1(cy + Math.sin(a) * 332)}`
   }
-  s += `<g opacity="0.5">${C(cx, cy, 332, 'none', 0)}<circle cx="${cx}" cy="${n1(cy)}" r="332" fill="none" stroke="#5a4c96" stroke-width="4"/><circle cx="${cx}" cy="${n1(cy)}" r="236" fill="none" stroke="#5a4c96" stroke-width="3" stroke-dasharray="4 14" stroke-linecap="round"/><circle cx="${cx}" cy="${n1(cy)}" r="140" fill="none" stroke="#5a4c96" stroke-width="3"/>${L(ticks, '#5a4c96', 3)}</g>`
+  s += `<g opacity="0.5"><circle cx="${cx}" cy="${n1(cy)}" r="332" fill="none" stroke="#5a4c96" stroke-width="4"/><circle cx="${cx}" cy="${n1(cy)}" r="236" fill="none" stroke="#5a4c96" stroke-width="3" stroke-dasharray="4 14" stroke-linecap="round"/><circle cx="${cx}" cy="${n1(cy)}" r="140" fill="none" stroke="#5a4c96" stroke-width="3"/>${L(ticks, '#5a4c96', 3)}</g>`
 
   // The far stars: many small ones at the sides, few and faint in the middle.
   let far = ''

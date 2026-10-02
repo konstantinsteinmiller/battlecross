@@ -1,8 +1,9 @@
 import {
   BufferAttribute, CircleGeometry, Color, DoubleSide, DynamicDrawUsage, Group, InstancedBufferAttribute,
-  InstancedBufferGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, ShaderMaterial, Vector2, type Scene
+  InstancedBufferGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, ShaderMaterial, Vector2, Vector3, type Scene
 } from 'three'
 import { barGlyphs, softDisc } from './textures'
+import { GROUND_GLSL, groundAt, groundSlopeAt, withGround } from './ground'
 
 /**
  * ─── World-space UI ──────────────────────────────────────────────────────────
@@ -22,11 +23,15 @@ import { barGlyphs, softDisc } from './textures'
  */
 
 const MARK_VERT = /* glsl */`
+${GROUND_GLSL}
 uniform vec2 uSize;   // half extents of the quad, metres
 varying vec2 vP;
 void main() {
   vP = position.xy * uSize;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  // Laid on the ground: each vertex of the (fine) quad sits on its height.
+  vec4 wp = modelMatrix * vec4(position, 1.0);
+  wp.y += groundY(wp.xz);
+  gl_Position = projectionMatrix * viewMatrix * wp;
 }
 `
 
@@ -159,10 +164,10 @@ type MarkKind = 0 | 1 | 2 | 3 | 4 | 5
 
 const mark = (geo: PlaneGeometry, kind: MarkKind, color: string, y: number): Mesh => {
   const m = new Mesh(geo, new ShaderMaterial({
-    uniforms: {
+    uniforms: withGround({
       uKind: { value: kind }, uColor: { value: new Color(color) }, uOpacity: { value: 1 }, uTime: { value: 0 }, uR: { value: 1 },
       uLen: { value: 1 }, uRank: { value: 0 }, uSize: { value: new Vector2(1, 1) }
-    },
+    }),
     vertexShader: MARK_VERT, fragmentShader: MARK_FRAG, transparent: true, depthWrite: false, side: DoubleSide
   }))
   m.rotation.x = -Math.PI / 2
@@ -179,7 +184,8 @@ export type MarkRank = 0 | 1 | 2 | 3
 
 export class Markers {
   readonly root = new Group()
-  private quad = new PlaneGeometry(2, 2)
+  // Fine enough to follow a hill under a 10 m range ring.
+  private quad = new PlaneGeometry(2, 2, 16, 16)
   private heroRing: Mesh
   private targetRing: Mesh
   private tap: Mesh
@@ -330,6 +336,17 @@ export const makeBlobShadow = (r: number): Mesh => {
   m.scale.set(r * 1.25, r * 1.25, 1)
   m.renderOrder = 1
   return m
+}
+
+const _slope: [number, number] = [0, 0]
+const _sn = new Vector3()
+const _sz = new Vector3(0, 0, 1)
+/** Lay a blob shadow on the ground under (x, z), tilted to the slope there. */
+export const placeBlobShadow = (m: Mesh, x: number, z: number): void => {
+  groundSlopeAt(x, z, _slope)
+  _sn.set(-_slope[0], 1, -_slope[1]).normalize()
+  m.quaternion.setFromUnitVectors(_sz, _sn)
+  m.position.set(x, groundAt(x, z) + 0.03, z)
 }
 
 // ─── Health bars: one instanced draw for the whole field ─────────────────────

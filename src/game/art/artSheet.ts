@@ -71,7 +71,7 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: ITEMS.map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS],
-  ui: ['coin', 'map'],
+  ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
   textures: ['ground']
 }
 
@@ -333,8 +333,11 @@ export interface ArtScenery {
   /** A backdrop is all artwork: never keyed, never trimmed. */
   bg: 'opaque'
   /** The plate the bench draws as its reference. */
-  plate: 'map' | 'ground'
+  plate: 'map' | 'ground' | 'screen'
   label: string
+  /** A screen's backdrop (`components/game/backdrops.ts`): which one, and
+   *  what is in it, left, right and in the calm middle, for its prompt. */
+  screen?: { name: 'trade' | 'inventory' | 'skills'; what: string; left: string; right: string; middle: string }
 }
 
 /** `rustedShortsword` → `Rusted Shortsword`. */
@@ -430,6 +433,42 @@ export const SCENERY: readonly ArtScenery[] = [
   {
     stem: 'bg-ui-map', title: 'UI: the world map terrain', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: artTarget('ui', 'map'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: 'World map'
+  },
+  // The three big screens' backdrops (D38 to D40, D45). Drawn by
+  // `components/game/backdrops.ts` until the file exists; shown `cover`, so the
+  // middle of the sheet is always under the interface (see `screenPrompt`).
+  {
+    stem: 'bg-ui-trade', title: 'UI: the trade table backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-trade'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Trade table',
+    screen: {
+      name: 'trade',
+      what: 'a merchant\'s wooden counter seen from straight above: warm honey-brown planks running across the whole picture, with a long runner of deep teal cloth laid down the middle from the top edge to the bottom edge, a gold band along each of its long sides.',
+      left: 'on the planks left of the cloth: a brass lantern with a glowing glass body standing near the top, a hard-edged pool of warm light on the wood around it, a small stack of gold coins, and an open ledger with a quill lying across it near the bottom.',
+      right: 'on the planks right of the cloth: brass merchant\'s scales near the top (one pan lower, holding a few coins), three small steel weights in a row above them, and an untied leather coin purse near the bottom with coins spilling from it.',
+      middle: 'the teal cloth with a quiet woven diamond pattern, tone on tone.'
+    }
+  },
+  {
+    stem: 'bg-ui-inventory', title: 'UI: the equipment backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-inventory'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Equipment',
+    screen: {
+      name: 'inventory',
+      what: 'the inside of an open adventurer\'s satchel seen from the front: a deep green quilted lining filling the picture, framed by the bag\'s stitched tan leather rim along all four edges, with two leather straps and brass buckles hanging over the top rim.',
+      left: 'a wooden weapon rack standing in the bag: two posts and two rails, a sword hanging point down, an axe beside it, and a round blue shield leaning at its foot.',
+      right: 'a wooden armour stand: a post on a foot, a steel breastplate hung on its shoulder bar and a steel helmet with a red plume on top.',
+      middle: 'the quilted green lining, lit a little lighter toward the middle.'
+    }
+  },
+  {
+    stem: 'bg-ui-skills', title: 'UI: the skills backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-skills'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Skills',
+    screen: {
+      name: 'skills',
+      what: 'a page of a star codex: a deep indigo night sky filling the picture inside a brass frame along all four edges, with turned brass ornaments in the corners and four coloured gems set into the frame down each side.',
+      left: 'two constellations of four-pointed stars joined by dotted lines (one shaped like a sword in pale blue, one like a flame in orange), a shooting star, and many small stars.',
+      right: 'two more constellations (a shield in pale gold, an hourglass in lilac), a shooting star near the bottom, and many small stars.',
+      middle: 'the dark sky with the faint rings and tick marks of an astrolabe, and only a few faint stars.'
+    }
   },
   {
     stem: 'bg-ground', title: 'Texture: the ground detail', kind: 'textures', doc: 'PROMPTS-UI.md', width: 512, height: 512,
@@ -879,6 +918,46 @@ const singlePrompt = (s: ArtSet, fits?: Fits): string => {
   ].join('\n')
 }
 
+/**
+ * A big screen's backdrop: a still life the interface is laid over. It is
+ * shown `cover`, so its sides are cropped on a narrow screen and its middle is
+ * always under panels and lettering: the prompt keeps the objects out at the
+ * sides and the middle one calm surface.
+ */
+const screenPrompt = (a: ArtScenery): string => {
+  const sc = a.screen!
+  return [
+    heading(a.title, a.stem, a.target),
+    '',
+    'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED BACKDROP FOR A GAME SCREEN: A STILL LIFE WITH NO PEOPLE AND NO LETTERING.',
+    `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
+    '',
+    'IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.',
+    '',
+    `WHAT IT IS: ${sc.what} Repaint the attached reference: every object stays where the reference has it, at its size.`,
+    `· LEFT: ${sc.left}`,
+    `· RIGHT: ${sc.right}`,
+    `· MIDDLE: ${sc.middle}`,
+    '',
+    'THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).',
+    '',
+    'WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.',
+    '',
+    'COLOUR — the reference\'s own, object by object. Take the HUES from it, not the flatness.',
+    '',
+    'THE VIEW — as the reference: straight on, flat, the objects as simple upright shapes. No perspective that tilts the surface away, no depth blur.',
+    '',
+    STYLE_BACKDROP,
+    '',
+    'BEFORE YOU CALL IT FINISHED, check:',
+    '· The picture reaches all four edges of the image; there is no magenta and no added border.',
+    '· Laid over the reference, every object is where the reference has it.',
+    '· The middle band is calm and even, with not one object in it, and there is not one letter anywhere.',
+    '',
+    `OUTPUT: one image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}, ${shapeWord(a.width, a.height)}). If your tool has an aspect-ratio control, set it to ${ratio(a.width, a.height)}. PNG. No labels, captions, numbers or watermarks.`
+  ].join('\n')
+}
+
 const mapPrompt = (a: ArtScenery): string => [
   heading(a.title, a.stem, a.target),
   '',
@@ -964,7 +1043,7 @@ const setPrompt = (s: ArtSet, fits?: Fits): string =>
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
   ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: singlePrompt(s, fits) })),
-  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : groundPrompt(a) }))
+  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) }))
 ]
 
 /** A fence longer than any run of backticks in the body, so a prompt can never close its own block. */

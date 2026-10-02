@@ -3,6 +3,7 @@ import {
   type Scene
 } from 'three'
 import type { Action, Telegraph, Unit } from '../sim/types'
+import { GROUND_GLSL, withGround } from './ground'
 
 /**
  * ─── Ground attack previews ──────────────────────────────────────────────────
@@ -26,10 +27,13 @@ import type { Action, Telegraph, Unit } from '../sim/types'
  * happens, so the caster's action is polled.
  *
  * Every preview on screen is one instance of one quad: ONE draw call, the
- * shape cut out in the fragment shader.
+ * shape cut out in the fragment shader. The quad is a fine grid whose every
+ * vertex is set down on the ground's height (`gfx/ground.ts`), so a slam on
+ * a hillside lies on the hill instead of cutting into it.
  */
 
 const VERT = /* glsl */`
+${GROUND_GLSL}
 attribute vec4 iA;   // x, z, heading, lift
 attribute vec4 iB;   // shape (0 circle, 1 cone, 2 line), radius / length, half-angle / half-width, seed
 attribute vec4 iC;   // progress 0..1, flash 0..1, alpha, flags (1 hero's side, 2 boss)
@@ -56,6 +60,7 @@ void main() {
   float s = sin(iA.z);
   float c = cos(iA.z);
   vec3 world = vec3(iA.x + p.x * c + p.y * s, iA.w, iA.y - p.x * s + p.y * c);
+  world.y += groundY(world.xz);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(world, 1.0);
 }
 `
@@ -183,6 +188,8 @@ const upload = (at: InstancedBufferAttribute, n: number): void => {
 
 const FLASH = 0.16
 const FADE = 0.14
+/** Grid steps across a preview (a 10 m slam: a vertex every 1.4 m). */
+const TESS = 16
 
 export class Telegraphs {
   readonly mesh: Mesh
@@ -197,12 +204,23 @@ export class Telegraphs {
 
   constructor(scene: Scene) {
     const g = new InstancedBufferGeometry()
-    g.setAttribute('position', new BufferAttribute(new Float32Array([-1, -1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0]), 3))
-    g.setIndex([0, 1, 2, 0, 2, 3])
+    // A grid rather than one quad: each vertex is set down on the ground.
+    const N = TESS
+    const pos: number[] = []
+    const idx: number[] = []
+    for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) pos.push((i / N) * 2 - 1, (j / N) * 2 - 1, 0)
+    for (let j = 0; j < N; j++) {
+      for (let i = 0; i < N; i++) {
+        const a = j * (N + 1) + i
+        idx.push(a, a + 1, a + N + 2, a, a + N + 2, a + N + 1)
+      }
+    }
+    g.setAttribute('position', new BufferAttribute(new Float32Array(pos), 3))
+    g.setIndex(idx)
     this.geo = g
     this.grow(24)
     this.mat = new ShaderMaterial({
-      uniforms: { uTime: { value: 0 } }, vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false, side: DoubleSide,
+      uniforms: withGround({ uTime: { value: 0 } }), vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false, side: DoubleSide,
       // A nudge toward the camera: ground decals a few centimetres up must not cut through it.
       polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3
     })

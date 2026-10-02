@@ -109,6 +109,9 @@ export const flyCoins = (from: Element | null | undefined, to: Element | null | 
   const n = Math.max(3, Math.min(9, count))
   const size = 20
   const lift = Math.max(60, Math.min(190, Math.hypot(b.x - a.x, b.y - a.y) * 0.42))
+  // The arc bows toward the middle of the screen: two purses on the top bar
+  // throw their coins down across the table, never up off the screen.
+  const bow = (a.y + b.y) / 2 < window.innerHeight / 2 ? -1 : 1
   return new Promise((resolve) => {
     for (let i = 0; i < n; i++) {
       const c = node(`width:${size}px;height:${size}px;margin:${-size / 2}px 0 0 ${-size / 2}px;border-radius:50%;border:var(--bc-ol-thin) solid var(--bc-ink);background:radial-gradient(circle at 50% 46%, var(--bc-gold-hi) 0, var(--bc-gold-hi) 42%, var(--bc-gold-lo) 42%);box-shadow:0 2px 0 var(--bc-ink)`)
@@ -120,7 +123,7 @@ export const flyCoins = (from: Element | null | undefined, to: Element | null | 
       for (let k = 0; k <= STEPS; k++) {
         const t = k / STEPS
         const px = a.x + (b.x - a.x) * t + off * Math.sin(t * Math.PI)
-        const py = a.y + (b.y - a.y) * t - lift * 4 * t * (1 - t)
+        const py = a.y + (b.y - a.y) * t - bow * lift * 4 * t * (1 - t)
         frames.push({ transform: `translate(${px}px,${py}px) scale(${t < 0.12 ? 0.5 + t * 4 : t > 0.86 ? 1 - (t - 0.86) * 4 : 1}) rotateY(${Math.round(t * 540)}deg)`, opacity: t > 0.94 ? 0.2 : 1 })
       }
       const anim = c.animate(frames, { duration: 560, delay: i * 55, easing: 'linear', fill: 'both' })

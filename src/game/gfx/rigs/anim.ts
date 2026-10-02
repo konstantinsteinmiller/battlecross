@@ -3,10 +3,12 @@ import { nudge, pose, scaleBone, type Rig } from '../kit'
 import { ENEMY_BY_ID } from '../../data/enemies'
 import { findStatus, hasStatus } from '../../sim/world'
 import type { Action, Unit } from '../../sim/types'
+import { groundAt } from '../ground'
 import { ABILITY_CAST, SKILL_CAST, castClip, type CastName } from './clips'
 import { LID_FLAT, LID_OPEN } from './humanoid'
 import { I, N, inOut, lerpPose, sample, snap, type Clip, type Pose } from './pose'
 import type { RigView } from './index'
+import { sampleLoop } from './townClips'
 
 /**
  * ─── Animation ───────────────────────────────────────────────────────────────
@@ -230,7 +232,9 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
   if (clip && s >= 0) {
     sample(clip, s, v.clipS, T)
   } else {
-    T.set(set.stance)
+    // A townsperson at work plays their loop in place of the plain stance (`townClips.ts`).
+    if (v.loop) sampleLoop(v.loop, v.loopT, T)
+    else T.set(set.stance)
     if (v.walkK > 0.01) {
       walkPose(v, speed, W)
       lerpPose(T, W, v.walkK, T)
@@ -238,14 +242,15 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
   }
 
   // ── 3. Crossfade when the clip changes ──
-  if (clip !== v.blendKey) {
-    v.blendKey = clip
+  const blendKey = clip ?? v.loop ?? null
+  if (blendKey !== v.blendKey) {
+    v.blendKey = blendKey
     v.from.set(v.pose)
     // Whole turns are not unwound (a whirl, a sling's wind-up).
     v.from[spin] = v.from[spin]! - Math.round(v.from[spin]! / TAU) * TAU
     v.from[wRx] = v.from[wRx]! - Math.round(v.from[wRx]! / TAU) * TAU
     v.blendT = 0
-    v.blendDur = clip && a ? Math.min(0.07, a.hitAt * 0.4) : 0.18
+    v.blendDur = clip && a ? Math.min(0.07, a.hitAt * 0.4) : v.loop ? 0.32 : 0.18
   }
   if (v.blendT < v.blendDur) {
     v.blendT += dt
@@ -788,7 +793,8 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   }
   if (hasStatus(u, 'stealth')) opacity *= u.team === 0 ? 0.35 : 0.2
 
-  root.position.set(px, y, pz)
+  // On the ground's height where the body stands (`gfx/ground.ts`).
+  root.position.set(px, y + groundAt(px, pz), pz)
   root.rotation.set(tilt, v.yaw + v.spin, roll, 'YXZ')
   root.scale.set(v.scale * sxz, v.scale * sy, v.scale * sxz)
   v.x = px
