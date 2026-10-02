@@ -5,7 +5,7 @@ v2 adds FORMATS, the CLEAN FEED, one-capture-many-qualities, the seeded RNG and
 file together or not at all.
 
 Runtime: Node ESM (`.mjs`), Node >= 22. No TypeScript. Dependencies:
-`playwright` (via `@playwright/test`) driving the SYSTEM Chrome
+`playwright-core` driving the SYSTEM Chrome
 (`channel: 'chrome'`), and `ffmpeg-static`. Windows-safe paths throughout.
 
 ## Layout
@@ -255,11 +255,15 @@ export default {
 }
 ```
 
-## Game-side seams this project provides (Glyphyx; not part of the generic core)
+## Game-side seams this project provides (Battlecross; not part of the generic core)
 
 | seam | where | what |
 |---|---|---|
-| `?clean=1` | `src/game/cleanFeed.ts` → `CLEAN_FEED` | DEV only, read once: renderer skips timer/hand/ghost/banners, `drawText` and captions off, crest without label, lock ring/chevrons off; `computeArenaLayout(w, h, insets, true)` = board-only, centred, `CLEAN_BOARD_SHARE` portrait 0.88 / landscape 0.82 |
-| `?artdeny=<prefix,…>` | `src/game/art.ts` → `DENIED` | DEV only, read once: `spriteFor(kind, id)` returns null for `kind/id` prefixes → procedural fallback; `artSettled` returns null, so nothing waits on it |
-| `?tier=high` | `src/use/useVfx.ts` | pins the quality ladder |
-| `window.__glyphyx`, `window.__arena` | `GameScene.vue`, `useArenaInput.ts` | DEV-only scripting seams |
+| `?preview=1` | `src/game/previewFlags.ts` → `PREVIEW_ON`; `src/views/GameScene.vue` | DEV only, read once: installs `window.__preview`, and `flow.finishVisit` returns early so no result screen opens over a take |
+| `?feed=preview\|pure` | `src/game/previewFlags.ts` → `PREVIEW_FEED`; `src/game/modes/zoneMode.ts` | DEV only, read once: `pure` hides what the renderer paints itself (health bars, hero / target rings, aim preview); `preview` keeps them |
+| `window.__preview` | `src/game/previewFeed.ts` | `hold(on)` / `held()`, `hero({ level, cls, potions })`, `build(node) → shot`, `cut(shot)`, `stage({ pack, gap, heroHp, bossHp, foeHp, potions })`, `bot(on)`, `potion()`, `state()`, `feed` |
+| `?device=normal`, `?scenery=full` | `src/use/deviceProfile.ts`, `src/game/engine/quality.ts` | pin the device class and the prop density (a slow recorder otherwise looks like a weak phone) |
+| `window.__game` | `src/views/GameScene.vue` | DEV-only probe handle used by the QA scripts (`scripts/e2e-play.mjs`); the recorder does not need it |
+
+In a production build both flags are constants (`'off'` / `false`), nothing
+imports `previewFeed.ts`, and the branches on them fold away.

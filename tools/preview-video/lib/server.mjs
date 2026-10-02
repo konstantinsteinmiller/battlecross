@@ -80,7 +80,7 @@ function killTree(child) {
   if (!child || child.exitCode !== null) return
   if (process.platform === 'win32') {
     try {
-      spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { stdio: 'ignore' })
+      spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { stdio: 'ignore', windowsHide: true })
       return
     } catch { /* fall through to kill() */ }
   }
@@ -162,7 +162,9 @@ export async function startServer(o) {
     env: { ...process.env, ...(o.env ?? {}) },
     stdio: ['ignore', 'pipe', 'pipe'],
     // `pnpm` on Windows is a .cmd shim; without a shell, spawn cannot find it.
-    shell: process.platform === 'win32'
+    shell: process.platform === 'win32',
+    // No console window: a flashing one takes focus from whatever the owner is doing.
+    windowsHide: true
   })
   const tail = []
   const keep = (chunk) => {

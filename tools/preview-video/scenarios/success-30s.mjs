@@ -1,102 +1,68 @@
 /**
- * SUCCESS-30 — "the last half of a stage, and the thing standing at the end."
+ * SUCCESS, 30 s — "three places, one hero growing."
  *
- * Not the ten-second clip held longer: a whole run in miniature. A viewer who
- * is still here at second ten is watching the game, not an advert, so it gets
- * a middle — the road gets harder, the crowd gets bigger, and the two arrive at
- * the same place.
+ * A different story from the short cut, not a longer one: the game's range.
+ * Three prebuilt places, hard cuts between them, the same hero a tier
+ * stronger in each.
  *
- *   0–1    already running, a bank already on screen
- *   1–9    two ordinary banks and the traffic between them: the crowd grows
- *   9–14   the DILEMMA: `−4` against `÷2`. Every door hostile, no right answer,
- *          only a cheaper wrong one — and it is the only bank in the clip the
- *          crowd comes out of smaller
- *   14–19  THE PAYOFF: a three-door bank with the multiplier in it, pumped on
- *          the way in; the crowd that walks out of it is the one that fights
- *   19–25  the arena: the boss, its telegraphed slam, and the kill
- *   25–30  the road opens again under the crowd and the next stage starts
+ *   0–8     Sunford Plains (green): a goblin pack, the first skills
+ *   8–17    Ashen Crags (lava): fire elementals and cultists, a harder fight,
+ *           the hero's bar drops and a potion goes down
+ *   17–30   Frostbite Tundra (snow): the Frost Jarl, the kill at about 25 s,
+ *           the chest and the coins
  *
- * The arc is the ROAD's, not a script's — stage 14 authors a bank every four
- * seconds, a miniboss, a dilemma and then a multiplier eleven units short of
- * its arena. The staging just starts the clip the right distance back.
+ * Each shot is built in `setup()` (a place is real work to build), so a cut
+ * is one frame. The hero is re-made per shot at the level its zone is played
+ * at, exactly as the balance tests do.
  */
 
-import {
-  boot, budget, installDrive, playOn, rideToVerdict, rollCamera, snapshot, stageRun
-} from './_drive.mjs'
-
-const STAGE = 14
-
-/**
- * The clip is cut to END on the kill: the staging scouts the stage, finds when
- * the boss actually dies, and opens the road that many seconds earlier.
- *
- * Everything before it comes for free, because stage 14 authored it: four
- * banks, a dilemma among them, and a multiplier just short of the arena.
- *
- * 0.82 rather than 0.95, because the scout is an ESTIMATE and not a replay: it
- * plays the stage with no renderer, and the renderer pulls on the same
- * `Math.random` the simulation does, so a take drifts a second or two from the
- * run that was measured (it came back ~3 s early on the first try). Aiming the
- * kill at four fifths leaves that much slack at both ends — early, and the road
- * that opens afterwards simply gets longer; late, and it still lands.
- */
-const KILL_AT = 0.82
+import { boot, botOn, budget, build, cutTo, hero, logState, roll, settleOpening } from './_drive.mjs'
 
 export default {
-  id: 'success-30s',
-  label: 'Gates, miniboss, boss',
+  id: 'success',
+  label: 'Three places, one hero growing',
 
   async setup(ctx) {
-    await boot(ctx, { stage: STAGE })
-    await installDrive(ctx, { stage: STAGE, seed: 7, policy: 'optimal' })
+    await boot(ctx)
+    // Built in the order they are needed LAST first: the hero each place is
+    // built with is the hero that fights in it.
+    await hero(ctx, { level: 18, cls: 'pyro', potions: 3 })
+    const tundra = await build(ctx, 'tundra')
+    await hero(ctx, { level: 12, cls: 'pyro', potions: 3 })
+    const crags = await build(ctx, 'crags')
+    await hero(ctx, { level: 3, cls: 'pyro', potions: 3 })
+    const plains = await build(ctx, 'plains')
+    ctx.shots = { plains, crags, tundra }
 
-    const at = await stageRun(ctx, {
-      stage: STAGE,
-      stop: { kind: 'preroll', anchor: 'bossDead', lead: ctx.durationMs * KILL_AT },
-      maxSeconds: 90
-    })
-    ctx.log.info(`opening frame: squad ${at.squad}, ${at.progress.toFixed(2)} along the road`)
+    await cutTo(ctx, plains, { pack: 1, gap: 3.6, heroHp: 1 })
+    await botOn(ctx, true)
+    await settleOpening(ctx)
+    await logState(ctx, 'opening frame')
   },
 
   async record(ctx) {
     const t = budget(ctx)
-    const clip = ctx.durationMs
+    const { crags, tundra } = ctx.shots
+    await roll(ctx)
+    ctx.beat('plains')
+    await t.until(8000)
+    await logState(ctx, 'leaving the plains')
 
-    await rollCamera(ctx, { seed: 7 })
-    ctx.beat('road')
+    await cutTo(ctx, crags, { pack: 1, gap: 3.6, heroHp: 0.55, foeHp: 0.8 })
+    ctx.beat('crags')
+    await t.until(17_000)
+    await logState(ctx, 'leaving the crags')
 
-    // ── The road does the first two thirds on its own ──
-    // A bank, a miniboss and whatever the generator put between them. Logged at
-    // the quarters so a take that drifts can be compared line by line against
-    // the one before it.
-    await t.until(clip * 0.25)
-    ctx.log.info(`  ¼: ${JSON.stringify(await snapshot(ctx))}`)
-    await t.until(clip * 0.5)
-    ctx.log.info(`  ½: ${JSON.stringify(await snapshot(ctx))}`)
-
-    // The poster: the crowd at its biggest, a couple of seconds after the last
-    // bank paid out and well clear of the white flash it paid out WITH. Not the
-    // boss fight — the boss spends most of it behind its own guard crest — and
-    // not the kill, which is a blowout. A wall of four hundred bodies under a
-    // row of gate numbers is the frame that says what this game is.
-    await t.until(clip * 0.58)
+    await cutTo(ctx, tundra, { pack: 'finale', gap: 3.8, heroHp: 0.75, bossHp: 0.07, foeHp: 0.15 })
+    ctx.beat('tundra')
+    const fell = await t.untilState(26_500, () => {
+      const s = /** @type {any} */ (window).__preview.state()
+      return !!s.boss && !s.boss.alive
+    }, 'the Jarl falls')
+    await logState(ctx, fell ? 'the Jarl is down' : 'the Jarl still stands (stage him lower)')
+    await t.wait(320)
     ctx.beat('poster')
-    const through = await snapshot(ctx)
-    ctx.log.info(`  poster: ${JSON.stringify(through)}`)
-
-    // ── The arena ──
-    await t.until(clip * 0.78)
-    const boss = await snapshot(ctx)
-    ctx.log.info(`boss beat: phase ${boss.phase}, squad ${boss.squad}, boss ${JSON.stringify(boss.boss)}`)
-
-    // ── The kill, and back into the game ──
-    // `rideToVerdict` rolls the clip forward until the stage actually resolves
-    // rather than assuming a fight length; whatever is left afterwards is the
-    // next road opening under the crowd, which is the ending either way.
-    const verdict = await rideToVerdict(ctx, t, { timeoutMs: Math.max(1500, t.left() - 2500) })
-    if (verdict !== 'running') await playOn(ctx, t, verdict)
-
-    await t.until(clip)
+    await t.until(ctx.durationMs)
+    await logState(ctx, 'last frame')
   }
 }

@@ -26,6 +26,7 @@ import { Vfx } from '../gfx/vfx'
 import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, profile } from '../state/profile'
 import { coach } from '../coach'
+import { PREVIEW_FEED } from '../previewFlags'
 
 /**
  * ─── A zone visit ────────────────────────────────────────────────────────────
@@ -562,6 +563,8 @@ export class ZoneMode implements GameMode {
       }
     }
     this.bars.end()
+    // DEV: the recorder's textless cut hides what the renderer itself paints.
+    if (PREVIEW_FEED === 'pure') { this.bars.mesh.visible = false; this.markers.root.visible = false }
     this.statusFx(fxDt)
 
     // ── Markers ──

@@ -25,6 +25,7 @@ import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycl
 import { startGameMusic } from '@/use/useSound'
 import { toggleGameMute } from '@/use/useGameMute'
 import { registerGameCheats } from '@/game/cheats'
+import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
 import WorldMap from '@/components/screens/WorldMap.vue'
 import GameModals from '@/components/modals/GameModals.vue'
@@ -88,6 +89,8 @@ onMounted(async () => {
   if (import.meta.env.DEV) {
     // Probe hooks for browser checks. Folds away in production.
     ;(window as unknown as Record<string, unknown>).__game = { app, input, flow, hud, profile, travel, openMap, zone: currentZone, coach }
+    // The recorder's scripting handle (tools/preview-video), on `?preview=1`.
+    if (PREVIEW_ON) void import('@/game/previewFeed').then(m => m.installPreview())
   }
   // The loader's prepared first scene. The scene never builds its own copy
   // while the loader is still priming (see `adoptBootMode`).

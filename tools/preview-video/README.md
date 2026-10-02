@@ -1,160 +1,101 @@
-# preview-video — Survivalist's clips, generated rather than filmed
+# Gameplay preview videos — Battlecross
+
+`pnpm preview:video` records scripted gameplay to mp4, frame by frame on a
+virtual clock, in the sizes the portals ask for. The recorder (`record.mjs`,
+`lib/`) is the generic one from the `gameplay-video-pipeline` skill; what is
+this game's is `preview.config.mjs`, `scenarios/` and the seam in
+`src/game/previewFeed.ts`. The module contract is [`CONTRACT.md`](./CONTRACT.md).
 
 ```bash
-pnpm preview:video                       # every format, both scenarios
-pnpm preview:video --formats crazygames  # one deliverable
-pnpm preview:video --help
+pnpm preview:video                                  # everything: 4 formats × success + fail
+pnpm preview:video --formats 10s --scenarios success --orientations landscape --quality high
+pnpm preview:video --formats crazygames             # the CrazyGames cut (16 s, 1920×1080 + 1080×1620)
+pnpm preview:video --formats poki                   # Poki's animated thumbnail (5 s, 1080×1080, 60 fps)
+pnpm preview:video --only-setup                     # stop on each take's opening frame
+pnpm preview:video --url-param feed=pure            # the world only: no health bars, no rings
+pnpm preview:video --no-clean                       # with the whole HUD on (a trailer, a bug report)
 ```
 
-Output, one folder per quality. **`high/` is what gets uploaded** — every
-deliverable, every format, same folder:
+Output goes to `preview-videos/<quality>/` (gitignored): upload `high/`
+(H.264 4:2:0, CRF 14); `lossless/` is the archive. Each clip has a `.png`
+poster beside it. A full run is 14 clips and takes a while (each frame is a
+real render): record one format while iterating.
 
-```
-preview-videos/high/success-10s-portrait-720x1280.mp4  (+ .png poster)
-preview-videos/high/fail-30s-landscape-1920x1080.mp4
-preview-videos/high/success-crazygames-portrait-1080x1620.mp4
-…
-preview-videos/lossless/…    the archive (yuv444p, qp 0 — Safari and QuickTime
-                             refuse 4:4:4, and no portal validator will take it)
-preview-videos/balanced/…    the portal cuts again at CRF 20, for a bitrate cap
-```
+It starts its own dev server on port **2069** and its own headless Chrome,
+checks that the port really serves "Battlecross", and stops both at the end.
+The dev server never talks to the leaderboard, so a recorded win posts nothing.
 
-Every format therefore declares at least two qualities on purpose: a format
-with exactly one writes into the output ROOT instead of a folder, and half the
-delivery set living somewhere else is how the wrong file gets uploaded.
+## The clips
 
-`record.mjs` and `lib/` come from the `gameplay-video-pipeline` skill and are
-copied VERBATIM — if something needs changing to make this game work, it
-belongs in `scenarios/_drive.mjs`. `CONTRACT.md` is their contract.
-`preview.config.mjs` and `scenarios/*` are this game's half.
+| Scenario | Formats | Story |
+| --- | --- | --- |
+| `success` | 10 s, CrazyGames 16 s, Poki 5 s | The Goblin King falls: a Pyromancer clears his court with fire, the finishing blow lands on a hit-stop, the chest and the coins |
+| `fail` | 10 s, CrazyGames 16 s, Poki 5 s | One hit short: a Shadowblade has the Ember Lord's court on the run and falls with no potion left |
+| `success-30s` | 30 s | Three places, one hero growing: plains → lava crags → the Frost Jarl in the snow, cut |
+| `fail-30s` | 30 s | Under-levelled and greedy: two wins at home, then the tundra seven levels too early |
 
----
+Beats in the short sheets are FRACTIONS of the clip, so one sheet plays three
+lengths; the fight is staged shorter for the short ones.
 
-## What the four formats are
+## How a take is made
 
-| format | shape | who asked for it |
-|---|---|---|
-| `10s` | 10 s, 720x1280 + 1280x720 | the generic preview |
-| `30s` | 30 s, 1080x1920 + 1920x1080, H.264 | the "pure gameplay" trailer shape |
-| `crazygames` | 16 s, 1920x1080 + **1080x1620** (2:3, not 9:16), `high` only, under 50 MB | docs.crazygames.com/requirements/game-covers |
-| `poki` | 5 s, **1080x1080 at 60 fps** | developers.poki.com/guide/your-game-page |
+1. **Boot** on a seeded save past every first-time moment (`saveFixture` in
+   `scenarios/_drive.mjs`), wait out the splash, and freeze the game.
+2. **Stage.** `__preview.hero({ level, cls })` makes the hero a
+   level-appropriate build of one class; `__preview.build(node)` builds a
+   place and keeps it; `cut(shot)` shows it in one frame; `stage({...})` puts
+   the hero a few metres short of a pack and sets the health bars to where the
+   story needs them. Nothing is saved (the profile is sandboxed).
+3. **Roll.** The hero is handed to the reference player from the balance tests
+   (`src/game/sim/bot.ts`), deciding on SIMULATION time, so a take plays the
+   same at 30 and 60 fps. `Math.random` is re-seeded at the top of the take.
+4. **Anchor beats on state.** Hit-stop stretches engine time, so a sheet
+   waits for "the boss is dead" (`t.untilState`), bounded by the clock, and
+   logs a state line per beat. Read the log: it is the beat sheet's proof.
 
-Each records a SUCCESS and a FAIL clip in every orientation it declares.
+The result screen is held back while `?preview=1` is on, so a clip can run
+through a boss's fall into the chest and the coins.
 
-**Measured sizes** (`high`, CRF 14 — this game draws hundreds of animated
-bodies, so it compresses far worse than a flat puzzle game): 10 s 720x1280
-≈ 11 MB, 16 s 1920x1080 ≈ 19 MB, 16 s 1080x1620 ≈ 29 MB, 30 s 1080x1920
-≈ 56 MB (~15 Mbps), 5 s 1080x1080 at 60 fps ≈ 6 MB. Every CrazyGames file is
-well inside their 50 MB cap. If a spec ever states a BITRATE (some 1080p specs
-say 10-12 Mbps), re-encode that format at `--quality balanced` (CRF 20) — one
-capture, a different encoder, roughly half the size.
+## What a clean feed hides, and what it keeps
 
-## The two cuts
+The recorder hides all DOM except what `clean.keep` names. In this game that
+removes the HUD, the menus, the control lessons, the damage numbers and the
+toasts. It keeps the scene's canvas and three full-screen moments that are
+feel, not interface: the white flash of a win, the red edge of a hit, the
+low-health pulse.
 
-| | what is on screen |
-|---|---|
-| default (`?feed=preview`) | no HUD, no damage numbers, no health bars, no elite marker — and the numbers on the gates and crates KEPT, because "×2.4" over a doorway is what this genre is sold on |
-| `--url-param feed=pure` | the same, plus the recorder no-ops `fillText`/`strokeText` for the whole page: no digit anywhere. For a spec that says "no hardcoded text, score counters, watermarks, UI or logos" |
-| `--no-clean` | the game exactly as a player sees it, HUD and all. Still driven — the scripting seam rides on `?preview=1`, which is a separate parameter for exactly this reason |
+What the renderer itself paints is behind `?feed=`:
 
-The game-side half is `src/game/previewFeed.ts` (DEV-only, `'off'` in every
-build a player loads) plus two hooks in `GameScene.vue`: the seam install, and
-the **inset-free layout branch** — the recorder hides the HUD with
-`visibility`, which keeps its boxes, so without that branch the camera still
-refuses to use the 200 px the bars occupy. Ignoring the insets is worth ~40 %
-more scale on a phone-shaped clip.
+- `feed=preview` (default): health bars over heads and the rings under the
+  hero and the target stay. They are wordless and they are how a viewer reads
+  the fight.
+- `feed=pure`: those are hidden too.
 
-## How a clip is built
+## Traps (each one cost a take somewhere)
 
-1. `boot()` — seed `bcross_state`, navigate, wait out both splashes, then FREEZE
-   the simulation (`__preview.hold(true)`) and hold until every painting the
-   stage can ask for has decoded.
-2. `stageRun()` — **scout**: play the whole stage frozen and unrendered (a
-   couple of seconds) to find out when the boss dies / when the crowd runs out /
-   when each bank is crossed, restoring the save afterwards. Then re-open the
-   stage and fast-forward to `thatMoment − lead`.
-3. `rollCamera()` — re-seed `Math.random`, release the hold, and put the
-   balance suite's own scripted player (`tests/sim/policies.ts`) on the wheel,
-   one decision per recorded frame.
-4. The beat sheet marks beats, and `rideToVerdict` + `playOn` end the clip on
-   the road moving again rather than on a hidden result screen.
+- **Staging decides the clip.** If the log says "the King still stands", the
+  boss was staged too high for that clip length: lower `bossHp` (see `kingAt`
+  in `success.mjs`). If the kill lands in the first third, raise it.
+- **Softness.** The renderer caps its pixel ratio at 1.6 for a touch device
+  and 1 for a weak one. Every orientation therefore records WITHOUT touch
+  emulation at dpr 2, and the URL pins `device=normal&scenery=full`. `boot()`
+  warns if the canvas is not the clip's width.
+- **A hidden surface takes no input.** In a clean run the gesture surface is
+  hidden, so real pointer input is dead: drive `__preview` / the sim, never
+  the mouse.
+- **The world map and the towns** are not combat and the map is DOM: they
+  are trailer material (`--no-clean`), not portal cuts.
+- **Port ownership.** If 2069 is taken by another game the run refuses; it
+  never records the wrong title.
+- **Do not edit sources during a take** on a slow machine: the recording page
+  ignores hot reload, but the dev server restarting under it can stall a frame.
 
-Nothing is faked: every clip is the game's own simulation, played by a policy
-the balance suite measures the game with.
+## Portal specs (checked 2026-09)
 
-## The stages, and why
-
-| clip | stage | shop | player | what the road does |
-|---|---|---|---|---|
-| `success` (10 s, CG, Poki) | 14 | full | `optimal` | miniboss at 12.7 s, `add18/mul1.6` at 23.2 s: 101 → 202 |
-| `success-30s` | 14 | full | `optimal` | four banks, a dilemma, the multiplier, boss dead at ~44 s |
-| `fail` (10 s, CG, Poki) | 22 | `THIN_SHOP` | `average` | ahead at 10 s, halved by a `÷2` at 12.2 s, wiped in the road at 15.9 s |
-| `fail-30s` | 25 | `THIN_SHOP` | `average` | 158 survivors off a `×2.4` at 17.7 s, gutted by a `÷5` at 27.1 s, bled out by four hostile banks, wiped at 40 s |
-
-The fail clips are the same game with two upgrade levels missing. That is what
-makes them fair — the loss is the crowd they did not build — and both of them
-die on the ROAD rather than at a boss, which is what makes them REPEATABLE.
-A losing boss fight is a DPS race, and the scout that picks the opening is an
-estimate rather than a replay (it runs with no renderer, so a different
-`Math.random` stream): the first cut of `fail-30s` lost at stage 26's boss, and
-the take drifted far enough that the crowd was still alive when the clip ran
-out. With the full shop it is worse still — two scouting runs of the same seed
-on stage 14 had the crowd wipe at 57 s and kill the boss at 95 s, because a
-fight that close is decided by which way one slam lands.
-
-## Re-tuning it after a balance change
-
-The beat sheets are anchored to EVENTS (`anchor: 'bossDead'`, `anchor: 'wipe'`,
-`anchor: 'bank', match: 'mul'`), so a rebalance that moves them moves the clip
-with it, and one that deletes them fails loudly instead of filming an empty
-road. When a clip comes back wrong, look at the road first:
-
-```bash
-# the whole timeline of a stage: every bank, the miniboss, the boss, the verdict
-pnpm preview:video --scenarios scout --only-setup --formats 10s \
-  --orientations portrait --url-param scoutStage=14
-# …as the fail clips' player sees it
-pnpm preview:video --scenarios scout --only-setup --formats 10s \
-  --orientations portrait --url-param scoutStage=22 \
-  --url-param scoutPolicy=average --url-param scoutShop=thin
-```
-
-`scout` is a measurement, not a clip (`--only-setup` always). Everything the
-beat sheets schedule against came out of it.
-
-## Authoring loop
-
-```bash
-# the opening frame only — seconds a cycle
-pnpm preview:video --only-setup --formats 10s --scenarios success --orientations portrait
-
-# a draft: quarter of the pixels, same layout, cheap encode, frames kept
-pnpm preview:video --formats 30s --scenarios success --orientations portrait \
-  --portrait 540x960 --dpr 1 --quality balanced --keep-frames
-```
-
-**Do not draft at `--fps 15`** (the skill's generic advice). `step()` caps a
-tick at 60 ms, so a 66.7 ms frame advances the world by less time than it
-advances the clock: the simulation behaves differently at 15 fps than at the 30
-the clips are recorded at, and the beats land somewhere else. Drop the
-resolution instead — the layout is identical at 540x960 dpr 1 and 1080x1920
-dpr 2.
-
-## Things that bit, and are now handled
-
-- **ASI in page-side closures.** A statement followed by a line starting with
-  `(window)` — which is what a `/** @type {any} */ (window)` cast looks like —
-  is ONE expression: `P.hold(true)(window)…`. Every closure in `_drive.mjs`
-  takes `window` into a local first.
-- **The scout is an estimate, not a replay.** It plays with no renderer, and the
-  renderer pulls on the same `Math.random` the simulation does, so a take drifts
-  a second or two from the run that was measured. The beat sheets aim their
-  verdict at ~0.8 of the clip and keep the tail free.
-- **The dev server posts to the LIVE leaderboard.** `.env` points at the
-  production worker with an open origin list, so a recorded run that clears a
-  stage would put rows on the public board. `server.env` points it at a dead
-  port instead.
-- **The landscape cut is a vertical road on a wide frame.** `setViewport` fits
-  the lane's width but never zooms past the vertical fit, so on 16:9 the lane is
-  a strip with terrain either side. That is the game on a desktop; the only way
-  to fill the frame would be to show less road than a player can react to.
+- **CrazyGames:** 15–20 s, 1920×1080 and 1080×1620 (2:3, not 9:16), ≤ 50 MB,
+  no sound, no logos / promotional text / cursor / black bars; the cover is
+  the opening frame.
+- **Poki:** square 1080×1080, 4–6 s, ≥ 50 fps, muted, ≤ 100 MB, action
+  centred.
+- **Playgama, GameMonetize:** no published video spec: reuse the CrazyGames
+  landscape file.

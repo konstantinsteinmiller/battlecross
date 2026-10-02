@@ -101,7 +101,7 @@ export async function createEncoder({ outFile, fps, quality, log }) {
     outFile
   ]
 
-  const child = spawn(bin, args, { stdio: ['pipe', 'ignore', 'pipe'] })
+  const child = spawn(bin, args, { stdio: ['pipe', 'ignore', 'pipe'], windowsHide: true })
   /** @type {string[]} */
   const stderr = []
   child.stderr.on('data', (chunk) => {
@@ -149,7 +149,7 @@ export async function createEncoder({ outFile, fps, quality, log }) {
  */
 export async function probe(file) {
   const bin = await resolveFfmpeg()
-  const child = spawn(bin, ['-hide_banner', '-i', file, '-f', 'null', '-'], { stdio: ['ignore', 'ignore', 'pipe'] })
+  const child = spawn(bin, ['-hide_banner', '-i', file, '-f', 'null', '-'], { stdio: ['ignore', 'ignore', 'pipe'], windowsHide: true })
   let text = ''
   child.stderr.on('data', (c) => { text += c })
   await once(child, 'close')

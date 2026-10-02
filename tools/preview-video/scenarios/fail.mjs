@@ -1,95 +1,58 @@
 /**
- * FAIL — "halved at the door, finished by the thing in the road."
+ * FAIL — "one hit short."
  *
- * A fail clip has a different job from a success clip: a browsing player has to
- * finish it thinking *that was winnable*. Two things make it winnable here, and
- * neither is staged — both are what the game does to this player on this road:
+ * The loss a viewer believes they would have won: the hero takes the Ember
+ * Lord's court apart, has the boss at a sliver — and falls with it still
+ * standing. No potion left on the belt.
  *
- *   • the crowd is AHEAD when it happens. It comes over the first bank of the
- *     clip at its biggest, which is the height the fall needs;
- *   • the mistake is ON SCREEN, in numbers, for two seconds before it lands:
- *     a `÷2` and a `+21` side by side, and the crowd walks into the `÷2`.
- *     Seventy-seven become thirty-three in one step, and the viewer read both
- *     doors before the player did.
+ *   0.00        in the lava field, the Ember Lord's bar already low
+ *   0.00–0.50   the hero wins the exchange: the adds drop
+ *   0.50–0.80   the boss at a sliver; the hero's own bar is gone
+ *   0.80–1.00   the fall
  *
- * Then the miniboss — already planted across the road, sweeping the whole lane
- * every second and a half — takes what is left. Squad wiped out, and the retry
- * is already running before the clip ends.
+ * The same sheet plays every format (beats are fractions). The fight is
+ * staged to be genuinely out of reach — a Shadowblade (fast, fragile) with a
+ * sliver of health and no potions against a boss a level above — because a fight on a knife
+ * edge is decided by which way one blow lands and would not repeat take to
+ * take. "Out of reach" is still only a potion away, which is the point.
  *
- *   0.0–0.2  in motion, mid-fight: the miniboss is holding the road
- *   0.2–0.4  a bank: the crowd is at its biggest
- *   0.4–0.5  THE MISTAKE — the `÷2` door, and half of them are gone
- *   0.5–0.75 the sweeps land on what is left
- *   0.75     SQUAD WIPED OUT
- *   0.75–1.0 …and the road is already moving again. With the result screen
- *            hidden, a clip that ended on the verdict would end on a still
- *            frame; it ends on the retry instead, which is the thing a preview
- *            is actually selling
- *
- * ── Why stage 22 with a thin shop ──
- *
- * The same `average` player as everywhere else — a quarter of a second late,
- * takes the nearest door, aims at a doorway's painted centre rather than at the
- * line that clears the pillar — carrying a shop two upgrade levels short of the
- * success clips' (`THIN_SHOP`). On stage 22 that run dies on the ROAD at ~16 s,
- * which is what this clip needs: the camera is still travelling, there is a
- * monster in frame, and the whole arc fits in ten seconds. The same player on
- * an easier road reaches the boss and dies there instead — a fine story, and a
- * static one (see `fail-30s`).
+ * WHY THE CRAGS. Lava and fire elementals are the most different picture from
+ * the success clip's cave, so the two covers do not look like the same clip.
  */
 
-import {
-  boot, budget, installDrive, playOn, rideToVerdict, rollCamera, saveFixture, snapshot, stageRun, THIN_SHOP
-} from './_drive.mjs'
-
-const STAGE = 22
-
-/** Where in the clip the crowd runs out. The rest is the retry. */
-const WIPE_AT = 0.75
+import { boot, botOn, budget, build, cutTo, hero, logState, roll, settleOpening } from './_drive.mjs'
 
 export default {
   id: 'fail',
-  label: 'Halved at the door, wiped in the road',
+  label: 'One hit short',
 
   async setup(ctx) {
-    await boot(ctx, { stage: STAGE, save: saveFixture({ ts_upgrades: THIN_SHOP, ts_stage: STAGE }) })
-    await installDrive(ctx, { stage: STAGE, seed: 7, policy: 'average' })
-
-    const at = await stageRun(ctx, {
-      stage: STAGE,
-      stop: { kind: 'preroll', anchor: 'wipe', lead: ctx.durationMs * WIPE_AT },
-      maxSeconds: 120
-    })
-    ctx.log.info(`opening frame: squad ${at.squad}, phase ${at.phase}, ${at.progress.toFixed(2)} along`)
+    await boot(ctx)
+    await hero(ctx, { level: 8, cls: 'shadow', potions: 0 })
+    const shot = await build(ctx, 'crags')
+    // The court takes about 2.7 % of this hero's health per second (measured
+    // on the 10 s take). Staged so the fall lands a little past the middle of
+    // the clip, whatever its length: 5 s → 8 %, 10 s → 15 %, 16 s → 24 %.
+    const heroHp = Math.max(0.06, (ctx.durationMs / 1000) * 0.55 * 0.027)
+    await cutTo(ctx, shot, { pack: 'finale', gap: 3.4, heroHp, bossHp: 0.5, foeHp: 0.9, potions: 0 })
+    await botOn(ctx, true)
+    await settleOpening(ctx)
+    await logState(ctx, 'opening frame')
   },
 
   async record(ctx) {
     const t = budget(ctx)
     const clip = ctx.durationMs
+    await roll(ctx)
+    ctx.beat('exchange')
 
-    await rollCamera(ctx, { seed: 7 })
-    ctx.beat('ahead')
+    const fell = await t.untilState(clip * 0.86, () => !(/** @type {any} */ (window).__preview.state().hero.alive), 'the hero falls')
+    await logState(ctx, fell ? 'the hero is down' : 'the hero still stands (stage him lower)')
 
-    // The bank, and the door the player takes. Nothing here is scripted: this
-    // is what a quarter-second of reaction latency does when two doors are
-    // eleven units apart and only one of them is the good one.
-    await t.until(clip * 0.45)
-    const cut = await snapshot(ctx)
-    ctx.log.info(`after the door: squad ${cut.squad} (peak ${cut.peak}), ${cut.progress.toFixed(2)} along`)
-
-    // The poster is the last frame in which this still looks survivable — a
-    // halved crowd under a miniboss. That is the frame that says "I could do
-    // better than that", which is the only thing a fail clip is for.
-    await t.until(clip * 0.55)
-    ctx.beat('poster')
-
-    // Ride to the wipe, then press the button the player would press. The
-    // budget keeps a fifth of the clip back for the retry: the scout that
-    // chose the opening is an estimate, not a replay, so the verdict lands
-    // within a second or so either side of the mark.
-    const verdict = await rideToVerdict(ctx, t, { timeoutMs: Math.max(1500, t.left() - clip * 0.18) })
-    if (verdict !== 'running') await playOn(ctx, t, verdict)
-
+    // No poster beat: the opening frame — a rogue in a ring of fire, the boss
+    // over him — is the better card, and CrazyGames asks for the cover to BE
+    // the opening frame.
     await t.until(clip)
+    await logState(ctx, 'last frame')
   }
 }
