@@ -15,7 +15,7 @@
       span.fact.fact--aim(v-if="skill.target === 'ground' || skill.target === 'dir'") {{ t('skill.aimed') }}
     div.skill-card__reqs
       span.req(:class="{ bad: profile.level < skill.level }") {{ t('hud.level', { n: skill.level }) }}
-      span.req.has-attr(v-for="r in reqs" :key="r.attr" :class="{ bad: r.have < r.need }" :style="{ '--attr': ATTR_COLOR[r.attr] }") {{ t(`attr.${r.attr}.short`) }} {{ r.need }}
+      span.req.has-attr(v-for="r in reqs" :key="r.attr" :class="{ bad: r.have < r.need }" :style="{ '--attr': ATTR_COLOR[r.attr] }") {{ t(`attr.${r.attr}.short`) }} {{ r.have < r.need ? `${r.have} / ${r.need}` : r.need }}
 </template>
 
 <script setup lang="ts">

@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**3 sliced · 6 need a repaint · 0 painted, unreceipted · 9 outstanding**
+**2 sliced · 7 need a repaint · 0 painted, unreceipted · 11 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -12,6 +12,8 @@ after painting or slicing anything.
 | · | **Item icons: top weapons and off-hands** | `PROMPTS-ITEMS.md` | `sheet-items-arms.png` (rev `f2a5792a725d`) | not painted yet |
 | · | **Item icons: body armour** | `PROMPTS-ITEMS.md` | `sheet-items-armor.png` (rev `dcfec1447f6e`) | not painted yet |
 | · | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | not painted yet |
+| · | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | not painted yet |
+| · | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | not painted yet |
 | ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `41ace8182dfc`) | REPAINT — the reference changed (f10c7172ee83 → 41ace8182dfc) |
 | ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `2cfb44cfe91f`) | REPAINT — the reference changed (337326d437d3 → 2cfb44cfe91f) |
 | ! | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `11c33b95224f`) | REPAINT — the reference changed (bf7f6895ed98 → 11c33b95224f) |
@@ -22,7 +24,7 @@ after painting or slicing anything.
 | · | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `f6c6e1ae01f5`) | not painted yet |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
-| ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-02 |
+| ! | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | REPAINT — the old one is parked in `painted/stale/` |
 | · | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | not painted yet |
 | · | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | not painted yet |
 | · | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | not painted yet |

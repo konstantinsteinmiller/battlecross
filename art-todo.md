@@ -28,16 +28,21 @@ Check a drop: start `pnpm dev`, open `/#/models` → **Painted vs drawn**, or
 the bag / a trainer / the map. A file
 that fails to decode keeps the placeholder and logs one warning.
 
-## Item icons — `public/images/items/<id>.webp` (44)
+## Item icons — `public/images/items/<id>.webp` (62)
 
 The frame colour around the icon is the tier's and stays code-drawn; paint
-the object only.
+the object only. Head, hands and feet (decision D39) are on two sheets of
+their own, `sheet-items-headgear` and `sheet-items-boots`: one empty helmet,
+ONE glove (fingers up) or ONE boot (from the side) per icon, never worn.
 
 | Slot | Ids |
 | --- | --- |
 | Main hand (14) | `rustedShortsword` `apprenticeStaff` `scoutsHandgun` `ironBroadsword` `vipinsStiletto` `aetherCarbine` `ashenGreatsword` `archmageWand` `chronoBlade` `bloodForgedAxe` `voidCannon` `dragonSmasher` `bladeOfTheUnbound` `aetheriumDestroyer` |
 | Off hand (8) | `woodenBuckler` `tomeOfNovices` `ironShield` `syringeOfTheAdept` `aethericBattery` `aegisTowerShield` `orbOfEternalFlame` `shieldOfTheFallen` |
+| Head (6) | `quiltedCap` `stalkersHood` `ironcladHelm` `seersCirclet` `wyrmguardGreathelm` `hatOfTheStarweaver` |
 | Body (12) | `paddedTunic` `leatherDoublet` `chainmailVest` `scholarsRobe` `reinforcedPlate` `assassinsGarb` `chronoWeaverCloak` `bloodSoakedPlate` `exoArmorChassis` `dragonscaleHauberk` `vestmentsOfSovereign` `armorOfTheTitan` |
+| Hands (6) | `hideGloves` `ironGauntlets` `emberweaveGloves` `duelistsGrips` `voidforgedGauntlets` `gripsOfTheTempest` |
+| Feet (6) | `trailBoots` `pathfindersBoots` `forgeplateGreaves` `mistwalkerBoots` `stormstrideGreaves` `treadsOfTheHorizon` |
 | Trinket (10) | `copperBand` `ringOfMending` `bandOfSwiftness` `castersEmblem` `infiltratorsCharm` `timekeepersHourglass` `ringOfTheVampyre` `sovereignsSignet` `heartOfTheMountain` `ringOfAbsolutePower` |
 
 ## Skill icons — `public/images/skills/<id>.webp` (48)

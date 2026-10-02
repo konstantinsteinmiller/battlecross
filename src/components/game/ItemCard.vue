@@ -11,26 +11,52 @@
           span(:class="{ bad: profile.level < item.level }") {{ t('hud.level', { n: item.level }) }}
     ul.item-card__lines
       li.item-card__weapon(v-if="item.weapon") {{ t(`weapon.${item.weapon.style}`, { attr: t(`attr.${item.weapon.scale}.short`) }) }}
-      li(v-if="item.armor") {{ t('mod.armor', { n: item.armor }) }}
-      li(v-for="l in lines" :key="l.id" :class="{ unique: !l.attr, 'is-attr': l.attr }" :style="l.attr ? { '--dot': attrColor(l.id) } : undefined") {{ t(l.key, { n: l.n }) }}
+      li(v-if="item.armor || armorDelta")
+        span(:class="{ 'is-gone': !item.armor }") {{ t('mod.armor', { n: item.armor || (worn && worn.armor) || 0 }) }}
+        span.delta(v-if="armorDelta" :class="armorDelta > 0 ? 'is-up' : 'is-down'") {{ signed(armorDelta) }}
+      li(
+        v-for="l in lines"
+        :key="l.id"
+        :class="{ unique: !l.attr, 'is-attr': l.attr }"
+        :style="l.attr ? { '--dot': attrColor(l.id) } : undefined"
+      )
+        span(:class="{ 'is-gone': l.gone }") {{ t(l.key, { n: l.n }) }}
+        span.delta(v-if="worn && l.delta" :class="l.delta > 0 ? 'is-up' : 'is-down'") {{ signed(l.delta) }}
+    //- What it is measured against: the piece worn in its slot.
+    p.item-card__versus(v-if="worn")
+      span.item-card__versus-icon
+        ItemIcon(:id="worn.id")
+      | {{ t('bag.versus', { item: t(`item.${worn.id}.name`) }) }}
     p.item-card__from(v-if="showSource") {{ t(`source.${item.drop.src}`, { zone: t(`node.${item.drop.zone}.name`) }) }}
 </template>
 
 <script setup lang="ts">
-/** One item, spelled out: what it is, what it needs, what it gives. */
+/**
+ * One item, spelled out: what it is, what it needs, what it gives. With
+ * `against` (the id of the piece worn in its slot) every line also says how
+ * it differs from that piece — green for more, red for less — and the lines
+ * only the worn piece has are listed struck through: what would be given up.
+ */
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
 import { profile } from '@/game/state/profile'
 import ItemIcon from '@/components/art/ItemIcon.vue'
-import { modLines } from './modLines'
+import { compareMods, signed, type ModCompare } from './modLines'
 
-const props = withDefaults(defineProps<{ id: string; showSource?: boolean }>(), { showSource: false })
+const props = withDefaults(defineProps<{
+  id: string
+  showSource?: boolean
+  /** The worn piece to compare with ('' or null: no comparison). */
+  against?: string | null
+}>(), { showSource: false, against: null })
 const { t } = useI18n()
 const item = computed(() => ITEM_BY_ID[props.id])
+const worn = computed(() => (props.against && props.against !== props.id ? ITEM_BY_ID[props.against] : undefined))
 const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1])
-const lines = computed(() => modLines(item.value?.mods))
+const lines = computed<ModCompare[]>(() => compareMods(item.value?.mods, worn.value?.mods))
+const armorDelta = computed(() => (worn.value ? (item.value?.armor ?? 0) - (worn.value.armor ?? 0) : 0))
 const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
 </script>
 
@@ -74,6 +100,7 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   +cel.label
   font-size: clamp(0.9rem, 3.7vmin, 1.15rem)
   line-height: 1.15
+  overflow-wrap: anywhere
 .item-card__sub
   color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)
@@ -102,8 +129,41 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
     border: 1.5px solid var(--bc-ink)
     border-radius: 50%
     background: var(--dot)
+  // What the worn piece has and this one does not.
+  .is-gone
+    color: var(--bc-paper-ink-soft)
+    text-decoration: line-through
+// How a line differs from the worn piece's: a small flag after it.
+.delta
+  display: inline-block
+  margin-inline-start: 0.45em
+  padding: 0 0.4em
+  border: 1.5px solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  color: var(--bc-text)
+  font-size: 0.86em
+  line-height: 1.3
+  text-shadow: var(--bc-text-outline-thin)
+  font-variant-numeric: tabular-nums
+  &.is-up
+    background: var(--bc-green-lo)
+  &.is-down
+    background: var(--bc-red-lo)
 .item-card__weapon
   color: var(--bc-paper-ink-soft)
+.item-card__versus
+  display: flex
+  align-items: center
+  gap: 0.4rem
+  margin: 0
+  padding-top: 0.3rem
+  border-top: 2px dashed rgba(var(--bc-paper-ink-rgb), 0.24)
+  color: var(--bc-paper-ink-soft)
+  font-size: clamp(0.68rem, 2.8vmin, 0.84rem)
+  line-height: 1.2
+.item-card__versus-icon
+  width: 1.7em
+  flex: 0 0 auto
 .item-card__from
   margin: 0
   color: var(--bc-paper-ink-soft)

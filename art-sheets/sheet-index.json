@@ -779,6 +779,330 @@
       ]
     },
     {
+      "id": "sheet-items-headgear",
+      "kind": "set",
+      "title": "Item icons: headgear and gloves",
+      "files": {
+        "clean": "sheet-items-headgear.png",
+        "key": "sheet-items-headgear-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "quiltedCap",
+          "label": "Quilted Cap",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/quiltedCap.webp",
+          "fit": {
+            "h": 0.719,
+            "w": 0.844,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stalkersHood",
+          "label": "Stalkers Hood",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/stalkersHood.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironcladHelm",
+          "label": "Ironclad Helm",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironcladHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "seersCirclet",
+          "label": "Seers Circlet",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/seersCirclet.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.836,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "wyrmguardGreathelm",
+          "label": "Wyrmguard Greathelm",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/wyrmguardGreathelm.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.609,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hatOfTheStarweaver",
+          "label": "Hat Of The Starweaver",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hatOfTheStarweaver.webp",
+          "fit": {
+            "h": 0.82,
+            "w": 0.844,
+            "bottom": 0.91,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hideGloves",
+          "label": "Hide Gloves",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hideGloves.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironGauntlets",
+          "label": "Iron Gauntlets",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironGauntlets.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "emberweaveGloves",
+          "label": "Emberweave Gloves",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/emberweaveGloves.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "duelistsGrips",
+          "label": "Duelists Grips",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/duelistsGrips.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "voidforgedGauntlets",
+          "label": "Voidforged Gauntlets",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/voidforgedGauntlets.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "gripsOfTheTempest",
+          "label": "Grips Of The Tempest",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/gripsOfTheTempest.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-boots",
+      "kind": "set",
+      "title": "Item icons: boots",
+      "files": {
+        "clean": "sheet-items-boots.png",
+        "key": "sheet-items-boots-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "trailBoots",
+          "label": "Trail Boots",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/trailBoots.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "pathfindersBoots",
+          "label": "Pathfinders Boots",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/pathfindersBoots.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "forgeplateGreaves",
+          "label": "Forgeplate Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/forgeplateGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mistwalkerBoots",
+          "label": "Mistwalker Boots",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/mistwalkerBoots.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stormstrideGreaves",
+          "label": "Stormstride Greaves",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/stormstrideGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "treadsOfTheHorizon",
+          "label": "Treads Of The Horizon",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/treadsOfTheHorizon.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-aegis",
       "kind": "set",
       "title": "Skill icons: Aegis Knight",

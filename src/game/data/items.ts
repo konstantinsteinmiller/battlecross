@@ -131,14 +131,14 @@ export const ITEMS: readonly ItemDef[] = [
   { id: 'emberweaveGloves', slot: 'hands', kind: 'gloves', tier: 3, level: 13, mods: { int: 10, spellCrit: 0.03 }, unique: true, drop: { zone: 'crags', src: 'chest' } },
   { id: 'duelistsGrips', slot: 'hands', kind: 'gloves', tier: 4, level: 19, mods: { dex: 12, skl: 6, attackSpeed: 0.05 }, unique: true, drop: { zone: 'tundra', src: 'mob' } },
   { id: 'voidforgedGauntlets', slot: 'hands', kind: 'gauntlets', tier: 5, level: 22, mods: { str: 14, end: 8, armor: 34, critDamage: 0.08 }, unique: true, drop: { zone: 'citadel', src: 'chest' } },
-  { id: 'gripsOfTheTempest', slot: 'hands', kind: 'gloves', tier: 6, level: 29, mods: { dex: 24, skl: 18, attackSpeed: 0.1, critChance: 0.04 }, unique: true, drop: { zone: 'fortress', src: 'boss' } },
+  { id: 'gripsOfTheTempest', slot: 'hands', kind: 'gloves', tier: 6, level: 29, mods: { dex: 26, skl: 16, attackSpeed: 0.1, critChance: 0.04 }, unique: true, drop: { zone: 'fortress', src: 'boss' } },
 
   { id: 'trailBoots', slot: 'feet', kind: 'boots', tier: 1, level: 1, mods: { end: 1, moveSpeed: 0.03 }, unique: true, drop: { zone: 'plains', src: 'mob' } },
   { id: 'pathfindersBoots', slot: 'feet', kind: 'boots', tier: 2, level: 9, mods: { dex: 5, moveSpeed: 0.04, dodge: 0.02 }, unique: true, drop: { zone: 'outskirts', src: 'chest' } },
   { id: 'forgeplateGreaves', slot: 'feet', kind: 'greaves', tier: 3, level: 14, mods: { end: 9, str: 5, armor: 16, stunDurationCut: 0.1 }, unique: true, drop: { zone: 'mines', src: 'chest' } },
   { id: 'mistwalkerBoots', slot: 'feet', kind: 'boots', tier: 4, level: 17, mods: { int: 12, end: 6, moveSpeed: 0.05 }, unique: true, drop: { zone: 'temple', src: 'mob' } },
   { id: 'stormstrideGreaves', slot: 'feet', kind: 'greaves', tier: 5, level: 23, mods: { end: 14, str: 14, armor: 40, moveSpeed: 0.04 }, unique: true, drop: { zone: 'citadel', src: 'mob' } },
-  { id: 'treadsOfTheHorizon', slot: 'feet', kind: 'boots', tier: 6, level: 30, mods: { dex: 26, end: 20, moveSpeed: 0.1, dodge: 0.08 }, unique: true, drop: { zone: 'rift', src: 'boss' } },
+  { id: 'treadsOfTheHorizon', slot: 'feet', kind: 'boots', tier: 6, level: 30, mods: { dex: 28, end: 20, moveSpeed: 0.1, dodge: 0.08 }, unique: true, drop: { zone: 'rift', src: 'boss' } },
 
   // ── Trinkets & rings ──────────────────────────────────────────────────────
   { id: 'copperBand', slot: 'trinket', kind: 'ring', tier: 1, level: 2, mods: { strOrDex: 3, moveSpeed: 0.02 }, unique: true, drop: { zone: 'plains', src: 'chest' } },
