@@ -204,6 +204,8 @@ export interface Unit {
   npc?: string
   /** Fortitude / fatal-save style internal cooldowns, by name. */
   icd: Record<string, number>
+  /** An optional champion: an elite levels above the zone (its bar is framed). */
+  champion?: boolean
 }
 
 // ─── Projectiles and ground fields ───────────────────────────────────────────
@@ -295,12 +297,18 @@ export interface Telegraph {
   a: number
   dur: number
   team: Team
+  /** The unit winding it up (0 / absent: nobody). The view withdraws the
+   *  warning when that unit dies, or, for the first `wind` seconds, when it
+   *  loses the action it began with (a stun, a knockdown). View only. */
+  src?: number
+  wind?: number
 }
 
 // ─── Events (sim → view) ─────────────────────────────────────────────────────
 
 export type SimEvent =
-  | { t: 'hit'; src: number; tgt: number; x: number; z: number; h: number; amount: number; crit: boolean; type: DamageType; heavy: boolean; toHero: boolean; killed: boolean }
+  /** `dot`: a tick of damage over time (a small effect, no hit-stop). */
+  | { t: 'hit'; src: number; tgt: number; x: number; z: number; h: number; amount: number; crit: boolean; type: DamageType; heavy: boolean; toHero: boolean; killed: boolean; dot: boolean }
   | { t: 'miss'; tgt: number; x: number; z: number; h: number; why: 'dodge' | 'block' | 'immune' }
   | { t: 'heal'; tgt: number; x: number; z: number; h: number; amount: number }
   | { t: 'mana'; tgt: number; x: number; z: number; h: number; amount: number }
@@ -314,6 +322,18 @@ export type SimEvent =
   | { t: 'spawn'; unit: number }
   | { t: 'wall'; cells: number[]; on: boolean; fx: string }
   | { t: 'loot'; x: number; z: number; gold: number; item: string }
+  /** A chest changes state: revealed by its door, being opened, open, or left
+   *  closed again (the hero was called away). `locked`: it was asked for while
+   *  its guard lives or the finale stands. */
+  | { t: 'chest'; id: number; x: number; z: number; state: 'reveal' | 'opening' | 'open' | 'closed' | 'locked'; why?: 'guard' | 'finale' }
+  /** Something from a chest that is not gold or gear: a health potion for the
+   *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
+  | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
+  /** A pressure plate is stepped on: in its turn (`ok`), or out of turn (the
+   *  puzzle resets). `step` plates are lit afterwards. */
+  | { t: 'plate'; id: number; x: number; z: number; ok: boolean; step: number; solved: boolean }
+  /** A hidden passage opens for the rest of the visit. */
+  | { t: 'door'; id: number; cells: number[]; x: number; z: number }
   | { t: 'xp'; amount: number }
   | { t: 'levelUp'; level: number }
   | { t: 'awake'; group: number; boss: string }
@@ -322,7 +342,8 @@ export type SimEvent =
   | { t: 'bossPhase'; unit: number; phase: number }
   | { t: 'overheat'; on: boolean }
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }
-  | { t: 'potion' }
+  /** A potion is drunk: the health one, or (`mana`) a mana potion. */
+  | { t: 'potion'; mana?: boolean }
   | { t: 'victory' }
   | { t: 'defeat' }
 

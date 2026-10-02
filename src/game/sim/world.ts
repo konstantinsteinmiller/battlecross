@@ -1,6 +1,8 @@
 import { mulberry32, type Rng } from './rng'
 import { createGrid, nearestOpen, type Grid } from './grid'
 import type { HeroBuild } from './stats'
+import type { ChestTier, LootKind } from '../data/loot'
+import type { ChestRole } from './zoneFeatures'
 import type {
   Action, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
 } from './types'
@@ -18,7 +20,8 @@ import type {
 
 /** What the hero is trying to do. */
 export interface Order {
-  kind: 'none' | 'move' | 'attack' | 'interact'
+  /** `chest`: walk up to a chest and open it (`targetId` is the chest's id). */
+  kind: 'none' | 'move' | 'attack' | 'interact' | 'chest'
   targetId: number
   x: number
   z: number
@@ -56,6 +59,10 @@ export interface HeroState {
   potions: number
   potionsMax: number
   potionCd: number
+  /** Mana potions: a carried stock (kept between visits), its cap and its own cooldown. */
+  manaPotions: number
+  manaPotionsMax: number
+  manaPotionCd: number
   order: Order
   queued: QueuedCast | null
   /** The stick / keys this step, in world space (x right, z down-screen). */
@@ -69,6 +76,9 @@ export interface HeroState {
   gold: number
   kills: number
   items: string[]
+  /** Chests opened this visit, and the chest being opened now (-1: none). */
+  chests: number
+  opening: number
   /** Damage the hero has dealt and taken (balance tests, the result screen). */
   dealt: number
   taken: number
@@ -91,6 +101,74 @@ export interface GroupState {
   /** The pack that ends the zone (its boss or elite). */
   finale: boolean
   boss: string
+  /** A side pack off the main chain: it never counts for the win or the HUD's
+   *  pips, and it only notices a hero who walks right up to it. */
+  optional?: boolean
+  /** The over-levelled optional elite. */
+  champion?: boolean
+}
+
+/** Side groups are numbered from here, so a unit's `group` tells which list it is in. */
+export const SIDE_GROUP = 1000
+
+/** One thing a chest holds, decided when the visit began. */
+export interface LootDraw {
+  kind: LootKind
+  /** Gold: the pile. */
+  gold: number
+  /** Equipment: a roll 0..1 that picks the piece when the chest opens (so two
+   *  chests never hand out the same new item), or a named piece. */
+  u: number
+  item: string
+}
+
+export interface ChestState {
+  id: number
+  x: number
+  z: number
+  /** Where the hero stands to open it. */
+  sx: number
+  sz: number
+  tier: ChestTier
+  role: ChestRole
+  /** `hidden`: behind a door that has not opened. */
+  state: 'hidden' | 'closed' | 'opening' | 'open'
+  /** The door that hides it and the side group that guards it (-1: none). */
+  door: number
+  guard: number
+  loot: LootDraw[]
+  /** A one-time chest's save key ('' for a chest that refills each visit). */
+  special: string
+  /** Sim time it was opened at. */
+  openedAt: number
+}
+
+export interface PlateState {
+  id: number
+  x: number
+  z: number
+  symbol: number
+  /** Pressed in its turn: it stays lit. */
+  lit: boolean
+  /** The hero is standing on it. */
+  down: boolean
+}
+
+export interface PuzzleState {
+  /** Plate ids in order. */
+  order: number[]
+  /** How many of them have been pressed in turn. */
+  step: number
+  solved: boolean
+  door: number
+}
+
+export interface DoorState {
+  id: number
+  cells: number[]
+  x: number
+  z: number
+  open: boolean
 }
 
 export interface WaveState {
@@ -113,7 +191,9 @@ export interface SimOptions {
 }
 
 export class Sim {
-  readonly rng: Rng
+  /** The fight's dice. */
+  rng: Rng
+  readonly seed: number
   readonly grid: Grid
   readonly level: number
   readonly difficulty: number
@@ -128,8 +208,19 @@ export class Sim {
   walls: TempWall[] = []
   events: SimEvent[] = []
   hero!: HeroState
+  /** The MAIN chain's packs. The last one's fall wins the visit. */
   groups: GroupState[] = []
+  /** Optional packs (a chest's guard, a champion): ids from `SIDE_GROUP`. */
+  sideGroups: GroupState[] = []
   groupsDone = 0
+  chests: ChestState[] = []
+  plates: PlateState[] = []
+  puzzle: PuzzleState | null = null
+  doors: DoorState[] = []
+  /** One-time chests opened this visit (their save keys). */
+  specialOpened: string[] = []
+  /** A won visit may close: the finale's chest has been opened (or there is none). */
+  endReady = false
   wave: WaveState = { n: 0, rest: 0, alive: 0 }
   /** Where waves spawn (arena) and where the zone's exit / chest stands. */
   spawnPoints: Array<[number, number]> = []
@@ -147,6 +238,7 @@ export class Sim {
 
   constructor(o: SimOptions) {
     this.rng = mulberry32(o.seed)
+    this.seed = o.seed
     this.grid = createGrid(o.w, o.h)
     this.level = o.level
     this.difficulty = o.difficulty
@@ -171,6 +263,22 @@ export class Sim {
       ts.splice(i, 1)
       fn()
     }
+  }
+
+  /**
+   * Run `fn` with another stream as the world's dice, then put the fight's
+   * own back untouched. What a visit holds beside its packs is set up this
+   * way, so a seed's battles roll exactly as they would in the bare zone.
+   */
+  withStream(rng: Rng, fn: () => void): void {
+    const keep = this.rng
+    this.rng = rng
+    try { fn() } finally { this.rng = keep }
+  }
+
+  /** A unit's encounter group, main or side. */
+  groupById(id: number): GroupState | undefined {
+    return id >= SIDE_GROUP ? this.sideGroups[id - SIDE_GROUP] : id >= 0 ? this.groups[id] : undefined
   }
 
   get(id: number): Unit | undefined {

@@ -6,10 +6,16 @@
  *   • line of sight — a DDA walk through cells (shots, spells, "can I see it"),
  *   • paths — A* over walkable cells for tap-to-move, chases and minions.
  *
- * `solid` has two layers folded into one byte: 1 = the zone's own terrain
- * (trees, cliffs, walls), 2 = a TEMPORARY blocker a skill raised (an Earth
- * Barrier, Tectonic rubble). Temporary cells can be cleared without touching
- * the terrain under them.
+ * `solid` has four layers folded into one byte:
+ *   1 = the zone's own terrain (trees, cliffs, walls);
+ *   2 = a TEMPORARY blocker a skill raised (an Earth Barrier, Tectonic
+ *       rubble), cleared without touching the terrain under it;
+ *   4 = LOW ground nobody can stand on but everybody can see and shoot over:
+ *       water, lava, a chest, a carved stone;
+ *   8 = a SEALED cell: a hidden passage behind a door that has not opened yet.
+ *       It is rock until it opens, and then it is gone for the visit.
+ * Any bit stops a walking body. Only 1, 2 and 8 stop a line of sight or a
+ * shot (`SIGHT_MASK`).
  *
  * Pure data and arithmetic: no three.js, no DOM, so the same code runs in the
  * game, in unit tests and in balance scripts. A* keeps its scratch arrays
@@ -21,6 +27,15 @@ export const CELL = 1.5
 
 export const SOLID_TERRAIN = 1
 export const SOLID_TEMP = 2
+export const SOLID_LOW = 4
+export const SOLID_SEALED = 8
+/** What a look or a shot cannot pass. */
+export const SIGHT_MASK = SOLID_TERRAIN | SOLID_TEMP | SOLID_SEALED
+const WALK_MASK = 0xff
+/** A* expansions a search may spend. A zone has about a thousand walkable
+ *  cells and a search pops a cell a few times at worst, so this is "the whole
+ *  map, however the river winds": a path that exists is always found. */
+export const PATH_BUDGET = 6000
 
 export interface Grid {
   w: number
@@ -59,6 +74,21 @@ export const isSolidCell = (g: Grid, i: number, j: number): boolean =>
 
 export const isSolidAt = (g: Grid, x: number, z: number): boolean =>
   isSolidCell(g, cellOf(x), cellOf(z))
+
+/** Does the cell stop a look or a shot? (Water and low props do not.) */
+export const blocksSightCell = (g: Grid, i: number, j: number): boolean =>
+  i < 0 || j < 0 || i >= g.w || j >= g.h || (g.solid[j * g.w + i]! & SIGHT_MASK) !== 0
+
+export const blocksSightAt = (g: Grid, x: number, z: number): boolean =>
+  blocksSightCell(g, cellOf(x), cellOf(z))
+
+/** Set or clear one layer of a cell. */
+export const setCellBit = (g: Grid, i: number, j: number, bit: number, on: boolean): void => {
+  if (i < 0 || j < 0 || i >= g.w || j >= g.h) return
+  const k = j * g.w + i
+  if (on) g.solid[k]! |= bit
+  else g.solid[k]! &= ~bit
+}
 
 /** Raise or clear a TEMPORARY blocker on a cell (never touches terrain). */
 export const setTempSolid = (g: Grid, i: number, j: number, on: boolean): void => {
@@ -137,8 +167,8 @@ export const moveCircle = (g: Grid, x: number, z: number, dx: number, dz: number
   return out
 }
 
-/** Grid line of sight from (ax, az) to (bx, bz): no solid cell between. */
-export const hasLineOfSight = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean => {
+/** A DDA walk from (ax, az) to (bx, bz): no cell with a bit of `mask` between. */
+const lineClear = (g: Grid, ax: number, az: number, bx: number, bz: number, mask: number): boolean => {
   let i = cellOf(ax)
   let j = cellOf(az)
   const ti = cellOf(bx)
@@ -162,21 +192,30 @@ export const hasLineOfSight = (g: Grid, ax: number, az: number, bx: number, bz: 
       tMaxZ += tDeltaZ
       j += stepJ
     }
-    if (isSolidCell(g, i, j)) return false
+    if (i < 0 || j < 0 || i >= g.w || j >= g.h || (g.solid[j * g.w + i]! & mask) !== 0) return false
   }
   return true
 }
 
-/** LOS for a fat body: the centre line and both shoulder lines. */
+/** Line of sight (and of fire) from (ax, az) to (bx, bz): nothing that blocks
+ *  a look between. Water and low props are seen and shot over. */
+export const hasLineOfSight = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
+  lineClear(g, ax, az, bx, bz, SIGHT_MASK)
+
+/** Can a point WALK the straight line? (Water is in the way of feet.) */
+export const hasWalkLine = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
+  lineClear(g, ax, az, bx, bz, WALK_MASK)
+
+/** A walkable straight line for a fat body: the centre line and both shoulder lines. */
 export const clearCorridor = (g: Grid, ax: number, az: number, bx: number, bz: number, r: number): boolean => {
   const dx = bx - ax
   const dz = bz - az
   const len = Math.hypot(dx, dz) || 1
   const nx = (-dz / len) * r
   const nz = (dx / len) * r
-  return hasLineOfSight(g, ax, az, bx, bz) &&
-    hasLineOfSight(g, ax + nx, az + nz, bx + nx, bz + nz) &&
-    hasLineOfSight(g, ax - nx, az - nz, bx - nx, bz - nz)
+  return hasWalkLine(g, ax, az, bx, bz) &&
+    hasWalkLine(g, ax + nx, az + nz, bx + nx, bz + nz) &&
+    hasWalkLine(g, ax - nx, az - nz, bx - nx, bz - nz)
 }
 
 /** The nearest walkable cell centre to (x, z), searching outward in rings. */
@@ -242,7 +281,7 @@ const heapPop = (g: Grid, n: number): number => {
  * waypoints (x, z pairs) from the cell after the start to the exact target
  * into `out` and returns how many numbers it wrote (0 = no path).
  */
-export const findPath = (g: Grid, fx: number, fz: number, tx: number, tz: number, out: number[], maxNodes = 1600): number => {
+export const findPath = (g: Grid, fx: number, fz: number, tx: number, tz: number, out: number[], maxNodes = PATH_BUDGET): number => {
   out.length = 0
   const W = g.w
   const si = cellOf(fx)

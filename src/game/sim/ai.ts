@@ -3,6 +3,8 @@ import { hasLineOfSight } from './grid'
 import { abilityReady, startAbility } from './abilities'
 import { face, inAttackRange, setGoal, startAttack, stop, stride, walk } from './actors'
 import { isControlled, wakeGroup } from './combat'
+import { SIDE_AGGRO, SIDE_LEASH } from './interact'
+import { SIDE_GROUP } from './world'
 import { findStatus, hasStatus, type Sim } from './world'
 import type { Unit } from './types'
 
@@ -53,7 +55,9 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   if (!u.awake) {
     // Asleep: wake when the hero is seen. A silent hero gets closer first.
     if (!hero.alive || hasStatus(hero, 'stealth')) return
-    const reach = def.aggro * (1 - Math.min(0.6, hero.s.mods.stealthy ?? 0))
+    // A side pack keeps to its corner: it notices only who walks up to it.
+    const aggro = u.group >= SIDE_GROUP ? Math.min(def.aggro, SIDE_AGGRO) : def.aggro
+    const reach = aggro * (1 - Math.min(0.6, hero.s.mods.stealthy ?? 0))
     const d = Math.hypot(hero.x - u.x, hero.z - u.z)
     if (d < reach && hasLineOfSight(sim.grid, u.x, u.z, hero.x, hero.z)) wakeGroup(sim, u)
     return
@@ -94,7 +98,7 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
 
   // Too far from home: a pack does not follow the hero across the map.
-  if (sim.mode === 'zone' && u.rank !== 'boss' && Math.hypot(u.homeX - u.x, u.homeZ - u.z) > LEASH && d > 8) {
+  if (sim.mode === 'zone' && u.rank !== 'boss' && Math.hypot(u.homeX - u.x, u.homeZ - u.z) > (u.group >= SIDE_GROUP ? SIDE_LEASH : LEASH) && d > 8) {
     u.targetId = 0
     setGoal(sim, u, u.homeX, u.homeZ)
     return

@@ -4,7 +4,7 @@ import { SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, type EquipSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
-import { castSkill, createHero, orderAttack, orderMove, slotState, usePotion } from './hero'
+import { castSkill, createHero, orderAttack, orderMove, slotState, useManaPotion, usePotion } from './hero'
 import { heroStats, sumBuild, type HeroBuild } from './stats'
 import { stepSim } from './step'
 import { generateZone, type ZonePlan } from './zoneGen'
@@ -15,7 +15,8 @@ import { Sim } from './world'
  *
  * A scripted hero that plays a zone the way a competent, unhurried player
  * would: walk to the next pack, fight what is awake, use every skill as it
- * comes up, drink at 40 %. Not an AI — a yardstick. The balance tests run it
+ * comes up, drink at 40 %. It opens no chests and takes no side path, so it
+ * measures the fights alone. Not an AI — a yardstick. The balance tests run it
  * through every zone with a level-appropriate build so a later change to a
  * formula cannot silently turn the Goblin Hollows into a wall (or a walkover).
  */
@@ -100,13 +101,15 @@ export interface RunOpts extends RefBuildOpts {
   difficulty?: number
   maxSeconds?: number
   potions?: number
+  /** Play the plain chain, without what a visit holds beside its packs. */
+  bare?: boolean
 }
 
 /** Set up a zone visit exactly as the game does, with a reference build. */
 export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
   const def = ZONES[o.zone]
   const seed = o.seed ?? 1234
-  const plan = generateZone(def, seed)
+  const plan = generateZone(def, seed, { bare: o.bare })
   const sim = new Sim({
     seed, w: plan.w, h: plan.h, level: o.enemyLevel ?? visitLevel(def, o.level), difficulty: o.difficulty ?? 1,
     mode: 'zone', zone: o.zone
@@ -124,6 +127,7 @@ export const botThink = (sim: Sim): void => {
   const u = h.unit
   if (!u.alive || sim.ended) return
   if (u.hp < u.s.maxHp * 0.4) usePotion(sim)
+  if (h.manaPotions > 0 && h.manaPotionCd <= 0 && u.mana < u.s.maxMana * 0.25) useManaPotion(sim)
   // The nearest enemy that is awake; if none, the next pack that still stands.
   let foe: (typeof sim.units)[number] | undefined
   let bd = Infinity
@@ -133,6 +137,7 @@ export const botThink = (sim: Sim): void => {
     if (d < bd) { bd = d; foe = e }
   }
   if (!foe) {
+    // The main chain only: side packs are a player's choice, not the yardstick's.
     const next = sim.groups.find(g => !g.cleared)
     if (next && (h.order.kind !== 'move' || Math.hypot(h.order.x - next.x, h.order.z - next.z) > 1)) orderMove(sim, next.x, next.z)
     return

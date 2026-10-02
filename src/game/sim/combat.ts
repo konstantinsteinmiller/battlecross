@@ -1,6 +1,7 @@
 import { SKILL_BY_ID } from '../data/skills'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
 import { killGold, killXp, addXp } from '../data/progression'
+import { CHAMPION_REWARD } from '../data/loot'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
 import { findStatus, hasStatus, statusV, type Sim } from './world'
@@ -183,7 +184,7 @@ export const isBehind = (src: Unit, tgt: Unit): boolean => {
 const wakeGroup = (sim: Sim, u: Unit): void => {
   if (u.team !== 1 || u.awake) return
   u.awake = true
-  const g = u.group >= 0 ? sim.groups[u.group] : undefined
+  const g = sim.groupById(u.group)
   if (!g || g.awake) return
   g.awake = true
   for (const id of g.members) {
@@ -355,7 +356,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   }
   sim.emit({
     t: 'hit', src: src?.id ?? 0, tgt: tgt.id, x: tgt.x, z: tgt.z, h: tgt.h,
-    amount: Math.max(1, Math.round(amount)), crit, type: o.type, heavy: !!o.heavy || crit, toHero, killed
+    amount: Math.max(1, Math.round(amount)), crit, type: o.type, heavy: !!o.heavy || crit, toHero, killed, dot: !!o.dot
   })
 
   // ── What the hit gives back to the source ──
@@ -412,7 +413,8 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
   // Summoned adds are worth nothing: a necromancer must not be a gold mine.
   const summoned = u.ownerId !== 0
   if (def && h && !summoned) {
-    const mul = RANK_REWARD[u.rank] * def.reward
+    // A champion pays like several of its kind: the reward for a fight nobody had to take.
+    const mul = RANK_REWARD[u.rank] * def.reward * (u.champion ? CHAMPION_REWARD : 1)
     const cha = h.unit.s.power.cha
     const xp = killXp(u.level, mul, h.level)
     const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * (0.8 + sim.rng() * 0.4))

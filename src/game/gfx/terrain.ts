@@ -2,10 +2,11 @@ import {
   BufferGeometry, Color, DynamicDrawUsage, Float32BufferAttribute, Group, InstancedMesh, Matrix4, Mesh, Object3D,
   Quaternion, Vector3, Fog, type Scene
 } from 'three'
-import type { ThemeId } from '../data/zones'
+import type { LiquidId, ThemeId } from '../data/zones'
 import { CELL } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
 import type { ZonePlan } from '../sim/zoneGen'
+import { K_BLOCK, K_BRIDGE, K_FORD, K_GROUND, K_WATER, riverRow } from '../sim/zoneFeatures'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { celVC, celVCMap, glowVC, outlineMat, setCelMood } from './cel'
@@ -26,6 +27,13 @@ import { groundDetail } from './textures'
  *
  * So a zone is ~12–16 draw calls of scenery whatever its size, with no per-
  * frame work at all: nothing here moves.
+ *
+ * Water and caves are part of the ground: the ground mesh DIPS under every wet
+ * cell (the bank is the slope, the bed is its floor) and takes the cave's
+ * colours inside one; the solid cells round a cave carry cave rock, tall on
+ * the far side and low on the near one, so the fixed camera always sees in.
+ * What stands in or moves on that ground (the water surface, bridges, chests,
+ * plates) is `levelProps.ts`.
  */
 
 interface PropShape {
@@ -209,6 +217,99 @@ export const THEMES: Readonly<Record<ThemeId, Theme>> = {
   }
 }
 
+// ── Water and caves ──────────────────────────────────────────────────────────
+
+/** How a liquid looks: the surface's tones (drawn by `levelProps.ts`), the
+ *  bed under it and what it does to the bank beside it. */
+export interface LiquidLook {
+  deep: string
+  shallow: string
+  glint: string
+  foam: string
+  bed: string
+  /** The bank's tint (wet mud, a rim of ice, a lava glow) and its strength. */
+  bank: string
+  bankK: number
+  /** The foam line: where it starts (0 deep .. 1 bank) and how much it moves. */
+  foamAt: number
+  wobble: number
+  /** Dark crust drifting on it (lava). */
+  crust: number
+  /** How fast the surface moves. */
+  flow: number
+}
+
+export const LIQUIDS: Readonly<Record<LiquidId, LiquidLook>> = {
+  water: { deep: '#2a84cc', shallow: '#58bcee', glint: '#ffffff', foam: '#f6fcff', bed: '#3a6c8c', bank: '#7a6a4a', bankK: 0.42, foamAt: 0.59, wobble: 1, crust: 0, flow: 1 },
+  ice: { deep: '#3a8cc4', shallow: '#93d8f6', glint: '#ffffff', foam: '#f4fbff', bed: '#5a8cb0', bank: '#ffffff', bankK: 0.75, foamAt: 0.44, wobble: 0.25, crust: 0, flow: 0.45 },
+  lava: { deep: '#e2400c', shallow: '#ff9218', glint: '#fff0a0', foam: '#ffdc5a', bed: '#2a1410', bank: '#ff5a14', bankK: 0.5, foamAt: 0.56, wobble: 0.7, crust: 1, flow: 0.4 },
+  pool: { deep: '#11545e', shallow: '#1f9090', glint: '#a8ffe6', foam: '#bafff0', bed: '#1a3038', bank: '#2f6a66', bankK: 0.45, foamAt: 0.6, wobble: 0.6, crust: 0, flow: 0.5 },
+  void: { deep: '#3c1a92', shallow: '#7c4ee6', glint: '#f4d8ff', foam: '#dcb8ff', bed: '#1a0e30', bank: '#8a5af0', bankK: 0.45, foamAt: 0.59, wobble: 0.8, crust: 0, flow: 0.6 }
+}
+
+/** The water's surface, and the floor under it. */
+export const WATER_Y = -0.17
+const BED_Y = -0.56
+
+/**
+ * Is there water under this cell? Bridged and forded water counts, and so do
+ * the cells of a river PAST the walkable grid: the plan keeps its rim of rock
+ * there, the picture carries the river on to the edge of the land.
+ */
+export const wetCell = (plan: ZonePlan, i: number, j: number): boolean => {
+  if (i >= 2 && j >= 0 && i < plan.w - 2 && j < plan.h) {
+    const kd = plan.kind[j * plan.w + i]
+    return kd === K_WATER || kd === K_BRIDGE || kd === K_FORD
+  }
+  for (const r of plan.rivers) if (Math.abs(j - riverRow(r, i)) <= r.half) return true
+  return false
+}
+
+/** The look inside a cave, whatever the zone outside it. */
+const CAVE = {
+  ground: ['#4c485c', '#3d3a4c'] as [string, string],
+  rim: '#15131c'
+}
+const caveWall = (hex: string, hex2: string, hex3: string) => () => ({
+  lit: [
+    P(rcone(0.86, 0.46, 2.5, 0.1, 7), hex, [0, 1.25, 0]),
+    P(rock(0.62, 11), hex2, [0.08, 2.5, 0.04]),
+    P(rcone(0.5, 0.2, 1.5, 0.08, 6), hex3, [-0.62, 0.75, 0.2]),
+    P(rock(0.45, 14), hex, [0.58, 0.28, -0.2])
+  ]
+})
+const caveGlow = (stone: string, glowHex: string) => () => ({
+  lit: [P(rock(0.5, 7), stone, [0, 0.28, 0])],
+  glow: [
+    P(rcone(0.16, 0.02, 0.9, 0.02, 6), glowHex, [0, 0.7, 0], [0, 0, 0.14]),
+    P(rcone(0.11, 0.02, 0.6, 0.02, 6), glowHex, [0.26, 0.5, 0.08], [0, 0, -0.5]),
+    P(dome(0.2, 1.5, 8, 4), glowHex, [-0.3, 0.42, -0.1])
+  ]
+})
+
+/**
+ * What stands in front of a side pocket instead of the theme's tall scenery:
+ * shapes a hero is never hidden behind. Rock in the theme's colours where
+ * nothing low grows.
+ */
+const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
+  plains: [{ build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }, { build: boulder('#9aa4a8', '#b8c0c4'), w: 2, s: [0.6, 1] }],
+  cave: [{ build: boulder('#6a5c54', '#857468'), w: 4, s: [0.7, 1.15] }, { build: mushroom('#e8e2d0', '#5fffd0', true), w: 1, s: [0.6, 0.9] }],
+  forest: [{ build: bush('#3f8f44', '#5fb85a'), w: 5, s: [0.7, 1.2] }, { build: mushroom('#e8e2d0', '#e0484a', false), w: 1, s: [0.6, 1] }, { build: boulder('#7a8a80', '#96a69a'), w: 2, s: [0.6, 1] }],
+  farm: [{ build: bush('#8ab04a', '#b0d060'), w: 4, s: [0.7, 1.15] }, { build: boulder('#c8b89a', '#dccdb0'), w: 2, s: [0.6, 1] }],
+  ash: [{ build: boulder('#3a2e30', '#56444a'), w: 4, s: [0.7, 1.2] }, { build: ember('#ff8a3a'), w: 1, s: [1.4, 2.2] }],
+  mine: [{ build: boulder('#565060', '#6e6878'), w: 4, s: [0.7, 1.2] }, { build: ember('#5fd8ff'), w: 1, s: [1.4, 2.2] }],
+  snow: [{ build: boulder('#c8d8e8', '#f4fbff'), w: 4, s: [0.7, 1.15] }, { build: bush('#4f8a7a', '#f4fbff'), w: 2, s: [0.7, 1.1] }],
+  temple: [{ build: boulder('#7a9a94', '#b8c8b8'), w: 4, s: [0.7, 1.15] }, { build: bush('#2f9a8c', '#3fc7b0'), w: 2, s: [0.7, 1.1] }],
+  void: [{ build: boulder('#2a1c50', '#3e2c70'), w: 4, s: [0.7, 1.2] }, { build: ember('#d0a8ff'), w: 1, s: [1.4, 2.2] }],
+  peak: [{ build: boulder('#5a4e50', '#76686a'), w: 4, s: [0.7, 1.25] }],
+  fortress: [{ build: boulder('#3a2a34', '#52404a'), w: 4, s: [0.7, 1.2] }, { build: ember('#ff5a4a'), w: 1, s: [1.4, 2.2] }],
+  rift: [{ build: boulder('#1c1040', '#30206a'), w: 4, s: [0.7, 1.2] }, { build: ember('#f0a8ff'), w: 1, s: [1.4, 2.2] }],
+  town: [{ build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }],
+  ruin: [{ build: boulder('#5a544a', '#706a5e'), w: 4, s: [0.7, 1.2] }],
+  arena: [{ build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
+}
+
 // ── Value noise for the ground's mottling ────────────────────────────────────
 
 const hash = (x: number, y: number, seed: number): number => {
@@ -337,6 +438,54 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   const rng = mulberry32(plan.seed ^ 0x51ab)
   const { w, h, solid, trail } = plan
   const low = sceneQuality() === 'low'
+  const liquid = plan.liquid ? LIQUIDS[plan.liquid] : null
+  // Water per cell, and how near each cell is to it (its 3 × 3): the bank's tint.
+  const wet = new Uint8Array(w * h)
+  let anyWet = false
+  for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (wetCell(plan, i, j)) { wet[j * w + i] = 1; anyWet = true }
+  const damp = new Float32Array(w * h)
+  if (anyWet) {
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        let n = 0
+        for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
+          const ni = i + di
+          const nj = j + dj
+          if (ni >= 0 && nj >= 0 && ni < w && nj < h && wet[nj * w + ni]) n++
+        }
+        damp[j * w + i] = n / 9
+      }
+    }
+  }
+  // A side pocket is a small place: tall scenery on its near (down-screen)
+  // side would hide all of it from a camera that cannot look round a tree.
+  // The solid cells up to three rows in front of one carry low props only.
+  const lowRing = new Uint8Array(w * h)
+  let anySide = false
+  for (let j = 2; j < h - 5; j++) {
+    for (let i = 2; i < w - 2; i++) {
+      if (!plan.side[j * w + i]) continue
+      anySide = true
+      for (let dj = 1; dj <= 3; dj++) for (let di = -1; di <= 1; di++) {
+        const k = (j + dj) * w + i + di
+        // The row count in front of the pocket: the first row is its edge.
+        if (solid[k] && (!lowRing[k] || lowRing[k]! > dj)) lowRing[k] = dj
+      }
+    }
+  }
+  // Solid cells within two of a cave's floor carry cave rock, not the zone's own.
+  const caveRing = new Uint8Array(w * h)
+  if (plan.caves.length) {
+    for (let j = 2; j < h - 2; j++) {
+      for (let i = 2; i < w - 2; i++) {
+        if (!plan.cave[j * w + i]) continue
+        for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) {
+          const k = (j + dj) * w + i + di
+          if (solid[k]) caveRing[k] = 1
+        }
+      }
+    }
+  }
 
   setCelMood({ ambient: theme.ambient, shadowTint: theme.shadow })
   scene.background = new Color(theme.sky)
@@ -378,6 +527,27 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   const cT = new Color(theme.trail)
   const cR = new Color(theme.rim)
   const c = new Color()
+  const c2 = new Color()
+  const cBed = new Color(liquid?.bed ?? '#000000')
+  const cBank = new Color(liquid?.bank ?? '#000000')
+  const cCaveA = new Color(CAVE.ground[0])
+  const cCaveB = new Color(CAVE.ground[1])
+  const cCaveR = new Color(CAVE.rim)
+  /** The share of the cells touching a ground vertex that `layer` marks (0..1). */
+  const shareAt = (layer: Uint8Array | Float32Array, gi: number, gj: number): number => {
+    let t = 0
+    let n = 0
+    for (let dj = -1; dj <= 0; dj++) {
+      for (let di = -1; di <= 0; di++) {
+        const i = Math.floor((gi + di) / SUB)
+        const j = Math.floor((gj + dj) / SUB)
+        if (i < 0 || j < 0 || i >= w || j >= h) continue
+        t += layer[j * w + i]!
+        n++
+      }
+    }
+    return n ? t / n : 0
+  }
   const cellNear = (gi: number, gj: number): number => {
     // The vertex's cell (clamped), for the rim falloff.
     const i = Math.min(w - 1, Math.floor(gi / SUB))
@@ -408,10 +578,29 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     c.copy(cA).lerp(cB, n)
     const t = trailAt(gi, gj)
     if (t > 0) c.lerp(cT, Math.min(0.85, t * (0.7 + 0.3 * n)))
+    // Inside a cave the ground is the cave's own, whatever grows outside.
+    const cv = plan.caves.length ? shareAt(plan.cave, gi, gj) : 0
+    if (cv > 0) c.lerp(c2.copy(cCaveA).lerp(cCaveB, n), cv)
     const d = cellNear(gi, gj)
-    if (d > 0) c.lerp(cR, Math.min(1, d / 2.5))
+    if (d > 0) {
+      const ci = Math.min(w - 1, Math.floor(gi / SUB))
+      const cj = Math.min(h - 1, Math.floor(gj / SUB))
+      c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, Math.min(1, d / 2.5))
+    }
+    // Water: the ground dips to the bed (the slope is the bank), the bank
+    // takes the liquid's tint and the bed its colour.
+    let y = 0
+    if (anyWet) {
+      const f = shareAt(wet, gi, gj)
+      const by = shareAt(damp, gi, gj)
+      if (by > 0 && liquid) c.lerp(cBank, Math.min(1, by * 1.8) * liquid.bankK)
+      if (f > 0) {
+        y = BED_Y * f
+        if (f > 0.34) c.lerp(cBed, Math.min(1, (f - 0.34) / 0.4))
+      }
+    }
     vmap[key] = pos.length / 3
-    pos.push(x, 0, z)
+    pos.push(x, y, z)
     col.push(c.r, c.g, c.b)
     uv.push(x / 5, z / 5)
     nor.push(0, 1, 0)
@@ -473,7 +662,9 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
         const n = noise(x * 0.11, z * 0.11, plan.seed + 3)
         c.copy(cR).lerp(cF, Math.max(0, Math.min(1, (d - 3) / 5)) * (0.45 + 0.55 * n))
         const k = j * fw + i
-        fpos[k * 3] = x; fpos[k * 3 + 1] = -0.03; fpos[k * 3 + 2] = z
+        // Under water the sheet drops below the bed, so it never shows through.
+        const sunk = anyWet && (wetCell(plan, ci, cj) || wetCell(plan, ci - 1, cj) || wetCell(plan, ci, cj - 1) || wetCell(plan, ci - 1, cj - 1))
+        fpos[k * 3] = x; fpos[k * 3 + 1] = sunk ? BED_Y - 0.3 : -0.03; fpos[k * 3 + 2] = z
         fcol[k * 3] = c.r; fcol[k * 3 + 1] = c.g; fcol[k * 3 + 2] = c.b
         fuv[k * 2] = x / 5; fuv[k * 2 + 1] = z / 5
         fnor[k * 3 + 1] = 1
@@ -514,12 +705,46 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   // rocks, out to `WILDS` cells beyond the grid.
   const wildPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
   const wildDensity = low ? 0.12 : 0.3
+  // Round a cave: tall rock on the far (up-screen) side, low rock on the near
+  // side, and a glowing cluster now and then. The camera has no way to look
+  // through a wall, so nothing tall ever stands between it and the cave floor.
+  const caveShapes: PropShape[] = [
+    { build: caveWall('#4a4458', '#5e586e', '#3c3848'), w: 1, s: [0.95, 1.25] },
+    { build: boulder('#4a4458', '#5e586e'), w: 1, s: [0.85, 1.25] },
+    { build: caveGlow('#3c3848', theme.mote), w: 1, s: [0.8, 1.2] }
+  ]
+  const cavePlaces: Array<Array<[number, number, number, number]>> = caveShapes.map(() => [])
+  // In front of a side pocket: the theme's own low shapes (a bush, a boulder,
+  // a mushroom), or a plain rock in its colours where it has none.
+  const lowShapes: PropShape[] = anySide ? LOW_PROPS[themeId] : []
+  const lowPlaces: Array<Array<[number, number, number, number]>> = lowShapes.map(() => [])
   for (let j = -WILDS; j < h + WILDS; j++) {
     for (let i = -WILDS; i < w + WILDS; i++) {
       const inside = i >= 0 && j >= 0 && i < w && j < h
       const k = j * w + i
       const d = inside ? near[k]! : 9
       if (d === 0 || (inside && footprint.has(k))) continue
+      // A river runs on past the grid; a level prop has its cell to itself.
+      if (anyWet && wetCell(plan, i, j)) continue
+      if (inside && plan.kind[k] === K_BLOCK) continue
+      if (inside && caveRing[k]) {
+        if (d === 2 && rng() < 0.4) continue
+        // Far side: a cave cell lies just down-screen of this one.
+        let far = false
+        for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
+        const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
+        const s = caveShapes[shape]!
+        cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
+      if (inside && lowRing[k]) {
+        // Thick along the pocket's edge, thinning away from it: a hem, not a field.
+        if (rng() > (lowRing[k] === 1 ? 0.8 : lowRing[k] === 2 ? 0.42 : 0.2)) continue
+        const shape = pickShape(lowShapes, rng())
+        const s = lowShapes[shape]!
+        lowPlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
       const facing = d <= (low ? 1 : 2)
       if (facing) {
         // The second ring is thinned: it only has to close the gaps of the first.
@@ -539,20 +764,33 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     instanced(theme.border[n]!, wildPlaces[n]!, false, root, owned)
     await slice()
   }
+  for (let n = 0; n < caveShapes.length; n++) instanced(caveShapes[n]!, cavePlaces[n]!, true, root, owned)
+  for (let n = 0; n < lowShapes.length; n++) instanced(lowShapes[n]!, lowPlaces[n]!, true, root, owned)
 
   // ── Decor scattered through the clearings (never on the trail) ──
   const decorPlaces: Array<Array<[number, number, number, number]>> = theme.decor.map(() => [])
   const density = low ? 0.05 : 0.11
+  const caveDecor: PropShape[] = [{ build: pebble('#5e586e'), w: 3, s: [0.8, 1.6] }, { build: shroom(theme.mote), w: 2, s: [0.8, 1.4] }]
+  const caveDecorPlaces: Array<Array<[number, number, number, number]>> = caveDecor.map(() => [])
   for (let j = 0; j < h; j++) {
     for (let i = 0; i < w; i++) {
       const k = j * w + i
       if (solid[k] || trail[k] || footprint.has(k) || rng() > density) continue
+      // Nothing grows in water, on a bridge, under a chest or on a plate.
+      if (plan.kind[k] !== K_GROUND) continue
+      if (plan.cave[k]) {
+        const shape = pickShape(caveDecor, rng())
+        const s = caveDecor[shape]!
+        caveDecorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
       const shape = pickShape(theme.decor, rng())
       const s = theme.decor[shape]!
       decorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
     }
   }
   for (let n = 0; n < theme.decor.length; n++) instanced(theme.decor[n]!, decorPlaces[n]!, false, root, owned)
+  for (let n = 0; n < caveDecor.length; n++) instanced(caveDecor[n]!, caveDecorPlaces[n]!, false, root, owned)
   await slice()
 
   // ── Houses ──

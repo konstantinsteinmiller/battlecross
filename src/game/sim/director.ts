@@ -1,16 +1,20 @@
 import { ARENA_WAVES, ZONES } from '../data/zones'
 import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
+import { applyStatus } from './combat'
+import { FINALE_BEAT, FINALE_WAIT, openChest, orderOpen, populateFeatures, stepPlates } from './interact'
 import { spawnEnemy, spawnMinion } from './spawn'
 import { plainStats } from './stats'
-import type { ZonePlan } from './zoneGen'
-import type { Sim } from './world'
+import { fillGrid, type ZonePlan } from './zoneGen'
+import { SIDE_GROUP, type Sim } from './world'
 
 /**
  * ─── The encounter director ──────────────────────────────────────────────────
  *
  * Puts a plan's packs into the world, watches them fall, and decides when the
  * visit is won: the finale pack in a zone, the last wave in the colosseum.
+ * Side packs (a chest's guard, an optional champion) are watched too, but they
+ * decide nothing: a zone is won by its main chain alone.
  */
 
 /** Which kinds a colosseum wave draws from, by the hero's level. */
@@ -24,12 +28,13 @@ const ARENA_POOLS: Array<{ upTo: number; kinds: string[]; elite: string }> = [
 ]
 
 export const applyPlan = (sim: Sim, plan: ZonePlan): void => {
-  sim.grid.solid.set(plan.solid)
+  fillGrid(sim.grid, plan)
   sim.spawnPoints = plan.gates.slice()
 }
 
-/** Spawn a zone's packs (asleep until the hero comes near). */
-export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iterable<string>): void => {
+/** Spawn a zone's packs (asleep until the hero comes near), then its chests,
+ *  plates and side packs. `opened`: one-time chests this save already emptied. */
+export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iterable<string>, opened: Iterable<string> = []): void => {
   for (const id of owned) sim.owned.add(id)
   sim.dropTable = {
     mob: itemsOfZone(zone, 'mob').map(i => i.id),
@@ -52,6 +57,9 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
       group.members.push(u.id)
     })
   })
+  // After the main chain and on streams of their own, so the fight's dice
+  // fall exactly as they did before the zone had anything in it but packs.
+  populateFeatures(sim, plan, zone, opened)
 }
 
 /** Put a town's people on the map (they never fight). */
@@ -98,7 +106,20 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
   if (sim.ended) return
   sim.ended = 'victory'
   const h = sim.hero
-  // The chest behind the finale: something from this zone the hero lacks.
+  // A zone's finale leaves a real chest: the hero walks over and opens it,
+  // and the visit closes on the open lid (`stepFinale`).
+  const finale = sim.chests.find(c => c.role === 'finale')
+  if (finale) {
+    sim.emit({ t: 'victory' })
+    // Nothing touches him on the way: the fight is over.
+    applyStatus(sim, h.unit, 'invulnerable', FINALE_WAIT + 3, 1, null, { quiet: true })
+    applyStatus(sim, h.unit, 'haste', FINALE_WAIT, 0.35, null, { quiet: true })
+    if (h.unit.action && h.unit.action.id === 'attack') h.unit.action = null
+    orderOpen(sim, finale.id)
+    return
+  }
+  sim.endReady = true
+  // No chest to walk to (the colosseum): the purse is handed over on the spot.
   const table = sim.dropTable.chest.concat(sim.dropTable.mob)
   const fresh = table.filter(id => !sim.owned.has(id) && !h.items.includes(id))
   const chest = plan?.chest ?? { x: h.unit.x, z: h.unit.z }
@@ -113,25 +134,25 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
   sim.emit({ t: 'victory' })
 }
 
-/** The secret chest: opened by walking up to it. */
-const stepSecret = (sim: Sim, plan: ZonePlan): void => {
-  if (!plan.secret || sim.owned.has('__secret')) return
-  const h = sim.hero
-  if (Math.hypot(h.unit.x - plan.secret.x, h.unit.z - plan.secret.z) > 1.8) return
-  sim.owned.add('__secret')
-  const fresh = sim.dropTable.secret.filter(id => !sim.owned.has(id) && !h.items.includes(id))
-  const gold = 150 + sim.level * 40
-  h.gold += gold
-  const item = fresh[0] ?? ''
-  if (item) h.items.push(item)
-  sim.emit({ t: 'loot', x: plan.secret.x, z: plan.secret.z, gold, item })
-  sim.emit({ t: 'fx', id: 'chest', x: plan.secret.x, z: plan.secret.z })
+/** After the win: the visit may close once the finale's chest stands open. */
+const stepFinale = (sim: Sim): void => {
+  if (sim.endReady || sim.ended !== 'victory') return
+  const c = sim.chests.find(x => x.role === 'finale')
+  if (!c) { sim.endReady = true; return }
+  if (c.state === 'open') {
+    if (sim.time - c.openedAt >= FINALE_BEAT) sim.endReady = true
+    return
+  }
+  // He could not get there (boxed in by a wall of his own?): it opens anyway,
+  // so what the zone owes is always paid.
+  if (sim.endedT >= FINALE_WAIT) openChest(sim, c)
 }
 
 const counts: number[] = []
+const sideCounts: number[] = []
 
 export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
-  if (sim.ended) { sim.endedT += dt; return }
+  if (sim.ended) { sim.endedT += dt; stepFinale(sim); return }
   if (sim.mode === 'town') return
   if (sim.mode === 'arena') {
     let alive = 0
@@ -147,10 +168,18 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
     }
     return
   }
-  stepSecret(sim, plan)
+  stepPlates(sim)
   counts.length = sim.groups.length
   counts.fill(0)
-  for (const u of sim.units) if (u.alive && u.team === 1 && u.group >= 0) counts[u.group]!++
+  sideCounts.length = sim.sideGroups.length
+  sideCounts.fill(0)
+  for (const u of sim.units) {
+    if (!u.alive || u.team !== 1 || u.group < 0) continue
+    if (u.group >= SIDE_GROUP) sideCounts[u.group - SIDE_GROUP]!++
+    else counts[u.group]!++
+  }
+  // A side pack that falls frees its chest; it is no step toward the win.
+  for (const g of sim.sideGroups) if (!g.cleared && sideCounts[g.id - SIDE_GROUP]! === 0) g.cleared = true
   for (const g of sim.groups) {
     if (g.cleared || counts[g.id]! > 0) continue
     g.cleared = true

@@ -84,6 +84,14 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #59 **Tunnels and caves** that hide loot or optional enemies.
 - [x] #60 ✅ **More ideas for levels** written up in `level-ideas.md`.
 
+### World map
+
+- [ ] #61 **A world map worth looking at.** An illustrated map instead of
+  dots on a gradient: drawn regions (woods, mountains, snow, lava, the void),
+  winding roads, a landmark per place (cave mouth, castle, temple, volcano),
+  the hero travelling along the road, drifting clouds over what is still
+  locked, a compass and a cartouche, life in the details.
+
 ---
 
 # Battlecross roadmap: D1 retention, playtime, conversion

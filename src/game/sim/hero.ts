@@ -1,9 +1,11 @@
 import { statPower } from '../data/attributes'
 import { HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
+import { MANA_POTION, POTION_HEAL } from '../data/loot'
 import { hasLineOfSight } from './grid'
 import { face, fire, inAttackRange, setGoal, setHeroOnHit, startAttack, stop, stride, walk } from './actors'
-import { applyStatus, cdrOf, cleanse, dealDamage, heal, isControlled, attackSpeedOf } from './combat'
+import { applyStatus, cdrOf, cleanse, dealDamage, giveMana, heal, isControlled, attackSpeedOf } from './combat'
 import { FREE_AIM, addHeat } from './heroSkills'
+import { CHEST_REACH, beginOpen, cancelOpen, chestLock } from './interact'
 import { heroStats, minionMul, type HeroBuild } from './stats'
 import { angleTo, findStatus, hasStatus, newAction, type HeroState, type Sim } from './world'
 import type { Unit } from './types'
@@ -22,7 +24,7 @@ import type { Unit } from './types'
  * (unless the player gives another order first).
  */
 
-export const POTION_HEAL = 0.45
+export { POTION_HEAL }
 export const POTION_CD = 6
 /** The hero's swing lands this far into its interval. */
 const WINDUP = 0.24
@@ -37,6 +39,9 @@ export interface HeroInit {
   z: number
   xpInto: number
   potions: number
+  /** Mana potions carried in, and how many the belt holds (default: none, the health belt's size). */
+  manaPotions?: number
+  manaPotionsMax?: number
 }
 
 export const createHero = (sim: Sim, o: HeroInit): HeroState => {
@@ -56,6 +61,9 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     potions: o.potions,
     potionsMax: o.potions,
     potionCd: 0,
+    manaPotions: Math.max(0, o.manaPotions ?? 0),
+    manaPotionsMax: Math.max(o.manaPotions ?? 0, o.manaPotionsMax ?? o.potions),
+    manaPotionCd: 0,
     order: { kind: 'none', targetId: 0, x: o.x, z: o.z },
     queued: null,
     stickX: 0,
@@ -66,6 +74,8 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     gold: 0,
     kills: 0,
     items: [],
+    chests: 0,
+    opening: -1,
     dealt: 0,
     taken: 0,
     minionMul: minionMul(s.power.cha, s.mods),
@@ -263,6 +273,20 @@ export const usePotion = (sim: Sim): boolean => {
   return true
 }
 
+/** Drink a mana potion from the stock: mana back, nothing cleansed. */
+export const useManaPotion = (sim: Sim): boolean => {
+  const h = sim.hero
+  const u = h.unit
+  if (!u.alive || h.manaPotions <= 0 || h.manaPotionCd > 0 || sim.ended) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
+  if (u.s.maxMana <= 0 || u.mana >= u.s.maxMana) { sim.emit({ t: 'denied', why: 'mana' }); return false }
+  h.manaPotions--
+  h.manaPotionCd = POTION_CD
+  giveMana(sim, u, u.s.maxMana * MANA_POTION)
+  sim.emit({ t: 'potion', mana: true })
+  sim.emit({ t: 'fx', id: 'manaPotion', x: u.x, z: u.z, unit: u.id, color: '#6ab8ff' })
+  return true
+}
+
 // ─── On-hit effects of the basic attack ──────────────────────────────────────
 
 const onHit = (sim: Sim, tgt: Unit, base: number): void => {
@@ -305,6 +329,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
   const u = h.unit
   for (let i = 0; i < h.cd.length; i++) if (h.cd[i]! > 0) h.cd[i] = Math.max(0, h.cd[i]! - dt)
   if (h.potionCd > 0) h.potionCd = Math.max(0, h.potionCd - dt)
+  if (h.manaPotionCd > 0) h.manaPotionCd = Math.max(0, h.manaPotionCd - dt)
   if (h.overheatT > 0) {
     h.overheatT -= dt
     if (h.overheatT <= 0) { h.overheatT = 0; h.heat = 0 }
@@ -312,6 +337,8 @@ export const stepHero = (sim: Sim, dt: number): void => {
     h.heat = Math.max(0, h.heat - HEAT_DECAY * (1 + (u.s.mods.heatDissipation ?? 0)) * dt)
   }
   if (!u.alive) return
+  // A lid half lifted when something took the action away: the chest waits.
+  if (h.opening >= 0 && u.action?.id !== 'open') cancelOpen(sim)
 
   // The rewind's memory: four samples a second, a little over four seconds.
   h.historyT -= dt
@@ -327,8 +354,10 @@ export const stepHero = (sim: Sim, dt: number): void => {
   }
   const stick = Math.hypot(h.stickX, h.stickZ)
   if (u.action) {
-    // A skill's wind-up roots him; a basic swing gives way to the stick.
+    // A skill's wind-up roots him; a basic swing gives way to the stick, and
+    // so does a chest's lid.
     if (u.action.id === 'attack' && stick > 0.2) cancelSwing(u)
+    else if (u.action.id === 'open' && stick > 0.2) cancelOpen(sim)
     else return
   }
 
@@ -392,6 +421,24 @@ export const stepHero = (sim: Sim, dt: number): void => {
       return
     }
     chase(sim, u, t, dt)
+    return
+  }
+
+  if (h.order.kind === 'chest') {
+    const c = sim.chests[h.order.targetId]
+    if (!c || chestLock(sim, c)) { h.order.kind = 'none'; u.anim = 'idle'; return }
+    if (Math.hypot(c.x - u.x, c.z - u.z) <= CHEST_REACH) {
+      h.order.kind = 'none'
+      beginOpen(sim, c)
+      return
+    }
+    u.repathT -= dt
+    if (u.repathT <= 0 || !u.hasGoal) {
+      u.repathT = 0.5
+      setGoal(sim, u, c.sx, c.sz)
+    }
+    walk(sim, u, dt)
+    u.anim = 'walk'
     return
   }
 

@@ -104,6 +104,58 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
 
 export const ZONE_IDS = Object.keys(ZONES) as ZoneId[]
 
+// ─── What a visit can hold beside its packs (roadmap #54–#59) ────────────────
+
+/** What fills a zone's rivers and ponds. All of them are walked AROUND; the
+ *  look and the warning differ (lava glows, snow water is rimmed with ice). */
+export type LiquidId = 'water' | 'ice' | 'lava' | 'pool' | 'void'
+
+/**
+ * The limits a visit's seed chooses inside, so the woods are not the same wood
+ * twice and still stay the woods: every number is a chance per visit (0..1)
+ * unless it says otherwise.
+ */
+export interface ZoneFeatures {
+  /** null: a dry zone (no river, no pond). */
+  liquid: LiquidId | null
+  /** A river across the road, bridged where the road meets it. */
+  river: number
+  /** Ponds inside the clearings: the most a visit has, and the chance of each. */
+  ponds: number
+  pond: number
+  /** A side lagoon with a chest on its islet, reached over stepping stones. */
+  lagoon: number
+  /** A winding passage to a cave chamber. */
+  cave: number
+  /** Pressure plates of the zone's puzzle (0: this zone has none) and the
+   *  chance a visit holds it. */
+  plates: 0 | 3 | 4
+  puzzle: number
+  /** A side corner with one guard and a chest. */
+  corner: number
+  /** The optional champion: an elite several levels above the zone. */
+  champion: number
+  championKind: string
+  championLevels: [number, number]
+  /** Side chests per visit, the finale's chest not counted. */
+  chests: [number, number]
+}
+
+export const ZONE_FEATURES: Readonly<Record<ZoneId, ZoneFeatures>> = {
+  plains: { liquid: 'water', river: 0.55, ponds: 2, pond: 0.5, lagoon: 0.3, cave: 0.25, plates: 0, puzzle: 0, corner: 0.5, champion: 0.06, championKind: 'banditChief', championLevels: [3, 4], chests: [1, 2] },
+  hollows: { liquid: 'pool', river: 0, ponds: 1, pond: 0.5, lagoon: 0.3, cave: 0.45, plates: 3, puzzle: 0.6, corner: 0.5, champion: 0.08, championKind: 'banditChief', championLevels: [3, 4], chests: [1, 3] },
+  woods: { liquid: 'water', river: 0.7, ponds: 2, pond: 0.5, lagoon: 0.4, cave: 0.4, plates: 3, puzzle: 0.55, corner: 0.55, champion: 0.1, championKind: 'broodSpider', championLevels: [3, 5], chests: [2, 3] },
+  outskirts: { liquid: 'water', river: 0.6, ponds: 2, pond: 0.45, lagoon: 0.3, cave: 0.2, plates: 0, puzzle: 0, corner: 0.6, champion: 0.1, championKind: 'broodSpider', championLevels: [3, 5], chests: [1, 3] },
+  crags: { liquid: 'lava', river: 0.6, ponds: 2, pond: 0.5, lagoon: 0.25, cave: 0.4, plates: 3, puzzle: 0.5, corner: 0.5, champion: 0.1, championKind: 'outlawCaptain', championLevels: [3, 5], chests: [1, 3] },
+  mines: { liquid: 'pool', river: 0, ponds: 1, pond: 0.4, lagoon: 0.25, cave: 0.5, plates: 4, puzzle: 0.6, corner: 0.5, champion: 0.1, championKind: 'emberLord', championLevels: [3, 5], chests: [2, 3] },
+  tundra: { liquid: 'ice', river: 0.6, ponds: 2, pond: 0.5, lagoon: 0.35, cave: 0.35, plates: 0, puzzle: 0, corner: 0.55, champion: 0.12, championKind: 'doomKnight', championLevels: [3, 4], chests: [1, 3] },
+  temple: { liquid: 'water', river: 0.5, ponds: 2, pond: 0.6, lagoon: 0.5, cave: 0.2, plates: 4, puzzle: 0.7, corner: 0.5, champion: 0.12, championKind: 'voidWarden', championLevels: [3, 4], chests: [2, 3] },
+  citadel: { liquid: 'void', river: 0.4, ponds: 2, pond: 0.45, lagoon: 0.3, cave: 0.25, plates: 4, puzzle: 0.5, corner: 0.5, champion: 0.12, championKind: 'doomKnight', championLevels: [3, 4], chests: [2, 3] },
+  peak: { liquid: 'lava', river: 0.5, ponds: 2, pond: 0.5, lagoon: 0.2, cave: 0.45, plates: 0, puzzle: 0, corner: 0.5, champion: 0.14, championKind: 'voidWarden', championLevels: [3, 4], chests: [1, 3] },
+  fortress: { liquid: 'lava', river: 0.4, ponds: 1, pond: 0.4, lagoon: 0, cave: 0.3, plates: 4, puzzle: 0.5, corner: 0.5, champion: 0.14, championKind: 'voidWarden', championLevels: [2, 3], chests: [2, 3] },
+  rift: { liquid: 'lava', river: 0.5, ponds: 2, pond: 0.5, lagoon: 0.2, cave: 0.2, plates: 0, puzzle: 0, corner: 0.4, champion: 0.16, championKind: 'doomKnight', championLevels: [2, 3], chests: [1, 2] }
+}
+
 /** Waves the colosseum throws before it pays out. */
 export const ARENA_WAVES = 8
 
@@ -215,30 +267,30 @@ export interface MapNode {
 }
 
 export const MAP: readonly MapNode[] = [
-  { id: 'sunford', kind: 'town', at: [0.13, 0.8], links: ['plains', 'arena'] },
-  { id: 'plains', kind: 'zone', at: [0.27, 0.69], links: ['sunford', 'hollows', 'woods'] },
-  { id: 'hollows', kind: 'zone', at: [0.15, 0.53], links: ['plains', 'arena'], quest: 'goblinKing' },
-  { id: 'arena', kind: 'arena', at: [0.33, 0.88], links: ['sunford', 'hollows'], needs: ['arenaOpen'] },
-  { id: 'woods', kind: 'zone', at: [0.41, 0.58], links: ['plains', 'outskirts', 'crags'] },
-  { id: 'outskirts', kind: 'zone', at: [0.55, 0.7], links: ['woods', 'oakhaven'], quest: 'siege' },
-  { id: 'oakhaven', kind: 'town', at: [0.68, 0.82], links: ['outskirts'] },
-  { id: 'crags', kind: 'zone', at: [0.49, 0.41], links: ['woods', 'mines', 'tundra'] },
-  { id: 'mines', kind: 'zone', at: [0.35, 0.31], links: ['crags', 'ironhold'], quest: 'core' },
-  { id: 'ironhold', kind: 'town', at: [0.22, 0.22], links: ['mines'] },
-  { id: 'tundra', kind: 'zone', at: [0.64, 0.31], links: ['crags', 'temple', 'citadel'] },
+  { id: 'sunford', kind: 'town', at: [0.125, 0.735], links: ['plains', 'arena'] },
+  { id: 'plains', kind: 'zone', at: [0.265, 0.625], links: ['sunford', 'hollows', 'woods'] },
+  { id: 'hollows', kind: 'zone', at: [0.125, 0.455], links: ['plains', 'arena'], quest: 'goblinKing' },
+  { id: 'arena', kind: 'arena', at: [0.315, 0.835], links: ['sunford', 'hollows'], needs: ['arenaOpen'] },
+  { id: 'woods', kind: 'zone', at: [0.415, 0.525], links: ['plains', 'outskirts', 'crags'] },
+  { id: 'outskirts', kind: 'zone', at: [0.555, 0.67], links: ['woods', 'oakhaven'], quest: 'siege' },
+  { id: 'oakhaven', kind: 'town', at: [0.695, 0.795], links: ['outskirts'] },
+  { id: 'crags', kind: 'zone', at: [0.5, 0.345], links: ['woods', 'mines', 'tundra'] },
+  { id: 'mines', kind: 'zone', at: [0.345, 0.25], links: ['crags', 'ironhold'], quest: 'core' },
+  { id: 'ironhold', kind: 'town', at: [0.2, 0.175], links: ['mines'] },
+  { id: 'tundra', kind: 'zone', at: [0.66, 0.29], links: ['crags', 'temple', 'citadel'] },
   {
-    id: 'temple', kind: 'zone', at: [0.79, 0.47], links: ['tundra', 'citadel'], quest: 'oracle',
+    id: 'temple', kind: 'zone', at: [0.815, 0.52], links: ['tundra', 'citadel'], quest: 'oracle',
     trainer: { cls: 'chrono', npc: 'trainerChrono', not: ['oracleSlain'] }
   },
   {
-    id: 'citadel', kind: 'zone', at: [0.8, 0.22], links: ['tundra', 'temple', 'peak', 'fortress'],
+    id: 'citadel', kind: 'zone', at: [0.8, 0.235], links: ['tundra', 'temple', 'peak', 'fortress'],
     // The alchemist the Syndicate would have sheltered hides here instead —
     // and the oracle's keeper of hours, should the oracle have been slain.
     trainer: { cls: 'blood', npc: 'trainerBlood', not: ['oakhavenFallen'] }
   },
-  { id: 'peak', kind: 'zone', at: [0.62, 0.1], links: ['citadel', 'fortress'], quest: 'dragon' },
-  { id: 'fortress', kind: 'zone', at: [0.9, 0.08], links: ['citadel', 'peak', 'rift'], quest: 'throne' },
-  { id: 'rift', kind: 'zone', at: [0.93, 0.32], links: ['fortress'], needs: ['throneDone'] }
+  { id: 'peak', kind: 'zone', at: [0.6, 0.112], links: ['citadel', 'fortress'], quest: 'dragon' },
+  { id: 'fortress', kind: 'zone', at: [0.905, 0.12], links: ['citadel', 'peak', 'rift'], quest: 'throne' },
+  { id: 'rift', kind: 'zone', at: [0.925, 0.37], links: ['fortress'], needs: ['throneDone'] }
 ]
 
 export const NODE_BY_ID: Readonly<Record<string, MapNode>> = Object.fromEntries(MAP.map(n => [n.id, n]))

@@ -1,6 +1,6 @@
 import {
-  CELL, cellOf, centerOf, clearCorridor, findPath, hasLineOfSight, isSolidAt, isSolidCell, moveCircle, nearestOpen,
-  setTempSolid, smoothPath
+  CELL, blocksSightAt, cellOf, centerOf, clearCorridor, findPath, hasLineOfSight, isSolidAt, isSolidCell, moveCircle,
+  nearestOpen, setTempSolid, smoothPath
 } from './grid'
 import { applyStatus, attackSpeedOf, dealDamage, heal, isControlled, moveSpeedOf } from './combat'
 import { angleTo, hasStatus, newAction, statusV, type Sim } from './world'
@@ -347,7 +347,8 @@ export const stepProjectiles = (sim: Sim, dt: number): void => {
     for (let s = 0; s < steps && p.active; s++) {
       p.x += sx
       p.z += sz
-      if (isSolidAt(sim.grid, p.x, p.z)) {
+      // A shot flies over water and low props; rock and walls stop it.
+      if (blocksSightAt(sim.grid, p.x, p.z)) {
         burst(sim, p, src, null)
         p.active = false
         break

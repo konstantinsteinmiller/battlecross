@@ -52,22 +52,22 @@ export const startAbility = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
   const r = a.r ?? 2
   switch (a.kind) {
     case 'slam':
-      sim.emit({ t: 'tele', tele: { shape: 'circle', x: u.x, z: u.z, r, w: 0, a: 0, dur: a.windup, team } })
+      sim.emit({ t: 'tele', tele: { shape: 'circle', x: u.x, z: u.z, r, w: 0, a: 0, dur: a.windup, team, src: u.id, wind: a.windup } })
       break
     case 'smash':
     case 'leap':
-      sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup, team } })
+      sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup, team, src: u.id, wind: a.windup } })
       break
     case 'lob':
       // The warning stays until the lob lands, a beat after the throw.
-      sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup + LOB_FLIGHT, team } })
+      sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup + LOB_FLIGHT, team, src: u.id, wind: a.windup } })
       break
     case 'cone':
-      sim.emit({ t: 'tele', tele: { shape: 'cone', x: u.x, z: u.z, r, w: rad(a.w ?? 30), a: act.a, dur: a.windup, team } })
+      sim.emit({ t: 'tele', tele: { shape: 'cone', x: u.x, z: u.z, r, w: rad(a.w ?? 30), a: act.a, dur: a.windup, team, src: u.id, wind: a.windup } })
       break
     case 'charge':
     case 'line':
-      sim.emit({ t: 'tele', tele: { shape: 'line', x: u.x, z: u.z, r, w: a.w ?? 1, a: act.a, dur: a.windup, team } })
+      sim.emit({ t: 'tele', tele: { shape: 'line', x: u.x, z: u.z, r, w: a.w ?? 1, a: act.a, dur: a.windup, team, src: u.id, wind: a.windup } })
       break
     case 'blink': {
       // Gone from here; behind the target before the strike.
@@ -175,7 +175,7 @@ export const resolveAbility = (sim: Sim, u: Unit, act: Action): void => {
         const delay = i * BARRAGE_GAP
         sim.after(delay, () => {
           if (!u.alive) return
-          sim.emit({ t: 'tele', tele: { shape: 'circle', x, z, r, w: 0, a: 0, dur: BARRAGE_WARN, team: u.team } })
+          sim.emit({ t: 'tele', tele: { shape: 'circle', x, z, r, w: 0, a: 0, dur: BARRAGE_WARN, team: u.team, src: u.id } })
           sim.emit({ t: 'fx', id: 'fall:' + (a.fx ?? 'bomb'), x, z, r, dur: BARRAGE_WARN, color })
         })
         sim.after(delay + BARRAGE_WARN, () => {

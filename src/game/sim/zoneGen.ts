@@ -1,7 +1,13 @@
 import type { TownDef, ZoneDef } from '../data/zones'
 import { ENEMY_BY_ID } from '../data/enemies'
-import { CELL } from './grid'
+import { CELL, SOLID_LOW, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
+import {
+  K_BLOCK, K_WATER, addFeatures, noFeatures,
+  type CavePlan, type ChestPlan, type CrossingPlan, type DoorPlan, type OptionalPackPlan, type PlatePlan, type PuzzlePlan,
+  type RiverPlan, type SignPlan
+} from './zoneFeatures'
+import type { LiquidId } from '../data/zones'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -11,6 +17,10 @@ import { mulberry32, type Rng } from './rng'
  * like). The hero starts in the first clearing, which is always empty; each
  * later one holds a pack, and the last holds the zone's finale. Seeded: the
  * same seed is the same zone, so a layout can be tested and a bug replayed.
+ *
+ * Over that chain a second, separately seeded pass lays what makes a visit
+ * more than its fights (`zoneFeatures.ts`): chests, optional corners, a plate
+ * puzzle, water, caves.
  *
  * Pure: it returns a plan (which cells are solid, where things stand). The sim
  * spawns from it and the view builds meshes from it.
@@ -59,11 +69,38 @@ export interface ZonePlan {
   solid: Uint8Array
   /** 1 = a worn trail (the passes and the way through each clearing). */
   trail: Uint8Array
+  /** What stands on each cell (`K_*` in `zoneFeatures.ts`): water, a bridge,
+   *  stepping stones, a level prop, a pressure plate. */
+  kind: Uint8Array
+  /** 1 = inside a cave (the ground and the walls change their look). */
+  cave: Uint8Array
+  /** Door id + 1 of the hidden pocket the cell belongs to (0: none). Sealed
+   *  cells are rock until their door opens. */
+  sealed: Uint8Array
+  /** 1 = opened by a side feature (a corner, an alcove, a cave): a small
+   *  place the view must not hide behind tall scenery. */
+  side: Uint8Array
   clearings: Clearing[]
   start: { x: number; z: number }
+  /** The MAIN chain's packs: one per clearing, the finale last. */
   packs: PackPlan[]
+  /** Where the finale's chest and the secret chest stand (both are also in `chests`). */
   chest: { x: number; z: number } | null
   secret: { x: number; z: number } | null
+  /** What fills the rivers and ponds (null: a dry place). */
+  liquid: LiquidId | null
+  /** Every chest of the visit, the finale's first. */
+  chests: ChestPlan[]
+  plates: PlatePlan[]
+  puzzle: PuzzlePlan | null
+  doors: DoorPlan[]
+  /** Side packs off the main chain: they never count for the win. */
+  optionalPacks: OptionalPackPlan[]
+  caves: CavePlan[]
+  rivers: RiverPlan[]
+  ponds: Array<{ x: number; z: number; r: number }>
+  crossings: CrossingPlan[]
+  signs: SignPlan[]
   buildings: BuildingPlan[]
   npcs: NpcPlan[]
   /** Where arena waves come in. */
@@ -71,6 +108,22 @@ export interface ZonePlan {
 }
 
 const W = 40
+
+/**
+ * Write a plan into a walk grid: terrain, water and level props (walked
+ * around, seen over) and the sealed pockets (`doorsOpen`: as if every door had
+ * opened). The sim's grid is this with the doors shut.
+ */
+export const fillGrid = (g: Grid, plan: ZonePlan, doorsOpen = false): Grid => {
+  for (let k = 0; k < plan.solid.length; k++) {
+    let v = plan.solid[k]! ? SOLID_TERRAIN : 0
+    const kd = plan.kind[k]!
+    if (kd === K_WATER || kd === K_BLOCK) v |= SOLID_LOW
+    if (plan.sealed[k]! && !doorsOpen) v |= SOLID_SEALED
+    g.solid[k] = v
+  }
+  return g
+}
 
 const carveDisc = (solid: Uint8Array, w: number, h: number, ci: number, cj: number, r: number, rng: Rng): void => {
   // A lumpy edge: the radius wobbles with the bearing, so no clearing is a
@@ -128,6 +181,8 @@ export interface ZoneGenOpts {
   ambush?: string | null
   /** Extra enemies per pack (a quest left the zone infested). */
   extra?: number
+  /** No water, caves, corners or side chests: the chain alone (measurements). */
+  bare?: boolean
 }
 
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
@@ -159,6 +214,10 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
 
   // A side pocket for a secret chest, off one of the middle clearings.
   let secret: { x: number; z: number } | null = null
+  let secretSlot: { k: number; side: number } | null = null
+  const secretCells: number[] = []
+  // The road as it runs before the secret's own path is cut.
+  const road = trail.slice()
   const clearings: Clearing[] = cs.map((c, k) => ({
     x: (c.i + 0.5) * CELL, z: (c.j + 0.5) * CELL, r: c.r * CELL,
     role: k === 0 ? 'start' : k === n ? 'finale' : 'pack'
@@ -168,9 +227,13 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     const side = from.i > W / 2 ? -1 : 1
     const si = Math.max(6, Math.min(W - 7, from.i + side * 10))
     const sj = from.j - 2
+    const rock = solid.slice()
     carveDisc(solid, W, h, si, sj, 2.6, rng)
     carveLine(solid, trail, W, h, from.i, from.j, si, sj, 1.1)
+    // A small place off the road: the view keeps the scenery in front of it low.
+    for (let k = 0; k < rock.length; k++) if (rock[k] && !solid[k]) secretCells.push(k)
     secret = { x: (si + 0.5) * CELL, z: (sj + 0.5) * CELL }
+    secretSlot = { k: Math.max(1, Math.floor(n / 2)), side }
     clearings.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, role: 'secret' })
   }
 
@@ -226,14 +289,25 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     p.kinds.push(o.ambush, o.ambush)
   }
 
+  // A secret is not signposted: no worn path leads to it.
+  trail.set(road)
+
   const fin = clearings[n]!
+  // The reward chest waits behind the finale.
+  const chest = { x: fin.x, z: fin.z - fin.r * 0.55 }
+  const kind = new Uint8Array(W * h)
+  const cave = new Uint8Array(W * h)
+  const sealed = new Uint8Array(W * h)
+  const side = new Uint8Array(W * h)
+  for (const k of secretCells) if (!solid[k]) side[k] = 1
+  const features = addFeatures({ def, seed, w: W, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare })
   return {
-    seed, w: W, h, solid, trail, clearings,
+    seed, w: W, h, solid, trail, kind, cave, sealed, side, clearings,
     start: { x: clearings[0]!.x, z: clearings[0]!.z },
     packs,
-    // The reward chest waits behind the finale.
-    chest: { x: fin.x, z: fin.z - fin.r * 0.55 },
+    chest,
     secret,
+    ...features,
     buildings: [],
     npcs: [],
     gates: []
@@ -316,7 +390,9 @@ export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: num
     }
   }
   return {
-    seed, w, h, solid, trail,
+    seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
+    side: new Uint8Array(w * h),
+    ...noFeatures(),
     clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: 11.5 * CELL, role: 'start' }],
     start: { x: (w / 2) * CELL, z: oz + span * 0.9 },
     packs: [],
@@ -345,7 +421,9 @@ export const generateArena = (seed: number): ZonePlan => {
     gates.push([(w / 2 + Math.cos(a) * (R - 1.6)) * CELL, (h / 2 + Math.sin(a) * (R - 1.6)) * CELL])
   }
   return {
-    seed, w, h, solid, trail,
+    seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
+    side: new Uint8Array(w * h),
+    ...noFeatures(),
     clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: R * CELL, role: 'finale' }],
     start: { x: (w / 2) * CELL, z: (h / 2) * CELL },
     packs: [],

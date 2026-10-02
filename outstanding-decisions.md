@@ -21,6 +21,20 @@ Last updated: 2026-10-02.
 | 8 | **Weak builds.** A Chrono-Weaver-only hero and a late-game Aegis-only hero clear fewer zones than the other classes. Buff them, or accept (the game is about mixing classes)? | Accepted | Small buff to Chrono-Weaver's damage |
 | 9 | **Music.** One code-composed soundtrack. Commission or generate authored tracks (`sound-todo.md` lists the drop-in names)? | Code-composed | Authored tracks before the first portal submission |
 
+## Playtest pass (roadmap #37 to #60): defaults taken, overrule any
+
+The full table is in `game-implementation-plan.md` section 6 (D36 to D46).
+The ones most worth a look before much is built on them:
+
+| # | Question | In effect now | Recommended |
+| --- | --- | --- | --- |
+| 10 | **Dialogue presentation.** Speech bubbles over heads with the world still running and the choices in a list at the bottom, or a Gothic-style letterboxed camera with subtitles? | Bubbles over heads, choices at the bottom | Keep; it reads on a phone |
+| 12 | **Trading rules.** Items stay unique (owned or not), sell-back 25 %, merchants never run out of gold. Added: buying back what was sold in the same visit. Want finite merchant gold or stock? | Unlimited | Keep; finite gold annoys on a phone |
+| 16 | **Order of the battle buttons on touch.** The bar now holds eight (six skills, health flask, mana flask): skills fill three columns from the bottom-right corner, so skill 1 is nearest the thumb, and the two flasks sit on the row above. Before, the potion was top-right with skill 1 beside it. | Skill 1 at the thumb, flasks above | Play it on a phone and say if the flasks should be nearer |
+| 18 | **After the boss falls.** The hero now walks to the finale chest and opens it by himself, then the result screen comes. Keeping control instead would let the player go back for chests they missed, but the visit would need an explicit "leave" (an exit, or a button). | Automatic walk to the chest | Keep control, with a "Leave" button that appears after the boss: exploring is the point of the new chests |
+| 19 | **Mana potion price** at the healer: 20 + 6 × hero level gold each. | 20 + 6 × level | Keep, re-check when the balance pass runs |
+| 20 | **How often the over-levelled optional champion appears:** 6 to 16 % of visits, by zone. | 6–16 % | Keep; raise if players never meet one |
+
 ## Needs an action from the owner before a submission
 
 | # | What | Why it waits |

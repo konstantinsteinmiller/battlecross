@@ -6,6 +6,7 @@ import { stepAlly, stepEnemy } from './ai'
 import { stepStatuses } from './combat'
 import { stepDirector } from './director'
 import { stepHero } from './hero'
+import { finishOpen } from './interact'
 import { HERO_SKILLS } from './heroSkills'
 import type { ZonePlan } from './zoneGen'
 import type { Unit } from './types'
@@ -23,6 +24,10 @@ import type { Sim } from './world'
 const land = (sim: Sim, u: Unit): void => {
   const a = u.action
   if (!a) return
+  if (a.id === 'open') {
+    finishOpen(sim)
+    return
+  }
   if (a.id === 'attack') {
     const fx = u.team === 1 ? ENEMY_BY_ID[u.kind]?.shotFx : MINIONS[u.kind]?.shotFx
     resolveAttack(sim, u, sim.live(a.targetId), 1, fx ?? '')
@@ -76,7 +81,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
       }
     }
     if (!u.alive || u.rank === 'hero' || u.rank === 'npc') continue
-    if (sim.ended === 'defeat') { if (!u.action) u.anim = 'idle'; continue }
+    // The fight is over either way: nobody presses on.
+    if (sim.ended) { if (!u.action) u.anim = 'idle'; continue }
     if (u.team === 1) stepEnemy(sim, u, dt)
     else stepAlly(sim, u, dt)
   }
