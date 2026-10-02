@@ -257,24 +257,62 @@ export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: num
   const span = 17 * CELL
   const ox = (w / 2) * CELL - span / 2
   const oz = (h / 2) * CELL - span / 2
-  for (const n of def.npcs) {
-    if (n.needs && !n.needs.every(f => flags.has(f))) continue
-    if (n.not && n.not.some(f => flags.has(f))) continue
-    const x = ox + n.at[0] * span
-    const z = oz + n.at[1] * span
-    npcs.push({ id: n.id, look: n.look, x, z, facing: 0 })
-    // Shops and trainers stand in front of their house.
-    if (n.role === 'shop' || n.role === 'trainer') {
-      const bw = 4.2 + rng() * 1.2
-      const bd = 3.6 + rng() * 0.8
-      const bx = x
-      const bz = z - bd / 2 - 1.5
-      buildings.push({ x: bx, z: bz, w: bw, d: bd, style: Math.floor(rng() * 4) })
-      const i0 = Math.floor((bx - bw / 2) / CELL)
-      const i1 = Math.floor((bx + bw / 2) / CELL)
-      const j0 = Math.floor((bz - bd / 2) / CELL)
-      const j1 = Math.floor((bz + bd / 2) / CELL)
-      for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) if (i >= 0 && j >= 0 && i < w && j < h) solid[j * w + i] = 1
+  const present = def.npcs.filter(n => (!n.needs || n.needs.every(f => flags.has(f))) && !(n.not && n.not.some(f => flags.has(f))))
+  for (const n of present) npcs.push({ id: n.id, look: n.look, x: ox + n.at[0] * span, z: oz + n.at[1] * span, facing: 0 })
+
+  // Shops and trainers stand in front of their house. A house is only built
+  // where it swallows nobody: its footprint must leave every person's cell
+  // (and the cells around it) open, or that person could not be walked up to.
+  const keep = new Uint8Array(w * h)
+  for (const p of npcs) {
+    const ci = Math.floor(p.x / CELL)
+    const cj = Math.floor(p.z / CELL)
+    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
+      const i = ci + di
+      const j = cj + dj
+      if (i >= 0 && j >= 0 && i < w && j < h) keep[j * w + i] = 1
+    }
+  }
+  const built = new Uint8Array(w * h)
+  const footprint = (bx: number, bz: number, bw: number, bd: number): number[] | null => {
+    const cells: number[] = []
+    const i0 = Math.floor((bx - bw / 2) / CELL)
+    const i1 = Math.floor((bx + bw / 2) / CELL)
+    const j0 = Math.floor((bz - bd / 2) / CELL)
+    const j1 = Math.floor((bz + bd / 2) / CELL)
+    for (let j = j0; j <= j1; j++) {
+      for (let i = i0; i <= i1; i++) {
+        if (i < 0 || j < 0 || i >= w || j >= h) return null
+        const k = j * w + i
+        if (keep[k] || built[k] || trail[k]) return null
+        cells.push(k)
+      }
+    }
+    return cells
+  }
+  for (let n = 0; n < present.length; n++) {
+    const def1 = present[n]!
+    if (def1.role !== 'shop' && def1.role !== 'trainer') continue
+    const p = npcs[n]!
+    const bw = 4.2 + rng() * 1.2
+    const bd = 3.6 + rng() * 0.8
+    const style = Math.floor(rng() * 4)
+    // Behind them first; then further back, then to either side.
+    const back = bd / 2 + 2.2
+    const side = bw / 2 + 2.4
+    const tries: Array<[number, number]> = [
+      [0, -back], [0, -back - CELL], [-CELL, -back], [CELL, -back], [-2 * CELL, -back], [2 * CELL, -back],
+      [-CELL, -back - CELL], [CELL, -back - CELL], [0, -back - 2 * CELL],
+      // Someone standing on a street has their house beside them.
+      [-side, -CELL], [side, -CELL], [-side, 0], [side, 0], [-side - CELL, -CELL], [side + CELL, -CELL],
+      [-3 * CELL, -back], [3 * CELL, -back]
+    ]
+    for (const [dx, dz] of tries) {
+      const cells = footprint(p.x + dx, p.z + dz, bw, bd)
+      if (!cells) continue
+      for (const k of cells) { built[k] = 1; solid[k] = 1 }
+      buildings.push({ x: p.x + dx, z: p.z + dz, w: bw, d: bd, style })
+      break
     }
   }
   return {

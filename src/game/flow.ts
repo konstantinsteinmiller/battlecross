@@ -3,7 +3,7 @@ import { app, type GameMode } from './engine/app'
 import { afterPaint } from './engine/slicer'
 import type { Input } from './engine/input'
 import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from './data/quests'
-import { FALLBACK_TRAINERS, NODE_BY_ID, TOWNS, ZONES, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
+import { NODE_BY_ID, TOWNS, ZONES, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
 import type { ClassId } from './data/skills'
 import type { ZoneId } from './data/items'
 import { ZoneMode, type ZoneSetup } from './modes/zoneMode'
@@ -422,14 +422,8 @@ const talkTo = (npcId: string): void => {
 }
 
 /** The hidden trainer a cleared zone holds, if it has one for this save. */
-export const hiddenTrainer = (node: NodeId): { cls: ClassId; npc: string } | null => {
-  if (!profile.world.cleared.includes(node)) return null
-  const flags = flagSet()
-  const t = NODE_BY_ID[node]?.trainer
-  if (t && (!t.needs || t.needs.every(f => flags.has(f))) && (!t.not || !t.not.some(f => flags.has(f)))) return { cls: t.cls, npc: t.npc }
-  const fb = FALLBACK_TRAINERS.find(f => f.node === node && f.needs.every(x => flags.has(x)))
-  return fb ? { cls: fb.cls, npc: fb.npc } : null
-}
+export const hiddenTrainer = (node: NodeId): { cls: ClassId; npc: string } | null =>
+  hiddenTrainerOf(node, new Set(profile.world.cleared), flagSet())
 
 /** Open a hidden trainer from the map. */
 export const visitHiddenTrainer = (node: NodeId): void => {

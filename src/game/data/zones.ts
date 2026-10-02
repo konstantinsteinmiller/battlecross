@@ -249,6 +249,19 @@ export const FALLBACK_TRAINERS: ReadonlyArray<{ node: NodeId; cls: ClassId; npc:
   { node: 'peak', cls: 'chrono', npc: 'trainerChrono', needs: ['oracleSlain'] }
 ]
 
+/** The hidden trainer a cleared node holds for this world state, if any. */
+export const hiddenTrainerOf = (node: NodeId, cleared: ReadonlySet<string>, flags: ReadonlySet<string>): { cls: ClassId; npc: string } | null => {
+  if (!cleared.has(node)) return null
+  const t = NODE_BY_ID[node]?.trainer
+  if (t && (!t.needs || t.needs.every(f => flags.has(f))) && (!t.not || !t.not.some(f => flags.has(f)))) return { cls: t.cls, npc: t.npc }
+  const fb = FALLBACK_TRAINERS.find(f => f.node === node && f.needs.every(x => flags.has(x)))
+  return fb ? { cls: fb.cls, npc: fb.npc } : null
+}
+
+/** A town's people as the world's flags leave them. */
+export const townNpcs = (town: TownId, flags: ReadonlySet<string>): NpcDef[] =>
+  TOWNS[town].npcs.filter(n => (!n.needs || n.needs.every(f => flags.has(f))) && !(n.not && n.not.some(f => flags.has(f))))
+
 /** Is a node open, given the cleared nodes and the world flags? */
 export const nodeOpen = (id: NodeId, cleared: ReadonlySet<string>, flags: ReadonlySet<string>): boolean => {
   const n = NODE_BY_ID[id]

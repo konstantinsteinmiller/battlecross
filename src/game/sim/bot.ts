@@ -36,7 +36,18 @@ const MAIN: Record<ClassId, [Attr, Attr]> = {
 export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: string[] } => {
   const attrs: AttrBlock = startAttrs()
   const [a, b] = MAIN[o.cls]
-  const points = (o.level - 1) * POINTS_PER_LEVEL
+  let points = (o.level - 1) * POINTS_PER_LEVEL
+  // First, what the class's own skills ask for at this level: a player who
+  // commits to a class spends the points that unlock its skills (an Aegis
+  // Knight needs INT 8 for Radiant Strike) before anything else.
+  for (const s of SKILLS) {
+    if (s.cls !== o.cls || s.level > o.level) continue
+    for (const k in s.req) {
+      const attr = k as Attr
+      const need = (s.req[attr] ?? 0) - attrs[attr]
+      if (need > 0 && need <= points) { attrs[attr] += need; points -= need }
+    }
+  }
   attrs[a] += Math.ceil(points * 0.6)
   attrs[b] += Math.floor(points * 0.3)
   attrs.end += points - Math.ceil(points * 0.6) - Math.floor(points * 0.3)
