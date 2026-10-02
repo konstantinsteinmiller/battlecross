@@ -128,6 +128,8 @@ URL), so test sessions put no rows on the players' board.
 ## Docs
 
 - [`GDD.md`](./GDD.md): the design.
+- [`outstanding-decisions.md`](./outstanding-decisions.md): what is waiting
+  for the owner's answer.
 - [`game-implementation-plan.md`](./game-implementation-plan.md): decisions,
   phases, status log.
 - [`roadmap.md`](./roadmap.md): what to build next for retention, playtime
