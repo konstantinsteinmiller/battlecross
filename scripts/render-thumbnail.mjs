@@ -79,7 +79,7 @@ const PICK = arg('pick', 'sector')
 const CHROME = arg('chrome', process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe')
 const CSS = 628
 const DSF = 4
-const TITLE = 'Mega Droid'
+const TITLE = 'Battlecross'
 
 // ─── Dev server: reuse one, or start our own on a free port ─────────────────
 

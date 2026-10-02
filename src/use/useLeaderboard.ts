@@ -268,7 +268,7 @@ let fetched = false
  * Syncing it would pay for the same hundred rows once per player, on every
  * save, against Poki's 1 MB ceiling — to protect a device that has its own copy
  * anyway. It is a per-device cache, so it lives per-device. Renamed with the
- * game (Mega Adventure → Mega Droid); a pre-rename cache is moved over before
+ * game (Mega Adventure → Battlecross); a pre-rename cache is moved over before
  * the seed below reads it (`src/legacyKeys.ts`), so a returning player's first
  * board still comes up without a spinner.
  */

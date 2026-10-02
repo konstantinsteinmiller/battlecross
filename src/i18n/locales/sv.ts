@@ -1,6 +1,6 @@
 // Swedish (sv) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Avbryt',
   'close': 'Stäng',
   'ok': 'Ok',

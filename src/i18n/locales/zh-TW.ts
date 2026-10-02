@@ -1,6 +1,6 @@
 // Traditional Chinese, Taiwan (zh-TW) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': '取消',
   'close': '關閉',
   'ok': '確定',

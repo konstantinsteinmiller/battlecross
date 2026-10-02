@@ -5,9 +5,9 @@
 // This repo was forked from Survivalist, and `tools/poki-deploy/poki.config.mjs`
 // came along still pointing at SURVIVALIST'S P4D game. Every P4D step is
 // addressed by `gameId` alone, so an upload would not have failed — it would
-// have put Mega Droid into Survivalist's Versions list. Pinned here:
+// have put Battlecross into Survivalist's Versions list. Pinned here:
 //
-//   1. the config is Mega Droid's (name, zip, version name, save hook) and
+//   1. the config is Battlecross's (name, zip, version name, save hook) and
 //      carries no gameId until the real one is known;
 //   2. `deploy.mjs` refuses every P4D-bound mode without a valid, non-foreign
 //      gameId — BEFORE it bumps the version, builds, or opens a browser — while
@@ -53,7 +53,7 @@ describe('gameId guard (lib/target.mjs)', () => {
 
   it('refuses anything that is not a P4D uuid', async () => {
     const { checkGameId } = await load('lib/target.mjs')
-    for (const v of ['TODO', 'mega-droid', '1d51788e-5771-4d70-8290', 42, {}]) {
+    for (const v of ['TODO', 'Battlecross', '1d51788e-5771-4d70-8290', 42, {}]) {
       expect(checkGameId(v).ok, String(v)).toBe(false)
     }
   })
@@ -73,16 +73,16 @@ describe('gameId guard (lib/target.mjs)', () => {
   })
 })
 
-describe('poki.config.mjs is Mega Droid\'s', () => {
+describe('poki.config.mjs is Battlecross\'s', () => {
   it('names, packs and versions the right game, under its registered gameId', async () => {
     const { default: cfg } = await load('poki.config.mjs')
     const { checkGameId } = await load('lib/target.mjs')
-    expect(cfg.gameName).toBe('Mega Droid')
+    expect(cfg.gameName).toBe('Battlecross')
     expect(cfg.team).toBe('hyperg8')
-    expect(cfg.zip).toBe('dist/mega-droid-poki.zip')
+    expect(cfg.zip).toBe('dist/Battlecross-poki.zip')
     expect(cfg.dist).toBe('dist')
     expect(cfg.build).toBe('pnpm build:poki')
-    expect(cfg.versionName('0.1.1')).toBe('Mega Droid 0.1.1')
+    expect(cfg.versionName('0.1.1')).toBe('Battlecross 0.1.1')
     expect(cfg.gameId).toBe('9b504ac8-a798-4111-b0e5-a7c569fcec46')
     expect(checkGameId(cfg.gameId).ok).toBe(true)
     expect(cfg.declares).toEqual({ usernames: false, chat: false })
@@ -167,13 +167,13 @@ describe('deploy.mjs refuses P4D without a valid gameId', () => {
     writeFileSync(file, `export default {
       team: 'hyperg8',
       gameId: ${JSON.stringify(gameId)},
-      gameName: 'Mega Droid',
+      gameName: 'Battlecross',
       build: 'node -e "process.exit(3)"',
       dist: ${JSON.stringify(join(SCRATCH_REL, 'missing-dist').replace(/\\/g, '/'))},
       zip: ${JSON.stringify(join(SCRATCH_REL, 'never.zip').replace(/\\/g, '/'))},
       repack: true,
       allowHosts: [],
-      versionName: v => 'Mega Droid ' + v
+      versionName: v => 'Battlecross ' + v
     }\n`)
     return file
   }
@@ -215,16 +215,16 @@ describe('deploy.mjs refuses P4D without a valid gameId', () => {
     const distRel = join(SCRATCH_REL, 'gates-dist')
     mkdirSync(join(ROOT, distRel, 'assets'), { recursive: true })
     writeFileSync(join(ROOT, distRel, 'index.html'),
-      '<!doctype html><html><head><meta charset="utf-8"><title>Mega Droid</title></head><body>'
+      '<!doctype html><html><head><meta charset="utf-8"><title>Battlecross</title></head><body>'
       + '<script src="https://game-cdn.poki.com/scripts/v2/poki-sdk.js"></script>'
       + '<script type="module" src="./assets/index.js"></script></body></html>')
     writeFileSync(join(ROOT, distRel, 'assets', 'index.js'), 'console.log("hi")')
     const file = join(SCRATCH, 'gates.config.mjs')
     writeFileSync(file, `export default {
-      team: 'hyperg8', gameId: null, gameName: 'Mega Droid', build: 'node -e "process.exit(3)"',
+      team: 'hyperg8', gameId: null, gameName: 'Battlecross', build: 'node -e "process.exit(3)"',
       dist: ${JSON.stringify(distRel.replace(/\\/g, '/'))},
-      zip: ${JSON.stringify(join(distRel, 'mega-droid-poki.zip').replace(/\\/g, '/'))},
-      repack: true, allowHosts: [], versionName: v => 'Mega Droid ' + v
+      zip: ${JSON.stringify(join(distRel, 'Battlecross-poki.zip').replace(/\\/g, '/'))},
+      repack: true, allowHosts: [], versionName: v => 'Battlecross ' + v
     }\n`)
 
     const r = deploy(['--config', file, '--gates-only'])

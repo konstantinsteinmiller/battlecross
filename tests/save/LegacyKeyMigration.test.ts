@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
-// ─── Pre-rename saves migrate (Mega Adventure → Mega Droid) ─────────────────
+// ─── Pre-rename saves migrate (Mega Adventure → Battlecross) ─────────────────
 //
 // Every top-level storage key was renamed with the game. A rename done naively
 // would boot every existing player as a fresh install — level 1, no bolts, a

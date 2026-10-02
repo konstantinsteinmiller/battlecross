@@ -9,7 +9,7 @@
 // the player's actual keys. The blob lets the next hydrate score local vs.
 // remote and pick a winner deterministically without prompting.
 //
-// Score formula (Mega Droid):
+// Score formula (Battlecross):
 //   storySectors   × 5000   (Core Masters defeated — the headline number)
 // + heroLevel      × 1000
 // + missionsDone   ×   40

@@ -39,7 +39,7 @@ import { LEGACY_KEYS, adoptLegacyField } from '@/legacyKeys'
 //   3. When hydrate fails, schedule a background retry ladder
 //      (5s → 15s → 45s → 2m → 5m → 15m loop) so a brief outage at boot
 //      heals on its own without requiring the player to relaunch.
-//   4. A save written before the rename (Mega Adventure → Mega Droid) lists
+//   4. A save written before the rename (Mega Adventure → Battlecross) lists
 //      its blob under `LEGACY_KEYS.STATE`. Hydrate re-files it under
 //      STATE_KEY; the flush uploads it under the new key and only THEN
 //      retires the legacy entry (`retireLegacyState`).

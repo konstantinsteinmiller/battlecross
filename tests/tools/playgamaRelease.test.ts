@@ -32,7 +32,7 @@ const CLEAN_HTML = `<!DOCTYPE html>
   <!-- YouTube Playables SDK: must stay first -->
   <script src="https://www.youtube.com/game_api/v1"></script>
   <script src="./js/storage-shim.js"></script>
-  <title>Mega Droid</title>
+  <title>Battlecross</title>
   <script type="module" crossorigin src="./assets/index-Abc123.js"></script>
 </head>
 <body><div id="app"></div></body>

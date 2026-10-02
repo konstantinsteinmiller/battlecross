@@ -1,6 +1,6 @@
 // Esperanto (eo) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Nuligi',
   'close': 'Fermi',
   'ok': 'Bone',

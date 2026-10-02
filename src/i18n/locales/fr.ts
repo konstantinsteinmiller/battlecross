@@ -1,6 +1,6 @@
 // French locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Annuler',
   'close': 'Fermer',
   'ok': 'Ok',

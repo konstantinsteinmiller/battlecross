@@ -1,4 +1,4 @@
-# Mega Droid
+# Battlecross
 
 A casual first-person **action-exploration** game for the web. You play
 Flux, a pearl-white combat android with amber eye-lights behind a dark
@@ -22,7 +22,7 @@ GameDistribution, Yandex, Glitch, itch.io and Wavedash from one codebase.
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:2194 (check the tab title says "Mega Droid")
+pnpm dev          # http://localhost:2194 (check the tab title says "Battlecross")
 pnpm test         # 458 unit, integration and simulation tests
 pnpm type-check   # vue-tsc
 pnpm build        # type-check + production build
@@ -31,7 +31,7 @@ pnpm playgama:audit # YouTube Playables fit audit of the Playgama archive
 ```
 
 `build:playgama` writes its own folder, never `dist/`:
-`dist-playgama/mega-droid-playgama.zip` (a real PKZIP of
+`dist-playgama/Battlecross-playgama.zip` (a real PKZIP of
 `dist-playgama/game/`), which is also the YouTube Playables submission. Its
 release gates (`tools/playgama-release/`) fail the build if another portal, dev
 tooling or an external host ships in it.

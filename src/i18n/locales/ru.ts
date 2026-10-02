@@ -1,6 +1,6 @@
 // Russian locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Отмена',
   'close': 'Закрыть',
   'ok': 'Ок',

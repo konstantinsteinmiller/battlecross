@@ -17,7 +17,7 @@
         span.line {{ t(`ending.${endingUi.caption}`) }}
     div.credits(v-if="endingUi.credits" aria-live="off")
       div.roll(:style="{ transform: `translateY(${(1 - endingUi.roll) * 100}vh) translateY(${-endingUi.roll * 100}%)` }")
-        div.game Mega Droid
+        div.game Battlecross
         div.by {{ t('ending.credits.by', { studio: STUDIO }) }}
         div.head {{ t('ending.credits.cast') }}
         div.cast

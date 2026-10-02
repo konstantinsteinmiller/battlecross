@@ -1,6 +1,6 @@
 // Simplified Chinese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': '取消',
   'close': '关闭',
   'ok': '确定',

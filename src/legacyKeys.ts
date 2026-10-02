@@ -1,6 +1,6 @@
 // ─── Pre-rename storage keys ────────────────────────────────────────────────
 //
-// The game shipped as "Mega Adventure" before it became Mega Droid, and every
+// The game shipped as "Mega Adventure" before it became Battlecross, and every
 // top-level storage key carried the old slug. These strings exist ONLY so saves
 // written before the rename migrate onto the new keys: nothing may ever write
 // them again, and this is the one place in `src/` allowed to spell them.

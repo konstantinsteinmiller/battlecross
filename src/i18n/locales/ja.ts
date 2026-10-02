@@ -1,6 +1,6 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'キャンセル',
   'close': '閉じる',
   'ok': '了解',

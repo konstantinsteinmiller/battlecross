@@ -26,7 +26,7 @@
 //      run the merge today, so a future cross-device merge has the data.
 //      One row per player keeps the request count minimal under the 100
 //      req / 5 min cap. The row never names the local key, so the rename
-//      to Mega Droid left the cloud format untouched: a pre-rename row
+//      to Battlecross left the cloud format untouched: a pre-rename row
 //      hydrates as-is, and only ever lands under the new local key.
 //
 // Failure mode: if `getPlayer()` failed at init (anonymous limits, network

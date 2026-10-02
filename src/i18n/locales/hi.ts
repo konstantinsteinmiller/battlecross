@@ -1,6 +1,6 @@
 // Hindi locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'रद्द करें',
   'close': 'बंद करें',
   'ok': 'ठीक है',

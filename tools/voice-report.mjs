@@ -49,7 +49,7 @@ if (langs.some(l => !LANGS.includes(l))) {
 
 const UI = {
   en: {
-    title: 'Mega Droid: voice lines',
+    title: 'Battlecross: voice lines',
     lang: 'English',
     generated: 'Generated',
     source: 'Source: src/game/audio/voiceCatalog.ts. Re-run `pnpm voice:report` after a line changes or a file arrives.',
@@ -83,7 +83,7 @@ const UI = {
     neutralNote: n => `${n} lines (Flux's barks, Vex's laughs) are recorded once in English for every language; see the English script.`
   },
   de: {
-    title: 'Mega Droid: Sprachaufnahmen',
+    title: 'Battlecross: Sprachaufnahmen',
     lang: 'Deutsch',
     generated: 'Erstellt',
     source: 'Quelle: src/game/audio/voiceCatalog.ts. `pnpm voice:report` neu starten, wenn sich eine Zeile ändert oder eine Datei ankommt.',
@@ -225,7 +225,7 @@ const writePdf = (lang, rows) => new Promise((resolve, reject) => {
   mkdirSync(dirname(out), { recursive: true })
   const doc = new PDFDocument({
     size: 'A4', margins: { top: M.t, bottom: M.b, left: M.l, right: M.r }, bufferPages: true,
-    info: { Title: `${u.title} (${u.lang})`, Author: 'Mega Droid', Subject: 'Voice-over recording script' },
+    info: { Title: `${u.title} (${u.lang})`, Author: 'Battlecross', Subject: 'Voice-over recording script' },
     lang: lang === 'de' ? 'de-DE' : 'en-GB', displayTitle: true
   })
   const stream = createWriteStream(out)

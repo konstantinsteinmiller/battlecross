@@ -18,7 +18,7 @@ import { PORTAL_JOINED_KEY, PORTAL_POSTED_SCORE_KEY } from '@/keys'
  *
  * ── When it writes ──
  *
- *   • WHEN A NEW BEST CAN EXIST, and only then. Mega Droid's score is
+ *   • WHEN A NEW BEST CAN EXIST, and only then. Battlecross's score is
  *     lifetime XP, which only grows — and grows on a defeat as well (kills pay
  *     XP live) — so every mission end is such a moment: `finishMission` calls
  *     `reportPortalBest`, which posts only when the value beats what the portal

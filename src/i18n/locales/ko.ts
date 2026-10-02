@@ -1,6 +1,6 @@
 // Korean locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': '취소',
   'close': '닫기',
   'ok': '확인',

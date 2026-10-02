@@ -4,7 +4,7 @@ import { LEGACY_KEYS, migrateLegacyKey } from '@/legacyKeys'
 /**
  * ─── `mega_droid_state` — the single persisted state object ──────────────────
  *
- * EVERY persisted value Mega Droid touches — hero progression, inventory,
+ * EVERY persisted value Battlecross touches — hero progression, inventory,
  * quests, the resumable mission snapshot, user settings, retention bookkeeping
  * — lives inside ONE in-memory record (`gameState`), and exactly ONE
  * localStorage key is ever written: `mega_droid_state`.
@@ -24,7 +24,7 @@ import { LEGACY_KEYS, migrateLegacyKey } from '@/legacyKeys'
  * `pagehide` / tab-hide so a close mid-burst never drops data.
  */
 
-// Saves from before the rename to Mega Droid sit under `LEGACY_KEYS.STATE`;
+// Saves from before the rename to Battlecross sit under `LEGACY_KEYS.STATE`;
 // they are moved onto this key before the first read below (`src/legacyKeys.ts`).
 export const STATE_KEY = 'mega_droid_state'
 

@@ -1,4 +1,4 @@
-# Mega Droid
+# Battlecross
 
 ## Short description (138 / 150 chars)
 

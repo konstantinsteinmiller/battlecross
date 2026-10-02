@@ -1,6 +1,6 @@
 // Hungarian (hu) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Mégse',
   'close': 'Bezárás',
   'ok': 'Ok',

@@ -34,7 +34,7 @@
 //      shouldn't roam across devices.
 //
 //   4. **Pre-rename saves.** A portal save written before the game became
-//      Mega Droid holds the blob under `LEGACY_KEYS.STATE`. Hydrate adopts it
+//      Battlecross holds the blob under `LEGACY_KEYS.STATE`. Hydrate adopts it
 //      when the new key is empty, re-files it on the portal under the new key
 //      and only then removes the legacy one (`adoptLegacyPortalState`).
 

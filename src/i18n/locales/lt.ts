@@ -1,6 +1,6 @@
 // Lithuanian (lt) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Atšaukti',
   'close': 'Uždaryti',
   'ok': 'Gerai',

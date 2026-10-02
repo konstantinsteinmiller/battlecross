@@ -1,6 +1,6 @@
 // Arabic locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'إلغاء',
   'close': 'إغلاق',
   'ok': 'حسناً',

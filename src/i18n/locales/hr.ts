@@ -1,6 +1,6 @@
 // Croatian (hr) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Odustani',
   'close': 'Zatvori',
   'ok': 'Ok',

@@ -1,6 +1,6 @@
 // Catalan (ca) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Cancel·la',
   'close': 'Tanca',
   'ok': 'D\'acord',

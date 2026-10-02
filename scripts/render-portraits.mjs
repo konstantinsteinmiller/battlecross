@@ -35,7 +35,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 800, height: 600 } })
   page.on('console', (m) => { if (m.type() !== 'debug') console.log('[page]', m.text().slice(0, 160)) })
   await page.goto(url, { waitUntil: 'load' })
-  if (!/Mega Droid/.test(await page.title())) throw new Error(`${url} is not Mega Droid (title: ${await page.title()})`)
+  if (!/Battlecross/.test(await page.title())) throw new Error(`${url} is not Battlecross (title: ${await page.title()})`)
   await page.waitForFunction(async () => (await import('/src/game/engine/renderer.ts')).hasRenderer(), null, { timeout: 30000 })
   for (const id of BOSSES) {
     const dataUrl = await page.evaluate(async (id) => (await import('/src/game/models/portrait.ts')).bossPortrait(id), id)

@@ -1,6 +1,6 @@
 // Finnish (fi) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Peruuta',
   'close': 'Sulje',
   'ok': 'OK',

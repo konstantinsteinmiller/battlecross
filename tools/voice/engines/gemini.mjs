@@ -81,7 +81,7 @@ export const makeEngine = (name, label, model) => ({
   async voice({ speaker, lang, card, state, refDir }) {
     const k = `gemini:${speaker}:${lang}`
     if (state[k]?.id && new Date(state[k].expires) > new Date()) return state[k]
-    const v = await designVoice({ prompt: card.designPrompt[lang], name: `mega-droid ${speaker} ${lang}` })
+    const v = await designVoice({ prompt: card.designPrompt[lang], name: `Battlecross ${speaker} ${lang}` })
     if (v.sample) writeFileSync(join(refDir, `${lang}.gemini.wav`), v.sample)
     state[k] = { id: v.id, expires: v.expires }
     return state[k]

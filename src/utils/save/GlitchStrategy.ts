@@ -224,7 +224,7 @@ export class GlitchStrategy implements SaveStrategy {
       return
     }
 
-    // A slot saved before the rename (Mega Adventure → Mega Droid) holds the
+    // A slot saved before the rename (Mega Adventure → Battlecross) holds the
     // blob under the legacy key. Re-file it under STATE_KEY before it is scored
     // or copied to local (the new key wins if the slot has both), and re-upload
     // straight away: the upload is the whole local payload, so the slot then

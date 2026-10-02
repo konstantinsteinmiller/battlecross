@@ -35,7 +35,7 @@ export interface PlayerIdentity {
  * and the game would mint a second one, and the player would have two rows.
  * This copy exists to be the one thing a cloud round-trip cannot overwrite.
  *
- * Both keys were renamed with the game (Mega Adventure → Mega Droid). The
+ * Both keys were renamed with the game (Mega Adventure → Battlecross). The
  * pre-rename entries are moved over right here, before anything reads them: an
  * id left behind on the old key would mint the player a fresh one, so a second
  * board row. See `src/legacyKeys.ts`.

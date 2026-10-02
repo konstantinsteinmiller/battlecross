@@ -1,6 +1,6 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Bekor qilish',
   'close': 'Yopish',
   'ok': 'Ok',

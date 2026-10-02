@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { prependBaseUrl } from '@/utils/function'
 
-// Mega Droid renders every gameplay asset procedurally (three.js meshes
+// Battlecross renders every gameplay asset procedurally (three.js meshes
 // built from primitives, canvas-baked textures, synthesized audio). The
 // critical-path "assets" are therefore not files but WORK: the engine chunk,
 // the first scene's meshes and the shader compile. `preloadAssets` drives that

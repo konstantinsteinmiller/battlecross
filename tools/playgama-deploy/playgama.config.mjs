@@ -4,21 +4,21 @@ export default {
   /** The game as the cabinet names it. Used to find the game when
    *  `applicationId` is empty; titles are not unique, so a match must be exact
    *  and single. */
-  title: 'Mega Droid',
+  title: 'Battlecross',
 
   /** The cabinet's id for the game (`list_applications`). Filled in, the title
    *  lookup is skipped. */
   applicationId: 'cmuiivyqo1r0qma0hzdkq9cql',
 
   /** Archive name in the cabinet: `<archivePrefix>-<version>`. */
-  archivePrefix: 'mega-droid',
+  archivePrefix: 'Battlecross',
 
   /** The package.json script that produces the upload. Here it builds, packs
    *  and runs the Playgama/Playables release gates (tools/playgama-release). */
   buildScript: 'build:playgama',
 
   /** The zip that script leaves behind. */
-  zip: 'dist-playgama/mega-droid-playgama.zip',
+  zip: 'dist-playgama/Battlecross-playgama.zip',
 
   /** Set `{ dist: '<build folder>' }` when the build script does NOT pack a
    *  zip itself: the pipeline then zips that folder into `zip` with its own

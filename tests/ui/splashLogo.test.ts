@@ -106,7 +106,7 @@ describe('the splash lockup', () => {
 
   it('is decoration for assistive tech; the wrapper carries the name', () => {
     expect(staticSvg).toMatch(/^<svg [^>]*aria-hidden="true"/)
-    expect(html).toMatch(/<div class="s-logo" role="img" aria-label="Mega Droid">/)
+    expect(html).toMatch(/<div class="s-logo" role="img" aria-label="Battlecross">/)
     expect(vue).toMatch(/h1\.logo\(:aria-label="t\('gameName'\)"\)/)
   })
 
@@ -115,7 +115,7 @@ describe('the splash lockup', () => {
     // accessible name are one string. scripts/render-thumbnail.mjs also
     // checks the served <title> against its own TITLE before trusting a port.
     const title = /<title>([^<]*)<\/title>/.exec(html)?.[1]
-    expect(title).toBe('Mega Droid')
+    expect(title).toBe('Battlecross')
     expect(/<meta name="apple-mobile-web-app-title" content="([^"]*)">/.exec(html)?.[1]).toBe(title)
     expect(/<div class="s-logo" role="img" aria-label="([^"]*)">/.exec(html)?.[1]).toBe(title)
     expect(manifest.name).toBe(title)

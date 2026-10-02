@@ -1,6 +1,6 @@
 // Bulgarian (bg) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Отказ',
   'close': 'Затвори',
   'ok': 'ОК',

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Mega Droid app icon: Flux's visor head in the hex reactor badge.
+  <!-- Battlecross app icon: Flux's visor head in the hex reactor badge.
        ONE file for every size. Below 41 CSS px (a browser tab) a media query,
        evaluated against the image's own size, swaps the badge (.d) for a bold
        head that fills the tile (.s). The tile itself is .bg, so

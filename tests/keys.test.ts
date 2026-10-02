@@ -26,7 +26,7 @@ describe('SAVE_KEYS values are stable', () => {
 
 describe('the persisted surface is exactly one state blob plus the meta blob', () => {
   it('accepts the state blob and the meta blob', () => {
-    // Renamed with the game (Mega Adventure → Mega Droid). Changing it again
+    // Renamed with the game (Mega Adventure → Battlecross). Changing it again
     // would strand every existing save unless `src/legacyKeys.ts` gains the old
     // name — see tests/save/LegacyKeyMigration.test.ts.
     expect(STATE_KEY).toBe('mega_droid_state')

@@ -28,7 +28,7 @@ import { armFirstLoadInterstitial, notifySplashGone } from '@/use/useFirstLoadIn
 import { whenInteractive } from '@/use/whenInteractive'
 
 /**
- * The boot splash: the Mega Droid lockup + an amber plasma bar, driven by
+ * The boot splash: the Battlecross lockup + an amber plasma bar, driven by
  * `useAssets.preloadAssets`, which primes the 3D engine — procedural meshes,
  * baked textures and the shader compile — so the first frame after the
  * splash is a real frame, not a hitch.

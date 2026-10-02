@@ -1,6 +1,6 @@
 // European Portuguese (pt-PT) bundle — mirrors en.ts.
 export default {
-  'gameName': 'Mega Droid',
+  'gameName': 'Battlecross',
   'cancel': 'Cancelar',
   'close': 'Fechar',
   'ok': 'OK',

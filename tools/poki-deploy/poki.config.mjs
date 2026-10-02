@@ -1,4 +1,4 @@
-// Per-project settings for `pnpm deploy:poki` — Mega Droid.
+// Per-project settings for `pnpm deploy:poki` — Battlecross.
 //
 // `team` and `gameId` come straight out of the P4D URL of the game's Versions
 // page:
@@ -8,7 +8,7 @@ export default {
   // The developer team every game of this studio lives under (the same slug as
   // the sibling repos' configs).
   team: 'hyperg8',
-  // NOT KNOWN YET, and deliberately not guessed. Until Mega Droid exists in
+  // NOT KNOWN YET, and deliberately not guessed. Until Battlecross exists in
   // P4D and its uuid is pasted here (or passed as `--game-id <uuid>`), every mode
   // that talks to P4D refuses to start — see lib/target.mjs. This repo was
   // forked from Survivalist and this field used to hold Survivalist's id; an
@@ -16,12 +16,12 @@ export default {
   // that id is refused outright even if it is pasted back in.
   // `--gates-only` (offline) needs no id.
   gameId: '9b504ac8-a798-4111-b0e5-a7c569fcec46',
-  gameName: 'Mega Droid',
+  gameName: 'Battlecross',
 
   build: 'pnpm build:poki',
   dist: 'dist',
   // What `build:poki` writes (its tail is `node tools/poki-deploy/pack.mjs`).
-  zip: 'dist/mega-droid-poki.zip',
+  zip: 'dist/Battlecross-poki.zip',
 
   /** Pack `dist` into `zip` with the pipeline's own zip writer instead of
    *  trusting a shell `tar -a -cf`, which silently produces a TAR named `.zip`
@@ -33,10 +33,10 @@ export default {
 
   /** What the version is called in P4D. Keep the version number in it — it is
    *  the only thing tying a live build back to a commit. */
-  versionName: version => `Mega Droid ${version}`,
+  versionName: version => `Battlecross ${version}`,
 
   /** Extra hosts the gates and the runtime sweep should accept. Anything here
-   *  needs a matching per-URL approval in P4D → Settings → CSP. Mega Droid
+   *  needs a matching per-URL approval in P4D → Settings → CSP. Battlecross
    *  makes no external requests on Poki (the leaderboard is baked), so: none. */
   allowHosts: [],
 
@@ -67,7 +67,7 @@ export default {
    *  "not applicable" or a real question — a game WITH usernames must not have
    *  its profanity-filter step reported as n/a.
    *
-   *  Mega Droid has neither on Poki: there is no name-entry UI anywhere
+   *  Battlecross has neither on Poki: there is no name-entry UI anywhere
    *  (`setPlayerName` has no caller), and with `VITE_LEADERBOARD_URL` empty the
    *  Poki build shows only a rank badge — the top-100 list, the one place other
    *  players' names appear, is compiled out (`leaderboardListEnabled` is false)
@@ -79,7 +79,7 @@ export default {
 
   /** Expressions evaluated INSIDE the game's iframe during the QA pass. */
   hooks: {
-    /** A snapshot that must survive a reload. Mega Droid keeps ALL of its
+    /** A snapshot that must survive a reload. Battlecross keeps ALL of its
      *  state in ONE localStorage blob, `mega_droid_state`, keyed by `ma_*`
      *  fields (src/keys.ts). A save from before the rename sits under
      *  `mega_adventure_state` until the game's next boot moves it
@@ -110,7 +110,7 @@ export default {
       } catch (e) { return null }
     })()`,
 
-    /** Open the game's rewarded-ad flow. Mega Droid's rewarded offers all
+    /** Open the game's rewarded-ad flow. Battlecross's rewarded offers all
      *  sit behind game state (the defeat modal's reboot, the result screen's
      *  double bolts, the hub workshop's supply drop), so there is no expression
      *  that opens one from a cold pass — left null, and the step is reported
