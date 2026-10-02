@@ -63,30 +63,13 @@ export const getRenderer = (): WebGLRenderer => {
 
 export const hasRenderer = (): boolean => renderer !== null
 
-/**
- * Vertical FOV that keeps the HORIZONTAL field of view playable in portrait.
- *
- * A fixed 70° vertical FOV on a 9:19.5 phone leaves ~35° horizontally — a
- * tunnel in which an enemy one step to the side is off-screen. Blades solves
- * this by widening in portrait; we pin the horizontal FOV to at least 62° and
- * cap the vertical at 92° so it never fish-eyes.
- */
-export const fovForAspect = (aspect: number): number => {
-  const minHorizontal = 64 * Math.PI / 180
-  const maxHorizontal = 92 * Math.PI / 180
-  const baseVertical = 60
-  const vFromMinH = 2 * Math.atan(Math.tan(minHorizontal / 2) / Math.max(0.2, aspect)) * 180 / Math.PI
-  // On ultra-wide screens cap the HORIZONTAL fov too, or the edges fish-eye.
-  const vFromMaxH = 2 * Math.atan(Math.tan(maxHorizontal / 2) / Math.max(0.2, aspect)) * 180 / Math.PI
-  return Math.min(96, Math.max(baseVertical, vFromMinH), Math.max(40, vFromMaxH))
-}
-
 export const resizeRenderer = (camera: PerspectiveCamera, w: number, h: number): void => {
   const r = getRenderer()
   const width = Math.max(1, Math.floor(w))
   const height = Math.max(1, Math.floor(h))
   r.setSize(width, height, false)
+  // The FOV is the mode's own (the follow camera keeps a fixed narrow one and
+  // fits the view by distance, `engine/camera.ts`).
   camera.aspect = width / height
-  camera.fov = fovForAspect(camera.aspect)
   camera.updateProjectionMatrix()
 }

@@ -11,8 +11,8 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
 // (on desktop the volume mute of useCrazyMuteSync), or the button would say
 // "muted" over a game that is playing.
 
-const SOUND_KEY = 'ma_user_sound_volume'
-const MUSIC_KEY = 'ma_user_music_volume'
+const SOUND_KEY = 'bc_user_sound_volume'
+const MUSIC_KEY = 'bc_user_music_volume'
 
 beforeEach(async () => {
   localStorage.clear()

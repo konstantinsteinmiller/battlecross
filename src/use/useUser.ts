@@ -47,9 +47,8 @@ export const version: string = APP_VERSION
 
 // ─── Persisted settings ────────────────────────────────────────────────────
 //
-// Survivalist persists FIVE user settings — difficulty, sound volume, music
-// volume, locale, music track — as fields inside the single `mega_droid_state`
-// blob (keys catalogued in `src/keys.ts`), never as their own localStorage
+// The user settings — difficulty, sound volume, music volume, locale, music
+// mood — are fields inside the single `bcross_state` blob (keys catalogued in `src/keys.ts`), never as their own localStorage
 // entries. On a platform build the blob goes through the patched
 // `SaveManager.setItem` and is mirrored to the SDK cloud store automatically.
 // Hydrate at boot is a synchronous read; the strategy populates localStorage
@@ -90,10 +89,10 @@ export const DEFAULT_MUSIC_VOLUME = 0.4
 const userSoundVolume: Ref<number> = ref(readNumber(SOUND_KEY, DEFAULT_SOUND_VOLUME))
 const userMusicVolume: Ref<number> = ref(readNumber(MUSIC_KEY, DEFAULT_MUSIC_VOLUME))
 const userLanguage: Ref<string> = ref(readString(LANGUAGE_KEY, 'en'))
-// Difficulty defaults to MEDIUM. It scales enemy HP + wave budget (Easy −20%,
-// Hard +25%) via `difficultyFactor()` below, read by the wave director.
+// Difficulty defaults to MEDIUM. It scales enemy health and damage (Easy −20%,
+// Hard +25%) via `difficultyFactor()` below, read when a zone is built.
 const userDifficulty: Ref<Difficulties> = ref(readString<Difficulties>(DIFFICULTY_KEY, DIFFICULTY.MEDIUM))
-// Background-music track — defaults to 'trance' ("Overdrive").
+// Music mood — 'trance' follows the zone, 'cozy' keeps the calm town theme.
 const userMusicTrack: Ref<MusicTrack> = ref(readString<MusicTrack>(MUSIC_TRACK_KEY, 'trance'))
 
 // Re-read on hydrate-success bump. Module init reads these synchronously
@@ -129,9 +128,8 @@ watch(saveDataVersion, () => {
   if (!hasState(MUSIC_TRACK_KEY)) setState(MUSIC_TRACK_KEY, userMusicTrack.value)
 })
 
-/** Wave-pressure multiplier for the active difficulty: Easy −20% (smaller wave
- *  budgets and softer enemies), Medium ×1, Hard +25% (denser waves, tankier
- *  enemies). Read by the wave director when composing a wave. */
+/** Enemy strength multiplier for the active difficulty: Easy −20%, Medium ×1,
+ *  Hard +25%. Read when a zone's enemies are created. */
 export const difficultyFactor = (): number => {
   if (userDifficulty.value === DIFFICULTY.EASY) return 0.8
   if (userDifficulty.value === DIFFICULTY.HARD) return 1.25
@@ -146,44 +144,6 @@ export const difficultyFactor = (): number => {
 // runs BEFORE `import('@/App.vue')`).
 isDbInitialized.value = true
 isSplashScreenVisible.value = false
-
-// One-time legacy cleanup. CG QA's standing rule is "NO locally-saved
-// data" — both localStorage AND sessionStorage count. We sweep relics
-// from prior builds at module load:
-//   • `user_db` IndexedDB store — held CardQuest userHand / userCollection
-//     / quest-* relics nothing here references.
-//   • `card*` keys (case-insensitive) — the CardQuest-era prefix that
-//     produced `cardQuestUserLanguage`, `cardQuestSoundVolume`, etc.
-//   • `chaosArena*` keys — the interim prefix from the
-//     2026-05-04 build. We no longer mirror the locale hint to
-//     sessionStorage at all (the value lives in `ts_user_language`,
-//     which flows through `sdk.data` on CG), so any existing
-//     `chaosArena*` entry is also dead data.
-// Fire-and-forget — errors are swallowed because there is nothing to
-// recover. Runs at module load (useUser.ts is imported at the top of
-// main.ts) so the data is gone before the rest of the app boots.
-try {
-  if (typeof window !== 'undefined' && window.indexedDB?.deleteDatabase) {
-    const req = window.indexedDB.deleteDatabase('user_db')
-    req.onerror = () => { /* no-op: harmless if locked / already gone */
-    }
-  }
-} catch { /* harmless */
-}
-const LEGACY_KEY_RE = /^(card|chaosArena)/i
-const sweepLegacyKeys = (storage: Storage) => {
-  try {
-    const toRemove: string[] = []
-    for (let i = 0; i < storage.length; i++) {
-      const k = storage.key(i)
-      if (k && LEGACY_KEY_RE.test(k)) toRemove.push(k)
-    }
-    for (const k of toRemove) storage.removeItem(k)
-  } catch { /* harmless */
-  }
-}
-sweepLegacyKeys(localStorage)
-sweepLegacyKeys(sessionStorage)
 
 /**
  * Forget the player's language choice — the portal changed its language, and a

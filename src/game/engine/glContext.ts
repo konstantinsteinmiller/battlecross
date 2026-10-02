@@ -14,8 +14,8 @@ import { acquireAppPause } from '@/use/useGamePause'
  *
  * So: the simulation pauses for as long as the context is gone, and a veil
  * offers Resume. If the browser restores the context the veil goes away by
- * itself; if it never does, Resume reloads the page, and the mission snapshot
- * (written at most every 2 s) picks the run up where it was.
+ * itself; if it never does, Resume reloads the page, and the save (written at
+ * every checkpoint) puts the player back on the world map.
  */
 
 /** True while the context is lost. */

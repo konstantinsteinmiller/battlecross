@@ -7,7 +7,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const STATE_KEY = 'mega_droid_state'
+const STATE_KEY = 'bcross_state'
 const META_KEY = '__save_meta__'
 const BLOB = 'spin_and_mow_blob'
 
@@ -27,7 +27,7 @@ const makeLocal = (seed: Record<string, string> = {}) => {
 }
 
 const save = (level: number, story: number): string =>
-  JSON.stringify({ ma_level: level, ma_story: story })
+  JSON.stringify({ bc_level: level, bc_story: story })
 
 const load = async () => (await import('@/utils/save/YandexStrategy')).YandexStrategy
 

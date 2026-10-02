@@ -26,7 +26,7 @@
 //   - if remote wins and local had ANY progress (score > 0), the player
 //     gets bonus bolts = winner.maxStage (hero level) × 50 to soften the loss
 
-import { LEVEL_KEY, STORY_KEY, QUESTS_DONE_KEY, BOLTS_KEY } from '@/keys'
+import { LEVEL_KEY, STORY_KEY, QUESTS_DONE_KEY, GOLD_KEY } from '@/keys'
 import { STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 
 /** Where the meta blob is stored in localStorage / on the remote backend.
@@ -117,7 +117,7 @@ const safeJson = <T>(v: string | null, fallback: T): T => {
  * Compute a fresh meta blob from the current localStorage snapshot.
  * Pure — no side effects.
  */
-/** Pull a sub-field out of the consolidated `mega_droid_state` blob if present.
+/** Pull a sub-field out of the consolidated `bcross_state` blob if present.
  *  Falls through to a top-level read for back-compat with any pre-migration
  *  snapshot that still has individual keys (e.g. the score formula was just
  *  invoked between BlobStorage construction and the first migration write). */
@@ -145,7 +145,7 @@ export const computeMeta = (
   const level = Math.max(1, safeInt(readField(read, LEVEL_KEY), 1))
   const story = Math.max(0, safeInt(readField(read, STORY_KEY), 0))
   const done = Math.max(0, safeInt(readField(read, QUESTS_DONE_KEY), 0))
-  const bolts = Math.max(0, safeInt(readField(read, BOLTS_KEY), 0))
+  const bolts = Math.max(0, safeInt(readField(read, GOLD_KEY), 0))
   const hasProgress = level > 1 || story > 0 || done > 0 || bolts > 0
 
   const progressScore = hasProgress
@@ -228,17 +228,17 @@ export const decideMerge = (
 
 /**
  * Add the bonus to the local bolt total. Returns the new value as a string
- * ready to be written back to BOLTS_KEY. Caller does the write (a stray
- * top-level `ma_bolts` key is folded into the blob by `useGameState`).
+ * ready to be written back to GOLD_KEY. Caller does the write (a stray
+ * top-level `bc_gold` key is folded into the blob by `useGameState`).
  */
 export const applyBonusCoins = (read: SnapshotReader, bonus: number): string => {
-  const current = safeInt(readField(read, BOLTS_KEY), 0)
+  const current = safeInt(readField(read, GOLD_KEY), 0)
   return String(current + Math.max(0, bonus))
 }
 
 /** Bonus path: read the bolt total out of the state blob if it exists. */
 export const readCoinTotal = (read: SnapshotReader): number => {
-  return safeInt(readField(read, BOLTS_KEY), 0)
+  return safeInt(readField(read, GOLD_KEY), 0)
 }
 
 /**
@@ -253,11 +253,8 @@ export const readCoinTotal = (read: SnapshotReader): number => {
  * misleading picture of what the game stores.
  *
  * Single-blob model: every persisted gameplay value lives inside the
- * `mega_droid_state` localStorage entry (see `useGameState.ts`). The cloud
+ * `bcross_state` localStorage entry (see `useGameState.ts`). The cloud
  * therefore mirrors exactly TWO keys — the state blob and the meta blob.
- * The pre-rename state key (`LEGACY_KEYS.STATE`) is deliberately NOT payload:
- * it is only ever read and re-filed by the migration (`src/legacyKeys.ts`),
- * never mirrored, so no layer can write the old name back.
  *
  * Individual `ma_*` field keys are also accepted as payload so any stray
  * per-key write (defensive, or a mid-migration snapshot from an older client)
@@ -280,5 +277,5 @@ export const SAVE_KEYS = {
   STORY: STORY_KEY,
   QUESTS_DONE: QUESTS_DONE_KEY,
   /** The currency field — named COINS for the shared save-layer contract. */
-  COINS: BOLTS_KEY
+  COINS: GOLD_KEY
 } as const

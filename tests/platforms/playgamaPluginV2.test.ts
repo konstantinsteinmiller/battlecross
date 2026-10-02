@@ -52,7 +52,7 @@ const load = async (b = makeBridge()) => {
   bridge = b
   vi.resetModules()
   vi.stubEnv('VITE_APP_PLAYGAMA', 'true')
-  vi.stubEnv('VITE_PLAYGAMA_LEADERBOARD_ID', 'mega_droid_xp')
+  vi.stubEnv('VITE_PLAYGAMA_LEADERBOARD_ID', 'bcross_xp')
   vi.doMock('@/utils/playgamaBridgeLoader', () => ({ loadPlaygamaBridge: async () => bridge }))
   vi.doMock('@/use/useGamePause', () => pause)
   vi.doMock('@/use/useGamePauseAudio', () => audio)

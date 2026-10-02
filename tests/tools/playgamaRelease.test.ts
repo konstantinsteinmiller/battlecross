@@ -104,7 +104,7 @@ describe('each rule fails the build that breaks it', () => {
     ['no vendored Bridge chunk', { 'assets/playgama-bridge-Xyz789.js': null }, 'Bridge v2 bundled from npm'],
     ['a Bridge v1 build bundled', { 'assets/playgama-bridge-Xyz789.js': BRIDGE.replace('"2.2.0"', '"1.32.0"') }, 'Bridge v2 bundled from npm'],
     ['game code hiding inside the exempt SDK chunk', { 'assets/playgama-bridge-Xyz789.js': `${BRIDGE};console.info("[playgama] ready")` }, 'the exempt SDK chunk holds only the SDK'],
-    ['the save layer hiding inside the exempt SDK chunk', { 'assets/playgama-bridge-Xyz789.js': `${BRIDGE};localStorage.getItem("mega_droid_state")` }, 'the exempt SDK chunk holds only the SDK'],
+    ['the save layer hiding inside the exempt SDK chunk', { 'assets/playgama-bridge-Xyz789.js': `${BRIDGE};localStorage.getItem("bcross_state")` }, 'the exempt SDK chunk holds only the SDK'],
     ['the pre-rename migration hiding inside the exempt SDK chunk', { 'assets/playgama-bridge-Xyz789.js': `${BRIDGE};const L={STATE:"mega_adventure_state"}` }, 'the exempt SDK chunk holds only the SDK'],
     ['forciblySetPlatformId in the bridge config', { 'playgama-bridge-config.json': JSON.stringify({ forciblySetPlatformId: 'playgama', advertisement: { minimumDelayBetweenInterstitial: 120 } }) }, 'playgama-bridge-config.json'],
     ['a SaaS board with no isMain (YouTube drops the score)', { 'playgama-bridge-config.json': JSON.stringify({ advertisement: { minimumDelayBetweenInterstitial: 120 }, saas: { publicToken: 't', leaderboards: { platforms: ['playgama'] } }, leaderboards: [{ id: 'b' }] }) }, 'playgama-bridge-config.json'],

@@ -2,45 +2,26 @@
  * ─── Input → intents ─────────────────────────────────────────────────────────
  *
  * Raw pointer / keyboard events are folded into ONE mutable `Input` record the
- * sim reads once per step. Nothing here knows about enemies or the HUD — the
- * sim decides what a tap MEANS (fire vs. walk-to vs. interact); this layer only
- * reports that a tap happened and where.
+ * mode reads once per step. Nothing here knows about heroes or enemies: this
+ * layer reports THAT a tap happened and where, that a pointer is held and where
+ * it is now; the mode decides what it means (walk there, lock that goblin).
  *
- * Touch model (Blades + a buster):
- *   • LEFT ~45 % of the screen: a floating joystick spawns under the thumb.
- *     A faint resting stick always sits low on the left (`joyHome*`, placed
- *     by the HUD): a press on it grabs the stick at its centre, so a player
- *     who never discovers "drag anywhere" still finds the movement control.
- *   • RIGHT side: press = shoot and start charging when a shot is wanted
- *     (`fireMode`); hold still to charge, release to fire the charge. The
- *     moment the press DRAGS it becomes a look instead: the charge is dropped
- *     (`fireCancelled`), never fired. Out of fire mode a drag looks and a
- *     short tap walks / interacts. (Deciding fire-vs-look at the press used
- *     to make a drag near any enemy a charge — the camera would not move.)
- *   • HUD buttons write straight into the record (`blockHeld`, `slideQueued`…),
- *     the FIRE button included — it fires whatever is in fire mode, so a crate
- *     or a barrel can be shot with no machine anywhere near.
- *   • On a phone or tablet (`touchFirst`) the device stays TOUCH whatever
- *     arrives: a mouse is treated as a finger (no capture, no mouse hints) and
- *     a keyboard only adds its keys. The touch HUD never swaps out mid-game.
+ * The scene surface (GDD §7):
+ *   • a short press that does not travel is a TAP: walk to the spot, or lock
+ *     the enemy under it;
+ *   • a press that travels is a DRAG: the mode draws the line from the hero to
+ *     the pointer, walks after it, and locks the enemy it is released on;
+ *   • on a phone or tablet a resting JOYSTICK sits bottom-left; a press on it
+ *     grabs it. Everywhere else stays tap / drag, so both models coexist and
+ *     neither has to be chosen in a menu.
  *
- * Desktop — a first-person shooter, so the mouse is CAPTURED (pointer lock):
- *   • The first click on the scene captures the mouse (that click fires
- *     nothing). Moving the mouse looks, the left button shoots (hold to
- *     charge, release to fire the charge), the right button blocks.
- *   • WASD moves (↑ / ↓ too), ← / → turn, Space slides (the dodge), 1/2 fire
- *     the special weapons, H drinks a tank, E interacts, B beams out, Tab
- *     switches target. Q still slides and Shift still blocks, untaught: the
- *     coach only ever SHOWS one input per action. Ctrl no longer slides —
- *     Ctrl+W, with W held for walking, closes the tab.
- *   • Esc releases the capture (the browser owns that key while it is
- *     captured); the scene treats a lost capture as "pause".
- *   • Where the capture is refused (a sandboxed embed, an old browser), the
- *     mouse falls back to the touch model: drag to look, click to fire.
+ * Tap or drag is decided by TRAVEL, never at the press: a finger that lands
+ * and then moves is a drag, however near an enemy it landed.
  *
- * Mouse buttons are read from MOUSE events, not pointer events: a second
- * button pressed while the first is held (block while charging) arrives as a
- * `pointermove`, never as a `pointerdown`, by the Pointer Events spec.
+ * Skill buttons are DOM (the HUD): they write `skillTap` for a tap and drive
+ * `aim` while a finger drags from a button onto the field.
+ *
+ * Keys are bound through `keyBindings.ts` (physical keys, rebindable).
  */
 
 import { mobileCheck } from '@/utils/function'
@@ -48,38 +29,47 @@ import { actionForCode, codesFor, type Action } from './keyBindings'
 import { observeKey } from './keyLabels'
 
 export interface Input {
-  // Movement (joystick or keys), x = strafe right, y = forward. |v| ≤ 1.
+  /** Movement from the joystick or the keys, in SCREEN space: x right, y up.
+   *  |v| ≤ 1. */
   moveX: number
   moveY: number
-  /** Keyboard turning (← / →): −1..1, + = turn right. */
-  turn: number
-  /** Accumulated look delta in pixels since last consume. */
-  lookDX: number
-  lookDY: number
-  /** Screen-space taps since last consume (CSS px, relative to the surface). */
+  /** Taps on the scene since last consume (CSS px, relative to the surface). */
   taps: Array<{ x: number; y: number }>
-  /** Fire button state (touch press on the right side, the left mouse button). */
-  fireHeld: boolean
-  firePressed: boolean
-  fireReleased: boolean
-  /** The press turned into a look drag: drop the charge without firing it. */
-  fireCancelled: boolean
-  /** Screen position of the current fire press (aim hint for free-aim). */
-  fireX: number
-  fireY: number
-  blockHeld: boolean
-  blockPressed: boolean
-  slideQueued: boolean
-  /** A special weapon's button: 1, 2 the slots, 3 the borrowed weapon. */
-  weaponQueued: 0 | 1 | 2 | 3
-  tankQueued: boolean
+  /** A scene pointer is down right now (not the joystick's). */
+  held: boolean
+  /** …and has travelled far enough to be a drag. */
+  dragging: boolean
+  /** Where that pointer is (surface px), and where it went down. */
+  ptrX: number
+  ptrY: number
+  ptrX0: number
+  ptrY0: number
+  /** A drag was let go this step, at (`dropX`, `dropY`). */
+  dropped: boolean
+  dropX: number
+  dropY: number
+  /** The mouse over the scene (desktop highlight); -1 when it is not. */
+  hoverX: number
+  hoverY: number
+  /** A skill slot tapped (0..5), or -1. */
+  skillTap: number
+  /** A skill being aimed by a drag from its button: its slot, where the finger
+   *  is on the surface, and whether it has left the button. */
+  aimSlot: number
+  aimX: number
+  aimY: number
+  aimLive: boolean
+  /** An aim released this step over the field (-1: none). */
+  aimDrop: number
+  aimDropX: number
+  aimDropY: number
+  potionQueued: boolean
   interactQueued: boolean
-  beamQueued: boolean
-  swipe: -1 | 0 | 1
+  targetQueued: boolean
   pauseQueued: boolean
-  mapQueued: boolean
-  /** Any fresh press on the scene this step — a touch, a mouse button, a key
-   *  (not a modifier or F-key on its own). A cutscene's skip. */
+  /** A panel key: '' or 'map' | 'character' | 'inventory' | 'skills'. */
+  panelQueued: '' | 'map' | 'character' | 'inventory' | 'skills'
+  /** Any fresh press this step — a touch, a mouse button, a key. */
   anyPressed: boolean
   // Joystick visual state (read by the HUD)
   joyActive: boolean
@@ -95,14 +85,12 @@ export interface Input {
   touched: boolean
   /** Last input device family, for control hints. */
   device: 'touch' | 'mouse'
-  /** Desktop: the mouse is captured — movement looks, the left button fires. */
-  locked: boolean
-  /** The capture is refused here (or unsupported): the mouse drags to look. */
-  lockRefused: boolean
+  /** Whether the keys are steering right now (the coach counts it). */
+  keysMoving: boolean
 }
 
 /** Best first guess before any pointer event arrives, so the very first
- *  control hint on a phone already names the touch controls. */
+ *  control hint on a phone already shows the touch controls. */
 const guessDevice = (): Input['device'] => {
   if (typeof navigator !== 'undefined' && mobileCheck()) return 'touch'
   return typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches ? 'touch' : 'mouse'
@@ -121,247 +109,71 @@ export const touchFirst = (): boolean => {
     typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
 }
 
-const lockSupported = (): boolean =>
-  typeof document !== 'undefined' && 'pointerLockElement' in document &&
-  typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.requestPointerLock === 'function'
-
 export const createInput = (): Input => ({
-  moveX: 0, moveY: 0, turn: 0, lookDX: 0, lookDY: 0, taps: [],
-  fireHeld: false, firePressed: false, fireReleased: false, fireCancelled: false, fireX: 0, fireY: 0,
-  blockHeld: false, blockPressed: false, slideQueued: false, weaponQueued: 0, tankQueued: false,
-  interactQueued: false, beamQueued: false, swipe: 0, pauseQueued: false, mapQueued: false, anyPressed: false,
+  moveX: 0, moveY: 0, taps: [],
+  held: false, dragging: false, ptrX: 0, ptrY: 0, ptrX0: 0, ptrY0: 0,
+  dropped: false, dropX: 0, dropY: 0, hoverX: -1, hoverY: -1,
+  skillTap: -1, aimSlot: -1, aimX: 0, aimY: 0, aimLive: false, aimDrop: -1, aimDropX: 0, aimDropY: 0,
+  potionQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
+  anyPressed: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0, joyHomeX: 0, joyHomeY: 0, joyHomeR: 0,
-  // A phone never captures the mouse: there, a mouse is a finger.
-  touched: false, device: guessDevice(), locked: false, lockRefused: !lockSupported() || touchFirst()
+  touched: false, device: guessDevice(), keysMoving: false
 })
 
-/**
- * Reset the one-shot edges after the sim consumed them.
- *
- * NOT the look deltas: those are applied by the mission's RENDER, which runs
- * after this every frame and zeroes them itself. Clearing them here threw the
- * drag away on every frame that ran a logic step — at 60 Hz nearly all of
- * them — so the camera only moved on the odd step-less frame and felt stuck.
- */
+/** Reset the one-shot edges after the mode consumed them. */
 export const consumeEdges = (i: Input): void => {
   i.taps.length = 0
-  i.firePressed = false
-  i.fireReleased = false
-  i.fireCancelled = false
-  i.blockPressed = false
-  i.slideQueued = false
-  i.weaponQueued = 0
-  i.tankQueued = false
+  i.dropped = false
+  i.skillTap = -1
+  i.aimDrop = -1
+  i.potionQueued = false
   i.interactQueued = false
-  i.beamQueued = false
-  i.swipe = 0
+  i.targetQueued = false
   i.pauseQueued = false
-  i.mapQueued = false
+  i.panelQueued = ''
   i.anyPressed = false
 }
 
 export interface InputOptions {
-  /** Whether a right-side press should be reported as a FIRE press (combat /
-   *  a target in sight) rather than as a look/tap gesture. Read per press. */
-  fireMode: () => boolean
-  /** Whether capturing the mouse makes sense right now (a mission in play,
-   *  nothing on top of it). Read on every click. */
-  canLock?: () => boolean
-  /** The capture was lost without the game asking (Esc, a system dialog). */
-  onLockLost?: () => void
-  /** Every capture change: taken, or ended (`asked` = the game released it). */
-  onLockChange?: (locked: boolean, asked: boolean) => void
   /** Joystick radius in CSS px. */
   joyRadius?: number
 }
 
-const TAP_MAX_MS = 280
-const TAP_MAX_MOVE = 14
-/** A fire press that travels this far becomes a look drag (px). */
-const DRAG_TO_LOOK_MOUSE = 10
-const DRAG_TO_LOOK_TOUCH = 16
-/** One captured mouse event moving further than this is a platform glitch
- *  (Chrome and Firefox both emit the odd huge `movementX` right after the
- *  capture engages or the window regains focus) — dropped, not applied. */
-const LOOK_SPIKE = 280
-/** A refused capture this soon after the player released one is the browser's
- *  re-capture cooldown, not a refusal of the feature. */
-const RELOCK_COOLDOWN_MS = 2500
-/** Keys that are never "a press" for a skip: modifiers, and F1 / F2 (help,
- *  mute), which have their own jobs. */
+const TAP_MAX_MS = 320
+/** A press that travels this far is a drag (px). */
+const DRAG_MOUSE = 8
+const DRAG_TOUCH = 14
+/** Keys that are never "a press" for a skip: modifiers, and F1 / F2. */
 const NOT_A_PRESS = new Set(['ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'MetaLeft', 'MetaRight', 'F1', 'F2'])
 
-// ─── Pointer lock (module state: there is one document) ─────────────────────
-
-let lockEl: HTMLElement | null = null
-let releasing = false
-let lastUnlockAt = -1e9
-let lastLockAt = -1e9
-/** The pending request rode a real gesture, and not the post-release
- *  cooldown — so a refusal of it means the platform refuses captures. */
-let requestCounts = false
-
-/** The mouse is captured by the game right now. */
-export const isPointerLocked = (): boolean =>
-  typeof document !== 'undefined' && !!lockEl && document.pointerLockElement === lockEl
-
-/** The capture ended within the last `ms` (so an Esc keydown that arrives
- *  with it is the release, not a second press). */
-export const unlockedRecently = (ms = 400): boolean => performance.now() - lastUnlockAt < ms
-
-/** Hand the mouse back (a modal, the hub, an ad). Not treated as "lost". */
-export const releasePointerLock = (): void => {
-  if (!isPointerLocked()) return
-  releasing = true
-  document.exitPointerLock()
+const SKILL_ACTIONS: Partial<Record<Action, number>> = {
+  skill1: 0, skill2: 1, skill3: 2, skill4: 3, skill5: 4, skill6: 5
 }
 
-/**
- * Capture the mouse, if the platform allows it. Must run inside a user
- * gesture (a click or a key press, or within a few seconds of one). A refusal
- * right after the player released the capture is Chrome's cooldown, so only
- * a refusal with no recent release switches the mouse to drag-look for good.
- */
-export const requestPointerLock = (input: Input): void => {
-  const el = lockEl
-  if (!el || input.lockRefused || isPointerLocked()) return
-  // Without a live gesture (e.g. the pause menu closed by Esc, which is not
-  // one) the browser says no by rule; do not ask, and do not count it.
-  const activation = (navigator as Navigator & { userActivation?: { isActive: boolean } }).userActivation
-  if (activation && !activation.isActive) return
-  requestCounts = performance.now() - lastUnlockAt >= RELOCK_COOLDOWN_MS
-  const refuse = () => {
-    if (requestCounts && !isPointerLocked()) input.lockRefused = true
-  }
-  try {
-    const r = (el.requestPointerLock as (o?: unknown) => Promise<void> | void).call(el)
-    if (r && typeof (r as Promise<void>).catch === 'function') (r as Promise<void>).catch(refuse)
-  } catch {
-    refuse()
-  }
-}
-
-export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptions): (() => void) => {
+export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptions = {}): (() => void) => {
   const keys = new Set<string>()
-  const joyR = opts.joyRadius ?? 56
+  const joyR = opts.joyRadius ?? 52
   let joyId: number | null = null
-  let lookId: number | null = null
-  let lookStartX = 0
-  let lookStartY = 0
-  let lookLastX = 0
-  let lookLastY = 0
-  let lookStartT = 0
-  let lookMoved = 0
-  let lookIsFire = false
-  /** Unlocked mouse fallback: a left-button press in progress. */
-  let mouseDrag = false
-  let skipNextLook = false
-  /** Last touch press: a touch also emits compatibility mouse events. */
-  let lastTouchAt = -1e9
-  /** Phone / tablet: a mouse is a finger, and the device never turns 'mouse'. */
+  let ptrId: number | null = null
+  let downAt = 0
   const touchOnly = touchFirst()
-  /** Pointer events this build reads as touch (see `touchOnly`). */
-  const asTouch = (e: PointerEvent) => e.pointerType !== 'mouse' || touchOnly
-  lockEl = surface
 
   const rect = () => surface.getBoundingClientRect()
   /** Any key bound to the action is down (see `keyBindings.ts`). */
-  const held = (a: Action): boolean => codesFor(a).some(c => keys.has(c))
+  const down = (a: Action): boolean => codesFor(a).some(c => keys.has(c))
 
   const updateKeysMove = () => {
     if (input.joyActive) return
     let x = 0
     let y = 0
-    if (held('left')) x -= 1
-    if (held('right')) x += 1
-    if (held('forward')) y += 1
-    if (held('back')) y -= 1
-    // ← / → TURN: the keyboard-only way to look around (a trackpad player
-    // who never finds the drag still has one).
-    input.turn = (held('turnRight') ? 1 : 0) - (held('turnLeft') ? 1 : 0)
+    if (down('left')) x -= 1
+    if (down('right')) x += 1
+    if (down('up')) y += 1
+    if (down('down')) y -= 1
     const l = Math.hypot(x, y)
     input.moveX = l > 0 ? x / l : 0
     input.moveY = l > 0 ? y / l : 0
-  }
-
-  // ── The look / fire gesture shared by touch and the unlocked mouse ──
-  const gestureDown = (x: number, y: number) => {
-    lookStartX = lookLastX = x
-    lookStartY = lookLastY = y
-    lookStartT = performance.now()
-    lookMoved = 0
-    lookIsFire = opts.fireMode()
-    if (lookIsFire) {
-      input.fireHeld = true
-      input.firePressed = true
-      input.fireX = x
-      input.fireY = y
-    }
-  }
-  const gestureMove = (x: number, y: number, mouse: boolean) => {
-    const dx = x - lookLastX
-    const dy = y - lookLastY
-    lookLastX = x
-    lookLastY = y
-    lookMoved += Math.abs(dx) + Math.abs(dy)
-    if (lookIsFire && Math.hypot(x - lookStartX, y - lookStartY) > (mouse ? DRAG_TO_LOOK_MOUSE : DRAG_TO_LOOK_TOUCH)) {
-      // It is a drag after all: look, and drop the charge unfired. The
-      // travel so far counts, so the view does not lag the finger.
-      lookIsFire = false
-      input.fireHeld = false
-      input.fireCancelled = true
-      input.lookDX += x - lookStartX
-      input.lookDY += y - lookStartY
-    } else if (!lookIsFire) {
-      input.lookDX += dx
-      input.lookDY += dy
-    } else {
-      input.fireX = x
-      input.fireY = y
-    }
-  }
-  const gestureUp = (x: number, y: number) => {
-    const dt = performance.now() - lookStartT
-    if (lookIsFire) {
-      input.fireHeld = false
-      input.fireReleased = true
-    } else if (dt < TAP_MAX_MS && lookMoved < TAP_MAX_MOVE) {
-      input.taps.push({ x, y })
-    }
-  }
-
-  // ── Touch / pen: pointer events ──
-  const onDown = (e: PointerEvent) => {
-    if (!asTouch(e)) return
-    if (e.pointerType === 'mouse' && e.button !== 0) return
-    input.touched = true
-    input.device = 'touch'
-    input.anyPressed = true
-    lastTouchAt = performance.now()
-    const r = rect()
-    const x = e.clientX - r.left
-    const y = e.clientY - r.top
-    const leftZone = x < r.width * 0.45
-    const onHome = input.joyHomeR > 0 && Math.hypot(x - input.joyHomeX, y - input.joyHomeY) <= input.joyHomeR
-    if ((leftZone || onHome) && joyId === null) {
-      joyId = e.pointerId
-      input.joyActive = true
-      // On the resting stick: grab it by its centre, so the first touch is
-      // already a push in the finger's direction. Anywhere else: float.
-      input.joyOriginX = onHome ? input.joyHomeX : x
-      input.joyOriginY = onHome ? input.joyHomeY : y
-      input.joyX = 0
-      input.joyY = 0
-      if (onHome) stickTo(x, y)
-      try { surface.setPointerCapture(e.pointerId) } catch { /* ignore */ }
-      e.preventDefault()
-      return
-    }
-    if (lookId !== null) return
-    lookId = e.pointerId
-    gestureDown(x, y)
-    try { surface.setPointerCapture(e.pointerId) } catch { /* ignore */ }
-    e.preventDefault()
+    input.keysMoving = l > 0
   }
 
   /** Point the stick at a finger position (surface px). */
@@ -370,7 +182,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     let dy = y - input.joyOriginY
     const l = Math.hypot(dx, dy)
     // Drag the origin along when the thumb overshoots, so the stick never
-    // "sticks" at the rim — the Brawl Stars / Blades floating-stick feel.
+    // "sticks" at the rim — the floating-stick feel.
     if (l > joyR) {
       const k = (l - joyR) / l
       input.joyOriginX += dx * k
@@ -382,16 +194,50 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.joyY = dy / joyR
     const mag = Math.min(1, Math.hypot(input.joyX, input.joyY))
     // Small dead zone, then an ease so fine steps are possible.
-    const dz = 0.12
-    const eased = mag < dz ? 0 : Math.pow((mag - dz) / (1 - dz), 1.25)
+    const dz = 0.14
+    const eased = mag < dz ? 0 : Math.pow((mag - dz) / (1 - dz), 1.2)
     const nx = mag > 0 ? input.joyX / mag : 0
     const ny = mag > 0 ? input.joyY / mag : 0
     input.moveX = nx * eased
     input.moveY = -ny * eased
   }
 
+  const onDown = (e: PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    const touch = e.pointerType !== 'mouse' || touchOnly
+    input.touched = true
+    input.anyPressed = true
+    input.device = touch ? 'touch' : 'mouse'
+    const r = rect()
+    const x = e.clientX - r.left
+    const y = e.clientY - r.top
+    const onHome = touch && input.joyHomeR > 0 && Math.hypot(x - input.joyHomeX, y - input.joyHomeY) <= input.joyHomeR
+    if (onHome && joyId === null) {
+      joyId = e.pointerId
+      input.joyActive = true
+      // Grabbed by its centre, so the first touch is already a push in the
+      // finger's direction.
+      input.joyOriginX = input.joyHomeX
+      input.joyOriginY = input.joyHomeY
+      input.joyX = 0
+      input.joyY = 0
+      stickTo(x, y)
+      try { surface.setPointerCapture(e.pointerId) } catch { /* ignore */ }
+      e.preventDefault()
+      return
+    }
+    if (ptrId !== null) return
+    ptrId = e.pointerId
+    downAt = performance.now()
+    input.held = true
+    input.dragging = false
+    input.ptrX = input.ptrX0 = x
+    input.ptrY = input.ptrY0 = y
+    try { surface.setPointerCapture(e.pointerId) } catch { /* ignore */ }
+    e.preventDefault()
+  }
+
   const onMove = (e: PointerEvent) => {
-    if (!asTouch(e)) return
     const r = rect()
     const x = e.clientX - r.left
     const y = e.clientY - r.top
@@ -400,14 +246,21 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       e.preventDefault()
       return
     }
-    if (e.pointerId === lookId) {
-      gestureMove(x, y, false)
-      e.preventDefault()
+    if (e.pointerType === 'mouse' && !touchOnly) {
+      input.hoverX = x
+      input.hoverY = y
     }
+    if (e.pointerId !== ptrId) return
+    input.ptrX = x
+    input.ptrY = y
+    if (!input.dragging) {
+      const lim = e.pointerType === 'mouse' ? DRAG_MOUSE : DRAG_TOUCH
+      if (Math.hypot(x - input.ptrX0, y - input.ptrY0) > lim) input.dragging = true
+    }
+    e.preventDefault()
   }
 
   const onUp = (e: PointerEvent) => {
-    if (!asTouch(e)) return
     if (e.pointerId === joyId) {
       joyId = null
       input.joyActive = false
@@ -416,182 +269,65 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       updateKeysMove()
       return
     }
-    if (e.pointerId === lookId) {
-      const r = rect()
-      gestureUp(e.clientX - r.left, e.clientY - r.top)
-      lookId = null
-    }
-  }
-
-  // ── Mouse: captured (FPS) or, where refused, drag-to-look ──
-  /** Mouse buttons holding block: 1 the middle, 2 the right. */
-  let blockButtons = 0
-  const onMouseDown = (e: MouseEvent) => {
-    if (touchOnly || performance.now() - lastTouchAt < 900) return
-    input.touched = true
-    input.device = 'mouse'
-    input.anyPressed = true
-    // The middle button (the wheel click) blocks too, untaught: an
-    // alternative for players whose right button fights a gesture browser.
-    // Its press is also what stops autoscroll.
-    if (e.button === 1 || e.button === 2) {
-      // The press is the game's: no menu, no in-page gesture (hold right +
-      // drag down opened a new tab in Opera mid-block). A gesture draws with
-      // a free cursor, so a free mouse is captured by this press too, as by a
-      // left click; unlike that one, it still blocks. Opera's own gestures
-      // never see this cancel: the navigation guard (`useBrowserGuard`) makes
-      // their back / close harmless while captured.
-      e.preventDefault()
-      if (!input.locked && !input.lockRefused && (opts.canLock?.() ?? false)) requestPointerLock(input)
-      blockButtons |= e.button === 1 ? 1 : 2
-      input.blockHeld = true
-      input.blockPressed = true
-      return
-    }
-    if (e.button !== 0) return
-    if (input.locked) {
-      input.fireHeld = true
-      input.firePressed = true
-      const r = rect()
-      input.fireX = r.width / 2
-      input.fireY = r.height / 2
-      return
-    }
-    // Not captured yet: this click captures (and fires nothing).
-    if (!input.lockRefused && (opts.canLock?.() ?? false)) {
-      requestPointerLock(input)
-      return
-    }
+    if (e.pointerId !== ptrId) return
+    ptrId = null
     const r = rect()
-    mouseDrag = true
-    gestureDown(e.clientX - r.left, e.clientY - r.top)
+    const x = e.clientX - r.left
+    const y = e.clientY - r.top
+    if (input.dragging) {
+      input.dropped = true
+      input.dropX = x
+      input.dropY = y
+    } else if (e.type !== 'pointercancel' && performance.now() - downAt < TAP_MAX_MS) {
+      input.taps.push({ x, y })
+    } else if (e.type !== 'pointercancel') {
+      // A long still press is a tap too: a slow finger still wants to go there.
+      input.taps.push({ x, y })
+    }
+    input.held = false
+    input.dragging = false
   }
 
-  const onMouseMove = (e: MouseEvent) => {
-    if (touchOnly) return
-    if (input.locked) {
-      if (skipNextLook) { skipNextLook = false; return }
-      const dx = e.movementX || 0
-      const dy = e.movementY || 0
-      if (Math.abs(dx) > LOOK_SPIKE || Math.abs(dy) > LOOK_SPIKE) return
-      input.lookDX += dx
-      input.lookDY += dy
-      return
-    }
-    if (!mouseDrag) return
-    const r = rect()
-    gestureMove(e.clientX - r.left, e.clientY - r.top, true)
-  }
-
-  const onMouseUp = (e: MouseEvent) => {
-    if (touchOnly) return
-    if (e.button === 1 || e.button === 2) {
-      // Block stays held while either blocking button still is.
-      blockButtons &= ~(e.button === 1 ? 1 : 2)
-      if (blockButtons === 0) input.blockHeld = false
-      return
-    }
-    if (e.button !== 0) return
-    if (input.locked) {
-      if (input.fireHeld) {
-        input.fireHeld = false
-        input.fireReleased = true
-      }
-      return
-    }
-    if (!mouseDrag) return
-    mouseDrag = false
-    const r = rect()
-    gestureUp(e.clientX - r.left, e.clientY - r.top)
-  }
-
-  const onLockChange = () => {
-    const locked = document.pointerLockElement === surface
-    if (locked === input.locked) return
-    input.locked = locked
-    if (locked) {
-      lastLockAt = performance.now()
-      skipNextLook = true
-      mouseDrag = false
-      input.device = 'mouse'
-      opts.onLockChange?.(true, false)
-      return
-    }
-    lastUnlockAt = performance.now()
-    // A held charge dies with the capture; the shield drops.
-    if (input.fireHeld) {
-      input.fireHeld = false
-      input.fireCancelled = true
-    }
-    input.blockHeld = false
-    blockButtons = 0
-    const asked = releasing
-    releasing = false
-    opts.onLockChange?.(false, asked)
-    if (!asked) opts.onLockLost?.()
-  }
-
-  const onLockError = () => {
-    if (requestCounts && !isPointerLocked()) input.lockRefused = true
+  const onLeave = () => {
+    input.hoverX = -1
+    input.hoverY = -1
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
     const tag = (e.target as HTMLElement | null)?.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
     input.touched = true
-    if (!touchOnly) input.device = 'mouse'
-    // Every real key teaches the layout its label (`keyLabels.ts`).
-    if (!touchOnly) observeKey(e)
+    if (!touchOnly) {
+      input.device = 'mouse'
+      // Every real key teaches the layout its label (`keyLabels.ts`).
+      observeKey(e)
+    }
     if (e.repeat && keys.has(e.code)) return
     keys.add(e.code)
     if (!e.repeat && !NOT_A_PRESS.has(e.code)) input.anyPressed = true
-    // Through the bindings (`keyBindings.ts`): physical keys, rebindable.
-    switch (actionForCode(e.code)) {
-      case 'slide':
-        input.slideQueued = true
-        e.preventDefault()
-        break
-      case 'block':
-        input.blockHeld = true
-        input.blockPressed = true
-        break
-      case 'weapon1':
-        input.weaponQueued = 1
-        break
-      case 'weapon2':
-        input.weaponQueued = 2
-        break
-      case 'weapon3':
-        input.weaponQueued = 3
-        break
-      case 'tank':
-        input.tankQueued = true
-        break
-      case 'interact':
-        input.interactQueued = true
-        break
-      case 'beam':
-        input.beamQueued = true
-        break
-      case 'target':
-        input.swipe = 1
-        e.preventDefault()
-        break
-      case 'map':
-        input.mapQueued = true
-        break
-      case null:
-        // Esc always pauses (it also ends a mouse capture); P too, unless a
-        // rebinding gave it an action.
-        if (e.code === 'Escape' || e.code === 'KeyP') input.pauseQueued = true
-        break
+    const a = actionForCode(e.code)
+    if (a !== null) {
+      const slot = SKILL_ACTIONS[a]
+      if (slot !== undefined) input.skillTap = slot
+      else if (a === 'potion') input.potionQueued = true
+      else if (a === 'interact') input.interactQueued = true
+      else if (a === 'target') { input.targetQueued = true; e.preventDefault() }
+      else if (a === 'map') input.panelQueued = 'map'
+      else if (a === 'character') input.panelQueued = 'character'
+      else if (a === 'inventory') input.panelQueued = 'inventory'
+      else if (a === 'skills') input.panelQueued = 'skills'
+      else if (a === 'up' || a === 'down' || a === 'left' || a === 'right') {
+        // The arrows and Space must not scroll a portal's page under the game.
+        if (e.code.startsWith('Arrow')) e.preventDefault()
+      }
+    } else if (e.code === 'Escape' || e.code === 'KeyP') {
+      input.pauseQueued = true
     }
     updateKeysMove()
   }
 
   const onKeyUp = (e: KeyboardEvent) => {
     keys.delete(e.code)
-    if (actionForCode(e.code) === 'block' && !held('block')) input.blockHeld = false
     updateKeysMove()
   }
 
@@ -599,17 +335,12 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     keys.clear()
     input.moveX = 0
     input.moveY = 0
-    input.turn = 0
-    if (input.fireHeld) {
-      input.fireHeld = false
-      input.fireCancelled = true
-    }
-    input.blockHeld = false
-    blockButtons = 0
+    input.keysMoving = false
     input.joyActive = false
+    input.held = false
+    input.dragging = false
     joyId = null
-    lookId = null
-    mouseDrag = false
+    ptrId = null
   }
 
   const onContext = (e: Event) => e.preventDefault()
@@ -618,34 +349,21 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   surface.addEventListener('pointermove', onMove, { passive: false })
   surface.addEventListener('pointerup', onUp)
   surface.addEventListener('pointercancel', onUp)
-  surface.addEventListener('mousedown', onMouseDown)
-  document.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('mouseup', onMouseUp)
+  surface.addEventListener('pointerleave', onLeave)
   surface.addEventListener('contextmenu', onContext)
-  document.addEventListener('pointerlockchange', onLockChange)
-  document.addEventListener('pointerlockerror', onLockError)
   window.addEventListener('keydown', onKeyDown)
   window.addEventListener('keyup', onKeyUp)
   window.addEventListener('blur', onBlur)
 
   return () => {
-    releasePointerLock()
-    if (lockEl === surface) lockEl = null
     surface.removeEventListener('pointerdown', onDown)
     surface.removeEventListener('pointermove', onMove)
     surface.removeEventListener('pointerup', onUp)
     surface.removeEventListener('pointercancel', onUp)
-    surface.removeEventListener('mousedown', onMouseDown)
-    document.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('mouseup', onMouseUp)
+    surface.removeEventListener('pointerleave', onLeave)
     surface.removeEventListener('contextmenu', onContext)
-    document.removeEventListener('pointerlockchange', onLockChange)
-    document.removeEventListener('pointerlockerror', onLockError)
     window.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('keyup', onKeyUp)
     window.removeEventListener('blur', onBlur)
   }
 }
-
-/** When the capture last engaged (ms, `performance.now()`); for tests / QA. */
-export const lastPointerLockAt = (): number => lastLockAt

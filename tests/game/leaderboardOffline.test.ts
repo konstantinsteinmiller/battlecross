@@ -23,7 +23,7 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
  */
 
 const ENDPOINT = 'https://board.example.test'
-const CACHE_KEY = 'mega_droid_board_cache'
+const CACHE_KEY = 'bcross_board_cache'
 
 const reply = (body: unknown, ok = true): Response =>
   ({ ok, status: ok ? 200 : 500, json: async () => body }) as unknown as Response
@@ -64,8 +64,8 @@ const sent: string[] = []
  * Its writes are DEBOUNCED: `setState` arms a 200 ms `setTimeout` that writes
  * to whatever `localStorage` is installed when it fires, and `vi.resetModules()`
  * drops the module without cancelling it. A case that ends on a successful POST
- * leaves one armed (`reportRun` records `ma_submitted_score` and
- * `ma_posted_name`). On a loaded machine it fires inside a LATER case's
+ * leaves one armed (`reportRun` records `bc_submitted_score` and
+ * `bc_posted_name`). On a loaded machine it fires inside a LATER case's
  * `load()` — the `vi.doMock` below makes that import wait on an RPC — into the
  * setup file's fresh storage, just before the fresh `useGameState` reads it.
  * That case then boots holding another case's posted best under its own name,
@@ -410,7 +410,7 @@ describe('a board never publishes fewer players than rows', () => {
 
 describe('the cache is a per-device cache, not player data', () => {
   it('stays out of the cloud save', async () => {
-    // `isPayloadKey` uploads `ma_state` and anything prefixed `ma_`. This is
+    // `isPayloadKey` uploads `bc_state` and anything prefixed `ma_`. This is
     // ~6 kB of PUBLIC data, identical for every player, and syncing it would
     // pay for the same hundred rows once per player on every save — against
     // Poki's 1 MB ceiling — to protect a device that has its own copy anyway.

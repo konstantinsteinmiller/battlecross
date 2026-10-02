@@ -80,28 +80,28 @@ export default {
   /** Expressions evaluated INSIDE the game's iframe during the QA pass. */
   hooks: {
     /** A snapshot that must survive a reload. Battlecross keeps ALL of its
-     *  state in ONE localStorage blob, `mega_droid_state`, keyed by `ma_*`
+     *  state in ONE localStorage blob, `bcross_state`, keyed by `ma_*`
      *  fields (src/keys.ts). A save from before the rename sits under
      *  `mega_adventure_state` until the game's next boot moves it
      *  (src/legacyKeys.ts), so that name is the fallback. Only DURABLE
      *  progress is read — counters that change on a mission result or a
      *  kill, never on a mere reload — so a resumed mission re-writing its
-     *  snapshot (`ma_mission`), a job re-roll (`ma_quests`) or a timestamp
+     *  snapshot (`bc_mission`), a job re-roll (`bc_quests`) or a timestamp
      *  cannot fail a save that works. `null` when there is no save yet, which
      *  the pass reports as unproven, not as a pass. */
     readProgress: `(() => {
       try {
-        const raw = localStorage.getItem('mega_droid_state') ?? localStorage.getItem('mega_adventure_state')
+        const raw = localStorage.getItem('bcross_state') ?? localStorage.getItem('mega_adventure_state')
         if (!raw) return null
         const s = JSON.parse(raw)
-        const hero = s.ma_hero || {}
-        const world = s.ma_world || {}
+        const hero = s.bc_hero || {}
+        const world = s.bc_world || {}
         return {
-          level: s.ma_level ?? null,
+          level: s.bc_level ?? null,
           xp: hero.xp ?? null,
-          bolts: s.ma_bolts ?? null,
-          story: s.ma_story ?? null,
-          questsDone: s.ma_quests_done ?? null,
+          bolts: s.bc_gold ?? null,
+          story: s.bc_story ?? null,
+          questsDone: s.bc_quests_done ?? null,
           tutorialDone: !!world.tutorialDone,
           sectors: Array.isArray(world.unlocked) ? world.unlocked.length : 0,
           bosses: Array.isArray(world.bosses) ? world.bosses.length : 0,

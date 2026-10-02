@@ -88,7 +88,7 @@ export const NOISE_HOSTS = ['vuejs.org', 'jcgt.org', 'github.com', 'mozilla.org'
 
 /** What only the vendored Bridge npm build carries (the exemption's
  *  fingerprint), and what only the game's code carries (proof it is not in
- *  there). Both storage-key prefixes count: the game writes `mega_droid_*`,
+ *  there). Both storage-key prefixes count: the game writes `bcross_*`,
  *  and its pre-rename migration (src/legacyKeys.ts) still ships the
  *  `mega_adventure_*` names it reads. */
 const BRIDGE_FINGERPRINTS = ['jio_games', 'bridge-youtube-subscribe']

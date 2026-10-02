@@ -10,38 +10,39 @@ import { KEY_BINDINGS_KEY } from '@/keys'
  * the defaults sit under the same fingers on every layout: the WASD block is
  * ZQSD on AZERTY and ,AOE on Dvorak without any remapping, which is how most
  * PC games handle it. The player can rebind each action's main key in Options
- * → Controls; the other defaults (arrows, Numpad, the second slide key) stay
- * as alternates unless a rebinding takes them.
+ * → Controls; the other defaults (arrows, Numpad) stay as alternates unless a
+ * rebinding takes them.
  *
  * What a key is CALLED on this keyboard is `keyLabels.ts`'s job.
  *
- * Escape (pause, and the browser's own pointer-lock exit), F1 / F2 and the
- * mouse buttons are not rebindable.
+ * Escape (pause), F1 / F2 and the mouse buttons are not rebindable.
  */
 
 export type Action =
-  | 'forward' | 'back' | 'left' | 'right' | 'turnLeft' | 'turnRight'
-  | 'slide' | 'block' | 'interact' | 'beam' | 'tank'
-  | 'weapon1' | 'weapon2' | 'weapon3' | 'target' | 'map'
+  | 'up' | 'down' | 'left' | 'right'
+  | 'skill1' | 'skill2' | 'skill3' | 'skill4' | 'skill5' | 'skill6'
+  | 'potion' | 'interact' | 'target'
+  | 'map' | 'character' | 'inventory' | 'skills'
 
 /** Defaults: the first code is the action's main key, the rest alternates. */
 export const DEFAULT_BINDINGS: Readonly<Record<Action, readonly string[]>> = {
-  forward: ['KeyW', 'ArrowUp'],
-  back: ['KeyS', 'ArrowDown'],
-  left: ['KeyA'],
-  right: ['KeyD'],
-  turnLeft: ['ArrowLeft'],
-  turnRight: ['ArrowRight'],
-  slide: ['Space', 'KeyQ'],
-  block: ['ShiftLeft', 'ShiftRight'],
+  up: ['KeyW', 'ArrowUp'],
+  down: ['KeyS', 'ArrowDown'],
+  left: ['KeyA', 'ArrowLeft'],
+  right: ['KeyD', 'ArrowRight'],
+  skill1: ['Digit1', 'Numpad1'],
+  skill2: ['Digit2', 'Numpad2'],
+  skill3: ['Digit3', 'Numpad3'],
+  skill4: ['Digit4', 'Numpad4'],
+  skill5: ['Digit5', 'Numpad5'],
+  skill6: ['Digit6', 'Numpad6'],
+  potion: ['KeyQ', 'Space'],
   interact: ['KeyE', 'KeyF'],
-  beam: ['KeyB'],
-  tank: ['KeyH'],
-  weapon1: ['Digit1', 'Numpad1'],
-  weapon2: ['Digit2', 'Numpad2'],
-  weapon3: ['Digit3', 'Numpad3'],
   target: ['Tab'],
-  map: ['KeyM']
+  map: ['KeyM'],
+  character: ['KeyC'],
+  inventory: ['KeyI'],
+  skills: ['KeyK']
 }
 
 /** The order the Controls tab lists them in. */

@@ -1,5 +1,5 @@
 import { PerspectiveCamera, Scene } from 'three'
-import { getRenderer, resizeRenderer, fovForAspect } from './renderer'
+import { getRenderer, resizeRenderer } from './renderer'
 import { frameStart, frameEnd, phaseStart, phaseEnd } from '@/use/usePerfProbe'
 
 /**
@@ -86,9 +86,6 @@ class GameApp {
     if (this.mode && this.mode !== mode) this.mode.dispose()
     this.mode = mode
     if (mode) {
-      mode.camera.aspect = this.width / this.height
-      mode.camera.fov = fovForAspect(mode.camera.aspect)
-      mode.camera.updateProjectionMatrix()
       this.resize()
       mode.enter?.()
     }
@@ -138,7 +135,7 @@ class GameApp {
     const dt = Math.min(0.1, Math.max(0, dtMs / 1000))
     const mode = this.mode
     if (!mode) return
-    // Perf seam (`?perfprobe=1`, see PERF-LEDGER.md): a const-false no-op in
+    // Perf seam (`?perfprobe=1`, see `usePerfProbe.ts`): a const-false no-op in
     // every player's session.
     frameStart(now)
     this.acc += dt

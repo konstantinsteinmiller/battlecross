@@ -1,4 +1,4 @@
-import { mulberry32, type Rng } from '../world/rng'
+import { mulberry32, type Rng } from '../sim/rng'
 
 /**
  * ─── The score ───────────────────────────────────────────────────────────────

@@ -13,8 +13,8 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
  * (`templates/playgama/playgamaLeaderboard.test.ts`).
  *
  * Every case loads fresh modules: the layer keeps session state at module
- * scope, exactly as a page load does. Its saves (`ma_portal_posted_score`,
- * `ma_portal_joined`) are debounced, so each case flushes its own before the
+ * scope, exactly as a page load does. Its saves (`bc_portal_posted_score`,
+ * `bc_portal_joined`) are debounced, so each case flushes its own before the
  * next case's storage exists — see `tests/stubs/drainPersist.ts`.
  */
 

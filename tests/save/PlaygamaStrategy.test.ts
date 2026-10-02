@@ -13,7 +13,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 
-const STATE_KEY = 'mega_droid_state'
+const STATE_KEY = 'bcross_state'
 const LEGACY_STATE_KEY = 'mega_adventure_state'
 const META_KEY = '__save_meta__'
 
@@ -64,7 +64,7 @@ const makeCloud = (seed: Record<string, string> = {}, opts: { failGet?: number }
   return { storage, setCalls, read: () => blob }
 }
 
-const state = (level: number, bolts = 0) => JSON.stringify({ ma_level: level, ma_bolts: bolts })
+const state = (level: number, bolts = 0) => JSON.stringify({ bc_level: level, bc_gold: bolts })
 
 const load = async () => (await import('@/utils/save/PlaygamaStrategy')).PlaygamaStrategy
 

@@ -20,7 +20,6 @@ import { followPortalLanguage, notePortalLanguageChange } from '@/i18n/portalLan
 import { PLURAL_RULES } from '@/i18n/plural'
 import { isDebug } from '@/use/useMatch.ts'
 import { hasState, reloadGameState, flushPersist, STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
-import { LEGACY_KEYS } from '@/legacyKeys'
 import { LANGUAGE_KEY } from '@/keys'
 import { setSdkNameSource } from '@/use/usePlayerIdentity'
 import { SaveManager } from '@/utils/save/SaveManager'
@@ -240,7 +239,7 @@ const bootstrap = async () => {
 
   // CrazyGames cloud-only mode: gameplay state and our save bookkeeping
   // (`__save_*`) live in memory only; `sdk.data` is the sole persistence
-  // backend. CG QA explicitly requires that no state blob (`mega_droid_state`,
+  // backend. CG QA explicitly requires that no state blob (`bcross_state`,
   // or its pre-rename name `LEGACY_KEYS.STATE`) / `ma_*` /
   // `__save_*` keys appear in raw localStorage — only dev toggles
   // (`fps`, `debug`, `cheat`, `campaign-test`, `full_unlocked`) are
@@ -277,7 +276,7 @@ const bootstrap = async () => {
       const stragglers: string[] = []
       for (let i = 0; i < window.localStorage.length; i++) {
         const k = window.localStorage.key(i)
-        if (k && (k === STATE_KEY || k === LEGACY_KEYS.STATE || k.startsWith(STATE_FIELD_PREFIX) || k.startsWith('__save_'))) {
+        if (k && (k === STATE_KEY || k.startsWith(STATE_FIELD_PREFIX) || k.startsWith('__save_'))) {
           stragglers.push(k)
         }
       }

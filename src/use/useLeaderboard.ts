@@ -3,7 +3,6 @@ import { getState, setState } from '@/use/useGameState'
 import { POSTED_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
 import { resolveIdentity, type PlayerIdentity } from '@/use/usePlayerIdentity'
 import { boardSnapshot, rankFromDist } from '@/use/leaderboardSnapshot'
-import { LEGACY_KEYS, migrateLegacyKey } from '@/legacyKeys'
 
 /**
  * ─── The global board, client side ──────────────────────────────────────────
@@ -261,20 +260,15 @@ let boardSource: BoardSource = null
 let fetched = false
 
 /**
- * Deliberately NOT a `ma_`-prefixed key and not a field inside `ma_state`.
+ * Deliberately NOT a `bc_`-prefixed key and not a field inside `bcross_state`.
  *
  * Both of those round-trip to the platform's cloud save (see `isPayloadKey`),
  * and this is a ~6 kB cache of PUBLIC data that is identical for every player.
  * Syncing it would pay for the same hundred rows once per player, on every
  * save, against Poki's 1 MB ceiling — to protect a device that has its own copy
- * anyway. It is a per-device cache, so it lives per-device. Renamed with the
- * game (Mega Adventure → Battlecross); a pre-rename cache is moved over before
- * the seed below reads it (`src/legacyKeys.ts`), so a returning player's first
- * board still comes up without a spinner.
+ * anyway. It is a per-device cache, so it lives per-device.
  */
-const BOARD_CACHE_KEY = 'mega_droid_board_cache'
-
-migrateLegacyKey(LEGACY_KEYS.BOARD_CACHE, BOARD_CACHE_KEY)
+const BOARD_CACHE_KEY = 'bcross_board_cache'
 
 const readBoardCache = (): Board | null => {
   try {

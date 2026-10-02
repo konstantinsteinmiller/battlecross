@@ -18,7 +18,7 @@ import { buildPlaygamaBridgeConfig } from '@/platforms/playgama/bridgeConfig'
 
 const ENV = {
   VITE_APP_PLAYGAMA: 'true',
-  VITE_PLAYGAMA_LEADERBOARD_ID: 'mega_droid_xp',
+  VITE_PLAYGAMA_LEADERBOARD_ID: 'bcross_xp',
   PLAYGAMA_SAAS_PUBLIC_TOKEN: 'public-token'
 }
 
@@ -29,7 +29,7 @@ describe('the Playgama bridge config', () => {
     // Present even though playgama.com never reads the list: Bridge tests the
     // object itself before anything else.
     expect(config.saas.leaderboards).toBeTypeOf('object')
-    expect(config.leaderboards).toEqual([{ id: 'mega_droid_xp', isMain: true }])
+    expect(config.leaderboards).toEqual([{ id: 'bcross_xp', isMain: true }])
   })
 
   it('lists the QA Tool, so the board can be tested before release', () => {

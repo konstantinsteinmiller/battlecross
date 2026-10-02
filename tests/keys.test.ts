@@ -10,17 +10,17 @@ import { STATE_KEY } from '@/use/useGameState'
 import { LEGACY_KEYS } from '@/legacyKeys'
 
 describe('SAVE_KEYS values are stable', () => {
-  it('LEVEL key is the literal "ma_level"', () => {
-    expect(SAVE_KEYS.LEVEL).toBe('ma_level')
+  it('LEVEL key is the literal "bc_level"', () => {
+    expect(SAVE_KEYS.LEVEL).toBe('bc_level')
   })
-  it('STORY key is the literal "ma_story"', () => {
-    expect(SAVE_KEYS.STORY).toBe('ma_story')
+  it('STORY key is the literal "bc_story"', () => {
+    expect(SAVE_KEYS.STORY).toBe('bc_story')
   })
-  it('QUESTS_DONE key is the literal "ma_quests_done"', () => {
-    expect(SAVE_KEYS.QUESTS_DONE).toBe('ma_quests_done')
+  it('QUESTS_DONE key is the literal "bc_quests_done"', () => {
+    expect(SAVE_KEYS.QUESTS_DONE).toBe('bc_quests_done')
   })
-  it('the currency key is the literal "ma_bolts"', () => {
-    expect(SAVE_KEYS.COINS).toBe('ma_bolts')
+  it('the currency key is the literal "bc_gold"', () => {
+    expect(SAVE_KEYS.COINS).toBe('bc_gold')
   })
 })
 
@@ -29,7 +29,7 @@ describe('the persisted surface is exactly one state blob plus the meta blob', (
     // Renamed with the game (Mega Adventure → Battlecross). Changing it again
     // would strand every existing save unless `src/legacyKeys.ts` gains the old
     // name — see tests/save/LegacyKeyMigration.test.ts.
-    expect(STATE_KEY).toBe('mega_droid_state')
+    expect(STATE_KEY).toBe('bcross_state')
     expect(isPayloadKey(STATE_KEY)).toBe(true)
     expect(isPayloadKey(META_KEY)).toBe(true)
   })
@@ -40,7 +40,7 @@ describe('the persisted surface is exactly one state blob plus the meta blob', (
 
   it('accepts stray per-field ma_* writes so nothing is silently dropped', () => {
     expect(isPayloadKey(SAVE_KEYS.COINS)).toBe(true)
-    expect(isPayloadKey('ma_anything_new')).toBe(true)
+    expect(isPayloadKey('bc_anything_new')).toBe(true)
   })
 
   it('rejects foreign keys so ad-tech / dev scribbles never reach the cloud', () => {

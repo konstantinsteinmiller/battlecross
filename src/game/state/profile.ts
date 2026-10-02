@@ -2,7 +2,7 @@ import { reactive, toRaw, watch } from 'vue'
 import { getState, setStates } from '@/use/useGameState'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
-  LEVEL_KEY, BOLTS_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY,
+  LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY,
   STATS_KEY, TUTORIAL_KEY, MISSION_KEY
 } from '@/keys'
 import type { Attr } from '../data/progression'
@@ -23,7 +23,7 @@ import { DEFAULT_HERO_COLORS, type HeroColors } from '../models/hero'
  * ─── The player profile ──────────────────────────────────────────────────────
  *
  * One reactive object the hub UI binds to and the mission reads through
- * `computeStats()`. It is persisted into the single `mega_droid_state`
+ * `computeStats()`. It is persisted into the single `bcross_state`
  * blob as a handful of `ma_*` fields (see `src/keys.ts`) at CHECKPOINTS —
  * a kill's XP, a pickup banked, a purchase, a mission end — never per frame.
  *
@@ -160,7 +160,7 @@ export const profile: Profile = reactive(defaults())
 export const loadProfile = (): void => {
   const d = defaults()
   profile.level = Math.max(1, Math.round(num(getState(LEVEL_KEY), 1)))
-  profile.bolts = Math.max(0, Math.round(num(getState(BOLTS_KEY), 0)))
+  profile.bolts = Math.max(0, Math.round(num(getState(GOLD_KEY), 0)))
   profile.story = Math.max(0, Math.round(num(getState(STORY_KEY), 0)))
   profile.questsDone = Math.max(0, Math.round(num(getState(QUESTS_DONE_KEY), 0)))
   const hero = obj(stored(HERO_KEY), d.hero)
@@ -279,7 +279,7 @@ export const saveProfile = (): void => {
   if (import.meta.env.DEV && saveSandbox) return
   setStates({
     [LEVEL_KEY]: profile.level,
-    [BOLTS_KEY]: profile.bolts,
+    [GOLD_KEY]: profile.bolts,
     [STORY_KEY]: profile.story,
     [QUESTS_DONE_KEY]: profile.questsDone,
     [HERO_KEY]: plain(profile.hero),

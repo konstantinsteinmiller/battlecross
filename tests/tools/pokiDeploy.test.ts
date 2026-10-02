@@ -122,23 +122,23 @@ describe('poki.config.mjs is Battlecross\'s', () => {
 
     expect(run()).toBeNull()
 
-    store.set('mega_droid_state', JSON.stringify({
-      ma_level: 3,
-      ma_bolts: 120,
-      ma_story: 1,
-      ma_quests_done: 2,
-      ma_hero: { xp: 950, weapons: ['buster', 'spread'] },
-      ma_world: { unlocked: ['scrapyard', 'foundry'], bosses: ['scrapper'], tutorialDone: true },
+    store.set('bcross_state', JSON.stringify({
+      bc_level: 3,
+      bc_gold: 120,
+      bc_story: 1,
+      bc_quests_done: 2,
+      bc_hero: { xp: 950, weapons: ['buster', 'spread'] },
+      bc_world: { unlocked: ['scrapyard', 'foundry'], bosses: ['scrapper'], tutorialDone: true },
       // Volatile on a reload — must not be part of the snapshot.
-      ma_mission: { quest: { id: 'q1' }, player: { x: 1, z: 2 } },
-      ma_quests: { jobSeed: 12345 }
+      bc_mission: { quest: { id: 'q1' }, player: { x: 1, z: 2 } },
+      bc_quests: { jobSeed: 12345 }
     }))
     expect(run()).toEqual({
       level: 3, xp: 950, bolts: 120, story: 1, questsDone: 2,
       tutorialDone: true, sectors: 2, bosses: 1, weapons: 2
     })
 
-    store.set('mega_droid_state', '{not json')
+    store.set('bcross_state', '{not json')
     expect(run()).toBeNull()
   })
 
@@ -149,10 +149,10 @@ describe('poki.config.mjs is Battlecross\'s', () => {
     // eslint-disable-next-line no-new-func
     const run = () => new Function('localStorage', `return ${cfg.hooks.readProgress}`)(localStorage)
 
-    store.set('mega_adventure_state', JSON.stringify({ ma_level: 4, ma_bolts: 10 }))
+    store.set('mega_adventure_state', JSON.stringify({ bc_level: 4, bc_gold: 10 }))
     expect(run()).toMatchObject({ level: 4, bolts: 10 })
 
-    store.set('mega_droid_state', JSON.stringify({ ma_level: 6, ma_bolts: 30 }))
+    store.set('bcross_state', JSON.stringify({ bc_level: 6, bc_gold: 30 }))
     expect(run()).toMatchObject({ level: 6, bolts: 30 })
   })
 })
