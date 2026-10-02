@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { resolve, dirname } from 'node:path'
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, renameSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 
 import { defineConfig, loadEnv, type Plugin } from 'vite'
@@ -144,6 +144,88 @@ const assetOverridesPlugin = (): Plugin => {
     }
   }
 }
+
+// ─── The art bench's way into the repo (dev server only) ────────────────────
+//
+// `/#/art-sheets` (src/views/ArtSheets.vue) draws every reference sheet from
+// the game's own vector drawings; this is how they reach `art-sheets/`. A
+// browser download would land in Downloads under a name Chrome chose, so the
+// bench POSTs here instead: reference PNGs, the index the slicer and the Art
+// Desk read, and the prompt documents.
+//
+// Local only: the dev server's own origin, the bench's own header (which a
+// foreign page cannot send without a CORS preflight this never answers), and
+// nothing but the file names the pipeline uses, inside `art-sheets/`. Every
+// file is written to a temp name and renamed over the real one, so the slicer
+// or the desk never reads half a file.
+const ART_SHEETS_DIR = fileURLToPath(new URL('./art-sheets', import.meta.url))
+const ART_PNG_NAME = /^(?:sheet|single|bg)-[a-z0-9]+(?:-[a-z0-9]+)*\.png$/
+const ART_DOC_NAME = /^PROMPTS-[A-Z]+\.md$/
+const artSheetsExportPlugin = (): Plugin => ({
+  name: 'art-sheets-export',
+  apply: 'serve',
+  configureServer(server) {
+    const put = (name: string, data: string | Buffer): void => {
+      mkdirSync(ART_SHEETS_DIR, { recursive: true })
+      const file = resolve(ART_SHEETS_DIR, name)
+      const tmp = `${file}.${process.pid}.tmp`
+      writeFileSync(tmp, data)
+      renameSync(tmp, file)
+    }
+    server.middlewares.use('/__art-sheets', (req, res) => {
+      const reply = (code: number, body: unknown): void => {
+        res.statusCode = code
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify(body))
+      }
+      const host = (req.headers.host ?? '').replace(/:\d+$/, '')
+      const origin = req.headers.origin
+      const local = ['localhost', '127.0.0.1', '[::1]'].includes(host)
+        && (!origin || /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(origin))
+      if (req.method !== 'POST' || req.headers['x-art-sheets'] !== '1' || !local) { reply(403, { error: 'the art bench only' }); return }
+      const chunks: Buffer[] = []
+      req.on('data', (c: Buffer) => chunks.push(c))
+      req.on('end', () => {
+        try {
+          const body = JSON.parse(Buffer.concat(chunks).toString('utf-8')) as { kind?: string; name?: string; data?: string; text?: string; index?: any }
+          if (body.kind === 'png') {
+            if (!ART_PNG_NAME.test(body.name ?? '')) throw new Error(`not a sheet name: ${body.name}`)
+            const png = Buffer.from(body.data ?? '', 'base64')
+            if (png.length < 8 || png.readUInt32BE(0) !== 0x89504e47) throw new Error(`${body.name} is not a PNG`)
+            put(body.name!, png)
+            reply(200, { ok: true, bytes: png.length })
+          } else if (body.kind === 'doc') {
+            if (!ART_DOC_NAME.test(body.name ?? '')) throw new Error(`not a prompt document name: ${body.name}`)
+            put(body.name!, body.text ?? '')
+            reply(200, { ok: true })
+          } else if (body.kind === 'index') {
+            // MERGE: the bench may have drawn only some sheets (`?only=`). A
+            // panel it did not measure this time keeps the fit already on
+            // disk; a panel the manifest no longer lists simply is not in the
+            // index it sent, so it drops out.
+            const next = body.index
+            if (!next || !Array.isArray(next.sheets) || !Array.isArray(next.scenery)) throw new Error('not a sheet index')
+            const file = resolve(ART_SHEETS_DIR, 'sheet-index.json')
+            const old = new Map<string, unknown>()
+            if (existsSync(file)) {
+              try {
+                const prev = JSON.parse(readFileSync(file, 'utf-8'))
+                for (const s of prev.sheets ?? []) for (const c of s.cells ?? []) if (c.fit && c.target) old.set(c.target, c.fit)
+              } catch { /* a broken index is replaced, not merged */ }
+            }
+            for (const s of next.sheets) for (const c of s.cells ?? []) if (!c.fit && old.has(c.target)) c.fit = old.get(c.target)
+            put('sheet-index.json', `${JSON.stringify(next, null, 2)}\n`)
+            reply(200, { ok: true, index: next })
+          } else {
+            throw new Error(`unknown kind: ${body.kind}`)
+          }
+        } catch (e) {
+          reply(400, { error: e instanceof Error ? e.message : String(e) })
+        }
+      })
+    })
+  }
+})
 
 // ─── Engine chunk preload ───────────────────────────────────────────────────
 //
@@ -312,6 +394,9 @@ export default defineConfig(({ mode, command }) => {
   // Drop-in art/audio overrides (see `assetOverridesPlugin`).
   plugins.push(assetOverridesPlugin())
 
+  // The art bench's export endpoint (dev server only, see the plugin).
+  plugins.push(artSheetsExportPlugin())
+
   // The baked board. EVERY build carries one — but not the same one, and the
   // difference is whether the build can ever write to the real board.
   //
@@ -401,12 +486,14 @@ export default defineConfig(({ mode, command }) => {
           // path so both the raw `.vue` file AND the script-block
           // virtual module are excluded.
           /components[\\/]atoms[\\/]FLogoProgress\.vue/,
+          // The scene lazy-loads the recorder seam (`?preview=1`, dev only). Same
+          // obfuscator-vs-dynamic-import constraint.
+          /views[\\/]GameScene\.vue/,
           // useMawCampaign lazy-loads the heavy `useStageBuilder`
           // chunk via `await import('@/use/useStageBuilder')` so all
           // 20 stage builds stay off the boot critical path. The
           // obfuscator's stringArray rewrite would inline the chunk
           // back into the parent, undoing the split.
-          /use[\\/]useMawCampaign\.ts$/,
           // useAssets.preloadAssets dynamic-imports the campaign module
           // so the gameplay shared-chunk loads in parallel with the
           // splash render instead of blocking the entry parse. Same
@@ -730,8 +817,17 @@ export default defineConfig(({ mode, command }) => {
 
   return {
     base: '/',
+    // A tool that starts a dev server of its own (the video recorder, the art
+    // export) points this at its own folder, so it never re-optimises the
+    // dependency cache under a dev server somebody already has open.
+    cacheDir: process.env.VITE_CACHE_DIR || 'node_modules/.vite',
     server: {
-      port: 2194
+      port: 2194,
+      watch: {
+        // Written BY tools while a page is open: recorded clips, exported
+        // reference sheets. Watching them reloads the page that is writing.
+        ignored: ['**/preview-videos/**', '**/art-sheets/**']
+      }
     },
     define: {
       APP_VERSION: JSON.stringify(appVersion),

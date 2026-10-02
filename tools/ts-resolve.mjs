@@ -3,10 +3,12 @@
  *
  * Node strips types natively, but its ESM resolver wants explicit extensions
  * and knows nothing about Vite's `@/` alias. This hook fills both gaps for the
- * pure modules a tool needs — `src/game/artSheet.ts`, `artCatalogue.ts`,
- * `rules.ts` — which have no Vue, no `import.meta.env` and no canvas in them.
+ * pure modules a tool needs — the art manifest `src/game/art/artSheet.ts` and
+ * the data it reads (`src/game/data/items.ts`, `skills.ts`) — which have no
+ * Vue, no `import.meta.env` and no canvas in them.
  *
  *   node --import ./tools/ts-resolve.mjs tools/art-prompts.mjs
+ *   node --import ./tools/ts-resolve.mjs tools/art-status.mjs
  *
  * Not part of the app build.
  */
@@ -19,15 +21,15 @@ const SRC = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'src')
 
 const withTs = (specifier) => (/\.[cm]?[jt]s$/.test(specifier) ? specifier : `${specifier}.ts`)
 
-// ─── Survivalist: `import.meta.env` for tool runs ───────────────────────────
+// ─── `import.meta.env` for tool runs ────────────────────────────────────────
 //
-// This project's manifest chain is NOT env-free: `artSheet.ts` reaches
-// `art.ts` (the art flag) and `utils/function.ts` (the base URL), and both read
-// `import.meta.env` at MODULE level — undefined under Node, so the import dies on
-// its first line. Rewriting those reads as optional would change what Vite
-// inlines and dead-code-eliminates in every platform build, which is far too
-// much to spend on a tool. So tool runs get an EMPTY env instead: every flag
-// reads as unset, which is exactly the build default a portal ships with.
+// The art manifest's own chain is env-free and must stay so (the pipeline's
+// tests import it under plain Node). This shim is the safety net for the day
+// a tool needs a module that is not: a `src/` module that reads
+// `import.meta.env` at MODULE level would die on its first line under Node,
+// and rewriting those reads as optional would change what Vite inlines and
+// dead-code-eliminates in every platform build. So tool runs get an EMPTY env
+// instead: every flag reads as unset, which is the build default.
 const ENV_SHIM = '({ MODE: "tools", DEV: false, PROD: false, SSR: false, BASE_URL: "/" })'
 
 registerHooks({
@@ -39,7 +41,7 @@ registerHooks({
     return { ...out, source: src.replaceAll('import.meta.env', ENV_SHIM) }
   },
   resolve(specifier, context, next) {
-    // `@/game/rules` → <repo>/src/game/rules.ts
+    // `@/game/data/items` → <repo>/src/game/data/items.ts
     if (specifier.startsWith('@/')) {
       const file = resolve(SRC, withTs(specifier.slice(2)))
       if (existsSync(file)) return { url: pathToFileURL(file).href, shortCircuit: true }
@@ -47,7 +49,7 @@ registerHooks({
     try {
       return next(specifier, context)
     } catch (err) {
-      // `./rules` → `./rules.ts`
+      // `../data/items` → `../data/items.ts`
       if (specifier.startsWith('.') && !/\.[cm]?[jt]s$/.test(specifier)) {
         return next(withTs(specifier), context)
       }

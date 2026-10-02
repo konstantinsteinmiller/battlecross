@@ -1,0 +1,224 @@
+# Battlecross art prompts — Portraits
+
+Generated from `src/game/art/artSheet.ts` by `pnpm art:prompts` (and by the
+bench at `/#/art-sheets` on export). Do not edit by hand: change the manifest.
+
+Each block is one generation. The heading names the reference image to attach
+and where the sliced result lands; it stays OUTSIDE the fence, so copy the
+fenced text only (a markdown preview gives it a copy button). Save the return
+as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.
+
+## Portraits: townsfolk  (sheet-portraits-town.png → images/portraits/)
+
+```text
+WHAT COMES BACK IS A SHEET OF 9 SEPARATE PORTRAITS, NOT ONE PICTURE.
+One square image, 768 x 768 pixels (1:1), holding 9 separate small drawings laid out 3 across and 3 down, on the same grid as the attached reference, read left to right along the top row first.
+· 9 panels. Not 1, not 6, not 12. Exactly 3 rows of 3 — do not add a row and do not drop one.
+· ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
+· Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+
+EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
+· Head, neck and the top of the shoulders, cut off flat along a level line exactly where the reference cuts it. No arms, no hands, no weapon, no body below the cut.
+· No backdrop behind the head: the game shows each bust inside its own round frame.
+
+WHO EACH PANEL IS:
+Panel 1 (row 1, column 1): a bald, broad-faced blacksmith with a thick brown beard, tan skin and a brown work apron.
+Panel 2 (row 1, column 2): a travelling merchant with a peaked rust-brown cap, fair skin and a green tunic.
+Panel 3 (row 1, column 3): an old village elder with long white hair, a long white beard, pale skin and a dusty-violet robe.
+Panel 4 (row 2, column 1): a healer with ginger hair tied in a round bun on top, fair skin and a cream-white robe with a green collar line.
+Panel 5 (row 2, column 2): a green-skinned goblin merchant with large pointed ears sticking out sideways, a plum-purple peaked cap and a mustard tunic.
+Panel 6 (row 2, column 3): a guard captain in an open-faced steel helmet with a centre ridge, fair skin and a dark red tunic with a grey collar line.
+Panel 7 (row 3, column 1): a shady trader with a violet-black hood up, tan skin and a matching dark robe with a violet collar line.
+Panel 8 (row 3, column 2): a stocky dwarf in a round steel helmet with a centre ridge, ruddy skin, a big ginger beard and a brown apron.
+Panel 9 (row 3, column 3): an inventor with blond hair, round glass goggles on a teal strap pushed up on the forehead, fair skin and a blue-grey apron.
+
+COLOUR — each bust keeps the skin, hair, headgear and clothing colours its panel shows in the reference. Take the HUES from it, not the flatness.
+
+THE VIEW — straight on, facing the viewer, eyes level, the way the reference shows it. No three-quarter turn, no tilt, no profile.
+
+ONE HAND — all 9 busts are the same kind of character drawn by the same artist: the same head size, the same eye shape, the same line weight, the same light from the upper left.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the PANEL, not against the paper.
+· In the reference no drawing is wider than about 76% of its panel or taller than about 77%, and every panel keeps a clear magenta margin on all four sides.
+· Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
+· Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
+· The flat cut along the bottom of each bust stays where the reference has it: it is the edge of the frame the game puts the bust in.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, count and check:
+· 3 panels across, 3 down, 9 in all.
+· The canvas is square, 1:1.
+· Each panel holds exactly one bust, facing front, cut flat along the bottom.
+· There is not one arm, hand or weapon anywhere in it.
+· Nothing in any panel reaches its panel's edge.
+· Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
+
+OUTPUT: one image, 768 x 768 pixels (1:1, square), or the same shape larger. If your tool has an aspect-ratio control, set it to 1:1 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+```
+
+## Portraits: trainers  (sheet-portraits-trainers.png → images/portraits/)
+
+```text
+WHAT COMES BACK IS A SHEET OF 9 SEPARATE PORTRAITS, NOT ONE PICTURE.
+One square image, 768 x 768 pixels (1:1), holding 9 separate small drawings laid out 3 across and 3 down, on the same grid as the attached reference, read left to right along the top row first.
+· 9 panels. Not 1, not 6, not 12. Exactly 3 rows of 3 — do not add a row and do not drop one.
+· ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
+· Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· 1 panel is BLANK in the reference. Leave it flat magenta: do not invent anything for it.
+
+EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
+· Head, neck and the top of the shoulders, cut off flat along a level line exactly where the reference cuts it. No arms, no hands, no weapon, no body below the cut.
+· No backdrop behind the head: the game shows each bust inside its own round frame.
+
+WHO EACH PANEL IS:
+Panel 1 (row 1, column 1): a knight in an open-faced polished steel helmet with a centre ridge, fair skin, silver plate with a gold collar line and a blue cape at the shoulders.
+Panel 2 (row 1, column 2): a rogue with a near-black hood up, tan skin and dark leather with a violet collar line.
+Panel 3 (row 1, column 3): a fire mage with a red-orange hood up, fair skin and a red-orange robe with a gold collar line.
+Panel 4 (row 2, column 1): a monarch with a gold crown set with one red jewel, golden-blond hair, fair skin, a purple robe with a gold collar line and a red cape at the shoulders.
+Panel 5 (row 2, column 2): a mage with sky-blue hair tied in a round bun on top, pale blue-tinted skin and a blue robe with a pale collar line.
+Panel 6 (row 2, column 3): an alchemist with long crimson hair, pale skin, small pointed ears and a cream-white robe with a crimson collar line.
+Panel 7 (row 3, column 1): an engineer with blond hair, round glass goggles on a teal strap pushed up on the forehead, fair skin and a steel-blue jacket with a teal collar line.
+Panel 8 (row 3, column 2): an earth mage with a sand-brown hood up, brown skin and a sand-brown robe.
+Panel 9 (row 3, column 3): BLANK — flat magenta and nothing else.
+
+COLOUR — each bust keeps the skin, hair, headgear and clothing colours its panel shows in the reference. Take the HUES from it, not the flatness.
+
+THE VIEW — straight on, facing the viewer, eyes level, the way the reference shows it. No three-quarter turn, no tilt, no profile.
+
+ONE HAND — all 8 busts are the same kind of character drawn by the same artist: the same head size, the same eye shape, the same line weight, the same light from the upper left.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the PANEL, not against the paper.
+· In the reference no drawing is wider than about 63% of its panel or taller than about 79%, and every panel keeps a clear magenta margin on all four sides.
+· Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
+· Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
+· The flat cut along the bottom of each bust stays where the reference has it: it is the edge of the frame the game puts the bust in.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, count and check:
+· 3 panels across, 3 down, 9 in all.
+· The canvas is square, 1:1.
+· Each panel holds exactly one bust, facing front, cut flat along the bottom.
+· There is not one arm, hand or weapon anywhere in it.
+· Nothing in any panel reaches its panel's edge.
+· Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
+
+OUTPUT: one image, 768 x 768 pixels (1:1, square), or the same shape larger. If your tool has an aspect-ratio control, set it to 1:1 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+```
+
+## Portraits: quest speakers  (sheet-portraits-speakers.png → images/portraits/)
+
+```text
+WHAT COMES BACK IS A SHEET OF 6 SEPARATE PORTRAITS, NOT ONE PICTURE.
+One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+· 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
+· ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
+· Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· 1 panel is BLANK in the reference. Leave it flat magenta: do not invent anything for it.
+
+EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
+· Head, neck and the top of the shoulders, cut off flat along a level line exactly where the reference cuts it. No arms, no hands, no weapon, no body below the cut.
+· No backdrop behind the head: the game shows each bust inside its own round frame.
+
+WHO EACH PANEL IS:
+Panel 1 (row 1, column 1): a goblin chief with bright green skin, large pointed ears sticking out sideways, a gold crown set with one red jewel, a purple robe with a gold collar line and a red cape at the shoulders.
+Panel 2 (row 1, column 2): a warlord whose whole head is inside a closed steel great helm with a T-shaped slit, no face showing, in dark red armour with a red cape at the shoulders.
+Panel 3 (row 1, column 3): a sea-green-skinned seer with small pointed ears, teal hair, a gold crown set with one red jewel, solid pale-gold eyes with no pupils and a teal robe.
+Panel 4 (row 2, column 1): a violet-skinned horned figure with two curved ivory horns, small pointed ears, dark violet hair, solid yellow eyes with no pupils and a dark violet collar with a yellow line.
+Panel 5 (row 2, column 2): a crimson-skinned horned figure with two curved ivory horns, near-black hair, solid pale-yellow eyes with no pupils, dark armour with an amber collar line and a dark red cape at the shoulders.
+Panel 6 (row 2, column 3): BLANK — flat magenta and nothing else.
+
+COLOUR — each bust keeps the skin, hair, headgear and clothing colours its panel shows in the reference. Take the HUES from it, not the flatness.
+
+THE VIEW — straight on, facing the viewer, eyes level, the way the reference shows it. No three-quarter turn, no tilt, no profile.
+
+ONE HAND — all 5 busts are the same kind of character drawn by the same artist: the same head size, the same eye shape, the same line weight, the same light from the upper left.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the PANEL, not against the paper.
+· In the reference no drawing is wider than about 76% of its panel or taller than about 79%, and every panel keeps a clear magenta margin on all four sides.
+· Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
+· Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
+· The flat cut along the bottom of each bust stays where the reference has it: it is the edge of the frame the game puts the bust in.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, count and check:
+· 3 panels across, 2 down, 6 in all.
+· The canvas is landscape, 3:2.
+· Each panel holds exactly one bust, facing front, cut flat along the bottom.
+· There is not one arm, hand or weapon anywhere in it.
+· Nothing in any panel reaches its panel's edge.
+· Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
+
+OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+```

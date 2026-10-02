@@ -88,9 +88,10 @@ __screenshots__/
 /public/images/ui/tinified.zip
 /public-backup/
 
-# The Art Desk archives a replaced painting here (tools/art-desk)
+# The art pipeline's sheets (references, prompts, the index, paintings) are
+# tracked. Only the Art Desk's archive of replaced paintings is not
+# (tools/art-desk).
 /art-sheets/painted/replaced/
-/art-sheets/
 
 # Recorded preview clips (tools/preview-video) — build artifacts, and a
 # lossless 30 s 1080p master runs to well over a hundred megabytes.

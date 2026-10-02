@@ -1,0 +1,2158 @@
+{
+  "version": 1,
+  "cell": 256,
+  "sheets": [
+    {
+      "id": "sheet-items-weapons",
+      "kind": "set",
+      "title": "Item icons: weapons",
+      "files": {
+        "clean": "sheet-items-weapons.png",
+        "key": "sheet-items-weapons-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "rustedShortsword",
+          "label": "Rusted Shortsword",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/rustedShortsword.webp",
+          "fit": {
+            "h": 0.613,
+            "w": 0.527,
+            "bottom": 0.824,
+            "cx": 0.482
+          }
+        },
+        {
+          "id": "apprenticeStaff",
+          "label": "Apprentice Staff",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/apprenticeStaff.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.453,
+            "bottom": 0.844,
+            "cx": 0.539
+          }
+        },
+        {
+          "id": "scoutsHandgun",
+          "label": "Scouts Handgun",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/scoutsHandgun.webp",
+          "fit": {
+            "h": 0.543,
+            "w": 0.66,
+            "bottom": 0.82,
+            "cx": 0.49
+          }
+        },
+        {
+          "id": "ironBroadsword",
+          "label": "Iron Broadsword",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironBroadsword.webp",
+          "fit": {
+            "h": 0.613,
+            "w": 0.527,
+            "bottom": 0.824,
+            "cx": 0.482
+          }
+        },
+        {
+          "id": "vipinsStiletto",
+          "label": "Vipins Stiletto",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/vipinsStiletto.webp",
+          "fit": {
+            "h": 0.445,
+            "w": 0.395,
+            "bottom": 0.746,
+            "cx": 0.475
+          }
+        },
+        {
+          "id": "aetherCarbine",
+          "label": "Aether Carbine",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aetherCarbine.webp",
+          "fit": {
+            "h": 0.543,
+            "w": 0.66,
+            "bottom": 0.82,
+            "cx": 0.49
+          }
+        },
+        {
+          "id": "ashenGreatsword",
+          "label": "Ashen Greatsword",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ashenGreatsword.webp",
+          "fit": {
+            "h": 0.645,
+            "w": 0.559,
+            "bottom": 0.828,
+            "cx": 0.49
+          }
+        },
+        {
+          "id": "archmageWand",
+          "label": "Archmage Wand",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/archmageWand.webp",
+          "fit": {
+            "h": 0.723,
+            "w": 0.582,
+            "bottom": 0.816,
+            "cx": 0.549
+          }
+        },
+        {
+          "id": "chronoBlade",
+          "label": "Chrono Blade",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/chronoBlade.webp",
+          "fit": {
+            "h": 0.613,
+            "w": 0.527,
+            "bottom": 0.824,
+            "cx": 0.482
+          }
+        },
+        {
+          "id": "bloodForgedAxe",
+          "label": "Blood Forged Axe",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bloodForgedAxe.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.527,
+            "bottom": 0.844,
+            "cx": 0.568
+          }
+        },
+        {
+          "id": "voidCannon",
+          "label": "Void Cannon",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/voidCannon.webp",
+          "fit": {
+            "h": 0.645,
+            "w": 0.715,
+            "bottom": 0.836,
+            "cx": 0.494
+          }
+        },
+        {
+          "id": "dragonSmasher",
+          "label": "Dragon Smasher",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/dragonSmasher.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.59,
+            "bottom": 0.844,
+            "cx": 0.58
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-arms",
+      "kind": "set",
+      "title": "Item icons: top weapons and off-hands",
+      "files": {
+        "clean": "sheet-items-arms.png",
+        "key": "sheet-items-arms-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "bladeOfTheUnbound",
+          "label": "Blade Of The Unbound",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bladeOfTheUnbound.webp",
+          "fit": {
+            "h": 0.613,
+            "w": 0.527,
+            "bottom": 0.824,
+            "cx": 0.482
+          }
+        },
+        {
+          "id": "aetheriumDestroyer",
+          "label": "Aetherium Destroyer",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aetheriumDestroyer.webp",
+          "fit": {
+            "h": 0.543,
+            "w": 0.66,
+            "bottom": 0.82,
+            "cx": 0.49
+          }
+        },
+        {
+          "id": "woodenBuckler",
+          "label": "Wooden Buckler",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/woodenBuckler.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.539,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tomeOfNovices",
+          "label": "Tome Of Novices",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/tomeOfNovices.webp",
+          "fit": {
+            "h": 0.625,
+            "w": 0.578,
+            "bottom": 0.82,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironShield",
+          "label": "Iron Shield",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironShield.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.539,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "syringeOfTheAdept",
+          "label": "Syringe Of The Adept",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/syringeOfTheAdept.webp",
+          "fit": {
+            "h": 0.59,
+            "w": 0.586,
+            "bottom": 0.789,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "aethericBattery",
+          "label": "Aetheric Battery",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aethericBattery.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.539,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "aegisTowerShield",
+          "label": "Aegis Tower Shield",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aegisTowerShield.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.539,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "orbOfEternalFlame",
+          "label": "Orb Of Eternal Flame",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/orbOfEternalFlame.webp",
+          "fit": {
+            "h": 0.598,
+            "w": 0.578,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "shieldOfTheFallen",
+          "label": "Shield Of The Fallen",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/shieldOfTheFallen.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.539,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-armor",
+      "kind": "set",
+      "title": "Item icons: body armour",
+      "files": {
+        "clean": "sheet-items-armor.png",
+        "key": "sheet-items-armor-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "paddedTunic",
+          "label": "Padded Tunic",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/paddedTunic.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.641,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "leatherDoublet",
+          "label": "Leather Doublet",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/leatherDoublet.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.641,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "chainmailVest",
+          "label": "Chainmail Vest",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/chainmailVest.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "scholarsRobe",
+          "label": "Scholars Robe",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/scholarsRobe.webp",
+          "fit": {
+            "h": 0.703,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "reinforcedPlate",
+          "label": "Reinforced Plate",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/reinforcedPlate.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "assassinsGarb",
+          "label": "Assassins Garb",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/assassinsGarb.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.641,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "chronoWeaverCloak",
+          "label": "Chrono Weaver Cloak",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/chronoWeaverCloak.webp",
+          "fit": {
+            "h": 0.703,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bloodSoakedPlate",
+          "label": "Blood Soaked Plate",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bloodSoakedPlate.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "exoArmorChassis",
+          "label": "Exo Armor Chassis",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/exoArmorChassis.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "dragonscaleHauberk",
+          "label": "Dragonscale Hauberk",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/dragonscaleHauberk.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "vestmentsOfSovereign",
+          "label": "Vestments Of Sovereign",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/vestmentsOfSovereign.webp",
+          "fit": {
+            "h": 0.703,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "armorOfTheTitan",
+          "label": "Armor Of The Titan",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/armorOfTheTitan.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.641,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-trinkets",
+      "kind": "set",
+      "title": "Item icons: trinkets",
+      "files": {
+        "clean": "sheet-items-trinkets.png",
+        "key": "sheet-items-trinkets-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "copperBand",
+          "label": "Copper Band",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/copperBand.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ringOfMending",
+          "label": "Ring Of Mending",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfMending.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bandOfSwiftness",
+          "label": "Band Of Swiftness",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bandOfSwiftness.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "castersEmblem",
+          "label": "Casters Emblem",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/castersEmblem.webp",
+          "fit": {
+            "h": 0.695,
+            "w": 0.414,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "infiltratorsCharm",
+          "label": "Infiltrators Charm",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/infiltratorsCharm.webp",
+          "fit": {
+            "h": 0.695,
+            "w": 0.414,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "timekeepersHourglass",
+          "label": "Timekeepers Hourglass",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/timekeepersHourglass.webp",
+          "fit": {
+            "h": 0.672,
+            "w": 0.477,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ringOfTheVampyre",
+          "label": "Ring Of The Vampyre",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfTheVampyre.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sovereignsSignet",
+          "label": "Sovereigns Signet",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/sovereignsSignet.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "heartOfTheMountain",
+          "label": "Heart Of The Mountain",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/heartOfTheMountain.webp",
+          "fit": {
+            "h": 0.641,
+            "w": 0.68,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ringOfAbsolutePower",
+          "label": "Ring Of Absolute Power",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfAbsolutePower.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.547,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-aegis",
+      "kind": "set",
+      "title": "Skill icons: Aegis Knight",
+      "files": {
+        "clean": "sheet-skills-aegis.png",
+        "key": "sheet-skills-aegis-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "shieldSlam",
+          "label": "Shield Slam",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/shieldSlam.webp",
+          "fit": {
+            "h": 0.668,
+            "w": 0.73,
+            "bottom": 0.797,
+            "cx": 0.514
+          }
+        },
+        {
+          "id": "aegisAura",
+          "label": "Aegis Aura",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/aegisAura.webp",
+          "fit": {
+            "h": 0.711,
+            "w": 0.711,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "radiantStrike",
+          "label": "Radiant Strike",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/radiantStrike.webp",
+          "fit": {
+            "h": 0.813,
+            "w": 0.813,
+            "bottom": 0.906,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "fortitude",
+          "label": "Fortitude",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/fortitude.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.539,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tauntingCry",
+          "label": "Taunting Cry",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/tauntingCry.webp",
+          "fit": {
+            "h": 0.555,
+            "w": 0.727,
+            "bottom": 0.777,
+            "cx": 0.543
+          }
+        },
+        {
+          "id": "holyBastion",
+          "label": "Holy Bastion",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/holyBastion.webp",
+          "fit": {
+            "h": 0.707,
+            "w": 0.711,
+            "bottom": 0.82,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-shadow",
+      "kind": "set",
+      "title": "Skill icons: Shadowblade",
+      "files": {
+        "clean": "sheet-skills-shadow.png",
+        "key": "sheet-skills-shadow-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "shadowstep",
+          "label": "Shadowstep",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/shadowstep.webp",
+          "fit": {
+            "h": 0.641,
+            "w": 0.75,
+            "bottom": 0.82,
+            "cx": 0.48
+          }
+        },
+        {
+          "id": "lethality",
+          "label": "Lethality",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/lethality.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.703,
+            "bottom": 0.797,
+            "cx": 0.535
+          }
+        },
+        {
+          "id": "venomousBlade",
+          "label": "Venomous Blade",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/venomousBlade.webp",
+          "fit": {
+            "h": 0.527,
+            "w": 0.609,
+            "bottom": 0.793,
+            "cx": 0.48
+          }
+        },
+        {
+          "id": "evasion",
+          "label": "Evasion",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/evasion.webp",
+          "fit": {
+            "h": 0.609,
+            "w": 0.664,
+            "bottom": 0.789,
+            "cx": 0.422
+          }
+        },
+        {
+          "id": "smokeBomb",
+          "label": "Smoke Bomb",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/smokeBomb.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.648,
+            "bottom": 0.852,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "danceOfBlades",
+          "label": "Dance Of Blades",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/danceOfBlades.webp",
+          "fit": {
+            "h": 0.582,
+            "w": 0.648,
+            "bottom": 0.711,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-pyro",
+      "kind": "set",
+      "title": "Skill icons: Pyromancer",
+      "files": {
+        "clean": "sheet-skills-pyro.png",
+        "key": "sheet-skills-pyro-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "fireball",
+          "label": "Fireball",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/fireball.webp",
+          "fit": {
+            "h": 0.758,
+            "w": 0.645,
+            "bottom": 0.859,
+            "cx": 0.443
+          }
+        },
+        {
+          "id": "cauterize",
+          "label": "Cauterize",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/cauterize.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.477,
+            "bottom": 0.805,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "flamePillar",
+          "label": "Flame Pillar",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/flamePillar.webp",
+          "fit": {
+            "h": 0.715,
+            "w": 0.656,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "pyromaniac",
+          "label": "Pyromaniac",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/pyromaniac.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.691,
+            "bottom": 0.805,
+            "cx": 0.541
+          }
+        },
+        {
+          "id": "combustion",
+          "label": "Combustion",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/combustion.webp",
+          "fit": {
+            "h": 0.754,
+            "w": 0.766,
+            "bottom": 0.867,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "cataclysm",
+          "label": "Cataclysm",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/cataclysm.webp",
+          "fit": {
+            "h": 0.754,
+            "w": 0.734,
+            "bottom": 0.859,
+            "cx": 0.527
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-sovereign",
+      "kind": "set",
+      "title": "Skill icons: Grand Sovereign",
+      "files": {
+        "clean": "sheet-skills-sovereign.png",
+        "key": "sheet-skills-sovereign-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "royalGuard",
+          "label": "Royal Guard",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/royalGuard.webp",
+          "fit": {
+            "h": 0.641,
+            "w": 0.508,
+            "bottom": 0.754,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "inspiringPresence",
+          "label": "Inspiring Presence",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/inspiringPresence.webp",
+          "fit": {
+            "h": 0.637,
+            "w": 0.766,
+            "bottom": 0.75,
+            "cx": 0.496
+          }
+        },
+        {
+          "id": "commandFocus",
+          "label": "Command Focus",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/commandFocus.webp",
+          "fit": {
+            "h": 0.82,
+            "w": 0.82,
+            "bottom": 0.91,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sovereignsTribute",
+          "label": "Sovereigns Tribute",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/sovereignsTribute.webp",
+          "fit": {
+            "h": 0.605,
+            "w": 0.488,
+            "bottom": 0.863,
+            "cx": 0.459
+          }
+        },
+        {
+          "id": "bannerOfVictory",
+          "label": "Banner Of Victory",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/bannerOfVictory.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.543,
+            "bottom": 0.871,
+            "cx": 0.518
+          }
+        },
+        {
+          "id": "armyOfTheRealm",
+          "label": "Army Of The Realm",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/armyOfTheRealm.webp",
+          "fit": {
+            "h": 0.5,
+            "w": 0.742,
+            "bottom": 0.691,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-chrono",
+      "kind": "set",
+      "title": "Skill icons: Chrono-Weaver",
+      "files": {
+        "clean": "sheet-skills-chrono.png",
+        "key": "sheet-skills-chrono-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "temporalStasis",
+          "label": "Temporal Stasis",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/temporalStasis.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.742,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hasteField",
+          "label": "Haste Field",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/hasteField.webp",
+          "fit": {
+            "h": 0.727,
+            "w": 0.691,
+            "bottom": 0.922,
+            "cx": 0.541
+          }
+        },
+        {
+          "id": "timeDistort",
+          "label": "Time Distort",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/timeDistort.webp",
+          "fit": {
+            "h": 0.664,
+            "w": 0.773,
+            "bottom": 0.859,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "paradoxShift",
+          "label": "Paradox Shift",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/paradoxShift.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.68,
+            "bottom": 0.887,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "entropy",
+          "label": "Entropy",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/entropy.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.742,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "chronoRewind",
+          "label": "Chrono Rewind",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/chronoRewind.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.668,
+            "bottom": 0.805,
+            "cx": 0.471
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-blood",
+      "kind": "set",
+      "title": "Skill icons: Blood Alchemist",
+      "files": {
+        "clean": "sheet-skills-blood.png",
+        "key": "sheet-skills-blood-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "sanguineFlask",
+          "label": "Sanguine Flask",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/sanguineFlask.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.539,
+            "bottom": 0.82,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bloodTransmutation",
+          "label": "Blood Transmutation",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/bloodTransmutation.webp",
+          "fit": {
+            "h": 0.695,
+            "w": 0.832,
+            "bottom": 0.84,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "essenceHarvest",
+          "label": "Essence Harvest",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/essenceHarvest.webp",
+          "fit": {
+            "h": 0.813,
+            "w": 0.688,
+            "bottom": 0.906,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hemophilia",
+          "label": "Hemophilia",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/hemophilia.webp",
+          "fit": {
+            "h": 0.621,
+            "w": 0.648,
+            "bottom": 0.805,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mutagenicRage",
+          "label": "Mutagenic Rage",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/mutagenicRage.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.68,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "philosophersCrucible",
+          "label": "Philosophers Crucible",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/philosophersCrucible.webp",
+          "fit": {
+            "h": 0.688,
+            "w": 0.758,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-aether",
+      "kind": "set",
+      "title": "Skill icons: Aether-Tech",
+      "files": {
+        "clean": "sheet-skills-aether.png",
+        "key": "sheet-skills-aether-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "aetherPistol",
+          "label": "Aether Pistol",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/aetherPistol.webp",
+          "fit": {
+            "h": 0.707,
+            "w": 0.762,
+            "bottom": 0.82,
+            "cx": 0.541
+          }
+        },
+        {
+          "id": "deployTurret",
+          "label": "Deploy Turret",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/deployTurret.webp",
+          "fit": {
+            "h": 0.543,
+            "w": 0.609,
+            "bottom": 0.855,
+            "cx": 0.566
+          }
+        },
+        {
+          "id": "ventHeat",
+          "label": "Vent Heat",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/ventHeat.webp",
+          "fit": {
+            "h": 0.641,
+            "w": 0.711,
+            "bottom": 0.82,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "thermalOverload",
+          "label": "Thermal Overload",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/thermalOverload.webp",
+          "fit": {
+            "h": 0.75,
+            "w": 0.488,
+            "bottom": 0.871,
+            "cx": 0.557
+          }
+        },
+        {
+          "id": "orbitalBeam",
+          "label": "Orbital Beam",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/orbitalBeam.webp",
+          "fit": {
+            "h": 0.793,
+            "w": 0.641,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "exoSuit",
+          "label": "Exo Suit",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/exoSuit.webp",
+          "fit": {
+            "h": 0.699,
+            "w": 0.539,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills-geo",
+      "kind": "set",
+      "title": "Skill icons: Geomancer",
+      "files": {
+        "clean": "sheet-skills-geo.png",
+        "key": "sheet-skills-geo-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "stoneSpike",
+          "label": "Stone Spike",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/stoneSpike.webp",
+          "fit": {
+            "h": 0.723,
+            "w": 0.719,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "earthBarrier",
+          "label": "Earth Barrier",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/earthBarrier.webp",
+          "fit": {
+            "h": 0.461,
+            "w": 0.68,
+            "bottom": 0.738,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "seismicShock",
+          "label": "Seismic Shock",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/seismicShock.webp",
+          "fit": {
+            "h": 0.621,
+            "w": 0.758,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "earthenSkin",
+          "label": "Earthen Skin",
+          "variant": "skills",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/earthenSkin.webp",
+          "fit": {
+            "h": 0.688,
+            "w": 0.539,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "petrify",
+          "label": "Petrify",
+          "variant": "skills",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/petrify.webp",
+          "fit": {
+            "h": 0.699,
+            "w": 0.445,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tectonicRupture",
+          "label": "Tectonic Rupture",
+          "variant": "skills",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/skills/tectonicRupture.webp",
+          "fit": {
+            "h": 0.586,
+            "w": 0.773,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-portraits-town",
+      "kind": "set",
+      "title": "Portraits: townsfolk",
+      "files": {
+        "clean": "sheet-portraits-town.png",
+        "key": "sheet-portraits-town-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "smith",
+          "label": "Smith",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/smith.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "peddler",
+          "label": "Peddler",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/peddler.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.645,
+            "bottom": 0.898,
+            "cx": 0.506
+          }
+        },
+        {
+          "id": "elder",
+          "label": "Elder",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/elder.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "healer",
+          "label": "Healer",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/healer.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "goblinTrader",
+          "label": "Goblin Trader",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/goblinTrader.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.758,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "captain",
+          "label": "Captain",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/captain.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "fence",
+          "label": "Fence",
+          "variant": "portraits",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/fence.webp",
+          "fit": {
+            "h": 0.73,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "dwarf",
+          "label": "Dwarf",
+          "variant": "portraits",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/dwarf.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tinker",
+          "label": "Tinker",
+          "variant": "portraits",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/tinker.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-portraits-trainers",
+      "kind": "set",
+      "title": "Portraits: trainers",
+      "files": {
+        "clean": "sheet-portraits-trainers.png",
+        "key": "sheet-portraits-trainers-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "trainerAegis",
+          "label": "Trainer Aegis",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerAegis.webp",
+          "fit": {
+            "h": 0.688,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerShadow",
+          "label": "Trainer Shadow",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerShadow.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerPyro",
+          "label": "Trainer Pyro",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerPyro.webp",
+          "fit": {
+            "h": 0.73,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerSovereign",
+          "label": "Trainer Sovereign",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerSovereign.webp",
+          "fit": {
+            "h": 0.785,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerChrono",
+          "label": "Trainer Chrono",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerChrono.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerBlood",
+          "label": "Trainer Blood",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerBlood.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerAether",
+          "label": "Trainer Aether",
+          "variant": "portraits",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerAether.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trainerGeo",
+          "label": "Trainer Geo",
+          "variant": "portraits",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/trainerGeo.webp",
+          "fit": {
+            "h": 0.73,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-portraits-speakers",
+      "kind": "set",
+      "title": "Portraits: quest speakers",
+      "files": {
+        "clean": "sheet-portraits-speakers.png",
+        "key": "sheet-portraits-speakers-key.png"
+      },
+      "width": 768,
+      "height": 512,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "goblinKing",
+          "label": "Goblin King",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/goblinKing.webp",
+          "fit": {
+            "h": 0.785,
+            "w": 0.758,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "warlord",
+          "label": "Warlord",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/warlord.webp",
+          "fit": {
+            "h": 0.703,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "oracle",
+          "label": "Oracle",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/oracle.webp",
+          "fit": {
+            "h": 0.781,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "dragon",
+          "label": "Dragon",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/dragon.webp",
+          "fit": {
+            "h": 0.762,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "archDemon",
+          "label": "Arch Demon",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/archDemon.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "single-ui-coin",
+      "kind": "single",
+      "title": "UI: the gold coin",
+      "files": {
+        "clean": "single-ui-coin.png",
+        "key": "single-ui-coin-key.png"
+      },
+      "width": 256,
+      "height": 256,
+      "cols": 1,
+      "rows": 1,
+      "maxEdge": 64,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "coin",
+          "label": "Coin",
+          "variant": "ui",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/ui/coin.webp",
+          "fit": {
+            "h": 0.707,
+            "w": 0.695,
+            "bottom": 0.84,
+            "cx": 0.5
+          }
+        }
+      ]
+    }
+  ],
+  "scenery": [
+    {
+      "id": "bg-ui-map",
+      "file": "bg-ui-map.png",
+      "title": "UI: the world map parchment",
+      "width": 1376,
+      "height": 768,
+      "target": "images/ui/map.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "bg-ground",
+      "file": "bg-ground.png",
+      "title": "Texture: the ground detail",
+      "width": 512,
+      "height": 512,
+      "target": "images/textures/ground.webp",
+      "maxEdge": 256,
+      "tileable": true,
+      "bg": "opaque"
+    }
+  ]
+}

@@ -4,8 +4,13 @@ const routes: RouteRecordRaw[] = [
   { path: '/', name: 'main', component: () => import('@/views/GameScene.vue') },
   // DEV ONLY: every procedural rig on a turntable, for art iteration. The
   // `import.meta.env.DEV` guard lets Rollup drop the chunk from every build.
+  // `/art-sheets` is the art pipeline's export bench (reference sheets for a
+  // painter, see `src/game/art/artSheet.ts`), under the same guard.
   ...(import.meta.env.DEV
-    ? [{ path: '/models', name: 'models', component: () => import('@/views/ModelLab.vue') }]
+    ? [
+        { path: '/models', name: 'models', component: () => import('@/views/ModelLab.vue') },
+        { path: '/art-sheets', name: 'art-sheets', component: () => import('@/views/ArtSheets.vue') }
+      ]
     : []),
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
@@ -30,9 +35,9 @@ const routes: RouteRecordRaw[] = [
 // `<RouterLink>`. The router exists to mount one component and to keep the
 // dev-only bench reachable.
 //
-// Which is also why hash history is KEPT elsewhere: the dev bench at
-// `/models` is navigated to by typing a URL, and memory history would make it
-// unreachable in dev. The other
+// Which is also why hash history is KEPT elsewhere: the dev benches at
+// `/models` and `/art-sheets` are navigated to by typing a URL, and memory
+// history would make them unreachable in dev. The other
 // portals are shipping and working on hash history, so they are left alone —
 // this is a fix for a measured Playables failure, not a blanket change.
 const router = createRouter({
