@@ -3,6 +3,14 @@
 // the API. It runs on the playground's own free quota (no API key), which is
 // what makes it worth having: the API's free tier is 10 requests a day.
 //
+// STATE (2026-10-02): BLOCKED BY GOOGLE. The first run after a manual
+// sign-in works; after that AI Studio refuses its own access token to a
+// Chrome that has an automation port (`GenerateAccessToken` → 401 "OAuth
+// error: unauthorized_client", then `GenerateContent` → 403 "The caller does
+// not have permission"). It is not a quota. Kept as the starting point for a
+// route that drives a normal window (an extension, or OS-level input); until
+// then use the API engines (`gemini`, `gemini-lite`) with billing on.
+//
 // SIGNING IN (once): `pnpm voice:gen --engine aistudio --sign-in` opens the
 // profile plainly at Google's sign-in (Google refuses sign-in in a window
 // with an automation port); sign in, close that window, run again.

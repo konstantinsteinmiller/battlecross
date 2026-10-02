@@ -53,8 +53,9 @@ onUnmounted(() => setSceneTextLookup(null))
   animation: scene-pop 0.32s cubic-bezier(0.2, 1.5, 0.45, 1) both
   &.top
     top: calc(env(safe-area-inset-top, 0px) + clamp(56px, 11vh, 110px))
+  // Under the boss's title card (its name and sector sit at 38–50 %).
   &.title
-    top: 52%
+    top: 62%
   &.center
     top: 40%
 // Dr. Vex: ornate, gilded and red (the intro's bubble).

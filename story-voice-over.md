@@ -88,18 +88,38 @@ The lines are voiced by text-to-speech, end to end, with no hand editing
    Whisper and checks the words, the length, the loudness and clipping. It
    ships the better passing take to `public/audio/voice/<lang>/` as Opus
    24 kbps in an `.ogg` file. A line with no passing take is listed, never
-   shipped.
+   shipped; `--retry` gives only those lines more takes with new seeds.
+   QA forgives what is Whisper's habit rather than the take's fault: digits
+   for number words, the cast's names ("Wechs" for Vex), a joined compound,
+   one added word. A take may run 1.5× its budget, which is the line's max
+   or the time its words need at a natural pace, whichever is longer. A word
+   the model keeps getting wrong in one line gets a respelling (`SAY` in
+   `collect.mjs`), and QA still checks against the real text.
 4. `pnpm voice:compare` is the blind listening page that picks an engine and
    an encoding. `pnpm voice:setup <engine>` builds the local engines' Python
    environments.
 
 The engines are VoxCPM2, Qwen3-TTS and Chatterbox Multilingual V3 (local, on
-the GPU) and Gemini 3.8 Flash / Flash-Lite TTS (API or AI Studio).
+the GPU) and Gemini 3.8 Flash / Flash-Lite TTS through the API. The AI Studio
+browser route is written but blocked: Google refuses its access token to a
+Chrome with an automation port.
 
 **Chosen on 2026-10-02:** the blind test ranked Gemini Flash-Lite 4.5,
 Gemini Flash and Chatterbox 4.0, and VoxCPM2 and Qwen3 3.3. Production runs
 on **Chatterbox**, which clones Qwen3's designed references. It's free and
-has no quota, whereas the Gemini API's free tier is a few requests a day.
+has no quota, whereas the Gemini API's free tier is 10 requests a day.
+**For later:** re-voice with Gemini Flash-Lite once billing is on for the AI
+Studio project: `pnpm voice:gen --engine gemini-lite --force`. Its voices are
+already designed (`vo-src/refs/voices.json`, valid until Oct 2027).
+
+**In the game (#117):** every live catalogue line has a moment. Atlas speaks
+in missions and the story scenes, Flux barks when hit (`audio/barks.ts`), the
+ending's captions speak, and Dr. Vex has his scenes (`story/vexScene.ts`,
+`story/vexScenes.ts`): the Master presentations, the Mk-I, the Volt Tower
+hack, the Fortress welcome, the hub broadcasts with the blueprint, reserve
+and breach scenes, and the New Game+ sting. Each scene plays once ever.
+Still unwired: Atlas's sector beam-ins, field warnings, hints and machine
+scans, and `atlas.fortress.bays` (the assembly bays aren't built).
 
 **Where `fx.mjs` departs from the blocks below:**
 

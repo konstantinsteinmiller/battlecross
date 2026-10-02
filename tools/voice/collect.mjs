@@ -17,6 +17,26 @@ import { join, relative } from 'node:path'
 import { CARDS, LANGS, ROOT, SAMPLE_KEYS, TONES, VOICE_LINES, VO_SRC, VOICE_OUT, args, fileName, textOf } from './lib.mjs'
 import { normalize } from './normalize.mjs'
 
+/**
+ * Respellings for a word the model keeps getting wrong in one line (by job
+ * id): the model reads `say`, QA still checks the take against the real text.
+ */
+/** Lines whose text is broken on purpose (Vex stuttering "per-fect-ly"): a read-back cannot match it. */
+const BROKEN = new Set(['vex.hub.volt'])
+
+const SAY = {
+  // "Relais" (French, [ʁəˈlɛː]) comes out "Zweiheles" in this two-word exclamation.
+  'de/atlas_arc_2': 'Zwei Relä! Vex schmollt.',
+  // Barks the model spells out as letters or pads with words: a pronounceable sound instead.
+  ...Object.fromEntries([1, 2, 3].flatMap(n => [
+    [`en/flux_hurt_lowHp_${n}`, 'Unnngh!'],
+    [`en/flux_hurt_pit_${n}`, 'Whaaaaaa!'],
+    [`en/flux_hurt_wind_${n}`, 'Whoa, whoa, whoa!']
+  ])),
+  'en/flux_hurt_ice_1': 'Brrrr!',
+  'en/flux_hurt_ice_3': 'Brrrr! Zzt!'
+}
+
 const a = args()
 const mode = a.samples ? 'samples' : a.all ? 'all' : 'live'
 const langs = a.lang ? [a.lang] : LANGS
@@ -47,6 +67,9 @@ for (const line of pick) {
       max: line.max,
       shown,
       text,
+      ...(SAY[`${lang}/${file}`] ? { say: SAY[`${lang}/${file}`] } : {}),
+      // A sound, not words (barks, laughs), or a word broken on purpose: QA does not check it against the text.
+      ...(line.neutral || BROKEN.has(line.key) ? { loose: true } : {}),
       emphasis,
       direction: line.direction[lang === 'de' ? 1 : 0],
       situation: line.when[lang === 'de' ? 1 : 0],

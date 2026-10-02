@@ -614,7 +614,9 @@ while bars and damage numbers get direct DOM writes.
     Gemini API + AI Studio browser route).
   - [ ] **P5 compression lab** + the blind listening report (`pnpm
     voice:compare`) — the one stop for the user's ratings.
-  - [ ] **P6 production run** (winner, every live line EN + DE, 2 takes).
+  - [x] **P6 production run**: Chatterbox, every live line EN + DE (358
+    files, 12.9 min, 3.3 MB as Opus 24k .ogg), 2 takes each + retries; all
+    pass QA.
   - [ ] **P7 full VO** (user, 2026-10-02: "everything, new scenes too";
     scene spec S1–S14 in the decision doc):
     - [x] 7.0 shared: Flux bark channel + hooks, ending/intro voices, the
@@ -627,31 +629,9 @@ while bars and damage numbers get direct DOM writes.
     - [x] 7.3 in the hub: Vex broadcasts (S4), blueprint, reserve and breach
       cinematics (S5–S7).
     - [x] 7.4 the New Game+ sting (S14).
-    - [ ] 7.5 voice every new line (Chatterbox), browser pass.
-  - **Resume here (paused 2026-10-02, account switch):**
-    1. Atlas production ran (`pnpm voice:gen --engine chatterbox`, 2 takes):
-       151/188 shipped to `public/audio/voice/{en,de}` (Opus 24k .ogg,
-       uncommitted). QA was then fixed (uncommitted, `tools/voice/qa.mjs`,
-       `whisper.mjs`, `generate.mjs`): numbers in Whisper's read-back spelled
-       out, a names prompt + name aliases, length budget = max(line max,
-       words / 2.6 + 0.5 s) × 1.5. Re-run `pnpm voice:gen --engine chatterbox`
-       (takes are cached: only post + Whisper rerun) and see how many pass.
-    2. Lines still failing: add a `--retry` mode to generate.mjs (extra takes
-       3–4 with new seeds for lines whose `best` is null), then rerun.
-    3. `pnpm voice:collect` again (live now = Atlas + Flux barks + Vex + the
-       ending + the new Atlas scene lines) and `pnpm voice:gen --engine
-       chatterbox` for the new ones (Flux and Gauss references get designed
-       by Qwen on first use).
-    4. Commit P6/7.5: shipped files, `vo-src/refs` (qwen refs + voices.json:
-       the Gemini voice ids for the later Flash-Lite re-voice), the tool
-       changes (fx.mjs Vex chain softened, post.mjs ships Opus, generate.mjs
-       merges partial runs), voice-todo.md; ignore `vo-src/refs/**/*.voxcpm.*`
-       and `*.gemini.wav` or commit them (decide by size).
-    5. Browser pass on a fresh dev server (own port, check `<title>`):
-       the probe `probe-hub.mjs` (scratchpad) covers the hub scenes; check a
-       boss presentation + Mk-I via `#level` test runs and cheat J.
-    6. Then roadmap #117 tick (+ note Gemini Flash-Lite for later), final
-       report, and ask about P8 (the skill).
+    - [x] 7.5 voice every new line (Chatterbox), browser pass (files decode
+      in Chrome; the hub scenes, a Master's presentation and the Mk-I's
+      beats checked on a private Chrome, no console errors).
   - [ ] **P8 skill** (ask first).
   - Chosen (user's blind test, 2026-10-02): Gemini Flash-Lite 4.5 stars,
     Gemini Flash and Chatterbox 4.0, VoxCPM2 and Qwen3 3.3; Opus 24k/16k
@@ -659,10 +639,14 @@ while bars and damage numbers get direct DOM writes.
     .ogg, so the user can play the game with full VO first.
   - Deferred: re-voice with Gemini 3.8 Flash-Lite once the user commits to a
     paid model (billing on the AI Studio project "Default Gemini Project";
-    `pnpm voice:gen --engine gemini-lite`, voices already designed); the AI
-    Studio browser route's 403 (retest after the quota reset); a small format
-    every browser decodes (iOS < 17); wiring Vex, Flux and Gauss lines into
-    the game.
+    `pnpm voice:gen --engine gemini-lite --force`, voices already designed);
+    the AI Studio browser route (blocked: Google refuses its token to a
+    Chrome with an automation port); a small format every browser decodes
+    (iOS < 17); the label-driven glitches and Flux's synth tails in the FX
+    chains; Atlas's still-unwired lines (sector beam-ins, field warnings,
+    hints, scans, `atlas.fortress.bays`); the Volt Tower and Fortress scenes
+    don't hold enemies asleep and the hub broadcast doesn't put Vex on the
+    Lab's 3D screens (bubble only).
 
 ## Resume notes
 

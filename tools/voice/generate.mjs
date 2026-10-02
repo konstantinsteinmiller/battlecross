@@ -12,6 +12,8 @@
 //   --lang en|de      one language
 //   --no-qa           skip the Whisper read-back (length/level checks still run)
 //   --force           redo takes that exist
+//   --retry [n]       only the lines with no passing take: n more takes each
+//                     (default 2) with new seeds; extra takes on disk always count
 //
 // Engines: tools/voice/engines/<name>.mjs. Work files: vo-src/gen/<engine>/
 // (raw takes, masters, results.json); designed voices: vo-src/refs/.
@@ -35,7 +37,12 @@ const jobsFile = join(VO_SRC, 'jobs', `${mode}.json`)
 if (!existsSync(jobsFile)) throw new Error(`No ${relative(ROOT, jobsFile)}: run pnpm voice:collect${mode === 'live' ? '' : ` --${mode}`} first`)
 const { cards, jobs: all } = JSON.parse(readFileSync(jobsFile, 'utf8'))
 const only = a.only ? new RegExp(a.only) : null
-const jobs = all.filter(j => (!only || only.test(j.key)) && (!a.lang || j.lang === a.lang))
+const work0 = join(VO_SRC, 'gen', engineName)
+const resultsFile = join(work0, `${mode}-results.json`)
+const before = existsSync(resultsFile) ? JSON.parse(readFileSync(resultsFile, 'utf8')).results : []
+const retry = a.retry ? (a.retry === true ? 2 : +a.retry) : 0
+const failing = new Set(before.filter(r => r.best == null).map(r => r.job.id))
+const jobs = all.filter(j => (!only || only.test(j.key)) && (!a.lang || j.lang === a.lang) && (!retry || failing.has(j.id)))
 
 const engine = (await import(pathToFileURL(join(ROOT, 'tools', 'voice', 'engines', `${engineName}.mjs`)).href)).default
 const work = join(VO_SRC, 'gen', engineName)
@@ -58,13 +65,21 @@ for (const [k, v] of Object.entries(voices)) console.log(`  voice ${k}: ${v.id ?
 
 // 2. Speak: every take not on disk yet, one batch (a local engine loads its model once).
 const takeOf = (j, t) => ({ raw: join(work, j.lang, `${j.file}.t${t}.wav`), master: join(work, j.lang, `${j.file}.t${t}.master.wav`) })
+/** How many takes a line has: the default, any extra ones on disk from a retry, and this retry's. */
+const takesFor = (j) => {
+  let n = takes
+  while (existsSync(takeOf(j, n + 1).raw)) n++
+  return n + retry
+}
+/** A seed per line as well as per take: the three takes of one bark must not come out the same. */
+const seedOf = (id) => [...id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 9973, 7)
 const todo = []
 for (const j of jobs) {
   mkdirSync(join(work, j.lang), { recursive: true })
-  for (let t = 1; t <= takes; t++) {
+  for (let t = 1, n = takesFor(j); t <= n; t++) {
     const { raw } = takeOf(j, t)
     if (a.force || !existsSync(raw)) {
-      todo.push({ id: `${j.id}.t${t}`, job: j, take: t, raw, text: j.text, lang: j.lang, tone: j.tone, style: styleFor(j), direction: j.direction, seed: 1000 * t + 17, voice: voices[`${j.speaker}:${j.lang}`], card: cards[j.speaker] })
+      todo.push({ id: `${j.id}.t${t}`, job: j, take: t, raw, text: j.say ?? j.text, lang: j.lang, tone: j.tone, style: styleFor(j), direction: j.direction, seed: 1000 * t + 17 + seedOf(j.id), voice: voices[`${j.speaker}:${j.lang}`], card: cards[j.speaker] })
     }
   }
 }
@@ -78,12 +93,12 @@ for (const f of failed) console.warn(`  ✘ ${f}`)
 const results = []
 for (const j of jobs) {
   const ts = []
-  for (let t = 1; t <= takes; t++) {
+  for (let t = 1; existsSync(takeOf(j, t).raw) || t <= takes; t++) {
     const { raw, master } = takeOf(j, t)
     if (!existsSync(raw)) continue
     try {
       const m = await processTake({ raw, master, ogg: null, speaker: j.speaker, key: j.key, max: j.max })
-      ts.push({ take: t, master, text: j.text, lang: j.lang, ...m })
+      ts.push({ take: t, master, text: j.text, lang: j.lang, ...(j.loose ? { loose: true } : {}), ...m })
     } catch (e) {
       console.warn(`  ✘ post ${j.id}.t${t}: ${e.message.split('\n')[0]}`)
     }
@@ -108,9 +123,7 @@ for (const r of results) {
   r.shipped = relative(ROOT, out).replaceAll('\\', '/')
 }
 
-// A partial run (--only, --lang) updates its lines and keeps the rest.
-const resultsFile = join(work, `${mode}-results.json`)
-const before = existsSync(resultsFile) ? JSON.parse(readFileSync(resultsFile, 'utf8')).results : []
+// A partial run (--only, --lang, --retry) updates its lines and keeps the rest.
 const merged = all.map(j => results.find(r => r.job.id === j.id) ?? before.find(r => r.job.id === j.id)).filter(Boolean)
 writeFileSync(resultsFile, `${JSON.stringify({ engine: engineName, label: engine.label, mode, takes, results: merged }, null, 2)}\n`)
 const ok = results.filter(r => r.best).length

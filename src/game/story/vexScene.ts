@@ -46,7 +46,8 @@ export const sceneUi = reactive({
 let textOf: ((key: string, params: Record<string, string>) => string) | null = null
 export const setSceneTextLookup = (fn: typeof textOf): void => { textOf = fn }
 const readFor = (key: string, params: Record<string, string>): number =>
-  lineSeconds((textOf?.(key, params) ?? key).length)
+  // Half Atlas's reading time: a scene's line sits in a big bubble mid-screen, and the next beat waits on it.
+  Math.min(4, lineSeconds((textOf?.(key, params) ?? key).length) / 2 + 0.6)
 
 /** Vex's motif, then his line: the gap between them (s). */
 export const MOTIF_LEAD = 0.4
@@ -122,6 +123,8 @@ export class Scene {
     }
     const params = b.params ?? {}
     if ('atlas' in b && this.hooks.atlas) {
+      // Atlas answers in his own bubble: Vex's comes down.
+      if (sceneUi.key) Object.assign(sceneUi, { speaker: '', key: '', params: {} })
       this.until = this.t + this.hooks.atlas(b.atlas) + gap
       return
     }
