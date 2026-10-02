@@ -6,6 +6,7 @@ import { app, type GameMode } from './engine/app'
 import { bakeTextures, loadTextureOverrides } from './gfx/textures'
 import { ZoneMode } from './modes/zoneMode'
 import { initProfile } from './state/profile'
+import { hud } from './state/hud'
 import { bindInput, createBootMode, setPrecompile } from './flow'
 import { installSynth, loadSfxOverrides } from './audio/synth'
 
@@ -29,6 +30,9 @@ import { installSynth, loadSfxOverrides } from './audio/synth'
 
 export const input = createInput()
 bindInput(input)
+// The HUD knows which hand is on the controls from its first frame (a phone's
+// stick must be there to grab before the first step of the simulation runs).
+hud.device = input.device
 
 /**
  * Compile a scene's shader programs off the critical frame. `compileAsync`

@@ -11,7 +11,7 @@
  * on its home (`input.joyHome*`, measured here) and floats it under the thumb.
  * The base and knob follow from the HUD ticker with transforms only.
  */
-import { onMounted, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { addHudTicker, hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 
@@ -37,6 +37,10 @@ const measure = (): void => {
   input.joyHomeR = r.width * 0.95
 }
 
+// The stick appears when the hand on the controls turns out to be a finger:
+// measure it the moment it is laid out, not a second later.
+watch(() => hud.device, () => { void nextTick(measure) })
+
 let removeTicker: (() => void) | null = null
 let was = ''
 let frame = 0
@@ -45,7 +49,7 @@ onMounted(() => {
   window.addEventListener('resize', measure)
   removeTicker = addHudTicker(() => {
     // The layout settles a frame or two after a rotation; re-measure cheaply.
-    if (++frame % 45 === 0 && !input.joyActive) measure()
+    if ((input.joyHomeR === 0 || ++frame % 45 === 0) && !input.joyActive) measure()
     const b = base.value
     const k = knob.value
     if (!b || !k) return

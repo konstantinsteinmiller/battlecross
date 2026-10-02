@@ -43,7 +43,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs",
-    "qa:hydrate": "node scripts/hydrate-check.mjs"
+    "qa:hydrate": "node scripts/hydrate-check.mjs",
+    "qa:e2e": "node scripts/e2e-play.mjs"
   },
   "dependencies": {
     "@playgama/bridge": "^2.2.0",

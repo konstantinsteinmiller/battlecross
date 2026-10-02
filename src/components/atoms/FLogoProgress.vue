@@ -312,6 +312,9 @@ const onBackdropGone = (): void => {
 
 .splash-fade-leave-active, .loader-fade-leave-active
   transition: opacity 0.35s ease-out
+  // The scene is live under a fading splash: the fade must not eat the
+  // player's first tap.
+  pointer-events: none
 .splash-fade-leave-to, .loader-fade-leave-to
   opacity: 0
 .hint-fade-enter-active

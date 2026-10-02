@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
-import { attachInput } from '@/game/engine/input'
+import { attachInput, consumeEdges } from '@/game/engine/input'
 import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentZone } from '@/game/boot'
 import { flow, travel, openMap } from '@/game/flow'
@@ -95,7 +95,12 @@ onMounted(async () => {
   app.setWanted(flow.screen !== 'map')
 })
 
-watch(isGamePaused, (p) => app.setSuspended(p))
+watch(isGamePaused, (p) => {
+  // Whatever was pressed while the game stood still is not an order: the Esc
+  // that CLOSED the pause menu must not be read as the Esc that opens it.
+  if (!p) consumeEdges(input)
+  app.setSuspended(p)
+})
 
 // The portals' gameplay bracket (CrazyGames / Poki / Playgama). The rule is in
 // `isGameplayLive`; the Poki arm defers a start inside its 50 ms bad-event

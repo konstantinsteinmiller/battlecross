@@ -99,7 +99,7 @@ let server = null
 const startServer = async () => {
   const before = await titleAt()
   if (before !== null) throw new Error(`port ${PORT} is already serving "${before}" — pass another --port`)
-  server = spawn(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['vite', '--mode', 'crazy-web', '--port', String(PORT), '--strictPort'], { cwd: root, stdio: 'ignore', shell: process.platform === 'win32' })
+  server = spawn(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['vite', '--mode', 'crazy-web', '--port', String(PORT), '--strictPort'], { cwd: root, stdio: 'ignore', shell: process.platform === 'win32', windowsHide: true })
   for (let i = 0; i < 120; i++) {
     await new Promise(r => setTimeout(r, 500))
     const t = await titleAt()
@@ -111,7 +111,7 @@ const startServer = async () => {
 const stopServer = () => {
   if (!server?.pid) return
   try {
-    if (process.platform === 'win32') execSync(`taskkill /PID ${server.pid} /T /F`, { stdio: 'ignore' })
+    if (process.platform === 'win32') execSync(`taskkill /PID ${server.pid} /T /F`, { stdio: 'ignore', windowsHide: true })
     else server.kill('SIGTERM')
   } catch { /* already gone */ }
 }
