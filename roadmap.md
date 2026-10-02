@@ -10,6 +10,80 @@
   That should make the game startup faster and happier players (should not create asset pop-ins)
   DON'T START WITHOUT MY WON INITIATED REQUEST TO START IT.
 
+## Playtest pass (owner's notes, 2026-10-02)
+
+Build order and the decisions taken are in `game-implementation-plan.md`
+(phases 12 onward). A tick means committed and verified in a real browser.
+
+### Look and feel of the world
+
+- [x] #37 ✅ **The map never ends in a cut.** No hard edge of ground against a
+  flat sky: the land continues past the playable area (scenery ring, distance
+  haze, a horizon) in every zone and town.
+- [ ] #38 **Attack choreography.** Every character's attacks are staged:
+  anticipation, a fast strike, follow-through, recovery; per weapon family
+  (sword, axe, dagger, staff, gun, shield) and per enemy kind.
+- [ ] #39 **Swing trails and impact effects on every attack.** Each melee
+  swing leaves a weapon trail; every hit (melee, projectile, spell) has an
+  impact effect sized to the blow, so an attack is always visible.
+- [ ] #40 **Better human models.** Heroes, townsfolk and human enemies stop
+  reading as dolls: proportions, hands, faces, hair, layered clothing.
+- [ ] #41 **Town houses redesigned.** Believable, appealing buildings (timber
+  frame, stone base, roofs with overhang, chimneys, windows, doors, signs).
+- [ ] #42 **Town life.** Trainers and townsfolk have a place and a small
+  routine (wander a small area, eat, drink, smoke, spar, small-talk); some
+  trainers are inside houses instead of standing in a row.
+- [ ] #43 **Ground attack previews redrawn.** Cleaner shapes, a readable fill
+  that shows when the blow lands, clear edges, friend and foe told apart.
+- [ ] #44 **Health bars with 25 / 50 / 75 % marks and frames.** Over-head bars
+  get frames with ornaments by rank (minion, elite, champion, boss); the
+  hero's health, mana and experience bars get the same treatment (no
+  ornaments on the experience bar).
+
+### Interface
+
+- [ ] #45 **F-components in the Battlecross style.** Buttons, windows, tabs,
+  sliders, selects and HUD chips match the colourful cel-shaded chibi look.
+- [ ] #46 **Dialogue system.** Talking to an NPC is a conversation in the
+  world: speech bubbles over heads, a choice list, stable dialogue line ids
+  (ready for voice-over), no jump into a window. Quest decisions run in it.
+- [ ] #47 **Trading that feels like a trade.** A two-sided trade screen
+  (the merchant's goods, your bag, what changes hands and for how much),
+  reached from the conversation.
+- [ ] #48 **Equipment screen.** A paper-doll with equipment slots fed from an
+  inventory (drag or tap to equip, compare, unequip).
+- [ ] #49 **Skills screen overhaul.** Learned skills, the slots they sit in
+  and the classes they come from, made attractive and clear.
+- [ ] #50 **Battle skill buttons.** The skill buttons in a fight get real
+  art (frames, states: ready, cooling down, no mana, locked).
+- [ ] #51 **Painted art for the new screens** through the art pipeline:
+  backgrounds for the skills, inventory and trade screens, the skill button
+  frames, the bar frames.
+- [ ] #52 **Paced introductions.** The player is led, a step at a time, to:
+  how to fight (before the very first fight), using a skill, equipping an
+  item, learning a skill (on entering the town), spending attribute points.
+
+### Sound
+
+- [ ] #53 **New soundtrack.** Slow, adventurous, harmonious action-RPG music:
+  violins and piano, occasional bongos and drums.
+
+### Levels
+
+- [ ] #54 **Loot chests.** Openable chests with a fixed loot table per zone
+  level (items, equipment, health and mana potions, gold).
+- [ ] #55 **Optional corners.** Side areas off the main road: a lone enemy
+  guarding something, or an optional enemy well above the zone's level for a
+  hero whose build can take it.
+- [ ] #56 **Simple puzzles.** Pressure plates stepped on in the right order
+  open a hidden passage to a chest that could not be seen before; solvable by
+  a ten-year-old.
+- [ ] #57 **Elevation.** Hills, ledges and ramps, so a level is not one flat
+  floor.
+- [ ] #58 **Water.** Rivers with crossings and small ponds to walk around.
+- [ ] #59 **Tunnels and caves** that hide loot or optional enemies.
+- [x] #60 ✅ **More ideas for levels** written up in `level-ideas.md`.
+
 ---
 
 # Battlecross roadmap: D1 retention, playtime, conversion

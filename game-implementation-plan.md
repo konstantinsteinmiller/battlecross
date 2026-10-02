@@ -170,3 +170,42 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 - Phase 10 (`51ebb25`, `d40b525`): 160+ unit tests on the rules (GDD tables to the letter, 360 worlds, combat, every skill, generated zones and towns, sheet, shops, flow) and `pnpm qa:e2e` — 86 real-browser checks (desktop play-through with reload, phone touch, five-viewport layout matrix). Found and fixed: a trainer inside a neighbour's house (Sunford, Ironhold), Escape reopening the pause menu, the fading splash swallowing first taps, the phone stick not grabbable right after boot, a weak reference build.
 - Phase 11: store description (length-tested), roadmap (21 items), README, art / sound drop-in lists; the three pipelines adopted — art (manifest, reference bench, slicer, prompts), compressor, gameplay video (`pnpm preview:video`, DEV seam `src/game/previewFeed.ts`, four scenarios; all ten cuts recorded and their beat logs and frames reviewed), Poki deploy config for this game with the reload-idle QA check.
 - Release-readiness pass against the playbook: Poki gesture gate (D33), ad-free start (D32), result-screen wait matched to the longest ad, music back after an ad on every following screen, the per-zone Poki funnel, predecessor ids blanked in the env files.
+
+## 6. Playtest pass (owner's notes of 2026-10-02; roadmap #37 to #60)
+
+How it is run: the main session orchestrates, verifies in a real browser and
+commits; workers own disjoint files per workstream. English strings first
+(`en.ts`), one translation fan-out for all 38 locales at the end of each wave
+(the parity test is red in between, on purpose). Shared hot files
+(`zoneMode.ts`, `flow.ts`, `state/hud.ts`) get minimal, re-read-before-edit
+changes only.
+
+### Decisions (defaults taken; the owner can overrule any)
+
+| ID | Topic | Decision | Source |
+| --- | --- | --- | --- |
+| D36 | Map edge | The camera never sees a horizon (52° down), so "no edge" = ground under every reachable pixel: a coarse land sheet 18 cells past the grid, scenery through the whole unwalkable mass and 13 cells past it (thinner, no outlines, in 15 m tiles so the frustum culls them), distance haze starting just past the playfield | measured camera footprint |
+| D37 | Dialogue | Gothic-style: the world keeps running (hero input locked, camera frames both speakers), the spoken line is a speech bubble over the speaker's head, the player's choices are a list at the bottom. Every line has a stable id (`dlg.<npc>.<topic>.<n>`) that is also its i18n key and its future voice file name. Shops, trainers and the healer are reached as dialogue choices. Quest decisions run in the same UI; a speaker who is not in the scene gets a portrait-anchored bubble | owner's note; Gothic 2 |
+| D38 | Trade | A two-sided trade table: the merchant's goods on one side, the hero's bag on the other, the item in question in the middle with a comparison against what is worn, the price, and the two purses. Items sold in this visit can be bought back at the price paid. Item rules unchanged (unique items, 25 % sell-back, Charisma discount) | Gothic / Skyrim barter |
+| D39 | Equipment | A paper-doll of the hero with the five slots of the GDD (main hand, off hand, body, two trinkets) around it, fed from a bag grid: drag onto a slot or tap twice; the worn item is compared with the selected one. No new slots (GDD §5) | Battleheart Legacy |
+| D40 | Skills screen | The six active and three passive slots as the loadout, the learned skills grouped by class, drag or tap to slot | Battleheart Legacy |
+| D41 | UI style | One token layer (CSS variables). Chunky ink outlines, flat two-tone cel fills with a hard highlight band instead of soft gradients, saturated candy colours, warm parchment panels with coloured ribbons, bouncy presses | `game-and-feel-reference.jpg`, GDD §2 |
+| D42 | Bars | One shared bar: 25 / 50 / 75 % ticks, frames by rank. World bars: minion plain, elite winged, champion crested, boss crowned. Hero: health and mana framed, experience ticked without ornaments | owner's note |
+| D43 | Attacks | The sim's timings do not change (balance). Choreography is view-side: anticipation inside the existing wind-up, a fast strike on the sim's hit time, follow-through and recovery; an elbow and a weapon bone are added; every melee swing leaves a ribbon trail from the weapon tip, every hit an impact sized by the blow; damage-over-time ticks get a small tick effect and no hit-stop | owner's note |
+| D44 | Levels | New per-cell kinds (water, plate, door) beside `solid`; chests are interactables with a per-zone loot table; optional packs do not count for the win and are skipped by the reference bot; water blocks walking but not sight or shots; elevation comes last (it touches every y = 0 in the view) | world map (ground truth) |
+| D45 | Painted art | The new screens ship with code-drawn art in the new style and are painter targets in the art manifest (backgrounds for skills / inventory / trade, skill button frames, bar frames). Painting itself needs the owner's signed-in image model session (`pnpm art:desk`) | art pipeline |
+| D46 | Music | New code-composed score: violin, strings, piano, pizzicato, occasional bongos and hand drum; one theme per zone family, a boss theme that really plays when a boss wakes; no chiptune or synthwave left | owner's note |
+
+### Phases
+
+- [x] **12. Map edge** (#37).
+- [ ] **13. Wave 1** (parallel, disjoint files):
+  - 13a UI foundation: tokens, F-components, shared bar, hero bars, battle skill buttons (#45, #44 HUD half, #50).
+  - 13b Combat look: skeleton, human models, attack choreography, trails, impacts, telegraphs, world health bars (#38, #39, #40, #43, #44 world half).
+  - 13c Levels I: chests and loot tables, optional corners, puzzles, water, caves (#54, #55, #56, #58, #59).
+  - 13d Dialogue system (#46).
+  - 13e Soundtrack (#53).
+- [ ] **14. Wave 2**: town houses and town life (#41, #42); trade, equipment and skills screens, painter targets (#47, #48, #49, #51); elevation (#57).
+- [ ] **15. Wave 3**: paced introductions (#52).
+- [ ] **16. Gate**: translations for all locales, balance re-check (D31), e2e and hydration scripts updated and green, perf check on the throttled phone profile, production build boot.
+

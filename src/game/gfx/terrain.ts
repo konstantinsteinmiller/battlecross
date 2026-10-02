@@ -230,6 +230,11 @@ const noise = (x: number, y: number, seed: number): number => {
   return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v
 }
 
+/** Cells of ground drawn past the grid on every side (the camera's reach up-screen on a tall phone is about 12). */
+const LAND = 18
+/** Cells of scenery past the grid. */
+const WILDS = 13
+
 export interface Terrain {
   root: Group
   theme: Theme
@@ -243,32 +248,46 @@ const _p = new Vector3()
 const _s = new Vector3()
 const _up = new Vector3(0, 1, 0)
 
+/** Side of a scenery tile, metres. One InstancedMesh per shape per tile: an
+ *  instanced mesh is culled as a whole, so a zone-wide one is drawn in full on
+ *  every frame however little of it is on screen. */
+const TILE = 15
+
 const instanced = (shape: PropShape, places: Array<[number, number, number, number]>, outline: boolean, root: Group, owned: BufferGeometry[]): void => {
   if (!places.length) return
+  const tiles = new Map<number, Array<[number, number, number, number]>>()
+  for (const p of places) {
+    const key = Math.floor(p[0] / TILE) * 4096 + Math.floor(p[1] / TILE)
+    const list = tiles.get(key)
+    if (list) list.push(p)
+    else tiles.set(key, [p])
+  }
   const built = shape.build()
   const add = (geos: BufferGeometry[], lit: boolean): void => {
     if (!geos.length) return
     const geo = merge(geos)
     owned.push(geo)
-    const mesh = new InstancedMesh(geo, lit ? celVC() : glowVC(), places.length)
-    const line = lit && outline ? new InstancedMesh(geo, outlineMat(), places.length) : null
-    for (let i = 0; i < places.length; i++) {
-      const [x, z, rot, sc] = places[i]!
-      _q.setFromAxisAngle(_up, rot)
-      _p.set(x, 0, z)
-      _s.set(sc, sc, sc)
-      _m.compose(_p, _q, _s)
-      mesh.setMatrixAt(i, _m)
-      line?.setMatrixAt(i, _m)
-    }
-    mesh.instanceMatrix.needsUpdate = true
-    mesh.computeBoundingSphere()
-    root.add(mesh)
-    if (line) {
-      line.instanceMatrix.needsUpdate = true
-      line.computeBoundingSphere()
-      line.renderOrder = -1
-      root.add(line)
+    for (const list of tiles.values()) {
+      const mesh = new InstancedMesh(geo, lit ? celVC() : glowVC(), list.length)
+      const line = lit && outline ? new InstancedMesh(geo, outlineMat(), list.length) : null
+      for (let i = 0; i < list.length; i++) {
+        const [x, z, rot, sc] = list[i]!
+        _q.setFromAxisAngle(_up, rot)
+        _p.set(x, 0, z)
+        _s.set(sc, sc, sc)
+        _m.compose(_p, _q, _s)
+        mesh.setMatrixAt(i, _m)
+        line?.setMatrixAt(i, _m)
+      }
+      mesh.instanceMatrix.needsUpdate = true
+      mesh.computeBoundingSphere()
+      root.add(mesh)
+      if (line) {
+        line.instanceMatrix.needsUpdate = true
+        line.computeBoundingSphere()
+        line.renderOrder = -1
+        root.add(line)
+      }
     }
   }
   add(built.lit, true)
@@ -427,6 +446,59 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   root.add(groundMesh)
   await slice()
 
+  // ── The land beyond: the world does not stop where the walking does ──
+  // The camera never sees the horizon (it looks down at 52°), so "no edge"
+  // means ground under every pixel it can reach: a coarse sheet under the
+  // whole grid and `LAND` cells past it, in the rim colour where it meets the
+  // detailed ground and drifting darker with distance.
+  {
+    const fw = w + LAND * 2 + 1
+    const fh = h + LAND * 2 + 1
+    const fpos = new Float32Array(fw * fh * 3)
+    const fcol = new Float32Array(fw * fh * 3)
+    const fuv = new Float32Array(fw * fh * 2)
+    const fnor = new Float32Array(fw * fh * 3)
+    const cF = new Color(theme.rim).multiplyScalar(0.72)
+    for (let j = 0; j < fh; j++) {
+      for (let i = 0; i < fw; i++) {
+        const ci = i - LAND
+        const cj = j - LAND
+        const x = ci * CELL
+        const z = cj * CELL
+        // How deep into the unwalkable mass this corner is (cells past ring 3).
+        const ii = Math.max(0, Math.min(w - 1, ci))
+        const jj = Math.max(0, Math.min(h - 1, cj))
+        const out = Math.max(0, -ci, ci - w, -cj, cj - h)
+        const d = Math.min(9, near[jj * w + ii]!) + out
+        const n = noise(x * 0.11, z * 0.11, plan.seed + 3)
+        c.copy(cR).lerp(cF, Math.max(0, Math.min(1, (d - 3) / 5)) * (0.45 + 0.55 * n))
+        const k = j * fw + i
+        fpos[k * 3] = x; fpos[k * 3 + 1] = -0.03; fpos[k * 3 + 2] = z
+        fcol[k * 3] = c.r; fcol[k * 3 + 1] = c.g; fcol[k * 3 + 2] = c.b
+        fuv[k * 2] = x / 5; fuv[k * 2 + 1] = z / 5
+        fnor[k * 3 + 1] = 1
+      }
+    }
+    const fidx: number[] = []
+    for (let j = 0; j < fh - 1; j++) {
+      for (let i = 0; i < fw - 1; i++) {
+        const a = j * fw + i
+        fidx.push(a, a + fw, a + 1, a + 1, a + fw, a + fw + 1)
+      }
+    }
+    const far = new BufferGeometry()
+    far.setAttribute('position', new Float32BufferAttribute(fpos, 3))
+    far.setAttribute('normal', new Float32BufferAttribute(fnor, 3))
+    far.setAttribute('color', new Float32BufferAttribute(fcol, 3))
+    far.setAttribute('uv', new Float32BufferAttribute(fuv, 2))
+    far.setIndex(fidx)
+    owned.push(far)
+    const farMesh = new Mesh(far, celVCMap(groundDetail()))
+    farMesh.renderOrder = -3
+    root.add(farMesh)
+    await slice()
+  }
+
   // ── Border props on the solid cells that face the walkable ground ──
   const borderPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
   const footprint = new Set<number>()
@@ -437,23 +509,34 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     const j1 = Math.floor((b.z + b.d / 2) / CELL)
     for (let j = j0 - 1; j <= j1 + 1; j++) for (let i = i0 - 1; i <= i1 + 1; i++) footprint.add(j * w + i)
   }
-  for (let j = 0; j < h; j++) {
-    for (let i = 0; i < w; i++) {
+  // Past the two rings that face the player, the same scenery carries on,
+  // thinner and without outlines: woods behind the trees, rock behind the
+  // rocks, out to `WILDS` cells beyond the grid.
+  const wildPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
+  const wildDensity = low ? 0.12 : 0.3
+  for (let j = -WILDS; j < h + WILDS; j++) {
+    for (let i = -WILDS; i < w + WILDS; i++) {
+      const inside = i >= 0 && j >= 0 && i < w && j < h
       const k = j * w + i
-      const d = near[k]!
-      if (d === 0 || d > (low ? 1 : 2) || footprint.has(k)) continue
-      // The second ring is thinned: it only has to close the gaps of the first.
-      if (d === 2 && rng() < 0.45) continue
+      const d = inside ? near[k]! : 9
+      if (d === 0 || (inside && footprint.has(k))) continue
+      const facing = d <= (low ? 1 : 2)
+      if (facing) {
+        // The second ring is thinned: it only has to close the gaps of the first.
+        if (d === 2 && rng() < 0.45) continue
+      } else if (rng() > wildDensity) continue
       const shape = pickShape(theme.border, rng())
       const s = theme.border[shape]!
-      borderPlaces[shape]!.push([
-        (i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2,
-        s.s[0] + rng() * (s.s[1] - s.s[0])
+      const jitter = facing ? 0.5 : 0.9
+      ;(facing ? borderPlaces : wildPlaces)[shape]!.push([
+        (i + 0.5 + (rng() - 0.5) * jitter) * CELL, (j + 0.5 + (rng() - 0.5) * jitter) * CELL, rng() * Math.PI * 2,
+        (s.s[0] + rng() * (s.s[1] - s.s[0])) * (facing ? 1 : 1.12)
       ])
     }
   }
   for (let n = 0; n < theme.border.length; n++) {
     instanced(theme.border[n]!, borderPlaces[n]!, true, root, owned)
+    instanced(theme.border[n]!, wildPlaces[n]!, false, root, owned)
     await slice()
   }
 
@@ -507,9 +590,13 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   }
 }
 
-/** Fog that swallows the far border, fitted to the camera's distance. */
+/**
+ * Distance haze, fitted to the camera's distance. The hero stands at depth
+ * `camDist` and the top edge of the screen is at about 1.31 x that, so the
+ * haze begins just past the playfield and only the land beyond fades into it.
+ */
 export const setZoneFog = (scene: Scene, theme: Theme, camDist: number): void => {
-  scene.fog = new Fog(new Color(theme.sky), camDist * 1.25, camDist * 2.6)
+  scene.fog = new Fog(new Color(theme.sky), camDist * 1.2, camDist * 2.05)
 }
 
 // ─── Temporary walls (Earth Barrier, rubble) ─────────────────────────────────
