@@ -45,6 +45,13 @@ export default {
     'block': 'Блок',
     'immune': 'Иммунитет'
   },
+  'level': {
+    'open': 'Открыть',
+    'guarded': 'Под охраной',
+    'locked': 'Заперто',
+    'potion': '+1 зелье',
+    'manaPotion': '+1 зелье маны'
+  },
   'status': {
     'stun': 'Оглушение',
     'knockup': 'В воздухе',
@@ -585,6 +592,7 @@ export default {
     'gold': 'Золото',
     'lost': 'Потеряно',
     'kills': 'Побеждено',
+    'chests': 'Сундуки',
     'time': 'Время',
     'unlocked': 'Новое на карте: {places}',
     'retry': 'Ещё раз',
@@ -661,6 +669,7 @@ export default {
       'skill5': 'Навык 5',
       'skill6': 'Навык 6',
       'potion': 'Выпить зелье',
+      'manaPotion': 'Выпить зелье маны',
       'interact': 'Говорить',
       'target': 'Следующая цель',
       'map': 'Карта мира',

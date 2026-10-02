@@ -64,6 +64,7 @@ export interface Input {
   aimDropX: number
   aimDropY: number
   potionQueued: boolean
+  manaPotionQueued: boolean
   interactQueued: boolean
   targetQueued: boolean
   pauseQueued: boolean
@@ -114,7 +115,7 @@ export const createInput = (): Input => ({
   held: false, dragging: false, ptrX: 0, ptrY: 0, ptrX0: 0, ptrY0: 0,
   dropped: false, dropX: 0, dropY: 0, hoverX: -1, hoverY: -1,
   skillTap: -1, aimSlot: -1, aimX: 0, aimY: 0, aimLive: false, aimDrop: -1, aimDropX: 0, aimDropY: 0,
-  potionQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
+  potionQueued: false, manaPotionQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
   anyPressed: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0, joyHomeX: 0, joyHomeY: 0, joyHomeR: 0,
   touched: false, device: guessDevice(), keysMoving: false
@@ -127,6 +128,7 @@ export const consumeEdges = (i: Input): void => {
   i.skillTap = -1
   i.aimDrop = -1
   i.potionQueued = false
+  i.manaPotionQueued = false
   i.interactQueued = false
   i.targetQueued = false
   i.pauseQueued = false
@@ -310,6 +312,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       const slot = SKILL_ACTIONS[a]
       if (slot !== undefined) input.skillTap = slot
       else if (a === 'potion') input.potionQueued = true
+      else if (a === 'manaPotion') input.manaPotionQueued = true
       else if (a === 'interact') input.interactQueued = true
       else if (a === 'target') { input.targetQueued = true; e.preventDefault() }
       else if (a === 'map') input.panelQueued = 'map'

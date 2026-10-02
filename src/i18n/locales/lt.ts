@@ -44,6 +44,13 @@ export default {
     'block': 'Atremta',
     'immune': 'Imunitetas'
   },
+  'level': {
+    'open': 'Atidaryti',
+    'guarded': 'Saugoma',
+    'locked': 'Užrakinta',
+    'potion': '+1 eliksyras',
+    'manaPotion': '+1 manos eliksyras'
+  },
   'status': {
     'stun': 'Apsvaigimas',
     'knockup': 'Ore',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Auksas',
     'lost': 'Prarasta',
     'kills': 'Įveikta',
+    'chests': 'Skrynios',
     'time': 'Laikas',
     'unlocked': 'Nauja žemėlapyje: {places}',
     'retry': 'Bandyti dar kartą',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Įgūdis 5',
       'skill6': 'Įgūdis 6',
       'potion': 'Gerti eliksyrą',
+      'manaPotion': 'Gerti manos eliksyrą',
       'interact': 'Kalbėti',
       'target': 'Kitas taikinys',
       'map': 'Pasaulio žemėlapis',

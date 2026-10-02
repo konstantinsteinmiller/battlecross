@@ -44,6 +44,13 @@ export default {
     'block': 'บล็อก',
     'immune': 'ไม่มีผล'
   },
+  'level': {
+    'open': 'เปิด',
+    'guarded': 'มีผู้เฝ้า',
+    'locked': 'ล็อกอยู่',
+    'potion': '+1 ยา',
+    'manaPotion': '+1 ยามานา'
+  },
   'status': {
     'stun': 'สตัน',
     'knockup': 'ลอยกลางอากาศ',
@@ -567,6 +574,7 @@ export default {
     'gold': 'ทอง',
     'lost': 'เสียไป',
     'kills': 'ปราบได้',
+    'chests': 'หีบ',
     'time': 'เวลา',
     'unlocked': 'ใหม่บนแผนที่: {places}',
     'retry': 'ลองอีกครั้ง',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'สกิล 5',
       'skill6': 'สกิล 6',
       'potion': 'ดื่มยา',
+      'manaPotion': 'ดื่มยามานา',
       'interact': 'พูดคุย',
       'target': 'เป้าหมายถัดไป',
       'map': 'แผนที่โลก',

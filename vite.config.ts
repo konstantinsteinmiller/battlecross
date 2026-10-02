@@ -96,6 +96,7 @@ const readSnapshotFile = (file: string): LeaderboardSnapshotFile | null => {
 //   public/audio/music/<track id>.ogg|mp3|m4a
 //   public/images/textures/ground.webp|png|jpg
 //   public/images/items|skills|portraits|ui/<name>.webp|png|jpg
+//   public/audio/voice/<lang>/<dialogue line id>.ogg|mp3|m4a   (one folder per language)
 //
 // The folders are listed HERE, at build time, into `virtual:asset-overrides`,
 // so the game only ever requests files that exist: probing at runtime would
@@ -111,8 +112,24 @@ const OVERRIDE_DIRS = {
   portraits: { dir: 'public/images/portraits', exts: IMAGE_EXTS },
   ui: { dir: 'public/images/ui', exts: IMAGE_EXTS }
 } as const
-const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS, string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[] }
+// Spoken dialogue lines: one sub-folder per language, a file per line id
+// (`dlg.sunfordSmith.hello.1.ogg`). Listed as `<lang>/<file>`.
+const VOICE_DIR = 'public/audio/voice'
+const VOICE_EXTS = ['.ogg', '.mp3', '.m4a']
+const scanVoice = (): string[] => {
+  const abs = fileURLToPath(new URL(`./${VOICE_DIR}`, import.meta.url))
+  if (!existsSync(abs)) return []
+  const out: string[] = []
+  for (const lang of readdirSync(abs, { withFileTypes: true })) {
+    if (!lang.isDirectory()) continue
+    for (const f of readdirSync(resolve(abs, lang.name))) {
+      if (VOICE_EXTS.includes(f.slice(f.lastIndexOf('.')).toLowerCase()) && !/-original\.[a-z0-9]+$/i.test(f)) out.push(`${lang.name}/${f}`)
+    }
+  }
+  return out.sort()
+}
+const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], voice: scanVoice() }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue
@@ -131,7 +148,7 @@ const assetOverridesPlugin = (): Plugin => {
     resolveId: (id) => (id === ID ? RESOLVED : null),
     load: (id) => (id === RESOLVED ? `export default ${JSON.stringify(scanOverrides())}` : null),
     configureServer(server) {
-      const dirs = Object.values(OVERRIDE_DIRS).map(d => fileURLToPath(new URL(`./${d.dir}`, import.meta.url)))
+      const dirs = [...Object.values(OVERRIDE_DIRS).map(d => d.dir), VOICE_DIR].map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
       server.watcher.add(dirs)
       const onChange = (file: string) => {
         if (!dirs.some(d => file.startsWith(d))) return

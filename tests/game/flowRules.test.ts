@@ -145,7 +145,9 @@ describe('Continue on the result screen', () => {
   it('goes to the decision when the finale brought one, and to the ending after the throne', async () => {
     await f.bankVisit('victory', 'hollows', tally())
     await f.leaveResults()
-    expect(f.flow.modal).toBe('decision')
+    // The decision is a conversation over the scene (D37), not a window.
+    expect(f.flow.modal).toBe('')
+    expect(f.flow.talk).toBe('decision')
     p.decideQuest('goblinKing', 'slay')
     f.afterVisit()
     expect(f.flow.screen).toBe('map')

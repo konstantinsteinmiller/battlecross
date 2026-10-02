@@ -1,6 +1,6 @@
 <template lang="pug">
   FModal(
-    :model-value="true"
+    :model-value="true" surface="wood"
     :tabs="tabs"
     :active-tab="flow.modal"
     @update:active-tab="setTab"

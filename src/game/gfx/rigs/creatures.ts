@@ -7,8 +7,15 @@ import { RigBuilder, cap, dome, ell, lathe, rbox, rcone, rcyl, rock, sph, torus,
  * wyverns, the dragon, and the Aether-Tech turrets. Same kit, same rules as
  * the humanoid: rounded parts, one skinned mesh, cute before scary.
  *
- * Bone names matter: `anim.ts` poses each family by them.
+ * Bone names matter: `anim.ts` poses each family by them. The two-legged ones
+ * (treant, golem, elemental, naga) share the humanoid's names and so its
+ * choreography; each carries a `weapon` bone whose +Z runs to where its blow
+ * lands (down the arm for a fist, up the shaft for a trident), which is what a
+ * swing's trail is read from.
  */
+
+/** A fist is its own weapon: the bone points down the arm. */
+const FIST: [number, number, number] = [Math.PI / 2, 0, 0]
 
 const DARK = '#1b1626'
 const EYE = '#241a2e'
@@ -104,6 +111,8 @@ export const buildTreant = (variant: 'treant' | 'elder'): Rig => {
   b.mirror((s, t) => {
     b.bone('arm' + t, 'torso', [s * 0.36, 0.42, 0])
     b.bone('hand' + t, 'arm' + t, [0, -0.42, 0])
+    if (s > 0) b.bone('weapon', 'handR', [0, 0, 0], FIST)
+    else b.bone('offhand', 'handL', [0, 0, 0], FIST)
     b.bone('leg' + t, 'hips', [s * 0.16, 0, 0])
     b.part('leg' + t, rcone(0.16, 0.12, 0.34, 0.04, 9), bark, { p: [0, -0.17, 0] })
     b.part('arm' + t, cap(0.1, 0.3, 8, 3), bark, { p: [0, -0.2, 0] })
@@ -139,6 +148,8 @@ export const buildGolem = (variant: 'iron' | 'colossus'): Rig => {
   b.mirror((s, t) => {
     b.bone('arm' + t, 'torso', [s * 0.46, 0.46, 0])
     b.bone('hand' + t, 'arm' + t, [0, -0.44, 0])
+    if (s > 0) b.bone('weapon', 'handR', [0, 0, 0], FIST)
+    else b.bone('offhand', 'handL', [0, 0, 0], FIST)
     b.bone('leg' + t, 'hips', [s * 0.19, 0, 0])
     b.part('leg' + t, rbox(0.24, 0.36, 0.26, 0.5, 10, 8), dark, { p: [0, -0.19, 0] })
     b.part('arm' + t, rbox(0.22, 0.4, 0.24, 0.5, 10, 8), stone, { p: [0, -0.2, 0] })
@@ -170,6 +181,8 @@ export const buildElemental = (variant: 'fire' | 'emberLord' | 'void'): Rig => {
   b.mirror((s, t) => {
     b.bone('arm' + t, 'torso', [s * 0.34, 0.34, 0])
     b.bone('hand' + t, 'arm' + t, [0, -0.26, 0])
+    if (s > 0) b.bone('weapon', 'handR', [0, 0, 0], FIST)
+    else b.bone('offhand', 'handL', [0, 0, 0], FIST)
     b.part('hand' + t, sph(0.13, 8, 6), mid, { glow: true })
     b.part('hand' + t, sph(0.08, 8, 6), hot, { p: [0, 0.02, 0.06], glow: true, outline: false })
   })
@@ -205,6 +218,9 @@ export const buildNaga = (variant: 'naga' | 'oracle'): Rig => {
   b.mirror((s, t) => {
     b.bone('arm' + t, 'torso', [s * 0.235, 0.33, 0])
     b.bone('hand' + t, 'arm' + t, [0, -0.27, 0])
+    // The trident stands upright in a hanging hand; the oracle strikes with a bare one.
+    if (s > 0) b.bone('weapon', 'handR', [0, 0, 0.06], variant === 'naga' ? [-1.45, 0, 0] : FIST)
+    else b.bone('offhand', 'handL', [0, 0, 0], FIST)
     b.part('arm' + t, cap(0.065, 0.13, 8, 3), scale, { p: [0, -0.12, 0] })
     b.part('hand' + t, sph(0.085, 8, 6), scale, {})
   })
@@ -222,8 +238,8 @@ export const buildNaga = (variant: 'naga' | 'oracle'): Rig => {
   b.mirror((s) => { b.part('head', rbox(0.2, 0.2, 0.03, 0.5, 8, 6), fin, { p: [s * 0.32, 0.24, -0.02], r: [0, -s * 0.5, 0] }) })
   // A trident for the warriors; an orb of tide for the oracle.
   if (variant === 'naga') {
-    b.part('handR', rcyl(0.024, 1, 0.012, 8, 2), '#c9a24a', { p: [0, 0.3, 0.06] })
-    for (let k = -1; k <= 1; k++) b.part('handR', rcone(0.03, 0.006, 0.2, 0.006, 6), '#e8f4ff', { p: [k * 0.08, 0.88, 0.06] })
+    b.part('weapon', rcyl(0.024, 1, 0.012, 8, 2), '#c9a24a', { p: [0, 0, 0.3], r: [Math.PI / 2, 0, 0] })
+    for (let k = -1; k <= 1; k++) b.part('weapon', rcone(0.03, 0.006, 0.2, 0.006, 6), '#e8f4ff', { p: [k * 0.08, 0, 0.88], r: [Math.PI / 2, 0, 0] })
   } else {
     b.part('handL', sph(0.13, 10, 8), '#7fe8ff', { p: [0, 0.08, 0.16], glow: true })
     b.part('head', torus(0.2, 0.03, 6, 14), '#ffd24a', { p: [0, 0.5, 0], r: [Math.PI / 2, 0, 0] })

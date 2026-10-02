@@ -45,6 +45,13 @@ export default {
     'block': 'Блок',
     'immune': 'Имунитет'
   },
+  'level': {
+    'open': 'Отвори',
+    'guarded': 'Охранява се',
+    'locked': 'Заключено',
+    'potion': '+1 отвара',
+    'manaPotion': '+1 отвара за мана'
+  },
   'status': {
     'stun': 'Зашеметяване',
     'knockup': 'Във въздуха',
@@ -585,6 +592,7 @@ export default {
     'gold': 'Злато',
     'lost': 'Изгубено',
     'kills': 'Победени',
+    'chests': 'Сандъци',
     'time': 'Време',
     'unlocked': 'Ново на картата: {places}',
     'retry': 'Опитай пак',
@@ -661,6 +669,7 @@ export default {
       'skill5': 'Умение 5',
       'skill6': 'Умение 6',
       'potion': 'Изпий отвара',
+      'manaPotion': 'Изпий отвара за мана',
       'interact': 'Говори',
       'target': 'Следваща цел',
       'map': 'Карта на света',

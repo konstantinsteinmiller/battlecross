@@ -1,5 +1,5 @@
 import { ITEM_BY_ID, TIER_COLOR, type EquipSlot } from '../../data/items'
-import type { Held, Look, OffHand } from './humanoid'
+import type { GearKind, HeadGear, Held, Look, OffHand } from './humanoid'
 
 /**
  * Who looks like what. Every two-legged thing in the game is one `Look` on the
@@ -80,6 +80,18 @@ const HELD_OF: Record<string, Held> = {
   gun: 'gun', cannon: 'cannon'
 }
 const OFF_OF: Record<string, OffHand> = { shield: 'shield', tome: 'tome', orb: 'orb', syringe: 'syringe', battery: 'battery' }
+/** Head items by kind → what is drawn on the head. */
+const HEAD_OF: Record<string, HeadGear> = {
+  hood: 'hood', cap: 'leathercap', helm: 'helm', greathelm: 'greathelm', circlet: 'circlet', hat: 'hat'
+}
+/** What a head item is made of, where its tier does not colour it. */
+const HEAD_COL: Record<string, string> = {
+  hood: '#4a5a8a', cap: '#8a5f3a', helm: '#c9d3e4', greathelm: '#b9c4d6', circlet: '#ffd24a', hat: '#6a4a8a'
+}
+const HAIR = '#7a4a2a'
+
+/** Gloves and boots: cloth or leather by tier, plate for gauntlets and greaves. */
+const wornKind = (kind: string, tier: number, plate: string): GearKind => (kind === plate ? 'plate' : tier <= 2 ? 'cloth' : 'leather')
 
 /** The hero as his gear makes him look. Tier colours the trim; the body
  *  armour's class decides the outfit. */
@@ -89,13 +101,30 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>): Look => {
   const body = equipped.body ? ITEM_BY_ID[equipped.body] : undefined
   const tier = body?.tier ?? 0
   const trim = tier ? TIER_COLOR[tier]! : '#c9a24a'
+  // Head, hands and feet: slots a newer save has and an older one does not.
+  const worn = equipped as Partial<Record<string, string | null>>
+  const head = ITEM_BY_ID[worn.head ?? '']
+  const hands = ITEM_BY_ID[worn.hands ?? '']
+  const feet = ITEM_BY_ID[worn.feet ?? '']
+  const headKind: string = head?.kind ?? ''
+  const headGear = HEAD_OF[headKind]
   const outfit: Look['outfit'] = body?.kind === 'plate' ? 'plate' : body?.kind === 'robe' ? 'robe' : body?.kind === 'leather' ? 'leather' : 'tunic'
   const tops: Record<string, string> = { plate: '#c9d3e4', robe: '#4a5fd6', leather: '#8a5f3a', tunic: '#3f7fd6' }
   const mainTier = main?.tier ?? 1
   return L({
     skin: '#f2c8a0',
-    hair: '#7a4a2a',
-    head: 'short',
+    hair: HAIR,
+    hero: true,
+    eye: '#3f8fd6',
+    // Bare-headed he wears his hair; under a helmet or a hat it is tucked in.
+    head: headGear ? (headGear === 'hat' && outfit === 'robe' ? 'wizard' : headGear) : 'short',
+    style: 'short',
+    headCol: head ? (headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? '#ffe9a8' : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
+    headTrim: head ? TIER_COLOR[head.tier] : undefined,
+    gloves: hands ? wornKind(hands.kind, hands.tier, 'gauntlets') : undefined,
+    gloveTrim: hands ? TIER_COLOR[hands.tier] : undefined,
+    boots: feet ? wornKind(feet.kind, feet.tier, 'greaves') : undefined,
+    bootTrim: feet ? TIER_COLOR[feet.tier] : undefined,
     top: tops[outfit]!,
     bottom: outfit === 'plate' ? '#5a6a88' : '#3a4a6a',
     trim,
@@ -111,4 +140,8 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>): Look => {
 
 /** A stable key for a look (rig templates are cached by it). */
 export const lookKey = (l: Look): string =>
-  [l.skin, l.hair, l.head, l.top, l.bottom, l.trim, l.outfit, l.held, l.off, l.metal, l.glow, l.ears, l.eyeGlow, l.cape, l.wings, l.tail, l.beard, l.pauldrons ? 1 : 0, l.bulk ?? 1].join('|')
+  [
+    l.skin, l.hair, l.head, l.top, l.bottom, l.trim, l.outfit, l.held, l.off, l.metal, l.glow, l.ears, l.eyeGlow, l.cape,
+    l.wings, l.tail, l.beard, l.pauldrons ? 1 : 0, l.bulk ?? 1, l.eye, l.cowl ? 1 : 0, l.hero ? 1 : 0, l.style, l.headCol,
+    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim
+  ].join('|')

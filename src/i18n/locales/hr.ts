@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Imunost'
   },
+  'level': {
+    'open': 'Otvori',
+    'guarded': 'Čuvano',
+    'locked': 'Zaključano',
+    'potion': '+1 napitak',
+    'manaPotion': '+1 napitak mane'
+  },
   'status': {
     'stun': 'Omamljenost',
     'knockup': 'U zraku',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Zlato',
     'lost': 'Izgubljeno',
     'kills': 'Poraženo',
+    'chests': 'Škrinje',
     'time': 'Vrijeme',
     'unlocked': 'Novo na karti: {places}',
     'retry': 'Pokušaj ponovno',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Vještina 5',
       'skill6': 'Vještina 6',
       'potion': 'Popij napitak',
+      'manaPotion': 'Popij napitak mane',
       'interact': 'Razgovor',
       'target': 'Sljedeća meta',
       'map': 'Karta svijeta',

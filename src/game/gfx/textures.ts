@@ -19,6 +19,7 @@ let groundTex: Texture | null = null
 let glowTex: Texture | null = null
 let ringTex: Texture | null = null
 let softTex: Texture | null = null
+let glyphTex: Texture | null = null
 
 const make = (w: number, h: number, draw: (g: CanvasRenderingContext2D) => void): Texture => {
   const c = document.createElement('canvas')
@@ -151,10 +152,51 @@ export const ringTexture = (): Texture => {
   return ringTex
 }
 
+/**
+ * The health bars' badge glyphs: the ten digits and a skull, white on nothing,
+ * in a 4 × 4 grid (cells 0–9 the digits, 10 the skull). The bar shader reads
+ * the alpha only.
+ */
+export const barGlyphs = (): Texture => {
+  if (glyphTex) return glyphTex
+  const C = 64
+  glyphTex = make(C * 4, C * 4, (g) => {
+    g.clearRect(0, 0, C * 4, C * 4)
+    g.fillStyle = '#ffffff'
+    g.textAlign = 'center'
+    g.textBaseline = 'middle'
+    g.font = '900 58px "Arial Black", "Segoe UI", system-ui, sans-serif'
+    for (let n = 0; n < 10; n++) g.fillText(String(n), (n % 4) * C + C / 2, Math.floor(n / 4) * C + C / 2 + 3)
+    // The skull: a dome, a jaw, two sockets, a nose, a row of teeth.
+    const x = 2 * C + C / 2
+    const y = 2 * C + C / 2
+    g.beginPath()
+    g.arc(x, y - 5, 21, 0, Math.PI * 2)
+    g.fill()
+    g.fillRect(x - 13, y + 8, 26, 15)
+    g.globalCompositeOperation = 'destination-out'
+    for (const s of [-1, 1]) {
+      g.beginPath()
+      g.ellipse(x + s * 9, y - 5, 6.5, 7.5, 0, 0, Math.PI * 2)
+      g.fill()
+    }
+    g.beginPath()
+    g.moveTo(x, y + 3)
+    g.lineTo(x - 3.5, y + 10)
+    g.lineTo(x + 3.5, y + 10)
+    g.fill()
+    for (const k of [-6, 0, 6]) g.fillRect(x + k - 1, y + 14, 2, 9)
+    g.globalCompositeOperation = 'source-over'
+  })
+  glyphTex.wrapS = glyphTex.wrapT = ClampToEdgeWrapping
+  return glyphTex
+}
+
 /** Bake every shared texture now (called from the boot loader). */
 export const bakeTextures = (): void => {
   groundDetail()
   glowTexture()
   softDisc()
   ringTexture()
+  barGlyphs()
 }

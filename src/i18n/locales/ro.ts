@@ -44,6 +44,13 @@ export default {
     'block': 'Blocat',
     'immune': 'Imun'
   },
+  'level': {
+    'open': 'Deschide',
+    'guarded': 'Păzit',
+    'locked': 'Încuiat',
+    'potion': '+1 poțiune',
+    'manaPotion': '+1 poțiune de mană'
+  },
   'status': {
     'stun': 'Amețit',
     'knockup': 'În aer',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Aur',
     'lost': 'Pierdut',
     'kills': 'Învinși',
+    'chests': 'Cufere',
     'time': 'Timp',
     'unlocked': 'Nou pe hartă: {places}',
     'retry': 'Încearcă din nou',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Abilitatea 5',
       'skill6': 'Abilitatea 6',
       'potion': 'Bea poțiunea',
+      'manaPotion': 'Bea poțiunea de mană',
       'interact': 'Vorbește',
       'target': 'Ținta următoare',
       'map': 'Harta lumii',

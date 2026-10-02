@@ -44,6 +44,13 @@ export default {
     'block': 'صدّ',
     'immune': 'منيع'
   },
+  'level': {
+    'open': 'فتح',
+    'guarded': 'محروس',
+    'locked': 'مقفل',
+    'potion': '+1 جرعة',
+    'manaPotion': '+1 جرعة مانا'
+  },
   'status': {
     'stun': 'مصعوق',
     'knockup': 'في الهواء',
@@ -567,6 +574,7 @@ export default {
     'gold': 'الذهب',
     'lost': 'ما سقط منك',
     'kills': 'الأعداء المهزومون',
+    'chests': 'الصناديق',
     'time': 'الوقت',
     'unlocked': 'جديد على الخريطة: {places}',
     'retry': 'حاول مجدداً',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'المهارة 5',
       'skill6': 'المهارة 6',
       'potion': 'اشرب الجرعة',
+      'manaPotion': 'اشرب جرعة المانا',
       'interact': 'تحدّث',
       'target': 'الهدف التالي',
       'map': 'خريطة العالم',

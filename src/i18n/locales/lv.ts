@@ -45,6 +45,13 @@ export default {
     'block': 'Bloķēts',
     'immune': 'Imūns'
   },
+  'level': {
+    'open': 'Atvērt',
+    'guarded': 'Apsargāts',
+    'locked': 'Aizslēgts',
+    'potion': '+1 dzira',
+    'manaPotion': '+1 manas dzira'
+  },
   'status': {
     'stun': 'Apdullināts',
     'knockup': 'Gaisā',
@@ -585,6 +592,7 @@ export default {
     'gold': 'Zelts',
     'lost': 'Zaudēts',
     'kills': 'Sakauti',
+    'chests': 'Lādes',
     'time': 'Laiks',
     'unlocked': 'Jaunums kartē: {places}',
     'retry': 'Mēģināt vēlreiz',
@@ -661,6 +669,7 @@ export default {
       'skill5': 'Prasme 5',
       'skill6': 'Prasme 6',
       'potion': 'Dzert dziru',
+      'manaPotion': 'Dzert manas dziru',
       'interact': 'Runāt',
       'target': 'Nākamais mērķis',
       'map': 'Pasaules karte',

@@ -44,6 +44,13 @@ export default {
     'block': 'Geblokt',
     'immune': 'Immuun'
   },
+  'level': {
+    'open': 'Openen',
+    'guarded': 'Bewaakt',
+    'locked': 'Op slot',
+    'potion': '+1 drank',
+    'manaPotion': '+1 manadrank'
+  },
   'status': {
     'stun': 'Verdoofd',
     'knockup': 'In de lucht',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Goud',
     'lost': 'Verloren',
     'kills': 'Verslagen',
+    'chests': 'Kisten',
     'time': 'Tijd',
     'unlocked': 'Nieuw op de kaart: {places}',
     'retry': 'Nog eens',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Vaardigheid 5',
       'skill6': 'Vaardigheid 6',
       'potion': 'Drank drinken',
+      'manaPotion': 'Manadrank drinken',
       'interact': 'Praten',
       'target': 'Volgend doelwit',
       'map': 'Wereldkaart',

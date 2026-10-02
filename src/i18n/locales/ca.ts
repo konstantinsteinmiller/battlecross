@@ -44,6 +44,13 @@ export default {
     'block': 'Bloquejat',
     'immune': 'Immune'
   },
+  'level': {
+    'open': 'Obre',
+    'guarded': 'Vigilat',
+    'locked': 'Tancat',
+    'potion': '+1 poció',
+    'manaPotion': '+1 poció de manà'
+  },
   'status': {
     'stun': 'Atordit',
     'knockup': 'Enlairat',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Or',
     'lost': 'Perdut',
     'kills': 'Derrotats',
+    'chests': 'Cofres',
     'time': 'Temps',
     'unlocked': 'Nou al mapa: {places}',
     'retry': 'Torna-ho a provar',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Habilitat 5',
       'skill6': 'Habilitat 6',
       'potion': 'Beu poció',
+      'manaPotion': 'Beu poció de manà',
       'interact': 'Parla',
       'target': 'Objectiu següent',
       'map': 'Mapa del món',

@@ -44,6 +44,13 @@ export default {
     'block': 'ブロック',
     'immune': '無効'
   },
+  'level': {
+    'open': '開ける',
+    'guarded': '守られている',
+    'locked': 'ロック中',
+    'potion': 'ポーション +1',
+    'manaPotion': 'マナポーション +1'
+  },
   'status': {
     'stun': 'スタン',
     'knockup': '打ち上げ',
@@ -567,6 +574,7 @@ export default {
     'gold': 'ゴールド',
     'lost': '失った分',
     'kills': '撃破数',
+    'chests': '宝箱',
     'time': 'タイム',
     'unlocked': 'マップに追加：{places}',
     'retry': 'もう一度',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'スキル5',
       'skill6': 'スキル6',
       'potion': 'ポーションを飲む',
+      'manaPotion': 'マナポーションを飲む',
       'interact': '話す',
       'target': '次のターゲット',
       'map': 'ワールドマップ',

@@ -44,6 +44,13 @@ export default {
     'block': 'Geblockt',
     'immune': 'Immun'
   },
+  'level': {
+    'open': 'Öffnen',
+    'guarded': 'Bewacht',
+    'locked': 'Verschlossen',
+    'potion': '+1 Trank',
+    'manaPotion': '+1 Manatrank'
+  },
   'status': {
     'stun': 'Betäubt',
     'knockup': 'In der Luft',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Gold',
     'lost': 'Verloren',
     'kills': 'Besiegt',
+    'chests': 'Truhen',
     'time': 'Zeit',
     'unlocked': 'Neu auf der Karte: {places}',
     'retry': 'Noch mal',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Fähigkeit 5',
       'skill6': 'Fähigkeit 6',
       'potion': 'Trank trinken',
+      'manaPotion': 'Manatrank trinken',
       'interact': 'Sprechen',
       'target': 'Nächstes Ziel',
       'map': 'Weltkarte',

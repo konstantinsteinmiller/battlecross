@@ -198,6 +198,99 @@ export const rock = (r: number, seed = 1, ws = 9, hs = 7): BufferGeometry => {
   return stripUv(g)
 }
 
+/**
+ * The front half of an ellipsoid (facing +Z), open at the back: eyes, lids,
+ * cheeks, a mouth — anything that sits ON a head and whose back nobody sees.
+ * Half the triangles of `ell`.
+ */
+export const lens = (rx: number, ry: number, rz: number, ws = 6, hs = 5): BufferGeometry => {
+  const g = new SphereGeometry(1, ws, hs, 0, Math.PI)
+  g.scale(rx, ry, rz)
+  g.computeVertexNormals()
+  return stripUv(g)
+}
+
+/**
+ * A tapered limb hanging from its joint: a rounded tube from y = 0 (radius
+ * `r0`) down to y = −len (radius `r1`), both ends capped by a hemisphere, so
+ * the joint above and the joint below are covered whichever way it bends.
+ */
+export const limb = (r0: number, r1: number, len: number, rs = 8, cs = 2): BufferGeometry => {
+  const pts: Array<[number, number]> = []
+  pts.push(...arc(0, -len, r1, -Math.PI / 2, 0, cs))
+  pts.push(...arc(0, 0, r0, 0, Math.PI / 2, cs))
+  return lathe(pts, rs)
+}
+
+/**
+ * A blade along +Z from the guard (z = 0) to its point (z = len): a flattened
+ * leaf that swells a little past the guard and tapers to the tip.
+ */
+export const blade = (len: number, width: number, thick: number, belly = 0.72, segs = 6): BufferGeometry => {
+  const w = width / 2
+  const g = lathe([[0, 0], [w * 0.86, 0.004], [w, len * 0.2], [w * 0.9, len * belly], [w * 0.5, len * 0.93], [0, len]], segs)
+  // `scale` carries the normals with it; recomputing them would split the seam.
+  g.scale(1, 1, thick / width)
+  g.rotateX(Math.PI / 2)
+  return g
+}
+
+/** A cheap cone along Y, base (radius `rb`) at −len/2, point at +len/2: horns,
+ *  spikes, tufts. A third of `rcone`'s triangles. */
+export const spike = (rb: number, len: number, rs = 5): BufferGeometry =>
+  lathe([[0, -len / 2], [rb, -len / 2 + rb * 0.35], [rb * 0.42, len * 0.12], [0, len / 2]], rs)
+
+/** A cheap rounded rod along Y (grips, hafts, shafts): four rings, no bevel steps. */
+export const rod = (r: number, len: number, rs = 5): BufferGeometry =>
+  lathe([[0, -len / 2], [r, -len / 2 + r * 0.6], [r, len / 2 - r * 0.6], [0, len / 2]], rs)
+
+// ─── Colour helpers ──────────────────────────────────────────────────────────
+
+const _c1 = new Color()
+const _c2 = new Color()
+
+/** A colour made darker (k < 1) or lighter (k > 1). */
+export const tone = (hex: string, k: number): string => {
+  _c1.set(hex)
+  _c1.setRGB(Math.min(1, _c1.r * k), Math.min(1, _c1.g * k), Math.min(1, _c1.b * k))
+  return '#' + _c1.getHexString()
+}
+
+/** `a` blended toward `b` by t (0..1). */
+export const mixHex = (a: string, b: string, t: number): string => {
+  _c1.set(a)
+  _c2.set(b)
+  return '#' + _c1.lerp(_c2, t).getHexString()
+}
+
+/**
+ * Paint a geometry with a vertical gradient (`bottom` at its lowest vertex,
+ * `top` at its highest): cloth that darkens toward the hem, hair that catches
+ * the light on top. Called BEFORE the part is placed, in its own space.
+ */
+export const gradY = (g: BufferGeometry, bottom: string, top: string): BufferGeometry => {
+  const pos = g.attributes.position!
+  let lo = Infinity
+  let hi = -Infinity
+  for (let i = 0; i < pos.count; i++) {
+    const y = pos.getY(i)
+    if (y < lo) lo = y
+    if (y > hi) hi = y
+  }
+  const a = new Color(bottom)
+  const b = new Color(top)
+  const arr = new Float32Array(pos.count * 3)
+  const span = Math.max(1e-5, hi - lo)
+  for (let i = 0; i < pos.count; i++) {
+    const k = (pos.getY(i) - lo) / span
+    arr[i * 3] = a.r + (b.r - a.r) * k
+    arr[i * 3 + 1] = a.g + (b.g - a.g) * k
+    arr[i * 3 + 2] = a.b + (b.b - a.b) * k
+  }
+  g.setAttribute('color', new Float32BufferAttribute(arr, 3))
+  return g
+}
+
 // ─── Transform helpers ───────────────────────────────────────────────────────
 
 export type V3 = [number, number, number]
@@ -286,6 +379,8 @@ export interface Rig {
   material: CelMaterial
   glowMaterial: MeshBasicMaterial
   height: number
+  /** Triangles in the body mesh (the outline hull draws about as many again). */
+  tris: number
 }
 
 export class RigBuilder {
@@ -397,7 +492,8 @@ export class RigBuilder {
       bones[b.name] = b
       rest[b.name] = { p: b.position.clone(), q: b.quaternion.clone() }
     }
-    return { root: group, mesh, outline, bones, rest, material, glowMaterial, height: opts.height ?? 1.5 }
+    const tris = (geometry.index ? geometry.index.count : geometry.attributes.position!.count) / 3
+    return { root: group, mesh, outline, bones, rest, material, glowMaterial, height: opts.height ?? 1.5, tris }
   }
 }
 
@@ -423,7 +519,7 @@ export const cloneRig = (t: Rig): Rig => {
   const material = rigToon()
   if (Array.isArray(m.material)) m.material = [material, t.glowMaterial]
   else if (m.material === t.material) m.material = material
-  return { root, mesh: m, outline, bones, rest: t.rest, material, glowMaterial: t.glowMaterial, height: t.height }
+  return { root, mesh: m, outline, bones, rest: t.rest, material, glowMaterial: t.glowMaterial, height: t.height, tris: t.tris }
 }
 
 // ─── Pose helpers ────────────────────────────────────────────────────────────

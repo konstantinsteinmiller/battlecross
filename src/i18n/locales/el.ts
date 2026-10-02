@@ -44,6 +44,13 @@ export default {
     'block': 'Μπλοκ',
     'immune': 'Άτρωτος'
   },
+  'level': {
+    'open': 'Άνοιγμα',
+    'guarded': 'Φυλάσσεται',
+    'locked': 'Κλειδωμένο',
+    'potion': '+1 φίλτρο',
+    'manaPotion': '+1 φίλτρο μάνα'
+  },
   'status': {
     'stun': 'Ζαλισμένος',
     'knockup': 'Στον αέρα',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Χρυσός',
     'lost': 'Έπεσαν',
     'kills': 'Νικημένοι',
+    'chests': 'Σεντούκια',
     'time': 'Χρόνος',
     'unlocked': 'Νέα στον χάρτη: {places}',
     'retry': 'Ξανά',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Ικανότητα 5',
       'skill6': 'Ικανότητα 6',
       'potion': 'Πιες φίλτρο',
+      'manaPotion': 'Πιες φίλτρο μάνα',
       'interact': 'Μίλα',
       'target': 'Επόμενος στόχος',
       'map': 'Χάρτης κόσμου',

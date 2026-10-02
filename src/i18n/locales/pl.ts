@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Odporność'
   },
+  'level': {
+    'open': 'Otwórz',
+    'guarded': 'Strzeżone',
+    'locked': 'Zamknięte',
+    'potion': '+1 mikstura',
+    'manaPotion': '+1 mikstura many'
+  },
   'status': {
     'stun': 'Ogłuszenie',
     'knockup': 'Podrzucenie',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Złoto',
     'lost': 'Utracono',
     'kills': 'Pokonani',
+    'chests': 'Skrzynie',
     'time': 'Czas',
     'unlocked': 'Nowe na mapie: {places}',
     'retry': 'Spróbuj ponownie',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Umiejętność 5',
       'skill6': 'Umiejętność 6',
       'potion': 'Wypij miksturę',
+      'manaPotion': 'Wypij miksturę many',
       'interact': 'Rozmawiaj',
       'target': 'Następny cel',
       'map': 'Mapa świata',

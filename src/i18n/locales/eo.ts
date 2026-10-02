@@ -44,6 +44,13 @@ export default {
     'block': 'Blokita',
     'immune': 'Imuna'
   },
+  'level': {
+    'open': 'Malfermi',
+    'guarded': 'Gardata',
+    'locked': 'Ŝlosita',
+    'potion': '+1 pocio',
+    'manaPotion': '+1 manaopocio'
+  },
   'status': {
     'stun': 'Stuporigita',
     'knockup': 'En la aero',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Oro',
     'lost': 'Perdita',
     'kills': 'Venkitaj',
+    'chests': 'Kestoj',
     'time': 'Tempo',
     'unlocked': 'Nova sur la mapo: {places}',
     'retry': 'Reprovi',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Kapablo 5',
       'skill6': 'Kapablo 6',
       'potion': 'Trinki pocion',
+      'manaPotion': 'Trinki manaopocion',
       'interact': 'Paroli',
       'target': 'Sekva celo',
       'map': 'Mondmapo',

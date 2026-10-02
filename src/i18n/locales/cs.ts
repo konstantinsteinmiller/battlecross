@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Imunita'
   },
+  'level': {
+    'open': 'Otevřít',
+    'guarded': 'Střeženo',
+    'locked': 'Zamčeno',
+    'potion': '+1 lektvar',
+    'manaPotion': '+1 lektvar many'
+  },
   'status': {
     'stun': 'Omráčení',
     'knockup': 'Ve vzduchu',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Zlato',
     'lost': 'Ztraceno',
     'kills': 'Poraženo',
+    'chests': 'Truhly',
     'time': 'Čas',
     'unlocked': 'Nově na mapě: {places}',
     'retry': 'Zkusit znovu',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Dovednost 5',
       'skill6': 'Dovednost 6',
       'potion': 'Vypít lektvar',
+      'manaPotion': 'Vypít lektvar many',
       'interact': 'Mluvit',
       'target': 'Další cíl',
       'map': 'Mapa světa',

@@ -44,6 +44,13 @@ export default {
     'block': 'Blokkert',
     'immune': 'Immun'
   },
+  'level': {
+    'open': 'Åpne',
+    'guarded': 'Voktet',
+    'locked': 'Låst',
+    'potion': '+1 eliksir',
+    'manaPotion': '+1 manaeliksir'
+  },
   'status': {
     'stun': 'Lammet',
     'knockup': 'I lufta',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Gull',
     'lost': 'Mistet',
     'kills': 'Beseiret',
+    'chests': 'Kister',
     'time': 'Tid',
     'unlocked': 'Nytt på kartet: {places}',
     'retry': 'Prøv igjen',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Ferdighet 5',
       'skill6': 'Ferdighet 6',
       'potion': 'Drikk eliksir',
+      'manaPotion': 'Drikk manaeliksir',
       'interact': 'Snakk',
       'target': 'Neste mål',
       'map': 'Verdenskart',

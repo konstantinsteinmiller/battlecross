@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Bağışık'
   },
+  'level': {
+    'open': 'Aç',
+    'guarded': 'Korunuyor',
+    'locked': 'Kilitli',
+    'potion': '+1 iksir',
+    'manaPotion': '+1 mana iksiri'
+  },
   'status': {
     'stun': 'Sersemledi',
     'knockup': 'Havada',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Altın',
     'lost': 'Düşürülen',
     'kills': 'Yenilen',
+    'chests': 'Sandıklar',
     'time': 'Süre',
     'unlocked': 'Haritada yeni: {places}',
     'retry': 'Tekrar dene',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Yetenek 5',
       'skill6': 'Yetenek 6',
       'potion': 'İksir iç',
+      'manaPotion': 'Mana iksiri iç',
       'interact': 'Konuş',
       'target': 'Sonraki hedef',
       'map': 'Dünya haritası',

@@ -44,6 +44,13 @@ export default {
     'block': 'Ditangkis',
     'immune': 'Kebal'
   },
+  'level': {
+    'open': 'Buka',
+    'guarded': 'Dijaga',
+    'locked': 'Terkunci',
+    'potion': '+1 ramuan',
+    'manaPotion': '+1 ramuan mana'
+  },
   'status': {
     'stun': 'Pingsan',
     'knockup': 'Terlempar',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Emas',
     'lost': 'Terjatuh',
     'kills': 'Dikalahkan',
+    'chests': 'Peti',
     'time': 'Waktu',
     'unlocked': 'Baru di peta: {places}',
     'retry': 'Coba lagi',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Skill 5',
       'skill6': 'Skill 6',
       'potion': 'Minum ramuan',
+      'manaPotion': 'Minum ramuan mana',
       'interact': 'Bicara',
       'target': 'Target berikutnya',
       'map': 'Peta dunia',

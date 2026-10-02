@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Taʼsirsiz'
   },
+  'level': {
+    'open': 'Ochish',
+    'guarded': 'Qoʻriqlanmoqda',
+    'locked': 'Qulflangan',
+    'potion': '+1 iksir',
+    'manaPotion': '+1 mana iksiri'
+  },
   'status': {
     'stun': 'Karaxt',
     'knockup': 'Havoda',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Oltin',
     'lost': 'Yoʻqotildi',
     'kills': 'Yengildi',
+    'chests': 'Sandiqlar',
     'time': 'Vaqt',
     'unlocked': 'Xaritada yangi: {places}',
     'retry': 'Qayta urinish',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Koʻnikma 5',
       'skill6': 'Koʻnikma 6',
       'potion': 'Iksir ichish',
+      'manaPotion': 'Mana iksirini ichish',
       'interact': 'Gaplashish',
       'target': 'Keyingi nishon',
       'map': 'Dunyo xaritasi',

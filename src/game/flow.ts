@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { app, type GameMode } from './engine/app'
 import { afterPaint } from './engine/slicer'
 import type { Input } from './engine/input'
@@ -8,9 +8,13 @@ import type { ClassId } from './data/skills'
 import type { ZoneId } from './data/items'
 import { ZoneMode, type ZoneSetup } from './modes/zoneMode'
 import { hud } from './state/hud'
+import { conversationOf, decisionOf } from './data/dialogs'
+import type { ConversationDef } from './dialog/types'
+import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from './talk'
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, lifetimeXp, profile, saveProfile
 } from './state/profile'
+import { markChestsOpened, setManaPotions } from './state/profile'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
 import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
@@ -22,7 +26,7 @@ import { triggerHappytime } from '@/use/useCrazyGames'
 import { reportRun } from '@/use/useLeaderboard'
 import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import { difficultyFactor } from '@/use/useUser'
-import type { TrackId } from './audio/music'
+import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
 
 /**
@@ -39,8 +43,12 @@ import { PREVIEW_ON } from './previewFlags'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'talk'
-  | 'decision' | 'ending' | 'help'
+  | '' | 'results' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
+/** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
+ *  townsperson in the scene, with a trainer met on the map, or a quest's
+ *  decision. It is not a window — the world keeps running under it — and it
+ *  stays set while a shop / trainer / healer window it opened is up. */
+export type Talk = '' | 'npc' | 'map' | 'decision'
 
 export interface ResultItem {
   id: string
@@ -66,11 +74,15 @@ export interface ResultsData {
   /** Nodes this win opened on the map. */
   unlocked: NodeId[]
   waves: number
+  /** Chests opened of the chests the visit held (absent: a place without any). */
+  chests?: { opened: number; total: number }
 }
 
 export const flow = reactive({
   screen: 'boot' as Screen,
   modal: '' as Modal,
+  /** The conversation in progress, if any. */
+  talk: '' as Talk,
   /** The node the live scene is. */
   node: '' as NodeId | '',
   results: null as ResultsData | null,
@@ -88,11 +100,6 @@ export const flow = reactive({
   endingShown: false
 })
 
-/** What a zone's theme sounds like (track ids are the composer's). */
-const THEME_TRACK: Record<ThemeId, TrackId> = {
-  plains: 'gale', cave: 'drill', forest: 'cryo', farm: 'tide', ash: 'blaze', mine: 'magnet', snow: 'cryo', temple: 'tide',
-  void: 'neon', peak: 'rotor', fortress: 'fortress', rift: 'volt', town: 'hub', ruin: 'scrapyard', arena: 'blaze'
-}
 
 let input: Input | null = null
 /** The game's one input record (owned by `boot.ts`). */
@@ -155,6 +162,12 @@ export interface VisitTally {
   seconds: number
   /** Arena: the wave reached. */
   waves: number
+  /** Chests opened of the chests the visit held. */
+  chests?: { opened: number; total: number }
+  /** One-time chests emptied this visit (their save keys). */
+  special?: readonly string[]
+  /** The mana potion stock as the visit leaves it (some drunk, some found). */
+  manaPotions?: number
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -163,7 +176,7 @@ let precompile: Precompile = async () => {}
 export const setPrecompile = (fn: Precompile): void => { precompile = fn }
 
 const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void => {
-  if (flow.modal || flow.loading) return
+  if (flow.modal || flow.talk || flow.loading) return
   // The loadout is fixed once a fight is on: menus open in towns and on the map.
   if (flow.screen === 'zone') return
   if (panel === 'map') { openMap(); return }
@@ -181,7 +194,7 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void): Promi
   const mode = await ZoneMode.create(setup, input!, {
     onEnd: (outcome) => { void finishVisit(outcome) },
     onInteract: (npcId) => talkTo(npcId),
-    onPause: () => { if (!flow.modal && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
+    onPause: () => { if (!flow.modal && !flow.talk && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
     onPanel: openPanel
   }, p => onProgress(p * 0.82))
   await precompile(mode, f => onProgress(0.82 + f * 0.12))
@@ -227,7 +240,7 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
     // A town is "cleared" by walking into it: its roads open.
     if (clearNode(node)) saveProfile()
   }
-  setMusicTrack(THEME_TRACK[mode.setup.theme])
+  setMusicTrack(trackForTheme(mode.setup.theme))
   startGameMusic()
   app.setMode(mode)
   app.setWanted(true)
@@ -245,7 +258,7 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
   flow.node = node
   flow.screen = def.kind === 'town' ? 'town' : 'zone'
   profile.world.at = node
-  setMusicTrack(THEME_TRACK[mode.setup.theme])
+  setMusicTrack(trackForTheme(mode.setup.theme))
   measureStart(node)
   return mode
 }
@@ -322,7 +335,11 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   const node = flow.node
   if (!mode || !node) return
   const h = mode.sim.hero
-  await bankVisit(outcome, node, { xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n })
+  await bankVisit(outcome, node, {
+    xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n,
+    chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
+    special: mode.sim.specialOpened, manaPotions: h.manaPotions
+  })
 }
 
 /** Bank a decided visit: rewards, unlocks, the save, the result screen. */
@@ -336,6 +353,10 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
     const r = gainItem(id)
     items.push({ id, added: r.added, gold: r.gold })
   }
+  // What the chests held beside gold and gear: the stock of mana potions as
+  // it stands, and the one-time chests that are now empty for good.
+  if (h.manaPotions !== undefined) setManaPotions(h.manaPotions)
+  if (h.special?.length) markChestsOpened(h.special)
   profile.stats.kills += h.kills
   profile.stats.runs++
   profile.stats.playSeconds += Math.round(h.seconds)
@@ -360,7 +381,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   void flushSaveNow()
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
-    seconds: h.seconds, firstClear, unlocked, waves: h.waves
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
@@ -389,8 +410,8 @@ let leaving = false
 export const leaveResults = async (): Promise<void> => {
   if (leaving) return
   await adBreak()
-  if (flow.quest) flow.modal = 'decision'
-  else afterVisit()
+  if (flow.quest && startDecision(flow.quest)) return
+  afterVisit()
 }
 
 /**
@@ -462,13 +483,64 @@ export const npcById = (id: string): NpcDef | null => {
   return null
 }
 
-const talkTo = (npcId: string): void => {
-  if (flow.modal || flow.loading) return
+// ─── Conversations ───────────────────────────────────────────────────────────
+
+/** The live scene, when it is one the hero stands in. */
+const liveZone = (): ZoneMode | null => (app.mode instanceof ZoneMode ? app.mode : null)
+
+/**
+ * Start a conversation. The world keeps running (no window, no pause): the
+ * scene locks the hero's input, turns the speakers to each other and frames
+ * them. A topic may hand over to a window (`flow.modal`); the conversation
+ * waits behind it and goes on when it closes (`closeModal`).
+ */
+const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkStage, npcId = '', title = ''): boolean => {
+  if (flow.talk) return false
+  const begun = beginTalk(conv, {
+    stage,
+    title,
+    onOpen: (w) => { flow.modal = w },
+    onEnd: () => {
+      flow.talk = ''
+      liveZone()?.setTalk(false)
+      if (kind === 'decision') afterVisit()
+      else flow.npc = null
+    }
+  })
+  if (!begun) return false
+  flow.talk = kind
+  liveZone()?.setTalk(true, npcId)
+  return true
+}
+
+/** The window a townsperson's role opens (reached through their conversation). */
+const roleWindow = (npc: NpcDef): Modal => (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : '')
+
+/** The hero walked up to a townsperson (the scene calls this; so may a test). */
+export const talkTo = (npcId: string): void => {
+  if (flow.modal || flow.talk || flow.loading) return
   const npc = npcById(npcId)
   if (!npc) return
   flow.npc = npc
   flow.trainerCls = npc.cls ?? ''
-  flow.modal = npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : 'talk'
+  const conv = conversationOf(npc.id)
+  // Everyone has a conversation (a test holds the data to it); without one
+  // the trade itself is still reachable.
+  if (conv) startTalk('npc', conv, 'world', npc.id)
+  else flow.modal = roleWindow(npc)
+}
+
+/**
+ * A quest's decision (GDD §3.2), after the result screen: the same bubbles and
+ * list, with the speaker as a portrait. It cannot be left without choosing;
+ * the choice is applied by `decideQuest` and saved at once, and `afterVisit`
+ * follows what is told afterwards. False when there is nothing to decide.
+ */
+const startDecision = (questId: string): boolean => {
+  const conv = decisionOf(questId)
+  if (!conv || profile.quests.done[questId]) return false
+  flow.modal = ''
+  return startTalk('decision', conv, 'portrait', '', `quest.${questId}.title`)
 }
 
 /** The hidden trainer a cleared zone holds, if it has one for this save. */
@@ -479,12 +551,28 @@ export const hiddenTrainer = (node: NodeId): { cls: ClassId; npc: string } | nul
 export const visitHiddenTrainer = (node: NodeId): void => {
   const t = hiddenTrainer(node)
   if (!t) return
+  if (flow.modal || flow.talk || flow.loading) return
   flow.npc = { id: t.npc, role: 'trainer', look: t.npc, at: [0, 0], cls: t.cls }
   flow.trainerCls = t.cls
-  flow.modal = 'trainer'
+  // Nobody to stand in front of on the map: the trainer speaks as a portrait.
+  const conv = conversationOf(t.npc)
+  if (conv) startTalk('map', conv, 'portrait')
+  else flow.modal = 'trainer'
 }
 
 export const closeModal = (): void => {
   flow.modal = ''
+  // A window a conversation opened: the talk goes on (a parting word, then
+  // the topics again), and the townsperson stays the one in front of the hero.
+  if (flow.talk && talkWaiting()) { talkResume(); return }
   flow.npc = null
 }
+
+// A conversation never outlives the place it is held in.
+watch(() => flow.loading, (on) => {
+  if (!on || !flow.talk) return
+  abortTalk()
+  flow.talk = ''
+  flow.npc = null
+  liveZone()?.setTalk(false)
+}, { flush: 'sync' })

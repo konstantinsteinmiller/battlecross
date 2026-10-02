@@ -1,6 +1,6 @@
 import { AmbientLight, Scene, type Group, type Mesh, type Object3D } from 'three'
 import type { GameMode } from '../engine/app'
-import { FollowCam, CAM_FOV } from '../engine/camera'
+import { FollowCam, CAM_FOV, CAM_PITCH } from '../engine/camera'
 import { consumeEdges, type Input } from '../engine/input'
 import { getRenderer } from '../engine/renderer'
 import { createSlicer, type Slice } from '../engine/slicer'
@@ -15,18 +15,23 @@ import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, s
 import { stepSim } from '../sim/step'
 import { generateArena, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim, findStatus } from '../sim/world'
-import type { DamageType, SimEvent, Unit } from '../sim/types'
+import type { SimEvent, Unit } from '../sim/types'
 import { updateCelFrame } from '../gfx/cel'
-import { HealthBars, Markers, makeBlobShadow } from '../gfx/markers'
-import { animate, squash } from '../gfx/rigs/anim'
+import { BAR_RANK, HealthBars, Markers, makeBlobShadow, type BarRank } from '../gfx/markers'
+import { blowOf, trackUnit } from '../gfx/combatFx'
+import { animate, squash, struck } from '../gfx/rigs/anim'
 import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rigs'
 import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
+import { LevelProps } from '../gfx/levelProps'
+import { POTION_CD, useManaPotion } from '../sim/hero'
+import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, profile } from '../state/profile'
 import { coach } from '../coach'
 import { PREVIEW_FEED } from '../previewFlags'
+import { setBossMusic } from '@/use/useSound'
 
 /**
  * ─── A zone visit ────────────────────────────────────────────────────────────
@@ -80,17 +85,27 @@ const TRAUMA_HEAVY = 0.6
 /** Seconds the world plays on after the outcome, before the result screen. */
 const END_BEAT = { victory: 2.1, defeat: 1.8 }
 
-const TYPE_COLOR: Record<DamageType, string> = {
-  physical: '#ffffff', pierce: '#ffe9a8', fire: '#ff8a2a', frost: '#9fdcff', holy: '#fff2a8', poison: '#8dff5a',
-  acid: '#b8ff4a', temporal: '#7fd8ff', beam: '#7ff4ff', shadow: '#c08aff', blood: '#ff4a6a', true: '#ffffff'
-}
-
 interface View {
   v: RigView
   shadow: Mesh
   /** NPCs: the floating marker above their head. */
   pin: Object3D | null
 }
+
+/** A conversation's framing: how far the camera closes in on two speakers
+ *  (more on an upright phone, whose view is fitted to its narrow width and so
+ *  stands far back), and on the hero alone (a decision after a fight). */
+const TALK_ZOOM = 0.8
+const TALK_ZOOM_TALL = 0.62
+const TALK_ZOOM_SOLO = 0.9
+/** The dialogue layer puts the list of topics BESIDE the speakers on a short
+ *  landscape screen and under them everywhere else (`DialogLayer.vue` has the
+ *  same breakpoint): the camera leaves that part of the picture free. */
+const TALK_SIDE_MAX_H = 480
+
+/** How an enemy's bar (and its target ring) is framed: by rank, a champion above an elite. */
+const barRank = (u: Unit): BarRank =>
+  u.rank === 'boss' ? BAR_RANK.boss : u.champion ? BAR_RANK.champion : u.rank === 'elite' ? BAR_RANK.elite : u.rank === 'weak' ? BAR_RANK.minion : BAR_RANK.normal
 
 const ground = { x: 0, z: 0 }
 const screen = { x: 0, y: 0 }
@@ -109,6 +124,8 @@ export class ZoneMode implements GameMode {
   private markers!: Markers
   private bars!: HealthBars
   private walls = new WallRocks()
+  /** Chests, plates, doors, bridges and the water (`gfx/levelProps.ts`). */
+  private props: LevelProps | null = null
   private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
   private chestOpen = 0
   private views = new Map<number, View>()
@@ -123,6 +140,21 @@ export class ZoneMode implements GameMode {
   private hoverId = 0
   private entered = false
   private low = sceneQuality() === 'low'
+  /** A conversation is on (`setTalk`): input locked, speakers turned, camera framing them. */
+  private talkOn = false
+  /** The townsperson spoken to (unit id; 0: the speaker is not in the scene). */
+  private talkNpc = 0
+  /** Where they were looking before they turned to the hero. */
+  private talkFace = 0
+  /** 0..1: how far the camera is into the conversation's framing. */
+  private talkK = 0
+  /** The framing: the look-at point's offset from the hero, and the zoom. */
+  private talkDx = 0
+  private talkDz = 0
+  private talkZoom = 1
+  /** Seconds after a conversation in which input is still swallowed (the key
+   *  or tap that ended it is not an order). */
+  private talkHold = 0
 
   private constructor(setup: ZoneSetup, plan: ZonePlan, input: Input, cb: ZoneCallbacks) {
     this.setup = setup
@@ -148,9 +180,11 @@ export class ZoneMode implements GameMode {
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
-      potions: setup.kind === 'town' ? 0 : profile.inv.potions
+      potions: setup.kind === 'town' ? 0 : profile.inv.potions,
+      // Mana potions are a carried stock: as many slots as the health belt has.
+      manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions
     })
-    if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items)
+    if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     else if (setup.kind === 'town') populateTown(sim, plan)
     else sim.wave.rest = 1.6
     if (setup.dragonAlly) summonDragonAlly(sim)
@@ -183,10 +217,15 @@ export class ZoneMode implements GameMode {
     m.markers = new Markers(m.scene)
     m.bars = new HealthBars(m.scene, 72)
     m.scene.add(m.walls.root)
-    if (setup.kind !== 'town' && plan.chest) {
+    // A zone's chests (the finale's too) are level props; the colosseum keeps its prize chest.
+    if (setup.kind === 'zone') {
+      m.props = new LevelProps(sim, m.vfx, m.terrain.theme, n => m.cam.addTrauma(n))
+      m.props.build(plan, m.scene)
+    }
+    if (setup.kind === 'arena' && plan.chest) {
       m.chest = buildChest()
       m.chest.root.position.set(plan.chest.x, 0, plan.chest.z)
-      m.chest.root.visible = setup.kind === 'zone'
+      m.chest.root.visible = false
       m.scene.add(m.chest.root)
     }
     for (const u of sim.units) {
@@ -251,6 +290,8 @@ export class ZoneMode implements GameMode {
     const h = sim.hero
     const live = !sim.ended && h.unit.alive
     hud.device = i.device
+    // A conversation holds the hero still: its own layer takes the taps and keys.
+    if (this.talkOn || this.talkHold > 0) { setStick(sim, 0, 0); return }
 
     if (i.pauseQueued) this.cb.onPause()
     if (i.panelQueued) this.cb.onPanel(i.panelQueued)
@@ -267,9 +308,12 @@ export class ZoneMode implements GameMode {
         orderAttack(sim, u.id)
         if (u.team === 1) { coach.use('target'); sfx('uiClick') }
       } else if (this.cam.screenToGround(t.x, t.y, ground)) {
-        orderMove(sim, ground.x, ground.z)
-        this.markers.tapAt(ground.x, ground.z)
-        coach.use('move')
+        // A chest under the finger is opened, not walked onto.
+        if (!this.openAt(ground.x, ground.z, pad)) {
+          orderMove(sim, ground.x, ground.z)
+          this.markers.tapAt(ground.x, ground.z)
+          coach.use('move')
+        }
       }
     }
 
@@ -294,9 +338,12 @@ export class ZoneMode implements GameMode {
         orderAttack(sim, u.id)
         if (u.team === 1) { coach.use('target'); sfx('uiClick') }
       } else if (this.cam.screenToGround(i.dropX, i.dropY, ground)) {
-        orderMove(sim, ground.x, ground.z)
-        this.markers.tapAt(ground.x, ground.z)
-        coach.use('move')
+        // A chest under the finger is opened, not walked onto.
+        if (!this.openAt(ground.x, ground.z, pad)) {
+          orderMove(sim, ground.x, ground.z)
+          this.markers.tapAt(ground.x, ground.z)
+          coach.use('move')
+        }
       }
     }
 
@@ -307,6 +354,7 @@ export class ZoneMode implements GameMode {
       if (castSkill(sim, i.aimDrop, { x: ground.x, z: ground.z })) { coach.use('skill'); coach.use('aim') }
     }
     if (i.potionQueued && usePotion(sim)) coach.use('potion')
+    if (i.manaPotionQueued) useManaPotion(sim)
     if (i.targetQueued) cycleTarget(sim)
     if (i.interactQueued) {
       const u = h.unit
@@ -318,7 +366,21 @@ export class ZoneMode implements GameMode {
         if (d < bd) { bd = d; best = n }
       }
       if (best) orderAttack(sim, best.id)
+      else {
+        // No one to talk to: the chest in reach, if there is one.
+        const c = nearChest(sim)
+        if (c) orderOpen(sim, c.id)
+      }
     }
+  }
+
+  /** Open the chest at a tapped ground point. The point under a finger on a
+   *  chest's lid is behind the chest, so a point nearer the camera counts too. */
+  private openAt(x: number, z: number, pad: number): boolean {
+    const c = pickChest(this.sim, x, z, pad) ?? pickChest(this.sim, x, z + 0.7, pad)
+    if (!c) return false
+    if (orderOpen(this.sim, c.id)) sfx('uiClick')
+    return true
   }
 
   // ─── Events ────────────────────────────────────────────────────────────────
@@ -337,14 +399,39 @@ export class ZoneMode implements GameMode {
     const ev = sim.events
     for (let n = 0; n < ev.length; n++) {
       const e = ev[n]!
+      this.props?.onEvent(e)
       switch (e.t) {
         case 'hit': {
           const y = e.h * 0.6
-          const mine = e.src === hero.id || sim.get(e.src)?.ownerId === hero.id
-          this.vfx.impact(e.x, y, e.z, e.toHero ? '#ff5a5a' : TYPE_COLOR[e.type], e.heavy, e.crit)
+          const from = sim.get(e.src)
+          const mine = e.src === hero.id || from?.ownerId === hero.id
+          // The blow's way on the ground, from whoever dealt it: the impact is
+          // thrown along it, and the body rocks (or falls) away from it.
+          let bx = 0
+          let bz = 0
+          if (from && from.id !== e.tgt) {
+            bx = e.x - from.x
+            bz = e.z - from.z
+            const l = Math.hypot(bx, bz)
+            if (l > 1e-3) { bx /= l; bz /= l } else bx = bz = 0
+          }
+          const by = this.views.get(e.src)?.v
+          const hit = sim.get(e.tgt)
+          const r = hit?.r ?? 0.45
+          this.vfx.impact({
+            x: e.x - bx * r * 0.55, y, z: e.z - bz * r * 0.55, dx: bx, dz: bz, type: e.type, blow: blowOf(by), heavy: e.heavy,
+            crit: e.crit, dot: e.dot, size: r, toHero: e.toHero
+          })
+          if (!e.dot) {
+            const on = this.views.get(e.tgt)?.v
+            if (on) struck(on, bx || bz ? Math.atan2(bx, bz) : on.yaw + Math.PI, e.crit ? 1 : 0, '#ffd84a')
+            if (by) by.fxHit = true
+          }
           const kind: TextKind = e.toHero ? 'hurt' : e.crit ? 'crit' : 'normal'
           // Every blow the hero deals or takes is counted; the minions' own are not.
           if (e.toHero || mine || e.src === 0) pushHud({ t: 'num', x: e.x, y: e.h + 0.3, z: e.z, amount: e.amount, kind })
+          // A tick of damage over time is a number and a small mark: no freeze, no shake.
+          if (e.dot) break
           if (e.toHero) {
             pushHud({ t: 'hurt', strength: Math.min(1, e.amount / Math.max(1, hero.s.maxHp) * 4) })
             this.cam.addTrauma(e.heavy ? TRAUMA_HEAVY * 0.7 : TRAUMA_LIGHT)
@@ -387,6 +474,8 @@ export class ZoneMode implements GameMode {
           const def = SKILL_BY_ID[e.skill]
           if (def) sfx(def.fire ? 'fire' : def.cls === 'chrono' ? 'teleport' : def.cls === 'aegis' ? 'holy' : def.cls === 'blood' ? 'blood' : def.cls === 'geo' ? 'quake' : def.cls === 'aether' ? 'shoot' : 'cast')
           else sfx('telegraph', this.pan(e.x), 0.7)
+          // The skill's colour gathers under the caster as the cast begins.
+          if (def && e.src === hero.id) this.vfx.castStart(e.x, e.z, def.color, def.cast >= 0.4)
           break
         }
         case 'fx':
@@ -400,7 +489,7 @@ export class ZoneMode implements GameMode {
           if (e.id.startsWith('burst:') || e.id === 'slam' || e.id === 'quake' || e.id === 'blast') this.cam.addTrauma(TRAUMA_HEAVY * (e.id === 'quake' ? 1 : 0.55))
           break
         case 'tele':
-          this.vfx.telegraph(e.tele)
+          this.vfx.telegraph(e.tele, sim.get(e.tele.src ?? 0) ?? null, sim.time)
           break
         case 'death': {
           const def = ENEMY_BY_ID[e.kind]
@@ -504,6 +593,8 @@ export class ZoneMode implements GameMode {
 
   update(dt: number, first: boolean): void {
     if (first) this.handleInput()
+    if (this.talkOn) this.holdTalk()
+    else if (this.talkHold > 0) this.talkHold -= dt
     // Hit-stop: the world all but freezes, for attacker and victim alike.
     let simDt = dt
     if (this.stop > 0) {
@@ -516,7 +607,7 @@ export class ZoneMode implements GameMode {
     if (first) consumeEdges(this.input)
 
     const sim = this.sim
-    if (sim.ended && !this.endFired && sim.endedT >= END_BEAT[sim.ended]) {
+    if (sim.ended && !this.endFired && sim.endedT >= END_BEAT[sim.ended] && (sim.ended !== 'victory' || sim.endReady)) {
       this.endFired = true
       hud.phase = sim.ended === 'victory' ? 'won' : 'dead'
       this.cb.onEnd(sim.ended)
@@ -535,14 +626,16 @@ export class ZoneMode implements GameMode {
 
     const hx = hero.px + (hero.x - hero.px) * a
     const hz = hero.pz + (hero.z - hero.pz) * a
-    this.cam.follow(hx, hz, hero.vx, hero.vz, dt)
+    // A conversation eases the view from the hero to a frame for both speakers.
+    const tk = this.talkFrame(hx, hz, dt)
+    this.cam.follow(hx + this.talkDx * tk, hz + this.talkDz * tk, hero.vx, hero.vz, dt)
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
 
     // Things far outside the view are not posed or drawn.
     const reach = this.cam.dist * this.cam.zoom * 0.62 + 7
     const reach2 = reach * reach
-    this.bars.begin()
+    this.bars.begin(dt)
     for (const [id, w] of this.views) {
       const u = sim.get(id)
       if (!u || w.v.gone) { this.dropView(id); continue }
@@ -555,11 +648,21 @@ export class ZoneMode implements GameMode {
       w.shadow.visible = seen && u.alive
       if (!seen) continue
       animate(w.v, u, x, z, this.time, fxDt)
-      w.shadow.position.x = x
-      w.shadow.position.z = z
-      if (u.alive && u.rank !== 'npc' && u.rank !== 'boss' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
-        const col = u.team === 0 ? '#5fe08a' : u.rank === 'elite' ? '#ffb02a' : '#ff5a5a'
-        this.bars.add(x, u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float, z, u.hp / u.s.maxHp, u.shield / u.s.maxHp, col, Math.min(1.5, 0.7 + u.r * 0.7))
+      // Swing trails, muzzle flashes and the like are read off the pose just made.
+      trackUnit(this.vfx, w.v, u)
+      w.shadow.position.x = w.v.x
+      w.shadow.position.z = w.v.z
+      if (u.alive && u.rank !== 'npc' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
+        // The frame says how special it is (D42); allies are green, the hero's own summons teal.
+        const ours = u.team === 0
+        const rank: BarRank = ours ? BAR_RANK.ally : barRank(u)
+        const col = ours ? (u.ownerId === hero.id ? '#3fd8c8' : '#5fe08a') : rank === BAR_RANK.elite ? '#ffb02a' : rank === BAR_RANK.champion ? '#ff7a3a' : '#ff5a5a'
+        this.bars.add(
+          id, w.v.x, u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float + (rank === BAR_RANK.boss ? 0.25 : 0), w.v.z,
+          u.hp / u.s.maxHp, u.shield / u.s.maxHp, col, Math.min(1.5, 0.7 + u.r * 0.7), rank,
+          // A level on anything framed; a skull on anything well above him.
+          ours ? 0 : u.level >= sim.hero.level + 3 ? -1 : rank >= BAR_RANK.elite ? u.level : 0
+        )
       }
     }
     this.bars.end()
@@ -571,7 +674,7 @@ export class ZoneMode implements GameMode {
     const live = hero.alive && !sim.ended
     this.markers.hero(hx, hz, hero.r, live)
     const tgt = sim.live(sim.hero.order.targetId) ?? sim.live(this.hoverId)
-    if (tgt && tgt.rank !== 'hero') this.markers.target(tgt.px + (tgt.x - tgt.px) * a, tgt.pz + (tgt.z - tgt.pz) * a, tgt.r, true, tgt.team === 1)
+    if (tgt && tgt.rank !== 'hero') this.markers.target(tgt.px + (tgt.x - tgt.px) * a, tgt.pz + (tgt.z - tgt.pz) * a, tgt.r, true, tgt.team === 1, tgt.team === 1 ? Math.max(0, barRank(tgt) - 1) as 0 | 1 | 2 | 3 : 0)
     else this.markers.target(0, 0, 1, false)
     const i = this.input
     if (live && i.held && i.dragging && this.cam.screenToGround(i.ptrX, i.ptrY, ground)) {
@@ -594,8 +697,9 @@ export class ZoneMode implements GameMode {
     this.markers.update(dt)
 
     this.vfx.syncProjectiles(sim.projectiles, a, fxDt)
-    this.vfx.update(fxDt)
+    this.vfx.update(fxDt, sim.time)
     this.walls.update(fxDt)
+    this.props?.update(fxDt, hx, hz)
     if (this.chestOpen > 0 && this.chest) {
       this.chestOpen = Math.min(1, this.chestOpen + dt * 2.2)
       const k = this.chestOpen
@@ -618,6 +722,8 @@ export class ZoneMode implements GameMode {
     const h = sim.hero
     for (let s = 0; s < 6; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
     hudLive.potionCd = h.potionCd
+    hudLive.manaPotionCd = h.manaPotionCd
+    hudLive.manaPotionCdMax = POTION_CD
     tickHud(dt)
   }
 
@@ -688,6 +794,9 @@ export class ZoneMode implements GameMode {
     hud.potions = h.potions
     hud.potionsMax = h.potionsMax
     hud.potionReady = h.potionCd <= 0
+    hud.manaPotions = h.manaPotions
+    hud.manaPotionMax = h.manaPotionsMax
+    hud.manaPotionReady = h.manaPotionCd <= 0
     let changed = force
     const next: SkillSlotView[] = []
     for (let s = 0; s < 6; s++) {
@@ -709,6 +818,8 @@ export class ZoneMode implements GameMode {
     for (const e of sim.units) if (e.alive && e.rank === 'boss' && e.team === 1 && e.awake) { boss = e; break }
     hud.bossKey = boss ? 'enemy.' + boss.kind : ''
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
+    // The boss theme plays for exactly as long as the boss plate shows.
+    setBossMusic(boss !== undefined && !sim.ended)
     hud.groupsDone = sim.groupsDone
     hud.groupsTotal = sim.groups.length
     hud.wave = sim.wave.n
@@ -725,6 +836,93 @@ export class ZoneMode implements GameMode {
       }
     }
     hud.interactKey = near
+    // The chest within reach, for the "Open" prompt.
+    hud.interactChest = (!sim.ended && u.alive && this.props && nearChest(sim)?.tier) || ''
+  }
+
+  // ─── Conversations ─────────────────────────────────────────────────────────
+
+  /**
+   * A conversation starts or ends (`flow.ts`). The world keeps running; the
+   * hero's input is locked. With a townsperson of this scene, the two turn to
+   * each other and the camera frames both; without one (a decision after a
+   * fight) it only closes in on the hero a little.
+   */
+  setTalk(on: boolean, npcId = ''): void {
+    const sim = this.sim
+    const was = sim.get(this.talkNpc)
+    if (was) was.facing = this.talkFace
+    this.talkNpc = 0
+    this.talkOn = on
+    if (!on) { this.talkHold = 0.3; return }
+    const npc = npcId ? sim.units.find(u => u.npc === npcId) : undefined
+    if (npc) { this.talkNpc = npc.id; this.talkFace = npc.facing }
+    // Whatever he was on his way to, he stands and listens.
+    const h = sim.hero
+    h.order.kind = 'none'
+    h.unit.hasGoal = false
+    setStick(sim, 0, 0)
+    this.holdTalk()
+  }
+
+  /** Each step of a conversation: a townsperson who was walking stops, and
+   *  both keep facing each other. */
+  private holdTalk(): void {
+    const npc = this.sim.get(this.talkNpc)
+    if (!npc) return
+    const hero = this.sim.hero.unit
+    npc.hasGoal = false
+    if (Math.hypot(hero.x - npc.x, hero.z - npc.z) < 0.05) return
+    npc.facing = Math.atan2(hero.x - npc.x, hero.z - npc.z)
+    hero.facing = Math.atan2(npc.x - hero.x, npc.z - hero.z)
+  }
+
+  /** Ease the camera into (and out of) the conversation's framing; returns
+   *  the eased weight of its offset from the hero. */
+  private talkFrame(hx: number, hz: number, dt: number): number {
+    const was = this.talkK
+    this.talkK = Math.max(0, Math.min(1, was + (this.talkOn ? dt : -dt) * 2.4))
+    const k = this.talkK
+    if (k <= 0) {
+      if (was > 0) this.cam.zoom = 1
+      return 0
+    }
+    if (this.talkOn) {
+      const npc = this.sim.get(this.talkNpc)
+      this.talkZoom = !npc ? TALK_ZOOM_SOLO : this.cam.width < this.cam.height ? TALK_ZOOM_TALL : TALK_ZOOM
+      let dx = npc ? (npc.x - hx) / 2 : 0
+      let dz = npc ? (npc.z - hz) / 2 : 0
+      if (npc) {
+        // Leave the topics' part of the screen free: beside the speakers on a
+        // short landscape screen, under them everywhere else.
+        const c = this.cam
+        const ppm = c.height / (2 * Math.tan((CAM_FOV * Math.PI) / 360) * c.dist * this.talkZoom)
+        // (A point further toward the camera puts the speakers higher up.)
+        if (c.height < TALK_SIDE_MAX_H && c.width > c.height) { dx += (c.width * 0.21) / ppm; dz -= (c.height * 0.1) / (ppm * Math.sin(CAM_PITCH)) }
+        else dz += (c.height * 0.09) / (ppm * Math.sin(CAM_PITCH))
+      }
+      this.talkDx = dx
+      this.talkDz = dz
+    }
+    const e = k * k * (3 - 2 * k)
+    this.cam.zoom = 1 - (1 - this.talkZoom) * e
+    return e
+  }
+
+  /** Where a speaker is on the surface: just over their head (the speech
+   *  bubble's anchor), or just under their feet. False when they are not in
+   *  this scene. */
+  speakerAnchor(who: 'hero' | 'npc', out: { x: number; y: number }, feet = false): boolean {
+    const u = who === 'hero' ? this.sim.hero.unit : this.sim.get(this.talkNpc)
+    if (!u) return false
+    return this.cam.project(u.x, feet ? -0.2 : u.h + 0.5, u.z, out)
+  }
+
+  /** A speaker starts a line: a small bounce, so the eye finds who is talking. */
+  speakerBeat(who: 'hero' | 'npc'): void {
+    const u = who === 'hero' ? this.sim.hero.unit : this.sim.get(this.talkNpc)
+    const w = u ? this.views.get(u.id) : undefined
+    if (w) squash(w.v, 0.16)
   }
 
   /** World point → surface pixels (damage text, coach glyphs). */
@@ -743,11 +941,13 @@ export class ZoneMode implements GameMode {
   }
 
   dispose(): void {
+    setBossMusic(false)
     for (const id of [...this.views.keys()]) this.dropView(id)
     this.vfx.dispose()
     this.markers.dispose()
     this.bars.dispose()
     this.walls.dispose()
+    this.props?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
     this.scene.clear()

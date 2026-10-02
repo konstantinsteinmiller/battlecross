@@ -44,6 +44,13 @@ export default {
     'block': 'Parato',
     'immune': 'Immune'
   },
+  'level': {
+    'open': 'Apri',
+    'guarded': 'Sorvegliato',
+    'locked': 'Chiuso',
+    'potion': '+1 pozione',
+    'manaPotion': '+1 pozione di mana'
+  },
   'status': {
     'stun': 'Stordito',
     'knockup': 'In aria',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Oro',
     'lost': 'Perso',
     'kills': 'Nemici sconfitti',
+    'chests': 'Forzieri',
     'time': 'Tempo',
     'unlocked': 'Nuovo sulla mappa: {places}',
     'retry': 'Riprova',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Abilità 5',
       'skill6': 'Abilità 6',
       'potion': 'Bevi pozione',
+      'manaPotion': 'Bevi pozione di mana',
       'interact': 'Parla',
       'target': 'Bersaglio successivo',
       'map': 'Mappa del mondo',

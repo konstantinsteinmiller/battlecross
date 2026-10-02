@@ -45,6 +45,13 @@ export default {
     'block': 'Тойтарыс',
     'immune': 'Иммунитет'
   },
+  'level': {
+    'open': 'Ашу',
+    'guarded': 'Күзетілуде',
+    'locked': 'Құлыптаулы',
+    'potion': '+1 сусын',
+    'manaPotion': '+1 мана сусыны'
+  },
   'status': {
     'stun': 'Есеңгіреу',
     'knockup': 'Ауада',
@@ -585,6 +592,7 @@ export default {
     'gold': 'Алтын',
     'lost': 'Жоғалды',
     'kills': 'Жеңілді',
+    'chests': 'Сандықтар',
     'time': 'Уақыт',
     'unlocked': 'Картадағы жаңалық: {places}',
     'retry': 'Қайталау',
@@ -661,6 +669,7 @@ export default {
       'skill5': 'Дағды 5',
       'skill6': 'Дағды 6',
       'potion': 'Сусын ішу',
+      'manaPotion': 'Мана сусынын ішу',
       'interact': 'Сөйлесу',
       'target': 'Келесі нысана',
       'map': 'Әлем картасы',

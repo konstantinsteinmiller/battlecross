@@ -44,6 +44,13 @@ export default {
     'block': '格挡',
     'immune': '免疫'
   },
+  'level': {
+    'open': '打开',
+    'guarded': '有守卫',
+    'locked': '已锁住',
+    'potion': '药水 +1',
+    'manaPotion': '法力药水 +1'
+  },
   'status': {
     'stun': '眩晕',
     'knockup': '击飞',
@@ -567,6 +574,7 @@ export default {
     'gold': '金币',
     'lost': '损失',
     'kills': '击败',
+    'chests': '宝箱',
     'time': '用时',
     'unlocked': '地图新增：{places}',
     'retry': '再试一次',
@@ -642,6 +650,7 @@ export default {
       'skill5': '技能 5',
       'skill6': '技能 6',
       'potion': '喝药水',
+      'manaPotion': '喝法力药水',
       'interact': '交谈',
       'target': '下一个目标',
       'map': '世界地图',

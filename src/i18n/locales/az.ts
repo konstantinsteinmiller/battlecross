@@ -44,6 +44,13 @@ export default {
     'block': 'Blok',
     'immune': 'Təsirsiz'
   },
+  'level': {
+    'open': 'Aç',
+    'guarded': 'Qorunur',
+    'locked': 'Kilidli',
+    'potion': '+1 iksir',
+    'manaPotion': '+1 mana iksiri'
+  },
   'status': {
     'stun': 'Gicəllənib',
     'knockup': 'Havada',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Qızıl',
     'lost': 'İtirildi',
     'kills': 'Məğlub edildi',
+    'chests': 'Sandıqlar',
     'time': 'Vaxt',
     'unlocked': 'Xəritədə yeni: {places}',
     'retry': 'Yenə cəhd et',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Bacarıq 5',
       'skill6': 'Bacarıq 6',
       'potion': 'İksir iç',
+      'manaPotion': 'Mana iksiri iç',
       'interact': 'Danış',
       'target': 'Növbəti hədəf',
       'map': 'Dünya xəritəsi',

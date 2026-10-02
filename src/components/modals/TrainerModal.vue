@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t(`class.${cls}.name`)" @update:model-value="closeModal")
+  FModal(:model-value="true" surface="wood" :title="t(`class.${cls}.name`)" @update:model-value="closeModal")
     div.trainer(:style="{ '--tint': CLASSES[cls].color }")
       div.trainer__who
         span.trainer__face

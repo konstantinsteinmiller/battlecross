@@ -44,6 +44,13 @@ export default {
     'block': 'रोका',
     'immune': 'बेअसर'
   },
+  'level': {
+    'open': 'खोलें',
+    'guarded': 'पहरे में',
+    'locked': 'बंद',
+    'potion': '+1 पोशन',
+    'manaPotion': '+1 माना पोशन'
+  },
   'status': {
     'stun': 'स्टन',
     'knockup': 'हवा में',
@@ -567,6 +574,7 @@ export default {
     'gold': 'सोना',
     'lost': 'गिर गया',
     'kills': 'हराए गए',
+    'chests': 'संदूक',
     'time': 'समय',
     'unlocked': 'नक्शे पर नया: {places}',
     'retry': 'फिर कोशिश करें',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'कौशल 5',
       'skill6': 'कौशल 6',
       'potion': 'पोशन पिएँ',
+      'manaPotion': 'माना पोशन पिएँ',
       'interact': 'बात करें',
       'target': 'अगला निशाना',
       'map': 'दुनिया का नक्शा',

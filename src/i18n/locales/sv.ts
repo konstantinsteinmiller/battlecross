@@ -44,6 +44,13 @@ export default {
     'block': 'Blockerat',
     'immune': 'Immun'
   },
+  'level': {
+    'open': 'Öppna',
+    'guarded': 'Bevakad',
+    'locked': 'Låst',
+    'potion': '+1 dryck',
+    'manaPotion': '+1 manadryck'
+  },
   'status': {
     'stun': 'Bedövad',
     'knockup': 'I luften',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Guld',
     'lost': 'Tappat',
     'kills': 'Besegrade',
+    'chests': 'Kistor',
     'time': 'Tid',
     'unlocked': 'Nytt på kartan: {places}',
     'retry': 'Försök igen',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Färdighet 5',
       'skill6': 'Färdighet 6',
       'potion': 'Drick dryck',
+      'manaPotion': 'Drick manadryck',
       'interact': 'Prata',
       'target': 'Nästa mål',
       'map': 'Världskarta',

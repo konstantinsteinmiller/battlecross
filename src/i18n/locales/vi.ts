@@ -44,6 +44,13 @@ export default {
     'block': 'Đỡ đòn',
     'immune': 'Miễn nhiễm'
   },
+  'level': {
+    'open': 'Mở',
+    'guarded': 'Có canh gác',
+    'locked': 'Đã khóa',
+    'potion': '+1 bình thuốc',
+    'manaPotion': '+1 bình mana'
+  },
   'status': {
     'stun': 'Choáng',
     'knockup': 'Hất tung',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Vàng',
     'lost': 'Đánh rơi',
     'kills': 'Đã hạ',
+    'chests': 'Rương',
     'time': 'Thời gian',
     'unlocked': 'Mới trên bản đồ: {places}',
     'retry': 'Thử lại',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Kỹ năng 5',
       'skill6': 'Kỹ năng 6',
       'potion': 'Uống thuốc',
+      'manaPotion': 'Uống bình mana',
       'interact': 'Nói chuyện',
       'target': 'Mục tiêu kế',
       'map': 'Bản đồ thế giới',

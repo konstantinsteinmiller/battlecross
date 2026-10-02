@@ -44,6 +44,7 @@
     "art:status": "node --import ./tools/ts-resolve.mjs tools/art-status.mjs",
     "art:export": "node tools/export-sheets.mjs",
     "art:slice": "node tools/slice-sheets.mjs",
+    "voice:manifest": "node --import ./tools/ts-resolve.mjs tools/voice-manifest.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs",

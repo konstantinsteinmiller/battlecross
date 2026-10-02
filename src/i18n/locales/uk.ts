@@ -45,6 +45,13 @@ export default {
     'block': 'Блок',
     'immune': 'Імунітет'
   },
+  'level': {
+    'open': 'Відкрити',
+    'guarded': 'Під охороною',
+    'locked': 'Замкнено',
+    'potion': '+1 зілля',
+    'manaPotion': '+1 зілля мани'
+  },
   'status': {
     'stun': 'Оглушення',
     'knockup': 'У повітрі',
@@ -585,6 +592,7 @@ export default {
     'gold': 'Золото',
     'lost': 'Втрачено',
     'kills': 'Переможено',
+    'chests': 'Скрині',
     'time': 'Час',
     'unlocked': 'Нове на мапі: {places}',
     'retry': 'Ще раз',
@@ -661,6 +669,7 @@ export default {
       'skill5': 'Навичка 5',
       'skill6': 'Навичка 6',
       'potion': 'Випити зілля',
+      'manaPotion': 'Випити зілля мани',
       'interact': 'Говорити',
       'target': 'Наступна ціль',
       'map': 'Мапа світу',

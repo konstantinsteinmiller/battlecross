@@ -11,9 +11,10 @@
  *   play    desktop, mouse and keys: the opening fight is played by clicking
  *           (walk, lock a goblin, press the skill key), then the loop is
  *           followed through its screens by clicking what a player clicks —
- *           result → map → town → walk up to the smith → buy → equip →
- *           the trainer → learn → slot → the character sheet's "+" — and the
- *           page is RELOADED to prove all of it was saved.
+ *           result → map → town → walk up to the smith → talk ("Show me
+ *           your goods") → buy → equip → the trainer ("Teach me") → learn →
+ *           slot → the character sheet's "+" — and the page is RELOADED to
+ *           prove all of it was saved.
  *   touch   a phone: the stick moves the hero, a tap locks an enemy, a skill
  *           is dragged from its button onto the field and cast where it is
  *           let go.
@@ -74,6 +75,8 @@ const open = async ({ w, h, touch = false, profile = null }) => {
     userAgent: touch ? PHONE_UA : undefined,
     args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--mute-audio']
   })
+  // No live reload: a file saved by someone else mid-run must not restart the page under a check.
+  await ctx.routeWebSocket(/.*/, () => {})
   const page = ctx.pages()[0] ?? await ctx.newPage()
   const errors = []
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text().slice(0, 240)) })
@@ -114,6 +117,23 @@ const winZone = (page) => game(page, async () => {
     await new Promise(r => setTimeout(r, 120))
   }
 })
+/** Hear a conversation's lines (Space) until its topics, a window it opens, or its end. */
+const talkThrough = async (page) => {
+  for (let i = 0; i < 40; i++) {
+    const s = await game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal, phase: window.__game.talk.phase }))
+    if (!s.talk || s.modal || s.phase !== 'line') return s
+    await page.keyboard.press('Space')
+    await page.waitForTimeout(160)
+  }
+  return game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal, phase: window.__game.talk.phase }))
+}
+/** Take a polite leave (Esc; a second one skips the farewell). */
+const endTalk = async (page) => {
+  for (let i = 0; i < 8 && await game(page, () => window.__game.flow.talk); i++) {
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(260)
+  }
+}
 const touchDrag = async (cdp, from, to, steps = 10, hold = 80) => {
   const pt = (p) => [{ x: Math.round(p.x), y: Math.round(p.y), id: 1, radiusX: 8, radiusY: 8, force: 1 }]
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pt(from) })
@@ -251,9 +271,22 @@ const playDesktop = async () => {
   await page.waitForTimeout(500)
   const sp = await project(page, smith.x, smith.h * 0.5, smith.z)
   await page.mouse.click(sp.x, sp.y)
-  await page.waitForFunction(() => window.__game.flow.modal === 'shop', null, { timeout: 12000 }).catch(() => {})
+  await page.waitForFunction(() => window.__game.flow.talk === 'npc', null, { timeout: 12000 }).catch(() => {})
+  await page.waitForTimeout(400)
+  const met = await game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal, line: window.__game.talk.line?.id ?? '', bubble: !!document.querySelector('.dialog .bubble'), t: window.__game.zone().sim.time }))
+  await page.waitForTimeout(400)
+  const running = await game(page, () => window.__game.zone().sim.time)
+  check('clicking a shopkeeper walks up to them and starts a conversation: a speech bubble, no window, the world keeps running',
+    met.talk === 'npc' && met.modal === '' && met.bubble && met.line === 'dlg.sunfordSmith.hello.1' && running > met.t, JSON.stringify(met))
+  await shot(page, 'play-5-talk')
+  let said = await talkThrough(page)
+  const topics = await page.evaluate(() => [...document.querySelectorAll('[data-choice]')].map(el => el.dataset.choice))
+  check('the greeting ends in a list of topics, "End" last', said.phase === 'choices' && topics[0] === 'trade' && topics.at(-1) === 'end', topics.join(','))
+  await page.locator('[data-choice="trade"]').click()
+  await talkThrough(page)
+  await page.waitForFunction(() => window.__game.flow.modal === 'shop', null, { timeout: 8000 }).catch(() => {})
   let modal = await game(page, () => window.__game.flow.modal)
-  check('clicking a shopkeeper walks up to them and opens the shop', modal === 'shop', modal)
+  check('"Show me your goods" opens the shop', modal === 'shop', modal)
   await shot(page, 'play-5-shop')
 
   // Buy the cheapest thing on the shelf with real clicks.
@@ -268,7 +301,13 @@ const playDesktop = async () => {
   const bought = await game(page, () => ({ n: window.__game.profile.inv.items.length, gold: window.__game.profile.gold, last: window.__game.profile.inv.items.at(-1) }))
   check('buying an item takes the gold and puts it in the bag', n > 0 && bought.n === owned0 + 1 && bought.gold < 5000, `${bought.last}, gold ${bought.gold}`)
   await page.locator('.f-modal__close').click()
-  await page.waitForTimeout(400)
+  await page.waitForTimeout(500)
+  const resumed = await game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal, line: window.__game.talk.line?.id ?? '' }))
+  check('closing the shop returns to the conversation (a parting line)', resumed.talk === 'npc' && resumed.modal === '' && resumed.line === 'dlg.sunfordSmith.shopBack.1', JSON.stringify(resumed))
+  await endTalk(page)
+  const left = await game(page, () => ({ talk: window.__game.flow.talk, modal: window.__game.flow.modal }))
+  check('Escape ends the conversation (and does not open the pause menu)', left.talk === '' && left.modal === '', JSON.stringify(left))
+  await page.waitForTimeout(500)
 
   // The bag: equip it.
   await page.locator('.menu-buttons button[aria-label="Bag"]').click()
@@ -306,9 +345,13 @@ const playDesktop = async () => {
   await page.waitForTimeout(500)
   const tp = await project(page, tr.x, tr.h * 0.5, tr.z)
   await page.mouse.click(tp.x, tp.y)
-  await page.waitForFunction(() => window.__game.flow.modal === 'trainer', null, { timeout: 12000 }).catch(() => {})
+  await page.waitForFunction(() => window.__game.flow.talk === 'npc', null, { timeout: 12000 }).catch(() => {})
+  said = await talkThrough(page)
+  await page.keyboard.press('Digit1')
+  await talkThrough(page)
+  await page.waitForFunction(() => window.__game.flow.modal === 'trainer', null, { timeout: 8000 }).catch(() => {})
   modal = await game(page, () => window.__game.flow.modal)
-  check('clicking a trainer opens their six skills', modal === 'trainer' && await page.locator('.lesson').count() === 6, modal)
+  check('a trainer is talked to, and "Teach me" (key 1) opens their six skills', said.phase === 'choices' && modal === 'trainer' && await page.locator('.lesson').count() === 6, modal)
   await page.locator('.lesson').first().click()
   await page.waitForTimeout(200)
   await page.locator('.trainer__actions button').click()
@@ -317,7 +360,9 @@ const playDesktop = async () => {
   check('learning Fireball costs gold and slots it next to Shield Slam', learned.learned.includes('fireball') && learned.active[1] === 'fireball', learned.active.join(','))
   await shot(page, 'play-8-trainer')
   await page.locator('.f-modal__close').click()
-  await page.waitForTimeout(600)
+  await page.waitForTimeout(500)
+  await endTalk(page)
+  await page.waitForTimeout(400)
 
   // Reload: everything is still there, and the game boots as a returning player.
   const saved = await game(page, async () => {
@@ -453,7 +498,7 @@ const layout = async () => {
     const hudBad = layoutProblems({ ...hud, rects: hud.rects.filter(r => !r.label.startsWith('~slot')) })
     check(`${v.name}: fight HUD — nothing overlaps, nothing leaves the screen`, hudBad.length === 0, hudBad.join('; '))
     const small = slots.filter(r => r.w < 43.5 || r.h < 43.5)
-    check(`${v.name}: all ${slots.length} skill buttons and the potion are at least 44 px`, slots.length === 7 && small.length === 0, small.map(r => `${Math.round(r.w)}×${Math.round(r.h)}`).join(','))
+    check(`${v.name}: all ${slots.length} skill buttons and both flasks are at least 44 px`, slots.length === 8 && small.length === 0, small.map(r => `${Math.round(r.w)}×${Math.round(r.h)}`).join(','))
     const slotOverlap = slots.some((a, i) => slots.some((c, j) => j > i && overlaps(a, c)))
     check(`${v.name}: the skill buttons do not overlap each other`, !slotOverlap)
     await shot(page, `layout-${v.w}x${v.h}-fight`)
@@ -475,14 +520,20 @@ const layout = async () => {
     await page.locator('.f-modal__footer button').last().click({ force: true })
     await page.waitForFunction(() => window.__game.flow.screen === 'map', null, { timeout: 15000 })
     await page.waitForTimeout(500)
-    const map = await rectsOf(page, [...MAPUI, ['~node', '.node']])
-    const mapBad = layoutProblems({ ...map, rects: map.rects.filter(r => !r.label.startsWith('~node')) })
+    const map = await rectsOf(page, [...MAPUI, ['~world', '.wmap__world'], ['~node', '.node']])
+    const mapBad = layoutProblems({ ...map, rects: map.rects.filter(r => !r.label.startsWith('~')) })
     check(`${v.name}: world map — bars and sheet do not overlap or leave the screen`, mapBad.length === 0, mapBad.join('; '))
+    // The drawn sheet keeps its shape: on a screen too small for it, it is
+    // larger than the table it lies on and pans. The places are held to the
+    // SHEET, and the one the hero stands at must be in view on the table.
     const sheet = map.rects.find(r => r.label === 'sheet')
+    const world = map.rects.find(r => r.label === '~world')
     const nodes = map.rects.filter(r => r.label.startsWith('~node'))
-    const outside = nodes.filter(n => n.x < sheet.x || n.y < sheet.y || n.x + n.w > sheet.x + sheet.w || n.y + n.h > sheet.y + sheet.h)
+    const within = (n, box) => n.x >= box.x - 1 && n.y >= box.y - 1 && n.x + n.w <= box.x + box.w + 1 && n.y + n.h <= box.y + box.h + 1
+    const outside = world ? nodes.filter(n => !within(n, world)) : nodes
     const nodeClash = nodes.some((a, i) => nodes.some((c, j) => j > i && overlaps(a, c, 2)))
-    check(`${v.name}: all ${nodes.length} places sit on the parchment, none on top of another, each at least 36 px`, nodes.length === 16 && outside.length === 0 && !nodeClash && nodes.every(n => n.w >= 35.5), `${outside.length} outside${nodeClash ? ', overlapping' : ''}, smallest ${Math.round(Math.min(...nodes.map(n => n.w)))}`)
+    const here = await page.evaluate(() => { const r = document.querySelector('.node.is-here')?.getBoundingClientRect(); return r ? { x: r.left, y: r.top, w: r.width, h: r.height } : null })
+    check(`${v.name}: all ${nodes.length} places sit on the map sheet, none on top of another, each at least 44 px; the hero's place is in view`, nodes.length === 16 && outside.length === 0 && !nodeClash && nodes.every(n => n.w >= 43.5 && n.h >= 43.5) && !!here && within(here, sheet), `${outside.length} off the sheet${nodeClash ? ', overlapping' : ''}, smallest ${Math.round(Math.min(...nodes.map(n => n.w)))}${here && within(here, sheet) ? '' : ', the hero\'s place is out of view'}`)
     await shot(page, `layout-${v.w}x${v.h}-map`)
 
     // The town HUD and the widest menu (the hero's tabs).

@@ -51,6 +51,9 @@ export interface InventorySave {
   fresh: string[]
   /** Potions carried into each zone. */
   potions: number
+  /** Mana potions in stock: found in chests or bought, kept between visits,
+   *  never more than the belt has slots (`potions`). */
+  manaPotions: number
 }
 
 export interface QuestSave {
@@ -70,6 +73,11 @@ export interface WorldSave {
   visits: Record<string, number>
   /** The colosseum's best: waves survived. */
   arenaBest: number
+  /** One-time chests already emptied ("zone:role": a puzzle's, a secret's). */
+  chests: string[]
+  /** Dialogue memory (`game/talk.ts`): who the hero has met (`<npc>`) and
+   *  what was said (`<npc>.<topic>`), so nobody introduces themselves twice. */
+  said: string[]
 }
 
 export interface StatsSave {
@@ -113,7 +121,8 @@ const defaultInv = (): InventorySave => ({
   items: ['rustedShortsword', 'woodenBuckler', 'paddedTunic'],
   equipped: { main: 'rustedShortsword', off: 'woodenBuckler', body: 'paddedTunic', trinket1: null, trinket2: null },
   fresh: [],
-  potions: 3
+  potions: 3,
+  manaPotions: 0
 })
 
 const defaults = (): Profile => ({
@@ -124,7 +133,7 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
-  world: { cleared: [], flags: [], at: 'plains', visits: {}, arenaBest: 0 },
+  world: { cleared: [], flags: [], at: 'plains', visits: {}, arenaBest: 0, chests: [], said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {}
 })
@@ -188,6 +197,8 @@ export const loadProfile = (): void => {
   inv.equipped = eq
   inv.fresh = strs(inv.fresh).filter(id => inv.items.includes(id))
   inv.potions = Math.max(1, Math.min(5, Math.round(num(inv.potions, 3))))
+  // A save from before mana potions has none.
+  inv.manaPotions = Math.max(0, Math.min(inv.potions, Math.round(num(inv.manaPotions, 0))))
   profile.inv = inv
 
   const quests = obj(stored(QUESTS_KEY), d.quests)
@@ -202,6 +213,10 @@ export const loadProfile = (): void => {
   world.flags = [...new Set(strs(world.flags))]
   world.visits = obj(world.visits, {})
   world.arenaBest = Math.max(0, Math.round(num(world.arenaBest, 0)))
+  // A save from before one-time chests has opened none.
+  world.chests = [...new Set(strs(world.chests))]
+  // A save from before the conversations has no memory: everyone is met anew.
+  world.said = [...new Set(strs(world.said))]
   if (!NODE_BY_ID[world.at]) world.at = 'plains'
   profile.world = world
 
@@ -452,6 +467,34 @@ export const buyPotionSlot = (): boolean => {
   profile.inv.potions++
   saveProfile()
   return true
+}
+
+// ─── Mana potions and one-time chests ────────────────────────────────────────
+
+/** What a healer charges for one mana potion. */
+export const manaPotionCost = (): number => 20 + profile.level * 6
+
+/** Is there room in the stock (as many slots as the health belt has)? */
+export const manaPotionRoom = (): number => Math.max(0, profile.inv.potions - profile.inv.manaPotions)
+
+/** Buy one mana potion for the stock. False: no room, or not the gold. */
+export const buyManaPotion = (): boolean => {
+  const cost = manaPotionCost()
+  if (manaPotionRoom() <= 0 || profile.gold < cost) return false
+  profile.gold -= cost
+  profile.inv.manaPotions++
+  saveProfile()
+  return true
+}
+
+/** The stock as a visit leaves it (some drunk, some found): held to the belt's size. */
+export const setManaPotions = (n: number): void => {
+  profile.inv.manaPotions = Math.max(0, Math.min(profile.inv.potions, Math.round(n)))
+}
+
+/** Remember the one-time chests a visit emptied. */
+export const markChestsOpened = (keys: readonly string[]): void => {
+  for (const k of keys) if (!profile.world.chests.includes(k)) profile.world.chests.push(k)
 }
 
 // ─── The world ───────────────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="flow.npc ? t(`npc.${flow.npc.id}.name`) : ''" @update:model-value="closeModal")
+  FModal(:model-value="true" surface="wood" :title="flow.npc ? t(`npc.${flow.npc.id}.name`) : ''" @update:model-value="closeModal")
     div.healer
       div.healer__who
         span.healer__face

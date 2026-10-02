@@ -44,6 +44,13 @@ export default {
     'block': 'Torjuttu',
     'immune': 'Immuuni'
   },
+  'level': {
+    'open': 'Avaa',
+    'guarded': 'Vartioitu',
+    'locked': 'Lukittu',
+    'potion': '+1 juoma',
+    'manaPotion': '+1 manajuoma'
+  },
   'status': {
     'stun': 'Tainnutettu',
     'knockup': 'Ilmassa',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Kulta',
     'lost': 'Menetetty',
     'kills': 'Voitetut',
+    'chests': 'Arkut',
     'time': 'Aika',
     'unlocked': 'Uutta kartalla: {places}',
     'retry': 'Yritä uudelleen',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Kyky 5',
       'skill6': 'Kyky 6',
       'potion': 'Juo juoma',
+      'manaPotion': 'Juo manajuoma',
       'interact': 'Puhu',
       'target': 'Seuraava kohde',
       'map': 'Maailmankartta',

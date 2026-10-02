@@ -44,6 +44,10 @@ export const hud = shallowReactive({
   potions: 0,
   potionsMax: 0,
   potionReady: true,
+  /** Mana potions in stock, how many the belt holds, and whether one can be drunk now. */
+  manaPotions: 0,
+  manaPotionMax: 0,
+  manaPotionReady: true,
   /** The six active slots. Replaced whole on a change. */
   skills: [emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot()] as SkillSlotView[],
   /** Status icons on the hero (ids, e.g. 'stun', 'burn', 'haste'). */
@@ -64,6 +68,9 @@ export const hud = shallowReactive({
   wave: 0,
   /** An NPC is in reach (town): its name key for the prompt, '' for none. */
   interactKey: '',
+  /** A chest the hero can open is in reach (zone): its tier ('wood' | 'iron' |
+   *  'gold') for the "Open" prompt, '' for none. */
+  interactChest: '',
   /** The hand in use: keycaps show on prompts only for mouse + keys. */
   device: 'mouse' as 'touch' | 'mouse',
   /** The control coach's glyphs on screen (`game/coach.ts`). */
@@ -81,6 +88,8 @@ export const hudLive = {
   cdMax: [1, 1, 1, 1, 1, 1],
   potionCd: 0,
   potionCdMax: 1,
+  manaPotionCd: 0,
+  manaPotionCdMax: 1,
   /** The hero on screen (surface px), for hints drawn around them. */
   heroX: 0,
   heroY: 0,

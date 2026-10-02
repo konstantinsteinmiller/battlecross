@@ -5,8 +5,7 @@
         Portrait(look="hero")
       div.sheet__id
         span.sheet__lvl {{ t('hud.level', { n: profile.level }) }}
-        span.sheet__xpbar
-          span.sheet__xpfill(:style="{ transform: `scaleX(${xp01()})` }")
+        FBar.sheet__xpbar(:value="xp01()" tone="xp" frame="xp" :label="t('hud.xp')")
         span.sheet__xp(v-if="profile.level < MAX_LEVEL") {{ fmt(profile.hero.xp) }} / {{ fmt(xpToNext(profile.level)) }} {{ t('hud.xp') }}
         span.sheet__xp(v-else) {{ t('sheet.maxLevel') }}
       span.sheet__points(v-if="profile.hero.points > 0" :key="profile.hero.points") {{ t('sheet.points', { n: profile.hero.points }) }}
@@ -43,6 +42,7 @@ import { computeStats, profile, spendPoint, totalAttrs, xp01 } from '@/game/stat
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
 import Portrait from '@/components/art/Portrait.vue'
+import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 
 const { t } = useI18n()
@@ -96,17 +96,7 @@ const raise = (a: Attr): void => {
   font-size: clamp(1rem, 4.2vmin, 1.4rem)
   line-height: 1.1
 .sheet__xpbar
-  position: relative
-  height: clamp(0.5rem, 2vmin, 0.75rem)
-  border-radius: 999px
-  border: 2px solid #0f1a30
-  background: #1c2440
-  overflow: hidden
-.sheet__xpfill
-  position: absolute
-  inset: 0
-  transform-origin: left center
-  background: linear-gradient(90deg, #c58cff, #7fd8ff)
+  --fbar-h: clamp(0.6rem, 2.3vmin, 0.85rem)
 .sheet__xp
   color: #b9c4ee
   font-size: clamp(0.66rem, 2.7vmin, 0.84rem)

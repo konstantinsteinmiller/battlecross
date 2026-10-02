@@ -44,6 +44,13 @@ export default {
     'block': '막음',
     'immune': '면역'
   },
+  'level': {
+    'open': '열기',
+    'guarded': '지키는 중',
+    'locked': '잠김',
+    'potion': '물약 +1',
+    'manaPotion': '마나 물약 +1'
+  },
   'status': {
     'stun': '기절',
     'knockup': '공중에 뜸',
@@ -567,6 +574,7 @@ export default {
     'gold': '골드',
     'lost': '잃음',
     'kills': '처치',
+    'chests': '상자',
     'time': '시간',
     'unlocked': '지도에 새로 열림: {places}',
     'retry': '다시 도전',
@@ -642,6 +650,7 @@ export default {
       'skill5': '스킬 5',
       'skill6': '스킬 6',
       'potion': '물약 마시기',
+      'manaPotion': '마나 물약 마시기',
       'interact': '대화',
       'target': '다음 대상',
       'map': '월드맵',

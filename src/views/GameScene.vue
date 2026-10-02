@@ -4,6 +4,8 @@
     div.input-surface(v-show="flow.screen === 'zone' || flow.screen === 'town'" ref="surface")
     GameHud(v-if="flow.screen === 'zone' || flow.screen === 'town'" @options="optionsOpen = true")
     WorldMap(v-if="flow.screen === 'map'" @options="optionsOpen = true")
+    //- A conversation: bubbles over the running scene, never a window.
+    DialogLayer(v-if="flow.talk")
     GameModals(@options="optionsOpen = true")
     OptionsModal(:is-open="optionsOpen" @close="optionsOpen = false")
     TravelVeil
@@ -15,9 +17,10 @@ import { app } from '@/game/engine/app'
 import { attachInput, consumeEdges } from '@/game/engine/input'
 import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentZone } from '@/game/boot'
-import { flow, travel, openMap } from '@/game/flow'
+import { flow, travel, openMap, talkTo, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { profile } from '@/game/state/profile'
+import { talk } from '@/game/talk'
 import { coach } from '@/game/coach'
 import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
 import { isAnyModalOpen } from '@/use/useModalState'
@@ -29,6 +32,7 @@ import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
 import WorldMap from '@/components/screens/WorldMap.vue'
 import GameModals from '@/components/modals/GameModals.vue'
+import DialogLayer from '@/components/dialog/DialogLayer.vue'
 import TravelVeil from '@/components/hud/TravelVeil.vue'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 
@@ -88,7 +92,7 @@ onMounted(async () => {
   window.addEventListener('keydown', onKey)
   if (import.meta.env.DEV) {
     // Probe hooks for browser checks. Folds away in production.
-    ;(window as unknown as Record<string, unknown>).__game = { app, input, flow, hud, profile, travel, openMap, zone: currentZone, coach }
+    ;(window as unknown as Record<string, unknown>).__game = { app, input, flow, hud, profile, travel, openMap, zone: currentZone, coach, talk, talkTo, visitHiddenTrainer }
     // The recorder's scripting handle (tools/preview-video), on `?preview=1`.
     if (PREVIEW_ON) void import('@/game/previewFeed').then(m => m.installPreview())
   }
@@ -111,7 +115,8 @@ watch(isGamePaused, (p) => {
 const live = computed(() => isGameplayLive({
   screen: flow.screen,
   phase: hud.phase,
-  flowModal: flow.modal !== '',
+  // A conversation is not gameplay either (in a zone it is the quest's decision).
+  flowModal: flow.modal !== '' || flow.talk !== '',
   anyModalOpen: isAnyModalOpen.value,
   adShowing: isAdShowing.value,
   visibilityHidden: isVisibilityHidden.value,

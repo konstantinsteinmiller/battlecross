@@ -9,8 +9,9 @@ import type { NodeId } from './zones'
  * that change who trades and teaches where, what a town looks like, who
  * ambushes the hero on the road, and how the story ends.
  *
- * The text lives in i18n: `quest.<id>.title`, `.intro`, `.ask`, and per choice
- * `quest.<id>.<choice>.label` / `.result`.
+ * The text lives in i18n: `quest.<id>.title` and per choice
+ * `quest.<id>.<choice>.label` (what the map shows). The decision itself is a
+ * conversation (`data/dialogs/decisions.ts`, lines under `dlg.quest.<id>`).
  */
 
 export type FactionId = 'order' | 'syndicate' | 'circle'

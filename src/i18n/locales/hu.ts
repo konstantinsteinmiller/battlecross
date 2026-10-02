@@ -44,6 +44,13 @@ export default {
     'block': 'Hárítva',
     'immune': 'Immunis'
   },
+  'level': {
+    'open': 'Kinyitás',
+    'guarded': 'Őrzik',
+    'locked': 'Zárva',
+    'potion': '+1 ital',
+    'manaPotion': '+1 manaital'
+  },
   'status': {
     'stun': 'Kábult',
     'knockup': 'Levegőben',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Arany',
     'lost': 'Elvesztve',
     'kills': 'Legyőzve',
+    'chests': 'Ládák',
     'time': 'Idő',
     'unlocked': 'Új a térképen: {places}',
     'retry': 'Próbáld újra',
@@ -642,6 +650,7 @@ export default {
       'skill5': '5. képesség',
       'skill6': '6. képesség',
       'potion': 'Ital megivása',
+      'manaPotion': 'Manaital megivása',
       'interact': 'Beszélgetés',
       'target': 'Következő célpont',
       'map': 'Világtérkép',

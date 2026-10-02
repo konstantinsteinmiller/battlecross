@@ -74,7 +74,7 @@ Shown round, in dialogues, shops, trainers and the hero frame.
 
 | Name | What | Size |
 | --- | --- | --- |
-| `map` | The world map's parchment (the nodes, roads and labels are drawn over it; node positions are in `src/game/data/zones.ts`, `MAP[].at`, as fractions of the sheet) | 1376 × 768 from the pipeline (any 16:9 up to 2048 wide), stretched to the sheet |
+| `map` | The world map's terrain: sea and coast, the regions, rivers, bridges, the roads' beds and the sixteen bare sites (drawn by `src/components/screens/map/terrain.ts` until this file exists). The landmarks, the travelled roads, the names, the clouds and everything that moves are drawn over it by the game, so the sites stay EMPTY; they stand at `MAP[].at` in `src/game/data/zones.ts`, as fractions of the sheet | 1376 × 768 from the pipeline (any 16:9 up to 2048 wide), stretched to the sheet |
 | `coin` | The gold coin beside every price | 64 × 64 from the pipeline (up to 128) |
 | `skill-frame` | The frame of a battle skill button (`FSocket`, square): an ornate metal-and-gem socket drawn OVER the skill's icon. The centre window is transparent (the icon, the cooldown sweep and the glass highlight show through it); the gem on the crown may stand up to 5 % above the square. Neutral metal: the class colour stays in the icon | 256 × 256, transparent; window = the centre 70 % (a rounded square, corner radius 16 % of the frame) |
 | `skill-frame-potion` | The frame of the two belt flasks (`FSocket`, round): a round glass-and-metal socket with a corked neck on top, drawn over the liquid. Used for both the health and the mana flask (the liquid and the emblem carry the colour) | 256 × 256, transparent; window = a centred circle, 70 % of the frame |

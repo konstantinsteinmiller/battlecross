@@ -1,21 +1,22 @@
 <template lang="pug">
-  div.hud(:class="[`hud--${hud.device}`, `hud--${flow.screen}`]")
+  div.hud(:class="[`hud--${hud.device}`, `hud--${flow.screen}`, { 'hud--talk': flow.talk }]")
     FloatLayer
-    CoachLayer(v-if="flow.screen === 'zone' && !flow.modal")
+    //- The townspeople's markers, and the "Talk" prompt on the one in reach.
+    NpcPins(v-if="flow.screen === 'town'")
+    CoachLayer(v-if="flow.screen === 'zone' && !flow.modal && !flow.talk")
+    //- The "Open" prompt on the chest in reach.
+    ChestPrompt(v-if="flow.screen === 'zone'")
     div.hud__top
       HeroFrame.hud__tl
       TopStatus.hud__tc
       HudMenu.hud__tr(pause help @pause="pause" @help="help")
     div.hud__bl
       TouchStick
-    //- A zone: the skills. A town: the hero's menus, and who is in reach.
+    //- A zone: the skills. A town: the hero's menus.
     div.hud__br(v-if="flow.screen === 'zone'")
       SkillBar
     div.hud__br(v-else)
       MenuButtons(map)
-    div.hud__talk(v-if="flow.screen === 'town' && hud.interactKey && !flow.modal")
-      FButton(:label="t(`npc.${hud.interactKey}.name`)" icon="chat" size="md" @click="talk")
-      KeyCap.hud__talk-key(v-if="hud.device === 'mouse'" :code="interactCode")
 </template>
 
 <script setup lang="ts">
@@ -27,15 +28,14 @@
  * Corners (the layout the studio's other games use): the hero top-left, the
  * rarely-touched buttons top-right, the stick bottom-left, the actions
  * bottom-right. Nothing overlaps at 320 × 658 or in a phone's landscape.
+ *
+ * During a conversation (`flow.talk`) the corners step back: the scene and
+ * the speech bubbles (`DialogLayer`) have the screen.
  */
-import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
 import { flow } from '@/game/flow'
-import { input } from '@/game/boot'
 import { coach } from '@/game/coach'
-import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
-import FButton from '@/components/atoms/FButton.vue'
-import KeyCap from '@/components/glyphs/KeyCap.vue'
+import NpcPins from '@/components/dialog/NpcPins.vue'
 import HeroFrame from './HeroFrame.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'
@@ -43,18 +43,16 @@ import SkillBar from './SkillBar.vue'
 import TouchStick from './TouchStick.vue'
 import FloatLayer from './FloatLayer.vue'
 import CoachLayer from './CoachLayer.vue'
+import ChestPrompt from './ChestPrompt.vue'
 import MenuButtons from './MenuButtons.vue'
 
 defineEmits<{ (e: 'options'): void }>()
-const { t } = useI18n()
-const interactCode = DEFAULT_BINDINGS.interact[0]!
 
 const pause = (): void => { if (!flow.modal && !flow.loading) flow.modal = 'pause' }
 const help = (): void => {
   coach.recallAll()
   if (!flow.modal && !flow.loading) flow.modal = 'help'
 }
-const talk = (): void => { input.interactQueued = true }
 </script>
 
 <style scoped lang="sass">
@@ -105,27 +103,14 @@ const talk = (): void => { input.interactQueued = true }
 .hud--touch.hud--town .hud__br :deep(.menu-buttons)
   display: grid
   grid-template-columns: repeat(2, auto)
-.hud__talk
-  position: absolute
-  left: 50%
-  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(8.5rem, 44vmin, 13rem))
-  transform: translateX(-50%)
-  display: flex
-  align-items: center
-  gap: 0.5rem
-  max-width: 92vw
-  pointer-events: auto
-  animation: talk-in 220ms cubic-bezier(0.2, 1.4, 0.4, 1)
-.hud--mouse .hud__talk
-  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(6rem, 16vmin, 9rem))
-.hud__talk-key
-  font-size: clamp(0.8rem, 2.4vmin, 1.05rem)
-  color: #141a33
-@keyframes talk-in
-  from
+// A conversation: the corners fade out and take no input until it is over.
+.hud__top, .hud__bl, .hud__br
+  transition: opacity 220ms ease-out, visibility 0s
+.hud--talk
+  .hud__top, .hud__bl, .hud__br
     opacity: 0
-    transform: translateX(-50%) translateY(0.6rem) scale(0.85)
-  to
-    opacity: 1
-    transform: translateX(-50%)
+    visibility: hidden
+    transition: opacity 220ms ease-out, visibility 0s 220ms
+    :deep(*)
+      pointer-events: none !important
 </style>

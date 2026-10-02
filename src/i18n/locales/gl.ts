@@ -44,6 +44,13 @@ export default {
     'block': 'Bloqueado',
     'immune': 'Inmune'
   },
+  'level': {
+    'open': 'Abrir',
+    'guarded': 'Vixiado',
+    'locked': 'Pechado',
+    'potion': '+1 poción',
+    'manaPotion': '+1 poción de maná'
+  },
   'status': {
     'stun': 'Aturdido',
     'knockup': 'No aire',
@@ -567,6 +574,7 @@ export default {
     'gold': 'Ouro',
     'lost': 'Perdido',
     'kills': 'Derrotados',
+    'chests': 'Cofres',
     'time': 'Tempo',
     'unlocked': 'Novo no mapa: {places}',
     'retry': 'Tentar de novo',
@@ -642,6 +650,7 @@ export default {
       'skill5': 'Habilidade 5',
       'skill6': 'Habilidade 6',
       'potion': 'Beber poción',
+      'manaPotion': 'Beber poción de maná',
       'interact': 'Falar',
       'target': 'Seguinte obxectivo',
       'map': 'Mapa do mundo',
