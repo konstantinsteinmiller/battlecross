@@ -2,138 +2,136 @@ import { reactive, toRaw, watch } from 'vue'
 import { getState, setStates } from '@/use/useGameState'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
-  LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY,
-  STATS_KEY, TUTORIAL_KEY, MISSION_KEY
+  LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY, STATS_KEY,
+  TUTORIAL_KEY, VERSION_KEY
 } from '@/keys'
-import type { Attr } from '../data/progression'
-import { addXp, ATTR_GAIN, xpToNext, xpToReach } from '../data/progression'
-import type { WeaponId } from '../data/weapons'
-import { WEAPONS } from '../data/weapons'
-import {
-  starterItems, mainStat, BASE_BY_ID, EQUIP_SLOTS, type Item, type EquipSlot
-} from '../data/items'
-import type { Quest } from '../data/quests'
-import type { SectorId } from '../world/themes'
-import { SKILL_BY_ID, chipsSpent, canBuyMod } from '../data/skills'
-import { SECTORS } from '../data/regions'
-import { baseStats, type PlayerStats } from '../sim/stats'
-import { DEFAULT_HERO_COLORS, type HeroColors } from '../models/hero'
+import { ATTRS, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
+import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
+import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
+import { EQUIP_SLOTS, ITEM_BY_ID, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
+import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
+import { MAP, NODE_BY_ID, nodeOpen, type NodeId } from '../data/zones'
+import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
+import type { UnitStats } from '../sim/types'
 
 /**
  * ─── The player profile ──────────────────────────────────────────────────────
  *
- * One reactive object the hub UI binds to and the mission reads through
- * `computeStats()`. It is persisted into the single `bcross_state`
- * blob as a handful of `ma_*` fields (see `src/keys.ts`) at CHECKPOINTS —
- * a kill's XP, a pickup banked, a purchase, a mission end — never per frame.
+ * One reactive object the menus bind to and a zone visit reads its hero from.
+ * It is persisted into the single `bcross_state` blob as a handful of `bc_*`
+ * fields (see `src/keys.ts`) at CHECKPOINTS — a zone finished, a purchase, a
+ * point spent, a quest decided — never per frame.
  *
- * Every field has a default and `load()` fills anything missing, so an older
- * save (or a partial cloud row) always hydrates into a complete profile.
+ * Every field has a default and `loadProfile()` fills anything missing, so an
+ * older save (or a partial cloud row) always hydrates into a complete profile.
  */
 
+/** Bumped when a structured field changes shape. */
+export const SAVE_VERSION = 1
+
 export interface HeroSave {
+  /** XP into the current level. */
   xp: number
-  attrs: Record<Attr, number>
-  skills: Record<string, number>
-  /** Level-up attribute picks the player has not chosen yet. */
-  pendingAttrs: number
-  weapons: WeaponId[]
-  slots: [WeaponId | '', WeaponId | '']
-  weaponXp: Partial<Record<WeaponId, number>>
+  /** Attribute points as allocated (the base 5 included). */
+  attrs: AttrBlock
+  /** Points not yet spent. */
+  points: number
+  /** Every skill the hero has learned. */
+  learned: string[]
+  /** The six active slots and the three passive slots ('' = empty). */
+  active: string[]
+  passive: string[]
 }
 
 export interface InventorySave {
-  items: Item[]
+  /** Owned item ids (each of the 44 named items is owned once). */
+  items: string[]
   equipped: Record<EquipSlot, string | null>
-  tanks: number
-  /** Item ids the player has not looked at yet (the "NEW" badge). */
+  /** Ids the player has not looked at yet (the "NEW" dot). */
   fresh: string[]
-  /** A rewarded "+1 Repair Gel" from the lab, waiting for the next mission's
-   *  start (`claimGiftTank`). A flag, not a tank: it may go one over the cap,
-   *  which only a live mission can carry. */
-  giftTank: boolean
+  /** Potions carried into each zone. */
+  potions: number
 }
 
 export interface QuestSave {
-  jobs: Quest[]
-  jobSeed: number
-  storyAttempts: Record<string, number>
+  /** Quest id → the choice made. Permanent. */
+  done: Record<string, string>
+  rep: Record<FactionId, number>
 }
 
 export interface WorldSave {
-  unlocked: SectorId[]
-  bosses: string[]
-  tutorialDone: boolean
-  /** New Game+ cycle: 0 on the first run (`sim/ngPlus.ts`). */
-  ngPlus: number
-  selected: SectorId
-  /** Story beats already shown (`story.md` § What this changes: `intro`, and
-   *  later `relay:<sector>`, `vex:<boss>`, `blueprint`, `breach`, `ending`). */
-  seen: string[]
+  /** Nodes cleared (zones) or visited (towns). */
+  cleared: string[]
+  /** World-state flags written by quest choices. */
+  flags: string[]
+  /** Where the hero stands on the map. */
+  at: NodeId
+  /** Visits per zone (seeds the next layout). */
+  visits: Record<string, number>
+  /** The colosseum's best: waves survived. */
+  arenaBest: number
 }
 
 export interface StatsSave {
   kills: number
   deaths: number
-  chests: number
-  missions: number
+  runs: number
   playSeconds: number
   bestLevel: number
-  /** Epoch ms of the last claimed Workshop supply drop (rewarded). */
-  lastDropAt: number
   /** Every point of XP ever earned, still counting past the level cap: the
    *  leaderboard's score. Read it through `lifetimeXp()`. */
   xpEarned: number
-  /** A running average (EMA) of the bolts a won mission paid, quest reward
-   *  and pickups, before any ×3 ad: what "a mission's income" is worth now. */
-  boltsAvg: number
 }
 
 export interface Profile {
   level: number
-  bolts: number
+  gold: number
+  /** Zones cleared at least once (the save-merge "story" score). */
   story: number
+  /** Runs won plus quests decided. */
   questsDone: number
   hero: HeroSave
   inv: InventorySave
   quests: QuestSave
   world: WorldSave
   stats: StatsSave
-  /** One-time flags (true) and the control coach's per-glyph success counts
-   *  (`hint:<id>:<touch|mouse>` → n). */
+  /** One-time flags (true) and the control coach's per-glyph success counts. */
   tips: Record<string, true | number>
 }
 
-const defaultHero = (): HeroSave => ({
-  xp: 0, attrs: { hp: 0, we: 0, power: 0 }, skills: {}, pendingAttrs: 0, weapons: [], slots: ['', ''], weaponXp: {}
-})
+const emptySlots = (n: number): string[] => new Array<string>(n).fill('')
 
-const defaultInv = (): InventorySave => {
-  const items = starterItems()
-  return {
-    items,
-    equipped: { buster: 'start_buster', helmet: 'start_helm', chest: 'start_body', boots: 'start_boots', chip1: null, chip2: null },
-    tanks: 1,
-    fresh: [],
-    giftTank: false
-  }
+const defaultHero = (): HeroSave => {
+  // A militia recruit: one trick learned on the drill ground, so the very
+  // first fight already has a button to press.
+  const active = emptySlots(ACTIVE_SLOTS)
+  active[0] = 'shieldSlam'
+  return { xp: 0, attrs: startAttrs(), points: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS) }
 }
+
+const defaultInv = (): InventorySave => ({
+  items: ['rustedShortsword', 'woodenBuckler', 'paddedTunic'],
+  equipped: { main: 'rustedShortsword', off: 'woodenBuckler', body: 'paddedTunic', trinket1: null, trinket2: null },
+  fresh: [],
+  potions: 3
+})
 
 const defaults = (): Profile => ({
   level: 1,
-  bolts: 0,
+  gold: 0,
   story: 0,
   questsDone: 0,
   hero: defaultHero(),
   inv: defaultInv(),
-  quests: { jobs: [], jobSeed: Math.floor(Math.random() * 1e9), storyAttempts: {} },
-  world: { unlocked: ['scrapyard'], bosses: [], tutorialDone: false, ngPlus: 0, selected: 'scrapyard', seen: [] },
-  stats: { kills: 0, deaths: 0, chests: 0, missions: 0, playSeconds: 0, bestLevel: 1, lastDropAt: 0, xpEarned: 0, boltsAvg: 0 },
+  quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
+  world: { cleared: [], flags: [], at: 'plains', visits: {}, arenaBest: 0 },
+  stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {}
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
 const obj = <T extends object>(v: unknown, d: T): T => (v && typeof v === 'object' && !Array.isArray(v) ? { ...d, ...(v as T) } : d)
+const strs = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [])
 
 /** A deep copy of plain data. JSON, like the blob's own trip to storage: it
  *  sees through Vue proxies (`structuredClone` throws on them), runs in every
@@ -149,124 +147,71 @@ const stored = (key: string): unknown => {
 export const profile: Profile = reactive(defaults())
 
 /**
- * Read the persisted fields into the reactive profile (fills defaults).
+ * Read the persisted fields into the reactive profile (fills defaults, drops
+ * anything the game no longer knows).
  *
- * The profile gets COPIES. Holding the blob's own nested arrays and objects
- * (`world.bosses`, `inv.items`…) would make every in-memory change an edit of
- * the save, written out by the next unrelated write (a volume change, a
- * leaderboard mark) before any checkpoint took it. The profile reaches the
- * blob through `saveProfile` and nothing else.
+ * The profile gets COPIES. Holding the blob's own nested arrays would make
+ * every in-memory change an edit of the save, written out by the next
+ * unrelated write (a volume change) before any checkpoint took it. The profile
+ * reaches the blob through `saveProfile` and nothing else.
  */
 export const loadProfile = (): void => {
   const d = defaults()
-  profile.level = Math.max(1, Math.round(num(getState(LEVEL_KEY), 1)))
-  profile.bolts = Math.max(0, Math.round(num(getState(GOLD_KEY), 0)))
+  profile.level = Math.max(1, Math.min(MAX_LEVEL, Math.round(num(getState(LEVEL_KEY), 1))))
+  profile.gold = Math.max(0, Math.round(num(getState(GOLD_KEY), 0)))
   profile.story = Math.max(0, Math.round(num(getState(STORY_KEY), 0)))
   profile.questsDone = Math.max(0, Math.round(num(getState(QUESTS_DONE_KEY), 0)))
+
   const hero = obj(stored(HERO_KEY), d.hero)
-  hero.attrs = obj(hero.attrs, d.hero.attrs)
-  hero.skills = obj(hero.skills, {})
-  hero.weaponXp = obj(hero.weaponXp, {})
-  if (!Array.isArray(hero.weapons)) hero.weapons = []
-  if (!Array.isArray(hero.slots) || hero.slots.length !== 2) hero.slots = ['', '']
-  profile.hero = hero
-  const inv = obj(stored(INVENTORY_KEY), d.inv)
-  if (!Array.isArray(inv.items) || inv.items.length === 0) {
-    inv.items = d.inv.items
-    inv.equipped = d.inv.equipped
+  const attrs = obj(hero.attrs, d.hero.attrs)
+  for (const a of ATTRS) attrs[a] = Math.max(1, Math.round(num(attrs[a], 5)))
+  hero.attrs = attrs
+  hero.xp = Math.max(0, num(hero.xp, 0))
+  hero.points = Math.max(0, Math.round(num(hero.points, 0)))
+  hero.learned = strs(hero.learned).filter(id => SKILL_BY_ID[id])
+  const slots = (v: unknown, n: number, kind: 'active' | 'passive'): string[] => {
+    const out = strs(v).slice(0, n).map(id => (SKILL_BY_ID[id]?.kind === kind && hero.learned.includes(id) ? id : ''))
+    while (out.length < n) out.push('')
+    return out
   }
-  inv.equipped = obj(inv.equipped, d.inv.equipped)
-  if (!Array.isArray(inv.fresh)) inv.fresh = []
-  // Saves from before the gift have no flag; anything but `true` is none.
-  inv.giftTank = inv.giftTank === true
-  inv.items = inv.items.filter(it => it && BASE_BY_ID[it.base])
+  hero.active = slots(hero.active, ACTIVE_SLOTS, 'active')
+  hero.passive = slots(hero.passive, PASSIVE_SLOTS, 'passive')
+  profile.hero = hero
+
+  const inv = obj(stored(INVENTORY_KEY), d.inv)
+  inv.items = [...new Set(strs(inv.items).filter(id => ITEM_BY_ID[id]))]
+  const eq = obj(inv.equipped, d.inv.equipped)
+  for (const s of EQUIP_SLOTS) {
+    const id = eq[s]
+    if (!id || !inv.items.includes(id) || ITEM_BY_ID[id]?.slot !== slotOf(s)) eq[s] = null
+  }
+  inv.equipped = eq
+  inv.fresh = strs(inv.fresh).filter(id => inv.items.includes(id))
+  inv.potions = Math.max(1, Math.min(5, Math.round(num(inv.potions, 3))))
   profile.inv = inv
+
   const quests = obj(stored(QUESTS_KEY), d.quests)
-  if (!Array.isArray(quests.jobs)) quests.jobs = []
-  quests.storyAttempts = obj(quests.storyAttempts, {})
+  quests.done = obj(quests.done, {})
+  const rep = obj(quests.rep, d.quests.rep)
+  for (const f of FACTIONS) rep[f] = Math.max(REP_MIN, Math.min(REP_MAX, Math.round(num(rep[f], 0))))
+  quests.rep = rep
   profile.quests = quests
+
   const world = obj(stored(WORLD_KEY), d.world)
-  if (!Array.isArray(world.unlocked) || !world.unlocked.length) world.unlocked = ['scrapyard']
-  if (!Array.isArray(world.bosses)) world.bosses = []
-  if (!Array.isArray(world.seen)) world.seen = []
-  world.ngPlus = Math.max(0, Math.round(num(world.ngPlus, 0)))
-  migrateSeen(world)
-  migrateUnlocks(world)
+  world.cleared = [...new Set(strs(world.cleared).filter(id => NODE_BY_ID[id]))]
+  world.flags = [...new Set(strs(world.flags))]
+  world.visits = obj(world.visits, {})
+  world.arenaBest = Math.max(0, Math.round(num(world.arenaBest, 0)))
+  if (!NODE_BY_ID[world.at]) world.at = 'plains'
   profile.world = world
+
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
 }
 
 /**
- * Story beats never replay history: every beat whose trigger is already behind
- * the player is marked seen, so an update never queues old cutscenes. The
- * intro's trigger is the first launch, so any save past the tutorial has
- * seen it (or never needs to).
- */
-export const migrateSeen = (world: WorldSave): void => {
-  if (world.tutorialDone && !world.seen.includes('intro')) world.seen.push('intro')
-  // The voiced Vex scenes (#117) arrived with this save already past some
-  // Masters: theirs count as seen, once (a Master beaten after this point
-  // plays its scenes even if the game was closed before the hub).
-  if (!world.seen.includes('vo:migrated')) {
-    world.seen.push('vo:migrated')
-    for (const beat of voBeatsBehind(world)) if (!world.seen.includes(beat)) world.seen.push(beat)
-  }
-  // The sectors' own beam-in lines came later: a sector whose Master is beaten was landed in long ago.
-  if (!world.seen.includes('vo:migrated:2')) {
-    world.seen.push('vo:migrated:2')
-    for (const s of SECTORS) {
-      if (world.bosses.includes(s.boss) && !world.seen.includes(`sector:${s.id}`)) world.seen.push(`sector:${s.id}`)
-    }
-  }
-  // The debriefs (#119) too: a Master beaten before they existed has had its return to the Lab.
-  if (!world.seen.includes('vo:migrated:3')) {
-    world.seen.push('vo:migrated:3')
-    for (const b of world.bosses) if (!world.seen.includes(`debrief:${b}`)) world.seen.push(`debrief:${b}`)
-  }
-}
-
-/** The voiced scenes whose trigger a save is already past (`story/vexScene.ts`). */
-export const voBeatsBehind = (world: Pick<WorldSave, 'bosses' | 'unlocked'>): string[] => {
-  const out: string[] = []
-  for (const b of world.bosses) out.push(`present:${b}`, `vex:${b}`)
-  if (world.bosses.includes('frostMaster')) out.push('blueprint')
-  if (world.bosses.includes('galeMaster')) out.push('reserve')
-  if (world.bosses.includes('rotorMaster')) out.push('breach')
-  if (world.bosses.includes('voltMaster')) out.push('voltHack')
-  if (world.bosses.includes('vexMk1')) out.push('fortress', 'mk1:intro', 'mk1:signal')
-  return out
-}
-
-/**
- * New sectors join the chain between old ones (the five Masters after the
- * Sky Docks): a save whose Master before a sector is already beaten opens
- * that sector now — the unlock it would have got at the time.
- */
-export const migrateUnlocks = (world: WorldSave): void => {
-  for (const s of SECTORS) {
-    if (!s.after || world.unlocked.includes(s.id)) continue
-    const before = SECTORS.find(o => o.id === s.after)
-    if (before && world.bosses.includes(before.boss)) world.unlocked.push(s.id)
-  }
-}
-
-/** Mark a story beat as shown, and save. */
-export const markStorySeen = (beat: string): void => {
-  if (profile.world.seen.includes(beat)) return
-  profile.world.seen.push(beat)
-  saveProfile()
-}
-
-/**
- * DEV ONLY: a level-lab test run (`/levels`, `flow.createBootMode`) plays on a
- * sandbox. While it is on, neither the profile nor the mission snapshot is
- * written, so nothing the run does (XP, loot, a boss marked beaten, a sector
- * unlocked, a resume point) reaches the save, and the run ends with a
- * `loadProfile()` that throws its changes away. Folds out of every build.
- * Nothing needs copying for it: the profile never holds one of the blob's
- * objects (`loadProfile` and `saveProfile` copy), so a run's changes cannot
- * ride out with an unrelated write (a volume change, a leaderboard mark).
+ * DEV ONLY: a sandboxed run writes nothing (the model bench, a probe that jumps
+ * to a late zone with a made-up build). Folds out of every build.
  */
 let saveSandbox = false
 export const setSaveSandbox = (on: boolean): void => {
@@ -278,8 +223,9 @@ export const setSaveSandbox = (on: boolean): void => {
 export const saveProfile = (): void => {
   if (import.meta.env.DEV && saveSandbox) return
   setStates({
+    [VERSION_KEY]: SAVE_VERSION,
     [LEVEL_KEY]: profile.level,
-    [GOLD_KEY]: profile.bolts,
+    [GOLD_KEY]: profile.gold,
     [STORY_KEY]: profile.story,
     [QUESTS_DONE_KEY]: profile.questsDone,
     [HERO_KEY]: plain(profile.hero),
@@ -291,39 +237,6 @@ export const saveProfile = (): void => {
   })
 }
 
-/**
- * A new mission has begun (not a resume: that mission already had its turn):
- * a pending rewarded gift becomes one more Repair Gel, over the cap if need
- * be, and the flag clears so it is paid exactly once. Saved at once, so the
- * blob never holds the flag and the gel it became side by side.
- */
-/**
- * Start New Game+ (`sim/ngPlus.ts`): the story from the Scrapyard again, one
- * cycle harder. Flux keeps everything he is — level, gear, chips, skills,
- * copied weapons, bolts, stats — and the tutorial stays done; the sectors
- * lock again and every Master waits to be beaten anew. Story beats already
- * seen do not replay.
- */
-export const startNewGamePlus = (): void => {
-  const w = profile.world
-  w.ngPlus = (w.ngPlus ?? 0) + 1
-  w.unlocked = ['scrapyard']
-  w.bosses = []
-  w.selected = 'scrapyard'
-  w.tutorialDone = true
-  profile.quests.storyAttempts = {}
-  profile.quests.jobs = []
-  saveProfile()
-}
-
-export const claimGiftTank = (): boolean => {
-  if (!profile.inv.giftTank) return false
-  profile.inv.giftTank = false
-  profile.inv.tanks++
-  saveProfile()
-  return true
-}
-
 let loaded = false
 /** Load once, and re-load whenever a cloud hydrate lands new data. */
 export const initProfile = (): void => {
@@ -333,176 +246,167 @@ export const initProfile = (): void => {
   watch(saveDataVersion, () => loadProfile())
 }
 
+/** Has this save ever been played? (A first-timer boots into the opening fight.) */
+export const isFreshProfile = (): boolean =>
+  profile.level <= 1 && profile.story === 0 && profile.questsDone === 0 && profile.stats.runs === 0 && profile.stats.kills === 0
+
+// ─── The hero as the sim wants him ───────────────────────────────────────────
+
+export const heroBuild = (attrs: AttrBlock = profile.hero.attrs): HeroBuild => ({
+  level: profile.level,
+  attrs,
+  equipped: profile.inv.equipped,
+  passives: profile.hero.passive.filter(Boolean)
+})
+
+export const computeStats = (attrs: AttrBlock = profile.hero.attrs): UnitStats => heroStats(heroBuild(attrs))
+
+/** Attribute totals with gear and passives (what skill requirements look at). */
+export const totalAttrs = (): AttrBlock => sumBuild(heroBuild()).attrs
+
 // ─── Progression ─────────────────────────────────────────────────────────────
 
-export const chipsAvailable = (): number => {
-  // Mods are bought with bolts: a save that installed the old Overcharge with
-  // a chip gets that chip back.
-  return Math.max(0, profile.level - 1 - chipsSpent(profile.hero.skills))
-}
+export const xp01 = (): number => (profile.level >= MAX_LEVEL ? 1 : profile.hero.xp / Math.max(1, xpToNext(profile.level)))
 
-export const xp01 = (): number => profile.hero.xp / Math.max(1, xpToNext(profile.level))
-
-/** Grant XP; returns levels gained (each adds a chip and a pending attribute). */
 /**
- * Lifetime XP: the leaderboard's score. A save from before the stat existed
- * (or any path that set the level without granting XP) is floored at what its
- * level and bar already prove, so the number can only ever grow.
+ * Lifetime XP: the leaderboard's score. Floored at what the level and bar
+ * already prove, so the number can only ever grow.
  */
 export const lifetimeXp = (): number =>
   Math.max(Math.round(profile.stats.xpEarned || 0), xpToReach(profile.level) + Math.round(profile.hero.xp))
 
+/** Grant XP; returns the levels gained (each is 3 attribute points). */
 export const grantXp = (amount: number): number => {
-  // Counted in full, even past the level cap where the bar stops filling.
   profile.stats.xpEarned = lifetimeXp() + Math.max(0, Math.round(amount))
   const r = addXp(profile.level, profile.hero.xp, amount)
   profile.level = r.level
   profile.hero.xp = r.xp
   if (r.gained > 0) {
-    profile.hero.pendingAttrs += r.gained
+    profile.hero.points += r.gained * POINTS_PER_LEVEL
     profile.stats.bestLevel = Math.max(profile.stats.bestLevel, r.level)
   }
   return r.gained
 }
 
-export const chooseAttr = (a: Attr): boolean => {
-  if (profile.hero.pendingAttrs <= 0) return false
-  profile.hero.pendingAttrs--
-  profile.hero.attrs[a]++
+export const spendPoint = (a: Attr, n = 1): boolean => {
+  if (profile.hero.points < n || n <= 0) return false
+  profile.hero.points -= n
+  profile.hero.attrs[a] += n
   saveProfile()
   return true
 }
 
-export const rankUpSkill = (id: string): boolean => {
-  const node = SKILL_BY_ID[id]
-  if (!node) return false
-  const ranks = profile.hero.skills
-  const cur = ranks[id] ?? 0
-  if (node.mod) {
-    if (!canBuyMod(node, ranks, profile.bolts, profile.hero.weapons)) return false
-    profile.bolts -= node.mod.bolts
-    ranks[id] = cur + 1
-    saveProfile()
-    return true
-  }
-  if (cur >= node.ranks || chipsAvailable() <= 0) return false
-  if (node.req && (ranks[node.req.id] ?? 0) < node.req.rank) return false
-  ranks[id] = cur + 1
+// ─── Skills ──────────────────────────────────────────────────────────────────
+
+export const knows = (id: string): boolean => profile.hero.learned.includes(id)
+
+/** What a trainer charges this hero: Charisma haggles, a friendly faction gives a discount. */
+export const skillCost = (id: string): number => {
+  const s = SKILL_BY_ID[id]
+  if (!s) return 0
+  const f = CLASSES[s.cls].faction
+  const friend = f !== 'none' && profile.quests.rep[f] >= REP_FRIEND ? FRIEND_DISCOUNT : 0
+  return Math.max(1, Math.round(skillPriceOf(s) * (1 - shopDiscount(totalAttrs().cha)) * (1 - friend)))
+}
+
+export type LearnBlock = '' | 'known' | 'level' | 'attrs' | 'gold'
+
+/** Why this skill cannot be learned right now ('' = it can). */
+export const learnBlock = (id: string): LearnBlock => {
+  const s = SKILL_BY_ID[id]
+  if (!s || knows(id)) return 'known'
+  if (profile.level < s.level) return 'level'
+  if (!meetsSkill(s, profile.level, totalAttrs())) return 'attrs'
+  if (profile.gold < skillCost(id)) return 'gold'
+  return ''
+}
+
+export const learnSkill = (id: string): boolean => {
+  if (learnBlock(id) !== '') return false
+  const s = SKILL_BY_ID[id]!
+  profile.gold -= skillCost(id)
+  profile.hero.learned.push(id)
+  // Straight into the first free slot of its kind, so a new skill is usable
+  // without a trip to the loadout screen.
+  const slots = s.kind === 'active' ? profile.hero.active : profile.hero.passive
+  const free = slots.indexOf('')
+  if (free >= 0) slots[free] = id
   saveProfile()
   return true
 }
 
-export const respecSkills = (cost: number): boolean => {
-  if (profile.bolts < cost) return false
-  profile.bolts -= cost
-  // Mods were bought with bolts and stay; only chips come back.
-  profile.hero.skills = Object.fromEntries(Object.entries(profile.hero.skills).filter(([id]) => SKILL_BY_ID[id]?.mod))
+/** Put a learned skill in a slot (swapping with whatever was there), or clear it with ''. */
+export const setSlot = (kind: 'active' | 'passive', slot: number, id: string): boolean => {
+  const slots = kind === 'active' ? profile.hero.active : profile.hero.passive
+  if (slot < 0 || slot >= slots.length) return false
+  if (id) {
+    const s = SKILL_BY_ID[id]
+    if (!s || s.kind !== kind || !knows(id)) return false
+    // Requirements are checked again here: gear that carried a threshold may
+    // have been taken off since the skill was learned.
+    if (!meetsSkill(s, profile.level, totalAttrs())) return false
+    const from = slots.indexOf(id)
+    if (from >= 0) slots[from] = slots[slot] ?? ''
+  }
+  slots[slot] = id
   saveProfile()
   return true
 }
 
-// ─── Gear ────────────────────────────────────────────────────────────────────
-
-export const itemById = (id: string | null): Item | null =>
-  id ? profile.inv.items.find(i => i.id === id) ?? null : null
-
-export const equipped = (slot: EquipSlot): Item | null => itemById(profile.inv.equipped[slot])
-
-export const heroColors = (): HeroColors => {
-  const c: HeroColors = { ...DEFAULT_HERO_COLORS }
-  for (const s of ['helmet', 'chest', 'boots', 'buster'] as const) {
-    const it = equipped(s)
-    const tint = it ? BASE_BY_ID[it.base]?.tint : undefined
-    if (tint) Object.assign(c, Object.fromEntries(Object.entries(tint).filter(([, v]) => v)))
-  }
-  const w = profile.hero.slots[0]
-  if (w) {
-    c.buster = WEAPONS[w].shell
-    c.core = WEAPONS[w].color
-  }
-  return c
+/** The active loadout for a zone visit: skills whose requirements still hold. */
+export const loadoutActive = (): string[] => {
+  const attrs = totalAttrs()
+  return profile.hero.active.map(id => (id && SKILL_BY_ID[id] && meetsSkill(SKILL_BY_ID[id]!, profile.level, attrs) ? id : ''))
 }
 
-// ─── Derived combat stats ────────────────────────────────────────────────────
+// ─── Items ───────────────────────────────────────────────────────────────────
 
-/** `attrs` is the profile's own unless given: the level-up pick passes a copy
- *  with one more point to show what a card would give BEFORE it is chosen
- *  (the Frame's percentage node makes "+10" not always +10 max HP). */
-export const computeStats = (attrs: Record<Attr, number> = profile.hero.attrs): PlayerStats => {
-  const s = baseStats()
-  const sk = (id: string) => profile.hero.skills[id] ?? 0
-  const aff: Record<string, number> = {}
-  let armor = 0
-  let busterMain = 10
-  for (const slot of EQUIP_SLOTS) {
-    const it = equipped(slot)
-    if (!it) continue
-    const base = BASE_BY_ID[it.base]
-    if (!base) continue
-    if (it.slot === 'buster') busterMain = mainStat(it)
-    else if (it.slot !== 'chip') armor += mainStat(it)
-    const all = [...it.affixes, ...(base.implicit ? [base.implicit] : [])]
-    for (const a of all) aff[a.id] = (aff[a.id] ?? 0) + a.v
-  }
-  armor += aff.armor ?? 0
-  const lvl = profile.level
-  s.level = lvl
-  s.maxHp = Math.round((100 + attrs.hp * ATTR_GAIN.hp + (aff.hp ?? 0)) * (1 + 0.08 * sk('frame')))
-  s.maxWe = 28 + attrs.we * ATTR_GAIN.we + sk('cells') * 3 + Math.round(aff.we ?? 0)
-  s.maxPower = 100 + attrs.power * ATTR_GAIN.power + Math.round(aff.power ?? 0)
-  s.busterDmg = Math.round(busterMain * (1 + 0.03 * (lvl - 1)))
-  s.pelletMul = 1 + 0.1 * sk('rapid') + (aff.pelletDmg ?? 0)
-  s.chargeDmgMul = 1 + 0.12 * sk('megaCharge') + (aff.chargeDmg ?? 0)
-  s.chargeTimeMul = Math.max(0.45, (1 - 0.1 * sk('quickCharge')) * (1 - (aff.chargeSpeed ?? 0)))
-  s.perfectMul = 1 + 0.25 * sk('perfectTiming')
-  s.critMul = 1.5 + 0.15 * sk('perfectTiming') + (aff.critDmg ?? 0)
-  s.critChance = Math.min(0.5, aff.crit ?? 0)
-  s.damageTakenMul = 100 / (100 + armor)
-  s.blockCostMul = 1 - 0.15 * sk('barrier')
-  s.blockDmgMul = 1 - 0.2 * sk('barrier')
-  s.parryBonus = 0.05 * sk('parry')
-  s.parryStunBonus = 0.3 * sk('parry')
-  s.regen = 0.01 * sk('autoRepair') + (aff.regen ?? 0)
-  s.reflectPct = 0.15 * sk('spikes')
-  s.lastStand = sk('lastStand') > 0
-  s.specialMul = 1 + 0.1 * sk('mastery') + (aff.special ?? 0)
-  s.weCostMul = 1 - 0.1 * sk('efficient')
-  s.slideCdMul = 1 - 0.15 * sk('boosters')
-  s.slideCost = 25 - 5 * sk('boosters')
-  s.boltMul = 1 + 0.15 * sk('magnet') + (aff.bolts ?? 0)
-  s.magnetMul = 1 + 0.4 * sk('magnet') + (aff.magnet ?? 0)
-  s.tanksMax = 2 + sk('tankCap')
-  s.piercing = sk('piercing') > 0
-  s.giga = sk('giga') > 0
-  s.moveMul = 1 + (aff.moveSpeed ?? 0)
-  return s
-}
+export const owns = (id: string): boolean => profile.inv.items.includes(id)
 
-export const isEquipped = (id: string): EquipSlot | null => {
+export const equippedIn = (id: string): EquipSlot | null => {
   for (const s of EQUIP_SLOTS) if (profile.inv.equipped[s] === id) return s
   return null
 }
 
-/** Equip an item into its slot (chips: the free chip socket, else socket 1). */
-export const equipItem = (id: string, socket?: EquipSlot): EquipSlot | null => {
-  const it = itemById(id)
-  if (!it) return null
-  let slot: EquipSlot
-  if (it.slot === 'chip') {
-    const cur = isEquipped(id)
-    if (cur) return cur
-    slot = socket && (socket === 'chip1' || socket === 'chip2') ? socket
-      : !profile.inv.equipped.chip1 ? 'chip1' : !profile.inv.equipped.chip2 ? 'chip2' : 'chip1'
-  } else {
-    slot = it.slot
+/** Add an item to the bag. A second copy of one already owned becomes gold. */
+export const gainItem = (id: string): { added: boolean; gold: number } => {
+  const it = ITEM_BY_ID[id]
+  if (!it) return { added: false, gold: 0 }
+  if (owns(id)) {
+    const gold = sellValue(it)
+    profile.gold += gold
+    return { added: false, gold }
   }
+  profile.inv.items.push(id)
+  profile.inv.fresh.push(id)
+  return { added: true, gold: 0 }
+}
+
+export const canEquip = (id: string): boolean => {
+  const it = ITEM_BY_ID[id]
+  return !!it && owns(id) && profile.level >= it.level
+}
+
+/** Equip an item (a trinket goes to the free trinket slot, else the first). */
+export const equipItem = (id: string, into?: EquipSlot): EquipSlot | null => {
+  const it = ITEM_BY_ID[id]
+  if (!it || !canEquip(id)) return null
+  let slot: EquipSlot
+  if (it.slot === 'trinket') {
+    const cur = equippedIn(id)
+    if (cur && !into) return cur
+    slot = into === 'trinket1' || into === 'trinket2' ? into : !profile.inv.equipped.trinket1 ? 'trinket1' : !profile.inv.equipped.trinket2 ? 'trinket2' : 'trinket1'
+    // One ring cannot be worn on both hands.
+    const other: EquipSlot = slot === 'trinket1' ? 'trinket2' : 'trinket1'
+    if (profile.inv.equipped[other] === id) profile.inv.equipped[other] = profile.inv.equipped[slot]
+  } else slot = it.slot
   profile.inv.equipped[slot] = id
   markSeen(id)
   saveProfile()
   return slot
 }
 
-export const unequipChip = (slot: 'chip1' | 'chip2'): void => {
+export const unequip = (slot: EquipSlot): void => {
   profile.inv.equipped[slot] = null
   saveProfile()
 }
@@ -512,129 +416,83 @@ export const markSeen = (id: string): void => {
   if (i >= 0) profile.inv.fresh.splice(i, 1)
 }
 
-/** Break an item down for bolts. Equipped items cannot be salvaged. */
-export const salvageItem = (id: string, value: number): boolean => {
-  if (isEquipped(id)) return false
-  const i = profile.inv.items.findIndex(x => x.id === id)
-  if (i < 0) return false
-  profile.inv.items.splice(i, 1)
+/** What a shop charges this hero for an item. */
+export const buyCost = (id: string): number => {
+  const it = ITEM_BY_ID[id]
+  return it ? Math.max(1, Math.round(itemPriceOf(it) * (1 - shopDiscount(totalAttrs().cha)))) : 0
+}
+
+export const buyItem = (id: string): boolean => {
+  const cost = buyCost(id)
+  if (!ITEM_BY_ID[id] || owns(id) || profile.gold < cost) return false
+  profile.gold -= cost
+  profile.inv.items.push(id)
+  profile.inv.fresh.push(id)
+  saveProfile()
+  return true
+}
+
+export const sellItem = (id: string): boolean => {
+  const it = ITEM_BY_ID[id]
+  if (!it || !owns(id) || equippedIn(id)) return false
+  profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
-  profile.bolts += value
+  profile.gold += sellValue(it)
   saveProfile()
   return true
 }
 
-export const upgradeItem = (id: string, cost: number, max: number): boolean => {
-  const it = itemById(id)
-  if (!it || it.upg >= max || profile.bolts < cost) return false
-  profile.bolts -= cost
-  it.upg++
+/** A fourth and fifth potion, sold by the healers. */
+export const POTION_MAX = 5
+export const potionUpgradeCost = (): number => (profile.inv.potions >= POTION_MAX ? 0 : 150 * Math.pow(4, profile.inv.potions - 3))
+export const buyPotionSlot = (): boolean => {
+  const cost = potionUpgradeCost()
+  if (cost <= 0 || profile.gold < cost) return false
+  profile.gold -= cost
+  profile.inv.potions++
   saveProfile()
   return true
 }
 
-/** The equipped armor total (for the Hero screen). */
-export const armorTotal = (): number => {
-  let armor = 0
-  for (const slot of EQUIP_SLOTS) {
-    const it = equipped(slot)
-    if (!it || it.slot === 'buster' || it.slot === 'chip') continue
-    armor += mainStat(it)
-    for (const a of it.affixes) if (a.id === 'armor') armor += a.v
-    const imp = BASE_BY_ID[it.base]?.implicit
-    if (imp?.id === 'armor') armor += imp.v
+// ─── The world ───────────────────────────────────────────────────────────────
+
+export const flagSet = (): Set<string> => new Set(profile.world.flags)
+export const hasFlag = (f: string): boolean => profile.world.flags.includes(f)
+
+export const isNodeOpen = (id: NodeId): boolean => nodeOpen(id, new Set(profile.world.cleared), flagSet())
+export const openNodes = (): NodeId[] => MAP.filter(n => isNodeOpen(n.id)).map(n => n.id)
+
+/** Mark a node cleared (a zone won, a town entered). Returns whether it was the first time. */
+export const clearNode = (id: NodeId): boolean => {
+  if (profile.world.cleared.includes(id)) return false
+  profile.world.cleared.push(id)
+  if (NODE_BY_ID[id]?.kind === 'zone') profile.story++
+  return true
+}
+
+/** The decision of a quest, applied once and for all. */
+export const decideQuest = (questId: string, choiceId: string): boolean => {
+  const q = QUEST_BY_ID[questId]
+  const c = q?.choices.find(x => x.id === choiceId)
+  if (!q || !c || profile.quests.done[questId]) return false
+  if (!choiceOpen(c, { level: profile.level, attrs: totalAttrs(), flags: flagSet(), rep: profile.quests.rep })) return false
+  profile.quests.done[questId] = choiceId
+  for (const f of c.flags) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
+  if (c.rep) {
+    for (const k in c.rep) {
+      const f = k as FactionId
+      profile.quests.rep[f] = Math.max(REP_MIN, Math.min(REP_MAX, profile.quests.rep[f] + (c.rep[f] ?? 0)))
+    }
   }
-  return Math.round(armor)
+  if (c.gold) profile.gold += c.gold
+  if (c.item) gainItem(c.item)
+  profile.questsDone++
+  saveProfile()
+  return true
 }
 
 export const markTip = (id: string): void => {
   if (profile.tips[id]) return
   profile.tips[id] = true
   saveProfile()
-}
-
-// ─── Mission snapshot (resume) ───────────────────────────────────────────────
-
-/** The tutorial walkthrough's progress (`sim/walkthrough.ts`). */
-export interface WalkthroughSave {
-  /** Gates passed: that many doors along the path are open. */
-  gate: number
-  /** The crate lesson's crate is broken. */
-  crate: boolean
-  /** The player has blocked (or parried) at least once this mission. */
-  block: boolean
-  /** …and slid at least once. */
-  slide: boolean
-  /** …and crossed a gap with an edge-leap (the built tutorial's gap room). */
-  leap?: boolean
-}
-
-export interface MissionSnapshot {
-  quest: Quest
-  killed: number[]
-  opened: number[]
-  doors: number[]
-  collected: number[]
-  progress: number
-  x: number
-  z: number
-  yaw: number
-  hp: number
-  we: number
-  bolts: number
-  xp: number
-  kills: number
-  t: number
-  done: boolean
-  /** Tutorial only; a tutorial snapshot without it predates the walkthrough. */
-  walk?: WalkthroughSave
-  /** Climb and platform stages only: the last checkpoint reached (−1 = the
-   *  pad; a resume starts there), the reward ledges already emptied, the
-   *  secrets opened and each stage feature's own save (`sim/climb.ts`). */
-  climb?: { cp: number; got: number[]; open?: number[]; feat?: unknown[] }
-  /** The borrowed weapon (`sim/borrowed.ts`): the weapon carried and its
-   *  charges left, and the capsules already taken. Never in the profile. */
-  borrowed?: { w: string; shots: number; got: number[] }
-  /** The Fortress's last checkpoint as a snapshot of its own (full health,
-   *  everything as it stood there): "Retry from checkpoint" restarts the
-   *  mission from it. Kept in the resume snapshot so it survives a reload. */
-  checkpoint?: MissionSnapshot
-  /** This snapshot IS a checkpoint (a retry started from it). */
-  atCheckpoint?: boolean
-  /** The Core Descent (#109): the stage Vex is fought in and his health. */
-  vex?: { stage: number; hp: number }
-}
-
-/** The retry point a mission built from `s` keeps: `s` itself when it is a
- *  checkpoint (a retry), else the one it carried (a reload), else none. Never
- *  nested: a checkpoint does not carry another. */
-export const retryPointOf = (s: MissionSnapshot): MissionSnapshot | null =>
-  s.atCheckpoint ? { ...s, checkpoint: undefined } : s.checkpoint ?? null
-
-/** The resume point, as a copy (the mission it seeds is not a checkpoint). */
-export const readSnapshot = (): MissionSnapshot | null => {
-  const s = getState<MissionSnapshot | null>(MISSION_KEY, null)
-  return s && typeof s === 'object' && s.quest ? plain(s) : null
-}
-
-export const writeSnapshot = (s: MissionSnapshot | null): void => {
-  if (import.meta.env.DEV && saveSandbox) return
-  setStates({ [MISSION_KEY]: s ? plain(s) : null })
-}
-
-// ─── Income-scaled rewards ─────────────────────────────────────────────────
-
-/** Fold a won mission's bolts into the running income average. */
-export const noteMissionIncome = (bolts: number): void => {
-  const a = profile.stats.boltsAvg || 0
-  profile.stats.boltsAvg = a <= 0 ? bolts : a + (bolts - a) * 0.35
-}
-
-/** The Workshop's rewarded supply drop: about half a mission's income, so the
- *  ad stays worth a look however far the player is (the flat level formula
- *  fell far behind real mission pay). Never under the old flat amount. */
-export const supplyDropBolts = (): number => {
-  const flat = 40 + 20 * profile.level
-  const half = 0.5 * (profile.stats.boltsAvg || 0)
-  return Math.round(Math.max(flat, half) / 5) * 5
 }

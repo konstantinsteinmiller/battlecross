@@ -256,7 +256,7 @@ export const readCoinTotal = (read: SnapshotReader): number => {
  * `bcross_state` localStorage entry (see `useGameState.ts`). The cloud
  * therefore mirrors exactly TWO keys — the state blob and the meta blob.
  *
- * Individual `ma_*` field keys are also accepted as payload so any stray
+ * Individual `bc_*` field keys are also accepted as payload so any stray
  * per-key write (defensive, or a mid-migration snapshot from an older client)
  * round-trips safely instead of being silently dropped.
  */

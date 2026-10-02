@@ -10,20 +10,16 @@ import FSelect from '@/components/atoms/FSelect.vue'
 import { LANGUAGES, LANGUAGE_AUTONYMS, DIFFICULTY } from '@/utils/enums'
 import { bcp47For } from '@/i18n/localeTag'
 import { hapticsAvailable, hapticsEnabled, setHapticsEnabled } from '@/use/useHaptics'
-import { killCamsEnabled, setKillCamsEnabled } from '@/use/useKillCam'
 import { touchFirst } from '@/game/engine/input'
 import { ACTIONS, bindKey, bindingsChanged, isBindable, primaryCode, resetBindings, type Action } from '@/game/engine/keyBindings'
 import { keyboard, keyLabel, LAYOUTS, setAutoLayout, setManualLayout, type Layout } from '@/game/engine/keyLabels'
 
 defineProps<{
   isOpen: boolean
-  /** Offer "Replay intro" (the hub only, on builds that ship the intro). */
-  canReplayIntro?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'replayIntro'): void
 }>()
 
 // Global scope so the Options UI strings resolve from the shared locale
@@ -67,8 +63,8 @@ const isMobile = computed(() => {
 const tabs = computed(() => {
   const list = [
     { value: 'general', label: t('options.general') },
-    // Gameplay: how the game plays (difficulty, kill-cams, vibration), apart
-    // from language and sound.
+    // Gameplay: how the game plays (difficulty, vibration), apart from
+    // language and sound.
     { value: 'gameplay', label: t('options.gameplay') }
   ]
   if (isMobile.value) return list
@@ -94,7 +90,7 @@ const difficultyList = computed(() => [
 
 const difficultyHint = computed(() => t('options.difficultyHints.' + userDifficulty.value))
 
-// Background-music track picker — "Overdrive" (default) vs "Calm Circuits".
+// Music mood — the zone's own theme (default), or the calm town theme everywhere.
 const musicTrackList = computed(() => [
   { value: 'trance', label: t('options.musicTracks.trance') },
   { value: 'cozy', label: t('options.musicTracks.cozy') }
@@ -192,15 +188,6 @@ onUnmounted(stopCapture)
           @update:model-value="setSettingValue('difficulty', $event)"
         )
         p.text-white.game-text.opacity-70.leading-tight.px-1(class="text-[10px] md:text-xs") {{ difficultyHint }}
-      //- The kill-cam (a freeze-frame on a machine's end): on by default; a
-      //- player who switched it off from inside one turns it back on here.
-      div(class="z-[10] flex flex-col gap-1")
-        FSelect(
-          :label="t('options.killCams')"
-          :options="hapticsList"
-          :model-value="killCamsEnabled ? 'on' : 'off'"
-          @update:model-value="setKillCamsEnabled($event === 'on')"
-        )
       //- Vibration: phones only (hidden where there is no motor).
       div(v-if="hapticsAvailable" class="z-[1] flex flex-col gap-1")
         FSelect(
@@ -250,7 +237,6 @@ onUnmounted(stopCapture)
 
     template(#footer)
       div.flex.flex-wrap.items-center.justify-center.gap-2
-        FButton(v-if="canReplayIntro" class="px-4 sm:px-6" type="secondary" @click="emit('replayIntro')") {{ t('options.replayIntro') }}
         FButton(class="px-6 sm:px-8" @click="emit('close')") {{ t('options.close') }}
 </template>
 
@@ -287,7 +273,7 @@ span
   border: 2px solid #141a33
   box-shadow: 0 0.18em 0 #141a33
   color: #141a33
-  font-family: var(--font-pixel)
+  font-family: var(--font-ui)
   font-size: 11px
   cursor: pointer
   &.waiting

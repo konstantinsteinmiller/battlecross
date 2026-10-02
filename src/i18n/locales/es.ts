@@ -5,15 +5,9 @@ export default {
   'close': 'Cerrar',
   'ok': 'Ok',
   'continue': 'Continuar',
-  'tapToContinue': 'Toca para continuar',
-  'clickToContinue': 'Haz clic para continuar',
-  'rewards': 'RECOMPENSAS',
-  'tip': 'Consejo',
   'onlyAvailableOn': 'Este juego solo está disponible en',
 
   'ui': {
-    'killcamCount': 'Cámaras de derribo en esta misión: {n}',
-    'killcamOff': 'Desactivar cámaras de derribo',
     'next': 'Siguiente',
     'replay': 'Repetir',
     'back': 'Atrás',
@@ -22,479 +16,594 @@ export default {
     'menu': 'Menú',
     'home': 'Inicio',
     'info': 'Info',
-    'skip': 'Saltar',
-    'holdToSkip': 'Mantén {key} para saltar'
+    'help': 'Controles',
+    'ok': 'Entendido',
+    'continue': 'Continuar'
+  },
+
+  'hud': {
+    'level': 'Nv. {n}',
+    'health': 'Vida {n} de {max}',
+    'mana': 'Maná {n} de {max}',
+    'heat': 'Calor',
+    'xp': 'XP',
+    'gold': '{n} de oro',
+    'potion': 'Poción de vida (quedan {n})',
+    'groups': '{n} de {total} grupos de enemigos derrotados',
+    'wave': 'Oleada {n} / {total}'
+  },
+  'menu': {
+    'map': 'Mapa del mundo',
+    'character': 'Héroe',
+    'skills': 'Habilidades',
+    'inventory': 'Bolsa'
   },
 
   'combat': {
-    'tink': '¡CLINC!',
-    'perfect': '¡PERFECTO!',
-    'parry': '¡PARADA!',
-    'guardBreak': '¡GUARDIA ROTA!',
-    'guardCracked': '¡Guardia quebrada!',
-    'xp': '+{n} XP',
-    'lastStand': '¡Último aliento! Sistemas reiniciados.',
-    'weak': '¡DEBILIDAD!',
-    'kranck': 'KRANCK!',
-    'dizzy': '¡MAREADO!',
-    'dodge': '¡ESQUIVA!',
-    'block': 'Bloquear',
-    'slide': 'Deslizar',
-    'fire': 'Disparar',
-    'tank': 'Gel reparador',
-    'noEnergy': 'Energía de arma insuficiente',
-    'tankCount': 'Gel reparador: {n} de {max}',
-    'borrowed': 'Arma prestada {weapon}: {n} de {max} disparos',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': 'Esquiva',
+    'block': 'Bloqueado',
+    'immune': 'Inmune'
+  },
+  'status': {
+    'stun': 'Aturdido',
+    'knockup': 'Por los aires',
+    'knockdown': 'Derribado',
+    'stasis': 'Estasis',
+    'petrify': 'Petrificado',
+    'frozen': 'Congelado',
+    'fear': 'Asustado',
+    'slow': 'Ralentizado',
+    'confuse': 'Confundido',
+    'taunt': 'Provocado',
+    'armorShred': 'Armadura rota',
+    'weaken': 'Debilitado',
+    'vulnerable': 'Vulnerable',
+    'burn': 'En llamas',
+    'poison': 'Envenenado',
+    'bleed': 'Sangrando',
+    'delayed': 'Daño retardado',
+    'haste': 'Celeridad',
+    'attackSpeed': 'Ataques rápidos',
+    'damageUp': 'Potenciado',
+    'defenseUp': 'Fortificado',
+    'regen': 'Regenerando',
+    'lifestealUp': 'Robo de vida',
+    'invulnerable': 'Invulnerable',
+    'unkillable': 'Inmortal',
+    'stealth': 'Oculto',
+    'reflect': 'Reflejando',
+    'envenom': 'Hoja venenosa',
+    'exosuit': 'Exotraje',
+    'focus': 'Concentrado',
+    'accelerate': 'Aceleración',
+    'overheat': 'Sobrecalentado',
+    'enrage': 'Enfurecido',
+    'ambush': 'Emboscada'
+  },
+  'toast': {
+    'item': 'Encontrado: {item}',
+    'levelUp': '¡Nivel {level}! +3 puntos de atributo',
+    'boss': 'Aparece {boss}',
+    'wave': 'Oleada {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': '¡Uy, uy, uy!',
-      '2': '¡Bzzt! ¡Ups!',
-      '3': '¡Mi brazo tiene hipo!',
-      '4': 'Error… ¡yupiii!',
-      '5': '¡Circuitos de mantequilla!',
-      '6': '¡Modo temblor activado!'
+  'coach': {
+    'move': {
+      'touch': 'Toca el suelo para caminar hasta allí, o usa el stick.',
+      'mouse': 'Haz clic en el suelo para caminar hasta allí, o muévete con las teclas de movimiento.'
+    },
+    'target': {
+      'touch': 'Toca a un enemigo, o arrastra desde tu héroe hasta él, para atacarlo.',
+      'mouse': 'Haz clic en un enemigo para atacarlo.'
+    },
+    'skill': {
+      'touch': 'Toca una habilidad para usarla contra tu objetivo.',
+      'mouse': 'Pulsa la tecla de una habilidad para usarla contra tu objetivo.'
+    },
+    'aim': {
+      'touch': 'Arrastra una habilidad al campo para apuntar y suelta para lanzarla.',
+      'mouse': 'Arrastra una habilidad al campo para apuntar y suelta para lanzarla.'
+    },
+    'potion': {
+      'touch': 'Toca la poción para curarte.',
+      'mouse': 'Pulsa la tecla de la poción para curarte.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Un pueblo de granjeros al borde de las llanuras. Tu hogar, un herrero y dos maestros.' },
+    'plains': { 'name': 'Llanuras de Sunford', 'desc': 'Goblins, lobos y bandidos acosan a las caravanas en el camino abierto.' },
+    'hollows': { 'name': 'Hondonadas Goblin', 'desc': 'Las cuevas bajo las colinas. El Rey Goblin tiene su corte en el fondo.' },
+    'arena': { 'name': 'El Coliseo', 'desc': 'Ocho oleadas, cada una más dura que la anterior. Oro y gloria para quien siga en pie.' },
+    'woods': { 'name': 'Bosque Susurrante', 'desc': 'Árboles viejos que caminan, y arañas que tejen entre ellos.' },
+    'outskirts': { 'name': 'Afueras de Oakhaven', 'desc': 'Las granjas en llamas a las afueras de Oakhaven. El ejército de un caudillo está a las puertas.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Una ciudad comercial amurallada. Lo que llegue a ser depende de ti.' },
+    'crags': { 'name': 'Riscos Cenicientos', 'desc': 'Roca negra y fuego abierto. Los cultistas alimentan las llamas.' },
+    'mines': { 'name': 'Minas de Ironhold', 'desc': 'Los enanos cavaron demasiado hondo y despertaron algo que brilla.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'La ciudad-forja de la montaña. Aquí se martilla el mejor acero del reino.' },
+    'tundra': { 'name': 'Tundra Mordehielo', 'desc': 'Un páramo blanco donde caminan gigantes y los muertos no se quedan en el suelo.' },
+    'temple': { 'name': 'Templo Sumergido', 'desc': 'Salas anegadas de las nagas, y una oráculo que ve todos los finales.' },
+    'citadel': { 'name': 'Ciudadela del Vacío', 'desc': 'Una fortaleza que no estaba ahí el año pasado. Sus muros zumban.' },
+    'peak': { 'name': 'Pico del Dragón', 'desc': 'Los guivernos rodean la cima. Algo mucho más grande duerme en ella.' },
+    'fortress': { 'name': 'Fortaleza del Terror', 'desc': 'La sede del Archidemonio, y el trono que todas las facciones desean.' },
+    'rift': { 'name': 'La Grieta del Vacío', 'desc': 'La herida por la que llegaron los demonios. El Señor del Vacío espera al otro lado.' }
+  },
+  'map': {
+    'title': 'El Reino',
+    'town': 'Pueblo',
+    'levels': 'Nv. {min}–{max}',
+    'arenaBest': 'Récord: oleada {n}',
+    'travel': 'Viajar',
+    'again': 'Repetir',
+    'enter': 'Entrar',
+    'fight': 'Luchar',
+    'back': 'Volver al pueblo',
+    'locked': 'Despeja una zona vecina para abrir el camino.',
+    'lockedArena': 'Sus puertas se abrirán cuando se resuelva lo del Rey Goblin.',
+    'lockedRift': 'Se abrirá cuando se decida el trono de la Fortaleza del Terror.',
+    'danger': {
+      '1': 'Un poco por encima de tu nivel.',
+      '2': 'Peligroso para tu nivel.',
+      '3': 'Muy por encima de tu nivel.'
+    },
+    'questOpen': '{quest}: aquí te espera una decisión.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Maestro oculto: {cls}'
+  },
+  'travel': {
+    'to': 'Viajando a',
+    'loading': 'Cargando'
+  },
+
+  'attr': {
+    'str': { 'name': 'Fuerza', 'short': 'FUE', 'desc': 'Poder cuerpo a cuerpo, probabilidad de bloqueo, armadura pesada.' },
+    'dex': { 'name': 'Destreza', 'short': 'DES', 'desc': 'Golpes críticos, velocidad de ataque y de movimiento.' },
+    'int': { 'name': 'Inteligencia', 'short': 'INT', 'desc': 'Poder de hechizos, maná, resistencia elemental.' },
+    'end': { 'name': 'Aguante', 'short': 'AGU', 'desc': 'Vida, regeneración, armadura, resistencia al aturdimiento.' },
+    'skl': { 'name': 'Técnica', 'short': 'TEC', 'desc': 'Daño crítico, enfriamientos, armas a distancia.' },
+    'cha': { 'name': 'Carisma', 'short': 'CAR', 'desc': 'Esbirros, precios de tienda, recompensas, opciones de diálogo.' }
+  },
+  'stat': {
+    'health': 'Vida',
+    'mana': 'Maná',
+    'armor': 'Armadura',
+    'resist': 'Resistencia',
+    'crit': 'Prob. de crítico',
+    'critDamage': 'Daño crítico',
+    'attackSpeed': 'Vel. de ataque',
+    'moveSpeed': 'Vel. de movimiento',
+    'cdr': 'Reduc. de enfriamiento',
+    'block': 'Bloqueo',
+    'dodge': 'Esquiva',
+    'hpRegen': 'Vida / s'
+  },
+  'sheet': {
+    'points': '{n} puntos por gastar',
+    'raise': 'Subir {attr}',
+    'maxLevel': 'Nivel máximo alcanzado'
+  },
+
+  'skills': {
+    'active': 'Habilidades activas',
+    'passive': 'Habilidades pasivas',
+    'known': 'Aprendidas',
+    'none': 'Aún no has aprendido nada. Busca a un maestro en un pueblo.',
+    'emptySlot': 'Ranura vacía {n}',
+    'equip': 'Asignar',
+    'remove': 'Quitar',
+    'unmet': 'Ya no cumples sus requisitos.'
+  },
+  'class': {
+    'aegis': { 'name': 'Caballero de la Égida', 'desc': 'Escudo y acero sagrado. Recibe los golpes para que nadie más tenga que hacerlo.' },
+    'shadow': { 'name': 'Hoja Sombría', 'desc': 'Sale de la oscuridad, golpea por la espalda y desaparece.' },
+    'pyro': { 'name': 'Piromante', 'desc': 'El fuego responde a todas las preguntas. Quémalos y luego hazlos estallar.' },
+    'sovereign': { 'name': 'Gran Soberano', 'desc': '¿Para qué luchar a solas? Invoca guardias y dales órdenes.' },
+    'chrono': { 'name': 'Tejedor del Tiempo', 'desc': 'Detiene a los enemigos en el tiempo, acelera a los aliados y deshace errores.' },
+    'blood': { 'name': 'Alquimista de Sangre', 'desc': 'Paga el poder con vida y luego se la bebe al enemigo.' },
+    'aether': { 'name': 'Éter-Tec', 'desc': 'Armas de fuego, torretas y un medidor de calor. Libéralo antes de que te bloquee.' },
+    'geo': { 'name': 'Geomante', 'desc': 'Levanta muros y púas, y rompe el propio suelo.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Activa', 'passive': 'Pasiva' },
+    'cooldown': 'Enfriamiento: {n}s',
+    'mana': '{n} de maná',
+    'hpCost': '{n}% de vida',
+    'heat': '+{n} de calor',
+    'aimed': 'Arrastra para apuntar',
+
+    'shieldSlam': { 'name': 'Golpe de escudo', 'desc': 'Embiste al objetivo: {dmg}% de daño de Fuerza y lo aturde durante {stun}s.' },
+    'aegisAura': { 'name': 'Aura de la Égida', 'desc': '+{armor}% de Armadura, y el daño físico recibido se reduce un {reduce}%.' },
+    'radiantStrike': { 'name': 'Golpe radiante', 'desc': 'Un golpe sagrado con {dmg}% de daño de Fuerza que te cura un {heal}% del daño infligido.' },
+    'fortitude': { 'name': 'Fortaleza', 'desc': 'Un golpe de más del {hit}% de tu vida te da un escudo del {shield}% de ella durante {dur}s. Una vez cada {icd}s.' },
+    'tauntingCry': { 'name': 'Grito provocador', 'desc': 'Los enemigos a menos de {radius} m te atacan durante {dur}s. Ganas {def}% de Defensa mientras lo hacen.' },
+    'holyBastion': { 'name': 'Bastión sagrado', 'desc': 'Invulnerable durante {dur}s. Los atacantes reciben de vuelta el {reflect}% de su daño.' },
+
+    'shadowstep': { 'name': 'Paso sombrío', 'desc': 'Aparece detrás del objetivo y apuñálalo por la espalda: {dmg}% de daño de Destreza.' },
+    'lethality': { 'name': 'Letalidad', 'desc': '+{crit}% de probabilidad de Crítico y +{critDmg}% de daño Crítico.' },
+    'venomousBlade': { 'name': 'Hoja venenosa', 'desc': 'Durante {dur}s tus ataques envenenan: {poison}% de la Destreza a lo largo de {over}s, acumulable {stacks} veces.' },
+    'evasion': { 'name': 'Evasión', 'desc': '+{dodge}% de Esquiva. Una esquiva otorga {haste}% de Celeridad durante {dur}s.' },
+    'smokeBomb': { 'name': 'Bomba de humo', 'desc': 'Desaparece durante {dur}s. Tu siguiente ataque desde el escondite inflige +{bonus}% de daño.' },
+    'danceOfBlades': { 'name': 'Danza de hojas', 'desc': 'Salta entre los enemigos a menos de {radius} m y golpea {hits} veces, con {dmg}% de daño de Destreza en total. Nada puede golpearte mientras danzas.' },
+
+    'fireball': { 'name': 'Bola de fuego', 'desc': 'Una bola de fuego que estalla con {dmg}% de daño de Inteligencia y quema un {burn}% más a lo largo de {burnDur}s.' },
+    'cauterize': { 'name': 'Cauterizar', 'desc': 'Los enemigos en llamas te infligen un {reduce}% menos de daño.' },
+    'flamePillar': { 'name': 'Pilar de llamas', 'desc': 'Un pilar de fuego brota donde apuntas: {dmg}% de daño de Inteligencia a lo largo de {dur}s. Los enemigos atrapados salen por los aires.' },
+    'pyromaniac': { 'name': 'Pirómano', 'desc': 'Un hechizo crítico resta {cut}s a tus enfriamientos de fuego.' },
+    'combustion': { 'name': 'Combustión', 'desc': 'Detona todas las quemaduras a menos de {radius} m: cada una inflige de golpe el {pct}% de su daño restante, como una explosión.' },
+    'cataclysm': { 'name': 'Cataclismo', 'desc': 'Invoca {meteors} meteoros a lo largo de {dur}s. Cada uno cae con {dmg}% de daño de Inteligencia.' },
+
+    'royalGuard': { 'name': 'Guardia real', 'desc': 'Invoca a un guardia que lucha a tu lado y golpea con {dmg}% de daño de Carisma. Hasta {max} a la vez.' },
+    'inspiringPresence': { 'name': 'Presencia inspiradora', 'desc': 'Tus esbirros atacan un {speed}% más rápido y tienen un {hp}% más de vida.' },
+    'commandFocus': { 'name': 'Orden de carga', 'desc': 'Todos los esbirros cargan contra el objetivo: +{move}% de velocidad de movimiento y +{atk}% de velocidad de ataque durante {dur}s.' },
+    'sovereignsTribute': { 'name': 'Tributo del Soberano', 'desc': 'El {share}% del daño que recibes pasa a tus esbirros.' },
+    'bannerOfVictory': { 'name': 'Estandarte de la victoria', 'desc': 'Planta un estandarte durante {dur}s. Los aliados cercanos infligen +{dmg}% de daño y regeneran un {regen}% de vida por segundo.' },
+    'armyOfTheRealm': { 'name': 'Ejército del reino', 'desc': 'Invoca {archers} arqueros, {guards} guardias y un mago de batalla durante {dur}s.' },
+
+    'temporalStasis': { 'name': 'Estasis temporal', 'desc': 'Congela al objetivo en el tiempo durante {dur}s. No puede actuar ni sufrir daño.' },
+    'hasteField': { 'name': 'Campo de celeridad', 'desc': 'Durante {dur}s, tú y los aliados cercanos os movéis un {move}% más rápido y atacáis un {speed}% más rápido.' },
+    'timeDistort': { 'name': 'Distorsión temporal', 'desc': 'El {share}% del daño que recibes se retrasa y se inflige a lo largo de {over}s.' },
+    'paradoxShift': { 'name': 'Salto paradójico', 'desc': 'Intercambia tu lugar con el objetivo. Recibe {dmg}% de daño de Inteligencia y los enemigos a su alrededor quedan confundidos durante {confuse}s.' },
+    'entropy': { 'name': 'Entropía', 'desc': 'Cada lanzamiento acorta tus enfriamientos un {cdr}%, acumulable {stacks} veces.' },
+    'chronoRewind': { 'name': 'Rebobinado crono', 'desc': 'Vuelve a donde estabas hace {back}s, con la vida y el maná que tenías entonces.' },
+
+    'sanguineFlask': { 'name': 'Frasco sanguíneo', 'desc': 'Lanza un frasco con tu propia sangre: {dmg}% de daño de Aguante en área, y armadura rota un {shred}% durante {shredDur}s.' },
+    'bloodTransmutation': { 'name': 'Transmutación de sangre', 'desc': 'El {share}% del daño físico que recibes vuelve como maná.' },
+    'essenceHarvest': { 'name': 'Cosecha de esencia', 'desc': 'Drena a todos los enemigos a menos de {radius} m: {dmg}% de daño de Inteligencia. Te curas un {heal}% de ese daño.' },
+    'hemophilia': { 'name': 'Hemofilia', 'desc': 'El drenaje de vida es un {drain}% más fuerte. Golpear a un enemigo que sangra te cura un {heal}% de tu vida.' },
+    'mutagenicRage': { 'name': 'Furia mutagénica', 'desc': 'Durante {dur}s: +{speed}% de velocidad de ataque, +{steal}% de robo de vida y +{move}% de velocidad de movimiento.' },
+    'philosophersCrucible': { 'name': 'Crisol filosofal', 'desc': 'Un charco de sangre hirviente durante {dur}s: {dmg}% de daño de Inteligencia a los enemigos que estén dentro, y te cura mientras estés en él.' },
+
+    'aetherPistol': { 'name': 'Pistola de éter', 'desc': 'Un disparo rápido con {dmg}% de daño de Técnica. Genera {heat} de calor.' },
+    'deployTurret': { 'name': 'Desplegar torreta', 'desc': 'Coloca una torreta que dispara con {dmg}% de daño de Técnica durante {dur}s. Hasta {max} a la vez.' },
+    'ventHeat': { 'name': 'Liberar calor', 'desc': 'Expulsa todo el calor en un cono: hasta {dmg}% de daño de Técnica; cuanto más calor, más daño.' },
+    'thermalOverload': { 'name': 'Sobrecarga térmica', 'desc': 'Mientras estás sobrecalentado, tus disparos infligen +{crit}% de daño Crítico. El sobrecalentamiento sigue bloqueando tus habilidades durante {lock}s.' },
+    'orbitalBeam': { 'name': 'Rayo orbital', 'desc': 'Un rayo del cielo quema donde apuntas: {dmg}% de daño de Técnica a lo largo de {dur}s.' },
+    'exoSuit': { 'name': 'Exotraje', 'desc': 'Durante {dur}s: +{armor}% de Armadura, y tus ataques se convierten en cohetes que infligen {rocket}% de daño de Técnica en área.' },
+
+    'stoneSpike': { 'name': 'Púa de piedra', 'desc': 'Una púa brota bajo el objetivo: {dmg}% de daño de Fuerza y {slow}% de ralentización durante {dur}s.' },
+    'earthBarrier': { 'name': 'Barrera de tierra', 'desc': 'Levanta un muro de roca durante {dur}s. Nada lo atraviesa, ni andando ni disparando.' },
+    'seismicShock': { 'name': 'Choque sísmico', 'desc': 'Golpea el suelo: {dmg}% de daño de Fuerza en {radius} m, y derriba a los enemigos durante {down}s.' },
+    'earthenSkin': { 'name': 'Piel de tierra', 'desc': 'Ganas Armadura igual al {armor}% de tu Fuerza. Los aturdimientos que sufres duran un {cut}% menos.' },
+    'petrify': { 'name': 'Petrificar', 'desc': 'Convierte al objetivo en piedra durante {dur}s. Recibe un {vuln}% más de daño cuando se libera en pedazos.' },
+    'tectonicRupture': { 'name': 'Ruptura tectónica', 'desc': 'Desgarra el campo: {dmg}% de daño de Fuerza a todo lo cercano, y escombros que ralentizan durante {dur}s.' }
+  },
+
+  'slot': {
+    'main': 'Mano principal',
+    'off': 'Mano secundaria',
+    'body': 'Armadura',
+    'trinket': 'Abalorio'
+  },
+  'tier': {
+    '1': 'Rango 1',
+    '2': 'Rango 2',
+    '3': 'Rango 3',
+    '4': 'Rango 4',
+    '5': 'Rango 5',
+    '6': 'Legendario'
+  },
+  'weapon': {
+    'melee': 'Cuerpo a cuerpo · escala con {attr}',
+    'ranged': 'A distancia · escala con {attr}',
+    'magic': 'Magia · escala con {attr}'
+  },
+  'source': {
+    'mob': '{zone}: lo sueltan los monstruos.',
+    'chest': '{zone}: se encuentra en los cofres.',
+    'boss': '{zone}: lo suelta el jefe.',
+    'secret': '{zone}: oculto en un cofre secreto.'
+  },
+  'mod': {
+    'str': '+{n} de Fuerza',
+    'dex': '+{n} de Destreza',
+    'int': '+{n} de Inteligencia',
+    'end': '+{n} de Aguante',
+    'skl': '+{n} de Técnica',
+    'cha': '+{n} de Carisma',
+    'allAttrs': '+{n} a todos los atributos',
+    'strOrDex': '+{n} de Fuerza o Destreza, la que sea mayor',
+    'armor': '{n} de Armadura',
+    'armorPct': '+{n}% de Armadura',
+    'armorFromStr': 'Armadura por Fuerza: +{n}%',
+    'block': '+{n}% de probabilidad de Bloqueo',
+    'dodge': '+{n}% de Esquiva',
+    'damageReduction': '+{n}% de reducción de daño',
+    'physReduction': '{n}% menos de daño físico recibido',
+    'maxHp': '+{n} de Vida máxima',
+    'maxHpPct': '+{n}% de Vida máxima',
+    'maxMana': '+{n} de Maná máximo',
+    'hpRegen': '+{n} de Vida por segundo',
+    'stunDurationCut': 'Los aturdimientos que sufres duran un {n}% menos',
+    'damagePct': '+{n}% de daño infligido',
+    'critChance': '+{n}% de probabilidad de Crítico',
+    'critDamage': '+{n}% de daño Crítico',
+    'spellCrit': '+{n}% de probabilidad de Crítico con hechizos',
+    'attackSpeed': '+{n}% de velocidad de ataque',
+    'moveSpeed': '+{n}% de velocidad de movimiento',
+    'cdr': 'Los enfriamientos duran un {n}% menos',
+    'manaDiscount': 'Los hechizos cuestan un {n}% menos de maná',
+    'lifesteal': '+{n}% de robo de vida con todo el daño',
+    'physLifesteal': '+{n}% de robo de vida con golpes físicos',
+    'lifeDrainPct': 'El drenaje de vida es un {n}% más fuerte',
+    'bossDamage': '+{n}% de daño contra jefes',
+    'backstab': '+{n}% de daño por la espalda',
+    'minionDamage': 'Los esbirros infligen +{n}% de daño',
+    'minionAttackSpeed': 'Los esbirros atacan un {n}% más rápido',
+    'minionHp': 'Los esbirros tienen +{n}% de vida',
+    'burnOnHit': 'Los ataques aplican una Quemadura de {n} de daño',
+    'freezeOnHit': 'Los ataques tienen un {n}% de probabilidad de congelar',
+    'pierce': 'Los disparos atraviesan a {n} enemigos más',
+    'critCooldown': 'Los golpes críticos reducen todos los enfriamientos en {n}s',
+    'extraBlastEvery': 'Una descarga de energía extra cada {n} disparos',
+    'reflectOnBlock': 'Un bloqueo refleja {n} de daño',
+    'fatalSave': 'El daño mortal te vuelve invulnerable durante {n}s en vez de matarte (una vez cada 120s)',
+    'knockbackImmune': 'Inmune al empuje',
+    'heatBuildCut': 'El calor sube un {n}% más despacio',
+    'heatDissipation': 'El calor baja un {n}% más rápido',
+    'flaskDamage': 'Frasco sanguíneo inflige +{n}% de daño',
+    'igniteBonus': 'Los hechizos de fuego queman un {n}% más',
+    'stealthy': 'Se mueve en silencio: los enemigos te detectan desde un {n}% menos de distancia',
+    'fortitude': 'Los golpes fuertes dan un escudo del {n}% de la vida',
+    'evasionHaste': 'Una esquiva otorga {n}% de Celeridad',
+    'cauterize': 'Los enemigos en llamas te infligen un {n}% menos de daño',
+    'pyromaniac': 'Los hechizos críticos reducen los enfriamientos de fuego en {n}s',
+    'tribute': 'Los esbirros reciben el {n}% de tu daño',
+    'timeDistort': 'El {n}% del daño recibido se retrasa',
+    'entropy': 'Lanzar hechizos acorta los enfriamientos un {n}%',
+    'bloodToMana': 'El {n}% del daño físico recibido vuelve como maná',
+    'bleedHeal': 'Golpear a un enemigo que sangra cura un {n}% de vida',
+    'overheatCrit': '+{n}% de daño Crítico mientras estás sobrecalentado'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Espada corta oxidada' },
+    'apprenticeStaff': { 'name': 'Bastón de aprendiz' },
+    'scoutsHandgun': { 'name': 'Pistola de explorador' },
+    'ironBroadsword': { 'name': 'Espada ancha de hierro' },
+    'vipinsStiletto': { 'name': 'Estilete de Vipin' },
+    'aetherCarbine': { 'name': 'Carabina de éter' },
+    'ashenGreatsword': { 'name': 'Mandoble ceniciento' },
+    'archmageWand': { 'name': 'Varita de archimago' },
+    'chronoBlade': { 'name': 'Hoja crono' },
+    'bloodForgedAxe': { 'name': 'Hacha forjada en sangre' },
+    'voidCannon': { 'name': 'Cañón del Vacío' },
+    'dragonSmasher': { 'name': 'Aplastadragones' },
+    'bladeOfTheUnbound': { 'name': 'Hoja del Indomable' },
+    'aetheriumDestroyer': { 'name': 'Destructor de eterio' },
+    'woodenBuckler': { 'name': 'Rodela de madera' },
+    'tomeOfNovices': { 'name': 'Tomo de novicios' },
+    'ironShield': { 'name': 'Escudo de hierro' },
+    'syringeOfTheAdept': { 'name': 'Jeringa del adepto' },
+    'aethericBattery': { 'name': 'Batería etérea' },
+    'aegisTowerShield': { 'name': 'Pavés de la Égida' },
+    'orbOfEternalFlame': { 'name': 'Orbe de la llama eterna' },
+    'shieldOfTheFallen': { 'name': 'Escudo de los Caídos' },
+    'paddedTunic': { 'name': 'Túnica acolchada' },
+    'leatherDoublet': { 'name': 'Jubón de cuero' },
+    'chainmailVest': { 'name': 'Chaleco de malla' },
+    'scholarsRobe': { 'name': 'Toga de erudito' },
+    'reinforcedPlate': { 'name': 'Placas reforzadas' },
+    'assassinsGarb': { 'name': 'Atuendo de asesino' },
+    'chronoWeaverCloak': { 'name': 'Capa del Tejedor del Tiempo' },
+    'bloodSoakedPlate': { 'name': 'Placas empapadas de sangre' },
+    'exoArmorChassis': { 'name': 'Chasis de exoarmadura' },
+    'dragonscaleHauberk': { 'name': 'Cota de escamas de dragón' },
+    'vestmentsOfSovereign': { 'name': 'Vestiduras del Soberano' },
+    'armorOfTheTitan': { 'name': 'Armadura del Titán' },
+    'copperBand': { 'name': 'Aro de cobre' },
+    'ringOfMending': { 'name': 'Anillo de sanación' },
+    'bandOfSwiftness': { 'name': 'Aro de presteza' },
+    'castersEmblem': { 'name': 'Emblema del hechicero' },
+    'infiltratorsCharm': { 'name': 'Amuleto del infiltrado' },
+    'timekeepersHourglass': { 'name': 'Reloj de arena del Guardián del tiempo' },
+    'ringOfTheVampyre': { 'name': 'Anillo del Vampiro' },
+    'sovereignsSignet': { 'name': 'Sello del Soberano' },
+    'heartOfTheMountain': { 'name': 'Corazón de la montaña' },
+    'ringOfAbsolutePower': { 'name': 'Anillo del poder absoluto' }
+  },
+  'bag': {
+    'equip': 'Equipar',
+    'unequip': 'Quitar',
+    'tooLow': 'Requiere nivel {n}.'
+  },
+  'shop': {
+    'buy': 'Comprar',
+    'sell': 'Vender',
+    'owned': 'En propiedad',
+    'empty': 'Hoy no hay nada en los estantes.'
+  },
+  'trainer': {
+    'learn': 'Aprender',
+    'known': 'Aprendida',
+    'friend': '{faction} honra a sus amigos: 20% de descuento.',
+    'block': {
+      'level': 'Tu nivel es demasiado bajo.',
+      'attrs': 'Tus atributos son demasiado bajos.',
+      'gold': 'No tienes suficiente oro.'
+    }
+  },
+  'healer': {
+    'talk': 'Siéntate. Descansa. De aquí sales de una pieza y con todos los frascos llenos. Si quieres llevar más, eso sí te lo puedo vender.',
+    'note': 'Llevas {n} pociones a cada zona.',
+    'buy': 'Un frasco más · {n}',
+    'full': 'En tu cinturón no cabe ni uno más.'
+  },
+  'talk': {
+    'goal': 'Se decidirá aquí: {zone}.'
+  },
+  'faction': {
+    'order': 'La Orden de Hierro',
+    'syndicate': 'El Sindicato Ceniciento',
+    'circle': 'El Círculo del Éter'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Bram el Herrero', 'talk': 'Acero sencillo, precios honrados. Mantendrá a los goblins lejos de ti.' },
+    'sunfordPeddler': { 'name': 'Tilly la Buhonera', 'talk': '¡Anillos! ¡Amuletos! Cosas que encontré y que para nada robé.' },
+    'trainerAegis': { 'name': 'Ser Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Anciana Mara', 'talk': 'Hoy has defendido el camino. Las llanuras no estaban tan tranquilas desde hace un año.' },
+    'sunfordHealer': { 'name': 'Hermana Lune' },
+    'goblinTrader': { 'name': 'Grik el Mercader', 'talk': 'Rey decir comerciar, así que Grik comerciar. Brillante por brillante. Brillante bueno.' },
+    'captainHale': { 'name': 'Capitán Hale', 'talk': 'Oakhaven lleva trescientos años en pie. No pienso ser el capitán que la perdió.' },
+    'oakArmorer': { 'name': 'Odo el Armero', 'talk': 'La mitad de mi género acabó en las murallas. Llévate lo que queda.' },
+    'oakMasterArmorer': { 'name': 'Maestro Odo', 'talk': 'Has salvado esta ciudad. Para ti saco las buenas placas de la trastienda.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Afiladas, equilibradas y vendidas a quien pague. Hoy eres tú.' },
+    'trainerShadow': { 'name': 'El Susurro' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Hermano Fenn' },
+    'blackMarket': { 'name': 'El Perista', 'talk': 'Sin nombres, sin preguntas. El Sindicato se lleva su parte, tú te llevas la mercancía.' },
+    'trainerBlood': { 'name': 'Doctor Sangrel' },
+    'syndicateBoss': { 'name': 'Madame Ash', 'talk': 'Oakhaven es nuestra gracias a ti. El Sindicato no olvida a un amigo. Ni una deuda.' },
+    'forgemaster': { 'name': 'Maestro forjador Dorn', 'talk': 'Cavamos en busca de hierro y dimos con un corazón. Late ahí abajo, en la oscuridad, y los gólems caminan a su ritmo.' },
+    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Forjado por enanos. Si se rompe, fuiste tú.' },
+    'ironAetherWorks': { 'name': 'Voss el Inventor', 'talk': 'El estudio del núcleo que hizo el Círculo lo cambió todo. Sujeta esto. No me apuntes con ello.' },
+    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Placas que desvían el garrote de un gigante. Anillos para los demás.' },
+    'ironOrderArmor': { 'name': 'Intendente de la Orden', 'talk': 'La Orden recuerda quién destruyó el núcleo. Sus armerías están abiertas para ti.' },
+    'trainerGeo': { 'name': 'Viejo Piedepiedra' },
+    'trainerAether': { 'name': 'Pim el Engranajero' },
+    'ironHealer': { 'name': 'Madre Brynja' },
+    'exiledSovereign': { 'name': 'Lord Castellan, en el exilio' },
+    'trainerChrono': { 'name': 'El Guardián de las Horas' }
+  },
+
+  'quest': {
+    'final': 'Esta elección es permanente.',
+    'needsRep': 'Reputación {n} con: {faction}',
+    'gold': '+{n} de oro',
+    'goblinKing': {
+      'title': 'El Rey Goblin',
+      'intro': 'Los saqueos vienen de las Hondonadas, donde los goblins han coronado a un rey. Ponles fin como mejor te parezca.',
+      'ask': '¡Espera! Espera. ¡Rey rendirse! Goblins solo saquear porque goblins tener hambre. ¿Quizá grandote y Rey hacer trato?',
+      'slay': { 'label': 'Poner fin a su reinado.', 'result': 'El Rey cae y las Hondonadas se dispersan. Sunford duerme más tranquilo, y la Orden de Hierro se fija en ti.' },
+      'pact': { 'label': 'Ofrecer un pacto comercial con Sunford.', 'result': 'Una lengua de plata logra lo que una espada no pudo. Los mercaderes goblin se instalan en la plaza de Sunford, con mercancías que ningún herrero de allí sabría hacer.' },
+      'ransom': { 'label': 'Quedarte con su tesoro y dejarle la corona.', 'result': 'Sales cargado de oro goblin. Los saqueos volverán, pero eso es problema de Sunford. El Sindicato lo aprueba.' }
+    },
+    'siege': {
+      'title': 'El Asedio de Oakhaven',
+      'intro': 'El ejército de un caudillo tiene rodeada Oakhaven. El Sindicato Ceniciento pagó ese ejército. Rompe el asedio en las afueras.',
+      'ask': 'Luchas bien. El Sindicato paga mejor de lo que esa ciudad pagará jamás. Ábrenos la puerta esta noche, y un tercio de Oakhaven será tuyo.',
+      'defend': { 'label': 'Defender Oakhaven.', 'result': 'La puerta aguanta. Tras ella, Oakhaven se enriquece y sus maestros armeros recuerdan tu nombre. El Sindicato Ceniciento te da caza ahora en todos los caminos.' },
+      'betray': { 'label': 'Abrir la puerta al Sindicato.', 'result': 'Oakhaven arde. Entre sus ruinas abre un mercado negro, y un alquimista que enseña artes prohibidas. Los armeros se han ido, y la Orden de Hierro te llama traidor.' }
+    },
+    'core': {
+      'title': 'El Corazón de Ironhold',
+      'intro': 'Un núcleo de éter mueve a los gólems de nuestras minas. Tres poderes lo quieren, y cada uno me ha enviado una carta. Tú llegarás primero.',
+      'ask': 'El Coloso es chatarra, y el núcleo yace abierto ante ti, zumbando. Está tibio al tacto. ¿Qué será de él?',
+      'destroy': { 'label': 'Hacer añicos el núcleo.', 'result': 'La luz se apaga y los gólems caen donde están. En agradecimiento, la Orden de Hierro envía a sus propios armeros a Ironhold.' },
+      'study': { 'label': 'Dárselo al Círculo para que lo estudie.', 'result': 'Lo entiendes lo bastante como para entregarlo sin peligro. En una estación, las forjas de Ironhold producen ingenios de éter que nadie había visto antes.' },
+      'sell': { 'label': 'Vendérselo al Sindicato.', 'result': 'Una fortuna cambia de manos. El núcleo sigue encendido en algún lugar donde no debería estar, y las minas no volverán a estar tranquilas.' }
+    },
+    'oracle': {
+      'title': 'La Oráculo Ahogada',
+      'ask': 'He visto este momento diez mil veces. En la mitad me liberas. En la otra mitad te llevas lo que guardo. Elige, y déjame por fin no saber qué viene después.',
+      'free': { 'label': 'Romper sus cadenas.', 'result': 'La oráculo asciende por el agua y desaparece. El Círculo del Éter hablará bien de ti, y su guardián de las horas se queda para enseñar.' },
+      'slay': { 'label': 'Llevarte el reloj de arena que guarda.', 'result': 'No se resiste. El Reloj de arena del Guardián del tiempo es tuyo. Su último discípulo huye del templo, y el Círculo no perdona.' }
+    },
+    'dragon': {
+      'title': 'El Dragón del Vacío',
+      'ask': 'Basta. Tienes colmillos, criatura pequeña. El demonio de la fortaleza encadenó a los míos. Quiero verlo arder. Mátame, o déjame ayudarte a hacerlo.',
+      'slay': { 'label': 'Matar al dragón.', 'result': 'La montaña tiembla cuando cae. La Orden de Hierro canta a quien mató al dragón, y su tesoro es tuyo.' },
+      'pact': { 'label': 'Sellar un pacto contra el Archidemonio.', 'result': 'Pocos habrían convencido a un dragón. Cuando marches sobre la Fortaleza del Terror, estará en el cielo sobre ti.' }
+    },
+    'throne': {
+      'title': 'El Trono Vacío',
+      'ask': 'El Archidemonio ha muerto y su trono está vacío. Quien lo ocupe manda sobre la fortaleza, la grieta que hay debajo y los ejércitos de ambas. Tres emisarios esperan en la puerta.',
+      'order': { 'label': 'Dar el trono a la Orden de Hierro.', 'result': 'La Orden guarnece la fortaleza y sella lo que puede. El reino estará a salvo, y se le dirá lo que tiene que hacer.' },
+      'syndicate': { 'label': 'Dar el trono al Sindicato Ceniciento.', 'result': 'El Sindicato se instala antes del alba. Ahora todo está en venta, incluida la paz.' },
+      'circle': { 'label': 'Dar el trono al Círculo del Éter.', 'result': 'El Círculo convierte la fortaleza en una escuela sobre una grieta. Ellos lo llaman investigación. Todos los demás lo llaman cuestión de tiempo.' },
+      'shatter': { 'label': 'Hacer añicos el trono.', 'result': 'Lo rompes con tus propias manos. Nadie volverá a reinar desde aquí. Los emisarios se van sin decir palabra.' },
+      'claim': { 'label': 'Sentarte tú en él.', 'result': 'Está frío, y te queda bien. Tres facciones descubren que tienen un enemigo común.' }
     }
   },
 
   'enemy': {
-    'echo': 'Eco de Maestro',
-    'gatekeeper': 'Guardapuertas',
-    'warden': 'Centinela',
-    'hornet': 'Rotor avispón',
-    'stalker': 'Acechador Luminoso',
-    'puffer': 'Mina Globo',
-    'mole': 'Topo Taladro',
-    'polar': 'Cachorro Polar',
-    'hardhat': 'Casquito',
-    'trooper': 'Escudero',
-    'heli': 'Dron de rotor',
-    'hopper': 'Aplastador',
-    'roller': 'Rodillo dentado',
-    'brute': 'Guardroide',
-    'turret': 'Cañón de pared',
-    'golem': 'Gólem de caja',
-    'elite': 'Élite',
-    'level': 'Nv. {n}'
-  },
-
-  'enemyPlural': {
-    'echo': 'Eco de Maestro | Ecos de Maestro',
-    'gatekeeper': 'Guardapuertas | Guardapuertas',
-    'warden': 'Centinela | Centinelas',
-    'hornet': 'Rotor avispón | Rotores avispón',
-    'stalker': 'Acechador Luminoso | Acechadores Luminosos',
-    'puffer': 'Mina Globo | Minas Globo',
-    'mole': 'Topo Taladro | Topos Taladro',
-    'polar': 'Cachorro Polar | Cachorros Polares',
-    'hardhat': 'Casquito | Casquitos',
-    'trooper': 'Escudero | Escuderos',
-    'heli': 'Dron de rotor | Drones de rotor',
-    'hopper': 'Aplastador | Aplastadores',
-    'roller': 'Rodillo dentado | Rodillos dentados',
-    'brute': 'Guardroide | Guardroides',
-    'turret': 'Cañón de pared | Cañones de pared',
-    'golem': 'Gólem de caja | Gólems de caja'
-  },
-
-  'hud': {
-    'help': 'Mostrar controles',
-    'mute': 'Silenciar sonido',
-    'unmute': 'Activar sonido',
-    'bossUnknown': 'Jefe desconocido',
-    'hp': 'Salud',
-    'we': 'Energía de arma',
-    'power': 'Potencia',
-    'bolts': 'Tornillos',
-    'level': 'Nv. {n}',
-    'beamOut': 'Teletransporte'
-  },
-
-  'boss': {
-    'rotorMaster': 'Maestro Rotor',
-    'neonMaster': 'Maestro Neón',
-    'tideMaster': 'Maestro Marea',
-    'drillMaster': 'Maestro Taladro',
-    'magnetMaster': 'Maestro Imán',
-    'stand': 'Chatarrero',
-    'scrapper': 'Chatarrero',
-    'blazeMaster': 'Maestro Llamarada',
-    'frostMaster': 'Maestro Escarcha',
-    'voltMaster': 'Maestro Voltio',
-    'galeMaster': 'Maestro Vendaval',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Robot Gran Maestro'
-  },
-
-  'sector': {
-    'rotor': 'Ruta del Rotor',
-    'neon': 'Bulevar del Apagón',
-    'tide': 'Esclusas de Marea',
-    'drill': 'Mina Profunda',
-    'magnet': 'Fábrica de Polaridad',
-    'scrapyard': 'Desguace',
-    'blaze': 'Refinería Llamarada',
-    'cryo': 'Planta Criogénica',
-    'volt': 'Torre Voltio',
-    'gale': 'Muelles del Cielo',
-    'fortress': 'Fortaleza de Vex'
-  },
-
-  'quest': {
-    'tutorial': 'Hora de despertar',
-    'boss': 'Duelo en el Núcleo',
-    'bossTitle': 'Duelo: {boss}',
-    'kill': 'Operación Chatarra',
-    'collect': 'Recuperación de datos',
-    'rescue': 'Operación rescate',
-    'elite': 'Caza de élite',
-    'supply': 'Ruta de suministros',
-    'purge': 'Purga del sector',
-    'climb': 'Carrera de la torre',
-    'stage': 'Fase de plataformas',
-    'stageName': { 'blaze': 'Descenso fundido', 'cryo': 'Carrera glaciar', 'volt': 'Fiebre del raíl', 'gale': 'Muelles del cielo', 'magnet': 'Fábrica de Polaridad', 'drill': 'Mina profunda', 'tide': 'Esclusas de marea', 'neon': 'Bulevar del apagón', 'rotor': 'Ruta del rotor', 'fortress': 'Fortaleza de Vex' },
-    'rematch': 'Revancha: {boss}',
-    'desc': {
-      'tutorial': 'Ábrete paso por el Desguace y derrota al Chatarrero.',
-      'boss': 'Irrumpe en el núcleo del sector {sector} y derrota a {boss}.',
-      'kill': 'Destruye {n} {target} en el sector {sector}.',
-      'collect': 'Recupera {n} núcleos de datos repartidos por el sector {sector}.',
-      'rescue': 'Un robot obrero está atrapado en el sector {sector}. Encuéntralo y teletranspórtalo fuera.',
-      'elite': 'Un {target} de élite aterroriza el sector {sector}. ¡Dale caza!',
-      'supply': 'Abre {n} cofres de suministros en el sector {sector}.',
-      'purge': 'Destruye todas las máquinas del sector {sector}.',
-      'climb': 'Sube la torre del sector {sector} —escaleras, escalas, ascensores y fosos— y baja a la arena para la revancha contra {boss}.',
-      'stage': 'Corre, deslízate y viaja por el sector {sector} —cornisas, fosos y máquinas— hasta la arena, y derrota a {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Objetivo',
-    'complete': 'Objetivo cumplido',
-    'beamOutHint': 'Teletranspórtate cuando estés listo.',
-    'tutorial': 'Derrota a {boss}',
-    'boss': 'Derrota a {boss}',
-    'kill': 'Destruye {target}: {n}/{total}',
-    'collect': 'Núcleos de datos: {n}/{total}',
-    'rescue': 'Encuentra al robot obrero atrapado',
-    'elite': 'Caza al {target} de élite',
-    'supply': 'Cofres de suministros: {n}/{total}',
-    'purge': 'Máquinas destruidas: {n}/{total}',
-    'climb': 'Sube la torre y derrota a {boss}',
-    'stage': 'Llega a la arena y derrota a {boss}'
-  },
-  'mission': {
-    'bossDown': '¡{boss} destruido!',
-    'objectiveDone': '¡Objetivo cumplido!',
-    'rescued': '¡Robot obrero teletransportado a salvo!',
-    'bossDoor': 'La compuerta se abre con un chirrido…'
-  },
-  'interact': {
-    'chest': 'Abrir',
-    'rescue': 'Rescatar',
-    'bossDoor': 'Entrar'
-  },
-  'progress': {
-    'levelUp': '¡Nivel {n}! Sistemas totalmente reparados.'
-  },
-  'tips': {
-    'moveTouch': 'Arrastra a la izquierda para moverte y a la derecha para mirar. ¡Toca el suelo para ir allí!',
-    'moveKeys': '{keys} para moverte.',
-    'lookMouse': 'Mueve el ratón para mirar a tu alrededor.',
-    'capture': 'Haz clic en la escena para controlar la cámara.',
-    'fireTouch': '¡Máquinas a la vista! Toca para disparar; mantén y suelta para un disparo cargado.',
-    'fireKeys': '¡Máquinas a la vista! Clic izquierdo para disparar; mantén y suelta para un disparo cargado.',
-    'charge': 'Los escudos bloquean las balas. Un disparo cargado al MÁXIMO los atraviesa.',
-    'blockTouch': 'Anillo naranja: mantén el escudo para bloquear. ¡Púlsalo justo cuando el anillo se cierre para hacer una PARADA!',
-    'blockKeys': 'Anillo naranja: mantén el botón derecho del ratón para bloquear. ¡Pulsa justo cuando el anillo se cierre para hacer una PARADA!',
-    'red': 'Anillo rojo: imbloqueable. ¡Deslízate para esquivarlo!',
-    'dodgeKeys': 'Anillo rojo: imbloqueable. ¡Pulsa {slide} para deslizarte y esquivarlo!',
-    'spaceKey': 'Espacio',
-    'chest': '¡Un cofre de suministros! Tócalo para abrirlo.',
-    'tank': '¿Poca salud? El gel reparador te deja como nuevo.',
-    'weapon': '¡Usa tu arma copiada con el botón de color!'
-  },
-  'lesson': {
-    'charge': 'Mantén para cargar tu cañón y luego suelta: solo un disparo cargado rompe el escudo del dron de entrenamiento.',
-    'crate': 'Las cajas de suministros solo se rompen con un disparo cargado. Mantén y suelta apuntando a la caja brillante.',
-    'weaponKeys': 'Pulsa {n} para disparar tu arma copiada: un solo disparo alcanza a los tres drones.',
-    'weaponTouch': 'Toca el botón de arma brillante: un solo disparo alcanza a los tres drones.',
-    'gelKeys': 'Pulsa {key} para usar un gel reparador: te repara por completo.',
-    'gelTouch': 'Toca el botón verde del gel reparador: te repara por completo.'
-  },
-  'walk': {
-    'finishLessonOn': 'Termina la lección de {weapon}',
-    'finishTutorial': 'Termina primero el tutorial',
-    'finishLesson': 'Termina la lección'
-  },
-  'hubLesson': {
-    'earnBolts': '¿Te faltan tornillos? Mira un vídeo corto para recargar.',
-    'catchUp': 'Pip: Tu cañón se está quedando atrás frente a las máquinas. ¡Vamos a mejorarlo!',
-    'workshop': 'Abre el Taller.',
-    'upgradeBuster': 'Gasta tornillos para mejorar tu cañón: más daño.',
-    'pickArmor': 'Ahora elige tu armadura de pecho.',
-    'upgradeArmor': 'Mejórala también: más defensa.',
-    'deploy': '¡Todo listo, de vuelta a las misiones!',
-    'overload': 'Pip: El núcleo del Maestro Vendaval me enseñó un truco. Mantén la carga completa 3 segundos más: ¡SOBRECARGA!'
-  },
-  'loot': {
-    'upgrade': '¡Mejora!',
-    'found': '¡Botín: {item} ({rarity})!',
-    'tank': '¡Gel reparador encontrado!',
-    'giftTank': 'Regalo: ¡+1 Gel reparador!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin hondero',
+    'bandit': 'Bandido',
+    'banditArcher': 'Arquero bandido',
+    'wolf': 'Lobo',
+    'banditChief': 'Jefe bandido',
+    'goblinKing': 'El Rey Goblin',
+    'treant': 'Ent',
+    'spider': 'Araña gigante',
+    'broodSpider': 'Cría de araña',
+    'outlawCaptain': 'Capitán forajido',
+    'elderTreant': 'Ent anciano',
+    'warlord': 'Caudillo Krag',
+    'fireElemental': 'Elemental de fuego',
+    'ironGolem': 'Gólem de hierro',
+    'cultist': 'Cultista',
+    'emberLord': 'El Señor de las Ascuas',
+    'ironColossus': 'El Coloso de Hierro',
+    'frostGiant': 'Gigante de escarcha',
+    'naga': 'Naga',
+    'skeleton': 'Esqueleto',
+    'necromancer': 'Nigromante',
+    'frostJarl': 'El Jarl de la Escarcha',
+    'nagaOracle': 'La Oráculo Ahogada',
+    'voidStalker': 'Acechador del Vacío',
+    'wyvern': 'Guiverno',
+    'highDemon': 'Alto demonio',
+    'voidWarden': 'El Custodio del Vacío',
+    'voidDragon': 'El Dragón del Vacío',
+    'doomKnight': 'Caballero de la perdición',
+    'imp': 'Diablillo',
+    'archDemon': 'El Archidemonio',
+    'voidling': 'Engendro del Vacío',
+    'voidLord': 'El Señor del Vacío',
+    'orderGuard': 'Inquisidor de la Orden',
+    'syndicateBlade': 'Hoja del Sindicato'
   },
 
   'results': {
-    'success': 'MISIÓN CUMPLIDA',
-    'failed': 'MISIÓN FALLIDA',
+    'victory': '¡Victoria!',
+    'defeat': 'Derrota',
+    'retreat': 'Retirada',
+    'firstClear': '¡Primera victoria!',
+    'waves': 'Oleadas superadas: {n}',
+    'levelUp': '¡Nivel {n}!',
+    'points': '+{n} puntos de atributo',
     'xp': 'Experiencia',
-    'bolts': 'Tornillos',
-    'kills': 'Máquinas destruidas',
-    'chests': 'Cofres abiertos',
+    'gold': 'Oro',
+    'lost': 'Perdido',
+    'kills': 'Derrotados',
     'time': 'Tiempo',
-    'levelUp': '¡Subes de nivel! Ahora eres nivel {n}',
-    'newWeapon': '¡Nueva arma: {weapon}!',
-    'newSector': 'Nuevo sector desbloqueado: {sector}',
-    'items': 'Equipo encontrado',
-    'triple': 'Triple de tornillos',
-    'tripleAria': 'Mira un vídeo corto: triplica tus tornillos a +{n}'
-  },
-  'defeat': {
-    'title': 'SISTEMA CAÍDO',
-    'body': 'Flux ha recibido demasiado daño.',
-    'kept': 'Conservas lo que has ganado hasta ahora:',
-    'useTank': 'Reiniciar con gel ({n})',
-    'rebootAd': 'Reiniciar ya',
-    'retreat': 'Volver al laboratorio',
-    'retryCheckpoint': 'Reintentar desde el control'
-  },
-  'banner': {
-    'cleared': 'Nivel superado',
-    'bossDown': '¡Enemigo derrotado!',
-    'gameOver': '¡Fin del juego!',
-    'grandMaster': '¡Gran Maestro!'
+    'unlocked': 'Nuevo en el mapa: {places}',
+    'retry': 'Reintentar',
+    'tip': 'Conservas la experiencia y el botín. Gasta tus puntos, visita a un maestro y vuelve con más fuerza.'
   },
   'pause': {
-    'title': 'PAUSA',
+    'title': 'En pausa',
     'resume': 'Reanudar',
-    'abandon': 'Abandonar misión',
     'controls': 'Controles',
-    'label': {
-      'move': 'Moverse',
-      'look': 'Mirar',
-      'parry': 'Parada',
-      'interact': 'Interactuar'
-    },
-    'touch': {
-      'move': 'Lado izquierdo: arrastra para moverte. Toca el suelo para ir allí.',
-      'fire': 'En combate: toca para disparar, mantén para cargar y suelta para abrir fuego.',
-      'block': 'Mantén el escudo para bloquear; púlsalo justo cuando un anillo se cierre para hacer una parada.',
-      'use': 'Junto a un cofre, un robot atrapado o una puerta: tócalo, o toca el botón que aparece.'
-    },
-    'keys': {
-      'move': '{keys} / flechas: moverse.',
-      'look': 'Mueve el ratón para mirar. Haz clic en la escena para controlar la cámara.',
-      'fire': 'Clic izquierdo: disparar; mantén para cargar y suelta para disparar.',
-      'block': 'Clic derecho: bloquear; pulsa justo cuando un anillo se cierre para hacer una parada.',
-      'slide': '{slide}: deslizarse · {tank}: gel reparador · {use}: interactuar · {beam}: teletransporte',
-      'more': '{w1} / {w2}: armas especiales · {target}: cambiar de objetivo · Esc: pausa',
-      'space': 'Espacio',
-      'press': '{key}: {action}'
+    'retreat': 'Retirarse al mapa',
+    'retreatNote': 'Conservas todo lo ganado hasta ahora, pero la zona no queda despejada.'
+  },
+  'ending': {
+    'level': 'Nivel',
+    'more': 'La Grieta del Vacío se ha abierto bajo la fortaleza. El Coliseo sigue aceptando a cualquier aspirante.',
+    'order': { 'title': 'La Paz de Hierro', 'text': 'Los estandartes de la Orden de Hierro ondean sobre la Fortaleza del Terror. Los caminos son seguros, las leyes son muchas, y tu nombre está grabado sobre la puerta.' },
+    'syndicate': { 'title': 'El Trato Ceniciento', 'text': 'El Sindicato gobierna desde las sombras de la fortaleza. Ya nada está prohibido en el reino. Solo es caro.' },
+    'circle': { 'title': 'La Era del Éter', 'text': 'El Círculo ilumina la fortaleza con fuego del Vacío capturado. De sus puertas salen maravillas a raudales, y nadie pregunta cuánto cuestan.' },
+    'free': { 'title': 'Sin reyes', 'text': 'El trono yace hecho pedazos y la fortaleza está vacía. Por primera vez en una era, el reino pertenece a la gente que vive en él.' },
+    'unbound': { 'title': 'Indomable', 'text': 'Tomaste el trono. La Orden, el Sindicato y el Círculo marchan juntos contra ti. Que vengan.' },
+    'note': {
+      'goblinPact': 'Los mercaderes goblin siguen regateando en la plaza de Sunford.',
+      'goblinSlain': 'Las Hondonadas están vacías, y las caravanas llegan a su hora.',
+      'goblinRansom': 'El Rey Goblin vuelve a ser rico, y vuelve a saquear.',
+      'oakhavenSaved': 'Las murallas de Oakhaven son ahora más altas, y sus mercados están más llenos.',
+      'oakhavenFallen': 'La maleza crece por las calles de Oakhaven. El mercado negro prospera.',
+      'coreOrder': 'Las minas de Ironhold están tranquilas, y los enanos vuelven a cavar.',
+      'coreCircle': 'Las forjas de Ironhold brillan en azul, y sus armas de fuego son las mejores del reino.',
+      'coreSold': 'En algún lugar, el núcleo sigue zumbando. Los gólems siguen caminando.',
+      'oracleFreed': 'En los días de calma, los pescadores ven a la oráculo mar adentro.',
+      'oracleSlain': 'El Templo Sumergido guarda silencio. Ya nadie sabe qué viene después.',
+      'dragonPact': 'Un dragón anida en el tejado de la fortaleza, y solo responde a un nombre.',
+      'dragonSlain': 'Un cráneo de dragón cuelga en el gran salón de la Orden.'
     }
-  },
-  'levelUp': {
-    'title': '¡SUBIDA DE NIVEL!',
-    'pick': 'Elige una mejora de sistema',
-    'chip': '+1 chip de habilidad para tus circuitos',
-    'granted': '{stat} sube de {from} a {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Chasis', 'desc': 'Salud máx.' },
-    'we': { 'name': 'Reactor', 'desc': 'Energía de arma' },
-    'power': { 'name': 'Servos', 'desc': 'Potencia de bloqueo y deslizamiento' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Misiones',
-      'hero': 'Flux',
-      'circuits': 'Circuitos',
-      'workshop': 'Taller'
-    },
-    'heroTabAria': 'Flux, tu androide de combate',
-    'levelUpReady': '¡Nuevo nivel!',
-    'levels': 'Nv. {a}–{b}',
-    'story': 'Misión principal',
-    'jobs': 'Encargos',
-    'jobsHint': 'Repetibles: llegan nuevos a medida que los completas',
-    'lockedHint': 'Derrota a {boss} para abrir este sector.',
-    'sectorSecured': 'Sector asegurado. Sus encargos siguen disponibles.',
-    'deploy': 'Desplegar',
-    'reroll': 'Nuevo encargo',
-    'gift': {
-      'name': 'Gel para el camino',
-      'desc': 'Mira un vídeo corto: +1 Gel reparador para tu próxima misión, incluso por encima de tu límite.',
-      'aria': 'Mira un vídeo corto para un Gel reparador extra en tu próxima misión',
-      'ready': '¡Regalo listo!',
-      'readyDesc': '+1 Gel reparador para tu próxima misión.'
-    },
-    'unlock': {
-      'hint': 'Completa {n} misión más para desbloquearlo | Completa {n} misiones más para desbloquearlo',
-      'aria': '{name}, bloqueado: completa {n} misión más | {name}, bloqueado: completa {n} misiones más'
-    }
-  },
-  'hero': {
-    'role': 'Tu androide de combate',
-    'weapons': 'Armas especiales',
-    'weaponSlot': 'Ranura {n}',
-    'weaponRank': 'Rango {n}',
-    'noWeapons': 'Derrota a los Maestros del Núcleo para copiar sus armas.',
-    'attrPending': '¡Elige {n} mejora(s) de sistema!',
-    'stats': 'Sistemas',
-    'attributes': 'Mejoras',
-    'stat': {
-      'hp': 'Salud máx.',
-      'we': 'Energía de arma',
-      'power': 'Potencia',
-      'damage': 'Daño de bala',
-      'charge': 'Disparo cargado',
-      'armor': 'Armadura',
-      'crit': 'Prob. de crítico',
-      'tanks': 'Geles reparadores'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Tornillos para dos mejoras de tu mejor cañón.',
-    'upgradeAdName': 'Impulso de mejora',
-    'tanks': 'Suministros',
-    'tankName': 'Gel reparador',
-    'tankDesc': 'Restaura por completo la salud y la potencia durante la misión.',
-    'owned': 'Llevas: {n}/{max}',
-    'upgrade': 'Mejorar equipo',
-    'next': 'Siguiente nivel',
-    'upgradeBtn': 'Mejorar',
-    'maxed': 'Mejorado al máximo',
-    'dropName': 'Suministros',
-    'dropDesc': 'Una caja de tornillos de repuesto, teletransportada desde el laboratorio.',
-    'dropAria': 'Mira un vídeo corto por {n} tornillos',
-    'dropCooldown': 'Próximo envío en {t}'
-  },
-
-  'board': {
-    'buster': 'Cañón',
-    'armor': 'Armadura',
-    'core': 'Núcleo'
-  },
-  'circuits': {
-    'chips': 'Chips de habilidad: {n}',
-    'rank': 'Rango {n}/{max}',
-    'requires': 'Requiere {name} (rango {n})',
-    'install': 'Instalar chip',
-    'maxed': 'A plena potencia',
-    'respec': 'Reiniciar circuitos',
-    'requiresBoss': 'Derrota primero a {name}',
-    'unlock': 'Desbloquear'
-  },
-  'skill': {
-    'rapid': { 'name': 'Balas rápidas', 'desc': 'Daño de bala +10 % por chip.' },
-    'quickCharge': { 'name': 'Carga rápida', 'desc': 'Tiempo de carga −10 % por chip.' },
-    'megaCharge': { 'name': 'Megacarga', 'desc': 'Daño del disparo cargado +12 % por chip.' },
-    'perfectTiming': { 'name': 'Sincronía perfecta', 'desc': 'Ventana de liberación perfecta más amplia y críticos más fuertes.' },
-    'piercing': { 'name': 'Núcleo perforante', 'desc': 'Los disparos semicargados también rompen escudos y cascos.' },
-    'giga': { 'name': 'Sobrecarga', 'desc': 'Mantén la carga completa 3 segundos más: el disparo golpea 1,75× más fuerte.' },
-    'frame': { 'name': 'Chasis reforzado', 'desc': 'Salud máx. +8 % por chip.' },
-    'barrier': { 'name': 'Ajuste de barrera', 'desc': 'Bloquear gasta menos potencia y deja pasar menos daño.' },
-    'autoRepair': { 'name': 'Autorreparación', 'desc': 'Regenera un 1 % de salud por segundo fuera de combate, por chip.' },
-    'parry': { 'name': 'Protocolo de parada', 'desc': 'Ventana de parada más amplia; tras una parada, las máquinas quedan aturdidas más tiempo.' },
-    'spikes': { 'name': 'Blindaje de púas', 'desc': 'Refleja el 15 % del daño bloqueado por chip.' },
-    'lastStand': { 'name': 'Último aliento', 'desc': 'Una vez por misión, sobrevive a un golpe mortal con 1 de salud.' },
-    'cells': { 'name': 'Celdas de energía', 'desc': 'Energía de arma +3 por chip.' },
-    'mastery': { 'name': 'Maestría con armas', 'desc': 'Daño de armas especiales +10 % por chip.' },
-    'boosters': { 'name': 'Propulsores de deslizamiento', 'desc': 'Recarga de deslizamiento más rápida y deslizamientos más baratos.' },
-    'efficient': { 'name': 'Núcleos eficientes', 'desc': 'Las armas especiales cuestan un 10 % menos de energía por chip.' },
-    'magnet': { 'name': 'Imán de tornillos', 'desc': 'Más tornillos y mayor alcance de recogida.' },
-    'tankCap': { 'name': 'Capacidad de geles', 'desc': 'Lleva un gel reparador más por chip.' }
-  },
-
-  'rarity': {
-    'standard': 'Estándar',
-    'tuned': 'Tuning',
-    'prototype': 'Prototipo',
-    'legendary': 'Leyenda'
-  },
-  'item': {
-    'arm_standard': 'Cañón estándar',
-    'arm_rapid': 'Cañón rápido',
-    'arm_heavy': 'Cañón pesado',
-    'arm_quick': 'Cañón de carga rápida',
-    'arm_nova': 'Cañón Nova',
-    'helm_scout': 'Casco de explorador',
-    'helm_guard': 'Casco de guardia',
-    'helm_ace': 'Casco de as',
-    'helm_royal': 'Casco real',
-    'body_light': 'Chasis ligero',
-    'body_plated': 'Chasis blindado',
-    'body_reactor': 'Chasis reactor',
-    'body_aegis': 'Chasis Égida',
-    'boots_basic': 'Botas básicas',
-    'boots_dash': 'Botas de impulso',
-    'boots_magnet': 'Botas magnéticas',
-    'boots_titan': 'Botas de titán',
-    'chip_logic': 'Chip lógico',
-    'chip_quantum': 'Chip cuántico'
-  },
-  'slot': {
-    'buster': 'Cañón',
-    'helmet': 'Casco',
-    'chest': 'Chasis',
-    'boots': 'Botas',
-    'chip': 'Chip'
-  },
-  'gear': {
-    'damage': 'Daño',
-    'armor': 'Armadura',
-    'equip': 'Equipar',
-    'unequip': 'Quitar',
-    'equipped': 'Equipado',
-    'new': 'NUEVO',
-    'salvage': 'Desguazar',
-    'noAffixes': 'Sin módulos extra',
-    'emptySlot': 'Aún no hay nada para esta ranura: abre cofres y completa encargos.'
-  },
-  'affix': {
-    'damage': '{v} de daño',
-    'crit': '{v} prob. de crítico',
-    'critDmg': '{v} daño crítico',
-    'hp': '{v} salud máx.',
-    'armor': '{v} armadura',
-    'we': '{v} energía de arma',
-    'power': '{v} potencia',
-    'bolts': '{v} tornillos encontrados',
-    'chargeSpeed': '{v} velocidad de carga',
-    'pelletDmg': '{v} daño de bala',
-    'chargeDmg': '{v} daño del disparo cargado',
-    'moveSpeed': '{v} velocidad de movimiento',
-    'special': '{v} daño de armas especiales',
-    'regen': '{v} regeneración de salud/s (fuera de combate)',
-    'magnet': '{v} alcance de recogida'
-  },
-  'weapon': {
-    'rankUp': '¡{weapon} sube a rango {n}!',
-    'scrapBurst': { 'name': 'Ráfaga de chatarra', 'desc': 'Un abanico triple de chatarra. Ideal contra grupos.' },
-    'flameWave': { 'name': 'Ola de llamas', 'desc': 'Una bola de fuego rueda por el suelo, atraviesa todas las máquinas a su paso y las incendia.' },
-    'iceLance': { 'name': 'Lanza de hielo', 'desc': 'Una lanza perforante que enfría lo que toca y lo ralentiza.' },
-    'thunderArc': { 'name': 'Arco de trueno', 'desc': 'Un rayo instantáneo que salta a las máquinas cercanas.' },
-    'galeGuard': { 'name': 'Escudo vendaval', 'desc': 'Hojas orbitan a tu alrededor, bloquean disparos y cortan máquinas. Vuelve a usarla para lanzarlas.' },
-    'magnetPull': { 'name': 'Atracción Imán', 'desc': 'Una herradura teledirigida que rompe escudos y caparazones y arranca a los voladores del aire.' },
-    'drillBomb': { 'name': 'Bomba taladro', 'desc': 'Una bomba perforadora que estalla donde se detiene y golpea a todas las máquinas cercanas. Rompe la roca agrietada.' },
-    'bubbleLance': { 'name': 'Lanza Burbuja', 'desc': 'Una burbuja enorme rueda por el suelo y revienta a través de todas las máquinas a su paso.' },
-    'neonBlade': { 'name': 'Hoja Neón', 'desc': 'Una hoja de luz que se lanza como un bumerán: corta a la ida y a la vuelta.' },
-    'droneSwarm': { 'name': 'Enjambre de drones', 'desc': 'Tres dronecitos buscan tres máquinas, rodeando cualquier cobertura.' }
   },
 
   'options': {
-    'killCams': 'Cámara de derribo',
     'gameplay': 'Jugabilidad',
     'title': 'Opciones',
     'general': 'General',
@@ -503,16 +612,16 @@ export default {
     'difficulty': 'Dificultad',
     'soundEffects': 'Efectos de sonido',
     'music': 'Música',
+    'mute': 'Silenciar',
     'musicTrack': 'Pista de música',
     'musicTracks': {
-      'cozy': 'Circuitos tranquilos',
-      'trance': 'Overdrive'
+      'cozy': 'Tranquila',
+      'trance': 'Aventura'
     },
     'haptics': 'Vibración',
     'on': 'Activado',
     'off': 'Desactivado',
     'close': 'Cerrar',
-    'replayIntro': 'Repetir intro',
     'keyboard': {
       'auto': 'Detectar distribución del teclado',
       'layout': 'Distribución del teclado',
@@ -522,45 +631,45 @@ export default {
       'reset': 'Restablecer teclas'
     },
     'actions': {
-      'forward': 'Avanzar',
-      'back': 'Retroceder',
-      'left': 'Desplazarse a la izquierda',
-      'right': 'Desplazarse a la derecha',
-      'turnLeft': 'Girar a la izquierda',
-      'turnRight': 'Girar a la derecha',
-      'slide': 'Deslizar',
-      'block': 'Bloquear',
-      'interact': 'Interactuar',
-      'beam': 'Teletransportarse',
-      'tank': 'Gel reparador',
-      'weapon1': 'Arma especial 1',
-      'weapon2': 'Arma especial 2',
-      'weapon3': 'Arma prestada',
-      'target': 'Cambiar objetivo',
-      'map': 'Mapa'
+      'up': 'Mover arriba',
+      'down': 'Mover abajo',
+      'left': 'Mover a la izquierda',
+      'right': 'Mover a la derecha',
+      'skill1': 'Habilidad 1',
+      'skill2': 'Habilidad 2',
+      'skill3': 'Habilidad 3',
+      'skill4': 'Habilidad 4',
+      'skill5': 'Habilidad 5',
+      'skill6': 'Habilidad 6',
+      'potion': 'Beber poción',
+      'interact': 'Hablar',
+      'target': 'Siguiente objetivo',
+      'map': 'Mapa del mundo',
+      'character': 'Héroe',
+      'inventory': 'Bolsa',
+      'skills': 'Habilidades'
     },
-    'lookSensitivity': 'Sensibilidad de cámara',
     'difficulties': {
       'easy': 'Fácil',
       'medium': 'Media',
       'hard': 'Difícil'
     },
     'difficultyHints': {
-      'easy': 'Las máquinas golpean más flojo y caen antes.',
+      'easy': 'Los enemigos golpean más flojo y caen antes.',
       'medium': 'El desafío tal y como se diseñó.',
-      'hard': 'Máquinas más duras que golpean más fuerte.'
+      'hard': 'Enemigos más duros que golpean más fuerte.'
     }
   },
   'adsBlocked': {
     'title': 'No se pudo mostrar el anuncio',
-    'body': 'Intentamos mostrarte un vídeo para que ganaras tu recompensa, pero algo en tu navegador bloquea los anuncios.',
+    'body': 'Intentamos mostrarte un vídeo, pero algo en tu navegador bloquea los anuncios.',
     'allowPrefix': 'Permite los anuncios en',
     'allowSuffix': '(o pausa tu bloqueador para este juego) e inténtalo de nuevo.',
     'gotIt': 'Entendido'
   },
   'saveStatus': {
     'restoredTitle': 'Guardado en la nube restaurado',
-    'restoredBody': '+{n} tornillos de bonificación por la recuperación',
+    'restoredBody': '+{n} de oro de bonificación por la recuperación',
     'tap': 'toca',
     'pausedTitle': 'Sincronización pausada',
     'pausedBody': 'Jugando sin conexión. Tu progreso se guarda aquí.',
@@ -586,483 +695,5 @@ export default {
     'yourRank': 'Eres #{n} de {total}',
     'of': 'de {n} jugadores',
     'tabGlobal': 'Global'
-  },
-
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux combate máquinas rebeldes en las calles de neón de Cyber City.',
-      'valley': 'Cyber City: una brillante ciudad de androides, unida por haces de luz. Dr. Vex toma el control de sus máquinas con una señal roja.',
-      'lab': 'La señal llega al laboratorio de la Prof. Gauss. Ella le da a Flux el disco Atlas y lo despierta.',
-      'safeMode': 'Gauss se congela en una cápsula para mantener fuera la señal. Sigue viva.',
-      'wakeUp': 'Flux despierta en el nivel 1, con Atlas en línea. La Fortaleza de Vex es mucho más fuerte, así que primero toca el Desguace.',
-      'beam': 'Flux se teletransporta al Desguace.'
-    },
-    'vex': {
-      'diagnosis': 'Diagnóstico: este valle está ENFERMO. La cura… ¡soy YO!'
-    },
-    'atlas': {
-      'logStart': 'Inicio del registro.',
-      'goodMorning': 'Núcleo en línea. Buenos días, Flux.',
-      'scrapyardFirst': 'Primero el Desguace. Un relé cada vez.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Señal de Maestro del Núcleo. Es… grande.',
-    },
-    'sector': {
-      'blaze': 'Refinería. Aquí hace calor. Ojo con los chorros de fuego.',
-      'cryo': 'El refrigerante fluye cuesta arriba. Hacia la Fortaleza.',
-      'gale': 'Todas las piezas de su cuerpo pasan por aquí.',
-      'magnet': 'Una fundición. Aquí se funden garras.',
-      'drill': 'Mineral para su armadura. Sacado de aquí mismo.',
-      'tide': 'Ahora barcazas. Vex ha encontrado otro camino.',
-      'neon': 'Luces apagadas. Menos la cara de Vex.',
-      'rotor': 'Drones. Su última línea de suministro.',
-    },
-    'fortress': {
-      'bays': 'A medio construir. Eso es cosa tuya.',
-    },
-    'warn': {
-      'boss': 'Maestro del Núcleo adelante.',
-      'gelFirst': 'El blindaje se agrieta. Usa un gel.',
-      'gel': 'Gel.',
-      'criticalFirst': '¡Crítico! ¡Retrocede!',
-      'critical': '¡Crítico!',
-      'noGel': 'No queda gel. Ve con cuidado.',
-      'weLow': 'Poca energía de arma. El cañón es gratis.',
-      'weEmpty': 'Depósito seco.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: último disparo.',
-        'flameWave': '{weapon}: último disparo.',
-        'iceLance': '{weapon}: último disparo.',
-        'thunderArc': '{weapon}: último disparo.',
-        'galeGuard': '{weapon}: último disparo.',
-        'magnetPull': '{weapon}: último disparo.',
-        'drillBomb': '{weapon}: último disparo.',
-        'bubbleLance': '{weapon}: último disparo.',
-        'neonBlade': '{weapon}: último disparo.',
-        'droneSwarm': '{weapon}: último disparo.',
-      },
-      'flame': 'Chorros de fuego. Espera… o deslízate.',
-      'blade': 'Cuchilla. Pasa justo después.',
-      'crusher': 'Prensa. Mira la luz.',
-      'ladder': 'Escala. Avanza hacia la pared.',
-      'pit': 'Caída larga. Sincronízate con el ascensor.',
-      'down': 'Reiniciando… Pip se ocupa de ti.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Dispara cuando se asome.',
-      'trooper': 'Escudo. Rómpelo con un disparo cargado.',
-      'heli': '{enemy}. Mira arriba.',
-      'hopper': '{enemy}. Sal del anillo.',
-      'roller': '{enemy}. Esquívalo de lado.',
-      'brute': '{enemy}. Parada, y contraataca.',
-      'turret': '{enemy}. No dejes de moverte.',
-      'golem': 'Esa caja respira. Acércate.',
-      'polar': '{enemy}. Dispara cuando se abra en rojo.',
-      'warden': '{enemy}. Dale al núcleo cuando se abra.',
-      'hornet': '{enemy}. Se lanza en línea recta: ¡a un lado!',
-      'stalker': '{enemy}. Para su embestida.',
-      'puffer': '{enemy}. Reviéntala antes de que se hinche.',
-      'mole': '{enemy}. Dale cuando salga del suelo.',
-      'elite': 'Anillo dorado. Élite. Cuidado.',
-      'fire': 'Capa de fuego. El fuego le resbala.',
-      'ice': 'Capa de hielo. El hielo le resbala.',
-      'volt': 'Capa de voltio. El voltio le resbala.',
-      'wind': 'Capa de viento. El viento le resbala.',
-    },
-    'volt': {
-      'hack': 'Flux… hay algo en el—',
-      'thanks': '…Lo mantuviste fuera. Gracias.',
-    },
-    'mk1': {
-      'intro': 'Ese es Vex. El de verdad.',
-      'fire': '¡Fuego!',
-      'ice': '¡Hielo!',
-      'volt': '¡Voltio!',
-      'wind': '¡Viento!',
-      'scrap': '¡Chatarra!',
-      'free': 'Porque son libres.',
-    },
-    'guardDown': '¡Guardia caído! El camino está libre.',
-    'help': {
-      'weapon': '¡Elige tu arma nueva y dispara a los drones!',
-      'gap': '¡Camina derecho hacia el borde y saltarás al otro lado!',
-      'gel': '¡Usa un gel reparador para curarte!',
-      'slide': '¡Desliza justo antes de que el anillo rojo te alcance!',
-      'block': 'Mantén bloqueo cuando dispare. ¡Justo al impactar es perfecto!',
-      'charge': '¡Mantén disparo hasta que el cañón brille, y suelta!',
-    },
-    'train': {
-      'weapon': '¡Vamos a entrenar tu arma nueva!',
-      'gap': '¡Vamos a entrenar el salto sobre huecos!',
-      'gel': '¡Vamos a entrenar el gel reparador!',
-      'slide': '¡Vamos a entrenar el deslizamiento!',
-      'block': '¡Vamos a entrenar el Bloqueo Perfecto!',
-      'charge': '¡Vamos a entrenar el disparo cargado!',
-    },
-    'hint': {
-      'locator': 'El objetivo está por ahí.',
-      'rescue': 'Señal de robot obrero. Débil. Cerca.',
-      'upgrade': 'Eso sí es una mejora.',
-      'levelUp': 'Nuevo chip compilado.',
-      'done': 'Hecho. Llama al dron cuando quieras.',
-      'underLevel': 'Te superan. Entrena primero.',
-      'floor': {
-        'blaze': '{sector}: a partir del nivel 3.',
-        'cryo': '{sector}: a partir del nivel 6.',
-        'volt': '{sector}: a partir del nivel 9.',
-        'gale': '{sector}: a partir del nivel 13.',
-        'magnet': '{sector}: a partir del nivel 16.',
-        'drill': '{sector}: a partir del nivel 19.',
-        'tide': '{sector}: a partir del nivel 22.',
-        'neon': '{sector}: a partir del nivel 25.',
-        'rotor': '{sector}: a partir del nivel 28.',
-        'fortress': '{sector}: a partir del nivel 31.',
-      },
-      'rotor': {
-        'arrive': 'Aterrizamos. ¡Bájate!',
-        'dip': '¡Agárrate, que bajamos en picado!',
-        'board': '¡Todos a bordo! Yo vuelo, tú disparas.',
-      },
-      'neon': {
-        'kick': 'Mira a la pared y desliza. ¡Otra vez! ¡Rebota en la pared y sube!',
-        'switch': '¡Un interruptor de luz! Dispárale para cambiar los puentes.',
-        'blink': '¡Los puentes de luz parpadean! Cruza mientras brillan.',
-        'blackout': '¡Se va la luz! Cruza cuando vuelvan las luces.'
-      },
-      'tide': {
-        'deep': '¡Demasiado hondo! ¡Sal del agua!',
-        'valve': '¡Esclusa inundada! Dispara a la válvula para vaciarla.',
-        'rise': '¡Sube la marea! ¡Arriba por los escalones!',
-        'wade': '¡Agua! Vadear te frena.',
-      },
-      'drill': {
-        'drop': '¡Caen rocas! Sal de las sombras.',
-        'rock': '¡Roca agrietada! Un disparo cargado al máximo la rompe.',
-        'board': '¡La vagoneta arranca! Yo conduzco, tú dispara a los topos.',
-        'dip': '¡Bajada empinada! ¡Agárrate fuerte!',
-        'arrive': 'Última parada. ¡Abajo!'
-      },
-      'magnet': {
-        'panel': '¿Ves esa placa roja y azul? Dispárale para invertir el raíl.',
-        'rail': '¡Raíl magnético! Las flechas marcan la atracción. Resiste o déjate llevar.',
-      },
-      'blaze': {
-        // Meltdown Descent (blaze stage)
-        'lava': 'Eso de abajo es lava. Quédate en el metal.',
-        'leap': 'Demasiado ancho para caminar. Deslízate por el borde y pasarás.',
-        'vents': 'Silbido y luego fuego. Espera el rugido y pasa.',
-        'barrels': '¡Barriles! Mira las luces y cruza entre ellos.',
-        'hammers': 'Martillos de forja. Cuenta el ritmo y corre.',
-        'drop': 'Hay mucha caída. Una cornisa cada vez.'
-      },
-      'cryo': {
-        // Glacier Run (cryo stage)
-        'ice': '¡Hielo! Si sueltas el stick, sigues deslizándote.',
-        'spikes': 'Pinchos bajo ese hielo. Camina recto, sin giros bruscos.',
-        'frost': 'Lanzaescarcha. Primero brilla y sisea. Cruza cuando calle.',
-        'icicles': '¿Sombras en el suelo? Carámbanos. ¡Sal del círculo!',
-        'pillar': 'Ese pilar está agrietado. Dispárale y tendrás un atajo.',
-        'stairs': 'Escaleras heladas. Despacio: el rellano es pequeño.'
-      },
-      'volt': {
-        // Rail Rush (volt stage)
-        'panels': 'Esos paneles laten. Espera en una fila apagada y avanza.',
-        'board': 'Suelta los controles: yo conduzco, tú disparas.',
-        'wave': '¡Drones delante! Derríbalos antes de que se lancen.',
-        'dip': 'Se viene una gran bajada. ¡Agárrate y sigue disparando!',
-        'arrive': 'Fin del trayecto. ¡Bájate!'
-      },
-      'gale': {
-        // Sky Docks (gale stage)
-        'leap': 'Demasiado ancho para cruzar andando. Deslízate por el borde: el impulso te lleva.',
-        'down': 'Buen salto. Ahora no mires abajo.',
-        'shuttle': 'Lanzaderas. Sube cuando atraque y baja al otro lado.',
-        'wind': 'Espera a que pase la ráfaga y avanza. O escóndete tras un pilar.',
-        'bob': 'Plataformas flotantes. Súbete abajo y deja que te eleve.'
-      },
-      'vex': {
-        'roof': '¡Rayos! ¡Muévete cuando se encienda el anillo!',
-        'fall': '¡El techo se hunde!',
-        'core': '¡Al Núcleo! ¡No te caigas dentro!'
-      },
-      'gm': {
-        'button': 'Vex está pulsando algo... ¡Prepárate!',
-        'arms': '¡Primero los brazos! ¡El cañón y la lanza!',
-        'feet': '¡Ahora los pies! ¡Bloquea las ondas de choque!',
-        'head': 'Está agachado. ¡La cabeza está a tu alcance!',
-        'body': '¡El núcleo está abierto! ¡Acaba con él!',
-        'prism': '¡Cañón Prisma! ¡Escudo arriba!'
-      }
-    },
-    'secret': {
-      // secret-room puzzles
-      'lights': 'Ese panel muestra un patrón. Las lámparas de la pared, todavía no.',
-      'color': 'Ese marco tiene un color favorito. Solo sus lámparas deben brillar.',
-      'cycle': 'Cada disparo hace que una lámpara cambie de idea. El panel sabe lo que quiere.',
-      'solved': 'Vaya, vaya. A alguien le gustan los acertijos.'
-    },
-    'landed': '¡Aterrizaje! ¡Vamos!',
-    'brief': {
-      'tutorial': 'Hora de entrenar. ¡Yo te guío!',
-      'job': 'Trabajo rápido. ¡Entrar y salir!',
-      'climb': '¡A la torre! ¡Arriba, arriba!',
-      'story': 'Un Maestro del Núcleo espera. ¡Liberémoslo!'
-    },
-    'story': {
-      'relayOne': 'Relé uno encendido. Quedan nueve.',
-      'copied': {
-        'scrapBurst': 'Arma copiada: {weapon}.',
-        'flameWave': 'Arma copiada: {weapon}.',
-        'iceLance': 'Arma copiada: {weapon}.',
-        'thunderArc': 'Arma copiada: {weapon}.',
-        'galeGuard': 'Arma copiada: {weapon}.',
-        'magnetPull': 'Arma copiada: {weapon}.',
-        'drillBomb': 'Arma copiada: {weapon}.',
-        'bubbleLance': 'Arma copiada: {weapon}.',
-        'neonBlade': 'Arma copiada: {weapon}.',
-        'droneSwarm': 'Arma copiada: {weapon}.',
-      },
-      'dataCore': 'Nos ha dejado algo.',
-      'firstDraft': '…Me escribieron a partir de su primer borrador.',
-      'body': 'Se está construyendo un cuerpo. Con nuestro valle.',
-      'voltFreed': 'La señal se ha quedado sin central.',
-      'galeFreed': 'Ya no llegan piezas a la Fortaleza.',
-      'breach': 'Escudo caído. La Fortaleza está abierta.',
-      'magnetFreed': 'La fundición está fría. Se acabaron las garras.',
-      'drillFreed': 'La mina está en silencio. Se acabó el mineral.',
-      'tideFreed': 'Esclusas cerradas. Las barcazas se quedan en casa.',
-      'neonFreed': 'Luces encendidas. Vex se ha quedado sin pantallas.',
-      'rotorFreed': 'Todas las líneas cortadas. Vex está solo.',
-      'rotor': 'Ruta del Rotor. ¡Viento en mi antena!',
-      'neon': 'Bulevar del Apagón. ¡Luces, por favor!',
-      'tide': 'Esclusas de Marea. ¡Hora de chapotear!',
-      'drill': 'Mina Profunda. ¡Cuidado con la cabeza!',
-      'magnet': 'Fábrica de Polaridad. ¡Mi brújula da vueltas!',
-      'scrapyard': 'Relé del Desguace. ¡Enciéndelo!',
-      'blaze': 'La Refinería. ¡Quema, quema!',
-      'cryo': 'Planta Criogénica. ¡Brr! No te pares.',
-      'volt': 'Torre Voltio. ¡Me hormiguean los circuitos!',
-      'gale': 'Muelles del Cielo. ¡No mires abajo!',
-      'fortress': 'La Fortaleza. Acabemos con esto.'
-    },
-    'arc': {
-      '10': 'Escudo caído. ¡Ahora Vex!',
-      '9': 'Queda un Maestro. ¡Casi!',
-      '8': '¡Ocho! Solo quedan dos Maestros.',
-      '7': 'Siete encendidos. ¡Sigue así!',
-      '6': '¡Seis relés! La ciudad despierta.',
-      '1': 'Un relé encendido. ¡Quedan nueve!',
-      '2': '¡Dos relés! Vex está enfurruñado.',
-      '3': 'Tres encendidos. ¡Sigue brillando!',
-      '4': 'Van cuatro. La red vuelve a zumbar.',
-      '5': '¡A mitad de camino! Vex está sudando.',
-    },
-    'bossAhead': 'Jefe adelante. ¡Respira hondo!',
-    'noWeak': 'No le veo punto débil. ¡No pares!',
-    'weak': {
-      'flameWave': '¡Ola de llamas le hace daño!',
-      'iceLance': '¡Lanza de hielo le hace daño!',
-      'thunderArc': '¡Arco de trueno le hace daño!',
-      'galeGuard': '¡Escudo vendaval le hace daño!',
-      'magnetPull': '¡Atracción Imán le hace daño!',
-      'drillBomb': '¡Bomba taladro le hace daño!',
-      'bubbleLance': '¡Lanza Burbuja le hace daño!',
-      'neonBlade': '¡Hoja Neón le hace daño!',
-      'droneSwarm': '¡Enjambre de drones le hace daño!'
-    },
-    'bossDown': '¡Maestro liberado! ¡Buen trabajo!',
-    'vexDown': 'Vex ha caído. ¡Lo logramos!',
-    'lowHp': '¡Ay! ¡Cuidado, Flux!',
-    'lowHpGel': '¡Poca salud! Usa un gel reparador.',
-    'lowWe': '¡Poca energía de arma!',
-    'trap': 'Trampa adelante. ¡Ojo al ritmo!',
-    'plate': 'Placa de presión. ¡De puntillas!',
-    'objective': '¡Hecho! Ahora busca la salida.',
-    'exit': '¡Llegó nuestro transporte!',
-    'levelUp': '¡Nuevo nivel! Estás brillando.',
-    'idle': {
-      '1': 'Bip. Solo pasaba a saludar.',
-      '2': 'Lo estás haciendo genial.',
-      '3': 'Gauss estaría orgullosa.',
-      '4': 'Me gusta nuestro equipo.'
-    }
-  },
-  'train': {
-    'todo': 'aún no',
-    'done': 'hecho',
-    'checklist': 'Tutoriales',
-    'watch': 'Mira cómo se hace',
-    'card': {
-      'weapon': '¡Copiaste el arma de un Maestro del Núcleo! Dispárala con su botón: la energía de arma la alimenta, y algunas máquinas son débiles contra ella.',
-      'gel': '¿Herido? Un gel reparador restaura tu salud por completo. Usa uno cuando una pelea se ponga difícil.',
-      'slide': 'Los ataques rojos no se pueden bloquear. Desliza para esquivarlos: nada puede golpearte durante el deslizamiento.',
-      'block': 'Mantén bloqueo para levantar tu escudo: detiene disparos y golpes de frente. Levántalo justo cuando llegue un golpe para un Bloqueo Perfecto, que deja fuera de combate al atacante.',
-      'charge': 'Un disparo normal no puede romper un escudo. Mantén disparo hasta que tu cañón brille, y suelta: un disparo cargado lo atraviesa sin problema.',
-    },
-    'name': {
-      'weapon': 'Lección de armas',
-      'gap': 'Tutorial de salto',
-      'gel': 'Tutorial de gel reparador',
-      'slide': 'Tutorial de deslizamiento',
-      'block': 'Tutorial de escudo',
-      'charge': 'Tutorial de disparo cargado',
-    },
-  },
-  'ending': {
-    'fall': 'El Gran Maestro cae. La Señal Roja de Vex muere con él.',
-    'relays': 'Uno a uno, los relés vuelven a casa, cada uno con su propio color.',
-    'thaw': 'En el laboratorio, el hielo cede.',
-    'gauss': 'Flux... lo lograste. Los trajiste a todos de vuelta.',
-    'atlas': 'La Aguja está vacía. Podría gobernar esta ciudad. No lo haré. Es suya.',
-    'morning': 'Cyber City despierta en su primera mañana libre.',
-    'spark': 'Flux... ¿viste esa chispa?',
-    'speaker': {
-      'atlas': 'Atlas',
-      'gauss': 'Prof. Gauss',
-      'pip': 'Pip'
-    },
-    'cast': {
-      'flux': 'Flux',
-      'atlas': 'Atlas',
-      'pip': 'Pip',
-      'gauss': 'Prof. Gauss'
-    },
-    'credits': {
-      'by': 'Un juego de {studio}',
-      'cast': 'Reparto',
-      'masters': 'Los Maestros',
-      'thanks': '¡Gracias por jugar!'
-    },
-    'card': {
-      'title': '¡Cyber City es libre!',
-      'promise': 'Nueva partida+: los Maestros tienen un 25 % más de vida y atacan más rápido. Conservas tu nivel, equipo y armas.',
-      'ngplus': 'Empezar Nueva partida+',
-      'lab': 'Volver al laboratorio',
-      'confirm': '¿Empezar Nueva partida+?',
-      'confirmBody': 'La historia vuelve a empezar con Maestros más duros. Conservas tu nivel, equipo, armas y mejoras.'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': '¡El telonero! ¡El {boss}!',
-      'blaze': '¡El más veterano! ¡El más ardiente! ¡{boss}!',
-      'frost': '¡Sangre fría, droidecito! ¡{boss}!',
-      'volt': '¡Si parpadeas, te lo pierdes! ¡{boss}!',
-      'gale': '¡Siguiente, por favor! {boss}, ¡mándalo a volar!',
-      'magnet': 'Atractivo, ¿verdad? ¡{boss}!',
-      'drill': '¡Hora de un chequeo a fondo! ¡{boss}!',
-      'tide': '¡Que te lleve la corriente, droide! ¡{boss}!',
-      'neon': '¡Luces! ¡Cámara! ¡{boss}!',
-      'rotor': '¡El gran final! ¡{boss}!',
-    },
-    'hub': {
-      'scrapper': '¿Una grúa de chatarra? Qué… adorable.',
-      'blaze': 'Efecto secundario anotado. Aumento la dosis.',
-      'blueprint': '¡Mis bocetos! Soy magnífico, ¿verdad?',
-      'volt': 'Estoy… per-fec-ta-men-te… BIEN.',
-      'gale': '¡Bien! Tengo MÁS Maestros.',
-      'magnet': '¿Repelido? ¿Yo? ¡Im-POSIBLE!',
-      'drill': 'Bah. He tocado fondo. Literalmente.',
-      'tide': '¡La marea cambiará! …¿Verdad?',
-      'neon': '¿¡Quién ha ENCENDIDO las luces?!',
-      'rotor': '¿¡Diez relés?! ¡Enfermera! ¡ENFERMERA!',
-      'breach': '¡No, no, NO! ¡Ese escudo estaba PATENTADO!',
-    },
-    'volt': {
-      'hack': 'Veamos qué hay en esa cabeza hueca…',
-      'fail': '¿¡No se puede sobrescribir?! Qué GROSERO.',
-    },
-    'fortress': {
-      'welcome': '¡Bienvenido a mi clínica! Toma asiento… ¡para SIEMPRE!',
-    },
-    'mk1': {
-      'intro': '¡Contemplad! ¡Mi nuevo cuerpo! ¡Mark UNO!',
-      'obey': '¡Maestros! ¡OBEDECED a vuestro doctor!',
-      'listen': '¿¡Por qué no ESCUCHAN?!',
-      'defeat': 'Pediré… una segunda opinión…',
-    },
-    'sting': {
-      'doctorIn': 'El doctor… está en CONSULTA.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': '¡Bienvenido de vuelta, Flux! Mira el valle.',
-      'go': '¡Equípate y en marcha! Yo cuido el laboratorio.',
-      'scrapyard': {
-        'won': 'La vieja grúa vuelve a clasificar chatarra.',
-        'weapon': 'Has copiado la {weapon}. Dispara en tres direcciones.',
-        'next': 'Próxima parada: {sector}. Solo un poquito más difícil.',
-        'boss': 'El {boss} forja allí blindaje para las máquinas de Vex.',
-        'tip': 'Bloquea sus bolas de fuego. Deslízate para esquivar las olas de fuego.',
-      },
-      'blaze': {
-        'won': 'Las chimeneas vuelven a arder limpias. ¡Buen trabajo!',
-        'weapon': 'Ahora tienes la {weapon}. ¡El fuego derrite el hielo!',
-        'next': 'Siguiente: {sector}. Allí las máquinas golpean más fuerte.',
-        'boss': 'El {boss} se queda con todo el refrigerante. La ciudad se recalienta.',
-        'tip': 'Bloquea sus disparos de hielo, ¡y respóndele con fuego!',
-      },
-      'cryo': {
-        'won': 'El refrigerante vuelve a casa. La ciudad puede refrescarse.',
-        'weapon': 'La {weapon} es tuya. ¡El hielo vence al rayo!',
-        'next': 'Siguiente: {sector}, en el centro. Bastante más difícil.',
-        'boss': 'El {boss} manda nuestra electricidad a la Señal Roja.',
-        'tip': 'Se teletransporta mucho. Derriba sus bolas de rayos.',
-      },
-      'volt': {
-        'won': 'Ahora la cara de Vex no para de parpadear. ¿Lo has visto?',
-        'weapon': 'El {weapon} es tuyo. ¡El rayo vence al viento!',
-        'next': 'Siguiente: {sector}, allá en lo alto. Máquinas duras.',
-        'boss': 'El {boss} controla los dirigibles de Vex, día y noche.',
-        'tip': 'Bloquea las plumas. ¡Haz una parada cuando se lance en picado!',
-      },
-      'gale': {
-        'won': 'Los dirigibles han dado media vuelta. ¡Cielo despejado otra vez!',
-        'weapon': 'El {weapon} es tuyo. Sus hojas bloquean disparos.',
-        'next': 'Ahora, al borde de la ciudad: {sector}. Mucho más difícil.',
-        'boss': 'El {boss} se ha quedado con las vías del tranvía para la carga de Vex.',
-        'tip': 'Te atrae hacia él. ¡Bloquea la pinza!',
-      },
-      'magnet': {
-        'won': 'Los tranvías vuelven a rodar. ¡Tilín, tilín!',
-        'weapon': 'La {weapon} rompe escudos. Perfecta para el próximo Maestro.',
-        'next': 'Siguiente: {sector}, muy bajo tierra. Máquinas fuertes de verdad.',
-        'boss': 'El {boss} ha atrapado a los robots obreros en el fondo del pozo.',
-        'tip': 'Excava bajo tus pies. ¡Sal de la marca!',
-      },
-      'drill': {
-        'won': 'Los robots obreros han vuelto a la luz del día.',
-        'weapon': 'La {weapon} hace bum. ¡Guarda alguna para el jefe!',
-        'next': 'Siguiente: {sector}, abajo, junto al agua. Muy difícil.',
-        'boss': 'El {boss} está inundando los canales para las barcazas de Vex.',
-        'tip': 'Deslízate bajo sus olas. ¡Revienta las burbujas!',
-      },
-      'tide': {
-        'won': 'El agua limpia vuelve a correr hacia el valle.',
-        'weapon': 'La {weapon} rueda entre grupos enteros. ¡El jefe odia las burbujas!',
-        'next': 'Siguiente: {sector}, las azoteas oscuras. Peligroso de verdad.',
-        'boss': 'El {boss} ha apagado todas las ventanas del centro.',
-        'tip': 'Su hoja va y vuelve. ¡Esquiva dos veces!',
-      },
-      'neon': {
-        'won': 'El centro brilla en rosa esta noche. ¡Qué bonito!',
-        'weapon': 'La {weapon} corta dos veces. ¡El próximo Maestro la teme!',
-        'next': 'Siguiente: {sector}, el aeródromo del cielo. Casi lo más difícil.',
-        'boss': 'El {boss} llena el cielo de drones de carga.',
-        'tip': 'Te empuja hacia atrás. ¡Deslízate bajo las ráfagas!',
-      },
-      'rotor': {
-        'won': 'Ahora los drones llevan los envíos a los robots obreros.',
-        'weapon': 'El {weapon} es tuyo. Tres drones encuentran su objetivo.',
-        'next': 'Última parada: {sector}. El lugar más duro que existe.',
-        'boss': '{boss} ya no puede esconderse tras un escudo.',
-        'tip': 'Usa los ataques de los Maestros. ¡Lleva gel reparador!',
-      },
-    },
   }
 }

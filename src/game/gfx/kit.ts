@@ -4,6 +4,7 @@ import {
   Bone, Skeleton, SkinnedMesh, Group, Color, Mesh, type Material
 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
+import { clone as cloneSkinned } from 'three/addons/utils/SkeletonUtils.js'
 import { rigToon, rigGlow, outlineMat, OUTLINE_WIDTH, type CelMaterial } from './cel'
 import type { MeshBasicMaterial } from 'three'
 
@@ -398,6 +399,31 @@ export class RigBuilder {
     }
     return { root: group, mesh, outline, bones, rest, material, glowMaterial, height: opts.height ?? 1.5 }
   }
+}
+
+/**
+ * Another instance of a built rig: the same geometry (shared on the GPU), its
+ * own bones and its own cel material (so its hit flash, tint and fade are its
+ * own). A pack of six goblins is one geometry upload, not six.
+ */
+export const cloneRig = (t: Rig): Rig => {
+  const root = cloneSkinned(t.root) as Group
+  const bones: Record<string, Bone> = {}
+  let mesh: SkinnedMesh | null = null
+  let outline: SkinnedMesh | null = null
+  root.traverse((o) => {
+    if ((o as Bone).isBone) bones[o.name] = o as Bone
+    else if ((o as SkinnedMesh).isSkinnedMesh) {
+      if (o.renderOrder === -1) outline = o as SkinnedMesh
+      else mesh = o as SkinnedMesh
+    }
+  })
+  const m = mesh as SkinnedMesh | null
+  if (!m) throw new Error('[rig] clone lost its mesh')
+  const material = rigToon()
+  if (Array.isArray(m.material)) m.material = [material, t.glowMaterial]
+  else if (m.material === t.material) m.material = material
+  return { root, mesh: m, outline, bones, rest: t.rest, material, glowMaterial: t.glowMaterial, height: t.height }
 }
 
 // ─── Pose helpers ────────────────────────────────────────────────────────────

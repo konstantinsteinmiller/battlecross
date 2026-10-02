@@ -1,0 +1,752 @@
+import { AmbientLight, Scene, type Group, type Mesh, type Object3D } from 'three'
+import type { GameMode } from '../engine/app'
+import { FollowCam, CAM_FOV } from '../engine/camera'
+import { consumeEdges, type Input } from '../engine/input'
+import { getRenderer } from '../engine/renderer'
+import { createSlicer, type Slice } from '../engine/slicer'
+import { sceneQuality } from '../engine/quality'
+import { sfx } from '../audio/sfx'
+import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
+import { SKILL_BY_ID } from '../data/skills'
+import { TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
+import type { ZoneId } from '../data/items'
+import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
+import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
+import { stepSim } from '../sim/step'
+import { generateArena, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
+import { Sim, findStatus } from '../sim/world'
+import type { DamageType, SimEvent, Unit } from '../sim/types'
+import { updateCelFrame } from '../gfx/cel'
+import { HealthBars, Markers, makeBlobShadow } from '../gfx/markers'
+import { animate, squash } from '../gfx/rigs/anim'
+import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rigs'
+import { heroLook } from '../gfx/rigs/looks'
+import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
+import { Vfx } from '../gfx/vfx'
+import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
+import { heroBuild, loadoutActive, profile } from '../state/profile'
+import { coach } from '../coach'
+
+/**
+ * ─── A zone visit ────────────────────────────────────────────────────────────
+ *
+ * The mode the loop runs while the hero is on a map: a combat zone, a town or
+ * the colosseum. It owns nothing of the RULES (that is `sim/`) and nothing of
+ * the LOOK (that is `gfx/`); it is the wiring between them and the player:
+ *
+ *   input  → orders, casts, aims
+ *   sim    → events → effects, sound, shake, hit-stop, damage text
+ *   render → interpolated rigs, markers, bars, the follow camera
+ *   HUD    → a shallow mirror at ≤ 15 Hz, per-frame numbers by direct DOM write
+ *
+ * The GDD's "juice" numbers (§2.3) are applied here:
+ *   hit-stop: time scale 0.01 for 0.04 s (light), 0.08 s (heavy / critical),
+ *             0.25 s with a zoom-in (a boss's finishing blow);
+ *   shake:    trauma +0.2 on a light hit, +0.6 on a critical or an explosion.
+ */
+
+export interface ZoneSetup {
+  kind: 'zone' | 'town' | 'arena'
+  zone?: ZoneId
+  town?: TownId
+  theme: ThemeId
+  seed: number
+  /** Enemy level of the visit. */
+  level: number
+  difficulty: number
+  tutorial?: boolean
+  ambush?: string | null
+  extra?: number
+  dragonAlly?: boolean
+  flags: ReadonlySet<string>
+}
+
+export interface ZoneCallbacks {
+  /** The visit is decided (after its closing beat). */
+  onEnd(outcome: 'victory' | 'defeat'): void
+  /** The hero walked up to a townsperson. */
+  onInteract(npcId: string): void
+  onPause(): void
+  onPanel(panel: 'map' | 'character' | 'inventory' | 'skills'): void
+}
+
+const HIT_STOP_SCALE = 0.01
+const HIT_STOP_LIGHT = 0.04
+const HIT_STOP_HEAVY = 0.08
+const HIT_STOP_BOSS = 0.25
+const TRAUMA_LIGHT = 0.2
+const TRAUMA_HEAVY = 0.6
+/** Seconds the world plays on after the outcome, before the result screen. */
+const END_BEAT = { victory: 2.1, defeat: 1.8 }
+
+const TYPE_COLOR: Record<DamageType, string> = {
+  physical: '#ffffff', pierce: '#ffe9a8', fire: '#ff8a2a', frost: '#9fdcff', holy: '#fff2a8', poison: '#8dff5a',
+  acid: '#b8ff4a', temporal: '#7fd8ff', beam: '#7ff4ff', shadow: '#c08aff', blood: '#ff4a6a', true: '#ffffff'
+}
+
+interface View {
+  v: RigView
+  shadow: Mesh
+  /** NPCs: the floating marker above their head. */
+  pin: Object3D | null
+}
+
+const ground = { x: 0, z: 0 }
+const screen = { x: 0, y: 0 }
+
+export class ZoneMode implements GameMode {
+  readonly scene = new Scene()
+  readonly cam = new FollowCam()
+  readonly camera = this.cam.camera
+  readonly sim: Sim
+  readonly plan: ZonePlan
+  readonly setup: ZoneSetup
+  private input: Input
+  private cb: ZoneCallbacks
+  private terrain!: Terrain
+  private vfx!: Vfx
+  private markers!: Markers
+  private bars!: HealthBars
+  private walls = new WallRocks()
+  private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
+  private chestOpen = 0
+  private views = new Map<number, View>()
+  private time = 0
+  /** Real seconds of hit-stop left. */
+  private stop = 0
+  private hudT = 0
+  private dragT = 0
+  private endFired = false
+  private stepSfx = 0
+  /** The enemy the pointer is over (the drag line snaps to it). */
+  private hoverId = 0
+  private entered = false
+  private low = sceneQuality() === 'low'
+
+  private constructor(setup: ZoneSetup, plan: ZonePlan, input: Input, cb: ZoneCallbacks) {
+    this.setup = setup
+    this.plan = plan
+    this.input = input
+    this.cb = cb
+    this.sim = new Sim({
+      seed: setup.seed, w: plan.w, h: plan.h, level: setup.level, difficulty: setup.difficulty,
+      mode: setup.kind, zone: setup.zone ?? setup.town ?? 'arena'
+    })
+  }
+
+  /** Build a visit, time-sliced so the loader keeps painting. */
+  static async create(setup: ZoneSetup, input: Input, cb: ZoneCallbacks, onProgress: (p01: number) => void = () => {}): Promise<ZoneMode> {
+    const slice: Slice = createSlicer(12)
+    const plan = setup.kind === 'town'
+      ? generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
+      : setup.kind === 'arena'
+        ? generateArena(setup.seed)
+        : generateZone(ZONES[setup.zone!], setup.seed, { tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra })
+    const m = new ZoneMode(setup, plan, input, cb)
+    const sim = m.sim
+    applyPlan(sim, plan)
+    createHero(sim, {
+      build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
+      potions: setup.kind === 'town' ? 0 : profile.inv.potions
+    })
+    if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items)
+    else if (setup.kind === 'town') populateTown(sim, plan)
+    else sim.wave.rest = 1.6
+    if (setup.dragonAlly) summonDragonAlly(sim)
+    sim.events.length = 0
+    onProgress(0.08)
+    await slice()
+
+    m.scene.add(new AmbientLight(0xffffff, 1))
+    m.terrain = await buildTerrain(plan, setup.theme, m.scene, slice)
+    onProgress(0.5)
+
+    // Every rig template this visit can need, one per slice: the pack's kinds,
+    // what they summon, and what the hero's own skills call in.
+    const kinds = new Set<string>()
+    for (const u of sim.units) if (u.rank !== 'hero') kinds.add(u.kind)
+    for (const k of [...kinds]) for (const a of ENEMY_BY_ID[k]?.abilities ?? []) if (a.spawn) kinds.add(a.spawn)
+    const skills = sim.hero.skills
+    if (skills.includes('royalGuard') || skills.includes('armyOfTheRealm')) { kinds.add('guard'); kinds.add('archer'); kinds.add('mage') }
+    if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
+    if (setup.kind === 'arena') for (const id of ['goblin', 'goblinSlinger', 'wolf', 'bandit', 'banditChief']) kinds.add(id)
+    const jobs = prewarmKinds(kinds)
+    prewarmLook(heroLook(profile.inv.equipped))
+    for (let i = 0; i < jobs.length; i++) {
+      jobs[i]!()
+      onProgress(0.5 + ((i + 1) / jobs.length) * 0.35)
+      await slice()
+    }
+
+    m.vfx = new Vfx(m.scene)
+    m.markers = new Markers(m.scene)
+    m.bars = new HealthBars(m.scene, 72)
+    m.scene.add(m.walls.root)
+    if (setup.kind !== 'town' && plan.chest) {
+      m.chest = buildChest()
+      m.chest.root.position.set(plan.chest.x, 0, plan.chest.z)
+      m.chest.root.visible = setup.kind === 'zone'
+      m.scene.add(m.chest.root)
+    }
+    for (const u of sim.units) {
+      m.addView(u)
+      if ((u.id & 3) === 3) await slice()
+    }
+    onProgress(0.95)
+    m.cam.snap()
+    m.cam.follow(plan.start.x, plan.start.z, 0, 0, 0.016)
+    m.syncHud(true)
+    onProgress(1)
+    return m
+  }
+
+  // ─── Views ─────────────────────────────────────────────────────────────────
+
+  private addView(u: Unit): void {
+    if (this.views.has(u.id)) return
+    const v = makeRigView(u, u.rank === 'hero' ? heroLook(profile.inv.equipped) : undefined)
+    const shadow = makeBlobShadow(u.r)
+    this.scene.add(v.rig.root, shadow)
+    this.views.set(u.id, { v, shadow, pin: null })
+  }
+
+  private dropView(id: number): void {
+    const w = this.views.get(id)
+    if (!w) return
+    this.scene.remove(w.v.rig.root, w.shadow)
+    w.v.rig.material.dispose()
+    this.views.delete(id)
+  }
+
+  /** Upload every mesh and compile every program before the first live frame. */
+  async warmUp(slice: Slice, onProgress: (f01: number) => void = () => {}): Promise<void> {
+    const r = getRenderer()
+    this.cam.update(0)
+    updateCelFrame(this.camera, this.cam.refDepth)
+    r.clear()
+    r.render(this.scene, this.camera)
+    onProgress(1)
+    await slice()
+  }
+
+  enter(): void {
+    this.entered = true
+    hud.phase = this.setup.kind === 'town' ? 'town' : 'play'
+    this.syncHud(true)
+  }
+
+  // ─── Input ─────────────────────────────────────────────────────────────────
+
+  private unitAtScreen(sx: number, sy: number, pad: number): Unit | undefined {
+    if (!this.cam.screenToGround(sx, sy, ground)) return undefined
+    // The ground point under a finger on a character's HEAD is behind the
+    // character; try the feet and a point pulled toward the camera too.
+    return this.sim.pick(-1, ground.x, ground.z, pad) ?? this.sim.pick(-1, ground.x, ground.z + 0.9, pad * 0.8)
+  }
+
+  private handleInput(): void {
+    const i = this.input
+    const sim = this.sim
+    const h = sim.hero
+    const live = !sim.ended && h.unit.alive
+    hud.device = i.device
+
+    if (i.pauseQueued) this.cb.onPause()
+    if (i.panelQueued) this.cb.onPanel(i.panelQueued)
+    if (!live) { setStick(sim, 0, 0); return }
+
+    // The stick and the keys are screen-space: up on screen is −Z in the world.
+    setStick(sim, i.moveX, -i.moveY)
+    if (Math.hypot(i.moveX, i.moveY) > 0.3) coach.progress('move', 0.02)
+
+    const pad = i.device === 'touch' ? 0.7 : 0.35
+    for (const t of i.taps) {
+      const u = this.unitAtScreen(t.x, t.y, pad)
+      if (u && (u.team === 1 || u.rank === 'npc')) {
+        orderAttack(sim, u.id)
+        if (u.team === 1) { coach.use('target'); sfx('uiClick') }
+      } else if (this.cam.screenToGround(t.x, t.y, ground)) {
+        orderMove(sim, ground.x, ground.z)
+        this.markers.tapAt(ground.x, ground.z)
+        coach.use('move')
+      }
+    }
+
+    // The drag line: from the hero to the pointer, snapping to an enemy.
+    this.hoverId = 0
+    if (i.held && i.dragging) {
+      const u = this.unitAtScreen(i.ptrX, i.ptrY, pad + 0.25)
+      if (u && u.team === 1) this.hoverId = u.id
+      // A long drag over open ground steers him there as it goes.
+      this.dragT -= 1 / 60
+      if (!this.hoverId && this.dragT <= 0 && this.cam.screenToGround(i.ptrX, i.ptrY, ground)) {
+        this.dragT = 0.18
+        orderMove(sim, ground.x, ground.z)
+      }
+    } else if (i.hoverX >= 0 && i.device === 'mouse') {
+      const u = this.unitAtScreen(i.hoverX, i.hoverY, 0.3)
+      if (u && u.team === 1) this.hoverId = u.id
+    }
+    if (i.dropped) {
+      const u = this.unitAtScreen(i.dropX, i.dropY, pad + 0.25)
+      if (u && (u.team === 1 || u.rank === 'npc')) {
+        orderAttack(sim, u.id)
+        if (u.team === 1) { coach.use('target'); sfx('uiClick') }
+      } else if (this.cam.screenToGround(i.dropX, i.dropY, ground)) {
+        orderMove(sim, ground.x, ground.z)
+        this.markers.tapAt(ground.x, ground.z)
+        coach.use('move')
+      }
+    }
+
+    if (i.skillTap >= 0) {
+      if (castSkill(sim, i.skillTap, null)) coach.use('skill')
+    }
+    if (i.aimDrop >= 0 && this.cam.screenToGround(i.aimDropX, i.aimDropY, ground)) {
+      if (castSkill(sim, i.aimDrop, { x: ground.x, z: ground.z })) { coach.use('skill'); coach.use('aim') }
+    }
+    if (i.potionQueued && usePotion(sim)) coach.use('potion')
+    if (i.targetQueued) cycleTarget(sim)
+    if (i.interactQueued) {
+      const u = h.unit
+      let best: Unit | undefined
+      let bd = 4
+      for (const n of sim.units) {
+        if (n.rank !== 'npc') continue
+        const d = Math.hypot(n.x - u.x, n.z - u.z)
+        if (d < bd) { bd = d; best = n }
+      }
+      if (best) orderAttack(sim, best.id)
+    }
+  }
+
+  // ─── Events ────────────────────────────────────────────────────────────────
+
+  private hitStop(sec: number): void {
+    this.stop = Math.max(this.stop, sec)
+  }
+
+  private pan(x: number): number {
+    return Math.max(-1, Math.min(1, (x - this.cam.target.x) / 9))
+  }
+
+  private drain(): void {
+    const sim = this.sim
+    const hero = sim.hero.unit
+    const ev = sim.events
+    for (let n = 0; n < ev.length; n++) {
+      const e = ev[n]!
+      switch (e.t) {
+        case 'hit': {
+          const y = e.h * 0.6
+          const mine = e.src === hero.id || sim.get(e.src)?.ownerId === hero.id
+          this.vfx.impact(e.x, y, e.z, e.toHero ? '#ff5a5a' : TYPE_COLOR[e.type], e.heavy, e.crit)
+          const kind: TextKind = e.toHero ? 'hurt' : e.crit ? 'crit' : 'normal'
+          // Every blow the hero deals or takes is counted; the minions' own are not.
+          if (e.toHero || mine || e.src === 0) pushHud({ t: 'num', x: e.x, y: e.h + 0.3, z: e.z, amount: e.amount, kind })
+          if (e.toHero) {
+            pushHud({ t: 'hurt', strength: Math.min(1, e.amount / Math.max(1, hero.s.maxHp) * 4) })
+            this.cam.addTrauma(e.heavy ? TRAUMA_HEAVY * 0.7 : TRAUMA_LIGHT)
+            sfx('hurt', this.pan(e.x))
+          } else if (mine) {
+            const boss = sim.get(e.tgt)?.rank === 'boss'
+            if (e.killed && boss) {
+              // A boss's finishing blow: the long freeze, and the camera pushes in.
+              this.hitStop(HIT_STOP_BOSS)
+              this.cam.punchZoom(0.78, 0.12, 0.3)
+              this.cam.addTrauma(TRAUMA_HEAVY)
+            } else if (e.crit || e.heavy) {
+              this.hitStop(HIT_STOP_HEAVY)
+              this.cam.addTrauma(e.crit ? TRAUMA_HEAVY : TRAUMA_LIGHT * 1.6)
+            } else {
+              this.hitStop(HIT_STOP_LIGHT)
+              this.cam.addTrauma(TRAUMA_LIGHT)
+            }
+            sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : 'hit', this.pan(e.x))
+          }
+          break
+        }
+        case 'miss':
+          pushHud({ t: 'word', x: e.x, y: e.h + 0.3, z: e.z, key: 'combat.' + e.why, kind: 'status' })
+          sfx(e.why === 'block' ? 'block' : 'dodge', this.pan(e.x))
+          break
+        case 'heal':
+          pushHud({ t: 'num', x: e.x, y: e.h + 0.3, z: e.z, amount: e.amount, kind: 'heal' })
+          break
+        case 'mana':
+          pushHud({ t: 'num', x: e.x, y: e.h + 0.5, z: e.z, amount: e.amount, kind: 'mana' })
+          break
+        case 'status':
+          pushHud({ t: 'word', x: e.x, y: e.h + 0.55, z: e.z, key: 'status.' + e.id, kind: 'status' })
+          break
+        case 'swing':
+          sfx(e.style === 'melee' ? (e.heavy ? 'swingHeavy' : 'swing') : e.style === 'magic' ? 'cast' : 'shoot', this.pan(sim.get(e.src)?.x ?? 0), e.src === hero.id ? 1 : 0.55)
+          break
+        case 'cast': {
+          const def = SKILL_BY_ID[e.skill]
+          if (def) sfx(def.fire ? 'fire' : def.cls === 'chrono' ? 'teleport' : def.cls === 'aegis' ? 'holy' : def.cls === 'blood' ? 'blood' : def.cls === 'geo' ? 'quake' : def.cls === 'aether' ? 'shoot' : 'cast')
+          else sfx('telegraph', this.pan(e.x), 0.7)
+          break
+        }
+        case 'fx':
+          if (e.id === 'interact') {
+            const npc = e.unit ? sim.get(e.unit)?.npc : undefined
+            if (npc) this.cb.onInteract(npc)
+            break
+          }
+          this.vfx.play(e, id => sim.get(id)?.h ?? 1.2)
+          this.fxSound(e.id, e.x)
+          if (e.id.startsWith('burst:') || e.id === 'slam' || e.id === 'quake' || e.id === 'blast') this.cam.addTrauma(TRAUMA_HEAVY * (e.id === 'quake' ? 1 : 0.55))
+          break
+        case 'tele':
+          this.vfx.telegraph(e.tele)
+          break
+        case 'death': {
+          const def = ENEMY_BY_ID[e.kind]
+          const big = e.rank === 'boss' ? 2.4 : e.rank === 'elite' ? 1.5 : 1
+          const u = sim.get(e.unit)
+          if (e.team === 1) {
+            this.vfx.death(e.x, e.z, u?.h ?? 1.2, def?.color ?? '#ffffff', big)
+            sfx(e.rank === 'boss' ? 'deathBig' : 'death', this.pan(e.x))
+          } else if (e.rank === 'hero') {
+            this.vfx.death(e.x, e.z, 1.4, '#ff5a5a', 1.6)
+            sfx('deathBig')
+          } else this.vfx.poof(e.x, e.z, MINIONS[e.kind]?.color ?? '#ffffff', 0.8)
+          break
+        }
+        case 'spawn': {
+          const u = sim.get(e.unit)
+          if (u) this.addView(u)
+          break
+        }
+        case 'wall':
+          this.walls.set(e.cells, sim.grid.w, e.on, e.fx)
+          if (e.on) { sfx('quake'); this.cam.addTrauma(TRAUMA_LIGHT * 1.5) }
+          break
+        case 'loot':
+          if (e.gold > 0) {
+            this.vfx.coins(e.x, e.z, Math.ceil(e.gold / 10))
+            pushHud({ t: 'num', x: e.x, y: 1.2, z: e.z, amount: e.gold, kind: 'gold' })
+            sfx('coin', this.pan(e.x))
+          }
+          if (e.item) {
+            pushHud({ t: 'toast', key: 'toast.item', params: { item: 'item.' + e.item + '.name' }, icon: e.item })
+            this.vfx.levelUp(e.x, e.z)
+            sfx('loot')
+          }
+          break
+        case 'xp':
+          break
+        case 'levelUp':
+          this.vfx.levelUp(hero.x, hero.z)
+          pushHud({ t: 'toast', key: 'toast.levelUp', params: { level: e.level } })
+          pushHud({ t: 'flash', color: '#ffe9a8', strength: 0.5 })
+          sfx('levelUp')
+          break
+        case 'awake':
+          sfx(e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss' ? 'bossIntro' : 'alert')
+          if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') pushHud({ t: 'toast', key: 'toast.boss', params: { boss: 'enemy.' + e.boss } })
+          break
+        case 'groupDone':
+          break
+        case 'wave':
+          pushHud({ t: 'toast', key: 'toast.wave', params: { n: e.n } })
+          sfx('alert')
+          break
+        case 'bossPhase': {
+          const u = sim.get(e.unit)
+          if (u) { this.vfx.slam(u.x, u.z, 5, ENEMY_BY_ID[u.kind]?.color ?? '#ff5a5a'); const w = this.views.get(u.id); if (w) squash(w.v, 0.3) }
+          this.cam.addTrauma(TRAUMA_HEAVY)
+          sfx('roar')
+          break
+        }
+        case 'overheat':
+          if (e.on) { sfx('overheat'); pushHud({ t: 'word', x: hero.x, y: hero.h + 0.6, z: hero.z, key: 'status.overheat', kind: 'status' }) }
+          break
+        case 'denied':
+          sfx('denied')
+          break
+        case 'potion':
+          sfx('potion')
+          break
+        case 'victory':
+          this.chestOpen = 0.001
+          if (this.chest) this.chest.root.visible = true
+          pushHud({ t: 'flash', color: '#ffffff', strength: 0.35 })
+          break
+        case 'defeat':
+          this.cam.addTrauma(TRAUMA_HEAVY)
+          break
+      }
+    }
+    ev.length = 0
+  }
+
+  private fxSound(id: string, x: number): void {
+    const p = this.pan(x)
+    if (id.startsWith('burst:')) {
+      const k = id.slice(6)
+      sfx(k === 'flask' || k === 'venom' ? 'poison' : k === 'icicle' || k === 'geyser' ? 'ice' : k === 'curse' ? 'shadow' : k === 'roots' ? 'quake' : 'explode', p)
+    } else if (id === 'slam' || id === 'quake' || id === 'spike') sfx('quake', p)
+    else if (id === 'blink' || id === 'rewind') sfx('teleport', p)
+    else if (id === 'summon' || id === 'deploy') sfx('summon', p)
+    else if (id === 'heal') sfx('heal', p)
+    else if (id === 'roar') sfx('roar', p)
+    else if (id === 'beam') sfx('beam', p)
+    else if (id === 'breath') sfx('fire', p)
+    else if (id === 'cleave' || id === 'dash') sfx('swingHeavy', p, 0.8)
+    else if (id === 'shield' || id === 'bastion' || id === 'buff' || id === 'fatalSave') sfx('shieldUp', p)
+    else if (id === 'chest') sfx('chest', p)
+  }
+
+  // ─── The step ──────────────────────────────────────────────────────────────
+
+  update(dt: number, first: boolean): void {
+    if (first) this.handleInput()
+    // Hit-stop: the world all but freezes, for attacker and victim alike.
+    let simDt = dt
+    if (this.stop > 0) {
+      this.stop -= dt
+      simDt = dt * HIT_STOP_SCALE
+    }
+    stepSim(this.sim, this.plan, simDt)
+    this.drain()
+    coach.step(this, simDt)
+    if (first) consumeEdges(this.input)
+
+    const sim = this.sim
+    if (sim.ended && !this.endFired && sim.endedT >= END_BEAT[sim.ended]) {
+      this.endFired = true
+      hud.phase = sim.ended === 'victory' ? 'won' : 'dead'
+      this.cb.onEnd(sim.ended)
+    }
+  }
+
+  // ─── The frame ─────────────────────────────────────────────────────────────
+
+  render(alpha: number, dt: number): void {
+    const sim = this.sim
+    const hero = sim.hero.unit
+    // Effects slow with the hit-stop (so the frozen frame reads) but never stop.
+    const fxDt = this.stop > 0 ? dt * 0.2 : dt
+    this.time += fxDt
+    const a = this.stop > 0 ? 1 : alpha
+
+    const hx = hero.px + (hero.x - hero.px) * a
+    const hz = hero.pz + (hero.z - hero.pz) * a
+    this.cam.follow(hx, hz, hero.vx, hero.vz, dt)
+    this.cam.update(dt)
+    updateCelFrame(this.camera, this.cam.refDepth)
+
+    // Things far outside the view are not posed or drawn.
+    const reach = this.cam.dist * this.cam.zoom * 0.62 + 7
+    const reach2 = reach * reach
+    this.bars.begin()
+    for (const [id, w] of this.views) {
+      const u = sim.get(id)
+      if (!u || w.v.gone) { this.dropView(id); continue }
+      const x = u.px + (u.x - u.px) * a
+      const z = u.pz + (u.z - u.pz) * a
+      const dx = x - this.cam.target.x
+      const dz = z - this.cam.target.z
+      const seen = dx * dx + dz * dz < reach2
+      w.v.rig.root.visible = seen
+      w.shadow.visible = seen && u.alive
+      if (!seen) continue
+      animate(w.v, u, x, z, this.time, fxDt)
+      w.shadow.position.x = x
+      w.shadow.position.z = z
+      if (u.alive && u.rank !== 'npc' && u.rank !== 'boss' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
+        const col = u.team === 0 ? '#5fe08a' : u.rank === 'elite' ? '#ffb02a' : '#ff5a5a'
+        this.bars.add(x, u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float, z, u.hp / u.s.maxHp, u.shield / u.s.maxHp, col, Math.min(1.5, 0.7 + u.r * 0.7))
+      }
+    }
+    this.bars.end()
+    this.statusFx(fxDt)
+
+    // ── Markers ──
+    const live = hero.alive && !sim.ended
+    this.markers.hero(hx, hz, hero.r, live)
+    const tgt = sim.live(sim.hero.order.targetId) ?? sim.live(this.hoverId)
+    if (tgt && tgt.rank !== 'hero') this.markers.target(tgt.px + (tgt.x - tgt.px) * a, tgt.pz + (tgt.z - tgt.pz) * a, tgt.r, true, tgt.team === 1)
+    else this.markers.target(0, 0, 1, false)
+    const i = this.input
+    if (live && i.held && i.dragging && this.cam.screenToGround(i.ptrX, i.ptrY, ground)) {
+      const snap = sim.live(this.hoverId)
+      this.markers.drag(true, hx, hz, snap ? snap.x : ground.x, snap ? snap.z : ground.z, !!snap)
+    } else this.markers.drag(false)
+    // A skill being dragged out of its button: where it would land.
+    if (live && i.aimSlot >= 0 && i.aimLive && this.cam.screenToGround(i.aimX, i.aimY, ground)) {
+      const def = SKILL_BY_ID[sim.hero.skills[i.aimSlot] ?? '']
+      if (def) {
+        let ax = ground.x
+        let az = ground.z
+        const d = Math.hypot(ax - hx, az - hz)
+        const inRange = def.range <= 0 || d <= def.range + 0.4 || def.target === 'enemy'
+        if (def.target === 'ground' && d > def.range && d > 1e-3) { ax = hx + ((ax - hx) / d) * def.range; az = hz + ((az - hz) / d) * def.range }
+        if (def.target === 'self') { ax = hx; az = hz }
+        this.markers.aim(true, hx, hz, def.range, ax, az, def.target === 'dir' ? 0 : def.radius ?? (def.target === 'enemy' ? 0.9 : 0), def.color, inRange)
+      } else this.markers.aim(false)
+    } else this.markers.aim(false)
+    this.markers.update(dt)
+
+    this.vfx.syncProjectiles(sim.projectiles, a, fxDt)
+    this.vfx.update(fxDt)
+    this.walls.update(fxDt)
+    if (this.chestOpen > 0 && this.chest) {
+      this.chestOpen = Math.min(1, this.chestOpen + dt * 2.2)
+      const k = this.chestOpen
+      this.chest.lid.rotation.x = -1.9 * (1 - (1 - k) * (1 - k))
+      if (k > 0.3 && k < 0.36) this.vfx.levelUp(this.chest.root.position.x, this.chest.root.position.z)
+    }
+    this.ambient(fxDt)
+
+    const r = getRenderer()
+    r.clear()
+    r.render(this.scene, this.camera)
+
+    // ── HUD ──
+    if (this.cam.project(hx, 1.6, hz, screen)) { hudLive.heroX = screen.x; hudLive.heroY = screen.y }
+    this.hudT -= dt
+    if (this.hudT <= 0) {
+      this.hudT = 1 / 15
+      this.syncHud(false)
+    }
+    const h = sim.hero
+    for (let s = 0; s < 6; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
+    hudLive.potionCd = h.potionCd
+    tickHud(dt)
+  }
+
+  /** Little tells for what a unit is under: sparks for a stun, flames for a burn. */
+  private statusFx(dt: number): void {
+    const ps = this.vfx.particles
+    const rate = this.low ? 4 : 9
+    for (const u of this.sim.units) {
+      if (!u.alive || !u.statuses.length) continue
+      for (const s of u.statuses) {
+        if (Math.random() > dt * rate) continue
+        const a = Math.random() * Math.PI * 2
+        const x = u.x + Math.cos(a) * u.r * 0.8
+        const z = u.z + Math.sin(a) * u.r * 0.8
+        switch (s.id) {
+          case 'burn': ps.emit({ x, y: 0.3 + Math.random() * u.h * 0.6, z, vy: 1.6 + Math.random(), color: Math.random() < 0.5 ? '#ffb02a' : '#ff5a1a', size: 0.34, sizeEnd: 0.04, life: 0.45 }); break
+          case 'poison': ps.emit({ x, y: 0.4 + Math.random() * u.h * 0.5, z, vy: 1 + Math.random(), color: '#8dff5a', size: 0.22, sizeEnd: 0.06, life: 0.6 }); break
+          case 'bleed': ps.emit({ x, y: u.h * 0.6, z, vy: -0.5, color: '#ff4a6a', size: 0.18, sizeEnd: 0.04, life: 0.4, gravity: 6 }); break
+          case 'stun':
+          case 'confuse': ps.emit({ x: u.x + Math.cos(this.time * 6) * 0.35, y: u.h + 0.25, z: u.z + Math.sin(this.time * 6) * 0.35, color: s.id === 'stun' ? '#ffe04a' : '#d28bff', size: 0.26, sizeEnd: 0.08, life: 0.3 }); break
+          case 'slow': ps.emit({ x, y: 0.15, z, vy: 0.4, color: '#9fdcff', size: 0.26, sizeEnd: 0.06, life: 0.5 }); break
+          case 'haste':
+          case 'accelerate': ps.emit({ x, y: 0.2 + Math.random() * 0.5, z, vx: -u.vx * 0.3, vz: -u.vz * 0.3, color: '#7fd8ff', size: 0.2, sizeEnd: 0.03, life: 0.35 }); break
+          case 'damageUp':
+          case 'enrage': ps.emit({ x, y: 0.2, z, vy: 2.2, color: s.id === 'enrage' ? '#ff4a3a' : '#ffb04a', size: 0.22, sizeEnd: 0.03, life: 0.5 }); break
+          case 'regen': ps.emit({ x, y: 0.2, z, vy: 1.8, color: '#7dff8a', size: 0.2, sizeEnd: 0.03, life: 0.6 }); break
+          case 'invulnerable':
+          case 'reflect': ps.emit({ x, y: 0.3 + Math.random() * u.h, z, color: '#fff2a8', size: 0.3, sizeEnd: 0.05, life: 0.3 }); break
+          case 'overheat': ps.emit({ x, y: u.h * 0.7, z, vy: 2.4, color: '#ff8a3a', size: 0.4, sizeEnd: 0.6, life: 0.5 }); break
+          case 'stealth': ps.emit({ x, y: 0.3 + Math.random() * u.h * 0.5, z, vy: 0.4, color: '#8a8fa8', size: 0.5, sizeEnd: 0.9, life: 0.5 }); break
+          default: break
+        }
+      }
+      const sh = u.shield > 0 ? findStatus(u, 'invulnerable') === undefined : false
+      if (sh && Math.random() < dt * rate) ps.emit({ x: u.x + (Math.random() - 0.5) * u.r * 2, y: 0.3 + Math.random() * u.h, z: u.z + (Math.random() - 0.5) * u.r * 2, color: '#ffe9a8', size: 0.2, sizeEnd: 0.04, life: 0.3 })
+    }
+    // The hero's footfalls.
+    const hero = this.sim.hero.unit
+    if (hero.alive && hero.anim === 'walk') {
+      this.stepSfx -= dt
+      if (this.stepSfx <= 0) { this.stepSfx = 0.3; ps.emit({ x: hero.x, y: 0.08, z: hero.z, vy: 0.6, color: '#e8dcc8', size: 0.3, sizeEnd: 0.7, life: 0.28 }) }
+    }
+  }
+
+  /** Motes in the air round the camera: fireflies, embers, snow. */
+  private ambient(dt: number): void {
+    if (Math.random() > dt * (this.low ? 1.5 : 5)) return
+    const t = this.cam.target
+    const x = t.x + (Math.random() - 0.5) * 22
+    const z = t.z + (Math.random() - 0.5) * 22
+    this.vfx.particles.emit({ x, y: 0.3 + Math.random() * 2.5, z, vx: (Math.random() - 0.5) * 0.4, vy: 0.15 + Math.random() * 0.3, vz: (Math.random() - 0.5) * 0.4, color: this.terrain.theme.mote, size: 0.16, sizeEnd: 0.03, life: 2 + Math.random() * 2 })
+  }
+
+  /** Mirror the fight into the reactive HUD state. */
+  private syncHud(force: boolean): void {
+    const sim = this.sim
+    const h = sim.hero
+    const u = h.unit
+    hud.hp = Math.max(0, Math.ceil(u.hp))
+    hud.maxHp = u.s.maxHp
+    hud.shield = Math.round(u.shield)
+    hud.mana = Math.floor(u.mana)
+    hud.maxMana = u.s.maxMana
+    hud.heat = h.usesHeat ? Math.round(h.heat) : -1
+    hud.overheated = h.overheatT > 0
+    hud.level = h.level
+    hud.gold = profile.gold + h.gold
+    hud.potions = h.potions
+    hud.potionsMax = h.potionsMax
+    hud.potionReady = h.potionCd <= 0
+    let changed = force
+    const next: SkillSlotView[] = []
+    for (let s = 0; s < 6; s++) {
+      const st = slotState(sim, s)
+      const v: SkillSlotView = { id: h.skills[s] ?? '', ready: st.ready, noMana: st.noMana, locked: st.locked, active: false }
+      const cur = hud.skills[s]
+      if (!cur || cur.id !== v.id || cur.ready !== v.ready || cur.noMana !== v.noMana || cur.locked !== v.locked) changed = true
+      next.push(v)
+    }
+    if (changed) hud.skills = next
+    const st = u.statuses
+    if (st.length !== hud.statuses.length || st.some((s, k) => hud.statuses[k] !== s.id)) hud.statuses = st.map(s => s.id)
+    const t = sim.live(h.order.targetId)
+    hud.targetKey = t && t.team === 1 ? 'enemy.' + t.kind : ''
+    hud.targetLevel = t?.level ?? 0
+    hud.targetHp01 = t ? t.hp / t.s.maxHp : 0
+    hud.targetElite = t?.rank === 'elite'
+    let boss: Unit | undefined
+    for (const e of sim.units) if (e.alive && e.rank === 'boss' && e.team === 1 && e.awake) { boss = e; break }
+    hud.bossKey = boss ? 'enemy.' + boss.kind : ''
+    hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
+    hud.groupsDone = sim.groupsDone
+    hud.groupsTotal = sim.groups.length
+    hud.wave = sim.wave.n
+    hud.zoneKey = this.setup.zone ?? this.setup.town ?? 'arena'
+    hud.zoneLevel = sim.level
+    // The townsperson within reach.
+    let near = ''
+    if (this.setup.kind === 'town') {
+      let bd = 3.2
+      for (const n of sim.units) {
+        if (n.rank !== 'npc' || !n.npc) continue
+        const d = Math.hypot(n.x - u.x, n.z - u.z)
+        if (d < bd) { bd = d; near = n.npc }
+      }
+    }
+    hud.interactKey = near
+  }
+
+  /** World point → surface pixels (damage text, coach glyphs). */
+  project(x: number, y: number, z: number, out: { x: number; y: number }): boolean {
+    return this.cam.project(x, y, z, out)
+  }
+
+  resize(w: number, h: number): void {
+    this.cam.setViewport(w, h)
+    this.vfx?.setViewport(h, CAM_FOV)
+    if (this.terrain) setZoneFog(this.scene, this.terrain.theme, this.cam.dist)
+  }
+
+  get isEntered(): boolean {
+    return this.entered
+  }
+
+  dispose(): void {
+    for (const id of [...this.views.keys()]) this.dropView(id)
+    this.vfx.dispose()
+    this.markers.dispose()
+    this.bars.dispose()
+    this.walls.dispose()
+    this.chest?.dispose()
+    this.terrain.dispose()
+    this.scene.clear()
+  }
+}

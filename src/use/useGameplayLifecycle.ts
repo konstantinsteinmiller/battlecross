@@ -39,16 +39,17 @@ import { pokiGameplayStart, pokiGameplayStop } from '@/utils/pokiPlugin'
 // owns only the reactive wiring that feeds it. Pure and total, so the contract
 // can be asserted without mounting a canvas.
 //
-// The phase is a plain string rather than the mission's own union type on
-// purpose: that module is the whole simulation, and a platform-contract module
-// must not drag it into anything that imports it.
+// The phase is a plain string rather than the HUD's own union type on purpose:
+// a platform-contract module must not drag the game into anything that
+// imports it.
 export interface GameplayLiveInputs {
-  /** Which screen the flow is on. Only a mission is PLAYED; the hub is menus. */
-  screen: 'boot' | 'mission' | 'hub' | 'intro' | 'ending' | 'debrief'
-  /** The mission's phase. Only 'play' is live: the beam-in / beam-out
-   *  animations and the defeat countdown hand the player no control. */
+  /** Which screen the flow is on. Only a combat zone is PLAYED; a town is
+   *  shopping and talk, the map is a menu. */
+  screen: 'boot' | 'zone' | 'town' | 'map'
+  /** The zone's phase. Only 'play' is live: the beat after a win or a defeat
+   *  hands the player no control. */
   phase: string
-  /** A flow modal is up: pause, defeat, results or level-up. */
+  /** A flow modal is up: pause, results, a shop, a decision. */
   flowModal: boolean
   /** Any other blocking modal (Options). */
   anyModalOpen: boolean
@@ -71,11 +72,11 @@ export interface GameplayLiveInputs {
  *     two different things — without them a tab switch leaves an open
  *     gameplay bracket: CrazyGames keeps counting the session, and Poki holds
  *     the screen wake lock `gameplayStart()` takes on a page nobody is using.
- *   • `phase` — reporting a start during the beam-in, before the player can
- *     act, is the kind of thing portal moderation rejects.
+ *   • `phase` — reporting a start while the player cannot act is the kind of
+ *     thing portal moderation rejects.
  */
 export const isGameplayLive = (i: GameplayLiveInputs): boolean =>
-  i.screen === 'mission'
+  i.screen === 'zone'
   && i.phase === 'play'
   && !i.flowModal
   && !i.anyModalOpen
@@ -155,8 +156,8 @@ export const __gameplayFanoutIdle = (): Promise<void> => playgamaChain
  * idempotent off a flag, and `pokiGameplayStart` DEFERS (never drops) a start
  * landing inside the SDK's 50 ms guard window.
  *
- * Battlecross has no such handover today (every mission ends on the
- * results screen); this stays as the tested seam for one.
+ * Battlecross has no such handover today (every zone ends on the result
+ * screen); this stays as the tested seam for one.
  */
 export const restartGameplayBracket = (): void => {
   // Already closed — a result screen, a reveal, an ad or a hidden tab ended the

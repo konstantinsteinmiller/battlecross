@@ -5,15 +5,9 @@ export default {
   'close': '닫기',
   'ok': '확인',
   'continue': '계속',
-  'tapToContinue': '탭하여 계속',
-  'clickToContinue': '클릭하여 계속',
-  'rewards': '보상',
-  'tip': '팁',
   'onlyAvailableOn': '이 게임은 다음에서만 이용할 수 있습니다:',
 
   'ui': {
-    'killcamCount': '이번 임무의 킬캠: {n}',
-    'killcamOff': '킬캠 끄기',
     'next': '다음',
     'replay': '다시하기',
     'back': '뒤로',
@@ -22,479 +16,594 @@ export default {
     'menu': '메뉴',
     'home': '홈',
     'info': '정보',
-    'skip': '건너뛰기',
-    'holdToSkip': '{key} 길게 눌러 건너뛰기'
+    'help': '조작법',
+    'ok': '알겠어요',
+    'continue': '계속'
+  },
+
+  'hud': {
+    'level': 'Lv.{n}',
+    'health': '체력 {n}/{max}',
+    'mana': '마나 {n}/{max}',
+    'heat': '열기',
+    'xp': '경험치',
+    'gold': '{n} 골드',
+    'potion': '체력 물약 ({n}개 남음)',
+    'groups': '적 무리 {n}/{total} 처치',
+    'wave': '웨이브 {n} / {total}'
+  },
+  'menu': {
+    'map': '월드맵',
+    'character': '영웅',
+    'skills': '스킬',
+    'inventory': '가방'
   },
 
   'combat': {
-    'tink': '팅!',
-    'perfect': '퍼펙트!',
-    'parry': '패링!',
-    'guardBreak': '가드 브레이크!',
-    'guardCracked': '가드가 깨졌다!',
-    'xp': '+{n} 경험치',
-    'lastStand': '불굴! 시스템 재가동.',
-    'weak': '약점!',
-    'kranck': 'KRANCK!',
-    'dizzy': '어질어질!',
-    'dodge': '회피!',
-    'block': '막기',
-    'slide': '슬라이딩',
-    'fire': '발사',
-    'tank': '수리 젤',
-    'noEnergy': '무기 에너지 부족',
-    'tankCount': '수리 젤: {n}/{max}',
-    'borrowed': '빌린 무기 {weapon}: {n}/{max}발',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': '회피',
+    'block': '막음',
+    'immune': '면역'
+  },
+  'status': {
+    'stun': '기절',
+    'knockup': '공중에 뜸',
+    'knockdown': '넘어짐',
+    'stasis': '정지',
+    'petrify': '석화',
+    'frozen': '빙결',
+    'fear': '공포',
+    'slow': '둔화',
+    'confuse': '혼란',
+    'taunt': '도발당함',
+    'armorShred': '방어도 파괴',
+    'weaken': '약화',
+    'vulnerable': '취약',
+    'burn': '화상',
+    'poison': '중독',
+    'bleed': '출혈',
+    'delayed': '지연 피해',
+    'haste': '가속',
+    'attackSpeed': '빠른 공격',
+    'damageUp': '강화',
+    'defenseUp': '방어 강화',
+    'regen': '재생',
+    'lifestealUp': '생명력 흡수',
+    'invulnerable': '무적',
+    'unkillable': '불사',
+    'stealth': '은신',
+    'reflect': '반사',
+    'envenom': '독 칼날',
+    'exosuit': '엑소 슈트',
+    'focus': '집중',
+    'accelerate': '시간 가속',
+    'overheat': '과열',
+    'enrage': '격노',
+    'ambush': '기습'
+  },
+  'toast': {
+    'item': '획득: {item}',
+    'levelUp': '레벨 {level}! 능력치 포인트 +3',
+    'boss': '{boss} 등장',
+    'wave': '웨이브 {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': '으악-으악!',
-      '2': '지직! 앗!',
-      '3': '팔이 딸꾹질해!',
-      '4': '에러… 우와앙!',
-      '5': '미끌미끌 회로!',
-      '6': '흔들흔들 모드 ON!'
+  'coach': {
+    'move': {
+      'touch': '땅을 탭하면 그곳으로 걸어가요. 스틱으로도 움직일 수 있어요.',
+      'mouse': '땅을 클릭하면 그곳으로 걸어가요. 이동 키로도 움직일 수 있어요.'
+    },
+    'target': {
+      'touch': '적을 탭하거나, 영웅에서 적까지 드래그해 공격하세요.',
+      'mouse': '적을 클릭해 공격하세요.'
+    },
+    'skill': {
+      'touch': '스킬을 탭하면 대상에게 사용해요.',
+      'mouse': '스킬 키를 누르면 대상에게 사용해요.'
+    },
+    'aim': {
+      'touch': '스킬을 전장으로 드래그해 조준하고, 손을 떼면 시전해요.',
+      'mouse': '스킬을 전장으로 드래그해 조준하고, 버튼을 놓으면 시전해요.'
+    },
+    'potion': {
+      'touch': '물약을 탭해 회복하세요.',
+      'mouse': '물약 키를 눌러 회복하세요.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': '선포드', 'desc': '평원 끝자락의 농촌 마을. 집과 대장간, 그리고 스승 두 명이 있다.' },
+    'plains': { 'name': '선포드 평원', 'desc': '고블린과 늑대, 도적이 탁 트인 길 위의 상단을 노린다.' },
+    'hollows': { 'name': '고블린 굴', 'desc': '언덕 아래의 동굴. 맨 밑바닥에서 고블린 왕이 기다린다.' },
+    'arena': { 'name': '콜로세움', 'desc': '여덟 번의 웨이브, 갈수록 더 거세진다. 끝까지 서 있는 자에게 골드와 영광을.' },
+    'woods': { 'name': '속삭이는 숲', 'desc': '걸어 다니는 고목들, 그 사이에 줄을 치는 거미들.' },
+    'outskirts': { 'name': '오크헤이븐 외곽', 'desc': '오크헤이븐 밖 농장들이 불타고 있다. 군벌의 군대가 성문 앞에 와 있다.' },
+    'oakhaven': { 'name': '오크헤이븐', 'desc': '성벽으로 둘러싸인 교역 도시. 어떤 곳이 될지는 당신에게 달렸다.' },
+    'crags': { 'name': '잿빛 바위산', 'desc': '검은 바위와 타오르는 불길. 광신도들이 불을 지핀다.' },
+    'mines': { 'name': '아이언홀드 광산', 'desc': '드워프들이 너무 깊이 파다가 빛나는 무언가를 깨웠다.' },
+    'ironhold': { 'name': '아이언홀드', 'desc': '산속의 대장간 도시. 왕국 최고의 강철이 여기서 벼려진다.' },
+    'tundra': { 'name': '동상의 툰드라', 'desc': '거인이 걷고 죽은 자가 잠들지 않는 하얀 황무지.' },
+    'temple': { 'name': '가라앉은 신전', 'desc': '물에 잠긴 나가의 전당, 그리고 모든 결말을 보는 신탁.' },
+    'citadel': { 'name': '공허의 성채', 'desc': '작년에는 없던 요새. 성벽이 낮게 웅웅거린다.' },
+    'peak': { 'name': '용의 봉우리', 'desc': '와이번이 정상을 맴돈다. 훨씬 더 큰 무언가가 그 위에서 잠들어 있다.' },
+    'fortress': { 'name': '공포의 요새', 'desc': '대악마의 거처이자, 모든 세력이 탐내는 왕좌가 있는 곳.' },
+    'rift': { 'name': '공허의 균열', 'desc': '악마들이 넘어온 상처. 건너편에서 공허의 군주가 기다린다.' }
+  },
+  'map': {
+    'title': '왕국',
+    'town': '마을',
+    'levels': 'Lv.{min}–{max}',
+    'arenaBest': '최고: 웨이브 {n}',
+    'travel': '이동',
+    'again': '재도전',
+    'enter': '입장',
+    'fight': '전투',
+    'back': '마을로',
+    'locked': '이웃 지역을 클리어하면 길이 열린다.',
+    'lockedArena': '고블린 왕의 일이 정리되면 문이 열린다.',
+    'lockedRift': '공포의 요새 왕좌의 주인이 정해지면 열린다.',
+    'danger': {
+      '1': '당신의 레벨보다 조금 높다.',
+      '2': '지금 레벨로는 위험하다.',
+      '3': '당신의 레벨보다 훨씬 높다.'
+    },
+    'questOpen': '{quest}: 이곳에서 결정이 기다린다.',
+    'questDone': '{quest}: {choice}',
+    'trainer': '숨은 스승: {cls}'
+  },
+  'travel': {
+    'to': '이동 중:',
+    'loading': '불러오는 중'
+  },
+
+  'attr': {
+    'str': { 'name': '근력', 'short': '근력', 'desc': '근접 공격력, 막기 확률, 중갑.' },
+    'dex': { 'name': '민첩', 'short': '민첩', 'desc': '치명타, 공격 속도와 이동 속도.' },
+    'int': { 'name': '지능', 'short': '지능', 'desc': '주문력, 마나, 원소 저항.' },
+    'end': { 'name': '지구력', 'short': '지구', 'desc': '체력, 재생, 방어도, 기절 저항.' },
+    'skl': { 'name': '숙련', 'short': '숙련', 'desc': '치명타 피해, 쿨타임, 원거리 무기.' },
+    'cha': { 'name': '매력', 'short': '매력', 'desc': '하수인, 상점 가격, 보상, 대화 선택지.' }
+  },
+  'stat': {
+    'health': '체력',
+    'mana': '마나',
+    'armor': '방어도',
+    'resist': '저항',
+    'crit': '치명타 확률',
+    'critDamage': '치명타 피해',
+    'attackSpeed': '공격 속도',
+    'moveSpeed': '이동 속도',
+    'cdr': '쿨타임 감소',
+    'block': '막기',
+    'dodge': '회피',
+    'hpRegen': '체력 / 초'
+  },
+  'sheet': {
+    'points': '남은 포인트 {n}',
+    'raise': '{attr} 올리기',
+    'maxLevel': '최고 레벨 달성'
+  },
+
+  'skills': {
+    'active': '액티브 스킬',
+    'passive': '패시브 스킬',
+    'known': '배움',
+    'none': '아직 배운 것이 없다. 마을에서 스승을 찾아보자.',
+    'emptySlot': '빈 슬롯 {n}',
+    'equip': '장착',
+    'remove': '해제',
+    'unmet': '더 이상 요구 조건을 충족하지 못한다.'
+  },
+  'class': {
+    'aegis': { 'name': '이지스 기사', 'desc': '방패와 성스러운 강철. 남들 대신 공격을 받아낸다.' },
+    'shadow': { 'name': '그림자 칼날', 'desc': '어둠에서 나타나 등 뒤를 찌르고 사라진다.' },
+    'pyro': { 'name': '화염술사', 'desc': '불이 모든 질문의 답이다. 태우고, 그다음 터뜨려라.' },
+    'sovereign': { 'name': '대군주', 'desc': '왜 혼자 싸우나? 근위병을 소환해 지휘하라.' },
+    'chrono': { 'name': '시간술사', 'desc': '적의 시간을 멈추고, 아군을 빠르게 하고, 실수를 되돌린다.' },
+    'blood': { 'name': '피의 연금술사', 'desc': '체력을 내고 힘을 얻은 뒤, 적에게서 다시 마셔 온다.' },
+    'aether': { 'name': '에테르 기술자', 'desc': '총과 포탑, 그리고 열기 게이지. 스킬이 잠기기 전에 방출하라.' },
+    'geo': { 'name': '대지술사', 'desc': '벽과 가시를 세우고 땅 자체를 부순다.' }
+  },
+  'skill': {
+    'kind': { 'active': '액티브', 'passive': '패시브' },
+    'cooldown': '쿨타임 {n}초',
+    'mana': '마나 {n}',
+    'hpCost': '체력 {n}%',
+    'heat': '열기 +{n}',
+    'aimed': '드래그로 조준',
+
+    'shieldSlam': { 'name': '방패 강타', 'desc': '대상을 내리쳐 근력의 {dmg}% 피해를 주고 {stun}초 동안 기절시킨다.' },
+    'aegisAura': { 'name': '이지스 오라', 'desc': '방어도 +{armor}%, 받는 물리 피해가 {reduce}% 줄어든다.' },
+    'radiantStrike': { 'name': '광휘의 일격', 'desc': '근력의 {dmg}% 피해를 주는 성스러운 일격. 준 피해의 {heal}%만큼 회복한다.' },
+    'fortitude': { 'name': '불굴', 'desc': '체력의 {hit}%를 넘는 공격을 받으면 체력의 {shield}%만큼 보호막을 {dur}초 동안 얻는다. {icd}초마다 한 번.' },
+    'tauntingCry': { 'name': '도발의 외침', 'desc': '{radius} m 안의 적이 {dur}초 동안 당신을 공격한다. 그동안 방어력 +{def}%.' },
+    'holyBastion': { 'name': '성스러운 보루', 'desc': '{dur}초 동안 무적. 공격한 적은 자기 피해의 {reflect}%를 돌려받는다.' },
+
+    'shadowstep': { 'name': '그림자 밟기', 'desc': '대상의 등 뒤에 나타나 민첩의 {dmg}% 피해로 뒤를 찌른다.' },
+    'lethality': { 'name': '치명', 'desc': '치명타 확률 +{crit}%, 치명타 피해 +{critDmg}%.' },
+    'venomousBlade': { 'name': '맹독 칼날', 'desc': '{dur}초 동안 공격이 {over}초에 걸쳐 민첩의 {poison}% 중독을 입힌다. 최대 {stacks}번 중첩.' },
+    'evasion': { 'name': '회피술', 'desc': '회피 +{dodge}%. 회피하면 {dur}초 동안 가속 {haste}%.' },
+    'smokeBomb': { 'name': '연막탄', 'desc': '{dur}초 동안 사라진다. 은신 상태에서의 다음 공격은 피해 +{bonus}%.' },
+    'danceOfBlades': { 'name': '칼날의 춤', 'desc': '{radius} m 안의 적 사이를 돌진하며 {hits}번 베어 민첩의 총 {dmg}% 피해를 준다. 춤추는 동안에는 맞지 않는다.' },
+
+    'fireball': { 'name': '화염구', 'desc': '불덩이가 터져 지능의 {dmg}% 피해를 주고, {burnDur}초에 걸쳐 {burn}% 더 화상을 입힌다.' },
+    'cauterize': { 'name': '소작', 'desc': '화상 상태의 적이 당신에게 주는 피해가 {reduce}% 줄어든다.' },
+    'flamePillar': { 'name': '불기둥', 'desc': '조준한 곳에 불기둥이 솟는다. {dur}초에 걸쳐 지능의 {dmg}% 피해. 휘말린 적은 공중으로 뜬다.' },
+    'pyromaniac': { 'name': '방화광', 'desc': '주문이 치명타로 적중하면 화염 스킬 쿨타임이 {cut}초 줄어든다.' },
+    'combustion': { 'name': '연소 폭발', 'desc': '{radius} m 안의 모든 화상을 터뜨린다. 남은 피해의 {pct}%가 폭발로 한 번에 들어간다.' },
+    'cataclysm': { 'name': '대격변', 'desc': '{dur}초 동안 유성 {meteors}개를 부른다. 하나마다 지능의 {dmg}% 피해.' },
+
+    'royalGuard': { 'name': '왕실 근위병', 'desc': '곁에서 싸우는 근위병을 소환한다. 매력의 {dmg}% 피해로 공격. 동시에 최대 {max}명.' },
+    'inspiringPresence': { 'name': '고무하는 위엄', 'desc': '하수인의 공격이 {speed}% 빨라지고 체력이 {hp}% 늘어난다.' },
+    'commandFocus': { 'name': '집중 공격 명령', 'desc': '모든 하수인이 대상에게 돌격한다. {dur}초 동안 이동 속도 +{move}%, 공격 속도 +{atk}%.' },
+    'sovereignsTribute': { 'name': '군주의 공물', 'desc': '받는 피해의 {share}%를 하수인이 대신 받는다.' },
+    'bannerOfVictory': { 'name': '승리의 깃발', 'desc': '{dur}초 동안 깃발을 꽂는다. 근처 아군은 피해 +{dmg}%, 초당 체력 {regen}% 재생.' },
+    'armyOfTheRealm': { 'name': '왕국의 군대', 'desc': '궁수 {archers}명, 근위병 {guards}명, 전투 마법사 1명을 {dur}초 동안 소환한다.' },
+
+    'temporalStasis': { 'name': '시간 정지', 'desc': '대상을 {dur}초 동안 시간 속에 가둔다. 행동할 수 없고 피해도 받지 않는다.' },
+    'hasteField': { 'name': '가속 지대', 'desc': '{dur}초 동안 당신과 근처 아군의 이동이 {move}%, 공격이 {speed}% 빨라진다.' },
+    'timeDistort': { 'name': '시간 왜곡', 'desc': '받는 피해의 {share}%가 지연되어 {over}초에 걸쳐 들어온다.' },
+    'paradoxShift': { 'name': '역설 전환', 'desc': '대상과 자리를 바꾼다. 대상은 지능의 {dmg}% 피해를 받고 주변 적은 {confuse}초 동안 혼란에 빠진다.' },
+    'entropy': { 'name': '엔트로피', 'desc': '스킬을 쓸 때마다 쿨타임이 {cdr}% 짧아진다. 최대 {stacks}번 중첩.' },
+    'chronoRewind': { 'name': '시간 되감기', 'desc': '{back}초 전에 서 있던 곳으로, 그때의 체력과 마나로 돌아간다.' },
+
+    'sanguineFlask': { 'name': '선혈의 플라스크', 'desc': '자기 피가 담긴 플라스크를 던진다. 범위에 지구력의 {dmg}% 피해, {shredDur}초 동안 방어도 {shred}% 파괴.' },
+    'bloodTransmutation': { 'name': '피의 변환', 'desc': '받은 물리 피해의 {share}%가 마나로 돌아온다.' },
+    'essenceHarvest': { 'name': '정수 수확', 'desc': '{radius} m 안의 모든 적에게서 빨아들여 지능의 {dmg}% 피해를 준다. 그 {heal}%만큼 회복한다.' },
+    'hemophilia': { 'name': '피의 갈증', 'desc': '생명력 착취가 {drain}% 강해진다. 출혈 중인 적을 맞히면 체력을 {heal}% 회복한다.' },
+    'mutagenicRage': { 'name': '변이의 분노', 'desc': '{dur}초 동안: 공격 속도 +{speed}%, 생명력 흡수 +{steal}%, 이동 속도 +{move}%.' },
+    'philosophersCrucible': { 'name': '현자의 도가니', 'desc': '{dur}초 동안 끓는 피 웅덩이를 만든다. 안의 적에게 지능의 {dmg}% 피해, 그 안에 서 있으면 회복한다.' },
+
+    'aetherPistol': { 'name': '에테르 권총', 'desc': '숙련의 {dmg}% 피해를 주는 빠른 사격. 열기가 {heat} 쌓인다.' },
+    'deployTurret': { 'name': '포탑 설치', 'desc': '숙련의 {dmg}% 피해로 쏘는 포탑을 {dur}초 동안 설치한다. 동시에 최대 {max}개.' },
+    'ventHeat': { 'name': '열기 방출', 'desc': '모든 열기를 부채꼴로 쏟아낸다. 숙련의 최대 {dmg}% 피해, 열기가 많을수록 강하다.' },
+    'thermalOverload': { 'name': '열 과부하', 'desc': '과열 중에는 사격의 치명타 피해 +{crit}%. 그래도 과열되면 스킬이 {lock}초 동안 잠긴다.' },
+    'orbitalBeam': { 'name': '궤도 광선', 'desc': '하늘에서 내려온 광선이 조준한 곳을 태운다. {dur}초에 걸쳐 숙련의 {dmg}% 피해.' },
+    'exoSuit': { 'name': '엑소 슈트', 'desc': '{dur}초 동안: 방어도 +{armor}%, 공격이 로켓이 되어 범위에 숙련의 {rocket}% 피해를 준다.' },
+
+    'stoneSpike': { 'name': '바위 가시', 'desc': '대상 발밑에서 가시가 솟는다. 근력의 {dmg}% 피해, {dur}초 동안 {slow}% 둔화.' },
+    'earthBarrier': { 'name': '대지의 장벽', 'desc': '{dur}초 동안 바위 벽을 세운다. 걸어서도, 쏴서도 통과할 수 없다.' },
+    'seismicShock': { 'name': '지진 충격', 'desc': '땅을 내리친다. {radius} m 안에 근력의 {dmg}% 피해, 적을 {down}초 동안 넘어뜨린다.' },
+    'earthenSkin': { 'name': '대지의 피부', 'desc': '근력의 {armor}%만큼 방어도를 얻는다. 당신이 받는 기절이 {cut}% 짧아진다.' },
+    'petrify': { 'name': '석화', 'desc': '대상을 {dur}초 동안 돌로 만든다. 돌이 깨질 때 받는 피해가 {vuln}% 늘어난다.' },
+    'tectonicRupture': { 'name': '지각 파열', 'desc': '전장을 찢어 연다. 근처 모든 것에 근력의 {dmg}% 피해, 잔해가 {dur}초 동안 둔화시킨다.' }
+  },
+
+  'slot': {
+    'main': '주 무기',
+    'off': '보조 손',
+    'body': '갑옷',
+    'trinket': '장신구'
+  },
+  'tier': {
+    '1': '1티어',
+    '2': '2티어',
+    '3': '3티어',
+    '4': '4티어',
+    '5': '5티어',
+    '6': '전설'
+  },
+  'weapon': {
+    'melee': '근접 · {attr} 비례',
+    'ranged': '원거리 · {attr} 비례',
+    'magic': '마법 · {attr} 비례'
+  },
+  'source': {
+    'mob': '{zone}의 몬스터가 떨어뜨린다.',
+    'chest': '{zone}의 상자에서 나온다.',
+    'boss': '{zone}의 보스가 떨어뜨린다.',
+    'secret': '{zone}의 비밀 상자에 숨겨져 있다.'
+  },
+  'mod': {
+    'str': '근력 +{n}',
+    'dex': '민첩 +{n}',
+    'int': '지능 +{n}',
+    'end': '지구력 +{n}',
+    'skl': '숙련 +{n}',
+    'cha': '매력 +{n}',
+    'allAttrs': '모든 능력치 +{n}',
+    'strOrDex': '근력과 민첩 중 높은 쪽 +{n}',
+    'armor': '방어도 {n}',
+    'armorPct': '방어도 +{n}%',
+    'armorFromStr': '근력으로 얻는 방어도: +{n}%',
+    'block': '막기 확률 +{n}%',
+    'dodge': '회피 +{n}%',
+    'damageReduction': '피해 감소 +{n}%',
+    'physReduction': '받는 물리 피해 {n}% 감소',
+    'maxHp': '최대 체력 +{n}',
+    'maxHpPct': '최대 체력 +{n}%',
+    'maxMana': '최대 마나 +{n}',
+    'hpRegen': '초당 체력 +{n}',
+    'stunDurationCut': '받는 기절이 {n}% 짧아진다',
+    'damagePct': '주는 피해 +{n}%',
+    'critChance': '치명타 확률 +{n}%',
+    'critDamage': '치명타 피해 +{n}%',
+    'spellCrit': '주문 치명타 확률 +{n}%',
+    'attackSpeed': '공격 속도 +{n}%',
+    'moveSpeed': '이동 속도 +{n}%',
+    'cdr': '쿨타임이 {n}% 짧아진다',
+    'manaDiscount': '주문의 마나 소모 {n}% 감소',
+    'lifesteal': '모든 피해에 생명력 흡수 +{n}%',
+    'physLifesteal': '물리 공격에 생명력 흡수 +{n}%',
+    'lifeDrainPct': '생명력 착취가 {n}% 강해진다',
+    'bossDamage': '보스에게 주는 피해 +{n}%',
+    'backstab': '뒤치기 피해 +{n}%',
+    'minionDamage': '하수인의 피해 +{n}%',
+    'minionAttackSpeed': '하수인의 공격이 {n}% 빨라진다',
+    'minionHp': '하수인의 체력 +{n}%',
+    'burnOnHit': '공격이 {n} 피해의 화상을 입힌다',
+    'freezeOnHit': '공격 시 {n}% 확률로 빙결',
+    'pierce': '탄환이 적 {n}명을 더 관통한다',
+    'critCooldown': '치명타 시 모든 쿨타임 {n}초 감소',
+    'extraBlastEvery': '{n}발마다 에너지 폭발 추가',
+    'reflectOnBlock': '막으면 {n} 피해를 반사한다',
+    'fatalSave': '치명적인 피해를 받는 대신 {n}초 동안 무적이 된다 (120초마다 한 번)',
+    'knockbackImmune': '밀쳐내기 면역',
+    'heatBuildCut': '열기가 {n}% 느리게 쌓인다',
+    'heatDissipation': '열기가 {n}% 빨리 식는다',
+    'flaskDamage': '선혈의 플라스크 피해 +{n}%',
+    'igniteBonus': '화염 주문의 화상이 {n}% 강해진다',
+    'stealthy': '조용히 움직인다: 적이 알아채는 거리 {n}% 감소',
+    'fortitude': '큰 공격을 받으면 체력 {n}%의 보호막',
+    'evasionHaste': '회피하면 가속 {n}%',
+    'cauterize': '화상 상태의 적이 주는 피해 {n}% 감소',
+    'pyromaniac': '주문 치명타 시 화염 쿨타임 {n}초 감소',
+    'tribute': '하수인이 당신이 받는 피해의 {n}%를 받는다',
+    'timeDistort': '받는 피해의 {n}%가 지연된다',
+    'entropy': '스킬을 쓰면 쿨타임 {n}% 감소',
+    'bloodToMana': '받은 물리 피해의 {n}%가 마나로 돌아온다',
+    'bleedHeal': '출혈 중인 적을 맞히면 체력 {n}% 회복',
+    'overheatCrit': '과열 중 치명타 피해 +{n}%'
+  },
+  'item': {
+    'rustedShortsword': { 'name': '녹슨 숏소드' },
+    'apprenticeStaff': { 'name': '견습생의 지팡이' },
+    'scoutsHandgun': { 'name': '정찰병의 권총' },
+    'ironBroadsword': { 'name': '무쇠 대검' },
+    'vipinsStiletto': { 'name': '비핀의 스틸레토' },
+    'aetherCarbine': { 'name': '에테르 카빈' },
+    'ashenGreatsword': { 'name': '잿빛 양손검' },
+    'archmageWand': { 'name': '대마법사의 마법봉' },
+    'chronoBlade': { 'name': '시간의 칼날' },
+    'bloodForgedAxe': { 'name': '피로 벼린 도끼' },
+    'voidCannon': { 'name': '공허 대포' },
+    'dragonSmasher': { 'name': '용 분쇄기' },
+    'bladeOfTheUnbound': { 'name': '속박 없는 자의 검' },
+    'aetheriumDestroyer': { 'name': '에테륨 파괴자' },
+    'woodenBuckler': { 'name': '나무 버클러' },
+    'tomeOfNovices': { 'name': '초심자의 마법서' },
+    'ironShield': { 'name': '무쇠 방패' },
+    'syringeOfTheAdept': { 'name': '숙련자의 주사기' },
+    'aethericBattery': { 'name': '에테르 배터리' },
+    'aegisTowerShield': { 'name': '이지스 타워 실드' },
+    'orbOfEternalFlame': { 'name': '영원한 불꽃의 보주' },
+    'shieldOfTheFallen': { 'name': '쓰러진 자의 방패' },
+    'paddedTunic': { 'name': '누빔 튜닉' },
+    'leatherDoublet': { 'name': '가죽 더블릿' },
+    'chainmailVest': { 'name': '사슬 조끼' },
+    'scholarsRobe': { 'name': '학자의 로브' },
+    'reinforcedPlate': { 'name': '강화 판금 갑옷' },
+    'assassinsGarb': { 'name': '암살자의 복장' },
+    'chronoWeaverCloak': { 'name': '시간술사의 망토' },
+    'bloodSoakedPlate': { 'name': '피에 젖은 판금 갑옷' },
+    'exoArmorChassis': { 'name': '엑소 아머 섀시' },
+    'dragonscaleHauberk': { 'name': '용비늘 사슬 갑옷' },
+    'vestmentsOfSovereign': { 'name': '군주의 예복' },
+    'armorOfTheTitan': { 'name': '거신의 갑옷' },
+    'copperBand': { 'name': '구리 반지' },
+    'ringOfMending': { 'name': '치유의 반지' },
+    'bandOfSwiftness': { 'name': '신속의 반지' },
+    'castersEmblem': { 'name': '시전자의 문장' },
+    'infiltratorsCharm': { 'name': '잠입자의 부적' },
+    'timekeepersHourglass': { 'name': '시간지기의 모래시계' },
+    'ringOfTheVampyre': { 'name': '흡혈귀의 반지' },
+    'sovereignsSignet': { 'name': '군주의 인장 반지' },
+    'heartOfTheMountain': { 'name': '산의 심장' },
+    'ringOfAbsolutePower': { 'name': '절대 권능의 반지' }
+  },
+  'bag': {
+    'equip': '장착',
+    'unequip': '해제',
+    'tooLow': '레벨 {n} 필요.'
+  },
+  'shop': {
+    'buy': '구매',
+    'sell': '판매',
+    'owned': '보유',
+    'empty': '오늘은 진열대가 비었다.'
+  },
+  'trainer': {
+    'learn': '배우기',
+    'known': '배움',
+    'friend': '{faction}은(는) 친구를 대접한다: 20% 할인.',
+    'block': {
+      'level': '레벨이 너무 낮다.',
+      'attrs': '능력치가 너무 낮다.',
+      'gold': '골드가 부족하다.'
+    }
+  },
+  'healer': {
+    'talk': '앉으세요. 쉬세요. 여기서 나갈 땐 몸도 멀쩡하고 플라스크도 가득 찰 거예요. 더 많이 들고 다니고 싶다면, 그건 팔 수 있어요.',
+    'note': '어느 지역이든 물약을 {n}개 들고 간다.',
+    'buy': '플라스크 추가 · {n}',
+    'full': '허리띠에 더는 못 건다.'
+  },
+  'talk': {
+    'goal': '{zone}에서 결판이 난다.'
+  },
+  'faction': {
+    'order': '강철 기사단',
+    'syndicate': '잿빛 신디케이트',
+    'circle': '에테르 결사'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': '대장장이 브람', 'talk': '꾸밈없는 강철에 정직한 값이오. 고블린 정도는 막아 줄 거요.' },
+    'sunfordPeddler': { 'name': '행상 틸리', 'talk': '반지! 부적! 주운 거예요, 절대로 훔친 거 아니고요.' },
+    'trainerAegis': { 'name': '알드릭 경' },
+    'trainerPyro': { 'name': '엠버 렌' },
+    'elderMara': { 'name': '마라 장로', 'talk': '오늘 자네가 길을 지켜 냈네. 평원이 이렇게 조용한 건 일 년 만이야.' },
+    'sunfordHealer': { 'name': '룬 수녀' },
+    'goblinTrader': { 'name': '장사꾼 그릭', 'talk': '왕이 장사하래. 그래서 그릭 장사해. 반짝이 주면 반짝이 줘. 좋은 반짝이.' },
+    'captainHale': { 'name': '헤일 대장', 'talk': '오크헤이븐은 삼백 년을 버텨 왔소. 그걸 잃은 대장이 될 생각은 없소.' },
+    'oakArmorer': { 'name': '갑옷장이 오도', 'talk': '물건 절반이 성벽 위로 올라갔소. 남은 거라도 가져가시오.' },
+    'oakMasterArmorer': { 'name': '명장 오도', 'talk': '당신이 이 마을을 구했소. 뒷방에 있던 좋은 갑옷을 꺼내 오겠소.' },
+    'oakWeapons': { 'name': '칼장수 세나', 'talk': '날카롭고, 균형 좋고, 돈 내는 사람에게 팔아요. 오늘은 당신이네요.' },
+    'trainerShadow': { 'name': '속삭임' },
+    'trainerSovereign': { 'name': '카스텔란 경' },
+    'oakHealer': { 'name': '펜 수사' },
+    'blackMarket': { 'name': '장물아비', 'talk': '이름도 없고, 질문도 없지. 신디케이트가 제 몫을 떼고, 당신은 물건을 챙기고.' },
+    'trainerBlood': { 'name': '상그렐 박사' },
+    'syndicateBoss': { 'name': '마담 애시', 'talk': '오크헤이븐이 우리 것이 된 건 당신 덕이야. 신디케이트는 친구를 잊지 않아. 빚도 마찬가지고.' },
+    'forgemaster': { 'name': '대장간 주인 도른', 'talk': '쇠를 캐다가 심장을 건드렸소. 저 아래 어둠 속에서 뛰고 있고, 골렘들은 그 박자에 맞춰 걷는다오.' },
+    'ironWeapons': { 'name': '망치손 힐다', 'talk': '드워프가 벼린 물건이야. 부러지면 네 탓이지.' },
+    'ironAetherWorks': { 'name': '땜장이 포스', 'talk': '결사가 핵을 연구하면서 모든 게 바뀌었어. 이거 들어 봐. 나한테 겨누지는 말고.' },
+    'ironArmor': { 'name': '무쇠배 가룬', 'talk': '거인의 몽둥이도 튕겨 내는 판금이오. 나머지 분들께는 반지가 있소.' },
+    'ironOrderArmor': { 'name': '기사단 보급관', 'talk': '기사단은 누가 핵을 부쉈는지 기억합니다. 무기고는 당신에게 열려 있습니다.' },
+    'trainerGeo': { 'name': '돌발 영감' },
+    'trainerAether': { 'name': '톱니 기술자 핌' },
+    'ironHealer': { 'name': '브린야 수녀원장' },
+    'exiledSovereign': { 'name': '추방된 카스텔란 경' },
+    'trainerChrono': { 'name': '시간의 수호자' }
+  },
+
+  'quest': {
+    'final': '이 선택은 되돌릴 수 없다.',
+    'needsRep': '{faction} 평판 {n}',
+    'gold': '+{n} 골드',
+    'goblinKing': {
+      'title': '고블린 왕',
+      'intro': '습격은 고블린 굴에서 온다네. 고블린들이 거기서 왕을 세웠거든. 어떤 식으로든, 끝내 주게.',
+      'ask': '잠깐! 잠깐. 왕 졌다! 고블린 배고파서 습격하는 거야. 키 큰 애랑 왕이랑 거래할까?',
+      'slay': { 'label': '왕의 통치를 끝낸다.', 'result': '왕이 쓰러지고 굴의 고블린들은 뿔뿔이 흩어졌다. 선포드는 편히 잠들고, 강철 기사단이 당신을 눈여겨본다.' },
+      'pact': { 'label': '선포드와의 교역 협정을 제안한다.', 'result': '칼이 못 한 일을 말솜씨가 해냈다. 고블린 장사꾼들이 선포드 광장에 자리를 잡고, 그곳 대장장이는 만들 수 없는 물건을 판다.' },
+      'ransom': { 'label': '보물을 챙기고 왕관은 남겨 준다.', 'result': '고블린의 금으로 묵직해진 채 걸어 나온다. 습격은 다시 시작되겠지만 그건 선포드의 문제다. 신디케이트가 흡족해한다.' }
+    },
+    'siege': {
+      'title': '오크헤이븐 공성전',
+      'intro': '군벌의 군대가 오크헤이븐을 포위했소. 그 군대에 돈을 댄 건 잿빛 신디케이트요. 외곽에서 포위를 깨 주시오.',
+      'ask': '잘 싸우는군. 신디케이트는 저 마을보다 훨씬 후하게 쳐준다. 오늘 밤 우리에게 성문을 열어라. 그러면 오크헤이븐의 3분의 1은 네 것이다.',
+      'defend': { 'label': '오크헤이븐을 지킨다.', 'result': '성문은 버텼다. 오크헤이븐은 그 뒤에서 부유해지고, 명장 갑옷장이들은 당신의 이름을 기억한다. 이제 잿빛 신디케이트가 모든 길에서 당신을 노린다.' },
+      'betray': { 'label': '신디케이트에게 성문을 열어 준다.', 'result': '오크헤이븐이 불탄다. 폐허에는 암시장이 열리고, 금지된 기술을 가르치는 연금술사가 나타난다. 갑옷장이들은 떠났고, 강철 기사단은 당신을 배신자라 부른다.' }
+    },
+    'core': {
+      'title': '아이언홀드의 심장',
+      'intro': '에테르 핵이 우리 광산의 골렘들을 움직이고 있소. 세 세력이 그걸 원하고, 하나같이 내게 편지를 보냈지. 가장 먼저 닿는 건 당신이 될 거요.',
+      'ask': '거상은 고철이 되었고, 핵은 당신 앞에 드러난 채 웅웅거린다. 만지면 따뜻하다. 이걸 어떻게 할까?',
+      'destroy': { 'label': '핵을 부순다.', 'result': '빛이 꺼지고 골렘들이 그 자리에 쓰러진다. 강철 기사단은 감사의 뜻으로 자기네 갑옷장이들을 아이언홀드로 보낸다.' },
+      'study': { 'label': '결사에 넘겨 연구하게 한다.', 'result': '안전하게 넘길 만큼은 당신도 핵을 이해하고 있다. 한 계절도 안 되어 아이언홀드의 대장간은 아무도 본 적 없는 에테르 장비를 만들어 낸다.' },
+      'sell': { 'label': '신디케이트에 판다.', 'result': '큰돈이 오갔다. 핵은 있어서는 안 될 곳에서 계속 빛나고, 광산은 다시는 조용해지지 않는다.' }
+    },
+    'oracle': {
+      'title': '물에 잠긴 신탁',
+      'ask': '이 순간을 만 번 보았습니다. 그 절반에서 그대는 나를 풀어 주고, 절반에서는 내가 지키는 것을 가져갑니다. 고르세요. 그리고 마침내, 다음에 올 일을 모르게 해 주세요.',
+      'free': { 'label': '사슬을 끊는다.', 'result': '신탁은 물을 가르며 떠올라 사라진다. 에테르 결사는 당신을 좋게 말할 것이고, 그녀의 시간의 수호자는 남아서 가르친다.' },
+      'slay': { 'label': '그녀가 지키는 모래시계를 가져간다.', 'result': '그녀는 저항하지 않는다. 시간지기의 모래시계는 당신 것이다. 마지막 제자는 신전에서 달아나고, 결사는 용서하지 않는다.' }
+    },
+    'dragon': {
+      'title': '공허의 용',
+      'ask': '그만. 이빨이 있구나, 작은 것아. 요새의 악마가 내 동족을 사슬에 묶었다. 그놈이 불타는 걸 보고 싶다. 나를 죽이든가, 아니면 내가 돕게 하든가.',
+      'slay': { 'label': '용을 처치한다.', 'result': '용이 쓰러지며 산이 흔들린다. 강철 기사단은 용 사냥꾼을 노래하고, 용의 보물은 당신 것이 된다.' },
+      'pact': { 'label': '대악마에 맞설 맹약을 맺는다.', 'result': '용을 설득할 수 있는 자는 드물다. 당신이 공포의 요새로 진군할 때, 용은 머리 위 하늘에 있을 것이다.' }
+    },
+    'throne': {
+      'title': '빈 왕좌',
+      'ask': '대악마는 죽었고 왕좌는 비어 있다. 그걸 차지하는 자가 요새와 그 아래의 균열, 그리고 양쪽의 군대를 다스린다. 문 앞에서 세 사절이 기다린다.',
+      'order': { 'label': '왕좌를 강철 기사단에 넘긴다.', 'result': '기사단은 요새에 병력을 두고, 막을 수 있는 것은 봉인한다. 왕국은 안전해질 것이다. 그리고 시키는 대로 살게 될 것이다.' },
+      'syndicate': { 'label': '왕좌를 잿빛 신디케이트에 넘긴다.', 'result': '신디케이트는 동이 트기 전에 들어온다. 이제 모든 것이 판매 중이다. 평화까지도.' },
+      'circle': { 'label': '왕좌를 에테르 결사에 넘긴다.', 'result': '결사는 요새를 균열 위의 학교로 바꾼다. 그들은 그걸 연구라 부른다. 다른 모두는 시간문제라고 부른다.' },
+      'shatter': { 'label': '왕좌를 부순다.', 'result': '당신은 제 손으로 왕좌를 부순다. 이제 누구도 이곳에서 다스리지 못한다. 사절들은 말없이 떠난다.' },
+      'claim': { 'label': '직접 앉는다.', 'result': '차갑다. 그리고 꼭 맞는다. 세 세력은 공통의 적이 생겼음을 깨닫는다.' }
     }
   },
 
   'enemy': {
-    'echo': '마스터 에코',
-    'gatekeeper': '게이트키퍼',
-    'warden': '워든',
-    'hornet': '호넷 로터',
-    'stalker': '글로우 스토커',
-    'puffer': '복어 기뢰',
-    'mole': '두더지 드릴러',
-    'polar': '폴라 강아지',
-    'hardhat': '헬멧봇',
-    'trooper': '방패병',
-    'heli': '로터 드론',
-    'hopper': '스톰퍼',
-    'roller': '기어 롤러',
-    'brute': '가드로이드',
-    'turret': '벽 포탑',
-    'golem': '상자 골렘',
-    'elite': '엘리트',
-    'level': '레벨 {n}'
-  },
-
-  'enemyPlural': {
-    'echo': '마스터 에코 | 마스터 에코',
-    'gatekeeper': '게이트키퍼 | 게이트키퍼',
-    'warden': '워든 | 워든',
-    'hornet': '호넷 로터 | 호넷 로터',
-    'stalker': '글로우 스토커 | 글로우 스토커',
-    'puffer': '복어 기뢰 | 복어 기뢰',
-    'mole': '두더지 드릴러 | 두더지 드릴러',
-    'polar': '폴라 강아지 | 폴라 강아지',
-    'hardhat': '헬멧봇 | 헬멧봇',
-    'trooper': '방패병 | 방패병',
-    'heli': '로터 드론 | 로터 드론',
-    'hopper': '스톰퍼 | 스톰퍼',
-    'roller': '기어 롤러 | 기어 롤러',
-    'brute': '가드로이드 | 가드로이드',
-    'turret': '벽 포탑 | 벽 포탑',
-    'golem': '상자 골렘 | 상자 골렘'
-  },
-
-  'hud': {
-    'help': '조작법 보기',
-    'mute': '음소거',
-    'unmute': '음소거 해제',
-    'bossUnknown': '정체불명의 보스',
-    'hp': '체력',
-    'we': '무기 에너지',
-    'power': '파워',
-    'bolts': '나사',
-    'level': '레벨 {n}',
-    'beamOut': '귀환'
-  },
-
-  'boss': {
-    'rotorMaster': '로터 마스터',
-    'neonMaster': '네온 마스터',
-    'tideMaster': '조수 마스터',
-    'drillMaster': '드릴 마스터',
-    'magnetMaster': '자석 마스터',
-    'stand': '스크래퍼',
-    'scrapper': '스크래퍼',
-    'blazeMaster': '화염 마스터',
-    'frostMaster': '빙결 마스터',
-    'voltMaster': '전격 마스터',
-    'galeMaster': '질풍 마스터',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': '그랜드 마스터 봇'
-  },
-
-  'sector': {
-    'rotor': '회전익 항로',
-    'neon': '정전 대로',
-    'tide': '조수 갑문',
-    'drill': '깊은 광산',
-    'magnet': '극성 공장',
-    'scrapyard': '고철장',
-    'blaze': '화염 정제소',
-    'cryo': '극저온 공장',
-    'volt': '전격 타워',
-    'gale': '하늘 부두',
-    'fortress': 'Vex 요새'
-  },
-
-  'quest': {
-    'tutorial': '모닝콜',
-    'boss': '코어 마스터 결전',
-    'bossTitle': '결전: {boss}',
-    'kill': '고철 처리',
-    'collect': '데이터 회수',
-    'rescue': '구출 작전',
-    'elite': '엘리트 사냥',
-    'supply': '보급 작전',
-    'purge': '구역 소탕',
-    'climb': '타워 런',
-    'stage': '플랫폼 스테이지',
-    'stageName': { 'blaze': '멜트다운 디센트', 'cryo': '글레이셔 런', 'volt': '레일 러시', 'gale': '스카이 독', 'magnet': '폴라리티 웍스', 'drill': '딥 마인', 'tide': '타이드워터 록스', 'neon': '블랙아웃 불러바드', 'rotor': '로터 런', 'fortress': 'Vex 포트리스' },
-    'rematch': '재대결: {boss}',
-    'desc': {
-      'tutorial': '고철장을 돌파하고 스크래퍼를 처치하세요.',
-      'boss': '{sector}의 중심부로 침투하세요. 목표: {boss} 격파.',
-      'kill': '{sector}에서 {target} {n}기를 파괴하세요.',
-      'collect': '{sector}에 흩어진 데이터 코어 {n}개를 회수하세요.',
-      'rescue': '작업 로봇이 {sector}에 고립되었습니다. 찾아서 전송으로 탈출시키세요.',
-      'elite': '{sector}에서 엘리트 {target} 한 기가 날뛰고 있습니다. 추적해 처치하세요.',
-      'supply': '{sector}에서 보급 상자 {n}개를 열어젖히세요.',
-      'purge': '{sector}의 기계를 모두 파괴하세요.',
-      'climb': '{sector}의 탑을 오르세요. 계단, 사다리, 리프트, 구덩이를 지나 아레나로 내려가 {boss}에게 다시 도전하세요.',
-      'stage': '{sector}를 달리고, 미끄러지고, 올라타며 통과하세요. 난간, 구덩이, 기계를 지나 아레나에서 {boss}에게 맞서세요.'
-    }
-  },
-  'objective': {
-    'title': '목표',
-    'complete': '목표 달성',
-    'beamOutHint': '준비되면 귀환하세요.',
-    'tutorial': '{boss} 처치',
-    'boss': '{boss} 처치',
-    'kill': '{target} 파괴: {n}/{total}',
-    'collect': '데이터 코어: {n}/{total}',
-    'rescue': '고립된 작업 로봇 찾기',
-    'elite': '엘리트 {target} 처치',
-    'supply': '보급 상자: {n}/{total}',
-    'purge': '파괴한 기계: {n}/{total}',
-    'climb': '탑을 올라 {boss} 처치',
-    'stage': '아레나에 도달해 {boss} 처치'
-  },
-  'mission': {
-    'bossDown': '{boss} 격파!',
-    'objectiveDone': '목표 달성!',
-    'rescued': '작업 로봇을 안전하게 전송했습니다!',
-    'bossDoor': '셔터가 삐걱거리며 열린다…'
-  },
-  'interact': {
-    'chest': '열기',
-    'rescue': '구출',
-    'bossDoor': '입장'
-  },
-  'progress': {
-    'levelUp': '레벨 {n}! 시스템 완전 복구.'
-  },
-  'tips': {
-    'moveTouch': '왼쪽을 드래그해 이동, 오른쪽으로 시점 조작. 바닥을 탭하면 그곳으로 걸어가요!',
-    'moveKeys': '{keys}로 이동해요.',
-    'lookMouse': '마우스를 움직여 주위를 둘러보세요.',
-    'capture': '화면을 클릭하면 카메라를 조작할 수 있어요.',
-    'fireTouch': '앞에 기계가 있어요! 탭해서 사격 — 길게 눌렀다 떼면 차지 샷!',
-    'fireKeys': '앞에 기계가 있어요! 좌클릭으로 사격 — 길게 눌렀다 떼면 차지 샷!',
-    'charge': '방패는 일반 탄을 막아요. 풀 차지 샷이면 그대로 뚫어요!',
-    'blockTouch': '주황 링: 방패를 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
-    'blockKeys': '주황 링: 마우스 오른쪽 버튼을 길게 눌러 막기 — 링이 닫히는 순간 누르면 패링!',
-    'red': '빨간 링은 막을 수 없어요 — 슬라이딩으로 피하세요!',
-    'dodgeKeys': '빨간 링은 막을 수 없어요 — {slide}를 눌러 슬라이딩으로 피하세요!',
-    'spaceKey': 'Space',
-    'chest': '보급 상자예요! 탭해서 열어 보세요.',
-    'tank': '체력이 부족해요? 수리 젤을 쓰면 완전히 회복돼요.',
-    'weapon': '복사한 무기는 색깔 버튼으로 쓸 수 있어요!'
-  },
-  'lesson': {
-    'charge': '길게 눌러 캐논을 차지한 뒤 떼세요: 훈련용 드론의 방패는 차지 샷으로만 깨져요.',
-    'crate': '보급 크레이트는 차지 샷으로만 부서져요. 길게 누른 뒤, 빛나는 크레이트를 노리고 떼세요.',
-    'weaponKeys': '{n} 키를 눌러 복사한 무기를 발사하세요: 한 발로 드론 세 대를 모두 맞혀요.',
-    'weaponTouch': '빛나는 무기 버튼을 탭하세요: 한 발로 드론 세 대를 모두 맞혀요.',
-    'gelKeys': '{key} 키를 눌러 수리 젤을 쓰세요: 완전히 회복돼요.',
-    'gelTouch': '초록색 수리 젤 버튼을 탭하세요: 완전히 회복돼요.'
-  },
-  'walk': {
-    'finishLessonOn': '{weapon} 레슨을 끝내세요',
-    'finishTutorial': '먼저 튜토리얼을 끝내세요',
-    'finishLesson': '레슨을 마치세요'
-  },
-  'hubLesson': {
-    'earnBolts': '나사가 부족해? 짧은 영상을 보고 채워.',
-    'catchUp': '핍: 네 캐논이 바깥 기계들보다 뒤처지고 있어. 업그레이드하자!',
-    'workshop': '공방을 여세요.',
-    'upgradeBuster': '나사를 써서 캐논을 강화하세요: 피해 증가.',
-    'pickArmor': '이제 가슴 아머를 선택하세요.',
-    'upgradeArmor': '이것도 강화하세요: 방어력 증가.',
-    'deploy': '준비 완료 — 미션으로 돌아가요!',
-    'overload': '핍: 질풍 마스터의 코어에서 비법을 배웠어. 풀 차지 상태로 3초 더 누르고 있어: 오버로드!'
-  },
-  'loot': {
-    'upgrade': '업그레이드!',
-    'found': '{rarity} {item} 발견!',
-    'tank': '수리 젤 발견!',
-    'giftTank': '선물: 수리 젤 +1!'
+    'goblin': '고블린',
+    'goblinSlinger': '고블린 투석꾼',
+    'bandit': '도적',
+    'banditArcher': '도적 궁수',
+    'wolf': '늑대',
+    'banditChief': '도적 두목',
+    'goblinKing': '고블린 왕',
+    'treant': '트렌트',
+    'spider': '거대 거미',
+    'broodSpider': '새끼 거미',
+    'outlawCaptain': '무법자 대장',
+    'elderTreant': '고대 트렌트',
+    'warlord': '군벌 크라그',
+    'fireElemental': '불의 정령',
+    'ironGolem': '무쇠 골렘',
+    'cultist': '광신도',
+    'emberLord': '잉걸불 군주',
+    'ironColossus': '무쇠 거상',
+    'frostGiant': '서리 거인',
+    'naga': '나가',
+    'skeleton': '해골 병사',
+    'necromancer': '강령술사',
+    'frostJarl': '서리 족장',
+    'nagaOracle': '물에 잠긴 신탁',
+    'voidStalker': '공허 추적자',
+    'wyvern': '와이번',
+    'highDemon': '상급 악마',
+    'voidWarden': '공허의 감시자',
+    'voidDragon': '공허의 용',
+    'doomKnight': '파멸의 기사',
+    'imp': '임프',
+    'archDemon': '대악마',
+    'voidling': '공허 새끼',
+    'voidLord': '공허의 군주',
+    'orderGuard': '기사단 심문관',
+    'syndicateBlade': '신디케이트 칼잡이'
   },
 
   'results': {
-    'success': '미션 완료',
-    'failed': '미션 실패',
+    'victory': '승리!',
+    'defeat': '패배',
+    'retreat': '후퇴',
+    'firstClear': '첫 클리어!',
+    'waves': '버틴 웨이브: {n}',
+    'levelUp': '레벨 {n}!',
+    'points': '능력치 포인트 +{n}',
     'xp': '경험치',
-    'bolts': '나사',
-    'kills': '파괴한 기계',
-    'chests': '연 상자',
+    'gold': '골드',
+    'lost': '잃음',
+    'kills': '처치',
     'time': '시간',
-    'levelUp': '레벨 업! 현재 레벨 {n}',
-    'newWeapon': '새 무기: {weapon}!',
-    'newSector': '새 구역 해금: {sector}',
-    'items': '획득한 장비',
-    'triple': '나사 3배',
-    'tripleAria': '짧은 영상 보고 나사 3배 받기: +{n}'
-  },
-  'defeat': {
-    'title': '시스템 다운',
-    'body': 'Flux가 너무 큰 피해를 입었습니다.',
-    'kept': '지금까지 얻은 보상은 그대로 유지됩니다:',
-    'useTank': '수리 젤로 재가동 ({n})',
-    'rebootAd': '지금 재가동',
-    'retreat': '연구소로 후퇴',
-    'retryCheckpoint': '체크포인트부터 재도전'
-  },
-  'banner': {
-    'cleared': '스테이지 클리어',
-    'bossDown': '적 처치!',
-    'gameOver': '게임 오버!',
-    'grandMaster': '그랜드 마스터!'
+    'unlocked': '지도에 새로 열림: {places}',
+    'retry': '다시 도전',
+    'tip': '경험치와 전리품은 그대로 남는다. 포인트를 쓰고, 스승을 찾아가고, 더 강해져서 돌아오자.'
   },
   'pause': {
     'title': '일시정지',
     'resume': '계속하기',
-    'abandon': '미션 포기',
     'controls': '조작법',
-    'label': {
-      'move': '이동',
-      'look': '시점',
-      'parry': '패링',
-      'interact': '상호작용'
-    },
-    'touch': {
-      'move': '왼쪽: 드래그로 이동. 바닥을 탭하면 그곳으로 걸어갑니다.',
-      'fire': '전투 중: 탭으로 사격, 길게 눌러 차지, 떼면 발사.',
-      'block': '방패를 길게 눌러 막기 — 링이 닫히는 순간이면 패링.',
-      'use': '상자, 고립된 로봇, 문 근처에서: 그것이나 나타나는 버튼을 탭하세요.'
-    },
-    'keys': {
-      'move': '{keys} / 방향키: 이동.',
-      'look': '마우스를 움직여 둘러보기. 화면을 클릭하면 카메라를 조작합니다.',
-      'fire': '좌클릭: 사격 — 길게 눌러 차지, 떼면 발사.',
-      'block': '우클릭: 막기 — 링이 닫히는 순간이면 패링.',
-      'slide': '{slide}: 슬라이딩 · {tank}: 수리 젤 · {use}: 상호작용 · {beam}: 귀환',
-      'more': '{w1} / {w2}: 특수 무기 · {target}: 타깃 전환 · Esc: 일시정지',
-      'space': 'Space',
-      'press': '{key}: {action}'
+    'retreat': '지도로 후퇴',
+    'retreatNote': '지금까지 얻은 것은 모두 남지만, 지역은 클리어되지 않는다.'
+  },
+  'ending': {
+    'level': '레벨',
+    'more': '요새 아래에 공허의 균열이 열렸다. 콜로세움은 여전히 모든 도전자를 받는다.',
+    'order': { 'title': '강철의 평화', 'text': '공포의 요새 위로 강철 기사단의 깃발이 휘날린다. 길은 안전하고, 법은 많고, 성문 위에는 당신의 이름이 새겨져 있다.' },
+    'syndicate': { 'title': '잿빛 거래', 'text': '신디케이트는 요새의 그늘에서 다스린다. 이제 왕국에 금지된 것은 없다. 다만 비쌀 뿐이다.' },
+    'circle': { 'title': '에테르의 시대', 'text': '결사는 사로잡은 공허의 불로 요새를 밝힌다. 성문에서 경이로운 것들이 쏟아져 나오고, 그 대가를 묻는 이는 없다.' },
+    'free': { 'title': '왕은 없다', 'text': '왕좌는 산산조각 났고 요새는 비어 있다. 한 시대 만에 처음으로, 왕국은 그곳에 사는 사람들의 것이 되었다.' },
+    'unbound': { 'title': '속박 없는 자', 'text': '당신은 왕좌를 차지했다. 기사단과 신디케이트, 결사가 함께 당신에게 진군한다. 올 테면 오라지.' },
+    'note': {
+      'goblinPact': '고블린 장사꾼들은 지금도 선포드 광장에서 흥정을 벌인다.',
+      'goblinSlain': '고블린 굴은 비었고, 상단은 제때 다닌다.',
+      'goblinRansom': '고블린 왕은 다시 부자가 되었고, 다시 습격을 한다.',
+      'oakhavenSaved': '오크헤이븐의 성벽은 더 높아졌고 시장은 더 붐빈다.',
+      'oakhavenFallen': '오크헤이븐의 거리에는 잡초가 자란다. 암시장은 번창한다.',
+      'coreOrder': '아이언홀드의 광산은 조용해졌고, 드워프들은 다시 땅을 판다.',
+      'coreCircle': '아이언홀드의 대장간은 푸르게 빛나고, 그곳의 총은 왕국 최고다.',
+      'coreSold': '어딘가에서 핵은 여전히 웅웅거린다. 골렘들은 여전히 걷는다.',
+      'oracleFreed': '잔잔한 날이면 어부들이 먼 바다에서 신탁을 본다.',
+      'oracleSlain': '가라앉은 신전은 고요하다. 이제 누구도 다음에 올 일을 모른다.',
+      'dragonPact': '요새 지붕에 용이 둥지를 틀었다. 용은 단 하나의 이름에만 답한다.',
+      'dragonSlain': '기사단의 대전당에 용의 두개골이 걸려 있다.'
     }
-  },
-  'levelUp': {
-    'title': '레벨 업!',
-    'pick': '시스템 업그레이드를 선택하세요',
-    'chip': '회로용 스킬 칩 +1',
-    'granted': '{stat} 상승: {from}에서 {to}(으)로'
-  },
-  'attr': {
-    'hp': { 'name': '프레임', 'desc': '최대 체력' },
-    'we': { 'name': '리액터', 'desc': '무기 에너지' },
-    'power': { 'name': '서보', 'desc': '막기 & 슬라이딩 파워' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': '미션',
-      'hero': 'Flux',
-      'circuits': '회로',
-      'workshop': '공방'
-    },
-    'heroTabAria': 'Flux, 나의 전투 안드로이드',
-    'levelUpReady': '레벨 업!',
-    'levels': '레벨 {a}–{b}',
-    'story': '스토리 미션',
-    'jobs': '의뢰',
-    'jobsHint': '반복 가능 — 완료할 때마다 새 의뢰가 도착합니다',
-    'lockedHint': '{boss} 격파 시 이 구역이 열립니다.',
-    'sectorSecured': '구역 확보 완료. 의뢰는 아직 게시판에 남아 있습니다.',
-    'deploy': '출격',
-    'reroll': '새 의뢰',
-    'gift': {
-      'name': '여정용 젤',
-      'desc': '짧은 영상 시청: 다음 임무에 수리 젤 +1, 한도를 넘어도 OK.',
-      'aria': '짧은 영상을 보고 다음 임무에 수리 젤 하나 더 받기',
-      'ready': '선물 준비 완료!',
-      'readyDesc': '다음 임무에 수리 젤 +1.'
-    },
-    'unlock': {
-      'hint': '미션을 {n}개 더 완료하면 열립니다',
-      'aria': '{name}, 잠김: 미션 {n}개 더 완료'
-    }
-  },
-  'hero': {
-    'role': '나의 전투 안드로이드',
-    'weapons': '특수 무기',
-    'weaponSlot': '슬롯 {n}',
-    'weaponRank': '랭크 {n}',
-    'noWeapons': '코어 마스터를 쓰러뜨려 무기를 복사하세요.',
-    'attrPending': '시스템 업그레이드 {n}개를 선택하세요!',
-    'stats': '시스템',
-    'attributes': '업그레이드',
-    'stat': {
-      'hp': '최대 체력',
-      'we': '무기 에너지',
-      'power': '파워',
-      'damage': '일반 탄 피해',
-      'charge': '차지 샷',
-      'armor': '방어력',
-      'crit': '치명타 확률',
-      'tanks': '수리 젤'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': '가장 좋은 캐논을 두 번 업그레이드할 나사.',
-    'upgradeAdName': '업그레이드 부스트',
-    'tanks': '보급품',
-    'tankName': '수리 젤',
-    'tankDesc': '미션 중 체력과 파워를 완전히 회복합니다.',
-    'owned': '보유: {n}/{max}',
-    'upgrade': '장비 강화',
-    'next': '다음 레벨',
-    'upgradeBtn': '강화',
-    'maxed': '최대 강화',
-    'dropName': '보급품',
-    'dropDesc': '연구소에서 바로 전송되는 예비 나사 상자.',
-    'dropAria': '짧은 영상을 보고 나사 {n}개 받기',
-    'dropCooldown': '다음 보급까지 {t}'
-  },
-
-  'board': {
-    'buster': '캐논',
-    'armor': '아머',
-    'core': '코어'
-  },
-  'circuits': {
-    'chips': '스킬 칩: {n}',
-    'rank': '랭크 {n}/{max}',
-    'requires': '{name} 랭크 {n} 필요',
-    'install': '칩 장착',
-    'maxed': '풀 파워',
-    'respec': '회로 초기화',
-    'requiresBoss': '{name} 처치 필요',
-    'unlock': '해금'
-  },
-  'skill': {
-    'rapid': { 'name': '속사 강화', 'desc': '칩당 일반 탄 피해 +10%.' },
-    'quickCharge': { 'name': '퀵 차지', 'desc': '칩당 차지 시간 −10%.' },
-    'megaCharge': { 'name': '메가 차지', 'desc': '칩당 차지 샷 피해 +12%.' },
-    'perfectTiming': { 'name': '퍼펙트 타이밍', 'desc': '퍼펙트 릴리스 판정이 넓어지고 치명타가 강해집니다.' },
-    'piercing': { 'name': '관통 코어', 'desc': '하프 차지 샷으로도 방패와 헬멧을 부술 수 있습니다.' },
-    'giga': { 'name': '오버로드', 'desc': '풀 차지 상태로 3초 더 누르고 있으면 샷 위력이 1.75×가 됩니다.' },
-    'frame': { 'name': '강화 프레임', 'desc': '칩당 최대 체력 +8%.' },
-    'barrier': { 'name': '배리어 튜닝', 'desc': '막기에 드는 파워가 줄고 받는 피해도 줄어듭니다.' },
-    'autoRepair': { 'name': '자동 수리', 'desc': '칩당 비전투 시 초당 체력 1% 재생.' },
-    'parry': { 'name': '패링 프로토콜', 'desc': '패링 판정이 넓어지고, 패링당한 기계가 더 오래 기절합니다.' },
-    'spikes': { 'name': '가시 장갑', 'desc': '칩당 막은 피해의 15%를 반사합니다.' },
-    'lastStand': { 'name': '불굴', 'desc': '미션당 한 번, 치명적인 공격을 받아도 체력 1로 버팁니다.' },
-    'cells': { 'name': '에너지 셀', 'desc': '칩당 무기 에너지 +3.' },
-    'mastery': { 'name': '무기 숙련', 'desc': '칩당 특수 무기 피해 +10%.' },
-    'boosters': { 'name': '슬라이드 부스터', 'desc': '슬라이딩 쿨다운이 빨라지고 소모도 줄어듭니다.' },
-    'efficient': { 'name': '고효율 코어', 'desc': '칩당 특수 무기 에너지 소모 10% 감소.' },
-    'magnet': { 'name': '나사 자석', 'desc': '나사를 더 많이 얻고 획득 범위가 넓어집니다.' },
-    'tankCap': { 'name': '젤 용량', 'desc': '칩당 수리 젤을 하나 더 들고 다닐 수 있습니다.' }
-  },
-
-  'rarity': {
-    'standard': '일반',
-    'tuned': '튜닝',
-    'prototype': '프로토타입',
-    'legendary': '전설'
-  },
-  'item': {
-    'arm_standard': '스탠다드 캐논',
-    'arm_rapid': '래피드 캐논',
-    'arm_heavy': '헤비 캐논',
-    'arm_quick': '퀵 차지 캐논',
-    'arm_nova': '노바 캐논',
-    'helm_scout': '정찰 헬멧',
-    'helm_guard': '가드 헬멧',
-    'helm_ace': '에이스 헬멧',
-    'helm_royal': '로열 헬멧',
-    'body_light': '경량 프레임',
-    'body_plated': '장갑 프레임',
-    'body_reactor': '리액터 프레임',
-    'body_aegis': '이지스 프레임',
-    'boots_basic': '기본 부츠',
-    'boots_dash': '대시 부츠',
-    'boots_magnet': '자석 부츠',
-    'boots_titan': '타이탄 부츠',
-    'chip_logic': '로직 칩',
-    'chip_quantum': '퀀텀 칩'
-  },
-  'slot': {
-    'buster': '캐논',
-    'helmet': '헬멧',
-    'chest': '프레임',
-    'boots': '부츠',
-    'chip': '칩'
-  },
-  'gear': {
-    'damage': '피해',
-    'armor': '방어력',
-    'equip': '장착',
-    'unequip': '해제',
-    'equipped': '장착 중',
-    'new': '신규',
-    'salvage': '분해',
-    'noAffixes': '보너스 모듈 없음',
-    'emptySlot': '아직 이 소켓에 맞는 장비가 없습니다 — 상자를 열고 의뢰를 완료하세요.'
-  },
-  'affix': {
-    'damage': '피해 {v}',
-    'crit': '치명타 확률 {v}',
-    'critDmg': '치명타 피해 {v}',
-    'hp': '최대 체력 {v}',
-    'armor': '방어력 {v}',
-    'we': '무기 에너지 {v}',
-    'power': '파워 {v}',
-    'bolts': '나사 획득량 {v}',
-    'chargeSpeed': '차지 속도 {v}',
-    'pelletDmg': '일반 탄 피해 {v}',
-    'chargeDmg': '차지 샷 피해 {v}',
-    'moveSpeed': '이동 속도 {v}',
-    'special': '특수 무기 피해 {v}',
-    'regen': '초당 체력 재생 {v} (비전투 시)',
-    'magnet': '획득 범위 {v}'
-  },
-  'weapon': {
-    'rankUp': '{weapon} 강화! 랭크 {n} 달성!',
-    'scrapBurst': { 'name': '고철 버스트', 'desc': '고철을 세 방향으로 흩뿌립니다. 무리를 상대할 때 좋습니다.' },
-    'flameWave': { 'name': '화염파', 'desc': '화염구가 바닥을 굴러가며 경로 위의 모든 기계를 관통해 불태웁니다.' },
-    'iceLance': { 'name': '얼음창', 'desc': '맞은 대상을 얼어붙게 해 느리게 만드는 관통 창.' },
-    'thunderArc': { 'name': '썬더 아크', 'desc': '근처 기계로 연쇄되는 즉발 번개.' },
-    'galeGuard': { 'name': '질풍 가드', 'desc': '나뭇잎이 주위를 돌며 탄을 막고 기계를 베어냅니다. 다시 사용하면 날려 보냅니다.' },
-    'magnetPull': { 'name': '마그넷 풀', 'desc': '유도 말굽 자석. 방패와 껍질을 깨고 날아다니는 기계를 공중에서 끌어내립니다.' },
-    'drillBomb': { 'name': '드릴 봄', 'desc': '멈춘 자리에서 터져 주변의 모든 기계를 공격하는 굴착 폭탄. 금 간 바위를 부숩니다.' },
-    'bubbleLance': { 'name': '버블 랜스', 'desc': '커다란 거품이 바닥을 굴러가며 길목의 모든 기계를 뚫고 터집니다.' },
-    'neonBlade': { 'name': '네온 블레이드', 'desc': '부메랑처럼 던지는 빛의 칼날. 날아갈 때도, 돌아올 때도 벱니다.' },
-    'droneSwarm': { 'name': '드론 스웜', 'desc': '작은 드론 세 대가 기계 셋을 찾아갑니다. 엄폐물도 돌아서 갑니다.' }
   },
 
   'options': {
-    'killCams': '킬캠',
     'gameplay': '게임플레이',
     'title': '설정',
     'general': '일반',
@@ -503,16 +612,16 @@ export default {
     'difficulty': '난이도',
     'soundEffects': '효과음',
     'music': '음악',
+    'mute': '음소거',
     'musicTrack': '음악 트랙',
     'musicTracks': {
-      'cozy': '고요한 회로',
-      'trance': '오버드라이브'
+      'cozy': '잔잔함',
+      'trance': '모험'
     },
     'haptics': '진동',
     'on': '켜기',
     'off': '끄기',
     'close': '닫기',
-    'replayIntro': '인트로 다시 보기',
     'keyboard': {
       'auto': '키보드 배열 자동 감지',
       'layout': '키보드 배열',
@@ -522,45 +631,45 @@ export default {
       'reset': '키 초기화'
     },
     'actions': {
-      'forward': '전진',
-      'back': '후진',
+      'up': '위로 이동',
+      'down': '아래로 이동',
       'left': '왼쪽 이동',
       'right': '오른쪽 이동',
-      'turnLeft': '왼쪽 회전',
-      'turnRight': '오른쪽 회전',
-      'slide': '슬라이딩',
-      'block': '막기',
-      'interact': '상호작용',
-      'beam': '귀환 전송',
-      'tank': '수리 젤',
-      'weapon1': '특수 무기 1',
-      'weapon2': '특수 무기 2',
-      'weapon3': '빌린 무기',
-      'target': '대상 전환',
-      'map': '지도'
+      'skill1': '스킬 1',
+      'skill2': '스킬 2',
+      'skill3': '스킬 3',
+      'skill4': '스킬 4',
+      'skill5': '스킬 5',
+      'skill6': '스킬 6',
+      'potion': '물약 마시기',
+      'interact': '대화',
+      'target': '다음 대상',
+      'map': '월드맵',
+      'character': '영웅',
+      'inventory': '가방',
+      'skills': '스킬'
     },
-    'lookSensitivity': '시점 감도',
     'difficulties': {
       'easy': '쉬움',
       'medium': '보통',
       'hard': '어려움'
     },
     'difficultyHints': {
-      'easy': '기계의 공격이 약하고 더 빨리 쓰러집니다.',
+      'easy': '적의 공격이 약하고 더 빨리 쓰러집니다.',
       'medium': '의도된 난이도입니다.',
-      'hard': '기계가 더 단단하고 더 세게 공격합니다.'
+      'hard': '적이 더 단단하고 더 세게 공격합니다.'
     }
   },
   'adsBlocked': {
     'title': '광고를 표시할 수 없습니다',
-    'body': '보상을 드리려고 영상을 재생하려 했지만, 브라우저의 무언가가 광고를 차단하고 있습니다.',
+    'body': '영상을 재생하려 했지만, 브라우저의 무언가가 광고를 차단하고 있습니다.',
     'allowPrefix': '다음 사이트에서 광고를 허용해 주세요:',
     'allowSuffix': '(또는 이 게임에 한해 광고 차단기를 일시 중지) 후 다시 시도하세요.',
     'gotIt': '알겠습니다'
   },
   'saveStatus': {
     'restoredTitle': '클라우드 저장이 복원되었습니다',
-    'restoredBody': '복구 보너스 +{n} 나사',
+    'restoredBody': '복구 보너스 +{n} 골드',
     'tap': '탭',
     'pausedTitle': '클라우드 동기화 일시 중지',
     'pausedBody': '오프라인으로 플레이 중입니다. 진행 상황은 여기에 저장됩니다.',
@@ -586,483 +695,5 @@ export default {
     'yourRank': '{total}명 중 {n}위',
     'of': '/ {n}명 중',
     'tabGlobal': '전 세계'
-  },
-
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux는 Cyber City의 네온 거리에서 폭주한 기계들과 싸운다.',
-      'valley': 'Cyber City: 빛줄기로 이어진 눈부신 안드로이드 도시. Dr. Vex가 붉은 신호로 도시의 기계들을 장악한다.',
-      'lab': '신호가 Prof. Gauss의 연구실에 닿는다. 그녀는 Flux에게 Atlas 디스크를 건네고 그를 깨운다.',
-      'safeMode': 'Gauss는 신호를 막기 위해 스스로를 캡슐 안에 냉동한다. 그녀는 아직 살아 있다.',
-      'wakeUp': 'Flux가 레벨 1로 깨어나고, Atlas가 가동된다. Vex 요새는 훨씬 강하니, 고철장부터 간다.',
-      'beam': 'Flux가 고철장으로 전송된다.'
-    },
-    'vex': {
-      'diagnosis': '진단: 이 계곡은 병들었다. 치료제는… 바로 나다!'
-    },
-    'atlas': {
-      'logStart': '기록 시작.',
-      'goodMorning': '코어 가동. 좋은 아침입니다, Flux.',
-      'scrapyardFirst': '고철장부터. 중계기 하나씩.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': '코어 마스터 신호. 이건… 크네.',
-    },
-    'sector': {
-      'blaze': '정제소. 뜨거워. 분사구 조심해.',
-      'cryo': '냉각수가 위로 흐르고 있어. 요새 쪽으로.',
-      'gale': '그 몸에 들어갈 부품은 전부 여길 지나.',
-      'magnet': '주조소야. 집게발을 찍어내고 있어.',
-      'drill': '그 장갑에 쓸 광석. 바로 여기서 캐.',
-      'tide': '이번엔 바지선이야. Vex가 다른 길을 찾았어.',
-      'neon': '불이 다 꺼졌어. Vex 얼굴만 빼고.',
-      'rotor': '드론. Vex의 마지막 보급선이야.',
-    },
-    'fortress': {
-      'bays': '짓다 만 상태야. 네가 해낸 거야.',
-    },
-    'warn': {
-      'boss': '앞에 코어 마스터.',
-      'gelFirst': '장갑에 금이 가고 있어. 젤을 써.',
-      'gel': '젤.',
-      'criticalFirst': '위험! 물러나!',
-      'critical': '위험!',
-      'noGel': '젤이 없어. 안전하게 가자.',
-      'weLow': '무기 에너지 부족. 캐논은 공짜야.',
-      'weEmpty': '에너지가 바닥났어.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}, 마지막 한 발.',
-        'flameWave': '{weapon}, 마지막 한 발.',
-        'iceLance': '{weapon}, 마지막 한 발.',
-        'thunderArc': '{weapon}, 마지막 한 발.',
-        'galeGuard': '{weapon}, 마지막 한 발.',
-        'magnetPull': '{weapon}, 마지막 한 발.',
-        'drillBomb': '{weapon}, 마지막 한 발.',
-        'bubbleLance': '{weapon}, 마지막 한 발.',
-        'neonBlade': '{weapon}, 마지막 한 발.',
-        'droneSwarm': '{weapon}, 마지막 한 발.',
-      },
-      'flame': '분사구. 기다려… 아니면 슬라이딩.',
-      'blade': '칼날. 지나가자마자 바로 가.',
-      'crusher': '압착기. 램프를 봐.',
-      'ladder': '사다리. 벽 쪽으로 밀어.',
-      'pit': '깊은 구덩이야. 리프트 타이밍을 맞춰.',
-      'down': '재가동 중… 핍이 곁에 있어.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. 고개를 내밀 때 쏴.',
-      'trooper': '방패야. 차지 샷으로 뚫어.',
-      'heli': '{enemy}. 위를 봐.',
-      'hopper': '{enemy}. 링 밖으로 나가.',
-      'roller': '{enemy}. 옆으로 피해.',
-      'brute': '{enemy}. 패링하고 반격해.',
-      'turret': '{enemy}. 계속 움직여.',
-      'golem': '저 상자, 숨을 쉬어. 가까이 가 봐.',
-      'polar': '{enemy}. 빨갛게 열릴 때 쏴.',
-      'warden': '{enemy}. 열릴 때 코어를 노려.',
-      'hornet': '{enemy}. 일직선으로 덮쳐. 옆으로 피해!',
-      'stalker': '{enemy}. 달려들 때 패링해.',
-      'puffer': '{enemy}. 부풀기 전에 터뜨려.',
-      'mole': '{enemy}. 튀어나올 때 맞혀.',
-      'elite': '금색 링. 엘리트야. 조심해.',
-      'fire': '불 코팅. 불은 안 통해.',
-      'ice': '얼음 코팅. 얼음은 안 통해.',
-      'volt': '전기 코팅. 전기는 안 통해.',
-      'wind': '바람 코팅. 바람은 안 통해.',
-    },
-    'volt': {
-      'hack': 'Flux… 뭔가가 안으로 들어—',
-      'thanks': '…막아 줬구나. 고마워.',
-    },
-    'mk1': {
-      'intro': '저게 Vex야. 진짜.',
-      'fire': '불!',
-      'ice': '얼음!',
-      'volt': '전기!',
-      'wind': '바람!',
-      'scrap': '고철!',
-      'free': '자유니까.',
-    },
-    'guardDown': '경비 격파! 길이 열렸어.',
-    'help': {
-      'weapon': '새 무기를 골라서 드론에게 쏘세요!',
-      'gap': '가장자리를 향해 똑바로 걸으면 자동으로 뛰어넘어요!',
-      'gel': '수리 젤을 써서 회복하세요!',
-      'slide': '빨간 링이 닿기 직전에 슬라이딩으로 피하세요!',
-      'block': '공격할 때 막기를 누르세요. 맞는 순간 딱 맞추면 퍼펙트예요!',
-      'charge': '캐논이 빛날 때까지 사격을 누르고 있다가 놓으세요!',
-    },
-    'train': {
-      'weapon': '새 무기를 연습해봐요!',
-      'gap': '틈을 뛰어넘는 걸 연습해봐요!',
-      'gel': '수리 젤을 연습해봐요!',
-      'slide': '슬라이딩을 연습해봐요!',
-      'block': '퍼펙트 블록을 연습해봐요!',
-      'charge': '차지 샷을 연습해봐요!',
-    },
-    'hint': {
-      'locator': '목표는 저쪽이야.',
-      'rescue': '작업 로봇 신호. 약해. 가까워.',
-      'upgrade': '저건 업그레이드야.',
-      'levelUp': '새 칩 컴파일 완료.',
-      'done': '완료. 준비되면 드론을 불러.',
-      'underLevel': '쟤들이 한 수 위야. 먼저 훈련하자.',
-      'floor': {
-        'blaze': '{sector}: 레벨 3 이상.',
-        'cryo': '{sector}: 레벨 6 이상.',
-        'volt': '{sector}: 레벨 9 이상.',
-        'gale': '{sector}: 레벨 13 이상.',
-        'magnet': '{sector}: 레벨 16 이상.',
-        'drill': '{sector}: 레벨 19 이상.',
-        'tide': '{sector}: 레벨 22 이상.',
-        'neon': '{sector}: 레벨 25 이상.',
-        'rotor': '{sector}: 레벨 28 이상.',
-        'fortress': '{sector}: 레벨 31 이상.',
-      },
-      'rotor': {
-        'arrive': '착륙이야. 내려!',
-        'dip': '꽉 잡아, 급강하한다!',
-        'board': '다들 타! 비행은 내가, 사격은 네가.',
-      },
-      'neon': {
-        'kick': '벽을 보고 슬라이딩. 한 번 더! 벽을 차고 위로!',
-        'switch': '전등 스위치! 쏴서 다리를 바꿔!',
-        'blink': '빛의 다리가 깜빡여! 빛날 때 건너!',
-        'blackout': '전기가 나간다! 불이 다시 켜지면 건너!'
-      },
-      'tide': {
-        'deep': '너무 깊어! 물 밖으로 나가!',
-        'valve': '물에 잠긴 갑문! 밸브를 쏴서 물을 빼!',
-        'rise': '물이 차오른다. 계단 위로!',
-        'wade': '물이다! 물속에선 느려져.',
-      },
-      'drill': {
-        'drop': '낙석이야! 그림자 밖으로 피해!',
-        'rock': '금 간 바위다! 풀 차지 샷이면 부술 수 있어!',
-        'board': '광차 출발! 운전은 내가, 두더지는 네가 쏴.',
-        'dip': '급경사야! 꽉 잡아!',
-        'arrive': '마지막 정거장. 뛰어내려!'
-      },
-      'magnet': {
-        'panel': '저 빨강-파랑 판 보여? 쏘면 레일이 뒤집혀.',
-        'rail': '자석 레일! 화살표가 당기는 방향이야. 버티며 가거나, 타고 가!',
-      },
-      'blaze': {
-        // Meltdown Descent (blaze stage)
-        'lava': '아래는 용암이야. 금속 위에만 있어.',
-        'leap': '걸어서는 못 건너. 가장자리에서 슬라이드하면 넘어가.',
-        'vents': '쉿 소리 다음엔 불이야. 불길이 멎으면 가.',
-        'barrels': '통이다! 램프를 보고 사이로 건너.',
-        'hammers': '단조 해머야. 박자를 세고 달려.',
-        'drop': '한참 내려가야 해. 한 칸씩 차근차근.'
-      },
-      'cryo': {
-        // Glacier Run (cryo stage)
-        'ice': '얼음이야! 스틱을 놓아도 계속 미끄러져.',
-        'spikes': '저 얼음 밑엔 가시가 있어. 똑바로 걸어, 급하게 꺾지 말고.',
-        'frost': '냉기 분사기야. 먼저 빛나고 쉭 소리를 내. 조용할 때 건너.',
-        'icicles': '바닥에 그림자? 고드름이야. 원 밖으로 피해!',
-        'pillar': '저 기둥 금이 갔네. 쏘면 지름길이 열려.',
-        'stairs': '얼어붙은 계단이야. 천천히, 층계참이 좁아.'
-      },
-      'volt': {
-        // Rail Rush (volt stage)
-        'panels': '패널이 맥동해. 어두운 줄에서 기다렸다가 건너.',
-        'board': '조종은 맡겨. 운전은 내가, 사격은 네가.',
-        'wave': '앞에 드론이다! 급강하하기 전에 쏴 떨어뜨려.',
-        'dip': '곧 급경사야. 꽉 잡아 — 계속 쏴!',
-        'arrive': '종점이야. 내려!'
-      },
-      'gale': {
-        // Sky Docks (gale stage)
-        'leap': '걸어서 건너기엔 너무 넓어. 가장자리에서 슬라이딩하면 날아갈 거야.',
-        'down': '멋진 점프야. 이제 아래는 보지 마.',
-        'shuttle': '셔틀이야. 도착하면 타고, 건너편에서 내려.',
-        'wind': '돌풍이 멎을 때까지 기다렸다가 움직여. 아니면 기둥 뒤에 숨어.',
-        'bob': '오르내리는 발판이야. 아래에서 타면 위로 데려다줘.'
-      },
-      'vex': {
-        'roof': '번개야! 고리가 빛나면 피해!',
-        'fall': '지붕이 무너진다!',
-        'core': '코어까지 내려가자! 빠지지 마!'
-      },
-      'gm': {
-        'button': 'Vex가 뭔가 누르고 있어... 대비해!',
-        'arms': '팔부터! 캐논과 랜스!',
-        'feet': '이제 발! 충격파를 막아!',
-        'head': '자세가 낮아졌어. 머리가 닿아!',
-        'body': '코어가 열렸어! 끝내!',
-        'prism': '프리즘 캐논! 방패 들어!'
-      }
-    },
-    'secret': {
-      // secret-room puzzles
-      'lights': '저 패널에 무늬가 있어. 벽의 램프는 아직 아니고.',
-      'color': '저 테두리엔 좋아하는 색이 있어. 그 색 램프만 켜져야 해.',
-      'cycle': '쏠 때마다 램프가 마음을 바꿔. 패널은 뭘 원하는지 알아.',
-      'solved': '오호. 누가 퍼즐을 좋아하나 보네.'
-    },
-    'landed': '착륙! 가자.',
-    'brief': {
-      'tutorial': '훈련 시간. 내가 안내할게!',
-      'job': '간단한 일. 들어갔다 나오자!',
-      'climb': '타워 등반! 위로, 위로!',
-      'story': '코어 마스터가 기다려. 풀어주자!'
-    },
-    'story': {
-      'relayOne': '중계기 하나 점등. 아홉 남았어.',
-      'copied': {
-        'scrapBurst': '{weapon} 복사 완료.',
-        'flameWave': '{weapon} 복사 완료.',
-        'iceLance': '{weapon} 복사 완료.',
-        'thunderArc': '{weapon} 복사 완료.',
-        'galeGuard': '{weapon} 복사 완료.',
-        'magnetPull': '{weapon} 복사 완료.',
-        'drillBomb': '{weapon} 복사 완료.',
-        'bubbleLance': '{weapon} 복사 완료.',
-        'neonBlade': '{weapon} 복사 완료.',
-        'droneSwarm': '{weapon} 복사 완료.',
-      },
-      'dataCore': '뭔가 남기고 갔어.',
-      'firstDraft': '…난 저 설계의 첫 초안으로 쓰였어.',
-      'body': '몸을 만들고 있어. 우리 계곡으로.',
-      'voltFreed': '신호가 발전소를 잃었어.',
-      'galeFreed': '이제 부품이 요새에 못 가.',
-      'breach': '방어막 해제. 요새가 열렸어.',
-      'magnetFreed': '주조소가 식었어. 이제 집게발은 없어.',
-      'drillFreed': '광산이 조용해. 이제 광석도 없어.',
-      'tideFreed': '갑문 폐쇄. 바지선은 못 나가.',
-      'neonFreed': '불이 켜졌어. Vex는 화면을 잃었어.',
-      'rotorFreed': '모든 선이 끊겼어. Vex는 혼자야.',
-      'rotor': '회전익 항로. 안테나에 바람이 솔솔!',
-      'neon': '정전 대로. 불 좀 켜 줘!',
-      'tide': '조수 갑문. 첨벙첨벙 시간이야!',
-      'drill': '깊은 광산. 머리 조심!',
-      'magnet': '극성 공장. 나침반이 빙글빙글 돌아!',
-      'scrapyard': '고철장 중계기. 불을 켜자!',
-      'blaze': '정제소. 뜨거, 뜨거, 뜨거!',
-      'cryo': '극저온 공장. 부르르! 계속 움직여.',
-      'volt': '전격 타워. 회로가 찌릿찌릿!',
-      'gale': '하늘 부두. 아래 보지 마!',
-      'fortress': '요새. 여기서 끝내자.'
-    },
-    'arc': {
-      '10': '방어막 해제. 다음은 Vex!',
-      '9': '마스터 하나 남았어. 거의 다 왔어!',
-      '8': '여덟! 마스터 둘만 남았어.',
-      '7': '일곱 점등. 그대로 계속!',
-      '6': '중계기 여섯! 도시가 깨어나고 있어.',
-      '1': '중계기 하나 점등. 아홉 남았어!',
-      '2': '중계기 둘! Vex가 삐졌어.',
-      '3': '셋 점등. 계속 빛나자!',
-      '4': '넷 완료. 전력망이 다시 웅웅거려.',
-      '5': '절반 왔어! Vex가 진땀 빼고 있어.',
-    },
-    'bossAhead': '앞에 보스야. 심호흡!',
-    'noWeak': '약점이 안 보여. 계속 움직여!',
-    'weak': {
-      'flameWave': '화염파가 잘 먹혀!',
-      'iceLance': '얼음창이 잘 먹혀!',
-      'thunderArc': '썬더 아크가 잘 먹혀!',
-      'galeGuard': '질풍 가드가 잘 먹혀!',
-      'magnetPull': '마그넷 풀이 잘 먹혀!',
-      'drillBomb': '드릴 봄이 잘 먹혀!',
-      'bubbleLance': '버블 랜스가 잘 먹혀!',
-      'neonBlade': '네온 블레이드가 잘 먹혀!',
-      'droneSwarm': '드론 스웜이 잘 먹혀!'
-    },
-    'bossDown': '마스터 해방! 잘했어!',
-    'vexDown': 'Vex 쓰러뜨렸어. 해냈다!',
-    'lowHp': '아야! 조심해, Flux!',
-    'lowHpGel': '체력 부족! 수리 젤을 써 봐.',
-    'lowWe': '무기 에너지 부족!',
-    'trap': '앞에 함정. 타이밍 잘 봐!',
-    'plate': '압력판. 살금살금!',
-    'objective': '완료! 이제 출구를 찾아.',
-    'exit': '우리 탈것 도착!',
-    'levelUp': '레벨 업! 반짝반짝하네.',
-    'idle': {
-      '1': '삐빅. 그냥 확인 중.',
-      '2': '아주 잘하고 있어.',
-      '3': 'Gauss도 자랑스러워할 거야.',
-      '4': '난 우리 팀이 좋아.'
-    }
-  },
-  'train': {
-    'todo': '아직 안 함',
-    'done': '완료',
-    'checklist': '튜토리얼',
-    'watch': '어떻게 하는지 봐요',
-    'card': {
-      'weapon': '코어 마스터의 무기를 복사했어요! 전용 버튼으로 발사하세요: 무기 에너지가 이를 움직이고, 일부 기계는 여기에 약해요.',
-      'gel': '다쳤나요? 수리 젤이 체력을 완전히 회복시켜줘요. 전투가 힘들어질 때마다 하나 쓰세요.',
-      'slide': '빨간 공격은 막을 수 없어요. 슬라이딩으로 피하세요: 슬라이딩 중에는 아무것도 맞지 않아요.',
-      'block': '막기를 눌러 방패를 들어요: 정면에서 오는 탄과 공격을 막아줘요. 공격이 닿는 순간 딱 맞춰 들면 퍼펙트 블록이 되어 공격자를 기절시켜요.',
-      'charge': '일반 샷으로는 방패를 부술 수 없어요. 캐논이 빛날 때까지 사격을 누르고 있다가 놓으세요: 차지 샷이면 그대로 뚫려요.',
-    },
-    'name': {
-      'weapon': '무기 레슨',
-      'gap': '점프 튜토리얼',
-      'gel': '수리 젤 튜토리얼',
-      'slide': '슬라이딩 튜토리얼',
-      'block': '방패 튜토리얼',
-      'charge': '차지 샷 튜토리얼',
-    },
-  },
-  'ending': {
-    'fall': '그랜드 마스터가 쓰러진다. Vex의 붉은 신호도 함께 꺼진다.',
-    'relays': '중계기가 하나둘 돌아온다. 저마다 제 색으로.',
-    'thaw': '연구소에서, 얼음이 풀린다.',
-    'gauss': 'Flux... 해냈구나. 모두를 되찾아 줬어.',
-    'atlas': '탑은 비었어. 이제 내가 이 도시를 움직일 수도 있지. 하지만 안 해. 여긴 그들의 도시니까.',
-    'morning': 'Cyber City가 첫 자유의 아침을 맞는다.',
-    'spark': 'Flux... 방금 그 불꽃 봤어?',
-    'speaker': {
-      'atlas': 'Atlas',
-      'gauss': 'Prof. Gauss',
-      'pip': '핍'
-    },
-    'cast': {
-      'flux': 'Flux',
-      'atlas': 'Atlas',
-      'pip': '핍',
-      'gauss': 'Prof. Gauss'
-    },
-    'credits': {
-      'by': '{studio} 제작',
-      'cast': '출연',
-      'masters': '마스터들',
-      'thanks': '플레이해 주셔서 감사합니다!'
-    },
-    'card': {
-      'title': 'Cyber City가 자유를 되찾았다!',
-      'promise': '뉴 게임+: 마스터들의 체력이 25% 늘어나고 더 빠르게 공격합니다. 레벨, 장비, 무기는 유지됩니다.',
-      'ngplus': '뉴 게임+ 시작',
-      'lab': '연구소로 돌아가기',
-      'confirm': '뉴 게임+를 시작할까요?',
-      'confirmBody': '더 강해진 마스터들과 이야기가 처음부터 다시 시작됩니다. 레벨, 장비, 무기, 강화는 유지됩니다.'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': '오프닝 무대다! {boss}!',
-      'blaze': '최고령! 최고 온도! {boss}!',
-      'frost': '머리 좀 식혀라, 꼬마 드로이드! {boss}!',
-      'volt': '눈 깜빡하면 놓친다! {boss}!',
-      'gale': '다음 분! {boss}, 날려 버려라!',
-      'magnet': '끌리지 않나? {boss}!',
-      'drill': '속까지 깊이 검진해 주지! {boss}!',
-      'tide': '파도에 작별 인사해라, 드로이드! {boss}!',
-      'neon': '조명! 카메라! {boss}!',
-      'rotor': '대망의 피날레! {boss}!',
-    },
-    'hub': {
-      'scrapper': '고철 크레인? 이런… 귀엽기도 하지.',
-      'blaze': '부작용 확인. 투여량을 늘린다.',
-      'blueprint': '내 스케치로군! 이 몸, 근사하지?',
-      'volt': '나는… 완-벽-하게… 괜찮다!',
-      'gale': '좋다! 마스터는 더 있다!',
-      'magnet': '밀려나? 내가? 불-가능!',
-      'drill': '흥. 바닥을 쳤군. 말 그대로.',
-      'tide': '물때는 바뀐다! …그렇지?',
-      'neon': '누가 불을 켠 거냐?!',
-      'rotor': '중계기 열 개?! 간호사! 간호사!!',
-      'breach': '안 돼, 안 돼, 안 돼! 그 방어막은 특허품이라고!',
-    },
-    'volt': {
-      'hack': '그 텅 빈 머릿속에 뭐가 있나 볼까…',
-      'fail': '쓰기 불가?! 이런 무례한!',
-    },
-    'fortress': {
-      'welcome': '내 클리닉에 온 걸 환영한다! 앉아라… 영원히!',
-    },
-    'mk1': {
-      'intro': '보아라! 나의 새 몸! 마크 원!',
-      'obey': '마스터들! 의사 말을 들어라!',
-      'listen': '왜 말을 안 듣는 거냐?!',
-      'defeat': '다른 의사… 소견을… 들어 보지…',
-    },
-    'sting': {
-      'doctorIn': '닥터는… 진료 중이다.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': '어서 와, Flux! 계곡 좀 봐.',
-      'go': '장비 챙기고 출발! 연구소는 내가 지킬게.',
-      'scrapyard': {
-        'won': '낡은 크레인이 다시 고철을 분류하고 있어.',
-        'weapon': '{weapon}를 복사했어. 세 방향으로 퍼져.',
-        'next': '다음 정거장: {sector}. 아주 조금 더 어려워.',
-        'boss': '{boss}가 Vex의 기계에 쓸 장갑을 만들고 있어.',
-        'tip': '화염구는 막아. 불길 파도는 슬라이딩으로 지나가.',
-      },
-      'blaze': {
-        'won': '굴뚝이 다시 깨끗하게 타올라. 잘했어!',
-        'weapon': '이제 {weapon}가 생겼어. 불은 얼음을 녹여!',
-        'next': '다음은 {sector}. 거기 기계들은 더 세게 때려.',
-        'boss': '{boss}가 냉각수를 독차지했어. 도시가 과열되고 있어.',
-        'tip': '얼음탄을 막고, 불로 받아쳐!',
-      },
-      'cryo': {
-        'won': '냉각수가 집으로 돌아와. 도시도 이제 식을 거야.',
-        'weapon': '{weapon}은 네 거야. 얼음은 전기를 이겨!',
-        'next': '다음: 도심의 {sector}. 확 어려워져.',
-        'boss': '{boss}가 우리 전기를 붉은 신호에 쏟아붓고 있어.',
-        'tip': '순간이동을 자주 해. 전기 구슬을 쏴서 떨어뜨려.',
-      },
-      'volt': {
-        'won': 'Vex 얼굴이 이제 계속 깜빡거려. 봤어?',
-        'weapon': '{weapon}는 네 거야. 전기는 바람을 이겨!',
-        'next': '다음: 저 높은 곳, {sector}. 기계들이 만만치 않아.',
-        'boss': '{boss}가 밤낮없이 Vex의 비행선을 몰아.',
-        'tip': '깃털은 막아. 내리꽂을 땐 패링!',
-      },
-      'gale': {
-        'won': '비행선들이 돌아갔어. 하늘이 다시 맑아!',
-        'weapon': '{weapon}는 네 거야. 나뭇잎이 탄을 막아 줘.',
-        'next': '이번엔 도시 변두리: {sector}. 훨씬 어려워.',
-        'boss': '{boss}가 전차 선로를 Vex의 화물용으로 빼앗았어.',
-        'tip': '널 끌어당겨. 집게는 막아!',
-      },
-      'magnet': {
-        'won': '전차가 다시 달려. 땡땡!',
-        'weapon': '{weapon}은 방패를 깨. 다음 마스터한테 딱이야.',
-        'next': '다음: 땅속 깊은 곳, {sector}. 진짜 강한 기계들이야.',
-        'boss': '{boss}가 작업 로봇들을 갱도에 가뒀어.',
-        'tip': '네 발밑으로 파고들어. 표시에서 벗어나!',
-      },
-      'drill': {
-        'won': '작업 로봇들이 다시 햇빛 아래로 올라왔어.',
-        'weapon': '{weapon}은 쾅 터져! 보스한테 쓸 건 남겨 둬!',
-        'next': '다음: 물가 아래쪽, {sector}. 아주 어려워.',
-        'boss': '{boss}가 Vex의 바지선을 띄우려고 운하를 물에 잠기게 해.',
-        'tip': '파도 밑으로 슬라이딩. 방울은 톡 터뜨려!',
-      },
-      'tide': {
-        'won': '깨끗한 물이 다시 계곡으로 흘러.',
-        'weapon': '{weapon}는 기계 무리를 뚫고 굴러가. 보스는 방울을 싫어해!',
-        'next': '다음: 어두운 옥상, {sector}. 정말 위험해.',
-        'boss': '{boss}가 도심의 창문을 전부 꺼 버렸어.',
-        'tip': '칼날이 날아갔다 돌아와. 두 번 피해!',
-      },
-      'neon': {
-        'won': '오늘 밤 도심이 분홍빛으로 빛나. 정말 예뻐!',
-        'weapon': '{weapon}는 두 번 베어. 다음 마스터가 무서워해!',
-        'next': '다음: 하늘 비행장, {sector}. 거의 제일 어려워.',
-        'boss': '{boss}가 하늘을 화물 드론으로 가득 채워.',
-        'tip': '널 뒤로 날려 버려. 돌풍 밑으로 슬라이딩!',
-      },
-      'rotor': {
-        'won': '이제 드론들이 작업 로봇한테 배달해.',
-        'weapon': '{weapon}은 네 거야. 드론 세 대가 표적을 찾아가.',
-        'next': '마지막 정거장: {sector}. 제일 어려운 곳이야.',
-        'boss': '{boss}도 이제 방어막 뒤에 못 숨어.',
-        'tip': '마스터들의 공격을 빌려 써. 수리 젤 챙겨!',
-      },
-    },
   }
 }

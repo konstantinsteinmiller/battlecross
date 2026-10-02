@@ -5,15 +5,9 @@ export default {
   'close': 'Bezárás',
   'ok': 'Ok',
   'continue': 'Tovább',
-  'tapToContinue': 'Koppints a folytatáshoz',
-  'clickToContinue': 'Kattints a folytatáshoz',
-  'rewards': 'JUTALMAK',
-  'tip': 'Tipp',
   'onlyAvailableOn': 'Ez a játék csak itt érhető el:',
 
   'ui': {
-    'killcamCount': 'Kill-cam-ek ebben a küldetésben: {n}',
-    'killcamOff': 'Kill-cam-ek kikapcsolása',
     'next': 'Tovább',
     'replay': 'Újra',
     'back': 'Vissza',
@@ -22,504 +16,594 @@ export default {
     'menu': 'Menü',
     'home': 'Főoldal',
     'info': 'Infó',
-    'skip': 'Kihagyás',
-    'holdToSkip': 'Tartsd lenyomva a kihagyáshoz: {key}'
+    'help': 'Irányítás',
+    'ok': 'Értem',
+    'continue': 'Tovább'
+  },
+
+  'hud': {
+    'level': '{n}. szint',
+    'health': 'Életerő: {n} / {max}',
+    'mana': 'Mana: {n} / {max}',
+    'heat': 'Hő',
+    'xp': 'TP',
+    'gold': '{n} arany',
+    'potion': 'Gyógyital (maradt: {n})',
+    'groups': 'Legyőzött ellenséges csapatok: {n} / {total}',
+    'wave': 'Hullám: {n} / {total}'
+  },
+  'menu': {
+    'map': 'Világtérkép',
+    'character': 'Hős',
+    'skills': 'Képességek',
+    'inventory': 'Táska'
   },
 
   'combat': {
-    'tink': 'TINK!',
-    'perfect': 'TÖKÉLETES!',
-    'parry': 'HÁRÍTÁS!',
-    'guardBreak': 'VÉDELEM ÁTTÖRVE!',
-    'guardCracked': 'Megrepedt a védelem!',
-    'xp': '+{n} TP',
-    'lastStand': 'Utolsó Kiállás! Rendszerek újraindítva.',
-    'weak': 'GYENGE!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'SZÉDÜL!',
-    'dodge': 'KITÉRÉS!',
-    'block': 'Védés',
-    'slide': 'Csúszás',
-    'fire': 'Tűz',
-    'tank': 'Javítózselé',
-    'noEnergy': 'Nincs elég fegyverenergia',
-    'tankCount': 'Javítózselé: {n} / {max}',
-    'borrowed': 'Kölcsönfegyver, {weapon}: {n} / {max} lövés',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': 'Kitérés',
+    'block': 'Hárítva',
+    'immune': 'Immunis'
+  },
+  'status': {
+    'stun': 'Kábult',
+    'knockup': 'Levegőben',
+    'knockdown': 'Leterítve',
+    'stasis': 'Sztázis',
+    'petrify': 'Megkövült',
+    'frozen': 'Megfagyott',
+    'fear': 'Retteg',
+    'slow': 'Lassítva',
+    'confuse': 'Zavart',
+    'taunt': 'Provokálva',
+    'armorShred': 'Tört páncél',
+    'weaken': 'Legyengítve',
+    'vulnerable': 'Sebezhető',
+    'burn': 'Ég',
+    'poison': 'Mérgezett',
+    'bleed': 'Vérzik',
+    'delayed': 'Késleltetett sebzés',
+    'haste': 'Gyorsaság',
+    'attackSpeed': 'Gyors támadás',
+    'damageUp': 'Megerősítve',
+    'defenseUp': 'Megszilárdítva',
+    'regen': 'Regenerálódik',
+    'lifestealUp': 'Életlopás',
+    'invulnerable': 'Sebezhetetlen',
+    'unkillable': 'Megölhetetlen',
+    'stealth': 'Rejtőzik',
+    'reflect': 'Visszaver',
+    'envenom': 'Mérgezett penge',
+    'exosuit': 'Exoruha',
+    'focus': 'Összpontosít',
+    'accelerate': 'Gyorsítás',
+    'overheat': 'Túlhevült',
+    'enrage': 'Dühöng',
+    'ambush': 'Rajtaütés'
+  },
+  'toast': {
+    'item': 'Találtad: {item}',
+    'levelUp': '{level}. szint! +3 tulajdonságpont',
+    'boss': 'Megjelent: {boss}',
+    'wave': '{n}. hullám'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Hoppá-hoppá!',
-      '2': 'Bzzt! Hupsz!',
-      '3': 'Csuklik a karom!',
-      '4': 'Hiba… juhééé!',
-      '5': 'Vajáramkörök!',
-      '6': 'Billegő mód BE!'
+  'coach': {
+    'move': {
+      'touch': 'Koppints a talajra, hogy odasétálj, vagy használd a kart.',
+      'mouse': 'Kattints a talajra, hogy odasétálj, vagy irányíts a mozgásbillentyűkkel.'
+    },
+    'target': {
+      'touch': 'Koppints egy ellenségre, vagy húzd rá az ujjad a hősödtől, hogy megtámadd.',
+      'mouse': 'Kattints egy ellenségre, hogy megtámadd.'
+    },
+    'skill': {
+      'touch': 'Koppints egy képességre, hogy bevesd a célpontodon.',
+      'mouse': 'Nyomd meg egy képesség billentyűjét, hogy bevesd a célpontodon.'
+    },
+    'aim': {
+      'touch': 'Húzz egy képességet a csatatérre a célzáshoz, és engedd el a bevetéshez.',
+      'mouse': 'Húzz egy képességet a csatatérre a célzáshoz, és engedd el a bevetéshez.'
+    },
+    'potion': {
+      'touch': 'Koppints az italra, hogy gyógyulj.',
+      'mouse': 'Nyomd meg az ital billentyűjét, hogy gyógyulj.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Földműves kisváros a síkság szélén. Otthon, egy kovács és két tanító.' },
+    'plains': { 'name': 'Sunfordi-síkság', 'desc': 'Goblinok, farkasok és banditák fosztogatják a karavánokat a nyílt úton.' },
+    'hollows': { 'name': 'Goblinüregek', 'desc': 'Barlangok a dombok alatt. Legalul a Goblinkirály tart udvart.' },
+    'arena': { 'name': 'A Kolosszeum', 'desc': 'Nyolc hullám, mind nehezebb az előzőnél. Arany és dicsőség annak, aki állva marad.' },
+    'woods': { 'name': 'Suttogó-erdő', 'desc': 'Vén fák, amelyek járnak, és pókok, amelyek hálót szőnek közöttük.' },
+    'outskirts': { 'name': 'Oakhaven határa', 'desc': 'Égő tanyák Oakhaven előtt. Egy hadúr serege áll a kapunál.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Fallal övezett kereskedőváros. Hogy mivé lesz, rajtad múlik.' },
+    'crags': { 'name': 'Hamuszirtek', 'desc': 'Fekete szikla és nyílt tűz. Kultisták táplálják a lángokat.' },
+    'mines': { 'name': 'Ironholdi bányák', 'desc': 'A törpök túl mélyre ástak, és felébresztettek valamit, ami világít.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'A hegyi kovácsváros. Itt kalapálják a birodalom legjobb acélját.' },
+    'tundra': { 'name': 'Fagymarta tundra', 'desc': 'Fehér pusztaság, ahol óriások járnak, és a holtak nem maradnak fekve.' },
+    'temple': { 'name': 'Elsüllyedt templom', 'desc': 'A nagák vízbe merült csarnokai és egy jósnő, aki minden véget lát.' },
+    'citadel': { 'name': 'Az Üresség citadellája', 'desc': 'Erőd, amely tavaly még nem állt itt. A falai zúgnak.' },
+    'peak': { 'name': 'Sárkánycsúcs', 'desc': 'Wyvernek köröznek az orom körül. Valami sokkal nagyobb alszik rajta.' },
+    'fortress': { 'name': 'A Rettegés erődje', 'desc': 'Az Ősdémon székhelye és a trón, amelyet minden frakció akar.' },
+    'rift': { 'name': 'Az Üresség hasadéka', 'desc': 'A seb, amelyen át a démonok jöttek. A túloldalon az Üresség Ura vár.' }
+  },
+  'map': {
+    'title': 'A birodalom',
+    'town': 'Város',
+    'levels': '{min}–{max}. szint',
+    'arenaBest': 'Rekord: {n}. hullám',
+    'travel': 'Utazás',
+    'again': 'Újra',
+    'enter': 'Belépés',
+    'fight': 'Harc',
+    'back': 'Vissza a városba',
+    'locked': 'Tisztíts meg egy szomszédos zónát, hogy megnyíljon az út.',
+    'lockedArena': 'A kapui akkor nyílnak meg, ha elintézted a Goblinkirály ügyét.',
+    'lockedRift': 'Akkor nyílik meg, ha eldőlt a Rettegés erődje trónjának sorsa.',
+    'danger': {
+      '1': 'Kicsit a szinted fölött.',
+      '2': 'A te szinteden veszélyes.',
+      '3': 'Messze a szinted fölött.'
+    },
+    'questOpen': '{quest}: itt döntés vár.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Rejtett tanító: {cls}'
+  },
+  'travel': {
+    'to': 'Úti cél:',
+    'loading': 'Betöltés'
+  },
+
+  'attr': {
+    'str': { 'name': 'Erő', 'short': 'ERŐ', 'desc': 'Közelharci erő, hárítási esély, nehéz páncél.' },
+    'dex': { 'name': 'Ügyesség', 'short': 'ÜGY', 'desc': 'Kritikus találatok, támadási és mozgási sebesség.' },
+    'int': { 'name': 'Intelligencia', 'short': 'INT', 'desc': 'Varázserő, mana, elemi ellenállás.' },
+    'end': { 'name': 'Állóképesség', 'short': 'ÁLL', 'desc': 'Életerő, regeneráció, páncél, kábítás elleni ellenállás.' },
+    'skl': { 'name': 'Jártasság', 'short': 'JÁR', 'desc': 'Kritikus sebzés, újratöltések, távolsági fegyverek.' },
+    'cha': { 'name': 'Karizma', 'short': 'KAR', 'desc': 'Csatlósok, bolti árak, jutalmak, párbeszédlehetőségek.' }
+  },
+  'stat': {
+    'health': 'Életerő',
+    'mana': 'Mana',
+    'armor': 'Páncél',
+    'resist': 'Ellenállás',
+    'crit': 'Krit. esély',
+    'critDamage': 'Krit. sebzés',
+    'attackSpeed': 'Támadási seb.',
+    'moveSpeed': 'Mozgási seb.',
+    'cdr': 'Rövidebb töltés',
+    'block': 'Hárítás',
+    'dodge': 'Kitérés',
+    'hpRegen': 'Életerő / s'
+  },
+  'sheet': {
+    'points': 'Elkölthető pontok: {n}',
+    'raise': 'Növelés: {attr}',
+    'maxLevel': 'Elérted a legmagasabb szintet'
+  },
+
+  'skills': {
+    'active': 'Aktív képességek',
+    'passive': 'Passzív képességek',
+    'known': 'Megtanult',
+    'none': 'Még semmit sem tanultál. Keress egy tanítót valamelyik városban.',
+    'emptySlot': '{n}. üres hely',
+    'equip': 'Betesz',
+    'remove': 'Kivesz',
+    'unmet': 'Már nem felelsz meg a követelményeinek.'
+  },
+  'class': {
+    'aegis': { 'name': 'Égisz-lovag', 'desc': 'Pajzs és szent acél. Felfogja az ütéseket, hogy másnak ne kelljen.' },
+    'shadow': { 'name': 'Árnypenge', 'desc': 'Kilép a sötétből, hátulról lecsap, és már ott sincs.' },
+    'pyro': { 'name': 'Piromanta', 'desc': 'A tűz minden kérdésre válasz. Gyújtsd fel, aztán robbantsd fel őket.' },
+    'sovereign': { 'name': 'Nagyuralkodó', 'desc': 'Miért harcolnál egyedül? Idézz testőröket, és vezényeld őket.' },
+    'chrono': { 'name': 'Időszövő', 'desc': 'Megállítja az ellenséget az időben, felgyorsítja a társakat, és visszacsinálja a hibákat.' },
+    'blood': { 'name': 'Véralkimista', 'desc': 'Életerővel fizet a hatalomért, aztán visszaissza az ellenségből.' },
+    'aether': { 'name': 'Étertechnikus', 'desc': 'Lőfegyverek, lövegtornyok és hőmérő. Ereszd ki a hőt, mielőtt lezár.' },
+    'geo': { 'name': 'Geomanta', 'desc': 'Falakat és tüskéket emel, és magát a földet töri meg.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Aktív', 'passive': 'Passzív' },
+    'cooldown': 'Újratöltés: {n}s',
+    'mana': '{n} mana',
+    'hpCost': '{n}% életerő',
+    'heat': '+{n} hő',
+    'aimed': 'Húzd a célzáshoz',
+
+    'shieldSlam': { 'name': 'Pajzscsapás', 'desc': 'Lecsapsz a célpontra: {dmg}% Erő alapú sebzés, és {stun}s-ig elkábítod.' },
+    'aegisAura': { 'name': 'Égisz-aura', 'desc': '+{armor}% Páncél, és az elszenvedett fizikai sebzés {reduce}%-kal csökken.' },
+    'radiantStrike': { 'name': 'Ragyogó csapás', 'desc': 'Szent csapás: {dmg}% Erő alapú sebzés, és az okozott sebzés {heal}%-ával gyógyít téged.' },
+    'fortitude': { 'name': 'Állhatatosság', 'desc': 'Ha egy találat az életerőd több mint {hit}%-át viszi el, {shield}%-nyi pajzsot kapsz {dur}s-ig. {icd}s-enként egyszer.' },
+    'tauntingCry': { 'name': 'Kihívó kiáltás', 'desc': 'A {radius} m-en belüli ellenségek {dur}s-ig téged támadnak. Ezalatt {def}% Védelmet kapsz.' },
+    'holyBastion': { 'name': 'Szent bástya', 'desc': 'Sebezhetetlen vagy {dur}s-ig. A támadók visszakapják sebzésük {reflect}%-át.' },
+
+    'shadowstep': { 'name': 'Árnylépés', 'desc': 'Megjelensz a célpont mögött, és hátba szúrod: {dmg}% Ügyesség alapú sebzés.' },
+    'lethality': { 'name': 'Halálosság', 'desc': '+{crit}% kritikus esély és +{critDmg}% kritikus sebzés.' },
+    'venomousBlade': { 'name': 'Mérgezett penge', 'desc': '{dur}s-ig a támadásaid mérgeznek: {poison}% Ügyesség {over}s alatt, legfeljebb {stacks} réteg.' },
+    'evasion': { 'name': 'Kitérő ösztön', 'desc': '+{dodge}% Kitérés. Egy kitérés {haste}% Gyorsaságot ad {dur}s-ig.' },
+    'smokeBomb': { 'name': 'Füstbomba', 'desc': 'Eltűnsz {dur}s-ig. A következő, rejtekből indított támadásod +{bonus}% sebzést okoz.' },
+    'danceOfBlades': { 'name': 'Pengetánc', 'desc': 'Átsuhansz a {radius} m-en belüli ellenségek között, {hits} csapással összesen {dmg}% Ügyesség alapú sebzést okozva. Tánc közben nem találhatnak el.' },
+
+    'fireball': { 'name': 'Tűzgolyó', 'desc': 'Tűzgolyó, amely {dmg}% Intelligencia alapú sebzéssel robban, és további {burn}%-ot éget {burnDur}s alatt.' },
+    'cauterize': { 'name': 'Kiégetés', 'desc': 'Az égő ellenségek {reduce}%-kal kevesebbet sebeznek rajtad.' },
+    'flamePillar': { 'name': 'Lángoszlop', 'desc': 'Lángoszlop tör fel ott, ahová célzol: {dmg}% Intelligencia alapú sebzés {dur}s alatt. Az elkapott ellenségek a levegőbe repülnek.' },
+    'pyromaniac': { 'name': 'Piromániás', 'desc': 'Egy kritikus varázstalálat {cut}s-et vesz le a tűzvarázslataid újratöltéséből.' },
+    'combustion': { 'name': 'Belobbanás', 'desc': 'Felrobbantasz minden égést {radius} m-en belül: mindegyik egyszerre okozza hátralévő sebzése {pct}%-át, robbanásként.' },
+    'cataclysm': { 'name': 'Kataklizma', 'desc': '{meteors} meteort hívsz le {dur}s alatt. Mindegyik {dmg}% Intelligencia alapú sebzést okoz.' },
+
+    'royalGuard': { 'name': 'Királyi testőr', 'desc': 'Megidézel egy testőrt, aki melletted harcol, és {dmg}% Karizma alapú sebzést okoz. Egyszerre legfeljebb {max}.' },
+    'inspiringPresence': { 'name': 'Lelkesítő jelenlét', 'desc': 'A csatlósaid {speed}%-kal gyorsabban támadnak, és {hp}%-kal több az életerejük.' },
+    'commandFocus': { 'name': 'Támadási parancs', 'desc': 'Minden csatlós a célpontra ront: +{move}% mozgási és +{atk}% támadási sebesség {dur}s-ig.' },
+    'sovereignsTribute': { 'name': 'Uralkodói adó', 'desc': 'Az elszenvedett sebzésed {share}%-a a csatlósaidra hárul.' },
+    'bannerOfVictory': { 'name': 'Győzelmi zászló', 'desc': 'Zászlót tűzöl ki {dur}s-ig. A közeli szövetségesek +{dmg}% sebzést okoznak, és másodpercenként {regen}% életerőt töltenek vissza.' },
+    'armyOfTheRealm': { 'name': 'A birodalom serege', 'desc': 'Megidézel {archers} íjászt, {guards} testőrt és egy harci mágust {dur}s-ig.' },
+
+    'temporalStasis': { 'name': 'Időstázis', 'desc': 'Megfagyasztod a célpontot az időben {dur}s-ig. Nem cselekedhet, és nem sebezhető.' },
+    'hasteField': { 'name': 'Gyorsító mező', 'desc': '{dur}s-ig te és a közeli szövetségesek {move}%-kal gyorsabban mozogtok és {speed}%-kal gyorsabban támadtok.' },
+    'timeDistort': { 'name': 'Időtorzítás', 'desc': 'Az elszenvedett sebzés {share}%-a késleltetve, {over}s alatt ér.' },
+    'paradoxShift': { 'name': 'Paradoxonváltás', 'desc': 'Helyet cserélsz a célponttal. {dmg}% Intelligencia alapú sebzést kap, a körülötte lévő ellenségek pedig {confuse}s-ig zavartak.' },
+    'entropy': { 'name': 'Entrópia', 'desc': 'Minden varázslás {cdr}%-kal rövidíti az újratöltéseidet, legfeljebb {stacks} réteg.' },
+    'chronoRewind': { 'name': 'Idővisszatekerés', 'desc': 'Visszatérsz oda, ahol {back}s-cel ezelőtt álltál, az akkori életerőddel és manáddal.' },
+
+    'sanguineFlask': { 'name': 'Véres fiola', 'desc': 'Eldobsz egy fiolát a saját véredből: {dmg}% Állóképesség alapú területi sebzés, és {shred}%-kal tört páncél {shredDur}s-ig.' },
+    'bloodTransmutation': { 'name': 'Vértranszmutáció', 'desc': 'Az elszenvedett fizikai sebzés {share}%-a manaként tér vissza.' },
+    'essenceHarvest': { 'name': 'Esszenciaaratás', 'desc': 'Megcsapolsz minden ellenséget {radius} m-en belül: {dmg}% Intelligencia alapú sebzés. Ennek {heal}%-ával gyógyulsz.' },
+    'hemophilia': { 'name': 'Hemofília', 'desc': 'Az életelszívás {drain}%-kal erősebb. Vérző ellenség eltalálása az életerőd {heal}%-át gyógyítja.' },
+    'mutagenicRage': { 'name': 'Mutagén düh', 'desc': '{dur}s-ig: +{speed}% támadási sebesség, +{steal}% életlopás és +{move}% mozgási sebesség.' },
+    'philosophersCrucible': { 'name': 'Bölcsek olvasztótégelye', 'desc': 'Forró vértócsa {dur}s-ig: {dmg}% Intelligencia alapú sebzés a benne álló ellenségeknek, téged pedig gyógyít, amíg benne állsz.' },
+
+    'aetherPistol': { 'name': 'Éterpisztoly', 'desc': 'Gyors lövés: {dmg}% Jártasság alapú sebzés. {heat} hőt termel.' },
+    'deployTurret': { 'name': 'Lövegtorony', 'desc': 'Lövegtornyot telepítesz, amely {dur}s-ig lő {dmg}% Jártasság alapú sebzéssel. Egyszerre legfeljebb {max}.' },
+    'ventHeat': { 'name': 'Hőkieresztés', 'desc': 'Kúp alakban kiereszted az összes hőt: akár {dmg}% Jártasság alapú sebzés, minél több a hő, annál nagyobb.' },
+    'thermalOverload': { 'name': 'Hőtúlterhelés', 'desc': 'Túlhevülten a lövéseid +{crit}% kritikus sebzést okoznak. A túlhevülés továbbra is {lock}s-ig lezárja a képességeidet.' },
+    'orbitalBeam': { 'name': 'Orbitális sugár', 'desc': 'Égi sugár perzseli azt a helyet, ahová célzol: {dmg}% Jártasság alapú sebzés {dur}s alatt.' },
+    'exoSuit': { 'name': 'Exoruha', 'desc': '{dur}s-ig: +{armor}% Páncél, a támadásaid pedig rakéták lesznek, amelyek {rocket}% Jártasság alapú területi sebzést okoznak.' },
+
+    'stoneSpike': { 'name': 'Kőtüske', 'desc': 'Tüske tör fel a célpont alatt: {dmg}% Erő alapú sebzés és {slow}% lassítás {dur}s-ig.' },
+    'earthBarrier': { 'name': 'Földgát', 'desc': 'Sziklafalat emelsz {dur}s-ig. Semmi sem megy vagy lő át rajta.' },
+    'seismicShock': { 'name': 'Szeizmikus lökés', 'desc': 'Lesújtasz a földre: {dmg}% Erő alapú sebzés {radius} m-en belül, és az ellenségek {down}s-ig a földre kerülnek.' },
+    'earthenSkin': { 'name': 'Kőbőr', 'desc': 'Az Erőd {armor}%-ának megfelelő Páncélt kapsz. A rajtad lévő kábítás {cut}%-kal rövidebb.' },
+    'petrify': { 'name': 'Kővé változtatás', 'desc': 'Kővé változtatod a célpontot {dur}s-ig. Amikor kiszabadul, {vuln}%-kal több sebzést kap.' },
+    'tectonicRupture': { 'name': 'Tektonikus hasadás', 'desc': 'Felszakítod a csatateret: {dmg}% Erő alapú sebzés mindennek a közelben, és törmelék, amely {dur}s-ig lassít.' }
+  },
+
+  'slot': {
+    'main': 'Fő kéz',
+    'off': 'Másik kéz',
+    'body': 'Páncél',
+    'trinket': 'Csecsebecse'
+  },
+  'tier': {
+    '1': '1. fokozat',
+    '2': '2. fokozat',
+    '3': '3. fokozat',
+    '4': '4. fokozat',
+    '5': '5. fokozat',
+    '6': 'Legendás'
+  },
+  'weapon': {
+    'melee': 'Közelharci · alapja: {attr}',
+    'ranged': 'Távolsági · alapja: {attr}',
+    'magic': 'Mágikus · alapja: {attr}'
+  },
+  'source': {
+    'mob': 'Szörnyekből esik, zóna: {zone}.',
+    'chest': 'Ládákban található, zóna: {zone}.',
+    'boss': 'A főellenségből esik, zóna: {zone}.',
+    'secret': 'Titkos ládában rejtőzik, zóna: {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Erő',
+    'dex': '+{n} Ügyesség',
+    'int': '+{n} Intelligencia',
+    'end': '+{n} Állóképesség',
+    'skl': '+{n} Jártasság',
+    'cha': '+{n} Karizma',
+    'allAttrs': '+{n} minden tulajdonsághoz',
+    'strOrDex': '+{n} Erő vagy Ügyesség, amelyik magasabb',
+    'armor': '{n} Páncél',
+    'armorPct': '+{n}% Páncél',
+    'armorFromStr': 'Páncél az Erőből: +{n}%',
+    'block': '+{n}% hárítási esély',
+    'dodge': '+{n}% Kitérés',
+    'damageReduction': '+{n}% sebzéscsökkentés',
+    'physReduction': '{n}%-kal kevesebb elszenvedett fizikai sebzés',
+    'maxHp': '+{n} max. Életerő',
+    'maxHpPct': '+{n}% max. Életerő',
+    'maxMana': '+{n} max. Mana',
+    'hpRegen': '+{n} Életerő másodpercenként',
+    'stunDurationCut': 'A rajtad lévő kábítás {n}%-kal rövidebb',
+    'damagePct': '+{n}% okozott sebzés',
+    'critChance': '+{n}% kritikus esély',
+    'critDamage': '+{n}% kritikus sebzés',
+    'spellCrit': '+{n}% kritikus esély varázslatokra',
+    'attackSpeed': '+{n}% támadási sebesség',
+    'moveSpeed': '+{n}% mozgási sebesség',
+    'cdr': 'Az újratöltések {n}%-kal rövidebbek',
+    'manaDiscount': 'A varázslatok {n}%-kal kevesebb manába kerülnek',
+    'lifesteal': '+{n}% életlopás minden sebzésből',
+    'physLifesteal': '+{n}% életlopás fizikai találatokból',
+    'lifeDrainPct': 'Az életelszívás {n}%-kal erősebb',
+    'bossDamage': '+{n}% sebzés főellenségek ellen',
+    'backstab': '+{n}% hátbaszúrás-sebzés',
+    'minionDamage': 'A csatlósok +{n}% sebzést okoznak',
+    'minionAttackSpeed': 'A csatlósok {n}%-kal gyorsabban támadnak',
+    'minionHp': 'A csatlósoknak +{n}% életerejük van',
+    'burnOnHit': 'A támadások {n} sebzésű Égést okoznak',
+    'freezeOnHit': 'A támadások {n}% eséllyel megfagyasztanak',
+    'pierce': 'A lövések további {n} ellenségen hatolnak át',
+    'critCooldown': 'A kritikus találatok {n}s-cel csökkentenek minden újratöltést',
+    'extraBlastEvery': 'Extra energiakitörés minden {n}. lövésnél',
+    'reflectOnBlock': 'A hárítás {n} sebzést ver vissza',
+    'fatalSave': 'A halálos sebzés helyett sebezhetetlen leszel {n}s-ig (120s-enként egyszer)',
+    'knockbackImmune': 'Immunis a hátralökésre',
+    'heatBuildCut': 'A hő {n}%-kal lassabban gyűlik',
+    'heatDissipation': 'A hő {n}%-kal gyorsabban távozik',
+    'flaskDamage': 'A Véres fiola +{n}% sebzést okoz',
+    'igniteBonus': 'A tűzvarázslatok {n}%-kal erősebben égetnek',
+    'stealthy': 'Nesztelenül mozog: az ellenségek {n}%-kal közelebbről vesznek csak észre',
+    'fortitude': 'A nagy ütések {n}% életerőnyi pajzsot adnak',
+    'evasionHaste': 'Egy kitérés {n}% Gyorsaságot ad',
+    'cauterize': 'Az égő ellenségek {n}%-kal kevesebbet sebeznek rajtad',
+    'pyromaniac': 'A kritikus varázslatok {n}s-cel csökkentik a tűz újratöltését',
+    'tribute': 'A csatlósok átveszik a sebzésed {n}%-át',
+    'timeDistort': 'Az elszenvedett sebzés {n}%-a késleltetve ér',
+    'entropy': 'A varázslások {n}%-kal rövidítik az újratöltést',
+    'bloodToMana': 'Az elszenvedett fizikai sebzés {n}%-a manaként tér vissza',
+    'bleedHeal': 'Vérző ellenség eltalálása {n}% életerőt gyógyít',
+    'overheatCrit': '+{n}% kritikus sebzés túlhevülten'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Rozsdás rövidkard' },
+    'apprenticeStaff': { 'name': 'Tanoncbot' },
+    'scoutsHandgun': { 'name': 'Felderítő pisztolya' },
+    'ironBroadsword': { 'name': 'Vas széleskard' },
+    'vipinsStiletto': { 'name': 'Vipin tőre' },
+    'aetherCarbine': { 'name': 'Éterkarabély' },
+    'ashenGreatsword': { 'name': 'Hamvas pallos' },
+    'archmageWand': { 'name': 'Főmágus pálcája' },
+    'chronoBlade': { 'name': 'Időpenge' },
+    'bloodForgedAxe': { 'name': 'Vérben edzett fejsze' },
+    'voidCannon': { 'name': 'Üresség-ágyú' },
+    'dragonSmasher': { 'name': 'Sárkányzúzó' },
+    'bladeOfTheUnbound': { 'name': 'A Kötetlenek pengéje' },
+    'aetheriumDestroyer': { 'name': 'Étérium romboló' },
+    'woodenBuckler': { 'name': 'Fa kerekpajzs' },
+    'tomeOfNovices': { 'name': 'Novíciusok könyve' },
+    'ironShield': { 'name': 'Vaspajzs' },
+    'syringeOfTheAdept': { 'name': 'Az adeptus fecskendője' },
+    'aethericBattery': { 'name': 'Éterakkumulátor' },
+    'aegisTowerShield': { 'name': 'Égisz-toronypajzs' },
+    'orbOfEternalFlame': { 'name': 'Az örök láng gömbje' },
+    'shieldOfTheFallen': { 'name': 'Az elesettek pajzsa' },
+    'paddedTunic': { 'name': 'Bélelt tunika' },
+    'leatherDoublet': { 'name': 'Bőrzeke' },
+    'chainmailVest': { 'name': 'Láncmellény' },
+    'scholarsRobe': { 'name': 'Tudós köntöse' },
+    'reinforcedPlate': { 'name': 'Megerősített lemezvért' },
+    'assassinsGarb': { 'name': 'Orgyilkos öltözéke' },
+    'chronoWeaverCloak': { 'name': 'Időszövő köpenye' },
+    'bloodSoakedPlate': { 'name': 'Véráztatta lemezvért' },
+    'exoArmorChassis': { 'name': 'Exopáncél-váz' },
+    'dragonscaleHauberk': { 'name': 'Sárkánypikkely-vért' },
+    'vestmentsOfSovereign': { 'name': 'Az Uralkodó ornátusa' },
+    'armorOfTheTitan': { 'name': 'A titán páncélja' },
+    'copperBand': { 'name': 'Rézkarika' },
+    'ringOfMending': { 'name': 'A gyógyulás gyűrűje' },
+    'bandOfSwiftness': { 'name': 'A fürgeség karikája' },
+    'castersEmblem': { 'name': 'Varázsló jelvénye' },
+    'infiltratorsCharm': { 'name': 'Beszivárgó talizmánja' },
+    'timekeepersHourglass': { 'name': 'Az Időőr homokórája' },
+    'ringOfTheVampyre': { 'name': 'A vámpír gyűrűje' },
+    'sovereignsSignet': { 'name': 'Uralkodói pecsétgyűrű' },
+    'heartOfTheMountain': { 'name': 'A hegy szíve' },
+    'ringOfAbsolutePower': { 'name': 'A teljhatalom gyűrűje' }
+  },
+  'bag': {
+    'equip': 'Felvesz',
+    'unequip': 'Levesz',
+    'tooLow': '{n}. szint kell hozzá.'
+  },
+  'shop': {
+    'buy': 'Vétel',
+    'sell': 'Eladás',
+    'owned': 'Megvan',
+    'empty': 'Ma üresek a polcok.'
+  },
+  'trainer': {
+    'learn': 'Megtanul',
+    'known': 'Megtanulva',
+    'friend': '{faction} megbecsüli a barátait: 20% kedvezmény.',
+    'block': {
+      'level': 'Túl alacsony a szinted.',
+      'attrs': 'Túl alacsonyak a tulajdonságaid.',
+      'gold': 'Nincs elég aranyad.'
+    }
+  },
+  'healer': {
+    'talk': 'Ülj le. Pihenj. Innen épen távozol, minden fiolád tele lesz. Ha többet szeretnél hordani belőlük, azt el tudom adni neked.',
+    'note': 'Minden zónába ennyi italt viszel: {n}.',
+    'buy': 'Még egy fiola · {n}',
+    'full': 'Az öveden nem fér el több.'
+  },
+  'talk': {
+    'goal': 'Itt dől majd el: {zone}.'
+  },
+  'faction': {
+    'order': 'A Vasrend',
+    'syndicate': 'A Hamuszindikátus',
+    'circle': 'Az Éterkör'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Bram, a kovács', 'talk': 'Egyszerű acél, tisztes ár. Távol tartja tőled a goblint.' },
+    'sunfordPeddler': { 'name': 'Tilly, a házaló', 'talk': 'Gyűrűk! Talizmánok! Holmik, amiket találtam, és egészen biztosan nem loptam.' },
+    'trainerAegis': { 'name': 'Ser Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Vén Mara', 'talk': 'Ma megtartottad az utat. Egy éve nem volt ilyen csendes a síkság.' },
+    'sunfordHealer': { 'name': 'Lune nővér' },
+    'goblinTrader': { 'name': 'Grik, a kereskedő', 'talk': 'Király mond kereskedni, hát Grik kereskedni. Csillogó csillogóért. Jó csillogó.' },
+    'captainHale': { 'name': 'Hale kapitány', 'talk': 'Oakhaven háromszáz éve áll. Nem én leszek az a kapitány, aki elveszíti.' },
+    'oakArmorer': { 'name': 'Odo, a páncélkovács', 'talk': 'A készletem fele felment a falakra. Vidd, ami maradt.' },
+    'oakMasterArmorer': { 'name': 'Odo mester', 'talk': 'Megmentetted ezt a várost. Neked előkerül a jó vért a hátsó szobából.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Éles, kiegyensúlyozott, és azé, aki fizet. Ma ez te vagy.' },
+    'trainerShadow': { 'name': 'A Suttogó' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Fenn testvér' },
+    'blackMarket': { 'name': 'Az Orgazda', 'talk': 'Nincsenek nevek, nincsenek kérdések. A Szindikátus leveszi a részét, te viszed az árut.' },
+    'trainerBlood': { 'name': 'Sangrel doktor' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven miattad a miénk. A Szindikátus nem felejti el a barátait. Sem az adósságot.' },
+    'forgemaster': { 'name': 'Dorn kovácsmester', 'talk': 'Vasért ástunk, és egy szívre leltünk. Odalent dobog a sötétben, a gólemek pedig az ütemére járnak.' },
+    'ironWeapons': { 'name': 'Kalapácskezű Hilda', 'talk': 'Törp kovácsolta. Ha eltörik, te voltál a hibás.' },
+    'ironAetherWorks': { 'name': 'Voss, az ezermester', 'talk': 'Amióta a Kör tanulmányozta a magot, minden megváltozott. Fogd ezt. Ne rám célozz vele.' },
+    'ironArmor': { 'name': 'Vasoldalú Garrun', 'talk': 'Vért, amely megállítja az óriás bunkóját. A többieknek gyűrűk.' },
+    'ironOrderArmor': { 'name': 'A Rend szállásmestere', 'talk': 'A Rend emlékszik, ki pusztította el a magot. A fegyvertárai nyitva állnak előtted.' },
+    'trainerGeo': { 'name': 'Öreg Kőláb' },
+    'trainerAether': { 'name': 'Pim, a gépész' },
+    'ironHealer': { 'name': 'Brynja anya' },
+    'exiledSovereign': { 'name': 'Lord Castellan, száműzetésben' },
+    'trainerChrono': { 'name': 'Az Órák Őrzője' }
+  },
+
+  'quest': {
+    'final': 'Ez a döntés végleges.',
+    'needsRep': '{faction}: megbecsülés {n}',
+    'gold': '+{n} arany',
+    'goblinKing': {
+      'title': 'A Goblinkirály',
+      'intro': 'A portyák az Üregekből indulnak, ahol a goblinok királyt koronáztak. Vess véget ennek, ahogy jónak látod.',
+      'ask': 'Várni! Várni. Király megadni magát! Goblinok csak rabolni, mert goblinok éhes. Talán magas és Király alkut kötni?',
+      'slay': { 'label': 'Vess véget az uralmának.', 'result': 'A Király elesik, az Üregek népe szétszéled. Sunford nyugodtabban alszik, a Vasrend pedig felfigyel rád.' },
+      'pact': { 'label': 'Ajánlj kereskedelmi egyezséget Sunforddal.', 'result': 'Az ékesszólás eléri, amit a kard nem tudott. Goblin kereskedők telepednek meg Sunford főterén, olyan áruval, amilyet ott egy kovács sem tud készíteni.' },
+      'ransom': { 'label': 'Vidd el a kincsét, és hagyd meg a koronáját.', 'result': 'Goblinarannyal megrakodva távozol. A portyák újrakezdődnek, de az már Sunford gondja. A Szindikátus helyesli.' }
+    },
+    'siege': {
+      'title': 'Oakhaven ostroma',
+      'intro': 'Egy hadúr serege körülzárta Oakhavent. A sereget a Hamuszindikátus fizette. Törd meg az ostromot a város határában.',
+      'ask': 'Jól harcolsz. A Szindikátus jobban fizet, mint az a város valaha fog. Nyisd ki nekünk ma éjjel a kaput, és Oakhaven harmada a tiéd.',
+      'defend': { 'label': 'Védd meg Oakhavent.', 'result': 'A kapu kitart. Oakhaven meggazdagszik mögötte, páncélkovács mesterei pedig megjegyzik a neved. A Hamuszindikátus mostantól minden úton vadászik rád.' },
+      'betray': { 'label': 'Nyisd ki a kaput a Szindikátusnak.', 'result': 'Oakhaven lángokban áll. A romjai között feketepiac nyílik, és megjelenik egy alkimista, aki tiltott tudományt tanít. A páncélkovácsok eltűntek, a Vasrend pedig árulónak nevez.' }
+    },
+    'core': {
+      'title': 'Ironhold szíve',
+      'intro': 'A bányáinkban egy étermag hajtja a gólemeket. Három hatalom akarja, és mindegyik küldött nekem levelet. Te érsz oda elsőként.',
+      'ask': 'A Kolosszus már ócskavas, a mag pedig nyitva hever előtted, és zúg. Meleg a tapintása. Mi legyen vele?',
+      'destroy': { 'label': 'Zúzd szét a magot.', 'result': 'A fény kialszik, a gólemek pedig ott esnek össze, ahol álltak. A Vasrend hálából saját páncélkovácsokat küld Ironholdba.' },
+      'study': { 'label': 'Add át a Körnek tanulmányozásra.', 'result': 'Eleget értesz belőle ahhoz, hogy biztonságban átadd. Egy évszakon belül Ironhold kohói olyan éterszerkezeteket ontanak, amilyeneket még senki sem látott.' },
+      'sell': { 'label': 'Add el a Szindikátusnak.', 'result': 'Egy vagyon cserél gazdát. A mag tovább világít valahol, ahol nem kellene, és a bányák soha többé nem lesznek csendesek.' }
+    },
+    'oracle': {
+      'title': 'A Vízbe fúlt Jósnő',
+      'ask': 'Tízezerszer láttam már ezt a pillanatot. A felében kiszabadítasz. A felében elveszed, amit őrzök. Válassz, és hadd ne tudjam végre, mi következik.',
+      'free': { 'label': 'Törd szét a láncait.', 'result': 'A jósnő felemelkedik a vízen át, és eltűnik. Az Éterkör jó szívvel emleget majd, az órák őrzője pedig itt marad tanítani.' },
+      'slay': { 'label': 'Vedd el a homokórát, amelyet őriz.', 'result': 'Nem áll ellen. Az Időőr homokórája a tiéd. Utolsó tanítványa elmenekül a templomból, a Kör pedig nem bocsát meg.' }
+    },
+    'dragon': {
+      'title': 'Az Üresség Sárkánya',
+      'ask': 'Elég. Van fogad, kicsi lény. Az erődben lakó démon láncra verte a fajtámat. Látni akarom, ahogy elég. Ölj meg, vagy hadd segítsek ebben.',
+      'slay': { 'label': 'Öld meg a sárkányt.', 'result': 'A hegy megremeg, ahogy lezuhan. A Vasrend a sárkányölőről énekel, a kincse pedig a tiéd.' },
+      'pact': { 'label': 'Köss szövetséget az Ősdémon ellen.', 'result': 'Kevesen tudtak volna rábeszélni egy sárkányt. Amikor a Rettegés erődje ellen vonulsz, ott lesz fölötted az égen.' }
+    },
+    'throne': {
+      'title': 'Az üres trón',
+      'ask': 'Az Ősdémon halott, a trónja üresen áll. Aki birtokolja, az parancsol az erődnek, az alatta nyíló hasadéknak és mindkettő seregeinek. Három követ vár az ajtónál.',
+      'order': { 'label': 'Add a trónt a Vasrendnek.', 'result': 'A Rend helyőrséget állít az erődbe, és lepecsétel, amit tud. A birodalom biztonságban lesz, és megmondják neki, mit tegyen.' },
+      'syndicate': { 'label': 'Add a trónt a Hamuszindikátusnak.', 'result': 'A Szindikátus még hajnal előtt beköltözik. Mostantól minden eladó, a béke is.' },
+      'circle': { 'label': 'Add a trónt az Éterkörnek.', 'result': 'A Kör iskolává alakítja az erődöt a hasadék fölött. Ők kutatásnak hívják. Mindenki más úgy hívja: idő kérdése.' },
+      'shatter': { 'label': 'Zúzd szét a trónt.', 'result': 'A saját kezeddel töröd össze. Innen többé senki sem uralkodik. A követek szó nélkül távoznak.' },
+      'claim': { 'label': 'Ülj rá te magad.', 'result': 'Hideg, és illik rád. Három frakció rájön, hogy közös ellensége van.' }
     }
   },
 
   'enemy': {
-    'echo': 'Mestervisszhang',
-    'gatekeeper': 'Kapuőr',
-    'warden': 'Őrző',
-    'hornet': 'Darázsrotor',
-    'stalker': 'Izzó cserkész',
-    'puffer': 'Gömbhalakna',
-    'mole': 'Fúróvakond',
-    'polar': 'Sarki kölyök',
-    'hardhat': 'Sisakos',
-    'trooper': 'Pajzsos katona',
-    'heli': 'Rotordrón',
-    'hopper': 'Dobbantó',
-    'roller': 'Fogaskerék-görgő',
-    'brute': 'Gárdoid',
-    'turret': 'Falágyú',
-    'golem': 'Ládagólem',
-    'elite': 'Elit',
-    'level': '{n}. szint'
-  },
-
-  'enemyPlural': {
-    'echo': 'Mestervisszhang | Mestervisszhang',
-    'gatekeeper': 'Kapuőr | Kapuőr',
-    'warden': 'Őrző | Őrző',
-    'hornet': 'Darázsrotor | Darázsrotor',
-    'stalker': 'Izzó cserkész | Izzó cserkész',
-    'puffer': 'Gömbhalakna | Gömbhalakna',
-    'mole': 'Fúróvakond | Fúróvakond',
-    'polar': 'Sarki kölyök | Sarki kölyök',
-    'hardhat': 'Sisakos | Sisakos',
-    'trooper': 'Pajzsos katona | Pajzsos katona',
-    'heli': 'Rotordrón | Rotordrón',
-    'hopper': 'Dobbantó | Dobbantó',
-    'roller': 'Fogaskerék-görgő | Fogaskerék-görgő',
-    'brute': 'Gárdoid | Gárdoid',
-    'turret': 'Falágyú | Falágyú',
-    'golem': 'Ládagólem | Ládagólem'
-  },
-
-  'hud': {
-    'help': 'Irányítás megjelenítése',
-    'mute': 'Hang némítása',
-    'unmute': 'Hang bekapcsolása',
-    'bossUnknown': 'Ismeretlen főellenség',
-    'hp': 'Életerő',
-    'we': 'Fegyverenergia',
-    'power': 'Erő',
-    'bolts': 'Csavarok',
-    'level': '{n}. szint',
-    'beamOut': 'Teleport'
-  },
-
-  'boss': {
-    'rotorMaster': 'Rotormester',
-    'neonMaster': 'Neonmester',
-    'tideMaster': 'Árapálymester',
-    'drillMaster': 'Fúrómester',
-    'magnetMaster': 'Mágnesmester',
-    'stand': 'Roncsoló',
-    'scrapper': 'Roncsoló',
-    'blazeMaster': 'Lángmester',
-    'frostMaster': 'Fagymester',
-    'voltMaster': 'Voltmester',
-    'galeMaster': 'Szélmester',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Nagymester-robot'
-  },
-
-  'sector': {
-    'rotor': 'Rotorfutam',
-    'neon': 'Sötét sugárút',
-    'tide': 'Árapály-zsilipek',
-    'drill': 'Mélybánya',
-    'magnet': 'Polaritásművek',
-    'scrapyard': 'Roncstelep',
-    'blaze': 'Lángfinomító',
-    'cryo': 'Krioüzem',
-    'volt': 'Volttorony',
-    'gale': 'Égi dokkok',
-    'fortress': 'Vex-erőd'
-  },
-
-  'quest': {
-    'tutorial': 'Ébresztő!',
-    'boss': 'Leszámolás a Magmesterrel',
-    'bossTitle': 'Leszámolás: {boss}',
-    'kill': 'Roncsgyártás',
-    'collect': 'Adatmentés',
-    'rescue': 'Mentőakció',
-    'elite': 'Elitvadászat',
-    'supply': 'Utánpótlás',
-    'purge': 'Szektortisztítás',
-    'climb': 'Toronyfutam',
-    'stage': 'Platformpálya',
-    'stageName': { 'blaze': 'Olvadó mélység', 'cryo': 'Gleccserfutam', 'volt': 'Sínroham', 'gale': 'Égi dokkok', 'magnet': 'Polaritásművek', 'drill': 'Mélybánya', 'tide': 'Árapály-zsilipek', 'neon': 'Sötét sugárút', 'rotor': 'Rotorfutam', 'fortress': 'Vex-erőd' },
-    'rematch': 'Visszavágó: {boss}',
-    'desc': {
-      'tutorial': 'Küzdd át magad a Roncstelepen, és győzd le a Roncsolót.',
-      'boss': 'Helyszín: {sector}. Törj be a magjába, és győzd le: {boss}.',
-      'kill': 'Helyszín: {sector}. Semmisíts meg ennyit: {n} {target}.',
-      'collect': 'Helyszín: {sector}. Szerezz vissza {n} szétszórt adatmagot.',
-      'rescue': 'Helyszín: {sector}. Egy munkásrobot rekedt ott. Keresd meg, és teleportáld biztonságba.',
-      'elite': 'Helyszín: {sector}. Egy elit egység rettegésben tartja a környéket: {target}. Vadászd le!',
-      'supply': 'Helyszín: {sector}. Törj fel {n} utánpótlásládát.',
-      'purge': 'Helyszín: {sector}. Semmisíts meg minden gépet.',
-      'climb': 'Helyszín: {sector}. Mássz fel a toronyba — lépcsők, létrák, liftek és szakadékok —, aztán ugorj le az arénába a visszavágóra: {boss}.',
-      'stage': 'Helyszín: {sector}. Fuss, csússz és utazz — peremek, szakadékok és gépek — az arénáig, aztán győzd le: {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Feladat',
-    'complete': 'Feladat teljesítve',
-    'beamOutHint': 'Teleportálj ki, ha készen állsz.',
-    'tutorial': 'Győzd le: {boss}',
-    'boss': 'Győzd le: {boss}',
-    'kill': 'Megsemmisítve, {target}: {n}/{total}',
-    'collect': 'Adatmagok: {n}/{total}',
-    'rescue': 'Keresd meg a rekedt munkásrobotot',
-    'elite': 'Vadászd le az elitet: {target}',
-    'supply': 'Utánpótlásládák: {n}/{total}',
-    'purge': 'Megsemmisített gépek: {n}/{total}',
-    'climb': 'Mássz fel a toronyba, győzd le: {boss}',
-    'stage': 'Érd el az arénát, győzd le: {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} megsemmisítve!',
-    'objectiveDone': 'Feladat teljesítve!',
-    'rescued': 'Munkásrobot biztonságba teleportálva!',
-    'bossDoor': 'A redőny csikorogva felnyílik…'
-  },
-  'interact': {
-    'chest': 'Kinyitás',
-    'rescue': 'Mentés',
-    'bossDoor': 'Belépés'
-  },
-  'progress': {
-    'levelUp': '{n}. szint! Rendszerek teljesen megjavítva.'
-  },
-  'tips': {
-    'moveTouch': 'Húzd a bal oldalt a mozgáshoz, a jobb oldalt a körbenézéshez. Koppints a padlóra, és odasétálsz!',
-    'moveKeys': 'Mozgás: {keys}.',
-    'lookMouse': 'Mozgasd az egeret a körbenézéshez.',
-    'capture': 'Kattints a jelenetre, hogy irányítsd a kamerát.',
-    'fireTouch': 'Gépek előtted! Koppints a lövéshez — tartsd lenyomva, majd engedd el egy töltött lövéshez.',
-    'fireKeys': 'Gépek előtted! Bal kattintással lősz — tartsd lenyomva, majd engedd el egy töltött lövéshez.',
-    'charge': 'A pajzsok megállítják a sima lövéseket. Egy TELJESEN feltöltött lövés átüti őket.',
-    'blockTouch': 'Narancs gyűrű: tartsd lenyomva a pajzsot a védéshez — nyomd meg, amikor a gyűrű bezárul, és HÁRÍTASZ!',
-    'blockKeys': 'Narancs gyűrű: tartsd lenyomva a jobb egérgombot a védéshez — nyomd meg, amikor a gyűrű bezárul, és HÁRÍTASZ!',
-    'red': 'A piros gyűrűt nem lehet kivédeni — csússz ki az útjából!',
-    'dodgeKeys': 'A piros gyűrűt nem lehet kivédeni — nyomd meg ezt: {slide}, és csússz ki az útjából!',
-    'spaceKey': 'Szóköz',
-    'chest': 'Egy utánpótlásláda! Koppints rá a kinyitáshoz.',
-    'tank': 'Fogy az életerőd? A Javítózselé teljesen rendbe hoz.',
-    'weapon': 'Használd a lemásolt fegyvert a színes gombbal!'
-  },
-  'lesson': {
-    'charge': 'Tartsd lenyomva az ágyú feltöltéséhez, majd engedd el: csak egy töltött lövés töri át a gyakorlódrón pajzsát.',
-    'crate': 'Az utánpótlásládák csak töltött lövéstől törnek. Tartsd lenyomva, majd engedd el a világító ládára.',
-    'weaponKeys': 'Nyomd meg ezt: {n}, és lőj a lemásolt fegyverrel: egy lövés mindhárom drónt leszedi.',
-    'weaponTouch': 'Koppints a világító fegyvergombra: egy lövés mindhárom drónt leszedi.',
-    'gelKeys': 'Nyomd meg ezt: {key}, és használj egy Javítózselét: teljesen megjavít.',
-    'gelTouch': 'Koppints a zöld Javítózselé gombra: teljesen megjavít.'
-  },
-  'walk': {
-    'finishLessonOn': 'Fejezd be a leckét: {weapon}',
-    'finishTutorial': 'Előbb fejezd be az oktatást',
-    'finishLesson': 'Fejezd be a leckét'
-  },
-  'hubLesson': {
-    'earnBolts': 'Nincs elég csavarod? Nézz meg egy rövid videót, és kapsz még.',
-    'catchUp': 'Pip: Az ágyúd lemaradt a kinti gépek mögött. Fejlesszük fel!',
-    'overload': 'Pip: A Szélmester magja megtanított egy trükkre. Tartsd a teljes töltést még 3 másodpercig: TÚLTÖLTÉS!',
-    'workshop': 'Nyisd meg a Műhelyt.',
-    'upgradeBuster': 'Költs csavarokat az ágyúd fejlesztésére: több sebzés.',
-    'pickArmor': 'Most válaszd ki a mellvértedet.',
-    'upgradeArmor': 'Azt is fejleszd: több védelem.',
-    'deploy': 'Minden kész — vissza a küldetésekhez!'
-  },
-  'loot': {
-    'upgrade': 'Jobb!',
-    'found': 'Találtál egyet: {rarity} {item}!',
-    'tank': 'Javítózselét találtál!',
-    'giftTank': 'Ajándék: +1 Javítózselé!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin parittyás',
+    'bandit': 'Bandita',
+    'banditArcher': 'Bandita íjász',
+    'wolf': 'Farkas',
+    'banditChief': 'Banditavezér',
+    'goblinKing': 'A Goblinkirály',
+    'treant': 'Élőfa',
+    'spider': 'Óriáspók',
+    'broodSpider': 'Pókfióka',
+    'outlawCaptain': 'Haramiakapitány',
+    'elderTreant': 'Ősi élőfa',
+    'warlord': 'Krag hadúr',
+    'fireElemental': 'Tűzelementál',
+    'ironGolem': 'Vasgólem',
+    'cultist': 'Kultista',
+    'emberLord': 'A Parázsúr',
+    'ironColossus': 'A Vaskolosszus',
+    'frostGiant': 'Fagyóriás',
+    'naga': 'Naga',
+    'skeleton': 'Csontváz',
+    'necromancer': 'Nekromanta',
+    'frostJarl': 'A Fagyjarl',
+    'nagaOracle': 'A Vízbe fúlt Jósnő',
+    'voidStalker': 'Ürességjáró',
+    'wyvern': 'Wyvern',
+    'highDemon': 'Fődémon',
+    'voidWarden': 'Az Üresség Őre',
+    'voidDragon': 'Az Üresség Sárkánya',
+    'doomKnight': 'Végzetlovag',
+    'imp': 'Kisördög',
+    'archDemon': 'Az Ősdémon',
+    'voidling': 'Ürességfajzat',
+    'voidLord': 'Az Üresség Ura',
+    'orderGuard': 'Rendi inkvizítor',
+    'syndicateBlade': 'Szindikátusi penge'
   },
 
   'results': {
-    'success': 'KÜLDETÉS TELJESÍTVE',
-    'failed': 'KÜLDETÉS SIKERTELEN',
+    'victory': 'Győzelem!',
+    'defeat': 'Vereség',
+    'retreat': 'Visszavonulás',
+    'firstClear': 'Első teljesítés!',
+    'waves': 'Túlélt hullámok: {n}',
+    'levelUp': '{n}. szint!',
+    'points': '+{n} tulajdonságpont',
     'xp': 'Tapasztalat',
-    'bolts': 'Csavarok',
-    'kills': 'Megsemmisített gépek',
-    'chests': 'Kinyitott ládák',
+    'gold': 'Arany',
+    'lost': 'Elvesztve',
+    'kills': 'Legyőzve',
     'time': 'Idő',
-    'levelUp': 'Szintlépés! Most {n}. szintű vagy',
-    'newWeapon': 'Új fegyver: {weapon}!',
-    'newSector': 'Új szektor feloldva: {sector}',
-    'items': 'Talált felszerelés',
-    'triple': 'Háromszoros csavar',
-    'tripleAria': 'Nézz meg egy rövid videót: háromszorozd meg a csavaraidat, +{n}'
-  },
-  'defeat': {
-    'title': 'RENDSZERHIBA',
-    'body': 'Flux túl sok sebzést kapott.',
-    'kept': 'Megtartod, amit eddig szereztél:',
-    'useTank': 'Újraindítás Javítózselével ({n})',
-    'rebootAd': 'Újraindítás most',
-    'retreat': 'Vissza a laborba',
-    'retryCheckpoint': 'Újra az ellenőrzőponttól'
-  },
-  'ending': {
-    'fall': 'A Nagymester elesik. Vex Vörös Jele vele együtt hal el.',
-    'relays': 'Egyenként hazatérnek a reléállomások, mind a saját színében.',
-    'thaw': 'A laborban felenged a jég.',
-    'gauss': 'Flux... sikerült. Mindet visszahoztad.',
-    'atlas': 'A Torony üres. Most én irányíthatnám a várost. Nem fogom. Az övék.',
-    'morning': 'Cyber City az első szabad reggelére ébred.',
-    'spark': 'Flux... láttad azt a szikrát?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
-    'credits': {
-      'by': 'Készítette: {studio}',
-      'cast': 'Szereplők',
-      'masters': 'A Mesterek',
-      'thanks': 'Köszönjük, hogy játszottál!'
-    },
-    'card': {
-      'title': 'Cyber City szabad!',
-      'promise': 'Új játék+: a Mestereknek 25 %-kal több az életerejük, és gyorsabban támadnak. A szinted, felszerelésed és fegyvereid megmaradnak.',
-      'ngplus': 'Új játék+ indítása',
-      'lab': 'Vissza a laborba',
-      'confirm': 'Indulhat az Új játék+?',
-      'confirmBody': 'A történet elölről kezdődik, keményebb Mesterekkel. Megtartod a szintedet, felszerelésedet, fegyvereidet és fejlesztéseidet.'
-    }
-  },
-  'banner': {
-    'cleared': 'Pálya teljesítve',
-    'bossDown': 'Ellenség legyőzve!',
-    'gameOver': 'Vége a játéknak!',
-    'grandMaster': 'Nagymester!'
+    'unlocked': 'Új a térképen: {places}',
+    'retry': 'Próbáld újra',
+    'tip': 'A tapasztalat és a zsákmány megmarad. Költsd el a pontjaidat, keress fel egy tanítót, és térj vissza erősebben.'
   },
   'pause': {
-    'title': 'SZÜNET',
+    'title': 'Szünet',
     'resume': 'Folytatás',
-    'abandon': 'Küldetés feladása',
     'controls': 'Irányítás',
-    'label': {
-      'move': 'Mozgás',
-      'look': 'Nézés',
-      'parry': 'Hárítás',
-      'interact': 'Használat'
-    },
-    'touch': {
-      'move': 'Bal oldal: húzd a mozgáshoz. Koppints a padlóra, és odasétálsz.',
-      'fire': 'Harcban: koppints a lövéshez, tartsd a töltéshez, engedd el a tüzeléshez.',
-      'block': 'Tartsd lenyomva a pajzsot a védéshez — épp, amikor bezárul egy gyűrű, és hárítasz.',
-      'use': 'Láda, rekedt robot vagy ajtó mellett: koppints rá, vagy a felugró gombra.'
-    },
-    'keys': {
-      'move': '{keys} / nyilak: mozgás.',
-      'look': 'Mozgasd az egeret a nézéshez. Kattints a jelenetre, hogy irányítsd a kamerát.',
-      'fire': 'Bal kattintás: lövés — tartsd a töltéshez, engedd el a tüzeléshez.',
-      'block': 'Jobb kattintás: védés — épp, amikor bezárul egy gyűrű, és hárítasz.',
-      'slide': '{slide}: csúszás · {tank}: Javítózselé · {use}: használat · {beam}: teleport',
-      'more': '{w1} / {w2}: különleges fegyverek · {target}: célpontváltás · Esc: szünet',
-      'space': 'Szóköz',
-      'press': '{key}: {action}'
+    'retreat': 'Vissza a térképre',
+    'retreatNote': 'Minden megmarad, amit eddig szereztél, de a zóna nem lesz megtisztítva.'
+  },
+  'ending': {
+    'level': 'Szint',
+    'more': 'Az erőd alatt megnyílt az Üresség hasadéka. A Kolosszeum továbbra is fogad minden kihívót.',
+    'order': { 'title': 'A vasbéke', 'text': 'A Vasrend zászlói lobognak a Rettegés erődje fölött. Az utak biztonságosak, a törvény sok, a neved pedig a kapu fölé van vésve.' },
+    'syndicate': { 'title': 'A hamualku', 'text': 'A Szindikátus az erőd árnyaiból uralkodik. A birodalomban már semmi sem tilos. Csak drága.' },
+    'circle': { 'title': 'Az éter kora', 'text': 'A Kör az Üresség foglyul ejtett tüzével világítja ki az erődöt. Csodák áradnak a kapuin, és senki sem kérdezi, mibe kerülnek.' },
+    'free': { 'title': 'Nincsenek királyok', 'text': 'A trón darabokban hever, az erőd üresen áll. Egy korszak óta először a birodalom azoké, akik benne élnek.' },
+    'unbound': { 'title': 'A Kötetlen', 'text': 'Elfoglaltad a trónt. A Rend, a Szindikátus és a Kör együtt vonul ellened. Hadd jöjjenek.' },
+    'note': {
+      'goblinPact': 'Goblin kereskedők ma is alkudoznak Sunford főterén.',
+      'goblinSlain': 'Az Üregek üresen állnak, a karavánok pedig időben érkeznek.',
+      'goblinRansom': 'A Goblinkirály megint gazdag, és megint portyázik.',
+      'oakhavenSaved': 'Oakhaven falai most magasabbak, a piacai pedig teltebbek.',
+      'oakhavenFallen': 'Gaz nő Oakhaven utcáin. A feketepiac virágzik.',
+      'coreOrder': 'Ironhold bányái csendesek, és a törpök újra ásnak.',
+      'coreCircle': 'Ironhold kohói kéken izzanak, a lőfegyverei pedig a legjobbak a birodalomban.',
+      'coreSold': 'Valahol a mag még mindig zúg. A gólemek még mindig járnak.',
+      'oracleFreed': 'Csendes napokon a halászok messze kint, a vízen látják a jósnőt.',
+      'oracleSlain': 'Az Elsüllyedt templom hallgat. Már senki sem tudja, mi következik.',
+      'dragonPact': 'Egy sárkány fészkel az erőd tetején, és csak egyetlen névre hallgat.',
+      'dragonSlain': 'Egy sárkány koponyája lóg a Rend nagytermében.'
     }
-  },
-  'levelUp': {
-    'title': 'SZINTLÉPÉS!',
-    'pick': 'Válassz egy rendszerfejlesztést',
-    'chip': '+1 képességchip az áramköreidhez',
-    'granted': '{stat}: {from} → {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Váz', 'desc': 'Max. életerő' },
-    'we': { 'name': 'Reaktor', 'desc': 'Fegyverenergia' },
-    'power': { 'name': 'Szervók', 'desc': 'Védés és csúszás ereje' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Küldetések',
-      'hero': 'Flux',
-      'circuits': 'Áramkörök',
-      'workshop': 'Műhely'
-    },
-    'heroTabAria': 'Flux, a harci androidod',
-    'levelUpReady': 'Szintlépés!',
-    'levels': '{a}–{b}. szint',
-    'story': 'Történetküldetés',
-    'jobs': 'Megbízások',
-    'jobsHint': 'Ismételhetők — újak érkeznek, ahogy teljesíted őket',
-    'lockedHint': 'Győzd le, hogy megnyíljon ez a szektor: {boss}.',
-    'sectorSecured': 'Szektor biztosítva. A megbízásai még a táblán vannak.',
-    'deploy': 'Indulás',
-    'reroll': 'Új megbízás',
-    'gift': {
-      'name': 'Zselé útravalónak',
-      'desc': 'Nézz meg egy rövid videót: +1 Javítózselé a következő küldetésre, akár a korláton felül is.',
-      'aria': 'Nézz meg egy rövid videót egy extra Javítózseléért a következő küldetésre',
-      'ready': 'Ajándék becsomagolva!',
-      'readyDesc': '+1 Javítózselé a következő küldetésre.'
-    },
-    'unlock': {
-      'hint': 'Teljesíts még {n} küldetést a feloldáshoz | Teljesíts még {n} küldetést a feloldáshoz',
-      'aria': '{name}, zárolva: teljesíts még {n} küldetést | {name}, zárolva: teljesíts még {n} küldetést'
-    }
-  },
-  'hero': {
-    'role': 'A harci androidod',
-    'weapons': 'Különleges fegyverek',
-    'weaponSlot': '{n}. hely',
-    'weaponRank': '{n}. fokozat',
-    'noWeapons': 'Győzd le a Magmestereket, hogy lemásold a fegyvereiket.',
-    'attrPending': 'Választható fejlesztés: {n}!',
-    'stats': 'Rendszerek',
-    'attributes': 'Fejlesztések',
-    'stat': {
-      'hp': 'Max. életerő',
-      'we': 'Fegyverenergia',
-      'power': 'Erő',
-      'damage': 'Lövedéksebzés',
-      'charge': 'Töltött lövés',
-      'armor': 'Páncél',
-      'crit': 'Kritikus esély',
-      'tanks': 'Javítózselék'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Elég csavar a legjobb ágyúd két fejlesztéséhez.',
-    'upgradeAdName': 'Fejlesztéslöket',
-    'tanks': 'Készletek',
-    'tankName': 'Javítózselé',
-    'tankDesc': 'Küldetés közben teljesen visszaállítja az életerőt és az erőt.',
-    'owned': 'Nálad: {n}/{max}',
-    'upgrade': 'Felszerelés fejlesztése',
-    'next': 'Következő szint',
-    'upgradeBtn': 'Fejlesztés',
-    'maxed': 'Teljesen fejlesztve',
-    'dropName': 'Utánpótlás-csomag',
-    'dropDesc': 'Egy láda tartalék csavar, egyenesen a laborból teleportálva.',
-    'dropAria': 'Nézz meg egy rövid videót, és kapsz {n} csavart',
-    'dropCooldown': 'Következő csomag: {t}'
-  },
-
-  'board': {
-    'buster': 'Ágyú',
-    'armor': 'Páncél',
-    'core': 'Mag'
-  },
-  'circuits': {
-    'chips': 'Képességchipek: {n}',
-    'rank': '{n}/{max}. fokozat',
-    'requires': 'Feltétel: {name}, {n}. fokozat',
-    'requiresBoss': 'Előbb győzd le: {name}',
-    'unlock': 'Feloldás',
-    'install': 'Chip beszerelése',
-    'maxed': 'Teljes erő',
-    'respec': 'Áramkörök visszaállítása'
-  },
-  'skill': {
-    'rapid': { 'name': 'Gyorslövedékek', 'desc': 'Gyorslövés-sebzés +10% chipenként.' },
-    'quickCharge': { 'name': 'Gyorstöltés', 'desc': 'Töltési idő −10% chipenként.' },
-    'megaCharge': { 'name': 'Megatöltés', 'desc': 'Töltött lövés sebzése +12% chipenként.' },
-    'perfectTiming': { 'name': 'Tökéletes időzítés', 'desc': 'Szélesebb tökéletes elengedési ablak és erősebb kritikus találatok.' },
-    'piercing': { 'name': 'Átütő mag', 'desc': 'A félig töltött lövések is áttörik a pajzsokat és sisakokat.' },
-    'giga': { 'name': 'Túltöltés', 'desc': 'Tartsd a teljes töltést még 3 másodpercig: a lövés 1,75× erősebb.' },
-    'frame': { 'name': 'Megerősített váz', 'desc': 'Max. életerő +8% chipenként.' },
-    'barrier': { 'name': 'Hangolt gát', 'desc': 'A védés kevesebb erőbe kerül, és kevesebb sebzést enged át.' },
-    'autoRepair': { 'name': 'Önjavítás', 'desc': 'Harcon kívül másodpercenként 1% életerő-visszatöltés, chipenként.' },
-    'parry': { 'name': 'Hárítási protokoll', 'desc': 'Szélesebb hárítási ablak; a hárított gépek tovább maradnak kábultak.' },
-    'spikes': { 'name': 'Tüskés borítás', 'desc': 'A kivédett sebzés 15%-át visszaveri, chipenként.' },
-    'lastStand': { 'name': 'Utolsó Kiállás', 'desc': 'Küldetésenként egyszer túlélsz egy halálos találatot 1 életerővel.' },
-    'cells': { 'name': 'Energiacellák', 'desc': 'Fegyverenergia +3 chipenként.' },
-    'mastery': { 'name': 'Fegyvermesterség', 'desc': 'Különleges fegyverek sebzése +10% chipenként.' },
-    'boosters': { 'name': 'Csúszórakéták', 'desc': 'Gyorsabb csúszás-újratöltés, olcsóbb csúszások.' },
-    'efficient': { 'name': 'Hatékony magok', 'desc': 'A különleges fegyverek 10%-kal kevesebb energiát fogyasztanak chipenként.' },
-    'magnet': { 'name': 'Csavarmágnes', 'desc': 'Több csavar és nagyobb gyűjtési hatótáv.' },
-    'tankCap': { 'name': 'Zselékapacitás', 'desc': 'Chipenként eggyel több Javítózselét vihetsz.' }
-  },
-
-  'rarity': {
-    'standard': 'Alap',
-    'tuned': 'Hangolt',
-    'prototype': 'Prototípus',
-    'legendary': 'Legendás'
-  },
-  'item': {
-    'arm_standard': 'Alapágyú',
-    'arm_rapid': 'Gyorságyú',
-    'arm_heavy': 'Nehézágyú',
-    'arm_quick': 'Gyorstöltő ágyú',
-    'arm_nova': 'Nova-ágyú',
-    'helm_scout': 'Felderítősisak',
-    'helm_guard': 'Őrsisak',
-    'helm_ace': 'Ászsisak',
-    'helm_royal': 'Királyi sisak',
-    'body_light': 'Könnyű váz',
-    'body_plated': 'Páncélozott váz',
-    'body_reactor': 'Reaktorváz',
-    'body_aegis': 'Égisz-váz',
-    'boots_basic': 'Alapcsizma',
-    'boots_dash': 'Rohamcsizma',
-    'boots_magnet': 'Mágnescsizma',
-    'boots_titan': 'Titáncsizma',
-    'chip_logic': 'Logikai chip',
-    'chip_quantum': 'Kvantumchip'
-  },
-  'slot': {
-    'buster': 'Ágyú',
-    'helmet': 'Sisak',
-    'chest': 'Váz',
-    'boots': 'Csizma',
-    'chip': 'Chip'
-  },
-  'gear': {
-    'damage': 'Sebzés',
-    'armor': 'Páncél',
-    'equip': 'Felszerel',
-    'unequip': 'Levesz',
-    'equipped': 'Felszerelve',
-    'new': 'ÚJ',
-    'salvage': 'Szétszerel',
-    'noAffixes': 'Nincs bónuszmodul',
-    'emptySlot': 'Ide még nincs semmi — nyiss ládákat, és teljesíts megbízásokat.'
-  },
-  'affix': {
-    'damage': '{v} sebzés',
-    'crit': '{v} kritikus esély',
-    'critDmg': '{v} kritikus sebzés',
-    'hp': '{v} max. életerő',
-    'armor': '{v} páncél',
-    'we': '{v} fegyverenergia',
-    'power': '{v} erő',
-    'bolts': '{v} talált csavar',
-    'chargeSpeed': '{v} töltési sebesség',
-    'pelletDmg': '{v} lövedéksebzés',
-    'chargeDmg': '{v} töltött lövés sebzése',
-    'moveSpeed': '{v} mozgási sebesség',
-    'special': '{v} különlegesfegyver-sebzés',
-    'regen': '{v} életerő-visszatöltés / mp (harcon kívül)',
-    'magnet': '{v} gyűjtési hatótáv'
-  },
-  'weapon': {
-    'rankUp': '{weapon} fejlesztve: {n}. fokozat!',
-    'scrapBurst': { 'name': 'Roncssorozat', 'desc': 'Háromirányú roncszápor. Remek tömegek ellen.' },
-    'flameWave': { 'name': 'Lánghullám', 'desc': 'Egy tűzgolyó gurul végig a padlón, áthalad minden gépen az útjában, és lángra lobbantja őket.' },
-    'iceLance': { 'name': 'Jégdárda', 'desc': 'Átütő dárda, amely lehűti és lelassítja, amit eltalál.' },
-    'thunderArc': { 'name': 'Villámív', 'desc': 'Azonnali villám, amely átugrik a közeli gépekre.' },
-    'galeGuard': { 'name': 'Szélpajzs', 'desc': 'Levelek keringenek körülötted, felfogják a lövéseket és szeletelik a gépeket. Használd újra, hogy elhajítsd őket.' },
-    'magnetPull': { 'name': 'Mágnesrántás', 'desc': 'Célkövető patkó, amely feltöri a pajzsokat és páncélokat, és lerántja a repülőket az égből.' },
-    'drillBomb': { 'name': 'Fúróbomba', 'desc': 'Fúró bomba, amely ott robban, ahol megáll, és minden közeli gépet eltalál. Szétveri a repedt sziklát.' },
-    'bubbleLance': { 'name': 'Buborékdárda', 'desc': 'Egy nagy buborék gurul végig a padlón, és átszakít minden gépet az útjában.' },
-    'neonBlade': { 'name': 'Neonpenge', 'desc': 'Bumerángként eldobott fénypenge: odafelé és visszafelé is vág.' },
-    'droneSwarm': { 'name': 'Drónraj', 'desc': 'Három kis drón levadász három gépet, bármilyen fedezet mögött.' }
   },
 
   'options': {
-    'killCams': 'Kill-cam',
     'gameplay': 'Játékmenet',
     'title': 'Beállítások',
     'general': 'Általános',
@@ -528,16 +612,16 @@ export default {
     'difficulty': 'Nehézség',
     'soundEffects': 'Hangeffektek',
     'music': 'Zene',
-    'musicTrack': 'Zeneszám',
+    'mute': 'Némítás',
+    'musicTrack': 'Zene',
     'musicTracks': {
-      'cozy': 'Nyugodt áramkörök',
-      'trance': 'Overdrive'
+      'cozy': 'Nyugodt',
+      'trance': 'Kalandos'
     },
     'haptics': 'Rezgés',
     'on': 'Be',
     'off': 'Ki',
     'close': 'Bezárás',
-    'replayIntro': 'Intró újra',
     'keyboard': {
       'auto': 'Billentyűzetkiosztás felismerése',
       'layout': 'Billentyűzetkiosztás',
@@ -547,45 +631,45 @@ export default {
       'reset': 'Billentyűk visszaállítása'
     },
     'actions': {
-      'forward': 'Előre',
-      'back': 'Hátra',
-      'left': 'Oldalazás balra',
-      'right': 'Oldalazás jobbra',
-      'turnLeft': 'Fordulás balra',
-      'turnRight': 'Fordulás jobbra',
-      'slide': 'Csúszás',
-      'block': 'Védés',
-      'interact': 'Használat',
-      'beam': 'Teleport',
-      'tank': 'Javítózselé',
-      'weapon1': '1. különleges fegyver',
-      'weapon2': '2. különleges fegyver',
-      'weapon3': 'Kölcsönfegyver',
-      'target': 'Célpontváltás',
-      'map': 'Térkép'
+      'up': 'Mozgás fel',
+      'down': 'Mozgás le',
+      'left': 'Mozgás balra',
+      'right': 'Mozgás jobbra',
+      'skill1': '1. képesség',
+      'skill2': '2. képesség',
+      'skill3': '3. képesség',
+      'skill4': '4. képesség',
+      'skill5': '5. képesség',
+      'skill6': '6. képesség',
+      'potion': 'Ital megivása',
+      'interact': 'Beszélgetés',
+      'target': 'Következő célpont',
+      'map': 'Világtérkép',
+      'character': 'Hős',
+      'inventory': 'Táska',
+      'skills': 'Képességek'
     },
-    'lookSensitivity': 'Nézési érzékenység',
     'difficulties': {
       'easy': 'Könnyű',
       'medium': 'Közepes',
       'hard': 'Nehéz'
     },
     'difficultyHints': {
-      'easy': 'A gépek gyengébben ütnek, és hamarabb kidőlnek.',
+      'easy': 'Az ellenségek gyengébben ütnek, és hamarabb kidőlnek.',
       'medium': 'Az eredetileg tervezett kihívás.',
-      'hard': 'Szívósabb gépek, amelyek nagyobbat ütnek.'
+      'hard': 'Szívósabb ellenségek, amelyek nagyobbat ütnek.'
     }
   },
   'adsBlocked': {
     'title': 'Nem sikerült megjeleníteni a hirdetést',
-    'body': 'Megpróbáltunk lejátszani egy videót, hogy megkapd a jutalmad, de valami a böngésződben blokkolja a hirdetéseket.',
+    'body': 'Megpróbáltunk lejátszani neked egy videót, de valami a böngésződben blokkolja a hirdetéseket.',
     'allowPrefix': 'Engedélyezd a hirdetéseket itt:',
     'allowSuffix': '(vagy szüneteltesd a reklámblokkolót ennél a játéknál), és próbáld újra.',
     'gotIt': 'Értem'
   },
   'saveStatus': {
     'restoredTitle': 'Felhőmentés visszaállítva',
-    'restoredBody': '+{n} bónuszcsavar a helyreállításért',
+    'restoredBody': '+{n} bónuszarany a helyreállításért',
     'tap': 'koppints',
     'pausedTitle': 'Felhőszinkron szüneteltetve',
     'pausedBody': 'Offline játszol. A haladásod itt mentődik.',
@@ -611,443 +695,5 @@ export default {
     'yourRank': 'Helyezésed: #{n} / {total}',
     'of': '/ {n} játékos',
     'tabGlobal': 'Globális'
-  },
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux elszabadult gépekkel harcol Cyber City neonfényes utcáin.',
-      'valley': 'Cyber City: ragyogó androidváros, amelyet fénysugarak kötnek össze. Dr. Vex egy vörös jellel átveszi az uralmat a gépei felett.',
-      'lab': 'A jel eléri Gauss professzor laborját. Gauss átadja Fluxnak az Atlas-lemezt, és felébreszti.',
-      'safeMode': 'Gauss lefagyasztja magát egy kapszulában, hogy kizárja a jelet. Még él.',
-      'wakeUp': 'Flux 1. szinten ébred, Atlasszal online. A Vex-erőd sokkal erősebb, ezért előbb a Roncstelep jön.',
-      'beam': 'Flux a Roncstelepre teleportál.'
-    },
-    'vex': {
-      'diagnosis': 'Diagnózis: ez a völgy BETEG. A gyógymód… ÉN vagyok!'
-    },
-    'atlas': {
-      'logStart': 'Napló indítása.',
-      'goodMorning': 'Mag online. Jó reggelt, Flux.',
-      'scrapyardFirst': 'Előbb a Roncstelep. Egyszerre egy relé.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Magmester-jel. Ez… nagy.',
-    },
-    'sector': {
-      'blaze': 'Finomító. Forró hely. Figyelj a fúvókákra.',
-      'cryo': 'A hűtőfolyadék felfelé folyik. Az Erődbe.',
-      'gale': 'A testéhez minden alkatrész itt megy át.',
-      'magnet': 'Öntöde. Karmokat önt.',
-      'drill': 'Érc a páncéljához. Itt bányásszák.',
-      'tide': 'Most uszályok. Vex talált másik utat.',
-      'neon': 'Kialudtak a fények. Vex arca nem.',
-      'rotor': 'Drónok. Az utolsó utánpótlási vonala.',
-    },
-    'fortress': {
-      'bays': 'Félkész. Ez a te műved.',
-    },
-    'warn': {
-      'boss': 'Magmester előttünk.',
-      'gelFirst': 'Reped a páncél. Használj zselét.',
-      'gel': 'Zselé.',
-      'criticalFirst': 'Kritikus! Vonulj vissza!',
-      'critical': 'Kritikus!',
-      'noGel': 'Elfogyott a zselé. Csak óvatosan.',
-      'weLow': 'Kevés a fegyverenergia. Az ágyú ingyen van.',
-      'weEmpty': 'Száraz a tank.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: utolsó lövés.',
-        'flameWave': '{weapon}: utolsó lövés.',
-        'iceLance': '{weapon}: utolsó lövés.',
-        'thunderArc': '{weapon}: utolsó lövés.',
-        'galeGuard': '{weapon}: utolsó lövés.',
-        'magnetPull': '{weapon}: utolsó lövés.',
-        'drillBomb': '{weapon}: utolsó lövés.',
-        'bubbleLance': '{weapon}: utolsó lövés.',
-        'neonBlade': '{weapon}: utolsó lövés.',
-        'droneSwarm': '{weapon}: utolsó lövés.',
-      },
-      'flame': 'Fúvókák. Várd ki… vagy csússz át.',
-      'blade': 'Penge. Rögtön utána indulj.',
-      'crusher': 'Prés. Figyeld a lámpát.',
-      'ladder': 'Létra. Nyomd a fal felé.',
-      'pit': 'Mély szakadék. Időzíts a liftre.',
-      'down': 'Újraindítás… Pip vigyáz rád.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Lőj, amikor kikukucskál.',
-      'trooper': 'Pajzs. Törd át töltött lövéssel.',
-      'heli': '{enemy}. Nézz fel.',
-      'hopper': '{enemy}. Lépj ki a gyűrűből.',
-      'roller': '{enemy}. Lépj ki oldalra.',
-      'brute': '{enemy}. Háríts, aztán üss vissza.',
-      'turret': '{enemy}. Maradj mozgásban.',
-      'golem': 'Az a láda lélegzik. Menj közel.',
-      'polar': '{enemy}. Lődd, amikor pirosan kinyílik.',
-      'warden': '{enemy}. Találd el a magot, amikor kinyílik.',
-      'hornet': '{enemy}. Egyenesen csap le: lépj oldalra!',
-      'stalker': '{enemy}. Hárítsd az ugrását.',
-      'puffer': '{enemy}. Lődd ki, mielőtt felfúvódik.',
-      'mole': '{enemy}. Találd el, amikor felbukkan.',
-      'elite': 'Aranygyűrű. Elit. Óvatosan.',
-      'fire': 'Tűzbevonat. A tűz lepereg róla.',
-      'ice': 'Jégbevonat. A jég lepereg róla.',
-      'volt': 'Árambevonat. Az áram lepereg róla.',
-      'wind': 'Szélbevonat. A szél lepereg róla.',
-    },
-    'volt': {
-      'hack': 'Flux… valami van a me—',
-      'thanks': '…Kint tartottad. Köszönöm.',
-    },
-    'mk1': {
-      'intro': 'Ez Vex. Az igazi.',
-      'fire': 'Tűz!',
-      'ice': 'Jég!',
-      'volt': 'Áram!',
-      'wind': 'Szél!',
-      'scrap': 'Roncs!',
-      'free': 'Mert szabadok.',
-    },
-    'guardDown': 'Lent a védelem! Szabad az út.',
-    'help': {
-      'weapon': 'Válaszd ki az új fegyvered, és lőj a drónokra!',
-      'gap': 'Sétálj egyenesen a perem felé, és átugrasz!',
-      'gel': 'Használj egy Javítózselét a gyógyuláshoz!',
-      'slide': 'Csússz el, mielőtt a piros gyűrű elér!',
-      'block': 'Tartsd lenyomva a védést, amikor tüzel. Épp a becsapódáskor a tökéletes!',
-      'charge': 'Tartsd lenyomva a tüzet, amíg az ágyú izzik, aztán engedd el!'
-    },
-    'train': {
-      'weapon': 'Gyakoroljuk az új fegyvert!',
-      'gap': 'Gyakoroljuk a szakadékok átugrását!',
-      'gel': 'Gyakoroljuk a Javítózselét!',
-      'slide': 'Gyakoroljuk a Csúszást!',
-      'block': 'Gyakoroljuk a Tökéletes Védést!',
-      'charge': 'Gyakoroljuk a Töltött Lövést!'
-    },
-    'hint': {
-      'locator': 'Arra van a cél.',
-      'rescue': 'Munkásrobot-jel. Gyenge. Közel van.',
-      'upgrade': 'Ez jobb darab.',
-      'levelUp': 'Új chip összeállítva.',
-      'done': 'Kész. Hívd a drónt, ha mehetünk.',
-      'underLevel': 'Erősebbek nálad. Előbb eddz.',
-      'floor': {
-        'blaze': '{sector}: 3. szinttől.',
-        'cryo': '{sector}: 6. szinttől.',
-        'volt': '{sector}: 9. szinttől.',
-        'gale': '{sector}: 13. szinttől.',
-        'magnet': '{sector}: 16. szinttől.',
-        'drill': '{sector}: 19. szinttől.',
-        'tide': '{sector}: 22. szinttől.',
-        'neon': '{sector}: 25. szinttől.',
-        'rotor': '{sector}: 28. szinttől.',
-        'fortress': '{sector}: 31. szinttől.',
-      },
-      'rotor': {
-        'arrive': 'Landoltunk. Pattanj le!',
-        'dip': 'Kapaszkodj, zuhanórepülés!',
-        'board': 'Mindenki beszállás! Én repülök, te lősz.'
-      },
-      'neon': {
-        'kick': 'Fordulj a falnak, és csússz. Még egyszer! Falugrás felfelé!',
-        'switch': 'Egy villanykapcsoló! Lőj rá, és megcseréled a hidakat.',
-        'blink': 'A fényhidak villognak! Kelj át, amíg világítanak.',
-        'blackout': 'Elmegy az áram! Kelj át, amikor visszajön a fény.'
-      },
-      'tide': {
-        'deep': 'Túl mély! Ki a vízből!',
-        'valve': 'Elárasztott zsilip! Lőj a szelepre, hogy leengedd.',
-        'rise': 'Jön a dagály. Fel a lépcsőn!',
-        'wade': 'Víz! A gázolás lelassít.'
-      },
-      'gm': {
-        'button': 'Vex megnyomott valamit... Készülj!',
-        'arms': 'Előbb a karjait! Az ágyút és a dárdát!',
-        'feet': 'Most a lábait! Védd ki a lökéshullámokat!',
-        'head': 'Lent van. Elérhető a feje!',
-        'body': 'Nyitva a mag! Végezz vele!',
-        'prism': 'Prizmaágyú! Pajzsot fel!'
-      },
-      'vex': {
-        'roof': 'Villámok! Mozdulj, amikor felvillan a gyűrű!',
-        'fall': 'Beszakad a tető!',
-        'core': 'Le a Maghoz! Ne ess bele!'
-      },
-      'drill': {
-        'drop': 'Hullanak a kövek! Lépj ki az árnyékokból.',
-        'rock': 'Repedt szikla! Egy teljes töltés szétveri.',
-        'board': 'Gurul a csille! Én kormányzok, te lövöd a vakondokat.',
-        'dip': 'Meredek lejtő! Kapaszkodj!',
-        'arrive': 'Végállomás. Pattanj ki!'
-      },
-      'magnet': {
-        'panel': 'Látod azt a piros-kék lapot? Lőj rá, és átfordítod a sínt.',
-        'rail': 'Mágnessín! A nyilak mutatják a vonzást. Törj át rajta, vagy utazz vele.'
-      },
-      'blaze': {
-        'lava': 'Ott lent láva van. Maradj a fémen.',
-        'leap': 'Gyalog túl széles. Csússz le a peremről, átrepülsz.',
-        'vents': 'Sziszegés, aztán tűz. Várd ki a zúgást, aztán menj.',
-        'barrels': 'Hordók! Figyeld a lámpákat, és bújj át köztük.',
-        'hammers': 'Kovácspörölyök. Számold az ütemet, aztán fuss.',
-        'drop': 'Hosszú az út lefelé. Egyszerre egy perem.'
-      },
-      'cryo': {
-        'ice': 'Jég! Ha elengeded a kart, tovább csúszol.',
-        'spikes': 'Tüskék a jég alatt. Menj egyenesen, éles kanyarok nélkül.',
-        'frost': 'Fagyszóró. Előbb izzik és sziszeg. Akkor kelj át, ha csend van.',
-        'icicles': 'Árnyékok a padlón? Jégcsapok. Lépj ki a körből!',
-        'pillar': 'Az az oszlop repedt. Lőj rá, és megvan a rövidítés.',
-        'stairs': 'Jeges lépcső. Lassan — kicsi a forduló.'
-      },
-      'volt': {
-        'panels': 'Azok a panelek lüktetnek. Várj egy sötét soron, aztán lépj.',
-        'board': 'Kezeket le a kormányról — én vezetek, te lősz.',
-        'wave': 'Drónok előttünk! Lődd le őket, mielőtt lecsapnak.',
-        'dip': 'Nagy lejtő jön. Kapaszkodj — és lőj tovább!',
-        'arrive': 'Végállomás. Pattanj le!'
-      },
-      'gale': {
-        'leap': 'Gyalog túl széles a rés. Csússz le a peremről — átvisz a lendület.',
-        'down': 'Szép ugrás. Most ne nézz le.',
-        'shuttle': 'Ingajáratok. Szállj fel, amikor kiköt, és szállj le a túloldalon.',
-        'wind': 'Várd meg, míg eláll a szél, aztán indulj. Vagy bújj egy oszlop mögé.',
-        'bob': 'Billegő platformok. Szállj fel alul, és utazz fel vele.'
-      }
-    },
-    'secret': {
-      'lights': 'Az a panel egy mintát mutat. A falon lévő lámpák nem. Még.',
-      'color': 'Annak a keretnek van egy kedvenc színe. Csak az ő lámpáinak kell világítaniuk.',
-      'cycle': 'Minden találat meggondoltat egy lámpát. A panel tudja, mit akar.',
-      'solved': 'Nocsak, nocsak. Valaki szereti a rejtvényeket.'
-    },
-    'landed': 'Landoltunk! Gyerünk.',
-    'brief': {
-      'tutorial': 'Edzés! Én vezetlek.',
-      'job': 'Gyors meló. Be és ki!',
-      'climb': 'Toronyfutam! Fel, fel, fel!',
-      'story': 'Egy Magmester vár. Szabadítsuk ki!'
-    },
-    'story': {
-      'relayOne': 'Az első relé világít. Még kilenc.',
-      'copied': {
-        'scrapBurst': '{weapon} lemásolva.',
-        'flameWave': '{weapon} lemásolva.',
-        'iceLance': '{weapon} lemásolva.',
-        'thunderArc': '{weapon} lemásolva.',
-        'galeGuard': '{weapon} lemásolva.',
-        'magnetPull': '{weapon} lemásolva.',
-        'drillBomb': '{weapon} lemásolva.',
-        'bubbleLance': '{weapon} lemásolva.',
-        'neonBlade': '{weapon} lemásolva.',
-        'droneSwarm': '{weapon} lemásolva.',
-      },
-      'dataCore': 'Hagyott nekünk valamit.',
-      'firstDraft': '…Az első vázlatából írtak engem.',
-      'body': 'Testet épít magának. A völgyünkből.',
-      'voltFreed': 'A jel elvesztette az erőművét.',
-      'galeFreed': 'Több alkatrész nem jut el az Erődbe.',
-      'breach': 'Lent a pajzs. Az Erőd nyitva áll.',
-      'magnetFreed': 'Kihűlt az öntöde. Nincs több karom.',
-      'drillFreed': 'Csend a bányában. Nincs több érc.',
-      'tideFreed': 'Zsilipek zárva. Az uszályok otthon maradnak.',
-      'neonFreed': 'Fény van. Vex elvesztette a képernyőit.',
-      'rotorFreed': 'Minden vonal elvágva. Vex egyedül maradt.',
-      'rotor': 'Rotorfutam. Szél az antennámban!',
-      'neon': 'Sötét sugárút. Fényt kérek!',
-      'tide': 'Árapály-zsilipek. Pancsolás!',
-      'drill': 'Mélybánya. Vigyázz a fejedre!',
-      'magnet': 'Polaritásművek. Pörög az iránytűm!',
-      'scrapyard': 'A Roncstelep reléje. Gyújtsd fel!',
-      'blaze': 'A Finomító. Forró, forró, forró!',
-      'cryo': 'Krioüzem. Brr! Mozgás!',
-      'volt': 'Volttorony. Bizsereg az áramköröm!',
-      'gale': 'Égi dokkok. Ne nézz le!',
-      'fortress': 'Az Erőd. Itt véget vetünk ennek.'
-    },
-    'arc': {
-      '10': 'Lent a pajzs. Vex jön!',
-      '9': 'Egy Mester maradt. Majdnem!',
-      '8': 'Nyolc! Már csak két Mester.',
-      '7': 'Hét világít. Csak így tovább!',
-      '6': 'Hat relé! Ébred a város.',
-      '1': 'Egy relé világít. Még kilenc!',
-      '2': 'Két relé! Vex duzzog.',
-      '3': 'Három világít. Ragyogj tovább!',
-      '4': 'Négy kész. Újra zümmög a hálózat.',
-      '5': 'Félúton! Vex izzad.'
-    },
-    'bossAhead': 'Főellenség előttünk. Mély levegő!',
-    'noWeak': 'Nem látok gyenge pontot. Mozgás!',
-    'weak': {
-      'flameWave': 'A Lánghullám fáj neki!',
-      'iceLance': 'A Jégdárda fáj neki!',
-      'thunderArc': 'A Villámív fáj neki!',
-      'galeGuard': 'A Szélpajzs fáj neki!',
-      'magnetPull': 'A Mágnesrántás fáj neki!',
-      'drillBomb': 'A Fúróbomba fáj neki!',
-      'bubbleLance': 'A Buborékdárda fáj neki!',
-      'neonBlade': 'A Neonpenge fáj neki!',
-      'droneSwarm': 'A Drónraj fáj neki!'
-    },
-    'bossDown': 'Mester kiszabadítva! Szép munka!',
-    'vexDown': 'Vex legyőzve. Megcsináltuk!',
-    'lowHp': 'Jaj! Vigyázz, Flux!',
-    'lowHpGel': 'Kevés az életerő! Próbálj egy Javítózselét.',
-    'lowWe': 'Fogy a fegyverenergia!',
-    'trap': 'Csapda előttünk. Figyelj az időzítésre!',
-    'plate': 'Nyomólap. Lábujjhegyen!',
-    'objective': 'Kész! Most keresd meg a kijáratot.',
-    'exit': 'Itt a fuvarunk!',
-    'levelUp': 'Szintlépés! Ragyogsz.',
-    'idle': {
-      '1': 'Bip. Csak benézek.',
-      '2': 'Nagyon ügyes vagy.',
-      '3': 'Gauss büszke lenne.',
-      '4': 'Szeretem a csapatunkat.'
-    }
-  },
-  'train': {
-    'todo': 'még nincs kész',
-    'done': 'kész',
-    'checklist': 'Oktatások',
-    'watch': 'Nézd meg, hogyan kell',
-    'card': {
-      'weapon': 'Lemásoltad egy Magmester fegyverét! A saját gombjával lőhetsz vele: fegyverenergiából működik, és néhány gép gyenge ellene.',
-      'gel': 'Megsérültél? A Javítózselé visszatölti az életerődet. Használj egyet, ha rosszul áll a harc.',
-      'slide': 'A piros támadásokat nem lehet kivédeni. Csússz ki az útjukból: csúszás közben semmi sem találhat el.',
-      'block': 'Tartsd lenyomva a védést a pajzs felemeléséhez: megállítja az elölről jövő lövéseket és ütéseket. Emeld fel épp a találat pillanatában egy Tökéletes Védésért, ami kiüti a támadót.',
-      'charge': 'Egy sima lövés nem töri át a pajzsot. Tartsd lenyomva a tüzet, amíg az ágyú izzik, aztán engedd el: a Töltött Lövés átüti.'
-    },
-    'name': {
-      'weapon': 'Fegyverlecke',
-      'gap': 'Ugrás-oktatás',
-      'gel': 'Javítózselé-oktatás',
-      'slide': 'Csúszás-oktatás',
-      'block': 'Pajzsoktatás',
-      'charge': 'Töltöttlövés-oktatás'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Előzenekar! {boss}!',
-      'blaze': 'A legöregebb! A legforróbb! {boss}!',
-      'frost': 'Hűtsd le magad, kis droid! {boss}!',
-      'volt': 'Pislogsz, és lemaradsz! {boss}!',
-      'gale': 'Következőt, kérem! {boss}, fújd el!',
-      'magnet': 'Vonzó, ugye? {boss}!',
-      'drill': 'Ideje egy mélyreható vizsgálatnak! {boss}!',
-      'tide': 'Elsodor a hullám, droid! {boss}!',
-      'neon': 'Fények! Kamera! {boss}!',
-      'rotor': 'A nagy finálé! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Egy ócskavas-daru? Milyen… cuki.',
-      'blaze': 'Mellékhatás feljegyezve. Emelem az adagot.',
-      'blueprint': 'A vázlataim! Csodás vagyok, ugye?',
-      'volt': 'Én… tö-ké-le-te-sen… JÓL vagyok.',
-      'gale': 'Jó! Van még TÖBB Mesterem.',
-      'magnet': 'Taszítva? Én? Le-HETETLEN!',
-      'drill': 'Hmf. Új mélypont. Szó szerint.',
-      'tide': 'Megfordul még az ár! …Ugye?',
-      'neon': 'Ki KAPCSOLTA FEL a villanyt?!',
-      'rotor': 'Tíz relé?! Nővér! NŐVÉR!',
-      'breach': 'Nem, nem, NEM! Az a pajzs SZABADALMAZTATOTT volt!',
-    },
-    'volt': {
-      'hack': 'Lássuk, mi van abban az üres fejben…',
-      'fail': 'Írásvédett?! Milyen GOROMBA.',
-    },
-    'fortress': {
-      'welcome': 'Üdv a klinikámon! Foglalj helyet… ÖRÖKRE!',
-    },
-    'mk1': {
-      'intro': 'Íme! Az új testem! Mark EGY!',
-      'obey': 'Mesterek! ENGEDELMESKEDJETEK a doktornak!',
-      'listen': 'Miért nem HALLGATNAK rám?!',
-      'defeat': 'Kérek… egy második véleményt…',
-    },
-    'sting': {
-      'doctorIn': 'A doktor… RENDEL.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Üdv újra itthon, Flux! Nézd csak a völgyet.',
-      'go': 'Szerelkezz fel, aztán indulás! Én vigyázok a laborra.',
-      'scrapyard': {
-        'won': 'A régi daru újra roncsot válogat.',
-        'weapon': 'Lemásoltad: {weapon}. Három irányba szór.',
-        'next': 'Következő megálló: {sector}. Csak egy kicsit nehezebb.',
-        'boss': 'A {boss} ott páncélt kovácsol Vex gépeinek.',
-        'tip': 'Védd ki a tűzgolyóit. A tűzhullámok mellett csússz el.',
-      },
-      'blaze': {
-        'won': 'A kémények újra tisztán égnek. Szép munka!',
-        'weapon': 'Mostantól tiéd a {weapon}. A tűz megolvasztja a jeget!',
-        'next': 'Következik: {sector}. Ott nagyobbat ütnek a gépek.',
-        'boss': 'A {boss} megtartja az összes hűtőfolyadékot. A város túlmelegszik.',
-        'tip': 'Védd ki a jéglövéseit, aztán fűts be neki!',
-      },
-      'cryo': {
-        'won': 'A hűtőfolyadék hazafolyik. Lehűlhet a város.',
-        'weapon': 'Tiéd a {weapon}. A jég legyőzi a villámot!',
-        'next': 'Következik: {sector}, a belvárosban. Érezhetően nehezebb.',
-        'boss': 'A {boss} a Vörös Jelbe önti az áramunkat.',
-        'tip': 'Sokat teleportál. Lődd le a gömbjeit.',
-      },
-      'volt': {
-        'won': 'Vex arca most folyton vibrál. Láttad?',
-        'weapon': 'Tiéd a {weapon}. A villám legyőzi a szelet!',
-        'next': 'Következik: {sector}, jó magasan. Kemény gépek.',
-        'boss': 'A {boss} éjjel-nappal Vex léghajóit irányítja.',
-        'tip': 'Védd ki a tollakat. Háríts, amikor lecsap!',
-      },
-      'gale': {
-        'won': 'A léghajók visszafordultak. Újra tiszta az ég!',
-        'weapon': 'Tiéd a {weapon}. A levelei felfogják a lövéseket.',
-        'next': 'Most a város széle: {sector}. Sokkal nehezebb.',
-        'boss': 'A {boss} lefoglalta a villamossíneket Vex rakományának.',
-        'tip': 'Magához ránt. Védd ki a szorítását!',
-      },
-      'magnet': {
-        'won': 'Újra járnak a villamosok. Csing-csing!',
-        'weapon': 'A {weapon} feltöri a pajzsokat. Pont jó a következő Mester ellen.',
-        'next': 'Következik: {sector}, mélyen a föld alatt. Igazán erős gépek.',
-        'boss': 'A {boss} csapdába ejtette a munkásrobotokat az aknában.',
-        'tip': 'Alád ás. Lépj le a jelről!',
-      },
-      'drill': {
-        'won': 'A munkásrobotok újra fent vannak a napfényen.',
-        'weapon': 'A {weapon} nagyot durran. Hagyj belőle a főellenségnek is!',
-        'next': 'Következik: {sector}, lent a víznél. Nagyon nehéz.',
-        'boss': 'Az {boss} elárasztja a csatornákat Vex uszályainak.',
-        'tip': 'Csússz át a hullámai alatt. Pukkaszd ki a buborékokat!',
-      },
-      'tide': {
-        'won': 'Újra tiszta víz folyik a völgybe.',
-        'weapon': 'A {weapon} átgurul az egész csapaton. A főellenség utálja a buborékokat!',
-        'next': 'Következik: {sector}, a sötét háztetők. Tényleg veszélyes.',
-        'boss': 'A {boss} minden ablakot lekapcsolt a belvárosban.',
-        'tip': 'A pengéje kirepül, aztán vissza. Térj ki kétszer!',
-      },
-      'neon': {
-        'won': 'A belváros ma este rózsaszínben ragyog. De szép!',
-        'weapon': 'A {weapon} kétszer vág. A következő Mester fél tőle!',
-        'next': 'Következik: {sector}, az égi reptér. Majdnem a legnehezebb.',
-        'boss': 'A {boss} teherdrónokkal tölti meg az eget.',
-        'tip': 'Hátrafúj. Csússz át a széllökések alatt!',
-      },
-      'rotor': {
-        'won': 'A drónok most már a munkásrobotoknak szállítanak.',
-        'weapon': 'Tiéd a {weapon}. Három drón megkeresi a célpontját.',
-        'next': 'Utolsó megálló: {sector}. Ennél nehezebb hely nincs.',
-        'boss': '{boss} már nem bújhat pajzs mögé.',
-        'tip': 'A Mesterek támadásait használja. Vigyél Javítózselét!',
-      },
-    },
   }
 }

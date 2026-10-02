@@ -40,7 +40,7 @@ for an isometric fantasy action RPG. Kept, adapted and replaced:
 | D12 | Death | Back to the map, 10 % gold lost, XP and loot kept; no ad revive (the brief forbids ad-reward buttons) | BHL; brief |
 | D13 | Map unlocks | A node opens when any neighbour is cleared; recommended level shown with danger skulls, never enforced | GDD pillar 3 |
 | D14 | Towns | Walkable 3D towns on the same engine (peaceful map); tapping an NPC walks there and opens shop / trainer / dialogue | reference image 14 |
-| D15 | Trainers | Aegis Knight + Pyromancer in Sunford; Shadowblade + Grand Sovereign in Oakhaven (the Sovereign moves to a woods camp if Oakhaven falls); Geomancer + Aether-Tech in Ironhold; Chrono-Weaver hidden in the Sunken Temple; Blood Alchemist in ruined Oakhaven's black market, otherwise hidden in the Citadel of the Void (late) | GDD §3.1, §3.2 |
+| D15 | Trainers | Aegis Knight + Pyromancer in Sunford; Shadowblade + Grand Sovereign in Oakhaven (the Sovereign goes into exile in Ironhold if Oakhaven falls); Geomancer + Aether-Tech in Ironhold; Chrono-Weaver hidden in the Sunken Temple; Blood Alchemist in ruined Oakhaven's black market, otherwise hidden in the Citadel of the Void (late) | GDD §3.1, §3.2 |
 | D16 | Quests | Six major branching quests (Goblin King, Siege of Oakhaven, Ironhold core, Drowned Oracle, Dragon's Bargain, Unbound Throne) writing world-state flags that change nodes, shops, trainers, ambushes and the ending; three factions with reputation; CHA-gated options | GDD §3.2 |
 | D17 | Items | The 44 named items exactly as tabled, every unique passive implemented; drops follow the "Drop Location" column; shops sell the tier of their town | GDD §6 |
 | D18 | Copper Band "+3 STR or DEX" | +3 to whichever of the two is higher on the hero | best effort |
@@ -50,6 +50,13 @@ for an isometric fantasy action RPG. Kept, adapted and replaced:
 | D22 | Art | Procedural low-poly chibi rigs (1 : 2.2 head ratio) and vector icons; a file in `public/images/**` named after an icon or texture replaces it at build time | brief; GDD §2 |
 | D23 | Originality | No Battleheart names, places, characters or items; class and skill names are the GDD's own | reference brief §7 |
 | D24 | Content rating | Blood Alchemist's self-harm reads as alchemy (vials, HP cost), red is "essence", no gore | portal 13+ rule |
+| D25 | The first minute | The hero starts as a militia recruit: Rusted Shortsword, Wooden Buckler, Padded Tunic and ONE learned skill (Shield Slam), so the very first fight already has a button to press. A new save boots straight into the Sunford Plains; a returning one into the town they were last near | playbook ("starts right into the first scene"); wordless lessons need a skill to teach |
+| D26 | Leaving a zone | Pause → "Retreat to the map" banks everything earned so far and gives up the clear; no penalty (a defeat costs 10 % gold) | best effort: a phone player must be able to stop |
+| D27 | Healers | Every visit starts at full health with a full belt, so a healer SELLS belt size (a 4th and 5th potion: 150 and 600 gold) | D11 |
+| D28 | Item text | Every modifier line is generated from the item's data (`mod.<id>` with its number), not written per item: a balance change cannot leave a stale number in 39 languages | i18n rule |
+| D29 | Hidden trainers | Chrono-Weaver: the Sunken Temple once cleared (the Dragon's Peak instead if the oracle was slain). Blood Alchemist: the black market of fallen Oakhaven, else the Citadel of the Void once cleared | GDD §3.1.4, §3.2 |
+| D30 | Leaderboard | The plumbing is kept but OFF: the copied Worker / D1 / Playgama / Poki / Wavedash ids all belonged to the predecessor and are blanked. A new `battlecross-leaderboard` Worker is created before it is switched on | playbook "Starting from a predecessor repo" |
+| D31 | Balance bar | The reference bot (one class, level = zone minimum + 1, best gear of that level) must clear every zone with at least 5 of the 8 single-class builds, in 45–330 s (the opening plains: 20 s+). Chrono-Weaver alone is a support kit and is allowed to fail | tests/game/balance.test.ts |
 
 ## 2. Architecture
 
@@ -73,49 +80,49 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 
 ## 3. Phases
 
-### Phase 0 — Clean-up, rename, ids `[ ]`
-- [ ] Delete the predecessor's gameplay: sim, levels, models of robots, story, voice-over, tutorial rooms, HUD, hub, lab views, their tests, tools and assets (comic, promotion, voice recordings, portraits).
-- [ ] Ids: package `battlecross`, `bcross_state` / `bc_*` / `bcross_*`; remove the legacy-key migration; Yandex cloud key; deploy configs, worker config and env ids cleared to placeholders.
-- [ ] Font: Angry Birds only. Splash lockup, manifest, icons, meta description.
-- [ ] Remove rewarded-ad UI. Keep the provider API.
-- [ ] A placeholder scene so the app boots; type-check + remaining tests green.
+### Phase 0 — Clean-up, rename, ids `[x]`
+- [x] Delete the predecessor's gameplay: sim, levels, models of robots, story, voice-over, tutorial rooms, HUD, hub, lab views, their tests, tools and assets (comic, promotion, voice recordings, portraits).
+- [x] Ids: package `battlecross`, `bcross_state` / `bc_*` / `bcross_*`; remove the legacy-key migration; Yandex cloud key; deploy configs, worker config and env ids cleared to placeholders.
+- [x] Font: Angry Birds only. Splash lockup, manifest, icons, meta description.
+- [x] Remove rewarded-ad UI. Keep the provider API.
+- [x] A placeholder scene so the app boots; type-check + remaining tests green.
 
-### Phase 1 — Engine `[ ]`
-- [ ] Cel material (GDD §2.2) + screen-constant outline; shared light uniforms.
-- [ ] Follow camera: aspect-fit distance, trauma shake (GDD formula), hit-stop zoom.
-- [ ] Input: tap, drag-line, joystick, keys, skill-drag; picking by ground-plane ray.
-- [ ] Particles on the new camera; VFX kit (slash arcs, bursts, beams, rings, ground fields).
+### Phase 1 — Engine `[x]`
+- [x] Cel material (GDD §2.2) + screen-constant outline; shared light uniforms.
+- [x] Follow camera: aspect-fit distance, trauma shake (GDD formula), hit-stop zoom.
+- [x] Input: tap, drag-line, joystick, keys, skill-drag; picking by ground-plane ray.
+- [x] Particles on the new camera; VFX kit (slash arcs, bursts, beams, rings, ground fields).
 
-### Phase 2 — Simulation core (pure) `[ ]`
-- [ ] Grid nav (zero-alloc A*), zone generator, units, movement and separation.
-- [ ] Stats from attributes + gear; damage formula; crit, block, dodge, armour, resistances.
-- [ ] Status engine (stun, slow, burn, poison stacks, bleed, shield, stealth, taunt, stasis, petrify, confuse, knock-up, invulnerable, unkillable, buffs).
-- [ ] Skill framework (targeting modes, mana, cooldown, cast time, queue-and-walk), projectiles, ground fields, walls, summons.
-- [ ] AI: enemy state machine with telegraphs, ally/minion/turret AI, boss patterns and phases.
-- [ ] Director: encounter groups, waves, drops, XP, victory / defeat.
+### Phase 2 — Simulation core (pure) `[x]`
+- [x] Grid nav (zero-alloc A*), zone generator, units, movement and separation.
+- [x] Stats from attributes + gear; damage formula; crit, block, dodge, armour, resistances.
+- [x] Status engine (stun, slow, burn, poison stacks, bleed, shield, stealth, taunt, stasis, petrify, confuse, knock-up, invulnerable, unkillable, buffs).
+- [x] Skill framework (targeting modes, mana, cooldown, cast time, queue-and-walk), projectiles, ground fields, walls, summons.
+- [x] AI: enemy state machine with telegraphs, ally/minion/turret AI, boss patterns and phases.
+- [x] Director: encounter groups, waves, drops, XP, victory / defeat.
 
-### Phase 3 — Data `[ ]`
-- [ ] Six attributes, XP curve, 8 classes × 6 skills (48) as tabled, Novice basics.
-- [ ] 44 items with passives, tiers and drop tables; shops.
-- [ ] Enemy roster (18 kinds) + 12 bosses; 12 zones, 4 towns, the arena; map graph.
-- [ ] Quests, factions, world-state flags, endings.
+### Phase 3 — Data `[x]`
+- [x] Six attributes, XP curve, 8 classes × 6 skills (48) as tabled, Novice basics.
+- [x] 44 items with passives, tiers and drop tables; shops.
+- [x] Enemy roster (18 kinds) + 12 bosses; 12 zones, 4 towns, the arena; map graph.
+- [x] Quests, factions, world-state flags, endings.
 
-### Phase 4 — Graphics `[ ]`
-- [ ] Chibi humanoid rig builder (hero, NPCs, goblin, bandit, cultist, skeleton, necromancer, knights, archers, mages) with gear-driven look.
-- [ ] Creatures: wolf, spider, treant, golem, elemental, frost giant, naga, void stalker, wyvern, demon; bosses incl. the Void Dragon.
-- [ ] Animation: idle breathing (GDD numbers), walk, attack styles, cast, hit, death, squash-and-stretch.
-- [ ] Terrain per zone theme (12 palettes + props, instanced), town buildings, minions, turrets, banners, walls.
-- [ ] Health bars (one instanced draw), telegraphs, target ring, drag line, floating text (GDD curve and colours).
+### Phase 4 — Graphics `[x]`
+- [x] Chibi humanoid rig builder (hero, NPCs, goblin, bandit, cultist, skeleton, necromancer, knights, archers, mages) with gear-driven look.
+- [x] Creatures: wolf, spider, treant, golem, elemental, frost giant, naga, void stalker, wyvern, demon; bosses incl. the Void Dragon.
+- [x] Animation: idle breathing (GDD numbers), walk, attack styles, cast, hit, death, squash-and-stretch.
+- [x] Terrain per zone theme (12 palettes + props, instanced), town buildings, minions, turrets, banners, walls.
+- [x] Health bars (one instanced draw), telegraphs, target ring, drag line, floating text (GDD curve and colours).
 
-### Phase 5 — Combat mode + HUD `[ ]`
-- [ ] `ZoneMode`: sim + view + input + camera juice + audio; build time-sliced behind the loader.
-- [ ] HUD: portrait / HP / mana / heat, skill bar (cooldown clock, ready glow, drag-to-aim), potion, target frame, boss bar, pause.
-- [ ] Wordless lessons (tap-move, lock target, skill, aimed skill, potion) with recall and a "?" panel.
+### Phase 5 — Combat mode + HUD `[x]`
+- [x] `ZoneMode`: sim + view + input + camera juice + audio; build time-sliced behind the loader.
+- [x] HUD: portrait / HP / mana / heat, skill bar (cooldown clock, ready glow, drag-to-aim), potion, target frame, boss bar, pause.
+- [x] Wordless lessons (tap-move, lock target, skill, aimed skill, potion) with recall and a "?" panel.
 
-### Phase 6 — Meta game `[ ]`
-- [ ] World map screen; town mode with NPCs; dialogue with choices.
-- [ ] Character (attributes), skills (loadout), inventory + equipment, shop, trainer, quest log.
-- [ ] Results, defeat, level-up, pause, options (controls tab kept).
+### Phase 6 — Meta game `[x]`
+- [x] World map screen; town mode with NPCs; dialogue with choices.
+- [x] Character (attributes), skills (loadout), inventory + equipment, shop, trainer, quest log.
+- [x] Results, defeat, level-up, pause, options (controls tab kept).
 
 ### Phase 7 — Flow, save, portals `[ ]`
 - [ ] Boot target (first fight for a new player, the map for a returning one), `bcross_state` profile, merge score, cloud hydration re-read.
@@ -124,8 +131,8 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 ### Phase 8 — Audio `[ ]`
 - [ ] Fantasy SFX recipes (melee, magic, UI, creatures, bosses), music track ids per zone theme.
 
-### Phase 9 — Localisation `[ ]`
-- [ ] English source complete; 38 locales drafted by agents and merged; parity test green.
+### Phase 9 — Localisation `[x]`
+- [x] English source complete; 38 locales drafted by agents and merged; parity test green.
 
 ### Phase 10 — Tests and QA `[ ]`
 - [ ] Unit tests for the sim, data integrity, progression, items, quests, save.
@@ -138,8 +145,14 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 
 ## 4. Deferred / open
 
-(nothing yet)
+- **Music is the predecessor's code-composed soundtrack**, re-mapped to the zone themes. It is well produced but electronic; a fantasy score (or drop-in files, see `sound-todo.md`) is roadmap work.
+- **Single-class Aegis Knight and Chrono-Weaver builds are weak late** in the bot's hands (they are a tank and a support kit). Players mix classes; a tuning pass on their damage is on the roadmap.
+- **Leaderboard**: off until the new Worker exists (D30).
 
 ## 5. Status log
 
 - Baseline committed (`6693ea4`): the tree as handed over.
+- Phase 0 part 1 (`9dd170f`): the predecessor's gameplay removed, save re-keyed.
+- Phases 0–6 + 9: the game is playable end to end — opening fight → results → world map → towns (shops, trainers, healer, quest givers) → all 12 zones, the colosseum, six decisions, five endings. English + 38 locales (parity test green). Verified in a real browser (own headless Chrome): desktop 1100×650 and phone 360×740 / 320×658 walkthroughs of fight, results, map, town and every menu, no console errors. Unit suite: 81 files / 828 tests green; type-check clean.
+  - Found and fixed on the way: the save field prefix was still the predecessor's (`ma_`); the dev build was still POSTING to the predecessor's live leaderboard Worker (URL blanked in every env file, baked snapshot reset); the Poki / Playgama / Wavedash ids were the predecessor's (blanked; the Poki one is on the refuse-list); a unit that set a goal while a temporary wall stood never looked for a path again (stuck Geomancer).
+  - Balance pass 1: bosses eased (Goblin King, Warlord, Colossus, Jarl, Dragon, Arch-Demon, Void Lord); every zone passes D31.

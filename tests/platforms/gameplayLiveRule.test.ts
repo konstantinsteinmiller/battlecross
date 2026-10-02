@@ -18,7 +18,7 @@ import { isGameplayLive, type GameplayLiveInputs } from '@/use/useGameplayLifecy
 
 /** A player mid-mission with nothing in the way. Each test negates one thing. */
 const playing: GameplayLiveInputs = {
-  screen: 'mission',
+  screen: 'zone',
   phase: 'play',
   flowModal: false,
   anyModalOpen: false,
@@ -28,21 +28,22 @@ const playing: GameplayLiveInputs = {
 }
 
 describe('isGameplayLive', () => {
-  it('is live while the player has control in a mission', () => {
+  it('is live while the player has control in a zone', () => {
     expect(isGameplayLive(playing)).toBe(true)
   })
 
-  it('is not live in the hub — that is menus, not play', () => {
-    expect(isGameplayLive({ ...playing, screen: 'hub', phase: 'hub' })).toBe(false)
+  it('is not live in a town or on the map — that is shopping and menus, not play', () => {
+    expect(isGameplayLive({ ...playing, screen: 'town', phase: 'town' })).toBe(false)
+    expect(isGameplayLive({ ...playing, screen: 'map', phase: 'map' })).toBe(false)
     expect(isGameplayLive({ ...playing, screen: 'boot' })).toBe(false)
   })
 
   it('is not live while the player has no control', () => {
-    // The beam-in, the beam-out and the defeat countdown are animations: a
-    // `gameplayStart` there opens a play nobody has begun, and on Poki
-    // inflates the very C2P number the web fit test grades.
-    expect(isGameplayLive({ ...playing, phase: 'beamIn' })).toBe(false)
-    expect(isGameplayLive({ ...playing, phase: 'beamOut' })).toBe(false)
+    // The beat after a win or a defeat is an animation: a `gameplayStart`
+    // there opens a play nobody has begun, and on Poki inflates the very C2P
+    // number the web fit test grades.
+    expect(isGameplayLive({ ...playing, phase: 'boot' })).toBe(false)
+    expect(isGameplayLive({ ...playing, phase: 'won' })).toBe(false)
     expect(isGameplayLive({ ...playing, phase: 'dead' })).toBe(false)
   })
 

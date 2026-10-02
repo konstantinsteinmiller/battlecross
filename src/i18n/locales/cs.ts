@@ -5,15 +5,9 @@ export default {
   'close': 'Zavřít',
   'ok': 'Ok',
   'continue': 'Pokračovat',
-  'tapToContinue': 'Klepni pro pokračování',
-  'clickToContinue': 'Klikni pro pokračování',
-  'rewards': 'ODMĚNY',
-  'tip': 'Tip',
   'onlyAvailableOn': 'Tato hra je dostupná pouze na',
 
   'ui': {
-    'killcamCount': 'Kill-camy v této misi: {n}',
-    'killcamOff': 'Vypnout kill-camy',
     'next': 'Další',
     'replay': 'Hrát znovu',
     'back': 'Zpět',
@@ -22,504 +16,594 @@ export default {
     'menu': 'Menu',
     'home': 'Domů',
     'info': 'Info',
-    'skip': 'Přeskočit',
-    'holdToSkip': 'Podrž {key} pro přeskočení'
+    'help': 'Ovládání',
+    'ok': 'Rozumím',
+    'continue': 'Pokračovat'
+  },
+
+  'hud': {
+    'level': 'Úr. {n}',
+    'health': 'Zdraví {n} z {max}',
+    'mana': 'Mana {n} z {max}',
+    'heat': 'Žár',
+    'xp': 'ZK',
+    'gold': '{n} zl.',
+    'potion': 'Lektvar zdraví (zbývá {n})',
+    'groups': 'Poražené skupiny nepřátel: {n} z {total}',
+    'wave': 'Vlna {n} / {total}'
+  },
+  'menu': {
+    'map': 'Mapa světa',
+    'character': 'Hrdina',
+    'skills': 'Dovednosti',
+    'inventory': 'Batoh'
   },
 
   'combat': {
-    'tink': 'CINK!',
-    'perfect': 'PERFEKTNÍ!',
-    'parry': 'VYKRYTÍ!',
-    'guardBreak': 'KRYT PROLOMEN!',
-    'guardCracked': 'Kryt praská!',
-    'xp': '+{n} XP',
-    'lastStand': 'Poslední vzdor! Systémy restartovány.',
-    'weak': 'SLABINA!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'OMRÁČEN!',
-    'dodge': 'ÚHYB!',
+    'dodge': 'Úhyb',
     'block': 'Blok',
-    'slide': 'Skluz',
-    'fire': 'Střelba',
-    'tank': 'Opravný gel',
-    'noEnergy': 'Málo energie zbraně',
-    'tankCount': 'Opravný gel: {n} z {max}',
-    'borrowed': 'Vypůjčená zbraň {weapon}: {n} z {max} výstřelů',
-    'borrowedGet': '{weapon} ×{n}'
+    'immune': 'Imunita'
+  },
+  'status': {
+    'stun': 'Omráčení',
+    'knockup': 'Ve vzduchu',
+    'knockdown': 'Sražení',
+    'stasis': 'Stáze',
+    'petrify': 'Zkamenění',
+    'frozen': 'Zmrazení',
+    'fear': 'Strach',
+    'slow': 'Zpomalení',
+    'confuse': 'Zmatení',
+    'taunt': 'Provokace',
+    'armorShred': 'Rozbité brnění',
+    'weaken': 'Oslabení',
+    'vulnerable': 'Zranitelnost',
+    'burn': 'Hoření',
+    'poison': 'Otrava',
+    'bleed': 'Krvácení',
+    'delayed': 'Odložené poškození',
+    'haste': 'Zrychlení',
+    'attackSpeed': 'Rychlé útoky',
+    'damageUp': 'Posílení',
+    'defenseUp': 'Opevnění',
+    'regen': 'Regenerace',
+    'lifestealUp': 'Krádež života',
+    'invulnerable': 'Nezranitelnost',
+    'unkillable': 'Nesmrtelnost',
+    'stealth': 'Skrytí',
+    'reflect': 'Odraz',
+    'envenom': 'Jedovatá čepel',
+    'exosuit': 'Exooblek',
+    'focus': 'Soustředění',
+    'accelerate': 'Akcelerace',
+    'overheat': 'Přehřátí',
+    'enrage': 'Zuřivost',
+    'ambush': 'Léčka'
+  },
+  'toast': {
+    'item': 'Nalezeno: {item}',
+    'levelUp': 'Úroveň {level}! +3 body atributů',
+    'boss': 'Přichází: {boss}',
+    'wave': 'Vlna {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Ou-ou!',
-      '2': 'Bzzt! Jejda!',
-      '3': 'Ruka má škytavku!',
-      '4': 'Chyba… jupííí!',
-      '5': 'Máslové obvody!',
-      '6': 'Režim želé: ZAP!'
+  'coach': {
+    'move': {
+      'touch': 'Klepni na zem a hrdina tam dojde, nebo použij páčku.',
+      'mouse': 'Klikni na zem a hrdina tam dojde, nebo ho řiď klávesami pohybu.'
+    },
+    'target': {
+      'touch': 'Klepni na nepřítele, nebo táhni od hrdiny na něj, a zaútočíš.',
+      'mouse': 'Klikni na nepřítele a zaútočíš na něj.'
+    },
+    'skill': {
+      'touch': 'Klepni na dovednost a použiješ ji na svůj cíl.',
+      'mouse': 'Stiskni klávesu dovednosti a použiješ ji na svůj cíl.'
+    },
+    'aim': {
+      'touch': 'Přetáhni dovednost na bojiště, zamiř a puštěním ji sešli.',
+      'mouse': 'Přetáhni dovednost na bojiště, zamiř a puštěním ji sešli.'
+    },
+    'potion': {
+      'touch': 'Klepni na lektvar a vyléčíš se.',
+      'mouse': 'Stiskni klávesu lektvaru a vyléčíš se.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Farmářské městečko na okraji plání. Domov, kovář a dva učitelé.' },
+    'plains': { 'name': 'Sunfordské pláně', 'desc': 'Goblini, vlci a bandité přepadají karavany na otevřené cestě.' },
+    'hollows': { 'name': 'Gobliní sluje', 'desc': 'Jeskyně pod kopci. Úplně dole vládne Král goblinů.' },
+    'arena': { 'name': 'Koloseum', 'desc': 'Osm vln, každá těžší než ta předchozí. Zlato a sláva tomu, kdo zůstane stát.' },
+    'woods': { 'name': 'Šeptající hvozd', 'desc': 'Staré stromy, které chodí, a pavouci, kteří mezi nimi předou sítě.' },
+    'outskirts': { 'name': 'Předpolí Oakhavenu', 'desc': 'Hořící statky před Oakhavenem. U brány stojí armáda vojevůdce.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Kupecké město za hradbami. Co z něj bude, záleží na tobě.' },
+    'crags': { 'name': 'Popelavé útesy', 'desc': 'Černá skála a otevřený oheň. Kultisté přikládají do plamenů.' },
+    'mines': { 'name': 'Ironholdské doly', 'desc': 'Trpaslíci kopali příliš hluboko a probudili něco, co září.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'Horské město kováren. Tady se kuje nejlepší ocel v říši.' },
+    'tundra': { 'name': 'Mrazivá tundra', 'desc': 'Bílá pustina, kde chodí obři a mrtví nezůstávají ležet.' },
+    'temple': { 'name': 'Potopený chrám', 'desc': 'Zatopené síně nag a věštkyně, která vidí každý konec.' },
+    'citadel': { 'name': 'Citadela Prázdnoty', 'desc': 'Pevnost, která tu loni ještě nestála. Její zdi hučí.' },
+    'peak': { 'name': 'Dračí štít', 'desc': 'Kolem vrcholu krouží wyverny. Spí na něm něco mnohem většího.' },
+    'fortress': { 'name': 'Pevnost děsu', 'desc': 'Sídlo Arcidémona a trůn, po kterém touží každá frakce.' },
+    'rift': { 'name': 'Trhlina Prázdnoty', 'desc': 'Rána, kterou přišli démoni. Na druhé straně čeká Pán Prázdnoty.' }
+  },
+  'map': {
+    'title': 'Říše',
+    'town': 'Město',
+    'levels': 'Úr. {min}–{max}',
+    'arenaBest': 'Rekord: vlna {n}',
+    'travel': 'Vyrazit',
+    'again': 'Jít znovu',
+    'enter': 'Vstoupit',
+    'fight': 'Bojovat',
+    'back': 'Zpět do města',
+    'locked': 'Vyčisti sousední zónu a cesta se otevře.',
+    'lockedArena': 'Brány se otevřou, až se vypořádáš s Králem goblinů.',
+    'lockedRift': 'Otevře se, až se rozhodne o trůnu Pevnosti děsu.',
+    'danger': {
+      '1': 'Trochu nad tvou úrovní.',
+      '2': 'Na tvé úrovni nebezpečné.',
+      '3': 'Vysoko nad tvou úrovní.'
+    },
+    'questOpen': '{quest}: tady čeká rozhodnutí.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Skrytý učitel: {cls}'
+  },
+  'travel': {
+    'to': 'Cíl cesty:',
+    'loading': 'Načítání'
+  },
+
+  'attr': {
+    'str': { 'name': 'Síla', 'short': 'SÍL', 'desc': 'Síla na blízko, šance na blok, těžké brnění.' },
+    'dex': { 'name': 'Obratnost', 'short': 'OBR', 'desc': 'Kritické zásahy, rychlost útoku a pohybu.' },
+    'int': { 'name': 'Inteligence', 'short': 'INT', 'desc': 'Síla kouzel, mana, odolnost vůči živlům.' },
+    'end': { 'name': 'Výdrž', 'short': 'VÝD', 'desc': 'Zdraví, regenerace, brnění, odolnost vůči omráčení.' },
+    'skl': { 'name': 'Zručnost', 'short': 'ZRU', 'desc': 'Kritické poškození, dobíjení, střelné zbraně.' },
+    'cha': { 'name': 'Charisma', 'short': 'CHA', 'desc': 'Přisluhovači, ceny v obchodech, odměny, možnosti v rozhovoru.' }
+  },
+  'stat': {
+    'health': 'Zdraví',
+    'mana': 'Mana',
+    'armor': 'Brnění',
+    'resist': 'Odolnost',
+    'crit': 'Šance na krit.',
+    'critDamage': 'Krit. poškození',
+    'attackSpeed': 'Rychlost útoku',
+    'moveSpeed': 'Rychlost pohybu',
+    'cdr': 'Kratší dobíjení',
+    'block': 'Blok',
+    'dodge': 'Úhyb',
+    'hpRegen': 'Zdraví / s'
+  },
+  'sheet': {
+    'points': 'Bodů k rozdělení: {n}',
+    'raise': 'Zvýšit: {attr}',
+    'maxLevel': 'Dosažena nejvyšší úroveň'
+  },
+
+  'skills': {
+    'active': 'Aktivní dovednosti',
+    'passive': 'Pasivní dovednosti',
+    'known': 'Naučené',
+    'none': 'Zatím nic neumíš. Najdi ve městě učitele.',
+    'emptySlot': 'Prázdný slot {n}',
+    'equip': 'Přiřadit',
+    'remove': 'Odebrat',
+    'unmet': 'Už nesplňuješ její požadavky.'
+  },
+  'class': {
+    'aegis': { 'name': 'Rytíř Égidy', 'desc': 'Štít a svatá ocel. Schytá rány, aby nemusel nikdo jiný.' },
+    'shadow': { 'name': 'Stínová čepel', 'desc': 'Vystoupí ze tmy, udeří zezadu a je pryč.' },
+    'pyro': { 'name': 'Pyromant', 'desc': 'Oheň je odpověď na všechno. Zapal je a pak je odpal.' },
+    'sovereign': { 'name': 'Velký suverén', 'desc': 'Proč bojovat sám? Povolej gardisty a vel jim.' },
+    'chrono': { 'name': 'Tkadlec času', 'desc': 'Zastaví nepřátele v čase, zrychlí spojence a vrátí chyby zpět.' },
+    'blood': { 'name': 'Krvavý alchymista', 'desc': 'Za moc platí zdravím a pak si ho vypije zpátky z nepřítele.' },
+    'aether': { 'name': 'Étertechnik', 'desc': 'Pušky, věžičky a ukazatel žáru. Vypusť ho, než tě zablokuje.' },
+    'geo': { 'name': 'Geomant', 'desc': 'Zvedá zdi a hroty a láme samotnou zem.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Aktivní', 'passive': 'Pasivní' },
+    'cooldown': 'Dobíjení {n}s',
+    'mana': '{n} many',
+    'hpCost': '{n}% zdraví',
+    'heat': '+{n} žáru',
+    'aimed': 'Táhni a zamiř',
+
+    'shieldSlam': { 'name': 'Úder štítem', 'desc': 'Udeř cíl za {dmg}% poškození ze Síly a omrač ho na {stun}s.' },
+    'aegisAura': { 'name': 'Aura Égidy', 'desc': '+{armor}% Brnění a utržené fyzické poškození je sníženo o {reduce}%.' },
+    'radiantStrike': { 'name': 'Zářivý úder', 'desc': 'Svatá rána za {dmg}% poškození ze Síly, která tě vyléčí o {heal}% způsobeného poškození.' },
+    'fortitude': { 'name': 'Nezlomnost', 'desc': 'Zásah za víc než {hit}% tvého zdraví ti dá štít v hodnotě {shield}% zdraví na {dur}s. Jednou za {icd}s.' },
+    'tauntingCry': { 'name': 'Vyzývavý pokřik', 'desc': 'Nepřátelé do {radius} m útočí {dur}s na tebe. Po tu dobu máš {def}% Obrany navíc.' },
+    'holyBastion': { 'name': 'Svatá bašta', 'desc': 'Nezranitelnost na {dur}s. Útočníkům se vrací {reflect}% jejich poškození.' },
+
+    'shadowstep': { 'name': 'Stínový krok', 'desc': 'Objev se za cílem a bodni ho do zad za {dmg}% poškození z Obratnosti.' },
+    'lethality': { 'name': 'Smrtonosnost', 'desc': '+{crit}% šance na kritický zásah a +{critDmg}% kritického poškození.' },
+    'venomousBlade': { 'name': 'Jedovatá čepel', 'desc': 'Po {dur}s tvé útoky otravují za {poison}% Obratnosti během {over}s, sčítá se až {stacks}krát.' },
+    'evasion': { 'name': 'Uhýbání', 'desc': '+{dodge}% Úhybu. Úhyb dá {haste}% Zrychlení na {dur}s.' },
+    'smokeBomb': { 'name': 'Dýmovnice', 'desc': 'Zmiz na {dur}s. Tvůj další útok ze skrytu způsobí +{bonus}% poškození.' },
+    'danceOfBlades': { 'name': 'Tanec čepelí', 'desc': 'Přeskakuj mezi nepřáteli do {radius} m a zasáhni {hits}krát za celkem {dmg}% poškození z Obratnosti. Při tanci tě nic nezasáhne.' },
+
+    'fireball': { 'name': 'Ohnivá koule', 'desc': 'Ohnivá koule, která vybuchne za {dmg}% poškození z Inteligence a pálí za dalších {burn}% během {burnDur}s.' },
+    'cauterize': { 'name': 'Kauterizace', 'desc': 'Hořící nepřátelé ti působí o {reduce}% menší poškození.' },
+    'flamePillar': { 'name': 'Ohnivý sloup', 'desc': 'Tam, kam míříš, vyšlehne sloup ohně: {dmg}% poškození z Inteligence během {dur}s. Zasažené nepřátele vyhodí do vzduchu.' },
+    'pyromaniac': { 'name': 'Pyroman', 'desc': 'Kritický zásah kouzlem zkrátí dobíjení tvých ohnivých kouzel o {cut}s.' },
+    'combustion': { 'name': 'Vznícení', 'desc': 'Odpal každé hoření do {radius} m: každé způsobí naráz {pct}% zbývajícího poškození jako výbuch.' },
+    'cataclysm': { 'name': 'Kataklyzma', 'desc': 'Přivolej {meteors} meteorů během {dur}s. Každý dopadne za {dmg}% poškození z Inteligence.' },
+
+    'royalGuard': { 'name': 'Královská garda', 'desc': 'Povolej gardistu, který bojuje po tvém boku a útočí za {dmg}% poškození z Charismatu. Nejvýše {max} naráz.' },
+    'inspiringPresence': { 'name': 'Inspirující přítomnost', 'desc': 'Tvoji přisluhovači útočí o {speed}% rychleji a mají o {hp}% víc zdraví.' },
+    'commandFocus': { 'name': 'Rozkaz k útoku', 'desc': 'Všichni přisluhovači vyrazí na cíl: +{move}% rychlosti pohybu a +{atk}% rychlosti útoku na {dur}s.' },
+    'sovereignsTribute': { 'name': 'Suverénova daň', 'desc': '{share}% poškození, které utržíš, se přenese na tvé přisluhovače.' },
+    'bannerOfVictory': { 'name': 'Praporec vítězství', 'desc': 'Zaraz praporec na {dur}s. Spojenci poblíž působí +{dmg}% poškození a obnovují {regen}% zdraví za sekundu.' },
+    'armyOfTheRealm': { 'name': 'Armáda říše', 'desc': 'Povolej na {dur}s posily: lučištníci ({archers}), gardisté ({guards}) a bitevní mág.' },
+
+    'temporalStasis': { 'name': 'Časová stáze', 'desc': 'Zmraz cíl v čase na {dur}s. Nemůže nic dělat a nejde ho zranit.' },
+    'hasteField': { 'name': 'Pole zrychlení', 'desc': 'Po {dur}s se ty i spojenci poblíž pohybujete o {move}% rychleji a útočíte o {speed}% rychleji.' },
+    'timeDistort': { 'name': 'Pokřivení času', 'desc': '{share}% utrženého poškození se odloží a rozloží do {over}s.' },
+    'paradoxShift': { 'name': 'Paradox', 'desc': 'Vyměň si místo s cílem. Utrží {dmg}% poškození z Inteligence a nepřátelé kolem něj jsou na {confuse}s zmatení.' },
+    'entropy': { 'name': 'Entropie', 'desc': 'Každé seslání zkrátí tvá dobíjení o {cdr}%, sčítá se až {stacks}krát.' },
+    'chronoRewind': { 'name': 'Návrat v čase', 'desc': 'Vrať se na místo, kde tvůj hrdina stál před {back}s, se zdravím a manou z té chvíle.' },
+
+    'sanguineFlask': { 'name': 'Krvavá baňka', 'desc': 'Hoď baňku vlastní krve: {dmg}% poškození z Výdrže v oblasti a brnění rozbité o {shred}% na {shredDur}s.' },
+    'bloodTransmutation': { 'name': 'Transmutace krve', 'desc': '{share}% utrženého fyzického poškození se vrátí jako mana.' },
+    'essenceHarvest': { 'name': 'Sklizeň esence', 'desc': 'Vysaj každého nepřítele do {radius} m za {dmg}% poškození z Inteligence. Vyléčíš se o {heal}% z něj.' },
+    'hemophilia': { 'name': 'Hemofilie', 'desc': 'Vysávání života je o {drain}% silnější. Zásah krvácejícího nepřítele vyléčí {heal}% tvého zdraví.' },
+    'mutagenicRage': { 'name': 'Mutagenní zuřivost', 'desc': 'Na {dur}s: +{speed}% rychlosti útoku, +{steal}% krádeže života a +{move}% rychlosti pohybu.' },
+    'philosophersCrucible': { 'name': 'Tyglík filozofů', 'desc': 'Kaluž vroucí krve na {dur}s: {dmg}% poškození z Inteligence nepřátelům v ní, a tebe léčí, dokud v ní stojíš.' },
+
+    'aetherPistol': { 'name': 'Éterová pistole', 'desc': 'Rychlý výstřel za {dmg}% poškození ze Zručnosti. Přidá {heat} žáru.' },
+    'deployTurret': { 'name': 'Postavit věžičku', 'desc': 'Postav věžičku, která {dur}s střílí za {dmg}% poškození ze Zručnosti. Nejvýše {max} naráz.' },
+    'ventHeat': { 'name': 'Vypustit žár', 'desc': 'Vypusť všechen žár v kuželu: až {dmg}% poškození ze Zručnosti, čím víc žáru, tím větší poškození.' },
+    'thermalOverload': { 'name': 'Tepelné přetížení', 'desc': 'Při přehřátí působí tvé výstřely +{crit}% kritického poškození. Přehřátí ti dál zablokuje dovednosti na {lock}s.' },
+    'orbitalBeam': { 'name': 'Orbitální paprsek', 'desc': 'Paprsek z nebe pálí tam, kam míříš: {dmg}% poškození ze Zručnosti během {dur}s.' },
+    'exoSuit': { 'name': 'Exooblek', 'desc': 'Na {dur}s: +{armor}% Brnění a tvé útoky se změní v rakety za {rocket}% poškození ze Zručnosti v oblasti.' },
+
+    'stoneSpike': { 'name': 'Kamenný hrot', 'desc': 'Pod cílem vyrazí hrot: {dmg}% poškození ze Síly a {slow}% zpomalení na {dur}s.' },
+    'earthBarrier': { 'name': 'Zemní bariéra', 'desc': 'Zvedni skalní zeď na {dur}s. Nic přes ni neprojde ani neprostřelí.' },
+    'seismicShock': { 'name': 'Seismický otřes', 'desc': 'Udeř do země: {dmg}% poškození ze Síly do {radius} m a nepřátelé jsou sraženi na {down}s.' },
+    'earthenSkin': { 'name': 'Kamenná kůže', 'desc': 'Získáš Brnění rovné {armor}% tvé Síly. Omráčení na tobě trvá o {cut}% kratší dobu.' },
+    'petrify': { 'name': 'Zkamenění', 'desc': 'Proměň cíl v kámen na {dur}s. Až se vyprostí, utrží o {vuln}% větší poškození.' },
+    'tectonicRupture': { 'name': 'Tektonický zlom', 'desc': 'Roztrhni bojiště: {dmg}% poškození ze Síly všemu poblíž a suť, která zpomaluje {dur}s.' }
+  },
+
+  'slot': {
+    'main': 'Hlavní ruka',
+    'off': 'Druhá ruka',
+    'body': 'Zbroj',
+    'trinket': 'Cetka'
+  },
+  'tier': {
+    '1': 'Stupeň 1',
+    '2': 'Stupeň 2',
+    '3': 'Stupeň 3',
+    '4': 'Stupeň 4',
+    '5': 'Stupeň 5',
+    '6': 'Legendární'
+  },
+  'weapon': {
+    'melee': 'Na blízko · atribut: {attr}',
+    'ranged': 'Na dálku · atribut: {attr}',
+    'magic': 'Magie · atribut: {attr}'
+  },
+  'source': {
+    'mob': 'Padá z nestvůr v zóně: {zone}.',
+    'chest': 'K nalezení v truhlách v zóně: {zone}.',
+    'boss': 'Padá z bosse zóny: {zone}.',
+    'secret': 'Ukryto v tajné truhle v zóně: {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Síly',
+    'dex': '+{n} Obratnosti',
+    'int': '+{n} Inteligence',
+    'end': '+{n} Výdrže',
+    'skl': '+{n} Zručnosti',
+    'cha': '+{n} Charismatu',
+    'allAttrs': '+{n} ke každému atributu',
+    'strOrDex': '+{n} Síly nebo Obratnosti, podle toho, co je vyšší',
+    'armor': '{n} Brnění',
+    'armorPct': '+{n}% Brnění',
+    'armorFromStr': 'Brnění ze Síly: +{n}%',
+    'block': '+{n}% šance na blok',
+    'dodge': '+{n}% Úhybu',
+    'damageReduction': '+{n}% snížení poškození',
+    'physReduction': 'O {n}% menší utržené fyzické poškození',
+    'maxHp': '+{n} max. Zdraví',
+    'maxHpPct': '+{n}% max. Zdraví',
+    'maxMana': '+{n} max. Many',
+    'hpRegen': '+{n} Zdraví za sekundu',
+    'stunDurationCut': 'Omráčení na tobě trvá o {n}% kratší dobu',
+    'damagePct': '+{n}% způsobeného poškození',
+    'critChance': '+{n}% šance na kritický zásah',
+    'critDamage': '+{n}% kritického poškození',
+    'spellCrit': '+{n}% šance na kritický zásah kouzlem',
+    'attackSpeed': '+{n}% rychlosti útoku',
+    'moveSpeed': '+{n}% rychlosti pohybu',
+    'cdr': 'Dobíjení je o {n}% kratší',
+    'manaDiscount': 'Kouzla stojí o {n}% méně many',
+    'lifesteal': '+{n}% krádeže života z veškerého poškození',
+    'physLifesteal': '+{n}% krádeže života z fyzických zásahů',
+    'lifeDrainPct': 'Vysávání života je o {n}% silnější',
+    'bossDamage': '+{n}% poškození proti bossům',
+    'backstab': '+{n}% poškození při bodnutí do zad',
+    'minionDamage': 'Přisluhovači působí +{n}% poškození',
+    'minionAttackSpeed': 'Přisluhovači útočí o {n}% rychleji',
+    'minionHp': 'Přisluhovači mají +{n}% zdraví',
+    'burnOnHit': 'Útoky způsobí Hoření za {n} poškození',
+    'freezeOnHit': 'Útoky mají {n}% šanci zmrazit',
+    'pierce': 'Střely proletí o {n} nepřátel víc',
+    'critCooldown': 'Kritické zásahy zkrátí všechna dobíjení o {n}s',
+    'extraBlastEvery': 'Každých {n} výstřelů energetický výboj navíc',
+    'reflectOnBlock': 'Blok odrazí {n} poškození',
+    'fatalSave': 'Smrtelné poškození ti místo toho dá nezranitelnost na {n}s (jednou za 120s)',
+    'knockbackImmune': 'Imunita vůči odhození',
+    'heatBuildCut': 'Žár roste o {n}% pomaleji',
+    'heatDissipation': 'Žár klesá o {n}% rychleji',
+    'flaskDamage': 'Krvavá baňka působí +{n}% poškození',
+    'igniteBonus': 'Ohnivá kouzla pálí o {n}% silněji',
+    'stealthy': 'Tichý pohyb: nepřátelé si tě všimnou ze vzdálenosti o {n}% menší',
+    'fortitude': 'Silné zásahy dají štít v hodnotě {n}% zdraví',
+    'evasionHaste': 'Úhyb dá {n}% Zrychlení',
+    'cauterize': 'Hořící nepřátelé ti působí o {n}% menší poškození',
+    'pyromaniac': 'Kritická kouzla zkrátí dobíjení ohně o {n}s',
+    'tribute': 'Přisluhovači převezmou {n}% tvého poškození',
+    'timeDistort': '{n}% utrženého poškození se odloží',
+    'entropy': 'Seslání zkracují dobíjení o {n}%',
+    'bloodToMana': '{n}% utrženého fyzického poškození se vrátí jako mana',
+    'bleedHeal': 'Zásah krvácejícího nepřítele vyléčí {n}% zdraví',
+    'overheatCrit': '+{n}% kritického poškození při přehřátí'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Rezavý krátký meč' },
+    'apprenticeStaff': { 'name': 'Učednická hůl' },
+    'scoutsHandgun': { 'name': 'Zvědova pistole' },
+    'ironBroadsword': { 'name': 'Železný široký meč' },
+    'vipinsStiletto': { 'name': 'Vipinův stilet' },
+    'aetherCarbine': { 'name': 'Éterová karabina' },
+    'ashenGreatsword': { 'name': 'Popelavý obouruční meč' },
+    'archmageWand': { 'name': 'Hůlka arcimága' },
+    'chronoBlade': { 'name': 'Čepel času' },
+    'bloodForgedAxe': { 'name': 'Sekera kutá v krvi' },
+    'voidCannon': { 'name': 'Dělo Prázdnoty' },
+    'dragonSmasher': { 'name': 'Drtič draků' },
+    'bladeOfTheUnbound': { 'name': 'Čepel Nespoutaných' },
+    'aetheriumDestroyer': { 'name': 'Éteriový ničitel' },
+    'woodenBuckler': { 'name': 'Dřevěný puklíř' },
+    'tomeOfNovices': { 'name': 'Kniha noviců' },
+    'ironShield': { 'name': 'Železný štít' },
+    'syringeOfTheAdept': { 'name': 'Adeptova stříkačka' },
+    'aethericBattery': { 'name': 'Éterová baterie' },
+    'aegisTowerShield': { 'name': 'Věžový štít Égidy' },
+    'orbOfEternalFlame': { 'name': 'Koule věčného plamene' },
+    'shieldOfTheFallen': { 'name': 'Štít padlých' },
+    'paddedTunic': { 'name': 'Prošívaná tunika' },
+    'leatherDoublet': { 'name': 'Kožená kazajka' },
+    'chainmailVest': { 'name': 'Kroužková vesta' },
+    'scholarsRobe': { 'name': 'Učencovo roucho' },
+    'reinforcedPlate': { 'name': 'Vyztužený plát' },
+    'assassinsGarb': { 'name': 'Háv vraha' },
+    'chronoWeaverCloak': { 'name': 'Plášť Tkalce času' },
+    'bloodSoakedPlate': { 'name': 'Krví nasáklý plát' },
+    'exoArmorChassis': { 'name': 'Rám exozbroje' },
+    'dragonscaleHauberk': { 'name': 'Zbroj z dračích šupin' },
+    'vestmentsOfSovereign': { 'name': 'Roucho Suveréna' },
+    'armorOfTheTitan': { 'name': 'Zbroj titána' },
+    'copperBand': { 'name': 'Měděný kroužek' },
+    'ringOfMending': { 'name': 'Prsten hojení' },
+    'bandOfSwiftness': { 'name': 'Kroužek hbitosti' },
+    'castersEmblem': { 'name': 'Emblém zaklínače' },
+    'infiltratorsCharm': { 'name': 'Talisman špeha' },
+    'timekeepersHourglass': { 'name': 'Přesýpací hodiny Strážce času' },
+    'ringOfTheVampyre': { 'name': 'Upírův prsten' },
+    'sovereignsSignet': { 'name': 'Suverénův pečetní prsten' },
+    'heartOfTheMountain': { 'name': 'Srdce hory' },
+    'ringOfAbsolutePower': { 'name': 'Prsten absolutní moci' }
+  },
+  'bag': {
+    'equip': 'Nasadit',
+    'unequip': 'Sundat',
+    'tooLow': 'Vyžaduje úroveň {n}.'
+  },
+  'shop': {
+    'buy': 'Koupit',
+    'sell': 'Prodat',
+    'owned': 'Vlastníš',
+    'empty': 'Dnes jsou regály prázdné.'
+  },
+  'trainer': {
+    'learn': 'Naučit',
+    'known': 'Naučeno',
+    'friend': '{faction} si váží svých přátel: sleva 20%.',
+    'block': {
+      'level': 'Máš příliš nízkou úroveň.',
+      'attrs': 'Máš příliš nízké atributy.',
+      'gold': 'Nemáš dost zlata.'
+    }
+  },
+  'healer': {
+    'talk': 'Sedni si. Odpočiň si. Odejdeš odsud v plné síle a s každou lahvičkou plnou. Jestli jich chceš nosit víc, ty ti prodat můžu.',
+    'note': 'Do každé zóny si neseš lektvary: {n}.',
+    'buy': 'Další lahvička · {n}',
+    'full': 'Na opasek se ti víc nevejde.'
+  },
+  'talk': {
+    'goal': 'Rozhodne se tady: {zone}.'
+  },
+  'faction': {
+    'order': 'Železný řád',
+    'syndicate': 'Popelavý syndikát',
+    'circle': 'Kruh éteru'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Kovář Bram', 'talk': 'Obyčejná ocel, poctivé ceny. Goblina ti od těla udrží.' },
+    'sunfordPeddler': { 'name': 'Kramářka Tilly', 'talk': 'Prsteny! Talismany! Věci, které jsem našla a rozhodně neukradla.' },
+    'trainerAegis': { 'name': 'Ser Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Stařešina Mara', 'talk': 'Dnes cesta díky tobě vydržela. Takový klid na pláních nebyl celý rok.' },
+    'sunfordHealer': { 'name': 'Sestra Lune' },
+    'goblinTrader': { 'name': 'Kupec Grik', 'talk': 'Král říkat obchod, tak Grik obchodovat. Třpytka za třpytka. Dobrá třpytka.' },
+    'captainHale': { 'name': 'Kapitán Hale', 'talk': 'Oakhaven stojí tři sta let. Nehodlám být kapitánem, který o něj přišel.' },
+    'oakArmorer': { 'name': 'Zbrojíř Odo', 'talk': 'Půlka mého zboží skončila na hradbách. Vezmi si, co zbylo.' },
+    'oakMasterArmorer': { 'name': 'Mistr Odo', 'talk': 'Tohle město stojí díky tobě. Pro tebe vytáhnu ze zadní místnosti ty dobré pláty.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Ostré, vyvážené a prodané tomu, kdo zaplatí. Dnes jsi to ty.' },
+    'trainerShadow': { 'name': 'Šepot' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Bratr Fenn' },
+    'blackMarket': { 'name': 'Překupník', 'talk': 'Žádná jména, žádné otázky. Syndikát si vezme svůj díl, ty si vezmeš zboží.' },
+    'trainerBlood': { 'name': 'Doktor Sangrel' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven je náš díky tobě. Syndikát nezapomíná na přátele. Ani na dluhy.' },
+    'forgemaster': { 'name': 'Mistr kovář Dorn', 'talk': 'Kopali jsme železo a narazili na srdce. Tluče tam dole ve tmě a golemové chodí v jeho rytmu.' },
+    'ironWeapons': { 'name': 'Hilda Kladivoruká', 'talk': 'Trpasličí práce. Když se to zlomí, je to tvoje chyba.' },
+    'ironAetherWorks': { 'name': 'Kutil Voss', 'talk': 'Když Kruh prozkoumal jádro, změnilo se všechno. Podrž tohle. Nemiř tím na mě.' },
+    'ironArmor': { 'name': 'Garrun Železný bok', 'talk': 'Pláty, které zastaví obří kyj. Pro vás ostatní mám prsteny.' },
+    'ironOrderArmor': { 'name': 'Zbrojmistr Řádu', 'talk': 'Řád si pamatuje, kdo zničil jádro. Jeho zbrojnice jsou ti otevřené.' },
+    'trainerGeo': { 'name': 'Starý Kamenonoh' },
+    'trainerAether': { 'name': 'Mechanik Pim' },
+    'ironHealer': { 'name': 'Matka Brynja' },
+    'exiledSovereign': { 'name': 'Lord Castellan ve vyhnanství' },
+    'trainerChrono': { 'name': 'Strážce hodin' }
+  },
+
+  'quest': {
+    'final': 'Tato volba je trvalá.',
+    'needsRep': '{faction}: pověst {n}',
+    'gold': '+{n} zl.',
+    'goblinKing': {
+      'title': 'Král goblinů',
+      'intro': 'Nájezdy přicházejí ze Slují, kde si goblini korunovali krále. Ukonči to, jak uznáš za vhodné.',
+      'ask': 'Počkat! Počkat. Král se vzdát! Goblini loupit, protože goblini mít hlad. Možná velký a Král udělat obchod?',
+      'slay': { 'label': 'Ukonči jeho vládu.', 'result': 'Král padne a Sluje se rozprchnou. Sunford spí klidněji a Železný řád si tě všímá.' },
+      'pact': { 'label': 'Nabídni obchodní smlouvu se Sunfordem.', 'result': 'Stříbrný jazyk dokáže, co by meč nesvedl. Gobliní kupci si na sunfordském náměstí rozloží zboží, jaké tam žádný kovář nevyrobí.' },
+      'ransom': { 'label': 'Vezmi mu poklad a nech mu korunu.', 'result': 'Odcházíš s těžkým nákladem gobliního zlata. Nájezdy začnou znovu, ale to už je starost Sunfordu. Syndikát to schvaluje.' }
+    },
+    'siege': {
+      'title': 'Obléhání Oakhavenu',
+      'intro': 'Armáda vojevůdce obklíčila Oakhaven. Tu armádu zaplatil Popelavý syndikát. Prolom obléhání na předpolí.',
+      'ask': 'Bojuješ dobře. Syndikát platí líp, než to město kdy zaplatí. Otevři nám dnes v noci bránu a třetina Oakhavenu je tvoje.',
+      'defend': { 'label': 'Braň Oakhaven.', 'result': 'Brána vydrží. Oakhaven za ní bohatne a jeho mistři zbrojíři si pamatují tvé jméno. Popelavý syndikát tě teď loví na každé cestě.' },
+      'betray': { 'label': 'Otevři bránu Syndikátu.', 'result': 'Oakhaven hoří. V jeho troskách vznikne černý trh a usadí se alchymista, který učí zakázaná umění. Zbrojíři jsou pryč a Železný řád tě nazývá zrádcem.' }
+    },
+    'core': {
+      'title': 'Srdce Ironholdu',
+      'intro': 'Golemy v našich dolech pohání éterové jádro. Chtějí ho tři mocnosti a každá z nich mi poslala dopis. Ty k němu dorazíš dřív než ony.',
+      'ask': 'Z Kolosu je šrot a jádro před tebou leží odkryté a hučí. Na dotek je teplé. Co s ním bude?',
+      'destroy': { 'label': 'Roztříšti jádro.', 'result': 'Světlo zhasne a golemové padnou tam, kde stáli. Železný řád z vděčnosti pošle do Ironholdu vlastní zbrojíře.' },
+      'study': { 'label': 'Dej ho Kruhu k prozkoumání.', 'result': 'Rozumíš mu dost na to, aby šlo bezpečně předat. Do roka a do dne chrlí ironholdské kovárny éterové stroje, jaké nikdo dosud neviděl.' },
+      'sell': { 'label': 'Prodej ho Syndikátu.', 'result': 'Jmění mění majitele. Jádro svítí dál někde, kde nemá, a v dolech už nikdy nebude klid.' }
+    },
+    'oracle': {
+      'title': 'Utopená věštkyně',
+      'ask': 'Tuhle chvíli jsem viděla desettisíckrát. V polovině mě osvobodíš. V polovině si vezmeš, co střežím. Vyber si a dopřej mi konečně nevědět, co přijde.',
+      'free': { 'label': 'Rozbij její řetězy.', 'result': 'Věštkyně vystoupá vodou a je pryč. Kruh éteru o tobě bude mluvit vlídně a její strážce hodin zůstane, aby učil.' },
+      'slay': { 'label': 'Vezmi přesýpací hodiny, které střeží.', 'result': 'Nebrání se. Přesýpací hodiny Strážce času jsou tvoje. Její poslední žák prchá z chrámu a Kruh neodpouští.' }
+    },
+    'dragon': {
+      'title': 'Drak Prázdnoty',
+      'ask': 'Dost. Máš zuby, maličký tvore. Démon v pevnosti spoutal můj rod řetězy. Chci ho vidět hořet. Zabij mě, nebo mě nech, ať ti s tím pomůžu.',
+      'slay': { 'label': 'Zabij draka.', 'result': 'Hora se otřese, když padne. Železný řád zpívá o drakobijci a dračí poklad je tvůj.' },
+      'pact': { 'label': 'Uzavři pakt proti Arcidémonovi.', 'result': 'Málokdo by draka přemluvil. Až potáhneš na Pevnost děsu, bude na nebi nad tebou.' }
+    },
+    'throne': {
+      'title': 'Prázdný trůn',
+      'ask': 'Arcidémon je mrtvý a jeho trůn je prázdný. Kdo ho drží, velí pevnosti, trhlině pod ní i armádám obou. U dveří čekají tři vyslanci.',
+      'order': { 'label': 'Dej trůn Železnému řádu.', 'result': 'Řád obsadí pevnost a zapečetí, co se dá. Říše bude v bezpečí a bude se jí říkat, co má dělat.' },
+      'syndicate': { 'label': 'Dej trůn Popelavému syndikátu.', 'result': 'Syndikát se nastěhuje před úsvitem. Na prodej je teď všechno, včetně míru.' },
+      'circle': { 'label': 'Dej trůn Kruhu éteru.', 'result': 'Kruh promění pevnost ve školu nad trhlinou. Říkají tomu výzkum. Všichni ostatní tomu říkají otázka času.' },
+      'shatter': { 'label': 'Roztříšti trůn.', 'result': 'Rozbiješ ho vlastníma rukama. Odsud už nikdo vládnout nebude. Vyslanci odcházejí beze slova.' },
+      'claim': { 'label': 'Posaď se na něj.', 'result': 'Je studený a sedí ti. Tři frakce zjišťují, že mají společného nepřítele.' }
     }
   },
 
   'enemy': {
-    'echo': 'Mistrova ozvěna',
-    'gatekeeper': 'Vrátný',
-    'warden': 'Strážce',
-    'hornet': 'Rotorový sršeň',
-    'stalker': 'Zářivý lovec',
-    'puffer': 'Nafukovací mina',
-    'mole': 'Krtek vrtač',
-    'polar': 'Polární štěně',
-    'hardhat': 'Helmák',
-    'trooper': 'Štítonoš',
-    'heli': 'Rotorový dron',
-    'hopper': 'Dupák',
-    'roller': 'Ozubený válec',
-    'brute': 'Gardroid',
-    'turret': 'Nástěnné dělo',
-    'golem': 'Bednový golem',
-    'elite': 'Elitní',
-    'level': 'Úr. {n}'
-  },
-
-  'enemyPlural': {
-    'echo': 'Mistrovu ozvěnu | Mistrovy ozvěny | Mistrových ozvěn',
-    'gatekeeper': 'Vrátného | Vrátné | Vrátných',
-    'warden': 'Strážce | Strážce | Strážců',
-    'hornet': 'Rotorového sršně | Rotorové sršně | Rotorových sršňů',
-    'stalker': 'Zářivého lovce | Zářivé lovce | Zářivých lovců',
-    'puffer': 'Nafukovací minu | Nafukovací miny | Nafukovacích min',
-    'mole': 'Krtka vrtače | Krtky vrtače | Krtků vrtačů',
-    'polar': 'Polární štěně | Polární štěňata | Polárních štěňat',
-    'hardhat': 'Helmáka | Helmáky | Helmáků',
-    'trooper': 'Štítonoše | Štítonoše | Štítonošů',
-    'heli': 'Rotorový dron | Rotorové drony | Rotorových dronů',
-    'hopper': 'Dupáka | Dupáky | Dupáků',
-    'roller': 'Ozubený válec | Ozubené válce | Ozubených válců',
-    'brute': 'Gardroida | Gardroidy | Gardroidů',
-    'turret': 'Nástěnné dělo | Nástěnná děla | Nástěnných děl',
-    'golem': 'Bednového golema | Bednové golemy | Bednových golemů'
-  },
-
-  'hud': {
-    'help': 'Zobrazit ovládání',
-    'mute': 'Ztlumit zvuk',
-    'unmute': 'Zapnout zvuk',
-    'bossUnknown': 'Neznámý boss',
-    'hp': 'Zdraví',
-    'we': 'Energie zbraně',
-    'power': 'Síla',
-    'bolts': 'Šrouby',
-    'level': 'Úr. {n}',
-    'beamOut': 'Teleport'
-  },
-
-  'boss': {
-    'rotorMaster': 'Mistr Rotoru',
-    'neonMaster': 'Mistr Neonu',
-    'tideMaster': 'Mistr Přílivu',
-    'drillMaster': 'Mistr Vrtáku',
-    'magnetMaster': 'Mistr Magnetu',
-    'stand': 'Šrotař',
-    'scrapper': 'Šrotař',
-    'blazeMaster': 'Mistr Plamene',
-    'frostMaster': 'Mistr Mrazu',
-    'voltMaster': 'Mistr Napětí',
-    'galeMaster': 'Mistr Vichru',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Robot Velmistr'
-  },
-
-  'sector': {
-    'rotor': 'Rotorový let',
-    'neon': 'Bulvár výpadku',
-    'tide': 'Přílivová zdymadla',
-    'drill': 'Hluboký důl',
-    'magnet': 'Továrna polarity',
-    'scrapyard': 'Vrakoviště',
-    'blaze': 'Žhavá rafinerie',
-    'cryo': 'Kryozávod',
-    'volt': 'Věž napětí',
-    'gale': 'Nebeské doky',
-    'fortress': 'Pevnost Vex'
-  },
-
-  'quest': {
-    'tutorial': 'Budíček',
-    'boss': 'Souboj s Mistrem jádra',
-    'bossTitle': 'Souboj: {boss}',
-    'kill': 'Šrotovací služba',
-    'collect': 'Záchrana dat',
-    'rescue': 'Záchranná akce',
-    'elite': 'Hon na elitu',
-    'supply': 'Pro zásoby',
-    'purge': 'Čistka sektoru',
-    'climb': 'Běh na věž',
-    'stage': 'Plošinová etapa',
-    'stageName': { 'blaze': 'Sestup do výhně', 'cryo': 'Ledovcový běh', 'volt': 'Kolejový sprint', 'gale': 'Nebeské doky', 'magnet': 'Továrna polarity', 'drill': 'Hluboký důl', 'tide': 'Přílivová zdymadla', 'neon': 'Bulvár výpadku', 'rotor': 'Rotorový let', 'fortress': 'Pevnost Vex' },
-    'rematch': 'Odveta: {boss}',
-    'desc': {
-      'tutorial': 'Probojuj se Vrakovištěm a sejmi Šrotaře.',
-      'boss': 'Pronikni do jádra sektoru {sector} a poraz bosse: {boss}.',
-      'kill': 'Znič {n} {target} v sektoru {sector}.',
-      'collect': 'Získej zpět datová jádra rozesetá po sektoru {sector}. Celkem {n}.',
-      'rescue': 'Pracovní robot uvízl v sektoru {sector}. Najdi ho a teleportuj ho pryč.',
-      'elite': 'Elitní nepřítel ({target}) terorizuje sektor {sector}. Vystopuj ho.',
-      'supply': 'Rozbij bedny se zásobami v sektoru {sector}. Celkem {n}.',
-      'purge': 'Znič všechny stroje v sektoru {sector}.',
-      'climb': 'Vyšplhej na věž v sektoru {sector} — schody, žebříky, výtahy a propasti — a pak seskoč do arény na odvetu. Soupeř: {boss}.',
-      'stage': 'Běž, klouzej a jeď sektorem {sector} — římsy, propasti a stroje — až do arény. Soupeř: {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Cíl',
-    'complete': 'Cíl splněn',
-    'beamOutHint': 'Teleportuj se, až budeš připraven.',
-    'tutorial': 'Poraz bosse: {boss}',
-    'boss': 'Poraz bosse: {boss}',
-    'kill': 'Zničeno {n}/{total} {target}',
-    'collect': 'Datová jádra: {n}/{total}',
-    'rescue': 'Najdi uvízlého pracovního robota',
-    'elite': 'Vystopuj elitního nepřítele: {target}',
-    'supply': 'Bedny se zásobami: {n}/{total}',
-    'purge': 'Zničené stroje: {n}/{total}',
-    'climb': 'Vyšplhej na věž a poraz bosse: {boss}',
-    'stage': 'Dostaň se do arény a poraz bosse: {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} zničen!',
-    'objectiveDone': 'Cíl splněn!',
-    'rescued': 'Pracovní robot teleportován do bezpečí!',
-    'bossDoor': 'Vrata se se skřípěním otevírají…'
-  },
-  'interact': {
-    'chest': 'Otevřít',
-    'rescue': 'Zachránit',
-    'bossDoor': 'Vstoupit'
-  },
-  'progress': {
-    'levelUp': 'Úroveň {n}! Systémy plně opraveny.'
-  },
-  'tips': {
-    'moveTouch': 'Táhni vlevo pro pohyb, vpravo pro rozhlížení. Klepni na podlahu a dojdeš tam!',
-    'moveKeys': 'Pohybuj se klávesami {keys}.',
-    'lookMouse': 'Pohybem myši se rozhlížíš.',
-    'capture': 'Klikni do scény a převezmi kontrolu nad kamerou.',
-    'fireTouch': 'Stroje před tebou! Klepni pro výstřel — podrž a pusť pro nabitou ránu.',
-    'fireKeys': 'Stroje před tebou! Levým klikem střílíš — podrž a pusť pro nabitou ránu.',
-    'charge': 'Štíty zastaví běžné střely. PLNĚ nabitá rána jimi projde skrz.',
-    'blockTouch': 'Oranžový kruh: drž štít a blokuj — stiskni ho, když se kruh zavírá, a VYKRYJ!',
-    'blockKeys': 'Oranžový kruh: drž pravé tlačítko myši a blokuj — stiskni ho, když se kruh zavírá, a VYKRYJ!',
-    'red': 'Červený kruh nejde zablokovat — uhni skluzem!',
-    'dodgeKeys': 'Červený kruh nejde zablokovat — stiskni {slide} a uhni skluzem!',
-    'spaceKey': 'mezerník',
-    'chest': 'Bedna se zásobami! Klepni na ni a otevři ji.',
-    'tank': 'Docházejí síly? Opravný gel tě úplně spraví.',
-    'weapon': 'Použij zkopírovanou zbraň barevným tlačítkem!'
-  },
-  'lesson': {
-    'charge': 'Podrž pro nabití děla a pak pusť: jen nabitá rána prorazí štít cvičného dronu.',
-    'crate': 'Bedny se zásobami rozbije jen nabitá rána. Podrž a pusť na zářící bednu.',
-    'weaponKeys': 'Stiskni {n} a vystřel ze zkopírované zbraně: jedna rána zasáhne všechny tři drony.',
-    'weaponTouch': 'Klepni na zářící tlačítko zbraně: jedna rána zasáhne všechny tři drony.',
-    'gelKeys': 'Stiskni {key} a použij opravný gel: úplně tě opraví.',
-    'gelTouch': 'Klepni na zelené tlačítko opravného gelu: úplně tě opraví.'
-  },
-  'walk': {
-    'finishLessonOn': 'Dokonči lekci: {weapon}',
-    'finishTutorial': 'Nejdřív dokonči tutoriál',
-    'finishLesson': 'Dokonči lekci'
-  },
-  'hubLesson': {
-    'earnBolts': 'Málo šroubů? Podívej se na krátké video a doplň je.',
-    'catchUp': 'Pip: Tvoje dělo nestačí na stroje venku. Vylepšeme ho!',
-    'overload': 'Pip: Jádro Mistra Vichru mě naučilo trik. Drž plné nabití o 3 sekundy déle: PŘETÍŽENÍ!',
-    'workshop': 'Otevři Dílnu.',
-    'upgradeBuster': 'Utrať šrouby za vylepšení děla: víc poškození.',
-    'pickArmor': 'Teď vyber hrudní pancíř.',
-    'upgradeArmor': 'Vylepši i ten: víc obrany.',
-    'deploy': 'Hotovo — zpátky k misím!'
-  },
-  'loot': {
-    'upgrade': 'Vylepšení!',
-    'found': 'Nalezeno: {item} ({rarity})!',
-    'tank': 'Nalezen opravný gel!',
-    'giftTank': 'Dárek: +1 opravný gel!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin prakovník',
+    'bandit': 'Bandita',
+    'banditArcher': 'Bandita lučištník',
+    'wolf': 'Vlk',
+    'banditChief': 'Náčelník banditů',
+    'goblinKing': 'Král goblinů',
+    'treant': 'Stromovec',
+    'spider': 'Obří pavouk',
+    'broodSpider': 'Pavouče',
+    'outlawCaptain': 'Kapitán psanců',
+    'elderTreant': 'Prastarý stromovec',
+    'warlord': 'Vojevůdce Krag',
+    'fireElemental': 'Ohnivý elementál',
+    'ironGolem': 'Železný golem',
+    'cultist': 'Kultista',
+    'emberLord': 'Pán uhlíků',
+    'ironColossus': 'Železný kolos',
+    'frostGiant': 'Mrazivý obr',
+    'naga': 'Naga',
+    'skeleton': 'Kostlivec',
+    'necromancer': 'Nekromant',
+    'frostJarl': 'Mrazivý jarl',
+    'nagaOracle': 'Utopená věštkyně',
+    'voidStalker': 'Stopař Prázdnoty',
+    'wyvern': 'Wyverna',
+    'highDemon': 'Vyšší démon',
+    'voidWarden': 'Strážce Prázdnoty',
+    'voidDragon': 'Drak Prázdnoty',
+    'doomKnight': 'Rytíř zkázy',
+    'imp': 'Ďáblík',
+    'archDemon': 'Arcidémon',
+    'voidling': 'Zplozenec Prázdnoty',
+    'voidLord': 'Pán Prázdnoty',
+    'orderGuard': 'Inkvizitor Řádu',
+    'syndicateBlade': 'Čepel Syndikátu'
   },
 
   'results': {
-    'success': 'MISE SPLNĚNA',
-    'failed': 'MISE SELHALA',
+    'victory': 'Vítězství!',
+    'defeat': 'Porážka',
+    'retreat': 'Ústup',
+    'firstClear': 'První vyčištění!',
+    'waves': 'Přežité vlny: {n}',
+    'levelUp': 'Úroveň {n}!',
+    'points': 'Body atributů: +{n}',
     'xp': 'Zkušenosti',
-    'bolts': 'Šrouby',
-    'kills': 'Zničené stroje',
-    'chests': 'Otevřené bedny',
+    'gold': 'Zlato',
+    'lost': 'Ztraceno',
+    'kills': 'Poraženo',
     'time': 'Čas',
-    'levelUp': 'Nová úroveň! Teď máš úroveň {n}',
-    'newWeapon': 'Nová zbraň: {weapon}!',
-    'newSector': 'Odemčen nový sektor: {sector}',
-    'items': 'Nalezené vybavení',
-    'triple': 'Trojnásobek šroubů',
-    'tripleAria': 'Podívej se na krátké video: ztrojnásob šrouby na +{n}'
-  },
-  'defeat': {
-    'title': 'SYSTÉM SELHAL',
-    'body': 'Flux utržil příliš mnoho poškození.',
-    'kept': 'To, co jsi zatím získal, si necháváš:',
-    'useTank': 'Restart s opravným gelem ({n})',
-    'rebootAd': 'Restartovat hned',
-    'retreat': 'Ústup do laboratoře',
-    'retryCheckpoint': 'Znovu od kontrolního bodu'
-  },
-  'ending': {
-    'fall': 'Velmistr padá. Vexův Rudý signál umírá s ním.',
-    'relays': 'Jeden po druhém se přenašeče vracejí domů, každý ve své barvě.',
-    'thaw': 'V laboratoři led povoluje.',
-    'gauss': 'Fluxi... dokázal jsi to. Přivedl jsi je všechny zpátky.',
-    'atlas': 'Věž je prázdná. Teď bych mohl vládnout tomuhle městu. Neudělám to. Patří jim.',
-    'morning': 'Cyber City se probouzí do svého prvního svobodného rána.',
-    'spark': 'Fluxi... viděl jsi tu jiskru?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
-    'credits': {
-      'by': 'Hra od {studio}',
-      'cast': 'Hrají',
-      'masters': 'Mistři',
-      'thanks': 'Díky za hraní!'
-    },
-    'card': {
-      'title': 'Cyber City je svobodné!',
-      'promise': 'Nová hra+: Mistři mají o 25 % víc zdraví a útočí rychleji. Tvoje úroveň, vybavení a zbraně zůstávají.',
-      'ngplus': 'Začít Novou hru+',
-      'lab': 'Zpět do laboratoře',
-      'confirm': 'Začít Novou hru+?',
-      'confirmBody': 'Příběh začne znovu s tvrdšími Mistry. Úroveň, vybavení, zbraně a vylepšení si necháš.'
-    }
-  },
-  'banner': {
-    'cleared': 'Úroveň dokončena',
-    'bossDown': 'Nepřítel poražen!',
-    'gameOver': 'Konec hry!',
-    'grandMaster': 'Velmistr!'
+    'unlocked': 'Nově na mapě: {places}',
+    'retry': 'Zkusit znovu',
+    'tip': 'Zkušenosti i kořist ti zůstávají. Rozděl body, zajdi za učitelem a vrať se s větší silou.'
   },
   'pause': {
-    'title': 'PAUZA',
+    'title': 'Pauza',
     'resume': 'Pokračovat',
-    'abandon': 'Opustit misi',
     'controls': 'Ovládání',
-    'label': {
-      'move': 'Pohyb',
-      'look': 'Rozhled',
-      'parry': 'Vykrytí',
-      'interact': 'Akce'
-    },
-    'touch': {
-      'move': 'Levá strana: táhni pro pohyb. Klepni na podlahu a dojdeš tam.',
-      'fire': 'V boji: klepni pro výstřel, podrž pro nabití, pusť pro palbu.',
-      'block': 'Drž štít a blokuj — přesně když se kruh zavírá, vykryješ.',
-      'use': 'U bedny, uvízlého robota nebo dveří: klepni na ně nebo na tlačítko, které se objeví.'
-    },
-    'keys': {
-      'move': '{keys} / šipky: pohyb.',
-      'look': 'Pohybem myši se rozhlížíš. Klikni do scény a převezmi kontrolu nad kamerou.',
-      'fire': 'Levý klik: výstřel — podrž pro nabití, pusť pro palbu.',
-      'block': 'Pravý klik: blok — přesně když se kruh zavírá, vykryješ.',
-      'slide': '{slide}: skluz · {tank}: opravný gel · {use}: akce · {beam}: teleport',
-      'more': '{w1} / {w2}: speciální zbraně · {target}: změna cíle · Esc: pauza',
-      'space': 'Mezerník',
-      'press': '{key}: {action}'
+    'retreat': 'Ustoupit na mapu',
+    'retreatNote': 'Vše, co se ti zatím podařilo získat, ti zůstane, ale zóna nebude vyčištěná.'
+  },
+  'ending': {
+    'level': 'Úroveň',
+    'more': 'Pod pevností se otevřela Trhlina Prázdnoty. Koloseum dál přijímá každého, kdo přijde.',
+    'order': { 'title': 'Železný mír', 'text': 'Nad Pevností děsu vlají prapory Železného řádu. Cesty jsou bezpečné, zákonů je mnoho a tvé jméno je vytesané nad bránou.' },
+    'syndicate': { 'title': 'Popelavý obchod', 'text': 'Syndikát vládne ze stínů pevnosti. V říši už není nic zakázané. Je to jen drahé.' },
+    'circle': { 'title': 'Věk éteru', 'text': 'Kruh osvětluje pevnost zajatým ohněm Prázdnoty. Z jejích bran se valí zázraky a nikdo se neptá, co stojí.' },
+    'free': { 'title': 'Žádní králové', 'text': 'Trůn leží na kusy a pevnost je prázdná. Poprvé za celý věk patří říše lidem, kteří v ní žijí.' },
+    'unbound': { 'title': 'Bez pout', 'text': 'Trůn je tvůj. Řád, Syndikát i Kruh proti tobě táhnou společně. Jen ať přijdou.' },
+    'note': {
+      'goblinPact': 'Gobliní kupci dál smlouvají na sunfordském náměstí.',
+      'goblinSlain': 'Sluje jsou prázdné a karavany jezdí načas.',
+      'goblinRansom': 'Král goblinů je zase bohatý a zase loupí.',
+      'oakhavenSaved': 'Hradby Oakhavenu jsou teď vyšší a jeho trhy plnější.',
+      'oakhavenFallen': 'Ulicemi Oakhavenu prorůstá plevel. Černému trhu se daří.',
+      'coreOrder': 'V ironholdských dolech je klid a trpaslíci zase kopou.',
+      'coreCircle': 'Ironholdské kovárny září modře a jejich pušky jsou nejlepší v říši.',
+      'coreSold': 'Někde jádro pořád hučí. Golemové pořád chodí.',
+      'oracleFreed': 'Za klidných dnů vídají rybáři věštkyni daleko na vodě.',
+      'oracleSlain': 'Potopený chrám mlčí. Nikdo už neví, co přijde.',
+      'dragonPact': 'Na střeše pevnosti hnízdí drak a slyší jen na jedno jméno.',
+      'dragonSlain': 'Ve velké síni Řádu visí dračí lebka.'
     }
-  },
-  'levelUp': {
-    'title': 'NOVÁ ÚROVEŇ!',
-    'pick': 'Vyber vylepšení systému',
-    'chip': '+1 čip dovedností pro tvé obvody',
-    'granted': '{stat} zvýšeno z {from} na {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Rám', 'desc': 'Max. zdraví' },
-    'we': { 'name': 'Reaktor', 'desc': 'Energie zbraně' },
-    'power': { 'name': 'Serva', 'desc': 'Síla bloku a skluzu' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Mise',
-      'hero': 'Flux',
-      'circuits': 'Obvody',
-      'workshop': 'Dílna'
-    },
-    'heroTabAria': 'Flux, tvůj bojový android',
-    'levelUpReady': 'Nová úroveň!',
-    'levels': 'Úr. {a}–{b}',
-    'story': 'Příběhová mise',
-    'jobs': 'Zakázky',
-    'jobsHint': 'Opakovatelné — nové přibývají, jak je plníš',
-    'lockedHint': 'Poraz bosse ({boss}) a otevřeš tento sektor.',
-    'sectorSecured': 'Sektor zajištěn. Jeho zakázky jsou stále na tabuli.',
-    'deploy': 'Vyrazit',
-    'reroll': 'Nová zakázka',
-    'gift': {
-      'name': 'Gel na cestu',
-      'desc': 'Podívej se na krátké video: +1 opravný gel na příští misi, i nad tvůj limit.',
-      'aria': 'Podívej se na krátké video a získej opravný gel navíc na příští misi',
-      'ready': 'Dárek zabalen!',
-      'readyDesc': '+1 opravný gel na příští misi.'
-    },
-    'unlock': {
-      'hint': 'Dokonči ještě {n} misi pro odemčení | Dokonči ještě {n} mise pro odemčení | Dokonči ještě {n} misí pro odemčení',
-      'aria': '{name}, zamčeno: dokonči ještě {n} misi | {name}, zamčeno: dokonči ještě {n} mise | {name}, zamčeno: dokonči ještě {n} misí'
-    }
-  },
-  'hero': {
-    'role': 'Tvůj bojový android',
-    'weapons': 'Speciální zbraně',
-    'weaponSlot': 'Slot {n}',
-    'weaponRank': 'Hodnost {n}',
-    'noWeapons': 'Porážej Mistry jádra a kopíruj jejich zbraně.',
-    'attrPending': 'Vylepšení systému k výběru: {n}!',
-    'stats': 'Systémy',
-    'attributes': 'Vylepšení',
-    'stat': {
-      'hp': 'Max. zdraví',
-      'we': 'Energie zbraně',
-      'power': 'Síla',
-      'damage': 'Poškození střel',
-      'charge': 'Nabitá rána',
-      'armor': 'Pancíř',
-      'crit': 'Šance na kritický zásah',
-      'tanks': 'Opravné gely'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Šrouby na dvě vylepšení tvého nejlepšího děla.',
-    'upgradeAdName': 'Posila vylepšení',
-    'tanks': 'Zásoby',
-    'tankName': 'Opravný gel',
-    'tankDesc': 'Během mise plně obnoví zdraví a sílu.',
-    'owned': 'U sebe: {n}/{max}',
-    'upgrade': 'Vylepšit vybavení',
-    'next': 'Další úroveň',
-    'upgradeBtn': 'Vylepšit',
-    'maxed': 'Plně vylepšeno',
-    'dropName': 'Shoz zásob',
-    'dropDesc': 'Bedna náhradních šroubů, teleportovaná z laboratoře.',
-    'dropAria': 'Podívej se na krátké video a získej {n} šroubů',
-    'dropCooldown': 'Další shoz za {t}'
-  },
-
-  'board': {
-    'buster': 'Dělo',
-    'armor': 'Pancíř',
-    'core': 'Jádro'
-  },
-  'circuits': {
-    'chips': 'Čipy dovedností: {n}',
-    'rank': 'Hodnost {n}/{max}',
-    'requires': 'Vyžaduje: {name}, hodnost {n}',
-    'requiresBoss': 'Nejdřív poraz: {name}',
-    'unlock': 'Odemknout',
-    'install': 'Vložit čip',
-    'maxed': 'Plný výkon',
-    'respec': 'Resetovat obvody'
-  },
-  'skill': {
-    'rapid': { 'name': 'Rychlé střely', 'desc': 'Poškození rychlých výstřelů +10 % za čip.' },
-    'quickCharge': { 'name': 'Rychlé nabití', 'desc': 'Doba nabíjení −10 % za čip.' },
-    'megaCharge': { 'name': 'Mega nabití', 'desc': 'Poškození nabité rány +12 % za čip.' },
-    'perfectTiming': { 'name': 'Dokonalé načasování', 'desc': 'Širší okno pro perfektní puštění a silnější kritické zásahy.' },
-    'piercing': { 'name': 'Průrazné jádro', 'desc': 'I napůl nabité rány prorazí štíty a helmy.' },
-    'giga': { 'name': 'Přetížení', 'desc': 'Drž plné nabití o 3 sekundy déle: rána zasáhne 1,75× silněji.' },
-    'frame': { 'name': 'Zesílený rám', 'desc': 'Max. zdraví +8 % za čip.' },
-    'barrier': { 'name': 'Ladění bariéry', 'desc': 'Blokování stojí méně síly a propustí méně poškození.' },
-    'autoRepair': { 'name': 'Autooprava', 'desc': 'Mimo boj obnovuje 1 % zdraví za sekundu, za čip.' },
-    'parry': { 'name': 'Protokol vykrytí', 'desc': 'Širší okno pro vykrytí; vykryté stroje zůstanou omráčené déle.' },
-    'spikes': { 'name': 'Ostnaté pláty', 'desc': 'Odrazí 15 % zablokovaného poškození za čip.' },
-    'lastStand': { 'name': 'Poslední vzdor', 'desc': 'Jednou za misi přežiješ smrtící zásah s 1 bodem zdraví.' },
-    'cells': { 'name': 'Energetické články', 'desc': 'Energie zbraně +3 za čip.' },
-    'mastery': { 'name': 'Mistrovství zbraní', 'desc': 'Poškození speciálních zbraní +10 % za čip.' },
-    'boosters': { 'name': 'Skluzové trysky', 'desc': 'Rychlejší obnova skluzu, levnější skluzy.' },
-    'efficient': { 'name': 'Úsporná jádra', 'desc': 'Speciální zbraně spotřebují o 10 % méně energie za čip.' },
-    'magnet': { 'name': 'Magnet na šrouby', 'desc': 'Víc šroubů a delší dosah sběru.' },
-    'tankCap': { 'name': 'Zásoba gelu', 'desc': 'Uneseš o jeden opravný gel víc za čip.' }
-  },
-
-  'rarity': {
-    'standard': 'Standard',
-    'tuned': 'Vyladěné',
-    'prototype': 'Prototyp',
-    'legendary': 'Legendární'
-  },
-  'item': {
-    'arm_standard': 'Standardní dělo',
-    'arm_rapid': 'Rychlopalné dělo',
-    'arm_heavy': 'Těžké dělo',
-    'arm_quick': 'Rychlonabíjecí dělo',
-    'arm_nova': 'Dělo Nova',
-    'helm_scout': 'Průzkumná helma',
-    'helm_guard': 'Strážná helma',
-    'helm_ace': 'Esova helma',
-    'helm_royal': 'Královská helma',
-    'body_light': 'Lehký rám',
-    'body_plated': 'Pancéřovaný rám',
-    'body_reactor': 'Reaktorový rám',
-    'body_aegis': 'Rám Aegis',
-    'boots_basic': 'Základní boty',
-    'boots_dash': 'Sprinterské boty',
-    'boots_magnet': 'Magnetické boty',
-    'boots_titan': 'Titánské boty',
-    'chip_logic': 'Logický čip',
-    'chip_quantum': 'Kvantový čip'
-  },
-  'slot': {
-    'buster': 'Dělo',
-    'helmet': 'Helma',
-    'chest': 'Rám',
-    'boots': 'Boty',
-    'chip': 'Čip'
-  },
-  'gear': {
-    'damage': 'Poškození',
-    'armor': 'Pancíř',
-    'equip': 'Nasadit',
-    'unequip': 'Sundat',
-    'equipped': 'Nasazeno',
-    'new': 'NOVÉ',
-    'salvage': 'Rozebrat',
-    'noAffixes': 'Žádné bonusové moduly',
-    'emptySlot': 'Do této patice zatím nic nemáš — otevírej bedny a plň zakázky.'
-  },
-  'affix': {
-    'damage': '{v} poškození',
-    'crit': '{v} šance na kritický zásah',
-    'critDmg': '{v} kritického poškození',
-    'hp': '{v} max. zdraví',
-    'armor': '{v} pancíře',
-    'we': '{v} energie zbraně',
-    'power': '{v} síly',
-    'bolts': '{v} nalezených šroubů',
-    'chargeSpeed': '{v} rychlosti nabíjení',
-    'pelletDmg': '{v} poškození střel',
-    'chargeDmg': '{v} poškození nabité rány',
-    'moveSpeed': '{v} rychlosti pohybu',
-    'special': '{v} poškození speciálních zbraní',
-    'regen': '{v} regenerace zdraví / s (mimo boj)',
-    'magnet': '{v} dosahu sběru'
-  },
-  'weapon': {
-    'rankUp': '{weapon}: povýšení na hodnost {n}!',
-    'scrapBurst': { 'name': 'Šrotová salva', 'desc': 'Trojitá sprška šrotu. Skvělá proti skupinám.' },
-    'flameWave': { 'name': 'Plamenná vlna', 'desc': 'Ohnivá koule se valí po podlaze skrz každý stroj v cestě a zapálí ho.' },
-    'iceLance': { 'name': 'Ledové kopí', 'desc': 'Průrazné kopí, které zasažený cíl zchladí a zpomalí.' },
-    'thunderArc': { 'name': 'Hromový oblouk', 'desc': 'Okamžitý blesk, který přeskakuje na blízké stroje.' },
-    'galeGuard': { 'name': 'Vichrná stráž', 'desc': 'Kolem tebe krouží listí, blokuje střely a řeže stroje. Použij znovu a vrhni ho.' },
-    'magnetPull': { 'name': 'Magnetický tah', 'desc': 'Samonaváděcí podkova, která láme štíty a krunýře a strhává létající stroje k zemi.' },
-    'drillBomb': { 'name': 'Vrtací bomba', 'desc': 'Vrtací bomba, která vybuchne tam, kde se zastaví, a zasáhne každý stroj kolem. Rozbíjí popraskanou skálu.' },
-    'bubbleLance': { 'name': 'Bublinové kopí', 'desc': 'Velká bublina se valí po podlaze a praskne skrz každý stroj v cestě.' },
-    'neonBlade': { 'name': 'Neonová čepel', 'desc': 'Čepel ze světla hozená jako bumerang: řeže cestou tam i zpátky.' },
-    'droneSwarm': { 'name': 'Roj dronů', 'desc': 'Tři malé drony vyhledají tři stroje, i za úkrytem.' }
   },
 
   'options': {
-    'killCams': 'Kill-cam',
     'gameplay': 'Hratelnost',
     'title': 'Možnosti',
     'general': 'Obecné',
@@ -528,16 +612,16 @@ export default {
     'difficulty': 'Obtížnost',
     'soundEffects': 'Zvukové efekty',
     'music': 'Hudba',
-    'musicTrack': 'Skladba',
+    'mute': 'Ztlumit',
+    'musicTrack': 'Hudba',
     'musicTracks': {
-      'cozy': 'Klidné obvody',
-      'trance': 'Overdrive'
+      'cozy': 'Klidná',
+      'trance': 'Dobrodružná'
     },
     'haptics': 'Vibrace',
     'on': 'Zap.',
     'off': 'Vyp.',
     'close': 'Zavřít',
-    'replayIntro': 'Přehrát úvod znovu',
     'keyboard': {
       'auto': 'Rozpoznat rozložení klávesnice',
       'layout': 'Rozložení klávesnice',
@@ -547,45 +631,45 @@ export default {
       'reset': 'Obnovit klávesy'
     },
     'actions': {
-      'forward': 'Dopředu',
-      'back': 'Dozadu',
-      'left': 'Úkrok vlevo',
-      'right': 'Úkrok vpravo',
-      'turnLeft': 'Otočit vlevo',
-      'turnRight': 'Otočit vpravo',
-      'slide': 'Skluz',
-      'block': 'Blok',
-      'interact': 'Akce',
-      'beam': 'Teleport',
-      'tank': 'Opravný gel',
-      'weapon1': 'Speciální zbraň 1',
-      'weapon2': 'Speciální zbraň 2',
-      'weapon3': 'Vypůjčená zbraň',
-      'target': 'Změnit cíl',
-      'map': 'Mapa'
+      'up': 'Pohyb nahoru',
+      'down': 'Pohyb dolů',
+      'left': 'Pohyb vlevo',
+      'right': 'Pohyb vpravo',
+      'skill1': 'Dovednost 1',
+      'skill2': 'Dovednost 2',
+      'skill3': 'Dovednost 3',
+      'skill4': 'Dovednost 4',
+      'skill5': 'Dovednost 5',
+      'skill6': 'Dovednost 6',
+      'potion': 'Vypít lektvar',
+      'interact': 'Mluvit',
+      'target': 'Další cíl',
+      'map': 'Mapa světa',
+      'character': 'Hrdina',
+      'inventory': 'Batoh',
+      'skills': 'Dovednosti'
     },
-    'lookSensitivity': 'Citlivost rozhlížení',
     'difficulties': {
       'easy': 'Lehká',
       'medium': 'Střední',
       'hard': 'Těžká'
     },
     'difficultyHints': {
-      'easy': 'Stroje bijí slaběji a padají rychleji.',
+      'easy': 'Nepřátelé bijí slaběji a padají rychleji.',
       'medium': 'Výzva, jak byla zamýšlena.',
-      'hard': 'Odolnější stroje, které bijí silněji.'
+      'hard': 'Odolnější nepřátelé, kteří bijí silněji.'
     }
   },
   'adsBlocked': {
     'title': 'Reklamu nešlo zobrazit',
-    'body': 'Chtěli jsme ti pustit video, abys získal odměnu, ale něco v prohlížeči blokuje reklamy.',
+    'body': 'Chtěli jsme ti pustit video, ale něco v prohlížeči blokuje reklamy.',
     'allowPrefix': 'Povol prosím reklamy na',
     'allowSuffix': '(nebo pro tuto hru pozastav blokátor reklam) a zkus to znovu.',
     'gotIt': 'Rozumím'
   },
   'saveStatus': {
     'restoredTitle': 'Uložení v cloudu obnoveno',
-    'restoredBody': '+{n} bonusových šroubů za obnovu',
+    'restoredBody': 'Bonus za obnovu: +{n} zl.',
     'tap': 'klepni',
     'pausedTitle': 'Synchronizace pozastavena',
     'pausedBody': 'Hraješ offline. Postup se ukládá tady.',
@@ -611,443 +695,5 @@ export default {
     'yourRank': 'Jsi #{n} z {total}',
     'of': 'z {n} hráčů',
     'tabGlobal': 'Celosvětový'
-  },
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux bojuje se zlotřilými stroji v neonových ulicích Cyber City.',
-      'valley': 'Cyber City: jasné město androidů, propojené paprsky světla. Dr. Vex ovládne jeho stroje rudým signálem.',
-      'lab': 'Signál dorazí do laboratoře Prof. Gauss. Gauss dá Fluxovi disk Atlas a probudí ho.',
-      'safeMode': 'Gauss se zmrazí v kapsli, aby signál nepustila dovnitř. Pořád žije.',
-      'wakeUp': 'Flux se probudí na úrovni 1, s Atlasem online. Pevnost Vex je mnohem silnější, takže nejdřív Vrakoviště.',
-      'beam': 'Flux se teleportuje na Vrakoviště.'
-    },
-    'vex': {
-      'diagnosis': 'Diagnóza: toto údolí je NEMOCNÉ. Lékem… jsem JÁ!'
-    },
-    'atlas': {
-      'logStart': 'Začátek záznamu.',
-      'goodMorning': 'Jádro online. Dobré ráno, Fluxi.',
-      'scrapyardFirst': 'Nejdřív Vrakoviště. Jeden přenašeč po druhém.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Signál Mistra jádra. Je… velký.',
-    },
-    'sector': {
-      'blaze': 'Rafinerie. Je tu horko. Pozor na trysky.',
-      'cryo': 'Chladivo teče do kopce. K Pevnosti.',
-      'gale': 'Každý díl pro jeho tělo jde tudy.',
-      'magnet': 'Slévárna. Odlévá drápy.',
-      'drill': 'Ruda na jeho pancíř. Těžená přímo tady.',
-      'tide': 'Teď prámy. Vex si našel jinou cestu.',
-      'neon': 'Světla zhasla. Až na Vexovu tvář.',
-      'rotor': 'Drony. Jeho poslední zásobovací linka.',
-    },
-    'fortress': {
-      'bays': 'Napůl postavené. To je tvoje práce.',
-    },
-    'warn': {
-      'boss': 'Mistr jádra před námi.',
-      'gelFirst': 'Pancíř praská. Použij gel.',
-      'gel': 'Gel.',
-      'criticalFirst': 'Kritický stav! Stáhni se!',
-      'critical': 'Kritický stav!',
-      'noGel': 'Gel došel. Hraj na jistotu.',
-      'weLow': 'Málo energie zbraně. Dělo je zadarmo.',
-      'weEmpty': 'V nádrži sucho.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: poslední rána.',
-        'flameWave': '{weapon}: poslední rána.',
-        'iceLance': '{weapon}: poslední rána.',
-        'thunderArc': '{weapon}: poslední rána.',
-        'galeGuard': '{weapon}: poslední rána.',
-        'magnetPull': '{weapon}: poslední rána.',
-        'drillBomb': '{weapon}: poslední rána.',
-        'bubbleLance': '{weapon}: poslední rána.',
-        'neonBlade': '{weapon}: poslední rána.',
-        'droneSwarm': '{weapon}: poslední rána.',
-      },
-      'flame': 'Trysky. Počkej si… nebo skluz.',
-      'blade': 'Čepel. Běž hned za ní.',
-      'crusher': 'Lis. Sleduj lampu.',
-      'ladder': 'Žebřík. Tlač se ke zdi.',
-      'pit': 'Hluboký pád. Načasuj si výtah.',
-      'down': 'Restart… Pip se o tebe postará.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Střílej, až vykoukne.',
-      'trooper': 'Štít. Proraz ho nabitou ránou.',
-      'heli': '{enemy}. Podívej se nahoru.',
-      'hopper': '{enemy}. Uhni z kruhu.',
-      'roller': '{enemy}. Uskoč stranou.',
-      'brute': '{enemy}. Vykryj, pak udeř.',
-      'turret': '{enemy}. Nezastavuj se.',
-      'golem': 'Ta bedna dýchá. Jdi blíž.',
-      'polar': '{enemy}. Střílej, až se otevře červeně.',
-      'warden': '{enemy}. Zasáhni jádro, až se otevře.',
-      'hornet': '{enemy}. Nalétá rovně: uskoč stranou!',
-      'stalker': '{enemy}. Vykryj jeho výpad.',
-      'puffer': '{enemy}. Sestřel ji, než se nafoukne.',
-      'mole': '{enemy}. Zasáhni ho, až vyleze.',
-      'elite': 'Zlatý kruh. Elita. Opatrně.',
-      'fire': 'Ohnivý povlak. Oheň nezabírá.',
-      'ice': 'Ledový povlak. Led nezabírá.',
-      'volt': 'Elektrický povlak. Proud nezabírá.',
-      'wind': 'Větrný povlak. Vítr nezabírá.',
-    },
-    'volt': {
-      'hack': 'Flux… něco je v mo—',
-      'thanks': '…Nepustil jsi to dovnitř. Děkuju.',
-    },
-    'mk1': {
-      'intro': 'To je Vex. Ten skutečný.',
-      'fire': 'Oheň!',
-      'ice': 'Led!',
-      'volt': 'Proud!',
-      'wind': 'Vítr!',
-      'scrap': 'Šrot!',
-      'free': 'Protože jsou svobodní.',
-    },
-    'guardDown': 'Strážce padl! Cesta je volná.',
-    'help': {
-      'weapon': 'Vyber novou zbraň a pal na drony!',
-      'gap': 'Jdi rovnou na okraj a přeskočíš!',
-      'gel': 'Použij opravný gel a uzdrav se!',
-      'slide': 'Uklouzni těsně předtím, než tě červený kruh zasáhne!',
-      'block': 'Drž blok, když pálí. Přesně v momentě zásahu je to perfektní!',
-      'charge': 'Drž palbu, dokud dělo nezáří, pak pusť!'
-    },
-    'train': {
-      'weapon': 'Pojďme trénovat tvou novou zbraň!',
-      'gap': 'Pojďme trénovat skoky přes propasti!',
-      'gel': 'Pojďme trénovat opravný gel!',
-      'slide': 'Pojďme trénovat skluz!',
-      'block': 'Pojďme trénovat Perfektní blok!',
-      'charge': 'Pojďme trénovat Nabitou ránu!'
-    },
-    'hint': {
-      'locator': 'Cíl je tímhle směrem.',
-      'rescue': 'Signál pracovního robota. Slabý. Blízko.',
-      'upgrade': 'To je vylepšení.',
-      'levelUp': 'Nový čip zkompilován.',
-      'done': 'Hotovo. Zavolej dron, až budeš chtít.',
-      'underLevel': 'Jsou nad tvoje síly. Nejdřív trénuj.',
-      'floor': {
-        'blaze': '{sector}: od úrovně 3.',
-        'cryo': '{sector}: od úrovně 6.',
-        'volt': '{sector}: od úrovně 9.',
-        'gale': '{sector}: od úrovně 13.',
-        'magnet': '{sector}: od úrovně 16.',
-        'drill': '{sector}: od úrovně 19.',
-        'tide': '{sector}: od úrovně 22.',
-        'neon': '{sector}: od úrovně 25.',
-        'rotor': '{sector}: od úrovně 28.',
-        'fortress': '{sector}: od úrovně 31.',
-      },
-      'rotor': {
-        'arrive': 'Přistání. Vyskoč!',
-        'dip': 'Drž se, padáme dolů!',
-        'board': 'Nastupovat! Já letím, ty střílíš.'
-      },
-      'neon': {
-        'kick': 'Čelem ke zdi a skluz. Znovu! Odraz se od zdi nahoru!',
-        'switch': 'Vypínač světel! Střel do něj a prohodíš mosty.',
-        'blink': 'Světelné mosty blikají! Přejdi, dokud svítí.',
-        'blackout': 'Proud vypadává! Přejdi, až se světla vrátí.'
-      },
-      'tide': {
-        'deep': 'Moc hluboko! Ven z vody!',
-        'valve': 'Zatopené zdymadlo! Střel do ventilu a vypusť ho.',
-        'rise': 'Přichází příliv. Nahoru po schodech!',
-        'wade': 'Voda! Brodění tě zpomaluje.'
-      },
-      'gm': {
-        'button': 'Vex něco mačká... Připrav se!',
-        'arms': 'Nejdřív ruce! Dělo a kopí!',
-        'feet': 'Teď nohy! Blokuj rázové vlny!',
-        'head': 'Je dole. Hlava je na dosah!',
-        'body': 'Jádro je odkryté! Dorazi ho!',
-        'prism': 'Hranolové dělo! Štít nahoru!'
-      },
-      'vex': {
-        'roof': 'Blesky! Uhni, když se kruh rozsvítí!',
-        'fall': 'Střecha se propadá!',
-        'core': 'Dolů k Jádru! Nespadni dovnitř!'
-      },
-      'drill': {
-        'drop': 'Padají kameny! Vyjdi ze stínů.',
-        'rock': 'Popraskaná skála! Plně nabitá rána ji rozbije.',
-        'board': 'Důlní vozík jede! Já řídím, ty střílej krtky.',
-        'dip': 'Prudký sjezd! Drž se pevně!',
-        'arrive': 'Konečná. Vyskoč!'
-      },
-      'magnet': {
-        'panel': 'Vidíš tu červeno-modrou desku? Střel do ní a přepólovaš kolejnici.',
-        'rail': 'Magnetická kolejnice! Šipky ukazují tah. Probij se proti němu, nebo se svez.'
-      },
-      'blaze': {
-        'lava': 'Dole je láva. Drž se na kovu.',
-        'leap': 'Moc široké na chůzi. Sklouzni z okraje, přeneseš se.',
-        'vents': 'Syčení, pak oheň. Nech řev přejít a jdi.',
-        'barrels': 'Sudy! Sleduj lampy a projdi mezi nimi.',
-        'hammers': 'Kovářská kladiva. Počítej rytmus, pak běž.',
-        'drop': 'Dlouhá cesta dolů. Římsa po římse.'
-      },
-      'cryo': {
-        'ice': 'Led! Pustíš páčku a budeš klouzat dál.',
-        'spikes': 'Pod tím ledem jsou bodce. Jdi rovně, žádné ostré zatáčky.',
-        'frost': 'Mrazomet. Nejdřív září a syčí. Přejdi, až ztichne.',
-        'icicles': 'Stíny na podlaze? Rampouchy. Vyjdi z kruhu!',
-        'pillar': 'Ten sloup je popraskaný. Střel do něj a máš zkratku.',
-        'stairs': 'Zledovatělé schody. Pomalu — odpočívadlo je malé.'
-      },
-      'volt': {
-        'panels': 'Ty desky pulzují. Počkej na tmavé řadě, pak krok.',
-        'board': 'Ruce pryč od řízení — já řídím, ty střílíš.',
-        'wave': 'Drony před námi! Sestřel je, než se vrhnou dolů.',
-        'dip': 'Velký sjezd před námi. Drž se — a střílej dál!',
-        'arrive': 'Konečná. Vyskoč!'
-      },
-      'gale': {
-        'leap': 'Mezera je moc široká na chůzi. Sklouzni z okraje — přeneseš se.',
-        'down': 'Pěkný skok. Teď se nedívej dolů.',
-        'shuttle': 'Raketoplánky. Nastup, když přirazí, vystup na druhém konci.',
-        'wind': 'Počkej, až poryv utichne, pak jdi. Nebo se schovej za sloup.',
-        'bob': 'Houpavé plošiny. Naskoč dole a svez se nahoru.'
-      }
-    },
-    'secret': {
-      'lights': 'Ten panel ukazuje vzor. Lampy na zdi zatím ne.',
-      'color': 'Ten rám má oblíbenou barvu. Svítit mají jen jeho lampy.',
-      'cycle': 'Každý zásah lampu přemluví. Panel ví, co chce.',
-      'solved': 'No vida. Někdo má rád hádanky.'
-    },
-    'landed': 'Přistání! Jdeme na to.',
-    'brief': {
-      'tutorial': 'Čas na trénink. Povedu tě!',
-      'job': 'Rychlá zakázka. Tam a zpátky!',
-      'climb': 'Běh na věž! Nahoru, nahoru!',
-      'story': 'Čeká Mistr jádra. Osvoboďme ho!'
-    },
-    'story': {
-      'relayOne': 'První přenašeč svítí. Zbývá devět.',
-      'copied': {
-        'scrapBurst': 'Zkopírováno: {weapon}.',
-        'flameWave': 'Zkopírováno: {weapon}.',
-        'iceLance': 'Zkopírováno: {weapon}.',
-        'thunderArc': 'Zkopírováno: {weapon}.',
-        'galeGuard': 'Zkopírováno: {weapon}.',
-        'magnetPull': 'Zkopírováno: {weapon}.',
-        'drillBomb': 'Zkopírováno: {weapon}.',
-        'bubbleLance': 'Zkopírováno: {weapon}.',
-        'neonBlade': 'Zkopírováno: {weapon}.',
-        'droneSwarm': 'Zkopírováno: {weapon}.',
-      },
-      'dataCore': 'Něco nám tu nechal.',
-      'firstDraft': '…Vznikl jsem z jeho prvního návrhu.',
-      'body': 'Staví si tělo. Z našeho údolí.',
-      'voltFreed': 'Signál přišel o svou elektrárnu.',
-      'galeFreed': 'Do Pevnosti už nedorazí žádné díly.',
-      'breach': 'Štít padl. Pevnost je otevřená.',
-      'magnetFreed': 'Slévárna vychladla. Žádné drápy.',
-      'drillFreed': 'Důl utichl. Žádná ruda.',
-      'tideFreed': 'Zdymadla zavřená. Prámy zůstanou doma.',
-      'neonFreed': 'Světla svítí. Vex přišel o obrazovky.',
-      'rotorFreed': 'Všechny linky přerušeny. Vex je sám.',
-      'rotor': 'Rotorový let. Vítr v anténě!',
-      'neon': 'Bulvár výpadku. Světla, prosím!',
-      'tide': 'Přílivová zdymadla. Čas na cákání!',
-      'drill': 'Hluboký důl. Pozor na hlavu!',
-      'magnet': 'Továrna polarity. Kompas se mi točí!',
-      'scrapyard': 'Přenašeč na Vrakovišti. Rozsviť ho!',
-      'blaze': 'Rafinerie. Horko, horko, horko!',
-      'cryo': 'Kryozávod. Brr! Nezastavuj se.',
-      'volt': 'Věž napětí. Obvody mě brní!',
-      'gale': 'Nebeské doky. Nedívej se dolů!',
-      'fortress': 'Pevnost. Teď to skončíme.'
-    },
-    'arc': {
-      '10': 'Štít padl. Teď Vex!',
-      '9': 'Zbývá jeden Mistr. Skoro!',
-      '8': 'Osm! Zbývají jen dva Mistři.',
-      '7': 'Sedm svítí. Jen tak dál!',
-      '6': 'Šest přenašečů! Město se probouzí.',
-      '1': 'Jeden přenašeč svítí. Zbývá devět!',
-      '2': 'Dva přenašeče! Vex se mračí.',
-      '3': 'Tři svítí. Zař dál!',
-      '4': 'Čtyři hotové. Síť zase bzučí.',
-      '5': 'V polovině! Vex se potí.'
-    },
-    'bossAhead': 'Boss před námi. Zhluboka se nadechni!',
-    'noWeak': 'Slabé místo není vidět. Hýbej se!',
-    'weak': {
-      'flameWave': 'Plamenná vlna ho bolí!',
-      'iceLance': 'Ledové kopí ho bolí!',
-      'thunderArc': 'Hromový oblouk ho bolí!',
-      'galeGuard': 'Vichrná stráž ho bolí!',
-      'magnetPull': 'Magnetický tah ho bolí!',
-      'drillBomb': 'Vrtací bomba ho bolí!',
-      'bubbleLance': 'Bublinové kopí ho bolí!',
-      'neonBlade': 'Neonová čepel ho bolí!',
-      'droneSwarm': 'Roj dronů ho bolí!'
-    },
-    'bossDown': 'Mistr osvobozen! Skvělá práce!',
-    'vexDown': 'Vex je poražen. Zvládli jsme to!',
-    'lowHp': 'Au! Opatrně, Fluxi!',
-    'lowHpGel': 'Málo zdraví! Zkus opravný gel.',
-    'lowWe': 'Dochází energie zbraně!',
-    'trap': 'Past před námi. Pozor na načasování!',
-    'plate': 'Nášlapná deska. Po špičkách!',
-    'objective': 'Hotovo! Teď najdi východ.',
-    'exit': 'Odvoz je tady!',
-    'levelUp': 'Nová úroveň! Jen záříš.',
-    'idle': {
-      '1': 'Píp. Jen se hlásím.',
-      '2': 'Vedeš si skvěle.',
-      '3': 'Gauss by byla hrdá.',
-      '4': 'Mám rád náš tým.'
-    }
-  },
-  'train': {
-    'todo': 'ještě nehotovo',
-    'done': 'hotovo',
-    'checklist': 'Tutoriály',
-    'watch': 'Podívej se, jak na to',
-    'card': {
-      'weapon': 'Zkopíroval jsi zbraň Mistra jádra! Pal z ní jejím tlačítkem: pohání ji energie zbraně a některé stroje jsou na ni slabé.',
-      'gel': 'Zraněný? Opravný gel ti obnoví zdraví. Použij ho, kdykoli se boj zvrtne.',
-      'slide': 'Červené útoky nejde zablokovat. Sklouzni a uhni z cesty: během skluzu tě nic nezasáhne.',
-      'block': 'Podrž blok a zvedni štít: zastaví střely a údery zepředu. Zvedni ho přesně ve chvíli zásahu a uděláš Perfektní blok, který útočníka omráčí.',
-      'charge': 'Normální střela štít neprorazí. Drž palbu, dokud dělo nezáří, pak pusť: Nabitá rána projde skrz.'
-    },
-    'name': {
-      'weapon': 'Lekce zbraně',
-      'gap': 'Tutoriál: Skok',
-      'gel': 'Tutoriál: Opravný gel',
-      'slide': 'Tutoriál: Skluz',
-      'block': 'Tutoriál: Štít',
-      'charge': 'Tutoriál: Nabitá rána'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Předskokan! {boss}!',
-      'blaze': 'Nejstarší! Nejžhavější! {boss}!',
-      'frost': 'Vychladni, droidku. {boss}!',
-      'volt': 'Mrkneš a je pryč! {boss}!',
-      'gale': 'Další, prosím! {boss}, odfoukni ho!',
-      'magnet': 'Přitažlivé, že? {boss}!',
-      'drill': 'Čas na hloubkové vyšetření! {boss}!',
-      'tide': 'Šplouch a sbohem, droide! {boss}!',
-      'neon': 'Světla! Kamera! {boss}!',
-      'rotor': 'Velké finále! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Jeřáb na šrot? Jak… rozkošné.',
-      'blaze': 'Vedlejší účinek zaznamenán. Zvyšuji dávku.',
-      'blueprint': 'Moje skici! Jsem úžasný, že?',
-      'volt': 'Jsem… na-pros-to… V POHODĚ.',
-      'gale': 'Fajn! Mám ještě DALŠÍ Mistry.',
-      'magnet': 'Odpuzen? Já? Ne-MOŽNÉ!',
-      'drill': 'Hm. Nové dno. Doslova.',
-      'tide': 'Příliv se ještě vrátí! …Že jo?',
-      'neon': 'Kdo to ROZSVÍTIL?!',
-      'rotor': 'Deset přenašečů?! Sestro! SESTRO!',
-      'breach': 'Ne, ne, NE! Ten štít byl PATENTOVANÝ!',
-    },
-    'volt': {
-      'hack': 'Copak asi je v té prázdné hlavě…',
-      'fail': 'Nezapisovatelný?! Jak DRZÉ.',
-    },
-    'fortress': {
-      'welcome': 'Vítej v mé klinice! Posaď se… NAVŽDY!',
-    },
-    'mk1': {
-      'intro': 'Hleďte! Mé nové tělo! Mark JEDNA!',
-      'obey': 'Mistři! POSLECHNĚTE svého doktora!',
-      'listen': 'Proč NEPOSLOUCHAJÍ?!',
-      'defeat': 'Vyžádám si… druhý názor…',
-    },
-    'sting': {
-      'doctorIn': 'Doktor… ORDINUJE.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Vítej zpátky, Fluxi! Podívej se na údolí.',
-      'go': 'Vybav se a hurá na cestu! Já pohlídám laboratoř.',
-      'scrapyard': {
-        'won': 'Starý jeřáb zase třídí šrot.',
-        'weapon': '{weapon} je zkopírovaná. Pálí do tří stran.',
-        'next': 'Další zastávka: {sector}. Jen o kousek těžší.',
-        'boss': '{boss} tam kuje pancíře pro Vexovy stroje.',
-        'tip': 'Blokuj jeho ohnivé koule. Ohnivým vlnám uhni skluzem.',
-      },
-      'blaze': {
-        'won': 'Komíny zase kouří čistě. Dobrá práce!',
-        'weapon': '{weapon} je teď tvoje. Oheň rozpouští led!',
-        'next': 'Další je {sector}. Stroje tam bijí silněji.',
-        'boss': '{boss} si nechává všechno chladivo. Město se přehřívá.',
-        'tip': 'Blokuj jeho ledové střely a pak mu zatop!',
-      },
-      'cryo': {
-        'won': 'Chladivo teče domů. Město se může zchladit.',
-        'weapon': '{weapon} je tvoje. Led poráží blesk!',
-        'next': 'Další: {sector}, v centru města. Tam už jde do tuhého.',
-        'boss': '{boss} pumpuje náš proud do Rudého signálu.',
-        'tip': 'Pořád se teleportuje. Sestřel jeho koule.',
-      },
-      'volt': {
-        'won': 'Vexova tvář teď pořád bliká. Viděl jsi to?',
-        'weapon': '{weapon} je tvůj. Blesk poráží vítr!',
-        'next': 'Další: {sector}, hodně vysoko. Tvrdé stroje.',
-        'boss': '{boss} řídí Vexovy vzducholodě, ve dne v noci.',
-        'tip': 'Blokuj pera. Vykryj, když nalétne!',
-      },
-      'gale': {
-        'won': 'Vzducholodě se otočily. Nebe je zase čisté!',
-        'weapon': '{weapon} je tvoje. Její listy blokují střely.',
-        'next': 'Teď okraj města: {sector}. Mnohem těžší.',
-        'boss': '{boss} zabral tramvajové koleje pro Vexův náklad.',
-        'tip': 'Přitahuje tě k sobě. Blokuj, když chňapne!',
-      },
-      'magnet': {
-        'won': 'Tramvaje zase jezdí. Cink, cink!',
-        'weapon': '{weapon} láme štíty. Přesně na dalšího Mistra.',
-        'next': 'Další: {sector}, hluboko pod zemí. Fakt silné stroje.',
-        'boss': '{boss} uvěznil pracovní roboty v šachtě.',
-        'tip': 'Prohrabe se pod tebe. Pryč ze značky!',
-      },
-      'drill': {
-        'won': 'Pracovní roboti jsou zpátky nahoře na denním světle.',
-        'weapon': '{weapon} dělá bum. Nech si pár na bosse!',
-        'next': 'Další: {sector}, dole u vody. Hodně těžké.',
-        'boss': '{boss} zaplavuje kanály pro Vexovy prámy.',
-        'tip': 'Sklouzni pod jeho vlnami. Bubliny nech prasknout!',
-      },
-      'tide': {
-        'won': 'Do údolí zase teče čistá voda.',
-        'weapon': '{weapon} se valí skrz celé hloučky. Boss bubliny nesnáší!',
-        'next': 'Další: {sector}, temné střechy. Fakt nebezpečné.',
-        'boss': '{boss} zhasl každé okno v centru.',
-        'tip': 'Jeho čepel letí tam a zpátky. Uhni dvakrát!',
-      },
-      'neon': {
-        'won': 'Centrum dnes večer září růžově. To je krása!',
-        'weapon': '{weapon} řeže dvakrát. Další Mistr se jí bojí!',
-        'next': 'Další: {sector}, letiště v oblacích. Skoro to nejtěžší.',
-        'boss': '{boss} plní nebe nákladními drony.',
-        'tip': 'Odfoukne tě dozadu. Sklouzni pod poryvy!',
-      },
-      'rotor': {
-        'won': 'Drony teď vozí zásilky pracovním robotům.',
-        'weapon': '{weapon} je tvůj. Tři drony si najdou cíl.',
-        'next': 'Poslední zastávka: {sector}. Těžší místo už není.',
-        'boss': '{boss} se už za štít neschová.',
-        'tip': 'Půjčuje si útoky Mistrů. Přibal opravný gel!',
-      },
-    },
   }
 }

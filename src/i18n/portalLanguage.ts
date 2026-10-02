@@ -16,7 +16,7 @@
 //     game), which is why the two rules ship together.
 //
 // The last-seen marker is DEVICE-LOCAL on purpose: it lives beside the save,
-// never inside it (`ma_*` keys are folded into the synced state blob). A
+// never inside it (`bc_*` keys are folded into the synced state blob). A
 // second device on another portal language must not read as a switch. On
 // YouTube Playables Web Storage is null and the storage shim holds it in
 // memory, which still catches the in-session switch — and the module keeps
@@ -26,7 +26,7 @@ import { safeGetItem, safeSetItem } from '@/utils/safeStorage'
 import { isSupportedLocale } from '@/i18n'
 
 /** Device-local marker: the portal language this device saw last. Not an
- *  `ma_*` key — those belong to the synced save blob. */
+ *  `bc_*` key — those belong to the synced save blob. */
 export const PORTAL_LANGUAGE_SEEN_KEY = 'portal_lang_seen'
 
 let seenThisSession: string | null = null

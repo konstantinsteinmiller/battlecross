@@ -6,7 +6,13 @@
  * itself: where the fingertip is at each moment, that the streak behind it
  * keeps up, that the hand never leaves its box.
  */
-import { CHARGE_L1, CHARGE_L2, PERFECT_DELAY, PERFECT_LEN } from '@/game/sim/stats'
+
+// The hold glyph's own clock (seconds): when the ring starts to fill, when it
+// is full, and the window in which the finger lets go.
+const CHARGE_L1 = 0.45
+const CHARGE_L2 = 1.1
+const PERFECT_DELAY = 0.15
+const PERFECT_LEN = 0.25
 
 /** The hand every finger glyph draws, pointing up, in a 140 × 130 box. */
 export const HAND = [

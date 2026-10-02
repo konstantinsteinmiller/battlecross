@@ -16,7 +16,7 @@ import { ref, type Ref } from 'vue'
  *     Glitch instead of dozens of per-key writes.
  *
  * Field names inside the record are catalogued in `src/keys.ts` and are all
- * `ma_`-prefixed (`STATE_FIELD_PREFIX`). They are a contract with the player base: renaming one
+ * `bc_`-prefixed (`STATE_FIELD_PREFIX`). They are a contract with the player base: renaming one
  * strands existing players' progress on the old field.
  *
  * Writes are debounced (trailing edge, hard-capped) and hard-flushed on
@@ -27,7 +27,7 @@ export const STATE_KEY = 'bcross_state'
 
 /** Every field inside the blob starts with this. The save layer's payload
  *  allowlist and the CrazyGames raw-storage scrub key off it. */
-export const STATE_FIELD_PREFIX = 'ma_'
+export const STATE_FIELD_PREFIX = 'bc_'
 
 /** Persisted values may be bare strings ("en"), stringified numbers ("120"),
  *  or stringified JSON. JSON.parse round-trips numbers/objects; bare strings
@@ -117,7 +117,7 @@ const buildInitial = (): Record<string, any> => {
     }
   } catch { /* corrupt → start fresh */ }
 
-  // Generic fold: if a player somehow has individual `ma_*` entries in raw
+  // Generic fold: if a player somehow has individual `bc_*` entries in raw
   // localStorage (defensive per-key write, or a mid-migration snapshot from an
   // older client), fold them into the blob once and remove them. The blob takes
   // precedence when both exist.

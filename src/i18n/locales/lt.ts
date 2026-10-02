@@ -5,15 +5,9 @@ export default {
   'close': 'Uždaryti',
   'ok': 'Gerai',
   'continue': 'Tęsti',
-  'tapToContinue': 'Bakstelėk, kad tęstum',
-  'clickToContinue': 'Spustelėk, kad tęstum',
-  'rewards': 'APDOVANOJIMAI',
-  'tip': 'Patarimas',
   'onlyAvailableOn': 'Šį žaidimą galima žaisti tik',
 
   'ui': {
-    'killcamCount': 'Kill-cam kadrai šioje misijoje: {n}',
-    'killcamOff': 'Išjungti kill-cam kadrus',
     'next': 'Toliau',
     'replay': 'Kartoti',
     'back': 'Atgal',
@@ -22,504 +16,594 @@ export default {
     'menu': 'Meniu',
     'home': 'Pradžia',
     'info': 'Informacija',
-    'skip': 'Praleisti',
-    'holdToSkip': 'Laikyk {key}, kad praleistum'
+    'help': 'Valdymas',
+    'ok': 'Supratau',
+    'continue': 'Tęsti'
+  },
+
+  'hud': {
+    'level': '{n} lyg.',
+    'health': 'Gyvybė: {n} iš {max}',
+    'mana': 'Mana: {n} iš {max}',
+    'heat': 'Karštis',
+    'xp': 'PT',
+    'gold': 'Auksas: {n}',
+    'potion': 'Gyvybės eliksyras (liko: {n})',
+    'groups': 'Įveikta priešų grupių: {n} iš {total}',
+    'wave': 'Banga {n} / {total}'
+  },
+  'menu': {
+    'map': 'Žemėlapis',
+    'character': 'Herojus',
+    'skills': 'Įgūdžiai',
+    'inventory': 'Krepšys'
   },
 
   'combat': {
-    'tink': 'DZIN!',
-    'perfect': 'TOBULA!',
-    'parry': 'ATREMTA!',
-    'guardBreak': 'GYNYBA PRALAUŽTA!',
-    'guardCracked': 'Gynyba įskelta!',
-    'xp': '+{n} PT',
-    'lastStand': 'Paskutinė kova! Sistemos paleistos iš naujo.',
-    'weak': 'SILPNYBĖ!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'APSVAIGO!',
-    'dodge': 'IŠVENGTA!',
-    'block': 'Blokuoti',
-    'slide': 'Slysti',
-    'fire': 'Šauti',
-    'tank': 'Remonto gelis',
-    'noEnergy': 'Trūksta ginklo energijos',
-    'tankCount': 'Remonto gelis: {n} iš {max}',
-    'borrowed': 'Pasiskolintas ginklas {weapon}: {n} iš {max} šūvių',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': 'Išsisukta',
+    'block': 'Atremta',
+    'immune': 'Imunitetas'
+  },
+  'status': {
+    'stun': 'Apsvaigimas',
+    'knockup': 'Ore',
+    'knockdown': 'Parbloškimas',
+    'stasis': 'Stazė',
+    'petrify': 'Suakmenėjimas',
+    'frozen': 'Sušalimas',
+    'fear': 'Baimė',
+    'slow': 'Sulėtėjimas',
+    'confuse': 'Sumišimas',
+    'taunt': 'Erzinimas',
+    'armorShred': 'Sulaužyti šarvai',
+    'weaken': 'Susilpnėjimas',
+    'vulnerable': 'Pažeidžiamumas',
+    'burn': 'Deginimas',
+    'poison': 'Apnuodijimas',
+    'bleed': 'Kraujavimas',
+    'delayed': 'Atidėta žala',
+    'haste': 'Sparta',
+    'attackSpeed': 'Greiti puolimai',
+    'damageUp': 'Sustiprėjimas',
+    'defenseUp': 'Įtvirtinimas',
+    'regen': 'Regeneracija',
+    'lifestealUp': 'Gyvybės vagystė',
+    'invulnerable': 'Nepažeidžiamumas',
+    'unkillable': 'Nemirtingumas',
+    'stealth': 'Slėpimasis',
+    'reflect': 'Atspindėjimas',
+    'envenom': 'Nuodingi ašmenys',
+    'exosuit': 'Egzokostiumas',
+    'focus': 'Susikaupimas',
+    'accelerate': 'Pagreitis',
+    'overheat': 'Perkaitimas',
+    'enrage': 'Įniršis',
+    'ambush': 'Pasala'
+  },
+  'toast': {
+    'item': 'Rasta: {item}',
+    'levelUp': '{level} lygis! +3 savybių taškai',
+    'boss': 'Pasirodo: {boss}',
+    'wave': 'Banga {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Oi-oi!',
-      '2': 'Bzzt! Ups!',
-      '3': 'Mano ranka žagsi!',
-      '4': 'Klaida… vyyy!',
-      '5': 'Sviestinės grandinės!',
-      '6': 'Kratymo režimas ĮJUNGTAS!'
+  'coach': {
+    'move': {
+      'touch': 'Bakstelėk žemę, kad ten nueitum, arba naudok svirtį.',
+      'mouse': 'Spustelėk žemę, kad ten nueitum, arba valdyk judėjimo klavišais.'
+    },
+    'target': {
+      'touch': 'Bakstelėk priešą arba vilk nuo herojaus iki jo, kad jį pultum.',
+      'mouse': 'Spustelėk priešą, kad jį pultum.'
+    },
+    'skill': {
+      'touch': 'Bakstelėk įgūdį, kad panaudotum jį prieš taikinį.',
+      'mouse': 'Paspausk įgūdžio klavišą, kad panaudotum jį prieš taikinį.'
+    },
+    'aim': {
+      'touch': 'Vilk įgūdį į mūšio lauką, kad nusitaikytum, ir paleisk, kad panaudotum.',
+      'mouse': 'Vilk įgūdį į mūšio lauką, kad nusitaikytum, ir paleisk, kad panaudotum.'
+    },
+    'potion': {
+      'touch': 'Bakstelėk eliksyrą, kad pasigydytum.',
+      'mouse': 'Paspausk eliksyro klavišą, kad pasigydytum.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Žemdirbių miestelis lygumų pakraštyje. Namai, kalvis ir du mokytojai.' },
+    'plains': { 'name': 'Sunfordo lygumos', 'desc': 'Goblinai, vilkai ir banditai puldinėja karavanus atvirame kelyje.' },
+    'hollows': { 'name': 'Goblinų urvai', 'desc': 'Olos po kalvomis. Pačiame dugne viešpatauja Goblinų karalius.' },
+    'arena': { 'name': 'Koliziejus', 'desc': 'Aštuonios bangos, kiekviena sunkesnė už ankstesnę. Auksas ir šlovė tam, kas liks stovėti.' },
+    'woods': { 'name': 'Šnabždantis miškas', 'desc': 'Seni medžiai, kurie vaikšto, ir vorai, kurie tarp jų mezga tinklus.' },
+    'outskirts': { 'name': 'Oakhaveno prieigos', 'desc': 'Prie Oakhaveno dega ūkiai. Karo vado armija stovi prie vartų.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Mūrais apjuostas prekybos miestas. Kuo jis taps, priklauso nuo tavęs.' },
+    'crags': { 'name': 'Pelenų uolos', 'desc': 'Juoda uola ir atvira ugnis. Kultistai kursto liepsnas.' },
+    'mines': { 'name': 'Ironholdo kasyklos', 'desc': 'Nykštukai kasė per giliai ir pažadino kažką, kas švyti.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'Kalnų kalvių miestas. Čia kalamas geriausias karalystės plienas.' },
+    'tundra': { 'name': 'Speigo tundra', 'desc': 'Balta dykynė, kur vaikšto milžinai, o mirusieji nelieka gulėti.' },
+    'temple': { 'name': 'Nuskendusi šventykla', 'desc': 'Užlietos nagų menės ir orakulė, reginti kiekvieną pabaigą.' },
+    'citadel': { 'name': 'Tuštumos citadelė', 'desc': 'Tvirtovė, kurios pernai čia nebuvo. Jos sienos gaudžia.' },
+    'peak': { 'name': 'Drakono viršūnė', 'desc': 'Aplink viršūnę suka ratus vivernos. Ant jos miega kažkas daug didesnio.' },
+    'fortress': { 'name': 'Siaubo tvirtovė', 'desc': 'Arkidemono buveinė ir sostas, kurio trokšta kiekviena frakcija.' },
+    'rift': { 'name': 'Tuštumos plyšys', 'desc': 'Žaizda, pro kurią atėjo demonai. Kitoje pusėje laukia Tuštumos valdovas.' }
+  },
+  'map': {
+    'title': 'Karalystė',
+    'town': 'Miestas',
+    'levels': '{min}–{max} lyg.',
+    'arenaBest': 'Rekordas: banga {n}',
+    'travel': 'Keliauti',
+    'again': 'Dar kartą',
+    'enter': 'Įeiti',
+    'fight': 'Kautis',
+    'back': 'Atgal į miestą',
+    'locked': 'Išvalyk gretimą zoną, kad atsivertų kelias.',
+    'lockedArena': 'Vartai atsivers, kai bus susitvarkyta su Goblinų karaliumi.',
+    'lockedRift': 'Jis atsivers, kai bus nuspręstas Siaubo tvirtovės sosto likimas.',
+    'danger': {
+      '1': 'Šiek tiek virš tavo lygio.',
+      '2': 'Tavo lygiui pavojinga.',
+      '3': 'Gerokai virš tavo lygio.'
+    },
+    'questOpen': '{quest}: čia laukia sprendimas.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Slaptas mokytojas: {cls}'
+  },
+  'travel': {
+    'to': 'Kelionės tikslas:',
+    'loading': 'Įkeliama'
+  },
+
+  'attr': {
+    'str': { 'name': 'Jėga', 'short': 'JĖG', 'desc': 'Artimos kovos galia, atrėmimo tikimybė, sunkūs šarvai.' },
+    'dex': { 'name': 'Vikrumas', 'short': 'VIK', 'desc': 'Kritiniai smūgiai, puolimo ir judėjimo greitis.' },
+    'int': { 'name': 'Intelektas', 'short': 'INT', 'desc': 'Burtų galia, mana, atsparumas stichijoms.' },
+    'end': { 'name': 'Ištvermė', 'short': 'IŠT', 'desc': 'Gyvybė, regeneracija, šarvai, atsparumas apsvaiginimui.' },
+    'skl': { 'name': 'Meistrystė', 'short': 'MEI', 'desc': 'Kritinė žala, atsikrovimai, tolimos kovos ginklai.' },
+    'cha': { 'name': 'Charizma', 'short': 'CHA', 'desc': 'Pakalikai, kainos parduotuvėse, atlygiai, pokalbių galimybės.' }
+  },
+  'stat': {
+    'health': 'Gyvybė',
+    'mana': 'Mana',
+    'armor': 'Šarvai',
+    'resist': 'Atsparumas',
+    'crit': 'Krit. tikimybė',
+    'critDamage': 'Krit. žala',
+    'attackSpeed': 'Puolimo greitis',
+    'moveSpeed': 'Judėjimo greitis',
+    'cdr': 'Trumpesnis atsikr.',
+    'block': 'Atrėmimas',
+    'dodge': 'Išsisukimas',
+    'hpRegen': 'Gyvybė / s'
+  },
+  'sheet': {
+    'points': 'Taškų paskirstyti: {n}',
+    'raise': 'Didinti: {attr}',
+    'maxLevel': 'Pasiektas aukščiausias lygis'
+  },
+
+  'skills': {
+    'active': 'Aktyvūs įgūdžiai',
+    'passive': 'Pasyvūs įgūdžiai',
+    'known': 'Išmokta',
+    'none': 'Dar nieko neišmokta. Susirask mokytoją mieste.',
+    'emptySlot': 'Tuščia vieta {n}',
+    'equip': 'Įdėti',
+    'remove': 'Išimti',
+    'unmet': 'Nebeatitinki jo reikalavimų.'
+  },
+  'class': {
+    'aegis': { 'name': 'Egidos riteris', 'desc': 'Skydas ir šventas plienas. Priima smūgius, kad niekam kitam nereikėtų.' },
+    'shadow': { 'name': 'Šešėlių ašmenys', 'desc': 'Išnyra iš tamsos, smogia iš nugaros ir dingsta.' },
+    'pyro': { 'name': 'Piromantas', 'desc': 'Ugnis atsako į kiekvieną klausimą. Padek juos, o tada susprogdink.' },
+    'sovereign': { 'name': 'Didysis valdovas', 'desc': 'Kam kautis vienam? Iškviesk sargybinius ir jiems vadovauk.' },
+    'chrono': { 'name': 'Laiko audėjas', 'desc': 'Sustabdo priešus laike, pagreitina sąjungininkus ir atitaiso klaidas.' },
+    'blood': { 'name': 'Kraujo alchemikas', 'desc': 'Už galią moka gyvybe, o paskui išgeria ją atgal iš priešo.' },
+    'aether': { 'name': 'Eterio technikas', 'desc': 'Šautuvai, bokšteliai ir karščio matuoklis. Išleisk karštį, kol jis tavęs neužblokavo.' },
+    'geo': { 'name': 'Geomantas', 'desc': 'Kelia sienas ir smaigus ir skaldo pačią žemę.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Aktyvus', 'passive': 'Pasyvus' },
+    'cooldown': 'Atsikrovimas {n}s',
+    'mana': '{n} manos',
+    'hpCost': '{n}% gyvybės',
+    'heat': '+{n} karščio',
+    'aimed': 'Vilk, kad taikytum',
+
+    'shieldSlam': { 'name': 'Skydo smūgis', 'desc': 'Trenk taikiniui: {dmg}% Jėgos žalos ir apsvaiginimas {stun}s.' },
+    'aegisAura': { 'name': 'Egidos aura', 'desc': '+{armor}% Šarvų, o gaunama fizinė žala sumažėja {reduce}%.' },
+    'radiantStrike': { 'name': 'Švytintis kirtis', 'desc': 'Šventas smūgis: {dmg}% Jėgos žalos, o tu pagydomas {heal}% padarytos žalos.' },
+    'fortitude': { 'name': 'Tvirtybė', 'desc': 'Smūgis, atimantis daugiau nei {hit}% tavo gyvybės, suteikia {shield}% gyvybės vertės skydą {dur}s. Kartą per {icd}s.' },
+    'tauntingCry': { 'name': 'Erzinantis šūksnis', 'desc': 'Priešai {radius} m spinduliu {dur}s puola tave. Tuo metu gauni {def}% Gynybos.' },
+    'holyBastion': { 'name': 'Šventasis bastionas', 'desc': 'Nepažeidžiamumas {dur}s. Puolantiesiems grįžta {reflect}% jų žalos.' },
+
+    'shadowstep': { 'name': 'Šešėlio žingsnis', 'desc': 'Atsirask už taikinio ir smok į nugarą: {dmg}% Vikrumo žalos.' },
+    'lethality': { 'name': 'Mirtinumas', 'desc': '+{crit}% kritinio smūgio tikimybės ir +{critDmg}% kritinės žalos.' },
+    'venomousBlade': { 'name': 'Nuodingi ašmenys', 'desc': '{dur}s tavo puolimai nuodija: {poison}% Vikrumo per {over}s, kaupiasi iki {stacks} kartų.' },
+    'evasion': { 'name': 'Vengimas', 'desc': '+{dodge}% Išsisukimo. Išsisukus gaunama {haste}% Spartos {dur}s.' },
+    'smokeBomb': { 'name': 'Dūmų bomba', 'desc': 'Dink {dur}s. Kitas tavo puolimas iš slėptuvės padaro +{bonus}% žalos.' },
+    'danceOfBlades': { 'name': 'Ašmenų šokis', 'desc': 'Šok tarp priešų {radius} m spinduliu ir smok {hits} kartų: iš viso {dmg}% Vikrumo žalos. Šokant tavęs neįmanoma kliudyti.' },
+
+    'fireball': { 'name': 'Ugnies kamuolys', 'desc': 'Ugnies kamuolys, kuris sprogsta padarydamas {dmg}% Intelekto žalos ir degina dar {burn}% per {burnDur}s.' },
+    'cauterize': { 'name': 'Prideginimas', 'desc': 'Degantys priešai tau daro {reduce}% mažiau žalos.' },
+    'flamePillar': { 'name': 'Liepsnos stulpas', 'desc': 'Ten, kur taikai, išsiveržia ugnies stulpas: {dmg}% Intelekto žalos per {dur}s. Pagauti priešai išmetami į orą.' },
+    'pyromaniac': { 'name': 'Piromanas', 'desc': 'Kritinis burto pataikymas sutrumpina tavo ugnies atsikrovimus {cut}s.' },
+    'combustion': { 'name': 'Užsiliepsnojimas', 'desc': 'Susprogdink kiekvieną deginimą {radius} m spinduliu: kiekvienas iš karto padaro {pct}% likusios žalos kaip sprogimas.' },
+    'cataclysm': { 'name': 'Kataklizmas', 'desc': 'Per {dur}s iškviesk meteorus ({meteors}). Kiekvienas padaro {dmg}% Intelekto žalos.' },
+
+    'royalGuard': { 'name': 'Karališkoji sargyba', 'desc': 'Iškviesk sargybinį, kuris kaunasi šalia tavęs ir daro {dmg}% Charizmos žalos. Vienu metu ne daugiau kaip {max}.' },
+    'inspiringPresence': { 'name': 'Įkvepiantis buvimas', 'desc': 'Tavo pakalikai puola {speed}% greičiau ir turi {hp}% daugiau gyvybės.' },
+    'commandFocus': { 'name': 'Įsakymas pulti', 'desc': 'Visi pakalikai šoka ant taikinio: +{move}% judėjimo greičio ir +{atk}% puolimo greičio {dur}s.' },
+    'sovereignsTribute': { 'name': 'Valdovo duoklė', 'desc': '{share}% tavo gaunamos žalos perduodama tavo pakalikams.' },
+    'bannerOfVictory': { 'name': 'Pergalės vėliava', 'desc': 'Įsmeik vėliavą {dur}s. Šalia esantys sąjungininkai daro +{dmg}% žalos ir atgauna {regen}% gyvybės per sekundę.' },
+    'armyOfTheRealm': { 'name': 'Karalystės armija', 'desc': 'Iškviesk {dur}s: lankininkai ({archers}), sargybiniai ({guards}) ir kovos magas.' },
+
+    'temporalStasis': { 'name': 'Laiko stazė', 'desc': 'Sustingdyk taikinį laike {dur}s. Jis negali veikti ir negali būti sužeistas.' },
+    'hasteField': { 'name': 'Spartos laukas', 'desc': '{dur}s tu ir šalia esantys sąjungininkai judate {move}% greičiau ir puolate {speed}% greičiau.' },
+    'timeDistort': { 'name': 'Laiko iškraipymas', 'desc': '{share}% tavo gaunamos žalos atidedama ir padaroma per {over}s.' },
+    'paradoxShift': { 'name': 'Paradokso šuolis', 'desc': 'Susikeisk vietomis su taikiniu. Jis gauna {dmg}% Intelekto žalos, o priešai aplink jį sumišę {confuse}s.' },
+    'entropy': { 'name': 'Entropija', 'desc': 'Kiekvienas burtas sutrumpina tavo atsikrovimus {cdr}%, kaupiasi iki {stacks} kartų.' },
+    'chronoRewind': { 'name': 'Laiko atsukimas', 'desc': 'Grįžk ten, kur stovėjai prieš {back}s, su tuo metu turėta gyvybe ir mana.' },
+
+    'sanguineFlask': { 'name': 'Kraujo kolba', 'desc': 'Mesk savo kraujo kolbą: {dmg}% Ištvermės žalos plote, o šarvai sulaužomi {shred}% {shredDur}s.' },
+    'bloodTransmutation': { 'name': 'Kraujo transmutacija', 'desc': '{share}% tavo gaunamos fizinės žalos grįžta kaip mana.' },
+    'essenceHarvest': { 'name': 'Esencijos derlius', 'desc': 'Išsiurbk kiekvieną priešą {radius} m spinduliu: {dmg}% Intelekto žalos. Pasigydai {heal}% šios žalos.' },
+    'hemophilia': { 'name': 'Hemofilija', 'desc': 'Gyvybės siurbimas {drain}% stipresnis. Pataikymas į kraujuojantį priešą pagydo {heal}% tavo gyvybės.' },
+    'mutagenicRage': { 'name': 'Mutageninis įniršis', 'desc': '{dur}s: +{speed}% puolimo greičio, +{steal}% gyvybės vagystės ir +{move}% judėjimo greičio.' },
+    'philosophersCrucible': { 'name': 'Filosofų tiglis', 'desc': 'Verdančio kraujo klanas {dur}s: {dmg}% Intelekto žalos jame esantiems priešams, o tave jis gydo, kol jame stovi.' },
+
+    'aetherPistol': { 'name': 'Eterio pistoletas', 'desc': 'Greitas šūvis: {dmg}% Meistrystės žalos. Sukelia {heat} karščio.' },
+    'deployTurret': { 'name': 'Pastatyti bokštelį', 'desc': 'Pastatyk bokštelį, kuris {dur}s šaudo darydamas {dmg}% Meistrystės žalos. Vienu metu ne daugiau kaip {max}.' },
+    'ventHeat': { 'name': 'Išleisti karštį', 'desc': 'Išmesk visą karštį kūgiu: iki {dmg}% Meistrystės žalos, kuo daugiau karščio, tuo daugiau žalos.' },
+    'thermalOverload': { 'name': 'Šiluminė perkrova', 'desc': 'Perkaitus tavo šūviai daro +{crit}% kritinės žalos. Perkaitimas vis tiek užrakina įgūdžius {lock}s.' },
+    'orbitalBeam': { 'name': 'Orbitinis spindulys', 'desc': 'Spindulys iš dangaus degina vietą, į kurią taikai: {dmg}% Meistrystės žalos per {dur}s.' },
+    'exoSuit': { 'name': 'Egzokostiumas', 'desc': '{dur}s: +{armor}% Šarvų, o tavo puolimai tampa raketomis, darančiomis {rocket}% Meistrystės žalos plote.' },
+
+    'stoneSpike': { 'name': 'Akmens smaigas', 'desc': 'Po taikiniu išnyra smaigas: {dmg}% Jėgos žalos ir {slow}% sulėtinimas {dur}s.' },
+    'earthBarrier': { 'name': 'Žemės užtvara', 'desc': 'Iškelk uolos sieną {dur}s. Niekas pro ją nepraeina ir neprašauna.' },
+    'seismicShock': { 'name': 'Seisminis smūgis', 'desc': 'Trenk į žemę: {dmg}% Jėgos žalos {radius} m spinduliu, o priešai parbloškiami {down}s.' },
+    'earthenSkin': { 'name': 'Akmeninė oda', 'desc': 'Gauni Šarvų, lygių {armor}% tavo Jėgos. Apsvaiginimai tau trunka {cut}% trumpiau.' },
+    'petrify': { 'name': 'Suakmeninimas', 'desc': 'Paversk taikinį akmeniu {dur}s. Išsilaisvinęs jis gauna {vuln}% daugiau žalos.' },
+    'tectonicRupture': { 'name': 'Tektoninis lūžis', 'desc': 'Perplėšk mūšio lauką: {dmg}% Jėgos žalos viskam šalia ir nuolaužos, kurios lėtina {dur}s.' }
+  },
+
+  'slot': {
+    'main': 'Pagrindinė ranka',
+    'off': 'Kita ranka',
+    'body': 'Šarvai',
+    'trinket': 'Niekutis'
+  },
+  'tier': {
+    '1': '1 pakopa',
+    '2': '2 pakopa',
+    '3': '3 pakopa',
+    '4': '4 pakopa',
+    '5': '5 pakopa',
+    '6': 'Legendinis'
+  },
+  'weapon': {
+    'melee': 'Artima kova · savybė: {attr}',
+    'ranged': 'Tolima kova · savybė: {attr}',
+    'magic': 'Magija · savybė: {attr}'
+  },
+  'source': {
+    'mob': 'Iškrenta iš pabaisų zonoje: {zone}.',
+    'chest': 'Randama skryniose zonoje: {zone}.',
+    'boss': 'Iškrenta iš zonos boso: {zone}.',
+    'secret': 'Paslėpta slaptoje skrynioje zonoje: {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Jėgos',
+    'dex': '+{n} Vikrumo',
+    'int': '+{n} Intelekto',
+    'end': '+{n} Ištvermės',
+    'skl': '+{n} Meistrystės',
+    'cha': '+{n} Charizmos',
+    'allAttrs': '+{n} kiekvienai savybei',
+    'strOrDex': '+{n} Jėgos arba Vikrumo, kuris didesnis',
+    'armor': '{n} Šarvų',
+    'armorPct': '+{n}% Šarvų',
+    'armorFromStr': 'Šarvai iš Jėgos: +{n}%',
+    'block': '+{n}% atrėmimo tikimybės',
+    'dodge': '+{n}% Išsisukimo',
+    'damageReduction': '+{n}% žalos mažinimo',
+    'physReduction': '{n}% mažiau gaunamos fizinės žalos',
+    'maxHp': '+{n} maks. Gyvybės',
+    'maxHpPct': '+{n}% maks. Gyvybės',
+    'maxMana': '+{n} maks. Manos',
+    'hpRegen': '+{n} Gyvybės per sekundę',
+    'stunDurationCut': 'Apsvaiginimai tau trunka {n}% trumpiau',
+    'damagePct': '+{n}% daromos žalos',
+    'critChance': '+{n}% kritinio smūgio tikimybės',
+    'critDamage': '+{n}% kritinės žalos',
+    'spellCrit': '+{n}% kritinio burto tikimybės',
+    'attackSpeed': '+{n}% puolimo greičio',
+    'moveSpeed': '+{n}% judėjimo greičio',
+    'cdr': 'Atsikrovimai {n}% trumpesni',
+    'manaDiscount': 'Burtai kainuoja {n}% mažiau manos',
+    'lifesteal': '+{n}% gyvybės vagystės iš visos žalos',
+    'physLifesteal': '+{n}% gyvybės vagystės iš fizinių smūgių',
+    'lifeDrainPct': 'Gyvybės siurbimas {n}% stipresnis',
+    'bossDamage': '+{n}% žalos bosams',
+    'backstab': '+{n}% smūgio į nugarą žalos',
+    'minionDamage': 'Pakalikai daro +{n}% žalos',
+    'minionAttackSpeed': 'Pakalikai puola {n}% greičiau',
+    'minionHp': 'Pakalikai turi +{n}% gyvybės',
+    'burnOnHit': 'Puolimai sukelia {n} žalos Deginimą',
+    'freezeOnHit': 'Puolimai turi {n}% tikimybę sušaldyti',
+    'pierce': 'Šūviai perveria dar {n} priešus',
+    'critCooldown': 'Kritiniai smūgiai sutrumpina visus atsikrovimus {n}s',
+    'extraBlastEvery': 'Papildomas energijos pliūpsnis kas {n} šūvių',
+    'reflectOnBlock': 'Atrėmimas atspindi {n} žalos',
+    'fatalSave': 'Mirtina žala vietoj to suteikia nepažeidžiamumą {n}s (kartą per 120s)',
+    'knockbackImmune': 'Imunitetas nubloškimui',
+    'heatBuildCut': 'Karštis kaupiasi {n}% lėčiau',
+    'heatDissipation': 'Karštis slūgsta {n}% greičiau',
+    'flaskDamage': 'Kraujo kolba daro +{n}% žalos',
+    'igniteBonus': 'Ugnies burtai degina {n}% stipriau',
+    'stealthy': 'Tylus žingsnis: priešai tave pastebi iš {n}% mažesnio atstumo',
+    'fortitude': 'Stiprūs smūgiai suteikia {n}% gyvybės skydą',
+    'evasionHaste': 'Išsisukus gaunama {n}% Spartos',
+    'cauterize': 'Degantys priešai tau daro {n}% mažiau žalos',
+    'pyromaniac': 'Kritiniai burtai sutrumpina ugnies atsikrovimus {n}s',
+    'tribute': 'Pakalikai perima {n}% tavo žalos',
+    'timeDistort': '{n}% gaunamos žalos atidedama',
+    'entropy': 'Burtai trumpina atsikrovimus {n}%',
+    'bloodToMana': '{n}% gaunamos fizinės žalos grįžta kaip mana',
+    'bleedHeal': 'Pataikymas į kraujuojantį priešą pagydo {n}% gyvybės',
+    'overheatCrit': '+{n}% kritinės žalos perkaitus'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Surūdijęs trumpas kalavijas' },
+    'apprenticeStaff': { 'name': 'Mokinio lazda' },
+    'scoutsHandgun': { 'name': 'Žvalgo pistoletas' },
+    'ironBroadsword': { 'name': 'Geležinis platusis kalavijas' },
+    'vipinsStiletto': { 'name': 'Vipino stiletas' },
+    'aetherCarbine': { 'name': 'Eterio karabinas' },
+    'ashenGreatsword': { 'name': 'Pelenų dvirankis kalavijas' },
+    'archmageWand': { 'name': 'Vyriausiojo mago lazdelė' },
+    'chronoBlade': { 'name': 'Laiko ašmenys' },
+    'bloodForgedAxe': { 'name': 'Kraujyje nukaltas kirvis' },
+    'voidCannon': { 'name': 'Tuštumos patranka' },
+    'dragonSmasher': { 'name': 'Drakonų triuškintojas' },
+    'bladeOfTheUnbound': { 'name': 'Nesupančiotųjų ašmenys' },
+    'aetheriumDestroyer': { 'name': 'Eteriumo naikintojas' },
+    'woodenBuckler': { 'name': 'Medinis skydelis' },
+    'tomeOfNovices': { 'name': 'Naujokų knyga' },
+    'ironShield': { 'name': 'Geležinis skydas' },
+    'syringeOfTheAdept': { 'name': 'Adepto švirkštas' },
+    'aethericBattery': { 'name': 'Eterio baterija' },
+    'aegisTowerShield': { 'name': 'Egidos bokštinis skydas' },
+    'orbOfEternalFlame': { 'name': 'Amžinosios liepsnos rutulys' },
+    'shieldOfTheFallen': { 'name': 'Kritusiųjų skydas' },
+    'paddedTunic': { 'name': 'Dygsniuota tunika' },
+    'leatherDoublet': { 'name': 'Odinis švarkelis' },
+    'chainmailVest': { 'name': 'Grandininė liemenė' },
+    'scholarsRobe': { 'name': 'Mokslininko mantija' },
+    'reinforcedPlate': { 'name': 'Sutvirtinti plokštiniai šarvai' },
+    'assassinsGarb': { 'name': 'Žudiko apdaras' },
+    'chronoWeaverCloak': { 'name': 'Laiko audėjo apsiaustas' },
+    'bloodSoakedPlate': { 'name': 'Krauju permirkę šarvai' },
+    'exoArmorChassis': { 'name': 'Egzošarvų rėmas' },
+    'dragonscaleHauberk': { 'name': 'Drakono žvynų šarvai' },
+    'vestmentsOfSovereign': { 'name': 'Valdovo apdarai' },
+    'armorOfTheTitan': { 'name': 'Titano šarvai' },
+    'copperBand': { 'name': 'Varinis žiedelis' },
+    'ringOfMending': { 'name': 'Gijimo žiedas' },
+    'bandOfSwiftness': { 'name': 'Greitumo žiedelis' },
+    'castersEmblem': { 'name': 'Kerėtojo emblema' },
+    'infiltratorsCharm': { 'name': 'Šnipo talismanas' },
+    'timekeepersHourglass': { 'name': 'Laiko sergėtojo smėlio laikrodis' },
+    'ringOfTheVampyre': { 'name': 'Vampyro žiedas' },
+    'sovereignsSignet': { 'name': 'Valdovo antspaudo žiedas' },
+    'heartOfTheMountain': { 'name': 'Kalno širdis' },
+    'ringOfAbsolutePower': { 'name': 'Absoliučios galios žiedas' }
+  },
+  'bag': {
+    'equip': 'Užsidėti',
+    'unequip': 'Nusiimti',
+    'tooLow': 'Reikia {n} lygio.'
+  },
+  'shop': {
+    'buy': 'Pirkti',
+    'sell': 'Parduoti',
+    'owned': 'Turima',
+    'empty': 'Šiandien lentynos tuščios.'
+  },
+  'trainer': {
+    'learn': 'Išmokti',
+    'known': 'Išmokta',
+    'friend': '{faction} gerbia savo draugus: 20% pigiau.',
+    'block': {
+      'level': 'Tavo lygis per žemas.',
+      'attrs': 'Tavo savybės per žemos.',
+      'gold': 'Neužtenka aukso.'
+    }
+  },
+  'healer': {
+    'talk': 'Sėskis. Pailsėk. Iš čia išeisi su visomis jėgomis ir pilnomis kolbomis. Jei nori jų nešiotis daugiau, tai galiu tau parduoti.',
+    'note': 'Į kiekvieną zoną nešiesi eliksyrų: {n}.',
+    'buy': 'Dar viena kolba · {n}',
+    'full': 'Ant tavo diržo daugiau netelpa.'
+  },
+  'talk': {
+    'goal': 'Tai bus nuspręsta čia: {zone}.'
+  },
+  'faction': {
+    'order': 'Geležinis ordinas',
+    'syndicate': 'Pelenų sindikatas',
+    'circle': 'Eterio ratas'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Kalvis Bram', 'talk': 'Paprastas plienas, sąžiningos kainos. Gobliną nuo tavęs atbaidys.' },
+    'sunfordPeddler': { 'name': 'Prekeivė Tilly', 'talk': 'Žiedai! Talismanai! Daiktai, kuriuos radau ir tikrai nepavogiau.' },
+    'trainerAegis': { 'name': 'Seras Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Seniūnė Mara', 'talk': 'Šiandien kelias išliko mūsų tavo dėka. Lygumose taip ramu nebuvo jau metus.' },
+    'sunfordHealer': { 'name': 'Sesuo Lune' },
+    'goblinTrader': { 'name': 'Prekeivis Grik', 'talk': 'Karalius sakyti prekiauti, tai Grik prekiauti. Blizgutis už blizgutis. Geras blizgutis.' },
+    'captainHale': { 'name': 'Kapitonas Hale', 'talk': 'Oakhaven stovi tris šimtus metų. Neketinu būti kapitonu, kuris jį prarado.' },
+    'oakArmorer': { 'name': 'Šarvakalys Odo', 'talk': 'Pusė mano prekių iškeliavo ant sienų. Imk, kas liko.' },
+    'oakMasterArmorer': { 'name': 'Meistras Odo', 'talk': 'Šis miestas stovi tavo dėka. Tau iš užpakalinio kambario ištrauksiu geruosius šarvus.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Aštrūs, subalansuoti ir parduodami tam, kas moka. Šiandien tai tu.' },
+    'trainerShadow': { 'name': 'Šnabždesys' },
+    'trainerSovereign': { 'name': 'Lordas Castellan' },
+    'oakHealer': { 'name': 'Brolis Fenn' },
+    'blackMarket': { 'name': 'Supirkėjas', 'talk': 'Jokių vardų, jokių klausimų. Sindikatas pasiima savo dalį, tu pasiimi prekes.' },
+    'trainerBlood': { 'name': 'Daktaras Sangrel' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven mūsų tavo dėka. Sindikatas nepamiršta draugo. Nei skolos.' },
+    'forgemaster': { 'name': 'Kalvės meistras Dorn', 'talk': 'Kasėme geležį ir atkasėme širdį. Ji plaka ten, apačioje, tamsoje, o golemai žengia jos ritmu.' },
+    'ironWeapons': { 'name': 'Hilda Kūjarankė', 'talk': 'Nykštukų kalta. Jei sulūš, kaltė bus tavo.' },
+    'ironAetherWorks': { 'name': 'Meistrautojas Voss', 'talk': 'Rato atlikti šerdies tyrimai pakeitė viską. Palaikyk šitą. Netaikyk į mane.' },
+    'ironArmor': { 'name': 'Garrun Geležinis Šonas', 'talk': 'Šarvai, kurie atlaiko milžino vėzdą. Visiems kitiems turiu žiedų.' },
+    'ironOrderArmor': { 'name': 'Ordino intendantas', 'talk': 'Ordinas prisimena, kas sunaikino šerdį. Jo ginklinės tau atviros.' },
+    'trainerGeo': { 'name': 'Senasis Akmenpėdis' },
+    'trainerAether': { 'name': 'Mechanikas Pim' },
+    'ironHealer': { 'name': 'Motina Brynja' },
+    'exiledSovereign': { 'name': 'Lordas Castellan tremtyje' },
+    'trainerChrono': { 'name': 'Valandų sergėtojas' }
+  },
+
+  'quest': {
+    'final': 'Šis pasirinkimas negrįžtamas.',
+    'needsRep': '{faction}: reputacija {n}',
+    'gold': '+{n} aukso',
+    'goblinKing': {
+      'title': 'Goblinų karalius',
+      'intro': 'Antpuoliai ateina iš Urvų, kur goblinai karūnavo karalių. Užbaik tai taip, kaip tau atrodo teisinga.',
+      'ask': 'Palaukti! Palaukti. Karalius pasiduoti! Goblinai plėšti tik todėl, kad goblinai alkani. Gal ilgasis ir Karalius padaryti sandėrį?',
+      'slay': { 'label': 'Užbaik jo valdymą.', 'result': 'Karalius krinta, o Urvai išsibarsto. Sunford miega ramiau, o Geležinis ordinas tave įsidėmi.' },
+      'pact': { 'label': 'Pasiūlyk prekybos sutartį su Sunfordu.', 'result': 'Iškalba padaro tai, ko nepajėgtų kalavijas. Goblinų prekeiviai įsikuria Sunfordo aikštėje su prekėmis, kokių ten nepagamintų joks kalvis.' },
+      'ransom': { 'label': 'Pasiimk jo lobį ir palik jam karūną.', 'result': 'Išeini su sunkiu goblinų aukso maišu. Antpuoliai prasidės iš naujo, bet tai jau Sunfordo bėda. Sindikatas pritaria.' }
+    },
+    'siege': {
+      'title': 'Oakhaveno apgultis',
+      'intro': 'Karo vado armija apsupo Oakhaveną. Už tą armiją sumokėjo Pelenų sindikatas. Pralaužk apgultį miesto prieigose.',
+      'ask': 'Gerai kaunies. Sindikatas moka geriau, nei tas miestas kada nors mokės. Šiąnakt atidaryk mums vartus, ir trečdalis Oakhaveno tavo.',
+      'defend': { 'label': 'Gink Oakhaveną.', 'result': 'Vartai atlaiko. Oakhaven už jų turtėja, o jo meistrai šarvakaliai prisimena tavo vardą. Pelenų sindikatas dabar tave medžioja kiekviename kelyje.' },
+      'betray': { 'label': 'Atidaryk vartus Sindikatui.', 'result': 'Oakhaven dega. Jo griuvėsiuose atsiranda juodoji rinka ir alchemikas, mokantis uždraustų menų. Šarvakalių nebėra, o Geležinis ordinas vadina tave išdaviku.' }
+    },
+    'core': {
+      'title': 'Ironholdo širdis',
+      'intro': 'Golemus mūsų kasyklose varo eterio šerdis. Jos nori trys galybės, ir kiekviena atsiuntė man laišką. Tu ją pasieksi anksčiau už juos.',
+      'ask': 'Kolosas virto metalo laužu, o šerdis guli atvira priešais tave ir gaudžia. Ji šilta palietus. Kas jai nutiks?',
+      'destroy': { 'label': 'Sudaužyk šerdį.', 'result': 'Šviesa užgęsta, o golemai sukrinta ten, kur stovėjo. Geležinis ordinas atsidėkodamas atsiunčia į Ironholdą savo šarvakalius.' },
+      'study': { 'label': 'Atiduok ją Ratui tyrinėti.', 'result': 'Supranti ją pakankamai, kad perduotum saugiai. Per vieną metų laiką Ironholdo kalvės ima gaminti eterio dirbinius, kokių dar niekas nematė.' },
+      'sell': { 'label': 'Parduok ją Sindikatui.', 'result': 'Turtai pakeičia šeimininką. Šerdis toliau šviečia ten, kur neturėtų, o kasyklose niekada nebebus ramu.' }
+    },
+    'oracle': {
+      'title': 'Nuskendusi orakulė',
+      'ask': 'Šią akimirką mačiau dešimt tūkstančių kartų. Pusėje jų mane išlaisvini. Pusėje pasiimi tai, ką saugau. Rinkis ir leisk man pagaliau nežinoti, kas bus toliau.',
+      'free': { 'label': 'Sutraukyk jos grandines.', 'result': 'Orakulė pakyla per vandenį ir dingsta. Eterio ratas apie tave kalbės palankiai, o jos valandų sergėtojas lieka mokyti.' },
+      'slay': { 'label': 'Pasiimk smėlio laikrodį, kurį ji saugo.', 'result': 'Ji nesipriešina. Laiko sergėtojo smėlio laikrodis tavo. Paskutinis jos mokinys bėga iš šventyklos, o Ratas neatleidžia.' }
+    },
+    'dragon': {
+      'title': 'Tuštumos drakonas',
+      'ask': 'Gana. Turi dantis, mažyli. Tvirtovės demonas sukaustė grandinėmis mano giminę. Noriu matyti, kaip jis dega. Nužudyk mane arba leisk tau padėti tai padaryti.',
+      'slay': { 'label': 'Nukauk drakoną.', 'result': 'Kalnas sudreba jam krintant. Geležinis ordinas dainuoja apie drakono nugalėjimą, o jo lobis tavo.' },
+      'pact': { 'label': 'Sudaryk sąjungą prieš Arkidemoną.', 'result': 'Nedaug kas būtų perkalbėjęs drakoną. Kai žygiuosi į Siaubo tvirtovę, jis bus danguje virš tavęs.' }
+    },
+    'throne': {
+      'title': 'Tuščias sostas',
+      'ask': 'Arkidemonas negyvas, o jo sostas tuščias. Kas jį valdo, tas vadovauja tvirtovei, plyšiui po ja ir abiejų armijoms. Prie durų laukia trys pasiuntiniai.',
+      'order': { 'label': 'Atiduok sostą Geležiniam ordinui.', 'result': 'Ordinas įkurdina tvirtovėje įgulą ir užantspauduoja, ką gali. Karalystė bus saugi, ir jai bus sakoma, ką daryti.' },
+      'syndicate': { 'label': 'Atiduok sostą Pelenų sindikatui.', 'result': 'Sindikatas įsikrausto dar prieš aušrą. Dabar parduodama viskas, net taika.' },
+      'circle': { 'label': 'Atiduok sostą Eterio ratui.', 'result': 'Ratas paverčia tvirtovę mokykla virš plyšio. Jie tai vadina tyrimais. Visi kiti tai vadina laiko klausimu.' },
+      'shatter': { 'label': 'Sudaužyk sostą.', 'result': 'Sudaužai jį savo rankomis. Iš čia daugiau niekas nebevaldys. Pasiuntiniai išeina be žodžio.' },
+      'claim': { 'label': 'Atsisėsk į jį.', 'result': 'Jis šaltas ir tau tinka. Trys frakcijos supranta turinčios bendrą priešą.' }
     }
   },
 
   'enemy': {
-    'echo': 'Meistro aidas',
-    'gatekeeper': 'Vartininkas',
-    'warden': 'Prižiūrėtojas',
-    'hornet': 'Sraigtinė širšė',
-    'stalker': 'Švytintis medžiotojas',
-    'puffer': 'Pūslės mina',
-    'mole': 'Kurmis gręžikas',
-    'polar': 'Poliarinis šuniukas',
-    'hardhat': 'Šalmuotis',
-    'trooper': 'Skydininkas',
-    'heli': 'Rotorinis dronas',
-    'hopper': 'Trypikas',
-    'roller': 'Krumpliaračių volas',
-    'brute': 'Sargdroidas',
-    'turret': 'Sieninė patranka',
-    'golem': 'Dėžių golemas',
-    'elite': 'Elitinis',
-    'level': 'Lyg. {n}'
-  },
-
-  'enemyPlural': {
-    'echo': 'Meistro aidą | Meistro aidus | Meistro aidų',
-    'gatekeeper': 'Vartininką | Vartininkus | Vartininkų',
-    'warden': 'Prižiūrėtoją | Prižiūrėtojus | Prižiūrėtojų',
-    'hornet': 'Sraigtinę širšę | Sraigtines širšes | Sraigtinių širšių',
-    'stalker': 'Švytintį medžiotoją | Švytinčius medžiotojus | Švytinčių medžiotojų',
-    'puffer': 'Pūslės miną | Pūslės minas | Pūslės minų',
-    'mole': 'Kurmį gręžiką | Kurmius gręžikus | Kurmių gręžikų',
-    'polar': 'Poliarinį šuniuką | Poliarinius šuniukus | Poliarinių šuniukų',
-    'hardhat': 'Šalmuotį | Šalmuočius | Šalmuočių',
-    'trooper': 'Skydininką | Skydininkus | Skydininkų',
-    'heli': 'Rotorinį droną | Rotorinius dronus | Rotorinių dronų',
-    'hopper': 'Trypiką | Trypikus | Trypikų',
-    'roller': 'Krumpliaračių volą | Krumpliaračių volus | Krumpliaračių volų',
-    'brute': 'Sargdroidą | Sargdroidus | Sargdroidų',
-    'turret': 'Sieninę patranką | Sienines patrankas | Sieninių patrankų',
-    'golem': 'Dėžių golemą | Dėžių golemus | Dėžių golemų'
-  },
-
-  'hud': {
-    'help': 'Rodyti valdymą',
-    'mute': 'Išjungti garsą',
-    'unmute': 'Įjungti garsą',
-    'bossUnknown': 'Nežinomas bosas',
-    'hp': 'Sveikata',
-    'we': 'Ginklo energija',
-    'power': 'Galia',
-    'bolts': 'Varžtai',
-    'level': 'Lyg. {n}',
-    'beamOut': 'Teleportuotis'
-  },
-
-  'boss': {
-    'rotorMaster': 'Rotorių meistras',
-    'neonMaster': 'Neono meistras',
-    'tideMaster': 'Potvynio meistras',
-    'drillMaster': 'Grąžto meistras',
-    'magnetMaster': 'Magneto meistras',
-    'stand': 'Laužėjas',
-    'scrapper': 'Laužėjas',
-    'blazeMaster': 'Liepsnos meistras',
-    'frostMaster': 'Šalčio meistras',
-    'voltMaster': 'Voltų meistras',
-    'galeMaster': 'Vėtros meistras',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Didysis meistras robotas'
-  },
-
-  'sector': {
-    'rotor': 'Rotorių skrydis',
-    'neon': 'Aptemimo bulvaras',
-    'tide': 'Potvynio šliuzai',
-    'drill': 'Gilioji kasykla',
-    'magnet': 'Poliškumo gamykla',
-    'scrapyard': 'Laužynas',
-    'blaze': 'Liepsnos perdirbykla',
-    'cryo': 'Krio gamykla',
-    'volt': 'Voltų bokštas',
-    'gale': 'Dangaus dokai',
-    'fortress': 'Vexo tvirtovė'
-  },
-
-  'quest': {
-    'tutorial': 'Žadintuvas',
-    'boss': 'Dvikova su šerdies meistru',
-    'bossTitle': 'Dvikova: {boss}',
-    'kill': 'Laužo pamaina',
-    'collect': 'Duomenų paieška',
-    'rescue': 'Gelbėjimo operacija',
-    'elite': 'Elito medžioklė',
-    'supply': 'Atsargų reisas',
-    'purge': 'Sektoriaus valymas',
-    'climb': 'Bokšto bėgimas',
-    'stage': 'Platformų etapas',
-    'stageName': { 'blaze': 'Išsilydymo nusileidimas', 'cryo': 'Ledyno bėgimas', 'volt': 'Bėgių lenktynės', 'gale': 'Dangaus dokai', 'magnet': 'Poliškumo gamykla', 'drill': 'Gilioji kasykla', 'tide': 'Potvynio šliuzai', 'neon': 'Aptemimo bulvaras', 'rotor': 'Rotorių skrydis', 'fortress': 'Vexo tvirtovė' },
-    'rematch': 'Revanšas: {boss}',
-    'desc': {
-      'tutorial': 'Prasimušk per Laužyną ir įveik Laužėją.',
-      'boss': 'Įsiveržk į sektoriaus {sector} šerdį ir nugalėk: {boss}.',
-      'kill': 'Sunaikink {n} {target} sektoriuje {sector}.',
-      'collect': 'Surink duomenų šerdis, išbarstytas sektoriuje {sector}: {n}.',
-      'rescue': 'Sektoriuje {sector} įstrigo darbininkas robotas. Surask jį ir išteleportuok.',
-      'elite': 'Elitinis priešas ({target}) terorizuoja sektorių {sector}. Sumedžiok jį.',
-      'supply': 'Atidaryk atsargų skrynias sektoriuje {sector}: {n}.',
-      'purge': 'Sunaikink visas mašinas sektoriuje {sector}.',
-      'climb': 'Įkopk į sektoriaus {sector} bokštą – laiptai, kopėčios, liftai ir duobės – tada nušok į areną revanšui: {boss}.',
-      'stage': 'Bėk, slysk ir važiuok per sektorių {sector} – atbrailos, duobės ir mašinos – iki arenos, tada nugalėk: {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Tikslas',
-    'complete': 'Tikslas įvykdytas',
-    'beamOutHint': 'Teleportuokis, kai būsi pasiruošęs.',
-    'tutorial': 'Nugalėk: {boss}',
-    'boss': 'Nugalėk: {boss}',
-    'kill': 'Sunaikink {target}: {n}/{total}',
-    'collect': 'Duomenų šerdys: {n}/{total}',
-    'rescue': 'Surask įstrigusį darbininką robotą',
-    'elite': 'Sumedžiok elitinį priešą: {target}',
-    'supply': 'Atsargų skrynios: {n}/{total}',
-    'purge': 'Sunaikinta mašinų: {n}/{total}',
-    'climb': 'Įkopk į bokštą, nugalėk: {boss}',
-    'stage': 'Pasiek areną, nugalėk: {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} sunaikintas!',
-    'objectiveDone': 'Tikslas įvykdytas!',
-    'rescued': 'Darbininkas robotas nuteleportuotas į saugią vietą!',
-    'bossDoor': 'Sklendė girgždėdama atsiveria…'
-  },
-  'interact': {
-    'chest': 'Atidaryti',
-    'rescue': 'Gelbėti',
-    'bossDoor': 'Įeiti'
-  },
-  'progress': {
-    'levelUp': 'Lygis {n}! Sistemos visiškai sutaisytos.'
-  },
-  'tips': {
-    'moveTouch': 'Vilk kairę pusę, kad judėtum, dešinę – kad apsidairytum. Bakstelėk grindis, kad ten nueitum!',
-    'moveKeys': '{keys} – judėti.',
-    'lookMouse': 'Judink pelę, kad apsidairytum.',
-    'capture': 'Spustelėk sceną, kad valdytum kamerą.',
-    'fireTouch': 'Priekyje mašinos! Bakstelėk, kad šautum – laikyk ir atleisk, kad iššautum įkrautą šūvį.',
-    'fireKeys': 'Priekyje mašinos! Kairysis spustelėjimas – šūvis; laikyk ir atleisk, kad iššautum įkrautą šūvį.',
-    'charge': 'Skydai sulaiko kulkas. VISIŠKAI įkrautas šūvis pramuša kiaurai.',
-    'blockTouch': 'Oranžinis žiedas: laikyk skydą, kad blokuotum – paspausk, kai žiedas užsidaro, ir ATREMK!',
-    'blockKeys': 'Oranžinis žiedas: laikyk dešinį pelės mygtuką, kad blokuotum – paspausk, kai žiedas užsidaro, ir ATREMK!',
-    'red': 'Raudonas žiedas – neblokuojama! Nuslysk į šalį!',
-    'dodgeKeys': 'Raudonas žiedas – neblokuojama! Spausk {slide} ir nuslysk į šalį!',
-    'spaceKey': 'tarpo klavišą',
-    'chest': 'Atsargų skrynia! Bakstelėk ją, kad atidarytum.',
-    'tank': 'Baigiasi jėgos? Remonto gelis tave visiškai sutaiso.',
-    'weapon': 'Naudok nukopijuotą ginklą spalvotu mygtuku!'
-  },
-  'lesson': {
-    'charge': 'Laikyk, kad įkrautum patranką, tada atleisk: tik įkrautas šūvis pramuša treniruočių drono skydą.',
-    'crate': 'Atsargų dėžės sudūžta tik nuo įkrauto šūvio. Laikyk, tada atleisk, nusitaikęs į švytinčią dėžę.',
-    'weaponKeys': 'Spausk {n}, kad iššautum nukopijuotu ginklu: vienas šūvis pataiko į visus tris dronus.',
-    'weaponTouch': 'Bakstelėk švytintį ginklo mygtuką: vienas šūvis pataiko į visus tris dronus.',
-    'gelKeys': 'Spausk {key}, kad panaudotum remonto gelį: jis tave visiškai sutaiso.',
-    'gelTouch': 'Bakstelėk žalią remonto gelio mygtuką: jis tave visiškai sutaiso.'
-  },
-  'walk': {
-    'finishLessonOn': 'Užbaik pamoką: {weapon}',
-    'finishTutorial': 'Pirmiausia užbaik mokymą',
-    'finishLesson': 'Užbaik pamoką'
-  },
-  'hubLesson': {
-    'earnBolts': 'Trūksta varžtų? Pažiūrėk trumpą vaizdo įrašą ir gauk papildomų.',
-    'catchUp': 'Pip: Tavo patranka atsilieka nuo ten siaučiančių mašinų. Patobulinkime ją!',
-    'overload': 'Pip: Vėtros meistro šerdis išmokė mane gudrybės. Laikyk pilną įkrovą dar 3 sekundes: PERKROVA!',
-    'workshop': 'Atidaryk dirbtuves.',
-    'upgradeBuster': 'Išleisk varžtus patrankai patobulinti: daugiau žalos.',
-    'pickArmor': 'Dabar pasirink krūtinės šarvus.',
-    'upgradeArmor': 'Patobulink ir juos: daugiau apsaugos.',
-    'deploy': 'Viskas paruošta – atgal prie misijų!'
-  },
-  'loot': {
-    'upgrade': 'Geriau!',
-    'found': 'Rasta: {item} ({rarity})!',
-    'tank': 'Rastas remonto gelis!',
-    'giftTank': 'Dovana: +1 remonto gelis!'
+    'goblin': 'Goblinas',
+    'goblinSlinger': 'Goblinas svaidytojas',
+    'bandit': 'Banditas',
+    'banditArcher': 'Banditas lankininkas',
+    'wolf': 'Vilkas',
+    'banditChief': 'Banditų vadas',
+    'goblinKing': 'Goblinų karalius',
+    'treant': 'Medžmogis',
+    'spider': 'Milžiniškas voras',
+    'broodSpider': 'Voriukas',
+    'outlawCaptain': 'Plėšikų kapitonas',
+    'elderTreant': 'Senasis medžmogis',
+    'warlord': 'Karo vadas Krag',
+    'fireElemental': 'Ugnies elementalis',
+    'ironGolem': 'Geležinis golemas',
+    'cultist': 'Kultistas',
+    'emberLord': 'Žarijų valdovas',
+    'ironColossus': 'Geležinis kolosas',
+    'frostGiant': 'Šalčio milžinas',
+    'naga': 'Naga',
+    'skeleton': 'Skeletas',
+    'necromancer': 'Nekromantas',
+    'frostJarl': 'Šalčio jarlas',
+    'nagaOracle': 'Nuskendusi orakulė',
+    'voidStalker': 'Tuštumos sėlintojas',
+    'wyvern': 'Viverna',
+    'highDemon': 'Aukštasis demonas',
+    'voidWarden': 'Tuštumos sargas',
+    'voidDragon': 'Tuštumos drakonas',
+    'doomKnight': 'Pražūties riteris',
+    'imp': 'Velniūkštis',
+    'archDemon': 'Arkidemonas',
+    'voidling': 'Tuštumos padaras',
+    'voidLord': 'Tuštumos valdovas',
+    'orderGuard': 'Ordino inkvizitorius',
+    'syndicateBlade': 'Sindikato ašmenys'
   },
 
   'results': {
-    'success': 'MISIJA ĮVYKDYTA',
-    'failed': 'MISIJA NEPAVYKO',
+    'victory': 'Pergalė!',
+    'defeat': 'Pralaimėjimas',
+    'retreat': 'Atsitraukimas',
+    'firstClear': 'Pirmas įveikimas!',
+    'waves': 'Atlaikyta bangų: {n}',
+    'levelUp': '{n} lygis!',
+    'points': 'Savybių taškai: +{n}',
     'xp': 'Patirtis',
-    'bolts': 'Varžtai',
-    'kills': 'Sunaikinta mašinų',
-    'chests': 'Atidaryta skrynių',
+    'gold': 'Auksas',
+    'lost': 'Prarasta',
+    'kills': 'Įveikta',
     'time': 'Laikas',
-    'levelUp': 'Naujas lygis! Dabar lygis {n}',
-    'newWeapon': 'Naujas ginklas: {weapon}!',
-    'newSector': 'Atrakintas naujas sektorius: {sector}',
-    'items': 'Rasta įranga',
-    'triple': 'Trigubai varžtų',
-    'tripleAria': 'Pažiūrėk trumpą vaizdo įrašą: patrigubink varžtus iki +{n}'
-  },
-  'defeat': {
-    'title': 'SISTEMA IŠJUNGTA',
-    'body': 'Flux patyrė per daug žalos.',
-    'kept': 'Tai, ką uždirbai iki šiol, lieka tau:',
-    'useTank': 'Paleisti iš naujo su remonto geliu ({n})',
-    'rebootAd': 'Paleisti iš naujo dabar',
-    'retreat': 'Trauktis į laboratoriją',
-    'retryCheckpoint': 'Kartoti nuo kontrolinio taško'
-  },
-  'ending': {
-    'fall': 'Didysis meistras krinta. Kartu su juo užgęsta Vexo Raudonasis signalas.',
-    'relays': 'Relės viena po kitos grįžta namo, kiekviena savo spalva.',
-    'thaw': 'Laboratorijoje ledas atsileidžia.',
-    'gauss': 'Flux... tau pavyko. Tu juos visus sugrąžinai.',
-    'atlas': 'Bokštas tuščias. Dabar galėčiau valdyti šį miestą. Nevaldysiu. Jis priklauso jiems.',
-    'morning': 'Cyber City pabunda savo pirmajam laisvam rytui.',
-    'spark': 'Flux... ar matei tą kibirkštį?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
-    'credits': {
-      'by': '{studio} žaidimas',
-      'cast': 'Vaidina',
-      'masters': 'Meistrai',
-      'thanks': 'Ačiū, kad žaidei!'
-    },
-    'card': {
-      'title': 'Cyber City laisvas!',
-      'promise': 'Naujas žaidimas+: meistrai turi 25 % daugiau gyvybės ir puola greičiau. Tavo lygis, įranga ir ginklai lieka.',
-      'ngplus': 'Pradėti Naują žaidimą+',
-      'lab': 'Atgal į laboratoriją',
-      'confirm': 'Pradėti Naują žaidimą+?',
-      'confirmBody': 'Istorija prasideda iš naujo su stipresniais meistrais. Pasilieki savo lygį, įrangą, ginklus ir patobulinimus.'
-    }
-  },
-  'banner': {
-    'cleared': 'Lygis įveiktas',
-    'bossDown': 'Priešas nugalėtas!',
-    'gameOver': 'Žaidimas baigtas!',
-    'grandMaster': 'Didysis meistras!'
+    'unlocked': 'Nauja žemėlapyje: {places}',
+    'retry': 'Bandyti dar kartą',
+    'tip': 'Patirtis ir grobis lieka tau. Paskirstyk taškus, aplankyk mokytoją ir grįžk su daugiau jėgų.'
   },
   'pause': {
-    'title': 'PAUZĖ',
+    'title': 'Pauzė',
     'resume': 'Tęsti',
-    'abandon': 'Palikti misiją',
     'controls': 'Valdymas',
-    'label': {
-      'move': 'Judėti',
-      'look': 'Žvalgytis',
-      'parry': 'Atremti',
-      'interact': 'Sąveika'
-    },
-    'touch': {
-      'move': 'Kairė pusė: vilk, kad judėtum. Bakstelėk grindis, kad ten nueitum.',
-      'fire': 'Kovoje: bakstelėk – šūvis, laikyk – įkrova, atleisk – iššauti.',
-      'block': 'Laikyk skydą, kad blokuotum – kai žiedas užsidaro, atremsi.',
-      'use': 'Prie skrynios, įstrigusio roboto ar durų: bakstelėk juos arba iššokusį mygtuką.'
-    },
-    'keys': {
-      'move': '{keys} / rodyklės: judėti.',
-      'look': 'Judink pelę, kad apsidairytum. Spustelėk sceną, kad valdytum kamerą.',
-      'fire': 'Kairysis spustelėjimas: šauti – laikyk, kad įkrautum, atleisk, kad iššautum.',
-      'block': 'Dešinysis spustelėjimas: blokuoti – kai žiedas užsidaro, atremsi.',
-      'slide': '{slide}: slysti · {tank}: remonto gelis · {use}: sąveika · {beam}: teleportuotis',
-      'more': '{w1} / {w2}: specialieji ginklai · {target}: keisti taikinį · Esc: pauzė',
-      'space': 'Tarpas',
-      'press': '{key}: {action}'
+    'retreat': 'Atsitraukti į žemėlapį',
+    'retreatNote': 'Viskas, kas iki šiol uždirbta, lieka tau, bet zona nebus išvalyta.'
+  },
+  'ending': {
+    'level': 'Lygis',
+    'more': 'Po tvirtove atsivėrė Tuštumos plyšys. Koliziejus vis dar priima visus norinčius.',
+    'order': { 'title': 'Geležinė taika', 'text': 'Virš Siaubo tvirtovės plevėsuoja Geležinio ordino vėliavos. Keliai saugūs, įstatymų daug, o tavo vardas iškaltas virš vartų.' },
+    'syndicate': { 'title': 'Pelenų sandėris', 'text': 'Sindikatas valdo iš tvirtovės šešėlių. Karalystėje nebėra nieko uždrausto. Tai tik brangu.' },
+    'circle': { 'title': 'Eterio amžius', 'text': 'Ratas apšviečia tvirtovę pagauta Tuštumos ugnimi. Pro jos vartus liejasi stebuklai, ir niekas neklausia, kiek jie kainuoja.' },
+    'free': { 'title': 'Jokių karalių', 'text': 'Sostas guli šukėmis, o tvirtovė tuščia. Pirmą kartą per visą amžių karalystė priklauso žmonėms, kurie joje gyvena.' },
+    'unbound': { 'title': 'Be pančių', 'text': 'Sostas tavo. Ordinas, Sindikatas ir Ratas kartu žygiuoja prieš tave. Tegul ateina.' },
+    'note': {
+      'goblinPact': 'Goblinų prekeiviai vis dar derasi Sunfordo aikštėje.',
+      'goblinSlain': 'Urvai tušti, o karavanai atvyksta laiku.',
+      'goblinRansom': 'Goblinų karalius vėl turtingas ir vėl plėšia.',
+      'oakhavenSaved': 'Oakhaveno sienos dabar aukštesnės, o turgūs pilnesni.',
+      'oakhavenFallen': 'Oakhaveno gatvėse želia piktžolės. Juodoji rinka klesti.',
+      'coreOrder': 'Ironholdo kasyklose ramu, ir nykštukai vėl kasa.',
+      'coreCircle': 'Ironholdo kalvės švyti mėlynai, o jo šautuvai geriausi karalystėje.',
+      'coreSold': 'Kažkur šerdis vis dar gaudžia. Golemai vis dar vaikšto.',
+      'oracleFreed': 'Ramiomis dienomis žvejai mato orakulę toli vandenyje.',
+      'oracleSlain': 'Nuskendusi šventykla tyli. Niekas nebežino, kas bus toliau.',
+      'dragonPact': 'Ant tvirtovės stogo lizdą susisuko drakonas ir atsiliepia tik į vieną vardą.',
+      'dragonSlain': 'Ordino didžiojoje menėje kabo drakono kaukolė.'
     }
-  },
-  'levelUp': {
-    'title': 'NAUJAS LYGIS!',
-    'pick': 'Pasirink sistemos patobulinimą',
-    'chip': '+1 įgūdžių lustas tavo grandinėms',
-    'granted': '{stat} padidėjo nuo {from} iki {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Korpusas', 'desc': 'Maks. sveikata' },
-    'we': { 'name': 'Reaktorius', 'desc': 'Ginklo energija' },
-    'power': { 'name': 'Servai', 'desc': 'Blokavimo ir slydimo galia' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Misijos',
-      'hero': 'Flux',
-      'circuits': 'Grandinės',
-      'workshop': 'Dirbtuvės'
-    },
-    'heroTabAria': 'Flux, tavo kovinis androidas',
-    'levelUpReady': 'Naujas lygis!',
-    'levels': 'Lyg. {a}–{b}',
-    'story': 'Siužeto misija',
-    'jobs': 'Darbai',
-    'jobsHint': 'Kartojami – nauji atsiranda, kai juos atlieki',
-    'lockedHint': 'Kad atvertum šį sektorių, nugalėk: {boss}.',
-    'sectorSecured': 'Sektorius apsaugotas. Jo darbai vis dar lentoje.',
-    'deploy': 'Į misiją',
-    'reroll': 'Naujas darbas',
-    'gift': {
-      'name': 'Gelis kelionei',
-      'desc': 'Pažiūrėk trumpą vaizdo įrašą: +1 remonto gelis kitai misijai, net viršijant ribą.',
-      'aria': 'Pažiūrėk trumpą vaizdo įrašą ir gauk papildomą remonto gelį kitai misijai',
-      'ready': 'Dovana supakuota!',
-      'readyDesc': '+1 remonto gelis kitai misijai.'
-    },
-    'unlock': {
-      'hint': 'Įvykdyk dar {n} misiją, kad atrakintum | Įvykdyk dar {n} misijas, kad atrakintum | Įvykdyk dar {n} misijų, kad atrakintum',
-      'aria': '{name}, užrakinta: įvykdyk dar {n} misiją | {name}, užrakinta: įvykdyk dar {n} misijas | {name}, užrakinta: įvykdyk dar {n} misijų'
-    }
-  },
-  'hero': {
-    'role': 'Tavo kovinis androidas',
-    'weapons': 'Specialieji ginklai',
-    'weaponSlot': 'Lizdas {n}',
-    'weaponRank': 'Rangas {n}',
-    'noWeapons': 'Nugalėk šerdies meistrus, kad nukopijuotum jų ginklus.',
-    'attrPending': 'Pasirink sistemos patobulinimų: {n}!',
-    'stats': 'Sistemos',
-    'attributes': 'Patobulinimai',
-    'stat': {
-      'hp': 'Maks. sveikata',
-      'we': 'Ginklo energija',
-      'power': 'Galia',
-      'damage': 'Kulkų žala',
-      'charge': 'Įkrautas šūvis',
-      'armor': 'Šarvai',
-      'crit': 'Kritinio smūgio tikimybė',
-      'tanks': 'Remonto geliai'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Varžtų užteks dviem geriausios patrankos patobulinimams.',
-    'upgradeAdName': 'Tobulinimo paspirtis',
-    'tanks': 'Atsargos',
-    'tankName': 'Remonto gelis',
-    'tankDesc': 'Misijos metu visiškai atkuria sveikatą ir galią.',
-    'owned': 'Turima: {n}/{max}',
-    'upgrade': 'Tobulinti įrangą',
-    'next': 'Kitas lygis',
-    'upgradeBtn': 'Tobulinti',
-    'maxed': 'Visiškai patobulinta',
-    'dropName': 'Atsargų siunta',
-    'dropDesc': 'Dėžė atsarginių varžtų, atteleportuota iš laboratorijos.',
-    'dropAria': 'Pažiūrėk trumpą vaizdo įrašą ir gauk varžtų: {n}',
-    'dropCooldown': 'Kita siunta po {t}'
-  },
-
-  'board': {
-    'buster': 'Patranka',
-    'armor': 'Šarvai',
-    'core': 'Šerdis'
-  },
-  'circuits': {
-    'chips': 'Įgūdžių lustai: {n}',
-    'rank': 'Rangas {n}/{max}',
-    'requires': 'Reikia: {name}, rangas {n}',
-    'requiresBoss': 'Pirmiausia nugalėk: {name}',
-    'unlock': 'Atrakinti',
-    'install': 'Įdėti lustą',
-    'maxed': 'Visa galia',
-    'respec': 'Atstatyti grandines'
-  },
-  'skill': {
-    'rapid': { 'name': 'Greitosios kulkos', 'desc': 'Greitų šūvių žala +10% už lustą.' },
-    'quickCharge': { 'name': 'Greita įkrova', 'desc': 'Įkrovos laikas −10% už lustą.' },
-    'megaCharge': { 'name': 'Mega įkrova', 'desc': 'Įkrauto šūvio žala +12% už lustą.' },
-    'perfectTiming': { 'name': 'Tobulas laikas', 'desc': 'Platesnis tobulo atleidimo langas ir stipresni kritiniai smūgiai.' },
-    'piercing': { 'name': 'Pramušanti šerdis', 'desc': 'Pusiau įkrauti šūviai taip pat pramuša skydus ir šalmus.' },
-    'giga': { 'name': 'Perkrova', 'desc': 'Laikyk pilną įkrovą dar 3 sekundes: šūvis smogia 1,75× stipriau.' },
-    'frame': { 'name': 'Sustiprintas korpusas', 'desc': 'Maks. sveikata +8% už lustą.' },
-    'barrier': { 'name': 'Barjero derinimas', 'desc': 'Blokavimas kainuoja mažiau galios ir praleidžia mažiau žalos.' },
-    'autoRepair': { 'name': 'Savaiminis remontas', 'desc': 'Ne kovoje atkuria 1% sveikatos per sekundę už lustą.' },
-    'parry': { 'name': 'Atrėmimo protokolas', 'desc': 'Platesnis atrėmimo langas; atremtos mašinos ilgiau lieka apsvaigusios.' },
-    'spikes': { 'name': 'Dygliuotos plokštės', 'desc': 'Atspindi 15% užblokuotos žalos už lustą.' },
-    'lastStand': { 'name': 'Paskutinė kova', 'desc': 'Kartą per misiją išgyvenk mirtiną smūgį su 1 sveikatos tašku.' },
-    'cells': { 'name': 'Energijos elementai', 'desc': 'Ginklo energija +3 už lustą.' },
-    'mastery': { 'name': 'Ginklų meistriškumas', 'desc': 'Specialiųjų ginklų žala +10% už lustą.' },
-    'boosters': { 'name': 'Slydimo greitintuvai', 'desc': 'Greitesnis slydimo atsistatymas, pigesnis slydimas.' },
-    'efficient': { 'name': 'Taupios šerdys', 'desc': 'Specialieji ginklai naudoja 10% mažiau energijos už lustą.' },
-    'magnet': { 'name': 'Varžtų magnetas', 'desc': 'Daugiau varžtų ir didesnis surinkimo atstumas.' },
-    'tankCap': { 'name': 'Gelio talpa', 'desc': 'Nešiokis vienu remonto geliu daugiau už lustą.' }
-  },
-
-  'rarity': {
-    'standard': 'Standartinis',
-    'tuned': 'Suderintas',
-    'prototype': 'Prototipas',
-    'legendary': 'Legendinis'
-  },
-  'item': {
-    'arm_standard': 'Standartinė patranka',
-    'arm_rapid': 'Greitšaudė patranka',
-    'arm_heavy': 'Sunkioji patranka',
-    'arm_quick': 'Greitos įkrovos patranka',
-    'arm_nova': 'Novos patranka',
-    'helm_scout': 'Žvalgo šalmas',
-    'helm_guard': 'Sargo šalmas',
-    'helm_ace': 'Aso šalmas',
-    'helm_royal': 'Karališkasis šalmas',
-    'body_light': 'Lengvas korpusas',
-    'body_plated': 'Šarvuotas korpusas',
-    'body_reactor': 'Reaktoriaus korpusas',
-    'body_aegis': 'Egidės korpusas',
-    'boots_basic': 'Paprasti batai',
-    'boots_dash': 'Spurto batai',
-    'boots_magnet': 'Magnetiniai batai',
-    'boots_titan': 'Titano batai',
-    'chip_logic': 'Logikos lustas',
-    'chip_quantum': 'Kvantinis lustas'
-  },
-  'slot': {
-    'buster': 'Patranka',
-    'helmet': 'Šalmas',
-    'chest': 'Korpusas',
-    'boots': 'Batai',
-    'chip': 'Lustas'
-  },
-  'gear': {
-    'damage': 'Žala',
-    'armor': 'Šarvai',
-    'equip': 'Užsidėti',
-    'unequip': 'Nuimti',
-    'equipped': 'Uždėta',
-    'new': 'NAUJA',
-    'salvage': 'Išardyti',
-    'noAffixes': 'Jokių papildomų modulių',
-    'emptySlot': 'Šiam lizdui dar nieko nėra – atidaryk skrynias ir atlik darbus.'
-  },
-  'affix': {
-    'damage': '{v} žalos',
-    'crit': '{v} kritinio smūgio tikimybės',
-    'critDmg': '{v} kritinės žalos',
-    'hp': '{v} maks. sveikatos',
-    'armor': '{v} šarvų',
-    'we': '{v} ginklo energijos',
-    'power': '{v} galios',
-    'bolts': '{v} randamų varžtų',
-    'chargeSpeed': '{v} įkrovos greičio',
-    'pelletDmg': '{v} kulkų žalos',
-    'chargeDmg': '{v} įkrauto šūvio žalos',
-    'moveSpeed': '{v} judėjimo greičio',
-    'special': '{v} specialiųjų ginklų žalos',
-    'regen': '{v} sveikatos atkūrimo / s (ne kovoje)',
-    'magnet': '{v} surinkimo atstumo'
-  },
-  'weapon': {
-    'rankUp': 'Patobulinta: {weapon}, rangas {n}!',
-    'scrapBurst': { 'name': 'Laužo salvė', 'desc': 'Laužo pliūpsnis trimis kryptimis. Puikiai tinka prieš minias.' },
-    'flameWave': { 'name': 'Liepsnos banga', 'desc': 'Ugnies kamuolys rieda grindimis per kiekvieną mašiną savo kelyje ir jas uždega.' },
-    'iceLance': { 'name': 'Ledo ietis', 'desc': 'Pramušanti ietis, kuri atšaldo ir sulėtina tai, į ką pataiko.' },
-    'thunderArc': { 'name': 'Griaustinio lankas', 'desc': 'Akimirksnio žaibas, peršokantis į netolimas mašinas.' },
-    'galeGuard': { 'name': 'Vėtros sargas', 'desc': 'Lapai sukasi aplink tave, blokuoja šūvius ir pjausto mašinas. Panaudok dar kartą, kad juos paleistum.' },
-    'magnetPull': { 'name': 'Magneto trauka', 'desc': 'Taikinį sekanti pasaga, kuri skaldo skydus bei kiautus ir ištraukia skraiduolius iš oro.' },
-    'drillBomb': { 'name': 'Grąžto bomba', 'desc': 'Besigręžianti bomba, kuri sprogsta ten, kur sustoja, ir pataiko į visas aplinkines mašinas. Skaldo įskilusias uolas.' },
-    'bubbleLance': { 'name': 'Burbulų ietis', 'desc': 'Didelis burbulas rieda grindimis ir sprogsta per kiekvieną mašiną savo kelyje.' },
-    'neonBlade': { 'name': 'Neono ašmenys', 'desc': 'Šviesos ašmenys, metami kaip bumerangas: kerta skrisdami pirmyn ir atgal.' },
-    'droneSwarm': { 'name': 'Dronų spiečius', 'desc': 'Trys maži dronai suranda tris mašinas, net už priedangos.' }
   },
 
   'options': {
-    'killCams': 'Kill-cam kadrai',
     'gameplay': 'Žaidimas',
     'title': 'Nustatymai',
     'general': 'Bendra',
@@ -528,16 +612,16 @@ export default {
     'difficulty': 'Sunkumas',
     'soundEffects': 'Garso efektai',
     'music': 'Muzika',
-    'musicTrack': 'Muzikos takelis',
+    'mute': 'Nutildyti',
+    'musicTrack': 'Muzika',
     'musicTracks': {
-      'cozy': 'Ramios grandinės',
-      'trance': 'Overdrive'
+      'cozy': 'Rami',
+      'trance': 'Nuotykių'
     },
     'haptics': 'Vibracija',
     'on': 'Įjungta',
     'off': 'Išjungta',
     'close': 'Uždaryti',
-    'replayIntro': 'Kartoti įžangą',
     'keyboard': {
       'auto': 'Aptikti klaviatūros išdėstymą',
       'layout': 'Klaviatūros išdėstymas',
@@ -547,45 +631,45 @@ export default {
       'reset': 'Atstatyti klavišus'
     },
     'actions': {
-      'forward': 'Pirmyn',
-      'back': 'Atgal',
-      'left': 'Šonu į kairę',
-      'right': 'Šonu į dešinę',
-      'turnLeft': 'Sukti į kairę',
-      'turnRight': 'Sukti į dešinę',
-      'slide': 'Slysti',
-      'block': 'Blokuoti',
-      'interact': 'Sąveika',
-      'beam': 'Teleportuotis',
-      'tank': 'Remonto gelis',
-      'weapon1': 'Specialusis ginklas 1',
-      'weapon2': 'Specialusis ginklas 2',
-      'weapon3': 'Pasiskolintas ginklas',
-      'target': 'Keisti taikinį',
-      'map': 'Žemėlapis'
+      'up': 'Judėti aukštyn',
+      'down': 'Judėti žemyn',
+      'left': 'Judėti kairėn',
+      'right': 'Judėti dešinėn',
+      'skill1': 'Įgūdis 1',
+      'skill2': 'Įgūdis 2',
+      'skill3': 'Įgūdis 3',
+      'skill4': 'Įgūdis 4',
+      'skill5': 'Įgūdis 5',
+      'skill6': 'Įgūdis 6',
+      'potion': 'Gerti eliksyrą',
+      'interact': 'Kalbėti',
+      'target': 'Kitas taikinys',
+      'map': 'Pasaulio žemėlapis',
+      'character': 'Herojus',
+      'inventory': 'Krepšys',
+      'skills': 'Įgūdžiai'
     },
-    'lookSensitivity': 'Kameros jautrumas',
     'difficulties': {
       'easy': 'Lengvas',
       'medium': 'Vidutinis',
       'hard': 'Sunkus'
     },
     'difficultyHints': {
-      'easy': 'Mašinos smogia silpniau ir greičiau krenta.',
+      'easy': 'Priešai smogia silpniau ir greičiau krenta.',
       'medium': 'Numatytas iššūkis.',
-      'hard': 'Tvirtesnės mašinos, kurios smogia stipriau.'
+      'hard': 'Tvirtesni priešai, kurie smogia stipriau.'
     }
   },
   'adsBlocked': {
     'title': 'Nepavyko parodyti reklamos',
-    'body': 'Bandėme parodyti tau vaizdo įrašą, kad gautum apdovanojimą, bet kažkas tavo naršyklėje blokuoja reklamas.',
+    'body': 'Bandėme parodyti tau vaizdo įrašą, bet kažkas tavo naršyklėje blokuoja reklamas.',
     'allowPrefix': 'Leisk reklamas svetainėje',
     'allowSuffix': '(arba sustabdyk reklamų blokatorių šiam žaidimui) ir bandyk dar kartą.',
     'gotIt': 'Supratau'
   },
   'saveStatus': {
     'restoredTitle': 'Debesies išsaugojimas atkurtas',
-    'restoredBody': '+{n} premijinių varžtų už atkūrimą',
+    'restoredBody': '+{n} premijinio aukso už atkūrimą',
     'tap': 'bakstelėk',
     'pausedTitle': 'Debesies sinchronizavimas pristabdytas',
     'pausedBody': 'Žaidi neprisijungęs. Tavo pažanga išsaugoma čia.',
@@ -611,443 +695,5 @@ export default {
     'yourRank': 'Tu esi #{n} iš {total}',
     'of': 'iš {n} žaidėjų',
     'tabGlobal': 'Pasaulis'
-  },
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux kovoja su pašėlusiomis mašinomis neoninėse Cyber City gatvėse.',
-      'valley': 'Cyber City: šviesus androidų miestas, sujungtas šviesos spinduliais. Dr. Vex raudonu signalu užvaldo jo mašinas.',
-      'lab': 'Signalas pasiekia prof. Gauss laboratoriją. Gauss įteikia Fluxui Atlas diską ir jį pažadina.',
-      'safeMode': 'Gauss užšaldo save kapsulėje, kad signalas neprasiskverbtų. Ji vis dar gyva.',
-      'wakeUp': 'Flux pabunda 1 lygio, su veikiančiu Atlas. Vexo tvirtovė kur kas stipresnė, todėl pirmiausia – Laužynas.',
-      'beam': 'Flux nusiteleportuoja į Laužyną.'
-    },
-    'vex': {
-      'diagnosis': 'Diagnozė: šis slėnis SERGA. Vaistas… tai AŠ!'
-    },
-    'atlas': {
-      'logStart': 'Žurnalo pradžia.',
-      'goodMorning': 'Šerdis prisijungusi. Labas rytas, Flux.',
-      'scrapyardFirst': 'Pirmiausia Laužynas. Po vieną relę.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Šerdies meistro signalas. Jis… didelis.',
-    },
-    'sector': {
-      'blaze': 'Perdirbykla. Čia karšta. Saugokis purkštukų.',
-      'cryo': 'Aušinimo skystis teka įkalnėn. Į Tvirtovę.',
-      'gale': 'Kiekviena jo kūno dalis keliauja per čia.',
-      'magnet': 'Liejykla. Lieja nagus.',
-      'drill': 'Rūda jo šarvams. Kasama čia pat.',
-      'tide': 'Dabar baržos. Vex rado kitą kelią.',
-      'neon': 'Šviesos užgeso. Išskyrus Vexo veidą.',
-      'rotor': 'Dronai. Paskutinė jo tiekimo linija.',
-    },
-    'fortress': {
-      'bays': 'Pusiau pastatyta. Tavo darbas.',
-    },
-    'warn': {
-      'boss': 'Priekyje šerdies meistras.',
-      'gelFirst': 'Šarvai skyla. Panaudok gelį.',
-      'gel': 'Gelis.',
-      'criticalFirst': 'Kritiška! Traukis!',
-      'critical': 'Kritiška!',
-      'noGel': 'Gelio nebėra. Nerizikuok.',
-      'weLow': 'Mažai ginklo energijos. Patranka nemokama.',
-      'weEmpty': 'Bakas sausas.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: paskutinis šūvis.',
-        'flameWave': '{weapon}: paskutinis šūvis.',
-        'iceLance': '{weapon}: paskutinis šūvis.',
-        'thunderArc': '{weapon}: paskutinis šūvis.',
-        'galeGuard': '{weapon}: paskutinis šūvis.',
-        'magnetPull': '{weapon}: paskutinis šūvis.',
-        'drillBomb': '{weapon}: paskutinis šūvis.',
-        'bubbleLance': '{weapon}: paskutinis šūvis.',
-        'neonBlade': '{weapon}: paskutinis šūvis.',
-        'droneSwarm': '{weapon}: paskutinis šūvis.',
-      },
-      'flame': 'Purkštukai. Palauk… arba praslysk.',
-      'blade': 'Ašmenys. Eik iškart po jų.',
-      'crusher': 'Presas. Stebėk lempą.',
-      'ladder': 'Kopėčios. Spausk link sienos.',
-      'pit': 'Gili duobė. Pagauk liftą laiku.',
-      'down': 'Perkrovimas… Pip tavimi pasirūpins.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Šauk, kai išlenda.',
-      'trooper': 'Skydas. Pramušk įkrautu šūviu.',
-      'heli': '{enemy}. Pažvelk aukštyn.',
-      'hopper': '{enemy}. Išeik iš žiedo.',
-      'roller': '{enemy}. Pasitrauk į šoną.',
-      'brute': '{enemy}. Atremk, tada smok.',
-      'turret': '{enemy}. Nesustok.',
-      'golem': 'Ta dėžė kvėpuoja. Prieik arčiau.',
-      'polar': '{enemy}. Šauk, kai atsiveria raudonai.',
-      'warden': '{enemy}. Pataikyk į šerdį, kai ji atsivers.',
-      'hornet': '{enemy}. Sminga tiesiai: šok į šoną!',
-      'stalker': '{enemy}. Atremk jo šuolį.',
-      'puffer': '{enemy}. Susprogdink, kol neišsipūtė.',
-      'mole': '{enemy}. Pataikyk, kai išlenda.',
-      'elite': 'Auksinis žiedas. Elitinis. Atsargiai.',
-      'fire': 'Ugnies danga. Ugnis neveikia.',
-      'ice': 'Ledo danga. Ledas neveikia.',
-      'volt': 'Srovės danga. Srovė neveikia.',
-      'wind': 'Vėjo danga. Vėjas neveikia.',
-    },
-    'volt': {
-      'hack': 'Flux… kažkas yra ma—',
-      'thanks': '…Tu to neįleidai. Ačiū.',
-    },
-    'mk1': {
-      'intro': 'Tai Vex. Tikrasis.',
-      'fire': 'Ugnis!',
-      'ice': 'Ledas!',
-      'volt': 'Srovė!',
-      'wind': 'Vėjas!',
-      'scrap': 'Laužas!',
-      'free': 'Nes jie laisvi.',
-    },
-    'guardDown': 'Sargas nukautas! Kelias laisvas.',
-    'help': {
-      'weapon': 'Pasirink naują ginklą ir šauk į dronus!',
-      'gap': 'Eik tiesiai prie krašto ir peršoksi!',
-      'gel': 'Panaudok remonto gelį ir pasigydyk!',
-      'slide': 'Nuslysk, kol raudonas žiedas tavęs nepasiekė!',
-      'block': 'Laikyk blokavimą, kai jis šauna. Tobula – tiksliai pataikymo akimirką!',
-      'charge': 'Laikyk šūvį, kol patranka sužibs, tada atleisk!'
-    },
-    'train': {
-      'weapon': 'Patreniruokime naują ginklą!',
-      'gap': 'Patreniruokime šuolius per tarpus!',
-      'gel': 'Patreniruokime remonto gelį!',
-      'slide': 'Patreniruokime slydimą!',
-      'block': 'Patreniruokime tobulą blokavimą!',
-      'charge': 'Patreniruokime įkrautą šūvį!'
-    },
-    'hint': {
-      'locator': 'Tikslas ten.',
-      'rescue': 'Darbininko roboto signalas. Silpnas. Arti.',
-      'upgrade': 'Šitas geresnis.',
-      'levelUp': 'Naujas lustas sukompiliuotas.',
-      'done': 'Atlikta. Kviesk droną, kai būsi pasiruošęs.',
-      'underLevel': 'Jie tau per stiprūs. Pirma pasitreniruok.',
-      'floor': {
-        'blaze': '{sector}: nuo 3 lygio.',
-        'cryo': '{sector}: nuo 6 lygio.',
-        'volt': '{sector}: nuo 9 lygio.',
-        'gale': '{sector}: nuo 13 lygio.',
-        'magnet': '{sector}: nuo 16 lygio.',
-        'drill': '{sector}: nuo 19 lygio.',
-        'tide': '{sector}: nuo 22 lygio.',
-        'neon': '{sector}: nuo 25 lygio.',
-        'rotor': '{sector}: nuo 28 lygio.',
-        'fortress': '{sector}: nuo 31 lygio.',
-      },
-      'rotor': {
-        'arrive': 'Nusileidome. Lipk lauk!',
-        'dip': 'Laikykis, neriame!',
-        'board': 'Visi į vidų! Aš skrendu, tu šaudai.'
-      },
-      'neon': {
-        'kick': 'Atsisuk į sieną ir slysk. Dar kartą! Atsispirk nuo sienos aukštyn!',
-        'switch': 'Šviesos jungiklis! Šauk į jį, kad sukeistum tiltus.',
-        'blink': 'Šviesos tiltai mirksi! Pereik, kol jie šviečia.',
-        'blackout': 'Dingsta elektra! Pereik, kai šviesos vėl užsidegs.'
-      },
-      'tide': {
-        'deep': 'Per gilu! Lipk iš vandens!',
-        'valve': 'Užlietas šliuzas! Šauk į sklendę, kad nuleistum vandenį.',
-        'rise': 'Vanduo kyla. Lipk laiptais!',
-        'wade': 'Vanduo! Brendant judi lėčiau.'
-      },
-      'gm': {
-        'button': 'Vex kažką spaudžia... Pasiruošk!',
-        'arms': 'Pirmiausia rankos! Patranka ir ietis!',
-        'feet': 'Dabar kojos! Blokuok smūgio bangas!',
-        'head': 'Jis pasilenkė. Galva pasiekiama!',
-        'body': 'Šerdis atvira! Pribaik jį!',
-        'prism': 'Prizmės patranka! Skydą aukštyn!'
-      },
-      'vex': {
-        'roof': 'Žaibai! Judėk, kai žiedas užsidega!',
-        'fall': 'Stogas griūva!',
-        'core': 'Žemyn į šerdį! Neįkrisk!'
-      },
-      'drill': {
-        'drop': 'Krenta akmenys! Išeik iš šešėlių.',
-        'rock': 'Įskilusi uola! Pilnai įkrautas šūvis ją sudaužys.',
-        'board': 'Rūdos vagonėlis rieda! Aš vairuoju, tu šaudai kurmius.',
-        'dip': 'Status nuolydis! Laikykis tvirtai!',
-        'arrive': 'Paskutinė stotelė. Išlipk!'
-      },
-      'magnet': {
-        'panel': 'Matai tą raudonai mėlyną plokštę? Šauk į ją, kad perjungtum bėgį.',
-        'rail': 'Magnetinis bėgis! Rodyklės rodo trauką. Prasiveržk arba važiuok kartu.'
-      },
-      'blaze': {
-        'lava': 'Ten apačioje lava. Laikykis ant metalo.',
-        'leap': 'Per platu pereiti. Nuslysk nuo krašto – perskrisi.',
-        'vents': 'Šnypštimas, tada ugnis. Praleisk riaumojimą ir eik.',
-        'barrels': 'Statinės! Stebėk lempas, pereik tarp jų.',
-        'hammers': 'Kalvės kūjai. Skaičiuok taktą, tada bėk.',
-        'drop': 'Ilgas kelias žemyn. Po vieną atbrailą.'
-      },
-      'cryo': {
-        'ice': 'Ledas! Paleisk vairalazdę – ir toliau slysi.',
-        'spikes': 'Po tuo ledu – spygliai. Eik tiesiai, jokių staigių posūkių.',
-        'frost': 'Šalčio svaidyklė. Pirma ji švyti ir šnypščia. Pereik, kai nutils.',
-        'icicles': 'Šešėliai ant grindų? Varvekliai. Išeik iš žiedo!',
-        'pillar': 'Ta kolona įskilusi. Šauk į ją – štai ir trumpesnis kelias.',
-        'stairs': 'Lediniai laiptai. Lėtai – aikštelė maža.'
-      },
-      'volt': {
-        'panels': 'Tos plokštės pulsuoja. Palauk ant tamsios eilės, tada ženk.',
-        'board': 'Rankas nuo pulto – aš vairuoju, tu šaudai.',
-        'wave': 'Priekyje dronai! Nušauk juos, kol nesmigo žemyn.',
-        'dip': 'Priekyje didelis kritimas. Laikykis – ir šaudyk!',
-        'arrive': 'Kelionės pabaiga. Išlipk!'
-      },
-      'gale': {
-        'leap': 'Tarpas per platus pereiti. Nuslysk nuo krašto – perskrisi.',
-        'down': 'Puikus šuolis. Tik nežiūrėk žemyn.',
-        'shuttle': 'Šaudyklės. Lipk, kai prisišvartuoja, išlipk kitame gale.',
-        'wind': 'Palauk, kol gūsis nurims, tada judėk. Arba slėpkis už kolonos.',
-        'bob': 'Siūbuojančios platformos. Užlipk apačioje ir pakilk kartu.'
-      }
-    },
-    'secret': {
-      'lights': 'Tas skydelis rodo raštą. Lempos ant sienos – dar ne.',
-      'color': 'Tas rėmas turi mėgstamą spalvą. Turi šviesti tik jos lempos.',
-      'cycle': 'Kiekvienas pataikymas pakeičia lempos nuomonę. Skydelis žino, ko nori.',
-      'solved': 'Še tau. Kažkas mėgsta galvosūkius.'
-    },
-    'landed': 'Nusileidome! Pirmyn.',
-    'brief': {
-      'tutorial': 'Treniruočių metas. Aš tau padėsiu!',
-      'job': 'Greitas darbas. Įeini ir išeini!',
-      'climb': 'Bokšto bėgimas! Aukštyn, aukštyn!',
-      'story': 'Laukia šerdies meistras. Išlaisvinkime jį!'
-    },
-    'story': {
-      'relayOne': 'Pirma relė šviečia. Liko devynios.',
-      'copied': {
-        'scrapBurst': 'Nukopijuota: {weapon}.',
-        'flameWave': 'Nukopijuota: {weapon}.',
-        'iceLance': 'Nukopijuota: {weapon}.',
-        'thunderArc': 'Nukopijuota: {weapon}.',
-        'galeGuard': 'Nukopijuota: {weapon}.',
-        'magnetPull': 'Nukopijuota: {weapon}.',
-        'drillBomb': 'Nukopijuota: {weapon}.',
-        'bubbleLance': 'Nukopijuota: {weapon}.',
-        'neonBlade': 'Nukopijuota: {weapon}.',
-        'droneSwarm': 'Nukopijuota: {weapon}.',
-      },
-      'dataCore': 'Jis mums kai ką paliko.',
-      'firstDraft': '…Mane parašė iš jo pirmojo juodraščio.',
-      'body': 'Jis stato sau kūną. Iš mūsų slėnio.',
-      'voltFreed': 'Signalas neteko savo elektrinės.',
-      'galeFreed': 'Į Tvirtovę nebepatenka jokios dalys.',
-      'breach': 'Skydas nukrito. Tvirtovė atvira.',
-      'magnetFreed': 'Liejykla atvėso. Daugiau jokių nagų.',
-      'drillFreed': 'Kasykla nutilo. Daugiau jokios rūdos.',
-      'tideFreed': 'Šliuzai uždaryti. Baržos lieka namie.',
-      'neonFreed': 'Šviesa įjungta. Vex neteko ekranų.',
-      'rotorFreed': 'Visos linijos nukirstos. Vex vienas.',
-      'rotor': 'Rotorių skrydis. Vėjas mano antenoje!',
-      'neon': 'Aptemimo bulvaras. Šviesas, prašau!',
-      'tide': 'Potvynio šliuzai. Laikas taškytis!',
-      'drill': 'Gilioji kasykla. Saugok galvą!',
-      'magnet': 'Poliškumo gamykla. Mano kompasas sukasi!',
-      'scrapyard': 'Laužyno relė. Uždek ją!',
-      'blaze': 'Perdirbykla. Karšta, karšta, karšta!',
-      'cryo': 'Krio gamykla. Brr! Nesustok.',
-      'volt': 'Voltų bokštas. Mano grandinės dilgčioja!',
-      'gale': 'Dangaus dokai. Nežiūrėk žemyn!',
-      'fortress': 'Tvirtovė. Užbaikime tai.'
-    },
-    'arc': {
-      '10': 'Skydas nukrito. Dabar – Vex!',
-      '9': 'Liko vienas meistras. Beveik!',
-      '8': 'Aštuoni! Liko tik du meistrai.',
-      '7': 'Septynios šviečia. Taip ir toliau!',
-      '6': 'Šešios relės! Miestas bunda.',
-      '1': 'Viena relė šviečia. Liko devynios!',
-      '2': 'Dvi relės! Vex susiraukęs.',
-      '3': 'Trys šviečia. Švieskime toliau!',
-      '4': 'Keturios įveiktos. Tinklas vėl dūzgia.',
-      '5': 'Pusė kelio! Vex prakaituoja.'
-    },
-    'bossAhead': 'Priekyje bosas. Giliai įkvėpk!',
-    'noWeak': 'Silpnos vietos nesimato. Judėk!',
-    'weak': {
-      'flameWave': 'Liepsnos banga jam ypač kenkia!',
-      'iceLance': 'Ledo ietis jam ypač kenkia!',
-      'thunderArc': 'Griaustinio lankas jam ypač kenkia!',
-      'galeGuard': 'Vėtros sargas jam ypač kenkia!',
-      'magnetPull': 'Magneto trauka jam ypač kenkia!',
-      'drillBomb': 'Grąžto bomba jam ypač kenkia!',
-      'bubbleLance': 'Burbulų ietis jam ypač kenkia!',
-      'neonBlade': 'Neono ašmenys jam ypač kenkia!',
-      'droneSwarm': 'Dronų spiečius jam ypač kenkia!'
-    },
-    'bossDown': 'Meistras išlaisvintas! Puikiai padirbėta!',
-    'vexDown': 'Vex nugalėtas. Mums pavyko!',
-    'lowHp': 'Oi! Atsargiai, Flux!',
-    'lowHpGel': 'Mažai sveikatos! Pabandyk remonto gelį.',
-    'lowWe': 'Baigiasi ginklo energija!',
-    'trap': 'Priekyje spąstai. Stebėk laiką!',
-    'plate': 'Slėgio plokštė. Ant pirštų galų!',
-    'objective': 'Atlikta! Dabar surask išėjimą.',
-    'exit': 'Mūsų transportas atvyko!',
-    'levelUp': 'Naujas lygis! Tu spindi.',
-    'idle': {
-      '1': 'Pyp. Tik pasitikrinu.',
-      '2': 'Tau puikiai sekasi.',
-      '3': 'Gauss didžiuotųsi.',
-      '4': 'Man patinka mūsų komanda.'
-    }
-  },
-  'train': {
-    'todo': 'dar neatlikta',
-    'done': 'atlikta',
-    'checklist': 'Mokymai',
-    'watch': 'Pažiūrėk, kaip tai daroma',
-    'card': {
-      'weapon': 'Nukopijavai šerdies meistro ginklą! Šauk juo jo mygtuku: jį maitina ginklo energija, o kai kurios mašinos prieš jį silpnos.',
-      'gel': 'Sužeistas? Remonto gelis atkuria sveikatą. Naudok jį, kai kova pakrypsta blogai.',
-      'slide': 'Raudonų atakų blokuoti negalima. Nuslysk į šalį: slystant tavęs niekas nepataikys.',
-      'block': 'Laikyk blokavimą, kad pakeltum skydą: jis sustabdo šūvius ir smūgius iš priekio. Pakelk jį tiksliai smūgio akimirką – tai tobulas blokavimas, kuris apsvaigina užpuoliką.',
-      'charge': 'Paprastas šūvis skydo nepramuša. Laikyk šūvį, kol patranka sužibs, tada atleisk: įkrautas šūvis pramuša kiaurai.'
-    },
-    'name': {
-      'weapon': 'Ginklo pamoka',
-      'gap': 'Šuolio mokymas',
-      'gel': 'Remonto gelio mokymas',
-      'slide': 'Slydimo mokymas',
-      'block': 'Skydo mokymas',
-      'charge': 'Įkrauto šūvio mokymas'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Apšilimui! {boss}!',
-      'blaze': 'Seniausias! Karščiausias! {boss}!',
-      'frost': 'Atvėsk, droidėli. {boss}!',
-      'volt': 'Sumirksėsi ir praleisi! {boss}!',
-      'gale': 'Kitas, prašom! {boss}, nupūsk jį!',
-      'magnet': 'Patrauklu, ar ne? {boss}!',
-      'drill': 'Laikas giliai apžiūrai! {boss}!',
-      'tide': 'Banga tave nuneš, droide! {boss}!',
-      'neon': 'Šviesos! Kamera! {boss}!',
-      'rotor': 'Didysis finalas! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Laužo kranas? Kaip… miela.',
-      'blaze': 'Šalutinis poveikis užfiksuotas. Didinu dozę.',
-      'blueprint': 'Mano eskizai! Aš nuostabus, ar ne?',
-      'volt': 'Man… vi-siš-kai… GERAI.',
-      'gale': 'Puiku! Turiu DAUGIAU meistrų.',
-      'magnet': 'Atstumtas? Aš? Ne-ĮMANOMA!',
-      'drill': 'Hmf. Naujas dugnas. Tiesiogine prasme.',
-      'tide': 'Potvynis dar grįš! …Juk taip?',
-      'neon': 'Kas ĮJUNGĖ šviesą?!',
-      'rotor': 'Dešimt relių?! Sesele! SESELE!',
-      'breach': 'Ne, ne, NE! Tas skydas buvo PATENTUOTAS!',
-    },
-    'volt': {
-      'hack': 'Pažiūrėkim, kas toje tuščioje galvoje…',
-      'fail': 'Neįrašoma?! Kaip ĮŽŪLU.',
-    },
-    'fortress': {
-      'welcome': 'Sveikas atvykęs į mano kliniką! Sėskis… AMŽINAI!',
-    },
-    'mk1': {
-      'intro': 'Žiūrėkit! Mano naujas kūnas! Mark VIENAS!',
-      'obey': 'Meistrai! KLAUSYKIT savo daktaro!',
-      'listen': 'Kodėl jie NEKLAUSO?!',
-      'defeat': 'Paprašysiu… antros nuomonės…',
-    },
-    'sting': {
-      'doctorIn': 'Daktaras… PRIIMA.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Sveikas sugrįžęs, Flux! Pažvelk į slėnį.',
-      'go': 'Apsiginkluok ir pirmyn! Aš pasaugosiu laboratoriją.',
-      'scrapyard': {
-        'won': 'Senasis kranas vėl rūšiuoja laužą.',
-        'weapon': '{weapon} nukopijuota. Ji šaudo trimis kryptimis.',
-        'next': 'Kita stotelė: {sector}. Tik truputį sunkiau.',
-        'boss': '{boss} ten kala šarvus Vexo mašinoms.',
-        'tip': 'Blokuok jo ugnies kamuolius. Pro ugnies bangas praslysk.',
-      },
-      'blaze': {
-        'won': 'Kaminai vėl dega švariai. Puikus darbas!',
-        'weapon': '{weapon} dabar tavo. Ugnis tirpdo ledą!',
-        'next': 'Toliau – {sector}. Ten mašinos smogia stipriau.',
-        'boss': '{boss} pasilaiko visą aušinimo skystį. Miestas kaista.',
-        'tip': 'Blokuok jo ledo šūvius, tada atsakyk ugnimi!',
-      },
-      'cryo': {
-        'won': 'Aušinimo skystis teka namo. Miestas gali atvėsti.',
-        'weapon': '{weapon} tavo. Ledas įveikia žaibą!',
-        'next': 'Toliau – {sector}, miesto centre. Gerokai sunkiau.',
-        'boss': '{boss} pila mūsų elektrą į Raudonąjį signalą.',
-        'tip': 'Jis dažnai teleportuojasi. Numušk jo rutulius.',
-      },
-      'volt': {
-        'won': 'Vexo veidas dabar vis mirga. Matei?',
-        'weapon': '{weapon} tavo. Žaibas įveikia vėją!',
-        'next': 'Toliau – {sector}, aukštai aukštai. Kietos mašinos.',
-        'boss': '{boss} dieną naktį valdo Vexo dirižablius.',
-        'tip': 'Blokuok plunksnas. Atremk, kai jis sminga!',
-      },
-      'gale': {
-        'won': 'Dirižabliai apsisuko. Dangus vėl giedras!',
-        'weapon': '{weapon} tavo. Jo lapai blokuoja šūvius.',
-        'next': 'Dabar miesto pakraštys: {sector}. Daug sunkiau.',
-        'boss': '{boss} užėmė tramvajų bėgius Vexo kroviniams.',
-        'tip': 'Jis tave pritraukia. Blokuok, kai griebia!',
-      },
-      'magnet': {
-        'won': 'Tramvajai vėl važiuoja. Dzin dzin!',
-        'weapon': '{weapon} skaldo skydus. Kaip tik kitam meistrui.',
-        'next': 'Toliau – {sector}, giliai po žeme. Tikrai stiprios mašinos.',
-        'boss': '{boss} įkalino darbininkus robotus šachtoje.',
-        'tip': 'Jis kasasi po tavimi. Pasitrauk nuo žymės!',
-      },
-      'drill': {
-        'won': 'Darbininkai robotai vėl viršuje, dienos šviesoje.',
-        'weapon': '{weapon} daro bum. Pasilik kelias bosui!',
-        'next': 'Toliau – {sector}, apačioje prie vandens. Labai sunku.',
-        'boss': '{boss} tvindo kanalus Vexo baržoms.',
-        'tip': 'Praslysk po jo bangomis. Sprogdink burbulus!',
-      },
-      'tide': {
-        'won': 'Į slėnį vėl teka švarus vanduo.',
-        'weapon': '{weapon} ritasi per ištisus būrius. Bosas nekenčia burbulų!',
-        'next': 'Toliau – {sector}, tamsūs stogai. Tikrai pavojinga.',
-        'boss': '{boss} užgesino visus centro langus.',
-        'tip': 'Jo ašmenys skrenda pirmyn ir atgal. Išsisuk du kartus!',
-      },
-      'neon': {
-        'won': 'Centras šįvakar švyti rožine spalva. Kaip gražu!',
-        'weapon': '{weapon} kerta du kartus. Kitas meistras jų bijo!',
-        'next': 'Toliau – {sector}, aerodromas danguje. Beveik sunkiausia.',
-        'boss': '{boss} pripildo dangų krovininių dronų.',
-        'tip': 'Jis tave nupučia atgal. Praslysk po gūsiais!',
-      },
-      'rotor': {
-        'won': 'Dronai dabar veža siuntas darbininkams robotams.',
-        'weapon': '{weapon} tavo. Trys dronai patys suranda taikinius.',
-        'next': 'Paskutinė stotelė: {sector}. Sunkiausia vieta iš visų.',
-        'boss': '{boss} nebegali slėptis už skydo.',
-        'tip': 'Jis naudoja meistrų atakas. Pasiimk remonto gelio!',
-      },
-    },
   }
 }

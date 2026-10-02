@@ -87,44 +87,38 @@ const readSnapshotFile = (file: string): LeaderboardSnapshotFile | null => {
  */
 // ─── Drop-in asset overrides ─────────────────────────────────────────────────
 //
-// Everything the game draws and plays is procedural (canvas textures, a
-// chiptune synth). A file dropped into one of these folders REPLACES the
+// Everything the game draws and plays is procedural (canvas textures, vector
+// icons, a synth). A file dropped into one of these folders REPLACES the
 // procedural version of the thing it is named after (`art-todo.md`,
 // `sound-todo.md` list the names):
 //
 //   public/audio/sfx/<sfx name>.ogg|mp3|m4a|wav
 //   public/audio/music/<track id>.ogg|mp3|m4a
-//   public/images/textures/floor|wall.webp|png|jpg
+//   public/images/textures/ground.webp|png|jpg
+//   public/images/items|skills|portraits|ui/<name>.webp|png|jpg
 //
 // The folders are listed HERE, at build time, into `virtual:asset-overrides`,
 // so the game only ever requests files that exist: probing at runtime would
 // put a 404 in the console for every missing asset, on every portal, on
 // every load. Dev re-scans when a file is added or removed.
+const IMAGE_EXTS = ['.webp', '.png', '.jpg']
 const OVERRIDE_DIRS = {
   sfx: { dir: 'public/audio/sfx', exts: ['.ogg', '.mp3', '.m4a', '.wav'] },
   music: { dir: 'public/audio/music', exts: ['.ogg', '.mp3', '.m4a'] },
-  textures: { dir: 'public/images/textures', exts: ['.webp', '.png', '.jpg'] }
+  textures: { dir: 'public/images/textures', exts: IMAGE_EXTS },
+  items: { dir: 'public/images/items', exts: IMAGE_EXTS },
+  skills: { dir: 'public/images/skills', exts: IMAGE_EXTS },
+  portraits: { dir: 'public/images/portraits', exts: IMAGE_EXTS },
+  ui: { dir: 'public/images/ui', exts: IMAGE_EXTS }
 } as const
-/** Voice-overs: public/audio/voice/<lang>/<line file>.ogg, one folder per
- *  voiced language (see `src/game/audio/voice.ts` and voice-todo.md). */
-const VOICE_DIR = 'public/audio/voice'
-const VOICE_EXTS = ['.ogg', '.mp3', '.m4a']
-const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], voice: [] as string[] }
-  const voiceAbs = fileURLToPath(new URL(`./${VOICE_DIR}`, import.meta.url))
-  if (existsSync(voiceAbs)) {
-    for (const lang of readdirSync(voiceAbs).filter(d => /^[a-z]{2}$/.test(d)).sort()) {
-      const files = readdirSync(`${voiceAbs}/${lang}`)
-        .filter(f => VOICE_EXTS.includes(f.slice(f.lastIndexOf('.')).toLowerCase()))
-        .sort()
-      for (const f of files) out.voice.push(`${lang}/${f}`)
-    }
-  }
+const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS, string[]> => {
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[] }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue
     out[key as keyof typeof out] = readdirSync(abs)
-      .filter(f => (exts as readonly string[]).includes(f.slice(f.lastIndexOf('.')).toLowerCase()))
+      // A compressor's `<name>-original.<ext>` backup is never an asset.
+      .filter(f => (exts as readonly string[]).includes(f.slice(f.lastIndexOf('.')).toLowerCase()) && !/-original\.[a-z]+$/i.test(f))
       .sort()
   }
   return out
@@ -137,7 +131,7 @@ const assetOverridesPlugin = (): Plugin => {
     resolveId: (id) => (id === ID ? RESOLVED : null),
     load: (id) => (id === RESOLVED ? `export default ${JSON.stringify(scanOverrides())}` : null),
     configureServer(server) {
-      const dirs = [...Object.values(OVERRIDE_DIRS).map(d => d.dir), VOICE_DIR].map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
+      const dirs = Object.values(OVERRIDE_DIRS).map(d => fileURLToPath(new URL(`./${d.dir}`, import.meta.url)))
       server.watcher.add(dirs)
       const onChange = (file: string) => {
         if (!dirs.some(d => file.startsWith(d))) return
@@ -153,7 +147,7 @@ const assetOverridesPlugin = (): Plugin => {
 
 // ─── Engine chunk preload ───────────────────────────────────────────────────
 //
-// The engine (`src/game/boot.ts`: three.js plus the sim, ~1 MB) and the scene
+// The engine (`src/game/boot.ts`: three.js plus the game) and the scene
 // route are DYNAMIC imports, so by default their download only starts once
 // main.ts has finished its portal-SDK and save init and App has mounted the
 // loader — seconds of waiting on a slow network with an idle pipe. These
@@ -191,7 +185,7 @@ const preloadEngineChunksPlugin = (): Plugin => {
 }
 
 const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
-  name: 'mega-leaderboard-snapshot',
+  name: 'leaderboard-snapshot',
   buildStart() {
     if (seeded) {
       // Nothing to fetch: the seed is generated from a curve, committed, and

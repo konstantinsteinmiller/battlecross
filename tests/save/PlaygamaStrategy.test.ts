@@ -14,7 +14,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 
 const STATE_KEY = 'bcross_state'
-const LEGACY_STATE_KEY = 'mega_adventure_state'
 const META_KEY = '__save_meta__'
 
 const sdkActive = ref(true)
@@ -92,9 +91,8 @@ describe('hydrate reads the cloud', () => {
     expect(strat.hydrateState).toBe('success-with-data')
     expect(local.get(STATE_KEY)).toBe(state(12, 900))
     // ONE read for every key — on a whole-blob backend every read is a download.
-    // The pre-rename key rides along so an old cloud save is found in it too.
     expect(cloud.storage.get).toHaveBeenCalledTimes(1)
-    expect(cloud.storage.get).toHaveBeenCalledWith([STATE_KEY, META_KEY, LEGACY_STATE_KEY], false)
+    expect(cloud.storage.get).toHaveBeenCalledWith([STATE_KEY, META_KEY], false)
   })
 
   it('keeps a further-along local save and pushes it up', async () => {

@@ -8,7 +8,7 @@ export default {
 
   /** The cabinet's id for the game (`list_applications`). Filled in, the title
    *  lookup is skipped. */
-  applicationId: 'cmuiivyqo1r0qma0hzdkq9cql',
+  applicationId: '',
 
   /** Archive name in the cabinet: `<archivePrefix>-<version>`. */
   archivePrefix: 'Battlecross',

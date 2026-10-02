@@ -80,7 +80,11 @@ export const GAME_ICON_NAMES = [
   // Neon Blade's mark: a boomerang crescent with a glint.
   'blade',
   // Drone Swarm's mark: three little drones, each a body under a rotor bar.
-  'drones'
+  'drones',
+  // ── Battlecross ───────────────────────────────────────────────────────────
+  // The world map (a folded sheet), the bag, the hero's own sheet (a bust),
+  // a speech bubble for "talk", and a sword for "fight".
+  'map', 'bag', 'hero', 'chat', 'sword'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

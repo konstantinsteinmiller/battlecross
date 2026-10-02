@@ -1,14 +1,12 @@
 import { registerCheat } from '@/use/useCheats'
-import { currentMission } from './boot'
-import { profile, saveProfile, grantXp } from './state/profile'
+import { currentZone } from './boot'
+import { MAP } from './data/zones'
+import { ITEMS } from './data/items'
+import { SKILLS } from './data/skills'
 import { xpToNext } from './data/progression'
-import { SECTORS } from './data/regions'
-import { WEAPONS, type WeaponId } from './data/weapons'
-import { cellCenter } from './world/levelGen'
-import { isSolidAt, floorAt } from './world/nav'
-import { climbJob } from './data/quests'
-import { startMission } from './flow'
-import { wakeGolem } from './sim/enemies'
+import { dealDamage } from './sim/combat'
+import { applyStatus } from './sim/combat'
+import { grantXp, profile, saveProfile } from './state/profile'
 
 /**
  * Dev cheats. They only fire when cheats are enabled: `localStorage.cheat =
@@ -18,93 +16,28 @@ import { wakeGolem } from './sim/enemies'
  * game control uses.
  */
 export const registerGameCheats = (): void => {
-  registerCheat('ctrl+shift+alt+b', '+1000 bolts', () => {
-    profile.bolts += 1000
+  registerCheat('ctrl+shift+alt+b', '+1000 gold', () => {
+    profile.gold += 1000
     saveProfile()
   })
   registerCheat('ctrl+shift+alt+l', 'level up', () => {
     grantXp(xpToNext(profile.level) - profile.hero.xp)
     saveProfile()
   })
-  registerCheat('ctrl+shift+alt+o', 'finish the objective', () => currentMission()?.objects.progress(99))
-  registerCheat('ctrl+shift+alt+k', 'destroy every machine', () => {
-    const m = currentMission()
-    if (!m) return
-    for (const e of m.enemies) {
-      if (e.state === 'dead') continue
-      // A sleeping or unfolding crate golem shrugs off any hit: wake it fully first.
-      if (e.golem) {
-        wakeGolem(m, e)
-        e.golem.unfold = 1
-      }
-      m.system.damageEnemy(e, 1e6, {
-        crit: false, charge: 2, fromX: m.player.x, fromZ: m.player.z, x: e.x, y: 1, z: e.z, color: '#ffffff'
-      })
-    }
+  registerCheat('ctrl+shift+alt+k', 'slay everything awake', () => {
+    const z = currentZone()
+    if (!z) return
+    for (const u of z.sim.units) if (u.alive && u.team === 1) dealDamage(z.sim, z.sim.hero.unit, u, 1e7, { type: 'true', canCrit: false })
   })
-  let god = false
-  registerCheat('ctrl+shift+alt+g', 'god mode (toggle)', () => {
-    const m = currentMission()
-    if (!m) return
-    god = !god
-    m.combat.iframes = god ? 1e9 : 0
+  registerCheat('ctrl+shift+alt+g', 'god mode (10 minutes)', () => {
+    const z = currentZone()
+    if (z) applyStatus(z.sim, z.sim.hero.unit, 'invulnerable', 600, 1, z.sim.hero.unit)
   })
-  // A boss fight is minutes into a mission; QA needs the entrance in seconds.
-  // The corridor outside the shutter, facing it, so the last steps are walked.
-  registerCheat('ctrl+shift+alt+j', 'jump to the boss door', () => {
-    const m = currentMission()
-    const d = m?.map.doors.find(o => o.boss)
-    if (!m || !d) return
-    const dx = cellCenter(d.i)
-    const dz = cellCenter(d.j)
-    // Back along the corridor, away from the boss room (`dir` points into it).
-    const bx = d.axis === 'x' ? -d.dir : 0
-    const bz = d.axis === 'z' ? -d.dir : 0
-    let back = 4.5
-    while (back > 1.5 && isSolidAt(m.nav, dx + bx * back, dz + bz * back)) back -= 0.5
-    const p = m.player
-    p.x = p.px = dx + bx * back
-    p.z = p.pz = dz + bz * back
-    // On the climb's floor there (0 on a flat map), not in mid-air.
-    p.y = p.py = p.safeY = floorAt(m.nav, p.x, p.z)
-    p.vy = 0
-    p.ladder = -1
-    p.path = null
-    p.yaw = Math.atan2(bx, bz)
-  })
-  // The climb (Tower Run) is offered only after a boss falls; QA wants it now.
-  // In the selected sector (any, boss beaten or not), a fresh seed each time.
-  registerCheat('ctrl+shift+alt+c', 'start a climb (Tower Run)', () => {
-    const sector = profile.world.selected ?? 'scrapyard'
-    const q = climbJob((Date.now() >>> 0) ^ 0x51ab, [sector], profile.level)
-    void startMission(q)
-  })
-  // …and each section of it without climbing the ones before.
-  registerCheat('ctrl+shift+alt+n', 'climb: skip to the next checkpoint', () => {
-    const m = currentMission()
-    const cl = m?.climb
-    if (!m || !cl) return
-    const c = cl.t.checkpoints[Math.min(cl.t.checkpoints.length - 1, cl.cp + 1)]
-    if (!c) return
-    cl.cp = cl.t.checkpoints.indexOf(c)
-    const p = m.player
-    p.x = p.px = c.x
-    p.z = p.pz = c.z
-    p.y = p.py = p.safeY = c.y
-    p.yaw = c.yaw
-    p.vx = p.vz = p.vy = 0
-    p.ground = true
-    p.ladder = -1
-    p.path = null
-  })
-  // A tutorial door waits for its lesson however long it takes (no stand-in
-  // cap any more, `sim/walkthrough.ts`); QA walks on without it.
-  registerCheat('ctrl+shift+alt+w', 'tutorial: open the next lesson door', () => currentMission()?.walk?.devPass())
-  registerCheat('ctrl+shift+alt+u', 'unlock every sector and weapon', () => {
-    profile.world.unlocked = SECTORS.map(s => s.id)
-    for (const id of Object.keys(WEAPONS) as WeaponId[]) {
-      if (!profile.hero.weapons.includes(id)) profile.hero.weapons.push(id)
-    }
+  registerCheat('ctrl+shift+alt+u', 'open the whole map, learn and own everything', () => {
+    for (const n of MAP) if (!profile.world.cleared.includes(n.id)) profile.world.cleared.push(n.id)
+    for (const f of ['arenaOpen', 'throneDone']) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
+    for (const s of SKILLS) if (!profile.hero.learned.includes(s.id)) profile.hero.learned.push(s.id)
+    for (const i of ITEMS) if (!profile.inv.items.includes(i.id)) profile.inv.items.push(i.id)
     saveProfile()
   })
 }

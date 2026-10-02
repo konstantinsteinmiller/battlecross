@@ -8,7 +8,7 @@
 // this player's score would never have been posted anywhere.
 //
 // Pinned: a player joins the board once on arrival (the boot scene), and every
-// mission end — win OR defeat, since lifetime XP grows on both — reports the
+// visit's end — win OR defeat, since lifetime XP grows on both — reports the
 // lifetime XP the save holds, which is also the number YouTube requires the
 // sent score to match.
 
@@ -26,29 +26,27 @@ vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => {} }))
 vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInterstitialShown: () => {} }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))
 
-const tally = { xp: 40, bolts: 5, kills: 3, chests: 0, items: [], seconds: 30 }
+const tally = { xp: 40, gold: 5, kills: 3, items: [], seconds: 30, waves: 0 }
 
 describe('portal leaderboard wiring (game/flow.ts)', () => {
   beforeEach(async () => {
     h.join.length = 0
     h.best.length = 0
-    // A mission end saves the profile on the debounce; hold the instance so
+    // A visit's end saves the profile on the debounce; hold the instance so
     // the write lands in THIS case's storage (tests/stubs/drainPersist.ts).
     await holdGameState()
   })
   afterEach(() => { drainPersist() })
 
-  it('reports lifetime XP at every mission end — a win and a defeat alike', async () => {
+  it('reports lifetime XP at the end of every visit — a win and a defeat alike', async () => {
     const flowMod = await import('@/game/flow')
     const { lifetimeXp } = await import('@/game/state/profile')
-    const { tutorialQuest } = await import('@/game/data/quests')
-    flowMod.flow.quest = tutorialQuest()
 
-    await flowMod.finishMission(true, tally)
+    await flowMod.bankVisit('victory', 'plains', tally)
     expect(h.best).toEqual([lifetimeXp()])
+    expect(lifetimeXp()).toBe(40)
 
-    flowMod.flow.quest = tutorialQuest()
-    await flowMod.finishMission(false, tally)
+    await flowMod.bankVisit('defeat', 'plains', tally)
     expect(h.best).toHaveLength(2)
     expect(h.best[1]).toBe(lifetimeXp())
     expect(h.best[1]).toBeGreaterThanOrEqual(h.best[0]!)
@@ -57,9 +55,10 @@ describe('portal leaderboard wiring (game/flow.ts)', () => {
   it('joins the board once the boot scene is built, at the saved lifetime XP', async () => {
     const flowMod = await import('@/game/flow')
     const { lifetimeXp } = await import('@/game/state/profile')
-    const fakeMode = {} as never
-    flowMod.registerModeFactories(async () => fakeMode, () => fakeMode)
+    const fakeMode = { setup: { theme: 'plains' } } as never
+    flowMod.setNodeBuilder(async () => fakeMode)
     await flowMod.createBootMode()
+    flowMod.setNodeBuilder(null)
     expect(h.join).toEqual([lifetimeXp()])
   })
 })

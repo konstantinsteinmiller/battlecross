@@ -1,7 +1,5 @@
 import { createApp, watch } from 'vue'
 import router from '@/router'
-import '@fontsource/russo-one/400.css'
-import '@fontsource/press-start-2p/400.css'
 import '@/assets/css/tailwind.css'
 import '@/assets/css/index.sass'
 import { createI18n } from 'vue-i18n'
@@ -240,7 +238,7 @@ const bootstrap = async () => {
   // CrazyGames cloud-only mode: gameplay state and our save bookkeeping
   // (`__save_*`) live in memory only; `sdk.data` is the sole persistence
   // backend. CG QA explicitly requires that no state blob (`bcross_state`,
-  // or its pre-rename name `LEGACY_KEYS.STATE`) / `ma_*` /
+  // or / `bc_*` /
   // `__save_*` keys appear in raw localStorage — only dev toggles
   // (`fps`, `debug`, `cheat`, `campaign-test`, `full_unlocked`) are
   // exempt. Inline env-literal so Vite tree-shakes the dead branch on
@@ -257,7 +255,7 @@ const bootstrap = async () => {
     // matter the hydrate timing.
   ;(window as any).__saveManager = saveManager
 
-  // Defense-in-depth state-blob / `ma_*` / `__save_*` safety remove on
+  // Defense-in-depth state-blob / `bc_*` / `__save_*` safety remove on
   // CG builds. BlobStorage's `scrubRawForCloudOnly()` already wiped these
   // at construction (it seeded into `state` first, so progress is
   // preserved); this second pass catches anything BlobStorage missed. The
@@ -267,7 +265,7 @@ const bootstrap = async () => {
   // `sdk.data`, not raw storage, is where the save lives.
   // MUST run BEFORE `saveManager.init()` because init patches
   // `localStorage.setItem` / `removeItem` to forward to the strategy —
-  // calling the patched removeItem on a `ma_*` key would issue a
+  // calling the patched removeItem on a `bc_*` key would issue a
   // cloud delete via `sdk.data.removeItem`, wiping the player's save.
   // Pre-init, `localStorage.removeItem` is still native and these
   // removes are local-only.

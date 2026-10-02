@@ -1,10 +1,18 @@
 /// <reference types="vite/client" />
 
 /** Drop-in asset files present at build time (see `assetOverridesPlugin` in
- *  vite.config.ts): file names inside public/audio/sfx, public/audio/music
- *  and public/images/textures. */
+ *  vite.config.ts): file names inside public/audio/sfx, public/audio/music and
+ *  public/images/{textures,items,skills,portraits,ui}. */
 declare module 'virtual:asset-overrides' {
-  const overrides: { sfx: string[]; music: string[]; textures: string[]; voice: string[] }
+  const overrides: {
+    sfx: string[]
+    music: string[]
+    textures: string[]
+    items: string[]
+    skills: string[]
+    portraits: string[]
+    ui: string[]
+  }
   export default overrides
 }
 

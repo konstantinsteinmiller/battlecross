@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const STATE_KEY = 'bcross_state'
 const META_KEY = '__save_meta__'
-const BLOB = 'spin_and_mow_blob'
+const BLOB = 'bcross_blob'
 
 let player: { getData: ReturnType<typeof vi.fn>; setData: ReturnType<typeof vi.fn> } | null = null
 

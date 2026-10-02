@@ -1,6 +1,6 @@
 {
-  "name": "Battlecross",
-  "version": "0.5.0",
+  "name": "battlecross",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -32,7 +32,6 @@
     "leaderboard:snapshot": "node scripts/leaderboard-snapshot.mjs",
     "playgama:leaderboard:check": "node scripts/playgama-leaderboard-check.mjs",
     "perf:ab": "node scripts/perf-ab.mjs",
-    "perf:mission": "node scripts/perf-mission.mjs",
     "perf:builds": "node scripts/perf-builds.mjs",
     "qa:portal": "node scripts/portal-qa.mjs",
     "qa:xbrowser": "node scripts/xbrowser.mjs",
@@ -40,23 +39,12 @@
     "compress-bench": "node scripts/image-compress-bench.mjs",
     "compress-folder-with-backup": "node scripts/compress-images.mjs public/images --max-effort --backup-dir public-backup",
     "preview:video": "node tools/preview-video/record.mjs",
-    "voice:script": "node --experimental-strip-types --no-warnings tools/voice-script.mjs",
-    "voice:report": "node --experimental-strip-types --no-warnings tools/voice-report.mjs",
-    "voice:cards": "node --experimental-strip-types --no-warnings tools/voice/cards.mjs",
-    "voice:collect": "node --experimental-strip-types --no-warnings tools/voice/collect.mjs",
-    "voice:gen": "node --experimental-strip-types --no-warnings tools/voice/generate.mjs",
-    "voice:compare": "node --experimental-strip-types --no-warnings tools/voice/compare.mjs",
-    "voice:setup": "node --experimental-strip-types --no-warnings tools/voice/setup.mjs",
     "art:desk": "node tools/art-desk/server.mjs",
-    "art:comic": "node tools/art-comic.mjs",
-    "art:promotion": "node tools/art-promotion.mjs",
-    "art:portraits": "node scripts/render-portraits.mjs",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs"
   },
   "dependencies": {
-    "@fontsource/press-start-2p": "^5.3.0",
-    "@fontsource/russo-one": "^5.3.0",
     "@playgama/bridge": "^2.2.0",
     "@vueuse/core": "^14.2.1",
     "@wvdsh/sdk-js": "^0.0.38",

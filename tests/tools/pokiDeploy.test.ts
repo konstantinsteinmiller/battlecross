@@ -28,6 +28,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 const ROOT = resolve(__dirname, '..', '..')
 const TOOL = join(ROOT, 'tools', 'poki-deploy')
 const SURVIVALIST_ID = '1d51788e-5771-4d70-8290-59366fb9773f'
+const MEGA_DROID_ID = '9b504ac8-a798-4111-b0e5-a7c569fcec46'
 const FRESH_ID = '0f1e2d3c-4b5a-4968-8776-a5b4c3d2e1f0'
 
 const load = async <T = any>(file: string): Promise<T> => await import(pathToFileURL(join(TOOL, file)).href)
@@ -67,6 +68,13 @@ describe('gameId guard (lib/target.mjs)', () => {
     }
   })
 
+  it("refuses Mega Droid's game id (the repo this one was copied from)", async () => {
+    const { checkGameId } = await load('lib/target.mjs')
+    const r = checkGameId(MEGA_DROID_ID)
+    expect(r.ok).toBe(false)
+    expect(r.why).toMatch(/Mega Droid/)
+  })
+
   it('accepts a well-formed id of this game', async () => {
     const { checkGameId } = await load('lib/target.mjs')
     expect(checkGameId(FRESH_ID.toUpperCase())).toEqual({ ok: true, gameId: FRESH_ID })
@@ -74,7 +82,7 @@ describe('gameId guard (lib/target.mjs)', () => {
 })
 
 describe('poki.config.mjs is Battlecross\'s', () => {
-  it('names, packs and versions the right game, under its registered gameId', async () => {
+  it('names, packs and versions the right game, and carries no id until P4D issues one', async () => {
     const { default: cfg } = await load('poki.config.mjs')
     const { checkGameId } = await load('lib/target.mjs')
     expect(cfg.gameName).toBe('Battlecross')
@@ -83,8 +91,9 @@ describe('poki.config.mjs is Battlecross\'s', () => {
     expect(cfg.dist).toBe('dist')
     expect(cfg.build).toBe('pnpm build:poki')
     expect(cfg.versionName('0.1.1')).toBe('Battlecross 0.1.1')
-    expect(cfg.gameId).toBe('9b504ac8-a798-4111-b0e5-a7c569fcec46')
-    expect(checkGameId(cfg.gameId).ok).toBe(true)
+    // Empty until Battlecross exists in P4D; a filled one must be its own.
+    if (cfg.gameId === '') expect(checkGameId(cfg.gameId).ok).toBe(false)
+    else expect(checkGameId(cfg.gameId).ok).toBe(true)
     expect(cfg.declares).toEqual({ usernames: false, chat: false })
     expect(cfg.allowHosts).toEqual([])
   })
@@ -127,33 +136,28 @@ describe('poki.config.mjs is Battlecross\'s', () => {
       bc_gold: 120,
       bc_story: 1,
       bc_quests_done: 2,
-      bc_hero: { xp: 950, weapons: ['buster', 'spread'] },
-      bc_world: { unlocked: ['scrapyard', 'foundry'], bosses: ['scrapper'], tutorialDone: true },
-      // Volatile on a reload — must not be part of the snapshot.
-      bc_mission: { quest: { id: 'q1' }, player: { x: 1, z: 2 } },
-      bc_quests: { jobSeed: 12345 }
+      bc_hero: { xp: 950, learned: ['shieldSlam', 'fireball'] },
+      bc_world: { cleared: ['plains', 'sunford'], flags: ['arenaOpen'] },
+      bc_inventory: { items: ['rustedShortsword', 'woodenBuckler', 'paddedTunic'] },
+      // Volatile — must not be part of the snapshot.
+      bc_stats: { playSeconds: 12345 }
     }))
     expect(run()).toEqual({
-      level: 3, xp: 950, bolts: 120, story: 1, questsDone: 2,
-      tutorialDone: true, sectors: 2, bosses: 1, weapons: 2
+      level: 3, xp: 950, gold: 120, story: 1, questsDone: 2,
+      cleared: 2, flags: 1, skills: 2, items: 3
     })
 
     store.set('bcross_state', '{not json')
     expect(run()).toBeNull()
   })
 
-  it('falls back to a pre-rename save the game has not migrated yet, and prefers the new key', async () => {
+  it('never reads another game\'s blob', async () => {
     const { default: cfg } = await load('poki.config.mjs')
-    const store = new Map<string, string>()
+    const store = new Map<string, string>([['mega_adventure_state', JSON.stringify({ bc_level: 4, bc_gold: 10 })]])
     const localStorage = { getItem: (k: string) => store.get(k) ?? null }
     // eslint-disable-next-line no-new-func
     const run = () => new Function('localStorage', `return ${cfg.hooks.readProgress}`)(localStorage)
-
-    store.set('mega_adventure_state', JSON.stringify({ bc_level: 4, bc_gold: 10 }))
-    expect(run()).toMatchObject({ level: 4, bolts: 10 })
-
-    store.set('bcross_state', JSON.stringify({ bc_level: 6, bc_gold: 30 }))
-    expect(run()).toMatchObject({ level: 6, bolts: 30 })
+    expect(run()).toBeNull()
   })
 })
 

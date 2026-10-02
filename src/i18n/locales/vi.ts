@@ -5,15 +5,9 @@ export default {
   'close': 'Đóng',
   'ok': 'OK',
   'continue': 'Tiếp tục',
-  'tapToContinue': 'Chạm để tiếp tục',
-  'clickToContinue': 'Nhấp để tiếp tục',
-  'rewards': 'PHẦN THƯỞNG',
-  'tip': 'Mẹo',
   'onlyAvailableOn': 'Trò chơi này chỉ có trên',
 
   'ui': {
-    'killcamCount': 'Camera hạ gục trong nhiệm vụ: {n}',
-    'killcamOff': 'Tắt camera hạ gục',
     'next': 'Tiếp',
     'replay': 'Chơi lại',
     'back': 'Quay lại',
@@ -22,479 +16,594 @@ export default {
     'menu': 'Menu',
     'home': 'Trang chính',
     'info': 'Thông tin',
-    'skip': 'Bỏ qua',
-    'holdToSkip': 'Giữ {key} để bỏ qua'
+    'help': 'Điều khiển',
+    'ok': 'Đã hiểu',
+    'continue': 'Tiếp tục'
+  },
+
+  'hud': {
+    'level': 'Cấp {n}',
+    'health': 'Máu {n} trên {max}',
+    'mana': 'Mana {n} trên {max}',
+    'heat': 'Nhiệt',
+    'xp': 'XP',
+    'gold': '{n} vàng',
+    'potion': 'Bình máu (còn {n})',
+    'groups': 'Đã hạ {n} trên {total} nhóm địch',
+    'wave': 'Đợt {n} / {total}'
+  },
+  'menu': {
+    'map': 'Bản đồ thế giới',
+    'character': 'Anh hùng',
+    'skills': 'Kỹ năng',
+    'inventory': 'Túi đồ'
   },
 
   'combat': {
-    'tink': 'KENG!',
-    'perfect': 'HOÀN HẢO!',
-    'parry': 'GẠT ĐÒN!',
-    'guardBreak': 'PHÁ THỦ!',
-    'guardCracked': 'Thế thủ đã nứt!',
-    'xp': '+{n} XP',
-    'lastStand': 'Tử Thủ! Hệ thống đã khởi động lại.',
-    'weak': 'YẾU ĐIỂM!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'CHOÁNG!',
-    'dodge': 'NÉ!',
-    'block': 'Chặn',
-    'slide': 'Trượt',
-    'fire': 'Bắn',
-    'tank': 'Gel Sửa Chữa',
-    'noEnergy': 'Không đủ năng lượng vũ khí',
-    'tankCount': 'Gel Sửa Chữa: {n}/{max}',
-    'borrowed': 'Vũ khí mượn {weapon}: {n}/{max} phát',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': 'Né',
+    'block': 'Đỡ đòn',
+    'immune': 'Miễn nhiễm'
+  },
+  'status': {
+    'stun': 'Choáng',
+    'knockup': 'Hất tung',
+    'knockdown': 'Ngã gục',
+    'stasis': 'Ngưng đọng',
+    'petrify': 'Hóa đá',
+    'frozen': 'Đóng băng',
+    'fear': 'Hoảng sợ',
+    'slow': 'Làm chậm',
+    'confuse': 'Rối loạn',
+    'taunt': 'Bị khiêu khích',
+    'armorShred': 'Vỡ giáp',
+    'weaken': 'Suy yếu',
+    'vulnerable': 'Dễ tổn thương',
+    'burn': 'Thiêu đốt',
+    'poison': 'Trúng độc',
+    'bleed': 'Chảy máu',
+    'delayed': 'Sát thương trễ',
+    'haste': 'Thần tốc',
+    'attackSpeed': 'Đánh nhanh',
+    'damageUp': 'Cường hóa',
+    'defenseUp': 'Kiên cố',
+    'regen': 'Hồi phục',
+    'lifestealUp': 'Hút máu',
+    'invulnerable': 'Bất khả xâm phạm',
+    'unkillable': 'Bất tử',
+    'stealth': 'Ẩn thân',
+    'reflect': 'Phản đòn',
+    'envenom': 'Lưỡi dao độc',
+    'exosuit': 'Giáp Exo',
+    'focus': 'Tập trung',
+    'accelerate': 'Gia tốc',
+    'overheat': 'Quá nhiệt',
+    'enrage': 'Cuồng nộ',
+    'ambush': 'Phục kích'
+  },
+  'toast': {
+    'item': 'Tìm thấy: {item}',
+    'levelUp': 'Cấp {level}! +3 điểm thuộc tính',
+    'boss': '{boss} xuất hiện',
+    'wave': 'Đợt {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Ối ối!',
-      '2': 'Bzzt! Úi!',
-      '3': 'Tay tớ bị nấc cụt!',
-      '4': 'Lỗi… uii!',
-      '5': 'Mạch trơn như bơ!',
-      '6': 'Chế độ lắc lư BẬT!'
+  'coach': {
+    'move': {
+      'touch': 'Chạm vào mặt đất để đi tới đó, hoặc dùng cần điều khiển.',
+      'mouse': 'Nhấp vào mặt đất để đi tới đó, hoặc điều khiển bằng các phím di chuyển.'
+    },
+    'target': {
+      'touch': 'Chạm vào kẻ địch, hoặc kéo từ anh hùng của bạn sang nó, để tấn công.',
+      'mouse': 'Nhấp vào kẻ địch để tấn công.'
+    },
+    'skill': {
+      'touch': 'Chạm vào một kỹ năng để dùng lên mục tiêu.',
+      'mouse': 'Nhấn phím kỹ năng để dùng lên mục tiêu.'
+    },
+    'aim': {
+      'touch': 'Kéo kỹ năng ra chiến trường để ngắm, rồi thả tay để thi triển.',
+      'mouse': 'Kéo kỹ năng ra chiến trường để ngắm, rồi thả tay để thi triển.'
+    },
+    'potion': {
+      'touch': 'Chạm vào bình thuốc để hồi máu.',
+      'mouse': 'Nhấn phím bình thuốc để hồi máu.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Thị trấn nông trang bên rìa đồng bằng. Mái nhà, một thợ rèn và hai người huấn luyện.' },
+    'plains': { 'name': 'Đồng Bằng Sunford', 'desc': 'Goblin, sói và thổ phỉ rỉa dần các đoàn buôn trên đường cái.' },
+    'hollows': { 'name': 'Hang Goblin', 'desc': 'Những hang động dưới chân đồi. Vua Goblin ngự triều ở tận đáy.' },
+    'arena': { 'name': 'Đấu Trường', 'desc': 'Tám đợt, đợt sau khó hơn đợt trước. Vàng và vinh quang cho ai còn đứng vững.' },
+    'woods': { 'name': 'Rừng Thì Thầm', 'desc': 'Những cây cổ thụ biết đi, và lũ nhện giăng tơ giữa chúng.' },
+    'outskirts': { 'name': 'Ngoại Ô Oakhaven', 'desc': 'Những nông trại bốc cháy bên ngoài Oakhaven. Đạo quân của một lãnh chúa đã áp sát cổng thành.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Một thị trấn buôn bán có tường bao. Nó sẽ ra sao là tùy ở bạn.' },
+    'crags': { 'name': 'Vách Đá Tro Tàn', 'desc': 'Đá đen và lửa trần. Bọn tín đồ tiếp thêm củi cho ngọn lửa.' },
+    'mines': { 'name': 'Mỏ Ironhold', 'desc': 'Người lùn đào quá sâu và đánh thức một thứ phát sáng.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'Thị trấn lò rèn trên núi. Thứ thép tốt nhất vương quốc được rèn ở đây.' },
+    'tundra': { 'name': 'Lãnh Nguyên Băng Giá', 'desc': 'Vùng hoang mạc trắng xóa, nơi người khổng lồ bước đi và kẻ chết không chịu nằm yên.' },
+    'temple': { 'name': 'Đền Chìm', 'desc': 'Những sảnh đường ngập nước của tộc naga, và một nhà tiên tri nhìn thấy mọi kết cục.' },
+    'citadel': { 'name': 'Thành Trì Hư Không', 'desc': 'Một pháo đài năm ngoái còn chưa có ở đó. Tường của nó rì rầm.' },
+    'peak': { 'name': 'Đỉnh Rồng', 'desc': 'Phi long lượn quanh đỉnh núi. Một thứ to lớn hơn nhiều đang ngủ trên đó.' },
+    'fortress': { 'name': 'Pháo Đài Kinh Hoàng', 'desc': 'Nơi Ma Vương ngự trị, và là ngai vàng mà phe nào cũng thèm muốn.' },
+    'rift': { 'name': 'Khe Nứt Hư Không', 'desc': 'Vết thương mà lũ quỷ đã chui qua. Chúa Tể Hư Không đang đợi ở phía bên kia.' }
+  },
+  'map': {
+    'title': 'Vương Quốc',
+    'town': 'Thị trấn',
+    'levels': 'Cấp {min}–{max}',
+    'arenaBest': 'Kỷ lục: đợt {n}',
+    'travel': 'Lên đường',
+    'again': 'Đi lại',
+    'enter': 'Vào',
+    'fight': 'Chiến',
+    'back': 'Về thị trấn',
+    'locked': 'Dọn sạch một vùng lân cận để mở đường.',
+    'lockedArena': 'Cổng sẽ mở khi chuyện với Vua Goblin đã xong.',
+    'lockedRift': 'Nó mở ra khi ngai vàng của Pháo Đài Kinh Hoàng được định đoạt.',
+    'danger': {
+      '1': 'Hơi cao hơn cấp của bạn.',
+      '2': 'Nguy hiểm ở cấp của bạn.',
+      '3': 'Cao hơn cấp của bạn rất nhiều.'
+    },
+    'questOpen': '{quest}: một quyết định đang chờ ở đây.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Người huấn luyện ẩn: {cls}'
+  },
+  'travel': {
+    'to': 'Đang đi tới',
+    'loading': 'Đang tải'
+  },
+
+  'attr': {
+    'str': { 'name': 'Sức mạnh', 'short': 'SM', 'desc': 'Sức đánh cận chiến, tỉ lệ đỡ đòn, giáp nặng.' },
+    'dex': { 'name': 'Khéo léo', 'short': 'KL', 'desc': 'Đòn chí mạng, tốc độ đánh và di chuyển.' },
+    'int': { 'name': 'Trí tuệ', 'short': 'TT', 'desc': 'Sức mạnh phép thuật, mana, kháng nguyên tố.' },
+    'end': { 'name': 'Sức bền', 'short': 'SB', 'desc': 'Máu, hồi phục, giáp, kháng choáng.' },
+    'skl': { 'name': 'Kỹ xảo', 'short': 'KX', 'desc': 'Sát thương chí mạng, hồi chiêu, vũ khí tầm xa.' },
+    'cha': { 'name': 'Mị lực', 'short': 'ML', 'desc': 'Thuộc hạ, giá cửa hàng, phần thưởng, lựa chọn hội thoại.' }
+  },
+  'stat': {
+    'health': 'Máu',
+    'mana': 'Mana',
+    'armor': 'Giáp',
+    'resist': 'Kháng phép',
+    'crit': 'Tỉ lệ chí mạng',
+    'critDamage': 'ST chí mạng',
+    'attackSpeed': 'Tốc độ đánh',
+    'moveSpeed': 'Tốc độ chạy',
+    'cdr': 'Giảm hồi chiêu',
+    'block': 'Đỡ đòn',
+    'dodge': 'Né',
+    'hpRegen': 'Máu / giây'
+  },
+  'sheet': {
+    'points': 'Còn {n} điểm để dùng',
+    'raise': 'Tăng {attr}',
+    'maxLevel': 'Đã đạt cấp cao nhất'
+  },
+
+  'skills': {
+    'active': 'Kỹ năng chủ động',
+    'passive': 'Kỹ năng bị động',
+    'known': 'Đã học',
+    'none': 'Chưa học được gì. Hãy tìm người huấn luyện trong thị trấn.',
+    'emptySlot': 'Ô trống {n}',
+    'equip': 'Gắn vào',
+    'remove': 'Gỡ ra',
+    'unmet': 'Bạn không còn đáp ứng yêu cầu của nó.'
+  },
+  'class': {
+    'aegis': { 'name': 'Kỵ Sĩ Aegis', 'desc': 'Khiên và thép thánh. Hứng đòn để không ai khác phải hứng.' },
+    'shadow': { 'name': 'Ảnh Kiếm', 'desc': 'Bước ra từ bóng tối, đánh từ sau lưng rồi biến mất.' },
+    'pyro': { 'name': 'Hỏa Pháp Sư', 'desc': 'Lửa trả lời mọi câu hỏi. Đốt chúng, rồi cho nổ tung.' },
+    'sovereign': { 'name': 'Đại Quân Vương', 'desc': 'Sao phải chiến đấu một mình? Triệu hồi vệ binh và ra lệnh cho họ.' },
+    'chrono': { 'name': 'Người Dệt Thời Gian', 'desc': 'Dừng kẻ địch trong thời gian, tăng tốc đồng minh và sửa lại sai lầm.' },
+    'blood': { 'name': 'Huyết Giả Kim', 'desc': 'Trả bằng máu để lấy sức mạnh, rồi uống lại từ kẻ địch.' },
+    'aether': { 'name': 'Kỹ Sư Aether', 'desc': 'Súng, tháp pháo và thanh nhiệt. Hãy xả nhiệt trước khi nó khóa bạn lại.' },
+    'geo': { 'name': 'Địa Pháp Sư', 'desc': 'Dựng tường và gai đá, và xé toạc cả mặt đất.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Chủ động', 'passive': 'Bị động' },
+    'cooldown': 'Hồi chiêu {n} giây',
+    'mana': '{n} mana',
+    'hpCost': '{n}% máu',
+    'heat': '+{n} nhiệt',
+    'aimed': 'Kéo để ngắm',
+
+    'shieldSlam': { 'name': 'Nện Khiên', 'desc': 'Nện mục tiêu gây {dmg}% sát thương Sức mạnh và làm choáng {stun} giây.' },
+    'aegisAura': { 'name': 'Hào Quang Aegis', 'desc': '+{armor}% Giáp, và sát thương vật lý phải nhận giảm {reduce}%.' },
+    'radiantStrike': { 'name': 'Đòn Rạng Ngời', 'desc': 'Một đòn thánh gây {dmg}% sát thương Sức mạnh và hồi cho bạn {heal}% sát thương gây ra.' },
+    'fortitude': { 'name': 'Kiên Cường', 'desc': 'Một đòn lấy hơn {hit}% máu của bạn sẽ tạo lá chắn bằng {shield}% máu trong {dur} giây. Mỗi {icd} giây một lần.' },
+    'tauntingCry': { 'name': 'Tiếng Hét Khiêu Khích', 'desc': 'Kẻ địch trong {radius} m tấn công bạn trong {dur} giây. Trong lúc đó bạn nhận {def}% Phòng thủ.' },
+    'holyBastion': { 'name': 'Thành Lũy Thánh', 'desc': 'Bất khả xâm phạm trong {dur} giây. Kẻ tấn công nhận lại {reflect}% sát thương của chúng.' },
+
+    'shadowstep': { 'name': 'Bước Bóng Tối', 'desc': 'Hiện ra sau lưng mục tiêu và đâm lén gây {dmg}% sát thương Khéo léo.' },
+    'lethality': { 'name': 'Chí Tử', 'desc': '+{crit}% Tỉ lệ Chí mạng và +{critDmg}% Sát thương Chí mạng.' },
+    'venomousBlade': { 'name': 'Lưỡi Dao Độc', 'desc': 'Trong {dur} giây, đòn đánh của bạn gây độc {poison}% Khéo léo trong {over} giây, cộng dồn {stacks} lần.' },
+    'evasion': { 'name': 'Lẩn Tránh', 'desc': '+{dodge}% Né. Mỗi lần né cho {haste}% Thần tốc trong {dur} giây.' },
+    'smokeBomb': { 'name': 'Bom Khói', 'desc': 'Biến mất trong {dur} giây. Đòn đánh kế tiếp khi đang ẩn thân gây thêm +{bonus}% sát thương.' },
+    'danceOfBlades': { 'name': 'Vũ Điệu Lưỡi Dao', 'desc': 'Lướt giữa các kẻ địch trong {radius} m, chém {hits} lần gây tổng cộng {dmg}% sát thương Khéo léo. Bạn không thể bị đánh trúng khi đang múa.' },
+
+    'fireball': { 'name': 'Cầu Lửa', 'desc': 'Một quả cầu lửa nổ gây {dmg}% sát thương Trí tuệ và thiêu đốt thêm {burn}% trong {burnDur} giây.' },
+    'cauterize': { 'name': 'Đốt Liền Vết Thương', 'desc': 'Kẻ địch đang bị thiêu đốt gây ít hơn {reduce}% sát thương lên bạn.' },
+    'flamePillar': { 'name': 'Cột Lửa', 'desc': 'Một cột lửa phun lên ở nơi bạn ngắm: {dmg}% sát thương Trí tuệ trong {dur} giây. Kẻ địch dính phải bị hất tung lên không.' },
+    'pyromaniac': { 'name': 'Cuồng Hỏa', 'desc': 'Một đòn phép chí mạng giảm {cut} giây hồi chiêu các kỹ năng lửa.' },
+    'combustion': { 'name': 'Bùng Cháy', 'desc': 'Kích nổ mọi hiệu ứng thiêu đốt trong {radius} m: mỗi cái gây ngay {pct}% sát thương còn lại của nó thành một vụ nổ.' },
+    'cataclysm': { 'name': 'Đại Tai Biến', 'desc': 'Gọi {meteors} thiên thạch trong {dur} giây. Mỗi quả gây {dmg}% sát thương Trí tuệ.' },
+
+    'royalGuard': { 'name': 'Cận Vệ Hoàng Gia', 'desc': 'Triệu hồi một vệ binh chiến đấu bên bạn, đánh gây {dmg}% sát thương Mị lực. Tối đa {max} cùng lúc.' },
+    'inspiringPresence': { 'name': 'Uy Phong Khích Lệ', 'desc': 'Thuộc hạ của bạn đánh nhanh hơn {speed}% và có thêm {hp}% máu.' },
+    'commandFocus': { 'name': 'Lệnh Tập Kích', 'desc': 'Mọi thuộc hạ lao vào mục tiêu: +{move}% tốc độ chạy và +{atk}% tốc độ đánh trong {dur} giây.' },
+    'sovereignsTribute': { 'name': 'Cống Phẩm Quân Vương', 'desc': '{share}% sát thương bạn nhận được chuyển sang thuộc hạ.' },
+    'bannerOfVictory': { 'name': 'Chiến Kỳ Chiến Thắng', 'desc': 'Cắm một lá cờ trong {dur} giây. Đồng minh ở gần gây thêm +{dmg}% sát thương và hồi {regen}% máu mỗi giây.' },
+    'armyOfTheRealm': { 'name': 'Đạo Quân Vương Quốc', 'desc': 'Triệu hồi {archers} cung thủ, {guards} vệ binh và một pháp sư chiến trận trong {dur} giây.' },
+
+    'temporalStasis': { 'name': 'Ngưng Đọng Thời Gian', 'desc': 'Đóng băng mục tiêu trong thời gian {dur} giây. Nó không thể hành động và không thể bị tổn hại.' },
+    'hasteField': { 'name': 'Vùng Thần Tốc', 'desc': 'Trong {dur} giây, bạn và đồng minh ở gần di chuyển nhanh hơn {move}% và đánh nhanh hơn {speed}%.' },
+    'timeDistort': { 'name': 'Bóp Méo Thời Gian', 'desc': '{share}% sát thương bạn nhận bị trì hoãn và gây dần trong {over} giây.' },
+    'paradoxShift': { 'name': 'Hoán Đổi Nghịch Lý', 'desc': 'Đổi chỗ với mục tiêu. Nó nhận {dmg}% sát thương Trí tuệ và kẻ địch xung quanh bị rối loạn {confuse} giây.' },
+    'entropy': { 'name': 'Entropy', 'desc': 'Mỗi lần thi triển khiến hồi chiêu của bạn ngắn hơn {cdr}%, cộng dồn {stacks} lần.' },
+    'chronoRewind': { 'name': 'Tua Ngược Thời Gian', 'desc': 'Trở về nơi bạn đứng {back} giây trước, với lượng máu và mana lúc đó.' },
+
+    'sanguineFlask': { 'name': 'Bình Huyết', 'desc': 'Ném một bình máu của chính bạn: {dmg}% sát thương Sức bền trên một vùng, và phá {shred}% giáp trong {shredDur} giây.' },
+    'bloodTransmutation': { 'name': 'Chuyển Hóa Máu', 'desc': '{share}% sát thương vật lý bạn nhận được trả lại thành mana.' },
+    'essenceHarvest': { 'name': 'Gặt Tinh Hoa', 'desc': 'Rút sinh lực mọi kẻ địch trong {radius} m, gây {dmg}% sát thương Trí tuệ. Bạn được hồi {heal}% lượng đó.' },
+    'hemophilia': { 'name': 'Máu Khó Đông', 'desc': 'Rút sinh lực mạnh hơn {drain}%. Đánh trúng kẻ địch đang chảy máu hồi {heal}% máu của bạn.' },
+    'mutagenicRage': { 'name': 'Cuồng Nộ Đột Biến', 'desc': 'Trong {dur} giây: +{speed}% tốc độ đánh, +{steal}% hút máu và +{move}% tốc độ chạy.' },
+    'philosophersCrucible': { 'name': 'Lò Luyện Hiền Triết', 'desc': 'Một vũng máu sôi trong {dur} giây: {dmg}% sát thương Trí tuệ lên kẻ địch trong đó, và nó hồi máu cho bạn khi bạn đứng trong.' },
+
+    'aetherPistol': { 'name': 'Súng Lục Aether', 'desc': 'Một phát bắn nhanh gây {dmg}% sát thương Kỹ xảo. Tích {heat} nhiệt.' },
+    'deployTurret': { 'name': 'Đặt Tháp Pháo', 'desc': 'Đặt một tháp pháo bắn gây {dmg}% sát thương Kỹ xảo trong {dur} giây. Tối đa {max} cùng lúc.' },
+    'ventHeat': { 'name': 'Xả Nhiệt', 'desc': 'Xả toàn bộ nhiệt theo hình nón: tối đa {dmg}% sát thương Kỹ xảo, càng nhiều nhiệt càng nhiều sát thương.' },
+    'thermalOverload': { 'name': 'Quá Tải Nhiệt', 'desc': 'Khi quá nhiệt, các phát bắn của bạn gây +{crit}% Sát thương Chí mạng. Quá nhiệt vẫn khóa kỹ năng của bạn trong {lock} giây.' },
+    'orbitalBeam': { 'name': 'Tia Quỹ Đạo', 'desc': 'Một tia sáng từ trời thiêu đốt nơi bạn ngắm: {dmg}% sát thương Kỹ xảo trong {dur} giây.' },
+    'exoSuit': { 'name': 'Giáp Exo', 'desc': 'Trong {dur} giây: +{armor}% Giáp, và đòn đánh của bạn thành tên lửa gây {rocket}% sát thương Kỹ xảo trên một vùng.' },
+
+    'stoneSpike': { 'name': 'Gai Đá', 'desc': 'Một mũi gai trồi lên dưới mục tiêu: {dmg}% sát thương Sức mạnh và làm chậm {slow}% trong {dur} giây.' },
+    'earthBarrier': { 'name': 'Tường Đất', 'desc': 'Dựng một bức tường đá trong {dur} giây. Không gì đi qua hay bắn xuyên qua được.' },
+    'seismicShock': { 'name': 'Chấn Động Địa Chấn', 'desc': 'Nện xuống đất: {dmg}% sát thương Sức mạnh trong {radius} m, quật ngã kẻ địch trong {down} giây.' },
+    'earthenSkin': { 'name': 'Da Đất', 'desc': 'Nhận Giáp bằng {armor}% Sức mạnh của bạn. Choáng lên bạn ngắn hơn {cut}%.' },
+    'petrify': { 'name': 'Hóa Đá', 'desc': 'Biến mục tiêu thành đá trong {dur} giây. Nó nhận thêm {vuln}% sát thương khi vỡ ra.' },
+    'tectonicRupture': { 'name': 'Đứt Gãy Kiến Tạo', 'desc': 'Xé toạc chiến trường: {dmg}% sát thương Sức mạnh lên mọi thứ ở gần, và đá vụn làm chậm trong {dur} giây.' }
+  },
+
+  'slot': {
+    'main': 'Tay chính',
+    'off': 'Tay phụ',
+    'body': 'Giáp',
+    'trinket': 'Bùa'
+  },
+  'tier': {
+    '1': 'Bậc 1',
+    '2': 'Bậc 2',
+    '3': 'Bậc 3',
+    '4': 'Bậc 4',
+    '5': 'Bậc 5',
+    '6': 'Huyền thoại'
+  },
+  'weapon': {
+    'melee': 'Cận chiến · tăng theo {attr}',
+    'ranged': 'Tầm xa · tăng theo {attr}',
+    'magic': 'Phép thuật · tăng theo {attr}'
+  },
+  'source': {
+    'mob': 'Rơi từ quái vật ở {zone}.',
+    'chest': 'Tìm thấy trong rương ở {zone}.',
+    'boss': 'Rơi từ trùm ở {zone}.',
+    'secret': 'Giấu trong một rương bí mật ở {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Sức mạnh',
+    'dex': '+{n} Khéo léo',
+    'int': '+{n} Trí tuệ',
+    'end': '+{n} Sức bền',
+    'skl': '+{n} Kỹ xảo',
+    'cha': '+{n} Mị lực',
+    'allAttrs': '+{n} cho mọi thuộc tính',
+    'strOrDex': '+{n} Sức mạnh hoặc Khéo léo, tùy cái nào cao hơn',
+    'armor': '{n} Giáp',
+    'armorPct': '+{n}% Giáp',
+    'armorFromStr': 'Giáp từ Sức mạnh: +{n}%',
+    'block': '+{n}% Tỉ lệ Đỡ đòn',
+    'dodge': '+{n}% Né',
+    'damageReduction': '+{n}% Giảm Sát thương',
+    'physReduction': 'Nhận ít hơn {n}% sát thương vật lý',
+    'maxHp': '+{n} Máu tối đa',
+    'maxHpPct': '+{n}% Máu tối đa',
+    'maxMana': '+{n} Mana tối đa',
+    'hpRegen': '+{n} Máu mỗi giây',
+    'stunDurationCut': 'Choáng lên bạn ngắn hơn {n}%',
+    'damagePct': '+{n}% Sát thương Gây ra',
+    'critChance': '+{n}% Tỉ lệ Chí mạng',
+    'critDamage': '+{n}% Sát thương Chí mạng',
+    'spellCrit': '+{n}% Tỉ lệ Chí mạng Phép',
+    'attackSpeed': '+{n}% Tốc độ Đánh',
+    'moveSpeed': '+{n}% Tốc độ Chạy',
+    'cdr': 'Hồi chiêu ngắn hơn {n}%',
+    'manaDiscount': 'Phép tốn ít hơn {n}% mana',
+    'lifesteal': '+{n}% Hút máu trên mọi sát thương',
+    'physLifesteal': '+{n}% Hút máu trên đòn vật lý',
+    'lifeDrainPct': 'Rút sinh lực mạnh hơn {n}%',
+    'bossDamage': '+{n}% sát thương lên trùm',
+    'backstab': '+{n}% Sát thương Đâm lén',
+    'minionDamage': 'Thuộc hạ gây thêm +{n}% sát thương',
+    'minionAttackSpeed': 'Thuộc hạ đánh nhanh hơn {n}%',
+    'minionHp': 'Thuộc hạ có thêm +{n}% máu',
+    'burnOnHit': 'Đòn đánh gây Thiêu đốt {n} sát thương',
+    'freezeOnHit': 'Đòn đánh có {n}% cơ hội đóng băng',
+    'pierce': 'Phát bắn xuyên thêm {n} kẻ địch',
+    'critCooldown': 'Đòn chí mạng giảm mọi hồi chiêu {n} giây',
+    'extraBlastEvery': 'Thêm một vụ nổ năng lượng mỗi {n} phát bắn',
+    'reflectOnBlock': 'Đỡ đòn phản lại {n} sát thương',
+    'fatalSave': 'Sát thương chí tử sẽ khiến bạn bất khả xâm phạm {n} giây (120 giây một lần)',
+    'knockbackImmune': 'Miễn nhiễm đẩy lùi',
+    'heatBuildCut': 'Nhiệt tích chậm hơn {n}%',
+    'heatDissipation': 'Nhiệt giảm nhanh hơn {n}%',
+    'flaskDamage': 'Bình Huyết gây thêm +{n}% sát thương',
+    'igniteBonus': 'Phép lửa thiêu đốt mạnh hơn {n}%',
+    'stealthy': 'Di chuyển êm: kẻ địch phát hiện bạn ở khoảng cách gần hơn {n}%',
+    'fortitude': 'Đòn lớn tạo lá chắn bằng {n}% máu',
+    'evasionHaste': 'Một lần né cho {n}% Thần tốc',
+    'cauterize': 'Kẻ địch đang bị thiêu đốt gây ít hơn {n}% sát thương lên bạn',
+    'pyromaniac': 'Phép chí mạng giảm hồi chiêu lửa {n} giây',
+    'tribute': 'Thuộc hạ gánh {n}% sát thương của bạn',
+    'timeDistort': '{n}% sát thương nhận vào bị trì hoãn',
+    'entropy': 'Thi triển rút ngắn hồi chiêu {n}%',
+    'bloodToMana': '{n}% sát thương vật lý nhận vào trả lại thành mana',
+    'bleedHeal': 'Đánh kẻ địch đang chảy máu hồi {n}% máu',
+    'overheatCrit': '+{n}% Sát thương Chí mạng khi quá nhiệt'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Đoản Kiếm Gỉ' },
+    'apprenticeStaff': { 'name': 'Trượng Học Trò' },
+    'scoutsHandgun': { 'name': 'Súng Ngắn Trinh Sát' },
+    'ironBroadsword': { 'name': 'Đại Đao Sắt' },
+    'vipinsStiletto': { 'name': 'Dao Găm của Vipin' },
+    'aetherCarbine': { 'name': 'Súng Carbine Aether' },
+    'ashenGreatsword': { 'name': 'Đại Kiếm Tro Tàn' },
+    'archmageWand': { 'name': 'Đũa Phép Đại Pháp Sư' },
+    'chronoBlade': { 'name': 'Kiếm Thời Gian' },
+    'bloodForgedAxe': { 'name': 'Rìu Rèn Bằng Máu' },
+    'voidCannon': { 'name': 'Pháo Hư Không' },
+    'dragonSmasher': { 'name': 'Búa Nghiền Rồng' },
+    'bladeOfTheUnbound': { 'name': 'Kiếm của Kẻ Vô Ràng Buộc' },
+    'aetheriumDestroyer': { 'name': 'Kẻ Hủy Diệt Aetherium' },
+    'woodenBuckler': { 'name': 'Khiên Gỗ Nhỏ' },
+    'tomeOfNovices': { 'name': 'Sách Phép Tân Binh' },
+    'ironShield': { 'name': 'Khiên Sắt' },
+    'syringeOfTheAdept': { 'name': 'Ống Tiêm Cao Thủ' },
+    'aethericBattery': { 'name': 'Pin Aether' },
+    'aegisTowerShield': { 'name': 'Khiên Tháp Aegis' },
+    'orbOfEternalFlame': { 'name': 'Ngọc Lửa Vĩnh Cửu' },
+    'shieldOfTheFallen': { 'name': 'Khiên của Người Đã Ngã' },
+    'paddedTunic': { 'name': 'Áo Chần Bông' },
+    'leatherDoublet': { 'name': 'Áo Chẽn Da' },
+    'chainmailVest': { 'name': 'Áo Giáp Xích' },
+    'scholarsRobe': { 'name': 'Áo Choàng Học Giả' },
+    'reinforcedPlate': { 'name': 'Giáp Tấm Gia Cố' },
+    'assassinsGarb': { 'name': 'Y Phục Sát Thủ' },
+    'chronoWeaverCloak': { 'name': 'Áo Choàng Dệt Thời Gian' },
+    'bloodSoakedPlate': { 'name': 'Giáp Tấm Đẫm Máu' },
+    'exoArmorChassis': { 'name': 'Khung Giáp Exo' },
+    'dragonscaleHauberk': { 'name': 'Giáp Vảy Rồng' },
+    'vestmentsOfSovereign': { 'name': 'Lễ Phục Quân Vương' },
+    'armorOfTheTitan': { 'name': 'Giáp Titan' },
+    'copperBand': { 'name': 'Vòng Đồng' },
+    'ringOfMending': { 'name': 'Nhẫn Chữa Lành' },
+    'bandOfSwiftness': { 'name': 'Vòng Thần Tốc' },
+    'castersEmblem': { 'name': 'Huy Hiệu Pháp Sư' },
+    'infiltratorsCharm': { 'name': 'Bùa Kẻ Xâm Nhập' },
+    'timekeepersHourglass': { 'name': 'Đồng Hồ Cát của Người Giữ Giờ' },
+    'ringOfTheVampyre': { 'name': 'Nhẫn Ma Cà Rồng' },
+    'sovereignsSignet': { 'name': 'Ấn Tín Quân Vương' },
+    'heartOfTheMountain': { 'name': 'Trái Tim Núi' },
+    'ringOfAbsolutePower': { 'name': 'Nhẫn Quyền Năng Tuyệt Đối' }
+  },
+  'bag': {
+    'equip': 'Trang bị',
+    'unequip': 'Tháo ra',
+    'tooLow': 'Cần cấp {n}.'
+  },
+  'shop': {
+    'buy': 'Mua',
+    'sell': 'Bán',
+    'owned': 'Đã có',
+    'empty': 'Hôm nay kệ hàng trống trơn.'
+  },
+  'trainer': {
+    'learn': 'Học',
+    'known': 'Đã học',
+    'friend': '{faction} trọng đãi bạn hữu: giảm 20%.',
+    'block': {
+      'level': 'Cấp của bạn quá thấp.',
+      'attrs': 'Thuộc tính của bạn quá thấp.',
+      'gold': 'Không đủ vàng.'
+    }
+  },
+  'healer': {
+    'talk': 'Ngồi đi. Nghỉ ngơi đi. Con sẽ rời khỏi đây lành lặn, với mọi bình thuốc đã đầy. Nếu muốn mang theo nhiều bình hơn, thứ đó ta có thể bán cho con.',
+    'note': 'Bạn mang {n} bình thuốc vào mỗi vùng.',
+    'buy': 'Thêm một bình · {n}',
+    'full': 'Thắt lưng của bạn đã chật kín.'
+  },
+  'talk': {
+    'goal': 'Chuyện này sẽ được định đoạt ở {zone}.'
+  },
+  'faction': {
+    'order': 'Thiết Hội',
+    'syndicate': 'Băng Tro Tàn',
+    'circle': 'Vòng Tròn Aether'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Thợ rèn Bram', 'talk': 'Thép trơn, giá phải chăng. Đủ để lũ goblin không dám lại gần.' },
+    'sunfordPeddler': { 'name': 'Tilly bán rong', 'talk': 'Nhẫn đây! Bùa đây! Toàn đồ tôi nhặt được chứ nhất định không phải ăn trộm.' },
+    'trainerAegis': { 'name': 'Ngài Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Trưởng lão Mara', 'talk': 'Hôm nay cậu đã giữ được con đường. Cả năm nay đồng bằng chưa từng yên ắng thế này.' },
+    'sunfordHealer': { 'name': 'Xơ Lune' },
+    'goblinTrader': { 'name': 'Lái buôn Grik', 'talk': 'Vua bảo buôn, nên Grik buôn. Đồ lấp lánh đổi đồ lấp lánh. Lấp lánh tốt.' },
+    'captainHale': { 'name': 'Đội trưởng Hale', 'talk': 'Oakhaven đã đứng vững ba trăm năm. Tôi không định làm người đội trưởng để mất nó.' },
+    'oakArmorer': { 'name': 'Thợ giáp Odo', 'talk': 'Nửa số hàng của tôi đã đem lên tường thành. Còn gì thì cứ lấy.' },
+    'oakMasterArmorer': { 'name': 'Bậc thầy Odo', 'talk': 'Cậu đã cứu thị trấn này. Giáp tốt trong phòng sau được mang ra cho cậu.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Sắc bén, cân bằng, và bán cho bất cứ ai trả tiền. Hôm nay người đó là cậu.' },
+    'trainerShadow': { 'name': 'Lời Thì Thầm' },
+    'trainerSovereign': { 'name': 'Lãnh chúa Castellan' },
+    'oakHealer': { 'name': 'Thầy Fenn' },
+    'blackMarket': { 'name': 'Kẻ Tiêu Hàng', 'talk': 'Không tên tuổi, không câu hỏi. Băng lấy phần của Băng, cậu lấy hàng.' },
+    'trainerBlood': { 'name': 'Bác sĩ Sangrel' },
+    'syndicateBoss': { 'name': 'Bà Ash', 'talk': 'Oakhaven là của chúng ta nhờ có cậu. Băng không quên một người bạn. Hay một món nợ.' },
+    'forgemaster': { 'name': 'Thợ cả Dorn', 'talk': 'Chúng tôi đào tìm sắt và đụng phải một trái tim. Nó đập ở dưới kia, trong bóng tối, và lũ golem bước theo nhịp của nó.' },
+    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Người lùn rèn đấy. Nếu nó gãy thì là tại cậu.' },
+    'ironAetherWorks': { 'name': 'Thợ máy Voss', 'talk': 'Nghiên cứu của Vòng Tròn về lõi đã thay đổi tất cả. Cầm lấy cái này. Đừng chĩa nó vào tôi.' },
+    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Giáp tấm gạt được cả chùy của người khổng lồ. Nhẫn thì cho những ai còn lại.' },
+    'ironOrderArmor': { 'name': 'Quản kho Thiết Hội', 'talk': 'Thiết Hội nhớ ai đã phá hủy lõi. Kho vũ khí của Hội mở cửa cho cậu.' },
+    'trainerGeo': { 'name': 'Lão Chân Đá' },
+    'trainerAether': { 'name': 'Thợ bánh răng Pim' },
+    'ironHealer': { 'name': 'Mẹ Brynja' },
+    'exiledSovereign': { 'name': 'Lãnh chúa Castellan, lưu vong' },
+    'trainerChrono': { 'name': 'Người Giữ Giờ' }
+  },
+
+  'quest': {
+    'final': 'Lựa chọn này là vĩnh viễn.',
+    'needsRep': 'Uy tín {faction} {n}',
+    'gold': '+{n} vàng',
+    'goblinKing': {
+      'title': 'Vua Goblin',
+      'intro': 'Những cuộc cướp phá đến từ Hang, nơi lũ goblin đã tôn một tên làm vua. Hãy chấm dứt chuyện đó, theo cách cậu thấy hợp.',
+      'ask': 'Khoan! Khoan. Vua đầu hàng! Goblin đi cướp chỉ vì goblin đói. Hay là người cao và Vua làm giao kèo?',
+      'slay': { 'label': 'Chấm dứt triều đại của hắn.', 'result': 'Nhà Vua gục ngã, và lũ trong Hang tan tác. Sunford ngủ yên hơn, còn Thiết Hội bắt đầu để ý tới bạn.' },
+      'pact': { 'label': 'Đề nghị một hiệp ước buôn bán với Sunford.', 'result': 'Miệng lưỡi khéo léo làm được điều thanh kiếm không thể. Lái buôn goblin dựng sạp ở quảng trường Sunford, với những món hàng không thợ rèn nào ở đó làm nổi.' },
+      'ransom': { 'label': 'Lấy kho báu và để lại vương miện cho hắn.', 'result': 'Bạn bước ra nặng trĩu vàng goblin. Những cuộc cướp phá sẽ lại bắt đầu, nhưng đó là chuyện của Sunford. Băng tán thành.' }
+    },
+    'siege': {
+      'title': 'Cuộc Vây Hãm Oakhaven',
+      'intro': 'Đạo quân của một lãnh chúa đã bao vây Oakhaven. Băng Tro Tàn trả tiền cho đạo quân ấy. Hãy phá vòng vây ở vùng ngoại ô.',
+      'ask': 'Ngươi đánh khá lắm. Băng trả hậu hơn thị trấn kia nhiều. Đêm nay mở cổng cho bọn ta, và một phần ba Oakhaven là của ngươi.',
+      'defend': { 'label': 'Bảo vệ Oakhaven.', 'result': 'Cổng thành đứng vững. Sau cánh cổng, Oakhaven ngày càng giàu có và các bậc thầy thợ giáp ghi nhớ tên bạn. Băng Tro Tàn giờ săn lùng bạn trên mọi nẻo đường.' },
+      'betray': { 'label': 'Mở cổng cho Băng.', 'result': 'Oakhaven bốc cháy. Giữa đống đổ nát mọc lên một chợ đen, cùng một nhà giả kim dạy những thuật bị cấm. Các thợ giáp đã biến mất, và Thiết Hội gọi bạn là kẻ phản bội.' }
+    },
+    'core': {
+      'title': 'Trái Tim Ironhold',
+      'intro': 'Một lõi aether điều khiển lũ golem trong mỏ của chúng tôi. Ba thế lực muốn có nó, và phe nào cũng đã gửi thư cho tôi. Cậu sẽ là người tới đó trước.',
+      'ask': 'Gã Khổng Lồ Sắt đã thành sắt vụn, và cái lõi nằm phơi ra trước mặt bạn, rì rầm. Chạm vào thấy ấm. Số phận của nó sẽ ra sao?',
+      'destroy': { 'label': 'Đập vỡ cái lõi.', 'result': 'Ánh sáng tắt và lũ golem đổ gục ngay tại chỗ. Thiết Hội cử thợ giáp của chính họ tới Ironhold để cảm tạ.' },
+      'study': { 'label': 'Giao cho Vòng Tròn nghiên cứu.', 'result': 'Bạn hiểu đủ về nó để trao đi một cách an toàn. Chỉ trong một mùa, các lò rèn Ironhold cho ra những cỗ máy aether chưa ai từng thấy.' },
+      'sell': { 'label': 'Bán cho Băng.', 'result': 'Một gia tài được trao tay. Cái lõi vẫn sáng ở một nơi nó không nên ở, và khu mỏ sẽ chẳng bao giờ yên tĩnh nữa.' }
+    },
+    'oracle': {
+      'title': 'Nhà Tiên Tri Chìm Đắm',
+      'ask': 'Ta đã thấy khoảnh khắc này mười nghìn lần. Một nửa trong số đó ngươi giải thoát cho ta. Một nửa ngươi lấy đi thứ ta canh giữ. Hãy chọn đi, và để ta cuối cùng cũng không biết điều gì sẽ đến.',
+      'free': { 'label': 'Phá xiềng cho bà.', 'result': 'Nhà tiên tri trồi lên khỏi mặt nước rồi biến mất. Vòng Tròn Aether sẽ nói tốt về bạn, và Người Giữ Giờ ở lại để truyền dạy.' },
+      'slay': { 'label': 'Lấy chiếc đồng hồ cát bà canh giữ.', 'result': 'Bà không chống cự. Đồng Hồ Cát của Người Giữ Giờ là của bạn. Người học trò cuối cùng của bà bỏ trốn khỏi ngôi đền, và Vòng Tròn không tha thứ.' }
+    },
+    'dragon': {
+      'title': 'Rồng Hư Không',
+      'ask': 'Đủ rồi. Ngươi cũng có nanh đấy, nhóc con. Con quỷ trong pháo đài đã xiềng giống loài ta. Ta muốn thấy hắn bốc cháy. Giết ta đi, hoặc để ta giúp ngươi làm điều đó.',
+      'slay': { 'label': 'Giết con rồng.', 'result': 'Ngọn núi rung chuyển khi nó ngã xuống. Thiết Hội ca tụng người diệt rồng, và kho báu của nó thuộc về bạn.' },
+      'pact': { 'label': 'Lập giao ước chống lại Ma Vương.', 'result': 'Ít ai thuyết phục nổi một con rồng. Khi bạn tiến đánh Pháo Đài Kinh Hoàng, nó sẽ ở trên bầu trời phía trên bạn.' }
+    },
+    'throne': {
+      'title': 'Ngai Vàng Trống',
+      'ask': 'Ma Vương đã chết và ngai vàng của hắn bỏ trống. Ai nắm giữ nó sẽ chỉ huy pháo đài, khe nứt bên dưới và quân đội của cả hai. Ba sứ giả đang chờ ngoài cửa.',
+      'order': { 'label': 'Trao ngai vàng cho Thiết Hội.', 'result': 'Thiết Hội đóng quân ở pháo đài và phong ấn những gì có thể. Vương quốc sẽ an toàn, và sẽ bị bảo phải làm gì.' },
+      'syndicate': { 'label': 'Trao ngai vàng cho Băng Tro Tàn.', 'result': 'Băng dọn vào trước bình minh. Giờ thứ gì cũng bán được, kể cả hòa bình.' },
+      'circle': { 'label': 'Trao ngai vàng cho Vòng Tròn Aether.', 'result': 'Vòng Tròn biến pháo đài thành một ngôi trường ngay trên khe nứt. Họ gọi đó là nghiên cứu. Những người khác gọi đó là chuyện sớm muộn.' },
+      'shatter': { 'label': 'Đập nát ngai vàng.', 'result': 'Bạn tự tay phá vỡ nó. Sẽ không ai trị vì từ nơi này nữa. Các sứ giả rời đi không nói một lời.' },
+      'claim': { 'label': 'Tự mình ngồi lên.', 'result': 'Nó lạnh, và vừa vặn. Ba phe phái nhận ra họ có chung một kẻ thù.' }
     }
   },
 
   'enemy': {
-    'echo': 'Bóng Vọng Chúa Tể',
-    'gatekeeper': 'Kẻ Giữ Cổng',
-    'warden': 'Lính Gác',
-    'hornet': 'Ong Bắp Cày Cánh Quạt',
-    'stalker': 'Kẻ Rình Phát Sáng',
-    'puffer': 'Thủy Lôi Cá Nóc',
-    'mole': 'Chuột Chũi Khoan',
-    'polar': 'Cún Từ Cực',
-    'hardhat': 'Nón Sắt',
-    'trooper': 'Lính Khiên',
-    'heli': 'Drone Cánh Quạt',
-    'hopper': 'Máy Dậm',
-    'roller': 'Bánh Răng Lăn',
-    'brute': 'Vệ Binh Máy',
-    'turret': 'Pháo Tường',
-    'golem': 'Golem Thùng',
-    'elite': 'Tinh Anh',
-    'level': 'Cấp {n}'
-  },
-
-  'enemyPlural': {
-    'echo': 'Bóng Vọng Chúa Tể | Bóng Vọng Chúa Tể',
-    'gatekeeper': 'Kẻ Giữ Cổng | Kẻ Giữ Cổng',
-    'warden': 'Lính Gác | Lính Gác',
-    'hornet': 'Ong Bắp Cày Cánh Quạt | Ong Bắp Cày Cánh Quạt',
-    'stalker': 'Kẻ Rình Phát Sáng | Kẻ Rình Phát Sáng',
-    'puffer': 'Thủy Lôi Cá Nóc | Thủy Lôi Cá Nóc',
-    'mole': 'Chuột Chũi Khoan | Chuột Chũi Khoan',
-    'polar': 'Cún Từ Cực | Cún Từ Cực',
-    'hardhat': 'Nón Sắt | Nón Sắt',
-    'trooper': 'Lính Khiên | Lính Khiên',
-    'heli': 'Drone Cánh Quạt | Drone Cánh Quạt',
-    'hopper': 'Máy Dậm | Máy Dậm',
-    'roller': 'Bánh Răng Lăn | Bánh Răng Lăn',
-    'brute': 'Vệ Binh Máy | Vệ Binh Máy',
-    'turret': 'Pháo Tường | Pháo Tường',
-    'golem': 'Golem Thùng | Golem Thùng'
-  },
-
-  'hud': {
-    'help': 'Hiện điều khiển',
-    'mute': 'Tắt tiếng',
-    'unmute': 'Bật tiếng',
-    'bossUnknown': 'Trùm bí ẩn',
-    'hp': 'Máu',
-    'we': 'Năng lượng vũ khí',
-    'power': 'Thể lực',
-    'bolts': 'Bu lông',
-    'level': 'Cấp {n}',
-    'beamOut': 'Dịch chuyển về'
-  },
-
-  'boss': {
-    'rotorMaster': 'Chúa Tể Cánh Quạt',
-    'neonMaster': 'Chúa Tể Neon',
-    'tideMaster': 'Chúa Tể Thủy Triều',
-    'drillMaster': 'Chúa Tể Mũi Khoan',
-    'magnetMaster': 'Chúa Tể Nam Châm',
-    'stand': 'Gã Phế Liệu',
-    'scrapper': 'Gã Phế Liệu',
-    'blazeMaster': 'Chúa Tể Lửa',
-    'frostMaster': 'Chúa Tể Băng',
-    'voltMaster': 'Chúa Tể Điện',
-    'galeMaster': 'Chúa Tể Gió',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Robot Đại Chúa Tể'
-  },
-
-  'sector': {
-    'rotor': 'Đường Bay Cánh Quạt',
-    'neon': 'Đại Lộ Mất Điện',
-    'tide': 'Âu Thuyền Thủy Triều',
-    'drill': 'Mỏ Sâu',
-    'magnet': 'Xưởng Từ Cực',
-    'scrapyard': 'Bãi Phế Liệu',
-    'blaze': 'Lò Luyện Lửa',
-    'cryo': 'Xưởng Đông Lạnh',
-    'volt': 'Tháp Điện',
-    'gale': 'Cảng Trời',
-    'fortress': 'Pháo Đài Vex'
-  },
-
-  'quest': {
-    'tutorial': 'Hồi Chuông Thức Tỉnh',
-    'boss': 'Đối Đầu Chúa Tể Lõi',
-    'bossTitle': 'Đối đầu: {boss}',
-    'kill': 'Nhiệm Vụ Phá Dỡ',
-    'collect': 'Khôi Phục Dữ Liệu',
-    'rescue': 'Giải Cứu',
-    'elite': 'Săn Tinh Anh',
-    'supply': 'Chuyến Tiếp Tế',
-    'purge': 'Càn Quét Khu Vực',
-    'climb': 'Leo Tháp',
-    'stage': 'Màn nền tảng',
-    'stageName': { 'blaze': 'Đường xuống lò nung', 'cryo': 'Chạy trên băng', 'volt': 'Lao trên ray', 'gale': 'Bến tàu trên mây', 'magnet': 'Xưởng Từ Cực', 'drill': 'Mỏ Sâu', 'tide': 'Âu Thuyền Thủy Triều', 'neon': 'Đại Lộ Mất Điện', 'rotor': 'Đường Bay Cánh Quạt', 'fortress': 'Pháo Đài Vex' },
-    'rematch': 'Tái đấu: {boss}',
-    'desc': {
-      'tutorial': 'Chiến đấu xuyên qua Bãi Phế Liệu và hạ gục Gã Phế Liệu.',
-      'boss': 'Đột nhập vào lõi của {sector} và đánh bại {boss}.',
-      'kill': 'Phá hủy {n} {target} ở {sector}.',
-      'collect': 'Thu hồi {n} lõi dữ liệu nằm rải rác khắp {sector}.',
-      'rescue': 'Một robot công nhân bị kẹt ở {sector}. Hãy tìm và dịch chuyển nó ra ngoài.',
-      'elite': 'Một {target} tinh anh đang khủng bố {sector}. Săn lùng nó!',
-      'supply': 'Phá mở {n} rương tiếp tế ở {sector}.',
-      'purge': 'Phá hủy mọi cỗ máy ở {sector}.',
-      'climb': 'Leo lên tháp ở {sector} — cầu thang, thang leo, thang máy và hố sâu — rồi xuống đấu trường tái đấu với {boss}.',
-      'stage': 'Chạy, trượt và lướt qua {sector} — gờ, hố và máy móc — đến đấu trường, rồi đánh bại {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Mục tiêu',
-    'complete': 'Hoàn thành mục tiêu',
-    'beamOutHint': 'Dịch chuyển về khi bạn sẵn sàng.',
-    'tutorial': 'Đánh bại {boss}',
-    'boss': 'Đánh bại {boss}',
-    'kill': 'Phá hủy {target}: {n}/{total}',
-    'collect': 'Lõi dữ liệu: {n}/{total}',
-    'rescue': 'Tìm robot công nhân bị kẹt',
-    'elite': 'Săn lùng {target} tinh anh',
-    'supply': 'Rương tiếp tế: {n}/{total}',
-    'purge': 'Máy đã phá hủy: {n}/{total}',
-    'climb': 'Leo tháp, đánh bại {boss}',
-    'stage': 'Đến đấu trường, đánh bại {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} đã bị tiêu diệt!',
-    'objectiveDone': 'Hoàn thành mục tiêu!',
-    'rescued': 'Robot công nhân đã được đưa về nơi an toàn!',
-    'bossDoor': 'Cửa sập kẽo kẹt mở ra…'
-  },
-  'interact': {
-    'chest': 'Mở',
-    'rescue': 'Giải cứu',
-    'bossDoor': 'Vào'
-  },
-  'progress': {
-    'levelUp': 'Cấp {n}! Hệ thống đã được sửa chữa hoàn toàn.'
-  },
-  'tips': {
-    'moveTouch': 'Kéo bên trái để di chuyển, bên phải để nhìn. Chạm vào sàn để đi tới đó!',
-    'moveKeys': '{keys} để di chuyển.',
-    'lookMouse': 'Di chuyển chuột để nhìn xung quanh.',
-    'capture': 'Nhấp vào màn hình game để điều khiển camera.',
-    'fireTouch': 'Có máy phía trước! Chạm để bắn — giữ rồi thả để bắn phát tụ lực.',
-    'fireKeys': 'Có máy phía trước! Nhấp chuột trái để bắn — giữ rồi thả để bắn phát tụ lực.',
-    'charge': 'Khiên chặn được đạn thường. Phát tụ lực ĐẦY xuyên thủng ngay.',
-    'blockTouch': 'Vòng cam: giữ khiên để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
-    'blockKeys': 'Vòng cam: giữ chuột phải để chặn — nhấn đúng lúc vòng khép lại để GẠT ĐÒN!',
-    'red': 'Vòng đỏ nghĩa là không thể chặn — trượt né ngay!',
-    'dodgeKeys': 'Vòng đỏ nghĩa là không thể chặn — nhấn {slide} để trượt né ngay!',
-    'spaceKey': 'Space',
-    'chest': 'Một rương tiếp tế! Chạm để mở.',
-    'tank': 'Sắp cạn máu? Gel Sửa Chữa sẽ hồi phục bạn hoàn toàn.',
-    'weapon': 'Dùng vũ khí sao chép được từ nút có màu!'
-  },
-  'lesson': {
-    'charge': 'Giữ để tụ lực cho pháo, rồi thả ra: chỉ phát tụ lực mới phá được khiên của drone huấn luyện.',
-    'crate': 'Thùng tiếp tế chỉ vỡ khi trúng phát tụ lực. Giữ, rồi thả khi đang nhắm vào thùng phát sáng.',
-    'weaponKeys': 'Nhấn {n} để bắn vũ khí sao chép: một phát trúng cả ba drone.',
-    'weaponTouch': 'Chạm vào nút vũ khí đang phát sáng: một phát trúng cả ba drone.',
-    'gelKeys': 'Nhấn {key} để dùng Gel Sửa Chữa: gel hồi phục bạn hoàn toàn.',
-    'gelTouch': 'Chạm vào nút Gel Sửa Chữa màu xanh lá: gel hồi phục bạn hoàn toàn.'
-  },
-  'walk': {
-    'finishLessonOn': 'Hoàn thành bài học về {weapon}',
-    'finishTutorial': 'Hãy hoàn thành hướng dẫn trước',
-    'finishLesson': 'Hoàn thành bài học'
-  },
-  'hubLesson': {
-    'earnBolts': 'Không đủ bu lông? Xem một video ngắn để nạp thêm.',
-    'catchUp': 'Pip: Pháo của cậu đang tụt lại so với máy móc ngoài kia. Nâng cấp nó nào!',
-    'workshop': 'Mở Xưởng.',
-    'upgradeBuster': 'Dùng bu lông để nâng cấp pháo: thêm sát thương.',
-    'pickArmor': 'Giờ hãy chọn giáp ngực.',
-    'upgradeArmor': 'Nâng cấp cả nó nữa: thêm phòng thủ.',
-    'deploy': 'Xong rồi — quay lại nhiệm vụ thôi!',
-    'overload': 'Pip: Lõi của Chúa Tể Gió đã dạy tớ một mẹo. Giữ tụ lực đầy thêm 3 giây: QUÁ TẢI!'
-  },
-  'loot': {
-    'upgrade': 'Nâng cấp!',
-    'found': 'Tìm thấy {item} {rarity}!',
-    'tank': 'Tìm thấy Gel Sửa Chữa!',
-    'giftTank': 'Quà: +1 Gel Sửa Chữa!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin Ném Đá',
+    'bandit': 'Thổ Phỉ',
+    'banditArcher': 'Cung Thủ Thổ Phỉ',
+    'wolf': 'Sói',
+    'banditChief': 'Trùm Thổ Phỉ',
+    'goblinKing': 'Vua Goblin',
+    'treant': 'Thụ Nhân',
+    'spider': 'Nhện Khổng Lồ',
+    'broodSpider': 'Nhện Con',
+    'outlawCaptain': 'Thủ Lĩnh Đạo Tặc',
+    'elderTreant': 'Thụ Nhân Cổ Thụ',
+    'warlord': 'Lãnh Chúa Krag',
+    'fireElemental': 'Tinh Linh Lửa',
+    'ironGolem': 'Golem Sắt',
+    'cultist': 'Tín Đồ',
+    'emberLord': 'Chúa Tể Than Hồng',
+    'ironColossus': 'Gã Khổng Lồ Sắt',
+    'frostGiant': 'Người Khổng Lồ Băng',
+    'naga': 'Naga',
+    'skeleton': 'Bộ Xương',
+    'necromancer': 'Pháp Sư Gọi Hồn',
+    'frostJarl': 'Thủ Lĩnh Băng Giá',
+    'nagaOracle': 'Nhà Tiên Tri Chìm Đắm',
+    'voidStalker': 'Kẻ Rình Rập Hư Không',
+    'wyvern': 'Phi Long',
+    'highDemon': 'Đại Quỷ',
+    'voidWarden': 'Cai Ngục Hư Không',
+    'voidDragon': 'Rồng Hư Không',
+    'doomKnight': 'Kỵ Sĩ Diệt Vong',
+    'imp': 'Tiểu Quỷ',
+    'archDemon': 'Ma Vương',
+    'voidling': 'Sinh Vật Hư Không',
+    'voidLord': 'Chúa Tể Hư Không',
+    'orderGuard': 'Phán Quan Thiết Hội',
+    'syndicateBlade': 'Sát Thủ Băng Tro Tàn'
   },
 
   'results': {
-    'success': 'HOÀN THÀNH NHIỆM VỤ',
-    'failed': 'NHIỆM VỤ THẤT BẠI',
+    'victory': 'Chiến thắng!',
+    'defeat': 'Thất bại',
+    'retreat': 'Đã rút lui',
+    'firstClear': 'Vượt lần đầu!',
+    'waves': 'Số đợt đã trụ: {n}',
+    'levelUp': 'Cấp {n}!',
+    'points': '+{n} điểm thuộc tính',
     'xp': 'Kinh nghiệm',
-    'bolts': 'Bu lông',
-    'kills': 'Máy đã phá hủy',
-    'chests': 'Rương đã mở',
+    'gold': 'Vàng',
+    'lost': 'Đánh rơi',
+    'kills': 'Đã hạ',
     'time': 'Thời gian',
-    'levelUp': 'Lên cấp! Giờ là cấp {n}',
-    'newWeapon': 'Vũ khí mới: {weapon}!',
-    'newSector': 'Mở khóa khu vực mới: {sector}',
-    'items': 'Trang bị tìm được',
-    'triple': 'Bu lông ×3',
-    'tripleAria': 'Xem video ngắn: nhân ba bu lông thành +{n}'
-  },
-  'defeat': {
-    'title': 'HỆ THỐNG SẬP',
-    'body': 'Flux đã chịu quá nhiều sát thương.',
-    'kept': 'Bạn vẫn giữ những gì đã kiếm được:',
-    'useTank': 'Khởi động lại bằng Gel Sửa Chữa ({n})',
-    'rebootAd': 'Khởi động lại ngay',
-    'retreat': 'Rút về phòng thí nghiệm',
-    'retryCheckpoint': 'Thử lại từ điểm lưu'
-  },
-  'banner': {
-    'cleared': 'Hoàn thành màn',
-    'bossDown': 'Hạ gục kẻ địch!',
-    'gameOver': 'Trò chơi kết thúc!',
-    'grandMaster': 'Đại Chúa Tể!'
+    'unlocked': 'Mới trên bản đồ: {places}',
+    'retry': 'Thử lại',
+    'tip': 'Bạn giữ lại kinh nghiệm và chiến lợi phẩm. Hãy dùng điểm, ghé người huấn luyện rồi quay lại mạnh mẽ hơn.'
   },
   'pause': {
-    'title': 'TẠM DỪNG',
-    'resume': 'Tiếp tục',
-    'abandon': 'Bỏ nhiệm vụ',
+    'title': 'Tạm dừng',
+    'resume': 'Chơi tiếp',
     'controls': 'Điều khiển',
-    'label': {
-      'move': 'Di chuyển',
-      'look': 'Nhìn',
-      'parry': 'Gạt đòn',
-      'interact': 'Tương tác'
-    },
-    'touch': {
-      'move': 'Bên trái: kéo để di chuyển. Chạm vào sàn để đi tới đó.',
-      'fire': 'Khi chiến đấu: chạm để bắn, giữ để tụ lực, thả để khai hỏa.',
-      'block': 'Giữ khiên để chặn — đúng lúc vòng khép lại để gạt đòn.',
-      'use': 'Gần rương, robot bị kẹt hoặc cửa: chạm vào nó, hoặc nút hiện lên.'
-    },
-    'keys': {
-      'move': '{keys} / phím mũi tên: di chuyển.',
-      'look': 'Di chuyển chuột để nhìn. Nhấp vào màn hình game để điều khiển camera.',
-      'fire': 'Chuột trái: bắn — giữ để tụ lực, thả để bắn.',
-      'block': 'Chuột phải: chặn — đúng lúc vòng khép lại để gạt đòn.',
-      'slide': '{slide}: trượt · {tank}: Gel Sửa Chữa · {use}: tương tác · {beam}: dịch chuyển về',
-      'more': '{w1} / {w2}: vũ khí đặc biệt · {target}: đổi mục tiêu · Esc: tạm dừng',
-      'space': 'Space',
-      'press': '{key}: {action}'
+    'retreat': 'Rút về bản đồ',
+    'retreatNote': 'Bạn giữ mọi thứ đã kiếm được, nhưng vùng này chưa được dọn sạch.'
+  },
+  'ending': {
+    'level': 'Cấp',
+    'more': 'Khe Nứt Hư Không đã mở ra bên dưới pháo đài. Đấu Trường vẫn đón mọi kẻ thách đấu.',
+    'order': { 'title': 'Nền Hòa Bình Sắt', 'text': 'Cờ của Thiết Hội tung bay trên Pháo Đài Kinh Hoàng. Đường sá an toàn, luật lệ thì nhiều, và tên bạn được khắc phía trên cổng.' },
+    'syndicate': { 'title': 'Giao Kèo Tro Tàn', 'text': 'Băng trị vì từ bóng tối của pháo đài. Trong vương quốc không còn gì bị cấm nữa. Chỉ là đắt thôi.' },
+    'circle': { 'title': 'Kỷ Nguyên Aether', 'text': 'Vòng Tròn thắp sáng pháo đài bằng lửa hư không bị giam giữ. Kỳ quan tuôn ra từ cổng của nó, và không ai hỏi chúng có giá bao nhiêu.' },
+    'free': { 'title': 'Không Vua Chúa', 'text': 'Ngai vàng nằm vỡ vụn và pháo đài bỏ trống. Lần đầu tiên sau cả một thời đại, vương quốc thuộc về những người sống trong đó.' },
+    'unbound': { 'title': 'Kẻ Vô Ràng Buộc', 'text': 'Bạn đã chiếm ngai vàng. Thiết Hội, Băng và Vòng Tròn cùng nhau tiến đánh bạn. Cứ để chúng tới.' },
+    'note': {
+      'goblinPact': 'Lái buôn goblin vẫn mặc cả ở quảng trường Sunford.',
+      'goblinSlain': 'Hang giờ trống không, và các đoàn buôn chạy đúng giờ.',
+      'goblinRansom': 'Vua Goblin lại giàu có, và lại đi cướp phá.',
+      'oakhavenSaved': 'Tường thành Oakhaven giờ cao hơn, và chợ búa đông đúc hơn.',
+      'oakhavenFallen': 'Cỏ dại mọc khắp phố Oakhaven. Chợ đen thì phát đạt.',
+      'coreOrder': 'Mỏ Ironhold yên tĩnh, và người lùn lại đào bới.',
+      'coreCircle': 'Lò rèn Ironhold rực sáng màu lam, và súng của nó tốt nhất vương quốc.',
+      'coreSold': 'Ở đâu đó, cái lõi vẫn rì rầm. Lũ golem vẫn bước đi.',
+      'oracleFreed': 'Những ngày lặng sóng, ngư dân thấy nhà tiên tri ở tít ngoài khơi.',
+      'oracleSlain': 'Đền Chìm im lặng. Không còn ai biết điều gì sẽ đến nữa.',
+      'dragonPact': 'Một con rồng làm tổ trên mái pháo đài, và chỉ nghe theo một cái tên.',
+      'dragonSlain': 'Một chiếc sọ rồng treo trong đại sảnh của Thiết Hội.'
     }
-  },
-  'levelUp': {
-    'title': 'LÊN CẤP!',
-    'pick': 'Chọn một nâng cấp hệ thống',
-    'chip': '+1 Chip Kỹ Năng cho mạch của bạn',
-    'granted': '{stat} tăng từ {from} lên {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Khung', 'desc': 'Máu tối đa' },
-    'we': { 'name': 'Lò phản ứng', 'desc': 'Năng lượng vũ khí' },
-    'power': { 'name': 'Servo', 'desc': 'Thể lực chặn & trượt' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Nhiệm vụ',
-      'hero': 'Flux',
-      'circuits': 'Mạch',
-      'workshop': 'Xưởng'
-    },
-    'heroTabAria': 'Flux, android chiến đấu của bạn',
-    'levelUpReady': 'Lên cấp!',
-    'levels': 'Cấp {a}–{b}',
-    'story': 'Nhiệm vụ cốt truyện',
-    'jobs': 'Nhiệm vụ phụ',
-    'jobsHint': 'Làm lại được — nhiệm vụ mới xuất hiện khi bạn hoàn thành',
-    'lockedHint': 'Đánh bại {boss} để mở khu vực này.',
-    'sectorSecured': 'Khu vực đã an toàn. Nhiệm vụ phụ vẫn còn trên bảng.',
-    'deploy': 'Xuất kích',
-    'reroll': 'Đổi nhiệm vụ',
-    'gift': {
-      'name': 'Gel lên đường',
-      'desc': 'Xem video ngắn: +1 Gel Sửa Chữa cho nhiệm vụ tiếp theo, kể cả vượt giới hạn.',
-      'aria': 'Xem video ngắn để nhận thêm một Gel Sửa Chữa ở nhiệm vụ tiếp theo',
-      'ready': 'Quà đã sẵn sàng!',
-      'readyDesc': '+1 Gel Sửa Chữa cho nhiệm vụ tiếp theo.'
-    },
-    'unlock': {
-      'hint': 'Hoàn thành thêm {n} nhiệm vụ để mở khóa',
-      'aria': '{name}, đã khóa: hoàn thành thêm {n} nhiệm vụ'
-    }
-  },
-  'hero': {
-    'role': 'Android chiến đấu của bạn',
-    'weapons': 'Vũ khí đặc biệt',
-    'weaponSlot': 'Ô {n}',
-    'weaponRank': 'Hạng {n}',
-    'noWeapons': 'Đánh bại các Chúa Tể Lõi để sao chép vũ khí của chúng.',
-    'attrPending': 'Chọn {n} nâng cấp hệ thống!',
-    'stats': 'Hệ thống',
-    'attributes': 'Nâng cấp',
-    'stat': {
-      'hp': 'Máu tối đa',
-      'we': 'Năng lượng vũ khí',
-      'power': 'Thể lực',
-      'damage': 'Sát thương đạn',
-      'charge': 'Phát tụ lực',
-      'armor': 'Giáp',
-      'crit': 'Tỉ lệ chí mạng',
-      'tanks': 'Gel Sửa Chữa'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Đủ bu lông cho hai lần nâng cấp pháo tốt nhất.',
-    'upgradeAdName': 'Tiếp sức nâng cấp',
-    'tanks': 'Vật tư',
-    'tankName': 'Gel Sửa Chữa',
-    'tankDesc': 'Hồi phục hoàn toàn máu và thể lực giữa nhiệm vụ.',
-    'owned': 'Mang theo: {n}/{max}',
-    'upgrade': 'Nâng cấp trang bị',
-    'next': 'Cấp tiếp theo',
-    'upgradeBtn': 'Nâng cấp',
-    'maxed': 'Đã nâng cấp tối đa',
-    'dropName': 'Tiếp tế',
-    'dropDesc': 'Một thùng bu lông dự phòng, dịch chuyển thẳng từ phòng thí nghiệm.',
-    'dropAria': 'Xem video ngắn để nhận {n} bu lông',
-    'dropCooldown': 'Lần tiếp tế sau: {t}'
-  },
-
-  'board': {
-    'buster': 'Pháo',
-    'armor': 'Giáp',
-    'core': 'Lõi'
-  },
-  'circuits': {
-    'chips': 'Chip Kỹ Năng: {n}',
-    'rank': 'Hạng {n}/{max}',
-    'requires': 'Cần {name} hạng {n}',
-    'install': 'Lắp chip',
-    'maxed': 'Đã tối đa',
-    'respec': 'Đặt lại mạch',
-    'requiresBoss': 'Hãy đánh bại {name} trước',
-    'unlock': 'Mở khóa'
-  },
-  'skill': {
-    'rapid': { 'name': 'Đạn Liên Thanh', 'desc': 'Sát thương bắn nhanh +10% mỗi chip.' },
-    'quickCharge': { 'name': 'Tụ Lực Nhanh', 'desc': 'Thời gian tụ lực −10% mỗi chip.' },
-    'megaCharge': { 'name': 'Tụ Lực Mega', 'desc': 'Sát thương phát tụ lực +12% mỗi chip.' },
-    'perfectTiming': { 'name': 'Căn Giờ Hoàn Hảo', 'desc': 'Khoảng thả hoàn hảo rộng hơn và chí mạng mạnh hơn.' },
-    'piercing': { 'name': 'Lõi Xuyên Phá', 'desc': 'Phát tụ lực một nửa cũng phá được khiên và mũ.' },
-    'giga': { 'name': 'Quá Tải', 'desc': 'Giữ tụ lực đầy thêm 3 giây: phát bắn mạnh hơn 1,75×.' },
-    'frame': { 'name': 'Khung Gia Cố', 'desc': 'Máu tối đa +8% mỗi chip.' },
-    'barrier': { 'name': 'Tinh Chỉnh Rào Chắn', 'desc': 'Chặn tốn ít thể lực hơn và lọt ít sát thương hơn.' },
-    'autoRepair': { 'name': 'Tự Sửa Chữa', 'desc': 'Hồi 1% máu mỗi giây khi ngoài giao tranh, mỗi chip.' },
-    'parry': { 'name': 'Giao Thức Gạt Đòn', 'desc': 'Khoảng gạt đòn rộng hơn; máy bị gạt đòn choáng lâu hơn.' },
-    'spikes': { 'name': 'Giáp Gai', 'desc': 'Phản lại 15% sát thương đã chặn mỗi chip.' },
-    'lastStand': { 'name': 'Tử Thủ', 'desc': 'Mỗi nhiệm vụ một lần, sống sót sau đòn chí tử với 1 máu.' },
-    'cells': { 'name': 'Pin Năng Lượng', 'desc': 'Năng lượng vũ khí +3 mỗi chip.' },
-    'mastery': { 'name': 'Tinh Thông Vũ Khí', 'desc': 'Sát thương vũ khí đặc biệt +10% mỗi chip.' },
-    'boosters': { 'name': 'Tăng Tốc Trượt', 'desc': 'Hồi chiêu trượt nhanh hơn, trượt tốn ít hơn.' },
-    'efficient': { 'name': 'Lõi Hiệu Suất', 'desc': 'Vũ khí đặc biệt tốn ít hơn 10% năng lượng mỗi chip.' },
-    'magnet': { 'name': 'Nam Châm Bu Lông', 'desc': 'Nhiều bu lông hơn và tầm nhặt xa hơn.' },
-    'tankCap': { 'name': 'Sức Chứa Gel', 'desc': 'Mang thêm một Gel Sửa Chữa mỗi chip.' }
-  },
-
-  'rarity': {
-    'standard': 'Tiêu chuẩn',
-    'tuned': 'Tinh chỉnh',
-    'prototype': 'Nguyên mẫu',
-    'legendary': 'Huyền thoại'
-  },
-  'item': {
-    'arm_standard': 'Pháo Tiêu Chuẩn',
-    'arm_rapid': 'Pháo Liên Thanh',
-    'arm_heavy': 'Pháo Hạng Nặng',
-    'arm_quick': 'Pháo Tụ Nhanh',
-    'arm_nova': 'Pháo Nova',
-    'helm_scout': 'Mũ Trinh Sát',
-    'helm_guard': 'Mũ Hộ Vệ',
-    'helm_ace': 'Mũ Cao Thủ',
-    'helm_royal': 'Mũ Hoàng Gia',
-    'body_light': 'Khung Nhẹ',
-    'body_plated': 'Khung Bọc Thép',
-    'body_reactor': 'Khung Lò Phản Ứng',
-    'body_aegis': 'Khung Aegis',
-    'boots_basic': 'Giày Cơ Bản',
-    'boots_dash': 'Giày Lướt',
-    'boots_magnet': 'Giày Nam Châm',
-    'boots_titan': 'Giày Titan',
-    'chip_logic': 'Chip Logic',
-    'chip_quantum': 'Chip Lượng Tử'
-  },
-  'slot': {
-    'buster': 'Pháo',
-    'helmet': 'Mũ',
-    'chest': 'Khung',
-    'boots': 'Giày',
-    'chip': 'Chip'
-  },
-  'gear': {
-    'damage': 'Sát thương',
-    'armor': 'Giáp',
-    'equip': 'Trang bị',
-    'unequip': 'Tháo',
-    'equipped': 'Đang dùng',
-    'new': 'MỚI',
-    'salvage': 'Tháo dỡ',
-    'noAffixes': 'Không có mô-đun thưởng',
-    'emptySlot': 'Chưa có gì cho ô này — hãy mở rương và làm nhiệm vụ.'
-  },
-  'affix': {
-    'damage': '{v} sát thương',
-    'crit': '{v} tỉ lệ chí mạng',
-    'critDmg': '{v} sát thương chí mạng',
-    'hp': '{v} máu tối đa',
-    'armor': '{v} giáp',
-    'we': '{v} năng lượng vũ khí',
-    'power': '{v} thể lực',
-    'bolts': '{v} bu lông nhặt được',
-    'chargeSpeed': '{v} tốc độ tụ lực',
-    'pelletDmg': '{v} sát thương đạn',
-    'chargeDmg': '{v} sát thương phát tụ lực',
-    'moveSpeed': '{v} tốc độ di chuyển',
-    'special': '{v} sát thương vũ khí đặc biệt',
-    'regen': '{v} hồi máu / giây (ngoài giao tranh)',
-    'magnet': '{v} tầm nhặt'
-  },
-  'weapon': {
-    'rankUp': '{weapon} đã lên hạng {n}!',
-    'scrapBurst': { 'name': 'Tán Xạ Phế Liệu', 'desc': 'Bắn tỏa phế liệu theo ba hướng. Rất hiệu quả với đám đông.' },
-    'flameWave': { 'name': 'Sóng Lửa', 'desc': 'Quả cầu lửa lăn dọc sàn, xuyên qua mọi cỗ máy trên đường và thiêu cháy chúng.' },
-    'iceLance': { 'name': 'Giáo Băng', 'desc': 'Ngọn giáo xuyên thấu làm lạnh cóng mục tiêu và khiến nó chậm lại.' },
-    'thunderArc': { 'name': 'Hồ Quang Sấm', 'desc': 'Tia sét tức thời lan sang các cỗ máy gần đó.' },
-    'galeGuard': { 'name': 'Khiên Gió', 'desc': 'Lá cây xoay quanh bạn, chặn đạn và cắt máy. Dùng lần nữa để phóng chúng đi.' },
-    'magnetPull': { 'name': 'Lực Hút Nam Châm', 'desc': 'Một móng ngựa tự dẫn đường, phá khiên, phá vỏ và kéo phăng kẻ bay khỏi bầu trời.' },
-    'drillBomb': { 'name': 'Bom Khoan', 'desc': 'Quả bom khoan nổ tung ngay chỗ nó dừng, trúng mọi cỗ máy xung quanh. Phá được đá nứt.' },
-    'bubbleLance': { 'name': 'Thương Bong Bóng', 'desc': 'Một bong bóng to lăn dọc mặt đất và nổ xuyên qua mọi cỗ máy trên đường đi.' },
-    'neonBlade': { 'name': 'Lưỡi Neon', 'desc': 'Lưỡi dao ánh sáng ném đi như boomerang: chém cả lúc bay đi lẫn lúc bay về.' },
-    'droneSwarm': { 'name': 'Bầy Drone', 'desc': 'Ba drone tí hon tự tìm ba cỗ máy, vòng qua mọi chỗ nấp.' }
   },
 
   'options': {
-    'killCams': 'Camera hạ gục',
     'gameplay': 'Lối chơi',
     'title': 'Tùy chọn',
     'general': 'Chung',
@@ -503,16 +612,16 @@ export default {
     'difficulty': 'Độ khó',
     'soundEffects': 'Hiệu ứng âm thanh',
     'music': 'Nhạc',
-    'musicTrack': 'Bản nhạc',
+    'mute': 'Tắt tiếng',
+    'musicTrack': 'Nhạc',
     'musicTracks': {
-      'cozy': 'Mạch Êm Dịu',
-      'trance': 'Tăng Tốc Cực Đại'
+      'cozy': 'Êm dịu',
+      'trance': 'Phiêu lưu'
     },
     'haptics': 'Rung',
     'on': 'Bật',
     'off': 'Tắt',
     'close': 'Đóng',
-    'replayIntro': 'Xem lại phần mở đầu',
     'keyboard': {
       'auto': 'Tự nhận bố cục bàn phím',
       'layout': 'Bố cục bàn phím',
@@ -522,45 +631,45 @@ export default {
       'reset': 'Đặt lại phím'
     },
     'actions': {
-      'forward': 'Tiến lên',
-      'back': 'Lùi lại',
+      'up': 'Đi lên',
+      'down': 'Đi xuống',
       'left': 'Sang trái',
       'right': 'Sang phải',
-      'turnLeft': 'Quay trái',
-      'turnRight': 'Quay phải',
-      'slide': 'Trượt',
-      'block': 'Đỡ',
-      'interact': 'Tương tác',
-      'beam': 'Dịch chuyển về',
-      'tank': 'Gel sửa chữa',
-      'weapon1': 'Vũ khí đặc biệt 1',
-      'weapon2': 'Vũ khí đặc biệt 2',
-      'weapon3': 'Vũ khí mượn',
-      'target': 'Đổi mục tiêu',
-      'map': 'Bản đồ'
+      'skill1': 'Kỹ năng 1',
+      'skill2': 'Kỹ năng 2',
+      'skill3': 'Kỹ năng 3',
+      'skill4': 'Kỹ năng 4',
+      'skill5': 'Kỹ năng 5',
+      'skill6': 'Kỹ năng 6',
+      'potion': 'Uống thuốc',
+      'interact': 'Nói chuyện',
+      'target': 'Mục tiêu kế',
+      'map': 'Bản đồ thế giới',
+      'character': 'Anh hùng',
+      'inventory': 'Túi đồ',
+      'skills': 'Kỹ năng'
     },
-    'lookSensitivity': 'Độ nhạy góc nhìn',
     'difficulties': {
       'easy': 'Dễ',
       'medium': 'Trung bình',
       'hard': 'Khó'
     },
     'difficultyHints': {
-      'easy': 'Máy đánh nhẹ hơn và gục nhanh hơn.',
+      'easy': 'Kẻ địch đánh nhẹ hơn và gục nhanh hơn.',
       'medium': 'Thử thách đúng như thiết kế.',
-      'hard': 'Máy cứng cáp hơn và đánh mạnh hơn.'
+      'hard': 'Kẻ địch cứng cáp hơn và đánh mạnh hơn.'
     }
   },
   'adsBlocked': {
     'title': 'Không thể hiển thị quảng cáo',
-    'body': 'Chúng tôi đã thử phát video để bạn nhận thưởng, nhưng có gì đó trên trình duyệt đang chặn quảng cáo.',
+    'body': 'Chúng tôi đã thử phát một video cho bạn, nhưng có gì đó trên trình duyệt đang chặn quảng cáo.',
     'allowPrefix': 'Vui lòng cho phép quảng cáo trên',
     'allowSuffix': '(hoặc tạm dừng trình chặn quảng cáo cho trò chơi này) rồi thử lại.',
     'gotIt': 'Đã hiểu'
   },
   'saveStatus': {
     'restoredTitle': 'Đã khôi phục lưu trên đám mây',
-    'restoredBody': '+{n} bu lông thưởng cho việc khôi phục',
+    'restoredBody': '+{n} vàng thưởng cho việc khôi phục',
     'tap': 'chạm',
     'pausedTitle': 'Đã tạm dừng đồng bộ đám mây',
     'pausedBody': 'Đang chơi ngoại tuyến. Tiến trình được lưu tại đây.',
@@ -586,483 +695,5 @@ export default {
     'yourRank': 'Bạn hạng #{n} trên {total}',
     'of': 'trên {n} người chơi',
     'tabGlobal': 'Toàn cầu'
-  },
-
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux chiến đấu với những cỗ máy nổi loạn trên các con phố neon của Cyber City.',
-      'valley': 'Cyber City: một thành phố android rực rỡ, nối với nhau bằng những chùm sáng. Dr. Vex chiếm quyền điều khiển máy móc ở đó bằng một tín hiệu đỏ.',
-      'lab': 'Tín hiệu lan tới phòng thí nghiệm của Prof. Gauss. Bà trao cho Flux đĩa Atlas và đánh thức cậu.',
-      'safeMode': 'Gauss tự đóng băng trong một khoang để chặn tín hiệu. Bà vẫn còn sống.',
-      'wakeUp': 'Flux tỉnh dậy ở cấp 1, với Atlas đã trực tuyến. Pháo Đài Vex mạnh hơn nhiều, nên phải đến Bãi Phế Liệu trước.',
-      'beam': 'Flux dịch chuyển tới Bãi Phế Liệu.'
-    },
-    'vex': {
-      'diagnosis': 'Chẩn đoán: thung lũng này BỆNH rồi. Liều thuốc… chính là TA!'
-    },
-    'atlas': {
-      'logStart': 'Bắt đầu nhật ký.',
-      'goodMorning': 'Lõi đã trực tuyến. Chào buổi sáng, Flux.',
-      'scrapyardFirst': 'Bãi Phế Liệu trước. Từng trạm tiếp sóng một.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Tín hiệu Chúa Tể Lõi. Nó… to đấy.',
-    },
-    'sector': {
-      'blaze': 'Lò Luyện. Nóng lắm. Coi chừng vòi phun.',
-      'cryo': 'Chất làm mát chảy ngược lên dốc. Về phía Pháo Đài.',
-      'gale': 'Mọi linh kiện cho cơ thể nó đều đi qua đây.',
-      'magnet': 'Một xưởng đúc. Nó đang đúc móng vuốt.',
-      'drill': 'Quặng cho giáp của nó. Đào ngay tại đây.',
-      'tide': 'Giờ là sà lan. Vex tìm ra đường khác rồi.',
-      'neon': 'Đèn tắt hết. Trừ mặt Vex.',
-      'rotor': 'Drone. Tuyến tiếp tế cuối của nó.',
-    },
-    'fortress': {
-      'bays': 'Mới xây dở. Nhờ cậu đấy.',
-    },
-    'warn': {
-      'boss': 'Chúa Tể Lõi phía trước.',
-      'gelFirst': 'Giáp đang nứt. Dùng gel đi.',
-      'gel': 'Gel.',
-      'criticalFirst': 'Nguy kịch! Lùi lại!',
-      'critical': 'Nguy kịch!',
-      'noGel': 'Hết gel rồi. Chơi an toàn nhé.',
-      'weLow': 'Năng lượng vũ khí thấp. Pháo thì miễn phí.',
-      'weEmpty': 'Bình cạn rồi.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: phát cuối.',
-        'flameWave': '{weapon}: phát cuối.',
-        'iceLance': '{weapon}: phát cuối.',
-        'thunderArc': '{weapon}: phát cuối.',
-        'galeGuard': '{weapon}: phát cuối.',
-        'magnetPull': '{weapon}: phát cuối.',
-        'drillBomb': '{weapon}: phát cuối.',
-        'bubbleLance': '{weapon}: phát cuối.',
-        'neonBlade': '{weapon}: phát cuối.',
-        'droneSwarm': '{weapon}: phát cuối.',
-      },
-      'flame': 'Vòi phun. Chờ đã… hoặc trượt qua.',
-      'blade': 'Lưỡi dao. Đi ngay sau nó.',
-      'crusher': 'Máy ép. Nhìn đèn.',
-      'ladder': 'Thang leo. Đẩy về phía tường.',
-      'pit': 'Hố sâu. Canh thang máy.',
-      'down': 'Đang khởi động lại… Có Pip lo rồi.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Bắn khi nó ló ra.',
-      'trooper': 'Khiên. Dùng phát tụ lực phá nó.',
-      'heli': '{enemy}. Nhìn lên.',
-      'hopper': '{enemy}. Ra khỏi vòng.',
-      'roller': '{enemy}. Né sang bên.',
-      'brute': '{enemy}. Gạt đòn rồi phản công.',
-      'turret': '{enemy}. Cứ di chuyển.',
-      'golem': 'Cái thùng kia đang thở. Lại gần đi.',
-      'polar': '{enemy}. Bắn khi nó mở ra màu đỏ.',
-      'warden': '{enemy}. Bắn vào lõi khi nó mở.',
-      'hornet': '{enemy}. Nó lao thẳng: né sang bên!',
-      'stalker': '{enemy}. Gạt đòn khi nó vồ tới.',
-      'puffer': '{enemy}. Bắn nổ trước khi nó phồng.',
-      'mole': '{enemy}. Bắn khi nó trồi lên.',
-      'elite': 'Vòng vàng. Tinh anh. Cẩn thận.',
-      'fire': 'Phủ lửa. Lửa không ăn thua.',
-      'ice': 'Phủ băng. Băng không ăn thua.',
-      'volt': 'Phủ điện. Điện không ăn thua.',
-      'wind': 'Phủ gió. Gió không ăn thua.',
-    },
-    'volt': {
-      'hack': 'Flux… có gì đó trong hệ thố—',
-      'thanks': '…Cậu đã chặn nó lại. Cảm ơn cậu.',
-    },
-    'mk1': {
-      'intro': 'Đó là Vex. Bản thật.',
-      'fire': 'Lửa!',
-      'ice': 'Băng!',
-      'volt': 'Điện!',
-      'wind': 'Gió!',
-      'scrap': 'Phế liệu!',
-      'free': 'Vì họ tự do.',
-    },
-    'guardDown': 'Hạ gục lính gác! Đường đã mở.',
-    'help': {
-      'weapon': 'Chọn vũ khí mới và bắn vào lũ drone!',
-      'gap': 'Đi thẳng về phía mép, cậu sẽ tự động nhảy qua!',
-      'gel': 'Dùng Gel Sửa Chữa để hồi phục!',
-      'slide': 'Trượt né ngay trước khi vòng đỏ chạm tới cậu!',
-      'block': 'Giữ chặn khi nó bắn. Đúng lúc trúng đòn là hoàn hảo!',
-      'charge': 'Giữ bắn cho tới khi pháo phát sáng, rồi thả ra!',
-    },
-    'train': {
-      'weapon': 'Cùng luyện vũ khí mới của cậu nào!',
-      'gap': 'Cùng luyện nhảy qua khoảng trống nào!',
-      'gel': 'Cùng luyện Gel Sửa Chữa nào!',
-      'slide': 'Cùng luyện Trượt nào!',
-      'block': 'Cùng luyện Chặn Hoàn Hảo nào!',
-      'charge': 'Cùng luyện Phát Tụ Lực nào!',
-    },
-    'hint': {
-      'locator': 'Mục tiêu ở hướng đó.',
-      'rescue': 'Tín hiệu robot công nhân. Yếu. Gần đây.',
-      'upgrade': 'Món này là nâng cấp đấy.',
-      'levelUp': 'Đã biên dịch chip mới.',
-      'done': 'Xong. Sẵn sàng thì gọi drone.',
-      'underLevel': 'Chúng mạnh hơn cậu. Luyện trước đã.',
-      'floor': {
-        'blaze': '{sector}: từ cấp 3 trở lên.',
-        'cryo': '{sector}: từ cấp 6 trở lên.',
-        'volt': '{sector}: từ cấp 9 trở lên.',
-        'gale': '{sector}: từ cấp 13 trở lên.',
-        'magnet': '{sector}: từ cấp 16 trở lên.',
-        'drill': '{sector}: từ cấp 19 trở lên.',
-        'tide': '{sector}: từ cấp 22 trở lên.',
-        'neon': '{sector}: từ cấp 25 trở lên.',
-        'rotor': '{sector}: từ cấp 28 trở lên.',
-        'fortress': '{sector}: từ cấp 31 trở lên.',
-      },
-      'rotor': {
-        'arrive': 'Hạ cánh. Xuống thôi!',
-        'dip': 'Bám chắc, ta bổ nhào đây!',
-        'board': 'Lên nào! Tôi bay, cậu bắn.',
-      },
-      'neon': {
-        'kick': 'Quay mặt vào tường rồi trượt. Lần nữa! Đạp tường bật lên!',
-        'switch': 'Công tắc đèn! Bắn nó để đổi cầu nhé.',
-        'blink': 'Cầu ánh sáng nhấp nháy! Băng qua khi nó sáng nhé.',
-        'blackout': 'Mất điện rồi! Băng qua khi đèn sáng lại nhé.'
-      },
-      'tide': {
-        'deep': 'Sâu quá! Ra khỏi nước mau!',
-        'valve': 'Âu thuyền ngập nước! Bắn van để rút nước.',
-        'rise': 'Thủy triều đang lên. Leo lên bậc thang!',
-        'wade': 'Nước! Lội nước làm cậu chậm lại.',
-      },
-      'drill': {
-        'drop': 'Đá rơi! Ra khỏi vùng bóng!',
-        'rock': 'Đá nứt! Phát tụ lực đầy sẽ phá được nó.',
-        'board': 'Xe goòng chạy rồi! Tôi lái, cậu bắn lũ chuột chũi.',
-        'dip': 'Dốc đứng! Bám chặt vào!',
-        'arrive': 'Trạm cuối. Nhảy xuống thôi!'
-      },
-      'magnet': {
-        'panel': 'Thấy tấm đỏ-xanh kia không? Bắn nó để đảo chiều ray.',
-        'rail': 'Ray nam châm! Mũi tên chỉ hướng lực hút. Cố vượt qua, hoặc cứ lướt theo.',
-      },
-      'blaze': {
-        // Meltdown Descent (blaze stage)
-        'lava': 'Dưới kia là dung nham. Đứng trên kim loại thôi.',
-        'leap': 'Quá rộng để đi bộ. Trượt khỏi mép, cậu sẽ bay qua.',
-        'vents': 'Xì trước, lửa sau. Đợi tiếng gầm dứt rồi đi.',
-        'barrels': 'Thùng lăn! Nhìn đèn, băng qua giữa chúng.',
-        'hammers': 'Búa rèn. Đếm nhịp rồi chạy.',
-        'drop': 'Xuống sâu lắm đấy. Từng gờ một.'
-      },
-      'cryo': {
-        // Glacier Run (cryo stage)
-        'ice': 'Băng! Thả cần ra là cậu vẫn trượt tiếp.',
-        'spikes': 'Dưới lớp băng đó là gai. Đi thẳng, đừng rẽ gấp.',
-        'frost': 'Máy phun băng. Nó sáng lên và xì xì trước. Qua khi nó im.',
-        'icicles': 'Bóng trên sàn à? Nhũ băng đấy. Ra khỏi vòng tròn!',
-        'pillar': 'Cột đó nứt rồi. Bắn nó là có đường tắt.',
-        'stairs': 'Cầu thang đóng băng. Đi chậm thôi, chiếu nghỉ nhỏ lắm.'
-      },
-      'volt': {
-        // Rail Rush (volt stage)
-        'panels': 'Mấy tấm sàn đó đang phóng điện. Đợi ở hàng tối rồi bước tiếp.',
-        'board': 'Bỏ tay khỏi cần lái — tôi lái, cậu bắn.',
-        'wave': 'Phía trước có drone! Bắn hạ trước khi chúng lao xuống.',
-        'dip': 'Sắp có dốc lớn. Bám chắc — cứ bắn tiếp!',
-        'arrive': 'Hết đường ray. Xuống thôi!'
-      },
-      'gale': {
-        // Sky Docks (gale stage)
-        'leap': 'Quá rộng để đi bộ qua. Trượt khỏi mép, đà sẽ đưa cậu qua.',
-        'down': 'Nhảy đẹp lắm. Giờ đừng nhìn xuống nhé.',
-        'shuttle': 'Tàu con thoi. Lên khi nó cập bến, xuống ở bờ bên kia.',
-        'wind': 'Đợi cơn gió lặng rồi hãy đi. Hoặc nấp sau cột.',
-        'bob': 'Bệ nhấp nhô. Lên ở dưới, nó sẽ đưa cậu lên.'
-      },
-      'vex': {
-        'roof': 'Sét! Vòng sáng lên thì né ngay!',
-        'fall': 'Mái nhà sập rồi!',
-        'core': 'Xuống Lõi thôi! Đừng rơi vào!'
-      },
-      'gm': {
-        'button': 'Vex đang bấm gì đó... Chuẩn bị đi!',
-        'arms': 'Bắn tay trước! Khẩu pháo và cây thương!',
-        'feet': 'Giờ tới chân! Chặn sóng xung kích!',
-        'head': 'Nó hạ thấp rồi. Đầu nó trong tầm bắn!',
-        'body': 'Lõi lộ ra rồi! Kết liễu nó!',
-        'prism': 'Pháo Lăng Kính! Giơ khiên lên!'
-      }
-    },
-    'secret': {
-      // secret-room puzzles
-      'lights': 'Tấm bảng kia có một hình mẫu. Đèn trên tường thì chưa.',
-      'color': 'Khung kia có một màu yêu thích. Chỉ đèn màu đó mới được sáng.',
-      'cycle': 'Mỗi phát bắn làm đèn đổi ý. Tấm bảng biết nó muốn gì.',
-      'solved': 'Chà chà. Có người thích giải đố đây.'
-    },
-    'landed': 'Hạ cánh! Đi thôi.',
-    'brief': {
-      'tutorial': 'Giờ luyện tập. Để tớ dẫn!',
-      'job': 'Việc nhanh. Vào rồi ra!',
-      'climb': 'Leo tháp! Lên, lên, lên!',
-      'story': 'Một Chúa Tể Lõi đang chờ. Giải phóng nó nào!'
-    },
-    'story': {
-      'relayOne': 'Một trạm đã sáng. Còn chín.',
-      'copied': {
-        'scrapBurst': 'Đã sao chép {weapon}.',
-        'flameWave': 'Đã sao chép {weapon}.',
-        'iceLance': 'Đã sao chép {weapon}.',
-        'thunderArc': 'Đã sao chép {weapon}.',
-        'galeGuard': 'Đã sao chép {weapon}.',
-        'magnetPull': 'Đã sao chép {weapon}.',
-        'drillBomb': 'Đã sao chép {weapon}.',
-        'bubbleLance': 'Đã sao chép {weapon}.',
-        'neonBlade': 'Đã sao chép {weapon}.',
-        'droneSwarm': 'Đã sao chép {weapon}.',
-      },
-      'dataCore': 'Nó để lại gì đó cho chúng ta.',
-      'firstDraft': '…Tớ được viết từ bản nháp đầu tiên của nó.',
-      'body': 'Nó đang tạo một cơ thể. Từ thung lũng của ta.',
-      'voltFreed': 'Tín hiệu mất trạm phát điện rồi.',
-      'galeFreed': 'Không còn linh kiện nào tới Pháo Đài nữa.',
-      'breach': 'Khiên vỡ rồi. Pháo Đài đã mở.',
-      'magnetFreed': 'Xưởng đúc nguội rồi. Hết móng vuốt.',
-      'drillFreed': 'Mỏ đã yên. Hết quặng rồi.',
-      'tideFreed': 'Âu đã đóng. Sà lan nằm yên ở bến.',
-      'neonFreed': 'Đèn sáng rồi. Vex mất hết màn hình.',
-      'rotorFreed': 'Mọi đường dây đã cắt. Vex chỉ còn một mình.',
-      'rotor': 'Đường Bay Cánh Quạt. Gió lùa ăng-ten tớ!',
-      'neon': 'Đại Lộ Mất Điện. Bật đèn lên nào!',
-      'tide': 'Âu Thuyền Thủy Triều. Đến giờ té nước!',
-      'drill': 'Mỏ Sâu. Coi chừng đầu!',
-      'magnet': 'Xưởng Từ Cực. La bàn của tớ quay mòng mòng!',
-      'scrapyard': 'Trạm tiếp sóng Bãi Phế Liệu. Thắp sáng nó!',
-      'blaze': 'Lò Luyện. Nóng, nóng, nóng!',
-      'cryo': 'Xưởng Đông Lạnh. Brr! Cứ di chuyển.',
-      'volt': 'Tháp Điện. Mạch tớ tê rần!',
-      'gale': 'Cảng Trời. Đừng nhìn xuống!',
-      'fortress': 'Pháo Đài. Kết thúc thôi.'
-    },
-    'arc': {
-      '10': 'Khiên vỡ rồi. Tới Vex!',
-      '9': 'Còn một Chúa Tể. Sắp xong!',
-      '8': 'Tám! Chỉ còn hai Chúa Tể.',
-      '7': 'Bảy trạm sáng. Cứ thế nhé!',
-      '6': 'Sáu trạm! Thành phố đang thức giấc.',
-      '1': 'Một trạm đã sáng. Còn chín!',
-      '2': 'Hai trạm! Vex đang dỗi.',
-      '3': 'Ba trạm sáng. Cứ tỏa sáng!',
-      '4': 'Xong bốn. Lưới điện lại rì rầm.',
-      '5': 'Được nửa đường! Vex toát mồ hôi rồi.',
-    },
-    'bossAhead': 'Trùm phía trước. Hít sâu!',
-    'noWeak': 'Không thấy điểm yếu. Cứ di chuyển!',
-    'weak': {
-      'flameWave': 'Sóng Lửa khắc chế tên này!',
-      'iceLance': 'Giáo Băng khắc chế tên này!',
-      'thunderArc': 'Hồ Quang Sấm khắc chế tên này!',
-      'galeGuard': 'Khiên Gió khắc chế tên này!',
-      'magnetPull': 'Lực Hút Nam Châm khắc chế tên này!',
-      'drillBomb': 'Bom Khoan khắc chế tên này!',
-      'bubbleLance': 'Thương Bong Bóng khắc chế tên này!',
-      'neonBlade': 'Lưỡi Neon khắc chế tên này!',
-      'droneSwarm': 'Bầy Drone khắc chế tên này!'
-    },
-    'bossDown': 'Chúa Tể được giải phóng! Giỏi lắm!',
-    'vexDown': 'Vex gục rồi. Ta làm được!',
-    'lowHp': 'Ui! Cẩn thận, Flux!',
-    'lowHpGel': 'Máu thấp! Dùng Gel Sửa Chữa đi.',
-    'lowWe': 'Năng lượng vũ khí thấp!',
-    'trap': 'Bẫy phía trước. Canh thời điểm!',
-    'plate': 'Tấm áp lực. Nhón chân!',
-    'objective': 'Xong! Giờ tìm lối ra.',
-    'exit': 'Xe đón tới rồi!',
-    'levelUp': 'Lên cấp! Cậu đang tỏa sáng.',
-    'idle': {
-      '1': 'Bíp. Chỉ hỏi thăm thôi.',
-      '2': 'Cậu làm tốt lắm.',
-      '3': 'Gauss sẽ tự hào.',
-      '4': 'Tớ thích đội mình.'
-    }
-  },
-  'train': {
-    'todo': 'chưa xong',
-    'done': 'xong',
-    'checklist': 'Hướng Dẫn',
-    'watch': 'Xem cách thực hiện',
-    'card': {
-      'weapon': 'Bạn đã sao chép được vũ khí của một Chúa Tể Lõi! Bắn nó bằng nút riêng: năng lượng vũ khí cấp sức mạnh cho nó, và một số cỗ máy yếu trước nó.',
-      'gel': 'Bị thương à? Gel Sửa Chữa sẽ hồi phục hoàn toàn sức khỏe của bạn. Dùng một cái bất cứ khi nào trận đánh trở nên tồi tệ.',
-      'slide': 'Đòn tấn công đỏ không thể chặn được. Trượt để né tránh: không gì chạm được bạn khi đang trượt.',
-      'block': 'Giữ chặn để giương khiên lên: nó chặn đạn và đòn đánh từ phía trước. Giương lên đúng lúc đòn đánh chạm tới để thực hiện Chặn Hoàn Hảo, khiến kẻ tấn công bị hạ gục.',
-      'charge': 'Phát bắn thường không phá được khiên. Giữ bắn cho tới khi pháo phát sáng, rồi thả ra: phát tụ lực sẽ xuyên thủng ngay.',
-    },
-    'name': {
-      'weapon': 'Bài Học Vũ Khí',
-      'gap': 'Hướng Dẫn Nhảy',
-      'gel': 'Hướng Dẫn Gel Sửa Chữa',
-      'slide': 'Hướng Dẫn Trượt',
-      'block': 'Hướng Dẫn Khiên',
-      'charge': 'Hướng Dẫn Phát Tụ Lực',
-    },
-  },
-  'ending': {
-    'fall': 'Đại Chúa Tể gục ngã. Tín Hiệu Đỏ của Vex lụi tắt theo.',
-    'relays': 'Từng trạm tiếp sóng lần lượt trở về, mỗi trạm một màu riêng.',
-    'thaw': 'Trong phòng thí nghiệm, lớp băng tan dần.',
-    'gauss': 'Flux... cậu làm được rồi. Cậu đã đưa tất cả trở về.',
-    'atlas': 'Ngọn Tháp trống không. Giờ tôi có thể điều hành thành phố này. Tôi sẽ không làm. Nó là của họ.',
-    'morning': 'Cyber City thức dậy trong buổi sáng tự do đầu tiên.',
-    'spark': 'Flux... cậu có thấy tia lửa đó không?',
-    'speaker': {
-      'atlas': 'Atlas',
-      'gauss': 'Prof. Gauss',
-      'pip': 'Pip'
-    },
-    'cast': {
-      'flux': 'Flux',
-      'atlas': 'Atlas',
-      'pip': 'Pip',
-      'gauss': 'Prof. Gauss'
-    },
-    'credits': {
-      'by': 'Một trò chơi của {studio}',
-      'cast': 'Nhân vật',
-      'masters': 'Các Chúa Tể',
-      'thanks': 'Cảm ơn bạn đã chơi!'
-    },
-    'card': {
-      'title': 'Cyber City đã tự do!',
-      'promise': 'New Game+: các Chúa Tể có thêm 25% máu và ra đòn nhanh hơn. Cấp độ, trang bị và vũ khí của bạn được giữ lại.',
-      'ngplus': 'Bắt đầu New Game+',
-      'lab': 'Về phòng thí nghiệm',
-      'confirm': 'Bắt đầu New Game+?',
-      'confirmBody': 'Câu chuyện bắt đầu lại với các Chúa Tể mạnh hơn. Bạn giữ cấp độ, trang bị, vũ khí và nâng cấp.'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Tiết mục khởi động! {boss}!',
-      'blaze': 'Lâu đời nhất! Nóng bỏng nhất! {boss}!',
-      'frost': 'Hạ hỏa đi, droid nhỏ! {boss}!',
-      'volt': 'Chớp mắt là lỡ đấy! {boss}!',
-      'gale': 'Mời người tiếp theo! {boss}, thổi bay nó đi!',
-      'magnet': 'Hấp dẫn chứ hả? {boss}!',
-      'drill': 'Đến giờ khám chuyên SÂU! {boss}!',
-      'tide': 'Theo sóng mà đi nhé, droid! {boss}!',
-      'neon': 'Đèn! Máy quay! {boss}!',
-      'rotor': 'Màn kết hoành tráng! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Một cái cần cẩu phế liệu? Thật là… đáng yêu.',
-      'blaze': 'Đã ghi nhận tác dụng phụ. Tăng liều.',
-      'blueprint': 'Bản phác thảo của ta! Lộng lẫy chưa?',
-      'volt': 'Ta… hoàn-toàn… ỔN.',
-      'gale': 'Được thôi! Ta còn NHIỀU Chúa Tể nữa.',
-      'magnet': 'Bị đẩy lùi? Ta ư? Không-THỂ nào!',
-      'drill': 'Hừ. Chạm đáy mới. Theo nghĩa đen.',
-      'tide': 'Thủy triều sẽ đổi chiều! …Phải không?',
-      'neon': 'Ai BẬT đèn lên thế?!',
-      'rotor': 'Mười trạm?! Y tá! Y TÁ!',
-      'breach': 'Không, không, KHÔNG! Cái khiên đó có BẰNG SÁNG CHẾ!',
-    },
-    'volt': {
-      'hack': 'Xem cái đầu rỗng đó chứa gì nào…',
-      'fail': 'Không ghi được?! Thật là VÔ LỄ.',
-    },
-    'fortress': {
-      'welcome': 'Chào mừng đến phòng khám của ta! Mời ngồi… MÃI MÃI!',
-    },
-    'mk1': {
-      'intro': 'Chiêm ngưỡng đi! Cơ thể mới của ta! Mark MỘT!',
-      'obey': 'Chúa Tể! Hãy VÂNG LỜI bác sĩ!',
-      'listen': 'Sao chúng không chịu NGHE?!',
-      'defeat': 'Ta sẽ… hỏi ý kiến… bác sĩ khác…',
-    },
-    'sting': {
-      'doctorIn': 'Bác sĩ… đã CÓ MẶT.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Mừng cậu về, Flux! Nhìn thung lũng kìa.',
-      'go': 'Chuẩn bị đồ rồi lên đường! Tớ trông phòng thí nghiệm.',
-      'scrapyard': {
-        'won': 'Cần cẩu cũ lại phân loại phế liệu rồi.',
-        'weapon': 'Cậu đã sao chép {weapon}. Nó bắn tỏa ba hướng.',
-        'next': 'Điểm dừng kế tiếp: {sector}. Chỉ khó hơn một chút thôi.',
-        'boss': '{boss} đang rèn giáp cho máy móc của Vex.',
-        'tip': 'Chặn cầu lửa của nó. Trượt qua các đợt sóng lửa.',
-      },
-      'blaze': {
-        'won': 'Ống khói lại cháy sạch rồi. Giỏi lắm!',
-        'weapon': 'Giờ cậu có {weapon} rồi. Lửa làm tan băng!',
-        'next': 'Tiếp theo là {sector}. Máy móc ở đó đánh mạnh hơn.',
-        'boss': '{boss} giữ hết chất làm mát. Thành phố đang quá nóng.',
-        'tip': 'Chặn đạn băng của nó, rồi đáp trả bằng lửa!',
-      },
-      'cryo': {
-        'won': 'Chất làm mát đang chảy về nhà. Thành phố sắp mát rồi.',
-        'weapon': '{weapon} là của cậu. Băng thắng điện!',
-        'next': 'Tiếp theo: {sector}, ở trung tâm. Khó hơn hẳn đấy.',
-        'boss': '{boss} đổ điện của chúng ta vào Tín Hiệu Đỏ.',
-        'tip': 'Nó dịch chuyển liên tục. Bắn rơi các quả cầu điện.',
-      },
-      'volt': {
-        'won': 'Mặt Vex giờ cứ chập chờn suốt. Cậu thấy không?',
-        'weapon': '{weapon} là của cậu. Điện thắng gió!',
-        'next': 'Tiếp theo: {sector}, tít trên cao. Máy móc khó nhằn.',
-        'boss': '{boss} điều khiển khí cầu của Vex suốt ngày đêm.',
-        'tip': 'Chặn lông vũ. Gạt đòn khi nó lao xuống!',
-      },
-      'gale': {
-        'won': 'Khí cầu quay đầu cả rồi. Trời lại quang!',
-        'weapon': '{weapon} là của cậu. Lá của nó chặn được đạn.',
-        'next': 'Giờ ra rìa thành phố: {sector}. Khó hơn nhiều.',
-        'boss': '{boss} chiếm đường ray xe điện để chở hàng cho Vex.',
-        'tip': 'Nó hút cậu lại gần. Chặn cú kẹp!',
-      },
-      'magnet': {
-        'won': 'Xe điện lại chạy rồi. Leng keng!',
-        'weapon': '{weapon} phá vỡ khiên. Quá hợp để đấu Chúa Tể kế tiếp.',
-        'next': 'Tiếp theo: {sector}, sâu dưới lòng đất. Máy móc mạnh thật sự.',
-        'boss': '{boss} nhốt các robot công nhân dưới hầm mỏ.',
-        'tip': 'Nó đào xuống dưới chân cậu. Rời khỏi vạch dấu ngay!',
-      },
-      'drill': {
-        'won': 'Các robot công nhân đã lên lại với ánh mặt trời.',
-        'weapon': '{weapon} nổ cái bùm. Để dành vài quả cho trùm nhé!',
-        'next': 'Tiếp theo: {sector}, dưới mé nước. Rất khó.',
-        'boss': '{boss} đang làm ngập kênh cho sà lan của Vex.',
-        'tip': 'Trượt dưới sóng của nó. Chọc vỡ bong bóng!',
-      },
-      'tide': {
-        'won': 'Nước sạch lại chảy vào thung lũng rồi.',
-        'weapon': '{weapon} lăn xuyên cả đám máy. Trùm ghét bong bóng lắm!',
-        'next': 'Tiếp theo: {sector}, những mái nhà tối om. Nguy hiểm thật đấy.',
-        'boss': '{boss} đã tắt mọi ô cửa sổ ở trung tâm.',
-        'tip': 'Lưỡi dao của nó bay đi rồi bay về. Né hai lần!',
-      },
-      'neon': {
-        'won': 'Đêm nay trung tâm sáng rực màu hồng. Đẹp quá!',
-        'weapon': '{weapon} chém hai lần. Chúa Tể kế tiếp sợ nó lắm!',
-        'next': 'Tiếp theo: {sector}, sân bay trên trời. Gần như khó nhất.',
-        'boss': '{boss} thả drone chở hàng kín cả bầu trời.',
-        'tip': 'Nó thổi cậu lùi lại. Trượt dưới các luồng gió!',
-      },
-      'rotor': {
-        'won': 'Giờ drone giao hàng cho các robot công nhân.',
-        'weapon': '{weapon} là của cậu. Ba drone tự tìm mục tiêu.',
-        'next': 'Điểm dừng cuối: {sector}. Nơi khó nhất.',
-        'boss': '{boss} hết trốn sau khiên được rồi.',
-        'tip': 'Nó mượn đòn của các Chúa Tể. Mang theo Gel Sửa Chữa nhé!',
-      },
-    },
   }
 }

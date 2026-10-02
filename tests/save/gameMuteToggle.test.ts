@@ -45,14 +45,12 @@ describe('useGameMute (desktop)', () => {
 describe('wiring', () => {
   const src = (p: string) => readFileSync(resolve(__dirname, '../..', p), 'utf8')
 
-  it('the top bar puts the speaker left of the help button, keycap F2', () => {
-    const top = src('src/components/hud/TopStatus.vue')
-    const mute = top.indexOf('button.mute(')
-    const help = top.indexOf('button.help(')
-    expect(mute).toBeGreaterThan(0)
-    expect(mute).toBeLessThan(help)
-    expect(top).toMatch(/KeyCap\.kc\(v-if="desk" code="F2"\)/)
-    expect(top).toMatch(/hud\.unmute/)
+  it('the corner menu carries the speaker, and the speaker is the one mute', () => {
+    const menu = src('src/components/hud/HudMenu.vue')
+    expect(menu).toMatch(/\n\s+FMuteButton\n/)
+    const button = src('src/components/atoms/FMuteButton.vue')
+    expect(button).toMatch(/@click="toggleGameMute"/)
+    expect(button).toMatch(/gameMuted \? 'sound-off' : 'sound'/)
   })
 
   it('F2 toggles the same mute from the scene key handler', () => {

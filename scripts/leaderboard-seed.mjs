@@ -62,8 +62,8 @@ export const TOTAL = 2_500
 // COPIES. `tests/game/leaderboardSeed.test.ts` re-derives them from the game's
 // own module and fails if they drift: regenerate the seed after changing the
 // curve.
-export const MAX_LEVEL = 40
-export const xpToNext = (level) => Math.round(60 * Math.pow(Math.max(1, level), 1.55))
+export const MAX_LEVEL = 30
+export const xpToNext = (level) => Math.round(45 * Math.pow(Math.max(1, level), 1.55) + 30 * Math.max(1, level))
 export const xpToReach = (level) => {
   let sum = 0
   for (let l = 1; l < Math.min(level, MAX_LEVEL); l++) sum += xpToNext(l)
@@ -76,12 +76,12 @@ export const xpToReach = (level) => {
  * A survival function, because the design intent is stated that way:
  *
  *    1 → 1.00     everyone starts at level 1
- *    2 → 0.82     ~a fifth never finish the first mission
+ *    2 → 0.82     ~a fifth never finish the first zone
  *    5 → 0.42     most stop somewhere in levels 2–4
- *   12 → 0.12     one in eight plays into the second sector's levels
- *   25 → 0.022    ~2 % are still playing at level 25
- *   40 → 0.0024   a handful (~6 of 2 500) reach the cap
- *   41 → 0        the cap: nobody is modelled past it
+ *   12 → 0.12     one in eight plays into the third tier's zones
+ *   24 → 0.016    under 2 % are still playing at level 24
+ *   30 → 0.0024   a handful (~6 of 2 500) reach the cap
+ *   31 → 0        the cap: nobody is modelled past it
  *
  * Interpolated log-linearly between anchors, so each band decays smoothly
  * instead of stepping at the anchors.
@@ -93,11 +93,10 @@ export const SURVIVAL = [
   [5, 0.42],
   [8, 0.24],
   [12, 0.12],
-  [18, 0.055],
-  [25, 0.022],
-  [32, 0.008],
-  [40, 0.0024],
-  [41, 0]
+  [18, 0.05],
+  [24, 0.016],
+  [30, 0.0024],
+  [31, 0]
 ]
 
 /** Fraction of players still going at `level`. */
@@ -203,7 +202,7 @@ if (SELF && process.argv[1] && resolve(process.argv[1]) === resolve(SELF)) {
   const atLeast = (xp) => seed.dist.filter(([s]) => s >= xp).reduce((a, [, n]) => a + n, 0)
   const pct = (n) => `${((100 * n) / seed.total).toFixed(1)}%`
   console.log(`[seed] ${seed.total} players, ${seed.dist.length} buckets, ${(json.length / 1024).toFixed(1)} kB, top ${seed.dist[0][0]} XP`)
-  for (const level of [2, 5, 12, 25, 40]) {
+  for (const level of [2, 5, 12, 24, 30]) {
     const n = atLeast(xpToReach(level))
     console.log(`[seed]   reached level ${String(level).padStart(2)}  ${String(n).padStart(5)}  ${pct(n)}`)
   }

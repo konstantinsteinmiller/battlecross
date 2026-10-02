@@ -1,34 +1,42 @@
 /**
  * SFX entry point. Every gameplay sound goes through `sfx(name, pan, gain)`;
- * the chiptune synthesizer behind it lands in the audio chunk. Until then this
- * is a registry the synth plugs into, so call sites are already final.
+ * the synthesizer behind it lands with the audio chunk. Until then this is a
+ * registry the synth plugs into, so call sites are already final.
  *
- * `muffle` (0..1) low-passes the sound: a source behind the listener
- * (`state/damageFeed.ts`), which a pan alone cannot tell from one in front.
+ * `muffle` (0..1) low-passes the sound (something heard through a wall, or
+ * under a menu).
+ *
+ * A file in `public/audio/sfx/` named after one of these replaces the
+ * synthesized version (see `sound-todo.md`).
  */
 export type SfxName =
-  | 'shoot' | 'charge1' | 'charge2' | 'charge3' | 'chargeShot' | 'chargeShotBig' | 'hit' | 'hitHeavy' | 'crit' | 'tink'
-  | 'guardBreak' | 'explode' | 'enemyShot' | 'lob' | 'jump' | 'stomp' | 'dash' | 'bonk' | 'punch' | 'alert'
-  | 'hurt' | 'block' | 'parry' | 'guardCrack' | 'slide' | 'bolt' | 'heal' | 'energy' | 'door' | 'beamIn'
-  | 'beamOut' | 'levelUp' | 'chestOpen' | 'loot' | 'tank' | 'weapon' | 'denied' | 'uiClick' | 'uiOpen'
-  | 'objective' | 'bossIntro' | 'death' | 'locate' | 'bossWarn' | 'thunder'
-  | 'attrPick'
-  | 'trapHiss' | 'flameJet' | 'bladeWhoosh' | 'trapClick'
-  // The Sky Docks' wind tunnel (`sim/stages/wind.ts`)
-  | 'gust'
-  | 'borrowGet' | 'borrowSpent'
-  | 'droneArrive' | 'droneHum' | 'droneHumHi' | 'deckLand' | 'liftOff'
-  | 'whizz'
-  | 'fumble'
-  // The intro cutscene (`story/introScript.ts`)
-  | 'synthPulse' | 'tapeRewind' | 'relayChime' | 'vexGlitch' | 'relayOut' | 'alarm' | 'capsule' | 'freeze'
-  | 'heartbeat' | 'pipChirp' | 'bootUp' | 'uiClose'
+  // Weapons
+  | 'swing' | 'swingHeavy' | 'shoot' | 'cast'
+  // Impacts
+  | 'hit' | 'hitHeavy' | 'crit' | 'block' | 'dodge' | 'hurt'
+  // Elements and schools
+  | 'fire' | 'ice' | 'holy' | 'shadow' | 'poison' | 'blood' | 'quake' | 'beam' | 'explode' | 'teleport'
+  // Abilities
+  | 'summon' | 'heal' | 'shieldUp' | 'roar' | 'telegraph' | 'overheat'
+  // Enemies
+  | 'alert' | 'bossIntro' | 'death' | 'deathBig'
+  // Rewards
+  | 'coin' | 'loot' | 'chest' | 'levelUp' | 'potion'
+  // UI
+  | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
+
+export const SFX_NAMES: readonly SfxName[] = [
+  'swing', 'swingHeavy', 'shoot', 'cast', 'hit', 'hitHeavy', 'crit', 'block', 'dodge', 'hurt', 'fire', 'ice', 'holy',
+  'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport', 'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
+  'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
+  'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove'
+]
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void
 let player: Player | null = null
 
 export const setSfxPlayer = (p: Player | null): void => { player = p }
 
-export const sfx = (name: SfxName | string, pan = 0, gain = 1, muffle = 0): void => {
-  player?.(name as SfxName, Math.max(-1, Math.min(1, pan)), gain, Math.max(0, Math.min(1, muffle)))
+export const sfx = (name: SfxName, pan = 0, gain = 1, muffle = 0): void => {
+  player?.(name, Math.max(-1, Math.min(1, pan)), gain, Math.max(0, Math.min(1, muffle)))
 }

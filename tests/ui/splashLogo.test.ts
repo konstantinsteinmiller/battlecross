@@ -11,8 +11,8 @@ import { describe, expect, it } from 'vitest'
 // same place. They used not to be: the static copy was a simplified emblem
 // with half the title, so the logo visibly changed as the loader took over.
 //
-// Now the lockup (Flux's head in the hex reactor badge over the MEGA /
-// DROID wordmark) is ONE inline SVG of paths, pasted into both files. This
+// Now the lockup (two swords crossed behind a shield over the BATTLE /
+// CROSS wordmark) is ONE inline SVG of paths, pasted into both files. This
 // pins the two copies to each other, byte for byte, and pins every sizing and
 // colour rule of the two layouts to each other, rule for rule. A browser
 // check of the hand-over (boxes and pixels) is in the logo redesign notes;
@@ -112,15 +112,13 @@ describe('the splash lockup', () => {
 
   it('is named what the page and the installed app are named', () => {
     // The tab title, the iOS home-screen title, the PWA name and the logo's
-    // accessible name are one string. scripts/render-thumbnail.mjs also
-    // checks the served <title> against its own TITLE before trusting a port.
+    // accessible name are one string.
     const title = /<title>([^<]*)<\/title>/.exec(html)?.[1]
     expect(title).toBe('Battlecross')
     expect(/<meta name="apple-mobile-web-app-title" content="([^"]*)">/.exec(html)?.[1]).toBe(title)
     expect(/<div class="s-logo" role="img" aria-label="([^"]*)">/.exec(html)?.[1]).toBe(title)
     expect(manifest.name).toBe(title)
     expect(manifest.short_name).toBe(title)
-    expect(read('scripts/render-thumbnail.mjs')).toContain(`const TITLE = '${title}'`)
   })
 
   it('declares the aspect ratio its viewBox has, in both layouts', () => {
@@ -200,13 +198,15 @@ describe('the loader mechanics survive the restyle', () => {
   })
 })
 
-describe('the store copy describes the new hero', () => {
+describe('the store copy describes this game', () => {
   const meta = /<meta name="description" content="([^"]*)">/.exec(html)?.[1] ?? ''
 
-  it.each([['index.html meta description', meta], ['manifest description', manifest.description]])('%s names Flux and no longer the blue android', (_, text) => {
-    expect(text).toContain('Flux')
-    expect(text).not.toMatch(/\bblue\b|Cobalt/i)
-    // "Buster" is MegaMan's word for the arm cannon; store copy says cannon.
-    expect(text).not.toMatch(/buster/i)
+  it.each([['index.html meta description', meta], ['manifest description', manifest.description]])('%s is about the RPG, not the predecessor', (_, text) => {
+    expect(text).toMatch(/RPG/)
+    expect(text).not.toMatch(/Flux|android|robot|machine|cannon|circuit/i)
+  })
+
+  it('says the same thing in both places', () => {
+    expect(manifest.description).toBe(meta)
   })
 })

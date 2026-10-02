@@ -1,7 +1,7 @@
 {
   "name": "Battlecross",
   "short_name": "Battlecross",
-  "description": "Beam into machine-infested sectors as Flux, a pearl-white combat android with a plasma-lit visor. Explore, blast rogue robots with your charge cannon, loot chests, take on missions and upgrade your circuits.",
+  "description": "A cute isometric action RPG. Fight goblins, demons and dragons, mix skills from eight classes into your own hero, and make choices that reshape the realm.",
   "display": "standalone",
   "display_override": [
     "fullscreen",

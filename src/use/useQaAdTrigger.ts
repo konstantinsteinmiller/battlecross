@@ -1,7 +1,7 @@
 // ─── The hidden QA interstitial tap ─────────────────────────────────────────
 //
-// Twenty taps on the screws (bolts) badge inside thirty seconds request an
-// interstitial — in the hub or in a mission. The badge takes the tap itself
+// Twenty taps on the gold readout inside thirty seconds request an
+// interstitial — in a zone, in a town or on the map. The badge takes the tap itself
 // (`pointerdown`, above the input surface), so on desktop it works with the
 // mouse free and never captures it.
 //
@@ -72,7 +72,7 @@ export const __resetQaAdTaps = (): void => {
 }
 
 /**
- * Record one tap on the screws badge, and request an interstitial once
+ * Record one tap on the gold readout, and request an interstitial once
  * `QA_AD_TAPS` of them have landed inside `QA_AD_WINDOW_MS`.
  *
  * The window ROLLS rather than being counted from the first tap: a tester who

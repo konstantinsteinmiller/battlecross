@@ -1,21 +1,24 @@
-// Faces are bundled through @fontsource (see main.ts) — no runtime font CDN,
-// which Poki / Playables forbid. Russo One covers Latin + Cyrillic; every
-// other script falls through to a NAMED system face before the generic, so
-// CJK / Thai / Devanagari / Arabic never render as tofu.
-:root
-  --font-ui: 'Russo One', 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Microsoft YaHei', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK SC', 'Noto Sans Thai', 'Leelawadee UI', 'Noto Sans Devanagari', 'Nirmala UI', 'Noto Naskh Arabic', 'Segoe UI Arabic', system-ui, sans-serif
-  // The pixel face is Latin-only; the UI stack behind it names the system
-  // faces for every other script, so a translated label never falls to a
-  // generic monospace.
-  --font-pixel: 'Press Start 2P', var(--font-ui)
+// ONE face for every text in the game: the bundled "Angry" display face. No
+// runtime font CDN (Poki and YouTube Playables forbid it). It covers Latin;
+// every other script falls through to a NAMED system face before the generic,
+// so Cyrillic / Greek / CJK / Thai / Devanagari / Arabic never render as tofu.
+@font-face
+  font-family: 'Angry'
+  font-style: normal
+  font-weight: 400 900
+  font-display: swap
+  src: url(./font/angrybirds-regular.ttf) format('truetype')
 
-// Greek: Russo One has no Greek, so a Greek word would mix two faces (its
-// Latin digits and punctuation in Russo, the letters in the fallback). Greek
-// sets wholly in a system sans instead.
-html:lang(el)
+:root
+  --font-ui: 'Angry', 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Microsoft YaHei', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK SC', 'Noto Sans Thai', 'Leelawadee UI', 'Noto Sans Devanagari', 'Nirmala UI', 'Noto Naskh Arabic', 'Segoe UI Arabic', system-ui, sans-serif
+
+// Scripts the display face does not draw set WHOLLY in a system sans, so a
+// word never mixes two faces (its digits and punctuation in one, its letters
+// in another).
+html:is(:lang(el), :lang(ru), :lang(uk), :lang(bg), :lang(kk))
   --font-ui: 'Segoe UI', 'Noto Sans', 'Helvetica Neue', Arial, system-ui, sans-serif
 
 // Traditional Chinese: the Traditional faces before the Simplified ones, or
 // shared characters take the mainland glyph shapes.
 html:lang(zh-Hant)
-  --font-ui: 'Russo One', 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans CJK TC', 'Noto Sans TC', 'Hiragino Sans', system-ui, sans-serif
+  --font-ui: 'Angry', 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans CJK TC', 'Noto Sans TC', 'Hiragino Sans', system-ui, sans-serif

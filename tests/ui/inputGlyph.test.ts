@@ -5,12 +5,10 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createI18n } from 'vue-i18n'
 import en from '@/i18n/locales/en'
-import InputGlyph from '@/components/hud/InputGlyph.vue'
-import ControlHints from '@/components/hud/ControlHints.vue'
-import ControlsPanel from '@/components/hud/ControlsPanel.vue'
+import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 import {
   FINGERTIP, FINGER_HOLD, HAND, INFINITY, INF_HAND_SCALE, INF_POINTS, INF_SAMPLES, MOUSE_BUTTONS, MOUSE_HOLD, onMouseButton
-} from '@/components/hud/glyphGeometry'
+} from '@/components/glyphs/glyphGeometry'
 import { hud } from '@/game/state/hud'
 
 // The legend asks the game which hand is on the controls; the game itself
@@ -248,7 +246,7 @@ describe('InputGlyph in a frozen frame', () => {
 
   it('switches the ∞ to its resting pose under reduced motion, and never animates the standing ring', () => {
     // No CSS engine in jsdom: the contract is read off the stylesheet itself.
-    const src = readFileSync(resolve(__dirname, '../../src/components/hud/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
+    const src = readFileSync(resolve(__dirname, '../../src/components/glyphs/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
     const reduced = src.slice(src.indexOf('@media (prefers-reduced-motion: reduce)'))
     expect(reduced).toMatch(/\.inf-live\s+display: none/)
     expect(reduced).toMatch(/\.inf-rest\s+display: inline/)
@@ -365,7 +363,7 @@ describe('the mouse says which button, and click or hold', () => {
   })
 
   it('the lit colour holds: no pulse toward white, a press only darkens it; the stylesheet agrees', () => {
-    const src = readFileSync(resolve(__dirname, '../../src/components/hud/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
+    const src = readFileSync(resolve(__dirname, '../../src/components/glyphs/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
     expect(src).not.toMatch(/hot-pulse/)
     expect(src).not.toMatch(/#fff3a8/i)
     // The top-level .hot rule is not animated…
@@ -390,7 +388,7 @@ describe('the mouse says which button, and click or hold', () => {
     // The cycles are set under `.m-click` / `.m-hold` (two classes); a flat
     // `.hot { animation: none }` loses to them, and the pause legend kept
     // clicking and holding with reduced motion on.
-    const src = readFileSync(resolve(__dirname, '../../src/components/hud/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
+    const src = readFileSync(resolve(__dirname, '../../src/components/glyphs/InputGlyph.vue'), 'utf8').replace(/\r\n/g, '\n')
     const at = src.indexOf('@media (prefers-reduced-motion: reduce)')
     const before = src.slice(0, at)
     const reduced = src.slice(at)
@@ -401,139 +399,5 @@ describe('the mouse says which button, and click or hold', () => {
       expect(animated.length, mode).toBeGreaterThan(0)
       for (const sel of animated) expect(stilled, `${mode} ${sel}`).toContain(sel)
     }
-  })
-})
-
-describe('where the coach and the pause menu draw it', () => {
-  const phase = hud.phase
-  const i18n = () => createI18n({ legacy: false, locale: 'en', fallbackLocale: 'en', messages: { en } })
-
-  afterEach(() => {
-    hud.hints = []
-    hud.phase = phase
-    device.value = 'touch'
-  })
-
-  it('the coach teaches touch "move" with the ∞ finger, pips and all', () => {
-    hud.phase = 'play'
-    hud.pointerFree = false
-    hud.hints = [{ id: 'move', family: 'touch', count: 1, goal: 3, flash: 0, done: false }]
-    const w = mount(ControlHints, { global: { plugins: [i18n()] } })
-    const hint = w.find('.hint.move.touch')
-    expect(hint.exists()).toBe(true)
-    expect(hint.find('path.inf-guide').exists()).toBe(true)
-    expect(hint.find('.stick-rim').exists()).toBe(false)
-    expect(hint.findAll('.pip')).toHaveLength(3)
-    expect(hint.findAll('.pip.on')).toHaveLength(1)
-    expect(hint.attributes('aria-label')).toBe(en.tips.moveTouch)
-  })
-
-  it('the pause legend opens on the same ∞ for touch, and on WASD for keys', () => {
-    device.value = 'touch'
-    const touch = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-    const first = touch.find('.row')
-    expect(first.attributes('data-row')).toBe('move')
-    expect(first.find('.input.infinity path.inf-guide').exists()).toBe(true)
-    // Charge is a hold: its row shows the standing ring, fire's tap does not.
-    expect(touch.find('[data-row="charge"] .hold-arc').exists()).toBe(true)
-    expect(touch.find('[data-row="fire"] .hold-arc').exists()).toBe(false)
-
-    device.value = 'mouse'
-    const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-    expect(keys.find('[data-row="move"] .input.wasd').exists()).toBe(true)
-    expect(keys.find('[data-row="charge"] .hold-arc').exists()).toBe(true)
-  })
-
-  it('the touch legend has no look row — the ∞ stands for it; keys keep the swaying mouse', () => {
-    device.value = 'touch'
-    const touch = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-    expect(touch.find('[data-row="look"]').exists()).toBe(false)
-    expect(touch.find('.sway').exists()).toBe(false)
-    expect(touch.find('[data-row="move"] .input.infinity').exists()).toBe(true)
-
-    device.value = 'mouse'
-    const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-    expect(keys.find('[data-row="look"] .input.mouse .sway').exists()).toBe(true)
-  })
-
-  it('the coach still teaches the desktop camera with the swaying mouse', () => {
-    hud.phase = 'play'
-    hud.pointerFree = false
-    hud.hints = [{ id: 'look', family: 'mouse', count: 0, goal: 3, flash: 0, done: false }]
-    const w = mount(ControlHints, { global: { plugins: [i18n()] } })
-    const hint = w.find('.hint.look.mouse')
-    expect(hint.exists()).toBe(true)
-    expect(hint.find('.sway').exists()).toBe(true)
-    expect(hint.attributes('aria-label')).toBe(en.tips.lookMouse)
-    // Looking lights no button.
-    expect(hint.find('svg').attributes('data-lit')).toBe('none')
-  })
-
-  it('the coach\'s mouse cards: fire clicks left, charge holds left, block HOLDS right, parry clicks right', () => {
-    hud.phase = 'play'
-    hud.pointerFree = false
-    const card = (id: 'fire' | 'charge' | 'block' | 'parry') => {
-      hud.hints = [{ id, family: 'mouse', count: 0, goal: 2, flash: 0, done: false }]
-      return mount(ControlHints, { global: { plugins: [i18n()] } }).find(`.hint.${id}.mouse svg`)
-    }
-    const expectGlyph = (svg: ReturnType<typeof card>, side: 'left' | 'right', mode: 'm-click' | 'm-hold') => {
-      expect(svg.attributes('data-lit')).toBe(side)
-      expect(svg.classes()).toContain(mode)
-      expect(svg.find('path.hot').attributes('data-button')).toBe(side)
-    }
-    expectGlyph(card('fire'), 'left', 'm-click')
-    expectGlyph(card('charge'), 'left', 'm-hold')
-    // Block is held (input.ts: blockHeld): the right button stays down while
-    // the ring fills — the card read as "click right" without it.
-    const block = card('block')
-    expectGlyph(block, 'right', 'm-hold')
-    expect(block.find('path.m-fill').exists()).toBe(true)
-    // A parry is one timed press, on the beat of the card's closing ring.
-    const parry = card('parry')
-    expectGlyph(parry, 'right', 'm-click')
-    expect(parry.find('path.m-fill').exists()).toBe(false)
-    const src = readFileSync(resolve(__dirname, '../../src/components/hud/ControlHints.vue'), 'utf8').replace(/\r\n/g, '\n')
-    expect(src).toMatch(/\.parry \.glyph-box\n\s+--m-click-dur: 1\.1s\n\s+--m-click-delay: -0\.495s/)
-    // The capture glyph (before the mouse is captured) is a left click.
-    hud.pointerFree = true
-    hud.hints = []
-    const capture = mount(ControlHints, { global: { plugins: [i18n()] } }).find('.capture svg')
-    expectGlyph(capture, 'left', 'm-click')
-    hud.pointerFree = false
-  })
-
-  it('the pause legend: block is a right-button hold, fire a left click, charge a left hold', () => {
-    device.value = 'mouse'
-    const keys = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-    const row = (k: string) => keys.find(`[data-row="${k}"] svg`)
-    expect(row('block').attributes('data-lit')).toBe('right')
-    expect(row('block').classes()).toContain('m-hold')
-    expect(row('fire').attributes('data-lit')).toBe('left')
-    expect(row('fire').classes()).toContain('m-click')
-    expect(row('charge').attributes('data-lit')).toBe('left')
-    expect(row('charge').classes()).toContain('m-hold')
-    expect(row('look').attributes('data-lit')).toBe('none')
-    // The parry: the same right button, clicked once on the beat.
-    expect(row('parry').attributes('data-lit')).toBe('right')
-    expect(row('parry').classes()).toContain('m-click')
-    expect(row('parry').find('path.m-fill').exists()).toBe(false)
-  })
-
-  it('the pause legend writes each action\'s verb beside its icon, as the coach never does', () => {
-    for (const fam of ['touch', 'mouse'] as const) {
-      device.value = fam
-      const w = mount(ControlsPanel, { global: { plugins: [i18n()] } })
-      expect(w.get('[data-row="move"] .action .label').text(), fam).toBe(en.pause.label.move)
-      expect(w.get('[data-row="charge"] .action .label').text(), fam).toBe(en.hero.stat.charge)
-      expect(w.get('[data-row="block"] .action .label').text(), fam).toBe(en.combat.block)
-      expect(w.get('[data-row="slide"] .action .label').text(), fam).toBe(en.combat.slide)
-      w.unmount()
-    }
-    // The in-play coach stays wordless.
-    hud.phase = 'play'
-    hud.pointerFree = false
-    hud.hints = [{ id: 'charge', family: 'mouse', count: 0, goal: 2, flash: 0, done: false }]
-    const coach = mount(ControlHints, { global: { plugins: [i18n()] } })
-    expect(coach.find('.hint.charge').text()).toBe('')
   })
 })

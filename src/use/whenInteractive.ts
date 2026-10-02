@@ -9,8 +9,8 @@
 // certification finding.)
 //
 // So the caller waits for the loading layers to LEAVE (see FLogoProgress) and
-// this waits for the scene to hand over control: the hub, or a mission past its
-// beam-in (1.15 s of scripted arrival, no input). Capped, because a ready signal
+// this waits for the scene to hand over control: a zone or a town the player can
+// act in, or the world map. Capped, because a ready signal
 // that never fires is worse than a slightly early one — Playgama rejects a game
 // that never sends it, and YouTube's spinner would never lift.
 
@@ -21,7 +21,7 @@ import { hud } from '@/game/state/hud'
 export const INTERACTIVE_CAP_MS = 8000
 
 /** Does the current scene take player input? */
-export const isSceneInteractive = (): boolean => hud.phase === 'play' || hud.phase === 'hub'
+export const isSceneInteractive = (): boolean => hud.phase === 'play' || hud.phase === 'town' || hud.phase === 'map'
 
 /**
  * Run `fn` once, as soon as the scene takes input — now, if it already does.

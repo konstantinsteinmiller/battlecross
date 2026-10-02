@@ -5,15 +5,9 @@ export default {
   'close': 'Zatvori',
   'ok': 'Ok',
   'continue': 'Nastavi',
-  'tapToContinue': 'Dodirni za nastavak',
-  'clickToContinue': 'Klikni za nastavak',
-  'rewards': 'NAGRADE',
-  'tip': 'Savjet',
   'onlyAvailableOn': 'Ova igra dostupna je samo na',
 
   'ui': {
-    'killcamCount': 'Kill-camovi u ovoj misiji: {n}',
-    'killcamOff': 'Isključi kill-camove',
     'next': 'Dalje',
     'replay': 'Ponovi',
     'back': 'Natrag',
@@ -22,504 +16,594 @@ export default {
     'menu': 'Izbornik',
     'home': 'Početna',
     'info': 'Info',
-    'skip': 'Preskoči',
-    'holdToSkip': 'Drži {key} za preskakanje'
+    'help': 'Kontrole',
+    'ok': 'Razumijem',
+    'continue': 'Nastavi'
+  },
+
+  'hud': {
+    'level': 'Raz. {n}',
+    'health': 'Zdravlje {n} od {max}',
+    'mana': 'Mana {n} od {max}',
+    'heat': 'Toplina',
+    'xp': 'ISK',
+    'gold': 'Zlato: {n}',
+    'potion': 'Napitak zdravlja (preostalo: {n})',
+    'groups': 'Poražene skupine neprijatelja: {n} od {total}',
+    'wave': 'Val {n} / {total}'
+  },
+  'menu': {
+    'map': 'Karta svijeta',
+    'character': 'Junak',
+    'skills': 'Vještine',
+    'inventory': 'Torba'
   },
 
   'combat': {
-    'tink': 'DZING!',
-    'perfect': 'SAVRŠENO!',
-    'parry': 'PARIRANJE!',
-    'guardBreak': 'GARD SLOMLJEN!',
-    'guardCracked': 'Gard puca!',
-    'xp': '+{n} XP',
-    'lastStand': 'Posljednji otpor! Sustavi ponovno pokrenuti.',
-    'weak': 'SLABOST!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'OMAMLJEN!',
-    'dodge': 'IZMICANJE!',
+    'dodge': 'Izmak',
     'block': 'Blok',
-    'slide': 'Klizanje',
-    'fire': 'Pucanj',
-    'tank': 'Gel za popravak',
-    'noEnergy': 'Premalo energije oružja',
-    'tankCount': 'Gel za popravak: {n} od {max}',
-    'borrowed': 'Posuđeno oružje {weapon}: {n} od {max} hitaca',
-    'borrowedGet': '{weapon} ×{n}'
+    'immune': 'Imunost'
+  },
+  'status': {
+    'stun': 'Omamljenost',
+    'knockup': 'U zraku',
+    'knockdown': 'Oborenost',
+    'stasis': 'Staza',
+    'petrify': 'Okamenjenost',
+    'frozen': 'Zaleđenost',
+    'fear': 'Strah',
+    'slow': 'Usporenost',
+    'confuse': 'Zbunjenost',
+    'taunt': 'Izazivanje',
+    'armorShred': 'Razbijen oklop',
+    'weaken': 'Oslabljenost',
+    'vulnerable': 'Ranjivost',
+    'burn': 'Gorenje',
+    'poison': 'Otrovanost',
+    'bleed': 'Krvarenje',
+    'delayed': 'Odgođena šteta',
+    'haste': 'Hitrost',
+    'attackSpeed': 'Brzi napadi',
+    'damageUp': 'Osnaženje',
+    'defenseUp': 'Utvrđenost',
+    'regen': 'Regeneracija',
+    'lifestealUp': 'Krađa života',
+    'invulnerable': 'Neranjivost',
+    'unkillable': 'Neubojivost',
+    'stealth': 'Skrivenost',
+    'reflect': 'Odbijanje',
+    'envenom': 'Otrovna oštrica',
+    'exosuit': 'Egzoodijelo',
+    'focus': 'Usredotočenost',
+    'accelerate': 'Ubrzanje',
+    'overheat': 'Pregrijanost',
+    'enrage': 'Bijes',
+    'ambush': 'Zasjeda'
+  },
+  'toast': {
+    'item': 'Pronađeno: {item}',
+    'levelUp': 'Razina {level}! +3 boda atributa',
+    'boss': 'Dolazi: {boss}',
+    'wave': 'Val {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Uh-oh!',
-      '2': 'Bzzt! Ups!',
-      '3': 'Ruka mi štuca!',
-      '4': 'Greška… jupiii!',
-      '5': 'Krugovi od maslaca!',
-      '6': 'Način želea: UKLJ.!'
+  'coach': {
+    'move': {
+      'touch': 'Dodirni tlo da junak ode onamo ili koristi palicu.',
+      'mouse': 'Klikni na tlo da junak ode onamo ili upravljaj tipkama za kretanje.'
+    },
+    'target': {
+      'touch': 'Dodirni neprijatelja ili povuci od junaka do njega da ga napadneš.',
+      'mouse': 'Klikni na neprijatelja da ga napadneš.'
+    },
+    'skill': {
+      'touch': 'Dodirni vještinu da je upotrijebiš na meti.',
+      'mouse': 'Pritisni tipku vještine da je upotrijebiš na meti.'
+    },
+    'aim': {
+      'touch': 'Povuci vještinu na bojište da naciljaš i pusti da je baciš.',
+      'mouse': 'Povuci vještinu na bojište da naciljaš i pusti da je baciš.'
+    },
+    'potion': {
+      'touch': 'Dodirni napitak da se izliječiš.',
+      'mouse': 'Pritisni tipku napitka da se izliječiš.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Ratarski gradić na rubu ravnica. Dom, kovač i dva učitelja.' },
+    'plains': { 'name': 'Sunfordske ravnice', 'desc': 'Goblini, vukovi i razbojnici napadaju karavane na otvorenoj cesti.' },
+    'hollows': { 'name': 'Goblinske jame', 'desc': 'Špilje pod brdima. Na samom dnu stoluje Kralj goblina.' },
+    'arena': { 'name': 'Koloseum', 'desc': 'Osam valova, svaki teži od prethodnog. Zlato i slava onome tko ostane na nogama.' },
+    'woods': { 'name': 'Šaptava šuma', 'desc': 'Stara stabla koja hodaju i pauci koji među njima pletu mreže.' },
+    'outskirts': { 'name': 'Okolica Oakhavena', 'desc': 'Farme pred Oakhavenom gore. Vojska ratnog vođe stoji pred vratima.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Trgovački grad opasan zidinama. Što će postati, ovisi o tebi.' },
+    'crags': { 'name': 'Pepeljaste litice', 'desc': 'Crna stijena i otvorena vatra. Kultisti hrane plamen.' },
+    'mines': { 'name': 'Rudnici Ironholda', 'desc': 'Patuljci su kopali preduboko i probudili nešto što svijetli.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'Planinski grad kovačnica. Ovdje se kuje najbolji čelik u kraljevstvu.' },
+    'tundra': { 'name': 'Promrzla tundra', 'desc': 'Bijela pustoš kojom hodaju divovi, a mrtvi ne ostaju ležati.' },
+    'temple': { 'name': 'Potopljeni hram', 'desc': 'Poplavljene dvorane naga i proročica koja vidi svaki kraj.' },
+    'citadel': { 'name': 'Citadela Praznine', 'desc': 'Tvrđava koje lani nije bilo. Njezini zidovi bruje.' },
+    'peak': { 'name': 'Zmajev vrh', 'desc': 'Viverne kruže oko vrha. Na njemu spava nešto mnogo veće.' },
+    'fortress': { 'name': 'Tvrđava užasa', 'desc': 'Sjedište Arhidemona i prijestolje koje želi svaka frakcija.' },
+    'rift': { 'name': 'Rascjep Praznine', 'desc': 'Rana kroz koju su došli demoni. S druge strane čeka Gospodar Praznine.' }
+  },
+  'map': {
+    'title': 'Kraljevstvo',
+    'town': 'Grad',
+    'levels': 'Raz. {min}–{max}',
+    'arenaBest': 'Rekord: val {n}',
+    'travel': 'Kreni',
+    'again': 'Opet',
+    'enter': 'Uđi',
+    'fight': 'Bori se',
+    'back': 'Natrag u grad',
+    'locked': 'Očisti susjednu zonu da otvoriš put.',
+    'lockedArena': 'Vrata se otvaraju kad se riješi pitanje Kralja goblina.',
+    'lockedRift': 'Otvara se kad se odluči o prijestolju Tvrđave užasa.',
+    'danger': {
+      '1': 'Malo iznad tvoje razine.',
+      '2': 'Opasno za tvoju razinu.',
+      '3': 'Daleko iznad tvoje razine.'
+    },
+    'questOpen': '{quest}: ovdje čeka odluka.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Skriveni učitelj: {cls}'
+  },
+  'travel': {
+    'to': 'Odredište:',
+    'loading': 'Učitavanje'
+  },
+
+  'attr': {
+    'str': { 'name': 'Snaga', 'short': 'SNA', 'desc': 'Snaga u bliskoj borbi, šansa za blok, teški oklop.' },
+    'dex': { 'name': 'Spretnost', 'short': 'SPR', 'desc': 'Kritični pogoci, brzina napada i kretanja.' },
+    'int': { 'name': 'Inteligencija', 'short': 'INT', 'desc': 'Snaga čarolija, mana, otpornost na elemente.' },
+    'end': { 'name': 'Izdržljivost', 'short': 'IZD', 'desc': 'Zdravlje, regeneracija, oklop, otpornost na omamljivanje.' },
+    'skl': { 'name': 'Umijeće', 'short': 'UMI', 'desc': 'Kritična šteta, čekanja, oružje na daljinu.' },
+    'cha': { 'name': 'Karizma', 'short': 'KAR', 'desc': 'Sluge, cijene u trgovinama, nagrade, mogućnosti u razgovoru.' }
+  },
+  'stat': {
+    'health': 'Zdravlje',
+    'mana': 'Mana',
+    'armor': 'Oklop',
+    'resist': 'Otpornost',
+    'crit': 'Šansa za krit.',
+    'critDamage': 'Krit. šteta',
+    'attackSpeed': 'Brzina napada',
+    'moveSpeed': 'Brzina kretanja',
+    'cdr': 'Kraće čekanje',
+    'block': 'Blok',
+    'dodge': 'Izmak',
+    'hpRegen': 'Zdravlje / s'
+  },
+  'sheet': {
+    'points': 'Bodovi za raspodjelu: {n}',
+    'raise': 'Povećaj: {attr}',
+    'maxLevel': 'Dosegnuta najviša razina'
+  },
+
+  'skills': {
+    'active': 'Aktivne vještine',
+    'passive': 'Pasivne vještine',
+    'known': 'Naučeno',
+    'none': 'Još ništa nije naučeno. Pronađi učitelja u gradu.',
+    'emptySlot': 'Prazno mjesto {n}',
+    'equip': 'Postavi',
+    'remove': 'Ukloni',
+    'unmet': 'Više ne ispunjavaš njezine uvjete.'
+  },
+  'class': {
+    'aegis': { 'name': 'Vitez Egide', 'desc': 'Štit i sveti čelik. Prima udarce da nitko drugi ne mora.' },
+    'shadow': { 'name': 'Sjenovita oštrica', 'desc': 'Izlazi iz mraka, udara s leđa i nestaje.' },
+    'pyro': { 'name': 'Piromant', 'desc': 'Vatra je odgovor na svako pitanje. Zapali ih pa ih raznesi.' },
+    'sovereign': { 'name': 'Veliki suveren', 'desc': 'Zašto se boriti sam? Prizovi stražare i zapovijedaj im.' },
+    'chrono': { 'name': 'Tkalac vremena', 'desc': 'Zaustavlja neprijatelje u vremenu, ubrzava saveznike i poništava pogreške.' },
+    'blood': { 'name': 'Krvni alkemičar', 'desc': 'Moć plaća zdravljem, a zatim ga ispija natrag iz neprijatelja.' },
+    'aether': { 'name': 'Eter-tehničar', 'desc': 'Puške, kupole i mjerač topline. Ispusti je prije nego što te zaključa.' },
+    'geo': { 'name': 'Geomant', 'desc': 'Podiže zidove i šiljke i lomi samo tlo.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Aktivna', 'passive': 'Pasivna' },
+    'cooldown': 'Čekanje {n}s',
+    'mana': '{n} mane',
+    'hpCost': '{n}% zdravlja',
+    'heat': '+{n} topline',
+    'aimed': 'Povuci za ciljanje',
+
+    'shieldSlam': { 'name': 'Udar štitom', 'desc': 'Udari metu za {dmg}% štete od Snage i omami je na {stun}s.' },
+    'aegisAura': { 'name': 'Aura Egide', 'desc': '+{armor}% Oklopa, a primljena fizička šteta smanjena je za {reduce}%.' },
+    'radiantStrike': { 'name': 'Blistavi udarac', 'desc': 'Sveti udarac za {dmg}% štete od Snage koji te liječi za {heal}% nanesene štete.' },
+    'fortitude': { 'name': 'Postojanost', 'desc': 'Udarac veći od {hit}% tvog zdravlja daje štit vrijedan {shield}% zdravlja na {dur}s. Jednom svakih {icd}s.' },
+    'tauntingCry': { 'name': 'Izazivački poklič', 'desc': 'Neprijatelji unutar {radius} m napadaju tebe {dur}s. Za to vrijeme dobivaš {def}% Obrane.' },
+    'holyBastion': { 'name': 'Sveti bastion', 'desc': 'Neranjivost na {dur}s. Napadačima se vraća {reflect}% njihove štete.' },
+
+    'shadowstep': { 'name': 'Korak sjene', 'desc': 'Pojavi se iza mete i ubodi je u leđa za {dmg}% štete od Spretnosti.' },
+    'lethality': { 'name': 'Smrtonosnost', 'desc': '+{crit}% šanse za kritični pogodak i +{critDmg}% kritične štete.' },
+    'venomousBlade': { 'name': 'Otrovna oštrica', 'desc': 'Tvoji napadi {dur}s truju za {poison}% Spretnosti tijekom {over}s, zbraja se do {stacks} puta.' },
+    'evasion': { 'name': 'Izmicanje', 'desc': '+{dodge}% Izmaka. Izmak daje {haste}% Hitrosti na {dur}s.' },
+    'smokeBomb': { 'name': 'Dimna bomba', 'desc': 'Nestani na {dur}s. Tvoj sljedeći napad iz skrovišta nanosi +{bonus}% štete.' },
+    'danceOfBlades': { 'name': 'Ples oštrica', 'desc': 'Jurni među neprijatelje unutar {radius} m i udari {hits} puta za ukupno {dmg}% štete od Spretnosti. Dok plešeš, ništa te ne može pogoditi.' },
+
+    'fireball': { 'name': 'Vatrena kugla', 'desc': 'Vatrena kugla koja eksplodira za {dmg}% štete od Inteligencije i gori za još {burn}% tijekom {burnDur}s.' },
+    'cauterize': { 'name': 'Kauterizacija', 'desc': 'Neprijatelji koji gore nanose ti {reduce}% manje štete.' },
+    'flamePillar': { 'name': 'Vatreni stup', 'desc': 'Na mjestu ciljanja izbija stup vatre: {dmg}% štete od Inteligencije tijekom {dur}s. Zahvaćeni neprijatelji bačeni su u zrak.' },
+    'pyromaniac': { 'name': 'Piroman', 'desc': 'Kritični pogodak čarolijom skraćuje čekanja tvojih vatrenih čarolija za {cut}s.' },
+    'combustion': { 'name': 'Izgaranje', 'desc': 'Detoniraj svako gorenje unutar {radius} m: svako odjednom nanosi {pct}% preostale štete kao eksploziju.' },
+    'cataclysm': { 'name': 'Kataklizma', 'desc': 'Prizovi meteore ({meteors}) tijekom {dur}s. Svaki udara za {dmg}% štete od Inteligencije.' },
+
+    'royalGuard': { 'name': 'Kraljevska garda', 'desc': 'Prizovi stražara koji se bori uz tebe i udara za {dmg}% štete od Karizme. Najviše {max} odjednom.' },
+    'inspiringPresence': { 'name': 'Nadahnjujuća prisutnost', 'desc': 'Tvoje sluge napadaju {speed}% brže i imaju {hp}% više zdravlja.' },
+    'commandFocus': { 'name': 'Zapovijed za napad', 'desc': 'Sve sluge jurišaju na metu: +{move}% brzine kretanja i +{atk}% brzine napada na {dur}s.' },
+    'sovereignsTribute': { 'name': 'Suverenov danak', 'desc': '{share}% štete koju primiš prenosi se na tvoje sluge.' },
+    'bannerOfVictory': { 'name': 'Stijeg pobjede', 'desc': 'Zabij stijeg na {dur}s. Saveznici u blizini nanose +{dmg}% štete i obnavljaju {regen}% zdravlja u sekundi.' },
+    'armyOfTheRealm': { 'name': 'Vojska kraljevstva', 'desc': 'Prizovi na {dur}s: strijelci ({archers}), stražari ({guards}) i bojni mag.' },
+
+    'temporalStasis': { 'name': 'Vremenska staza', 'desc': 'Zamrzni metu u vremenu na {dur}s. Ne može djelovati i ne može biti ozlijeđena.' },
+    'hasteField': { 'name': 'Polje hitrosti', 'desc': 'Tijekom {dur}s ti i saveznici u blizini krećete se {move}% brže i napadate {speed}% brže.' },
+    'timeDistort': { 'name': 'Iskrivljenje vremena', 'desc': '{share}% štete koju primiš odgađa se i nanosi tijekom {over}s.' },
+    'paradoxShift': { 'name': 'Paradoks', 'desc': 'Zamijeni mjesto s metom. Ona prima {dmg}% štete od Inteligencije, a neprijatelji oko nje zbunjeni su {confuse}s.' },
+    'entropy': { 'name': 'Entropija', 'desc': 'Svako bacanje skraćuje tvoja čekanja za {cdr}%, zbraja se do {stacks} puta.' },
+    'chronoRewind': { 'name': 'Povratak kroz vrijeme', 'desc': 'Vrati se na mjesto od prije {back}s, sa zdravljem i manom iz tog trenutka.' },
+
+    'sanguineFlask': { 'name': 'Krvava bočica', 'desc': 'Baci bočicu vlastite krvi: {dmg}% štete od Izdržljivosti na području i oklop razbijen za {shred}% na {shredDur}s.' },
+    'bloodTransmutation': { 'name': 'Transmutacija krvi', 'desc': '{share}% primljene fizičke štete vraća se kao mana.' },
+    'essenceHarvest': { 'name': 'Žetva esencije', 'desc': 'Isisaj svakog neprijatelja unutar {radius} m za {dmg}% štete od Inteligencije. Liječiš se za {heal}% te štete.' },
+    'hemophilia': { 'name': 'Hemofilija', 'desc': 'Isisavanje života jače je za {drain}%. Pogodak u neprijatelja koji krvari liječi {heal}% tvog zdravlja.' },
+    'mutagenicRage': { 'name': 'Mutageni bijes', 'desc': 'Tijekom {dur}s: +{speed}% brzine napada, +{steal}% krađe života i +{move}% brzine kretanja.' },
+    'philosophersCrucible': { 'name': 'Filozofski talionik', 'desc': 'Lokva kipuće krvi na {dur}s: {dmg}% štete od Inteligencije neprijateljima u njoj, a tebe liječi dok u njoj stojiš.' },
+
+    'aetherPistol': { 'name': 'Eterski pištolj', 'desc': 'Brz hitac za {dmg}% štete od Umijeća. Stvara {heat} topline.' },
+    'deployTurret': { 'name': 'Postavi kupolu', 'desc': 'Postavi kupolu koja {dur}s puca za {dmg}% štete od Umijeća. Najviše {max} odjednom.' },
+    'ventHeat': { 'name': 'Ispust topline', 'desc': 'Izbaci svu toplinu u stošcu: do {dmg}% štete od Umijeća, što više topline, to više štete.' },
+    'thermalOverload': { 'name': 'Toplinsko preopterećenje', 'desc': 'Tijekom pregrijanosti tvoji hici nanose +{crit}% kritične štete. Pregrijavanje i dalje zaključava vještine na {lock}s.' },
+    'orbitalBeam': { 'name': 'Orbitalna zraka', 'desc': 'Zraka s neba prži mjesto ciljanja: {dmg}% štete od Umijeća tijekom {dur}s.' },
+    'exoSuit': { 'name': 'Egzoodijelo', 'desc': 'Tijekom {dur}s: +{armor}% Oklopa, a tvoji napadi postaju rakete koje nanose {rocket}% štete od Umijeća na području.' },
+
+    'stoneSpike': { 'name': 'Kameni šiljak', 'desc': 'Pod metom izbija šiljak: {dmg}% štete od Snage i {slow}% usporenja na {dur}s.' },
+    'earthBarrier': { 'name': 'Zemljana barijera', 'desc': 'Podigni kameni zid na {dur}s. Ništa kroz njega ne prolazi niti puca.' },
+    'seismicShock': { 'name': 'Seizmički udar', 'desc': 'Udari o tlo: {dmg}% štete od Snage unutar {radius} m i neprijatelji oboreni na {down}s.' },
+    'earthenSkin': { 'name': 'Kamena koža', 'desc': 'Dobivaš Oklop jednak {armor}% svoje Snage. Omamljenost na tebi traje {cut}% kraće.' },
+    'petrify': { 'name': 'Okamenjivanje', 'desc': 'Pretvori metu u kamen na {dur}s. Kad se oslobodi, prima {vuln}% više štete.' },
+    'tectonicRupture': { 'name': 'Tektonski rascjep', 'desc': 'Raspori bojište: {dmg}% štete od Snage svemu u blizini i krš koji usporava {dur}s.' }
+  },
+
+  'slot': {
+    'main': 'Glavna ruka',
+    'off': 'Druga ruka',
+    'body': 'Oklop',
+    'trinket': 'Amajlija'
+  },
+  'tier': {
+    '1': 'Stupanj 1',
+    '2': 'Stupanj 2',
+    '3': 'Stupanj 3',
+    '4': 'Stupanj 4',
+    '5': 'Stupanj 5',
+    '6': 'Legendarno'
+  },
+  'weapon': {
+    'melee': 'Blisko · atribut: {attr}',
+    'ranged': 'Daljina · atribut: {attr}',
+    'magic': 'Magija · atribut: {attr}'
+  },
+  'source': {
+    'mob': 'Ispada iz čudovišta u zoni: {zone}.',
+    'chest': 'Nalazi se u škrinjama u zoni: {zone}.',
+    'boss': 'Ispada iz bossa zone: {zone}.',
+    'secret': 'Skriveno u tajnoj škrinji u zoni: {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Snage',
+    'dex': '+{n} Spretnosti',
+    'int': '+{n} Inteligencije',
+    'end': '+{n} Izdržljivosti',
+    'skl': '+{n} Umijeća',
+    'cha': '+{n} Karizme',
+    'allAttrs': '+{n} svakom atributu',
+    'strOrDex': '+{n} Snage ili Spretnosti, ovisno o tome što je više',
+    'armor': '{n} Oklopa',
+    'armorPct': '+{n}% Oklopa',
+    'armorFromStr': 'Oklop od Snage: +{n}%',
+    'block': '+{n}% šanse za blok',
+    'dodge': '+{n}% Izmaka',
+    'damageReduction': '+{n}% smanjenja štete',
+    'physReduction': '{n}% manje primljene fizičke štete',
+    'maxHp': '+{n} maks. Zdravlja',
+    'maxHpPct': '+{n}% maks. Zdravlja',
+    'maxMana': '+{n} maks. Mane',
+    'hpRegen': '+{n} Zdravlja u sekundi',
+    'stunDurationCut': 'Omamljenost na tebi traje {n}% kraće',
+    'damagePct': '+{n}% nanesene štete',
+    'critChance': '+{n}% šanse za kritični pogodak',
+    'critDamage': '+{n}% kritične štete',
+    'spellCrit': '+{n}% šanse za kritični pogodak čarolijom',
+    'attackSpeed': '+{n}% brzine napada',
+    'moveSpeed': '+{n}% brzine kretanja',
+    'cdr': 'Čekanja su {n}% kraća',
+    'manaDiscount': 'Čarolije troše {n}% manje mane',
+    'lifesteal': '+{n}% krađe života na svu štetu',
+    'physLifesteal': '+{n}% krađe života na fizičke udarce',
+    'lifeDrainPct': 'Isisavanje života jače je za {n}%',
+    'bossDamage': '+{n}% štete protiv bossova',
+    'backstab': '+{n}% štete pri ubodu u leđa',
+    'minionDamage': 'Sluge nanose +{n}% štete',
+    'minionAttackSpeed': 'Sluge napadaju {n}% brže',
+    'minionHp': 'Sluge imaju +{n}% zdravlja',
+    'burnOnHit': 'Napadi nanose Gorenje od {n} štete',
+    'freezeOnHit': 'Napadi imaju {n}% šanse da zalede',
+    'pierce': 'Hici probijaju još {n} neprijatelja',
+    'critCooldown': 'Kritični pogoci skraćuju sva čekanja za {n}s',
+    'extraBlastEvery': 'Dodatni energetski udar svakih {n} hitaca',
+    'reflectOnBlock': 'Blok odbija {n} štete',
+    'fatalSave': 'Smrtonosna šteta umjesto toga daje neranjivost na {n}s (jednom svakih 120s)',
+    'knockbackImmune': 'Imunost na odbacivanje',
+    'heatBuildCut': 'Toplina raste {n}% sporije',
+    'heatDissipation': 'Toplina opada {n}% brže',
+    'flaskDamage': 'Krvava bočica nanosi +{n}% štete',
+    'igniteBonus': 'Vatrene čarolije gore {n}% jače',
+    'stealthy': 'Tihi korak: neprijatelji te primjećuju s {n}% manje udaljenosti',
+    'fortitude': 'Jaki udarci daju štit od {n}% zdravlja',
+    'evasionHaste': 'Izmak daje {n}% Hitrosti',
+    'cauterize': 'Neprijatelji koji gore nanose ti {n}% manje štete',
+    'pyromaniac': 'Kritične čarolije skraćuju čekanja vatre za {n}s',
+    'tribute': 'Sluge preuzimaju {n}% tvoje štete',
+    'timeDistort': '{n}% primljene štete se odgađa',
+    'entropy': 'Bacanja skraćuju čekanja za {n}%',
+    'bloodToMana': '{n}% primljene fizičke štete vraća se kao mana',
+    'bleedHeal': 'Pogodak u neprijatelja koji krvari liječi {n}% zdravlja',
+    'overheatCrit': '+{n}% kritične štete tijekom pregrijanosti'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Zahrđali kratki mač' },
+    'apprenticeStaff': { 'name': 'Šegrtski štap' },
+    'scoutsHandgun': { 'name': 'Izvidnički pištolj' },
+    'ironBroadsword': { 'name': 'Željezni široki mač' },
+    'vipinsStiletto': { 'name': 'Vipinov stilet' },
+    'aetherCarbine': { 'name': 'Eterski karabin' },
+    'ashenGreatsword': { 'name': 'Pepeljasti dvoručni mač' },
+    'archmageWand': { 'name': 'Štapić arhimaga' },
+    'chronoBlade': { 'name': 'Oštrica vremena' },
+    'bloodForgedAxe': { 'name': 'Sjekira kovana u krvi' },
+    'voidCannon': { 'name': 'Top Praznine' },
+    'dragonSmasher': { 'name': 'Zmajolomac' },
+    'bladeOfTheUnbound': { 'name': 'Oštrica Nesputanih' },
+    'aetheriumDestroyer': { 'name': 'Eterijski razarač' },
+    'woodenBuckler': { 'name': 'Drveni okrugli štit' },
+    'tomeOfNovices': { 'name': 'Knjiga novaka' },
+    'ironShield': { 'name': 'Željezni štit' },
+    'syringeOfTheAdept': { 'name': 'Adeptova šprica' },
+    'aethericBattery': { 'name': 'Eterska baterija' },
+    'aegisTowerShield': { 'name': 'Toranjski štit Egide' },
+    'orbOfEternalFlame': { 'name': 'Kugla vječnog plamena' },
+    'shieldOfTheFallen': { 'name': 'Štit palih' },
+    'paddedTunic': { 'name': 'Podstavljena tunika' },
+    'leatherDoublet': { 'name': 'Kožni prsluk' },
+    'chainmailVest': { 'name': 'Verižni prsluk' },
+    'scholarsRobe': { 'name': 'Učenjakova halja' },
+    'reinforcedPlate': { 'name': 'Ojačani pločasti oklop' },
+    'assassinsGarb': { 'name': 'Ubojičino ruho' },
+    'chronoWeaverCloak': { 'name': 'Plašt Tkalca vremena' },
+    'bloodSoakedPlate': { 'name': 'Krvlju natopljen oklop' },
+    'exoArmorChassis': { 'name': 'Šasija egzooklopa' },
+    'dragonscaleHauberk': { 'name': 'Oklop od zmajeve ljuske' },
+    'vestmentsOfSovereign': { 'name': 'Ruho Suverena' },
+    'armorOfTheTitan': { 'name': 'Titanov oklop' },
+    'copperBand': { 'name': 'Bakrena vitica' },
+    'ringOfMending': { 'name': 'Prsten zacjeljivanja' },
+    'bandOfSwiftness': { 'name': 'Vitica hitrine' },
+    'castersEmblem': { 'name': 'Čarobnjakov amblem' },
+    'infiltratorsCharm': { 'name': 'Uhodin privjesak' },
+    'timekeepersHourglass': { 'name': 'Pješčani sat Čuvara vremena' },
+    'ringOfTheVampyre': { 'name': 'Vampirov prsten' },
+    'sovereignsSignet': { 'name': 'Suverenov pečatnjak' },
+    'heartOfTheMountain': { 'name': 'Srce planine' },
+    'ringOfAbsolutePower': { 'name': 'Prsten apsolutne moći' }
+  },
+  'bag': {
+    'equip': 'Opremi',
+    'unequip': 'Skini',
+    'tooLow': 'Potrebna razina {n}.'
+  },
+  'shop': {
+    'buy': 'Kupi',
+    'sell': 'Prodaj',
+    'owned': 'Imaš',
+    'empty': 'Danas su police prazne.'
+  },
+  'trainer': {
+    'learn': 'Nauči',
+    'known': 'Naučeno',
+    'friend': '{faction} poštuje svoje prijatelje: 20% jeftinije.',
+    'block': {
+      'level': 'Tvoja je razina preniska.',
+      'attrs': 'Tvoji su atributi preniski.',
+      'gold': 'Nemaš dovoljno zlata.'
+    }
+  },
+  'healer': {
+    'talk': 'Sjedni. Odmori se. Odavde odlaziš u punoj snazi i sa svakom bočicom punom. Ako ih želiš nositi više, to ti mogu prodati.',
+    'note': 'U svaku zonu nosiš napitaka: {n}.',
+    'buy': 'Još jedna bočica · {n}',
+    'full': 'Na tvoj pojas više ne stane.'
+  },
+  'talk': {
+    'goal': 'Odlučit će se ovdje: {zone}.'
+  },
+  'faction': {
+    'order': 'Željezni red',
+    'syndicate': 'Pepeljasti sindikat',
+    'circle': 'Krug etera'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Kovač Bram', 'talk': 'Običan čelik, poštene cijene. Držat će goblina podalje od tebe.' },
+    'sunfordPeddler': { 'name': 'Torbarka Tilly', 'talk': 'Prstenje! Amajlije! Stvari koje sam našla i sasvim sigurno nisam ukrala.' },
+    'trainerAegis': { 'name': 'Ser Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Starješina Mara', 'talk': 'Danas je cesta ostala naša zahvaljujući tebi. Ravnice nisu bile ovako mirne već godinu dana.' },
+    'sunfordHealer': { 'name': 'Sestra Lune' },
+    'goblinTrader': { 'name': 'Trgovac Grik', 'talk': 'Kralj reći trgovati, pa Grik trgovati. Sjajno za sjajno. Dobro sjajno.' },
+    'captainHale': { 'name': 'Kapetan Hale', 'talk': 'Oakhaven stoji tristo godina. Ne namjeravam biti kapetan koji ga je izgubio.' },
+    'oakArmorer': { 'name': 'Oklopar Odo', 'talk': 'Pola moje robe završilo je na zidinama. Uzmi što je ostalo.' },
+    'oakMasterArmorer': { 'name': 'Majstor Odo', 'talk': 'Ovaj grad stoji zahvaljujući tebi. Za tebe iz stražnje sobe izlazi dobar oklop.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Oštro, uravnoteženo i prodano onome tko plati. Danas si to ti.' },
+    'trainerShadow': { 'name': 'Šapat' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Brat Fenn' },
+    'blackMarket': { 'name': 'Preprodavač', 'talk': 'Bez imena, bez pitanja. Sindikat uzima svoj dio, ti uzimaš robu.' },
+    'trainerBlood': { 'name': 'Doktor Sangrel' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven je naš zahvaljujući tebi. Sindikat ne zaboravlja prijatelja. Ni dug.' },
+    'forgemaster': { 'name': 'Majstor kovačnice Dorn', 'talk': 'Kopali smo željezo i naišli na srce. Kuca ondje dolje u mraku, a golemi hodaju u njegovu ritmu.' },
+    'ironWeapons': { 'name': 'Hilda Čekićoruka', 'talk': 'Patuljački kov. Ako pukne, krivnja je tvoja.' },
+    'ironAetherWorks': { 'name': 'Izumitelj Voss', 'talk': 'Otkad je Krug proučio jezgru, sve se promijenilo. Pridrži ovo. Nemoj ciljati u mene.' },
+    'ironArmor': { 'name': 'Garrun Željezni Bok', 'talk': 'Oklop koji odbija divovu toljagu. Za vas ostale imam prstenje.' },
+    'ironOrderArmor': { 'name': 'Intendant Reda', 'talk': 'Red pamti tko je uništio jezgru. Njegove oružarnice otvorene su ti.' },
+    'trainerGeo': { 'name': 'Stari Kamenonogi' },
+    'trainerAether': { 'name': 'Mehaničar Pim' },
+    'ironHealer': { 'name': 'Majka Brynja' },
+    'exiledSovereign': { 'name': 'Lord Castellan u izgnanstvu' },
+    'trainerChrono': { 'name': 'Čuvar sati' }
+  },
+
+  'quest': {
+    'final': 'Ovaj je izbor trajan.',
+    'needsRep': '{faction}: ugled {n}',
+    'gold': '+{n} zlata',
+    'goblinKing': {
+      'title': 'Kralj goblina',
+      'intro': 'Pljačke dolaze iz Jama, gdje su goblini okrunili kralja. Okončaj to kako god smatraš da treba.',
+      'ask': 'Čekati! Čekati. Kralj se predati! Goblini pljačkati samo jer goblini gladni. Možda veliki i Kralj napraviti dogovor?',
+      'slay': { 'label': 'Okončaj njegovu vladavinu.', 'result': 'Kralj pada, a Jame se razbježe. Sunford mirnije spava, a Željezni red te zapaža.' },
+      'pact': { 'label': 'Ponudi trgovački sporazum sa Sunfordom.', 'result': 'Slatkorječivost čini ono što mač ne bi mogao. Goblinski trgovci otvaraju štandove na sunfordskom trgu, s robom kakvu ondje nijedan kovač ne zna napraviti.' },
+      'ransom': { 'label': 'Uzmi mu blago i ostavi mu krunu.', 'result': 'Izlaziš s teškim teretom goblinskog zlata. Pljačke će opet početi, ali to je Sunfordov problem. Sindikat odobrava.' }
+    },
+    'siege': {
+      'title': 'Opsada Oakhavena',
+      'intro': 'Vojska ratnog vođe opkolila je Oakhaven. Tu je vojsku platio Pepeljasti sindikat. Slomi opsadu u okolici grada.',
+      'ask': 'Dobro se boriš. Sindikat plaća bolje nego što će taj grad ikada platiti. Otvori nam večeras vrata i trećina Oakhavena je tvoja.',
+      'defend': { 'label': 'Brani Oakhaven.', 'result': 'Vrata izdrže. Oakhaven se iza njih bogati, a njegovi majstori oklopari pamte tvoje ime. Pepeljasti sindikat sada te lovi na svakoj cesti.' },
+      'betray': { 'label': 'Otvori vrata Sindikatu.', 'result': 'Oakhaven gori. U ruševinama se otvara crno tržište i dolazi alkemičar koji podučava zabranjena umijeća. Oklopara više nema, a Željezni red zove te izdajicom.' }
+    },
+    'core': {
+      'title': 'Srce Ironholda',
+      'intro': 'Goleme u našim rudnicima pokreće eterska jezgra. Žele je tri sile i svaka mi je poslala pismo. Ti ćeš do nje stići prije svih.',
+      'ask': 'Kolos je staro željezo, a jezgra leži otvorena pred tobom i bruji. Topla je na dodir. Što će biti s njom?',
+      'destroy': { 'label': 'Razbij jezgru.', 'result': 'Svjetlo se gasi, a golemi padaju ondje gdje su stajali. Željezni red u znak zahvale šalje u Ironhold vlastite oklopare.' },
+      'study': { 'label': 'Predaj je Krugu na proučavanje.', 'result': 'Razumiješ je dovoljno da je sigurno predaš. Za jedno godišnje doba kovačnice Ironholda izbacuju eterske naprave kakve nitko dosad nije vidio.' },
+      'sell': { 'label': 'Prodaj je Sindikatu.', 'result': 'Bogatstvo mijenja vlasnika. Jezgra i dalje svijetli negdje gdje ne bi smjela, a rudnici više nikada neće biti mirni.' }
+    },
+    'oracle': {
+      'title': 'Utopljena proročica',
+      'ask': 'Ovaj sam trenutak vidjela deset tisuća puta. U polovici me oslobađaš. U polovici uzimaš ono što čuvam. Odaberi i dopusti mi da napokon ne znam što slijedi.',
+      'free': { 'label': 'Slomi joj lance.', 'result': 'Proročica se uzdiže kroz vodu i nestaje. Krug etera o tebi će lijepo govoriti, a njezin čuvar sati ostaje podučavati.' },
+      'slay': { 'label': 'Uzmi pješčani sat koji čuva.', 'result': 'Ne opire se. Pješčani sat Čuvara vremena tvoj je. Njezin posljednji učenik bježi iz hrama, a Krug ne oprašta.' }
+    },
+    'dragon': {
+      'title': 'Zmaj Praznine',
+      'ask': 'Dosta. Imaš zube, malo stvorenje. Demon u tvrđavi okovao je moj rod. Želim ga vidjeti kako gori. Ubij me ili mi dopusti da ti pomognem u tome.',
+      'slay': { 'label': 'Ubij zmaja.', 'result': 'Planina se trese dok pada. Željezni red pjeva o pobjedi nad zmajem, a zmajevo blago tvoje je.' },
+      'pact': { 'label': 'Sklopi savez protiv Arhidemona.', 'result': 'Malo tko bi nagovorio zmaja. Kad kreneš na Tvrđavu užasa, bit će na nebu iznad tebe.' }
+    },
+    'throne': {
+      'title': 'Prazno prijestolje',
+      'ask': 'Arhidemon je mrtav i njegovo je prijestolje prazno. Tko ga drži, zapovijeda tvrđavom, rascjepom pod njom i vojskama obiju. Tri izaslanika čekaju pred vratima.',
+      'order': { 'label': 'Daj prijestolje Željeznom redu.', 'result': 'Red zaposjeda tvrđavu i pečati što može. Kraljevstvo će biti sigurno i govorit će mu se što da radi.' },
+      'syndicate': { 'label': 'Daj prijestolje Pepeljastom sindikatu.', 'result': 'Sindikat se useljava prije zore. Sada je sve na prodaju, uključujući i mir.' },
+      'circle': { 'label': 'Daj prijestolje Krugu etera.', 'result': 'Krug pretvara tvrđavu u školu nad rascjepom. Oni to zovu istraživanjem. Svi ostali zovu to pitanjem vremena.' },
+      'shatter': { 'label': 'Razbij prijestolje.', 'result': 'Razbijaš ga vlastitim rukama. Odavde više nitko neće vladati. Izaslanici odlaze bez riječi.' },
+      'claim': { 'label': 'Sjedni na njega.', 'result': 'Hladno je i pristaje ti. Tri frakcije otkrivaju da imaju zajedničkog neprijatelja.' }
     }
   },
 
   'enemy': {
-    'echo': 'Majstorov odjek',
-    'gatekeeper': 'Vratar',
-    'warden': 'Čuvar',
-    'hornet': 'Rotorski stršljen',
-    'stalker': 'Svjetleći lovac',
-    'puffer': 'Mina napuhača',
-    'mole': 'Krtica bušilica',
-    'polar': 'Polarni štenac',
-    'hardhat': 'Kacigaš',
-    'trooper': 'Štitonoša',
-    'heli': 'Rotorski dron',
-    'hopper': 'Gazitelj',
-    'roller': 'Zupčasti valjak',
-    'brute': 'Gardroid',
-    'turret': 'Zidni top',
-    'golem': 'Sanduk-golem',
-    'elite': 'Elitni',
-    'level': 'Raz. {n}'
-  },
-
-  'enemyPlural': {
-    'echo': 'Majstorov odjek | Majstorova odjeka | Majstorovih odjeka',
-    'gatekeeper': 'Vratara | Vratara | Vratara',
-    'warden': 'Čuvara | Čuvara | Čuvara',
-    'hornet': 'Rotorskog stršljena | Rotorska stršljena | Rotorskih stršljena',
-    'stalker': 'Svjetlećeg lovca | Svjetleća lovca | Svjetlećih lovaca',
-    'puffer': 'Minu napuhaču | Mine napuhače | Mina napuhača',
-    'mole': 'Krticu bušilicu | Krtice bušilice | Krtica bušilica',
-    'polar': 'Polarnog štenca | Polarna štenca | Polarnih štenaca',
-    'hardhat': 'Kacigaša | Kacigaša | Kacigaša',
-    'trooper': 'Štitonošu | Štitonoše | Štitonoša',
-    'heli': 'Rotorski dron | Rotorska drona | Rotorskih dronova',
-    'hopper': 'Gazitelja | Gazitelja | Gazitelja',
-    'roller': 'Zupčasti valjak | Zupčasta valjka | Zupčastih valjaka',
-    'brute': 'Gardroida | Gardroida | Gardroida',
-    'turret': 'Zidni top | Zidna topa | Zidnih topova',
-    'golem': 'Sanduk-golema | Sanduk-golema | Sanduk-golema'
-  },
-
-  'hud': {
-    'help': 'Prikaži kontrole',
-    'mute': 'Isključi zvuk',
-    'unmute': 'Uključi zvuk',
-    'bossUnknown': 'Nepoznati boss',
-    'hp': 'Zdravlje',
-    'we': 'Energija oružja',
-    'power': 'Snaga',
-    'bolts': 'Vijci',
-    'level': 'Raz. {n}',
-    'beamOut': 'Teleport'
-  },
-
-  'boss': {
-    'rotorMaster': 'Majstor Rotora',
-    'neonMaster': 'Majstor Neona',
-    'tideMaster': 'Majstor Plime',
-    'drillMaster': 'Majstor Bušilice',
-    'magnetMaster': 'Majstor Magneta',
-    'stand': 'Otpadar',
-    'scrapper': 'Otpadar',
-    'blazeMaster': 'Majstor Plamena',
-    'frostMaster': 'Majstor Mraza',
-    'voltMaster': 'Majstor Napona',
-    'galeMaster': 'Majstor Vihora',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Robot Veliki Majstor'
-  },
-
-  'sector': {
-    'rotor': 'Rotorski let',
-    'neon': 'Bulevar zamračenja',
-    'tide': 'Plimne ustave',
-    'drill': 'Duboki rudnik',
-    'magnet': 'Tvornica polariteta',
-    'scrapyard': 'Otpad',
-    'blaze': 'Rafinerija žara',
-    'cryo': 'Krio-postrojenje',
-    'volt': 'Toranj napona',
-    'gale': 'Nebeski dokovi',
-    'fortress': 'Tvrđava Vex'
-  },
-
-  'quest': {
-    'tutorial': 'Buđenje',
-    'boss': 'Obračun s Majstorom jezgre',
-    'bossTitle': 'Obračun: {boss}',
-    'kill': 'Rashodovanje',
-    'collect': 'Spašavanje podataka',
-    'rescue': 'Akcija spašavanja',
-    'elite': 'Lov na elitu',
-    'supply': 'Po zalihe',
-    'purge': 'Čišćenje sektora',
-    'climb': 'Juriš na toranj',
-    'stage': 'Platformska etapa',
-    'stageName': { 'blaze': 'Silazak u žar', 'cryo': 'Ledenjačka jurnjava', 'volt': 'Tračnička jurnjava', 'gale': 'Nebeski dokovi', 'magnet': 'Tvornica polariteta', 'drill': 'Duboki rudnik', 'tide': 'Plimne ustave', 'neon': 'Bulevar zamračenja', 'rotor': 'Rotorski let', 'fortress': 'Tvrđava Vex' },
-    'rematch': 'Revanš: {boss}',
-    'desc': {
-      'tutorial': 'Probij se kroz Otpad i sruši Otpadara.',
-      'boss': 'Provali u jezgru sektora {sector} i pobijedi bossa: {boss}.',
-      'kill': 'Uništi {n} {target} u sektoru {sector}.',
-      'collect': 'Vrati podatkovne jezgre razbacane po sektoru {sector}. Ukupno {n}.',
-      'rescue': 'Radni robot zaglavio je u sektoru {sector}. Pronađi ga i teleportiraj na sigurno.',
-      'elite': 'Elitni neprijatelj ({target}) terorizira sektor {sector}. Ulovi ga.',
-      'supply': 'Razbij sanduke sa zalihama u sektoru {sector}. Ukupno {n}.',
-      'purge': 'Uništi svaki stroj u sektoru {sector}.',
-      'climb': 'Popni se na toranj sektora {sector} — stube, ljestve, dizala i ponori — pa skoči u arenu na revanš. Protivnik: {boss}.',
-      'stage': 'Trči, kliži i vozi se kroz sektor {sector} — izbočine, ponori i strojevi — do arene. Protivnik: {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Cilj',
-    'complete': 'Cilj ostvaren',
-    'beamOutHint': 'Teleportiraj se kad budeš spreman.',
-    'tutorial': 'Pobijedi bossa: {boss}',
-    'boss': 'Pobijedi bossa: {boss}',
-    'kill': 'Uništeno {n}/{total} {target}',
-    'collect': 'Podatkovne jezgre: {n}/{total}',
-    'rescue': 'Pronađi zaglavljenog radnog robota',
-    'elite': 'Ulovi elitnog neprijatelja: {target}',
-    'supply': 'Sanduci sa zalihama: {n}/{total}',
-    'purge': 'Uništeni strojevi: {n}/{total}',
-    'climb': 'Popni se na toranj i pobijedi bossa: {boss}',
-    'stage': 'Dođi do arene i pobijedi bossa: {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} uništen!',
-    'objectiveDone': 'Cilj ostvaren!',
-    'rescued': 'Radni robot teleportiran na sigurno!',
-    'bossDoor': 'Kapija se uz škripu otvara…'
-  },
-  'interact': {
-    'chest': 'Otvori',
-    'rescue': 'Spasi',
-    'bossDoor': 'Uđi'
-  },
-  'progress': {
-    'levelUp': 'Razina {n}! Sustavi potpuno popravljeni.'
-  },
-  'tips': {
-    'moveTouch': 'Povuci lijevu stranu za kretanje, desnu za razgledavanje. Dodirni pod i otići ćeš tamo!',
-    'moveKeys': 'Kreći se tipkama {keys}.',
-    'lookMouse': 'Pomiči miš za razgledavanje.',
-    'capture': 'Klikni scenu i preuzmi kontrolu nad kamerom.',
-    'fireTouch': 'Strojevi ispred! Dodirni za pucanj — drži pa pusti za nabijeni hitac.',
-    'fireKeys': 'Strojevi ispred! Lijevi klik za pucanj — drži pa pusti za nabijeni hitac.',
-    'charge': 'Štitovi zaustavljaju obične metke. POTPUNO nabijeni hitac probija ih skroz.',
-    'blockTouch': 'Narančasti prsten: drži štit za blokiranje — pritisni ga dok se prsten zatvara i PARIRAJ!',
-    'blockKeys': 'Narančasti prsten: drži desnu tipku miša za blokiranje — pritisni je dok se prsten zatvara i PARIRAJ!',
-    'red': 'Crveni prsten ne može se blokirati — klizni u stranu!',
-    'dodgeKeys': 'Crveni prsten ne može se blokirati — pritisni {slide} i klizni u stranu!',
-    'spaceKey': 'razmaknicu',
-    'chest': 'Sanduk sa zalihama! Dodirni ga da ga otvoriš.',
-    'tank': 'Ponestaje ti snage? Gel za popravak potpuno te popravi.',
-    'weapon': 'Upotrijebi kopirano oružje obojenim gumbom!'
-  },
-  'lesson': {
-    'charge': 'Drži za punjenje topa, pa pusti: samo nabijeni hitac probija štit drona za vježbu.',
-    'crate': 'Sanduke sa zalihama razbija samo nabijeni hitac. Drži pa pusti prema svjetlećem sanduku.',
-    'weaponKeys': 'Pritisni {n} i opali kopiranim oružjem: jedan hitac pogađa sva tri drona.',
-    'weaponTouch': 'Dodirni svjetleći gumb oružja: jedan hitac pogađa sva tri drona.',
-    'gelKeys': 'Pritisni {key} i upotrijebi gel za popravak: potpuno te popravi.',
-    'gelTouch': 'Dodirni zeleni gumb gela za popravak: potpuno te popravi.'
-  },
-  'walk': {
-    'finishLessonOn': 'Završi lekciju: {weapon}',
-    'finishTutorial': 'Najprije završi vodič',
-    'finishLesson': 'Završi lekciju'
-  },
-  'hubLesson': {
-    'earnBolts': 'Premalo vijaka? Pogledaj kratki video i nadopuni ih.',
-    'catchUp': 'Pip: Tvoj top zaostaje za strojevima vani. Nadogradimo ga!',
-    'overload': 'Pip: Jezgra Majstora Vihora naučila me trik. Drži puni naboj još 3 sekunde: PREOPTEREĆENJE!',
-    'workshop': 'Otvori Radionicu.',
-    'upgradeBuster': 'Potroši vijke na nadogradnju topa: više štete.',
-    'pickArmor': 'Sad odaberi oklop za prsa.',
-    'upgradeArmor': 'Nadogradi i njega: više obrane.',
-    'deploy': 'Sve spremno — natrag na misije!'
-  },
-  'loot': {
-    'upgrade': 'Nadogradnja!',
-    'found': 'Pronađeno: {item} ({rarity})!',
-    'tank': 'Pronađen gel za popravak!',
-    'giftTank': 'Dar: +1 gel za popravak!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin praćkaš',
+    'bandit': 'Razbojnik',
+    'banditArcher': 'Razbojnik strijelac',
+    'wolf': 'Vuk',
+    'banditChief': 'Razbojnički poglavica',
+    'goblinKing': 'Kralj goblina',
+    'treant': 'Drvodiv',
+    'spider': 'Divovski pauk',
+    'broodSpider': 'Paučić',
+    'outlawCaptain': 'Kapetan odmetnika',
+    'elderTreant': 'Drevni drvodiv',
+    'warlord': 'Ratni vođa Krag',
+    'fireElemental': 'Vatreni elemental',
+    'ironGolem': 'Željezni golem',
+    'cultist': 'Kultist',
+    'emberLord': 'Gospodar žeravice',
+    'ironColossus': 'Željezni kolos',
+    'frostGiant': 'Ledeni div',
+    'naga': 'Naga',
+    'skeleton': 'Kostur',
+    'necromancer': 'Nekromant',
+    'frostJarl': 'Ledeni jarl',
+    'nagaOracle': 'Utopljena proročica',
+    'voidStalker': 'Vrebač Praznine',
+    'wyvern': 'Viverna',
+    'highDemon': 'Viši demon',
+    'voidWarden': 'Čuvar Praznine',
+    'voidDragon': 'Zmaj Praznine',
+    'doomKnight': 'Vitez propasti',
+    'imp': 'Vražić',
+    'archDemon': 'Arhidemon',
+    'voidling': 'Izrod Praznine',
+    'voidLord': 'Gospodar Praznine',
+    'orderGuard': 'Inkvizitor Reda',
+    'syndicateBlade': 'Oštrica Sindikata'
   },
 
   'results': {
-    'success': 'MISIJA USPJELA',
-    'failed': 'MISIJA NEUSPJELA',
+    'victory': 'Pobjeda!',
+    'defeat': 'Poraz',
+    'retreat': 'Povlačenje',
+    'firstClear': 'Prvi prolaz!',
+    'waves': 'Preživljeni valovi: {n}',
+    'levelUp': 'Razina {n}!',
+    'points': 'Bodovi atributa: +{n}',
     'xp': 'Iskustvo',
-    'bolts': 'Vijci',
-    'kills': 'Uništeni strojevi',
-    'chests': 'Otvoreni sanduci',
+    'gold': 'Zlato',
+    'lost': 'Izgubljeno',
+    'kills': 'Poraženo',
     'time': 'Vrijeme',
-    'levelUp': 'Nova razina! Sad si na razini {n}',
-    'newWeapon': 'Novo oružje: {weapon}!',
-    'newSector': 'Otključan novi sektor: {sector}',
-    'items': 'Pronađena oprema',
-    'triple': 'Utrostruči vijke',
-    'tripleAria': 'Pogledaj kratki video: utrostruči vijke na +{n}'
-  },
-  'defeat': {
-    'title': 'SUSTAV PAO',
-    'body': 'Flux je primio previše štete.',
-    'kept': 'Zadržavaš sve što si dosad zaradio:',
-    'useTank': 'Ponovno pokreni gelom za popravak ({n})',
-    'rebootAd': 'Ponovno pokreni sada',
-    'retreat': 'Povlačenje u laboratorij',
-    'retryCheckpoint': 'Ponovi od kontrolne točke'
-  },
-  'ending': {
-    'fall': 'Veliki Majstor pada. Vexov Crveni signal umire s njim.',
-    'relays': 'Jedan po jedan, releji se vraćaju kući, svaki u svojoj boji.',
-    'thaw': 'U laboratoriju led popušta.',
-    'gauss': 'Flux... uspio si. Vratio si ih sve.',
-    'atlas': 'Toranj je prazan. Sad bih mogao vladati ovim gradom. Neću. Njihov je.',
-    'morning': 'Cyber City budi se u svoje prvo slobodno jutro.',
-    'spark': 'Flux... jesi li vidio tu iskru?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
-    'credits': {
-      'by': 'Igra studija {studio}',
-      'cast': 'Uloge',
-      'masters': 'Majstori',
-      'thanks': 'Hvala što si igrao!'
-    },
-    'card': {
-      'title': 'Cyber City je slobodan!',
-      'promise': 'Nova igra+: Majstori imaju 25 % više zdravlja i napadaju brže. Tvoja razina, oprema i oružja ostaju.',
-      'ngplus': 'Pokreni Novu igru+',
-      'lab': 'Natrag u laboratorij',
-      'confirm': 'Pokrenuti Novu igru+?',
-      'confirmBody': 'Priča kreće ispočetka s jačim Majstorima. Zadržavaš razinu, opremu, oružja i nadogradnje.'
-    }
-  },
-  'banner': {
-    'cleared': 'Razina završena',
-    'bossDown': 'Neprijatelj poražen!',
-    'gameOver': 'Kraj igre!',
-    'grandMaster': 'Veliki Majstor!'
+    'unlocked': 'Novo na karti: {places}',
+    'retry': 'Pokušaj ponovno',
+    'tip': 'Iskustvo i plijen ostaju tebi. Potroši bodove, posjeti učitelja i vrati se s više snage.'
   },
   'pause': {
-    'title': 'PAUZA',
+    'title': 'Pauza',
     'resume': 'Nastavi',
-    'abandon': 'Napusti misiju',
     'controls': 'Kontrole',
-    'label': {
-      'move': 'Kretanje',
-      'look': 'Pogled',
-      'parry': 'Pariranje',
-      'interact': 'Radnja'
-    },
-    'touch': {
-      'move': 'Lijeva strana: povuci za kretanje. Dodirni pod i otići ćeš tamo.',
-      'fire': 'U borbi: dodirni za pucanj, drži za punjenje, pusti za paljbu.',
-      'block': 'Drži štit za blokiranje — baš kad se prsten zatvara, pariraš.',
-      'use': 'Kraj sanduka, zaglavljenog robota ili vrata: dodirni ih ili gumb koji iskoči.'
-    },
-    'keys': {
-      'move': '{keys} / strelice: kretanje.',
-      'look': 'Pomiči miš za razgledavanje. Klikni scenu i preuzmi kontrolu nad kamerom.',
-      'fire': 'Lijevi klik: pucanj — drži za punjenje, pusti za paljbu.',
-      'block': 'Desni klik: blok — baš kad se prsten zatvara, pariraš.',
-      'slide': '{slide}: klizanje · {tank}: gel za popravak · {use}: radnja · {beam}: teleport',
-      'more': '{w1} / {w2}: posebna oružja · {target}: promjena mete · Esc: pauza',
-      'space': 'Razmaknica',
-      'press': '{key}: {action}'
+    'retreat': 'Povuci se na kartu',
+    'retreatNote': 'Sve dosad zarađeno ostaje tebi, ali zona nije očišćena.'
+  },
+  'ending': {
+    'level': 'Razina',
+    'more': 'Pod tvrđavom se otvorio Rascjep Praznine. Koloseum i dalje prima svakoga tko dođe.',
+    'order': { 'title': 'Željezni mir', 'text': 'Nad Tvrđavom užasa vijore se stjegovi Željeznog reda. Ceste su sigurne, zakona je mnogo, a tvoje je ime uklesano iznad vrata.' },
+    'syndicate': { 'title': 'Pepeljasta pogodba', 'text': 'Sindikat vlada iz sjena tvrđave. U kraljevstvu više ništa nije zabranjeno. Samo je skupo.' },
+    'circle': { 'title': 'Doba etera', 'text': 'Krug osvjetljava tvrđavu zarobljenom vatrom Praznine. Iz njezinih vrata izlaze čuda i nitko ne pita koliko stoje.' },
+    'free': { 'title': 'Bez kraljeva', 'text': 'Prijestolje leži u komadima, a tvrđava je prazna. Prvi put nakon cijelog jednog doba kraljevstvo pripada ljudima koji u njemu žive.' },
+    'unbound': { 'title': 'Bez okova', 'text': 'Prijestolje je tvoje. Red, Sindikat i Krug zajedno marširaju protiv tebe. Neka dođu.' },
+    'note': {
+      'goblinPact': 'Goblinski trgovci i dalje se cjenkaju na sunfordskom trgu.',
+      'goblinSlain': 'Jame su prazne, a karavane stižu na vrijeme.',
+      'goblinRansom': 'Kralj goblina opet je bogat i opet pljačka.',
+      'oakhavenSaved': 'Zidine Oakhavena sada su više, a njegove tržnice punije.',
+      'oakhavenFallen': 'Korov raste ulicama Oakhavena. Crno tržište cvjeta.',
+      'coreOrder': 'Rudnici Ironholda su mirni i patuljci opet kopaju.',
+      'coreCircle': 'Kovačnice Ironholda sjaje plavo, a njegove su puške najbolje u kraljevstvu.',
+      'coreSold': 'Negdje jezgra i dalje bruji. Golemi i dalje hodaju.',
+      'oracleFreed': 'Za mirnih dana ribari vide proročicu daleko na pučini.',
+      'oracleSlain': 'Potopljeni hram šuti. Nitko više ne zna što slijedi.',
+      'dragonPact': 'Na krovu tvrđave gnijezdi se zmaj i odaziva se samo na jedno ime.',
+      'dragonSlain': 'U velikoj dvorani Reda visi zmajeva lubanja.'
     }
-  },
-  'levelUp': {
-    'title': 'NOVA RAZINA!',
-    'pick': 'Odaberi nadogradnju sustava',
-    'chip': '+1 čip vještina za tvoje sklopove',
-    'granted': '{stat} povećano s {from} na {to}'
-  },
-  'attr': {
-    'hp': { 'name': 'Okvir', 'desc': 'Maks. zdravlje' },
-    'we': { 'name': 'Reaktor', 'desc': 'Energija oružja' },
-    'power': { 'name': 'Servo', 'desc': 'Snaga bloka i klizanja' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Misije',
-      'hero': 'Flux',
-      'circuits': 'Sklopovi',
-      'workshop': 'Radionica'
-    },
-    'heroTabAria': 'Flux, tvoj borbeni android',
-    'levelUpReady': 'Nova razina!',
-    'levels': 'Raz. {a}–{b}',
-    'story': 'Misija priče',
-    'jobs': 'Poslovi',
-    'jobsHint': 'Ponovljivi — novi stižu kako ih završavaš',
-    'lockedHint': 'Pobijedi bossa ({boss}) da otvoriš ovaj sektor.',
-    'sectorSecured': 'Sektor osiguran. Njegovi poslovi još su na ploči.',
-    'deploy': 'Kreni',
-    'reroll': 'Novi posao',
-    'gift': {
-      'name': 'Gel za put',
-      'desc': 'Pogledaj kratki video: +1 gel za popravak za sljedeću misiju, čak i iznad ograničenja.',
-      'aria': 'Pogledaj kratki video za dodatni gel za popravak u sljedećoj misiji',
-      'ready': 'Dar spakiran!',
-      'readyDesc': '+1 gel za popravak za sljedeću misiju.'
-    },
-    'unlock': {
-      'hint': 'Završi još {n} misiju za otključavanje | Završi još {n} misije za otključavanje | Završi još {n} misija za otključavanje',
-      'aria': '{name}, zaključano: završi još {n} misiju | {name}, zaključano: završi još {n} misije | {name}, zaključano: završi još {n} misija'
-    }
-  },
-  'hero': {
-    'role': 'Tvoj borbeni android',
-    'weapons': 'Posebna oružja',
-    'weaponSlot': 'Utor {n}',
-    'weaponRank': 'Rang {n}',
-    'noWeapons': 'Pobjeđuj Majstore jezgre i kopiraj njihova oružja.',
-    'attrPending': 'Nadogradnje sustava za odabir: {n}!',
-    'stats': 'Sustavi',
-    'attributes': 'Nadogradnje',
-    'stat': {
-      'hp': 'Maks. zdravlje',
-      'we': 'Energija oružja',
-      'power': 'Snaga',
-      'damage': 'Šteta metaka',
-      'charge': 'Nabijeni hitac',
-      'armor': 'Oklop',
-      'crit': 'Šansa za kritični',
-      'tanks': 'Gelovi za popravak'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Dovoljno vijaka za dvije nadogradnje tvog najboljeg topa.',
-    'upgradeAdName': 'Poticaj za nadogradnju',
-    'tanks': 'Zalihe',
-    'tankName': 'Gel za popravak',
-    'tankDesc': 'Usred misije potpuno vraća zdravlje i snagu.',
-    'owned': 'Kod sebe: {n}/{max}',
-    'upgrade': 'Nadogradi opremu',
-    'next': 'Sljedeća razina',
-    'upgradeBtn': 'Nadogradi',
-    'maxed': 'Potpuno nadograđeno',
-    'dropName': 'Dostava zaliha',
-    'dropDesc': 'Sanduk rezervnih vijaka, teleportiran iz laboratorija.',
-    'dropAria': 'Pogledaj kratki video za {n} vijaka',
-    'dropCooldown': 'Sljedeća dostava za {t}'
-  },
-
-  'board': {
-    'buster': 'Top',
-    'armor': 'Oklop',
-    'core': 'Jezgra'
-  },
-  'circuits': {
-    'chips': 'Čipovi vještina: {n}',
-    'rank': 'Rang {n}/{max}',
-    'requires': 'Zahtijeva: {name}, rang {n}',
-    'requiresBoss': 'Najprije pobijedi: {name}',
-    'unlock': 'Otključaj',
-    'install': 'Ugradi čip',
-    'maxed': 'Puna snaga',
-    'respec': 'Resetiraj sklopove'
-  },
-  'skill': {
-    'rapid': { 'name': 'Brzi meci', 'desc': 'Šteta brzih hitaca +10 % po čipu.' },
-    'quickCharge': { 'name': 'Brzo punjenje', 'desc': 'Vrijeme punjenja −10 % po čipu.' },
-    'megaCharge': { 'name': 'Mega naboj', 'desc': 'Šteta nabijenog hica +12 % po čipu.' },
-    'perfectTiming': { 'name': 'Savršen tajming', 'desc': 'Šire vrijeme za savršeno puštanje i jači kritični pogoci.' },
-    'piercing': { 'name': 'Probojna jezgra', 'desc': 'I napola nabijeni hici probijaju štitove i kacige.' },
-    'giga': { 'name': 'Preopterećenje', 'desc': 'Drži puni naboj još 3 sekunde: hitac udara 1,75× jače.' },
-    'frame': { 'name': 'Ojačani okvir', 'desc': 'Maks. zdravlje +8 % po čipu.' },
-    'barrier': { 'name': 'Ugađanje barijere', 'desc': 'Blokiranje troši manje snage i propušta manje štete.' },
-    'autoRepair': { 'name': 'Samopopravak', 'desc': 'Obnavlja 1 % zdravlja u sekundi izvan borbe, po čipu.' },
-    'parry': { 'name': 'Protokol pariranja', 'desc': 'Šire vrijeme za pariranje; parirani strojevi ostaju dulje omamljeni.' },
-    'spikes': { 'name': 'Bodljikava oplata', 'desc': 'Odbija 15 % blokirane štete po čipu.' },
-    'lastStand': { 'name': 'Posljednji otpor', 'desc': 'Jednom po misiji preživi smrtonosni udarac s 1 zdravlja.' },
-    'cells': { 'name': 'Energetske ćelije', 'desc': 'Energija oružja +3 po čipu.' },
-    'mastery': { 'name': 'Majstorstvo oružja', 'desc': 'Šteta posebnih oružja +10 % po čipu.' },
-    'boosters': { 'name': 'Potisnici klizanja', 'desc': 'Brže hlađenje klizanja, jeftinija klizanja.' },
-    'efficient': { 'name': 'Učinkovite jezgre', 'desc': 'Posebna oružja troše 10 % manje energije po čipu.' },
-    'magnet': { 'name': 'Magnet za vijke', 'desc': 'Više vijaka i veći doseg skupljanja.' },
-    'tankCap': { 'name': 'Zaliha gela', 'desc': 'Nosi jedan gel za popravak više po čipu.' }
-  },
-
-  'rarity': {
-    'standard': 'Standardno',
-    'tuned': 'Podešeno',
-    'prototype': 'Prototip',
-    'legendary': 'Legendarno'
-  },
-  'item': {
-    'arm_standard': 'Standardni top',
-    'arm_rapid': 'Brzometni top',
-    'arm_heavy': 'Teški top',
-    'arm_quick': 'Top brzog punjenja',
-    'arm_nova': 'Top Nova',
-    'helm_scout': 'Izviđačka kaciga',
-    'helm_guard': 'Stražarska kaciga',
-    'helm_ace': 'Kaciga asa',
-    'helm_royal': 'Kraljevska kaciga',
-    'body_light': 'Lagani okvir',
-    'body_plated': 'Oklopljeni okvir',
-    'body_reactor': 'Reaktorski okvir',
-    'body_aegis': 'Okvir Egida',
-    'boots_basic': 'Osnovne čizme',
-    'boots_dash': 'Čizme za jurnjavu',
-    'boots_magnet': 'Magnetske čizme',
-    'boots_titan': 'Titanske čizme',
-    'chip_logic': 'Logički čip',
-    'chip_quantum': 'Kvantni čip'
-  },
-  'slot': {
-    'buster': 'Top',
-    'helmet': 'Kaciga',
-    'chest': 'Okvir',
-    'boots': 'Čizme',
-    'chip': 'Čip'
-  },
-  'gear': {
-    'damage': 'Šteta',
-    'armor': 'Oklop',
-    'equip': 'Opremi',
-    'unequip': 'Skini',
-    'equipped': 'Opremljeno',
-    'new': 'NOVO',
-    'salvage': 'Rastavi',
-    'noAffixes': 'Nema bonus modula',
-    'emptySlot': 'Za ovaj utor još nemaš ništa — otvaraj sanduke i završavaj poslove.'
-  },
-  'affix': {
-    'damage': '{v} štete',
-    'crit': '{v} šanse za kritični',
-    'critDmg': '{v} kritične štete',
-    'hp': '{v} maks. zdravlja',
-    'armor': '{v} oklopa',
-    'we': '{v} energije oružja',
-    'power': '{v} snage',
-    'bolts': '{v} pronađenih vijaka',
-    'chargeSpeed': '{v} brzine punjenja',
-    'pelletDmg': '{v} štete metaka',
-    'chargeDmg': '{v} štete nabijenog hica',
-    'moveSpeed': '{v} brzine kretanja',
-    'special': '{v} štete posebnih oružja',
-    'regen': '{v} obnove zdravlja / s (izvan borbe)',
-    'magnet': '{v} dosega skupljanja'
-  },
-  'weapon': {
-    'rankUp': '{weapon}: nadogradnja na rang {n}!',
-    'scrapBurst': { 'name': 'Rafal otpada', 'desc': 'Trostruki mlaz otpada. Odličan protiv gomile.' },
-    'flameWave': { 'name': 'Plameni val', 'desc': 'Vatrena kugla kotrlja se po podu kroz svaki stroj na putu i zapali ga.' },
-    'iceLance': { 'name': 'Ledeno koplje', 'desc': 'Probojno koplje koje hladi i usporava ono što pogodi.' },
-    'thunderArc': { 'name': 'Gromovni luk', 'desc': 'Trenutna munja koja preskače na obližnje strojeve.' },
-    'galeGuard': { 'name': 'Vihorna straža', 'desc': 'Lišće kruži oko tebe, blokira hice i reže strojeve. Upotrijebi ponovno da ga baciš.' },
-    'magnetPull': { 'name': 'Magnetni povlak', 'desc': 'Samonavođena potkova koja lomi štitove i oklope i ruši letače iz zraka.' },
-    'drillBomb': { 'name': 'Bušeća bomba', 'desc': 'Bomba koja buši i eksplodira gdje stane, pogađajući svaki stroj uokolo. Razbija napuklu stijenu.' },
-    'bubbleLance': { 'name': 'Mjehurasto koplje', 'desc': 'Veliki mjehur kotrlja se po podu i pršti kroz svaki stroj na putu.' },
-    'neonBlade': { 'name': 'Neonska oštrica', 'desc': 'Oštrica od svjetla bačena kao bumerang: reže u odlasku i u povratku.' },
-    'droneSwarm': { 'name': 'Roj dronova', 'desc': 'Tri mala drona traže tri stroja, i iza zaklona.' }
   },
 
   'options': {
-    'killCams': 'Kill-cam',
     'gameplay': 'Igranje',
     'title': 'Postavke',
     'general': 'Općenito',
@@ -528,16 +612,16 @@ export default {
     'difficulty': 'Težina',
     'soundEffects': 'Zvučni efekti',
     'music': 'Glazba',
-    'musicTrack': 'Pjesma',
+    'mute': 'Utišaj',
+    'musicTrack': 'Glazba',
     'musicTracks': {
-      'cozy': 'Mirni sklopovi',
-      'trance': 'Overdrive'
+      'cozy': 'Mirna',
+      'trance': 'Pustolovna'
     },
     'haptics': 'Vibracija',
     'on': 'Uklj.',
     'off': 'Isklj.',
     'close': 'Zatvori',
-    'replayIntro': 'Ponovi uvod',
     'keyboard': {
       'auto': 'Prepoznaj raspored tipkovnice',
       'layout': 'Raspored tipkovnice',
@@ -547,45 +631,45 @@ export default {
       'reset': 'Vrati tipke'
     },
     'actions': {
-      'forward': 'Naprijed',
-      'back': 'Natrag',
-      'left': 'Korak lijevo',
-      'right': 'Korak desno',
-      'turnLeft': 'Okret lijevo',
-      'turnRight': 'Okret desno',
-      'slide': 'Klizanje',
-      'block': 'Blok',
-      'interact': 'Radnja',
-      'beam': 'Teleport',
-      'tank': 'Gel za popravak',
-      'weapon1': 'Posebno oružje 1',
-      'weapon2': 'Posebno oružje 2',
-      'weapon3': 'Posuđeno oružje',
-      'target': 'Promijeni metu',
-      'map': 'Karta'
+      'up': 'Kretanje gore',
+      'down': 'Kretanje dolje',
+      'left': 'Kretanje lijevo',
+      'right': 'Kretanje desno',
+      'skill1': 'Vještina 1',
+      'skill2': 'Vještina 2',
+      'skill3': 'Vještina 3',
+      'skill4': 'Vještina 4',
+      'skill5': 'Vještina 5',
+      'skill6': 'Vještina 6',
+      'potion': 'Popij napitak',
+      'interact': 'Razgovor',
+      'target': 'Sljedeća meta',
+      'map': 'Karta svijeta',
+      'character': 'Junak',
+      'inventory': 'Torba',
+      'skills': 'Vještine'
     },
-    'lookSensitivity': 'Osjetljivost pogleda',
     'difficulties': {
       'easy': 'Lako',
       'medium': 'Srednje',
       'hard': 'Teško'
     },
     'difficultyHints': {
-      'easy': 'Strojevi udaraju slabije i brže padaju.',
+      'easy': 'Neprijatelji udaraju slabije i brže padaju.',
       'medium': 'Izazov kakav je zamišljen.',
-      'hard': 'Izdržljiviji strojevi koji jače udaraju.'
+      'hard': 'Izdržljiviji neprijatelji koji jače udaraju.'
     }
   },
   'adsBlocked': {
     'title': 'Oglas se nije mogao prikazati',
-    'body': 'Htjeli smo ti pustiti video da zaradiš nagradu, ali nešto u pregledniku blokira oglase.',
+    'body': 'Htjeli smo ti pustiti video, ali nešto u pregledniku blokira oglase.',
     'allowPrefix': 'Molimo dopusti oglase na',
     'allowSuffix': '(ili pauziraj blokator oglasa za ovu igru) i pokušaj ponovno.',
     'gotIt': 'Razumijem'
   },
   'saveStatus': {
     'restoredTitle': 'Spremanje u oblaku vraćeno',
-    'restoredBody': '+{n} bonus vijaka za oporavak',
+    'restoredBody': 'Bonus za oporavak: +{n} zlata',
     'tap': 'dodirni',
     'pausedTitle': 'Sinkronizacija pauzirana',
     'pausedBody': 'Igraš offline. Napredak se sprema ovdje.',
@@ -611,443 +695,5 @@ export default {
     'yourRank': 'Ti si #{n} od {total}',
     'of': 'od {n} igrača',
     'tabGlobal': 'Svjetska'
-  },
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux se bori s odmetnutim strojevima na neonskim ulicama grada Cyber City.',
-      'valley': 'Cyber City: svijetli grad androida, povezan zrakama svjetlosti. Dr. Vex crvenim signalom preuzima njegove strojeve.',
-      'lab': 'Signal stiže do laboratorija Prof. Gauss. Gauss daje Fluxu disk Atlas i budi ga.',
-      'safeMode': 'Gauss se zamrzava u kapsuli da zadrži signal vani. Još je živa.',
-      'wakeUp': 'Flux se budi na razini 1, s Atlasom na vezi. Tvrđava Vex daleko je jača, pa je Otpad prvi na redu.',
-      'beam': 'Flux se teleportira na Otpad.'
-    },
-    'vex': {
-      'diagnosis': 'Dijagnoza: ova je dolina BOLESNA. Lijek… sam JA!'
-    },
-    'atlas': {
-      'logStart': 'Početak zapisa.',
-      'goodMorning': 'Jezgra na vezi. Dobro jutro, Flux.',
-      'scrapyardFirst': 'Najprije Otpad. Relej po relej.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Signal Majstora jezgre. On je… velik.',
-    },
-    'sector': {
-      'blaze': 'Rafinerija. Vruće je. Pazi na mlaznice.',
-      'cryo': 'Rashladna tekućina teče uzbrdo. Prema Tvrđavi.',
-      'gale': 'Svaki dio za njegovo tijelo prolazi ovuda.',
-      'magnet': 'Ljevaonica. Lijeva kandže.',
-      'drill': 'Ruda za njegov oklop. Iskopana baš ovdje.',
-      'tide': 'Sad teglenice. Vex je našao drugi put.',
-      'neon': 'Svjetla ugašena. Osim Vexova lica.',
-      'rotor': 'Dronovi. Njegova zadnja opskrbna linija.',
-    },
-    'fortress': {
-      'bays': 'Napola izgrađeno. To je tvoje djelo.',
-    },
-    'warn': {
-      'boss': 'Majstor jezgre ispred.',
-      'gelFirst': 'Oklop puca. Upotrijebi gel.',
-      'gel': 'Gel.',
-      'criticalFirst': 'Kritično! Povuci se!',
-      'critical': 'Kritično!',
-      'noGel': 'Nema više gela. Igraj na sigurno.',
-      'weLow': 'Energija oružja je niska. Top je besplatan.',
-      'weEmpty': 'Spremnik je suh.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: zadnji hitac.',
-        'flameWave': '{weapon}: zadnji hitac.',
-        'iceLance': '{weapon}: zadnji hitac.',
-        'thunderArc': '{weapon}: zadnji hitac.',
-        'galeGuard': '{weapon}: zadnji hitac.',
-        'magnetPull': '{weapon}: zadnji hitac.',
-        'drillBomb': '{weapon}: zadnji hitac.',
-        'bubbleLance': '{weapon}: zadnji hitac.',
-        'neonBlade': '{weapon}: zadnji hitac.',
-        'droneSwarm': '{weapon}: zadnji hitac.',
-      },
-      'flame': 'Mlaznice. Pričekaj… ili klizni.',
-      'blade': 'Oštrica. Kreni odmah za njom.',
-      'crusher': 'Preša. Gledaj lampicu.',
-      'ladder': 'Ljestve. Guraj prema zidu.',
-      'pit': 'Dubok pad. Tempiraj dizalo.',
-      'down': 'Ponovno pokretanje… Pip te čuva.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Pucaj kad proviri.',
-      'trooper': 'Štit. Probij ga nabijenim hicem.',
-      'heli': '{enemy}. Pogledaj gore.',
-      'hopper': '{enemy}. Makni se s prstena.',
-      'roller': '{enemy}. Izmakni se u stranu.',
-      'brute': '{enemy}. Pariraj, pa uzvrati.',
-      'turret': '{enemy}. Ne staj.',
-      'golem': 'Onaj sanduk diše. Priđi blizu.',
-      'polar': '{enemy}. Pucaj kad se otvori crveno.',
-      'warden': '{enemy}. Pogodi jezgru kad se otvori.',
-      'hornet': '{enemy}. Obrušava se ravno: u stranu!',
-      'stalker': '{enemy}. Pariraj nasrtaj.',
-      'puffer': '{enemy}. Raznesi je prije nego nabubri.',
-      'mole': '{enemy}. Pogodi je kad izroni.',
-      'elite': 'Zlatni prsten. Elita. Oprezno.',
-      'fire': 'Vatreni premaz. Vatra ne djeluje.',
-      'ice': 'Ledeni premaz. Led ne djeluje.',
-      'volt': 'Strujni premaz. Struja ne djeluje.',
-      'wind': 'Vjetreni premaz. Vjetar ne djeluje.',
-    },
-    'volt': {
-      'hack': 'Flux… nešto je u mo—',
-      'thanks': '…Nisi ga pustio unutra. Hvala ti.',
-    },
-    'mk1': {
-      'intro': 'To je Vex. Onaj pravi.',
-      'fire': 'Vatra!',
-      'ice': 'Led!',
-      'volt': 'Struja!',
-      'wind': 'Vjetar!',
-      'scrap': 'Otpad!',
-      'free': 'Zato što su slobodni.',
-    },
-    'guardDown': 'Čuvar je pao! Put je slobodan.',
-    'help': {
-      'weapon': 'Odaberi novo oružje i pucaj na dronove!',
-      'gap': 'Hodaj ravno prema rubu i preskočit ćeš!',
-      'gel': 'Upotrijebi gel za popravak i izliječi se!',
-      'slide': 'Klizni tik prije nego te crveni prsten dosegne!',
-      'block': 'Drži blok kad puca. Točno u trenutku pogotka je savršeno!',
-      'charge': 'Drži paljbu dok top ne zasja, pa pusti!'
-    },
-    'train': {
-      'weapon': 'Uvježbajmo tvoje novo oružje!',
-      'gap': 'Uvježbajmo skakanje preko ponora!',
-      'gel': 'Uvježbajmo gel za popravak!',
-      'slide': 'Uvježbajmo klizanje!',
-      'block': 'Uvježbajmo Savršeni blok!',
-      'charge': 'Uvježbajmo Nabijeni hitac!'
-    },
-    'hint': {
-      'locator': 'Cilj je u onom smjeru.',
-      'rescue': 'Signal radnog robota. Slab. Blizu.',
-      'upgrade': 'To je nadogradnja.',
-      'levelUp': 'Novi čip kompiliran.',
-      'done': 'Gotovo. Pozovi dron kad budeš spreman.',
-      'underLevel': 'Nadjačat će te. Prvo treniraj.',
-      'floor': {
-        'blaze': '{sector}: od razine 3.',
-        'cryo': '{sector}: od razine 6.',
-        'volt': '{sector}: od razine 9.',
-        'gale': '{sector}: od razine 13.',
-        'magnet': '{sector}: od razine 16.',
-        'drill': '{sector}: od razine 19.',
-        'tide': '{sector}: od razine 22.',
-        'neon': '{sector}: od razine 25.',
-        'rotor': '{sector}: od razine 28.',
-        'fortress': '{sector}: od razine 31.',
-      },
-      'rotor': {
-        'arrive': 'Slijetanje. Skači van!',
-        'dip': 'Drži se, poniremo!',
-        'board': 'Ukrcaj! Ja letim, ti pucaš.'
-      },
-      'neon': {
-        'kick': 'Okreni se zidu i klizni. Opet! Odbij se od zida prema gore!',
-        'switch': 'Prekidač svjetla! Pucaj u njega da zamijeniš mostove.',
-        'blink': 'Svjetlosni mostovi trepću! Prijeđi dok svijetle.',
-        'blackout': 'Struja nestaje! Prijeđi kad se svjetla vrate.'
-      },
-      'tide': {
-        'deep': 'Preduboko! Izađi iz vode!',
-        'valve': 'Poplavljena ustava! Pucaj u ventil da je isušiš.',
-        'rise': 'Plima nadolazi. Uz stube!',
-        'wade': 'Voda! Gaženje kroz nju te usporava.'
-      },
-      'gm': {
-        'button': 'Vex nešto pritišće... Pripremi se!',
-        'arms': 'Najprije ruke! Top i koplje!',
-        'feet': 'Sad stopala! Blokiraj udarne valove!',
-        'head': 'Spustio se. Glava je na dohvat!',
-        'body': 'Jezgra je otvorena! Dokrajči ga!',
-        'prism': 'Prizma-top! Štit gore!'
-      },
-      'vex': {
-        'roof': 'Munje! Makni se kad prsten zasvijetli!',
-        'fall': 'Krov popušta!',
-        'core': 'Dolje do Jezgre! Ne upadni!'
-      },
-      'drill': {
-        'drop': 'Kamenje pada! Izađi iz sjena.',
-        'rock': 'Napukla stijena! Potpuno nabijeni hitac razbit će je.',
-        'board': 'Rudarska kolica kreću! Ja upravljam, ti pucaj u krtice.',
-        'dip': 'Strmi pad! Drži se čvrsto!',
-        'arrive': 'Zadnja stanica. Van!'
-      },
-      'magnet': {
-        'panel': 'Vidiš onu crveno-plavu ploču? Pucaj u nju da okreneš tračnicu.',
-        'rail': 'Magnetna tračnica! Strelice pokazuju privlačenje. Probij se ili se vozi.'
-      },
-      'blaze': {
-        'lava': 'Ono dolje je lava. Ostani na metalu.',
-        'leap': 'Preširoko za hodanje. Klizni s ruba, prenijet će te.',
-        'vents': 'Šištanje, pa vatra. Pusti da huk prođe, pa kreni.',
-        'barrels': 'Bačve! Prati svjetla i prođi između njih.',
-        'hammers': 'Kovački čekići. Broji ritam, pa trči.',
-        'drop': 'Dug put dolje. Izbočina po izbočina.'
-      },
-      'cryo': {
-        'ice': 'Led! Pusti palicu i nastavit ćeš kliziti.',
-        'spikes': 'Ispod tog leda su šiljci. Hodaj ravno, bez oštrih zaokreta.',
-        'frost': 'Bacač mraza. Prvo zasja i zašišti. Prijeđi kad utihne.',
-        'icicles': 'Sjene na podu? Ledenice. Izađi iz kruga!',
-        'pillar': 'Taj stup je napukao. Pucaj u njega i eto prečaca.',
-        'stairs': 'Zaleđene stube. Polako — odmorište je malo.'
-      },
-      'volt': {
-        'panels': 'Te ploče pulsiraju. Čekaj na tamnom redu, pa zakorači.',
-        'board': 'Ruke dalje od upravljača — ja vozim, ti pucaš.',
-        'wave': 'Dronovi ispred! Obori ih prije nego zarone.',
-        'dip': 'Veliki pad ispred. Drži se — i nastavi pucati!',
-        'arrive': 'Kraj pruge. Skači van!'
-      },
-      'gale': {
-        'leap': 'Procjep je preširok za hodanje. Klizni s ruba — prenijet će te.',
-        'down': 'Lijep skok. Sad ne gledaj dolje.',
-        'shuttle': 'Šatlovi. Ukrcaj se kad pristane, iskrcaj na drugom kraju.',
-        'wind': 'Čekaj da nalet vjetra utihne, pa kreni. Ili se sakrij iza stupa.',
-        'bob': 'Plutajuće platforme. Uskoči dolje i vozi se gore.'
-      }
-    },
-    'secret': {
-      'lights': 'Ta ploča pokazuje uzorak. Svjetiljke na zidu još ne.',
-      'color': 'Taj okvir ima omiljenu boju. Smiju svijetliti samo njegove svjetiljke.',
-      'cycle': 'Svaki pogodak predomisli svjetiljku. Ploča zna što želi.',
-      'solved': 'Gle, gle. Netko voli zagonetke.'
-    },
-    'landed': 'Slijetanje! Idemo.',
-    'brief': {
-      'tutorial': 'Vrijeme za trening. Vodit ću te!',
-      'job': 'Brzi posao. Unutra i van!',
-      'climb': 'Juriš na toranj! Gore, gore, gore!',
-      'story': 'Čeka Majstor jezgre. Oslobodimo ga!'
-    },
-    'story': {
-      'relayOne': 'Prvi relej svijetli. Još devet.',
-      'copied': {
-        'scrapBurst': 'Kopirano: {weapon}.',
-        'flameWave': 'Kopirano: {weapon}.',
-        'iceLance': 'Kopirano: {weapon}.',
-        'thunderArc': 'Kopirano: {weapon}.',
-        'galeGuard': 'Kopirano: {weapon}.',
-        'magnetPull': 'Kopirano: {weapon}.',
-        'drillBomb': 'Kopirano: {weapon}.',
-        'bubbleLance': 'Kopirano: {weapon}.',
-        'neonBlade': 'Kopirano: {weapon}.',
-        'droneSwarm': 'Kopirano: {weapon}.',
-      },
-      'dataCore': 'Ostavio nam je nešto.',
-      'firstDraft': '…Napisan sam iz njegova prvog nacrta.',
-      'body': 'Gradi si tijelo. Od naše doline.',
-      'voltFreed': 'Signal je izgubio svoju elektranu.',
-      'galeFreed': 'Nijedan dio više ne stiže u Tvrđavu.',
-      'breach': 'Štit je pao. Tvrđava je otvorena.',
-      'magnetFreed': 'Ljevaonica je hladna. Nema više kandži.',
-      'drillFreed': 'Rudnik je utihnuo. Nema više rude.',
-      'tideFreed': 'Ustave zatvorene. Teglenice ostaju doma.',
-      'neonFreed': 'Svjetla gore. Vex je ostao bez ekrana.',
-      'rotorFreed': 'Sve su linije prekinute. Vex je sam.',
-      'rotor': 'Rotorski let. Vjetar u anteni!',
-      'neon': 'Bulevar zamračenja. Svjetla, molim!',
-      'tide': 'Plimne ustave. Vrijeme za prskanje!',
-      'drill': 'Duboki rudnik. Pazi na glavu!',
-      'magnet': 'Tvornica polariteta. Kompas mi se vrti!',
-      'scrapyard': 'Relej na Otpadu. Upali ga!',
-      'blaze': 'Rafinerija. Vruće, vruće, vruće!',
-      'cryo': 'Krio-postrojenje. Brr! Ne staj.',
-      'volt': 'Toranj napona. Sklopovi me škakljaju!',
-      'gale': 'Nebeski dokovi. Ne gledaj dolje!',
-      'fortress': 'Tvrđava. Ovdje ovo završavamo.'
-    },
-    'arc': {
-      '10': 'Štit je pao. Sad Vex!',
-      '9': 'Ostao je jedan Majstor. Skoro!',
-      '8': 'Osam! Ostala su samo dva Majstora.',
-      '7': 'Sedam svijetli. Samo tako!',
-      '6': 'Šest releja! Grad se budi.',
-      '1': 'Jedan relej svijetli. Još devet!',
-      '2': 'Dva releja! Vex se duri.',
-      '3': 'Tri svijetle. Sjaji dalje!',
-      '4': 'Četiri gotova. Mreža opet zuji.',
-      '5': 'Pola puta! Vex se znoji.'
-    },
-    'bossAhead': 'Boss ispred. Duboko udahni!',
-    'noWeak': 'Ne vidim slabu točku. Miči se!',
-    'weak': {
-      'flameWave': 'Plameni val ga boli!',
-      'iceLance': 'Ledeno koplje ga boli!',
-      'thunderArc': 'Gromovni luk ga boli!',
-      'galeGuard': 'Vihorna straža ga boli!',
-      'magnetPull': 'Magnetni povlak ga boli!',
-      'drillBomb': 'Bušeća bomba ga boli!',
-      'bubbleLance': 'Mjehurasto koplje ga boli!',
-      'neonBlade': 'Neonska oštrica ga boli!',
-      'droneSwarm': 'Roj dronova ga boli!'
-    },
-    'bossDown': 'Majstor oslobođen! Odlično!',
-    'vexDown': 'Vex je pao. Uspjeli smo!',
-    'lowHp': 'Au! Oprezno, Flux!',
-    'lowHpGel': 'Malo zdravlja! Probaj gel za popravak.',
-    'lowWe': 'Energija oružja je niska!',
-    'trap': 'Zamka ispred. Pazi na tajming!',
-    'plate': 'Ploča na pritisak. Na prstima!',
-    'objective': 'Gotovo! Sad pronađi izlaz.',
-    'exit': 'Prijevoz je stigao!',
-    'levelUp': 'Nova razina! Sav sjajiš.',
-    'idle': {
-      '1': 'Bip. Samo provjeravam.',
-      '2': 'Sjajno ti ide.',
-      '3': 'Gauss bi bila ponosna.',
-      '4': 'Volim naš tim.'
-    }
-  },
-  'train': {
-    'todo': 'još nije gotovo',
-    'done': 'gotovo',
-    'checklist': 'Vodiči',
-    'watch': 'Pogledaj kako se radi',
-    'card': {
-      'weapon': 'Kopirao si oružje Majstora jezgre! Pucaj njime pomoću njegova gumba: pokreće ga energija oružja, a neki su strojevi slabi na njega.',
-      'gel': 'Ozlijeđen si? Gel za popravak vraća ti zdravlje. Upotrijebi ga kad god borba krene loše.',
-      'slide': 'Crveni napadi ne mogu se blokirati. Klizni da se izmakneš: usred klizanja ništa te ne može pogoditi.',
-      'block': 'Drži blok da podigneš štit: zaustavlja hice i udarce sprijeda. Podigni ga baš kad udarac stigne za Savršeni blok, koji omami napadača.',
-      'charge': 'Običan hitac ne može probiti štit. Drži paljbu dok top ne zasja, pa pusti: Nabijeni hitac probija ga skroz.'
-    },
-    'name': {
-      'weapon': 'Lekcija oružja',
-      'gap': 'Vodič: Skok',
-      'gel': 'Vodič: Gel za popravak',
-      'slide': 'Vodič: Klizanje',
-      'block': 'Vodič: Štit',
-      'charge': 'Vodič: Nabijeni hitac'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Predgrupa! {boss}!',
-      'blaze': 'Najstariji! Najvreliji! {boss}!',
-      'frost': 'Ohladi se, droidiću. {boss}!',
-      'volt': 'Trepneš i propustiš ga! {boss}!',
-      'gale': 'Sljedeći, molim! {boss}, otpuši ga!',
-      'magnet': 'Privlačno, zar ne? {boss}!',
-      'drill': 'Vrijeme je za dubinski pregled! {boss}!',
-      'tide': 'Val te nosi, droide! {boss}!',
-      'neon': 'Svjetla! Kamera! {boss}!',
-      'rotor': 'Veliko finale! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Dizalica za otpad? Kako… slatko.',
-      'blaze': 'Nuspojava zabilježena. Povećavam dozu.',
-      'blueprint': 'Moje skice! Veličanstven sam, zar ne?',
-      'volt': 'Ja sam… sa-svim… DOBRO.',
-      'gale': 'Dobro! Imam JOŠ Majstora.',
-      'magnet': 'Odbijen? Ja? Ne-MOGUĆE!',
-      'drill': 'Hmf. Novo dno. Doslovno.',
-      'tide': 'Plima će se okrenuti! …Zar ne?',
-      'neon': 'Tko je UPALIO svjetla?!',
-      'rotor': 'Deset releja?! Sestro! SESTRO!',
-      'breach': 'Ne, ne, NE! Taj štit je bio PATENTIRAN!',
-    },
-    'volt': {
-      'hack': 'Da vidimo što je u toj praznoj glavi…',
-      'fail': 'Nezapisiv?! Kako BEZOBRAZNO.',
-    },
-    'fortress': {
-      'welcome': 'Dobro došao u moju kliniku! Sjedni… ZAUVIJEK!',
-    },
-    'mk1': {
-      'intro': 'Gledajte! Moje novo tijelo! Mark JEDAN!',
-      'obey': 'Majstori! SLUŠAJTE svog doktora!',
-      'listen': 'Zašto me NE SLUŠAJU?!',
-      'defeat': 'Tražit ću… drugo mišljenje…',
-    },
-    'sting': {
-      'doctorIn': 'Doktor… PRIMA.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Dobro došao natrag, Flux! Pogledaj dolinu.',
-      'go': 'Opremi se pa kreni! Ja čuvam laboratorij.',
-      'scrapyard': {
-        'won': 'Stara dizalica opet razvrstava otpad.',
-        'weapon': '{weapon} je kopiran. Puca u tri smjera.',
-        'next': 'Sljedeća stanica: {sector}. Samo malo teže.',
-        'boss': '{boss} ondje kuje oklope za Vexove strojeve.',
-        'tip': 'Blokiraj njegove vatrene kugle. Klizni pokraj vatrenih valova.',
-      },
-      'blaze': {
-        'won': 'Dimnjaci opet gore čisto. Bravo!',
-        'weapon': '{weapon} je sad tvoj. Vatra topi led!',
-        'next': 'Sljedeće: {sector}. Strojevi ondje jače udaraju.',
-        'boss': '{boss} čuva svu rashladnu tekućinu za sebe. Grad se pregrijava.',
-        'tip': 'Blokiraj njegove ledene hice, pa uzvrati vatrom!',
-      },
-      'cryo': {
-        'won': 'Rashladna tekućina teče kući. Grad se može rashladiti.',
-        'weapon': '{weapon} je tvoje. Led pobjeđuje munju!',
-        'next': 'Sljedeće: {sector}, u centru grada. Osjetno teže.',
-        'boss': '{boss} pumpa našu struju u Crveni signal.',
-        'tip': 'Stalno se teleportira. Obori njegove kugle.',
-      },
-      'volt': {
-        'won': 'Vexovo lice sad stalno treperi. Jesi li vidio?',
-        'weapon': '{weapon} je tvoj. Munja pobjeđuje vjetar!',
-        'next': 'Sljedeće: {sector}, visoko gore. Žilavi strojevi.',
-        'boss': '{boss} upravlja Vexovim zračnim brodovima, dan i noć.',
-        'tip': 'Blokiraj pera. Pariraj kad se obruši!',
-      },
-      'gale': {
-        'won': 'Zračni brodovi su se okrenuli. Nebo je opet čisto!',
-        'weapon': '{weapon} je tvoja. Njezino lišće blokira hice.',
-        'next': 'Sad rub grada: {sector}. Puno teže.',
-        'boss': '{boss} zauzeo je tramvajske tračnice za Vexov teret.',
-        'tip': 'Privlači te k sebi. Blokiraj kad zgrabi!',
-      },
-      'magnet': {
-        'won': 'Tramvaji opet voze. Cin-cin!',
-        'weapon': '{weapon} lomi štitove. Taman za sljedećeg Majstora.',
-        'next': 'Sljedeće: {sector}, duboko pod zemljom. Stvarno jaki strojevi.',
-        'boss': '{boss} zarobio je radne robote u oknu.',
-        'tip': 'Kopa ispod tebe. Makni se s oznake!',
-      },
-      'drill': {
-        'won': 'Radni roboti opet su gore, na danjem svjetlu.',
-        'weapon': '{weapon} radi bum. Sačuvaj koju za bossa!',
-        'next': 'Sljedeće: {sector}, dolje uz vodu. Jako teško.',
-        'boss': '{boss} plavi kanale za Vexove teglenice.',
-        'tip': 'Klizni ispod njegovih valova. Probuši mjehuriće!',
-      },
-      'tide': {
-        'won': 'Čista voda opet teče u dolinu.',
-        'weapon': '{weapon} kotrlja se kroz cijele skupine. Boss mrzi mjehuriće!',
-        'next': 'Sljedeće: {sector}, mračni krovovi. Stvarno opasno.',
-        'boss': '{boss} ugasio je svaki prozor u centru.',
-        'tip': 'Oštrica mu leti tamo pa natrag. Izmakni se dvaput!',
-      },
-      'neon': {
-        'won': 'Centar večeras svijetli ružičasto. Baš lijepo!',
-        'weapon': '{weapon} reže dvaput. Sljedeći Majstor strepi od nje!',
-        'next': 'Sljedeće: {sector}, uzletište na nebu. Skoro pa najteže.',
-        'boss': '{boss} puni nebo teretnim dronovima.',
-        'tip': 'Otpuhuje te unatrag. Klizni ispod naleta vjetra!',
-      },
-      'rotor': {
-        'won': 'Dronovi sada dostavljaju radnim robotima.',
-        'weapon': '{weapon} je tvoj. Tri drona pronalaze svoje mete.',
-        'next': 'Zadnja stanica: {sector}. Teže od toga ne postoji.',
-        'boss': '{boss} više se ne može sakriti iza štita.',
-        'tip': 'Posuđuje napade Majstora. Ponesi gel za popravak!',
-      },
-    },
   }
 }

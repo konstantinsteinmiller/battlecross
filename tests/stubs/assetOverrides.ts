@@ -1,2 +1,3 @@
 // Test stand-in for `virtual:asset-overrides`: no drop-in files.
-export default { sfx: [] as string[], music: [] as string[], textures: [] as string[], voice: [] as string[] }
+const none = (): string[] => []
+export default { sfx: none(), music: none(), textures: none(), items: none(), skills: none(), portraits: none(), ui: none() }

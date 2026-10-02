@@ -6,8 +6,7 @@
 
 import { describe, expect, it } from 'vitest'
 import { SAVE_KEYS, isPayloadKey, META_KEY } from '@/utils/save/SaveMergePolicy'
-import { STATE_KEY } from '@/use/useGameState'
-import { LEGACY_KEYS } from '@/legacyKeys'
+import { STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 
 describe('SAVE_KEYS values are stable', () => {
   it('LEVEL key is the literal "bc_level"', () => {
@@ -26,19 +25,20 @@ describe('SAVE_KEYS values are stable', () => {
 
 describe('the persisted surface is exactly one state blob plus the meta blob', () => {
   it('accepts the state blob and the meta blob', () => {
-    // Renamed with the game (Mega Adventure → Battlecross). Changing it again
-    // would strand every existing save unless `src/legacyKeys.ts` gains the old
-    // name — see tests/save/LegacyKeyMigration.test.ts.
+    // Battlecross's own blob. Changing it would strand every existing save.
     expect(STATE_KEY).toBe('bcross_state')
+    expect(STATE_FIELD_PREFIX).toBe('bc_')
     expect(isPayloadKey(STATE_KEY)).toBe(true)
     expect(isPayloadKey(META_KEY)).toBe(true)
   })
 
-  it('never mirrors the pre-rename state key, so nothing can write it back', () => {
-    expect(isPayloadKey(LEGACY_KEYS.STATE)).toBe(false)
+  it('never mirrors the predecessor games\' keys: this game shares no save with them', () => {
+    for (const key of ['mega_adventure_state', 'mega_droid_state', 'ma_level', 'ma_bolts']) {
+      expect(isPayloadKey(key)).toBe(false)
+    }
   })
 
-  it('accepts stray per-field ma_* writes so nothing is silently dropped', () => {
+  it('accepts stray per-field bc_* writes so nothing is silently dropped', () => {
     expect(isPayloadKey(SAVE_KEYS.COINS)).toBe(true)
     expect(isPayloadKey('bc_anything_new')).toBe(true)
   })

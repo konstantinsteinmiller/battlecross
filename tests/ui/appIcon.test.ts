@@ -6,8 +6,8 @@ import { describe, expect, it } from 'vitest'
 
 // ─── One icon source, every raster rendered from it ────────────────────────
 //
-// public/icons/icon.svg is the app icon (Flux's head in the hex reactor
-// badge). scripts/render-icons.mjs renders every PNG and favicon.ico from it,
+// public/icons/icon.svg is the app icon (two swords crossed behind a shield;
+// written by store-art/brand/logo-final.mjs). scripts/render-icons.mjs renders every PNG and favicon.ico from it,
 // in Chrome, because the SVG switches to a bold small-size mark through a
 // media query that only a browser evaluates. These pin the contracts that
 // script and the page rely on, so a hand-edited PNG or a dropped favicon

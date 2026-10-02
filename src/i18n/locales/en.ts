@@ -2,22 +2,20 @@
 // new player-facing string gets a key here first; the per-language files in
 // this folder mirror the shape. Vite ships each non-English locale as its own
 // lazy chunk (see `src/i18n/index.ts`).
+//
+// Numbers in `{braces}` are filled in by the game (a skill's description
+// quotes the same table the simulation reads), so a balance change never
+// leaves a stale number in a translation.
 export default {
   'gameName': 'Battlecross',
   'cancel': 'Cancel',
   'close': 'Close',
   'ok': 'Ok',
   'continue': 'Continue',
-  'tapToContinue': 'Tap to continue',
-  'clickToContinue': 'Click to continue',
-  'rewards': 'REWARDS',
-  'tip': 'Tip',
   'onlyAvailableOn': 'This game is only available on',
 
-  // Accessible names for icon-only controls (read aloud, not seen).
+  // Accessible names for icon-only controls, and the few shared button words.
   'ui': {
-    'killcamCount': 'Kill-cams this mission: {n}',
-    'killcamOff': 'Turn kill-cams off',
     'next': 'Next',
     'replay': 'Replay',
     'back': 'Back',
@@ -26,555 +24,619 @@ export default {
     'menu': 'Menu',
     'home': 'Home',
     'info': 'Info',
-    'skip': 'Skip',
-    // Beside the skip button: {key} is the space bar's name (pause.keys.space).
-    'holdToSkip': 'Hold {key} to skip'
+    'help': 'Controls',
+    'ok': 'Got it',
+    'continue': 'Continue'
   },
 
-  // ─── Combat call-outs (floating text in the 3D view) ─────────────────────
-  // Short: they pop over enemies for under a second.
-  'combat': {
-    'tink': 'TINK!',
-    'perfect': 'PERFECT!',
-    'parry': 'PARRY!',
-    'guardBreak': 'GUARD BREAK!',
-    'guardCracked': 'Guard cracked!',
-    'xp': '+{n} XP',
-    'lastStand': 'Last Stand! Systems rebooted.',
-    'weak': 'WEAK!',
-    // A shot on a weak spot (a head, a back, a tail): a sound word, not
-    // translated.
-    'kranck': 'KRANCK!',
-    'dizzy': 'DIZZY!',
-    'dodge': 'DODGE!',
-    'block': 'Block',
-    'slide': 'Slide',
-    'fire': 'Fire',
-    'tank': 'Repair Gel',
-    'noEnergy': 'Not enough weapon energy',
-    // The gel button's accessible name: how many are carried, and the room.
-    'tankCount': 'Repair Gel: {n} of {max}',
-    // The borrowed weapon's button (accessible name) and the pickup toast.
-    'borrowed': 'Borrowed {weapon}: {n} of {max} shots',
-    'borrowedGet': '{weapon} ×{n}'
-  },
-
-  // ─── Flux's speech bubble (FluxBubble.vue) ────────────────────────────────
-  // A hard hit made him lose control of his charge (sim/fumble.ts): one
-  // short, silly line from a friendly robot. Two lines at most on a phone.
-  'flux': {
-    'fumble': {
-      '1': 'Whoa-oh!',
-      '2': 'Bzzt! Oops!',
-      '3': "My arm's got hiccups!",
-      '4': 'Error… wheee!',
-      '5': 'Butter circuits!',
-      '6': 'Wobble mode ON!'
-    }
-  },
-
-  // Enemy display names (target frame, bestiary, job board).
-  'enemy': {
-    'echo': 'Master Echo',
-    'gatekeeper': 'Gatekeeper',
-    'warden': 'Warden',
-    'hornet': 'Hornet Rotor',
-    'stalker': 'Glow Stalker',
-    'puffer': 'Puffer Mine',
-    'mole': 'Mole Driller',
-    'polar': 'Polar Pup',
-    'hardhat': 'Hardhat',
-    'trooper': 'Shield Trooper',
-    'heli': 'Rotor Drone',
-    'hopper': 'Stomper',
-    'roller': 'Gear Roller',
-    'brute': 'Guardroid',
-    'turret': 'Wall Cannon',
-    'golem': 'Crate Golem',
-    'elite': 'Elite',
-    'level': 'Lv {n}'
-  },
-
-  // Plural forms for counts ("Destroy 7 Gear Rollers"): singular | plural.
-  'enemyPlural': {
-    'echo': 'Master Echo | Master Echoes',
-    'gatekeeper': 'Gatekeeper | Gatekeepers',
-    'warden': 'Warden | Wardens',
-    'hornet': 'Hornet Rotor | Hornet Rotors',
-    'stalker': 'Glow Stalker | Glow Stalkers',
-    'puffer': 'Puffer Mine | Puffer Mines',
-    'mole': 'Mole Driller | Mole Drillers',
-    'polar': 'Polar Pup | Polar Pups',
-    'hardhat': 'Hardhat | Hardhats',
-    'trooper': 'Shield Trooper | Shield Troopers',
-    'heli': 'Rotor Drone | Rotor Drones',
-    'hopper': 'Stomper | Stompers',
-    'roller': 'Gear Roller | Gear Rollers',
-    'brute': 'Guardroid | Guardroids',
-    'turret': 'Wall Cannon | Wall Cannons',
-    'golem': 'Crate Golem | Crate Golems'
-  },
-
+  // ─── HUD ──────────────────────────────────────────────────────────────────
   'hud': {
-    'help': 'Show controls',
-    'mute': 'Mute sound',
-    'unmute': 'Unmute sound',
-    'bossUnknown': 'Unknown boss',
-    'hp': 'Health',
-    'we': 'Weapon energy',
-    'power': 'Power',
-    'bolts': 'Bolts',
     'level': 'Lv {n}',
-    'beamOut': 'Beam out'
+    'health': 'Health {n} of {max}',
+    'mana': 'Mana {n} of {max}',
+    'heat': 'Heat',
+    'xp': 'XP',
+    'gold': '{n} gold',
+    'potion': 'Health potion ({n} left)',
+    'groups': '{n} of {total} enemy groups defeated',
+    'wave': 'Wave {n} / {total}'
+  },
+  'menu': {
+    'map': 'World map',
+    'character': 'Hero',
+    'skills': 'Skills',
+    'inventory': 'Bag'
   },
 
-  'boss': {
-    'rotorMaster': 'Rotor Master',
-    'neonMaster': 'Neon Master',
-    'tideMaster': 'Tide Master',
-    'drillMaster': 'Drill Master',
-    'magnetMaster': 'Magnet Master',
-    'stand': 'Scrapper',
-    'scrapper': 'Scrapper',
-    'blazeMaster': 'Blaze Master',
-    'frostMaster': 'Frost Master',
-    'voltMaster': 'Volt Master',
-    'galeMaster': 'Gale Master',
-    'vexMk1': 'Dr. Vex Mk-I',
-    // The ten Masters in one body (#101).
-    'grandMaster': 'Grand Master Bot'
+  // ─── Floating combat text: short, they pop for under a second ─────────────
+  'combat': {
+    'dodge': 'Dodge',
+    'block': 'Blocked',
+    'immune': 'Immune'
+  },
+  'status': {
+    'stun': 'Stunned',
+    'knockup': 'Airborne',
+    'knockdown': 'Knocked down',
+    'stasis': 'Stasis',
+    'petrify': 'Petrified',
+    'frozen': 'Frozen',
+    'fear': 'Afraid',
+    'slow': 'Slowed',
+    'confuse': 'Confused',
+    'taunt': 'Taunted',
+    'armorShred': 'Armor broken',
+    'weaken': 'Weakened',
+    'vulnerable': 'Vulnerable',
+    'burn': 'Burning',
+    'poison': 'Poisoned',
+    'bleed': 'Bleeding',
+    'delayed': 'Delayed damage',
+    'haste': 'Haste',
+    'attackSpeed': 'Fast attacks',
+    'damageUp': 'Empowered',
+    'defenseUp': 'Fortified',
+    'regen': 'Regenerating',
+    'lifestealUp': 'Life steal',
+    'invulnerable': 'Invulnerable',
+    'unkillable': 'Unkillable',
+    'stealth': 'Hidden',
+    'reflect': 'Reflecting',
+    'envenom': 'Venom blade',
+    'exosuit': 'Exo-Suit',
+    'focus': 'Focused',
+    'accelerate': 'Accelerate',
+    'overheat': 'Overheated',
+    'enrage': 'Enraged',
+    'ambush': 'Ambush'
+  },
+  'toast': {
+    'item': 'Found: {item}',
+    'levelUp': 'Level {level}! +3 attribute points',
+    'boss': '{boss} appears',
+    'wave': 'Wave {n}'
   },
 
-  'sector': {
-    'rotor': 'Rotor Run',
-    'neon': 'Blackout Boulevard',
-    'tide': 'Tidewater Locks',
-    'drill': 'Deep Mine',
-    'magnet': 'Polarity Works',
-    'scrapyard': 'Scrapyard',
-    'blaze': 'Blaze Refinery',
-    'cryo': 'Cryo Plant',
-    'volt': 'Volt Tower',
-    'gale': 'Sky Docks',
-    'fortress': 'Vex Fortress'
-  },
-
-  // ─── Missions ─────────────────────────────────────────────────────────────
-  'quest': {
-    'tutorial': 'Wake-Up Call',
-    'boss': 'Core Master Showdown',
-    'bossTitle': 'Showdown: {boss}',
-    'kill': 'Scrap Duty',
-    'collect': 'Data Recovery',
-    'rescue': 'Rescue Op',
-    'elite': 'Elite Hunt',
-    'supply': 'Supply Run',
-    'purge': 'Sector Purge',
-    'climb': 'Tower Run',
-    'stage': 'Platform Stage',
-    'stageName': { 'blaze': 'Meltdown Descent', 'cryo': 'Glacier Run', 'volt': 'Rail Rush', 'gale': 'Sky Docks', 'magnet': 'Polarity Works', 'drill': 'Deep Mine', 'tide': 'Tidewater Locks', 'neon': 'Blackout Boulevard', 'rotor': 'Rotor Run', 'fortress': 'Vex Fortress' },
-    'rematch': 'Rematch: {boss}',
-    'desc': {
-      'tutorial': 'Fight through the Scrapyard and take down the Scrapper.',
-      'boss': 'Break into the core of {sector} and defeat {boss}.',
-      'kill': 'Destroy {n} {target} in {sector}.',
-      'collect': 'Recover {n} data cores scattered through {sector}.',
-      'rescue': 'A worker-bot is stranded in {sector}. Find it and beam it out.',
-      'elite': 'An elite {target} is terrorising {sector}. Hunt it down.',
-      'supply': 'Crack open {n} supply chests in {sector}.',
-      'purge': 'Destroy every machine in {sector}.',
-      'climb': 'Climb the tower of {sector} — stairs, ladders, lifts and pits — then drop into the arena for a rematch with {boss}.',
-      'stage': 'Run, slide and ride through {sector} — ledges, pits and machines — to the arena, then defeat {boss}.'
+  // ─── The control coach ────────────────────────────────────────────────────
+  // Never drawn: these are the screen-reader sentences behind the wordless
+  // glyphs, and the lines of the controls page.
+  'coach': {
+    'move': {
+      'touch': 'Tap the ground to walk there, or use the stick.',
+      'mouse': 'Click the ground to walk there, or steer with the movement keys.'
+    },
+    'target': {
+      'touch': 'Tap an enemy, or drag from your hero onto it, to attack it.',
+      'mouse': 'Click an enemy to attack it.'
+    },
+    'skill': {
+      'touch': 'Tap a skill to use it on your target.',
+      'mouse': 'Press a skill key to use it on your target.'
+    },
+    'aim': {
+      'touch': 'Drag a skill onto the field to aim it, and let go to cast.',
+      'mouse': 'Drag a skill onto the field to aim it, and let go to cast.'
+    },
+    'potion': {
+      'touch': 'Tap the potion to heal.',
+      'mouse': 'Press the potion key to heal.'
     }
   },
-  'objective': {
-    'title': 'Objective',
-    'complete': 'Objective complete',
-    'beamOutHint': 'Beam out when you are ready.',
-    'tutorial': 'Defeat {boss}',
-    'boss': 'Defeat {boss}',
-    'kill': 'Destroy {target}: {n}/{total}',
-    'collect': 'Data cores: {n}/{total}',
-    'rescue': 'Find the stranded worker-bot',
-    'elite': 'Hunt down the elite {target}',
-    'supply': 'Supply chests: {n}/{total}',
-    'purge': 'Machines destroyed: {n}/{total}',
-    'climb': 'Climb the tower, defeat {boss}',
-    'stage': 'Reach the arena, defeat {boss}'
+
+  // ─── The world ────────────────────────────────────────────────────────────
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'A farming town at the edge of the plains. Home, a smith, and two trainers.' },
+    'plains': { 'name': 'Sunford Plains', 'desc': 'Goblins, wolves and bandits pick at the caravans on the open road.' },
+    'hollows': { 'name': 'Goblin Hollows', 'desc': 'The caves under the hills. The Goblin King holds court at the bottom.' },
+    'arena': { 'name': 'The Colosseum', 'desc': 'Eight waves, each harder than the last. Gold and glory for whoever is left standing.' },
+    'woods': { 'name': 'Whispering Woods', 'desc': 'Old trees that walk, and spiders that spin between them.' },
+    'outskirts': { 'name': 'Oakhaven Outskirts', 'desc': 'The burning farms outside Oakhaven. A warlord\'s army is at the gate.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'A walled trade town. What it becomes is up to you.' },
+    'crags': { 'name': 'Ashen Crags', 'desc': 'Black rock and open fire. Cultists feed the flames.' },
+    'mines': { 'name': 'Ironhold Mines', 'desc': 'The dwarves dug too deep and woke something that glows.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'The mountain forge-town. The best steel in the realm is hammered here.' },
+    'tundra': { 'name': 'Frostbite Tundra', 'desc': 'A white waste where giants walk and the dead do not stay down.' },
+    'temple': { 'name': 'Sunken Temple', 'desc': 'Drowned halls of the naga, and an oracle who sees every ending.' },
+    'citadel': { 'name': 'Citadel of the Void', 'desc': 'A fortress that was not there last year. Its walls hum.' },
+    'peak': { 'name': 'Dragon\'s Peak', 'desc': 'Wyverns circle the summit. Something far larger sleeps on it.' },
+    'fortress': { 'name': 'Dread Fortress', 'desc': 'The Arch-Demon\'s seat, and the throne every faction wants.' },
+    'rift': { 'name': 'The Void Rift', 'desc': 'The wound the demons came through. The Void Lord waits on the far side.' }
   },
-  'mission': {
-    'bossDown': '{boss} destroyed!',
-    'objectiveDone': 'Objective complete!',
-    'rescued': 'Worker-bot beamed to safety!',
-    'bossDoor': 'The shutter grinds open…'
+  'map': {
+    'title': 'The Realm',
+    'town': 'Town',
+    'levels': 'Lv {min}–{max}',
+    'arenaBest': 'Best: wave {n}',
+    'travel': 'Travel',
+    'again': 'Go again',
+    'enter': 'Enter',
+    'fight': 'Fight',
+    'back': 'Back to town',
+    'locked': 'Clear a neighbouring zone to open the road.',
+    'lockedArena': 'Its gates open once the Goblin King is dealt with.',
+    'lockedRift': 'It opens when the throne of the Dread Fortress is decided.',
+    'danger': {
+      '1': 'A little above your level.',
+      '2': 'Dangerous at your level.',
+      '3': 'Far above your level.'
+    },
+    'questOpen': '{quest}: a decision waits here.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Hidden trainer: {cls}'
   },
-  'interact': {
-    'chest': 'Open',
-    'rescue': 'Rescue',
-    'bossDoor': 'Enter'
-  },
-  'progress': {
-    'levelUp': 'Level {n}! Systems fully repaired.'
-  },
-  // Screen-reader sentences behind the control coach's wordless glyphs
-  // (ControlHints, ControlsPanel). Never drawn on screen.
-  'tips': {
-    'moveTouch': 'Drag the left side to move, the right side to look. Tap the floor to walk there!',
-    'moveKeys': '{keys} to move around.',
-    'lookMouse': 'Move the mouse to look around.',
-    'capture': 'Click the scene to take control of the camera.',
-    'fireTouch': 'Machines ahead! Tap to shoot — hold, then release for a charge shot.',
-    'fireKeys': 'Machines ahead! Left click to shoot — hold, then release for a charge shot.',
-    'charge': 'Shields block pellets. A FULL charge shot breaks right through.',
-    'blockTouch': 'Orange ring: hold the shield to block — press it as the ring closes to PARRY!',
-    'blockKeys': 'Orange ring: hold the right mouse button to block — press it as the ring closes to PARRY!',
-    'red': 'Red ring means unblockable — slide out of the way!',
-    'dodgeKeys': 'Red ring means unblockable — press {slide} to slide out of the way!',
-    // The slide key as the sentence above speaks it (inflected where the
-    // language needs it); a rebound key is spoken by its letter instead.
-    'spaceKey': 'Space',
-    'chest': 'A supply chest! Tap it to open.',
-    'tank': 'Running low? Repair Gel fixes you up completely.',
-    'weapon': 'Use your copied weapon from the colored button!'
-  },
-  // Screen-reader sentences behind the wordless scene lessons (LessonLayer).
-  'lesson': {
-    'charge': "Hold to charge your cannon, then let go: only a charged shot breaks the training drone's shield.",
-    'crate': 'Supply crates only break to a charged shot. Hold, then let go at the glowing crate.',
-    'weaponKeys': 'Press {n} to fire your copied weapon: one shot takes all three drones.',
-    'weaponTouch': 'Tap the glowing weapon button: one shot takes all three drones.',
-    'gelKeys': 'Press {key} to use a Repair Gel: it repairs you completely.',
-    'gelTouch': 'Tap the green Repair Gel button: it repairs you completely.'
-  },
-  // The one line of the tutorial walk: shown at a door held shut until
-  // its room's lesson is done (DoorPrompt).
-  'walk': {
-    'finishLessonOn': 'Finish the lesson on {weapon}',
-    'finishTutorial': 'Finish the Tutorial first',
-    'finishLesson': 'Finish the lesson'
-  },
-  // Screen-reader sentences behind the first-visit upgrade tour (HubLesson).
-  'hubLesson': {
-    'earnBolts': 'Not enough bolts? Watch a short video for a top-up.',
-    'catchUp': "Pip: Your cannon is falling behind the machines out there. Let's upgrade it!",
-    // After the Gale Master: the Overload mod is ready to buy (#100).
-    'overload': "Pip: The Gale Master's core taught me a trick. Hold a full charge 3 more seconds: OVERLOAD!",
-    'workshop': 'Open the Workshop.',
-    'upgradeBuster': 'Spend bolts to upgrade your cannon: more damage.',
-    'pickArmor': 'Now select your chest armor.',
-    'upgradeArmor': 'Upgrade it too: more defense.',
-    'deploy': 'All set — back to the missions!'
-  },
-  'loot': {
-    // The loot card's badge when a find beats what is equipped.
-    'upgrade': 'Upgrade!',
-    'found': '{rarity} {item} found!',
-    'tank': 'Repair Gel found!',
-    'giftTank': 'Gift: +1 Repair Gel!'
+  'travel': {
+    'to': 'Travelling to',
+    'loading': 'Loading'
   },
 
-  // ─── Results / defeat / pause ─────────────────────────────────────────────
-  'results': {
-    'success': 'MISSION COMPLETE',
-    'failed': 'MISSION FAILED',
-    'xp': 'Experience',
-    'bolts': 'Bolts',
-    'kills': 'Machines destroyed',
-    'chests': 'Chests opened',
-    'time': 'Time',
-    'levelUp': 'Level up! Now level {n}',
-    'newWeapon': 'New weapon: {weapon}!',
-    'newSector': 'New sector unlocked: {sector}',
-    'items': 'Gear found',
-    'triple': 'Triple bolts',
-    'tripleAria': 'Watch a short video: triple your bolts to +{n}'
-  },
-  'defeat': {
-    'title': 'SYSTEM DOWN',
-    'body': 'Flux took too much damage.',
-    'kept': 'You keep what you earned so far:',
-    'useTank': 'Reboot with Repair Gel ({n})',
-    'rebootAd': 'Reboot now',
-    'retreat': 'Retreat to the lab',
-    // The Fortress: back to the last checkpoint, free, at full health.
-    'retryCheckpoint': 'Retry from checkpoint'
-  },
-  // ─── The big moment banners (`BigBanner.vue`) ─────────────────────────────
-  // One line across the screen, uppercased by CSS in cased scripts, sized to
-  // fit: short and loud, like an "ENEMY FELLED".
-  // ─── The ending, "First Free Morning" (#102) ───────────────────────────────
-  'ending': {
-    'fall': "The Grand Master falls. Vex's Red Signal dies with it.",
-    'relays': 'One by one, the relays come home, each in its own colour.',
-    'thaw': 'In the lab, the ice lets go.',
-    'gauss': 'Flux... you did it. You brought them all back.',
-    'atlas': "The Spire is empty. I could run this city now. I won't. It's theirs.",
-    'morning': 'Cyber City wakes to its first free morning.',
-    'spark': 'Flux... did you see that spark?',
-    'speaker': { 'atlas': 'Atlas', 'gauss': 'Prof. Gauss', 'pip': 'Pip' },
-    'cast': { 'flux': 'Flux', 'atlas': 'Atlas', 'pip': 'Pip', 'gauss': 'Prof. Gauss' },
-    'credits': {
-      'by': 'A game by {studio}',
-      'cast': 'Starring',
-      'masters': 'The Masters',
-      'thanks': 'Thank you for playing!'
-    },
-    'card': {
-      'title': 'Cyber City is free!',
-      'promise': 'New Game+: the Masters have 25 % more health and strike faster. Your level, gear and weapons stay.',
-      'ngplus': 'Start New Game+',
-      'lab': 'Back to the Lab',
-      'confirm': 'Start New Game+?',
-      'confirmBody': 'The story starts over with tougher Masters. You keep your level, gear, weapons and upgrades.'
-    }
-  },
-  'banner': {
-    'cleared': 'Level cleared',
-    'bossDown': 'Enemy defeated!',
-    'gameOver': 'Game Over!',
-    'grandMaster': 'Grand Master!'
-  },
-  'pause': {
-    'title': 'PAUSED',
-    'resume': 'Resume',
-    'abandon': 'Abandon mission',
-    'controls': 'Controls',
-    // The controls legend's visible verbs (ControlsPanel), one per row beside
-    // the action's icon; the other rows reuse `combat.*`, `hud.*`, `hero.*`.
-    // Short: a row shares a 320 px wide phone with two glyphs, and wraps to
-    // two lines at most.
-    'label': {
-      'move': 'Move',
-      'look': 'Look',
-      'parry': 'Parry',
-      'interact': 'Interact'
-    },
-    'touch': {
-      'move': 'Left side: drag to move. Tap the floor to walk there.',
-      'fire': 'In combat: tap to shoot, hold to charge, release to fire.',
-      'block': 'Hold the shield to block — just as a ring closes to parry.',
-      'use': 'Near a chest, a stranded bot or a door: tap it, or the button that pops up.'
-    },
-    'keys': {
-      'move': '{keys} / arrows: move.',
-      'look': 'Move the mouse to look. Click the scene to take control of the camera.',
-      'fire': 'Left click: shoot — hold to charge, release to fire.',
-      'block': 'Right click: block — just as a ring closes to parry.',
-      'slide': '{slide}: slide · {tank}: Repair Gel · {use}: interact · {beam}: beam out',
-      'more': '{w1} / {w2}: special weapons · {target}: switch target · Esc: pause',
-      // The space bar's name, spoken where the slide key is still Space.
-      'space': 'Space',
-      // A one-key row, read aloud: "H: Repair Gel". `{key}` is the key's
-      // letter on this keyboard, `{action}` the row's visible label.
-      'press': '{key}: {action}'
-    }
-  },
-  'levelUp': {
-    'title': 'LEVEL UP!',
-    'pick': 'Choose a system upgrade',
-    'chip': '+1 Skill Chip for your circuits',
-    'granted': '{stat} raised from {from} to {to}'
-  },
+  // ─── Character sheet ──────────────────────────────────────────────────────
   'attr': {
-    'hp': { 'name': 'Frame', 'desc': 'Max health' },
-    'we': { 'name': 'Reactor', 'desc': 'Weapon energy' },
-    'power': { 'name': 'Servos', 'desc': 'Block & slide power' }
+    'str': { 'name': 'Strength', 'short': 'STR', 'desc': 'Melee power, block chance, heavy armor.' },
+    'dex': { 'name': 'Dexterity', 'short': 'DEX', 'desc': 'Critical hits, attack and move speed.' },
+    'int': { 'name': 'Intelligence', 'short': 'INT', 'desc': 'Spell power, mana, elemental resistance.' },
+    'end': { 'name': 'Endurance', 'short': 'END', 'desc': 'Health, regeneration, armor, stun resistance.' },
+    'skl': { 'name': 'Skill', 'short': 'SKL', 'desc': 'Critical damage, cooldowns, ranged weapons.' },
+    'cha': { 'name': 'Charisma', 'short': 'CHA', 'desc': 'Minions, shop prices, rewards, dialogue options.' }
   },
-
-  // ─── Hub ──────────────────────────────────────────────────────────────────
-  'hub': {
-    'tab': {
-      'missions': 'Missions',
-      'hero': 'Flux',
-      'circuits': 'Circuits',
-      'workshop': 'Workshop'
-    },
-    // The hero tab's spoken name. Its visible label is the name alone, and
-    // "flux" is also a word, so the label says who he is.
-    'heroTabAria': 'Flux, your combat android',
-    'levelUpReady': 'Level up!',
-    'levels': 'Lv {a}–{b}',
-    'story': 'Story mission',
-    'jobs': 'Jobs',
-    'jobsHint': 'Repeatable — new ones arrive as you finish them',
-    'lockedHint': 'Defeat {boss} to open this sector.',
-    'sectorSecured': 'Sector secured. Its jobs are still on the board.',
-    'deploy': 'Deploy',
-    'reroll': 'New job',
-    // The rewarded "+1 Repair Gel next mission" card on the Missions tab.
-    'gift': {
-      'name': 'Gel for the road',
-      'desc': 'Watch a short video: +1 Repair Gel for your next mission, even over your limit.',
-      'aria': 'Watch a short video for one extra Repair Gel on your next mission',
-      'ready': 'Gift packed!',
-      'readyDesc': '+1 Repair Gel for your next mission.'
-    },
-    // A locked lab menu (`hubUnlocks.ts`). `{n}` is how many more missions
-    // it waits for; the plural forms follow the language (`i18n/plural.ts`:
-    // three for ru/uk/pl, six for ar, one where the noun never changes).
-    'unlock': {
-      'hint': 'Complete {n} more mission to unlock | Complete {n} more missions to unlock',
-      // The locked menu's spoken name; `{name}` is its visible label.
-      'aria': '{name}, locked: complete {n} more mission | {name}, locked: complete {n} more missions'
-    }
-  },
-  'hero': {
-    // Under the name on the hero panel's name plate (the name itself is
-    // `hub.tab.hero`): what he is, so the name reads as a name.
-    'role': 'Your combat android',
-    'weapons': 'Special weapons',
-    'weaponSlot': 'Slot {n}',
-    'weaponRank': 'Rank {n}',
-    'noWeapons': 'Defeat Core Masters to copy their weapons.',
-    'attrPending': 'Choose {n} system upgrade(s)!',
-    'stats': 'Systems',
-    'attributes': 'Upgrades',
-    'stat': {
-      'hp': 'Max health',
-      'we': 'Weapon energy',
-      'power': 'Power',
-      'damage': 'Pellet damage',
-      'charge': 'Charge shot',
-      'armor': 'Armor',
-      'crit': 'Critical chance',
-      'tanks': 'Repair Gels'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'Enough bolts for two upgrades of your best cannon.',
-    'upgradeAdName': 'Upgrade Boost',
-    'tanks': 'Supplies',
-    'tankName': 'Repair Gel',
-    'tankDesc': 'Fully restores health and power mid-mission.',
-    'owned': 'Carried: {n}/{max}',
-    'upgrade': 'Upgrade gear',
-    'next': 'Next level',
-    'upgradeBtn': 'Upgrade',
-    'maxed': 'Fully upgraded',
-    'dropName': 'Supply Drop',
-    'dropDesc': 'A crate of spare bolts, beamed in from the lab.',
-    'dropAria': 'Watch a short video for {n} bolts',
-    'dropCooldown': 'Next drop in {t}'
-  },
-
-  // ─── Circuits (skills) ────────────────────────────────────────────────────
-  'board': {
-    'buster': 'Cannon',
+  'stat': {
+    'health': 'Health',
+    'mana': 'Mana',
     'armor': 'Armor',
-    'core': 'Core'
+    'resist': 'Resistance',
+    'crit': 'Crit chance',
+    'critDamage': 'Crit damage',
+    'attackSpeed': 'Attack speed',
+    'moveSpeed': 'Move speed',
+    'cdr': 'Cooldown cut',
+    'block': 'Block',
+    'dodge': 'Dodge',
+    'hpRegen': 'Health / s'
   },
-  'circuits': {
-    'chips': 'Skill Chips: {n}',
-    'rank': 'Rank {n}/{max}',
-    'requires': 'Requires {name} rank {n}',
-    'requiresBoss': 'Defeat the {name} first',
-    'unlock': 'Unlock',
-    'install': 'Install chip',
-    'maxed': 'Fully powered',
-    'respec': 'Reset circuits'
+  'sheet': {
+    'points': '{n} points to spend',
+    'raise': 'Raise {attr}',
+    'maxLevel': 'Highest level reached'
+  },
+
+  // ─── Skills ───────────────────────────────────────────────────────────────
+  'skills': {
+    'active': 'Active skills',
+    'passive': 'Passive skills',
+    'known': 'Learned',
+    'none': 'Nothing learned yet. Find a trainer in a town.',
+    'emptySlot': 'Empty slot {n}',
+    'equip': 'Slot it',
+    'remove': 'Remove',
+    'unmet': 'You no longer meet its requirements.'
+  },
+  'class': {
+    'aegis': { 'name': 'Aegis Knight', 'desc': 'Shield and holy steel. Takes the hits so nothing else has to.' },
+    'shadow': { 'name': 'Shadowblade', 'desc': 'Steps out of the dark, strikes from behind, and is gone.' },
+    'pyro': { 'name': 'Pyromancer', 'desc': 'Fire answers every question. Burn them, then blow them up.' },
+    'sovereign': { 'name': 'Grand Sovereign', 'desc': 'Why fight alone? Summon guards and command them.' },
+    'chrono': { 'name': 'Chrono-Weaver', 'desc': 'Stops enemies in time, speeds allies up, and undoes mistakes.' },
+    'blood': { 'name': 'Blood Alchemist', 'desc': 'Pays in health for power, then drinks it back from the enemy.' },
+    'aether': { 'name': 'Aether-Tech', 'desc': 'Guns, turrets and a heat gauge. Vent it before it locks you out.' },
+    'geo': { 'name': 'Geomancer', 'desc': 'Raises walls and spikes, and breaks the ground itself.' }
   },
   'skill': {
-    'rapid': { 'name': 'Rapid Pellets', 'desc': 'Quick-shot damage +10% per chip.' },
-    'quickCharge': { 'name': 'Quick Charge', 'desc': 'Charge time −10% per chip.' },
-    'megaCharge': { 'name': 'Mega Charge', 'desc': 'Charged shot damage +12% per chip.' },
-    'perfectTiming': { 'name': 'Perfect Timing', 'desc': 'Wider perfect-release window and stronger criticals.' },
-    'piercing': { 'name': 'Piercing Core', 'desc': 'Half-charged shots break shields and helmets too.' },
-    'giga': { 'name': 'Overload', 'desc': 'Hold a full charge 3 more seconds: the shot hits 1.75× harder.' },
-    'frame': { 'name': 'Reinforced Frame', 'desc': 'Max health +8% per chip.' },
-    'barrier': { 'name': 'Barrier Tuning', 'desc': 'Blocking costs less power and lets less damage through.' },
-    'autoRepair': { 'name': 'Auto-Repair', 'desc': 'Regenerate 1% health per second out of combat, per chip.' },
-    'parry': { 'name': 'Parry Protocol', 'desc': 'Wider parry window; parried machines stay stunned longer.' },
-    'spikes': { 'name': 'Spike Plating', 'desc': 'Reflect 15% of blocked damage per chip.' },
-    'lastStand': { 'name': 'Last Stand', 'desc': 'Once per mission, survive a fatal hit with 1 health.' },
-    'cells': { 'name': 'Energy Cells', 'desc': 'Weapon energy +3 per chip.' },
-    'mastery': { 'name': 'Weapon Mastery', 'desc': 'Special weapon damage +10% per chip.' },
-    'boosters': { 'name': 'Slide Boosters', 'desc': 'Faster slide cooldown, cheaper slides.' },
-    'efficient': { 'name': 'Efficient Cores', 'desc': 'Special weapons cost 10% less energy per chip.' },
-    'magnet': { 'name': 'Bolt Magnet', 'desc': 'More bolts and a longer pickup reach.' },
-    'tankCap': { 'name': 'Gel Capacity', 'desc': 'Carry one more Repair Gel per chip.' }
+    'kind': { 'active': 'Active', 'passive': 'Passive' },
+    'cooldown': '{n}s cooldown',
+    'mana': '{n} mana',
+    'hpCost': '{n}% health',
+    'heat': '+{n} heat',
+    'aimed': 'Drag to aim',
+
+    // Aegis Knight
+    'shieldSlam': { 'name': 'Shield Slam', 'desc': 'Slam the target for {dmg}% Strength damage and stun it for {stun}s.' },
+    'aegisAura': { 'name': 'Aegis Aura', 'desc': '+{armor}% Armor, and physical damage taken is reduced by {reduce}%.' },
+    'radiantStrike': { 'name': 'Radiant Strike', 'desc': 'A holy blow for {dmg}% Strength damage that heals you for {heal}% of the damage dealt.' },
+    'fortitude': { 'name': 'Fortitude', 'desc': 'A hit for more than {hit}% of your health grants a shield worth {shield}% of it for {dur}s. Once every {icd}s.' },
+    'tauntingCry': { 'name': 'Taunting Cry', 'desc': 'Enemies within {radius} m attack you for {dur}s. You gain {def}% Defense while they do.' },
+    'holyBastion': { 'name': 'Holy Bastion', 'desc': 'Invulnerable for {dur}s. Attackers take {reflect}% of their damage back.' },
+
+    // Shadowblade
+    'shadowstep': { 'name': 'Shadowstep', 'desc': 'Appear behind the target and backstab for {dmg}% Dexterity damage.' },
+    'lethality': { 'name': 'Lethality', 'desc': '+{crit}% Critical Chance and +{critDmg}% Critical Damage.' },
+    'venomousBlade': { 'name': 'Venomous Blade', 'desc': 'For {dur}s your attacks poison for {poison}% Dexterity over {over}s, stacking {stacks} times.' },
+    'evasion': { 'name': 'Evasion', 'desc': '+{dodge}% Dodge. A dodge grants {haste}% Haste for {dur}s.' },
+    'smokeBomb': { 'name': 'Smoke Bomb', 'desc': 'Vanish for {dur}s. Your next attack from hiding deals +{bonus}% damage.' },
+    'danceOfBlades': { 'name': 'Dance of Blades', 'desc': 'Dash between enemies within {radius} m, striking {hits} times for {dmg}% Dexterity damage in total. You cannot be hit while dancing.' },
+
+    // Pyromancer
+    'fireball': { 'name': 'Fireball', 'desc': 'A ball of fire that bursts for {dmg}% Intelligence damage and burns for {burn}% more over {burnDur}s.' },
+    'cauterize': { 'name': 'Cauterize', 'desc': 'Burning enemies deal {reduce}% less damage to you.' },
+    'flamePillar': { 'name': 'Flame Pillar', 'desc': 'A pillar of fire erupts where you aim: {dmg}% Intelligence damage over {dur}s. Enemies caught in it are thrown into the air.' },
+    'pyromaniac': { 'name': 'Pyromaniac', 'desc': 'A critical spell hit takes {cut}s off your fire cooldowns.' },
+    'combustion': { 'name': 'Combustion', 'desc': 'Detonate every burn within {radius} m: each deals {pct}% of its remaining damage at once, as a blast.' },
+    'cataclysm': { 'name': 'Cataclysm', 'desc': 'Call {meteors} meteors over {dur}s. Each lands for {dmg}% Intelligence damage.' },
+
+    // Grand Sovereign
+    'royalGuard': { 'name': 'Royal Guard', 'desc': 'Summon a guard who fights beside you, striking for {dmg}% Charisma damage. Up to {max} at a time.' },
+    'inspiringPresence': { 'name': 'Inspiring Presence', 'desc': 'Your minions attack {speed}% faster and have {hp}% more health.' },
+    'commandFocus': { 'name': 'Command Focus', 'desc': 'All minions charge the target: +{move}% move speed and +{atk}% attack speed for {dur}s.' },
+    'sovereignsTribute': { 'name': 'Sovereign\'s Tribute', 'desc': '{share}% of the damage you take is passed on to your minions.' },
+    'bannerOfVictory': { 'name': 'Banner of Victory', 'desc': 'Plant a banner for {dur}s. Allies near it deal +{dmg}% damage and regenerate {regen}% health per second.' },
+    'armyOfTheRealm': { 'name': 'Army of the Realm', 'desc': 'Summon {archers} archers, {guards} guards and a battle mage for {dur}s.' },
+
+    // Chrono-Weaver
+    'temporalStasis': { 'name': 'Temporal Stasis', 'desc': 'Freeze the target in time for {dur}s. It cannot act and cannot be harmed.' },
+    'hasteField': { 'name': 'Haste Field', 'desc': 'For {dur}s, you and allies nearby move {move}% faster and attack {speed}% faster.' },
+    'timeDistort': { 'name': 'Time Distort', 'desc': '{share}% of the damage you take is delayed and dealt over {over}s instead.' },
+    'paradoxShift': { 'name': 'Paradox Shift', 'desc': 'Swap places with the target. It takes {dmg}% Intelligence damage and enemies around it are confused for {confuse}s.' },
+    'entropy': { 'name': 'Entropy', 'desc': 'Each cast makes your cooldowns {cdr}% shorter, stacking {stacks} times.' },
+    'chronoRewind': { 'name': 'Chrono Rewind', 'desc': 'Return to where you stood {back}s ago, with the health and mana you had then.' },
+
+    // Blood Alchemist
+    'sanguineFlask': { 'name': 'Sanguine Flask', 'desc': 'Throw a flask of your own blood: {dmg}% Endurance damage in an area, and armor broken by {shred}% for {shredDur}s.' },
+    'bloodTransmutation': { 'name': 'Blood Transmutation', 'desc': '{share}% of the physical damage you take returns as mana.' },
+    'essenceHarvest': { 'name': 'Essence Harvest', 'desc': 'Drain every enemy within {radius} m for {dmg}% Intelligence damage. You are healed for {heal}% of it.' },
+    'hemophilia': { 'name': 'Hemophilia', 'desc': 'Life drain is {drain}% stronger. Hitting a bleeding enemy heals {heal}% of your health.' },
+    'mutagenicRage': { 'name': 'Mutagenic Rage', 'desc': 'For {dur}s: +{speed}% attack speed, +{steal}% life steal and +{move}% move speed.' },
+    'philosophersCrucible': { 'name': 'Philosopher\'s Crucible', 'desc': 'A pool of boiling blood for {dur}s: {dmg}% Intelligence damage to enemies in it, and it heals you while you stand in it.' },
+
+    // Aether-Tech
+    'aetherPistol': { 'name': 'Aether Pistol', 'desc': 'A quick shot for {dmg}% Skill damage. Builds {heat} heat.' },
+    'deployTurret': { 'name': 'Deploy Turret', 'desc': 'Place a turret that fires for {dmg}% Skill damage for {dur}s. Up to {max} at a time.' },
+    'ventHeat': { 'name': 'Vent Heat', 'desc': 'Dump all heat in a cone: up to {dmg}% Skill damage, the more heat the more damage.' },
+    'thermalOverload': { 'name': 'Thermal Overload', 'desc': 'While overheated your shots deal +{crit}% Critical Damage. Overheating still locks your skills for {lock}s.' },
+    'orbitalBeam': { 'name': 'Orbital Beam', 'desc': 'A beam from the sky burns where you aim: {dmg}% Skill damage over {dur}s.' },
+    'exoSuit': { 'name': 'Exo-Suit', 'desc': 'For {dur}s: +{armor}% Armor, and your attacks become rockets that deal {rocket}% Skill damage in an area.' },
+
+    // Geomancer
+    'stoneSpike': { 'name': 'Stone Spike', 'desc': 'A spike bursts under the target: {dmg}% Strength damage and {slow}% slow for {dur}s.' },
+    'earthBarrier': { 'name': 'Earth Barrier', 'desc': 'Raise a wall of rock for {dur}s. Nothing walks or shoots through it.' },
+    'seismicShock': { 'name': 'Seismic Shock', 'desc': 'Slam the ground: {dmg}% Strength damage within {radius} m, knocking enemies down for {down}s.' },
+    'earthenSkin': { 'name': 'Earthen Skin', 'desc': 'Gain Armor equal to {armor}% of your Strength. Stuns on you are {cut}% shorter.' },
+    'petrify': { 'name': 'Petrify', 'desc': 'Turn the target to stone for {dur}s. It takes {vuln}% more damage when it shatters free.' },
+    'tectonicRupture': { 'name': 'Tectonic Rupture', 'desc': 'Tear the field open: {dmg}% Strength damage to everything near, and rubble that slows for {dur}s.' }
   },
 
-  // ─── Gear ─────────────────────────────────────────────────────────────────
-  'rarity': {
-    'standard': 'Standard',
-    'tuned': 'Tuned',
-    'prototype': 'Prototype',
-    'legendary': 'Legendary'
-  },
-  'item': {
-    'arm_standard': 'Standard Cannon',
-    'arm_rapid': 'Rapid Cannon',
-    'arm_heavy': 'Heavy Cannon',
-    'arm_quick': 'Quick-Charge Cannon',
-    'arm_nova': 'Nova Cannon',
-    'helm_scout': 'Scout Helmet',
-    'helm_guard': 'Guard Helmet',
-    'helm_ace': 'Ace Helmet',
-    'helm_royal': 'Royal Helmet',
-    'body_light': 'Light Frame',
-    'body_plated': 'Plated Frame',
-    'body_reactor': 'Reactor Frame',
-    'body_aegis': 'Aegis Frame',
-    'boots_basic': 'Basic Boots',
-    'boots_dash': 'Dash Boots',
-    'boots_magnet': 'Magnet Boots',
-    'boots_titan': 'Titan Boots',
-    'chip_logic': 'Logic Chip',
-    'chip_quantum': 'Quantum Chip'
-  },
+  // ─── Items ────────────────────────────────────────────────────────────────
   'slot': {
-    'buster': 'Cannon',
-    'helmet': 'Helmet',
-    'chest': 'Frame',
-    'boots': 'Boots',
-    'chip': 'Chip'
+    'main': 'Main hand',
+    'off': 'Off hand',
+    'body': 'Armor',
+    'trinket': 'Trinket'
   },
-  'gear': {
-    'damage': 'Damage',
-    'armor': 'Armor',
-    'equip': 'Equip',
-    'unequip': 'Remove',
-    'equipped': 'Equipped',
-    'new': 'NEW',
-    'salvage': 'Salvage',
-    'noAffixes': 'No bonus modules',
-    'emptySlot': 'Nothing for this socket yet — open chests and finish jobs.'
-  },
-  // `{v}` arrives already signed and formatted ("+12", "+4.5%").
-  'affix': {
-    // The main stat of an arm cannon, as a signed change (the loot card).
-    'damage': '{v} damage',
-    'crit': '{v} critical chance',
-    'critDmg': '{v} critical damage',
-    'hp': '{v} max health',
-    'armor': '{v} armor',
-    'we': '{v} weapon energy',
-    'power': '{v} power',
-    'bolts': '{v} bolts found',
-    'chargeSpeed': '{v} charge speed',
-    'pelletDmg': '{v} pellet damage',
-    'chargeDmg': '{v} charge shot damage',
-    'moveSpeed': '{v} move speed',
-    'special': '{v} special weapon damage',
-    'regen': '{v} health regen / s (out of combat)',
-    'magnet': '{v} pickup reach'
+  'tier': {
+    '1': 'Tier 1',
+    '2': 'Tier 2',
+    '3': 'Tier 3',
+    '4': 'Tier 4',
+    '5': 'Tier 5',
+    '6': 'Legendary'
   },
   'weapon': {
-    'rankUp': '{weapon} upgraded to rank {n}!',
-    'scrapBurst': { 'name': 'Scrap Burst', 'desc': 'A three-way spray of scrap. Great against crowds.' },
-    'flameWave': { 'name': 'Flame Wave', 'desc': 'A fireball rolls along the floor through every machine in its path and sets them burning.' },
-    'iceLance': { 'name': 'Ice Lance', 'desc': 'A piercing lance that chills what it hits and slows it down.' },
-    'thunderArc': { 'name': 'Thunder Arc', 'desc': 'Instant lightning that chains to nearby machines.' },
-    'galeGuard': { 'name': 'Gale Guard', 'desc': 'Leaves orbit you, blocking shots and slicing machines. Use again to hurl them.' },
-    'magnetPull': { 'name': 'Magnet Pull', 'desc': 'A homing horseshoe that cracks shields and shells and yanks flyers out of the air.' },
-    'drillBomb': { 'name': 'Drill Bomb', 'desc': 'A boring bomb that bursts where it stops, hitting every machine around. Breaks cracked rock.' },
-    'bubbleLance': { 'name': 'Bubble Lance', 'desc': 'A big bubble rolls along the floor and bursts through every machine in its way.' },
-    'neonBlade': { 'name': 'Neon Blade', 'desc': 'A blade of light thrown like a boomerang: it cuts on the way out and on the way back.' },
-    'droneSwarm': { 'name': 'Drone Swarm', 'desc': 'Three little drones seek out three machines, round any cover.' }
+    'melee': 'Melee · scales with {attr}',
+    'ranged': 'Ranged · scales with {attr}',
+    'magic': 'Magic · scales with {attr}'
+  },
+  'source': {
+    'mob': 'Dropped by the monsters of {zone}.',
+    'chest': 'Found in the chests of {zone}.',
+    'boss': 'Dropped by the boss of {zone}.',
+    'secret': 'Hidden in a secret chest in {zone}.'
+  },
+  'mod': {
+    'str': '+{n} Strength',
+    'dex': '+{n} Dexterity',
+    'int': '+{n} Intelligence',
+    'end': '+{n} Endurance',
+    'skl': '+{n} Skill',
+    'cha': '+{n} Charisma',
+    'allAttrs': '+{n} to every attribute',
+    'strOrDex': '+{n} Strength or Dexterity, whichever is higher',
+    'armor': '{n} Armor',
+    'armorPct': '+{n}% Armor',
+    'armorFromStr': 'Armor from Strength: +{n}%',
+    'block': '+{n}% Block Chance',
+    'dodge': '+{n}% Dodge',
+    'damageReduction': '+{n}% Damage Reduction',
+    'physReduction': '{n}% less physical damage taken',
+    'maxHp': '+{n} Max Health',
+    'maxHpPct': '+{n}% Max Health',
+    'maxMana': '+{n} Max Mana',
+    'hpRegen': '+{n} Health per second',
+    'stunDurationCut': 'Stuns on you are {n}% shorter',
+    'damagePct': '+{n}% Damage Dealt',
+    'critChance': '+{n}% Critical Chance',
+    'critDamage': '+{n}% Critical Damage',
+    'spellCrit': '+{n}% Spell Critical Chance',
+    'attackSpeed': '+{n}% Attack Speed',
+    'moveSpeed': '+{n}% Move Speed',
+    'cdr': 'Cooldowns are {n}% shorter',
+    'manaDiscount': 'Spells cost {n}% less mana',
+    'lifesteal': '+{n}% Life Steal on all damage',
+    'physLifesteal': '+{n}% Life Steal on physical hits',
+    'lifeDrainPct': 'Life drain is {n}% stronger',
+    'bossDamage': '+{n}% damage against bosses',
+    'backstab': '+{n}% Backstab Damage',
+    'minionDamage': 'Minions deal +{n}% damage',
+    'minionAttackSpeed': 'Minions attack {n}% faster',
+    'minionHp': 'Minions have +{n}% health',
+    'burnOnHit': 'Attacks apply a {n} damage Burn',
+    'freezeOnHit': 'Attacks have a {n}% chance to freeze',
+    'pierce': 'Shots pierce through {n} more enemies',
+    'critCooldown': 'Critical hits cut all cooldowns by {n}s',
+    'extraBlastEvery': 'An extra energy blast every {n} shots',
+    'reflectOnBlock': 'A block reflects {n} damage',
+    'fatalSave': 'Fatal damage instead makes you invulnerable for {n}s (once every 120s)',
+    'knockbackImmune': 'Immune to knockback',
+    'heatBuildCut': 'Heat builds {n}% slower',
+    'heatDissipation': 'Heat drains {n}% faster',
+    'flaskDamage': 'Sanguine Flask deals +{n}% damage',
+    'igniteBonus': 'Fire spells burn {n}% harder',
+    'stealthy': 'Moves silently: enemies notice you from {n}% less far',
+    'fortitude': 'Big hits grant a shield of {n}% health',
+    'evasionHaste': 'A dodge grants {n}% Haste',
+    'cauterize': 'Burning enemies deal {n}% less damage to you',
+    'pyromaniac': 'Critical spells cut fire cooldowns by {n}s',
+    'tribute': 'Minions take {n}% of your damage',
+    'timeDistort': '{n}% of damage taken is delayed',
+    'entropy': 'Casts shorten cooldowns by {n}%',
+    'bloodToMana': '{n}% of physical damage taken returns as mana',
+    'bleedHeal': 'Hitting a bleeding enemy heals {n}% health',
+    'overheatCrit': '+{n}% Critical Damage while overheated'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Rusted Shortsword' },
+    'apprenticeStaff': { 'name': 'Apprentice Staff' },
+    'scoutsHandgun': { 'name': 'Scout\'s Handgun' },
+    'ironBroadsword': { 'name': 'Iron Broadsword' },
+    'vipinsStiletto': { 'name': 'Vipin\'s Stiletto' },
+    'aetherCarbine': { 'name': 'Aether Carbine' },
+    'ashenGreatsword': { 'name': 'Ashen Greatsword' },
+    'archmageWand': { 'name': 'Archmage Wand' },
+    'chronoBlade': { 'name': 'Chrono Blade' },
+    'bloodForgedAxe': { 'name': 'Blood Forged Axe' },
+    'voidCannon': { 'name': 'Void Cannon' },
+    'dragonSmasher': { 'name': 'Dragon Smasher' },
+    'bladeOfTheUnbound': { 'name': 'Blade of the Unbound' },
+    'aetheriumDestroyer': { 'name': 'Aetherium Destroyer' },
+    'woodenBuckler': { 'name': 'Wooden Buckler' },
+    'tomeOfNovices': { 'name': 'Tome of Novices' },
+    'ironShield': { 'name': 'Iron Shield' },
+    'syringeOfTheAdept': { 'name': 'Syringe of the Adept' },
+    'aethericBattery': { 'name': 'Aetheric Battery' },
+    'aegisTowerShield': { 'name': 'Aegis Tower Shield' },
+    'orbOfEternalFlame': { 'name': 'Orb of Eternal Flame' },
+    'shieldOfTheFallen': { 'name': 'Shield of the Fallen' },
+    'paddedTunic': { 'name': 'Padded Tunic' },
+    'leatherDoublet': { 'name': 'Leather Doublet' },
+    'chainmailVest': { 'name': 'Chainmail Vest' },
+    'scholarsRobe': { 'name': 'Scholar\'s Robe' },
+    'reinforcedPlate': { 'name': 'Reinforced Plate' },
+    'assassinsGarb': { 'name': 'Assassin\'s Garb' },
+    'chronoWeaverCloak': { 'name': 'Chrono-Weaver Cloak' },
+    'bloodSoakedPlate': { 'name': 'Blood-Soaked Plate' },
+    'exoArmorChassis': { 'name': 'Exo-Armor Chassis' },
+    'dragonscaleHauberk': { 'name': 'Dragonscale Hauberk' },
+    'vestmentsOfSovereign': { 'name': 'Vestments of the Sovereign' },
+    'armorOfTheTitan': { 'name': 'Armor of the Titan' },
+    'copperBand': { 'name': 'Copper Band' },
+    'ringOfMending': { 'name': 'Ring of Mending' },
+    'bandOfSwiftness': { 'name': 'Band of Swiftness' },
+    'castersEmblem': { 'name': 'Caster\'s Emblem' },
+    'infiltratorsCharm': { 'name': 'Infiltrator\'s Charm' },
+    'timekeepersHourglass': { 'name': 'Timekeeper\'s Hourglass' },
+    'ringOfTheVampyre': { 'name': 'Ring of the Vampyre' },
+    'sovereignsSignet': { 'name': 'Sovereign\'s Signet' },
+    'heartOfTheMountain': { 'name': 'Heart of the Mountain' },
+    'ringOfAbsolutePower': { 'name': 'Ring of Absolute Power' }
+  },
+  'bag': {
+    'equip': 'Equip',
+    'unequip': 'Take off',
+    'tooLow': 'Needs level {n}.'
+  },
+  'shop': {
+    'buy': 'Buy',
+    'sell': 'Sell',
+    'owned': 'Owned',
+    'empty': 'Nothing on the shelves today.'
+  },
+  'trainer': {
+    'learn': 'Learn',
+    'known': 'Learned',
+    'friend': '{faction} honours its friends: 20% off.',
+    'block': {
+      'level': 'Your level is too low.',
+      'attrs': 'Your attributes are too low.',
+      'gold': 'Not enough gold.'
+    }
+  },
+  'healer': {
+    'talk': 'Sit. Rest. You leave here whole, with every flask filled. If you want to carry more of them, that I can sell you.',
+    'note': 'You carry {n} potions into every zone.',
+    'buy': 'One more flask · {n}',
+    'full': 'Your belt holds all it can.'
+  },
+  'talk': {
+    'goal': 'It will be decided in {zone}.'
+  },
+  'faction': {
+    'order': 'The Iron Order',
+    'syndicate': 'The Ashen Syndicate',
+    'circle': 'The Circle of Aether'
   },
 
+  // ─── Townsfolk ────────────────────────────────────────────────────────────
+  'npc': {
+    'sunfordSmith': { 'name': 'Bram the Smith', 'talk': 'Plain steel, honest prices. It will keep a goblin off you.' },
+    'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings! Charms! Things I found and definitely did not steal.' },
+    'trainerAegis': { 'name': 'Ser Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Elder Mara', 'talk': 'You held the road today. The plains have not been this quiet in a year.' },
+    'sunfordHealer': { 'name': 'Sister Lune' },
+    'goblinTrader': { 'name': 'Grik the Trader', 'talk': 'King say trade, so Grik trade. Shiny for shiny. Good shiny.' },
+    'captainHale': { 'name': 'Captain Hale', 'talk': 'Oakhaven has stood for three hundred years. I do not mean to be the captain who lost it.' },
+    'oakArmorer': { 'name': 'Odo the Armorer', 'talk': 'Half my stock went up on the walls. Take what is left.' },
+    'oakMasterArmorer': { 'name': 'Master Odo', 'talk': 'You saved this town. The good plate comes out of the back room for you.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Sharp, balanced, and sold to whoever pays. Today that is you.' },
+    'trainerShadow': { 'name': 'The Whisper' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Brother Fenn' },
+    'blackMarket': { 'name': 'The Fence', 'talk': 'No names, no questions. The Syndicate takes its cut, you take the goods.' },
+    'trainerBlood': { 'name': 'Doctor Sangrel' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven is ours because of you. The Syndicate does not forget a friend. Or a debt.' },
+    'forgemaster': { 'name': 'Forgemaster Dorn', 'talk': 'We dug for iron and struck a heart. It beats, down there in the dark, and the golems walk to its rhythm.' },
+    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Dwarf-forged. If it breaks, it was you.' },
+    'ironAetherWorks': { 'name': 'Tinker Voss', 'talk': 'The Circle\'s study of the core changed everything. Hold this. Do not point it at me.' },
+    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Plate that turns a giant\'s club. Rings for the rest of you.' },
+    'ironOrderArmor': { 'name': 'Order Quartermaster', 'talk': 'The Order remembers who destroyed the core. Its armories are open to you.' },
+    'trainerGeo': { 'name': 'Old Stonefoot' },
+    'trainerAether': { 'name': 'Gearwright Pim' },
+    'ironHealer': { 'name': 'Mother Brynja' },
+    'exiledSovereign': { 'name': 'Lord Castellan, in exile' },
+    'trainerChrono': { 'name': 'The Keeper of Hours' }
+  },
+
+  // ─── The six decisions ────────────────────────────────────────────────────
+  // Each is made once and is permanent. `ask` is what the speaker says when
+  // the fight is over; `result` what follows the choice (and what the quest
+  // giver says about it afterwards).
+  'quest': {
+    'final': 'This choice is permanent.',
+    'needsRep': '{faction} standing {n}',
+    'gold': '+{n} gold',
+    'goblinKing': {
+      'title': 'The Goblin King',
+      'intro': 'The raids come from the Hollows, where the goblins have crowned a king. End it, however you see fit.',
+      'ask': 'Wait! Wait. King yields! Goblins only raid because goblins are hungry. Maybe tall one and King make a deal?',
+      'slay': { 'label': 'End his reign.', 'result': 'The King falls, and the Hollows scatter. Sunford sleeps easier, and the Iron Order takes note of you.' },
+      'pact': { 'label': 'Offer a trade pact with Sunford.', 'result': 'A silver tongue does what a sword could not. Goblin traders set up in Sunford\'s square, with wares no smith there could make.' },
+      'ransom': { 'label': 'Take his treasure and leave him his crown.', 'result': 'You walk out heavy with goblin gold. The raids will start again, but that is Sunford\'s problem. The Syndicate approves.' }
+    },
+    'siege': {
+      'title': 'The Siege of Oakhaven',
+      'intro': 'A warlord\'s army has Oakhaven surrounded. The Ashen Syndicate paid for that army. Break the siege at the outskirts.',
+      'ask': 'You fight well. The Syndicate pays better than that town ever will. Open the gate for us tonight, and a third of Oakhaven is yours.',
+      'defend': { 'label': 'Defend Oakhaven.', 'result': 'The gate holds. Oakhaven grows rich behind it and its master armorers remember your name. The Ashen Syndicate now hunts you on every road.' },
+      'betray': { 'label': 'Open the gate for the Syndicate.', 'result': 'Oakhaven burns. In its ruins a black market opens, and an alchemist who teaches forbidden arts. The armorers are gone, and the Iron Order calls you traitor.' }
+    },
+    'core': {
+      'title': 'The Heart of Ironhold',
+      'intro': 'An aether core drives the golems in our mines. Three powers want it, and every one of them has sent me a letter. You will reach it first.',
+      'ask': 'The Colossus is scrap, and the core lies open in front of you, humming. It is warm to the touch. What becomes of it?',
+      'destroy': { 'label': 'Shatter the core.', 'result': 'The light goes out and the golems drop where they stand. The Iron Order sends its own armorers to Ironhold in thanks.' },
+      'study': { 'label': 'Give it to the Circle to study.', 'result': 'You understand enough of it to hand it over safely. Within a season Ironhold\'s forges turn out aether-works no one has seen before.' },
+      'sell': { 'label': 'Sell it to the Syndicate.', 'result': 'A fortune changes hands. The core stays lit somewhere it should not be, and the mines will never be quiet again.' }
+    },
+    'oracle': {
+      'title': 'The Drowned Oracle',
+      'ask': 'I have seen this moment ten thousand times. In half of them you free me. In half you take what I guard. Choose, and let me finally not know what comes next.',
+      'free': { 'label': 'Break her chains.', 'result': 'The oracle rises through the water and is gone. The Circle of Aether will speak of you kindly, and her keeper of hours stays to teach.' },
+      'slay': { 'label': 'Take the hourglass she guards.', 'result': 'She does not resist. The Timekeeper\'s Hourglass is yours. Her last pupil flees the temple, and the Circle does not forgive.' }
+    },
+    'dragon': {
+      'title': 'The Void Dragon',
+      'ask': 'Enough. You have teeth, small one. The demon in the fortress chained my kin. I would see him burn. Kill me, or let me help you do it.',
+      'slay': { 'label': 'Slay the dragon.', 'result': 'The mountain shakes as it falls. The Iron Order sings of the dragonslayer, and its hoard is yours.' },
+      'pact': { 'label': 'Strike a pact against the Arch-Demon.', 'result': 'Few could have talked a dragon round. When you march on the Dread Fortress, it will be in the sky above you.' }
+    },
+    'throne': {
+      'title': 'The Empty Throne',
+      'ask': 'The Arch-Demon is dead and his throne stands empty. Whoever holds it commands the fortress, the rift beneath it, and the armies of both. Three envoys wait at the door.',
+      'order': { 'label': 'Give the throne to the Iron Order.', 'result': 'The Order garrisons the fortress and seals what it can. The realm will be safe, and it will be told what to do.' },
+      'syndicate': { 'label': 'Give the throne to the Ashen Syndicate.', 'result': 'The Syndicate moves in before dawn. Everything is for sale now, including the peace.' },
+      'circle': { 'label': 'Give the throne to the Circle of Aether.', 'result': 'The Circle turns the fortress into a school above a rift. They call it research. Everyone else calls it a matter of time.' },
+      'shatter': { 'label': 'Shatter the throne.', 'result': 'You break it with your own hands. No one rules from here again. The envoys leave without a word.' },
+      'claim': { 'label': 'Sit on it yourself.', 'result': 'It is cold, and it fits. Three factions find they have a common enemy.' }
+    }
+  },
+
+  // ─── Enemies and allies ───────────────────────────────────────────────────
+  'enemy': {
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Goblin Slinger',
+    'bandit': 'Bandit',
+    'banditArcher': 'Bandit Archer',
+    'wolf': 'Wolf',
+    'banditChief': 'Bandit Chief',
+    'goblinKing': 'The Goblin King',
+    'treant': 'Treant',
+    'spider': 'Giant Spider',
+    'broodSpider': 'Broodling',
+    'outlawCaptain': 'Outlaw Captain',
+    'elderTreant': 'Elder Treant',
+    'warlord': 'Warlord Krag',
+    'fireElemental': 'Fire Elemental',
+    'ironGolem': 'Iron Golem',
+    'cultist': 'Cultist',
+    'emberLord': 'The Ember Lord',
+    'ironColossus': 'The Iron Colossus',
+    'frostGiant': 'Frost Giant',
+    'naga': 'Naga',
+    'skeleton': 'Skeleton',
+    'necromancer': 'Necromancer',
+    'frostJarl': 'The Frost Jarl',
+    'nagaOracle': 'The Drowned Oracle',
+    'voidStalker': 'Void Stalker',
+    'wyvern': 'Wyvern',
+    'highDemon': 'High Demon',
+    'voidWarden': 'The Void Warden',
+    'voidDragon': 'The Void Dragon',
+    'doomKnight': 'Doom Knight',
+    'imp': 'Imp',
+    'archDemon': 'The Arch-Demon',
+    'voidling': 'Voidling',
+    'voidLord': 'The Void Lord',
+    'orderGuard': 'Order Inquisitor',
+    'syndicateBlade': 'Syndicate Blade'
+  },
+
+  // ─── End of a visit ───────────────────────────────────────────────────────
+  'results': {
+    'victory': 'Victory!',
+    'defeat': 'Defeated',
+    'retreat': 'Retreated',
+    'firstClear': 'First clear!',
+    'waves': 'Waves survived: {n}',
+    'levelUp': 'Level {n}!',
+    'points': '+{n} attribute points',
+    'xp': 'Experience',
+    'gold': 'Gold',
+    'lost': 'Dropped',
+    'kills': 'Defeated',
+    'time': 'Time',
+    'unlocked': 'New on the map: {places}',
+    'retry': 'Try again',
+    'tip': 'You keep the experience and the loot. Spend your points, visit a trainer, and come back stronger.'
+  },
+  'pause': {
+    'title': 'Paused',
+    'resume': 'Resume',
+    'controls': 'Controls',
+    'retreat': 'Retreat to the map',
+    'retreatNote': 'You keep everything earned so far, but the zone is not cleared.'
+  },
+  'ending': {
+    'level': 'Level',
+    'more': 'The Void Rift has opened beneath the fortress. The Colosseum still takes all comers.',
+    'order': { 'title': 'The Iron Peace', 'text': 'Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate.' },
+    'syndicate': { 'title': 'The Ashen Bargain', 'text': 'The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive.' },
+    'circle': { 'title': 'The Aether Age', 'text': 'The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost.' },
+    'free': { 'title': 'No Kings', 'text': 'The throne lies in pieces and the fortress stands empty. For the first time in an age, the realm belongs to the people who live in it.' },
+    'unbound': { 'title': 'The Unbound', 'text': 'You took the throne. Order, Syndicate and Circle march against you together. Let them come.' },
+    'note': {
+      'goblinPact': 'Goblin traders still haggle in Sunford\'s square.',
+      'goblinSlain': 'The Hollows stand empty, and the caravans run on time.',
+      'goblinRansom': 'The Goblin King is rich again, and raiding again.',
+      'oakhavenSaved': 'Oakhaven\'s walls are taller now, and its markets fuller.',
+      'oakhavenFallen': 'Weeds grow through Oakhaven\'s streets. The black market thrives.',
+      'coreOrder': 'The mines of Ironhold are quiet, and the dwarves dig again.',
+      'coreCircle': 'Ironhold\'s forges glow blue, and its guns are the best in the realm.',
+      'coreSold': 'Somewhere, the core still hums. The golems still walk.',
+      'oracleFreed': 'On calm days, fishermen see the oracle far out on the water.',
+      'oracleSlain': 'The Sunken Temple is silent. No one knows what comes next any more.',
+      'dragonPact': 'A dragon nests on the fortress roof, and answers to one name only.',
+      'dragonSlain': 'A dragon\'s skull hangs in the Order\'s great hall.'
+    }
+  },
+
+  // ─── Options ──────────────────────────────────────────────────────────────
   'options': {
-    'killCams': 'Kill-cam',
     'gameplay': 'Gameplay',
     'title': 'Options',
     'general': 'General',
@@ -583,16 +645,16 @@ export default {
     'difficulty': 'Difficulty',
     'soundEffects': 'Sound Effects',
     'music': 'Music',
-    'musicTrack': 'Music Track',
+    'mute': 'Mute',
+    'musicTrack': 'Music',
     'musicTracks': {
-      'cozy': 'Calm Circuits',
-      'trance': 'Overdrive'
+      'cozy': 'Calm',
+      'trance': 'Adventure'
     },
     'haptics': 'Vibration',
     'on': 'On',
     'off': 'Off',
     'close': 'Close',
-    'replayIntro': 'Replay intro',
     // Options → Controls (desktop): keyboard layout and key rebinding.
     'keyboard': {
       'auto': 'Detect keyboard layout',
@@ -603,45 +665,45 @@ export default {
       'reset': 'Reset keys'
     },
     'actions': {
-      'forward': 'Move forward',
-      'back': 'Move back',
-      'left': 'Strafe left',
-      'right': 'Strafe right',
-      'turnLeft': 'Turn left',
-      'turnRight': 'Turn right',
-      'slide': 'Slide',
-      'block': 'Block',
-      'interact': 'Interact',
-      'beam': 'Beam out',
-      'tank': 'Repair Gel',
-      'weapon1': 'Special weapon 1',
-      'weapon2': 'Special weapon 2',
-      'weapon3': 'Borrowed weapon',
-      'target': 'Switch target',
-      'map': 'Map'
+      'up': 'Move up',
+      'down': 'Move down',
+      'left': 'Move left',
+      'right': 'Move right',
+      'skill1': 'Skill 1',
+      'skill2': 'Skill 2',
+      'skill3': 'Skill 3',
+      'skill4': 'Skill 4',
+      'skill5': 'Skill 5',
+      'skill6': 'Skill 6',
+      'potion': 'Drink potion',
+      'interact': 'Talk',
+      'target': 'Next target',
+      'map': 'World map',
+      'character': 'Hero',
+      'inventory': 'Bag',
+      'skills': 'Skills'
     },
-    'lookSensitivity': 'Look Sensitivity',
     'difficulties': {
       'easy': 'Easy',
       'medium': 'Medium',
       'hard': 'Hard'
     },
     'difficultyHints': {
-      'easy': 'Machines hit softer and go down faster.',
+      'easy': 'Enemies hit softer and go down faster.',
       'medium': 'The intended challenge.',
-      'hard': 'Tougher machines that hit harder.'
+      'hard': 'Tougher enemies that hit harder.'
     }
   },
   'adsBlocked': {
-    'title': "Couldn't show ad",
-    'body': 'We tried to show you a video so you could earn your reward, but something on your browser is blocking ads.',
+    'title': 'Couldn\'t show ad',
+    'body': 'We tried to show you a video, but something on your browser is blocking ads.',
     'allowPrefix': 'Please allow ads on',
     'allowSuffix': '(or pause your ad-blocker for this game) and try again.',
     'gotIt': 'Got it'
   },
   'saveStatus': {
     'restoredTitle': 'Cloud save restored',
-    'restoredBody': '+{n} bonus bolts for the recovery',
+    'restoredBody': '+{n} bonus gold for the recovery',
     'tap': 'tap',
     'pausedTitle': 'Cloud sync paused',
     'pausedBody': 'Playing offline. Your progress is saved here.',
@@ -666,466 +728,11 @@ export default {
     'score': 'Experience',
     'flair': 'Level',
     'empty': 'No one is on the board yet. Be the first!',
-    'failed': "Couldn't reach the leaderboard.",
+    'failed': 'Couldn\'t reach the leaderboard.',
     'loading': 'Loading…',
     'you': 'You',
     'yourRank': 'You are #{n} of {total}',
     'of': 'of {n} players',
     'tabGlobal': 'Global'
-  },
-  // ─── Story (the intro cutscene, story-arc.md § 1) ─────────────────────────
-  // `intro.*` are screen-reader lines, one per shot: read aloud, never drawn.
-  // `vex.*` is Dr. Vex's speech bubble: a pompous showman, CAPS for the
-  // shouted word. `atlas.*` are Atlas's lines: calm, dry, short.
-  'story': {
-    'intro': {
-      'coldOpen': 'Flux fights rogue machines on the neon streets of Cyber City.',
-      'valley': 'Cyber City: a bright android city, linked by beams of light. Dr. Vex takes over its machines with a red signal.',
-      'lab': "The signal reaches Prof. Gauss's lab. Gauss gives Flux the Atlas disc and wakes him.",
-      'safeMode': 'Gauss freezes herself in a capsule to keep the signal out. She is still alive.',
-      'wakeUp': 'Flux wakes at level 1, with Atlas online. The Vex Fortress is far stronger, so the Scrapyard comes first.',
-      'beam': 'Flux beams out to the Scrapyard.'
-    },
-    'vex': {
-      'diagnosis': 'Diagnosis: this valley is SICK. The cure… is ME!'
-    },
-    'atlas': {
-      'logStart': 'Log start.',
-      'goodMorning': 'Core online. Good morning, Flux.',
-      'scrapyardFirst': 'Scrapyard first. One relay at a time.'
-    }
-  },
-  // ─── Atlas, in the missions (sim/atlas.ts) ─────────────────────────────────
-  // Flux's AI companion talking to him: tiny, warm, a little cheeky. One
-  // short line each (they sit in a small speech bubble for 2–3 s). Each key is
-  // also the name of its optional voice file (voice-todo.md).
-  'atlas': {
-    'boss': {
-      'signalFirst': "Core Master signal. It's… big.",
-    },
-    'sector': {
-      'blaze': 'Refinery. It runs hot. Mind the vents.',
-      'cryo': "Coolant's flowing uphill. To the Fortress.",
-      'gale': 'Every part for its body goes through here.',
-      'magnet': "A foundry. It's casting claws.",
-      'drill': 'Ore for its armor. Dug right here.',
-      'tide': 'Barges now. Vex found another way.',
-      'neon': "Lights out. Except Vex's face.",
-      'rotor': 'Drones. Its last supply line.',
-    },
-    'fortress': {
-      'bays': 'Half-built. You did that.',
-    },
-    'warn': {
-      'boss': 'Core Master ahead.',
-      'gelFirst': "Plating's cracking. Use a gel.",
-      'gel': 'Gel.',
-      'criticalFirst': 'Critical! Back off!',
-      'critical': 'Critical!',
-      'noGel': 'No gel left. Play it safe.',
-      'weLow': "Weapon energy low. The cannon's free.",
-      'weEmpty': "Tank's dry.",
-      'borrowedLast': {
-        'scrapBurst': 'Last shot of {weapon}.',
-        'flameWave': 'Last shot of {weapon}.',
-        'iceLance': 'Last shot of {weapon}.',
-        'thunderArc': 'Last shot of {weapon}.',
-        'galeGuard': 'Last shot of {weapon}.',
-        'magnetPull': 'Last shot of {weapon}.',
-        'drillBomb': 'Last shot of {weapon}.',
-        'bubbleLance': 'Last shot of {weapon}.',
-        'neonBlade': 'Last shot of {weapon}.',
-        'droneSwarm': 'Last shot of {weapon}.',
-      },
-      'flame': 'Vents. Wait for it… or slide.',
-      'blade': 'Blade. Go right after it.',
-      'crusher': 'Crusher. Watch the lamp.',
-      'ladder': 'Ladder. Push toward the wall.',
-      'pit': 'Long drop. Time the lift.',
-      'down': "Rebooting… Pip's got you.",
-    },
-    'scan': {
-      'hardhat': '{enemy}. Shoot when it peeks.',
-      'trooper': 'Shield. Charge through it.',
-      'heli': '{enemy}. Look up.',
-      'hopper': '{enemy}. Move off the ring.',
-      'roller': '{enemy}. Sidestep it.',
-      'brute': '{enemy}. Parry, then punish.',
-      'turret': '{enemy}. Keep moving.',
-      'golem': "That crate's breathing. Get close.",
-      'polar': '{enemy}. Shoot it when it opens red.',
-      'warden': '{enemy}. Hit the core when it opens.',
-      'hornet': '{enemy}. It dives straight: sidestep!',
-      'stalker': '{enemy}. Parry the lunge.',
-      'puffer': '{enemy}. Pop it before it swells.',
-      'mole': '{enemy}. Hit it when it pops up.',
-      'elite': 'Gold ring. Elite. Careful.',
-      'fire': 'Fire-coated. It shrugs off fire.',
-      'ice': 'Ice-coated. It shrugs off ice.',
-      'volt': 'Volt-coated. It shrugs off volt.',
-      'wind': 'Wind-coated. It shrugs off wind.',
-    },
-    'volt': {
-      'hack': "Flux… something's in the—",
-      'thanks': '…You kept it out. Thank you.',
-    },
-    'mk1': {
-      'intro': "That's Vex. The real one.",
-      'fire': 'Fire!',
-      'ice': 'Ice!',
-      'volt': 'Volt!',
-      'wind': 'Wind!',
-      'scrap': 'Scrap!',
-      'free': "Because they're free.",
-    },
-    'guardDown': "Guard down! The way's open.",
-    'help': {
-      'weapon': 'Pick your new weapon and fire at the drones!',
-      'gap': "Walk straight at the edge and you'll leap across!",
-      'gel': 'Use a Repair Gel to heal up!',
-      'slide': 'Slide away just before the red ring reaches you!',
-      'block': 'Hold block when it fires. Just as it hits is perfect!',
-      'charge': 'Hold fire until the cannon glows, then let go!',
-    },
-    'train': {
-      'weapon': "Let's train your new weapon!",
-      'gap': "Let's train jumping over gaps!",
-      'gel': "Let's train the Repair Gel!",
-      'slide': "Let's train the Slide!",
-      'block': "Let's train the Perfect Block!",
-      'charge': "Let's train the Charge Shot!",
-    },
-    'hint': {
-      'locator': "Objective's that way.",
-      'rescue': 'Worker-bot signal. Faint. Close.',
-      'upgrade': "That's an upgrade.",
-      'levelUp': 'New chip compiled.',
-      'done': 'Done. Call the drone when ready.',
-      'underLevel': "They'll outclass you. Train first.",
-      'floor': {
-        'blaze': '{sector} runs level 3 and up.',
-        'cryo': '{sector} runs level 6 and up.',
-        'volt': '{sector} runs level 9 and up.',
-        'gale': '{sector} runs level 13 and up.',
-        'magnet': '{sector} runs level 16 and up.',
-        'drill': '{sector} runs level 19 and up.',
-        'tide': '{sector} runs level 22 and up.',
-        'neon': '{sector} runs level 25 and up.',
-        'rotor': '{sector} runs level 28 and up.',
-        'fortress': '{sector} runs level 31 and up.',
-      },
-      'rotor': {
-        'arrive': 'Touchdown. Hop off!',
-        'dip': "Hold on, we're diving!",
-        'board': 'All aboard! I fly, you shoot.',
-      },
-      'neon': {
-        'kick': 'Face the wall and slide. Again! Wall-kick up!',
-        'switch': 'A light switch! Shoot it to swap the bridges.',
-        'blink': 'Light bridges blink! Cross while they glow.',
-        // #110: the whole boulevard goes dark on a clock, these bridges with it.
-        'blackout': "Power's failing! Cross when the lights come back.",
-      },
-      'tide': {
-        'deep': 'Too deep! Get out of the water!',
-        'valve': 'Flooded lock! Shoot the valve to drain it.',
-        'rise': "The tide's coming in. Up the steps!",
-        'wade': 'Water! Wading slows you down.',
-      },
-      // The Grand Master Bot (#101): Atlas through the fight, part by part.
-      'gm': {
-        'button': "Vex is pressing something... Brace yourself!",
-        'arms': 'Its arms first! The cannon and the lance!',
-        'feet': 'Now the feet! Block the shockwaves!',
-        'head': "It's down low. The head is in reach!",
-        'body': 'The core is open! Finish it!',
-        'prism': 'Prism Cannon! Shield up!',
-      },
-      // The Core Descent (#109): Vex's three stages.
-      'vex': {
-        'roof': 'Lightning! Move when the ring lights up!',
-        'fall': "The roof's giving way!",
-        'core': "Down to the Core! Don't fall in!",
-      },
-      'drill': {
-        'drop': 'Rocks falling! Step out of the shadows.',
-        'rock': 'Cracked rock! A full charge will break it.',
-        // The mine cart (#111).
-        'board': "Ore cart's rolling! I steer, you shoot the moles.",
-        'dip': 'Steep drop! Hold on tight!',
-        'arrive': 'Last stop. Out you hop!',
-      },
-      'magnet': {
-        'panel': 'See that red-blue plate? Shoot it to flip the rail.',
-        'rail': 'Magnet rail! The arrows show the pull. Push through, or ride it.',
-      },
-      'blaze': {
-        // Meltdown Descent (blaze stage)
-        'lava': "That's lava down there. Stay on the metal.",
-        'leap': "Too wide to walk. Slide off the edge, you'll carry.",
-        'vents': 'Hiss, then fire. Let the roar pass, then go.',
-        'barrels': 'Barrels! Watch the lamps, cross between them.',
-        'hammers': 'Forge hammers. Count the beat, then run.',
-        'drop': 'Long way down. One ledge at a time.'
-      },
-      'cryo': {
-        // Glacier Run (cryo stage)
-        'ice': "Ice! Let go of the stick and you'll keep sliding.",
-        'spikes': 'Spikes under that ice. Walk it straight, no sharp turns.',
-        'frost': "Frost thrower. It glows and hisses first. Cross when it's quiet.",
-        'icicles': 'Shadows on the floor? Icicles. Step out of the ring!',
-        'pillar': "That pillar's cracked. Shoot it, and there's your shortcut.",
-        'stairs': "Icy stairs. Go slow — the landing's small."
-      },
-      'volt': {
-        // Rail Rush (volt stage)
-        'panels': 'Those panels pulse. Wait on a dark row, then step.',
-        'board': "Hands off the controls — I'll drive, you shoot.",
-        'wave': 'Drones ahead! Shoot them before they swoop.',
-        'dip': 'Big drop ahead. Hold on — keep shooting!',
-        'arrive': 'End of the line. Hop off!'
-      },
-      'gale': {
-        // Sky Docks (gale stage)
-        'leap': "Gap's too wide to walk. Slide off the edge — you'll carry.",
-        'down': "Nice leap. Now don't look down.",
-        'shuttle': 'Shuttles. Step on when it docks, off at the other end.',
-        'wind': 'Wait for the gust to die, then move. Or hide behind a pillar.',
-        'bob': 'Bobbing platforms. Hop on at the bottom, ride it up.'
-      }
-    },
-    'secret': {
-      // secret-room puzzles
-      'lights': "That panel shows a pattern. The lamps on the wall don't. Yet.",
-      'color': 'That frame has a favourite colour. Only its lamps should shine.',
-      'cycle': "Every hit changes a lamp's mind. The panel knows what it wants.",
-      'solved': 'Well, well. Someone likes puzzles.'
-    },
-    'landed': "Touchdown! Let's go.",
-    'brief': {
-      'tutorial': "Training time. I'll guide you!",
-      'job': 'Quick job. In and out!',
-      'climb': 'Tower run! Up, up, up!',
-      'story': "A Core Master waits. Let's free it!"
-    },
-    'story': {
-      'relayOne': 'Relay one lit. Nine to go.',
-      'copied': {
-        'scrapBurst': '{weapon} copied.',
-        'flameWave': '{weapon} copied.',
-        'iceLance': '{weapon} copied.',
-        'thunderArc': '{weapon} copied.',
-        'galeGuard': '{weapon} copied.',
-        'magnetPull': '{weapon} copied.',
-        'drillBomb': '{weapon} copied.',
-        'bubbleLance': '{weapon} copied.',
-        'neonBlade': '{weapon} copied.',
-        'droneSwarm': '{weapon} copied.',
-      },
-      'dataCore': 'It left us something.',
-      'firstDraft': '…I was written from its first draft.',
-      'body': "It's building a body. Out of our valley.",
-      'voltFreed': "The signal's lost its power station.",
-      'galeFreed': 'No more parts reach the Fortress.',
-      'breach': "Shield's down. The Fortress is open.",
-      'magnetFreed': "The foundry's cold. No more claws.",
-      'drillFreed': "The mine's quiet. No more ore.",
-      'tideFreed': 'Locks shut. The barges stay home.',
-      'neonFreed': 'Lights on. Vex lost its screens.',
-      'rotorFreed': "Every line's cut. Vex is alone.",
-      'rotor': 'Rotor Run. Wind in my antenna!',
-      'neon': 'Blackout Boulevard. Lights, please!',
-      'tide': 'Tidewater Locks. Splash time!',
-      'drill': 'Deep Mine. Mind your head!',
-      'magnet': 'Polarity Works. My compass spins!',
-      'scrapyard': 'Scrapyard relay. Light it up!',
-      'blaze': 'The Refinery. Hot, hot, hot!',
-      'cryo': 'Cryo Plant. Brr! Keep moving.',
-      'volt': 'Volt Tower. My circuits tingle!',
-      'gale': "Sky Docks. Don't look down!",
-      'fortress': 'The Fortress. We end this.'
-    },
-    'arc': {
-      '10': "Shield's down. Vex is next!",
-      '9': 'One Master left. Almost!',
-      '8': 'Eight! Only two Masters left.',
-      '7': 'Seven lit. Keep it up!',
-      '6': 'Six relays! The city wakes up.',
-      '1': 'One relay lit. Nine to go!',
-      '2': 'Two relays! Vex is sulking.',
-      '3': 'Three lit. Keep glowing!',
-      '4': 'Four down. The grid hums again.',
-      '5': 'Halfway there! Vex is sweating.',
-    },
-    'bossAhead': 'Boss ahead. Deep breath!',
-    'noWeak': 'No weak spot visible. Move!',
-    'weak': {
-      'flameWave': 'Flame Wave hurts this one!',
-      'iceLance': 'Ice Lance hurts this one!',
-      'thunderArc': 'Thunder Arc hurts this one!',
-      'galeGuard': 'Gale Guard hurts this one!',
-      'magnetPull': 'Magnet Pull hurts this one!',
-      'drillBomb': 'Drill Bomb hurts this one!',
-      'bubbleLance': 'Bubble Lance hurts this one!',
-      'neonBlade': 'Neon Blade hurts this one!',
-      'droneSwarm': 'Drone Swarm hurts this one!'
-    },
-    'bossDown': 'Master freed! Great job!',
-    'vexDown': 'Vex is down. We did it!',
-    'lowHp': 'Ouch! Careful, Flux!',
-    'lowHpGel': 'Low health! Try a Repair Gel.',
-    'lowWe': "Weapon energy's low!",
-    'trap': 'Trap ahead. Watch the timing!',
-    'plate': 'Pressure plate. Tiptoe!',
-    'objective': 'Done! Now find the exit.',
-    'exit': "Our ride's here!",
-    'levelUp': "Level up! You're shining.",
-    'idle': {
-      '1': 'Beep. Just checking in.',
-      '2': "You're doing great.",
-      '3': 'Gauss would be proud.',
-      '4': 'I like our team.'
-    }
-  },
-  'train': {
-    'todo': 'not done yet',
-    'done': 'done',
-    'checklist': 'Tutorials',
-    'watch': "Watch how it's done",
-    'card': {
-      'weapon': "You copied a Core Master's weapon! Fire it with its button: weapon energy powers it, and some machines are weak against it.",
-      'gel': 'Hurt? A Repair Gel restores your health. Use one whenever a fight turns bad.',
-      'slide': "Red attacks can't be blocked. Slide to dash out of the way: nothing can hit you mid-slide.",
-      'block': 'Hold block to raise your shield: it stops shots and hits from the front. Raise it just as a hit lands for a Perfect Block, which knocks the attacker out.',
-      'charge': "A normal shot can't break a shield. Hold fire until your cannon glows, then let go: a Charge Shot breaks right through.",
-    },
-    'name': {
-      'weapon': 'Weapon Lesson',
-      'gap': 'Jump Tutorial',
-      'gel': 'Repair Gel Tutorial',
-      'slide': 'Slide Tutorial',
-      'block': 'Shield Tutorial',
-      'charge': 'Charge Shot Tutorial',
-    },
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Warm up act! The {boss}!',
-      'blaze': 'The oldest! The hottest! {boss}!',
-      'frost': 'Chill, little droid. {boss}!',
-      'volt': "Blink and you'll miss it! {boss}!",
-      'gale': 'Next, please! {boss}, blow him away!',
-      'magnet': "Attractive, isn't it? {boss}!",
-      'drill': 'Time for a deep check-up! {boss}!',
-      'tide': 'Wave goodbye, droid! {boss}!',
-      'neon': 'Lights! Camera! {boss}!',
-      'rotor': 'The grand finale! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'A junk crane? How… adorable.',
-      'blaze': 'Side effect noted. Increasing the dose.',
-      'blueprint': "My sketches! Magnificent, aren't I?",
-      'volt': 'I am… per-fect-ly… FINE.',
-      'gale': 'Fine! I have MORE Masters.',
-      'magnet': 'Repelled? Me? Im-POSSIBLE!',
-      'drill': 'Hmph. A new low. Literally.',
-      'tide': "The tide will turn! …Won't it?",
-      'neon': 'Who turned the lights ON?!',
-      'rotor': 'Ten relays?! Nurse! NURSE!',
-      'breach': 'No, no, NO! That shield was PATENTED!',
-    },
-    'volt': {
-      'hack': "Let's see what's in that empty head…",
-      'fail': 'Unwritable?! How RUDE.',
-    },
-    'fortress': {
-      'welcome': 'Welcome to my clinic! Take a seat… FOREVER!',
-    },
-    'mk1': {
-      'intro': 'Behold! My new body! Mark ONE!',
-      'obey': 'Masters! OBEY your doctor!',
-      'listen': "Why won't they LISTEN?!",
-      'defeat': "I'll get… a second opinion…",
-    },
-    'sting': {
-      'doctorIn': 'The doctor… is IN.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Welcome back, Flux! Look at the valley.',
-      'go': "Gear up, then go! I'll mind the lab.",
-      'scrapyard': {
-        'won': 'The old crane is sorting scrap again.',
-        'weapon': 'You copied {weapon}. It sprays three ways.',
-        'next': 'Next stop: {sector}. Just a little tougher.',
-        'boss': "{boss} is forging armor for Vex's machines.",
-        'tip': 'Block its fireballs. Slide past the fire waves.',
-      },
-      'blaze': {
-        'won': 'The chimneys burn clean again. Nice work!',
-        'weapon': "You've got {weapon} now. Fire melts ice!",
-        'next': '{sector} is next. The machines hit harder there.',
-        'boss': "{boss} keeps all the coolant. The city's overheating.",
-        'tip': 'Block its ice shots, then fire back!',
-      },
-      'cryo': {
-        'won': "Coolant's flowing home. The city can cool down.",
-        'weapon': '{weapon} is yours. Ice beats lightning!',
-        'next': 'Next: {sector}, downtown. A real step up.',
-        'boss': '{boss} pours our power into the Red Signal.',
-        'tip': 'It teleports a lot. Shoot down its orbs.',
-      },
-      'volt': {
-        'won': "Vex's face keeps flickering now. Did you see?",
-        'weapon': '{weapon} is yours. Lightning beats wind!',
-        'next': 'Next: {sector}, way up high. Tough machines.',
-        'boss': "{boss} runs Vex's airships, day and night.",
-        'tip': 'Block the feathers. Parry when it dives!',
-      },
-      'gale': {
-        'won': 'The airships turned around. Clear skies again!',
-        'weapon': '{weapon} is yours. Its leaves block shots.',
-        'next': "Now the city's edge: {sector}. Much tougher.",
-        'boss': "{boss} took the tram rails for Vex's freight.",
-        'tip': 'It pulls you in. Block the clamp!',
-      },
-      'magnet': {
-        'won': 'The trams are rolling again. Ding ding!',
-        'weapon': '{weapon} cracks shields. Perfect for the next Master.',
-        'next': 'Next: {sector}, deep underground. Seriously strong machines.',
-        'boss': '{boss} trapped the worker-bots down the shaft.',
-        'tip': 'It digs under you. Step off the mark!',
-      },
-      'drill': {
-        'won': 'The worker-bots are back up in daylight.',
-        'weapon': '{weapon} goes boom. Save some for the boss!',
-        'next': 'Next: {sector}, down by the water. Very tough.',
-        'boss': "{boss} is flooding the canals for Vex's barges.",
-        'tip': 'Slide under its waves. Pop the bubbles!',
-      },
-      'tide': {
-        'won': "Clean water's flowing into the valley again.",
-        'weapon': '{weapon} rolls through crowds. The boss hates bubbles!',
-        'next': 'Next: {sector}, the dark rooftops. Really dangerous.',
-        'boss': '{boss} switched off every window downtown.',
-        'tip': 'Its blade flies out and back. Dodge twice!',
-      },
-      'neon': {
-        'won': "Downtown's glowing pink tonight. So pretty!",
-        'weapon': '{weapon} cuts twice. The next Master fears it!',
-        'next': 'Next: {sector}, the sky airfield. Almost the toughest.',
-        'boss': '{boss} fills the sky with cargo drones.',
-        'tip': 'It blows you back. Slide under the gusts!',
-      },
-      'rotor': {
-        'won': 'The drones deliver to the worker-bots now.',
-        'weapon': '{weapon} is yours. Three drones find their targets.',
-        'next': 'Last stop: {sector}. The toughest place there is.',
-        'boss': "{boss} can't hide behind a shield now.",
-        'tip': "It borrows the Masters' attacks. Pack Repair Gel!",
-      },
-    },
   }
 }

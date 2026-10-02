@@ -2,15 +2,10 @@ import { createRouter, createWebHashHistory, createMemoryHistory, type RouteReco
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'main', component: () => import('@/views/GameScene.vue') },
-  // DEV ONLY: every procedural model on a turntable, for art iteration, and
-  // every level the game can generate, launchable straight away (a level
-  // select would let players skip progression). The `import.meta.env.DEV`
-  // guard lets Rollup drop both chunks from every build.
+  // DEV ONLY: every procedural rig on a turntable, for art iteration. The
+  // `import.meta.env.DEV` guard lets Rollup drop the chunk from every build.
   ...(import.meta.env.DEV
-    ? [
-        { path: '/models', name: 'models', component: () => import('@/views/ModelLab.vue') },
-        { path: '/levels', name: 'levels', component: () => import('@/views/LevelLab.vue') }
-      ]
+    ? [{ path: '/models', name: 'models', component: () => import('@/views/ModelLab.vue') }]
     : []),
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
@@ -31,14 +26,12 @@ const routes: RouteRecordRaw[] = [
 //
 // Memory history never touches the address bar at all: the initial route is
 // always `/`, which is what this app wants anyway — nothing that ships calls
-// `useRouter`, `useRoute` or `router.push` (only the dev-only level lab and
-// its test-run exit in `flow.ts` do), and there is not a single
+// `useRouter`, `useRoute` or `router.push`, and there is not a single
 // `<RouterLink>`. The router exists to mount one component and to keep the
-// dev-only benches reachable.
+// dev-only bench reachable.
 //
-// Which is also why hash history is KEPT elsewhere: the dev benches at
-// `/models` and `/levels` are navigated to by typing a URL (and the level
-// lab's Play loads `#/?level=…`), and memory history would make them
+// Which is also why hash history is KEPT elsewhere: the dev bench at
+// `/models` is navigated to by typing a URL, and memory history would make it
 // unreachable in dev. The other
 // portals are shipping and working on hash history, so they are left alone —
 // this is a fix for a measured Playables failure, not a blanket change.

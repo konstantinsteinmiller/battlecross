@@ -1,631 +1,363 @@
-import { reactive, watch } from 'vue'
-import { app } from './engine/app'
-import type { Quest } from './data/quests'
-import { rollJob, storyQuest, tutorialQuest, climbJob, climbSectors } from './data/quests'
-import { SECTORS, SECTOR_BY_ID } from './data/regions'
-import { rollItem, type Item } from './data/items'
-import { WEAPONS, type WeaponId } from './data/weapons'
-import {
-  profile, saveProfile, computeStats, grantXp, readSnapshot, writeSnapshot, type MissionSnapshot, lifetimeXp,
-  loadProfile, setSaveSandbox, markStorySeen, noteMissionIncome, startNewGamePlus
-} from './state/profile'
+import { reactive } from 'vue'
+import { app, type GameMode } from './engine/app'
+import { afterPaint } from './engine/slicer'
+import type { Input } from './engine/input'
+import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from './data/quests'
+import { FALLBACK_TRAINERS, NODE_BY_ID, TOWNS, ZONES, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
+import type { ClassId } from './data/skills'
+import type { ZoneId } from './data/items'
+import { ZoneMode, type ZoneSetup } from './modes/zoneMode'
 import { hud } from './state/hud'
-import { flushSaveNow, saveDataVersion } from '@/use/useSaveStatus'
+import {
+  clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, lifetimeXp, profile, saveProfile
+} from './state/profile'
+import { playJingle } from './audio/music'
+import { flushSaveNow } from '@/use/useSaveStatus'
 import { setMusicTrack, startGameMusic } from '@/use/useSound'
 import { showMidgameAd } from '@/use/useAds'
 import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
-import { playJingle } from './audio/music'
-import { afterPaint } from './engine/slicer'
 import { reportRun } from '@/use/useLeaderboard'
 import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
-import type { SectorId } from './world/themes'
-import { debriefFor, debriefSeen, type DebriefPlan } from './story/debriefScript'
-import { hubSceneFor } from './story/vexScenes'
+import { difficultyFactor } from '@/use/useUser'
+import type { TrackId } from './audio/music'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
  *
- * The director between the two modes: a MISSION (the 3D first-person sector)
- * and the HUB (Gauss's lab — missions, gear, circuits). It owns mission
- * start / resume / finish, reward payout, sector unlocks and the job board.
+ * The director between the places the hero can be: a combat ZONE, a TOWN, the
+ * colosseum, and the world MAP that joins them. It owns travel (building the
+ * next place behind a loading veil), the end of a visit (rewards, unlocks, the
+ * quest decision a finale brings, the save), and the menus over a scene.
  *
- * Modes are created lazily through the registered factories so this module
- * does not import the heavy mission/hub code itself.
+ * There is no main menu: a new player boots straight into the first fight on
+ * the Sunford Plains; a returning one boots into the town they were last near.
  */
 
-export type Screen = 'boot' | 'mission' | 'hub' | 'intro' | 'ending' | 'debrief'
-export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp' | 'controls'
+export type Screen = 'boot' | 'zone' | 'town' | 'map'
+export type Modal =
+  | '' | 'results' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'talk'
+  | 'decision' | 'ending' | 'help'
+
+export interface ResultItem {
+  id: string
+  /** False: a second copy, turned into `gold`. */
+  added: boolean
+  gold: number
+}
 
 export interface ResultsData {
-  quest: Quest
-  success: boolean
+  node: NodeId
+  /** `retreat`: the player left through the pause menu. */
+  outcome: 'victory' | 'defeat' | 'retreat'
   xp: number
-  bolts: number
+  gold: number
+  /** Gold dropped on a defeat. */
+  goldLost: number
   kills: number
-  chests: number
-  items: Item[]
+  items: ResultItem[]
   levelBefore: number
   levelAfter: number
   seconds: number
-  weapon: WeaponId | null
-  unlocked: SectorId | null
+  firstClear: boolean
+  /** Nodes this win opened on the map. */
+  unlocked: NodeId[]
+  waves: number
 }
 
 export const flow = reactive({
   screen: 'boot' as Screen,
   modal: '' as Modal,
+  /** The node the live scene is. */
+  node: '' as NodeId | '',
   results: null as ResultsData | null,
-  quest: null as Quest | null,
-  /** Mission-side counters mirrored for the results screen. */
-  levelAtStart: 1,
-  /** A mission is being built behind the hub → mission beam overlay. */
+  /** A place is being built behind the veil. */
   loading: false,
-  /** The Master a story mission being built ends with (the loading screen's
-   *  boss splash), or '' for a job. */
-  loadingBoss: '' as string,
-  /** 0..1 progress of that build. */
   loadProgress: 0,
-  /** The sector being built (the overlay's label). */
-  loadingSector: '' as SectorId | ''
+  loadingNode: '' as NodeId | '',
+  /** The townsperson a shop / trainer / talk modal belongs to. */
+  npc: null as NpcDef | null,
+  /** A trainer opened from the map (a hidden one found in a cleared zone). */
+  trainerCls: '' as ClassId | '',
+  /** The quest waiting for its decision. */
+  quest: '' as string,
+  /** After the throne: the ending screen has been shown this session. */
+  endingShown: false
 })
 
-type MissionFactory = (
-  quest: Quest, snapshot: MissionSnapshot | null, onProgress?: (p01: number) => void
-) => Promise<import('./engine/app').GameMode>
-type HubFactory = () => import('./engine/app').GameMode
-/** The intro cutscene (`story/intro.ts`), as far as the flow drives it. */
-export interface IntroHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
-  skip(): void
-  /** End it now, without its end callback (a cloud save took over). */
-  abort(): void
-}
-type IntroFactory = (opts: {
-  replay: boolean
-  onStart: () => void
-  onEnd: (skipped: boolean) => void
-}) => IntroHandle
-/** The ending (`story/ending.ts`), as far as the flow and its layer drive it. */
-export interface EndingHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
-  skip(): void
-  advance(): void
-  choose(choice: 'ngplus' | 'lab'): void
-}
-type EndingFactory = (opts: { onEnd: (choice: 'ngplus' | 'lab') => void }) => Promise<EndingHandle>
-/** The debrief after a story mission (`story/debrief.ts`, #119), as far as the flow and its layer drive it. */
-export interface DebriefHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
-  skip(): void
-  advance(): void
-}
-type DebriefFactory = (opts: { plan: DebriefPlan; hello: boolean; onEnd: () => void }) => Promise<DebriefHandle>
-let missionFactory: MissionFactory | null = null
-let hubFactory: HubFactory | null = null
-let introFactory: IntroFactory | null = null
-let endingFactory: EndingFactory | null = null
-let debriefFactory: DebriefFactory | null = null
-
-export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory, e?: EndingFactory, d?: DebriefFactory): void => {
-  missionFactory = m
-  hubFactory = h
-  introFactory = i ?? null
-  endingFactory = e ?? null
-  debriefFactory = d ?? null
+/** What a zone's theme sounds like (track ids are the composer's). */
+const THEME_TRACK: Record<ThemeId, TrackId> = {
+  plains: 'gale', cave: 'drill', forest: 'cryo', farm: 'tide', ash: 'blaze', mine: 'magnet', snow: 'cryo', temple: 'tide',
+  void: 'neon', peak: 'rotor', fortress: 'fortress', rift: 'volt', town: 'hub', ruin: 'scrapyard', arena: 'blaze'
 }
 
-/** The debrief playing now (its layer's buttons and the skip keys drive it). */
-export let debriefLive: DebriefHandle | null = null
-/** A Core Master just fell for the first time: its debrief follows the results (#119). */
-let pendingDebrief: DebriefPlan | null = null
+let input: Input | null = null
+/** The game's one input record (owned by `boot.ts`). */
+export const bindInput = (i: Input): void => { input = i }
 
-/**
- * The debrief (#119): after a story mission's results (and the interstitial,
- * if one was due — never during it), the city from above and Pip's briefing
- * on what comes next; then the Lab. Once ever per Master, like every story
- * beat; the Vex scene that Master had in the Lab plays inside it and counts
- * as seen. Without the film (a build or a test with no factory), the Lab.
- */
-export const startDebrief = async (plan: DebriefPlan): Promise<void> => {
-  if (!debriefFactory) { goHub(); return }
-  flow.modal = ''
-  flow.screen = 'debrief'
-  hud.phase = 'done'
-  hud.combat = false
-  hud.bossName = ''
-  // Seen at the start: a quit mid-film never replays it. Pip's welcome is for the very first one.
-  const hello = !profile.world.seen.some(s => s.startsWith('debrief:'))
-  markStorySeen(debriefSeen(plan.boss))
-  const vex = hubSceneFor(plan.boss)
-  if (vex) markStorySeen(vex.seen)
-  try {
-    const m = await debriefFactory({
-      plan,
-      hello,
-      onEnd: () => {
-        debriefLive = null
-        goHub()
-      }
-    })
-    debriefLive = m
-    app.setMode(m)
-    app.setWanted(true)
-  } catch (e) {
-    // The film's chunk did not load: the story is not worth a dead end.
-    console.warn('[flow] debrief failed to load', e)
-    debriefLive = null
-    goHub()
+const hashSeed = (s: string, n: number): number => {
+  let h = 2166136261 ^ n
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
+  return (h >>> 0) || 1
+}
+
+/** Which faction is hunting the hero (the most hostile one), if any. */
+export const hostileFaction = (): FactionId | null => {
+  let worst: FactionId | null = null
+  let v: number = REP_HOSTILE
+  for (const f of FACTIONS) if (profile.quests.rep[f] <= v) { v = profile.quests.rep[f]; worst = f }
+  return worst
+}
+
+/** A town's look: Oakhaven is a ruin once it has fallen. */
+export const townTheme = (town: TownId): ThemeId => (town === 'oakhaven' && hasFlag('oakhavenFallen') ? 'ruin' : TOWNS[town].theme)
+
+const setupFor = (node: NodeId): ZoneSetup => {
+  const def = NODE_BY_ID[node]!
+  const visits = profile.world.visits[node] ?? 0
+  const flags = flagSet()
+  if (def.kind === 'town') {
+    const town = node as TownId
+    return { kind: 'town', town, theme: townTheme(town), seed: hashSeed(node, 7), level: profile.level, difficulty: 1, flags }
+  }
+  if (def.kind === 'arena') {
+    return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags }
+  }
+  const zone = ZONES[node as ZoneId]
+  const hostile = hostileFaction()
+  return {
+    kind: 'zone',
+    zone: zone.id,
+    theme: zone.theme,
+    seed: hashSeed(node, visits),
+    level: visitLevel(zone, profile.level),
+    difficulty: difficultyFactor(),
+    // The very first visit of a new save opens gently.
+    tutorial: node === 'plains' && isFreshProfile(),
+    ambush: hostile ? AMBUSH_KIND[hostile] : null,
+    // A core sold to the Syndicate leaves the mines crawling.
+    extra: node === 'mines' && hasFlag('coreSold') ? 1 : 0,
+    // The dragon keeps its bargain where it matters.
+    dragonAlly: hasFlag('dragonPact') && (node === 'fortress' || node === 'rift'),
+    flags
   }
 }
 
-/** The ending playing now (its layer's buttons drive it). */
-export let endingLive: EndingHandle | null = null
-/** The Fortress was just won: the ending follows its results (#102). */
-let pendingEnding = false
+/** What a visit earned, as the result screen and the save need it. */
+export interface VisitTally {
+  xp: number
+  gold: number
+  kills: number
+  items: readonly string[]
+  seconds: number
+  /** Arena: the wave reached. */
+  waves: number
+}
 
-/**
- * The ending (#102), after the Fortress's results (and the interstitial, if
- * one was due — never during it). Its card offers a New Game+ run or the lab.
- */
-export const startEnding = async (): Promise<void> => {
-  if (!endingFactory) { goHub(); return }
+type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
+let precompile: Precompile = async () => {}
+/** `boot.ts` owns the renderer; it hands the shader warm-up in. */
+export const setPrecompile = (fn: Precompile): void => { precompile = fn }
+
+const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void => {
+  if (flow.modal || flow.loading) return
+  // The loadout is fixed once a fight is on: menus open in towns and on the map.
+  if (flow.screen === 'zone') return
+  if (panel === 'map') { openMap(); return }
+  flow.modal = panel
+}
+
+/** What a built place must offer the flow (the tests hand in a stand-in). */
+export interface BuiltPlace extends GameMode {
+  setup: { theme: ThemeId }
+}
+type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void) => Promise<BuiltPlace>
+
+const buildZone = async (node: NodeId, onProgress: (p01: number) => void): Promise<ZoneMode> => {
+  const setup = setupFor(node)
+  const mode = await ZoneMode.create(setup, input!, {
+    onEnd: (outcome) => { void finishVisit(outcome) },
+    onInteract: (npcId) => talkTo(npcId),
+    onPause: () => { if (!flow.modal && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
+    onPanel: openPanel
+  }, p => onProgress(p * 0.82))
+  await precompile(mode, f => onProgress(0.82 + f * 0.12))
+  try { await mode.warmUp(async () => {}, f => onProgress(0.94 + f * 0.06)) } catch (e) { console.warn('[flow] warm-up render failed', e) }
+  onProgress(1)
+  return mode
+}
+
+let buildNode: NodeBuilder = buildZone
+/** Test seam: build places without a GPU. */
+export const setNodeBuilder = (fn: NodeBuilder | null): void => { buildNode = fn ?? buildZone }
+
+const enter = (node: NodeId, mode: BuiltPlace): void => {
+  const def = NODE_BY_ID[node]!
+  flow.node = node
   flow.modal = ''
-  flow.screen = 'ending'
-  hud.phase = 'done'
-  hud.combat = false
-  hud.bossName = ''
-  const m = await endingFactory({
-    onEnd: (choice) => {
-      endingLive = null
-      if (!profile.world.seen.includes('ending')) profile.world.seen.push('ending')
-      if (choice === 'ngplus') startNewGamePlus()
-      saveProfile()
-      goHub()
-    }
-  })
-  endingLive = m
-  app.setMode(m)
+  flow.results = null
+  flow.screen = def.kind === 'town' ? 'town' : 'zone'
+  profile.world.at = node
+  if (def.kind === 'town') {
+    // A town is "cleared" by walking into it: its roads open.
+    if (clearNode(node)) saveProfile()
+  }
+  setMusicTrack(THEME_TRACK[mode.setup.theme])
+  startGameMusic()
+  app.setMode(mode)
   app.setWanted(true)
 }
 
-/**
- * The intro cutscene ships on every build unless the build switches it off
- * (`VITE_APP_INTRO=false`, `story.md` § Decisions), wherever a portal's
- * conversion-to-play drops. A const, so a build without it folds the check.
- */
-export const INTRO_ENABLED = import.meta.env.VITE_APP_INTRO !== 'false'
-
-export type BootTarget =
-  | { kind: 'mission'; quest: Quest; snapshot: MissionSnapshot | null }
-  | { kind: 'hub' }
-  | { kind: 'intro' }
-
-/** What the game should boot into (no main menu — straight into a scene). */
-export const bootTarget = (introOn: boolean = INTRO_ENABLED): BootTarget => {
-  const snap = readSnapshot()
-  // A tutorial left before the guided walkthrough existed has no walkthrough
-  // progress to resume (and another map): it starts over. Its XP and bolts
-  // were banked live.
-  const stale = snap?.quest.template === 'tutorial' && !snap.walk
-  if (snap && !snap.done && !stale) return { kind: 'mission', quest: snap.quest, snapshot: snap }
-  if (!profile.world.tutorialDone) {
-    // A first-timer sees the intro once; the tutorial builds behind it. The
-    // save is hydrated before the scene boots (main.ts awaits it), so a
-    // returning player on a new device reads as returning here.
-    // Any snapshot at all (even a stale one) means they have played before.
-    if (introOn && !snap && !profile.world.seen.includes('intro')) return { kind: 'intro' }
-    return { kind: 'mission', quest: tutorialQuest(), snapshot: null }
-  }
-  return { kind: 'hub' }
-}
-
-// ─── Level-lab test runs (DEV ONLY) ──────────────────────────────────────────
-
-/**
- * The running mission is a test run from the level lab (`views/LevelLab.vue`,
- * whose Play loads `#/?level=…`). It plays on the save sandbox
- * (`setSaveSandbox`): nothing it does is written, so no XP, loot, boss, sector
- * or story step reaches the save, the real resume point stays as it was, and
- * no leaderboard hears of it. It ends back in the lab with the profile re-read
- * from that untouched save. Every use sits behind `import.meta.env.DEV`, so
- * none of this ships.
- */
-let testRun = false
-
-export const isTestRun = (): boolean => import.meta.env.DEV && testRun
-
-/** End a test run, if one is on: throw away what it changed in memory. */
-export const endTestRun = (): void => {
-  if (!import.meta.env.DEV || !testRun) return
-  testRun = false
-  loadProfile()
-  setSaveSandbox(false)
-}
-
-/** The level a `#/?level=…` address asks for, as the boot target (ahead of a
- *  resume or the tutorial), with the sandbox on. Null: an ordinary boot. */
-const testBootTarget = async (): Promise<{ kind: 'mission'; quest: Quest; snapshot: null } | null> => {
-  endTestRun()
-  const { levelFromHash } = await import('./data/levelCatalog')
-  const quest = levelFromHash(location.hash)
-  if (!quest) return null
-  testRun = true
-  setSaveSandbox(true)
-  return { kind: 'mission', quest, snapshot: null }
-}
-
-/** Continue after a test run: no break, straight back to the lab, with the
- *  level still selected (the game route's `?level=…` is the lab's query). */
-const leaveTestRun = async (): Promise<void> => {
-  flow.modal = ''
-  endTestRun()
-  const { default: router } = await import('@/router')
-  await router.push({ name: 'levels', query: router.currentRoute.value.query })
-}
-
-/** Build the first scene (a resumed mission, the tutorial or the hub). Async:
- *  a mission build is time-sliced so the boot loader keeps moving. */
-export const createBootMode = async (onProgress?: (p01: number) => void): Promise<import('./engine/app').GameMode> => {
-  // The portal's OWN leaderboard (Playgama's SaaS board, when the build carries
-  // one): a player with no row yet joins it on arrival — a first-timer as its
-  // last row, a returning player at their lifetime XP. Once per player, never
-  // awaited, a no-op on every build without a portal board. The save is
-  // hydrated by now (main.ts awaits it before the App mounts).
+/** The first scene (no main menu): the opening fight, or the last town. */
+export const createBootMode = async (onProgress: (p01: number) => void = () => {}): Promise<GameMode> => {
+  // The portal's own board, when the build carries one: joined on arrival.
   void joinPortalBoard(lifetimeXp())
-  const t = (import.meta.env.DEV && await testBootTarget()) || bootTarget(INTRO_ENABLED && !!introFactory)
-  if (t.kind === 'intro') {
-    const m = beginIntro(false)
-    onProgress?.(1)
-    return m
-  }
-  if (t.kind === 'mission') {
-    flow.quest = t.quest
-    flow.screen = 'mission'
-    flow.levelAtStart = profile.level
-    setMusicTrack(t.quest.sector)
-    return missionFactory!(t.quest, t.snapshot, onProgress)
-  }
-  flow.screen = 'hub'
-  hud.phase = 'hub'
-  setMusicTrack('hub')
-  const h = hubFactory!()
-  onProgress?.(1)
-  return h
-}
-
-// ─── The intro cutscene ──────────────────────────────────────────────────────
-//
-// It is the loader (`story.md` § Intro): the cutscene's set is the boot scene
-// (the splash leaves as it starts, so a portal's first-load ad lands before
-// shot 1 and the cutscene waits frozen under it), and the tutorial builds
-// BEHIND it while it plays. At the flash the tutorial takes over with its own
-// beam-in; if the build is not done yet — or the player skipped early — the
-// mission beam overlay (`MissionLoading`) holds until it is. Skipping never
-// costs time, and nobody who watches sees a frozen frame.
-
-interface Behind {
-  quest: Quest
-  build: Promise<import('./engine/app').GameMode>
-  mode: import('./engine/app').GameMode | null
-}
-/** The tutorial building behind the intro. */
-let behind: Behind | null = null
-let introLive: IntroHandle | null = null
-let stopCloudWatch: (() => void) | null = null
-
-/** Make the intro the scene (the boot, or a replay from Options). */
-const beginIntro = (replay: boolean): IntroHandle => {
-  flow.screen = 'intro'
-  flow.modal = ''
-  hud.phase = 'boot'
-  // The intro's own score starts when the cutscene goes live (`IntroMode.enter`).
-  const m = introFactory!({
-    replay,
-    onStart: () => {
-      performance.mark('boot:intro-start')
-      if (!replay) buildBehindIntro()
-    },
-    onEnd: (skipped) => { void finishIntro(replay, skipped) }
-  })
-  introLive = m
-  return m
-}
-
-const buildBehindIntro = (): void => {
-  if (behind || !missionFactory) return
-  const quest = tutorialQuest()
-  flow.loadProgress = 0
-  const b: Behind = { quest, mode: null, build: null as unknown as Behind['build'] }
-  b.build = missionFactory(quest, null, (p) => { flow.loadProgress = p }).then((m) => {
-    b.mode = m
-    performance.mark('boot:tutorial-built')
-    return m
-  })
-  behind = b
-  watchCloudDuringIntro()
+  const at = profile.world.at
+  const node: NodeId = isFreshProfile() ? 'plains' : NODE_BY_ID[at]?.kind === 'town' ? at : 'sunford'
+  const mode = await buildNode(node, onProgress)
+  const def = NODE_BY_ID[node]!
+  flow.node = node
+  flow.screen = def.kind === 'town' ? 'town' : 'zone'
+  profile.world.at = node
+  setMusicTrack(THEME_TRACK[mode.setup.theme])
+  return mode
 }
 
 /**
- * A cloud save that arrives mid-intro with progress on it ends the intro: the
- * player has been here before (on another device). Whatever the save says to
- * boot into takes over, and the tutorial built behind is thrown away.
+ * Travel to a node. The place is built BEHIND the loading veil, time-sliced so
+ * the veil's bar keeps moving, and only takes over once it is complete,
+ * shaders included.
  */
-const watchCloudDuringIntro = (): void => {
-  stopCloudWatch?.()
-  stopCloudWatch = watch(saveDataVersion, () => {
-    if (flow.screen !== 'intro' || !introLive) return
-    const t = bootTarget(false)
-    if (t.kind === 'mission' && t.quest.template === 'tutorial' && !t.snapshot) return
-    stopCloudWatch?.()
-    stopCloudWatch = null
-    void abandonIntro(t)
-  })
-}
-
-const dropBehind = (): void => {
-  const b = behind
-  behind = null
-  if (b) void b.build.then(m => m.dispose(), () => {})
-}
-
-const abandonIntro = async (t: BootTarget): Promise<void> => {
-  introLive?.abort()
-  introLive = null
-  dropBehind()
-  markStorySeen('intro')
-  performance.mark('boot:intro-end')
-  if (t.kind === 'mission') await startMission(t.quest, t.snapshot)
-  else goHub()
-}
-
-/** The intro ended (watched or skipped): record it, then hand over. */
-const finishIntro = async (replay: boolean, _skipped: boolean): Promise<void> => {
-  introLive = null
-  stopCloudWatch?.()
-  stopCloudWatch = null
-  performance.mark('boot:intro-end')
-  markStorySeen('intro')
-  void flushSaveNow()
-  if (replay) {
-    goHub()
-    return
-  }
-  if (!behind) buildBehindIntro()
-  const b = behind!
-  // The sector's music now, even if the build still holds the beam overlay.
-  setMusicTrack(b.quest.sector)
-  if (!b.mode) {
-    // Still building: the mission beam overlay holds until it is ready.
-    flow.loadingSector = b.quest.sector
-    flow.loading = true
-  }
-  try {
-    const m = await b.build
-    if (behind !== b) return
-    behind = null
-    flow.quest = b.quest
-    flow.modal = ''
-    flow.results = null
-    flow.levelAtStart = profile.level
-    flow.screen = 'mission'
-    setMusicTrack(b.quest.sector)
-    startGameMusic()
-    app.setMode(m)
-    app.setWanted(true)
-  } catch (e) {
-    console.error('[intro] tutorial build failed', e)
-    behind = null
-    flow.loading = false
-    await startMission(b.quest)
-  } finally {
-    flow.loading = false
-  }
-}
-
-/** Options → Replay intro (the hub only). It ends back in the hub. */
-export const replayIntro = (): void => {
-  if (!introFactory || flow.screen !== 'hub' || flow.loading) return
-  const m = beginIntro(true)
-  app.setMode(m)
-  app.setWanted(true)
-}
-
-/** For tests: forget the intro's state between cases. */
-export const __resetIntro = (): void => {
-  stopCloudWatch?.()
-  stopCloudWatch = null
-  behind = null
-  introLive = null
-}
-
-/**
- * Hub → mission. The sector is built BEHIND the beam overlay (`flow.loading`),
- * time-sliced so the lab keeps animating and the bar keeps filling, and the
- * mission only takes over once it is complete, shaders included. A Deploy tap
- * therefore answers at once instead of freezing the hub for the whole build.
- */
-export const startMission = async (quest: Quest, snapshot: MissionSnapshot | null = null): Promise<void> => {
-  if (!missionFactory || flow.loading) return
+export const travel = async (node: NodeId): Promise<void> => {
+  if (flow.loading || !NODE_BY_ID[node] || !isNodeOpen(node)) return
   flow.loading = true
   flow.loadProgress = 0
-  flow.loadingSector = quest.sector
-  flow.loadingBoss = quest.template === 'stage' || quest.template === 'boss' ? SECTOR_BY_ID[quest.sector].boss : ''
+  flow.loadingNode = node
   try {
-    // The beam is on screen before the build starts, and the lab stops
-    // drawing behind it: the build gets the whole CPU (the overlay covers
-    // the last frame, which simply stays put).
+    // The veil is on screen before the build starts, and the old scene stops
+    // drawing behind it: the build gets the whole CPU.
     await afterPaint()
     app.setWanted(false)
-    const m = await missionFactory(quest, snapshot, (p) => { flow.loadProgress = p })
-    flow.quest = quest
-    flow.modal = ''
-    flow.results = null
-    flow.levelAtStart = profile.level
-    flow.screen = 'mission'
-    setMusicTrack(quest.sector)
-    startGameMusic()
-    app.setMode(m)
-  } finally {
+    if (NODE_BY_ID[node]!.kind !== 'town') profile.world.visits[node] = (profile.world.visits[node] ?? 0) + 1
+    const mode = await buildNode(node, (p) => { flow.loadProgress = p })
+    enter(node, mode)
+  } catch (e) {
+    console.error('[flow] travel failed', e)
     app.setWanted(true)
+  } finally {
     flow.loading = false
   }
 }
 
-/** "Retry from checkpoint": the mission again, from that snapshot. */
-export const retryFromSnapshot = async (s: MissionSnapshot): Promise<void> => {
+/** The world map, over whatever scene is up. */
+export const openMap = (): void => {
+  if (flow.loading) return
   flow.modal = ''
-  await startMission(s.quest, s)
+  flow.screen = 'map'
+  hud.phase = 'map'
+  app.setWanted(false)
 }
 
-export const goHub = (): void => {
-  if (!hubFactory) return
-  flow.modal = ''
-  flow.screen = 'hub'
-  hud.phase = 'hub'
-  hud.combat = false
-  hud.targetName = ''
-  hud.bossName = ''
-  setMusicTrack('hub')
-  startGameMusic()
-  const h = hubFactory()
-  app.setMode(h)
+/** Close the map without travelling (only back into a town). */
+export const closeMap = (): void => {
+  if (flow.screen !== 'map') return
+  const def = flow.node ? NODE_BY_ID[flow.node] : undefined
+  if (def?.kind !== 'town') return
+  flow.screen = 'town'
+  hud.phase = 'town'
   app.setWanted(true)
-  ensureJobs()
 }
 
-// ─── Rewards ─────────────────────────────────────────────────────────────────
+// ─── The end of a visit ──────────────────────────────────────────────────────
 
-export interface MissionTally {
-  xp: number
-  bolts: number
-  kills: number
-  chests: number
-  items: Item[]
-  seconds: number
+/** Longest we hold a screen for an ad that another placement left on screen. */
+const AD_GATE_WAIT_MS = 8000
+
+const waitForAdGate = async (): Promise<void> => {
+  const t0 = Date.now()
+  while (isAdShowing.value && Date.now() - t0 < AD_GATE_WAIT_MS) await new Promise((r) => setTimeout(r, 100))
 }
 
-/** Mission over (success = objective done and beamed out). XP and bolts from
- *  kills were already granted live; this pays the QUEST reward on top, saves,
- *  and reveals the results. The interstitial comes AFTER them, on Continue
- *  (`leaveResults`). */
-export const finishMission = async (success: boolean, tally: MissionTally): Promise<void> => {
-  const quest = flow.quest
-  if (!quest) return
-  const levelBefore = flow.levelAtStart
-  let xp = tally.xp
-  let bolts = tally.bolts
-  const items = [...tally.items]
-  let weapon: WeaponId | null = null
-  let unlocked: SectorId | null = null
-  profile.stats.missions++
-  if (success) {
-    xp += quest.reward.xp
-    bolts += quest.reward.bolts
-    grantXp(quest.reward.xp)
-    profile.bolts += quest.reward.bolts
-    noteMissionIncome(bolts)
-    profile.questsDone++
-    const it = rollItem((quest.seed ^ 0xa11) >>> 0, quest.level, { bias: quest.reward.rarityBias, rarity: quest.reward.guaranteed })
-    profile.inv.items.push(it)
-    profile.inv.fresh.push(it.id)
-    items.push(it)
-    if (quest.template === 'tutorial') {
-      profile.world.tutorialDone = true
-    }
-    // The tutorial IS the Scrapyard's story mission: its mini-boss (the
-    // Scrapper) counts as that sector's Core Master.
-    if (quest.kind === 'story') {
-      // The Fortress (Vex and the Grand Master) won: the ending follows.
-      if (quest.sector === 'fortress') pendingEnding = true
-      const sector = SECTOR_BY_ID[quest.sector]
-      if (!profile.world.bosses.includes(sector.boss)) {
-        profile.world.bosses.push(sector.boss)
-        profile.story++
-        // The story moves on: its debrief, unless this save has seen it (a New Game+ run).
-        const plan = debriefFor(sector.boss)
-        if (plan && !profile.world.seen.includes(debriefSeen(sector.boss))) pendingDebrief = plan
-        const w = (Object.values(WEAPONS).find(d => d.from === sector.boss))
-        if (w) weapon = grantWeapon(w.id)
-        const next = SECTORS.find(s => s.after === sector.id)
-        if (next && !profile.world.unlocked.includes(next.id)) {
-          profile.world.unlocked.push(next.id)
-          unlocked = next.id
-        }
-      }
-    }
-    if (quest.kind === 'job') {
-      profile.quests.jobs = profile.quests.jobs.filter(j => j.id !== quest.id)
-    }
-  } else {
-    profile.stats.deaths++
-    if (quest.kind === 'story') profile.quests.storyAttempts[quest.id] = (profile.quests.storyAttempts[quest.id] ?? 0) + 1
+/** Share of the purse dropped on a defeat. */
+export const DEFEAT_GOLD_LOSS = 0.1
+
+/**
+ * A visit is decided. Everything the run earned is banked (XP and loot are
+ * kept on a defeat too; a tenth of the purse is not), the save is flushed, and
+ * the result screen opens. The interstitial comes AFTER it, on Continue.
+ */
+export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Promise<void> => {
+  const mode = app.mode instanceof ZoneMode ? app.mode : null
+  const node = flow.node
+  if (!mode || !node) return
+  const h = mode.sim.hero
+  await bankVisit(outcome, node, { xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n })
+}
+
+/** Bank a decided visit: rewards, unlocks, the save, the result screen. */
+export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node: NodeId, h: VisitTally): Promise<void> => {
+  const levelBefore = profile.level
+  const items: ResultItem[] = []
+  grantXp(h.xp)
+  profile.gold += h.gold
+  for (const id of h.items) {
+    const r = gainItem(id)
+    items.push({ id, added: r.added, gold: r.gold })
   }
-  profile.stats.playSeconds += Math.round(tally.seconds)
-  writeSnapshot(null)
-  ensureJobs()
+  profile.stats.kills += h.kills
+  profile.stats.runs++
+  profile.stats.playSeconds += Math.round(h.seconds)
+  let goldLost = 0
+  let firstClear = false
+  const unlocked: NodeId[] = []
+  if (outcome === 'victory') {
+    const before = new Set(Object.keys(NODE_BY_ID).filter(n => isNodeOpen(n as NodeId)))
+    firstClear = clearNode(node)
+    profile.questsDone++
+    if (node === 'arena') profile.world.arenaBest = Math.max(profile.world.arenaBest, h.waves)
+    // A finale that carries a quest brings its decision (once).
+    const q = questOfNode(node)
+    if (q && !profile.quests.done[q.id]) flow.quest = q.id
+    for (const n of Object.keys(NODE_BY_ID)) if (!before.has(n) && isNodeOpen(n as NodeId)) unlocked.push(n as NodeId)
+  } else if (outcome === 'defeat') {
+    profile.stats.deaths++
+    goldLost = Math.floor(profile.gold * DEFEAT_GOLD_LOSS)
+    profile.gold -= goldLost
+  }
   saveProfile()
   void flushSaveNow()
   const results: ResultsData = {
-    quest, success, xp, bolts, kills: tally.kills, chests: tally.chests, items, levelBefore,
-    levelAfter: profile.level, seconds: tally.seconds, weapon, unlocked
+    node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves
   }
-  // No ad of our own here (it plays after Continue), but an ad another
-  // placement started may still be up, and the results must not open under it.
+  // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
   flow.results = results
-  if (success) triggerHappytime()
-  playJingle(success ? 'victory' : 'defeat')
+  if (outcome === 'victory') triggerHappytime()
+  if (outcome !== 'retreat') playJingle(outcome)
   flow.modal = 'results'
-  // A level-lab test run posts nowhere: its XP is thrown away on the way out.
-  if (import.meta.env.DEV && testRun) return
   // The leaderboard, AFTER the result screen is up and never awaited: it is a
-  // decoration on a game that works without it, and a captive-portal wifi
-  // login must not stand between the player and their rewards. Lifetime XP
-  // also grew on a defeat (kills pay live), so both outcomes report; `force`
-  // makes the number a mission ended on always land.
+  // decoration on a game that works without it.
   void reportRun(lifetimeXp(), profile.level, { force: true })
-  // …and to the portal's own board. The score is lifetime XP, which only ever
-  // grows and grows on a defeat too, so every mission end is a moment a new
-  // best can exist; `reportPortalBest` posts only when it beats what the portal
-  // already accepted. On YouTube Playables (same archive) Bridge forwards it as
-  // `ytgame.engagement.sendScore` — the same number the save holds.
   void reportPortalBest(lifetimeXp())
 }
 
-/** Longest we hold a screen for an ad that another placement left on screen.
- *  The provider caps its own waits; this only guards the gate. */
-const AD_GATE_WAIT_MS = 8000
-
-/**
- * Wait until no ad is up. An ad started by another placement (the QA trigger,
- * the first-load ad) may still be showing, and opening a screen under it would
- * put the ad on top of that screen.
- */
-const waitForAdGate = async (): Promise<void> => {
-  const t0 = Date.now()
-  while (isAdShowing.value && Date.now() - t0 < AD_GATE_WAIT_MS) {
-    await new Promise((r) => setTimeout(r, 100))
-  }
-}
-
-/** True from Continue until the hub is up, so a double tap asks for one ad. */
-let leavingResults = false
+/** True from Continue until the next screen is up, so a double tap asks for one ad. */
+let leaving = false
 
 /**
  * Continue on the result screen: close it, play the interstitial if one is
- * due, and only then go home. Every mission end offers this break, won or
- * failed; the shared pacing clock (`canShowInterstitial`) decides whether an
- * ad actually runs.
+ * due, and only then move on — to the quest's decision if the finale brought
+ * one, else to the map.
  *
  * The screen closes FIRST, so the ad never opens on top of it (portal QA). The
- * mission stays frozen behind the ad: `showMidgameAd` flips `isAdShowing`
- * before its first await, which suspends the loop and the audio. Going home
- * AFTER the ad also brings the music back: the ad hard-stops it and clears the
- * play intent, and `goHub` starts the hub track.
+ * zone stays frozen behind the ad: `showMidgameAd` flips `isAdShowing` before
+ * its first await, which suspends the loop and the audio.
  */
 export const leaveResults = async (): Promise<void> => {
-  if (import.meta.env.DEV && testRun) return leaveTestRun()
-  if (leavingResults) return
-  leavingResults = true
+  if (leaving) return
+  leaving = true
   flow.modal = ''
   try {
     if (canShowInterstitial()) {
@@ -634,76 +366,81 @@ export const leaveResults = async (): Promise<void> => {
     }
     await waitForAdGate()
   } finally {
-    leavingResults = false
-    const debrief = pendingDebrief
-    pendingDebrief = null
-    if (pendingEnding) {
-      pendingEnding = false
-      void startEnding()
-    } else if (debrief) void startDebrief(debrief)
-    else goHub()
+    leaving = false
+    if (flow.quest) flow.modal = 'decision'
+    else afterVisit()
   }
 }
 
-const grantWeapon = (id: WeaponId): WeaponId | null => {
-  if (profile.hero.weapons.includes(id)) return null
-  profile.hero.weapons.push(id)
-  if (!profile.hero.slots[0]) profile.hero.slots[0] = id
-  else if (!profile.hero.slots[1]) profile.hero.slots[1] = id
-  return id
-}
-
-// ─── Job board ───────────────────────────────────────────────────────────────
-
-/** The one-time flag (in `profile.tips`) that the first climb was put on the
- *  board. A flag rather than a save field: old saves load as they are. */
-const CLIMB_OFFERED = 'climbOffered'
-
-/** Sectors a Tower Run may roll in right now: their boss is down. */
-const climbsNow = () => climbSectors(profile.world.unlocked, profile.world.bosses)
-
-/**
- * Keep three jobs on the board, drawn from the unlocked sectors. The first
- * time a climb becomes possible (the Scrapper is down: straight after the
- * tutorial) one is put on the board — the newest job makes way for it — so
- * nobody has to reroll to find out the tower exists. After that it rolls like
- * any other job.
- */
-export const ensureJobs = (): void => {
-  const q = profile.quests
-  const sectors = profile.world.unlocked
-  const climbs = climbsNow()
-  while (q.jobs.length < 3) {
-    q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-    q.jobs.push(rollJob(q.jobSeed, sectors, profile.level, climbs, profile.world.ngPlus))
+/** Past the results (and the decision): the ending once, else the map. */
+export const afterVisit = (): void => {
+  flow.quest = ''
+  if (hasFlag('throneDone') && !flow.endingShown && !profile.tips.endingSeen) {
+    flow.endingShown = true
+    flow.modal = 'ending'
+    return
   }
-  if (climbs.length && !profile.tips[CLIMB_OFFERED]) {
-    profile.tips[CLIMB_OFFERED] = true
-    if (!q.jobs.some(j => j.template === 'climb')) {
-      q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-      q.jobs[q.jobs.length - 1] = climbJob(q.jobSeed, climbs, profile.level, profile.world.ngPlus)
-    }
+  flow.modal = ''
+  openMap()
+  startGameMusic()
+}
+
+/** Leave a zone through the pause menu: what the run earned is kept, the
+ *  clear is given up. */
+export const retreatVisit = async (): Promise<void> => {
+  if (flow.screen !== 'zone' || flow.results) return
+  flow.modal = ''
+  await finishVisit('retreat')
+}
+
+/** Retry the zone the hero just fell in. */
+export const retryVisit = async (): Promise<void> => {
+  const node = flow.node
+  if (!node || leaving) return
+  flow.modal = ''
+  flow.results = null
+  await travel(node)
+}
+
+// ─── Towns ───────────────────────────────────────────────────────────────────
+
+export const npcById = (id: string): NpcDef | null => {
+  for (const t of Object.values(TOWNS)) {
+    const n = t.npcs.find(x => x.id === id)
+    if (n) return n
   }
+  return null
 }
 
-export const rerollJob = (id: string): void => {
-  const q = profile.quests
-  const i = q.jobs.findIndex(j => j.id === id)
-  if (i < 0) return
-  q.jobSeed = (q.jobSeed * 1103515245 + 12345) >>> 0
-  q.jobs[i] = rollJob(q.jobSeed, profile.world.unlocked, profile.level, climbsNow(), profile.world.ngPlus)
-  saveProfile()
+const talkTo = (npcId: string): void => {
+  if (flow.modal || flow.loading) return
+  const npc = npcById(npcId)
+  if (!npc) return
+  flow.npc = npc
+  flow.trainerCls = npc.cls ?? ''
+  flow.modal = npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : 'talk'
 }
 
-export const storyFor = (sector: SectorId): Quest | null => {
-  const s = SECTOR_BY_ID[sector]
-  if (!profile.world.unlocked.includes(sector)) return null
-  // The Scrapyard's story mission IS the tutorial: until it is finished the
-  // card replays it, so abandoning it never skips the walkthrough.
-  const tutorial = tutorialQuest()
-  if (sector === tutorial.sector && !profile.world.tutorialDone) return tutorial
-  if (profile.world.bosses.includes(s.boss)) return null
-  return storyQuest(s, profile.level, profile.quests.storyAttempts[`story_${sector}`] ?? 0, profile.world.ngPlus)
+/** The hidden trainer a cleared zone holds, if it has one for this save. */
+export const hiddenTrainer = (node: NodeId): { cls: ClassId; npc: string } | null => {
+  if (!profile.world.cleared.includes(node)) return null
+  const flags = flagSet()
+  const t = NODE_BY_ID[node]?.trainer
+  if (t && (!t.needs || t.needs.every(f => flags.has(f))) && (!t.not || !t.not.some(f => flags.has(f)))) return { cls: t.cls, npc: t.npc }
+  const fb = FALLBACK_TRAINERS.find(f => f.node === node && f.needs.every(x => flags.has(x)))
+  return fb ? { cls: fb.cls, npc: fb.npc } : null
 }
 
-export const statsNow = () => computeStats()
+/** Open a hidden trainer from the map. */
+export const visitHiddenTrainer = (node: NodeId): void => {
+  const t = hiddenTrainer(node)
+  if (!t) return
+  flow.npc = { id: t.npc, role: 'trainer', look: t.npc, at: [0, 0], cls: t.cls }
+  flow.trainerCls = t.cls
+  flow.modal = 'trainer'
+}
+
+export const closeModal = (): void => {
+  flow.modal = ''
+  flow.npc = null
+}

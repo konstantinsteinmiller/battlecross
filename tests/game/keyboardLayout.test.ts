@@ -25,8 +25,8 @@ beforeEach(() => {
 
 describe('key bindings', () => {
   it('defaults: WASD, arrows as alternates, every action bound', () => {
-    expect(primaryCode('forward')).toBe('KeyW')
-    expect(codesFor('forward')).toEqual(['KeyW', 'ArrowUp'])
+    expect(primaryCode('up')).toBe('KeyW')
+    expect(codesFor('up')).toEqual(['KeyW', 'ArrowUp'])
     for (const a of ACTIONS) expect(codesFor(a).length, a).toBeGreaterThan(0)
     expect(actionForCode('KeyE')).toBe('interact')
     expect(actionForCode('Escape')).toBeNull()
@@ -34,26 +34,26 @@ describe('key bindings', () => {
   })
 
   it('rebinding onto another action\'s key swaps them: nothing is left unbound', () => {
-    expect(bindKey('forward', 'KeyE')).toBe(true)
-    expect(primaryCode('forward')).toBe('KeyE')
+    expect(bindKey('up', 'KeyE')).toBe(true)
+    expect(primaryCode('up')).toBe('KeyE')
     expect(primaryCode('interact')).toBe('KeyW')
-    expect(actionForCode('KeyE')).toBe('forward')
+    expect(actionForCode('KeyE')).toBe('up')
     expect(actionForCode('KeyW')).toBe('interact')
     for (const a of ACTIONS) expect(codesFor(a).length, a).toBeGreaterThan(0)
   })
 
   it('a rebinding that takes an alternate removes it from its old action', () => {
-    bindKey('beam', 'ArrowUp')
-    expect(codesFor('forward')).toEqual(['KeyW'])
-    expect(actionForCode('ArrowUp')).toBe('beam')
+    bindKey('map', 'ArrowUp')
+    expect(codesFor('up')).toEqual(['KeyW'])
+    expect(actionForCode('ArrowUp')).toBe('map')
   })
 
   it('reserved keys are refused', () => {
     for (const c of ['Escape', 'F1', 'F2', 'MetaLeft', '']) {
       expect(isBindable(c), c).toBe(false)
-      expect(bindKey('slide', c)).toBe(false)
+      expect(bindKey('potion', c)).toBe(false)
     }
-    expect(primaryCode('slide')).toBe('Space')
+    expect(primaryCode('potion')).toBe('KeyQ')
   })
 
   it('the HUD asks for a DEFAULT key and gets the key as bound now', () => {
@@ -65,8 +65,8 @@ describe('key bindings', () => {
   })
 
   it('reset puts every default back', () => {
-    bindKey('forward', 'KeyI')
-    bindKey('slide', 'KeyC')
+    bindKey('up', 'KeyI')
+    bindKey('potion', 'KeyC')
     expect(bindingsChanged()).toBe(true)
     resetBindings()
     for (const a of ACTIONS) expect(primaryCode(a)).toBe(DEFAULT_BINDINGS[a][0])
@@ -148,7 +148,7 @@ describe('input follows the bindings', () => {
     surface = document.createElement('div')
     document.body.appendChild(surface)
     input = createInput()
-    detach = attachInput(surface, input, { fireMode: () => false, canLock: () => true })
+    detach = attachInput(surface, input)
   })
   afterEach(() => {
     detach()
@@ -166,7 +166,7 @@ describe('input follows the bindings', () => {
   })
 
   it('rebound movement moves', () => {
-    bindKey('forward', 'KeyI')
+    bindKey('up', 'KeyI')
     key('keydown', 'KeyI', 'i')
     expect(input.moveY).toBeGreaterThan(0)
     key('keyup', 'KeyI')

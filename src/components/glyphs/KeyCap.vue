@@ -39,7 +39,7 @@ const bound = computed(() => boundCode(props.code))
   border: 2px solid #141a33
   box-shadow: 0 0.16em 0 #141a33
   color: #141a33
-  font-family: var(--font-pixel)
+  font-family: var(--font-ui)
   font-size: 0.72em
   line-height: 1
   text-shadow: none

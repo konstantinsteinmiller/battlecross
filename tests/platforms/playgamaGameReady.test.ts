@@ -28,7 +28,7 @@ describe('whenInteractive', () => {
   it('holds through the boot and a mission\'s scripted beam-in, fires at "play" — once', async () => {
     const fn = vi.fn()
     whenInteractive(fn)
-    hud.phase = 'beamIn'
+    hud.phase = 'boot'
     await tick()
     expect(fn).not.toHaveBeenCalled()
     hud.phase = 'play'
@@ -41,8 +41,8 @@ describe('whenInteractive', () => {
     expect(fn).toHaveBeenCalledTimes(1)
   })
 
-  it('fires at once in the hub', () => {
-    hud.phase = 'hub'
+  it('fires at once in a town', () => {
+    hud.phase = 'town'
     const fn = vi.fn()
     whenInteractive(fn)
     expect(fn).toHaveBeenCalledTimes(1)

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
 
-vi.mock('virtual:asset-overrides', () => ({ default: { sfx: [], music: [], textures: [] } }))
+vi.mock('virtual:asset-overrides', () => ({ default: { sfx: [], music: [], textures: [], items: [], skills: [], portraits: [], ui: [] } }))
 
 import { getSong, songSeconds, type SongId } from '@/game/audio/songs'
 import { songFor, shouldRotate, keepsPlaying, ROTATION_SIZE, ROTATE_AFTER_S } from '@/game/audio/music'

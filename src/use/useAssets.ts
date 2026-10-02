@@ -233,11 +233,9 @@ export const killOneShotSfx = (): void => {
 // `useGamePauseAudio` suspends/resumes audio off that gate for ALL builds —
 // so there is one suspend driver instead of two overlapping ones.
 
-// ⚠️ TEMP TEST HARNESS (remove before commit) — exposes the live audio state
-// so the Chrome MCP can assert "no sound during the fake interstitial". Reads
-// the module-private AudioContext + tracked-element registry that aren't
-// otherwise observable from the page. Paired with `window.__testInterstitial`
-// / `window.__audioDebug` in `useAds.ts`.
+// The live audio state for the QA probes ("no sound during an interstitial"):
+// the module-private AudioContext and tracked-element registry are not
+// otherwise observable from the page. Read by the DEV hooks in `useAds.ts`.
 export const __audioDebugSnapshot = () => ({
   audioCtxState: sharedAudioCtx ? sharedAudioCtx.state : 'none',
   suspendDepth,
@@ -295,15 +293,6 @@ export const loadAudioBuffer = async (src: string): Promise<AudioBuffer | null> 
   return promise
 }
 
-/**
- * How long the splash may wait on the survivor strips before giving up and
- * letting the player in anyway.
- *
- * A ceiling, not a target: with the bake-slice fix in `heroSprites.ts` the whole
- * set lands in well under a second even on a thread with no idle time. But a
- * loading screen that can hang forever is a worse bug than a crowd of capsules,
- * so the wait is bounded — and the fallback path is exactly the old behaviour.
- */
 /** Hard cap on the whole critical boot, for a prime that HANGS — not for a
  *  slow one. The scene waits for the real first scene (`adoptBootMode`), so
  *  clearing the splash early on a slow phone would only reveal an empty
@@ -321,10 +310,7 @@ export default () => {
       try {
         if (typeof document === 'undefined' || !('fonts' in document)) return
         await Promise.race([
-          Promise.all([
-            document.fonts.load('700 1em "Russo One"'),
-            document.fonts.load('400 1em "Press Start 2P"')
-          ]),
+          document.fonts.load('700 1em "Angry"'),
           new Promise((resolve) => setTimeout(resolve, 1500))
         ])
       } catch { /* a missing font is a fallback face, never a blocker */ }

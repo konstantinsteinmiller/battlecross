@@ -5,15 +5,9 @@ export default {
   'close': 'Kapat',
   'ok': 'Tamam',
   'continue': 'Devam',
-  'tapToContinue': 'Devam etmek için dokun',
-  'clickToContinue': 'Devam etmek için tıkla',
-  'rewards': 'ÖDÜLLER',
-  'tip': 'İpucu',
   'onlyAvailableOn': 'Bu oyun yalnızca şurada mevcut:',
 
   'ui': {
-    'killcamCount': 'Bu görevdeki öldürme kameraları: {n}',
-    'killcamOff': 'Öldürme kamerasını kapat',
     'next': 'İleri',
     'replay': 'Tekrar',
     'back': 'Geri',
@@ -22,481 +16,594 @@ export default {
     'menu': 'Menü',
     'home': 'Ana ekran',
     'info': 'Bilgi',
-    'skip': 'Geç',
-    'holdToSkip': 'Geçmek için {key} tuşunu basılı tut'
+    'help': 'Kontroller',
+    'ok': 'Anladım',
+    'continue': 'Devam'
+  },
+
+  'hud': {
+    'level': 'Sv {n}',
+    'health': 'Can: {n} / {max}',
+    'mana': 'Mana: {n} / {max}',
+    'heat': 'Isı',
+    'xp': 'TP',
+    'gold': '{n} altın',
+    'potion': 'Can iksiri ({n} kaldı)',
+    'groups': '{total} düşman grubundan {n} tanesi yenildi',
+    'wave': 'Dalga {n} / {total}'
+  },
+  'menu': {
+    'map': 'Dünya haritası',
+    'character': 'Kahraman',
+    'skills': 'Yetenekler',
+    'inventory': 'Çanta'
   },
 
   'combat': {
-    'tink': 'ÇIN!',
-    'perfect': 'MÜKEMMEL!',
-    'parry': 'SAVUŞTURMA!',
-    'guardBreak': 'GARD KIRILDI!',
-    'guardCracked': 'Gard çatladı!',
-    'xp': '+{n} XP',
-    'lastStand': 'Son Direniş! Sistemler yeniden başlatıldı.',
-    'weak': 'ZAYIF!',
-    'kranck': 'KRANCK!',
-    'dizzy': 'SERSEM!',
-    'dodge': 'KAÇTI!',
-    'block': 'Blokla',
-    'slide': 'Kay',
-    'fire': 'Ateş et',
-    'tank': 'Tamir Jeli',
-    'noEnergy': 'Silah enerjisi yetersiz',
-    'tankCount': 'Tamir Jeli: {n}/{max}',
-    'borrowed': 'Ödünç silah {weapon}: {n}/{max} atış',
-    'borrowedGet': '{weapon} ×{n}'
+    'dodge': 'Kaçındı',
+    'block': 'Blok',
+    'immune': 'Bağışık'
+  },
+  'status': {
+    'stun': 'Sersemledi',
+    'knockup': 'Havada',
+    'knockdown': 'Yere serildi',
+    'stasis': 'Durağan',
+    'petrify': 'Taşlaştı',
+    'frozen': 'Dondu',
+    'fear': 'Korktu',
+    'slow': 'Yavaşladı',
+    'confuse': 'Şaşkın',
+    'taunt': 'Kışkırtıldı',
+    'armorShred': 'Zırh kırıldı',
+    'weaken': 'Zayıfladı',
+    'vulnerable': 'Savunmasız',
+    'burn': 'Yanıyor',
+    'poison': 'Zehirlendi',
+    'bleed': 'Kanıyor',
+    'delayed': 'Gecikmeli hasar',
+    'haste': 'Çabukluk',
+    'attackSpeed': 'Hızlı saldırı',
+    'damageUp': 'Güçlendi',
+    'defenseUp': 'Sağlamlaştı',
+    'regen': 'Yenileniyor',
+    'lifestealUp': 'Can çalma',
+    'invulnerable': 'Hasar almaz',
+    'unkillable': 'Öldürülemez',
+    'stealth': 'Gizli',
+    'reflect': 'Yansıtıyor',
+    'envenom': 'Zehirli bıçak',
+    'exosuit': 'Exo-Zırh',
+    'focus': 'Odaklandı',
+    'accelerate': 'Hızlanma',
+    'overheat': 'Aşırı ısındı',
+    'enrage': 'Öfkelendi',
+    'ambush': 'Pusu'
+  },
+  'toast': {
+    'item': 'Bulundu: {item}',
+    'levelUp': 'Seviye {level}! +3 nitelik puanı',
+    'boss': '{boss} ortaya çıktı',
+    'wave': 'Dalga {n}'
   },
 
-  'flux': {
-    'fumble': {
-      '1': 'Hoppala!',
-      '2': 'Bzzt! Hop!',
-      '3': 'Kolum hıçkırıyor!',
-      '4': 'Hata… vuhuu!',
-      '5': 'Tereyağlı devreler!',
-      '6': 'Titreme modu AÇIK!'
+  'coach': {
+    'move': {
+      'touch': 'Oraya yürümek için zemine dokun ya da çubuğu kullan.',
+      'mouse': 'Oraya yürümek için zemine tıkla ya da hareket tuşlarıyla yönlendir.'
+    },
+    'target': {
+      'touch': 'Saldırmak için bir düşmana dokun ya da kahramanından ona doğru sürükle.',
+      'mouse': 'Saldırmak için bir düşmana tıkla.'
+    },
+    'skill': {
+      'touch': 'Hedefinde kullanmak için bir yeteneğe dokun.',
+      'mouse': 'Hedefinde kullanmak için bir yetenek tuşuna bas.'
+    },
+    'aim': {
+      'touch': 'Nişan almak için yeteneği alana sürükle, kullanmak için bırak.',
+      'mouse': 'Nişan almak için yeteneği alana sürükle, kullanmak için bırak.'
+    },
+    'potion': {
+      'touch': 'İyileşmek için iksire dokun.',
+      'mouse': 'İyileşmek için iksir tuşuna bas.'
+    }
+  },
+
+  'node': {
+    'sunford': { 'name': 'Sunford', 'desc': 'Ovaların kıyısında bir çiftçi kasabası. Yuva, bir demirci ve iki eğitmen.' },
+    'plains': { 'name': 'Sunford Ovaları', 'desc': 'Goblinler, kurtlar ve haydutlar açık yolda kervanlara musallat oluyor.' },
+    'hollows': { 'name': 'Goblin Oyukları', 'desc': 'Tepelerin altındaki mağaralar. Goblin Kralı en dipte divan kuruyor.' },
+    'arena': { 'name': 'Kolezyum', 'desc': 'Sekiz dalga, her biri öncekinden zor. Ayakta kalana altın ve şan.' },
+    'woods': { 'name': 'Fısıldayan Orman', 'desc': 'Yürüyen yaşlı ağaçlar ve aralarında ağ ören örümcekler.' },
+    'outskirts': { 'name': 'Oakhaven Varoşları', 'desc': 'Oakhaven’ın dışındaki yanan çiftlikler. Bir savaş beyinin ordusu kapıya dayandı.' },
+    'oakhaven': { 'name': 'Oakhaven', 'desc': 'Surlarla çevrili bir ticaret kasabası. Neye dönüşeceği sana bağlı.' },
+    'crags': { 'name': 'Kül Kayalıkları', 'desc': 'Kara kaya ve açık ateş. Kültçüler alevleri besliyor.' },
+    'mines': { 'name': 'Ironhold Madenleri', 'desc': 'Cüceler fazla derine kazdı ve parlayan bir şeyi uyandırdı.' },
+    'ironhold': { 'name': 'Ironhold', 'desc': 'Dağdaki demirci kasabası. Diyarın en iyi çeliği burada dövülür.' },
+    'tundra': { 'name': 'Ayaz Tundrası', 'desc': 'Devlerin yürüdüğü ve ölülerin yerde kalmadığı beyaz bir çöl.' },
+    'temple': { 'name': 'Batık Tapınak', 'desc': 'Nagaların sular altındaki salonları ve her sonu gören bir kâhin.' },
+    'citadel': { 'name': 'Hiçlik Hisarı', 'desc': 'Geçen yıl orada olmayan bir kale. Duvarları uğulduyor.' },
+    'peak': { 'name': 'Ejderha Zirvesi', 'desc': 'Wyvernler zirvede dönüp duruyor. Üstünde çok daha büyük bir şey uyuyor.' },
+    'fortress': { 'name': 'Dehşet Kalesi', 'desc': 'Baş İblis’in makamı ve her hizbin istediği taht.' },
+    'rift': { 'name': 'Hiçlik Yarığı', 'desc': 'İblislerin içinden geldiği yara. Hiçlik Lordu öte yanda bekliyor.' }
+  },
+  'map': {
+    'title': 'Diyar',
+    'town': 'Kasaba',
+    'levels': 'Sv {min}–{max}',
+    'arenaBest': 'En iyi: dalga {n}',
+    'travel': 'Git',
+    'again': 'Tekrar git',
+    'enter': 'Gir',
+    'fight': 'Savaş',
+    'back': 'Kasabaya dön',
+    'locked': 'Yolu açmak için komşu bir bölgeyi temizle.',
+    'lockedArena': 'Kapıları, Goblin Kralı’nın işi görülünce açılır.',
+    'lockedRift': 'Dehşet Kalesi’nin tahtı karara bağlanınca açılır.',
+    'danger': {
+      '1': 'Seviyenin biraz üstünde.',
+      '2': 'Seviyen için tehlikeli.',
+      '3': 'Seviyenin çok üstünde.'
+    },
+    'questOpen': '{quest}: burada bir karar bekliyor.',
+    'questDone': '{quest}: {choice}',
+    'trainer': 'Gizli eğitmen: {cls}'
+  },
+  'travel': {
+    'to': 'Yolculuk:',
+    'loading': 'Yükleniyor'
+  },
+
+  'attr': {
+    'str': { 'name': 'Güç', 'short': 'GÜÇ', 'desc': 'Yakın dövüş gücü, blok şansı, ağır zırh.' },
+    'dex': { 'name': 'Çeviklik', 'short': 'ÇEV', 'desc': 'Kritik vuruşlar, saldırı ve hareket hızı.' },
+    'int': { 'name': 'Zekâ', 'short': 'ZEK', 'desc': 'Büyü gücü, mana, element direnci.' },
+    'end': { 'name': 'Dayanıklılık', 'short': 'DAY', 'desc': 'Can, yenilenme, zırh, sersemletme direnci.' },
+    'skl': { 'name': 'Beceri', 'short': 'BEC', 'desc': 'Kritik hasar, bekleme süreleri, menzilli silahlar.' },
+    'cha': { 'name': 'Karizma', 'short': 'KAR', 'desc': 'Minyonlar, dükkân fiyatları, ödüller, diyalog seçenekleri.' }
+  },
+  'stat': {
+    'health': 'Can',
+    'mana': 'Mana',
+    'armor': 'Zırh',
+    'resist': 'Direnç',
+    'crit': 'Kritik şansı',
+    'critDamage': 'Kritik hasarı',
+    'attackSpeed': 'Saldırı hızı',
+    'moveSpeed': 'Hareket hızı',
+    'cdr': 'Bekleme kısaltma',
+    'block': 'Blok',
+    'dodge': 'Kaçınma',
+    'hpRegen': 'Can / sn'
+  },
+  'sheet': {
+    'points': 'Harcanacak {n} puan',
+    'raise': '{attr} artır',
+    'maxLevel': 'En yüksek seviyeye ulaşıldı'
+  },
+
+  'skills': {
+    'active': 'Aktif yetenekler',
+    'passive': 'Pasif yetenekler',
+    'known': 'Öğrenilenler',
+    'none': 'Henüz bir şey öğrenilmedi. Bir kasabada eğitmen bul.',
+    'emptySlot': 'Boş yuva {n}',
+    'equip': 'Yerleştir',
+    'remove': 'Çıkar',
+    'unmet': 'Artık gereksinimlerini karşılamıyorsun.'
+  },
+  'class': {
+    'aegis': { 'name': 'Aegis Şövalyesi', 'desc': 'Kalkan ve kutsal çelik. Darbeleri o yer, başkası yemesin diye.' },
+    'shadow': { 'name': 'Gölge Bıçağı', 'desc': 'Karanlıktan çıkar, arkadan vurur ve kaybolur.' },
+    'pyro': { 'name': 'Ateş Büyücüsü', 'desc': 'Ateş her soruya cevaptır. Önce yak, sonra patlat.' },
+    'sovereign': { 'name': 'Yüce Hükümdar', 'desc': 'Neden tek başına savaşasın? Muhafızlar çağır ve onlara komuta et.' },
+    'chrono': { 'name': 'Zaman Dokuyucu', 'desc': 'Düşmanları zamanda durdurur, dostları hızlandırır ve hataları geri alır.' },
+    'blood': { 'name': 'Kan Simyacısı', 'desc': 'Güç için canıyla öder, sonra onu düşmandan geri içer.' },
+    'aether': { 'name': 'Eter Teknisyeni', 'desc': 'Silahlar, taretler ve bir ısı göstergesi. Seni kilitlemeden ısıyı boşalt.' },
+    'geo': { 'name': 'Yer Büyücüsü', 'desc': 'Duvarlar ve dikenler yükseltir, zemini bile yarar.' }
+  },
+  'skill': {
+    'kind': { 'active': 'Aktif', 'passive': 'Pasif' },
+    'cooldown': '{n} sn bekleme',
+    'mana': '{n} mana',
+    'hpCost': '{n}% can',
+    'heat': '+{n} ısı',
+    'aimed': 'Nişan için sürükle',
+
+    'shieldSlam': { 'name': 'Kalkan Darbesi', 'desc': 'Hedefe {dmg}% Güç hasarı vur ve onu {stun} sn sersemlet.' },
+    'aegisAura': { 'name': 'Aegis Aurası', 'desc': '+{armor}% Zırh; alınan fiziksel hasar {reduce}% azalır.' },
+    'radiantStrike': { 'name': 'Işıltılı Vuruş', 'desc': '{dmg}% Güç hasarı veren kutsal bir darbe. Verilen hasarın {heal}% kadarı seni iyileştirir.' },
+    'fortitude': { 'name': 'Metanet', 'desc': 'Canının {hit}% kadarından fazla hasar veren bir darbe, {dur} sn boyunca canının {shield}% kadarı değerinde kalkan verir. {icd} sn’de bir.' },
+    'tauntingCry': { 'name': 'Kışkırtıcı Nara', 'desc': '{radius} m içindeki düşmanlar {dur} sn boyunca sana saldırır. Bu sürede {def}% Savunma kazanırsın.' },
+    'holyBastion': { 'name': 'Kutsal Burç', 'desc': '{dur} sn hasar almazsın. Saldıranlar verdikleri hasarın {reflect}% kadarını geri alır.' },
+
+    'shadowstep': { 'name': 'Gölge Adımı', 'desc': 'Hedefin arkasında belir ve sırtından {dmg}% Çeviklik hasarı vur.' },
+    'lethality': { 'name': 'Ölümcüllük', 'desc': '+{crit}% Kritik Şansı ve +{critDmg}% Kritik Hasarı.' },
+    'venomousBlade': { 'name': 'Zehirli Bıçak', 'desc': '{dur} sn boyunca saldırıların zehirler: {over} sn içinde {poison}% Çeviklik hasarı, {stacks} kata kadar birikir.' },
+    'evasion': { 'name': 'Sıyrılma', 'desc': '+{dodge}% Kaçınma. Her kaçınma {dur} sn boyunca {haste}% Çabukluk verir.' },
+    'smokeBomb': { 'name': 'Sis Bombası', 'desc': '{dur} sn gözden kaybol. Gizliyken yaptığın ilk saldırı +{bonus}% hasar verir.' },
+    'danceOfBlades': { 'name': 'Bıçakların Dansı', 'desc': '{radius} m içindeki düşmanlar arasında atıl, {hits} kez vurarak toplam {dmg}% Çeviklik hasarı ver. Dans ederken sana vurulamaz.' },
+
+    'fireball': { 'name': 'Ateş Topu', 'desc': 'Patlayıp {dmg}% Zekâ hasarı veren bir ateş topu. {burnDur} sn içinde {burn}% daha yakar.' },
+    'cauterize': { 'name': 'Dağlama', 'desc': 'Yanan düşmanlar sana {reduce}% daha az hasar verir.' },
+    'flamePillar': { 'name': 'Alev Sütunu', 'desc': 'Nişan aldığın yerde bir ateş sütunu yükselir: {dur} sn içinde {dmg}% Zekâ hasarı. İçindeki düşmanlar havaya fırlar.' },
+    'pyromaniac': { 'name': 'Piroman', 'desc': 'Kritik bir büyü vuruşu ateş beklemelerinden {cut} sn düşer.' },
+    'combustion': { 'name': 'Tutuşma', 'desc': '{radius} m içindeki tüm yanmaları patlat: her biri kalan hasarının {pct}% kadarını bir anda verir.' },
+    'cataclysm': { 'name': 'Kıyamet', 'desc': '{dur} sn içinde {meteors} meteor çağır. Her biri {dmg}% Zekâ hasarı verir.' },
+
+    'royalGuard': { 'name': 'Kraliyet Muhafızı', 'desc': 'Yanında savaşan ve {dmg}% Karizma hasarı vuran bir muhafız çağır. Aynı anda en fazla {max}.' },
+    'inspiringPresence': { 'name': 'İlham Veren Varlık', 'desc': 'Minyonların {speed}% daha hızlı saldırır ve {hp}% daha fazla cana sahip olur.' },
+    'commandFocus': { 'name': 'Hedef Emri', 'desc': 'Tüm minyonlar hedefe hücum eder: {dur} sn boyunca +{move}% hareket hızı ve +{atk}% saldırı hızı.' },
+    'sovereignsTribute': { 'name': 'Hükümdarın Haracı', 'desc': 'Aldığın hasarın {share}% kadarı minyonlarına aktarılır.' },
+    'bannerOfVictory': { 'name': 'Zafer Sancağı', 'desc': '{dur} sn boyunca bir sancak dik. Yakınındaki dostlar +{dmg}% hasar verir ve saniyede {regen}% can yeniler.' },
+    'armyOfTheRealm': { 'name': 'Diyarın Ordusu', 'desc': '{dur} sn boyunca {archers} okçu, {guards} muhafız ve bir savaş büyücüsü çağır.' },
+
+    'temporalStasis': { 'name': 'Zaman Durağanlığı', 'desc': 'Hedefi {dur} sn zamanda dondur. Hareket edemez ve hasar göremez.' },
+    'hasteField': { 'name': 'Çabukluk Alanı', 'desc': '{dur} sn boyunca sen ve yakındaki dostlar {move}% daha hızlı hareket eder ve {speed}% daha hızlı saldırır.' },
+    'timeDistort': { 'name': 'Zaman Bükümü', 'desc': 'Aldığın hasarın {share}% kadarı gecikir ve {over} sn içinde verilir.' },
+    'paradoxShift': { 'name': 'Paradoks Kayması', 'desc': 'Hedefle yer değiştir. Hedef {dmg}% Zekâ hasarı alır, çevresindeki düşmanlar {confuse} sn şaşkına döner.' },
+    'entropy': { 'name': 'Entropi', 'desc': 'Her kullanım beklemelerini {cdr}% kısaltır, {stacks} kata kadar birikir.' },
+    'chronoRewind': { 'name': 'Zamanı Geri Sar', 'desc': '{back} sn önce durduğun yere, o anki can ve mananla geri dön.' },
+
+    'sanguineFlask': { 'name': 'Kan Şişesi', 'desc': 'Kendi kanınla dolu bir şişe fırlat: alanda {dmg}% Dayanıklılık hasarı, zırh {shredDur} sn boyunca {shred}% kırılır.' },
+    'bloodTransmutation': { 'name': 'Kan Dönüşümü', 'desc': 'Aldığın fiziksel hasarın {share}% kadarı mana olarak geri döner.' },
+    'essenceHarvest': { 'name': 'Öz Hasadı', 'desc': '{radius} m içindeki her düşmandan {dmg}% Zekâ hasarı kadar öz em. Bunun {heal}% kadarı seni iyileştirir.' },
+    'hemophilia': { 'name': 'Hemofili', 'desc': 'Can emme {drain}% daha güçlü. Kanayan bir düşmana vurmak canının {heal}% kadarını iyileştirir.' },
+    'mutagenicRage': { 'name': 'Mutajen Öfke', 'desc': '{dur} sn boyunca: +{speed}% saldırı hızı, +{steal}% can çalma ve +{move}% hareket hızı.' },
+    'philosophersCrucible': { 'name': 'Filozofun Potası', 'desc': '{dur} sn boyunca kaynayan bir kan gölü: içindeki düşmanlara {dmg}% Zekâ hasarı verir, içinde durduğun sürece seni iyileştirir.' },
+
+    'aetherPistol': { 'name': 'Eter Tabancası', 'desc': '{dmg}% Beceri hasarı veren hızlı bir atış. {heat} ısı üretir.' },
+    'deployTurret': { 'name': 'Taret Kur', 'desc': '{dur} sn boyunca {dmg}% Beceri hasarıyla ateş eden bir taret yerleştir. Aynı anda en fazla {max}.' },
+    'ventHeat': { 'name': 'Isıyı Boşalt', 'desc': 'Tüm ısıyı bir koni içinde boşalt: en fazla {dmg}% Beceri hasarı; ısı arttıkça hasar artar.' },
+    'thermalOverload': { 'name': 'Termal Aşırı Yük', 'desc': 'Aşırı ısınmışken atışların +{crit}% Kritik Hasarı verir. Aşırı ısınma yeteneklerini yine {lock} sn kilitler.' },
+    'orbitalBeam': { 'name': 'Yörünge Işını', 'desc': 'Gökten inen bir ışın nişan aldığın yeri yakar: {dur} sn içinde {dmg}% Beceri hasarı.' },
+    'exoSuit': { 'name': 'Exo-Zırh', 'desc': '{dur} sn boyunca: +{armor}% Zırh; saldırıların alanda {rocket}% Beceri hasarı veren roketlere dönüşür.' },
+
+    'stoneSpike': { 'name': 'Taş Diken', 'desc': 'Hedefin altından bir diken fırlar: {dmg}% Güç hasarı ve {dur} sn boyunca {slow}% yavaşlatma.' },
+    'earthBarrier': { 'name': 'Toprak Bariyer', 'desc': '{dur} sn boyunca kayadan bir duvar yükselt. İçinden kimse geçemez, hiçbir atış geçmez.' },
+    'seismicShock': { 'name': 'Sismik Şok', 'desc': 'Yere vur: {radius} m içinde {dmg}% Güç hasarı, düşmanlar {down} sn yere serilir.' },
+    'earthenSkin': { 'name': 'Toprak Deri', 'desc': 'Gücünün {armor}% kadarı Zırh kazan. Sana gelen sersemletmeler {cut}% daha kısa sürer.' },
+    'petrify': { 'name': 'Taşlaştır', 'desc': 'Hedefi {dur} sn taşa çevir. Taştan kurtulunca {vuln}% daha fazla hasar alır.' },
+    'tectonicRupture': { 'name': 'Tektonik Yarılma', 'desc': 'Alanı yarıp aç: yakındaki her şeye {dmg}% Güç hasarı ve {dur} sn boyunca yavaşlatan moloz.' }
+  },
+
+  'slot': {
+    'main': 'Ana el',
+    'off': 'Yan el',
+    'body': 'Zırh',
+    'trinket': 'Tılsım'
+  },
+  'tier': {
+    '1': 'Kademe 1',
+    '2': 'Kademe 2',
+    '3': 'Kademe 3',
+    '4': 'Kademe 4',
+    '5': 'Kademe 5',
+    '6': 'Efsanevi'
+  },
+  'weapon': {
+    'melee': 'Yakın dövüş · {attr} ile artar',
+    'ranged': 'Menzilli · {attr} ile artar',
+    'magic': 'Büyü · {attr} ile artar'
+  },
+  'source': {
+    'mob': '{zone} bölgesinin canavarlarından düşer.',
+    'chest': '{zone} bölgesinin sandıklarında bulunur.',
+    'boss': '{zone} bölgesinin patronundan düşer.',
+    'secret': '{zone} bölgesinde gizli bir sandıkta saklı.'
+  },
+  'mod': {
+    'str': '+{n} Güç',
+    'dex': '+{n} Çeviklik',
+    'int': '+{n} Zekâ',
+    'end': '+{n} Dayanıklılık',
+    'skl': '+{n} Beceri',
+    'cha': '+{n} Karizma',
+    'allAttrs': 'Tüm niteliklere +{n}',
+    'strOrDex': '+{n} Güç veya Çeviklik, hangisi yüksekse',
+    'armor': '{n} Zırh',
+    'armorPct': '+{n}% Zırh',
+    'armorFromStr': 'Güçten gelen Zırh: +{n}%',
+    'block': '+{n}% Blok Şansı',
+    'dodge': '+{n}% Kaçınma',
+    'damageReduction': '+{n}% Hasar Azaltma',
+    'physReduction': '{n}% daha az fiziksel hasar alırsın',
+    'maxHp': '+{n} Maks. Can',
+    'maxHpPct': '+{n}% Maks. Can',
+    'maxMana': '+{n} Maks. Mana',
+    'hpRegen': 'Saniyede +{n} Can',
+    'stunDurationCut': 'Sana gelen sersemletmeler {n}% daha kısa',
+    'damagePct': '+{n}% Verilen Hasar',
+    'critChance': '+{n}% Kritik Şansı',
+    'critDamage': '+{n}% Kritik Hasarı',
+    'spellCrit': '+{n}% Büyü Kritik Şansı',
+    'attackSpeed': '+{n}% Saldırı Hızı',
+    'moveSpeed': '+{n}% Hareket Hızı',
+    'cdr': 'Bekleme süreleri {n}% daha kısa',
+    'manaDiscount': 'Büyüler {n}% daha az mana harcar',
+    'lifesteal': 'Tüm hasarda +{n}% Can Çalma',
+    'physLifesteal': 'Fiziksel vuruşlarda +{n}% Can Çalma',
+    'lifeDrainPct': 'Can emme {n}% daha güçlü',
+    'bossDamage': 'Patronlara +{n}% hasar',
+    'backstab': '+{n}% Sırttan Vuruş Hasarı',
+    'minionDamage': 'Minyonlar +{n}% hasar verir',
+    'minionAttackSpeed': 'Minyonlar {n}% daha hızlı saldırır',
+    'minionHp': 'Minyonların canı +{n}%',
+    'burnOnHit': 'Saldırılar {n} hasarlık Yanma uygular',
+    'freezeOnHit': 'Saldırıların {n}% dondurma şansı var',
+    'pierce': 'Atışlar {n} düşmanı daha deler',
+    'critCooldown': 'Kritik vuruşlar tüm beklemeleri {n} sn kısaltır',
+    'extraBlastEvery': 'Her {n} atışta ek bir enerji patlaması',
+    'reflectOnBlock': 'Blok {n} hasar yansıtır',
+    'fatalSave': 'Ölümcül hasar yerine {n} sn hasar almazsın (120 sn’de bir)',
+    'knockbackImmune': 'Geri itilmeye bağışık',
+    'heatBuildCut': 'Isı {n}% daha yavaş birikir',
+    'heatDissipation': 'Isı {n}% daha hızlı düşer',
+    'flaskDamage': 'Kan Şişesi +{n}% hasar verir',
+    'igniteBonus': 'Ateş büyüleri {n}% daha sert yakar',
+    'stealthy': 'Sessiz hareket: düşmanlar seni {n}% daha yakından fark eder',
+    'fortitude': 'Büyük darbeler canın {n}% kadarı kalkan verir',
+    'evasionHaste': 'Kaçınma {n}% Çabukluk verir',
+    'cauterize': 'Yanan düşmanlar sana {n}% daha az hasar verir',
+    'pyromaniac': 'Kritik büyüler ateş beklemelerini {n} sn kısaltır',
+    'tribute': 'Minyonlar hasarının {n}% kadarını üstlenir',
+    'timeDistort': 'Alınan hasarın {n}% kadarı gecikir',
+    'entropy': 'Kullanımlar beklemeleri {n}% kısaltır',
+    'bloodToMana': 'Alınan fiziksel hasarın {n}% kadarı mana olarak döner',
+    'bleedHeal': 'Kanayan düşmana vurmak {n}% can iyileştirir',
+    'overheatCrit': 'Aşırı ısınmışken +{n}% Kritik Hasarı'
+  },
+  'item': {
+    'rustedShortsword': { 'name': 'Paslı Kısa Kılıç' },
+    'apprenticeStaff': { 'name': 'Çırak Asası' },
+    'scoutsHandgun': { 'name': 'İzci Tabancası' },
+    'ironBroadsword': { 'name': 'Demir Enli Kılıç' },
+    'vipinsStiletto': { 'name': 'Vipin’in Hançeri' },
+    'aetherCarbine': { 'name': 'Eter Karabinası' },
+    'ashenGreatsword': { 'name': 'Kül Rengi Büyük Kılıç' },
+    'archmageWand': { 'name': 'Başbüyücü Değneği' },
+    'chronoBlade': { 'name': 'Zaman Kılıcı' },
+    'bloodForgedAxe': { 'name': 'Kanla Dövülmüş Balta' },
+    'voidCannon': { 'name': 'Hiçlik Topu' },
+    'dragonSmasher': { 'name': 'Ejderha Ezen' },
+    'bladeOfTheUnbound': { 'name': 'Zincirsizin Kılıcı' },
+    'aetheriumDestroyer': { 'name': 'Eteryum Yok Edici' },
+    'woodenBuckler': { 'name': 'Ahşap Kalkan' },
+    'tomeOfNovices': { 'name': 'Acemiler Kitabı' },
+    'ironShield': { 'name': 'Demir Kalkan' },
+    'syringeOfTheAdept': { 'name': 'Ustanın Şırıngası' },
+    'aethericBattery': { 'name': 'Eter Bataryası' },
+    'aegisTowerShield': { 'name': 'Aegis Kule Kalkanı' },
+    'orbOfEternalFlame': { 'name': 'Ebedi Alev Küresi' },
+    'shieldOfTheFallen': { 'name': 'Düşenlerin Kalkanı' },
+    'paddedTunic': { 'name': 'Dolgulu Tunik' },
+    'leatherDoublet': { 'name': 'Deri Yelek' },
+    'chainmailVest': { 'name': 'Örme Zırh Yeleği' },
+    'scholarsRobe': { 'name': 'Âlim Cübbesi' },
+    'reinforcedPlate': { 'name': 'Takviyeli Plaka Zırh' },
+    'assassinsGarb': { 'name': 'Suikastçı Kıyafeti' },
+    'chronoWeaverCloak': { 'name': 'Zaman Dokuyucu Pelerini' },
+    'bloodSoakedPlate': { 'name': 'Kana Bulanmış Zırh' },
+    'exoArmorChassis': { 'name': 'Exo-Zırh Şasisi' },
+    'dragonscaleHauberk': { 'name': 'Ejder Pulu Zırh' },
+    'vestmentsOfSovereign': { 'name': 'Hükümdarın Giysileri' },
+    'armorOfTheTitan': { 'name': 'Titan Zırhı' },
+    'copperBand': { 'name': 'Bakır Halka' },
+    'ringOfMending': { 'name': 'Şifa Yüzüğü' },
+    'bandOfSwiftness': { 'name': 'Çabukluk Halkası' },
+    'castersEmblem': { 'name': 'Büyücü Nişanı' },
+    'infiltratorsCharm': { 'name': 'Sızıcının Tılsımı' },
+    'timekeepersHourglass': { 'name': 'Zaman Bekçisinin Kum Saati' },
+    'ringOfTheVampyre': { 'name': 'Vampir Yüzüğü' },
+    'sovereignsSignet': { 'name': 'Hükümdarın Mührü' },
+    'heartOfTheMountain': { 'name': 'Dağın Kalbi' },
+    'ringOfAbsolutePower': { 'name': 'Mutlak Güç Yüzüğü' }
+  },
+  'bag': {
+    'equip': 'Kuşan',
+    'unequip': 'Çıkar',
+    'tooLow': 'Seviye {n} gerekir.'
+  },
+  'shop': {
+    'buy': 'Satın al',
+    'sell': 'Sat',
+    'owned': 'Sende var',
+    'empty': 'Bugün raflarda bir şey yok.'
+  },
+  'trainer': {
+    'learn': 'Öğren',
+    'known': 'Öğrenildi',
+    'friend': '{faction} dostlarını onurlandırır: 20% indirim.',
+    'block': {
+      'level': 'Seviyen çok düşük.',
+      'attrs': 'Niteliklerin çok düşük.',
+      'gold': 'Yeterli altın yok.'
+    }
+  },
+  'healer': {
+    'talk': 'Otur. Dinlen. Buradan sapasağlam, tüm şişelerin dolu çıkarsın. Daha fazlasını taşımak istersen, onu sana satabilirim.',
+    'note': 'Her bölgeye {n} iksir götürürsün.',
+    'buy': 'Bir şişe daha · {n}',
+    'full': 'Kemerin daha fazlasını taşıyamaz.'
+  },
+  'talk': {
+    'goal': 'Karar yeri: {zone}.'
+  },
+  'faction': {
+    'order': 'Demir Tarikatı',
+    'syndicate': 'Kül Sendikası',
+    'circle': 'Eter Çemberi'
+  },
+
+  'npc': {
+    'sunfordSmith': { 'name': 'Demirci Bram', 'talk': 'Sade çelik, dürüst fiyat. Bir goblini senden uzak tutar.' },
+    'sunfordPeddler': { 'name': 'Çerçi Tilly', 'talk': 'Yüzükler! Tılsımlar! Bulduğum ve kesinlikle çalmadığım şeyler.' },
+    'trainerAegis': { 'name': 'Sör Aldric' },
+    'trainerPyro': { 'name': 'Ember Wren' },
+    'elderMara': { 'name': 'Bilge Mara', 'talk': 'Bugün yolu sen tuttun. Ovalar bir yıldır bu kadar sakin olmamıştı.' },
+    'sunfordHealer': { 'name': 'Rahibe Lune' },
+    'goblinTrader': { 'name': 'Tüccar Grik', 'talk': 'Kral de ticaret, Grik yap ticaret. Parlak şeye parlak şey. İyi parlak şey.' },
+    'captainHale': { 'name': 'Yüzbaşı Hale', 'talk': 'Oakhaven üç yüz yıldır ayakta. Onu kaybeden yüzbaşı olmaya hiç niyetim yok.' },
+    'oakArmorer': { 'name': 'Zırhçı Odo', 'talk': 'Malımın yarısı surlara gitti. Kalanı al.' },
+    'oakMasterArmorer': { 'name': 'Usta Odo', 'talk': 'Bu kasabayı sen kurtardın. İyi zırhlar arka odadan senin için çıkıyor.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Keskin, dengeli ve parayı kim verirse ona satılır. Bugün o kişi sensin.' },
+    'trainerShadow': { 'name': 'Fısıltı' },
+    'trainerSovereign': { 'name': 'Lord Castellan' },
+    'oakHealer': { 'name': 'Birader Fenn' },
+    'blackMarket': { 'name': 'Aracı', 'talk': 'İsim yok, soru yok. Sendika payını alır, sen de malı alırsın.' },
+    'trainerBlood': { 'name': 'Doktor Sangrel' },
+    'syndicateBoss': { 'name': 'Madam Ash', 'talk': 'Oakhaven senin sayende bizim. Sendika bir dostu unutmaz. Bir borcu da.' },
+    'forgemaster': { 'name': 'Demirci Ustası Dorn', 'talk': 'Demir için kazdık, bir kalbe denk geldik. Orada, karanlıkta atıyor ve golemler onun ritmiyle yürüyor.' },
+    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Cüce işi. Kırılırsa suç sendedir.' },
+    'ironAetherWorks': { 'name': 'Tamirci Voss', 'talk': 'Çember’in çekirdek üzerindeki çalışması her şeyi değiştirdi. Şunu tut. Bana doğrultma.' },
+    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Bir devin sopasını savuşturan zırh. Geri kalanınıza da yüzükler.' },
+    'ironOrderArmor': { 'name': 'Tarikat Levazımcısı', 'talk': 'Tarikat, çekirdeği kimin yok ettiğini unutmaz. Cephanelikleri sana açık.' },
+    'trainerGeo': { 'name': 'Koca Taşayak' },
+    'trainerAether': { 'name': 'Çarkçı Pim' },
+    'ironHealer': { 'name': 'Brynja Ana' },
+    'exiledSovereign': { 'name': 'Lord Castellan, sürgünde' },
+    'trainerChrono': { 'name': 'Saatlerin Bekçisi' }
+  },
+
+  'quest': {
+    'final': 'Bu seçim kalıcıdır.',
+    'needsRep': '{faction} itibarı {n}',
+    'gold': '+{n} altın',
+    'goblinKing': {
+      'title': 'Goblin Kralı',
+      'intro': 'Baskınlar, goblinlerin bir kral taçlandırdığı Oyuklar’dan geliyor. Buna nasıl uygun görürsen öyle son ver.',
+      'ask': 'Dur! Dur. Kral teslim! Goblinler yağma yapar çünkü goblinler aç. Belki uzun olan ve Kral anlaşma yapar?',
+      'slay': { 'label': 'Saltanatına son ver.', 'result': 'Kral düşer, Oyuklar dağılır. Sunford daha rahat uyur ve Demir Tarikatı seni fark eder.' },
+      'pact': { 'label': 'Sunford ile bir ticaret anlaşması öner.', 'result': 'Tatlı dil, kılıcın yapamadığını yapar. Goblin tüccarlar Sunford meydanına tezgâh açar; oradaki hiçbir demircinin yapamayacağı mallarla.' },
+      'ransom': { 'label': 'Hazinesini al, tacını ona bırak.', 'result': 'Goblin altınıyla yüklü çıkarsın. Baskınlar yine başlayacak, ama bu Sunford’un sorunu. Sendika bunu onaylar.' }
+    },
+    'siege': {
+      'title': 'Oakhaven Kuşatması',
+      'intro': 'Bir savaş beyinin ordusu Oakhaven’ı sardı. O ordunun parasını Kül Sendikası ödedi. Kuşatmayı varoşlarda kır.',
+      'ask': 'İyi savaşıyorsun. Sendika o kasabanın vereceğinden çok daha iyi öder. Bu gece kapıyı bize aç, Oakhaven’ın üçte biri senin olsun.',
+      'defend': { 'label': 'Oakhaven’ı savun.', 'result': 'Kapı dayanır. Oakhaven onun ardında zenginleşir ve usta zırhçıları adını unutmaz. Kül Sendikası artık her yolda peşinde.' },
+      'betray': { 'label': 'Kapıyı Sendika’ya aç.', 'result': 'Oakhaven yanar. Yıkıntılarında bir kara borsa açılır ve yasak sanatları öğreten bir simyacı gelir. Zırhçılar gitti; Demir Tarikatı sana hain diyor.' }
+    },
+    'core': {
+      'title': 'Ironhold’un Kalbi',
+      'intro': 'Madenlerimizdeki golemleri bir eter çekirdeği yürütüyor. Üç güç onu istiyor ve her biri bana mektup yolladı. Ona ilk sen ulaşacaksın.',
+      'ask': 'Kolos artık hurda; çekirdek önünde açıkta duruyor ve uğulduyor. Dokununca sıcak. Ona ne olacak?',
+      'destroy': { 'label': 'Çekirdeği parçala.', 'result': 'Işık söner ve golemler oldukları yere yığılır. Demir Tarikatı teşekkür olarak kendi zırhçılarını Ironhold’a yollar.' },
+      'study': { 'label': 'İncelemesi için Çember’e ver.', 'result': 'Onu güvenle teslim edecek kadarını anlıyorsun. Bir mevsim geçmeden Ironhold ocakları kimsenin görmediği eter işleri çıkarır.' },
+      'sell': { 'label': 'Sendika’ya sat.', 'result': 'Bir servet el değiştirir. Çekirdek olmaması gereken bir yerde yanmayı sürdürür ve madenler bir daha asla sessiz olmaz.' }
+    },
+    'oracle': {
+      'title': 'Sulara Gömülü Kâhin',
+      'ask': 'Bu anı on bin kez gördüm. Yarısında beni özgür bırakıyorsun. Yarısında koruduğum şeyi alıyorsun. Seç ve bırak, sonunda ne olacağını bilmeyeyim.',
+      'free': { 'label': 'Zincirlerini kır.', 'result': 'Kâhin sudan yükselir ve kaybolur. Eter Çemberi senden iyi söz edecek ve Saatlerin Bekçisi öğretmek için kalır.' },
+      'slay': { 'label': 'Koruduğu kum saatini al.', 'result': 'Direnmez. Zaman Bekçisinin Kum Saati artık senin. Son öğrencisi tapınaktan kaçar ve Çember affetmez.' }
+    },
+    'dragon': {
+      'title': 'Hiçlik Ejderhası',
+      'ask': 'Yeter. Dişlerin var, küçük şey. Kaledeki iblis soyumu zincire vurdu. Onun yandığını görmek isterim. Beni öldür ya da bırak sana yardım edeyim.',
+      'slay': { 'label': 'Ejderhayı öldür.', 'result': 'Ejderha düşerken dağ sarsılır. Demir Tarikatı ejderha avcısının türküsünü söyler ve hazinesi senin olur.' },
+      'pact': { 'label': 'Baş İblis’e karşı anlaşma yap.', 'result': 'Bir ejderhayı ikna etmeyi pek az kişi başarırdı. Dehşet Kalesi’ne yürüdüğünde, o da üstündeki gökte olacak.' }
+    },
+    'throne': {
+      'title': 'Boş Taht',
+      'ask': 'Baş İblis öldü ve tahtı boş duruyor. Onu kim tutarsa kaleye, altındaki yarığa ve ikisinin ordularına hükmeder. Kapıda üç elçi bekliyor.',
+      'order': { 'label': 'Tahtı Demir Tarikatı’na ver.', 'result': 'Tarikat kaleye yerleşir ve mühürleyebildiğini mühürler. Diyar güvende olacak, ama ne yapacağı ona söylenecek.' },
+      'syndicate': { 'label': 'Tahtı Kül Sendikası’na ver.', 'result': 'Sendika şafaktan önce yerleşir. Artık her şey satılık, barış bile.' },
+      'circle': { 'label': 'Tahtı Eter Çemberi’ne ver.', 'result': 'Çember kaleyi bir yarığın üstünde okula çevirir. Onlar buna araştırma diyor. Geri kalan herkes an meselesi diyor.' },
+      'shatter': { 'label': 'Tahtı parçala.', 'result': 'Onu kendi ellerinle kırarsın. Buradan bir daha kimse hüküm sürmez. Elçiler tek söz etmeden gider.' },
+      'claim': { 'label': 'Tahta kendin otur.', 'result': 'Soğuk, ama tam sana göre. Üç hizip ortak bir düşmanı olduğunu anlar.' }
     }
   },
 
   'enemy': {
-    'echo': 'Usta Yankısı',
-    'gatekeeper': 'Kapı Bekçisi',
-    'warden': 'Muhafız',
-    'hornet': 'Pervaneli Eşek Arısı',
-    'stalker': 'Işıltı Avcısı',
-    'puffer': 'Balon Balığı Mayını',
-    'mole': 'Matkap Köstebek',
-    'polar': 'Kutup Yavrusu',
-    'hardhat': 'Baretli',
-    'trooper': 'Kalkanlı Asker',
-    'heli': 'Pervaneli Dron',
-    'hopper': 'Ezici',
-    'roller': 'Dişli Silindir',
-    'brute': 'Muhafız Droid',
-    'turret': 'Duvar Topu',
-    'golem': 'Sandık Golemi',
-    'elite': 'Elit',
-    'level': 'Sv {n}'
-  },
-
-  // Turkish keeps the noun singular after a numeral ("7 Baretli"), so both
-  // forms are the singular on purpose.
-  'enemyPlural': {
-    'echo': 'Usta Yankısı | Usta Yankısı',
-    'gatekeeper': 'Kapı Bekçisi | Kapı Bekçisi',
-    'warden': 'Muhafız | Muhafız',
-    'hornet': 'Pervaneli Eşek Arısı | Pervaneli Eşek Arısı',
-    'stalker': 'Işıltı Avcısı | Işıltı Avcısı',
-    'puffer': 'Balon Balığı Mayını | Balon Balığı Mayını',
-    'mole': 'Matkap Köstebek | Matkap Köstebek',
-    'polar': 'Kutup Yavrusu | Kutup Yavrusu',
-    'hardhat': 'Baretli | Baretli',
-    'trooper': 'Kalkanlı Asker | Kalkanlı Asker',
-    'heli': 'Pervaneli Dron | Pervaneli Dron',
-    'hopper': 'Ezici | Ezici',
-    'roller': 'Dişli Silindir | Dişli Silindir',
-    'brute': 'Muhafız Droid | Muhafız Droid',
-    'turret': 'Duvar Topu | Duvar Topu',
-    'golem': 'Sandık Golemi | Sandık Golemi'
-  },
-
-  'hud': {
-    'help': 'Kontrolleri göster',
-    'mute': 'Sesi kapat',
-    'unmute': 'Sesi aç',
-    'bossUnknown': 'Bilinmeyen boss',
-    'hp': 'Can',
-    'we': 'Silah enerjisi',
-    'power': 'Güç',
-    'bolts': 'Cıvata',
-    'level': 'Sv {n}',
-    'beamOut': 'Işınlan'
-  },
-
-  'boss': {
-    'rotorMaster': 'Pervane Ustası',
-    'neonMaster': 'Neon Ustası',
-    'tideMaster': 'Gelgit Ustası',
-    'drillMaster': 'Matkap Ustası',
-    'magnetMaster': 'Mıknatıs Ustası',
-    'stand': 'Hurdacı',
-    'scrapper': 'Hurdacı',
-    'blazeMaster': 'Alev Ustası',
-    'frostMaster': 'Ayaz Ustası',
-    'voltMaster': 'Volt Ustası',
-    'galeMaster': 'Fırtına Ustası',
-    'vexMk1': 'Dr. Vex Mk-I',
-    'grandMaster': 'Büyük Usta Bot'
-  },
-
-  'sector': {
-    'rotor': 'Pervane Uçuşu',
-    'neon': 'Karartma Bulvarı',
-    'tide': 'Gelgit Savakları',
-    'drill': 'Derin Maden',
-    'magnet': 'Kutupluluk Fabrikası',
-    'scrapyard': 'Hurdalık',
-    'blaze': 'Alev Rafinerisi',
-    'cryo': 'Kriyo Tesisi',
-    'volt': 'Volt Kulesi',
-    'gale': 'Gök Rıhtımı',
-    'fortress': 'Vex Kalesi'
-  },
-
-  'quest': {
-    'tutorial': 'Uyanma Vakti',
-    'boss': 'Çekirdek Ustası Hesaplaşması',
-    'bossTitle': 'Hesaplaşma: {boss}',
-    'kill': 'Hurda Mesaisi',
-    'collect': 'Veri Kurtarma',
-    'rescue': 'Kurtarma Operasyonu',
-    'elite': 'Elit Avı',
-    'supply': 'İkmal Turu',
-    'purge': 'Bölge Temizliği',
-    'climb': 'Kule Koşusu',
-    'stage': 'Platform Bölümü',
-    'stageName': { 'blaze': 'Erime İnişi', 'cryo': 'Buzul Koşusu', 'volt': 'Ray Hücumu', 'gale': 'Gök Rıhtımları', 'magnet': 'Kutupluluk Fabrikası', 'drill': 'Derin Maden', 'tide': 'Gelgit Savakları', 'neon': 'Karartma Bulvarı', 'rotor': 'Pervane Uçuşu', 'fortress': 'Vex Kalesi' },
-    'rematch': 'Rövanş: {boss}',
-    'desc': {
-      'tutorial': "Hurdalık'ta savaşarak ilerle ve Hurdacı'yı alt et.",
-      'boss': '{sector} bölgesinin çekirdeğine sız ve patronu yen: {boss}.',
-      'kill': '{sector} bölgesinde {n} {target} yok et.',
-      'collect': '{sector} bölgesine dağılmış {n} veri çekirdeğini kurtar.',
-      'rescue': '{sector} bölgesinde bir işçi robot mahsur kaldı. Onu bul ve güvenli bir yere ışınla.',
-      'elite': '{sector} bölgesinde elit bir {target} terör estiriyor. Onu avla.',
-      'supply': '{sector} bölgesinde {n} ikmal sandığını kırıp aç.',
-      'purge': '{sector} bölgesindeki tüm makineleri yok et.',
-      'climb': '{sector} bölgesindeki kuleye tırman — merdivenler, seyyar merdivenler, asansörler ve çukurlar — sonra arenaya in. Rövanş: {boss}.',
-      'stage': '{sector} bölgesinde koş, kay ve araca bin — çıkıntılar, çukurlar ve makineler — arenaya kadar ilerle. Rakip: {boss}.'
-    }
-  },
-  'objective': {
-    'title': 'Hedef',
-    'complete': 'Hedef tamamlandı',
-    'beamOutHint': 'Hazır olduğunda ışınlan.',
-    'tutorial': 'Patronu yen: {boss}',
-    'boss': 'Patronu yen: {boss}',
-    'kill': 'Yok edilen {target}: {n}/{total}',
-    'collect': 'Veri çekirdekleri: {n}/{total}',
-    'rescue': 'Mahsur kalan işçi robotu bul',
-    'elite': 'Elit {target} hedefini avla',
-    'supply': 'İkmal sandıkları: {n}/{total}',
-    'purge': 'Yok edilen makine: {n}/{total}',
-    'climb': 'Kuleye tırman, patronu yen: {boss}',
-    'stage': 'Arenaya ulaş, patronu yen: {boss}'
-  },
-  'mission': {
-    'bossDown': '{boss} yok edildi!',
-    'objectiveDone': 'Hedef tamamlandı!',
-    'rescued': 'İşçi robot güvenle ışınlandı!',
-    'bossDoor': 'Kepenk gıcırdayarak açılıyor…'
-  },
-  'interact': {
-    'chest': 'Aç',
-    'rescue': 'Kurtar',
-    'bossDoor': 'Gir'
-  },
-  'progress': {
-    'levelUp': 'Seviye {n}! Sistemler tamamen onarıldı.'
-  },
-  'tips': {
-    'moveTouch': 'Hareket için sol tarafı, bakmak için sağ tarafı sürükle. Oraya yürümek için zemine dokun!',
-    'moveKeys': 'Etrafta dolaşmak için {keys}.',
-    'lookMouse': 'Etrafa bakmak için fareyi hareket ettir.',
-    'capture': 'Kamerayı kontrol etmek için sahneye tıkla.',
-    'fireTouch': 'Önünde makineler var! Ateş etmek için dokun — şarjlı atış için basılı tut ve bırak.',
-    'fireKeys': 'Önünde makineler var! Ateş etmek için sol tıkla — şarjlı atış için basılı tut ve bırak.',
-    'charge': 'Kalkanlar mermileri durdurur. TAM şarjlı atış kalkanı delip geçer.',
-    'blockTouch': 'Turuncu halka: bloklamak için kalkanı basılı tut — halka kapanırken basarak SAVUŞTUR!',
-    'blockKeys': 'Turuncu halka: bloklamak için sağ fare tuşunu basılı tut — halka kapanırken basarak SAVUŞTUR!',
-    'red': 'Kırmızı halka bloklanamaz demek — kayarak yoldan çekil!',
-    'dodgeKeys': 'Kırmızı halka bloklanamaz demek — {slide} bas ve kayarak yoldan çekil!',
-    'spaceKey': 'Boşluk tuşuna',
-    'chest': 'Bir ikmal sandığı! Açmak için dokun.',
-    'tank': 'Canın mı azaldı? Tamir Jeli seni tamamen onarır.',
-    'weapon': 'Kopyaladığın silahı renkli düğmeden kullan!'
-  },
-  'lesson': {
-    'charge': 'Kol topunu şarj etmek için basılı tut, sonra bırak: eğitim dronunun kalkanını yalnızca şarjlı atış kırar.',
-    'crate': 'İkmal kasaları yalnızca şarjlı atışla kırılır. Basılı tut, sonra parlayan kasaya nişan alıp bırak.',
-    'weaponKeys': 'Kopyaladığın silahı ateşlemek için {n} tuşuna bas: tek atış üç dronu birden vurur.',
-    'weaponTouch': 'Parlayan silah düğmesine dokun: tek atış üç dronu birden vurur.',
-    'gelKeys': 'Tamir Jeli kullanmak için {key} tuşuna bas: seni tamamen onarır.',
-    'gelTouch': 'Yeşil Tamir Jeli düğmesine dokun: seni tamamen onarır.'
-  },
-  'walk': {
-    'finishLessonOn': '{weapon} dersini bitir',
-    'finishTutorial': 'Önce eğitimi bitir',
-    'finishLesson': 'Dersi tamamla'
-  },
-  'hubLesson': {
-    'earnBolts': 'Cıvata yetmiyor mu? Takviye için kısa bir video izle.',
-    'catchUp': 'Pip: Topun dışarıdaki makinelerin gerisinde kalıyor. Hadi onu geliştirelim!',
-    'workshop': 'Atölyeyi aç.',
-    'upgradeBuster': 'Kol topunu geliştirmek için cıvata harca: daha fazla hasar.',
-    'pickArmor': 'Şimdi göğüs zırhını seç.',
-    'upgradeArmor': 'Onu da geliştir: daha fazla savunma.',
-    'deploy': 'Her şey hazır — görevlere geri dön!',
-    'overload': 'Pip: Fırtına Ustası\'nın çekirdeği bana bir numara öğretti. Tam şarjı 3 saniye daha basılı tut: AŞIRI YÜK!'
-  },
-  'loot': {
-    'upgrade': 'Yükseltme!',
-    'found': '{rarity} {item} bulundu!',
-    'tank': 'Tamir Jeli bulundu!',
-    'giftTank': 'Hediye: +1 Tamir Jeli!'
+    'goblin': 'Goblin',
+    'goblinSlinger': 'Sapancı Goblin',
+    'bandit': 'Haydut',
+    'banditArcher': 'Okçu Haydut',
+    'wolf': 'Kurt',
+    'banditChief': 'Haydut Reisi',
+    'goblinKing': 'Goblin Kralı',
+    'treant': 'Ağaç Adam',
+    'spider': 'Dev Örümcek',
+    'broodSpider': 'Yavru Örümcek',
+    'outlawCaptain': 'Kanun Kaçağı Reisi',
+    'elderTreant': 'Kadim Ağaç Adam',
+    'warlord': 'Savaş Beyi Krag',
+    'fireElemental': 'Ateş Elementali',
+    'ironGolem': 'Demir Golem',
+    'cultist': 'Kültçü',
+    'emberLord': 'Kor Lordu',
+    'ironColossus': 'Demir Kolos',
+    'frostGiant': 'Ayaz Devi',
+    'naga': 'Naga',
+    'skeleton': 'İskelet',
+    'necromancer': 'Ölü Çağıran',
+    'frostJarl': 'Ayaz Beyi',
+    'nagaOracle': 'Sulara Gömülü Kâhin',
+    'voidStalker': 'Hiçlik Avcısı',
+    'wyvern': 'Wyvern',
+    'highDemon': 'Yüce İblis',
+    'voidWarden': 'Hiçlik Muhafızı',
+    'voidDragon': 'Hiçlik Ejderhası',
+    'doomKnight': 'Kıyamet Şövalyesi',
+    'imp': 'İblis Yavrusu',
+    'archDemon': 'Baş İblis',
+    'voidling': 'Hiçlik Yavrusu',
+    'voidLord': 'Hiçlik Lordu',
+    'orderGuard': 'Tarikat Engizitörü',
+    'syndicateBlade': 'Sendika Bıçağı'
   },
 
   'results': {
-    'success': 'GÖREV TAMAMLANDI',
-    'failed': 'GÖREV BAŞARISIZ',
+    'victory': 'Zafer!',
+    'defeat': 'Yenildin',
+    'retreat': 'Geri çekildin',
+    'firstClear': 'İlk kez temizlendi!',
+    'waves': 'Atlatılan dalga: {n}',
+    'levelUp': 'Seviye {n}!',
+    'points': '+{n} nitelik puanı',
     'xp': 'Deneyim',
-    'bolts': 'Cıvata',
-    'kills': 'Yok edilen makine',
-    'chests': 'Açılan sandık',
+    'gold': 'Altın',
+    'lost': 'Düşürülen',
+    'kills': 'Yenilen',
     'time': 'Süre',
-    'levelUp': 'Seviye atladın! Artık seviye {n}',
-    'newWeapon': 'Yeni silah: {weapon}!',
-    'newSector': 'Yeni bölge açıldı: {sector}',
-    'items': 'Bulunan ekipman',
-    'triple': 'Üç kat cıvata',
-    'tripleAria': 'Kısa bir video izle: cıvatalarını üç katına çıkar, +{n}'
-  },
-  'defeat': {
-    'title': 'SİSTEM ÇÖKTÜ',
-    'body': 'Flux çok fazla hasar aldı.',
-    'kept': 'Şu ana kadar kazandıkların sende kalıyor:',
-    'useTank': 'Tamir Jeli kullan ({n})',
-    'rebootAd': 'Hemen yeniden başlat',
-    'retreat': 'Laboratuvara çekil',
-    'retryCheckpoint': 'Kontrol noktasından dene'
-  },
-  'banner': {
-    'cleared': 'Bölüm tamamlandı',
-    'bossDown': 'Düşman yenildi!',
-    'gameOver': 'Oyun bitti!',
-    'grandMaster': 'Büyük Usta!'
+    'unlocked': 'Haritada yeni: {places}',
+    'retry': 'Tekrar dene',
+    'tip': 'Deneyim ve ganimet sende kalır. Puanlarını harca, bir eğitmene uğra ve daha güçlü dön.'
   },
   'pause': {
-    'title': 'DURAKLATILDI',
-    'resume': 'Devam et',
-    'abandon': 'Görevi bırak',
+    'title': 'Duraklatıldı',
+    'resume': 'Sürdür',
     'controls': 'Kontroller',
-    'label': {
-      'move': 'Hareket',
-      'look': 'Bakış',
-      'parry': 'Savuşturma',
-      'interact': 'Etkileşim'
-    },
-    'touch': {
-      'move': 'Sol taraf: hareket için sürükle. Oraya yürümek için zemine dokun.',
-      'fire': 'Çatışmada: ateş için dokun, şarj için basılı tut, atış için bırak.',
-      'block': 'Bloklamak için kalkanı basılı tut — savuşturmak için halka kapanırken bas.',
-      'use': 'Bir sandık, mahsur kalan bir robot ya da kapının yanında: ona ya da beliren düğmeye dokun.'
-    },
-    'keys': {
-      'move': '{keys} / oklar: hareket.',
-      'look': 'Bakmak için fareyi hareket ettir. Kamerayı kontrol etmek için sahneye tıkla.',
-      'fire': 'Sol tık: ateş — şarj için basılı tut, ateşlemek için bırak.',
-      'block': 'Sağ tık: blok — savuşturmak için halka kapanırken bas.',
-      'slide': '{slide}: kayma · {tank}: Tamir Jeli · {use}: etkileşim · {beam}: ışınlan',
-      'more': '{w1} / {w2}: özel silahlar · {target}: hedef değiştir · Esc: duraklat',
-      'space': 'Boşluk',
-      'press': '{key}: {action}'
+    'retreat': 'Haritaya çekil',
+    'retreatNote': 'Şimdiye dek kazandığın her şey sende kalır, ama bölge temizlenmiş sayılmaz.'
+  },
+  'ending': {
+    'level': 'Seviye',
+    'more': 'Kalenin altında Hiçlik Yarığı açıldı. Kolezyum hâlâ her geleni kabul ediyor.',
+    'order': { 'title': 'Demir Barış', 'text': 'Dehşet Kalesi’nin üstünde Demir Tarikatı’nın sancakları dalgalanıyor. Yollar güvenli, yasalar çok ve adın kapının üstüne kazındı.' },
+    'syndicate': { 'title': 'Kül Pazarlığı', 'text': 'Sendika, kalenin gölgelerinden hüküm sürüyor. Diyarda artık hiçbir şey yasak değil. Sadece pahalı.' },
+    'circle': { 'title': 'Eter Çağı', 'text': 'Çember kaleyi ele geçirilmiş hiçlik ateşiyle aydınlatıyor. Kapılarından harikalar dökülüyor ve kimse bedelini sormuyor.' },
+    'free': { 'title': 'Kralsız', 'text': 'Taht paramparça, kale bomboş. Bir çağdır ilk kez diyar, içinde yaşayanlara ait.' },
+    'unbound': { 'title': 'Zincirsiz', 'text': 'Tahtı sen aldın. Tarikat, Sendika ve Çember hep birlikte üstüne yürüyor. Gelsinler.' },
+    'note': {
+      'goblinPact': 'Goblin tüccarlar hâlâ Sunford meydanında pazarlık ediyor.',
+      'goblinSlain': 'Oyuklar bomboş ve kervanlar vaktinde varıyor.',
+      'goblinRansom': 'Goblin Kralı yine zengin ve yine yağmada.',
+      'oakhavenSaved': 'Oakhaven’ın surları artık daha yüksek, pazarları daha dolu.',
+      'oakhavenFallen': 'Oakhaven sokaklarını ot bürüdü. Kara borsa ise gelişiyor.',
+      'coreOrder': 'Ironhold madenleri sessiz ve cüceler yeniden kazıyor.',
+      'coreCircle': 'Ironhold ocakları mavi parlıyor; silahları diyarın en iyisi.',
+      'coreSold': 'Bir yerlerde çekirdek hâlâ uğulduyor. Golemler hâlâ yürüyor.',
+      'oracleFreed': 'Sakin günlerde balıkçılar kâhini açık sularda görüyor.',
+      'oracleSlain': 'Batık Tapınak sessiz. Artık kimse sonra ne olacağını bilmiyor.',
+      'dragonPact': 'Kalenin çatısında bir ejderha yuva kurdu ve yalnızca tek bir isme cevap veriyor.',
+      'dragonSlain': 'Tarikat’ın büyük salonunda bir ejderha kafatası asılı.'
     }
-  },
-  'levelUp': {
-    'title': 'SEVİYE ATLADIN!',
-    'pick': 'Bir sistem geliştirmesi seç',
-    'chip': 'Devrelerin için +1 Yetenek Çipi',
-    'granted': '{stat} {from} değerinden {to} değerine yükseldi'
-  },
-  'attr': {
-    'hp': { 'name': 'Gövde', 'desc': 'Maks. can' },
-    'we': { 'name': 'Reaktör', 'desc': 'Silah enerjisi' },
-    'power': { 'name': 'Servolar', 'desc': 'Blok ve kayma gücü' }
-  },
-
-  'hub': {
-    'tab': {
-      'missions': 'Görevler',
-      'hero': 'Flux',
-      'circuits': 'Devreler',
-      'workshop': 'Atölye'
-    },
-    'heroTabAria': 'Flux, savaş androidin',
-    'levelUpReady': 'Seviye atladın!',
-    'levels': 'Sv {a}–{b}',
-    'story': 'Hikâye görevi',
-    'jobs': 'İşler',
-    'jobsHint': 'Tekrarlanabilir — bitirdikçe yenileri gelir',
-    'lockedHint': 'Bu bölgeyi açmak için {boss} yenilmeli.',
-    'sectorSecured': 'Bölge güvende. İşleri hâlâ panoda.',
-    'deploy': 'Yola çık',
-    'reroll': 'Yeni iş',
-    'gift': {
-      'name': 'Yol için jel',
-      'desc': 'Kısa bir video izle: sonraki görevin için +1 Tamir Jeli, sınırını aşsa bile.',
-      'aria': 'Sonraki görevde fazladan bir Tamir Jeli için kısa bir video izle',
-      'ready': 'Hediye hazır!',
-      'readyDesc': 'Sonraki görevin için +1 Tamir Jeli.'
-    },
-    'unlock': {
-      'hint': 'Açmak için {n} görev daha tamamla',
-      'aria': '{name}, kilitli: {n} görev daha tamamla'
-    }
-  },
-  'hero': {
-    'role': 'Savaş androidin',
-    'weapons': 'Özel silahlar',
-    'weaponSlot': 'Yuva {n}',
-    'weaponRank': 'Kademe {n}',
-    'noWeapons': 'Silahlarını kopyalamak için Çekirdek Ustalarını yen.',
-    'attrPending': '{n} sistem geliştirmesi seç!',
-    'stats': 'Sistemler',
-    'attributes': 'Geliştirmeler',
-    'stat': {
-      'hp': 'Maks. can',
-      'we': 'Silah enerjisi',
-      'power': 'Güç',
-      'damage': 'Mermi hasarı',
-      'charge': 'Şarjlı atış',
-      'armor': 'Zırh',
-      'crit': 'Kritik şansı',
-      'tanks': 'Tamir Jelleri'
-    }
-  },
-  'workshop': {
-    'upgradeAdDesc': 'En iyi topun için iki geliştirmeye yetecek cıvata.',
-    'upgradeAdName': 'Geliştirme Desteği',
-    'tanks': 'İkmal',
-    'tankName': 'Tamir Jeli',
-    'tankDesc': 'Görev sırasında canı ve gücü tamamen yeniler.',
-    'owned': 'Taşınan: {n}/{max}',
-    'upgrade': 'Ekipmanı geliştir',
-    'next': 'Sonraki seviye',
-    'upgradeBtn': 'Geliştir',
-    'maxed': 'Tamamen geliştirildi',
-    'dropName': 'İkmal',
-    'dropDesc': 'Laboratuvardan doğrudan ışınlanan bir kasa yedek cıvata.',
-    'dropAria': 'Kısa bir video izle, {n} cıvata kazan',
-    'dropCooldown': 'Sonraki ikmal: {t}'
-  },
-
-  'board': {
-    'buster': 'Kol Topu',
-    'armor': 'Zırh',
-    'core': 'Çekirdek'
-  },
-  'circuits': {
-    'chips': 'Yetenek Çipi: {n}',
-    'rank': 'Kademe {n}/{max}',
-    'requires': 'Gerekli: {name} kademe {n}',
-    'install': 'Çipi tak',
-    'maxed': 'Tam güç',
-    'respec': 'Devreleri sıfırla',
-    'requiresBoss': 'Önce yenilmeli: {name}',
-    'unlock': 'Kilidi aç'
-  },
-  'skill': {
-    'rapid': { 'name': 'Seri Mermi', 'desc': 'Hızlı atış hasarı çip başına +%10.' },
-    'quickCharge': { 'name': 'Hızlı Şarj', 'desc': 'Şarj süresi çip başına −%10.' },
-    'megaCharge': { 'name': 'Mega Şarj', 'desc': 'Şarjlı atış hasarı çip başına +%12.' },
-    'perfectTiming': { 'name': 'Kusursuz Zamanlama', 'desc': 'Daha geniş kusursuz bırakma aralığı ve daha güçlü kritikler.' },
-    'piercing': { 'name': 'Delici Çekirdek', 'desc': 'Yarı şarjlı atışlar da kalkanları ve kaskları kırar.' },
-    'giga': { 'name': 'Aşırı Yük', 'desc': 'Tam şarjı 3 saniye daha basılı tut: atış 1,75× daha sert vurur.' },
-    'frame': { 'name': 'Güçlendirilmiş Gövde', 'desc': 'Maks. can çip başına +%8.' },
-    'barrier': { 'name': 'Bariyer Ayarı', 'desc': 'Bloklamak daha az güç harcar ve daha az hasar geçirir.' },
-    'autoRepair': { 'name': 'Otomatik Onarım', 'desc': 'Çatışma dışında, çip başına saniyede %1 can yeniler.' },
-    'parry': { 'name': 'Savuşturma Protokolü', 'desc': 'Daha geniş savuşturma aralığı; savuşturulan makineler daha uzun süre sersem kalır.' },
-    'spikes': { 'name': 'Dikenli Kaplama', 'desc': "Bloklanan hasarın %15'ini çip başına geri yansıtır." },
-    'lastStand': { 'name': 'Son Direniş', 'desc': 'Görev başına bir kez, ölümcül bir darbeden 1 canla kurtul.' },
-    'cells': { 'name': 'Enerji Hücreleri', 'desc': 'Silah enerjisi çip başına +3.' },
-    'mastery': { 'name': 'Silah Ustalığı', 'desc': 'Özel silah hasarı çip başına +%10.' },
-    'boosters': { 'name': 'Kayma İticileri', 'desc': 'Daha kısa kayma bekleme süresi, daha ucuz kaymalar.' },
-    'efficient': { 'name': 'Verimli Çekirdekler', 'desc': 'Özel silahlar çip başına %10 daha az enerji harcar.' },
-    'magnet': { 'name': 'Cıvata Mıknatısı', 'desc': 'Daha çok cıvata ve daha uzun toplama menzili.' },
-    'tankCap': { 'name': 'Jel Kapasitesi', 'desc': 'Çip başına bir Tamir Jeli daha taşı.' }
-  },
-
-  'rarity': {
-    'standard': 'Standart',
-    'tuned': 'Modifiyeli',
-    'prototype': 'Prototip',
-    'legendary': 'Efsanevi'
-  },
-  'item': {
-    'arm_standard': 'Standart Top',
-    'arm_rapid': 'Seri Top',
-    'arm_heavy': 'Ağır Top',
-    'arm_quick': 'Hızlı Şarj Topu',
-    'arm_nova': 'Nova Topu',
-    'helm_scout': 'Keşif Kaskı',
-    'helm_guard': 'Muhafız Kaskı',
-    'helm_ace': 'As Kaskı',
-    'helm_royal': 'Kraliyet Kaskı',
-    'body_light': 'Hafif Gövde',
-    'body_plated': 'Zırhlı Gövde',
-    'body_reactor': 'Reaktör Gövde',
-    'body_aegis': 'Aegis Gövde',
-    'boots_basic': 'Temel Botlar',
-    'boots_dash': 'Atılma Botları',
-    'boots_magnet': 'Mıknatıslı Botlar',
-    'boots_titan': 'Titan Botları',
-    'chip_logic': 'Mantık Çipi',
-    'chip_quantum': 'Kuantum Çipi'
-  },
-  'slot': {
-    'buster': 'Kol Topu',
-    'helmet': 'Kask',
-    'chest': 'Gövde',
-    'boots': 'Botlar',
-    'chip': 'Çip'
-  },
-  'gear': {
-    'damage': 'Hasar',
-    'armor': 'Zırh',
-    'equip': 'Kuşan',
-    'unequip': 'Çıkar',
-    'equipped': 'Takılı',
-    'new': 'YENİ',
-    'salvage': 'Sök',
-    'noAffixes': 'Bonus modül yok',
-    'emptySlot': 'Bu yuva için henüz bir şey yok — sandıkları aç, işleri bitir.'
-  },
-  'affix': {
-    'damage': '{v} hasar',
-    'crit': '{v} kritik şansı',
-    'critDmg': '{v} kritik hasar',
-    'hp': '{v} maks. can',
-    'armor': '{v} zırh',
-    'we': '{v} silah enerjisi',
-    'power': '{v} güç',
-    'bolts': '{v} bulunan cıvata',
-    'chargeSpeed': '{v} şarj hızı',
-    'pelletDmg': '{v} mermi hasarı',
-    'chargeDmg': '{v} şarjlı atış hasarı',
-    'moveSpeed': '{v} hareket hızı',
-    'special': '{v} özel silah hasarı',
-    'regen': '{v} can yenilenmesi / sn (çatışma dışında)',
-    'magnet': '{v} toplama menzili'
-  },
-  'weapon': {
-    'rankUp': '{weapon} geliştirildi: kademe {n}!',
-    'scrapBurst': { 'name': 'Hurda Patlaması', 'desc': 'Üç yöne hurda saçar. Kalabalıklara karşı harika.' },
-    'flameWave': { 'name': 'Alev Dalgası', 'desc': 'Bir ateş topu yerde yuvarlanarak yolundaki her makineyi delip geçer ve onları tutuşturur.' },
-    'iceLance': { 'name': 'Buz Mızrağı', 'desc': 'Vurduğu şeyi soğutup yavaşlatan delici bir mızrak.' },
-    'thunderArc': { 'name': 'Yıldırım Arkı', 'desc': 'Yakındaki makinelere sıçrayan anlık bir yıldırım.' },
-    'galeGuard': { 'name': 'Fırtına Kalkanı', 'desc': 'Yapraklar etrafında döner, atışları engeller ve makineleri keser. Fırlatmak için tekrar kullan.' },
-    'magnetPull': { 'name': 'Mıknatıs Çekimi', 'desc': 'Kalkanları ve kabukları kıran, uçanları havadan söküp alan güdümlü bir at nalı.' },
-    'drillBomb': { 'name': 'Matkap Bombası', 'desc': 'Durduğu yerde patlayıp etraftaki her makineyi vuran delici bir bomba. Çatlak kayayı kırar.' },
-    'bubbleLance': { 'name': 'Kabarcık Mızrağı', 'desc': 'Kocaman bir kabarcık yerde yuvarlanır ve yolundaki her makineyi delip geçerek patlar.' },
-    'neonBlade': { 'name': 'Neon Bıçağı', 'desc': 'Bumerang gibi fırlatılan bir ışık bıçağı: giderken de dönerken de keser.' },
-    'droneSwarm': { 'name': 'Dron Sürüsü', 'desc': 'Üç küçük dron üç makineyi bulur, her siperin etrafından dolaşır.' }
   },
 
   'options': {
-    'killCams': 'Öldürme kamerası',
     'gameplay': 'Oynanış',
     'title': 'Seçenekler',
     'general': 'Genel',
@@ -505,16 +612,16 @@ export default {
     'difficulty': 'Zorluk',
     'soundEffects': 'Ses Efektleri',
     'music': 'Müzik',
-    'musicTrack': 'Müzik Parçası',
+    'mute': 'Sessiz',
+    'musicTrack': 'Müzik',
     'musicTracks': {
-      'cozy': 'Sakin Devreler',
-      'trance': 'Overdrive'
+      'cozy': 'Sakin',
+      'trance': 'Macera'
     },
     'haptics': 'Titreşim',
     'on': 'Açık',
     'off': 'Kapalı',
     'close': 'Kapat',
-    'replayIntro': 'İntroyu tekrar izle',
     'keyboard': {
       'auto': 'Klavye düzenini algıla',
       'layout': 'Klavye düzeni',
@@ -524,45 +631,45 @@ export default {
       'reset': 'Tuşları sıfırla'
     },
     'actions': {
-      'forward': 'İleri',
-      'back': 'Geri',
-      'left': 'Sola kay',
-      'right': 'Sağa kay',
-      'turnLeft': 'Sola dön',
-      'turnRight': 'Sağa dön',
-      'slide': 'Kayma',
-      'block': 'Blok',
-      'interact': 'Etkileşim',
-      'beam': 'Işınlan',
-      'tank': 'Onarım jeli',
-      'weapon1': 'Özel silah 1',
-      'weapon2': 'Özel silah 2',
-      'weapon3': 'Ödünç silah',
-      'target': 'Hedef değiştir',
-      'map': 'Harita'
+      'up': 'Yukarı git',
+      'down': 'Aşağı git',
+      'left': 'Sola git',
+      'right': 'Sağa git',
+      'skill1': 'Yetenek 1',
+      'skill2': 'Yetenek 2',
+      'skill3': 'Yetenek 3',
+      'skill4': 'Yetenek 4',
+      'skill5': 'Yetenek 5',
+      'skill6': 'Yetenek 6',
+      'potion': 'İksir iç',
+      'interact': 'Konuş',
+      'target': 'Sonraki hedef',
+      'map': 'Dünya haritası',
+      'character': 'Kahraman',
+      'inventory': 'Çanta',
+      'skills': 'Yetenekler'
     },
-    'lookSensitivity': 'Kamera Hassasiyeti',
     'difficulties': {
       'easy': 'Kolay',
       'medium': 'Orta',
       'hard': 'Zor'
     },
     'difficultyHints': {
-      'easy': 'Makineler daha hafif vurur ve daha çabuk düşer.',
+      'easy': 'Düşmanlar daha hafif vurur ve daha çabuk düşer.',
       'medium': 'Oyunun tasarlandığı zorluk.',
-      'hard': 'Daha sert vuran, daha dayanıklı makineler.'
+      'hard': 'Daha sert vuran, daha dayanıklı düşmanlar.'
     }
   },
   'adsBlocked': {
     'title': 'Reklam gösterilemedi',
-    'body': 'Ödülünü kazanabilmen için bir video göstermek istedik ama tarayıcındaki bir şey reklamları engelliyor.',
+    'body': 'Sana bir video göstermek istedik ama tarayıcındaki bir şey reklamları engelliyor.',
     'allowPrefix': 'Lütfen şu adreste reklamlara izin ver:',
     'allowSuffix': '(veya bu oyun için reklam engelleyiciyi duraklat) ve tekrar dene.',
     'gotIt': 'Anladım'
   },
   'saveStatus': {
     'restoredTitle': 'Bulut kaydı geri yüklendi',
-    'restoredBody': 'Kurtarma için +{n} bonus cıvata',
+    'restoredBody': 'Kurtarma için +{n} bonus altın',
     'tap': 'dokun',
     'pausedTitle': 'Bulut eşitlemesi duraklatıldı',
     'pausedBody': 'Çevrimdışı oynuyorsun. İlerlemen burada kaydediliyor.',
@@ -588,483 +695,5 @@ export default {
     'yourRank': '{total} oyuncu içinde #{n}. sıradasın',
     'of': '/ {n} oyuncu',
     'tabGlobal': 'Dünya'
-  },
-
-  'story': {
-    'intro': {
-      'coldOpen': "Flux, Cyber City'nin neon sokaklarında azgın makinelerle savaşıyor.",
-      'valley': 'Cyber City: ışık hüzmeleriyle birbirine bağlı, parlak bir android şehri. Dr. Vex kırmızı bir sinyalle makinelerini ele geçiriyor.',
-      'lab': "Sinyal, Prof. Gauss'un laboratuvarına ulaşıyor. Gauss, Flux'a Atlas diskini veriyor ve onu uyandırıyor.",
-      'safeMode': 'Gauss sinyali dışarıda tutmak için kendini bir kapsülde donduruyor. Hâlâ hayatta.',
-      'wakeUp': "Flux, Atlas çevrimiçiyken seviye 1'de uyanıyor. Vex Kalesi çok daha güçlü, bu yüzden önce Hurdalık.",
-      'beam': "Flux, Hurdalık'a ışınlanıyor."
-    },
-    'vex': {
-      'diagnosis': 'Teşhis: bu vadi HASTA. Tedavi… BENİM!'
-    },
-    'atlas': {
-      'logStart': 'Kayıt başladı.',
-      'goodMorning': 'Çekirdek çevrimiçi. Günaydın, Flux.',
-      'scrapyardFirst': 'Önce Hurdalık. Her seferinde bir röle.'
-    }
-  },
-  'atlas': {
-    'boss': {
-      'signalFirst': 'Çekirdek Ustası sinyali. Epey… büyük.',
-    },
-    'sector': {
-      'blaze': 'Rafineri. Burası sıcak. Püskürtücülere dikkat.',
-      'cryo': 'Soğutucu yokuş yukarı akıyor. Kaleye doğru.',
-      'gale': 'Bedeni için her parça buradan geçiyor.',
-      'magnet': 'Bir dökümhane. Pençe döküyor.',
-      'drill': 'Zırhı için cevher. Tam buradan çıkıyor.',
-      'tide': 'Şimdi de mavnalar. Vex başka yol buldu.',
-      'neon': "Işıklar sönük. Vex'in yüzü hariç.",
-      'rotor': 'Dronlar. Son ikmal hattı.',
-    },
-    'fortress': {
-      'bays': 'Yarım kalmış. Senin eserin.',
-    },
-    'warn': {
-      'boss': 'İleride Çekirdek Ustası.',
-      'gelFirst': 'Zırh çatlıyor. Jel kullan.',
-      'gel': 'Jel.',
-      'criticalFirst': 'Kritik! Geri çekil!',
-      'critical': 'Kritik!',
-      'noGel': 'Jel kalmadı. Riske girme.',
-      'weLow': 'Silah enerjisi az. Kol topu bedava.',
-      'weEmpty': 'Depo kurudu.',
-      'borrowedLast': {
-        'scrapBurst': '{weapon}: son atış.',
-        'flameWave': '{weapon}: son atış.',
-        'iceLance': '{weapon}: son atış.',
-        'thunderArc': '{weapon}: son atış.',
-        'galeGuard': '{weapon}: son atış.',
-        'magnetPull': '{weapon}: son atış.',
-        'drillBomb': '{weapon}: son atış.',
-        'bubbleLance': '{weapon}: son atış.',
-        'neonBlade': '{weapon}: son atış.',
-        'droneSwarm': '{weapon}: son atış.',
-      },
-      'flame': 'Püskürtücüler. Bekle… ya da kay.',
-      'blade': 'Bıçak. Hemen ardından geç.',
-      'crusher': 'Pres. Lambayı izle.',
-      'ladder': 'Merdiven. Duvara doğru it.',
-      'pit': 'Derin çukur. Asansörü kolla.',
-      'down': 'Yeniden başlatılıyor… Pip yanında.',
-    },
-    'scan': {
-      'hardhat': '{enemy}. Başını çıkarınca vur.',
-      'trooper': 'Kalkan. Şarjlı atışla del.',
-      'heli': '{enemy}. Yukarı bak.',
-      'hopper': '{enemy}. Halkadan çık.',
-      'roller': '{enemy}. Yana kaç.',
-      'brute': '{enemy}. Savuştur, sonra vur.',
-      'turret': '{enemy}. Durma, hareket et.',
-      'golem': 'O sandık nefes alıyor. Yaklaş.',
-      'polar': '{enemy}. Kırmızı açılınca vur.',
-      'warden': '{enemy}. Açılınca çekirdeğe vur.',
-      'hornet': '{enemy}. Dümdüz dalar: yana kaç!',
-      'stalker': '{enemy}. Atılışını savuştur.',
-      'puffer': '{enemy}. Şişmeden patlat.',
-      'mole': '{enemy}. Yüzeye çıkınca vur.',
-      'elite': 'Altın halka. Elit. Dikkatli ol.',
-      'fire': 'Ateş kaplı. Ateş işlemez.',
-      'ice': 'Buz kaplı. Buz işlemez.',
-      'volt': 'Elektrik kaplı. Elektrik işlemez.',
-      'wind': 'Rüzgâr kaplı. Rüzgâr işlemez.',
-    },
-    'volt': {
-      'hack': 'Flux… içimde bir şey va—',
-      'thanks': '…Onu dışarıda tuttun. Teşekkür ederim.',
-    },
-    'mk1': {
-      'intro': 'Bu Vex. Gerçeği.',
-      'fire': 'Ateş!',
-      'ice': 'Buz!',
-      'volt': 'Elektrik!',
-      'wind': 'Rüzgâr!',
-      'scrap': 'Hurda!',
-      'free': 'Çünkü onlar özgür.',
-    },
-    'guardDown': 'Bekçi düştü! Yol açık.',
-    'help': {
-      'weapon': 'Yeni silahını seç ve dronlara ateş et!',
-      'gap': 'Kenara doğru dümdüz yürü, otomatik olarak atlarsın!',
-      'gel': 'İyileşmek için bir Tamir Jeli kullan!',
-      'slide': 'Kırmızı halka sana ulaşmadan hemen önce kay!',
-      'block': 'O ateş ederken blokla tuşunu basılı tut. Tam vurduğu an mükemmeldir!',
-      'charge': 'Kol topu parlayana kadar ateşi basılı tut, sonra bırak!',
-    },
-    'train': {
-      'weapon': 'Yeni silahını çalıştıralım!',
-      'gap': 'Boşlukların üzerinden atlamayı çalıştıralım!',
-      'gel': "Tamir Jeli'ni çalıştıralım!",
-      'slide': 'Kaymayı çalıştıralım!',
-      'block': "Mükemmel Blok'u çalıştıralım!",
-      'charge': 'Şarjlı atışı çalıştıralım!',
-    },
-    'hint': {
-      'locator': 'Hedef o tarafta.',
-      'rescue': 'İşçi robot sinyali. Zayıf. Yakın.',
-      'upgrade': 'Bu bir yükseltme.',
-      'levelUp': 'Yeni çip derlendi.',
-      'done': 'Tamam. Hazır olunca dronu çağır.',
-      'underLevel': 'Senden güçlüler. Önce antrenman yap.',
-      'floor': {
-        'blaze': '{sector}: seviye 3 ve üstü.',
-        'cryo': '{sector}: seviye 6 ve üstü.',
-        'volt': '{sector}: seviye 9 ve üstü.',
-        'gale': '{sector}: seviye 13 ve üstü.',
-        'magnet': '{sector}: seviye 16 ve üstü.',
-        'drill': '{sector}: seviye 19 ve üstü.',
-        'tide': '{sector}: seviye 22 ve üstü.',
-        'neon': '{sector}: seviye 25 ve üstü.',
-        'rotor': '{sector}: seviye 28 ve üstü.',
-        'fortress': '{sector}: seviye 31 ve üstü.',
-      },
-      'rotor': {
-        'arrive': 'İndik. İn bakalım!',
-        'dip': 'Sıkı tutun, dalışa geçiyoruz!',
-        'board': 'Herkes binsin! Ben uçarım, sen ateş et.',
-      },
-      'neon': {
-        'kick': 'Duvara dön ve kay. Bir daha! Duvardan sekip yukarı!',
-        'switch': 'Bir ışık düğmesi! Köprüleri değiştirmek için vur.',
-        'blink': 'Işık köprüleri yanıp sönüyor! Parlarken geç.',
-        'blackout': 'Elektrik gidiyor! Işıklar gelince geç.'
-      },
-      'tide': {
-        'deep': 'Çok derin! Sudan çık!',
-        'valve': 'Su basmış savak! Boşaltmak için vanayı vur.',
-        'rise': 'Sular yükseliyor. Basamaklara çık!',
-        'wade': 'Su! İçinde yürümek seni yavaşlatır.',
-      },
-      'drill': {
-        'drop': 'Kaya düşüyor! Gölgelerden çık.',
-        'rock': 'Çatlak kaya! Tam şarjlı atış onu kırar.',
-        'board': 'Maden arabası yola çıktı! Ben sürerim, sen köstebekleri vur.',
-        'dip': 'Dik iniş! Sıkı tutun!',
-        'arrive': 'Son durak. Atla bakalım!'
-      },
-      'magnet': {
-        'panel': 'Şu kırmızı-mavi plakayı gördün mü? Rayı ters çevirmek için ona ateş et.',
-        'rail': 'Mıknatıslı ray! Oklar çekimi gösteriyor. Zorla geç ya da akışa kapıl.',
-      },
-      'blaze': {
-        // Meltdown Descent (blaze stage)
-        'lava': 'Aşağıdaki lav. Metalin üstünde kal.',
-        'leap': 'Yürümek için çok geniş. Kenardan kay, karşıya geçersin.',
-        'vents': 'Önce tıslama, sonra ateş. Kükremeyi bekle, sonra geç.',
-        'barrels': 'Variller! Lambalara bak, aralarından geç.',
-        'hammers': 'Demirci çekiçleri. Ritmi say, sonra koş.',
-        'drop': 'Uzun bir iniş. Her seferinde bir çıkıntı.'
-      },
-      'cryo': {
-        // Glacier Run (cryo stage)
-        'ice': 'Buz! Kolu bırakırsan kaymaya devam edersin.',
-        'spikes': 'O buzun altında dikenler var. Düz yürü, keskin dönüş yok.',
-        'frost': 'Buz püskürtücü. Önce parlar ve tıslar. Sessizleşince geç.',
-        'icicles': 'Yerde gölgeler mi? Buz sarkıtları. Halkadan çık!',
-        'pillar': 'Şu sütun çatlak. Ateş et, işte sana kestirme.',
-        'stairs': 'Buzlu merdiven. Yavaş ol, sahanlık küçük.'
-      },
-      'volt': {
-        // Rail Rush (volt stage)
-        'panels': 'Bu paneller atıyor. Karanlık sırada bekle, sonra ilerle.',
-        'board': 'Kumandayı bırak — ben sürerim, sen ateş et.',
-        'wave': 'Önde dronlar var! Dalış yapmadan vur onları.',
-        'dip': 'Büyük iniş geliyor. Sıkı tutun — ateşe devam!',
-        'arrive': 'Son durak. İn bakalım!'
-      },
-      'gale': {
-        // Sky Docks (gale stage)
-        'leap': 'Yürümek için çok geniş. Kenardan kay, hızın seni taşır.',
-        'down': 'Güzel sıçrayış. Şimdi aşağı bakma.',
-        'shuttle': 'Mekikler. Yanaşınca bin, öbür tarafta in.',
-        'wind': 'Rüzgâr dinene kadar bekle, sonra ilerle. Ya da bir sütunun arkasına saklan.',
-        'bob': 'Salınan platformlar. Aşağıda bin, seni yukarı taşısın.'
-      },
-      'vex': {
-        'roof': 'Yıldırım! Halka yanınca kaç!',
-        'fall': 'Çatı çöküyor!',
-        'core': 'Çekirdeğe iniyoruz! Düşme sakın!'
-      },
-      'gm': {
-        'button': 'Vex bir şeye basıyor... Hazırlan!',
-        'arms': 'Önce kolları! Top ve mızrak!',
-        'feet': 'Şimdi ayaklar! Şok dalgalarını blokla!',
-        'head': 'Eğildi. Kafası menzilde!',
-        'body': 'Çekirdek açık! İşini bitir!',
-        'prism': 'Prizma Topu! Kalkanı kaldır!'
-      }
-    },
-    'secret': {
-      // secret-room puzzles
-      'lights': 'O panel bir desen gösteriyor. Duvardaki lambalar henüz değil.',
-      'color': 'O çerçevenin sevdiği bir renk var. Sadece o rengin lambaları yanmalı.',
-      'cycle': 'Her atış bir lambanın fikrini değiştirir. Panel ne istediğini biliyor.',
-      'solved': 'Vay vay. Birileri bulmaca seviyor.'
-    },
-    'landed': 'İniş tamam! Hadi bakalım.',
-    'brief': {
-      'tutorial': 'Eğitim zamanı. Sana yol gösteririm!',
-      'job': 'Hızlı iş. Gir ve çık!',
-      'climb': 'Kule koşusu! Yukarı, yukarı!',
-      'story': 'Bir Çekirdek Ustası bekliyor. Hadi kurtaralım!'
-    },
-    'story': {
-      'relayOne': 'Birinci röle yandı. Dokuz kaldı.',
-      'copied': {
-        'scrapBurst': '{weapon} kopyalandı.',
-        'flameWave': '{weapon} kopyalandı.',
-        'iceLance': '{weapon} kopyalandı.',
-        'thunderArc': '{weapon} kopyalandı.',
-        'galeGuard': '{weapon} kopyalandı.',
-        'magnetPull': '{weapon} kopyalandı.',
-        'drillBomb': '{weapon} kopyalandı.',
-        'bubbleLance': '{weapon} kopyalandı.',
-        'neonBlade': '{weapon} kopyalandı.',
-        'droneSwarm': '{weapon} kopyalandı.',
-      },
-      'dataCore': 'Bize bir şey bıraktı.',
-      'firstDraft': '…Ben onun ilk taslağından yazıldım.',
-      'body': 'Kendine bir beden yapıyor. Vadimizden.',
-      'voltFreed': 'Sinyal elektrik santralini kaybetti.',
-      'galeFreed': 'Kaleye artık parça ulaşmıyor.',
-      'breach': 'Kalkan düştü. Kale açık.',
-      'magnetFreed': 'Dökümhane soğudu. Pençe yok artık.',
-      'drillFreed': 'Maden sessiz. Cevher yok artık.',
-      'tideFreed': 'Savaklar kapalı. Mavnalar evde kalıyor.',
-      'neonFreed': 'Işıklar açık. Vex ekranlarını kaybetti.',
-      'rotorFreed': 'Tüm hatlar kesildi. Vex yalnız.',
-      'rotor': 'Pervane Uçuşu. Antenimde rüzgâr!',
-      'neon': 'Karartma Bulvarı. Işıklar lütfen!',
-      'tide': 'Gelgit Savakları. Şapırtı zamanı!',
-      'drill': 'Derin Maden. Başına dikkat!',
-      'magnet': 'Kutupluluk Fabrikası. Pusulam fır dönüyor!',
-      'scrapyard': 'Hurdalık rölesi. Yak onu!',
-      'blaze': 'Rafineri. Sıcak, sıcak, sıcak!',
-      'cryo': 'Kriyo Tesisi. Brr! Hareket et.',
-      'volt': 'Volt Kulesi. Devrelerim karıncalanıyor!',
-      'gale': 'Gök Rıhtımı. Aşağı bakma!',
-      'fortress': 'Kale. Bunu bitiriyoruz.'
-    },
-    'arc': {
-      '10': "Kalkan düştü. Sıra Vex'te!",
-      '9': 'Bir Usta kaldı. Az kaldı!',
-      '8': 'Sekiz! Sadece iki Usta kaldı.',
-      '7': 'Yedi yandı. Böyle devam!',
-      '6': 'Altı röle! Şehir uyanıyor.',
-      '1': 'Bir röle yandı. Dokuz kaldı!',
-      '2': 'İki röle! Vex surat asıyor.',
-      '3': 'Üç yandı. Parlamaya devam!',
-      '4': 'Dört tamam. Şebeke yine vızıldıyor.',
-      '5': 'Yolun yarısı! Vex terliyor.',
-    },
-    'bossAhead': 'İleride patron. Derin nefes!',
-    'noWeak': 'Zayıf nokta yok. Hareket et!',
-    'weak': {
-      'flameWave': 'Alev Dalgası buna çok etkili!',
-      'iceLance': 'Buz Mızrağı buna çok etkili!',
-      'thunderArc': 'Yıldırım Arkı buna çok etkili!',
-      'galeGuard': 'Fırtına Kalkanı buna çok etkili!',
-      'magnetPull': 'Mıknatıs Çekimi buna çok etkili!',
-      'drillBomb': 'Matkap Bombası buna çok etkili!',
-      'bubbleLance': 'Kabarcık Mızrağı buna çok etkili!',
-      'neonBlade': 'Neon Bıçağı buna çok etkili!',
-      'droneSwarm': 'Dron Sürüsü buna çok etkili!'
-    },
-    'bossDown': 'Usta kurtarıldı! Harika iş!',
-    'vexDown': 'Vex yenildi. Başardık!',
-    'lowHp': 'Ah! Dikkat, Flux!',
-    'lowHpGel': 'Canın az! Bir Tamir Jeli kullan.',
-    'lowWe': 'Silah enerjisi az!',
-    'trap': 'İleride tuzak. Zamanlamaya dikkat!',
-    'plate': 'Basınç plakası. Parmak ucunda!',
-    'objective': 'Tamam! Şimdi çıkışı bul.',
-    'exit': 'Aracımız geldi!',
-    'levelUp': 'Seviye atladın! Parlıyorsun.',
-    'idle': {
-      '1': 'Bip. Sadece yokluyorum.',
-      '2': 'Harika gidiyorsun.',
-      '3': 'Gauss gurur duyardı.',
-      '4': 'Takımımızı seviyorum.'
-    }
-  },
-  'train': {
-    'todo': 'henüz tamamlanmadı',
-    'done': 'tamamlandı',
-    'checklist': 'Eğitimler',
-    'watch': 'Nasıl yapıldığını izle',
-    'card': {
-      'weapon': "Bir Çekirdek Usta'nın silahını kopyaladın! Kendi düğmesiyle ateşle: silah enerjisi onu besler ve bazı makineler ona karşı zayıftır.",
-      'gel': 'Yaralandın mı? Tamir Jeli canını tamamen yeniler. Çarpışma kötüye giderse bir tane kullan.',
-      'slide': 'Kırmızı saldırılar bloklanamaz. Yoldan çıkmak için kay: kayış sırasında hiçbir şey sana vuramaz.',
-      'block': 'Kalkanını kaldırmak için blokla tuşunu basılı tut: önden gelen atışları ve vuruşları durdurur. Tam vuruş anında kaldırırsan Mükemmel Blok yaparsın, bu da saldırganı sersemletir.',
-      'charge': 'Normal atış kalkanı kıramaz. Kol topun parlayana kadar ateşi basılı tut, sonra bırak: şarjlı atış onu doğrudan deler.',
-    },
-    'name': {
-      'weapon': 'Silah Dersi',
-      'gap': 'Sıçrayış Eğitimi',
-      'gel': 'Tamir Jeli Eğitimi',
-      'slide': 'Kayma Eğitimi',
-      'block': 'Kalkan Eğitimi',
-      'charge': 'Şarjlı Atış Eğitimi',
-    },
-  },
-  'ending': {
-    'fall': 'Büyük Usta düşüyor. Vex\'in Kızıl Sinyali de onunla birlikte sönüyor.',
-    'relays': 'Röleler birer birer eve dönüyor, her biri kendi renginde.',
-    'thaw': 'Laboratuvarda buz çözülüyor.',
-    'gauss': 'Flux... başardın. Hepsini geri getirdin.',
-    'atlas': 'Kule boş. Bu şehri artık ben yönetebilirim. Yönetmeyeceğim. Burası onların.',
-    'morning': 'Cyber City ilk özgür sabahına uyanıyor.',
-    'spark': 'Flux... o kıvılcımı gördün mü?',
-    'speaker': {
-      'atlas': 'Atlas',
-      'gauss': 'Prof. Gauss',
-      'pip': 'Pip'
-    },
-    'cast': {
-      'flux': 'Flux',
-      'atlas': 'Atlas',
-      'pip': 'Pip',
-      'gauss': 'Prof. Gauss'
-    },
-    'credits': {
-      'by': 'Bir {studio} oyunu',
-      'cast': 'Başrollerde',
-      'masters': 'Ustalar',
-      'thanks': 'Oynadığın için teşekkürler!'
-    },
-    'card': {
-      'title': 'Cyber City özgür!',
-      'promise': 'Yeni Oyun+: Ustaların canı %25 daha fazla ve daha hızlı vuruyorlar. Seviyen, ekipmanın ve silahların kalıyor.',
-      'ngplus': 'Yeni Oyun+ başlat',
-      'lab': 'Laboratuvara dön',
-      'confirm': 'Yeni Oyun+ başlatılsın mı?',
-      'confirmBody': 'Hikâye daha zorlu Ustalarla baştan başlar. Seviyeni, ekipmanını, silahlarını ve geliştirmelerini korursun.'
-    }
-  },
-  // ─── Dr. Vex's lines (#117: his bubble and voice in the missions and the hub) ───
-  'vex': {
-    'present': {
-      'scrapper': 'Isınma turu! {boss}!',
-      'blaze': 'En yaşlısı! En sıcağı! {boss}!',
-      'frost': 'Biraz serinle, küçük droid. {boss}!',
-      'volt': 'Göz kırpsan kaçırırsın! {boss}!',
-      'gale': 'Sıradaki, lütfen! {boss}, uçur onu!',
-      'magnet': 'Çekici, değil mi? {boss}!',
-      'drill': 'Derin bir muayene zamanı! {boss}!',
-      'tide': 'Dalgaya el salla, droid! {boss}!',
-      'neon': 'Işıklar! Kamera! {boss}!',
-      'rotor': 'Büyük final! {boss}!',
-    },
-    'hub': {
-      'scrapper': 'Hurda vinci mi? Ne kadar… tatlı.',
-      'blaze': 'Yan etki not edildi. Dozu artırıyorum.',
-      'blueprint': 'Eskizlerim! Muhteşemim, değil mi?',
-      'volt': 'Ben… ga-yet… İYİYİM.',
-      'gale': 'Peki! Daha FAZLA Ustam var.',
-      'magnet': 'İtildim mi? Ben mi? İm-KÂNSIZ!',
-      'drill': 'Hıh. Dibe vurdum. Resmen.',
-      'tide': 'Gelgit dönecek! …Değil mi?',
-      'neon': 'Işıkları kim AÇTI?!',
-      'rotor': 'On röle mi?! Hemşire! HEMŞİRE!',
-      'breach': 'Hayır, hayır, HAYIR! O kalkanın PATENTİ vardı!',
-    },
-    'volt': {
-      'hack': 'Bakalım o boş kafada ne var…',
-      'fail': 'Yazılamıyor mu?! Ne KABALIK.',
-    },
-    'fortress': {
-      'welcome': 'Kliniğime hoş geldin! Otur… SONSUZA DEK!',
-    },
-    'mk1': {
-      'intro': 'Görün! Yeni bedenim! Mark BİR!',
-      'obey': 'Ustalar! Doktorunuza İTAAT edin!',
-      'listen': 'Neden DİNLEMİYORLAR?!',
-      'defeat': 'İkinci bir… görüş alacağım…',
-    },
-    'sting': {
-      'doctorIn': 'Doktor… İŞBAŞINDA.',
-    },
-  },
-  'pip': {
-    'debrief': {
-      'hello': 'Tekrar hoş geldin, Flux! Vadiye bir bak.',
-      'go': 'Hazırlan, sonra yola çık! Laboratuvar bende.',
-      'scrapyard': {
-        'won': 'Eski vinç yine hurda ayıklıyor.',
-        'weapon': 'Kopyaladığın silah: {weapon}. Üç yöne saçıyor.',
-        'next': 'Sıradaki durak: {sector}. Sadece birazcık daha zor.',
-        'boss': "{boss} orada Vex'in makinelerine zırh dövüyor.",
-        'tip': 'Ateş toplarını blokla. Ateş dalgalarının yanından kay.',
-      },
-      'blaze': {
-        'won': 'Bacalar yine tertemiz yanıyor. Eline sağlık!',
-        'weapon': '{weapon} artık senin. Ateş buzu eritir!',
-        'next': 'Sırada {sector} var. Oradaki makineler daha sert vuruyor.',
-        'boss': '{boss} bütün soğutucuyu kendine saklıyor. Şehir fazla ısınıyor.',
-        'tip': 'Buz atışlarını blokla, sonra ateşle karşılık ver!',
-      },
-      'cryo': {
-        'won': 'Soğutucu eve akıyor. Şehir serinleyebilir.',
-        'weapon': '{weapon} artık senin. Buz, yıldırımı yener!',
-        'next': 'Sırada {sector} var, şehir merkezinde. Epey daha zor.',
-        'boss': "{boss} elektriğimizi Kızıl Sinyal'e akıtıyor.",
-        'tip': 'Sık sık ışınlanıyor. Kürelerini vur.',
-      },
-      'volt': {
-        'won': "Vex'in yüzü artık titreyip duruyor. Gördün mü?",
-        'weapon': '{weapon} artık senin. Yıldırım, rüzgârı yener!',
-        'next': 'Sırada {sector} var, çok yükseklerde. Çetin makineler.',
-        'boss': "{boss} gece gündüz Vex'in hava gemilerini yönetiyor.",
-        'tip': 'Tüyleri blokla. Dalışa geçince savuştur!',
-      },
-      'gale': {
-        'won': 'Hava gemileri geri döndü. Gökyüzü yine açık!',
-        'weapon': '{weapon} artık senin. Yaprakları atışları engeller.',
-        'next': 'Şimdi şehrin kenarı: {sector}. Çok daha zor.',
-        'boss': "{boss} tramvay raylarını Vex'in yükleri için aldı.",
-        'tip': 'Seni kendine çekiyor. Kıskacını blokla!',
-      },
-      'magnet': {
-        'won': 'Tramvaylar yine çalışıyor. Çın çın!',
-        'weapon': '{weapon} kalkanları kırar. Sıradaki Usta için birebir.',
-        'next': 'Sırada {sector} var, yerin derinlerinde. Cidden güçlü makineler.',
-        'boss': '{boss} işçi robotları kuyuda hapsetti.',
-        'tip': 'Altından kazıp geliyor. İşaretten çekil!',
-      },
-      'drill': {
-        'won': 'İşçi robotlar yine yukarıda, gün ışığında.',
-        'weapon': '{weapon} bum diye patlar. Patrona da biraz sakla!',
-        'next': 'Sırada {sector} var, aşağıda su kıyısında. Çok zor.',
-        'boss': "{boss} Vex'in mavnaları için kanalları suyla dolduruyor.",
-        'tip': 'Dalgalarının altından kay. Kabarcıkları patlat!',
-      },
-      'tide': {
-        'won': 'Vadiye yine temiz su akıyor.',
-        'weapon': '{weapon} kalabalıkların içinden yuvarlanır. Patron kabarcıklardan nefret eder!',
-        'next': 'Sırada {sector} var, karanlık çatılar. Gerçekten tehlikeli.',
-        'boss': '{boss} şehir merkezindeki bütün pencereleri söndürdü.',
-        'tip': 'Bıçağı gidip geri geliyor. İki kez kaç!',
-      },
-      'neon': {
-        'won': 'Şehir merkezi bu gece pembe pembe parlıyor. Çok güzel!',
-        'weapon': '{weapon} iki kez keser. Sıradaki Usta ondan korkuyor!',
-        'next': 'Sırada {sector} var, gökteki havaalanı. Neredeyse en zoru.',
-        'boss': '{boss} gökyüzünü kargo dronlarıyla dolduruyor.',
-        'tip': 'Seni geri üflüyor. Rüzgârın altından kay!',
-      },
-      'rotor': {
-        'won': 'Dronlar artık işçi robotlara teslimat yapıyor.',
-        'weapon': '{weapon} artık senin. Üç dron hedefini kendi bulur.',
-        'next': 'Son durak: {sector}. Buradan zoru yok.',
-        'boss': '{boss} artık kalkan arkasına saklanamaz.',
-        'tip': 'Ustaların saldırılarını kullanıyor. Yanına Tamir Jeli al!',
-      },
-    },
   }
 }

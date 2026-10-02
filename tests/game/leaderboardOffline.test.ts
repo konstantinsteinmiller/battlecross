@@ -188,17 +188,6 @@ describe('a returning player never sees a spinner or an error', () => {
     expect(lb.boardProvenance()).toBe('cache')
   })
 
-  it('seeds from a cache banked before the rename, and moves it to the new key', async () => {
-    localStorage.setItem('mega_adventure_board_cache', JSON.stringify(CACHED_BOARD))
-    const lb = await load()
-
-    expect(sent).toHaveLength(0)
-    expect(names(lb)).toEqual(['Ivy', 'Jo'])
-    expect(lb.boardProvenance()).toBe('cache')
-    expect(JSON.parse(localStorage.getItem(CACHE_KEY) ?? 'null').total).toBe(300)
-    expect(localStorage.getItem('mega_adventure_board_cache')).toBeNull()
-  })
-
   it('survives a corrupt or unparseable cache without throwing', async () => {
     localStorage.setItem(CACHE_KEY, '{not json')
     const lb = await load()
