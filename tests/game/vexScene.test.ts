@@ -55,6 +55,23 @@ describe('a voiced story scene', () => {
     expect(s.finished).toBe(true)
   })
 
+  it('a tap cuts the line being said and moves on to the next (Pip, low on the screen)', () => {
+    const onEnd = vi.fn()
+    const s = new Scene([{ pip: 'pip.debrief.hello' }, { pip: 'pip.debrief.go' }], 'low', { onEnd })
+    s.update(0.05)
+    expect(said).toEqual(['pip.debrief.hello'])
+    expect(sceneUi).toMatchObject({ speaker: 'pip', key: 'pip.debrief.hello', place: 'low' })
+    s.next()
+    s.update(0.05)
+    expect(said).toEqual(['pip.debrief.hello', '<stop>', 'pip.debrief.go'])
+    expect(sceneUi.key).toBe('pip.debrief.go')
+    // The last line tapped away: the scene ends, once.
+    s.next()
+    s.update(0.05)
+    expect(s.finished).toBe(true)
+    expect(onEnd).toHaveBeenCalledTimes(1)
+  })
+
   it('stops the voice and ends on skip', () => {
     const onEnd = vi.fn()
     const s = new Scene([{ vex: 'vex.hub.volt' }, { vex: 'vex.hub.gale' }], 'top', { onEnd })
@@ -91,5 +108,19 @@ describe('the scene contents', () => {
     const beats = voBeatsBehind({ bosses: ['scrapper', 'blazeMaster', 'frostMaster'], unlocked: [] })
     expect(beats).toEqual(expect.arrayContaining(['present:scrapper', 'vex:blazeMaster', 'blueprint']))
     expect(beats).not.toContain('reserve')
+  })
+})
+
+describe('Atlas on the mission board', () => {
+  it('names a sector\'s floor level the first time it is selected, and warns when Flux is under it', async () => {
+    const { boardLines } = await import('@/game/story/hubAtlas')
+    const keys = (b: ReturnType<typeof boardLines>) => b.map(x => ('atlas' in x ? x.atlas : ''))
+    // Volt Tower runs level 9 and up.
+    expect(keys(boardLines('volt', 4, {}, new Set()))).toEqual(['atlas.hint.floor.volt', 'atlas.hint.underLevel'])
+    expect(keys(boardLines('volt', 12, {}, new Set()))).toEqual(['atlas.hint.floor.volt'])
+    // Seen before, and already warned this visit: nothing.
+    expect(boardLines('volt', 4, { 'atlas:floor:volt': true }, new Set(['volt']))).toEqual([])
+    // The Scrapyard has no floor line.
+    expect(boardLines('scrapyard', 1, {}, new Set())).toEqual([])
   })
 })

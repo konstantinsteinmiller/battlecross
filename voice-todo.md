@@ -75,14 +75,15 @@ Every line is short (a speech bubble of 2–3 s; a bark under a second).
 | `atlas_lowWe.ogg` | Special weapon energy under 20 % | Weapon energy's low! | Waffenenergie wird knapp! |
 | `atlas_trap.ogg` | A corridor trap ahead (flame jet, blade) | Trap ahead. Watch the timing! | Falle voraus. Achte aufs Timing! |
 | `atlas_plate.ogg` | A pressure plate ahead | Pressure plate. Tiptoe! | Druckplatte. Auf Zehenspitzen! |
-| `atlas_objective.ogg` | The objective is done | Done! Now find the exit. | Erledigt! Jetzt ab zum Ausgang. |
 | `atlas_exit.ogg` | The exit drone arrives | Our ride's here! | Unser Taxi ist da! |
 | `atlas_levelUp.ogg` | Flux levels up mid-mission | Level up! You're shining. | Level-Up! Du strahlst ja richtig. |
 | `atlas_idle_1.ogg` | Small talk in a quiet stretch | Beep. Just checking in. | Piep. Alles klar bei dir? |
 | `atlas_idle_2.ogg` | Small talk in a quiet stretch | You're doing great. | Du machst das super. |
 | `atlas_idle_3.ogg` | Small talk in a quiet stretch | Gauss would be proud. | Gauss wäre stolz. |
 | `atlas_idle_4.ogg` | Small talk in a quiet stretch | I like our team. | Ich mag unser Team. |
+| `atlas_boss_signalFirst.ogg` | Scrapyard: the first Core Master signal | Core Master signal. It's… big. | Kernmeister-Signal. Er ist… groß. |
 | `atlas_story_relayOne.ogg` | The first relay is lit | Relay one lit. Nine to go. | Relais eins leuchtet. Noch neun. |
+| `atlas_sector_blaze.ogg` | Beam-in: Blaze Refinery | Refinery. It runs hot. Mind the vents. | Raffinerie. Hier wird's heiß. Achte auf die Düsen. |
 | `atlas_story_copied_scrapBurst.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
 | `atlas_story_copied_flameWave.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
 | `atlas_story_copied_iceLance.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
@@ -93,14 +94,17 @@ Every line is short (a speech bubble of 2–3 s; a bark under a second).
 | `atlas_story_copied_bubbleLance.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
 | `atlas_story_copied_neonBlade.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
 | `atlas_story_copied_droneSwarm.ogg` | A Master is freed: its weapon is copied | {weapon} copied. | {weapon} kopiert. |
+| `atlas_sector_cryo.ogg` | Beam-in: Cryo Plant | Coolant's flowing uphill. To the Fortress. | Das Kühlmittel fließt bergauf. Zur Festung. |
 | `atlas_story_dataCore.ogg` | The Frost Master leaves a data core behind | It left us something. | Er hat uns etwas dagelassen. |
 | `atlas_story_firstDraft.ogg` | The blueprint: Atlas recognises its own code | …I was written from its first draft. | …Ich wurde aus seinem ersten Entwurf geschrieben. |
 | `atlas_story_body.ogg` | The blueprint: what Vex is building | It's building a body. Out of our valley. | Er baut sich einen Körper. Aus unserem Tal. |
 | `atlas_volt_hack.ogg` | Volt Tower: Vex hacks Atlas mid-sentence | Flux… something's in the— | Flux… da ist etwas in mei— |
 | `atlas_volt_thanks.ogg` | Volt Tower: the hack fails | …You kept it out. Thank you. | …Du hast es draußen gehalten. Danke. |
 | `atlas_story_voltFreed.ogg` | The Volt Master is freed | The signal's lost its power station. | Das Signal hat sein Kraftwerk verloren. |
+| `atlas_sector_gale.ogg` | Beam-in: Sky Docks | Every part for its body goes through here. | Jedes Teil für seinen Körper kommt hier durch. |
 | `atlas_story_galeFreed.ogg` | The Gale Master is freed | No more parts reach the Fortress. | Keine Teile erreichen mehr die Festung. |
 | `atlas_story_breach.ogg` | The Fortress shield falls | Shield's down. The Fortress is open. | Der Schild ist unten. Die Festung ist offen. |
+| `atlas_fortress_bays.ogg` | Fortress: the half-built assembly bays | Half-built. You did that. | Halb gebaut. Das warst du. |
 | `atlas_mk1_intro.ogg` | Mk-I intro: Vex steps into his body | That's Vex. The real one. | Das ist Vex. Der echte. |
 | `atlas_mk1_fire.ogg` | Mk-I fight: calling the element of its next attack | Fire! | Feuer! |
 | `atlas_mk1_ice.ogg` | Mk-I fight: calling the element of its next attack | Ice! | Eis! |
@@ -108,6 +112,65 @@ Every line is short (a speech bubble of 2–3 s; a bark under a second).
 | `atlas_mk1_wind.ogg` | Mk-I fight: calling the element of its next attack | Wind! | Wind! |
 | `atlas_mk1_scrap.ogg` | Mk-I fight: calling the element of its next attack | Scrap! | Schrott! |
 | `atlas_mk1_free.ogg` | Mk-I phase 2: answering Vex ("Why won't they listen?") | Because they're free. | Weil sie frei sind. |
+| `atlas_warn_boss.ogg` | A Core Master ahead | Core Master ahead. | Kernmeister voraus. |
+| `atlas_warn_gelFirst.ogg` | Low health the first time, a gel in the pack | Plating's cracking. Use a gel. | Die Panzerung bricht. Nimm ein Gel. |
+| `atlas_warn_gel.ogg` | Low health again, a gel in the pack | Gel. | Gel. |
+| `atlas_warn_criticalFirst.ogg` | Critical health, the first time | Critical! Back off! | Kritisch! Zieh dich zurück! |
+| `atlas_warn_critical.ogg` | Critical health again | Critical! | Kritisch! |
+| `atlas_warn_noGel.ogg` | Low health, no gel left | No gel left. Play it safe. | Kein Gel mehr. Geh auf Nummer sicher. |
+| `atlas_warn_weLow.ogg` | Weapon energy low | Weapon energy low. The cannon's free. | Waffenenergie niedrig. Die Kanone kostet nichts. |
+| `atlas_warn_weEmpty.ogg` | Weapon energy empty | Tank's dry. | Tank ist leer. |
+| `atlas_warn_borrowedLast_scrapBurst.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_flameWave.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_iceLance.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_thunderArc.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_galeGuard.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_magnetPull.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_drillBomb.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_bubbleLance.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_neonBlade.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_borrowedLast_droneSwarm.ogg` | A borrowed weapon's last shot | Last shot of {weapon}. | Letzter Schuss {weapon}. |
+| `atlas_warn_flame.ogg` | A flame-jet trap ahead | Vents. Wait for it… or slide. | Düsen. Warte ab… oder rutsch durch. |
+| `atlas_warn_blade.ogg` | A blade trap ahead | Blade. Go right after it. | Klinge. Lauf direkt hinter ihr durch. |
+| `atlas_warn_crusher.ogg` | A crusher ahead | Crusher. Watch the lamp. | Presse. Achte auf die Lampe. |
+| `atlas_warn_ladder.ogg` | The first ladder | Ladder. Push toward the wall. | Leiter. Drück dich zur Wand. |
+| `atlas_warn_pit.ogg` | A pit with a lift | Long drop. Time the lift. | Tiefer Fall. Pass den Aufzug ab. |
+| `atlas_hint_locator.ogg` | The objective locator appears | Objective's that way. | Das Ziel liegt da lang. |
+| `atlas_hint_rescue.ogg` | A worker-bot to rescue is near | Worker-bot signal. Faint. Close. | Arbeiterbot-Signal. Schwach. Ganz nah. |
+| `atlas_hint_upgrade.ogg` | Loot better than what Flux wears | That's an upgrade. | Das ist ein Upgrade. |
+| `atlas_hint_levelUp.ogg` | A level-up | New chip compiled. | Neuer Chip kompiliert. |
+| `atlas_hint_done.ogg` | The objective is done | Done. Call the drone when ready. | Erledigt. Ruf die Drohne, wenn du so weit bist. |
+| `atlas_hint_underLevel.ogg` | Flux is under the sector's floor level | They'll outclass you. Train first. | Die sind dir überlegen. Trainier erst. |
+| `atlas_hint_floor_blaze.ogg` | The mission card: the sector's floor level | {sector} runs level 3 and up. | {sector} beginnt ab Stufe 3. |
+| `atlas_hint_floor_cryo.ogg` | The mission card: the sector's floor level | {sector} runs level 6 and up. | {sector} beginnt ab Stufe 6. |
+| `atlas_hint_floor_volt.ogg` | The mission card: the sector's floor level | {sector} runs level 9 and up. | {sector} beginnt ab Stufe 9. |
+| `atlas_hint_floor_gale.ogg` | The mission card: the sector's floor level | {sector} runs level 13 and up. | {sector} beginnt ab Stufe 13. |
+| `atlas_hint_floor_magnet.ogg` | The mission card: the sector's floor level | {sector} runs level 16 and up. | {sector} beginnt ab Stufe 16. |
+| `atlas_hint_floor_drill.ogg` | The mission card: the sector's floor level | {sector} runs level 19 and up. | {sector} beginnt ab Stufe 19. |
+| `atlas_hint_floor_tide.ogg` | The mission card: the sector's floor level | {sector} runs level 22 and up. | {sector} beginnt ab Stufe 22. |
+| `atlas_hint_floor_neon.ogg` | The mission card: the sector's floor level | {sector} runs level 25 and up. | {sector} beginnt ab Stufe 25. |
+| `atlas_hint_floor_rotor.ogg` | The mission card: the sector's floor level | {sector} runs level 28 and up. | {sector} beginnt ab Stufe 28. |
+| `atlas_hint_floor_fortress.ogg` | The mission card: the sector's floor level | {sector} runs level 31 and up. | {sector} beginnt ab Stufe 31. |
+| `atlas_warn_down.ogg` | Flux goes down | Rebooting… Pip's got you. | Neustart… Pip hat dich. |
+| `atlas_scan_hardhat.ogg` | The first sighting of this machine | {enemy}. Shoot when it peeks. | {enemy}. Schieß, wenn er rauslugt. |
+| `atlas_scan_trooper.ogg` | The first sighting of this machine | Shield. Charge through it. | Schild. Mit einer Ladung durchbrechen. |
+| `atlas_scan_heli.ogg` | The first sighting of this machine | {enemy}. Look up. | {enemy}. Schau nach oben. |
+| `atlas_scan_hopper.ogg` | The first sighting of this machine | {enemy}. Move off the ring. | {enemy}. Runter vom Ring. |
+| `atlas_scan_roller.ogg` | The first sighting of this machine | {enemy}. Sidestep it. | {enemy}. Weich seitlich aus. |
+| `atlas_scan_brute.ogg` | The first sighting of this machine | {enemy}. Parry, then punish. | {enemy}. Parieren, dann zuschlagen. |
+| `atlas_scan_turret.ogg` | The first sighting of this machine | {enemy}. Keep moving. | {enemy}. Bleib in Bewegung. |
+| `atlas_scan_golem.ogg` | The first sighting of this machine | That crate's breathing. Get close. | Die Kiste atmet. Geh nah ran. |
+| `atlas_scan_polar.ogg` | The first sighting of this machine | {enemy}. Shoot it when it opens red. | {enemy}. Schieß, wenn es rot aufgeht. |
+| `atlas_scan_warden.ogg` | The first sighting of this machine | {enemy}. Hit the core when it opens. | {enemy}. Triff den Kern, wenn er aufgeht. |
+| `atlas_scan_hornet.ogg` | The first sighting of this machine | {enemy}. It dives straight: sidestep! | {enemy}. Er stürzt geradeaus: zur Seite! |
+| `atlas_scan_stalker.ogg` | The first sighting of this machine | {enemy}. Parry the lunge. | {enemy}. Pariere den Sprung. |
+| `atlas_scan_puffer.ogg` | The first sighting of this machine | {enemy}. Pop it before it swells. | {enemy}. Platz ihn, bevor er anschwillt. |
+| `atlas_scan_mole.ogg` | The first sighting of this machine | {enemy}. Hit it when it pops up. | {enemy}. Triff ihn beim Auftauchen. |
+| `atlas_scan_elite.ogg` | The first sighting of this machine | Gold ring. Elite. Careful. | Goldring. Elite. Vorsicht. |
+| `atlas_scan_fire.ogg` | The first fire-coated machine | Fire-coated. It shrugs off fire. | Feuerbeschichtet. Feuer prallt ab. |
+| `atlas_scan_ice.ogg` | The first ice-coated machine | Ice-coated. It shrugs off ice. | Eisbeschichtet. Eis prallt ab. |
+| `atlas_scan_volt.ogg` | The first volt-coated machine | Volt-coated. It shrugs off volt. | Voltbeschichtet. Volt prallt ab. |
+| `atlas_scan_wind.ogg` | The first wind-coated machine | Wind-coated. It shrugs off wind. | Windbeschichtet. Wind prallt ab. |
 | `atlas_hint_blaze_lava.ogg` | Meltdown Descent: the first catwalks over lava | That's lava down there. Stay on the metal. | Da unten ist Lava. Bleib auf dem Metall. |
 | `atlas_hint_blaze_leap.ogg` | Meltdown Descent: the first dash-leap gap | Too wide to walk. Slide off the edge, you'll carry. | Zu weit zum Gehen. Rutsch über die Kante, du fliegst rüber. |
 | `atlas_hint_blaze_vents.ogg` | Meltdown Descent: the flame-vent walkway | Hiss, then fire. Let the roar pass, then go. | Erst Zischen, dann Feuer. Warte das Fauchen ab, dann los. |
@@ -147,18 +210,23 @@ Every line is short (a speech bubble of 2–3 s; a bark under a second).
 | `vex_hub_volt.ogg` | The hub, after the Volt Master | I am… per-fect-ly… FINE. | Mir geht es… ab-so-lut… BESTENS. |
 | `vex_present_gale.ogg` | Presents the Gale Master | Next, please! {boss}, blow him away! | Der Nächste, bitte! {boss}, puste ihn weg! |
 | `vex_hub_gale.ogg` | The hub, after the Gale Master: the shield holds, he calls up his reserve | Fine! I have MORE Masters. | Schön! Ich habe noch MEHR Meister. |
+| `atlas_sector_magnet.ogg` | Beam-in: Polarity Works | A foundry. It's casting claws. | Eine Gießerei. Hier entstehen Klauen. |
 | `vex_present_magnet.ogg` | Presents the Magnet Master | Attractive, isn't it? {boss}! | Anziehend, nicht wahr? {boss}! |
 | `atlas_story_magnetFreed.ogg` | The Magnet Master is freed | The foundry's cold. No more claws. | Die Gießerei ist kalt. Keine Klauen mehr. |
 | `vex_hub_magnet.ogg` | The hub, after the Magnet Master | Repelled? Me? Im-POSSIBLE! | Abgestoßen? Ich? Un-MÖGLICH! |
+| `atlas_sector_drill.ogg` | Beam-in: Deep Mine | Ore for its armor. Dug right here. | Erz für seine Panzerung. Von hier unten. |
 | `vex_present_drill.ogg` | Presents the Drill Master | Time for a deep check-up! {boss}! | Zeit für eine Tiefenuntersuchung! {boss}! |
 | `atlas_story_drillFreed.ogg` | The Drill Master is freed | The mine's quiet. No more ore. | Die Mine ist still. Kein Erz mehr. |
 | `vex_hub_drill.ogg` | The hub, after the Drill Master | Hmph. A new low. Literally. | Pah. Ein neuer Tiefpunkt. Wörtlich. |
+| `atlas_sector_tide.ogg` | Beam-in: Tidewater Locks | Barges now. Vex found another way. | Jetzt Lastkähne. Vex hat einen neuen Weg. |
 | `vex_present_tide.ogg` | Presents the Tide Master | Wave goodbye, droid! {boss}! | Hier kommt die große Welle! {boss}! |
 | `atlas_story_tideFreed.ogg` | The Tide Master is freed | Locks shut. The barges stay home. | Schleusen zu. Die Kähne bleiben daheim. |
 | `vex_hub_tide.ogg` | The hub, after the Tide Master | The tide will turn! …Won't it? | Die Flut kommt wieder! …Oder? |
+| `atlas_sector_neon.ogg` | Beam-in: Blackout Boulevard | Lights out. Except Vex's face. | Licht aus. Nur Vex' Gesicht nicht. |
 | `vex_present_neon.ogg` | Presents the Neon Master | Lights! Camera! {boss}! | Licht! Kamera! {boss}! |
 | `atlas_story_neonFreed.ogg` | The Neon Master is freed | Lights on. Vex lost its screens. | Licht an. Vex hat keine Bildschirme mehr. |
 | `vex_hub_neon.ogg` | The hub, after the Neon Master | Who turned the lights ON?! | Wer hat das Licht ANGEMACHT?! |
+| `atlas_sector_rotor.ogg` | Beam-in: Rotor Run | Drones. Its last supply line. | Drohnen. Seine letzte Versorgungslinie. |
 | `vex_present_rotor.ogg` | Presents the Rotor Master, the last of his reserve | The grand finale! {boss}! | Das große Finale! {boss}! |
 | `atlas_story_rotorFreed.ogg` | The Rotor Master is freed: the tenth relay | Every line's cut. Vex is alone. | Alle Linien gekappt. Vex ist allein. |
 | `vex_hub_rotor.ogg` | The hub, after the Rotor Master: the Breach begins (just before vex.hub.breach) | Ten relays?! Nurse! NURSE! | Zehn Relais?! Schwester! SCHWESTER! |
@@ -227,3 +295,55 @@ Every line is short (a speech bubble of 2–3 s; a bark under a second).
 | `ending_gauss.ogg` | The ending: Gauss steps out of her capsule | Flux... you did it. You brought them all back. | Flux... du hast es geschafft. Du hast sie alle zurückgebracht. |
 | `ending_atlas.ogg` | The ending: Atlas and the empty Spire | The Spire is empty. I could run this city now. I won't. It's theirs. | Der Turm ist leer. Ich könnte diese Stadt jetzt lenken. Tu ich nicht. Sie gehört ihnen. |
 | `ending_spark.ogg` | The ending: the sunrise, the last line | Flux... did you see that spark? | Flux... hast du den Funken gesehen? |
+| `pip_debrief_hello.ogg` | The first debrief: Pip greets Flux over the valley | Welcome back, Flux! Look at the valley. | Willkommen zurück, Flux! Schau dir das Tal an. |
+| `pip_debrief_scrapyard_won.ogg` | Debrief after Scrapyard: what the win changed | The old crane is sorting scrap again. | Der alte Kran sortiert wieder Schrott. |
+| `pip_debrief_scrapyard_weapon.ogg` | Debrief after Scrapyard: the copied weapon's card | You copied {weapon}. It sprays three ways. | Du hast die {weapon} kopiert. Sie streut in drei Richtungen. |
+| `pip_debrief_scrapyard_next.ogg` | Debrief after Scrapyard: the camera travels to Blaze Refinery | Next stop: {sector}. Just a little tougher. | Nächster Halt: {sector}. Nur ein bisschen härter. |
+| `pip_debrief_scrapyard_boss.ogg` | Debrief after Scrapyard: what the Master of Blaze Refinery has done | {boss} is forging armor for Vex's machines. | Der {boss} schmiedet dort Panzerplatten für Vex' Maschinen. |
+| `pip_debrief_scrapyard_tip.ogg` | Debrief after Scrapyard: how to beat the next Master | Block its fireballs. Slide past the fire waves. | Blocke seine Feuerbälle. Rutsch an den Feuerwellen vorbei. |
+| `pip_debrief_blaze_won.ogg` | Debrief after Blaze Refinery: what the win changed | The chimneys burn clean again. Nice work! | Die Schornsteine brennen wieder sauber. Gut gemacht! |
+| `pip_debrief_blaze_weapon.ogg` | Debrief after Blaze Refinery: the copied weapon's card | You've got {weapon} now. Fire melts ice! | Du hast jetzt die {weapon}. Feuer schmilzt Eis! |
+| `pip_debrief_blaze_next.ogg` | Debrief after Blaze Refinery: the camera travels to Cryo Plant | {sector} is next. The machines hit harder there. | Als Nächstes: {sector}. Die Maschinen dort schlagen härter zu. |
+| `pip_debrief_blaze_boss.ogg` | Debrief after Blaze Refinery: what the Master of Cryo Plant has done | {boss} keeps all the coolant. The city's overheating. | Der {boss} behält das ganze Kühlmittel. Die Stadt überhitzt. |
+| `pip_debrief_blaze_tip.ogg` | Debrief after Blaze Refinery: how to beat the next Master | Block its ice shots, then fire back! | Blocke seine Eisschüsse, dann heiz ihm ein! |
+| `pip_debrief_cryo_won.ogg` | Debrief after Cryo Plant: what the win changed | Coolant's flowing home. The city can cool down. | Das Kühlmittel fließt heim. Die Stadt kühlt ab. |
+| `pip_debrief_cryo_weapon.ogg` | Debrief after Cryo Plant: the copied weapon's card | {weapon} is yours. Ice beats lightning! | Die {weapon} gehört dir. Eis schlägt Blitz! |
+| `pip_debrief_cryo_next.ogg` | Debrief after Cryo Plant: the camera travels to Volt Tower | Next: {sector}, downtown. A real step up. | Weiter zum {sector} in der Innenstadt. Deutlich härter. |
+| `pip_debrief_cryo_boss.ogg` | Debrief after Cryo Plant: what the Master of Volt Tower has done | {boss} pours our power into the Red Signal. | Der {boss} pumpt unseren Strom ins Rote Signal. |
+| `pip_debrief_cryo_tip.ogg` | Debrief after Cryo Plant: how to beat the next Master | It teleports a lot. Shoot down its orbs. | Er teleportiert ständig. Schieß seine Blitzkugeln ab. |
+| `pip_debrief_volt_won.ogg` | Debrief after Volt Tower: what the win changed | Vex's face keeps flickering now. Did you see? | Vex' Gesicht flackert jetzt ständig. Hast du's gesehen? |
+| `pip_debrief_volt_weapon.ogg` | Debrief after Volt Tower: the copied weapon's card | {weapon} is yours. Lightning beats wind! | Der {weapon} gehört dir. Blitz schlägt Wind! |
+| `pip_debrief_volt_next.ogg` | Debrief after Volt Tower: the camera travels to Sky Docks | Next: {sector}, way up high. Tough machines. | Als Nächstes: {sector}, ganz weit oben. Harte Maschinen. |
+| `pip_debrief_volt_boss.ogg` | Debrief after Volt Tower: what the Master of Sky Docks has done | {boss} runs Vex's airships, day and night. | Der {boss} steuert Vex' Luftschiffe, Tag und Nacht. |
+| `pip_debrief_volt_tip.ogg` | Debrief after Volt Tower: how to beat the next Master | Block the feathers. Parry when it dives! | Blocke die Federn. Pariere, wenn er herabstößt! |
+| `pip_debrief_gale_won.ogg` | Debrief after Sky Docks: what the win changed | The airships turned around. Clear skies again! | Die Luftschiffe sind umgekehrt. Der Himmel ist frei! |
+| `pip_debrief_gale_weapon.ogg` | Debrief after Sky Docks: the copied weapon's card | {weapon} is yours. Its leaves block shots. | Der {weapon} gehört dir. Seine Blätter blocken Schüsse. |
+| `pip_debrief_gale_next.ogg` | Debrief after Sky Docks: the camera travels to Polarity Works | Now the city's edge: {sector}. Much tougher. | Jetzt an den Stadtrand: {sector}. Viel härter. |
+| `pip_debrief_gale_boss.ogg` | Debrief after Sky Docks: what the Master of Polarity Works has done | {boss} took the tram rails for Vex's freight. | Der {boss} nutzt die Tramschienen für Vex' Fracht. |
+| `pip_debrief_gale_tip.ogg` | Debrief after Sky Docks: how to beat the next Master | It pulls you in. Block the clamp! | Er zieht dich heran. Blocke, wenn er zupackt! |
+| `pip_debrief_magnet_won.ogg` | Debrief after Polarity Works: what the win changed | The trams are rolling again. Ding ding! | Die Trams rollen wieder. Bim, bim! |
+| `pip_debrief_magnet_weapon.ogg` | Debrief after Polarity Works: the copied weapon's card | {weapon} cracks shields. Perfect for the next Master. | Der {weapon} knackt Schilde. Genau richtig für den nächsten Meister. |
+| `pip_debrief_magnet_next.ogg` | Debrief after Polarity Works: the camera travels to Deep Mine | Next: {sector}, deep underground. Seriously strong machines. | Als Nächstes: {sector}, tief unter der Erde. Richtig starke Maschinen. |
+| `pip_debrief_magnet_boss.ogg` | Debrief after Polarity Works: what the Master of Deep Mine has done | {boss} trapped the worker-bots down the shaft. | Der {boss} hält die Arbeiterbots im Schacht fest. |
+| `pip_debrief_magnet_tip.ogg` | Debrief after Polarity Works: how to beat the next Master | It digs under you. Step off the mark! | Er gräbt sich unter dich. Runter von der Markierung! |
+| `pip_debrief_drill_won.ogg` | Debrief after Deep Mine: what the win changed | The worker-bots are back up in daylight. | Die Arbeiterbots sind wieder oben im Tageslicht. |
+| `pip_debrief_drill_weapon.ogg` | Debrief after Deep Mine: the copied weapon's card | {weapon} goes boom. Save some for the boss! | Die {weapon} macht Bumm. Heb dir welche für den Boss auf! |
+| `pip_debrief_drill_next.ogg` | Debrief after Deep Mine: the camera travels to Tidewater Locks | Next: {sector}, down by the water. Very tough. | Als Nächstes: {sector}, unten am Wasser. Sehr hart. |
+| `pip_debrief_drill_boss.ogg` | Debrief after Deep Mine: what the Master of Tidewater Locks has done | {boss} is flooding the canals for Vex's barges. | Der {boss} flutet die Kanäle für Vex' Lastkähne. |
+| `pip_debrief_drill_tip.ogg` | Debrief after Deep Mine: how to beat the next Master | Slide under its waves. Pop the bubbles! | Rutsch unter seinen Wellen durch. Lass die Blasen platzen! |
+| `pip_debrief_tide_won.ogg` | Debrief after Tidewater Locks: what the win changed | Clean water's flowing into the valley again. | Sauberes Wasser fließt wieder ins Tal. |
+| `pip_debrief_tide_weapon.ogg` | Debrief after Tidewater Locks: the copied weapon's card | {weapon} rolls through crowds. The boss hates bubbles! | Die {weapon} rollt durch ganze Gruppen. Der Boss hasst Blasen! |
+| `pip_debrief_tide_next.ogg` | Debrief after Tidewater Locks: the camera travels to Blackout Boulevard | Next: {sector}, the dark rooftops. Really dangerous. | Als Nächstes: {sector}, die dunklen Dächer. Richtig gefährlich. |
+| `pip_debrief_tide_boss.ogg` | Debrief after Tidewater Locks: what the Master of Blackout Boulevard has done | {boss} switched off every window downtown. | Der {boss} hat jedes Fenster der Innenstadt ausgeknipst. |
+| `pip_debrief_tide_tip.ogg` | Debrief after Tidewater Locks: how to beat the next Master | Its blade flies out and back. Dodge twice! | Seine Klinge fliegt hin und zurück. Weich zweimal aus! |
+| `pip_debrief_neon_won.ogg` | Debrief after Blackout Boulevard: what the win changed | Downtown's glowing pink tonight. So pretty! | Die Innenstadt leuchtet heute pink. So schön! |
+| `pip_debrief_neon_weapon.ogg` | Debrief after Blackout Boulevard: the copied weapon's card | {weapon} cuts twice. The next Master fears it! | Die {weapon} schneidet zweimal. Der nächste Meister fürchtet sie! |
+| `pip_debrief_neon_next.ogg` | Debrief after Blackout Boulevard: the camera travels to Rotor Run | Next: {sector}, the sky airfield. Almost the toughest. | Als Nächstes: {sector}, der Flugplatz am Himmel. Fast das Härteste. |
+| `pip_debrief_neon_boss.ogg` | Debrief after Blackout Boulevard: what the Master of Rotor Run has done | {boss} fills the sky with cargo drones. | Der {boss} füllt den Himmel mit Frachtdrohnen. |
+| `pip_debrief_neon_tip.ogg` | Debrief after Blackout Boulevard: how to beat the next Master | It blows you back. Slide under the gusts! | Er bläst dich zurück. Rutsch unter den Böen durch! |
+| `pip_debrief_rotor_won.ogg` | Debrief after Rotor Run: what the win changed | The drones deliver to the worker-bots now. | Die Drohnen liefern jetzt an die Arbeiterbots. |
+| `pip_debrief_rotor_weapon.ogg` | Debrief after Rotor Run: the copied weapon's card | {weapon} is yours. Three drones find their targets. | Der {weapon} gehört dir. Drei Drohnen finden ihr Ziel. |
+| `pip_debrief_rotor_next.ogg` | Debrief after Rotor Run: the camera travels to Vex Fortress | Last stop: {sector}. The toughest place there is. | Letzter Halt: {sector}. Härter wird's nirgends. |
+| `pip_debrief_rotor_boss.ogg` | Debrief after Rotor Run: what the Master of Vex Fortress has done | {boss} can't hide behind a shield now. | {boss} kann sich hinter keinem Schild mehr verstecken. |
+| `pip_debrief_rotor_tip.ogg` | Debrief after Rotor Run: how to beat the next Master | It borrows the Masters' attacks. Pack Repair Gel! | Er nutzt die Angriffe der Meister. Pack Reparaturgel ein! |
+| `pip_debrief_go.ogg` | Every debrief: the last line, then the Lab | Gear up, then go! I'll mind the lab. | Rüste dich aus, dann los! Ich hüte das Labor. |

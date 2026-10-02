@@ -66,15 +66,55 @@ describe('Atlas: what it says, and when', () => {
     expect(said.indexOf('lowHp')).toBeLessThan(said.indexOf('idle.1'))
   })
 
-  it('low health warns once, suggests a gel if there is one, and re-arms only after healing', () => {
+  it('health in two steps with a gel: "use a gel" under half, "Critical!" under a quarter, re-armed by healing', () => {
     const a = new AtlasDirector(info())
-    const said = run(a, 6, tick({ hp01: 0.2, tanks: 2 }))
+    const said = run(a, 6, tick({ hp01: 0.4, tanks: 2 }))
     expect(said).toEqual(['lowHpGel'])
-    run(a, 10, tick({ hp01: 0.25, tanks: 0 }), said)
+    run(a, 10, tick({ hp01: 0.4, tanks: 2 }), said)
     expect(said).toEqual(['lowHpGel'])
+    run(a, 8, tick({ hp01: 0.2, tanks: 2 }), said)
+    expect(said).toEqual(['lowHpGel', 'warn.critical'])
+    // Healed, then hurt again in the same mission: one word is enough.
     run(a, 1, tick({ hp01: 0.9 }), said)
-    run(a, 40, tick({ hp01: 0.2, tanks: 0 }), said)
-    expect(said).toEqual(['lowHpGel', 'lowHp'])
+    run(a, 40, tick({ hp01: 0.4, tanks: 2 }), said)
+    expect(said).toEqual(['lowHpGel', 'warn.critical', 'warn.gel'])
+  })
+
+  it('one hit through both steps says only the critical line; with no gel: "No gel left", then the plain warning', () => {
+    const a = new AtlasDirector(info())
+    expect(run(a, 8, tick({ hp01: 0.2, tanks: 2 }))).toEqual(['warn.critical'])
+    const b = new AtlasDirector(info())
+    const said = run(b, 8, tick({ hp01: 0.2, tanks: 0 }))
+    expect(said).toEqual(['warn.noGel'])
+    run(b, 1, tick({ hp01: 0.9, tanks: 0 }), said)
+    run(b, 40, tick({ hp01: 0.2, tanks: 0 }), said)
+    expect(said).toEqual(['warn.noGel', 'lowHp'])
+  })
+
+  it('says a teaching line in full the first time ever, and never again', () => {
+    const seen = new Set<string>()
+    const first = (flag: string): boolean => (seen.has(flag) ? false : (seen.add(flag), true))
+    const a = new AtlasDirector(info(), () => null, () => 'none', first)
+    const said = run(a, 6, tick({ hp01: 0.4, tanks: 1 }))
+    run(a, 8, tick({ hp01: 0.2, tanks: 1 }), said)
+    run(a, 6, tick({ trapNear: 2, trapKind: 'flame' }), said)
+    expect(said).toEqual(['warn.gelFirst', 'warn.criticalFirst', 'warn.flame'])
+    // The next mission, the same save: the short variants.
+    const b = new AtlasDirector(info(), () => null, () => 'none', first)
+    const again = run(b, 6, tick({ hp01: 0.4, tanks: 1 }))
+    run(b, 8, tick({ hp01: 0.2, tanks: 1 }), again)
+    run(b, 6, tick({ trapNear: 2, trapKind: 'flame' }), again)
+    expect(again).toEqual(['lowHpGel', 'warn.critical', 'trap'])
+  })
+
+  it('the first story landing in a sector gets the sector\'s own line in place of the briefing', () => {
+    const a = new AtlasDirector(info({ sector: 'blaze', freed: 1, firstVisit: true }))
+    a.event('play')
+    expect(run(a, 12)).toEqual(['sector.blaze', 'arc.1'])
+    // The Volt Tower has its hack scene instead, the Scrapyard no line of its own.
+    const v = new AtlasDirector(info({ sector: 'volt', freed: 3, firstVisit: true }))
+    v.event('play')
+    expect(run(v, 6)[0]).toBe('story.volt')
   })
 
   it('warns of each trap once, never in the tutorial (it has its own lessons)', () => {
@@ -91,7 +131,12 @@ describe('Atlas: what it says, and when', () => {
     const said = run(a, 8, tick({ we01: 0.1 }))
     run(a, 8, tick({ we01: 0.1, objectiveDone: true }), said)
     run(a, 8, tick({ we01: 0.1, objectiveDone: true, level: 4 }), said)
-    expect(said).toEqual(['lowWe', 'objective', 'levelUp'])
+    run(a, 12, tick({ we01: 0.1, objectiveDone: true, level: 5 }), said)
+    // The energy warning carries its advice the first time; a level-up is said two ways by turns.
+    expect(said).toEqual(['warn.weLow', 'hint.done', 'levelUp', 'hint.levelUp'])
+    run(a, 1, tick({ we01: 0.9, objectiveDone: true, level: 5 }), said)
+    run(a, 50, tick({ we01: 0.1, objectiveDone: true, level: 5 }), said)
+    expect(said.at(-1)).toBe('lowWe')
   })
 
   it('a quiet stretch earns a little small talk, twice at most', () => {

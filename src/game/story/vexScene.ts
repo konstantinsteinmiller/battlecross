@@ -24,12 +24,14 @@ import { profile, markStorySeen } from '../state/profile'
  */
 
 export type Laugh = 'short' | 'medium' | 'maniacal'
-export type ScenePlace = 'title' | 'top' | 'center'
-export type Speaker = 'vex' | 'atlas'
+export type ScenePlace = 'title' | 'top' | 'center' | 'low'
+export type Speaker = 'vex' | 'atlas' | 'pip'
 
 export type Beat =
   | { vex: string; params?: Record<string, string>; laugh?: Laugh; gap?: number }
   | { atlas: string; params?: Record<string, string>; gap?: number }
+  /** Pip, the lab's helper bot (the debrief after a story mission, #119). */
+  | { pip: string; params?: Record<string, string>; gap?: number }
   | { sfx: Parameters<typeof sfx>[0]; gap?: number }
   | { wait: number }
   | { call: () => void; gap?: number }
@@ -63,7 +65,7 @@ export interface SceneHooks {
 
 /** The voice ids a scene can say (prefetch them when its trigger arms). */
 export const sceneVoices = (beats: readonly Beat[]): string[] => beats.flatMap(b =>
-  'vex' in b ? [b.vex, ...(b.laugh ? [`vex.laugh.${b.laugh}`] : [])] : 'atlas' in b ? [b.atlas] : [])
+  'vex' in b ? [b.vex, ...(b.laugh ? [`vex.laugh.${b.laugh}`] : [])] : 'atlas' in b ? [b.atlas] : 'pip' in b ? [b.pip] : [])
 
 export const prefetchScene = (beats: readonly Beat[]): void => {
   for (const id of sceneVoices(beats)) prefetchVoice(id)
@@ -101,6 +103,14 @@ export class Scene {
     return true
   }
 
+  /** A tap: cut the line being said and go on to the next beat. */
+  next (): void {
+    if (this.done) return
+    stopVoice()
+    this.laugh = null
+    this.until = this.t
+  }
+
   /** Skip: stop the voice and end now (the scene counts as seen). */
   skip (): void {
     if (this.done) return
@@ -128,8 +138,8 @@ export class Scene {
       this.until = this.t + this.hooks.atlas(b.atlas) + gap
       return
     }
-    const key = 'vex' in b ? b.vex : b.atlas
-    Object.assign(sceneUi, { speaker: 'vex' in b ? 'vex' : 'atlas', key, params, place: this.place })
+    const key = 'vex' in b ? b.vex : 'atlas' in b ? b.atlas : b.pip
+    Object.assign(sceneUi, { speaker: 'vex' in b ? 'vex' : 'atlas' in b ? 'atlas' : 'pip', key, params, place: this.place })
     sceneUi.seq++
     const voice = playVoice(key)
     const hold = voice != null ? voice + LINE_TAIL : readFor(key, params)

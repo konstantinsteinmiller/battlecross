@@ -67,6 +67,14 @@ export interface Diorama {
   setHolo(t: number, scrapBlink: number): void
   /** The farthest a lamp stands from the Spire (m): the ring's full reach. */
   reach: number
+  /** A sector's place in the valley (diorama space, on the ground): where a camera looks. */
+  sectorPos(id: SectorId): { x: number; y: number; z: number }
+  /**
+   * The story so far (the debrief, #119): the freed sectors glow in their own
+   * colour and the rest stay Vex's red; `hot` (the one just freed) flares
+   * white and settles, `next` (the one to free) pulses. `t` in s.
+   */
+  setProgress(freed: ReadonlySet<SectorId>, hot: SectorId | null, next: SectorId | null, t: number): void
 }
 
 const at = (mx: number, my: number): [number, number] => [(mx - 0.5) * 2 * DIORAMA_R * 0.85, (my - 0.5) * 2 * DIORAMA_R * 0.85]
@@ -465,6 +473,22 @@ export const buildDiorama = (opts: { holo?: boolean; low?: boolean } = {}): Dior
     spireTip,
     scrapyard: { x: pos.scrapyard[0], y: 0, z: pos.scrapyard[1] },
     reach,
+    sectorPos: (id) => ({ x: pos[id][0], y: id === 'fortress' ? cliffH : 0, z: pos[id][1] }),
+    setProgress: (freed, hot, next, t) => {
+      signalOn = 0
+      ring.visible = false
+      hopMat.color.set('#e8fbff')
+      outerMat.color.set('#ffffff')
+      for (const l of lamps) {
+        if (l.sector === 'lab') { l.mat.color.copy(l.base); continue }
+        // The Spire is Vex's until the end.
+        if (l.sector === 'spire' || l.sector === 'relay') { l.mat.color.copy(red); continue }
+        if (l.sector === hot) l.mat.color.copy(l.base).lerp(tmp.set('#ffffff'), 0.5 + 0.5 * Math.sin(t * 9))
+        else if (freed.has(l.sector)) l.mat.color.copy(l.base)
+        else if (l.sector === next) l.mat.color.copy(red).multiplyScalar(0.75 + 0.45 * (0.5 + 0.5 * Math.sin(t * 5)))
+        else l.mat.color.copy(red).multiplyScalar(0.55)
+      }
+    },
     setSignal: (k, flash) => {
       signalOn = k
       const front = k * reach

@@ -2,6 +2,8 @@
 import { describe, expect, it } from 'vitest'
 // @ts-expect-error plain .mjs tool module, no types
 import { styleFor } from '../../tools/voice/style.mjs'
+// @ts-expect-error plain .mjs tool module, no types
+import { tagFor } from '../../tools/voice/engines/elevenlabs.mjs'
 
 const job = { lang: 'en', direction: 'Worried, quick, not loud.', tone: 'urgent', situation: 'Health under 30 %', emphasis: [], max: 3 }
 
@@ -14,5 +16,12 @@ describe('the delivery a line is spoken with', () => {
     const de = styleFor({ ...job, lang: 'de', direction: 'Besorgt.', emphasis: ['blaze', 'master'] })
     expect(de).toContain('Betont: blaze, master.')
     expect(de).toContain('höchstens 3 Sekunden')
+  })
+
+  it("gives ElevenLabs a short audio tag: the tone and the direction's first clause, never the whole note", () => {
+    expect(tagFor('Soft: the first words he ever hears. Warm on "Flux".', 'warm')).toBe('[warm, soft] ')
+    expect(tagFor('Worried, quick, not loud.', 'urgent')).toBe('[urgent, worried, quick, not loud] ')
+    expect(tagFor('A full boxing-announcer build.', 'neutral')).toBe('[a full boxing-announcer build] ')
+    expect(tagFor('', 'neutral')).toBe('')
   })
 })

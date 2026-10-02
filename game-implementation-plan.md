@@ -632,7 +632,43 @@ while bars and damage numbers get direct DOM writes.
     - [x] 7.5 voice every new line (Chatterbox), browser pass (files decode
       in Chrome; the hub scenes, a Master's presentation and the Mk-I's
       beats checked on a private Chrome, no console errors).
-  - [ ] **P8 skill** (ask first).
+    - [x] 7.6 Atlas's remaining 69 story lines wired (sector beam-ins, scans,
+      warnings, hints, the mission board): one line per event, the generic
+      recordings kept as variants; `atlas.objective` retired; 39 locales.
+      Voiced: 494/494 live lines ship (Chatterbox, two retry rounds).
+  - [x] **P4b ElevenLabs** through its web app (`engines/elevenlabs.mjs`, the
+    shared voice-desk Chrome in `browser.mjs`): rated 5.0 on all six clips;
+    listening tests only (free plan: no commercial use, 10k credits/month;
+    the game is about 25k).
+  - [x] **P8 skill**: `~/.claude/skills/voice-over-pipeline` (the toolchain,
+    its tests and the runtime references as templates; engines, QA rules and
+    wiring patterns as its notes).
+  - [ ] **Merge `vo-test-install` into main** (asked for 2026-10-02).
+- **Chunk 22 — roadmap.md #118, #119 (2026-10-02).**
+  - [x] **#118** the boss was on the HUD twice (a "?" chip and the objective
+    card's portrait): the chip is the objective locator's clock now, no boss.
+  - [x] **#119** the debrief: a film after each story mission's results
+    (`story/debrief.ts` on its own chunk, `debriefScript.ts` for the beats,
+    `DebriefLayer.vue` for the cards). Decisions:
+    - Where: after the result screen and its interstitial, before the Lab
+      (`leaveResults`); the ending wins after the Fortress. Once ever per
+      Master (`debrief:<boss>`, marked at its start; old saves migrated).
+    - What: the valley from above (the intro's diorama; freed sectors in
+      their own colour, the rest Vex's red), then four stages moved by the
+      beats: the city, the copied weapon (its card), Vex (the Lab scene that
+      Master had, absorbed here and marked seen; the blueprint, the reserve
+      and the breach keep their hologram, `HubHologram.vue`), the next sector
+      (its Master as a hologram over it, a card with name and level band).
+    - Who: Pip, voiced (a fifth speaker: card, tones, chain, 52 lines in
+      39 locales, EN + DE voiced). Per transition: what the win changed, the
+      weapon, where next, what that Master has done there, how to beat it;
+      a welcome in the first, a send-off in each. Six Pip lines at most.
+    - Not excessive: about 25 s voiced; a tap (Space, Enter) moves on a
+      line, Skip (Esc) ends it.
+    - Checked: unit tests (script order, every line live and in the
+      catalogue, flow order, once ever, none after a lost mission), type
+      check, a private Chrome on desktop and phone sizes (three debriefs,
+      no console errors).
   - Chosen (user's blind test, 2026-10-02): Gemini Flash-Lite 4.5 stars,
     Gemini Flash and Chatterbox 4.0, VoxCPM2 and Qwen3 3.3; Opus 24k/16k
     rated above Vorbis q2. Production on Chatterbox (free) and Opus 24k in

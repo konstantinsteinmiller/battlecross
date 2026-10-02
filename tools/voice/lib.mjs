@@ -10,19 +10,30 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 const load = async (rel) => import(pathToFileURL(join(ROOT, rel)).href)
 
-export const { VOICE_LINES, SPEAKERS, SCENES, fileName } = await load('src/game/audio/voiceCatalog.ts')
-export const { CARDS, TONES } = await load('src/game/audio/voiceCards.ts')
-export const LOCALES = {
-  en: (await load('src/i18n/locales/en.ts')).default,
-  de: (await load('src/i18n/locales/de.ts')).default
+/**
+ * ADAPT (the one block a new project edits): where the line catalogue, the
+ * voice cards and the locales live, which languages get a voice (in the order
+ * of the catalogue's `[a, b]` text pairs), and where the files go.
+ */
+const PATHS = {
+  catalog: 'src/game/audio/voiceCatalog.ts',
+  cards: 'src/game/audio/voiceCards.ts',
+  locale: (lang) => `src/i18n/locales/${lang}.ts`,
+  langs: ['en', 'de'],
+  work: 'vo-src',
+  out: 'public/audio/voice'
 }
-export const LANGS = ['en', 'de']
-const LI = { en: 0, de: 1 }
+
+export const { VOICE_LINES, SPEAKERS, SCENES, fileName } = await load(PATHS.catalog)
+export const { CARDS, TONES } = await load(PATHS.cards)
+export const LANGS = PATHS.langs
+export const LOCALES = Object.fromEntries(await Promise.all(LANGS.map(async (l) => [l, (await load(PATHS.locale(l))).default])))
+const LI = Object.fromEntries(LANGS.map((l, i) => [l, i]))
 
 /** Pipeline work files: sources worth keeping (refs) and caches (gen). */
-export const VO_SRC = join(ROOT, 'vo-src')
+export const VO_SRC = join(ROOT, PATHS.work)
 /** Where the game reads the finished files (`vite.config.ts` lists them). */
-export const VOICE_OUT = join(ROOT, 'public', 'audio', 'voice')
+export const VOICE_OUT = join(ROOT, PATHS.out)
 
 export const at = (o, key) => key.split('.').reduce((x, k) => x?.[k], o)
 

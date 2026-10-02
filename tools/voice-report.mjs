@@ -33,7 +33,7 @@ const LOCALES = {
   de: (await import(pathToFileURL(join(ROOT, 'src/i18n/locales/de.ts')).href)).default
 }
 const LANGS = ['en', 'de']
-const SPEAKER_ORDER = ['atlas', 'vex', 'flux', 'gauss']
+const SPEAKER_ORDER = ['atlas', 'vex', 'flux', 'gauss', 'pip']
 const AUDIO_EXT = ['.ogg', '.mp3', '.m4a']
 
 const args = process.argv.slice(2)

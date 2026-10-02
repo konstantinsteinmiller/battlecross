@@ -212,6 +212,18 @@ export const migrateSeen = (world: WorldSave): void => {
     world.seen.push('vo:migrated')
     for (const beat of voBeatsBehind(world)) if (!world.seen.includes(beat)) world.seen.push(beat)
   }
+  // The sectors' own beam-in lines came later: a sector whose Master is beaten was landed in long ago.
+  if (!world.seen.includes('vo:migrated:2')) {
+    world.seen.push('vo:migrated:2')
+    for (const s of SECTORS) {
+      if (world.bosses.includes(s.boss) && !world.seen.includes(`sector:${s.id}`)) world.seen.push(`sector:${s.id}`)
+    }
+  }
+  // The debriefs (#119) too: a Master beaten before they existed has had its return to the Lab.
+  if (!world.seen.includes('vo:migrated:3')) {
+    world.seen.push('vo:migrated:3')
+    for (const b of world.bosses) if (!world.seen.includes(`debrief:${b}`)) world.seen.push(`debrief:${b}`)
+  }
 }
 
 /** The voiced scenes whose trigger a save is already past (`story/vexScene.ts`). */

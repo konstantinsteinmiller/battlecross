@@ -195,7 +195,8 @@ language, on a phone 320 px wide.
   Pip and the beam. **Amber** is Flux's: his eye-lights, his chest reactor
   and his charge. Vex's factory machines keep their signature colours. They
   never belonged to anyone else, so there is nothing to free.
-- **Pip speaks in glyphs.** Each of Pip's lines is a single icon from the
+- **Pip speaks in glyphs** in the Lab (his one voiced job is the debrief
+  between two story missions, `story-voice-over.md`). Each of Pip's lines is a single icon from the
   game's icon set, shown in a bubble above it: `skull` for Vex, `snowflake`
   for Gauss asleep, `lock` / `unlock` for relays, `check`, `heart`. Pip also
   chirps (synth) and talks with its eye, wide for alarm and squinting for

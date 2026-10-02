@@ -23,10 +23,13 @@ import { setAtlasTextLookup } from '@/game/sim/atlas'
  * per-frame HUD pieces.
  */
 const { t } = useI18n()
-/** A "{weapon} copied." line names the weapon its key ends with (#117). */
+/** A line that names something fills it from its own key's last part (#117):
+ *  the weapon copied or borrowed, the machine scanned. */
 const paramsOf = (key: string): Record<string, string> => {
-  const m = /^atlas\.story\.copied\.(\w+)$/.exec(key)
-  return m ? { weapon: t(`weapon.${m[1]}.name`) } : {}
+  const weapon = /^atlas\.(?:story\.copied|warn\.borrowedLast)\.(\w+)$/.exec(key)
+  if (weapon) return { weapon: t(`weapon.${weapon[1]}.name`) }
+  const scan = /^atlas\.scan\.(\w+)$/.exec(key)
+  return scan ? { enemy: t(`enemy.${scan[1]}`) } : {}
 }
 const el = ref<HTMLElement | null>(null)
 const docked = ref(true)

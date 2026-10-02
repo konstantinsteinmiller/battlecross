@@ -110,7 +110,9 @@ registerModeFactories(
   () => new HubMode(),
   (opts) => new IntroMode(opts),
   // The ending's own chunk, fetched when the Fortress is won.
-  async (opts) => new (await import('./story/ending')).EndingMode(opts)
+  async (opts) => new (await import('./story/ending')).EndingMode(opts),
+  // The debrief after a story mission, on its own chunk too.
+  async (opts) => new (await import('./story/debrief')).DebriefMode(opts)
 )
 
 let prepared: GameMode | null = null

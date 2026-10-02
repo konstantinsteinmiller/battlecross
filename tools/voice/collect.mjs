@@ -71,8 +71,10 @@ for (const line of pick) {
       // A sound, not words (barks, laughs), or a word broken on purpose: QA does not check it against the text.
       ...(line.neutral || BROKEN.has(line.key) ? { loose: true } : {}),
       emphasis,
-      direction: line.direction[lang === 'de' ? 1 : 0],
-      situation: line.when[lang === 'de' ? 1 : 0],
+      direction: line.direction[LANGS.indexOf(lang)],
+      // For engines that take the direction as an English tag whatever the line's language.
+      directionEn: line.direction[0],
+      situation: line.when[LANGS.indexOf(lang)],
       out: relative(ROOT, join(VOICE_OUT, lang, `${file}.ogg`)).replaceAll('\\', '/')
     })
   }

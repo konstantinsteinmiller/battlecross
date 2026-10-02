@@ -88,6 +88,8 @@ export const voltHackBeats = (arc: number, onHack: () => void, onFail: () => voi
 
 /** S9: Vex welcomes Flux to the Fortress (then the usual briefing). */
 export const fortressBeats = (): Beat[] => [
+  // The bays Flux starved of parts by freeing the Masters: Atlas, before Vex cuts in.
+  { atlas: 'atlas.fortress.bays', gap: 0.5 },
   { vex: 'vex.fortress.welcome', laugh: 'maniacal', gap: 0.6 }
 ]
 

@@ -105,7 +105,11 @@ browser route is written but blocked: Google refuses its access token to a
 Chrome with an automation port.
 
 **Chosen on 2026-10-02:** the blind test ranked Gemini Flash-Lite 4.5,
-Gemini Flash and Chatterbox 4.0, and VoxCPM2 and Qwen3 3.3. Production runs
+Gemini Flash and Chatterbox 4.0, and VoxCPM2 and Qwen3 3.3. A second round
+with ElevenLabs (Eleven v4, driven through its web app) rated it 5.0 on
+every clip, ahead of Gemini Flash-Lite (4.7). ElevenLabs' free plan forbids
+commercial use and gives 10,000 credits a month; the whole game is about
+25,000 (one take a line), so shipping it means a paid month. Production runs
 on **Chatterbox**, which clones Qwen3's designed references. It's free and
 has no quota, whereas the Gemini API's free tier is 10 requests a day.
 **For later:** re-voice with Gemini Flash-Lite once billing is on for the AI
@@ -118,8 +122,28 @@ ending's captions speak, and Dr. Vex has his scenes (`story/vexScene.ts`,
 `story/vexScenes.ts`): the Master presentations, the Mk-I, the Volt Tower
 hack, the Fortress welcome, the hub broadcasts with the blueprint, reserve
 and breach scenes, and the New Game+ sting. Each scene plays once ever.
-Still unwired: Atlas's sector beam-ins, field warnings, hints and machine
-scans, and `atlas.fortress.bays` (the assembly bays aren't built).
+Atlas's story lines are wired too (`sim/atlas.ts`, `sim/mission.ts`,
+`story/hubAtlas.ts`): each sector's beam-in line on the first story landing
+there, the machine scans (the first time ever a kind, an elite or an element
+coat is in view), the warnings and hints. Where a story line and a generic
+one describe the same moment, the rule is one line per event and both stay
+in use:
+
+| Moment | First time ever | In a mission, first | After that |
+| --- | --- | --- | --- |
+| Health under 50 %, a gel carried | `warn.gelFirst` | `lowHpGel` | `warn.gel` |
+| Health under 25 %, a gel carried | `warn.criticalFirst` | `warn.critical` | `warn.critical` |
+| Health under 25 %, no gel | | `warn.noGel` | `lowHp` |
+| Weapon energy under 20 % | | `warn.weLow` | `lowWe` |
+| A corridor trap ahead | `warn.flame` / `warn.blade` | `trap` | `trap` |
+| The boss door | `boss.signalFirst` (Scrapyard) | `warn.boss` when a weakness tip follows, else `bossAhead` | |
+| A level-up | | `hint.levelUp` and `levelUp` by turns | |
+
+One hit through both health steps says only the critical line. "Done! Now
+find the exit." (`atlas.objective`) is retired: `hint.done` replaces it
+(the drone is called from anywhere). `atlas.fortress.bays` plays at the
+Fortress landing, before Vex's welcome (the bays themselves aren't built).
+The sector floor lines and "Train first." play on the mission board.
 
 **Where `fx.mjs` departs from the blocks below:**
 
@@ -571,10 +595,29 @@ NyquistPrompt: Command="(sim (mult 0.97 *track*) (mult 0.03 *track* (hzosc 2400)
 Reverb: RoomSize=30 Delay=8 Reverberance=30 HfDamping=70 ToneLow=100 ToneHigh=70 WetGain=-17 DryGain=0 StereoWidth=0 WetOnly=0
 ```
 
-### Pip: no VO
+### Pip: the debriefs
 
-Pip stays synth chirps and glyphs, as `story.md` has it. Its two-note chirp
-lives in `sound-todo.md`. There is no chain; the skill skips it.
+Pip was synth chirps and glyphs only; since #119 he has a voice, for one
+job: the **debrief** after each story mission (`story/debrief.ts`). In the
+Lab itself he still speaks in glyphs and chirps, as `story.md` has it, and
+his two-note chirp stays a synth sound (`sound-todo.md`), never baked into
+a line.
+
+- **Voice:** a light, clear, brisk tenor with a smile in it; a man in his
+  late twenties. A cheerful young lab technician pointing at a map: short
+  plain sentences, eager, proud of every relay. Never a soldier, never a
+  child.
+- **Apart from the others:** from Flux (late-teen, yelps only) by age, full
+  sentences and neat diction; from Atlas (a low alto, field warnings) by
+  gender, pitch and pace. Pip briefs in the safe Lab and never warns in the
+  field: that is Atlas's job.
+- **Tones:** warm, excited, cheeky, neutral, calm. Never urgent.
+- **Chain** (`tools/voice/fx.mjs`, ffmpeg): a tiny bot with a tiny speaker.
+  +2 semitones (formants rise with it; +3 turns full sentences chipmunk), a
+  bell-like 10 % ring-mod at 880 Hz, the highest high-pass in the cast
+  (380 Hz to 7.8 kHz, so he reads smaller than Atlas and Flux), -2 dB at
+  500 Hz, +3 dB at 2.5 kHz, a 7 ms comb as the tin body. No room: he talks
+  over the hologram, close. Dynamics -24 dB, 3.5:1, 3 ms / 100 ms; -16 LUFS.
 
 ---
 
@@ -744,6 +787,85 @@ three are added, and keep `vex.sting.doctorIn` for the Mk-II sting.
 | `gauss_you_did_it` | `ending.gauss` | Gauss | "Flux... you did it. You brought them all back." | Just out of the ice: a breath first, warm, tired and proud. The pause after "Flux" is her waking up. **The Gauss chain.** | 3.6 s |
 | `atlas_its_theirs` | `ending.atlas` | Atlas | "The Spire is empty. I could run this city now. I won't. It's theirs." | Tempted for one sentence, then a decision, and peace. It should sound like a choice, not a sacrifice. The game's one long Atlas line: over the 7-word rule on purpose, so a brisk read to fit the catalogue's 3.5 s cap. **The Atlas chain**, standard row, no glitch. | 3.5 s |
 | `gauss_that_spark` | `ending.spark` | Gauss | "Flux... did you see that spark?" | Light and curious, over the sunrise; a hook, not dread. **The Gauss chain.** | 2.4 s |
+
+### The debriefs between missions (Pip, built)
+
+After a Core Master's first fall and its result screen, before the Lab: the
+valley from above, the freed sectors in their own colours, the rest in Vex's
+red. Pip says what the win changed, the camera goes to the weapon Flux copied
+(its card), Vex reacts (the scene that Master had in the Lab: his broadcast,
+or the blueprint, the reserve, the breach), then the camera travels to the
+next sector, where its Master stands as a hologram: where to go, what that
+Master has done there, how to beat it. Six Pip lines at most, about 25 s; a
+tap moves on a line, Skip ends it. Once ever per Master (`debrief:<boss>`).
+The Fortress has none: its win has the ending.
+
+`{weapon}`, `{sector}` and `{boss}` are filled with the game's own names.
+
+| VO id | Key | Line | Direction | Max |
+| --- | --- | --- | --- | --- |
+| `pip_debrief_hello` | `pip.debrief.hello` | "Welcome back, Flux! Look at the valley." | Bright and glad to see him; a quick breath, then pointing at the hologram. | 2.6 s |
+| | | **After Scrapyard → Blaze Refinery** | | |
+| `pip_debrief_scrapyard_won` | `pip.debrief.scrapyard.won` | "The old crane is sorting scrap again." | Pleased and a little amazed: the first thing that went back to normal. | 2.6 s |
+| `pip_debrief_scrapyard_weapon` | `pip.debrief.scrapyard.weapon` | "You copied {weapon}. It sprays three ways." | Proud of him, then a handy tip, said plainly. | 2.8 s |
+| `pip_debrief_scrapyard_next` | `pip.debrief.scrapyard.next` | "Next stop: {sector}. Just a little tougher." | Like a tour guide; reassuring on 'just a little'. | 2.8 s |
+| `pip_debrief_scrapyard_boss` | `pip.debrief.scrapyard.boss` | "{boss} is forging armor for Vex's machines." | Worried, a touch indignant: that forge used to work for the city. | 3 s |
+| `pip_debrief_scrapyard_tip` | `pip.debrief.scrapyard.tip` | "Block its fireballs. Slide past the fire waves." | Two clear instructions, a small beat between them. | 3 s |
+| | | **After Blaze Refinery → Cryo Plant** | | |
+| `pip_debrief_blaze_won` | `pip.debrief.blaze.won` | "The chimneys burn clean again. Nice work!" | Relieved, then a quick, honest compliment. | 2.8 s |
+| `pip_debrief_blaze_weapon` | `pip.debrief.blaze.weapon` | "You've got {weapon} now. Fire melts ice!" | Delighted; 'Fire melts ice' like a rule he just remembered. | 2.8 s |
+| `pip_debrief_blaze_next` | `pip.debrief.blaze.next` | "{sector} is next. The machines hit harder there." | A friendly heads-up, not a scare. | 3 s |
+| `pip_debrief_blaze_boss` | `pip.debrief.blaze.boss` | "{boss} keeps all the coolant. The city's overheating." | Concerned; the second sentence is the reason to go. | 3 s |
+| `pip_debrief_blaze_tip` | `pip.debrief.blaze.tip` | "Block its ice shots, then fire back!" | Cheeky on 'fire back': he knows it is a pun. | 2.6 s |
+| | | **After Cryo Plant → Volt Tower** | | |
+| `pip_debrief_cryo_won` | `pip.debrief.cryo.won` | "Coolant's flowing home. The city can cool down." | A happy sigh of relief. | 2.8 s |
+| `pip_debrief_cryo_weapon` | `pip.debrief.cryo.weapon` | "{weapon} is yours. Ice beats lightning!" | Eager; the rule lands crisp and bright. | 2.6 s |
+| `pip_debrief_cryo_next` | `pip.debrief.cryo.next` | "Next: {sector}, downtown. A real step up." | Honest about the jump, still upbeat. | 2.8 s |
+| `pip_debrief_cryo_boss` | `pip.debrief.cryo.boss` | "{boss} pours our power into the Red Signal." | Serious for a moment; stress 'our power'. | 3 s |
+| `pip_debrief_cryo_tip` | `pip.debrief.cryo.tip` | "It teleports a lot. Shoot down its orbs." | Quick and practical, like reading from his notes. | 2.8 s |
+| | | **After Volt Tower → Sky Docks** | | |
+| `pip_debrief_volt_won` | `pip.debrief.volt.won` | "Vex's face keeps flickering now. Did you see?" | Giggling at the villain; the question is gleeful. | 2.8 s |
+| `pip_debrief_volt_weapon` | `pip.debrief.volt.weapon` | "{weapon} is yours. Lightning beats wind!" | Bright and quick; the rule again, pleased with the pattern. | 2.6 s |
+| `pip_debrief_volt_next` | `pip.debrief.volt.next` | "Next: {sector}, way up high. Tough machines." | Looking up as he says it; a small gulp on 'way up high'. | 2.8 s |
+| `pip_debrief_volt_boss` | `pip.debrief.volt.boss` | "{boss} runs Vex's airships, day and night." | A little sorry for the Master: it never gets to rest. | 2.8 s |
+| `pip_debrief_volt_tip` | `pip.debrief.volt.tip` | "Block the feathers. Parry when it dives!" | Coaching; lift on 'Parry'. | 2.8 s |
+| | | **After Sky Docks → Polarity Works** | | |
+| `pip_debrief_gale_won` | `pip.debrief.gale.won` | "The airships turned around. Clear skies again!" | Cheering, arms up. | 2.8 s |
+| `pip_debrief_gale_weapon` | `pip.debrief.gale.weapon` | "{weapon} is yours. Its leaves block shots." | Pleased, explaining a clever gadget. | 2.8 s |
+| `pip_debrief_gale_next` | `pip.debrief.gale.next` | "Now the city's edge: {sector}. Much tougher." | The mood drops a step: five more relays just woke up. Plain on 'Much tougher'. | 3 s |
+| `pip_debrief_gale_boss` | `pip.debrief.gale.boss` | "{boss} took the tram rails for Vex's freight." | Indignant in a small way: those are the city's trams. | 3 s |
+| `pip_debrief_gale_tip` | `pip.debrief.gale.tip` | "It pulls you in. Block the clamp!" | A warning with a wince, then the fix, firm. | 2.6 s |
+| | | **After Polarity Works → Deep Mine** | | |
+| `pip_debrief_magnet_won` | `pip.debrief.magnet.won` | "The trams are rolling again. Ding ding!" | Playful; 'Ding ding' is a tram bell, two bright notes. | 2.6 s |
+| `pip_debrief_magnet_weapon` | `pip.debrief.magnet.weapon` | "{weapon} cracks shields. Perfect for the next Master." | A tip passed on with a wink. | 3 s |
+| `pip_debrief_magnet_next` | `pip.debrief.magnet.next` | "Next: {sector}, deep underground. Seriously strong machines." | Voice goes a little lower on 'deep underground'. | 3 s |
+| `pip_debrief_magnet_boss` | `pip.debrief.magnet.boss` | "{boss} trapped the worker-bots down the shaft." | Worried for them; this is a rescue. | 2.8 s |
+| `pip_debrief_magnet_tip` | `pip.debrief.magnet.tip` | "It digs under you. Step off the mark!" | Quick; the second sentence is the thing to remember. | 2.8 s |
+| | | **After Deep Mine → Tidewater Locks** | | |
+| `pip_debrief_drill_won` | `pip.debrief.drill.won` | "The worker-bots are back up in daylight." | Soft and happy: they are safe. | 2.8 s |
+| `pip_debrief_drill_weapon` | `pip.debrief.drill.weapon` | "{weapon} goes boom. Save some for the boss!" | Gleeful on 'boom', then a conspirator's tip. | 3 s |
+| `pip_debrief_drill_next` | `pip.debrief.drill.next` | "Next: {sector}, down by the water. Very tough." | Matter-of-fact; no drama on 'Very tough'. | 3 s |
+| `pip_debrief_drill_boss` | `pip.debrief.drill.boss` | "{boss} is flooding the canals for Vex's barges." | Concerned; the water keeps rising as he says it. | 3 s |
+| `pip_debrief_drill_tip` | `pip.debrief.drill.tip` | "Slide under its waves. Pop the bubbles!" | Light and bouncy; 'Pop' pops. | 2.8 s |
+| | | **After Tidewater Locks → Blackout Boulevard** | | |
+| `pip_debrief_tide_won` | `pip.debrief.tide.won` | "Clean water's flowing into the valley again." | Content, like watching a tap run clear. | 2.8 s |
+| `pip_debrief_tide_weapon` | `pip.debrief.tide.weapon` | "{weapon} rolls through crowds. The boss hates bubbles!" | Amused by the idea; a small laugh in 'hates bubbles'. | 3 s |
+| `pip_debrief_tide_next` | `pip.debrief.tide.next` | "Next: {sector}, the dark rooftops. Really dangerous." | Hushed on 'dark rooftops'; he does not like the dark. | 3.2 s |
+| `pip_debrief_tide_boss` | `pip.debrief.tide.boss` | "{boss} switched off every window downtown." | A little sad: the city has gone dark. | 2.8 s |
+| `pip_debrief_tide_tip` | `pip.debrief.tide.tip` | "Its blade flies out and back. Dodge twice!" | Draw the blade's path with the voice: out, and back. | 3 s |
+| | | **After Blackout Boulevard → Rotor Run** | | |
+| `pip_debrief_neon_won` | `pip.debrief.neon.won` | "Downtown's glowing pink tonight. So pretty!" | Dreamy for a second; he loves the lights. | 2.6 s |
+| `pip_debrief_neon_weapon` | `pip.debrief.neon.weapon` | "{weapon} cuts twice. The next Master fears it!" | Confident; he is handing over the right tool. | 3 s |
+| `pip_debrief_neon_next` | `pip.debrief.neon.next` | "Next: {sector}, the sky airfield. Almost the toughest." | Building up: one Master left. | 3 s |
+| `pip_debrief_neon_boss` | `pip.debrief.neon.boss` | "{boss} fills the sky with cargo drones." | Looking up, a bit overwhelmed by how many. | 2.8 s |
+| `pip_debrief_neon_tip` | `pip.debrief.neon.tip` | "It blows you back. Slide under the gusts!" | Brisk coaching; lean on 'Slide'. | 2.8 s |
+| | | **After Rotor Run → Vex Fortress** | | |
+| `pip_debrief_rotor_won` | `pip.debrief.rotor.won` | "The drones deliver to the worker-bots now." | Proud: the last supply line works for the city. | 2.8 s |
+| `pip_debrief_rotor_weapon` | `pip.debrief.rotor.weapon` | "{weapon} is yours. Three drones find their targets." | Fond of the little drones; they are a bit like him. | 3 s |
+| `pip_debrief_rotor_next` | `pip.debrief.rotor.next` | "Last stop: {sector}. The toughest place there is." | Slower and steadier than usual; a breath before 'The toughest'. | 3 s |
+| `pip_debrief_rotor_boss` | `pip.debrief.rotor.boss` | "{boss} can't hide behind a shield now." | Brave for a small bot; a little triumphant. | 3 s |
+| `pip_debrief_rotor_tip` | `pip.debrief.rotor.tip` | "It borrows the Masters' attacks. Pack Repair Gel!" | Caring and practical: the last piece of advice before the big one. | 3 s |
+| `pip_debrief_go` | `pip.debrief.go` | "Gear up, then go! I'll mind the lab." | A cheerful send-off; practical on 'gear up', cosy on 'I'll mind the lab'. | 2.8 s |
 
 ### Atlas: field warnings
 

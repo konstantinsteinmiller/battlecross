@@ -5,7 +5,7 @@
       :key="sceneUi.seq"
       :class="[sceneUi.speaker, sceneUi.place]"
     )
-      span.who(v-if="sceneUi.speaker === 'atlas'") {{ t('ending.speaker.atlas') }}
+      span.who(v-if="sceneUi.speaker !== 'vex'") {{ t(`ending.speaker.${sceneUi.speaker}`) }}
       span.text {{ text }}
 </template>
 
@@ -58,6 +58,10 @@ onUnmounted(() => setSceneTextLookup(null))
     top: 62%
   &.center
     top: 40%
+  // A cutscene's caption: low, clear of the picture.
+  &.low
+    top: auto
+    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(64px, 14vh, 120px))
 // Dr. Vex: ornate, gilded and red (the intro's bubble).
 .vex
   background: radial-gradient(ellipse at 50% 30%, #c4162c, #6a0714 80%)
@@ -77,6 +81,15 @@ onUnmounted(() => setSceneTextLookup(null))
   box-shadow: 0 0 0 2px #6ff2ff, 0 4px 0 rgba(20, 26, 51, 0.4)
   .who
     color: #20b8d0
+// Pip: the lab's small helper, in its warm amber.
+.pip
+  background: #fffaf0
+  color: #141a33
+  border: 3px solid #141a33
+  border-radius: 1.1em
+  box-shadow: 0 0 0 2px #ffc21a, 0 4px 0 rgba(20, 26, 51, 0.4)
+  .who
+    color: #c98a00
 .who
   font-size: 0.62em
   letter-spacing: 0.12em

@@ -292,7 +292,7 @@ Master is lime and white, not orange.
   Flux is hurt, and glitches red in the Volt Tower beat. It has no face, so
   it stays readable at 32 px.
 - **Split with Pip:** **Pip speaks in the lab** (glyph bubbles and chirps;
-  it runs the hub). **Atlas speaks in the field** (missions). They never
+  it runs the hub; and, voiced, the debrief between two story missions). **Atlas speaks in the field** (missions). They never
   overlap, so neither makes the other redundant.
 - **Twist (revealed at the midpoint):** Gauss wrote Atlas from **VEX's first
   draft**. They are sibling programs, and Atlas is what VEX was supposed to

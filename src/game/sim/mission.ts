@@ -11,6 +11,7 @@ import { AtlasDirector, atlasKey, type AtlasTick, type AtlasLine } from './atlas
 import { buildAtlas, animateAtlas } from '../models/atlas'
 import { playVoice, prefetchVoice } from '../audio/voice'
 import { bark, barkFor, preloadBarks } from '../audio/barks'
+import { compareItems, rivalFor } from '../data/itemCompare'
 import { Scene as StoryScene, markVexSeen, vexSeen, prefetchScene, VEX_BOSS_KEY, type Beat, type ScenePlace } from '../story/vexScene'
 import {
   presentBeats, freedBeats, voltHackBeats, fortressBeats, mk1IntroBeats, mk1SignalBeats, mk1DefeatBeats,
@@ -62,7 +63,7 @@ import type { Quest } from '../data/quests'
 import { SECTOR_BY_ID } from '../data/regions'
 import { MissionObjects, CHEST_DY, type Chest, type Crate, type Core, type ObjectiveHost } from './objectives'
 import {
-  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, retryPointOf, xp01, heroColors, markTip, type MissionSnapshot
+  profile, grantXp, saveProfile, claimGiftTank, computeStats, writeSnapshot, retryPointOf, xp01, heroColors, markTip, equipped, type MissionSnapshot
 } from '../state/profile'
 import { rollItem, type Item } from '../data/items'
 import { flow, finishMission, retryFromSnapshot } from '../flow'
@@ -242,6 +243,14 @@ const _stray: [number, number, number] = [0, 0, 0]
 const FUMBLE_SPARKS = ['#ff5a3a', '#ffd84a', '#7ff4ff', '#ffffff']
 /** Under this share of health, the heartbeat plays. */
 const LOW_HP_BEAT = 0.25
+/** The machine kinds Atlas has a scan line for (`atlas.scan.<kind>`). */
+const SCAN_KINDS: ReadonlySet<string> = new Set(['hardhat', 'trooper', 'heli', 'hopper', 'roller', 'brute', 'turret', 'golem', 'polar', 'warden', 'hornet', 'stalker', 'puffer', 'mole'])
+/** True the first time ever a teaching line's flag is asked (kept in the profile's tips), false after. */
+const firstEver = (flag: string): boolean => {
+  if (profile.tips[flag]) return false
+  markTip(flag)
+  return true
+}
 /** A blackout's sky and fog, and a lightning flash's. */
 const NIGHT = new Color('#04050b')
 const FLASH_WHITE = new Color('#e8eeff')
@@ -374,6 +383,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   private bossStarted = false
   /** A voiced story scene running (`story/vexScene.ts`, #117), if any. */
   private storyScene: StoryScene | null = null
+  /** Scan flags already looked up this mission (`noteSighting`): one profile lookup each. */
+  private readonly scanned = new Set<string>()
   /** A scene waiting for Atlas's current line to end (the landing's "Touchdown!"). */
   private pendingScene: (() => void) | null = null
   /** The Mk-I fight's beats: phase 2 seen, the attack in its wind-up, the elements called. */
@@ -850,8 +861,9 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       kind: q?.kind ?? 'job',
       template: q?.template ?? '',
       sector: setup.sector,
-      freed: profile.world.bosses.filter(b => b !== 'vexMk1').length
-    }, (key) => playVoice(key), (key) => prefetchVoice(key))
+      freed: profile.world.bosses.filter(b => b !== 'vexMk1').length,
+      firstVisit: q?.kind === 'story' && !vexSeen(`sector:${setup.sector}`)
+    }, (key) => playVoice(key), (key) => prefetchVoice(key), firstEver)
     preloadBarks()
   }
 
@@ -1459,6 +1471,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     } else if (r === 'energy') {
       pushHud({ t: 'toast', key: 'combat.noEnergy', color: '#ff9a8a' })
       sfx('denied')
+      this.atlas?.say('warn.weEmpty')
     }
   }
 
@@ -1490,6 +1503,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     const aim = this.aimDir(m)
     if (this.weapons.use(2, id, m, aim, true) !== 'ok') return
     b.fired(throwing)
+    if (!throwing && b.slot.shots === 1) this.atlas?.say(`warn.borrowedLast.${id}` as AtlasLine)
     this.vmFlash = 1
     this.vmFlashColor = WEAPONS[id].color
     this.combat.recoil = 1
@@ -1553,6 +1567,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       // line in the toast stack went by unread.
       pushHud({ t: 'loot', item: it })
       sfx('loot')
+      if (compareItems(it, rivalFor(it, equipped)).upgrade) this.atlas?.say('hint.upgrade')
     }
     if (Math.random() < 0.18 && profile.inv.tanks < this.stats.tanksMax) {
       profile.inv.tanks++
@@ -1789,7 +1804,15 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
   /** Atlas says a line (`ClimbHost`: a stage feature's tip or a secret's
    *  nudge). Before Atlas is built, nothing. */
   say(line: AtlasLine): void {
-    this.atlas?.say(line)
+    const a = this.atlas
+    if (!a) return
+    // The story's first-time warnings from the stage itself (a crusher, a ladder, a lift over
+    // a pit): once ever, and not where the stage has its own tip for the same thing.
+    if (line === 'warn.crusher' || line === 'warn.ladder' || line === 'warn.pit') {
+      if ((line === 'warn.crusher' && this.setup.sector === 'blaze') || (line === 'warn.pit' && this.setup.sector === 'gale')) return
+      if (!a.first(`atlas:${line}`)) return
+    }
+    a.say(line)
   }
 
   /** The cast's level and the sector's table (`ClimbHost`: a stage's waves
@@ -2127,7 +2150,10 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (c.dead) return
     c.dead = true
     c.charging = false
-    if (!this.demo.active) bark('down')
+    if (!this.demo.active) {
+      bark('down')
+      this.atlas?.sayNow('warn.down')
+    }
     this.fumble.reset()
     this.deathT = 0
     hud.phase = 'dead'
@@ -3274,6 +3300,12 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     if (this.locator.popped) {
       this.locator.popped = false
       sfx('locate')
+      // What the yellow triangle is, the first two times ever it shows.
+      const shown = Number(profile.tips['atlas:locator'] ?? 0)
+      if (shown < 2 && !this.setup.tutorial) {
+        profile.tips['atlas:locator'] = shown + 1
+        this.atlas?.say('hint.locator')
+      }
     }
     L.alpha = this.locator.alpha
   }
@@ -3805,6 +3837,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
         if (!fight && (d < FIGHT_NEAR || this.time - e.hurtAt < FIGHT_HURT || hasLineOfSight(this.nav, p.x, p.z, e.x, e.z))) fight = true
       }
       if (d < 22 && ang < 0.5 && hasLineOfSight(this.nav, p.x, p.z, e.x, e.z)) {
+        this.noteSighting(e)
         this.aimCandidate = true
         if (ang < sightedAng) { sighted = e; sightedAng = ang }
       }
@@ -3941,6 +3974,41 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
    *  Flux carries that weapon (the rings run with the story, so on a first
    *  run that is most Masters); a Master with no weakness gets `noWeak`. One
    *  with a weakness Flux has not copied yet: nothing, it is found by trying. */
+  /**
+   * The boss door's line: the Scrapyard's first signal ever ("It's… big."),
+   * the short "Core Master ahead." when a weakness tip follows it, and the
+   * full "Boss ahead. Deep breath!" when nothing does. One line, never two.
+   */
+  private sayBossAhead(): void {
+    const a = this.atlas
+    const b = this.boss
+    if (!a || !b) return
+    const weak = (b.def as BossDef).weakTo
+    const tipFollows = !weak || profile.hero.weapons.includes(weak)
+    if (this.setup.sector === 'scrapyard' && a.first('atlas:signal')) a.say('boss.signalFirst')
+    else a.say(tipFollows ? 'warn.boss' : 'bossAhead')
+  }
+
+  /**
+   * A machine in plain view: Atlas reads it the first time ever its kind is
+   * seen (then an elite's gold ring, then an element coat: one line per
+   * sighting). Not in the tutorial (its lessons teach), not over a scene or
+   * another line (a late scan is noise).
+   */
+  private noteSighting(e: Enemy): void {
+    const a = this.atlas
+    if (!a || e.boss || this.setup.tutorial || this.storyScene || a.line) return
+    const checks: Array<readonly [string, AtlasLine]> = []
+    if (SCAN_KINDS.has(e.kind)) checks.push([`scan:${e.kind}`, `scan.${e.kind}` as AtlasLine])
+    if (e.elite) checks.push(['scan:elite', 'scan.elite'])
+    if (e.element !== 'none') checks.push([`scan:coat:${e.element}`, `scan.${e.element}` as AtlasLine])
+    for (const [flag, line] of checks) {
+      if (this.scanned.has(flag)) continue
+      this.scanned.add(flag)
+      if (a.first(`atlas:${flag}`)) { a.say(line); return }
+    }
+  }
+
   private sayWeakness(): void {
     const b = this.boss
     if (!b || !this.atlas) return
@@ -3975,7 +4043,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       if (Math.hypot(d.x - p.x, d.z - p.z) < 9 && hasLineOfSight(this.nav, p.x, p.z, d.x, d.z)) {
         this.bossWarned = true
         this.sfx('bossWarn', d.x, d.z)
-        this.atlas?.event('bossAhead')
+        this.sayBossAhead()
         this.sayWeakness()
         this.shake(0.12)
         pushHud({ t: 'flash', color: '#ff3040', strength: 0.16 })
@@ -4244,7 +4312,7 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
       hud.bossHp01 = b.state === 'dead' ? 0 : Math.min(fill, b.hp / b.maxHp)
       if (b.state === 'dead' && b.deathT > 1.6) hud.bossName = ''
     }
-    // The top row's mystery chip and the locator's clock.
+    // The top row's locator chip (its clock).
     hud.missionBoss = b?.bossId ?? ''
     hud.bossDown = !!b && b.state === 'dead'
     hud.locatorOn = this.locator.visible
@@ -4418,6 +4486,8 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     } else if (story && sector === 'fortress' && !vexSeen('fortress')) {
       this.pendingScene = () => this.playScene(fortressBeats(), 'top', 'fortress', () => this.atlas?.event('play'))
     } else this.atlas?.event('play')
+    // The sector's own beam-in line is for the first story landing there.
+    if (story) markVexSeen(`sector:${sector}`)
   }
 
   /** The story scenes' recordings, fetched as the mission lands (a line must not wait on its file). */
@@ -4476,11 +4546,16 @@ export class Mission implements GameMode, CombatHost, ObjectiveHost, ExitHost, T
     k.objectiveDone = hud.objectiveDone
     k.trapNear = -1
     k.plateNear = false
+    k.trapKind = ''
     this.traps.traps.forEach((s, i) => {
       if (s.stage === 'spent') return
       const d = Math.hypot(s.spot.x - p.x, s.spot.z - p.z)
-      if (s.spot.plate) { if (d < 5) k.plateNear = true } else if (d < 8 && k.trapNear < 0) k.trapNear = i
+      if (s.spot.plate) { if (d < 5) k.plateNear = true } else if (d < 8 && k.trapNear < 0) { k.trapNear = i; k.trapKind = s.spot.kind }
     })
+    // A rescue job: the worker-bot's faint signal, once he is near.
+    const npc = this.objects.npc
+    if (playing && npc && !npc.rescued && this.setup.quest?.template === 'rescue' &&
+      Math.hypot(npc.x - p.x, npc.z - p.z) < 12) this.atlas.say('hint.rescue')
     this.atlas.update(dt, k)
     const key = this.atlas.line ? atlasKey(this.atlas.line.id) : ''
     if (key !== hud.atlasKey) {

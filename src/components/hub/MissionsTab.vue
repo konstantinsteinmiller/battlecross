@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import QuestCard from './QuestCard.vue'
@@ -66,6 +66,8 @@ import { profile, saveProfile, computeStats } from '@/game/state/profile'
 import { storyFor, startMission, rerollJob } from '@/game/flow'
 import type { Quest } from '@/game/data/quests'
 import { sfx } from '@/game/audio/sfx'
+import { boardClosed, boardOpened, sectorSelected } from '@/game/story/hubAtlas'
+import { hubLesson } from './hubLesson'
 import { useDragScroll, revealIn } from '@/use/useDragScroll'
 import { claimReward, canOfferReward, adInFlight } from '@/use/useAdGate'
 import { resumeMusicAfterAd } from '@/use/useSound'
@@ -95,11 +97,18 @@ const reveal = (smooth: boolean) => {
   const card = el?.querySelector<HTMLElement>(`[data-sector="${sel.value}"]`)
   if (el && card) revealIn(el, card, smooth)
 }
-onMounted(() => nextTick(() => reveal(false)))
+onMounted(() => {
+  void nextTick(() => reveal(false))
+  // Atlas on the board (#117): the preselected sector's floor level, or a warning that it is too high.
+  boardOpened()
+  if (!hubLesson.step) sectorSelected(sel.value)
+})
+onUnmounted(boardClosed)
 const select = (id: SectorId) => {
   sel.value = id
   profile.world.selected = id
   sfx('uiClick')
+  sectorSelected(id)
   void nextTick(() => reveal(true))
 }
 const deploy = (q: Quest) => {

@@ -17,7 +17,7 @@ import type { FloorMarkers, ShockRings } from '../fx/markers'
 import { PLAYER_R, ACCEL } from './constants'
 import type { EncounterTable } from './spawn'
 import type { AtlasLine } from './atlas'
-import { buildStageFeatures, type StageFeature, type MoveMod } from './stageFeatures'
+import { buildStageFeatures, AtlasCue, type StageFeature, type MoveMod } from './stageFeatures'
 
 /**
  * ─── The climb at run time ───────────────────────────────────────────────────
@@ -311,6 +311,9 @@ export class ClimbRun {
   readonly t: Terrain
   private host: ClimbHost
   private ladders: LadderRt[] = []
+  /** Atlas's first-time warnings on the way: the first ladder, the first shuttle over a pit
+   *  (the mission says each once ever). */
+  private readonly cues: AtlasCue[] = []
   private lifts: LiftRt[] = []
   private crushers: CrusherRt[] = []
   private lanes: LaneRt[] = []
@@ -363,6 +366,9 @@ export class ClimbRun {
         standX: ex + nx * (PLAYER_R + 0.06), standZ: ez + nz * (PLAYER_R + 0.06),
         topX: ex - nx * (PLAYER_R + 0.35), topZ: ez - nz * (PLAYER_R + 0.35)
       })
+      if (!L.kick && !L.side && !this.cues.some(c => c.line === 'warn.ladder')) {
+        this.cues.push(new AtlasCue(host, 'warn.ladder', ex + nx * 1.4, ez + nz * 1.4, L.y0))
+      }
     }
     for (const lf of t.lifts) {
       const mesh = buildLift(th, lf.hw, lf.hd, lf.kind === 'v')
@@ -374,6 +380,9 @@ export class ClimbRun {
         idx: this.lifts.length, platIdx: nav.plats!.length - 1
       }
       host.propParent(lf.ax, lf.az).add(mesh.root)
+      if (lf.kind === 'h' && !this.cues.some(c => c.line === 'warn.pit')) {
+        this.cues.push(new AtlasCue(host, 'warn.pit', lf.ax, lf.az, lf.ay))
+      }
       this.lifts.push(rt)
       this.placeLift(rt, lf.ax, lf.ay, lf.az, true)
     }
@@ -541,6 +550,7 @@ export class ClimbRun {
     for (const ln of this.lanes) this.stepLane(ln, time)
     for (const b of this.balls) if (b.active) this.stepBall(b, dt, p, playing)
     for (const f of this.features) f.update(dt, time, p, playing)
+    for (const c of this.cues) c.update(p, playing)
     for (const r of this.rewards) {
       if (r.taken || r.def.kind === 'weapon') continue
       r.root.rotation.y += dt * 1.8
@@ -638,6 +648,7 @@ export class ClimbRun {
     if (warning && cr.warned !== cyc) {
       cr.warned = cyc
       this.host.sfx('trapClick', cr.x, cr.z)
+      if (playing && Math.hypot(p.x - cr.x, p.z - cr.z) < 9) this.host.say('warn.crusher')
       this.host.markers.spawn(cr.x, cr.z, 1.35, CR_WARN + CR_SLAM)
     }
     // The slam: whoever is under the head as it comes down.

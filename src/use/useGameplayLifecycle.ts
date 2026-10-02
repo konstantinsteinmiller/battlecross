@@ -44,7 +44,7 @@ import { pokiGameplayStart, pokiGameplayStop } from '@/utils/pokiPlugin'
 // must not drag it into anything that imports it.
 export interface GameplayLiveInputs {
   /** Which screen the flow is on. Only a mission is PLAYED; the hub is menus. */
-  screen: 'boot' | 'mission' | 'hub' | 'intro' | 'ending'
+  screen: 'boot' | 'mission' | 'hub' | 'intro' | 'ending' | 'debrief'
   /** The mission's phase. Only 'play' is live: the beam-in / beam-out
    *  animations and the defeat countdown hand the player no control. */
   phase: string

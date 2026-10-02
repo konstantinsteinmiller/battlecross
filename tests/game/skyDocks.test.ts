@@ -566,6 +566,8 @@ describe('Atlas on the Sky Docks', () => {
     visit(body(bob.ax, bob.az, bob.ay))
     const z = t.wind![0]!
     visit(body((z.i0 + z.i1 + 1) / 2 * CELL, z.dz < 0 ? z.j0 * CELL + 0.5 : (z.j1 + 1) * CELL - 0.5, t.floor[z.j0 * m.w + z.i0]!))
-    expect(said.sort()).toEqual(['hint.gale.bob', 'hint.gale.down', 'hint.gale.leap', 'hint.gale.shuttle', 'hint.gale.wind'])
+    // (The climb also cues the story's first-ever pit warning at the shuttle; the mission drops it
+    // on the Sky Docks, where `hint.gale.shuttle` says the same.)
+    expect(said.filter(l => l.startsWith('hint.')).sort()).toEqual(['hint.gale.bob', 'hint.gale.down', 'hint.gale.leap', 'hint.gale.shuttle', 'hint.gale.wind'])
   })
 })

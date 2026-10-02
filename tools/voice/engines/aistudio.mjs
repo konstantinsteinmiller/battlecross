@@ -11,66 +11,20 @@
 // route that drives a normal window (an extension, or OS-level input); until
 // then use the API engines (`gemini`, `gemini-lite`) with billing on.
 //
-// SIGNING IN (once): `pnpm voice:gen --engine aistudio --sign-in` opens the
-// profile plainly at Google's sign-in (Google refuses sign-in in a window
-// with an automation port); sign in, close that window, run again.
+// SIGNING IN (once): `pnpm voice:gen --engine aistudio --sign-in` (see
+// browser.mjs: the voice desk's own Chrome profile).
 //
 // Voices: the playground can't design voices on the free tier, so each
 // speaker gets one fixed library voice (VOICES) and its card's description
 // rides in the style text with the line's direction.
 
-import { spawn } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { createRequire } from 'node:module'
-import { homedir } from 'node:os'
-import { join } from 'node:path'
-import { ROOT } from '../lib.mjs'
+import { writeFileSync } from 'node:fs'
+import { connect, signInWindow, sleep } from './browser.mjs'
 
-export const PROFILE = process.env.VOICE_DESK_PROFILE ?? join(homedir(), '.voice-desk', 'chrome')
 const URL = 'https://aistudio.google.com/generate-speech'
 /** One library voice per speaker (Google's studio voices: Kore firm/female, Charon low/male, Puck upbeat/male, Gacrux mature/female). */
 export const VOICES = { atlas: 'Kore', vex: 'Charon', flux: 'Puck', gauss: 'Gacrux' }
 const GAP_MS = 4000
-const sleep = (ms) => new Promise(r => setTimeout(r, ms))
-
-const CHROME = [
-  process.env.CHROME_PATH,
-  'C:/Program Files/Google/Chrome/Application/chrome.exe',
-  'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  '/usr/bin/google-chrome'
-].find(p => p && existsSync(p))
-
-const livePort = async () => {
-  const f = join(PROFILE, 'DevToolsActivePort')
-  if (!existsSync(f)) return null
-  const port = readFileSync(f, 'utf8').split('\n')[0].trim()
-  try { await fetch(`http://127.0.0.1:${port}/json/version`); return port } catch { return null }
-}
-
-/** The plain window for Google's sign-in (no automation port). */
-export const signInWindow = () => {
-  mkdirSync(PROFILE, { recursive: true })
-  spawn(CHROME, [`--user-data-dir=${PROFILE}`, '--no-first-run', '--no-default-browser-check',
-    `https://accounts.google.com/ServiceLogin?continue=${encodeURIComponent(URL)}`], { detached: true, stdio: 'ignore' }).unref()
-}
-
-const launch = async () => {
-  let port = await livePort()
-  if (port) return port
-  if (!CHROME) throw new Error('No Chrome found: set CHROME_PATH')
-  mkdirSync(PROFILE, { recursive: true })
-  rmSync(join(PROFILE, 'DevToolsActivePort'), { force: true })
-  spawn(CHROME, [`--user-data-dir=${PROFILE}`, '--remote-debugging-port=0', '--no-first-run', '--no-default-browser-check',
-    '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', URL],
-  { detached: true, stdio: 'ignore' }).unref()
-  for (let i = 0; i < 80; i++) {
-    await sleep(250)
-    port = await livePort()
-    if (port) return port
-  }
-  throw new Error(`Chrome opened no DevTools port. Is a sign-in window on ${PROFILE} still open? Close it and run again.`)
-}
 
 /** A fresh speech editor: one speech block, the voice panel closed. */
 const openEditor = async (page) => {
@@ -122,15 +76,14 @@ const run = async (page, text) => {
 export default {
   name: 'aistudio',
   label: 'Gemini 3.8 Flash TTS (AI Studio, browser)',
+  signIn: () => signInWindow(`https://accounts.google.com/ServiceLogin?continue=${encodeURIComponent(URL)}`),
   async voice({ speaker }) {
+    // A speaker added to the cast later needs its library voice picked by ear first.
+    if (!VOICES[speaker]) throw new Error(`AI Studio: no library voice for "${speaker}" yet; add one to VOICES`)
     return { id: VOICES[speaker] }
   },
   async synth(items) {
-    const port = await launch()
-    const { chromium } = createRequire(join(ROOT, 'package.json'))('playwright-core')
-    const browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`)
-    const ctx = browser.contexts()[0] ?? await browser.newContext()
-    const page = ctx.pages().find(p => p.url().startsWith('https://aistudio')) ?? await ctx.newPage()
+    const { page, close } = await connect(URL)
     const out = new Array(items.length)
     try {
       await openEditor(page)
@@ -151,7 +104,7 @@ export default {
         await sleep(GAP_MS + Math.random() * 2000)
       }
     } finally {
-      await browser.close().catch(() => {}) // disconnects; the window stays for the next run
+      await close() // detaches; the window stays for the next run
     }
     return out
   }

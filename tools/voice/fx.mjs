@@ -40,7 +40,8 @@ export const DYNAMICS = {
   atlas: { thr: -22, ratio: 3, atk: 5, rel: 120, lufs: -16, peak: -4 },
   vex: { thr: -24, ratio: 4, atk: 8, rel: 250, lufs: -15, peak: -3 },
   flux: { thr: -28, ratio: 6, atk: 1, rel: 60, lufs: null, peak: -3 },
-  gauss: { thr: -20, ratio: 2, atk: 15, rel: 300, lufs: -17, peak: -3 }
+  gauss: { thr: -20, ratio: 2, atk: 15, rel: 300, lufs: -17, peak: -3 },
+  pip: { thr: -24, ratio: 3.5, atk: 3, rel: 100, lufs: -16, peak: -3 }
 }
 
 /** Per-line exceptions from the chains' tables. */
@@ -90,6 +91,10 @@ export const chainFor = (speaker, key, { dry = false } = {}) => {
     case 'gauss':
       // Warm and full, a 9 ms comb, a trace of ring-mod up high, the lab's soft small room.
       return `[0:a]${prep},${band(90, 10000)},${eq(200, 1)},${eq(9000, 2)},aecho=1:1:9:0.12,${ring(2400, 0.03)},aecho=1:0.95:11|19|29:0.09|0.06|0.04,lowpass=f=9000[fx]`
+    case 'pip':
+      // A tiny bot with a tiny speaker: +2 semitones, a bell-like 10 % ring at 880 Hz, the highest
+      // high-pass in the cast (he reads smaller than Atlas and Flux), a 7 ms comb as the tin body. No room.
+      return `[0:a]${prep},rubberband=pitch=${semis(2)},${ring(880, 0.1)},${band(380, 7800)},${eq(500, -2)},${eq(2500, 3)},aecho=1:1:7:0.2[fx]`
     default:
       throw new Error(`no chain for speaker ${speaker}`)
   }

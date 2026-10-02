@@ -22,7 +22,7 @@ A calm, precise mission-control navigator who is also your friend: brief, dry, u
 - **Design prompt (DE):** Eine Frau Anfang dreißig, deutsche Muttersprachlerin, mit tiefer, ruhiger Altstimme, die fast geschlechtsneutral klingt, in gemessenem, gleichmäßigem Tempo. Ruhig, präzise und unaufdringlich warm, wie eine vertraute Navigatorin in der Missionskontrolle, die einer Freundin den Weg erklärt, mit trockenem, untertreibendem Humor. Saubere, nah mikrofonierte Studioaufnahme ohne Hall.
 - **Reference text (EN):** Morning check complete. The road ahead runs north past the old water tower, then down into the quiet valley. Keep your pace steady, watch the bridges, and I will tell you the moment anything changes.
 - **Reference text (DE):** Morgendliche Prüfung abgeschlossen. Der Weg führt nach Norden, am alten Wasserturm vorbei und dann hinunter ins stille Tal. Bleib gleichmäßig in Bewegung, achte auf die Brücken, und ich sage dir sofort Bescheid, wenn sich etwas ändert.
-- **Lines:** 195 (neutral 74, warm 29, cheeky 28, urgent 24, calm 20, excited 11, deadpan 7, sad 1, whisper 1)
+- **Lines:** 194 (neutral 74, warm 29, cheeky 28, urgent 24, calm 19, excited 11, deadpan 7, sad 1, whisper 1)
 - **Notes:** 'Gender-neutral to slightly low' (pronoun 'it') is realised as a low female alto rather than a light male tenor: it lands nearer neutral, keeps Atlas apart from the male-coded Vex and Flux, and is separated from Gauss by age, pitch and pace. Its chain adds no pitch shift (band-pass, doubler, 6 % ring-mod), so the designed pitch is the heard pitch; critical warnings are tagged 'urgent', never 'shout'.
 
 ## Dr. Vex
@@ -72,3 +72,19 @@ A gentle, clever, slightly amused grandmother-engineer who built half the city a
 - **Reference text (DE):** Komm herein, komm herein, und pass auf die Kabel am Boden auf. Diese kleine Werkstatt habe ich vor sehr langer Zeit gebaut, und jede Schraube darin erinnert sich noch an meine Hände. Nun setz dich und erzähl mir, was du da draußen gesehen hast.
 - **Lines:** 2 (warm 1, calm 1)
 - **Notes:** Her two lines (ending.gauss, ending.spark) are planned lines that read the ending captions; the catalog no longer has a separate 'one optional line' or a duplicate Atlas spark line, so nothing to reconcile beyond age. Her chain is only a faint shimmer and a small room, so the design itself has to carry the age and warmth.
+
+## Pip
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| male | late 20s | mid | brisk | light, clear, tidy tenor with a smile in it; crisp consonants, a little nasal, never breathy |
+
+The lab's small helper bot and Flux's biggest fan: an eager, practical caretaker who keeps the beam, the map and the workshop running. Chirpy and proud of every relay, he explains things in short plain sentences, like a friendly lab technician pointing at a map, and never sounds like a soldier.
+
+- **Accent:** Neutral General American, neat and clearly articulated / Neutrales Hochdeutsch, sauber und deutlich artikuliert
+- **Design prompt (EN):** A friendly man in his late twenties with a light, clear tenor voice and crisp, tidy diction, speaking at a brisk, bouncy pace. Eager, helpful and good-humoured, like a cheerful young lab technician explaining a map to a friend, with a smile in every sentence and short, plain phrases. Clean, close-miked studio recording with no reverb.
+- **Design prompt (DE):** Ein freundlicher Mann Ende zwanzig, deutscher Muttersprachler, mit heller, klarer Tenorstimme und sauberer, knackiger Aussprache, in zügigem, federndem Tempo. Eifrig, hilfsbereit und gut gelaunt, wie ein fröhlicher junger Labortechniker, der einem Freund eine Karte erklärt, mit einem Lächeln in jedem Satz und kurzen, einfachen Sätzen. Saubere, nah mikrofonierte Studioaufnahme ohne Hall.
+- **Reference text (EN):** Right, everything is ready. The lamps are on, the tools are sorted, and the map is on the table. First we check the route, then we pack what we need. Take your time. I will be right here when you get back.
+- **Reference text (DE):** So, alles ist bereit. Die Lampen sind an, das Werkzeug ist sortiert, und die Karte liegt auf dem Tisch. Erst prüfen wir die Route, dann packen wir ein, was wir brauchen. Lass dir Zeit. Ich bin hier, wenn du zurückkommst.
+- **Lines:** 52 (neutral 17, warm 12, calm 9, cheeky 8, excited 6)
+- **Notes:** Pip was glyphs and synth chirps only until #119 gave him a voice for the debriefs after each story mission. An adult light tenor at 'mid', not a boy: the chain lifts him 2 semitones with rising formants, and a younger or higher source would come out a chipmunk over six sentences in a row. Kept apart from Flux (late-teen, yelps only, +3 st, a heavy 330 Hz ring) by age, full sentences and neat diction; from Atlas (a low female alto, no pitch shift, the helmet band) by gender, pitch and pace. His tones stay within warm, excited, cheeky, neutral and calm: he briefs in the safe lab and never warns in the field (that is Atlas's job).

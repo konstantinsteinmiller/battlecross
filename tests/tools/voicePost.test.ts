@@ -30,7 +30,8 @@ describe('the robot chains', () => {
     expect(chainFor('flux', 'flux.hurt.heavy.1')).toContain('sin(2*PI*330*t)')
     expect(chainFor('gauss', 'ending.gauss')).toContain('sin(2*PI*2400*t)')
     expect(chainFor('atlas', 'atlas.lowHp', { dry: true })).not.toContain('sin(')
-    expect(() => chainFor('pip', 'x')).toThrow()
+    expect(chainFor('pip', 'pip.debrief.go')).toContain('sin(2*PI*880*t)')
+    expect(() => chainFor('nobody', 'x')).toThrow()
   })
 
   it('keeps the per-line exceptions from the chains\' tables', () => {

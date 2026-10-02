@@ -21,6 +21,8 @@ import { afterPaint } from './engine/slicer'
 import { reportRun } from '@/use/useLeaderboard'
 import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import type { SectorId } from './world/themes'
+import { debriefFor, debriefSeen, type DebriefPlan } from './story/debriefScript'
+import { hubSceneFor } from './story/vexScenes'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -33,7 +35,7 @@ import type { SectorId } from './world/themes'
  * does not import the heavy mission/hub code itself.
  */
 
-export type Screen = 'boot' | 'mission' | 'hub' | 'intro' | 'ending'
+export type Screen = 'boot' | 'mission' | 'hub' | 'intro' | 'ending' | 'debrief'
 export type Modal = '' | 'results' | 'defeat' | 'pause' | 'levelUp' | 'controls'
 
 export interface ResultsData {
@@ -91,16 +93,68 @@ export interface EndingHandle extends Pick<import('./engine/app').GameMode, 'sce
   choose(choice: 'ngplus' | 'lab'): void
 }
 type EndingFactory = (opts: { onEnd: (choice: 'ngplus' | 'lab') => void }) => Promise<EndingHandle>
+/** The debrief after a story mission (`story/debrief.ts`, #119), as far as the flow and its layer drive it. */
+export interface DebriefHandle extends Pick<import('./engine/app').GameMode, 'scene' | 'camera' | 'update' | 'render' | 'dispose' | 'enter'> {
+  skip(): void
+  advance(): void
+}
+type DebriefFactory = (opts: { plan: DebriefPlan; hello: boolean; onEnd: () => void }) => Promise<DebriefHandle>
 let missionFactory: MissionFactory | null = null
 let hubFactory: HubFactory | null = null
 let introFactory: IntroFactory | null = null
 let endingFactory: EndingFactory | null = null
+let debriefFactory: DebriefFactory | null = null
 
-export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory, e?: EndingFactory): void => {
+export const registerModeFactories = (m: MissionFactory, h: HubFactory, i?: IntroFactory, e?: EndingFactory, d?: DebriefFactory): void => {
   missionFactory = m
   hubFactory = h
   introFactory = i ?? null
   endingFactory = e ?? null
+  debriefFactory = d ?? null
+}
+
+/** The debrief playing now (its layer's buttons and the skip keys drive it). */
+export let debriefLive: DebriefHandle | null = null
+/** A Core Master just fell for the first time: its debrief follows the results (#119). */
+let pendingDebrief: DebriefPlan | null = null
+
+/**
+ * The debrief (#119): after a story mission's results (and the interstitial,
+ * if one was due — never during it), the city from above and Pip's briefing
+ * on what comes next; then the Lab. Once ever per Master, like every story
+ * beat; the Vex scene that Master had in the Lab plays inside it and counts
+ * as seen. Without the film (a build or a test with no factory), the Lab.
+ */
+export const startDebrief = async (plan: DebriefPlan): Promise<void> => {
+  if (!debriefFactory) { goHub(); return }
+  flow.modal = ''
+  flow.screen = 'debrief'
+  hud.phase = 'done'
+  hud.combat = false
+  hud.bossName = ''
+  // Seen at the start: a quit mid-film never replays it. Pip's welcome is for the very first one.
+  const hello = !profile.world.seen.some(s => s.startsWith('debrief:'))
+  markStorySeen(debriefSeen(plan.boss))
+  const vex = hubSceneFor(plan.boss)
+  if (vex) markStorySeen(vex.seen)
+  try {
+    const m = await debriefFactory({
+      plan,
+      hello,
+      onEnd: () => {
+        debriefLive = null
+        goHub()
+      }
+    })
+    debriefLive = m
+    app.setMode(m)
+    app.setWanted(true)
+  } catch (e) {
+    // The film's chunk did not load: the story is not worth a dead end.
+    console.warn('[flow] debrief failed to load', e)
+    debriefLive = null
+    goHub()
+  }
 }
 
 /** The ending playing now (its layer's buttons drive it). */
@@ -486,6 +540,9 @@ export const finishMission = async (success: boolean, tally: MissionTally): Prom
       if (!profile.world.bosses.includes(sector.boss)) {
         profile.world.bosses.push(sector.boss)
         profile.story++
+        // The story moves on: its debrief, unless this save has seen it (a New Game+ run).
+        const plan = debriefFor(sector.boss)
+        if (plan && !profile.world.seen.includes(debriefSeen(sector.boss))) pendingDebrief = plan
         const w = (Object.values(WEAPONS).find(d => d.from === sector.boss))
         if (w) weapon = grantWeapon(w.id)
         const next = SECTORS.find(s => s.after === sector.id)
@@ -578,10 +635,13 @@ export const leaveResults = async (): Promise<void> => {
     await waitForAdGate()
   } finally {
     leavingResults = false
+    const debrief = pendingDebrief
+    pendingDebrief = null
     if (pendingEnding) {
       pendingEnding = false
       void startEnding()
-    } else goHub()
+    } else if (debrief) void startDebrief(debrief)
+    else goHub()
   }
 }
 

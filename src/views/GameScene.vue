@@ -31,6 +31,7 @@
     HubScreen(v-else-if="flow.screen === 'hub'" @options="optionsOpen = true")
     CutsceneLayer(v-else-if="flow.screen === 'intro'")
     EndingLayer(v-else-if="flow.screen === 'ending'")
+    DebriefLayer(v-else-if="flow.screen === 'debrief'")
     //- After an ad the mouse is free and a browser only re-captures on a
     //- click: the run waits under this veil until the player gives one.
     div.relock(
@@ -47,7 +48,7 @@
     FreezeOverlay(v-if="flow.screen === 'mission'")
     BigBanner(v-if="flow.screen === 'mission'")
     AtlasBubble(v-if="flow.screen === 'mission'")
-    SceneBubble(v-if="flow.screen === 'mission' || flow.screen === 'hub' || flow.screen === 'ending'")
+    SceneBubble(v-if="flow.screen === 'mission' || flow.screen === 'hub' || flow.screen === 'ending' || flow.screen === 'debrief'")
     ResultsModal
     DefeatModal
     PauseModal(@options="optionsOpen = true")
@@ -125,6 +126,7 @@ import OptionsModal from '@/components/organisms/OptionsModal.vue'
 import MissionLoading from '@/components/hud/MissionLoading.vue'
 import CutsceneLayer from '@/components/story/CutsceneLayer.vue'
 import EndingLayer from '@/components/story/EndingLayer.vue'
+import DebriefLayer from '@/components/story/DebriefLayer.vue'
 import { holdToSkip, skipCutscene } from '@/game/story/cine'
 
 /**

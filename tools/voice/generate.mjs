@@ -12,6 +12,7 @@
 //   --lang en|de      one language
 //   --no-qa           skip the Whisper read-back (length/level checks still run)
 //   --force           redo takes that exist
+//   --sign-in         a browser-driven engine (elevenlabs, aistudio): open its sign-in window
 //   --retry [n]       only the lines with no passing take: n more takes each
 //                     (default 2) with new seeds; extra takes on disk always count
 //
@@ -45,6 +46,13 @@ const failing = new Set(before.filter(r => r.best == null).map(r => r.job.id))
 const jobs = all.filter(j => (!only || only.test(j.key)) && (!a.lang || j.lang === a.lang) && (!retry || failing.has(j.id)))
 
 const engine = (await import(pathToFileURL(join(ROOT, 'tools', 'voice', 'engines', `${engineName}.mjs`)).href)).default
+// A browser-driven engine signs in once, in a plain window of its own profile.
+if (a['sign-in']) {
+  if (!engine.signIn) throw new Error(`${engineName} needs no sign-in`)
+  engine.signIn()
+  console.log('A plain Chrome window is open: sign in, close that window, then run again without --sign-in.')
+  process.exit(0)
+}
 const work = join(VO_SRC, 'gen', engineName)
 const stateFile = join(VO_SRC, 'refs', 'voices.json')
 const state = existsSync(stateFile) ? JSON.parse(readFileSync(stateFile, 'utf8')) : {}
@@ -79,7 +87,7 @@ for (const j of jobs) {
   for (let t = 1, n = takesFor(j); t <= n; t++) {
     const { raw } = takeOf(j, t)
     if (a.force || !existsSync(raw)) {
-      todo.push({ id: `${j.id}.t${t}`, job: j, take: t, raw, text: j.say ?? j.text, lang: j.lang, tone: j.tone, style: styleFor(j), direction: j.direction, seed: 1000 * t + 17 + seedOf(j.id), voice: voices[`${j.speaker}:${j.lang}`], card: cards[j.speaker] })
+      todo.push({ id: `${j.id}.t${t}`, job: j, take: t, raw, text: j.say ?? j.text, lang: j.lang, tone: j.tone, style: styleFor(j), direction: j.direction, directionEn: j.directionEn, seed: 1000 * t + 17 + seedOf(j.id), voice: voices[`${j.speaker}:${j.lang}`], card: cards[j.speaker] })
     }
   }
 }
