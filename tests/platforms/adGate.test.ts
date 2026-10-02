@@ -12,6 +12,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
  */
 
 type GateOpts = {
+  /** Build flags as the env carries them (`VITE_APP_*`). */
+  env?: Record<string, string>
   crazy?: boolean
   wavedash?: boolean
   fullRelease?: boolean
@@ -22,6 +24,8 @@ type GateOpts = {
 
 const loadGate = async (opts: GateOpts = {}) => {
   vi.resetModules()
+  vi.unstubAllEnvs()
+  for (const [k, v] of Object.entries(opts.env ?? {})) vi.stubEnv(k, v)
   vi.doMock('@/use/useUser', () => ({
     isCrazyWeb: opts.crazy ?? false,
     isWaveDash: opts.wavedash ?? false
@@ -180,15 +184,41 @@ describe('interstitial pacing', () => {
     expect(gate.canShowInterstitial()).toBe(true) // asking alone changes nothing
   })
 
-  it('runs nothing in the first minute after load (Yandex)', async () => {
+  // ─── The ad-free start of a session, per portal ──────────────────────────
+  //
+  // A first-timer's first "Continue" comes about half a minute in (the opening
+  // fight). It must not be answered with an ad.
+  it.each([
+    ['the default build', {}, 180_000],
+    ['CrazyGames', { VITE_APP_CRAZY_WEB: 'true' }, 180_000],
+    ['Poki', { VITE_APP_POKI: 'true' }, 180_000],
+    ['Playgama / YouTube Playables', { VITE_APP_PLAYGAMA: 'true' }, 180_000],
+    ['GamePix', { VITE_APP_GAMEPIX: 'true' }, 180_000],
+    ['Yandex (its own 60 s rule)', { VITE_APP_YANDEX: 'true' }, 61_000],
+    ['GameMonetize (the mandated first-load ad starts the gap instead)', { VITE_APP_GAME_MONETIZE: 'true' }, 0]
+  ] as const)('%s keeps the start of a session ad-free for its own time', async (_name, env, grace) => {
     vi.useFakeTimers()
-    const gate = await loadGate()
+    const gate = await loadGate({ env })
+    expect(gate.EARLY_ADS_GRACE_MS).toBe(grace)
     gate.__resetInterstitialClock(0)
-    expect(gate.INTERSTITIAL_AFTER_LOAD_MS).toBe(61_000)
-    vi.advanceTimersByTime(60_000)
-    expect(gate.canShowInterstitial()).toBe(false)
-    vi.advanceTimersByTime(1_000)
+    if (grace > 0) {
+      vi.advanceTimersByTime(grace - 1_000)
+      expect(gate.canShowInterstitial()).toBe(false)
+      vi.advanceTimersByTime(1_000)
+    }
     expect(gate.canShowInterstitial()).toBe(true)
+    vi.unstubAllEnvs()
+  })
+
+  it('a first-timer\'s first Continue (the opening fight is about 30 s) gets no ad on any portal with a grace', async () => {
+    vi.useFakeTimers()
+    for (const env of [{}, { VITE_APP_CRAZY_WEB: 'true' }, { VITE_APP_POKI: 'true' }, { VITE_APP_PLAYGAMA: 'true' }, { VITE_APP_YANDEX: 'true' }]) {
+      const gate = await loadGate({ env })
+      gate.__resetInterstitialClock(0)
+      vi.advanceTimersByTime(45_000)
+      expect(gate.canShowInterstitial(), JSON.stringify(env)).toBe(false)
+    }
+    vi.unstubAllEnvs()
   })
 
   it('holds the next break for a full two minutes after the last', async () => {

@@ -13,6 +13,10 @@ vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => { ads.shown++; ads.order.push('ad') } }))
 vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => ads.can, markInterstitialShown: () => {} }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))
+const funnel = vi.hoisted(() => ({ events: [] as string[] }))
+// No GPU in the test: the loop is a stand-in (travel would start the renderer).
+vi.mock('@/game/engine/app', () => ({ app: { mode: null, setMode() {}, setWanted() {}, setSuspended() {}, renderOnce() {} } }))
+vi.mock('@/utils/pokiPlugin', () => ({ pokiMeasure: (c: string, w: string, a: string) => { funnel.events.push(`${c}:${w}:${a}`) } }))
 
 type Flow = typeof import('@/game/flow')
 type P = typeof import('@/game/state/profile')
@@ -27,6 +31,7 @@ beforeEach(async () => {
   ads.shown = 0
   ads.can = true
   ads.order.length = 0
+  funnel.events.length = 0
   await holdGameState()
   p = await import('@/game/state/profile')
   f = await import('@/game/flow')
@@ -152,6 +157,36 @@ describe('Continue on the result screen', () => {
     p.markTip('endingSeen')
     f.afterVisit()
     expect(f.flow.modal).toBe('')
+  })
+})
+
+describe('the per-zone funnel (Poki measure)', () => {
+  const fake = { setup: { theme: 'plains' } } as never
+
+  it('opens a level on entering a zone and closes it with exactly one complete or fail', async () => {
+    f.setNodeBuilder(async () => fake)
+    p.clearNode('plains')
+    await f.travel('hollows')
+    expect(funnel.events).toEqual(['level:hollows:start'])
+    await f.bankVisit('victory', 'hollows', tally())
+    expect(funnel.events).toEqual(['level:hollows:start', 'level:hollows:complete'])
+
+    await f.travel('plains')
+    await f.bankVisit('defeat', 'plains', tally())
+    expect(funnel.events.slice(2)).toEqual(['level:plains:start', 'level:plains:fail'])
+    f.setNodeBuilder(null)
+  })
+
+  it('a retreat is a fail; a town is not a level; a result without a start reports nothing', async () => {
+    f.setNodeBuilder(async () => fake)
+    await f.bankVisit('victory', 'plains', tally())
+    expect(funnel.events).toEqual([])
+    await f.travel('sunford')
+    expect(funnel.events).toEqual([])
+    await f.travel('plains')
+    await f.bankVisit('retreat', 'plains', tally())
+    expect(funnel.events).toEqual(['level:plains:start', 'level:plains:fail'])
+    f.setNodeBuilder(null)
   })
 })
 

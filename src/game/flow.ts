@@ -13,7 +13,8 @@ import {
 } from './state/profile'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
-import { setMusicTrack, startGameMusic } from '@/use/useSound'
+import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
+import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
 import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
 import { isAdShowing } from '@/use/useGamePause'
@@ -22,6 +23,7 @@ import { reportRun } from '@/use/useLeaderboard'
 import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import { difficultyFactor } from '@/use/useUser'
 import type { TrackId } from './audio/music'
+import { PREVIEW_ON } from './previewFlags'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -189,8 +191,30 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void): Promi
 }
 
 let buildNode: NodeBuilder = buildZone
+/** Build a place without showing it, and show a built one (the recorder cuts
+ *  between prebuilt places; the game itself travels with `travel`). */
+export const buildPlace = (node: NodeId, onProgress: (p01: number) => void): Promise<BuiltPlace> => buildNode(node, onProgress)
+export const enterPlace = (node: NodeId, mode: BuiltPlace): void => enter(node, mode)
 /** Test seam: build places without a GPU. */
 export const setNodeBuilder = (fn: NodeBuilder | null): void => { buildNode = fn ?? buildZone }
+
+/**
+ * Poki's per-level funnel (the Player Fit table): a zone visit is a "level".
+ * A `start` is always closed by exactly one `complete` or `fail`, so the
+ * open one is remembered here. A no-op on every other portal (stub alias).
+ */
+let measuring: NodeId | '' = ''
+const measureStart = (node: NodeId): void => {
+  if (NODE_BY_ID[node]?.kind === 'town') return
+  if (measuring) pokiMeasure('level', measuring, 'fail')
+  measuring = node
+  pokiMeasure('level', node, 'start')
+}
+const measureEnd = (node: NodeId, won: boolean): void => {
+  if (measuring !== node) return
+  measuring = ''
+  pokiMeasure('level', node, won ? 'complete' : 'fail')
+}
 
 const enter = (node: NodeId, mode: BuiltPlace): void => {
   const def = NODE_BY_ID[node]!
@@ -207,6 +231,7 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
   startGameMusic()
   app.setMode(mode)
   app.setWanted(true)
+  measureStart(node)
 }
 
 /** The first scene (no main menu): the opening fight, or the last town. */
@@ -221,6 +246,7 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
   flow.screen = def.kind === 'town' ? 'town' : 'zone'
   profile.world.at = node
   setMusicTrack(THEME_TRACK[mode.setup.theme])
+  measureStart(node)
   return mode
 }
 
@@ -271,8 +297,10 @@ export const closeMap = (): void => {
 
 // ─── The end of a visit ──────────────────────────────────────────────────────
 
-/** Longest we hold a screen for an ad that another placement left on screen. */
-const AD_GATE_WAIT_MS = 8000
+/** Longest we hold a screen for an ad that another placement left on screen:
+ *  as long as an ad itself may run (`AD_MAX_MS` in `useAds.ts`), so a result
+ *  screen never opens under a video that is still playing. */
+const AD_GATE_WAIT_MS = 60_000
 
 const waitForAdGate = async (): Promise<void> => {
   const t0 = Date.now()
@@ -288,6 +316,8 @@ export const DEFEAT_GOLD_LOSS = 0.1
  * the result screen opens. The interstitial comes AFTER it, on Continue.
  */
 export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Promise<void> => {
+  // DEV: a clip being recorded runs on past the outcome (tools/preview-video).
+  if (PREVIEW_ON) return
   const mode = app.mode instanceof ZoneMode ? app.mode : null
   const node = flow.node
   if (!mode || !node) return
@@ -297,6 +327,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
 
 /** Bank a decided visit: rewards, unlocks, the save, the result screen. */
 export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node: NodeId, h: VisitTally): Promise<void> => {
+  measureEnd(node, outcome === 'victory')
   const levelBefore = profile.level
   const items: ResultItem[] = []
   grantXp(h.xp)
@@ -359,14 +390,19 @@ export const leaveResults = async (): Promise<void> => {
   if (leaving) return
   leaving = true
   flow.modal = ''
+  let adShown = false
   try {
     if (canShowInterstitial()) {
       markInterstitialShown()
+      adShown = true
       await showMidgameAd()
     }
     await waitForAdGate()
   } finally {
     leaving = false
+    // The ad hard-stopped the music and cleared its intent. The map restarts
+    // it, but the decision and the ending are windows over a silent scene.
+    if (adShown) resumeMusicAfterAd()
     if (flow.quest) flow.modal = 'decision'
     else afterVisit()
   }

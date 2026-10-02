@@ -170,12 +170,14 @@ describe('poki gameplay bracket', () => {
   // ─── The gate only opens for a REAL player ────────────────────────────────
   //
   // Poki QA checks by hand that the first `gameplayStart()` follows a player
-  // interaction. The listeners `pokiPlugin()` arms must therefore ignore any
-  // event a script dispatched (`isTrusted === false`), and must not demand a
-  // second tap from a player whose first one landed before they were armed —
-  // the browser's sticky `navigator.userActivation.hasBeenActive` answers that.
+  // interaction. The listeners must therefore ignore any event a script
+  // dispatched (`isTrusted === false`), be armed the moment the module loads (a
+  // tap during the splash counts), and NEVER take the browser's sticky
+  // `navigator.userActivation.hasBeenActive` for an answer: Chrome keeps that
+  // flag across a same-origin iframe reload, so a reloaded game frame would
+  // report a start nobody asked for — the documented Poki QA rejection.
   describe('trusted-gesture gate', () => {
-    const GESTURES = ['pointerdown', 'touchstart', 'keydown', 'pointerup', 'touchend']
+    const GESTURES = ['pointerdown', 'mousedown', 'touchstart', 'keydown']
     let mod: Plugin | null = null
     const undo: Array<() => void> = []
 
@@ -224,11 +226,10 @@ describe('poki gameplay bracket', () => {
         handlers.set(type, h)
       }) as typeof window.addEventListener)
       mod = await loadPlugin()
+      // Armed by loading the module — before `pokiPlugin()` has even been called.
+      expect([...handlers.keys()].sort()).toEqual([...GESTURES].sort())
       await mod.pokiPlugin()
       vi.restoreAllMocks()
-
-      // Capture-phase listeners for every gesture family.
-      expect([...handlers.keys()].sort()).toEqual([...GESTURES].sort())
 
       mod.pokiGameLoadingFinished()
       mod.pokiGameplayStart()
@@ -239,54 +240,48 @@ describe('poki gameplay bracket', () => {
       expect(emitted.map((e) => e.kind)).toEqual(['start'])
     })
 
-    it('releases on a trusted UP edge too (a touch that went down during the splash)', async () => {
-      const emitted = installSdkSpy()
+    it('an UP edge is not a gesture: only DOWN edges are listened for', async () => {
       const handlers = new Map<string, (e: Event) => void>()
       vi.spyOn(window, 'addEventListener').mockImplementation(((type: string, h: (e: Event) => void) => {
         handlers.set(type, h)
       }) as typeof window.addEventListener)
       mod = await loadPlugin()
-      await mod.pokiPlugin()
       vi.restoreAllMocks()
-      mod.pokiGameLoadingFinished()
-      mod.pokiGameplayStart()
-
-      handlers.get('touchend')!({ isTrusted: false, type: 'touchend' } as unknown as Event)
-      expect(emitted).toEqual([])
-      handlers.get('touchend')!({ isTrusted: true, type: 'touchend' } as unknown as Event)
-      expect(emitted.map((e) => e.kind)).toEqual(['start'])
+      expect(handlers.has('pointerup')).toBe(false)
+      expect(handlers.has('touchend')).toBe(false)
+      expect(handlers.has('click')).toBe(false)
     })
 
-    it('opens on the browser\'s sticky user activation, with no listener needed', async () => {
-      // The player tapped before `pokiPlugin()` ran (the entry chunk was still
-      // parsing): no listener saw it, but the browser remembers it.
+    it('does NOT open on the browser\'s sticky user activation (an iframe reload keeps it)', async () => {
+      // What the Poki Inspector does: the tester clicked once, the game frame
+      // reloads, and Chrome still says "has been active".
       setStickyActivation(true)
-      const emitted = installSdkSpy()
-      const add = vi.spyOn(window, 'addEventListener')
-      mod = await loadPlugin()
-      await mod.pokiPlugin()
-
-      expect(add.mock.calls.filter(([type]) => GESTURES.includes(String(type)))).toEqual([])
-
-      mod.pokiGameLoadingFinished()
-      mod.pokiGameplayStart()
-      // One tap was enough — no second one demanded.
-      expect(emitted.map((e) => e.kind)).toEqual(['start'])
-    })
-
-    it('reads activation again when the bracket asks to open, not only at arm time', async () => {
-      // A touch that went down before arming and came up after it grants
-      // activation on the UP edge — which none of the listeners hears.
-      setStickyActivation(false)
       const emitted = installSdkSpy()
       mod = await loadPlugin()
       await mod.pokiPlugin()
+      mod.pokiGameLoadingFinished()
       mod.pokiGameplayStart()
+      await wait(GUARD_MS * 2)
+      // Held: nobody has touched THIS load of the game.
       expect(emitted).toEqual([])
 
-      setStickyActivation(true)
-      mod.pokiGameLoadingFinished()
+      // …and the first real gesture releases it.
+      mod.notePokiFirstInteraction()
       expect(emitted.map((e) => e.kind)).toEqual(['start'])
+    })
+
+    it('a start asked for and withdrawn while the gate was shut emits nothing at all', async () => {
+      setStickyActivation(true)
+      const emitted = installSdkSpy()
+      mod = await loadPlugin()
+      await mod.pokiPlugin()
+      mod.pokiGameLoadingFinished()
+      mod.pokiGameplayStart()
+      mod.pokiGameplayStop()
+      mod.notePokiFirstInteraction()
+      await wait(GUARD_MS * 2)
+      // No start reached the SDK, so no stop is owed either.
+      expect(emitted).toEqual([])
     })
 
     it('stays shut with no activation and no gesture', async () => {

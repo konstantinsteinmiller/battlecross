@@ -19,6 +19,12 @@
  *   D  a cloud that fails at boot and answers later: the game starts, the
  *      retry lands, the profile in memory becomes the cloud's WITHOUT a
  *      reload — and the failed boot never overwrote the cloud with defaults
+ *   E  a SLOW cloud (every read takes 1.5 s): the game waits for it and still
+ *      boots the returning player, never the first-timer
+ *
+ * Each case also asserts what the save layer itself reports (`hydrateState`)
+ * and what the player SEES (the level and the gold drawn in the HUD), not only
+ * what is in memory.
  *
  * Uses the installed Chrome through playwright-core on its own profile; the
  * server and the browser it starts are stopped when it ends.
@@ -60,7 +66,7 @@ const cloudOf = (state) => ({ [MANIFEST]: JSON.stringify([STATE_KEY]), [STATE_KE
 
 /** The stubbed portal SDK. `__cloud` is the cloud; `__failReads` makes the
  *  first N reads reject (case D). */
-const sdkStub = (cloud, failReads) => `
+const sdkStub = (cloud, failReads, delayMs = 0) => `
 (() => {
   const cloud = ${JSON.stringify(cloud)};
   let fail = ${failReads};
@@ -71,7 +77,12 @@ const sdkStub = (cloud, failReads) => `
     environment: 'crazygames',
     init: async () => {},
     data: {
-      getItem: (k) => { window.__reads = (window.__reads || 0) + 1; if (fail > 0) { fail--; throw new Error('cloud unavailable'); } return k in cloud ? cloud[k] : null; },
+      getItem: (k) => {
+        window.__reads = (window.__reads || 0) + 1;
+        if (fail > 0) { fail--; throw new Error('cloud unavailable'); }
+        const v = k in cloud ? cloud[k] : null;
+        return ${delayMs} > 0 ? new Promise((r) => setTimeout(() => r(v), ${delayMs})) : v;
+      },
       setItem: (k, v) => { cloud[k] = String(v); window.__cloudWrites.push(k); },
       removeItem: (k) => { delete cloud[k]; },
       clear: () => { for (const k of Object.keys(cloud)) delete cloud[k]; }
@@ -117,7 +128,7 @@ const stopServer = () => {
 }
 
 // ── One boot ─────────────────────────────────────────────────────────────────
-const boot = async ({ cloud, failReads = 0 }) => {
+const boot = async ({ cloud, failReads = 0, delayMs = 0 }) => {
   const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'bc-hydrate-')), {
     channel: 'chrome', headless: true, viewport: { width: 1000, height: 640 }, locale: 'en-US',
     args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--mute-audio']
@@ -126,7 +137,7 @@ const boot = async ({ cloud, failReads = 0 }) => {
   const errors = []
   page.on('pageerror', e => errors.push(String(e).slice(0, 300)))
   // The portal SDK is the stub; every other portal's script is an empty file.
-  await page.route(/crazygames-sdk-v3\.js/, r => r.fulfill({ contentType: 'application/javascript', body: sdkStub(cloud, failReads) }))
+  await page.route(/crazygames-sdk-v3\.js/, r => r.fulfill({ contentType: 'application/javascript', body: sdkStub(cloud, failReads, delayMs) }))
   await page.route(/gamepix\.sdk\.js|poki-sdk\.js|youtube\.com\/game_api/, r => r.fulfill({ contentType: 'application/javascript', body: '' }))
   await page.goto(URL, { waitUntil: 'load' })
   if (await page.title() !== TITLE) throw new Error('wrong app on the port')
@@ -141,7 +152,11 @@ const boot = async ({ cloud, failReads = 0 }) => {
       flags: [...p.world.flags], quest: p.quests.done.goblinKing ?? null, potions: p.inv.potions,
       localKeys: Object.keys(localStorage).filter(k => k.startsWith('bc') || k.startsWith('__save')),
       cloudState: window.__cloud['bcross_state'] ? JSON.parse(window.__cloud['bcross_state']) : null,
-      cloudKeys: Object.keys(window.__cloud), reads: window.__reads || 0
+      cloudKeys: Object.keys(window.__cloud), reads: window.__reads || 0,
+      // What the save layer reports, and what is DRAWN (the HUD's own text).
+      hydrate: window.__saveManager ? window.__saveManager.hydrateState : null,
+      hudLevel: document.querySelector('.hero-frame__level')?.textContent?.trim() ?? null,
+      hudGold: document.querySelector('.hero-frame .gold span')?.textContent?.replace(/\D/g, '') ?? null
     }
   })
   return { ctx, page, read, errors }
@@ -160,6 +175,7 @@ try {
     const s = await b.read()
     check('boots into the opening fight', s.screen === 'zone' && s.node === 'plains', `${s.screen}/${s.node}`)
     check('level 1 with the starter kit', s.level === 1 && s.main === 'rustedShortsword' && s.learned.join() === 'shieldSlam')
+    check('the save layer reports an EMPTY cloud (not a failure)', s.hydrate === 'success-empty', String(s.hydrate))
     check('no page errors', b.errors.length === 0, b.errors.join(' | '))
     await b.ctx.close()
   }
@@ -173,6 +189,8 @@ try {
     check('level, gold and XP are the cloud\'s', s.level === 9 && s.gold === 1234 && s.xp === 410 && s.points === 2, `lv ${s.level} gold ${s.gold} xp ${s.xp}`)
     check('skills, gear and potions are the cloud\'s', s.learned.join() === 'shieldSlam,fireball,aegisAura' && s.main === 'ironBroadsword' && s.items === 5 && s.potions === 4)
     check('map, flags and the quest decision are the cloud\'s', s.cleared.length === 4 && s.flags.includes('goblinPact') && s.quest === 'pact')
+    check('the save layer reports a cloud read WITH data', s.hydrate === 'success-with-data', String(s.hydrate))
+    check('the player SEES it: the HUD draws level 9 and 1234 gold', s.hudLevel === '9' && s.hudGold === '1234', `level "${s.hudLevel}", gold "${s.hudGold}"`)
 
     console.log('\nC  what is played is written back as one blob')
     await b.page.evaluate(() => {
@@ -213,6 +231,18 @@ try {
     const s = await b.read()
     check('the retry lands and the profile in memory becomes the cloud\'s, without a reload', s.level === 9 && s.gold === 1234 && s.learned.length === 3, `lv ${s.level} gold ${s.gold}`)
     check('the cloud save is still intact afterwards', s.cloudState?.bc_level === 9 && s.cloudState?.bc_gold === 1234)
+    check('the save layer now reports the cloud read', s.hydrate === 'success-with-data', String(s.hydrate))
+    await b.ctx.close()
+  }
+
+  console.log('\nE  a slow cloud (every read takes 1.5 s)')
+  {
+    const b = await boot({ cloud: cloudOf(DEVELOPED), delayMs: 1500 })
+    const s = await b.read()
+    check('the game waited for it: the returning player boots into their town', s.screen === 'town' && s.node === 'sunford' && s.level === 9, `${s.screen}/${s.node} lv ${s.level}`)
+    check('…and the HUD draws their level and gold', s.hudLevel === '9' && s.hudGold === '1234', `level "${s.hudLevel}", gold "${s.hudGold}"`)
+    check('the slow boot wrote nothing over the cloud', s.cloudState?.bc_level === 9 && s.cloudState?.bc_gold === 1234)
+    check('no page errors', b.errors.length === 0, b.errors.join(' | '))
     await b.ctx.close()
   }
 } catch (e) {

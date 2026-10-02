@@ -320,7 +320,7 @@ describe('release gates (lib/gates.mjs)', () => {
     const { default: cfg } = await load('poki.config.mjs')
     const texts = cfg.forbidInBundle.map((f: { text: string }) => f.text)
     expect(texts).toEqual(expect.arrayContaining(['[CHEAT]', 'ctrl+shift+alt+', 'cmarc']))
-    // The hidden 30-tap interstitial ships in the release on purpose.
+    // The hidden 20-tap interstitial ships in the release on purpose.
     expect(texts).not.toContain('[qa-ad]')
     const gate = (dist: string) => runGates({ dist, zip: null, forbid: cfg.forbidInBundle })
       .results.find((x: { name: string }) => x.name.startsWith('clean build'))

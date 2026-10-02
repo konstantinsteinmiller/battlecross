@@ -223,22 +223,43 @@ export const canOfferReward = computed(
 const INTERSTITIAL_MIN_GAP_MS = 121_000
 
 /**
- * No interstitial in the first minute after load (Yandex's rule; 61 s for the
- * same clock-skew reason as the gap). A first mission takes longer than that,
- * so in practice the first mission's Continue gets its ad.
+ * The ad-free start of a session, per build.
  *
- * Only the midgame ad. The moderation-mandated first-load ad (GameMonetize,
- * `useFirstLoadInterstitial`) is its own path and is untouched — shipping there
- * depends on it.
+ * A new player's first minutes decide whether they stay, and the first thing
+ * this game does is short: the opening fight is about half a minute, so with
+ * only a one-minute rule the very first "Continue" a first-timer ever presses
+ * could be answered with an ad. So:
+ *
+ *   • the default (CrazyGames, Poki, Playgama / YouTube Playables, itch,
+ *     GamePix, GameDistribution and everything else): THREE ad-free minutes.
+ *     That covers the opening fight, the first town visit and most of the
+ *     Goblin Hollows — the stretch in which the game is learned. Poki's own
+ *     playtime gates and CrazyGames' reviewers both read an early interstitial
+ *     as a mark against a game;
+ *   • Yandex: its own rule, none in the first 60 s (61 s for clock skew);
+ *   • GameMonetize: no grace of ours — its moderation requires an ad on first
+ *     load (`useFirstLoadInterstitial`), and that ad starts the two-minute gap
+ *     below, which is the grace there.
+ *
+ * Static env literals, so each build carries exactly one number.
+ *
+ * Only the midgame ad. The moderation-mandated first-load ad is its own path
+ * and is untouched — shipping on those portals depends on it.
  */
-export const INTERSTITIAL_AFTER_LOAD_MS = 61_000
+export const EARLY_ADS_GRACE_MS: number =
+  import.meta.env.VITE_APP_GAME_MONETIZE === 'true' ? 0
+    : import.meta.env.VITE_APP_YANDEX === 'true' ? 61_000
+      : 180_000
+
+/** Kept under its old name for the callers and specs that read it. */
+export const INTERSTITIAL_AFTER_LOAD_MS = EARLY_ADS_GRACE_MS
 
 let lastInterstitialAt = 0
 let sessionStartedAt = Date.now()
 
 /**
- * True when an interstitial may run now: past the post-load minute, and a full
- * gap after the last one. The session's first break needs no earlier request
+ * True when an interstitial may run now: past the ad-free start of the session
+ * (`EARLY_ADS_GRACE_MS`), and a full gap after the last one. The session's first break needs no earlier request
  * to start the clock.
  */
 export const canShowInterstitial = (): boolean => {

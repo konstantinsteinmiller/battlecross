@@ -7,7 +7,7 @@
 // build whose policy forbids it (`devToolAliases`). Poki's hard requirements ask
 // for a clean build — "no debug code, no dev artifacts" — so its RELEASE build
 // must carry neither the `localStorage.cheat` cheats nor the typed "cmarc"
-// debug toggle. The hidden 30-tap interstitial is NOT dev tooling: it ships in
+// debug toggle. The hidden 20-tap interstitial is NOT dev tooling: it ships in
 // every build, releases included, and no gate refuses it.
 //
 // Pinned here, all without evaluating the Vite config itself (importing it —
@@ -52,7 +52,7 @@ describe('dev tooling is aliased out of the Poki release', () => {
     })
   })
 
-  it('the hidden 30-tap interstitial ships in the Poki and Playgama releases', async () => {
+  it('the hidden 20-tap interstitial ships in the Poki and Playgama releases', async () => {
     for (const policy of [resolvePlatformPolicy({ isPoki: true }), resolvePlatformPolicy({ isPoki: false, isPlaygama: true })]) {
       expect(devToolAliases(policy)).not.toHaveProperty('@/use/useQaAdTrigger')
     }

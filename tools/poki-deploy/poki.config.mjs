@@ -48,12 +48,13 @@ export default {
     { text: '[CHEAT]', why: 'dev cheats, src/use/useCheats.ts' },
     { text: 'ctrl+shift+alt+', why: 'cheat shortcuts, src/game/cheats.ts' },
     { text: 'cmarc', why: 'typed debug-mode toggle, src/use/useCheats.ts' },
-    // NOT the hidden 30-tap interstitial (src/use/useQaAdTrigger.ts): it ships
+    // NOT the hidden 20-tap interstitial (src/use/useQaAdTrigger.ts): it ships
     // in the release on purpose (src/platforms/policy.ts).
   ],
 
   qa: {
     playMs: 45000,          // how long the harness actually plays before judging
+    reloadIdleMs: 60000,    // no-input window after an iframe reload; any gameplayStart in it FAILS (sticky activation)
     // How long to wait for a commercial break. NOTE: this game requests an
     // interstitial only on the result screen's Continue, 121 s apart
     // (src/use/useAdGate.ts), so a short pass usually sees none and reports the

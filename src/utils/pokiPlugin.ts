@@ -330,26 +330,14 @@ const emitStop = (): void => {
 /** Both release gates. Until these are true nothing is sent to the SDK. */
 const bracketMayOpen = (): boolean => loadingFinishedSent && firstInteractionSeen
 
-/**
- * Has this document had a real user gesture yet, according to the BROWSER?
- *
- * `navigator.userActivation.hasBeenActive` is sticky for the life of the
- * document and is only ever set by a trusted input event inside this frame
- * (activation in the Poki page around us does not propagate into a cross-origin
- * game iframe). It catches the gesture the listeners were armed too late for:
- * a tap that landed while the entry chunk was still parsing, before
- * `pokiPlugin()` ran. Without it that player had already interacted and the
- * gate demanded a SECOND tap — exactly the conversion cost the gate must not
- * have. Optional-chained: Safari only shipped it in 16.4, and where it is
- * missing the listeners are the whole gate.
- */
-const hasStickyActivation = (): boolean => {
-  try {
-    return typeof navigator !== 'undefined' && navigator.userActivation?.hasBeenActive === true
-  } catch {
-    return false
-  }
-}
+// NEVER shortcut the gate with `navigator.userActivation.hasBeenActive` (or
+// `.isActive`). Chrome keeps sticky activation across a SAME-ORIGIN reload of
+// an iframe — exactly what the Poki Inspector and the game frame do — so after
+// a tester has clicked once, a reload boots "already activated" and
+// `gameplayStart()` fires a moment after load with no input at all. That is a
+// hand-checked Poki QA rejection (a sibling game, 2026-10-01). A top-level
+// reload does not carry the flag, so local testing never shows it. Trusted
+// input events are the ONLY opener.
 
 /**
  * Send the start if the game still wants it, the gates are open, and the SDK's
@@ -358,8 +346,6 @@ const hasStickyActivation = (): boolean => {
  */
 const tryOpenBracket = (): void => {
   if (bracket !== 'playing' || startEmitted || pendingStart) return
-  // Ask the browser before declaring the gate shut — see `hasStickyActivation`.
-  if (!firstInteractionSeen && hasStickyActivation()) markInteracted()
   if (!bracketMayOpen()) return
 
   const since = performance.now() - lastStopEmittedAt
@@ -377,19 +363,17 @@ const tryOpenBracket = (): void => {
   }, MIN_EVENT_GAP_MS - since)
 }
 
-/** Inputs that count as "the player started playing". `pointerdown` covers mouse
- *  and touch on every browser this game ships to; `touchstart` is belt-and-braces
- *  for older mobile Safari, and `keydown` covers desktop keyboard play. The UP
- *  edges are there for a touch that went down before the listeners were armed
- *  (during the splash): a touch grants the browser's user activation on the up
- *  edge, and without these nothing would notice until the player's next touch. */
-const INTERACTION_EVENTS = ['pointerdown', 'touchstart', 'keydown', 'pointerup', 'touchend'] as const
+/** Inputs that count as "the player started playing": the DOWN edges of every
+ *  input family. `pointerdown` covers mouse and touch on every browser this game
+ *  ships to; `mousedown` and `touchstart` are belt-and-braces for embeds that
+ *  swallow pointer events; `keydown` covers keyboard play. */
+const INTERACTION_EVENTS = ['pointerdown', 'mousedown', 'touchstart', 'keydown'] as const
 
 /**
- * Listen for the player's first input. Armed from `pokiPlugin()` SYNCHRONOUSLY,
- * before it awaits the SDK, so a tap during the splash still counts — and a tap
- * that landed even earlier, before this ran at all, is read off the browser's
- * sticky activation instead (see `hasStickyActivation`).
+ * Listen for the player's first input. Armed at MODULE LOAD (below) — the
+ * earliest point the game's own code runs — so a tap during the splash, while
+ * the SDK script is still in flight, is banked before the game ever asks to
+ * open the bracket.
  *
  * Capture phase + passive: the game's own input handling must be unaffected, and
  * `passive` keeps this off the scroll-blocking path. Capture on `window` also
@@ -405,12 +389,6 @@ const INTERACTION_EVENTS = ['pointerdown', 'touchstart', 'keydown', 'pointerup',
 const armFirstInteraction = (): void => {
   if (typeof window === 'undefined') return
   if (firstInteractionSeen || detachInteractionListeners) return
-
-  // Asked first: a player who already tapped needs no listener at all.
-  if (hasStickyActivation()) {
-    markInteracted()
-    return
-  }
 
   const onInteract = (e: Event): void => {
     if (!e.isTrusted) return
@@ -447,6 +425,11 @@ export const notePokiFirstInteraction = (): void => {
   markInteracted()
   tryOpenBracket()
 }
+
+// Arm the gate the moment this module is evaluated. Timers, load events and
+// lifecycle hooks must never call `notePokiFirstInteraction()`: they may only
+// ask for the bracket, which then waits here for a real gesture.
+armFirstInteraction()
 
 /**
  * Report that gameplay is live. Poki measures conversion-to-play on the FIRST

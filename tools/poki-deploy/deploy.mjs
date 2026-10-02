@@ -204,6 +204,7 @@ try {
       versionId,
       port,
       playMs: Number(arg('play-ms', cfg.qa?.playMs ?? 45000)),
+      reloadIdleMs: Number(arg('reload-idle-ms', cfg.qa?.reloadIdleMs ?? 60000)),
       adWaitMs: Number(arg('ad-wait-ms', cfg.qa?.adWaitMs ?? 120000)),
       hooks: cfg.hooks ?? {},
       allowHosts: cfg.allowHosts ?? [],
