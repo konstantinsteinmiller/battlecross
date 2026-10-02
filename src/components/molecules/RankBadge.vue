@@ -109,20 +109,20 @@ const ariaLabel = computed(() =>
 </template>
 
 <style scoped lang="sass">
-// Deliberately the same pill the rest of the HUD wears — dark plate, hairline
-// black rule, glyph then number — so the placing reads as one of the game's own
-// numbers rather than a widget bolted on. Gold, and a gold rule, because it is
-// the one number on the screen that is not about this run: it is about everyone
-// else.
+// The same pill the rest of the game wears — an ink outline round a sunk cell,
+// glyph then number — so the placing reads as one of the game's own numbers
+// rather than a widget bolted on. Gold, because it is the one number on the
+// screen that is not about this run: it is about everyone else.
 .rank-badge
   display: inline-flex
   align-items: baseline
   gap: 0.3em
-  padding: clamp(0.15rem, 0.9vmin, 0.3rem) clamp(0.4rem, 2vmin, 0.7rem)
-  border: 2px solid rgba(255, 217, 60, 0.45)
-  border-radius: 999px
-  background-color: rgba(255, 217, 60, 0.1)
-  color: #ffd93c
+  padding: clamp(0.2rem, 1vmin, 0.34rem) clamp(0.5rem, 2.2vmin, 0.8rem)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold-hi) 46%, var(--bc-gold) 46%, var(--bc-gold) 100%)
+  box-shadow: var(--bc-drop)
+  color: var(--bc-ink)
 
 .rank-badge__icon
   // `align-self` rather than `align-items: center` on the row: the numbers set
@@ -133,16 +133,15 @@ const ariaLabel = computed(() =>
   height: clamp(0.85rem, 4vmin, 1.2rem)
 
 .rank-badge__rank
-  color: #fff
+  color: var(--bc-text)
   font-weight: 900
   font-size: clamp(0.85rem, 4.2vmin, 1.3rem)
   line-height: 1
-  // Every number in this game sits on a hard black shadow; without it the pill
-  // looks like a different app's component.
-  text-shadow: 2px 2px 0 #000
+  // Every number on a candy fill wears the ink outline.
+  text-shadow: var(--bc-text-outline)
 
 .rank-badge__of
-  color: #b9cbe8
+  color: var(--bc-ink)
   text-transform: uppercase
   font-size: clamp(0.5rem, 2.4vmin, 0.7rem)
 </style>

@@ -40,13 +40,16 @@ const selectTab = (value: string | number): void => {
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .f-tabs
   display: flex
   align-items: flex-end
-  justify-content: center
-  gap: 0
+  justify-content: safe center
+  gap: clamp(0.1rem, 0.6vw, 0.25rem)
   max-width: 100%
-  padding-inline: clamp(0.25rem, 2vw, 1rem)
+  // Room for the active tab's lift and its focus ring inside the scroller.
+  padding: 0.35rem clamp(0.25rem, 2vw, 1rem) 0
   overflow-x: auto
   overflow-y: hidden
   scrollbar-width: none
@@ -54,7 +57,9 @@ const selectTab = (value: string | number): void => {
   &::-webkit-scrollbar
     display: none
 
+// A folder tab: leather while it waits, gold when it is the open page.
 .f-tabs__tab
+  +cel.tone('leather')
   position: relative
   flex: 0 0 auto
   // Floor so a tab can never render as an invisible sliver.
@@ -62,29 +67,32 @@ const selectTab = (value: string | number): void => {
   min-height: 2.1rem
   padding: 0
   border: 0
+  border-radius: var(--ftab-r) var(--ftab-r) 0 0
+  --ftab-r: clamp(0.55rem, 2.4vw, 0.95rem)
   background: none
   cursor: pointer
-  opacity: 0.8
-  transition: transform 140ms ease-out, opacity 140ms ease-out
+  transition: translate var(--bc-t-release) var(--bc-ease-bounce)
   -webkit-tap-highlight-color: transparent
+  +cel.focus-ring
 
-  &:hover
-    opacity: 1
+  &:hover:not(.is-active) .f-tabs__body
+    filter: brightness(1.1)
 
-  &:active
-    transform: scale(0.94)
+  &:active .f-tabs__body
+    transition-duration: var(--bc-t-press)
+    transform: translateY(2px) scale(1, 0.94)
 
   &.is-active
+    +cel.tone('gold')
     z-index: 10
-    opacity: 1
-    translate: 0 -0.25rem
+    translate: 0 -0.3rem
 
 .f-tabs__shadow
   position: absolute
   inset: 0
   transform: translateY(3px)
-  border-radius: clamp(0.5rem, 2.4vw, 1rem) clamp(0.5rem, 2.4vw, 1rem) 0 0
-  background-color: #0f1a30
+  border-radius: var(--ftab-r) var(--ftab-r) 0 0
+  background-color: var(--bc-ink)
 
 .f-tabs__body
   position: relative
@@ -93,33 +101,31 @@ const selectTab = (value: string | number): void => {
   justify-content: center
   min-height: 2.1rem
   padding: clamp(0.2rem, 1vw, 0.4rem) clamp(0.6rem, 3.2vw, 1.35rem)
-  border-inline: 4px solid #0f1a30
-  border-top: 4px solid #0f1a30
-  border-radius: clamp(0.5rem, 2.4vw, 1rem) clamp(0.5rem, 2.4vw, 1rem) 0 0
-  background-color: #2a4372
-  color: #8fa7d1
-  transition: background-color 140ms ease-out
-
-  .f-tabs__tab:hover &
-    background-color: #34538d
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-bottom-width: 0
+  border-radius: var(--ftab-r) var(--ftab-r) 0 0
+  +cel.fill(42%, 100%)
+  color: var(--bc-stitch)
+  transform-origin: 50% 100%
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
 
   .f-tabs__tab.is-active &
-    background-image: linear-gradient(to bottom, #ffcd00, #f7a000)
-    color: #fff
-    box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.4)
+    color: var(--bc-text)
+    padding-bottom: calc(clamp(0.2rem, 1vw, 0.4rem) + 0.3rem)
 
 .f-tabs__label
   font-weight: 900
-  font-style: italic
   text-transform: uppercase
-  letter-spacing: 0.05em
+  letter-spacing: 0.04em
   white-space: nowrap
   font-size: clamp(0.65rem, 2.9vw, 1rem)
-  text-shadow: 2px 2px 0 #000
+  text-shadow: var(--bc-text-outline)
 
 .f-tabs__icon
   width: clamp(1.15rem, 5vw, 1.75rem)
   height: clamp(1.15rem, 5vw, 1.75rem)
   object-fit: contain
   pointer-events: none
+  user-select: none
+  -webkit-user-drag: none
 </style>

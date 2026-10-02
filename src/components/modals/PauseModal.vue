@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t('pause.title')" @update:model-value="closeModal")
+  FModal(:model-value="true" :title="t('pause.title')" surface="parchment" tone="blue" @update:model-value="closeModal")
     div.pause
       FButton(:label="t('pause.resume')" type="success" size="lg" icon="play" block @click="closeModal")
       FButton(:label="t('options.title')" type="secondary" size="md" icon="settings" block @click="options")
@@ -36,12 +36,14 @@ const retreat = (): void => { void retreatVisit() }
   display: flex
   flex-direction: column
   align-items: stretch
-  gap: clamp(0.45rem, 2vmin, 0.7rem)
+  // The gap clears each button's depth plate.
+  gap: calc(clamp(0.45rem, 2vmin, 0.7rem) + var(--bc-press))
   width: min(100%, 20rem)
   margin-inline: auto
+  padding-bottom: var(--bc-press)
 .pause__note
   margin: 0
-  color: #b9c4ee
+  color: var(--bc-on-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.86rem)
   text-align: center
 </style>

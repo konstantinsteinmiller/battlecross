@@ -153,6 +153,7 @@ onUnmounted(stopCapture)
     :is-closable="false"
     :title="t('options.title')"
     :tabs="tabs"
+    surface="parchment"
     v-model:activeTab="currentTab"
     @update:model-value="emit('close')"
   )
@@ -168,7 +169,7 @@ onUnmounted(stopCapture)
             :model-value="locale"
             @update:model-value="chooseLanguage($event)"
           )
-        hr(v-if="!isMobileLandscape" class="border-slate-600 my-1 md:my-2 pt-0")
+        hr.opt-rule(v-if="!isMobileLandscape")
         FSlider.px-4(class="!py-1 !pb-3 w-full max-w-[min(20rem,90%)]" :model-value="userSoundVolume" @update:modelValue="setSettingValue('sound', $event)" :label="t('options.soundEffects')" :min="0" :max="1" :step="0.01")
         FSlider.px-4(class="!py-1 !pb-2 w-full max-w-[min(20rem,90%)]" :model-value="userMusicVolume" @update:modelValue="setSettingValue('music', $event)" :label="t('options.music')" :min="0" :max="1" :step="0.01")
         div(class="z-[5] flex flex-col gap-1")
@@ -187,7 +188,7 @@ onUnmounted(stopCapture)
           :model-value="userDifficulty"
           @update:model-value="setSettingValue('difficulty', $event)"
         )
-        p.text-white.game-text.opacity-70.leading-tight.px-1(class="text-[10px] md:text-xs") {{ difficultyHint }}
+        p.opt-hint {{ difficultyHint }}
       //- Vibration: phones only (hidden where there is no motor).
       div(v-if="hapticsAvailable" class="z-[1] flex flex-col gap-1")
         FSelect(
@@ -207,7 +208,7 @@ onUnmounted(stopCapture)
           :model-value="userMusicTrack"
           @update:model-value="setSettingValue('musicTrack', $event)"
         )
-      hr(class="border-slate-600 my-1 md:my-2 pt-0")
+      hr.opt-rule
 
     div(v-else-if="currentTab === 'controls'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")
@@ -217,7 +218,7 @@ onUnmounted(stopCapture)
           :model-value="keyboard.auto ? 'on' : 'off'"
           @update:model-value="setAutoLayout($event === 'on')"
         )
-        p.text-white.game-text.opacity-70.leading-tight.px-1(v-if="keyboard.auto" class="text-[10px] md:text-xs") {{ t('options.keyboard.detected', { layout: detectedName }) }}
+        p.opt-hint(v-if="keyboard.auto") {{ t('options.keyboard.detected', { layout: detectedName }) }}
       div(v-if="!keyboard.auto" class="z-[10] flex flex-col gap-1")
         FSelect(
           :label="t('options.keyboard.layout')"
@@ -225,11 +226,11 @@ onUnmounted(stopCapture)
           :model-value="keyboard.manual"
           @update:model-value="pickLayout"
         )
-      hr(class="border-slate-600 my-1 pt-0")
+      hr.opt-rule
       div.flex.items-center.justify-between.px-1
-        span.text-white.game-text(class="text-xs md:text-sm") {{ t('options.keyboard.bindings') }}
+        span.opt-head {{ t('options.keyboard.bindings') }}
         button.reset-keys(type="button" :disabled="!bindingsChanged()" @click="resetBindings()") {{ t('options.keyboard.reset') }}
-      p.text-white.game-text.px-1(v-if="capturing" class="text-[10px] md:text-xs") {{ t('options.keyboard.press') }}
+      p.opt-hint(v-if="capturing") {{ t('options.keyboard.press') }}
       ul.bindings
         li.bind-row(v-for="a in ACTIONS" :key="a")
           span.bind-name {{ t(`options.actions.${a}`) }}
@@ -240,9 +241,24 @@ onUnmounted(stopCapture)
         FButton(class="px-6 sm:px-8" @click="emit('close')") {{ t('options.close') }}
 </template>
 
-<style lang="sass" scoped>
-span
-  text-shadow: 2px 2px 0 #000
+<style scoped lang="sass">
+@use '@/assets/css/cel'
+
+.opt-hint
+  margin: 0
+  padding-inline: 0.25rem
+  color: var(--bc-on-soft)
+  font-size: clamp(0.66rem, 2.8vmin, 0.8rem)
+  line-height: 1.25
+  text-align: start
+.opt-rule
+  width: 100%
+  margin: 0.3rem 0
+  border: 0
+  border-top: 2px dashed var(--bc-rule)
+.opt-head
+  color: var(--bc-on)
+  font-size: clamp(0.76rem, 3vmin, 0.92rem)
 .bindings
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr))
@@ -250,45 +266,55 @@ span
   max-height: min(46vh, 22rem)
   overflow-y: auto
   margin: 0
-  padding: 0 4px
+  padding: 0 4px 4px
   list-style: none
+  +cel.scrollbar
 .bind-row
   display: flex
   align-items: center
   justify-content: space-between
   gap: 8px
-  padding: 3px 4px
-  border-radius: 8px
-  background: rgba(0, 0, 0, 0.22)
+  padding: 3px 6px
+  +cel.cell
 .bind-name
-  color: #fff
-  font-size: clamp(11px, 2.4vmin, 13px)
+  color: var(--bc-on)
+  font-size: clamp(0.7rem, 2.4vmin, 0.84rem)
   line-height: 1.2
+  text-align: start
+// A key cap: pale, ink-edged, standing on its own shadow.
 .bind-key
   min-width: 2.4em
   height: 1.9em
   padding: 0 0.45em
   border-radius: 0.4em
-  background: #f4f7ff
-  border: 2px solid #141a33
-  box-shadow: 0 0.18em 0 #141a33
-  color: #141a33
+  background: var(--bc-steel-hi)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  box-shadow: 0 0.18em 0 var(--bc-ink)
+  color: var(--bc-ink)
   font-family: var(--font-ui)
-  font-size: 11px
+  font-size: 0.72rem
   cursor: pointer
+  +cel.focus-ring
+  &:active
+    transform: translateY(0.12em)
+    box-shadow: 0 0.06em 0 var(--bc-ink)
   &.waiting
-    background: #ffd84a
+    background: var(--bc-gold)
     animation: key-wait 0.9s ease-in-out infinite
 .reset-keys
+  +cel.tone('blue')
   padding: 2px 10px
-  border-radius: 8px
-  border: 2px solid #141a33
-  background: #6f8cff
-  color: #fff
-  font-size: 11px
+  border-radius: var(--bc-r-sm)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  +cel.fill(46%, 100%)
+  box-shadow: 0 2px 0 var(--bc-ink)
+  +cel.label
+  font-size: 0.72rem
   cursor: pointer
+  +cel.focus-ring
   &:disabled
-    opacity: 0.45
+    +cel.tone('off')
+    opacity: 0.7
     cursor: default
 @keyframes key-wait
   50%

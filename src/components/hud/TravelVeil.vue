@@ -4,8 +4,7 @@
       div.veil__card
         span.veil__kicker {{ t('travel.to') }}
         span.veil__name {{ flow.loadingNode ? t(`node.${flow.loadingNode}.name`) : '' }}
-        span.veil__bar
-          span.veil__fill(:style="{ transform: `scaleX(${Math.max(0.04, flow.loadProgress)})` }")
+        FBar.veil__bar(:value="Math.max(0.04, flow.loadProgress)" tone="gold" frame="champion" :ticks="false")
 </template>
 
 <script setup lang="ts">
@@ -13,6 +12,7 @@
  *  and its bar is the build's real progress. */
 import { useI18n } from 'vue-i18n'
 import { flow } from '@/game/flow'
+import FBar from '@/components/atoms/FBar.vue'
 
 const { t } = useI18n()
 </script>
@@ -21,43 +21,31 @@ const { t } = useI18n()
 .veil
   position: absolute
   inset: 0
-  z-index: 120
+  z-index: var(--bc-z-veil)
   display: flex
   align-items: center
   justify-content: center
-  background: radial-gradient(circle at 50% 40%, #3a3168 0%, #1b1626 75%)
+  background: radial-gradient(circle at 50% 40%, var(--bc-slate-hi) 0%, var(--bc-ink) 75%)
   font-family: var(--font-ui)
-  color: #fff
+  color: var(--bc-text)
 .veil__card
   display: flex
   flex-direction: column
   align-items: center
-  gap: clamp(0.4rem, 1.8vmin, 0.8rem)
+  gap: clamp(0.3rem, 1.4vmin, 0.6rem)
   width: min(80vw, 24rem)
   text-align: center
 .veil__kicker
-  color: #b9c4ee
+  color: var(--bc-text-soft)
   font-size: clamp(0.8rem, 3.2vmin, 1.1rem)
 .veil__name
   font-size: clamp(1.4rem, 6.4vmin, 2.4rem)
   line-height: 1.1
-  text-shadow: 0 3px 0 #0f1a30
+  text-shadow: var(--bc-text-outline)
 .veil__bar
-  position: relative
-  width: 100%
-  height: clamp(0.7rem, 2.8vmin, 1rem)
-  margin-top: 0.4rem
-  border-radius: 999px
-  border: 2px solid #0f1a30
-  background: #1c2440
-  overflow: hidden
-.veil__fill
-  position: absolute
-  inset: 0
-  border-radius: 999px
-  background: linear-gradient(90deg, #ffd84a, #ff9a2a)
-  transform-origin: left center
-  transition: transform 260ms ease-out
+  --fbar-h: clamp(0.8rem, 3vmin, 1.1rem)
+  align-self: stretch
+  margin-top: 0.3rem
 .veil-enter-active, .veil-leave-active
   transition: opacity 200ms ease-out
 .veil-enter-from, .veil-leave-to

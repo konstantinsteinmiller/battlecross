@@ -76,6 +76,18 @@ Shown round, in dialogues, shops, trainers and the hero frame.
 | --- | --- | --- |
 | `map` | The world map's parchment (the nodes, roads and labels are drawn over it; node positions are in `src/game/data/zones.ts`, `MAP[].at`, as fractions of the sheet) | 1376 × 768 from the pipeline (any 16:9 up to 2048 wide), stretched to the sheet |
 | `coin` | The gold coin beside every price | 64 × 64 from the pipeline (up to 128) |
+| `skill-frame` | The frame of a battle skill button (`FSocket`, square): an ornate metal-and-gem socket drawn OVER the skill's icon. The centre window is transparent (the icon, the cooldown sweep and the glass highlight show through it); the gem on the crown may stand up to 5 % above the square. Neutral metal: the class colour stays in the icon | 256 × 256, transparent; window = the centre 70 % (a rounded square, corner radius 16 % of the frame) |
+| `skill-frame-potion` | The frame of the two belt flasks (`FSocket`, round): a round glass-and-metal socket with a corked neck on top, drawn over the liquid. Used for both the health and the mana flask (the liquid and the emblem carry the colour) | 256 × 256, transparent; window = a centred circle, 70 % of the frame |
+| `bar-frame-plain` | A plain bar's frame (a normal enemy's health, the travel bar). Three-sliced: the two 64 px end caps keep their shape, the 384 px middle stretches to the bar's length. The bar itself shows through the window; keep the paint within 16 px above and below it | 512 × 128, transparent; window = 384 × 32, centred |
+| `bar-frame-hero` | The hero's health frame: gold, a heart on the left cap, a finial on the right | as `bar-frame-plain` |
+| `bar-frame-mana` | The hero's mana frame: silver, a drop on the left cap | as `bar-frame-plain` |
+| `bar-frame-elite` | A locked elite's frame: silver, a wing on each cap | as `bar-frame-plain` |
+| `bar-frame-champion` | A champion's frame: gold, a crest over the middle (it may use the full 48 px above the window), pointed caps | as `bar-frame-plain` |
+| `bar-frame-boss` | The boss plate's frame, the most ornate: a crown between horns over the middle (the full 48 px above the window), a wing and a gem on each cap | as `bar-frame-plain` |
+
+The frames are drawn in code until a file exists (`src/components/atoms/FSocket.vue`,
+`FBar.vue`); a file dropped in replaces the drawn frame only, never the fill, the
+ticks or the icon. The experience bar has no frame to paint (ticks only).
 
 ## Textures — `public/images/textures/<name>.webp`
 

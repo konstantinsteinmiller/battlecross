@@ -151,54 +151,55 @@ onUnmounted(() => {
   mix-blend-mode: screen
 .float-layer__hurt, .float-layer__low
   opacity: 0
-  background: radial-gradient(ellipse at 50% 50%, rgba(255, 40, 60, 0) 52%, rgba(255, 40, 60, 0.7) 100%)
+  background: radial-gradient(ellipse at 50% 50%, transparent 52%, var(--bc-red-lo) 100%)
 .float-layer__low.on
   animation: low-pulse 1s ease-in-out infinite alternate
 .float-layer__texts :deep(.ft)
   position: absolute
   left: 0
   top: 0
-  color: #fff
+  color: var(--bc-text)
   font-size: clamp(1rem, 4.6vmin, 1.7rem)
   line-height: 1
   white-space: nowrap
-  text-shadow: 0 0.12em 0 #0f1a30, 0.09em 0 0 #0f1a30, -0.09em 0 0 #0f1a30, 0 -0.09em 0 #0f1a30, 0.07em 0.07em 0 #0f1a30, -0.07em 0.07em 0 #0f1a30
+  text-shadow: var(--bc-text-outline)
   will-change: transform, opacity
 .float-layer__texts :deep(.ft--crit)
-  color: #ffd84a
+  color: var(--bc-gold)
 .float-layer__texts :deep(.ft--heal)
-  color: #7dff8a
+  color: var(--bc-text-good)
 .float-layer__texts :deep(.ft--mana)
-  color: #7fc4ff
+  color: var(--bc-text-mana)
 .float-layer__texts :deep(.ft--status)
-  color: #d9b3ff
+  color: var(--bc-purple-hi)
 .float-layer__texts :deep(.ft--hurt)
-  color: #ff6a6a
+  color: var(--bc-red)
 .float-layer__texts :deep(.ft--gold)
-  color: #ffe066
+  color: var(--bc-text-gold)
 .float-layer__texts :deep(.ft--xp)
-  color: #c58cff
+  color: var(--bc-text-xp)
 .toasts
   position: absolute
   left: 50%
-  top: clamp(5.4rem, 24vmin, 9rem)
+  top: clamp(6.6rem, 30vmin, 10.5rem)
   transform: translateX(-50%)
   display: flex
   flex-direction: column
   align-items: center
-  gap: 0.35rem
+  gap: 0.45rem
   width: min(92vw, 30rem)
+// A toast: a slip of parchment.
 .toast
   display: inline-flex
   align-items: center
   gap: 0.5em
   max-width: 100%
-  padding: 0.4em 0.9em
-  border-radius: 999px
-  border: 2px solid #0f1a30
-  background: linear-gradient(180deg, #3a4a86, #232c5a)
-  box-shadow: 0 3px 0 #0f1a30
-  color: #fff
+  padding: 0.4em 1em
+  border-radius: var(--bc-r-pill)
+  border: var(--bc-ol) solid var(--bc-ink)
+  background: linear-gradient(180deg, var(--bc-paper-hi) 0, var(--bc-paper-hi) 46%, var(--bc-paper) 46%, var(--bc-paper) 86%, var(--bc-paper-lo) 86%, var(--bc-paper-lo) 100%)
+  box-shadow: var(--bc-drop)
+  color: var(--bc-paper-ink)
   font-size: clamp(0.78rem, 3.3vmin, 1.1rem)
   line-height: 1.15
   text-align: center
@@ -206,7 +207,7 @@ onUnmounted(() => {
   width: 1.7em
   flex: 0 0 auto
 .toast-enter-active, .toast-leave-active
-  transition: opacity 220ms ease-out, transform 220ms cubic-bezier(0.2, 1.4, 0.4, 1)
+  transition: opacity 220ms ease-out, transform 260ms var(--bc-ease-bounce)
 .toast-enter-from
   opacity: 0
   transform: translateY(-0.6rem) scale(0.8)
@@ -215,7 +216,7 @@ onUnmounted(() => {
   transform: translateY(-0.4rem)
 @keyframes low-pulse
   from
-    opacity: 0.25
+    opacity: 0.2
   to
-    opacity: 0.6
+    opacity: 0.5
 </style>

@@ -11,6 +11,9 @@ import { ATTRS } from '@/game/data/attributes'
 import { ACTIONS } from '@/game/engine/keyBindings'
 import { LESSONS } from '@/game/coach'
 import { GLYPHS } from '@/components/art/glyphs'
+import { CONVERSATIONS, conversationOf, decisionOf } from '@/game/data/dialogs'
+import { linesOf } from '@/game/dialog/manifest'
+import { END_LINE } from '@/game/dialog/runner'
 
 /**
  * Every string the game can put on screen has an English source.
@@ -93,19 +96,43 @@ describe('i18n coverage', () => {
     for (const town of Object.values(TOWNS)) {
       for (const n of town.npcs) {
         need(`npc.${n.id}.name`)
-        if (n.role === 'shop' || n.role === 'quest' || n.role === 'talk') need(`npc.${n.id}.talk`)
-        if (n.quest) need(`quest.${n.quest}.intro`)
+        // The shop window's own one-liner under the keeper's name. Everything
+        // else a townsperson says is a line of their conversation (below).
+        if (n.role === 'shop') need(`npc.${n.id}.talk`)
+        if (!conversationOf(n.id)) missing.push(`a conversation for ${n.id}`)
       }
     }
-    for (const n of MAP) if (n.trainer) need(`npc.${n.trainer.npc}.name`)
+    for (const n of MAP) {
+      if (!n.trainer) continue
+      need(`npc.${n.trainer.npc}.name`)
+      if (!conversationOf(n.trainer.npc)) missing.push(`a conversation for ${n.trainer.npc}`)
+    }
     for (const q of QUESTS) {
+      // The map shows a quest's title and the label of the choice made; the
+      // decision itself is spoken (`dlg.quest.<id>`).
       need(`quest.${q.id}.title`)
-      need(`quest.${q.id}.ask`)
-      for (const c of q.choices) { need(`quest.${q.id}.${c.id}.label`); need(`quest.${q.id}.${c.id}.result`) }
+      for (const c of q.choices) need(`quest.${q.id}.${c.id}.label`)
+      if (!decisionOf(q.id)) missing.push(`a decision conversation for ${q.id}`)
     }
     for (const k of ['order', 'syndicate', 'circle', 'free', 'unbound']) { need(`ending.${k}.title`); need(`ending.${k}.text`) }
     for (const f of EPILOGUE_FLAGS) need(`ending.note.${f}`)
     expect(missing).toEqual([])
+  })
+
+  it('every spoken line has its text: a dialogue line\'s id is its key', () => {
+    const missing: string[] = []
+    const need = (k: string): void => { if (!has(k)) missing.push(k) }
+    need(END_LINE.id)
+    for (const c of CONVERSATIONS) {
+      need(c.name)
+      for (const l of linesOf(c)) need(l.id)
+      for (const n of Object.values(c.nodes)) for (const ch of n.choices) if (ch.note) need(ch.note.key)
+    }
+    // What the choice list says about a locked choice, and the gift toasts.
+    for (const k of ['attr', 'level', 'rep', 'gold', 'full', 'other']) need(`dlg.ui.needs.${k}`)
+    for (const k of ['hero', 'leave', 'topics', 'gotGold', 'gotItem', 'hint']) need(`dlg.ui.${k}`)
+    need('hud.gold')
+    expect([...new Set(missing)]).toEqual([])
   })
 
   it('the coach, the controls page and the key bindings have their sentences', () => {

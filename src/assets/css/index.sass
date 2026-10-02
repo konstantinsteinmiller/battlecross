@@ -1,4 +1,7 @@
 @use './fonts'
+// The UI tokens (D41): every colour, radius, outline and shadow the interface
+// is drawn with. First, so everything after it can read them.
+@use './theme'
 @use './components'
 
 /* No page panning, pinch or double-tap zoom, pull-to-refresh or long-press
@@ -21,7 +24,7 @@ html, body
   height: 100%
   /* Match the scene's night sky so the iOS PWA safe-area / home-indicator gap
      doesn't render as a stark black bar — it blends with the battlefield. */
-  background-color: #0a1224
+  background-color: var(--bc-page)
 
 #app
   height: 100%

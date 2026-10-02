@@ -99,42 +99,21 @@ const resolvedAriaLabel = computed<string | undefined>(() => {
   return props.iconOnly ? resolveIconLabel(undefined, props.icon, t, te) : undefined
 })
 
-const theme = computed(() => {
-  switch (props.type) {
-    case 'secondary':
-      return {
-        from: props.colorFrom ?? '#50aaff',
-        to: props.colorTo ?? '#2266ff',
-        shadow: props.shadowColor ?? '#102e7a'
-      }
-    case 'danger':
-      return {
-        from: props.colorFrom ?? '#ff6b5a',
-        to: props.colorTo ?? '#c62828',
-        shadow: props.shadowColor ?? '#6b1212'
-      }
-    case 'success':
-      return {
-        from: props.colorFrom ?? '#67e08a',
-        to: props.colorTo ?? '#1f9d4d',
-        shadow: props.shadowColor ?? '#0e5c2c'
-      }
-    // The rewarded-video gold, named rather than respelled. It is the one
-    // button in the game that earns money, so it is the one whose colour is
-    // least allowed to drift between screens.
-    case 'warning':
-      return {
-        from: props.colorFrom ?? '#ffcd00',
-        to: props.colorTo ?? '#f7a000',
-        shadow: props.shadowColor ?? '#7a5a12'
-      }
-    default:
-      return {
-        from: props.colorFrom ?? '#ffcd00',
-        to: props.colorTo ?? '#f7a000',
-        shadow: props.shadowColor ?? '#1a2b4b'
-      }
-  }
+/**
+ * The colour is a token RAMP (`theme.sass`), picked by a class: gold for the
+ * primary action and for `warning` (the rewarded-video gold — the one button
+ * that earns money, so the one whose colour is least allowed to drift), blue
+ * for a second choice, green to go on, red to give something up.
+ *
+ * `colorFrom` / `colorTo` / `shadowColor` remain for a one-off: the lit band,
+ * the base and the depth plate, in that order.
+ */
+const customRamp = computed<Record<string, string>>(() => {
+  const out: Record<string, string> = {}
+  if (props.colorFrom) out['--c-hi'] = props.colorFrom
+  if (props.colorTo) { out['--c'] = props.colorTo; out['--c-lo'] = props.colorTo }
+  if (props.shadowColor) out['--c-deep'] = props.shadowColor
+  return out
 })
 
 /**
@@ -198,12 +177,7 @@ const styleVars = computed(() => {
   const vars = Object.fromEntries(
     Object.entries(sizeVars.value).map(([key, value]) => [key, scaled(value, e)])
   )
-  return {
-    ...vars,
-    '--fbtn-from': theme.value.from,
-    '--fbtn-to': theme.value.to,
-    '--fbtn-shadow': theme.value.shadow
-  }
+  return { ...vars, ...customRamp.value }
 })
 </script>
 
@@ -212,6 +186,7 @@ const styleVars = computed(() => {
     type="button"
     :style="styleVars"
     :class="[\
+      `tone-${type}`,\
       variant === 'brawl' ? 'is-brawl' : '',\
       block ? 'is-block' : '',\
       attention ? 'attention-bounce' : '',\
@@ -222,10 +197,10 @@ const styleVars = computed(() => {
     :disabled="isDisabled"
     @click="onClick"
   )
-    //- 3D depth plate behind the body.
+    //- The depth plate the body stands on (and sinks onto when pressed).
     span.f-button__shadow(aria-hidden="true")
     span.f-button__body
-      //- Classic top shine.
+      //- The hard cel glint.
       span.f-button__shine(aria-hidden="true")
       //- Glyph-only. A separate `v-if` rather than a `v-else` on the label, so
       //- an icon-only button that was passed no icon still renders its slot
@@ -239,7 +214,10 @@ const styleVars = computed(() => {
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .f-button
+  +cel.tone('gold')
   position: relative
   display: inline-flex
   align-items: center
@@ -250,26 +228,38 @@ const styleVars = computed(() => {
   min-height: var(--fbtn-min-h)
   padding: 0
   border: 0
+  border-radius: var(--fbtn-radius)
   background: none
   cursor: pointer
   touch-action: manipulation
   -webkit-tap-highlight-color: transparent
-  transition: transform 90ms ease-out, filter 90ms ease-out
+  +cel.focus-ring
 
   &.is-block
     display: flex
     width: 100%
 
-  &:hover:not(.is-disabled)
-    filter: brightness(1.08)
+  &:hover:not(.is-disabled) .f-button__body
+    filter: brightness(1.07)
 
-  &:active:not(.is-disabled)
-    transform: translateY(2px) scale(0.97)
+  // The press: the body squashes down ONTO its plate (the plate stays put),
+  // quickly; letting go springs it back past rest.
+  &:active:not(.is-disabled) .f-button__body
+    transition-duration: var(--bc-t-press)
+    transition-timing-function: ease-out
+    transform: translateY(var(--bc-press)) scale(1.015, 0.95)
 
+  // Switched off: no hue, no depth, no glint — it sits pressed flat.
   &.is-disabled
-    opacity: 0.5
-    filter: grayscale(1)
+    +cel.tone('off')
     cursor: not-allowed
+
+    .f-button__body
+      transform: translateY(var(--bc-press))
+    .f-button__shine
+      display: none
+    .f-button__text, .f-button__glyph
+      opacity: 0.7
 
   // Glyph-only: a square button, not a pill with a lonely icon adrift in it.
   // The width floor becomes the height floor, so the control is as tall as it
@@ -285,20 +275,27 @@ const styleVars = computed(() => {
   &.is-brawl
     transform: skewX(-10deg)
 
-    &:active:not(.is-disabled)
-      transform: skewX(-10deg) translateY(2px) scale(0.97)
-
     .f-button__text
       transform: skewX(10deg)
       font-style: italic
       letter-spacing: -0.01em
 
+.tone-secondary
+  +cel.tone('blue')
+.tone-danger
+  +cel.tone('red')
+.tone-success
+  +cel.tone('green')
+.tone-warning
+  +cel.tone('gold')
+
 .f-button__shadow
   position: absolute
   inset: 0
-  transform: translateY(3px)
+  transform: translateY(var(--bc-press))
+  border: var(--bc-ol) solid var(--bc-ink)
   border-radius: var(--fbtn-radius)
-  background-color: var(--fbtn-shadow)
+  background-color: var(--c-deep)
 
 .f-button__body
   position: relative
@@ -313,18 +310,21 @@ const styleVars = computed(() => {
   width: 100%
   min-height: var(--fbtn-min-h)
   padding: var(--fbtn-py) var(--fbtn-px)
-  border: 2px solid #0f1a30
+  border: var(--bc-ol) solid var(--bc-ink)
   border-radius: var(--fbtn-radius)
-  background-image: linear-gradient(to bottom, var(--fbtn-from), var(--fbtn-to))
+  +cel.fill
   overflow: hidden
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
 
+// The glint: a hard-edged lit window, top left, like the icons' gloss.
 .f-button__shine
   position: absolute
-  inset-inline: 0
-  top: 0
-  height: 48%
-  background-color: rgba(255, 255, 255, 0.25)
-  border-radius: var(--fbtn-radius) var(--fbtn-radius) 0 0
+  top: 0.22em
+  left: 0.45em
+  width: min(38%, 3.2em)
+  height: 0.3em
+  border-radius: var(--bc-r-pill)
+  background-color: rgba(var(--bc-white-rgb), 0.62)
   pointer-events: none
 
 // Nested rather than written flat, and that is load-bearing: `GameIcon`'s own
@@ -339,9 +339,10 @@ const styleVars = computed(() => {
   // the glyph together at every size and emphasis factor.
   width: 1.25em
   height: 1.25em
-  // The same hard black offset the captions wear, so a glyph button and a text
+  color: var(--bc-text)
+  // The same ink outline the captions wear, so a glyph button and a text
   // button read as the same material.
-  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.85))
+  filter: drop-shadow(0 0.1em 0 var(--bc-ink)) drop-shadow(0.06em 0 0 var(--bc-ink)) drop-shadow(-0.06em 0 0 var(--bc-ink)) drop-shadow(0 -0.06em 0 var(--bc-ink))
 
   // Alone in the button it IS the control, not an ornament beside a word.
   &.is-solo
@@ -351,13 +352,12 @@ const styleVars = computed(() => {
 .f-button__text
   position: relative
   display: block
-  color: #fff
+  +cel.label
   font-weight: 900
   text-transform: uppercase
   font-size: var(--fbtn-font)
   line-height: 1.15
   white-space: nowrap
-  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
 
 .attention-bounce
   animation: fbtn-bounce 0.6s infinite alternate
@@ -367,4 +367,10 @@ const styleVars = computed(() => {
     translate: 0 0
   to
     translate: 0 -5px
+
+@media (prefers-reduced-motion: reduce)
+  .attention-bounce
+    animation: none
+  .f-button__body
+    transition: none
 </style>

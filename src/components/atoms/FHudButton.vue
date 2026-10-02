@@ -2,6 +2,7 @@
 import { computed, useSlots } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { sfx } from '@/game/audio/sfx'
 import { resolveIconLabel } from '@/components/icons/iconLabels'
 import type { GameIconName } from '@/components/icons/iconNames'
 
@@ -44,7 +45,13 @@ const props = withDefaults(defineProps<Props>(), {
   isDisabled: false
 })
 
-defineEmits(['click'])
+const emit = defineEmits(['click'])
+/** Every button answers with a click, like `FButton`; a disabled one is silent. */
+const onClick = (): void => {
+  if (props.isDisabled) return
+  sfx('uiClick')
+  emit('click')
+}
 
 const slots = useSlots()
 const { t, te } = useI18n()
@@ -62,7 +69,7 @@ const resolvedAriaLabel = computed<string | undefined>(
     :class="[`tone-${tone}`, { 'is-attention': attention, 'is-disabled': isDisabled }]"
     :aria-label="resolvedAriaLabel"
     :disabled="isDisabled"
-    @click="!isDisabled && $emit('click')"
+    @click="onClick"
   )
     span.f-hud-button__shadow(aria-hidden="true")
     span.f-hud-button__body
@@ -73,7 +80,10 @@ const resolvedAriaLabel = computed<string | undefined>(
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .f-hud-button
+  +cel.tone('gold')
   position: relative
   display: inline-flex
   align-items: center
@@ -86,29 +96,40 @@ const resolvedAriaLabel = computed<string | undefined>(
   height: clamp(2.5rem, 11vw, 3.4rem)
   padding: 0
   border: 0
+  border-radius: var(--fhud-r)
+  --fhud-r: clamp(0.55rem, 2.4vw, 0.85rem)
   background: none
   cursor: pointer
   pointer-events: auto
   touch-action: manipulation
   -webkit-tap-highlight-color: transparent
-  transition: transform 90ms ease-out, filter 90ms ease-out
+  +cel.focus-ring
 
-  &:hover:not(.is-disabled)
+  &:hover:not(.is-disabled) .f-hud-button__body
     filter: brightness(1.08)
 
-  &:active:not(.is-disabled)
-    transform: translateY(2px) scale(0.94)
+  // Squash onto the plate, spring back past rest.
+  &:active:not(.is-disabled) .f-hud-button__body
+    transition-duration: var(--bc-t-press)
+    transition-timing-function: ease-out
+    transform: translateY(var(--bc-press-sm)) scale(1.03, 0.93)
 
   &.is-disabled
-    opacity: 0.45
-    filter: grayscale(1)
+    +cel.tone('off')
     cursor: not-allowed
+    .f-hud-button__body
+      transform: translateY(var(--bc-press-sm))
+      color: rgba(var(--bc-white-rgb), 0.6)
+      &::before
+        display: none
 
 .f-hud-button__shadow
   position: absolute
   inset: 0
-  transform: translateY(3px)
-  border-radius: clamp(0.45rem, 2vw, 0.7rem)
+  transform: translateY(var(--bc-press-sm))
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--fhud-r)
+  background-color: var(--c-deep)
 
 .f-hud-button__body
   position: relative
@@ -117,24 +138,37 @@ const resolvedAriaLabel = computed<string | undefined>(
   justify-content: center
   width: 100%
   height: 100%
-  border: 2px solid #0f1a30
-  border-radius: clamp(0.45rem, 2vw, 0.7rem)
-  color: #fff
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--fhud-r)
+  +cel.fill(48%, 88%)
+  color: var(--bc-text)
+  overflow: hidden
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
+
+  // The cel glint.
+  &::before
+    +cel.glint(9%, 12%, 42%, 13%)
 
   // The glyph fills a consistent fraction of the chip regardless of chip size,
   // so a row of mixed icons reads as one set. A bitmap needs the larger box to
   // read as the same optical size — its art carries its own margin, a vector
   // glyph does not.
   .f-hud-button__glyph
-    width: 54%
-    height: 54%
+    position: relative
+    width: 56%
+    height: 56%
+    // The glyphs' own ink line, so a white mark reads on the lit band.
+    filter: drop-shadow(0 0.09em 0 var(--bc-ink)) drop-shadow(0.06em 0 0 var(--bc-ink)) drop-shadow(-0.06em 0 0 var(--bc-ink)) drop-shadow(0 -0.06em 0 var(--bc-ink))
+    font-size: 1rem
 
   // A painted glyph carries its own outline and sits larger than a flat one.
   img.f-hud-button__glyph
     width: 70%
     height: 70%
+    filter: none
 
   :slotted(svg), :slotted(img)
+    position: relative
     width: 62%
     height: 62%
     pointer-events: none
@@ -150,37 +184,38 @@ const resolvedAriaLabel = computed<string | undefined>(
   pointer-events: none
 
 // ─── Tones ──────────────────────────────────────────────────────────────────
-
-.tone-gold
-  .f-hud-button__shadow
-    background-color: #7a5a12
-  .f-hud-button__body
-    background-image: linear-gradient(to bottom, #ffcd00, #f7a000)
-
 .tone-blue
-  .f-hud-button__shadow
-    background-color: #102e7a
-  .f-hud-button__body
-    background-image: linear-gradient(to bottom, #50aaff, #2266ff)
-
+  +cel.tone('blue')
 .tone-green
-  .f-hud-button__shadow
-    background-color: #0e5c2c
-  .f-hud-button__body
-    background-image: linear-gradient(to bottom, #67e08a, #1f9d4d)
-
+  +cel.tone('green')
 .tone-slate
-  .f-hud-button__shadow
-    background-color: #151d31
-  .f-hud-button__body
-    background-image: linear-gradient(to bottom, #4a5878, #2d3855)
+  +cel.tone('stone')
 
+// Something to collect: the chip hops and its plate glows.
 .is-attention
-  animation: hud-pulse 1.6s ease-in-out infinite
+  animation: hud-hop 1.6s ease-in-out infinite
+  .f-hud-button__shadow
+    animation: hud-glow 1.6s ease-in-out infinite
 
-@keyframes hud-pulse
+@keyframes hud-hop
+  0%, 60%, 100%
+    translate: 0 0
+  72%
+    translate: 0 -14%
+  84%
+    translate: 0 0
+  92%
+    translate: 0 -5%
+
+@keyframes hud-glow
   0%, 100%
-    filter: drop-shadow(0 0 0 rgba(255, 200, 0, 0))
+    box-shadow: 0 0 0 0 rgba(var(--bc-white-rgb), 0)
   50%
-    filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.75))
+    box-shadow: var(--bc-glow-gold)
+
+@media (prefers-reduced-motion: reduce)
+  .is-attention, .is-attention .f-hud-button__shadow
+    animation: none
+  .f-hud-button__body
+    transition: none
 </style>

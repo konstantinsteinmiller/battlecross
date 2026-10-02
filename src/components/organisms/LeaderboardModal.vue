@@ -145,6 +145,7 @@ watch(model, (open) => {
     v-model:activeTab="activeTab"
     :title="t('leaderboard.title')"
     :tabs="tabs"
+    surface="parchment"
   )
     //- The portal's board: rank, name, score — it has no flair column. Its own
     //- row is matched by the PORTAL's player id, not by name.
@@ -222,6 +223,8 @@ watch(model, (open) => {
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 // One grid template, shared by the header and every row, so the columns line up
 // without a table and without a fixed width anywhere. The name column is the
 // only flexible one — the three numbers are as wide as their content and no
@@ -235,19 +238,20 @@ $cols-portal: clamp(1.6rem, 8vw, 2.4rem) minmax(0, 1fr) clamp(2rem, 9vw, 3rem)
   flex-direction: column
   gap: clamp(0.15rem, 0.8vw, 0.3rem)
   width: 100%
+  color: var(--bc-on)
 
 .board__head
   display: grid
   grid-template-columns: $cols
   gap: clamp(0.3rem, 2vw, 0.6rem)
   padding: 0 clamp(0.3rem, 1.6vw, 0.6rem) clamp(0.15rem, 0.8vw, 0.3rem)
-  border-bottom: 2px solid rgba(255, 255, 255, 0.12)
+  border-bottom: 2px solid var(--bc-rule)
 
   &.is-portal
     grid-template-columns: $cols-portal
 
 .board__col
-  color: #9fb2d0
+  color: var(--bc-on-soft)
   font-weight: 900
   text-transform: uppercase
   letter-spacing: 0.02em
@@ -271,26 +275,29 @@ $cols-portal: clamp(1.6rem, 8vw, 2.4rem) minmax(0, 1fr) clamp(2rem, 9vw, 3rem)
   align-items: center
   gap: clamp(0.3rem, 2vw, 0.6rem)
   padding: clamp(0.22rem, 1.2vw, 0.42rem) clamp(0.3rem, 1.6vw, 0.6rem)
-  border: 2px solid transparent
+  border: var(--bc-ol-thin) solid transparent
   border-radius: clamp(0.35rem, 1.8vw, 0.6rem)
-  background-color: rgba(0, 0, 0, 0.22)
+  background-color: var(--bc-cell)
 
   // Zebra striping rather than a border per row: 100 rows of border is a wall.
   &:nth-child(even)
-    background-color: rgba(0, 0, 0, 0.08)
+    background-color: var(--bc-cell-alt)
 
-  // The row the player came here to find.
+  // The row the player came here to find: the one gold plate on the board.
   &.is-you
-    border-color: #ffcd00
-    background-image: linear-gradient(to bottom, #3a4a24, #2a3a18)
-    background-color: transparent
+    +cel.tone('gold')
+    border-color: var(--bc-ink)
+    +cel.fill(46%, 100%)
+    box-shadow: var(--bc-drop)
+    --bc-on: var(--bc-ink)
+    --bc-on-accent: var(--bc-ink)
+    --bc-on-soft: var(--bc-ink)
 
 .board-row__rank
-  color: #ffd93c
+  color: var(--bc-on-accent)
   font-weight: 900
   font-size: clamp(0.62rem, 2.8vw, 0.85rem)
   text-align: left
-  text-shadow: 1px 1px 0 #000
 
 .board-row__name
   display: flex
@@ -302,61 +309,62 @@ $cols-portal: clamp(1.6rem, 8vw, 2.4rem) minmax(0, 1fr) clamp(2rem, 9vw, 3rem)
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  color: #fff
+  color: var(--bc-on)
   font-weight: 700
   font-size: clamp(0.62rem, 2.8vw, 0.85rem)
   text-align: left
 
 .board-row__you
   flex: 0 0 auto
-  color: #ffcd00
+  color: var(--bc-on-accent)
   font-weight: 900
   text-transform: uppercase
   letter-spacing: 0.03em
   font-size: clamp(0.45rem, 2vw, 0.6rem)
 
 .board-row__score
-  color: #8fd6ff
+  color: var(--bc-on)
   font-weight: 900
   font-size: clamp(0.62rem, 2.8vw, 0.85rem)
   text-align: right
-  text-shadow: 1px 1px 0 #000
 
 .board-row__flair
-  color: #b9cbe8
+  color: var(--bc-on-soft)
   font-weight: 700
   font-size: clamp(0.6rem, 2.6vw, 0.8rem)
   text-align: right
 
 .board__state
   padding: clamp(1rem, 8vw, 2.5rem) clamp(0.5rem, 3vw, 1rem)
-  color: #b9cbe8
+  color: var(--bc-on-soft)
   font-weight: 700
   text-align: center
   font-size: clamp(0.65rem, 3vw, 0.9rem)
   line-height: 1.35
 
   &.is-failed
-    color: #ffa6a6
+    color: var(--bc-on-bad)
 
 .board__footer
+  +cel.tone('gold')
   display: flex
   flex-wrap: wrap
   align-items: baseline
   justify-content: center
   gap: 0.15rem 0.4rem
   margin-top: clamp(0.2rem, 1.2vw, 0.45rem)
+  margin-bottom: var(--bc-press-sm)
   padding: clamp(0.3rem, 1.6vw, 0.55rem) clamp(0.4rem, 2vw, 0.8rem)
-  border: 2px solid #ffcd00
+  border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: clamp(0.35rem, 1.8vw, 0.6rem)
-  background-color: rgba(0, 0, 0, 0.3)
+  +cel.fill(46%, 100%)
+  box-shadow: var(--bc-drop)
 
 .board__footer-rank
-  color: #ffd93c
+  +cel.label
   font-weight: 900
   text-transform: uppercase
   font-size: clamp(0.68rem, 3.2vw, 0.95rem)
-  text-shadow: 2px 2px 0 #000
   // No second, dimmer rule for the population. Styling the two numbers apart is
   // what motivates splitting the sentence, and the sentence must not be split —
   // see the template. If the footer needs the population to recede, do it with

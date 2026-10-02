@@ -78,23 +78,34 @@ onUnmounted(() => {
 <style scoped lang="sass">
 .stick
   pointer-events: none
+// The base: an inked ring of pale glass, so the field shows through it.
 .stick__base
   position: relative
   width: clamp(5.6rem, 30vmin, 8.4rem)
   aspect-ratio: 1
   border-radius: 50%
-  border: 3px solid rgba(255, 255, 255, 0.55)
-  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.2), rgba(15, 26, 48, 0.38))
-  box-shadow: 0 0 0 2px rgba(15, 26, 48, 0.55)
-  opacity: 0.62
+  border: var(--bc-ol) solid rgba(var(--bc-white-rgb), 0.7)
+  background: linear-gradient(180deg, rgba(var(--bc-white-rgb), 0.22) 0, rgba(var(--bc-white-rgb), 0.22) 46%, rgba(var(--bc-ink-rgb), 0.3) 46%, rgba(var(--bc-ink-rgb), 0.3) 100%)
+  box-shadow: 0 0 0 var(--bc-ol-thin) rgba(var(--bc-ink-rgb), 0.7)
+  opacity: 0.66
   transition: opacity 120ms ease-out
   will-change: transform
+// The knob: a two-tone steel stud on its own shadow.
 .stick__knob
   position: absolute
   inset: 28%
   border-radius: 50%
-  border: 2px solid #0f1a30
-  background: radial-gradient(circle at 38% 30%, #ffffff, #b9c8ee 70%)
-  box-shadow: 0 0.2em 0 #0f1a30
+  border: var(--bc-ol) solid var(--bc-ink)
+  background: linear-gradient(180deg, var(--bc-steel-hi) 0, var(--bc-steel-hi) 46%, var(--bc-steel) 46%, var(--bc-steel) 84%, var(--bc-steel-lo) 84%, var(--bc-steel-lo) 100%)
+  box-shadow: 0 0.22em 0 var(--bc-ink)
   will-change: transform
+  &::before
+    content: ''
+    position: absolute
+    top: 14%
+    left: 20%
+    width: 34%
+    height: 16%
+    border-radius: var(--bc-r-pill)
+    background: rgba(var(--bc-white-rgb), 0.85)
 </style>

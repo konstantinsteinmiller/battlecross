@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import GameIcon from '@/components/icons/GameIcon.vue'
 // Two-purpose corner banner:
 //   1. Offline mode — when the strategy is in failed-retrying / failed-final,
 //      tell the player their progress is saved locally but cloud is paused,
@@ -73,36 +74,103 @@ watch(hasBonusToShow, (on) => {
 </script>
 
 <template lang="pug">
-  div.fixed.left-2.right-2.z-40.pointer-events-none(class="bottom-2 sm:left-auto sm:right-4 sm:max-w-sm")
+  div.save-status
     //- Bonus banner — green / celebratory
-    div.pointer-events-auto.rounded-lg.shadow-lg.text-white.text-sm.flex.items-center.gap-3.cursor-pointer(
-      v-if="showBonus"
-      class="bg-emerald-700/95 px-3 py-2 mb-2"
-      @click="onDismissBonus"
-    )
-      span.text-xl 🎉
-      div.flex-1
-        div.font-bold {{ t('saveStatus.restoredTitle') }}
-        div.text-xs(class="text-emerald-100") {{ t('saveStatus.restoredBody', { n: bonusCoinsAwarded }) }}
-      span.text-xs(class="text-emerald-100/80") {{ t('saveStatus.tap') }}
+    div.save-status__slip.is-bonus(v-if="showBonus" @click="onDismissBonus")
+      span.save-status__mark(aria-hidden="true")
+        GameIcon(name="gift")
+      div.save-status__text
+        div.save-status__title {{ t('saveStatus.restoredTitle') }}
+        div.save-status__body {{ t('saveStatus.restoredBody', { n: bonusCoinsAwarded }) }}
+      span.save-status__body {{ t('saveStatus.tap') }}
 
     //- Offline banner — amber / informational
-    div.pointer-events-auto.rounded-lg.shadow-lg.text-white.text-sm.flex.items-center.gap-3(
-      v-else-if="showOffline"
-      class="bg-amber-700/95 px-3 py-2"
-    )
-      span.text-xl ☁️
-      div.flex-1
-        div.font-bold {{ t('saveStatus.pausedTitle') }}
-        div.text-xs(class="text-amber-100") {{ t('saveStatus.pausedBody') }}
-      button.text-xs.font-bold.rounded.bg-white.text-amber-800(
-        class="px-2 py-1 disabled:opacity-50"
-        :disabled="retryInFlight"
-        @click="onRetry"
-      ) {{ retryInFlight ? '…' : t('saveStatus.retry') }}
-      button.text-lg.font-bold.px-1(
-        class="text-amber-100/80"
-        @click="onDismissOffline"
-        :aria-label="t('saveStatus.dismiss')"
-      ) ×
+    div.save-status__slip.is-offline(v-else-if="showOffline")
+      span.save-status__mark(aria-hidden="true")
+        GameIcon(name="info")
+      div.save-status__text
+        div.save-status__title {{ t('saveStatus.pausedTitle') }}
+        div.save-status__body {{ t('saveStatus.pausedBody') }}
+      button.save-status__retry(type="button" :disabled="retryInFlight" @click="onRetry") {{ retryInFlight ? '…' : t('saveStatus.retry') }}
+      button.save-status__close(type="button" :aria-label="t('saveStatus.dismiss')" @click="onDismissOffline")
+        GameIcon(name="close")
 </template>
+
+<style scoped lang="sass">
+.save-status
+  position: fixed
+  left: 0.5rem
+  right: 0.5rem
+  bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px))
+  z-index: 40
+  display: flex
+  flex-direction: column
+  gap: 0.5rem
+  font-family: var(--font-ui)
+  pointer-events: none
+  @media (min-width: 640px)
+    left: auto
+    right: 1rem
+    max-width: 24rem
+// A slip of parchment with a coloured mark: green for good news, amber for a wait.
+.save-status__slip
+  --c-hi: var(--bc-green-hi)
+  --c: var(--bc-green)
+  display: flex
+  align-items: center
+  gap: 0.6rem
+  padding: 0.45rem 0.7rem
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-md)
+  background: linear-gradient(180deg, var(--bc-paper-hi) 0, var(--bc-paper-hi) 0.4rem, var(--bc-paper) 0.4rem, var(--bc-paper) 100%)
+  box-shadow: var(--bc-drop)
+  color: var(--bc-paper-ink)
+  font-size: 0.875rem
+  pointer-events: auto
+  &.is-bonus
+    cursor: pointer
+  &.is-offline
+    --c-hi: var(--bc-orange-hi)
+    --c: var(--bc-orange)
+.save-status__mark
+  flex: 0 0 auto
+  width: 2rem
+  height: 2rem
+  padding: 0.38rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: linear-gradient(180deg, var(--c-hi) 0, var(--c-hi) 46%, var(--c) 46%, var(--c) 100%)
+  color: var(--bc-ink)
+.save-status__text
+  flex: 1 1 auto
+  min-width: 0
+.save-status__title
+  font-weight: 900
+.save-status__body
+  color: var(--bc-paper-ink-soft)
+  font-size: 0.75rem
+.save-status__retry
+  flex: 0 0 auto
+  min-height: 2rem
+  padding: 0.2rem 0.6rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold-hi) 46%, var(--bc-gold) 46%, var(--bc-gold) 100%)
+  box-shadow: 0 2px 0 var(--bc-ink)
+  color: var(--bc-ink)
+  font: inherit
+  font-size: 0.75rem
+  font-weight: 900
+  cursor: pointer
+  &:disabled
+    opacity: 0.5
+.save-status__close
+  flex: 0 0 auto
+  width: 2rem
+  height: 2rem
+  padding: 0.55rem
+  border: 0
+  background: none
+  color: var(--bc-paper-ink-soft)
+  cursor: pointer
+</style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false")
+  FModal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false" surface="parchment" :tone="tone")
     div.results(v-if="r" :class="`results--${r.outcome}`")
       p.results__place {{ t(`node.${r.node}.name`) }}
       p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
@@ -24,6 +24,9 @@
         div
           dt {{ t('results.kills') }}
           dd {{ fmt(r.kills) }}
+        div(v-if="r.chests")
+          dt {{ t('results.chests') }}
+          dd {{ r.chests.opened }} / {{ r.chests.total }}
         div
           dt {{ t('results.time') }}
           dd {{ clock(r.seconds) }}
@@ -66,38 +69,50 @@ import { lifetimeXp } from '@/game/state/profile'
 
 const { t } = useI18n()
 const r = computed(() => flow.results)
+/** The ribbon says how it went before a word is read. */
+const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' : r.value.outcome === 'defeat' ? 'red' : 'blue'))
 </script>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .results
   display: flex
   flex-direction: column
   align-items: center
   gap: clamp(0.4rem, 1.8vmin, 0.7rem)
-  color: #fff
+  color: var(--bc-on)
   text-align: center
 .results__place
   margin: 0
-  color: #b9c4ee
+  color: var(--bc-on-soft)
   font-size: clamp(0.84rem, 3.5vmin, 1.1rem)
 .results__first
   margin: 0
-  color: #ffe066
+  color: var(--bc-on-accent)
   font-size: clamp(0.9rem, 3.8vmin, 1.2rem)
+// A level gained: the one gold plate on the page.
 .results__levelup
+  +cel.tone('gold')
+  position: relative
   display: flex
   flex-direction: column
-  padding: 0.4em 1.2em
-  border-radius: 0.9rem
-  border: 2px solid #0f1a30
-  background: linear-gradient(180deg, #ffe066, #f0a020)
-  box-shadow: 0 4px 0 #0f1a30
-  color: #2a1a05
-  animation: levelup 520ms cubic-bezier(0.2, 1.6, 0.4, 1)
+  padding: 0.4em 1.4em
+  border-radius: var(--bc-r-lg)
+  border: var(--bc-ol) solid var(--bc-ink)
+  +cel.fill(44%, 88%)
+  box-shadow: 0 var(--bc-press) 0 var(--bc-ink)
+  +cel.label
+  overflow: hidden
+  animation: levelup 520ms var(--bc-ease-bounce)
+  &::before
+    +cel.glint(0.3em, 0.7em, 30%, 0.32em)
 .results__level
+  position: relative
   font-size: clamp(1.1rem, 4.8vmin, 1.6rem)
   line-height: 1.1
 .results__points
+  position: relative
   font-size: clamp(0.72rem, 3vmin, 0.92rem)
 .results__stats
   margin: 0
@@ -109,10 +124,9 @@ const r = computed(() => flow.results)
     display: flex
     flex-direction: column
     padding: 0.3rem 0.5rem
-    border-radius: 0.6rem
-    background: rgba(14, 20, 44, 0.6)
+    +cel.cell(var(--bc-r-md))
   dt
-    color: #a9b4de
+    color: var(--bc-on-soft)
     font-size: clamp(0.62rem, 2.6vmin, 0.8rem)
   dd
     margin: 0
@@ -122,52 +136,63 @@ const r = computed(() => flow.results)
     gap: 0.2em
     font-size: clamp(0.95rem, 4vmin, 1.25rem)
   .xp
-    color: #c9a4ff
+    color: var(--bc-purple-lo)
   .gold
-    color: #ffe066
+    color: var(--bc-on-accent)
   .lost
-    color: #ff8a8a
+    color: var(--bc-on-bad)
 .results__coin
   width: 1em
   height: 1em
+  user-select: none
+  -webkit-user-drag: none
+.results__rank
+  margin-bottom: var(--bc-press-sm)
 .results__loot
   margin: 0
-  padding: 0
+  padding: 0 0 var(--bc-press-sm)
   list-style: none
   width: 100%
   display: flex
   flex-direction: column
-  gap: 0.3rem
+  gap: 0.45rem
+// What was found: a paper slip each, the name on a band of its tier's colour.
 .loot
   display: flex
   align-items: center
   gap: 0.6rem
-  padding: 0.3rem 0.6rem 0.3rem 0.3rem
-  border-radius: 0.7rem
-  border: 2px solid #0f1a30
-  background: rgba(14, 20, 44, 0.75)
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--tier) 60%, transparent)
-  animation: loot-in 380ms cubic-bezier(0.2, 1.4, 0.4, 1) both
+  padding: 0.3rem 0.7rem 0.3rem 0.3rem
+  border-radius: var(--bc-r-md)
+  border: var(--bc-ol) solid var(--bc-ink)
+  background: var(--bc-paper-hi)
+  box-shadow: var(--bc-drop)
+  animation: loot-in 380ms var(--bc-ease-pop) both
 .loot__icon
   width: clamp(2.2rem, 9.5vmin, 2.8rem)
+  flex: 0 0 auto
 .loot__name
-  flex: 1 1 auto
-  color: var(--tier)
+  min-width: 0
+  padding: 0.14em 0.6em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tier) 72%, var(--bc-white)) 0, color-mix(in srgb, var(--tier) 72%, var(--bc-white)) 46%, var(--tier) 46%, var(--tier) 100%)
+  +cel.label
   font-size: clamp(0.8rem, 3.3vmin, 1rem)
-  text-align: left
+  text-align: start
 .loot__dup
   display: inline-flex
   align-items: center
   gap: 0.2em
-  color: #ffe066
+  margin-inline-start: auto
+  color: var(--bc-on-accent)
   font-size: clamp(0.72rem, 3vmin, 0.9rem)
 .results__open
   margin: 0
-  color: #7dff8a
+  color: var(--bc-on-good)
   font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
 .results__tip
   margin: 0
-  color: #dfe6ff
+  color: var(--bc-on-soft)
   font-size: clamp(0.72rem, 3vmin, 0.9rem)
   line-height: 1.3
 @keyframes levelup
@@ -184,4 +209,7 @@ const r = computed(() => flow.results)
   to
     transform: none
     opacity: 1
+@media (prefers-reduced-motion: reduce)
+  .results__levelup, .loot
+    animation: none
 </style>

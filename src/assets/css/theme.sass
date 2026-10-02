@@ -1,0 +1,171 @@
+// ─── The Battlecross UI tokens (D41) ─────────────────────────────────────────
+//
+// ONE place for every colour, radius, outline and shadow the interface is
+// drawn with. Components never spell a hex: they read these.
+//
+// The look, in a breath: chunky dark INK outlines; flat TWO-TONE cel fills (a
+// hard highlight band over the base, a hard shadow lip under it — never a soft
+// gradient); saturated candy colours; warm parchment windows in a leather rim.
+// It is the same world as the cel-shaded scene (GDD §2.2: two-tone step ramp,
+// charcoal outline, never pure black) and the vector glyphs (`ArtIcon`:
+// outline `--bc-ink`, stroke 2.6 in a 48 box).
+//
+// Every candy colour is a RAMP of four: `-hi` (the lit band), the base,
+// `-lo` (the shadow lip) and `-deep` (the depth plate a control stands on).
+// `cel.sass` turns a ramp into a fill; pick a ramp with `+cel.tone(gold)`.
+:root
+  // ── Ink ────────────────────────────────────────────────────────────────────
+  --bc-ink: #1b1626
+  --bc-ink-rgb: 27, 22, 38
+  --bc-ink-soft: #3a3050
+  --bc-white: #ffffff
+  --bc-white-rgb: 255, 255, 255
+
+  // ── Parchment (windows, cards, toasts) ─────────────────────────────────────
+  --bc-paper-hi: #fff8e3
+  --bc-paper: #f8e9c4
+  --bc-paper-lo: #ecd3a0
+  --bc-paper-deep: #d9b87a
+  --bc-paper-rgb: 248, 233, 196
+  // The leather rim round a window and what it stands on.
+  --bc-leather-hi: #d99a56
+  --bc-leather: #b8743a
+  --bc-leather-lo: #8f5426
+  --bc-leather-deep: #5c3317
+  --bc-stitch: #ffe2a8
+  // Text set on parchment: brown ink, never black.
+  --bc-paper-ink: #45301f
+  --bc-paper-ink-soft: #7d5f41
+  --bc-paper-ink-rgb: 69, 48, 31
+
+  // Walnut: the dark page of a window that still sets light text.
+  --bc-wood-hi: #6e4c34
+  --bc-wood: #523624
+  --bc-wood-lo: #3d2719
+  --bc-wood-deep: #28190f
+
+  // ── Slate (the HUD's dark plates and every bar's well) ─────────────────────
+  --bc-slate-hi: #4a3f78
+  --bc-slate: #342b5a
+  --bc-slate-lo: #251e44
+  --bc-slate-deep: #171230
+  --bc-slate-rgb: 37, 30, 68
+  --bc-night: #100c22
+  // Behind everything: the scene's night sky, so a safe-area gap blends in.
+  --bc-page: #0a1224
+
+  // ── Candy ramps: hi / base / lo / deep ─────────────────────────────────────
+  --bc-gold-hi: #ffe978
+  --bc-gold: #ffc526
+  --bc-gold-lo: #f09410
+  --bc-gold-deep: #9a5206
+  --bc-blue-hi: #8fdcff
+  --bc-blue: #3fa4ff
+  --bc-blue-lo: #2470e8
+  --bc-blue-deep: #173f9c
+  --bc-green-hi: #b4ff86
+  --bc-green: #54d862
+  --bc-green-lo: #27a648
+  --bc-green-deep: #14652e
+  --bc-red-hi: #ffa08f
+  --bc-red: #ff5a4f
+  --bc-red-lo: #d62c38
+  --bc-red-deep: #84142a
+  --bc-purple-hi: #deb3ff
+  --bc-purple: #ac68ff
+  --bc-purple-lo: #7a3ae0
+  --bc-purple-deep: #461f96
+  --bc-pink-hi: #ffb0e6
+  --bc-pink: #f55ac6
+  --bc-pink-lo: #c02a9c
+  --bc-pink-deep: #74165f
+  --bc-orange-hi: #ffd08a
+  --bc-orange: #ff9838
+  --bc-orange-lo: #e5621a
+  --bc-orange-deep: #8f3608
+  --bc-teal-hi: #a6fff0
+  --bc-teal: #3fdcc4
+  --bc-teal-lo: #1fa596
+  --bc-teal-deep: #0e6460
+  // A quiet control (pause, mute): cool stone, not a colour.
+  --bc-stone-hi: #a8b0e0
+  --bc-stone: #6f78b4
+  --bc-stone-lo: #4b5390
+  --bc-stone-deep: #2a2f5c
+  // Metal for frames, sockets and ornaments.
+  --bc-brass-hi: #fff0a8
+  --bc-brass: #f4bb3a
+  --bc-brass-lo: #c47f1c
+  --bc-brass-deep: #7a4a0e
+  --bc-steel-hi: #f4f8ff
+  --bc-steel: #c2cce6
+  --bc-steel-lo: #8792b8
+  --bc-steel-deep: #4c5580
+  // Something switched off: no hue at all.
+  --bc-off-hi: #b9b6c4
+  --bc-off: #8f8b9c
+  --bc-off-lo: #6c6878
+  --bc-off-deep: #45414f
+
+  // ── Text ───────────────────────────────────────────────────────────────────
+  --bc-text: #ffffff
+  --bc-text-soft: #dcd6ff
+  --bc-text-mute: #aaa3d6
+  --bc-text-gold: #ffe36a
+  --bc-text-good: #8dff8a
+  --bc-text-bad: #ff8f8f
+  --bc-text-xp: #d3a8ff
+  --bc-text-mana: #8fd4ff
+  // Text on a candy fill wears an ink outline (eight hard offsets + a drop).
+  --bc-text-outline: 0 0.1em 0 var(--bc-ink), 0.07em 0 0 var(--bc-ink), -0.07em 0 0 var(--bc-ink), 0 -0.07em 0 var(--bc-ink), 0.05em 0.05em 0 var(--bc-ink), -0.05em 0.05em 0 var(--bc-ink), 0.05em -0.05em 0 var(--bc-ink), -0.05em -0.05em 0 var(--bc-ink)
+  --bc-text-outline-thin: 0 1px 0 var(--bc-ink), 1px 0 0 var(--bc-ink), -1px 0 0 var(--bc-ink), 0 -1px 0 var(--bc-ink), 0 2px 0 var(--bc-ink)
+
+  // ── What sits on the current SURFACE ───────────────────────────────────────
+  // A window re-declares these for its page (`FModal`: parchment or slate),
+  // so a control inside reads right on either without knowing which it is on.
+  --bc-on: var(--bc-text)
+  --bc-on-soft: var(--bc-text-soft)
+  --bc-on-mute: var(--bc-text-mute)
+  --bc-on-accent: var(--bc-text-gold)
+  --bc-on-good: var(--bc-text-good)
+  --bc-on-bad: var(--bc-text-bad)
+  // A sunk cell on the surface (a stat box, a table row) and its second stripe.
+  --bc-cell: rgba(var(--bc-ink-rgb), 0.34)
+  --bc-cell-alt: rgba(var(--bc-ink-rgb), 0.18)
+  --bc-rule: rgba(var(--bc-white-rgb), 0.16)
+
+  // ── Shape ──────────────────────────────────────────────────────────────────
+  --bc-r-xs: 0.35rem
+  --bc-r-sm: 0.55rem
+  --bc-r-md: 0.8rem
+  --bc-r-lg: 1.15rem
+  --bc-r-xl: 1.6rem
+  --bc-r-pill: 999px
+  // Outlines are px on purpose: a border that scales goes hairline or blurry.
+  --bc-ol-thin: 2px
+  --bc-ol: 3px
+  --bc-ol-thick: 4px
+
+  // ── Depth and motion ───────────────────────────────────────────────────────
+  // How far a control stands off its plate, and so how far a press sinks it.
+  --bc-press: 4px
+  --bc-press-sm: 3px
+  --bc-drop: 0 var(--bc-press-sm) 0 var(--bc-ink)
+  --bc-drop-soft: 0 0.35rem 0 rgba(var(--bc-ink-rgb), 0.3)
+  --bc-glow-gold: 0 0 0.9em rgba(255, 213, 74, 0.85)
+  // Down is quick and flat; up overshoots (GDD §2.3: elastic out).
+  --bc-ease-bounce: cubic-bezier(0.34, 1.7, 0.5, 1)
+  --bc-ease-pop: cubic-bezier(0.2, 1.4, 0.4, 1)
+  --bc-ease-out: cubic-bezier(0.2, 0.8, 0.3, 1)
+  --bc-t-press: 70ms
+  --bc-t-release: 320ms
+  // The keyboard focus ring: white inside ink, readable on any fill.
+  --bc-focus: 0 0 0 3px var(--bc-white), 0 0 0 6px var(--bc-ink)
+  --bc-backdrop: rgba(var(--bc-ink-rgb), 0.72)
+
+  // ── Layers ─────────────────────────────────────────────────────────────────
+  --bc-z-hud: 10
+  --bc-z-dropdown: 40
+  --bc-z-modal: 110
+  --bc-z-veil: 120
+  --bc-z-system: 150

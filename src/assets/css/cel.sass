@@ -1,0 +1,81 @@
+// ─── Cel-shading mixins for the interface (D41) ──────────────────────────────
+//
+// Emits no CSS of its own: `@use '@/assets/css/cel'` in a component's style
+// block and call these. They all read the tokens in `theme.sass`.
+//
+// A RAMP is four custom properties on the element: `--c-hi`, `--c`, `--c-lo`
+// and `--c-deep`. `tone(gold)` points them at a token ramp; `fill` paints the
+// two-tone face from them. Because the ramp is plain custom properties, a tone
+// class only swaps four values and every rule below follows.
+
+/// Point the element's ramp at a token ramp: `+cel.tone(gold)`.
+@mixin tone($name)
+  --c-hi: var(--bc-#{$name}-hi)
+  --c: var(--bc-#{$name})
+  --c-lo: var(--bc-#{$name}-lo)
+  --c-deep: var(--bc-#{$name}-deep)
+
+/// The two-tone face: a hard highlight band, the base, a hard shadow lip.
+/// `$band` is where the highlight ends, `$lip` where the shadow starts.
+@mixin fill($band: 46%, $lip: 86%)
+  background-image: linear-gradient(180deg, var(--c-hi) 0, var(--c-hi) $band, var(--c) $band, var(--c) $lip, var(--c-lo) $lip, var(--c-lo) 100%)
+
+/// The same ramp lying on its side (a bar's fill reads top-lit too).
+@mixin fill-flat
+  background-color: var(--c)
+
+/// The chunky outline.
+@mixin ink($w: var(--bc-ol))
+  border: $w solid var(--bc-ink)
+
+/// A hard-edged glint: the small lit window on a glossy cel surface. Put it on
+/// a pseudo-element of an `overflow: hidden` face.
+@mixin glint($top: 12%, $left: 8%, $w: 34%, $h: 22%)
+  content: ''
+  position: absolute
+  top: $top
+  left: $left
+  width: $w
+  height: $h
+  border-radius: var(--bc-r-pill)
+  background: rgba(var(--bc-white-rgb), 0.6)
+  pointer-events: none
+
+/// The bouncy press. The element squashes down quickly and overshoots on the
+/// way back. `$down` is how far it sinks (its depth plate stays put).
+@mixin press($down: var(--bc-press), $squash: 0.96)
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
+  &:active:not(:disabled):not(.is-disabled)
+    transition-duration: var(--bc-t-press)
+    transition-timing-function: ease-out
+    transform: translateY($down) scale(1.02, $squash)
+
+/// Keyboard focus only (never on a tap).
+@mixin focus-ring
+  &:focus
+    outline: none
+  &:focus-visible
+    box-shadow: var(--bc-focus)
+
+/// Ink-outlined white lettering for a candy fill.
+@mixin label
+  color: var(--bc-text)
+  text-shadow: var(--bc-text-outline)
+
+/// A sunk parchment-or-slate cell.
+@mixin cell($r: var(--bc-r-sm))
+  border-radius: $r
+  background: var(--bc-cell)
+
+/// The scroll bar of a window's own scrolling page.
+@mixin scrollbar
+  scrollbar-width: thin
+  scrollbar-color: var(--bc-leather) transparent
+  &::-webkit-scrollbar
+    width: 10px
+  &::-webkit-scrollbar-track
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    border: 2px solid transparent
+    border-radius: var(--bc-r-pill)
+    background: var(--bc-leather) padding-box

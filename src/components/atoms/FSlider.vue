@@ -7,8 +7,10 @@ interface Props {
   max?: number
   step?: number
   label?: string
+  /** A one-off fill: the lit band and the base. Defaults to the gold ramp. */
   colorFrom?: string
   colorTo?: string
+  /** A one-off colour for the well. */
   trackColor?: string
 }
 
@@ -16,16 +18,21 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: 50,
   min: 0,
   max: 100,
-  step: 1,
-  colorFrom: '#ffcd00', // Brawl Yellow
-  colorTo: '#f7a000',
-  trackColor: '#1a2b4b' // Dark Blue depth
+  step: 1
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const progress = computed(() => {
   return ((props.modelValue - props.min) / (props.max - props.min)) * 100
+})
+
+const customVars = computed<Record<string, string>>(() => {
+  const out: Record<string, string> = {}
+  if (props.colorFrom) out['--c-hi'] = props.colorFrom
+  if (props.colorTo) { out['--c'] = props.colorTo; out['--c-lo'] = props.colorTo }
+  if (props.trackColor) out['--fsl-well'] = props.trackColor
+  return out
 })
 
 const updateValue = (event: Event) => {
@@ -35,81 +42,135 @@ const updateValue = (event: Event) => {
 </script>
 
 <template lang="pug">
-  div.f-slider-container(class="w-full")
+  div.f-slider-container(:style="customVars")
     //- Label (Optional)
-    div(v-if="label" class="slider-label mb-2 text-white font-black uppercase italic tracking-wider") {{ label }}
+    div.slider-label(v-if="label") {{ label }}
 
-    div.f-slider__row(class="relative flex items-center")
-      //- Custom Track Background (The 3D "Well")
-      div(
-        class="f-slider__track absolute inset-0 my-auto rounded-full border-[3px] border-[#0f1a30] overflow-hidden bg-[#0a1425]"
-      )
-        //- Progress Fill
-        div(
-          class="h-full transition-all duration-75 relative"
-          :style="{ \
-            width: `${progress}%`, \
-            backgroundImage: `linear-gradient(to bottom, ${colorFrom}, ${colorTo})` \
-          }"
-        )
-          //- Inner Shine for the fill
-          span(class="absolute inset-x-0 top-0 h-1/2 bg-white/20")
+    div.f-slider__row
+      //- The well, and the fill in it.
+      div.f-slider__track
+        div.f-slider__fill(:style="{ width: `${progress}%` }")
 
       //- Native Input (Invisible but functional)
-      input(
+      input.f-slider__input(
         type="range"
         :min="min"
         :max="max"
         :step="step"
         :value="modelValue"
+        :aria-label="label"
         @input="updateValue"
-        class="f-slider__input absolute inset-0 w-full opacity-0 cursor-pointer z-10 touch-manipulation"
       )
 
-      //- Custom Thumb (Visual Only)
-      div(
-        class="thumb-visual pointer-events-none absolute flex items-center justify-center transition-transform"
-        :style="{ left: `calc(${progress}% - var(--fsl-thumb) / 2)` }"
-      )
-        //- The "3D Shadow" of the thumb
-        span(class="absolute inset-0 translate-y-[3px] bg-[#102e7a] rounded-xl border-[3px] border-[#0f1a30]")
-        //- The Main Thumb Body
-        span(class="relative block inset-0 w-full h-full bg-[#50aaff] rounded-xl border-[3px] border-[#0f1a30] overflow-hidden")
-          //- Thumb Shine
-          span(class="absolute inset-x-0 top-0 h-1/2 bg-white/30")
-          //- Little Detail (Vertical Line)
-          span(class="absolute inset-0 flex items-center justify-center")
-            span(class="w-1.5 h-4 bg-white/50 rounded-full")
+      //- The thumb (a picture: the native input under it takes the hand).
+      div.thumb-visual(:style="{ left: `calc(${progress}% - var(--fsl-thumb) * ${progress / 100})` }")
+        span.thumb-visual__shadow
+        span.thumb-visual__body
+          span.thumb-visual__grip
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .slider-label
-  font-size: clamp(0.75rem, 3.2vw, 1.1rem)
-  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000
+  margin-bottom: 0.35rem
+  color: var(--bc-on)
+  font-weight: 900
+  text-transform: uppercase
+  letter-spacing: 0.04em
+  font-size: clamp(0.75rem, 3.2vw, 1.05rem)
+  text-align: start
 
 .f-slider-container
+  +cel.tone('gold')
+  --fsl-well: var(--bc-slate-deep)
   // Thumb size drives the row height, the track height AND the left offset, so
   // all three stay in sync at any viewport instead of the old hard-coded 40px.
   --fsl-thumb: clamp(2rem, 9vw, 2.5rem)
+  width: 100%
   padding-block: clamp(0.4rem, 2vw, 1rem)
   -webkit-tap-highlight-color: transparent
 
 .f-slider__row
+  position: relative
+  display: flex
+  align-items: center
   height: var(--fsl-thumb)
 
 .f-slider__track
-  height: calc(var(--fsl-thumb) * 0.6)
+  position: absolute
+  inset: 0
+  height: calc(var(--fsl-thumb) * 0.56)
+  margin-block: auto
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  background: var(--fsl-well)
+  box-shadow: 0 var(--bc-press-sm) 0 var(--bc-ink)
+  overflow: hidden
+
+.f-slider__fill
+  height: 100%
+  +cel.fill(46%, 82%)
+  border-right: var(--bc-ol-thin) solid var(--bc-ink)
 
 .f-slider__input
+  position: absolute
+  inset: 0
+  z-index: 1
+  width: 100%
   height: var(--fsl-thumb)
+  margin: 0
+  opacity: 0
+  cursor: pointer
+  touch-action: manipulation
 
 .thumb-visual
+  +cel.tone('blue')
+  position: absolute
   width: var(--fsl-thumb)
   height: var(--fsl-thumb)
+  pointer-events: none
+
+.thumb-visual__shadow
+  position: absolute
+  inset: 0
+  transform: translateY(var(--bc-press-sm))
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-md)
+  background: var(--c-deep)
+
+.thumb-visual__body
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  height: 100%
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-md)
+  +cel.fill(46%, 86%)
+  overflow: hidden
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce)
+  &::before
+    +cel.glint(10%, 14%, 40%, 12%)
+
+// The grip: two ink notches.
+.thumb-visual__grip
+  width: 28%
+  height: 38%
+  border-inline: var(--bc-ol-thin) solid rgba(var(--bc-ink-rgb), 0.7)
+
+// The keyboard's ring and the hand's squash land on the picture.
+.f-slider__input:focus-visible ~ .thumb-visual .thumb-visual__body
+  box-shadow: var(--bc-focus)
+.f-slider__input:active ~ .thumb-visual .thumb-visual__body
+  transition-duration: var(--bc-t-press)
+  transform: translateY(var(--bc-press-sm)) scale(1.04, 0.93)
 
 /* Ensure the native range covers the whole area for better hitboxes */
 input[type="range"]
   -webkit-appearance: none
+  appearance: none
   background: transparent
 
   &::-webkit-slider-thumb

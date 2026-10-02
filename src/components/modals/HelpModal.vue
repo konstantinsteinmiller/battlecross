@@ -1,5 +1,5 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t('pause.controls')" @update:model-value="closeModal")
+  FModal(:model-value="true" :title="t('pause.controls')" surface="parchment" tone="blue" @update:model-value="closeModal")
     ul.help
       li.help__row(v-for="r in rows" :key="r.id")
         span.help__glyph
@@ -42,6 +42,8 @@ const keys = KEY_ACTIONS.map(action => ({ action, code: DEFAULT_BINDINGS[action]
 </script>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .help
   margin: 0
   padding: 0
@@ -49,20 +51,25 @@ const keys = KEY_ACTIONS.map(action => ({ action, code: DEFAULT_BINDINGS[action]
   display: flex
   flex-direction: column
   gap: clamp(0.4rem, 1.8vmin, 0.6rem)
-  color: #fff
+  color: var(--bc-on)
 .help__row
   display: grid
   grid-template-columns: clamp(3.4rem, 15vmin, 4.6rem) minmax(0, 1fr)
   align-items: center
   gap: 0.7rem
   padding: 0.35rem 0.6rem
-  border-radius: 0.7rem
-  background: rgba(14, 20, 44, 0.6)
+  +cel.cell(var(--bc-r-md))
+// The control glyphs are drawn white-on-dark: each gets a dark plate.
 .help__glyph
   height: clamp(2.6rem, 11vmin, 3.4rem)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-slate)
+  color: var(--bc-text)
 .help__text
   font-size: clamp(0.78rem, 3.2vmin, 0.98rem)
   line-height: 1.3
+  text-align: start
 .help__keys
   margin: 0.6rem 0 0
   padding: 0
@@ -70,13 +77,12 @@ const keys = KEY_ACTIONS.map(action => ({ action, code: DEFAULT_BINDINGS[action]
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(min(46%, 9rem), 1fr))
   gap: 0.35rem
-  color: #dfe6ff
   font-size: clamp(0.74rem, 3vmin, 0.92rem)
   li
     display: flex
     align-items: center
     gap: 0.5em
-    color: #141a33
+    color: var(--bc-ink)
     span
-      color: #dfe6ff
+      color: var(--bc-on-soft)
 </style>

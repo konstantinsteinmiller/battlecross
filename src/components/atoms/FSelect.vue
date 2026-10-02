@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { sfx } from '@/game/audio/sfx'
 
 interface Option {
   value: string | number
@@ -19,7 +20,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: 'SELECT...',
+  placeholder: '…',
   maxHeight: '200px'
 })
 
@@ -34,9 +35,13 @@ const selectedLabel = computed(() => {
 })
 const selectedLang = computed(() => props.options.find(opt => opt.value === props.modelValue)?.lang)
 
-const toggle = () => (isOpen.value = !isOpen.value)
+const toggle = () => {
+  sfx('uiClick')
+  isOpen.value = !isOpen.value
+}
 
 const selectOption = (value: string | number) => {
+  sfx('uiClick')
   emit('update:modelValue', value)
   isOpen.value = false
 }
@@ -47,121 +52,201 @@ const handleClickOutside = (event: MouseEvent) => {
     isOpen.value = false
   }
 }
+const onKey = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && isOpen.value) { e.stopPropagation(); isOpen.value = false }
+}
 
 onMounted(() => document.addEventListener('click', handleClickOutside))
 onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 </script>
 
 <template lang="pug">
-  div(class="relative w-full font-black" ref="dropdownRef")
+  div.f-select(ref="dropdownRef" :class="{ 'is-open': isOpen }" @keydown="onKey")
     //- Label (Optional)
-    div(v-if="label" class="label-text mb-1 ml-1 text-white uppercase italic tracking-wider") {{ label }}
+    div.label-text(v-if="label") {{ label }}
 
-    //- The Trigger (Styled like FButton)
-    button(
+    //- The trigger: a button in the same cut as `FButton`.
+    button.f-select__trigger(
       type="button"
+      aria-haspopup="listbox"
+      :aria-expanded="isOpen"
+      :aria-label="label"
       @click="toggle"
-      class="group relative w-full inline-block cursor-pointer select-none transition-all duration-75 active:scale-[0.98] hover:scale-[1.02] touch-manipulation focus:outline-none"
     )
-      //- 3D Shadow
-      span(class="absolute inset-0 translate-y-[4px] rounded-2xl bg-[#1a2b4b]")
-
-      //- Main Button Body
-      span.f-select__body(class="relative flex items-center justify-between rounded-2xl border-[3px] border-[#0f1a30] bg-gradient-to-b from-[#ffcd00] to-[#f7a000]")
-        //- Inner Top Shine
-        span(class="absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-white/25")
-
-        //- Selected Text
-        span.f-select__value(class="text relative block tracking-wide text-white uppercase truncate mr-2" :lang="selectedLang") {{ selectedLabel }}
-
-        //- Arrow Icon
-        span.f-select__caret-wrap(
-          class="relative transition-transform duration-200"
-          :class="{ 'rotate-180': isOpen }"
-        )
+      span.f-select__shadow(aria-hidden="true")
+      span.f-select__body
+        span.f-select__value(:lang="selectedLang") {{ selectedLabel }}
+        span.f-select__caret-wrap
           GameIcon.f-select__caret(name="down")
 
-    //- The Dropdown Menu
+    //- The list: a parchment sheet under the trigger.
     transition(name="pop")
-      div(
-        v-if="isOpen"
-        class="absolute z-1 left-0 right-0 mt-3 rounded-2xl border-[3px] border-[#0f1a30] bg-[#1a2b4b] shadow-2xl overflow-hidden"
-      )
-        //- Scrollable Area
-        div(
-          class="custom-scrollbar overflow-y-auto p-2"
-          :style="{ maxHeight: maxHeight }"
-        )
-          div(
+      div.f-select__menu(v-if="isOpen")
+        div.custom-scrollbar(role="listbox" :style="{ maxHeight: maxHeight }")
+          button.f-select__row(
             v-for="option in options"
             :key="option.value"
+            type="button"
+            role="option"
+            :aria-selected="modelValue === option.value"
+            :class="{ 'is-selected': modelValue === option.value }"
             @click="selectOption(option.value)"
-            class="group/item relative mb-1 last:mb-0 cursor-pointer p-3 rounded-xl transition-all duration-75 active:scale-[0.97]"
-            :class="modelValue === option.value ? 'bg-[#50aaff]' : 'hover:bg-[#2266ff]'"
           )
-            //- Option Shine (only for selected/hover)
-            span(class="absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-white/10")
-
-            span.f-select__option(class="text relative block text-white uppercase tracking-wide" :lang="option.lang") {{ option.label }}
+            span.f-select__option(:lang="option.lang") {{ option.label }}
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 // Fluid metrics replace the old fixed `text-sm md:text-lg` / `px-4 py-3` pairs
 // so the control reads the same on a 320px phone and a 4K desktop, and the
 // `min-height` floor guarantees a legal touch target in every layout.
+.f-select
+  +cel.tone('gold')
+  position: relative
+  width: 100%
+  font-weight: 900
+
+.label-text
+  margin: 0 0 0.3rem 0.2rem
+  color: var(--bc-on)
+  text-transform: uppercase
+  letter-spacing: 0.04em
+  font-size: clamp(0.75rem, 3.2vw, 1.05rem)
+  text-align: start
+
+.f-select__trigger
+  position: relative
+  display: block
+  width: 100%
+  padding: 0
+  border: 0
+  border-radius: var(--bc-r-lg)
+  background: none
+  cursor: pointer
+  user-select: none
+  touch-action: manipulation
+  -webkit-tap-highlight-color: transparent
+  +cel.focus-ring
+  &:hover .f-select__body
+    filter: brightness(1.06)
+  &:active .f-select__body
+    transition-duration: var(--bc-t-press)
+    transition-timing-function: ease-out
+    transform: translateY(var(--bc-press)) scale(1.01, 0.95)
+
+.f-select__shadow
+  position: absolute
+  inset: 0
+  transform: translateY(var(--bc-press))
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-lg)
+  background: var(--c-deep)
+
 .f-select__body
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 0.5rem
   min-height: 2.75rem
   min-width: clamp(6rem, 40vw, 9rem)
-  padding: clamp(0.4rem, 1.8vw, 0.75rem) clamp(0.6rem, 3vw, 1.1rem)
+  padding: clamp(0.4rem, 1.8vw, 0.7rem) clamp(0.7rem, 3vw, 1.1rem)
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-lg)
+  +cel.fill
+  overflow: hidden
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
+  &::before
+    +cel.glint(0.22em, 0.5em, min(34%, 3rem), 0.28em)
 
-// The caret is the shared `down` chevron now — solid like the rest of the set,
-// rather than the last stroked glyph left in the UI. Sized here because
-// `GameIcon` deliberately fills whatever box the caller gives it.
-// Nested to outrank `GameIcon`'s own `.game-icon` rule, which carries the same
-// specificity a flat class selector would — on a tie the winner is whichever
-// stylesheet the bundler emitted last.
+.f-select__value
+  position: relative
+  min-width: 0
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  +cel.label
+  text-transform: uppercase
+  letter-spacing: 0.03em
+  font-size: clamp(0.72rem, 3vw, 1.05rem)
+
+// The caret is the shared `down` chevron — solid like the rest of the set.
+// Sized here because `GameIcon` deliberately fills whatever box the caller
+// gives it. Nested to outrank `GameIcon`'s own `.game-icon` rule, which
+// carries the same specificity a flat class selector would — on a tie the
+// winner is whichever stylesheet the bundler emitted last.
 .f-select__caret-wrap
+  position: relative
   flex: 0 0 auto
-  color: #fff
+  color: var(--bc-text)
+  transition: transform 220ms var(--bc-ease-bounce)
 
   .f-select__caret
     width: 1.25rem
     height: 1.25rem
-    filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 1))
+    filter: drop-shadow(0 2px 0 var(--bc-ink)) drop-shadow(1px 0 0 var(--bc-ink)) drop-shadow(-1px 0 0 var(--bc-ink)) drop-shadow(0 -1px 0 var(--bc-ink))
+.is-open .f-select__caret-wrap
+  transform: rotate(180deg)
 
-.f-select__value
-  font-size: clamp(0.7rem, 3vw, 1.05rem)
+.f-select__menu
+  position: absolute
+  z-index: var(--bc-z-dropdown)
+  left: 0
+  right: 0
+  margin-top: 0.6rem
+  border: var(--bc-ol) solid var(--bc-ink)
+  border-radius: var(--bc-r-lg)
+  background: var(--bc-paper-hi)
+  box-shadow: 0 var(--bc-press) 0 var(--bc-ink), 0 0.9rem 1.4rem rgba(var(--bc-ink-rgb), 0.45)
+  overflow: hidden
+
+.custom-scrollbar
+  display: flex
+  flex-direction: column
+  gap: 0.2rem
+  padding: 0.35rem
+  overflow-y: auto
+  overscroll-behavior: contain
+  +cel.scrollbar
+
+.f-select__row
+  +cel.tone('blue')
+  position: relative
+  flex: 0 0 auto
+  min-height: 2.5rem
+  padding: 0.5rem 0.75rem
+  border: var(--bc-ol-thin) solid transparent
+  border-radius: var(--bc-r-md)
+  background: none
+  color: var(--bc-paper-ink)
+  font: inherit
+  text-align: start
+  cursor: pointer
+  transition: transform 90ms ease-out
+  +cel.focus-ring
+  &:hover
+    background: var(--bc-paper-lo)
+  &:active
+    transform: scale(0.98)
+  &.is-selected
+    border-color: var(--bc-ink)
+    +cel.fill(46%, 88%)
+    color: var(--bc-text)
+    text-shadow: var(--bc-text-outline)
 
 .f-select__option
-  font-size: clamp(0.7rem, 3vw, 1rem)
-
-.label-text
-  font-size: clamp(0.75rem, 3.2vw, 1.1rem)
-
-.text, .label-text
-  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
-
-/* Custom Scrollbar for that game feel */
-.custom-scrollbar
-  &::-webkit-scrollbar
-    width: 12px
-
-  &::-webkit-scrollbar-track
-    background: #0a1425
-    border-radius: 10px
-    margin: 8px
-
-  &::-webkit-scrollbar-thumb
-    background: #50aaff
-    border: 3px solid #0f1a30
-    border-radius: 10px
-
-    &:hover
-      background: #2266ff
+  display: block
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  text-transform: uppercase
+  letter-spacing: 0.03em
+  font-size: clamp(0.72rem, 3vw, 1rem)
 
 /* Transition Animations */
 .pop-enter-active, .pop-leave-active
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s
+  transition: transform 0.2s var(--bc-ease-pop), opacity 0.1s
 
 .pop-enter-from, .pop-leave-to
   opacity: 0

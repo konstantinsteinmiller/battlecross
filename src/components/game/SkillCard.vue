@@ -15,7 +15,7 @@
       span.fact.fact--aim(v-if="skill.target === 'ground' || skill.target === 'dir'") {{ t('skill.aimed') }}
     div.skill-card__reqs
       span.req(:class="{ bad: profile.level < skill.level }") {{ t('hud.level', { n: skill.level }) }}
-      span.req(v-for="r in reqs" :key="r.attr" :class="{ bad: r.have < r.need }" :style="{ '--c': ATTR_COLOR[r.attr] }") {{ t(`attr.${r.attr}.short`) }} {{ r.need }}
+      span.req.has-attr(v-for="r in reqs" :key="r.attr" :class="{ bad: r.have < r.need }" :style="{ '--attr': ATTR_COLOR[r.attr] }") {{ t(`attr.${r.attr}.short`) }} {{ r.need }}
 </template>
 
 <script setup lang="ts">
@@ -40,17 +40,22 @@ const reqs = computed(() => {
 </script>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
+// A parchment card under a ribbon in the skill's class colour. The card
+// brings its own page and its own ink, so it reads the same in any window.
 .skill-card
+  position: relative
   display: flex
   flex-direction: column
   gap: 0.4rem
   padding: clamp(0.5rem, 2.2vmin, 0.8rem)
-  border-radius: 0.8rem
-  border: 2px solid #0f1a30
-  background: linear-gradient(180deg, rgba(20, 28, 60, 0.85), rgba(14, 20, 44, 0.85))
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--tint) 55%, transparent)
-  color: #fff
-  text-align: left
+  border-radius: var(--bc-r-md)
+  border: var(--bc-ol) solid var(--bc-ink)
+  background: linear-gradient(180deg, var(--bc-paper-hi) 0, var(--bc-paper-hi) 0.4rem, var(--bc-paper) 0.4rem, var(--bc-paper) 100%)
+  box-shadow: var(--bc-drop)
+  color: var(--bc-paper-ink)
+  text-align: start
 .skill-card__head
   display: flex
   align-items: center
@@ -61,41 +66,53 @@ const reqs = computed(() => {
 .skill-card__title
   display: flex
   flex-direction: column
+  align-items: flex-start
+  gap: 0.2rem
   min-width: 0
+// The name on a two-tone band of the class's colour.
 .skill-card__name
-  color: var(--tint)
-  font-size: clamp(0.92rem, 3.8vmin, 1.2rem)
+  max-width: 100%
+  padding: 0.12em 0.6em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tint) 72%, var(--bc-white)) 0, color-mix(in srgb, var(--tint) 72%, var(--bc-white)) 46%, var(--tint) 46%, var(--tint) 100%)
+  +cel.label
+  font-size: clamp(0.9rem, 3.7vmin, 1.15rem)
   line-height: 1.15
 .skill-card__sub
-  color: #b9c4ee
+  color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)
 .skill-card__desc
   margin: 0
   font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
   line-height: 1.3
-  color: #e8edff
 .skill-card__facts, .skill-card__reqs
   display: flex
   flex-wrap: wrap
   gap: 0.3rem
+// Facts and requirements: small two-tone tags.
 .fact, .req
-  padding: 0.12em 0.55em
-  border-radius: 999px
-  border: 2px solid #0f1a30
-  background: #3a4678
+  +cel.tone('stone')
+  padding: 0.12em 0.6em
+  border-radius: var(--bc-r-pill)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  +cel.fill(48%, 100%)
+  +cel.label
   font-size: clamp(0.66rem, 2.7vmin, 0.82rem)
   line-height: 1.3
+  text-shadow: var(--bc-text-outline-thin)
 .fact--mana
-  background: #2f6fe0
+  +cel.tone('blue')
 .fact--hp
-  background: #d83040
+  +cel.tone('red')
 .fact--heat
-  background: #e0762a
+  +cel.tone('orange')
 .fact--aim
-  background: #6a4ac0
-.req
-  background: color-mix(in srgb, var(--c, #ffe066) 55%, #1c2440)
-  &.bad
-    background: #5a1c26
-    color: #ff9a9a
+  +cel.tone('purple')
+// A requirement wears its attribute's colour; one not met goes dark red.
+.req.has-attr
+  background: linear-gradient(180deg, color-mix(in srgb, var(--attr) 76%, var(--bc-white)) 0, color-mix(in srgb, var(--attr) 76%, var(--bc-white)) 48%, var(--attr) 48%, var(--attr) 100%)
+.req.bad
+  background: var(--bc-red-deep)
+  color: var(--bc-text-bad)
 </style>

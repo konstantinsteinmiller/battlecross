@@ -1,8 +1,8 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t(`ending.${kind}.title`)" :is-closable="false")
+  FModal(:model-value="true" :title="t(`ending.${kind}.title`)" :is-closable="false" surface="parchment" tone="purple")
     div.ending
       span.ending__face
-        Portrait(look="hero" ring="#ffd84a")
+        Portrait(look="hero" ring="var(--bc-gold)")
       p.ending__text {{ t(`ending.${kind}.text`) }}
       ul.ending__notes
         li(v-for="f in notes" :key="f") {{ t(`ending.note.${f}`) }}
@@ -47,12 +47,14 @@ const done = (): void => {
 </script>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .ending
   display: flex
   flex-direction: column
   align-items: center
   gap: clamp(0.5rem, 2.2vmin, 0.9rem)
-  color: #fff
+  color: var(--bc-on)
   text-align: center
 .ending__face
   width: clamp(4rem, 18vmin, 6rem)
@@ -67,7 +69,7 @@ const done = (): void => {
   display: flex
   flex-direction: column
   gap: 0.3rem
-  color: #ffe9a8
+  color: var(--bc-on-accent)
   font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
   line-height: 1.3
 .ending__stats
@@ -78,16 +80,15 @@ const done = (): void => {
   gap: 0.3rem
   div
     padding: 0.3rem
-    border-radius: 0.6rem
-    background: rgba(14, 20, 44, 0.6)
+    +cel.cell(var(--bc-r-md))
   dt
-    color: #a9b4de
+    color: var(--bc-on-soft)
     font-size: clamp(0.62rem, 2.6vmin, 0.8rem)
   dd
     margin: 0
     font-size: clamp(0.95rem, 4vmin, 1.25rem)
 .ending__more
   margin: 0
-  color: #b9c4ee
+  color: var(--bc-on-soft)
   font-size: clamp(0.72rem, 3vmin, 0.9rem)
 </style>

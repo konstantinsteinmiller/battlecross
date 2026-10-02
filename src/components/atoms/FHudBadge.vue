@@ -16,22 +16,27 @@ withDefaults(defineProps<Props>(), { tone: 'red' })
 </template>
 
 <style scoped lang="sass">
+@use '@/assets/css/cel'
+
 .f-hud-badge
+  +cel.tone('red')
   display: inline-flex
   align-items: center
   justify-content: center
   gap: 0.15em
-  min-width: clamp(0.95rem, 4vw, 1.2rem)
-  min-height: clamp(0.95rem, 4vw, 1.2rem)
+  min-width: clamp(1.05rem, 4.4vw, 1.3rem)
+  min-height: clamp(1.05rem, 4.4vw, 1.3rem)
   padding-inline: 0.3em
-  border: 2px solid #fff
-  border-radius: 999px
-  color: #fff
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  +cel.fill(50%, 100%)
+  color: var(--bc-text)
   font-weight: 900
   line-height: 1
-  font-size: clamp(0.55rem, 2.4vw, 0.72rem)
+  font-size: clamp(0.6rem, 2.5vw, 0.76rem)
   white-space: nowrap
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45)
+  text-shadow: var(--bc-text-outline-thin)
+  box-shadow: 0 2px 0 var(--bc-ink)
 
   // Both element types, deliberately. `IconCoin` is an `<img>` while every
   // other icon in the set is an inline `<svg>`, and an `svg`-only rule let the
@@ -44,12 +49,10 @@ withDefaults(defineProps<Props>(), { tone: 'red' })
     height: 1em
     object-fit: contain
 
-.tone-red
-  background-color: #ef4444
 .tone-blue
-  background-color: #102e7a
+  +cel.tone('blue')
 .tone-gold
-  background-color: #f7a000
+  +cel.tone('gold')
 .tone-green
-  background-color: #1f9d4d
+  +cel.tone('green')
 </style>
