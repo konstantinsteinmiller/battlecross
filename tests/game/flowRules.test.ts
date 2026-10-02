@@ -160,6 +160,42 @@ describe('Continue on the result screen', () => {
   })
 })
 
+describe('Retry on the result screen', () => {
+  const fake = { setup: { theme: 'plains' } } as never
+
+  it('closes the result, plays the paced interstitial, then re-enters the same zone', async () => {
+    f.setNodeBuilder(async () => fake)
+    await f.travel('plains')
+    await f.bankVisit('defeat', 'plains', tally())
+    const { watch } = await import('vue')
+    const stop = watch(() => f.flow.modal, (m) => ads.order.push(`modal:${m || 'none'}`), { flush: 'sync' })
+    await f.retryVisit()
+    stop()
+    expect(ads.shown).toBe(1)
+    expect(ads.order.indexOf('modal:none')).toBeLessThan(ads.order.indexOf('ad'))
+    expect(f.flow.screen).toBe('zone')
+    expect(f.flow.node).toBe('plains')
+    expect(f.flow.results).toBeNull()
+    f.setNodeBuilder(null)
+  })
+
+  it('plays no ad inside the pacing window, and a double tap asks for one', async () => {
+    f.setNodeBuilder(async () => fake)
+    ads.can = false
+    await f.travel('plains')
+    await f.bankVisit('defeat', 'plains', tally())
+    await f.retryVisit()
+    expect(ads.shown).toBe(0)
+    expect(f.flow.screen).toBe('zone')
+
+    ads.can = true
+    await f.bankVisit('defeat', 'plains', tally())
+    await Promise.all([f.retryVisit(), f.retryVisit()])
+    expect(ads.shown).toBe(1)
+    f.setNodeBuilder(null)
+  })
+})
+
 describe('the per-zone funnel (Poki measure)', () => {
   const fake = { setup: { theme: 'plains' } } as never
 

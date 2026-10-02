@@ -388,6 +388,16 @@ let leaving = false
  */
 export const leaveResults = async (): Promise<void> => {
   if (leaving) return
+  await adBreak()
+  if (flow.quest) flow.modal = 'decision'
+  else afterVisit()
+}
+
+/**
+ * The paced break behind a closed result screen, shared by Continue and
+ * Retry. Never throws: whatever the ad does, the player moves on.
+ */
+const adBreak = async (): Promise<void> => {
   leaving = true
   flow.modal = ''
   let adShown = false
@@ -398,13 +408,13 @@ export const leaveResults = async (): Promise<void> => {
       await showMidgameAd()
     }
     await waitForAdGate()
+  } catch (e) {
+    console.warn('[flow] ad break failed', e)
   } finally {
     leaving = false
     // The ad hard-stopped the music and cleared its intent. The map restarts
     // it, but the decision and the ending are windows over a silent scene.
     if (adShown) resumeMusicAfterAd()
-    if (flow.quest) flow.modal = 'decision'
-    else afterVisit()
   }
 }
 
@@ -429,11 +439,15 @@ export const retreatVisit = async (): Promise<void> => {
   await finishVisit('retreat')
 }
 
-/** Retry the zone the hero just fell in. */
+/**
+ * Retry the zone the hero just fell in. The same paced break as Continue runs
+ * first (owner's decision): a die-and-retry session is still a session, and
+ * the pacing gate (ad-free start, two-minute gap) keeps it from stacking.
+ */
 export const retryVisit = async (): Promise<void> => {
   const node = flow.node
   if (!node || leaving) return
-  flow.modal = ''
+  await adBreak()
   flow.results = null
   await travel(node)
 }

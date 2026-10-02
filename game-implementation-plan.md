@@ -155,7 +155,6 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 - **Portal ids are blank on purpose** (Poki P4D id, Playgama application id, Wavedash, GameMonetize, GameDistribution, Glitch): each needs this game's own entry in that portal first. `pnpm deploy:poki` refuses to run without one.
 - **Hydration proof is the CrazyGames arm on the dev server.** Not done: the same script against the BUILT bundle (`--dist`), and a Playgama (`bridge.storage`) arm — the `persistToRaw` builds are covered by unit tests only.
 - **Built-bundle portal QA** (`scripts/portal-qa.mjs`) still only knows GamePix / GameMonetize and words its checks for the predecessor; CrazyGames, Playgama and Poki arms are roadmap work before those submissions.
-- **Retry after a defeat requests no interstitial** (only Continue does). Owner's call whether die-and-retry sessions should see the paced ad.
 - **Rewarded-ad code is dormant, not deleted** (`useAdGate` reward half, `useRewardedThrottle`, `AdsBlockedModal`): the brief excluded rewarded buttons; the roadmap (#18, #19) may want them back.
 - **Late cloud save during the opening fight**: the profile in memory becomes the cloud's at once (proved), but the scene stays the opening fight until it ends; the result then lands on the real save.
 - **Predecessor wording in comments** of the kept platform layer (ads, save merge, Poki plugin, vite config excludes): harmless, cleaned where touched.
