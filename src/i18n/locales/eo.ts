@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Sonefektoj',
     'music': 'Muziko',
     'mute': 'Silentigi',
-    'musicTrack': 'Muziko',
+    'musicTrack': 'Muzikstilo',
     'musicTracks': {
       'cozy': 'Trankvila',
       'trance': 'Aventuro'

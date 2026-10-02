@@ -57,6 +57,10 @@ for an isometric fantasy action RPG. Kept, adapted and replaced:
 | D29 | Hidden trainers | Chrono-Weaver: the Sunken Temple once cleared (the Dragon's Peak instead if the oracle was slain). Blood Alchemist: the black market of fallen Oakhaven, else the Citadel of the Void once cleared | GDD §3.1.4, §3.2 |
 | D30 | Leaderboard | The plumbing is kept but OFF: the copied Worker / D1 / Playgama / Poki / Wavedash ids all belonged to the predecessor and are blanked. A new `battlecross-leaderboard` Worker is created before it is switched on | playbook "Starting from a predecessor repo" |
 | D31 | Balance bar | The reference bot (one class, level = zone minimum + 1, best gear of that level) must clear every zone with at least 5 of the 8 single-class builds, in 45–330 s (the opening plains: 20 s+). Chrono-Weaver alone is a support kit and is allowed to fail | tests/game/balance.test.ts |
+| D32 | Ad-free start | No interstitial in the first 3 minutes of a session (Yandex: its own 61 s; GameMonetize: the mandated first-load ad starts the 2-minute gap instead). A first-timer's first Continue comes ~30 s in and must not be an ad | playbook Phase 6; `useAdGate.EARLY_ADS_GRACE_MS` |
+| D33 | Poki gameplayStart | Only a trusted DOWN-edge input opens the bracket; the browser's sticky activation is never consulted (an iframe reload keeps it: a documented QA rejection); the listeners are armed at module load | integrate-poki skill |
+| D34 | Recorder cuts | `feed=preview` (default) keeps the world's own wordless interface (health bars, rings); `feed=pure` hides it. The face of the clips is a Pyromancer; the fail clip is a squishy Shadowblade one potion short | gameplay-video-pipeline skill |
+| D35 | Painted art scope | Items (44), skills (48), speaker portraits (22), the coin, the map parchment, the ground detail. The hero portrait stays code-drawn (it follows the gear worn); status icons stay vector | art-generation-pipeline skill; `art-todo.md` |
 
 ## 2. Architecture
 
@@ -124,30 +128,37 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 - [x] Character (attributes), skills (loadout), inventory + equipment, shop, trainer, quest log.
 - [x] Results, defeat, level-up, pause, options (controls tab kept).
 
-### Phase 7 — Flow, save, portals `[ ]`
-- [ ] Boot target (first fight for a new player, the map for a returning one), `bcross_state` profile, merge score, cloud hydration re-read.
-- [ ] Gameplay bracket, loading-finished signals, interstitial ordering, pause/mute gates on the new loop.
+### Phase 7 — Flow, save, portals `[x]`
+- [x] Boot target (first fight for a new player, the map for a returning one), `bcross_state` profile, merge score, cloud hydration re-read.
+- [x] Gameplay bracket, loading-finished signals, interstitial ordering, pause/mute gates on the new loop.
 
-### Phase 8 — Audio `[ ]`
-- [ ] Fantasy SFX recipes (melee, magic, UI, creatures, bosses), music track ids per zone theme.
+### Phase 8 — Audio `[x]`
+- [x] Fantasy SFX recipes (melee, magic, UI, creatures, bosses), music track ids per zone theme.
 
 ### Phase 9 — Localisation `[x]`
 - [x] English source complete; 38 locales drafted by agents and merged; parity test green.
 
-### Phase 10 — Tests and QA `[ ]`
-- [ ] Unit tests for the sim, data integrity, progression, items, quests, save.
-- [ ] Browser end-to-end (boot → first fight → map → town → reload hydration), cloud-save hydration proof with a stubbed SDK, viewport matrix (320×658 … desktop).
-- [ ] Perf pass (throttled) and boot timeline.
+### Phase 10 — Tests and QA `[x]`
+- [x] Unit tests for the sim, data integrity, progression, items, quests, save.
+- [x] Browser end-to-end (boot → first fight → map → town → reload hydration), cloud-save hydration proof with a stubbed SDK, viewport matrix (320×658 … desktop).
+- [x] Perf pass (throttled) and boot timeline.
 
-### Phase 11 — Pipelines and docs `[ ]`
-- [ ] Art pipeline (icon sheets + overrides), compressor, preview-video recorder, `deploy:poki` configured for this game.
-- [ ] `art-todo.md`, `sound-todo.md`, `roadmap.md` (≥ 15 items), `description.md`, `README.md`.
+### Phase 11 — Pipelines and docs `[x]`
+- [x] Art pipeline (icon sheets + overrides), compressor, preview-video recorder, `deploy:poki` configured for this game.
+- [x] `art-todo.md`, `sound-todo.md`, `roadmap.md` (≥ 15 items), `description.md`, `README.md`.
 
 ## 4. Deferred / open
 
 - **Music is the predecessor's code-composed soundtrack**, re-mapped to the zone themes. It is well produced but electronic; a fantasy score (or drop-in files, see `sound-todo.md`) is roadmap work.
 - **Single-class Aegis Knight and Chrono-Weaver builds are weak late** in the bot's hands (they are a tank and a support kit). Players mix classes; a tuning pass on their damage is on the roadmap.
-- **Leaderboard**: off until the new Worker exists (D30).
+- **Leaderboard**: live on its own Worker and database (`worker/SETUP.md`); the dev server never posts.
+- **Portal ids are blank on purpose** (Poki P4D id, Playgama application id, Wavedash, GameMonetize, GameDistribution, Glitch): each needs this game's own entry in that portal first. `pnpm deploy:poki` refuses to run without one.
+- **Hydration proof is the CrazyGames arm on the dev server.** Not done: the same script against the BUILT bundle (`--dist`), and a Playgama (`bridge.storage`) arm — the `persistToRaw` builds are covered by unit tests only.
+- **Built-bundle portal QA** (`scripts/portal-qa.mjs`) still only knows GamePix / GameMonetize and words its checks for the predecessor; CrazyGames, Playgama and Poki arms are roadmap work before those submissions.
+- **Retry after a defeat requests no interstitial** (only Continue does). Owner's call whether die-and-retry sessions should see the paced ad.
+- **Rewarded-ad code is dormant, not deleted** (`useAdGate` reward half, `useRewardedThrottle`, `AdsBlockedModal`): the brief excluded rewarded buttons; the roadmap (#18, #19) may want them back.
+- **Late cloud save during the opening fight**: the profile in memory becomes the cloud's at once (proved), but the scene stays the opening fight until it ends; the result then lands on the real save.
+- **Predecessor wording in comments** of the kept platform layer (ads, save merge, Poki plugin, vite config excludes): harmless, cleaned where touched.
 
 ## 5. Status log
 
@@ -156,3 +167,7 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 - Phases 0–6 + 9: the game is playable end to end — opening fight → results → world map → towns (shops, trainers, healer, quest givers) → all 12 zones, the colosseum, six decisions, five endings. English + 38 locales (parity test green). Verified in a real browser (own headless Chrome): desktop 1100×650 and phone 360×740 / 320×658 walkthroughs of fight, results, map, town and every menu, no console errors. Unit suite: 81 files / 828 tests green; type-check clean.
   - Found and fixed on the way: the save field prefix was still the predecessor's (`ma_`); the dev build was still POSTING to the predecessor's live leaderboard Worker (URL blanked in every env file, baked snapshot reset); the Poki / Playgama / Wavedash ids were the predecessor's (blanked; the Poki one is on the refuse-list); a unit that set a goal while a temporary wall stood never looked for a path again (stuck Geomancer).
   - Balance pass 1: bosses eased (Goblin King, Warlord, Colossus, Jarl, Dragon, Arch-Demon, Void Lord); every zone passes D31.
+- Phase 7 (`33099f1`): cloud hydration proved end to end (`pnpm qa:hydrate`: first-timer, returning player from the cloud alone, write-back as one blob, a cloud that answers late, a slow cloud; the HUD's own text asserted). Found and fixed: boot-time quick retries were spending the background retry ladder. Battlecross's own leaderboard Worker + D1 created and deployed (signed posts only).
+- Phase 10 (`51ebb25`, `d40b525`): 160+ unit tests on the rules (GDD tables to the letter, 360 worlds, combat, every skill, generated zones and towns, sheet, shops, flow) and `pnpm qa:e2e` — 86 real-browser checks (desktop play-through with reload, phone touch, five-viewport layout matrix). Found and fixed: a trainer inside a neighbour's house (Sunford, Ironhold), Escape reopening the pause menu, the fading splash swallowing first taps, the phone stick not grabbable right after boot, a weak reference build.
+- Phase 11: store description (length-tested), roadmap (21 items), README, art / sound drop-in lists; the three pipelines adopted — art (manifest, reference bench, slicer, prompts), compressor, gameplay video (`pnpm preview:video`, DEV seam `src/game/previewFeed.ts`, four scenarios; a 10 s take recorded and reviewed), Poki deploy config for this game with the reload-idle QA check.
+- Release-readiness pass against the playbook: Poki gesture gate (D33), ad-free start (D32), result-screen wait matched to the longest ad, music back after an ad on every following screen, the per-zone Poki funnel, predecessor ids blanked in the env files.

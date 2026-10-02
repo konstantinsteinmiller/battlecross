@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Zvukové efekty',
     'music': 'Hudba',
     'mute': 'Ztlumit',
-    'musicTrack': 'Hudba',
+    'musicTrack': 'Styl hudby',
     'musicTracks': {
       'cozy': 'Klidná',
       'trance': 'Dobrodružná'

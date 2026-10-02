@@ -5,12 +5,12 @@
  * dropped into `public/images/` (see `game/assets/overrides.ts`). One style
  * for all of them: chunky rounded shapes in a 48 × 48 box, a dark outline,
  * the owner's tint (`a`), a lighter second tone (`b`), plus white, gold,
- * metal and wood. `ArtIcon.vue` supplies the frame and the colours.
+ * metal and wood; `n` is a white line, `i` an ink line (on a light shape). `ArtIcon.vue` supplies the frame and the colours.
  *
  * Shapes are composed from a small kit of parts, so a new icon is a line.
  */
 
-type Cls = 'a' | 'b' | 'w' | 'd' | 'm' | 'g' | 'k' | 'n' | 'r' | 'u' | 'e'
+type Cls = 'a' | 'b' | 'w' | 'd' | 'm' | 'g' | 'k' | 'n' | 'i' | 'r' | 'u' | 'e'
 
 const P = (d: string, c: Cls = 'a'): string => `<path class="${c}" d="${d}"/>`
 const C = (x: number, y: number, r: number, c: Cls = 'a'): string => `<circle class="${c}" cx="${x}" cy="${y}" r="${r}"/>`
@@ -40,7 +40,7 @@ const BOLT = (c: Cls = 'g'): string => P('M28 4L11 27h10l-3 17 19-25H26z', c)
 const HEART = (c: Cls = 'r'): string => P('M24 41C10 31 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 14-18 24z', c)
 const SKULL = (c: Cls = 'w'): string =>
   P('M24 6c9 0 15 6 15 14 0 5-2 8-5 10v7H14v-7c-3-2-5-5-5-10 0-8 6-14 15-14z', c) + C(18, 21, 3.6, 'd') + C(30, 21, 3.6, 'd') + P('M24 26l-2 4h4z', 'd')
-const CLOCK = (c: Cls = 'w'): string => C(24, 24, 17, c) + P('M24 13v11l7 5', 'n')
+const CLOCK = (c: Cls = 'w'): string => C(24, 24, 17, c) + P('M24 13v11l7 5', 'i')
 const CROWN = (c: Cls = 'g'): string => P('M8 37L6 15l10 9 8-14 8 14 10-9-2 22z', c) + C(24, 30, 2.6, 'r')
 const HOURGLASS = (c: Cls = 'a'): string =>
   R(11, 5, 26, 5, 2, 'g') + R(11, 38, 26, 5, 2, 'g') + P('M14 10h20c0 8-6 10-6 14s6 6 6 14H14c0-8 6-10 6-14s-6-6-6-14z', 'w') + P('M18 14h12c-1 4-6 6-6 8-0-2-5-4-6-8zM24 30c2 2 6 4 7 8H17c1-4 5-6 7-8z', c)
@@ -126,7 +126,7 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   // ── Chrono-Weaver ──
   'skill.temporalStasis': C(24, 24, 21, 'b') + G('translate(8.4 8.4) scale(0.65)', HOURGLASS('a')),
   'skill.hasteField': CLOCK('w') + P('M30 38l8 6-8 4zM38 38l8 6-8 4z', 'a'),
-  'skill.timeDistort': P('M7 24c0-12 10-18 18-17 9 1 16 8 16 17s-6 18-17 17C13 40 7 34 7 24z', 'w') + P('M24 13c-2 4 2 7 0 11l8 4', 'n') + P('M3 10c4-3 6 1 10-2M36 44c4-3 6 1 10-2', 'n'),
+  'skill.timeDistort': P('M7 24c0-12 10-18 18-17 9 1 16 8 16 17s-6 18-17 17C13 40 7 34 7 24z', 'w') + P('M24 13c-2 4 2 7 0 11l8 4', 'i') + P('M3 10c4-3 6 1 10-2M36 44c4-3 6 1 10-2', 'n'),
   'skill.paradoxShift': P('M5 16h26v-8l12 11-12 11v-8H5z', 'a') + G('rotate(180 24 30)', P('M5 22h26v-8l12 11-12 11v-8H5z', 'w')),
   'skill.entropy': C(24, 24, 21, 'a') + SPIRAL(),
   'skill.chronoRewind': CLOCK('w') + P('M4 6v13h13', 'n') + P('M5 18A21 21 0 0 1 24 3', 'n'),

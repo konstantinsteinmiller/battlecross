@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Hiệu ứng âm thanh',
     'music': 'Nhạc',
     'mute': 'Tắt tiếng',
-    'musicTrack': 'Nhạc',
+    'musicTrack': 'Phong cách nhạc',
     'musicTracks': {
       'cozy': 'Êm dịu',
       'trance': 'Phiêu lưu'

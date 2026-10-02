@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Ovoz effektlari',
     'music': 'Musiqa',
     'mute': 'Ovozsiz',
-    'musicTrack': 'Musiqa',
+    'musicTrack': 'Musiqa uslubi',
     'musicTracks': {
       'cozy': 'Sokin',
       'trance': 'Sarguzasht'

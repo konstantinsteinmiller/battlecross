@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'ध्वनि प्रभाव',
     'music': 'संगीत',
     'mute': 'आवाज़ बंद',
-    'musicTrack': 'संगीत',
+    'musicTrack': 'संगीत शैली',
     'musicTracks': {
       'cozy': 'शांत',
       'trance': 'रोमांच'

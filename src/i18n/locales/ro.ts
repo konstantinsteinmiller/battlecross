@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Efecte sonore',
     'music': 'Muzică',
     'mute': 'Fără sunet',
-    'musicTrack': 'Muzică',
+    'musicTrack': 'Stil muzical',
     'musicTracks': {
       'cozy': 'Calm',
       'trance': 'Aventură'

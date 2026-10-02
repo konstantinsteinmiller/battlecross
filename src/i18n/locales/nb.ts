@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Lydeffekter',
     'music': 'Musikk',
     'mute': 'Lyd av',
-    'musicTrack': 'Musikk',
+    'musicTrack': 'Musikkstil',
     'musicTracks': {
       'cozy': 'Rolig',
       'trance': 'Eventyr'

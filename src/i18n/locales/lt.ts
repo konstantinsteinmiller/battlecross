@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Garso efektai',
     'music': 'Muzika',
     'mute': 'Nutildyti',
-    'musicTrack': 'Muzika',
+    'musicTrack': 'Muzikos stilius',
     'musicTracks': {
       'cozy': 'Rami',
       'trance': 'Nuotykių'

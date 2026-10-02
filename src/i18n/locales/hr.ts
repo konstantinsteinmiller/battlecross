@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Zvučni efekti',
     'music': 'Glazba',
     'mute': 'Utišaj',
-    'musicTrack': 'Glazba',
+    'musicTrack': 'Stil glazbe',
     'musicTracks': {
       'cozy': 'Mirna',
       'trance': 'Pustolovna'

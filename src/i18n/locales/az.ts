@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Səs effektləri',
     'music': 'Musiqi',
     'mute': 'Səssiz',
-    'musicTrack': 'Musiqi',
+    'musicTrack': 'Musiqi üslubu',
     'musicTracks': {
       'cozy': 'Sakit',
       'trance': 'Macəra'

@@ -1,51 +1,72 @@
 # Battlecross
 
-## Short description (138 / 150 chars)
+## Short description (141 / 150 chars)
 
-Beam into robot-infested sectors as Flux, a pearl-white combat android. Blast
-machines, loot gear, upgrade circuits and copy boss weapons!
+Fight goblins, demons and dragons in a cute action RPG. Mix skills from 8
+classes into your own hero and make choices that reshape the realm.
 
-## Description (451 / 500 chars)
+## Description (482 / 500 chars)
 
-Rogue machines have overrun the city's sectors, and only Flux can take
-them back. Beam into each sector, explore rooms and corridors, and blast
-Hardhats, drones and brutes with your charge cannon. Hold to charge, release
-at the perfect moment for a critical hit, raise your shield to block, and
-parry right as the ring closes. Open supply chests for new gear, level up,
-wire your skill circuits, and defeat each Core Master to copy its special
-weapon.
+Start as a militia recruit with a rusty sword and grow into whatever you
+want: any hero can learn from any trainer. Combine a knight's shield with a
+pyromancer's fire, summon royal guards, stop time, or call a beam from the
+sky. Fight through 12 zones in six tiers, from sunny plains to the Dread
+Fortress, find 44 named weapons, armours and rings, and decide the fate of
+towns, kings and a dragon. Your choices change who trades, who teaches, who
+hunts you, and how the story ends.
 
 ## How to play
 
-**Touch:** drag the left side of the screen to move, drag the right side to
-look around, and tap the floor to walk there. In combat, tap to shoot, hold
-to charge and release to fire. Use the shield button to block and the arrow
-button to slide.
+1. **Fight.** Walk up to an enemy and your hero attacks on their own. Use
+   your skills when they light up, and drink a potion when your health is
+   low. Red marks on the ground show where a big attack will land: step out.
+2. **Clear the zone.** Beat every enemy group and the leader at the end to
+   win. You keep the experience and loot even if you fall.
+3. **Grow.** Each level gives 3 attribute points. Strength, Dexterity,
+   Intelligence, Endurance, Skill and Charisma unlock different skills and
+   gear, so spend them toward the hero you want.
+4. **Visit towns.** Buy gear, enlarge your potion belt at the healer, and
+   learn skills from trainers. You have 6 active and 3 passive slots, and you
+   may fill them from any of the 8 classes.
+5. **Choose.** At the end of some zones you make a decision that cannot be
+   undone. It changes the towns, the shops, the trainers and the ending.
 
-**Keyboard and mouse:** WASD or the arrow keys move and the mouse looks
-around (click the game to take control of the camera; Esc gives the mouse back
-and pauses). Left click shoots: hold to charge, release to fire. The right
-mouse button or Shift blocks, Space or Q slides, 1 and 2 fire special weapons,
-H uses Repair Gel, E interacts, B beams out and Tab switches target.
+## Controls
+
+**Phone and tablet**
+
+- Tap the ground to walk there, or use the stick in the bottom-left corner.
+- Tap an enemy to attack it, or drag a line from your hero onto it.
+- Tap a skill to use it on your target. Drag a skill onto the field to aim
+  it, and let go to cast.
+- Tap the potion to heal.
+
+**Keyboard and mouse**
+
+- Click the ground to walk there, or steer with W A S D or the arrow keys.
+- Click an enemy to attack it. Tab switches to the next target.
+- 1 to 6 use your skills. Drag a skill button onto the field to aim it.
+- Q or Space drinks a potion. E talks to the person next to you.
+- M opens the map, C the hero, K the skills, I the bag. Esc pauses.
+- F1 or ? shows the controls again, F2 mutes. Keys can be rebound in Options.
 
 ## Features
 
-- First-person exploration of procedurally built sectors: every job is a new
-  map.
-- A charge cannon with a perfect-release window, shield block and parry, a
-  dodge slide and soft lock-on.
-- 7 machine types and 6 Core Master boss fights, each with its own attack
-  patterns and a weakness.
-- Special weapons copied from beaten bosses: fire, ice, lightning, wind and
-  scrap.
-- XP levels, three skill circuit boards with 18 skills, and gear with
-  rarities, affixes and Workshop upgrades.
-- A story mission per sector plus endless repeatable jobs: hunt, recover,
-  rescue, supply and purge.
-- Progress saves automatically, and an unfinished mission resumes where you
-  left it.
-- 39 languages, plays in portrait or landscape, and runs well on phones.
+- A classless build: 8 classes, 48 skills, 6 active and 3 passive slots.
+  Mix any of them.
+- 12 zones in 6 tiers, each with its own monsters, look and boss, plus an
+  8-wave colosseum.
+- 44 named items exactly one of each: no random junk, every drop is a find.
+- 6 permanent decisions, 3 factions and 5 endings. Towns prosper or burn
+  because of you.
+- Juicy combat: hit-stop, screen shake, squash-and-stretch chibi heroes and
+  big readable skill effects.
+- Wordless tutorials that show each control where it happens and step aside
+  once you have used it.
+- Plays in portrait or landscape on phones, tablets and desktop, in 39
+  languages. Progress saves automatically.
 
 ## Tags
 
-action, adventure, robots, shooter, first-person, rpg, loot, casual, 3d
+rpg, action, adventure, fantasy, hack-and-slash, isometric, 3d, cute, loot,
+skills, casual, singleplayer

@@ -105,6 +105,10 @@ const soft = computed(() => `color-mix(in srgb, ${props.tint} 45%, #ffffff)`)
     fill: none
     stroke: #ffffff
     stroke-width: 3.4
+  :deep(.i)
+    fill: none
+    stroke: var(--ol)
+    stroke-width: 3.4
   :deep(g)
     stroke: inherit
 </style>

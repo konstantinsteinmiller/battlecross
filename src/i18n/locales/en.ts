@@ -646,7 +646,7 @@ export default {
     'soundEffects': 'Sound Effects',
     'music': 'Music',
     'mute': 'Mute',
-    'musicTrack': 'Music',
+    'musicTrack': 'Music style',
     'musicTracks': {
       'cozy': 'Calm',
       'trance': 'Adventure'

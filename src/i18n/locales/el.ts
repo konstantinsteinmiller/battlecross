@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Ηχητικά εφέ',
     'music': 'Μουσική',
     'mute': 'Σίγαση',
-    'musicTrack': 'Μουσική',
+    'musicTrack': 'Στυλ μουσικής',
     'musicTracks': {
       'cozy': 'Ήρεμη',
       'trance': 'Περιπέτεια'

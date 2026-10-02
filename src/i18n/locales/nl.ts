@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Geluidseffecten',
     'music': 'Muziek',
     'mute': 'Dempen',
-    'musicTrack': 'Muziek',
+    'musicTrack': 'Muziekstijl',
     'musicTracks': {
       'cozy': 'Rustig',
       'trance': 'Avontuur'

@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'المؤثرات الصوتية',
     'music': 'الموسيقى',
     'mute': 'كتم الصوت',
-    'musicTrack': 'الموسيقى',
+    'musicTrack': 'نمط الموسيقى',
     'musicTracks': {
       'cozy': 'هادئة',
       'trance': 'مغامرة'

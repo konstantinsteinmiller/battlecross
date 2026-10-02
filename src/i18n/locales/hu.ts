@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Hangeffektek',
     'music': 'Zene',
     'mute': 'Némítás',
-    'musicTrack': 'Zene',
+    'musicTrack': 'Zenei stílus',
     'musicTracks': {
       'cozy': 'Nyugodt',
       'trance': 'Kalandos'

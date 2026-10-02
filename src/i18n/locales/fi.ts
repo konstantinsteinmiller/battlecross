@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Ääniefektit',
     'music': 'Musiikki',
     'mute': 'Mykistä',
-    'musicTrack': 'Musiikki',
+    'musicTrack': 'Musiikkityyli',
     'musicTracks': {
       'cozy': 'Rauhallinen',
       'trance': 'Seikkailu'

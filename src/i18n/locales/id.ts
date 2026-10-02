@@ -613,7 +613,7 @@ export default {
     'soundEffects': 'Efek Suara',
     'music': 'Musik',
     'mute': 'Bisukan',
-    'musicTrack': 'Musik',
+    'musicTrack': 'Gaya musik',
     'musicTracks': {
       'cozy': 'Tenang',
       'trance': 'Petualangan'
