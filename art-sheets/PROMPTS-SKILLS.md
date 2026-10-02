@@ -12,10 +12,11 @@ as `art-sheets/painted/<reference name>.png`, then `pnpm art:slice`.
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -51,7 +52,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 81% of its panel or taller than about 81%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 81% of its panel or taller than about 72%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -71,24 +72,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Shadowblade  (sheet-skills-shadow.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -124,7 +126,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 75% of its panel or taller than about 73%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 75% of its panel or taller than about 65%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -144,24 +146,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Pyromancer  (sheet-skills-pyro.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -197,7 +200,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 77% of its panel or taller than about 76%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 77% of its panel or taller than about 67%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -217,24 +220,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Grand Sovereign  (sheet-skills-sovereign.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -270,7 +274,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 82% of its panel or taller than about 82%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 82% of its panel or taller than about 73%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -290,24 +294,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Chrono-Weaver  (sheet-skills-chrono.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -343,7 +348,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 77% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 77% of its panel or taller than about 66%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -363,24 +368,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Blood Alchemist  (sheet-skills-blood.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -416,7 +422,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 83% of its panel or taller than about 81%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 83% of its panel or taller than about 72%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -436,24 +442,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Aether-Tech  (sheet-skills-aether.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -489,7 +496,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 76% of its panel or taller than about 79%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 76% of its panel or taller than about 70%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -509,24 +516,25 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```
 
 ## Skill icons: Geomancer  (sheet-skills-geo.png → images/skills/)
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE ICONS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 
 EACH PANEL IS ONE SMALL EMBLEM, NOT A SCENE.
 · Paint ONLY what the reference shows in that panel. No character casting it, no hand, no target, no landscape, no extra sparks around it.
@@ -562,7 +570,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · FINISH — every shape becomes a painted VOLUME of energy or matter: an inner glow from a hot white core through the accent colour to a deep shade at its edge; two or three cel steps; crisp highlights; streaks and sparks stretched along the way they travel; brush-pen contours in a DARK SHADE OF THE SHAPE'S OWN COLOUR where it is energy, and the charcoal-violet line where it is a solid object.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 77% of its panel or taller than about 72%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 77% of its panel or taller than about 64%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 
@@ -582,12 +590,12 @@ NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, sol
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one emblem and nothing else.
 · No panel is a flat copy of the reference's plain shapes.
 · Nothing anywhere is half-transparent, hazy or glowing out into the magenta.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```

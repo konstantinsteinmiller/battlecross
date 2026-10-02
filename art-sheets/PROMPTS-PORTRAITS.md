@@ -157,10 +157,11 @@ OUTPUT: one image, 768 x 768 pixels (1:1, square), or the same shape larger. If 
 
 ```text
 WHAT COMES BACK IS A SHEET OF 6 SEPARATE PORTRAITS, NOT ONE PICTURE.
-One landscape image, 768 x 512 pixels (3:2), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
+One landscape image, 768 x 576 pixels (4:3), holding 6 separate small drawings laid out 3 across and 2 down, on the same grid as the attached reference, read left to right along the top row first.
 · 6 panels. Not 1, not 3, not 9. Exactly 2 rows of 3 — do not add a row and do not drop one.
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
+· The panels are NOT square: each is a little taller than it is wide (8:9), because the canvas divides into 3 equal columns and 2 equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.
 · 1 panel is BLANK in the reference. Leave it flat magenta: do not invent anything for it.
 
 EACH PANEL IS ONE HEAD-AND-SHOULDERS BUST, NOT A FIGURE AND NOT A SCENE.
@@ -195,7 +196,7 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 76% of its panel or taller than about 79%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 76% of its panel or taller than about 70%, and every panel keeps a clear magenta margin on all four sides.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
 · The flat cut along the bottom of each bust stays where the reference has it: it is the edge of the frame the game puts the bust in.
@@ -214,11 +215,11 @@ KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is 
 
 BEFORE YOU CALL IT FINISHED, count and check:
 · 3 panels across, 2 down, 6 in all.
-· The canvas is landscape, 3:2.
+· The canvas is landscape, 4:3.
 · Each panel holds exactly one bust, facing front, cut flat along the bottom.
 · There is not one arm, hand or weapon anywhere in it.
 · Nothing in any panel reaches its panel's edge.
 · Every pixel that is not an object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.
 
-OUTPUT: one image, 768 x 512 pixels (3:2, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 3:2 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
+OUTPUT: one image, 768 x 576 pixels (4:3, landscape), or the same shape larger. If your tool has an aspect-ratio control, set it to 4:3 — any other shape crushes the grid and cannot be cut. PNG. No labels, captions, numbers or watermarks.
 ```

@@ -3,7 +3,8 @@
  * ─── Sheet slicer ───────────────────────────────────────────────────────────
  *
  * The return half of the art pipeline. `/#/art-sheets` bakes the game's vector
- * drawings onto a 256 px lattice and out to an image model; this takes the
+ * drawings onto a lattice of 256 px panels (256 x 288 on the three-by-two
+ * sheets) and out to an image model; this takes the
  * repainted sheet and cuts it back into the drop-in files the game already
  * loads by name (`public/images/items|skills|portraits|ui|textures/<id>.webp`,
  * see `src/game/assets/overrides.ts`).
@@ -243,13 +244,22 @@ function pageCut(plan, o) {
   }
 
   for (const p of plan) {
-    // Crop the panel 1:1 first, so measuring happens on real pixels.
-    const [cell, cc] = mk(p.sw, p.sh)
-    cc.drawImage(img, p.sx, p.sy, p.sw, p.sh, 0, 0, p.sw, p.sh)
-    const id = cc.getImageData(0, 0, p.sw, p.sh)
+    // Crop the PANEL 1:1 first, so measuring happens on real pixels. The whole
+    // panel, not only the drawing's square in its middle: on a taller panel a
+    // painting that came back too big runs into the band above and below the
+    // square, and keying and measuring all of it is what lets the fit bring
+    // it back whole instead of cutting its top off first.
+    const W = p.pw
+    const H = p.ph
+    const [cell, cc] = mk(W, H)
+    cc.drawImage(img, p.px, p.py, W, H, 0, 0, W, H)
+    const id = cc.getImageData(0, 0, W, H)
     const d = id.data
-    const W = p.sw
-    const H = p.sh
+    // The square, inside the panel: where it starts and how big it is.
+    const OX = p.ox
+    const OY = p.oy
+    const SW = p.sw
+    const SH = p.sh
     const N = W * H
     let keyed = 0
 
@@ -486,7 +496,9 @@ function pageCut(plan, o) {
       }
     }
     if (x1 < 0) { res.cells.push({ id: p.id, target: p.target, empty: true }); continue }
-    const box = { x0: x0 / W, y0: y0 / H, x1: (x1 + 1) / W, y1: (y1 + 1) / H }
+    // As fractions of the SQUARE, like the fit the bench measured: outside
+    // 0..1 where the painting runs past it.
+    const box = { x0: (x0 - OX) / SW, y0: (y0 - OY) / SH, x1: (x1 + 1 - OX) / SW, y1: (y1 + 1 - OY) / SH }
     const bboxFill = opaque / ((x1 - x0 + 1) * (y1 - y0 + 1))
 
     // ── Register it onto the drawing it replaces ──
@@ -500,8 +512,9 @@ function pageCut(plan, o) {
     // painting of other proportions overhang, fitting the tighter axis makes
     // everything read shrunken, and the geometric mean of the two is what
     // "the same size, drawn differently" looks like.
-    let src = cell
+    const [src, g2] = mk(SW, SH)
     let fitNote = null
+    let fitted = false
     const F = p.fit
     if (F && F.h > 0 && F.w > 0) {
       const gotH = box.y1 - box.y0
@@ -515,23 +528,24 @@ function pageCut(plan, o) {
         // A wild measurement must never obliterate the art.
         fitNote = { wild: +k.toFixed(2) }
       } else if (Math.abs(k - 1) > 0.04 || Math.abs(fromY - toY) > 0.02 || Math.abs(gotCx - F.cx) > 0.02) {
-        const [to, g2] = mk(W, H)
-        g2.translate(F.cx * W, toY * H)
+        g2.translate(F.cx * SW, toY * SH)
         g2.scale(k, k)
-        g2.translate(-gotCx * W, -fromY * H)
+        g2.translate(-(gotCx * SW + OX), -(fromY * SH + OY))
         g2.drawImage(cell, 0, 0)
-        src = to
+        fitted = true
         fitNote = { k: +k.toFixed(3), dx: +(F.cx - gotCx).toFixed(3), dy: +(toY - fromY).toFixed(3) }
       }
     }
+    // No correction: the square as it landed.
+    if (!fitted) g2.drawImage(cell, -OX, -OY)
 
     // Square again, at the size the game needs: the kept part of the panel
     // (all of it, or the drawing's own box) resampled to the output edge. That
     // also undoes a sheet that came back slightly squashed.
     const [dst, dc] = mk(p.out, p.out)
-    const cw = W * p.crop
-    const ch = H * p.crop
-    dc.drawImage(src, (W - cw) / 2, (H - ch) / 2, cw, ch, 0, 0, p.out, p.out)
+    const cw = SW * p.crop
+    const ch = SH * p.crop
+    dc.drawImage(src, (SW - cw) / 2, (SH - ch) / 2, cw, ch, 0, 0, p.out, p.out)
     res.cells.push({
       id: p.id, target: p.target, w: p.out, h: p.out,
       keyed: keyed / N, coverage: opaque / N, bboxFill, onFrame, fitNote,
@@ -908,11 +922,19 @@ const main = async () => {
         }
         if (drift > 0.01) console.warn(`  ! proportions drifted ${(drift * 100).toFixed(1)}% — panels came back ${sy < sx ? 'squashed' : 'stretched'}; correcting to square.`)
         plan = sheet.cells.filter((c) => c.target).map((c) => {
-          const sw = Math.round(c.w * sx)
-          const sh = Math.round(c.h * sy)
+          // The drawing's SQUARE, in the middle of its panel. On most sheets
+          // that is the whole panel; on the three-by-two sheets a panel is
+          // 256 x 288 (so the sheet is 4:3, a shape the model offers) and the
+          // band of ground above and below the square is not part of the
+          // icon. Every fit in the index is a fraction of this square. The
+          // panel itself is what gets keyed and measured (see the page side).
+          const side = Math.min(c.w, c.h)
+          const sw = Math.round(side * sx)
+          const sh = Math.round(side * sy)
           return {
             id: c.id, target: c.target,
-            sx: Math.round(c.x * sx), sy: Math.round(c.y * sy), sw, sh,
+            px: Math.round(c.x * sx), py: Math.round(c.y * sy), pw: Math.round(c.w * sx), ph: Math.round(c.h * sy),
+            ox: Math.round(((c.w - side) / 2) * sx), oy: Math.round(((c.h - side) / 2) * sy), sw, sh,
             crop: sheet.crop,
             fit: flag('--no-fit') ? null : (c.fit ?? null),
             // Never upsample: a return buys file size and no detail above what it came back at.

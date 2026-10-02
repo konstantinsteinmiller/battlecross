@@ -8,7 +8,7 @@ slicer cuts them into the drop-in files. No code changes per painting.
 
 | File | What | Written by |
 | --- | --- | --- |
-| `sheet-*.png`, `single-*.png`, `bg-*.png` | The references to attach (flat magenta ground, 256 px panels) | `pnpm art:export` |
+| `sheet-*.png`, `single-*.png`, `bg-*.png` | The references to attach (flat magenta ground; 256 px panels, 256 × 288 on the 3 × 2 sheets) | `pnpm art:export` |
 | `*-key.png` | The same sheets with captions. For you, never for the model | `pnpm art:export` |
 | `sheet-index.json` | Every panel's rect, target and measured fit | `pnpm art:export` |
 | `PROMPTS-*.md` | One fenced prompt per reference | `pnpm art:export`, `pnpm art:prompts` |
@@ -51,7 +51,12 @@ in `painted/stale/`, with the files that were cut from it.
 ## Rules the slicer holds
 
 - A painting is known by its **name**, never by its shape: four item sheets
-  are 1024 × 768. A file that is not named after a reference is refused.
+  are 1024 × 768 and nine more are 768 × 576. A file that is not named after
+  a reference is refused.
+- Every sheet is 4:3, 1:1 or 16:9, the shapes the image model offers (it
+  returns its own shape, not the one asked for). The skill sheets and the
+  speakers sheet are 3 × 2, so their panels are 256 × 288: the drawing sits in
+  the middle square and the slicer cuts that square, not the whole panel.
 - Icons and portraits come back on flat magenta `#FF00FF` and are keyed to
   transparent; the game keeps drawing its own tier or class frame around them.
   The map and the ground are opaque and are never keyed.

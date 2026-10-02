@@ -23,8 +23,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { ITEMS } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import {
-  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, NOTATION, SCENERY, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART,
-  allStems, artTarget, fitsOfIndex, manifestTargets, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
+  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, NOTATION, SCENERY, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
+  allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
 const ROOT = resolve(__dirname, '..', '..')
@@ -127,19 +127,46 @@ describe('the manifest covers the game', () => {
     for (const s of stems) expect(s).toMatch(/^(sheet|single|bg)-[a-z0-9]+(-[a-z0-9]+)*$/)
   })
 
-  it('the lattice is strict: 256 px panels from the origin, no gutters', () => {
+  it('every sheet has a shape the image model offers: 4:3, 1:1 or 16:9, and nothing else', () => {
+    // The model returns the shape it offers, not the one it was asked for, and
+    // a return of another shape re-composes the grid. 3:2 is not offered.
+    const shapes = [
+      ...[...SETS, ...SINGLES].map(s => ({ stem: s.stem, ...sheetSize(s) })),
+      ...SCENERY.map(a => ({ stem: a.stem, width: a.width, height: a.height }))
+    ]
+    expect(shapes).toHaveLength(allStems().length)
+    const index = sheetIndex()
+    for (const { stem, width, height } of shapes) {
+      // Exactly 4:3 or 1:1. 16:9 is the model's own plate (1376 x 768), within 1 %.
+      const ok = width * 3 === height * 4 || width === height || Math.abs(width / height / (16 / 9) - 1) < 0.01
+      expect(ok, `${stem} is ${width}x${height} (${(width / height).toFixed(3)}:1)`).toBe(true)
+      // What the slicer and the desk read says the same.
+      const entry = index.sheets.find(s => s.id === stem) ?? index.scenery.find(a => a.id === stem)
+      expect([entry!.width, entry!.height], stem).toEqual([width, height])
+      // And so does the prompt, in its last line.
+      expect(promptBlocks().find(b => b.stem === stem)!.text.split('\n').at(-1), stem).toMatch(/\((4:3|1:1|16:9)[,)]/)
+    }
+  })
+
+  it('the lattice is strict: panels from the origin, no gutters, square or 256 x 288', () => {
     const size = (stem: string) => sheetSize([...SETS, ...SINGLES].find(s => s.stem === stem)!)
     expect(size('sheet-items-weapons')).toEqual({ width: 1024, height: 768 })
-    expect(size('sheet-skills-blood')).toEqual({ width: 768, height: 512 })
+    expect(size('sheet-skills-blood')).toEqual({ width: 768, height: 576 })
     expect(size('sheet-portraits-town')).toEqual({ width: 768, height: 768 })
-    expect(size('sheet-portraits-speakers')).toEqual({ width: 768, height: 512 })
+    expect(size('sheet-portraits-speakers')).toEqual({ width: 768, height: 576 })
     expect(size('single-ui-coin')).toEqual({ width: 256, height: 256 })
     for (const s of sheetIndex().sheets) {
       expect(s.cells.length).toBeGreaterThan(0)
+      const set = [...SETS, ...SINGLES].find(x => x.stem === s.id)!
+      // A three-by-two sheet has taller panels, so that it is 4:3; every
+      // other panel is the square the drawing is measured on.
+      const tall = set.cols === 3 && set.rows === 2
+      expect(panelHeight(set), s.id).toBe(tall ? TALL : CELL)
+      expect([s.width, s.height]).toEqual([s.cols * CELL, s.rows * panelHeight(set)])
       for (const c of s.cells) {
-        expect([c.w, c.h]).toEqual([CELL, CELL])
-        expect(c.x % CELL).toBe(0)
-        expect(c.y % CELL).toBe(0)
+        expect([c.w, c.h]).toEqual([CELL, panelHeight(set)])
+        expect(c.x % c.w).toBe(0)
+        expect(c.y % c.h).toBe(0)
         expect(c.x + c.w).toBeLessThanOrEqual(s.width)
         expect(c.y + c.h).toBeLessThanOrEqual(s.height)
       }
@@ -234,7 +261,16 @@ describe('what a prompt says', () => {
     expect(arms).toContain('laid out 4 across and 3 down')
     expect(arms).toContain('2 panels are BLANK')
     expect(arms).toContain('Panel 11 (row 3, column 3): BLANK')
-    expect(textOf('sheet-skills-pyro')).toContain('768 x 512 pixels (3:2)')
+    const pyro = textOf('sheet-skills-pyro')
+    expect(pyro).toContain('768 x 576 pixels (4:3)')
+    expect(pyro).not.toContain('3:2')
+    // A taller panel is said, and so is what not to do with the extra height;
+    // a square one is not mentioned at all.
+    expect(pyro).toContain('The panels are NOT square: each is a little taller than it is wide (8:9)')
+    expect(textOf('sheet-portraits-speakers')).toContain('The panels are NOT square')
+    expect(arms).not.toContain('NOT square')
+    // The size is a share of the PANEL, so the same drawing reads smaller in a taller one.
+    expect(pyro).toContain('wider than about 80% of its panel or taller than about 71%')
     expect(textOf('sheet-skills-pyro')).toContain(`orange (about ${CLASSES.pyro.color})`)
     expect(textOf('bg-ui-map')).toContain('1376 x 768 pixels (16:9)')
     // Nominal until the bench has measured; the measured extent afterwards.
@@ -368,9 +404,9 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Four sheets are 1024x768 and eight are 768x512: shape says nothing.
+    // Four sheets are 1024x768 and nine are 768x576: shape says nothing.
     expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(4)
-    expect(targets.filter(t => t.width === 768 && t.height === 512 && t.kind === 'cells').length).toBeGreaterThan(1)
+    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(9)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)

@@ -38,7 +38,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, MAP_PLATE, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, promptDocs, sheetIndex, sheetSize,
+  CELL, MAP_PLATE, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
   type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
 import { PORTRAIT_ART, UI_ART } from '@/game/assets/overrides'
@@ -180,6 +180,10 @@ const caption = (g: CanvasRenderingContext2D, text: string, x: number, y: number
 
 const bakeSet = async (s: ArtSet): Promise<View> => {
   const { width, height } = sheetSize(s)
+  // A panel may be taller than the drawing's square (`TALL` in the manifest):
+  // the square sits in its middle, and the fit is still measured on it.
+  const ph = panelHeight(s)
+  const lift = (ph - CELL) / 2
   const [clean, g] = canvas(width, height)
   g.fillStyle = MAGENTA
   g.fillRect(0, 0, width, height)
@@ -188,7 +192,7 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
     if (!c) continue
     const img = await drawingOf(c)
     const [at, size] = placeOf(c)
-    g.drawImage(img, (i % s.cols) * CELL + at, Math.floor(i / s.cols) * CELL + at, size, size)
+    g.drawImage(img, (i % s.cols) * CELL + at, Math.floor(i / s.cols) * ph + lift + at, size, size)
     const fit = measure(img, at, size)
     if (fit) fits[c.target] = fit
     n++
@@ -201,11 +205,11 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
   k.lineWidth = 2
   for (const [i, c] of s.cells.entries()) {
     const x = (i % s.cols) * CELL
-    const y = Math.floor(i / s.cols) * CELL
-    k.strokeRect(x + 1, y + 1, CELL - 2, CELL - 2)
-    caption(k, c ? `${i + 1}. ${c.id}` : `${i + 1}. (blank)`, x + 2, y + CELL - 2, CELL - 4)
+    const y = Math.floor(i / s.cols) * ph
+    k.strokeRect(x + 1, y + 1, CELL - 2, ph - 2)
+    caption(k, c ? `${i + 1}. ${c.id}` : `${i + 1}. (blank)`, x + 2, y + ph - 2, CELL - 4)
   }
-  return { stem: s.stem, title: s.title, width, height, note: `${n} panel${n === 1 ? '' : 's'}, ${s.cols} × ${s.rows}`, clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
+  return { stem: s.stem, title: s.title, width, height, note: `${n} panel${n === 1 ? '' : 's'}, ${s.cols} × ${s.rows}${ph === CELL ? '' : `, panels ${CELL} × ${ph}`}`, clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
 }
 
 /** The parchment `WorldMap.vue` paints in CSS, as the same gradients on a canvas. */

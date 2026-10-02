@@ -15,9 +15,12 @@ import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
  * Pure TypeScript on purpose: no `.vue`, no canvas, no `import.meta.env`, so
  * plain Node can import it (`tools/ts-resolve.mjs`).
  *
- * THE LATTICE IS THE CONTRACT. Every panel is one 256 px cell, counted from
- * the sheet's origin, with no gutter and no padding, so a painted sheet is cut
- * back with integer arithmetic. Captions live on the separate key sheet.
+ * THE LATTICE IS THE CONTRACT. Every panel is one cell (256 px square, or
+ * 256 x 288 on the three-by-two sheets, see `TALL`), counted from the sheet's
+ * origin, with no gutter and no padding, so a painted sheet is cut back with
+ * integer arithmetic. Captions live on the separate key sheet.
+ *
+ * Every sheet is 4:3, 1:1 or 16:9: the shapes the image model offers.
  *
  * Not in here, by decision: the hero's portrait (code-drawn, it follows the
  * gear worn), `voidLord` (not a speaker), the status icons (vector only).
@@ -25,6 +28,14 @@ import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 
 /** One panel of a sheet, in px. */
 export const CELL = 256
+/**
+ * The height of a panel on a three-by-two sheet. With square panels that
+ * sheet is 3:2, a shape the image model does not offer; a return of any other
+ * shape re-composes the grid. 256 x 288 panels make it 768 x 576, exactly 4:3,
+ * with no blank panel for the model to invent content for and still one class
+ * (one accent colour) per sheet.
+ */
+export const TALL = 288
 /** How much of its panel a drawing's own box takes: the glyph's inset in
  *  `ArtIcon` (10 % a side), so a painted icon lands where the drawn one was.
  *  The margin around it is not empty by rule: a glyph that runs past its box
@@ -241,6 +252,13 @@ export interface ArtSet {
   doc: string
   cols: number
   rows: number
+  /**
+   * The panel's height when it is not a square `CELL` (see `TALL`). The
+   * drawing's square sits in the MIDDLE of the taller panel, with a band of
+   * plain ground above and below it: every fit, every crop and every anchor
+   * is still measured on that square, so nothing else changes with the shape.
+   */
+  panelH?: number
   /** Longest edge a sliced file is written at, px. */
   maxEdge: number
   /**
@@ -313,7 +331,7 @@ const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
 const skillSet = (cls: ClassId): ArtSet => ({
   stem: `sheet-skills-${cls}`,
   title: `Skill icons: ${CLASS_NAME[cls]}`,
-  kind: 'skills', doc: 'PROMPTS-SKILLS.md', cols: 3, rows: 2, maxEdge: 192, crop: 1, anchor: 'centre',
+  kind: 'skills', doc: 'PROMPTS-SKILLS.md', cols: 3, rows: 2, panelH: TALL, maxEdge: 192, crop: 1, anchor: 'centre',
   accent: { hex: CLASSES[cls].color, name: CLASS_HUE[cls] },
   cells: grid(skillsOf(cls).map(s => ({
     id: s.id, draw: 'skill' as const, label: labelOf(s.id), blurb: need(SKILL_BLURBS, s.id), target: artTarget('skills', s.id),
@@ -326,6 +344,8 @@ const portraitSet = (stem: string, title: string, looks: readonly string[], cols
   // edge, and the sliced file keeps the box alone: `Portrait` draws it edge to
   // edge, exactly where the vector bust was.
   stem, title, kind: 'portraits', doc: 'PROMPTS-PORTRAITS.md', cols, rows, maxEdge: 256, crop: REF_SCALE, anchor: 'feet',
+  // Three across and two down would be 3:2 with square panels.
+  ...(cols * 2 === rows * 3 ? { panelH: TALL } : {}),
   cells: grid(looks.map(portraitCell), cols, rows)
 })
 
@@ -360,7 +380,10 @@ export const SCENERY: readonly ArtScenery[] = [
   }
 ]
 
-export const sheetSize = (s: ArtSet): { width: number; height: number } => ({ width: s.cols * CELL, height: s.rows * CELL })
+/** A panel's height, px: `CELL` unless the set says otherwise. */
+export const panelHeight = (s: ArtSet): number => s.panelH ?? CELL
+
+export const sheetSize = (s: ArtSet): { width: number; height: number } => ({ width: s.cols * CELL, height: s.rows * panelHeight(s) })
 
 /** Every stem a painted file may be filed under. */
 export const allStems = (): string[] => [...SETS, ...SINGLES, ...SCENERY].map(s => s.stem)
@@ -435,7 +458,9 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
     anchor: s.anchor,
     cells: s.cells.flatMap((c, i) => (c
       ? [{
-          id: c.id, label: c.label, variant: s.kind, x: (i % s.cols) * CELL, y: Math.floor(i / s.cols) * CELL, w: CELL, h: CELL,
+          // The PANEL's rect. The slicer cuts the square in its middle, and a
+          // fit is a fraction of that square, never of the taller panel.
+          id: c.id, label: c.label, variant: s.kind, x: (i % s.cols) * CELL, y: Math.floor(i / s.cols) * panelHeight(s), w: CELL, h: panelHeight(s),
           target: c.target, ...(fits?.[c.target] ? { fit: fits[c.target] } : {})
         }]
       : []))
@@ -527,7 +552,10 @@ const extent = (s: ArtSet, fits?: Fits): { w: number; h: number } => {
     const f = c ? fits?.[c.target] : undefined
     if (f) { w = Math.max(w, f.w); h = Math.max(h, f.h) }
   }
-  return w > 0 && h > 0 ? { w, h } : { w: REF_SCALE, h: REF_SCALE }
+  const e = w > 0 && h > 0 ? { w, h } : { w: REF_SCALE, h: REF_SCALE }
+  // A fit is measured on the drawing's square; the prompt speaks of the PANEL,
+  // which may be taller than that square.
+  return { w: e.w, h: (e.h * CELL) / panelHeight(s) }
 }
 
 const heading = (title: string, stem: string, target: string): string => `# ${title}  (${stem}.png → ${target})`
@@ -551,6 +579,7 @@ const comesBack = (s: ArtSet, noun: string): string[] => {
     `· ${n} panels. Not 1, not ${n - s.cols}, not ${n + s.cols}. Exactly ${s.rows} rows of ${s.cols} — do not add a row and do not drop one.`,
     `· ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.`,
     '· Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.',
+    ...(panelHeight(s) !== CELL ? [`· The panels are NOT square: each is a little taller than it is wide (${ratio(CELL, panelHeight(s))}), because the canvas divides into ${s.cols} equal columns and ${s.rows} equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.`] : []),
     ...(blanks ? [`· ${blanks} panel${blanks > 1 ? 's are' : ' is'} BLANK in the reference. Leave ${blanks > 1 ? 'them' : 'it'} flat magenta: do not invent anything for ${blanks > 1 ? 'them' : 'it'}.`] : [])
   ]
 }
