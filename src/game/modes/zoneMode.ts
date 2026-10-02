@@ -754,6 +754,9 @@ export class ZoneMode implements GameMode {
           case 'reflect': ps.emit({ x, y: 0.3 + Math.random() * u.h, z, color: '#fff2a8', size: 0.3, sizeEnd: 0.05, life: 0.3 }); break
           case 'overheat': ps.emit({ x, y: u.h * 0.7, z, vy: 2.4, color: '#ff8a3a', size: 0.4, sizeEnd: 0.6, life: 0.5 }); break
           case 'stealth': ps.emit({ x, y: 0.3 + Math.random() * u.h * 0.5, z, vy: 0.4, color: '#8a8fa8', size: 0.5, sizeEnd: 0.9, life: 0.5 }); break
+          // Held fast in ice: a glint off it now and then. Afraid: a bead of sweat flung off.
+          case 'frozen': ps.emit({ x, y: 0.2 + Math.random() * u.h, z, color: '#eaf8ff', size: 0.3, sizeEnd: 0.02, life: 0.35 }); break
+          case 'fear': ps.emit({ x, y: u.h * 0.9, z, vx: Math.cos(a) * 1.6, vy: 1.4, vz: Math.sin(a) * 1.6, color: '#9fdcff', size: 0.18, sizeEnd: 0.05, life: 0.4, gravity: 7 }); break
           default: break
         }
       }

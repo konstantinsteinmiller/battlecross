@@ -42,9 +42,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 
 ### Interface
 
-- [ ] #45 **F-components in the Battlecross style.** Buttons, windows, tabs,
+- [x] #45 ✅ **F-components in the Battlecross style.** Buttons, windows, tabs,
   sliders, selects and HUD chips match the colourful cel-shaded chibi look.
-- [ ] #46 **Dialogue system.** Talking to an NPC is a conversation in the
+- [x] #46 ✅ **Dialogue system.** Talking to an NPC is a conversation in the
   world: speech bubbles over heads, a choice list, stable dialogue line ids
   (ready for voice-over), no jump into a window. Quest decisions run in it.
 - [ ] #47 **Trading that feels like a trade.** A two-sided trade screen
@@ -54,7 +54,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   inventory (drag or tap to equip, compare, unequip).
 - [ ] #49 **Skills screen overhaul.** Learned skills, the slots they sit in
   and the classes they come from, made attractive and clear.
-- [ ] #50 **Battle skill buttons.** The skill buttons in a fight get real
+- [x] #50 ✅ **Battle skill buttons.** The skill buttons in a fight get real
   art (frames, states: ready, cooling down, no mana, locked).
 - [ ] #51 **Painted art for the new screens** through the art pipeline:
   backgrounds for the skills, inventory and trade screens, the skill button
@@ -86,7 +86,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 
 ### World map
 
-- [ ] #61 **A world map worth looking at.** An illustrated map instead of
+- [x] #61 ✅ **A world map worth looking at.** An illustrated map instead of
   dots on a gradient: drawn regions (woods, mountains, snow, lava, the void),
   winding roads, a landmark per place (cave mouth, castle, temple, volcano),
   the hero travelling along the road, drifting clouds over what is still
