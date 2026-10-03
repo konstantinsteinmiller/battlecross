@@ -49,7 +49,9 @@ export default {
     'guarded': 'Čuvano',
     'locked': 'Zaključano',
     'potion': '+1 napitak',
-    'manaPotion': '+1 napitak mane'
+    'manaPotion': '+1 napitak mane',
+    'leave': 'Odlazak',
+    'chestsLeft': 'Ovdje je još {n} zatvorenih škrinja'
   },
   'status': {
     'stun': 'Omamljenost',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Vještina 6',
       'potion': 'Popij napitak',
       'manaPotion': 'Popij napitak mane',
+      'leave': 'Napusti osvojeno područje',
       'interact': 'Razgovor',
       'target': 'Sljedeća meta',
       'map': 'Karta svijeta',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Bevakad',
     'locked': 'Låst',
     'potion': '+1 dryck',
-    'manaPotion': '+1 manadryck'
+    'manaPotion': '+1 manadryck',
+    'leave': 'Lämna',
+    'chestsLeft': 'Här finns fortfarande {n} stängda kistor'
   },
   'status': {
     'stun': 'Bedövad',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Färdighet 6',
       'potion': 'Drick dryck',
       'manaPotion': 'Drick manadryck',
+      'leave': 'Lämna ett vunnet område',
       'interact': 'Prata',
       'target': 'Nästa mål',
       'map': 'Världskarta',

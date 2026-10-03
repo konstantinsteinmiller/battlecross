@@ -49,7 +49,9 @@ export default {
     'guarded': '지키는 중',
     'locked': '잠김',
     'potion': '물약 +1',
-    'manaPotion': '마나 물약 +1'
+    'manaPotion': '마나 물약 +1',
+    'leave': '떠나기',
+    'chestsLeft': '아직 닫힌 상자 {n}개'
   },
   'status': {
     'stun': '기절',
@@ -651,6 +653,7 @@ export default {
       'skill6': '스킬 6',
       'potion': '물약 마시기',
       'manaPotion': '마나 물약 마시기',
+      'leave': '승리한 지역 떠나기',
       'interact': '대화',
       'target': '다음 대상',
       'map': '월드맵',

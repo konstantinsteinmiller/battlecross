@@ -49,7 +49,9 @@ export default {
     'guarded': 'Bewaakt',
     'locked': 'Op slot',
     'potion': '+1 drank',
-    'manaPotion': '+1 manadrank'
+    'manaPotion': '+1 manadrank',
+    'leave': 'Vertrekken',
+    'chestsLeft': 'Hier zijn nog {n} kisten dicht'
   },
   'status': {
     'stun': 'Verdoofd',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Vaardigheid 6',
       'potion': 'Drank drinken',
       'manaPotion': 'Manadrank drinken',
+      'leave': 'Een gewonnen gebied verlaten',
       'interact': 'Praten',
       'target': 'Volgend doelwit',
       'map': 'Wereldkaart',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Có canh gác',
     'locked': 'Đã khóa',
     'potion': '+1 bình thuốc',
-    'manaPotion': '+1 bình mana'
+    'manaPotion': '+1 bình mana',
+    'leave': 'Rời đi',
+    'chestsLeft': 'Còn {n} rương chưa mở ở đây'
   },
   'status': {
     'stun': 'Choáng',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Kỹ năng 6',
       'potion': 'Uống thuốc',
       'manaPotion': 'Uống bình mana',
+      'leave': 'Rời khu vực đã thắng',
       'interact': 'Nói chuyện',
       'target': 'Mục tiêu kế',
       'map': 'Bản đồ thế giới',

@@ -49,6 +49,7 @@
             :aria-label="t('skills.classCount', { cls: t(`class.${c}.name`), n: learnedOf(c), total: skillsOf(c).length })"
             :class="{ 'is-active': cls === c, 'is-bare': learnedOf(c) === 0 }"
             :style="{ '--tint': CLASSES[c].color }"
+            :data-cls="c"
             @click="pickClass(c)"
           )
             span.emblem__disc
@@ -67,6 +68,7 @@
             :class="{ 'is-sel': picked === s.id, 'is-known': knows(s.id), 'is-open': !knows(s.id) && usable(s.id), 'is-locked': !knows(s.id) && !usable(s.id), 'is-round': s.kind === 'passive', 'is-used': slotted(s.id) }"
             :aria-label="t(`skill.${s.id}.name`)"
             :aria-pressed="picked === s.id"
+            :data-skill="s.id"
             v-on="knows(s.id) ? drag.handle({ id: s.id, from: 'tree' }) : {}"
             @click="tapNode(s.id)"
           )

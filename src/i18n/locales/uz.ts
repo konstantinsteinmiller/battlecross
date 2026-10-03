@@ -49,7 +49,9 @@ export default {
     'guarded': 'Qoʻriqlanmoqda',
     'locked': 'Qulflangan',
     'potion': '+1 iksir',
-    'manaPotion': '+1 mana iksiri'
+    'manaPotion': '+1 mana iksiri',
+    'leave': 'Ketish',
+    'chestsLeft': 'Bu yerda hali {n} ta yopiq sandiq bor'
   },
   'status': {
     'stun': 'Karaxt',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Koʻnikma 6',
       'potion': 'Iksir ichish',
       'manaPotion': 'Mana iksirini ichish',
+      'leave': 'Yutilgan hududdan chiqish',
       'interact': 'Gaplashish',
       'target': 'Keyingi nishon',
       'map': 'Dunyo xaritasi',

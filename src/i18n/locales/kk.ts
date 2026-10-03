@@ -50,7 +50,9 @@ export default {
     'guarded': 'Күзетілуде',
     'locked': 'Құлыптаулы',
     'potion': '+1 сусын',
-    'manaPotion': '+1 мана сусыны'
+    'manaPotion': '+1 мана сусыны',
+    'leave': 'Кету',
+    'chestsLeft': 'Мұнда әлі {n} жабық сандық бар'
   },
   'status': {
     'stun': 'Есеңгіреу',
@@ -670,6 +672,7 @@ export default {
       'skill6': 'Дағды 6',
       'potion': 'Сусын ішу',
       'manaPotion': 'Мана сусынын ішу',
+      'leave': 'Жеңілген аймақтан кету',
       'interact': 'Сөйлесу',
       'target': 'Келесі нысана',
       'map': 'Әлем картасы',

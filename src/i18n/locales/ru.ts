@@ -50,7 +50,9 @@ export default {
     'guarded': 'Под охраной',
     'locked': 'Заперто',
     'potion': '+1 зелье',
-    'manaPotion': '+1 зелье маны'
+    'manaPotion': '+1 зелье маны',
+    'leave': 'Уйти',
+    'chestsLeft': 'Здесь ещё {n} закрытых сундуков'
   },
   'status': {
     'stun': 'Оглушение',
@@ -670,6 +672,7 @@ export default {
       'skill6': 'Навык 6',
       'potion': 'Выпить зелье',
       'manaPotion': 'Выпить зелье маны',
+      'leave': 'Покинуть пройденную зону',
       'interact': 'Говорить',
       'target': 'Следующая цель',
       'map': 'Карта мира',

@@ -83,6 +83,8 @@ export const handProp = (kind: HandProp): Mesh => {
   if (!g) { g = build(kind); geos.set(kind, g) }
   const mesh = new Mesh(g, celVC())
   mesh.frustumCulled = false
+  // A size up on life: the camera looks down from far, and a true-size mug is a speck.
+  mesh.scale.setScalar(1.4)
   return mesh
 }
 

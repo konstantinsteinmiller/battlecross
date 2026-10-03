@@ -49,7 +49,9 @@ export default {
     'guarded': 'पहरे में',
     'locked': 'बंद',
     'potion': '+1 पोशन',
-    'manaPotion': '+1 माना पोशन'
+    'manaPotion': '+1 माना पोशन',
+    'leave': 'निकलें',
+    'chestsLeft': 'यहाँ अभी {n} संदूक बंद हैं'
   },
   'status': {
     'stun': 'स्टन',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'कौशल 6',
       'potion': 'पोशन पिएँ',
       'manaPotion': 'माना पोशन पिएँ',
+      'leave': 'जीता हुआ क्षेत्र छोड़ें',
       'interact': 'बात करें',
       'target': 'अगला निशाना',
       'map': 'दुनिया का नक्शा',

@@ -1,16 +1,19 @@
 <template lang="pug">
   div.coach-layer(aria-live="polite")
     svg.coach-layer__lines(aria-hidden="true")
-      line(v-for="h in hud.hints" v-show="isDrag(h.id)" :key="h.id" :ref="(el) => setLine(el, h.id)" class="trail")
+      line(v-for="h in hud.hints" v-show="isDrag(h.id)" :key="h.id" :ref="(el) => setLine(el, h.id)" :class="['trail', `trail--${h.id}`]")
     div.coach(
       v-for="h in hud.hints"
       :key="h.id"
       :ref="(el) => setEl(el, h.id)"
-      :class="[`coach--${h.id}`, { 'is-ring': isButton(h.id) }]"
+      :class="[`coach--${h.id}`, `coach--${hud.device}`, { 'is-ring': isButton(h.id), 'is-down': isButton(h.id) && hud.device === 'touch' }]"
       role="img"
       :aria-label="t(`coach.${h.id}.${hud.device}`)"
     )
       span.coach__ring(v-if="isButton(h.id)" aria-hidden="true")
+      //- A townsperson to talk to: a beacon over the head, a ring at the feet.
+      span.coach__beacon(v-if="h.id === 'talk'" :ref="(el) => setBeacon(el)" aria-hidden="true")
+      span.coach__spot(v-if="h.id === 'chest' || h.id === 'talk'" aria-hidden="true")
       span.coach__hand(:key="`${h.id}:${h.flash}`" :class="{ ok: h.flash > 0 }")
         InputGlyph.coach__glyph(v-bind="glyph(h.id)")
       span.coach__pips(aria-hidden="true")
@@ -25,9 +28,18 @@
  *   move    a finger tapping the ground ahead (a mouse clicking it);
  *   target  a finger dragging from the hero onto the enemy, the line it draws
  *           behind it (a mouse clicking the enemy);
- *   skill   a ring closing on the skill button, a finger tapping it (its key);
- *   aim     a finger dragging from the button out to the enemy;
- *   potion  a ring on the potion.
+ *   skill   a ring closing on the skill button, a finger pressing it from
+ *           above (its key, on a keyboard);
+ *   aim     a finger (a held mouse) dragging from the button out to the enemy;
+ *   potion  a ring on the health flask; mana: on the mana flask;
+ *   chest   a finger tapping the chest (a mouse clicking it), a ring under it;
+ *   talk    a dotted way from the hero to a trainer, a beacon over their head
+ *           and a finger tapping them.
+ *
+ * On a phone a button's finger presses DOWN from above: below the bar there is
+ * only the screen's edge, and a hand drawn there would be cut off or sit under
+ * the thumb. Every point off the screen is pulled back to its edge, so a
+ * glyph always says which way to go.
  *
  * Words never appear: the sentence is the `aria-label`. Positions come from
  * the HUD ticker as transforms; the reactive part is only which glyphs are up
@@ -42,13 +54,14 @@ import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 
 const { t } = useI18n()
 
-const isButton = (id: string): boolean => id === 'skill' || id === 'potion'
-const isDrag = (id: string): boolean => hud.device === 'touch' && (id === 'target' || id === 'aim')
+const isButton = (id: string): boolean => id === 'skill' || id === 'potion' || id === 'mana'
+const isDrag = (id: string): boolean => (hud.device === 'touch' && id === 'target') || id === 'aim' || id === 'talk'
 
 const glyph = (id: string): Record<string, unknown> => {
   if (hud.device === 'touch') return { kind: 'finger', mode: 'tap' }
   if (id === 'skill') return { kind: 'key', code: DEFAULT_BINDINGS[`skill${hintGeo.skill.slot + 1}` as 'skill1'][0] }
   if (id === 'potion') return { kind: 'key', code: DEFAULT_BINDINGS.potion[0] }
+  if (id === 'mana') return { kind: 'key', code: DEFAULT_BINDINGS.manaPotion[0] }
   if (id === 'aim') return { kind: 'mouse', button: 'left', hold: true }
   return { kind: 'mouse', button: 'left', click: true }
 }
@@ -56,6 +69,7 @@ const glyph = (id: string): Record<string, unknown> => {
 type RefEl = Element | ComponentPublicInstance | null
 const els: Partial<Record<LessonId, HTMLElement>> = {}
 const lines: Partial<Record<LessonId, SVGLineElement>> = {}
+let beacon: HTMLElement | null = null
 const setEl = (el: RefEl, id: string): void => {
   if (el) els[id as LessonId] = el as HTMLElement
   else delete els[id as LessonId]
@@ -64,8 +78,10 @@ const setLine = (el: RefEl, id: string): void => {
   if (el) lines[id as LessonId] = el as unknown as SVGLineElement
   else delete lines[id as LessonId]
 }
+const setBeacon = (el: RefEl): void => { beacon = el as HTMLElement | null }
 
 const rectOf = (sel: string): DOMRect | null => document.querySelector(sel)?.getBoundingClientRect() ?? null
+const BUTTON: Partial<Record<LessonId, string>> = { potion: '[data-potion]', mana: '[data-mana-potion]' }
 
 /** A drag is acted out: out along the line, a short rest on the target, back. */
 const DRAG_PERIOD = 1.7
@@ -77,10 +93,26 @@ const dragPhase = (): number => {
   return 1
 }
 
+/** A point kept inside the screen (a margin of `m` px), so a glyph aimed at
+ *  something out of view stands at the edge it lies beyond. */
+const clampIn = (x: number, y: number, m: number): [number, number] => [
+  Math.max(m, Math.min(innerWidth - m, x)),
+  Math.max(m, Math.min(innerHeight - m, y))
+]
+
+const setLineXY = (ln: SVGLineElement | undefined, x0: number, y0: number, x1: number, y1: number): void => {
+  if (!ln) return
+  ln.setAttribute('x1', x0.toFixed(1))
+  ln.setAttribute('y1', y0.toFixed(1))
+  ln.setAttribute('x2', x1.toFixed(1))
+  ln.setAttribute('y2', y1.toFixed(1))
+}
+
 let removeTicker: (() => void) | null = null
 onMounted(() => {
   removeTicker = addHudTicker((dt) => {
     clock += dt
+    const edge = Math.min(innerWidth, innerHeight) * 0.09
     for (const h of hud.hints) {
       const id = h.id as LessonId
       const el = els[id]
@@ -90,17 +122,17 @@ onMounted(() => {
       let y = g.y1
       let show = g.on
       let size = 0
-      if (id === 'skill' || id === 'potion' || id === 'aim') {
-        const r = rectOf(id === 'potion' ? '[data-potion]' : `[data-skill-slot="${g.slot}"]`)
+      if (id === 'skill' || id === 'potion' || id === 'mana' || id === 'aim') {
+        const r = rectOf(BUTTON[id] ?? `[data-skill-slot="${g.slot}"]`)
         if (!r) show = false
         else if (id === 'aim') {
           const bx = r.left + r.width / 2
           const by = r.top + r.height / 2
-          const k = hud.device === 'touch' ? dragPhase() : 1
-          const ln = lines.aim
-          if (ln) { ln.setAttribute('x1', String(bx)); ln.setAttribute('y1', String(by)); ln.setAttribute('x2', String(bx + (g.x1 - bx) * k)); ln.setAttribute('y2', String(by + (g.y1 - by) * k)) }
-          x = bx + (g.x1 - bx) * k
-          y = by + (g.y1 - by) * k
+          const [tx, ty] = clampIn(g.x1, g.y1, edge)
+          const k = dragPhase()
+          setLineXY(lines.aim, bx, by, bx + (tx - bx) * k, by + (ty - by) * k)
+          x = bx + (tx - bx) * k
+          y = by + (ty - by) * k
         } else {
           x = r.left + r.width / 2
           y = r.top + r.height / 2
@@ -108,10 +140,20 @@ onMounted(() => {
         }
       } else if (id === 'target' && hud.device === 'touch') {
         const k = dragPhase()
-        const ln = lines.target
-        if (ln) { ln.setAttribute('x1', String(g.x0)); ln.setAttribute('y1', String(g.y0)); ln.setAttribute('x2', String(g.x0 + (g.x1 - g.x0) * k)); ln.setAttribute('y2', String(g.y0 + (g.y1 - g.y0) * k)) }
-        x = g.x0 + (g.x1 - g.x0) * k
-        y = g.y0 + (g.y1 - g.y0) * k
+        const [tx, ty] = clampIn(g.x1, g.y1, edge)
+        setLineXY(lines.target, g.x0, g.y0, g.x0 + (tx - g.x0) * k, g.y0 + (ty - g.y0) * k)
+        x = g.x0 + (tx - g.x0) * k
+        y = g.y0 + (ty - g.y0) * k
+      } else if (id === 'talk') {
+        // The way there, drawn whole; the finger waits on the trainer.
+        ;[x, y] = clampIn(g.x1, g.y1, edge)
+        setLineXY(lines.talk, g.x0, g.y0, x, y)
+        if (beacon) {
+          const [bx, by] = clampIn(g.x2, g.y2, edge)
+          beacon.style.transform = `translate(${(bx - x).toFixed(1)}px, ${(by - y).toFixed(1)}px)`
+        }
+      } else {
+        ;[x, y] = clampIn(x, y, edge)
       }
       el.style.opacity = show ? '1' : '0'
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
@@ -137,6 +179,12 @@ onUnmounted(() => removeTicker?.())
   stroke-dasharray: 2 12
   opacity: 0.9
   filter: drop-shadow(0 2px 0 #0f1a30)
+// The way to a trainer: footprints of light that walk toward them.
+.trail--talk
+  stroke: #ffe066
+  stroke-width: 6
+  stroke-dasharray: 3 14
+  animation: coach-walk 0.9s linear infinite
 .coach
   --g: clamp(3.2rem, 15vmin, 5rem)
   position: absolute
@@ -156,13 +204,23 @@ onUnmounted(() => removeTicker?.())
   width: var(--g)
   height: var(--g)
   filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
-.coach--move .coach__hand, .coach--target .coach__hand, .coach--aim .coach__hand
+.coach--move .coach__hand, .coach--target .coach__hand, .coach--aim .coach__hand, .coach--chest .coach__hand, .coach--talk .coach__hand
   top: calc(var(--g) * -0.12)
 // A button's glyph sits above it, clear of the thumb.
 .is-ring .coach__hand
   top: calc(var(--ring, 60px) * -0.5 - var(--g) * 1.05)
+// On a phone the finger reaches DOWN onto the button from above: the
+// fingertip lands on its top edge, the hand rises away from the bar.
+.is-down .coach__hand
+  top: calc(var(--ring, 60px) * -0.32 - var(--g) * 1.02)
+  transform: rotate(180deg)
+  transform-origin: 50% 50%
+.is-down .coach__glyph
+  transform: scaleX(-1)
 .coach__hand.ok
   animation: coach-ok 420ms ease-out
+.is-down .coach__hand.ok
+  animation: coach-ok-down 420ms ease-out
 .coach__glyph
   width: 100%
   height: 100%
@@ -176,8 +234,44 @@ onUnmounted(() => removeTicker?.())
   border: 4px solid #ffd84a
   box-shadow: 0 0 0 2px #0f1a30, inset 0 0 0 2px #0f1a30
   animation: coach-ring 1.1s ease-in infinite
-.coach--potion .coach__ring
+.coach--potion .coach__ring, .coach--mana .coach__ring
   border-radius: 50%
+.coach--mana .coach__ring
+  border-color: #7fd0ff
+// A ring on the ground under a chest, or a trainer: "this one".
+.coach__spot
+  position: absolute
+  left: calc(var(--g) * -0.55)
+  top: calc(var(--g) * -0.2)
+  width: calc(var(--g) * 1.1)
+  height: calc(var(--g) * 0.44)
+  border-radius: 50%
+  border: 4px solid #ffd84a
+  box-shadow: 0 0 0 2px #0f1a30, inset 0 0 0 2px #0f1a30
+  animation: coach-spot 1.2s ease-in-out infinite
+// Over a trainer's head: a bobbing gold beacon with a pulse round it.
+.coach__beacon
+  position: absolute
+  left: 0
+  top: 0
+  width: 0
+  height: 0
+  &::before, &::after
+    content: ''
+    position: absolute
+    left: calc(var(--g) * -0.22)
+    top: calc(var(--g) * -0.5)
+    width: calc(var(--g) * 0.44)
+    height: calc(var(--g) * 0.44)
+    border-radius: 50% 50% 50% 0
+    transform: rotate(-45deg)
+  &::before
+    background: radial-gradient(circle at 50% 50%, #ffffff 0 22%, #ffd84a 24% 100%)
+    border: 3px solid #0f1a30
+    animation: coach-bob 1.2s ease-in-out infinite
+  &::after
+    border: 3px solid #ffd84a
+    animation: coach-pulse 1.2s ease-out infinite
 .coach__pips
   position: absolute
   left: calc(var(--g) * -0.5)
@@ -196,6 +290,8 @@ onUnmounted(() => removeTicker?.())
       background: #5dff7a
 .is-ring .coach__pips
   top: calc(var(--ring, 60px) * -0.5 - var(--g) * 0.02 - 0.9rem)
+.is-down .coach__pips
+  top: calc(var(--ring, 60px) * -0.32 - var(--g) * 1.02 - 0.9rem)
 @keyframes coach-ring
   0%
     transform: scale(1.7)
@@ -205,6 +301,28 @@ onUnmounted(() => removeTicker?.())
   100%
     transform: scale(1)
     opacity: 1
+@keyframes coach-spot
+  0%, 100%
+    transform: scale(1)
+    opacity: 0.95
+  50%
+    transform: scale(1.14)
+    opacity: 0.7
+@keyframes coach-bob
+  0%, 100%
+    translate: 0 0
+  50%
+    translate: 0 -0.35rem
+@keyframes coach-pulse
+  0%
+    scale: 1
+    opacity: 0.9
+  100%
+    scale: 2.1
+    opacity: 0
+@keyframes coach-walk
+  to
+    stroke-dashoffset: -17
 @keyframes coach-ok
   0%
     filter: drop-shadow(0 0 0 #5dff7a) brightness(1)
@@ -215,7 +333,17 @@ onUnmounted(() => removeTicker?.())
   100%
     filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
     transform: scale(1)
+@keyframes coach-ok-down
+  0%
+    filter: drop-shadow(0 0 0 #5dff7a) brightness(1)
+    transform: rotate(180deg) scale(1)
+  35%
+    filter: drop-shadow(0 0 0.9rem #5dff7a) brightness(1.5) hue-rotate(70deg)
+    transform: rotate(180deg) scale(1.22)
+  100%
+    filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
+    transform: rotate(180deg) scale(1)
 @media (prefers-reduced-motion: reduce)
-  .coach__ring
+  .coach__ring, .coach__spot, .trail--talk, .coach__beacon::before, .coach__beacon::after
     animation: none
 </style>

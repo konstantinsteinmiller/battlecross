@@ -49,7 +49,9 @@ export default {
     'guarded': 'Saugoma',
     'locked': 'Užrakinta',
     'potion': '+1 eliksyras',
-    'manaPotion': '+1 manos eliksyras'
+    'manaPotion': '+1 manos eliksyras',
+    'leave': 'Išeiti',
+    'chestsLeft': 'Čia dar {n} uždarų skrynių'
   },
   'status': {
     'stun': 'Apsvaigimas',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Įgūdis 6',
       'potion': 'Gerti eliksyrą',
       'manaPotion': 'Gerti manos eliksyrą',
+      'leave': 'Palikti laimėtą zoną',
       'interact': 'Kalbėti',
       'target': 'Kitas taikinys',
       'map': 'Pasaulio žemėlapis',

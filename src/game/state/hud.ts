@@ -71,6 +71,10 @@ export const hud = shallowReactive({
   /** A chest the hero can open is in reach (zone): its tier ('wood' | 'iron' |
    *  'gold') for the "Open" prompt, '' for none. */
   interactChest: '',
+  /** A won zone: the Leave button is up; the finale's chest is open; chests still closed here. */
+  canLeave: false,
+  finaleOpen: false,
+  chestsLeft: 0,
   /** The hand in use: keycaps show on prompts only for mouse + keys. */
   device: 'mouse' as 'touch' | 'mouse',
   /** The control coach's glyphs on screen (`game/coach.ts`). */

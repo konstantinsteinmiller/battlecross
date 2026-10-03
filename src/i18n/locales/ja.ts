@@ -49,7 +49,9 @@ export default {
     'guarded': '守られている',
     'locked': 'ロック中',
     'potion': 'ポーション +1',
-    'manaPotion': 'マナポーション +1'
+    'manaPotion': 'マナポーション +1',
+    'leave': '立ち去る',
+    'chestsLeft': 'まだ閉じた宝箱が{n}個ある'
   },
   'status': {
     'stun': 'スタン',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'スキル6',
       'potion': 'ポーションを飲む',
       'manaPotion': 'マナポーションを飲む',
+      'leave': '勝利したエリアを去る',
       'interact': '話す',
       'target': '次のターゲット',
       'map': 'ワールドマップ',

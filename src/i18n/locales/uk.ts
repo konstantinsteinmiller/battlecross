@@ -50,7 +50,9 @@ export default {
     'guarded': 'Під охороною',
     'locked': 'Замкнено',
     'potion': '+1 зілля',
-    'manaPotion': '+1 зілля мани'
+    'manaPotion': '+1 зілля мани',
+    'leave': 'Піти',
+    'chestsLeft': 'Тут ще {n} закритих скринь'
   },
   'status': {
     'stun': 'Оглушення',
@@ -670,6 +672,7 @@ export default {
       'skill6': 'Навичка 6',
       'potion': 'Випити зілля',
       'manaPotion': 'Випити зілля мани',
+      'leave': 'Покинути пройдену зону',
       'interact': 'Говорити',
       'target': 'Наступна ціль',
       'map': 'Мапа світу',

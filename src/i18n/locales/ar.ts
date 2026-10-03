@@ -49,7 +49,9 @@ export default {
     'guarded': 'محروس',
     'locked': 'مقفل',
     'potion': '+1 جرعة',
-    'manaPotion': '+1 جرعة مانا'
+    'manaPotion': '+1 جرعة مانا',
+    'leave': 'غادر',
+    'chestsLeft': 'لا تزال {n} صناديق مغلقة هنا'
   },
   'status': {
     'stun': 'مصعوق',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'المهارة 6',
       'potion': 'اشرب الجرعة',
       'manaPotion': 'اشرب جرعة المانا',
+      'leave': 'غادر منطقة منتصرة',
       'interact': 'تحدّث',
       'target': 'الهدف التالي',
       'map': 'خريطة العالم',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Dijaga',
     'locked': 'Terkunci',
     'potion': '+1 ramuan',
-    'manaPotion': '+1 ramuan mana'
+    'manaPotion': '+1 ramuan mana',
+    'leave': 'Pergi',
+    'chestsLeft': 'Masih ada {n} peti tertutup di sini'
   },
   'status': {
     'stun': 'Pingsan',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Skill 6',
       'potion': 'Minum ramuan',
       'manaPotion': 'Minum ramuan mana',
+      'leave': 'Tinggalkan zona yang dimenangkan',
       'interact': 'Bicara',
       'target': 'Target berikutnya',
       'map': 'Peta dunia',

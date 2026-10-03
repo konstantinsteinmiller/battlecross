@@ -18,6 +18,7 @@ import { cap, dome, merge, paint, paintBy, rbox, rcone, rcyl, rock, sph, torus, 
 import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
 import type { Vfx } from './vfx'
+import { DummyProp } from './dummyProp'
 
 /**
  * ─── What stands in a zone beside its scenery (roadmap #54–#59) ──────────────
@@ -250,6 +251,8 @@ export class LevelProps {
   private sky = new Color()
   private caveAmbient = new Color(CAVE_AMBIENT)
   private caveSky = new Color(CAVE_SKY)
+  /** The first visit's straw training dummy (`dummyProp.ts`). */
+  private dummy: DummyProp | null = null
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -309,6 +312,10 @@ export class LevelProps {
     this.buildDoors(plan)
     this.buildChests()
     scene.add(this.root)
+    if (plan.dummy) {
+      this.dummy = new DummyProp(this.sim, this.vfx)
+      if (!this.dummy.build(scene)) this.dummy = null
+    }
   }
 
   private buildWater(plan: ZonePlan, liquid: LiquidId): void {
@@ -741,6 +748,7 @@ export class LevelProps {
   }
 
   onEvent(e: SimEvent): void {
+    this.dummy?.onEvent(e)
     switch (e.t) {
       case 'chest': this.onChest(e); break
       case 'pickup': {
@@ -861,6 +869,7 @@ export class LevelProps {
     this.heroZ = heroZ
     const plan = this.plan
     if (!plan) return
+    this.dummy?.update(dt)
     if (this.water) this.water.uniforms.uTime!.value = this.time * (this.water.userData.flow as number)
 
     // ── Chests ──
@@ -1002,6 +1011,8 @@ export class LevelProps {
       this.applyMood()
     }
     this.scene?.remove(this.root)
+    this.dummy?.dispose()
+    this.dummy = null
     for (const g of this.owned) g.dispose()
     for (const m of this.mats) m.dispose()
     for (const d of this.doors) { d.mesh.dispose(); d.line.dispose() }

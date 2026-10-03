@@ -49,7 +49,9 @@ export default {
     'guarded': 'Sorvegliato',
     'locked': 'Chiuso',
     'potion': '+1 pozione',
-    'manaPotion': '+1 pozione di mana'
+    'manaPotion': '+1 pozione di mana',
+    'leave': 'Esci',
+    'chestsLeft': 'Ancora {n} forzieri chiusi qui'
   },
   'status': {
     'stun': 'Stordito',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Abilità 6',
       'potion': 'Bevi pozione',
       'manaPotion': 'Bevi pozione di mana',
+      'leave': 'Lascia una zona vinta',
       'interact': 'Parla',
       'target': 'Bersaglio successivo',
       'map': 'Mappa del mondo',

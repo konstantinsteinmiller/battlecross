@@ -3,9 +3,11 @@
     FloatLayer
     //- The townspeople's markers, and the "Talk" prompt on the one in reach.
     NpcPins(v-if="flow.screen === 'town'")
-    CoachLayer(v-if="flow.screen === 'zone' && !flow.modal && !flow.talk")
+    CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
+    //- After the finale falls: how the hero goes home.
+    LeaveButton(v-if="flow.screen === 'zone'")
     div.hud__top
       HeroFrame.hud__tl
       TopStatus.hud__tc
@@ -34,7 +36,7 @@
  */
 import { hud } from '@/game/state/hud'
 import { flow } from '@/game/flow'
-import { coach } from '@/game/coach'
+import { recallHere } from '@/game/coach/onboarding'
 import NpcPins from '@/components/dialog/NpcPins.vue'
 import HeroFrame from './HeroFrame.vue'
 import TopStatus from './TopStatus.vue'
@@ -44,13 +46,16 @@ import TouchStick from './TouchStick.vue'
 import FloatLayer from './FloatLayer.vue'
 import CoachLayer from './CoachLayer.vue'
 import ChestPrompt from './ChestPrompt.vue'
+import LeaveButton from './LeaveButton.vue'
 import MenuButtons from './MenuButtons.vue'
 
 defineEmits<{ (e: 'options'): void }>()
 
 const pause = (): void => { if (!flow.modal && !flow.loading) flow.modal = 'pause' }
+/** "?": the lessons of where the player is come back (a fight's controls; a
+ *  town's talking, trading and learning), and the controls page opens. */
 const help = (): void => {
-  coach.recallAll()
+  recallHere()
   if (!flow.modal && !flow.loading) flow.modal = 'help'
 }
 </script>

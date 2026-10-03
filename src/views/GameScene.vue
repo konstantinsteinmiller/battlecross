@@ -9,6 +9,8 @@
     GameModals(@options="optionsOpen = true")
     OptionsModal(:is-open="optionsOpen" @close="optionsOpen = false")
     TravelVeil
+    //- The feature lessons, over every screen (and the pacing that picks them).
+    LessonLayer
 </template>
 
 <script setup lang="ts">
@@ -34,6 +36,8 @@ import WorldMap from '@/components/screens/WorldMap.vue'
 import GameModals from '@/components/modals/GameModals.vue'
 import DialogLayer from '@/components/dialog/DialogLayer.vue'
 import TravelVeil from '@/components/hud/TravelVeil.vue'
+import LessonLayer from '@/components/onboarding/LessonLayer.vue'
+import { recallHere } from '@/game/coach/onboarding'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 
 /**
@@ -62,7 +66,7 @@ const onKey = (e: KeyboardEvent) => {
   // every layout. F1 is the game's here: it never opens the browser's help.
   if (e.code === 'F1' || e.key === '?') {
     e.preventDefault()
-    if (!e.repeat) { coach.recallAll(); flow.modal = flow.modal === 'help' ? '' : flow.modal || 'help' }
+    if (!e.repeat) { recallHere(); flow.modal = flow.modal === 'help' ? '' : flow.modal || 'help' }
     return
   }
   // F2 is the speaker button, on every screen. Not under an ad — the ad's

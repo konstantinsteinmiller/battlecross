@@ -1,8 +1,7 @@
 import { ARENA_WAVES, ZONES } from '../data/zones'
 import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
-import { applyStatus } from './combat'
-import { FINALE_BEAT, FINALE_WAIT, openChest, orderOpen, populateFeatures, stepPlates } from './interact'
+import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from './interact'
 import { spawnEnemy, spawnMinion } from './spawn'
 import { plainStats } from './stats'
 import { spawnTownPeople } from './townLife'
@@ -109,16 +108,16 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
   if (sim.ended) return
   sim.ended = 'victory'
   const h = sim.hero
-  // A zone's finale leaves a real chest: the hero walks over and opens it,
-  // and the visit closes on the open lid (`stepFinale`).
+  // A zone's finale leaves a real chest, and the place is the hero's to walk:
+  // the fight is over (nobody hurts anybody: `dealDamage`), its chest opens
+  // to him like any other, and the visit closes when he chooses to leave
+  // (`leaveVisit`).
   const finale = sim.chests.find(c => c.role === 'finale')
   if (finale) {
     sim.emit({ t: 'victory' })
-    // Nothing touches him on the way: the fight is over.
-    applyStatus(sim, h.unit, 'invulnerable', FINALE_WAIT + 3, 1, null, { quiet: true })
-    applyStatus(sim, h.unit, 'haste', FINALE_WAIT, 0.35, null, { quiet: true })
     if (h.unit.action && h.unit.action.id === 'attack') h.unit.action = null
-    orderOpen(sim, finale.id)
+    if (h.order.kind === 'attack') { h.order.kind = 'none'; h.order.targetId = 0; h.unit.targetId = 0 }
+    h.queued = null
     return
   }
   sim.endReady = true
@@ -137,18 +136,29 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
   sim.emit({ t: 'victory' })
 }
 
-/** After the win: the visit may close once the finale's chest stands open. */
+/** After the win: the visit closes a beat after the hero chose to leave (a
+ *  longer one when the finale's chest was opened for him on the way out, so
+ *  its loot is seen). */
 const stepFinale = (sim: Sim): void => {
-  if (sim.endReady || sim.ended !== 'victory') return
+  if (sim.endReady || sim.ended !== 'victory' || !sim.leaving) return
+  if (sim.time - sim.leaveAt >= (sim.leaveOpened ? FINALE_BEAT : LEAVE_BEAT)) sim.endReady = true
+}
+
+/**
+ * The hero leaves a won zone (the Leave button). The finale's chest, if he
+ * has not opened it, is opened for him now: nobody loses the boss's reward.
+ * Returns whether the visit is now closing.
+ */
+export const leaveVisit = (sim: Sim): boolean => {
+  if (sim.ended !== 'victory' || sim.leaving) return false
+  sim.leaving = true
+  sim.leaveAt = sim.time
   const c = sim.chests.find(x => x.role === 'finale')
-  if (!c) { sim.endReady = true; return }
-  if (c.state === 'open') {
-    if (sim.time - c.openedAt >= FINALE_BEAT) sim.endReady = true
-    return
+  if (c && c.state !== 'open') {
+    openChest(sim, c)
+    sim.leaveOpened = true
   }
-  // He could not get there (boxed in by a wall of his own?): it opens anyway,
-  // so what the zone owes is always paid.
-  if (sim.endedT >= FINALE_WAIT) openChest(sim, c)
+  return true
 }
 
 const counts: number[] = []

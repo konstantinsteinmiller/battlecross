@@ -118,9 +118,46 @@ export interface ZonePlan {
   town?: TownPlan
   /** Where arena waves come in. */
   gates: Array<[number, number]>
+  /** The first visit of a new save: where the straw training dummy stands,
+   *  by the road in the opening clearing (`coach/dummy.ts`). */
+  dummy?: { x: number; z: number }
 }
 
 const W = 40
+
+/**
+ * The training dummy's spot: in the opening clearing, a little up the road
+ * and off to one side of it, on open ground, clear of the tutorial chest and
+ * far enough from the first pack that hitting it never wakes them.
+ */
+const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: number }>, chests: ReadonlyArray<{ x: number; z: number }>, pack: { x: number; z: number }): { x: number; z: number } | undefined => {
+  const s = cs[0]!
+  const n = cs[1]!
+  const l = Math.hypot(n.i - s.i, n.j - s.j) || 1
+  const ai = (n.i - s.i) / l
+  const aj = (n.j - s.j) / l
+  let best: { x: number; z: number } | undefined
+  let bestD = -1
+  for (const along of [1.4, 0.6, 0]) {
+    for (const side of [2.6, -2.6, 2, -2]) {
+      const i = Math.round(s.i + ai * along - aj * side)
+      const j = Math.round(s.j + aj * along + ai * side)
+      if (i < 3 || j < 3 || i >= W - 3 || j >= h - 3) continue
+      let open = true
+      for (let dj = -1; dj <= 1 && open; dj++) for (let di = -1; di <= 1; di++) if (solid[(j + dj) * W + i + di]) { open = false; break }
+      if (!open) continue
+      const x = (i + 0.5) * CELL
+      const z = (j + 0.5) * CELL
+      if (Math.hypot(pack.x - x, pack.z - z) < 13.5) continue
+      let near = 1e9
+      for (const c of chests) near = Math.min(near, Math.hypot(c.x - x, c.z - z))
+      if (near < 2.6) continue
+      if (near > bestD) { bestD = near; best = { x, z } }
+    }
+    if (best) return best
+  }
+  return best
+}
 
 /**
  * Write a plan into a walk grid: terrain, water and level props (walked
@@ -330,7 +367,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     ...features,
     buildings: [],
     npcs: [],
-    gates: []
+    gates: [],
+    // The first visit opens on a calm beat: a dummy to learn to fight on.
+    ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})
   }
 }
 

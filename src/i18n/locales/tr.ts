@@ -49,7 +49,9 @@ export default {
     'guarded': 'Korunuyor',
     'locked': 'Kilitli',
     'potion': '+1 iksir',
-    'manaPotion': '+1 mana iksiri'
+    'manaPotion': '+1 mana iksiri',
+    'leave': 'Ayrıl',
+    'chestsLeft': 'Burada hâlâ {n} kapalı sandık var'
   },
   'status': {
     'stun': 'Sersemledi',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Yetenek 6',
       'potion': 'İksir iç',
       'manaPotion': 'Mana iksiri iç',
+      'leave': 'Kazanılan bölgeden ayrıl',
       'interact': 'Konuş',
       'target': 'Sonraki hedef',
       'map': 'Dünya haritası',

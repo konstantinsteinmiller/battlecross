@@ -49,7 +49,9 @@ export default {
     'guarded': 'Vixiado',
     'locked': 'Pechado',
     'potion': '+1 poción',
-    'manaPotion': '+1 poción de maná'
+    'manaPotion': '+1 poción de maná',
+    'leave': 'Saír',
+    'chestsLeft': 'Aínda quedan {n} cofres pechados aquí'
   },
   'status': {
     'stun': 'Aturdido',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Habilidade 6',
       'potion': 'Beber poción',
       'manaPotion': 'Beber poción de maná',
+      'leave': 'Saír dunha zona gañada',
       'interact': 'Falar',
       'target': 'Seguinte obxectivo',
       'map': 'Mapa do mundo',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Střeženo',
     'locked': 'Zamčeno',
     'potion': '+1 lektvar',
-    'manaPotion': '+1 lektvar many'
+    'manaPotion': '+1 lektvar many',
+    'leave': 'Odejít',
+    'chestsLeft': 'Ještě {n} zavřených truhel'
   },
   'status': {
     'stun': 'Omráčení',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Dovednost 6',
       'potion': 'Vypít lektvar',
       'manaPotion': 'Vypít lektvar many',
+      'leave': 'Opustit vyhranou oblast',
       'interact': 'Mluvit',
       'target': 'Další cíl',
       'map': 'Mapa světa',

@@ -63,7 +63,9 @@ export default {
     'guarded': 'Guarded',
     'locked': 'Locked',
     'potion': '+1 potion',
-    'manaPotion': '+1 mana potion'
+    'manaPotion': '+1 mana potion',
+    'leave': 'Leave',
+    'chestsLeft': '{n} chests still closed here'
   },
   'status': {
     'stun': 'Stunned',
@@ -131,6 +133,46 @@ export default {
     'potion': {
       'touch': 'Tap the potion to heal.',
       'mouse': 'Press the potion key to heal.'
+    },
+    'mana': {
+      'touch': 'Tap the blue flask to refill your mana.',
+      'mouse': 'Press the mana potion key to refill your mana.'
+    },
+    'chest': {
+      'touch': 'Tap a chest to open it.',
+      'mouse': 'Click a chest to open it.'
+    },
+    'talk': {
+      'touch': 'Follow the trail to the trainer and tap them to talk.',
+      'mouse': 'Follow the trail to the trainer and click them to talk.'
+    },
+    'teach': {
+      'touch': 'Tap "Teach me" to see what this trainer teaches.',
+      'mouse': 'Click "Teach me" to see what this trainer teaches.'
+    },
+    'learn': {
+      'touch': 'Tap a skill, then tap Learn.',
+      'mouse': 'Click a skill, then click Learn.'
+    },
+    'slot': {
+      'touch': 'Tap your new skill, then tap a slot to take it into battle.',
+      'mouse': 'Drag your new skill onto a slot to take it into battle.'
+    },
+    'equip': {
+      'touch': 'Tap the new item, compare the green and red numbers, then tap its slot to wear it.',
+      'mouse': 'Drag the new item onto its slot to wear it. Green numbers go up, red ones go down.'
+    },
+    'attr': {
+      'touch': 'Tap a plus to spend an attribute point.',
+      'mouse': 'Click a plus to spend an attribute point.'
+    },
+    'travel': {
+      'touch': 'Tap the next place on the map, then tap the button to travel there.',
+      'mouse': 'Click the next place on the map, then click the button to travel there.'
+    },
+    'buy': {
+      'touch': 'Tap an item to see its price, then tap Buy.',
+      'mouse': 'Click an item to see its price, then click Buy.'
     }
   },
 
@@ -1319,6 +1361,7 @@ export default {
 
   // ─── Enemies and allies ───────────────────────────────────────────────────
   'enemy': {
+    'trainingDummy': 'Training Dummy',
     'goblin': 'Goblin',
     'goblinSlinger': 'Goblin Slinger',
     'bandit': 'Bandit',
@@ -1449,6 +1492,7 @@ export default {
       'skill6': 'Skill 6',
       'potion': 'Drink potion',
       'manaPotion': 'Drink mana potion',
+      'leave': 'Leave a won zone',
       'interact': 'Talk',
       'target': 'Next target',
       'map': 'World map',

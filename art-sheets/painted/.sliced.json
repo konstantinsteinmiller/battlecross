@@ -1,12 +1,6 @@
 {
   "note": "written by tools/slice-sheets.mjs — the reference revision each painting was cut against",
   "files": {
-    "sheet-skills-pyro.jpg": {
-      "sheet": "sheet-skills-pyro",
-      "rev": "bf7f6895ed98",
-      "painting": "ddde2c5089dd",
-      "at": "2026-10-02T22:07:31.301Z"
-    },
     "sheet-portraits-town.jpg": {
       "sheet": "sheet-portraits-town",
       "rev": "3732e628fe79",
@@ -18,30 +12,6 @@
       "rev": "770414fa440b",
       "painting": "df9b06a4281c",
       "at": "2026-10-02T21:21:24.950Z"
-    },
-    "sheet-skills-aegis.jpg": {
-      "sheet": "sheet-skills-aegis",
-      "rev": "f10c7172ee83",
-      "painting": "bd5e78f51776",
-      "at": "2026-10-02T22:07:28.068Z"
-    },
-    "sheet-skills-shadow.jpg": {
-      "sheet": "sheet-skills-shadow",
-      "rev": "337326d437d3",
-      "painting": "8d7b09010533",
-      "at": "2026-10-02T22:07:29.732Z"
-    },
-    "sheet-skills-sovereign.jpg": {
-      "sheet": "sheet-skills-sovereign",
-      "rev": "f0fbeabf2aec",
-      "painting": "ebcc6dd97de5",
-      "at": "2026-10-02T22:07:32.943Z"
-    },
-    "sheet-skills-chrono.jpg": {
-      "sheet": "sheet-skills-chrono",
-      "rev": "ff0d9031f4f1",
-      "painting": "e4a31515a244",
-      "at": "2026-10-02T22:07:34.600Z"
     },
     "sheet-items-weapons.jpg": {
       "sheet": "sheet-items-weapons",
@@ -60,6 +30,54 @@
       "rev": "dcfec1447f6e",
       "painting": "7530b7b1b4b8",
       "at": "2026-10-03T00:16:45.721Z"
+    },
+    "sheet-items-trinkets.jpg": {
+      "sheet": "sheet-items-trinkets",
+      "rev": "b23c5e2aa7a1",
+      "painting": "e259355e4677",
+      "at": "2026-10-03T00:19:36.190Z"
+    },
+    "sheet-items-headgear.jpg": {
+      "sheet": "sheet-items-headgear",
+      "rev": "f56cfdfaf5fb",
+      "painting": "848cd2e64fbb",
+      "at": "2026-10-03T00:22:49.944Z"
+    },
+    "sheet-items-boots.jpg": {
+      "sheet": "sheet-items-boots",
+      "rev": "05a2d72cdd50",
+      "painting": "9cd4ab4c364d",
+      "at": "2026-10-03T00:26:01.072Z"
+    },
+    "sheet-skills-aegis.jpg": {
+      "sheet": "sheet-skills-aegis",
+      "rev": "41ace8182dfc",
+      "painting": "2629ca0d4523",
+      "at": "2026-10-03T00:29:22.652Z"
+    },
+    "sheet-skills-shadow.jpg": {
+      "sheet": "sheet-skills-shadow",
+      "rev": "2cfb44cfe91f",
+      "painting": "5fd097ebd81e",
+      "at": "2026-10-03T00:32:48.787Z"
+    },
+    "sheet-skills-pyro.jpg": {
+      "sheet": "sheet-skills-pyro",
+      "rev": "11c33b95224f",
+      "painting": "ff92866cb980",
+      "at": "2026-10-03T00:35:43.192Z"
+    },
+    "sheet-skills-sovereign.jpg": {
+      "sheet": "sheet-skills-sovereign",
+      "rev": "8f5bbb595a22",
+      "painting": "26f260c6a498",
+      "at": "2026-10-03T00:38:39.560Z"
+    },
+    "sheet-skills-chrono.jpg": {
+      "sheet": "sheet-skills-chrono",
+      "rev": "31ab3a6fd666",
+      "painting": "b3cb2754e757",
+      "at": "2026-10-03T00:41:34.733Z"
     }
   }
 }

@@ -50,7 +50,9 @@ export default {
     'guarded': 'Apsargāts',
     'locked': 'Aizslēgts',
     'potion': '+1 dzira',
-    'manaPotion': '+1 manas dzira'
+    'manaPotion': '+1 manas dzira',
+    'leave': 'Doties prom',
+    'chestsLeft': 'Šeit vēl ir {n} aizvērtas lādes'
   },
   'status': {
     'stun': 'Apdullināts',
@@ -670,6 +672,7 @@ export default {
       'skill6': 'Prasme 6',
       'potion': 'Dzert dziru',
       'manaPotion': 'Dzert manas dziru',
+      'leave': 'Pamest uzvarētu zonu',
       'interact': 'Runāt',
       'target': 'Nākamais mērķis',
       'map': 'Pasaules karte',

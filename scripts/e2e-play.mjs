@@ -243,6 +243,12 @@ const playDesktop = async () => {
 
   // Win, and follow the screens.
   await winZone(page)
+  // A won zone waits for the player: the Leave button (it opens the finale's
+  // chest on the way out if nobody did).
+  await page.waitForSelector('[data-coach="leave"]', { timeout: 15000 })
+  const leaveBox = await page.locator('[data-coach="leave"]').boundingBox()
+  check('after the win the Leave button is up, inside the viewport', !!leaveBox && leaveBox.y >= 0 && leaveBox.x >= 0 && leaveBox.width >= 43.5, JSON.stringify(leaveBox))
+  await page.locator('[data-coach="leave"]').click()
   await page.waitForFunction(() => window.__game.flow.modal === 'results', null, { timeout: 20000 })
   await page.waitForTimeout(500)
   const res = await game(page, () => ({ r: window.__game.flow.results, title: document.querySelector('.f-modal__ribbon-text')?.textContent }))

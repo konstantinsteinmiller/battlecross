@@ -34,9 +34,9 @@ export const PLATE_R = 0.62
 export const SIDE_AGGRO = 6
 /** …and gives up the chase this far from where it stood. */
 export const SIDE_LEASH = 13
-/** A won visit waits this long for the hero to reach the finale's chest. */
-export const FINALE_WAIT = 7
-/** …and this long on the open chest before the result screen. */
+/** Leaving a won zone: the beat before the result screen, and a longer one
+ *  when the finale's chest is opened on the way out (its loot is seen). */
+export const LEAVE_BEAT = 0.25
 export const FINALE_BEAT = 1.3
 
 const LOOT_SALT = 0x2c1b3c6d

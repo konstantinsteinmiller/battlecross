@@ -11,6 +11,7 @@ import { SKILL_BY_ID } from '../data/skills'
 import { TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
 import type { ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
+import { leaveVisit } from '../sim/director'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
 import { generateArena, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
@@ -33,8 +34,10 @@ import { townAddress, townGreet } from '../sim/townLife'
 import { POTION_CD, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
-import { heroBuild, loadoutActive, profile } from '../state/profile'
+import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
+import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
+import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
 import { setBossMusic } from '@/use/useSound'
 
@@ -194,6 +197,8 @@ export class ZoneMode implements GameMode {
       manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
+    // The first visit's training dummy, until it has been dealt with once.
+    if (setup.kind === 'zone' && setup.tutorial && !profile.tips.dummy) spawnDummy(sim, plan)
     // A weak device leaves out most of the folk; every visit is a different day.
     else if (setup.kind === 'town') populateTown(sim, plan, { lite: sceneQuality() === 'low', visit: profile.world.visits[setup.town!] ?? 0 })
     else sim.wave.rest = 1.6
@@ -259,7 +264,8 @@ export class ZoneMode implements GameMode {
   // ─── Views ─────────────────────────────────────────────────────────────────
 
   private addView(u: Unit): void {
-    if (this.views.has(u.id)) return
+    // The training dummy is a level prop, not a rig (`gfx/dummyProp.ts`).
+    if (this.views.has(u.id) || isDummy(u)) return
     const v = makeRigView(u, u.rank === 'hero' ? heroLook(profile.inv.equipped) : undefined)
     const shadow = makeBlobShadow(u.r)
     this.scene.add(v.rig.root, shadow)
@@ -305,7 +311,8 @@ export class ZoneMode implements GameMode {
     const i = this.input
     const sim = this.sim
     const h = sim.hero
-    const live = !sim.ended && h.unit.alive
+    // A won zone is still the hero's to walk (and to leave: the Leave button).
+    const live = (!sim.ended || (sim.ended === 'victory' && this.setup.kind === 'zone' && !sim.leaving)) && h.unit.alive
     hud.device = i.device
     // A conversation holds the hero still: its own layer takes the taps and keys.
     if (this.talkOn || this.talkHold > 0) { setStick(sim, 0, 0); return }
@@ -371,8 +378,9 @@ export class ZoneMode implements GameMode {
       if (castSkill(sim, i.aimDrop, { x: ground.x, z: ground.z })) { coach.use('skill'); coach.use('aim') }
     }
     if (i.potionQueued && usePotion(sim)) coach.use('potion')
-    if (i.manaPotionQueued) useManaPotion(sim)
+    if (i.manaPotionQueued && useManaPotion(sim)) { coach.use('mana'); markRevealUsed('mana') }
     if (i.targetQueued) cycleTarget(sim)
+    if (i.leaveQueued && leaveVisit(sim)) sfx('uiOpen')
     if (i.interactQueued) {
       const u = h.unit
       let best: Unit | undefined
@@ -623,6 +631,8 @@ export class ZoneMode implements GameMode {
       simDt = dt * HIT_STOP_SCALE
     }
     stepSim(this.sim, this.plan, simDt)
+    // The dummy knocked apart (or walked past): the opening beat is done for good.
+    if (stepDummy(this.sim)) markTip('dummy')
     this.drain()
     coach.step(this, simDt)
     if (first) consumeEdges(this.input)
@@ -697,7 +707,7 @@ export class ZoneMode implements GameMode {
     this.statusFx(fxDt)
 
     // ── Markers ──
-    const live = hero.alive && !sim.ended
+    const live = hero.alive && (!sim.ended || (sim.ended === 'victory' && !sim.leaving))
     this.markers.hero(hx, hz, hero.r, live)
     const tgt = sim.live(sim.hero.order.targetId) ?? sim.live(this.hoverId)
     if (tgt && tgt.rank !== 'hero') this.markers.target(tgt.px + (tgt.x - tgt.px) * a, tgt.pz + (tgt.z - tgt.pz) * a, tgt.r, true, tgt.team === 1, tgt.team === 1 ? Math.max(0, barRank(tgt) - 1) as 0 | 1 | 2 | 3 : 0)
@@ -867,7 +877,18 @@ export class ZoneMode implements GameMode {
     }
     hud.interactKey = near
     // The chest within reach, for the "Open" prompt.
-    hud.interactChest = (!sim.ended && u.alive && this.props && nearChest(sim)?.tier) || ''
+    hud.interactChest = ((!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && nearChest(sim)?.tier) || ''
+    // After the finale falls: the Leave button, whether the finale's chest is
+    // open yet, and how many chests the place still holds.
+    hud.canLeave = this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving
+    let left = 0
+    let finaleOpen = false
+    for (const c of sim.chests) {
+      if (c.role === 'finale') finaleOpen = c.state === 'open'
+      if (c.state === 'closed' || c.state === 'opening') left++
+    }
+    hud.chestsLeft = left
+    hud.finaleOpen = finaleOpen
   }
 
   // ─── Conversations ─────────────────────────────────────────────────────────

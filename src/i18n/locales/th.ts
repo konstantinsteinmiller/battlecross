@@ -49,7 +49,9 @@ export default {
     'guarded': 'มีผู้เฝ้า',
     'locked': 'ล็อกอยู่',
     'potion': '+1 ยา',
-    'manaPotion': '+1 ยามานา'
+    'manaPotion': '+1 ยามานา',
+    'leave': 'ออกไป',
+    'chestsLeft': 'ยังมีหีบปิดอยู่ {n} ใบ'
   },
   'status': {
     'stun': 'สตัน',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'สกิล 6',
       'potion': 'ดื่มยา',
       'manaPotion': 'ดื่มยามานา',
+      'leave': 'ออกจากพื้นที่ที่ชนะแล้ว',
       'interact': 'พูดคุย',
       'target': 'เป้าหมายถัดไป',
       'map': 'แผนที่โลก',

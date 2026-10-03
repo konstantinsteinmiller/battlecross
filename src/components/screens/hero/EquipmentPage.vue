@@ -1,5 +1,6 @@
 <template lang="pug">
-  div.equip(:class="{ 'has-sel': !!sel, 'is-dragging': drag.state.active }")
+  //- `data-sel` and `data-coach`: what the equip lesson reads and points at (`coach/features.ts`).
+  div.equip(:class="{ 'has-sel': !!sel, 'is-dragging': drag.state.active }" :data-sel="sel")
     //- ── The paper-doll: the hero, and a socket for every slot round him ─────
     section.equip__doll
       div.doll
@@ -41,7 +42,7 @@
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
       //- The numbers the gear adds up to. A selection shows what it would
       //- change before anything is put on.
-      StatList.equip__stats(:rows="rows" layout="grid")
+      StatList.equip__stats(:rows="rows" layout="grid" data-coach="equip-stats")
 
     //- ── The bag ─────────────────────────────────────────────────────────────
     section.equip__bag.bag(data-drop="bag" :class="{ 'is-target': drag.state.active && drag.state.payload && drag.state.payload.from !== 'bag' }")

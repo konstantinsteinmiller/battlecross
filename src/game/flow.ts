@@ -28,6 +28,7 @@ import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
+import { classifyOnboarding } from './coach/reveal'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -251,6 +252,9 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
 export const createBootMode = async (onProgress: (p01: number) => void = () => {}): Promise<GameMode> => {
   // The portal's own board, when the build carries one: joined on arrival.
   void joinPortalBoard(lifetimeXp())
+  // The save is read (the cloud's too): a new player gets the introductions,
+  // a returning one is past them (`coach/reveal.ts`).
+  classifyOnboarding()
   const at = profile.world.at
   const node: NodeId = isFreshProfile() ? 'plains' : NODE_BY_ID[at]?.kind === 'town' ? at : 'sunford'
   const mode = await buildNode(node, onProgress)

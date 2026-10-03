@@ -9,10 +9,10 @@ import { ZONES, ZONE_FEATURES, ZONE_IDS } from '@/game/data/zones'
 import { ITEM_BY_ID, type ZoneId } from '@/game/data/items'
 import { CHAMPION_REWARD, CHEST_TIERS, POTION_BELT_MAX, ZONE_LOOT, finaleGold, lootZoneOf, manaPotionGold } from '@/game/data/loot'
 import { Sim, SIDE_GROUP } from '@/game/sim/world'
-import { applyPlan, populateZone } from '@/game/sim/director'
-import { createHero, orderMove, useManaPotion, POTION_CD } from '@/game/sim/hero'
+import { applyPlan, leaveVisit, populateZone } from '@/game/sim/director'
+import { createHero, orderAttack, orderMove, useManaPotion, POTION_CD } from '@/game/sim/hero'
 import {
-  CHEST_REACH, FINALE_WAIT, chestLock, nearChest, openChest, orderOpen, pickChest, rollChest, specialKey
+  CHEST_REACH, LEAVE_BEAT, chestLock, nearChest, openChest, orderOpen, pickChest, rollChest, specialKey
 } from '@/game/sim/interact'
 import { stepSim } from '@/game/sim/step'
 import { botThink, referenceBuild, runZone, setupRun } from '@/game/sim/bot'
@@ -800,7 +800,7 @@ describe('the plate puzzle', () => {
 })
 
 describe('the finale\'s chest', () => {
-  it('is locked while the finale stands; after it falls the hero walks over and opens it, and then the visit may close', () => {
+  it('is locked while the finale stands; after it falls the hero opens it himself, and the visit waits for him to leave', () => {
     const { sim, plan } = visit('plains', 3, [], { level: 6 })
     const chest = sim.chests[0]!
     const h = sim.hero
@@ -813,36 +813,78 @@ describe('the finale\'s chest', () => {
     h.unit.z = fin.z + 3
     for (const g of sim.groups) for (const id of g.members) kill(sim, sim.get(id)!, h.unit)
     const gold = h.gold
-    const ev = run(sim, plan, 20, () => sim.endReady)
+    const ev = run(sim, plan, 15)
     expect(sim.ended).toBe('victory')
     expect(ev.filter(e => e.t === 'victory')).toHaveLength(1)
+    // Nobody walks him there and nothing closes the visit by itself.
+    expect(chest.state).toBe('closed')
+    expect(h.order.kind).toBe('none')
+    expect(sim.endReady).toBe(false)
+    // He opens it like any other chest.
+    expect(chestLock(sim, chest)).toBe('')
+    expect(orderOpen(sim, chest.id)).toBe(true)
+    run(sim, plan, 30, () => chest.state === 'open')
     expect(chest.state).toBe('open')
-    expect(sim.endReady).toBe(true)
     // It pays what the finale always paid: its purse, and a piece the hero lacks.
     expect(h.gold - gold).toBe(finaleGold(sim.level))
     expect(h.items.length).toBe(1)
     expect([...sim.dropTable.chest, ...sim.dropTable.mob]).toContain(h.items[0])
-    // The result screen waits for the lid, not for long.
-    expect(sim.endedT).toBeLessThan(FINALE_WAIT + 2)
+    run(sim, plan, 5)
+    expect(sim.endReady).toBe(false)
+    // Leave: the visit closes a short beat later.
+    expect(leaveVisit(sim)).toBe(true)
+    expect(leaveVisit(sim)).toBe(false)
+    run(sim, plan, 2, () => sim.endReady)
+    expect(sim.endReady).toBe(true)
+    expect(sim.time - sim.leaveAt).toBeLessThanOrEqual(LEAVE_BEAT + 0.05)
     expect(h.unit.alive).toBe(true)
   })
 
-  it('opens by itself if the hero cannot reach it, so the zone always pays', () => {
+  it('leaving without opening it opens it on the way out, so the zone always pays', () => {
     const { sim, plan } = visit('plains', 3, [], { level: 6 })
     const chest = sim.chests[0]!
     for (const g of sim.groups) for (const id of g.members) kill(sim, sim.get(id)!, sim.hero.unit)
     run(sim, plan, 0.1)
     expect(sim.ended).toBe('victory')
-    // Wall the hero in where he stands.
-    const u = sim.hero.unit
-    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (di || dj) sim.grid.solid[(cellOf(u.z) + dj) * plan.w + cellOf(u.x) + di] = 1
-    run(sim, plan, FINALE_WAIT + 3, () => sim.endReady)
+    expect(chest.state).toBe('closed')
+    sim.events.length = 0
+    expect(leaveVisit(sim)).toBe(true)
     expect(chest.state).toBe('open')
-    expect(sim.endReady).toBe(true)
+    expect(sim.events.some(e => e.t === 'loot' && e.gold === finaleGold(sim.level))).toBe(true)
     expect(sim.hero.gold).toBeGreaterThanOrEqual(finaleGold(sim.level))
+    // Its loot is seen before the result screen: a longer beat.
+    run(sim, plan, 0.5)
+    expect(sim.endReady).toBe(false)
+    run(sim, plan, 2, () => sim.endReady)
+    expect(sim.endReady).toBe(true)
   })
 
-  it('nothing presses on after the win: the hero cannot be killed on his way to the chest', () => {
+  it('nobody can leave a visit that is not won', () => {
+    const { sim } = visit('plains', 3)
+    expect(leaveVisit(sim)).toBe(false)
+    expect(sim.leaving).toBe(false)
+  })
+
+  it('after the win the place is safe to explore: no harm either way, and the reference player still stops on the win', () => {
+    const { sim, plan } = visit('woods', 7)
+    const h = sim.hero
+    const guard = sim.sideGroups[0] ? sim.get(sim.sideGroups[0].members[0]!) : undefined
+    for (const id of sim.groups[sim.groups.length - 1]!.members) kill(sim, sim.get(id)!, h.unit)
+    run(sim, plan, 0.1)
+    expect(sim.ended).toBe('victory')
+    const foe = sim.units.find(u => u.team === 1 && u.alive)!
+    expect(dealDamage(sim, h.unit, foe, 9999, { type: 'physical' })).toBe(0)
+    expect(foe.alive).toBe(true)
+    // An attack order on a leftover does nothing: there is no one left to fight.
+    orderAttack(sim, foe.id)
+    expect(h.order.kind).not.toBe('attack')
+    if (guard) { expect(guard.alive).toBe(true); expect(guard.awake).toBe(false) }
+    const r = runZone({ zone: 'plains', level: 2, cls: 'aegis', seed: 77 })
+    expect(r.outcome).toBe('victory')
+    expect(r.seconds).toBeLessThan(420)
+  })
+
+  it('nothing presses on after the win: the hero cannot be killed while he walks the place', () => {
     const { sim, plan } = visit('woods', 7)
     const h = sim.hero
     // Wake a pack and let the finale fall with it still alive and on him.

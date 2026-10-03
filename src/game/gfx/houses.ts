@@ -98,6 +98,8 @@ export interface HouseCtx {
 export interface HouseOut {
   /** The front wall, the upper storey and the roof of a house that is walked into. */
   cut: Kit | null
+  /** Its room's furniture (drawn only while the room can be seen). */
+  room: Kit | null
   /** Chimney tops (world), for their smoke. */
   chimneys: Array<[number, number, number]>
   /** Warm lights (world) by the door: lanterns. */
@@ -605,7 +607,8 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
   const cut = enterable ? newKit() : base
   const outer = newKit()
   const front = enterable ? cut : base
-  const out: HouseOut = { cut: enterable ? cut : null, chimneys: [], lamps: [], forge: null, top: 0 }
+  const roomKit = enterable ? newKit() : null
+  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, chimneys: [], lamps: [], forge: null, top: 0 }
   const twoStorey = h.storeys === 2 && !(c.ruined && r() < 0.4)
   const F = h.kind === 'hall' || h.kind === 'chapel' ? 2.6 : h.kind === 'tavern' ? 2.45 : 2.3
   const U = twoStorey ? (h.kind === 'hall' ? 2.0 : 1.8) : 0
@@ -620,7 +623,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
 
   under(base, c.x, c.y, c.z, 0, () => {
     under(outer, c.x, c.y, c.z, 0, () => {
-      if (enterable) under(cut, c.x, c.y, c.z, 0, () => body())
+      if (enterable) under(cut, c.x, c.y, c.z, 0, () => under(roomKit!, c.x, c.y, c.z, 0, () => body()))
       else body()
     })
   })
@@ -825,7 +828,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       }
     })
     // ── The room inside ──
-    if (enterable) room(B, h, W, D, doorX, c, p, r)
+    if (roomKit) room(roomKit, h, W, D, doorX, c, p, r)
     // A ruin: rubble at its feet.
     if (c.ruined) {
       for (let i = 0; i < 4; i++) {

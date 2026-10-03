@@ -49,7 +49,9 @@ export default {
     'guarded': 'Vigilat',
     'locked': 'Tancat',
     'potion': '+1 poció',
-    'manaPotion': '+1 poció de manà'
+    'manaPotion': '+1 poció de manà',
+    'leave': 'Marxa',
+    'chestsLeft': 'Encara hi ha {n} cofres tancats aquí'
   },
   'status': {
     'stun': 'Atordit',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Habilitat 6',
       'potion': 'Beu poció',
       'manaPotion': 'Beu poció de manà',
+      'leave': 'Surt d\'una zona guanyada',
       'interact': 'Parla',
       'target': 'Objectiu següent',
       'map': 'Mapa del món',

@@ -49,7 +49,9 @@ export default {
     'guarded': '有守卫',
     'locked': '已锁住',
     'potion': '药水 +1',
-    'manaPotion': '法力药水 +1'
+    'manaPotion': '法力药水 +1',
+    'leave': '离开',
+    'chestsLeft': '这里还有 {n} 个宝箱未开'
   },
   'status': {
     'stun': '眩晕',
@@ -651,6 +653,7 @@ export default {
       'skill6': '技能 6',
       'potion': '喝药水',
       'manaPotion': '喝法力药水',
+      'leave': '离开已胜利的区域',
       'interact': '交谈',
       'target': '下一个目标',
       'map': '世界地图',

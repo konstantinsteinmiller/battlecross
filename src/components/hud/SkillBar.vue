@@ -55,26 +55,29 @@
           span.slot__count {{ hud.potions }}
           KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="potionCode")
       span.slot__flash(aria-hidden="true")
-    button.slot.slot--potion.slot--mana(
-      type="button"
-      data-mana-potion
-      :class="{ 'is-empty': hud.manaPotions <= 0, 'is-ready': hud.manaPotionReady && hud.manaPotions > 0 }"
-      :aria-label="t('hud.manaPotion', { n: hud.manaPotions })"
-      @pointerdown.prevent="onManaPotion"
-    )
-      FSocket.slot__socket(shape="round" tint="var(--bc-blue)" metal="steel" cork art="skill-frame-potion")
-        span.slot__face.flask
-          span.flask__liquid(:style="{ transform: `translateY(${manaLevel}%)` }")
-          svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
-            path(d="M24 7c6 9.500 12 15 12 22a12 12 0 0 1-24 0c0-7 6-12.500 12-22z")
-        template(#over)
-          span.slot__shine(aria-hidden="true")
-          span.slot__cd(ref="manaCd")
-          span.slot__num(ref="manaNum")
-        template(#badge)
-          span.slot__count {{ hud.manaPotions }}
-          KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="manaPotionCode")
-      span.slot__flash(aria-hidden="true")
+    //- A new player's mana flask arrives with the first mana potion (`coach/reveal.ts`).
+    Transition(name="reveal")
+      button.slot.slot--potion.slot--mana(
+        v-if="revealed('mana')"
+        type="button"
+        data-mana-potion
+        :class="{ 'is-empty': hud.manaPotions <= 0, 'is-ready': hud.manaPotionReady && hud.manaPotions > 0, 'is-glow': glowing('mana') }"
+        :aria-label="t('hud.manaPotion', { n: hud.manaPotions })"
+        @pointerdown.prevent="onManaPotion"
+      )
+        FSocket.slot__socket(shape="round" tint="var(--bc-blue)" metal="steel" cork art="skill-frame-potion")
+          span.slot__face.flask
+            span.flask__liquid(:style="{ transform: `translateY(${manaLevel}%)` }")
+            svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
+              path(d="M24 7c6 9.500 12 15 12 22a12 12 0 0 1-24 0c0-7 6-12.500 12-22z")
+          template(#over)
+            span.slot__shine(aria-hidden="true")
+            span.slot__cd(ref="manaCd")
+            span.slot__num(ref="manaNum")
+          template(#badge)
+            span.slot__count {{ hud.manaPotions }}
+            KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="manaPotionCode")
+        span.slot__flash(aria-hidden="true")
 </template>
 
 <script setup lang="ts">
@@ -106,6 +109,7 @@ import FSocket from '@/components/atoms/FSocket.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
+import { glowing, revealed } from '@/game/coach/reveal'
 
 const { t } = useI18n()
 
@@ -487,8 +491,36 @@ const onManaPotion = (e: PointerEvent): void => {
     transform: scale(1)
   to
     transform: scale(1.14)
+// ── The mana flask's arrival (a new player's first mana potion) ──────────────
+// A pop with an overshoot; then a soft blue glow until it is first drunk.
+.reveal-enter-active
+  animation: slot-reveal 620ms cubic-bezier(0.34, 1.56, 0.64, 1) both
+.slot--mana.is-glow::before
+  content: ''
+  position: absolute
+  inset: -18%
+  border-radius: 50%
+  background: radial-gradient(circle, rgba(127, 208, 255, 0.6) 0, rgba(127, 208, 255, 0) 70%)
+  animation: slot-glow 1.8s ease-in-out infinite
+  pointer-events: none
+@keyframes slot-reveal
+  0%
+    transform: scale(0)
+    opacity: 0
+  55%
+    transform: scale(1.3)
+    opacity: 1
+  100%
+    transform: scale(1)
+@keyframes slot-glow
+  0%, 100%
+    opacity: 0.4
+    transform: scale(0.94)
+  50%
+    opacity: 1
+    transform: scale(1.1)
 @media (prefers-reduced-motion: reduce)
-  .is-ready .slot__shine, .is-nomana .slot__cost, .is-aiming .slot__aim
+  .is-ready .slot__shine, .is-nomana .slot__cost, .is-aiming .slot__aim, .reveal-enter-active, .slot--mana.is-glow::before
     animation: none
   .slot
     transition: none

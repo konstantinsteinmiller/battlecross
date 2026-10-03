@@ -43,6 +43,10 @@ const CHUNK = 20
 interface Cut {
   house: number
   group: Group
+  /** The room's furniture, and where its door is. */
+  room: Group | null
+  dx: number
+  dz: number
   mat: CelMaterial
   line: ShaderMaterial
   glow: MeshBasicMaterial
@@ -125,7 +129,7 @@ export class TownView {
       const out: HouseOut = buildHouse(kitAt(x, z), h, { style: t.style, ruined: t.ruined, low: v.low, x, y: groundAt(x, z), z, job: owner?.job ?? (h.owners.length ? undefined : undefined), cls: h.cls })
       v.chimneys.push(...out.chimneys)
       if (out.forge) v.forges.push(out.forge)
-      if (out.cut) v.addCut(hi, out.cut)
+      if (out.cut) v.addCut(hi, out.cut, out.room, (h.doorI + 0.5) * CELL, (h.j0 + h.cd) * CELL)
       if ((hi & 1) === 1) await slice()
     }
     // ── Props, fences, the yards' dummies ──
@@ -180,7 +184,7 @@ export class TownView {
   }
 
   /** A house's front, upper storey and roof: their own materials, so they can fade. */
-  private addCut(house: number, k: Kit): void {
+  private addCut(house: number, k: Kit, roomKit: Kit | null, dx: number, dz: number): void {
     const group = new Group()
     const mat = rigToon()
     const line = rigOutline()
@@ -191,7 +195,16 @@ export class TownView {
     if (!k.hull.empty) { const g = k.hull.welded(); this.owned.push(g); const o = new Mesh(g, line); o.renderOrder = -1; group.add(o) }
     if (!k.glow.empty) { const g = k.glow.build(); this.owned.push(g); group.add(new Mesh(g, glow)) }
     this.root.add(group)
-    this.cuts.push({ house, group, mat, line, glow, a: 1 })
+    let room: Group | null = null
+    if (roomKit && (!roomKit.hull.empty || !roomKit.detail.empty)) {
+      room = new Group()
+      const lit = new Mesher().append(roomKit.hull).append(roomKit.detail)
+      if (!lit.empty) { const g = lit.build(); this.owned.push(g); room.add(new Mesh(g, celVC())) }
+      if (!roomKit.hull.empty) { const g = roomKit.hull.welded(); this.owned.push(g); const o = new Mesh(g, outlineMat()); o.renderOrder = -1; room.add(o) }
+      if (!roomKit.glow.empty) { const g = roomKit.glow.build(); this.owned.push(g); room.add(new Mesh(g, glowVC())) }
+      this.root.add(room)
+    }
+    this.cuts.push({ house, group, room, dx, dz, mat, line, glow, a: 1 })
   }
 
   private addDummy(x: number, z: number, rot: number, stone: boolean, ruined: boolean): void {
@@ -412,6 +425,8 @@ export class TownView {
       if (c.glow.transparent !== tr) { c.glow.transparent = tr; c.glow.depthWrite = !tr; c.glow.needsUpdate = true }
       c.glow.opacity = a
       c.group.visible = a > 0.01
+      // The room is only seen through the open roof, or through the doorway from close by.
+      if (c.room) c.room.visible = a < 0.999 || Math.abs(hx - c.dx) < 7 && Math.abs(hz - c.dz) < 9
       // It lifts a little as it goes, so the eye reads it as a lid coming off.
       c.group.position.y = (1 - a) * (1 - a) * 0.8
     }

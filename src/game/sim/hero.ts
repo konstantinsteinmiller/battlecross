@@ -104,6 +104,8 @@ export const orderAttack = (sim: Sim, targetId: number): void => {
   const h = sim.hero
   const t = sim.live(targetId)
   if (!t) return
+  // After a win there is nobody left to fight.
+  if (sim.ended && t.team === 1) return
   h.order.kind = t.team === 1 ? 'attack' : 'interact'
   h.order.targetId = targetId
   h.queued = null
@@ -450,7 +452,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
 
   // Nothing ordered: answer whoever is on top of him.
   u.anim = 'idle'
-  if (hasStatus(u, 'stealth')) return
+  if (hasStatus(u, 'stealth') || sim.ended) return
   const near = nearestAwake(sim, u, u.s.atkStyle === 'melee' ? AUTO_ENGAGE : u.s.atkRange)
   if (near && (u.s.atkStyle === 'melee' || hasLineOfSight(sim.grid, u.x, u.z, near.x, near.z))) {
     h.order.kind = 'attack'

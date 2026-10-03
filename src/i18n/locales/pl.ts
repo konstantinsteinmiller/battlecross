@@ -49,7 +49,9 @@ export default {
     'guarded': 'Strzeżone',
     'locked': 'Zamknięte',
     'potion': '+1 mikstura',
-    'manaPotion': '+1 mikstura many'
+    'manaPotion': '+1 mikstura many',
+    'leave': 'Odejdź',
+    'chestsLeft': 'Zostało tu jeszcze {n} zamkniętych skrzyń'
   },
   'status': {
     'stun': 'Ogłuszenie',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Umiejętność 6',
       'potion': 'Wypij miksturę',
       'manaPotion': 'Wypij miksturę many',
+      'leave': 'Opuść wygraną strefę',
       'interact': 'Rozmawiaj',
       'target': 'Następny cel',
       'map': 'Mapa świata',

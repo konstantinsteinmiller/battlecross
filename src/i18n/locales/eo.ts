@@ -49,7 +49,9 @@ export default {
     'guarded': 'Gardata',
     'locked': 'Ŝlosita',
     'potion': '+1 pocio',
-    'manaPotion': '+1 manaopocio'
+    'manaPotion': '+1 manaopocio',
+    'leave': 'Foriri',
+    'chestsLeft': 'Ankoraŭ {n} fermitaj kestoj ĉi tie'
   },
   'status': {
     'stun': 'Stuporigita',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Kapablo 6',
       'potion': 'Trinki pocion',
       'manaPotion': 'Trinki manaopocion',
+      'leave': 'Forlasi venkitan zonon',
       'interact': 'Paroli',
       'target': 'Sekva celo',
       'map': 'Mondmapo',

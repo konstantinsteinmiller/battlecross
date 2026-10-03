@@ -547,6 +547,8 @@ export const buildPaving = (m: Mesher, plan: { w: number; h: number; trail: Uint
       const k = j * plan.w + i
       if (!plan.trail[k]) continue
       const inSquare = i >= sq.i0 && i <= sq.i1 && j >= sq.j0 && j <= sq.j1
+      // A weak device paves the square only: the streets keep their worn sand.
+      if (c.low && !inSquare) continue
       const x0 = i * CELL
       const z0 = j * CELL
       // Ruined streets have lost stones.

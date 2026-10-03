@@ -49,7 +49,9 @@ export default {
     'guarded': 'Păzit',
     'locked': 'Încuiat',
     'potion': '+1 poțiune',
-    'manaPotion': '+1 poțiune de mană'
+    'manaPotion': '+1 poțiune de mană',
+    'leave': 'Pleacă',
+    'chestsLeft': 'Mai sunt {n} cufere închise aici'
   },
   'status': {
     'stun': 'Amețit',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Abilitatea 6',
       'potion': 'Bea poțiunea',
       'manaPotion': 'Bea poțiunea de mană',
+      'leave': 'Părăsește o zonă câștigată',
       'interact': 'Vorbește',
       'target': 'Ținta următoare',
       'map': 'Harta lumii',

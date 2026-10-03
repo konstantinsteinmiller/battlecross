@@ -49,7 +49,9 @@ export default {
     'guarded': 'Bevogtet',
     'locked': 'Låst',
     'potion': '+1 eliksir',
-    'manaPotion': '+1 manaeliksir'
+    'manaPotion': '+1 manaeliksir',
+    'leave': 'Forlad',
+    'chestsLeft': '{n} kister er stadig lukket her'
   },
   'status': {
     'stun': 'Lammet',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Evne 6',
       'potion': 'Drik eliksir',
       'manaPotion': 'Drik manaeliksir',
+      'leave': 'Forlad et vundet område',
       'interact': 'Tal',
       'target': 'Næste mål',
       'map': 'Verdenskort',

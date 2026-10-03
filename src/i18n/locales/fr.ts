@@ -49,7 +49,9 @@ export default {
     'guarded': 'Gardé',
     'locked': 'Verrouillé',
     'potion': '+1 potion',
-    'manaPotion': '+1 potion de mana'
+    'manaPotion': '+1 potion de mana',
+    'leave': 'Partir',
+    'chestsLeft': 'Encore {n} coffres fermés ici'
   },
   'status': {
     'stun': 'Étourdi',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Compétence 6',
       'potion': 'Boire une potion',
       'manaPotion': 'Boire une potion de mana',
+      'leave': 'Quitter une zone gagnée',
       'interact': 'Parler',
       'target': 'Cible suivante',
       'map': 'Carte du monde',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Őrzik',
     'locked': 'Zárva',
     'potion': '+1 ital',
-    'manaPotion': '+1 manaital'
+    'manaPotion': '+1 manaital',
+    'leave': 'Távozás',
+    'chestsLeft': 'Még {n} zárt láda van itt'
   },
   'status': {
     'stun': 'Kábult',
@@ -651,6 +653,7 @@ export default {
       'skill6': '6. képesség',
       'potion': 'Ital megivása',
       'manaPotion': 'Manaital megivása',
+      'leave': 'Megnyert terület elhagyása',
       'interact': 'Beszélgetés',
       'target': 'Következő célpont',
       'map': 'Világtérkép',

@@ -49,7 +49,9 @@ export default {
     'guarded': 'Vartioitu',
     'locked': 'Lukittu',
     'potion': '+1 juoma',
-    'manaPotion': '+1 manajuoma'
+    'manaPotion': '+1 manajuoma',
+    'leave': 'Poistu',
+    'chestsLeft': 'Täällä on vielä {n} suljettua arkkua'
   },
   'status': {
     'stun': 'Tainnutettu',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Kyky 6',
       'potion': 'Juo juoma',
       'manaPotion': 'Juo manajuoma',
+      'leave': 'Poistu voitetulta alueelta',
       'interact': 'Puhu',
       'target': 'Seuraava kohde',
       'map': 'Maailmankartta',

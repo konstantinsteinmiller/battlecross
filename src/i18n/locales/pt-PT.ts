@@ -49,7 +49,9 @@ export default {
     'guarded': 'Guardado',
     'locked': 'Trancado',
     'potion': '+1 poção',
-    'manaPotion': '+1 poção de mana'
+    'manaPotion': '+1 poção de mana',
+    'leave': 'Sair',
+    'chestsLeft': 'Ainda há {n} baús fechados aqui'
   },
   'status': {
     'stun': 'Atordoado',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Habilidade 6',
       'potion': 'Beber poção',
       'manaPotion': 'Beber poção de mana',
+      'leave': 'Sair de uma zona ganha',
       'interact': 'Falar',
       'target': 'Alvo seguinte',
       'map': 'Mapa do mundo',

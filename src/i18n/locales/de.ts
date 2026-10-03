@@ -49,7 +49,9 @@ export default {
     'guarded': 'Bewacht',
     'locked': 'Verschlossen',
     'potion': '+1 Trank',
-    'manaPotion': '+1 Manatrank'
+    'manaPotion': '+1 Manatrank',
+    'leave': 'Verlassen',
+    'chestsLeft': 'Hier sind noch {n} Truhen verschlossen'
   },
   'status': {
     'stun': 'Betäubt',
@@ -651,6 +653,7 @@ export default {
       'skill6': 'Fähigkeit 6',
       'potion': 'Trank trinken',
       'manaPotion': 'Manatrank trinken',
+      'leave': 'Gewonnenes Gebiet verlassen',
       'interact': 'Sprechen',
       'target': 'Nächstes Ziel',
       'map': 'Weltkarte',

@@ -202,6 +202,8 @@ export { wakeGroup }
  */
 export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, o: HitOpts): number => {
   if (!tgt.alive || base <= 0) return 0
+  // A won zone: the fight is over, nobody hurts anybody (the hero explores in peace).
+  if (sim.ended === 'victory' && sim.mode === 'zone') return 0
   const hero = sim.hero?.unit
   const toHero = tgt === hero
   const srcMods = src?.s.mods

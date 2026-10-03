@@ -28,9 +28,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   impact effect sized to the blow, so an attack is always visible.
 - [ ] #40 **Better human models.** Heroes, townsfolk and human enemies stop
   reading as dolls: proportions, hands, faces, hair, layered clothing.
-- [ ] #41 **Town houses redesigned.** Believable, appealing buildings (timber
+- [x] #41 ✅ **Town houses redesigned.** Believable, appealing buildings (timber
   frame, stone base, roofs with overhang, chimneys, windows, doors, signs).
-- [ ] #42 **Town life.** Trainers and townsfolk have a place and a small
+- [x] #42 ✅ **Town life.** Trainers and townsfolk have a place and a small
   routine (wander a small area, eat, drink, smoke, spar, small-talk); some
   trainers are inside houses instead of standing in a row.
 - [ ] #43 **Ground attack previews redrawn.** Cleaner shapes, a readable fill

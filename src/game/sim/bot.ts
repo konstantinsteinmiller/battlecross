@@ -5,6 +5,7 @@ import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
 import { castSkill, createHero, orderAttack, orderMove, slotState, useManaPotion, usePotion } from './hero'
+import { orderOpen } from './interact'
 import { heroStats, sumBuild, type HeroBuild } from './stats'
 import { stepSim } from './step'
 import { generateZone, type ZonePlan } from './zoneGen'
@@ -128,7 +129,14 @@ export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
 export const botThink = (sim: Sim): void => {
   const h = sim.hero
   const u = h.unit
-  if (!u.alive || sim.ended) return
+  if (!u.alive) return
+  if (sim.ended) {
+    // A won zone: like a player, it goes and opens the finale's chest (the
+    // recorder's win clips end on it). `runZone` itself stops at the win.
+    const c = sim.ended === 'victory' ? sim.chests.find(x => x.role === 'finale') : undefined
+    if (c && c.state === 'closed' && h.order.kind === 'none' && !u.action) orderOpen(sim, c.id)
+    return
+  }
   if (u.hp < u.s.maxHp * 0.4) usePotion(sim)
   if (h.manaPotions > 0 && h.manaPotionCd <= 0 && u.mana < u.s.maxMana * 0.25) useManaPotion(sim)
   // The nearest enemy that is awake; if none, the next pack that still stands.

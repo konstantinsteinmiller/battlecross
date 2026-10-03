@@ -9,7 +9,7 @@ import { MAP, TOWNS } from '@/game/data/zones'
 import { QUESTS, FACTIONS, EPILOGUE_FLAGS } from '@/game/data/quests'
 import { ATTRS } from '@/game/data/attributes'
 import { ACTIONS } from '@/game/engine/keyBindings'
-import { LESSONS } from '@/game/coach'
+import { ALL_LESSON_IDS } from '@/game/coach'
 import { GLYPHS } from '@/components/art/glyphs'
 import { CONVERSATIONS, conversationOf, decisionOf } from '@/game/data/dialogs'
 import { linesOf } from '@/game/dialog/manifest'
@@ -138,7 +138,8 @@ describe('i18n coverage', () => {
   it('the coach, the controls page and the key bindings have their sentences', () => {
     const missing: string[] = []
     const need = (k: string): void => { if (!has(k)) missing.push(k) }
-    for (const l of LESSONS) { need(`coach.${l.id}.touch`); need(`coach.${l.id}.mouse`) }
+    // Every lesson, the controls' and the features' (roadmap #52), for both hands.
+    for (const id of ALL_LESSON_IDS) { need(`coach.${id}.touch`); need(`coach.${id}.mouse`) }
     for (const a of ACTIONS) need(`options.actions.${a}`)
     expect(missing).toEqual([])
   })

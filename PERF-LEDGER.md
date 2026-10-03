@@ -121,3 +121,41 @@ Kept. Not measured: a real phone GPU's cost of the vertex texture fetch (four
 per vertex on ~2.6 k mark / preview vertices). If a device shows it, the
 first cut is the tessellation (`TESS` in `telegraphs.ts`, the marks' 16 × 16
 plane) behind `sceneQuality() === 'low'`.
+
+
+## 2026-10-03: towns (houses, props, interiors, town life)
+
+Roadmap #41, #42. What a town costs now (`gfx/townView.ts`, `houses.ts`,
+`townProps.ts`; the sim's `townLife.ts`):
+
+| | Before | After |
+| --- | --- | --- |
+| Town geometry (houses, props, fences, cobbles), whole town | ~1 k tris (pillow houses) | 49–56 k tris lit at full, 40–45 k on a weak device (+ 7–11 k in outline hulls) |
+| Draws, whole town | 3 | merged per 20 m quarter (lit + hull + glow), + 3 per room's cut, + 1 per room, + 2 per dummy / animal, + 1 cobbles, + 1 smoke, + 1 bubbles |
+| Drawn per frame, phone portrait | — | +28–35 draws, +53–73 k tris (in-session A/B, town view shown vs hidden) |
+| People in Sunford | 7 statues | 7 cast + 7 folk (3 on a weak device), all walking a routine |
+
+Frame work, phone 390 × 780, touch, 4× CPU throttle, Sunford (no fight):
+
+| Run | Scenery | Frames in 24 s | Work p50 | Work p95 | Interval p50 |
+| --- | --- | --- | --- | --- | --- |
+| before | low | 380 | 26.1 ms | 47.7 ms | 50 ms |
+| before | full | 364 | 28.3 ms | 46.1 ms | 50 ms |
+| after (machine busy: 10–13 of 20 budget workers in use) | low | 215 | 42.4 ms | 65.8 ms | 66.7 ms |
+| after (machine busy) | full | 145 | 55.2 ms | 87.7 ms | 83.4 ms |
+
+In-session A/B on the same page (town view shown vs hidden, same units, low,
+three rounds of 12 s): p50 35.0 / 36.6 / 58.2 ms shown, 34.3 / 47.4 / 54.4 ms
+hidden; the spread between rounds is larger than between arms.
+
+CPU profile (Sunford, 10 s, no throttle): 76 % idle; `gfx/townView.ts` 0.1 %,
+`sim/townLife.ts` 0.1 %, `rigs/townClips.ts` < 0.05 %. What the town adds is
+raster (SwiftShader draws in software): more triangles and more people.
+
+Kept. Done so that it stays cheap: one merged mesh per quarter of the town;
+small details carry no outline hull; faces flush against a wall are never
+built; a room's furniture is drawn only while it can be seen (the cut open,
+or the hero at its door); smoke is alpha puffs from one instanced draw (none
+on a weak device), bubbles one instanced draw; a weak device keeps only the
+`lite` folk, paves the square only, and drops pickets, braces, jetty joists,
+vegetables and half the shingle rows. Not measured on a real phone GPU.
