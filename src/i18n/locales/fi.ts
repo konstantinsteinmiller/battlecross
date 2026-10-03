@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Tyhjyyden sikiö',
     voidLord: 'Tyhjyyden herra',
     orderGuard: 'Ritarikunnan inkvisiittori',
-    syndicateBlade: 'Syndikaatin terä'
+    syndicateBlade: 'Syndikaatin terä',
+    goblinWarchief: 'Hiisisotapäällikkö',
+    thornfather: 'Orjantappuraisä',
+    broodMother: 'Sikiöemo',
+    banditBaron: 'Rosvoparoni',
+    cinderGolem: 'Hiillosgolemi',
+    frostHowler: 'Pakkasulvoja',
+    tideSerpent: 'Vuorovesikäärme',
+    riftKnight: 'Repeämän ritari',
+    wyvernMatriarch: 'Lohikäärmeemo'
   },
   results: {
     victory: 'Voitto!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Menetetty',
     kills: 'Voitetut',
     chests: 'Arkut',
+    bosses: 'Pomot',
+    mastery: 'Alueen hallinta',
+    masteryPct: '{n} %',
+    newBest: 'Uusi ennätys!',
     time: 'Aika',
     unlocked: 'Uutta kartalla: {places}',
     equipped: 'Varusteena',

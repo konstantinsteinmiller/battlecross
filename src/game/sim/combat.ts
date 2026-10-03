@@ -434,12 +434,15 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     grantXp(sim, xp)
     h.gold += gold
     let item = ''
-    const table = u.rank === 'boss' ? sim.dropTable.boss : sim.dropTable.mob
-    const chance = u.rank === 'boss' ? 1 : u.rank === 'elite' ? 0.3 : u.rank === 'weak' ? 0.015 : 0.05
+    // A branch boss pays in its chest: it drops like an elite, never the
+    // finale's promised piece.
+    const finaleBoss = u.rank === 'boss' && !def.branch
+    const table = finaleBoss ? sim.dropTable.boss : sim.dropTable.mob
+    const chance = finaleBoss ? 1 : u.rank === 'elite' || u.rank === 'boss' ? 0.3 : u.rank === 'weak' ? 0.015 : 0.05
     if (table.length && sim.rng() < chance) {
       // Something the hero does not own yet, if there is one.
       const fresh = table.filter(id => !sim.owned.has(id) && !h.items.includes(id))
-      const pool = fresh.length ? fresh : u.rank === 'boss' ? [] : table
+      const pool = fresh.length ? fresh : finaleBoss ? [] : table
       if (pool.length) {
         item = pool[Math.floor(sim.rng() * pool.length)]!
         h.items.push(item)

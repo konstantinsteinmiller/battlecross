@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Rejeton du Vide',
     voidLord: 'Le Seigneur du Vide',
     orderGuard: 'Inquisiteur de l’Ordre',
-    syndicateBlade: 'Lame du Syndicat'
+    syndicateBlade: 'Lame du Syndicat',
+    goblinWarchief: 'Chef de guerre gobelin',
+    thornfather: 'Père-des-Épines',
+    broodMother: 'Mère de la Couvée',
+    banditBaron: 'Baron des bandits',
+    cinderGolem: 'Golem de braise',
+    frostHowler: 'Hurleur du givre',
+    tideSerpent: 'Serpent des marées',
+    riftKnight: 'Chevalier de la Faille',
+    wyvernMatriarch: 'Matriarche vouivre'
   },
   results: {
     victory: 'Victoire !',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdu',
     kills: 'Ennemis vaincus',
     chests: 'Coffres',
+    bosses: 'Boss',
+    mastery: 'Maîtrise de la zone',
+    masteryPct: '{n} %',
+    newBest: 'Nouveau record !',
     time: 'Temps',
     unlocked: 'Nouveau sur la carte : {places}',
     equipped: 'Équipé',

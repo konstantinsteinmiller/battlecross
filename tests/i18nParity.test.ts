@@ -19,20 +19,75 @@ const flatten = (obj: any, prefix = ''): string[] => {
   return out.sort()
 }
 
-const enKeys = flatten(en)
+// A feminine variant (`<key>__f`, roadmap #71: `src/i18n/gendered.ts`) is
+// OPTIONAL in every locale — a language adds one only where it inflects for
+// the girl hero — so variants are left out of the shape and held to their own
+// rules below.
+const isVariant = (k: string): boolean => k.endsWith('__f')
+const baseOf = (k: string): string => k.slice(0, -3)
+const enAll = flatten(en)
+const enKeys = enAll.filter(k => !isVariant(k))
+
+const stringIn = (obj: any, path: string): string | null => {
+  let cur: any = obj
+  for (const p of path.split('.')) cur = cur?.[p]
+  return typeof cur === 'string' ? cur : null
+}
+const slots = (s: string): string[] => (s.match(/\{[a-zA-Z]+\}/g) ?? []).sort()
+
+/**
+ * What is wrong with a locale's feminine variants: each must be a non-empty
+ * string, stand next to a base key that English has AND this locale has, and
+ * carry exactly the base's `{placeholders}` (form by form for a plural).
+ */
+const variantProblems = (msgs: any, english: any = en): string[] => {
+  const bad: string[] = []
+  for (const k of flatten(msgs).filter(isVariant)) {
+    const base = baseOf(k)
+    const v = stringIn(msgs, k)
+    const own = stringIn(msgs, base)
+    if (!v) { bad.push(`${k}: not a non-empty string`); continue }
+    if (stringIn(english, base) === null) { bad.push(`${k}: English has no "${base}"`); continue }
+    if (own === null) { bad.push(`${k}: no "${base}" beside it`); continue }
+    const a = own.split('|').map(f => slots(f).join())
+    const b = v.split('|').map(f => slots(f).join())
+    if (a.length !== b.length || a.some((x, i) => x !== b[i])) bad.push(`${k}: placeholders ${b.join(' | ')} differ from ${a.join(' | ')}`)
+  }
+  return bad
+}
 
 describe('every shipped locale mirrors the English key shape', () => {
   for (const code of LANGUAGES) {
     if (code === 'en') continue
     it(`${code} has no missing or extra keys`, async () => {
       const mod = await import(`../src/i18n/locales/${code}.ts`)
-      const keys = flatten(mod.default)
+      const keys = flatten(mod.default).filter(k => !isVariant(k))
       const missing = enKeys.filter((k) => !keys.includes(k))
       const extra = keys.filter((k) => !enKeys.includes(k))
       expect(missing, `${code} is MISSING keys`).toEqual([])
       expect(extra, `${code} has EXTRA keys`).toEqual([])
     })
   }
+})
+
+describe('feminine variants (`<key>__f`) stand on their base key', () => {
+  for (const code of LANGUAGES) {
+    it(`${code}: every variant has its base, and the same placeholders`, async () => {
+      const mod = code === 'en' ? { default: en } : await import(`../src/i18n/locales/${code}.ts`)
+      expect(variantProblems(mod.default)).toEqual([])
+    })
+  }
+
+  it('the rule itself passes a good variant and catches an orphan, a blank, a missing base and a dropped placeholder', () => {
+    const english = { dlg: { ok: 'You came, {name}.', blank: 'Ready?', slot: '{n} on the road', alone: 'Hi.' } }
+    const msgs = {
+      dlg: {
+        'ok': 'Ты пришёл, {name}.', 'ok__f': 'Ты пришла, {name}.',
+        'nobase__f': 'x', 'blank': 'Готов?', 'blank__f': '', 'slot': '{n} в пути', 'slot__f': 'в пути', 'alone__f': 'Привет.'
+      }
+    }
+    expect(variantProblems(msgs, english).map(s => s.split(':')[0]).sort()).toEqual(['dlg.alone__f', 'dlg.blank__f', 'dlg.nobase__f', 'dlg.slot__f'])
+  })
 })
 
 describe('interpolation placeholders survive translation', () => {

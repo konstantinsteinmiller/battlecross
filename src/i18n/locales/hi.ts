@@ -2637,7 +2637,16 @@ export default {
     voidling: 'शून्य-शावक',
     voidLord: 'शून्य का स्वामी',
     orderGuard: 'संघ का जाँच-अधिकारी',
-    syndicateBlade: 'सिंडिकेट का खड्ग'
+    syndicateBlade: 'सिंडिकेट का खड्ग',
+    goblinWarchief: 'गोब्लिन युद्ध-सरदार',
+    thornfather: 'काँटों का पिता',
+    broodMother: 'संतानों की माता',
+    banditBaron: 'डाकू सामंत',
+    cinderGolem: 'अंगार गोलेम',
+    frostHowler: 'पाला हुंकार',
+    tideSerpent: 'ज्वार सर्प',
+    riftKnight: 'दरार योद्धा',
+    wyvernMatriarch: 'वाइवर्न कुलमाता'
   },
   results: {
     victory: 'जीत!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'गिर गया',
     kills: 'हराए गए',
     chests: 'संदूक',
+    bosses: 'बॉस',
+    mastery: 'क्षेत्र पर महारत',
+    masteryPct: '{n}%',
+    newBest: 'नया सर्वश्रेष्ठ!',
     time: 'समय',
     unlocked: 'नक्शे पर नया: {places}',
     equipped: 'पहना हुआ',

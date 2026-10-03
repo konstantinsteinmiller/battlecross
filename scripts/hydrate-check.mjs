@@ -10,7 +10,9 @@
  * in-memory "cloud" this script owns. Four cases, each in a fresh browser
  * profile (no localStorage carried over):
  *
- *   A  an empty cloud        → a first-timer: boots into the opening fight
+ *   A  an empty cloud        → a first-timer: boots into the opening fight,
+ *      is asked for the hero (roadmap #71), picks the girl hero, and the pick
+ *      reaches the cloud blob (B, D and E: a returning save is never asked)
  *   B  a developed cloud save → a RETURNING player: boots into their town,
  *      at their level, with their gear, skills, map and choices — the save
  *      came from the SDK alone (the device had nothing)
@@ -156,7 +158,10 @@ const boot = async ({ cloud, failReads = 0, delayMs = 0 }) => {
       // What the save layer reports, and what is DRAWN (the HUD's own text).
       hydrate: window.__saveManager ? window.__saveManager.hydrateState : null,
       hudLevel: document.querySelector('.hero-frame__level')?.textContent?.trim() ?? null,
-      hudGold: document.querySelector('.hero-frame .gold span')?.textContent?.replace(/\D/g, '') ?? null
+      hudGold: document.querySelector('.hero-frame .gold span')?.textContent?.replace(/\D/g, '') ?? null,
+      // The hero choice (roadmap #71): up only for a new save, and the hero it saved.
+      choice: !!document.querySelector('.hero-choice'), gender: p.hero.gender,
+      paused: g.app.running === false
     }
   })
   return { ctx, page, read, errors }
@@ -176,6 +181,18 @@ try {
     check('boots into the opening fight', s.screen === 'zone' && s.node === 'plains', `${s.screen}/${s.node}`)
     check('level 1 with the starter kit', s.level === 1 && s.main === 'rustedShortsword' && s.learned.join() === 'shieldSlam')
     check('the save layer reports an EMPTY cloud (not a failure)', s.hydrate === 'success-empty', String(s.hydrate))
+    // Roadmap #71: a first-timer picks a hero before the fight moves; the pick
+    // goes to the cloud with the rest of the one blob.
+    await b.page.waitForSelector('.hero-choice [data-hero="f"]', { timeout: 8000 }).catch(() => {})
+    const asked = await b.read()
+    check('a first-timer is asked for the hero (boy or girl), the fight held still', asked.choice && asked.paused, `choice ${asked.choice}, paused ${asked.paused}`)
+    await b.page.waitForTimeout(900)
+    await b.page.locator('.hero-choice [data-hero="f"]').click().catch(() => {})
+    await b.page.waitForSelector('.hero-choice', { state: 'detached', timeout: 6000 }).catch(() => {})
+    await b.page.evaluate(async () => { const s = await import('/src/use/useSaveStatus.ts'); await s.flushSaveNow() })
+    await b.page.waitForTimeout(1200)
+    const after = await b.read()
+    check('the pick is the girl hero, saved to the cloud blob; the fight runs', !after.choice && after.gender === 'f' && after.cloudState?.bc_hero?.gender === 'f' && !after.paused, `gender ${after.gender}, cloud ${after.cloudState?.bc_hero?.gender}, paused ${after.paused}`)
     check('no page errors', b.errors.length === 0, b.errors.join(' | '))
     await b.ctx.close()
   }
@@ -191,6 +208,7 @@ try {
     check('map, flags and the quest decision are the cloud\'s', s.cleared.length === 4 && s.flags.includes('goblinPact') && s.quest === 'pact')
     check('the save layer reports a cloud read WITH data', s.hydrate === 'success-with-data', String(s.hydrate))
     check('the player SEES it: the HUD draws level 9 and 1234 gold', s.hudLevel === '9' && s.hudGold === '1234', `level "${s.hudLevel}", gold "${s.hudGold}"`)
+    check('a returning save is never asked for its hero, and is the boy hero it always was', !s.choice && s.gender === 'm', `choice ${s.choice}, gender ${s.gender}`)
 
     console.log('\nC  what is played is written back as one blob')
     await b.page.evaluate(() => {
@@ -232,6 +250,11 @@ try {
     check('the retry lands and the profile in memory becomes the cloud\'s, without a reload', s.level === 9 && s.gold === 1234 && s.learned.length === 3, `lv ${s.level} gold ${s.gold}`)
     check('the cloud save is still intact afterwards', s.cloudState?.bc_level === 9 && s.cloudState?.bc_gold === 1234)
     check('the save layer now reports the cloud read', s.hydrate === 'success-with-data', String(s.hydrate))
+    // It booted as a first-timer, so the hero choice may have been up; the
+    // returning save that landed takes it down and lets the game run.
+    await b.page.waitForTimeout(800)
+    const d2 = await b.read()
+    check('the hero choice a failed boot put up is gone once the save lands, and the game runs', !d2.choice && !d2.paused && d2.gender === 'm', `choice ${d2.choice}, paused ${d2.paused}, at first ${first.choice}`)
     await b.ctx.close()
   }
 
@@ -242,6 +265,7 @@ try {
     check('the game waited for it: the returning player boots into their town', s.screen === 'town' && s.node === 'sunford' && s.level === 9, `${s.screen}/${s.node} lv ${s.level}`)
     check('…and the HUD draws their level and gold', s.hudLevel === '9' && s.hudGold === '1234', `level "${s.hudLevel}", gold "${s.hudGold}"`)
     check('the slow boot wrote nothing over the cloud', s.cloudState?.bc_level === 9 && s.cloudState?.bc_gold === 1234)
+    check('…and never asked the returning player for a hero', !s.choice, `choice ${s.choice}`)
     check('no page errors', b.errors.length === 0, b.errors.join(' | '))
     await b.ctx.close()
   }

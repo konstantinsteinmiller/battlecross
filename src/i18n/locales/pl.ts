@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Pomiot Pustki',
     voidLord: 'Władca Pustki',
     orderGuard: 'Inkwizytor Zakonu',
-    syndicateBlade: 'Ostrze Syndykatu'
+    syndicateBlade: 'Ostrze Syndykatu',
+    goblinWarchief: 'Goblin wódz wojenny',
+    thornfather: 'Ojciec Cierni',
+    broodMother: 'Matka Lęgu',
+    banditBaron: 'Baron Bandytów',
+    cinderGolem: 'Żarowy Golem',
+    frostHowler: 'Mroźny Wyjec',
+    tideSerpent: 'Wąż Przypływu',
+    riftKnight: 'Rycerz Szczeliny',
+    wyvernMatriarch: 'Matriarchini Wywern'
   },
   results: {
     victory: 'Zwycięstwo!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Utracono',
     kills: 'Pokonani',
     chests: 'Skrzynie',
+    bosses: 'Bossowie',
+    mastery: 'Opanowanie strefy',
+    masteryPct: '{n}%',
+    newBest: 'Nowy rekord!',
     time: 'Czas',
     unlocked: 'Nowe na mapie: {places}',
     equipped: 'Założone',

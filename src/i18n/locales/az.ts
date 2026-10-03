@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Heçlik Balası',
     voidLord: 'Heçlik Lordu',
     orderGuard: 'Orden İnkvizitoru',
-    syndicateBlade: 'Sindikat Tiyəsi'
+    syndicateBlade: 'Sindikat Tiyəsi',
+    goblinWarchief: 'Qoblin Sərkərdəsi',
+    thornfather: 'Tikan Atası',
+    broodMother: 'Yuva Anası',
+    banditBaron: 'Quldur Baronu',
+    cinderGolem: 'Köz Qolemi',
+    frostHowler: 'Şaxta Ulayanı',
+    tideSerpent: 'Qabarma İlanı',
+    riftKnight: 'Yarıq Cəngavəri',
+    wyvernMatriarch: 'Viverna Anası'
   },
   results: {
     victory: 'Qələbə!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'İtirildi',
     kills: 'Məğlub edildi',
     chests: 'Sandıqlar',
+    bosses: 'Bosslar',
+    mastery: 'Ərazi ustalığı',
+    masteryPct: '{n}%',
+    newBest: 'Yeni rekord!',
     time: 'Vaxt',
     unlocked: 'Xəritədə yeni: {places}',
     equipped: 'Təchiz olunub',

@@ -2,7 +2,7 @@ import { mulberry32, type Rng } from './rng'
 import { createGrid, nearestOpen, type Grid } from './grid'
 import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
-import type { ChestRole } from './zoneFeatures'
+import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type {
   Action, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
 } from './types'
@@ -111,6 +111,24 @@ export interface GroupState {
 /** Side groups are numbered from here, so a unit's `group` tells which list it is in. */
 export const SIDE_GROUP = 1000
 
+/** A way off the main road as the visit plays it (roadmap #70; `route.ts`). */
+export interface BranchState {
+  id: number
+  kind: BranchPlan['kind']
+  /** Main clearings: the fork and the rejoin (-1: a dead end). */
+  from: number
+  to: number
+  /** Its clearing (metres) and the way's bends from the fork to its end. */
+  x: number
+  z: number
+  way: ReadonlyArray<{ x: number; z: number }>
+  /** The side group that holds it, and the chest it pays (-1: none). */
+  group: number
+  chest: number
+  /** Its signpost by the road (null: none stands). */
+  fork: { x: number; z: number } | null
+}
+
 /** One thing a chest holds, decided when the visit began. */
 export interface LootDraw {
   kind: LootKind
@@ -212,6 +230,8 @@ export class Sim {
   groups: GroupState[] = []
   /** Optional packs (a chest's guard, a champion): ids from `SIDE_GROUP`. */
   sideGroups: GroupState[] = []
+  /** The ways off the main road and what holds them (roadmap #70). */
+  branches: BranchState[] = []
   groupsDone = 0
   chests: ChestState[] = []
   plates: PlateState[] = []

@@ -29,7 +29,7 @@ import { isGameIconName } from '@/components/icons/iconNames'
 import { MARKS } from '@/components/icons/marks'
 import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
 import { EMBLEM_BODY } from '@/game/art/brandRefs'
-import { HERO_OUTFITS, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
+import { HERO_OUTFITS, heroGenderOfId, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
@@ -98,11 +98,14 @@ describe('the manifest covers the game', () => {
     // 2 x 2 sheet. Never a single `hero` file: the vector bust follows every
     // piece he wears, a painting can only follow his outfit.
     expect(idsOf('sheet-portraits-hero')).toEqual(['hero-tunic', 'hero-leather', 'hero-robe', 'hero-plate'])
-    expect([blanksOf('sheet-portraits-town'), blanksOf('sheet-portraits-trainers'), blanksOf('sheet-portraits-speakers'), blanksOf('sheet-portraits-hero')]).toEqual([0, 1, 1, 0])
+    // The girl hero (roadmap #71): the same four, on a sheet of her own.
+    expect(idsOf('sheet-portraits-girl')).toEqual(['hero-f-tunic', 'hero-f-leather', 'hero-f-robe', 'hero-f-plate'])
+    expect([blanksOf('sheet-portraits-town'), blanksOf('sheet-portraits-trainers'), blanksOf('sheet-portraits-speakers'), blanksOf('sheet-portraits-hero'), blanksOf('sheet-portraits-girl')]).toEqual([0, 1, 1, 0, 0])
     for (const o of HERO_OUTFITS) expect(targets.has(`images/portraits/hero-${o}.webp`), o).toBe(true)
+    for (const o of HERO_OUTFITS) expect(targets.has(`images/portraits/hero-f-${o}.webp`), o).toBe(true)
     // voidLord never speaks.
     for (const id of ['hero', 'voidLord']) expect(targets.has(`images/portraits/${id}.webp`), id).toBe(false)
-    expect(ART_CATALOGUE.portraits).toHaveLength(26)
+    expect(ART_CATALOGUE.portraits).toHaveLength(30)
   })
 
   it('the hero sheet is one character four times: the prompt says so before the style, and only the clothes change', () => {
@@ -115,8 +118,27 @@ describe('the manifest covers the game', () => {
     expect(text).toContain('#f2c8a0')
     expect(text).toContain('ONLY THE CLOTHES CHANGE')
     expect(text.indexOf('ONE CHARACTER')).toBeLessThan(text.indexOf(STYLE_PART))
-    // The other portrait sheets are many people, and say nothing of the kind.
-    for (const s of SETS) if (s.kind === 'portraits' && s !== hero) expect(promptBlocks().find(b => b.stem === s.stem)!.text, s.stem).not.toContain('ONE CHARACTER')
+    // The other portrait sheets are many people, and say nothing of the kind
+    // (the girl hero's is one character too, below).
+    const girl = SETS.find(s => s.stem === 'sheet-portraits-girl')!
+    for (const s of SETS) if (s.kind === 'portraits' && s !== hero && s !== girl) expect(promptBlocks().find(b => b.stem === s.stem)!.text, s.stem).not.toContain('ONE CHARACTER')
+  })
+
+  it('the girl hero\'s sheet is one character too: her face and ponytail, the boy\'s portraits only as the finish', () => {
+    const girl = SETS.find(s => s.stem === 'sheet-portraits-girl')!
+    expect(sheetSize(girl)).toEqual({ width: 512, height: 512 })
+    expect([girl.anchor, girl.crop]).toEqual(['feet', 0.8])
+    const block = promptBlocks().find(b => b.stem === 'sheet-portraits-girl')!
+    expect(block.text).toContain('ONE CHARACTER — all 4 panels are the SAME young girl hero')
+    // The hair, eyes and ribbon the rig wears (`HERO_HEAD.f`), and the same skin as his.
+    const look = heroLook(heroSampleEquipped('tunic'), 'f')
+    expect(look.head).toBe('ponytail')
+    for (const hex of [look.hair, look.eye!, '#e0505e', look.skin]) expect(block.text, hex).toContain(hex)
+    expect(block.text).toContain('ponytail')
+    expect(block.text).toContain('ONLY THE CLOTHES CHANGE')
+    expect(block.text).toContain('Never his face')
+    expect(block.text.indexOf('ONE CHARACTER')).toBeLessThan(block.text.indexOf(STYLE_PART))
+    expect(block.styleRefs).toEqual(['public/images/portraits/hero-tunic.webp', 'public/images/portraits/hero-plate.webp'])
   })
 
   it('the hero\'s outfit family comes from his worn body piece, the same way his rig is dressed', () => {
@@ -136,6 +158,12 @@ describe('the manifest covers the game', () => {
     expect(HERO_OUTFITS.map(o => heroOutfitOfId(heroPortraitId(o)))).toEqual([...HERO_OUTFITS])
     expect(heroOutfitOfId('hero')).toBeNull()
     expect(heroOutfitOfId('hero-cape')).toBeNull()
+    // The girl hero's paintings (roadmap #71): `hero-f-<outfit>`.
+    expect(heroPortraitId('plate', 'f')).toBe('hero-f-plate')
+    expect(HERO_OUTFITS.map(o => heroOutfitOfId(heroPortraitId(o, 'f')))).toEqual([...HERO_OUTFITS])
+    expect(HERO_OUTFITS.map(o => [heroGenderOfId(heroPortraitId(o)), heroGenderOfId(heroPortraitId(o, 'f'))])).toEqual(HERO_OUTFITS.map(() => ['m', 'f']))
+    expect(heroGenderOfId('hero-f-cape')).toBeNull()
+    expect(heroGenderOfId('healer')).toBeNull()
     // Each family's reference bust wears that family's body piece, and no helmet.
     for (const o of HERO_OUTFITS) {
       const eq = heroSampleEquipped(o)
@@ -188,7 +216,8 @@ describe('the manifest covers the game', () => {
     // screen backdrops; and every other icon (`ICON_SETS`).
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot.
-    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3 + icons + 2)
+    // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
+    expect(seen.size).toBe(62 + 48 + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -488,7 +517,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {

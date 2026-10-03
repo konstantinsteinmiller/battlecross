@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Izrod Praznine',
     voidLord: 'Gospodar Praznine',
     orderGuard: 'Inkvizitor Reda',
-    syndicateBlade: 'Oštrica Sindikata'
+    syndicateBlade: 'Oštrica Sindikata',
+    goblinWarchief: 'Goblinski ratni poglavica',
+    thornfather: 'Otac trnja',
+    broodMother: 'Majka legla',
+    banditBaron: 'Razbojnički barun',
+    cinderGolem: 'Žarni golem',
+    frostHowler: 'Mrazni urlikač',
+    tideSerpent: 'Plimna zmija',
+    riftKnight: 'Vitez pukotine',
+    wyvernMatriarch: 'Matrijarhinja viverna'
   },
   results: {
     victory: 'Pobjeda!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Izgubljeno',
     kills: 'Poraženo',
     chests: 'Škrinje',
+    bosses: 'Šefovi',
+    mastery: 'Ovladavanje područjem',
+    masteryPct: '{n} %',
+    newBest: 'Novi rekord!',
     time: 'Vrijeme',
     unlocked: 'Novo na karti: {places}',
     equipped: 'Opremljeno',

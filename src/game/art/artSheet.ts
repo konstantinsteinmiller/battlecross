@@ -74,13 +74,15 @@ const TOWN_LOOKS = ['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'capt
 const TRAINER_LOOKS = ['trainerAegis', 'trainerShadow', 'trainerPyro', 'trainerSovereign', 'trainerChrono', 'trainerBlood', 'trainerAether', 'trainerGeo'] as const
 const SPEAKER_LOOKS = ['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon'] as const
 /** The hero, once per outfit family: `hero-tunic` … `hero-plate`. */
-const HERO_LOOKS: readonly string[] = HERO_OUTFITS.map(heroPortraitId)
+const HERO_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o))
+/** The girl hero (roadmap #71), the same four: `hero-f-tunic` … `hero-f-plate`. */
+const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 'f'))
 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: ITEMS.map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
   ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
   textures: ['ground'],
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
@@ -261,7 +263,13 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   'hero-tunic': 'the hero in his starting clothes: a plain blue cloth tunic with a gold collar line and a red cape at the shoulders',
   'hero-leather': 'the hero in a fitted brown leather jerkin with a pale collar line and a red cape at the shoulders',
   'hero-robe': 'the hero in a royal-blue cloth robe with a green collar line and a red cape at the shoulders',
-  'hero-plate': 'the hero in polished steel plate armour with rounded shoulder plates, a green collar line and a red cape at the shoulders'
+  'hero-plate': 'the hero in polished steel plate armour with rounded shoulder plates, a green collar line and a red cape at the shoulders',
+  // The girl hero (roadmap #71): the same four outfits; her face, hair and
+  // ribbon are her sheet's ONE CHARACTER clause.
+  'hero-f-tunic': 'the girl hero in her starting clothes: a plain blue cloth tunic with a gold collar line and a red cape at the shoulders',
+  'hero-f-leather': 'the girl hero in a fitted brown leather jerkin with a pale collar line and a red cape at the shoulders',
+  'hero-f-robe': 'the girl hero in a royal-blue cloth robe with a green collar line and a red cape at the shoulders',
+  'hero-f-plate': 'the girl hero in polished steel plate armour with rounded shoulder plates, a green collar line and a red cape at the shoulders'
 }
 
 const COIN_BLURB = 'a thick round gold coin seen flat from the front: an orange-gold rim, a lighter raised centre disc stamped with one five-pointed star, and one short curved highlight at the upper left'
@@ -527,6 +535,24 @@ export const SETS: readonly ArtSet[] = [
       '· The same skin in every panel: fair and warm (about #f2c8a0).',
       '· ONLY THE CLOTHES CHANGE between the panels, as each panel\'s line says. No helmet, no hat, no hood: the face and hair always show.',
       '· Four different people side by side is the wrong answer however well each is painted. Hold panel 1 against panel 4: if the face is not obviously the same person, it is not usable.'
+    ].join('\n')
+  },
+  {
+    // The girl hero (roadmap #71): the player picks her or the boy on the
+    // first boot, so she is painted exactly like him: the same artist, the
+    // same age and proportions, her own face. His finished portraits go along
+    // as the finish to match, never as her face.
+    ...portraitSet('sheet-portraits-girl', 'Portraits: the girl hero, per outfit', HERO_F_LOOKS, 2, 2),
+    styleRefs: ['public/images/portraits/hero-tunic.webp', 'public/images/portraits/hero-plate.webp'],
+    oneCharacter: [
+      'ONE CHARACTER — all 4 panels are the SAME young girl hero, the player\'s own character, painted four times. That is the whole point of this sheet.',
+      '· The same face in every panel: the same head shape, the same big eyes with dark lashes flicking out at the outer corners, the same fine arched brows, the same small smile and rosy cheeks, the same proportions, the same age. A likeable, determined chibi adventurer girl, young but not a child.',
+      '· The same hair in every panel: warm auburn (about #9a4526), a soft side-swept fringe, one lock framing each cheek, and a high ponytail at the back of the head tied with a red ribbon bow (about #e0505e); the ponytail shows beside the head.',
+      '· The same skin in every panel: fair and warm (about #f2c8a0). Green eyes (about #3fa66a).',
+      '· ONLY THE CLOTHES CHANGE between the panels, as each panel\'s line says. No helmet, no hat, no hood: the face and hair always show.',
+      '· Four different people side by side is the wrong answer however well each is painted. Hold panel 1 against panel 4: if the face is not obviously the same person, it is not usable.',
+      '',
+      'ATTACHED IMAGES — the first 2 are finished portraits of the BOY hero of this same game. She is his counterpart, a different person: take from them ONLY the finish and the hand — the outline, the hard-edged shading, the head size, the age, the proportions, the way the bust is cut. Never his face, never his short brown hair. The LAST image is the layout reference.'
     ].join('\n')
   },
   ...ICON_SETS

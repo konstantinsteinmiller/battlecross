@@ -304,6 +304,15 @@ export default {
     'maxLevel': 'Highest level reached',
     'next': 'Next point:'
   },
+  // The hero choice on a new save's first boot, and its toggle on the
+  // character page (roadmap #71). `boy` / `girl` are the portraits' names
+  // for screen readers.
+  'heroChoice': {
+    'title': 'Choose your hero',
+    'boy': 'Play as the boy',
+    'girl': 'Play as the girl',
+    'switch': 'Your hero'
+  },
 
   // ─── Skills ───────────────────────────────────────────────────────────────
   'skills': {
@@ -1478,7 +1487,16 @@ export default {
     'voidling': 'Voidling',
     'voidLord': 'The Void Lord',
     'orderGuard': 'Order Inquisitor',
-    'syndicateBlade': 'Syndicate Blade'
+    'syndicateBlade': 'Syndicate Blade',
+    'goblinWarchief': 'Goblin Warchief',
+    'thornfather': 'Thornfather',
+    'broodMother': 'Brood Mother',
+    'banditBaron': 'Bandit Baron',
+    'cinderGolem': 'Cinder Golem',
+    'frostHowler': 'Frost Howler',
+    'tideSerpent': 'Tide Serpent',
+    'riftKnight': 'Rift Knight',
+    'wyvernMatriarch': 'Wyvern Matriarch'
   },
 
   // ─── End of a visit ───────────────────────────────────────────────────────
@@ -1495,6 +1513,10 @@ export default {
     'lost': 'Dropped',
     'kills': 'Defeated',
     'chests': 'Chests',
+    'bosses': 'Bosses',
+    'mastery': 'Zone mastery',
+    'masteryPct': '{n}%',
+    'newBest': 'New best!',
     'time': 'Time',
     'unlocked': 'New on the map: {places}',
     'equipped': 'Equipped',

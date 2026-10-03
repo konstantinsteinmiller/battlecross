@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Бостық төлі',
     voidLord: 'Бостық әміршісі',
     orderGuard: 'Орден инквизиторы',
-    syndicateBlade: 'Синдикат жүзі'
+    syndicateBlade: 'Синдикат жүзі',
+    goblinWarchief: 'Гоблин соғыс көсемі',
+    thornfather: 'Тікен әкесі',
+    broodMother: 'Ұя анасы',
+    banditBaron: 'Қарақшы барон',
+    cinderGolem: 'Шоқ голем',
+    frostHowler: 'Аяз ұлығышы',
+    tideSerpent: 'Толқын жыланы',
+    riftKnight: 'Жарық рыцары',
+    wyvernMatriarch: 'Виверна анасы'
   },
   results: {
     victory: 'Жеңіс!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Жоғалды',
     kills: 'Жеңілді',
     chests: 'Сандықтар',
+    bosses: 'Бастар',
+    mastery: 'Аймақты меңгеру',
+    masteryPct: '{n}%',
+    newBest: 'Жаңа рекорд!',
     time: 'Уақыт',
     unlocked: 'Картадағы жаңалық: {places}',
     equipped: 'Жабдықталған',

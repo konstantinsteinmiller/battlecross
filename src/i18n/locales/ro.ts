@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Pui al Vidului',
     voidLord: 'Stăpânul Vidului',
     orderGuard: 'Inchizitor al Ordinului',
-    syndicateBlade: 'Lamă a Sindicatului'
+    syndicateBlade: 'Lamă a Sindicatului',
+    goblinWarchief: 'Căpetenie de război goblin',
+    thornfather: 'Tatăl Spinilor',
+    broodMother: 'Mama Puietului',
+    banditBaron: 'Baronul Tâlharilor',
+    cinderGolem: 'Golem de Jar',
+    frostHowler: 'Urlătorul Gerului',
+    tideSerpent: 'Șarpele Mareei',
+    riftKnight: 'Cavalerul Faliei',
+    wyvernMatriarch: 'Matriarha Wyvernilor'
   },
   results: {
     victory: 'Victorie!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Pierdut',
     kills: 'Învinși',
     chests: 'Cufere',
+    bosses: 'Șefi',
+    mastery: 'Stăpânirea zonei',
+    masteryPct: '{n}%',
+    newBest: 'Record nou!',
     time: 'Timp',
     unlocked: 'Nou pe hartă: {places}',
     equipped: 'Echipat',

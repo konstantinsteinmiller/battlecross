@@ -58,22 +58,81 @@ describe('humanoid rig', () => {
     for (const [id, look] of Object.entries(LOOKS)) expect(buildHumanoid(look, 1).tris, id).toBeLessThanOrEqual(HERO_BUDGET)
   })
 
-  it('keeps the hero within budget in every weapon, off hand and armour he can wear', () => {
+  it('keeps the hero within budget in every weapon, off hand and armour he can wear (the boy and the girl hero)', () => {
     const mains = ITEMS.filter(i => i.slot === 'main')
     const offs = [null, ...ITEMS.filter(i => i.slot === 'off').map(i => i.id)]
     const bodies = [null, ...ITEMS.filter(i => i.slot === 'body').map(i => i.id)]
-    let worst = 0
-    for (const main of mains) {
-      for (const body of bodies) {
-        const off = offs[(mains.indexOf(main) + bodies.indexOf(body)) % offs.length]!
-        const look = heroLook({ ...bare, main: main.id, off, body })
-        expect(look.hero).toBe(true)
-        const tris = buildHumanoid(look, 2).tris
-        worst = Math.max(worst, tris)
-        expect(tris, `${main.id} + ${off} + ${body}`).toBeLessThanOrEqual(HERO_BUDGET)
+    for (const gender of ['m', 'f'] as const) {
+      let worst = 0
+      for (const main of mains) {
+        for (const body of bodies) {
+          const off = offs[(mains.indexOf(main) + bodies.indexOf(body)) % offs.length]!
+          const look = heroLook({ ...bare, main: main.id, off, body }, gender)
+          expect(look.hero).toBe(true)
+          const tris = buildHumanoid(look, 2).tris
+          worst = Math.max(worst, tris)
+          expect(tris, `${gender}: ${main.id} + ${off} + ${body}`).toBeLessThanOrEqual(HERO_BUDGET)
+        }
+      }
+      expect(worst, gender).toBeGreaterThan(1800)
+    }
+  })
+})
+
+describe('the girl hero (roadmap #71)', () => {
+  const boy = heroLook(bare)
+  const girl = heroLook(bare, 'f')
+
+  it('is the same chibi in the same gear, with her own head: a ponytail, lashes, finer brows', () => {
+    expect(boy.head).toBe('short')
+    expect(boy.fem).toBeUndefined()
+    expect(girl.head).toBe('ponytail')
+    expect(girl.style).toBe('ponytail')
+    expect(girl.fem).toBe(true)
+    expect(girl.hair).not.toBe(boy.hair)
+    expect(girl.eye).not.toBe(boy.eye)
+    // Everything the gear decides is the boy's.
+    for (const k of ['outfit', 'top', 'bottom', 'trim', 'held', 'off', 'cape', 'metal', 'skin', 'bulk'] as const) expect(girl[k], k).toEqual(boy[k])
+    expect(lookKey(girl)).not.toBe(lookKey(boy))
+    // The default is the boy hero: every caller that does not know of the choice keeps today's look.
+    expect(lookKey(heroLook(bare, 'm'))).toBe(lookKey(boy))
+  })
+
+  it('builds with every bone at every detail level; her ponytail swings on the hair spring', () => {
+    for (const detail of [0, 1, 2] as const) {
+      const rig = buildHumanoid(girl, detail)
+      for (const b of NEEDED) expect(rig.bones[b], `@${detail} ${b}`).toBeDefined()
+      for (const b of ['browL', 'browR', 'lids', 'mouth']) expect(rig.bones[b], `@${detail} ${b}`).toBeDefined()
+      // The tail hangs from high on the back of the head, not from the nape.
+      const hinge = rig.bones.hairB!.position
+      expect(hinge.y, 'hinge height').toBeGreaterThan(rig.bones.lids!.position.y - 0.05)
+      expect(hinge.z, 'behind the head').toBeLessThan(-0.2)
+    }
+    // A boy's back hair hinges at the nape, lower.
+    expect(buildHumanoid(boy, 2).bones.hairB!.position.y).toBeLessThan(buildHumanoid(girl, 2).bones.hairB!.position.y)
+  })
+
+  it('costs a little more than the boy and stays within the hero budget, and is leaner on a weak device', () => {
+    const b = buildHumanoid(boy, 2).tris
+    const g = buildHumanoid(girl, 2).tris
+    expect(g).toBeGreaterThan(b)
+    expect(g - b).toBeLessThan(400)
+    expect(g).toBeLessThanOrEqual(HERO_BUDGET)
+    expect(buildHumanoid(girl, 0).tris).toBeLessThan(buildHumanoid(girl, 1).tris)
+  })
+
+  it('wears every head gear layer over her ponytail, within budget', () => {
+    const keys = new Set<string>()
+    for (const head of ['ponytail', 'hood', 'cap', 'leathercap', 'helm', 'greathelm', 'circlet', 'hat', 'wizard'] as const) {
+      for (const g of ['none', 'cloth', 'leather', 'plate'] as const) {
+        const look: Look = { ...girl, head, headCol: '#c9d3e4', gloves: g, boots: g, cape: '#c9483a', pauldrons: true, outfit: 'plate', held: 'greatsword', off: 'shield' }
+        keys.add(lookKey(look))
+        const rig = buildHumanoid(look, 2)
+        expect(rig.tris, `${head} / ${g}`).toBeLessThanOrEqual(HERO_BUDGET)
+        expect(rig.bones.hairB, head).toBeDefined()
       }
     }
-    expect(worst).toBeGreaterThan(1800)
+    expect(keys.size).toBe(9 * 4)
   })
 })
 

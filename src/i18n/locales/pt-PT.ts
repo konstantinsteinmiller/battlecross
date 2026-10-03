@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Cria do Vazio',
     voidLord: 'O Senhor do Vazio',
     orderGuard: 'Inquisidor da Ordem',
-    syndicateBlade: 'Lâmina do Sindicato'
+    syndicateBlade: 'Lâmina do Sindicato',
+    goblinWarchief: 'Caudilho Goblin',
+    thornfather: 'Pai dos Espinhos',
+    broodMother: 'Mãe da Ninhada',
+    banditBaron: 'Barão Bandido',
+    cinderGolem: 'Golem de Brasa',
+    frostHowler: 'Uivador da Geada',
+    tideSerpent: 'Serpente da Maré',
+    riftKnight: 'Cavaleiro da Fenda',
+    wyvernMatriarch: 'Matriarca Serpe'
   },
   results: {
     victory: 'Vitória!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdido',
     kills: 'Derrotados',
     chests: 'Baús',
+    bosses: 'Chefes',
+    mastery: 'Domínio da zona',
+    masteryPct: '{n}%',
+    newBest: 'Novo recorde!',
     time: 'Tempo',
     unlocked: 'Novo no mapa: {places}',
     equipped: 'Equipado',

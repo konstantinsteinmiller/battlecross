@@ -2637,7 +2637,16 @@ export default {
     voidling: '虛空幼體',
     voidLord: '虛空領主',
     orderGuard: '騎士團審判官',
-    syndicateBlade: '商會刀客'
+    syndicateBlade: '商會刀客',
+    goblinWarchief: '哥布林督軍',
+    thornfather: '荊棘之父',
+    broodMother: '巢母',
+    banditBaron: '盜匪男爵',
+    cinderGolem: '餘燼魔像',
+    frostHowler: '霜嚎獸',
+    tideSerpent: '潮汐巨蛇',
+    riftKnight: '裂隙騎士',
+    wyvernMatriarch: '雙足飛龍女王'
   },
   results: {
     victory: '勝利！',
@@ -2652,6 +2661,10 @@ export default {
     lost: '損失',
     kills: '擊敗',
     chests: '寶箱',
+    bosses: '首領',
+    mastery: '區域精通',
+    masteryPct: '{n}%',
+    newBest: '新紀錄！',
     time: '時間',
     unlocked: '地圖新增：{places}',
     equipped: '已裝備',

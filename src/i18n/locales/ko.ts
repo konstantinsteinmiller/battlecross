@@ -2637,7 +2637,16 @@ export default {
     voidling: '공허 새끼',
     voidLord: '공허의 군주',
     orderGuard: '기사단 심문관',
-    syndicateBlade: '신디케이트 칼잡이'
+    syndicateBlade: '신디케이트 칼잡이',
+    goblinWarchief: '고블린 전쟁 족장',
+    thornfather: '가시의 아버지',
+    broodMother: '무리의 어미',
+    banditBaron: '산적 남작',
+    cinderGolem: '잉걸불 골렘',
+    frostHowler: '서리 울부짖개',
+    tideSerpent: '조수의 뱀',
+    riftKnight: '균열의 기사',
+    wyvernMatriarch: '와이번 여왕'
   },
   results: {
     victory: '승리!',
@@ -2652,6 +2661,10 @@ export default {
     lost: '잃음',
     kills: '처치',
     chests: '상자',
+    bosses: '보스',
+    mastery: '지역 정복도',
+    masteryPct: '{n}%',
+    newBest: '최고 기록!',
     time: '시간',
     unlocked: '지도에 새로 열림: {places}',
     equipped: '장착 중',

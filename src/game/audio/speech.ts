@@ -1,5 +1,6 @@
 import { registerOneShotSource } from '@/use/useAssets'
 import { VOICE_FILES } from '../assets/overrides'
+import { genderedId } from '@/i18n/gendered'
 import { audio, canPlay, duckMusic } from './engine'
 
 /**
@@ -16,9 +17,12 @@ import { audio, canPlay, duckMusic } from './engine'
  * mute buttons and the ad / pause gates hold for speech exactly as for SFX.
  */
 
-/** The recording of a line for a language ('' = none). */
-export const voiceUrl = (lang: string, id: string): string =>
-  VOICE_FILES.get(`${lang}/${id}`) ?? VOICE_FILES.get(`en/${id}`) ?? ''
+/** The recording of a line for a language ('' = none). For the girl hero a
+ *  line's own feminine take (`<id>__f`, roadmap #71) comes first. */
+export const voiceUrl = (lang: string, id: string): string => {
+  const own = genderedId(id, (v) => VOICE_FILES.has(`${lang}/${v}`) || VOICE_FILES.has(`en/${v}`))
+  return VOICE_FILES.get(`${lang}/${own}`) ?? VOICE_FILES.get(`en/${own}`) ?? ''
+}
 
 const buffers = new Map<string, Promise<AudioBuffer | null>>()
 let current: AudioBufferSourceNode | null = null

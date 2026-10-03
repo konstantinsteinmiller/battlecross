@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Leegteling',
     voidLord: 'De Leegteheer',
     orderGuard: 'Inquisiteur van de Orde',
-    syndicateBlade: 'Syndicaatskling'
+    syndicateBlade: 'Syndicaatskling',
+    goblinWarchief: 'Goblin-krijgsheer',
+    thornfather: 'Doornvader',
+    broodMother: 'Broedmoeder',
+    banditBaron: 'Banditenbaron',
+    cinderGolem: 'Sintelgolem',
+    frostHowler: 'Vorsthuiler',
+    tideSerpent: 'Getijdenslang',
+    riftKnight: 'Kloofridder',
+    wyvernMatriarch: 'Wyvernmatriarch'
   },
   results: {
     victory: 'Overwinning!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Verloren',
     kills: 'Verslagen',
     chests: 'Kisten',
+    bosses: 'Bazen',
+    mastery: 'Gebiedsbeheersing',
+    masteryPct: '{n}%',
+    newBest: 'Nieuw record!',
     time: 'Tijd',
     unlocked: 'Nieuw op de kaart: {places}',
     equipped: 'Aangetrokken',

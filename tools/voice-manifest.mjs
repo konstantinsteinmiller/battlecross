@@ -37,18 +37,23 @@ const text = (key) => {
   return typeof cur === 'string' ? cur : ''
 }
 
+// The girl hero (roadmap #71): her own take of every line the hero speaks
+// (speaker `heroine`), and a take of any line whose English has a feminine
+// variant, each under its own id `<id>__f` (see `feminineTakes`).
+const heroic = (s) => s === 'hero' || s === 'heroine'
 const lines = dialogLines(SPOKEN, text).map(l => ({
   id: l.id,
   speaker: l.speaker,
   // Who it is, in words (the person ADDRESSED, for a line of the hero's).
-  who: l.speaker === 'hero' ? 'The hero' : l.speaker === 'narrator' ? 'The storyteller' : text(l.name),
+  who: l.speaker === 'hero' ? 'The hero' : l.speaker === 'heroine' ? 'The girl hero' : l.speaker === 'narrator' ? 'The storyteller' : text(l.name),
   ...(l.look && l.look !== l.speaker ? { look: l.look } : {}),
   scene: l.scene,
-  ...(l.speaker === 'hero' && l.name ? { to: text(l.name) } : {}),
+  ...(heroic(l.speaker) && l.name ? { to: text(l.name) } : {}),
   emotion: l.emotion,
   ...(l.gesture ? { gesture: l.gesture } : {}),
   text: l.text,
-  file: l.file
+  file: l.file,
+  ...(l.variantOf ? { variantOf: l.variantOf } : {})
 }))
 
 const speakers = {}

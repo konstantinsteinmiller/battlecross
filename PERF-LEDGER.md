@@ -446,3 +446,28 @@ only while the front is lifted), so the frame is unchanged:
 The layout runs when a town is built (a 10 cm walking grid per room, cached
 between pieces): `tests/game/roomLayout.test.ts` arranges every room of the
 three towns twice over in ~0.5 s.
+
+## 2026-10-03: branching ways and branch bosses (roadmap #70)
+
+A zone with branches is 60 cells wide instead of 40: the main chain is laid
+exactly as before and set in by 10 cells of rock on each side, where the
+loops and the boss arenas run. More ground and more scenery are built, but
+the camera sees the same window. The view adds one signpost per fork, merged
+into the level-prop tiles, so it costs no extra draw call.
+
+Method: the Ironhold Mines, phone 390 × 780, preview staging (the same fight,
+frozen), one frame counted, then 60 renders timed. A/B arm: `?branches=0`
+(DEV only) builds the zone as one road at the old width. Arms interleaved,
+two runs each, and the counts were equal in both runs.
+
+| Spot | `low` calls / tris, one road → branches | `full` calls / tris, one road → branches |
+| --- | --- | --- |
+| pack 1 | 67 / 60.6 k → 75 / 66.8 k | 73 / 84.4 k → 76 / 98.6 k |
+| pack 2 | 76 / 74.9 k → 78 / 81.3 k | 79 / 100.1 k → 75 / 91.7 k |
+| finale | 46 / 40.9 k → 52 / 41.4 k | 54 / 70.0 k → 57 / 58.3 k |
+
+CPU per `render()`: 0.4 to 1.6 ms in both arms, with no pattern across the
+runs (noise on a busy machine). Building the zone, as staged, takes the same
+time in both arms: 0.5 to 1.7 s per staging. Read: up to 8 more draw calls
+on `low` where a way's mouth is in view; on `full` it goes either way,
+because the scenery is laid out differently. Kept.

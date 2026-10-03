@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Порождение Пустоты',
     voidLord: 'Владыка Пустоты',
     orderGuard: 'Инквизитор Ордена',
-    syndicateBlade: 'Клинок Синдиката'
+    syndicateBlade: 'Клинок Синдиката',
+    goblinWarchief: 'Гоблин-военачальник',
+    thornfather: 'Отец Терний',
+    broodMother: 'Мать Выводка',
+    banditBaron: 'Барон разбойников',
+    cinderGolem: 'Угольный голем',
+    frostHowler: 'Морозный ревун',
+    tideSerpent: 'Змей прилива',
+    riftKnight: 'Рыцарь Разлома',
+    wyvernMatriarch: 'Матриарх виверн'
   },
   results: {
     victory: 'Победа!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Потеряно',
     kills: 'Побеждено',
     chests: 'Сундуки',
+    bosses: 'Боссы',
+    mastery: 'Освоение зоны',
+    masteryPct: '{n}%',
+    newBest: 'Новый рекорд!',
     time: 'Время',
     unlocked: 'Новое на карте: {places}',
     equipped: 'Надето',

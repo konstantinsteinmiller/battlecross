@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Tukšuma radījums',
     voidLord: 'Tukšuma pavēlnieks',
     orderGuard: 'Ordeņa inkvizitors',
-    syndicateBlade: 'Sindikāta asmens'
+    syndicateBlade: 'Sindikāta asmens',
+    goblinWarchief: 'Goblinu karavadonis',
+    thornfather: 'Ērkšķu tēvs',
+    broodMother: 'Perējuma māte',
+    banditBaron: 'Laupītāju barons',
+    cinderGolem: 'Ogļu golems',
+    frostHowler: 'Sala gaudotājs',
+    tideSerpent: 'Paisuma čūska',
+    riftKnight: 'Plaisas bruņinieks',
+    wyvernMatriarch: 'Vivernu matriarhe'
   },
   results: {
     victory: 'Uzvara!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Zaudēts',
     kills: 'Sakauti',
     chests: 'Lādes',
+    bosses: 'Bosi',
+    mastery: 'Zonas apgūšana',
+    masteryPct: '{n} %',
+    newBest: 'Jauns rekords!',
     time: 'Laiks',
     unlocked: 'Jaunums kartē: {places}',
     equipped: 'Aprīkots',

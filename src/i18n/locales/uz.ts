@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Boʻshliq bolasi',
     voidLord: 'Boʻshliq hukmdori',
     orderGuard: 'Orden inkvizitori',
-    syndicateBlade: 'Sindikat tigʻi'
+    syndicateBlade: 'Sindikat tigʻi',
+    goblinWarchief: 'Goblin sarkardasi',
+    thornfather: 'Tikanlar otasi',
+    broodMother: 'Uya onasi',
+    banditBaron: 'Qaroqchi baron',
+    cinderGolem: 'Choʻgʻ golemi',
+    frostHowler: 'Ayoz uvlovchisi',
+    tideSerpent: 'Toʻlqin iloni',
+    riftKnight: 'Yoriq ritsari',
+    wyvernMatriarch: 'Viverna onasi'
   },
   results: {
     victory: 'Gʻalaba!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Yoʻqotildi',
     kills: 'Yengildi',
     chests: 'Sandiqlar',
+    bosses: 'Boslar',
+    mastery: 'Hududni egallash',
+    masteryPct: '{n}%',
+    newBest: 'Yangi rekord!',
     time: 'Vaqt',
     unlocked: 'Xaritada yangi: {places}',
     equipped: 'Jihozlangan',

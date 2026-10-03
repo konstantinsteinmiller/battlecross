@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Ürességfajzat',
     voidLord: 'Az Üresség Ura',
     orderGuard: 'Rendi inkvizítor',
-    syndicateBlade: 'Szindikátusi penge'
+    syndicateBlade: 'Szindikátusi penge',
+    goblinWarchief: 'Goblin hadvezér',
+    thornfather: 'Tövisatya',
+    broodMother: 'Fészekanya',
+    banditBaron: 'Rablóbáró',
+    cinderGolem: 'Parázsgólem',
+    frostHowler: 'Fagyüvöltő',
+    tideSerpent: 'Árapálykígyó',
+    riftKnight: 'Hasadéklovag',
+    wyvernMatriarch: 'Sárkánygyík-anya'
   },
   results: {
     victory: 'Győzelem!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Elvesztve',
     kills: 'Legyőzve',
     chests: 'Ládák',
+    bosses: 'Főellenségek',
+    mastery: 'Terület uralása',
+    masteryPct: '{n}%',
+    newBest: 'Új csúcs!',
     time: 'Idő',
     unlocked: 'Új a térképen: {places}',
     equipped: 'Felszerelve',

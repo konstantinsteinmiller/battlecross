@@ -27,6 +27,16 @@
         div(v-if="r.chests")
           dt {{ t('results.chests') }}
           dd {{ r.chests.opened }} / {{ r.chests.total }}
+        //- Zone mastery (roadmap #70): the bosses this visit beat, the share
+        //- of bosses and chests it took, and whether that beat the zone's best.
+        div(v-if="r.mastery && r.mastery.bossesTotal" data-mastery-bosses)
+          dt {{ t('results.bosses') }}
+          dd {{ r.mastery.bosses }} / {{ r.mastery.bossesTotal }}
+        div(v-if="r.mastery" data-mastery)
+          dt {{ t('results.mastery') }}
+          dd.mastery
+            | {{ t('results.masteryPct', { n: r.mastery.pct }) }}
+            span.results__best(v-if="r.mastery.pct > r.mastery.bestBefore") {{ t('results.newBest') }}
         div
           dt {{ t('results.time') }}
           dd {{ clock(r.seconds) }}
@@ -164,6 +174,14 @@ const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
     color: var(--bc-on-accent)
   .lost
     color: var(--bc-on-bad)
+  .mastery
+    flex-wrap: wrap
+.results__best
+  padding: 0 0.4em
+  border-radius: var(--bc-r-md)
+  background: var(--bc-gold)
+  color: var(--bc-ink)
+  font-size: 0.6em
 .results__coin
   width: 1em
   height: 1em

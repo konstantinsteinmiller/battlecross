@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Πλάσμα του Κενού',
     voidLord: 'Ο Άρχοντας του Κενού',
     orderGuard: 'Ιεροεξεταστής του Τάγματος',
-    syndicateBlade: 'Λεπίδα του Συνδικάτου'
+    syndicateBlade: 'Λεπίδα του Συνδικάτου',
+    goblinWarchief: 'Πολέμαρχος των Γκόμπλιν',
+    thornfather: 'Πατέρας των Αγκαθιών',
+    broodMother: 'Μητέρα της Γέννας',
+    banditBaron: 'Βαρόνος των Ληστών',
+    cinderGolem: 'Γκόλεμ της Θράκας',
+    frostHowler: 'Ουρλιαχτής του Παγετού',
+    tideSerpent: 'Φίδι της Παλίρροιας',
+    riftKnight: 'Ιππότης του Ρήγματος',
+    wyvernMatriarch: 'Μητριάρχης των Γουάιβερν'
   },
   results: {
     victory: 'Νίκη!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Έπεσαν',
     kills: 'Νικημένοι',
     chests: 'Σεντούκια',
+    bosses: 'Αρχηγοί',
+    mastery: 'Κατάκτηση περιοχής',
+    masteryPct: '{n}%',
+    newBest: 'Νέο ρεκόρ!',
     time: 'Χρόνος',
     unlocked: 'Νέα στον χάρτη: {places}',
     equipped: 'Εξοπλισμένο',

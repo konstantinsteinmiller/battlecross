@@ -2517,6 +2517,88 @@
       ]
     },
     {
+      "id": "sheet-portraits-girl",
+      "kind": "set",
+      "title": "Portraits: the girl hero, per outfit",
+      "files": {
+        "clean": "sheet-portraits-girl.png",
+        "key": "sheet-portraits-girl-key.png"
+      },
+      "width": 512,
+      "height": 512,
+      "cols": 2,
+      "rows": 2,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "hero-f-tunic",
+          "label": "Hero-f-tunic",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-f-tunic.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.648,
+            "bottom": 0.902,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "hero-f-leather",
+          "label": "Hero-f-leather",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-f-leather.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.648,
+            "bottom": 0.902,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "hero-f-robe",
+          "label": "Hero-f-robe",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-f-robe.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.648,
+            "bottom": 0.902,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "hero-f-plate",
+          "label": "Hero-f-plate",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-f-plate.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.648,
+            "bottom": 0.902,
+            "cx": 0.508
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-icons-classes",
       "kind": "set",
       "title": "Icons: class emblems",

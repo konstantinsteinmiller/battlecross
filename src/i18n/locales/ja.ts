@@ -2637,7 +2637,16 @@ export default {
     voidling: 'ヴォイドリング',
     voidLord: '虚無の王',
     orderGuard: '騎士団の審問官',
-    syndicateBlade: 'シンジケートの刺客'
+    syndicateBlade: 'シンジケートの刺客',
+    goblinWarchief: 'ゴブリンの戦長',
+    thornfather: 'いばらの父',
+    broodMother: '群れの母',
+    banditBaron: '山賊男爵',
+    cinderGolem: '燠火のゴーレム',
+    frostHowler: '霜の咆哮獣',
+    tideSerpent: '潮の大蛇',
+    riftKnight: '裂け目の騎士',
+    wyvernMatriarch: 'ワイバーンの女王'
   },
   results: {
     victory: '勝利！',
@@ -2652,6 +2661,10 @@ export default {
     lost: '失った分',
     kills: '撃破数',
     chests: '宝箱',
+    bosses: 'ボス',
+    mastery: 'エリア制覇',
+    masteryPct: '{n}%',
+    newBest: '自己ベスト更新！',
     time: 'タイム',
     unlocked: 'マップに追加：{places}',
     equipped: '装備中',

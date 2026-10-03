@@ -11,6 +11,8 @@
     TravelVeil
     //- The feature lessons, over every screen (and the pacing that picks them).
     LessonLayer
+    //- A new save picks the boy or the girl hero over the opening fight.
+    HeroChoice
 </template>
 
 <script setup lang="ts">
@@ -39,6 +41,7 @@ import GameModals from '@/components/modals/GameModals.vue'
 import DialogLayer from '@/components/dialog/DialogLayer.vue'
 import TravelVeil from '@/components/hud/TravelVeil.vue'
 import LessonLayer from '@/components/onboarding/LessonLayer.vue'
+import HeroChoice from '@/components/screens/hero/HeroChoice.vue'
 import { recallHere } from '@/game/coach/onboarding'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
 

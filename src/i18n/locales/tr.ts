@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Hiçlik Yavrusu',
     voidLord: 'Hiçlik Lordu',
     orderGuard: 'Tarikat Engizitörü',
-    syndicateBlade: 'Sendika Bıçağı'
+    syndicateBlade: 'Sendika Bıçağı',
+    goblinWarchief: 'Goblin Savaş Reisi',
+    thornfather: 'Diken Ata',
+    broodMother: 'Kuluçka Ana',
+    banditBaron: 'Haydut Baron',
+    cinderGolem: 'Kor Golemi',
+    frostHowler: 'Ayaz Uluyanı',
+    tideSerpent: 'Gelgit Yılanı',
+    riftKnight: 'Yarık Şövalyesi',
+    wyvernMatriarch: 'Wyvern Ana'
   },
   results: {
     victory: 'Zafer!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Düşürülen',
     kills: 'Yenilen',
     chests: 'Sandıklar',
+    bosses: 'Boslar',
+    mastery: 'Bölge ustalığı',
+    masteryPct: '%{n}',
+    newBest: 'Yeni rekor!',
     time: 'Süre',
     unlocked: 'Haritada yeni: {places}',
     equipped: 'Kuşanıldı',

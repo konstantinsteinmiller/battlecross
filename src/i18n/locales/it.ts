@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Progenie del Vuoto',
     voidLord: 'Il Signore del Vuoto',
     orderGuard: 'Inquisitore dell’Ordine',
-    syndicateBlade: 'Lama del Sindacato'
+    syndicateBlade: 'Lama del Sindacato',
+    goblinWarchief: 'Capoguerra goblin',
+    thornfather: 'Padre delle Spine',
+    broodMother: 'Madre della Covata',
+    banditBaron: 'Barone dei banditi',
+    cinderGolem: 'Golem di brace',
+    frostHowler: 'Ululatore del gelo',
+    tideSerpent: 'Serpente delle maree',
+    riftKnight: 'Cavaliere della Faglia',
+    wyvernMatriarch: 'Matriarca viverna'
   },
   results: {
     victory: 'Vittoria!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perso',
     kills: 'Nemici sconfitti',
     chests: 'Forzieri',
+    bosses: 'Boss',
+    mastery: 'Padronanza della zona',
+    masteryPct: '{n}%',
+    newBest: 'Nuovo record!',
     time: 'Tempo',
     unlocked: 'Nuovo sulla mappa: {places}',
     equipped: 'Equipaggiato',

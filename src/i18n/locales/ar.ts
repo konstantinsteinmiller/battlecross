@@ -2637,7 +2637,16 @@ export default {
     voidling: 'وليد العدم',
     voidLord: 'سيد العدم',
     orderGuard: 'محقّق الأخوية',
-    syndicateBlade: 'نصل النقابة'
+    syndicateBlade: 'نصل النقابة',
+    goblinWarchief: 'زعيم حرب العفاريت',
+    thornfather: 'أبو الأشواك',
+    broodMother: 'أم الحضنة',
+    banditBaron: 'بارون قطاع الطرق',
+    cinderGolem: 'غولم الجمر',
+    frostHowler: 'عوّاء الصقيع',
+    tideSerpent: 'ثعبان المد',
+    riftKnight: 'فارس الصدع',
+    wyvernMatriarch: 'أم الوايفرن'
   },
   results: {
     victory: 'نصر!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'ما سقط منك',
     kills: 'الأعداء المهزومون',
     chests: 'الصناديق',
+    bosses: 'الزعماء',
+    mastery: 'إتقان المنطقة',
+    masteryPct: '{n}٪',
+    newBest: 'رقم قياسي جديد!',
     time: 'الوقت',
     unlocked: 'جديد على الخريطة: {places}',
     equipped: 'مجهّز',

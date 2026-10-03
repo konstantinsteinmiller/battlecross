@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Anak Hampa',
     voidLord: 'Penguasa Hampa',
     orderGuard: 'Inkuisitor Ordo',
-    syndicateBlade: 'Bilah Sindikat'
+    syndicateBlade: 'Bilah Sindikat',
+    goblinWarchief: 'Panglima Perang Goblin',
+    thornfather: 'Bapa Duri',
+    broodMother: 'Induk Sarang',
+    banditBaron: 'Baron Bandit',
+    cinderGolem: 'Golem Bara',
+    frostHowler: 'Pelolong Beku',
+    tideSerpent: 'Ular Pasang',
+    riftKnight: 'Ksatria Celah',
+    wyvernMatriarch: 'Induk Wyvern'
   },
   results: {
     victory: 'Menang!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Terjatuh',
     kills: 'Dikalahkan',
     chests: 'Peti',
+    bosses: 'Bos',
+    mastery: 'Penguasaan wilayah',
+    masteryPct: '{n}%',
+    newBest: 'Rekor baru!',
     time: 'Waktu',
     unlocked: 'Baru di peta: {places}',
     equipped: 'Terpakai',

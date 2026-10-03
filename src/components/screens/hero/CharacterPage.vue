@@ -4,6 +4,20 @@
     section.sheet__who
       span.sheet__face
         Portrait(look="hero")
+      //- Boy or girl hero (roadmap #71): picked on the first boot, changed here.
+      div.sheet__gender(role="radiogroup" :aria-label="t('heroChoice.switch')")
+        button.sheet__gender-btn(
+          v-for="g in HERO_GENDERS"
+          :key="g"
+          type="button"
+          role="radio"
+          :data-hero="g"
+          :aria-checked="profile.hero.gender === g"
+          :aria-label="t(g === 'f' ? 'heroChoice.girl' : 'heroChoice.boy')"
+          :class="{ 'is-on': profile.hero.gender === g }"
+          @click="switchHero(g)"
+        )
+          Portrait(:look="heroPortraitId(heroOutfit(profile.inv.equipped), g)" :ring="profile.hero.gender === g ? 'var(--bc-gold-hi)' : 'var(--bc-steel-lo)'")
       div.sheet__id
         span.sheet__lvl {{ t('hud.level', { n: profile.level }) }}
         FBar.sheet__xpbar(:value="xp01()" tone="xp" frame="xp" :label="t('hud.xp')")
@@ -60,7 +74,8 @@ import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ATTRS, ATTR_COLOR, type Attr } from '@/game/data/attributes'
 import { MAX_LEVEL, xpToNext } from '@/game/data/progression'
-import { computeStats, profile, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
+import { computeStats, profile, setHeroGender, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
+import { HERO_GENDERS, heroOutfit, heroPortraitId, type HeroGender } from '@/game/art/heroPortrait'
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
 import Portrait from '@/components/art/Portrait.vue'
@@ -93,6 +108,14 @@ const gains = computed(() => {
 // also spends the point: the preview then shows what the NEXT one buys).
 const onEnter = (e: PointerEvent, a: Attr): void => { if (e.pointerType === 'mouse') peek.value = a }
 const onLeave = (e: PointerEvent, a: Attr): void => { if (e.pointerType === 'mouse' && peek.value === a) peek.value = '' }
+
+/** The other hero: saved at once; the bust, the turntable and the lines follow. */
+const switchHero = (g: HeroGender): void => {
+  if (profile.hero.gender === g) return
+  setHeroGender(g)
+  sfx('uiChoice')
+  void nextTick(() => burst(document.querySelector('.sheet__face'), g === 'f' ? '#ff9fbf' : 'var(--bc-blue-hi)'))
+}
 
 const raise = (a: Attr): void => {
   const badge = document.querySelector<HTMLElement>(`.attr__badge[data-attr="${a}"]`)
@@ -133,6 +156,40 @@ const raise = (a: Attr): void => {
 .sheet__face
   width: min(70%, 13rem)
   filter: drop-shadow(0 0.4rem 0 rgba(var(--bc-ink-rgb), 0.3))
+// Boy or girl: two small busts in a pill, the one he or she is lit.
+.sheet__gender
+  display: flex
+  gap: 0.3rem
+  padding: 0.22rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  background: rgba(var(--bc-ink-rgb), 0.38)
+.sheet__gender-btn
+  position: relative
+  width: 2.75rem
+  height: 2.75rem
+  padding: 0
+  border: 0
+  border-radius: 50%
+  background: none
+  cursor: pointer
+  touch-action: manipulation
+  -webkit-tap-highlight-color: transparent
+  opacity: 0.55
+  filter: saturate(0.4)
+  transition: opacity 160ms ease-out, filter 160ms ease-out, transform var(--bc-t-release) var(--bc-ease-bounce)
+  +cel.focus-ring
+  &.is-on
+    opacity: 1
+    filter: none
+    transform: scale(1.06)
+  &:active
+    transition-duration: var(--bc-t-press)
+    transform: scale(0.94)
+  @media (hover: hover)
+    &:hover:not(.is-on)
+      opacity: 0.85
+      filter: saturate(0.8)
 .sheet__id
   display: flex
   flex-direction: column
@@ -294,6 +351,8 @@ const raise = (a: Attr): void => {
   .sheet__face
     width: clamp(3.4rem, 17vmin, 6rem)
     flex: 0 0 auto
+  .sheet__gender
+    order: 3
   .sheet__id
     flex: 1 1 8rem
     width: auto

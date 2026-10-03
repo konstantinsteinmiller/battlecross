@@ -23,6 +23,10 @@
  *           overlapping another, no page scroll, modal header clear of its
  *           content.
  *
+ * Every case boots a NEW save, which is asked for its hero first (roadmap
+ * #71): `play` checks that choice and picks the girl hero (and that a reload
+ * keeps her and never asks again); the other groups pick the boy and go on.
+ *
  * Starts its own dev server (leaderboard off in dev) and its own headless
  * Chrome; both are stopped at the end. Exit code 1 on any failed check.
  */
@@ -68,7 +72,12 @@ const stopServer = () => {
 }
 
 // ── Browser ──────────────────────────────────────────────────────────────────
-const open = async ({ w, h, touch = false, profile = null }) => {
+/**
+ * A browser on the game. A NEW save is asked for its hero first (roadmap #71):
+ * `hero` is the portrait picked ('m' / 'f', as a player would tap it), or null
+ * to leave the choice up for the caller to check.
+ */
+const open = async ({ w, h, touch = false, profile = null, hero = 'm' }) => {
   const dir = profile ?? mkdtempSync(join(tmpdir(), 'bc-e2e-'))
   const ctx = await chromium.launchPersistentContext(dir, {
     channel: 'chrome', headless: true, viewport: { width: w, height: h }, hasTouch: touch, isMobile: touch, locale: 'en-US',
@@ -88,7 +97,18 @@ const open = async ({ w, h, touch = false, profile = null }) => {
   await page.waitForFunction(() => !document.querySelector('.splash-backdrop') || getComputedStyle(document.querySelector('.splash-backdrop')).pointerEvents === 'none', null, { timeout: 30000 })
   await page.waitForTimeout(500)
   const cdp = touch ? await ctx.newCDPSession(page) : null
-  return { ctx, page, errors, dir, cdp }
+  const asked = await page.waitForSelector('.hero-choice .hero-choice__card', { timeout: 5000 }).then(() => true, () => false)
+  if (asked && hero) await pickHero(page, hero, touch)
+  return { ctx, page, errors, dir, cdp, asked }
+}
+/** Tap (or click) a portrait of the hero choice and wait for it to leave. */
+const pickHero = async (page, hero, touch = false) => {
+  const card = page.locator(`.hero-choice [data-hero="${hero}"]`)
+  // Wait out its entrance (the portraits pop in one after the other).
+  await page.waitForTimeout(900)
+  if (touch) { const r = await card.boundingBox(); await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2) } else await card.click()
+  await page.waitForSelector('.hero-choice', { state: 'detached', timeout: 6000 })
+  await page.waitForTimeout(300)
 }
 const shot = async (page, name) => { if (SHOTS) await page.screenshot({ path: join(resolve(SHOTS), name + '.png') }) }
 const game = (page, fn, a) => page.evaluate(fn, a)
@@ -178,8 +198,24 @@ const layoutProblems = ({ rects, vw, vh, sw, sh }, minTap = 0) => {
 // ═════════════════════════════════════════════════════════════════════════════
 const playDesktop = async () => {
   console.log('\nplay — desktop, mouse and keys')
-  const b = await open({ w: 1280, h: 720 })
+  const b = await open({ w: 1280, h: 720, hero: null })
   const { page } = b
+  // Roadmap #71: a new save picks the boy or the girl hero over the opening
+  // fight, which holds still until the pick (the gameplay bracket stays shut).
+  const ask = await game(page, async () => {
+    const t0 = window.__game.zone().sim.time
+    await new Promise(r => setTimeout(r, 500))
+    return { screen: window.__game.flow.screen, node: window.__game.flow.node, still: window.__game.zone().sim.time === t0, cards: document.querySelectorAll('.hero-choice__card').length }
+  })
+  check('a new save is asked for its hero first, over the opening fight, which holds still', b.asked && ask.cards === 2 && ask.screen === 'zone' && ask.node === 'plains' && ask.still, JSON.stringify(ask))
+  await shot(page, 'play-0-hero-choice')
+  await pickHero(page, 'f')
+  const picked = await game(page, async () => {
+    const t0 = window.__game.zone().sim.time
+    await new Promise(r => setTimeout(r, 400))
+    return { gender: window.__game.profile.hero.gender, tip: window.__game.profile.tips.heroPicked === true, moving: window.__game.zone().sim.time > t0, saved: JSON.parse(localStorage.getItem('bcross_state') || '{}').bc_hero?.gender ?? null }
+  })
+  check('one tap picks the girl hero: saved at once, and the fight starts', picked.gender === 'f' && picked.tip && picked.moving && picked.saved === 'f', JSON.stringify(picked))
   await page.waitForFunction(() => window.__game.hud.hints.length > 0, null, { timeout: 8000 }).catch(() => {})
   let s = await game(page, () => ({ screen: window.__game.flow.screen, node: window.__game.flow.node, level: window.__game.profile.level, hints: window.__game.hud.hints.map(h => h.id) }))
   check('a new player boots straight into the opening fight (no menu)', s.screen === 'zone' && s.node === 'plains' && s.level === 1, `${s.screen}/${s.node}`)
@@ -437,6 +473,9 @@ const playDesktop = async () => {
   check('after a reload the player is a RETURNING player: in their town, not in the opening fight', back.screen === 'town' && back.node === 'sunford', `${back.screen}/${back.node}`)
   check('level, gold, bag, skills, attributes and the map survived the reload',
     back.level === saved.level && back.gold === saved.gold && back.items.join() === saved.items.join() && back.learned.join() === saved.learned.join() && back.str === saved.str && back.cleared.join() === saved.cleared.join())
+  await page.waitForTimeout(1500)
+  const hero2 = await game(page, () => ({ gender: window.__game.profile.hero.gender, asked: !!document.querySelector('.hero-choice') }))
+  check('a returning player is the hero picked, and is never asked again', hero2.gender === 'f' && !hero2.asked, JSON.stringify(hero2))
   check('no console errors during the whole play-through', b.errors.length === 0, [...new Set(b.errors)].slice(0, 3).join(' | '))
   await b.ctx.close()
 }

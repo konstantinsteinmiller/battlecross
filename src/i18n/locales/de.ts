@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Leerenbrut',
     voidLord: 'Der Leerenfürst',
     orderGuard: 'Inquisitor des Ordens',
-    syndicateBlade: 'Syndikatsklinge'
+    syndicateBlade: 'Syndikatsklinge',
+    goblinWarchief: 'Goblin-Kriegshäuptling',
+    thornfather: 'Dornenvater',
+    broodMother: 'Brutmutter',
+    banditBaron: 'Banditenbaron',
+    cinderGolem: 'Glutgolem',
+    frostHowler: 'Frostheuler',
+    tideSerpent: 'Gezeitenschlange',
+    riftKnight: 'Riss-Ritter',
+    wyvernMatriarch: 'Wyvern-Matriarchin'
   },
   results: {
     victory: 'Sieg!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Verloren',
     kills: 'Besiegt',
     chests: 'Truhen',
+    bosses: 'Bosse',
+    mastery: 'Gebietsmeisterschaft',
+    masteryPct: '{n} %',
+    newBest: 'Neuer Bestwert!',
     time: 'Zeit',
     unlocked: 'Neu auf der Karte: {places}',
     equipped: 'Angelegt',

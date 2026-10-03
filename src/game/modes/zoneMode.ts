@@ -39,6 +39,7 @@ import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
+import { emitCrumbs, peekOffset } from '../coach/nudgeFx'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -206,7 +207,11 @@ export class ZoneMode implements GameMode {
         ? generateArena(setup.seed)
         : setup.encounter
           ? generateEncounter(setup.encounter, setup.seed)
-          : generateZone(ZONES[setup.zone!], setup.seed, { tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra })
+          : generateZone(ZONES[setup.zone!], setup.seed, {
+            tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra,
+            // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
+            ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
+          })
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
     applyPlan(sim, plan)
@@ -253,7 +258,7 @@ export class ZoneMode implements GameMode {
     if (setup.kind === 'arena') for (const id of ['goblin', 'goblinSlinger', 'wolf', 'bandit', 'banditChief']) kinds.add(id)
     const jobs = prewarmKinds(kinds)
     // The hero is a job of its own too (his rig is the richest: ~0.1 s at 4× CPU).
-    jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped)))
+    jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped, profile.hero.gender)))
     for (let i = 0; i < jobs.length; i++) {
       jobs[i]!()
       onProgress(0.5 + ((i + 1) / jobs.length) * 0.35)
@@ -297,7 +302,7 @@ export class ZoneMode implements GameMode {
   private addView(u: Unit): void {
     // The training dummy is a level prop, not a rig (`gfx/dummyProp.ts`).
     if (this.views.has(u.id) || isDummy(u)) return
-    const v = makeRigView(u, u.rank === 'hero' ? heroLook(profile.inv.equipped) : undefined)
+    const v = makeRigView(u, u.rank === 'hero' ? heroLook(profile.inv.equipped, profile.hero.gender) : undefined)
     const shadow = makeBlobShadow(u.r)
     this.scene.add(v.rig.root, shadow)
     this.views.set(u.id, { v, shadow, pin: null })
@@ -310,6 +315,14 @@ export class ZoneMode implements GameMode {
     this.town?.drop(id)
     w.v.rig.material.dispose()
     this.views.delete(id)
+  }
+
+  /** The hero was picked or switched (roadmap #71, the hero choice): the rig
+   *  is rebuilt in place from the profile. */
+  restyleHero(): void {
+    const u = this.sim.hero.unit
+    this.dropView(u.id)
+    this.addView(u)
   }
 
   /** Upload every mesh and compile every program before the first live frame. */
@@ -776,7 +789,9 @@ export class ZoneMode implements GameMode {
     const tk = this.talkFrame(hx, hz, dt)
     // A place built behind the veil (or by the recorder) may have set its own ground since.
     setGround(this.field)
-    this.cam.follow(hx + this.talkDx * tk, hz + this.talkDz * tk, hero.vx, hero.vz, dt, groundAt(hx, hz))
+    // A nudge may lean the view toward a chest nearby (`coach/nudgeFx.ts`).
+    const peek = peekOffset(dt, hx, hz)
+    this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
 
@@ -865,6 +880,7 @@ export class ZoneMode implements GameMode {
     this.vfx.update(fxDt, sim.time)
     this.walls.update(fxDt)
     this.props?.update(fxDt, hx, hz)
+    emitCrumbs(sim, this.vfx.particles, fxDt, this.low)
     if (this.chestOpen > 0 && this.chest) {
       this.chestOpen = Math.min(1, this.chestOpen + dt * 2.2)
       const k = this.chestOpen
@@ -983,7 +999,14 @@ export class ZoneMode implements GameMode {
     hud.targetHp01 = t ? t.hp / t.s.maxHp : 0
     hud.targetElite = t?.rank === 'elite'
     let boss: Unit | undefined
-    for (const e of sim.units) if (e.alive && e.rank === 'boss' && e.team === 1 && e.awake) { boss = e; break }
+    // A zone may hold several bosses (a branch boss, the finale's, roadmap
+    // #70): the plate shows the nearest one that is up.
+    let bossD = Infinity
+    for (const e of sim.units) {
+      if (!e.alive || e.rank !== 'boss' || e.team !== 1 || !e.awake) continue
+      const d = Math.hypot(e.x - u.x, e.z - u.z)
+      if (d < bossD) { bossD = d; boss = e }
+    }
     hud.bossKey = boss ? 'enemy.' + boss.kind : ''
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
     // The boss theme plays for exactly as long as the boss plate shows.

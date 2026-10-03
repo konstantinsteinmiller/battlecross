@@ -106,6 +106,38 @@ describe('chests in the save and on the result screen', () => {
     expect(p.profile.world.chests).toEqual(['fortress:secret', 'woods:puzzle'])
   })
 
+  it('zone mastery (roadmap #70): banked per zone, best kept, an old save starts at nothing', async () => {
+    expect(p.profile.world.mastery).toEqual({})
+    const m = { bosses: 2, bossesTotal: 3, chests: 3, chestsTotal: 5 }
+    await f.bankVisit('victory', 'woods', tally({ mastery: m }))
+    // (2 + 3) of (3 + 5) is 63 %: the zone's first best.
+    expect(f.flow.results!.mastery).toEqual({ ...m, pct: 63, bestBefore: 0 })
+    expect(p.profile.world.mastery.woods).toEqual({ bosses: 2, chests: 3, best: 63, full: 0 })
+    // A full clear: everything taken, the best goes up and it counts as one.
+    await f.bankVisit('victory', 'woods', tally({ mastery: { bosses: 2, bossesTotal: 2, chests: 4, chestsTotal: 4 } }))
+    expect(f.flow.results!.mastery!.bestBefore).toBe(63)
+    expect(p.profile.world.mastery.woods).toEqual({ bosses: 4, chests: 7, best: 100, full: 1 })
+    // A weaker visit keeps the best; another zone is its own.
+    await f.bankVisit('defeat', 'woods', tally({ mastery: { bosses: 0, bossesTotal: 2, chests: 1, chestsTotal: 4 } }))
+    expect(p.profile.world.mastery.woods!.best).toBe(100)
+    await f.bankVisit('victory', 'mines', tally({ mastery: m }))
+    expect(p.profile.world.mastery.mines!.best).toBe(63)
+    p.loadProfile()
+    expect(p.profile.world.mastery.woods).toEqual({ bosses: 4, chests: 8, best: 100, full: 1 })
+    // A town or the colosseum has none to show.
+    await f.bankVisit('victory', 'arena', tally())
+    expect(f.flow.results!.mastery).toBeUndefined()
+    // A save from before mastery (or a mangled one) loads clean.
+    delete (p.profile.world as Partial<typeof p.profile.world>).mastery
+    p.saveProfile()
+    p.loadProfile()
+    expect(p.profile.world.mastery).toEqual({})
+    ;(p.profile.world as { mastery: unknown }).mastery = { woods: { bosses: 'x', chests: -3, best: 250 } }
+    p.saveProfile()
+    p.loadProfile()
+    expect(p.profile.world.mastery.woods).toEqual({ bosses: 0, chests: 0, best: 100, full: 0 })
+  })
+
   it('the result screen is told how many chests were opened of how many', async () => {
     await f.bankVisit('victory', 'plains', tally({ chests: { opened: 2, total: 3 } }))
     expect(f.flow.results!.chests).toEqual({ opened: 2, total: 3 })

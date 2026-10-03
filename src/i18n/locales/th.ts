@@ -2637,7 +2637,16 @@ export default {
     voidling: 'ลูกสมุนความว่างเปล่า',
     voidLord: 'เจ้าแห่งความว่างเปล่า',
     orderGuard: 'ผู้ไต่สวนแห่งภาคี',
-    syndicateBlade: 'มือดาบของสมาคม'
+    syndicateBlade: 'มือดาบของสมาคม',
+    goblinWarchief: 'จอมทัพก็อบลิน',
+    thornfather: 'บิดาแห่งหนาม',
+    broodMother: 'มารดาแห่งฝูง',
+    banditBaron: 'บารอนโจร',
+    cinderGolem: 'โกเลมถ่านเพลิง',
+    frostHowler: 'หมาป่าหอนน้ำแข็ง',
+    tideSerpent: 'อสรพิษกระแสน้ำ',
+    riftKnight: 'อัศวินรอยแยก',
+    wyvernMatriarch: 'ราชินีไวเวิร์น'
   },
   results: {
     victory: 'ชนะแล้ว!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'เสียไป',
     kills: 'ปราบได้',
     chests: 'หีบ',
+    bosses: 'บอส',
+    mastery: 'การพิชิตพื้นที่',
+    masteryPct: '{n}%',
+    newBest: 'สถิติใหม่!',
     time: 'เวลา',
     unlocked: 'ใหม่บนแผนที่: {places}',
     equipped: 'สวมใส่อยู่',

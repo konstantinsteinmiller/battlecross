@@ -16,6 +16,7 @@ import { onPauseChange } from '@/use/useGamePause'
 import useUser, { clearLanguageChoice, hasLanguageChoice, isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
 import { followPortalLanguage, notePortalLanguageChange } from '@/i18n/portalLanguage'
 import { PLURAL_RULES } from '@/i18n/plural'
+import { resolveGendered } from '@/i18n/gendered'
 import { isDebug } from '@/use/useMatch.ts'
 import { hasState, reloadGameState, flushPersist, STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 import { LANGUAGE_KEY } from '@/keys'
@@ -474,7 +475,9 @@ const bootstrap = async () => {
     missingWarn: false,
     fallbackWarn: false,
     // Three forms for ru/uk/pl, six for ar (`i18n/plural.ts`).
-    pluralRules: PLURAL_RULES
+    pluralRules: PLURAL_RULES,
+    // A line's feminine variant (`<key>__f`) for the girl hero (`i18n/gendered.ts`).
+    messageResolver: resolveGendered as never
   })
 
   // Mirror the active locale onto <html lang>: screen readers and `:lang()`

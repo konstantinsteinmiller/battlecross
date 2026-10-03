@@ -100,7 +100,7 @@ const build = (): void => {
   if (view) { scene.remove(view.rig.root); view.rig.material.dispose() }
   unit = standIn()
   unit.facing = yaw
-  view = makeRigView(unit, heroLook(profile.inv.equipped))
+  view = makeRigView(unit, heroLook(profile.inv.equipped, profile.hero.gender))
   view.yaw = yaw
   scene.add(view.rig.root)
   // A breath of standing first, so the springs are settled when he appears.
@@ -223,8 +223,9 @@ onMounted(() => {
 })
 onUnmounted(stop)
 
-// New gear, a new rig (built from the same look the fight would use).
-watch(() => lookKey(heroLook(profile.inv.equipped)), () => {
+// New gear, or the other hero picked on the character page: a new rig (built
+// from the same look the fight would use).
+watch(() => lookKey(heroLook(profile.inv.equipped, profile.hero.gender)), () => {
   try { build() } catch { /* the old rig stays */ }
 })
 

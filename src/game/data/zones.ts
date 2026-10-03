@@ -202,6 +202,46 @@ export const ZONE_RELIEF: Readonly<Record<ZoneId, ZoneRelief>> = {
   rift: { roll: 0.22, swell: 0.75, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
 }
 
+// ─── Branching ways and their bosses (roadmap #70) ───────────────────────────
+
+/** How a zone's side ways run: open ground, a worn trail, a narrow tunnel,
+ *  a switchback climb, or built stairs. */
+export type BranchStyle = 'wide' | 'trail' | 'tunnel' | 'switchback' | 'stairs'
+
+/**
+ * A zone is a small graph: the main road from the start to the finale, ways
+ * that fork off it and rejoin it further on (another route, through other
+ * ground, past a pack of its own), and dead-end ways to an arena where a
+ * branch boss guards a better chest. Counts are per visit, the seed picks
+ * inside them.
+ */
+export interface ZoneBranches {
+  /** Ways that fork and rejoin. */
+  bypasses: [number, number]
+  /** Dead-end ways to a branch boss. */
+  bosses: [number, number]
+  /** Who guards a branch arena. */
+  bossKinds: string[]
+  style: BranchStyle
+  /** Half the width of a branch way (cells). */
+  half: number
+}
+
+export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
+  plains: { bypasses: [1, 2], bosses: [1, 1], bossKinds: ['goblinWarchief'], style: 'wide', half: 2 },
+  hollows: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['goblinWarchief', 'broodMother'], style: 'tunnel', half: 1.15 },
+  woods: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['thornfather', 'broodMother'], style: 'trail', half: 1.5 },
+  outskirts: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['banditBaron'], style: 'wide', half: 1.8 },
+  crags: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['cinderGolem'], style: 'trail', half: 1.4 },
+  mines: { bypasses: [2, 2], bosses: [1, 2], bossKinds: ['cinderGolem', 'broodMother'], style: 'tunnel', half: 1.1 },
+  tundra: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['frostHowler'], style: 'wide', half: 1.7 },
+  temple: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['tideSerpent'], style: 'stairs', half: 1.4 },
+  citadel: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['riftKnight'], style: 'stairs', half: 1.4 },
+  peak: { bypasses: [1, 1], bosses: [1, 2], bossKinds: ['wyvernMatriarch'], style: 'switchback', half: 1.3 },
+  fortress: { bypasses: [1, 2], bosses: [2, 2], bossKinds: ['riftKnight'], style: 'stairs', half: 1.5 },
+  rift: { bypasses: [1, 1], bosses: [1, 1], bossKinds: ['riftKnight'], style: 'trail', half: 1.5 }
+}
+
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
 export type TownId = 'sunford' | 'oakhaven' | 'ironhold'

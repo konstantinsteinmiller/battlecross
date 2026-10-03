@@ -1,6 +1,6 @@
 import { ITEM_BY_ID, TIER_COLOR, type EquipSlot } from '../../data/items'
 import type { GearKind, HeadGear, Held, Look, OffHand } from './humanoid'
-import { heroOutfitOf } from '../../art/heroPortrait'
+import { heroOutfitOf, type HeroGender } from '../../art/heroPortrait'
 
 /**
  * Who looks like what. Every two-legged thing in the game is one `Look` on the
@@ -101,14 +101,25 @@ const HEAD_OF: Record<string, HeadGear> = {
 const HEAD_COL: Record<string, string> = {
   hood: '#4a5a8a', cap: '#8a5f3a', helm: '#c9d3e4', greathelm: '#b9c4d6', circlet: '#ffd24a', hat: '#6a4a8a'
 }
-const HAIR = '#7a4a2a'
+/**
+ * The two heroes the player can be (roadmap #71). Same chibi, same gear, same
+ * proportions; what tells them apart at a glance is the head: the boy's short
+ * brown hair and blue eyes, the girl's auburn ponytail with a red ribbon,
+ * green eyes, lashes and finer brows. The painted portraits (`hero-…` and
+ * `hero-f-…`, `art/artSheet.ts`) are painted from exactly these.
+ */
+export const HERO_HEAD: Readonly<Record<HeroGender, { hair: string; eye: string; style: 'short' | 'ponytail'; fem: boolean }>> = {
+  m: { hair: '#7a4a2a', eye: '#3f8fd6', style: 'short', fem: false },
+  f: { hair: '#9a4526', eye: '#3fa66a', style: 'ponytail', fem: true }
+}
 
 /** Gloves and boots: cloth or leather by tier, plate for gauntlets and greaves. */
 const wornKind = (kind: string, tier: number, plate: string): GearKind => (kind === plate ? 'plate' : tier <= 2 ? 'cloth' : 'leather')
 
-/** The hero as his gear makes him look. Tier colours the trim; the body
- *  armour's class decides the outfit. */
-export const heroLook = (equipped: Record<EquipSlot, string | null>): Look => {
+/** The hero as the gear makes him (or her, `gender` 'f') look. Tier colours
+ *  the trim; the body armour's class decides the outfit. */
+export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: HeroGender = 'm'): Look => {
+  const who = HERO_HEAD[gender === 'f' ? 'f' : 'm']
   const main = equipped.main ? ITEM_BY_ID[equipped.main] : undefined
   const off = equipped.off ? ITEM_BY_ID[equipped.off] : undefined
   const body = equipped.body ? ITEM_BY_ID[equipped.body] : undefined
@@ -127,12 +138,14 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>): Look => {
   const mainTier = main?.tier ?? 1
   return L({
     skin: '#f2c8a0',
-    hair: HAIR,
+    hair: who.hair,
     hero: true,
-    eye: '#3f8fd6',
-    // Bare-headed he wears his hair; under a helmet or a hat it is tucked in.
-    head: headGear ? (headGear === 'hat' && outfit === 'robe' ? 'wizard' : headGear) : 'short',
-    style: 'short',
+    eye: who.eye,
+    // Bare-headed the hero wears the hair; under a helmet or a hat it is
+    // tucked in (the girl's ponytail still shows below the rim).
+    head: headGear ? (headGear === 'hat' && outfit === 'robe' ? 'wizard' : headGear) : who.style,
+    style: who.style,
+    ...(who.fem ? { fem: true } : {}),
     headCol: head ? (headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? '#ffe9a8' : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
     headTrim: head ? TIER_COLOR[head.tier] : undefined,
     gloves: hands ? wornKind(hands.kind, hands.tier, 'gauntlets') : undefined,
@@ -157,5 +170,5 @@ export const lookKey = (l: Look): string =>
   [
     l.skin, l.hair, l.head, l.top, l.bottom, l.trim, l.outfit, l.held, l.off, l.metal, l.glow, l.ears, l.eyeGlow, l.cape,
     l.wings, l.tail, l.beard, l.pauldrons ? 1 : 0, l.bulk ?? 1, l.eye, l.cowl ? 1 : 0, l.hero ? 1 : 0, l.style, l.headCol,
-    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim
+    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim, l.fem ? 1 : 0, l.ribbon
   ].join('|')

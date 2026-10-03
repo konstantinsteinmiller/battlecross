@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Tuštumos padaras',
     voidLord: 'Tuštumos valdovas',
     orderGuard: 'Ordino inkvizitorius',
-    syndicateBlade: 'Sindikato ašmenys'
+    syndicateBlade: 'Sindikato ašmenys',
+    goblinWarchief: 'Goblinų karo vadas',
+    thornfather: 'Erškėčių tėvas',
+    broodMother: 'Perų motina',
+    banditBaron: 'Plėšikų baronas',
+    cinderGolem: 'Žarijų golemas',
+    frostHowler: 'Šalčio staugėjas',
+    tideSerpent: 'Potvynio gyvatė',
+    riftKnight: 'Plyšio riteris',
+    wyvernMatriarch: 'Viverų matriarchė'
   },
   results: {
     victory: 'Pergalė!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Prarasta',
     kills: 'Įveikta',
     chests: 'Skrynios',
+    bosses: 'Bosai',
+    mastery: 'Zonos įvaldymas',
+    masteryPct: '{n} %',
+    newBest: 'Naujas rekordas!',
     time: 'Laikas',
     unlocked: 'Nauja žemėlapyje: {places}',
     equipped: 'Naudojama',

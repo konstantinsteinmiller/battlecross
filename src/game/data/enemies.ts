@@ -109,6 +109,10 @@ export interface EnemyDef {
   deathBlast?: { r: number; dmg: number; type: DamageType }
   /** Bosses turn to phase 2 at this health fraction. */
   phase2?: number
+  /** A branch boss (roadmap #70): guards the end of a side way. It shows a
+   *  boss plate and wakes the boss music, but drops what a zone's mobs drop,
+   *  never the finale's promised piece; its prize is the chest it guards. */
+  branch?: boolean
 }
 
 const D = (e: EnemyDef): EnemyDef => e
@@ -438,6 +442,98 @@ export const ENEMIES: readonly EnemyDef[] = [
     hp: 0.95, dmg: 1.2, armor: 1, speed: 4.2, style: 'melee', type: 'physical', range: 1.9, interval: 0.95, windup: 0.26,
     aggro: 10, reward: 1.1, color: '#8a5fd0',
     abilities: [{ kind: 'blink', cd: 8, first: 2.5, range: 9, min: 3, windup: 0.4, recover: 0.4, dmg: 1.6, status: { id: 'poison', dur: 4, v: 0.2, type: 'poison' } }]
+  }),
+
+  // ── Branch bosses (roadmap #70): each guards the end of a side way ───────
+  // Built from the zones' own kinds on a boss template: a boss's health, a
+  // phase, a summons or a signature blow. `reward` keeps one worth about two
+  // elites; `branch` keeps the finale's promised drops for the finale.
+  D({
+    id: 'goblinWarchief', rank: 'boss', branch: true, rig: 'humanoid', look: 'goblin', scale: 1.55, r: 0.8, h: 2,
+    hp: 4.2, dmg: 1.05, armor: 1.8, speed: 3.1, style: 'melee', type: 'physical', range: 2.5, interval: 1.45, windup: 0.46, heavy: true,
+    aggro: 10, reward: 0.45, color: '#6fbf3f', phase2: 0.5,
+    abilities: [
+      { kind: 'slam', cd: 8, first: 3, range: 3.2, windup: 0.85, recover: 0.6, dmg: 1.7, r: 3.4, pose: 1, status: { id: 'knockdown', dur: 0.6, v: 1 } },
+      { kind: 'summon', cd: 16, first: 6, range: 20, windup: 0.8, recover: 0.5, spawn: 'goblin', count: 2 },
+      { kind: 'enrage', cd: 30, first: 0, range: 20, windup: 0.7, recover: 0.3, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'thornfather', rank: 'boss', branch: true, rig: 'treant', look: 'treant', scale: 1.85, r: 1, h: 3,
+    hp: 5, dmg: 1.25, armor: 3, speed: 2.1, style: 'melee', type: 'physical', range: 2.9, interval: 1.9, windup: 0.6, heavy: true,
+    aggro: 10, reward: 0.45, color: '#4f8f3a', phase2: 0.5,
+    abilities: [
+      { kind: 'slam', cd: 8, first: 3, range: 3.6, windup: 1, recover: 0.6, dmg: 1.7, r: 4, status: { id: 'knockdown', dur: 0.7, v: 1 } },
+      { kind: 'barrage', cd: 10, first: 5, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 }, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'broodMother', rank: 'boss', branch: true, rig: 'spider', look: 'brood', scale: 2, r: 1.1, h: 1.6,
+    hp: 4.4, dmg: 1.15, armor: 1.6, speed: 3.5, style: 'melee', type: 'physical', range: 2.4, interval: 1.3, windup: 0.38,
+    aggro: 11, reward: 0.45, color: '#a65fe6', phase2: 0.5,
+    abilities: [
+      { kind: 'lob', cd: 6, first: 2.5, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.4, type: 'poison', fx: 'venom', status: { id: 'poison', dur: 4, v: 0.25, type: 'poison' } },
+      { kind: 'summon', cd: 14, first: 6, range: 20, windup: 0.8, recover: 0.5, spawn: 'spider', count: 2 },
+      { kind: 'summon', cd: 12, first: 1, range: 20, windup: 0.8, recover: 0.5, spawn: 'spider', count: 3, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'banditBaron', rank: 'boss', branch: true, rig: 'humanoid', look: 'banditChief', scale: 1.45, r: 0.7, h: 2,
+    hp: 4.8, dmg: 1.25, armor: 2.6, speed: 3.4, style: 'melee', type: 'physical', range: 2.4, interval: 1.35, windup: 0.42, heavy: true,
+    aggro: 10, reward: 0.45, color: '#e0563a', phase2: 0.5,
+    abilities: [
+      { kind: 'cone', cd: 6, first: 2.5, range: 3, windup: 0.7, recover: 0.5, dmg: 1.7, r: 3.6, w: 55, pose: 1 },
+      { kind: 'charge', cd: 10, first: 5, range: 9, min: 3.5, windup: 0.8, recover: 0.7, dmg: 1.9, r: 8, w: 0.9, status: { id: 'knockdown', dur: 0.8, v: 1 } },
+      { kind: 'summon', cd: 20, first: 10, range: 20, windup: 0.8, recover: 0.5, spawn: 'banditArcher', count: 2, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'cinderGolem', rank: 'boss', branch: true, rig: 'golem', look: 'iron', scale: 1.8, r: 1, h: 2.9,
+    hp: 5.2, dmg: 1.3, armor: 5, resist: 0.3, speed: 2.3, style: 'melee', type: 'fire', range: 2.6, interval: 1.9, windup: 0.6, heavy: true,
+    aggro: 9, reward: 0.45, color: '#ff7a2a', phase2: 0.5,
+    abilities: [
+      { kind: 'slam', cd: 8, first: 3, range: 3.4, windup: 0.95, recover: 0.6, dmg: 1.7, r: 3.8, type: 'fire', status: { id: 'burn', dur: 3, v: 0.2, type: 'fire' } },
+      { kind: 'barrage', cd: 10, first: 5, range: 12, windup: 0.8, recover: 0.5, dmg: 1.1, r: 2, count: 4, fx: 'ember', type: 'fire', phase: 2 }
+    ]
+  }),
+  D({
+    id: 'frostHowler', rank: 'boss', branch: true, rig: 'beast', look: 'wolf', scale: 1.9, r: 0.9, h: 1.7,
+    hp: 4.4, dmg: 1.2, armor: 1.4, speed: 4.6, style: 'melee', type: 'frost', range: 2.2, interval: 1.1, windup: 0.3,
+    aggro: 11, reward: 0.45, color: '#9fdcff', phase2: 0.5,
+    abilities: [
+      { kind: 'leap', cd: 6, first: 1.5, range: 8, min: 3, windup: 0.55, recover: 0.4, dmg: 1.4, r: 2, type: 'frost' },
+      { kind: 'cone', cd: 8, first: 4, range: 5, windup: 0.8, recover: 0.5, dmg: 1.3, r: 5.5, w: 34, type: 'frost', status: { id: 'slow', dur: 2.5, v: 0.5 } },
+      { kind: 'summon', cd: 18, first: 2, range: 20, windup: 0.8, recover: 0.5, spawn: 'wolf', count: 2, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'tideSerpent', rank: 'boss', branch: true, rig: 'naga', look: 'naga', scale: 1.6, r: 0.8, h: 2.4,
+    hp: 4.6, dmg: 1.2, armor: 1.6, resist: 0.3, speed: 3, style: 'magic', type: 'frost', range: 8.5, interval: 1.7, windup: 0.45,
+    aggro: 11, keep: 5, reward: 0.45, color: '#3fd8c8', phase2: 0.5,
+    abilities: [
+      { kind: 'line', cd: 7, first: 3, range: 10, windup: 0.8, recover: 0.5, dmg: 1.5, r: 10, w: 1, type: 'frost', status: { id: 'slow', dur: 2, v: 0.5 } },
+      { kind: 'barrage', cd: 10, first: 5, range: 13, windup: 0.8, recover: 0.5, dmg: 1.2, r: 2.2, count: 4, type: 'frost', phase: 2 }
+    ]
+  }),
+  D({
+    id: 'riftKnight', rank: 'boss', branch: true, rig: 'humanoid', look: 'doomKnight', scale: 1.6, r: 0.75, h: 2.3,
+    hp: 5, dmg: 1.3, armor: 3, speed: 3.3, style: 'melee', type: 'shadow', range: 2.5, interval: 1.35, windup: 0.42, heavy: true,
+    aggro: 10, reward: 0.45, color: '#b06aff', phase2: 0.5,
+    abilities: [
+      { kind: 'charge', cd: 9, first: 4, range: 10, min: 3.5, windup: 0.75, recover: 0.6, dmg: 1.9, r: 9, w: 1.1, type: 'shadow', status: { id: 'knockdown', dur: 0.8, v: 1 } },
+      { kind: 'slam', cd: 8, first: 3, range: 3.2, windup: 0.85, recover: 0.6, dmg: 1.7, r: 3.8, type: 'shadow' },
+      { kind: 'enrage', cd: 30, first: 0, range: 20, windup: 0.7, recover: 0.3, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'wyvernMatriarch', rank: 'boss', branch: true, rig: 'wyvern', look: 'wyvern', scale: 1.7, r: 1.05, h: 2.8,
+    hp: 4.8, dmg: 1.25, armor: 1.8, speed: 3.6, style: 'melee', type: 'physical', range: 2.6, interval: 1.4, windup: 0.4,
+    aggro: 11, reward: 0.45, color: '#ff8a4a', phase2: 0.5,
+    abilities: [
+      { kind: 'cone', cd: 8, first: 3, range: 5.5, windup: 0.8, recover: 0.5, dmg: 1.4, r: 6, w: 30, type: 'fire', status: { id: 'burn', dur: 3, v: 0.2, type: 'fire' } },
+      { kind: 'leap', cd: 9, first: 5, range: 10, min: 4, windup: 0.8, recover: 0.6, dmg: 1.6, r: 3.2 },
+      { kind: 'summon', cd: 20, first: 2, range: 20, windup: 0.8, recover: 0.5, spawn: 'wyvern', count: 1, phase: 2 }
+    ]
   })
 ]
 

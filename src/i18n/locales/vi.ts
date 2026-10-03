@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Sinh Vật Hư Không',
     voidLord: 'Chúa Tể Hư Không',
     orderGuard: 'Phán Quan Thiết Hội',
-    syndicateBlade: 'Sát Thủ Băng Tro Tàn'
+    syndicateBlade: 'Sát Thủ Băng Tro Tàn',
+    goblinWarchief: 'Tù Trưởng Yêu Tinh',
+    thornfather: 'Cha Gai Góc',
+    broodMother: 'Mẹ Ổ Nhện',
+    banditBaron: 'Nam Tước Thảo Khấu',
+    cinderGolem: 'Người Đá Than Hồng',
+    frostHowler: 'Sói Hú Băng Giá',
+    tideSerpent: 'Mãng Xà Thủy Triều',
+    riftKnight: 'Hiệp Sĩ Khe Nứt',
+    wyvernMatriarch: 'Mẹ Rồng Wyvern'
   },
   results: {
     victory: 'Chiến thắng!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Đánh rơi',
     kills: 'Đã hạ',
     chests: 'Rương',
+    bosses: 'Trùm',
+    mastery: 'Làm chủ khu vực',
+    masteryPct: '{n}%',
+    newBest: 'Kỷ lục mới!',
     time: 'Thời gian',
     unlocked: 'Mới trên bản đồ: {places}',
     equipped: 'Đang trang bị',

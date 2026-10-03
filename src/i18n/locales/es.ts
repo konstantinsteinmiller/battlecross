@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Engendro del Vacío',
     voidLord: 'El Señor del Vacío',
     orderGuard: 'Inquisidor de la Orden',
-    syndicateBlade: 'Hoja del Sindicato'
+    syndicateBlade: 'Hoja del Sindicato',
+    goblinWarchief: 'Caudillo Goblin',
+    thornfather: 'Padre de las Espinas',
+    broodMother: 'Madre de la Nidada',
+    banditBaron: 'Barón Bandido',
+    cinderGolem: 'Gólem de Brasa',
+    frostHowler: 'Aullador de Escarcha',
+    tideSerpent: 'Serpiente de la Marea',
+    riftKnight: 'Caballero de la Grieta',
+    wyvernMatriarch: 'Matriarca Guiverno'
   },
   results: {
     victory: '¡Victoria!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdido',
     kills: 'Derrotados',
     chests: 'Cofres',
+    bosses: 'Jefes',
+    mastery: 'Dominio de la zona',
+    masteryPct: '{n} %',
+    newBest: '¡Nuevo récord!',
     time: 'Tiempo',
     unlocked: 'Nuevo en el mapa: {places}',
     equipped: 'Equipado',

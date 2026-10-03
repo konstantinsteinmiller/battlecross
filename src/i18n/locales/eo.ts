@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Malplenido',
     voidLord: 'La Mastro de la Malpleno',
     orderGuard: 'Inkvizitoro de la Ordeno',
-    syndicateBlade: 'Klingo de la Sindikato'
+    syndicateBlade: 'Klingo de la Sindikato',
+    goblinWarchief: 'Goblena Militestro',
+    thornfather: 'Dornpatro',
+    broodMother: 'Idarpatrino',
+    banditBaron: 'Banditbarono',
+    cinderGolem: 'Ardaĵgolemo',
+    frostHowler: 'Frosthurlanto',
+    tideSerpent: 'Tajdserpento',
+    riftKnight: 'Fendkavaliro',
+    wyvernMatriarch: 'Viverna Matriarkino'
   },
   results: {
     victory: 'Venko!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdita',
     kills: 'Venkitaj',
     chests: 'Kestoj',
+    bosses: 'Estroj',
+    mastery: 'Regado de la zono',
+    masteryPct: '{n}%',
+    newBest: 'Nova rekordo!',
     time: 'Tempo',
     unlocked: 'Nova sur la mapo: {places}',
     equipped: 'Ekipita',

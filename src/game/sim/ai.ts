@@ -98,7 +98,7 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
 
   // Too far from home: a pack does not follow the hero across the map.
-  if (sim.mode === 'zone' && u.rank !== 'boss' && Math.hypot(u.homeX - u.x, u.homeZ - u.z) > (u.group >= SIDE_GROUP ? SIDE_LEASH : LEASH) && d > 8) {
+  if (sim.mode === 'zone' && (u.rank !== 'boss' || u.group >= SIDE_GROUP) && Math.hypot(u.homeX - u.x, u.homeZ - u.z) > (u.group >= SIDE_GROUP ? SIDE_LEASH : LEASH) && d > 8) {
     u.targetId = 0
     setGoal(sim, u, u.homeX, u.homeZ)
     return

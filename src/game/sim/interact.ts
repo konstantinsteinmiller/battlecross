@@ -279,7 +279,8 @@ export const populateFeatures = (sim: Sim, plan: ZonePlan, zone: ZoneId, opened:
   // first swing): the main fights' dice stay where they were.
   sim.withStream(mulberry32((sim.seed ^ SIDE_SALT) >>> 0), () => plan.optionalPacks.forEach((p, n) => {
     const id = SIDE_GROUP + n
-    const group: GroupState = { id, x: p.x, z: p.z, members: [], awake: false, cleared: false, finale: false, boss: '', optional: true, champion: p.champion }
+    // A branch boss wakes like a boss (its sting, its plate) but decides nothing.
+    const group: GroupState = { id, x: p.x, z: p.z, members: [], awake: false, cleared: false, finale: false, boss: p.boss ?? '', optional: true, champion: p.champion }
     sim.sideGroups.push(group)
     p.kinds.forEach((kind, k) => {
       const a = (k / Math.max(1, p.kinds.length)) * Math.PI * 2
@@ -291,6 +292,14 @@ export const populateFeatures = (sim: Sim, plan: ZonePlan, zone: ZoneId, opened:
       group.members.push(u.id)
     })
   }))
+
+  sim.branches = plan.branches.map(b => {
+    const f = plan.forks.find(x => x.branch === b.id)
+    return {
+      id: b.id, kind: b.kind, from: b.from, to: b.to, x: b.x, z: b.z, way: b.way,
+      group: SIDE_GROUP + b.pack, chest: b.chest >= 0 ? plan.chests[b.chest]?.id ?? -1 : -1, fork: f ? { x: f.x, z: f.z } : null
+    }
+  })
 
   for (const c of plan.chests) {
     const rng = mulberry32(((sim.seed ^ LOOT_SALT) + Math.imul(c.id + 1, 0x9e3779b1)) >>> 0)

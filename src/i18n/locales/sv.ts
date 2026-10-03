@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Tomhetsyngel',
     voidLord: 'Tomhetsfursten',
     orderGuard: 'Ordens inkvisitor',
-    syndicateBlade: 'Syndikatklinga'
+    syndicateBlade: 'Syndikatklinga',
+    goblinWarchief: 'Goblinkrigshövding',
+    thornfather: 'Törnfadern',
+    broodMother: 'Yngelmodern',
+    banditBaron: 'Rövarbaronen',
+    cinderGolem: 'Glödgolem',
+    frostHowler: 'Frostylaren',
+    tideSerpent: 'Tidvattensormen',
+    riftKnight: 'Riftriddare',
+    wyvernMatriarch: 'Wyvernmatriark'
   },
   results: {
     victory: 'Seger!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Tappat',
     kills: 'Besegrade',
     chests: 'Kistor',
+    bosses: 'Bossar',
+    mastery: 'Områdesbemästring',
+    masteryPct: '{n} %',
+    newBest: 'Nytt rekord!',
     time: 'Tid',
     unlocked: 'Nytt på kartan: {places}',
     equipped: 'Utrustad',

@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 import en from '@/i18n/locales/en'
 import { conversation, decision, choiceNeeds } from '@/game/dialog/build'
 import { lockReasons, meets } from '@/game/dialog/conditions'
-import { dialogLines, linesOf, voicePath } from '@/game/dialog/manifest'
+import { dialogLines, feminineTakes, linesOf, voicePath } from '@/game/dialog/manifest'
 import { graphemes, isDense, revealed, speakSeconds, typeSeconds } from '@/game/dialog/pacing'
 import { DialogRunner, END_CHOICE, END_LINE, hasNews } from '@/game/dialog/runner'
 import type { Cond, ConversationDef, DialogHost, DialogWorld, Offer, TalkWindow } from '@/game/dialog/types'
@@ -601,10 +601,12 @@ describe('the voice manifest', () => {
   it('lists every line once, with its speaker, its English text and where its recording goes', () => {
     const ids = new Set(SPOKEN.flatMap(c => linesOf(c).map(l => l.id)))
     ids.add(END_LINE.id)
-    expect(manifest.length).toBe(ids.size)
+    // The girl hero's takes (roadmap #71) are entries of their own, below.
+    const lines = manifest.filter(m => !m.variantOf)
+    expect(lines.length).toBe(ids.size)
     expect(new Set(manifest.map(m => m.id)).size).toBe(manifest.length)
     for (const m of manifest) {
-      expect(ids.has(m.id), m.id).toBe(true)
+      expect(ids.has(m.variantOf ?? m.id), m.id).toBe(true)
       expect(m.text.length, m.id).toBeGreaterThan(0)
       expect(m.file).toBe(`public/audio/voice/en/${m.id}.ogg`)
       expect(m.speaker, m.id).toBeTruthy()
@@ -632,5 +634,20 @@ describe('the voice manifest', () => {
     expect(by('dlg.quest.goblinKing.ask.1')).toMatchObject({ speaker: 'goblinKing', scene: 'quest.goblinKing' })
     expect(by('dlg.quest.goblinKing.slay.1')).toMatchObject({ speaker: 'narrator' })
     expect(by('dlg.quest.goblinKing.slay.say')).toMatchObject({ speaker: 'hero' })
+  })
+
+  it('gives the girl hero her own take of every hero line, under its own id (roadmap #71)', () => {
+    const hero = manifest.filter(m => m.speaker === 'hero')
+    const hers = manifest.filter(m => m.speaker === 'heroine')
+    expect(hers.length).toBe(hero.length)
+    for (const m of hers) {
+      expect(m.id).toBe(`${m.variantOf}__f`)
+      expect(m.file).toBe(`public/audio/voice/en/${m.variantOf}__f.ogg`)
+      expect(hero.some(h => h.id === m.variantOf), m.id).toBe(true)
+    }
+    // A line someone else speaks gets a take only where English words it differently for her.
+    const variant = (id: string) => (id === 'dlg.sunfordSmith.hello.1__f' ? 'Well met, lass.' : id.endsWith('__f') ? '' : 'x')
+    const takes = feminineTakes([{ id: 'dlg.sunfordSmith.hello.1', speaker: 'sunfordSmith', look: 'smith', scene: 'sunfordSmith', name: '', emotion: 'neutral', text: 'x', file: '' }, { id: 'dlg.sunfordSmith.hello.2', speaker: 'sunfordSmith', look: 'smith', scene: 'sunfordSmith', name: '', emotion: 'neutral', text: 'x', file: '' }], variant)
+    expect(takes.map(t => [t.id, t.speaker, t.text])).toEqual([['dlg.sunfordSmith.hello.1__f', 'sunfordSmith', 'Well met, lass.']])
   })
 })

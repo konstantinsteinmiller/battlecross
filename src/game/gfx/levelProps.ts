@@ -308,6 +308,7 @@ export class LevelProps {
       await slice()
     }
     for (const s of plan.signs) lift(groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
+    for (const f of plan.forks) lift(groundAt(f.x, f.z), () => this.buildFork(f.x, f.z, f.a, f.boss, lit, glow))
     if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
     await slice()
     // Merged, then cut into tiles that are culled by their boxes: the whole
@@ -590,6 +591,37 @@ export class LevelProps {
       P(rbox(0.9, 0.1, 0.1, 0.4, 6, 6), '#7a5636', [0, 1.45, 0])
     ]
     const eyes = [P(sph(0.045, 6, 4), '#ff3a2a', [-0.14, 2.12, 0.43]), P(sph(0.045, 6, 4), '#ff3a2a', [0.18, 2.12, 0.43])]
+    for (const g of parts) lit.push(xform(g, [x, 0, z], [0, a, 0]))
+    for (const g of eyes) glow.push(xform(g, [x, 0, z], [0, a, 0]))
+  }
+
+  /** A signpost where a branch leaves the road (roadmap #70): a post with an
+   *  arrow board pointing down the way; a skull on top when a boss waits there. */
+  private buildFork(x: number, z: number, a: number, boss: boolean, lit: BufferGeometry[], glow: BufferGeometry[]): void {
+    const wood = boss ? '#5a3e2a' : '#8a6238'
+    const board = boss ? '#7a2a24' : '#c89a5a'
+    const parts: BufferGeometry[] = [
+      P(rock(0.42, 3), '#8b8478', [0, 0.12, 0], [0, 0.4, 0], [1, 0.45, 1]),
+      P(rcyl(0.085, 2.1, 0.03, 7, 1), wood, [0, 1.05, 0]),
+      // The arrow: a board along the way and its point.
+      P(rbox(0.16, 0.34, 1.15, 0.3, 6, 6), board, [0, 1.62, 0.5]),
+      P(rcone(0.26, 0.01, 0.38, 0.02, 4), board, [0, 1.62, 1.22], [Math.PI / 2, 0, Math.PI / 4], [0.6, 1, 1]),
+      P(rbox(0.18, 0.06, 0.9, 0.3, 6, 4), '#3a2a1e', [0, 1.66, 0.48])
+    ]
+    const eyes: BufferGeometry[] = []
+    if (boss) {
+      parts.push(
+        P(sph(0.24, 10, 8), '#f2ead8', [0, 2.3, 0], [0, 0, 0], [1, 0.92, 0.95]),
+        P(rbox(0.26, 0.14, 0.2, 0.4, 6, 4), '#e2d9c2', [0, 2.12, 0.07]),
+        P(sph(0.07, 6, 5), '#1b1626', [-0.08, 2.3, 0.2], [0, 0, 0], [1, 1.15, 0.6]),
+        P(sph(0.07, 6, 5), '#1b1626', [0.08, 2.3, 0.2], [0, 0, 0], [1, 1.15, 0.6])
+      )
+      eyes.push(P(sph(0.03, 5, 4), '#ff3a2a', [-0.08, 2.3, 0.25]), P(sph(0.03, 5, 4), '#ff3a2a', [0.08, 2.3, 0.25]))
+    } else {
+      // A lantern hung from the post: a way that is worth the walk.
+      parts.push(P(rbox(0.16, 0.22, 0.16, 0.3, 6, 6), '#3a2a1e', [0, 1.95, -0.12]))
+      eyes.push(P(sph(0.06, 6, 5), '#ffd27a', [0, 1.95, -0.12]))
+    }
     for (const g of parts) lit.push(xform(g, [x, 0, z], [0, a, 0]))
     for (const g of eyes) glow.push(xform(g, [x, 0, z], [0, a, 0]))
   }

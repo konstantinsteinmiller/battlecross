@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Cria del Buit',
     voidLord: 'El Senyor del Buit',
     orderGuard: 'Inquisidor de l’Orde',
-    syndicateBlade: 'Fulla del Sindicat'
+    syndicateBlade: 'Fulla del Sindicat',
+    goblinWarchief: 'Cabdill Goblin',
+    thornfather: 'Pare dels Espins',
+    broodMother: 'Mare de la Niuada',
+    banditBaron: 'Baró Bandoler',
+    cinderGolem: 'Gòlem de Brasa',
+    frostHowler: 'Udolador del Gebre',
+    tideSerpent: 'Serp de la Marea',
+    riftKnight: 'Cavaller de l\'Escletxa',
+    wyvernMatriarch: 'Matriarca Guiverna'
   },
   results: {
     victory: 'Victòria!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdut',
     kills: 'Derrotats',
     chests: 'Cofres',
+    bosses: 'Caps',
+    mastery: 'Domini de la zona',
+    masteryPct: '{n} %',
+    newBest: 'Nou rècord!',
     time: 'Temps',
     unlocked: 'Nou al mapa: {places}',
     equipped: 'Equipat',

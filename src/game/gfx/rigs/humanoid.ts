@@ -27,7 +27,7 @@ import {
  */
 
 export type HeadGear =
-  | 'none' | 'short' | 'long' | 'spiky' | 'bun' | 'hood' | 'helm' | 'greathelm' | 'crown' | 'wizard' | 'bandana'
+  | 'none' | 'short' | 'long' | 'spiky' | 'bun' | 'ponytail' | 'hood' | 'helm' | 'greathelm' | 'crown' | 'wizard' | 'bandana'
   | 'horns' | 'bald' | 'goggles' | 'skull' | 'cap' | 'leathercap' | 'circlet' | 'hat'
 
 /** Hand and foot gear, worn as its own layer over the body outfit. */
@@ -74,7 +74,12 @@ export interface Look {
   /** The hero: built at the higher detail level. */
   hero?: boolean
   /** The hair worn UNDER head gear (a helmet, a hat): its fringe and nape show. */
-  style?: 'short' | 'long' | 'spiky' | 'bun'
+  style?: HairStyle
+  /** A girl's face (the girl hero, roadmap #71): lashes, finer arched brows,
+   *  rosier lips and cheeks. Same head, same proportions. */
+  fem?: boolean
+  /** The tie of a ponytail (default: a red ribbon). */
+  ribbon?: string
   /** The head gear's own colour and trim (default: `hair` and `trim`). */
   headCol?: string
   headTrim?: string
@@ -293,8 +298,10 @@ const offParts = (b: RigBuilder, off: OffHand, metal: string, trim: string, glow
   }
 }
 
-type HairStyle = 'short' | 'long' | 'spiky' | 'bun'
-const isHair = (h: HeadGear): h is HairStyle => h === 'short' || h === 'long' || h === 'spiky' || h === 'bun'
+export type HairStyle = 'short' | 'long' | 'spiky' | 'bun' | 'ponytail'
+const isHair = (h: HeadGear): h is HairStyle => h === 'short' || h === 'long' || h === 'spiky' || h === 'bun' || h === 'ponytail'
+/** The ponytail's tie, unless the look names one. */
+const RIBBON = '#e0505e'
 
 /** Head gear whose own swinging part (a plume, a hat's point, a hood's tip) takes the back hair bone. */
 const GEAR_SWINGS: ReadonlySet<HeadGear> = new Set<HeadGear>(['hood', 'helm', 'greathelm', 'wizard', 'bandana'])
@@ -305,7 +312,7 @@ const GEAR_SWINGS: ReadonlySet<HeadGear> = new Set<HeadGear>(['hood', 'helm', 'g
  * cannot poke through the gear. `swing` false pins the back hair to the head
  * (the gear above it owns the swinging bone).
  */
-const hairParts = (b: RigBuilder, style: HairStyle, c: string, q: Detail, under: boolean, swing: boolean): void => {
+const hairParts = (b: RigBuilder, style: HairStyle, c: string, q: Detail, under: boolean, swing: boolean, ribbon = RIBBON): void => {
   const lo = tone(c, 0.8)
   const hi = tone(c, 1.12)
   const cy = CY
@@ -319,10 +326,10 @@ const hairParts = (b: RigBuilder, style: HairStyle, c: string, q: Detail, under:
     b.part('head', ell(sx, under ? sy * 0.8 : sy, under ? 0.045 : 0.06, 6, 3), hi, { p: [x, cy + (under ? y - 0.045 : y), under ? z + 0.012 : z], r: [0.25, 0, rz] })
   }
   /** Back hair: on the swinging bone, or pinned at the same place. */
-  const pivot: V3 = style === 'long' ? HAIR_B.long! : style === 'bun' && !under ? HAIR_B.bun! : NAPE
-  const back = (g: BufferGeometry, p: V3, r: V3 = [0, 0, 0]): void => {
-    if (swing) b.painted('hairB', g, { p, r })
-    else b.painted('head', g, { p: [pivot[0] + p[0], pivot[1] + p[1], pivot[2] + p[2]], r })
+  const pivot: V3 = style === 'long' || style === 'ponytail' ? HAIR_B[style]! : style === 'bun' && !under ? HAIR_B.bun! : NAPE
+  const back = (g: BufferGeometry, p: V3, r: V3 = [0, 0, 0], outline = true): void => {
+    if (swing) b.painted('hairB', g, { p, r, outline })
+    else b.painted('head', g, { p: [pivot[0] + p[0], pivot[1] + p[1], pivot[2] + p[2]], r, outline })
   }
   switch (style) {
     case 'short':
@@ -366,6 +373,24 @@ const hairParts = (b: RigBuilder, style: HairStyle, c: string, q: Detail, under:
       b.part(under ? 'head' : 'hairF', ell(0.04, 0.13, 0.045, 5, 4), c, { p: under ? [-0.27, cy - 0.08, 0.03] : [-0.27, -0.38, -0.03] })
       b.part(under ? 'head' : 'hairF', ell(0.04, 0.13, 0.045, 5, 4), c, { p: under ? [0.27, cy - 0.08, 0.03] : [0.27, -0.38, -0.03] })
       break
+    case 'ponytail': {
+      // The girl hero (roadmap #71): a side-swept fringe and a high ponytail
+      // tied with a ribbon that swings on the hair spring. Under a helmet the
+      // tail still shows below its rim. (Kept lean: the hero's triangle
+      // budget holds for her in the heaviest gear too.)
+      cap(1.8, -0.3, 1.07)
+      // Two broad locks sweep across the brow from her right.
+      lock(-0.11, 0.2, 0.225, 0.5, 0.15, 0.075)
+      lock(0.12, 0.185, 0.215, -0.15, 0.13, 0.068)
+      // The tail hangs down and back from the tie: full near the top, a soft
+      // point at the end.
+      const tail = lathe([[0, -0.44], [0.045, -0.39], [0.095, -0.26], [0.1, -0.13], [0.07, -0.03], [0.045, 0]], q === 0 ? 5 : 6)
+      back(gradY(tail, lo, hi), [0, -0.01, -0.02], [0.42, 0, 0])
+      // The ribbon around its root, square to the tail.
+      const tie = (g: BufferGeometry): BufferGeometry => gradY(g, tone(ribbon, 0.82), tone(ribbon, 1.12))
+      back(tie(torus(0.052, 0.026, 3, 5)), [0, -0.005, -0.012], [-1.15, 0, 0], false)
+      break
+    }
   }
 }
 
@@ -375,7 +400,7 @@ const hairParts = (b: RigBuilder, style: HairStyle, c: string, q: Detail, under:
  * then shows only where the gear leaves it room: the fringe and the nape.
  */
 const headGear = (b: RigBuilder, l: Look, q: Detail): void => {
-  if (isHair(l.head)) { hairParts(b, l.head, l.hair, q, false, true); return }
+  if (isHair(l.head)) { hairParts(b, l.head, l.hair, q, false, true, l.ribbon); return }
   // Legacy looks colour their gear with `hair`; a look with gear AND hair names the gear's colour.
   const c = l.headCol ?? l.hair
   const trim = l.headTrim ?? l.trim
@@ -384,7 +409,7 @@ const headGear = (b: RigBuilder, l: Look, q: Detail): void => {
   const cy = CY
   const bone = 'head'
   const seg = q === 2 ? 13 : q === 1 ? 11 : 9
-  const under = (): void => { if (l.style) hairParts(b, l.style, l.hair, q, true, !GEAR_SWINGS.has(l.head)) }
+  const under = (): void => { if (l.style) hairParts(b, l.style, l.hair, q, true, !GEAR_SWINGS.has(l.head), l.ribbon) }
   switch (l.head) {
     case 'hood':
       b.painted(bone, gradY(dome(HEAD_R * 1.17, 1.84, seg, 7), lo, hi), { p: [0, cy + 0.02, -0.04], r: [-0.56, 0, 0] })
@@ -418,7 +443,7 @@ const headGear = (b: RigBuilder, l: Look, q: Detail): void => {
       b.painted('hairB', gradY(ell(0.04, 0.2, 0.16, 6, 5), tone(trim, 0.8), tone(trim, 1.15)), { p: [0, 0.06, -0.08] })
       break
     case 'crown':
-      hairParts(b, l.style ?? 'short', l.hair, q, false, true)
+      hairParts(b, l.style ?? 'short', l.hair, q, false, true, l.ribbon)
       b.part(bone, tube(0.225, 0.2, 0.1, 10), '#ffd24a', { p: [0, cy + 0.32, 0] })
       for (let k = 0; k < 5; k++) {
         const a = (k / 5) * Math.PI * 2
@@ -428,7 +453,7 @@ const headGear = (b: RigBuilder, l: Look, q: Detail): void => {
       break
     case 'circlet':
       // A band across the brow over a full head of hair, with a stone at the front.
-      hairParts(b, l.style ?? 'short', l.hair, q, false, true)
+      hairParts(b, l.style ?? 'short', l.hair, q, false, true, l.ribbon)
       b.part(bone, torus(HEAD_R * 1.045, 0.026, 3, 12), c, { p: [0, cy + 0.15, -0.01], r: [Math.PI / 2 - 0.2, 0, 0] })
       b.part(bone, spike(0.04, 0.09, 4), c, { p: [0, cy + 0.245, 0.29], r: [0.35, 0, 0] })
       b.part(bone, sph(0.034, 5, 4), l.glow ?? trim, { p: [0, cy + 0.2, 0.305], glow: true, outline: false })
@@ -482,7 +507,7 @@ const headGear = (b: RigBuilder, l: Look, q: Detail): void => {
       break
     case 'goggles':
       // Hair of its own (the look's colour), goggles pushed up on the brow.
-      hairParts(b, l.style ?? 'spiky', l.hair, q, false, true)
+      hairParts(b, l.style ?? 'spiky', l.hair, q, false, true, l.ribbon)
       b.part(bone, tube(HEAD_R * 1.09, HEAD_R * 1.09, 0.05, 10), LEATHER, { p: [0, cy + 0.13, -0.01], r: [-0.3, 0, 0] })
       b.mirror((s) => {
         b.part(bone, torus(0.082, 0.026, 3, 7), '#b9c4d6', { p: [s * 0.115, cy + 0.185, 0.262], r: [0.3, s * 0.3, 0] })
@@ -499,7 +524,7 @@ const hasFace = (l: Look): boolean => l.head !== 'greathelm'
 /** Where the swinging part of each head's hair (or plume, or hat point) hinges. */
 const NAPE: V3 = [0, CY - 0.05, -0.27]
 const HAIR_B: Partial<Record<HeadGear, V3>> = {
-  long: [0, CY + 0.02, -0.26], bun: [0, CY + 0.3, -0.13], hood: [0, CY + 0.25, -0.24], helm: [0, CY + 0.33, -0.05],
+  long: [0, CY + 0.02, -0.26], bun: [0, CY + 0.3, -0.13], ponytail: [0, CY + 0.16, -0.285], hood: [0, CY + 0.25, -0.24], helm: [0, CY + 0.33, -0.05],
   greathelm: [0, CY + 0.33, -0.05], wizard: [0, CY + 0.44, -0.05], bandana: [0, CY + 0.14, -0.3]
 }
 
@@ -540,7 +565,7 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
     b.bone('mouth', 'head', [0, CY - 0.165, 0.272])
   }
   b.bone('hairF', 'head', [0, CY + HEAD_R * 0.97, 0.06])
-  b.bone('hairB', 'head', HAIR_B[l.head] ?? (l.style === 'long' && !GEAR_SWINGS.has(l.head) ? HAIR_B.long! : NAPE))
+  b.bone('hairB', 'head', HAIR_B[l.head] ?? ((l.style === 'long' || l.style === 'ponytail') && !GEAR_SWINGS.has(l.head) ? HAIR_B[l.style]! : NAPE))
   b.mirror((s, t) => {
     b.bone('arm' + t, 'torso', [s * SHOULDER_X * k, SHOULDER_Y, 0])
     b.bone('fore' + t, 'arm' + t, [0, -UPPER, 0])
@@ -741,9 +766,15 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
         if (q === 2) b.part('head', sph(0.013, 4, 3), '#ffffff', { p: [s * EYE_X + 0.024, EYE_Y - 0.03, 0.296], glow: true, outline: false })
         // The lid: a sliver at the top of the eye that drops over it to blink.
         b.part('lids', lens(0.088, EYE_RY * 1.04, 0.044, 6, 4), lidCol, { p: [s * EYE_X, -EYE_RY, 0.012], r: [0, ry, 0], outline: false })
-        b.part('lids', lens(0.084, 0.016, 0.02, 4, 2), DARK, { p: [s * EYE_X, -EYE_RY * 2 + 0.012, 0.03], r: [0, ry, 0], outline: false })
+        // Its lash line (a bolder one on a girl's face).
+        b.part('lids', lens(l.fem ? 0.09 : 0.084, l.fem ? 0.024 : 0.016, 0.02, 4, 2), DARK, { p: [s * EYE_X, -EYE_RY * 2 + 0.012, 0.03], r: [0, ry, 0], outline: false })
+        if (l.fem) {
+          // A lash flicking out at the outer corner, over the lid.
+          b.part('head', spike(0.018, 0.075, 3), DARK, { p: [s * (EYE_X + 0.07), EYE_Y + EYE_RY * 0.72, 0.258], r: [0.2, ry, -s * 1.0], outline: false })
+        }
       }
-      if (!skeletal) b.part('brow' + t, ell(0.062, 0.017, 0.02, 4, 3), browCol, { r: [0, ry, -s * 0.12], outline: false })
+      // A girl's brows are finer and arched; a boy's thicker and straighter.
+      if (!skeletal) b.part('brow' + t, l.fem ? ell(0.064, 0.012, 0.018, 4, 3) : ell(0.062, 0.017, 0.02, 4, 3), browCol, { r: [0, ry, -s * (l.fem ? 0.2 : 0.12)], outline: false })
     })
     if (skeletal) {
       // A row of teeth; the jaw drops when it shouts.
@@ -751,10 +782,10 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
       b.part('mouth', rbox(0.2, 0.075, 0.07, 0.5, 6, 4), '#cfc8b4', { p: [0, -0.01, -0.02], outline: false })
       for (let i = -1; i <= 1; i++) b.part('mouth', rbox(0.012, 0.06, 0.02, 0.6, 4, 3), DARK, { p: [i * 0.05, 0, 0.018], outline: false })
     } else {
-      b.part('mouth', lens(0.046, 0.034, 0.016, 4, 3), '#6a2a34', { outline: false })
+      b.part('mouth', lens(0.046, 0.034, 0.016, 4, 3), l.fem ? '#8a2f40' : '#6a2a34', { outline: false })
       b.part('head', lens(0.021, 0.018, 0.024, 4, 3), tone(skin, 0.86), { p: [0, CY - 0.095, 0.296], outline: false })
       if (q > 0) {
-        const blush = mixHex(skin, '#ff6a7a', 0.3)
+        const blush = mixHex(skin, '#ff6a7a', l.fem ? 0.4 : 0.3)
         b.mirror((s) => { b.part('head', lens(0.05, 0.028, 0.012, 4, 2), blush, { p: [s * 0.2, CY - 0.115, 0.215], r: [0, s * 0.8, 0], outline: false }) })
       }
     }

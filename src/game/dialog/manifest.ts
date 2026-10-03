@@ -31,7 +31,14 @@ export interface ManifestLine {
   text: string
   /** `public/…` path the game plays when it exists. */
   file: string
+  /** A feminine take (`<id>__f`, roadmap #71): the line it is a take of. */
+  variantOf?: string
 }
+
+/** The suffix of a feminine take; the same as the i18n variant's (`i18n/gendered.ts`). */
+export const FEMININE_TAKE = '__f'
+/** Who voices the girl hero's own takes of the hero's lines. */
+export const HEROINE = 'heroine'
 
 /** Every line of a conversation, in reading order. */
 export const linesOf = (c: ConversationDef): LineDef[] => {
@@ -78,5 +85,27 @@ export const dialogLines = (
   }
   add(END_LINE, null)
   for (const c of convs) for (const l of linesOf(c)) add(l, c)
-  return [...out.values()]
+  const lines = [...out.values()]
+  return [...lines, ...feminineTakes(lines, text, lang)]
+}
+
+/**
+ * The girl hero's takes (roadmap #71), each its own entry with its own id
+ * (`<id>__f`, which is also the recording's name and, where the text differs,
+ * the i18n key of its feminine variant):
+ *   · every line the HERO speaks, in the girl hero's voice (`heroine`), with
+ *     the variant's text where English has one;
+ *   · every other line whose English text has a feminine variant (someone
+ *     speaking ABOUT or TO her differently), in its own speaker's voice.
+ * The game plays `<id>__f` for the girl hero when it exists (`audio/speech.ts`).
+ */
+export const feminineTakes = (lines: readonly ManifestLine[], text: (id: string) => string, lang = 'en'): ManifestLine[] => {
+  const out: ManifestLine[] = []
+  for (const l of lines) {
+    const id = l.id + FEMININE_TAKE
+    const variant = text(id)
+    if (l.speaker !== 'hero' && !variant) continue
+    out.push({ ...l, id, speaker: l.speaker === 'hero' ? HEROINE : l.speaker, text: variant || l.text, file: `public/${voicePath(lang, id)}`, variantOf: l.id })
+  }
+  return out
 }

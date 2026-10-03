@@ -5,7 +5,8 @@ import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
 import { castSkill, createHero, orderAttack, orderMove, slotState, useManaPotion, usePotion } from './hero'
-import { orderOpen } from './interact'
+import { chestLock, orderOpen } from './interact'
+import { zoneMastery, type Mastery } from './route'
 import { heroStats, sumBuild, type HeroBuild } from './stats'
 import { stepSim } from './step'
 import { generateZone, type ZonePlan } from './zoneGen'
@@ -17,7 +18,10 @@ import { Sim } from './world'
  * A scripted hero that plays a zone the way a competent, unhurried player
  * would: walk to the next pack, fight what is awake, use every skill as it
  * comes up, drink at 40 %. It opens no chests and takes no side path, so it
- * measures the fights alone. Not an AI — a yardstick. The balance tests run it
+ * measures the fights alone: the main road is the shortest route to the
+ * finale, and the yardstick never leaves it. The `explore` policy is the
+ * completionist instead: every branch, every branch boss, every chest it can
+ * reach, the finale last (the full-clear time). Not an AI — a yardstick. The balance tests run it
  * through every zone with a level-appropriate build so a later change to a
  * formula cannot silently turn the Goblin Hollows into a wall (or a walkover).
  */
@@ -95,6 +99,8 @@ export interface RunResult {
   taken: number
   potionsUsed: number
   items: string[]
+  /** Bosses beaten and chests opened of the visit's (roadmap #70). */
+  mastery: Mastery
 }
 
 export interface RunOpts extends RefBuildOpts {
@@ -107,6 +113,8 @@ export interface RunOpts extends RefBuildOpts {
   potions?: number
   /** Play the plain chain, without what a visit holds beside its packs. */
   bare?: boolean
+  /** Clear the branches and open the chests before the finale. */
+  explore?: boolean
 }
 
 /** Set up a zone visit exactly as the game does, with a reference build. */
@@ -125,8 +133,9 @@ export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
   return { sim, plan }
 }
 
-/** One decision of the reference player (call a few times a second). */
-export const botThink = (sim: Sim): void => {
+/** One decision of the reference player (call a few times a second).
+ *  `explore`: the completionist's route (every branch and chest first). */
+export const botThink = (sim: Sim, explore = false): void => {
   const h = sim.hero
   const u = h.unit
   if (!u.alive) return
@@ -148,6 +157,7 @@ export const botThink = (sim: Sim): void => {
     if (d < bd) { bd = d; foe = e }
   }
   if (!foe) {
+    if (explore && exploreStep(sim)) return
     // The main chain only: side packs are a player's choice, not the yardstick's.
     const next = sim.groups.find(g => !g.cleared)
     if (next && (h.order.kind !== 'move' || Math.hypot(h.order.x - next.x, h.order.z - next.z) > 1)) orderMove(sim, next.x, next.z)
@@ -170,6 +180,31 @@ export const botThink = (sim: Sim): void => {
   }
 }
 
+/** The completionist's next errand: the nearest chest it may open, else the
+ *  nearest branch pack or main pack before the finale. False: only the finale is left. */
+const exploreStep = (sim: Sim): boolean => {
+  const h = sim.hero
+  const u = h.unit
+  if (h.opening >= 0 || h.order.kind === 'chest') return true
+  let best: { x: number; z: number; chest: number } | undefined
+  let bd = Infinity
+  const consider = (x: number, z: number, chest: number): void => {
+    const d = Math.hypot(x - u.x, z - u.z)
+    if (d < bd) { bd = d; best = { x, z, chest } }
+  }
+  for (const c of sim.chests) if (c.role !== 'finale' && c.state === 'closed' && chestLock(sim, c) === '') consider(c.sx, c.sz, c.id)
+  for (const b of sim.branches) {
+    const g = sim.groupById(b.group)
+    if (g && !g.cleared) consider(g.x, g.z, -1)
+  }
+  for (const g of sim.groups) if (!g.cleared && !g.finale) consider(g.x, g.z, -1)
+  if (!best) return false
+  const t: { x: number; z: number; chest: number } = best
+  if (t.chest >= 0) { orderOpen(sim, t.chest); return true }
+  if (h.order.kind !== 'move' || Math.hypot(h.order.x - t.x, h.order.z - t.z) > 1) orderMove(sim, t.x, t.z)
+  return true
+}
+
 /** Play a zone to its end (or to the time limit) with the reference player. */
 export const runZone = (o: RunOpts): RunResult => {
   const { sim, plan } = setupRun(o)
@@ -179,7 +214,7 @@ export const runZone = (o: RunOpts): RunResult => {
   let think = 0
   while (!sim.ended && sim.time < max) {
     think -= dt
-    if (think <= 0) { think = 0.2; botThink(sim) }
+    if (think <= 0) { think = 0.2; botThink(sim, o.explore) }
     stepSim(sim, plan, dt)
     sim.events.length = 0
   }
@@ -194,7 +229,8 @@ export const runZone = (o: RunOpts): RunResult => {
     dealt: h.dealt,
     taken: h.taken,
     potionsUsed: potions0 - h.potions,
-    items: h.items
+    items: h.items,
+    mastery: zoneMastery(sim)
   }
 }
 

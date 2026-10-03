@@ -15,6 +15,17 @@ import { ITEM_BY_ID, type EquipSlot } from '../data/items'
 export type HeroOutfit = 'tunic' | 'leather' | 'robe' | 'plate'
 export const HERO_OUTFITS: readonly HeroOutfit[] = ['tunic', 'leather', 'robe', 'plate']
 
+/**
+ * Who the player is (roadmap #71): the boy hero or the girl hero, chosen on
+ * the first boot and kept in the save (`profile.hero.gender`). Everything that
+ * draws the hero takes it: the rig (`heroLook`), the painted portraits (a set
+ * of four per hero), the vector bust. A save from before the choice is 'm'.
+ */
+export type HeroGender = 'm' | 'f'
+export const HERO_GENDERS: readonly HeroGender[] = ['m', 'f']
+/** Anything that is not the girl hero is the boy hero (an old save, a bad value). */
+export const heroGenderOf = (v: unknown): HeroGender => (v === 'f' ? 'f' : 'm')
+
 /** The outfit family a worn body item puts him in. Nothing worn, or a kind
  *  with no family of its own, is the starter tunic. */
 export const heroOutfitOf = (bodyKind: string | undefined): HeroOutfit =>
@@ -24,13 +35,24 @@ export const heroOutfitOf = (bodyKind: string | undefined): HeroOutfit =>
 export const heroOutfit = (equipped: Partial<Record<EquipSlot, string | null>>): HeroOutfit =>
   heroOutfitOf(equipped.body ? ITEM_BY_ID[equipped.body]?.kind : undefined)
 
-/** The painted file's name for one family: `public/images/portraits/<id>.webp`. */
-export const heroPortraitId = (outfit: HeroOutfit): string => `hero-${outfit}`
+/** The painted file's name for one family: `public/images/portraits/<id>.webp`.
+ *  The boy hero's are `hero-<outfit>` (the names they always had), the girl
+ *  hero's `hero-f-<outfit>`. */
+export const heroPortraitId = (outfit: HeroOutfit, gender: HeroGender = 'm'): string =>
+  gender === 'f' ? `hero-f-${outfit}` : `hero-${outfit}`
 
-/** `hero-plate` → `plate`; anything else → null. */
+const HERO_ID = /^hero-(f-)?(tunic|leather|robe|plate)$/
+
+/** `hero-plate` / `hero-f-plate` → `plate`; anything else → null. */
 export const heroOutfitOfId = (id: string): HeroOutfit | null => {
-  const m = /^hero-(tunic|leather|robe|plate)$/.exec(id)
-  return m ? (m[1] as HeroOutfit) : null
+  const m = HERO_ID.exec(id)
+  return m ? (m[2] as HeroOutfit) : null
+}
+
+/** Which hero a portrait id shows: `hero-f-…` the girl, `hero-…` the boy, else null. */
+export const heroGenderOfId = (id: string): HeroGender | null => {
+  const m = HERO_ID.exec(id)
+  return m ? (m[1] ? 'f' : 'm') : null
 }
 
 /**

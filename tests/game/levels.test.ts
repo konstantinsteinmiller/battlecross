@@ -101,7 +101,8 @@ describe('the plan: everything a visit holds can be walked to', () => {
 
   it('side chests stay off the road and inside the zone\'s count', () => {
     everyPlan((plan, zone, tag) => {
-      const side = plan.chests.filter(c => c.role !== 'finale' && c.role !== 'secret')
+      // A branch's chest (roadmap #70) is that branch's reward, beside the count.
+      const side = plan.chests.filter(c => c.role !== 'finale' && c.role !== 'secret' && c.role !== 'bypass' && c.role !== 'branch')
       const [lo, hi] = ZONE_FEATURES[zone].chests
       expect(side.length, tag).toBeGreaterThanOrEqual(1)
       expect(side.length, tag).toBeLessThanOrEqual(Math.max(lo, hi))
@@ -161,11 +162,15 @@ describe('the plan: everything a visit holds can be walked to', () => {
     // without the tutorial and an ambush, taken from the generator as it was
     // BEFORE chests, water and caves existed (commit 779df68). The balance
     // and determinism tests ride on these packs staying byte-identical.
+    // A zone with branches (roadmap #70) has rock either side of its chain:
+    // the chain is the same, set in by that margin, so it is measured from it.
     let h = 2166136261
     for (const zone of ZONE_IDS) {
       for (const seed of [1, 2, 3, 5, 7, 11, 42, 77, 1234, 99991]) {
         for (const o of [{}, { tutorial: true }, { ambush: 'orderGuard', extra: 1 }]) {
-          const s = JSON.stringify(generateZone(ZONES[zone], seed, o).packs)
+          const plan = generateZone(ZONES[zone], seed, o)
+          const off = ((plan.w - 40) / 2) * CELL
+          const s = JSON.stringify(plan.packs.map(p => ({ ...p, x: p.x - off })))
           for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
         }
       }
@@ -227,16 +232,17 @@ describe('water', () => {
         rivers++
         const bridge = plan.crossings.find(c => c.kind === 'bridge')
         expect(bridge, `${tag} bridge`).toBeTruthy()
-        // The river runs from rim to rim: without its bridge the road is cut.
+        // The river runs from rim to rim: without its bridge the road is cut
+        // (a branch way it crosses keeps going over a ford of its own).
         for (let i = 2; i < plan.w - 2; i++) {
           const k = riverRow(r, i) * plan.w + i
-          expect([K_WATER, K_BRIDGE], `${tag} river column ${i}`).toContain(plan.kind[k])
+          expect([K_WATER, K_BRIDGE, K_FORD], `${tag} river column ${i}`).toContain(plan.kind[k])
         }
         for (const k of bridge!.cells) expect(plan.trail[k], `${tag} the road runs over the bridge`).toBe(1)
         const dry = gridOf(plan)
-        for (const k of bridge!.cells) dry.solid[k] = SOLID_LOW
+        for (const cr of plan.crossings) for (const k of cr.cells) dry.solid[k] = SOLID_LOW
         const last = plan.packs[plan.packs.length - 1]!
-        expect(findPath(dry, plan.start.x, plan.start.z, last.x, last.z, path), `${tag} the bridge is the only way`).toBe(0)
+        expect(findPath(dry, plan.start.x, plan.start.z, last.x, last.z, path), `${tag} the crossings are the only ways`).toBe(0)
       }
     })
     expect(rivers).toBeGreaterThan(10)
@@ -253,9 +259,12 @@ describe('water', () => {
     expect(plan.kind[j * plan.w + i]).toBe(K_WATER)
     expect(isSolidCell(g, i, j)).toBe(true)
     expect(g.solid[j * plan.w + i]).toBe(SOLID_LOW)
-    // Seen across: bank to bank over three rows of water.
+    // Seen across: bank to bank over three rows of water (to a spot on the far
+    // bank beside the bridge that is open ground, not the rock by the road).
     const x = (bridge.i0 + 1) * CELL
-    expect(hasLineOfSight(g, x, (bridge.j0 - 1 + 0.5) * CELL, x - 2 * CELL, (bridge.j1 + 1 + 0.5) * CELL)).toBe(true)
+    const o = [-2, 2, -3, 3].find(d => !(g.solid[(bridge.j1 + 1) * plan.w + bridge.i0 + 1 + d]! & 1))!
+    expect(o).toBeDefined()
+    expect(hasLineOfSight(g, x, (bridge.j0 - 1 + 0.5) * CELL, x + o * CELL, (bridge.j1 + 1 + 0.5) * CELL)).toBe(true)
 
     // A strip of water between two banks: a body pushed at it stops on the
     // bank, a shot crosses it, and a rock in the same place stops both.
@@ -571,9 +580,11 @@ describe('mana potions (a carried stock, drunk on demand)', () => {
 describe('optional corners', () => {
   const cornerVisit = (champion: boolean) => {
     const zone: ZoneId = 'woods'
-    const seed = seedWith(zone, p => p.optionalPacks.some(o => o.champion === champion) && p.chests.some(c => c.role === (champion ? 'champion' : 'guard')))
+    // A corner's pack, not a branch's (roadmap #70).
+    const corner = (o: ZonePlan['optionalPacks'][number]): boolean => o.champion === champion && o.branch === undefined
+    const seed = seedWith(zone, p => p.optionalPacks.some(corner) && p.chests.some(c => c.role === (champion ? 'champion' : 'guard')))
     const v = visit(zone, seed)
-    const n = v.plan.optionalPacks.findIndex(o => o.champion === champion)
+    const n = v.plan.optionalPacks.findIndex(corner)
     return { ...v, group: v.sim.sideGroups[n]!, pack: v.plan.optionalPacks[n]!, chest: v.sim.chests.find(c => c.guard === n)! }
   }
 
@@ -887,7 +898,7 @@ describe('the finale\'s chest', () => {
     const seed = seedWith('woods', p => p.chests.some(c => c.role === 'guard'))
     const { sim, plan } = visit('woods', seed)
     const h = sim.hero
-    const n = plan.optionalPacks.findIndex(o => !o.champion)
+    const n = plan.optionalPacks.findIndex(o => !o.champion && o.branch === undefined)
     const group = sim.sideGroups[n]!
     const guard = sim.get(group.members[0]!)!
     const chest = sim.chests.find(c => c.guard === n)!

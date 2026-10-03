@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Zplozenec Prázdnoty',
     voidLord: 'Pán Prázdnoty',
     orderGuard: 'Inkvizitor Řádu',
-    syndicateBlade: 'Čepel Syndikátu'
+    syndicateBlade: 'Čepel Syndikátu',
+    goblinWarchief: 'Skřetí válečný náčelník',
+    thornfather: 'Otec trnů',
+    broodMother: 'Matka plodu',
+    banditBaron: 'Banditský baron',
+    cinderGolem: 'Žhavý golem',
+    frostHowler: 'Mrazivý vyjec',
+    tideSerpent: 'Přílivový had',
+    riftKnight: 'Rytíř trhliny',
+    wyvernMatriarch: 'Matka wyvern'
   },
   results: {
     victory: 'Vítězství!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Ztraceno',
     kills: 'Poraženo',
     chests: 'Truhly',
+    bosses: 'Bossové',
+    mastery: 'Ovládnutí oblasti',
+    masteryPct: '{n} %',
+    newBest: 'Nový rekord!',
     time: 'Čas',
     unlocked: 'Nově na mapě: {places}',
     equipped: 'Nasazeno',

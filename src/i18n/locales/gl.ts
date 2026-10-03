@@ -2637,7 +2637,16 @@ export default {
     voidling: 'Cría do Baleiro',
     voidLord: 'O Señor do Baleiro',
     orderGuard: 'Inquisidor da Orde',
-    syndicateBlade: 'Folla do Sindicato'
+    syndicateBlade: 'Folla do Sindicato',
+    goblinWarchief: 'Caudillo Goblin',
+    thornfather: 'Pai das Espiñas',
+    broodMother: 'Nai da Niñada',
+    banditBaron: 'Barón Bandido',
+    cinderGolem: 'Gólem de Brasa',
+    frostHowler: 'Ouveador da Xeada',
+    tideSerpent: 'Serpe da Marea',
+    riftKnight: 'Cabaleiro da Fenda',
+    wyvernMatriarch: 'Matriarca Guivre'
   },
   results: {
     victory: 'Vitoria!',
@@ -2652,6 +2661,10 @@ export default {
     lost: 'Perdido',
     kills: 'Derrotados',
     chests: 'Cofres',
+    bosses: 'Xefes',
+    mastery: 'Dominio da zona',
+    masteryPct: '{n} %',
+    newBest: 'Novo récord!',
     time: 'Tempo',
     unlocked: 'Novo no mapa: {places}',
     equipped: 'Equipado',

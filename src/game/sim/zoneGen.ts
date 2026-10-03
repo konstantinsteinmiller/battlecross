@@ -5,7 +5,7 @@ import { mulberry32, type Rng } from './rng'
 import {
   K_BLOCK, K_CLIFF, K_WATER, addFeatures, noFeatures,
   type CavePlan, type ChestPlan, type CrossingPlan, type DoorPlan, type OptionalPackPlan, type PlatePlan, type PuzzlePlan,
-  type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan
+  type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan, type BranchPlan, type ForkPlan
 } from './zoneFeatures'
 import { ZONE_RELIEF, type LiquidId } from '../data/zones'
 import { buildRelief, buildTownRelief } from './relief'
@@ -112,6 +112,9 @@ export interface ZonePlan {
   ledges: LedgePlan[]
   dais: DaisPlan | null
   lobes: LobePlan[]
+  /** The ways off the main road (roadmap #70) and the signposts at their forks. */
+  branches: BranchPlan[]
+  forks: ForkPlan[]
   buildings: BuildingPlan[]
   npcs: NpcPlan[]
   /** A town's houses, props, places and people (`town.ts`); absent elsewhere. */
@@ -123,7 +126,11 @@ export interface ZonePlan {
   dummy?: { x: number; z: number }
 }
 
+/** The main chain's width (cells): the road wanders inside it. */
 const W = 40
+/** Rock either side of the chain where the branches run (roadmap #70): the
+ *  chain is laid exactly as in a 40-wide zone, then set this far in. */
+export const BRANCH_MARGIN = 10
 
 /**
  * The training dummy's spot: in the opening clearing, off to one side of the
@@ -240,6 +247,9 @@ export interface ZoneGenOpts {
   extra?: number
   /** No water, caves, corners or side chests: the chain alone (measurements). */
   bare?: boolean
+  /** False: the zone as one road, without its branches or the rock they run
+   *  through (the perf A/B arm of roadmap #70). */
+  branches?: boolean
 }
 
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
@@ -248,25 +258,30 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const n = def.sections
   const step = 11
   const h = 16 + n * step + (boss ? 6 : 3)
-  const solid = new Uint8Array(W * h).fill(1)
-  const trail = new Uint8Array(W * h)
+  // A zone with branches has rock either side of its chain for them to run
+  // through; the tutorial's single road and the bare chain do not.
+  const M = o.tutorial || o.bare || o.branches === false ? 0 : BRANCH_MARGIN
+  const Wd = W + 2 * M
+  const solid = new Uint8Array(Wd * h).fill(1)
+  const trail = new Uint8Array(Wd * h)
 
-  // Centres, from the bottom of the map (near the camera) upward.
+  // Centres, from the bottom of the map (near the camera) upward, drawn in
+  // the chain's own 40 columns and then set in by the margin.
   const cs: Array<{ i: number; j: number; r: number }> = []
   let ci = W / 2 + Math.round((rng() - 0.5) * 6)
   let cj = h - 8
-  cs.push({ i: ci, j: cj, r: 4.2 })
+  cs.push({ i: ci + M, j: cj, r: 4.2 })
   for (let k = 1; k <= n; k++) {
     const last = k === n
     const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
     cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
     ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
-    cs.push({ i: ci, j: cj, r })
+    cs.push({ i: ci + M, j: cj, r })
   }
   for (let k = 0; k < cs.length; k++) {
     const c = cs[k]!
-    carveDisc(solid, W, h, c.i, c.j, c.r, rng)
-    if (k > 0) carveLine(solid, trail, W, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, 1.7)
+    carveDisc(solid, Wd, h, c.i, c.j, c.r, rng)
+    if (k > 0) carveLine(solid, trail, Wd, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, 1.7)
   }
 
   // A side pocket for a secret chest, off one of the middle clearings.
@@ -281,12 +296,12 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   }))
   if (def.secret && n >= 3) {
     const from = cs[Math.max(1, Math.floor(n / 2))]!
-    const side = from.i > W / 2 ? -1 : 1
-    const si = Math.max(6, Math.min(W - 7, from.i + side * 10))
+    const side = from.i - M > W / 2 ? -1 : 1
+    const si = M + Math.max(6, Math.min(W - 7, from.i - M + side * 10))
     const sj = from.j - 2
     const rock = solid.slice()
-    carveDisc(solid, W, h, si, sj, 2.6, rng)
-    carveLine(solid, trail, W, h, from.i, from.j, si, sj, 1.1)
+    carveDisc(solid, Wd, h, si, sj, 2.6, rng)
+    carveLine(solid, trail, Wd, h, from.i, from.j, si, sj, 1.1)
     // A small place off the road: the view keeps the scenery in front of it low.
     for (let k = 0; k < rock.length; k++) if (rock[k] && !solid[k]) secretCells.push(k)
     secret = { x: (si + 0.5) * CELL, z: (sj + 0.5) * CELL }
@@ -304,12 +319,12 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       const d = c.r * (0.5 + rng() * 0.3)
       const i = Math.round(c.i + Math.cos(a) * d)
       const j = Math.round(c.j + Math.sin(a) * d)
-      if (i < 3 || j < 3 || i >= W - 3 || j >= h - 3) continue
+      if (i < 3 || j < 3 || i >= Wd - 3 || j >= h - 3) continue
       let nearTrail = false
       for (let dj = -2; dj <= 2 && !nearTrail; dj++) {
-        for (let di = -2; di <= 2; di++) if (trail[(j + dj) * W + i + di]) { nearTrail = true; break }
+        for (let di = -2; di <= 2; di++) if (trail[(j + dj) * Wd + i + di]) { nearTrail = true; break }
       }
-      if (!nearTrail) solid[j * W + i] = 1
+      if (!nearTrail) solid[j * Wd + i] = 1
     }
   }
 
@@ -352,21 +367,21 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const fin = clearings[n]!
   // The reward chest waits behind the finale.
   const chest = { x: fin.x, z: fin.z - fin.r * 0.55 }
-  const kind = new Uint8Array(W * h)
-  const cave = new Uint8Array(W * h)
-  const sealed = new Uint8Array(W * h)
-  const side = new Uint8Array(W * h)
+  const kind = new Uint8Array(Wd * h)
+  const cave = new Uint8Array(Wd * h)
+  const sealed = new Uint8Array(Wd * h)
+  const side = new Uint8Array(Wd * h)
   for (const k of secretCells) if (!solid[k]) side[k] = 1
-  const features = addFeatures({ def, seed, w: W, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare })
+  const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0 })
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()
   if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
   const height = buildRelief({
-    seed, w: W, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
+    seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
     relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial
   })
   return {
-    seed, w: W, h, solid, trail, kind, cave, sealed, side, height, clearings,
+    seed, w: Wd, h, solid, trail, kind, cave, sealed, side, height, clearings,
     start: { x: clearings[0]!.x, z: clearings[0]!.z },
     packs,
     chest,

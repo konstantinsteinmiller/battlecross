@@ -14,7 +14,8 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { markChestsOpened, setManaPotions } from './state/profile'
+import { markChestsOpened, recordMastery, setManaPotions } from './state/profile'
+import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
 import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
@@ -79,6 +80,9 @@ export interface ResultsData {
   waves: number
   /** Chests opened of the chests the visit held (absent: a place without any). */
   chests?: { opened: number; total: number }
+  /** The zone's mastery this visit (bosses, chests), its share in percent and
+   *  the zone's best before it (roadmap #70; absent: not a zone). */
+  mastery?: Mastery & { pct: number; bestBefore: number }
   /** A random encounter met on the map (`node` is its region's zone). */
   encounter?: boolean
 }
@@ -176,6 +180,8 @@ export interface VisitTally {
   special?: readonly string[]
   /** The mana potion stock as the visit leaves it (some drunk, some found). */
   manaPotions?: number
+  /** Bosses beaten and chests opened of the visit's (a zone only). */
+  mastery?: Mastery
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -411,7 +417,8 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, manaPotions: h.manaPotions
+    special: mode.sim.specialOpened, manaPotions: h.manaPotions,
+    ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
   })
 }
 
@@ -433,6 +440,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // it stands, and the one-time chests that are now empty for good.
   if (h.manaPotions !== undefined) setManaPotions(h.manaPotions)
   if (h.special?.length) markChestsOpened(h.special)
+  const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined
   profile.stats.kills += h.kills
   profile.stats.runs++
   profile.stats.playSeconds += Math.round(h.seconds)
@@ -457,7 +465,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   void flushSaveNow()
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
-    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(encounter ? { encounter: true } : {})
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()

@@ -13,6 +13,8 @@ import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, c
 import { MAP, NODE_BY_ID, nodeOpen, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
 import type { UnitStats } from '../sim/types'
+import { heroGenderOf, type HeroGender } from '../art/heroPortrait'
+import { setHeroForm } from '@/i18n/gendered'
 
 /**
  * ─── The player profile ──────────────────────────────────────────────────────
@@ -42,6 +44,10 @@ export interface HeroSave {
   /** The six active slots and the three passive slots ('' = empty). */
   active: string[]
   passive: string[]
+  /** The boy hero or the girl hero (roadmap #71), chosen on the first boot
+   *  and changed on the character page. A save from before the choice has
+   *  none and loads as the boy hero it always played. */
+  gender: HeroGender
 }
 
 export interface InventorySave {
@@ -81,9 +87,22 @@ export interface WorldSave {
   arenaBest: number
   /** One-time chests already emptied ("zone:role": a puzzle's, a secret's). */
   chests: string[]
+  /** Zone mastery (roadmap #70), per zone: bosses beaten and chests opened. */
+  mastery: Record<string, ZoneMasterySave>
   /** Dialogue memory (`game/talk.ts`): who the hero has met (`<npc>`) and
    *  what was said (`<npc>.<topic>`), so nobody introduces themselves twice. */
   said: string[]
+}
+
+/** What the hero has made of a zone over all his visits (roadmap #70). */
+export interface ZoneMasterySave {
+  /** Bosses beaten (branch bosses and the finale's) and chests opened, all visits. */
+  bosses: number
+  chests: number
+  /** The best visit's share of its bosses and chests, in percent. */
+  best: number
+  /** Visits that took every boss and every chest. */
+  full: number
 }
 
 export interface StatsSave {
@@ -126,7 +145,7 @@ const defaultHero = (): HeroSave => {
   // first fight already has a button to press.
   const active = emptySlots(ACTIVE_SLOTS)
   active[0] = 'shieldSlam'
-  return { xp: 0, attrs: startAttrs(), points: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS) }
+  return { xp: 0, attrs: startAttrs(), points: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm' }
 }
 
 const defaultInv = (): InventorySave => ({
@@ -146,7 +165,7 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
-  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], said: [] },
+  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {}
 })
@@ -198,7 +217,10 @@ export const loadProfile = (): void => {
   }
   hero.active = slots(hero.active, ACTIVE_SLOTS, 'active')
   hero.passive = slots(hero.passive, PASSIVE_SLOTS, 'passive')
+  // A save from before the hero choice is the boy hero it always played.
+  hero.gender = heroGenderOf(hero.gender)
   profile.hero = hero
+  setHeroForm(hero.gender)
 
   const inv = obj(stored(INVENTORY_KEY), d.inv)
   inv.items = [...new Set(strs(inv.items).filter(id => ITEM_BY_ID[id]))]
@@ -234,6 +256,16 @@ export const loadProfile = (): void => {
   world.arenaBest = Math.max(0, Math.round(num(world.arenaBest, 0)))
   // A save from before one-time chests has opened none.
   world.chests = [...new Set(strs(world.chests))]
+  // A save from before zone mastery has mastered nothing yet.
+  const mastery: Record<string, ZoneMasterySave> = {}
+  for (const [z, m] of Object.entries(obj(world.mastery, {}) as Record<string, unknown>)) {
+    const v = obj(m, { bosses: 0, chests: 0, best: 0, full: 0 })
+    mastery[z] = {
+      bosses: Math.max(0, Math.round(num(v.bosses, 0))), chests: Math.max(0, Math.round(num(v.chests, 0))),
+      best: Math.max(0, Math.min(100, Math.round(num(v.best, 0)))), full: Math.max(0, Math.round(num(v.full, 0)))
+    }
+  }
+  world.mastery = mastery
   // A save from before the conversations has no memory: everyone is met anew.
   world.said = [...new Set(strs(world.said))]
   if (!NODE_BY_ID[world.at]) world.at = 'plains'
@@ -286,6 +318,36 @@ export const initProfile = (): void => {
 /** Has this save ever been played? (A first-timer boots into the opening fight.) */
 export const isFreshProfile = (): boolean =>
   profile.level <= 1 && profile.story === 0 && profile.questsDone === 0 && profile.stats.runs === 0 && profile.stats.kills === 0
+
+// ─── Who the hero is (roadmap #71) ───────────────────────────────────────────
+
+/** The one-time flag (in `tips`) that the player has picked a hero. */
+export const HERO_PICKED_TIP = 'heroPicked'
+
+/**
+ * Is the hero still to be chosen? Only a brand-new save, and only until a
+ * pick: a returning player (any progress at all) never sees the choice, and
+ * one who picked and reloaded before the first kill does not see it again.
+ */
+export const needsHeroChoice = (): boolean => isFreshProfile() && profile.tips[HERO_PICKED_TIP] !== true
+
+/** Be the boy hero or the girl hero. Saved at once; every view of the hero
+ *  (the rig, the portraits, the gendered lines) follows. */
+export const setHeroGender = (g: HeroGender): void => {
+  const gender = heroGenderOf(g)
+  const changed = profile.hero.gender !== gender
+  profile.hero.gender = gender
+  setHeroForm(gender)
+  if (changed) saveProfile()
+}
+
+/** The first-boot pick: the hero, and the flag that it was made. */
+export const pickHero = (g: HeroGender): void => {
+  profile.hero.gender = heroGenderOf(g)
+  setHeroForm(profile.hero.gender)
+  profile.tips[HERO_PICKED_TIP] = true
+  saveProfile()
+}
 
 // ─── The hero as the sim wants him ───────────────────────────────────────────
 
@@ -556,6 +618,21 @@ export const setManaPotions = (n: number): void => {
 /** Remember the one-time chests a visit emptied. */
 export const markChestsOpened = (keys: readonly string[]): void => {
   for (const k of keys) if (!profile.world.chests.includes(k)) profile.world.chests.push(k)
+}
+
+/** Bank a visit's mastery of its zone; returns the visit's share (percent) and the zone's best before it. */
+export const recordMastery = (
+  zone: string, m: { bosses: number; bossesTotal: number; chests: number; chestsTotal: number }
+): { pct: number; bestBefore: number } => {
+  const total = m.bossesTotal + m.chestsTotal
+  const pct = total ? Math.round(((m.bosses + m.chests) / total) * 100) : 0
+  const cur = profile.world.mastery[zone] ?? { bosses: 0, chests: 0, best: 0, full: 0 }
+  const bestBefore = cur.best
+  profile.world.mastery[zone] = {
+    bosses: cur.bosses + m.bosses, chests: cur.chests + m.chests, best: Math.max(cur.best, pct),
+    full: cur.full + (total > 0 && pct === 100 ? 1 : 0)
+  }
+  return { pct, bestBefore }
 }
 
 // ─── The world ───────────────────────────────────────────────────────────────

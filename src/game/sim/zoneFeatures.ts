@@ -1,4 +1,4 @@
-import { ZONE_FEATURES, ZONE_RELIEF, type LiquidId, type ZoneDef } from '../data/zones'
+import { ZONE_BRANCHES, ZONE_FEATURES, ZONE_RELIEF, type BranchStyle, type LiquidId, type ZoneDef } from '../data/zones'
 import { ENEMY_BY_ID } from '../data/enemies'
 import type { ChestTier } from '../data/loot'
 import { CELL } from './grid'
@@ -43,6 +43,10 @@ export const K_CLIFF = 6
 export const K_RAMP = 7
 
 export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 'cave' | 'lagoon' | 'nook' | 'tutorial' | 'ledge'
+  /** At the far end of a loop way, guarded by its pack (roadmap #70). */
+  | 'bypass'
+  /** Behind a branch boss, at the dead end of its way (roadmap #70). */
+  | 'branch'
 
 export interface ChestPlan {
   id: number
@@ -94,6 +98,10 @@ export interface OptionalPackPlan {
   levelOffset: number
   /** The over-levelled optional elite (skulls by its path, a framed bar). */
   champion: boolean
+  /** A branch boss leads it (its kind; roadmap #70). */
+  boss?: string
+  /** The branch it holds (`branches` index). */
+  branch?: number
 }
 
 export interface CavePlan {
@@ -173,6 +181,43 @@ export interface LobePlan {
   lift: number
 }
 
+/**
+ * A way off the main road (roadmap #70). A `loop` forks off one main clearing
+ * and rejoins the road at a later one, through a clearing of its own where a
+ * pack waits by a chest: another route to the finale, over other ground. A
+ * `boss` way is a dead end: an arena where a branch boss guards a gold chest.
+ * Neither counts for the win.
+ */
+export interface BranchPlan {
+  id: number
+  kind: 'loop' | 'boss'
+  /** The main clearing it forks off, and the one it rejoins (-1: a dead end). */
+  from: number
+  to: number
+  /** Its own clearing (metres). */
+  x: number
+  z: number
+  r: number
+  /** The way's bends (metres): from the fork, through its clearing, to its end. */
+  way: Array<{ x: number; z: number }>
+  /** The optional pack that holds it (`optionalPacks` index). */
+  pack: number
+  /** The chest it pays (`chests` index; -1: none). */
+  chest: number
+  style: BranchStyle
+}
+
+/** A signpost where a branch leaves the road; its arm points down the way. */
+export interface ForkPlan {
+  x: number
+  z: number
+  /** The way's bearing (radians, 0 faces +Z). */
+  a: number
+  branch: number
+  /** A boss waits down it (a skull on the arm). */
+  boss: boolean
+}
+
 export interface Features {
   liquid: LiquidId | null
   chests: ChestPlan[]
@@ -189,11 +234,13 @@ export interface Features {
   ledges: LedgePlan[]
   dais: DaisPlan | null
   lobes: LobePlan[]
+  branches: BranchPlan[]
+  forks: ForkPlan[]
 }
 
 export const noFeatures = (): Features => ({
   liquid: null, chests: [], plates: [], puzzle: null, doors: [], optionalPacks: [], caves: [], rivers: [], ponds: [],
-  crossings: [], signs: [], ledges: [], dais: null, lobes: []
+  crossings: [], signs: [], ledges: [], dais: null, lobes: [], branches: [], forks: []
 })
 
 /** The river's centre row at column `i` (also past the grid: the view carries it on). */
@@ -221,10 +268,13 @@ export interface FeatureCtx {
   /** Only the finale's and the secret's chest: the plain chain of clearings
    *  (the yardstick the features' cost and reward are measured against). */
   bare: boolean
+  /** Lay the branching ways (roadmap #70): there is rock beside the chain for them. */
+  branches?: boolean
 }
 
 const FEATURE_SALT = 0x5f3c9a17
 const LEDGE_SALT = 0x3b9e14d1
+const BRANCH_SALT = 0x6d2b79f5
 
 export const addFeatures = (c: FeatureCtx): Features => {
   const { w, h, solid, trail, kind, cave, sealed, side: off, cs } = c
@@ -285,6 +335,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
     for (let k = 0; k < w * h; k++) if (!a[k] && !sealed[k] && open(k, false)) n0++
     return n0
   }
+  /** Every branch way's centre line, cell by cell: a way is never cut. */
+  const wayProbe: number[] = []
   /** Everything that must be walkable to still is. */
   const sound = (): boolean => {
     const a = flood(false)
@@ -297,6 +349,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     for (const cv of out.caves) if (!a[cellAt(cv.x, cv.z)]) return false
     for (const cr of out.crossings) for (const k of cr.cells) if (!a[k]) return false
     for (const l of out.ledges) if (!a[l.probe]) return false
+    for (const k of wayProbe) if (!a[k]) return false
     // A sealed pocket has no back way in: its chest waits for the door.
     for (const ch of out.chests) if (ch.door >= 0 && a[cellAt(ch.sx, ch.sz)]) return false
     return true
@@ -308,7 +361,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
   /** Lay a feature; take it back if it fails or leaves the plan unsound. */
   const attempt = (fn: () => boolean): boolean => {
     const snap = [solid.slice(), trail.slice(), kind.slice(), cave.slice(), sealed.slice(), claimed.slice(), off.slice()]
-    const len = [out.chests.length, out.plates.length, out.doors.length, out.optionalPacks.length, out.caves.length, out.rivers.length, out.ponds.length, out.crossings.length, out.signs.length, out.ledges.length, out.lobes.length]
+    const len = [out.chests.length, out.plates.length, out.doors.length, out.optionalPacks.length, out.caves.length, out.rivers.length, out.ponds.length, out.crossings.length, out.signs.length, out.ledges.length, out.lobes.length, out.branches.length, out.forks.length, wayProbe.length]
     const puzzle = out.puzzle
     const lobes = [...used]
     if (fn() && sound()) return true
@@ -318,6 +371,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     out.chests.length = len[0]!; out.plates.length = len[1]!; out.doors.length = len[2]!; out.optionalPacks.length = len[3]!
     out.caves.length = len[4]!; out.rivers.length = len[5]!; out.ponds.length = len[6]!; out.crossings.length = len[7]!; out.signs.length = len[8]!
     out.ledges.length = len[9]!; out.lobes.length = len[10]!
+    out.branches.length = len[11]!; out.forks.length = len[12]!; wayProbe.length = len[13]!
     out.puzzle = puzzle
     return false
   }
@@ -453,6 +507,287 @@ export const addFeatures = (c: FeatureCtx): Features => {
     return list[0]!.kind
   }
 
+  /**
+   * The zone as a small graph (roadmap #70): loops that fork off the road and
+   * rejoin it further on, and dead-end ways to a branch boss. Drawn from a
+   * stream of its own; each branch is one transaction, so a seed that has no
+   * room for one simply has fewer.
+   */
+  const addBranches = (): void => {
+    const B = ZONE_BRANCHES[c.def.id]
+    const brng: Rng = mulberry32((c.seed ^ BRANCH_SALT) >>> 0)
+    const bint = (lo: number, hi: number): number => lo + Math.floor(brng() * (hi - lo + 1))
+    // The road's column at row j (the chain runs up the map).
+    const roadI = (j: number): number => {
+      for (let k = 0; k < n; k++) {
+        const a = cs[k]!
+        const b = cs[k + 1]!
+        if (j <= a.j && j >= b.j) return a.i + ((b.i - a.i) * (a.j - j)) / ((a.j - b.j) || 1)
+      }
+      return j > cs[0]!.j ? cs[0]!.i : cs[n]!.i
+    }
+    /** Untouched rock all along a planned way, `clear` cells either side,
+     *  except where it leaves or meets an open place (`ends`). */
+    const rockLine = (ai: number, aj: number, bi: number, bj: number, clear: number, ends: ReadonlyArray<{ i: number; j: number; r: number }>): boolean => {
+      const steps = Math.max(1, Math.ceil(Math.hypot(bi - ai, bj - aj) * 2))
+      const R = Math.ceil(clear)
+      for (let s = 0; s <= steps; s++) {
+        const pi = ai + ((bi - ai) * s) / steps
+        const pj = aj + ((bj - aj) * s) / steps
+        for (let dj = -R; dj <= R; dj++) {
+          for (let di = -R; di <= R; di++) {
+            if (Math.hypot(di, dj) > clear) continue
+            const i = Math.round(pi + di)
+            const j = Math.round(pj + dj)
+            if (ends.some(e => Math.hypot(i - e.i, j - e.j) < e.r)) continue
+            if (i < 3 || j < 3 || i > w - 4 || j > h - 4) return false
+            const k = j * w + i
+            if (!solid[k] || kind[k] !== K_GROUND || sealed[k] || cave[k] || claimed[k] || way[k]) return false
+          }
+        }
+      }
+      return true
+    }
+    /** The bends between two points: a switchback zigzags, the rest run straight. */
+    const bends = (ai: number, aj: number, bi: number, bj: number): Array<[number, number]> => {
+      if (B.style !== 'switchback') return [[ai, aj], [bi, bj]]
+      const l = Math.hypot(bi - ai, bj - aj) || 1
+      const px = -(bj - aj) / l
+      const pz = (bi - ai) / l
+      const out: Array<[number, number]> = [[ai, aj]]
+      for (const [t, s] of [[0.33, 1], [0.66, -1]] as const) out.push([ai + (bi - ai) * t + px * s * 2.4, aj + (bj - aj) * t + pz * s * 2.4])
+      out.push([bi, bj])
+      return out
+    }
+    /** Open a planned way: the cells it takes, its centre line probed. */
+    let half = B.half
+    const cut = (id: number, pts: Array<[number, number]>): void => {
+      for (let q = 1; q < pts.length; q++) {
+        const [ai, aj] = pts[q - 1]!
+        const [bi, bj] = pts[q]!
+        for (const k of line(ai, aj, bi, bj, half, false)) {
+          way[k] = id + 1
+          if (B.style === 'tunnel') cave[k] = 1
+        }
+        const steps = Math.max(1, Math.ceil(Math.hypot(bi - ai, bj - aj) * 2))
+        for (let s = 0; s <= steps; s++) {
+          const i = Math.round(ai + ((bi - ai) * s) / steps)
+          const j = Math.round(aj + ((bj - aj) * s) / steps)
+          // Wild ground, not the worn road (`trail` is the main road's alone).
+          wayProbe.push(j * w + i)
+        }
+      }
+    }
+    /** The branch's own clearing. */
+    const room = (id: number, i: number, j: number, r: number): void => {
+      for (const k of disc(i, j, r, true)) {
+        way[k] = id + 1
+        if (B.style === 'tunnel') cave[k] = 1
+      }
+    }
+    /** A signpost by the mouth of a way, on the side away from the road. */
+    const fork = (id: number, from: { i: number; j: number; r: number }, ux: number, uz: number, boss: boolean): boolean => {
+      const mi = from.i + ux * (from.r - 1.1)
+      const mj = from.j + uz * (from.r - 1.1)
+      const cand: Array<[number, number]> = []
+      for (const s of [1, -1]) for (const d of [2.4, 2.9, 1.9]) cand.push([Math.round(mi - uz * s * d), Math.round(mj + ux * s * d)])
+      // The camera's side first: the sign is read, not hidden behind its post.
+      cand.sort((p, q) => q[1] - p[1])
+      for (const [pi, pj] of cand) {
+        if (!inside(pi, pj)) continue
+        const kk = pj * w + pi
+        if (solid[kk] || kind[kk] !== K_GROUND || claimed[kk] || trail[kk] || sealed[kk] || way[kk]) continue
+        // Clear of the way and of the clearing's middle, where the pack stands.
+        if (Math.hypot(pi - from.i, pj - from.j) < from.r * 0.62) continue
+        let onWay = false
+        for (let dj = -1; dj <= 1 && !onWay; dj++) for (let di = -1; di <= 1; di++) if (way[kk + dj * w + di]) { onWay = true; break }
+        if (onWay) continue
+        kind[kk] = K_BLOCK
+        claimed[kk] = 1
+        out.forks.push({ x: cx(pi), z: cx(pj), a: Math.atan2(ux, uz), branch: id, boss })
+        return true
+      }
+      return false
+    }
+    const plainPack = (): string[] => {
+      const size = c.def.pack[0] + Math.floor(brng() * (c.def.pack[1] - c.def.pack[0] + 1))
+      const kinds: string[] = []
+      let elites = 0
+      for (let q = 0; q < size; q++) {
+        let total = 0
+        for (const e of c.def.kinds) total += e.w
+        let r = brng() * total
+        let kind = c.def.kinds[0]!.kind
+        for (const e of c.def.kinds) { r -= e.w; if (r <= 0) { kind = e.kind; break } }
+        if (ENEMY_BY_ID[kind]?.rank === 'elite') {
+          if (elites > 0) kind = c.def.kinds[0]!.kind
+          else elites++
+        }
+        kinds.push(kind)
+      }
+      return kinds
+    }
+    /** A chest at the far side of a branch's clearing from (ai, aj). */
+    const farChest = (i: number, j: number, r: number, ai: number, aj: number, tier: ChestTier, role: ChestRole, pack: number): boolean => {
+      const l = Math.hypot(i - ai, j - aj) || 1
+      const ux = (i - ai) / l
+      const uz = (j - aj) / l
+      for (const [t, s] of [[0, 0], [0.5, 1], [0.5, -1], [1, 1], [1, -1]] as const) {
+        const ci = Math.round(i + ux * (r - 1.3) - uz * s * t * 1.5)
+        const cj = Math.round(j + uz * (r - 1.3) + ux * s * t * 1.5)
+        if (wayProbe.includes(cj * w + ci)) continue
+        if (addChest(ci, cj, tier, role, i, j, -1, pack)) return true
+      }
+      return false
+    }
+
+    // Loops first: each takes a lot of rock. Every zone gets at least one (a
+    // second route to the finale): when the seed's tries all fail, narrower
+    // ways with less rock between are tried too.
+    const loops = bint(B.bypasses[0], B.bypasses[1])
+    const anyLoop = (): boolean => out.branches.some(b => b.kind === 'loop')
+    for (let q = 0; q < loops || (q < loops + 2 && !anyLoop()); q++) {
+      const relaxed = q >= loops
+      half = relaxed ? Math.min(B.half, 1.3) : B.half
+      const wall = relaxed ? 1 : 1.6
+      // A loop rejoins the road before the finale's arena when there is a
+      // clearing to rejoin: the boss's floor keeps its one way in.
+      const last = n > 2 ? n - 1 : n
+      const spans: Array<[number, number]> = []
+      for (let a = 0; a < n; a++) for (const s of [1, 2]) if (a + s <= last) spans.push([a, a + s])
+      for (let p = spans.length - 1; p > 0; p--) {
+        const t = Math.floor(brng() * (p + 1))
+        const x = spans[p]!
+        spans[p] = spans[t]!
+        spans[t] = x
+      }
+      const s0 = brng() < 0.5 ? -1 : 1
+      let laid = false
+      for (const [a, b] of spans) {
+        if (laid) break
+        for (const side of [s0, -s0]) {
+          if (laid) break
+          for (const D of relaxed ? [9, 10.5, 12, 14, 16, 18] : [11, 13, 9.5, 15]) {
+            const A = cs[a]!
+            const Bc = cs[b]!
+            const rr = 3 + brng() * 0.6
+            const mj = Math.round((A.j + Bc.j) / 2 + (brng() - 0.5) * 3)
+            const ri = roadI(mj)
+            const mi = Math.round(ri + side * D)
+            if (Math.abs(mi - ri) < 8.5) continue
+            if (!virgin(mi, mj, rr + 2.5)) continue
+            // A fork reads as one: it leaves the clearing well off the road's line.
+            const nx = cs[a + 1]!
+            const angA = Math.abs(Math.atan2(mj - A.j, mi - A.i) - Math.atan2(nx.j - A.j, nx.i - A.i))
+            const pv = cs[b - 1]!
+            const angB = Math.abs(Math.atan2(mj - Bc.j, mi - Bc.i) - Math.atan2(pv.j - Bc.j, pv.i - Bc.i))
+            const wrap = (x: number): number => Math.min(x, Math.PI * 2 - x)
+            if (wrap(angA) < 0.6 || wrap(angB) < 0.6) continue
+            const id = out.branches.length
+            const ok = attempt(() => {
+              const lA = Math.hypot(mi - A.i, mj - A.j) || 1
+              const lB = Math.hypot(mi - Bc.i, mj - Bc.j) || 1
+              const pA: [number, number] = [A.i + ((mi - A.i) / lA) * (A.r - 0.6), A.j + ((mj - A.j) / lA) * (A.r - 0.6)]
+              const pB: [number, number] = [Bc.i + ((mi - Bc.i) / lB) * (Bc.r - 0.6), Bc.j + ((mj - Bc.j) / lB) * (Bc.r - 0.6)]
+              const ends = [{ i: A.i, j: A.j, r: A.r + 1.2 }, { i: Bc.i, j: Bc.j, r: Bc.r + 1.2 }, { i: mi, j: mj, r: rr + 0.5 }]
+              const legA = bends(pA[0], pA[1], mi, mj)
+              const legB = bends(mi, mj, pB[0], pB[1])
+              for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) {
+                if (!rockLine(leg[e - 1]![0], leg[e - 1]![1], leg[e]![0], leg[e]![1], half + wall, ends)) return false
+              }
+              // Another route, not a shortcut: the road stays the short way.
+              let road = 0
+              for (let k = a; k < b; k++) road += Math.hypot(cs[k + 1]!.i - cs[k]!.i, cs[k + 1]!.j - cs[k]!.j)
+              let walk = 0
+              for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) walk += Math.hypot(leg[e]![0] - leg[e - 1]![0], leg[e]![1] - leg[e - 1]![1])
+              if (walk + A.r + Bc.r < road * 1.3) return false
+              room(id, mi, mj, rr)
+              cut(id, legA)
+              cut(id, legB)
+              const pack = out.optionalPacks.length
+              out.optionalPacks.push({ x: cx(mi), z: cx(mj), r: rr * CELL, kinds: plainPack(), levelOffset: 0, champion: false, branch: id })
+              claimed[mj * w + mi] = 1
+              out.lobes.push({ x: cx(mi), z: cx(mj), r: rr * CELL, k: a, lift: (brng() - 0.4) * 0.9 })
+              const chest = out.chests.length
+              const tier: ChestTier = brng() < 0.6 ? 'iron' : 'wood'
+              // Out of the way of both legs: on the clearing's outer side.
+              if (!farChest(mi, mj, rr, ri, mj, tier, 'bypass', pack)) return false
+              const ux = (pA[0] - A.i) / (A.r - 0.6)
+              const uz = (pA[1] - A.j) / (A.r - 0.6)
+              out.branches.push({
+                id, kind: 'loop', from: a, to: b, x: cx(mi), z: cx(mj), r: rr * CELL,
+                way: [...legA, ...legB.slice(1)].map(([i, j]) => ({ x: cx(i), z: cx(j) })),
+                pack, chest, style: B.style
+              })
+              return fork(id, A, ux, uz, false)
+            })
+            if (ok) { laid = true; break }
+          }
+        }
+      }
+    }
+
+    // Then the dead ends, each to a branch boss and a gold chest.
+    half = B.half
+    const bosses = bint(B.bosses[0], B.bosses[1])
+    const ANG = [0, 0.35, -0.35, 0.7, -0.7, 1.05, -1.05]
+    for (let q = 0; q < bosses; q++) {
+      const kind0 = B.bossKinds[bint(0, B.bossKinds.length - 1)]!
+      const slots: Array<[number, number]> = []
+      for (let k = 0; k < n; k++) for (const s of [-1, 1]) slots.push([k, s])
+      for (let p = slots.length - 1; p > 0; p--) {
+        const t = Math.floor(brng() * (p + 1))
+        const x = slots[p]!
+        slots[p] = slots[t]!
+        slots[t] = x
+      }
+      let laid = false
+      for (const [k, side] of slots) {
+        if (laid) break
+        const from = cs[k]!
+        for (const ra of [4.2, 3.7]) {
+          if (laid) break
+          for (const th of ANG) {
+            for (const gap of [4.5, 6, 3.5]) {
+              const D = from.r + ra + gap
+              const ai = Math.round(from.i + side * Math.cos(th) * D)
+              const aj = Math.round(from.j + Math.sin(th) * D)
+              if (!virgin(ai, aj, ra + 2.5)) continue
+              const id = out.branches.length
+              const ok = attempt(() => {
+                const l = Math.hypot(ai - from.i, aj - from.j) || 1
+                const ux = (ai - from.i) / l
+                const uz = (aj - from.j) / l
+                const p0: [number, number] = [from.i + ux * (from.r - 0.6), from.j + uz * (from.r - 0.6)]
+                const leg = bends(p0[0], p0[1], ai, aj)
+                const ends = [{ i: from.i, j: from.j, r: from.r + 1.2 }, { i: ai, j: aj, r: ra + 0.5 }]
+                for (let e = 1; e < leg.length; e++) if (!rockLine(leg[e - 1]![0], leg[e - 1]![1], leg[e]![0], leg[e]![1], half + 1.6, ends)) return false
+                room(id, ai, aj, ra)
+                cut(id, leg)
+                const pack = out.optionalPacks.length
+                const guards = bint(1, 2)
+                const kinds = [kind0]
+                for (let g = 0; g < guards; g++) kinds.push(guardKind())
+                out.optionalPacks.push({ x: cx(ai), z: cx(aj), r: ra * CELL, kinds, levelOffset: 0, champion: false, boss: kind0, branch: id })
+                claimed[aj * w + ai] = 1
+                out.lobes.push({ x: cx(ai), z: cx(aj), r: ra * CELL, k, lift: 0.35 + brng() * 0.4 })
+                const chest = out.chests.length
+                if (!farChest(ai, aj, ra, from.i, from.j, 'gold', 'branch', pack)) return false
+                out.branches.push({
+                  id, kind: 'boss', from: k, to: -1, x: cx(ai), z: cx(aj), r: ra * CELL,
+                  way: leg.map(([i, j]) => ({ x: cx(i), z: cx(j) })), pack, chest, style: B.style
+                })
+                return fork(id, from, ux, uz, true)
+              })
+              if (ok) { laid = true; break }
+            }
+            if (laid) break
+          }
+        }
+      }
+    }
+  }
+
   // The finale's chest: a boulder never sits on it or in front of it.
   if (c.chest) {
     const fin = cs[n]!
@@ -483,6 +818,10 @@ export const addFeatures = (c: FeatureCtx): Features => {
     }
     return out
   }
+
+  // ── Branching ways and their bosses (roadmap #70), on a stream of their own ──
+  const way = new Uint8Array(w * h)
+  if (c.branches) addBranches()
 
   // ── A river across the road, bridged where the road meets it ──
   if (f.liquid && rng() < f.river) {
@@ -519,6 +858,19 @@ export const addFeatures = (c: FeatureCtx): Features => {
             solid[kk] = 0
             kind[kk] = K_WATER
           }
+        }
+        // A branch way the river crosses keeps going over stepping stones.
+        for (const br of out.branches) {
+          const fc: number[] = []
+          for (let kk = 0; kk < w * h; kk++) if (way[kk] === br.id + 1 && kind[kk] === K_WATER) { kind[kk] = K_FORD; fc.push(kk) }
+          if (!fc.length) continue
+          const is = fc.map(kk => kk % w)
+          const js = fc.map(kk => Math.floor(kk / w))
+          for (const kk of fc) claimed[kk] = 1
+          out.crossings.push({
+            kind: 'ford', cells: fc, x: cx(is.reduce((s, v) => s + v, 0) / fc.length), z: cx(js.reduce((s, v) => s + v, 0) / fc.length),
+            i0: Math.min(...is), i1: Math.max(...is), j0: Math.min(...js), j1: Math.max(...js)
+          })
         }
         const cells: number[] = []
         for (let j = jMin; j <= jMax; j++) {
@@ -590,6 +942,11 @@ export const addFeatures = (c: FeatureCtx): Features => {
       if (Math.abs(di * ux + dj * uz - d0) <= e + 0.15) across.push(-di * uz + dj * ux)
     }
     if (across.length < 4) return false
+    // Never on the side a branch way leaves by: the way runs on level ground.
+    for (const br of out.branches) {
+      const ends = br.to === k ? [br.way[br.way.length - 1]!] : br.from === k ? [br.way[0]!] : []
+      for (const p of ends) if ((p.x / CELL - 0.5 - from.i) * ux + (p.z / CELL - 0.5 - from.j) * uz > d0 - 2) return false
+    }
     across.sort((a, b) => a - b)
     const t0 = across[Math.floor((0.25 + 0.5 * lrng()) * across.length)]!
     const cliff: number[] = []
@@ -613,6 +970,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
         if (kind[kk] !== K_GROUND || claimed[kk] || trail[kk] || sealed[kk] || cave[kk]) return false
         cliff.push(kk)
       } else if (sc > d0 && kind[kk] === K_GROUND && !claimed[kk]) {
+        // Not where a river's valley would pull the top back down.
+        if (out.rivers.some(r => Math.abs(riverRow(r, i) - j) < 7)) return false
         tops.push([kk, sc])
         if (sc > far) { far = sc; top = kk }
       }
@@ -649,7 +1008,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
 
   // ── Side features, in an order the seed picks, up to the visit's chest count ──
   const want = int(f.chests[0], f.chests[1])
-  const side = (): number => out.chests.filter(ch => ch.role !== 'finale' && ch.role !== 'secret').length
+  // A branch's chest is the branch's own reward, beside the zone's count.
+  const side = (): number => out.chests.filter(ch => ch.role !== 'finale' && ch.role !== 'secret' && ch.role !== 'branch' && ch.role !== 'bypass').length
   const midHi = Math.max(1, n - 1)
 
   const corner = (champion: boolean): boolean => attempt(() => {
@@ -848,6 +1208,17 @@ export const addFeatures = (c: FeatureCtx): Features => {
       if (hint >= 0) break
     }
     if (hint < 0) return false
+    // The stone is read from the plates: no rock or boulder between them.
+    const seen = (a: number, b: number): boolean => {
+      const ai = a % w, aj = Math.floor(a / w), bi = b % w, bj = Math.floor(b / w)
+      const steps = Math.max(1, Math.ceil(Math.hypot(bi - ai, bj - aj) * 3))
+      for (let q = 1; q < steps; q++) {
+        const kk = Math.round(aj + ((bj - aj) * q) / steps) * w + Math.round(ai + ((bi - ai) * q) / steps)
+        if (kk !== a && kk !== b && (solid[kk] || sealed[kk])) return false
+      }
+      return true
+    }
+    for (const kk of spots) if (!seen(hint, kk)) return false
     solid[hint] = 0
     kind[hint] = K_BLOCK
     claimed[hint] = 1

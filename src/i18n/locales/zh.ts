@@ -2637,7 +2637,16 @@ export default {
     voidling: '虚空幼体',
     voidLord: '虚空领主',
     orderGuard: '骑士团审判官',
-    syndicateBlade: '商会刀客'
+    syndicateBlade: '商会刀客',
+    goblinWarchief: '哥布林督军',
+    thornfather: '荆棘之父',
+    broodMother: '巢母',
+    banditBaron: '盗匪男爵',
+    cinderGolem: '余烬魔像',
+    frostHowler: '霜嚎兽',
+    tideSerpent: '潮汐巨蛇',
+    riftKnight: '裂隙骑士',
+    wyvernMatriarch: '双足飞龙女王'
   },
   results: {
     victory: '胜利！',
@@ -2652,6 +2661,10 @@ export default {
     lost: '损失',
     kills: '击败',
     chests: '宝箱',
+    bosses: '首领',
+    mastery: '区域精通',
+    masteryPct: '{n}%',
+    newBest: '新纪录！',
     time: '用时',
     unlocked: '地图新增：{places}',
     equipped: '已装备',

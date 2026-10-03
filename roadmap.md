@@ -88,6 +88,13 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #67 ✅ I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
  Also turn the market stands in the town towards where they are accessable.
 - [x] #68 ✅ arrange furniture and staircasses  well in the houses of the town
+- [ ] #69 The targeted playerbase is 10-15 years old and they get bored running around without directions or goals, lets add attention bounces and other effective, yet not aggressive player guidance mechanisms to keep the player on the adventure track.
+- [x] #70 ✅ currently each zone has a single path and a single boss, lets add more branching paths and more bosses per zone to make the game more interesting and replayable.
+  Also cave levels could have a second floor leading downwards with a stone staircase for example.
+  Overall there should be more variety, so level exploration is fun and the rewards in terms of loot chests are worth it.
+  add simple puzzles to the levels, like stepping on pressure plates in the right order to open a hidden passage to a loot chest that could not be seen before, solvable by a ten-year-old.
+- [x] #71 ✅ The player should be able to choose between male and female hero at the start of selection.
+  The outfit of the player 3d character should change with the equipment equipped. For starters its fine if the default equipment stays the same for the male, especially the cape is nice.
 
 ### World map
 
