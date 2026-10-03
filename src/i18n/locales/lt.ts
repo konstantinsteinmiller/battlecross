@@ -2893,5 +2893,13 @@ export default {
     title: 'Reti daiktai',
     restock: 'Nauji daiktai',
     tomorrow: 'Nauji daiktai rytoj'
+  },
+  rested: {
+    hud: '2× PT',
+    banner: 'Sveikas sugrįžęs! Esi pailsėjęs: {time} dvigubų PT artimiausiose kovose.',
+    banner__f: 'Sveika sugrįžusi! Esi pailsėjusi: {time} dvigubų PT artimiausiose kovose.',
+    hm: '{h} val. {m} min.',
+    m: '{m} min.',
+    h: '{h} val.'
   }
 }

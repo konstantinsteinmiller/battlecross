@@ -87,6 +87,8 @@ export interface HeroState {
   /** Level at the start of the visit and now (XP is banked live). */
   level: number
   xpInto: number
+  /** Seconds of double kill XP left (roadmap #9): drains with fight time. */
+  rested: number
 }
 
 /** One encounter: a pack of enemies that wakes together. */

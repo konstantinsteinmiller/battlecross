@@ -231,7 +231,8 @@ export class ZoneMode implements GameMode {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
       potions: setup.kind === 'town' ? 0 : profile.inv.potions,
       // Mana potions are a carried stock: as many slots as the health belt has.
-      manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions
+      manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions,
+      rested: setup.kind === 'town' ? 0 : profile.meta.rested
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     // An encounter pays in gold and experience, never in the zone's gear.
@@ -1004,6 +1005,7 @@ export class ZoneMode implements GameMode {
     hud.overheated = h.overheatT > 0
     hud.level = h.level
     hud.gold = profile.gold + h.gold
+    hud.rested = h.rested > 0
     hud.potions = h.potions
     hud.potionsMax = h.potionsMax
     hud.potionReady = h.potionCd <= 0

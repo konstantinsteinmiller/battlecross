@@ -12,6 +12,7 @@
           span.wmap__gold(@pointerdown="registerQaAdTap()")
             IconCoin.wmap__coin
             | {{ fmt(profile.gold) }}
+          RestedNote
       //- The title, and under it the next goal (roadmap #2).
       div.wmap__head
         h1.wmap__title {{ t('map.title') }}
@@ -205,6 +206,7 @@ import { MAP_REGIONS, SKY_CLOUDS, birdsSvg, decorSvg, frameSvg, skyCloudSvg, tea
 import { GH, GW, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from './map/walk'
 import { mapClock } from './map/session'
 import GoalTracker from '@/components/hud/GoalTracker.vue'
+import RestedNote from '@/components/hud/RestedNote.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
@@ -940,6 +942,7 @@ onBeforeUnmount(() => {
   user-select: none
   -webkit-user-select: none
 .wmap__top
+  position: relative
   display: grid
   grid-template-columns: auto minmax(0, 1fr) auto
   align-items: center

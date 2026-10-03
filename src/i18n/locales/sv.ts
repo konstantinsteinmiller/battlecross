@@ -2847,5 +2847,12 @@ export default {
     title: 'Sällsynta varor',
     restock: 'Nya varor',
     tomorrow: 'Nya varor i morgon'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Välkommen tillbaka! Du är utvilad: {time} dubbel XP i dina nästa strider.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

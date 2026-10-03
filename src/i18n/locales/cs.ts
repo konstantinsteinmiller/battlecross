@@ -2932,5 +2932,13 @@ export default {
     title: 'Vzácné zboží',
     restock: 'Nové zboží',
     tomorrow: 'Nové zboží zítra'
+  },
+  rested: {
+    hud: '2× ZK',
+    banner: 'Vítej zpátky! Jsi odpočatý: {time} dvojnásobných ZK v příštích bojích.',
+    banner__f: 'Vítej zpátky! Jsi odpočatá: {time} dvojnásobných ZK v příštích bojích.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

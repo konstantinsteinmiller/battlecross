@@ -2938,5 +2938,13 @@ export default {
     title: 'Rijetka roba',
     restock: 'Nova roba',
     tomorrow: 'Nova roba sutra'
+  },
+  rested: {
+    hud: '2× ISK',
+    banner: 'Dobrodošao natrag! Odmoran si: {time} dvostrukog iskustva u sljedećim borbama.',
+    banner__f: 'Dobrodošla natrag! Odmorna si: {time} dvostrukog iskustva u sljedećim borbama.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

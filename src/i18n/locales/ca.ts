@@ -2880,5 +2880,13 @@ export default {
     title: 'Gèneres rars',
     restock: 'Gèneres nous',
     tomorrow: 'Gèneres nous demà'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Benvingut de nou! Estàs descansat: {time} de XP doble en els propers combats.',
+    banner__f: 'Benvinguda de nou! Estàs descansada: {time} de XP doble en els propers combats.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

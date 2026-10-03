@@ -2847,5 +2847,12 @@ export default {
     title: 'Maloftaj varoj',
     restock: 'Novaj varoj',
     tomorrow: 'Novaj varoj morgaŭ'
+  },
+  rested: {
+    hud: '2× SP',
+    banner: 'Bonvenon denove! Vi estas ripozinta: {time} da duobla SP en viaj venontaj bataloj.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

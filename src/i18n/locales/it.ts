@@ -2900,5 +2900,13 @@ export default {
     title: 'Merci rare',
     restock: 'Nuove merci',
     tomorrow: 'Nuove merci domani'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Bentornato! Sei riposato: {time} di XP doppi nei prossimi combattimenti.',
+    banner__f: 'Bentornata! Sei riposata: {time} di XP doppi nei prossimi combattimenti.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

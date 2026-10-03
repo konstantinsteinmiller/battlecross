@@ -40,6 +40,8 @@ export const hud = shallowReactive({
   overheated: false,
   level: 1,
   xp01: 0,
+  /** Kills pay double XP now (the rested pool, roadmap #9). */
+  rested: false,
   gold: 0,
   potions: 0,
   potionsMax: 0,

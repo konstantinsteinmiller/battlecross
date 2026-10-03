@@ -53,6 +53,9 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   }
   sim.runTimers()
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
+  // Rested (#9): the double-XP pool drains with fight time, never in town.
+  const h = sim.hero
+  if (h && h.rested > 0 && !sim.ended && sim.mode !== 'town') h.rested = Math.max(0, h.rested - dt)
 
   // Units summoned during the loop join it on the next step.
   const n = us.length

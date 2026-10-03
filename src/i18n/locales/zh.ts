@@ -2847,5 +2847,12 @@ export default {
     title: '稀有商品',
     restock: '新商品',
     tomorrow: '明天有新商品'
+  },
+  rested: {
+    hud: '2× 经验',
+    banner: '欢迎回来！你精力充沛：接下来的战斗中有{time}的双倍经验。',
+    hm: '{h}小时{m}分钟',
+    m: '{m}分钟',
+    h: '{h}小时'
   }
 }

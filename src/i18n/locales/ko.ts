@@ -2847,5 +2847,12 @@ export default {
     title: '희귀 상품',
     restock: '새 상품',
     tomorrow: '내일 새 상품'
+  },
+  rested: {
+    hud: '2× 경험치',
+    banner: '돌아왔구나! 푹 쉬었으니 다음 전투에서 {time} 동안 경험치가 2배야.',
+    hm: '{h}시간 {m}분',
+    m: '{m}분',
+    h: '{h}시간'
   }
 }

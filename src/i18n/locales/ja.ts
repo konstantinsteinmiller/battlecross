@@ -2847,5 +2847,12 @@ export default {
     title: 'レア商品',
     restock: '新商品',
     tomorrow: '明日、新商品'
+  },
+  rested: {
+    hud: '2× 経験値',
+    banner: 'おかえり！ しっかり休めたね。次の戦いで{time}のあいだ経験値が2倍になるよ。',
+    hm: '{h}時間{m}分',
+    m: '{m}分',
+    h: '{h}時間'
   }
 }

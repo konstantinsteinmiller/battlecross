@@ -188,6 +188,8 @@ export interface VisitTally {
   manaPotions?: number
   /** Bosses beaten and chests opened of the visit's (a zone only). */
   mastery?: Mastery
+  /** The rested pool as the visit leaves it (seconds of double XP, #9). */
+  rested?: number
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -503,7 +505,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, manaPotions: h.manaPotions,
+    special: mode.sim.specialOpened, manaPotions: h.manaPotions, rested: h.rested,
     ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
   })
 }
@@ -527,6 +529,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // What the chests held beside gold and gear: the stock of mana potions as
   // it stands, and the one-time chests that are now empty for good.
   if (h.manaPotions !== undefined) setManaPotions(h.manaPotions)
+  if (h.rested !== undefined) profile.meta.rested = Math.max(0, Math.min(profile.meta.rested, h.rested))
   if (h.special?.length) markChestsOpened(h.special)
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined
   profile.stats.kills += h.kills

@@ -1,4 +1,4 @@
-import { reactive, toRaw, watch } from 'vue'
+import { reactive, ref, toRaw, watch } from 'vue'
 import { getState, setStates } from '@/use/useGameState'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
@@ -6,6 +6,7 @@ import {
   TUTORIAL_KEY, VERSION_KEY, META_KEY
 } from '@/keys'
 import { SHELF_REFRESHES, dayKey, stockShelf, type Stock } from '../rareShelf'
+import { RESTED_CAP, accrueRested } from '../rested'
 import { ATTRS, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
@@ -134,7 +135,15 @@ export interface ShelfSave {
  *  of it loads the defaults. */
 export interface MetaSave {
   shelf: ShelfSave
+  /** When the save was last written (ms since 1970): the start of an absence. */
+  lastSeen: number
+  /** Seconds of double kill XP waiting (roadmap #9). */
+  rested: number
 }
+
+/** What the last absence added to the rested pool, in seconds (0: nothing
+ *  to announce). The map shows it once and clears it. */
+export const restedGain = ref(0)
 
 export interface Profile {
   level: number
@@ -189,7 +198,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 } }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, lastSeen: 0, rested: 0 }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -306,6 +315,16 @@ export const loadProfile = (): void => {
   const rolls: Record<string, number> = {}
   for (const [n, r] of Object.entries(obj(shelf.rolls, {}) as Record<string, unknown>)) rolls[n] = Math.max(0, Math.round(num(r, 0)))
   meta.shelf = { day: typeof shelf.day === 'string' ? shelf.day : '', wares, rolls, used: Math.max(0, Math.round(num(shelf.used, 0))) }
+  // Rested (#9): the absence since the last save fills the pool. The new
+  // last-seen is written by the next save; a reload before it reads the same
+  // two numbers again and comes to the same pool.
+  const now = Date.now()
+  const r = accrueRested(Math.min(RESTED_CAP, Math.max(0, num(meta.rested, 0))), Math.max(0, num(meta.lastSeen, 0)), now)
+  meta.rested = r.pool
+  meta.lastSeen = now
+  // Only ever raised here: a later re-read (a cloud row landing) must not
+  // take back a welcome the map has not shown yet.
+  if (r.gained > 0) restedGain.value = r.gained
   profile.meta = meta
 }
 
@@ -322,6 +341,7 @@ export const setSaveSandbox = (on: boolean): void => {
  *  The blob gets copies, so play after a checkpoint waits for the next one. */
 export const saveProfile = (): void => {
   if (import.meta.env.DEV && saveSandbox) return
+  profile.meta.lastSeen = Date.now()
   setStates({
     [VERSION_KEY]: SAVE_VERSION,
     [LEVEL_KEY]: profile.level,

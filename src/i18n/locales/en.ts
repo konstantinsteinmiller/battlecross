@@ -1691,5 +1691,12 @@ export default {
     'title': 'Rare wares',
     'restock': 'New wares',
     'tomorrow': 'New wares tomorrow'
+  },
+  'rested': {
+    'hud': '2× XP',
+    'banner': 'Welcome back! You are rested: {time} of double XP in your next fights.',
+    'hm': '{h} h {m} min',
+    'h': '{h} h',
+    'm': '{m} min'
   }
 }

@@ -2847,5 +2847,12 @@ export default {
     title: 'Ritka áruk',
     restock: 'Új áruk',
     tomorrow: 'Új áruk holnap'
+  },
+  rested: {
+    hud: '2× TP',
+    banner: 'Üdv újra! Kipihented magad: {time} dupla TP a következő harcaidban.',
+    hm: '{h} ó {m} p',
+    m: '{m} p',
+    h: '{h} ó'
   }
 }

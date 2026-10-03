@@ -2907,5 +2907,13 @@ export default {
     title: 'Reta prece',
     restock: 'Jauna prece',
     tomorrow: 'Jauna prece rīt'
+  },
+  rested: {
+    hud: '2× Pieredze',
+    banner: 'Laipni lūdzam atpakaļ! Tu esi atpūties: {time} dubultas pieredzes nākamajās cīņās.',
+    banner__f: 'Laipni lūdzam atpakaļ! Tu esi atpūtusies: {time} dubultas pieredzes nākamajās cīņās.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

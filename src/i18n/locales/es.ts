@@ -2878,5 +2878,13 @@ export default {
     title: 'Mercancía rara',
     restock: 'Género nuevo',
     tomorrow: 'Género nuevo mañana'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: '¡Bienvenido de vuelta! Estás descansado: {time} de XP doble en tus próximos combates.',
+    banner__f: '¡Bienvenida de vuelta! Estás descansada: {time} de XP doble en tus próximos combates.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

@@ -2881,5 +2881,13 @@ export default {
     title: 'Mărfuri rare',
     restock: 'Mărfuri noi',
     tomorrow: 'Mărfuri noi mâine'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Bine ai revenit! Ești odihnit: {time} de XP dublu în următoarele lupte.',
+    banner__f: 'Bine ai revenit! Ești odihnită: {time} de XP dublu în următoarele lupte.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

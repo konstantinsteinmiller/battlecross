@@ -2847,5 +2847,12 @@ export default {
     title: 'Hàng hiếm',
     restock: 'Hàng mới',
     tomorrow: 'Mai có hàng mới'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Chào mừng trở lại! Bạn đã nghỉ ngơi đủ: {time} XP gấp đôi trong các trận sắp tới.',
+    hm: '{h} giờ {m} phút',
+    m: '{m} phút',
+    h: '{h} giờ'
   }
 }

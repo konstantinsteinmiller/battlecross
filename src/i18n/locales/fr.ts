@@ -2882,5 +2882,13 @@ export default {
     title: 'Marchandises rares',
     restock: 'Nouveau stock',
     tomorrow: 'Nouveau stock demain'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Bon retour ! Tu es reposé : {time} d’XP doublés lors de tes prochains combats.',
+    banner__f: 'Bon retour ! Tu es reposée : {time} d’XP doublés lors de tes prochains combats.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

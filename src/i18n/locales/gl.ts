@@ -2883,5 +2883,13 @@ export default {
     title: 'Mercadoría rara',
     restock: 'Mercadoría nova',
     tomorrow: 'Mercadoría nova mañá'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Benvido de novo! Estás descansado: {time} de XP dobre nos teus próximos combates.',
+    banner__f: 'Benvida de novo! Estás descansada: {time} de XP dobre nos teus próximos combates.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

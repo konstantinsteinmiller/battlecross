@@ -2,6 +2,7 @@ import { SKILL_BY_ID } from '../data/skills'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
 import { killGold, killXp, addXp } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
+import { RESTED_XP } from '../rested'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
 import { atPeace, findStatus, hasStatus, statusV, type Sim } from './world'
@@ -457,7 +458,7 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     // A champion pays like several of its kind: the reward for a fight nobody had to take.
     const mul = RANK_REWARD[u.rank] * def.reward * (u.champion ? CHAMPION_REWARD : 1)
     const cha = h.unit.s.power.cha
-    const xp = killXp(u.level, mul, h.level)
+    const xp = killXp(u.level, mul, h.level) * (h.rested > 0 ? RESTED_XP : 1)
     const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * (0.8 + sim.rng() * 0.4))
     h.kills++
     grantXp(sim, xp)

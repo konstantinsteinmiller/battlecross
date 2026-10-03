@@ -2847,5 +2847,12 @@ export default {
     title: 'Noyob tovarlar',
     restock: 'Yangi tovarlar',
     tomorrow: 'Yangi tovarlar ertaga'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Xush kelibsiz! Siz dam oldingiz: keyingi janglarda {time} ikki barobar XP.',
+    hm: '{h} soat {m} daq',
+    m: '{m} daq',
+    h: '{h} soat'
   }
 }

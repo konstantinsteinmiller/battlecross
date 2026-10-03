@@ -2882,5 +2882,13 @@ export default {
     title: 'Artigos raros',
     restock: 'Artigos novos',
     tomorrow: 'Artigos novos amanhã'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Bem-vindo de volta! Estás descansado: {time} de XP a dobrar nos próximos combates.',
+    banner__f: 'Bem-vinda de volta! Estás descansada: {time} de XP a dobrar nos próximos combates.',
+    hm: '{h} h {m} min',
+    m: '{m} min',
+    h: '{h} h'
   }
 }

@@ -2847,5 +2847,12 @@ export default {
     title: 'Barang langka',
     restock: 'Barang baru',
     tomorrow: 'Barang baru besok'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Selamat datang kembali! Kamu sudah istirahat: {time} XP ganda di pertarungan berikutnya.',
+    hm: '{h} j {m} mnt',
+    m: '{m} mnt',
+    h: '{h} j'
   }
 }

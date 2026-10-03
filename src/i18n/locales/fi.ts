@@ -2847,5 +2847,12 @@ export default {
     title: 'Harvinaisia tavaroita',
     restock: 'Uusia tavaroita',
     tomorrow: 'Uusia tavaroita huomenna'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Tervetuloa takaisin! Olet levännyt: {time} tuplattuja XP:tä seuraavissa taisteluissasi.',
+    hm: '{h} t {m} min',
+    m: '{m} min',
+    h: '{h} t'
   }
 }

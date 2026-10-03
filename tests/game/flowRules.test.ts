@@ -405,3 +405,14 @@ describe('Triple the purse (#19)', () => {
     expect(f.purseOffered(f.flow.results)).toBe(false)
   })
 })
+
+describe('Rested (#9) at the end of a visit', () => {
+  it('the pool is what the fight left of it', async () => {
+    p.profile.meta.rested = 500
+    await f.bankVisit('victory', 'woods', tally({ rested: 200 }))
+    expect(p.profile.meta.rested).toBe(200)
+    // A tally without the pool (a recorded clip, an old caller) leaves it alone.
+    await f.bankVisit('victory', 'woods', tally())
+    expect(p.profile.meta.rested).toBe(200)
+  })
+})

@@ -2855,5 +2855,12 @@ export default {
     title: 'Zeldzame waren',
     restock: 'Nieuwe waren',
     tomorrow: 'Morgen nieuwe waren'
+  },
+  rested: {
+    hud: '2× XP',
+    banner: 'Welkom terug! Je bent uitgerust: {time} dubbele XP in je volgende gevechten.',
+    hm: '{h} u {m} min',
+    m: '{m} min',
+    h: '{h} u'
   }
 }

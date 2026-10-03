@@ -2847,5 +2847,12 @@ export default {
     title: 'Nadir mallar',
     restock: 'Yeni mallar',
     tomorrow: 'Yeni mallar yarın'
+  },
+  rested: {
+    hud: '2× TP',
+    banner: 'Tekrar hoş geldin! Dinlendin: sonraki dövüşlerde {time} boyunca çift TP.',
+    hm: '{h} sa {m} dk',
+    m: '{m} dk',
+    h: '{h} sa'
   }
 }

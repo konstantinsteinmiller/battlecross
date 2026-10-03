@@ -42,6 +42,8 @@ export interface HeroInit {
   /** Mana potions carried in, and how many the belt holds (default: none, the health belt's size). */
   manaPotions?: number
   manaPotionsMax?: number
+  /** Seconds of double kill XP the hero brings in (roadmap #9). */
+  rested?: number
 }
 
 export const createHero = (sim: Sim, o: HeroInit): HeroState => {
@@ -80,7 +82,8 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     taken: 0,
     minionMul: minionMul(s.power.cha, s.mods),
     level: o.build.level,
-    xpInto: o.xpInto
+    xpInto: o.xpInto,
+    rested: Math.max(0, o.rested ?? 0)
   }
   sim.hero = h
   return h

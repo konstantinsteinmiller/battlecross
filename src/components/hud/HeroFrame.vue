@@ -42,6 +42,8 @@
         span.gold(@pointerdown="registerQaAdTap()")
           IconCoin.gold__icon
           span {{ fmt(hud.gold) }}
+        //- Rested (#9): kills pay double XP while the pool lasts.
+        span.rested(v-if="hud.rested" data-rested-hud) {{ t('rested.hud') }}
         span.statuses
           span.statuses__icon(v-for="s in statuses" :key="s")
             ArtIcon(:glyph="`status.${s}`" :tint="statusTint(s)" :src="ICON_ART.get(`status-${s}`)" frame="round")
@@ -193,6 +195,14 @@ onUnmounted(() => clearTimeout(popTimer))
   margin-left: var(--well-l)
   margin-right: var(--well-r)
 
+.rested
+  padding: 0 0.35em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-purple)
+  color: var(--bc-text)
+  font-size: clamp(0.6rem, 2.4vmin, 0.8rem)
+  font-weight: 900
 .hero-frame__row
   display: flex
   align-items: center

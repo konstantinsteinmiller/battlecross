@@ -2929,5 +2929,13 @@ export default {
     title: 'Rzadkie towary',
     restock: 'Nowe towary',
     tomorrow: 'Nowe towary jutro'
+  },
+  rested: {
+    hud: '2× PD',
+    banner: 'Witaj z powrotem! Jesteś wypoczęty: {time} podwójnych PD w najbliższych walkach.',
+    banner__f: 'Witaj z powrotem! Jesteś wypoczęta: {time} podwójnych PD w najbliższych walkach.',
+    hm: '{h} godz. {m} min',
+    m: '{m} min',
+    h: '{h} godz.'
   }
 }

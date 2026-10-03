@@ -2863,5 +2863,12 @@ export default {
     title: 'Seltene Waren',
     restock: 'Neue Waren',
     tomorrow: 'Neue Waren morgen'
+  },
+  rested: {
+    hud: '2× EP',
+    banner: 'Willkommen zurück! Du bist ausgeruht: {time} doppelte EP in deinen nächsten Kämpfen.',
+    hm: '{h} Std. {m} Min.',
+    m: '{m} Min.',
+    h: '{h} Std.'
   }
 }
