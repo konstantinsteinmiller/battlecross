@@ -226,6 +226,8 @@ export class TownView {
     if (!k.glow.empty) { const g = k.glow.build(); this.owned.push(g); obj.add(new Mesh(g, glowVC())) }
     obj.position.set(x, groundAt(x, z) + 0.06, z)
     obj.rotation.y = rot + Math.PI / 2
+    // A dummy is a head shorter than a person.
+    if (!stone) obj.scale.setScalar(0.8)
     this.root.add(obj)
     this.dummies.push({ obj, x, z, w: 0, dw: 0, dir: 1 })
   }

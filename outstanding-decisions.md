@@ -40,6 +40,8 @@ The ones most worth a look before much is built on them:
 | 24 | **Three small gifts in conversations** are new rewards: Elder Mara 60 gold, Madam Ash 250 gold, a copper band from Tilly at Charisma 8. | In | Keep; covered by the balance re-check |
 | 25 | **Sword thrust.** Straight-ahead strikes read weakly when the hero faces away from the camera (the head hides them), so the thrust is the rarer fourth beat of the sword combo. Keep it or drop it for a third cut? | Kept, rare | Watch a fight and say |
 | 26 | **Critical-hit impact size.** It is large when the camera is close. Calmer? | Large | Watch a fight and say |
+| 27 | **Buy-back** also takes back a legendary sold by mistake, at the price paid, while the visit lasts. | Allowed | Keep: it forgives a mis-tap |
+| 28 | **Backdrops**: three paintings (trade table, satchel, skill codex); the healer reuses the trade table and the character page the satchel. | Three | Keep |
 
 ## Needs an action from the owner before a submission
 

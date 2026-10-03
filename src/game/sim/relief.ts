@@ -20,7 +20,10 @@ import {
  *      below it (a cave, a lagoon).
  *   2. The levels are spread over the map (inverse distance to each place's
  *      edge, so a clearing is level inside and the slope lives in the pass),
- *      blurred, and rolled with low noise so nothing is dead flat.
+ *      blurred, and rolled with low noise so nothing is dead flat; then
+ *      SWELLS, hills and dips of a metre or so, rise across each clearing's
+ *      outer ring and between clearings, fading to nothing over the middle
+ *      of a clearing where the fights are. The road is worn a little lower.
  *   3. A finale's dais is raised; a ledge steps the ground up past its edge
  *      (sharply on the cliff, over the run of the ramp at its ramp).
  *   4. Water lies level: a river in a valley (its banks and bridge flat), a
@@ -39,6 +42,8 @@ export interface ReliefCtx {
   w: number
   h: number
   kind: Uint8Array
+  /** The worn road (it is walked a little lower than the ground beside it). */
+  trail: Uint8Array
   /** Clearing centres and radii, in cells (0 the start, the last the finale). */
   cs: Array<{ i: number; j: number; r: number }>
   lobes: LobePlan[]
@@ -123,6 +128,57 @@ export const buildRelief = (c: ReliefCtx): Float32Array => {
       const x = ci * CELL
       const z = cj * CELL
       H[cj * W1 + ci]! += roll * ((valueNoise(x * 0.085, z * 0.085, ns) * 2 - 1) * 0.75 + (valueNoise(x * 0.21, z * 0.21, ns + 9) * 2 - 1) * 0.25)
+    }
+  }
+
+  // Swells: broad hills and dips, kept off the middle of each clearing.
+  const swell = rel.swell * calm
+  if (swell > 0) {
+    const ns2 = Math.floor(rng() * 100000)
+    // Props stand on level pads: the swells keep away from them (and from a
+    // puzzle's plates, which then lie on one level floor).
+    const pads: Array<[number, number]> = []
+    for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
+      const kd = kind[j * w + i]
+      if (kd === K_BLOCK || kd === K_PLATE) pads.push([i + 0.5, j + 0.5])
+    }
+    for (let cj = 0; cj < H1; cj++) {
+      for (let ci = 0; ci < W1; ci++) {
+        let calmK = 1
+        for (let k = 0; k <= n; k++) {
+          const p = cs[k]!
+          const dx = ci - (p.i + 0.5)
+          const dz = cj - (p.j + 0.5)
+          // A raised dais keeps its whole floor and its foot level.
+          const wide = k === n && c.dais
+          calmK = Math.min(calmK, smooth(p.r * (wide ? 1.05 : 0.38), p.r * (wide ? 1.6 : 0.92), Math.sqrt(dx * dx + dz * dz)))
+        }
+        for (const [pi, pj] of pads) {
+          const dx = ci - pi
+          const dz = cj - pj
+          const d2 = dx * dx + dz * dz
+          if (d2 < 16) calmK = Math.min(calmK, smooth(1.2, 4, Math.sqrt(d2)))
+        }
+        const x = ci * CELL
+        const z = cj * CELL
+        const v = (valueNoise(x * 0.06, z * 0.06, ns2) * 2 - 1) * 0.7 + (valueNoise(x * 0.13, z * 0.13, ns2 + 5) * 2 - 1) * 0.3
+        H[cj * W1 + ci]! += swell * calmK * v * 1.6
+      }
+    }
+  }
+  // The road is worn: a hand's breadth lower where it is walked most.
+  for (let cj = 0; cj < H1; cj++) {
+    for (let ci = 0; ci < W1; ci++) {
+      let t = 0
+      let m = 0
+      for (let dj = -1; dj <= 0; dj++) for (let di = -1; di <= 0; di++) {
+        const i = ci + di
+        const j = cj + dj
+        if (i < 0 || j < 0 || i >= w || j >= h) continue
+        t += c.trail[j * w + i]!
+        m++
+      }
+      if (m && t) H[cj * W1 + ci]! -= 0.09 * (t / m)
     }
   }
 
@@ -225,22 +281,67 @@ export const buildRelief = (c: ReliefCtx): Float32Array => {
   // The land settles round its water first; then each prop's pad is levelled
   // on the settled ground, and the land settles round the pads.
   relax(H, pinned, W1, H1, SLOPE, free)
-  // Pads: a chest, a plate, a carved stone stands level.
-  for (let j = 0; j < h; j++) {
-    for (let i = 0; i < w; i++) {
-      const kd = kind[j * w + i]
-      if (kd !== K_BLOCK && kd !== K_PLATE) continue
-      const ks = [j * W1 + i, j * W1 + i + 1, (j + 1) * W1 + i, (j + 1) * W1 + i + 1]
-      // Level with whatever already holds a corner (a bank, another pad), else
-      // cut down to its lowest corner: lowering never steepens the way down to
-      // water that is already set.
-      let m = 0
-      let n0 = 0
-      for (const k of ks) if (pinned[k]) { m += H[k]!; n0++ }
-      if (n0) m /= n0
-      else m = Math.min(H[ks[0]!]!, H[ks[1]!]!, H[ks[2]!]!, H[ks[3]!]!)
-      for (const k of ks) if (!pinned[k]) { H[k] = m; pinned[k] = 1 }
+  // Pads: a chest, a plate, a carved stone stands level. Props close together
+  // (a puzzle's plates and its stone, a chest by a skull post) share one
+  // floor; and a floor is set no higher or lower than the ground already set
+  // round it (water, another floor) can be walked to.
+  const padCells: number[] = []
+  for (let k = 0; k < w * h; k++) if (kind[k] === K_BLOCK || kind[k] === K_PLATE) padCells.push(k)
+  const group = new Int32Array(padCells.length).fill(-1)
+  let groups = 0
+  for (let a0 = 0; a0 < padCells.length; a0++) {
+    if (group[a0]! >= 0) continue
+    group[a0] = groups
+    const stackP = [a0]
+    while (stackP.length) {
+      const q = stackP.pop()!
+      const qi = padCells[q]! % w
+      const qj = (padCells[q]! - qi) / w
+      for (let b0 = 0; b0 < padCells.length; b0++) {
+        if (group[b0]! >= 0) continue
+        const bi = padCells[b0]! % w
+        const bj = (padCells[b0]! - bi) / w
+        if (Math.max(Math.abs(bi - qi), Math.abs(bj - qj)) <= 2) { group[b0] = groups; stackP.push(b0) }
+      }
     }
+    groups++
+  }
+  for (let g = 0; g < groups; g++) {
+    const set = new Set<number>()
+    for (let q = 0; q < padCells.length; q++) {
+      if (group[q] !== g) continue
+      const i = padCells[q]! % w
+      const j = (padCells[q]! - i) / w
+      for (const k of [j * W1 + i, j * W1 + i + 1, (j + 1) * W1 + i, (j + 1) * W1 + i + 1]) set.add(k)
+    }
+    let m = 0
+    let n0 = 0
+    let mp = 0
+    let np = 0
+    for (const k of set) { m += H[k]!; n0++; if (pinned[k]) { mp += H[k]!; np++ } }
+    let lv = np ? mp / np : m / n0
+    if (!np) {
+      // Within reach of what is already set round it.
+      let lo = -Infinity
+      let hi = Infinity
+      for (const k of set) {
+        const ci = k % W1
+        const cj = (k - ci) / W1
+        for (let dj = -8; dj <= 8; dj++) for (let di = -8; di <= 8; di++) {
+          const d = Math.abs(di) + Math.abs(dj)
+          if (d === 0 || d > 8) continue
+          const ni = ci + di
+          const nj = cj + dj
+          if (ni < 0 || nj < 0 || ni >= W1 || nj >= H1) continue
+          const nk = nj * W1 + ni
+          if (!pinned[nk] || set.has(nk)) continue
+          lo = Math.max(lo, H[nk]! - d * SLOPE * 0.98)
+          hi = Math.min(hi, H[nk]! + d * SLOPE * 0.98)
+        }
+      }
+      if (lo <= hi) lv = Math.max(lo, Math.min(hi, lv))
+    }
+    for (const k of set) if (!pinned[k]) { H[k] = lv; pinned[k] = 1 }
   }
 
   relax(H, pinned, W1, H1, SLOPE, free)
@@ -280,10 +381,12 @@ const addLedge = (H: Float32Array, w: number, h: number, l: LedgePlan): void => 
  * takes all of it.
  */
 const relax = (H: Float32Array, pinned: Uint8Array, W1: number, H1: number, max: number, free: Uint8Array | null): void => {
+  let moved = 0
   const fix = (a: number, b: number): void => {
     const d = H[a]! - H[b]!
     const ex = Math.abs(d) - max
     if (ex <= 0) return
+    moved += ex
     const pa = pinned[a]
     const pb = pinned[b]
     if (pa && pb) return
@@ -292,7 +395,9 @@ const relax = (H: Float32Array, pinned: Uint8Array, W1: number, H1: number, max:
     else if (pb) H[a]! -= sgn * ex
     else { H[a]! -= sgn * ex * 0.5; H[b]! += sgn * ex * 0.5 }
   }
-  for (let it = 0; it < 80; it++) {
+  // Until nothing is too steep (or as near as pinned corners allow).
+  for (let it = 0; it < 400; it++) {
+    moved = 0
     for (let cj = 0; cj < H1; cj++) {
       for (let ci = 0; ci < W1; ci++) {
         const k = cj * W1 + ci
@@ -301,6 +406,7 @@ const relax = (H: Float32Array, pinned: Uint8Array, W1: number, H1: number, max:
         if (cj + 1 < H1 && f & 2) fix(k, k + W1)
       }
     }
+    if (moved < 1e-4) break
   }
 }
 

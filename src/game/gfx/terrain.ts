@@ -566,6 +566,10 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     if (plan.kind[k] === K_RAMP) { rampMask[k] = 1; anyCliff = true }
   }
   const rockLook = CLIFF[themeId]
+  // The relief's tones: sunlit, shaded, and the light top of a crest.
+  const cSun = new Color(theme.ground[0]).lerp(new Color('#fff6c8'), 0.38)
+  const cShade = new Color(theme.ground[1]).lerp(new Color(theme.rim), 0.55).lerp(new Color(theme.shadow), 0.12)
+  const cCrest = new Color(theme.ground[0]).lerp(new Color('#ffffff'), 0.22)
   let meanH = 0
   for (const v of plan.height) meanH += v
   meanH /= Math.max(1, plan.height.length)
@@ -621,6 +625,9 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     c.copy(cA).lerp(cB, n)
     const t = trailAt(gi, gj)
     if (t > 0) c.lerp(cT, Math.min(0.85, t * (0.7 + 0.3 * n)))
+    // The road is worn into the ground (`sim/relief.ts` lowers it): its edges
+    // are a darker rut.
+    if (t > 0.12 && t < 0.62) c.multiplyScalar(0.88)
     // Inside a cave the ground is the cave's own, whatever grows outside.
     const cv = plan.caves.length ? shareAt(plan.cave, gi, gj) : 0
     if (cv > 0) c.lerp(c2.copy(cCaveA).lerp(cCaveB, n), cv)
@@ -642,7 +649,15 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     let gy = groundAt(x, z)
     const gx = (groundAt(x + 0.4, z) - groundAt(x - 0.4, z)) / 0.8
     const gz = (groundAt(x, z + 0.4) - groundAt(x, z - 0.4)) / 0.8
-    c.multiplyScalar(1 + Math.max(-0.3, Math.min(0.3, -(gx * 0.4 + gz * 0.42) * 1.1)))
+    // Cel relief, in two tones rather than a gradient: a slope turned to the
+    // sun takes the light tone, one turned away the shade tone; a crest is
+    // lighter grass and a hollow lies in its own shade.
+    const sun = -(gx * 0.69 + gz * 0.72)
+    if (sun > 0.13) c.lerp(cSun, sun > 0.32 ? 0.42 : 0.26)
+    else if (sun < -0.13) c.lerp(cShade, sun < -0.32 ? 0.4 : 0.24)
+    const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * gy
+    if (lap < -0.06) c.lerp(cCrest, lap < -0.16 ? 0.38 : 0.22)
+    else if (lap > 0.06) c.lerp(cShade, lap > 0.16 ? 0.34 : 0.18)
     _nrm.set(-gx, 1, -gz).normalize()
     // Higher ground a touch lighter, lower a touch darker: a terrace reads as a level.
     c.multiplyScalar(1 + Math.max(-0.12, Math.min(0.12, (gy - meanH) * 0.06)))
@@ -956,6 +971,38 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   }
   for (let n = 0; n < theme.decor.length; n++) instanced(theme.decor[n]!, decorPlaces[n]!, false, root, owned)
   for (let n = 0; n < caveDecor.length; n++) instanced(caveDecor[n]!, caveDecorPlaces[n]!, false, root, owned)
+
+  // ── The relief's tells: a stone or two on a crest, dark tufts in a hollow ──
+  {
+    const trng = mulberry32((plan.seed ^ 0x7e11) >>> 0)
+    const crest: Place[] = []
+    const hollow: Place[] = []
+    for (let j = 1; j < h - 1; j++) {
+      for (let i = 1; i < w - 1; i++) {
+        const k = j * w + i
+        if (solid[k] || trail[k] || footprint.has(k) || plan.kind[k] !== K_GROUND || plan.cave[k]) continue
+        const x = (i + 0.5) * CELL
+        const z = (j + 0.5) * CELL
+        const gy = groundAt(x, z)
+        const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * gy
+        const r = trng()
+        if (lap < -0.12 && r < (low ? 0.1 : 0.2)) {
+          const px = x + (trng() - 0.5) * CELL * 0.7
+          const pz = z + (trng() - 0.5) * CELL * 0.7
+          crest.push([px, pz, trng() * 6, 0.32 + trng() * 0.3, groundAt(px, pz) - 0.06])
+        } else if (lap > 0.1 && r < (low ? 0.25 : 0.5)) {
+          for (let q = 0; q < 2; q++) {
+            const px = x + (trng() - 0.5) * CELL
+            const pz = z + (trng() - 0.5) * CELL
+            hollow.push([px, pz, trng() * 6, 1 + trng() * 0.5, groundAt(px, pz)])
+          }
+        }
+      }
+    }
+    const tuftHex = '#' + new Color(theme.ground[1]).lerp(new Color(theme.rim), 0.5).getHexString()
+    instanced({ build: boulder(rockLook.a, rockLook.b), w: 1, s: [1, 1] }, crest, true, root, owned)
+    instanced({ build: tuft(tuftHex), w: 1, s: [1, 1] }, hollow, false, root, owned)
+  }
   await slice()
 
   // A town's houses, props and people are `gfx/townView.ts`.

@@ -580,7 +580,7 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   void well
   // Lamps at the square's corners; a notice board on its north side.
   for (const [i, j] of [[SQ.i0, SQ.j0], [SQ.i1, SQ.j0], [SQ.i0, SQ.j1], [SQ.i1, SQ.j1]] as const) {
-    if (free(i, j)) addProp('lamp', C(i), C(j), 0, [K(i, j)])
+    if (free(i, j)) addProp(def.style === 'mountain' ? 'brazier' : 'lamp', C(i), C(j), 0, [K(i, j)])
   }
   {
     const bi = CX + 3
@@ -693,9 +693,9 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
       station = addSpot({ kind: 'work', x, z, facing, ax: C(wi), az: C(wj), room: hi, owner: n.id, prop: -1 })
     } else if (h && (place === 'porch' || place === 'inside')) {
       const fj = h.j0 + h.cd - 1
-      x = C(h.doorI)
+      // A smith works side-on at the anvil beside him: right up to it.
+      x = C(h.doorI) + (h.kind === 'workshop' ? 0.62 : 0)
       z = C(fj + 1) - 0.2
-      // A smith works side-on at the anvil beside him.
       facing = h.kind === 'workshop' ? Math.PI / 2 : 0
       station = addSpot({ kind: 'work', x, z, facing, ax: C(h.doorI), az: C(fj + 1), room: -1, owner: n.id, prop: -1 })
       taken.add(K(h.doorI, fj + 1))

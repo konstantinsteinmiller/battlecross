@@ -47,19 +47,16 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #46 ✅ **Dialogue system.** Talking to an NPC is a conversation in the
   world: speech bubbles over heads, a choice list, stable dialogue line ids
   (ready for voice-over), no jump into a window. Quest decisions run in it.
-- [ ] #47 **Trading that feels like a trade.** A two-sided trade screen
+- [x] #47 ✅ **Trading that feels like a trade.** A two-sided trade screen
   (the merchant's goods, your bag, what changes hands and for how much),
   reached from the conversation.
-- [ ] #48 **Equipment screen.** A paper-doll with equipment slots fed from an
+- [x] #48 ✅ **Equipment screen.** A paper-doll with equipment slots fed from an
   inventory (drag or tap to equip, compare, unequip).
-- [ ] #49 **Skills screen overhaul.** Learned skills, the slots they sit in
+- [x] #49 ✅ **Skills screen overhaul.** Learned skills, the slots they sit in
   and the classes they come from, made attractive and clear.
 - [x] #50 ✅ **Battle skill buttons.** The skill buttons in a fight get real
   art (frames, states: ready, cooling down, no mana, locked).
-- [ ] #51 **Painted art for the new screens** through the art pipeline:
-  backgrounds for the skills, inventory and trade screens, the skill button
-  frames, the bar frames.
-- [ ] #52 **Paced introductions.** The player is led, a step at a time, to:
+(m) => m + '  Deferred: the skill-button and bar FRAMES as painted files — they need a transparent window and a three-slice shape the pipeline does not offer yet; the code-drawn frames stay.\n'- [ ] #52 **Paced introductions.** The player is led, a step at a time, to:
   how to fight (before the very first fight), using a skill, equipping an
   item, learning a skill (on entering the town), spending attribute points.
 

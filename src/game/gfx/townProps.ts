@@ -79,7 +79,7 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       for (let i = 0; i < 10; i += 2) d.box(Math.sin(i * 0.628) * 0.71 - 0.1, 0.18, Math.cos(i * 0.628) * 0.71 - 0.02, Math.sin(i * 0.628) * 0.71 + 0.1, 0.3, Math.cos(i * 0.628) * 0.71 + 0.02, shade(st, 0.85), 'b')
       if (ruined) { d.beam(-0.6, 0.7, 0, 0.3, 1.2, 0.1, 0.1, '#2e2622', 0.1); break }
       for (const s of [-1, 1]) h.box(s * 0.62 - 0.07, 0.6, -0.07, s * 0.62 + 0.07, 1.8, 0.07, WOOD_D, 'b')
-      h.prism([[-0.95, 1.75], [0.95, 1.75], [0, 2.3]], -0.6, 0.6, '#c75440', '#a84434')
+      h.prism([[-0.95, 1.75], [0.95, 1.75], [0, 2.3]], -0.6, 0.6, c.style === 'mountain' ? '#4d566e' : '#c75440', c.style === 'mountain' ? '#424a60' : '#a84434')
       d.beam(-0.7, 1.35, 0, 0.75, 1.35, 0, 0.09, WOOD, 0.09)
       d.beam(0.75, 1.35, 0, 0.75, 1.15, 0.15, 0.05, IRON, 0.05)
       d.beam(0, 1.32, 0, 0, 0.95, 0, 0.02, '#c8b890', 0.02)
@@ -112,7 +112,7 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
     case 'stall': {
       // A market stall: a counter of goods under a striped awning. The keeper stands behind (−z).
       const w = Math.max(1.4, p.w - 0.35)
-      const cols = [['#c9483a', '#f4ead2'], ['#3f7fd6', '#f4ead2'], ['#5aa84a', '#f8f0d8'], ['#d8962a', '#fff4e0']][p.v % 4]!
+      const cols = ruined ? [['#5a4a44', '#7a6e62'], ['#4a4458', '#6a6270']][p.v % 2]! : [['#c9483a', '#f4ead2'], ['#3f7fd6', '#f4ead2'], ['#5aa84a', '#f8f0d8'], ['#d8962a', '#fff4e0']][p.v % 4]!
       h.box(-w / 2, 0, -0.35, w / 2, 0.82, 0.32, { top: '#c8965a', front: WOOD, side: WOOD_D }, 'b')
       d.box(-w / 2 - 0.04, 0.82, -0.38, w / 2 + 0.04, 0.88, 0.36, '#a06a3a', 'b')
       d.quad(-w / 2 + 0.05, 0.1, 0.33, w / 2 - 0.05, 0.1, 0.33, w / 2 - 0.05, 0.7, 0.33, -w / 2 + 0.05, 0.7, 0.33, shade(cols[0]!, 0.85))
@@ -121,12 +121,14 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       for (let i = 0; i < n; i++) {
         const a = -w / 2 - 0.15 + ((w + 0.3) * i) / n
         const b = -w / 2 - 0.15 + ((w + 0.3) * (i + 1)) / n
+        // A ruined stall's awning is in tatters: every other stripe torn away.
+        if (ruined && i % 2) continue
         h.quad(a, 1.8, 0.55, b, 1.8, 0.55, b, 2.15, -0.45, a, 2.15, -0.45, i % 2 ? cols[0]! : cols[1]!)
         d.tri(a, 1.8, 0.55, (a + b) / 2, 1.66, 0.56, b, 1.8, 0.55, i % 2 ? shade(cols[0]!, 0.85) : shade(cols[1]!, 0.85))
       }
       // Goods: fruit, bottles, trinkets.
       const goods = ['#ff5a4a', '#ffd84a', '#7dd84a', '#ff9a3a', '#c08aff', '#5fd8ff']
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < (ruined ? 3 : 9); i++) {
         const gx = -w / 2 + 0.2 + ((i % 5) / 4) * (w - 0.4)
         const gz = -0.15 + Math.floor(i / 5) * 0.28
         const col = goods[(i * 5 + p.v) % goods.length]!
@@ -168,14 +170,19 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       break
     }
     case 'table': {
-      h.cyl(0, 0.62, 0, 0.5, 0.5, 0.08, 8, WOOD, '#b07e48')
-      d.cyl(0, 0, 0, 0.1, 0.08, 0.62, 6, WOOD_D)
+      // A low round table (a chibi sits low), a stool each side.
+      h.cyl(0, 0.44, 0, 0.48, 0.48, 0.08, 8, WOOD, '#b07e48')
+      d.cyl(0, 0, 0, 0.1, 0.08, 0.44, 6, WOOD_D)
       d.cyl(0, 0, 0, 0.3, 0.3, 0.05, 6, WOOD_D, WOOD_D)
+      for (const s of [-1, 1]) {
+        h.cyl(s * 0.68, 0.12, 0, 0.19, 0.2, 0.07, 7, '#a07040', '#b88a50')
+        for (const [a, b] of [[-0.1, -0.1], [0.1, -0.1], [0, 0.11]] as const) d.box(s * 0.68 + a - 0.025, 0, b - 0.025, s * 0.68 + a + 0.025, 0.12, b + 0.025, WOOD_D, 'b')
+      }
       if (!ruined) {
         for (const [a, b] of [[-0.2, 0.1], [0.18, -0.12]] as const) {
-          d.cyl(a, 0.7, b, 0.07, 0.07, 0.14, 6, '#c98a3a', '#fff4d8')
+          d.cyl(a, 0.52, b, 0.07, 0.07, 0.14, 6, '#c98a3a', '#fff4d8')
         }
-        d.ball(0.05, 0.74, 0.2, 0.08, '#d8a050', 5, 3, 0.7)
+        d.ball(0.05, 0.56, 0.2, 0.08, '#d8a050', 5, 3, 0.7)
       }
       break
     }

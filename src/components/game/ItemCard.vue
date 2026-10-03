@@ -100,7 +100,8 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   +cel.label
   font-size: clamp(0.9rem, 3.7vmin, 1.15rem)
   line-height: 1.15
-  overflow-wrap: anywhere
+  overflow-wrap: break-word
+  hyphens: auto
 .item-card__sub
   color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)

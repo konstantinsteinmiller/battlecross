@@ -76,6 +76,7 @@ const DAYS: Readonly<Record<TownJob, ActDef[]>> = {
   captain: [A('spar', 4, 'spar', [9, 14]), A('spot', 2, 'forms', [7, 11], 'dummy'), A('station', 2, 'inspect', [5, 8]), A('chat', 1, 'talk', [6, 9]), A('wander', 1, 'stand', [2, 4])],
   fence: [A('station', 6, 'count', [8, 14]), A('treat', 1, 'smoke', [6, 9], undefined, 'pipe'), A('wander', 1, 'look', [2, 4])],
   boss: [A('station', 5, 'warm', [9, 14]), A('treat', 1, 'smoke', [6, 9], undefined, 'pipe'), A('wander', 1, 'inspect', [3, 5])],
+  squire: [A('spar', 5, 'spar', [9, 14]), A('spot', 4, 'forms', [8, 12], 'dummy'), A('spot', 1, 'lean', [5, 8], 'lean'), A('wander', 1, 'stand', [2, 4])],
   guard: [A('patrol', 4, 'stand', [2, 3]), A('spar', 3, 'spar', [9, 14]), A('spot', 2, 'lean', [6, 10], 'lean'), A('chat', 1, 'talk', [6, 9])],
   villager: [A('wander', 3, 'look', [2, 5]), A('chat', 3, 'talk', [7, 10]), A('spot', 2, 'sitDrink', [7, 11], 'seat', 'mug'), A('spot', 2, 'look', [4, 7], 'look'), A('spot', 2, 'hang', [7, 11], 'work'), A('treat', 1, 'sweep', [7, 10], undefined, 'broom')],
   farmer: [A('spot', 5, 'hoe', [9, 14], 'work', 'hoe'), A('wander', 1, 'stand', [2, 4]), A('treat', 1, 'drink', [4, 6], undefined, 'mug'), A('spot', 1, 'sitEat', [6, 9], 'seat', 'bread'), A('chat', 1, 'talk', [6, 9])],
@@ -119,6 +120,8 @@ export interface TownLifePerson {
   emoteT: number
   /** Seconds of the wave after the hero greeted one of the folk. */
   greet: number
+  /** A chat with somebody who stays at what they are doing (a seat, a wall). */
+  visit: boolean
 }
 
 interface Life {
@@ -156,7 +159,7 @@ export const spawnTownPeople = (sim: Sim, plan: TownPlan, o: { lite?: boolean; v
     people.push({
       def: p, unit, rng: mulberry32((salt ^ hashSeed(p.id)) >>> 0), act: 'idle', pose: 'stand', prop: '', phase: Phase.Choose,
       t: 0, dur: 0, spot: -1, sx: p.x, sz: p.z, sf: p.facing, partner: null, lead: false, held: 0, stuck: 0, lastX: p.x, lastZ: p.z,
-      patrol: 0, legs: 0, emote: '', emoteT: 0, greet: 0
+      patrol: 0, legs: 0, emote: '', emoteT: 0, greet: 0, visit: false
     })
   }
   const life: Life = { plan, people, byUnit: new Map(people.map(p => [p.unit.id, p])), holder: new Int32Array(plan.spots.length).fill(-1), addressed: 0, time: 0 }
@@ -333,6 +336,7 @@ const idle = (p: TownLifePerson, sec: number): void => {
   p.t = 0
   p.dur = sec
   p.partner = null
+  p.visit = false
 }
 
 const release = (life: Life, p: TownLifePerson): void => {
@@ -358,12 +362,15 @@ const choose = (sim: Sim, life: Life, p: TownLifePerson, idx: number): void => {
 const begin = (life: Life, p: TownLifePerson, idx: number, d: ActDef, now: boolean, sim?: Sim): boolean => {
   const plan = life.plan
   const u = p.unit
+  // Whatever was held before is let go first.
+  if (!now) release(life, p)
   p.pose = d.pose
   p.prop = d.prop ?? ''
   p.dur = d.dur[0] + p.rng() * (d.dur[1] - d.dur[0])
   p.t = 0
   p.act = d.act
   p.partner = null
+  p.visit = false
   p.lead = false
   switch (d.act) {
     case 'station': {
@@ -423,8 +430,32 @@ const begin = (life: Life, p: TownLifePerson, idx: number, d: ActDef, now: boole
         const dd = dist2(q.unit.x, q.unit.z, u.x, u.z)
         if (dd < bd) { bd = dd; best = q }
       }
+      // Nobody about: then somebody at a table, on a bench, leaning on a wall —
+      // they stay where they are and are talked to there.
+      let visit = false
+      if (!best) {
+        bd = 144
+        for (const q of life.people) {
+          if (q === p || q.held || q.greet > 0 || q.def.room !== p.def.room || q.phase !== Phase.Do || q.act !== 'spot') continue
+          if ((q.def.job === 'child') !== (p.def.job === 'child')) continue
+          if (!(q.pose.startsWith('sit') || q.pose.startsWith('lean') || q.pose === 'look' || q.pose === 'warm')) continue
+          const dd = dist2(q.unit.x, q.unit.z, u.x, u.z)
+          if (dd < bd) { bd = dd; best = q }
+        }
+        visit = true
+      }
       if (!best) return false
       const q = best
+      if (visit) {
+        // Stand before them (the side the camera sees), a step off.
+        const f = q.unit.facing
+        const tx = q.unit.x + Math.sin(f) * 1.05
+        const tz = q.unit.z + Math.cos(f) * 1.05
+        if (isSolidCell(sim!.grid, cellOf(tx), cellOf(tz))) return false
+        p.partner = q
+        p.visit = true
+        return goTo(sim!, p, tx, tz, tx, tz, Math.atan2(q.unit.x - tx, q.unit.z - tz))
+      }
       const dx = u.x - q.unit.x
       const dz = u.z - q.unit.z
       const l = Math.hypot(dx, dz) || 1
@@ -461,7 +492,7 @@ const begin = (life: Life, p: TownLifePerson, idx: number, d: ActDef, now: boole
       let q: TownLifePerson | null = null
       for (const c of life.people) {
         if (c === p || c.held || c.phase === Phase.Go || c.act === 'spar' || c.act === 'chat') continue
-        if (c.def.job !== 'guard' && c.def.job !== 'knight' && c.def.job !== 'captain') continue
+        if (c.def.job !== 'guard' && c.def.job !== 'squire' && c.def.job !== 'knight' && c.def.job !== 'captain') continue
         if (dist2(c.unit.x, c.unit.z, u.x, u.z) > 196) continue
         q = c
         break
@@ -585,7 +616,7 @@ const goStep = (sim: Sim, life: Life, p: TownLifePerson, idx: number, dt: number
   p.stuck = moved < dt * 0.2 ? p.stuck + dt : 0
   if (going && p.stuck < 2.5) {
     // A chat partner who has wandered off cancels the chat.
-    if (p.act === 'chat' && (!p.partner || p.partner.partner !== p)) { stop(u); idle(p, 0.5) }
+    if (p.act === 'chat' && (!p.partner || (p.visit ? p.partner.phase !== Phase.Do : p.partner.partner !== p))) { stop(u); idle(p, 0.5) }
     return
   }
   if (p.stuck >= 2.5) {
@@ -617,6 +648,16 @@ const goStep = (sim: Sim, life: Life, p: TownLifePerson, idx: number, dt: number
     }
     case 'chat': {
       const q = p.partner
+      if (q && p.visit) {
+        p.phase = Phase.Do
+        p.t = 0
+        p.sx = u.x
+        p.sz = u.z
+        p.pose = 'talk'
+        p.emote = 'dots'
+        p.emoteT = 0
+        break
+      }
       if (!q || q.partner !== p) { idle(p, 0.5); break }
       p.phase = Phase.Do
       p.t = 0
@@ -641,6 +682,23 @@ const doStep = (life: Life, p: TownLifePerson, dt: number): void => {
   const u = p.unit
   u.anim = 'idle'
   p.t += dt
+  if (p.act === 'chat' && p.partner && p.visit) {
+    const q = p.partner
+    // Talking to somebody who is busy at a seat or a wall: they answer now and then.
+    if (q.phase !== Phase.Do || q.held) { idle(p, 0.6); return }
+    u.facing = turnToward(u.facing, Math.atan2(q.unit.x - u.x, q.unit.z - u.z), dt * 8)
+    const turn = Math.floor(p.t / 2.3)
+    const was = p.pose
+    p.pose = turn % 2 === 0 ? 'talk' : 'listen'
+    if (p.pose !== was) {
+      const r = p.rng()
+      const who = p.pose === 'talk' ? p : q
+      who.emote = r < 0.55 ? 'dots' : r < 0.7 ? 'bang' : r < 0.82 ? 'ask' : r < 0.92 ? 'note' : 'heart'
+      who.emoteT = 0
+    }
+    if (p.t >= p.dur) idle(p, 1 + p.rng() * 2)
+    return
+  }
   if (p.act === 'chat' && p.partner) {
     const q = p.partner
     if (q.partner !== p) { idle(p, 0.6); return }
@@ -689,8 +747,9 @@ const doStep = (life: Life, p: TownLifePerson, dt: number): void => {
     return
   }
   if (p.spot >= 0) {
-    // Off the seat, back to where it was walked to from.
+    // Off the seat, back to where it was walked to from (it is right beside it).
     const s = life.plan.spots[p.spot]!
+    if (Math.hypot(s.ax - u.x, s.az - u.z) > 1.6) { release(life, p); idle(p, 0.5); return }
     p.phase = Phase.Leave
     p.sx = s.ax
     p.sz = s.az

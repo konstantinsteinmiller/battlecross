@@ -318,7 +318,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const lobes = features.lobes.slice()
   if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
   const height = buildRelief({
-    seed, w: W, h, kind, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
+    seed, w: W, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
     relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial
   })
   return {

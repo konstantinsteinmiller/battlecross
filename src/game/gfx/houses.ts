@@ -929,8 +929,12 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   }
   // A rug from the door in.
   const rugC = c.job === 'noble' ? '#a82a3a' : c.job === 'healer' ? '#5aa86a' : c.job === 'rogue' ? '#3a3458' : c.job === 'scholar' ? '#c9482a' : c.job === 'tinker' ? '#2a6a7a' : '#8a4a6a'
-  d.box(-W * 0.22 + doorX * 0.3, fy, z0 + 0.5, W * 0.22 + doorX * 0.3, fy + 0.02, z1 - 0.15, { top: rugC }, 'b')
-  d.box(-W * 0.22 + 0.1 + doorX * 0.3, fy + 0.02, z0 + 0.6, W * 0.22 - 0.1 + doorX * 0.3, fy + 0.025, z1 - 0.25, { top: shade(rugC, 1.25) }, 'b')
+  // A runner from the door into the room, with a border.
+  const rw = Math.min(0.75, W * 0.16)
+  const rz0 = z0 + Math.max(0.6, (z1 - z0) * 0.35)
+  d.box(doorX - rw, fy, rz0, doorX + rw, fy + 0.02, z1 - 0.1, { top: rugC }, 'b')
+  d.box(doorX - rw + 0.1, fy + 0.02, rz0 + 0.1, doorX + rw - 0.1, fy + 0.025, z1 - 0.2, { top: shade(rugC, 1.25) }, 'b')
+  d.box(doorX - 0.1, fy + 0.025, rz0 + 0.3, doorX + 0.1, fy + 0.03, z1 - 0.4, { top: shade(rugC, 0.8) }, 'b')
   // Skirting and a beam along the inside of the walls.
   d.box(x0, fy, z0, x1, fy + 0.12, z0 + 0.03, '#6a4a34', 'b')
   d.box(x0, 1.9, z0, x1, 2.02, z0 + 0.06, p.timber, 'b')

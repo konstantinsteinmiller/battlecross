@@ -169,6 +169,9 @@ export const ARENA_WAVES = 8
 export interface ZoneRelief {
   /** Rolling ground everywhere, metres either way: nothing is dead flat. */
   roll: number
+  /** Hills and dips across a clearing's outer ring and between clearings
+   *  (metres either way); a fight's centre stays moderate. */
+  swell: number
   /** How far the road rises or falls from one clearing to the next (metres),
    *  and which way: `up` climbs to the finale, `down` delves, `mixed` both. */
   climb: [number, number]
@@ -185,18 +188,18 @@ export interface ZoneRelief {
 }
 
 export const ZONE_RELIEF: Readonly<Record<ZoneId, ZoneRelief>> = {
-  plains: { roll: 0.32, climb: [0.2, 0.7], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0 },
-  hollows: { roll: 0.26, climb: [0.4, 1.0], trend: 'down', ledge: 0.55, ledges: 2, step: [1.1, 1.5], dais: 0.3 },
-  woods: { roll: 0.32, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.65, ledges: 1, step: [1.1, 1.4], dais: 0 },
-  outskirts: { roll: 0.3, climb: [0.2, 0.6], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0.2 },
-  crags: { roll: 0.26, climb: [0.6, 1.3], trend: 'up', ledge: 0.65, ledges: 2, step: [1.3, 1.7], dais: 0.4 },
-  mines: { roll: 0.16, climb: [0.5, 1.1], trend: 'down', ledge: 0.7, ledges: 2, step: [1.2, 1.6], dais: 0.3, stairs: true },
-  tundra: { roll: 0.46, climb: [0.2, 0.8], trend: 'mixed', ledge: 0.5, ledges: 1, step: [1.1, 1.4], dais: 0.3 },
-  temple: { roll: 0.1, climb: [0.4, 0.9], trend: 'up', ledge: 0.6, ledges: 2, step: [1.1, 1.4], dais: 0.7, stairs: true },
-  citadel: { roll: 0.16, climb: [0.4, 1.0], trend: 'up', ledge: 0.6, ledges: 2, step: [1.2, 1.5], dais: 0.6, stairs: true },
-  peak: { roll: 0.3, climb: [0.9, 1.5], trend: 'up', ledge: 0.7, ledges: 2, step: [1.4, 1.8], dais: 0.5 },
-  fortress: { roll: 0.1, climb: [0.5, 1.0], trend: 'up', ledge: 0.7, ledges: 2, step: [1.2, 1.5], dais: 0.8, stairs: true },
-  rift: { roll: 0.22, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
+  plains: { roll: 0.32, swell: 0.95, climb: [0.2, 0.7], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0 },
+  hollows: { roll: 0.26, swell: 0.6, climb: [0.4, 1.0], trend: 'down', ledge: 0.55, ledges: 2, step: [1.1, 1.5], dais: 0.3 },
+  woods: { roll: 0.32, swell: 1.0, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.65, ledges: 1, step: [1.1, 1.4], dais: 0 },
+  outskirts: { roll: 0.3, swell: 0.85, climb: [0.2, 0.6], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0.2 },
+  crags: { roll: 0.26, swell: 0.85, climb: [0.6, 1.3], trend: 'up', ledge: 0.65, ledges: 2, step: [1.3, 1.7], dais: 0.4 },
+  mines: { roll: 0.16, swell: 0.45, climb: [0.5, 1.1], trend: 'down', ledge: 0.7, ledges: 2, step: [1.2, 1.6], dais: 0.3, stairs: true },
+  tundra: { roll: 0.46, swell: 1.15, climb: [0.2, 0.8], trend: 'mixed', ledge: 0.5, ledges: 1, step: [1.1, 1.4], dais: 0.3 },
+  temple: { roll: 0.1, swell: 0.35, climb: [0.4, 0.9], trend: 'up', ledge: 0.6, ledges: 2, step: [1.1, 1.4], dais: 0.7, stairs: true },
+  citadel: { roll: 0.16, swell: 0.45, climb: [0.4, 1.0], trend: 'up', ledge: 0.6, ledges: 2, step: [1.2, 1.5], dais: 0.6, stairs: true },
+  peak: { roll: 0.3, swell: 1.05, climb: [0.9, 1.5], trend: 'up', ledge: 0.7, ledges: 2, step: [1.4, 1.8], dais: 0.5 },
+  fortress: { roll: 0.1, swell: 0.3, climb: [0.5, 1.0], trend: 'up', ledge: 0.7, ledges: 2, step: [1.2, 1.5], dais: 0.8, stairs: true },
+  rift: { roll: 0.22, swell: 0.75, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
 }
 
 // ─── Towns ───────────────────────────────────────────────────────────────────
@@ -221,7 +224,7 @@ export type HouseKind = 'cottage' | 'townhouse' | 'workshop' | 'tavern' | 'hall'
 /** What a townsperson does with the day (their routine, `sim/townLife.ts`). */
 export type TownJob =
   | 'smith' | 'merchant' | 'elder' | 'healer' | 'scholar' | 'knight' | 'rogue' | 'noble' | 'alchemist' | 'tinker'
-  | 'geo' | 'captain' | 'fence' | 'boss' | 'guard' | 'villager' | 'farmer' | 'child' | 'drinker' | 'survivor' | 'thug'
+  | 'geo' | 'captain' | 'fence' | 'boss' | 'guard' | 'squire' | 'villager' | 'farmer' | 'child' | 'drinker' | 'survivor' | 'thug'
   | 'miner'
 
 /** A town's character: what its houses are made of and how they are dressed. */
@@ -312,7 +315,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
     ],
     houses: [{ kind: 'tavern', at: [0.5, 0.15] }],
     folk: [
-      { id: 'squire', look: 'squire', job: 'guard', at: [0.26, 0.15] },
+      { id: 'squire', look: 'squire', job: 'squire', at: [0.26, 0.15] },
+      { id: 'gossip', look: 'villagerF', job: 'villager', at: [0.4, 0.5], lite: true },
       { id: 'drinker', look: 'villager', job: 'drinker', at: [0.44, 0.24], lite: true },
       { id: 'farmer', look: 'farmer', job: 'farmer', at: [0.3, 0.86] },
       { id: 'washer', look: 'villagerF', job: 'villager', at: [0.72, 0.86], lite: true },
@@ -340,7 +344,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
     ],
     houses: [{ kind: 'tavern', at: [0.78, 0.76] }],
     folk: [
-      { id: 'guardA', look: 'townGuard', job: 'guard', at: [0.88, 0.15], not: ['oakhavenFallen'] },
+      { id: 'guardA', look: 'townGuard', job: 'squire', at: [0.88, 0.15], not: ['oakhavenFallen'] },
       { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.5, 0.58], lite: true, not: ['oakhavenFallen'] },
       { id: 'merchantF', look: 'merchantF', job: 'villager', at: [0.42, 0.5], lite: true, not: ['oakhavenFallen'] },
       { id: 'drinker', look: 'villager', job: 'drinker', at: [0.72, 0.86], not: ['oakhavenFallen'] },
@@ -372,8 +376,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
     ],
     houses: [{ kind: 'tavern', at: [0.22, 0.76] }],
     folk: [
-      { id: 'guardA', look: 'dwarfGuard', job: 'guard', at: [0.26, 0.15] },
-      { id: 'guardB', look: 'dwarfGuard', job: 'guard', at: [0.14, 0.15], lite: true },
+      { id: 'guardA', look: 'dwarfGuard', job: 'squire', at: [0.26, 0.15] },
+      { id: 'guardB', look: 'dwarfGuard', job: 'squire', at: [0.14, 0.15], lite: true },
       { id: 'minerA', look: 'miner', job: 'miner', at: [0.38, 0.86], lite: true },
       { id: 'minerB', look: 'miner', job: 'drinker', at: [0.2, 0.86] },
       { id: 'kidA', look: 'child', job: 'child', at: [0.56, 0.62] }

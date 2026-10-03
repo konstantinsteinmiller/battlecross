@@ -228,10 +228,13 @@ const learn = (): void => {
     border-color: var(--tint)
   &:last-child::before
     display: none
+// A narrow path: the fee goes under the name. A wide one: beside it.
+.teach__path .trade__scroll
+  container-type: inline-size
 .lesson
   +screen.bare-button
   display: grid
-  grid-template-columns: auto minmax(0, 1fr) auto
+  grid-template-columns: auto minmax(0, 1fr)
   align-items: center
   gap: 0.55rem
   width: 100%
@@ -256,6 +259,7 @@ const learn = (): void => {
 .lesson__icon
   position: relative
   z-index: 1
+  grid-row: span 2
   width: clamp(2.5rem, 10.5vmin, 3.1rem)
   border-radius: 24%
 .lesson__text
@@ -266,7 +270,17 @@ const learn = (): void => {
 .lesson__name
   font-size: clamp(0.78rem, 3.2vmin, 0.98rem)
   line-height: 1.15
-  overflow-wrap: anywhere
+  overflow-wrap: break-word
+  hyphens: auto
+.lesson__price, .lesson__fee
+  justify-self: start
+@container (min-width: 21rem)
+  .lesson
+    grid-template-columns: auto minmax(0, 1fr) auto
+  .lesson__icon
+    grid-row: auto
+  .lesson__price, .lesson__fee
+    justify-self: end
 .lesson__reqs
   display: flex
   flex-wrap: wrap
@@ -320,6 +334,7 @@ const learn = (): void => {
   +cel.label
   text-shadow: var(--bc-text-outline-thin)
   font-variant-numeric: tabular-nums
+  white-space: nowrap
   small
     color: var(--bc-text-soft)
     font-size: 0.8em

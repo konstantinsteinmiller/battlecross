@@ -86,13 +86,16 @@ export const burst = (el: Element | null | undefined, tint = 'var(--bc-gold-hi)'
     const size = (big ? 15 : 11) * (i % 3 === 0 ? 1.35 : 1)
     const s = node(`width:${size}px;height:${size}px;margin:${-size / 2}px 0 0 ${-size / 2}px;background:${i % 2 ? 'var(--bc-white)' : tint};clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)`)
     layer().appendChild(s)
+    // Out fast and easing off, a beat in the air, then a fall and a fade:
+    // each leg has its own easing, so the spark is whole until it fades.
     s.animate(
       [
-        { transform: `translate(${x}px,${y}px) scale(0.3) rotate(0deg)`, opacity: 1 },
-        { transform: `translate(${x + Math.cos(a) * d}px,${y + Math.sin(a) * d}px) scale(1.15) rotate(90deg)`, opacity: 1, offset: 0.55 },
-        { transform: `translate(${x + Math.cos(a) * d * 1.12}px,${y + Math.sin(a) * d * 1.12 + 10}px) scale(0.2) rotate(160deg)`, opacity: 0 }
+        { transform: `translate(${x}px,${y}px) scale(0.3) rotate(0deg)`, opacity: 1, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+        { transform: `translate(${x + Math.cos(a) * d}px,${y + Math.sin(a) * d}px) scale(1.15) rotate(90deg)`, opacity: 1, offset: 0.5, easing: 'linear' },
+        { transform: `translate(${x + Math.cos(a) * d * 1.06}px,${y + Math.sin(a) * d * 1.06 + 4}px) scale(1) rotate(120deg)`, opacity: 1, offset: 0.7, easing: 'ease-in' },
+        { transform: `translate(${x + Math.cos(a) * d * 1.12}px,${y + Math.sin(a) * d * 1.12 + 14}px) scale(0.2) rotate(160deg)`, opacity: 0 }
       ],
-      { duration: (big ? 720 : 520) + (i % 4) * 40, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'both' }
+      { duration: (big ? 760 : 560) + (i % 4) * 40, fill: 'both' }
     ).onfinish = () => s.remove()
   }
 }
