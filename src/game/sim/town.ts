@@ -288,7 +288,7 @@ const anchor = (at: [number, number]): [number, number] => [Math.round(3 + at[0]
 const rowOf = (aj: number): number => (aj <= 12 ? 0 : aj <= 21 ? 1 : 2)
 
 const WIDTH: Readonly<Record<HouseKind, [number, number]>> = {
-  hall: [6, 7], chapel: [5, 6], workshop: [5, 6], townhouse: [4, 5], tavern: [6, 7], cottage: [3, 4]
+  hall: [6, 7], chapel: [5, 6], workshop: [5, 6], townhouse: [4, 5], tavern: [7, 7], cottage: [3, 4]
 }
 
 const defaultHouse = (n: NpcDef): HouseKind =>
@@ -360,7 +360,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   }
   for (const l of def.houses) {
     const [ai, aj] = anchor(l.at)
-    homes.push({ kind: l.kind, ai, aj, row: rowOf(aj), owners: [], yard: false, inside: false, sign: l.kind === 'tavern' ? 'tavern' : '' })
+    homes.push({ kind: l.kind, ai, aj, row: rowOf(aj), owners: [], yard: false, inside: !!l.inside, sign: l.kind === 'tavern' ? 'tavern' : '' })
   }
 
   // ── Placing them: along each row, at their anchors, never overlapping ──
@@ -430,7 +430,8 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
     // An ambient cottage in a deep row sits a step back with a front garden.
     const setback = h.owners.length === 0 && h.kind === 'cottage' && row < 2 && rng() < 0.4
     const maxD = DEPTH[row]!
-    const cd = Math.min(maxD, h.kind === 'cottage' ? 3 + (row === 0 ? 1 : 0) : h.kind === 'townhouse' || h.kind === 'workshop' ? Math.min(4, maxD) : maxD)
+    // (A taproom needs a room four cells deep: in the shallow south row it reaches a cell into the street behind.)
+    const cd = h.kind === 'tavern' && h.inside ? Math.max(4, maxD) : Math.min(maxD, h.kind === 'cottage' ? 3 + (row === 0 ? 1 : 0) : h.kind === 'townhouse' || h.kind === 'workshop' ? Math.min(4, maxD) : maxD)
     const hi0 = l.yardLeft ? l.i0 + l.yw : l.i0
     const fj = setback ? front - 1 : front
     const j0 = fj - cd + 1
@@ -544,6 +545,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
 
   const props = T.props
   const spots = T.spots
+  /** The taprooms: their keeper's and bard's places and their stools (spot indices). */
+  const inns = new Map<number, { keeper: number; bard: number; seats: number[] }>()
   const addProp = (kind: TownPropKind, x: number, z: number, rot: number, cells: number[], w = 0): number => {
     for (const k of cells) { cell[k] = TC_PROP; taken.add(k) }
     props.push({ kind, x, z, rot, w, v: Math.floor(rng() * 1000), cells })
@@ -759,13 +762,91 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
     })
   }
 
+  // ── A taproom: the bar, tables with stools, the keeper's and the bard's places ──
+  for (let hi = 0; hi < T.houses.length; hi++) {
+    const h = T.houses[hi]!
+    if (!h.inside || h.kind !== 'tavern') continue
+    const fj = h.j0 + h.cd - 1
+    const a = h.i0 + 1
+    const b = h.i0 + h.cw - 2
+    const r0 = h.j0 + 1
+    const r1 = fj - 1
+    // The bar on the side away from the door (as every room's work place).
+    const west = h.doorI >= h.i0 + h.cw / 2
+    const bi = west ? a : b
+    const s = west ? 1 : -1
+    inns.set(hi, { keeper: addSpot({ kind: 'work', x: C(bi) - s * 0.55, z: C(r1), facing: s * Math.PI / 2, ax: C(bi), az: C(r1), room: hi, owner: '', prop: -1 }), bard: -1, seats: [] })
+    const inn = inns.get(hi)!
+    // The bard by the hearth, at the back on the far side.
+    const hi2 = west ? b : a
+    inn.bard = addSpot({ kind: 'work', x: C(hi2), z: C(r0) - 0.2, facing: 0, ax: C(hi2), az: C(r0), room: hi, owner: '', prop: -1 })
+    // Tables, each with a stool either side. A table never stands where
+    // somebody walks to (the keeper's and the bard's places, the way in), never
+    // beside another (their stools would meet), and every place in the room
+    // stays reachable from the doorway, or it is taken away again.
+    const fixed = [K(bi, r1), K(hi2, r0), K(h.doorI, r1)]
+    const walkTo = new Set(fixed)
+    const tables: number[] = []
+    const reachable = (): boolean => {
+      const seen = new Set([K(h.doorI, r1)])
+      const q = [[h.doorI, r1]]
+      while (q.length) {
+        const [i, j] = q.pop()!
+        for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+          const ni = i! + di
+          const nj = j! + dj
+          if (ni < a || ni > b || nj < r0 || nj > r1 || seen.has(K(ni, nj)) || at(ni, nj) !== TC_FLOOR) continue
+          seen.add(K(ni, nj))
+          q.push([ni, nj])
+        }
+      }
+      return [...walkTo].every(k => seen.has(k))
+    }
+    for (let tj = r0; tj <= r1; tj++) {
+      for (let ti = a + 1; ti <= b - 1; ti++) {
+        if (tables.length >= 3 || walkTo.has(K(ti, tj)) || at(ti, tj) !== TC_FLOOR) continue
+        if (at(ti - 1, tj) !== TC_FLOOR || at(ti + 1, tj) !== TC_FLOOR) continue
+        if (tables.some(k => Math.floor(k / W) === tj && Math.abs((k % W) - ti) <= 2)) continue
+        cell[K(ti, tj)] = TC_PROP
+        for (const e of [-1, 1]) walkTo.add(K(ti + e, tj))
+        if (!reachable()) {
+          cell[K(ti, tj)] = TC_FLOOR
+          for (const e of [-1, 1]) if (!fixed.includes(K(ti + e, tj)) && !tables.some(k => Math.floor(k / W) === tj && Math.abs((k % W) - (ti + e)) === 1)) walkTo.delete(K(ti + e, tj))
+          continue
+        }
+        cell[K(ti, tj)] = TC_FLOOR
+        const t = addProp('table', C(ti), C(tj), 0, [K(ti, tj)])
+        tables.push(K(ti, tj))
+        for (const e of [-1, 1]) {
+          inn.seats.push(addSpot({ kind: 'seat', x: C(ti) + e * 0.66, z: C(tj), facing: e < 0 ? Math.PI / 2 : -Math.PI / 2, ax: C(ti + e), az: C(tj), room: hi, owner: '', prop: t }))
+        }
+      }
+    }
+  }
+
   // ── Fires for the survivors of a fallen town (if the boss did not light one) ──
   // ── The folk ──
   for (const f of townFolk(def, flags)) {
+    const child = f.job === 'child'
+    // In the taproom: the keeper at the bar, the bard by the hearth, a patron on a stool.
+    const inn = f.inn ? [...inns.entries()][0] : undefined
+    if (inn) {
+      const [hi, v] = inn
+      const free2 = v.seats.find(k => !spots[k]!.owner)
+      const at2 = f.job === 'keeper' ? v.keeper : f.job === 'bard' ? v.bard : free2 ?? -1
+      if (at2 >= 0) {
+        const sp = spots[at2]!
+        if (f.job === 'keeper' || f.job === 'bard') sp.owner = f.id
+        people.push({
+          id: f.id, npc: '', look: f.look, job: f.job, place: 'inside', x: sp.ax, z: sp.az, facing: sp.facing, room: hi,
+          station: f.job === 'keeper' || f.job === 'bard' ? at2 : -1, roam: 2.2, lite: !!f.lite, scale: 1, r: 0.48, speed: 1.3
+        })
+        continue
+      }
+    }
     const [ai, aj] = anchor(f.at)
     const c = nearestFree(ai, aj, free, 7)
     taken.add(K(c[0], c[1]))
-    const child = f.job === 'child'
     people.push({
       id: f.id, npc: '', look: f.look, job: f.job, place: 'street', x: C(c[0]), z: C(c[1]), facing: 0, room: -1, station: -1,
       roam: child ? 5 : f.job === 'guard' ? 3 : 4, lite: !!f.lite, scale: child ? 0.74 : f.look === 'miner' || f.look === 'dwarfGuard' ? 0.92 : 1,
@@ -851,7 +932,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   // ── Interiors: chairs for the people inside ──
   for (let hi = 0; hi < T.houses.length; hi++) {
     const h = T.houses[hi]!
-    if (!h.inside) continue
+    // (A taproom has its own stools.)
+    if (!h.inside || h.kind === 'tavern') continue
     const fj = h.j0 + h.cd - 1
     // A seat in the back corner across from the work place.
     const west = h.doorI >= h.i0 + h.cw / 2
@@ -894,6 +976,8 @@ export const townRoomAt = (t: TownPlan, x: number, z: number): { room: number; d
   const k = j * t.w + i
   const c = t.cell[k]
   if (c === TC_FLOOR) return { room: t.room[k]!, door: false }
+  // A taproom's table stands in its room.
+  if (c === TC_PROP && (t.room[k] ?? -1) >= 0) return { room: t.room[k]!, door: false }
   if (c === TC_DOOR) return { room: t.room[k]!, door: true }
   return { room: -1, door: false }
 }

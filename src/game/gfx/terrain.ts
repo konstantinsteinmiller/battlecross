@@ -113,9 +113,12 @@ const mushroom = (stem: string, capHex: string, glows: boolean) => () => {
   const capG = P(dome(0.44, 1.5, 10, 5), capHex, [0, 0.42, 0])
   return glows ? { lit: [stemG], glow: [capG] } : { lit: [stemG, capG] }
 }
+// A broken column's plinth is taller than a whole one's (0.34 against 0.28, so
+// 0.32–0.41 against 0.27–0.31 m once scaled): where the two stand close enough
+// for their plinths to overlap, the tops never lie in one plane.
 const column = (stone: string, broken: boolean) => () => ({
   lit: [
-    P(rcyl(0.44, 0.28, 0.06, 10, 2), stone, [0, 0.14, 0]),
+    P(rcyl(0.44, broken ? 0.34 : 0.28, 0.06, 10, 2), stone, [0, broken ? 0.17 : 0.14, 0]),
     P(rcyl(0.32, broken ? 1.1 : 2.3, 0.05, 10, 2), stone, [0, broken ? 0.8 : 1.4, 0]),
     ...(broken ? [P(rock(0.3, 4), stone, [0.5, 0.2, 0.2])] : [P(rcyl(0.44, 0.26, 0.06, 10, 2), stone, [0, 2.65, 0])])
   ]
@@ -1037,7 +1040,11 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
           const yaw = Math.atan2(ux, uz) + Math.PI / 2
           if (rockLook.dressed) {
             // A coping stone along the terrace's edge: the line the eye reads as a drop.
-            wall.push([bx, bz, yaw, 1, hi + 0.01])
+            // (Not beside a ramp: the ramp's top tread is the edge there, and the
+            // two stones would lie through each other.)
+            let byRamp = false
+            for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (rampMask[k + dj * w + di]) byRamp = true
+            if (!byRamp) wall.push([bx, bz, yaw, 1, hi + 0.01])
           } else {
             // Stones along the brow, and now and then a boulder fallen to the foot.
             wall.push([bx + uz * 0.35, bz - ux * 0.35, rng() * 6, 0.75 + rng() * 0.3, hi - 0.06])

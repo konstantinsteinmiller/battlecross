@@ -37,6 +37,8 @@ const CROSSED: Spec = { aRx: -0.55, aRz: -0.48, aRy: 0.3, eR: 1.95, aLx: -0.5, a
 /** The right hand at the mouth (a mug, a bite, the pipe). */
 const TO_MOUTH: Spec = { aRx: -1.05, aRz: -0.3, aRy: 0.15, eR: 2.25, wRx: 0.2, headRx: -0.12 }
 const AT_LAP: Spec = { aRx: -0.65, aRz: 0.05, eR: 1.35, wRx: 0.35 }
+/** A mug held up in front of the chest between sips: above a table's top, where it is seen. */
+const AT_CHEST: Spec = { aRx: -1.0, aRz: 0.12, eR: 1.75, wRx: 0.25 }
 const LEFT_IDLE: Spec = { aLx: -0.5, aLz: -0.5, eL: 1.9 }
 const LEAN: Spec = { rootZ: -0.06, pitch: -0.07 }
 
@@ -62,6 +64,13 @@ const LOOPS: Record<string, (st: Pose, set: ClipSet) => LoopClip> = {
   look: st => loop(st, 5.2, [[0, { headRy: 0.55, headRx: -0.05 }], [0.3, { headRy: 0.5 }], [0.55, { headRy: -0.5, headRx: 0.05 }], [0.85, { headRy: -0.45 }]]),
   inspect: st => loop(st, 6, [[0, { ...ARMS_BACK, headRy: 0.35, pitch: -0.03 }], [0.45, { ...ARMS_BACK, headRy: 0.3 }], [0.6, { ...ARMS_BACK, headRy: -0.35, headRx: 0.1 }], [0.95, { ...ARMS_BACK, headRy: -0.3 }]]),
   listen: st => loop(st, 2.4, [[0, { headRx: 0.04, brow: 0.3, aRz: 0.2, aLz: 0.2 }], [0.2, { headRx: 0.2, brow: 0.3 }], [0.4, { headRx: 0.04, brow: 0.2 }], [0.6, { headRx: 0.16, headRz: 0.05 }], [0.8, { headRx: 0.02 }]]),
+  // A song: swaying, head back, a hand out on the long notes.
+  sing: st => loop(st, 3.2, [
+    [0, { aRx: -0.6, aRz: 0.55, eR: 1.1, mouth: 0.8, headRx: -0.12, headRz: -0.08, roll: -0.05 }],
+    [0.25, { aRx: -0.9, aRz: 1.0, eR: 0.5, mouth: 0.4, headRx: -0.2, headRz: 0.06, brow: 0.6, roll: 0.05 }],
+    [0.5, { aRx: -0.6, aRz: 0.55, eR: 1.1, aLx: -0.5, aLz: 0.7, eL: 1.0, mouth: 0.9, headRx: -0.1, headRz: 0.08, roll: -0.05 }],
+    [0.75, { aLx: -0.8, aLz: 1.0, eL: 0.6, mouth: 0.5, headRx: -0.22, headRz: -0.05, brow: 0.6, roll: 0.05 }]
+  ]),
   talk: st => loop(st, 2.6, [
     [0, { aRx: -0.75, aRz: 0.4, eR: 1.35, mouth: 0.55, brow: 0.4, headRz: -0.05 }],
     [0.22, { aRx: -0.95, aRz: 0.75, eR: 0.75, mouth: 0.1, brow: 0.5 }],
@@ -71,7 +80,7 @@ const LOOPS: Record<string, (st: Pose, set: ClipSet) => LoopClip> = {
   ]),
   wave: st => loop(st, 0.62, [[0, { aRx: 0, aRz: 2.45, aRy: 0.2, eR: 0.45, mouth: 0.7, brow: 0.6, headRz: 0.08 }], [0.5, { aRx: 0, aRz: 2.6, aRy: -0.2, eR: 1.05, mouth: 0.7, brow: 0.6, headRz: 0.06 }]]),
   sit: st => loop(st, 5, [[0, { ...SIT }], [0.5, { ...SIT, torRx: 0.1, headRy: 0.25, headRx: 0.08 }]]),
-  sitDrink: st => loop(st, 5.5, [[0, { ...SIT, ...AT_LAP }], [0.5, { ...SIT, ...AT_LAP, headRy: 0.2 }], [0.66, { ...SIT, ...TO_MOUTH, headRx: -0.28 }], [0.86, { ...SIT, ...TO_MOUTH, headRx: -0.3, lid: 0.7 }]], [0.7]),
+  sitDrink: st => loop(st, 5.5, [[0, { ...SIT, ...AT_CHEST }], [0.5, { ...SIT, ...AT_CHEST, headRy: 0.2 }], [0.66, { ...SIT, ...TO_MOUTH, headRx: -0.28 }], [0.86, { ...SIT, ...TO_MOUTH, headRx: -0.3, lid: 0.7 }]], [0.7]),
   sitEat: st => loop(st, 4.2, [[0, { ...SIT, ...AT_LAP }], [0.4, { ...SIT, ...AT_LAP, headRy: -0.2 }], [0.55, { ...SIT, ...TO_MOUTH, mouth: 0.8 }], [0.68, { ...SIT, ...TO_MOUTH, mouth: 0 }], [0.8, { ...SIT, ...AT_LAP, mouth: 0.4 }], [0.9, { ...SIT, ...AT_LAP, mouth: 0 }]]),
   sitSmoke: st => loop(st, 6, [[0, { ...SIT, ...AT_LAP }], [0.45, { ...SIT, ...AT_LAP, headRy: 0.3 }], [0.58, { ...SIT, ...TO_MOUTH, lid: 0.5 }], [0.75, { ...SIT, ...TO_MOUTH, lid: 0.6 }], [0.85, { ...SIT, ...AT_LAP, headRx: -0.15, mouth: 0.35 }]], [0.86]),
   lean: st => loop(st, 6, [[0, { ...CROSSED, ...LEAN, lLz: -0.06, kL: 0.15, lRx: 0.12, headRy: 0.2 }], [0.5, { ...CROSSED, ...LEAN, lLz: -0.06, kL: 0.18, lRx: 0.12, headRy: -0.25, headRx: 0.06 }]]),
@@ -79,7 +88,7 @@ const LOOPS: Record<string, (st: Pose, set: ClipSet) => LoopClip> = {
     [0, { ...LEFT_IDLE, ...AT_LAP, ...LEAN }], [0.45, { ...LEFT_IDLE, ...AT_LAP, ...LEAN, headRy: 0.2 }], [0.58, { ...LEFT_IDLE, ...TO_MOUTH, ...LEAN, lid: 0.5 }],
     [0.76, { ...LEFT_IDLE, ...TO_MOUTH, ...LEAN }], [0.86, { ...LEFT_IDLE, ...AT_LAP, ...LEAN, headRx: -0.15, mouth: 0.35 }]
   ], [0.87]),
-  drink: st => loop(st, 5, [[0, { ...AT_LAP }], [0.55, { ...AT_LAP, headRy: 0.2 }], [0.68, { ...TO_MOUTH, headRx: -0.3 }], [0.88, { ...TO_MOUTH, headRx: -0.32, lid: 0.7 }]], [0.7]),
+  drink: st => loop(st, 5, [[0, { ...AT_CHEST }], [0.55, { ...AT_CHEST, headRy: 0.2 }], [0.68, { ...TO_MOUTH, headRx: -0.3 }], [0.88, { ...TO_MOUTH, headRx: -0.32, lid: 0.7 }]], [0.7]),
   eat: st => loop(st, 4, [[0, { ...AT_LAP }], [0.45, { ...AT_LAP }], [0.58, { ...TO_MOUTH, mouth: 0.8 }], [0.7, { ...TO_MOUTH, mouth: 0 }], [0.82, { ...AT_LAP, mouth: 0.4 }], [0.92, { ...AT_LAP, mouth: 0 }]]),
   smoke: st => loop(st, 6, [[0, { ...AT_LAP, aLx: 0.3, aLz: 0.1, eL: 0.6 }], [0.5, { ...AT_LAP, aLx: 0.3, eL: 0.6, headRy: 0.25 }], [0.62, { ...TO_MOUTH, aLx: 0.3, eL: 0.6, lid: 0.5 }], [0.78, { ...TO_MOUTH, aLx: 0.3, eL: 0.6, lid: 0.55 }], [0.88, { ...AT_LAP, aLx: 0.3, eL: 0.6, headRx: -0.18, mouth: 0.35 }]], [0.89]),
   // The smith at the anvil: up, a hold, down on it.

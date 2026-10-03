@@ -339,9 +339,12 @@ export class TownView {
     if (!p) { p = { held: null, props: new Map(), loop: null, t: 0, scaled: false }; this.people.set(u.id, p) }
     if (!p.scaled) { v.scale = tp.scale; p.scaled = true }
     const walking = u.anim === 'walk'
-    // Which hand is free: the right unless it holds a weapon.
-    const left = v.held !== 'none'
-    const free = !left || v.off === 'none'
+    // Which hand is free: the right unless it holds a weapon. An empty-handed
+    // one turned east would hold a prop in the hand away from the camera (the
+    // body hides it): it goes in the other hand then, the loop mirrored.
+    const armed = v.held !== 'none'
+    const left = armed || (tp.prop !== '' && v.off === 'none' && Math.sin(u.facing) > 0.35)
+    const free = !armed || v.off === 'none'
     const loop = walking ? null : townLoop(v.set, tp.pose, left && free && tp.prop !== '')
     const t0 = p.t
     const half = tp.pose === 'spar' && !tp.lead && loop ? loop.period / 2 : 0

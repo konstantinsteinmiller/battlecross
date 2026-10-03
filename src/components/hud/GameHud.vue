@@ -3,6 +3,8 @@
     FloatLayer
     //- The townspeople's markers, and the "Talk" prompt on the one in reach.
     NpcPins(v-if="flow.screen === 'town'")
+    //- What two chatting townsfolk say as the hero passes them.
+    OverheardLayer(v-if="flow.screen === 'town'")
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
@@ -38,6 +40,7 @@ import { hud } from '@/game/state/hud'
 import { flow } from '@/game/flow'
 import { recallHere } from '@/game/coach/onboarding'
 import NpcPins from '@/components/dialog/NpcPins.vue'
+import OverheardLayer from '@/components/dialog/OverheardLayer.vue'
 import HeroFrame from './HeroFrame.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'

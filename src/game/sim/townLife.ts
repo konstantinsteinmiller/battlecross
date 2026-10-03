@@ -36,7 +36,7 @@ import type { Sim } from './world'
 export type TownPose =
   | 'stand' | 'look' | 'sit' | 'sitDrink' | 'sitEat' | 'sitSmoke' | 'lean' | 'leanSmoke' | 'hammer' | 'stir' | 'sweep' | 'read'
   | 'count' | 'sharpen' | 'forms' | 'cast' | 'talk' | 'listen' | 'wave' | 'spar' | 'warm' | 'huddle' | 'drink' | 'eat' | 'smoke'
-  | 'tinker' | 'pray' | 'hoe' | 'hang' | 'play' | 'inspect'
+  | 'tinker' | 'pray' | 'hoe' | 'hang' | 'play' | 'inspect' | 'sing'
 
 /** What is in a person's hand (a small mesh on the hand's bone). */
 export type HandProp = '' | 'mug' | 'bread' | 'pipe' | 'book' | 'broom' | 'hoe' | 'ladle' | 'stone' | 'cloth' | 'wrench'
@@ -84,7 +84,10 @@ const DAYS: Readonly<Record<TownJob, ActDef[]>> = {
   drinker: [A('spot', 6, 'sitDrink', [10, 16], 'seat', 'mug'), A('chat', 2, 'talk', [6, 9]), A('spot', 1, 'sitEat', [7, 10], 'seat', 'bread'), A('wander', 1, 'stand', [2, 4])],
   survivor: [A('spot', 5, 'warm', [9, 14], 'fire'), A('spot', 3, 'huddle', [8, 12], 'seat'), A('wander', 1, 'look', [2, 3])],
   thug: [A('spot', 5, 'leanSmoke', [9, 15], 'lean', 'pipe'), A('spot', 2, 'lean', [6, 10], 'lean'), A('wander', 1, 'look', [2, 4])],
-  miner: [A('spot', 3, 'sitDrink', [8, 12], 'seat', 'mug'), A('chat', 3, 'talk', [6, 9]), A('wander', 2, 'stand', [2, 4]), A('treat', 1, 'eat', [5, 7], undefined, 'bread')]
+  miner: [A('spot', 3, 'sitDrink', [8, 12], 'seat', 'mug'), A('chat', 3, 'talk', [6, 9]), A('wander', 2, 'stand', [2, 4]), A('treat', 1, 'eat', [5, 7], undefined, 'bread')],
+  // The taproom: the keeper keeps to the bar (wipes it, counts, pours himself one), the bard sings.
+  keeper: [A('station', 5, 'count', [8, 13]), A('station', 3, 'hang', [5, 8], undefined, 'cloth'), A('station', 1, 'drink', [4, 6], undefined, 'mug'), A('chat', 1, 'talk', [5, 8])],
+  bard: [A('station', 7, 'sing', [12, 18]), A('treat', 1, 'drink', [4, 6], undefined, 'mug'), A('wander', 1, 'stand', [2, 3])]
 }
 
 const enum Phase { Choose, Go, Settle, Do, Leave }
@@ -122,6 +125,8 @@ export interface TownLifePerson {
   greet: number
   /** A chat with somebody who stays at what they are doing (a seat, a wall). */
   visit: boolean
+  /** Seconds left of a line the hero overhears this one say (`game/overheard.ts`). */
+  say: number
 }
 
 interface Life {
@@ -159,7 +164,7 @@ export const spawnTownPeople = (sim: Sim, plan: TownPlan, o: { lite?: boolean; v
     people.push({
       def: p, unit, rng: mulberry32((salt ^ hashSeed(p.id)) >>> 0), act: 'idle', pose: 'stand', prop: '', phase: Phase.Choose,
       t: 0, dur: 0, spot: -1, sx: p.x, sz: p.z, sf: p.facing, partner: null, lead: false, held: 0, stuck: 0, lastX: p.x, lastZ: p.z,
-      patrol: 0, legs: 0, emote: '', emoteT: 0, greet: 0, visit: false
+      patrol: 0, legs: 0, emote: '', emoteT: 0, greet: 0, visit: false, say: 0
     })
   }
   const life: Life = { plan, people, byUnit: new Map(people.map(p => [p.unit.id, p])), holder: new Int32Array(plan.spots.length).fill(-1), addressed: 0, time: 0 }
@@ -167,6 +172,8 @@ export const spawnTownPeople = (sim: Sim, plan: TownPlan, o: { lite?: boolean; v
   for (let i = 0; i < people.length; i++) {
     const p = people[i]!
     if (p.def.station >= 0 && p.def.place !== 'street') begin(life, p, i, DAYS[p.def.job].find(d => d.act === 'station' || d.spot === 'dummy') ?? DAYS[p.def.job][0]!, true)
+    // A taproom's patrons are on their stools when the hero walks in.
+    else if (p.def.place === 'inside' && p.def.room >= 0 && DAYS[p.def.job].some(d => d.act === 'spot') && begin(life, p, i, DAYS[p.def.job].find(d => d.act === 'spot')!, true)) continue
     else { p.phase = Phase.Choose; p.t = 0; p.dur = p.rng() * 2 }
   }
   lives.set(sim, life)
@@ -222,6 +229,49 @@ export const townGreet = (sim: Sim, unitId: number): void => {
   p.greet = 2.4
   p.emote = p.rng() < 0.5 ? 'note' : 'bang'
   p.emoteT = 0
+}
+
+/** Two of the folk in a chat the hero can overhear: `a` started it. */
+export interface TownChat {
+  a: number
+  b: number
+  /** Where between them a line is heard best (their middle). */
+  x: number
+  z: number
+  /** Two children (they have their own small talk). */
+  kids: boolean
+}
+
+/** The chats going on now (both at it, not held by the hero). */
+export const townChats = (sim: Sim): TownChat[] => {
+  const life = lives.get(sim)
+  const out: TownChat[] = []
+  if (!life) return out
+  for (const p of life.people) {
+    const q = p.partner
+    if (p.act !== 'chat' || !q || p.phase !== Phase.Do || q.phase !== Phase.Do || p.held || q.held) continue
+    // A two-way chat is listed once (by the lower unit id).
+    if (!p.visit && (q.partner !== p || q.unit.id < p.unit.id)) continue
+    out.push({ a: p.unit.id, b: q.unit.id, x: (p.unit.x + q.unit.x) / 2, z: (p.unit.z + q.unit.z) / 2, kids: p.def.job === 'child' && q.def.job === 'child' })
+  }
+  return out
+}
+
+/**
+ * Overheard small talk: `unitId` says a line for `seconds`. The speaker
+ * talks and the other listens for that long, and their chat lasts at least
+ * until the line is over. False when the unit is not in a chat.
+ */
+export const townSay = (sim: Sim, unitId: number, seconds: number): boolean => {
+  const p = lives.get(sim)?.byUnit.get(unitId)
+  if (!p) return false
+  const chat = p.act === 'chat' ? p : p.partner?.act === 'chat' && p.partner.partner === p ? p.partner : null
+  // A seated partner of a visiting chat is found from the visitor.
+  const visitor = chat ?? lives.get(sim)!.people.find(q => q.act === 'chat' && q.visit && q.partner === p) ?? null
+  if (!visitor || visitor.phase !== Phase.Do) return false
+  p.say = seconds
+  for (const q of [visitor, visitor.partner]) if (q && q.phase === Phase.Do) q.dur = Math.max(q.dur, q.t + seconds + 0.8)
+  return true
 }
 
 // ─── The step ────────────────────────────────────────────────────────────────
@@ -678,15 +728,31 @@ const goStep = (sim: Sim, life: Life, p: TownLifePerson, idx: number, dt: number
   void idx
 }
 
+/** While the hero overhears a chat, the one saying the line talks and the
+ *  other listens (no emote: the line's bubble is over them). */
+const heard = (p: TownLifePerson, q: TownLifePerson, dt: number): boolean => {
+  if (p.say <= 0 && q.say <= 0) return false
+  // Each chatter keeps its own clock; a seated partner's is kept by the visitor.
+  p.say = Math.max(0, p.say - dt)
+  if (p.visit) q.say = Math.max(0, q.say - dt)
+  p.pose = p.say > 0 ? 'talk' : 'listen'
+  p.emote = ''
+  if (p.t >= p.dur) idle(p, 1 + p.rng() * 2)
+  return true
+}
+
 const doStep = (life: Life, p: TownLifePerson, dt: number): void => {
   const u = p.unit
   u.anim = 'idle'
+  const was0 = p.t
   p.t += dt
+  if (p.pose === 'sing' && Math.floor(p.t / 1.7) !== Math.floor(was0 / 1.7)) { p.emote = 'note'; p.emoteT = 0 }
   if (p.act === 'chat' && p.partner && p.visit) {
     const q = p.partner
     // Talking to somebody who is busy at a seat or a wall: they answer now and then.
     if (q.phase !== Phase.Do || q.held) { idle(p, 0.6); return }
     u.facing = turnToward(u.facing, Math.atan2(q.unit.x - u.x, q.unit.z - u.z), dt * 8)
+    if (heard(p, q, dt)) return
     const turn = Math.floor(p.t / 2.3)
     const was = p.pose
     p.pose = turn % 2 === 0 ? 'talk' : 'listen'
@@ -704,6 +770,7 @@ const doStep = (life: Life, p: TownLifePerson, dt: number): void => {
     if (q.partner !== p) { idle(p, 0.6); return }
     // Face each other; take turns to talk.
     u.facing = turnToward(u.facing, Math.atan2(q.unit.x - u.x, q.unit.z - u.z), dt * 8)
+    if (heard(p, q, dt)) return
     const turn = Math.floor(p.t / 2.3)
     const mine = (turn + (p.t > q.t ? 0 : 1)) % 2 === 0
     const was = p.pose

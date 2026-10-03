@@ -1,4 +1,4 @@
-import { Float32BufferAttribute, SphereGeometry } from 'three'
+import { Float32BufferAttribute, Matrix4, SphereGeometry } from 'three'
 import type { ClassId } from '../data/skills'
 import { CLASSES } from '../data/skills'
 import type { TownJob, TownStyle } from '../data/zones'
@@ -201,12 +201,12 @@ const doorOn = (k: Kit, x: number, w: number, h: number, p: Pal, o: { open?: boo
   // Iron bands and a ring.
   for (const yy of [0.32, h - 0.38]) d.box(x - w / 2 + 0.03, yy, 0.04, x + w / 2 - 0.03, yy + 0.06, 0.06, '#3a3438', 'bn')
   d.ball(x + (o.double ? 0.08 : w / 2 - 0.16), h * 0.5, 0.07, 0.045, '#d8b04a', 5, 3)
-  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.075, shade(dc, 0.7), 'bn')
+  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.07, shade(dc, 0.7), 'bn')
   if (o.transom) k.glow.quad(x - w / 2 + 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.12, 0.11, x - w / 2 + 0.06, h + 0.12, 0.11, '#ffd27a')
 }
 
 /** Timber framing on a face between y0 and y1: posts beside openings, rails, a brace or two. */
-const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Array<[number, number]>, r: () => number, ruined: boolean, doors: Array<[number, number]> = []): void => {
+const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Array<[number, number]>, r: () => number, ruined: boolean, doors: Array<[number, number, number]> = []): void => {
   const d = k.detail
   const c = ruined ? '#2e2622' : p.timber
   const s = 0.13
@@ -219,7 +219,14 @@ const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Arra
   // Corner posts and rails.
   d.box(-len / 2, pY0, 0, -len / 2 + s, pY1, 0.06, c, 'bn')
   d.box(len / 2 - s, pY0, 0, len / 2, pY1, 0.06, c, 'bn')
-  d.box(-len / 2, y1 - s, 0, len / 2, y1, 0.075, shade(c, 1.08), 'bn')
+  // The rails stop at a door (the top one only at a door taller than the wall: a ruin's).
+  let tx = -len / 2
+  for (const [a, b, top] of [...doors].sort((p, q) => p[0] - q[0])) {
+    if (top < y1 - s) continue
+    if (a > tx) d.box(tx, y1 - s, 0, a, y1, 0.075, shade(c, 1.08), 'bn')
+    tx = Math.max(tx, b)
+  }
+  if (tx < len / 2) d.box(tx, y1 - s, 0, len / 2, y1, 0.075, shade(c, 1.08), 'bn')
   let rx = -len / 2
   for (const [a, b] of [...doors].sort((p, q) => p[0] - q[0])) {
     if (a > rx) d.box(rx, y0, 0, a, y0 + s * 0.8, 0.075, c, 'bn')
@@ -358,7 +365,7 @@ const gableRoof = (k: Kit, cut: Kit, L: number, span: number, Y: number, rise: n
   }
   if (parts === 2) {
     // The ridge cap.
-    cut.detail.beam(x0 - 0.05, ry + 0.06, 0, x1 + 0.05, ry + 0.06, 0, 0.2, shade(p.roof2, 0.8), 0.14)
+    cut.detail.beam(x0 - 0.08, ry + 0.06, 0, x1 + 0.08, ry + 0.06, 0, 0.2, shade(p.roof2, 0.8), 0.14)
   } else {
     // Charred rafters stick out where the roof fell in.
     for (let x = x0 + 0.4; x < x1 - 0.2; x += 0.75) {
@@ -377,8 +384,8 @@ const gableEnd = (k: Mesher, half: number, Y: number, rise: number, z: number, c
 }
 
 /** A hipped roof: four faces down to the eaves on every side. */
-const hipRoof = (cut: Kit, W: number, D: number, Y: number, rise: number, p: Pal, eave: number, rows: number): void => {
-  const hw = W / 2 + eave
+const hipRoof = (cut: Kit, W: number, D: number, Y: number, rise: number, p: Pal, eave: number, rows: number, side = eave): void => {
+  const hw = W / 2 + side
   const hd = D / 2 + eave
   const ang = Math.atan2(rise, D / 2)
   const ey = Y - eave * Math.tan(ang)
@@ -407,11 +414,11 @@ const hipRoof = (cut: Kit, W: number, D: number, Y: number, rise: number, p: Pal
 }
 
 /** A rounded thatch: soft, deep, pulled down over the eaves. */
-const thatchRoof = (cut: Kit, W: number, D: number, Y: number, rise: number, ruined: boolean, r: () => number): void => {
+const thatchRoof = (cut: Kit, W: number, D: number, Y: number, rise: number, ruined: boolean, r: () => number, side = 0.42): void => {
   const g = new SphereGeometry(1, 16, 12)
   const pos = g.attributes.position!
   const e = 0.55
-  const hw = W / 2 + 0.42
+  const hw = W / 2 + side
   const hd = D / 2 + 0.42
   for (let i = 0; i < pos.count; i++) {
     let x = pos.getX(i)
@@ -478,8 +485,8 @@ const emblem = (d: Mesher, kind: string, cls?: ClassId): void => {
     case 'weapons':
       d.beam(-0.16, -0.16, 0.02, 0.16, 0.16, 0.02, 0.05, '#d8dde8', 0.02)
       d.beam(0.16, -0.16, 0.03, -0.16, 0.16, 0.03, 0.05, '#d8dde8', 0.02)
-      d.box(-0.14, -0.11, 0.03, -0.05, -0.07, 0.06, '#d8b04a', 'b')
-      d.box(0.05, -0.11, 0.03, 0.14, -0.07, 0.06, '#d8b04a', 'b')
+      d.box(-0.14, -0.11, 0.045, -0.05, -0.07, 0.075, '#d8b04a', 'b')
+      d.box(0.05, -0.11, 0.045, 0.14, -0.07, 0.075, '#d8b04a', 'b')
       break
     case 'trinkets':
       d.ball(0, 0.02, 0.03, 0.1, '#5fd8ff', 6, 4)
@@ -564,7 +571,8 @@ const hangingSign = (k: Kit, x: number, y: number, kind: string, p: Pal, cls?: C
   d.beam(x, y + 0.35, 0, x, y + 0.02, 0.45, 0.04, '#3a3034', 0.04)
   for (const zz of [0.18, 0.56]) d.beam(x, y - 0.03, zz, x, y - 0.12, zz, 0.02, '#3a3034', 0.02)
   // The board turns its face to the camera: a sign across the street, not along it.
-  d.push(x, y - 0.38, 0.37, 0)
+  // (Its emblem stays a few centimetres behind an eave's fascia, 42 cm out.)
+  d.push(x, y - 0.38, 0.29, 0)
   d.box(-0.3, -0.25, -0.04, 0.3, 0.25, 0.0, { front: shade(p.timber, 1.3), side: p.timber, top: p.timber }, 'b')
   d.box(-0.26, -0.21, 0.0, 0.26, 0.21, 0.015, '#f4e2b8', 'b')
   d.push(0, 0, 0.015, 0)
@@ -578,6 +586,8 @@ const banner = (k: Kit, x: number, y: number, cls: ClassId, h = 1.1): void => {
   const d = k.detail
   const c = CLASSES[cls].color
   const cloth = cls === 'aegis' ? '#3f5fd6' : cls === 'pyro' ? '#a82a2a' : cls === 'shadow' ? '#2f2a44' : cls === 'sovereign' ? '#8a2a3a' : cls === 'blood' ? '#f0ece4' : cls === 'aether' ? '#2a4a6a' : cls === 'geo' ? '#6a5a3a' : '#2a4a9a'
+  // Hung 5 cm out, clear of the framing's rails (7.5 cm) behind it.
+  d.push(0, 0, 0.05)
   d.beam(x - 0.42, y + 0.03, 0.08, x + 0.42, y + 0.03, 0.08, 0.06, '#5a4030', 0.06)
   for (const s of [-1, 1]) d.ball(x + s * 0.45, y + 0.03, 0.08, 0.05, '#d8b04a', 4, 3)
   // The cloth, with a swallowtail.
@@ -586,15 +596,17 @@ const banner = (k: Kit, x: number, y: number, cls: ClassId, h = 1.1): void => {
   d.push(x, y - h * 0.45, 0.085, 0, 1.25)
   classMark(d, cls, 1)
   d.pop()
+  d.pop()
 }
 
 /** A lantern on a bracket; returns where its light is (local). */
 const lantern = (k: Kit, x: number, y: number): [number, number, number] => {
   const d = k.detail
-  d.beam(x, y + 0.1, 0, x, y + 0.1, 0.28, 0.05, '#2e2a30', 0.05)
-  cage(k, x - 0.1, y - 0.24, 0.2, x + 0.1, y + 0.02, 0.4, '#2e2a30', '#ffd27a')
-  d.prism([[x - 0.12, y + 0.02], [x + 0.12, y + 0.02], [x, y + 0.14]], 0.18, 0.4, '#2e2a30')
-  return [x, y - 0.1, 0.3]
+  // It stops a few centimetres short of an eave's fascia (40 to 42 cm out).
+  d.beam(x, y + 0.1, 0, x, y + 0.1, 0.26, 0.05, '#2e2a30', 0.05)
+  cage(k, x - 0.1, y - 0.24, 0.18, x + 0.1, y + 0.02, 0.36, '#2e2a30', '#ffd27a')
+  d.prism([[x - 0.12, y + 0.02], [x + 0.12, y + 0.02], [x, y + 0.14]], 0.16, 0.37, '#2e2a30')
+  return [x, y - 0.1, 0.27]
 }
 
 /** A cloth awning over a shop front (local face frame). */
@@ -733,9 +745,11 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       for (let i = 0; i < n; i++) {
         const x = -len / 2 + ((i + 0.5) / n) * len
         if (avoid.some(([a, b]) => x + ww / 2 + 0.35 > a && x - ww / 2 - 0.35 < b)) continue
+        if (wy + wh + 0.12 > top - 0.16) continue
         xs.push(x)
       }
-      const holes: Array<[number, number, number, number]> = avoid.map(([a, b]) => [a - 0.06, b + 0.06, 0, openH + 0.2])
+      // (A door or forge frame and its lintel reach 17 to 25 cm past the opening.)
+      const holes: Array<[number, number, number, number]> = avoid.map(([a, b]) => [a - 0.15, b + 0.15, 0, openH + 0.3])
       onFace(k, W, D, f, 0, () => {
         for (const x of xs) {
           const on = lit()
@@ -745,7 +759,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
           holes.push([x - ww / 2 - 0.14, x + ww / 2 + 0.14, wy - 0.4, wy + wh + 0.08])
         }
         if (stone) masonry(k, len, y0, top, wallC, r, f === 's' || f === 'n', holes)
-        else framing(k, len, y0, top, p, gaps, r, c.ruined, avoid)
+        else framing(k, len, y0, top, p, gaps, r, c.ruined, avoid.map(([a, b]) => [a - 0.15, b + 0.15, openH + 0.25]))
       })
       return gaps
     }
@@ -808,15 +822,19 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     out.top = Y
     // ── The roof ──
     const roofKind: Roof = pickRoof(h, c.style, r)
+    // A roof never reaches past the house's own cells (WALL_IN beyond its
+    // walls): a neighbour's roof starts there, and two roofs reaching into
+    // the same gap would cross, their edges lying in one plane.
+    const sideReach = WALL_IN - 0.02 - jut
     const rows = c.low ? 4 : 6
     const pitch = c.style === 'mountain' ? 0.95 : c.style === 'mercantile' ? 0.8 : 0.72
     if (roofKind === 'thatch') {
       const rise = Math.min(W, D) * 0.5 * pitch + 0.6
-      thatchRoof(cut, W + jut * 2, D + jut * 2, Y, rise, c.ruined, r)
+      thatchRoof(cut, W + jut * 2, D + jut * 2, Y, rise, c.ruined, r, Math.min(0.42, sideReach))
       out.top = Y + rise
     } else if (roofKind === 'hip') {
       const rise = D * 0.5 * pitch
-      hipRoof(cut, W + jut * 2, D + jut * 2, Y, rise, p, 0.4, rows)
+      hipRoof(cut, W + jut * 2, D + jut * 2, Y, rise, p, 0.4, rows, Math.min(0.4, sideReach - 0.01))
       out.top = Y + rise
     } else {
       const along = roofKind === 'gable'
@@ -826,7 +844,9 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       cut.hull.push(0, 0, 0, along ? 0 : Math.PI / 2)
       cut.detail.push(0, 0, 0, along ? 0 : Math.PI / 2)
       cut.glow.push(0, 0, 0, along ? 0 : Math.PI / 2)
-      gableRoof(cut, cut, L, span, Y, rise, p, { eave: 0.42, gableOver: 0.3, rows, ruined: c.ruined, r, slate: c.style === 'mountain' })
+      // Along the street the gable ends (barge boards, ridge cap 8 cm past) face the
+      // neighbours; across it the eaves do.
+      gableRoof(cut, cut, L, span, Y, rise, p, { eave: along ? 0.42 : Math.min(0.42, sideReach - 0.02), gableOver: along ? Math.min(0.3, sideReach - 0.08) : 0.3, rows, ruined: c.ruined, r, slate: c.style === 'mountain' })
       // The gable-end walls.
       for (const s of [1, -1]) {
         cut.hull.push(s * (L / 2 - 0.01), 0, 0, Math.PI / 2)
@@ -932,7 +952,8 @@ const rose = (k: Kit, x: number, y: number, rad: number, lit: boolean): void => 
 
 /** A bell cote over a chapel's front gable. */
 const belfry = (k: Kit, D: number, top: number, p: Pal, stone: boolean): void => {
-  const z = D / 2 - 0.3
+  // Its face 12 cm out from the gable, in front of the gable's timbers.
+  const z = D / 2 - 0.26
   const c = stone ? '#a8a4a0' : '#f2ead8'
   k.hull.box(-0.38, top - 0.4, z - 0.38, 0.38, top + 0.75, z + 0.38, { front: c, side: shade(c, 0.9), top: c }, 'b')
   k.detail.box(-0.22, top + 0.1, z + 0.38, 0.22, top + 0.62, z + 0.4, '#2a2228', 'b')
@@ -1002,7 +1023,8 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   for (let i = 0; i < n; i++) {
     const a = x0 + ((x1 - x0) * i) / n
     const b = x0 + ((x1 - x0) * (i + 1)) / n
-    d.quad(a, fy, z1, b, fy, z1, b, fy, z0, a, fy, z0, shade(p.floor, i % 2 ? 0.92 : 1.02 + (r() - 0.5) * 0.06))
+    // (A ruin's floor is scorched dark.)
+    d.quad(a, fy, z1, b, fy, z1, b, fy, z0, a, fy, z0, shade(p.floor, (i % 2 ? 0.92 : 1.02 + (r() - 0.5) * 0.06) * (c.ruined ? 0.55 : 1)))
   }
   // A rug from the door in.
   const rugC = c.job === 'noble' ? '#a82a3a' : c.job === 'healer' ? '#5aa86a' : c.job === 'rogue' ? '#3a3458' : c.job === 'scholar' ? '#c9482a' : c.job === 'tinker' ? '#2a6a7a' : '#8a4a6a'
@@ -1020,6 +1042,7 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   const wx = west ? x0 : x1
   const s = west ? 1 : -1
   const wz = (h.j0 + h.cd - 1.5) * CELL - (h.j0 * CELL + (h.cd * CELL) / 2)
+  if (h.kind === 'tavern') { taproom(B, wx, s, wz, x0, x1, z0, fy, west, c, r); return }
   furnish(B, c.job ?? 'villager', wx, s, wz, fy, c, r)
   // Along the back wall: shelves of the trade, and a hearth or a bench.
   shelves(B, x0 + (west ? 1.6 : 0.4), z0, fy, Math.min(1.5, (x1 - x0) * 0.4), c.job ?? 'villager', r)
@@ -1033,6 +1056,57 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   if (!c.ruined) for (const s2 of [-1, 1]) {
     d.cyl(s2 * W * 0.28, fy + 1.0, z0 + 0.05, 0.03, 0.03, 0.12, 5, '#3a3034')
     B.glow.ball(s2 * W * 0.28, fy + 1.2, z0 + 0.08, 0.05, '#ffd27a', 4, 3)
+  }
+}
+
+/**
+ * A tavern's taproom (the plan puts its tables and stools, `sim/town.ts`):
+ * the bar the keeper stands behind, kegs and bottles at his back, the hearth
+ * the bard sings by. A fallen town's is sooty, its fire out, its shelves bare.
+ */
+const taproom = (B: Kit, wx: number, s: number, wz: number, x0: number, x1: number, z0: number, fy: number, west: boolean, c: HouseCtx, r: () => number): void => {
+  const d = B.detail
+  const g = B.glow
+  const wood = c.ruined ? '#4a3a30' : '#8a5a34'
+  const dark = c.ruined ? '#33282a' : '#6a4428'
+  // The bar, across the keeper's place (he stands between it and the wall).
+  const bx0 = wx + s * 1.32
+  const bx1 = wx + s * 1.74
+  const a = Math.min(bx0, bx1)
+  const b = Math.max(bx0, bx1)
+  d.box(a, fy, wz - 0.8, b, fy + 0.95, wz + 0.55, { top: wood, front: dark, side: dark, east: dark, west: dark }, 'b')
+  d.box(a - 0.05, fy + 0.95, wz - 0.85, b + 0.05, fy + 1.02, wz + 0.6, { top: shade(wood, 1.2), side: wood }, 'b')
+  // Mugs on the bar, and a keg with its tap at the end of it.
+  if (!c.ruined) for (const zz of [-0.45, -0.05, 0.3]) {
+    d.cyl((a + b) / 2 + (r() - 0.5) * 0.12, fy + 1.02, wz + zz, 0.06, 0.065, 0.14, 6, '#e8a648', '#fff4d8')
+  }
+  d.push((a + b) / 2, fy + 1.02, wz - 0.62, 0, 1)
+  d.cyl(0, 0, 0, 0.17, 0.17, 0.32, 8, '#a06a3a', '#7a4e2c')
+  d.pop()
+  // Kegs against the wall behind the keeper, and bottles on a shelf over them.
+  for (const [zz, k] of [[-1.2, 0], [-0.75, 1]] as const) {
+    const kx = wx + s * 0.33
+    d.cyl(kx, fy, wz + zz, 0.25, 0.27, 0.62, 8, k ? '#8a5a34' : '#9a6a3a', '#6a4428')
+  }
+  d.box(wx, fy + 1.45, wz - 1.4, wx + s * 0.28, fy + 1.5, wz + 0.4, { top: wood, side: dark }, 'b')
+  if (!c.ruined) {
+    const cols = ['#4aa86a', '#c9482a', '#e8c060', '#5a7ad6']
+    for (let i = 0; i < 6; i++) {
+      const bz = wz - 1.3 + i * 0.27
+      d.cyl(wx + s * 0.14, fy + 1.5, bz, 0.045, 0.05, 0.2, 5, cols[i % cols.length]!, '#2a2228')
+    }
+  }
+  // The hearth on the back wall, across from the bar; a lantern over the tables.
+  const hx = west ? x1 - 0.9 : x0 + 0.9
+  hearth(B, hx, z0, fy, !c.ruined)
+  if (!c.ruined) g.ball((x0 + x1) / 2, fy + 2.1, z0 + 1.6, 0.09, '#ffd27a', 5, 3)
+  // Soot up the back wall of a fallen town's taproom.
+  if (c.ruined) {
+    for (let i = 0; i < 4; i++) {
+      const sx = x0 + 0.4 + r() * (x1 - x0 - 0.8)
+      const w2 = 0.3 + r() * 0.5
+      d.quad(sx - w2, fy + 0.5, z0 + 0.02, sx + w2, fy + 0.5, z0 + 0.02, sx + w2 * 0.4, fy + 1.9, z0 + 0.02, sx - w2 * 0.4, fy + 1.9, z0 + 0.02, '#1e1a1c')
+    }
   }
 }
 
@@ -1096,8 +1170,9 @@ const furnish = (B: Kit, job: TownJob, wx: number, s: number, wz: number, fy: nu
     }
     case 'rogue': {
       // A target board on the wall, daggers in it; a crate table with a map.
-      d.push(wx + s * 0.03, fy + 1.3, wz, s > 0 ? Math.PI / 2 : -Math.PI / 2)
-      d.cyl(0, 0, 0, 0.42, 0.42, 0.06, 10, '#c8a070', '#c8a070')
+      // (A disc turned on its edge: its axis across the room, out of the wall.)
+      d.pushMatrix(new Matrix4().makeRotationZ(-s * Math.PI / 2).setPosition(wx + s * 0.03, fy + 1.3, wz))
+      d.cyl(0, 0, 0, 0.42, 0.42, 0.06, 10, '#c8a070', '#e8c890')
       d.pop()
       for (const [a, b] of [[0.1, 0.05], [-0.12, -0.1], [0.02, -0.2]] as const) d.beam(wx + s * 0.1, fy + 1.3 + b, wz + a, wx + s * 0.3, fy + 1.3 + b, wz + a, 0.03, '#d8dde8', 0.03)
       d.box(fx - 0.3 + s * 0.3, fy, wz + 0.6, fx + 0.3 + s * 0.3, fy + 0.55, wz + 1.1, { top: '#8a6a44', side: '#6a4a2c' }, 'b')

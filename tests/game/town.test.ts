@@ -3,7 +3,7 @@ import { generateTown, fillGrid, type ZonePlan } from '@/game/sim/zoneGen'
 import { CELL, cellOf, createGrid, findPath, isSolidAt, type Grid } from '@/game/sim/grid'
 import { TOWNS, townNpcs, type TownId } from '@/game/data/zones'
 import { QUESTS } from '@/game/data/quests'
-import { TC_DOOR, TC_FLOOR, TC_PROP, TC_WALL, townLane, type TownPlan } from '@/game/sim/town'
+import { TC_DOOR, TC_FLOOR, TC_PROP, TC_WALL, townLane, townRoomAt, type TownPlan } from '@/game/sim/town'
 import { Sim } from '@/game/sim/world'
 import { applyPlan, populateTown } from '@/game/sim/director'
 import { createHero, orderAttack } from '@/game/sim/hero'
@@ -290,6 +290,53 @@ describe('town life', () => {
       stepSim(sim, plan, 1 / 30)
     }
     expect(before - hero.z).toBeGreaterThan(1)
+  })
+})
+
+describe('taprooms', () => {
+  it('Sunford and Oakhaven: a tavern walked into, the keeper at the bar, tables with stools, patrons and a bard', () => {
+    for (const [town, flags, patrons] of [['sunford', [], 3], ['oakhaven', [], 3], ['oakhaven', ['oakhavenFallen'], 2]] as const) {
+      const name = `${town}${flags.length ? ' (fallen)' : ''}`
+      const plan = generateTown(TOWNS[town], new Set(flags), 7)
+      const t = plan.town!
+      const hi = t.houses.findIndex(h => h.kind === 'tavern')
+      expect(t.houses[hi]!.inside, name).toBe(true)
+      const tables = t.props.filter(p => p.kind === 'table' && p.cells.every(k => t.room[k] === hi))
+      expect(tables.length, name).toBeGreaterThanOrEqual(2)
+      const stools = t.spots.filter(s => s.kind === 'seat' && s.room === hi)
+      expect(stools.length, name).toBe(tables.length * 2)
+      const inn = t.people.filter(p => p.room === hi)
+      expect(inn.filter(p => p.job === 'keeper').length, name).toBe(1)
+      expect(inn.filter(p => p.job === 'drinker').length, name).toBe(patrons)
+      // A fallen town's taproom has no bard, and fewer at its tables.
+      expect(inn.some(p => p.job === 'bard'), name).toBe(!flags.length)
+      // A table in the room is still in the room (who stands at it can be spoken to there).
+      for (const p of tables) expect(townRoomAt(t, p.x, p.z).room, name).toBe(hi)
+    }
+  })
+
+  it('the patrons drink and talk at their tables, the keeper stays at the bar, the bard sings', () => {
+    const { sim, plan } = visit('sunford', 7)
+    const life = townLife(sim)!
+    const t = plan.town!
+    const hi = t.houses.findIndex(h => h.kind === 'tavern')
+    const seen = new Map<string, Set<string>>()
+    for (let s = 0; s < 60 * 30; s++) {
+      stepSim(sim, plan, 1 / 30)
+      sim.events.length = 0
+      if (s % 15) continue
+      for (const p of life.people) {
+        if (p.def.room !== hi) continue
+        const set = seen.get(p.def.job) ?? new Set()
+        set.add(townPose(sim, p.unit.id)!.pose)
+        seen.set(p.def.job, set)
+        // Nobody of the taproom ever leaves it.
+        expect(townRoomAt(t, p.unit.x, p.unit.z).room, p.def.id).toBe(hi)
+      }
+    }
+    expect([...seen.get('drinker')!].some(p => p === 'sitDrink' || p === 'sitEat')).toBe(true)
+    expect(seen.get('keeper')!.has('count') || seen.get('keeper')!.has('hang')).toBe(true)
+    expect(seen.get('bard')!.has('sing')).toBe(true)
   })
 })
 

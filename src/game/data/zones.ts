@@ -225,7 +225,7 @@ export type HouseKind = 'cottage' | 'townhouse' | 'workshop' | 'tavern' | 'hall'
 export type TownJob =
   | 'smith' | 'merchant' | 'elder' | 'healer' | 'scholar' | 'knight' | 'rogue' | 'noble' | 'alchemist' | 'tinker'
   | 'geo' | 'captain' | 'fence' | 'boss' | 'guard' | 'squire' | 'villager' | 'farmer' | 'child' | 'drinker' | 'survivor' | 'thug'
-  | 'miner'
+  | 'miner' | 'keeper' | 'bard'
 
 /** A town's character: what its houses are made of and how they are dressed. */
 export type TownStyle = 'rural' | 'mercantile' | 'mountain'
@@ -269,6 +269,9 @@ export interface TownFolkDef {
   lite?: boolean
   needs?: string[]
   not?: string[]
+  /** Spends the day in the town's taproom (the keeper, the bard, a patron);
+   *  out in the street, at `at`, when the town has no taproom to walk into. */
+  inn?: boolean
 }
 
 /** A house that is nobody's in particular: a landmark of the town (its tavern). */
@@ -276,6 +279,8 @@ export interface TownHouseDef {
   kind: HouseKind
   /** Its door, in the town's 0..1 square. */
   at: [number, number]
+  /** Its room is walked into: a tavern's taproom (needs a house four cells deep). */
+  inside?: boolean
 }
 
 export interface TownDef {
@@ -313,8 +318,14 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // The pact's price and prize: goblins trading rarities in the square.
       { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.6, 0.3], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] }
     ],
-    houses: [{ kind: 'tavern', at: [0.5, 0.15] }],
+    houses: [{ kind: 'tavern', at: [0.5, 0.15], inside: true }],
     folk: [
+      // The taproom: the keeper behind the bar, patrons at the tables, a bard by the hearth.
+      { id: 'innkeeper', look: 'villager', job: 'keeper', at: [0.5, 0.15], inn: true, lite: true },
+      { id: 'patronA', look: 'farmer', job: 'drinker', at: [0.5, 0.15], inn: true, lite: true },
+      { id: 'patronB', look: 'villagerF', job: 'drinker', at: [0.5, 0.15], inn: true },
+      { id: 'patronC', look: 'squire', job: 'drinker', at: [0.5, 0.15], inn: true },
+      { id: 'bard', look: 'peddler', job: 'bard', at: [0.5, 0.15], inn: true },
       { id: 'squire', look: 'squire', job: 'squire', at: [0.26, 0.15] },
       { id: 'gossip', look: 'villagerF', job: 'villager', at: [0.4, 0.5], lite: true },
       { id: 'drinker', look: 'villager', job: 'drinker', at: [0.44, 0.24], lite: true },
@@ -342,8 +353,16 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'trainerBlood', role: 'trainer', look: 'trainerBlood', at: [0.18, 0.15], place: 'inside', house: 'chapel', cls: 'blood', needs: ['oakhavenFallen'] },
       { id: 'syndicateBoss', role: 'talk', look: 'fence', at: [0.6, 0.42], place: 'street', job: 'boss', needs: ['oakhavenFallen'] }
     ],
-    houses: [{ kind: 'tavern', at: [0.78, 0.76] }],
+    houses: [{ kind: 'tavern', at: [0.78, 0.76], inside: true }],
     folk: [
+      // The taproom. After the fall the keeper stays, with two who have nowhere else to go.
+      { id: 'innkeeper', look: 'villager', job: 'keeper', at: [0.78, 0.76], inn: true, lite: true },
+      { id: 'patronA', look: 'villager', job: 'drinker', at: [0.78, 0.76], inn: true, lite: true, not: ['oakhavenFallen'] },
+      { id: 'patronB', look: 'merchantF', job: 'drinker', at: [0.78, 0.76], inn: true, not: ['oakhavenFallen'] },
+      { id: 'patronC', look: 'townGuard', job: 'drinker', at: [0.78, 0.76], inn: true, not: ['oakhavenFallen'] },
+      { id: 'bard', look: 'peddler', job: 'bard', at: [0.78, 0.76], inn: true, not: ['oakhavenFallen'] },
+      { id: 'patronD', look: 'survivor', job: 'drinker', at: [0.78, 0.76], inn: true, lite: true, needs: ['oakhavenFallen'] },
+      { id: 'patronE', look: 'villagerF', job: 'drinker', at: [0.78, 0.76], inn: true, needs: ['oakhavenFallen'] },
       { id: 'guardA', look: 'townGuard', job: 'squire', at: [0.88, 0.15], not: ['oakhavenFallen'] },
       { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.5, 0.58], lite: true, not: ['oakhavenFallen'] },
       { id: 'merchantF', look: 'merchantF', job: 'villager', at: [0.42, 0.5], lite: true, not: ['oakhavenFallen'] },

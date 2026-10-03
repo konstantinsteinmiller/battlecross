@@ -1,14 +1,26 @@
 // @vitest-environment jsdom
-import { it } from 'vitest'
+/**
+ * The z-fight REPORT (a dev tool; `zfight.test.ts` is the check that keeps the
+ * count at zero). It lists every coplanar overlap, grouped by the builder and
+ * source line that made each face. Runs only when asked:
+ *
+ *   DUMP=<scratch>/zf.txt pnpm vitest run tests/game/zfight.report.test.ts
+ *
+ * writes zf.txt (per model), zf.txt.summary.txt (by builder line, houses and
+ * props), zf.txt.scenes.txt (towns, zones), zf.txt.rigs.txt; FOCUS=<tag part>
+ * adds zf.txt.focus.txt with the full corners of matching fights.
+ */
+import { it as test } from 'vitest'
 import { writeFileSync } from 'node:fs'
 import { Scene } from 'three'
 import { stubCanvas, trisOf, trisOfMesher, trisOfScene, findFights, describe1, type Tri } from './zfightTools'
 import { Mesher } from '@/game/gfx/archKit'
 
+const it = test.runIf(!!process.env.DUMP)
 stubCanvas()
-Mesher.trace = true
 // One stack capture per primitive call (not per vertex): the builder and line that asked for it.
-{
+if (process.env.DUMP) {
+  Mesher.trace = true
   const where = (): string => {
     for (const l of (new Error().stack ?? '').split('\n')) {
       if (!l.includes(' at ') || l.includes('archKit') || l.includes('zfight')) continue
@@ -29,16 +41,17 @@ Mesher.trace = true
 }
 
 const DUMP = process.env.DUMP ?? 'zf.txt'
+const keyOf = (x: { a: Tri; b: Tri }): string => [x.a.tag.replace(/#\d+/, ''), x.b.tag.replace(/#\d+/, '')].sort().join(' vs ')
 const report = (out: string[], name: string, tris: Tri[], tol = 0.006): void => {
   const f = findFights(tris, tol, 0.004, 5000)
   if (!f.length) { out.push(`${name}: 0`); return }
   out.push(`${name}: ${f.length} fights (${tris.length} tris)`)
   const by = new Map<string, number>()
   for (const x of f) {
-    const k = [x.a.tag.split('#')[0], x.b.tag.split('#')[0]].sort().join(' vs ')
+    const k = keyOf(x)
     by.set(k, (by.get(k) ?? 0) + 1)
   }
-  for (const [k, n] of by) { out.push(`   ${n} x ${k}`); ALL.set(k, (ALL.get(k) ?? 0) + n); if (!EX.has(k)) EX.set(k, describe1(f.find(x => [x.a.tag.split('#')[0], x.b.tag.split('#')[0]].sort().join(' vs ') === k)!)) }
+  for (const [k, n] of by) { out.push(`   ${n} x ${k}`); ALL.set(k, (ALL.get(k) ?? 0) + n); if (!EX.has(k)) EX.set(k, describe1(f.find(x => keyOf(x) === k)!)) }
   for (const x of f.slice(0, 6)) out.push('   ' + describe1(x))
   const focus = process.env.FOCUS
   if (focus) {
@@ -134,6 +147,7 @@ it('whole towns and zones', async () => {
     }
   }
   writeFileSync(DUMP + '.scenes.txt', out.join('\n'))
+  if (FOC.length) writeFileSync(DUMP + '.focus.txt', FOC.join('\n'))
 }, 600_000)
 
 it('rigs', async () => {

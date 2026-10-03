@@ -135,7 +135,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         if (i % 3 === 0) d.box(gx - 0.1, 0.88, gz - 0.08, gx + 0.1, 0.98, gz + 0.08, { top: col, side: shade(col, 0.8) }, 'b')
         else d.ball(gx, 0.95, gz, 0.07, col, 5, 3)
       }
-      barrel(d, w / 2 + 0.35, 0, 0.1, 0.8)
+      // A keg behind the counter, inside the stall's own cells (a neighbour's crates stand just past them).
+      barrel(d, w / 2 - 0.1, 0, -0.6, 0.7)
       break
     }
     case 'crates': {
@@ -173,7 +174,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       // A low round table (a chibi sits low), a stool each side.
       h.cyl(0, 0.44, 0, 0.48, 0.48, 0.08, 8, WOOD, '#b07e48')
       d.cyl(0, 0, 0, 0.1, 0.08, 0.44, 6, WOOD_D)
-      d.cyl(0, 0, 0, 0.3, 0.3, 0.05, 6, WOOD_D, WOOD_D)
+      // (Its foot stands 8 cm tall: clear of a taproom's floor, 5 cm up.)
+      d.cyl(0, 0, 0, 0.3, 0.3, 0.08, 6, WOOD_D, WOOD_D)
       for (const s of [-1, 1]) {
         h.cyl(s * 0.68, 0.12, 0, 0.19, 0.2, 0.07, 7, '#a07040', '#b88a50')
         for (const [a, b] of [[-0.1, -0.1], [0.1, -0.1], [0, 0.11]] as const) d.box(s * 0.68 + a - 0.025, 0, b - 0.025, s * 0.68 + a + 0.025, 0.12, b + 0.025, WOOD_D, 'b')
@@ -313,9 +315,9 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         const cw = 0.3 + r() * 0.2
         const ch = 0.45 + r() * 0.3
         const col = cl[(i + p.v) % cl.length]!
-        const cz = (i % 2) * 0.04
-        d.quad(x - cw / 2, 1.66 - ch, cz + 0.01, x + cw / 2, 1.66 - ch, cz + 0.01, x + cw / 2, 1.66, cz + 0.01, x - cw / 2, 1.66, cz + 0.01, col)
-        d.quad(x + cw / 2, 1.66 - ch, cz - 0.01, x - cw / 2, 1.66 - ch, cz - 0.01, x - cw / 2, 1.66, cz - 0.01, x + cw / 2, 1.66, cz - 0.01, shade(col, 0.85))
+        // Each side of the cloth 1.5 cm clear of the line's faces.
+        d.quad(x - cw / 2, 1.66 - ch, 0.025, x + cw / 2, 1.66 - ch, 0.025, x + cw / 2, 1.66, 0.025, x - cw / 2, 1.66, 0.025, col)
+        d.quad(x + cw / 2, 1.66 - ch, -0.025, x - cw / 2, 1.66 - ch, -0.025, x - cw / 2, 1.66, -0.025, x + cw / 2, 1.66, -0.025, shade(col, 0.85))
       }
       d.cyl(w / 2 - 0.35, 0, 0.3, 0.25, 0.3, 0.25, 8, '#c8a070', '#f4ece0')
       break
@@ -499,14 +501,16 @@ const fence = (k: Kit, ax: number, az: number, bx: number, bz: number, c: PropCt
       const t0 = i / n
       const t1 = (i + 1) / n
       const col = shade('#8a8890', 0.88 + ((i * 7 + Math.round(ax * 3 + az)) % 3) * 0.08)
-      hh.beam(ax + (bx - ax) * t0, ya + 0.24, az + (bz - az) * t0, ax + (bx - ax) * t1, yb + 0.24, az + (bz - az) * t1, 0.38, col, 0.48)
+      const v = i % 2 ? 0.03 : 0
+      hh.beam(ax + (bx - ax) * t0, ya + 0.24 + v / 2, az + (bz - az) * t0, ax + (bx - ax) * t1, yb + 0.24 + v / 2, az + (bz - az) * t1, 0.38 + v, col, 0.48 + v)
     }
     return
   }
   if (c.style === 'mercantile' && !yard) {
     if (len < 0.01) return
     hh.beam(ax, ya + 0.32, az, bx, yb + 0.32, bz, 0.46, c.ruined ? '#6a6a3a' : '#4f9a44', 0.64)
-    d.beam(ax, ya + 0.66, az, bx, yb + 0.66, bz, 0.32, c.ruined ? '#7a7a4a' : '#6ab45a', 0.06)
+    const k = Math.min(0.45, 0.12 / len)
+    d.beam(ax + (bx - ax) * k, ya + 0.66, az + (bz - az) * k, bx - (bx - ax) * k, yb + 0.66, bz - (bz - az) * k, 0.32, c.ruined ? '#7a7a4a' : '#6ab45a', 0.06)
     return
   }
   const col = c.ruined ? '#4a3e34' : yard ? '#8a5a34' : '#f2ead8'
@@ -572,15 +576,24 @@ export const buildPaving = (m: Mesher, plan: { w: number; h: number; trail: Uint
       }
       // Street cobbles: a jittered grid, rows offset like a running bond.
       const n = c.style === 'mountain' ? 2 : 3
+      // (Every stone stays inside its own slot: no two ever overlap.)
       for (let b = 0; b < n; b++) {
-        const off = (b % 2) * 0.5
+        const off = b % 2 === 1
         for (let a = 0; a < n; a++) {
           if (r() > keep * (c.style === 'rural' ? 0.88 : 1)) continue
-          const sx = x0 + ((a + 0.5 + off * (a < n - 1 ? 1 : 0)) / n) * CELL
           const sz = z0 + ((b + 0.5) / n) * CELL
           const s = CELL / n / 2 - 0.045 - r() * 0.03
           const col = lc(tones[Math.floor(r() * tones.length)]!).clone().multiplyScalar(0.93 + r() * 0.12)
-          stone(sx - s * (0.85 + r() * 0.3), sz - s, sx + s * (0.85 + r() * 0.3), sz + s, col)
+          if (off && a === n - 1) {
+            // An offset row starts and ends with half a stone (the cell's
+            // neighbour carries on with the other half).
+            const hw = CELL / n / 2
+            stone(x0 + 0.025, sz - s, x0 + hw - 0.025, sz + s, col)
+            stone(x0 + CELL - hw + 0.025, sz - s, x0 + CELL - 0.025, sz + s, col)
+            continue
+          }
+          const sx = x0 + ((a + 0.5 + (off ? 0.5 : 0)) / n) * CELL
+          stone(sx - s * (0.85 + r() * 0.25), sz - s, sx + s * (0.85 + r() * 0.25), sz + s, col)
         }
       }
     }

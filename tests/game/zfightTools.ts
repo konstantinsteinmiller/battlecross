@@ -68,7 +68,8 @@ export const trisOf = (g: BufferGeometry, m: Matrix4 | null, tag: string, out: T
     if (l < 2e-5) continue
     nx /= l; ny /= l; nz /= l
     const look = !mat ? undefined : !colAttr ? mat : stride === 3 ? lookOf(mat, col, i0, i1, i2) : undefined
-    out.push({ ax: _a.x, ay: _a.y, az: _a.z, bx: _b.x, by: _b.y, bz: _b.z, cx: _c.x, cy: _c.y, cz: _c.z, nx, ny, nz, d: nx * _a.x + ny * _a.y + nz * _a.z, tag, look })
+    const lab = (g.userData.labels as string[] | undefined)?.[i0]
+    out.push({ ax: _a.x, ay: _a.y, az: _a.z, bx: _b.x, by: _b.y, bz: _b.z, cx: _c.x, cy: _c.y, cz: _c.z, nx, ny, nz, d: nx * _a.x + ny * _a.y + nz * _a.z, tag: lab ? `${tag}:${lab}` : tag, look })
   }
   return out
 }
@@ -107,7 +108,9 @@ export const trisOfScene = (root: Object3D, out: Tri[] = [], maxInstances = 4000
     const mat = mesh.material as Material
     if (Array.isArray(mat)) return
     if (mat.side === BackSide || mat.transparent || mat.depthTest === false) return
-    const tag = o.name || o.parent?.name || `mesh${mesh.geometry.attributes.position?.count ?? 0}v`
+    let path = ''
+    for (let q: Object3D | null = o.parent; q && q !== root; q = q.parent) if (q.name) path = `${q.name}/${path}`
+    const tag = o.name || o.parent?.name || `${path}mesh${mesh.geometry.attributes.position?.count ?? 0}v(${mat.type})`
     if ((o as InstancedMesh).isInstancedMesh) {
       const im = o as InstancedMesh
       const n = Math.min(im.count, maxInstances)

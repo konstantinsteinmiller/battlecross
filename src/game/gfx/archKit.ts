@@ -252,7 +252,7 @@ export class Mesher {
     const base = this.pos.length / 3
     // (A loop, not a spread: a town's worth of numbers overflows an argument list.)
     for (let i = 0; i < o.pos.length; i++) { this.pos.push(o.pos[i]!); this.nor.push(o.nor[i]!); this.col.push(o.col[i]!) }
-    if (Mesher.trace) this.labels.push(...o.labels)
+    if (Mesher.trace) for (const l of o.labels) this.labels.push(l)
     for (const i of o.idx) this.idx.push(i + base)
     return this
   }
@@ -284,6 +284,7 @@ export class Mesher {
     g.setAttribute('normal', new Float32BufferAttribute(this.nor, 3))
     g.setAttribute('color', new Float32BufferAttribute(this.col, 3))
     g.setIndex(new Uint32BufferAttribute(this.idx, 1))
+    if (Mesher.trace) g.userData.labels = this.labels.slice()
     g.computeBoundingSphere()
     return g
   }
@@ -312,6 +313,7 @@ export class Mesher {
     g.setAttribute('position', new Float32BufferAttribute(this.pos, 3))
     g.setAttribute('normal', new Float32BufferAttribute(nor, 3))
     g.setIndex(new Uint32BufferAttribute(this.idx, 1))
+    if (Mesher.trace) g.userData.labels = this.labels.slice()
     g.computeBoundingSphere()
     return g
   }
