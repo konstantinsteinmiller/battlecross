@@ -38,9 +38,25 @@
           span.loot__icon
             ItemIcon(:id="it.id")
           span.loot__name {{ t(`item.${it.id}.name`) }}
+          span.loot__up(v-if="it.added && !equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs)" :aria-label="t('results.better')")
+            GameIcon(name="up")
           span.loot__dup(v-if="!it.added")
             IconCoin.results__coin
             | +{{ fmt(it.gold) }}
+          //- A new piece goes on from here: the bag's own rule (`equipItem`).
+          span.loot__act(v-else)
+            span.loot__done(v-if="equippedIn(it.id)")
+              span.loot__tick
+                GameIcon(name="check")
+              | {{ t('results.equipped') }}
+            FButton(
+              v-else
+              :label="canEquip(it.id) ? t('bag.equip') : t('bag.tooLow', { n: levelOf(it.id) })"
+              type="success"
+              size="sm"
+              :is-disabled="!canEquip(it.id)"
+              @click="wear(it.id)"
+            )
       p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
       p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
     template(#footer)
@@ -65,12 +81,19 @@ import FButton from '@/components/atoms/FButton.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import RankBadge from '@/components/molecules/RankBadge.vue'
-import { lifetimeXp } from '@/game/state/profile'
+import GameIcon from '@/components/icons/GameIcon.vue'
+import { canEquip, equipItem, equippedIn, lifetimeXp, profile } from '@/game/state/profile'
+import { isUpgrade } from '@/game/data/upgrade'
+import { sfx } from '@/game/audio/sfx'
 
 const { t } = useI18n()
 const r = computed(() => flow.results)
 /** The ribbon says how it went before a word is read. */
 const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' : r.value.outcome === 'defeat' ? 'red' : 'blue'))
+
+const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
+/** Put a find on straight from the result: the same rule as the bag. */
+const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
 </script>
 
 <style scoped lang="sass">
@@ -179,6 +202,39 @@ const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' 
   +cel.label
   font-size: clamp(0.8rem, 3.3vmin, 1rem)
   text-align: start
+.loot__up
+  flex: 0 0 auto
+  width: 1.5rem
+  height: 1.5rem
+  padding: 0.2rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: var(--bc-green)
+  color: var(--bc-text)
+  box-shadow: 0 2px 0 var(--bc-ink)
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
+.loot__act
+  display: inline-flex
+  margin-inline-start: auto
+  flex: 0 0 auto
+.loot__done
+  display: inline-flex
+  align-items: center
+  gap: 0.25em
+  color: var(--bc-on-good)
+  font-weight: 900
+  font-size: clamp(0.72rem, 3vmin, 0.9rem)
+.loot__tick
+  display: block
+  width: 1.3em
+  height: 1.3em
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
 .loot__dup
   display: inline-flex
   align-items: center

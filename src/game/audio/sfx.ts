@@ -21,14 +21,14 @@ export type SfxName =
   // Enemies
   | 'alert' | 'bossIntro' | 'death' | 'deathBig'
   // Rewards
-  | 'coin' | 'loot' | 'chest' | 'levelUp' | 'potion'
+  | 'coin' | 'loot' | 'lootRare' | 'lootEpic' | 'lootLegend' | 'chest' | 'levelUp' | 'potion'
   // UI
   | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
 
 export const SFX_NAMES: readonly SfxName[] = [
   'swing', 'swingHeavy', 'shoot', 'cast', 'hit', 'hitHeavy', 'crit', 'block', 'dodge', 'hurt', 'fire', 'ice', 'holy',
   'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport', 'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
-  'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
+  'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove'
 ]
 

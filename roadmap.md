@@ -123,11 +123,11 @@ There is no reason yet to come back tomorrow other than "continue".
 - [ ] #4 **A free second skill.** The first trainer visited teaches their
   first skill for free. Two buttons by minute three is what makes the build
   system visible. *Metric: time to second skill; D1.*
-- [ ] #5 **Loot that is felt.** A beam and a short fanfare on an item drop, a
+- [x] #5 ✅ **Loot that is felt.** A beam and a short fanfare on an item drop, a
   "better than what you wear" arrow on the toast and in the bag, and an
   "Equip" button on the result screen. *Metric: share of drops equipped within
   the session.*
-- [ ] #6 **Level-up in the fight.** A full heal and a 1 s slow-motion burst on
+- [x] #6 ✅ **Level-up in the fight.** A full heal and a 1 s slow-motion burst on
   level-up, with the "+3 points" chip parked on the hero button until spent.
   *Metric: unspent points at session end.*
 

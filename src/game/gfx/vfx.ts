@@ -9,6 +9,7 @@ import { Telegraphs } from './telegraphs'
 import { glowTexture, ringTexture } from './textures'
 import { Trails } from './trails'
 import { groundAt } from './ground'
+import { LootBeams } from './lootBeam'
 
 /**
  * ─── Effects ─────────────────────────────────────────────────────────────────
@@ -115,6 +116,7 @@ export class Vfx {
   readonly sprites: Sprites
   readonly trails: Trails
   readonly teles: Telegraphs
+  readonly loot: LootBeams
   /** Full impacts still allowed this frame (the rest are a flash). */
   private impactsLeft = 0
   private rings: Ring[] = []
@@ -140,6 +142,8 @@ export class Vfx {
     scene.add(this.root)
     this.trails = new Trails(scene, this.low)
     this.teles = new Telegraphs(scene)
+    this.loot = new LootBeams(this.particles, this.sprites, this.low)
+    this.root.add(this.loot.root)
   }
 
   /** Fewer particles on a weak device; the SHAPES of the effects stay. */
@@ -615,12 +619,31 @@ export class Vfx {
     }
   }
 
+  /** An item of `tier` dropped at (x, z): its beam of light (`lootBeam.ts`). */
+  lootBeam(x: number, z: number, tier: number): void {
+    this.loot.add(x, z, tier)
+  }
+
+  /** A level gained (roadmap #6): a column of light, a flare round the hero,
+   *  two rings and sparks spiralling up out of the ground. */
   levelUp(x: number, z: number): void {
-    this.pillar(x, z, 1, 8, '#ffe9a8', 0.9)
+    this.pillar(x, z, 1, 8, '#ffe9a8', 1.1)
     this.ring(x, z, 0.4, 4.5, '#ffd84a', 0.8)
     this.ring(x, z, 0.2, 3, '#ffffff', 0.55)
     this.particles.riseRing(x, 0.1, z, '#ffd84a', 1, this.n(24))
     this.particles.riseRing(x, 0.1, z, '#ffffff', 0.6, this.n(14))
+    this.sprites.emit({ x, y: 1.1, z, color: '#fff2b8', size: 2.4, sizeEnd: 0.5, life: 0.4, shape: SHAPE.star, spin: 1.5, hold: 0.12 })
+    this.sprites.emit({ x, y: 1.1, z, color: '#ffd84a', size: 2.6, sizeEnd: 5.5, life: 0.55, shape: SHAPE.ring, hold: 0.05 })
+    for (let k = 0; k < this.n(26); k++) {
+      const a = (k / 26) * Math.PI * 4 + Math.random() * 0.3
+      const r = 0.5 + Math.random() * 0.7
+      this.sprites.emit({
+        x: x + Math.cos(a) * r, y: 0.1 + Math.random() * 0.6, z: z + Math.sin(a) * r,
+        vx: -Math.sin(a) * 1.4, vy: 3.5 + Math.random() * 4, vz: Math.cos(a) * 1.4,
+        color: Math.random() < 0.4 ? '#ffffff' : '#ffd84a', size: 0.32, sizeEnd: 0.06, aspect: 0.3,
+        life: 0.8 + Math.random() * 0.6, shape: SHAPE.streak, align: true, stretch: 0.05, drag: 0.4, hold: 0.3
+      })
+    }
   }
 
   /** Play a sim `fx` event. */
@@ -869,6 +892,7 @@ export class Vfx {
     this.sprites.update(dt)
     this.trails.update(dt)
     this.teles.update(dt, simTime)
+    this.loot.update(dt)
     this.impactsLeft = this.low ? 3 : 6
   }
 
@@ -887,6 +911,7 @@ export class Vfx {
     this.sprites.clear()
     this.trails.clear()
     this.teles.clear()
+    this.loot.clear()
   }
 
   dispose(): void {
@@ -900,6 +925,7 @@ export class Vfx {
     this.sprites.dispose()
     this.trails.dispose()
     this.teles.dispose()
+    this.loot.dispose()
     this.root.traverse((o) => { const m = (o as Mesh).material as MeshBasicMaterial | undefined; if (m && m.dispose) m.dispose() })
     this.root.removeFromParent()
   }

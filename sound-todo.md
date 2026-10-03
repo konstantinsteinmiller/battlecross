@@ -19,7 +19,7 @@ for music and jingles (0.35). Adjust the one that matches for a whole recorded
 set. Music loops must loop seamlessly. Keep the total small: the synth set
 costs zero bytes.
 
-## Sound effects (45)
+## Sound effects (48)
 
 | Group | Names |
 | --- | --- |
@@ -28,7 +28,7 @@ costs zero bytes.
 | Elements | `fire` `ice` `holy` `shadow` `poison` `blood` `quake` `beam` `explode` `teleport` |
 | Abilities | `summon` `heal` `shieldUp` `roar` `telegraph` `overheat` |
 | Enemies | `alert` `bossIntro` `death` `deathBig` |
-| Rewards | `coin` `loot` `chest` `levelUp` `potion` |
+| Rewards | `coin` `loot` `lootRare` `lootEpic` `lootLegend` `chest` `levelUp` `potion` |
 | UI | `denied` `uiClick` `uiOpen` `uiClose` `uiEquip` `uiBuy` `uiLearn` `uiPoint` `uiChoice` `mapMove` |
 
 What each one is for is in the comments of `RECIPES` in `synth.ts`. The

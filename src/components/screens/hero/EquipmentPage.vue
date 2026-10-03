@@ -40,6 +40,9 @@
             span.doll__ghost(v-else)
               ArtIcon(:glyph="GHOST[slotOf(s)]" tint="var(--bc-stone-hi)" :src="ICON_ART.get(`slot-${slotOf(s)}`)" frame="none")
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
+          //- Something in the bag would do better here.
+          span.doll__up(v-if="upSlots.has(s)" aria-hidden="true")
+            GameIcon(name="up")
       //- The numbers the gear adds up to. A selection shows what it would
       //- change before anything is put on.
       StatList.equip__stats(:rows="rows" layout="grid" data-coach="equip-stats")
@@ -71,6 +74,7 @@
             :worn="!!equippedIn(it.id)"
             :fresh="profile.inv.fresh.includes(it.id)"
             :locked="profile.level < it.level"
+            :better="!equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs)"
             v-on="drag.handle({ id: it.id, from: 'bag' })"
             @click="tapCell(it.id)"
           )
@@ -118,6 +122,7 @@
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EQUIP_SLOTS, ITEM_BY_ID, TIER_COLOR, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
+import { isUpgrade, slotHasUpgrade } from '@/game/data/upgrade'
 import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FSocket from '@/components/atoms/FSocket.vue'
@@ -169,6 +174,12 @@ const tierOf = (id: string): string => TIER_COLOR[ITEM_BY_ID[id]?.tier ?? 1] ?? 
 const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
 const wornSlot = computed<EquipSlot | null>(() => (sel.value ? equippedIn(sel.value) : null))
 const against = computed(() => (sel.value && !wornSlot.value ? wornAgainst(sel.value) : null))
+
+/** The sockets the bag holds something better for (the green arrow). */
+const upSlots = computed<Set<EquipSlot>>(() => {
+  const inv = profile.inv
+  return new Set(EQUIP_SLOTS.filter(s => slotHasUpgrade(s, inv.equipped, inv.items, profile.level, profile.hero.attrs)))
+})
 
 /** The sockets that would take the thing in hand (selected, or being dragged). */
 const targets = computed<Set<EquipSlot>>(() => {
@@ -345,6 +356,28 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+
+// The bag has better for this slot: a green arrow on the socket's shoulder.
+.doll__socket
+  position: relative
+.doll__up
+  position: absolute
+  right: -8%
+  top: -8%
+  z-index: 1
+  width: calc(var(--sock) * 0.36)
+  aspect-ratio: 1
+  padding: calc(var(--sock) * 0.04)
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: var(--bc-green)
+  color: var(--bc-text)
+  box-shadow: 0 2px 0 var(--bc-ink)
+  pointer-events: none
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
 
 // The socket of the piece being looked at.
 .doll__socket.is-sel :deep(.f-socket)

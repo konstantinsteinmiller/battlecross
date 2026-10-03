@@ -167,7 +167,7 @@ const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
 ])
 
 /** The big stings: the music steps back under them (seconds). */
-const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2 }
+const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9 }
 
 /** The loudest hits, trimmed 2–3 dB under the frequent ones. */
 const TRIM: Partial<Record<SfxName, number>> = { explode: 0.78, quake: 0.8, deathBig: 0.85, roar: 0.85 }
@@ -182,7 +182,7 @@ const CAP_WINDOW = 0.25
 const recent: number[] = []
 const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
   'hurt', 'bossIntro', 'levelUp', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint',
-  'uiChoice', 'potion', 'chest', 'loot', 'deathBig', 'overheat'
+  'uiChoice', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -364,6 +364,26 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   loot: (_p, g) => {
     arp([D5, F5, A5, D6], 0.07, 'tri', 0.14 * g, 0.2)
     bell(D6 + 12, 0.1 * g, 0.5, 0.3)
+  },
+  // A find of a higher tier (3 rare, 4–5 epic, 6 legendary): the same rising
+  // pentatonic as `loot`, longer and brighter by tier, the legendary with a
+  // shimmer of bells over a held chord.
+  lootRare: (_p, g) => {
+    arp([A4, D5, F5, A5, D6], 0.065, 'tri', 0.15 * g, 0.24)
+    bell(D6 + 12, 0.11 * g, 0.6, 0.32)
+    bell(A5 + 12, 0.07 * g, 0.5, 0.4)
+  },
+  lootEpic: (_p, g) => {
+    tone({ wave: 'sine', f0: 220, f1: 880, dur: 0.22, vol: 0.06 * g })
+    arp([D4, A4, D5, F5, A5, D6], 0.065, 'tri', 0.16 * g, 0.28, 0.06)
+    arp([D5, A5, D6], 0.0, 'sine', 0.08 * g, 0.9, 0.46)
+    bell(D6 + 12, 0.13 * g, 0.8, 0.5)
+  },
+  lootLegend: (_p, g) => {
+    burst({ dur: 0.5, vol: 0.06 * g, type: 'highpass', f0: 5000 })
+    arp([D4, A4, D5, F5, A5, C5 + 12, D6], 0.07, 'tri', 0.17 * g, 0.3, 0.05)
+    arp([D4 - 12, A4 - 12, D4, F4], 0.0, 'sine', 0.11 * g, 1.3, 0.5)
+    for (let k = 0; k < 6; k++) bell([D6, A5 + 12, F5 + 12, D6 + 12, A5 + 12, D6 + 12][k]!, (0.09 - k * 0.008) * g, 0.7, 0.55 + k * 0.09)
   },
   chest: (_p, g) => {
     burst({ dur: 0.16, vol: 0.16 * g, type: 'bandpass', f0: 500, f1: 1400, q: 1.4 })

@@ -4,7 +4,11 @@
     div.hero-frame__face
       span.hero-frame__ring(aria-hidden="true")
       Portrait.hero-frame__portrait(look="hero" ring="var(--bc-brass-hi)")
-      span.hero-frame__level {{ hud.level }}
+      span.hero-frame__level(:key="hud.level" :class="{ 'is-pop': popped }") {{ hud.level }}
+      //- Points won in this fight and not yet spent: a chip parked on the
+      //- medallion until they are (the town's sheet button has its own).
+      Transition(name="chip")
+        FHudBadge.hero-frame__points(v-if="pending > 0" tone="red") +{{ pending }}
     div.hero-frame__bars
       FBar.hero-frame__hp(
         :value="hp01"
@@ -50,10 +54,14 @@
  * and the statuses on him. Every bar is the shared `FBar`: it scales on the
  * compositor (`scaleX`), fed by the throttled HUD mirror — never per frame.
  */
-import { computed } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
+import { flow } from '@/game/flow'
+import { profile } from '@/game/state/profile'
+import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import FBar from '@/components/atoms/FBar.vue'
+import FHudBadge from '@/components/atoms/FHudBadge.vue'
 import Portrait from '@/components/art/Portrait.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import { ICON_ART } from '@/game/assets/overrides'
@@ -67,6 +75,22 @@ const hp01 = computed(() => Math.max(0, Math.min(1, hud.hp / Math.max(1, hud.max
 const shield01 = computed(() => Math.max(0, Math.min(1, hud.shield / Math.max(1, hud.maxHp))))
 const mana01 = computed(() => Math.max(0, Math.min(1, hud.mana / Math.max(1, hud.maxMana))))
 const statuses = computed(() => hud.statuses.slice(0, 6))
+
+/** In a fight the levels gained are banked at its end: the points to spend
+ *  are the banked ones plus three for every level the fight has added. */
+const pending = computed(() => flow.screen !== 'zone' ? 0 : profile.hero.points + Math.max(0, hud.level - profile.level) * POINTS_PER_LEVEL)
+
+/** A level gained mid-fight: the number on the rim pops (roadmap #6). Entering
+ *  a zone only brings the HUD up to the saved level, which is not a level-up. */
+const popped = ref(false)
+let popTimer: ReturnType<typeof setTimeout> | undefined
+watch(() => hud.level, (now, was) => {
+  if (!(now > was && now > profile.level && flow.screen === 'zone')) return
+  popped.value = true
+  clearTimeout(popTimer)
+  popTimer = setTimeout(() => { popped.value = false }, 1400)
+})
+onUnmounted(() => clearTimeout(popTimer))
 </script>
 
 <style scoped lang="sass">
@@ -118,6 +142,31 @@ const statuses = computed(() => hud.statuses.slice(0, 6))
   line-height: 1.1
   text-align: center
   text-shadow: var(--bc-text-outline-thin)
+
+// A level gained: the stud swells, flares gold and settles; a ring of light leaves it.
+.hero-frame__level.is-pop
+  z-index: 2
+  animation: level-pop 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) both
+  &::after
+    content: ''
+    position: absolute
+    inset: -0.3em
+    border-radius: var(--bc-r-pill)
+    border: 3px solid var(--bc-gold-hi)
+    animation: level-ring 0.9s ease-out 0.1s both
+    pointer-events: none
+// Unspent points: a red chip on the medallion's rim, opposite the level.
+.hero-frame__points
+  position: absolute
+  left: -4%
+  bottom: -8%
+  z-index: 1
+.chip-enter-active
+  animation: chip-in 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both
+.chip-leave-active
+  transition: opacity 160ms ease-in
+.chip-leave-to
+  opacity: 0
 
 // ── The bars ─────────────────────────────────────────────────────────────────
 .hero-frame__bars
@@ -176,12 +225,36 @@ const statuses = computed(() => hud.statuses.slice(0, 6))
   gap: 2px
 .statuses__icon
   width: clamp(0.95rem, 4vmin, 1.4rem)
+@keyframes level-pop
+  0%
+    transform: scale(1)
+  18%
+    transform: scale(2.1)
+    filter: brightness(1.8)
+  45%
+    transform: scale(1.7)
+    filter: brightness(1.3)
+  100%
+    transform: scale(1)
+    filter: none
+@keyframes level-ring
+  from
+    transform: scale(0.8)
+    opacity: 1
+  to
+    transform: scale(2.6)
+    opacity: 0
+@keyframes chip-in
+  from
+    transform: scale(0)
+  to
+    transform: scale(1)
 @keyframes heat-over
   from
     opacity: 1
   to
     opacity: 0.55
 @media (prefers-reduced-motion: reduce)
-  .hero-frame__heat.is-over
+  .hero-frame__heat.is-over, .hero-frame__level.is-pop, .hero-frame__level.is-pop::after, .chip-enter-active
     animation: none
 </style>

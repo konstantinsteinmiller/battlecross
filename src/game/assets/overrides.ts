@@ -22,10 +22,10 @@ import overrides from 'virtual:asset-overrides'
  * so the game only requests files that exist; a missing one is never a 404.
  * Each map is keyed by the file name without its extension.
  */
-const byName = (files: string[], dir: string): Map<string, string> => {
+const byName = (files: string[] | undefined, dir: string): Map<string, string> => {
   const base = import.meta.env.BASE_URL
   const m = new Map<string, string>()
-  for (const f of files) m.set(f.slice(0, f.lastIndexOf('.')), `${base}${dir}/${f}`)
+  for (const f of files ?? []) m.set(f.slice(0, f.lastIndexOf('.')), `${base}${dir}/${f}`)
   return m
 }
 
