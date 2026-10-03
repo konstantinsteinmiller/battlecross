@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Napauta esinettä nähdäksesi hinnan ja sitten Osta.',
       mouse: 'Napsauta esinettä nähdäksesi hinnan ja sitten Osta.'
+    },
+    exit: {
+      touch: 'Napauta karttapainiketta lähteäksesi kaupungista seuraavalle seikkailulle.',
+      mouse: 'Napsauta karttapainiketta lähteäksesi kaupungista seuraavalle seikkailulle.'
     }
+  },
+  goal: {
+    dummy: 'Kaada harjoitusnukke',
+    clear: 'Puhdista {place}',
+    boss: 'Kukista {foe}',
+    exit: 'Ota saalis ja lähde',
+    wave: 'Selviydy aalloista',
+    trainer: 'Puhu kouluttajalle',
+    learn: 'Opi kyky',
+    points: 'Käytä pisteesi',
+    leave: 'Suuntaa kohteeseen {place}',
+    travel: 'Matkusta kohteeseen {place}',
+    decide: 'Tee valintasi',
+    explore: 'Tutki valtakuntaa',
+    show: 'Näytä tie: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Arkut',
     time: 'Aika',
     unlocked: 'Uutta kartalla: {places}',
+    equipped: 'Varusteena',
+    better: 'Parempi kuin se, mitä käytät',
     retry: 'Yritä uudelleen',
     tip: 'Saat pitää kokemuksen ja saaliin. Käytä pisteesi, käy kouluttajalla ja palaa vahvempana.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Salli mainokset sivustolla',
     allowSuffix: '(tai keskeytä mainosesto tälle pelille) ja yritä uudelleen.',
     gotIt: 'Selvä'
+  },
+  forcedDark: {
+    title: 'Poista tumma tila käytöstä tässä pelissä',
+    body: 'Selaimesi tai laajennus muuttaa tämän sivun värejä. Pelillä on omat värinsä, eikä se toimi pakotetun tumman tilan kanssa.',
+    waiting: 'Peli jatkuu itsestään heti, kun se on pois päältä.',
+    continueAnyway: 'Jatka omalla vastuulla',
+    hint: {
+      darkReader: 'Dark Reader: napsauta sen kuvaketta ja poista se käytöstä tällä sivustolla.',
+      extension: 'Avaa tumman tilan laajennus ja poista se käytöstä tällä sivustolla.',
+      chromiumFlag: 'Avaa {flagUrl} ja aseta «Auto Dark Mode for Web Contents» arvoon Default tai poista «tumma teema sivustoille» käytöstä selaimen teema-asetuksista.',
+      samsung: 'Samsung Internet: avaa valikko ja poista tumma tila käytöstä tai ota käyttöön Labs → «Use website dark theme».',
+      forcedColors: 'Windows: poista kontrastiteemat käytöstä kohdassa Asetukset → Helppokäyttöisyys → Kontrastiteemat.',
+      firefoxColors: 'Firefox: Asetukset → Värit → aseta «Ohita sivun määrittämät värit» arvoon Ei koskaan.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Pilvitallennus palautettu',

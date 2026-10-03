@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: '點一下物品查看價格，再點「購買」。',
       mouse: '點一下物品查看價格，再點「購買」。'
+    },
+    exit: {
+      touch: '點一下地圖按鈕，離開城鎮踏上下一段冒險。',
+      mouse: '點一下地圖按鈕，離開城鎮踏上下一段冒險。'
     }
+  },
+  goal: {
+    dummy: '打倒訓練木樁',
+    clear: '清理{place}',
+    boss: '擊敗{foe}',
+    exit: '帶上戰利品離開',
+    wave: '撐過所有波次',
+    trainer: '找導師談談',
+    learn: '學會一項技能',
+    points: '用掉你的點數',
+    leave: '動身去{place}',
+    travel: '前往{place}',
+    decide: '做出你的選擇',
+    explore: '探索王國',
+    show: '幫我指路：{goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: '寶箱',
     time: '時間',
     unlocked: '地圖新增：{places}',
+    equipped: '已裝備',
+    better: '比你身上的更好',
     retry: '再試一次',
     tip: '經驗和戰利品都會保留。把點數用掉，去找導師，變強之後再回來。'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: '請在以下網站允許廣告：',
     allowSuffix: '（或在本遊戲暫停廣告封鎖程式）然後再試一次。',
     gotIt: '知道了'
+  },
+  forcedDark: {
+    title: '請為本遊戲關閉深色模式',
+    body: '你的瀏覽器或某個擴充功能正在為這個頁面重新上色。遊戲有自己的配色，無法配合深色模式的強制改色。',
+    waiting: '一旦關閉，遊戲會自動繼續。',
+    continueAnyway: '風險自負，繼續',
+    hint: {
+      darkReader: 'Dark Reader：點一下它的圖示，針對本網站將其關閉。',
+      extension: '開啟你的深色模式擴充功能，針對本網站將其關閉。',
+      chromiumFlag: '開啟 {flagUrl}，把「Auto Dark Mode for Web Contents」設為 Default，或在瀏覽器的主題設定中關閉「dark theme for sites」。',
+      samsung: 'Samsung Internet：開啟選單關閉深色模式，或在 Labs 中開啟「Use website dark theme」。',
+      forcedColors: 'Windows：在 設定 → 協助工具 → 對比主題 中關閉對比主題。',
+      firefoxColors: 'Firefox：設定 → 色彩 → 把「覆寫頁面指定的色彩」設為「永不」。'
+    }
   },
   saveStatus: {
     restoredTitle: '雲端存檔已還原',

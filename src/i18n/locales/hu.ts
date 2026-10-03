@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Koppints egy tárgyra az ár megtekintéséhez, majd a Vétel gombra.',
       mouse: 'Kattints egy tárgyra az ár megtekintéséhez, majd a Vétel gombra.'
+    },
+    exit: {
+      touch: 'Koppints a térkép gombra, hogy elhagyd a várost a következő kalandodra.',
+      mouse: 'Kattints a térkép gombra, hogy elhagyd a várost a következő kalandodra.'
     }
+  },
+  goal: {
+    dummy: 'Döntsd le a gyakorlóbábut',
+    clear: 'Tisztítsd meg: {place}',
+    boss: 'Győzd le: {foe}',
+    exit: 'Vidd a zsákmányt, és indulj',
+    wave: 'Éld túl a hullámokat',
+    trainer: 'Beszélj egy tanítóval',
+    learn: 'Tanulj meg egy képességet',
+    points: 'Költsd el a pontjaidat',
+    leave: 'Indulj: {place}',
+    travel: 'Utazz ide: {place}',
+    decide: 'Hozd meg a döntésed',
+    explore: 'Fedezd fel a birodalmat',
+    show: 'Mutasd az utat: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Ládák',
     time: 'Idő',
     unlocked: 'Új a térképen: {places}',
+    equipped: 'Felszerelve',
+    better: 'Jobb, mint amit viselsz',
     retry: 'Próbáld újra',
     tip: 'A tapasztalat és a zsákmány megmarad. Költsd el a pontjaidat, keress fel egy tanítót, és térj vissza erősebben.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Engedélyezd a hirdetéseket itt:',
     allowSuffix: '(vagy szüneteltesd a reklámblokkolót ennél a játéknál), és próbáld újra.',
     gotIt: 'Értem'
+  },
+  forcedDark: {
+    title: 'Kapcsold ki a sötét módot ehhez a játékhoz',
+    body: 'A böngésződ vagy egy bővítmény átszínezi ezt az oldalt. A játéknak saját színei vannak, és nem működik erőltetett sötét móddal.',
+    waiting: 'A játék magától folytatódik, amint kikapcsoltad.',
+    continueAnyway: 'Folytatás saját felelősségre',
+    hint: {
+      darkReader: 'Dark Reader: kattints az ikonjára, és kapcsold ki ezen az oldalon.',
+      extension: 'Nyisd meg a sötét mód bővítményét, és kapcsold ki ezen az oldalon.',
+      chromiumFlag: 'Nyisd meg ezt: {flagUrl}, és állítsd az «Auto Dark Mode for Web Contents» értékét Default-ra, vagy kapcsold ki a «sötét téma weboldalakhoz» opciót a böngésző témabeállításaiban.',
+      samsung: 'Samsung Internet: nyisd meg a menüt, és kapcsold ki a sötét módot, vagy kapcsold be: Labs → «Use website dark theme».',
+      forcedColors: 'Windows: kapcsold ki a kontrasztos témákat itt: Beállítások → Kisegítő lehetőségek → Kontrasztos témák.',
+      firefoxColors: 'Firefox: Beállítások → Színek → állítsd az «Oldal által megadott színek felülbírálása» értékét Soha-ra.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Felhőmentés visszaállítva',

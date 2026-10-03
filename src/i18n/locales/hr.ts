@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Dodirni predmet da vidiš cijenu, zatim „Kupi”.',
       mouse: 'Klikni na predmet da vidiš cijenu, zatim „Kupi”.'
+    },
+    exit: {
+      touch: 'Dodirni gumb karte da napustiš grad i kreneš u novu pustolovinu.',
+      mouse: 'Klikni gumb karte da napustiš grad i kreneš u novu pustolovinu.'
     }
+  },
+  goal: {
+    dummy: 'Obori strašilo za trening',
+    clear: 'Očisti: {place}',
+    boss: 'Pobijedi: {foe}',
+    exit: 'Uzmi plijen i odlazi',
+    wave: 'Preživi valove',
+    trainer: 'Razgovaraj s učiteljem',
+    learn: 'Nauči vještinu',
+    points: 'Potroši svoje bodove',
+    leave: 'Kreni prema: {place}',
+    travel: 'Putuj u: {place}',
+    decide: 'Odaberi',
+    explore: 'Istraži kraljevstvo',
+    show: 'Pokaži mi put: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Škrinje',
     time: 'Vrijeme',
     unlocked: 'Novo na karti: {places}',
+    equipped: 'Opremljeno',
+    better: 'Bolje od onoga što nosiš',
     retry: 'Pokušaj ponovno',
     tip: 'Iskustvo i plijen ostaju tebi. Potroši bodove, posjeti učitelja i vrati se s više snage.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Molimo dopusti oglase na',
     allowSuffix: '(ili pauziraj blokator oglasa za ovu igru) i pokušaj ponovno.',
     gotIt: 'Razumijem'
+  },
+  forcedDark: {
+    title: 'Isključi tamni način rada za ovu igru',
+    body: 'Tvoj preglednik ili dodatak mijenja boje ove stranice. Igra ima vlastite boje i ne radi s nametnutim tamnim načinom rada.',
+    waiting: 'Igra se nastavlja sama čim ga isključiš.',
+    continueAnyway: 'Nastavi na vlastitu odgovornost',
+    hint: {
+      darkReader: 'Dark Reader: klikni njegovu ikonu i isključi ga za ovu stranicu.',
+      extension: 'Otvori dodatak za tamni način rada i isključi ga za ovu stranicu.',
+      chromiumFlag: 'Otvori {flagUrl} i postavi «Auto Dark Mode for Web Contents» na Default ili isključi «tamnu temu za stranice» u postavkama teme preglednika.',
+      samsung: 'Samsung Internet: otvori izbornik i isključi tamni način rada ili uključi Labs → «Use website dark theme».',
+      forcedColors: 'Windows: isključi teme visokog kontrasta u Postavke → Pristupačnost → Teme kontrasta.',
+      firefoxColors: 'Firefox: Postavke → Boje → postavi «Zamijeni boje koje određuje stranica» na Nikad.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Spremanje u oblaku vraćeno',

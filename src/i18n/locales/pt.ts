@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Toque em um item para ver o preço e depois em Comprar.',
       mouse: 'Clique em um item para ver o preço e depois em Comprar.'
+    },
+    exit: {
+      touch: 'Toque no botão do mapa para sair da cidade rumo à próxima aventura.',
+      mouse: 'Clique no botão do mapa para sair da cidade rumo à próxima aventura.'
     }
+  },
+  goal: {
+    dummy: 'Derrube o boneco de treino',
+    clear: 'Limpe {place}',
+    boss: 'Derrote {foe}',
+    exit: 'Pegue o saque e saia',
+    wave: 'Sobreviva às ondas',
+    trainer: 'Fale com um treinador',
+    learn: 'Aprenda uma habilidade',
+    points: 'Gaste seus pontos',
+    leave: 'Parta para {place}',
+    travel: 'Viaje até {place}',
+    decide: 'Faça sua escolha',
+    explore: 'Explore o reino',
+    show: 'Mostre o caminho: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Baús',
     time: 'Tempo',
     unlocked: 'Novo no mapa: {places}',
+    equipped: 'Equipado',
+    better: 'Melhor que o que você usa',
     retry: 'Tentar de novo',
     tip: 'Você fica com a experiência e o saque. Gaste seus pontos, visite um treinador e volte com mais força.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Permita anúncios em',
     allowSuffix: '(ou pause seu bloqueador para este jogo) e tente novamente.',
     gotIt: 'Entendi'
+  },
+  forcedDark: {
+    title: 'Desative o modo escuro para este jogo',
+    body: 'Seu navegador ou uma extensão está recolorindo esta página. O jogo tem as próprias cores e não funciona com modos escuros forçados.',
+    waiting: 'O jogo continua sozinho assim que for desativado.',
+    continueAnyway: 'Continuar por minha conta e risco',
+    hint: {
+      darkReader: 'Dark Reader: clique no ícone dele e desative para este site.',
+      extension: 'Abra sua extensão de modo escuro e desative para este site.',
+      chromiumFlag: 'Abra {flagUrl} e defina «Auto Dark Mode for Web Contents» como Default, ou desative «tema escuro para sites» nas configurações de tema do navegador.',
+      samsung: 'Samsung Internet: abra o menu e desative o modo escuro, ou ative Labs → «Use website dark theme».',
+      forcedColors: 'Windows: desative os temas de contraste em Configurações → Acessibilidade → Temas de contraste.',
+      firefoxColors: 'Firefox: Configurações → Cores → defina «Substituir as cores especificadas pela página» como Nunca.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Salvamento na nuvem restaurado',

@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Fiyatını görmek için bir eşyaya dokun, sonra Satın al\'a dokun.',
       mouse: 'Fiyatını görmek için bir eşyaya tıkla, sonra Satın al\'a tıkla.'
+    },
+    exit: {
+      touch: 'Harita düğmesine dokun; kasabadan çık ve bir sonraki maceraya git.',
+      mouse: 'Harita düğmesine tıkla; kasabadan çık ve bir sonraki maceraya git.'
     }
+  },
+  goal: {
+    dummy: 'Talim mankenini devir',
+    clear: 'Temizle: {place}',
+    boss: 'Yen: {foe}',
+    exit: 'Ganimetini al ve çık',
+    wave: 'Dalgalardan sağ çık',
+    trainer: 'Bir eğitmenle konuş',
+    learn: 'Bir yetenek öğren',
+    points: 'Puanlarını harca',
+    leave: 'Yola çık: {place}',
+    travel: 'Seyahat et: {place}',
+    decide: 'Seçimini yap',
+    explore: 'Diyarı keşfet',
+    show: 'Yolu göster: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Sandıklar',
     time: 'Süre',
     unlocked: 'Haritada yeni: {places}',
+    equipped: 'Kuşanıldı',
+    better: 'Üzerindekinden daha iyi',
     retry: 'Tekrar dene',
     tip: 'Deneyim ve ganimet sende kalır. Puanlarını harca, bir eğitmene uğra ve daha güçlü dön.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Lütfen şu adreste reklamlara izin ver:',
     allowSuffix: '(veya bu oyun için reklam engelleyiciyi duraklat) ve tekrar dene.',
     gotIt: 'Anladım'
+  },
+  forcedDark: {
+    title: 'Lütfen bu oyun için karanlık modu kapat',
+    body: 'Tarayıcın ya da bir eklenti bu sayfanın renklerini değiştiriyor. Oyunun kendi renkleri var ve zorla uygulanan karanlık modla düzgün çalışmıyor.',
+    waiting: 'Kapatır kapatmaz oyun kendiliğinden devam eder.',
+    continueAnyway: 'Riski bana ait, devam et',
+    hint: {
+      darkReader: 'Dark Reader: simgesine tıkla ve bu site için kapat.',
+      extension: 'Karanlık mod eklentini aç ve bu site için kapat.',
+      chromiumFlag: '{flagUrl} adresini aç ve “Auto Dark Mode for Web Contents” ayarını Default yap ya da tarayıcının tema ayarlarında “dark theme for sites” seçeneğini kapat.',
+      samsung: 'Samsung Internet: menüyü aç ve karanlık modu kapat ya da Labs → “Use website dark theme” seçeneğini aç.',
+      forcedColors: 'Windows: Ayarlar → Erişilebilirlik → Karşıtlık temaları bölümünden karşıtlık temalarını kapat.',
+      firefoxColors: 'Firefox: Ayarlar → Renkler → “Sayfanın belirttiği renkleri geçersiz kıl” seçeneğini Hiçbir zaman yap.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Bulut kaydı geri yüklendi',

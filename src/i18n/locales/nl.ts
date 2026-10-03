@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Tik op een voorwerp om de prijs te zien en dan op Kopen.',
       mouse: 'Klik op een voorwerp om de prijs te zien en dan op Kopen.'
+    },
+    exit: {
+      touch: 'Tik op de kaartknop om de stad te verlaten voor je volgende avontuur.',
+      mouse: 'Klik op de kaartknop om de stad te verlaten voor je volgende avontuur.'
     }
+  },
+  goal: {
+    dummy: 'Sla de trainingspop omver',
+    clear: 'Zuiver {place}',
+    boss: 'Versla {foe}',
+    exit: 'Pak je buit en ga',
+    wave: 'Overleef de golven',
+    trainer: 'Praat met een leermeester',
+    learn: 'Leer een vaardigheid',
+    points: 'Verdeel je punten',
+    leave: 'Vertrek naar {place}',
+    travel: 'Reis naar {place}',
+    decide: 'Maak je keuze',
+    explore: 'Verken het rijk',
+    show: 'Wijs me de weg: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Kisten',
     time: 'Tijd',
     unlocked: 'Nieuw op de kaart: {places}',
+    equipped: 'Aangetrokken',
+    better: 'Beter dan wat je draagt',
     retry: 'Nog eens',
     tip: 'Je houdt de ervaring en de buit. Verdeel je punten, ga langs bij een leermeester en kom sterker terug.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Sta advertenties toe op',
     allowSuffix: '(of pauzeer je adblocker voor dit spel) en probeer het opnieuw.',
     gotIt: 'Begrepen'
+  },
+  forcedDark: {
+    title: 'Zet de donkere modus uit voor dit spel',
+    body: 'Je browser of een extensie kleurt deze pagina om. Het spel heeft eigen kleuren en werkt niet met overschrijvingen van de donkere modus.',
+    waiting: 'Het spel gaat vanzelf verder zodra hij uit staat.',
+    continueAnyway: 'Doorgaan op eigen risico',
+    hint: {
+      darkReader: 'Dark Reader: klik op het pictogram en zet hem uit voor deze site.',
+      extension: 'Open je extensie voor de donkere modus en zet hem uit voor deze site.',
+      chromiumFlag: 'Open {flagUrl} en zet «Auto Dark Mode for Web Contents» op Default, of zet «donker thema voor sites» uit in de thema-instellingen van je browser.',
+      samsung: 'Samsung Internet: open het menu en zet de donkere modus uit, of zet Labs → «Use website dark theme» aan.',
+      forcedColors: 'Windows: zet de contrastthema\'s uit via Instellingen → Toegankelijkheid → Contrastthema\'s.',
+      firefoxColors: 'Firefox: Instellingen → Kleuren → zet «Kleuren van de pagina overschrijven» op Nooit.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Cloudopslag hersteld',

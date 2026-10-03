@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Toca un objecte per veure’n el preu i després toca Compra.',
       mouse: 'Fes clic en un objecte per veure’n el preu i després a Compra.'
+    },
+    exit: {
+      touch: 'Toca el botó del mapa per sortir de la ciutat cap a la teva propera aventura.',
+      mouse: 'Fes clic al botó del mapa per sortir de la ciutat cap a la teva propera aventura.'
     }
+  },
+  goal: {
+    dummy: 'Tomba el maniquí d’entrenament',
+    clear: 'Neteja {place}',
+    boss: 'Derrota {foe}',
+    exit: 'Agafa el botí i marxa',
+    wave: 'Sobreviu a les onades',
+    trainer: 'Parla amb un mestre',
+    learn: 'Aprèn una habilitat',
+    points: 'Gasta els teus punts',
+    leave: 'Marxa cap a {place}',
+    travel: 'Viatja a {place}',
+    decide: 'Pren la teva decisió',
+    explore: 'Explora el regne',
+    show: 'Mostra’m el camí: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Cofres',
     time: 'Temps',
     unlocked: 'Nou al mapa: {places}',
+    equipped: 'Equipat',
+    better: 'Millor que el que portes',
     retry: 'Torna-ho a provar',
     tip: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més fort.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Permet els anuncis a',
     allowSuffix: '(o posa en pausa el bloquejador per a aquest joc) i torna-ho a provar.',
     gotIt: 'Entesos'
+  },
+  forcedDark: {
+    title: 'Desactiva el mode fosc per a aquest joc, si us plau',
+    body: 'El navegador o una extensió està repintant aquesta pàgina. El joc té els seus propis colors i no funciona amb els modes foscos forçats.',
+    waiting: 'El joc continuarà sol tan bon punt ho desactivis.',
+    continueAnyway: 'Continua assumint el risc',
+    hint: {
+      darkReader: 'Dark Reader: fes clic a la seva icona i desactiva’l per a aquest lloc.',
+      extension: 'Obre la teva extensió de mode fosc i desactiva-la per a aquest lloc.',
+      chromiumFlag: 'Obre {flagUrl} i posa “Auto Dark Mode for Web Contents” a Default, o desactiva “dark theme for sites” a la configuració del tema del navegador.',
+      samsung: 'Samsung Internet: obre el menú i desactiva el mode fosc, o activa Labs → “Use website dark theme”.',
+      forcedColors: 'Windows: desactiva els temes de contrast a Configuració → Accessibilitat → Temes de contrast.',
+      firefoxColors: 'Firefox: Configuració → Colors → posa “Anul·la els colors especificats per la pàgina” a Mai.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Partida al núvol restaurada',

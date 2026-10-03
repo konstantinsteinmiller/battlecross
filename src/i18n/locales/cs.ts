@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Klepni na předmět, uvidíš cenu, a pak na „Koupit“.',
       mouse: 'Klikni na předmět, uvidíš cenu, a pak na „Koupit“.'
+    },
+    exit: {
+      touch: 'Klepni na tlačítko mapy a opusť město za dalším dobrodružstvím.',
+      mouse: 'Klikni na tlačítko mapy a opusť město za dalším dobrodružstvím.'
     }
+  },
+  goal: {
+    dummy: 'Skoť cvičného panáka',
+    clear: 'Vyčisti: {place}',
+    boss: 'Poraž: {foe}',
+    exit: 'Vezmi kořist a odejdi',
+    wave: 'Přežij vlny',
+    trainer: 'Promluv s učitelem',
+    learn: 'Nauč se dovednost',
+    points: 'Utrať své body',
+    leave: 'Vyraz do: {place}',
+    travel: 'Cestuj do: {place}',
+    decide: 'Vyber si',
+    explore: 'Prozkoumej říši',
+    show: 'Ukaž mi cestu: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Truhly',
     time: 'Čas',
     unlocked: 'Nově na mapě: {places}',
+    equipped: 'Nasazeno',
+    better: 'Lepší než to, co nosíš',
     retry: 'Zkusit znovu',
     tip: 'Zkušenosti i kořist ti zůstávají. Rozděl body, zajdi za učitelem a vrať se s větší silou.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Povol prosím reklamy na',
     allowSuffix: '(nebo pro tuto hru pozastav blokátor reklam) a zkus to znovu.',
     gotIt: 'Rozumím'
+  },
+  forcedDark: {
+    title: 'Vypni pro tuto hru tmavý režim',
+    body: 'Tvůj prohlížeč nebo rozšíření přebarvuje tuto stránku. Hra má vlastní barvy a s vynuceným tmavým režimem nefunguje.',
+    waiting: 'Hra bude pokračovat sama, jakmile ho vypneš.',
+    continueAnyway: 'Pokračovat na vlastní riziko',
+    hint: {
+      darkReader: 'Dark Reader: klikni na jeho ikonu a pro tento web ho vypni.',
+      extension: 'Otevři rozšíření pro tmavý režim a pro tento web ho vypni.',
+      chromiumFlag: 'Otevři {flagUrl} a nastav «Auto Dark Mode for Web Contents» na Default, nebo vypni «tmavý motiv pro weby» v nastavení motivu prohlížeče.',
+      samsung: 'Samsung Internet: otevři nabídku a vypni tmavý režim, nebo zapni Labs → «Use website dark theme».',
+      forcedColors: 'Windows: vypni kontrastní motivy v Nastavení → Přístupnost → Kontrastní motivy.',
+      firefoxColors: 'Firefox: Nastavení → Barvy → nastav «Přepsat barvy určené stránkou» na Nikdy.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Uložení v cloudu obnoveno',

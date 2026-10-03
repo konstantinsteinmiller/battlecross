@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Tippe auf einen Gegenstand, um den Preis zu sehen, dann auf Kaufen.',
       mouse: 'Klicke auf einen Gegenstand, um den Preis zu sehen, dann auf Kaufen.'
+    },
+    exit: {
+      touch: 'Tippe auf die Kartentaste, um die Stadt für dein nächstes Abenteuer zu verlassen.',
+      mouse: 'Klicke auf die Kartentaste, um die Stadt für dein nächstes Abenteuer zu verlassen.'
     }
+  },
+  goal: {
+    dummy: 'Wirf die Trainingspuppe um',
+    clear: '{place} säubern',
+    boss: 'Besiege {foe}',
+    exit: 'Nimm die Beute und geh',
+    wave: 'Überlebe die Wellen',
+    trainer: 'Sprich mit einem Lehrmeister',
+    learn: 'Lerne eine Fähigkeit',
+    points: 'Verteile deine Punkte',
+    leave: 'Auf nach {place}',
+    travel: 'Reise nach {place}',
+    decide: 'Triff deine Wahl',
+    explore: 'Erkunde die Welt',
+    show: 'Zeig mir den Weg: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Truhen',
     time: 'Zeit',
     unlocked: 'Neu auf der Karte: {places}',
+    equipped: 'Angelegt',
+    better: 'Besser als dein Gewand',
     retry: 'Noch mal',
     tip: 'Erfahrung und Beute behältst du. Verteile deine Punkte, besuche einen Lehrmeister und komm stärker zurück.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Bitte erlaube Werbung auf',
     allowSuffix: '(oder pausiere deinen Adblocker für dieses Spiel) und versuche es erneut.',
     gotIt: 'Verstanden'
+  },
+  forcedDark: {
+    title: 'Bitte schalte den Dunkelmodus für dieses Spiel aus',
+    body: 'Dein Browser oder eine Erweiterung färbt diese Seite um. Das Spiel hat eigene Farben und funktioniert nicht mit Dunkelmodus-Überschreibungen.',
+    waiting: 'Das Spiel geht von selbst weiter, sobald er aus ist.',
+    continueAnyway: 'Auf eigene Gefahr fortfahren',
+    hint: {
+      darkReader: 'Dark Reader: Klicke auf sein Symbol und schalte ihn für diese Seite aus.',
+      extension: 'Öffne deine Dunkelmodus-Erweiterung und schalte sie für diese Seite aus.',
+      chromiumFlag: 'Öffne {flagUrl} und setze „Auto Dark Mode for Web Contents“ auf Default, oder schalte „dunkles Design für Websites“ in den Design-Einstellungen deines Browsers aus.',
+      samsung: 'Samsung Internet: Öffne das Menü und schalte den Dunkelmodus aus, oder aktiviere Labs → „Dunkles Website-Design verwenden“.',
+      forcedColors: 'Windows: Schalte die Kontrastdesigns unter Einstellungen → Barrierefreiheit → Kontrastdesigns aus.',
+      firefoxColors: 'Firefox: Einstellungen → Farben → setze „Von der Seite festgelegte Farben überschreiben“ auf Nie.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Cloud-Speicher wiederhergestellt',

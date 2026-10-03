@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Atinge un obiect ca să-i vezi prețul, apoi Cumpără.',
       mouse: 'Dă clic pe un obiect ca să-i vezi prețul, apoi pe Cumpără.'
+    },
+    exit: {
+      touch: 'Atinge butonul hărții ca să pleci din oraș spre următoarea aventură.',
+      mouse: 'Dă clic pe butonul hărții ca să pleci din oraș spre următoarea aventură.'
     }
+  },
+  goal: {
+    dummy: 'Doboară manechinul de antrenament',
+    clear: 'Curăță {place}',
+    boss: 'Învinge: {foe}',
+    exit: 'Ia prada și pleacă',
+    wave: 'Supraviețuiește valurilor',
+    trainer: 'Vorbește cu un maestru',
+    learn: 'Învață o abilitate',
+    points: 'Cheltuie-ți punctele',
+    leave: 'Pleacă spre {place}',
+    travel: 'Călătorește la {place}',
+    decide: 'Ia-ți decizia',
+    explore: 'Explorează regatul',
+    show: 'Arată-mi drumul: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Cufere',
     time: 'Timp',
     unlocked: 'Nou pe hartă: {places}',
+    equipped: 'Echipat',
+    better: 'Mai bun decât ce porți',
     retry: 'Încearcă din nou',
     tip: 'Păstrezi experiența și prada. Cheltuie-ți punctele, treci pe la un maestru și întoarce-te mai puternic.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Te rugăm să permiți reclamele pe',
     allowSuffix: '(sau pune pe pauză blocarea reclamelor pentru acest joc) și încearcă din nou.',
     gotIt: 'Am înțeles'
+  },
+  forcedDark: {
+    title: 'Te rugăm să oprești modul întunecat pentru acest joc',
+    body: 'Browserul sau o extensie recolorează această pagină. Jocul are culorile lui și nu merge cu modurile întunecate forțate.',
+    waiting: 'Jocul continuă singur imediat ce îl oprești.',
+    continueAnyway: 'Continuă pe răspunderea mea',
+    hint: {
+      darkReader: 'Dark Reader: apasă pe pictograma lui și oprește-l pentru acest site.',
+      extension: 'Deschide extensia de mod întunecat și oprește-o pentru acest site.',
+      chromiumFlag: 'Deschide {flagUrl} și setează „Auto Dark Mode for Web Contents” pe Default sau oprește „dark theme for sites” din setările de temă ale browserului.',
+      samsung: 'Samsung Internet: deschide meniul și oprește modul întunecat sau activează Labs → „Use website dark theme”.',
+      forcedColors: 'Windows: oprește temele de contrast din Setări → Accesibilitate → Teme de contrast.',
+      firefoxColors: 'Firefox: Setări → Culori → setează „Suprascrie culorile specificate de pagină” pe Niciodată.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Salvare din cloud restaurată',

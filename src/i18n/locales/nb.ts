@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Trykk på en gjenstand for å se prisen, og trykk så på Kjøp.',
       mouse: 'Klikk på en gjenstand for å se prisen, og klikk så på Kjøp.'
+    },
+    exit: {
+      touch: 'Trykk på kartknappen for å forlate byen og dra på neste eventyr.',
+      mouse: 'Klikk på kartknappen for å forlate byen og dra på neste eventyr.'
     }
+  },
+  goal: {
+    dummy: 'Slå ned treningsdukken',
+    clear: 'Rydd {place}',
+    boss: 'Beseir {foe}',
+    exit: 'Ta byttet og gå',
+    wave: 'Overlev bølgene',
+    trainer: 'Snakk med en læremester',
+    learn: 'Lær en ferdighet',
+    points: 'Bruk poengene dine',
+    leave: 'Dra til {place}',
+    travel: 'Reis til {place}',
+    decide: 'Ta ditt valg',
+    explore: 'Utforsk riket',
+    show: 'Vis meg veien: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Kister',
     time: 'Tid',
     unlocked: 'Nytt på kartet: {places}',
+    equipped: 'Utstyrt',
+    better: 'Bedre enn det du har på deg',
     retry: 'Prøv igjen',
     tip: 'Du beholder erfaringen og byttet. Fordel poengene dine, besøk en læremester og kom sterkere tilbake.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Tillat reklame på',
     allowSuffix: '(eller sett annonseblokkeren på pause for dette spillet) og prøv igjen.',
     gotIt: 'Skjønner'
+  },
+  forcedDark: {
+    title: 'Slå av mørk modus for dette spillet',
+    body: 'Nettleseren din eller en utvidelse endrer fargene på denne siden. Spillet har egne farger og fungerer ikke med påtvunget mørk modus.',
+    waiting: 'Spillet fortsetter av seg selv så snart den er slått av.',
+    continueAnyway: 'Fortsett på eget ansvar',
+    hint: {
+      darkReader: 'Dark Reader: klikk på ikonet og slå den av for dette nettstedet.',
+      extension: 'Åpne utvidelsen for mørk modus og slå den av for dette nettstedet.',
+      chromiumFlag: 'Åpne {flagUrl} og sett «Auto Dark Mode for Web Contents» til Default, eller slå av «mørkt tema for nettsteder» i nettleserens temainnstillinger.',
+      samsung: 'Samsung Internet: åpne menyen og slå av mørk modus, eller slå på Labs → «Use website dark theme».',
+      forcedColors: 'Windows: slå av kontrastteamer under Innstillinger → Tilgjengelighet → Kontrastteamer.',
+      firefoxColors: 'Firefox: Innstillinger → Farger → sett «Overstyr fargene angitt av siden» til Aldri.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Skylagring gjenopprettet',

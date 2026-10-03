@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Dotknij przedmiotu, aby zobaczyć cenę, potem „Kup”.',
       mouse: 'Kliknij przedmiot, aby zobaczyć cenę, potem „Kup”.'
+    },
+    exit: {
+      touch: 'Dotknij przycisku mapy, aby opuścić miasto i ruszyć na kolejną przygodę.',
+      mouse: 'Kliknij przycisk mapy, aby opuścić miasto i ruszyć na kolejną przygodę.'
     }
+  },
+  goal: {
+    dummy: 'Przewróć manekin treningowy',
+    clear: 'Oczyść: {place}',
+    boss: 'Pokonaj: {foe}',
+    exit: 'Weź łup i wyjdź',
+    wave: 'Przetrwaj fale',
+    trainer: 'Porozmawiaj z trenerem',
+    learn: 'Naucz się umiejętności',
+    points: 'Wydaj swoje punkty',
+    leave: 'Wyrusz do: {place}',
+    travel: 'Udaj się do: {place}',
+    decide: 'Dokonaj wyboru',
+    explore: 'Zwiedzaj królestwo',
+    show: 'Pokaż mi drogę: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Skrzynie',
     time: 'Czas',
     unlocked: 'Nowe na mapie: {places}',
+    equipped: 'Założone',
+    better: 'Lepsze niż to, co nosisz',
     retry: 'Spróbuj ponownie',
     tip: 'Doświadczenie i łupy zostają z tobą. Wydaj punkty, odwiedź trenera i wróć z większą siłą.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Zezwól na reklamy na',
     allowSuffix: '(lub wstrzymaj blokadę reklam dla tej gry) i spróbuj ponownie.',
     gotIt: 'Rozumiem'
+  },
+  forcedDark: {
+    title: 'Wyłącz tryb ciemny dla tej gry',
+    body: 'Twoja przeglądarka lub rozszerzenie zmienia kolory tej strony. Gra ma własne kolory i nie działa z wymuszonym trybem ciemnym.',
+    waiting: 'Gra ruszy dalej sama, gdy tylko go wyłączysz.',
+    continueAnyway: 'Kontynuuj na własne ryzyko',
+    hint: {
+      darkReader: 'Dark Reader: kliknij jego ikonę i wyłącz go dla tej strony.',
+      extension: 'Otwórz rozszerzenie trybu ciemnego i wyłącz je dla tej strony.',
+      chromiumFlag: 'Otwórz {flagUrl} i ustaw «Auto Dark Mode for Web Contents» na Default albo wyłącz «ciemny motyw dla stron» w ustawieniach motywu przeglądarki.',
+      samsung: 'Samsung Internet: otwórz menu i wyłącz tryb ciemny albo włącz Labs → «Use website dark theme».',
+      forcedColors: 'Windows: wyłącz motywy z dużym kontrastem w Ustawienia → Ułatwienia dostępu → Motywy kontrastowe.',
+      firefoxColors: 'Firefox: Ustawienia → Kolory → ustaw «Zastępuj kolory określone przez stronę» na Nigdy.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Zapis w chmurze przywrócony',

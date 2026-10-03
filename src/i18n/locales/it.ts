@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Tocca un oggetto per vederne il prezzo, poi tocca Compra.',
       mouse: 'Clicca su un oggetto per vederne il prezzo, poi su Compra.'
+    },
+    exit: {
+      touch: 'Tocca il pulsante mappa per lasciare la città e partire per la prossima avventura.',
+      mouse: 'Clicca sul pulsante mappa per lasciare la città e partire per la prossima avventura.'
     }
+  },
+  goal: {
+    dummy: 'Abbatti il manichino da allenamento',
+    clear: 'Libera {place}',
+    boss: 'Sconfiggi {foe}',
+    exit: 'Prendi il bottino ed esci',
+    wave: 'Sopravvivi alle ondate',
+    trainer: 'Parla con un maestro',
+    learn: 'Impara un’abilità',
+    points: 'Spendi i tuoi punti',
+    leave: 'Parti per {place}',
+    travel: 'Viaggia verso {place}',
+    decide: 'Fai la tua scelta',
+    explore: 'Esplora il regno',
+    show: 'Mostrami la strada: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Forzieri',
     time: 'Tempo',
     unlocked: 'Nuovo sulla mappa: {places}',
+    equipped: 'Equipaggiato',
+    better: 'Meglio di ciò che indossi',
     retry: 'Riprova',
     tip: 'Esperienza e bottino restano tuoi. Spendi i tuoi punti, visita un maestro e torna con più forza.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Consenti gli annunci su',
     allowSuffix: '(o metti in pausa il blocco annunci per questo gioco) e riprova.',
     gotIt: 'Capito'
+  },
+  forcedDark: {
+    title: 'Disattiva la modalità scura per questo gioco',
+    body: 'Il tuo browser o un’estensione sta ricolorando questa pagina. Il gioco ha i suoi colori e non funziona con le modalità scure forzate.',
+    waiting: 'Il gioco riprende da solo appena la disattivi.',
+    continueAnyway: 'Continua a mio rischio',
+    hint: {
+      darkReader: 'Dark Reader: clicca sulla sua icona e disattivalo per questo sito.',
+      extension: 'Apri la tua estensione per la modalità scura e disattivala per questo sito.',
+      chromiumFlag: 'Apri {flagUrl} e imposta «Auto Dark Mode for Web Contents» su Default, oppure disattiva «tema scuro per i siti» nelle impostazioni del tema del browser.',
+      samsung: 'Samsung Internet: apri il menu e disattiva la modalità scura, oppure attiva Labs → «Use website dark theme».',
+      forcedColors: 'Windows: disattiva i temi a contrasto in Impostazioni → Accessibilità → Temi a contrasto.',
+      firefoxColors: 'Firefox: Impostazioni → Colori → imposta «Ignora i colori specificati dalla pagina» su Mai.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Salvataggio cloud ripristinato',

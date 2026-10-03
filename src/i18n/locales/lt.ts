@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Palieski daiktą, kad pamatytum kainą, tada Pirkti.',
       mouse: 'Spustelėk daiktą, kad pamatytum kainą, tada Pirkti.'
+    },
+    exit: {
+      touch: 'Palieski žemėlapio mygtuką, kad išeitum iš miesto į kitą nuotykį.',
+      mouse: 'Spustelėk žemėlapio mygtuką, kad išeitum iš miesto į kitą nuotykį.'
     }
+  },
+  goal: {
+    dummy: 'Nuversk treniruočių manekeną',
+    clear: 'Išvalyk: {place}',
+    boss: 'Nugalėk: {foe}',
+    exit: 'Pasiimk grobį ir išeik',
+    wave: 'Atlaikyk bangas',
+    trainer: 'Pakalbėk su mokytoju',
+    learn: 'Išmok įgūdį',
+    points: 'Paskirstyk taškus',
+    leave: 'Išvykti: {place}',
+    travel: 'Keliauk: {place}',
+    decide: 'Apsispręsk',
+    explore: 'Tyrinėk karalystę',
+    show: 'Parodyk kelią: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Skrynios',
     time: 'Laikas',
     unlocked: 'Nauja žemėlapyje: {places}',
+    equipped: 'Naudojama',
+    better: 'Geriau už tai, ką dėvi',
     retry: 'Bandyti dar kartą',
     tip: 'Patirtis ir grobis lieka tau. Paskirstyk taškus, aplankyk mokytoją ir grįžk su daugiau jėgų.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Leisk reklamas svetainėje',
     allowSuffix: '(arba sustabdyk reklamų blokatorių šiam žaidimui) ir bandyk dar kartą.',
     gotIt: 'Supratau'
+  },
+  forcedDark: {
+    title: 'Prašome išjungti tamsųjį režimą šiam žaidimui',
+    body: 'Tavo naršyklė arba plėtinys perdažo šį puslapį. Žaidimas turi savo spalvas ir neveikia su priverstiniu tamsiuoju režimu.',
+    waiting: 'Žaidimas tęsis automatiškai, vos tik jį išjungsi.',
+    continueAnyway: 'Tęsti savo rizika',
+    hint: {
+      darkReader: 'Dark Reader: spustelėk jo piktogramą ir išjunk šiai svetainei.',
+      extension: 'Atidaryk tamsiojo režimo plėtinį ir išjunk jį šiai svetainei.',
+      chromiumFlag: 'Atidaryk {flagUrl} ir nustatyk „Auto Dark Mode for Web Contents“ į Default arba išjunk „dark theme for sites“ naršyklės temos nustatymuose.',
+      samsung: 'Samsung Internet: atidaryk meniu ir išjunk tamsųjį režimą arba įjunk Labs → „Use website dark theme“.',
+      forcedColors: 'Windows: išjunk kontrastines temas per Nustatymai → Pritaikymas neįgaliesiems → Kontrastinės temos.',
+      firefoxColors: 'Firefox: Nustatymai → Spalvos → „Perrašyti puslapio nurodytas spalvas“ nustatyk į Niekada.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Debesies išsaugojimas atkurtas',

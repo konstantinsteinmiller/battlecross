@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Narxini koʻrish uchun buyumga bosing, keyin Olish tugmasiga bosing.',
       mouse: 'Narxini koʻrish uchun buyumni cherting, keyin Olish tugmasini cherting.'
+    },
+    exit: {
+      touch: 'Shahardan chiqib, keyingi sarguzashtga otlanish uchun xarita tugmasini cherting.',
+      mouse: 'Shahardan chiqib, keyingi sarguzashtga otlanish uchun xarita tugmasini bosing.'
     }
+  },
+  goal: {
+    dummy: 'Mashq qoʻgʻirchogʻini yiqiting',
+    clear: 'Tozalang: {place}',
+    boss: 'Magʻlub eting: {foe}',
+    exit: 'Oʻljani olib, chiqing',
+    wave: 'Toʻlqinlarga bardosh bering',
+    trainer: 'Murabbiy bilan gaplashing',
+    learn: 'Koʻnikma oʻrganing',
+    points: 'Ochkolaringizni sarflang',
+    leave: 'Yoʻlga chiqing: {place}',
+    travel: 'Safar: {place}',
+    decide: 'Tanlovingizni qiling',
+    explore: 'Oʻlkani kashf eting',
+    show: 'Yoʻlni koʻrsating: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Sandiqlar',
     time: 'Vaqt',
     unlocked: 'Xaritada yangi: {places}',
+    equipped: 'Jihozlangan',
+    better: 'Kiyganingizdan yaxshiroq',
     retry: 'Qayta urinish',
     tip: 'Tajriba va oʻlja sizda qoladi. Ochkolaringizni sarflang, ustozga uchrang va kuchliroq boʻlib qayting.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Iltimos, quyidagi saytda reklamaga ruxsat bering:',
     allowSuffix: '(yoki bu oʻyin uchun reklama bloklagichni toʻxtating) va qayta urinib koʻring.',
     gotIt: 'Tushunarli'
+  },
+  forcedDark: {
+    title: 'Iltimos, bu oʻyin uchun qorongʻi rejimni oʻchiring',
+    body: 'Brauzeringiz yoki qoʻshimcha bu sahifaning ranglarini oʻzgartiryapti. Oʻyinning oʻz ranglari bor va majburiy qorongʻi rejim bilan toʻgʻri ishlamaydi.',
+    waiting: 'Oʻchirishingiz bilan oʻyin oʻzi davom etadi.',
+    continueAnyway: 'Oʻz javobgarligimda davom etish',
+    hint: {
+      darkReader: 'Dark Reader: belgisini bosing va bu sayt uchun oʻchiring.',
+      extension: 'Qorongʻi rejim qoʻshimchasini oching va bu sayt uchun oʻchiring.',
+      chromiumFlag: '{flagUrl} manzilini oching va “Auto Dark Mode for Web Contents” sozlamasini Default qiling yoki brauzerning mavzu sozlamalarida “dark theme for sites” ni oʻchiring.',
+      samsung: 'Samsung Internet: menyuni ochib, qorongʻi rejimni oʻchiring yoki Labs → “Use website dark theme” ni yoqing.',
+      forcedColors: 'Windows: Sozlamalar → Maxsus imkoniyatlar → Kontrast mavzulari boʻlimida kontrast mavzularini oʻchiring.',
+      firefoxColors: 'Firefox: Sozlamalar → Ranglar → “Sahifa belgilagan ranglarni bekor qilish” ni Hech qachon qiling.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Bulutli saqlash tiklandi',

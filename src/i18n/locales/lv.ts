@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Pieskaries priekšmetam, lai redzētu cenu, tad Pirkt.',
       mouse: 'Noklikšķini uz priekšmeta, lai redzētu cenu, tad uz Pirkt.'
+    },
+    exit: {
+      touch: 'Pieskaries kartes pogai, lai pamestu pilsētu un dotos uz nākamo piedzīvojumu.',
+      mouse: 'Noklikšķini uz kartes pogas, lai pamestu pilsētu un dotos uz nākamo piedzīvojumu.'
     }
+  },
+  goal: {
+    dummy: 'Nogāz treniņa lelli',
+    clear: 'Iztīri: {place}',
+    boss: 'Uzvari: {foe}',
+    exit: 'Ņem laupījumu un dodies prom',
+    wave: 'Izturi vilņus',
+    trainer: 'Parunā ar skolotāju',
+    learn: 'Apgūsti prasmi',
+    points: 'Iztērē punktus',
+    leave: 'Dodies uz: {place}',
+    travel: 'Ceļojums: {place}',
+    decide: 'Izdari savu izvēli',
+    explore: 'Izpēti valstību',
+    show: 'Parādi ceļu: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Lādes',
     time: 'Laiks',
     unlocked: 'Jaunums kartē: {places}',
+    equipped: 'Aprīkots',
+    better: 'Labāks par to, ko nēsā',
     retry: 'Mēģināt vēlreiz',
     tip: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāks.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Lūdzu, atļauj reklāmas vietnē',
     allowSuffix: '(vai apturi reklāmu bloķētāju šai spēlei) un mēģini vēlreiz.',
     gotIt: 'Skaidrs'
+  },
+  forcedDark: {
+    title: 'Lūdzu, izslēdz tumšo režīmu šai spēlei',
+    body: 'Tavs pārlūks vai paplašinājums pārkrāso šo lapu. Spēlei ir savas krāsas, un tā nestrādā ar piespiedu tumšo režīmu.',
+    waiting: 'Spēle turpināsies pati, tiklīdz to izslēgsi.',
+    continueAnyway: 'Turpināt uz savu risku',
+    hint: {
+      darkReader: 'Dark Reader: noklikšķini uz tā ikonas un izslēdz to šai vietnei.',
+      extension: 'Atver tumšā režīma paplašinājumu un izslēdz to šai vietnei.',
+      chromiumFlag: 'Atver {flagUrl} un iestati „Auto Dark Mode for Web Contents” uz Default vai izslēdz „dark theme for sites” pārlūka motīva iestatījumos.',
+      samsung: 'Samsung Internet: atver izvēlni un izslēdz tumšo režīmu vai ieslēdz Labs → „Use website dark theme”.',
+      forcedColors: 'Windows: izslēdz kontrasta motīvus sadaļā Iestatījumi → Pieejamība → Kontrasta motīvi.',
+      firefoxColors: 'Firefox: Iestatījumi → Krāsas → iestati „Aizstāt lapas norādītās krāsas” uz Nekad.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Mākoņa saglabājums atjaunots',

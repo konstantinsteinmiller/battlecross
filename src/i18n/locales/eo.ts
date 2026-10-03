@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Tuŝu objekton por vidi ĝian prezon, poste tuŝu Aĉeti.',
       mouse: 'Alklaku objekton por vidi ĝian prezon, poste alklaku Aĉeti.'
+    },
+    exit: {
+      touch: 'Tuŝu la mapan butonon por forlasi la urbon kaj iri al la sekva aventuro.',
+      mouse: 'Alklaku la mapan butonon por forlasi la urbon kaj iri al la sekva aventuro.'
     }
+  },
+  goal: {
+    dummy: 'Faligu la ekzercan pupon',
+    clear: 'Purigu {place}',
+    boss: 'Venku {foe}',
+    exit: 'Prenu la predon kaj foriru',
+    wave: 'Travivu la ondojn',
+    trainer: 'Parolu kun trejnisto',
+    learn: 'Lernu kapablon',
+    points: 'Elspezu viajn poentojn',
+    leave: 'Ekiru al {place}',
+    travel: 'Vojaĝu al {place}',
+    decide: 'Faru vian elekton',
+    explore: 'Esploru la regnon',
+    show: 'Montru al mi la vojon: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Kestoj',
     time: 'Tempo',
     unlocked: 'Nova sur la mapo: {places}',
+    equipped: 'Ekipita',
+    better: 'Pli bona ol tio, kion vi portas',
     retry: 'Reprovi',
     tip: 'Vi konservas la sperton kaj la predon. Elspezu viajn poentojn, vizitu trejniston, kaj revenu pli forta.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Bonvolu permesi reklamojn ĉe',
     allowSuffix: '(aŭ paŭzigu vian reklamblokilon por ĉi tiu ludo) kaj reprovu.',
     gotIt: 'Komprenite'
+  },
+  forcedDark: {
+    title: 'Bonvolu malŝalti malhelan reĝimon por ĉi tiu ludo',
+    body: 'Via retumilo aŭ etendaĵo refarbas ĉi tiun paĝon. La ludo havas siajn proprajn kolorojn kaj ne funkcias kun trudita malhela reĝimo.',
+    waiting: 'La ludo daŭras aŭtomate, tuj kiam ĝi estas malŝaltita.',
+    continueAnyway: 'Daŭrigi je propra risko',
+    hint: {
+      darkReader: 'Dark Reader: alklaku ĝian bildsimbolon kaj malŝaltu ĝin por ĉi tiu retejo.',
+      extension: 'Malfermu vian etendaĵon pri malhela reĝimo kaj malŝaltu ĝin por ĉi tiu retejo.',
+      chromiumFlag: 'Malfermu {flagUrl} kaj agordu “Auto Dark Mode for Web Contents” al Default, aŭ malŝaltu “dark theme for sites” en la temaj agordoj de la retumilo.',
+      samsung: 'Samsung Internet: malfermu la menuon kaj malŝaltu malhelan reĝimon, aŭ ŝaltu Labs → “Use website dark theme”.',
+      forcedColors: 'Windows: malŝaltu kontrastajn temojn en Agordoj → Alirebleco → Kontrastaj temoj.',
+      firefoxColors: 'Firefox: Agordoj → Koloroj → agordu “Anstataŭigi la kolorojn specifitajn de la paĝo” al Neniam.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Nuba konservo restarigita',

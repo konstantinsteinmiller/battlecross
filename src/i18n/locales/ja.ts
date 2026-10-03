@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: '品物をタップして値段を見て、「買う」をタップしよう。',
       mouse: '品物をクリックして値段を見て、「買う」をクリックしよう。'
+    },
+    exit: {
+      touch: 'マップボタンをタップして、町を出て次の冒険へ向かおう。',
+      mouse: 'マップボタンをクリックして、町を出て次の冒険へ向かおう。'
     }
+  },
+  goal: {
+    dummy: '訓練用のかかしを倒そう',
+    clear: '{place}をクリアしよう',
+    boss: '{foe}を倒そう',
+    exit: '戦利品を持って出よう',
+    wave: 'ウェーブを生き延びよう',
+    trainer: '師範と話そう',
+    learn: 'スキルを習得しよう',
+    points: 'ポイントを使おう',
+    leave: '{place}へ出発しよう',
+    travel: '{place}へ向かおう',
+    decide: '決断しよう',
+    explore: '王国を探索しよう',
+    show: '道を教えて：{goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: '宝箱',
     time: 'タイム',
     unlocked: 'マップに追加：{places}',
+    equipped: '装備中',
+    better: '今の装備より強い',
     retry: 'もう一度',
     tip: '経験値と戦利品はそのまま残る。ポイントを振り、師範を訪ねて、強くなって戻ってこよう。'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: '次のサイトで広告を許可してください：',
     allowSuffix: '（またはこのゲームのみ広告ブロッカーを一時停止）してから再試行してください。',
     gotIt: 'わかりました'
+  },
+  forcedDark: {
+    title: 'このゲームではダークモードをオフにしてください',
+    body: 'ブラウザまたは拡張機能がこのページの色を変えています。このゲームには専用の配色があり、ダークモードの強制変更には対応していません。',
+    waiting: 'オフにすると、ゲームは自動で再開します。',
+    continueAnyway: '自己責任で続ける',
+    hint: {
+      darkReader: 'Dark Reader：アイコンをクリックして、このサイトでオフにしてください。',
+      extension: 'ダークモードの拡張機能を開いて、このサイトでオフにしてください。',
+      chromiumFlag: '{flagUrl} を開いて「Auto Dark Mode for Web Contents」をDefaultにするか、ブラウザのテーマ設定で「dark theme for sites」をオフにしてください。',
+      samsung: 'Samsung Internet：メニューを開いてダークモードをオフにするか、Labsで「Use website dark theme」をオンにしてください。',
+      forcedColors: 'Windows：設定 → アクセシビリティ → コントラストテーマ で、コントラストテーマをオフにしてください。',
+      firefoxColors: 'Firefox：設定 → 色 → 「ページが指定した色を上書きする」を「しない」にしてください。'
+    }
   },
   saveStatus: {
     restoredTitle: 'クラウドセーブを復元しました',

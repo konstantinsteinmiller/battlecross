@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Qiymətini görmək üçün əşyaya toxun, sonra Al düyməsinə toxun.',
       mouse: 'Qiymətini görmək üçün əşyaya klik et, sonra Al düyməsinə klik et.'
+    },
+    exit: {
+      touch: 'Xəritə düyməsinə toxun, şəhərdən çıx və növbəti macəraya get.',
+      mouse: 'Xəritə düyməsinə klik et, şəhərdən çıx və növbəti macəraya get.'
     }
+  },
+  goal: {
+    dummy: 'Məşq dummisini yıx',
+    clear: 'Təmizlə: {place}',
+    boss: 'Məğlub et: {foe}',
+    exit: 'Qənimətini götür və çıx',
+    wave: 'Dalğalardan sağ çıx',
+    trainer: 'Təlimçi ilə danış',
+    learn: 'Bir bacarıq öyrən',
+    points: 'Xallarını xərclə',
+    leave: 'Yola çıx: {place}',
+    travel: 'Səyahət et: {place}',
+    decide: 'Seçimini et',
+    explore: 'Diyarı kəşf et',
+    show: 'Yolu göstər: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Sandıqlar',
     time: 'Vaxt',
     unlocked: 'Xəritədə yeni: {places}',
+    equipped: 'Təchiz olunub',
+    better: 'Geydiyindən daha yaxşıdır',
     retry: 'Yenə cəhd et',
     tip: 'Təcrübə və qənimət səndə qalır. Xallarını xərclə, təlimçiyə baş çək və daha güclü qayıt.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Zəhmət olmasa, burada reklamlara icazə ver:',
     allowSuffix: '(və ya bu oyun üçün reklam bloklayıcını dayandır) və yenidən cəhd et.',
     gotIt: 'Aydındır'
+  },
+  forcedDark: {
+    title: 'Lütfən, bu oyun üçün qaranlıq rejimi söndür',
+    body: 'Brauzerin və ya bir əlavə bu səhifənin rənglərini dəyişir. Oyunun öz rəngləri var və məcburi qaranlıq rejimlə düzgün işləmir.',
+    waiting: 'Söndürən kimi oyun avtomatik davam edəcək.',
+    continueAnyway: 'Riski öz üzərimə götürüb davam et',
+    hint: {
+      darkReader: 'Dark Reader: ikonuna klik et və bu sayt üçün söndür.',
+      extension: 'Qaranlıq rejim əlavəsini aç və bu sayt üçün söndür.',
+      chromiumFlag: '{flagUrl} ünvanını aç və “Auto Dark Mode for Web Contents” seçimini Default et, ya da brauzerin tema ayarlarında “dark theme for sites” seçimini söndür.',
+      samsung: 'Samsung Internet: menyunu aç və qaranlıq rejimi söndür, ya da Labs → “Use website dark theme” seçimini aktiv et.',
+      forcedColors: 'Windows: Parametrlər → Əlçatımlılıq → Kontrast temaları bölməsində kontrast temalarını söndür.',
+      firefoxColors: 'Firefox: Parametrlər → Rənglər → “Səhifənin təyin etdiyi rəngləri əvəz et” seçimini Heç vaxt et.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Bulud yaddaşı bərpa olundu',

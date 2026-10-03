@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Tryck på en sak för att se priset och sedan på Köp.',
       mouse: 'Klicka på en sak för att se priset och sedan på Köp.'
+    },
+    exit: {
+      touch: 'Tryck på kartknappen för att lämna staden och ge dig av på nästa äventyr.',
+      mouse: 'Klicka på kartknappen för att lämna staden och ge dig av på nästa äventyr.'
     }
+  },
+  goal: {
+    dummy: 'Slå ner övningsdockan',
+    clear: 'Rensa {place}',
+    boss: 'Besegra {foe}',
+    exit: 'Ta bytet och gå',
+    wave: 'Överlev vågorna',
+    trainer: 'Prata med en läromästare',
+    learn: 'Lär dig en färdighet',
+    points: 'Fördela dina poäng',
+    leave: 'Ge dig av mot {place}',
+    travel: 'Res till {place}',
+    decide: 'Gör ditt val',
+    explore: 'Utforska riket',
+    show: 'Visa mig vägen: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Kistor',
     time: 'Tid',
     unlocked: 'Nytt på kartan: {places}',
+    equipped: 'Utrustad',
+    better: 'Bättre än det du bär',
     retry: 'Försök igen',
     tip: 'Du behåller erfarenheten och bytet. Fördela dina poäng, besök en läromästare och kom tillbaka starkare.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Tillåt reklam på',
     allowSuffix: '(eller pausa din annonsblockerare för det här spelet) och försök igen.',
     gotIt: 'Uppfattat'
+  },
+  forcedDark: {
+    title: 'Stäng av mörkt läge för det här spelet',
+    body: 'Din webbläsare eller ett tillägg färgar om den här sidan. Spelet har egna färger och fungerar inte med påtvingat mörkt läge.',
+    waiting: 'Spelet fortsätter av sig självt så fort det är avstängt.',
+    continueAnyway: 'Fortsätt på egen risk',
+    hint: {
+      darkReader: 'Dark Reader: klicka på ikonen och stäng av det för den här sidan.',
+      extension: 'Öppna ditt tillägg för mörkt läge och stäng av det för den här sidan.',
+      chromiumFlag: 'Öppna {flagUrl} och ställ «Auto Dark Mode for Web Contents» på Default, eller stäng av «mörkt tema för webbplatser» i webbläsarens temainställningar.',
+      samsung: 'Samsung Internet: öppna menyn och stäng av mörkt läge, eller slå på Labs → «Use website dark theme».',
+      forcedColors: 'Windows: stäng av kontrastteman under Inställningar → Hjälpmedel → Kontrastteman.',
+      firefoxColors: 'Firefox: Inställningar → Färger → ställ «Åsidosätt färgerna som anges av sidan» på Aldrig.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Molnsparning återställd',

@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Touche un objet pour voir son prix, puis touche Acheter.',
       mouse: 'Clique sur un objet pour voir son prix, puis sur Acheter.'
+    },
+    exit: {
+      touch: 'Touche le bouton carte pour quitter la ville et partir à l’aventure.',
+      mouse: 'Clique sur le bouton carte pour quitter la ville et partir à l’aventure.'
     }
+  },
+  goal: {
+    dummy: 'Renverse le mannequin d’entraînement',
+    clear: 'Nettoie {place}',
+    boss: 'Bats {foe}',
+    exit: 'Prends ton butin et pars',
+    wave: 'Survis aux vagues',
+    trainer: 'Parle à un maître',
+    learn: 'Apprends une compétence',
+    points: 'Dépense tes points',
+    leave: 'Pars pour {place}',
+    travel: 'Va à {place}',
+    decide: 'Fais ton choix',
+    explore: 'Explore le royaume',
+    show: 'Montre-moi le chemin : {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Coffres',
     time: 'Temps',
     unlocked: 'Nouveau sur la carte : {places}',
+    equipped: 'Équipé',
+    better: 'Mieux que ta tenue',
     retry: 'Réessayer',
     tip: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus fort.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Autorisez les publicités sur',
     allowSuffix: '(ou mettez votre bloqueur en pause pour ce jeu) puis réessayez.',
     gotIt: 'Compris'
+  },
+  forcedDark: {
+    title: 'Merci de désactiver le mode sombre pour ce jeu',
+    body: 'Ton navigateur ou une extension recolore cette page. Le jeu a ses propres couleurs et ne fonctionne pas avec les forçages de mode sombre.',
+    waiting: 'Le jeu reprend tout seul dès qu’il est désactivé.',
+    continueAnyway: 'Continuer à mes risques',
+    hint: {
+      darkReader: 'Dark Reader : clique sur son icône et désactive-le pour ce site.',
+      extension: 'Ouvre ton extension de mode sombre et désactive-la pour ce site.',
+      chromiumFlag: 'Ouvre {flagUrl} et mets « Auto Dark Mode for Web Contents » sur Default, ou désactive « thème sombre pour les sites » dans les réglages de thème du navigateur.',
+      samsung: 'Samsung Internet : ouvre le menu et désactive le mode sombre, ou active Labs → « Use website dark theme ».',
+      forcedColors: 'Windows : désactive les thèmes à contraste élevé dans Paramètres → Accessibilité → Thèmes de contraste.',
+      firefoxColors: 'Firefox : Paramètres → Couleurs → mets « Remplacer les couleurs spécifiées par la page » sur Jamais.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Sauvegarde cloud restaurée',

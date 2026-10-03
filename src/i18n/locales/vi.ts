@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Chạm vào món đồ để xem giá, rồi chạm “Mua”.',
       mouse: 'Nhấp vào món đồ để xem giá, rồi nhấp “Mua”.'
+    },
+    exit: {
+      touch: 'Chạm vào nút bản đồ để rời thị trấn và bắt đầu cuộc phiêu lưu tiếp theo.',
+      mouse: 'Nhấp vào nút bản đồ để rời thị trấn và bắt đầu cuộc phiêu lưu tiếp theo.'
     }
+  },
+  goal: {
+    dummy: 'Hạ hình nhân tập luyện',
+    clear: 'Dọn sạch {place}',
+    boss: 'Hạ gục {foe}',
+    exit: 'Lấy chiến lợi phẩm rồi đi',
+    wave: 'Sống sót qua các đợt',
+    trainer: 'Nói chuyện với người huấn luyện',
+    learn: 'Học một kỹ năng',
+    points: 'Dùng hết điểm',
+    leave: 'Lên đường đến {place}',
+    travel: 'Đi đến {place}',
+    decide: 'Đưa ra lựa chọn',
+    explore: 'Khám phá vương quốc',
+    show: 'Chỉ đường: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Rương',
     time: 'Thời gian',
     unlocked: 'Mới trên bản đồ: {places}',
+    equipped: 'Đang trang bị',
+    better: 'Tốt hơn đồ bạn đang dùng',
     retry: 'Thử lại',
     tip: 'Bạn giữ lại kinh nghiệm và chiến lợi phẩm. Hãy dùng điểm, ghé người huấn luyện rồi quay lại mạnh mẽ hơn.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Vui lòng cho phép quảng cáo trên',
     allowSuffix: '(hoặc tạm dừng trình chặn quảng cáo cho trò chơi này) rồi thử lại.',
     gotIt: 'Đã hiểu'
+  },
+  forcedDark: {
+    title: 'Vui lòng tắt chế độ tối cho trò chơi này',
+    body: 'Trình duyệt hoặc một tiện ích đang đổi màu trang này. Trò chơi có màu riêng và không hoạt động tốt với chế độ tối ép buộc.',
+    waiting: 'Trò chơi sẽ tự tiếp tục ngay khi bạn tắt nó.',
+    continueAnyway: 'Vẫn tiếp tục, tự chịu rủi ro',
+    hint: {
+      darkReader: 'Dark Reader: nhấp vào biểu tượng của nó và tắt cho trang này.',
+      extension: 'Mở tiện ích chế độ tối của bạn và tắt nó cho trang này.',
+      chromiumFlag: 'Mở {flagUrl} và đặt “Auto Dark Mode for Web Contents” thành Default, hoặc tắt “dark theme for sites” trong phần cài đặt giao diện của trình duyệt.',
+      samsung: 'Samsung Internet: mở menu và tắt Chế độ tối, hoặc bật Labs → “Use website dark theme”.',
+      forcedColors: 'Windows: tắt Giao diện tương phản trong Cài đặt → Trợ năng → Giao diện tương phản.',
+      firefoxColors: 'Firefox: Cài đặt → Màu sắc → đặt “Ghi đè màu do trang chỉ định” thành Không bao giờ.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Đã khôi phục lưu trên đám mây',

@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: 'Ketuk barang untuk melihat harganya, lalu ketuk Beli.',
       mouse: 'Klik barang untuk melihat harganya, lalu klik Beli.'
+    },
+    exit: {
+      touch: 'Ketuk tombol peta untuk meninggalkan kota menuju petualangan berikutnya.',
+      mouse: 'Klik tombol peta untuk meninggalkan kota menuju petualangan berikutnya.'
     }
+  },
+  goal: {
+    dummy: 'Robohkan boneka latihan',
+    clear: 'Bersihkan {place}',
+    boss: 'Kalahkan {foe}',
+    exit: 'Ambil jarahan lalu pergi',
+    wave: 'Bertahan dari gelombang',
+    trainer: 'Bicara dengan pelatih',
+    learn: 'Pelajari sebuah skill',
+    points: 'Pakai poinmu',
+    leave: 'Berangkat ke {place}',
+    travel: 'Pergi ke {place}',
+    decide: 'Buat pilihanmu',
+    explore: 'Jelajahi negeri',
+    show: 'Tunjukkan jalan: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: 'Peti',
     time: 'Waktu',
     unlocked: 'Baru di peta: {places}',
+    equipped: 'Terpakai',
+    better: 'Lebih bagus dari yang kamu pakai',
     retry: 'Coba lagi',
     tip: 'Pengalaman dan jarahan tetap jadi milikmu. Pakai poinmu, kunjungi pelatih, dan kembalilah lebih kuat.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: 'Izinkan iklan di',
     allowSuffix: '(atau jeda pemblokir iklan untuk gim ini) lalu coba lagi.',
     gotIt: 'Mengerti'
+  },
+  forcedDark: {
+    title: 'Tolong matikan mode gelap untuk game ini',
+    body: 'Browser atau ekstensi sedang mewarnai ulang halaman ini. Game ini punya warna sendiri dan tidak cocok dengan mode gelap paksaan.',
+    waiting: 'Game lanjut otomatis begitu mode gelapnya dimatikan.',
+    continueAnyway: 'Lanjut dengan risiko sendiri',
+    hint: {
+      darkReader: 'Dark Reader: klik ikonnya dan matikan untuk situs ini.',
+      extension: 'Buka ekstensi mode gelapmu dan matikan untuk situs ini.',
+      chromiumFlag: 'Buka {flagUrl} dan atur “Auto Dark Mode for Web Contents” ke Default, atau matikan “dark theme for sites” di pengaturan tema browser.',
+      samsung: 'Samsung Internet: buka menu dan matikan mode gelap, atau nyalakan Labs → “Use website dark theme”.',
+      forcedColors: 'Windows: matikan Tema kontras di Setelan → Aksesibilitas → Tema kontras.',
+      firefoxColors: 'Firefox: Pengaturan → Warna → atur “Timpa warna yang ditentukan halaman” ke Jangan pernah.'
+    }
   },
   saveStatus: {
     restoredTitle: 'Simpanan cloud dipulihkan',

@@ -153,7 +153,26 @@ export default {
     buy: {
       touch: '물건을 탭해 가격을 확인하고 「구매」를 탭하세요.',
       mouse: '물건을 클릭해 가격을 확인하고 「구매」를 클릭하세요.'
+    },
+    exit: {
+      touch: '지도 버튼을 탭하면 마을을 떠나 다음 모험을 시작해요.',
+      mouse: '지도 버튼을 클릭하면 마을을 떠나 다음 모험을 시작해요.'
     }
+  },
+  goal: {
+    dummy: '훈련용 허수아비 쓰러뜨리기',
+    clear: '{place} 정리하기',
+    boss: '{foe} 물리치기',
+    exit: '전리품 챙겨 떠나기',
+    wave: '웨이브 버티기',
+    trainer: '스승과 대화하기',
+    learn: '스킬 배우기',
+    points: '포인트 쓰기',
+    leave: '떠나기: {place}',
+    travel: '이동: {place}',
+    decide: '선택하기',
+    explore: '왕국 탐험하기',
+    show: '길 알려줘: {goal}'
   },
   node: {
     sunford: {
@@ -2616,6 +2635,8 @@ export default {
     chests: '상자',
     time: '시간',
     unlocked: '지도에 새로 열림: {places}',
+    equipped: '장착 중',
+    better: '지금 장비보다 좋아요',
     retry: '다시 도전',
     tip: '경험치와 전리품은 그대로 남는다. 포인트를 쓰고, 스승을 찾아가고, 더 강해져서 돌아오자.'
   },
@@ -2729,6 +2750,20 @@ export default {
     allowPrefix: '다음 사이트에서 광고를 허용해 주세요:',
     allowSuffix: '(또는 이 게임에 한해 광고 차단기를 일시 중지) 후 다시 시도하세요.',
     gotIt: '알겠습니다'
+  },
+  forcedDark: {
+    title: '이 게임에서는 다크 모드를 꺼 주세요',
+    body: '브라우저나 확장 프로그램이 이 페이지의 색을 바꾸고 있어요. 게임에는 자체 색상이 있어서 다크 모드 강제 변환과는 맞지 않아요.',
+    waiting: '끄면 게임이 자동으로 이어져요.',
+    continueAnyway: '위험을 감수하고 계속하기',
+    hint: {
+      darkReader: 'Dark Reader: 아이콘을 클릭해서 이 사이트에서는 꺼 주세요.',
+      extension: '다크 모드 확장 프로그램을 열고 이 사이트에서는 꺼 주세요.',
+      chromiumFlag: '{flagUrl} 주소를 열어 “Auto Dark Mode for Web Contents”를 Default로 바꾸거나, 브라우저 테마 설정에서 “dark theme for sites”를 꺼 주세요.',
+      samsung: 'Samsung Internet: 메뉴를 열어 다크 모드를 끄거나, Labs에서 “Use website dark theme”를 켜 주세요.',
+      forcedColors: 'Windows: 설정 → 접근성 → 대비 테마에서 대비 테마를 꺼 주세요.',
+      firefoxColors: 'Firefox: 설정 → 색 → “페이지에서 지정한 색 무시”를 “안 함”으로 바꿔 주세요.'
+    }
   },
   saveStatus: {
     restoredTitle: '클라우드 저장이 복원되었습니다',
