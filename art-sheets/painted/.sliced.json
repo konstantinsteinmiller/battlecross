@@ -204,6 +204,30 @@
       "rev": "4924603fb50a",
       "painting": "7c08a9376bc4",
       "at": "2026-10-03T12:02:07.804Z"
+    },
+    "cover-clash.jpg": {
+      "sheet": "cover-clash",
+      "rev": "04188fc71c87",
+      "painting": "8644f8894f40",
+      "at": "2026-10-03T14:52:15.596Z"
+    },
+    "cover-skills.jpg": {
+      "sheet": "cover-skills",
+      "rev": "521cdf9cf733",
+      "painting": "8de54aa92b00",
+      "at": "2026-10-03T14:54:37.038Z"
+    },
+    "cover-loot.jpg": {
+      "sheet": "cover-loot",
+      "rev": "55f2787a8691",
+      "painting": "9f8685bf0fc4",
+      "at": "2026-10-03T14:57:44.419Z"
+    },
+    "cover-dragon.jpg": {
+      "sheet": "cover-dragon",
+      "rev": "693976c610ff",
+      "painting": "0a38b4b95487",
+      "at": "2026-10-03T15:00:54.446Z"
     }
   }
 }
