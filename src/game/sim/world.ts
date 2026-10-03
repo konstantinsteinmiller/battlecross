@@ -477,6 +477,14 @@ export const newAction = (u: Unit, id: string, hitAt: number, end: number, targe
   id, t: 0, hitAt, end, done: false, targetId, x, z, sx: u.x, sz: u.z, a: Math.atan2(x - u.x, z - u.z), ability, slot
 })
 
+/**
+ * A won zone is at peace with what is left of its MAIN chain: those enemies
+ * stand idle and nobody hurts them or is hurt by them. Side packs (a chest's
+ * guard, a champion) stay optional fights to the end.
+ */
+export const atPeace = (sim: Sim, u: Unit): boolean =>
+  sim.ended === 'victory' && sim.mode === 'zone' && u.team === 1 && u.group < SIDE_GROUP
+
 export const dist = (a: Unit, b: Unit): number => Math.hypot(a.x - b.x, a.z - b.z)
 
 /** Heading from (ax, az) toward (bx, bz): 0 faces +Z. */

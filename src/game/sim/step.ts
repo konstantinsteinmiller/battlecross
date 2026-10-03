@@ -11,7 +11,7 @@ import { HERO_SKILLS } from './heroSkills'
 import { stepTownLife } from './townLife'
 import type { ZonePlan } from './zoneGen'
 import type { Unit } from './types'
-import type { Sim } from './world'
+import { atPeace, type Sim } from './world'
 
 /**
  * ─── One fixed step of the world ─────────────────────────────────────────────
@@ -83,7 +83,9 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
     }
     if (!u.alive || u.rank === 'hero' || u.rank === 'npc') continue
     // The fight is over either way: nobody presses on.
-    if (sim.ended) { if (!u.action) u.anim = 'idle'; continue }
+    // A lost fight, a hero on his way out, or the won main chain's leftovers:
+    // nobody presses on. Side packs fight on after a win.
+    if (sim.ended === 'defeat' || sim.leaving || atPeace(sim, u)) { if (!u.action) u.anim = 'idle'; continue }
     if (u.team === 1) stepEnemy(sim, u, dt)
     else stepAlly(sim, u, dt)
   }

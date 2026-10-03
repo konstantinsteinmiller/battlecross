@@ -7,7 +7,7 @@ import { applyStatus, cdrOf, cleanse, dealDamage, giveMana, heal, isControlled, 
 import { FREE_AIM, addHeat } from './heroSkills'
 import { CHEST_REACH, beginOpen, cancelOpen, chestLock } from './interact'
 import { heroStats, minionMul, type HeroBuild } from './stats'
-import { angleTo, findStatus, hasStatus, newAction, type HeroState, type Sim } from './world'
+import { angleTo, atPeace, findStatus, hasStatus, newAction, type HeroState, type Sim } from './world'
 import type { Unit } from './types'
 
 /**
@@ -104,8 +104,8 @@ export const orderAttack = (sim: Sim, targetId: number): void => {
   const h = sim.hero
   const t = sim.live(targetId)
   if (!t) return
-  // After a win there is nobody left to fight.
-  if (sim.ended && t.team === 1) return
+  // After a win only a side pack is left to fight.
+  if (t.team === 1 && (atPeace(sim, t) || sim.ended === 'defeat' || sim.leaving)) return
   h.order.kind = t.team === 1 ? 'attack' : 'interact'
   h.order.targetId = targetId
   h.queued = null
@@ -182,7 +182,7 @@ export const castSkill = (sim: Sim, slot: number, aim: { x: number; z: number } 
   const u = h.unit
   const st = slotState(sim, slot)
   const def = st.def
-  if (!def || !u.alive || sim.ended) return false
+  if (!def || !u.alive || sim.ended === 'defeat' || sim.leaving) return false
   if (st.cd > 0) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
   if (st.locked) { sim.emit({ t: 'denied', why: 'locked' }); return false }
   if (st.noMana) { sim.emit({ t: 'denied', why: 'mana' }); return false }
@@ -264,7 +264,7 @@ const beginCast = (sim: Sim, slot: number, def: SkillDef, target: Unit | null, x
 export const usePotion = (sim: Sim): boolean => {
   const h = sim.hero
   const u = h.unit
-  if (!u.alive || h.potions <= 0 || h.potionCd > 0 || sim.ended) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
+  if (!u.alive || h.potions <= 0 || h.potionCd > 0 || sim.ended === 'defeat' || sim.leaving) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
   if (u.hp >= u.s.maxHp && !u.statuses.length) { sim.emit({ t: 'denied', why: 'hp' }); return false }
   h.potions--
   h.potionCd = POTION_CD
@@ -279,7 +279,7 @@ export const usePotion = (sim: Sim): boolean => {
 export const useManaPotion = (sim: Sim): boolean => {
   const h = sim.hero
   const u = h.unit
-  if (!u.alive || h.manaPotions <= 0 || h.manaPotionCd > 0 || sim.ended) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
+  if (!u.alive || h.manaPotions <= 0 || h.manaPotionCd > 0 || sim.ended === 'defeat' || sim.leaving) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
   if (u.s.maxMana <= 0 || u.mana >= u.s.maxMana) { sim.emit({ t: 'denied', why: 'mana' }); return false }
   h.manaPotions--
   h.manaPotionCd = POTION_CD
@@ -452,7 +452,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
 
   // Nothing ordered: answer whoever is on top of him.
   u.anim = 'idle'
-  if (hasStatus(u, 'stealth') || sim.ended) return
+  if (hasStatus(u, 'stealth') || sim.leaving) return
   const near = nearestAwake(sim, u, u.s.atkStyle === 'melee' ? AUTO_ENGAGE : u.s.atkRange)
   if (near && (u.s.atkStyle === 'melee' || hasLineOfSight(sim.grid, u.x, u.z, near.x, near.z))) {
     h.order.kind = 'attack'
@@ -465,7 +465,7 @@ const nearestAwake = (sim: Sim, u: Unit, maxDist: number): Unit | undefined => {
   let best: Unit | undefined
   let bd = maxDist
   for (const e of sim.units) {
-    if (!e.alive || e.team !== 1 || !e.awake) continue
+    if (!e.alive || e.team !== 1 || !e.awake || atPeace(sim, e)) continue
     const d = Math.hypot(e.x - u.x, e.z - u.z) - e.r
     if (d < bd) { bd = d; best = e }
   }

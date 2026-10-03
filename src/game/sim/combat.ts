@@ -4,7 +4,7 @@ import { killGold, killXp, addXp } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
-import { findStatus, hasStatus, statusV, type Sim } from './world'
+import { atPeace, findStatus, hasStatus, statusV, type Sim } from './world'
 
 /**
  * ─── Damage, healing, statuses, death ────────────────────────────────────────
@@ -202,8 +202,11 @@ export { wakeGroup }
  */
 export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, o: HitOpts): number => {
   if (!tgt.alive || base <= 0) return 0
-  // A won zone: the fight is over, nobody hurts anybody (the hero explores in peace).
-  if (sim.ended === 'victory' && sim.mode === 'zone') return 0
+  // A won zone: the main chain's leftovers neither hurt nor are hurt; a side
+  // pack is still a fight (`atPeace`). Nothing else harms the hero then.
+  if (sim.ended === 'victory' && sim.mode === 'zone') {
+    if (tgt.team === 1 ? atPeace(sim, tgt) : !src || src.team !== 1 || atPeace(sim, src)) return 0
+  }
   const hero = sim.hero?.unit
   const toHero = tgt === hero
   const srcMods = src?.s.mods
@@ -407,6 +410,13 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     if (!sim.ended) {
       sim.ended = 'defeat'
       sim.emit({ t: 'defeat' })
+    } else if (sim.ended === 'victory' && !sim.leaving) {
+      // Fallen to a side pack after the zone was won: the win stands. He
+      // leaves with what he collected, as if he had pressed Leave.
+      sim.leaving = true
+      sim.leaveAt = sim.time
+      // The longer beat: his fall, and the finale's chest if it was still shut, are seen.
+      sim.leaveOpened = true
     }
     return
   }

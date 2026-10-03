@@ -865,23 +865,66 @@ describe('the finale\'s chest', () => {
     expect(sim.leaving).toBe(false)
   })
 
-  it('after the win the place is safe to explore: no harm either way, and the reference player still stops on the win', () => {
+  it('after the win the leftovers of the main chain are at peace; the reference player still stops on the win', () => {
     const { sim, plan } = visit('woods', 7)
     const h = sim.hero
-    const guard = sim.sideGroups[0] ? sim.get(sim.sideGroups[0].members[0]!) : undefined
     for (const id of sim.groups[sim.groups.length - 1]!.members) kill(sim, sim.get(id)!, h.unit)
     run(sim, plan, 0.1)
     expect(sim.ended).toBe('victory')
-    const foe = sim.units.find(u => u.team === 1 && u.alive)!
+    const foe = sim.units.find(u => u.team === 1 && u.alive && u.group < SIDE_GROUP)!
     expect(dealDamage(sim, h.unit, foe, 9999, { type: 'physical' })).toBe(0)
+    expect(dealDamage(sim, foe, h.unit, 9999, { type: 'physical' })).toBe(0)
     expect(foe.alive).toBe(true)
-    // An attack order on a leftover does nothing: there is no one left to fight.
+    // An attack order on a leftover does nothing.
     orderAttack(sim, foe.id)
     expect(h.order.kind).not.toBe('attack')
-    if (guard) { expect(guard.alive).toBe(true); expect(guard.awake).toBe(false) }
     const r = runZone({ zone: 'plains', level: 2, cls: 'aegis', seed: 77 })
     expect(r.outcome).toBe('victory')
     expect(r.seconds).toBeLessThan(420)
+  })
+
+  it('after the win a side pack is still a real fight, its chest opens once it falls, and falling to it still counts as the win', () => {
+    const seed = seedWith('woods', p => p.chests.some(c => c.role === 'guard'))
+    const { sim, plan } = visit('woods', seed)
+    const h = sim.hero
+    const n = plan.optionalPacks.findIndex(o => !o.champion)
+    const group = sim.sideGroups[n]!
+    const guard = sim.get(group.members[0]!)!
+    const chest = sim.chests.find(c => c.guard === n)!
+    for (const id of sim.groups[sim.groups.length - 1]!.members) kill(sim, sim.get(id)!, h.unit)
+    run(sim, plan, 0.1)
+    expect(sim.ended).toBe('victory')
+    // Still asleep; walked up to, it wakes and fights.
+    expect(guard.awake).toBe(false)
+    h.unit.x = guard.x
+    h.unit.z = guard.z + 2.5
+    run(sim, plan, 1.5)
+    expect(guard.awake).toBe(true)
+    const hp = h.unit.hp
+    expect(dealDamage(sim, guard, h.unit, 5, { type: 'physical' })).toBeGreaterThan(0)
+    expect(h.unit.hp).toBeLessThan(hp)
+    orderAttack(sim, guard.id)
+    expect(h.order.kind).toBe('attack')
+    expect(chestLock(sim, chest)).toBe('guard')
+    kill(sim, guard, h.unit)
+    run(sim, plan, 0.1)
+    expect(group.cleared).toBe(true)
+    expect(chestLock(sim, chest)).toBe('')
+
+    // Another visit: the hero falls to a side pack after the win.
+    const v2 = visit('woods', seed)
+    const g2 = v2.sim.get(v2.sim.sideGroups[n]!.members[0]!)!
+    for (const id of v2.sim.groups[v2.sim.groups.length - 1]!.members) kill(v2.sim, v2.sim.get(id)!, v2.sim.hero.unit)
+    run(v2.sim, v2.plan, 0.1)
+    v2.sim.hero.unit.hp = 1
+    dealDamage(v2.sim, g2, v2.sim.hero.unit, 9999, { type: 'physical' })
+    expect(v2.sim.hero.unit.alive).toBe(false)
+    expect(v2.sim.ended).toBe('victory')
+    expect(v2.sim.leaving).toBe(true)
+    run(v2.sim, v2.plan, 3, () => v2.sim.endReady)
+    expect(v2.sim.endReady).toBe(true)
+    // The boss's reward is not lost.
+    expect(v2.sim.chests[0]!.state).toBe('open')
   })
 
   it('nothing presses on after the win: the hero cannot be killed while he walks the place', () => {

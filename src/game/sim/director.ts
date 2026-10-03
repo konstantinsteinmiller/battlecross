@@ -140,7 +140,13 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
  *  longer one when the finale's chest was opened for him on the way out, so
  *  its loot is seen). */
 const stepFinale = (sim: Sim): void => {
-  if (sim.endReady || sim.ended !== 'victory' || !sim.leaving) return
+  if (sim.ended !== 'victory') return
+  // Side packs can still be fought after the win: one that falls frees its chest.
+  clearSideGroups(sim)
+  if (sim.endReady || !sim.leaving) return
+  // Leaving (or fallen): the finale's chest is never left unopened.
+  const c = sim.chests.find(x => x.role === 'finale')
+  if (c && c.state !== 'open') { openChest(sim, c); sim.leaveOpened = true }
   if (sim.time - sim.leaveAt >= (sim.leaveOpened ? FINALE_BEAT : LEAVE_BEAT)) sim.endReady = true
 }
 
@@ -164,6 +170,14 @@ export const leaveVisit = (sim: Sim): boolean => {
 const counts: number[] = []
 const sideCounts: number[] = []
 
+/** A side pack that falls frees its chest; it is no step toward the win. */
+const clearSideGroups = (sim: Sim): void => {
+  sideCounts.length = sim.sideGroups.length
+  sideCounts.fill(0)
+  for (const u of sim.units) if (u.alive && u.team === 1 && u.group >= SIDE_GROUP) sideCounts[u.group - SIDE_GROUP]!++
+  for (const g of sim.sideGroups) if (!g.cleared && sideCounts[g.id - SIDE_GROUP]! === 0) g.cleared = true
+}
+
 export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
   if (sim.ended) { sim.endedT += dt; stepFinale(sim); return }
   if (sim.mode === 'town') return
@@ -184,15 +198,8 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
   stepPlates(sim)
   counts.length = sim.groups.length
   counts.fill(0)
-  sideCounts.length = sim.sideGroups.length
-  sideCounts.fill(0)
-  for (const u of sim.units) {
-    if (!u.alive || u.team !== 1 || u.group < 0) continue
-    if (u.group >= SIDE_GROUP) sideCounts[u.group - SIDE_GROUP]!++
-    else counts[u.group]!++
-  }
-  // A side pack that falls frees its chest; it is no step toward the win.
-  for (const g of sim.sideGroups) if (!g.cleared && sideCounts[g.id - SIDE_GROUP]! === 0) g.cleared = true
+  for (const u of sim.units) if (u.alive && u.team === 1 && u.group >= 0 && u.group < SIDE_GROUP) counts[u.group]!++
+  clearSideGroups(sim)
   for (const g of sim.groups) {
     if (g.cleared || counts[g.id]! > 0) continue
     g.cleared = true

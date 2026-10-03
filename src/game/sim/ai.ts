@@ -5,7 +5,7 @@ import { face, inAttackRange, setGoal, startAttack, stop, stride, walk } from '.
 import { isControlled, wakeGroup } from './combat'
 import { SIDE_AGGRO, SIDE_LEASH } from './interact'
 import { SIDE_GROUP } from './world'
-import { findStatus, hasStatus, type Sim } from './world'
+import { atPeace, findStatus, hasStatus, type Sim } from './world'
 import type { Unit } from './types'
 
 /**
@@ -161,14 +161,14 @@ export const stepAlly = (sim: Sim, u: Unit, dt: number): void => {
   // hero (so the guard fights WITH him rather than wandering off).
   const focus = findStatus(u, 'focus')
   let tgt = focus ? sim.live(focus.src) : sim.live(u.targetId)
-  if (tgt && tgt.team !== 1) tgt = undefined
+  if (tgt && (tgt.team !== 1 || atPeace(sim, tgt))) tgt = undefined
   if (!tgt || !tgt.awake) {
     const cx = u.rank === 'turret' ? u.x : hero.x
     const cz = u.rank === 'turret' ? u.z : hero.z
     tgt = undefined
     let bd = u.rank === 'turret' ? def.range + 1 : 10
     for (const e of sim.units) {
-      if (!e.alive || e.team !== 1 || !e.awake) continue
+      if (!e.alive || e.team !== 1 || !e.awake || atPeace(sim, e)) continue
       const d = Math.hypot(e.x - cx, e.z - cz)
       if (d < bd) { bd = d; tgt = e }
     }

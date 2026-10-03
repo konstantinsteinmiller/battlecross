@@ -138,11 +138,14 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
   const aj = (n.j - s.j) / l
   let best: { x: number; z: number } | undefined
   let bestD = -1
-  // Off to the side of the road rather than up it: a few steps' walk from
-  // the hero's spawn (the walk is the first lesson), and away from the pack.
+  // A few steps' walk from the hero's spawn (the walk is the first lesson):
+  // beside him and a little toward the camera: in view on a phone held
+  // upright as on a wide screen, and the farthest it can be from the pack.
   // The farther side from the chest wins, so the two are separate stops.
-  for (const off of [3.4, 2.8, 2.2]) {
-    for (const [side, along] of [[off, 0.8], [-off, 0.8], [off, 0], [-off, 0], [off, 1.6], [-off, 1.6]] as const) {
+  // (An upright phone shows little more than two metres either side of him,
+  // so it stands mostly below him on the screen, barely to the side.)
+  for (const [off, along] of [[0.6, -2.7], [1.1, -2.5], [1.6, -2.1], [2.1, -1.5], [2.7, -0.6]] as const) {
+    for (const side of [off, -off]) {
       const i = Math.round(s.i + ai * along - aj * side)
       const j = Math.round(s.j + aj * along + ai * side)
       if (i < 3 || j < 3 || i >= W - 3 || j >= h - 3) continue
