@@ -127,8 +127,8 @@ export default {
       mouse: 'Ikuti jejak ke pelatih, lalu klik dia untuk bicara.'
     },
     teach: {
-      touch: 'Ketuk «Ajari aku» untuk melihat apa yang diajarkan pelatih ini.',
-      mouse: 'Klik «Ajari aku» untuk melihat apa yang diajarkan pelatih ini.'
+      touch: 'Ketuk «Maukah kamu mengajariku?» untuk melihat apa yang diajarkan pelatih ini.',
+      mouse: 'Klik «Maukah kamu mengajariku?» untuk melihat apa yang diajarkan pelatih ini.'
     },
     learn: {
       touch: 'Ketuk sebuah skill, lalu ketuk Pelajari.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Beli kembali',
     deal: 'Sepakat!',
     say: {
-      buy: 'Pilihan bagus. Rawat baik-baik.',
-      sell: 'Akan kucarikan rumah yang baik.',
-      back: 'Berubah pikiran? Nih, seperti semula.',
-      poor: 'Kembalilah dengan dompet yang lebih berat.'
+      buy: 'Pilihan bagus. Rawat baik-baik, nanti dia merawatmu.',
+      sell: 'Baiklah. Pasti ada yang mau.',
+      back: 'Berubah pikiran? Tak apa, ini dia.',
+      poor: 'Sayangnya itu agak lebih mahal dari yang kamu punya.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Duduklah. Beristirahatlah. Kamu pergi dari sini dalam keadaan pulih, dengan semua botol terisi. Kalau mau membawa lebih banyak, itu bisa kujual kepadamu.',
+    talk: 'Duduk dan istirahatlah sebentar. Botolmu sudah penuh lagi. Kalau mau, kujual sabuk yang lebih besar.',
     note: 'Kamu membawa {n} ramuan ke setiap zona.',
     buy: 'Satu botol lagi · {n}',
     full: 'Sabukmu sudah penuh.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram si Pandai Besi',
-      talk: 'Baja polos, harga jujur. Cukup untuk menjauhkan goblin darimu.'
+      talk: 'Baja polos, harga wajar. Silakan lihat-lihat.'
     },
     sunfordPeddler: {
       name: 'Tilly si Pedagang Keliling',
-      talk: 'Cincin! Jimat! Barang yang kutemukan dan jelas-jelas tidak kucuri.'
+      talk: 'Cincin, jimat, barang-barang kecil. Yang ini mungkin malah bawa untung.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik si Pedagang',
-      talk: 'Raja bilang dagang, jadi Grik dagang. Kilau tukar kilau. Kilau bagus.'
+      talk: 'Keluargaku yang membuat ini. Kerja bagus, harga wajar.'
     },
     captainHale: {
       name: 'Kapten Hale'
     },
     oakArmorer: {
       name: 'Odo si Pembuat Zirah',
-      talk: 'Separuh daganganku habis dipakai di tembok. Ambil saja yang tersisa.'
+      talk: 'Separuh daganganku sudah dibawa ke tembok. Ambil sisanya, kalau muat.'
     },
     oakMasterArmorer: {
       name: 'Master Odo',
-      talk: 'Kamu menyelamatkan kota ini. Zirah terbaik keluar dari ruang belakang untukmu.'
+      talk: 'Zirah pelat terbaik sudah kukeluarkan. Kamu lebih dari layak melihatnya.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Tajam, seimbang, dan dijual kepada siapa pun yang membayar. Hari ini, itu kamu.'
+      talk: 'Tajam, seimbang, harga pantas. Jangan sentuh mata pisaunya.'
     },
     trainerShadow: {
       name: 'Sang Bisikan'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Si Penadah',
-      talk: 'Tanpa nama, tanpa pertanyaan. Sindikat ambil bagiannya, kamu ambil barangnya.'
+      talk: 'Tak ada pertanyaan dari kedua pihak. Sindikat ambil bagiannya.'
     },
     trainerBlood: {
       name: 'Dokter Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhand',
-      talk: 'Tempaan kurcaci. Kalau patah, itu salahmu.'
+      talk: 'Semuanya tempaan kurcaci. Kalau ada yang patah, aku mau tahu kenapa.'
     },
     ironAetherWorks: {
       name: 'Voss si Tukang Utak-atik',
-      talk: 'Penelitian Lingkaran atas inti itu mengubah segalanya. Pegang ini. Jangan arahkan kepadaku.'
+      talk: 'Semua di sini lahir dari penelitian inti. Hati-hati, kebanyakan sudah terisi.'
     },
     ironArmor: {
       name: 'Garrun Ironside',
-      talk: 'Zirah pelat yang menepis gada raksasa. Cincin untuk kalian yang lain.'
+      talk: 'Zirah di rak, cincin di nampan.'
     },
     ironOrderArmor: {
       name: 'Juru Perbekalan Ordo',
-      talk: 'Ordo ingat siapa yang menghancurkan inti itu. Gudang senjatanya terbuka untukmu.'
+      talk: 'Ambil yang kamu butuhkan. Ordo menjaga anggotanya.'
     },
     trainerGeo: {
       name: 'Si Tua Kaki Batu'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Nanti malam hujan, kata lututku.',
-        '2': 'Lututmu bilang begitu minggu lalu.',
-        '3': 'Dan hujan, kan? Di suatu tempat.'
+        '1': 'Malam ini hujan. Lututku sakit seharian.',
+        '2': 'Lututmu bilang begitu juga minggu lalu.',
+        '3': 'Dan hujan, kan? Cuma bukan di sini.'
       },
       harvest: {
-        '1': 'Jelai terbaik dalam bertahun-tahun, ini.',
-        '2': 'Kamu bilang begitu setiap tahun.'
+        '1': 'Jelai tahun ini tumbuh bagus.',
+        '2': 'Semoga kita bisa menyimpannya.'
       },
       goblins: {
         '1': 'Goblin mengambil tiga ayam dari peternakan Miller.',
-        '2': 'Cuma tiga? Mereka mulai malas.',
-        '3': 'Atau kenyang.'
+        '2': 'Lagi? Ini yang kedua bulan ini.',
+        '3': 'Seseorang harus berbuat sesuatu soal gua-gua itu.'
       },
       kingGone: {
-        '1': 'Katanya Raja Goblin sudah pergi selamanya.',
-        '2': 'Lalu siapa yang mencuri lobakku?'
+        '1': 'Katanya Raja Goblin sudah mati.',
+        '2': 'Bagus. Mungkin sekarang aku bisa tidur semalaman.'
       },
       pact: {
-        '1': 'Seorang goblin menjual sendok kepadaku hari ini.',
-        '2': 'Itu sendokmu sendiri?',
-        '3': 'Iya, memang. Tapi harganya bagus.'
+        '1': 'Pagi tadi aku beli sendok sayur dari seorang goblin.',
+        '2': 'Bagus?',
+        '3': 'Jujur, lebih bagus dari punyaku. Jangan bilang siapa-siapa.'
       },
       bram: {
-        '1': 'Bram menempa lagi. Sejak subuh!',
-        '2': 'Mantap seperti detak jantung, orang itu.'
+        '1': 'Bram sudah di depan landasan sejak sebelum matahari terbit.',
+        '2': 'Dia memang begitu kalau lagi cemas.'
       },
       pie: {
         '1': 'Itu bau pai apel, ya?',
-        '2': 'Tadinya. Sudah lampau.',
-        '3': 'Kamu habiskan semua? Lagi?'
+        '2': 'Tadinya iya. Anak-anak menemukannya duluan.',
+        '3': 'Nanti kubuat lagi. Sembunyikan lebih baik kali ini.'
       },
       road: {
-        '1': 'Tak ada yang lewat jalan dataran lagi.',
-        '2': 'Ya iyalah, ada bandit di sana.'
+        '1': 'Sudah seminggu tak ada yang lewat jalan dataran.',
+        '2': 'Mana mau, ada bandit di sana. Tak bisa menyalahkan mereka.'
       },
       hero: {
-        '1': 'Ada yang membersihkan jalan dataran!',
-        '2': 'Akhirnya. Sepupuku masih berutang satu gerobak.'
+        '1': 'Seseorang sudah mengusir para bandit dari jalan dataran.',
+        '2': 'Syukurlah. Adikku bisa berkunjung lagi.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Dua perak untuk sebuah kol. Dua!',
-        '2': 'Kolnya tampan sekali.',
-        '3': 'Tidak setampan itu.'
+        '2': 'Zaman sekarang tak ada yang lewat gerbang dengan murah.',
+        '3': 'Kalau begitu aku tanam sendiri. Di atap pun jadi.'
       },
       watch: {
-        '1': 'Pasukan jaga menggandakan penjaga gerbang.',
-        '2': 'Bagus. Aku jadi tidur lebih nyenyak.'
+        '1': 'Penjaga di gerbang digandakan.',
+        '2': 'Bagus. Aku jadi tidur sedikit lebih tenang.'
       },
       caravan: {
         '1': 'Kafilah rempah terlambat lagi.',
         '2': 'Bandit?',
-        '3': 'Atau sopirnya menemukan kedai.'
+        '3': 'Atau lumpur. Semoga lumpur.'
       },
       siege: {
-        '1': 'Katanya ada pasukan berkemah di pinggiran.',
-        '2': 'Kalau begitu sebaiknya kita isi gudang bawah tanah.'
+        '1': 'Ada pasukan berkemah di balik ladang-ladang.',
+        '2': 'Kalau begitu sebaiknya kita isi gudang bawah tanah selagi bisa.'
       },
       saved: {
-        '1': 'Kamu lihat pengepungannya pecah? Megah!',
-        '2': 'Aku lihat dari bawah tempat tidur.',
-        '3': 'Tetap dihitung.'
+        '1': 'Kamu di tembok waktu pengepungan pecah?',
+        '2': 'Aku bersembunyi di bawah tempat tidur, kalau jujur.',
+        '3': 'Separuh kota begitu. Tapi kita masih di sini.'
       },
       fountain: {
         '1': 'Aku melempar koin ke air mancur demi keberuntungan.',
-        '2': 'Dan aku mengambilnya. Terima kasih!'
+        '2': 'Semoga kamu minta kubis yang lebih murah.'
       },
       ash: {
-        '1': 'Semuanya berbau abu.',
-        '2': 'Lebih baik daripada tidak berbau apa-apa.'
+        '1': 'Semuanya masih bau asap.',
+        '2': 'Nanti hilang. Semuanya hilang pada akhirnya.'
       },
       hide: {
-        '1': 'Kamu dengar langkah sepatu di luar semalam?',
-        '2': 'Sst. Pelankan suaramu.',
-        '3': 'Maaf. Maaf.'
+        '1': 'Kamu dengar langkah sepatu bot di jalan tadi malam?',
+        '2': 'Pelan-pelan. Kamu tak tahu siapa yang mendengar.',
+        '3': 'Maaf. Aku cuma... maaf.'
       },
       bread: {
-        '1': 'Aku menemukan setengah roti. Kita bagi saja.',
+        '1': 'Aku menemukan setengah roti. Nih, ambil sedikit.',
         '2': 'Kamu baik sekali. Terima kasih.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Urat tembaga bagus di tingkat empat.',
-        '2': 'Tembaga? Aku mau emas.',
-        '3': 'Kamu maunya tidur siang, lebih tepatnya.'
+        '2': 'Tembaga. Aku berharap perak.',
+        '3': 'Tembaga bayar sewa. Perak bayar mimpi.'
       },
       forge: {
-        '1': 'Tungku besar belum padam selama seratus tahun.',
-        '2': 'Pipa kakekku juga belum.'
+        '1': 'Tungku besar belum pernah dingin selama seratus tahun.',
+        '2': 'Kakekku ikut menyalakannya, tahu.'
       },
       beard: {
-        '1': 'Kamu merapikan jenggotmu!',
-        '2': 'Terbakar di dekat landasan.',
-        '3': 'Cocok kok.'
+        '1': 'Jenggotmu dipangkas.',
+        '2': 'Terlalu dekat dengan landasan.',
+        '3': 'Nanti tumbuh lagi. Lagian lebih cocok pendek.'
       },
       core: {
-        '1': 'Sesuatu bersinar di tambang dalam sekarang.',
-        '2': 'Tak ada yang bagus bersinar di bawah sana.'
+        '1': 'Ada yang bersinar di poros-poros dalam.',
+        '2': 'Tak ada yang bagus bersinar di sana. Tetap di atas saja.'
       },
       order: {
-        '1': 'Pembuat zirah Ordo bekerja cepat.',
-        '2': 'Cepat, ya. Tapi tak sebagus kita.'
+        '1': 'Pandai zirah Ordo kerjanya cepat, aku akui itu.',
+        '2': 'Cepat, ya. Kita lihat seberapa awet.'
       },
       circle: {
-        '1': 'Para penyihir Lingkaran bersenandung saat bekerja.',
-        '2': 'Lebih baik daripada nyanyian kita, kurasa.'
+        '1': 'Orang-orang Lingkaran bersenandung sambil bekerja.',
+        '2': 'Setidaknya lebih enak daripada nyanyianmu.'
       },
       cold: {
-        '1': 'Dingin di atas sini pagi ini.',
-        '2': 'Berdirilah lebih dekat ke tungku, kalau begitu.'
+        '1': 'Dingin sekali pagi ini.',
+        '2': 'Kalau begitu berdirilah dekat tungku.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Kamu yang jaga!',
-        '2': 'Curang, aku belum siap!'
+        '1': 'Kena, sekarang kamu yang jaga!',
+        '2': 'Nggak adil, aku belum siap!'
       },
       dragon: {
-        '1': 'Kalau sudah besar aku akan menunggang naga.',
-        '2': 'Naga tidak mau ditunggangi.',
-        '3': 'Yang baik mau!'
+        '1': 'Kalau sudah besar aku mau menunggang naga.',
+        '2': 'Naga tak mau ditunggangi orang.',
+        '3': 'Naga yang baik mungkin mau.'
       },
       sword: {
-        '1': 'Lihat, tongkat pedang sungguhan!',
-        '2': 'Itu cuma tongkat.'
+        '1': 'Lihat, aku nemu pedang!',
+        '2': 'Itu tongkat.'
       },
       frog: {
-        '1': 'Aku menemukan katak di dekat sumur.',
+        '1': 'Ada katak di dekat sumur.',
         '2': 'Boleh kita pelihara?',
-        '3': 'Kayaknya dia yang memelihara kita.'
+        '3': 'Ibu bilang tak boleh ada katak lagi.'
       }
     },
     ui: {
@@ -1247,66 +1247,66 @@ export default {
       }
     },
     hero: {
-      bye: 'Cukup untuk sekarang.',
-      trade: 'Tunjukkan daganganmu.',
-      train: 'Ajari aku.',
-      heal: 'Obati aku.',
-      mana: 'Aku butuh sesuatu untuk manaku.',
-      who: 'Kamu siapa?',
+      bye: 'Aku tak mengganggu lagi.',
+      trade: 'Boleh aku lihat daganganmu?',
+      train: 'Maukah kamu mengajariku?',
+      heal: 'Bisa tolong obati lukaku?',
+      mana: 'Punya sesuatu untuk mana?',
+      who: 'Siapa kamu, kalau boleh tahu?',
       rumor: 'Ada kabar terbaru?',
-      ready: 'Apakah aku siap belajar lebih banyak?'
+      ready: 'Menurutmu aku sudah siap untuk yang lebih berat?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Wajah baru. Kamu yang menjaga jalan dataran itu.',
-        '2': 'Aku Bram. Aku membuat baja. Kelihatannya kamu butuh.'
+        '1': 'Belum pernah lihat kamu. Kamu yang membersihkan jalan itu?',
+        '2': 'Bram. Aku yang pegang tungku. Kalau butuh bilah, datang ke aku.'
       },
       kingDead: {
-        '1': 'Kudengar Raja Goblin mati. Bagus. Lebih sedikit penyok untuk diketok dari roda kafilah.'
+        '1': 'Dengar Raja Goblin sudah mati. Aku tak akan merindukannya.'
       },
       kingPact: {
-        '1': 'Goblin berdagang di alun-alun. Tak pernah kusangka akan melihatnya. Besi mereka sampah, ingat.'
+        '1': 'Goblin berdagang di alun-alun sekarang. Tak pernah kusangka.'
       },
       kingRansom: {
-        '1': 'Katanya kamu ambil emas Raja dan biarkan dia memegang mahkotanya. Serbuan akan kembali.'
+        '1': 'Kamu biarkan Raja Goblin menyimpan mahkotanya. Dia akan kembali, tahu.'
       },
       ending: {
-        '1': 'Seluruh kerajaan membicarakan takhta itu. Dan kamu masih beli dariku. Hm.'
+        '1': 'Seluruh kerajaan membicarakanmu. Masih butuh batu asah, nggak?'
       },
       again: {
-        '1': 'Datang lagi. Bagus. Baja tak menjual dirinya sendiri.'
+        '1': 'Datang lagi. Ada yang bisa kubantu?'
       },
       trade: {
-        '1': 'Baja polos, harga jujur. Lihat sepuasmu.'
+        '1': 'Baja polos, harga wajar. Lihat saja.'
       },
       who: {
-        '1': 'Bram. Tiga puluh tahun di landasan ini.',
-        '2': 'Aku memasang ladam kuda, memperbaiki bajak, dan mempersenjatai orang nekat sepertimu. Urutannya begitu.'
+        '1': 'Bram. Tiga puluh tahun di landasan ini, kurang lebih.',
+        '2': 'Tapal kuda, bajak, sesekali pedang. Belakangan kebanyakan pedang.'
       },
       gear: {
-        '1': 'Perisai, kalau kamu berniat dipukul. Pedang lebih besar, kalau tidak.',
-        '2': 'Kekuatan yang mengayunkan bajaku. Taruh poinmu di sana sebelum beli yang berat.',
-        say: 'Apa yang harus kubawa ke luar sana?'
+        '1': 'Perisai, kalau kamu berencana kena pukul. Kebanyakan orang begitu.',
+        '2': 'Baja berat butuh lengan kuat. Tingkatkan Kekuatan dulu.',
+        say: 'Apa yang sebaiknya kubawa ke luar sana?'
       },
       rumor: {
         plains: {
-          '1': 'Ada goblin di jalan dataran. Usir mereka sebelum belanja barang mewah.'
+          '1': 'Ada bandit di jalan dataran. Kalau jadi kamu, aku mulai dari sana.'
         },
         hollows: {
-          '1': 'Para perampok merangkak keluar dari Liang Goblin, di balik dataran. Raja mereka duduk di dasar.'
+          '1': 'Para goblin datang dari Liang, di balik dataran. Raja mereka ada di bawah sana.'
         },
         woods: {
-          '1': 'Di timur dataran, Hutan Berbisik mulai. Pohon-pohonnya berjalan. Bawa kapak.'
+          '1': 'Di timur dataran ada Hutan Berbisik. Orang bilang pohonnya bergerak.'
         },
         siege: {
-          '1': 'Ada asap ke arah Oakhaven. Katanya seorang panglima berkemah di pinggirannya.'
+          '1': 'Ada asap ke arah Oakhaven. Pasukan berkemah di pinggirannya.'
         },
         north: {
-          '1': 'Baja Ironhold kembali di jalan. Pergilah ke utara kalau mau yang lebih bagus dari milikku.'
+          '1': 'Baja Ironhold mulai turun lewat jalan lagi. Lebih bagus dari punyaku, jujur saja.'
         }
       },
       shopBack: {
-        '1': 'Pakailah dengan sehat. Atau pakai saja.'
+        '1': 'Rawat baik-baik, nanti dia merawatmu.'
       },
       bye: {
         '1': 'Hati-hati di jalan.'
@@ -1314,490 +1314,490 @@ export default {
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, pelanggan! Atau penjaga. Kamu bukan penjaga, kan?',
-        '2': 'Aku Tilly. Cincin, jimat, barang keberuntungan. Semua kutemukan, tak pernah kucuri.'
+        '1': 'Oh, halo! Mau beli, atau cuma lihat-lihat? Dua-duanya boleh.',
+        '2': 'Aku Tilly. Cincin, jimat, barang-barang kecil dari mana-mana.'
       },
       rival: {
-        '1': 'Sudah lihat lapak Grik? Perhiasan goblin! Aku bangkrut. Belilah sesuatu. Kasihani aku.'
+        '1': 'Sudah lihat lapak si goblin? Harganya lebih murah dariku. Itu tidak adil.'
       },
       again: {
-        '1': 'Pelanggan favoritku! Itu kukatakan ke semua orang, tapi padamu aku sungguh-sungguh.'
+        '1': 'Nah, itu kamu! Aku sisihkan beberapa barang yang kurasa kamu suka.'
       },
       trade: {
-        '1': 'Cincin! Jimat! Barang yang kutemukan dan pasti tidak kucuri.'
+        '1': 'Lihat saja. Yang itu bawa keberuntungan. Mungkin.'
       },
       who: {
-        '1': 'Aku berjalan di jalanan dan memungut apa yang ditinggalkan jalanan.',
-        '2': 'Bandit menjatuhkan barang-barang paling bagus saat kabur.'
+        '1': 'Aku keliling jalanan dan membeli apa yang ingin orang buang.',
+        '2': 'Dan kadang aku menemukan barang. Bandit banyak menjatuhkan barang kalau kabur.'
       },
       trinkets: {
-        '1': 'Kamu pakai dua sekaligus, satu di tiap tangan. Keunggulan kecil tetap keunggulan.',
-        say: 'Apa gunanya jimat?'
+        '1': 'Bisa pakai dua, satu di tiap tangan. Semuanya berarti di luar sana.',
+        say: 'Sebenarnya jimat itu gunanya apa?'
       },
       stolen: {
-        '1': 'Sst! Jangan keras-keras. Baiklah. BAIKLAH.',
-        '2': 'Ambil cincin ini dan kita tak pernah bicara. Cincinnya bagus. Kebanyakan tembaga.',
-        say: 'Kamu mencuri semua ini, kan?'
+        '1': 'Ah. Kamu punya cara bertanya sendiri, ya?',
+        '2': 'Ambil cincin ini dan jangan bahas di mana aku menemukannya.',
+        say: 'Sebenarnya semua ini dari mana?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Ada koloseum di selatan sini dengan gerbang berkarat dan tertutup. Akan terbuka kalau masalah goblin selesai.'
+          '1': 'Ada koloseum tua di selatan sini. Tertutup rapat selama goblin menyerbu.'
         },
         arenaOpen: {
-          '1': 'Koloseum sudah buka! Delapan gelombang, katanya. Aku jual keberuntungan. Kamu pasti butuh keberuntungan.'
+          '1': 'Koloseum dibuka lagi. Delapan gelombang, katanya. Orang bertaruh di sana.'
         },
         east: {
-          '1': 'Pasar Oakhaven membayar dua kali lipat untuk apa pun yang berkilau. Pergilah ke timur, melewati hutan.'
+          '1': 'Oakhaven bayar mahal untuk apa pun yang berkilau. Di timur, melewati hutan.'
         }
       },
       shopBack: {
-        '1': 'Kembali kalau sudah lebih kaya!'
+        '1': 'Kembali kalau dompetmu sudah lebih tebal!'
       },
       bye: {
-        '1': 'Jaga kantongmu di luar sana! Bukan di dekatku, maksudku. Di tempat lain.'
+        '1': 'Selamat jalan. Jaga koinmu baik-baik di luar sana.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Berdiri tegak. Kamu berhadapan dengan seorang kesatria Ordo Besi.',
-        '2': 'Ser Aldric. Aku mengajarkan perisai kepada mereka yang mau berdiri di depan orang lain.'
+        '1': 'Berdiri tegak. Kamu sedang bicara dengan seorang kesatria Ordo Besi.',
+        '2': 'Ser Aldric. Aku mengajar orang berdiri di antara sesama dan bahaya.'
       },
       saved: {
-        '1': 'Oakhaven berdiri karena kamu berdiri. Hanya itu yang kuajarkan.'
+        '1': 'Oakhaven masih berdiri, dan kudengar kamu ada di temboknya. Bagus.'
       },
       fallen: {
-        '1': 'Kamu membuka gerbang Oakhaven. Aku pernah menguburkan orang karena yang lebih ringan. Katakan keperluanmu.'
+        '1': 'Kamu yang membuka gerbang Oakhaven. Aku tak akan pura-pura lupa. Apa maumu?'
       },
       dragon: {
-        '1': 'Pembunuh naga di halamanku. Mereka akan menyanyikannya di aula agung.'
+        '1': 'Kamu membunuh naga di puncak? Aku ingin sekali melihatnya.'
       },
       friend: {
-        '1': 'Ordo memujimu. Untuk sahabatnya, pelajaranku lebih murah.'
+        '1': 'Ordo berpikir baik tentangmu. Untuk teman-temannya, pelajaranku lebih murah.'
       },
       foe: {
-        '1': 'Ordo menyebutmu musuh. Aku tetap akan mengajarimu. Kehormatan bukan hak mereka untuk dicabut.'
+        '1': 'Ordo menyebutmu musuh. Aku tetap akan mengajarimu. Itu pilihanku, bukan pilihan mereka.'
       },
       again: {
-        '1': 'Perisai di atas. Apa yang kamu butuhkan?'
+        '1': 'Kembali untuk latihan lagi?'
       },
       train: {
-        '1': 'Kalau begitu perhatikan. Aku menunjukkan sesuatu sekali saja.'
+        '1': 'Baik. Perhatikan baik-baik, aku hanya menunjukkan sekali.'
       },
       class: {
-        '1': 'Tembok yang berjalan. Kami menahan pukulan supaya tak ada yang lain harus menahannya.',
-        '2': 'Kekuatan untuk lengan, Ketahanan untuk sisanya. Cahaya melakukan apa yang dia bisa.',
-        say: 'Apa itu Kesatria Aegis?'
+        '1': 'Kami menerima pukulan yang ditujukan pada orang lain. Sederhana, dan berat.',
+        '2': 'Kamu butuh Kekuatan untuk perisai dan Ketahanan untuk menahannya.',
+        say: 'Sebenarnya apa yang dilakukan Kesatria Aegis?'
       },
       ready: {
         strong: {
-          '1': 'Lenganmu cukup untuk hampir semua yang kutahu. Jaga Ketahananmu dan ambil sisanya.'
+          '1': 'Kamu cukup kuat untuk sebagian besar yang kutahu. Teruskan melatih Ketahanan.'
         },
         able: {
-          '1': 'Kamu siap untuk pelajaran berikutnya. Jangan sampai membuatmu besar kepala.'
+          '1': 'Kamu siap untuk pelajaran berikutnya. Jangan sampai besar kepala.'
         },
         weak: {
-          '1': 'Belum. Lenganmu lemah dan kamu cepat lelah. Lebih banyak Kekuatan, lebih banyak Ketahanan.'
+          '1': 'Belum. Kamu akan lelah sebelum perisainya. Tambah Kekuatan, tambah Ketahanan.'
         }
       },
       order: {
-        '1': 'Kami menjaga jalan dan hukum. Sebagian bilang terlalu banyak dari keduanya.',
-        '2': 'Berdirilah bersama Ordo, dan pembuat zirah serta gurunya akan mengingatmu.',
+        '1': 'Kami menjaga jalan tetap aman dan hukum tetap tegak. Ada yang bilang terlalu keras.',
+        '2': 'Berdirilah bersama kami, dan pandai zirah serta guru kami akan mengingatmu.',
         say: 'Ceritakan tentang Ordo Besi.'
       },
       trainBack: {
-        '1': 'Latih sampai kamu bosan. Lalu latih lagi.'
+        '1': 'Berlatihlah sampai bosan. Lalu teruskan.'
       },
       bye: {
-        '1': 'Pergilah bersama cahaya.'
+        '1': 'Jalan hati-hati.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Murid? Mundur sedikit. Sedikit lagi.',
-        '2': 'Ember Wren, penyihir api. Alisnya tumbuh lagi, kebanyakan.'
+        '1': 'Oh, murid? Bagus. Mungkin mundur sedikit.',
+        '2': 'Aku Ember Wren. Aku mengajar api. Biasanya dia menurut padaku.'
       },
       core: {
-        '1': 'Kamu memberikan inti itu ke Lingkaran! Tahu berapa banyak hal yang bisa kami bakar sekarang?'
+        '1': 'Kamu memberikan inti itu ke Lingkaran! Aku tak sabar melihat apa yang kita pelajari darinya.'
       },
       friend: {
-        '1': 'Lingkaran Aether menyukaimu! Artinya diskon. Dan formulir yang harus ditandatangani lebih sedikit.'
+        '1': 'Lingkaran memujimu. Artinya diskon, omong-omong.'
       },
       foe: {
-        '1': 'Lingkaran ingin kamu jadi abu. Canggung! Aku tetap akan mengajarimu. Api tidak pilih-pilih.'
+        '1': 'Lingkaran tidak senang padamu. Tapi aku tetap akan mengajarimu. Diam-diam.'
       },
       again: {
-        '1': 'Kamu kembali! Dan tak ada yang terbakar. Bisa kita perbaiki.'
+        '1': 'Kamu kembali! Siap menyalakan sesuatu?'
       },
       train: {
-        '1': 'Ya! Perhatikan baik-baik. Jangan terlalu dekat.'
+        '1': 'Baik. Perhatikan tanganku, dan jauhkan lengan bajumu dariku.'
       },
       class: {
-        '1': 'Api menjawab setiap pertanyaan. Bakar mereka dulu, lalu ledakkan yang sedang terbakar.',
-        '2': 'Semuanya jalan dengan Kecerdasan. Dan pasokan jubah yang stabil.',
-        say: 'Apa yang dilakukan Penyihir Api?'
+        '1': 'Membakar sesuatu, terutama. Lalu membuat api menyebar ke arah yang kamu mau.',
+        '2': 'Semuanya dari Kecerdasan. Makin tajam pikiran, makin panas apinya.',
+        say: 'Sebenarnya apa yang dilakukan Penyihir Api?'
       },
       ready: {
         strong: {
-          '1': 'Kamu bisa melelehkan golem! Ambil semua yang kupunya. Perhatikan Keahlianmu untuk yang rumit.'
+          '1': 'Jujur? Kamu bahkan bisa mengajarkan sebagian ini. Ambil apa saja.'
         },
         able: {
-          '1': 'Pikiranmu cukup hangat untuk mantra berikutnya. Ayo!'
+          '1': 'Kamu siap untuk mantra berikutnya. Ayo, kutunjukkan.'
         },
         weak: {
-          '1': 'Hmm. Kecerdasanmu belum cukup. Apinya akan memakaimu, bukan sebaliknya.'
+          '1': 'Belum, maaf. Kamu butuh lebih banyak Kecerdasan, atau apinya yang menguasaimu.'
         }
       },
       circle: {
-        '1': 'Cendekiawan. Kami mempelajari apa penyusun dunia ini. Sebagian meledak.',
+        '1': 'Para cendekiawan. Kami mempelajari apa yang membentuk dunia. Sebagian meledak.',
         say: 'Siapa itu Lingkaran Aether?'
       },
       trainBack: {
-        '1': 'Pergi dan bakar sesuatu! Sesuatu yang pantas.'
+        '1': 'Pergilah berlatih. Di tempat yang tak gampang terbakar, ya.'
       },
       bye: {
-        '1': 'Tetap hangat!'
+        '1': 'Jaga dirimu!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Jadi kamu yang datang dari jalan itu. Mendekatlah, mataku tak seperti dulu.',
-        '2': 'Aku Mara. Sudah empat puluh tahun aku menjaga buku catatan dan kedamaian kota ini.'
+        '1': 'Jadi kamu yang datang dari jalan itu. Kemarilah, biar kulihat.',
+        '2': 'Aku Mara. Sudah menjaga kota ini selama... ah, empat puluh tahun.'
       },
       slain: {
-        '1': 'Liang itu sunyi. Kamu melakukan hal berat, dan Sunford tidur nyenyak karenanya.'
+        '1': 'Liang sudah tenang. Yang kamu lakukan itu berat, tapi kami bisa tidur karenanya.'
       },
       pact: {
-        '1': 'Goblin menjual perhiasan di alun-alunku. Lidahmu manis, Nak. Semoga bertahan.'
+        '1': 'Goblin berjualan di alun-alunku. Kamu yang membujuk mereka, kan?'
       },
       ransom: {
-        '1': 'Kamu ambil emasnya dan biarkan dia memegang mahkota. Aku terlalu tua untuk pura-pura tidak kecewa.'
+        '1': 'Kamu ambil emasnya dan membiarkan dia menyimpan mahkota. Aku tak akan pura-pura tidak kecewa.'
       },
       saved: {
-        '1': 'Kabar datang dari Oakhaven. Gerbangnya bertahan. Aku senang salah satu dari kita ada di sana.'
+        '1': 'Kabar datang dari Oakhaven. Gerbangnya bertahan. Aku senang kamu ada di sana.'
       },
       fallen: {
-        '1': 'Oakhaven terbakar, dan katanya kamu yang memegang obornya. Jangan beri tahu aku. Lebih baik aku tak tahu.'
+        '1': 'Oakhaven terbakar, katanya. Aku tak mau dengar bagaimana. Tidak hari ini.'
       },
       ending: {
-        '1': 'Katanya kamu yang memutuskan siapa duduk di Benteng Kengerian. Dari jalan Sunford sampai ke itu. Bayangkan.'
+        '1': 'Katanya kamu yang menentukan nasib Benteng Kengerian. Dari jalan kecil kami sampai ke sana.'
       },
       again: {
-        '1': 'Duduklah sebentar. Jalan itu bisa menunggu.'
+        '1': 'Duduklah sebentar. Jalannya tak ke mana-mana.'
       },
       reward: {
-        '1': 'Kamu menjaga jalan saat milisi kami tak sanggup. Kota mengumpulkan sumbangan.',
-        '2': 'Tidak banyak. Ini setiap koin yang bisa kami sisihkan.',
-        say: 'Anda ingin bertemu saya?'
+        '1': 'Kamu menjaga jalan saat milisi kami tak sanggup. Kota mengumpulkan sedikit.',
+        '2': 'Tak banyak. Hanya yang bisa kami sisihkan.',
+        say: 'Katanya kamu ingin bertemu denganku?'
       },
       quest: {
-        '1': 'Serbuan datang dari Liang Goblin. Para goblin telah menobatkan seorang raja.',
-        '2': 'Dan Anda ingin dia mati.',
-        '3': 'Aku ingin serbuan berhenti. Bagaimana caranya terserah kamu, di dasar gua-gua itu.',
-        '4': 'Liang itu tepat di seberang dataran. Berhati-hatilah.',
+        '1': 'Serangan itu datang dari Liang Goblin. Mereka sudah menobatkan seorang raja.',
+        '2': 'Dan kamu ingin dia mati?',
+        '3': 'Aku ingin serangannya berhenti. Soal caranya... itu kamu yang putuskan di bawah sana.',
+        '4': 'Liang ada tepat di balik dataran. Tolong, hati-hati.',
         say: 'Apa yang mengganggu Sunford?'
       },
       king: {
-        say: 'Soal Raja Goblin…',
+        say: 'Soal Raja Goblin...',
         slay: {
-          '1': 'Seorang raja mati dan kafilahku tiba tepat waktu. Aku tak akan bertanya bagaimana rasanya.'
+          '1': 'Dia sudah tiada, dan kafilah berjalan lagi. Aku tak akan tanya bagaimana rasanya.'
         },
         pact: {
-          '1': 'Perjanjian! Ibuku pasti pingsan. Tapi, dagang lebih baik daripada pemakaman.'
+          '1': 'Perjanjian dagang. Ibuku pasti pingsan. Tapi dagang lebih baik daripada pemakaman.'
         },
         ransom: {
-          '1': 'Emas cepat habis. Dendam tidak. Ingat itu saat serbuan kembali.'
+          '1': 'Emas cepat habis. Dendam tidak. Ingat itu saat serangan mulai lagi.'
         }
       },
       town: {
-        '1': 'Kebanyakan petani. Seorang pandai besi, seorang tabib, dan dua guru yang sabar menghadapi kami.',
-        '2': 'Istirahat di sini, pakai poinmu, dan keluar lagi lebih kuat. Untuk itulah rumah ada.',
+        '1': 'Kebanyakan petani. Seorang pandai besi, seorang tabib, dua guru yang sabar menghadapi kami.',
+        '2': 'Istirahatlah di sini di antara perjalanan. Itulah gunanya rumah.',
         say: 'Ceritakan tentang Sunford.'
       },
       next: {
         say: 'Ke mana aku harus pergi selanjutnya?',
         plains: {
-          '1': 'Jalan dataran, sebelum yang lain. Kita tak bisa makan kalau kafilah tak bisa lewat.'
+          '1': 'Jalan dataran dulu. Tanpa kafilah, kami tak makan.'
         },
         hollows: {
-          '1': 'Liang Goblin dulu. Tak ada yang aman selama serbuan berlanjut.'
+          '1': 'Liang Goblin. Tak ada yang aman selama serangan berlanjut.'
         },
         woods: {
-          '1': 'Ke timur, lewat Hutan Berbisik. Jalan ke Oakhaven lewat di bawah pohon-pohon itu.'
+          '1': 'Ke timur, lewat Hutan Berbisik. Itu jalan ke Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven sedang dikepung. Kalau pinggirannya jatuh, kotanya jatuh.'
+          '1': 'Oakhaven sedang dikepung. Kalau pinggirannya jatuh, kotanya ikut jatuh.'
         },
         north: {
-          '1': 'Utara, Nak. Tebing Abu, dan Ironhold di baliknya. Masalah makin besar semakin jauh kamu pergi.'
+          '1': 'Utara, kurasa. Tebing Abu, lalu Ironhold di baliknya. Makin berat saja.'
         }
       },
       bye: {
-        '1': 'Kembalilah hidup-hidup. Hanya itu yang kuminta dari siapa pun.'
+        '1': 'Kembalilah dengan selamat. Itu saja yang kuminta.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Diam. Tidak, kamu baik-baik saja. Kebiasaan.',
-        '2': 'Suster Lune. Aku menyembuhkan apa yang dirusak jalanan.'
+        '1': 'Diam sebentar. Tidak, kamu baik-baik saja. Kebiasaan, maaf.',
+        '2': 'Aku Suster Lune. Aku menambal apa pun yang dirusak jalanan.'
       },
       again: {
-        '1': 'Masih utuh? Aku hampir kecewa.'
+        '1': 'Masih utuh? Bagus. Duduk saja dulu.'
       },
       heal: {
-        '1': 'Duduk. Istirahat. Kamu pergi dari sini sehat, dengan semua botol terisi.'
+        '1': 'Duduk, istirahat sebentar. Kuisi botolmu sebelum kamu pergi.'
       },
       mana: {
-        '1': 'Botol biru, rasanya pahit. Teguklah saat mantramu habis.'
+        '1': 'Yang ini pahit. Minum saat mantramu habis.'
       },
       potions: {
-        '1': 'Kamu membawa beberapa botol ke tiap zona. Minum sebelum butuh, bukan sesudahnya.',
-        '2': 'Kalau mau membawa lebih banyak, aku bisa menjual sabuk yang lebih panjang.',
+        '1': 'Kamu membawa beberapa botol ke tiap pertempuran. Minum sebelum butuh, bukan sesudahnya.',
+        '2': 'Kalau mau membawa lebih banyak, kujual sabuk yang lebih besar.',
         say: 'Bagaimana cara kerja ramuan?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblin meracuni batu ketapel mereka. Kalau kulitmu jadi hijau, langsung kembali ke sini.'
+          '1': 'Para goblin melumuri batu ketapel mereka dengan sesuatu. Kalau mual, kembali ke sini.'
         },
         spiders: {
-          '1': 'Gigitan laba-laba dari Hutan. Tiga minggu ini. Usahakan jangan sampai digigit.'
+          '1': 'Minggu ini aku merawat tiga gigitan laba-laba dari Hutan. Hati-hati melangkah di sana.'
         },
         burns: {
-          '1': 'Prajurit turun dari utara dengan luka bakar. Tebing Abu, katanya. Api yang berjalan.'
+          '1': 'Prajurit terus turun dari utara dengan luka bakar. Tebing Abu, katanya.'
         }
       },
       healBack: {
-        '1': 'Jaga sabuk tetap penuh dan kepala tetap merunduk.'
+        '1': 'Jaga sabukmu tetap penuh dan kepalamu tetap rendah.'
       },
       bye: {
-        '1': 'Jangan sampai berdarah di atas barang penting.'
+        '1': 'Jaga dirimu di luar sana.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Si Jangkung! Si Jangkung bikin perjanjian. Raja bilang baik sama Si Jangkung.',
-        '2': 'Grik baik. Grik punya kilauan. Si Jangkung punya emas. Pasangan bagus.'
+        '1': 'Kamu yang membuat perjanjian. Raja kami bilang kamu diterima di sini.',
+        '2': 'Aku Grik. Aku jual buatan goblin. Kerja bagus, harga wajar.'
       },
       again: {
-        '1': 'Si Jangkung kembali! Grik sudah tahu. Kilauan memanggil Si Jangkung.'
+        '1': 'Teman. Senang bertemu lagi.'
       },
       trade: {
-        '1': 'Raja bilang dagang, jadi Grik dagang. Kilauan tukar kilauan. Kilauan bagus.'
+        '1': 'Lihat, silakan. Keluargaku yang membuat ini.'
       },
       king: {
-        '1': 'Raja gemuk dan senang. Tak ada serbuan. Serbuan kerja berat.',
-        '2': 'Raja bilang Si Jangkung lidahnya bagus. Pujian tertinggi goblin. Hampir.',
+        '1': 'Dia makan dengan baik sekarang. Tak ada serangan. Rakyatku tak terlalu lapar.',
+        '2': 'Dia sering bicara tentangmu. Dengan hormat.',
         say: 'Bagaimana kabar rajamu?'
       },
       town: {
-        '1': 'Manusia terlalu sering mandi. Tapi pai! Grik tak tahu soal pai.',
+        '1': 'Orang masih menatap. Tapi tukang roti memberiku pai. Aku suka pai.',
         say: 'Kamu suka Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Sepupu Grik menggali di utara, di batu hitam. Katanya api berjalan di sana. Grik tinggal di sini.'
+          '1': 'Sepupuku menggali batu hitam di utara. Katanya api berjalan di sana sekarang.'
         },
         deep: {
-          '1': 'Tempat-tempat dalam mulai bangun, Si Jangkung. Goblin merasakannya di kaki.'
+          '1': 'Sesuatu terbangun di tempat-tempat dalam. Goblin merasakannya di tanah.'
         }
       },
       shopBack: {
-        '1': 'Dagang bagus! Si Jangkung datang lagi, ya?'
+        '1': 'Terima kasih. Datang lagi.'
       },
       bye: {
-        '1': 'Dah, Si Jangkung! Jangan mati. Orang mati tak beli apa-apa.'
+        '1': 'Selamat jalan, teman.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Satu pedang lagi. Bagus. Aku berhenti bertanya dari mana asalnya.',
-        '2': 'Kapten Hale. Aku memimpin sisa pasukan jaga Oakhaven.'
+        '1': 'Satu pedang lagi. Bagus. Kami butuh sebanyak mungkin.',
+        '2': 'Kapten Hale. Aku memimpin sisa penjaga Oakhaven.'
       },
       saved: {
-        '1': 'Gerbang bertahan. Tiga ratus tahun, dan sekarang sekali lagi. Aku berutang kotaku padamu.'
+        '1': 'Gerbang bertahan. Tiga ratus tahun, dan satu tahun lagi. Aku berutang padamu.'
       },
       ending: {
-        '1': 'Kamu menentukan takhta Benteng Kengerian. Temboku terasa lebih kecil dari sebelumnya.'
+        '1': 'Katanya kamu yang menentukan Benteng Kengerian. Temboku terasa kecil di sebelahnya.'
       },
       again: {
-        '1': 'Tembok masih berdiri. Untuk hari ini.'
+        '1': 'Tembok masih berdiri. Untuk hari ini, setidaknya.'
       },
       after: {
-        '1': 'Oakhaven ingat, Kawan. Aku juga.'
+        '1': 'Senang melihatmu. Oakhaven tak lupa.'
       },
       quest: {
-        '1': 'Pasukan seorang panglima mengepung kami. Krag. Dia tak bertempur gratis.',
+        '1': 'Buruk. Seorang panglima bernama Krag mengepung kami, dan dia tak bertempur gratis.',
         '2': 'Siapa yang membayarnya?',
         '3': 'Sindikat Abu. Mereka mau kota sendiri, dan kota kami punya tembok.',
-        '4': 'Hancurkan dia di Pinggiran Oakhaven. Di sanalah semuanya akan diputuskan.',
-        say: 'Bagaimana situasinya?'
+        '4': 'Hancurkan kemahnya di Pinggiran Oakhaven. Di sanalah semuanya berakhir, dengan cara apa pun.',
+        say: 'Seburuk apa keadaannya?'
       },
       siege: {
-        '1': 'Mereka menawarimu sepertiga kota. Aku tahu. Mereka menawariku seperempat.',
-        '2': 'Sindikat memburumu sekarang, di setiap jalan. Awasi punggungmu di luar sana.',
-        say: 'Soal pengepungan itu…'
+        '1': 'Mereka menawarimu sepertiga kota, kan? Aku ditawari seperempat.',
+        '2': 'Sindikat akan mengejarmu sekarang. Awasi punggungmu di jalan.',
+        say: 'Soal pengepungan...'
       },
       town: {
-        '1': 'Kota dagang. Semua yang bergerak antara dataran dan pegunungan membayar tol di sini.',
-        '2': 'Itulah kenapa semua orang menginginkannya. Itulah kenapa aku tak akan melepaskannya.',
+        '1': 'Kota dagang. Apa pun yang lewat antara dataran dan pegunungan membayar bea di sini.',
+        '2': 'Itu sebabnya semua orang menginginkannya. Dan sebabnya aku tak akan menyerahkannya.',
         say: 'Ceritakan tentang Oakhaven.'
       },
       order: {
-        '1': 'Aku mengabdi pada Oakhaven. Ordo dan aku sepakat di sebagian besar hari. Itu bukan hal yang sama.',
-        say: 'Apakah Anda mengabdi pada Ordo Besi?'
+        '1': 'Aku bertanggung jawab pada Oakhaven. Ordo dan aku sepakat di sebagian besar hari. Tidak setiap hari.',
+        say: 'Apakah Anda tunduk pada Ordo Besi?'
       },
       rumor: {
         crags: {
-          '1': 'Di utara hutan tanahnya hitam dan terbakar. Tebing Abu. Para pemuja memberi makan apinya.'
+          '1': 'Di utara hutan tanahnya hitam dan terbakar. Tebing Abu. Kebanyakan pemuja.'
         },
         mines: {
-          '1': 'Ironhold berhenti mengirim baja. Ada yang salah di tambangnya.'
+          '1': 'Ironhold berhenti mengirim baja. Ada yang tak beres di tambang mereka.'
         },
         north: {
-          '1': 'Utara jauh jadi sunyi. Dari pengalamanku, sunyi lebih buruk.'
+          '1': 'Utara jauh jadi sepi. Menurut pengalamanku, itu tak pernah pertanda baik.'
         }
       },
       bye: {
-        '1': 'Jaga pedangmu tetap longgar.'
+        '1': 'Simpan pedangmu dekat-dekat.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Kalau mau helm, kamu terlambat. Semuanya di tembok.',
-        '2': 'Odo. Pembuat zirah. Lelah.'
+        '1': 'Kalau cari helm, maaf. Semuanya di atas tembok.',
+        '2': 'Odo. Aku membuat zirah. Belakangan kurang tidur.'
       },
       again: {
-        '1': 'Masih di sini. Masih kekurangan stok.'
+        '1': 'Masih di sini. Masih kekurangan hampir segalanya.'
       },
       trade: {
-        '1': 'Separuh daganganku naik ke tembok. Ambil yang tersisa.'
+        '1': 'Separuh daganganku sudah dibawa ke tembok. Ambil sisanya, kalau muat.'
       },
       who: {
-        '1': 'Dua puluh tahun aku memberi zirah pada kota ini. Tak pernah kusangka melihat semuanya dipakai sekaligus.'
+        '1': 'Dua puluh tahun aku memakaikan zirah pada kota ini. Belum pernah lihat semuanya dipakai sekaligus.'
       },
       armor: {
-        '1': 'Pelat kalau kamu diam di tempat. Kulit kalau tidak. Jubah kalau kamu senang mati.',
-        say: 'Zirah apa yang sebaiknya kupakai?'
+        '1': 'Pelat, kalau kamu bertahan di tempat. Kulit, kalau kamu terus bergerak. Jubah, kalau kamu gesit.',
+        say: 'Zirah macam apa yang sebaiknya kupakai?'
       },
       rumor: {
         backRoom: {
-          '1': 'Kalau pengepungan pecah, aku buka ruang belakang. Pelat yang bagus. Pecahkan untukku, ya?'
+          '1': 'Kalau pengepungan pecah, kubuka ruang belakang. Pelat terbaik ada di sana.'
         }
       },
       shopBack: {
-        '1': 'Akan awet. Mungkin.'
+        '1': 'Akan awet. Sejauh ini awet.'
       },
       bye: {
-        '1': 'Jaga kepalamu tetap merunduk.'
+        '1': 'Jaga kepalamu tetap rendah di luar sana.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Kamu! Masuk sini. Ruang belakang terbuka, dan terbuka untuk KAMU.',
-        '2': 'Master Odo, sekarang mereka menyebutku. Usaha lancar kalau kota hidup.'
+        '1': 'Nah, itu kamu! Masuklah. Ruang belakang terbuka, dan terbuka untukmu.',
+        '2': 'Sekarang mereka memanggilku Master Odo. Lucu apa yang dilakukan sedikit kedamaian pada bisnis.'
       },
       ending: {
-        '1': 'Dari gerbangku sampai Benteng Kengerian. Aku bilang ke semua orang bahwa akulah yang memasangkan zirahmu.'
+        '1': 'Dari gerbang kami sampai Benteng Kengerian. Aku cerita ke semua orang bahwa akulah yang memasangkan zirahmu.'
       },
       again: {
-        '1': 'Pahlawan gerbang. Apa yang akan diambil hari ini?'
+        '1': 'Senang melihatmu. Mau apa hari ini?'
       },
       trade: {
-        '1': 'Kamu menyelamatkan kota ini. Pelat terbaik keluar dari ruang belakang untukmu.'
+        '1': 'Pelat terbaik sudah dikeluarkan. Kamu lebih dari layak melihatnya.'
       },
       town: {
-        '1': 'Kaya. Ramai. Penuh pedagang yang mengeluh soal tol.',
-        '2': 'Luar biasa. Aku belum tidur seminggu.',
-        say: 'Bagaimana kotanya?'
+        '1': 'Sibuk. Ribut. Penuh pedagang yang menggerutu soal bea.',
+        '2': 'Luar biasa. Sudah berminggu-minggu aku tak punya sejam pun yang tenang.',
+        say: 'Bagaimana keadaan kota?'
       },
       rumor: {
         mines: {
-          '1': 'Bajaku dari Ironhold, dan Ironhold sudah sunyi. Seseorang harus memeriksa tambangnya.'
+          '1': 'Bajaku dari Ironhold, dan mereka jadi diam. Seseorang harus memeriksa tambang mereka.'
         },
         tundra: {
-          '1': 'Bijih terbaik yang pernah kulihat berasal dari tundra. Orang-orang yang membawanya tak pernah kembali.'
+          '1': 'Bijih terbaik yang pernah kutempa berasal dari tundra. Orang yang menemukannya tak kembali.'
         }
       },
       shopBack: {
-        '1': 'Kalau tidak pas, kembalilah. Akan kubuat pas.'
+        '1': 'Kalau kurang pas, bawa kembali. Kuperbaiki.'
       },
       bye: {
-        '1': 'Gerbang Oakhaven selalu terbuka untukmu. Hanya untukmu.'
+        '1': 'Kamu selalu diterima di sini.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Beli atau lihat-lihat? Lihat-lihat gratis. Menyentuh bayarnya sebuah jari.',
-        '2': 'Senna. Aku menjual mata tajam. Aku tak tanya untuk apa.'
+        '1': 'Lihat atau beli? Dua-duanya boleh. Jangan sentuh mata pisaunya.',
+        '2': 'Senna. Aku jual bilah. Mau diapakan, itu urusanmu.'
       },
       saved: {
-        '1': 'Pengepungan pecah. Sayang. Perang bagus untuk bisnis. Damai bagus untuk menagih utang.'
+        '1': 'Jadi pengepungan pecah. Bagus untuk kota. Tapi perang lebih bagus untuk daganganku.'
       },
       again: {
         '1': 'Kembali untuk yang lebih tajam?'
       },
       trade: {
-        '1': 'Tajam, seimbang, dan dijual ke siapa pun yang bayar. Hari ini itu kamu.'
+        '1': 'Tajam, seimbang, harga pantas. Silakan lihat-lihat.'
       },
       who: {
-        '1': 'Aku menjual pedang ke kedua pihak dalam tiga perang. Aku masih di sini. Mereka kebanyakan tidak.'
+        '1': 'Aku menjual ke kedua pihak dalam tiga perang. Aku masih di sini. Kebanyakan dari mereka tidak.'
       },
       rumor: {
         krag: {
-          '1': 'Anak buah Krag membawa baja bagus. Uang Sindikat. Rebut dari mereka kalau bisa.'
+          '1': 'Anak buah Krag membawa baja bagus. Uang Sindikat. Layak diambil kalau ada kesempatan.'
         },
         which: {
-          '1': 'Bilah cepat butuh Ketangkasan. Senjata api dan busur butuh Keahlian. Kenali dirimu sebelum membayarku.'
+          '1': 'Bilah cepat butuh Ketangkasan. Busur dan senapan butuh Keahlian. Kenali dirimu.'
         }
       },
       shopBack: {
-        '1': 'Darah bisa dilap. Karat tidak. Minyaki.'
+        '1': 'Minyaki terus. Karat merusak mata tajam lebih cepat daripada tulang.'
       },
       bye: {
-        '1': 'Jangan mati sambil berutang padaku.'
+        '1': 'Usahakan jangan mati sebelum melunasi utang padaku.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Jangan menoleh. Bercanda. Menolehlah.',
-        '2': 'Mereka memanggilku Sang Bisikan. Aku mengajari orang tiba tanpa ketahuan.'
+        '1': 'Kamu tak mendengarku datang dari belakang. Kebanyakan orang tak dengar.',
+        '2': 'Mereka memanggilku Sang Bisikan. Aku mengajar orang agar tak terlihat.'
       },
       fallen: {
-        '1': 'Kota lebih tenang sekarang. Lebih sedikit penjaga. Aku cukup suka.'
+        '1': 'Kota lebih sepi sekarang. Penjaga lebih sedikit. Kerja lebih mudah, buat sebagian dari kami.'
       },
       friend: {
-        '1': 'Sindikat menganggapmu sahabat. Sahabat bayar lebih murah. Sahabat juga tahu terlalu banyak.'
+        '1': 'Sindikat menganggapmu teman. Teman bayar lebih murah. Ingat itu.'
       },
       foe: {
-        '1': 'Sindikat ingin kamu mati. Aku dibayar untuk mengajar, bukan membunuh. Beruntung kamu.'
+        '1': 'Sindikat ingin kamu mati. Aku dibayar untuk mengajar, bukan membunuh. Jadi, pelajaran.'
       },
       again: {
-        '1': 'Kamu lebih berisik dari terakhir kali. Kita akan perbaiki itu.'
+        '1': 'Kamu masih terlalu berisik. Kita kerjakan itu.'
       },
       train: {
         '1': 'Pelan-pelan, kalau begitu. Perhatikan kakiku, bukan tanganku.'
       },
       class: {
-        '1': 'Pisau yang sudah ada di belakangmu. Keluar dari gelap, tikam, lalu hilang.',
-        '2': 'Ketangkasan di atas segalanya. Keahlian, saat kamu ingin sayatan itu berarti.',
+        '1': 'Seseorang yang sudah ada di belakangmu. Masuk, satu sayatan, lalu hilang.',
+        '2': 'Ketangkasan paling penting. Keahlian, kalau kamu ingin sayatannya berarti.',
         say: 'Apa itu Bilah Bayangan?'
       },
       ready: {
         strong: {
-          '1': 'Kamu bergerak bagus. Ambil yang kutahu. Bawa Keahlian untuk asapnya.'
+          '1': 'Gerakanmu bagus sekarang. Ambil sisanya. Bawa sedikit Keahlian untuk asapnya.'
         },
         able: {
-          '1': 'Bagus. Tanganmu cukup cepat untuk langkah berikutnya.'
+          '1': 'Tanganmu cukup cepat. Langkah berikutnya.'
         },
         weak: {
-          '1': 'Kamu berjalan seperti gerobak. Tambah Ketangkasan. Baru kita bicara.'
+          '1': 'Belum. Langkahmu berat. Latih Ketangkasanmu.'
         }
       },
       syndicate: {
-        '1': 'Orang-orang yang sadar hukum itu bisa dibeli. Aku tak menghakimi. Aku menagih.',
+        '1': 'Orang-orang yang sadar hukum punya harga. Aku tak menghakimi. Aku cuma dibayar.',
         say: 'Siapa itu Sindikat Abu?'
       },
       trainBack: {
-        '1': 'Sekarang pergi dan lakukan di tempat yang tak dilihat siapa pun.'
+        '1': 'Sekarang berlatihlah di tempat yang tak bisa dilihat siapa pun.'
       },
       bye: {
         '1': 'Kamu tak pernah melihatku.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Kamu boleh mendekat. Jangan sedekat itu.',
-        '2': 'Lord Castellan, dari darah lama Oakhaven. Aku mengajarkan memimpin.'
+        '1': 'Kamu boleh mendekat. Cukup sampai situ.',
+        '2': 'Lord Castellan, dari keluarga tertua Oakhaven. Aku mengajar kepemimpinan.'
       },
       saved: {
-        '1': 'Kotaku berdiri, dan nama keluargaku bersamanya. Kamu mendapat terima kasih seorang lord. Nilainya besar.'
+        '1': 'Kotaku masih berdiri, begitu juga nama keluargaku. Terima kasihku. Sungguh.'
       },
       friend: {
-        '1': 'Sahabat Ordo. Akan kuturunkan biayaku. Jangan sebut ke siapa pun.'
+        '1': 'Teman Ordo. Akan kuturunkan biayaku. Mohon jangan disebarkan.'
       },
       foe: {
-        '1': 'Ordo telah memasang namamu. Aku tetap akan mengajarimu. Koin tetap koin, sayangnya.'
+        '1': 'Ordo mencatat namamu di sebuah daftar. Aku tetap akan mengajarimu. Koin tetaplah koin.'
       },
       again: {
-        '1': 'Ah. Rakyatku yang paling menjanjikan.'
+        '1': 'Ah, kamu lagi. Kita lanjutkan?'
       },
       train: {
-        '1': 'Baiklah. Perhatikan bagaimana perintah diberikan.'
+        '1': 'Baiklah. Perhatikan bagaimana perintah diberikan, dan bagaimana perintah dijalankan.'
       },
       class: {
-        '1': 'Mengapa bertarung sendiri kalau orang lain bisa melakukannya untukmu? Panggil penjaga. Pimpin mereka.',
-        '2': 'Butuh Karisma. Orang tak bisa memimpin dengan bergumam.',
+        '1': 'Seseorang yang tak bertarung sendirian. Kamu memanggil penjaga, dan mereka bertarung untukmu.',
+        '2': 'Butuh Karisma. Tak ada yang mengikuti pemimpin yang tak terdengar.',
         say: 'Apa itu Penguasa Agung?'
       },
       ready: {
         strong: {
-          '1': 'Kamu punya wibawa. Ambil sisa pelajaranku, dan berdirilah tegak.'
+          '1': 'Kamu punya wibawa sungguhan sekarang. Ambil sisa pelajaranku.'
         },
         able: {
           '1': 'Suaramu terdengar jauh. Kamu siap untuk pelajaran berikutnya.'
         },
         weak: {
-          '1': 'Tak ada yang mau mengikutimu ke toko roti. Tambah Karisma.'
+          '1': 'Sayangnya belum ada yang mau mengikutimu. Latih Karismamu.'
         }
       },
       family: {
-        '1': 'Kami membangun tembok tempat Kapten Hale berdiri. Dia lupa. Aku mengingatkannya. Sering.',
+        '1': 'Kami yang membangun tembok tempat Kapten Hale berdiri. Dia lupa itu. Aku mengingatkannya.',
         say: 'Ceritakan tentang keluargamu.'
       },
       trainBack: {
-        '1': 'Sekarang pergi dan jadilah orang yang dipatuhi.'
+        '1': 'Pergilah kalau begitu. Pimpin seseorang.'
       },
       bye: {
-        '1': 'Kamu boleh pergi.'
+        '1': 'Selamat siang untukmu.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Berikutnya! Oh. Kamu bisa jalan. Perubahan yang menyenangkan.',
-        '2': 'Bruder Fenn. Empat puluh orang terluka di tembok, dan aku sendirian.'
+        '1': 'Berikutnya! Oh, kamu berjalan. Itu perubahan yang menyenangkan.',
+        '2': 'Bruder Fenn. Empat puluh terluka di tembok, dan aku cuma satu.'
       },
       saved: {
-        '1': 'Tiga hari tak ada yang terluka baru! Aku tak tahu harus apa dengan tanganku.'
+        '1': 'Tiga hari tak ada korban luka baru. Aku nyaris tak tahu harus berbuat apa.'
       },
       again: {
-        '1': 'Kamu lagi, dan masih berjalan. Aku setuju.'
+        '1': 'Kamu lagi, dan dengan kakimu sendiri. Bagus.'
       },
       heal: {
-        '1': 'Berbaring. Bukan, ranjang yang bersih. Nah. Semua botol terisi. Silakan pergi.'
+        '1': 'Berbaring di sini, di dipan yang bersih. Nah. Botol terisi, silakan pergi.'
       },
       mana: {
-        '1': 'Ramuan mana! Rasanya seperti uang receh. Tapi manjur.'
+        '1': 'Ramuan mana. Rasanya seperti koin tua, tapi manjur.'
       },
       potions: {
-        '1': 'Sabuk lebih panjang memuat lebih banyak botol. Itu kujual. Botolnya kuisi gratis.',
+        '1': 'Dengan sabuk lebih panjang, bisa. Itu kujual. Mengisi botol gratis.',
         say: 'Bisakah aku membawa lebih banyak ramuan?'
       },
       rumor: {
         archers: {
-          '1': 'Pemanah Krag membidik kaki. Terus bergerak di luar sana dan mereka meleset.'
+          '1': 'Pemanah Krag membidik rendah. Terus bergerak dan kebanyakan akan meleset.'
         },
         north: {
-          '1': 'Luka bakar, radang dingin, dan seorang pria yang bersumpah patung menggigitnya. Utara tidak ramah.'
+          '1': 'Aku melihat luka bakar, radang beku, dan seorang pria yang bersumpah patung menggigitnya.'
         }
       },
       healBack: {
-        '1': 'Sudah, pergilah. Lain kali datang untuk ngobrol, bukan untuk dijahit.'
+        '1': 'Silakan pergi. Lain kali, datanglah untuk mengobrol, bukan untuk dijahit.'
       },
       bye: {
-        '1': 'Jalan-jalan saja sampai sakitnya hilang! Itu nasihat medis.'
+        '1': 'Jaga dirimu. Dan makanlah sesuatu.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Tanpa nama. Tapi kamu yang membuka gerbang itu. Itu aku kenal.',
-        '2': 'Panggil aku Si Penadah. Semua di sini jatuh dari gerobak.'
+        '1': 'Tak ada nama di sini. Tapi aku tahu siapa yang membuka gerbang. Semua orang tahu.',
+        '2': 'Panggil saja aku Si Penadah. Semua barang di sini datang dari suatu tempat.'
       },
       foe: {
-        '1': 'Sindikat tak suka kamu hari ini. Emasmu, masih suka.'
+        '1': 'Sindikat sedang tak suka padamu. Tapi emasmu tetap diterima.'
       },
       again: {
-        '1': 'Ah. Pelanggan terbaikku. Tak ada yang mengikutimu? Bagus.'
+        '1': 'Datang lagi. Tak ada yang mengikutimu, kuharap?'
       },
       trade: {
-        '1': 'Tanpa nama, tanpa pertanyaan. Sindikat ambil bagiannya, kamu ambil barangnya.'
+        '1': 'Tak ada pertanyaan dari kedua pihak. Sindikat ambil bagiannya, kamu ambil barangnya.'
       },
       who: {
-        '1': 'Sebelum kebakaran aku menjual lilin. Secara legal. Mengerikan.'
+        '1': 'Sebelum kebakaran aku jual lilin. Kerja jujur. Tak menghasilkan.'
       },
       armor: {
-        '1': 'Pembuat zirahnya sudah pergi, Kawan. Terbakar habis. Kamu pasti tahu.',
+        '1': 'Para pandai zirah sudah pergi, Kawan. Kamu lebih tahu alasannya daripada aku.',
         say: 'Ada zirah yang dijual?'
       },
       rumor: {
         citadel: {
-          '1': 'Sebuah benteng muncul di utara jauh tahun lalu. Tak ada yang membangunnya. Temboknya berdengung.'
+          '1': 'Sebuah benteng muncul di utara jauh tahun lalu. Tak ada yang membangunnya.'
         },
         crystals: {
-          '1': 'Seseorang membeli setiap kristal hampa di pasar. Bukan kami. Itu membuatku khawatir.'
+          '1': 'Seseorang membeli setiap kristal hampa yang bisa ditemukan. Bukan kami. Itu membuatku khawatir.'
         }
       },
       shopBack: {
         '1': 'Kamu tak pernah ke sini.'
       },
       bye: {
-        '1': 'Awas reruntuhan.'
+        '1': 'Awas langkahmu. Puing-puingnya bergeser.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Seorang tamu. Hati-hati dengan toplesnya.',
-        '2': 'Dokter Sangrel. Pemilik baru Oakhaven tak bertanya apa yang kuajarkan. Menyegarkan.'
+        '1': 'Seorang tamu. Tolong jangan sentuh toplesnya.',
+        '2': 'Dokter Sangrel. Pemilik baru Oakhaven tak bertanya apa yang kuajarkan. Menenangkan.'
       },
       found: {
-        '1': 'Kamu menemukanku. Sedikit yang mencari dokter di tempat seperti ini.',
-        '2': 'Dokter Sangrel. Kota-kota membakar orang sepertiku, jadi aku bekerja di tempat yang tak ada kota.'
+        '1': 'Kamu menemukanku. Tak banyak yang mencari dokter di tempat seperti ini.',
+        '2': 'Dokter Sangrel. Kota membakar orang sepertiku, jadi aku bekerja di tempat yang tak ada kota.'
       },
       friend: {
-        '1': 'Sindikat menjaminmu. Biayaku lebih rendah untuk sahabatnya. Standarku tidak.'
+        '1': 'Sindikat membelamu. Teman mereka kutarik lebih murah. Standarku tetap sama.'
       },
       foe: {
-        '1': 'Sindikat akan membayarku untuk darahmu. Aku lebih suka kamu menghabiskannya untuk pelajaranku.'
+        '1': 'Sindikat akan membayar mahal untuk darahmu. Aku lebih suka kamu membelanjakannya di sini.'
       },
       again: {
-        '1': 'Kamu pucat. Bagus. Cocok untuk pekerjaan ini.'
+        '1': 'Kamu tampak pucat. Bagus. Cocok untuk pekerjaan ini.'
       },
       train: {
-        '1': 'Gulung lengan bajumu. Ini akan sakit. Memang itu intinya.'
+        '1': 'Singsingkan lengan bajumu. Ini akan sakit. Memang itu intinya.'
       },
       class: {
-        '1': 'Kamu membayar kekuatan dengan kesehatanmu sendiri. Lalu meminumnya kembali dari musuh.',
-        '2': 'Ketahanan adalah dompetmu. Kecerdasan menentukan seberapa baik kamu membelanjakannya.',
+        '1': 'Kamu membayar kekuatan dengan kesehatanmu sendiri, lalu mengambilnya kembali dari musuh.',
+        '2': 'Ketahanan adalah yang kamu belanjakan. Kecerdasan adalah seberapa baik kamu membelanjakannya.',
         say: 'Apa itu Alkemis Darah?'
       },
       ready: {
@@ -1953,288 +1953,288 @@ export default {
           '1': 'Konstitusi luar biasa. Kamu boleh mempelajari hampir semuanya.'
         },
         able: {
-          '1': 'Darahmu cukup kuat untuk pelajaran berikutnya.'
+          '1': 'Kamu cukup tangguh untuk pelajaran berikutnya.'
         },
         weak: {
-          '1': 'Kamu akan pingsan pada sayatan pertama. Tambah Ketahanan, tolong.'
+          '1': 'Kamu akan pingsan pada sayatan pertama. Bangun dulu Ketahananmu, tolong.'
         }
       },
       jars: {
-        '1': 'Sukarelawan. Kebanyakan.',
+        '1': 'Sampel. Diberikan dengan sukarela, sebagian besar.',
         say: 'Apa isi toples-toples itu?'
       },
       trainBack: {
-        '1': 'Catat baik-baik. Demi ilmu pengetahuan.'
+        '1': 'Catat ya. Aku ingin dengar bagaimana hasilnya.'
       },
       bye: {
-        '1': 'Tetap sehat. Kalau tidak, kamu tak berguna bagiku.'
+        '1': 'Tetaplah sehat. Aku serius.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Jadi. Yang membuka gerbang. Duduklah. Kamu berhak atas kursi.',
-        '2': 'Mereka memanggilku Madam Ash. Oakhaven sekarang milikku. Sebagian, milikmu.'
+        '1': 'Jadi kamu yang membuka gerbang. Duduklah. Kamu pantas dapat kursi.',
+        '2': 'Mereka memanggilku Madam Ash. Oakhaven milik kami sekarang. Sebagian berkat kamu.'
       },
       throneOurs: {
-        '1': 'Takhta Benteng Kengerian. Milik kita. Kamu investasi terbaik yang pernah kubuat.'
+        '1': 'Benteng Kengerian, di tangan kami. Kamu layak dibayar setiap koin.'
       },
       throneLost: {
-        '1': 'Kamu menyerahkan takhta itu. Ke orang lain. Kita akan bicarakan itu. Bukan hari ini.'
+        '1': 'Kamu memberikan takhta pada pihak lain. Kita bicarakan itu. Bukan hari ini.'
       },
       foe: {
-        '1': 'Kamu sudah menghalangi kami. Duduklah tetap. Aku suka memandang masalah sebelum menyelesaikannya.'
+        '1': 'Kamu bekerja melawan kami. Duduk saja. Aku suka tahu dengan siapa aku berurusan.'
       },
       again: {
-        '1': 'Pengkhianat kesayanganku. Apa yang bisa Sindikat lakukan untukmu?'
+        '1': 'Datang lagi. Apa yang bisa Sindikat lakukan untukmu?'
       },
       cut: {
-        '1': 'Sepertiga reruntuhan, Sayang. Ini bagian musim ini.',
+        '1': 'Dan kamu akan mendapatkannya. Bagian dari reruntuhan, untuk sekarang. Ini bagian musim ini.',
         '2': 'Akan bertambah. Reruntuhan sangat menguntungkan kalau kamu menguasai satu-satunya pasarnya.',
-        say: 'Kamu berjanji padaku sepertiga Oakhaven.'
+        say: 'Aku dijanjikan bagian dari Oakhaven.'
       },
       syndicate: {
-        '1': 'Apa yang diinginkan semua orang. Kami hanya tak berpura-pura sebaliknya.',
-        '2': 'Tetaplah jadi sahabat kami, dan Sang Bisikan serta Sang Dokter menagihmu lebih murah. Kesetiaan punya daftar harga.',
-        say: 'Apa yang diinginkan Sindikat?'
+        '1': 'Yang diinginkan semua orang. Kami hanya tak berpura-pura sebaliknya.',
+        '2': 'Tetaplah bersahabat, dan Sang Bisikan serta Sang Dokter akan menarik biaya lebih murah darimu.',
+        say: 'Sebenarnya apa yang diinginkan Sindikat?'
       },
       order: {
-        '1': 'Tentu saja. Kamu membakar salah satu kotanya. Bawa lebih banyak ramuan.',
+        '1': 'Tentu saja. Kamu membakar salah satu kota mereka. Bawa ramuan ekstra.',
         say: 'Ordo Besi sedang memburuku.'
       },
       rumor: {
         core: {
-          '1': 'Para kurcaci menemukan sesuatu di tambang mereka. Sebuah inti. Aku mau. Bawa ke kami dan sebutkan angka.'
+          '1': 'Para kurcaci menemukan sesuatu di tambang mereka. Sebuah inti. Bawa ke kami dan sebutkan harganya.'
         },
         sold: {
-          '1': 'Intinya tiba dengan selamat. Kamu harus lihat apa yang dilakukannya pada sebuah gembok.'
+          '1': 'Intinya tiba dengan selamat. Kamu akan kaget apa yang dilakukannya pada sebuah gembok.'
         },
         north: {
-          '1': 'Semua yang layak dicuri pindah ke utara. Kami juga.'
+          '1': 'Semua yang layak dimiliki pindah ke utara. Kami juga.'
         }
       },
       bye: {
-        '1': 'Jangan jadi orang asing. Orang asing diikuti.'
+        '1': 'Jangan jadi orang asing. Kami mengawasi orang asing.'
       }
     },
     forgemaster: {
       hello: {
         '1': 'Kamu datang lewat tambang. Aku bisa mencium debunya padamu.',
-        '2': 'Dorn. Kepala Tempa Ironhold. Aku punya masalah sebesar gunung.'
+        '2': 'Dorn. Kepala Tempa Ironhold. Dan aku punya masalah sebesar gunung.'
       },
       destroyed: {
-        '1': 'Cahayanya padam dan golem jadi rongsokan. Para penambangku bernyanyi semalam. Pertama kali dalam setahun.'
+        '1': 'Cahayanya padam dan golemnya jadi rongsokan. Para penambangku bernyanyi semalam. Pertama kali dalam setahun.'
       },
       studied: {
-        '1': 'Api biru di tungkuku dan jubah di aulaku. Pekerjaannya bagus. Aku akan terbiasa dengan jubah.'
+        '1': 'Api biru di tungkuku dan cendekiawan berjubah di aula-aulaku. Setidaknya hasil kerjanya bagus.'
       },
       sold: {
-        '1': 'Kamu menjualnya. Golem masih berjalan dan tambangku masih kuburan. Menyingkir dari cahayaku.'
+        '1': 'Kamu menjualnya. Golem masih berjalan, dan tambangku masih jadi kuburan. Tinggalkan aku.'
       },
       ending: {
-        '1': 'Jadi takhta sudah ditentukan. Bagus. Sekarang kerajaan bisa kembali berdebat soal besi.'
+        '1': 'Jadi takhta sudah diputuskan. Bagus. Mungkin sekarang kita bisa kembali menggali.'
       },
       again: {
-        '1': 'Bicaralah. Tempa tidak menunggu.'
+        '1': 'Ada apa? Tungku tak mau menunggu.'
       },
       quest: {
-        '1': 'Kami menggali besi dan menemukan sebuah jantung. Inti aether. Ia berdenyut di bawah sana, dalam gelap.',
+        '1': 'Kami menggali besi dan menemukan sebuah jantung. Inti aether. Kamu bisa merasakannya berdenyut.',
         '2': 'Dan golemnya?',
-        '3': 'Mereka berjalan mengikuti iramanya. Tiga kekuatan menulis surat padaku untuk memintanya. Semua sopan. Aku tak percaya satu pun.',
-        '4': 'Kamu akan sampai di sana lebih dulu, di dasar Tambang Ironhold. Lalu nasibnya kamu yang tentukan.',
+        '3': 'Mereka bergerak mengikuti iramanya. Tiga kekuatan menulis surat memintanya. Aku tak percaya satu pun.',
+        '4': 'Kamu akan sampai di sana lebih dulu, di dasar Tambang Ironhold. Apa yang terjadi lalu, terserah kamu.',
         say: 'Apa yang terjadi di tambang?'
       },
       core: {
-        say: 'Soal inti itu…',
+        say: 'Soal intinya...',
         destroy: {
-          '1': 'Kamu menghancurkan sebuah keajaiban untuk menyelamatkan rakyatku. Ordo mengirim pembuat zirah sebagai terima kasih. Aku mengirim bir.'
+          '1': 'Kamu memecahkan sebuah keajaiban demi menyelamatkan rakyatku. Ordo mengirim pandai zirah. Aku mengirim bir.'
         },
         study: {
-          '1': 'Tukang utak-atik Lingkaran itu gila, tapi senjata mereka menembak lurus. Tawar-menawar yang adil.'
+          '1': 'Orang-orang Lingkaran aneh, tapi senapan mereka menembak lurus. Cukup adil.'
         },
         sell: {
-          '1': 'Emas. Kamu melakukannya demi emas. Semoga itu menghangatkanmu.'
+          '1': 'Kamu melakukannya demi emas. Semoga itu menghangatkanmu.'
         }
       },
       town: {
-        '1': 'Baja terbaik di kerajaan, kalau tambang berjalan.',
+        '1': 'Baja terbaik di kerajaan, kalau tambangnya berjalan.',
         '2': 'Kaki Batu mengajar bumi, Pim mengajar mesin. Keduanya akan bicara sampai telingamu panas.',
         say: 'Ceritakan tentang Ironhold.'
       },
       rumor: {
         tundra: {
-          '1': 'Di timur Tebing, tanah menjadi putih. Tundra Beku. Raksasa, dan orang mati yang tak mau tetap berbaring.'
+          '1': 'Di timur Tebing tanahnya jadi putih. Tundra Beku. Raksasa, dan yang lebih buruk.'
         },
         citadel: {
-          '1': 'Pengintaiku melihat sebuah benteng di utara yang tahun lalu belum ada. Aku tak suka gunung baru.'
+          '1': 'Pengintaiku melihat benteng di utara yang tahun lalu belum ada. Aku tak suka itu.'
         },
         fortress: {
-          '1': 'Benteng Kengerian adalah tempat semua ini berakhir. Setiap jalan ke utara menuju gerbangnya.'
+          '1': 'Semuanya berakhir di Benteng Kengerian. Setiap jalan ke utara menuju ke sana.'
         }
       },
       bye: {
-        '1': 'Pukul dengan tepat.'
+        '1': 'Selamat jalan.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Tangan jangan sentuh pajangan. Itu tajam di kedua ujung.',
-        '2': 'Hilda Hammerhand. Tempaan kurcaci, setiap barang.'
+        '1': 'Hati-hati dengan pajangannya. Itu tajam di kedua sisi.',
+        '2': 'Hilda Hammerhand. Setiap barang di sini ditempa tangan kurcaci.'
       },
       dragon: {
-        '1': 'Kamu membunuh naga itu? Dengan salah satu milikKU? Bukan? Bohongi aku. Bilang itu milikku.'
+        '1': 'Kamu membunuh naga itu? Semoga dengan salah satu bilahku.'
       },
       again: {
         '1': 'Kembali untuk baja sungguhan?'
       },
       trade: {
-        '1': 'Tempaan kurcaci. Kalau patah, itu salahmu.'
+        '1': 'Tempaan kurcaci. Kalau salah satunya patah, aku mau tahu kenapa.'
       },
       who: {
-        '1': 'Ibuku menempa untuk raja-raja. Aku menempa untuk siapa pun yang masuk. Zaman berubah.'
+        '1': 'Ibuku menempa untuk para raja. Aku menempa untuk siapa pun yang masuk lewat pintu.'
       },
       rumor: {
         golems: {
-          '1': 'Golem di tambang terbuat dari besi kita sendiri. Memalukan, jujur saja.'
+          '1': 'Golem di bawah sana terbuat dari besi kami sendiri. Menyakitkan, sungguh.'
         },
         arm: {
-          '1': 'Bilah melakukan separuh pekerjaan. Kekuatanmu sisanya. Jangan salahkan bilahnya.'
+          '1': 'Bilah yang bagus mengerjakan separuhnya. Sisanya harus dikerjakan Kekuatanmu.'
         }
       },
       shopBack: {
-        '1': 'Bawa kembali dalam keadaan tumpul dan aku tahu kamu memakainya.'
+        '1': 'Kembalikan dalam keadaan tumpul dan aku tahu kamu memakainya dengan baik.'
       },
       bye: {
-        '1': 'Pukul mereka keras-keras.'
+        '1': 'Tebas dengan keras.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Hati-hati! Yang itu terisi. Yang itu juga. Kebanyakan sih.',
-        '2': 'Voss si Tukang Utak-atik. Lingkaran mengirimku untuk melihat apa yang bisa diajarkan inti itu. Semuanya, ternyata.'
+        '1': 'Hati-hati, yang itu sudah terisi. Kebanyakan memang begitu.',
+        '2': 'Voss si Tukang Utak-atik. Lingkaran mengirimku untuk meneliti inti. Banyak yang sudah kami pelajari.'
       },
       again: {
-        '1': 'Oh bagus, seorang penguji. Maksudku, pelanggan.'
+        '1': 'Ah, bagus. Aku sudah membuat beberapa perubahan sejak kamu datang.'
       },
       trade: {
-        '1': 'Penelitian Lingkaran terhadap inti itu mengubah segalanya. Pegang ini. Jangan arahkan ke aku.'
+        '1': 'Semua di sini lahir dari penelitian inti. Asal jangan arahkan ke aku.'
       },
       core: {
-        '1': 'Besi itu bisa berpikir, sedikit. Aku berusaha tak memikirkannya.',
+        '1': 'Logam itu bisa berpikir, sedikit. Aku berusaha tak memikirkannya.',
         say: 'Apa yang diajarkan inti itu padamu?'
       },
       rumor: {
         heat: {
-          '1': 'Senjata api jalan dengan Keahlian, dan panas. Tanya Pim si Juru Roda Gigi soal panas sebelum tanganmu meleleh.'
+          '1': 'Senapan jalan dengan Keahlian, dan panas sekali. Tanya Pim soal panas sebelum tanganmu terbakar.'
         }
       },
       shopBack: {
-        '1': 'Laporkan setiap ledakan! Untuk catatan.'
+        '1': 'Kabari aku bagaimana rasanya dipakai. Aku mencatat.'
       },
       bye: {
-        '1': 'Awas hentakannya!'
+        '1': 'Awas hentakannya.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Zirah. Cincin di nampan.'
+        '1': 'Garrun. Zirah di rak, cincin di nampan.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Kembali. Butuh apa?'
       },
       trade: {
-        '1': 'Pelat yang menahan gada raksasa. Cincin untuk kalian yang lain.'
+        '1': 'Pelat itu bisa menahan gada raksasa. Lihat saja.'
       },
       quiet: {
-        '1': 'Tidak.',
-        say: 'Kamu tak banyak bicara.'
+        '1': 'Tak banyak yang layak dibicarakan.',
+        say: 'Kamu tak banyak bicara, ya?'
       },
       rumor: {
         giants: {
-          '1': 'Raksasa di tundra. Gada sebesar batang pohon. Beli pelat berat.'
+          '1': 'Raksasa di tundra. Gada sebesar batang pohon. Aku akan ambil pelat berat.'
         },
         demons: {
-          '1': 'Iblis di utara. Api dan cakar. Beli pelat berat.'
+          '1': 'Iblis di utara. Api dan cakar. Aku akan ambil pelat berat.'
         }
       },
       shopBack: {
-        '1': 'Bagus.'
+        '1': 'Pilihan bagus.'
       },
       bye: {
-        '1': 'Ya.'
+        '1': 'Jaga diri.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nama dan keperluan. Tidak. Aku tahu namamu. Kamu menghancurkan inti itu.',
-        '2': 'Juru perbekalan Ordo Besi. Gudang senjatanya terbuka untukmu.'
+        '1': 'Kamu yang menghancurkan inti itu. Ordo mengingatnya.',
+        '2': 'Aku juru perbekalan Ordo di sini. Gudang senjata kami terbuka untukmu.'
       },
       throneOurs: {
-        '1': 'Ordo memegang Benteng Kengerian lewat tanganmu. Istirahat di tempat. Itu perintah.'
+        '1': 'Ordo menguasai Benteng Kengerian berkat kamu. Istirahat di tempat. Kamu pantas mendapatkannya.'
       },
       foe: {
-        '1': 'Ordo punya namamu di daftar. Perintahku tetap menjual padamu. Aku tak suka perintah itu.'
+        '1': 'Ordo mencatatmu di sebuah daftar. Perintahku tetap menyuruh menjual padamu. Akan kuikuti.'
       },
       again: {
-        '1': 'Permintaan barang?'
+        '1': 'Butuh apa?'
       },
       trade: {
-        '1': 'Ordo ingat siapa yang menghancurkan inti itu. Pilih apa yang kamu butuhkan.'
+        '1': 'Ambil yang kamu butuhkan. Ordo menjaga anggotanya.'
       },
       order: {
-        '1': 'Tidak ada. Itu langka. Nikmatilah.',
+        '1': 'Tak ada, untuk sekarang. Itu jarang terjadi. Nikmatilah.',
         say: 'Apa yang diinginkan Ordo dariku?'
       },
       rumor: {
         throne: {
-          '1': 'Ordo akan menginginkan takhta di Benteng Kengerian. Ordo akan ingat siapa yang berdiri bersamanya.'
+          '1': 'Ordo pasti menginginkan takhta di Benteng Kengerian. Mereka akan ingat siapa yang membantu.'
         }
       },
       shopBack: {
-        '1': 'Tanda tangan di sini. Bercanda. Ordo tidak bercanda. Bubar.'
+        '1': 'Rawat baik-baik. Itu milik Ordo sampai kamu berdarah di dalamnya.'
       },
       bye: {
-        '1': 'Bubar.'
+        '1': 'Lanjutkan tugasmu.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Pelan-pelan. Gunung tidak ke mana-mana.',
+        '1': 'Pelan-pelan. Gunung ini tak ke mana-mana.',
         '2': 'Mereka memanggilku Si Tua Kaki Batu. Aku mendengarkan tanah. Kadang ia menjawab.'
       },
       core: {
-        '1': 'Detak jantung gunung berubah. Itu kamu. Ia menyadarinya.'
+        '1': 'Gunung terasa berbeda sejak kamu turun ke sana. Lebih tenang, atau lebih kosong.'
       },
       dragon: {
-        '1': 'Seekor naga terbang di atas puncak kemarin dan tidak membakar kami. Perbuatanmu, kudengar.'
+        '1': 'Kemarin seekor naga terbang melewati puncak dan membiarkan kami. Katanya itu ulahmu.'
       },
       again: {
-        '1': 'Kamu lagi. Batu-batu bilang kamu akan datang.'
+        '1': 'Nah, kamu. Kukira kamu akan kembali.'
       },
       train: {
-        '1': 'Tanamkan kakimu. Merasakannya? Tidak? Kita mulai dari sana.'
+        '1': 'Pijakkan kakimu. Terasa? Tidak? Dari situlah kita mulai.'
       },
       class: {
-        '1': 'Kami mendirikan tembok, memanggil duri, dan memecah tanah saat perlu.',
-        '2': 'Kekuatan untuk menggeser batu, Kecerdasan untuk memintanya dengan sopan.',
-        say: 'Apa itu Penyihir Bumi?'
+        '1': 'Kami mendirikan tembok, memanggil duri, dan memecah tanah kalau perlu.',
+        '2': 'Kekuatan untuk menggeser batu. Kecerdasan untuk tahu ke mana batu ingin pergi.',
+        say: 'Apa yang dilakukan Penyihir Bumi?'
       },
       ready: {
         strong: {
-          '1': 'Batu mengenalmu sekarang. Pelajari sisanya.'
+          '1': 'Batu sudah mengenalmu sekarang. Pelajari sisanya saat kamu siap.'
         },
         able: {
-          '1': 'Kamu cukup berat untuk pelajaran berikutnya. Itu pujian.'
+          '1': 'Kamu cukup mantap untuk pelajaran berikutnya.'
         },
         weak: {
-          '1': 'Batu belum mendengarmu. Tambah Kekuatan.'
+          '1': 'Belum. Batu tak mau bergerak untukmu. Bangun Kekuatanmu.'
         }
       },
       factions: {
-        '1': 'Tidak satu pun. Ordo, sindikat, lingkaran. Gunung bertahan lebih lama dari semuanya.',
+        '1': 'Tak satu pun. Ordo dan serikat datang dan pergi. Gunung tetap.',
         say: 'Kamu mengabdi pada kelompok mana?'
       },
       trainBack: {
-        '1': 'Pergilah dengan lembut. Lalu tidak lembut.'
+        '1': 'Pelan-pelan saja. Tanah itu sabar.'
       },
       bye: {
         '1': 'Melangkahlah pelan.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Jangan sentuh itu! Atau itu. Sebenarnya, berdirilah di karpet. Karpetnya aman.',
-        '2': 'Pim si Juru Roda Gigi! Senjata api, menara, alat ukur panas. Kebanyakan alat ukur panas.'
+        '1': 'Ah, tunggu, jangan sentuh itu! Atau itu. Berdirilah di karpet, karpetnya aman.',
+        '2': 'Pim si Juru Roda Gigi. Aku membuat senapan, menara, dan banyak sekali pengukur panas.'
       },
       core: {
-        '1': 'Kamu memberi kami inti itu! Aku tak tidur sembilan hari. Lihat tanganku. Jangan lihat tanganku.'
+        '1': 'Kamu memberikan inti itu ke Lingkaran! Aku nyaris tak tidur sejak itu. Dalam arti baik.'
       },
       oracle: {
-        '1': 'Lingkaran marah soal peramal itu. Aku hanya membuat barang. Tolong jangan bilang mereka bahwa aku mengajarimu.'
+        '1': 'Lingkaran marah soal sang peramal. Aku cuma membuat barang. Aku lebih suka tak ikut campur.'
       },
       friend: {
-        '1': 'Sahabat Lingkaran! Pelajaran lebih murah untukmu. Formulirnya kuisi sendiri.'
+        '1': 'Kamu teman Lingkaran, jadi pelajaranmu lebih murah. Aku yang mengurus suratnya.'
       },
       foe: {
-        '1': 'Lingkaran bilang aku tak boleh mengajarimu. Lingkaran juga bilang jangan uji roket di dalam ruangan.'
+        '1': 'Lingkaran bilang aku tak boleh mengajarimu. Aku akan tetap melakukannya. Jangan bilang mereka.'
       },
       again: {
         '1': 'Oh bagus, jarimu masih lengkap.'
       },
       train: {
-        '1': 'Baik! Keselamatan dulu. Baru bagian yang berisik.'
+        '1': 'Baik. Keselamatan dulu, baru bagian yang berisik.'
       },
       class: {
-        '1': 'Senjata api, menara, dan alat ukur panas. Tembak, bangun, dan buang panas sebelum terkunci.',
-        '2': 'Semuanya jalan dengan Keahlian. Sedikit Kecerdasan untuk mesin besar.',
+        '1': 'Senapan, menara, dan pengukur panas. Tembak, bangun, dan buang panas sebelum macet.',
+        '2': 'Kebanyakan Keahlian. Sedikit Kecerdasan untuk mesin yang lebih besar.',
         say: 'Apa itu Teknisi Aether?'
       },
       ready: {
         strong: {
-          '1': 'Kamu bisa membongkar menara sambil tutup mata! Ambil mesin-mesin besarnya.'
+          '1': 'Kamu sudah paham seluk-beluk menara. Ambil mesin-mesin besarnya.'
         },
         able: {
-          '1': 'Tangan mantap! Kamu siap untuk alat berikutnya.'
+          '1': 'Tangan mantap. Kamu siap untuk yang berikutnya.'
         },
         weak: {
-          '1': 'Tanganmu gemetar. Tanganku juga, tapi karena alasan lain. Tambah Keahlian.'
+          '1': 'Bidikanmu masih agak goyah. Tanam beberapa poin ke Keahlian.'
         }
       },
       heat: {
-        '1': 'Semuanya terkunci beberapa detik. Buang panas lebih awal. Buang sering-sering. Aku punya bekasnya.',
+        '1': 'Semuanya terkunci beberapa detik. Buang panas lebih awal, buang sering-sering. Percayalah padaku.',
         say: 'Apa yang terjadi kalau aku kepanasan?'
       },
       trainBack: {
-        '1': 'Ingat: buang panasnya! BUANG. PANASNYA.'
+        '1': 'Dan ingat buang panasnya sebelum dia yang membuangmu.'
       },
       bye: {
-        '1': 'Jangan meledak!'
+        '1': 'Hati-hati di luar sana!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Lepas sepatu. Aku tak mau debu gunung di lantaiku.',
-        '2': 'Bunda Brynja. Setiap tulang patah di gunung ini sudah kupasang dua kali.'
+        '1': 'Lepas sepatu di pintu, ya. Aku baru saja menyapu.',
+        '2': 'Bunda Brynja. Aku sudah menyambung sebagian besar tulang patah di gunung ini.'
       },
       ending: {
-        '1': 'Kamu pergi ke Benteng Kengerian dan berjalan pulang. Duduk. Aku mau melihatmu.'
+        '1': 'Kamu pergi ke Benteng Kengerian dan kembali. Duduklah. Biar kulihat kamu.'
       },
       again: {
-        '1': 'Masih hidup. Katanya itu berkat aku.'
+        '1': 'Masih hidup. Bagus. Duduk.'
       },
       heal: {
-        '1': 'Duduk. Minum ini. Jangan buat wajah begitu. Botolmu sudah terisi.'
+        '1': 'Minum ini, dan jangan membuat muka begitu. Botolmu sudah penuh.'
       },
       mana: {
-        '1': 'Nih. Rasanya menjijikkan. Minum saat sihirmu habis, bukan sebelumnya.'
+        '1': 'Nih. Rasanya mengerikan. Minum saat sihirmu habis, bukan sebelumnya.'
       },
       potions: {
-        '1': 'Beli sabuk lebih panjang dariku. Lima botol adalah batas tubuh yang masih bisa berlari.',
+        '1': 'Bisa kujual sabuk yang lebih panjang. Lima botol itu batas orang yang masih bisa berlari.',
         say: 'Bisakah aku membawa lebih banyak ramuan?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra mengambil jari. Terus bergerak di sana, dan jangan tidur di salju.'
+          '1': 'Tundra mengambil jari tangan dan kaki. Terus bergerak, dan jangan tidur di salju.'
         },
         temple: {
-          '1': 'Ada kuil tenggelam di balik tundra. Para naga air tak menawan tahanan.'
+          '1': 'Ada kuil tenggelam di balik tundra. Naga air di sana tak menawan tahanan.'
         },
         rift: {
-          '1': 'Apa pun yang ada di Retakan Hampa itu, tak bisa dijahit. Selesaikan cepat.'
+          '1': 'Apa pun yang ada di retakan itu, tak bisa kujahit. Jangan biarkan ia menjangkaumu.'
         }
       },
       healBack: {
-        '1': 'Sudah, pergi sana. Dan makanlah sesuatu.'
+        '1': 'Silakan pergi. Dan makanlah sesuatu, kamu terlalu kurus.'
       },
       bye: {
         '1': 'Kembali dalam keadaan utuh.'
@@ -2332,160 +2332,160 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Kamu. Kamu yang membuka gerbangku.',
-        '2': 'Aku mengajar dari ruang bawah tanah kurcaci sekarang, karena aku harus makan. Jangan kira ini pengampunan.'
+        '2': 'Sekarang aku mengajar di ruang bawah tanah, karena aku harus makan. Jangan kira itu pengampunan.'
       },
       ending: {
-        '1': 'Sebuah takhta diputuskan, dan Oakhaven masih abu. Katakan lagi padaku bagaimana itu sepadan.'
+        '1': 'Jadi takhta sudah diputuskan, dan Oakhaven masih abu. Semoga itu sepadan.'
       },
       again: {
-        '1': 'Si pengkhianat kembali. Biayaku tidak turun.'
+        '1': 'Kamu kembali. Biayaku tak berubah.'
       },
       train: {
-        '1': 'Aku akan mengajarimu memerintah. Aku tak bisa mengajarimu pantas mendapatkannya.'
+        '1': 'Akan kuajari kamu memimpin. Pantas atau tidak, itu soal lain.'
       },
       class: {
-        '1': 'Dia yang diikuti. Penjaga menjawab panggilan dan bertarung atas katamu.',
-        '2': 'Jalan dengan Karisma. Kamu punya sedikit. Itulah tragedinya.',
+        '1': 'Seseorang yang diikuti orang lain. Penjaga datang saat kamu memanggil dan bertarung atas katamu.',
+        '2': 'Bergantung pada Karisma. Kamu punya. Justru itu yang membuatnya sulit dimaafkan.',
         say: 'Apa itu Penguasa Agung?'
       },
       ready: {
         strong: {
-          '1': 'Kamu punya wibawa untuk semuanya. Kerajaan jadi lebih miskin karenanya.'
+          '1': 'Kamu punya wibawa untuk semuanya. Andai kamu memakainya dengan lebih baik.'
         },
         able: {
-          '1': 'Kamu siap untuk pelajaran berikutnya. Aku tak senang soal itu.'
+          '1': 'Kamu siap untuk pelajaran berikutnya. Aku tak akan pura-pura senang.'
         },
         weak: {
-          '1': 'Bahkan penjaga seorang pengkhianat tak akan mengikuti suara itu. Tambah Karisma.'
+          '1': 'Belum ada yang mau mengikutimu. Latih Karismamu.'
         }
       },
       oakhaven: {
         '1': 'Tiga ratus tahun. Keluargaku membangun tembok-tembok itu.',
-        '2': 'Jangan jelaskan. Tak ada harga yang bisa menjelaskannya.',
-        say: 'Soal Oakhaven…'
+        '2': 'Tolong jangan jelaskan. Tak ada yang bisa kamu katakan untuk memperbaikinya.',
+        say: 'Soal Oakhaven...'
       },
       trainBack: {
-        '1': 'Pergi. Perintahlah orang lain.'
+        '1': 'Pergilah. Berlatihlah pada orang lain.'
       },
       bye: {
-        '1': 'Tinggalkan aku.'
+        '1': 'Tinggalkan aku, tolong.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Kamu membunuhnya. Aku melihatnya seribu kali sebelum terjadi, dan tetap sakit.',
-        '2': 'Aku Sang Penjaga Jam. Aku akan mengajarimu. Dia bilang aku akan.'
+        '1': 'Kamu membunuhnya. Aku sudah melihatnya datang bertahun-tahun, dan tetap saja sakit.',
+        '2': 'Aku Sang Penjaga Jam. Akan kuajari kamu. Dia bilang aku akan melakukannya.'
       },
       hello: {
-        '1': 'Kamu terlambat. Atau terlalu awal. Sudah kubilang ini, kurasa.',
-        '2': 'Aku Sang Penjaga Jam. Aku mengajarkan menenun waktu. Kita mulai sesaat yang lalu.'
+        '1': 'Nah, itu kamu. Aku sudah menunggumu cukup lama. Atau akan sudah menunggu.',
+        '2': 'Aku Sang Penjaga Jam. Aku mengajarkan cara membengkokkan waktu, sedikit.'
       },
       freed: {
-        '1': 'Dia bebas. Untuk pertama kalinya, aku tak tahu apa yang akan kamu katakan selanjutnya. Indah sekali.'
+        '1': 'Dia bebas. Untuk sekali ini aku tak bisa menebak apa yang terjadi berikutnya. Menakjubkan.'
       },
       friend: {
-        '1': 'Lingkaran akan menyebutmu sahabatnya. Sudah? Kalau begitu diskonnya sekarang.'
+        '1': 'Lingkaran berpikir baik tentangmu, jadi pelajarannya lebih murah. Mereka memutuskannya minggu lalu.'
       },
       foe: {
-        '1': 'Lingkaran akan memaafkanmu, di masa depan yang telah kulihat. Sampai saat itu, aku mengajarimu diam-diam.'
+        '1': 'Lingkaran sedang marah padamu. Itu akan berlalu. Sampai saat itu, kita rahasiakan ini.'
       },
       again: {
-        '1': 'Selamat datang kembali. Selamat. Datang kembali.'
+        '1': 'Selamat datang kembali. Kamu tiba tepat waktu.'
       },
       train: {
-        '1': 'Perhatikan. Akan kutunjukkan apa yang kutunjukkan padamu.'
+        '1': 'Perhatikan baik-baik. Lalu perhatikan lagi, sesaat lebih awal.'
       },
       class: {
-        '1': 'Kami menghentikan musuh dalam waktu, mempercepat teman, dan menarik kembali kesalahan.',
-        '2': 'Kecerdasan untuk melihat benangnya, Keahlian untuk menariknya.',
+        '1': 'Kami menahan musuh dalam waktu, mempercepat teman, dan menarik kembali kesalahan.',
+        '2': 'Kecerdasan untuk melihat benangnya. Keahlian untuk menariknya.',
         say: 'Apa itu Penenun Waktu?'
       },
       ready: {
         strong: {
-          '1': 'Kamu memegang benang dengan baik. Sisanya milikmu kapan pun kamu mau.'
+          '1': 'Kamu memegang benangnya dengan baik. Ambil sisanya kapan saja.'
         },
         able: {
-          '1': 'Kamu siap. Kamu juga sudah siap besok.'
+          '1': 'Kamu siap. Aku sudah tahu sebelum kamu bertanya.'
         },
         weak: {
-          '1': 'Benangnya lepas dari jarimu. Tambah Kecerdasan. Tambah Keahlian.'
+          '1': 'Benangnya terus terlepas. Lebih banyak Kecerdasan, dan lebih banyak Keahlian.'
         }
       },
       oracle: {
         say: 'Ceritakan tentang peramal itu.',
         freed: {
-          '1': 'Dia melihat setiap akhir, dan tak satu pun miliknya. Sekarang ada satu.'
+          '1': 'Dia melihat setiap akhir kecuali akhirnya sendiri. Sekarang dia akan tahu.'
         },
         slain: {
-          '1': 'Dia tak melawan. Dia sudah melihat itu juga. Tolong jangan tanya aku lagi.'
+          '1': 'Dia tak melawan. Dia sudah melihatnya. Tolong jangan tanya aku lagi.'
         },
         waits: {
-          '1': 'Dia melihat setiap akhir. Itu karunia yang mengerikan. Bersikaplah baik padanya, di akhir nanti.'
+          '1': 'Dia melihat setiap akhir. Beban yang berat. Bersikaplah baik padanya.'
         }
       },
       trainBack: {
-        '1': 'Ini akan sepadan.'
+        '1': 'Nanti akan masuk akal. Biasanya begitu.'
       },
       bye: {
-        '1': 'Sampai sebelumnya.'
+        '1': 'Sampai kita bertemu lagi. Atau sebelumnya.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Tunggu! Tunggu. Raja menyerah!',
-          '2': 'Goblin menyerbu cuma karena goblin lapar. Benar!',
-          '3': 'Mungkin Si Jangkung dan Raja bikin kesepakatan?'
+          '1': 'Berhenti. Kumohon. Aku menyerah.',
+          '2': 'Rakyatku menyerbu karena lapar. Itu kebenarannya.',
+          '3': 'Mari buat kesepakatan saja. Bangsamu dan bangsaku.'
         },
         slay: {
-          '1': 'Sang Raja tumbang, dan Liang pun bubar.',
-          '2': 'Sunford tidur lebih tenang, dan Ordo Besi memperhatikanmu.',
-          say: 'Tak ada kesepakatan. Pemerintahanmu berakhir di sini.'
+          '1': 'Raja Goblin tumbang, dan Liang mengosong.',
+          '2': 'Sunford tidur lebih tenang, dan Ordo Besi mendengar namamu.',
+          say: 'Tak ada kesepakatan. Serbuan kalian berakhir di sini.'
         },
         pact: {
-          '1': 'Dagang? Raja bersumpah! Raja SUKA dagang!',
-          '2': 'Pedagang goblin membuka lapak di alun-alun Sunford, dengan barang yang tak bisa dibuat pandai besi mana pun di sana.',
-          say: 'Hentikan serbuan dan berdaganglah dengan Sunford. Bersumpahlah.'
+          '1': 'Dagang. Ya. Aku bersumpah, demi mahkotaku.',
+          '2': 'Pedagang goblin membuka lapak di alun-alun Sunford, menjual barang yang tak bisa dibuat pandai besi mana pun di sana.',
+          say: 'Hentikan serbuan dan berdagang dengan Sunford sebagai gantinya. Bersumpahlah.'
         },
         ransom: {
-          '1': 'Semuanya? Raja benci Si Jangkung. Ambil. Ambil dan pergi.',
-          '2': 'Kamu keluar membawa emas goblin yang berat. Serbuan akan mulai lagi. Sindikat setuju.',
-          say: 'Serahkan hartamu, dan kamu boleh menyimpan mahkotamu.'
+          '1': 'Semuanya? ...Baiklah. Ambil, dan pergi.',
+          '2': 'Kamu pergi membawa emas goblin. Serbuan akan mulai lagi, tapi Sindikat menyetujuinya.',
+          say: 'Serahkan hartamu dan kamu boleh menyimpan mahkotamu.'
         }
       },
       siege: {
         ask: {
-          '1': 'Cukup. Kamu bertarung dengan baik.',
-          '2': 'Sindikat membayar lebih baik daripada yang akan pernah dibayar kota itu.',
+          '1': 'Cukup. Kamu bertarung dengan baik, harus kuakui.',
+          '2': 'Sindikat membayar jauh lebih baik daripada yang pernah dibayar kota itu.',
           '3': 'Bukakan gerbang untuk kami malam ini, dan sepertiga Oakhaven jadi milikmu.'
         },
         defend: {
           '1': 'Kalau begitu Sindikat akan memburumu di setiap jalan. Ingat bahwa aku sudah menawarkan.',
-          '2': 'Gerbang bertahan. Oakhaven makmur di baliknya, dan para pembuat zirah ulungnya mengingat namamu.',
+          '2': 'Gerbang bertahan. Oakhaven makmur di baliknya, dan para pandai zirahnya mengingat namamu.',
           say: 'Gerbang tetap tertutup. Bawa pasukanmu dan pergi.'
         },
         betray: {
-          '1': 'Bijak. Aku akan bilang pada Madam Ash untuk menyiapkan kursi untukmu.',
-          '2': 'Oakhaven terbakar. Di reruntuhannya, pasar gelap dibuka, dan seorang alkemis mengajarkan ilmu terlarang.',
-          '3': 'Para pembuat zirah pergi, dan Ordo Besi menyebutmu pengkhianat.',
-          say: 'Sepertiga kota. Malam ini, gerbang dibuka.'
+          '1': 'Bijak. Madam Ash akan senang mendengarnya.',
+          '2': 'Oakhaven terbakar. Di reruntuhan, sebuah pasar gelap dibuka, dan seorang alkemis mengajar diam-diam.',
+          '3': 'Para pandai zirah pergi, dan Ordo Besi menyebutmu pengkhianat.',
+          say: 'Sepertiga kota. Baiklah. Gerbang dibuka malam ini.'
         }
       },
       core: {
         ask: {
-          '1': 'Sang Kolosus jadi rongsokan. Tak pernah kusangka akan melihatnya.',
-          '2': 'Dan di sana ia tergeletak. Intinya. Masih berdengung. Hangat saat disentuh.',
-          '3': 'Kamu sampai lebih dulu. Apa yang akan terjadi padanya?'
+          '1': 'Sang Kolosus jadi rongsokan. Tak pernah kusangka akan hidup untuk melihatnya.',
+          '2': 'Dan itu intinya. Masih berdengung. Hangat kalau disentuh.',
+          '3': 'Kamu sampai lebih dulu. Jadi... apa yang terjadi padanya?'
         },
         destroy: {
           '1': 'Cahaya padam, dan golem ambruk di tempat mereka berdiri.',
-          '2': 'Ordo Besi mengirim pembuat zirahnya sendiri ke Ironhold sebagai tanda terima kasih.',
+          '2': 'Sebagai terima kasih, Ordo Besi mengirim pandai zirahnya sendiri ke Ironhold.',
           say: 'Mundur. Aku akan menghancurkannya.'
         },
         study: {
-          '1': 'Kamu cukup memahami inti itu untuk menyerahkannya tanpa membangunkannya.',
-          '2': 'Dalam satu musim, tempa Ironhold menghasilkan karya aether yang belum pernah dilihat siapa pun.',
-          say: 'Lingkaran sebaiknya mempelajarinya. Aku bisa membawanya keluar dengan aman.'
+          '1': 'Kamu tahu cukup banyak untuk memindahkan inti tanpa membangunkannya.',
+          '2': 'Dalam satu musim, tungku Ironhold membuat karya aether yang belum pernah dilihat siapa pun.',
+          say: 'Lingkaran harus meneliti ini. Kurasa aku bisa membawanya keluar dengan aman.'
         },
         sell: {
           '1': 'Emas. Untuk benda yang membunuh penambangku. Ambil dan pergi.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Aku sudah melihat saat ini sepuluh ribu kali.',
-          '2': 'Di separuhnya kamu membebaskanku. Di separuhnya kamu mengambil apa yang kujaga.',
-          '3': 'Pilihlah. Biarkan aku akhirnya tak tahu apa yang datang berikutnya.'
+          '1': 'Aku sudah melihat saat ini lebih sering dari yang bisa kuhitung.',
+          '2': 'Di separuhnya, kamu membebaskanku. Di separuh lainnya, kamu mengambil apa yang kujaga.',
+          '3': 'Pilihlah. Aku ingin, sekali saja, tak tahu apa yang terjadi berikutnya.'
         },
         free: {
-          '1': 'Oh. Aku tak melihat itu. Sama sekali tak melihatnya.',
-          '2': 'Sang peramal naik menembus air dan lenyap. Penjaga jamnya tinggal untuk mengajar.',
+          '1': 'Oh. Aku tak melihat itu. Sungguh tak melihatnya.',
+          '2': 'Sang peramal naik menembus air dan menghilang. Muridnya tinggal untuk mengajar.',
           say: 'Diamlah. Aku akan memutus rantaimu.'
         },
         slay: {
           '1': 'Ya. Ini separuh yang lain.',
           '2': 'Dia tak melawan. Jam Pasir Penjaga Waktu menjadi milikmu.',
-          '3': 'Murid terakhirnya kabur dari kuil, dan Lingkaran tak memaafkan.',
+          '3': 'Murid terakhirnya melarikan diri dari kuil, dan Lingkaran tak akan memaafkanmu.',
           say: 'Aku datang untuk jam pasir itu.'
         }
       },
       dragon: {
         ask: {
           '1': 'Cukup. Kamu punya taring, si kecil.',
-          '2': 'Iblis di benteng merantai kaumku. Aku ingin melihatnya terbakar.',
+          '2': 'Iblis di benteng itu merantai kaumku. Aku ingin melihatnya terbakar.',
           '3': 'Bunuh aku, atau biarkan aku membantumu melakukannya.'
         },
         slay: {
           '1': 'Gunung berguncang saat naga itu tumbang. Timbunannya jadi milikmu.',
           '2': 'Ordo Besi menyanyikan lagu tentang pembunuh naga.',
-          say: 'Tak ada tawar-menawar dengan naga.'
+          say: 'Aku tak tawar-menawar dengan naga.'
         },
         pact: {
-          '1': 'Sedikit yang bisa meminta itu dan hidup. Baiklah, si kecil. Kita berburu bersama.',
-          '2': 'Saat kamu menyerbu Benteng Kengerian, seekor naga akan ada di langit di atasmu.',
-          say: 'Kalau begitu terbanglah bersamaku melawan Iblis Agung.'
+          '1': 'Sedikit yang berani bertanya. Baiklah. Kita berburu bersama.',
+          '2': 'Saat kamu menyerbu Benteng Kengerian, seekor naga akan terbang di atasmu.',
+          say: 'Kalau begitu bertarunglah bersamaku melawan Iblis Agung.'
         }
       },
       throne: {
         ask: {
-          '1': 'Jadi. Ini berakhir. Kupikir bukan kamu orangnya.',
-          '2': 'Takhtaku tidak tetap kosong, pahlawan kecil. Ia memerintah benteng, retakan, dan pasukan keduanya.',
-          '3': 'Tiga utusan sudah menunggu di pintuku. Pilih siapa yang mewarisi rantaiku.'
+          '1': 'Jadi. Berakhir sudah. Aku tak mengira itu kamu.',
+          '2': 'Takhtaku tak akan kosong. Siapa pun yang merebutnya memerintah benteng dan retakan.',
+          '3': 'Tiga utusan sudah menunggu di pintuku. Pilihlah siapa yang datang berikutnya.'
         },
         order: {
           '1': 'Ordo menempatkan pasukan di benteng dan menyegel apa yang bisa.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindikat masuk sebelum fajar.',
-          '2': 'Semuanya dijual sekarang, termasuk kedamaian.',
+          '2': 'Mulai sekarang segalanya ada harganya, bahkan perdamaian.',
           say: 'Sindikat Abu pantas mendapatkannya.'
         },
         circle: {
-          '1': 'Lingkaran mengubah benteng menjadi sekolah di atas sebuah retakan.',
-          '2': 'Mereka menyebutnya penelitian. Semua orang lain menyebutnya tinggal menunggu waktu.',
+          '1': 'Lingkaran mengubah benteng menjadi sekolah di atas retakan.',
+          '2': 'Mereka menyebutnya penelitian. Semua orang lain menahan napas.',
           say: 'Biarkan Lingkaran Aether memilikinya.'
         },
         shatter: {
-          '1': 'Kamu menghancurkan takhta dengan tanganmu sendiri. Tak ada lagi yang memerintah dari sini.',
+          '1': 'Kamu menghancurkan takhta dengan tanganmu sendiri. Tak akan ada lagi yang memerintah dari sini.',
           '2': 'Para utusan pergi tanpa sepatah kata.',
-          say: 'Tak ada yang mewarisi. Aku menghancurkannya.'
+          say: 'Tak ada yang mendapatkannya. Aku menghancurkannya.'
         },
         claim: {
           '1': 'Takhta itu dingin, dan pas untukmu.',
-          '2': 'Tiga kelompok menyadari mereka punya musuh bersama.',
-          say: 'Aku sendiri yang akan duduk di sana.'
+          '2': 'Tiga faksi menyadari mereka punya musuh bersama.',
+          say: 'Aku akan mengambilnya sendiri.'
         }
       }
     }

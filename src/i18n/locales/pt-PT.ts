@@ -127,8 +127,8 @@ export default {
       mouse: 'Segue o rasto até ao mestre e clica nele para falares.'
     },
     teach: {
-      touch: 'Toca em «Ensina-me» para veres o que este mestre ensina.',
-      mouse: 'Clica em «Ensina-me» para veres o que este mestre ensina.'
+      touch: 'Toca em «Ensinas-me alguma coisa?» para veres o que este mestre ensina.',
+      mouse: 'Clica em «Ensinas-me alguma coisa?» para veres o que este mestre ensina.'
     },
     learn: {
       touch: 'Toca numa habilidade e depois em Aprender.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Recomprar',
     deal: 'Negócio fechado!',
     say: {
-      buy: 'Boa escolha. Trata bem disso.',
-      sell: 'Vou arranjar-lhe um bom lar.',
-      back: 'Mudaste de ideias? Aqui tens, como estava.',
-      poor: 'Volta com uma bolsa mais pesada.'
+      buy: 'Boa escolha. Trata bem dele e ele trata bem de ti.',
+      sell: 'Está bem. Alguém há de querer.',
+      back: 'Mudaste de ideias? Não faz mal, aqui tens.',
+      poor: 'Receio que seja um bocadinho mais do que tens aí.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Senta-te. Descansa. Sais daqui inteiro, com todos os frascos cheios. Se quiseres levar mais, isso já te posso vender.',
+    talk: 'Senta-te e descansa um pouco. Os teus frascos estão cheios outra vez. Posso vender-te um cinto maior, se quiseres.',
     note: 'Levas {n} poções para cada zona.',
     buy: 'Mais um frasco · {n}',
     full: 'O teu cinto não leva nem mais um.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram, o Ferreiro',
-      talk: 'Aço simples, preços honestos. Chega para manter um goblin à distância.'
+      talk: 'Aço simples, preços justos. Leva o teu tempo.'
     },
     sunfordPeddler: {
       name: 'Tilly, a Vendedeira',
-      talk: 'Anéis! Amuletos! Coisas que encontrei e que de certeza não roubei.'
+      talk: 'Anéis, amuletos, miudezas. Aquele ali talvez até dê sorte.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik, o Mercador',
-      talk: 'Rei dizer trocar, então Grik trocar. Brilhante por brilhante. Brilhante bom.'
+      talk: 'A minha família fez isto. Bom trabalho, preço justo.'
     },
     captainHale: {
       name: 'Capitão Hale'
     },
     oakArmorer: {
       name: 'Odo, o Armeiro',
-      talk: 'Metade da minha mercadoria foi para as muralhas. Leva o que sobrou.'
+      talk: 'Metade do meu stock foi para a muralha. Leva o que sobrou, se servir.'
     },
     oakMasterArmorer: {
       name: 'Mestre Odo',
-      talk: 'Salvaste esta cidade. Para ti, as boas placas saem da sala das traseiras.'
+      talk: 'A armadura boa está cá fora. Mais do que mereces dar-lhe uma vista de olhos.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Afiadas, equilibradas e vendidas a quem pagar. Hoje és tu.'
+      talk: 'Afiadas, equilibradas, a preço justo. Não toques nos gumes.'
     },
     trainerShadow: {
       name: 'O Sussurro'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'O Recetador',
-      talk: 'Sem nomes, sem perguntas. O Sindicato fica com a sua parte, tu ficas com a mercadoria.'
+      talk: 'Sem perguntas, de parte a parte. O Sindicato fica com a sua parte.'
     },
     trainerBlood: {
       name: 'Doutor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhand',
-      talk: 'Forjado por anões. Se partir, foste tu.'
+      talk: 'Tudo forjado por anões. Se uma peça partir, quero saber como.'
     },
     ironAetherWorks: {
       name: 'Voss, o Inventor',
-      talk: 'O estudo que o Círculo fez do núcleo mudou tudo. Segura nisto. Não mo apontes.'
+      talk: 'Tudo aqui nasceu do estudo do núcleo. Cuidado, quase tudo está carregado.'
     },
     ironArmor: {
       name: 'Garrun Ironside',
-      talk: 'Placas que desviam a moca de um gigante. Anéis para os restantes.'
+      talk: 'Armaduras nos suportes, anéis no tabuleiro.'
     },
     ironOrderArmor: {
       name: 'Intendente da Ordem',
-      talk: 'A Ordem lembra-se de quem destruiu o núcleo. Os seus arsenais estão abertos para ti.'
+      talk: 'Leva o que precisares. A Ordem cuida dos seus.'
     },
     trainerGeo: {
       name: 'Velho Pé-de-Pedra'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Chuva esta noite, diz o meu joelho.',
+        '1': 'Vai chover esta noite. O meu joelho dói-me o dia todo.',
         '2': 'O teu joelho disse o mesmo na semana passada.',
-        '3': 'E choveu, não choveu? Nalgum sítio.'
+        '3': 'E choveu, não choveu? Só não foi aqui.'
       },
       harvest: {
-        '1': 'A melhor cevada em anos, esta.',
-        '2': 'Dizes isso todos os anos.'
+        '1': 'A cevada saiu bem este ano.',
+        '2': 'Oxalá nos deixem ficar com ela.'
       },
       goblins: {
         '1': 'Os goblins levaram três galinhas da quinta do Moleiro.',
-        '2': 'Só três? Estão a ficar preguiçosos.',
-        '3': 'Ou fartos.'
+        '2': 'Outra vez? É a segunda vez este mês.',
+        '3': 'Alguém devia fazer alguma coisa quanto àquelas grutas.'
       },
       kingGone: {
-        '1': 'Dizem que o Rei Goblin se foi para sempre.',
-        '2': 'Então quem anda a roubar-me os nabos?'
+        '1': 'Dizem que o Rei Goblin morreu.',
+        '2': 'Ainda bem. Talvez agora durma uma noite inteira.'
       },
       pact: {
-        '1': 'Um goblin vendeu-me hoje uma colher.',
-        '2': 'Era a tua colher?',
-        '3': 'Era, sim. Bom preço, ainda assim.'
+        '1': 'Comprei uma concha a um goblin esta manhã.',
+        '2': 'É boa?',
+        '3': 'Melhor do que a minha, sinceramente. Não digas a ninguém.'
       },
       bram: {
-        '1': 'O Bram está outra vez a martelar. Desde o amanhecer!',
-        '2': 'Firme como um batimento, aquele homem.'
+        '1': 'O Bram está na bigorna desde antes do amanhecer.',
+        '2': 'Fica assim quando anda preocupado.'
       },
       pie: {
-        '1': 'É tarte de maçã o que estou a cheirar?',
-        '2': 'Era. No passado.',
-        '3': 'Comeste tudo? Outra vez?'
+        '1': 'Aquele cheiro é a tarte de maçã?',
+        '2': 'Era. Os miúdos encontraram-na primeiro.',
+        '3': 'Faço outra. Esconde-a melhor desta vez.'
       },
       road: {
-        '1': 'Já ninguém apanha a estrada das planícies.',
-        '2': 'Com bandidos nela, não.'
+        '1': 'Há uma semana que ninguém apanha a estrada das planícies.',
+        '2': 'Não com bandidos lá. Não se pode culpá-los.'
       },
       hero: {
-        '1': 'Alguém limpou a estrada das planícies!',
-        '2': 'Já era tempo. O meu primo deve-me uma carroça.'
+        '1': 'Alguém limpou os bandidos da estrada das planícies.',
+        '2': 'Graças a Deus. A minha irmã já pode voltar a visitar-nos.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Duas pratas por uma couve. Duas!',
-        '2': 'É uma couve muito bonita.',
-        '3': 'Nem tanto.'
+        '2': 'Hoje em dia nada passa o portão barato.',
+        '3': 'Então planto o meu. No telhado, se for preciso.'
       },
       watch: {
-        '1': 'A guarda duplicou os vigias do portão.',
-        '2': 'Bom. Durmo melhor assim.'
+        '1': 'Dobraram a guarda no portão.',
+        '2': 'Ainda bem. Durmo um pouco mais descansado.'
       },
       caravan: {
         '1': 'A caravana das especiarias está outra vez atrasada.',
         '2': 'Bandidos?',
-        '3': 'Ou o condutor encontrou uma taberna.'
+        '3': 'Ou lama. Oxalá seja lama.'
       },
       siege: {
-        '1': 'Dizem que há um exército acampado nos arredores.',
-        '2': 'Então é melhor abastecer a cave.'
+        '1': 'Há um exército acampado depois das quintas.',
+        '2': 'Então vamos encher a adega enquanto podemos.'
       },
       saved: {
-        '1': 'Viste o cerco quebrar? Glorioso!',
-        '2': 'Vi de debaixo da minha cama.',
-        '3': 'Conta na mesma.'
+        '1': 'Estavas na muralha quando o cerco acabou?',
+        '2': 'Eu estava escondido debaixo da cama, para ser sincero.',
+        '3': 'Metade da cidade também. Mas continuamos cá.'
       },
       fountain: {
         '1': 'Atirei uma moeda à fonte para dar sorte.',
-        '2': 'E eu pesquei-a de volta. Obrigado!'
+        '2': 'Espero que tenhas desejado couves mais baratas.'
       },
       ash: {
-        '1': 'Tudo cheira a cinza.',
-        '2': 'Melhor que não cheirar a nada.'
+        '1': 'Tudo ainda cheira a fumo.',
+        '2': 'Passa. No fim, tudo passa.'
       },
       hide: {
-        '1': 'Ouviste botas lá fora ontem à noite?',
-        '2': 'Chiu. Fala baixo.',
-        '3': 'Desculpa. Desculpa.'
+        '1': 'Ouviste botas na rua ontem à noite?',
+        '2': 'Fala mais baixo. Não sabes quem está a ouvir.',
+        '3': 'Desculpa. É que... desculpa.'
       },
       bread: {
-        '1': 'Encontrei meio pão. Podemos dividir.',
+        '1': 'Encontrei meio pão. Toma, leva um bocado.',
         '2': 'És uma boa alma. Obrigado.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Bela veia de cobre no quarto nível.',
-        '2': 'Cobre? Eu quero ouro.',
-        '3': 'Tu queres é uma sesta.'
+        '2': 'Cobre. Eu esperava prata.',
+        '3': 'O cobre paga a renda. A prata paga sonhos.'
       },
       forge: {
-        '1': 'A grande forja não se apaga há cem anos.',
-        '2': 'O cachimbo do meu avô também não.'
+        '1': 'A grande forja não arrefece há cem anos.',
+        '2': 'O meu avô ajudou a acendê-la, sabes?'
       },
       beard: {
-        '1': 'Aparaste a barba!',
-        '2': 'Ardeu na bigorna.',
-        '3': 'Fica-te bem, ainda assim.'
+        '1': 'Aparaste a barba.',
+        '2': 'Cheguei-me demasiado à bigorna.',
+        '3': 'Volta a crescer. E mais curta fica-te melhor, de qualquer modo.'
       },
       core: {
-        '1': 'Agora há algo a brilhar nas minas profundas.',
-        '2': 'Nada de bom brilha lá em baixo.'
+        '1': 'Há qualquer coisa a brilhar lá nos poços fundos.',
+        '2': 'Nada de bom brilha lá em baixo. Fica cá em cima.'
       },
       order: {
-        '1': 'Os armeiros da Ordem trabalham depressa.',
-        '2': 'Depressa, sim. Não tão bem como nós.'
+        '1': 'Os armeiros da Ordem trabalham depressa, isso tenho de lhes reconhecer.',
+        '2': 'Depressa, pois. Vamos ver quanto aguenta.'
       },
       circle: {
-        '1': 'Os magos do Círculo trauteiam enquanto trabalham.',
-        '2': 'Melhor que o nosso canto, suponho.'
+        '1': 'O pessoal do Círculo trauteia enquanto trabalha.',
+        '2': 'Ao menos é melhor do que o teu canto.'
       },
       cold: {
-        '1': 'Está frio aqui em cima esta manhã.',
-        '2': 'Então chega-te mais à forja.'
+        '1': 'Está um frio de rachar esta manhã.',
+        '2': 'Então chega-te à forja.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Apanhaste-te!',
+        '1': 'Apanhado, agora és tu!',
         '2': 'Não vale, eu não estava pronto!'
       },
       dragon: {
-        '1': 'Quando for grande vou montar um dragão.',
-        '2': 'Os dragões não se deixam montar.',
-        '3': 'Os simpáticos deixam!'
+        '1': 'Quando for grande, vou montar um dragão.',
+        '2': 'Os dragões não deixam que os montem.',
+        '3': 'Um simpático talvez deixe.'
       },
       sword: {
-        '1': 'Olha, um pau-espada a sério!',
-        '2': 'É só um pau.'
+        '1': 'Olha, encontrei uma espada!',
+        '2': 'Isso é um pau.'
       },
       frog: {
-        '1': 'Encontrei uma rã junto ao poço.',
+        '1': 'Há uma rã ao pé do poço.',
         '2': 'Podemos ficar com ela?',
-        '3': 'Acho que é ela que fica connosco.'
+        '3': 'A mãe disse que não queria mais rãs.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Por agora é tudo.',
-      trade: 'Mostra-me as tuas mercadorias.',
-      train: 'Ensina-me.',
-      heal: 'Cura-me.',
-      mana: 'Preciso de algo para a minha mana.',
-      who: 'Quem és tu?',
+      bye: 'Deixo-te continuar o teu trabalho.',
+      trade: 'Posso ver o que tens?',
+      train: 'Ensinas-me alguma coisa?',
+      heal: 'Podes tratar-me?',
+      mana: 'Tens alguma coisa para a mana?',
+      who: 'Quem és tu, se não te importas que pergunte?',
       rumor: 'Ouviste alguma coisa ultimamente?',
-      ready: 'Estou pronto para mais?'
+      ready: 'Achas que estou pronto para mais?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Cara nova. Tu és quem defendeu a estrada das planícies.',
-        '2': 'Sou o Bram. Faço aço. Pareces precisar de algum.'
+        '1': 'Nunca te tinha visto. Foste tu que limpaste a estrada?',
+        '2': 'Bram. A forja é minha. Se precisares de uma lâmina, vem ter comigo.'
       },
       kingDead: {
-        '1': 'Ouvi dizer que o Rei Goblin morreu. Bom. Menos amolgadelas para tirar das rodas das caravanas.'
+        '1': 'Ouvi dizer que o Rei Goblin morreu. Não vou ter saudades.'
       },
       kingPact: {
-        '1': 'Goblins a negociar na praça. Nunca pensei ver isso. O ferro deles é lixo, já agora.'
+        '1': 'Goblins a negociar na praça. Nunca pensei ver tal coisa.'
       },
       kingRansom: {
-        '1': 'Dizem que levaste o ouro do Rei e lhe deixaste a coroa. As investidas vão voltar.'
+        '1': 'Deixaste o Rei Goblin ficar com a coroa. Vai voltar, sabes?'
       },
       ending: {
-        '1': 'O reino inteiro fala daquele trono. E tu ainda compras comigo. Hm.'
+        '1': 'O reino inteiro fala de ti. Ainda precisas de uma pedra de afiar?'
       },
       again: {
-        '1': 'De volta. Bom. O aço não se vende sozinho.'
+        '1': 'Outra vez por cá. Em que posso ajudar-te?'
       },
       trade: {
-        '1': 'Aço simples, preços honestos. Olha à vontade.'
+        '1': 'Aço simples, preços justos. Dá uma vista de olhos.'
       },
       who: {
-        '1': 'Bram. Trinta anos nesta bigorna.',
-        '2': 'Ferro cavalos, conserto arados e armo tolos como tu. Por essa ordem.'
+        '1': 'Bram. Uns trinta anos nesta bigorna.',
+        '2': 'Ferraduras, arados, uma espada de vez em quando. Ultimamente, quase só espadas.'
       },
       gear: {
-        '1': 'Um escudo, se vais levar pancada. Uma espada maior, se não.',
-        '2': 'É a Força que maneja o meu aço. Põe lá os teus pontos antes de comprares coisas pesadas.',
-        say: 'O que devo levar lá fora?'
+        '1': 'Um escudo, se pensas levar pancada. A maioria leva.',
+        '2': 'Aço pesado pede braço forte. Trabalha primeiro a Força.',
+        say: 'O que devo levar lá para fora?'
       },
       rumor: {
         plains: {
-          '1': 'Goblins na estrada das planícies. Limpa-os antes de comprares algo requintado.'
+          '1': 'Bandidos na estrada das planícies. Eu começava por aí, se fosse a ti.'
         },
         hollows: {
-          '1': 'Os saqueadores saem das Grutas dos Goblins, depois das planícies. O rei deles está lá no fundo.'
+          '1': 'Os goblins vêm das Grutas, depois das planícies. O rei deles está lá em baixo.'
         },
         woods: {
-          '1': 'A leste das planícies começa o Bosque Sussurrante. Lá as árvores andam. Leva um machado.'
+          '1': 'A leste das planícies fica o Bosque Sussurrante. Dizem que as árvores se mexem.'
         },
         siege: {
-          '1': 'Fumo para os lados de Oakhaven. Dizem que um senhor da guerra acampa nos arredores.'
+          '1': 'Há fumo na direção de Oakhaven. Um exército acampou nos arredores.'
         },
         north: {
-          '1': 'O aço de Ironhold voltou à estrada. Vai para norte se queres algo melhor que o meu.'
+          '1': 'O aço de Ironhold está a descer a estrada outra vez. Melhor do que o meu, para ser sincero.'
         }
       },
       shopBack: {
-        '1': 'Usa-o com saúde. Ou usa-o, pelo menos.'
+        '1': 'Trata bem dele e ele trata bem de ti.'
       },
       bye: {
-        '1': 'Cuidado na estrada.'
+        '1': 'Vai com cuidado.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, um cliente! Ou um guarda. Não és um guarda, pois não?',
-        '2': 'Sou a Tilly. Anéis, amuletos, coisas da sorte. Tudo achado, nunca roubado.'
+        '1': 'Ah, olá! Vais comprar ou só espreitar? Tanto faz.',
+        '2': 'Sou a Tilly. Anéis, amuletos, miudezas de todo o lado.'
       },
       rival: {
-        '1': 'Viste a banca do Grik? Quinquilharias de goblin! Estou arruinada. Compra algo. Tem pena de mim.'
+        '1': 'Viste a banca do goblin? Os preços dele são mais baixos do que os meus. Não é justo.'
       },
       again: {
-        '1': 'O meu cliente favorito! Digo isto a toda a gente, mas contigo é a sério.'
+        '1': 'Aí estás tu! Pus de lado umas coisas de que acho que vais gostar.'
       },
       trade: {
-        '1': 'Anéis! Amuletos! Coisas que achei e que de certeza não roubei.'
+        '1': 'Dá uma vista de olhos. Aquele dá sorte. Provavelmente.'
       },
       who: {
-        '1': 'Ando pelas estradas e apanho o que elas deixam para trás.',
-        '2': 'Os bandidos deixam cair as coisas mais bonitas quando fogem.'
+        '1': 'Ando pelas estradas e compro o que as pessoas querem despachar.',
+        '2': 'E às vezes encontro coisas. Os bandidos deixam cair muita coisa quando fogem.'
       },
       trinkets: {
-        '1': 'Usam-se dois de cada vez, um em cada mão. Uma pequena vantagem continua a ser vantagem.',
-        say: 'Para que servem os berloques?'
+        '1': 'Podes usar dois, um em cada mão. Tudo conta lá fora.',
+        say: 'Para que servem os berloques, afinal?'
       },
       stolen: {
-        '1': 'Chiu! Não tão alto. Está bem. ESTÁ BEM.',
-        '2': 'Leva este anel e nunca falámos. É um belo anel. Quase tudo cobre.',
-        say: 'Roubaste tudo isto, não foi?'
+        '1': 'Ah. Tens uma maneira de perguntar, hein?',
+        '2': 'Fica com este anel e não falemos de onde o encontrei.',
+        say: 'De onde veio tudo isto, a sério?'
       },
       rumor: {
         arenaShut: {
-          '1': 'A sul daqui há um coliseu com os portões enferrujados. Abririam se o problema dos goblins acabasse.'
+          '1': 'Há um coliseu antigo a sul. Fechado a sete chaves enquanto os goblins saqueiam.'
         },
         arenaOpen: {
-          '1': 'O Coliseu está aberto! Oito vagas, dizem. Eu vendo sorte. Vais querer sorte.'
+          '1': 'O coliseu abriu outra vez. Oito vagas, dizem. O povo aposta nisso.'
         },
         east: {
-          '1': 'Os mercados de Oakhaven pagam o dobro por tudo o que brilha. Vai para leste, depois do bosque.'
+          '1': 'Oakhaven paga bem por tudo o que brilhe. Fica a leste, depois do bosque.'
         }
       },
       shopBack: {
-        '1': 'Volta quando estiveres mais rico!'
+        '1': 'Volta quando a bolsa estiver mais pesada!'
       },
       bye: {
-        '1': 'Cuida dos bolsos lá fora! Perto de mim não, quero dizer. Noutro sítio.'
+        '1': 'Boa viagem. Agarra bem o teu dinheiro lá fora.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Fica direito. Estás diante de um cavaleiro da Ordem de Ferro.',
-        '2': 'Ser Aldric. Ensino o escudo a quem quer ficar à frente dos outros.'
+        '1': 'Endireita-te. Falas com um cavaleiro da Ordem de Ferro.',
+        '2': 'Ser Aldric. Ensino a ficar entre os outros e o perigo.'
       },
       saved: {
-        '1': 'Oakhaven resiste porque tu resististe. É tudo o que ensino.'
+        '1': 'Oakhaven continua de pé, e soube que estavas na muralha. Muito bem.'
       },
       fallen: {
-        '1': 'Abriste o portão de Oakhaven. Já enterrei homens por menos. Diz ao que vens.'
+        '1': 'Abriste o portão de Oakhaven. Não vou fingir que me esqueci. O que queres?'
       },
       dragon: {
-        '1': 'Um matador de dragões no meu pátio. Vão cantá-lo no grande salão.'
+        '1': 'Mataste o dragão do pico? Gostava de ter visto.'
       },
       friend: {
-        '1': 'A Ordem fala bem de ti. Para os amigos dela, as minhas lições custam menos.'
+        '1': 'A Ordem tem boa opinião de ti. Para os amigos dela, as minhas lições custam menos.'
       },
       foe: {
-        '1': 'A Ordem declara-te inimigo. Ensino-te na mesma. A honra não é dela para revogar.'
+        '1': 'A Ordem chama-te inimigo. Eu ensino-te na mesma. A escolha é minha, não dela.'
       },
       again: {
-        '1': 'Escudo erguido. Do que precisas?'
+        '1': 'Voltaste para mais treino?'
       },
       train: {
-        '1': 'Então presta atenção. Mostro cada coisa uma só vez.'
+        '1': 'Bom. Observa bem, só mostro uma vez.'
       },
       class: {
-        '1': 'Uma muralha que anda. Aguentamos o golpe para que mais ninguém precise.',
-        '2': 'Força para o braço, Vigor para o resto. A luz faz o que pode.',
-        say: 'O que é um Cavaleiro da Égide?'
+        '1': 'Aguentamos os golpes que eram para os outros. É simples, e é difícil.',
+        '2': 'Vais precisar de Força para o escudo e de Vigor para o segurar.',
+        say: 'O que faz exatamente um Cavaleiro da Égide?'
       },
       ready: {
         strong: {
-          '1': 'Tens braço para quase tudo o que sei. Cuida do teu Vigor e leva o resto.'
+          '1': 'És forte o bastante para quase tudo o que sei. Continua com o Vigor.'
         },
         able: {
-          '1': 'Estás pronto para a próxima lição. Não deixes subir à cabeça.'
+          '1': 'Estás pronto para a próxima lição. Não te ponhas com ares.'
         },
         weak: {
-          '1': 'Ainda não. O teu braço é fraco e cansas-te depressa. Mais Força, mais Vigor.'
+          '1': 'Ainda não. Cansavas-te antes do escudo. Mais Força, mais Vigor.'
         }
       },
       order: {
-        '1': 'Guardamos as estradas e a lei. Alguns dizem que demais de ambas.',
-        '2': 'Fica com a Ordem, e os seus armeiros e mestres lembrar-se-ão de ti.',
+        '1': 'Mantemos as estradas seguras e a lei na mão. Há quem diga que com demasiada firmeza.',
+        '2': 'Fica do nosso lado e os nossos armeiros e mestres hão de lembrar-se de ti.',
         say: 'Fala-me da Ordem de Ferro.'
       },
       trainBack: {
-        '1': 'Pratica até te fartares. Depois pratica mais.'
+        '1': 'Treina até ser aborrecido. Depois continua.'
       },
       bye: {
-        '1': 'Vai com a luz.'
+        '1': 'Vai com cautela.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Um aluno? Dá um passo atrás. Mais um bocadinho.',
-        '2': 'Ember Wren, piromante. As sobrancelhas voltam a crescer, quase sempre.'
+        '1': 'Ah, um aluno? Maravilha. Talvez dê um passo atrás.',
+        '2': 'Sou a Ember Wren. Ensino fogo. Quase sempre faz o que lhe peço.'
       },
       core: {
-        '1': 'Deste o núcleo ao Círculo! Sabes quantas coisas podemos incendiar agora?'
+        '1': 'Deste o núcleo ao Círculo! Mal posso esperar para ver o que vamos aprender.'
       },
       friend: {
-        '1': 'O Círculo do Éter gosta de ti! Isso significa desconto. E menos formulários.'
+        '1': 'O Círculo fala bem de ti. Isso quer dizer desconto, já agora.'
       },
       foe: {
-        '1': 'O Círculo quer ver-te em cinzas. Embaraçoso! Ensino-te na mesma. O fogo não é esquisito.'
+        '1': 'O Círculo não está contente contigo. Ensino-te na mesma. Em segredo.'
       },
       again: {
-        '1': 'Voltaste! E nada está a arder. Isso resolve-se.'
+        '1': 'Voltaste! Pronto para acender alguma coisa?'
       },
       train: {
-        '1': 'Sim! Olha com atenção. Nem tanto.'
+        '1': 'Certo. Olha para as minhas mãos e mantém as mangas longe de mim.'
       },
       class: {
-        '1': 'O fogo responde a todas as perguntas. Queima primeiro, depois faz explodir o que está a arder.',
-        '2': 'Tudo funciona com Inteligência. E um fornecimento constante de túnicas.',
-        say: 'O que faz um Piromante?'
+        '1': 'Pegar fogo às coisas, sobretudo. Depois fazer o fogo alastrar para onde queres.',
+        '2': 'Vem tudo da Inteligência. Quanto mais afiada a mente, mais quente a chama.',
+        say: 'O que faz exatamente um piromante?'
       },
       ready: {
         strong: {
-          '1': 'Derretias um golem! Leva tudo o que tenho. Cuida da Técnica nos feitiços difíceis.'
+          '1': 'Sinceramente? Podias ensinar parte disto. Leva o que quiseres.'
         },
         able: {
-          '1': 'A tua mente está quente que chegue para o próximo feitiço. Vamos!'
+          '1': 'Estás pronto para o próximo feitiço. Anda, mostro-te.'
         },
         weak: {
-          '1': 'Hmm. Ainda falta Inteligência. O fogo usava-te a ti, e não o contrário.'
+          '1': 'Ainda não, receio. Falta-te Inteligência, ou o fogo toma conta de ti.'
         }
       },
       circle: {
-        '1': 'Eruditos. Estudamos de que é feito o mundo. Parte disso explode.',
+        '1': 'Estudiosos. Estudamos de que é feito o mundo. Parte disso explode.',
         say: 'Quem são os do Círculo do Éter?'
       },
       trainBack: {
-        '1': 'Vai pegar fogo a alguma coisa! A algo que o mereça.'
+        '1': 'Vai praticar. Num sítio onde nada pegue fogo, por favor.'
       },
       bye: {
-        '1': 'Fica quentinho!'
+        '1': 'Cuida-te!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Então és tu, o da estrada. Chega-te mais perto, os meus olhos já não são o que eram.',
-        '2': 'Sou a Mara. Guardo o livro de contas desta vila e a sua paz há quarenta anos.'
+        '1': 'Então és tu o da estrada. Anda cá, deixa-me ver-te.',
+        '2': 'Sou a Mara. Cuido desta cidade há... ah, uns quarenta anos.'
       },
       slain: {
-        '1': 'As Grutas estão calmas. Fizeste algo difícil, e Sunford dorme por causa disso.'
+        '1': 'As Grutas estão em silêncio. Foi uma coisa dura, mas dormimos por causa disso.'
       },
       pact: {
-        '1': 'Goblins a vender quinquilharias na minha praça. Tens lábia, criança. Espero que dure.'
+        '1': 'Goblins a vender na minha praça. Foste tu que os convenceste, não foi?'
       },
       ransom: {
-        '1': 'Levaste o ouro dele e deixaste-lhe a coroa. Sou demasiado velha para fingir que não estou desiludida.'
+        '1': 'Levaste-lhe o ouro e deixaste-lhe a coroa. Não vou fingir que não fiquei desiludida.'
       },
       saved: {
-        '1': 'Chegaram notícias de Oakhaven. O portão aguentou. Fico contente por um dos nossos lá estar.'
+        '1': 'Chegaram notícias de Oakhaven. O portão aguentou. Fico contente por teres lá estado.'
       },
       fallen: {
-        '1': 'Oakhaven ardeu, e dizem que seguravas a tocha. Não me contes. Prefiro não saber.'
+        '1': 'Dizem que Oakhaven ardeu. Prefiro não ouvir como. Hoje não.'
       },
       ending: {
-        '1': 'Dizem que decidiste quem se senta na Fortaleza do Pavor. Da estrada de Sunford até isso. Imagina.'
+        '1': 'Dizem que decidiste o destino da Fortaleza do Pavor. Da nossa estradinha até isso.'
       },
       again: {
-        '1': 'Senta-te um momento. A estrada espera.'
+        '1': 'Senta-te um instante. A estrada vai continuar lá.'
       },
       reward: {
-        '1': 'Defendeste a estrada quando a nossa milícia não conseguiu. A vila fez uma coleta.',
-        '2': 'Não é muito. É cada moeda que pudemos poupar.',
-        say: 'Querias ver-me?'
+        '1': 'Seguraste a estrada quando a nossa milícia não conseguiu. A cidade juntou um pouco.',
+        '2': 'Não é muito. É o que pudemos dar.',
+        say: 'Disseram-me que querias ver-me?'
       },
       quest: {
-        '1': 'As investidas vêm das Grutas dos Goblins. Os goblins coroaram um rei.',
-        '2': 'E tu queres vê-lo morto.',
-        '3': 'Quero que as investidas acabem. Como, és tu que decides, no fundo daquelas cavernas.',
-        '4': 'As Grutas ficam logo depois das planícies. Vai com cuidado.',
-        say: 'O que aflige Sunford?'
+        '1': 'Os ataques vêm das Grutas dos Goblins. Coroaram-se um rei.',
+        '2': 'E queres que ele morra?',
+        '3': 'Quero que os ataques parem. Como... isso decides tu, lá em baixo.',
+        '4': 'As Grutas ficam logo a seguir às planícies. Por favor, tem cuidado.',
+        say: 'O que preocupa Sunford?'
       },
       king: {
-        say: 'Sobre o Rei Goblin…',
+        say: 'Sobre o Rei Goblin...',
         slay: {
-          '1': 'Um rei morreu e as minhas caravanas chegam a horas. Não vou perguntar como foi.'
+          '1': 'Foi-se, e as caravanas voltam a circular. Não te vou perguntar como foi.'
         },
         pact: {
-          '1': 'Um pacto! A minha mãe teria desmaiado. Ainda assim, comércio é melhor que funerais.'
+          '1': 'Um pacto comercial. A minha mãe tinha desmaiado. Ainda assim, comércio é melhor do que funerais.'
         },
         ransom: {
-          '1': 'O ouro gasta-se depressa. O rancor não. Lembra-te disso quando as investidas voltarem.'
+          '1': 'O ouro acaba depressa. O rancor não. Lembra-te disso quando os ataques recomeçarem.'
         }
       },
       town: {
-        '1': 'Sobretudo agricultores. Um ferreiro, uma curandeira e dois mestres que nos aturam.',
-        '2': 'Descansa aqui, gasta os teus pontos e sai mais forte. É para isso que serve um lar.',
+        '1': 'Agricultores, sobretudo. Um ferreiro, uma curandeira, dois mestres que nos aturam.',
+        '2': 'Descansa aqui entre viagens. É para isso que serve um lar.',
         say: 'Fala-me de Sunford.'
       },
       next: {
         say: 'Para onde devo ir agora?',
         plains: {
-          '1': 'A estrada das planícies, antes de mais. Não comemos se as caravanas não passam.'
+          '1': 'A estrada das planícies, primeiro. Sem as caravanas, não comemos.'
         },
         hollows: {
-          '1': 'Primeiro as Grutas dos Goblins. Nada está seguro enquanto as investidas continuarem.'
+          '1': 'As Grutas dos Goblins. Nada está seguro enquanto os ataques continuarem.'
         },
         woods: {
-          '1': 'A leste, pelo Bosque Sussurrante. A estrada para Oakhaven passa debaixo dessas árvores.'
+          '1': 'Para leste, pelo Bosque Sussurrante. É o caminho para Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven está cercada. Se os arredores caírem, a cidade cai.'
+          '1': 'Oakhaven está cercada. Se os arredores caírem, a cidade cai com eles.'
         },
         north: {
-          '1': 'Para norte, criança. Os Penhascos de Cinza e, além, Ironhold. O perigo cresce quanto mais longe fores.'
+          '1': 'Para norte, creio. Os Penhascos de Cinza, e Ironhold mais além. Só fica mais difícil.'
         }
       },
       bye: {
-        '1': 'Volta vivo. É só o que peço a qualquer um.'
+        '1': 'Volta inteiro para nós. É tudo o que peço.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Fica quieto. Não, estás bem. Força do hábito.',
-        '2': 'Irmã Lune. Conserto o que a estrada parte.'
+        '1': 'Fica quieto um instante. Não, estás bem. Hábito, desculpa.',
+        '2': 'Sou a Irmã Lune. Remendo tudo o que a estrada parte.'
       },
       again: {
-        '1': 'Ainda inteiro? Estou quase desiludida.'
+        '1': 'Ainda inteiro? Ótimo. Senta-te na mesma.'
       },
       heal: {
-        '1': 'Senta-te. Descansa. Sais daqui inteiro, com todos os frascos cheios.'
+        '1': 'Senta-te, descansa um pouco. Encho-te os frascos antes de partires.'
       },
       mana: {
-        '1': 'Frasco azul, sabor amargo. Bebe um gole quando os feitiços acabarem.'
+        '1': 'Este é amargo. Bebe-o quando os teus feitiços acabarem.'
       },
       potions: {
-        '1': 'Levas uns quantos frascos para cada zona. Bebe antes de precisares, não depois.',
-        '2': 'Se quiseres levar mais, posso vender-te um cinto mais comprido.',
+        '1': 'Levas alguns frascos para cada combate. Bebe antes de precisares, não depois.',
+        '2': 'Se quiseres levar mais, posso vender-te um cinto maior.',
         say: 'Como funcionam as poções?'
       },
       rumor: {
         goblins: {
-          '1': 'Os goblins envenenam as pedras das fundas. Se ficares verde, volta logo.'
+          '1': 'Os goblins untam as pedras das fundas com qualquer coisa. Se te sentires mal, volta cá.'
         },
         spiders: {
-          '1': 'Picadas de aranha vindas do Bosque. Três esta semana. Tenta não ser picado.'
+          '1': 'Esta semana tratei três picadas de aranha vindas do Bosque. Cuidado por lá.'
         },
         burns: {
-          '1': 'Descem soldados do norte com queimaduras. Os Penhascos de Cinza, dizem. Fogo que anda.'
+          '1': 'Não param de descer soldados do norte com queimaduras. Os Penhascos de Cinza, dizem.'
         }
       },
       healBack: {
         '1': 'Mantém o cinto cheio e a cabeça baixa.'
       },
       bye: {
-        '1': 'Tenta não sangrar em cima de nada importante.'
+        '1': 'Cuida-te lá fora.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Alto! Alto fez pacto. Rei diz ser simpático com Alto.',
-        '2': 'Grik é simpático. Grik tem brilhos. Alto tem ouro. Boa dupla.'
+        '1': 'Tu és o que fez o pacto. O meu rei diz que és bem-vindo aqui.',
+        '2': 'Sou o Grik. Vendo o que os goblins fazem. Bom trabalho, preço justo.'
       },
       again: {
-        '1': 'Alto volta! Grik sabia. Brilhos chamam Alto.'
+        '1': 'Amigo. Bom ver-te outra vez.'
       },
       trade: {
-        '1': 'Rei diz negociar, então Grik negoceia. Brilho por brilho. Bom brilho.'
+        '1': 'Olha, por favor. A minha família fez isto.'
       },
       king: {
-        '1': 'Rei está gordo e feliz. Chega de assaltar. Assaltar é trabalho duro.',
-        '2': 'Rei diz Alto tem boa língua. É o maior elogio goblin. Quase.',
+        '1': 'Agora come bem. Sem mais ataques. O meu povo tem menos fome.',
+        '2': 'Fala muitas vezes de ti. Com respeito.',
         say: 'Como está o teu rei?'
       },
       town: {
-        '1': 'Humanos lavam-se demais. Mas tartes! Grik não sabia de tartes.',
+        '1': 'As pessoas ainda olham. Mas o padeiro dá-me tarte. Eu gosto de tarte.',
         say: 'Gostas de Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Primos de Grik cavam a norte, em pedra preta. Dizem que lá o fogo anda. Grik fica aqui.'
+          '1': 'Os meus primos cavam na rocha negra a norte. Dizem que agora o fogo anda por lá.'
         },
         deep: {
-          '1': 'Lugares fundos estão a acordar, Alto. Goblins sentem nos pés.'
+          '1': 'Algo está a acordar nos lugares fundos. Os goblins sentem-no no chão.'
         }
       },
       shopBack: {
-        '1': 'Bom negócio! Alto volta, sim?'
+        '1': 'Obrigado. Volta sempre.'
       },
       bye: {
-        '1': 'Adeus, Alto! Não morrer. Mortos não compram nada.'
+        '1': 'Vai em segurança, amigo.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Mais uma espada. Bom. Deixei de perguntar de onde vêm.',
+        '1': 'Mais uma espada. Ótimo. Precisamos de todas as que pudermos.',
         '2': 'Capitão Hale. Comando o que resta da guarda de Oakhaven.'
       },
       saved: {
-        '1': 'O portão aguentou. Trezentos anos, e agora mais uma vez. Devo-te a minha cidade.'
+        '1': 'O portão aguentou. Trezentos anos, e mais um. Devo-te isso.'
       },
       ending: {
-        '1': 'Decidiste o trono da Fortaleza do Pavor. As minhas muralhas parecem-me mais pequenas que antes.'
+        '1': 'Dizem que decidiste a Fortaleza do Pavor. As minhas muralhas parecem pequenas ao pé disso.'
       },
       again: {
-        '1': 'As muralhas ainda estão de pé. Por hoje.'
+        '1': 'As muralhas ainda estão de pé. Por hoje, pelo menos.'
       },
       after: {
-        '1': 'Oakhaven lembra-se, amigo. Eu também.'
+        '1': 'Bom ver-te. Oakhaven não se esqueceu.'
       },
       quest: {
-        '1': 'O exército de um senhor da guerra cerca-nos. Krag. Ele não luta de graça.',
+        '1': 'Mau. Um senhor da guerra chamado Krag cercou-nos, e ele não luta de graça.',
         '2': 'Quem lhe paga?',
         '3': 'O Sindicato das Cinzas. Querem uma cidade só deles, e a nossa tem muralhas.',
-        '4': 'Derrota-o nos Arredores de Oakhaven. É lá que tudo se decide.',
-        say: 'Qual é a situação?'
+        '4': 'Destrói o acampamento dele nos Arredores de Oakhaven. É lá que isto acaba, de uma maneira ou de outra.',
+        say: 'Quão mau está?'
       },
       siege: {
-        '1': 'Ofereceram-te um terço da cidade. Eu sei. A mim ofereceram-me um quarto.',
-        '2': 'O Sindicato caça-te agora, em todas as estradas. Cuida das costas lá fora.',
-        say: 'Sobre o cerco…'
+        '1': 'Ofereceram-te um terço da cidade, não foi? A mim ofereceram-me um quarto.',
+        '2': 'O Sindicato vai atrás de ti agora. Cuidado com as costas nas estradas.',
+        say: 'Sobre o cerco...'
       },
       town: {
-        '1': 'Uma cidade comercial. Tudo o que circula entre as planícies e as montanhas paga portagem aqui.',
-        '2': 'Por isso todos a querem. Por isso eu não a entrego.',
+        '1': 'Uma cidade de comércio. Tudo o que vai das planícies às montanhas paga portagem aqui.',
+        '2': 'É por isso que todos a querem. E por isso eu não a largo.',
         say: 'Fala-me de Oakhaven.'
       },
       order: {
-        '1': 'Sirvo Oakhaven. A Ordem e eu concordamos, quase sempre. Não é a mesma coisa.',
-        say: 'Serves a Ordem de Ferro?'
+        '1': 'Respondo perante Oakhaven. A Ordem e eu concordamos quase sempre. Não sempre.',
+        say: 'Respondes perante a Ordem de Ferro?'
       },
       rumor: {
         crags: {
-          '1': 'A norte do bosque o chão é negro e arde. Os Penhascos de Cinza. Cultistas alimentam as chamas.'
+          '1': 'A norte do bosque o chão é negro e arde. Os Penhascos de Cinza. Sobretudo cultistas.'
         },
         mines: {
-          '1': 'Ironhold deixou de mandar aço. Algo está errado nas minas dela.'
+          '1': 'Ironhold deixou de mandar aço. Há qualquer coisa errada nas minas deles.'
         },
         north: {
-          '1': 'O extremo norte ficou calado. Na minha experiência, calado é pior.'
+          '1': 'O extremo norte ficou calado. Pela minha experiência, isso nunca é bom.'
         }
       },
       bye: {
-        '1': 'Mantém a espada solta.'
+        '1': 'Mantém a espada à mão.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Se queres um elmo, chegaste tarde. Estão todos na muralha.',
-        '2': 'Odo. Armeiro. Cansado.'
+        '1': 'Se procuras um elmo, lamento. Estão todos na muralha.',
+        '2': 'Odo. Faço armaduras. Não tenho dormido muito.'
       },
       again: {
-        '1': 'Ainda aqui. Ainda sem stock.'
+        '1': 'Ainda aqui. Ainda a faltar quase tudo.'
       },
       trade: {
-        '1': 'Metade do meu stock foi parar às muralhas. Leva o que sobrou.'
+        '1': 'Metade do meu stock foi para a muralha. Leva o que sobrou, se servir.'
       },
       who: {
-        '1': 'Vinte anos a armar esta cidade. Nunca pensei vê-la toda vestida ao mesmo tempo.'
+        '1': 'Visto esta cidade há vinte anos. Nunca a vi toda equipada ao mesmo tempo.'
       },
       armor: {
-        '1': 'Placas se ficares parado. Couro se não. Túnicas se gostas de morrer.',
+        '1': 'Placas, se aguentas firme. Couro, se te mexes. Mantos, se és rápido.',
         say: 'Que armadura devo usar?'
       },
       rumor: {
         backRoom: {
-          '1': 'Se o cerco quebrar, abro o armazém dos fundos. As placas boas. Quebra-o por mim, está bem?'
+          '1': 'Se o cerco acabar, abro a arrecadação. As placas boas estão lá.'
         }
       },
       shopBack: {
-        '1': 'Vai aguentar. Provavelmente.'
+        '1': 'Vai aguentar. Até agora aguentou.'
       },
       bye: {
-        '1': 'Cabeça baixa.'
+        '1': 'Cabeça baixa lá fora.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Tu! Entra. O armazém dos fundos está aberto, e aberto para TI.',
-        '2': 'Mestre Odo, chamam-me agora. Os negócios correm bem quando a cidade está viva.'
+        '1': 'Aí estás tu! Entra. A arrecadação está aberta, e aberta para ti.',
+        '2': 'Mestre Odo, chamam-me agora. Curioso o que um pouco de paz faz pelo negócio.'
       },
       ending: {
-        '1': 'Do meu portão à Fortaleza do Pavor. Digo a todos que ajustei a tua armadura.'
+        '1': 'Do nosso portão até à Fortaleza do Pavor. Digo a toda a gente que fui eu que ajustei a tua armadura.'
       },
       again: {
-        '1': 'O herói do portão. O que vai ser hoje?'
+        '1': 'Bom ver-te. O que vai ser hoje?'
       },
       trade: {
-        '1': 'Salvaste esta cidade. As placas boas saem do armazém dos fundos para ti.'
+        '1': 'A armadura boa está cá fora. Mais do que mereces dar-lhe uma vista de olhos.'
       },
       town: {
-        '1': 'Rica. Barulhenta. Cheia de mercadores a queixar-se da portagem.',
-        '2': 'É maravilhoso. Não durmo há uma semana.',
-        say: 'Como está a cidade?'
+        '1': 'Agitada. Barulhenta. Cheia de mercadores a queixar-se da portagem.',
+        '2': 'É maravilhoso. Há semanas que não tenho uma hora de sossego.',
+        say: 'Como vai a cidade?'
       },
       rumor: {
         mines: {
-          '1': 'O meu aço vem de Ironhold, e Ironhold calou-se. Alguém devia ir ver as minas dela.'
+          '1': 'O meu aço vem de Ironhold, e eles calaram-se. Alguém devia ir ver as minas deles.'
         },
         tundra: {
-          '1': 'O melhor minério que já vi saiu da tundra. Os homens que o trouxeram nunca mais lá voltaram.'
+          '1': 'O melhor minério que já trabalhei veio da tundra. Os homens que o encontraram não voltaram.'
         }
       },
       shopBack: {
-        '1': 'Se não servir, volta. Eu faço-o servir.'
+        '1': 'Se não ficar bem, traz de volta. Eu ajeito.'
       },
       bye: {
-        '1': 'O portão de Oakhaven está sempre aberto para ti. Só para ti.'
+        '1': 'Aqui és sempre bem-vindo.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Vais comprar ou só ver? Ver não custa nada. Tocar custa um dedo.',
-        '2': 'Senna. Vendo lâminas. Não pergunto para quê.'
+        '1': 'A ver ou a comprar? Tanto faz. Só não toques nos gumes.',
+        '2': 'Senna. Vendo lâminas. O que fazes com elas é contigo.'
       },
       saved: {
-        '1': 'O cerco acabou. Pena. A guerra é boa para o negócio. A paz é boa para cobrar dívidas.'
+        '1': 'Então o cerco acabou. Bom para a cidade. A guerra era melhor para o meu negócio, diga-se.'
       },
       again: {
         '1': 'Voltaste à procura de algo mais afiado?'
       },
       trade: {
-        '1': 'Afiado, equilibrado e vendido a quem paga. Hoje és tu.'
+        '1': 'Afiadas, equilibradas e a preço justo. Leva o teu tempo.'
       },
       who: {
-        '1': 'Vendi espadas aos dois lados de três guerras. Ainda cá estou. A maioria deles não.'
+        '1': 'Vendi aos dois lados de três guerras. Ainda cá estou. A maioria deles não.'
       },
       rumor: {
         krag: {
-          '1': 'Os homens de Krag trazem bom aço. Dinheiro do Sindicato. Tira-lho se puderes.'
+          '1': 'Os homens do Krag trazem bom aço. Dinheiro do Sindicato. Vale a pena apanhá-lo, se puderes.'
         },
         which: {
-          '1': 'Lâminas rápidas querem Destreza. Armas de fogo e arcos querem Técnica. Sabe qual és antes de me pagares.'
+          '1': 'Lâminas rápidas querem Destreza. Arcos e armas de fogo querem Técnica. Fica a saber qual és.'
         }
       },
       shopBack: {
-        '1': 'O sangue limpa-se. A ferrugem não. Passa-lhe óleo.'
+        '1': 'Mantém-na oleada. A ferrugem estraga um bom gume mais depressa do que o osso.'
       },
       bye: {
-        '1': 'Não morras a dever-me.'
+        '1': 'Tenta não morrer a dever-me dinheiro.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Não te viras. Estou a brincar. Vira-te.',
-        '2': 'Chamam-me o Sussurro. Ensino a chegar sem ser notado.'
+        '1': 'Não me ouviste chegar. A maioria não ouve.',
+        '2': 'Chamam-me o Sussurro. Ensino a não ser visto.'
       },
       fallen: {
-        '1': 'A cidade está mais calma agora. Menos guardas. Até gosto.'
+        '1': 'A cidade está mais calma agora. Menos guardas. Trabalho mais fácil, para alguns de nós.'
       },
       friend: {
-        '1': 'O Sindicato conta-te como amigo. Amigos pagam menos. Amigos também sabem demais.'
+        '1': 'O Sindicato conta-te como amigo. Os amigos pagam menos. Lembra-te disso.'
       },
       foe: {
-        '1': 'O Sindicato quer-te morto. Pagaram-me para ensinar, não para matar. Sorte tua.'
+        '1': 'O Sindicato quer-te morto. Pagaram-me para ensinar, não para matar. Portanto, lições.'
       },
       again: {
-        '1': 'Estás mais barulhento que da última vez. Vamos trabalhar nisso.'
+        '1': 'Ainda fazes demasiado barulho. Vamos trabalhar nisso.'
       },
       train: {
         '1': 'Em silêncio, então. Olha para os meus pés, não para as minhas mãos.'
       },
       class: {
-        '1': 'Uma faca que já está atrás de ti. Sai da escuridão, golpeia e desaparece.',
-        '2': 'Destreza acima de tudo. Técnica, quando queres que o corte conte.',
+        '1': 'Alguém que já está atrás de ti. Entra, um corte, e desaparece.',
+        '2': 'A Destreza é o que mais conta. Técnica, se queres que o corte conte.',
         say: 'O que é uma Lâmina Sombria?'
       },
       ready: {
         strong: {
-          '1': 'Moves-te bem. Leva o que sei. Traz Técnica para o fumo.'
+          '1': 'Moves-te bem agora. Leva o resto. Traz alguma Técnica para o fumo.'
         },
         able: {
-          '1': 'Bom. As tuas mãos são rápidas que chegue para o próximo passo.'
+          '1': 'As tuas mãos são rápidas o bastante. Próximo passo.'
         },
         weak: {
-          '1': 'Andas como uma carroça. Mais Destreza. Depois falamos.'
+          '1': 'Ainda não. Pisas pesado. Trabalha a Destreza.'
         }
       },
       syndicate: {
-        '1': 'Gente que percebeu que as leis estão à venda. Não julgo. Passo fatura.',
+        '1': 'Gente que percebeu que a lei tem preço. Não julgo. Só recebo.',
         say: 'Quem são os do Sindicato das Cinzas?'
       },
       trainBack: {
-        '1': 'Agora vai e faz onde ninguém veja.'
+        '1': 'Agora pratica onde ninguém te possa ver.'
       },
       bye: {
         '1': 'Nunca me viste.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Podes aproximar-te. Não tanto.',
-        '2': 'Lorde Castellan, do antigo sangue de Oakhaven. Ensino comando.'
+        '1': 'Podes aproximar-te. Aí, já chega.',
+        '2': 'Lorde Castellan, da família mais antiga de Oakhaven. Ensino comando.'
       },
       saved: {
-        '1': 'A minha cidade resiste, e com ela o nome da minha família. Tens a gratidão de um lorde. Vale muito.'
+        '1': 'A minha cidade está de pé, e com ela o nome da minha família. Tens a minha gratidão. A sério.'
       },
       friend: {
-        '1': 'Um amigo da Ordem. Reduzirei a minha taxa. Não o menciones a ninguém.'
+        '1': 'Um amigo da Ordem. Vou baixar os meus honorários. Por favor, não espalhes.'
       },
       foe: {
-        '1': 'A Ordem afixou o teu nome. Ensino-te na mesma. Moeda é moeda, infelizmente.'
+        '1': 'A Ordem tem o teu nome numa lista. Ensino-te na mesma. Moeda é moeda.'
       },
       again: {
-        '1': 'Ah. O meu súbdito mais promissor.'
+        '1': 'Ah, tu outra vez. Continuamos?'
       },
       train: {
-        '1': 'Muito bem. Observa como se dá uma ordem.'
+        '1': 'Muito bem. Observa como se dá uma ordem, e como se cumpre.'
       },
       class: {
-        '1': 'Porquê lutar sozinho se outros o podem fazer por ti? Invoca guardas. Comanda-os.',
-        '2': 'Exige Carisma. Não se lidera a resmungar.',
+        '1': 'Alguém que não luta sozinho. Chamas os guardas, e eles lutam por ti.',
+        '2': 'Exige Carisma. Ninguém segue um líder que não consegue ouvir.',
         say: 'O que é um Grão-Soberano?'
       },
       ready: {
         strong: {
-          '1': 'Tens presença. Leva o resto das minhas lições e fica direito.'
+          '1': 'Tens presença a sério agora. Leva o resto das minhas lições.'
         },
         able: {
-          '1': 'A tua voz faz-se ouvir. Estás pronto para a próxima lição.'
+          '1': 'A tua voz chega longe. Estás pronto para a próxima lição.'
         },
         weak: {
-          '1': 'Ninguém te seguiria nem até uma padaria. Mais Carisma.'
+          '1': 'Receio que ainda ninguém te seguisse. Trabalha o Carisma.'
         }
       },
       family: {
-        '1': 'Fomos nós que construímos as muralhas onde o capitão Hale pisa. Ele esquece. Eu lembro-lhe. Muitas vezes.',
+        '1': 'Construímos as muralhas onde o Capitão Hale se apoia. Ele esquece-se. Eu lembro-o.',
         say: 'Fala-me da tua família.'
       },
       trainBack: {
-        '1': 'Agora vai e faz-te obedecer.'
+        '1': 'Vai, então. Lidera alguém.'
       },
       bye: {
-        '1': 'Estás dispensado.'
+        '1': 'Bom dia.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Próximo! Ah. Andas. Que mudança agradável.',
+        '1': 'O próximo! Ah, vens a pé. Que mudança agradável.',
         '2': 'Irmão Fenn. Quarenta feridos na muralha, e só um de mim.'
       },
       saved: {
-        '1': 'Nenhum ferido novo há três dias! Não sei o que fazer às mãos.'
+        '1': 'Nenhum ferido novo há três dias. Mal sei o que fazer comigo.'
       },
       again: {
-        '1': 'Tu outra vez, e ainda a andar. Aprovo.'
+        '1': 'Tu outra vez, e pelo teu pé. Ótimo.'
       },
       heal: {
-        '1': 'Deita-te. Não, na maca limpa. Pronto. Todos os frascos cheios. Vai-te embora.'
+        '1': 'Deita-te aqui, na cama limpa. Pronto. Frascos cheios, podes ir.'
       },
       mana: {
-        '1': 'Uma poção de mana! Sabe a moedas. Funciona, mesmo assim.'
+        '1': 'Poção de mana. Sabe a moedas velhas, mas funciona.'
       },
       potions: {
-        '1': 'Um cinto mais comprido leva mais frascos. Esses vendo. Os frascos encho de graça.',
+        '1': 'Com um cinto mais comprido, sim. Eu vendo. Encher os frascos é de graça.',
         say: 'Posso levar mais poções?'
       },
       rumor: {
         archers: {
-          '1': 'Os arqueiros de Krag apontam às pernas. Continua a mexer-te e falham.'
+          '1': 'Os arqueiros do Krag apontam baixo. Não pares de te mexer e quase sempre falham.'
         },
         north: {
-          '1': 'Queimaduras, geladuras e um homem que jura que uma estátua o mordeu. O norte não é gentil.'
+          '1': 'Estou a ver queimaduras, congelamento e um homem que jura que uma estátua o mordeu.'
         }
       },
       healBack: {
-        '1': 'Vai. Da próxima vez vem para uma conversa, não para pontos.'
+        '1': 'Podes ir. Da próxima vez, vem para conversar e não para levar pontos.'
       },
       bye: {
-        '1': 'Anda, que passa! É conselho médico.'
+        '1': 'Cuida-te. E come qualquer coisa.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Sem nomes. Mas tu és quem abriu o portão. Esse conheço.',
-        '2': 'Chama-me o Recetador. Tudo aqui caiu de uma carroça.'
+        '1': 'Aqui não há nomes. Mas sei quem abriu o portão. Toda a gente sabe.',
+        '2': 'Podes chamar-me o Recetador. Tudo aqui veio de algum lado.'
       },
       foe: {
-        '1': 'O Sindicato hoje não gosta de ti. Do teu ouro, ainda gosta.'
+        '1': 'O Sindicato não gosta de ti neste momento. O teu ouro, porém, é bem-vindo.'
       },
       again: {
-        '1': 'Ah. O meu melhor cliente. Ninguém te seguiu? Bom.'
+        '1': 'Outra vez por cá. Ninguém te seguiu, espero?'
       },
       trade: {
-        '1': 'Sem nomes, sem perguntas. O Sindicato fica com a sua parte, tu levas a mercadoria.'
+        '1': 'Sem perguntas, de parte a parte. O Sindicato fica com a sua parte, tu ficas com a mercadoria.'
       },
       who: {
-        '1': 'Antes do incêndio vendia velas. Legalmente. Era péssimo.'
+        '1': 'Antes do incêndio vendia velas. Trabalho honesto. Não dava dinheiro.'
       },
       armor: {
-        '1': 'Os armeiros foram-se, amigo. Queimados. Deves saber.',
+        '1': 'Os armeiros foram-se, amigo. Tu sabes melhor do que eu porquê.',
         say: 'Há armaduras à venda?'
       },
       rumor: {
         citadel: {
-          '1': 'Uma fortaleza surgiu no extremo norte no ano passado. Ninguém a construiu. As paredes zumbem.'
+          '1': 'Apareceu uma fortaleza no extremo norte no ano passado. Ninguém a construiu.'
         },
         crystals: {
-          '1': 'Alguém anda a comprar todos os cristais do Vazio do mercado. Nós não. Isso preocupa-me.'
+          '1': 'Alguém está a comprar todos os cristais do Vazio que encontra. Não somos nós. Isso preocupa-me.'
         }
       },
       shopBack: {
         '1': 'Nunca estiveste aqui.'
       },
       bye: {
-        '1': 'Cuidado com os escombros.'
+        '1': 'Olha por onde pisas. Os escombros mexem-se.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Uma visita. Cuidado com os frascos.',
-        '2': 'Doutor Sangrel. Os novos donos de Oakhaven não perguntam o que ensino. Refrescante.'
+        '1': 'Uma visita. Por favor, não toques nos frascos.',
+        '2': 'Doutor Sangrel. Os novos donos de Oakhaven não perguntam o que ensino. É relaxante.'
       },
       found: {
-        '1': 'Encontraste-me. Poucos procuram um doutor num sítio assim.',
-        '2': 'Doutor Sangrel. As cidades queimam gente como eu, por isso trabalho onde não há.'
+        '1': 'Encontraste-me. Poucos vêm procurar um doutor num sítio assim.',
+        '2': 'Doutor Sangrel. As cidades queimam gente como eu, por isso trabalho onde não há nenhuma.'
       },
       friend: {
-        '1': 'O Sindicato responde por ti. A minha taxa é menor para os amigos dele. Os meus padrões não.'
+        '1': 'O Sindicato fala por ti. Aos amigos dele cobro menos. Os meus padrões mantêm-se.'
       },
       foe: {
-        '1': 'O Sindicato pagar-me-ia pelo teu sangue. Prefiro que o gastes nas minhas lições.'
+        '1': 'O Sindicato pagaria bem pelo teu sangue. Prefiro que o gastes aqui.'
       },
       again: {
-        '1': 'Estás pálido. Bom. Combina com o trabalho.'
+        '1': 'Estás pálido. Ótimo. Combina com o trabalho.'
       },
       train: {
-        '1': 'Arregaça a manga. Vai doer. É esse o objetivo.'
+        '1': 'Arregaça a manga. Vai doer. É mais ou menos esse o objetivo.'
       },
       class: {
-        '1': 'Pagas o poder com a tua própria saúde. Depois bebes de volta ao inimigo.',
-        '2': 'O Vigor é a tua bolsa. A Inteligência decide quão bem a gastas.',
+        '1': 'Pagas o poder com a tua própria saúde, e depois tiras o troco aos teus inimigos.',
+        '2': 'O Vigor é o que tens para gastar. A Inteligência é quão bem o gastas.',
         say: 'O que é um Alquimista de Sangue?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Uma constituição notável. Podes aprender quase tudo.'
         },
         able: {
-          '1': 'O teu sangue é forte que chegue para a próxima lição.'
+          '1': 'Estás resistente o bastante para a próxima lição.'
         },
         weak: {
-          '1': 'Desmaiarias ao primeiro corte. Mais Vigor, por favor.'
+          '1': 'Desmaiavas ao primeiro corte. Desenvolve primeiro o Vigor, por favor.'
         }
       },
       jars: {
-        '1': 'Voluntários. Na maioria.',
+        '1': 'Amostras. Dadas de livre vontade, na maioria.',
         say: 'O que há nos frascos?'
       },
       trainBack: {
-        '1': 'Toma notas. Pela ciência.'
+        '1': 'Faz apontamentos, já agora. Gostava de saber como corre.'
       },
       bye: {
-        '1': 'Mantém-te saudável. Senão não me serves.'
+        '1': 'Mantém-te saudável. Digo-o a sério.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Então. Quem abriu o portão. Senta-te. Ganhaste uma cadeira.',
-        '2': 'Chamam-me Madame Ash. Oakhaven agora é minha. Em parte, tua.'
+        '1': 'Então és tu que abriste o portão. Senta-te. Mereces uma cadeira.',
+        '2': 'Chamam-me Madame Ash. Oakhaven é nossa agora. Em parte graças a ti.'
       },
       throneOurs: {
-        '1': 'O trono da Fortaleza do Pavor. Nosso. És o melhor investimento que já fiz.'
+        '1': 'A Fortaleza do Pavor, nas nossas mãos. Valeste cada moeda.'
       },
       throneLost: {
-        '1': 'Deste o trono. A outra pessoa. Falaremos disso. Hoje não.'
+        '1': 'Deste o trono a outra pessoa. Havemos de falar disso. Hoje não.'
       },
       foe: {
-        '1': 'Tens-nos contrariado. Senta-te na mesma. Gosto de olhar para um problema antes de o resolver.'
+        '1': 'Trabalhaste contra nós. Senta-te na mesma. Gosto de saber com quem lido.'
       },
       again: {
-        '1': 'O meu traidor favorito. O que pode o Sindicato fazer por ti?'
+        '1': 'Outra vez por cá. O que pode o Sindicato fazer por ti?'
       },
       cut: {
-        '1': 'Um terço de uma ruína, querido. Aqui está a parte desta temporada.',
-        '2': 'Vai crescer. Uma ruína rende muito quando se é dono do único mercado dela.',
-        say: 'Prometeste-me um terço de Oakhaven.'
+        '1': 'E vais tê-la. Uma parte de uma ruína, por agora. Aqui tens a desta época.',
+        '2': 'Vai crescer. Uma ruína rende muito bem quando se é dono do único mercado dela.',
+        say: 'Prometeram-me uma parte de Oakhaven.'
       },
       syndicate: {
-        '1': 'O que todos querem. Só não fingimos o contrário.',
-        '2': 'Continua amigo, e o Sussurro e o Doutor cobram-te menos. A lealdade tem tabela de preços.',
-        say: 'O que quer o Sindicato?'
+        '1': 'O que toda a gente quer. Nós só não fingimos o contrário.',
+        '2': 'Mantém-te amigável, e o Sussurro e o Doutor cobram-te menos.',
+        say: 'O que quer realmente o Sindicato?'
       },
       order: {
-        '1': 'Claro que está. Queimaste uma das cidades dela. Leva mais poções.',
-        say: 'A Ordem de Ferro anda a caçar-me.'
+        '1': 'Claro que estão. Queimaste uma cidade deles. Leva poções a mais.',
+        say: 'A Ordem de Ferro anda atrás de mim.'
       },
       rumor: {
         core: {
-          '1': 'Os anões encontraram algo nas minas. Um núcleo. Quero-o. Traz-no-lo e diz um preço.'
+          '1': 'Os anões encontraram algo nas minas. Um núcleo. Traz-nos isso e diz o teu preço.'
         },
         sold: {
-          '1': 'O núcleo chegou em segurança. Devias ver o que ele faz a uma fechadura.'
+          '1': 'O núcleo chegou em segurança. Ias ficar surpreendido com o que faz a uma fechadura.'
         },
         north: {
-          '1': 'Tudo o que vale a pena roubar foi para norte. Nós também.'
+          '1': 'Tudo o que vale a pena foi para norte. Nós também.'
         }
       },
       bye: {
-        '1': 'Não fiques estranho. Os estranhos são seguidos.'
+        '1': 'Não sejas um estranho. Os estranhos vigiamos nós.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Vieste pelas minas. Sinto o pó em ti.',
-        '2': 'Dorn. Mestre da Forja de Ironhold. Tenho um problema do tamanho de uma montanha.'
+        '1': 'Subiste pelas minas. Sinto-te o pó.',
+        '2': 'Dorn. Mestre da Forja de Ironhold. E tenho um problema do tamanho de uma montanha.'
       },
       destroyed: {
-        '1': 'A luz apagou-se e os golens viraram sucata. Os meus mineiros cantaram ontem à noite. Primeira vez em um ano.'
+        '1': 'A luz apagou-se e os golens são sucata. Os meus mineiros cantaram ontem à noite. A primeira vez em um ano!'
       },
       studied: {
-        '1': 'Fogo azul nas minhas forjas e túnicas nos meus salões. O trabalho é bom. Habituo-me às túnicas.'
+        '1': 'Fogo azul nas minhas forjas e eruditos de manto nos meus salões. Ao menos o trabalho é bom.'
       },
       sold: {
-        '1': 'Vendeste-o. Os golens ainda andam e as minhas minas ainda são um túmulo. Sai da minha luz.'
+        '1': 'Vendeste-o. Os golens ainda andam, e as minhas minas ainda são um túmulo. Deixa-me em paz.'
       },
       ending: {
-        '1': 'Então o trono está decidido. Bom. Agora o reino pode voltar a discutir por ferro.'
+        '1': 'Então o trono está decidido. Bom. Talvez agora possamos voltar a cavar.'
       },
       again: {
-        '1': 'Fala. A forja não espera.'
+        '1': 'Que foi? A forja não espera.'
       },
       quest: {
-        '1': 'Cavámos atrás de ferro e encontrámos um coração. Um núcleo de éter. Pulsa lá em baixo, no escuro.',
+        '1': 'Cavámos atrás de ferro e encontrámos um coração. Um núcleo de éter. Sente-se bater.',
         '2': 'E os golens?',
-        '3': 'Andam ao ritmo dele. Três poderes escreveram-me por ele. Todos educados. Não confio em nenhum.',
-        '4': 'Chegarás primeiro, no fundo das Minas de Ironhold. Depois a decisão é tua.',
-        say: 'O que aconteceu nas minas?'
+        '3': 'Movem-se ao ritmo dele. Três poderes escreveram a pedi-lo. Não confio em nenhum.',
+        '4': 'Chegas lá primeiro, no fundo das Minas de Ironhold. O que acontece depois é contigo.',
+        say: 'O que aconteceu lá em baixo nas minas?'
       },
       core: {
-        say: 'Sobre o núcleo…',
+        say: 'Sobre o núcleo...',
         destroy: {
-          '1': 'Quebraste uma maravilha para salvar o meu povo. A Ordem mandou armeiros em agradecimento. Eu mandei cerveja.'
+          '1': 'Partiste uma maravilha para salvar o meu povo. A Ordem mandou armeiros. Eu mandei cerveja.'
         },
         study: {
-          '1': 'Os engenhocas do Círculo são loucos, mas as armas deles disparam a direito. Um acordo justo.'
+          '1': 'O pessoal do Círculo é esquisito, mas as armas deles disparam direito. Pronto.'
         },
         sell: {
-          '1': 'Ouro. Fizeste-o por ouro. Espero que te aqueça.'
+          '1': 'Fizeste-o por ouro. Espero que te aqueça.'
         }
       },
       town: {
@@ -2062,138 +2062,138 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'A leste dos Penhascos a terra fica branca. A Tundra Gélida. Gigantes e mortos que não ficam deitados.'
+          '1': 'A leste dos Penhascos a terra fica branca. A Tundra Gélida. Gigantes, e pior.'
         },
         citadel: {
-          '1': 'Os meus batedores viram uma fortaleza a norte que não existia no ano passado. Não gosto de montanhas novas.'
+          '1': 'Os meus batedores viram uma fortaleza a norte que no ano passado não existia. Não gosto disso.'
         },
         fortress: {
-          '1': 'A Fortaleza do Pavor é onde isto acaba. Toda a estrada para norte leva ao portão dela.'
+          '1': 'Tudo acaba na Fortaleza do Pavor. Todas as estradas a norte levam lá.'
         }
       },
       bye: {
-        '1': 'Acerta em cheio.'
+        '1': 'Vai bem.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Mãos fora da montra. Isso corta dos dois lados.',
-        '2': 'Hilda Hammerhand. Forjado por anões, cada peça.'
+        '1': 'Cuidado com a montra. Aquelas cortam dos dois lados.',
+        '2': 'Hilda Hammerhand. Cada peça aqui foi forjada por mãos de anão.'
       },
       dragon: {
-        '1': 'Mataste o dragão? Com uma das MINHAS? Não? Mente-me. Diz que foi uma das minhas.'
+        '1': 'Mataste o dragão? Espero que tenha sido com uma das minhas lâminas.'
       },
       again: {
         '1': 'Voltaste à procura de aço a sério?'
       },
       trade: {
-        '1': 'Forjado por anões. Se partir, foste tu.'
+        '1': 'Forjado por anões. Se uma destas partir, vou querer saber como.'
       },
       who: {
-        '1': 'A minha mãe forjava para reis. Eu forjo para quem entrar. Os tempos mudam.'
+        '1': 'A minha mãe forjava para reis. Eu forjo para quem entrar pela porta.'
       },
       rumor: {
         golems: {
-          '1': 'Os golens das minas são feitos do nosso próprio ferro. É vergonhoso, francamente.'
+          '1': 'Aqueles golens lá em baixo são feitos do nosso próprio ferro. Custa, garanto-te.'
         },
         arm: {
-          '1': 'Uma lâmina faz metade do trabalho. A tua Força faz o resto. Não culpes a lâmina.'
+          '1': 'Uma boa lâmina faz metade do trabalho. A tua Força tem de fazer o resto.'
         }
       },
       shopBack: {
-        '1': 'Traz-ma romba e eu saberei que a usaste.'
+        '1': 'Traz-ma de volta cega e saberei que a usaste bem.'
       },
       bye: {
-        '1': 'Bate-lhes com força.'
+        '1': 'Bate com força.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Cuidado! Aquela está carregada. Aquela também. A maioria, na verdade.',
-        '2': 'Voss, o Inventor. O Círculo mandou-me ver o que o núcleo nos poderia ensinar. Tudo, pelos vistos.'
+        '1': 'Cuidado, essa está carregada. A maioria está, na verdade.',
+        '2': 'Voss, o Inventor. O Círculo mandou-me estudar o núcleo. Ensinou-nos tanto.'
       },
       again: {
-        '1': 'Ah, que bom, um testador. Quer dizer, um cliente.'
+        '1': 'Ah, ótimo. Fiz algumas alterações desde a tua última visita.'
       },
       trade: {
-        '1': 'O estudo do núcleo pelo Círculo mudou tudo. Segura nisto. Não apontes para mim.'
+        '1': 'Tudo aqui saiu do estudo do núcleo. Só não apontes para mim.'
       },
       core: {
-        '1': 'Aquele ferro sabe pensar, um pouco. Tento não pensar nisso.',
+        '1': 'Aquele metal consegue pensar, um pouco. Tento não pensar nisso.',
         say: 'O que te ensinou o núcleo?'
       },
       rumor: {
         heat: {
-          '1': 'As armas de fogo funcionam à Técnica, e aquecem. Pergunta ao Pim, o Mecânico, sobre o calor antes de derreteres a mão.'
+          '1': 'As armas de fogo funcionam com Técnica, e aquecem. Pergunta ao Pim sobre o calor antes de queimares a mão.'
         }
       },
       shopBack: {
-        '1': 'Avisa de qualquer explosão! Para as minhas notas.'
+        '1': 'Diz-me como se porta. Estou a tomar notas.'
       },
       bye: {
-        '1': 'Cuidado com o coice!'
+        '1': 'Cuidado com o coice.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Armaduras. Anéis no tabuleiro.'
+        '1': 'Garrun. Armaduras nos suportes, anéis no tabuleiro.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Voltaste. De que precisas?'
       },
       trade: {
-        '1': 'Placa que desvia a clava de um gigante. Anéis para o resto de vós.'
+        '1': 'Aquela placa aguenta a moca de um gigante. Dá uma vista de olhos.'
       },
       quiet: {
-        '1': 'Não.',
-        say: 'Não falas muito.'
+        '1': 'Pouco que valha a pena dizer.',
+        say: 'Falas pouco, não é?'
       },
       rumor: {
         giants: {
-          '1': 'Gigantes na tundra. Clavas como troncos. Compra a placa pesada.'
+          '1': 'Gigantes na tundra. Mocas como troncos. Eu levava a placa pesada.'
         },
         demons: {
-          '1': 'Demónios a norte. Fogo e garras. Compra a placa pesada.'
+          '1': 'Demónios a norte. Fogo e garras. Eu levava a placa pesada.'
         }
       },
       shopBack: {
-        '1': 'Bom.'
+        '1': 'Boa escolha.'
       },
       bye: {
-        '1': 'Sim.'
+        '1': 'Cuida-te.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nome e assunto. Não. Conheço o teu nome. Destruíste o núcleo.',
-        '2': 'Intendente da Ordem de Ferro. Os arsenais dela estão abertos para ti.'
+        '1': 'Foste tu que destruíste o núcleo. A Ordem lembra-se disso.',
+        '2': 'Sou o intendente da Ordem aqui. Os nossos arsenais estão abertos para ti.'
       },
       throneOurs: {
-        '1': 'A Ordem mantém a Fortaleza do Pavor pela tua mão. Descansar. É uma ordem.'
+        '1': 'A Ordem tem a Fortaleza do Pavor, graças a ti. À vontade. Mereces.'
       },
       foe: {
-        '1': 'A Ordem tem-te numa lista. As minhas ordens são vender-te na mesma. Não gosto delas.'
+        '1': 'A Ordem tem-te numa lista. As minhas ordens dizem para te vender na mesma. Cumpro-as.'
       },
       again: {
-        '1': 'Requisição?'
+        '1': 'De que precisas?'
       },
       trade: {
-        '1': 'A Ordem lembra-se de quem destruiu o núcleo. Escolhe o que precisas.'
+        '1': 'Leva o que precisares. A Ordem cuida dos seus.'
       },
       order: {
-        '1': 'Nada. É raro. Aproveita.',
+        '1': 'Nada, por agora. Isso não acontece muitas vezes. Aproveita.',
         say: 'O que quer a Ordem de mim?'
       },
       rumor: {
         throne: {
-          '1': 'A Ordem vai querer o trono da Fortaleza do Pavor. Vai lembrar-se de quem esteve ao lado dela.'
+          '1': 'A Ordem vai querer o trono da Fortaleza do Pavor. Vai lembrar-se de quem ajudou.'
         }
       },
       shopBack: {
-        '1': 'Assina aqui. Estou a brincar. A Ordem não brinca. Dispensado.'
+        '1': 'Trata bem. É propriedade da Ordem até teres sangrado nela.'
       },
       bye: {
-        '1': 'Dispensado.'
+        '1': 'Continua.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'Chamam-me Velho Pé-de-Pedra. Escuto o chão. Às vezes ele responde.'
       },
       core: {
-        '1': 'O coração da montanha mudou. Foste tu. Ela reparou.'
+        '1': 'A montanha parece diferente desde que lá desceste. Mais calma, ou mais vazia.'
       },
       dragon: {
-        '1': 'Um dragão sobrevoou o pico ontem e não nos queimou. Obra tua, ouvi dizer.'
+        '1': 'Ontem um dragão passou sobre o pico e deixou-nos em paz. Obra tua, disseram-me.'
       },
       again: {
-        '1': 'Tu outra vez. As pedras disseram que virias.'
+        '1': 'Aí estás tu. Achei que voltavas.'
       },
       train: {
-        '1': 'Finca bem os pés. Sentes isto? Não? Começamos por aí.'
+        '1': 'Finca os pés. Sentes isto? Não? É por aqui que começamos.'
       },
       class: {
-        '1': 'Erguemos muros, chamamos espinhos e partimos o chão quando é preciso.',
-        '2': 'Força para mover a pedra, Inteligência para lho pedir com educação.',
-        say: 'O que é um Geomante?'
+        '1': 'Erguemos muros, fazemos brotar espigões e quebramos o chão quando é preciso.',
+        '2': 'Força para mover a pedra. Inteligência para saber para onde ela quer ir.',
+        say: 'O que faz um Geomante?'
       },
       ready: {
         strong: {
-          '1': 'A pedra já te conhece. Aprende o resto.'
+          '1': 'A pedra já te conhece. Aprende o resto quando estiveres pronto.'
         },
         able: {
-          '1': 'Tens peso para a próxima lição. É um elogio.'
+          '1': 'Estás firme o bastante para a próxima lição.'
         },
         weak: {
-          '1': 'A pedra ainda não te ouve. Mais Força.'
+          '1': 'Ainda não. A pedra não se move por ti. Desenvolve a Força.'
         }
       },
       factions: {
-        '1': 'Nenhuma. Ordens, sindicatos, círculos. A montanha sobrevive a todos.',
+        '1': 'Nenhuma. Ordens e guildas vêm e vão. A montanha fica.',
         say: 'A que fação serves?'
       },
       trainBack: {
-        '1': 'Vai com jeito. Depois sem jeito.'
+        '1': 'Sem pressas. O chão é paciente.'
       },
       bye: {
         '1': 'Anda com leveza.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Não toques nisso! Nem nisso. Aliás, fica no tapete. O tapete é seguro.',
-        '2': 'Pim, o Mecânico! Armas, torres, medidores de calor. Principalmente medidores de calor.'
+        '1': 'Ah, espera, não toques nisso! Nem nisso. Põe-te em cima do tapete, o tapete é seguro.',
+        '2': 'Pim, o Mecânico. Construo armas de fogo, torres e muitos indicadores de calor.'
       },
       core: {
-        '1': 'Deste-nos o núcleo! Há nove dias que não durmo. Olha para as minhas mãos. Não olhes para as minhas mãos.'
+        '1': 'Deste o núcleo ao Círculo! Quase não durmo desde então. Pela positiva.'
       },
       oracle: {
-        '1': 'O Círculo está furioso por causa do oráculo. Eu só construo coisas. Por favor, não lhes digas que te ensinei.'
+        '1': 'O Círculo está furioso por causa do oráculo. Eu só construo coisas. Prefiro não me meter.'
       },
       friend: {
-        '1': 'Um amigo do Círculo! Lições mais baratas para ti. Preenchi o formulário eu próprio.'
+        '1': 'És amigo do Círculo, por isso as tuas lições saem mais baratas. Tratei eu da papelada.'
       },
       foe: {
-        '1': 'O Círculo diz que não te devo ensinar. O Círculo também diz para não testar foguetes em espaços fechados.'
+        '1': 'O Círculo diz que não devia ensinar-te. Vou ensinar na mesma. Não lhes digas.'
       },
       again: {
         '1': 'Ah, que bom, ainda tens todos os dedos.'
       },
       train: {
-        '1': 'Certo! Segurança primeiro. Depois a parte barulhenta.'
+        '1': 'Certo. Segurança primeiro, depois a parte barulhenta.'
       },
       class: {
-        '1': 'Armas, torres e um medidor de calor. Dispara, constrói e liberta antes que bloqueie.',
-        '2': 'Tudo funciona à Técnica. Um pouco de Inteligência para as máquinas grandes.',
+        '1': 'Armas de fogo, torres e um indicador de calor. Disparar, construir e aliviar antes de bloquear.',
+        '2': 'Sobretudo Técnica. Um pouco de Inteligência para as máquinas maiores.',
         say: 'O que é um Éter-Tec?'
       },
       ready: {
         strong: {
-          '1': 'Desmontavas uma torre de olhos fechados! Leva as máquinas grandes.'
+          '1': 'Já te safas com uma torre. Leva as máquinas grandes.'
         },
         able: {
-          '1': 'Mãos firmes! Estás pronto para o próximo engenho.'
+          '1': 'Mãos firmes. Estás pronto para a próxima.'
         },
         weak: {
-          '1': 'As tuas mãos tremem. As minhas também, mas por outros motivos. Mais Técnica.'
+          '1': 'A tua pontaria ainda está um pouco trémula. Põe uns pontos em Técnica.'
         }
       },
       heat: {
-        '1': 'Tudo bloqueia durante uns segundos. Liberta cedo. Liberta muitas vezes. Tenho as cicatrizes.',
+        '1': 'Tudo bloqueia durante uns segundos. Alivia cedo, alivia muitas vezes. Confia em mim.',
         say: 'O que acontece se eu sobreaquecer?'
       },
       trainBack: {
-        '1': 'Lembra-te: liberta o calor! LIBERTA. O. CALOR.'
+        '1': 'E lembra-te de aliviar o calor antes que ele te alivie a ti.'
       },
       bye: {
-        '1': 'Não rebentes!'
+        '1': 'Tem cuidado lá fora!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Botas fora. Não quero o teu pó no meu chão.',
-        '2': 'Madre Brynja. Já recoloquei duas vezes todos os ossos partidos desta montanha.'
+        '1': 'Botas à porta, por favor. Acabei de varrer.',
+        '2': 'Madre Brynja. Já compus a maioria dos ossos partidos desta montanha.'
       },
       ending: {
-        '1': 'Foste à Fortaleza do Pavor e voltaste. Senta-te. Quero olhar para ti.'
+        '1': 'Foste à Fortaleza do Pavor e voltaste. Senta-te. Deixa-me ver-te.'
       },
       again: {
-        '1': 'Ainda vivo. Dizem-me que é obra minha.'
+        '1': 'Ainda vivo. Ótimo. Senta-te.'
       },
       heal: {
-        '1': 'Senta-te. Bebe isto. Não faças essa cara. Os teus frascos estão cheios.'
+        '1': 'Bebe isto, e não faças essa cara. Os teus frascos estão cheios.'
       },
       mana: {
         '1': 'Toma. Sabe horrivelmente. Bebe quando a magia acabar, não antes.'
       },
       potions: {
-        '1': 'Compra-me um cinto mais comprido. Cinco frascos é tudo o que um corpo leva e ainda corre.',
+        '1': 'Posso vender-te um cinto mais comprido. Cinco frascos é o máximo que se consegue levar e ainda correr.',
         say: 'Posso levar mais poções?'
       },
       rumor: {
         tundra: {
-          '1': 'A tundra leva dedos. Continua a mexer-te lá fora, e não durmas na neve.'
+          '1': 'A tundra leva dedos das mãos e dos pés. Não pares de te mexer, e não adormeças na neve.'
         },
         temple: {
-          '1': 'Há um templo submerso depois da tundra. Os nagas não fazem prisioneiros.'
+          '1': 'Há um templo submerso depois da tundra. As nagas de lá não fazem prisioneiros.'
         },
         rift: {
-          '1': 'Seja o que for que está naquela Fenda do Vazio, não se pode suturar. Acaba depressa com isso.'
+          '1': 'Seja o que for que está naquela fenda, não consigo coser. Não deixes que te alcance.'
         }
       },
       healBack: {
-        '1': 'Vai-te embora. E come alguma coisa.'
+        '1': 'Podes ir. E come qualquer coisa, estás magro demais.'
       },
       bye: {
         '1': 'Volta inteiro.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Tu. Tu abriste o meu portão.',
-        '2': 'Agora ensino da cave de um anão, porque tenho de comer. Não confundas com perdão.'
+        '1': 'Tu. Foste tu que abriste o meu portão.',
+        '2': 'Agora ensino numa cave, porque tenho de comer. Não confundas isso com perdão.'
       },
       ending: {
-        '1': 'Um trono foi decidido, e Oakhaven ainda é cinza. Diz-me outra vez como valeu a pena.'
+        '1': 'Então o trono está decidido, e Oakhaven continua em cinzas. Espero que tenha valido a pena.'
       },
       again: {
-        '1': 'O traidor regressa. A minha taxa não baixou.'
+        '1': 'Voltaste. O meu preço não mudou.'
       },
       train: {
-        '1': 'Vou ensinar-te a comandar. Não posso ensinar-te a merecê-lo.'
+        '1': 'Vou ensinar-te a comandar. Se o mereces, é outra questão.'
       },
       class: {
-        '1': 'Alguém que é seguido. Os guardas atendem ao chamamento e lutam à tua palavra.',
-        '2': 'Funciona com Carisma. Tu tens algum. Essa é a tragédia.',
+        '1': 'Alguém que os outros seguem. Os guardas vêm quando chamas e lutam à tua palavra.',
+        '2': 'Funciona com Carisma. Tu tens. É isso que torna tão difícil perdoar.',
         say: 'O que é um Grão-Soberano?'
       },
       ready: {
         strong: {
-          '1': 'Tens presença para tudo. O reino fica mais pobre por isso.'
+          '1': 'Tens presença para tudo isto. Quem me dera que a tivesses usado melhor.'
         },
         able: {
-          '1': 'Estás pronto para a próxima lição. Não tenho prazer nisso.'
+          '1': 'Estás pronto para a próxima lição. Não vou fingir que estou contente.'
         },
         weak: {
-          '1': 'Nem a guarda de um traidor seguiria essa voz. Mais Carisma.'
+          '1': 'Ainda ninguém te seguiria. Trabalha o Carisma.'
         }
       },
       oakhaven: {
         '1': 'Trezentos anos. A minha família construiu aquelas muralhas.',
-        '2': 'Não expliques. Não há preço que explique.',
-        say: 'Sobre Oakhaven…'
+        '2': 'Por favor, não expliques. Nada do que possas dizer vai remediar isso.',
+        say: 'Sobre Oakhaven...'
       },
       trainBack: {
-        '1': 'Vai. Comanda outra pessoa.'
+        '1': 'Vai. Pratica com outra pessoa.'
       },
       bye: {
-        '1': 'Deixa-me.'
+        '1': 'Deixa-me, por favor.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Mataste-a. Vi isso mil vezes antes de acontecer, e ainda dói.',
+        '1': 'Mataste-a. Vi isso a chegar durante anos, e ainda dói.',
         '2': 'Sou o Guardião das Horas. Vou ensinar-te. Ela disse-me que eu ensinaria.'
       },
       hello: {
-        '1': 'Estás atrasado. Ou adiantado. Já te disse isto, acho eu.',
-        '2': 'Sou o Guardião das Horas. Ensino a tecer o tempo. Começámos há um instante.'
+        '1': 'Aí estás tu. Espero-te há algum tempo. Ou terei esperado.',
+        '2': 'Sou o Guardião das Horas. Ensino a dobrar o tempo, um pouco.'
       },
       freed: {
-        '1': 'Ela está livre. Pela primeira vez, não sei o que dirás a seguir. É maravilhoso.'
+        '1': 'Ela está livre. Pela primeira vez não sei o que vem a seguir. É maravilhoso.'
       },
       friend: {
-        '1': 'O Círculo chamar-te-á amigo. Já chamou? Então o desconto é agora.'
+        '1': 'O Círculo tem boa opinião de ti, por isso as lições custam menos. Decidiram isso na semana passada.'
       },
       foe: {
-        '1': 'O Círculo perdoar-te-á, num futuro que vi. Até lá, ensino-te em silêncio.'
+        '1': 'O Círculo está zangado contigo agora. Passa. Até lá, mantemos isto em silêncio.'
       },
       again: {
-        '1': 'Bem-vindo de volta. Bem-vindo. De volta.'
+        '1': 'Bem-vindo de volta. Chegas mesmo a tempo.'
       },
       train: {
-        '1': 'Observa. Mostrar-te-ei o que te mostrei.'
+        '1': 'Observa bem. Depois observa outra vez, um instante antes.'
       },
       class: {
-        '1': 'Detemos um inimigo no tempo, apressamos um amigo e desfazemos um erro.',
-        '2': 'Inteligência para ver o fio, Técnica para o puxar.',
+        '1': 'Prendemos um inimigo no tempo, apressamos um amigo e desfazemos um erro.',
+        '2': 'Inteligência para ver o fio. Técnica para o puxar.',
         say: 'O que é um Tecelão do Tempo?'
       },
       ready: {
         strong: {
-          '1': 'Seguras bem o fio. O resto é teu quando quiseres.'
+          '1': 'Seguras bem o fio. Leva o resto quando quiseres.'
         },
         able: {
-          '1': 'Estás pronto. Também estavas pronto amanhã.'
+          '1': 'Estás pronto. Percebi antes de perguntares.'
         },
         weak: {
-          '1': 'O fio escapa-te dos dedos. Mais Inteligência. Mais Técnica.'
+          '1': 'O fio não pára de escorregar. Mais Inteligência, e mais Técnica.'
         }
       },
       oracle: {
         say: 'Fala-me do oráculo.',
         freed: {
-          '1': 'Ela viu todos os finais, e nenhum era dela. Agora um é.'
+          '1': 'Ela via todos os finais, menos o dela. Agora vai descobri-lo.'
         },
         slain: {
-          '1': 'Ela não resistiu. Também tinha visto isso. Por favor, não me perguntes outra vez.'
+          '1': 'Não resistiu. Já tinha visto. Por favor, não me perguntes outra vez.'
         },
         waits: {
-          '1': 'Ela vê todos os finais. É um dom terrível. Sê gentil com ela, no fim.'
+          '1': 'Ela vê todos os finais. É um peso para carregar. Sê gentil com ela.'
         }
       },
       trainBack: {
-        '1': 'Terá valido a pena.'
+        '1': 'Vai fazer sentido mais tarde. Costuma fazer.'
       },
       bye: {
-        '1': 'Até antes.'
+        '1': 'Até nos encontrarmos de novo. Ou antes.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Espera! Espera. Rei rende-se!',
-          '2': 'Goblins só assaltam porque goblins têm fome. É verdade!',
-          '3': 'Talvez Alto e Rei façam acordo?'
+          '1': 'Pára. Por favor. Rendo-me.',
+          '2': 'O meu povo ataca porque tem fome. Essa é a verdade.',
+          '3': 'Façamos antes um acordo. O teu povo e o meu.'
         },
         slay: {
-          '1': 'O Rei cai, e as Grutas dispersam-se.',
-          '2': 'Sunford dorme mais descansada, e a Ordem de Ferro repara em ti.',
-          say: 'Sem acordo. O teu reinado acaba aqui.'
+          '1': 'O Rei Goblin cai, e as Grutas esvaziam-se.',
+          '2': 'Sunford dorme mais descansada, e a Ordem de Ferro ouve o teu nome.',
+          say: 'Sem acordos. Os teus ataques acabam aqui.'
         },
         pact: {
-          '1': 'Comércio? Rei jura! Rei GOSTA de comércio!',
-          '2': 'Mercadores goblins instalam-se na praça de Sunford, com mercadorias que nenhum ferreiro de lá faria.',
-          say: 'Parem os assaltos e comerciem com Sunford. Jurem.'
+          '1': 'Comércio. Sim. Juro, pela minha coroa.',
+          '2': 'Comerciantes goblins instalam-se na praça de Sunford, a vender coisas que nenhum ferreiro de lá saberia fazer.',
+          say: 'Pára os ataques e comercia antes com Sunford. Jura.'
         },
         ransom: {
-          '1': 'Tudo? Rei odeia Alto. Leva. Leva e vai.',
-          '2': 'Sais carregado de ouro goblin. Os assaltos vão recomeçar. O Sindicato aprova.',
-          say: 'Entrega o teu tesouro, e ficas com a coroa.'
+          '1': 'Tudo? ...Está bem. Leva e vai-te.',
+          '2': 'Sais com ouro goblin. Os ataques vão recomeçar, mas o Sindicato aprova.',
+          say: 'Dá-me o teu tesouro e podes ficar com a coroa.'
         }
       },
       siege: {
         ask: {
-          '1': 'Chega. Lutas bem.',
-          '2': 'O Sindicato paga melhor do que aquela vila alguma vez pagará.',
+          '1': 'Chega. Lutas bem, isso admito.',
+          '2': 'O Sindicato paga muito melhor do que aquela cidade alguma vez pagará.',
           '3': 'Abre-nos o portão esta noite, e um terço de Oakhaven é teu.'
         },
         defend: {
           '1': 'Então o Sindicato vai caçar-te em todas as estradas. Lembra-te de que eu ofereci.',
-          '2': 'O portão aguenta. Oakhaven enriquece atrás dele, e os seus mestres armeiros lembram-se do teu nome.',
+          '2': 'O portão aguenta. Oakhaven enriquece atrás dele, e os seus armeiros lembram-se do teu nome.',
           say: 'O portão fica fechado. Leva o teu exército e vai-te embora.'
         },
         betray: {
-          '1': 'Sábio. Vou dizer à Madame Ash que te prepare uma cadeira.',
-          '2': 'Oakhaven arde. Nas ruínas abre um mercado negro, e um alquimista ensina artes proibidas.',
+          '1': 'Sensato. A Madame Ash vai gostar de saber.',
+          '2': 'Oakhaven arde. Nas ruínas abre um mercado negro, e um alquimista ensina em segredo.',
           '3': 'Os armeiros foram-se, e a Ordem de Ferro chama-te traidor.',
-          say: 'Um terço da cidade. Esta noite, o portão abre-se.'
+          say: 'Um terço da cidade. Está bem. O portão abre esta noite.'
         }
       },
       core: {
         ask: {
-          '1': 'O Colosso é sucata. Nunca pensei ver isto.',
-          '2': 'E ali está ele. O núcleo. Ainda a zumbir. Quente ao toque.',
-          '3': 'Chegaste primeiro. O que será dele?'
+          '1': 'O Colosso é sucata. Nunca pensei viver para ver isto.',
+          '2': 'E ali está o núcleo. Ainda zumbe. Está quente, se lhe tocares.',
+          '3': 'Chegaste primeiro. Então... o que fazemos com ele?'
         },
         destroy: {
           '1': 'A luz apaga-se, e os golens caem onde estão.',
-          '2': 'A Ordem de Ferro envia os seus próprios armeiros a Ironhold em agradecimento.',
+          '2': 'Em agradecimento, a Ordem de Ferro manda os seus próprios armeiros a Ironhold.',
           say: 'Afasta-te. Vou parti-lo.'
         },
         study: {
-          '1': 'Percebes o suficiente do núcleo para o entregar sem o despertar.',
-          '2': 'Numa estação, as forjas de Ironhold produzem obras de éter que ninguém viu antes.',
-          say: 'O Círculo deve estudá-lo. Posso levá-lo para fora em segurança.'
+          '1': 'Sabes o bastante para mover o núcleo sem o acordar.',
+          '2': 'Numa estação, as forjas de Ironhold fabricam engenhos de éter que ninguém alguma vez viu.',
+          say: 'O Círculo devia estudá-lo. Acho que consigo levá-lo em segurança.'
         },
         sell: {
           '1': 'Ouro. Pela coisa que matou os meus mineiros. Leva e vai.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Vi este momento dez mil vezes.',
-          '2': 'Em metade deles libertas-me. Na outra metade, levas o que guardo.',
-          '3': 'Escolhe. Deixa-me finalmente não saber o que vem a seguir.'
+          '1': 'Vi este momento mais vezes do que consigo contar.',
+          '2': 'Em metade delas, libertas-me. Na outra metade, levas o que eu guardo.',
+          '3': 'Escolhe. Gostava, só uma vez, de não saber o que vem a seguir.'
         },
         free: {
-          '1': 'Oh. Isso não vi. Não vi mesmo.',
-          '2': 'A oráculo sobe pela água e vai-se. O guardião das horas dela fica para ensinar.',
+          '1': 'Oh. Isso eu não vi. A sério que não vi.',
+          '2': 'A oráculo sobe através da água e desaparece. O seu aluno fica para ensinar.',
           say: 'Fica quieta. Vou partir as tuas correntes.'
         },
         slay: {
           '1': 'Sim. Esta é a outra metade.',
-          '2': 'Ela não resiste. A Ampulheta do Guardião do Tempo é tua.',
-          '3': 'A última pupila dela foge do templo, e o Círculo não perdoa.',
+          '2': 'Ela não resiste. A Ampulheta do Guardião do tempo é tua.',
+          '3': 'O seu último aluno foge do templo, e o Círculo não te vai perdoar.',
           say: 'Vim pela ampulheta.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Chega. Tens dentes, pequeno.',
+          '1': 'Chega. Tens dentes, criatura.',
           '2': 'O demónio da fortaleza acorrentou os meus. Quero vê-lo arder.',
           '3': 'Mata-me, ou deixa-me ajudar-te a fazê-lo.'
         },
         slay: {
           '1': 'A montanha treme quando o dragão cai. O tesouro dele é teu.',
           '2': 'A Ordem de Ferro canta o matador de dragões.',
-          say: 'Sem acordos com dragões.'
+          say: 'Não regateio com dragões.'
         },
         pact: {
-          '1': 'Poucos poderiam pedir isso e viver. Muito bem, pequeno. Caçaremos juntos.',
-          '2': 'Quando marchares sobre a Fortaleza do Pavor, um dragão estará no céu acima de ti.',
-          say: 'Então voa comigo contra o Arquidemónio.'
+          '1': 'Poucos ousariam pedir. Muito bem. Caçamos juntos.',
+          '2': 'Quando marchares sobre a Fortaleza do Pavor, um dragão voará por cima de ti.',
+          say: 'Então luta comigo contra o Arquidemónio.'
         }
       },
       throne: {
         ask: {
           '1': 'Então. Acaba. Não pensei que fosses tu.',
-          '2': 'O meu trono não fica vazio, pequeno herói. Comanda a fortaleza, a fenda e os exércitos de ambas.',
-          '3': 'Três enviados já esperam à minha porta. Escolhe quem herda as minhas correntes.'
+          '2': 'O meu trono não vai ficar vazio. Quem o tomar comanda a fortaleza e a fenda.',
+          '3': 'Três enviados já esperam à minha porta. Escolhe quem vem a seguir.'
         },
         order: {
           '1': 'A Ordem guarnece a fortaleza e sela o que puder.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'O Sindicato instala-se antes do amanhecer.',
-          '2': 'Agora tudo está à venda, até a paz.',
+          '2': 'A partir de agora tudo tem preço, até a paz.',
           say: 'O Sindicato das Cinzas mereceu-o.'
         },
         circle: {
-          '1': 'O Círculo transforma a fortaleza numa escola sobre uma fenda.',
-          '2': 'Chamam-lhe investigação. Todos os outros chamam-lhe questão de tempo.',
+          '1': 'O Círculo transforma a fortaleza numa escola sobre a fenda.',
+          '2': 'Chamam-lhe investigação. Todos os outros suspendem a respiração.',
           say: 'Que o Círculo do Éter fique com ele.'
         },
         shatter: {
-          '1': 'Partes o trono com as tuas próprias mãos. Ninguém voltará a governar daqui.',
+          '1': 'Quebras o trono com as tuas próprias mãos. Ninguém voltará a governar daqui.',
           '2': 'Os enviados saem sem uma palavra.',
-          say: 'Ninguém herda. Vou parti-lo.'
+          say: 'Ninguém fica com ele. Eu vou parti-lo.'
         },
         claim: {
           '1': 'O trono está frio, e fica-te bem.',
           '2': 'Três fações descobrem que têm um inimigo em comum.',
-          say: 'Vou sentar-me eu próprio nele.'
+          say: 'Fico eu com ele.'
         }
       }
     }

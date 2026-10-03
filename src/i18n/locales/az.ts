@@ -127,8 +127,8 @@ export default {
       mouse: 'İzlə təlimçiyə get və danışmaq üçün ona klik et.'
     },
     teach: {
-      touch: 'Bu təlimçinin nə öyrətdiyini görmək üçün «Mənə öyrət»ə toxun.',
-      mouse: 'Bu təlimçinin nə öyrətdiyini görmək üçün «Mənə öyrət»ə klik et.'
+      touch: 'Bu təlimçinin nə öyrətdiyini görmək üçün «Mənə öyrədərsən?»ə toxun.',
+      mouse: 'Bu təlimçinin nə öyrətdiyini görmək üçün «Mənə öyrədərsən?»ə klik et.'
     },
     learn: {
       touch: 'Bacarığa toxun, sonra Öyrən düyməsinə toxun.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Geri al',
     deal: 'Razılaşdıq!',
     say: {
-      buy: 'Gözəl seçimdir. Yaxşı bax ona.',
-      sell: 'Ona yaxşı bir ev taparam.',
-      back: 'Fikrini dəyişdin? Al, olduğu kimi.',
-      poor: 'Kisən daha ağır olanda gəl.'
+      buy: 'Yaxşı seçimdir. Ona yaxşı bax, o da sənə yaxşı baxsın.',
+      sell: 'Yaxşı. Mütləq kimsə istəyər.',
+      back: 'Fikrini dəyişdin? Eybi yox, buyur.',
+      poor: 'Təəssüf ki, bu, səndə olandan bir az çoxdur.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Otur. Dincəl. Buradan sapsağlam, bütün kolbaların dolu çıxacaqsan. Daha çoxunu daşımaq istəsən, onu sənə sata bilərəm.',
+    talk: 'Otur, bir az dincəl. Kolbaların yenə doludur. İstəsən, sənə daha böyük kəmər sata bilərəm.',
     note: 'Hər zonaya {n} iksir aparırsan.',
     buy: 'Daha bir kolba · {n}',
     full: 'Kəmərin bundan artıq götürmür.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Dəmirçi Bram',
-      talk: 'Sadə polad, halal qiymət. Qoblini səndən uzaq saxlayar.'
+      talk: 'Sadə polad, ədalətli qiymət. Tələsmə.'
     },
     sunfordPeddler: {
       name: 'Çərçi Tilly',
-      talk: 'Üzüklər! Tilsimlər! Tapdığım və qətiyyən oğurlamadığım şeylər.'
+      talk: 'Üzüklər, tilsimlər, xırdavat. Bu, bəlkə hətta bəxt də gətirər.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Tacir Grik',
-      talk: 'Kral de ticarət, Grik et ticarət. Parıltıya parıltı. Yaxşı parıltı.'
+      talk: 'Bunları ailəm düzəldib. Yaxşı iş, ədalətli qiymət.'
     },
     captainHale: {
       name: 'Kapitan Hale'
     },
     oakArmorer: {
       name: 'Zirehçi Odo',
-      talk: 'Malımın yarısı divarlara getdi. Qalanını götür.'
+      talk: 'Mallarımın yarısı divara getdi. Qalanını apar, əgər uyğun gəlsə.'
     },
     oakMasterArmorer: {
       name: 'Usta Odo',
-      talk: 'Bu şəhəri sən xilas etdin. Yaxşı zirehlər arxa otaqdan sənin üçün çıxır.'
+      talk: 'Yaxşı zireh çölə çıxıb. Baxmağa kifayət qədər layiqsən.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'İti, tarazlı və kim pul verirsə, ona satılır. Bu gün o adam sənsən.'
+      talk: 'Itiki, tarazlı, münasib qiymətli. Tiyələrə toxunma.'
     },
     trainerShadow: {
       name: 'Pıçıltı'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Alverçi',
-      talk: 'Ad yox, sual yox. Sindikat öz payını götürür, sən də malı.'
+      talk: 'Hər iki tərəfdən sual yoxdur. Sindikat öz payını götürür.'
     },
     trainerBlood: {
       name: 'Doktor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhand',
-      talk: 'Cırtdan işidir. Qırılsa, günah səndədir.'
+      talk: 'Hamısı cırtdan işidir. Biri qırılsa, necə qırıldığını bilmək istəyirəm.'
     },
     ironAetherWorks: {
       name: 'Sənətkar Voss',
-      talk: 'Dairənin nüvəni öyrənməsi hər şeyi dəyişdi. Bunu tut. Mənə tuşlama.'
+      talk: 'Buradakı hər şey nüvəni öyrənməkdən çıxıb. Diqqətli ol, çoxu doludur.'
     },
     ironArmor: {
       name: 'Garrun Ironside',
-      talk: 'Nəhəngin toppuzunu dəf edən zireh. Qalanlarınıza isə üzüklər.'
+      talk: 'Zirehlər rəfdə, üzüklər sinidə.'
     },
     ironOrderArmor: {
       name: 'Orden Təchizatçısı',
-      talk: 'Orden nüvəni kimin məhv etdiyini unutmur. Onun silah anbarları sənə açıqdır.'
+      talk: 'Lazım olanı götür. Orden öz adamlarına göz-qulaq olur.'
     },
     trainerGeo: {
       name: 'Qoca Daşayaq'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Bu gecə yağış yağacaq, dizim belə deyir.',
-        '2': 'Dizin keçən həftə də belə demişdi.',
-        '3': 'Yağdı da, elə deyil? Harasa.'
+        '1': 'Bu gecə yağış var. Dizim bütün gün ağrıyır.',
+        '2': 'Dizin keçən həftə də eyni şeyi demişdi.',
+        '3': 'Yağdı da, elə deyil? Sadəcə burada yağmadı.'
       },
       harvest: {
-        '1': 'İllərin ən yaxşı arpasıdır bu.',
-        '2': 'Hər il eyni sözü deyirsən.'
+        '1': 'Bu il arpa yaxşı bitib.',
+        '2': 'Ümid edək ki, bizdə qalar.'
       },
       goblins: {
         '1': 'Qoblinlər Miller təsərrüfatından üç toyuq aparıb.',
-        '2': 'Cəmi üç? Tənbəlləşirlər.',
-        '3': 'Ya da qarınları doyub.'
+        '2': 'Yenə? Bu ayın ikincisidir.',
+        '3': 'Kimsə o mağaralarla bir iş görməlidir.'
       },
       kingGone: {
-        '1': 'Deyirlər Qoblin Kralı birdəfəlik gedib.',
-        '2': 'Bəs şalğamlarımı kim oğurlayır?'
+        '1': 'Deyirlər Qoblin Kralı ölüb.',
+        '2': 'Yaxşı. Bəlkə indi bir gecəni səhərə qədər yatım.'
       },
       pact: {
-        '1': 'Bu gün bir qoblin mənə qaşıq satdı.',
-        '2': 'Öz qaşığın idi?',
-        '3': 'Bəli, idi. Amma qiyməti yaxşı idi.'
+        '1': 'Bu səhər bir qoblindən çömçə aldım.',
+        '2': 'Yaxşıdır?',
+        '3': 'Düzünü desəm, mənimkindən yaxşıdır. Heç kimə demə.'
       },
       bram: {
-        '1': 'Bram yenə çəkic vurur. Sübhdən bəri!',
-        '2': 'Ürək döyüntüsü kimi sabitdir o adam.'
+        '1': 'Bram gün çıxmamışdan örsün başındadır.',
+        '2': 'Narahat olanda həmişə belə edir.'
       },
       pie: {
         '1': 'Bu alma piroqunun iyidir?',
-        '2': 'İdi. Keçmiş zamanda.',
-        '3': 'Hamısını yedin? Yenə?'
+        '2': 'İdi. Uşaqlar əvvəl tapdı.',
+        '3': 'Bir dənə də bişirərəm. Bu dəfə daha yaxşı gizlət.'
       },
       road: {
-        '1': 'Artıq heç kim düzənlik yolu ilə getmir.',
-        '2': 'Quldurlar olanda getməzlər də.'
+        '1': 'Bir həftədir kimsə düzənlik yoluna çıxmayıb.',
+        '2': 'Yolda quldurlar olanda çıxmazlar. Heç kimi qınaya bilmərəm.'
       },
       hero: {
-        '1': 'Kimsə düzənlik yolunu təmizləyib!',
-        '2': 'Nəhayət. Əmioğlum mənə bir araba borcludur.'
+        '1': 'Kimsə düzənlik yolundakı quldurları təmizləyib.',
+        '2': 'Çox şükür. Bacım yenə gələ bilər.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Bir kələm iki gümüş. İki!',
-        '2': 'Çox yaraşıqlı kələmdir.',
-        '3': 'O qədər də yox.'
+        '2': 'Bu günlərdə darvazadan heç nə ucuz keçmir.',
+        '3': 'Onda özüm yetişdirərəm. Lazım olsa, damda.'
       },
       watch: {
-        '1': 'Gözətçilər qapı mühafizəsini ikiqat artırıb.',
-        '2': 'Yaxşı. Bununla daha rahat yatıram.'
+        '1': 'Darvazadakı keşiyi ikiqat artırıblar.',
+        '2': 'Yaxşı. Mən bir az rahat yatıram.'
       },
       caravan: {
         '1': 'Ədviyyat karvanı yenə gecikib.',
         '2': 'Quldurlar?',
-        '3': 'Ya da sürücü karvansaray tapıb.'
+        '3': 'Ya da palçıq. Ümid edək ki, palçıqdır.'
       },
       siege: {
-        '1': 'Deyirlər ətrafda ordu düşərgə salıb.',
-        '2': 'Onda zirzəmini doldursaq yaxşıdır.'
+        '1': 'Tarlaların o tayında ordu düşərgə salıb.',
+        '2': 'Onda əlimizdən gələndə zirzəmini dolduraq.'
       },
       saved: {
-        '1': 'Mühasirənin qırıldığını gördün? Möhtəşəmdi!',
-        '2': 'Mən çarpayımın altından gördüm.',
-        '3': 'Yenə də sayılır.'
+        '1': 'Mühasirə qırılanda sən divarda idin?',
+        '2': 'Düzünü desəm, çarpayımın altında gizlənmişdim.',
+        '3': 'Şəhərin yarısı belə idi. Yenə də buradayıq.'
       },
       fountain: {
         '1': 'Şans üçün fəvvarəyə sikkə atdım.',
-        '2': 'Mən də onu çıxardım. Sağ ol!'
+        '2': 'Ümid edirəm ucuz kələm diləmisən.'
       },
       ash: {
-        '1': 'Hər şey kül iyi verir.',
-        '2': 'Heç iy verməməkdən yaxşıdır.'
+        '1': 'Hər yer hələ də tüstü iyi verir.',
+        '2': 'Keçər. Axırda hər şey keçir.'
       },
       hide: {
-        '1': 'Dünən gecə çöldə çəkmə səsi eşitdin?',
-        '2': 'Pşşt. Səsini aşağı sal.',
-        '3': 'Bağışla. Bağışla.'
+        '1': 'Dünən gecə küçədə çəkmə səsi eşitdin?',
+        '2': 'Yavaş. Kimin dinlədiyini bilmirsən.',
+        '3': 'Bağışla. Mən sadəcə... bağışla.'
       },
       bread: {
-        '1': 'Yarım çörək tapdım. Bölüşə bilərik.',
+        '1': 'Yarım çörək tapdım. Al, bir az götür.',
         '2': 'Yaxşı insansan. Təşəkkür edirəm.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Dördüncü mərtəbədə yaxşı mis damarı var.',
-        '2': 'Mis? Mən qızıl istəyirəm.',
-        '3': 'Sən daha çox yuxu istəyirsən.'
+        '2': 'Mis. Mən gümüş ümid edirdim.',
+        '3': 'Mis kirayəni ödəyir. Gümüş xəyalları.'
       },
       forge: {
-        '1': 'Böyük kürə yüz ildir sönməyib.',
-        '2': 'Babamın çubuğu da sönməyib.'
+        '1': 'Böyük kürə yüz ildir soyumayıb.',
+        '2': 'Babam onu yandırmağa kömək edib, bilirsən.'
       },
       beard: {
-        '1': 'Saqqalını qısaltmısan!',
-        '2': 'Zindan yanında alışdı.',
-        '3': 'Yenə də yaraşdı.'
+        '1': 'Saqqalını qısaltmısan.',
+        '2': 'Örsə çox yaxın getdim.',
+        '3': 'Yenə uzanar. Elə qısası sənə yaraşır.'
       },
       core: {
-        '1': 'Dərin mədənlərdə indi nəsə parlayır.',
-        '2': 'Orada heç bir yaxşı şey parlamaz.'
+        '1': 'Dərin şaxtalarda nəsə parlayır.',
+        '2': 'Orada heç bir yaxşı şey parlamaz. Yuxarıda qal.'
       },
       order: {
-        '1': 'Ordenin zirehçiləri tez işləyir.',
-        '2': 'Tez, bəli. Bizim qədər yaxşı yox.'
+        '1': 'Ordenin zirehçiləri tez işləyir, bunu etiraf edirəm.',
+        '2': 'Tez, bəli. Görək nə qədər davam gətirəcək.'
       },
       circle: {
-        '1': 'Dairənin sehrbazları işləyərkən zümzümə edir.',
-        '2': 'Bizim mahnılarımızdan yaxşıdır yəqin.'
+        '1': 'Dairənin adamları işləyəndə mahnı zümzümə edir.',
+        '2': 'Heç olmasa sənin oxumağından yaxşıdır.'
       },
       cold: {
-        '1': 'Bu səhər burada yuxarıda soyuqdur.',
-        '2': 'Onda kürəyə yaxın dur.'
+        '1': 'Bu səhər dondurucu soyuqdur.',
+        '2': 'Onda gəl, kürənin yanında dayan.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Tutan sənsən!',
-        '2': 'Düz deyil, hazır deyildim!'
+        '1': 'Tutdum, indi sən qovacaqsan!',
+        '2': 'Bu ədalətsizdir, hazır deyildim!'
       },
       dragon: {
         '1': 'Böyüyəndə əjdahaya minəcəyəm.',
-        '2': 'Əjdahalar minməyə qoymur.',
-        '3': 'Mehribanlar qoyur!'
+        '2': 'Əjdahalar heç kimin özlərinə minməsinə icazə vermir.',
+        '3': 'Mehriban biri bəlkə verər.'
       },
       sword: {
-        '1': 'Bax, əsl qılınc çubuğu!',
-        '2': 'Bu sadəcə çubuqdur.'
+        '1': 'Bax, qılınc tapdım!',
+        '2': 'O, çubuqdur.'
       },
       frog: {
-        '1': 'Quyunun yanında qurbağa tapdım.',
+        '1': 'Quyunun yanında bir qurbağa var.',
         '2': 'Saxlaya bilərikmi?',
-        '3': 'Məncə o bizi saxlayır.'
+        '3': 'Anam dedi daha qurbağa yoxdur.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Hələlik bu qədər.',
-      trade: 'Mallarını göstər.',
-      train: 'Mənə öyrət.',
-      heal: 'Yaralarımı sar.',
-      mana: 'Manam üçün nəsə lazımdır.',
-      who: 'Sən kimsən?',
+      bye: 'Sizi işinizlə baş-başa buraxım.',
+      trade: 'Nələriniz var, baxa bilərəm?',
+      train: 'Mənə öyrədərsən?',
+      heal: 'Yaralarımı sararsan?',
+      mana: 'Mana üçün nəyin var?',
+      who: 'Qəbahət olmasa, sən kimsən?',
       rumor: 'Son vaxtlar nəsə eşitmisən?',
-      ready: 'Daha çoxuna hazıram?'
+      ready: 'Səncə daha çoxuna hazıram?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Yeni üz. Düzənlik yolunu tutan sənsən.',
-        '2': 'Mən Bram. Polad düzəldirəm. Görünür sənə lazımdır.'
+        '1': 'Səni əvvəl görməmişdim. Yolu təmizləyən sənsən?',
+        '2': 'Bram. Dəmirçixana məndədir. Qılınc lazımsa, mənə gəl.'
       },
       kingDead: {
-        '1': 'Eşitdim Qoblin Kralı ölüb. Yaxşı. Karvan təkərlərindən düzəldəcək əyri az olar.'
+        '1': 'Qoblin Kralı ölüb, eşitdim. Onun üçün darıxacağımı deyə bilmərəm.'
       },
       kingPact: {
-        '1': 'Qoblinlər meydanda ticarət edir. Görəcəyimi güman etməzdim. Dəmirləri zibildir ha.'
+        '1': 'Qoblinlər indi meydanda alver edir. Bunu görəcəyimi heç düşünməzdim.'
       },
       kingRansom: {
-        '1': 'Deyirlər kralın qızılını götürüb tacını ona qoymusan. Basqınlar qayıdacaq.'
+        '1': 'Qoblin Kralının tacını əlində qoydun. Geri qayıdacaq, bil bunu.'
       },
       ending: {
-        '1': 'Bütün səltənət o taxtdan danışır. Sən isə hələ də məndən alırsan. Hm.'
+        '1': 'Bütün krallıq səndən danışır. Yenə də bülöv daşı lazımdır?'
       },
       again: {
-        '1': 'Yenə gəldin. Yaxşı. Polad özü-özünə satılmır.'
+        '1': 'Yenə gəldin. Nə edə bilərəm?'
       },
       trade: {
-        '1': 'Sadə polad, dürüst qiymət. İstədiyin qədər bax.'
+        '1': 'Sadə polad, ədalətli qiymət. Bir bax.'
       },
       who: {
-        '1': 'Bram. Bu zindanda otuz il.',
-        '2': 'Atlara nal vururam, kotanları təmir edirəm, sənin kimi ağılsız cəsurları silahlandırıram. Bu ardıcıllıqla.'
+        '1': 'Bram. Bu örsün başında otuz il oldu, aşağı-yuxarı.',
+        '2': 'Nal, kotan, arabir qılınc. Son vaxtlar əsasən qılınc.'
       },
       gear: {
-        '1': 'Vurulmaq niyyətindəsənsə qalxan. Deyilsənsə daha böyük qılınc.',
-        '2': 'Poladımı Güc yelləyir. Ağır bir şey almazdan əvvəl xallarını ora ver.',
-        say: 'Orada özümlə nə aparmalıyam?'
+        '1': 'Dayaq yeməyi düşünürsənsə, qalxan. Əksər adamlar yeyir.',
+        '2': 'Ağır polad güclü qol istəyir. Əvvəlcə Gücünü artır.',
+        say: 'Çöldə özümlə nə aparmalıyam?'
       },
       rumor: {
         plains: {
-          '1': 'Düzənlik yolunda qoblinlər var. Zinətli bir şey almazdan əvvəl onları təmizlə.'
+          '1': 'Düzənlik yolunda quldurlar var. Sənin yerində olsaydım, oradan başlayardım.'
         },
         hollows: {
-          '1': 'Basqınçılar düzənliyin o tayındakı Qoblin Oyuqlarından sürünərək çıxır. Kralları ən dibdə oturur.'
+          '1': 'Qoblinlər düzənliyin o tayındakı Oyuqlardan gəlir. Kralları da aşağıdadır.'
         },
         woods: {
-          '1': 'Düzənliyin şərqində Pıçıldayan Meşə başlayır. Orada ağaclar yeriyir. Balta götür.'
+          '1': 'Düzənliyin şərqində Pıçıldayan Meşə var. Deyirlər ağaclar yerini dəyişir.'
         },
         siege: {
-          '1': 'Oakhaven tərəfdə tüstü var. Deyirlər bir sərkərdə ətrafda düşərgə salıb.'
+          '1': 'Oakhaven tərəfdə tüstü var. Ətrafda ordu düşərgə salıb.'
         },
         north: {
-          '1': 'Ironhold poladı yenidən yoldadır. Mənimkindən yaxşısını istəyirsənsə şimala get.'
+          '1': 'Ironhold poladı yenə yolla gəlir. Məniminkindən yaxşıdır, düzünü deyim.'
         }
       },
       shopBack: {
-        '1': 'Sağlamlıqla geyin. Ya da elə geyin.'
+        '1': 'Ona yaxşı bax, o da sənə yaxşı baxsın.'
       },
       bye: {
-        '1': 'Yola diqqət et.'
+        '1': 'Özünə fikir ver.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, müştəri! Ya da gözətçi. Gözətçi deyilsən ki?',
-        '2': 'Mən Tilly. Üzüklər, tilsimlər, şans gətirən şeylər. Hamısı tapılıb, heç biri oğurlanmayıb.'
+        '1': 'Ay, salam! Alacaqsan, yoxsa sadəcə baxırsan? İkisi də olar.',
+        '2': 'Mən Tilly. Hər yerdən üzüklər, tilsimlər, xırdavat.'
       },
       rival: {
-        '1': 'Grikin piştaxtasını gördün? Qoblin zinətləri! Mən məhv oldum. Nəsə al. Mənə yazığın gəlsin.'
+        '1': 'Qoblinin piştaxtasını gördün? Qiymətləri məndən aşağıdır. Bu, ədalətsizdir.'
       },
       again: {
-        '1': 'Ən sevdiyim müştəri! Bunu hamıya deyirəm, amma sənə həqiqətən deyirəm.'
+        '1': 'Budur, gəldin! Xoşuna gələcəyini düşündüyüm bir neçə şeyi kənara qoymuşam.'
       },
       trade: {
-        '1': 'Üzüklər! Tilsimlər! Tapdığım və qətiyyən oğurlamadığım şeylər!'
+        '1': 'Bir bax. Bu, bəxt gətirir. Yəqin.'
       },
       who: {
-        '1': 'Yollarda gəzirəm və yolların geridə qoyduqlarını yığıram.',
-        '2': 'Quldurlar qaçanda ən gözəl şeyləri salır.'
+        '1': 'Yolları gəzirəm, insanların atmaq istədiyi şeyləri alıram.',
+        '2': 'Bəzən də nəsə tapıram. Quldurlar qaçanda çox şey salır.'
       },
       trinkets: {
-        '1': 'Eyni anda iki dənə taxırsan, hər ələ bir. Kiçik üstünlük də üstünlükdür.',
-        say: 'Tilsimlər nəyə yarayır?'
+        '1': 'İki dənə taxa bilərsən, hər ələ bir. Çöldə hər xırda şey toplanır.',
+        say: 'Tilsimlər əslində nəyə yarayır?'
       },
       stolen: {
-        '1': 'Pşşt! Bu qədər yüksək səslə yox. Yaxşı. YAXŞI.',
-        '2': 'Bu üzüyü götür və heç danışmadıq. Gözəl üzükdür. Əsasən mis.',
-        say: 'Bunların hamısını oğurlamısan, elə deyil?'
+        '1': 'Ah. Sual vermək üçün öz üsulun var, elə deyil?',
+        '2': 'Bu üzüyü götür, harada tapdığımdan danışmayaq.',
+        say: 'Bütün bunlar həqiqətən haradan gəlib?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Buradan cənubda qapıları paslanıb bağlanmış bir kolizey var. Qoblin dərdi bitəndə açılacaq.'
+          '1': 'Buradan cənubda köhnə Kolizey var. Qoblinlər basqın edəndə bərk bağlıdır.'
         },
         arenaOpen: {
-          '1': 'Kolizey açıqdır! Səkkiz dalğa deyirlər. Mən şans satıram. Sənə şans lazım olacaq.'
+          '1': 'Kolizey yenə açılıb. Deyirlər səkkiz dalğa var. İnsanlar üstünə mərc gəlir.'
         },
         east: {
-          '1': 'Oakhaven bazarları parlayan hər şeyə iki qat ödəyir. Şərqə, meşənin o tayına get.'
+          '1': 'Oakhaven parlaq şeylərə yaxşı pul verir. Şərqdədir, meşənin o tayında.'
         }
       },
       shopBack: {
-        '1': 'Varlananda gəl!'
+        '1': 'Kisən ağırlaşanda qayıt!'
       },
       bye: {
-        '1': 'Orada cibinə diqqət et! Yanımda yox, yəni. Başqa yerdə.'
+        '1': 'Yolun açıq olsun. Çöldə pulunu bərk saxla.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Dik dur. Dəmir Ordenin cəngavərinin qarşısındasan.',
-        '2': 'Ser Aldric. Başqalarının qarşısında dayanmaq istəyənlərə qalxanı öyrədirəm.'
+        '1': 'Dik dur. Dəmir Ordenin cəngavəri ilə danışırsan.',
+        '2': 'Ser Aldric. İnsanlara başqası ilə zərər arasında necə dayanmağı öyrədirəm.'
       },
       saved: {
-        '1': 'Oakhaven sən dayandığın üçün ayaqdadır. Öyrətdiyim hər şey budur.'
+        '1': 'Oakhaven hələ də ayaqdadır, eşitdim ki, sən də onun divarında idin. Afərin.'
       },
       fallen: {
-        '1': 'Oakhavenin qapısını sən açdın. Bundan azına adam basdırmışam. Məqsədini de.'
+        '1': 'Oakhavenin darvazasını sən açdın. Unutduğumu deməyəcəyəm. Nə istəyirsən?'
       },
       dragon: {
-        '1': 'Həyətimdə əjdaha qatili. Böyük zalda bunun mahnısını oxuyacaqlar.'
+        '1': 'Zirvədəki əjdahanı öldürdün? Görmək istərdim.'
       },
       friend: {
-        '1': 'Orden səndən yaxşı danışır. Dostları üçün dərslərim daha ucuzdur.'
+        '1': 'Orden səni yaxşı tanıyır. Dostları üçün dərslərim daha ucuzdur.'
       },
       foe: {
-        '1': 'Orden səni düşmən elan edib. Yenə də öyrədəcəyəm. Şərəfi geri almaq onların əlində deyil.'
+        '1': 'Orden sənə düşmən deyir. Yenə də sənə öyrədəcəyəm. Bu mənim qərarımdır, onların yox.'
       },
       again: {
-        '1': 'Qalxan yuxarı. Nəyə ehtiyacın var?'
+        '1': 'Yenə məşq üçün qayıtdın?'
       },
       train: {
-        '1': 'Onda diqqət et. Mən bir şeyi bir dəfə göstərirəm.'
+        '1': 'Yaxşı. Diqqətlə izlə, yalnız bir dəfə göstərəcəyəm.'
       },
       class: {
-        '1': 'Yeriyən divar. Zərbəni biz alırıq ki, başqası almaq məcburiyyətində qalmasın.',
-        '2': 'Qol üçün Güc, qalanı üçün Dözüm. İşıq əlindən gələni edir.',
-        say: 'Egida Cəngavəri nədir?'
+        '1': 'Başqaları üçün nəzərdə tutulan zərbələri biz alırıq. Sadədir, həm də çətindir.',
+        '2': 'Qalxan üçün Gücə, onu tutmaq üçün Dözümə ehtiyacın olacaq.',
+        say: 'Egida Cəngavəri əslində nə edir?'
       },
       ready: {
         strong: {
-          '1': 'Bildiklərimin çoxu üçün qolun yetərlidir. Dözümünə fikir ver və qalanını götür.'
+          '1': 'Bildiklərimin çoxu üçün kifayət qədər güclüsən. Dözümün üzərində işləməkdə davam et.'
         },
         able: {
           '1': 'Növbəti dərsə hazırsan. Başına vurmasın.'
         },
         weak: {
-          '1': 'Hələ yox. Qolun zəifdir və tez yorulursan. Daha çox Güc, daha çox Dözüm.'
+          '1': 'Hələ yox. Qalxandan əvvəl sən yorulacaqsan. Daha çox Güc, daha çox Dözüm.'
         }
       },
       order: {
-        '1': 'Yolları və qanunu qoruyuruq. Bəziləri hər ikisindən çox deyir.',
-        '2': 'Ordenin yanında dur, zirehçiləri və müəllimləri səni unutmaz.',
+        '1': 'Yolları təhlükəsiz, qanunu əldə saxlayırıq. Bəziləri çox sərt olduğumuzu deyir.',
+        '2': 'Bizimlə dayan, zirehçilərimiz və müəllimlərimiz səni unutmaz.',
         say: 'Mənə Dəmir Ordendən danış.'
       },
       trainBack: {
-        '1': 'Bezənə qədər məşq et. Sonra bir az da məşq et.'
+        '1': 'Cansıxıcı olana qədər məşq et. Sonra davam et.'
       },
       bye: {
-        '1': 'İşıqla get.'
+        '1': 'Ehtiyatla get.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Tələbə? Bir az geri dur. Bir az da.',
-        '2': 'Ember Wren, piromant. Qaşlar yenidən çıxır, əsasən.'
+        '1': 'Ah, şagird? Əla. Bəlkə bir az geri dur.',
+        '2': 'Mən Ember Wren. Atəşi öyrədirəm. Çox vaxt dediyimi edir.'
       },
       core: {
-        '1': 'Nüvəni Dairəyə verdin! İndi neçə şeyi yandıra biləcəyimizi bilirsən?'
+        '1': 'Nüvəni Dairəyə verdin! Ondan nə öyrənəcəyimizi görmək üçün səbirsizlənirəm.'
       },
       friend: {
-        '1': 'Efir Dairəsi səni sevir! Bu endirim deməkdir. Və imzalanacaq forma da az.'
+        '1': 'Dairə səni çox tərifləyir. Bu endirim deməkdir, yeri gəlmişkən.'
       },
       foe: {
-        '1': 'Dairə səni kül görmək istəyir. Qəribədir! Yenə də öyrədəcəyəm. Od seçici deyil.'
+        '1': 'Dairə səndən razı deyil. Yenə də sənə öyrədəcəyəm. Səssizcə.'
       },
       again: {
-        '1': 'Qayıtdın! Və heç nə yanmır. Bunu düzəldə bilərik.'
+        '1': 'Qayıtdın! Nəsəni alışdırmağa hazırsan?'
       },
       train: {
-        '1': 'Bəli! Yaxından izlə. O qədər yaxından yox.'
+        '1': 'Yaxşı. Əllərimə bax, qollarını məndən uzaq tut.'
       },
       class: {
-        '1': 'Od hər suala cavab verir. Əvvəl onları yandır, sonra yanmaqda olanları partlat.',
-        '2': 'Hamısı Zəka ilə işləyir. Və fasiləsiz xalat təchizatı ilə.',
-        say: 'Piromant nə edir?'
+        '1': 'Əsasən nəsələri alışdırmaq. Sonra atəşi istədiyin yerə yaymaq.',
+        '2': 'Hamısı Zəkadan gəlir. Ağıl nə qədər itidirsə, alov o qədər isti olur.',
+        say: 'Piromant dəqiq nə edir?'
       },
       ready: {
         strong: {
-          '1': 'Qolemi əridə bilərsən! Məndə nə varsa götür. Çətinlər üçün Məharətinə fikir ver.'
+          '1': 'Düzünü desəm? Bunların bir qismini sən özün öyrədə bilərsən. İstədiyini götür.'
         },
         able: {
-          '1': 'Ağlın növbəti sehr üçün kifayət qədər isinib. Gedək!'
+          '1': 'Növbəti sehrə hazırsan. Gəl, göstərim.'
         },
         weak: {
-          '1': 'Hmm. Zəkan hələ azdır. Od səni işlədər, sən onu yox.'
+          '1': 'Hələ yox, təəssüf. Daha çox Zəka lazımdır, yoxsa atəş səni ələ keçirər.'
         }
       },
       circle: {
-        '1': 'Alimlər. Dünyanın nədən düzəldiyini öyrənirik. Bir hissəsi partlayır.',
+        '1': 'Alimlər. Dünyanın nədən düzəldiyini öyrənirik. Bir qismi partlayır.',
         say: 'Efir Dairəsi kimdir?'
       },
       trainBack: {
-        '1': 'Get nəsə yandır! Buna layiq olan bir şey.'
+        '1': 'Get məşq et. Alışmayacaq yerdə, xahiş edirəm.'
       },
       bye: {
-        '1': 'İsti qal!'
+        '1': 'Özünə yaxşı bax!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Deməli yoldan gələn sənsən. Yaxın gəl, gözlərim əvvəlki kimi deyil.',
-        '2': 'Mən Maraam. Qırx ildir bu şəhərin dəftərini və əmin-amanlığını saxlayıram.'
+        '1': 'Deməli, yoldan gələn sənsən. Gəl, sənə bir baxım.',
+        '2': 'Mən Maraym. Bu şəhərə... ah, qırx ildir baxıram.'
       },
       slain: {
-        '1': 'Oyuqlar sakitdir. Çətin iş gördün, Sunford da bunun sayəsində rahat yatır.'
+        '1': 'Oyuqlar sakitdir. Etdiyin çətin iş idi, amma onun sayəsində yatırıq.'
       },
       pact: {
-        '1': 'Meydanımda zinət satan qoblinlər. Dilin şirindir, balam. Ümid edirəm dözər.'
+        '1': 'Meydanımda qoblinlər mal satır. Onları buna sən razı saldın, elə deyil?'
       },
       ransom: {
-        '1': 'Qızılını götürüb tacını ona qoydun. Məyus olmadığımı deyə bilməyəcək qədər qocalmışam.'
+        '1': 'Qızılını aldın, tacını ona qoydun. Məyus olmadığımı deməyəcəyəm.'
       },
       saved: {
-        '1': 'Oakhavendən xəbər gəldi. Qapı davam gətirdi. Bizdən birinin orada olmasına şadam.'
+        '1': 'Oakhavendən xəbər gəldi. Darvaza dözdü. Orada olduğuna şadam.'
       },
       fallen: {
-        '1': 'Oakhaven yandı, deyirlər məşəli sən tutmusan. Demə. Bilmək istəmirəm.'
+        '1': 'Deyirlər Oakhaven yanıb. Necə olduğunu eşitmək istəmirəm. Bu gün yox.'
       },
       ending: {
-        '1': 'Deyirlər Dəhşət Qəsrində kimin oturacağına sən qərar vermisən. Sunford yolundan buraya. Təsəvvür et.'
+        '1': 'Deyirlər Dəhşət Qəsrinin taleyini sən həll etmisən. Bizim kiçik yolumuzdan ora qədər.'
       },
       again: {
-        '1': 'Bir az otur. Yol gözləyər.'
+        '1': 'Bir an otur. Yol yerindədir.'
       },
       reward: {
-        '1': 'Milisimiz bacarmayanda yolu sən tutdun. Şəhər yardım topladı.',
-        '2': 'Çox deyil. Ayıra bildiyimiz hər qəpikdir.',
-        say: 'Məni görmək istəmişdiniz?'
+        '1': 'Milisimiz bacarmayanda yolu sən tutdun. Şəhər bir az yığıb.',
+        '2': 'Çox deyil. Ayıra bildiyimiz qədərdir.',
+        say: 'Kimsə dedi ki, məni görmək istəyirsən?'
       },
       quest: {
-        '1': 'Basqınlar Qoblin Oyuqlarından gəlir. Qoblinlər özlərinə kral tacqoyublar.',
-        '2': 'Və siz onun ölməsini istəyirsiniz.',
-        '3': 'Basqınların bitməsini istəyirəm. Necə olacağına o mağaraların dibində sən qərar verərsən.',
-        '4': 'Oyuqlar düzənliyin tən o tayındadır. Ehtiyatla get.',
+        '1': 'Basqınlar Qoblin Oyuqlarından gəlir. Özlərinə bir kral seçiblər.',
+        '2': 'Sən də onun ölməsini istəyirsən?',
+        '3': 'Basqınların dayanmasını istəyirəm. Necə... bunu orada, aşağıda sən həll edərsən.',
+        '4': 'Oyuqlar düzənliyin tən o tayındadır. Xahiş edirəm, ehtiyatlı ol.',
         say: 'Sunfordu nə narahat edir?'
       },
       king: {
-        say: 'Qoblin Kralı haqqında…',
+        say: 'Qoblin Kralı haqqında...',
         slay: {
-          '1': 'Bir kral öldü, karvanlarım vaxtında gəlir. Necə hiss etdiyini soruşmayacağam.'
+          '1': 'Getdi, karvanlar yenə işləyir. Necə hiss etdiyini soruşmayacağam.'
         },
         pact: {
-          '1': 'Müqavilə! Anam huşunu itirərdi. Yenə də ticarət cənazədən yaxşıdır.'
+          '1': 'Ticarət sazişi. Anam huşunu itirərdi. Yenə də ticarət dəfndən yaxşıdır.'
         },
         ransom: {
-          '1': 'Qızıl tez xərclənir. Küsü yox. Basqınlar qayıdanda bunu xatırla.'
+          '1': 'Qızıl tez qurtarır. Kin qurtarmır. Basqınlar başlayanda bunu xatırla.'
         }
       },
       town: {
-        '1': 'Əsasən əkinçilər. Bir dəmirçi, bir şəfaçı və bizə dözən iki müəllim.',
-        '2': 'Burada dincəl, xallarını xərclə və daha güclü qayıt. Ev bunun üçündür.',
+        '1': 'Əsasən əkinçilər. Bir dəmirçi, bir şəfaçı, bizə dözən iki müəllim.',
+        '2': 'Səfərlər arasında burada dincəl. Ev bunun üçündür.',
         say: 'Mənə Sunforddan danış.'
       },
       next: {
         say: 'Bundan sonra hara getməliyəm?',
         plains: {
-          '1': 'Hər şeydən əvvəl düzənlik yolu. Karvanlar keçə bilməsə yemək yeyə bilmərik.'
+          '1': 'Əvvəlcə düzənlik yolu. Karvanlar olmasa, yemək yeyə bilmirik.'
         },
         hollows: {
-          '1': 'Əvvəl Qoblin Oyuqları. Basqınlar davam edərkən heç nə təhlükəsiz deyil.'
+          '1': 'Qoblin Oyuqları. Basqınlar davam etdikcə başqa heç nə təhlükəsiz deyil.'
         },
         woods: {
-          '1': 'Şərqə, Pıçıldayan Meşədən keç. Oakhaven yolu o ağacların altından keçir.'
+          '1': 'Şərqə, Pıçıldayan Meşədən keçərək. Oakhavenə gedən yol odur.'
         },
         oakhaven: {
-          '1': 'Oakhaven mühasirədədir. Ətrafı düşsə şəhər də düşər.'
+          '1': 'Oakhaven mühasirədədir. Ətrafı düşsə, şəhər də onunla düşər.'
         },
         north: {
-          '1': 'Şimala, balam. Kül Qayalıqları, ondan o yanda Ironhold. Nə qədər irəli getsən bəla böyüyür.'
+          '1': 'Şimal, məncə. Kül Qayalıqları, arxasında Ironhold. Daha da çətinləşir.'
         }
       },
       bye: {
-        '1': 'Sağ qayıt. Hər kəsdən istədiyim yalnız budur.'
+        '1': 'Bizə sağ-salamat qayıt. İstədiyim təkcə budur.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Tərpənmə. Yox, sən yaxşısan. Vərdişdir.',
-        '2': 'Rahibə Lune. Yolun sındırdığını mən sağaldıram.'
+        '1': 'Bir an tərpənmə. Yox, yaxşısan. Vərdişdir, bağışla.',
+        '2': 'Mən Rahibə Lune. Yolun sındırdığı hər şeyi bərpa edirəm.'
       },
       again: {
-        '1': 'Hələ də bütövsən? Az qala məyus oldum.'
+        '1': 'Hələ də bütövsən? Yaxşı. Yenə də otur.'
       },
       heal: {
-        '1': 'Otur. Dincəl. Buradan sapsağlam çıxacaqsan, bütün kolbaların dolu.'
+        '1': 'Otur, bir az dincəl. Getməzdən əvvəl kolbalarını dolduracağam.'
       },
       mana: {
-        '1': 'Mavi kolba, acı dad. Sehrlərin qurtaranda qurtum al.'
+        '1': 'Bu acıdır. Sehrlərin qurtaranda iç.'
       },
       potions: {
-        '1': 'Hər zonaya bir neçə kolba aparırsan. Lazım olmamışdan əvvəl iç, sonra yox.',
-        '2': 'Daha çox daşımaq istəsən sənə daha uzun kəmər sata bilərəm.',
+        '1': 'Hər döyüşə bir neçə kolba aparırsan. Lazım olmamışdan əvvəl iç, sonra yox.',
+        '2': 'Daha çox daşımaq istəsən, sənə daha böyük kəmər sata bilərəm.',
         say: 'İksirlər necə işləyir?'
       },
       rumor: {
         goblins: {
-          '1': 'Qoblinlər sapand daşlarını zəhərləyir. Yaşıla dönsən düz geri gəl.'
+          '1': 'Qoblinlər sapand daşlarını nəsə ilə örtür. Ürəyin bulansa, mənə gəl.'
         },
         spiders: {
-          '1': 'Meşədən hörümçək sancmaları gəlir. Bu həftə üç dənə. Sancılmamağa çalış.'
+          '1': 'Bu həftə Meşədən üç hörümçək sancmasını müalicə etdim. Orada addımına fikir ver.'
         },
         burns: {
-          '1': 'Şimaldan yanıqlı əsgərlər enir. Kül Qayalıqları deyirlər. Yeriyən od.'
+          '1': 'Əsgərlər şimaldan yanıqlarla enib durur. Kül Qayalıqlarından, deyirlər.'
         }
       },
       healBack: {
-        '1': 'Kəməri dolu, başını aşağı saxla.'
+        '1': 'Kəmərini dolu, başını aşağı tut.'
       },
       bye: {
-        '1': 'Vacib bir şeyin üstünə qan damızdırma.'
+        '1': 'Çöldə özünə fikir ver.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Hündür! Hündür müqavilə etdi. Kral dedi hündürə yaxşı ol.',
-        '2': 'Grik yaxşı. Grikdə parıltılar var. Hündürdə qızıl var. Yaxşı cütlük.'
+        '1': 'Sazişi bağlayan sənsən. Kralımız deyir ki, burada xoş gəlmisən.',
+        '2': 'Mən Grik. Qoblinlərin düzəltdiyini satıram. Yaxşı iş, ədalətli qiymət.'
       },
       again: {
-        '1': 'Hündür qayıtdı! Grik bildi. Parıltılar hündürü çağırır.'
+        '1': 'Dost. Səni yenə görmək xoşdur.'
       },
       trade: {
-        '1': 'Kral dedi ticarət, Grik ticarət edir. Parıltıya parıltı. Yaxşı parıltı.'
+        '1': 'Bax, xahiş edirəm. Bunları ailəm düzəldib.'
       },
       king: {
-        '1': 'Kral kök və xoşbəxt. Basqın yoxdur. Basqın çətin işdir.',
-        '2': 'Kral deyir hündürün dili yaxşıdır. Qoblin üçün ən böyük tərif. Demək olar.',
+        '1': 'O, indi yaxşı yeyir. Basqın yoxdur. Xalqım daha az acdır.',
+        '2': 'Səndən tez-tez danışır. Hörmətlə.',
         say: 'Kralın necədir?'
       },
       town: {
-        '1': 'İnsanlar çox yuyunur. Amma piroq! Grik piroqu bilmirdi.',
+        '1': 'İnsanlar hələ də baxır. Amma çörəkçi mənə piroq verir. Mən piroqu sevirəm.',
         say: 'Sunfordu bəyəndin?'
       },
       rumor: {
         crags: {
-          '1': 'Grikin əmiuşağları şimalda qara daşda qazır. Deyirlər orada od yeriyir. Grik burada qalır.'
+          '1': 'Əmioğlularım şimalda qara qayanı qazır. Deyirlər indi orada atəş gəzir.'
         },
         deep: {
-          '1': 'Dərin yerlər oyanır, hündür. Qoblinlər ayaqlarında hiss edir.'
+          '1': 'Dərin yerlərdə nəsə oyanır. Qoblinlər bunu yerdə hiss edir.'
         }
       },
       shopBack: {
-        '1': 'Yaxşı ticarət! Hündür yenə gələr, hə?'
+        '1': 'Təşəkkür. Yenə gəl.'
       },
       bye: {
-        '1': 'Sağ ol, hündür! Ölmə. Ölülər heç nə almır.'
+        '1': 'Salamat get, dost.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Bir qılınc da. Yaxşı. Haradan gəldiklərini soruşmağı dayandırdım.',
-        '2': 'Kapitan Hale. Oakhaven gözətçilərindən qalanlara komandanlıq edirəm.'
+        '1': 'Bir qılınc da. Yaxşı. Tapa bildiyimiz hər birinə ehtiyacımız var.',
+        '2': 'Kapitan Hale. Oakhaven keşikçilərindən qalanlara komandanlıq edirəm.'
       },
       saved: {
-        '1': 'Qapı davam gətirdi. Üç yüz il, indi isə bir daha. Şəhərimi sənə borcluyam.'
+        '1': 'Darvaza dözdü. Üç yüz il, və bir il də. Bunun üçün sənə borcluyam.'
       },
       ending: {
-        '1': 'Dəhşət Qəsrinin taxtını həll etdin. Divarlarım əvvəlkindən kiçik görünür.'
+        '1': 'Deyirlər Dəhşət Qəsrinə sən qərar vermisən. Onun yanında divarlarım kiçik görünür.'
       },
       again: {
-        '1': 'Divarlar hələ də ayaqdadır. Bu günlük.'
+        '1': 'Divarlar hələ ayaqdadır. Bu gün üçün heç olmasa.'
       },
       after: {
-        '1': 'Oakhaven xatırlayır, dost. Mən də.'
+        '1': 'Səni görmək xoşdur. Oakhaven unutmayıb.'
       },
       quest: {
-        '1': 'Bir sərkərdənin ordusu bizi mühasirəyə alıb. Krag. Pulsuz vuruşmur.',
+        '1': 'Pis. Krag adlı bir sərkərdə bizi mühasirəyə alıb, özü də pulsuz döyüşmür.',
         '2': 'Ona kim ödəyir?',
         '3': 'Kül Sindikatı. Özlərinə məxsus şəhər istəyirlər, bizimkinin isə divarları var.',
-        '4': 'Onu Oakhaven ətrafında qır. Qərar orada veriləcək.',
-        say: 'Vəziyyət necədir?'
+        '4': 'Düşərgəsini Oakhaven ətrafında darmadağın et. Bu iş orada bitir, bu ya digər cür.',
+        say: 'Vəziyyət nə qədər pisdir?'
       },
       siege: {
-        '1': 'Sənə şəhərin üçdə birini təklif etdilər. Bilirəm. Mənə dörddə birini təklif etdilər.',
-        '2': 'Sindikat indi hər yolda səni ovlayır. Orada arxanı güdməyi unutma.',
-        say: 'Mühasirə haqqında…'
+        '1': 'Sənə şəhərin üçdə birini təklif etdilər, elə deyil? Mənə dörddə birini təklif etdilər.',
+        '2': 'Sindikat indi arxanca düşəcək. Yollarda arxanı güdək saxla.',
+        say: 'Mühasirə haqqında...'
       },
       town: {
-        '1': 'Ticarət şəhəri. Düzənliklə dağlar arasında hərəkət edən hər şey burada keçid haqqı ödəyir.',
-        '2': 'Hamının onu istəməsinin səbəbi budur. Mənim ondan əl çəkməməyimin də səbəbi budur.',
+        '1': 'Ticarət şəhəri. Düzənliklə dağlar arasında gedən hər şey burada rüsum ödəyir.',
+        '2': 'Hamı onu bu səbəbdən istəyir. Mən də bu səbəbdən əldən verməyəcəyəm.',
         say: 'Mənə Oakhavendən danış.'
       },
       order: {
-        '1': 'Mən Oakhavenə xidmət edirəm. Orden və mən günlərin çoxunda razılaşırıq. Bu eyni şey deyil.',
-        say: 'Dəmir Ordenə xidmət edirsiniz?'
+        '1': 'Mən Oakhavenə cavabdehəm. Orden və mən günlərin çoxunda razılaşırıq. Hər gün yox.',
+        say: 'Dəmir Ordenə tabesiniz?'
       },
       rumor: {
         crags: {
-          '1': 'Meşənin şimalında torpaq qara və yanır. Kül Qayalıqları. Təriqətçilər alovu bəsləyir.'
+          '1': 'Meşənin şimalında torpaq qara və yanır. Kül Qayalıqları. Əsasən təriqətçilər.'
         },
         mines: {
-          '1': 'Ironhold polad göndərməyi dayandırıb. Mədənlərində nəsə səhvdir.'
+          '1': 'Ironhold polad göndərməyi dayandırıb. Mədənlərində nəsə düz deyil.'
         },
         north: {
-          '1': 'Uzaq şimal səssizləşib. Təcrübəmə görə səssizlik daha pisdir.'
+          '1': 'Uzaq şimal səssizləşib. Təcrübəmə görə, bu heç vaxt yaxşı deyil.'
         }
       },
       bye: {
-        '1': 'Qılıncını boş tut.'
+        '1': 'Qılıncını yaxın tut.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Dəbilqə istəyirsənsə gecikmisən. Hamısı divardadır.',
-        '2': 'Odo. Zirehçi. Yorğun.'
+        '1': 'Dəbilqə axtarırsansa, bağışla. Hamısı divardadır.',
+        '2': 'Odo. Zireh düzəldirəm. Son vaxtlar çox yatmamışam.'
       },
       again: {
-        '1': 'Hələ buradayam. Hələ ehtiyat azdır.'
+        '1': 'Hələ buradayam. Hələ demək olar ki, hər şeyin çatışmazlığı var.'
       },
       trade: {
-        '1': 'Mallarımın yarısı divarlara çıxdı. Qalanını götür.'
+        '1': 'Mallarımın yarısı divara getdi. Qalanını apar, əgər uyğun gəlsə.'
       },
       who: {
-        '1': 'İyirmi ildir bu şəhəri zirehləndirirəm. Hamısının eyni anda geyinildiyini görəcəyimi heç düşünməzdim.'
+        '1': 'İyirmi ildir bu şəhərə zireh geyindirirəm. Hamısının eyni vaxtda geyildiyini heç görməmişdim.'
       },
       armor: {
-        '1': 'Yerində dayanırsansa lövhə. Dayanmırsansa dəri. Ölməyi sevirsənsə xalat.',
-        say: 'Hansı zirehi geyinməliyəm?'
+        '1': 'Yerində durursansa, lövhə. Hərəkətdəsənsə, dəri. Çevik isən, xalat.',
+        say: 'Hansı növ zireh geyinməliyəm?'
       },
       rumor: {
         backRoom: {
-          '1': 'Mühasirə qırılsa arxa otağı açıram. Yaxşı lövhələr. Mənim üçün qır, olar?'
+          '1': 'Mühasirə qırılsa, arxa otağı açacağam. Yaxşı lövhə oradadır.'
         }
       },
       shopBack: {
-        '1': 'Davam gətirər. Ola bilsin.'
+        '1': 'Dözər. İndiyə qədər dözüb.'
       },
       bye: {
-        '1': 'Başını aşağı saxla.'
+        '1': 'Çöldə başını aşağı tut.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Sən! Gir içəri. Arxa otaq açıqdır, həm də SƏNİN üçün açıqdır.',
-        '2': 'İndi mənə Usta Odo deyirlər. Şəhər canlı olanda iş yaxşı gedir.'
+        '1': 'Budur, gəldin! Gir içəri. Arxa otaq açıqdır, həm də sənin üçün açıqdır.',
+        '2': 'İndi mənə Usta Odo deyirlər. Bir az sülhün işə nələr etdiyi gülməlidir.'
       },
       ending: {
-        '1': 'Qapımdan Dəhşət Qəsrinə qədər. Hamıya deyirəm ki, zirehini mən ölçmüşəm.'
+        '1': 'Darvazamızdan Dəhşət Qəsrinə qədər. Hamıya zirehini mənim geyindirdiyimi danışıram.'
       },
       again: {
-        '1': 'Qapının qəhrəmanı. Bu gün nə olsun?'
+        '1': 'Səni görmək xoşdur. Bu gün nə olsun?'
       },
       trade: {
-        '1': 'Bu şəhəri xilas etdin. Yaxşı lövhələr sənin üçün arxa otaqdan çıxır.'
+        '1': 'Yaxşı lövhə çölə çıxıb. Baxmağa kifayət qədər layiqsən.'
       },
       town: {
-        '1': 'Varlı. Səs-küylü. Keçid haqqından şikayət edən taciclərlə dolu.',
-        '2': 'Əladır. Bir həftədir yatmamışam.',
-        say: 'Şəhər necədir?'
+        '1': 'Hərəkətli. Küylü. Rüsumdan şikayətlənən tacirlərlə dolu.',
+        '2': 'Möhtəşəmdir. Həftələrdir bir saat da sakit keçirməmişəm.',
+        say: 'Şəhər necə gedir?'
       },
       rumor: {
         mines: {
-          '1': 'Poladım Ironholddan gəlir, Ironhold isə susub. Kimsə mədənlərinə baxmalıdır.'
+          '1': 'Poladım Ironholddan gəlir, onlar da susub. Kimsə mədənlərinə baxmalıdır.'
         },
         tundra: {
-          '1': 'Gördüyüm ən yaxşı filiz tundradan gəldi. Gətirənlər heç geri qayıtmadı.'
+          '1': 'İşlədiyim ən yaxşı filiz tundradan çıxıb. Onu tapanlar geri qayıtmadı.'
         }
       },
       shopBack: {
-        '1': 'Olmasa geri gəl. Mən onu uyğun edərəm.'
+        '1': 'Uyğun gəlməsə, geri gətir. Düzəldərəm.'
       },
       bye: {
-        '1': 'Oakhavenin qapısı sənə həmişə açıqdır. Yalnız sənə.'
+        '1': 'Burada həmişə xoş gəlmisən.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Alırsan, yoxsa baxırsan? Baxmaq pulsuzdur. Toxunmaq bir barmağa başa gəlir.',
-        '2': 'Senna. Kəskin tiyələr satıram. Nə üçün olduğunu soruşmuram.'
+        '1': 'Baxırsan, yoxsa alırsan? İkisi də olar. Sadəcə tiyələrə toxunma.',
+        '2': 'Senna. Tiyə satıram. Onlarla nə etməyin sənin işindir.'
       },
       saved: {
-        '1': 'Mühasirə qırıldı. Təəssüf. Müharibə biznes üçün yaxşıdır. Sülh borc yığmaq üçün.'
+        '1': 'Deməli mühasirə qırıldı. Şəhər üçün yaxşıdır. Amma müharibə mənim işimə daha yaxşı idi, düzü.'
       },
       again: {
         '1': 'Daha kəskin bir şey üçün qayıtdın?'
       },
       trade: {
-        '1': 'Kəskin, balanslı və ödəyənə satılır. Bu gün ödəyən sənsən.'
+        '1': 'Itiki, tarazlı, münasib qiymətli. Tələsmə.'
       },
       who: {
-        '1': 'Üç müharibədə hər iki tərəfə qılınc satmışam. Hələ buradayam. Onlar isə əsasən yox.'
+        '1': 'Üç müharibədə hər iki tərəfə satmışam. Mən hələ buradayam. Onların çoxu yoxdur.'
       },
       rumor: {
         krag: {
-          '1': 'Kragın adamları yaxşı polad daşıyır. Sindikat pulu. Əlindən gəlirsə onlardan al.'
+          '1': 'Kragın adamları yaxşı polad daşıyır. Sindikat pulu. Fürsət olsa, götürməyə dəyər.'
         },
         which: {
-          '1': 'Sürətli tiyələr Çeviklik istəyir. Tüfənglər və oxlar Məharət. Mənə ödəməzdən əvvəl hansı olduğunu bil.'
+          '1': 'Sürətli tiyələr Çeviklik istəyir. Yaylar və silahlar Məharət. Hansı olduğunu bil.'
         }
       },
       shopBack: {
-        '1': 'Qan silinir. Pas silinmir. Yağla.'
+        '1': 'Yağlı saxla. Pas yaxşı tiyəni sümükdən tez korlayır.'
       },
       bye: {
-        '1': 'Mənə borclu ikən ölmə.'
+        '1': 'Mənə borclu ikən ölməməyə çalış.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Dönüb baxma. Zarafat edirəm. Dön.',
-        '2': 'Mənə Pıçıltı deyirlər. İnsanlara hiss olunmadan çatmağı öyrədirəm.'
+        '1': 'Arxandan gəldiyimi eşitmədin. Əksər adamlar eşitmir.',
+        '2': 'Mənə Pıçıltı deyirlər. İnsanlara görünməməyi öyrədirəm.'
       },
       fallen: {
-        '1': 'Şəhər indi daha sakitdir. Daha az gözətçi. Xoşuma gəlir.'
+        '1': 'Şəhər indi daha sakitdir. Daha az keşikçi. Bəzilərimiz üçün daha asan iş.'
       },
       friend: {
-        '1': 'Sindikat səni dost sayır. Dostlar az ödəyir. Dostlar həm də həddindən çox bilir.'
+        '1': 'Sindikat səni dost sayır. Dostlar daha az ödəyir. Bunu xatırla.'
       },
       foe: {
-        '1': 'Sindikat səni ölü istəyir. Mənə öyrətmək üçün ödəniblər, öldürmək üçün yox. Şanslısan.'
+        '1': 'Sindikat ölməyini istəyir. Mənə öyrətmək üçün ödədilər, öldürmək üçün yox. Deməli, dərslər.'
       },
       again: {
-        '1': 'Keçən dəfədən səsli gəlirsən. Bunun üzərində işləyəcəyik.'
+        '1': 'Hələ də çox küylüsən. Bunun üzərində işləyəcəyik.'
       },
       train: {
         '1': 'Onda sakitcə. Əllərimə yox, ayaqlarıma bax.'
       },
       class: {
-        '1': 'Artıq arxanda olan bıçaq. Qaranlıqdan çıx, vur və yoxa çıx.',
-        '2': 'Hər şeydən əvvəl Çeviklik. Kəsik sayılmalı olanda Məharət.',
+        '1': 'Artıq arxanda olan biri. İçəri, bir kəsik, və yoxa çıxmaq.',
+        '2': 'Ən vacibi Çeviklikdir. Kəsiyin sayılmasını istəyirsənsə, Məharət.',
         say: 'Kölgə Tiyəsi nədir?'
       },
       ready: {
         strong: {
-          '1': 'Yaxşı hərəkət edirsən. Bildiklərimi götür. Tüstü üçün Məharət gətir.'
+          '1': 'İndi yaxşı hərəkət edirsən. Qalanını götür. Tüstü üçün bir az Məharət gətir.'
         },
         able: {
-          '1': 'Yaxşı. Əllərin növbəti addım üçün kifayət qədər cəlddir.'
+          '1': 'Əllərin kifayət qədər sürətlidir. Növbəti addım.'
         },
         weak: {
-          '1': 'Araba kimi yeriyirsən. Daha çox Çeviklik. Sonra danışarıq.'
+          '1': 'Hələ yox. Ayaqların ağırdır. Çevikliyin üzərində işlə.'
         }
       },
       syndicate: {
-        '1': 'Qanunların satılıq olduğunu fərq etmiş insanlar. Mən mühakimə etmirəm. Hesab göndərirəm.',
+        '1': 'Qanunun da qiyməti olduğunu görmüş adamlar. Mühakimə etmirəm. Sadəcə pulumu alıram.',
         say: 'Kül Sindikatı kimdir?'
       },
       trainBack: {
-        '1': 'İndi get və bunu heç kimin görmədiyi yerdə et.'
+        '1': 'İndi heç kimin görə bilməyəcəyi yerdə məşq et.'
       },
       bye: {
         '1': 'Sən məni heç görmədin.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Yaxınlaşa bilərsən. O qədər yaxın yox.',
-        '2': 'Lord Castellan, Oakhavenin qədim qanından. Mən komandanlıq etməyi öyrədirəm.'
+        '1': 'Yaxınlaşa bilərsən. Bu qədər kifayətdir.',
+        '2': 'Lord Castellan, Oakhavenin ən qədim ailəsindən. Komandanlığı öyrədirəm.'
       },
       saved: {
-        '1': 'Şəhərim ayaqdadır, ailəmin adı da onunla. Lordun minnətdarlığını qazandın. Çox dəyərlidir.'
+        '1': 'Şəhərim ayaqdadır, ailəmin adı da onunla. Təşəkkürüm. Həqiqətən.'
       },
       friend: {
-        '1': 'Ordenin dostu. Haqqımı azaldacağam. Heç kimə demə.'
+        '1': 'Ordenin dostu. Haqqımı endirəcəyəm. Xahiş edirəm bunu yaymayın.'
       },
       foe: {
-        '1': 'Orden adını elan edib. Yenə də öyrədəcəyəm. Pul puldur, təəssüf ki.'
+        '1': 'Orden adını bir siyahıya yazıb. Yenə də sənə öyrədəcəyəm. Pul puldur.'
       },
       again: {
-        '1': 'Ah. Ən ümidverici təbəəm.'
+        '1': 'Ah, yenə sən. Davam edək?'
       },
       train: {
-        '1': 'Yaxşı. Əmrin necə verildiyinə bax.'
+        '1': 'Yaxşı. Əmrin necə verildiyini və necə yerinə yetirildiyini izlə.'
       },
       class: {
-        '1': 'Başqaları sənin yerinə döyüşə bilərkən niyə tək döyüşəsən? Mühafizəçiləri çağır. Onlara komandanlıq et.',
-        '2': 'Xarizma tələb edir. Mırıldanmaqla kimsə rəhbərlik edə bilməz.',
+        '1': 'Tək döyüşməyən biri. Keşikçiləri çağırırsan, onlar sənin üçün döyüşür.',
+        '2': 'Xarizma tələb edir. Heç kim səsini eşitmədiyi lideri izləmir.',
         say: 'Ali Hökmdar nədir?'
       },
       ready: {
         strong: {
-          '1': 'Duruşun var. Dərslərimin qalanını götür və dik dur.'
+          '1': 'İndi həqiqi görkəmin var. Dərslərimin qalanını götür.'
         },
         able: {
           '1': 'Səsin uzağa gedir. Növbəti dərsə hazırsan.'
         },
         weak: {
-          '1': 'Səni heç kim çörək sexinə qədər də izləməz. Daha çox Xarizma.'
+          '1': 'Qorxuram ki, hələ heç kim səni izləməz. Xarizmanın üzərində işlə.'
         }
       },
       family: {
-        '1': 'Kapitan Halenin üzərində dayandığı divarları biz tikdik. O unudur. Mən xatırladıram. Tez-tez.',
+        '1': 'Kapitan Halenin üstündə durduğu divarları biz tikmişik. O unudur. Mən xatırladıram.',
         say: 'Mənə ailəndən danış.'
       },
       trainBack: {
-        '1': 'İndi get və sözünü keçir.'
+        '1': 'Onda get. Kiməsə rəhbərlik et.'
       },
       bye: {
-        '1': 'Getməyə icazə var.'
+        '1': 'Günün xeyir.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Növbəti! Ah. Yeriyə bilirsən. Xoş dəyişiklikdir.',
+        '1': 'Növbəti! Ah, sən yeriyirsən. Bu, xoş dəyişiklikdir.',
         '2': 'Qardaş Fenn. Divarda qırx yaralı, mən isə təkəm.'
       },
       saved: {
-        '1': 'Üç gündür yeni yaralı yoxdur! Əllərimlə nə edəcəyimi bilmirəm.'
+        '1': 'Üç gündür yeni yaralı yoxdur. Özümlə nə edəcəyimi bilmirəm.'
       },
       again: {
-        '1': 'Yenə sən, hələ də yeriyirsən. Təsdiq edirəm.'
+        '1': 'Yenə sən, özü də öz ayaqlarınla. Yaxşı.'
       },
       heal: {
-        '1': 'Uzan. Yox, təmiz çarpayıda. Beləcə. Bütün kolbalar dolu. Get.'
+        '1': 'Bura uzan, təmiz çarpayıya. Budur. Kolbalar dolu, get.'
       },
       mana: {
-        '1': 'Mana dəmləməsi! Sikkə dadı verir. Amma işləyir.'
+        '1': 'Mana şirəsi. Dadı köhnə sikkə kimidir, amma işləyir.'
       },
       potions: {
-        '1': 'Daha uzun kəmər daha çox kolba tutur. Kəmərləri satıram. Kolbaları pulsuz doldururam.',
+        '1': 'Daha uzun kəmərlə, bəli. Onları mən satıram. Kolbaları doldurmaq pulsuzdur.',
         say: 'Daha çox iksir apara bilərəm?'
       },
       rumor: {
         archers: {
-          '1': 'Kragın oxçuları ayaqlara nişan alır. Orada hərəkətdə qal, səhv edərlər.'
+          '1': 'Kragın oxatanları aşağı nişan alır. Hərəkət et, çoxu qaçıracaq.'
         },
         north: {
-          '1': 'Yanıqlar, donmalar və heykəlin onu dişlədiyinə and içən bir kişi. Şimal mehriban deyil.'
+          '1': 'Yanıqlar, donma görürəm və heykəlin onu dişlədiyinə and içən bir kişi.'
         }
       },
       healBack: {
-        '1': 'Get indi. Növbəti dəfə tikiş üçün yox, söhbət üçün gəl.'
+        '1': 'Get. Növbəti dəfə tikiş üçün yox, söhbət üçün gəl.'
       },
       bye: {
-        '1': 'Gəzib ağrını çıxart! Bu tibbi məsləhətdir.'
+        '1': 'Özünə yaxşı bax. Bir şey də ye.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Ad yoxdur. Amma qapını açan sənsən. Onu tanıyıram.',
-        '2': 'Mənə Alverçi de. Buradakı hər şey arabadan düşüb.'
+        '1': 'Burada ad yoxdur. Amma darvazanı kimin açdığını bilirəm. Hamı bilir.',
+        '2': 'Mənə Alverçi deyə bilərsən. Buradakı hər şey bir yerdən gəlib.'
       },
       foe: {
-        '1': 'Sindikat bu gün səni sevmir. Qızılını hələ də sevir.'
+        '1': 'Sindikat hazırda səndən xoşlanmır. Amma qızılın həmişə xoş gəlmişdir.'
       },
       again: {
-        '1': 'Ah. Ən yaxşı müştərim. Səni heç kim izləmədi? Yaxşı.'
+        '1': 'Yenə gəldin. Heç kim səni izləmədi, ümid edirəm?'
       },
       trade: {
-        '1': 'Ad yoxdur, sual yoxdur. Sindikat payını alır, sən malı alırsan.'
+        '1': 'Hər iki tərəfdən sual yoxdur. Sindikat payını götürür, sən malı götürürsən.'
       },
       who: {
-        '1': 'Yanğından əvvəl şam satırdım. Qanuni yolla. Dəhşətli idi.'
+        '1': 'Yanğından əvvəl şam satırdım. Dürüst iş. Qazandırmadı.'
       },
       armor: {
-        '1': 'Zirehçilər getdi, dost. Yanıb kül oldular. Sən bilirsən.',
+        '1': 'Zirehçilər getdi, dostum. Səbəbini məndən yaxşı bilirsən.',
         say: 'Satılan zireh var?'
       },
       rumor: {
         citadel: {
-          '1': 'Keçən il uzaq şimalda qala peyda oldu. Heç kim tikməyib. Divarları uğuldayır.'
+          '1': 'Keçən il uzaq şimalda bir qala peyda oldu. Onu heç kim tikməyib.'
         },
         crystals: {
-          '1': 'Kimsə bazardakı hər heçlik kristalını alır. Biz yox. Bu məni narahat edir.'
+          '1': 'Kimsə tapa bildiyi hər heçlik kristalını alır. Biz yox. Bu məni narahat edir.'
         }
       },
       shopBack: {
         '1': 'Sən heç burada olmamısan.'
       },
       bye: {
-        '1': 'Xarabalığa diqqət et.'
+        '1': 'Addımına fikir ver. Dağıntı sürüşür.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Qonaq. Banklara diqqət et.',
-        '2': 'Doktor Sangrel. Oakhavenin yeni sahibləri nə öyrətdiyimi soruşmur. Təravətləndiricidir.'
+        '1': 'Qonaq. Xahiş edirəm bankalara toxunma.',
+        '2': 'Doktor Sangrel. Oakhavenin yeni sahibləri nə öyrətdiyimi soruşmur. Rahatlıq verir.'
       },
       found: {
-        '1': 'Məni tapdın. Belə yerdə həkim axtaran azdır.',
-        '2': 'Doktor Sangrel. Şəhərlər mənim kimiləri yandırır, ona görə şəhərin olmadığı yerdə işləyirəm.'
+        '1': 'Məni tapdın. Belə yerdə həkim axtaran az olur.',
+        '2': 'Doktor Sangrel. Şəhərlər mənim kimiləri yandırır, mən də şəhər olmayan yerdə işləyirəm.'
       },
       friend: {
-        '1': 'Sindikat sənə zəmanət verir. Dostları üçün haqqım aşağıdır. Standartlarım yox.'
+        '1': 'Sindikat sənin adından danışır. Dostlarından daha az alıram. Meyarlarım eyni qalır.'
       },
       foe: {
-        '1': 'Sindikat qanın üçün mənə pul ödəyərdi. Onu dərslərimə xərcləməyini üstün tuturam.'
+        '1': 'Sindikat qanına yaxşı pul verərdi. Mən onu burada xərcləməyini üstün tuturam.'
       },
       again: {
-        '1': 'Rəngin solğundur. Yaxşı. İşə yaraşır.'
+        '1': 'Solğun görünürsən. Yaxşı. İşə yaraşır.'
       },
       train: {
-        '1': 'Qolunu çırmala. Ağrıyacaq. Məqsəd də budur.'
+        '1': 'Qolunu çırmala. Ağrıyacaq. Məsələ də elə budur.'
       },
       class: {
-        '1': 'Gücün haqqını öz sağlamlığınla ödəyirsən. Sonra onu düşməndən geri içirsən.',
-        '2': 'Dözüm kisənəndir. Zəka onu nə qədər yaxşı xərclədiyini müəyyən edir.',
+        '1': 'Gücün haqqını öz sağlamlığınla ödəyirsən, sonra onu düşmənlərindən geri alırsan.',
+        '2': 'Dözüm xərclədiyindir. Zəka isə nə qədər yaxşı xərclədiyindir.',
         say: 'Qan Kimyagəri nədir?'
       },
       ready: {
@@ -1953,247 +1953,247 @@ export default {
           '1': 'Heyrətamiz bünyə. Demək olar hamısını öyrənə bilərsən.'
         },
         able: {
-          '1': 'Qanın növbəti dərs üçün kifayət qədər güclüdür.'
+          '1': 'Növbəti dərs üçün kifayət qədər möhkəmsən.'
         },
         weak: {
-          '1': 'İlk kəsikdə huşunu itirərsən. Daha çox Dözüm, xahiş edirəm.'
+          '1': 'İlk kəsikdə huşunu itirərsən. Əvvəlcə Dözümünü artır, xahiş edirəm.'
         }
       },
       jars: {
-        '1': 'Könüllülər. Əsasən.',
-        say: 'Banklarda nə var?'
+        '1': 'Nümunələr. Əksəriyyəti könüllü verilib.',
+        say: 'Bankaların içində nə var?'
       },
       trainBack: {
-        '1': 'Qeydlər aparmağı unutma. Elm üçün.'
+        '1': 'Qeyd apar. Necə getdiyini eşitmək istərdim.'
       },
       bye: {
-        '1': 'Sağlam qal. Yoxsa mənə heç bir faydan yoxdur.'
+        '1': 'Sağlam qal. Ciddi deyirəm.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Deməli qapını açan sənsən. Otur. Kürsüyə layiq oldun.',
-        '2': 'Mənə Madam Ash deyirlər. Oakhaven indi mənimdir. Qismən səninkidir də.'
+        '1': 'Deməli, darvazanı açan sənsən. Otur. Kürsünü qazanmısan.',
+        '2': 'Mənə Madam Ash deyirlər. Oakhaven indi bizimdir. Qismən sənin sayəndə.'
       },
       throneOurs: {
-        '1': 'Dəhşət Qəsrinin taxtı. Bizimdir. Sən etdiyim ən yaxşı sərmayəsən.'
+        '1': 'Dəhşət Qəsri bizim əlimizdə. Hər sikkəyə dəydin.'
       },
       throneLost: {
         '1': 'Taxtı başqasına verdin. Bunu danışacağıq. Bu gün yox.'
       },
       foe: {
-        '1': 'Bizə mane olurdun. Yenə də otur. Problemi həll etməzdən əvvəl ona baxmağı xoşlayıram.'
+        '1': 'Bizə qarşı işləmisən. Yenə də otur. Kimlə iş gördüyümü bilməyi xoşlayıram.'
       },
       again: {
-        '1': 'Ən sevdiyim xain. Sindikat sənin üçün nə edə bilər?'
+        '1': 'Yenə gəldin. Sindikat sənin üçün nə edə bilər?'
       },
       cut: {
-        '1': 'Bir xarabalığın üçdə biri, əzizim. Bu da bu mövsümün payı.',
-        '2': 'Böyüyəcək. Yeganə bazarına sahibsənsə xarabalıq çox gəlirlidir.',
-        say: 'Mənə Oakhavenin üçdə birini söz vermişdin.'
+        '1': 'Və alacaqsan. Hələlik xarabanın payı. Budur, bu mövsümünkü.',
+        '2': 'Böyüyəcək. Yeganə bazarına sahibsənsə, xaraba çox qazandırır.',
+        say: 'Mənə Oakhavendən pay vəd edilmişdi.'
       },
       syndicate: {
         '1': 'Hamının istədiyini. Biz sadəcə əksini iddia etmirik.',
-        '2': 'Dostumuz qal, Pıçıltı və Doktor səndən az alır. Sədaqətin də qiymət siyahısı var.',
-        say: 'Sindikat nə istəyir?'
+        '2': 'Dost qal, Pıçıltı və Doktor səndən daha az alacaq.',
+        say: 'Sindikat əslində nə istəyir?'
       },
       order: {
-        '1': 'Əlbəttə. Onların bir şəhərini yandırdın. Özünlə daha çox iksir götür.',
-        say: 'Dəmir Orden məni ovlayır.'
+        '1': 'Əlbəttə. Onların bir şəhərini yandırdın. Əlavə iksir daşı.',
+        say: 'Dəmir Orden arxamca düşüb.'
       },
       rumor: {
         core: {
-          '1': 'Cırtdanlar mədənlərində nəsə tapıblar. Nüvə. Onu istəyirəm. Bizə gətir və rəqəm de.'
+          '1': 'Cırtdanlar mədənlərində nəsə tapıblar. Nüvə. Bizə gətir və qiymətini de.'
         },
         sold: {
-          '1': 'Nüvə salamat çatdı. Onun qıfıla nə etdiyini görməlisən.'
+          '1': 'Nüvə sağ-salamat çatdı. Onun bir qıfıla nə etdiyinə təəccüblənəcəksən.'
         },
         north: {
-          '1': 'Oğurlamağa dəyən hər şey şimala köçüb. Biz də.'
+          '1': 'Sahib olmağa dəyən hər şey şimala köçüb. Biz də.'
         }
       },
       bye: {
-        '1': 'Yad olma. Yadlar izlənir.'
+        '1': 'Yad olma. Yadlara göz qoyuruq.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Mədənlərdən keçib gəlmisən. Üstündəki tozun iyini hiss edirəm.',
-        '2': 'Dorn. Ironholdun kürə ustası. Dağ boyda dərdim var.'
+        '1': 'Mədənlərdən gəlmisən. Üstündəki tozun iyini hiss edirəm.',
+        '2': 'Dorn. Ironholdun Kürə Ustası. Və dağ boyda bir problemim var.'
       },
       destroyed: {
         '1': 'İşıq söndü, qolemlər dəmir-dümürdür. Mədənçilərim dünən gecə mahnı oxudu. Bir ildə ilk dəfə.'
       },
       studied: {
-        '1': 'Kürələrimdə mavi alov, salonlarımda xalatlar. İş yaxşıdır. Xalatlara öyrəşərəm.'
+        '1': 'Kürələrimdə mavi alov, salonlarımda xalatlı alimlər. Heç olmasa iş yaxşıdır.'
       },
       sold: {
-        '1': 'Satdın. Qolemlər hələ yeriyir, mədənlərim hələ də məzardır. İşığımdan çəkil.'
+        '1': 'Satdın. Qolemlər hələ yeriyir, mədənlərim hələ qəbirdir. Məni rahat burax.'
       },
       ending: {
-        '1': 'Deməli taxt həll olundu. Yaxşı. İndi səltənət yenə dəmir üstündə mübahisəyə qayıda bilər.'
+        '1': 'Deməli, taxt həll olundu. Yaxşı. Bəlkə indi yenə qazmağa qayıdaq.'
       },
       again: {
-        '1': 'Danış. Kürə gözləmir.'
+        '1': 'Nə var? Kürə gözləməz.'
       },
       quest: {
-        '1': 'Dəmir üçün qazdıq, ürəyə rast gəldik. Efir nüvəsi. O aşağıda qaranlıqda döyünür.',
+        '1': 'Dəmir üçün qazdıq, ürək tapdıq. Efir nüvəsi. Döyüntüsünü hiss edə bilərsən.',
         '2': 'Bəs qolemlər?',
-        '3': 'Onun ritmi ilə yeriyirlər. Üç qüvvə onu istəyib mənə yazıb. Hamısı nəzakətli. Heç birinə etibar etmirəm.',
-        '4': 'Ona birinci sən çatacaqsan, Ironhold Mədənlərinin dibində. Sonra qərar sənindir.',
+        '3': 'Onun ritminə uyğun yeriyirlər. Üç qüvvə onu istəyən məktublar yazıb. Heç birinə etibar etmirəm.',
+        '4': 'Ora əvvəlcə sən çatacaqsan, Ironhold Mədənlərinin dibinə. Sonra nə olacağı səndən asılıdır.',
         say: 'Mədənlərdə nə baş verdi?'
       },
       core: {
-        say: 'Nüvə haqqında…',
+        say: 'Nüvə haqqında...',
         destroy: {
-          '1': 'Xalqımı xilas etmək üçün möcüzəni qırdın. Orden təşəkkür olaraq zirehçilər göndərdi. Mən isə pivə göndərdim.'
+          '1': 'Xalqımı xilas etmək üçün bir möcüzəni qırdın. Orden zirehçi göndərdi. Mən pivə göndərdim.'
         },
         study: {
-          '1': 'Dairənin ustaları dəlidir, amma tüfəngləri düz atır. Ədalətli sövdələşmə.'
+          '1': 'Dairənin adamları qəribədir, amma silahları düz atır. Bəs edər.'
         },
         sell: {
-          '1': 'Qızıl. Bunu qızıl üçün etdin. Ümid edirəm səni isti saxlayar.'
+          '1': 'Bunu qızıl üçün etdin. Ümid edirəm səni isti saxlayar.'
         }
       },
       town: {
-        '1': 'Mədənlər işləyəndə səltənətin ən yaxşı poladı.',
+        '1': 'Krallığın ən yaxşı poladı, mədənlər işləyəndə.',
         '2': 'Daşayaq torpağı öyrədir, Pim maşınları. İkisi də qulağını yeyər.',
         say: 'Mənə Ironholddan danış.'
       },
       rumor: {
         tundra: {
-          '1': 'Qayalıqların şərqində torpaq ağarır. Şaxta Tundrası. Divlər və yatmayan ölülər.'
+          '1': 'Qayalıqların şərqində torpaq ağarır. Şaxta Tundrası. Nəhənglər və daha pisi.'
         },
         citadel: {
-          '1': 'Kəşfiyyatçılarım şimalda keçən il orada olmayan qala gördü. Yeni dağları sevmirəm.'
+          '1': 'Kəşfiyyatçılarım şimalda keçən il olmayan bir qala gördü. Xoşuma gəlmir.'
         },
         fortress: {
-          '1': 'Dəhşət Qəsri hər şeyin bitdiyi yerdir. Şimala gedən hər yol onun qapısına çıxır.'
+          '1': 'Hər şey Dəhşət Qəsrində bitir. Şimala gedən hər yol ora çıxır.'
         }
       },
       bye: {
-        '1': 'Dəqiq vur.'
+        '1': 'Sağ ol.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Vitrindən əllər çəkilsin. Bunlar hər iki ucundan kəskindir.',
-        '2': 'Hilda Hammerhand. Cırtdan işi, hər parça.'
+        '1': 'Vitrinə ehtiyatlı ol. Bunlar hər iki tərəfdən itidir.',
+        '2': 'Hilda Hammerhand. Buradakı hər parça cırtdan əlindən çıxıb.'
       },
       dragon: {
-        '1': 'Əjdahanı öldürdün? MƏNİM düzəltdiyimlə? Yox? Mənə yalan danış. De ki, mənimki idi.'
+        '1': 'Əjdahanı öldürdün? Ümid edirəm mənim tiyələrimdən biri ilə.'
       },
       again: {
-        '1': 'Əsl polad üçün qayıtdın?'
+        '1': 'Həqiqi polad üçün qayıtdın?'
       },
       trade: {
-        '1': 'Cırtdan işi. Qırılsa günah səndədir.'
+        '1': 'Cırtdan işi. Bunlardan biri qırılsa, necə qırıldığını bilmək istəyirəm.'
       },
       who: {
-        '1': 'Anam krallar üçün döyürdü. Mən içəri kim girirsə onun üçün döyürəm. Zaman dəyişir.'
+        '1': 'Anam kralların üçün döyürdü. Mən qapıdan kim girsə, onun üçün döyürəm.'
       },
       rumor: {
         golems: {
-          '1': 'Mədənlərdəki qolemlər bizim öz dəmirimizdəndir. Açığı, utancvericidir.'
+          '1': 'Aşağıdakı qolemlər bizim öz dəmirimizdən düzəldilib. Ağrıdır, düzünü deyim.'
         },
         arm: {
-          '1': 'Tiyə işin yarısını görür. Qalanını Gücün görür. Tiyəni günahlandırma.'
+          '1': 'Yaxşı tiyə işin yarısını görür. Qalanını sənin Gücün görməlidir.'
         }
       },
       shopBack: {
-        '1': 'Kütləşmiş gətirsən istifadə etdiyini bilərəm.'
+        '1': 'Kütləşmiş gətirsən, yaxşı istifadə etdiyini başa düşərəm.'
       },
       bye: {
-        '1': 'Sərt vur onlara.'
+        '1': 'Güclə vur.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Ehtiyatlı ol! O doludur. Bu da. Əslində çoxu.',
-        '2': 'Sənətkar Voss. Dairə məni nüvənin bizə nə öyrədə biləcəyini görmək üçün göndərdi. Hər şeyi, belə çıxdı.'
+        '1': 'Ehtiyatlı ol, o doludur. Çoxu belədir, əslində.',
+        '2': 'Sənətkar Voss. Dairə məni nüvəni öyrənməyə göndərdi. O, bizə çox şey öyrətdi.'
       },
       again: {
-        '1': 'Ah əla, sınaqçı. Yəni müştəri.'
+        '1': 'Ah, yaxşı. Sən gedəndən bəri bir neçə dəyişiklik etmişəm.'
       },
       trade: {
-        '1': 'Dairənin nüvə tədqiqi hər şeyi dəyişdi. Bunu tut. Mənə tuşlama.'
+        '1': 'Buradakı hər şey nüvəni öyrənməkdən çıxıb. Təki mənə tuşlama.'
       },
       core: {
-        '1': 'O dəmir bir az düşünə bilir. Üzərində dayanmamağa çalışıram.',
+        '1': 'O metal bir az düşünə bilir. Bunun üzərində çox dayanmamağa çalışıram.',
         say: 'Nüvə sənə nə öyrətdi?'
       },
       rumor: {
         heat: {
-          '1': 'Tüfənglər Məharətlə işləyir və qızır. Əlini əritməzdən əvvəl Çarxçı Pimdən istilik barədə soruş.'
+          '1': 'Silahlar Məharətlə işləyir və qızır. Əlini yandırmamışdan əvvəl Pimdən istilik barədə soruş.'
         }
       },
       shopBack: {
-        '1': 'Hər partlayışı bildir! Qeydlər üçün.'
+        '1': 'Necə işlədiyini mənə bildir. Qeyd aparıram.'
       },
       bye: {
-        '1': 'Geri təpməyə diqqət!'
+        '1': 'Geri təpməyə fikir ver.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Zireh. Halqalar nimçədədir.'
+        '1': 'Garrun. Zirehlər rəfdə, üzüklər sinidə.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Qayıtdın. Nə lazımdır?'
       },
       trade: {
-        '1': 'Divin dəyənəyini dönmüş lövhə. Qalanınız üçün halqalar.'
+        '1': 'Bu lövhə nəhəngin dəyənəyini saxlayar. Bir bax.'
       },
       quiet: {
-        '1': 'Yox.',
-        say: 'Çox danışmırsan.'
+        '1': 'Deməyə dəyər çox şey yoxdur.',
+        say: 'Çox danışmırsan, elə deyil?'
       },
       rumor: {
         giants: {
-          '1': 'Tundrada divlər. Ağac gövdəsi kimi dəyənəklər. Ağır lövhə al.'
+          '1': 'Tundrada nəhənglər var. Ağac gövdəsi kimi dəyənəklər. Mən ağır lövhəni götürərdim.'
         },
         demons: {
-          '1': 'Şimalda iblislər. Od və caynaq. Ağır lövhə al.'
+          '1': 'Şimalda iblislər var. Atəş və caynaq. Mən ağır lövhəni götürərdim.'
         }
       },
       shopBack: {
-        '1': 'Yaxşı.'
+        '1': 'Yaxşı seçim.'
       },
       bye: {
-        '1': 'Hə.'
+        '1': 'Özünə fikir ver.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Ad və iş. Yox. Adını bilirəm. Nüvəni sən məhv etdin.',
-        '2': 'Dəmir Ordenin təchizatçısı. Silah anbarları sənə açıqdır.'
+        '1': 'Nüvəni məhv edən sənsən. Orden bunu xatırlayır.',
+        '2': 'Mən buradakı Orden təchizatçısıyam. Arsenallarımız sənə açıqdır.'
       },
       throneOurs: {
-        '1': 'Orden Dəhşət Qəsrini sənin əlinlə tutur. Rahat dur. Bu əmrdir.'
+        '1': 'Sənin sayəndə Orden Dəhşət Qəsrinə sahibdir. Rahat ol. Bunu qazanmısan.'
       },
       foe: {
-        '1': 'Orden səni siyahıya salıb. Əmrim yenə də sənə satmaqdır. Xoşlamıram.'
+        '1': 'Orden səni siyahıya salıb. Əmrlərim yenə də sənə satmağı deyir. Əməl edəcəyəm.'
       },
       again: {
-        '1': 'Sorğu?'
+        '1': 'Nə lazımdır?'
       },
       trade: {
-        '1': 'Orden nüvəni kimin məhv etdiyini xatırlayır. Ehtiyacın olanı seç.'
+        '1': 'Lazım olanı götür. Orden öz adamlarına göz-qulaq olur.'
       },
       order: {
-        '1': 'Heç nə. Bu nadirdir. Dadını çıxar.',
+        '1': 'Hələlik heç nə. Bu tez-tez olmur. Dadını çıxar.',
         say: 'Orden məndən nə istəyir?'
       },
       rumor: {
         throne: {
-          '1': 'Orden Dəhşət Qəsrindəki taxtı istəyəcək. Kimin yanında durduğunu xatırlayacaq.'
+          '1': 'Orden Dəhşət Qəsrindəki taxtı istəyəcək. Kimin kömək etdiyini xatırlayacaq.'
         }
       },
       shopBack: {
-        '1': 'Bura imzala. Zarafat edirəm. Orden zarafat etmir. Dağılın.'
+        '1': 'Yaxşı bax. İçində qan tökənə qədər Ordenin malıdır.'
       },
       bye: {
-        '1': 'Dağılın.'
+        '1': 'Vəzifənə davam et.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'Mənə Qoca Daşayaq deyirlər. Torpağı dinləyirəm. Bəzən cavab verir.'
       },
       core: {
-        '1': 'Dağın ürək döyüntüsü dəyişdi. O sən idin. O, bunu hiss etdi.'
+        '1': 'Sən ora endiyindən bəri dağ fərqli hiss olunur. Daha sakit, ya da daha boş.'
       },
       dragon: {
-        '1': 'Dünən zirvənin üstündən əjdaha uçdu və bizi yandırmadı. Sənin işindir, eşitdim.'
+        '1': 'Dünən bir əjdaha zirvənin üstündən uçdu və bizi rahat buraxdı. Sənin işindir, deyirlər.'
       },
       again: {
-        '1': 'Yenə sən. Daşlar gələcəyini demişdi.'
+        '1': 'Budur, gəldin. Qayıdacağını düşünürdüm.'
       },
       train: {
-        '1': 'Ayaqlarını möhkəm bas. Hiss edirsən? Yox? Oradan başlayacağıq.'
+        '1': 'Ayaqlarını bas. Hiss etdin? Yox? Başlayacağımız yer elə odur.'
       },
       class: {
-        '1': 'Divarlar qaldırırıq, tikanlar çağırırıq, lazım olanda yeri yarırıq.',
-        '2': 'Daşı tərpətmək üçün Güc, ondan nəzakətlə xahiş etmək üçün Zəka.',
-        say: 'Geomant nədir?'
+        '1': 'Divarlar qaldırırıq, tikanlar çağırırıq, lazım olanda yeri parçalayırıq.',
+        '2': 'Daşı tərpətmək üçün Güc. Hara getmək istədiyini bilmək üçün Zəka.',
+        say: 'Geomant nə edir?'
       },
       ready: {
         strong: {
-          '1': 'Daş səni artıq tanıyır. Qalanını öyrən.'
+          '1': 'Daş artıq səni tanıyır. Qalanını hazır olanda öyrən.'
         },
         able: {
-          '1': 'Növbəti dərs üçün kifayət qədər ağırsan. Bu təriflədir.'
+          '1': 'Növbəti dərs üçün kifayət qədər möhkəmsən.'
         },
         weak: {
-          '1': 'Daş səni hələ eşitmir. Daha çox Güc.'
+          '1': 'Hələ yox. Daş sənin üçün tərpənməz. Gücünü artır.'
         }
       },
       factions: {
-        '1': 'Heç birinə. Ordenlər, sindikatlar, dairələr. Dağ hamısından uzun yaşayır.',
+        '1': 'Heç biri. Ordenlər və gildiyalar gəlib-gedir. Dağ qalır.',
         say: 'Hansı qrupa xidmət edirsən?'
       },
       trainBack: {
-        '1': 'Yumşaqlıqla get. Sonra yumşaqlıqsız.'
+        '1': 'Tələsmə. Torpaq səbirlidir.'
       },
       bye: {
         '1': 'Yüngül addımla get.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Ona toxunma! Buna da. Əslində xalçanın üstündə dur. Xalça təhlükəsizdir.',
-        '2': 'Çarxçı Pim! Tüfənglər, qüllələr, istilik ölçənlər. Əsasən istilik ölçənlər.'
+        '1': 'Ah, dayan, ona toxunma! Buna da. Xalçanın üstündə dur, xalça təhlükəsizdir.',
+        '2': 'Çarxçı Pim. Silahlar, qüllələr və çoxlu istilik göstəricisi düzəldirəm.'
       },
       core: {
-        '1': 'Nüvəni bizə verdin! Doqquz gündür yatmamışam. Əllərimə bax. Əllərimə baxma.'
+        '1': 'Nüvəni Dairəyə verdin! O gündən bəri çətinliklə yatmışam. Yaxşı mənada.'
       },
       oracle: {
-        '1': 'Dairə kahinə görə qəzəblidir. Mən sadəcə şeylər düzəldirəm. Xahiş edirəm sənə öyrətdiyimi onlara demə.'
+        '1': 'Dairə kahinə görə qəzəblidir. Mən sadəcə nəsə düzəldirəm. Qarışmamağı üstün tuturam.'
       },
       friend: {
-        '1': 'Dairənin dostu! Sənin üçün ucuz dərslər. Formanı özüm doldurdum.'
+        '1': 'Sən Dairənin dostusan, ona görə dərsin daha ucuzdur. Kağız işini mən həll etdim.'
       },
       foe: {
-        '1': 'Dairə deyir sənə öyrətməməliyəm. Dairə həm də deyir qapalı yerdə raket sınamayın.'
+        '1': 'Dairə sənə öyrətməməli olduğumu deyir. Yenə də öyrədəcəyəm. Onlara demə.'
       },
       again: {
-        '1': 'Ah əla, barmaqların hələ yerindədir.'
+        '1': 'Ah yaxşı, bütün barmaqların hələ yerindədir.'
       },
       train: {
-        '1': 'Yaxşı! Əvvəl təhlükəsizlik. Sonra səs-küylü hissə.'
+        '1': 'Yaxşı. Əvvəlcə təhlükəsizlik, sonra səs-küylü hissə.'
       },
       class: {
-        '1': 'Tüfənglər, qüllələr və istilik ölçən. At, qur və səni kilidləməzdən əvvəl istiliyi boşalt.',
-        '2': 'Hamısı Məharətlə işləyir. Böyük maşınlar üçün bir az Zəka.',
+        '1': 'Silahlar, qüllələr və istilik göstəricisi. Atəş aç, qur və kilidlənməmişdən əvvəl istiliyi boşalt.',
+        '2': 'Əsasən Məharət. Böyük maşınlar üçün bir az Zəka.',
         say: 'Efir Texniki nədir?'
       },
       ready: {
         strong: {
-          '1': 'Qülləni gözübağlı sökə bilərsən! Böyük maşınları götür.'
+          '1': 'İndi qüllənin ətrafında özünü bilirsən. Böyük maşınları götür.'
         },
         able: {
-          '1': 'Sabit əllər! Növbəti alətə hazırsan.'
+          '1': 'Sabit əllər. Növbətiyə hazırsan.'
         },
         weak: {
-          '1': 'Əllərin əsir. Mənimki də, amma başqa səbəblərə görə. Daha çox Məharət.'
+          '1': 'Nişanın hələ bir az əsir. Məharətə bir neçə xal ver.'
         }
       },
       heat: {
-        '1': 'Hər şey bir neçə saniyəliyə kilidlənir. Erkən boşalt. Tez-tez boşalt. Mənim çapıqlarım var.',
+        '1': 'Hər şey bir neçə saniyə kilidlənir. Erkən boşalt, tez-tez boşalt. Mənə inan.',
         say: 'Həddindən artıq qızsam nə olar?'
       },
       trainBack: {
-        '1': 'Yadda saxla: istiliyi boşalt! BOŞALT. İSTİLİYİ.'
+        '1': 'Və istilik səni boşaltmamışdan əvvəl onu boşaltmağı unutma.'
       },
       bye: {
-        '1': 'Partlama!'
+        '1': 'Çöldə ehtiyatlı ol!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Çəkmələri çıxar. Döşəməmdə dağ tozu istəmirəm.',
-        '2': 'Brynja Ana. Bu dağdakı hər sınıq sümüyü iki dəfə yerinə qoymuşam.'
+        '1': 'Ayaqqabıları qapıda çıxar, xahiş edirəm. Yenicə süpürmüşəm.',
+        '2': 'Brynja Ana. Bu dağdakı sınıq sümüklərin çoxunu mən yerinə qoymuşam.'
       },
       ending: {
-        '1': 'Dəhşət Qəsrinə getdin və piyada qayıtdın. Otur. Sənə baxmaq istəyirəm.'
+        '1': 'Dəhşət Qəsrinə getdin və qayıtdın. Otur. Sənə bir baxım.'
       },
       again: {
-        '1': 'Hələ sağsan. Mənə dedilər ki, bu mənim sayəmdədir.'
+        '1': 'Hələ də sağsan. Yaxşı. Otur.'
       },
       heal: {
-        '1': 'Otur. Bunu iç. Belə üz-gözünü turşutma. Kolbaların dolub.'
+        '1': 'Bunu iç və o üzü qırışdırma. Kolbaların doludur.'
       },
       mana: {
-        '1': 'Al. Dadı pisdir. Sehrin bitəndə iç, ondan əvvəl yox.'
+        '1': 'Al. Dadı dəhşətlidir. Sehrin qurtaranda iç, ondan əvvəl yox.'
       },
       potions: {
-        '1': 'Məndən daha uzun kəmər al. Beş kolba bədənin daşıyıb qaça biləcəyi ən çoxdur.',
+        '1': 'Sənə daha uzun kəmər sata bilərəm. Beş kolba kimsənin daşıyıb yenə də qaça biləcəyi ən çoxdur.',
         say: 'Daha çox iksir apara bilərəm?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra barmaqları alır. Orada hərəkətdə qal və qarda yatma.'
+          '1': 'Tundra barmaqları alır. Hərəkətdə qal və qarda yatma.'
         },
         temple: {
-          '1': 'Tundranın o tayında batmış məbəd var. Naqalar əsir götürmür.'
+          '1': 'Tundranın o tayında batmış məbəd var. Oradakı naqalar əsir götürmür.'
         },
         rift: {
-          '1': 'Heçlik Yarığında nə varsa, tikilə bilməz. Tez bitir.'
+          '1': 'O yarıqda nə varsa, tikə bilmərəm. Ona sənə çatmağa icazə vermə.'
         }
       },
       healBack: {
-        '1': 'Get indi. Bir şey də ye.'
+        '1': 'Get. Bir şey də ye, çox arıqsan.'
       },
       bye: {
         '1': 'Bütöv qayıt.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Sən. Qapımı sən açdın.',
-        '2': 'İndi cırtdanın zirzəmisindən dərs verirəm, çünki yemək yeməliyəm. Bunu bağışlanma sanma.'
+        '1': 'Sən. Darvazamı açan sənsən.',
+        '2': 'İndi zirzəmidə dərs verirəm, çünki yemək lazımdır. Bunu bağışlama sanma.'
       },
       ending: {
-        '1': 'Taxt həll olundu, Oakhaven isə hələ küldür. Bunun niyə dəyərli olduğunu mənə bir daha izah et.'
+        '1': 'Deməli, taxt həll olundu, Oakhaven isə hələ küldür. Ümid edirəm buna dəydi.'
       },
       again: {
-        '1': 'Xain qayıtdı. Haqqım azalmayıb.'
+        '1': 'Qayıtdın. Haqqım dəyişməyib.'
       },
       train: {
-        '1': 'Sənə komandanlıq etməyi öyrədəcəyəm. Buna layiq olmağı öyrədə bilmərəm.'
+        '1': 'Sənə komandanlığı öyrədəcəyəm. Buna layiq olub-olmadığın başqa məsələdir.'
       },
       class: {
-        '1': 'Ardınca gedilən biri. Mühafizəçilər çağırışa cavab verir və sözünlə döyüşür.',
-        '2': 'Xarizma ilə işləyir. Səndə bir az var. Faciə də elə budur.',
+        '1': 'Başqalarının izlədiyi biri. Çağıranda keşikçilər gəlir və sözünlə döyüşür.',
+        '2': 'Xarizma ilə işləyir. Səndə var. Bağışlamağı çətinləşdirən də budur.',
         say: 'Ali Hökmdar nədir?'
       },
       ready: {
         strong: {
-          '1': 'Hamısı üçün duruşun var. Səltənət bunun üzündən daha yoxsuldur.'
+          '1': 'Hamısı üçün görkəmin var. Kaş ondan daha yaxşı istifadə edəydin.'
         },
         able: {
-          '1': 'Növbəti dərsə hazırsan. Bundan zövq almıram.'
+          '1': 'Növbəti dərsə hazırsan. Sevinirmiş kimi davranmayacağam.'
         },
         weak: {
-          '1': 'Xainin mühafizəçisi belə bu səsin ardınca getməz. Daha çox Xarizma.'
+          '1': 'Hələ heç kim səni izləməz. Xarizmanın üzərində işlə.'
         }
       },
       oakhaven: {
         '1': 'Üç yüz il. Ailəm o divarları tikdi.',
-        '2': 'İzah etmə. Bunu izah edəcək qiymət yoxdur.',
-        say: 'Oakhaven haqqında…'
+        '2': 'Xahiş edirəm izah etmə. Deyəcəyin heç nə bunu düzəltməz.',
+        say: 'Oakhaven haqqında...'
       },
       trainBack: {
-        '1': 'Get. Başqasına komandanlıq et.'
+        '1': 'Get. Başqası üzərində məşq et.'
       },
       bye: {
-        '1': 'Məni burax.'
+        '1': 'Məni tək burax, xahiş edirəm.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Onu öldürdün. Bunu baş verməmişdən əvvəl min dəfə görmüşdüm, yenə də ağrıyır.',
+        '1': 'Onu öldürdün. Bunun gəldiyini illərdir görürdüm, yenə də ağrıdır.',
         '2': 'Mən Saatların Keşikçisiyəm. Sənə öyrədəcəyəm. O mənə öyrədəcəyimi demişdi.'
       },
       hello: {
-        '1': 'Gecikmisən. Ya da tezsən. Bunu sənə artıq demişdim, deyəsən.',
-        '2': 'Mən Saatların Keşikçisiyəm. Zamanı toxumağı öyrədirəm. Bir an əvvəl başladıq.'
+        '1': 'Budur, gəldin. Səni bir müddətdir gözləyirdim. Ya da gözləmiş olacağam.',
+        '2': 'Mən Saatların Keşikçisiyəm. Zamanı bir az bükməyi öyrədirəm.'
       },
       freed: {
-        '1': 'O azaddır. İlk dəfə sənin növbəti sözünü bilmirəm. Möhtəşəmdir.'
+        '1': 'O azaddır. İlk dəfə sonra nə olacağını deyə bilmirəm. Möhtəşəmdir.'
       },
       friend: {
-        '1': 'Dairə səni dostu adlandıracaq. Artıq adlandırıb? Onda endirim indidir.'
+        '1': 'Dairə sənin barəndə yaxşı düşünür, ona görə dərslər ucuzdur. Keçən həftə qərar veriblər.'
       },
       foe: {
-        '1': 'Dairə səni gördüyüm bir gələcəkdə bağışlayacaq. O vaxta qədər sənə sakitcə öyrədirəm.'
+        '1': 'Dairə indi sənə qəzəblidir. Keçər. O vaxta qədər bunu gizli saxlayacağıq.'
       },
       again: {
-        '1': 'Yenə xoş gəldin. Xoş gəldin. Yenə.'
+        '1': 'Yenə xoş gəldin. Tam vaxtında gəldin.'
       },
       train: {
-        '1': 'İzlə. Sənə göstərdiyimi göstərəcəyəm.'
+        '1': 'Diqqətlə izlə. Sonra bir də izlə, bir an əvvəldən.'
       },
       class: {
-        '1': 'Düşməni zamanda dayandırırıq, dostu tələsdiririk və səhvi geri alırıq.',
-        '2': 'İpi görmək üçün Zəka, çəkmək üçün Məharət.',
+        '1': 'Düşməni zamanda saxlayırıq, dostu sürətləndiririk, səhvi geri alırıq.',
+        '2': 'İpi görmək üçün Zəka. Onu çəkmək üçün Məharət.',
         say: 'Zaman Toxuyan nədir?'
       },
       ready: {
         strong: {
-          '1': 'İpi yaxşı tutursan. Qalanı istədiyin zaman sənindir.'
+          '1': 'İpi yaxşı tutursan. Qalanını istədiyin vaxt götür.'
         },
         able: {
-          '1': 'Hazırsan. Sabah da hazır idin.'
+          '1': 'Hazırsan. Sən soruşmamışdan başa düşmüşdüm.'
         },
         weak: {
-          '1': 'İp barmaqlarından sürüşür. Daha çox Zəka. Daha çox Məharət.'
+          '1': 'İp tez-tez sürüşür. Daha çox Zəka və daha çox Məharət.'
         }
       },
       oracle: {
         say: 'Mənə kahindən danış.',
         freed: {
-          '1': 'O hər sonu gördü, heç biri onun deyildi. İndi biri var.'
+          '1': 'O, hər sonu gördü, özününkündən başqa. İndi öyrənəcək.'
         },
         slain: {
-          '1': 'O müqavimət göstərmədi. Bunu da görmüşdü. Xahiş edirəm bir daha soruşma.'
+          '1': 'Müqavimət göstərmədi. Bunu artıq görmüşdü. Xahiş edirəm bir daha soruşma.'
         },
         waits: {
-          '1': 'O hər sonu görür. Dəhşətli hədiyyədir. Sonda ona mehriban ol.'
+          '1': 'O, hər sonu görür. Daşımaq ağır yükdür. Ona mehriban ol.'
         }
       },
       trainBack: {
-        '1': 'Dəyəcək.'
+        '1': 'Sonra məna kəsb edər. Adətən belə olur.'
       },
       bye: {
-        '1': 'Əvvələ qədər.'
+        '1': 'Yenə görüşənə qədər. Ya da ondan əvvəl.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Dayan! Dayan. Kral təslim!',
-          '2': 'Qoblin basqın edir çünki qoblin ac. Düzdür!',
-          '3': 'Bəlkə hündür və Kral razılaşma edər?'
+          '1': 'Dayan. Xahiş edirəm. Təslim oluram.',
+          '2': 'Xalqım ac olduğu üçün basqın edir. Həqiqət budur.',
+          '3': 'Əvəzində saziş bağlayaq. Sizin növünüz və mənimki.'
         },
         slay: {
-          '1': 'Kral yıxılır, Oyuqlar dağılır.',
-          '2': 'Sunford daha rahat yatır, Dəmir Orden səni fərq edir.',
-          say: 'Razılaşma yoxdur. Hakimiyyətin burada bitir.'
+          '1': 'Qoblin Kralı yıxılır, Oyuqlar boşalır.',
+          '2': 'Sunford daha rahat yatır, Dəmir Orden adını eşidir.',
+          say: 'Saziş yoxdur. Basqınlarınız burada bitir.'
         },
         pact: {
-          '1': 'Ticarət? Kral and içir! Kral ticarəti SEVİR!',
-          '2': 'Qoblin taciləri Sunford meydanında, oradakı heç bir dəmirçinin düzəldə bilməyəcəyi mallarla piştaxta qurur.',
+          '1': 'Ticarət. Bəli. Tacıma and içirəm.',
+          '2': 'Qoblin tacirlər Sunford meydanında məskən salır, oradakı heç bir dəmirçinin düzəldə bilməyəcəyi şeylər satır.',
           say: 'Basqınları dayandır, əvəzində Sunfordla ticarət et. And iç.'
         },
         ransom: {
-          '1': 'Hamısı? Kral hündürdən nifrət edir. Götür. Götür və get.',
-          '2': 'Qoblin qızılı ilə ağır-ağır çıxırsan. Basqınlar yenidən başlayacaq. Sindikat razıdır.',
-          say: 'Xəzinəni təslim et, tacını sən saxla.'
+          '1': 'Hamısını? ...Yaxşı. Götür və get.',
+          '2': 'Qoblin qızılı ilə ayrılırsan. Basqınlar yenə başlayacaq, amma Sindikat razıdır.',
+          say: 'Xəzinəni ver, tacını əlində saxlaya bilərsən.'
         }
       },
       siege: {
         ask: {
-          '1': 'Bəsdir. Yaxşı vuruşursan.',
-          '2': 'Sindikat o şəhərin heç vaxt ödəyəcəyindən yaxşı ödəyir.',
+          '1': 'Bəsdir. Yaxşı döyüşürsən, etiraf edirəm.',
+          '2': 'Sindikat o şəhərin heç vaxt ödəyəcəyindən qat-qat çox ödəyir.',
           '3': 'Bu gecə bizim üçün qapını aç, Oakhavenin üçdə biri sənindir.'
         },
         defend: {
           '1': 'Onda Sindikat səni hər yolda ovlayacaq. Təklif etdiyimi unutma.',
-          '2': 'Qapı davam gətirir. Oakhaven onun arxasında çiçəklənir, usta zirehçiləri adını xatırlayır.',
+          '2': 'Darvaza dözür. Oakhaven onun arxasında zənginləşir, zirehçiləri adını xatırlayır.',
           say: 'Qapı bağlı qalır. Ordunu götür və get.'
         },
         betray: {
-          '1': 'Müdrikdir. Madam Asha deyəcəyəm ki, sənin üçün kürsü hazırlasın.',
-          '2': 'Oakhaven yanır. Xarabalıqlarında qara bazar açılır, kimyagər qadağan olunmuş sənətlər öyrədir.',
+          '1': 'Ağıllıdır. Madam Ash bunu eşidəndə məmnun olacaq.',
+          '2': 'Oakhaven yanır. Xarabalıqlarda qara bazar açılır, bir kimyagər gizlicə dərs verir.',
           '3': 'Zirehçilər getdi, Dəmir Orden sənə xain deyir.',
-          say: 'Şəhərin üçdə biri. Bu gecə qapı açılır.'
+          say: 'Şəhərin üçdə biri. Yaxşı. Darvaza bu gecə açılacaq.'
         }
       },
       core: {
         ask: {
-          '1': 'Nəhəng dəmir-dümür oldu. Bunu görəcəyimi heç düşünməzdim.',
-          '2': 'Və orada yatır. Nüvə. Hələ uğuldayır. Toxunanda isti.',
-          '3': 'Ona birinci sən çatdın. Onun aqibəti nə olacaq?'
+          '1': 'Nəhəng dəmir-dümür oldu. Bunu görmək üçün yaşayacağımı heç düşünməzdim.',
+          '2': 'Və budur nüvə. Hələ uğuldayır. Toxunsan, ilıqdır.',
+          '3': 'Əvvəl sən çatdın. Bəs... ona nə olacaq?'
         },
         destroy: {
           '1': 'İşıq sönür, qolemlər durduqları yerdə yıxılır.',
-          '2': 'Dəmir Orden təşəkkür olaraq öz zirehçilərini Ironholda göndərir.',
-          say: 'Geri çəkilin. Onu qırıram.'
+          '2': 'Təşəkkür olaraq Dəmir Orden öz zirehçilərini Ironholda göndərir.',
+          say: 'Geri çəkil. Onu qıracağam.'
         },
         study: {
-          '1': 'Nüvəni oyatmadan təhvil verəcək qədər başa düşürsən.',
-          '2': 'Bir mövsüm ərzində Ironholdun kürələri heç kimin görmədiyi efir işləri çıxarır.',
-          say: 'Dairə onu öyrənməlidir. Mən onu təhlükəsiz çıxara bilərəm.'
+          '1': 'Nüvəni oyatmadan daşımaq üçün kifayət qədər bilirsən.',
+          '2': 'Bir mövsüm ərzində Ironholdun kürələri heç kimin görmədiyi efir işləri düzəldir.',
+          say: 'Dairə onu öyrənməlidir. Məncə, onu təhlükəsiz çıxara bilərəm.'
         },
         sell: {
           '1': 'Qızıl. Mədənçilərimi öldürən şey üçün. Götür və get.',
@@ -2495,19 +2495,19 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Bu anı on min dəfə görmüşəm.',
-          '2': 'Yarısında məni azad edirsən. Yarısında qoruduğumu götürürsən.',
-          '3': 'Seç. Nəhayət növbətinin nə olduğunu bilməyim.'
+          '1': 'Bu anı saya biləcəyimdən çox dəfə görmüşəm.',
+          '2': 'Yarısında məni azad edirsən. Digər yarısında qoruduğumu alırsan.',
+          '3': 'Seç. Bircə dəfə olsun, sonra nə olacağını bilməmək istəyirəm.'
         },
         free: {
-          '1': 'Oh. Bunu görməmişdim. Heç görməmişdim.',
-          '2': 'Kahin sudan yüksəlir və itir. Saatlarının keşikçisi öyrətmək üçün qalır.',
+          '1': 'Oh. Bunu görməmişdim. Həqiqətən görməmişdim.',
+          '2': 'Kahin sudan yüksəlir və yoxa çıxır. Şagirdi öyrətmək üçün geridə qalır.',
           say: 'Tərpənmə. Zəncirlərini qırıram.'
         },
         slay: {
           '1': 'Bəli. Bu o biri yarıdır.',
-          '2': 'O müqavimət göstərmir. Zaman Keşikçisinin Qum Saatı sənindir.',
-          '3': 'Son şagirdi məbəddən qaçır, Dairə bağışlamır.',
+          '2': 'O, müqavimət göstərmir. Zaman Keşikçisinin Qum Saatı sənindir.',
+          '3': 'Son şagirdi məbəddən qaçır, Dairə səni bağışlamayacaq.',
           say: 'Qum saatı üçün gəlmişəm.'
         }
       },
@@ -2520,19 +2520,19 @@ export default {
         slay: {
           '1': 'Əjdaha yıxılanda dağ titrəyir. Xəzinəsi sənindir.',
           '2': 'Dəmir Orden əjdaha qatilinin mahnısını oxuyur.',
-          say: 'Əjdahalarla sövdələşmə yoxdur.'
+          say: 'Əjdahalarla pazarlıq etmirəm.'
         },
         pact: {
-          '1': 'Çox az adam bunu istəyib sağ qalardı. Yaxşı, balaca. Birlikdə ova çıxırıq.',
-          '2': 'Dəhşət Qəsrinə yürüş edəndə başının üstündə göydə əjdaha olacaq.',
-          say: 'Onda Böyük İblisə qarşı mənimlə uç.'
+          '1': 'Azı soruşmağa cəsarət edərdi. Yaxşı. Birlikdə ova çıxarıq.',
+          '2': 'Dəhşət Qəsrinə yürüş edəndə, üstündə bir əjdaha uçacaq.',
+          say: 'Onda Baş İblisə qarşı mənimlə döyüş.'
         }
       },
       throne: {
         ask: {
-          '1': 'Beləliklə. Bitir. Bunun sən olacağını düşünməmişdim.',
-          '2': 'Taxtım boş qalmır, balaca qəhrəman. O, qəsrə, yarığa və hər ikisinin ordularına komandanlıq edir.',
-          '3': 'Üç elçi artıq qapımda gözləyir. Zəncirlərimi kimin miras alacağını seç.'
+          '1': 'Deməli, bitir. Bunun sən olacağını düşünməmişdim.',
+          '2': 'Taxtım boş qalmaz. Onu alan qəsrə və yarığa komandanlıq edir.',
+          '3': 'Üç elçi artıq qapımda gözləyir. Növbətinin kim olacağını seç.'
         },
         order: {
           '1': 'Orden qəsrdə qarnizon qurur və bacardığını möhürləyir.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindikat dan yeri sökülməzdən əvvəl içəri girir.',
-          '2': 'İndi hər şey satılıqdır, sülh də daxil olmaqla.',
+          '2': 'İndidən sonra hər şeyin qiyməti var, hətta sülhün də.',
           say: 'Kül Sindikatı buna layiq oldu.'
         },
         circle: {
           '1': 'Dairə qəsri yarığın üstündə məktəbə çevirir.',
-          '2': 'Onlar buna tədqiqat deyir. Hamı isə vaxt məsələsi deyir.',
+          '2': 'Buna tədqiqat deyirlər. Qalan hamı nəfəsini tutur.',
           say: 'Qoy Efir Dairəsi alsın.'
         },
         shatter: {
-          '1': 'Taxtı öz əllərinlə qırırsan. Bir daha buradan heç kim hökm sürməyəcək.',
+          '1': 'Taxtı öz əllərinlə parçalayırsan. Buradan bir daha heç kim hökm sürməyəcək.',
           '2': 'Elçilər bir kəlmə demədən gedir.',
-          say: 'Heç kim miras almır. Onu qırıram.'
+          say: 'Heç kim almayacaq. Mən onu qırıram.'
         },
         claim: {
           '1': 'Taxt soyuqdur və sənə yaraşır.',
-          '2': 'Üç qrup ortaq düşmənləri olduğunu anlayır.',
-          say: 'Üstündə özüm oturacağam.'
+          '2': 'Üç dəstə ümumi düşmənləri olduğunu kəşf edir.',
+          say: 'Onu özüm alacağam.'
         }
       }
     }

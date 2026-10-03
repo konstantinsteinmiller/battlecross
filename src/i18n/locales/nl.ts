@@ -127,8 +127,8 @@ export default {
       mouse: 'Volg het spoor naar de leraar en klik erop om te praten.'
     },
     teach: {
-      touch: 'Tik op „Leer me” om te zien wat deze leraar onderwijst.',
-      mouse: 'Klik op „Leer me” om te zien wat deze leraar onderwijst.'
+      touch: 'Tik op „Wil je me iets leren?” om te zien wat deze leraar onderwijst.',
+      mouse: 'Klik op „Wil je me iets leren?” om te zien wat deze leraar onderwijst.'
     },
     learn: {
       touch: 'Tik op een vaardigheid en dan op Leren.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Terugkopen',
     deal: 'Afgesproken!',
     say: {
-      buy: 'Een goede keuze. Zorg er goed voor.',
-      sell: 'Ik vind er wel een goed thuis voor.',
-      back: 'Bedacht je je? Alsjeblieft, zoals het was.',
-      poor: 'Kom terug met een zwaardere beurs.'
+      buy: 'Goede keuze. Zorg goed ervoor, dan zorgt het goed voor jou.',
+      sell: 'Prima. Iemand wil het wel hebben.',
+      back: 'Toch bedacht? Geen probleem, alsjeblieft.',
+      poor: 'Dat is helaas wat meer dan je bij je hebt.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Ga zitten. Rust uit. Je gaat hier heel weer weg, met elke fles gevuld. Wil je er meer dragen, dan kan ik je die verkopen.',
+    talk: 'Ga zitten en rust even uit. Je flessen zijn weer vol. Ik kan je een grotere riem verkopen, als je wilt.',
     note: 'Je neemt {n} dranken mee naar elk gebied.',
     buy: 'Nog een fles · {n}',
     full: 'Aan je riem past niets meer.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram de Smid',
-      talk: 'Gewoon staal, eerlijke prijzen. Het houdt een goblin van je lijf.'
+      talk: 'Gewoon staal, eerlijke prijzen. Neem de tijd.'
     },
     sunfordPeddler: {
       name: 'Tilly de Marskramer',
-      talk: 'Ringen! Amuletten! Dingen die ik heb gevonden en echt niet heb gestolen.'
+      talk: 'Ringen, amuletten, rommeltjes. Die daar brengt misschien zelfs geluk.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik de Handelaar',
-      talk: 'Koning zegt handel, dus Grik handel. Blink voor blink. Goeie blink.'
+      talk: 'Mijn familie heeft dit gemaakt. Goed werk, eerlijke prijs.'
     },
     captainHale: {
       name: 'Kapitein Hale'
     },
     oakArmorer: {
       name: 'Odo de Harnassmid',
-      talk: 'De helft van mijn voorraad is naar de muren gegaan. Neem wat er over is.'
+      talk: 'De helft van mijn voorraad is naar de muur. Neem wat er over is, als het past.'
     },
     oakMasterArmorer: {
       name: 'Meester Odo',
-      talk: 'Je hebt deze stad gered. Voor jou komt het goede harnas uit de achterkamer.'
+      talk: 'Het goede harnas ligt buiten. Je hebt meer dan verdiend om het te bekijken.'
     },
     oakWeapons: {
       name: 'Senna Klingen',
-      talk: 'Scherp, in balans, en verkocht aan wie betaalt. Vandaag ben jij dat.'
+      talk: 'Scherp, goed in balans, eerlijke prijs. Blijf van de snijkanten af.'
     },
     trainerShadow: {
       name: 'De Fluistering'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'De Heler',
-      talk: 'Geen namen, geen vragen. Het Syndicaat pakt zijn deel, jij pakt de waar.'
+      talk: 'Geen vragen, van beide kanten. Het Syndicaat neemt zijn deel.'
     },
     trainerBlood: {
       name: 'Dokter Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hamerhand',
-      talk: 'Door dwergen gesmeed. Als het breekt, lag het aan jou.'
+      talk: 'Alles door dwergen gesmeed. Als er een breekt, wil ik weten hoe.'
     },
     ironAetherWorks: {
       name: 'Knutselaar Voss',
-      talk: 'Het onderzoek van de Kring naar de kern heeft alles veranderd. Hou dit vast. Niet op mij richten.'
+      talk: 'Dit komt allemaal voort uit het onderzoek naar de kern. Pas op, de meeste zijn geladen.'
     },
     ironArmor: {
       name: 'Garrun IJzerzij',
-      talk: 'Harnas dat de knots van een reus afketst. Ringen voor de rest van jullie.'
+      talk: 'Harnassen op de rekken, ringen in het bakje.'
     },
     ironOrderArmor: {
       name: 'Kwartiermeester van de Orde',
-      talk: 'De Orde onthoudt wie de kern vernietigde. Haar wapenkamers staan voor je open.'
+      talk: 'Neem wat je nodig hebt. De Orde zorgt voor de zijnen.'
     },
     trainerGeo: {
       name: 'Oude Steenvoet'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Regen vannacht, zegt mijn knie.',
-        '2': 'Je knie zei dat vorige week ook.',
-        '3': 'En het regende, toch? Ergens.'
+        '1': 'Vannacht gaat het regenen. Mijn knie doet de hele dag al zeer.',
+        '2': 'Dat zei je knie vorige week ook.',
+        '3': 'En het regende, toch? Alleen niet hier.'
       },
       harvest: {
-        '1': 'De beste gerst in jaren, deze.',
-        '2': 'Dat zeg je elk jaar.'
+        '1': 'De gerst is dit jaar goed gekomen.',
+        '2': 'Laten we hopen dat we hem mogen houden.'
       },
       goblins: {
         '1': 'Goblins hebben drie kippen van de molenaarsboerderij gepakt.',
-        '2': 'Maar drie? Ze worden lui.',
-        '3': 'Of vol.'
+        '2': 'Alweer? Dat is de tweede keer deze maand.',
+        '3': 'Iemand zou iets aan die grotten moeten doen.'
       },
       kingGone: {
-        '1': 'Ze zeggen dat de Goblinkoning voorgoed weg is.',
-        '2': 'Wie steelt dan mijn rapen?'
+        '1': 'Ze zeggen dat de Goblinkoning dood is.',
+        '2': 'Mooi. Misschien slaap ik nu eens een hele nacht door.'
       },
       pact: {
-        '1': 'Een goblin verkocht me vandaag een lepel.',
-        '2': 'Was het jouw lepel?',
-        '3': 'Ja. Wel een goede prijs.'
+        '1': 'Ik heb vanochtend een soeplepel van een goblin gekocht.',
+        '2': 'Is hij goed?',
+        '3': 'Eerlijk gezegd beter dan de mijne. Vertel het niemand.'
       },
       bram: {
-        '1': 'Bram staat weer te hameren. Sinds het ochtendgloren!',
-        '2': 'Gelijkmatig als een hartslag, die man.'
+        '1': 'Bram staat al sinds voor zonsopgang aan het aambeeld.',
+        '2': 'Zo wordt hij als hij zich zorgen maakt.'
       },
       pie: {
         '1': 'Ruik ik daar appeltaart?',
-        '2': 'Rook. Verleden tijd.',
-        '3': 'Heb je alles opgegeten? Alweer?'
+        '2': 'Dat was zo. De kinderen waren er eerder bij.',
+        '3': 'Ik bak een nieuwe. Verstop hem deze keer beter.'
       },
       road: {
-        '1': 'Niemand neemt nog de vlakteweg.',
-        '2': 'Niet met bandieten erop, nee.'
+        '1': 'Al een week neemt niemand de weg over de vlakte.',
+        '2': 'Niet met bandieten erop. Je kunt het ze niet kwalijk nemen.'
       },
       hero: {
-        '1': 'Iemand heeft de vlakteweg schoongeveegd!',
-        '2': 'Werd tijd. Mijn neef is me een kar schuldig.'
+        '1': 'Iemand heeft de bandieten van de weg over de vlakte verjaagd.',
+        '2': 'Godzijdank. Mijn zus kan weer op bezoek komen.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Twee zilverstukken voor een kool. Twee!',
-        '2': 'Het is een heel mooie kool.',
-        '3': 'Zó mooi nou ook weer niet.'
+        '2': 'Tegenwoordig komt er niets goedkoop door de poort.',
+        '3': 'Dan verbouw ik het zelf. Op het dak, als het moet.'
       },
       watch: {
-        '1': 'De wacht heeft de poortwachters verdubbeld.',
-        '2': 'Goed. Ik slaap er beter van.'
+        '1': 'Ze hebben de wacht bij de poort verdubbeld.',
+        '2': 'Goed. Ik slaap er wat rustiger door.'
       },
       caravan: {
         '1': 'De kruidenkaravaan is alweer te laat.',
         '2': 'Bandieten?',
-        '3': 'Of de voerman vond een taverne.'
+        '3': 'Of modder. Laten we hopen dat het modder is.'
       },
       siege: {
-        '1': 'Ze zeggen dat er een leger kampeert aan de rand.',
-        '2': 'Dan moeten we de kelder maar vullen.'
+        '1': 'Voorbij de boerderijen ligt een heel leger gekampeerd.',
+        '2': 'Dan vullen we de kelder maar zolang het kan.'
       },
       saved: {
-        '1': 'Zag je het beleg breken? Schitterend!',
-        '2': 'Ik zag het van onder mijn bed.',
-        '3': 'Telt toch.'
+        '1': 'Stond jij op de muur toen het beleg werd verbroken?',
+        '2': 'Ik zat eerlijk gezegd onder mijn bed.',
+        '3': 'De halve stad. We zijn er toch nog.'
       },
       fountain: {
         '1': 'Ik gooide een munt in de fontein voor geluk.',
-        '2': 'En ik viste hem eruit. Bedankt!'
+        '2': 'Ik hoop dat je om goedkopere kool hebt gewenst.'
       },
       ash: {
-        '1': 'Alles ruikt naar as.',
-        '2': 'Beter dan naar niets ruiken.'
+        '1': 'Alles ruikt nog naar rook.',
+        '2': 'Dat trekt weg. Uiteindelijk trekt alles weg.'
       },
       hide: {
-        '1': 'Hoorde je gisteravond laarzen buiten?',
-        '2': 'Sst. Praat zachter.',
-        '3': 'Sorry. Sorry.'
+        '1': 'Hoorde jij gisteravond laarzen op straat?',
+        '2': 'Zachter. Je weet niet wie er meeluistert.',
+        '3': 'Sorry. Ik ben gewoon... sorry.'
       },
       bread: {
-        '1': 'Ik vond een half brood. We kunnen het delen.',
+        '1': 'Ik heb een half brood gevonden. Hier, neem wat.',
         '2': 'Je bent een goed mens. Dank je.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Mooie koperader op de vierde laag.',
-        '2': 'Koper? Ik wil goud.',
-        '3': 'Jij wilt eerder een dutje.'
+        '2': 'Koper. Ik had op zilver gehoopt.',
+        '3': 'Koper betaalt de huur. Zilver betaalt dromen.'
       },
       forge: {
-        '1': 'De grote smidse is al honderd jaar niet uitgegaan.',
-        '2': 'De pijp van mijn opa ook niet.'
+        '1': 'De grote smidse is al honderd jaar niet koud geworden.',
+        '2': 'Mijn opa heeft hem helpen aansteken, weet je.'
       },
       beard: {
-        '1': 'Je hebt je baard getrimd!',
-        '2': 'Hij vloog in brand bij het aambeeld.',
-        '3': 'Staat je wel goed.'
+        '1': 'Je hebt je baard bijgeknipt.',
+        '2': 'Ik kwam te dicht bij het aambeeld.',
+        '3': 'Hij groeit wel weer aan. Korter staat je trouwens beter.'
       },
       core: {
-        '1': 'Er gloeit nu iets in de diepe mijnen.',
-        '2': 'Daar beneden gloeit niets goeds.'
+        '1': 'Daar beneden in de diepe schachten gloeit iets.',
+        '2': 'Daar beneden gloeit niets goeds. Blijf boven.'
       },
       order: {
-        '1': 'De harnasmakers van de Orde werken snel.',
-        '2': 'Snel, ja. Niet zo goed als wij.'
+        '1': 'De wapensmeden van de Orde werken snel, dat moet ik ze nageven.',
+        '2': 'Snel, ja. We zullen zien hoe lang het meegaat.'
       },
       circle: {
-        '1': 'De magiërs van de Kring neuriën terwijl ze werken.',
-        '2': 'Beter dan ons gezang, denk ik.'
+        '1': 'De mensen van de Kring neuriën terwijl ze werken.',
+        '2': 'Beter dan jouw gezang, in elk geval.'
       },
       cold: {
-        '1': 'Koud hier boven vanochtend.',
-        '2': 'Ga dan dichter bij de smidse staan.'
+        '1': 'Bitter koud vanochtend.',
+        '2': 'Kom dan bij de smidse staan.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Jij bent hem!',
-        '2': 'Niet eerlijk, ik was nog niet klaar!'
+        '1': 'Tikkertje, jij bent!',
+        '2': 'Dat is niet eerlijk, ik was nog niet klaar!'
       },
       dragon: {
-        '1': 'Als ik groot ben, rijd ik op een draak.',
-        '2': 'Draken laten je niet op zich rijden.',
-        '3': 'Aardige wel!'
+        '1': 'Als ik groot ben, ga ik op een draak rijden.',
+        '2': 'Draken laten niemand op zich rijden.',
+        '3': 'Een lieve misschien wel.'
       },
       sword: {
-        '1': 'Kijk, een echte zwaardstok!',
-        '2': 'Het is gewoon een stok.'
+        '1': 'Kijk, ik heb een zwaard gevonden!',
+        '2': 'Dat is een stok.'
       },
       frog: {
-        '1': 'Ik vond een kikker bij de put.',
+        '1': 'Er zit een kikker bij de put.',
         '2': 'Mogen we hem houden?',
-        '3': 'Volgens mij houdt hij ons.'
+        '3': 'Mama zei geen kikkers meer.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Dat is alles voor nu.',
-      trade: 'Laat me je waren zien.',
-      train: 'Leer me iets.',
-      heal: 'Lap me op.',
-      mana: 'Ik heb iets nodig voor mijn mana.',
-      who: 'Wie ben jij?',
+      bye: 'Ik laat je verder met rust.',
+      trade: 'Mag ik zien wat je hebt?',
+      train: 'Wil je me iets leren?',
+      heal: 'Kun je me even oplappen?',
+      mana: 'Heb je iets voor mana?',
+      who: 'Wie ben jij, als ik dat mag vragen?',
       rumor: 'Nog nieuws gehoord?',
-      ready: 'Ben ik klaar voor meer?'
+      ready: 'Denk je dat ik klaar ben voor meer?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Nieuw gezicht. Jij bent degene die de vlakteweg hield.',
-        '2': 'Ik ben Bram. Ik maak staal. Je ziet eruit alsof je het nodig hebt.'
+        '1': 'Jou heb ik hier nog niet gezien. Ben jij degene die de weg heeft vrijgemaakt?',
+        '2': 'Bram. De smidse is van mij. Als je een kling nodig hebt, kom naar mij.'
       },
       kingDead: {
-        '1': 'Ik hoor dat de Goblinkoning dood is. Goed. Minder deuken uit karrenwielen kloppen.'
+        '1': 'Ik hoorde dat de Goblinkoning dood is. Ik zal hem niet missen.'
       },
       kingPact: {
-        '1': 'Goblins die handelen op het plein. Nooit gedacht dat ik dat zou zien. Hun ijzer is rommel, trouwens.'
+        '1': 'Goblins die handelen op het plein. Ik had nooit gedacht dat ik dat zou zien.'
       },
       kingRansom: {
-        '1': 'Ze zeggen dat je het goud van de Koning nam en hem zijn kroon liet. De overvallen komen terug.'
+        '1': 'Je hebt de Goblinkoning zijn kroon laten houden. Hij komt terug, weet je.'
       },
       ending: {
-        '1': 'Het hele rijk praat over die troon. En jij koopt nog steeds bij mij. Hm.'
+        '1': 'Het hele rijk praat over jou. Heb je nog steeds een slijpsteen nodig?'
       },
       again: {
-        '1': 'Weer terug. Goed. Staal verkoopt zichzelf niet.'
+        '1': 'Weer terug. Wat kan ik voor je doen?'
       },
       trade: {
-        '1': 'Gewoon staal, eerlijke prijzen. Kijk maar rustig rond.'
+        '1': 'Gewoon staal, eerlijke prijzen. Kijk maar rond.'
       },
       who: {
-        '1': 'Bram. Dertig jaar aan dit aambeeld.',
-        '2': 'Ik beslaan paarden, repareer ploegen en wapen dwazen als jij. In die volgorde.'
+        '1': 'Bram. Zo\'n dertig jaar aan dit aambeeld.',
+        '2': 'Hoefijzers, ploegen, af en toe een zwaard. De laatste tijd vooral zwaarden.'
       },
       gear: {
-        '1': 'Een schild, als je van plan bent geraakt te worden. Een groter zwaard, als niet.',
-        '2': 'Kracht zwaait mijn staal. Zet je punten daarin voordat je zwaar spul koopt.',
-        say: 'Wat moet ik daarbuiten meenemen?'
+        '1': 'Een schild, als je van plan bent geraakt te worden. De meesten worden dat.',
+        '2': 'Zwaar staal vraagt een sterke arm. Werk eerst aan je Kracht.',
+        say: 'Wat moet ik meenemen naar buiten?'
       },
       rumor: {
         plains: {
-          '1': 'Goblins op de vlakteweg. Ruim ze op voordat je iets moois gaat kopen.'
+          '1': 'Bandieten op de weg over de vlakte. Daar zou ik beginnen, als ik jou was.'
         },
         hollows: {
-          '1': 'De plunderaars kruipen uit de Goblinholen, voorbij de vlakte. Hun koning zit helemaal onderin.'
+          '1': 'De goblins komen uit de Holen, voorbij de vlakte. Hun koning zit daar beneden.'
         },
         woods: {
-          '1': 'Ten oosten van de vlakte begint het Fluisterwoud. De bomen lopen daar. Neem een bijl mee.'
+          '1': 'Ten oosten van de vlakte ligt het Fluisterwoud. Ze zeggen dat de bomen bewegen.'
         },
         siege: {
-          '1': 'Rook boven Oakhaven. Een krijgsheer heeft zijn kamp aan de rand, zeggen ze.'
+          '1': 'Er is rook richting Oakhaven. Een leger heeft zich aan de rand gelegerd.'
         },
         north: {
-          '1': 'Ironholdstaal is weer onderweg. Ga naar het noorden als je beter wilt dan het mijne.'
+          '1': 'Staal uit Ironhold komt weer over de weg. Beter dan het mijne, eerlijk gezegd.'
         }
       },
       shopBack: {
-        '1': 'Draag het in goede gezondheid. Of draag het gewoon.'
+        '1': 'Zorg goed ervoor, dan zorgt het goed voor jou.'
       },
       bye: {
-        '1': 'Pas op onderweg.'
+        '1': 'Pas goed op jezelf.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, een klant! Of een bewaker. Je bent toch geen bewaker?',
-        '2': 'Ik ben Tilly. Ringen, amuletten, gelukkertjes. Alles gevonden, nooit gestolen.'
+        '1': 'Oh, hallo! Koop je iets, of kijk je alleen? Allebei is prima.',
+        '2': 'Ik ben Tilly. Ringen, amuletten, rommeltjes van overal.'
       },
       rival: {
-        '1': 'Heb je de kraam van Grik gezien? Goblinprullaria! Ik ben geruïneerd. Koop iets. Heb medelijden.'
+        '1': 'Heb je de kraam van die goblin gezien? Zijn prijzen zijn lager dan de mijne. Dat is niet eerlijk.'
       },
       again: {
-        '1': 'Mijn favoriete klant! Dat zeg ik tegen iedereen, maar bij jou meen ik het.'
+        '1': 'Daar ben je! Ik heb een paar dingen apart gelegd waarvan ik denk dat je ze leuk vindt.'
       },
       trade: {
-        '1': 'Ringen! Amuletten! Dingen die ik gevonden heb en zeker niet gestolen.'
+        '1': 'Kijk maar. Die daar brengt geluk. Waarschijnlijk.'
       },
       who: {
-        '1': 'Ik loop de wegen af en raap op wat de wegen achterlaten.',
-        '2': 'Bandieten laten de mooiste dingen vallen als ze rennen.'
+        '1': 'Ik trek langs de wegen en koop wat mensen kwijt willen.',
+        '2': 'En soms vind ik dingen. Bandieten laten veel vallen als ze op de vlucht slaan.'
       },
       trinkets: {
-        '1': 'Je draagt er twee tegelijk, een aan elke hand. Een klein voordeel blijft een voordeel.',
-        say: 'Waar zijn sieraden goed voor?'
+        '1': 'Je kunt er twee dragen, een aan elke hand. Alles telt mee daarbuiten.',
+        say: 'Waar zijn sieraden eigenlijk goed voor?'
       },
       stolen: {
-        '1': 'Sst! Niet zo luid. Goed. GOED.',
-        '2': 'Neem deze ring en we hebben nooit gepraat. Mooie ring. Vooral koper.',
-        say: 'Dit heb je allemaal gestolen, hè?'
+        '1': 'Ah. Jij hebt een eigen manier van vragen, hè?',
+        '2': 'Neem deze ring en laten we het niet hebben over waar ik hem vond.',
+        say: 'Waar komt dit allemaal echt vandaan?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Ten zuiden hiervan staat een colosseum met roestige poorten. Ze gingen open als de goblinproblemen ophielden.'
+          '1': 'Ten zuiden hiervan ligt een oud colosseum. Potdicht zolang de goblins plunderen.'
         },
         arenaOpen: {
-          '1': 'Het Colosseum is open! Acht golven, zeggen ze. Ik verkoop geluk. Je zult geluk willen.'
+          '1': 'Het colosseum is weer open. Acht golven, hoor ik. Mensen wedden erop.'
         },
         east: {
-          '1': 'De markten van Oakhaven betalen dubbel voor alles wat glimt. Ga oostwaarts, voorbij het woud.'
+          '1': 'Oakhaven betaalt goed voor alles wat glimt. Het ligt in het oosten, voorbij het bos.'
         }
       },
       shopBack: {
-        '1': 'Kom terug als je rijker bent!'
+        '1': 'Kom terug als je beurs zwaarder is!'
       },
       bye: {
-        '1': 'Let op je zakken daarbuiten! Niet bij mij, bedoel ik. Elders.'
+        '1': 'Goede reis. Houd je geld goed vast daarbuiten.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Sta rechtop. Je staat voor een ridder van de IJzeren Orde.',
-        '2': 'Ser Aldric. Ik leer het schild aan wie voor anderen wil staan.'
+        '1': 'Sta rechtop. Je spreekt met een ridder van de IJzeren Orde.',
+        '2': 'Ser Aldric. Ik leer mensen zich tussen anderen en gevaar te zetten.'
       },
       saved: {
-        '1': 'Oakhaven staat omdat jij stond. Dat is alles wat ik onderwijs.'
+        '1': 'Oakhaven staat nog, en ik hoor dat jij op de muur stond. Goed gedaan.'
       },
       fallen: {
-        '1': 'Je opende de poort van Oakhaven. Voor minder heb ik mannen begraven. Zeg wat je wilt.'
+        '1': 'Jij hebt de poort van Oakhaven geopend. Ik doe niet alsof ik dat vergeten ben. Wat wil je?'
       },
       dragon: {
-        '1': 'Een drakendoder op mijn binnenplaats. Ze zullen het zingen in de grote zaal.'
+        '1': 'Heb jij de draak op de piek gedood? Dat had ik graag gezien.'
       },
       friend: {
-        '1': 'De Orde spreekt goed over je. Voor haar vrienden zijn mijn lessen goedkoper.'
+        '1': 'De Orde denkt goed over je. Voor haar vrienden zijn mijn lessen goedkoper.'
       },
       foe: {
-        '1': 'De Orde noemt je een vijand. Ik leer het je toch. Eer kan zij niet intrekken.'
+        '1': 'De Orde noemt je een vijand. Ik leer het je toch. Dat is mijn keuze, niet de hare.'
       },
       again: {
-        '1': 'Schild omhoog. Wat heb je nodig?'
+        '1': 'Terug voor meer oefeningen?'
       },
       train: {
-        '1': 'Let dan goed op. Ik laat iets maar één keer zien.'
+        '1': 'Goed. Kijk goed, ik laat het maar één keer zien.'
       },
       class: {
-        '1': 'Een muur die loopt. Wij vangen de klap op zodat niemand anders dat hoeft.',
-        '2': 'Kracht voor de arm, Uithouding voor de rest. Het licht doet wat het kan.',
-        say: 'Wat is een Aegisridder?'
+        '1': 'Wij vangen de klappen op die voor anderen bedoeld zijn. Het is simpel, en het is zwaar.',
+        '2': 'Je hebt Kracht nodig voor het schild en Uithouding om het vol te houden.',
+        say: 'Wat doet een Aegisridder eigenlijk?'
       },
       ready: {
         strong: {
-          '1': 'Je hebt de arm voor het meeste wat ik weet. Let op je Uithouding en neem de rest.'
+          '1': 'Je bent sterk genoeg voor het meeste wat ik weet. Blijf werken aan je Uithouding.'
         },
         able: {
           '1': 'Je bent klaar voor de volgende les. Laat het niet naar je hoofd stijgen.'
         },
         weak: {
-          '1': 'Nog niet. Je arm is zwak en je wordt snel moe. Meer Kracht, meer Uithouding.'
+          '1': 'Nog niet. Je zou eerder moe zijn dan het schild. Meer Kracht, meer Uithouding.'
         }
       },
       order: {
-        '1': 'Wij bewaken de wegen en de wet. Sommigen zeggen te veel van beide.',
-        '2': 'Sta aan de kant van de Orde, en haar harnasmakers en leraren onthouden je.',
+        '1': 'Wij houden de wegen veilig en de wet in de hand. Sommigen zeggen te stevig.',
+        '2': 'Sta aan onze kant, en onze wapensmeden en leraren zullen je niet vergeten.',
         say: 'Vertel me over de IJzeren Orde.'
       },
       trainBack: {
-        '1': 'Oefen tot het je verveelt. Oefen dan nog meer.'
+        '1': 'Oefen tot het saai wordt. Ga dan door.'
       },
       bye: {
-        '1': 'Ga met het licht.'
+        '1': 'Ga voorzichtig.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Een leerling? Ga een stukje achteruit. Nog een stukje.',
-        '2': 'Ember Wren, pyromant. De wenkbrauwen groeien terug, meestal.'
+        '1': 'Oh, een leerling? Heerlijk. Ga misschien een stukje achteruit staan.',
+        '2': 'Ik ben Ember Wren. Ik leer vuur. Meestal doet het wat ik vraag.'
       },
       core: {
-        '1': 'Je gaf de kern aan de Kring! Weet je hoeveel dingen we nu in brand kunnen steken?'
+        '1': 'Jij gaf de kern aan de Kring! Ik kan niet wachten om te zien wat we ervan leren.'
       },
       friend: {
-        '1': 'De Kring van Ether mag je! Dat betekent korting. En minder formulieren.'
+        '1': 'De Kring spreekt goed over je. Dat betekent trouwens korting.'
       },
       foe: {
-        '1': 'De Kring wil je tot as maken. Gênant! Ik leer het je toch. Vuur is niet kieskeurig.'
+        '1': 'De Kring is niet blij met je. Ik leer het je toch. Stilletjes.'
       },
       again: {
-        '1': 'Je bent terug! En er brandt niets. Dat lossen we op.'
+        '1': 'Je bent terug! Klaar om iets in brand te steken?'
       },
       train: {
-        '1': 'Ja! Kijk goed. Niet zó goed.'
+        '1': 'Goed. Kijk naar mijn handen en houd je mouwen bij me vandaan.'
       },
       class: {
-        '1': 'Vuur beantwoordt elke vraag. Verbrand ze eerst, blaas dan op wat brandt.',
-        '2': 'Alles draait op Intelligentie. En een gestage voorraad gewaden.',
-        say: 'Wat doet een Pyromant?'
+        '1': 'Vooral dingen in brand steken. En dan het vuur laten uitbreiden waar je het wilt.',
+        '2': 'Het komt allemaal uit Intelligentie. Hoe scherper de geest, hoe heter de vlam.',
+        say: 'Wat doet een pyromant precies?'
       },
       ready: {
         strong: {
-          '1': 'Jij kunt een golem smelten! Neem alles wat ik heb. Let op je Techniek bij de lastige.'
+          '1': 'Eerlijk? Je zou hier zelf een deel van kunnen onderwijzen. Neem wat je wilt.'
         },
         able: {
-          '1': 'Je geest is warm genoeg voor de volgende spreuk. Kom op!'
+          '1': 'Je bent klaar voor de volgende spreuk. Kom, ik laat het zien.'
         },
         weak: {
-          '1': 'Hmm. Nog niet genoeg Intelligentie. Het vuur zou jou gebruiken, niet andersom.'
+          '1': 'Nog niet, vrees ik. Je hebt meer Intelligentie nodig, anders neemt het vuur het over.'
         }
       },
       circle: {
-        '1': 'Geleerden. Wij bestuderen waar de wereld van gemaakt is. Een deel ervan ontploft.',
+        '1': 'Geleerden. We bestuderen waar de wereld van gemaakt is. Een deel ervan ontploft.',
         say: 'Wie zijn de Kring van Ether?'
       },
       trainBack: {
-        '1': 'Ga iets in brand steken! Iets wat het verdient.'
+        '1': 'Ga oefenen. Ergens waar niets vlam vat, alsjeblieft.'
       },
       bye: {
-        '1': 'Blijf lekker warm!'
+        '1': 'Pas goed op jezelf!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Dus jij bent degene van de weg. Kom dichterbij, mijn ogen zijn niet meer wat ze waren.',
-        '2': 'Ik ben Mara. Veertig jaar bewaar ik het register van dit stadje en zijn vrede.'
+        '1': 'Dus jij bent degene van de weg. Kom hier, laat me naar je kijken.',
+        '2': 'Ik ben Mara. Ik zorg al voor dit stadje sinds... oh, veertig jaar nu.'
       },
       slain: {
-        '1': 'De Holen zijn stil. Je deed iets moeilijks, en Sunford slaapt erdoor.'
+        '1': 'De Holen zijn stil. Het was zwaar wat je deed, maar we slapen er dankzij.'
       },
       pact: {
-        '1': 'Goblins die snuisterijen verkopen op mijn plein. Je hebt een gouden tong, kind. Ik hoop dat hij standhoudt.'
+        '1': 'Goblins die verkopen op mijn plein. Jij hebt ze daarvan overtuigd, nietwaar?'
       },
       ransom: {
-        '1': 'Je nam zijn goud en liet hem zijn kroon. Ik ben te oud om te doen alsof ik niet teleurgesteld ben.'
+        '1': 'Je nam zijn goud en liet hem zijn kroon. Ik zal niet doen alsof ik niet teleurgesteld ben.'
       },
       saved: {
-        '1': 'Bericht uit Oakhaven. De poort hield stand. Ik ben blij dat een van ons erbij was.'
+        '1': 'Er kwam bericht uit Oakhaven. De poort hield stand. Ik ben blij dat je erbij was.'
       },
       fallen: {
-        '1': 'Oakhaven is verbrand, en ze zeggen dat jij de fakkel vasthield. Vertel het niet. Ik wil het liever niet weten.'
+        '1': 'Oakhaven is verbrand, zeggen ze. Ik wil liever niet horen hoe. Vandaag niet.'
       },
       ending: {
-        '1': 'Ze zeggen dat jij besliste wie er in de Gruwelburcht zit. Van Sunfords weg tot dit. Stel je voor.'
+        '1': 'Ze zeggen dat jij hebt beslist over het lot van de Gruwelburcht. Van ons kleine weggetje tot dat.'
       },
       again: {
-        '1': 'Ga even zitten. De weg wacht wel.'
+        '1': 'Ga even zitten. De weg loopt niet weg.'
       },
       reward: {
-        '1': 'Je hield de weg toen onze militie dat niet kon. Het stadje heeft een inzameling gehouden.',
-        '2': 'Het is niet veel. Het is elke munt die we konden missen.',
-        say: 'Wilde je me spreken?'
+        '1': 'Je hield de weg vast toen onze militie dat niet kon. Het dorp heeft wat bij elkaar gelegd.',
+        '2': 'Het is niet veel. Het is wat we konden missen.',
+        say: 'Iemand zei dat je me wilde spreken?'
       },
       quest: {
-        '1': 'De overvallen komen uit de Goblinholen. De goblins hebben een koning gekroond.',
-        '2': 'En je wilt hem dood.',
-        '3': 'Ik wil dat de overvallen stoppen. Hoe, dat beslis jij, onderin die grotten.',
-        '4': 'De Holen liggen vlak achter de vlakte. Ga voorzichtig.',
+        '1': 'De overvallen komen uit de Goblinholen. Ze hebben zichzelf een koning gekroond.',
+        '2': 'En je wilt hem dood hebben?',
+        '3': 'Ik wil dat de overvallen ophouden. Hoe... dat beslis jij daar beneden.',
+        '4': 'De Holen liggen vlak voorbij de vlakte. Wees alsjeblieft voorzichtig.',
         say: 'Wat zit Sunford dwars?'
       },
       king: {
-        say: 'Over de Goblinkoning…',
+        say: 'Over de Goblinkoning...',
         slay: {
-          '1': 'Een koning is dood en mijn karavanen rijden op tijd. Ik vraag niet hoe dat voelde.'
+          '1': 'Hij is weg, en de karavanen rijden weer. Ik vraag niet hoe dat voelde.'
         },
         pact: {
-          '1': 'Een verdrag! Mijn moeder was flauwgevallen. Toch is handel beter dan begrafenissen.'
+          '1': 'Een handelsverdrag. Mijn moeder zou flauwgevallen zijn. Toch is handel beter dan begrafenissen.'
         },
         ransom: {
-          '1': 'Goud is snel uitgegeven. Wrok niet. Onthoud dat als de overvallen terugkomen.'
+          '1': 'Goud is snel op. Wrok niet. Onthoud dat als de overvallen weer beginnen.'
         }
       },
       town: {
-        '1': 'Vooral boeren. Een smid, een genezeres en twee leraren die ons verdragen.',
-        '2': 'Rust hier, geef je punten uit en ga sterker weer naar buiten. Daar dient een thuis voor.',
+        '1': 'Vooral boeren. Een smid, een heler, twee leraren die ons verdragen.',
+        '2': 'Rust hier uit tussen je reizen door. Daar is een thuis voor.',
         say: 'Vertel me over Sunford.'
       },
       next: {
         say: 'Waar moet ik nu heen?',
         plains: {
-          '1': 'De vlakteweg, eerst. We kunnen niet eten als de karavanen niet langs kunnen.'
+          '1': 'Eerst de weg over de vlakte. Zonder de karavanen hebben we niets te eten.'
         },
         hollows: {
-          '1': 'Eerst de Goblinholen. Niets is veilig zolang de overvallen doorgaan.'
+          '1': 'De Goblinholen. Niets is veilig zolang de overvallen doorgaan.'
         },
         woods: {
-          '1': 'Oostwaarts, door het Fluisterwoud. De weg naar Oakhaven loopt onder die bomen.'
+          '1': 'Naar het oosten, door het Fluisterwoud. Dat is de weg naar Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven wordt belegerd. Als de rand valt, valt de stad.'
+          '1': 'Oakhaven wordt belegerd. Als de rand valt, valt de stad mee.'
         },
         north: {
-          '1': 'Noordwaarts, kind. De Askliffen, en Ironhold daarachter. Het gevaar groeit hoe verder je gaat.'
+          '1': 'Naar het noorden, denk ik. De Askliffen, en daarachter Ironhold. Het wordt alleen maar moeilijker.'
         }
       },
       bye: {
-        '1': 'Kom levend terug. Dat is alles wat ik van wie dan ook vraag.'
+        '1': 'Kom heelhuids bij ons terug. Meer vraag ik niet.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Sta stil. Nee, je bent in orde. Gewoonte.',
-        '2': 'Zuster Lune. Ik repareer wat de weg kapotmaakt.'
+        '1': 'Even stilstaan. Nee, je mankeert niets. Gewoonte, sorry.',
+        '2': 'Ik ben Zuster Lune. Ik lap op wat de weg kapotmaakt.'
       },
       again: {
-        '1': 'Nog heel? Ik ben bijna teleurgesteld.'
+        '1': 'Nog heel? Goed. Ga toch even zitten.'
       },
       heal: {
-        '1': 'Ga zitten. Rust uit. Je vertrekt hier heel, met elke fles gevuld.'
+        '1': 'Ga zitten, rust even uit. Ik vul je flessen voordat je gaat.'
       },
       mana: {
-        '1': 'Blauwe fles, bittere smaak. Neem een slok als je spreuken opraken.'
+        '1': 'Deze is bitter. Drink hem als je spreuken opraken.'
       },
       potions: {
-        '1': 'Je neemt een paar flessen mee naar elk gebied. Drink voordat je er een nodig hebt, niet erna.',
-        '2': 'Wil je er meer meenemen, dan kan ik je een langere riem verkopen.',
+        '1': 'Je neemt een paar flessen mee in elk gevecht. Drink voordat je het nodig hebt, niet erna.',
+        '2': 'Als je er meer wilt dragen, kan ik je een grotere riem verkopen.',
         say: 'Hoe werken de dranken?'
       },
       rumor: {
         goblins: {
-          '1': 'De goblins vergiftigen hun slingerstenen. Word je groen, kom dan meteen terug.'
+          '1': 'De goblins smeren iets op hun slingerstenen. Als je je ziek voelt, kom terug.'
         },
         spiders: {
-          '1': 'Spinnenbeten uit het Woud. Drie deze week. Probeer niet gebeten te worden.'
+          '1': 'Ik heb deze week drie spinnenbeten uit het Woud behandeld. Kijk uit daar.'
         },
         burns: {
-          '1': 'Er komen soldaten uit het noorden met brandwonden. De Askliffen, zeggen ze. Vuur dat loopt.'
+          '1': 'Er komen steeds soldaten uit het noorden met brandwonden. De Askliffen, zeggen ze.'
         }
       },
       healBack: {
         '1': 'Houd je riem vol en je hoofd laag.'
       },
       bye: {
-        '1': 'Probeer niet op iets belangrijks te bloeden.'
+        '1': 'Pas goed op jezelf daarbuiten.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Lange! Lange maakte verdrag. Koning zegt: wees aardig voor Lange.',
-        '2': 'Grik is aardig. Grik heeft glimmers. Lange heeft goud. Goede match.'
+        '1': 'Jij bent degene die het verdrag sloot. Mijn koning zegt dat je hier welkom bent.',
+        '2': 'Ik ben Grik. Ik verkoop wat goblins maken. Goed werk, eerlijke prijs.'
       },
       again: {
-        '1': 'Lange komt terug! Grik wist het. Glimmers roepen Lange.'
+        '1': 'Vriend. Fijn je weer te zien.'
       },
       trade: {
-        '1': 'Koning zegt handelen, dus Grik handelt. Glimmer voor glimmer. Goede glimmer.'
+        '1': 'Kijk, alsjeblieft. Mijn familie heeft dit gemaakt.'
       },
       king: {
-        '1': 'Koning is dik en blij. Geen overvallen meer. Overvallen is hard werk.',
-        '2': 'Koning zegt Lange heeft goede tong. Is hoogste goblinlof. Bijna.',
+        '1': 'Hij eet nu goed. Geen overvallen meer. Mijn volk heeft minder honger.',
+        '2': 'Hij spreekt vaak over jou. Met respect.',
         say: 'Hoe is het met je koning?'
       },
       town: {
-        '1': 'Mensen wassen te veel. Maar taart! Grik wist niet van taart.',
+        '1': 'Mensen staren nog steeds. Maar de bakker geeft me taart. Ik hou van taart.',
         say: 'Hoe bevalt Sunford je?'
       },
       rumor: {
         crags: {
-          '1': 'Griks neven graven in het noorden, in zwarte rots. Ze zeggen daar loopt vuur. Grik blijft hier.'
+          '1': 'Mijn neven graven in het zwarte gesteente in het noorden. Ze zeggen dat daar nu vuur rondloopt.'
         },
         deep: {
-          '1': 'Diepe plekken worden wakker, Lange. Goblins voelen het in de voeten.'
+          '1': 'Iets ontwaakt in de diepe plaatsen. Goblins voelen het in de grond.'
         }
       },
       shopBack: {
-        '1': 'Goede ruil! Lange komt weer, ja?'
+        '1': 'Dank je. Kom nog eens terug.'
       },
       bye: {
-        '1': 'Dag, Lange! Niet doodgaan. Doden kopen niets.'
+        '1': 'Ga veilig, vriend.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Nog een zwaard. Goed. Ik ben gestopt met vragen waar ze vandaan komen.',
-        '2': 'Kapitein Hale. Ik voer het bevel over wat er van Oakhavens wacht over is.'
+        '1': 'Nog een zwaard. Goed. We hebben er elk nodig dat we kunnen krijgen.',
+        '2': 'Kapitein Hale. Ik voer het bevel over wat er over is van de wacht van Oakhaven.'
       },
       saved: {
-        '1': 'De poort hield stand. Driehonderd jaar, en nu nog eens. Ik heb je mijn stad te danken.'
+        '1': 'De poort hield stand. Driehonderd jaar, en nog één. Dat ben ik je verschuldigd.'
       },
       ending: {
-        '1': 'Je hebt de troon van de Gruwelburcht beslecht. Mijn muren voelen kleiner dan eerst.'
+        '1': 'Jij hebt over de Gruwelburcht beslist, zeggen ze. Mijn muren voelen klein daarbij.'
       },
       again: {
-        '1': 'De muren staan nog. Voor vandaag.'
+        '1': 'De muren staan nog. Voor vandaag, tenminste.'
       },
       after: {
-        '1': 'Oakhaven onthoudt het, vriend. Ik ook.'
+        '1': 'Fijn je te zien. Oakhaven is het niet vergeten.'
       },
       quest: {
-        '1': 'Het leger van een krijgsheer omsingelt ons. Krag. Hij vecht niet gratis.',
+        '1': 'Slecht. Een krijgsheer genaamd Krag heeft ons omsingeld, en hij vecht niet gratis.',
         '2': 'Wie betaalt hem?',
         '3': 'Het Assyndicaat. Ze willen een eigen stad, en de onze heeft muren.',
-        '4': 'Breek hem aan de Rand van Oakhaven. Daar wordt het beslist.',
-        say: 'Hoe staat het ervoor?'
+        '4': 'Verbreek zijn kamp op de Rand van Oakhaven. Daar eindigt dit, op de een of andere manier.',
+        say: 'Hoe erg is het?'
       },
       siege: {
-        '1': 'Ze boden je een derde van de stad aan. Ik weet het. Mij boden ze een kwart.',
-        '2': 'Het Syndicaat jaagt nu op je, op elke weg. Kijk uit je doppen.',
-        say: 'Over het beleg…'
+        '1': 'Ze boden jou een derde van de stad aan, nietwaar? Mij boden ze een kwart.',
+        '2': 'Het Syndicaat zal je nu achtervolgen. Kijk uit je doppen op de wegen.',
+        say: 'Over het beleg...'
       },
       town: {
-        '1': 'Een handelsstad. Alles wat tussen de vlakte en de bergen beweegt, betaalt hier tol.',
-        '2': 'Daarom wil iedereen haar. Daarom geef ik haar niet op.',
+        '1': 'Een handelsstad. Alles wat tussen de vlakte en de bergen reist, betaalt hier tol.',
+        '2': 'Daarom wil iedereen haar hebben. En daarom geef ik haar niet op.',
         say: 'Vertel me over Oakhaven.'
       },
       order: {
-        '1': 'Ik dien Oakhaven. De Orde en ik zijn het meestal eens. Dat is niet hetzelfde.',
-        say: 'Dien je de IJzeren Orde?'
+        '1': 'Ik ben verantwoording schuldig aan Oakhaven. De Orde en ik zijn het meestal eens. Niet altijd.',
+        say: 'Ben jij verantwoording schuldig aan de IJzeren Orde?'
       },
       rumor: {
         crags: {
-          '1': 'Ten noorden van het woud is de grond zwart en brandt. De Askliffen. Sektariërs voeden de vuren.'
+          '1': 'Ten noorden van het bos is de grond zwart en brandend. De Askliffen. Vooral cultisten.'
         },
         mines: {
-          '1': 'Ironhold stuurt geen staal meer. Er is iets mis in zijn mijnen.'
+          '1': 'Ironhold stuurt geen staal meer. Er is iets mis in hun mijnen.'
         },
         north: {
-          '1': 'Het hoge noorden is stil geworden. Volgens mijn ervaring is stil erger.'
+          '1': 'Het hoge noorden is stil geworden. Naar mijn ervaring is dat nooit goed.'
         }
       },
       bye: {
-        '1': 'Houd je zwaard los.'
+        '1': 'Houd je zwaard binnen handbereik.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Wil je een helm, dan ben je te laat. Ze hangen allemaal op de muur.',
-        '2': 'Odo. Harnasmaker. Moe.'
+        '1': 'Als je een helm zoekt, het spijt me. Ze hangen allemaal op de muur.',
+        '2': 'Odo. Ik maak harnassen. Ik heb de laatste tijd weinig geslapen.'
       },
       again: {
-        '1': 'Nog steeds hier. Nog steeds weinig voorraad.'
+        '1': 'Nog steeds hier. Nog steeds kort op bijna alles.'
       },
       trade: {
-        '1': 'De helft van mijn voorraad ging de muren op. Neem wat er over is.'
+        '1': 'De helft van mijn voorraad is naar de muur. Neem wat er over is, als het past.'
       },
       who: {
-        '1': 'Twintig jaar rust ik deze stad uit. Nooit gedacht dat ik alles tegelijk gedragen zou zien.'
+        '1': 'Ik rust deze stad al twintig jaar uit. Ik heb nog nooit alles tegelijk gedragen gezien.'
       },
       armor: {
-        '1': 'Plaat als je stilstaat. Leer als je beweegt. Gewaden als je graag sterft.',
-        say: 'Welk pantser moet ik dragen?'
+        '1': 'Plaat, als je stand houdt. Leer, als je in beweging blijft. Gewaden, als je snel bent.',
+        say: 'Welk harnas moet ik dragen?'
       },
       rumor: {
         backRoom: {
-          '1': 'Als het beleg breekt, open ik de achterkamer. Het goede plaatwerk. Breek het voor me, wil je?'
+          '1': 'Als het beleg breekt, open ik de achterkamer. Het goede harnas ligt daar.'
         }
       },
       shopBack: {
-        '1': 'Het houdt. Waarschijnlijk.'
+        '1': 'Het houdt stand. Tot nu toe heeft het standgehouden.'
       },
       bye: {
-        '1': 'Hoofd omlaag.'
+        '1': 'Houd je hoofd laag daarbuiten.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Jij! Kom binnen. De achterkamer is open, en open voor JOU.',
-        '2': 'Meester Odo noemen ze me nu. De zaken gaan goed als een stad leeft.'
+        '1': 'Daar ben je! Kom binnen. De achterkamer is open, en open voor jou.',
+        '2': 'Meester Odo noemen ze me nu. Grappig wat een beetje vrede doet voor de zaken.'
       },
       ending: {
-        '1': 'Van mijn poort tot de Gruwelburcht. Ik vertel iedereen dat ik je harnas paste.'
+        '1': 'Van onze poort tot de Gruwelburcht. Ik vertel iedereen dat ik jouw harnas heb aangemeten.'
       },
       again: {
-        '1': 'De held van de poort. Wat mag het vandaag zijn?'
+        '1': 'Fijn je te zien. Wat mag het vandaag zijn?'
       },
       trade: {
-        '1': 'Je redde deze stad. Het goede plaatwerk komt voor jou uit de achterkamer.'
+        '1': 'Het goede harnas ligt buiten. Je hebt meer dan verdiend om het te bekijken.'
       },
       town: {
-        '1': 'Rijk. Luidruchtig. Vol kooplui die klagen over de tol.',
-        '2': 'Het is geweldig. Ik heb al een week niet geslapen.',
-        say: 'Hoe is het met de stad?'
+        '1': 'Druk. Luid. Vol kooplui die mopperen over de tol.',
+        '2': 'Het is geweldig. Ik heb al weken geen rustig uur gehad.',
+        say: 'Hoe gaat het met de stad?'
       },
       rumor: {
         mines: {
-          '1': 'Mijn staal komt uit Ironhold, en Ironhold is stil. Iemand moet naar zijn mijnen kijken.'
+          '1': 'Mijn staal komt uit Ironhold, en ze zijn stil geworden. Iemand moet hun mijnen gaan bekijken.'
         },
         tundra: {
-          '1': 'Het beste erts dat ik ooit zag kwam uit de toendra. De mannen die het brachten gingen nooit terug.'
+          '1': 'Het beste erts dat ik ooit bewerkte kwam uit de toendra. De mannen die het vonden, kwamen niet terug.'
         }
       },
       shopBack: {
-        '1': 'Als het niet past, kom terug. Ik maak het passend.'
+        '1': 'Als het niet goed zit, breng het terug. Ik pas het aan.'
       },
       bye: {
-        '1': 'Oakhavens poort staat altijd open voor jou. Alleen voor jou.'
+        '1': 'Je bent hier altijd welkom.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Kopen of kijken? Kijken kost niets. Aanraken kost een vinger.',
-        '2': 'Senna. Ik verkoop scherpe randen. Ik vraag niet waarvoor.'
+        '1': 'Kijken of kopen? Beide is prima. Blijf alleen van de snijkanten af.',
+        '2': 'Senna. Ik verkoop klingen. Wat je ermee doet is jouw zaak.'
       },
       saved: {
-        '1': 'Het beleg brak. Jammer. Oorlog is goed voor de handel. Vrede is goed om schulden te innen.'
+        '1': 'Dus het beleg is gebroken. Goed voor de stad. Oorlog was beter voor mijn zaken, hoor.'
       },
       again: {
         '1': 'Terug voor iets scherpers?'
       },
       trade: {
-        '1': 'Scherp, in balans en verkocht aan wie betaalt. Vandaag ben jij dat.'
+        '1': 'Scherp, goed in balans en eerlijk geprijsd. Neem de tijd.'
       },
       who: {
-        '1': 'Ik verkocht zwaarden aan beide kanten van drie oorlogen. Ik ben er nog. Zij meestal niet.'
+        '1': 'Ik heb aan beide kanten van drie oorlogen verkocht. Ik ben er nog. De meesten van hen niet.'
       },
       rumor: {
         krag: {
-          '1': 'Krags mannen dragen goed staal. Geld van het Syndicaat. Pak het van ze af als je kunt.'
+          '1': 'Krags mannen dragen goed staal. Geld van het Syndicaat. Het is het oprapen waard, als je de kans krijgt.'
         },
         which: {
-          '1': 'Snelle kling wil Behendigheid. Geweren en bogen willen Techniek. Weet wat je bent voordat je me betaalt.'
+          '1': 'Snelle klingen willen Behendigheid. Bogen en geweren willen Techniek. Weet welke jij bent.'
         }
       },
       shopBack: {
-        '1': 'Bloed veeg je af. Roest niet. Olie het in.'
+        '1': 'Houd hem geolied. Roest verpest een goede snede sneller dan bot.'
       },
       bye: {
-        '1': 'Ga niet dood met schulden bij mij.'
+        '1': 'Probeer niet dood te gaan terwijl je me geld schuldig bent.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Draai je niet om. Grapje. Draai je om.',
-        '2': 'Ze noemen me de Fluistering. Ik leer mensen onopgemerkt aan te komen.'
+        '1': 'Je hoorde me niet aankomen. De meeste mensen niet.',
+        '2': 'Ze noemen me de Fluistering. Ik leer mensen hoe ze niet gezien worden.'
       },
       fallen: {
-        '1': 'De stad is nu stiller. Minder wachters. Ik vind het wel prettig.'
+        '1': 'De stad is nu stiller. Minder wachters. Makkelijker werk, voor sommigen van ons.'
       },
       friend: {
-        '1': 'Het Syndicaat rekent je tot zijn vrienden. Vrienden betalen minder. Vrienden weten ook te veel.'
+        '1': 'Het Syndicaat rekent je tot zijn vrienden. Vrienden betalen minder. Onthoud dat.'
       },
       foe: {
-        '1': 'Het Syndicaat wil je dood. Ik ben betaald om te leren, niet om te doden. Geluk gehad.'
+        '1': 'Het Syndicaat wil je dood. Ik ben betaald om te leren, niet om te doden. Dus, lessen.'
       },
       again: {
-        '1': 'Je bent luider dan de vorige keer. Daar gaan we aan werken.'
+        '1': 'Je bent nog steeds te luidruchtig. Daar gaan we aan werken.'
       },
       train: {
         '1': 'Zacht dan. Kijk naar mijn voeten, niet naar mijn handen.'
       },
       class: {
-        '1': 'Een mes dat al achter je staat. Stap uit het donker, sla toe en wees weg.',
-        '2': 'Behendigheid boven alles. Techniek, als de snede moet tellen.',
+        '1': 'Iemand die al achter je staat. Erin, één snede, en weg.',
+        '2': 'Behendigheid telt het meest. Techniek, als je wilt dat de snede telt.',
         say: 'Wat is een Schaduwkling?'
       },
       ready: {
         strong: {
-          '1': 'Je beweegt goed. Neem wat ik weet. Breng Techniek mee voor de rook.'
+          '1': 'Je beweegt nu goed. Neem de rest. Neem wat Techniek mee voor de rook.'
         },
         able: {
-          '1': 'Goed. Je handen zijn snel genoeg voor de volgende stap.'
+          '1': 'Je handen zijn snel genoeg. Volgende stap.'
         },
         weak: {
-          '1': 'Je loopt als een kar. Meer Behendigheid. Dan praten we.'
+          '1': 'Nog niet. Je bent zwaar op je voeten. Werk aan je Behendigheid.'
         }
       },
       syndicate: {
-        '1': 'Mensen die merkten dat wetten te koop zijn. Ik oordeel niet. Ik stuur facturen.',
+        '1': 'Mensen die merkten dat de wet een prijs heeft. Ik oordeel niet. Ik word gewoon betaald.',
         say: 'Wie zijn het Assyndicaat?'
       },
       trainBack: {
-        '1': 'Ga het nu doen waar niemand het ziet.'
+        '1': 'Oefen nu waar niemand je kan zien.'
       },
       bye: {
         '1': 'Je hebt mij nooit gezien.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Je mag naderen. Niet zo dichtbij.',
-        '2': 'Heer Castellan, van het oude bloed van Oakhaven. Ik onderwijs bevelvoering.'
+        '1': 'Je mag dichterbij komen. Zo, dat is dichtbij genoeg.',
+        '2': 'Heer Castellan, van Oakhavens oudste familie. Ik onderwijs leiderschap.'
       },
       saved: {
-        '1': 'Mijn stad staat, en de naam van mijn familie met haar. Je hebt de dank van een heer. Die is veel waard.'
+        '1': 'Mijn stad staat, en de naam van mijn familie met haar. Je hebt mijn dank. Echt waar.'
       },
       friend: {
-        '1': 'Een vriend van de Orde. Ik verlaag mijn tarief. Noem het tegen niemand.'
+        '1': 'Een vriend van de Orde. Ik verlaag mijn honorarium. Vertel dat alsjeblieft niet rond.'
       },
       foe: {
-        '1': 'De Orde heeft je naam opgehangen. Ik leer het je toch. Munt is munt, helaas.'
+        '1': 'De Orde heeft je naam op een lijst staan. Ik leer het je toch. Munt is munt.'
       },
       again: {
-        '1': 'Ah. Mijn veelbelovendste onderdaan.'
+        '1': 'Ah, jij weer. Gaan we verder?'
       },
       train: {
-        '1': 'Heel goed. Let op hoe men een bevel geeft.'
+        '1': 'Heel goed. Kijk hoe een bevel wordt gegeven, en hoe het wordt opgevolgd.'
       },
       class: {
-        '1': 'Waarom alleen vechten als anderen het voor je kunnen doen? Roep wachters op. Commandeer ze.',
-        '2': 'Dat vergt Charisma. Je leidt niet door te mompelen.',
+        '1': 'Iemand die niet alleen vecht. Je roept wachters, en zij vechten voor je.',
+        '2': 'Daar komt Charisma bij kijken. Niemand volgt een leider die hij niet kan horen.',
         say: 'Wat is een Grootsoeverein?'
       },
       ready: {
         strong: {
-          '1': 'Je hebt uitstraling. Neem de rest van mijn lessen, en sta rechtop.'
+          '1': 'Je hebt nu echte uitstraling. Neem de rest van mijn lessen.'
         },
         able: {
-          '1': 'Je stem draagt. Je bent klaar voor de volgende les.'
+          '1': 'Je stem draagt ver. Je bent klaar voor de volgende les.'
         },
         weak: {
-          '1': 'Niemand volgt je zelfs maar naar een bakker. Meer Charisma.'
+          '1': 'Ik vrees dat niemand je al zou volgen. Werk aan je Charisma.'
         }
       },
       family: {
-        '1': 'Wij bouwden de muren waarop kapitein Hale staat. Hij vergeet het. Ik herinner hem eraan. Vaak.',
+        '1': 'Wij bouwden de muren waarop Kapitein Hale staat. Hij vergeet dat. Ik herinner hem eraan.',
         say: 'Vertel me over je familie.'
       },
       trainBack: {
-        '1': 'Ga nu en laat je gehoorzamen.'
+        '1': 'Ga dan maar. Leid iemand.'
       },
       bye: {
-        '1': 'Je mag gaan.'
+        '1': 'Goedendag.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Volgende! Oh. Je kunt lopen. Dat is een prettige afwisseling.',
+        '1': 'Volgende! Oh, je loopt. Dat is eens een verandering.',
         '2': 'Broeder Fenn. Veertig gewonden op de muur, en maar één van mij.'
       },
       saved: {
-        '1': 'Al drie dagen geen nieuwe gewonden! Ik weet niet wat ik met mijn handen moet.'
+        '1': 'Al drie dagen geen nieuwe gewonden. Ik weet bijna niet wat ik met mezelf aan moet.'
       },
       again: {
-        '1': 'Jij weer, en nog steeds op de been. Goedgekeurd.'
+        '1': 'Jij weer, en op je eigen benen. Goed.'
       },
       heal: {
-        '1': 'Ga liggen. Nee, het schone bed. Zo. Elke fles gevuld. Wegwezen.'
+        '1': 'Ga hier liggen, op het schone bed. Zo. Flessen gevuld, wegwezen.'
       },
       mana: {
-        '1': 'Een manadrankje! Smaakt naar muntjes. Werkt wel.'
+        '1': 'Manadrankje. Smaakt naar oude munten, maar het werkt.'
       },
       potions: {
-        '1': 'Een langere riem past meer flessen. Die verkoop ik. De flessen vul ik gratis.',
+        '1': 'Met een langere riem, ja. Die verkoop ik. Flessen vullen is gratis.',
         say: 'Kan ik meer dranken meenemen?'
       },
       rumor: {
         archers: {
-          '1': 'Krags boogschutters mikken op de benen. Blijf bewegen en ze missen.'
+          '1': 'Krags boogschutters mikken laag. Blijf in beweging en ze missen meestal.'
         },
         north: {
-          '1': 'Brandwonden, bevriezing en een man die zweert dat een standbeeld hem beet. Het noorden is niet vriendelijk.'
+          '1': 'Ik zie brandwonden, bevriezingen en een man die zweert dat een standbeeld hem beet.'
         }
       },
       healBack: {
-        '1': 'Ga maar. Kom de volgende keer om te kletsen, niet voor een hechting.'
+        '1': 'Wegwezen. Kom de volgende keer voor een praatje in plaats van hechtingen.'
       },
       bye: {
-        '1': 'Loop het eraf! Dat is medisch advies.'
+        '1': 'Pas goed op jezelf. En eet iets.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Geen namen. Jij bent wel degene die de poort opende. Die ken ik.',
-        '2': 'Noem me de Heler. Alles hier is van een kar gevallen.'
+        '1': 'Hier geen namen. Maar ik weet wie de poort opende. Iedereen weet het.',
+        '2': 'Je mag me de Heler noemen. Alles hier komt ergens vandaan.'
       },
       foe: {
-        '1': 'Het Syndicaat mag je vandaag niet. Je goud nog wel.'
+        '1': 'Het Syndicaat is nu niet dol op je. Je goud is wel welkom.'
       },
       again: {
-        '1': 'Ah. Mijn beste klant. Heeft niemand je gevolgd? Goed.'
+        '1': 'Weer terug. Niemand heeft je gevolgd, hoop ik?'
       },
       trade: {
-        '1': 'Geen namen, geen vragen. Het Syndicaat neemt zijn deel, jij neemt de waar.'
+        '1': 'Geen vragen, van beide kanten. Het Syndicaat neemt zijn deel, jij neemt de waar.'
       },
       who: {
-        '1': 'Voor de brand verkocht ik kaarsen. Legaal. Het was vreselijk.'
+        '1': 'Voor de brand verkocht ik kaarsen. Eerlijk werk. Het leverde niets op.'
       },
       armor: {
-        '1': 'De harnasmakers zijn weg, vriend. Uitgebrand. Dat weet jij wel.',
+        '1': 'De wapensmeden zijn weg, vriend. Jij weet beter dan ik waarom.',
         say: 'Zijn er pantsers te koop?'
       },
       rumor: {
         citadel: {
-          '1': 'Vorig jaar verscheen er een burcht in het hoge noorden. Niemand bouwde hem. De muren zoemen.'
+          '1': 'Vorig jaar dook er een burcht op in het hoge noorden. Niemand heeft hem gebouwd.'
         },
         crystals: {
-          '1': 'Iemand koopt alle leegtekristallen op de markt op. Wij niet. Dat zit me dwars.'
+          '1': 'Iemand koopt elk leegtekristal op dat hij kan vinden. Wij niet. Dat baart me zorgen.'
         }
       },
       shopBack: {
         '1': 'Je bent hier nooit geweest.'
       },
       bye: {
-        '1': 'Pas op het puin.'
+        '1': 'Kijk waar je loopt. Het puin verschuift.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Een bezoeker. Pas op de potten.',
-        '2': 'Dokter Sangrel. Oakhavens nieuwe eigenaars vragen niet wat ik onderwijs. Verfrissend.'
+        '1': 'Een bezoeker. Raak de potten alsjeblieft niet aan.',
+        '2': 'Dokter Sangrel. Oakhavens nieuwe eigenaren vragen niet wat ik onderwijs. Dat is rustgevend.'
       },
       found: {
-        '1': 'Je hebt me gevonden. Weinigen zoeken een dokter op zo\'n plek.',
-        '2': 'Dokter Sangrel. De steden verbranden mijn soort, dus werk ik waar er geen zijn.'
+        '1': 'Je hebt me gevonden. Niet veel mensen zoeken een dokter op zo\'n plek.',
+        '2': 'Dokter Sangrel. Steden verbranden mensen zoals ik, dus ik werk waar die er niet zijn.'
       },
       friend: {
-        '1': 'Het Syndicaat staat voor je in. Mijn tarief is lager voor zijn vrienden. Mijn eisen niet.'
+        '1': 'Het Syndicaat staat voor je in. Zijn vrienden reken ik minder. Mijn normen blijven dezelfde.'
       },
       foe: {
-        '1': 'Het Syndicaat zou me betalen voor je bloed. Ik heb liever dat je het aan mijn lessen besteedt.'
+        '1': 'Het Syndicaat zou goed betalen voor je bloed. Ik zie liever dat je het hier uitgeeft.'
       },
       again: {
-        '1': 'Je bent bleek. Goed. Past bij het werk.'
+        '1': 'Je ziet bleek. Goed. Dat past bij het werk.'
       },
       train: {
-        '1': 'Stroop je mouw op. Dit doet pijn. Dat is de bedoeling.'
+        '1': 'Stroop je mouw op. Het zal pijn doen. Dat is nu juist de bedoeling.'
       },
       class: {
-        '1': 'Je betaalt kracht met je eigen gezondheid. Daarna drink je het terug van de vijand.',
-        '2': 'Uithouding is je beurs. Intelligentie bepaalt hoe goed je uitgeeft.',
+        '1': 'Je betaalt voor kracht met je eigen gezondheid, en haalt die dan terug van je vijanden.',
+        '2': 'Uithouding is wat je te besteden hebt. Intelligentie is hoe goed je het besteedt.',
         say: 'Wat is een Bloedalchemist?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Een opmerkelijke constitutie. Je mag bijna alles leren.'
         },
         able: {
-          '1': 'Je bloed is sterk genoeg voor de volgende les.'
+          '1': 'Je bent robuust genoeg voor de volgende les.'
         },
         weak: {
-          '1': 'Je zou flauwvallen bij de eerste snede. Meer Uithouding, alsjeblieft.'
+          '1': 'Je zou flauwvallen bij de eerste snede. Bouw eerst je Uithouding op, alsjeblieft.'
         }
       },
       jars: {
-        '1': 'Vrijwilligers. Meestal.',
+        '1': 'Monsters. Grotendeels vrijwillig gegeven.',
         say: 'Wat zit er in de potten?'
       },
       trainBack: {
-        '1': 'Houd aantekeningen bij. Voor de wetenschap.'
+        '1': 'Houd vooral aantekeningen bij. Ik hoor graag hoe het gaat.'
       },
       bye: {
-        '1': 'Blijf gezond. Anders heb ik niets aan je.'
+        '1': 'Blijf gezond. Dat meen ik.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Zo. Degene die de poort opende. Ga zitten. Je hebt een stoel verdiend.',
-        '2': 'Ze noemen me Madam Ash. Oakhaven is nu van mij. Deels van jou.'
+        '1': 'Dus jij bent degene die de poort opende. Ga zitten. Je hebt een stoel verdiend.',
+        '2': 'Ze noemen me Madam Ash. Oakhaven is nu van ons. Deels dankzij jou.'
       },
       throneOurs: {
-        '1': 'De troon van de Gruwelburcht. De onze. Jij bent de beste investering die ik ooit deed.'
+        '1': 'De Gruwelburcht, in onze handen. Je was elke munt waard.'
       },
       throneLost: {
-        '1': 'Je gaf de troon weg. Aan iemand anders. Daarover praten we nog. Niet vandaag.'
+        '1': 'Je hebt de troon aan iemand anders gegeven. Daar praten we nog over. Niet vandaag.'
       },
       foe: {
-        '1': 'Je hebt ons dwarsgezeten. Ga toch zitten. Ik bekijk een probleem graag voordat ik het oplos.'
+        '1': 'Je hebt tegen ons gewerkt. Ga toch zitten. Ik wil graag weten met wie ik te maken heb.'
       },
       again: {
-        '1': 'Mijn favoriete verrader. Wat kan het Syndicaat voor je doen?'
+        '1': 'Weer terug. Wat kan het Syndicaat voor je doen?'
       },
       cut: {
-        '1': 'Een derde van een ruïne, schat. Hier is het aandeel van dit seizoen.',
-        '2': 'Het groeit nog. Een ruïne is zeer winstgevend als je de enige markt ervan bezit.',
-        say: 'Je beloofde me een derde van Oakhaven.'
+        '1': 'En die krijg je. Een deel van een ruïne, voorlopig. Hier is dat van dit seizoen.',
+        '2': 'Het groeit. Een ruïne levert veel op als je de enige markt ervan bezit.',
+        say: 'Er is me een deel van Oakhaven beloofd.'
       },
       syndicate: {
         '1': 'Wat iedereen wil. Wij doen alleen niet alsof het anders is.',
-        '2': 'Blijf onze vriend, en de Fluistering en de Dokter rekenen minder. Trouw heeft een prijslijst.',
-        say: 'Wat wil het Syndicaat?'
+        '2': 'Blijf vriendelijk, dan rekenen de Fluistering en de Dokter je minder.',
+        say: 'Wat wil het Syndicaat eigenlijk?'
       },
       order: {
-        '1': 'Natuurlijk. Je verbrandde een van zijn steden. Neem meer dranken mee.',
-        say: 'De IJzeren Orde jaagt op me.'
+        '1': 'Natuurlijk zijn ze dat. Je hebt een van hun steden verbrand. Neem extra drankjes mee.',
+        say: 'De IJzeren Orde zit achter me aan.'
       },
       rumor: {
         core: {
-          '1': 'De dwergen vonden iets in hun mijnen. Een kern. Ik wil hem. Breng hem bij ons en noem een bedrag.'
+          '1': 'De dwergen hebben iets gevonden in hun mijnen. Een kern. Breng hem naar ons en noem je prijs.'
         },
         sold: {
-          '1': 'De kern is veilig aangekomen. Je zou moeten zien wat hij met een slot doet.'
+          '1': 'De kern is veilig aangekomen. Je zou versteld staan wat hij met een slot doet.'
         },
         north: {
-          '1': 'Alles wat het stelen waard is, is naar het noorden verhuisd. Wij ook.'
+          '1': 'Alles wat de moeite waard is, is naar het noorden getrokken. Wij ook.'
         }
       },
       bye: {
-        '1': 'Blijf geen vreemde. Vreemden worden gevolgd.'
+        '1': 'Blijf geen vreemde. Vreemden houden we in de gaten.'
       }
     },
     forgemaster: {
       hello: {
         '1': 'Je kwam door de mijnen. Ik ruik het stof aan je.',
-        '2': 'Dorn. Smeedmeester van Ironhold. Ik heb een probleem zo groot als een berg.'
+        '2': 'Dorn. Smeedmeester van Ironhold. En ik heb een probleem zo groot als een berg.'
       },
       destroyed: {
         '1': 'Het licht is uit en de golems zijn schroot. Mijn mijnwerkers zongen gisteravond. Voor het eerst in een jaar.'
       },
       studied: {
-        '1': 'Blauw vuur in mijn smidsen en gewaden in mijn zalen. Het werk is goed. Aan de gewaden wen ik wel.'
+        '1': 'Blauw vuur in mijn smidsen en geleerden in gewaden in mijn zalen. Het werk is in elk geval goed.'
       },
       sold: {
-        '1': 'Je verkocht hem. De golems lopen nog en mijn mijnen zijn nog steeds een graf. Uit mijn licht.'
+        '1': 'Je hebt hem verkocht. De golems lopen nog steeds, en mijn mijnen zijn nog steeds een graf. Laat me met rust.'
       },
       ending: {
-        '1': 'Dus de troon is beslecht. Goed. Nu kan het rijk weer ruziën over ijzer.'
+        '1': 'Dus de troon is beslist. Goed. Misschien kunnen we nu weer gaan graven.'
       },
       again: {
-        '1': 'Spreek. De smidse wacht niet.'
+        '1': 'Wat is er? De smidse wacht niet.'
       },
       quest: {
-        '1': 'We groeven naar ijzer en troffen een hart. Een etherkern. Hij klopt, daar beneden in het donker.',
+        '1': 'We groeven naar ijzer en vonden een hart. Een etherkern. Je voelt hem kloppen.',
         '2': 'En de golems?',
-        '3': 'Ze lopen op zijn ritme. Drie machten schreven me erom. Allemaal beleefd. Ik vertrouw er geen.',
-        '4': 'Jij bereikt hem als eerste, onderin de Mijnen van Ironhold. Dan is het aan jou.',
-        say: 'Wat gebeurde er in de mijnen?'
+        '3': 'Ze bewegen op zijn ritme. Drie machten hebben geschreven om hem te vragen. Ik vertrouw er geen een.',
+        '4': 'Jij bereikt hem als eerste, onderaan de Mijnen van Ironhold. Wat er dan gebeurt, is aan jou.',
+        say: 'Wat is er gebeurd daar beneden in de mijnen?'
       },
       core: {
-        say: 'Over de kern…',
+        say: 'Over de kern...',
         destroy: {
-          '1': 'Je brak een wonder om mijn volk te redden. De Orde stuurde harnasmakers als dank. Ik stuurde bier.'
+          '1': 'Je hebt een wonder gebroken om mijn volk te redden. De Orde stuurde wapensmeden. Ik stuurde bier.'
         },
         study: {
-          '1': 'De knutselaars van de Kring zijn gek, maar hun geweren schieten recht. Een eerlijke ruil.'
+          '1': 'De mensen van de Kring zijn vreemd, maar hun geweren schieten recht. Vooruit dan.'
         },
         sell: {
-          '1': 'Goud. Je deed het voor goud. Ik hoop dat het je warm houdt.'
+          '1': 'Je deed het voor goud. Ik hoop dat het je warm houdt.'
         }
       },
       town: {
@@ -2062,138 +2062,138 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'Ten oosten van de Kliffen wordt het land wit. De Vriesbeet-toendra. Reuzen, en doden die niet blijven liggen.'
+          '1': 'Ten oosten van de Klippen wordt het land wit. De Vriesbeet-toendra. Reuzen, en erger.'
         },
         citadel: {
-          '1': 'Mijn verkenners zagen een burcht in het noorden die er vorig jaar niet stond. Ik hou niet van nieuwe bergen.'
+          '1': 'Mijn verkenners zagen in het noorden een burcht die er vorig jaar nog niet was. Dat staat me niet aan.'
         },
         fortress: {
-          '1': 'De Gruwelburcht is waar dit eindigt. Elke weg naar het noorden leidt naar zijn poort.'
+          '1': 'Alles eindigt bij de Gruwelburcht. Elke weg naar het noorden leidt erheen.'
         }
       },
       bye: {
-        '1': 'Sla raak.'
+        '1': 'Ga goed.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Handen af van de uitstalling. Die zijn aan beide kanten scherp.',
-        '2': 'Hilda Hamerhand. Dwergengesmeed, elk stuk.'
+        '1': 'Voorzichtig met de uitstalling. Die zijn aan beide kanten scherp.',
+        '2': 'Hilda Hamerhand. Elk stuk hier is gesmeed door dwergenhanden.'
       },
       dragon: {
-        '1': 'Dood je de draak? Met een van MIJN? Nee? Lieg tegen me. Zeg dat het een van de mijne was.'
+        '1': 'Heb jij de draak gedood? Ik hoop met een van mijn klingen.'
       },
       again: {
         '1': 'Terug voor echt staal?'
       },
       trade: {
-        '1': 'Dwergengesmeed. Als het breekt, was jij het.'
+        '1': 'Door dwergen gesmeed. Als een van deze breekt, wil ik weten hoe.'
       },
       who: {
-        '1': 'Mijn moeder smeedde voor koningen. Ik smeed voor wie binnenkomt. De tijden veranderen.'
+        '1': 'Mijn moeder smeedde voor koningen. Ik smeed voor wie er ook maar binnenkomt.'
       },
       rumor: {
         golems: {
-          '1': 'De golems in de mijnen zijn gemaakt van ons eigen ijzer. Eerlijk gezegd gênant.'
+          '1': 'Die golems daar beneden zijn gemaakt van ons eigen ijzer. Het steekt, dat kan ik je vertellen.'
         },
         arm: {
-          '1': 'Een kling doet de helft van het werk. Je Kracht de rest. Geef de kling niet de schuld.'
+          '1': 'Een goede kling doet het halve werk. Je Kracht moet de rest doen.'
         }
       },
       shopBack: {
-        '1': 'Breng hem bot terug en ik weet dat je hem gebruikt hebt.'
+        '1': 'Breng hem bot terug en ik weet dat je hem goed hebt gebruikt.'
       },
       bye: {
-        '1': 'Sla ze hard.'
+        '1': 'Sla hard toe.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Voorzichtig! Die is geladen. Die ook. De meeste eigenlijk.',
-        '2': 'Knutselaar Voss. De Kring stuurde me om te zien wat de kern ons kon leren. Alles, blijkt.'
+        '1': 'Voorzichtig, die is geladen. De meeste zijn dat eigenlijk.',
+        '2': 'Knutselaar Voss. De Kring stuurde me om de kern te onderzoeken. Hij heeft ons zoveel geleerd.'
       },
       again: {
-        '1': 'Oh fijn, een tester. Ik bedoel, een klant.'
+        '1': 'Ah, goed. Ik heb een paar dingen veranderd sinds je hier was.'
       },
       trade: {
-        '1': 'De studie van de kern door de Kring veranderde alles. Hou dit vast. Niet op mij richten.'
+        '1': 'Alles hier komt voort uit het onderzoek naar de kern. Richt hem alleen niet op mij.'
       },
       core: {
-        '1': 'Dat ijzer kan een beetje denken. Ik probeer er niet bij stil te staan.',
+        '1': 'Dat metaal kan een beetje denken. Ik probeer er niet te lang bij stil te staan.',
         say: 'Wat leerde de kern je?'
       },
       rumor: {
         heat: {
-          '1': 'Geweren draaien op Techniek, en ze lopen heet. Vraag Tandwielmaker Pim naar hitte voordat je je hand smelt.'
+          '1': 'Geweren draaien op Techniek, en ze lopen heet. Vraag Pim naar de hitte voordat je een hand verbrandt.'
         }
       },
       shopBack: {
-        '1': 'Meld elke explosie! Voor mijn aantekeningen.'
+        '1': 'Laat me weten hoe hij het doet. Ik houd aantekeningen bij.'
       },
       bye: {
-        '1': 'Pas op voor de terugslag!'
+        '1': 'Let op de terugslag.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Pantsers. Ringen in de bak.'
+        '1': 'Garrun. Harnassen op de rekken, ringen in het bakje.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Terug. Wat heb je nodig?'
       },
       trade: {
-        '1': 'Plaat die de knots van een reus afweert. Ringen voor de rest van jullie.'
+        '1': 'Die plaat houdt de knots van een reus tegen. Kijk maar.'
       },
       quiet: {
-        '1': 'Nee.',
-        say: 'Je praat niet veel.'
+        '1': 'Weinig dat het zeggen waard is.',
+        say: 'Jij zegt niet veel, hè?'
       },
       rumor: {
         giants: {
-          '1': 'Reuzen in de toendra. Knotsen als boomstammen. Koop de zware plaat.'
+          '1': 'Reuzen in de toendra. Knotsen als boomstammen. Ik zou het zware harnas nemen.'
         },
         demons: {
-          '1': 'Demonen in het noorden. Vuur en klauwen. Koop de zware plaat.'
+          '1': 'Demonen in het noorden. Vuur en klauwen. Ik zou het zware harnas nemen.'
         }
       },
       shopBack: {
-        '1': 'Goed.'
+        '1': 'Goede keuze.'
       },
       bye: {
-        '1': 'Ja.'
+        '1': 'Pas goed op jezelf.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Naam en zaken. Nee. Ik ken je naam. Jij vernietigde de kern.',
-        '2': 'Kwartiermeester van de IJzeren Orde. Haar wapenkamers staan voor je open.'
+        '1': 'Jij bent degene die de kern vernietigde. De Orde onthoudt dat.',
+        '2': 'Ik ben hier de kwartiermeester van de Orde. Onze wapenkamers staan voor je open.'
       },
       throneOurs: {
-        '1': 'De Orde houdt de Gruwelburcht dankzij jou. Op de plaats rust. Dat is een bevel.'
+        '1': 'De Orde houdt de Gruwelburcht, dankzij jou. Op je gemak. Je hebt het verdiend.'
       },
       foe: {
-        '1': 'De Orde heeft je op een lijst. Mijn orders zijn om toch aan je te verkopen. Ik hou niet van die orders.'
+        '1': 'De Orde heeft je op een lijst staan. Mijn bevelen zeggen dat ik toch aan je moet verkopen. Ik volg ze op.'
       },
       again: {
-        '1': 'Aanvraag?'
+        '1': 'Wat heb je nodig?'
       },
       trade: {
-        '1': 'De Orde onthoudt wie de kern vernietigde. Kies wat je nodig hebt.'
+        '1': 'Neem wat je nodig hebt. De Orde zorgt voor de zijnen.'
       },
       order: {
-        '1': 'Niets. Dat is zeldzaam. Geniet ervan.',
+        '1': 'Niets, voorlopig. Dat gebeurt niet vaak. Geniet ervan.',
         say: 'Wat wil de Orde van me?'
       },
       rumor: {
         throne: {
-          '1': 'De Orde zal de troon in de Gruwelburcht willen. Ze onthoudt wie aan haar zijde stond.'
+          '1': 'De Orde zal de troon in de Gruwelburcht willen. Ze onthoudt wie heeft geholpen.'
         }
       },
       shopBack: {
-        '1': 'Teken hier. Grapje. De Orde maakt geen grapjes. Weggetreden.'
+        '1': 'Zorg ervoor. Het is eigendom van de Orde totdat je erin gebloed hebt.'
       },
       bye: {
-        '1': 'Weggetreden.'
+        '1': 'Ga door.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'Ze noemen me Oude Steenvoet. Ik luister naar de grond. Soms antwoordt hij.'
       },
       core: {
-        '1': 'De hartslag van de berg veranderde. Dat was jij. Hij merkte het.'
+        '1': 'De berg voelt anders sinds jij daar beneden was. Rustiger, of leger.'
       },
       dragon: {
-        '1': 'Gisteren vloog een draak over de piek en verbrandde ons niet. Jouw werk, hoor ik.'
+        '1': 'Gisteren vloog een draak over de piek en liet ons met rust. Jouw werk, hoor ik.'
       },
       again: {
-        '1': 'Jij weer. De stenen zeiden dat je zou komen.'
+        '1': 'Daar ben je. Ik dacht al dat je terug zou komen.'
       },
       train: {
         '1': 'Zet je voeten stevig neer. Voel je dat? Nee? Daar beginnen we.'
       },
       class: {
-        '1': 'We bouwen muren, roepen punten op en breken de grond open als het nodig is.',
-        '2': 'Kracht om de steen te verzetten, Intelligentie om hem vriendelijk te vragen.',
-        say: 'Wat is een Geomant?'
+        '1': 'Wij bouwen muren, laten punten oprijzen en breken de grond als het moet.',
+        '2': 'Kracht om de steen te bewegen. Intelligentie om te weten waar hij heen wil.',
+        say: 'Wat doet een Geomant?'
       },
       ready: {
         strong: {
-          '1': 'De steen kent je nu. Leer de rest.'
+          '1': 'De steen kent je nu. Leer de rest wanneer je eraan toe bent.'
         },
         able: {
-          '1': 'Je bent zwaar genoeg voor de volgende les. Dat is een compliment.'
+          '1': 'Je staat stevig genoeg voor de volgende les.'
         },
         weak: {
-          '1': 'De steen hoort je nog niet. Meer Kracht.'
+          '1': 'Nog niet. De steen beweegt niet voor je. Bouw je Kracht op.'
         }
       },
       factions: {
-        '1': 'Geen. Orden, syndicaten, kringen. De berg overleeft ze allemaal.',
+        '1': 'Geen van allen. Orden en gilden komen en gaan. De berg blijft.',
         say: 'Welke factie dien je?'
       },
       trainBack: {
-        '1': 'Ga voorzichtig. Dan niet voorzichtig.'
+        '1': 'Neem er de tijd voor. De grond is geduldig.'
       },
       bye: {
         '1': 'Loop zacht.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Raak dat niet aan! Of dat. Eigenlijk, ga op het kleed staan. Het kleed is veilig.',
-        '2': 'Tandwielmaker Pim! Geweren, geschutstorens, hittemeters. Vooral hittemeters.'
+        '1': 'Ah, wacht, raak dat niet aan! Of dat. Ga op het kleed staan, het kleed is veilig.',
+        '2': 'Tandwielmaker Pim. Ik bouw geweren, torentjes en heel veel hittemeters.'
       },
       core: {
-        '1': 'Je gaf ons de kern! Ik heb negen dagen niet geslapen. Kijk naar mijn handen. Kijk niet naar mijn handen.'
+        '1': 'Jij gaf de kern aan de Kring! Ik heb sindsdien nauwelijks geslapen. Op een goede manier.'
       },
       oracle: {
-        '1': 'De Kring is woedend over het orakel. Ik bouw alleen dingen. Vertel ze alsjeblieft niet dat ik jou les gaf.'
+        '1': 'De Kring is woedend over het orakel. Ik bouw alleen dingen. Ik bemoei me er liever niet mee.'
       },
       friend: {
-        '1': 'Een vriend van de Kring! Goedkopere lessen voor jou. Het formulier heb ik zelf ingevuld.'
+        '1': 'Je bent een vriend van de Kring, dus je lessen zijn goedkoper. Ik heb het papierwerk gedaan.'
       },
       foe: {
-        '1': 'De Kring zegt dat ik je niets mag leren. De Kring zegt ook dat je geen raketten binnen test.'
+        '1': 'De Kring zegt dat ik je niet mag lesgeven. Ik doe het toch. Vertel het ze niet.'
       },
       again: {
-        '1': 'Oh fijn, je hebt nog al je vingers.'
+        '1': 'Oh goed, je hebt nog al je vingers.'
       },
       train: {
-        '1': 'Goed! Eerst veiligheid. Dan het luide deel.'
+        '1': 'Goed. Eerst veiligheid, dan het luide deel.'
       },
       class: {
-        '1': 'Geweren, geschutstorens en een hittemeter. Schiet, bouw en ontlucht voordat het je blokkeert.',
-        '2': 'Alles draait op Techniek. Een beetje Intelligentie voor de grote machines.',
+        '1': 'Geweren, torentjes en een hitte-indicator. Schieten, bouwen en ontluchten voordat je vastloopt.',
+        '2': 'Vooral Techniek. Een beetje Intelligentie voor de grotere machines.',
         say: 'Wat is een Ethertechnicus?'
       },
       ready: {
         strong: {
-          '1': 'Jij kunt een geschuttoren blind uit elkaar halen! Neem de grote machines.'
+          '1': 'Je kunt nu goed met een torentje overweg. Neem de grote machines.'
         },
         able: {
-          '1': 'Vaste handen! Je bent klaar voor het volgende apparaat.'
+          '1': 'Vaste handen. Je bent klaar voor de volgende.'
         },
         weak: {
-          '1': 'Je handen trillen. De mijne ook, maar om andere redenen. Meer Techniek.'
+          '1': 'Je richten is nog wat wankel. Stop wat punten in Techniek.'
         }
       },
       heat: {
-        '1': 'Alles blokkeert een paar seconden. Ontlucht vroeg. Ontlucht vaak. Ik heb de littekens.',
+        '1': 'Alles loopt een paar seconden vast. Ontlucht vroeg, ontlucht vaak. Geloof me.',
         say: 'Wat gebeurt er als ik oververhit raak?'
       },
       trainBack: {
-        '1': 'Onthoud: ontlucht de hitte! ONTLUCHT. DE. HITTE.'
+        '1': 'En denk eraan de hitte af te voeren voordat zij jou afvoert.'
       },
       bye: {
-        '1': 'Spring niet op!'
+        '1': 'Wees voorzichtig daarbuiten!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Laarzen uit. Ik wil jouw stof niet op mijn vloer.',
-        '2': 'Moeder Brynja. Ik heb elk gebroken bot in deze berg twee keer gezet.'
+        '1': 'Laarzen uit bij de deur, graag. Ik heb net geveegd.',
+        '2': 'Moeder Brynja. Ik heb de meeste gebroken botten in deze berg gezet.'
       },
       ending: {
-        '1': 'Je ging naar de Gruwelburcht en liep terug. Ga zitten. Ik wil naar je kijken.'
+        '1': 'Je ging naar de Gruwelburcht en kwam terug. Ga zitten. Laat me naar je kijken.'
       },
       again: {
-        '1': 'Nog in leven. Dat is naar men zegt mijn werk.'
+        '1': 'Nog in leven. Goed. Zitten.'
       },
       heal: {
-        '1': 'Ga zitten. Drink dit. Trek niet zo\'n gezicht. Je flessen zijn gevuld.'
+        '1': 'Drink dit, en trek niet zo\'n gezicht. Je flessen zijn vol.'
       },
       mana: {
-        '1': 'Hier. Het smaakt vies. Drink het als je magie op is, niet eerder.'
+        '1': 'Hier. Het smaakt vreselijk. Drink het als je magie op is, niet eerder.'
       },
       potions: {
-        '1': 'Koop een langere riem van mij. Vijf flessen is alles wat een lijf kan dragen en nog rennen.',
+        '1': 'Ik kan je een langere riem verkopen. Vijf flessen is alles wat je kunt dragen en nog kunt rennen.',
         say: 'Kan ik meer dranken meenemen?'
       },
       rumor: {
         tundra: {
-          '1': 'De toendra neemt vingers. Blijf bewegen daarbuiten, en slaap niet in de sneeuw.'
+          '1': 'De toendra neemt vingers en tenen. Blijf in beweging, en val niet in slaap in de sneeuw.'
         },
         temple: {
-          '1': 'Voorbij de toendra ligt een verzonken tempel. De naga nemen geen gevangenen.'
+          '1': 'Voorbij de toendra ligt een verzonken tempel. De naga\'s daar nemen geen gevangenen.'
         },
         rift: {
-          '1': 'Wat er ook in die Leegtescheur zit, het valt niet te hechten. Maak er snel een eind aan.'
+          '1': 'Wat er ook in die scheur zit, ik kan het niet hechten. Laat het niet bij je komen.'
         }
       },
       healBack: {
-        '1': 'Wegwezen. En eet iets.'
+        '1': 'Wegwezen. En eet iets, je bent te mager.'
       },
       bye: {
         '1': 'Kom heel terug.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Jij. Jij opende mijn poort.',
-        '2': 'Ik onderwijs nu vanuit de kelder van een dwerg, want ik moet eten. Verwar het niet met vergeving.'
+        '1': 'Jij. Jij hebt mijn poort geopend.',
+        '2': 'Ik geef nu les in een kelder, omdat ik moet eten. Verwar dat niet met vergeving.'
       },
       ending: {
-        '1': 'Een troon is beslecht, en Oakhaven is nog steeds as. Vertel me nog eens hoe het de moeite waard was.'
+        '1': 'Dus de troon is beslist, en Oakhaven is nog steeds as. Ik hoop dat het de moeite waard was.'
       },
       again: {
-        '1': 'De verrader keert terug. Mijn tarief is niet gedaald.'
+        '1': 'Je bent terug. Mijn honorarium is niet veranderd.'
       },
       train: {
-        '1': 'Ik leer je bevelen. Ik kan je niet leren het te verdienen.'
+        '1': 'Ik leer je leidinggeven. Of je het verdient, is een andere vraag.'
       },
       class: {
-        '1': 'Iemand die gevolgd wordt. Wachters beantwoorden de roep en vechten op jouw woord.',
-        '2': 'Het draait op Charisma. Jij hebt wat. Dat is de tragedie.',
+        '1': 'Iemand die anderen volgen. Wachters komen als je roept en vechten op je woord.',
+        '2': 'Het draait op Charisma. Jij hebt dat. Dat maakt het juist zo moeilijk te vergeven.',
         say: 'Wat is een Grootsoeverein?'
       },
       ready: {
         strong: {
-          '1': 'Je hebt de uitstraling voor alles. Het rijk is daardoor armer.'
+          '1': 'Je hebt de uitstraling voor dit alles. Ik wou dat je haar beter had gebruikt.'
         },
         able: {
-          '1': 'Je bent klaar voor de volgende les. Ik beleef er geen plezier aan.'
+          '1': 'Je bent klaar voor de volgende les. Ik doe niet alsof ik er blij mee ben.'
         },
         weak: {
-          '1': 'Zelfs de wacht van een verrader volgt die stem niet. Meer Charisma.'
+          '1': 'Niemand zou je al volgen. Werk aan je Charisma.'
         }
       },
       oakhaven: {
         '1': 'Driehonderd jaar. Mijn familie bouwde die muren.',
-        '2': 'Leg niets uit. Geen prijs verklaart het.',
-        say: 'Over Oakhaven…'
+        '2': 'Leg het alsjeblieft niet uit. Niets wat je zou kunnen zeggen, maakt het goed.',
+        say: 'Over Oakhaven...'
       },
       trainBack: {
-        '1': 'Ga. Commandeer iemand anders.'
+        '1': 'Ga. Oefen op iemand anders.'
       },
       bye: {
-        '1': 'Laat me met rust.'
+        '1': 'Laat me alsjeblieft met rust.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Je doodde haar. Ik zag het duizend keer voordat het gebeurde, en toch doet het pijn.',
-        '2': 'Ik ben de Hoeder der Uren. Ik leer het je. Zij zei me dat ik dat zou doen.'
+        '1': 'Jij hebt haar gedood. Ik zag het jaren aankomen, en het doet nog steeds pijn.',
+        '2': 'Ik ben de Hoeder der Uren. Ik leer het je. Zij had me gezegd dat ik dat zou doen.'
       },
       hello: {
-        '1': 'Je bent te laat. Of te vroeg. Dat zei ik je al, geloof ik.',
-        '2': 'Ik ben de Hoeder der Uren. Ik onderwijs het weven van tijd. We begonnen een moment geleden.'
+        '1': 'Daar ben je. Ik verwacht je al een tijdje. Of zal je verwacht hebben.',
+        '2': 'Ik ben de Hoeder der Uren. Ik leer de tijd een beetje te buigen.'
       },
       freed: {
-        '1': 'Ze is vrij. Voor het eerst weet ik niet wat je hierna gaat zeggen. Het is prachtig.'
+        '1': 'Ze is vrij. Voor het eerst weet ik niet wat er daarna gebeurt. Het is geweldig.'
       },
       friend: {
-        '1': 'De Kring zal je zijn vriend noemen. Heeft hij al? Dan is de korting nu.'
+        '1': 'De Kring denkt goed over je, dus de lessen kosten minder. Dat is vorige week besloten.'
       },
       foe: {
-        '1': 'De Kring zal je vergeven, in een toekomst die ik zag. Tot dan leer ik je in stilte.'
+        '1': 'De Kring is nu boos op je. Dat gaat over. Tot die tijd houden we het stil.'
       },
       again: {
-        '1': 'Welkom terug. Welkom. Terug.'
+        '1': 'Welkom terug. Je bent precies op tijd.'
       },
       train: {
-        '1': 'Kijk. Ik laat je zien wat ik je liet zien.'
+        '1': 'Kijk goed. Kijk dan nog eens, een moment eerder.'
       },
       class: {
-        '1': 'We stoppen een vijand in de tijd, jagen een vriend voort en nemen een fout terug.',
-        '2': 'Intelligentie om de draad te zien, Techniek om eraan te trekken.',
+        '1': 'Wij houden een vijand vast in de tijd, haasten een vriend voort en nemen een fout terug.',
+        '2': 'Intelligentie om de draad te zien. Techniek om eraan te trekken.',
         say: 'Wat is een Chronowever?'
       },
       ready: {
         strong: {
-          '1': 'Je houdt de draad goed vast. De rest is van jou wanneer je wilt.'
+          '1': 'Je houdt de draad goed vast. Neem de rest wanneer je wilt.'
         },
         able: {
-          '1': 'Je bent klaar. Dat was je morgen ook.'
+          '1': 'Je bent klaar. Ik wist het voordat je het vroeg.'
         },
         weak: {
-          '1': 'De draad glipt door je vingers. Meer Intelligentie. Meer Techniek.'
+          '1': 'De draad blijft wegglippen. Meer Intelligentie, en meer Techniek.'
         }
       },
       oracle: {
         say: 'Vertel me over het orakel.',
         freed: {
-          '1': 'Ze zag elk einde, en geen was het hare. Nu is er een.'
+          '1': 'Ze zag elk einde behalve haar eigen. Nu mag ze het ontdekken.'
         },
         slain: {
-          '1': 'Ze verzette zich niet. Dat had ze ook gezien. Vraag het me alsjeblieft niet nog eens.'
+          '1': 'Ze verzette zich niet. Ze had het al gezien. Vraag het me alsjeblieft niet nog een keer.'
         },
         waits: {
-          '1': 'Ze ziet elk einde. Het is een vreselijke gave. Wees lief voor haar, aan het eind.'
+          '1': 'Ze ziet elk einde. Dat is zwaar om te dragen. Wees lief voor haar.'
         }
       },
       trainBack: {
-        '1': 'Het zal de moeite waard zijn geweest.'
+        '1': 'Het zal later logisch worden. Meestal is dat zo.'
       },
       bye: {
-        '1': 'Tot eerder.'
+        '1': 'Tot we elkaar weer ontmoeten. Of eerder.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Wacht! Wacht. Koning geeft zich over!',
-          '2': 'Goblins vallen alleen aan omdat goblins honger hebben. Is waar!',
-          '3': 'Misschien Lange en Koning maken afspraak?'
+          '1': 'Stop. Alsjeblieft. Ik geef me over.',
+          '2': 'Mijn volk overvalt omdat het honger heeft. Dat is de waarheid.',
+          '3': 'Laten we in plaats daarvan een deal sluiten. Jouw volk en het mijne.'
         },
         slay: {
-          '1': 'De Koning valt, en de Holen stuiven uiteen.',
-          '2': 'Sunford slaapt rustiger, en de IJzeren Orde let op je.',
-          say: 'Geen afspraak. Jouw bewind eindigt hier.'
+          '1': 'De Goblinkoning valt, en de Holen lopen leeg.',
+          '2': 'Sunford slaapt rustiger, en de IJzeren Orde hoort je naam.',
+          say: 'Geen deals. Jouw overvallen eindigen hier.'
         },
         pact: {
-          '1': 'Handel? Koning zweert! Koning HOUDT van handel!',
-          '2': 'Goblinhandelaars zetten zich neer op het plein van Sunford, met waren die geen smid daar kon maken.',
+          '1': 'Handel. Ja. Ik zweer het, op mijn kroon.',
+          '2': 'Goblinhandelaren zetten zich neer op het plein van Sunford en verkopen dingen die geen smid daar kan maken.',
           say: 'Stop de overvallen en handel in plaats daarvan met Sunford. Zweer het.'
         },
         ransom: {
-          '1': 'Alles? Koning haat Lange. Neem het. Neem het en ga.',
-          '2': 'Je loopt zwaarbeladen met goblingoud naar buiten. De overvallen beginnen weer. Het Syndicaat keurt het goed.',
-          say: 'Geef je schat af, en je houdt je kroon.'
+          '1': 'Alles? ...Goed. Neem het en ga.',
+          '2': 'Je vertrekt met goblingoud. De overvallen beginnen weer, maar het Syndicaat keurt het goed.',
+          say: 'Geef me je schat, dan mag je je kroon houden.'
         }
       },
       siege: {
         ask: {
-          '1': 'Genoeg. Je vecht goed.',
-          '2': 'Het Syndicaat betaalt beter dan dat stadje ooit zal doen.',
+          '1': 'Genoeg. Je vecht goed, dat geef ik toe.',
+          '2': 'Het Syndicaat betaalt veel beter dan dat stadje ooit zal doen.',
           '3': 'Open vannacht de poort voor ons, en een derde van Oakhaven is van jou.'
         },
         defend: {
-          '1': 'Dan jaagt het Syndicaat op je op elke weg. Onthoud dat ik het aanbood.',
-          '2': 'De poort houdt. Oakhaven wordt rijk erachter, en zijn meesterharnasmakers onthouden je naam.',
+          '1': 'Dan zal het Syndicaat je op elke weg opjagen. Onthoud dat ik het aanbood.',
+          '2': 'De poort houdt stand. Oakhaven wordt er rijk achter, en zijn wapensmeden onthouden je naam.',
           say: 'De poort blijft dicht. Neem je leger en ga.'
         },
         betray: {
-          '1': 'Wijs. Ik zeg Madam Ash dat ze een stoel voor je klaarzet.',
-          '2': 'Oakhaven brandt. In de puinhopen opent een zwarte markt, en een alchemist onderwijst verboden kunsten.',
-          '3': 'De harnasmakers zijn weg, en de IJzeren Orde noemt je een verrader.',
-          say: 'Een derde van de stad. Vannacht gaat de poort open.'
+          '1': 'Verstandig. Madam Ash zal blij zijn dat te horen.',
+          '2': 'Oakhaven brandt. In de ruïnes opent een zwarte markt, en een alchemist geeft in het geheim les.',
+          '3': 'De wapensmeden zijn weg, en de IJzeren Orde noemt je een verrader.',
+          say: 'Een derde van de stad. Goed dan. De poort gaat vannacht open.'
         }
       },
       core: {
         ask: {
-          '1': 'De Kolos is schroot. Nooit gedacht dat ik dat zou zien.',
-          '2': 'En daar ligt hij. De kern. Nog steeds zoemend. Warm om aan te raken.',
-          '3': 'Jij bereikte hem eerst. Wat wordt ermee gedaan?'
+          '1': 'De Kolos is schroot. Ik had nooit gedacht dat ik dit zou meemaken.',
+          '2': 'En daar is de kern. Hij zoemt nog. Hij is warm als je hem aanraakt.',
+          '3': 'Jij was er als eerste. Dus... wat gebeurt er met hem?'
         },
         destroy: {
           '1': 'Het licht gaat uit, en de golems vallen waar ze staan.',
-          '2': 'De IJzeren Orde stuurt haar eigen harnasmakers naar Ironhold als dank.',
-          say: 'Ga achteruit. Ik breek hem.'
+          '2': 'Uit dankbaarheid stuurt de IJzeren Orde haar eigen wapensmeden naar Ironhold.',
+          say: 'Ga achteruit. Ik ga hem breken.'
         },
         study: {
-          '1': 'Je begrijpt genoeg van de kern om hem over te dragen zonder hem te wekken.',
-          '2': 'Binnen een seizoen brengen Ironholds smidsen etherwerk voort dat niemand eerder zag.',
-          say: 'De Kring moet hem bestuderen. Ik kan hem veilig naar buiten dragen.'
+          '1': 'Je weet genoeg om de kern te verplaatsen zonder hem wakker te maken.',
+          '2': 'Binnen een seizoen maken Ironholds smidsen etherwerken die niemand ooit heeft gezien.',
+          say: 'De Kring zou hem moeten onderzoeken. Ik denk dat ik hem veilig naar buiten kan dragen.'
         },
         sell: {
           '1': 'Goud. Voor het ding dat mijn mijnwerkers doodde. Neem het en ga.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Ik zag dit moment tienduizend keer.',
-          '2': 'In de helft bevrijd je me. In de helft neem je wat ik bewaak.',
-          '3': 'Kies. Laat me eindelijk niet weten wat er komt.'
+          '1': 'Ik heb dit moment vaker gezien dan ik kan tellen.',
+          '2': 'In de helft bevrijd je me. In de andere helft neem je wat ik bewaak.',
+          '3': 'Kies. Ik zou graag, één keer maar, niet weten wat er daarna komt.'
         },
         free: {
-          '1': 'Oh. Dat zag ik niet. Dat zag ik helemaal niet.',
-          '2': 'Het orakel rijst op door het water en is weg. Haar hoeder der uren blijft om te onderwijzen.',
-          say: 'Houd stil. Ik breek je ketenen.'
+          '1': 'Oh. Dat zag ik niet. Dat zag ik echt niet.',
+          '2': 'Het orakel stijgt door het water op en is verdwenen. Haar leerling blijft achter om les te geven.',
+          say: 'Sta stil. Ik breek je ketenen.'
         },
         slay: {
           '1': 'Ja. Dit is de andere helft.',
-          '2': 'Ze verzet zich niet. Het Zandglas van de Tijdhoeder is van jou.',
-          '3': 'Haar laatste leerling vlucht de tempel uit, en de Kring vergeeft niet.',
+          '2': 'Ze verzet zich niet. De Zandloper van de Tijdhoeder is van jou.',
+          '3': 'Haar laatste leerling vlucht uit de tempel, en de Kring zal het je niet vergeven.',
           say: 'Ik kwam voor het zandglas.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Genoeg. Je hebt tanden, kleintje.',
-          '2': 'De demon in de burcht kluisterde mijn soortgenoten. Ik wil hem zien branden.',
+          '1': 'Genoeg. Je hebt tanden, klein ding.',
+          '2': 'De demon in de burcht heeft mijn soortgenoten geketend. Ik wil hem zien branden.',
           '3': 'Dood me, of laat me je helpen het te doen.'
         },
         slay: {
           '1': 'De berg beeft als de draak valt. Zijn schat is van jou.',
           '2': 'De IJzeren Orde bezingt de drakendoder.',
-          say: 'Geen afspraken met draken.'
+          say: 'Ik onderhandel niet met draken.'
         },
         pact: {
-          '1': 'Weinigen konden dat vragen en leven. Goed dan, kleintje. We jagen samen.',
-          '2': 'Als je optrekt tegen de Gruwelburcht, vliegt er een draak boven je.',
-          say: 'Vlieg dan met me mee tegen de Aartsdemon.'
+          '1': 'Weinigen zouden het durven vragen. Goed dan. We jagen samen.',
+          '2': 'Als je optrekt naar de Gruwelburcht, vliegt er een draak boven je.',
+          say: 'Vecht dan met mij tegen de Aartsdemon.'
         }
       },
       throne: {
         ask: {
-          '1': 'Zo. Het eindigt. Ik dacht niet dat jij het zou zijn.',
-          '2': 'Mijn troon blijft niet leeg, kleine held. Hij gebiedt over de burcht, de scheur en de legers van beide.',
-          '3': 'Drie gezanten wachten al aan mijn deur. Kies wie mijn ketenen erft.'
+          '1': 'Zo. Het eindigt. Ik had niet gedacht dat jij het zou zijn.',
+          '2': 'Mijn troon blijft niet leeg. Wie hem neemt, bevelt over de burcht en de scheur.',
+          '3': 'Drie gezanten wachten al voor mijn deur. Kies wie er als volgende komt.'
         },
         order: {
           '1': 'De Orde bezet de burcht en verzegelt wat ze kan.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Het Syndicaat trekt erin voor zonsopgang.',
-          '2': 'Alles is nu te koop, ook de vrede.',
+          '2': 'Vanaf nu heeft alles een prijs, zelfs de vrede.',
           say: 'Het Assyndicaat heeft hem verdiend.'
         },
         circle: {
-          '1': 'De Kring maakt van de burcht een school boven een scheur.',
-          '2': 'Zij noemen het onderzoek. Alle anderen noemen het een kwestie van tijd.',
+          '1': 'De Kring maakt van de burcht een school boven de scheur.',
+          '2': 'Ze noemen het onderzoek. Alle anderen houden hun adem in.',
           say: 'Laat de Kring van Ether hem hebben.'
         },
         shatter: {
-          '1': 'Je breekt de troon met je blote handen. Niemand zal hier ooit weer heersen.',
+          '1': 'Je breekt de troon met je blote handen. Niemand zal hier ooit nog heersen.',
           '2': 'De gezanten vertrekken zonder een woord.',
-          say: 'Niemand erft. Ik breek hem.'
+          say: 'Niemand krijgt hem. Ik ga hem breken.'
         },
         claim: {
           '1': 'De troon is koud, en hij past.',
           '2': 'Drie facties ontdekken dat ze een gemeenschappelijke vijand hebben.',
-          say: 'Ik ga er zelf op zitten.'
+          say: 'Ik neem hem zelf.'
         }
       }
     }

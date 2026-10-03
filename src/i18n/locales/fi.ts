@@ -127,8 +127,8 @@ export default {
       mouse: 'Seuraa polkua kouluttajan luo ja napsauta häntä puhuaksesi.'
     },
     teach: {
-      touch: 'Napauta ”Opeta minua” nähdäksesi, mitä kouluttaja opettaa.',
-      mouse: 'Napsauta ”Opeta minua” nähdäksesi, mitä kouluttaja opettaa.'
+      touch: 'Napauta “Opetatko minulle?” nähdäksesi, mitä tämä kouluttaja opettaa.',
+      mouse: 'Klikkaa “Opetatko minulle?” nähdäksesi, mitä tämä kouluttaja opettaa.'
     },
     learn: {
       touch: 'Napauta taitoa ja sitten Opi.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Osta takaisin',
     deal: 'Sovittu!',
     say: {
-      buy: 'Hyvä valinta. Pidä siitä huolta.',
-      sell: 'Löydän sille hyvän kodin.',
-      back: 'Muutitko mielesi? Tässä, täsmälleen kuten ennenkin.',
-      poor: 'Tule takaisin raskaamman kukkaron kanssa.'
+      buy: 'Hyvä valinta. Pidä siitä huolta, niin se pitää huolta sinusta.',
+      sell: 'Selvä. Joku sen vielä haluaa.',
+      back: 'Muutitko mielesi? Ei se mitään, tässä.',
+      poor: 'Se on vähän enemmän kuin sinulla on, valitettavasti.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Istu. Lepää. Lähdet täältä ehjänä, joka pullo täynnä. Jos haluat kantaa niitä enemmän, sen voin myydä sinulle.',
+    talk: 'Istu ja lepää hetki. Pullosi on taas täynnä. Voin myydä sinulle isomman vyön, jos haluat.',
     note: 'Viet {n} juomaa jokaiselle alueelle.',
     buy: 'Yksi pullo lisää · {n}',
     full: 'Vyöhösi ei mahdu enempää.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Seppä Bram',
-      talk: 'Tavallista terästä, reilut hinnat. Sillä pidät hiiden loitolla.'
+      talk: 'Rehellistä terästä, reilut hinnat. Ota aikaa.'
     },
     sunfordPeddler: {
       name: 'Kulkukauppias Tilly',
-      talk: 'Sormuksia! Amuletteja! Tavaraa, jonka löysin enkä todellakaan varastanut.'
+      talk: 'Sormuksia, taikakaluja, kaikenlaista pientä. Tuo voi olla jopa onnenkalu.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Kauppias Grik',
-      talk: 'Kuningas sanoo kauppa, joten Grik tekee kauppa. Kiiltävä kiiltävästä. Hyvä kiiltävä.'
+      talk: 'Perheeni teki nämä. Hyvää työtä, reilu hinta.'
     },
     captainHale: {
       name: 'Kapteeni Hale'
     },
     oakArmorer: {
       name: 'Haarniskaseppä Odo',
-      talk: 'Puolet varastostani meni muureille. Ota, mitä on jäljellä.'
+      talk: 'Puolet varastostani meni muurille. Ota, mitä on jäljellä, jos sopii.'
     },
     oakMasterArmorer: {
       name: 'Mestari Odo',
-      talk: 'Pelastit tämän kaupungin. Sinulle haen takahuoneesta sen hyvän levypanssarin.'
+      talk: 'Hyvä levypanssari on esillä. Olet ansainnut katsoa.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Terävää, tasapainoista ja myydään sille, joka maksaa. Tänään se olet sinä.'
+      talk: 'Terävät, tasapainoiset, reilusti hinnoitellut. Älä koske teriin.'
     },
     trainerShadow: {
       name: 'Kuiskaus'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Kätkijä',
-      talk: 'Ei nimiä, ei kysymyksiä. Syndikaatti ottaa osuutensa, sinä otat tavaran.'
+      talk: 'Ei kysymyksiä suuntaan eikä toiseen. Syndikaatti ottaa osansa.'
     },
     trainerBlood: {
       name: 'Tohtori Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Vasarakäsi',
-      talk: 'Kääpiöiden takomaa. Jos se hajoaa, vika oli sinussa.'
+      talk: 'Kääpiöiden takomaa, jokainen kappale. Jos yksi hajoaa, haluan tietää miten.'
     },
     ironAetherWorks: {
       name: 'Värkkääjä Voss',
-      talk: 'Piirin tutkimus ytimestä muutti kaiken. Pidä tätä. Älä osoita sillä minua.'
+      talk: 'Kaikki täällä syntyi ytimen tutkimisesta. Varovasti, useimmat ovat ladattuja.'
     },
     ironArmor: {
       name: 'Garrun Rautakylki',
-      talk: 'Levypanssaria, joka torjuu jättiläisen nuijan. Sormuksia teille muille.'
+      talk: 'Haarniskat telineissä, sormukset tarjottimella.'
     },
     ironOrderArmor: {
       name: 'Ritarikunnan varusmestari',
-      talk: 'Ritarikunta muistaa, kuka tuhosi ytimen. Sen asevarastot ovat sinulle avoinna.'
+      talk: 'Ota, mitä tarvitset. Ritarikunta pitää omistaan huolta.'
     },
     trainerGeo: {
       name: 'Vanha Kivijalka'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Iltaan mennessä sataa, polveni sanoo.',
-        '2': 'Polvesi sanoi niin viime viikollakin.',
-        '3': 'Ja satoihan se. Jossain.'
+        '1': 'Illalla sataa. Polveni on kolottanut koko päivän.',
+        '2': 'Sitä sanoi polvesi viime viikollakin.',
+        '3': 'Ja satoihan se. Ei vain täällä.'
       },
       harvest: {
-        '1': 'Vuosien paras ohra, tämä.',
-        '2': 'Sanot noin joka vuosi.'
+        '1': 'Ohra on kasvanut hyvin tänä vuonna.',
+        '2': 'Toivotaan, että saamme pitää sen.'
       },
       goblins: {
         '1': 'Hiidet veivät kolme kanaa Myllärin tilalta.',
-        '2': 'Vain kolme? Ne laiskistuvat.',
-        '3': 'Tai kylläistyvät.'
+        '2': 'Taas? Tämä on jo toinen kerta tässä kuussa.',
+        '3': 'Jonkun pitäisi tehdä asialle jotain niiden luolien suhteen.'
       },
       kingGone: {
-        '1': 'Sanovat, että Hiisikuningas on lopullisesti poissa.',
-        '2': 'Kuka sitten varastaa minun nauriitani?'
+        '1': 'Sanotaan, että Hiisikuningas on kuollut.',
+        '2': 'Hyvä. Ehkä nyt nukun yöni kokonaan.'
       },
       pact: {
-        '1': 'Hiisi myi minulle lusikan tänään.',
-        '2': 'Oliko se sinun lusikkasi?',
-        '3': 'Oli kyllä. Hyvä hinta kuitenkin.'
+        '1': 'Ostin aamulla kauhan hiideltä.',
+        '2': 'Oliko se hyvä?',
+        '3': 'Parempi kuin omani, tosi sanoen. Älä kerro kenellekään.'
       },
       bram: {
-        '1': 'Bram takoo taas. Aamusta asti!',
-        '2': 'Tasainen kuin sydämenlyönti, tuo mies.'
+        '1': 'Bram on seissyt alasimen ääressä jo ennen auringonnousua.',
+        '2': 'Hän on tuollainen, kun on huolissaan.'
       },
       pie: {
-        '1': 'Tuoksuuko tuo omenapiirakalta?',
-        '2': 'Tuoksui. Imperfekti.',
-        '3': 'Söitkö kaiken? Taas?'
+        '1': 'Tuoksuuko täällä omenapiirakka?',
+        '2': 'Tuoksui. Lapset löysivät sen ensin.',
+        '3': 'Leivon uuden. Piilota se paremmin tällä kertaa.'
       },
       road: {
-        '1': 'Kukaan ei enää kulje tasankotietä.',
-        '2': 'Ei, kun tiellä on rosvoja.'
+        '1': 'Kukaan ei ole kulkenut tasankotietä viikkoon.',
+        '2': 'Ei, kun siellä on rosvoja. Ei heitä voi syyttää.'
       },
       hero: {
-        '1': 'Joku raivasi tasankotien!',
-        '2': 'Aika jo. Serkkuni on minulle kärryn velkaa.'
+        '1': 'Joku raivasi rosvot pois tasankotieltä.',
+        '2': 'Luojan kiitos. Siskoni voi taas tulla kylään.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Kaksi hopeaa kaalinpäästä. Kaksi!',
-        '2': 'Se on hyvin kaunis kaalinpää.',
-        '3': 'Ei niin kaunis.'
+        '2': 'Mikään ei tule portista halvalla nykyään.',
+        '3': 'Sitten kasvatan omani. Katolla, jos on pakko.'
       },
       watch: {
-        '1': 'Vartiosto kaksinkertaisti porttivartijat.',
-        '2': 'Hyvä. Nukun paremmin.'
+        '1': 'Portin vartio on tuplattu.',
+        '2': 'Hyvä. Nukun vähän levollisemmin.'
       },
       caravan: {
-        '1': 'Maustekaravaani on taas myöhässä.',
+        '1': 'Mausteiden karavaani on taas myöhässä.',
         '2': 'Rosvoja?',
-        '3': 'Tai kuski löysi kapakan.'
+        '3': 'Tai muta. Toivotaan, että se on muta.'
       },
       siege: {
-        '1': 'Sanovat, että laitamilla on armeija leirissä.',
-        '2': 'Parasta täyttää kellari sitten.'
+        '1': 'Tilojen takana on armeija leiriytyneenä.',
+        '2': 'Sitten täytetään kellari, kun vielä voi.'
       },
       saved: {
-        '1': 'Näitkö piirityksen murtuvan? Upeaa!',
-        '2': 'Näin sen sängyn alta.',
-        '3': 'Lasketaan silti.'
+        '1': 'Olitko muurilla, kun piiritys murtui?',
+        '2': 'Olin sängyn alla, jos rehellisiä ollaan.',
+        '3': 'Niin oli puoli kaupunkia. Täällä me silti vielä ollaan.'
       },
       fountain: {
         '1': 'Heitin kolikon suihkulähteeseen onneksi.',
-        '2': 'Ja minä kalastin sen ylös. Kiitos!'
+        '2': 'Toivottavasti toivoit halvempaa kaalia.'
       },
       ash: {
-        '1': 'Kaikki haisee tuhkalta.',
-        '2': 'Parempi kuin ettei haisisi miltään.'
+        '1': 'Kaikki haisee vieläkin savulle.',
+        '2': 'Se haihtuu. Kaikki haihtuu lopulta.'
       },
       hide: {
-        '1': 'Kuulitko saappaita ulkona viime yönä?',
-        '2': 'Hys. Puhu hiljempaa.',
-        '3': 'Anteeksi. Anteeksi.'
+        '1': 'Kuulitko saappaita kadulla viime yönä?',
+        '2': 'Ei niin kovaa. Ei tiedä, kuka kuuntelee.',
+        '3': 'Anteeksi. Minä vain... anteeksi.'
       },
       bread: {
-        '1': 'Löysin puolikkaan leivän. Voimme jakaa sen.',
+        '1': 'Löysin puoli leipää. Tässä, ota vähän.',
         '2': 'Olet hyvä ihminen. Kiitos.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Hieno kuparisuoni neljännessä kerroksessa.',
-        '2': 'Kuparia? Minä haluan kultaa.',
-        '3': 'Sinä haluat pikemminkin päiväunet.'
+        '2': 'Kuparia. Toivoin hopeaa.',
+        '3': 'Kupari maksaa vuokran. Hopea maksaa unelmat.'
       },
       forge: {
-        '1': 'Suuri paja ei ole sammunut sataan vuoteen.',
-        '2': 'Ei ole isoisäni piippukaan.'
+        '1': 'Suuri paja ei ole jäähtynyt sataan vuoteen.',
+        '2': 'Isoisäni auttoi sytyttämään sen, tiedätkö.'
       },
       beard: {
-        '1': 'Olet siistinyt partasi!',
-        '2': 'Se syttyi tuleen alasimella.',
-        '3': 'Sopii sinulle silti.'
+        '1': 'Olet siistinyt partasi.',
+        '2': 'Menin liian lähelle alasinta.',
+        '3': 'Kasvaa takaisin. Lyhyempänä se sopii sinulle muutenkin.'
       },
       core: {
-        '1': 'Syvissä kaivoksissa hehkuu nyt jokin.',
-        '2': 'Mikään hyvä ei hehku siellä alhaalla.'
+        '1': 'Syvissä tunneleissa hohtaa jokin.',
+        '2': 'Mikään hyvä ei hohda siellä alhaalla. Pysy ylhäällä.'
       },
       order: {
-        '1': 'Ritarikunnan haarniskasepät ovat nopeita.',
-        '2': 'Nopeita, kyllä. Eivät yhtä hyviä kuin me.'
+        '1': 'Ritarikunnan haarniskasepät työskentelevät nopeasti, sen myönnän.',
+        '2': 'Nopeasti, niin. Katsotaan, kuinka kestää.'
       },
       circle: {
-        '1': 'Piirin magit hyräilevät työskennellessään.',
-        '2': 'Parempi kuin meidän laulumme, kai.'
+        '1': 'Piirin väki hyräilee työskennellessään.',
+        '2': 'Parempi kuin sinun laulusi, ainakin.'
       },
       cold: {
-        '1': 'Täällä ylhäällä oli kylmä tänä aamuna.',
-        '2': 'Seiso sitten lähempänä pajaa.'
+        '1': 'Purevan kylmä aamu.',
+        '2': 'Tule sitten seisomaan pajan lähelle.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Sinä olet jahtaaja!',
-        '2': 'Ei reilua, en ollut valmis!'
+        '1': 'Hippa, nyt sinä olet hippa!',
+        '2': 'Ei se ole reilua, en ollut valmis!'
       },
       dragon: {
-        '1': 'Isona ratsastan lohikäärmeellä.',
+        '1': 'Kun minä kasvan isoksi, ratsastan lohikäärmeellä.',
         '2': 'Lohikäärmeet eivät anna ratsastaa itsellään.',
-        '3': 'Kiltit antavat!'
+        '3': 'Joku kiltti ehkä antaa.'
       },
       sword: {
-        '1': 'Katso, oikea miekkakeppi!',
-        '2': 'Se on vain keppi.'
+        '1': 'Katso, löysin miekan!',
+        '2': 'Se on keppi.'
       },
       frog: {
-        '1': 'Löysin sammakon kaivon luota.',
+        '1': 'Kaivon luona on sammakko.',
         '2': 'Saammeko pitää sen?',
-        '3': 'Se taitaa pitää meidät.'
+        '3': 'Äiti sanoi, ei enää sammakoita.'
       }
     },
     ui: {
@@ -1247,204 +1247,204 @@ export default {
       }
     },
     hero: {
-      bye: 'Siinä kaikki toistaiseksi.',
-      trade: 'Näytä tavarasi.',
-      train: 'Opeta minua.',
-      heal: 'Paikkaa minut.',
-      mana: 'Tarvitsen jotain manaani varten.',
-      who: 'Kuka sinä olet?',
+      bye: 'Annan sinun jatkaa.',
+      trade: 'Saanko nähdä, mitä sinulla on?',
+      train: 'Opetatko minulle?',
+      heal: 'Voisitko paikata minut?',
+      mana: 'Onko sinulla jotain manaan?',
+      who: 'Kuka sinä olet, jos saan kysyä?',
       rumor: 'Onko kuulunut jotain?',
-      ready: 'Olenko valmis enempään?'
+      ready: 'Luuletko, että olen valmis enempään?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Uusi kasvo. Sinä olet se, joka piti tasankotien auki.',
-        '2': 'Olen Bram. Teen terästä. Näytät siltä, että tarvitset sitä.'
+        '1': 'En ole nähnyt sinua ennen. Sinäkö raivasit tien?',
+        '2': 'Bram. Minä hoidan pajaa. Jos tarvitset terän, tule luokseni.'
       },
       kingDead: {
-        '1': 'Kuulin, että Hiisikuningas on kuollut. Hyvä. Vähemmän lommoja kopoteltavana karavaanin pyöristä.'
+        '1': 'Kuulin, että Hiisikuningas on kuollut. En jää kaipaamaan.'
       },
       kingPact: {
-        '1': 'Hiidet käyvät kauppaa torilla. En uskonut näkeväni sitä. Niiden rauta on kyllä roskaa.'
+        '1': 'Hiisiä kauppaamassa torilla. En uskonut näkeväni sitä koskaan.'
       },
       kingRansom: {
-        '1': 'Sanovat, että otit kuninkaan kullan ja jätit hänelle kruunun. Ryöstöt palaavat.'
+        '1': 'Annoit Hiisikuninkaan pitää kruununsa. Hän tulee takaisin, tiedäthän.'
       },
       ending: {
-        '1': 'Koko valtakunta puhuu siitä valtaistuimesta. Ja sinä silti ostat minulta. Hm.'
+        '1': 'Koko valtakunta puhuu sinusta. Tarvitsetko silti hiomakiven?'
       },
       again: {
-        '1': 'Taas täällä. Hyvä. Teräs ei myy itse itseään.'
+        '1': 'Taas täällä. Mitä voin tehdä hyväksesi?'
       },
       trade: {
-        '1': 'Tavallista terästä, reilut hinnat. Katsele vapaasti.'
+        '1': 'Rehellistä terästä, reilut hinnat. Katsele rauhassa.'
       },
       who: {
-        '1': 'Bram. Kolmekymmentä vuotta tämän alasimen ääressä.',
-        '2': 'Kengitän hevosia, korjaan auroja ja varustan tollot kuten sinut. Tässä järjestyksessä.'
+        '1': 'Bram. Kolmekymmentä vuotta tämän alasimen ääressä, suunnilleen.',
+        '2': 'Hevosenkenkiä, aatroja, silloin tällöin miekka. Viime aikoina enimmäkseen miekkoja.'
       },
       gear: {
-        '1': 'Kilpi, jos aiot ottaa iskuja vastaan. Isompi miekka, jos et.',
-        '2': 'Voima heiluttaa terästäni. Laita pisteesi sinne ennen kuin ostat raskasta.',
-        say: 'Mitä minun pitäisi kantaa mukanani?'
+        '1': 'Kilpi, jos aiot ottaa iskuja. Useimmat ottavat.',
+        '2': 'Raskas teräs vaatii vahvan käsivarren. Harjoita ensin Voimaa.',
+        say: 'Mitä minun pitäisi ottaa mukaan?'
       },
       rumor: {
         plains: {
-          '1': 'Hiisiä tasankotiellä. Raivaa ne pois ennen kuin ostat mitään hienoa.'
+          '1': 'Rosvoja tasankotiellä. Aloittaisin sieltä, jos olisin sinä.'
         },
         hollows: {
-          '1': 'Ryöstäjät ryömivät esiin Hiisien onkaloista tasankojen takaa. Heidän kuninkaansa istuu pohjalla.'
+          '1': 'Hiidet tulevat Onkaloista, tasankojen takaa. Heidän kuninkaansa on siellä alhaalla.'
         },
         woods: {
-          '1': 'Tasankojen itäpuolella alkaa Kuiskaava metsä. Puut kävelevät siellä. Ota kirves mukaan.'
+          '1': 'Tasankojen itäpuolella on Kuiskaava metsä. Sanotaan, että puut liikkuvat.'
         },
         siege: {
-          '1': 'Savua Oakhavenin suunnalla. Sotapäällikkö on leirissä laitamilla, sanovat.'
+          '1': 'Oakhavenin suunnalla nousee savua. Armeija on leiriytynyt laitamille.'
         },
         north: {
-          '1': 'Ironholdin terästä on taas liikkeellä. Mene pohjoiseen, jos haluat parempaa kuin minun.'
+          '1': 'Ironholdin terästä tulee taas tietä pitkin. Parempaa kuin minun, rehellisesti sanoen.'
         }
       },
       shopBack: {
-        '1': 'Käytä terveydeksesi. Tai käytä ylipäätään.'
+        '1': 'Pidä siitä huolta, niin se pitää huolta sinusta.'
       },
       bye: {
-        '1': 'Varo tietä.'
+        '1': 'Pidä huolta itsestäsi.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Oi, asiakas! Tai vartija. Et kai ole vartija?',
-        '2': 'Olen Tilly. Sormuksia, amuletteja, onnenkaluja. Kaikki löydettyä, ei koskaan varastettua.'
+        '1': 'Ai, hei! Ostatko vai vain katselet? Molemmat käyvät.',
+        '2': 'Olen Tilly. Sormuksia, taikakaluja, kaikenlaista pientä kaikkialta.'
       },
       rival: {
-        '1': 'Oletko nähnyt Grikin kojun? Hiisien rihkamaa! Olen pilalla. Osta jotain. Sääli minua.'
+        '1': 'Oletko nähnyt hiiden kojun? Hänen hintansa ovat minun hintojani alempana. Ei se ole reilua.'
       },
       again: {
-        '1': 'Lempiasiakkaani! Sanon tuon kaikille, mutta sinun kohdallasi tarkoitan sitä.'
+        '1': 'Siinähän sinä! Panin syrjään muutaman jutun, joista varmaan pidät.'
       },
       trade: {
-        '1': 'Sormuksia! Amuletteja! Juttuja, jotka löysin enkä todellakaan varastanut.'
+        '1': 'Katsele. Tuo on onnenkalu. Luultavasti.'
       },
       who: {
-        '1': 'Kuljen teillä ja poimin, mitä tiet jättävät jälkeensä.',
-        '2': 'Rosvot pudottavat kauneimmat tavarat juostessaan.'
+        '1': 'Kuljen teitä ja ostan, mistä ihmiset haluavat eroon.',
+        '2': 'Ja joskus löydän tavaraa. Rosvot pudottavat paljon juostessaan.'
       },
       trinkets: {
-        '1': 'Voit käyttää kahta kerrallaan, yhtä kummassakin kädessä. Pieni etu on silti etu.',
-        say: 'Mihin korut kelpaavat?'
+        '1': 'Voit pitää kahta, yhtä kummassakin kädessä. Se kertyy siellä ulkona.',
+        say: 'Mihin korut oikeastaan ovat hyviä?'
       },
       stolen: {
-        '1': 'Hys! Ei niin kovaa. Hyvä on. HYVÄ ON.',
-        '2': 'Ota tämä sormus, niin emme koskaan puhuneet. Se on kaunis sormus. Enimmäkseen kuparia.',
-        say: 'Olet varastanut kaiken tämän, etkö olekin?'
+        '1': 'Aha. Sinulla on tapasi kysyä, vai mitä?',
+        '2': 'Ota tämä sormus, äläkä puhuta siitä, mistä löysin sen.',
+        say: 'Mistä kaikki tämä oikeastaan tulee?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Täältä etelässä on kolosseum, jonka portit ovat ruostuneet kiinni. Ne aukeaisivat, jos hiisiongelma loppuisi.'
+          '1': 'Täältä etelään on vanha kolosseumi. Tiukasti suljettu, kun hiidet ryöstelevät.'
         },
         arenaOpen: {
-          '1': 'Kolosseum on auki! Kahdeksan aaltoa, sanovat. Minä myyn onnea. Tarvitset onnea.'
+          '1': 'Kolosseumi on taas auki. Kahdeksan aaltoa, kuulemma. Ihmiset lyövät siitä vetoa.'
         },
         east: {
-          '1': 'Oakhavenin torit maksavat kaksinkertaisesti kaikesta kiiltävästä. Mene itään, metsän ohi.'
+          '1': 'Oakhaven maksaa hyvin kaikesta kiiltävästä. Se on idässä, metsän takana.'
         }
       },
       shopBack: {
-        '1': 'Tule takaisin, kun olet rikkaampi!'
+        '1': 'Tule takaisin, kun kukkarosi on painavampi!'
       },
       bye: {
-        '1': 'Varo taskujasi siellä! En tarkoita minun lähelläni. Muualla.'
+        '1': 'Hyvää matkaa. Pidä kolikoistasi kiinni siellä ulkona.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Seiso suorassa. Seisot Rautaritarikunnan ritarin edessä.',
-        '2': 'Ser Aldric. Opetan kilven niille, jotka haluavat seistä toisten edessä.'
+        '1': 'Seiso suorassa. Puhut Rautaritarikunnan ritarille.',
+        '2': 'Ser Aldric. Opetan ihmisiä asettumaan muiden ja vaaran väliin.'
       },
       saved: {
-        '1': 'Oakhaven seisoo, koska sinä seisoit. Siinä koko oppini.'
+        '1': 'Oakhaven seisoo yhä, ja kuulin sinun olleen sen muurilla. Hyvin tehty.'
       },
       fallen: {
-        '1': 'Avasit Oakhavenin portin. Olen haudannut miehiä vähemmästä. Kerro asiasi.'
+        '1': 'Avasit Oakhavenin portin. En teeskentele unohtaneeni. Mitä haluat?'
       },
       dragon: {
-        '1': 'Lohikäärmeentappaja pihallani. Siitä lauletaan suuressa salissa.'
+        '1': 'Tapoitko lohikäärmeen huipulla? Olisin mielelläni nähnyt sen.'
       },
       friend: {
-        '1': 'Ritarikunta puhuu sinusta hyvää. Ystävilleen oppituntini maksavat vähemmän.'
+        '1': 'Ritarikunta ajattelee sinusta hyvää. Sen ystäville oppituntini maksavat vähemmän.'
       },
       foe: {
-        '1': 'Ritarikunta nimeää sinut viholliseksi. Opetan sinua silti. Kunniaa ei ole heidän vallassaan ottaa pois.'
+        '1': 'Ritarikunta pitää sinua vihollisena. Opetan sinua silti. Se on minun valintani, ei heidän.'
       },
       again: {
-        '1': 'Kilpi ylös. Mitä tarvitset?'
+        '1': 'Takaisin lisää harjoituksia varten?'
       },
       train: {
-        '1': 'Kuuntele sitten tarkasti. Näytän asian vain kerran.'
+        '1': 'Hyvä. Katso tarkasti, näytän vain kerran.'
       },
       class: {
-        '1': 'Kävelevä muuri. Otamme iskun, jotta kenenkään muun ei tarvitse.',
-        '2': 'Voimaa käsivarteen, Kestävyyttä muuhun. Valo tekee, minkä voi.',
-        say: 'Mikä on Aigisritari?'
+        '1': 'Otamme vastaan iskut, jotka oli tarkoitettu muille. Se on yksinkertaista, ja se on vaikeaa.',
+        '2': 'Tarvitset Voimaa kilpeen ja Kestävyyttä sen pitämiseen.',
+        say: 'Mitä Aigisritari oikeastaan tekee?'
       },
       ready: {
         strong: {
-          '1': 'Käsivartesi riittää suurimpaan osaan tiedoistani. Pidä huolta Kestävyydestä ja ota loput.'
+          '1': 'Olet tarpeeksi vahva suurimpaan osaan siitä, mitä osaan. Jatka Kestävyyden kanssa.'
         },
         able: {
           '1': 'Olet valmis seuraavaan oppituntiin. Älä anna sen nousta päähäsi.'
         },
         weak: {
-          '1': 'Ei vielä. Käsivartesi on heikko ja väsyt nopeasti. Lisää Voimaa, lisää Kestävyyttä.'
+          '1': 'Et vielä. Väsyisit ennen kuin kilpi. Lisää Voimaa, lisää Kestävyyttä.'
         }
       },
       order: {
-        '1': 'Vartioimme teitä ja lakia. Jotkut sanovat, että liikaa molempia.',
-        '2': 'Seiso Ritarikunnan rinnalla, niin sen haarniskasepät ja opettajat muistavat sinut.',
+        '1': 'Pidämme tiet turvallisina ja lain voimassa. Jotkut sanovat, liian tiukasti.',
+        '2': 'Seiso rinnallamme, niin haarniskasepät ja opettajamme muistavat sinut.',
         say: 'Kerro minulle Rautaritarikunnasta.'
       },
       trainBack: {
-        '1': 'Harjoittele, kunnes alkaa kyllästyttää. Sitten harjoittele lisää.'
+        '1': 'Harjoittele, kunnes se käy tylsäksi. Sitten jatka.'
       },
       bye: {
-        '1': 'Mene valon kanssa.'
+        '1': 'Mene varovasti.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oi! Oppilas? Astu vähän taaksepäin. Vähän lisää.',
-        '2': 'Ember Wren, pyromantikko. Kulmakarvat kasvavat takaisin, enimmäkseen.'
+        '1': 'Ai, oppilas? Ihanaa. Seisoisit ehkä vähän kauempana.',
+        '2': 'Olen Ember Wren. Opetan tulta. Enimmäkseen se tekee, mitä pyydän.'
       },
       core: {
-        '1': 'Annoit ytimen Piirille! Tiedätkö, kuinka monta asiaa voimme nyt sytyttää tuleen?'
+        '1': 'Annoit ytimen Piirille! Odotan innolla, mitä siitä opimme.'
       },
       friend: {
-        '1': 'Eetterin piiri pitää sinusta! Se tarkoittaa alennusta. Ja vähemmän lomakkeita.'
+        '1': 'Piiri puhuu sinusta hyvää. Se tarkoittaa muuten alennusta.'
       },
       foe: {
-        '1': 'Piiri haluaa sinusta tuhkaa. Kiusallista! Opetan sinua silti. Tuli ei ole nirso.'
+        '1': 'Piiri ei ole tyytyväinen sinuun. Opetan sinua silti. Hiljaa.'
       },
       again: {
-        '1': 'Olet takaisin! Eikä mikään pala. Sen voi korjata.'
+        '1': 'Olet takaisin! Valmis sytyttämään jotain?'
       },
       train: {
-        '1': 'Joo! Katso tarkkaan. Ei niin tarkkaan.'
+        '1': 'No niin. Katso käsiäni, ja pidä hihasi poissa luotani.'
       },
       class: {
-        '1': 'Tuli vastaa kaikkiin kysymyksiin. Polta ne ensin, räjäytä sitten ne, jotka palavat.',
-        '2': 'Kaikki toimii Älyllä. Ja tasaisella kaapujen tarjonnalla.',
-        say: 'Mitä Pyromantikko tekee?'
+        '1': 'Enimmäkseen sytyttää asioita. Sitten saa tulen leviämään minne haluat.',
+        '2': 'Kaikki tulee Älystä. Mitä terävämpi mieli, sitä kuumempi liekki.',
+        say: 'Mitä pyromantikko oikeastaan tekee?'
       },
       ready: {
         strong: {
-          '1': 'Voisit sulattaa golemin! Ota kaikki, mitä minulla on. Pidä Taidosta huolta hankalampia varten.'
+          '1': 'Rehellisesti? Voisit opettaa osan tästä itse. Ota, mitä haluat.'
         },
         able: {
-          '1': 'Mielesi on tarpeeksi lämmin seuraavaan loitsuun. Tule!'
+          '1': 'Olet valmis seuraavaan loitsuun. Tule, näytän.'
         },
         weak: {
-          '1': 'Hmm. Älyä ei ole vielä tarpeeksi. Tuli käyttäisi sinua, ei toisinpäin.'
+          '1': 'Et vielä, valitettavasti. Tarvitset lisää Älyä, tai tuli ottaa vallan.'
         }
       },
       circle: {
@@ -1452,352 +1452,352 @@ export default {
         say: 'Keitä Eetterin piiri ovat?'
       },
       trainBack: {
-        '1': 'Mene ja sytytä jotain tuleen! Jotain, mikä sen ansaitsee.'
+        '1': 'Mene harjoittelemaan. Jonnekin, mikä ei syty, kiitos.'
       },
       bye: {
-        '1': 'Pysy lämpimänä!'
+        '1': 'Pidä huolta itsestäsi!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Sinä siis olet se tieltä. Tule lähemmäs, silmäni eivät ole entisensä.',
-        '2': 'Olen Mara. Olen pitänyt kaupungin kirjaa ja rauhaa neljäkymmentä vuotta.'
+        '1': 'Eli sinä olet se tieltä. Tule tänne, katsotaanpas sinua.',
+        '2': 'Olen Mara. Olen pitänyt huolta tästä kylästä... no, neljäkymmentä vuotta nyt.'
       },
       slain: {
-        '1': 'Onkalot ovat hiljaiset. Teit vaikean asian, ja Sunford nukkuu sen ansiosta.'
+        '1': 'Onkalot ovat hiljaiset. Se oli vaikea teko, mutta nukumme sen ansiosta.'
       },
       pact: {
-        '1': 'Hiidet myyvät rihkamaa torillani. Sinulla on hopeakieli, lapsi. Toivon, että se kestää.'
+        '1': 'Hiisiä myymässä tavaroita torillani. Sinä puhuit heidät siihen, vai mitä?'
       },
       ransom: {
-        '1': 'Otit hänen kultansa ja jätit hänelle kruunun. Olen liian vanha teeskentelemään, etten olisi pettynyt.'
+        '1': 'Otit hänen kultansa ja jätit hänelle kruunun. En teeskentele, etten olisi pettynyt.'
       },
       saved: {
-        '1': 'Oakhavenista tuli sana. Portti piti. Olen iloinen, että yksi meistä oli siellä.'
+        '1': 'Oakhavenista tuli viesti. Portti piti. Olen iloinen, että olit siellä.'
       },
       fallen: {
-        '1': 'Oakhaven on poltettu, ja sanovat, että sinä pidit soihtua. Älä kerro. En haluaisi tietää.'
+        '1': 'Oakhaven paloi, sanotaan. En halua kuulla miten. En tänään.'
       },
       ending: {
-        '1': 'Sanovat, että ratkaisit, kuka istuu Kauhun linnoituksessa. Sunfordin tieltä siihen. Kuvittele.'
+        '1': 'Sanotaan, että ratkaisit Kauhun linnoituksen kohtalon. Pienestä tiestämme siihen.'
       },
       again: {
-        '1': 'Istu hetkeksi. Tie odottaa.'
+        '1': 'Istu hetki. Tie on vielä siellä sen jälkeenkin.'
       },
       reward: {
-        '1': 'Pidit tien auki, kun miliisimme ei voinut. Kaupunki keräsi rahaa.',
-        '2': 'Se ei ole paljon. Se on jokainen kolikko, jonka pystyimme säästämään.',
-        say: 'Halusit tavata minut?'
+        '1': 'Pidit tien auki, kun miliisimme ei pystynyt. Kylä keräsi vähän kokoon.',
+        '2': 'Se ei ole paljon. Se on, minkä pystyimme säästämään.',
+        say: 'Joku sanoi, että halusit tavata minut?'
       },
       quest: {
-        '1': 'Ryöstöt tulevat Hiisien onkaloista. Hiidet ovat kruunanneet kuninkaan.',
-        '2': 'Ja sinä haluat hänet kuolleeksi.',
-        '3': 'Haluan ryöstöjen loppuvan. Miten, se on sinun päätettäväsi, noiden luolien pohjalla.',
-        '4': 'Onkalot ovat heti tasankojen takana. Mene varovasti.',
+        '1': 'Hyökkäykset tulevat Hiisien onkaloista. He ovat kruunanneet itselleen kuninkaan.',
+        '2': 'Ja haluat hänet kuolleeksi?',
+        '3': 'Haluan hyökkäysten loppuvan. Miten... se on sinun päätettävissäsi siellä alhaalla.',
+        '4': 'Onkalot ovat heti tasankojen takana. Ole varovainen, pyydän.',
         say: 'Mikä Sunfordia vaivaa?'
       },
       king: {
-        say: 'Hiisikuninkaasta…',
+        say: 'Hiisikuninkaasta...',
         slay: {
-          '1': 'Kuningas on kuollut ja karavaanini kulkevat aikataulussa. En kysy, miltä se tuntui.'
+          '1': 'Hän on poissa, ja karavaanit kulkevat taas. En kysy, miltä se tuntui.'
         },
         pact: {
-          '1': 'Sopimus! Äitini olisi pyörtynyt. Silti kauppa on parempi kuin hautajaiset.'
+          '1': 'Kauppasopimus. Äitini olisi pyörtynyt. Silti kauppa on parempi kuin hautajaiset.'
         },
         ransom: {
-          '1': 'Kulta kuluu nopeasti. Kauna ei. Muista se, kun ryöstöt palaavat.'
+          '1': 'Kulta loppuu nopeasti. Kauna ei. Muista se, kun hyökkäykset alkavat.'
         }
       },
       town: {
-        '1': 'Enimmäkseen maanviljelijöitä. Seppä, parantaja ja kaksi opettajaa, jotka sietävät meitä.',
-        '2': 'Lepää täällä, käytä pisteesi ja palaa ulos vahvempana. Sitä varten koti on.',
+        '1': 'Enimmäkseen maanviljelijöitä. Seppä, parantaja, kaksi opettajaa, jotka sietävät meitä.',
+        '2': 'Lepää täällä matkojen välillä. Siihen koti on tarkoitettu.',
         say: 'Kerro minulle Sunfordista.'
       },
       next: {
         say: 'Minne minun pitäisi mennä seuraavaksi?',
         plains: {
-          '1': 'Tasankotie, ennen kaikkea muuta. Emme voi syödä, jos karavaanit eivät pääse läpi.'
+          '1': 'Ensin tasankotie. Ilman karavaaneja meillä ei ole ruokaa.'
         },
         hollows: {
-          '1': 'Hiisien onkalot ensin. Mikään muu ei ole turvassa, kun ryöstöt jatkuvat.'
+          '1': 'Hiisien onkalot. Mikään muu ei ole turvassa, kun hyökkäykset jatkuvat.'
         },
         woods: {
-          '1': 'Itään, Kuiskaavan metsän läpi. Tie Oakhaveniin kulkee noiden puiden alta.'
+          '1': 'Itään, Kuiskaavan metsän läpi. Se on tie Oakhaveniin.'
         },
         oakhaven: {
-          '1': 'Oakhaven on piiritettynä. Jos laitamat kaatuvat, kaupunki kaatuu.'
+          '1': 'Oakhaven on piiritetty. Jos laitamat kaatuvat, kaupunki kaatuu mukana.'
         },
         north: {
-          '1': 'Pohjoiseen, lapsi. Tuhkakalliot ja Ironhold niiden takana. Vaara kasvaa, mitä pidemmälle menet.'
+          '1': 'Pohjoiseen, luulen. Tuhkakalliot, ja Ironhold niiden takana. Se vain vaikeutuu.'
         }
       },
       bye: {
-        '1': 'Tule takaisin elävänä. Se on kaikki, mitä keneltäkään pyydän.'
+        '1': 'Tule takaisin meille ehjänä. Sitä vain pyydän.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Pysy paikallasi. Ei, olet kunnossa. Vanha tapa.',
-        '2': 'Sisar Lune. Korjaan sen, minkä tie rikkoo.'
+        '1': 'Pysy hetki paikallasi. Ei, olet kunnossa. Tapa, anteeksi.',
+        '2': 'Olen Sisar Lune. Paikkaan, minkä tie rikkoo.'
       },
       again: {
-        '1': 'Yhtenä kappaleena yhä? Olen melkein pettynyt.'
+        '1': 'Yhä ehjänä? Hyvä. Istu silti.'
       },
       heal: {
-        '1': 'Istu. Lepää. Lähdet täältä ehjänä, kaikki pullot täytettyinä.'
+        '1': 'Istu, lepää hetki. Täytän pullosi ennen kuin lähdet.'
       },
       mana: {
-        '1': 'Sininen pullo, karvas maku. Ota siemaus, kun loitsusi loppuvat.'
+        '1': 'Tämä on karvasta. Juo se, kun loitsusi loppuvat.'
       },
       potions: {
-        '1': 'Kannat muutaman pullon jokaiselle alueelle. Juo ennen kuin tarvitset yhtä, älä jälkeenpäin.',
-        '2': 'Jos haluat kantaa enemmän, voin myydä sinulle pidemmän vyön.',
+        '1': 'Otat muutaman pullon jokaiseen taisteluun. Juo ennen kuin tarvitset, älä jälkeen.',
+        '2': 'Jos haluat kantaa enemmän, voin myydä sinulle isomman vyön.',
         say: 'Miten juomat toimivat?'
       },
       rumor: {
         goblins: {
-          '1': 'Hiidet myrkyttävät linkokivensä. Jos muutut vihreäksi, tule suoraan takaisin.'
+          '1': 'Hiidet sivelevät linkokivensä johonkin. Jos voit pahoin, tule takaisin.'
         },
         spiders: {
-          '1': 'Hämähäkinpuremia metsästä. Kolme tällä viikolla. Yritä välttää puremat.'
+          '1': 'Olen hoitanut tällä viikolla kolme hämähäkin puremaa Metsästä. Varo siellä.'
         },
         burns: {
-          '1': 'Sotilaita tulee pohjoisesta palovammoin. Tuhkakalliot, sanovat. Tuli, joka kävelee.'
+          '1': 'Sotilaita tulee pohjoisesta palovammoineen. Tuhkakalliot, sanovat.'
         }
       },
       healBack: {
-        '1': 'Pidä vyö täynnä ja pää alhaalla.'
+        '1': 'Pidä vyösi täynnä ja pääsi alhaalla.'
       },
       bye: {
-        '1': 'Yritä olla vuotamatta verta minkään tärkeän päälle.'
+        '1': 'Pidä huolta itsestäsi siellä.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Pitkä! Pitkä teki sopimus. Kuningas sanoo olla kiltti pitkälle.',
-        '2': 'Grik kiltti. Grikillä kiiltävää. Pitkällä kultaa. On hyvä pari.'
+        '1': 'Olet se, joka teki sopimuksen. Kuninkaani sanoo, että olet tervetullut tänne.',
+        '2': 'Olen Grik. Myyn, mitä hiidet tekevät. Hyvää työtä, reilu hinta.'
       },
       again: {
-        '1': 'Pitkä tulee takaisin! Grik tiesi. Kiiltävä kutsuu pitkää.'
+        '1': 'Ystävä. On hyvä nähdä sinut taas.'
       },
       trade: {
-        '1': 'Kuningas sanoo kauppa, joten Grik tekee kauppa. Kiiltävä kiiltävästä. Hyvä kiiltävä.'
+        '1': 'Katso, ole hyvä. Perheeni teki nämä.'
       },
       king: {
-        '1': 'Kuningas on lihava ja onnellinen. Ei enää ryöstöä. Ryöstö on kovaa työtä.',
-        '2': 'Kuningas sanoo pitkällä hyvä kieli. On korkein hiisikehu. Melkein.',
+        '1': 'Hän syö nyt hyvin. Ei enää hyökkäyksiä. Kansani on vähemmän nälkäinen.',
+        '2': 'Hän puhuu sinusta usein. Kunnioituksella.',
         say: 'Mitä kuninkaallesi kuuluu?'
       },
       town: {
-        '1': 'Ihmiset pesevät liikaa. Mutta piirakka! Grik ei tiennyt piirakasta.',
+        '1': 'Ihmiset tuijottavat yhä. Mutta leipuri antaa minulle piirakkaa. Pidän piirakasta.',
         say: 'Miltä Sunford tuntuu?'
       },
       rumor: {
         crags: {
-          '1': 'Grikin serkut kaivavat pohjoiseen, mustassa kivessä. Sanovat tuli kävelee siellä. Grik pysyy täällä.'
+          '1': 'Serkkuni kaivavat mustaa kiveä pohjoisessa. He sanovat, että tuli kävelee siellä nyt.'
         },
         deep: {
-          '1': 'Syvät paikat heräävät, pitkä. Hiisi tuntee sen jaloissa.'
+          '1': 'Jokin herää syvissä paikoissa. Hiidet tuntevat sen maassa.'
         }
       },
       shopBack: {
-        '1': 'Hyvä kauppa! Pitkä tulee taas, joo?'
+        '1': 'Kiitos. Tule uudestaan.'
       },
       bye: {
-        '1': 'Hei hei, pitkä! Älä kuole. Kuolleet eivät osta mitään.'
+        '1': 'Mene turvallisesti, ystävä.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Taas yksi miekka. Hyvä. Olen lakannut kysymästä, mistä ne tulevat.',
-        '2': 'Kapteeni Hale. Komennan sitä, mitä Oakhavenin vartiostosta on jäljellä.'
+        '1': 'Taas yksi miekka. Hyvä. Tarvitsemme jokaisen.',
+        '2': 'Kapteeni Hale. Komennan sitä, mitä Oakhavenin vartiosta on jäljellä.'
       },
       saved: {
-        '1': 'Portti piti. Kolmesataa vuotta, ja nyt vielä kerran. Olen sinulle velkaa kaupunkini.'
+        '1': 'Portti piti. Kolmesataa vuotta, ja yksi lisää. Olen sinulle velkaa.'
       },
       ending: {
-        '1': 'Ratkaisit Kauhun linnoituksen valtaistuimen. Muurini tuntuvat pienemmiltä kuin ennen.'
+        '1': 'Ratkaisit Kauhun linnoituksen, sanovat. Muurini tuntuvat pieniltä sen rinnalla.'
       },
       again: {
-        '1': 'Muurit seisovat yhä. Tänään.'
+        '1': 'Muurit seisovat yhä. Tänään ainakin.'
       },
       after: {
-        '1': 'Oakhaven muistaa, ystävä. Niin minäkin.'
+        '1': 'Hyvä nähdä sinut. Oakhaven ei ole unohtanut.'
       },
       quest: {
-        '1': 'Sotapäällikön armeija on saartanut meidät. Krag. Hän ei taistele ilmaiseksi.',
+        '1': 'Huonosti. Sotapäällikkö nimeltä Krag on saartanut meidät, eikä hän taistele ilmaiseksi.',
         '2': 'Kuka hänelle maksaa?',
         '3': 'Tuhkasyndikaatti. He haluavat oman kaupungin, ja meidän kaupungillamme on muurit.',
-        '4': 'Murra hänet Oakhavenin laitamilla. Siellä asia ratkeaa.',
-        say: 'Millainen tilanne on?'
+        '4': 'Murra hänen leirinsä Oakhavenin laitamilla. Siihen tämä päättyy, tavalla tai toisella.',
+        say: 'Kuinka huonosti?'
       },
       siege: {
-        '1': 'He tarjosivat sinulle kolmasosaa kaupungista. Tiedän. Minulle he tarjosivat neljännestä.',
-        '2': 'Syndikaatti jahtaa sinua nyt joka tiellä. Varo selustaasi siellä.',
-        say: 'Piirityksestä…'
+        '1': 'He tarjosivat sinulle kolmasosaa kaupungista, vai mitä? Minulle he tarjosivat neljäsosaa.',
+        '2': 'Syndikaatti on nyt perässäsi. Varo selustaasi teillä.',
+        say: 'Piirityksestä...'
       },
       town: {
-        '1': 'Kauppakaupunki. Kaikki, mikä liikkuu tasankojen ja vuorten välillä, maksaa tullia täällä.',
-        '2': 'Siksi kaikki haluavat sen. Siksi en luovuta sitä.',
+        '1': 'Kauppakaupunki. Kaikki, mikä kulkee tasankojen ja vuorten välillä, maksaa täällä tullia.',
+        '2': 'Siksi kaikki sitä haluavat. Ja siksi en luovuta sitä.',
         say: 'Kerro minulle Oakhavenista.'
       },
       order: {
-        '1': 'Palvelen Oakhavenia. Ritarikunta ja minä olemme samaa mieltä useimpina päivinä. Se ei ole sama asia.',
-        say: 'Palveletko Rautaritarikuntaa?'
+        '1': 'Vastaan Oakhavenille. Ritarikunta ja minä olemme useimpina päivinä samaa mieltä. Emme kaikkina.',
+        say: 'Vastaatko Rautaritarikunnalle?'
       },
       rumor: {
         crags: {
-          '1': 'Metsän pohjoispuolella maa on musta ja palaa. Tuhkakalliot. Kultistit ruokkivat tulta.'
+          '1': 'Metsän pohjoispuolella maa on mustaa ja palavaa. Tuhkakalliot. Kultisteja, enimmäkseen.'
         },
         mines: {
-          '1': 'Ironhold on lakannut lähettämästä terästä. Kaivoksissa on jotain vialla.'
+          '1': 'Ironhold on lopettanut teräksen lähettämisen. Jokin on vialla heidän kaivoksissaan.'
         },
         north: {
-          '1': 'Kaukainen pohjoinen on hiljentynyt. Kokemukseni mukaan hiljaisuus on pahempaa.'
+          '1': 'Kaukainen pohjoinen on hiljentynyt. Kokemukseni mukaan se ei ole koskaan hyvä.'
         }
       },
       bye: {
-        '1': 'Pidä miekkasi löysällä.'
+        '1': 'Pidä miekkasi lähellä.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Jos haluat kypärän, olet myöhässä. Ne ovat kaikki muurilla.',
-        '2': 'Odo. Haarniskaseppä. Väsynyt.'
+        '1': 'Jos etsit kypärää, pahoittelen. Ne ovat kaikki muurilla.',
+        '2': 'Odo. Teen haarniskoja. En ole nukkunut paljon viime aikoina.'
       },
       again: {
-        '1': 'Yhä täällä. Yhä varasto vähissä.'
+        '1': 'Yhä täällä. Yhä lähes kaikesta pulaa.'
       },
       trade: {
-        '1': 'Puolet varastostani meni muureille. Ota, mitä on jäljellä.'
+        '1': 'Puolet varastostani meni muurille. Ota, mitä on jäljellä, jos sopii.'
       },
       who: {
-        '1': 'Kaksikymmentä vuotta olen varustanut tätä kaupunkia. En uskonut näkeväni kaiken yllä yhtä aikaa.'
+        '1': 'Olen varustanut tämän kaupungin kaksikymmentä vuotta. En ole koskaan nähnyt kaikkea käytössä kerralla.'
       },
       armor: {
-        '1': 'Levyä, jos seisot paikallasi. Nahkaa, jos et. Kaapuja, jos tykkäät kuolla.',
-        say: 'Mitä panssaria minun pitäisi käyttää?'
+        '1': 'Levypanssaria, jos pidät pintasi. Nahkaa, jos liikut. Kaapuja, jos olet nopea.',
+        say: 'Millaista haarniskaa minun pitäisi käyttää?'
       },
       rumor: {
         backRoom: {
-          '1': 'Jos piiritys murtuu, avaan takahuoneen. Hyvän levyn. Murra se minulle, eikö niin?'
+          '1': 'Jos piiritys murtuu, avaan takahuoneen. Hyvä levypanssari on siellä.'
         }
       },
       shopBack: {
-        '1': 'Kestää. Todennäköisesti.'
+        '1': 'Se kestää. Se on kestänyt tähän asti.'
       },
       bye: {
-        '1': 'Pidä pää alhaalla.'
+        '1': 'Pidä pääsi alhaalla siellä.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Sinä! Tule sisään. Takahuone on auki, ja se on auki SINULLE.',
-        '2': 'Mestari Odoksi minua nyt kutsutaan. Kauppa käy, kun kaupunki elää.'
+        '1': 'Siinähän sinä! Tule sisään. Takahuone on auki, ja se on auki sinulle.',
+        '2': 'Mestari Odoksi minua nyt kutsutaan. Hassua, mitä vähän rauha tekee kaupalle.'
       },
       ending: {
-        '1': 'Portistani Kauhun linnoitukseen. Kerron kaikille, että sovitin panssarisi.'
+        '1': 'Portistamme Kauhun linnoitukseen. Kerron kaikille, että sovitin haarniskasi.'
       },
       again: {
-        '1': 'Portin sankari. Mitä tänään saisi olla?'
+        '1': 'Hyvä nähdä sinut. Mitä tänään?'
       },
       trade: {
-        '1': 'Pelastit tämän kaupungin. Hyvä levy tulee takahuoneesta sinulle.'
+        '1': 'Hyvä levypanssari on esillä. Olet ansainnut katsoa sitä.'
       },
       town: {
-        '1': 'Rikas. Äänekäs. Täynnä kauppiaita, jotka valittavat tullista.',
-        '2': 'Se on ihanaa. En ole nukkunut viikkoon.',
-        say: 'Miten kaupunki voi?'
+        '1': 'Vilkas. Äänekäs. Täynnä kauppiaita, jotka valittavat tullista.',
+        '2': 'Se on ihanaa. En ole saanut rauhallista tuntia viikkoihin.',
+        say: 'Miten kaupungilla menee?'
       },
       rumor: {
         mines: {
-          '1': 'Terästäni tulee Ironholdista, ja Ironhold on hiljentynyt. Jonkun pitäisi katsoa sen kaivoksia.'
+          '1': 'Terakseni tulee Ironholdista, ja he ovat hiljenneet. Jonkun pitäisi tarkistaa heidän kaivoksensa.'
         },
         tundra: {
-          '1': 'Paras malmi, jonka olen nähnyt, tuli tundralta. Sen tuoneet miehet eivät koskaan palanneet.'
+          '1': 'Paras malmi, jota olen koskaan työstänyt, tuli tundralta. Sen löytäneet miehet eivät palanneet.'
         }
       },
       shopBack: {
-        '1': 'Jos se ei sovi, tule takaisin. Saan sen sopimaan.'
+        '1': 'Jos se ei istu oikein, tuo takaisin. Korjaan sen.'
       },
       bye: {
-        '1': 'Oakhavenin portti on aina auki sinulle. Vain sinulle.'
+        '1': 'Olet aina tervetullut tänne.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Ostatko vai katsot? Katsominen on ilmaista. Koskeminen maksaa sormen.',
-        '2': 'Senna. Myyn teriä. En kysy, mihin niitä käytetään.'
+        '1': 'Katselet vai ostat? Kumpikin käy. Älä vain koske teriin.',
+        '2': 'Senna. Myyn teriä. Mitä teet niillä, on sinun asiasi.'
       },
       saved: {
-        '1': 'Piiritys murtui. Harmi. Sota on hyväksi kaupalle. Rauha on hyväksi velkojen perinnälle.'
+        '1': 'Piiritys siis murtui. Hyvä kaupungille. Sota oli kyllä parempi kaupalleni.'
       },
       again: {
         '1': 'Takaisin jonkin terävämmän perässä?'
       },
       trade: {
-        '1': 'Terävää, tasapainoista ja myydään sille, joka maksaa. Tänään se olet sinä.'
+        '1': 'Terävät, tasapainoiset ja reilusti hinnoitellut. Ota aikaa.'
       },
       who: {
-        '1': 'Myin miekkoja molemmille osapuolille kolmessa sodassa. Olen yhä täällä. He eivät enimmäkseen ole.'
+        '1': 'Olen myynyt kolmen sodan molemmille puolille. Olen yhä täällä. Useimmat heistä eivät ole.'
       },
       rumor: {
         krag: {
-          '1': 'Kragin miehillä on hyvää terästä. Syndikaatin rahaa. Ota se heiltä, jos pystyt.'
+          '1': 'Kragin miehillä on hyvää terästä. Syndikaatin rahaa. Kannattaa poimia, jos tilaisuus tulee.'
         },
         which: {
-          '1': 'Nopeat terät haluavat Ketteryyttä. Pyssyt ja jouset haluavat Taitoa. Tiedä, kumpi olet, ennen kuin maksat minulle.'
+          '1': 'Nopeat terät haluavat Ketteryyttä. Jouset ja aseet haluavat Taitoa. Tiedä, mikä olet.'
         }
       },
       shopBack: {
-        '1': 'Veri pyyhkiytyy pois. Ruoste ei. Öljyä se.'
+        '1': 'Pidä se öljyttynä. Ruoste pilaa hyvän terän nopeammin kuin luu.'
       },
       bye: {
-        '1': 'Älä kuole velkaa minulle.'
+        '1': 'Yritä olla kuolematta velkaa minulle.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Älä käänny. Vitsailen. Käänny.',
-        '2': 'He kutsuvat minua Kuiskaukseksi. Opetan ihmisiä saapumaan huomaamatta.'
+        '1': 'Et kuullut minun tulevan selkäsi taakse. Useimmat eivät kuule.',
+        '2': 'Minua kutsutaan Kuiskaukseksi. Opetan, miten ei tule nähdyksi.'
       },
       fallen: {
-        '1': 'Kaupunki on nyt hiljaisempi. Vähemmän vartijoita. Pidän siitä aika paljon.'
+        '1': 'Kaupunki on nyt hiljaisempi. Vähemmän vartijoita. Helpompaa työtä, joillekin meistä.'
       },
       friend: {
-        '1': 'Syndikaatti pitää sinua ystävänä. Ystävät maksavat vähemmän. Ystävät tietävät myös liikaa.'
+        '1': 'Syndikaatti pitää sinua ystävänä. Ystävät maksavat vähemmän. Muista se.'
       },
       foe: {
-        '1': 'Syndikaatti haluaa sinut kuolleeksi. Minulle maksettiin opettamisesta, ei tappamisesta. Onnekas sinä.'
+        '1': 'Syndikaatti haluaa sinut kuolleeksi. Minulle maksettiin opettamisesta, ei tappamisesta. Joten, oppitunteja.'
       },
       again: {
-        '1': 'Olet äänekkäämpi kuin viimeksi. Työstämme sitä.'
+        '1': 'Olet yhä liian äänekäs. Työstämme sitä.'
       },
       train: {
         '1': 'Hiljaa sitten. Katso jalkojani, älä käsiäni.'
       },
       class: {
-        '1': 'Veitsi, joka on jo takanasi. Astu esiin pimeästä, iske ja katoa.',
-        '2': 'Ketteryys ennen kaikkea. Taito, kun haluat viillon osuvan.',
+        '1': 'Joku, joka on jo selkäsi takana. Sisään, yksi viilto, ja poissa.',
+        '2': 'Ketteryys on tärkeintä. Taito, jos haluat viillon osuvan.',
         say: 'Mikä on Varjoterä?'
       },
       ready: {
         strong: {
-          '1': 'Liikut hyvin. Ota, mitä osaan. Tuo Taitoa savua varten.'
+          '1': 'Liikut nyt hyvin. Ota loput. Tuo mukanasi Taitoa savua varten.'
         },
         able: {
-          '1': 'Hyvä. Kätesi ovat tarpeeksi nopeat seuraavaan askeleeseen.'
+          '1': 'Kätesi ovat tarpeeksi nopeat. Seuraava askel.'
         },
         weak: {
-          '1': 'Kävelet kuin kärry. Lisää Ketteryyttä. Sitten puhutaan.'
+          '1': 'Et vielä. Olet raskas jaloistasi. Harjoita Ketteryyttäsi.'
         }
       },
       syndicate: {
-        '1': 'Ihmisiä, jotka huomasivat, että lait ovat kaupan. En tuomitse. Laskutan.',
+        '1': 'Ihmiset, jotka huomasivat, että lailla on hinta. En tuomitse. Saan vain palkkani.',
         say: 'Keitä Tuhkasyndikaatti ovat?'
       },
       trainBack: {
-        '1': 'Mene nyt ja tee se, missä kukaan ei näe.'
+        '1': 'Harjoittele nyt siellä, missä kukaan ei näe sinua.'
       },
       bye: {
         '1': 'Et koskaan nähnyt minua.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Saat lähestyä. Et noin lähelle.',
-        '2': 'Lordi Castellan, Oakhavenin vanhaa sukua. Opetan komentamista.'
+        '1': 'Saat tulla lähemmäs. Tuossa, niin lähellä riittää.',
+        '2': 'Lordi Castellan, Oakhavenin vanhimmasta suvusta. Opetan johtamista.'
       },
       saved: {
-        '1': 'Kaupunkini seisoo, ja sen mukana sukuni nimi. Sinulla on lordin kiitollisuus. Se on paljon arvoinen.'
+        '1': 'Kaupunkini seisoo, ja sukuni nimi sen mukana. Sinulla on kiitokseni. Todella.'
       },
       friend: {
-        '1': 'Ritarikunnan ystävä. Alennan maksuani. Älä mainitse siitä kenellekään.'
+        '1': 'Ritarikunnan ystävä. Laskan maksuani. Älä levitä sitä.'
       },
       foe: {
-        '1': 'Ritarikunta on julistanut nimesi. Opetan sinua silti. Raha on rahaa, valitettavasti.'
+        '1': 'Ritarikunnalla on nimesi listalla. Opetan sinua silti. Raha on rahaa.'
       },
       again: {
-        '1': 'Ah. Lupaavin alamaiseni.'
+        '1': 'Ah, sinä taas. Jatketaanko?'
       },
       train: {
-        '1': 'Hyvä on. Katso, miten käsky annetaan.'
+        '1': 'Hyvä on. Katso, miten käsky annetaan ja miten sitä seurataan.'
       },
       class: {
-        '1': 'Miksi taistella yksin, kun muut voivat tehdä sen puolestasi? Kutsu vartijoita. Komenna heitä.',
-        '2': 'Se vaatii Karismaa. Ei johdeta mutisemalla.',
+        '1': 'Joku, joka ei taistele yksin. Kutsut vartijat, ja he taistelevat puolestasi.',
+        '2': 'Se vaatii Karismaa. Kukaan ei seuraa johtajaa, jota ei kuule.',
         say: 'Mikä on Suurhallitsija?'
       },
       ready: {
         strong: {
-          '1': 'Sinulla on läsnäoloa. Ota loput oppitunneistani ja seiso suorassa.'
+          '1': 'Sinulla on nyt todellista läsnäoloa. Ota loput oppitunneistani.'
         },
         able: {
           '1': 'Äänesi kantaa. Olet valmis seuraavaan oppituntiin.'
         },
         weak: {
-          '1': 'Kukaan ei seuraisi sinua leipomoonkaan. Lisää Karismaa.'
+          '1': 'Pelkään, ettei kukaan seuraisi sinua vielä. Harjoita Karismaasi.'
         }
       },
       family: {
-        '1': 'Rakensimme muurit, joilla kapteeni Hale seisoo. Hän unohtaa. Muistutan häntä. Usein.',
+        '1': 'Rakensimme muurit, joilla Kapteeni Hale seisoo. Hän unohtaa sen. Muistutan häntä.',
         say: 'Kerro minulle suvustasi.'
       },
       trainBack: {
-        '1': 'Mene nyt ja tule tottelluksi.'
+        '1': 'Mene sitten. Johda jotakuta.'
       },
       bye: {
-        '1': 'Voit poistua.'
+        '1': 'Hyvää päivänjatkoa.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Seuraava! Ai. Osaat kävellä. Mukava vaihtelu.',
-        '2': 'Veli Fenn. Neljäkymmentä haavoittunutta muurilla, ja yksi minä.'
+        '1': 'Seuraava! Ai, sinä kävelet. Se on mukava vaihtelu.',
+        '2': 'Veli Fenn. Neljäkymmentä haavoittunutta muurilla, ja vain yksi minä.'
       },
       saved: {
-        '1': 'Ei uusia haavoittuneita kolmeen päivään! En tiedä, mitä tekisin käsilläni.'
+        '1': 'Ei uusia haavoittuneita kolmeen päivään. En tiedä, mitä tekisin itselläni.'
       },
       again: {
-        '1': 'Taas sinä, ja yhä kävelet. Hyväksyn.'
+        '1': 'Sinä taas, ja omilla jaloillasi. Hyvä.'
       },
       heal: {
-        '1': 'Käy makuulle. Ei, puhtaalle vuoteelle. Noin. Kaikki pullot täytetty. Menehän.'
+        '1': 'Käy makuulle tähän, puhtaaseen vuoteeseen. Noin. Pullot täytetty, menehän.'
       },
       mana: {
-        '1': 'Manajuoma! Maistuu pennoselta. Toimii kuitenkin.'
+        '1': 'Manajuoma. Maistuu vanhoilta kolikoilta, mutta toimii.'
       },
       potions: {
-        '1': 'Pidempään vyöhön mahtuu enemmän pulloja. Niitä myyn. Pullot täytän ilmaiseksi.',
+        '1': 'Pidemmällä vyöllä, kyllä. Niitä myyn. Pullojen täyttö on ilmaista.',
         say: 'Voinko kantaa enemmän juomia?'
       },
       rumor: {
         archers: {
-          '1': 'Kragin jousiampujat tähtäävät jalkoihin. Pysy liikkeessä, niin he ohittavat.'
+          '1': 'Kragin jousimiehet tähtäävät matalalle. Liiku koko ajan, niin useimmat ohittavat.'
         },
         north: {
-          '1': 'Palovammoja, paleltumia ja yksi mies, joka vannoo patsaan purreen häntä. Pohjoinen ei ole lempeä.'
+          '1': 'Näen palovammoja, paleltumia ja yhden miehen, joka vannoo patsaan purreen häntä.'
         }
       },
       healBack: {
-        '1': 'Mene nyt. Ensi kerralla tule juttelemaan, älä ommeltavaksi.'
+        '1': 'Menehän. Ensi kerralla tule juttelemaan tikkien sijaan.'
       },
       bye: {
-        '1': 'Kävele se pois! Se on lääkärin neuvo.'
+        '1': 'Pidä huolta itsestäsi. Ja syö jotain.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Ei nimiä. Mutta sinä olet se, joka avasi portin. Sen tunnen.',
-        '2': 'Kutsu minua Kätkijäksi. Kaikki täällä putosi kärryltä.'
+        '1': 'Ei nimiä täällä. Mutta tiedän, kuka avasi portin. Kaikki tietävät.',
+        '2': 'Voit kutsua minua Kätkijäksi. Kaikki täällä on tullut jostain.'
       },
       foe: {
-        '1': 'Syndikaatti ei pidä sinusta tänään. Kullastasi se silti pitää.'
+        '1': 'Syndikaatti ei pidä sinusta juuri nyt. Kultasi on silti tervetullutta.'
       },
       again: {
-        '1': 'Ah. Paras asiakkaani. Kukaan ei seurannut? Hyvä.'
+        '1': 'Taas täällä. Kukaan ei seurannut sinua, toivottavasti?'
       },
       trade: {
-        '1': 'Ei nimiä, ei kysymyksiä. Syndikaatti ottaa osansa, sinä tavarat.'
+        '1': 'Ei kysymyksiä suuntaan eikä toiseen. Syndikaatti ottaa osansa, sinä tavarat.'
       },
       who: {
-        '1': 'Ennen tulipaloa myin kynttilöitä. Laillisesti. Se oli kamalaa.'
+        '1': 'Ennen tulipaloa myin kynttilöitä. Kunniallista työtä. Se ei kannattanut.'
       },
       armor: {
-        '1': 'Haarniskasepät ovat poissa, ystävä. Palaneet loppuun. Sinä tiedät.',
+        '1': 'Haarniskasepät ovat poissa, ystävä. Tiedät syyn paremmin kuin minä.',
         say: 'Onko panssareita myytävänä?'
       },
       rumor: {
         citadel: {
-          '1': 'Kaukaiseen pohjoiseen ilmestyi linnoitus viime vuonna. Kukaan ei rakentanut sitä. Sen muurit humisevat.'
+          '1': 'Kaukaiseen pohjoiseen ilmestyi linnoitus viime vuonna. Kukaan ei rakentanut sitä.'
         },
         crystals: {
-          '1': 'Joku ostaa jokaisen tyhjyyskiteen markkinoilta. Ei me. Se huolestuttaa minua.'
+          '1': 'Joku ostaa jokaisen löytämänsä tyhjyyskiteen. Ei me. Se huolestuttaa minua.'
         }
       },
       shopBack: {
         '1': 'Et koskaan ollut täällä.'
       },
       bye: {
-        '1': 'Varo raunioita.'
+        '1': 'Katso mihin astut. Raunio liikkuu.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Vieras. Varo purkkeja.',
-        '2': 'Tohtori Sangrel. Oakhavenin uudet omistajat eivät kysy, mitä opetan. Virkistävää.'
+        '1': 'Vieras. Älä koske purkkeihin, kiitos.',
+        '2': 'Tohtori Sangrel. Oakhavenin uudet isännät eivät kysy, mitä opetan. Se on rauhoittavaa.'
       },
       found: {
         '1': 'Löysit minut. Harva etsii lääkäriä tällaisesta paikasta.',
         '2': 'Tohtori Sangrel. Kaupungit polttavat minunlaisiani, joten työskentelen siellä, missä niitä ei ole.'
       },
       friend: {
-        '1': 'Syndikaatti takaa sinut. Maksuni on pienempi sen ystäville. Vaatimukseni eivät.'
+        '1': 'Syndikaatti puhuu puolestasi. Veloitan sen ystäviltä vähemmän. Vaatimukseni pysyvät samoina.'
       },
       foe: {
-        '1': 'Syndikaatti maksaisi minulle verestäsi. Mieluummin käytät sen oppitunteihini.'
+        '1': 'Syndikaatti maksaisi hyvin verestäsi. Mieluummin näen, että käytät sen täällä.'
       },
       again: {
-        '1': 'Olet kalpea. Hyvä. Se sopii työhön.'
+        '1': 'Näytät kalpealta. Hyvä. Se sopii työhön.'
       },
       train: {
-        '1': 'Käännä hihasi. Tämä sattuu. Se on tarkoitus.'
+        '1': 'Käännä hihasi ylös. Se sattuu. Se on aika lailla koko pointti.'
       },
       class: {
-        '1': 'Maksat voimasta omalla terveydelläsi. Sitten juot sen takaisin viholliselta.',
-        '2': 'Kestävyys on kukkarosi. Äly ratkaisee, kuinka hyvin sen käytät.',
+        '1': 'Maksat voimasta omalla terveydelläsi ja otat sen sitten takaisin vihollisiltasi.',
+        '2': 'Kestävyys on se, mitä sinulla on käytettävänä. Äly on se, kuinka hyvin käytät sen.',
         say: 'Mikä on Verialkemisti?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Merkittävä ruumiinrakenne. Voit oppia lähes kaiken.'
         },
         able: {
-          '1': 'Verresi on tarpeeksi vahva seuraavaan oppituntiin.'
+          '1': 'Olet tarpeeksi vankka seuraavaan oppituntiin.'
         },
         weak: {
-          '1': 'Pyörtyisit ensimmäisestä viillosta. Lisää Kestävyyttä, kiitos.'
+          '1': 'Pyörtyisit ensimmäisestä viillosta. Kasvata ensin Kestävyyttäsi, kiitos.'
         }
       },
       jars: {
-        '1': 'Vapaaehtoisia. Enimmäkseen.',
+        '1': 'Näytteitä. Vapaaehtoisesti annettuja, enimmäkseen.',
         say: 'Mitä purkeissa on?'
       },
       trainBack: {
-        '1': 'Pidä toki muistiinpanoja. Tieteen vuoksi.'
+        '1': 'Pidä toki muistiinpanoja. Haluaisin kuulla, miten käy.'
       },
       bye: {
-        '1': 'Pysy terveenä. Muuten et ole minulle hyödyksi.'
+        '1': 'Pysy terveenä. Tarkoitan sitä.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Siis. Se, joka avasi portin. Istu. Olet ansainnut tuolin.',
-        '2': 'He kutsuvat minua Madame Ashiksi. Oakhaven on nyt minun. Osittain sinun.'
+        '1': 'Sinä siis avasit portin. Istu. Olet ansainnut tuolin.',
+        '2': 'Minua kutsutaan Madame Ashiksi. Oakhaven on nyt meidän. Osittain sinun ansiostasi.'
       },
       throneOurs: {
-        '1': 'Kauhun linnoituksen valtaistuin. Meidän. Olet paras sijoitus, jonka olen koskaan tehnyt.'
+        '1': 'Kauhun linnoitus, meidän käsissämme. Olit jokaisen kolikon arvoinen.'
       },
       throneLost: {
-        '1': 'Annoit valtaistuimen pois. Jollekin toiselle. Siitä puhumme. Ei tänään.'
+        '1': 'Annoit valtaistuimen jollekin toiselle. Siitä puhumme. Emme tänään.'
       },
       foe: {
-        '1': 'Olet ollut tiellämme. Istu silti. Haluan katsoa ongelmaa ennen kuin ratkaisen sen.'
+        '1': 'Olet työskennellyt meitä vastaan. Istu silti. Haluan tietää, kenen kanssa asioin.'
       },
       again: {
-        '1': 'Lempipetturini. Mitä Syndikaatti voi tehdä hyväksesi?'
+        '1': 'Taas täällä. Mitä Syndikaatti voi tehdä hyväksesi?'
       },
       cut: {
-        '1': 'Kolmasosa raunioita, kulta. Tässä on tämän kauden osuus.',
-        '2': 'Se kasvaa. Rauniot ovat hyvin tuottoisat, kun omistaa niiden ainoan torin.',
-        say: 'Lupasit minulle kolmasosan Oakhavenista.'
+        '1': 'Ja sen saat. Osuuden rauniosta, toistaiseksi. Tässä tämän kauden osuus.',
+        '2': 'Se kasvaa. Raunio maksaa erittäin hyvin, kun omistaa sen ainoan torin.',
+        say: 'Minulle luvattiin osuus Oakhavenista.'
       },
       syndicate: {
-        '1': 'Sitä, mitä kaikki haluavat. Emme vain teeskentele muuta.',
-        '2': 'Pysy ystävänämme, niin Kuiskaus ja Tohtori perivät sinulta vähemmän. Uskollisuudella on hinnasto.',
-        say: 'Mitä Syndikaatti haluaa?'
+        '1': 'Mitä kaikki haluavat. Emme vain teeskentele muuta.',
+        '2': 'Pysy ystävällisenä, niin Kuiskaus ja Tohtori veloittavat vähemmän.',
+        say: 'Mitä Syndikaatti oikeastaan haluaa?'
       },
       order: {
-        '1': 'Tietenkin. Poltit yhden sen kaupungeista. Kanna enemmän juomia.',
-        say: 'Rautaritarikunta jahtaa minua.'
+        '1': 'Tietysti ovat. Poltit yhden heidän kaupungeistaan. Ota mukaan ylimääräisiä juomia.',
+        say: 'Rautaritarikunta on perässäni.'
       },
       rumor: {
         core: {
-          '1': 'Kääpiöt löysivät jotain kaivoksistaan. Ytimen. Haluan sen. Tuo se meille ja sano summa.'
+          '1': 'Kääpiöt löysivät kaivoksistaan jotain. Ytimen. Tuo se meille ja nimeä hintasi.'
         },
         sold: {
-          '1': 'Ydin saapui turvallisesti. Sinun pitäisi nähdä, mitä se tekee lukolle.'
+          '1': 'Ydin saapui turvallisesti. Yllättyisit, mitä se tekee lukolle.'
         },
         north: {
-          '1': 'Kaikki varastamisen arvoinen on siirtynyt pohjoiseen. Niin olemme mekin.'
+          '1': 'Kaikki, mitä kannattaa omistaa, on siirtynyt pohjoiseen. Niin olemme mekin.'
         }
       },
       bye: {
-        '1': 'Älä ole vieras. Vieraita seurataan.'
+        '1': 'Älä ole vieras. Pidämme vieraita silmällä.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Tulit kaivosten läpi. Haistan pölyn päälläsi.',
-        '2': 'Dorn. Ironholdin pajamestari. Minulla on vuoren kokoinen ongelma.'
+        '1': 'Tulit kaivosten kautta. Haistan pölyn sinussa.',
+        '2': 'Dorn. Ironholdin pajamestari. Ja minulla on vuoren kokoinen ongelma.'
       },
       destroyed: {
-        '1': 'Valo on sammunut ja golemit ovat romua. Kaivostyöläiseni lauloivat viime yönä. Ensimmäistä kertaa vuoteen.'
+        '1': 'Valo on sammunut ja golemit ovat romua. Kaivajani lauloivat eilen illalla. Ensimmäistä kertaa vuoteen.'
       },
       studied: {
-        '1': 'Sinistä tulta pajoissani ja kaapuja saleissani. Työ on hyvää. Totun kaapuihin.'
+        '1': 'Sinistä tulta pajoissani ja kaapuihin pukeutuneita oppineita saleissani. Työ on ainakin hyvää.'
       },
       sold: {
-        '1': 'Myit sen. Golemit kävelevät yhä ja kaivokseni ovat yhä hauta. Pois valoltani.'
+        '1': 'Myit sen. Golemit kävelevät yhä, ja kaivokseni ovat yhä hauta. Jätä minut rauhaan.'
       },
       ending: {
-        '1': 'Valtaistuin on siis ratkaistu. Hyvä. Nyt valtakunta voi palata kiistelemään raudasta.'
+        '1': 'Valtaistuin on siis ratkaistu. Hyvä. Ehkä voimme nyt palata kaivamaan.'
       },
       again: {
-        '1': 'Puhu. Paja ei odota.'
+        '1': 'Mitä nyt? Paja ei odota.'
       },
       quest: {
-        '1': 'Kaivoimme rautaa ja osuimme sydämeen. Eetteriytimeen. Se sykkii siellä alhaalla pimeässä.',
+        '1': 'Kaivoimme rautaa ja löysimme sydämen. Eetteriytimen. Sen tuntee sykkivän.',
         '2': 'Entä golemit?',
-        '3': 'Ne kävelevät sen rytmissä. Kolme valtaa on kirjoittanut minulle siitä. Kaikki kohteliaita. En luota yhteenkään.',
-        '4': 'Pääset sen luo ensin, Ironholdin kaivosten pohjalla. Sitten päätös on sinun.',
-        say: 'Mitä kaivoksissa tapahtui?'
+        '3': 'Ne liikkuvat sen tahdissa. Kolme valtaa on kirjoittanut pyytäen sitä. En luota yhteenkään.',
+        '4': 'Pääset sen luo ensin, Ironholdin kaivosten pohjalla. Mitä sitten tapahtuu, on sinun päätettävissäsi.',
+        say: 'Mitä kaivoksissa alhaalla tapahtui?'
       },
       core: {
-        say: 'Ytimestä…',
+        say: 'Ytimestä...',
         destroy: {
-          '1': 'Rikoit ihmeen pelastaaksesi kansani. Ritarikunta lähetti haarniskaseppiä kiitokseksi. Minä lähetin olutta.'
+          '1': 'Rikoit ihmeen pelastaaksesi kansani. Ritarikunta lähetti haarniskaseppiä. Minä lähetin olutta.'
         },
         study: {
-          '1': 'Piirin kokeilijat ovat hulluja, mutta heidän pyssynsä osuvat suoraan. Reilu kauppa.'
+          '1': 'Piirin väki on outoa, mutta heidän aseensa ampuvat suoraan. Reilua.'
         },
         sell: {
-          '1': 'Kultaa. Teit sen kullan vuoksi. Toivon, että se pitää sinut lämpimänä.'
+          '1': 'Teit sen kullan vuoksi. Toivottavasti se pitää sinut lämpimänä.'
         }
       },
       town: {
@@ -2062,138 +2062,138 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'Kallioiden itäpuolella maa muuttuu valkoiseksi. Pakkastundra. Jättiläisiä ja kuolleita, jotka eivät pysy maassa.'
+          '1': 'Kallioiden itäpuolella maa muuttuu valkoiseksi. Pakkastundra. Jättiläisiä, ja pahempaa.'
         },
         citadel: {
-          '1': 'Tiedustelijani näkivät pohjoisessa linnoituksen, jota ei ollut viime vuonna. En pidä uusista vuorista.'
+          '1': 'Tiedustelijani näkivät pohjoisessa linnoituksen, jota ei ollut viime vuonna. En pidä siitä.'
         },
         fortress: {
-          '1': 'Kauhun linnoitus on paikka, jossa tämä päättyy. Jokainen tie pohjoiseen johtaa sen portille.'
+          '1': 'Kaikki päättyy Kauhun linnoitukseen. Jokainen tie pohjoiseen johtaa sinne.'
         }
       },
       bye: {
-        '1': 'Iske tarkasti.'
+        '1': 'Mene hyvin.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Kädet irti esillepanosta. Ne ovat teräviä molemmista päistä.',
-        '2': 'Hilda Vasarakäsi. Kääpiöiden takomaa, jokainen kappale.'
+        '1': 'Varovasti esillä olevien kanssa. Ne ovat teräviä molemmilta reunoilta.',
+        '2': 'Hilda Vasarakäsi. Jokaisen kappaleen täällä ovat takoneet kääpiön kädet.'
       },
       dragon: {
-        '1': 'Tapoit lohikäärmeen? MINUN aseellani? Ei? Valehtele minulle. Sano, että se oli minun.'
+        '1': 'Tapoitko lohikäärmeen? Toivottavasti yhdellä terälläni.'
       },
       again: {
-        '1': 'Takaisin oikean teräksen perässä?'
+        '1': 'Takaisin kunnon teräksen perään?'
       },
       trade: {
-        '1': 'Kääpiöiden takomaa. Jos se hajoaa, se olit sinä.'
+        '1': 'Kääpiöiden takomaa. Jos yksi näistä hajoaa, haluan tietää miten.'
       },
       who: {
-        '1': 'Äitini takoi kuninkaille. Minä taon kenelle tahansa, joka astuu sisään. Ajat muuttuvat.'
+        '1': 'Äitini takoi kuninkaille. Minä taon kenelle tahansa, joka astuu ovesta.'
       },
       rumor: {
         golems: {
-          '1': 'Kaivosten golemit on tehty omasta raudastamme. Se on suoraan sanoen kiusallista.'
+          '1': 'Ne golemit siellä alhaalla on tehty omasta raudastamme. Se pistää, sanon minä.'
         },
         arm: {
-          '1': 'Terä tekee puolet työstä. Voimasi tekee loput. Älä syytä terää.'
+          '1': 'Hyvä terä tekee puolet työstä. Voimasi täytyy tehdä loput.'
         }
       },
       shopBack: {
-        '1': 'Tuo se takaisin tylsänä, niin tiedän sinun käyttäneen sitä.'
+        '1': 'Tuo se takaisin tylsänä, niin tiedän käyttäneesi sitä hyvin.'
       },
       bye: {
-        '1': 'Iske kovaa.'
+        '1': 'Iske lujaa.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Varovasti! Tuo on ladattu. Tuokin. Useimmat, oikeastaan.',
-        '2': 'Värkkääjä Voss. Piiri lähetti minut katsomaan, mitä ydin voisi opettaa meille. Kaiken, kuten käy ilmi.'
+        '1': 'Varo, tuo on ladattu. Useimmat ovat, itse asiassa.',
+        '2': 'Värkkääjä Voss. Piiri lähetti minut tutkimaan ydintä. Se on opettanut meille niin paljon.'
       },
       again: {
-        '1': 'Oi hyvä, testaaja. Tarkoitan, asiakas.'
+        '1': 'Ah, hyvä. Olen tehnyt muutaman muutoksen sen jälkeen, kun olit täällä.'
       },
       trade: {
-        '1': 'Piirin ytimen tutkimus muutti kaiken. Pidä tätä. Älä osoita sillä minua.'
+        '1': 'Kaikki täällä syntyi ytimen tutkimisesta. Älä vain osoita sillä minua.'
       },
       core: {
-        '1': 'Se rauta osaa ajatella vähän. Yritän olla miettimättä sitä.',
+        '1': 'Tuo metalli osaa ajatella vähän. Yritän olla pohtimatta sitä.',
         say: 'Mitä ydin opetti sinulle?'
       },
       rumor: {
         heat: {
-          '1': 'Pyssyt toimivat Taidolla ja kuumenevat. Kysy Ratasseppä Pimiltä kuumuudesta, ennen kuin sulatat kätesi.'
+          '1': 'Aseet toimivat Taidolla, ja ne kuumenevat. Kysy Pimiltä kuumuudesta, ennen kuin poltat kätesi.'
         }
       },
       shopBack: {
-        '1': 'Ilmoita kaikista räjähdyksistä! Muistiinpanoja varten.'
+        '1': 'Kerro, miten se toimii. Pidän muistiinpanoja.'
       },
       bye: {
-        '1': 'Varo takaiskua!'
+        '1': 'Varo takapotkua.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Panssareita. Renkaita tarjottimella.'
+        '1': 'Garrun. Haarniskat telineissä, sormukset tarjottimella.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Takaisin. Mitä tarvitset?'
       },
       trade: {
-        '1': 'Levyä, joka kääntää jättiläisen nuijan. Renkaita teille muille.'
+        '1': 'Tuo levy torjuu jättiläisen nuijan. Katso.'
       },
       quiet: {
-        '1': 'Ei.',
-        say: 'Et puhu paljon.'
+        '1': 'Ei paljon sanottavaa.',
+        say: 'Et sano paljon, vai mitä?'
       },
       rumor: {
         giants: {
-          '1': 'Jättiläisiä tundralla. Nuijat kuin puunrungot. Osta raskas levy.'
+          '1': 'Jättiläisiä tundralla. Nuijat kuin puunrungot. Ottaisin raskaan levyn.'
         },
         demons: {
-          '1': 'Demoneja pohjoisessa. Tulta ja kynsiä. Osta raskas levy.'
+          '1': 'Demoneja pohjoisessa. Tulta ja kynsiä. Ottaisin raskaan levyn.'
         }
       },
       shopBack: {
-        '1': 'Hyvä.'
+        '1': 'Hyvä valinta.'
       },
       bye: {
-        '1': 'Niin.'
+        '1': 'Pidä huolta.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nimi ja asia. Ei. Tiedän nimesi. Tuhosit ytimen.',
-        '2': 'Rautaritarikunnan varusmestari. Sen asevarastot ovat avoinna sinulle.'
+        '1': 'Olet se, joka tuhosi ytimen. Ritarikunta muistaa sen.',
+        '2': 'Olen Ritarikunnan varusmestari täällä. Asevarastomme ovat avoinna sinulle.'
       },
       throneOurs: {
-        '1': 'Ritarikunta pitää Kauhun linnoitusta sinun kätesi kautta. Lepo. Se on käsky.'
+        '1': 'Ritarikunta hallitsee Kauhun linnoitusta, sinun ansiostasi. Lepo. Olet ansainnut sen.'
       },
       foe: {
-        '1': 'Ritarikunnalla on sinut listalla. Käskyni on myydä sinulle siitä huolimatta. En pidä niistä.'
+        '1': 'Ritarikunnalla on sinut listallaan. Käskyni mukaan myyn sinulle silti. Noudatan sitä.'
       },
       again: {
-        '1': 'Tilaus?'
+        '1': 'Mitä tarvitset?'
       },
       trade: {
-        '1': 'Ritarikunta muistaa, kuka tuhosi ytimen. Valitse, mitä tarvitset.'
+        '1': 'Ota, mitä tarvitset. Ritarikunta pitää omistaan huolta.'
       },
       order: {
-        '1': 'Ei mitään. Se on harvinaista. Nauti siitä.',
+        '1': 'Ei mitään, toistaiseksi. Niin ei käy usein. Nauti siitä.',
         say: 'Mitä Ritarikunta haluaa minulta?'
       },
       rumor: {
         throne: {
-          '1': 'Ritarikunta haluaa valtaistuimen Kauhun linnoituksessa. Se muistaa, kuka seisoi sen rinnalla.'
+          '1': 'Ritarikunta haluaa valtaistuimen Kauhun linnoituksessa. Se muistaa, kuka auttoi.'
         }
       },
       shopBack: {
-        '1': 'Allekirjoita tähän. Vitsailen. Ritarikunta ei vitsaile. Saat poistua.'
+        '1': 'Pidä siitä huolta. Se on Ritarikunnan omaisuutta, kunnes olet vuotanut verta siinä.'
       },
       bye: {
-        '1': 'Saat poistua.'
+        '1': 'Jatka.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'He kutsuvat minua Vanhaksi Kivijalaksi. Kuuntelen maata. Joskus se vastaa.'
       },
       core: {
-        '1': 'Vuoren sydämenlyönti muuttui. Se olit sinä. Se huomasi.'
+        '1': 'Vuori tuntuu erilaiselta siitä asti, kun menit sinne alas. Rauhallisemmalta, tai tyhjemmältä.'
       },
       dragon: {
-        '1': 'Lohikäärme lensi huipun yli eilen eikä polttanut meitä. Sinun ansiotasi, kuulen.'
+        '1': 'Lohikäärme lensi huipun yli eilen ja jätti meidät rauhaan. Sinun ansiotasi, kuulemma.'
       },
       again: {
-        '1': 'Taas sinä. Kivet sanoivat, että tulisit.'
+        '1': 'Siinähän sinä. Arvelin sinun palaavan.'
       },
       train: {
-        '1': 'Asettele jalkasi. Tunnetko? Et? Aloitamme siitä.'
+        '1': 'Aseta jalat tukevasti. Tunnetko sen? Et? Siitä aloitamme.'
       },
       class: {
-        '1': 'Nostamme muureja, kutsumme piikkejä ja murramme maata, kun tarvitaan.',
-        '2': 'Voimaa siirtämään kiveä, Älyä pyytämään sitä kauniisti.',
-        say: 'Mikä on Geomantikko?'
+        '1': 'Nostamme muureja, kutsumme piikkejä ja halkaisemme maan, kun on pakko.',
+        '2': 'Voimaa kiven liikuttamiseen. Älyä tietää, minne se haluaa mennä.',
+        say: 'Mitä Geomantikko tekee?'
       },
       ready: {
         strong: {
-          '1': 'Kivi tuntee sinut nyt. Opi loput.'
+          '1': 'Kivi tuntee sinut nyt. Opi loput, kun olet valmis.'
         },
         able: {
-          '1': 'Olet tarpeeksi painava seuraavaan oppituntiin. Se on kohteliaisuus.'
+          '1': 'Seisot tarpeeksi vakaasti seuraavaan oppituntiin.'
         },
         weak: {
-          '1': 'Kivi ei kuule sinua vielä. Lisää Voimaa.'
+          '1': 'Et vielä. Kivi ei liiku sinulle. Kasvata Voimaasi.'
         }
       },
       factions: {
-        '1': 'Ei yhtäkään. Ritarikunnat, syndikaatit, piirit. Vuori kestää ne kaikki.',
+        '1': 'Yhdelläkään. Ritarikunnat ja killat tulevat ja menevät. Vuori pysyy.',
         say: 'Mitä ryhmittymää palvelet?'
       },
       trainBack: {
-        '1': 'Mene hellästi. Sitten ei hellästi.'
+        '1': 'Ota aikaa. Maa on kärsivällinen.'
       },
       bye: {
         '1': 'Kulje pehmeästi.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Älä koske tuohon! Tai tuohon. Itse asiassa, seiso matolla. Matto on turvallinen.',
-        '2': 'Ratasseppä Pim! Pyssyjä, torneja, lämpömittareita. Enimmäkseen lämpömittareita.'
+        '1': 'Ah, odota, älä koske siihen! Tai tuohon. Seiso matolla, matto on turvallinen.',
+        '2': 'Ratasseppä Pim. Rakennan aseita, tykkitorneja ja paljon lämpömittareita.'
       },
       core: {
-        '1': 'Annoit meille ytimen! En ole nukkunut yhdeksään päivään. Katso käsiäni. Älä katso käsiäni.'
+        '1': 'Annoit ytimen Piirille! En ole juuri nukkunut sen jälkeen. Hyvällä tavalla.'
       },
       oracle: {
-        '1': 'Piiri on raivoissaan oraakkelista. Minä vain rakennan juttuja. Älä kerro heille, että opetin sinua.'
+        '1': 'Piiri on vihainen oraakkelin takia. Minä vain rakennan juttuja. En halua sekaantua.'
       },
       friend: {
-        '1': 'Piirin ystävä! Halvemmat oppitunnit sinulle. Täytin lomakkeen itse.'
+        '1': 'Olet Piirin ystävä, joten oppituntisi ovat halvempia. Hoidin paperityöt.'
       },
       foe: {
-        '1': 'Piiri sanoo, etten saa opettaa sinua. Piiri sanoo myös, ettei raketteja testata sisällä.'
+        '1': 'Piiri sanoo, etten saa opettaa sinua. Opetan silti. Älä kerro heille.'
       },
       again: {
-        '1': 'Oi hyvä, sinulla on yhä kaikki sormet.'
+        '1': 'Voi hyvä, sinulla on yhä kaikki sormesi.'
       },
       train: {
-        '1': 'Selvä! Turvallisuus ensin. Sitten äänekäs osuus.'
+        '1': 'No niin. Turvallisuus ensin, sitten äänekäs osuus.'
       },
       class: {
-        '1': 'Pyssyjä, torneja ja lämpömittari. Ammu, rakenna ja päästä höyryt ulos, ennen kuin se lukitsee sinut.',
-        '2': 'Kaikki toimii Taidolla. Hieman Älyä isoihin koneisiin.',
+        '1': 'Aseita, tykkitorneja ja lämpömittari. Ammu, rakenna ja päästä höyryt ulos ennen kuin lukkiudut.',
+        '2': 'Enimmäkseen Taitoa. Vähän Älyä isompia koneita varten.',
         say: 'Mikä on Eetteriteknikko?'
       },
       ready: {
         strong: {
-          '1': 'Osaisit purkaa tornin sokkona! Ota isot koneet.'
+          '1': 'Osaat nyt tykkitornin. Ota isot koneet.'
         },
         able: {
-          '1': 'Vakaat kädet! Olet valmis seuraavaan vempaimeen.'
+          '1': 'Vakaat kädet. Olet valmis seuraavaan.'
         },
         weak: {
-          '1': 'Kätesi tärisevät. Minunkin, mutta muista syistä. Lisää Taitoa.'
+          '1': 'Tähtäyksesi on yhä vähän huojuva. Laita pisteitä Taitoon.'
         }
       },
       heat: {
-        '1': 'Kaikki lukittuu muutamaksi sekunniksi. Päästä ulos ajoissa. Päästä ulos usein. Minulla on arvet.',
+        '1': 'Kaikki lukkiutuu muutamaksi sekunniksi. Päästä ulos ajoissa, päästä usein. Usko pois.',
         say: 'Mitä tapahtuu, jos ylikuumenen?'
       },
       trainBack: {
-        '1': 'Muista: päästä kuumuus pois! PÄÄSTÄ. KUUMUUS. POIS.'
+        '1': 'Ja muista päästää kuumuus ulos, ennen kuin se päästää sinut.'
       },
       bye: {
-        '1': 'Älä räjähdä!'
+        '1': 'Ole varovainen siellä!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Saappaat pois. En halua sinun pölyäsi lattialleni.',
-        '2': 'Äiti Brynja. Olen asettanut jokaisen murtuneen luun tässä vuoressa kahdesti.'
+        '1': 'Saappaat pois ovella, kiitos. Lakaisin juuri.',
+        '2': 'Äiti Brynja. Olen asettanut suurimman osan tämän vuoren murtuneista luista.'
       },
       ending: {
-        '1': 'Menit Kauhun linnoitukseen ja kävelit takaisin. Istu. Haluan katsoa sinua.'
+        '1': 'Menit Kauhun linnoitukseen ja tulit takaisin. Istu. Katsotaanpa sinua.'
       },
       again: {
-        '1': 'Yhä elossa. Kuulemma se on minun ansiotani.'
+        '1': 'Yhä hengissä. Hyvä. Istu.'
       },
       heal: {
-        '1': 'Istu. Juo tämä. Älä tee tuota ilmettä. Pullosi on täytetty.'
+        '1': 'Juo tämä, äläkä väännä naamaasi. Pullosi ovat täynnä.'
       },
       mana: {
-        '1': 'Tässä. Maistuu kamalalta. Juo se, kun taikasi loppuu, ei ennen.'
+        '1': 'Tässä. Maku on kamala. Juo se, kun taikasi loppuu, ei ennen.'
       },
       potions: {
-        '1': 'Osta pidempi vyö minulta. Viisi pulloa on kaikki, mitä ihminen voi kantaa ja silti juosta.',
+        '1': 'Voin myydä sinulle pidemmän vyön. Viisi pulloa on suunnilleen kaikki, mitä kukaan jaksaa kantaa ja silti juosta.',
         say: 'Voinko kantaa enemmän juomia?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra vie sormia. Pysy liikkeessä siellä äläkä nuku lumessa.'
+          '1': 'Tundra vie sormet ja varpaat. Liiku koko ajan, äläkä nuku lumessa.'
         },
         temple: {
-          '1': 'Tundran takana on uponnut temppeli. Naagat eivät ota vankeja.'
+          '1': 'Tundran takana on uponnut temppeli. Nagat siellä eivät ota vankeja.'
         },
         rift: {
-          '1': 'Mikä tahansa siinä Tyhjyyden repeämässä on, sitä ei voi ommella. Lopeta se nopeasti.'
+          '1': 'Mitä tuossa repeämässä onkaan, en voi ommella sitä kiinni. Älä anna sen yltää sinuun.'
         }
       },
       healBack: {
-        '1': 'Mene nyt. Ja syö jotain.'
+        '1': 'Menehän. Ja syö jotain, olet liian laiha.'
       },
       bye: {
         '1': 'Tule takaisin yhtenä kappaleena.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Sinä. Sinä avasit porttini.',
-        '2': 'Opetan nyt kääpiön kellarista, koska minun on syötävä. Älä sekoita sitä anteeksiantoon.'
+        '1': 'Sinä. Sinä olet se, joka avasi porttini.',
+        '2': 'Opetan nyt kellarissa, koska minun täytyy syödä. Älä luule sitä anteeksiannoksi.'
       },
       ending: {
-        '1': 'Valtaistuin ratkaistiin, ja Oakhaven on yhä tuhkaa. Kerro uudelleen, miten se oli sen arvoista.'
+        '1': 'Valtaistuin on siis ratkaistu, ja Oakhaven on yhä tuhkaa. Toivottavasti se oli sen arvoista.'
       },
       again: {
-        '1': 'Petturi palaa. Maksuni ei ole laskenut.'
+        '1': 'Olet takaisin. Maksuni ei ole muuttunut.'
       },
       train: {
-        '1': 'Opetan sinua komentamaan. En voi opettaa sinua ansaitsemaan sitä.'
+        '1': 'Opetan sinulle johtamista. Ansaitsetko sen, on toinen asia.'
       },
       class: {
-        '1': 'Se, jota seurataan. Vartijat vastaavat kutsuun ja taistelevat sanastasi.',
-        '2': 'Se toimii Karismalla. Sinulla on sitä. Se on traagista.',
+        '1': 'Joku, jota muut seuraavat. Vartijat tulevat kutsustasi ja taistelevat sanastasi.',
+        '2': 'Se toimii Karismalla. Sinulla on sitä. Se tekee anteeksiannon vaikeaksi.',
         say: 'Mikä on Suurhallitsija?'
       },
       ready: {
         strong: {
-          '1': 'Sinulla on läsnäoloa kaikkeen. Valtakunta on sen vuoksi köyhempi.'
+          '1': 'Sinulla on läsnäoloa kaikkeen. Toivon, että olisit käyttänyt sitä paremmin.'
         },
         able: {
-          '1': 'Olet valmis seuraavaan oppituntiin. En saa siitä iloa.'
+          '1': 'Olet valmis seuraavaan oppituntiin. En teeskentele olevani iloinen.'
         },
         weak: {
-          '1': 'Eipä petturin vartijakaan seuraisi tuota ääntä. Lisää Karismaa.'
+          '1': 'Kukaan ei seuraisi sinua vielä. Harjoita Karismaasi.'
         }
       },
       oakhaven: {
         '1': 'Kolmesataa vuotta. Sukuni rakensi ne muurit.',
-        '2': 'Älä selitä. Ei ole hintaa, joka sen selittäisi.',
-        say: 'Oakhavenista…'
+        '2': 'Älä selitä. Mikään, mitä voisit sanoa, ei korjaa sitä.',
+        say: 'Oakhavenista...'
       },
       trainBack: {
-        '1': 'Mene. Komenna jotakuta muuta.'
+        '1': 'Mene. Harjoittele jonkun toisen kanssa.'
       },
       bye: {
-        '1': 'Jätä minut.'
+        '1': 'Jätä minut, ole hyvä.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Tapoit hänet. Näin sen tuhat kertaa ennen kuin se tapahtui, ja silti se sattuu.',
+        '1': 'Tapoit hänet. Näin sen tulevan vuosia, ja silti se sattuu.',
         '2': 'Olen Tuntien vartija. Opetan sinua. Hän sanoi, että opettaisin.'
       },
       hello: {
-        '1': 'Olet myöhässä. Tai etuajassa. Olen sanonut tämän jo, luulen.',
-        '2': 'Olen Tuntien vartija. Opetan ajan kutomista. Aloitimme hetki sitten.'
+        '1': 'Siinähän sinä. Olen odottanut sinua jo jonkin aikaa. Tai olen odottanut.',
+        '2': 'Olen Tuntien vartija. Opetan, miten aikaa taivutetaan, vähän.'
       },
       freed: {
-        '1': 'Hän on vapaa. Ensimmäistä kertaa en tiedä, mitä sanot seuraavaksi. Se on ihanaa.'
+        '1': 'Hän on vapaa. Ensimmäistä kertaa en voi sanoa, mitä seuraavaksi tapahtuu. Se on ihanaa.'
       },
       friend: {
-        '1': 'Piiri kutsuu sinua ystäväkseen. Onko se jo? Silloin alennus on nyt.'
+        '1': 'Piiri ajattelee sinusta hyvää, joten oppitunnit maksavat vähemmän. He päättivät sen viime viikolla.'
       },
       foe: {
-        '1': 'Piiri antaa sinulle anteeksi tulevaisuudessa, jonka olen nähnyt. Siihen asti opetan sinua hiljaa.'
+        '1': 'Piiri on nyt vihainen sinulle. Se menee ohi. Siihen asti pidämme tämän hiljaa.'
       },
       again: {
-        '1': 'Tervetuloa takaisin. Tervetuloa. Takaisin.'
+        '1': 'Tervetuloa takaisin. Tulet täsmälleen ajallaan.'
       },
       train: {
-        '1': 'Katso. Näytän sinulle, mitä näytin sinulle.'
+        '1': 'Katso tarkasti. Sitten katso uudestaan, hetkeä aiemmin.'
       },
       class: {
-        '1': 'Pysäytämme vihollisen ajassa, kiirehdimme ystävää ja otamme virheen takaisin.',
-        '2': 'Älyä nähdäksesi langan, Taitoa vetääksesi sitä.',
+        '1': 'Pidämme vihollisen paikallaan ajassa, kiirehdimme ystävää ja otamme virheen takaisin.',
+        '2': 'Älyä nähdä lanka. Taitoa vetää siitä.',
         say: 'Mikä on Ajankutoja?'
       },
       ready: {
         strong: {
-          '1': 'Pidät langasta hyvin kiinni. Loput on sinun, kun haluat.'
+          '1': 'Pidät langasta hyvin kiinni. Ota loput milloin haluat.'
         },
         able: {
-          '1': 'Olet valmis. Olit valmis huomennakin.'
+          '1': 'Olet valmis. Näin sen ennen kuin kysyit.'
         },
         weak: {
-          '1': 'Lanka luiskahtaa sormiesi läpi. Lisää Älyä. Lisää Taitoa.'
+          '1': 'Lanka lipsuu koko ajan. Lisää Älyä, ja lisää Taitoa.'
         }
       },
       oracle: {
         say: 'Kerro minulle oraakkelista.',
         freed: {
-          '1': 'Hän näki jokaisen lopun, eikä yksikään ollut hänen. Nyt yksi on.'
+          '1': 'Hän näki jokaisen lopun paitsi omansa. Nyt hän saa selvittää sen.'
         },
         slain: {
-          '1': 'Hän ei vastustanut. Senkin hän oli nähnyt. Älä kysy minulta enää.'
+          '1': 'Hän ei taistellut vastaan. Hän oli jo nähnyt sen. Älä kysy minulta enää, ole hyvä.'
         },
         waits: {
-          '1': 'Hän näkee jokaisen lopun. Se on kauhea lahja. Ole hänelle ystävällinen, lopussa.'
+          '1': 'Hän näkee jokaisen lopun. Se on raskas kannettava. Ole ystävällinen hänelle.'
         }
       },
       trainBack: {
-        '1': 'Se tulee olleeksi sen arvoista.'
+        '1': 'Se avautuu myöhemmin. Yleensä avautuu.'
       },
       bye: {
-        '1': 'Aiempaan asti.'
+        '1': 'Kunnes tapaamme taas. Tai ennen.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Odota! Odota. Kuningas antautuu!',
-          '2': 'Hiidet ryöstää vain koska hiidet nälkäisiä. On totta!',
-          '3': 'Ehkä pitkä ja kuningas tehdä sopimus?'
+          '1': 'Lopeta. Pyydän. Antaudun.',
+          '2': 'Kansani ryöstelee, koska he ovat nälkäisiä. Se on totuus.',
+          '3': 'Tehdään sen sijaan sopimus. Sinun kansasi ja minun.'
         },
         slay: {
-          '1': 'Kuningas kaatuu, ja Onkalot hajaantuvat.',
-          '2': 'Sunford nukkuu rauhallisemmin, ja Rautaritarikunta panee sinut merkille.',
-          say: 'Ei sopimusta. Hallintosi päättyy tähän.'
+          '1': 'Hiisikuningas kaatuu, ja Onkalot tyhjenevät.',
+          '2': 'Sunford nukkuu levollisemmin, ja Rautaritarikunta kuulee nimesi.',
+          say: 'Ei sopimuksia. Hyökkäyksesi loppuvat tähän.'
         },
         pact: {
-          '1': 'Kauppa? Kuningas vannoo! Kuningas TYKKÄÄ kaupasta!',
-          '2': 'Hiisikauppiaat perustavat kojut Sunfordin torille tavaroin, joita kukaan siellä oleva seppä ei osaisi tehdä.',
-          say: 'Lopeta ryöstöt ja käy kauppaa Sunfordin kanssa. Vanno se.'
+          '1': 'Kauppa. Kyllä. Vannon sen kruununi kautta.',
+          '2': 'Hiisikauppiaat pystyttävät kojunsa Sunfordin torille ja myyvät tavaroita, joita yksikään seppä siellä ei osaisi tehdä.',
+          say: 'Lopeta hyökkäykset ja käy sen sijaan kauppaa Sunfordin kanssa. Vanno se.'
         },
         ransom: {
-          '1': 'Kaiken? Kuningas vihaa pitkää. Ota. Ota ja mene.',
-          '2': 'Kävelet ulos hiisikullasta raskaana. Ryöstöt alkavat uudelleen. Syndikaatti hyväksyy.',
-          say: 'Luovuta aarteesi, niin saat pitää kruunusi.'
+          '1': 'Kaikki? ...Hyvä on. Ota se ja mene.',
+          '2': 'Lähdet hiisien kullan kanssa. Hyökkäykset alkavat taas, mutta Syndikaatti hyväksyy.',
+          say: 'Anna minulle aarteesi, niin saat pitää kruununsi.'
         }
       },
       siege: {
         ask: {
-          '1': 'Riittää. Taistelet hyvin.',
-          '2': 'Syndikaatti maksaa paremmin kuin tuo kaupunki koskaan.',
+          '1': 'Riittää. Taistelet hyvin, sen myönnän.',
+          '2': 'Syndikaatti maksaa paljon paremmin kuin tuo kaupunki koskaan.',
           '3': 'Avaa portti meille tänä yönä, niin kolmasosa Oakhavenista on sinun.'
         },
         defend: {
-          '1': 'Silloin Syndikaatti jahtaa sinua joka tiellä. Muista, että tarjosin.',
-          '2': 'Portti pitää. Oakhaven rikastuu sen takana, ja sen mestarihaarniskasepät muistavat nimesi.',
+          '1': 'Silloin Syndikaatti jahtaa sinua jokaisella tiellä. Muista, että tarjosin.',
+          '2': 'Portti pitää. Oakhaven rikastuu sen takana, ja sen haarniskasepät muistavat nimesi.',
           say: 'Portti pysyy kiinni. Ota armeijasi ja mene.'
         },
         betray: {
-          '1': 'Viisasta. Pyydän Madame Ashia asettamaan sinulle tuolin.',
-          '2': 'Oakhaven palaa. Raunioihin avautuu musta pörssi, ja alkemisti opettaa kiellettyjä taitoja.',
+          '1': 'Järkevää. Madame Ash ilahtuu kuullessaan.',
+          '2': 'Oakhaven palaa. Raunioissa avautuu pimeä tori, ja alkemisti opettaa salaa.',
           '3': 'Haarniskasepät ovat poissa, ja Rautaritarikunta kutsuu sinua petturiksi.',
-          say: 'Kolmasosa kaupungista. Tänä yönä portti aukeaa.'
+          say: 'Kolmasosa kaupungista. Hyvä on. Portti aukeaa tänä iltana.'
         }
       },
       core: {
         ask: {
-          '1': 'Kolossi on romua. En koskaan uskonut näkeväni sitä.',
-          '2': 'Ja siinä se on. Ydin. Yhä humisee. Lämmin kosketella.',
-          '3': 'Pääsit sen luo ensin. Mitä sille tapahtuu?'
+          '1': 'Kolossi on romua. En uskonut elinaikanani näkeväni sitä.',
+          '2': 'Ja tuossa on ydin. Yhä huminaa. Se on lämmin, jos siihen koskee.',
+          '3': 'Pääsit tänne ensin. Joten... mitä sille tapahtuu?'
         },
         destroy: {
           '1': 'Valo sammuu, ja golemit kaatuvat siihen, missä seisovat.',
-          '2': 'Rautaritarikunta lähettää omat haarniskaseppänsä Ironholdiin kiitokseksi.',
-          say: 'Väistä. Rikon sen.'
+          '2': 'Kiitokseksi Rautaritarikunta lähettää omat haarniskasepät Ironholdiin.',
+          say: 'Väistä. Aion murskata sen.'
         },
         study: {
-          '1': 'Ymmärrät ytimestä tarpeeksi luovuttaaksesi sen herättämättä sitä.',
-          '2': 'Vuodenajan kuluessa Ironholdin pajat valmistavat eetterilaitteita, joita kukaan ei ole nähnyt.',
-          say: 'Piirin pitäisi tutkia se. Voin kantaa sen turvallisesti ulos.'
+          '1': 'Tiedät tarpeeksi siirtääksesi ytimen herättämättä sitä.',
+          '2': 'Kauden kuluessa Ironholdin pajat tekevät eetterilaitteita, joita kukaan ei ole nähnyt.',
+          say: 'Piirin pitäisi tutkia sitä. Luulen voivani kantaa sen turvallisesti ulos.'
         },
         sell: {
           '1': 'Kultaa. Siitä, joka tappoi kaivostyöläiseni. Ota se ja mene.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Olen nähnyt tämän hetken kymmenentuhatta kertaa.',
-          '2': 'Puolessa niistä vapautat minut. Puolessa otat sen, mitä vartioin.',
-          '3': 'Valitse. Anna minun vihdoin olla tietämättä, mitä seuraavaksi tulee.'
+          '1': 'Olen nähnyt tämän hetken useammin kuin pystyn laskemaan.',
+          '2': 'Puolessa niistä vapautat minut. Toisessa puolessa otat sen, mitä vartioin.',
+          '3': 'Valitse. Haluaisin, vain kerran, olla tietämättä, mitä tulee.'
         },
         free: {
-          '1': 'Oi. En nähnyt tuota. En nähnyt tuota ollenkaan.',
-          '2': 'Oraakkeli nousee veden läpi ja on poissa. Hänen tuntiensa vartija jää opettamaan.',
+          '1': 'Oi. En nähnyt sitä. En todellakaan nähnyt sitä.',
+          '2': 'Oraakkeli nousee veden läpi ja katoaa. Hänen oppilaansa jää opettamaan.',
           say: 'Pysy paikallasi. Rikon kahleesi.'
         },
         slay: {
           '1': 'Kyllä. Tämä on toinen puoli.',
           '2': 'Hän ei vastusta. Ajanvartijan tiimalasi on sinun.',
-          '3': 'Hänen viimeinen oppilaansa pakenee temppelistä, eikä Piiri anna anteeksi.',
+          '3': 'Hänen viimeinen oppilaansa pakenee temppelistä, eikä Piiri anna sinulle anteeksi.',
           say: 'Tulin tiimalasin vuoksi.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Riittää. Sinulla on hampaita, pieni.',
-          '2': 'Linnoituksen demoni kahlitsi sukulaiseni. Haluaisin nähdä hänen palavan.',
+          '1': 'Riittää. Sinulla on hampaat, pikkuinen.',
+          '2': 'Linnoituksen demoni kahlitsi sukulaiseni. Haluan nähdä hänen palavan.',
           '3': 'Tapa minut tai anna minun auttaa sinua tekemään se.'
         },
         slay: {
           '1': 'Vuori vapisee lohikäärmeen kaatuessa. Sen aarre on sinun.',
           '2': 'Rautaritarikunta laulaa lohikäärmeentappajasta.',
-          say: 'Ei kauppoja lohikäärmeiden kanssa.'
+          say: 'En neuvottele lohikäärmeiden kanssa.'
         },
         pact: {
-          '1': 'Harva olisi voinut kysyä sitä ja elää. Hyvä on, pieni. Metsästämme yhdessä.',
-          '2': 'Kun marssit Kauhun linnoitusta kohti, lohikäärme on taivaalla yläpuolellasi.',
-          say: 'Lennä sitten kanssani Arkkidemonia vastaan.'
+          '1': 'Harva uskaltaisi kysyä. Hyvä on. Metsästämme yhdessä.',
+          '2': 'Kun marssit Kauhun linnoitusta vastaan, lohikäärme lentää yläpuolellasi.',
+          say: 'Taistele sitten kanssani Arkkidemonia vastaan.'
         }
       },
       throne: {
         ask: {
-          '1': 'Siis. Se päättyy. En uskonut, että se olisit sinä.',
-          '2': 'Valtaistuimeni ei jää tyhjäksi, pieni sankari. Se komentaa linnoitusta, repeämää ja molempien armeijoita.',
-          '3': 'Kolme lähettiläätä odottaa jo ovellani. Valitse, kuka perii kahleeni.'
+          '1': 'Siis. Tämä päättyy. En uskonut, että se olisit sinä.',
+          '2': 'Valtaistuimeni ei jää tyhjäksi. Joka sen ottaa, komentaa linnoitusta ja repeämää.',
+          '3': 'Kolme lähettilästä odottaa jo ovellani. Valitse, kuka tulee seuraavaksi.'
         },
         order: {
           '1': 'Ritarikunta miehittää linnoituksen ja sinetöi sen minkä voi.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Syndikaatti muuttaa sisään ennen aamunkoittoa.',
-          '2': 'Kaikki on nyt kaupan, myös rauha.',
+          '2': 'Tästä lähtien kaikella on hinta, jopa rauhalla.',
           say: 'Tuhkasyndikaatti on ansainnut sen.'
         },
         circle: {
-          '1': 'Piiri muuttaa linnoituksen kouluksi repeämän päälle.',
-          '2': 'He kutsuvat sitä tutkimukseksi. Kaikki muut kutsuvat sitä ajan kysymykseksi.',
+          '1': 'Piiri tekee linnoituksesta koulun repeämän päälle.',
+          '2': 'He kutsuvat sitä tutkimukseksi. Kaikki muut pidättävät hengitystään.',
           say: 'Antakaa Eetterin piirin saada se.'
         },
         shatter: {
           '1': 'Murskaat valtaistuimen omin käsin. Kukaan ei hallitse täältä enää.',
           '2': 'Lähettiläät lähtevät sanaakaan sanomatta.',
-          say: 'Kukaan ei peri. Rikon sen.'
+          say: 'Kukaan ei saa sitä. Murskaan sen.'
         },
         claim: {
           '1': 'Valtaistuin on kylmä, ja se sopii.',
           '2': 'Kolme ryhmittymää huomaa, että niillä on yhteinen vihollinen.',
-          say: 'Istun siihen itse.'
+          say: 'Otan sen itse.'
         }
       }
     }

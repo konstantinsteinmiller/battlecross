@@ -127,8 +127,8 @@ export default {
       mouse: 'Urmează poteca până la maestru și dă clic pe el ca să vorbești.'
     },
     teach: {
-      touch: 'Atinge „Învață-mă” ca să vezi ce predă acest maestru.',
-      mouse: 'Dă clic pe „Învață-mă” ca să vezi ce predă acest maestru.'
+      touch: 'Atinge „Mă înveți?” ca să vezi ce predă acest antrenor.',
+      mouse: 'Apasă „Mă înveți?” ca să vezi ce predă acest antrenor.'
     },
     learn: {
       touch: 'Atinge o abilitate, apoi Învață.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Cumpără înapoi',
     deal: 'Târg încheiat!',
     say: {
-      buy: 'O alegere bună. Ai grijă de ea.',
-      sell: 'Îi găsesc eu o casă bună.',
-      back: 'Te-ai răzgândit? Poftim, exact cum era.',
-      poor: 'Întoarce-te cu o pungă mai grea.'
+      buy: 'Alegere bună. Ai grijă de ea, și ea va avea grijă de tine.',
+      sell: 'Bine. Cineva o va dori.',
+      back: 'Te-ai răzgândit? Nicio problemă, poftim.',
+      poor: 'Costă puțin mai mult decât ai, mă tem.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Șezi. Odihnește-te. Pleci de aici întreg, cu toate flacoanele pline. Dacă vrei să cari mai multe, asta îți pot vinde.',
+    talk: 'Stai jos și odihnește-te puțin. Flacoanele tale sunt iar pline. Îți pot vinde o centură mai mare, dacă vrei.',
     note: 'Iei cu tine {n} poțiuni în fiecare zonă.',
     buy: 'Încă un flacon · {n}',
     full: 'La centură nu mai încape niciunul.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram Fierarul',
-      talk: 'Oțel simplu, prețuri cinstite. O să țină un goblin departe de tine.'
+      talk: 'Oțel simplu, prețuri cinstite. Nu te grăbi.'
     },
     sunfordPeddler: {
       name: 'Tilly Negustoreasa',
-      talk: 'Inele! Amulete! Lucruri pe care le-am găsit și sigur nu le-am furat.'
+      talk: 'Inele, talismane, mărunțișuri. Pe ăla poate chiar aduce noroc.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik Negustorul',
-      talk: 'Rege zice negoț, deci Grik face negoț. Lucios pe lucios. Lucios bun.'
+      talk: 'Familia mea le-a făcut. Muncă bună, preț cinstit.'
     },
     captainHale: {
       name: 'Căpitanul Hale'
     },
     oakArmorer: {
       name: 'Odo Armurierul',
-      talk: 'Jumătate din marfă a ajuns pe ziduri. Ia ce a rămas.'
+      talk: 'Jumătate din marfă a ajuns pe zid. Ia ce a rămas, dacă ți se potrivește.'
     },
     oakMasterArmorer: {
       name: 'Meșterul Odo',
-      talk: 'Ai salvat orașul. Pentru tine scot platoșa cea bună din camera din spate.'
+      talk: 'Platoșa bună e scoasă. Ai meritat mai mult de o privire.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Ascuțite, echilibrate și vândute cui plătește. Azi ești tu acela.'
+      talk: 'Ascuțite, echilibrate, la preț corect. Nu atinge tăișurile.'
     },
     trainerShadow: {
       name: 'Șoapta'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Tăinuitorul',
-      talk: 'Fără nume, fără întrebări. Sindicatul își ia partea, tu iei marfa.'
+      talk: 'Fără întrebări, în nicio parte. Sindicatul își ia partea.'
     },
     trainerBlood: {
       name: 'Doctorul Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Mână-de-Ciocan',
-      talk: 'Făurit de pitici. Dacă se rupe, tu ai fost de vină.'
+      talk: 'Forjate de pitici, fiecare piesă. Dacă una se rupe, vreau să aflu cum.'
     },
     ironAetherWorks: {
       name: 'Voss Meșteșugarul',
-      talk: 'Studiul Cercului asupra nucleului a schimbat totul. Ține asta. Nu o îndrepta spre mine.'
+      talk: 'Tot ce e aici a ieșit din studiul nucleului. Atenție, cele mai multe sunt încărcate.'
     },
     ironArmor: {
       name: 'Garrun Coastă-de-Fier',
-      talk: 'Platoșă care abate bâta unui uriaș. Inele pentru ceilalți.'
+      talk: 'Armuri pe rafturi, inele în tavă.'
     },
     ironOrderArmor: {
       name: 'Intendentul Ordinului',
-      talk: 'Ordinul ține minte cine a distrus nucleul. Armureriile lui îți sunt deschise.'
+      talk: 'Ia ce-ți trebuie. Ordinul are grijă de ai săi.'
     },
     trainerGeo: {
       name: 'Bătrânul Picior-de-Piatră'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Plouă până diseară, zice genunchiul meu.',
-        '2': 'Asta a zis și săptămâna trecută.',
-        '3': 'Și a plouat, nu? Undeva.'
+        '1': 'Plouă diseară. Mă doare genunchiul toată ziua.',
+        '2': 'Și săptămâna trecută a zis genunchiul tău la fel.',
+        '3': 'Și a plouat, nu? Doar că nu aici.'
       },
       harvest: {
-        '1': 'Cel mai bun orz din ultimii ani, ăsta.',
-        '2': 'Spui asta în fiecare an.'
+        '1': 'Orzul a ieșit bine anul ăsta.',
+        '2': 'Să sperăm că o să-l apucăm.'
       },
       goblins: {
         '1': 'Goblinii au luat trei găini de la ferma Morarului.',
-        '2': 'Doar trei? Se cam lenevesc.',
-        '3': 'Sau s-au săturat.'
+        '2': 'Iar? E a doua oară luna asta.',
+        '3': 'Cineva ar trebui să facă ceva cu peșterile alea.'
       },
       kingGone: {
-        '1': 'Se zice că Regele Goblinilor a dispărut pentru totdeauna.',
-        '2': 'Atunci cine îmi fură napii?'
+        '1': 'Se zice că Regele Goblin a murit.',
+        '2': 'Bine. Poate dorm și eu o noapte întreagă acum.'
       },
       pact: {
-        '1': 'Un goblin mi-a vândut azi o lingură.',
-        '2': 'Era lingura ta?',
-        '3': 'Da, era. Preț bun, totuși.'
+        '1': 'Am cumpărat un polonic de la un goblin azi-dimineață.',
+        '2': 'E bun?',
+        '3': 'Mai bun decât al meu, sincer. Să nu spui nimănui.'
       },
       bram: {
-        '1': 'Bram ciocănește iar. De la răsărit!',
-        '2': 'Constant ca o bătaie de inimă, omul ăsta.'
+        '1': 'Bram stă la nicovală de dinainte de răsărit.',
+        '2': 'Așa e el când se îngrijorează.'
       },
       pie: {
         '1': 'Simt miros de plăcintă cu mere?',
-        '2': 'Simțeai. La trecut.',
-        '3': 'Ai mâncat-o toată? Iar?'
+        '2': 'Era. Copiii au găsit-o primii.',
+        '3': 'Mai fac una. Ascunde-o mai bine de data asta.'
       },
       road: {
-        '1': 'Nimeni nu mai merge pe drumul câmpiei.',
-        '2': 'Nu cu bandiți pe el, nu.'
+        '1': 'Nimeni n-a mai luat drumul prin câmpie de o săptămână.',
+        '2': 'Nu cu bandiți pe el. Nu-i pot învinui.'
       },
       hero: {
-        '1': 'Cineva a curățat drumul câmpiei!',
-        '2': 'Era și timpul. Vărul meu îmi datorează o căruță.'
+        '1': 'Cineva a curățat drumul din câmpie de bandiți.',
+        '2': 'Slavă cerului. Sora mea poate să mă viziteze iar.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Doi arginți pe o varză. Doi!',
-        '2': 'E o varză foarte frumoasă.',
-        '3': 'Nu chiar așa frumoasă.'
+        '2': 'Nimic nu mai intră ieftin pe poartă în zilele astea.',
+        '3': 'Atunci îmi cresc singur. Pe acoperiș, dacă trebuie.'
       },
       watch: {
-        '1': 'Garda a dublat paza porții.',
-        '2': 'Bine. Dorm mai liniștit.'
+        '1': 'Au dublat garda la poartă.',
+        '2': 'Bine. Dorm ceva mai liniștit din cauza asta.'
       },
       caravan: {
-        '1': 'Caravana de mirodenii întârzie iar.',
+        '1': 'Caravana cu mirodenii întârzie iar.',
         '2': 'Bandiți?',
-        '3': 'Sau vizitiul a găsit o tavernă.'
+        '3': 'Sau noroi. Să sperăm că e noroi.'
       },
       siege: {
-        '1': 'Se zice că o armată tăbărăște la margine.',
-        '2': 'Atunci mai bine ne umplem pivnița.'
+        '1': 'O armată și-a făcut tabăra dincolo de ferme.',
+        '2': 'Atunci mai bine ne umplem pivnița cât mai putem.'
       },
       saved: {
-        '1': 'Ai văzut cum s-a rupt asediul? Minunat!',
-        '2': 'L-am văzut de sub pat.',
-        '3': 'Tot se pune.'
+        '1': 'Erai pe zid când s-a rupt asediul?',
+        '2': 'Eram ascuns sub pat, dacă să fiu sincer.',
+        '3': 'Ca jumătate din oraș. Dar suntem încă aici.'
       },
       fountain: {
         '1': 'Am aruncat o monedă în fântână, pentru noroc.',
-        '2': 'Iar eu am scos-o. Mulțumesc!'
+        '2': 'Sper că ți-ai dorit varză mai ieftină.'
       },
       ash: {
-        '1': 'Totul miroase a cenușă.',
-        '2': 'Mai bine decât să nu miroasă a nimic.'
+        '1': 'Totul miroase încă a fum.',
+        '2': 'Trece. Totul trece, până la urmă.'
       },
       hide: {
-        '1': 'Ai auzit cizme afară azi-noapte?',
-        '2': 'Ssst. Vorbește mai încet.',
-        '3': 'Scuze. Scuze.'
+        '1': 'Ai auzit cizme pe stradă azi-noapte?',
+        '2': 'Nu așa tare. Nu știi cine ascultă.',
+        '3': 'Scuze. Eu doar... scuze.'
       },
       bread: {
-        '1': 'Am găsit o jumătate de pâine. O putem împărți.',
+        '1': 'Am găsit jumătate de pâine. Na, ia puțin.',
         '2': 'Ești un suflet bun. Mulțumesc.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Un filon bun de cupru la nivelul patru.',
-        '2': 'Cupru? Eu vreau aur.',
-        '3': 'Tu vrei mai degrabă un pui de somn.'
+        '2': 'Cupru. Speram la argint.',
+        '3': 'Cuprul plătește chiria. Argintul plătește visele.'
       },
       forge: {
-        '1': 'Marea forjă nu s-a stins de o sută de ani.',
-        '2': 'Nici pipa bunicului meu.'
+        '1': 'Marea forjă nu s-a răcit de o sută de ani.',
+        '2': 'Bunicul meu a ajutat s-o aprindă, să știi.'
       },
       beard: {
-        '1': 'Ți-ai tuns barba!',
-        '2': 'A luat foc la nicovală.',
-        '3': 'Îți stă bine, totuși.'
+        '1': 'Ți-ai tuns barba.',
+        '2': 'M-am apropiat prea mult de nicovală.',
+        '3': 'Crește la loc. Oricum îți stă mai bine mai scurtă.'
       },
       core: {
-        '1': 'Ceva strălucește acum în minele adânci.',
-        '2': 'Nimic bun nu strălucește acolo jos.'
+        '1': 'Ceva strălucește jos, în puțurile adânci.',
+        '2': 'Nimic bun nu strălucește acolo jos. Rămâi sus.'
       },
       order: {
-        '1': 'Armurierii Ordinului lucrează repede.',
-        '2': 'Repede, da. Nu la fel de bine ca noi.'
+        '1': 'Armurierii Ordinului lucrează repede, asta trebuie să le recunosc.',
+        '2': 'Repede, da. Vedem cât rezistă.'
       },
       circle: {
-        '1': 'Magii Cercului fredonează în timp ce lucrează.',
-        '2': 'Mai bine decât cântecul nostru, presupun.'
+        '1': 'Oamenii Cercului fredonează în timp ce lucrează.',
+        '2': 'Mai bine decât cântatul tău, măcar.'
       },
       cold: {
-        '1': 'Frig aici sus în dimineața asta.',
-        '2': 'Stai mai aproape de forjă, atunci.'
+        '1': 'Frig de crapă piatra azi-dimineață.',
+        '2': 'Vino atunci lângă forjă.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Tu ești!',
-        '2': 'Nu e corect, nu eram gata!'
+        '1': 'Ți-am dat, ești tu!',
+        '2': 'Nu e corect, nu eram pregătit!'
       },
       dragon: {
-        '1': 'Când voi fi mare, o să călăresc un dragon.',
-        '2': 'Dragonii nu te lasă să-i călărești.',
-        '3': 'Cei buni te lasă!'
+        '1': 'Când o să fiu mare, o să călăresc un dragon.',
+        '2': 'Dragonii nu lasă pe nimeni să-i călărească.',
+        '3': 'Unul drăguț poate că da.'
       },
       sword: {
-        '1': 'Uite, un băț-sabie adevărat!',
-        '2': 'E doar un băț.'
+        '1': 'Uite, am găsit o sabie!',
+        '2': 'E un băț.'
       },
       frog: {
-        '1': 'Am găsit o broască lângă fântână.',
+        '1': 'E o broască lângă fântână.',
         '2': 'Putem s-o păstrăm?',
-        '3': 'Cred că ea ne păstrează pe noi.'
+        '3': 'Mama a zis să nu mai aduc broaște.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Asta e tot deocamdată.',
-      trade: 'Arată-mi marfa.',
-      train: 'Învață-mă.',
-      heal: 'Cârpește-mă.',
-      mana: 'Am nevoie de ceva pentru mana.',
-      who: 'Cine ești?',
+      bye: 'Te las să-ți vezi de treabă.',
+      trade: 'Pot să văd ce ai?',
+      train: 'Mă înveți?',
+      heal: 'M-ai putea cârpi puțin?',
+      mana: 'Ai ceva pentru mana?',
+      who: 'Cine ești, dacă pot întreba?',
       rumor: 'Ai auzit ceva în ultima vreme?',
-      ready: 'Sunt gata pentru mai mult?'
+      ready: 'Crezi că sunt gata pentru mai mult?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. O față nouă. Tu ești cel care a ținut drumul câmpiei.',
-        '2': 'Sunt Bram. Fac oțel. Arăți de parc-ai avea nevoie de ceva.'
+        '1': 'Nu te-am mai văzut. Tu ești cel care a curățat drumul?',
+        '2': 'Bram. Eu țin forja. Dacă ai nevoie de o lamă, vino la mine.'
       },
       kingDead: {
-        '1': 'Aud că Regele Goblinilor e mort. Bine. Mai puține îndoituri de îndreptat din roțile caravanelor.'
+        '1': 'Am auzit că Regele Goblin a murit. Nu o să-i duc dorul.'
       },
       kingPact: {
-        '1': 'Goblini care fac negoț în piață. N-aș fi crezut vreodată. Fierul lor e gunoi, totuși.'
+        '1': 'Goblini care fac negoț în piață acum. N-am crezut că o să apuc să văd asta.'
       },
       kingRansom: {
-        '1': 'Se spune că ai luat aurul regelui și i-ai lăsat coroana. Raidurile se întorc.'
+        '1': 'L-ai lăsat pe Regele Goblin să-și păstreze coroana. O să se întoarcă, să știi.'
       },
       ending: {
-        '1': 'Tot regatul vorbește despre tronul acela. Și tu tot de la mine cumperi. Hm.'
+        '1': 'Tot regatul vorbește despre tine. Mai ai nevoie de o piatră de ascuțit?'
       },
       again: {
-        '1': 'Iar aici. Bine. Oțelul nu se vinde singur.'
+        '1': 'Iar aici. Cu ce te pot ajuta?'
       },
       trade: {
-        '1': 'Oțel simplu, prețuri cinstite. Uită-te cât vrei.'
+        '1': 'Oțel simplu, prețuri cinstite. Uită-te liniștit.'
       },
       who: {
-        '1': 'Bram. Treizeci de ani la nicovala asta.',
-        '2': 'Potcovesc cai, repar pluguri și înarmez nătărăi ca tine. În ordinea asta.'
+        '1': 'Bram. Treizeci de ani la nicovala asta, plus-minus.',
+        '2': 'Potcoave, pluguri, câte o sabie din când în când. Zilele astea, mai ales săbii.'
       },
       gear: {
-        '1': 'Un scut, dacă te aștepți să fii lovit. O sabie mai mare, dacă nu.',
-        '2': 'Forța învârte oțelul meu. Pune-ți punctele acolo înainte să cumperi ceva greu.',
-        say: 'Ce ar trebui să iau cu mine acolo?'
+        '1': 'Un scut, dacă te aștepți să fii lovit. Cei mai mulți se așteaptă.',
+        '2': 'Oțelul greu cere un braț puternic. Lucrează mai întâi la Forță.',
+        say: 'Ce ar trebui să iau cu mine?'
       },
       rumor: {
         plains: {
-          '1': 'Goblini pe drumul câmpiei. Curăță-i înainte să cumperi ceva rafinat.'
+          '1': 'Bandiți pe drumul din câmpie. Eu aș începe de acolo, în locul tău.'
         },
         hollows: {
-          '1': 'Jefuitorii ies din Văgăunile Goblinilor, dincolo de câmpie. Regele lor stă la fund.'
+          '1': 'Goblinii vin din Văgăuni, dincolo de câmpie. Regele lor e acolo jos.'
         },
         woods: {
-          '1': 'La est de câmpie începe Pădurea Șoaptelor. Copacii umblă acolo. Ia un topor.'
+          '1': 'La est de câmpie e Pădurea Șoaptelor. Lumea zice că se mișcă copacii.'
         },
         siege: {
-          '1': 'Fum dinspre Oakhaven. Un căpitan de oști are tabăra la margine, se zice.'
+          '1': 'Iese fum dinspre Oakhaven. O armată și-a făcut tabăra la margine.'
         },
         north: {
-          '1': 'Oțelul din Ironhold e iar pe drumuri. Mergi spre nord dacă vrei ceva mai bun decât al meu.'
+          '1': 'Oțelul de la Ironhold vine iar pe drum. Mai bun decât al meu, sincer.'
         }
       },
       shopBack: {
-        '1': 'Poartă-l sănătos. Sau măcar poartă-l.'
+        '1': 'Ai grijă de ea, și ea va avea grijă de tine.'
       },
       bye: {
-        '1': 'Ai grijă pe drum.'
+        '1': 'Ai grijă de tine.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, un client! Sau un paznic. Nu ești paznic, nu-i așa?',
-        '2': 'Sunt Tilly. Inele, amulete, lucruri norocoase. Toate găsite, niciodată furate.'
+        '1': 'Oh, bună! Cumperi sau doar te uiți? Ambele merg.',
+        '2': 'Eu sunt Tilly. Inele, talismane, mărunțișuri de peste tot.'
       },
       rival: {
-        '1': 'Ai văzut taraba lui Grik? Mărunțișuri de goblin! Sunt ruinată. Cumpără ceva. Ai milă.'
+        '1': 'Ai văzut taraba goblinului? Prețurile lui sunt mai mici decât ale mele. Nu e corect.'
       },
       again: {
-        '1': 'Clientul meu preferat! Zic asta tuturor, dar la tine chiar o cred.'
+        '1': 'Aici erai! Am pus deoparte câteva lucruri care cred că o să-ți placă.'
       },
       trade: {
-        '1': 'Inele! Amulete! Lucruri pe care le-am găsit și sigur nu le-am furat.'
+        '1': 'Uită-te. Ăla aduce noroc. Probabil.'
       },
       who: {
-        '1': 'Umblu pe drumuri și adun ce lasă drumurile în urmă.',
-        '2': 'Bandiții scapă cele mai frumoase lucruri când fug.'
+        '1': 'Umblu pe drumuri și cumpăr ce vor oamenii să scape.',
+        '2': 'Și uneori găsesc lucruri. Bandiții pierd o grămadă când fug.'
       },
       trinkets: {
-        '1': 'Porți două odată, câte unul pe fiecare mână. Un mic avantaj tot avantaj e.',
-        say: 'La ce sunt bune bijuteriile?'
+        '1': 'Poți purta două, câte unul pe fiecare mână. Se adună acolo afară.',
+        say: 'La ce sunt bune, de fapt, talismanele?'
       },
       stolen: {
-        '1': 'Șșt! Nu atât de tare. Bine. BINE.',
-        '2': 'Ia inelul ăsta și n-am vorbit niciodată. E un inel frumos. Mai mult cupru.',
-        say: 'Ai furat tot ce vezi aici, nu-i așa?'
+        '1': 'Aha. Ai un fel al tău de a întreba, nu?',
+        '2': 'Ia inelul ăsta și să nu mai vorbim de unde l-am găsit.',
+        say: 'De unde vine, de fapt, toate astea?'
       },
       rumor: {
         arenaShut: {
-          '1': 'La sud de aici e un colosseum cu porțile ruginite. S-ar deschide dacă ar înceta bubuiala cu goblinii.'
+          '1': 'E un colosseum vechi la sud de aici. Încuiat bine cât timp goblinii fac raiduri.'
         },
         arenaOpen: {
-          '1': 'Colosseumul e deschis! Opt valuri, se zice. Eu vând noroc. Ai să ai nevoie de noroc.'
+          '1': 'Colosseumul e iar deschis. Opt valuri, am auzit. Oamenii pariază pe asta.'
         },
         east: {
-          '1': 'Piețele din Oakhaven plătesc dublu pentru orice străluce. Mergi spre est, dincolo de pădure.'
+          '1': 'Oakhaven plătește bine orice lucește. E spre est, dincolo de pădure.'
         }
       },
       shopBack: {
-        '1': 'Întoarce-te când ești mai bogat!'
+        '1': 'Întoarce-te când ai punga mai grea!'
       },
       bye: {
-        '1': 'Ai grijă la buzunare acolo! Nu lângă mine, adică. În altă parte.'
+        '1': 'Drum bun. Ține strâns banii acolo afară.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Stai drept. Te afli în fața unui cavaler al Ordinului de Fier.',
-        '2': 'Ser Aldric. Predau scutul celor care vor să stea în fața altora.'
+        '1': 'Stai drept. Vorbești cu un cavaler al Ordinului de Fier.',
+        '2': 'Ser Aldric. Îi învăț pe oameni să se pună între alții și primejdie.'
       },
       saved: {
-        '1': 'Oakhaven stă în picioare pentru că ai stat tu. Asta e tot ce predau.'
+        '1': 'Oakhaven încă stă în picioare, și aud că ai fost pe zidul lui. Bravo.'
       },
       fallen: {
-        '1': 'Ai deschis poarta Oakhavenului. Am îngropat oameni pentru mai puțin. Spune-ți treaba.'
+        '1': 'Ai deschis poarta Oakhavenului. Nu mă prefac că am uitat. Ce vrei?'
       },
       dragon: {
-        '1': 'Un ucigaș de dragoni în curtea mea. Se va cânta despre asta în marea sală.'
+        '1': 'Ai omorât dragonul de pe vârf? Aș fi vrut să văd asta.'
       },
       friend: {
-        '1': 'Ordinul vorbește bine despre tine. Prietenilor lui, lecțiile mele le costă mai puțin.'
+        '1': 'Ordinul te vede cu ochi buni. Pentru prietenii lui, lecțiile mele costă mai puțin.'
       },
       foe: {
-        '1': 'Ordinul te numește dușman. Te învăț oricum. Onoarea nu e a lor ca să o ia înapoi.'
+        '1': 'Ordinul te numește dușman. Te învăț oricum. E alegerea mea, nu a lor.'
       },
       again: {
-        '1': 'Scutul sus. Ce-ți trebuie?'
+        '1': 'Te-ai întors pentru mai multe exerciții?'
       },
       train: {
-        '1': 'Atunci fii atent. Arăt un lucru o singură dată.'
+        '1': 'Bine. Uită-te atent, îți arăt o singură dată.'
       },
       class: {
-        '1': 'Un zid care umblă. Noi luăm lovitura, ca nimeni altcineva să nu trebuiască.',
-        '2': 'Forță pentru braț, Anduranță pentru restul. Lumina face ce poate.',
-        say: 'Ce este un Cavaler al Egidei?'
+        '1': 'Primim loviturile menite altora. E simplu, și e greu.',
+        '2': 'Ai nevoie de Forță pentru scut și de Anduranță ca să-l ții.',
+        say: 'Ce face, de fapt, un Cavaler al Egidei?'
       },
       ready: {
         strong: {
-          '1': 'Ai brațul pentru cea mai mare parte din ce știu. Ai grijă de Anduranță și ia restul.'
+          '1': 'Ești destul de puternic pentru aproape tot ce știu. Continuă cu Anduranța.'
         },
         able: {
-          '1': 'Ești gata pentru următoarea lecție. Nu te lăsa luat de val.'
+          '1': 'Ești gata pentru lecția următoare. Să nu-ți suie la cap.'
         },
         weak: {
-          '1': 'Încă nu. Brațul îți e slab și obosești repede. Mai multă Forță, mai multă Anduranță.'
+          '1': 'Nu încă. Te-ai obosi înaintea scutului. Mai multă Forță, mai multă Anduranță.'
         }
       },
       order: {
-        '1': 'Păzim drumurile și legea. Unii zic că prea mult din amândouă.',
-        '2': 'Stai de partea Ordinului și armurierii și învățătorii lui te vor ține minte.',
+        '1': 'Ținem drumurile sigure și legea în mână. Unii zic că prea strâns.',
+        '2': 'Stai de partea noastră, și armurierii și învățătorii noștri te vor ține minte.',
         say: 'Spune-mi despre Ordinul de Fier.'
       },
       trainBack: {
-        '1': 'Exersează până te plictisești. Apoi exersează și mai mult.'
+        '1': 'Exersează până devine plictisitor. Apoi continuă.'
       },
       bye: {
-        '1': 'Mergi cu lumina.'
+        '1': 'Mergi cu grijă.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Un elev? Dă-te puțin înapoi. Și mai puțin.',
-        '2': 'Ember Wren, piromant. Sprâncenele cresc la loc, de obicei.'
+        '1': 'Oh, un elev? Minunat. Poate te dai un pic mai înapoi.',
+        '2': 'Sunt Ember Wren. Predau focul. De obicei face ce-i cer.'
       },
       core: {
-        '1': 'Ai dat nucleul Cercului! Știi câte lucruri putem da foc acum?'
+        '1': 'Ai dat nucleul Cercului! Abia aștept să văd ce învățăm din el.'
       },
       friend: {
-        '1': 'Cercului Eterului îi placi! Asta înseamnă reducere. Și mai puține formulare.'
+        '1': 'Cercul vorbește frumos despre tine. Asta înseamnă reducere, apropo.'
       },
       foe: {
-        '1': 'Cercul vrea să te facă scrum. Jenant! Te învăț oricum. Focul nu e pretențios.'
+        '1': 'Cercul nu e mulțumit de tine. Te învăț oricum. În liniște.'
       },
       again: {
-        '1': 'Te-ai întors! Și nimic nu arde. Asta se poate rezolva.'
+        '1': 'Te-ai întors! Gata să aprinzi ceva?'
       },
       train: {
-        '1': 'Da! Uită-te atent. Nu chiar atât de atent.'
+        '1': 'Bine. Uită-te la mâinile mele și ține-ți mânecile departe de mine.'
       },
       class: {
-        '1': 'Focul răspunde la orice întrebare. Arde-i întâi, apoi aruncă în aer pe cei care ard.',
-        '2': 'Totul merge pe Inteligență. Și pe o aprovizionare constantă de robe.',
-        say: 'Ce face un Piromant?'
+        '1': 'Mai ales aprindem lucruri. Apoi facem focul să se răspândească unde vrem.',
+        '2': 'Totul vine din Inteligență. Cu cât mintea e mai ascuțită, cu atât flacăra e mai fierbinte.',
+        say: 'Ce face, de fapt, un piromant?'
       },
       ready: {
         strong: {
-          '1': 'Ai putea topi un golem! Ia tot ce am. Ai grijă la Măiestrie pentru cele dificile.'
+          '1': 'Sincer? Ai putea preda tu o parte din asta. Ia ce vrei.'
         },
         able: {
-          '1': 'Mintea ta e destul de fierbinte pentru următoarea vrajă. Hai!'
+          '1': 'Ești gata pentru următoarea vrajă. Hai, îți arăt.'
         },
         weak: {
-          '1': 'Hmm. Nu ai destulă Inteligență încă. Focul te-ar folosi pe tine, nu invers.'
+          '1': 'Nu încă, mă tem. Ai nevoie de mai multă Inteligență, altfel focul preia controlul.'
         }
       },
       circle: {
-        '1': 'Cărturari. Studiem din ce e făcută lumea. O parte explodează.',
+        '1': 'Savanți. Studiem din ce e făcută lumea. O parte din ea explodează.',
         say: 'Cine sunt cei din Cercul Eterului?'
       },
       trainBack: {
-        '1': 'Du-te și dă foc la ceva! Ceva ce merită.'
+        '1': 'Du-te și exersează. Undeva unde nu ia foc nimic, te rog.'
       },
       bye: {
-        '1': 'Stai la căldură!'
+        '1': 'Ai grijă de tine!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Deci tu ești cel de pe drum. Vino mai aproape, ochii nu-mi mai sunt ce-au fost.',
-        '2': 'Sunt Mara. Am ținut registrul și pacea orașului patruzeci de ani.'
+        '1': 'Deci tu ești cel de pe drum. Vino aici, lasă-mă să te privesc.',
+        '2': 'Sunt Mara. Am avut grijă de orașul ăsta de... ei bine, patruzeci de ani.'
       },
       slain: {
-        '1': 'Văgăunile sunt liniștite. Ai făcut un lucru greu, iar Sunford doarme datorită lui.'
+        '1': 'Văgăunile sunt liniștite. A fost un lucru greu ce ai făcut, dar dormim datorită lui.'
       },
       pact: {
-        '1': 'Goblini care vând mărunțișuri în piața mea. Ai limbă de argint, copile. Sper să reziste.'
+        '1': 'Goblini care vând lucruri în piața mea. Tu i-ai convins, nu-i așa?'
       },
       ransom: {
-        '1': 'Ai luat aurul lui și i-ai lăsat coroana. Sunt prea bătrână să mă prefac că nu sunt dezamăgită.'
+        '1': 'Ai luat aurul lui și i-ai lăsat coroana. Nu mă prefac că nu sunt dezamăgită.'
       },
       saved: {
-        '1': 'Au venit vești din Oakhaven. Poarta a rezistat. Mă bucur că unul de-ai noștri a fost acolo.'
+        '1': 'Au venit vești din Oakhaven. Poarta a ținut. Mă bucur că ai fost acolo.'
       },
       fallen: {
-        '1': 'Oakhaven e ars, iar se zice că tu ai ținut torța. Nu-mi spune. Prefer să nu știu.'
+        '1': 'Oakhaven a ars, se zice. Prefer să nu aud cum. Nu azi.'
       },
       ending: {
-        '1': 'Se spune că tu ai hotărât cine stă în Fortăreața Groazei. De la drumul Sunfordului până aici. Imaginează-ți.'
+        '1': 'Se zice că ai hotărât soarta Fortăreței Groazei. De la drumul nostru mic până la asta.'
       },
       again: {
-        '1': 'Stai o clipă. Drumul așteaptă.'
+        '1': 'Stai o clipă. Drumul tot va fi acolo după aceea.'
       },
       reward: {
-        '1': 'Ai ținut drumul când miliția noastră n-a putut. Orașul a strâns o colectă.',
-        '2': 'Nu e mult. E fiecare monedă pe care am putut-o scoate.',
-        say: 'Voiai să mă vezi?'
+        '1': 'Ai ținut drumul deschis când miliția noastră n-a putut. Orașul a strâns câte ceva.',
+        '2': 'Nu e mult. E ce ne-am putut permite.',
+        say: 'Cineva a zis că voiai să mă vezi?'
       },
       quest: {
-        '1': 'Raidurile vin din Văgăunile Goblinilor. Goblinii și-au încoronat un rege.',
-        '2': 'Și tu îl vrei mort.',
-        '3': 'Vreau ca raidurile să înceteze. Cum, rămâne la alegerea ta, în fundul peșterilor acelea.',
-        '4': 'Văgăunile sunt chiar dincolo de câmpie. Mergi cu grijă.',
+        '1': 'Raidurile vin din Văgăunile Goblinilor. Și-au încoronat un rege.',
+        '2': 'Și vrei să moară?',
+        '3': 'Vreau să se oprească raidurile. Cum... asta o decizi tu, acolo jos.',
+        '4': 'Văgăunile sunt chiar dincolo de câmpie. Fii atent, te rog.',
         say: 'Ce necaz are Sunford?'
       },
       king: {
-        say: 'Despre Regele Goblinilor…',
+        say: 'Despre Regele Goblin...',
         slay: {
-          '1': 'Un rege e mort, iar caravanele mele ajung la timp. Nu întreb cum a fost.'
+          '1': 'A dispărut, și caravanele merg iar. Nu te întreb cum a fost.'
         },
         pact: {
-          '1': 'Un pact! Mama ar fi leșinat. Totuși, negoțul e mai bun decât înmormântările.'
+          '1': 'Un pact comercial. Mama ar fi leșinat. Totuși, comerțul bate înmormântările.'
         },
         ransom: {
-          '1': 'Aurul se cheltuiește repede. Ranchiuna nu. Ține minte asta când se întorc raidurile.'
+          '1': 'Aurul se termină repede. Ranchiuna nu. Ține minte asta când încep raidurile.'
         }
       },
       town: {
-        '1': 'Mai ales fermieri. Un fierar, un vindecător și doi învățători care ne suportă.',
-        '2': 'Odihnește-te aici, cheltuiește-ți punctele și ieși mai puternic. Pentru asta e o casă.',
+        '1': 'Mai ales fermieri. Un fierar, un tămăduitor, doi învățători care ne suportă.',
+        '2': 'Odihnește-te aici între călătorii. Pentru asta e casa.',
         say: 'Spune-mi despre Sunford.'
       },
       next: {
         say: 'Încotro să merg în continuare?',
         plains: {
-          '1': 'Drumul câmpiei, înaintea oricărui altceva. Nu putem mânca dacă caravanele nu trec.'
+          '1': 'Întâi drumul din câmpie. Fără caravane, nu mâncăm.'
         },
         hollows: {
-          '1': 'Întâi Văgăunile Goblinilor. Nimic altceva nu e sigur cât țin raidurile.'
+          '1': 'Văgăunile Goblinilor. Nimic altceva nu e sigur cât țin raidurile.'
         },
         woods: {
-          '1': 'Spre est, prin Pădurea Șoaptelor. Drumul spre Oakhaven trece pe sub copacii aceia.'
+          '1': 'Spre est, prin Pădurea Șoaptelor. Acela e drumul spre Oakhaven.'
         },
         oakhaven: {
           '1': 'Oakhaven e asediat. Dacă cad împrejurimile, cade și orașul.'
         },
         north: {
-          '1': 'Spre nord, copile. Stâncile de Cenușă, și Ironhold dincolo de ele. Primejdia crește cu cât mergi mai departe.'
+          '1': 'Spre nord, cred. Stâncile de Cenușă, și Ironhold dincolo de ele. E tot mai greu.'
         }
       },
       bye: {
-        '1': 'Întoarce-te viu. Atât cer de la oricine.'
+        '1': 'Întoarce-te la noi întreg. Doar atât cer.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Stai nemișcat. Nu, ești bine. Obicei vechi.',
-        '2': 'Sora Lune. Repar ce sparge drumul.'
+        '1': 'Stai nemișcat o clipă. Nu, ești bine. Obicei, scuze.',
+        '2': 'Sunt Sora Lune. Cârpesc ce sparge drumul.'
       },
       again: {
-        '1': 'Încă întreg? Sunt aproape dezamăgită.'
+        '1': 'Încă întreg? Bine. Stai jos oricum.'
       },
       heal: {
-        '1': 'Stai jos. Odihnește-te. Pleci de aici întreg, cu fiecare flacon umplut.'
+        '1': 'Stai, odihnește-te puțin. Îți umplu flacoanele înainte să pleci.'
       },
       mana: {
-        '1': 'Flacon albastru, gust amar. Sorbi din el când vrăjile ți se termină.'
+        '1': 'Ăsta e amar. Bea-l când ți se termină vrăjile.'
       },
       potions: {
-        '1': 'Duci câteva flacoane în fiecare zonă. Bea înainte să ai nevoie de unul, nu după.',
-        '2': 'Dacă vrei să duci mai multe, îți pot vinde o centură mai lungă.',
+        '1': 'Iei câteva flacoane în fiecare luptă. Bea înainte să ai nevoie, nu după.',
+        '2': 'Dacă vrei să porți mai multe, îți pot vinde o centură mai mare.',
         say: 'Cum funcționează poțiunile?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblinii își otrăvesc pietrele de praștie. Dacă te faci verde, vino direct înapoi.'
+          '1': 'Goblinii își ung pietrele de praștie cu ceva. Dacă te simți rău, întoarce-te.'
         },
         spiders: {
-          '1': 'Mușcături de păianjen din Pădure. Trei săptămâna asta. Încearcă să nu te lași mușcat.'
+          '1': 'Am tratat trei mușcături de păianjen din Pădure săptămâna asta. Ai grijă acolo.'
         },
         burns: {
-          '1': 'Soldați coboară din nord cu arsuri. Stâncile de Cenușă, se zice. Foc care umblă.'
+          '1': 'Tot vin soldați din nord cu arsuri. Stâncile de Cenușă, zic ei.'
         }
       },
       healBack: {
         '1': 'Ține centura plină și capul jos.'
       },
       bye: {
-        '1': 'Încearcă să nu sângerezi pe nimic important.'
+        '1': 'Ai grijă de tine acolo afară.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Înalt! Înalt a făcut pact. Rege zice fii drăguț cu înalt.',
-        '2': 'Grik drăguț. Grik are străluciri. Înalt are aur. Potrivire bună.'
+        '1': 'Tu ești cel care a făcut pactul. Regele meu spune că ești binevenit aici.',
+        '2': 'Sunt Grik. Vând ce fac goblinii. Muncă bună, preț cinstit.'
       },
       again: {
-        '1': 'Înalt se întoarce! Grik știa. Strălucirile cheamă înalt.'
+        '1': 'Prietene. E bine să te văd iar.'
       },
       trade: {
-        '1': 'Rege zice negoț, deci Grik face negoț. Strălucire pe strălucire. Strălucire bună.'
+        '1': 'Uită-te, te rog. Familia mea le-a făcut.'
       },
       king: {
-        '1': 'Rege e gras și fericit. Fără raiduri. Raiduri e muncă grea.',
-        '2': 'Rege zice înalt are limbă bună. E cea mai mare laudă de goblin. Aproape.',
+        '1': 'Mănâncă bine acum. Nu mai sunt raiduri. Poporul meu e mai puțin flămând.',
+        '2': 'Vorbește des despre tine. Cu respect.',
         say: 'Ce mai face regele tău?'
       },
       town: {
-        '1': 'Oameni se spală prea mult. Dar plăcintă! Grik nu știa de plăcintă.',
+        '1': 'Oamenii se uită încă lung. Dar brutarul îmi dă plăcintă. Îmi place plăcinta.',
         say: 'Cum ți se pare Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Verii lui Grik sapă spre nord, în piatră neagră. Zic că foc umblă acolo. Grik rămâne aici.'
+          '1': 'Verii mei sapă în piatra neagră din nord. Zic că acum umblă focul pe acolo.'
         },
         deep: {
-          '1': 'Locuri adânci se trezesc, înalt. Goblini simt în picioare.'
+          '1': 'Ceva se trezește în locurile adânci. Goblinii simt în pământ.'
         }
       },
       shopBack: {
-        '1': 'Negoț bun! Înalt vine iar, da?'
+        '1': 'Mulțumesc. Vino iar.'
       },
       bye: {
-        '1': 'Pa, înalt! Nu muri. Morți nu cumpără nimic.'
+        '1': 'Mergi în pace, prietene.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Încă o sabie. Bine. Am încetat să mai întreb de unde vin.',
+        '1': 'Încă o sabie. Bine. Avem nevoie de fiecare.',
         '2': 'Căpitanul Hale. Comand ce a mai rămas din garda Oakhavenului.'
       },
       saved: {
-        '1': 'Poarta a rezistat. Trei sute de ani, și acum încă o dată. Îți datorez orașul.'
+        '1': 'Poarta a ținut. Trei sute de ani, și încă unul. Îți datorez asta.'
       },
       ending: {
-        '1': 'Ai hotărât tronul Fortăreței Groazei. Zidurile mele par mai mici decât înainte.'
+        '1': 'Ai hotărât Fortăreața Groazei, se zice. Zidurile mele par mici pe lângă asta.'
       },
       again: {
-        '1': 'Zidurile încă stau. Pentru azi.'
+        '1': 'Zidurile stau încă în picioare. Azi, cel puțin.'
       },
       after: {
-        '1': 'Oakhaven își amintește, prietene. Și eu.'
+        '1': 'Mă bucur să te văd. Oakhaven n-a uitat.'
       },
       quest: {
-        '1': 'Armata unui căpitan de oști ne-a încercuit. Krag. Nu luptă pe gratis.',
+        '1': 'Rău. Un conducător de oaste pe nume Krag ne-a încercuit, și nu luptă gratis.',
         '2': 'Cine îl plătește?',
         '3': 'Sindicatul Cenușii. Vor un oraș al lor, iar al nostru are ziduri.',
-        '4': 'Zdrobește-l în Împrejurimile Oakhaven. Acolo se va decide.',
-        say: 'Cum stau lucrurile?'
+        '4': 'Distruge-i tabăra din Împrejurimile Oakhaven. Acolo se termină totul, într-un fel sau altul.',
+        say: 'Cât de rău e?'
       },
       siege: {
-        '1': 'Ți-au oferit o treime din oraș. Știu. Mie mi-au oferit un sfert.',
-        '2': 'Sindicatul te vânează acum, pe fiecare drum. Ai grijă la spate acolo.',
-        say: 'Despre asediu…'
+        '1': 'Ți-au oferit o treime din oraș, nu? Mie mi-au oferit un sfert.',
+        '2': 'Sindicatul va veni după tine acum. Ai grijă pe drumuri.',
+        say: 'Despre asediu...'
       },
       town: {
-        '1': 'Un oraș de negoț. Tot ce se mișcă între câmpie și munți plătește vamă aici.',
-        '2': 'De-asta îl vrea toată lumea. De-asta nu-l voi ceda.',
+        '1': 'Un oraș de negoț. Tot ce circulă între câmpie și munți plătește vamă aici.',
+        '2': 'De-asta îl vrea toată lumea. Și de-asta nu-l cedez.',
         say: 'Spune-mi despre Oakhaven.'
       },
       order: {
-        '1': 'Slujesc Oakhavenul. Ordinul și cu mine suntem de acord în mare parte. Nu e același lucru.',
-        say: 'Slujești Ordinul de Fier?'
+        '1': 'Eu răspund în fața Oakhavenului. Ordinul și cu mine suntem de acord în cele mai multe zile. Nu în toate.',
+        say: 'Răspunzi în fața Ordinului de Fier?'
       },
       rumor: {
         crags: {
-          '1': 'La nord de pădure pământul e negru și arde. Stâncile de Cenușă. Cultiști hrănesc focurile.'
+          '1': 'La nord de pădure, pământul e negru și arde. Stâncile de Cenușă. Cultiști, mai ales.'
         },
         mines: {
-          '1': 'Ironhold a încetat să trimită oțel. Ceva nu e în regulă în minele lui.'
+          '1': 'Ironhold a încetat să mai trimită oțel. Ceva nu e în regulă în minele lor.'
         },
         north: {
-          '1': 'Nordul îndepărtat a tăcut. În experiența mea, tăcerea e mai rea.'
+          '1': 'Nordul îndepărtat s-a liniștit. Din experiența mea, nu e niciodată de bine.'
         }
       },
       bye: {
-        '1': 'Ține sabia slobodă.'
+        '1': 'Ține sabia aproape.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Dacă vrei un coif, ai întârziat. Sunt toate pe zid.',
-        '2': 'Odo. Armurier. Obosit.'
+        '1': 'Dacă vrei o cască, îmi pare rău. Sunt toate pe zid.',
+        '2': 'Odo. Fac armuri. N-am dormit prea mult în ultima vreme.'
       },
       again: {
-        '1': 'Tot aici. Tot cu stoc puțin.'
+        '1': 'Tot aici. Tot fără aproape orice.'
       },
       trade: {
-        '1': 'Jumătate din stoc a ajuns pe ziduri. Ia ce a rămas.'
+        '1': 'Jumătate din marfă a ajuns pe zid. Ia ce a rămas, dacă ți se potrivește.'
       },
       who: {
-        '1': 'Douăzeci de ani am înarmat orașul ăsta. N-am crezut că o să-l văd purtat tot odată.'
+        '1': 'Echipez orașul ăsta de douăzeci de ani. N-am văzut niciodată totul purtat deodată.'
       },
       armor: {
-        '1': 'Plăci dacă stai pe loc. Piele dacă nu. Robe dacă-ți place să mori.',
-        say: 'Ce armură ar trebui să port?'
+        '1': 'Platoșă, dacă ții piept. Piele, dacă te miști. Robe, dacă ești iute.',
+        say: 'Ce fel de armură ar trebui să port?'
       },
       rumor: {
         backRoom: {
-          '1': 'Dacă asediul se rupe, deschid camera din spate. Plăcile bune. Rupe-l pentru mine, vrei?'
+          '1': 'Dacă se rupe asediul, deschid camera din spate. Platoșa bună e acolo.'
         }
       },
       shopBack: {
-        '1': 'Va ține. Probabil.'
+        '1': 'Va ține. A ținut până acum.'
       },
       bye: {
-        '1': 'Ține capul jos.'
+        '1': 'Ține capul jos acolo afară.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Tu! Intră. Camera din spate e deschisă, și e deschisă pentru TINE.',
-        '2': 'Meșterul Odo îmi spun acum. Afacerile merg bine când un oraș trăiește.'
+        '1': 'Iată-te! Intră. Camera din spate e deschisă, și e deschisă pentru tine.',
+        '2': 'Meșterul Odo mi se spune acum. Ciudat ce face puțină pace pentru afaceri.'
       },
       ending: {
-        '1': 'De la poarta mea la Fortăreața Groazei. Le spun tuturor că ți-am potrivit eu armura.'
+        '1': 'De la poarta noastră la Fortăreața Groazei. Le spun tuturor că eu ți-am potrivit armura.'
       },
       again: {
-        '1': 'Eroul porții. Ce va fi azi?'
+        '1': 'Mă bucur să te văd. Ce va fi azi?'
       },
       trade: {
-        '1': 'Ai salvat orașul ăsta. Plăcile bune ies din camera din spate pentru tine.'
+        '1': 'Platoșa bună e scoasă. Ai meritat mai mult de o privire.'
       },
       town: {
-        '1': 'Bogat. Zgomotos. Plin de negustori care se plâng de vamă.',
-        '2': 'E minunat. N-am dormit de o săptămână.',
-        say: 'Cum e orașul?'
+        '1': 'Aglomerat. Zgomotos. Plin de negustori care se plâng de vamă.',
+        '2': 'E minunat. N-am avut o oră liniștită de săptămâni.',
+        say: 'Cum merge orașul?'
       },
       rumor: {
         mines: {
-          '1': 'Oțelul meu vine din Ironhold, iar Ironhold a amuțit. Cineva ar trebui să se uite la minele lui.'
+          '1': 'Oțelul meu vine de la Ironhold, iar ei au tăcut. Cineva ar trebui să le verifice minele.'
         },
         tundra: {
-          '1': 'Cel mai bun minereu pe care l-am văzut a venit din tundră. Oamenii care l-au adus nu s-au mai întors.'
+          '1': 'Cel mai bun minereu pe care l-am lucrat vreodată venea din tundră. Oamenii care l-au găsit nu s-au mai întors.'
         }
       },
       shopBack: {
-        '1': 'Dacă nu se potrivește, întoarce-te. O fac să se potrivească.'
+        '1': 'Dacă nu se potrivește bine, adu-o înapoi. O repar.'
       },
       bye: {
-        '1': 'Poarta Oakhavenului îți e mereu deschisă. Doar ție.'
+        '1': 'Ești mereu binevenit aici.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Cumperi sau te uiți? Uitatul e gratis. Atinsul costă un deget.',
-        '2': 'Senna. Vând tăișuri. Nu întreb la ce le folosești.'
+        '1': 'Te uiți sau cumperi? Oricare e bine. Doar nu atinge tăișurile.',
+        '2': 'Senna. Vând lame. Ce faci cu ele e treaba ta.'
       },
       saved: {
-        '1': 'Asediul s-a rupt. Păcat. Războiul e bun pentru afaceri. Pacea e bună pentru încasarea datoriilor.'
+        '1': 'Deci s-a rupt asediul. Bine pentru oraș. Războiul era mai bun pentru afacerea mea, totuși.'
       },
       again: {
         '1': 'Te-ai întors după ceva mai ascuțit?'
       },
       trade: {
-        '1': 'Ascuțit, echilibrat și vândut celui care plătește. Azi ești tu.'
+        '1': 'Ascuțite, echilibrate și la preț corect. Nu te grăbi.'
       },
       who: {
-        '1': 'Am vândut săbii ambelor părți în trei războaie. Eu sunt încă aici. Ei, în mare parte, nu.'
+        '1': 'Am vândut ambelor părți în trei războaie. Sunt încă aici. Cei mai mulți dintre ei nu.'
       },
       rumor: {
         krag: {
-          '1': 'Oamenii lui Krag poartă oțel bun. Banii Sindicatului. Ia-l de la ei dacă poți.'
+          '1': 'Oamenii lui Krag poartă oțel bun. Banii Sindicatului. Merită luat, dacă ai ocazia.'
         },
         which: {
-          '1': 'Lamele rapide vor Dexteritate. Armele de foc și arcurile vor Măiestrie. Știi care ești înainte să mă plătești.'
+          '1': 'Lamele rapide vor Dexteritate. Arcurile și armele vor Măiestrie. Știi care ești.'
         }
       },
       shopBack: {
-        '1': 'Sângele se șterge. Rugina nu. Unge-o cu ulei.'
+        '1': 'Ține-o unsă. Rugina strică un tăiș bun mai repede decât osul.'
       },
       bye: {
-        '1': 'Nu muri datorându-mi bani.'
+        '1': 'Încearcă să nu mori datorându-mi bani.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Nu te întoarce. Glumesc. Întoarce-te.',
-        '2': 'Îmi spun Șoapta. Învăț oamenii să sosească neobservați.'
+        '1': 'N-ai auzit când am venit în spatele tău. Cei mai mulți nu aud.',
+        '2': 'Mi se spune Șoapta. Îi învăț pe oameni cum să nu fie văzuți.'
       },
       fallen: {
-        '1': 'Orașul e mai liniștit acum. Mai puțini paznici. Chiar îmi place.'
+        '1': 'Orașul e mai liniștit acum. Mai puțini paznici. Muncă mai ușoară, pentru unii dintre noi.'
       },
       friend: {
-        '1': 'Sindicatul te socotește prieten. Prietenii plătesc mai puțin. Prietenii știu și prea multe.'
+        '1': 'Sindicatul te socotește prieten. Prietenii plătesc mai puțin. Ține minte.'
       },
       foe: {
-        '1': 'Sindicatul te vrea mort. Eu am fost plătit să învăț, nu să ucid. Noroc pentru tine.'
+        '1': 'Sindicatul te vrea mort. Eu am fost plătit să predau, nu să ucid. Deci, lecții.'
       },
       again: {
-        '1': 'Ești mai zgomotos decât data trecută. Lucrăm la asta.'
+        '1': 'Încă faci prea mult zgomot. Lucrăm la asta.'
       },
       train: {
         '1': 'Încet, atunci. Uită-te la picioarele mele, nu la mâini.'
       },
       class: {
-        '1': 'Un cuțit care e deja în spatele tău. Ieși din întuneric, lovește și dispari.',
-        '2': 'Dexteritate înainte de toate. Măiestrie, când vrei ca tăietura să conteze.',
+        '1': 'Cineva care e deja în spatele tău. Înăuntru, o tăietură, și dispărut.',
+        '2': 'Dexteritatea contează cel mai mult. Măiestria, dacă vrei ca tăietura să conteze.',
         say: 'Ce este o Lamă a Umbrei?'
       },
       ready: {
         strong: {
-          '1': 'Te miști bine. Ia ce știu. Adu Măiestrie pentru fum.'
+          '1': 'Te miști bine acum. Ia restul. Adu ceva Măiestrie pentru fum.'
         },
         able: {
-          '1': 'Bine. Mâinile îți sunt destul de rapide pentru următorul pas.'
+          '1': 'Mâinile tale sunt destul de rapide. Pasul următor.'
         },
         weak: {
-          '1': 'Mergi ca o căruță. Mai multă Dexteritate. Apoi vorbim.'
+          '1': 'Nu încă. Ești greu în picioare. Lucrează la Dexteritate.'
         }
       },
       syndicate: {
-        '1': 'Oameni care au observat că legile sunt de vânzare. Nu judec. Facturez.',
+        '1': 'Oameni care au observat că legea are un preț. Nu judec. Doar sunt plătit.',
         say: 'Cine e Sindicatul Cenușii?'
       },
       trainBack: {
-        '1': 'Acum du-te și fă-o unde nu vede nimeni.'
+        '1': 'Acum exersează acolo unde nu te vede nimeni.'
       },
       bye: {
         '1': 'Nu m-ai văzut niciodată.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Poți să te apropii. Nu chiar atât.',
-        '2': 'Lordul Castellan, din vechiul sânge al Oakhavenului. Predau comanda.'
+        '1': 'Poți să te apropii. Acolo, atât de aproape e destul.',
+        '2': 'Lordul Castellan, din cea mai veche familie a Oakhavenului. Predau comanda.'
       },
       saved: {
-        '1': 'Orașul meu stă în picioare, și odată cu el numele familiei mele. Ai recunoștința unui lord. Valorează mult.'
+        '1': 'Orașul meu stă în picioare, și numele familiei mele odată cu el. Ai recunoștința mea. Sincer.'
       },
       friend: {
-        '1': 'Un prieten al Ordinului. Îmi reduc taxa. Nu pomeni nimănui.'
+        '1': 'Un prieten al Ordinului. Îmi scad taxa. Te rog, nu o da mai departe.'
       },
       foe: {
-        '1': 'Ordinul ți-a afișat numele. Te voi învăța oricum. Banul e ban, din păcate.'
+        '1': 'Ordinul are numele tău pe o listă. Te învăț oricum. Moneda e monedă.'
       },
       again: {
-        '1': 'Ah. Supusul meu cel mai promițător.'
+        '1': 'Ah, tu iar. Continuăm?'
       },
       train: {
-        '1': 'Foarte bine. Observă cum se dă un ordin.'
+        '1': 'Foarte bine. Privește cum se dă un ordin și cum se urmează.'
       },
       class: {
-        '1': 'De ce să lupți singur când alții o pot face pentru tine? Cheamă gărzi. Comandă-le.',
-        '2': 'Cere Carismă. Nu poți conduce bâiguind.',
+        '1': 'Cineva care nu luptă singur. Chemi paznici, și ei luptă pentru tine.',
+        '2': 'Cere Carismă. Nimeni nu urmează un lider pe care nu-l aude.',
         say: 'Ce este un Mare Suveran?'
       },
       ready: {
         strong: {
-          '1': 'Ai prezență. Ia restul lecțiilor mele și stai drept.'
+          '1': 'Ai prezență adevărată acum. Ia restul lecțiilor mele.'
         },
         able: {
-          '1': 'Vocea ta se aude. Ești gata pentru următoarea lecție.'
+          '1': 'Vocea ta se aude. Ești gata pentru lecția următoare.'
         },
         weak: {
-          '1': 'Nimeni nu te-ar urma nici până la o brutărie. Mai multă Carismă.'
+          '1': 'Mă tem că nimeni nu te-ar urma încă. Lucrează la Carisma ta.'
         }
       },
       family: {
-        '1': 'Noi am construit zidurile pe care stă căpitanul Hale. El uită. Eu îi reamintesc. Des.',
+        '1': 'Noi am construit zidurile pe care stă Căpitanul Hale. El uită asta. Eu îi amintesc.',
         say: 'Spune-mi despre familia ta.'
       },
       trainBack: {
-        '1': 'Acum du-te și fii ascultat.'
+        '1': 'Du-te atunci. Condu pe cineva.'
       },
       bye: {
-        '1': 'Ești liber să pleci.'
+        '1': 'O zi bună.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Următorul! Oh. Poți merge. Ce schimbare plăcută.',
+        '1': 'Următorul! Oh, mergi pe picioare. Ce schimbare plăcută.',
         '2': 'Fratele Fenn. Patruzeci de răniți pe zid, și un singur eu.'
       },
       saved: {
-        '1': 'Niciun rănit nou în trei zile! Nu știu ce să fac cu mâinile.'
+        '1': 'Niciun rănit nou de trei zile. Abia știu ce să fac cu mine.'
       },
       again: {
-        '1': 'Tu iar, și tot pe picioare. Aprob.'
+        '1': 'Tu iar, și pe propriile picioare. Bine.'
       },
       heal: {
-        '1': 'Întinde-te. Nu, pe patul curat. Așa. Toate flacoanele umplute. Hai, pleacă.'
+        '1': 'Culcă-te aici, pe patul curat. Gata. Flacoane umplute, du-te.'
       },
       mana: {
-        '1': 'O poțiune de mană! Are gust de bănuți. Funcționează, totuși.'
+        '1': 'Băutură de mana. Are gust de bani vechi, dar merge.'
       },
       potions: {
-        '1': 'O centură mai lungă ține mai multe flacoane. Alea le vând. Flacoanele le umplu gratis.',
+        '1': 'Cu o centură mai lungă, da. Pe alea le vând. Umplerea flacoanelor e gratis.',
         say: 'Pot duce mai multe poțiuni?'
       },
       rumor: {
         archers: {
-          '1': 'Arcașii lui Krag țintesc picioarele. Continuă să te miști acolo și ratează.'
+          '1': 'Arcașii lui Krag țintesc jos. Mișcă-te mereu și vor rata în mare parte.'
         },
         north: {
-          '1': 'Arsuri, degerături și un om care jură că l-a mușcat o statuie. Nordul nu e blând.'
+          '1': 'Văd arsuri, degerături și un om care jură că l-a mușcat o statuie.'
         }
       },
       healBack: {
-        '1': 'Du-te. Data viitoare vino la o vorbă, nu la o cusătură.'
+        '1': 'Du-te. Data viitoare vino la o vorbă, nu la cusut.'
       },
       bye: {
-        '1': 'Treci peste! Ăsta e sfat medical.'
+        '1': 'Ai grijă de tine. Și mănâncă ceva.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Fără nume. Dar tu ești cel care a deschis poarta. Pe ăla îl știu.',
-        '2': 'Spune-mi Tăinuitorul. Tot ce e aici a căzut dintr-o căruță.'
+        '1': 'Aici nu se spun nume. Dar știu cine a deschis poarta. Toată lumea știe.',
+        '2': 'Poți să-mi spui Tăinuitorul. Tot ce e aici vine de undeva.'
       },
       foe: {
-        '1': 'Sindicatului nu-i placi azi. Aurului tău încă-i place.'
+        '1': 'Sindicatul nu te prea îndrăgește acum. Aurul tău, în schimb, e binevenit.'
       },
       again: {
-        '1': 'Ah. Cel mai bun client al meu. Nu te-a urmărit nimeni? Bine.'
+        '1': 'Iar aici. Nu te-a urmărit nimeni, sper?'
       },
       trade: {
-        '1': 'Fără nume, fără întrebări. Sindicatul își ia partea, tu iei marfa.'
+        '1': 'Fără întrebări, în nicio parte. Sindicatul își ia partea, tu iei marfa.'
       },
       who: {
-        '1': 'Înainte de incendiu vindeam lumânări. Legal. Era groaznic.'
+        '1': 'Înainte de incendiu vindeam lumânări. Muncă cinstită. Nu aducea bani.'
       },
       armor: {
-        '1': 'Armurierii au dispărut, prietene. Arși. Ar trebui să știi.',
+        '1': 'Armurierii au plecat, prietene. Tu știi mai bine decât mine de ce.',
         say: 'Ai armuri de vânzare?'
       },
       rumor: {
         citadel: {
-          '1': 'Anul trecut a apărut o fortăreață în nordul îndepărtat. Nimeni n-a construit-o. Zidurile ei vâjâie.'
+          '1': 'O fortăreață a apărut în îndepărtatul nord anul trecut. Nimeni n-a construit-o.'
         },
         crystals: {
-          '1': 'Cineva cumpără fiecare cristal al Vidului de pe piață. Nu noi. Asta mă îngrijorează.'
+          '1': 'Cineva cumpără fiecare cristal al Vidului pe care îl găsește. Nu noi. Asta mă îngrijorează.'
         }
       },
       shopBack: {
         '1': 'N-ai fost niciodată aici.'
       },
       bye: {
-        '1': 'Ai grijă la dărâmături.'
+        '1': 'Uită-te pe unde calci. Dărâmăturile se mișcă.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Un vizitator. Ai grijă la borcane.',
-        '2': 'Doctorul Sangrel. Noii stăpâni ai Oakhavenului nu întreabă ce predau. Răcoritor.'
+        '1': 'Un vizitator. Te rog, nu atinge borcanele.',
+        '2': 'Doctorul Sangrel. Noii stăpâni ai Oakhavenului nu întreabă ce predau. E odihnitor.'
       },
       found: {
-        '1': 'M-ai găsit. Puțini caută un doctor într-un loc ca acesta.',
-        '2': 'Doctorul Sangrel. Orașele ard oamenii ca mine, așa că lucrez unde nu sunt orașe.'
+        '1': 'M-ai găsit. Puțini caută un doctor într-un loc ca ăsta.',
+        '2': 'Doctorul Sangrel. Orașele ard oameni ca mine, așa că lucrez acolo unde nu e niciunul.'
       },
       friend: {
-        '1': 'Sindicatul garantează pentru tine. Taxa mea e mai mică pentru prietenii lui. Standardele mele nu.'
+        '1': 'Sindicatul garantează pentru tine. Iau mai puțin de la prietenii lui. Standardele mele rămân aceleași.'
       },
       foe: {
-        '1': 'Sindicatul m-ar plăti pentru sângele tău. Prefer să-l cheltuiești pe lecțiile mele.'
+        '1': 'Sindicatul ar plăti bine pentru sângele tău. Prefer să-l cheltuiești aici.'
       },
       again: {
-        '1': 'Ești palid. Bine. Se potrivește muncii.'
+        '1': 'Arăți palid. Bine. Se potrivește muncii.'
       },
       train: {
-        '1': 'Suflecă-ți mâneca. O să doară. Asta e ideea.'
+        '1': 'Suflecă-ți mâneca. O să doară. Cam asta e ideea.'
       },
       class: {
-        '1': 'Plătești pentru putere cu propria ta sănătate. Apoi o bei înapoi de la dușman.',
-        '2': 'Anduranța e punga ta. Inteligența hotărăște cât de bine o cheltuiești.',
+        '1': 'Plătești puterea cu propria sănătate, apoi o iei înapoi de la dușmani.',
+        '2': 'Anduranța e ce ai de cheltuit. Inteligența e cât de bine cheltuiești.',
         say: 'Ce este un Alchimist al Sângelui?'
       },
       ready: {
@@ -1953,155 +1953,155 @@ export default {
           '1': 'O constituție remarcabilă. Poți învăța aproape tot.'
         },
         able: {
-          '1': 'Sângele tău e destul de puternic pentru următoarea lecție.'
+          '1': 'Ești destul de rezistent pentru lecția următoare.'
         },
         weak: {
-          '1': 'Ai leșina la prima tăietură. Mai multă Anduranță, te rog.'
+          '1': 'Ai leșina la prima tăietură. Întâi construiește-ți Anduranța, te rog.'
         }
       },
       jars: {
-        '1': 'Voluntari. În mare parte.',
+        '1': 'Probe. Date de bunăvoie, în mare parte.',
         say: 'Ce e în borcane?'
       },
       trainBack: {
-        '1': 'Ține notițe, desigur. Pentru știință.'
+        '1': 'Ține totuși notițe. Aș vrea să aud cum merge.'
       },
       bye: {
-        '1': 'Rămâi sănătos. Altfel nu-mi ești de folos.'
+        '1': 'Rămâi sănătos. Vorbesc serios.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Deci. Cel care a deschis poarta. Stai jos. Ți-ai meritat un scaun.',
-        '2': 'Îmi spun Madam Ash. Oakhaven e al meu acum. În parte, și al tău.'
+        '1': 'Deci tu ai deschis poarta. Stai jos. Ți-ai meritat un scaun.',
+        '2': 'Mi se spune Madam Ash. Oakhaven e al nostru acum. Parțial datorită ție.'
       },
       throneOurs: {
-        '1': 'Tronul Fortăreței Groazei. Al nostru. Ești cea mai bună investiție a mea.'
+        '1': 'Fortăreața Groazei, în mâinile noastre. Ai meritat fiecare monedă.'
       },
       throneLost: {
-        '1': 'Ai dat tronul. Altcuiva. Vom vorbi despre asta. Nu azi.'
+        '1': 'Ai dat tronul altcuiva. Vom discuta despre asta. Nu azi.'
       },
       foe: {
-        '1': 'Ne-ai stat în cale. Stai jos oricum. Îmi place să privesc o problemă înainte s-o rezolv.'
+        '1': 'Ai lucrat împotriva noastră. Stai jos oricum. Îmi place să știu cu cine am de-a face.'
       },
       again: {
-        '1': 'Trădătorul meu preferat. Ce poate face Sindicatul pentru tine?'
+        '1': 'Iar aici. Ce poate face Sindicatul pentru tine?'
       },
       cut: {
-        '1': 'O treime dintr-o ruină, dragule. Iată partea acestui sezon.',
-        '2': 'Va crește. O ruină e foarte profitabilă când îi deții singura piață.',
-        say: 'Mi-ai promis o treime din Oakhaven.'
+        '1': 'Și o vei avea. O parte dintr-o ruină, deocamdată. Uite-o pe cea de sezon.',
+        '2': 'Va crește. O ruină plătește foarte bine când îi deții singura piață.',
+        say: 'Mi s-a promis o parte din Oakhaven.'
       },
       syndicate: {
         '1': 'Ce vrea toată lumea. Doar că noi nu ne prefacem altfel.',
-        '2': 'Rămâi prietenul nostru, iar Șoapta și Doctorul te taxează mai puțin. Loialitatea are o listă de prețuri.',
-        say: 'Ce vrea Sindicatul?'
+        '2': 'Rămâi prietenos, și Șoapta și Doctorul vor lua mai puțin de la tine.',
+        say: 'Ce vrea, de fapt, Sindicatul?'
       },
       order: {
-        '1': 'Bineînțeles. Ai ars unul dintre orașele lui. Poartă mai multe poțiuni.',
-        say: 'Ordinul de Fier mă vânează.'
+        '1': 'Bineînțeles că sunt. Ai ars unul dintre orașele lor. Ia poțiuni în plus.',
+        say: 'Ordinul de Fier mă urmărește.'
       },
       rumor: {
         core: {
-          '1': 'Piticii au găsit ceva în minele lor. Un nucleu. Îl vreau. Adu-l la noi și spune un preț.'
+          '1': 'Piticii au găsit ceva în minele lor. Un nucleu. Adu-l la noi și spune-ți prețul.'
         },
         sold: {
-          '1': 'Nucleul a ajuns în siguranță. Ar trebui să vezi ce face unui lacăt.'
+          '1': 'Nucleul a ajuns cu bine. Ai fi uimit ce face unui lacăt.'
         },
         north: {
-          '1': 'Tot ce merită furat s-a mutat spre nord. Și noi.'
+          '1': 'Tot ce merită avut s-a mutat spre nord. Și noi la fel.'
         }
       },
       bye: {
-        '1': 'Nu fi străin. Străinii sunt urmăriți.'
+        '1': 'Nu fi străin. Ne uităm după străini.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Ai străbătut galeriile. Simt praful pe tine.',
-        '2': 'Dorn. Meșterul Forjei din Ironhold. Am o problemă cât un munte.'
+        '1': 'Ai venit prin galeriile minelor. Simt praful pe tine.',
+        '2': 'Dorn. Meșterul Forjei din Ironhold. Și am o problemă cât un munte.'
       },
       destroyed: {
-        '1': 'Lumina s-a stins, iar golemii sunt fier vechi. Minerii mei au cântat aseară. Prima dată într-un an.'
+        '1': 'Lumina s-a stins și golemii sunt fier vechi. Minerii mei au cântat aseară. Prima dată într-un an.'
       },
       studied: {
-        '1': 'Foc albastru în forjele mele și robe în sălile mele. Munca e bună. Mă voi obișnui cu robele.'
+        '1': 'Foc albastru în forjele mele și savanți în robe în sălile mele. Măcar munca e bună.'
       },
       sold: {
-        '1': 'Ai vândut-o. Golemii încă umblă, iar minele mele sunt încă un mormânt. Ieși din lumina mea.'
+        '1': 'L-ai vândut. Golemii încă merg, iar minele mele sunt încă un mormânt. Lasă-mă în pace.'
       },
       ending: {
-        '1': 'Deci tronul e hotărât. Bine. Acum regatul se poate întoarce la certuri despre fier.'
+        '1': 'Deci tronul e hotărât. Bine. Poate acum ne putem întoarce la săpat.'
       },
       again: {
-        '1': 'Vorbește. Forja nu așteaptă.'
+        '1': 'Ce e? Forja nu așteaptă.'
       },
       quest: {
-        '1': 'Am săpat după fier și am lovit o inimă. Un nucleu de eter. Bate, acolo jos în întuneric.',
+        '1': 'Am săpat după fier și am găsit o inimă. Un nucleu de eter. Îl simți bătând.',
         '2': 'Și golemii?',
-        '3': 'Merg în ritmul lui. Trei puteri mi-au scris să-l cer. Toate politicoase. Nu am încredere în niciuna.',
-        '4': 'Vei ajunge primul la el, în fundul Minelor Ironhold. Apoi e al tău să hotărăști.',
-        say: 'Ce s-a întâmplat în Minele Ironhold?'
+        '3': 'Se mișcă în ritmul lui. Trei puteri au scris cerându-l. Nu am încredere în niciuna.',
+        '4': 'Vei ajunge primul la el, în fundul Minelor Ironhold. Ce se întâmplă apoi depinde de tine.',
+        say: 'Ce s-a întâmplat în adâncul minelor?'
       },
       core: {
-        say: 'Despre nucleu…',
+        say: 'Despre nucleu...',
         destroy: {
-          '1': 'Ai spart o minune ca să-mi salvezi oamenii. Ordinul a trimis armurieri drept mulțumire. Eu am trimis bere.'
+          '1': 'Ai sfărâmat o minune ca să-mi salvezi poporul. Ordinul a trimis armurieri. Eu am trimis bere.'
         },
         study: {
-          '1': 'Meșterii Cercului sunt nebuni, dar armele lor trag drept. Un târg cinstit.'
+          '1': 'Oamenii Cercului sunt ciudați, dar armele lor trag drept. E corect.'
         },
         sell: {
-          '1': 'Aur. Ai făcut-o pentru aur. Sper să te țină de cald.'
+          '1': 'Ai făcut-o pentru aur. Sper că te ține de cald.'
         }
       },
       town: {
-        '1': 'Cel mai bun oțel din regat, când minele merg.',
+        '1': 'Cel mai bun oțel din regat, când minele funcționează.',
         '2': 'Picior-de-Piatră predă pământul, Pim predă mașinile. Amândoi îți vor bate capul.',
         say: 'Spune-mi despre Ironhold.'
       },
       rumor: {
         tundra: {
-          '1': 'La est de Stânci, ținutul devine alb. Tundra Înghețată. Uriași și morți care nu rămân jos.'
+          '1': 'La est de Stânci pământul devine alb. Tundra Înghețată. Giganți, și mai rău.'
         },
         citadel: {
-          '1': 'Iscoadele mele au văzut în nord o fortăreață care nu era acolo anul trecut. Nu-mi plac munții noi.'
+          '1': 'Iscoadele mele au văzut în nord o fortăreață care nu era acolo anul trecut. Nu-mi place.'
         },
         fortress: {
-          '1': 'Fortăreața Groazei e unde se termină asta. Fiecare drum spre nord duce la poarta ei.'
+          '1': 'Totul se termină la Fortăreața Groazei. Fiecare drum spre nord duce acolo.'
         }
       },
       bye: {
-        '1': 'Lovește drept.'
+        '1': 'Mergi cu bine.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Mâinile de pe expoziție. Sunt ascuțite la ambele capete.',
-        '2': 'Hilda Mână-de-Ciocan. Forjat de pitici, fiecare piesă.'
+        '1': 'Atenție la vitrină. Sunt ascuțite pe ambele tăișuri.',
+        '2': 'Hilda Mână-de-Ciocan. Fiecare piesă de aici a fost forjată de mâini de pitic.'
       },
       dragon: {
-        '1': 'Ai ucis dragonul? Cu una de-ale MELE? Nu? Minte-mă. Spune că a fost una de-a mea.'
+        '1': 'Ai omorât dragonul? Sper că cu una dintre lamele mele.'
       },
       again: {
-        '1': 'Te-ai întors după oțel adevărat?'
+        '1': 'Te-ai întors pentru oțel adevărat?'
       },
       trade: {
-        '1': 'Forjat de pitici. Dacă se rupe, ai fost tu.'
+        '1': 'Forjate de pitici. Dacă una dintre ele se rupe, vreau să aflu cum.'
       },
       who: {
-        '1': 'Mama mea forja pentru regi. Eu forjez pentru oricine intră. Vremurile se schimbă.'
+        '1': 'Mama a forjat pentru regi. Eu forjez pentru oricine intră pe ușă.'
       },
       rumor: {
         golems: {
-          '1': 'Golemii din Minele Ironhold sunt făcuți din propriul nostru fier. E jenant, sincer.'
+          '1': 'Golemii de jos sunt făcuți din propriul nostru fier. Doare, să știi.'
         },
         arm: {
-          '1': 'O lamă face jumătate din treabă. Forța ta face restul. Nu da vina pe lamă.'
+          '1': 'O lamă bună face jumătate din treabă. Forța ta trebuie să facă restul.'
         }
       },
       shopBack: {
-        '1': 'Adu-o înapoi tocită și voi ști că ai folosit-o.'
+        '1': 'Adu-o înapoi tocită și voi ști că ai folosit-o bine.'
       },
       bye: {
         '1': 'Lovește tare.'
@@ -2109,132 +2109,132 @@ export default {
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Atenție! Aia e încărcată. Și aia. Cele mai multe, de fapt.',
-        '2': 'Voss Meșteșugarul. Cercul m-a trimis să văd ce ne poate învăța nucleul. Totul, se pare.'
+        '1': 'Atenție, aia e încărcată. Cele mai multe sunt, de fapt.',
+        '2': 'Voss Meșteșugarul. Cercul m-a trimis să studiez nucleul. Ne-a învățat atât de multe.'
       },
       again: {
-        '1': 'Oh, bine, un testator. Adică, un client.'
+        '1': 'Ah, bine. Am făcut câteva schimbări de când ai fost aici.'
       },
       trade: {
-        '1': 'Studiul nucleului de către Cerc a schimbat totul. Ține asta. Nu o îndrepta spre mine.'
+        '1': 'Tot ce e aici a ieșit din studiul nucleului. Doar nu o îndrepta spre mine.'
       },
       core: {
-        '1': 'Fierul acela poate gândi, puțin. Încerc să nu mă gândesc la asta.',
+        '1': 'Metalul ăla poate gândi, puțin. Încerc să nu mă gândesc la asta.',
         say: 'Ce te-a învățat nucleul?'
       },
       rumor: {
         heat: {
-          '1': 'Armele merg pe Măiestrie și se încing. Întreabă-l pe Pim Rotarul despre căldură înainte să-ți topești mâna.'
+          '1': 'Armele merg pe Măiestrie, și se încing. Întreabă-l pe Pim despre căldură înainte să-ți arzi o mână.'
         }
       },
       shopBack: {
-        '1': 'Raportează orice explozie! Pentru notițe.'
+        '1': 'Spune-mi cum se comportă. Țin notițe.'
       },
       bye: {
-        '1': 'Atenție la recul!'
+        '1': 'Atenție la recul.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Armuri. Inele în tavă.'
+        '1': 'Garrun. Armuri pe rafturi, inele în tavă.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Te-ai întors. Ce-ți trebuie?'
       },
       trade: {
-        '1': 'Plăci care opresc ciomagul unui uriaș. Inele pentru restul.'
+        '1': 'Platoșa aia oprește ciomagul unui gigant. Uită-te.'
       },
       quiet: {
-        '1': 'Nu.',
-        say: 'Nu vorbești mult.'
+        '1': 'Nu prea am ce spune.',
+        say: 'Nu prea vorbești, nu?'
       },
       rumor: {
         giants: {
-          '1': 'Uriași în tundră. Ciomege cât trunchiuri. Cumpără plăcile grele.'
+          '1': 'Giganți în tundră. Ciomege cât trunchiurile de copac. Eu aș lua platoșa grea.'
         },
         demons: {
-          '1': 'Demoni în nord. Foc și gheare. Cumpără plăcile grele.'
+          '1': 'Demoni în nord. Foc și gheare. Eu aș lua platoșa grea.'
         }
       },
       shopBack: {
-        '1': 'Bine.'
+        '1': 'Alegere bună.'
       },
       bye: {
-        '1': 'Da.'
+        '1': 'Ai grijă.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nume și treabă. Nu. Îți știu numele. Ai distrus nucleul.',
-        '2': 'Intendentul Ordinului de Fier. Arsenalele lui îți sunt deschise.'
+        '1': 'Tu ești cel care a distrus nucleul. Ordinul ține minte asta.',
+        '2': 'Sunt intendentul Ordinului aici. Armureriile noastre îți sunt deschise.'
       },
       throneOurs: {
-        '1': 'Ordinul ține Fortăreața Groazei prin mâna ta. Pe loc repaus. E un ordin.'
+        '1': 'Ordinul ține Fortăreața Groazei, datorită ție. Pe loc repaus. Ai meritat-o.'
       },
       foe: {
-        '1': 'Ordinul te are pe o listă. Ordinele mele sunt să-ți vând oricum. Nu-mi plac.'
+        '1': 'Ordinul te are pe o listă. Ordinele mele spun să-ți vând oricum. Le urmez.'
       },
       again: {
-        '1': 'Rechiziție?'
+        '1': 'Ce-ți trebuie?'
       },
       trade: {
-        '1': 'Ordinul își amintește cine a distrus nucleul. Alege ce îți trebuie.'
+        '1': 'Ia ce-ți trebuie. Ordinul are grijă de ai săi.'
       },
       order: {
-        '1': 'Nimic. E rar. Bucură-te.',
+        '1': 'Nimic, deocamdată. Nu se întâmplă des. Bucură-te de asta.',
         say: 'Ce vrea Ordinul de la mine?'
       },
       rumor: {
         throne: {
-          '1': 'Ordinul va vrea tronul din Fortăreața Groazei. Își va aminti cine a stat alături de el.'
+          '1': 'Ordinul va vrea tronul din Fortăreața Groazei. Va ține minte cine a ajutat.'
         }
       },
       shopBack: {
-        '1': 'Semnează aici. Glumesc. Ordinul nu glumește. Liber.'
+        '1': 'Ai grijă de ea. E proprietatea Ordinului până ai sângerat în ea.'
       },
       bye: {
-        '1': 'Liber.'
+        '1': 'Continuă.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Încet. Muntele nu pleacă nicăieri.',
+        '1': 'Încetinește. Muntele nu merge nicăieri.',
         '2': 'Îmi spun Bătrânul Picior-de-Piatră. Ascult pământul. Uneori răspunde.'
       },
       core: {
-        '1': 'Bătaia inimii muntelui s-a schimbat. Ai fost tu. A observat.'
+        '1': 'Muntele se simte altfel de când ai coborât acolo. Mai calm, sau mai gol.'
       },
       dragon: {
-        '1': 'Un dragon a zburat ieri peste vârf și nu ne-a ars. Meritul tău, aud.'
+        '1': 'Un dragon a zburat ieri peste vârf și ne-a lăsat în pace. Fapta ta, mi s-a spus.'
       },
       again: {
-        '1': 'Tu iar. Pietrele au spus că vei veni.'
+        '1': 'Iată-te. Mă gândeam că te vei întoarce.'
       },
       train: {
-        '1': 'Fixează-ți picioarele. Simți? Nu? Începem de acolo.'
+        '1': 'Plantează-ți picioarele. Simți? Nu? De acolo începem.'
       },
       class: {
-        '1': 'Ridicăm ziduri, chemăm țepi și spargem pământul când e nevoie.',
-        '2': 'Forță ca să miști piatra, Inteligență ca s-o rogi frumos.',
-        say: 'Ce este un Geomant?'
+        '1': 'Ridicăm ziduri, chemăm țepușe și spargem pământul când trebuie.',
+        '2': 'Forță ca să muți piatra. Inteligență ca să știi încotro vrea să meargă.',
+        say: 'Ce face un Geomant?'
       },
       ready: {
         strong: {
-          '1': 'Piatra te cunoaște acum. Învață restul.'
+          '1': 'Piatra te cunoaște acum. Învață restul când ești gata.'
         },
         able: {
-          '1': 'Ești destul de greu pentru următoarea lecție. E un compliment.'
+          '1': 'Ești destul de stabil pentru lecția următoare.'
         },
         weak: {
-          '1': 'Piatra nu te aude încă. Mai multă Forță.'
+          '1': 'Nu încă. Piatra nu se mișcă pentru tine. Construiește-ți Forța.'
         }
       },
       factions: {
-        '1': 'Niciuna. Ordine, sindicate, cercuri. Muntele le supraviețuiește pe toate.',
+        '1': 'Niciuna dintre ele. Ordinele și breslele vin și pleacă. Muntele rămâne.',
         say: 'Ce facțiune slujești?'
       },
       trainBack: {
-        '1': 'Mergi blând. Apoi nu blând.'
+        '1': 'Fă-o în ritmul tău. Pământul are răbdare.'
       },
       bye: {
         '1': 'Calcă ușor.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Nu atinge asta! Sau aia. De fapt, stai pe covor. Covorul e sigur.',
-        '2': 'Pim Rotarul! Arme, turnulețe, manometre de căldură. Mai ales manometre de căldură.'
+        '1': 'Ah, stai, nu atinge asta! Nici aia. Stai pe covor, covorul e sigur.',
+        '2': 'Pim Rotarul. Construiesc arme, turnuri și o mulțime de indicatoare de căldură.'
       },
       core: {
-        '1': 'Ne-ai dat nucleul! Nu am dormit de nouă zile. Uită-te la mâinile mele. Nu te uita la mâinile mele.'
+        '1': 'Ai dat nucleul Cercului! Abia am dormit de atunci. Într-un mod bun.'
       },
       oracle: {
-        '1': 'Cercul e furios din cauza oracolului. Eu doar construiesc lucruri. Te rog, nu le spune că te-am învățat.'
+        '1': 'Cercul e supărat din cauza oracolului. Eu doar construiesc lucruri. Prefer să nu mă amestec.'
       },
       friend: {
-        '1': 'Un prieten al Cercului! Lecții mai ieftine pentru tine. Am completat eu formularul.'
+        '1': 'Ești prieten al Cercului, deci lecțiile tale sunt mai ieftine. Am făcut eu actele.'
       },
       foe: {
-        '1': 'Cercul spune că nu am voie să te învăț. Cercul mai spune și să nu testezi rachete în casă.'
+        '1': 'Cercul zice că nu ar trebui să te învăț. O voi face oricum. Nu le spune.'
       },
       again: {
-        '1': 'Oh, bine, încă ai toate degetele.'
+        '1': 'Oh, bine, ai încă toate degetele.'
       },
       train: {
-        '1': 'Bine! Siguranța întâi. Apoi partea zgomotoasă.'
+        '1': 'Bine. Siguranța întâi, apoi partea zgomotoasă.'
       },
       class: {
-        '1': 'Arme, turnulețe și un manometru de căldură. Tragi, construiești și dai drumul căldurii înainte să te blocheze.',
-        '2': 'Totul merge pe Măiestrie. Puțină Inteligență pentru mașinile mari.',
+        '1': 'Arme, turnuri și un indicator de căldură. Împuști, construiești și eliberezi aburul înainte să te blochezi.',
+        '2': 'Mai ales Măiestrie. Puțină Inteligență pentru mașinile mai mari.',
         say: 'Ce este un Tehnician de Eter?'
       },
       ready: {
         strong: {
-          '1': 'Ai putea demonta un turnuleț legat la ochi! Ia mașinile mari.'
+          '1': 'Te descurci cu un turn acum. Ia mașinile mari.'
         },
         able: {
-          '1': 'Mâini sigure! Ești gata pentru următorul dispozitiv.'
+          '1': 'Mâini sigure. Ești gata pentru următoarea.'
         },
         weak: {
-          '1': 'Îți tremură mâinile. Și mie, dar din alte motive. Mai multă Măiestrie.'
+          '1': 'Ținta ta e încă cam șovăielnică. Pune câteva puncte în Măiestrie.'
         }
       },
       heat: {
-        '1': 'Totul se blochează câteva secunde. Dă drumul devreme. Dă drumul des. Am cicatrici.',
+        '1': 'Totul se blochează câteva secunde. Eliberează devreme, eliberează des. Crede-mă.',
         say: 'Ce se întâmplă dacă mă supraîncălzesc?'
       },
       trainBack: {
-        '1': 'Ține minte: dă drumul căldurii! DĂ. DRUMUL. CĂLDURII.'
+        '1': 'Și nu uita să eliberezi căldura înainte să te elibereze ea pe tine.'
       },
       bye: {
-        '1': 'Nu exploda!'
+        '1': 'Fii atent acolo afară!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Jos cizmele. Nu vreau praful tău pe podeaua mea.',
-        '2': 'Maica Brynja. Am pus la loc fiecare os rupt din muntele ăsta de două ori.'
+        '1': 'Cizmele jos la ușă, te rog. Tocmai am măturat.',
+        '2': 'Maica Brynja. Am pus la loc majoritatea oaselor rupte din muntele ăsta.'
       },
       ending: {
-        '1': 'Ai mers la Fortăreața Groazei și te-ai întors pe picioare. Stai jos. Vreau să te privesc.'
+        '1': 'Ai mers la Fortăreața Groazei și te-ai întors. Stai jos. Lasă-mă să te văd.'
       },
       again: {
-        '1': 'Încă viu. Mi se spune că e meritul meu.'
+        '1': 'Încă în viață. Bine. Stai jos.'
       },
       heal: {
-        '1': 'Stai jos. Bea asta. Nu face fața aia. Flacoanele tale sunt umplute.'
+        '1': 'Bea asta și nu face fața aia. Flacoanele tale sunt pline.'
       },
       mana: {
-        '1': 'Poftim. Are gust îngrozitor. Bea-o când ți se termină magia, nu înainte.'
+        '1': 'Poftim. Are un gust îngrozitor. Bea-l când ți se termină magia, nu înainte.'
       },
       potions: {
-        '1': 'Cumpără de la mine o centură mai lungă. Cinci flacoane e tot ce poate duce un trup și să mai și alerge.',
+        '1': 'Îți pot vinde o centură mai lungă. Cinci flacoane e cam tot ce poate cărăi cineva și să mai alerge.',
         say: 'Pot duce mai multe poțiuni?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra îți ia degetele. Continuă să te miști acolo și nu dormi în zăpadă.'
+          '1': 'Tundra ia degete de la mâini și de la picioare. Mișcă-te mereu și nu adormi în zăpadă.'
         },
         temple: {
-          '1': 'Dincolo de tundră e un templu scufundat. Nagii nu iau prizonieri.'
+          '1': 'E un templu scufundat dincolo de tundră. Nagii de acolo nu iau prizonieri.'
         },
         rift: {
-          '1': 'Orice e în Falia Vidului aceea, nu poate fi cusut. Termină repede.'
+          '1': 'Orice ar fi în falia aia, nu o pot coase. Nu o lăsa să te atingă.'
         }
       },
       healBack: {
-        '1': 'Hai, du-te. Și mănâncă ceva.'
+        '1': 'Du-te. Și mănâncă ceva, ești prea slab.'
       },
       bye: {
         '1': 'Întoarce-te într-o bucată.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Tu. Tu mi-ai deschis poarta.',
-        '2': 'Acum predau din pivnița unui pitic, pentru că trebuie să mănânc. Nu confunda asta cu iertarea.'
+        '1': 'Tu. Tu ești cel care mi-a deschis poarta.',
+        '2': 'Predau într-o pivniță acum, pentru că trebuie să mănânc. Nu confunda asta cu iertarea.'
       },
       ending: {
-        '1': 'Un tron a fost hotărât, iar Oakhaven e încă scrum. Spune-mi din nou cum a meritat.'
+        '1': 'Deci tronul e hotărât, iar Oakhaven e tot cenușă. Sper că a meritat.'
       },
       again: {
-        '1': 'Trădătorul se întoarce. Taxa mea nu a scăzut.'
+        '1': 'Te-ai întors. Taxa mea nu s-a schimbat.'
       },
       train: {
-        '1': 'Te voi învăța să comanzi. Nu te pot învăța să meriți.'
+        '1': 'Te voi învăța să comanzi. Dacă meriți asta, e altă poveste.'
       },
       class: {
-        '1': 'Cineva care e urmat. Gărzile răspund la chemare și luptă la cuvântul tău.',
-        '2': 'Merge pe Carismă. Ai ceva. Aceea e tragedia.',
+        '1': 'Cineva pe care îl urmează alții. Paznicii vin când chemi și luptă la cuvântul tău.',
+        '2': 'Merge pe Carismă. Tu ai ceva. Asta face greu de iertat.',
         say: 'Ce este un Mare Suveran?'
       },
       ready: {
         strong: {
-          '1': 'Ai prezența pentru toate. Regatul e mai sărac din cauza asta.'
+          '1': 'Ai prezența pentru toate. Aș fi vrut să o fi folosit mai bine.'
         },
         able: {
-          '1': 'Ești gata pentru următoarea lecție. Nu-mi face nicio plăcere.'
+          '1': 'Ești gata pentru lecția următoare. Nu mă prefac că mă bucur.'
         },
         weak: {
-          '1': 'Nici garda unui trădător nu ar urma vocea aceea. Mai multă Carismă.'
+          '1': 'Nimeni nu te-ar urma încă. Lucrează la Carisma ta.'
         }
       },
       oakhaven: {
         '1': 'Trei sute de ani. Familia mea a construit zidurile acelea.',
-        '2': 'Nu explica. Nu există preț care să explice asta.',
-        say: 'Despre Oakhaven…'
+        '2': 'Te rog, nu explica. Nimic din ce ai putea spune nu o repară.',
+        say: 'Despre Oakhaven...'
       },
       trainBack: {
-        '1': 'Du-te. Comandă pe altcineva.'
+        '1': 'Du-te. Exersează pe altcineva.'
       },
       bye: {
-        '1': 'Lasă-mă.'
+        '1': 'Lasă-mă, te rog.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Ai ucis-o. Am văzut-o de o mie de ori înainte să se întâmple, și tot doare.',
-        '2': 'Sunt Păzitorul Orelor. Te voi învăța. Mi-a spus că o voi face.'
+        '1': 'Ai omorât-o. Am văzut asta venind ani de zile, și tot doare.',
+        '2': 'Sunt Păzitorul Orelor. Te voi învăța. Ea mi-a spus că o voi face.'
       },
       hello: {
-        '1': 'Ești târziu. Sau devreme. Ți-am mai spus asta, cred.',
-        '2': 'Sunt Păzitorul Orelor. Predau țeserea timpului. Am început acum o clipă.'
+        '1': 'Iată-te. Te aștept de ceva vreme. Sau te voi fi așteptat.',
+        '2': 'Sunt Păzitorul Orelor. Predau cum se îndoaie timpul, puțin.'
       },
       freed: {
-        '1': 'E liberă. Pentru prima dată nu știu ce vei spune în continuare. E minunat.'
+        '1': 'E liberă. Pentru prima dată nu pot spune ce urmează. E minunat.'
       },
       friend: {
-        '1': 'Cercul te va numi prietenul lui. Deja a făcut-o? Atunci reducerea e acum.'
+        '1': 'Cercul te vede cu ochi buni, așa că lecțiile costă mai puțin. Au hotărât asta săptămâna trecută.'
       },
       foe: {
-        '1': 'Cercul te va ierta, într-un viitor pe care l-am văzut. Până atunci te învăț în liniște.'
+        '1': 'Cercul e supărat pe tine acum. Trece. Până atunci, păstrăm asta în liniște.'
       },
       again: {
-        '1': 'Bine ai revenit. Bine ai. Revenit.'
+        '1': 'Bine ai revenit. Vii exact la timp.'
       },
       train: {
-        '1': 'Privește. Îți arăt ce ți-am arătat.'
+        '1': 'Privește atent. Apoi privește iar, cu o clipă mai devreme.'
       },
       class: {
-        '1': 'Oprim un dușman în timp, grăbim un prieten și luăm înapoi o greșeală.',
-        '2': 'Inteligență ca să vezi firul, Măiestrie ca să-l tragi.',
+        '1': 'Ținem un dușman nemișcat în timp, grăbim un prieten și luăm înapoi o greșeală.',
+        '2': 'Inteligență ca să vezi firul. Măiestrie ca să tragi de el.',
         say: 'Ce este un Țesător al Timpului?'
       },
       ready: {
         strong: {
-          '1': 'Ții bine firul. Restul e al tău când vrei.'
+          '1': 'Ții bine firul. Ia restul când vrei.'
         },
         able: {
-          '1': 'Ești gata. Erai gata și mâine.'
+          '1': 'Ești gata. Am știut înainte să întrebi.'
         },
         weak: {
-          '1': 'Firul îți alunecă printre degete. Mai multă Inteligență. Mai multă Măiestrie.'
+          '1': 'Firul îți tot alunecă. Mai multă Inteligență, și mai multă Măiestrie.'
         }
       },
       oracle: {
         say: 'Spune-mi despre oracol.',
         freed: {
-          '1': 'A văzut fiecare sfârșit, și niciunul nu a fost al ei. Acum unul este.'
+          '1': 'A văzut fiecare sfârșit în afară de al ei. Acum va afla.'
         },
         slain: {
-          '1': 'Nu s-a împotrivit. Văzuse și asta. Te rog, nu mă mai întreba.'
+          '1': 'Nu s-a opus. Văzuse deja. Te rog, nu mă mai întreba.'
         },
         waits: {
-          '1': 'Vede fiecare sfârșit. E un dar cumplit. Fii bun cu ea, la final.'
+          '1': 'Vede fiecare sfârșit. E o povară grea. Fii bun cu ea.'
         }
       },
       trainBack: {
-        '1': 'Va fi meritat.'
+        '1': 'Va avea sens mai târziu. De obicei are.'
       },
       bye: {
-        '1': 'Până înainte.'
+        '1': 'Până ne întâlnim din nou. Sau mai devreme.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Stai! Stai. Rege se predă!',
-          '2': 'Goblini fac raid doar pentru goblini flămânzi. E adevărat!',
-          '3': 'Poate înalt și rege fac o înțelegere?'
+          '1': 'Oprește-te. Te rog. Mă predau.',
+          '2': 'Poporul meu face raiduri pentru că e flămând. Acesta e adevărul.',
+          '3': 'Să facem o înțelegere în schimb. Neamul tău și al meu.'
         },
         slay: {
-          '1': 'Regele cade, iar Văgăunile se risipesc.',
-          '2': 'Sunford doarme mai liniștit, iar Ordinul de Fier te ia în seamă.',
-          say: 'Fără înțelegere. Domnia ta se termină aici.'
+          '1': 'Regele Goblin cade, și Văgăunile se golesc.',
+          '2': 'Sunford doarme mai liniștit, iar Ordinul de Fier îți aude numele.',
+          say: 'Fără înțelegeri. Raidurile tale se termină aici.'
         },
         pact: {
-          '1': 'Negoț? Rege jură! Rege ÎI PLACE negoț!',
-          '2': 'Negustori goblini se instalează în piața Sunfordului, cu marfă pe care niciun fierar de acolo n-ar putea-o face.',
-          say: 'Oprește raidurile și fă negoț cu Sunford în schimb. Jură.'
+          '1': 'Comerț. Da. Jur, pe coroana mea.',
+          '2': 'Negustori goblini își deschid tarabe în piața din Sunford, vânzând lucruri pe care niciun fierar de acolo nu le-ar putea face.',
+          say: 'Oprește raidurile și fă negoț cu Sunford. Jură.'
         },
         ransom: {
-          '1': 'Tot? Rege urăște înalt. Ia. Ia și pleacă.',
-          '2': 'Pleci greu de aur de goblin. Raidurile vor începe din nou. Sindicatul aprobă.',
-          say: 'Dă-mi comoara și îți păstrezi coroana.'
+          '1': 'Tot? ...Bine. Ia-l și pleacă.',
+          '2': 'Pleci cu aurul goblinilor. Raidurile vor începe iar, dar Sindicatul aprobă.',
+          say: 'Dă-mi comoara și îți poți păstra coroana.'
         }
       },
       siege: {
         ask: {
-          '1': 'Destul. Lupți bine.',
-          '2': 'Sindicatul plătește mai bine decât va plăti vreodată orașul acela.',
+          '1': 'Destul. Lupți bine, îți recunosc asta.',
+          '2': 'Sindicatul plătește mult mai bine decât va plăti vreodată orașul ăla.',
           '3': 'Deschide-ne poarta în noaptea asta și o treime din Oakhaven e a ta.'
         },
         defend: {
-          '1': 'Atunci Sindicatul te va vâna pe fiecare drum. Ține minte că am oferit.',
-          '2': 'Poarta rezistă. Oakhaven se îmbogățește în spatele ei, iar maeștrii lui armurieri îți țin minte numele.',
+          '1': 'Atunci Sindicatul te va vâna pe fiecare drum. Amintește-ți că am oferit.',
+          '2': 'Poarta ține. Oakhaven se îmbogățește în spatele ei, iar armurierii lui îți țin minte numele.',
           say: 'Poarta rămâne închisă. Ia-ți armata și pleacă.'
         },
         betray: {
-          '1': 'Înțelept. Îi spun lui Madam Ash să-ți pună un scaun.',
-          '2': 'Oakhaven arde. În ruinele lui se deschide o piață neagră, iar un alchimist predă arte interzise.',
-          '3': 'Armurierii au dispărut, iar Ordinul de Fier te numește trădător.',
-          say: 'O treime din oraș. În noaptea asta, poarta se deschide.'
+          '1': 'Înțelept. Madam Ash va fi bucuroasă să audă.',
+          '2': 'Oakhaven arde. În ruine se deschide o piață neagră, și un alchimist predă în secret.',
+          '3': 'Armurierii au plecat, iar Ordinul de Fier te numește trădător.',
+          say: 'O treime din oraș. Bine. Poarta se deschide în seara asta.'
         }
       },
       core: {
         ask: {
-          '1': 'Colosul e fier vechi. N-am crezut că o să-l văd.',
-          '2': 'Și iat-o acolo. Nucleul. Încă vâjâie. Cald la atingere.',
-          '3': 'Ai ajuns primul la el. Ce se alege de el?'
+          '1': 'Colosul e fier vechi. N-am crezut că voi trăi să văd asta.',
+          '2': 'Și iată nucleul. Încă bâzâie. E cald, dacă îl atingi.',
+          '3': 'Ai ajuns primul aici. Deci... ce se întâmplă cu el?'
         },
         destroy: {
           '1': 'Lumina se stinge, iar golemii cad unde stau.',
-          '2': 'Ordinul de Fier trimite la Ironhold proprii armurieri drept mulțumire.',
-          say: 'Dă-te înapoi. Îl sparg.'
+          '2': 'În semn de mulțumire, Ordinul de Fier își trimite propriii armurieri la Ironhold.',
+          say: 'Dă-te înapoi. Îl sfărâm.'
         },
         study: {
-          '1': 'Înțelegi destul din nucleu ca să-l predai fără să-l trezești.',
-          '2': 'Într-un anotimp, forjele din Ironhold scot lucrări de eter pe care nimeni nu le-a mai văzut.',
-          say: 'Cercul ar trebui să-l studieze. Îl pot scoate în siguranță.'
+          '1': 'Știi destul ca să muți nucleul fără să-l trezești.',
+          '2': 'Într-un sezon, forjele din Ironhold fac lucrări de eter pe care nimeni nu le-a mai văzut.',
+          say: 'Cercul ar trebui să-l studieze. Cred că îl pot scoate în siguranță.'
         },
         sell: {
           '1': 'Aur. Pentru lucrul care mi-a ucis minerii. Ia-l și pleacă.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Am văzut momentul acesta de zece mii de ori.',
-          '2': 'În jumătate dintre ele mă eliberezi. În jumătate iei ce păzesc.',
-          '3': 'Alege. Lasă-mă, în sfârșit, să nu știu ce urmează.'
+          '1': 'Am văzut momentul ăsta de mai multe ori decât pot număra.',
+          '2': 'În jumătate dintre ele, mă eliberezi. În cealaltă jumătate, iei ce păzesc.',
+          '3': 'Alege. Aș vrea, măcar o dată, să nu știu ce urmează.'
         },
         free: {
-          '1': 'Oh. Asta nu am văzut. Asta nu am văzut deloc.',
-          '2': 'Oracolul se ridică prin apă și dispare. Păzitorul ei al orelor rămâne să predea.',
+          '1': 'Oh. Asta nu am văzut-o. Chiar nu am văzut-o.',
+          '2': 'Oracolul se ridică prin apă și dispare. Eleva ei rămâne să predea.',
           say: 'Stai nemișcată. Îți sparg lanțurile.'
         },
         slay: {
           '1': 'Da. Asta e cealaltă jumătate.',
-          '2': 'Nu se împotrivește. Clepsidra Păstrătorului de Timp e a ta.',
-          '3': 'Ultimul ei elev fuge din templu, iar Cercul nu iartă.',
+          '2': 'Nu se opune. Clepsidra Păzitorului Timpului e a ta.',
+          '3': 'Ultima ei elevă fuge din templu, iar Cercul nu te iartă.',
           say: 'Am venit după clepsidră.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Destul. Ai dinți, mic.',
-          '2': 'Demonul din fortăreață mi-a înlănțuit neamul. Aș vrea să-l văd arzând.',
+          '1': 'Destul. Ai dinți, mic prieten.',
+          '2': 'Demonul din fortăreață mi-a înlănțuit neamul. Vreau să-l văd arzând.',
           '3': 'Ucide-mă, sau lasă-mă să te ajut s-o faci.'
         },
         slay: {
           '1': 'Muntele se cutremură când cade dragonul. Comoara lui e a ta.',
           '2': 'Ordinul de Fier cântă despre ucigașul de dragoni.',
-          say: 'Fără târguieli cu dragonii.'
+          say: 'Nu negociez cu dragonii.'
         },
         pact: {
-          '1': 'Puțini ar fi putut cere asta și să trăiască. Foarte bine, mic. Vânăm împreună.',
-          '2': 'Când vei porni spre Fortăreața Groazei, un dragon va fi pe cer deasupra ta.',
-          say: 'Atunci zboară cu mine împotriva Arhi-Demonului.'
+          '1': 'Puțini ar îndrăzni să ceară. Foarte bine. Vânăm împreună.',
+          '2': 'Când mărșăluiești spre Fortăreața Groazei, un dragon va zbura deasupra ta.',
+          say: 'Atunci luptă alături de mine împotriva Arhidemonului.'
         }
       },
       throne: {
         ask: {
-          '1': 'Deci. Se termină. N-am crezut că vei fi tu.',
-          '2': 'Tronul meu nu rămâne gol, mic erou. Comandă fortăreața, falia și armatele ambelor.',
-          '3': 'Trei trimiși așteaptă deja la ușa mea. Alege cine moștenește lanțurile mele.'
+          '1': 'Deci. Se termină. Nu credeam că vei fi tu.',
+          '2': 'Tronul meu nu va rămâne gol. Cine îl ia comandă fortăreața și falia.',
+          '3': 'Trei trimiși așteaptă deja la ușa mea. Alege cine vine următorul.'
         },
         order: {
           '1': 'Ordinul pune garnizoană în fortăreață și sigilează ce poate.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindicatul se mută înainte de zori.',
-          '2': 'Totul e de vânzare acum, inclusiv pacea.',
+          '2': 'De acum totul are un preț, chiar și pacea.',
           say: 'Sindicatul Cenușii l-a meritat.'
         },
         circle: {
-          '1': 'Cercul face din fortăreață o școală deasupra unei falii.',
-          '2': 'Ei îi spun cercetare. Toți ceilalți îi spun o chestiune de timp.',
+          '1': 'Cercul transformă fortăreața într-o școală deasupra faliei.',
+          '2': 'Îi spun cercetare. Toți ceilalți își țin respirația.',
           say: 'Să-l aibă Cercul Eterului.'
         },
         shatter: {
-          '1': 'Spargi tronul cu mâinile tale. Nimeni nu mai domnește de aici.',
+          '1': 'Sfărâmi tronul cu propriile mâini. Nimeni nu va mai domni de aici.',
           '2': 'Trimișii pleacă fără un cuvânt.',
-          say: 'Nimeni nu moștenește. Îl sparg.'
+          say: 'Nimeni nu-l primește. Îl sfărâm.'
         },
         claim: {
           '1': 'Tronul e rece, și ți se potrivește.',
           '2': 'Trei facțiuni descoperă că au un dușman comun.',
-          say: 'Mă voi așeza eu pe el.'
+          say: 'Îl iau eu însumi.'
         }
       }
     }

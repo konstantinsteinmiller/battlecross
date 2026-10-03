@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Recompra',
     deal: 'Tracte fet!',
     say: {
-      buy: 'Bona elecció. Té’n cura.',
-      sell: 'Li trobaré una bona llar.',
-      back: 'Has canviat d’idea? Té, tal com estava.',
-      poor: 'Torna amb una bossa més pesada.'
+      buy: 'Bona elecció. Cuida-la i ella et cuidarà a tu.',
+      sell: 'Vinga, d’acord. Algú la voldrà.',
+      back: 'T’ho has repensat? Cap problema, aquí la tens.',
+      poor: 'Em sap greu, però això és una mica més del que portes.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Seu. Descansa. D’aquí en surts sencer, amb tots els flascons plens. Si en vols portar més, això sí que t’ho puc vendre.',
+    talk: 'Seu i descansa una estona. Els flascons ja són plens una altra vegada. Si vols, et puc vendre un cinturó més gran.',
     note: 'Portes {n} pocions a cada zona.',
     buy: 'Un flascó més · {n}',
     full: 'Al teu cinturó no n’hi cap cap més.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram el Ferrer',
-      talk: 'Acer senzill, preus honrats. Et traurà un gòblin de sobre.'
+      talk: 'Acer net, preus justos. Sense pressa.'
     },
     sunfordPeddler: {
       name: 'Tilly la Marxant',
-      talk: 'Anells! Amulets! Coses que he trobat i que segur que no he robat.'
+      talk: 'Anells, amulets, de tot una mica. Aquest potser fins i tot porta sort.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik el Mercader',
-      talk: 'Rei diu comerciar, així que Grik comerciar. Brillant per brillant. Brillant bo.'
+      talk: 'Ho ha fet la meva família. Bona feina, preu just.'
     },
     captainHale: {
       name: 'Capità Hale'
     },
     oakArmorer: {
       name: 'Odo l’Armer',
-      talk: 'La meitat del gènere ha anat a parar a les muralles. Emporta’t el que queda.'
+      talk: 'La meitat de les existències se n’han anat a la muralla. Emporta’t el que quedi, si et ve bé.'
     },
     oakMasterArmorer: {
       name: 'Mestre Odo',
-      talk: 'Has salvat aquesta vila. Per a tu trec la cuirassa bona de la rebotiga.'
+      talk: 'Ja he tret la bona planxa. Et mereixes més que ningú donar-hi un cop d’ull.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Esmolades, equilibrades, i venudes a qui pagui. Avui ets tu.'
+      talk: 'Esmolat, equilibrat i a bon preu. No toquis els talls.'
     },
     trainerShadow: {
       name: 'El Xiuxiueig'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'El Perista',
-      talk: 'Ni noms ni preguntes. El Sindicat es queda la seva part, tu el gènere.'
+      talk: 'Ni tu preguntes ni jo responc. El Sindicat se’n queda la seva part.'
     },
     trainerBlood: {
       name: 'Doctor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Mà de Martell',
-      talk: 'Forjat per nans. Si es trenca, has estat tu.'
+      talk: 'Tot forjat per nans, peça per peça. Si una es trenca, vull saber com.'
     },
     ironAetherWorks: {
       name: 'Voss l’Enginyaire',
-      talk: 'L’estudi del nucli que ha fet el Cercle ho ha canviat tot. Aguanta això. No m’hi apuntis.'
+      talk: 'Tot això ve d’estudiar el nucli. Compte, la majoria estan carregades.'
     },
     ironArmor: {
       name: 'Garrun Flanc de Ferro',
-      talk: 'Cuirassa que desvia la maça d’un gegant. Anells per a la resta.'
+      talk: 'Armadures als prestatges, anells a la safata.'
     },
     ironOrderArmor: {
       name: 'Intendent de l’Orde',
-      talk: 'L’Orde recorda qui va destruir el nucli. Les seves armeries són obertes per a tu.'
+      talk: 'Agafa el que et calgui. L’Orde cuida dels seus.'
     },
     trainerGeo: {
       name: 'El Vell Peu de Pedra'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Aquesta nit plourà, diu el meu genoll.',
-        '2': 'El teu genoll ho va dir la setmana passada.',
-        '3': 'I va ploure, oi? En algun lloc.'
+        '1': 'Aquesta nit plourà. El genoll em fa mal des d’aquest matí.',
+        '2': 'El genoll també ho va dir la setmana passada.',
+        '3': 'I va ploure, oi que sí? Només que no aquí.'
       },
       harvest: {
-        '1': 'Aquest és el millor ordi en anys.',
-        '2': 'Això ho dius cada any.'
+        '1': 'Aquest any l’ordi ha sortit molt bé.',
+        '2': 'A veure si ens el deixen collir.'
       },
       goblins: {
         '1': 'Els gòblins s’han endut tres gallines de la masia del Moliner.',
-        '2': 'Només tres? S’estan tornant mandrosos.',
-        '3': 'O tips.'
+        '2': 'Altra vegada? Ja és la segona aquest mes.',
+        '3': 'Algú hauria de fer alguna cosa amb aquelles coves.'
       },
       kingGone: {
-        '1': 'Diuen que el Rei Gòblin ha marxat per sempre.',
-        '2': 'Llavors, qui m’ha estat robant els naps?'
+        '1': 'Diuen que el Rei Gòblin és mort.',
+        '2': 'Bé. Potser ara dormiré una nit sencera.'
       },
       pact: {
-        '1': 'Avui un gòblin m’ha venut una cullera.',
-        '2': 'Era la teva cullera?',
-        '3': 'Sí, era. Però bon preu.'
+        '1': 'Aquest matí he comprat un cullerot a un gòblin.',
+        '2': 'I és bo?',
+        '3': 'Millor que el meu, la veritat. No ho diguis a ningú.'
       },
       bram: {
-        '1': 'Torna a picar en Bram. Des de l’alba!',
-        '2': 'Constant com un batec, aquest home.'
+        '1': 'En Bram porta a l’enclusa des d’abans de l’alba.',
+        '2': 'Es posa així quan està preocupat.'
       },
       pie: {
-        '1': 'És pastís de poma, el que olorem?',
-        '2': 'Ho era. En passat.',
-        '3': 'T’ho has menjat tot? Un altre cop?'
+        '1': 'Això que fa olor, és pastís de poma?',
+        '2': 'Ho era. Els nens l’han trobat primer.',
+        '3': 'En faré un altre. I aquest cop l’amagaré millor.'
       },
       road: {
-        '1': 'Ja ningú no pren el camí de les planes.',
-        '2': 'Amb bandits al mig, no.'
+        '1': 'Fa una setmana que ningú no va pel camí de les planes.',
+        '2': 'Amb bandits al mig, normal. No els puc culpar.'
       },
       hero: {
-        '1': 'Algú ha netejat el camí de les planes!',
-        '2': 'Ja era hora. El meu cosí em deu un carro.'
+        '1': 'Algú ha netejat de bandits el camí de les planes.',
+        '2': 'Gràcies al cel. Ara la meva germana podrà tornar a venir.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Dues de plata per una col. Dues!',
-        '2': 'És una col molt maca.',
-        '3': 'Tan maca no.'
+        '2': 'Aquests dies res no entra barat per la porta.',
+        '3': 'Doncs me’n cultivaré jo. Al terrat, si cal.'
       },
       watch: {
-        '1': 'La guàrdia ha doblat els guardes de la porta.',
-        '2': 'Bé. Així dormo millor.'
+        '1': 'Han doblat la guàrdia a la porta.',
+        '2': 'Millor. Així dormo una mica més tranquil.'
       },
       caravan: {
-        '1': 'La caravana d’espècies torna a anar tard.',
+        '1': 'La caravana de les espècies torna a arribar tard.',
         '2': 'Bandits?',
-        '3': 'O el conductor ha trobat una taverna.'
+        '3': 'O fang. A veure si és fang.'
       },
       siege: {
-        '1': 'Diuen que un exèrcit acampa als afores.',
-        '2': 'Millor que omplim el celler.'
+        '1': 'Hi ha un exèrcit acampat més enllà de les masies.',
+        '2': 'Aleshores val més que omplim el celler mentre podem.'
       },
       saved: {
-        '1': 'Has vist com queia el setge? Magnífic!',
-        '2': 'Jo ho he vist des de sota el llit.',
-        '3': 'També compta.'
+        '1': 'Eres a la muralla quan es va trencar el setge?',
+        '2': 'Jo m’amagava sota el llit, si t’he de ser sincer.',
+        '3': 'I mig poble també. Però som aquí, que és el que compta.'
       },
       fountain: {
         '1': 'He llançat una moneda a la font per sort.',
-        '2': 'I jo l’he pescada. Gràcies!'
+        '2': 'Espero que hagis demanat cols més barates.'
       },
       ash: {
-        '1': 'Tot fa olor de cendra.',
-        '2': 'Millor que no fer olor de res.'
+        '1': 'Tot encara fa olor de fum.',
+        '2': 'Passarà. Tot passa, al final.'
       },
       hide: {
-        '1': 'Has sentit botes aquí fora, ahir a la nit?',
-        '2': 'Calla. Parla més baix.',
-        '3': 'Perdó. Perdó.'
+        '1': 'Has sentit passos de botes pel carrer aquesta nit?',
+        '2': 'Més baix. No saps qui t’escolta.',
+        '3': 'Perdona. És que… perdona.'
       },
       bread: {
-        '1': 'He trobat mig pa. El podem partir.',
+        '1': 'He trobat mitja barra de pa. Té, agafa’n una mica.',
         '2': 'Ets un bon cor. Gràcies.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Bona veta de coure al quart nivell.',
-        '2': 'Coure? Jo vull or.',
-        '3': 'Tu el que vols és una becaina.'
+        '2': 'Coure. Jo esperava plata.',
+        '3': 'El coure paga el lloguer. La plata paga els somnis.'
       },
       forge: {
-        '1': 'La gran farga fa cent anys que no s’apaga.',
-        '2': 'La pipa del meu avi tampoc.'
+        '1': 'La gran farga fa cent anys que no s’ha refredat.',
+        '2': 'El meu avi va ajudar a encendre-la, saps?'
       },
       beard: {
-        '1': 'T’has retallat la barba!',
-        '2': 'Va agafar foc a l’enclusa.',
-        '3': 'Et va bé, però.'
+        '1': 'T’has retallat la barba.',
+        '2': 'M’he acostat massa a l’enclusa.',
+        '3': 'Tornarà a créixer. I més curta et fa bona cara, de totes maneres.'
       },
       core: {
-        '1': 'Ara una cosa brilla a les mines fondes.',
-        '2': 'Allà baix res de bo no brilla.'
+        '1': 'Hi ha alguna cosa que brilla als pous profunds.',
+        '2': 'Allà baix no hi brilla res de bo. Queda’t a dalt.'
       },
       order: {
-        '1': 'Els armers de l’Orde treballen de pressa.',
-        '2': 'De pressa, sí. Però no tan bé com nosaltres.'
+        '1': 'Els armers de l’Orde treballen de pressa, això sí que ho dic.',
+        '2': 'De pressa, sí. Ja veurem què duri.'
       },
       circle: {
-        '1': 'Els mags del Cercle taral·legen mentre treballen.',
-        '2': 'Millor que el nostre cant, suposo.'
+        '1': 'La gent del Cercle taral·leja mentre treballa.',
+        '2': 'Almenys és millor que quan cantes tu.'
       },
       cold: {
-        '1': 'Fa fred aquí dalt, aquest matí.',
-        '2': 'Posa’t més a prop de la farga, doncs.'
+        '1': 'Quin fred que fa aquest matí.',
+        '2': 'Doncs vine a escalfar-te vora la farga.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'La portes tu!',
-        '2': 'No és just, no estava a punt!'
+        '1': 'Te la quedes!',
+        '2': 'Això no val, no estava a punt!'
       },
       dragon: {
         '1': 'Quan sigui gran, muntaré un drac.',
-        '2': 'Els dracs no es deixen muntar.',
-        '3': 'Els bons sí!'
+        '2': 'Els dracs no deixen que els munti ningú.',
+        '3': 'Un de maco potser sí.'
       },
       sword: {
-        '1': 'Mira, un bastó d’espasa de veritat!',
-        '2': 'És només un bastó.'
+        '1': 'Mira, he trobat una espasa!',
+        '2': 'És un pal.'
       },
       frog: {
-        '1': 'He trobat una granota vora el pou.',
+        '1': 'Hi ha una granota vora el pou.',
         '2': 'Ens la podem quedar?',
-        '3': 'Ella ens deu estar guardant a nosaltres.'
+        '3': 'La mare ha dit que no més granotes.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Per ara és tot.',
-      trade: 'Ensenya’m el gènere.',
-      train: 'Ensenya’m.',
-      heal: 'Cura’m.',
-      mana: 'Necessito alguna cosa per al manà.',
-      who: 'Qui ets?',
+      bye: 'Et deixo anar a la feina.',
+      trade: 'Puc veure què tens?',
+      train: 'Em vols ensenyar?',
+      heal: 'Em pots adobar una mica?',
+      mana: 'Tens alguna cosa per al manà?',
+      who: 'Qui ets, si no et sap greu que ho pregunti?',
       rumor: 'Has sentit alguna cosa últimament?',
-      ready: 'Estic a punt per a més?'
+      ready: 'Creus que estic a punt per a més?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Una cara nova. Ets el que va defensar el camí de les planes.',
-        '2': 'Sóc en Bram. Faig acer. Tu en deus necessitar.'
+        '1': 'Mai no t’havia vist. Ets tu qui ha netejat el camí?',
+        '2': 'Bram. La farga és meva. Si necessites una fulla, vine a mi.'
       },
       kingDead: {
-        '1': 'Diuen que el Rei Gòblin és mort. Bé. Menys abonyecs a les rodes de les caravanes.'
+        '1': 'He sentit que el Rei Gòblin és mort. No diré que el trobi a faltar.'
       },
       kingPact: {
-        '1': 'Gòblins comerciant a la plaça. Mai ho hauria dit. El seu ferro és una porqueria, això sí.'
+        '1': 'Gòblins fent tractes a la plaça. Mai no m’ho hauria imaginat.'
       },
       kingRansom: {
-        '1': 'Diuen que et vas quedar l’or del Rei i li vas deixar la corona. Les ràtzies tornaran.'
+        '1': 'Has deixat que el Rei Gòblin es quedi la corona. Tornarà, ja ho veuràs.'
       },
       ending: {
-        '1': 'Tot el regne parla d’aquell tron. I tu encara em compres a mi. Hm.'
+        '1': 'Tot el regne parla de tu. Però encara et fa falta una pedra d’esmolar?'
       },
       again: {
-        '1': 'Tornes. Bé. L’acer no es ven sol.'
+        '1': 'Ja tornes. Què et puc oferir?'
       },
       trade: {
-        '1': 'Acer senzill, preus honrats. Mira tot el que vulguis.'
+        '1': 'Acer net, preus justos. Fes una ullada.'
       },
       who: {
-        '1': 'Bram. Trenta anys a aquesta enclusa.',
-        '2': 'Ferro cavalls, adobo arades i armo ximples com tu. En aquest ordre.'
+        '1': 'Bram. Trenta anys a aquesta enclusa, més o menys.',
+        '2': 'Ferradures, arades, alguna espasa. Últimament, sobretot espases.'
       },
       gear: {
-        '1': 'Un escut, si penses que et donaran. Una espasa més gran, si no.',
-        '2': 'La Força mou el meu acer. Posa-hi els punts abans de comprar pesat.',
-        say: 'Què hauria de portar allà fora?'
+        '1': 'Un escut, si penses rebre cops. La majoria en reben.',
+        '2': 'L’acer pesat vol un braç fort. Treballa primer la Força.',
+        say: 'Què hauria d’emportar-me, allà fora?'
       },
       rumor: {
         plains: {
-          '1': 'Gòblins al camí de les planes. Neteja’ls abans de comprar res de luxe.'
+          '1': 'Hi ha bandits al camí de les planes. Jo començaria per allà, en el teu lloc.'
         },
         hollows: {
-          '1': 'Els saquejadors surten de les Coves dels Gòblins, més enllà de les planes. El seu rei és al fons.'
+          '1': 'Els gòblins vénen de les Coves, més enllà de les planes. El seu rei és allà baix.'
         },
         woods: {
-          '1': 'A l’est de les planes comença el Bosc dels Murmuris. Els arbres hi caminen. Porta una destral.'
+          '1': 'A l’est de les planes hi ha el Bosc dels Murmuris. Diuen que els arbres es mouen.'
         },
         siege: {
-          '1': 'Fum cap a Oakhaven. Diuen que un cabdill hi té el campament, als afores.'
+          '1': 'Hi ha fum cap a Oakhaven. Un exèrcit és acampat als afores.'
         },
         north: {
-          '1': 'L’acer d’Ironhold torna a ser al camí. Vés al nord si en vols de millor que el meu.'
+          '1': 'L’acer d’Ironhold torna a baixar pel camí. És millor que el meu, si t’he de ser sincer.'
         }
       },
       shopBack: {
-        '1': 'Que et vagi bé. O almenys que et vagi.'
+        '1': 'Cuida-ho i ho cuidarà a tu.'
       },
       bye: {
-        '1': 'Vigila el camí.'
+        '1': 'Vés amb compte.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, un client! O un guàrdia. No ets un guàrdia, oi?',
-        '2': 'Sóc la Tilly. Anells, amulets, coses de sort. Tot trobat, mai robat.'
+        '1': 'Ei, hola! Compres o només mires? Tant és.',
+        '2': 'Sóc la Tilly. Anells, amulets i coses de tot arreu.'
       },
       rival: {
-        '1': 'Has vist la parada del Grik? Quincalla gòblin! Estic arruïnada. Compra alguna cosa. Tingues pietat.'
+        '1': 'Has vist la parada del gòblin? Té els preus més baixos que els meus. No és just.'
       },
       again: {
-        '1': 'El meu client preferit! Això ho dic a tothom, però amb tu va de debò.'
+        '1': 'Ja has vingut! He apartat unes coses que crec que t’agradaran.'
       },
       trade: {
-        '1': 'Anells! Amulets! Coses que vaig trobar i que, per descomptat, no vaig robar.'
+        '1': 'Mira’n el que vulguis. Aquest porta sort. Crec.'
       },
       who: {
-        '1': 'Camino pels camins i recullo el que els camins deixen enrere.',
-        '2': 'Els bandits deixen caure coses precioses quan fugen.'
+        '1': 'Faig camí i compro el que la gent vol treure’s del damunt.',
+        '2': 'I a vegades trobo coses. Els bandits deixen caure un munt quan fugen.'
       },
       trinkets: {
-        '1': 'Te’n poses dos alhora, un a cada mà. Un petit avantatge també és un avantatge.',
-        say: 'Per a què serveixen els amulets?'
+        '1': 'En pots dur dos, un a cada mà. Allà fora, tot suma.',
+        say: 'Per a què serveixen, els amulets?'
       },
       stolen: {
-        '1': 'Xit! No tan fort. Està bé. D’ACORD.',
-        '2': 'Pren aquest anell i no hem parlat mai. És un anell bonic. Sobretot de coure.',
-        say: 'Tot això ho has robat, oi?'
+        '1': 'Ai. Tu tens una manera de preguntar, oi?',
+        '2': 'Agafa aquest anell i no parlem d’on el vaig trobar.',
+        say: 'D’on ha sortit tot això, de debò?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Al sud hi ha un colosseu amb les portes rovellades. S’obririen si s’acabés el problema dels gòblins.'
+          '1': 'Al sud d’aquí hi ha un vell colosseu. Tancat a pany i clau mentre els gòblins ataquin.'
         },
         arenaOpen: {
-          '1': 'El Colosseu és obert! Vuit onades, diuen. Jo venc sort. Et farà falta.'
+          '1': 'El colosseu torna a ser obert. Vuit onades, diuen. La gent hi aposta.'
         },
         east: {
-          '1': 'Els mercats d’Oakhaven paguen el doble per tot el que brilla. Vés a l’est, passat el bosc.'
+          '1': 'A Oakhaven paguen bé tot el que brilla. És a l’est, passat el bosc.'
         }
       },
       shopBack: {
-        '1': 'Torna quan siguis més ric!'
+        '1': 'Torna quan portis la bossa més plena!'
       },
       bye: {
-        '1': 'Vigila les butxaques allà fora! A prop meu no, vull dir. Pel món.'
+        '1': 'Bon viatge. Vigila els diners allà fora.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Posa’t dret. Tens davant un cavaller de l’Orde de Ferro.',
-        '2': 'Ser Aldric. Ensenyo l’escut als qui volen plantar-se davant dels altres.'
+        '1': 'Posa’t dret. Parles amb un cavaller de l’Orde de Ferro.',
+        '2': 'Ser Aldric. Ensenyo a plantar-se entre els altres i el mal.'
       },
       saved: {
-        '1': 'Oakhaven és dreta perquè tu et vas plantar. Això és tot el que ensenyo.'
+        '1': 'Oakhaven encara és dret, i he sentit que eres a la seva muralla. Ben fet.'
       },
       fallen: {
-        '1': 'Vas obrir la porta d’Oakhaven. He enterrat homes per menys. Digues què vols.'
+        '1': 'Vas obrir la porta d’Oakhaven. No faré veure que ho he oblidat. Què vols?'
       },
       dragon: {
-        '1': 'Un matadracs al meu pati. En cantaran a la gran sala.'
+        '1': 'Has matat el drac del pic? M’hauria agradat veure-ho.'
       },
       friend: {
-        '1': 'L’Orde parla bé de tu. Per als seus amics, les meves lliçons costen menys.'
+        '1': 'L’Orde té bon concepte de tu. Als seus amics, les meves lliçons els costen menys.'
       },
       foe: {
-        '1': 'L’Orde et declara enemic. Jo t’ensenyaré igualment. L’honor no els pertoca de revocar.'
+        '1': 'L’Orde et considera un enemic. T’ensenyaré igualment. Ho decideixo jo, no ells.'
       },
       again: {
-        '1': 'Escut alt. Què necessites?'
+        '1': 'Tornes per més exercicis?'
       },
       train: {
-        '1': 'Doncs presta atenció. Mostro una cosa un sol cop.'
+        '1': 'Bé. Mira bé, només t’ho ensenyaré una vegada.'
       },
       class: {
-        '1': 'Un mur que camina. Rebem el cop perquè ningú més l’hagi de rebre.',
-        '2': 'Força per al braç, Aguant per a tota la resta. La llum fa el que pot.',
-        say: 'Què és un Cavaller de l’Ègida?'
+        '1': 'Rebem els cops destinats als altres. És senzill, i és difícil.',
+        '2': 'Et caldrà Força per a l’escut i Aguant per mantenir-lo.',
+        say: 'Què fa, exactament, un Cavaller de l’Ègida?'
       },
       ready: {
         strong: {
-          '1': 'Tens braç per a quasi tot el que sé. Vigila l’Aguant i pren la resta.'
+          '1': 'Ja tens força per a gairebé tot el que sé. Segueix amb l’Aguant.'
         },
         able: {
-          '1': 'Estàs a punt per a la pròxima lliçó. Que no se’t pugi al cap.'
+          '1': 'Ja estàs a punt per a la lliçó següent. Que no se’t pugi al cap.'
         },
         weak: {
-          '1': 'Encara no. Tens el braç dèbil i et cansos de pressa. Més Força, més Aguant.'
+          '1': 'Encara no. T’esgotaries abans que l’escut. Més Força, més Aguant.'
         }
       },
       order: {
-        '1': 'Guardem els camins i la llei. Alguns diuen que massa de totes dues.',
-        '2': 'Posa’t de part de l’Orde, i els seus armers i els seus mestres et recordaran.',
+        '1': 'Mantenim els camins segurs i la llei a la mà. Alguns diuen que massa fermament.',
+        '2': 'Posa’t al nostre costat, i els nostres armers i mestres et recordaran.',
         say: 'Parla’m de l’Orde de Ferro.'
       },
       trainBack: {
-        '1': 'Practica-ho fins que t’avorreixi. Després practica més.'
+        '1': 'Practica fins que t’avorreixi. I després, continua.'
       },
       bye: {
-        '1': 'Que la llum t’acompanyi.'
+        '1': 'Vés amb cura.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Un alumne? Fes-te enrere una mica. Una mica més.',
-        '2': 'Ember Wren, piromàntica. Les celles tornen a créixer, gairebé sempre.'
+        '1': 'Oh, un alumne? Que bé. Potser et pots fer una mica enrere.',
+        '2': 'Sóc l’Ember Wren. Ensenyo foc. Quasi sempre fa el que li demano.'
       },
       core: {
-        '1': 'Vas donar el nucli al Cercle! Saps quantes coses podem cremar ara?'
+        '1': 'Has donat el nucli al Cercle! No veig l’hora de saber què n’aprendrem.'
       },
       friend: {
-        '1': 'Al Cercle de l’Èter li caus bé! Vol dir descompte. I menys papers per signar.'
+        '1': 'El Cercle parla molt bé de tu. Això vol dir descompte, per cert.'
       },
       foe: {
-        '1': 'El Cercle et vol fet cendra. Incòmode! Jo t’ensenyaré igualment. El foc no fa distincions.'
+        '1': 'El Cercle no està content amb tu. Però t’ensenyaré igualment. Sense fer soroll.'
       },
       again: {
-        '1': 'Has tornat! I no crema res. Ho podem arreglar.'
+        '1': 'Has tornat! Preparat per encendre alguna cosa?'
       },
       train: {
-        '1': 'Sí! Mira bé. Tan bé no.'
+        '1': 'Bé. Mira’m les mans, i allunya’m les mànigues.'
       },
       class: {
-        '1': 'El foc respon totes les preguntes. Crema’ls primer, i després fes esclatar els que cremen.',
-        '2': 'Tot va d’Intel·ligència. I d’un subministrament constant de túniques.',
-        say: 'Què fa un Piromàntic?'
+        '1': 'Calar foc a les coses, sobretot. I després fer que el foc vagi on tu vols.',
+        '2': 'Tot ve de la Intel·ligència. Com més viu el cap, més calent el foc.',
+        say: 'Què fa, exactament, un piromàntic?'
       },
       ready: {
         strong: {
-          '1': 'Podries fondre un gòlem! Pren tot el que tinc. Vigila la Perícia per als trucs difícils.'
+          '1': 'De debò? Podries ensenyar-ne una part tu. Agafa el que vulguis.'
         },
         able: {
-          '1': 'El teu cap està prou calent per al pròxim encanteri. Som-hi!'
+          '1': 'Ja estàs a punt per al següent encanteri. Vine, t’ho ensenyo.'
         },
         weak: {
-          '1': 'Hmm. Encara no tens prou Intel·ligència. El foc et faria servir a tu, i no al revés.'
+          '1': 'Encara no, em sap greu. Et cal més Intel·ligència, o el foc s’imposa.'
         }
       },
       circle: {
-        '1': 'Erudits. Estudiem de què és fet el món. Una part esclata.',
+        '1': 'Erudits. Estudiem de què és fet el món. Una part explota.',
         say: 'Qui són el Cercle de l’Èter?'
       },
       trainBack: {
-        '1': 'Ves a calar foc a alguna cosa! A alguna que s’ho mereixi.'
+        '1': 'Ves a practicar. En algun lloc que no s’encengui, si us plau.'
       },
       bye: {
-        '1': 'Mantén-te calent!'
+        '1': 'Cuida’t molt!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Així que ets tu, el del camí. Acosta’t, els meus ulls ja no són el que eren.',
-        '2': 'Sóc la Mara. Fa quaranta anys que porto el llibre de comptes d’aquest poble, i la seva pau.'
+        '1': 'Així que ets el del camí. Vine, deixa que et miri.',
+        '2': 'Sóc la Mara. Fa… uf, quaranta anys que cuido aquest poble.'
       },
       slain: {
-        '1': 'Les Coves són tranquil·les. Has fet una cosa difícil, i Sunford dorm gràcies a tu.'
+        '1': 'Les Coves estan en silenci. Va ser una cosa dura, però dormim gràcies a això.'
       },
       pact: {
-        '1': 'Gòblins venent quincalla a la meva plaça. Tens una llengua de plata, criatura. Espero que aguanti.'
+        '1': 'Gòblins venent a la meva plaça. Això ho has fet tu, oi? Els has convençut.'
       },
       ransom: {
-        '1': 'Et vas quedar el seu or i li vas deixar la corona. Sóc massa vella per fer veure que no m’ha decebut.'
+        '1': 'Vas agafar-li l’or i et vas deixar la corona. No faré veure que no m’ha decebut.'
       },
       saved: {
-        '1': 'Han arribat notícies d’Oakhaven. La porta ha resistit. M’alegro que hi fos un dels nostres.'
+        '1': 'Ha arribat notícia d’Oakhaven. La porta ha aguantat. M’alegra que hi fossis.'
       },
       fallen: {
-        '1': 'Oakhaven és cremada, i diuen que tu hi duies la torxa. No m’ho diguis. Prefereixo no saber-ho.'
+        '1': 'Diuen que Oakhaven ha cremat. Prefereixo no saber com. Avui, no.'
       },
       ending: {
-        '1': 'Diuen que has decidit qui seu a la Fortalesa del Terror. Del camí de Sunford fins a això. Imagina’t.'
+        '1': 'Diuen que has decidit el destí de la Fortalesa del Terror. Del nostre petit camí a això.'
       },
       again: {
-        '1': 'Seu un moment. El camí pot esperar.'
+        '1': 'Seu un moment. El camí continuarà allà.'
       },
       reward: {
-        '1': 'Vas defensar el camí quan la nostra milícia no va poder. El poble ha fet una col·lecta.',
-        '2': 'No és gaire. És cada moneda que hem pogut estalviar.',
-        say: 'Volies veure’m?'
+        '1': 'Vas defensar el camí quan la nostra milícia no va poder. El poble ha reunit una mica.',
+        '2': 'No és gaire. És el que hem pogut estalviar.',
+        say: 'Algú m’ha dit que em volies veure?'
       },
       quest: {
-        '1': 'Les ràtzies vénen de les Coves dels Gòblins. Els gòblins han coronat un rei.',
-        '2': 'I tu el vols mort.',
-        '3': 'Vull que s’acabin les ràtzies. Com, ho decidiràs tu, al fons d’aquelles coves.',
-        '4': 'Les Coves són just passades les planes. Vés amb compte.',
+        '1': 'Els atacs vénen de les Coves dels Gòblins. S’han coronat un rei.',
+        '2': 'I vols que sigui mort?',
+        '3': 'Vull que els atacs s’acabin. Com… això ho decidiràs tu, allà baix.',
+        '4': 'Les Coves són just passades les planes. Vés amb compte, si us plau.',
         say: 'Què preocupa Sunford?'
       },
       king: {
         say: 'Sobre el Rei Gòblin…',
         slay: {
-          '1': 'Un rei és mort i les meves caravanes arriben a l’hora. No et preguntaré què se sent.'
+          '1': 'Ja no hi és, i les caravanes tornen a passar. No et preguntaré què se sent.'
         },
         pact: {
-          '1': 'Un pacte! La meva mare s’hauria desmaiat. Tot i això, val més comerç que funerals.'
+          '1': 'Un pacte comercial. La meva mare s’hauria desmaiat. Tot i així, millor comerç que funerals.'
         },
         ransom: {
-          '1': 'L’or es gasta de pressa. Els rancors no. Recorda-ho quan tornin les ràtzies.'
+          '1': 'L’or s’acaba de seguida. Els rancors, no. Recorda-ho quan tornin els atacs.'
         }
       },
       town: {
-        '1': 'Pagesos, sobretot. Un ferrer, una curandera i dos mestres que ens aguanten.',
-        '2': 'Descansa aquí, gasta els teus punts i torna a sortir més fort. Per això serveix una llar.',
+        '1': 'Pagesos, sobretot. Un ferrer, una curandera, dos mestres que ens aguanten.',
+        '2': 'Descansa aquí entre viatge i viatge. Per això serveix casa.',
         say: 'Parla’m de Sunford.'
       },
       next: {
         say: 'On hauria d’anar ara?',
         plains: {
-          '1': 'El camí de les planes, abans que res. No podem menjar si les caravanes no passen.'
+          '1': 'El camí de les planes, primer. Sense caravanes, no mengem.'
         },
         hollows: {
-          '1': 'Primer les Coves dels Gòblins. Res més no és segur mentre durin les ràtzies.'
+          '1': 'Les Coves dels Gòblins. Res no és segur mentre els atacs continuïn.'
         },
         woods: {
-          '1': 'A l’est, pel Bosc dels Murmuris. El camí d’Oakhaven passa sota aquells arbres.'
+          '1': 'A l’est, pel Bosc dels Murmuris. Aquest és el camí cap a Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven està assetjada. Si cauen els afores, cau la vila.'
+          '1': 'Oakhaven és assetjada. Si cauen els afores, la vila cau amb ells.'
         },
         north: {
-          '1': 'Al nord, criatura. Els Penyals de Cendra, i Ironhold més enllà. El perill creix com més lluny vas.'
+          '1': 'Cap al nord, crec. Els Penyals de Cendra, i més enllà Ironhold. Només es posa més difícil.'
         }
       },
       bye: {
-        '1': 'Torna viu. Això és tot el que demano a ningú.'
+        '1': 'Torna sencer. Només et demano això.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Quiet. No, estàs bé. Costum.',
-        '2': 'Germana Lune. Adobo el que el camí trenca.'
+        '1': 'Estigues quiet un moment. No, estàs bé. Costum, perdona.',
+        '2': 'Sóc la Germana Lune. Adobo el que el camí trenca.'
       },
       again: {
-        '1': 'Encara sencer? Gairebé em decep.'
+        '1': 'Encara sencer? Bé. Seu igualment.'
       },
       heal: {
-        '1': 'Seu. Descansa. D’aquí en surts sencer, amb tots els flascons plens.'
+        '1': 'Seu i descansa una estona. T’ompliré els flascons abans que marxis.'
       },
       mana: {
-        '1': 'Flascó blau, gust amarg. Beu-ne quan els encanteris s’acabin.'
+        '1': 'Aquesta és amarga. Beu-la quan et quedis sense encanteris.'
       },
       potions: {
-        '1': 'Portes uns quants flascons a cada zona. Beu abans de necessitar-ne un, no després.',
-        '2': 'Si en vols portar més, et puc vendre un cinturó més llarg.',
+        '1': 'Portes uns quants flascons a cada combat. Beu abans de necessitar-ho, no després.',
+        '2': 'Si en vols portar més, et puc vendre un cinturó més gran.',
         say: 'Com funcionen les pocions?'
       },
       rumor: {
         goblins: {
-          '1': 'Els gòblins emmetzinen les pedres de les fones. Si et poses verd, torna de seguida.'
+          '1': 'Els gòblins unten amb no sé què les pedres de les foneres. Si et trobes malament, torna.'
         },
         spiders: {
-          '1': 'Picades d’aranya del Bosc. Tres aquesta setmana. Mira de no deixar-te picar.'
+          '1': 'Aquesta setmana he curat tres picades d’aranya del Bosc. Vigila on poses els peus.'
         },
         burns: {
-          '1': 'Del nord baixen soldats amb cremades. Els Penyals de Cendra, diuen. Foc que camina.'
+          '1': 'Van baixant soldats del nord amb cremades. Dels Penyals de Cendra, diuen.'
         }
       },
       healBack: {
-        '1': 'Mantén el cinturó ple i el cap baix.'
+        '1': 'Duu el cinturó ple i el cap cot.'
       },
       bye: {
-        '1': 'Mira de no sagnar sobre res important.'
+        '1': 'Cuida’t allà fora.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Alt! Alt fer pacte. Rei dir ser amable amb alt.',
-        '2': 'Grik ser amable. Grik tenir brillants. Alt tenir or. Ser bona parella.'
+        '1': 'Ets tu qui ha fet el pacte. El meu rei diu que aquí ets benvingut.',
+        '2': 'Sóc el Grik. Venc el que fan els gòblins. Bona feina, preu just.'
       },
       again: {
-        '1': 'Alt tornar! Grik saber. Brillants cridar alt.'
+        '1': 'Amic. M’alegro de tornar-te a veure.'
       },
       trade: {
-        '1': 'Rei dir comerciar, així que Grik comerciar. Brillant per brillant. Brillant bo.'
+        '1': 'Mira, si et plau. Ho ha fet la meva família.'
       },
       king: {
-        '1': 'Rei ser gras i content. Ja no saquejar. Saquejar ser molta feina.',
-        '2': 'Rei dir alt tenir bona llengua. Ser lloança gòblin més alta. Gairebé.',
+        '1': 'Ara menja bé. Ja no hi ha atacs. El meu poble passa menys gana.',
+        '2': 'Parla sovint de tu. Amb respecte.',
         say: 'Com és el teu rei?'
       },
       town: {
-        '1': 'Humans rentar-se massa. Però pastissos! Grik no saber de pastissos.',
+        '1': 'La gent encara em mira. Però la fornera em dóna pastís. M’agrada el pastís.',
         say: 'Què et sembla Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Cosins de Grik cavar al nord, en roca negra. Dir que allà el foc caminar. Grik quedar-se aquí.'
+          '1': 'Els meus cosins caven a la roca negra del nord. Diuen que ara hi camina el foc.'
         },
         deep: {
-          '1': 'Llocs fondos despertar, alt. Gòblins sentir-ho als peus.'
+          '1': 'Alguna cosa es desperta als llocs fondos. Els gòblins ho noten a terra.'
         }
       },
       shopBack: {
-        '1': 'Bon tracte! Alt tornar, oi?'
+        '1': 'Gràcies. Torna quan vulguis.'
       },
       bye: {
-        '1': 'Adéu, alt! No morir. Morts no comprar res.'
+        '1': 'Vés amb bé, amic.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Una altra espasa. Bé. Vaig deixar de preguntar d’on surten.',
+        '1': 'Una espasa més. Bé. Ens cal tota la que puguem tenir.',
         '2': 'Capità Hale. Comando el que queda de la guàrdia d’Oakhaven.'
       },
       saved: {
-        '1': 'La porta ha resistit. Tres-cents anys, i ara un més. Et dec la meva vila.'
+        '1': 'La porta ha aguantat. Tres-cents anys, i un més. Te’n dec una.'
       },
       ending: {
-        '1': 'Has decidit el tron de la Fortalesa del Terror. Les meves muralles ara em semblen més petites.'
+        '1': 'Has decidit la Fortalesa del Terror, diuen. Les meves muralles semblen petites al seu costat.'
       },
       again: {
-        '1': 'Les muralles encara són dretes. Per avui.'
+        '1': 'Les muralles encara són dretes. Per avui, si més no.'
       },
       after: {
-        '1': 'Oakhaven recorda, amic. I jo també.'
+        '1': 'Que bé veure’t. Oakhaven no ho ha oblidat.'
       },
       quest: {
-        '1': 'L’exèrcit d’un cabdill ens té encerclats. En Krag. No lluita de franc.',
+        '1': 'Malament. Un cabdill anomenat Krag ens té encerclats, i no lluita de franc.',
         '2': 'Qui li paga?',
         '3': 'El Sindicat de Cendra. Volen una vila pròpia, i la nostra té muralles.',
-        '4': 'Trenca’l als Afores d’Oakhaven. Allà es decidirà tot.',
-        say: 'Com està la situació?'
+        '4': 'Desfés el seu campament als Afores d’Oakhaven. Allà s’acaba tot, d’una manera o d’una altra.',
+        say: 'Quina és la situació?'
       },
       siege: {
-        '1': 'Et van oferir un terç de la vila. Ho sé. A mi me’n van oferir un quart.',
-        '2': 'Ara el Sindicat et caça a tots els camins. Vigila’t l’esquena allà fora.',
+        '1': 'T’han ofert una tercera part de la vila, oi? A mi me’n van oferir una quarta.',
+        '2': 'Ara el Sindicat anirà darrere teu. Vigila’t l’esquena pels camins.',
         say: 'Sobre el setge…'
       },
       town: {
-        '1': 'Una vila comercial. Tot el que va de les planes a les muntanyes paga peatge aquí.',
-        '2': 'Per això tothom la vol. Per això jo no la cediré.',
+        '1': 'Una vila comercial. Tot el que va de les planes a les muntanyes hi paga peatge.',
+        '2': 'Per això tothom la vol. I per això jo no la deixaré.',
         say: 'Parla’m d’Oakhaven.'
       },
       order: {
-        '1': 'Serveixo Oakhaven. L’Orde i jo ens entenem, quasi cada dia. No és el mateix.',
-        say: 'Serveixes l’Orde de Ferro?'
+        '1': 'Responc davant d’Oakhaven. L’Orde i jo ens entenem quasi cada dia. No tots.',
+        say: 'Respons davant de l’Orde de Ferro?'
       },
       rumor: {
         crags: {
-          '1': 'Al nord del bosc la terra és negra i crema. Els Penyals de Cendra. Els cultistes alimenten els focs.'
+          '1': 'Al nord del bosc la terra és negra i crema. Els Penyals de Cendra. Cultistes, sobretot.'
         },
         mines: {
-          '1': 'Ironhold ha deixat d’enviar acer. Alguna cosa va malament a les seves mines.'
+          '1': 'Ironhold ha deixat d’enviar acer. Hi ha alguna cosa malament a les seves mines.'
         },
         north: {
-          '1': 'L’extrem nord s’ha quedat callat. Segons la meva experiència, el silenci és pitjor.'
+          '1': 'El nord llunyà s’ha quedat en silenci. Per la meva experiència, mai no és bon senyal.'
         }
       },
       bye: {
-        '1': 'Porta l’espasa a punt.'
+        '1': 'Tingues l’espasa a prop.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Si vols un elm, véns tard. Són tots a la muralla.',
-        '2': 'Odo. Armer. Cansat.'
+        '1': 'Si busques un elm, em sap greu. Són tots a la muralla.',
+        '2': 'Odo. Faig armadures. Últimament dormo poc.'
       },
       again: {
-        '1': 'Encara aquí. Encara curt de gènere.'
+        '1': 'Encara aquí. I encara curt de gairebé tot.'
       },
       trade: {
-        '1': 'La meitat del gènere ha pujat a les muralles. Emporta’t el que queda.'
+        '1': 'La meitat de les existències se n’han anat a la muralla. Emporta’t el que quedi, si et ve bé.'
       },
       who: {
-        '1': 'Fa vint anys que armo aquesta vila. Mai no havia pensat veure-la tota posada alhora.'
+        '1': 'Fa vint anys que armo aquest poble. Mai no l’havia vist tot armat alhora.'
       },
       armor: {
-        '1': 'Placa, si et quedes quiet. Cuir, si no. Túniques, si t’agrada morir.',
-        say: 'Quina armadura hauria de portar?'
+        '1': 'Planxa, si t’hi plantes. Cuir, si et mous. Túniques, si ets ràpid.',
+        say: 'Quin tipus d’armadura hauria de dur?'
       },
       rumor: {
         backRoom: {
-          '1': 'Si es trenca el setge, obro la rebotiga. La bona placa. Trenca’l per mi, vols?'
+          '1': 'Si el setge es trenca, obriré el magatzem del darrere. La bona planxa és allà.'
         }
       },
       shopBack: {
-        '1': 'Aguantarà. Probablement.'
+        '1': 'Aguantarà. Fins ara ha aguantat.'
       },
       bye: {
-        '1': 'Cap baix.'
+        '1': 'Abaixa el cap allà fora.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Tu! Entra. La rebotiga és oberta, i oberta PER A TU.',
-        '2': 'Ara em diuen Mestre Odo. El negoci va bé quan una vila és viva.'
+        '1': 'Ja has vingut! Passa. El magatzem és obert, i obert per a tu.',
+        '2': 'Ara em diuen Mestre Odo. Mira què fa una mica de pau pel negoci.'
       },
       ending: {
-        '1': 'De la meva porta a la Fortalesa del Terror. A tothom dic que et vaig fer l’armadura.'
+        '1': 'De la nostra porta a la Fortalesa del Terror. Dic a tothom que et vaig fer l’armadura.'
       },
       again: {
-        '1': 'L’heroi de la porta. Què serà avui?'
+        '1': 'Que bé veure’t. Què serà avui?'
       },
       trade: {
-        '1': 'Has salvat aquesta vila. La bona placa surt de la rebotiga per a tu.'
+        '1': 'La bona planxa ja és fora. Et mereixes de sobres donar-hi un cop d’ull.'
       },
       town: {
-        '1': 'Rica. Sorollosa. Plena de mercaders que es queixen del peatge.',
-        '2': 'És meravellosa. Fa una setmana que no dormo.',
+        '1': 'Mogut. Sorollós. Ple de mercaders que es queixen del peatge.',
+        '2': 'És meravellós. Fa setmanes que no tinc una hora tranquil·la.',
         say: 'Com va la vila?'
       },
       rumor: {
         mines: {
-          '1': 'El meu acer ve d’Ironhold, i Ironhold ha callat. Algú hauria de mirar les seves mines.'
+          '1': 'El meu acer ve d’Ironhold, i han callat. Algú hauria d’anar a veure les mines.'
         },
         tundra: {
-          '1': 'El millor mineral que he vist va sortir de la tundra. Els homes que el van portar no van tornar mai.'
+          '1': 'El millor mineral que he treballat va sortir de la tundra. Els homes que el van trobar no hi van tornar.'
         }
       },
       shopBack: {
-        '1': 'Si no et va bé, torna. Faré que et vagi bé.'
+        '1': 'Si no et va bé, torna’l. T’ho arreglo.'
       },
       bye: {
-        '1': 'La porta d’Oakhaven sempre és oberta per a tu. Només per a tu.'
+        '1': 'Aquí sempre ets benvingut.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Comprar o mirar? Mirar és gratis. Tocar costa un dit.',
-        '2': 'Senna. Venc talls. No pregunto per a què serveixen.'
+        '1': 'Mires o compres? Tant és. Només no toquis els talls.',
+        '2': 'Senna. Venc fulles. El que en facis és cosa teva.'
       },
       saved: {
-        '1': 'El setge s’ha trencat. Llàstima. La guerra va bé per al negoci. La pau, per cobrar deutes.'
+        '1': 'Així que el setge s’ha trencat. Bé per la vila. La guerra era millor per al meu negoci, això sí.'
       },
       again: {
         '1': 'Tornes per alguna cosa més esmolada?'
       },
       trade: {
-        '1': 'Esmolat, equilibrat i venut a qui pagui. Avui ets tu.'
+        '1': 'Esmolat, equilibrat i a bon preu. Sense pressa.'
       },
       who: {
-        '1': 'Vaig vendre espases als dos bàndols de tres guerres. Encara sóc aquí. Ells, quasi tots no.'
+        '1': 'He venut als dos bàndols de tres guerres. I encara sóc aquí. La majoria d’ells, no.'
       },
       rumor: {
         krag: {
-          '1': 'Els homes d’en Krag duen bon acer. Diners del Sindicat. Treu-los-el si pots.'
+          '1': 'Els homes d’en Krag porten bon acer. Diners del Sindicat. Val la pena agafar-lo, si pots.'
         },
         which: {
-          '1': 'Les fulles ràpides volen Destresa. Pistoles i arcs volen Perícia. Sàpigues quin ets abans de pagar-me.'
+          '1': 'Les fulles ràpides volen Destresa. Els arcs i les pistoles, Perícia. Sàpigues quin ets.'
         }
       },
       shopBack: {
-        '1': 'La sang es neteja. El rovell no. Greixa-la.'
+        '1': 'Tingues-la greixada. L’òxid fa malbé un bon tall més de pressa que l’os.'
       },
       bye: {
-        '1': 'No et moris devent-me diners.'
+        '1': 'Mira de no morir-te devent-me diners.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'No et giris. Era broma. Gira’t.',
-        '2': 'Em diuen el Xiuxiueig. Ensenyo a arribar sense que ningú ho noti.'
+        '1': 'No m’has sentit arribar pel darrere. Gairebé ningú no ho fa.',
+        '2': 'Em diuen el Xiuxiueig. Ensenyo a no deixar-se veure.'
       },
       fallen: {
-        '1': 'El poble és més callat ara. Menys guàrdies. M’agrada.'
+        '1': 'La vila és més tranquil·la ara. Menys guàrdies. Feina més fàcil, per a alguns de nosaltres.'
       },
       friend: {
-        '1': 'El Sindicat et té per amic. Els amics paguen menys. Els amics també saben massa.'
+        '1': 'El Sindicat et té per amic. Els amics paguen menys. Recorda-ho.'
       },
       foe: {
-        '1': 'El Sindicat et vol mort. A mi em van pagar per ensenyar, no per matar. Quina sort.'
+        '1': 'El Sindicat et vol mort. A mi em van pagar per ensenyar, no per matar. Així que, lliçons.'
       },
       again: {
-        '1': 'Fas més soroll que l’altra vegada. Ho treballarem.'
+        '1': 'Encara fas massa soroll. Hi treballarem.'
       },
       train: {
         '1': 'Doncs en silenci. Mira’m els peus, no les mans.'
       },
       class: {
-        '1': 'Un ganivet que ja és al teu darrere. Surt de la foscor, colpeja i desapareix.',
-        '2': 'Destresa sobretot. Perícia, quan vols que el tall compti.',
+        '1': 'Algú que ja és al teu darrere. Entra, un tall, i fora.',
+        '2': 'La Destresa és el més important. La Perícia, si vols que el tall compti.',
         say: 'Què és una Fulla d’Ombra?'
       },
       ready: {
         strong: {
-          '1': 'Et mous bé. Pren el que sé. Porta Perícia per al fum.'
+          '1': 'Ja et mous bé. Agafa la resta. Porta una mica de Perícia per al fum.'
         },
         able: {
-          '1': 'Bé. Tens les mans prou ràpides per al pas següent.'
+          '1': 'Tens les mans prou ràpides. Següent pas.'
         },
         weak: {
-          '1': 'Camines com un carro. Més Destresa. Després en parlem.'
+          '1': 'Encara no. Peses als peus. Treballa la Destresa.'
         }
       },
       syndicate: {
-        '1': 'Gent que va notar que les lleis es venen. No jutjo. Passo factura.',
+        '1': 'Gent que ha notat que la llei té preu. Jo no jutjo. Jo només cobro.',
         say: 'Qui és el Sindicat de Cendra?'
       },
       trainBack: {
-        '1': 'Ara ves a fer-ho on no et vegi ningú.'
+        '1': 'Ara practica allà on ningú no et vegi.'
       },
       bye: {
         '1': 'Mai no m’has vist.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Pots apropar-te. No tant.',
-        '2': 'Lord Castellan, de l’antiga sang d’Oakhaven. Ensenyo a comandar.'
+        '1': 'Pots acostar-te. Ja n’hi ha prou, d’aquí.',
+        '2': 'Lord Castellan, de la família més antiga d’Oakhaven. Ensenyo a comandar.'
       },
       saved: {
-        '1': 'La meva vila és dreta, i amb ella el nom de la meva família. Tens l’agraïment d’un senyor. Val molt.'
+        '1': 'La meva vila és dreta, i el nom de la meva família amb ella. Gràcies. De debò.'
       },
       friend: {
-        '1': 'Un amic de l’Orde. Reduiré la tarifa. No ho diguis a ningú.'
+        '1': 'Un amic de l’Orde. Et baixaré la tarifa. No ho expliquis, si us plau.'
       },
       foe: {
-        '1': 'L’Orde ha penjat el teu nom. T’ensenyaré igualment. Una moneda és una moneda, ai las.'
+        '1': 'L’Orde té el teu nom en una llista. T’ensenyaré igualment. Els diners són diners.'
       },
       again: {
-        '1': 'Ah. El meu súbdit més prometedor.'
+        '1': 'Ah, tu un altre cop. Continuem?'
       },
       train: {
-        '1': 'Molt bé. Observa com es dona una ordre.'
+        '1': 'Molt bé. Mira com es dóna una ordre, i com se segueix.'
       },
       class: {
-        '1': 'Per què lluitar sol quan altres ho poden fer per tu? Invoca guàrdies. Comanda’ls.',
-        '2': 'Cal Carisma. No es dirigeix murmurant.',
+        '1': 'Algú que no lluita sol. Crides els guàrdies, i lluiten per tu.',
+        '2': 'Cal Carisma. Ningú no segueix un líder que no pot sentir.',
         say: 'Què és un Gran Sobirà?'
       },
       ready: {
         strong: {
-          '1': 'Tens presència. Pren la resta de les meves lliçons, i posa’t ben dret.'
+          '1': 'Ara tens presència de debò. Agafa la resta de les meves lliçons.'
         },
         able: {
-          '1': 'La teva veu arriba lluny. Estàs a punt per a la pròxima lliçó.'
+          '1': 'La teva veu arriba lluny. Estàs a punt per a la lliçó següent.'
         },
         weak: {
-          '1': 'Ningú no et seguiria ni a la fleca. Més Carisma.'
+          '1': 'Em temo que encara ningú no et seguiria. Treballa el Carisma.'
         }
       },
       family: {
-        '1': 'Vam bastir les muralles on es planta el capità Hale. Ell ho oblida. Jo li ho recordo. Sovint.',
+        '1': 'Vam bastir les muralles on es planta el Capità Hale. Ell ho oblida. Jo li ho recordo.',
         say: 'Parla’m de la teva família.'
       },
       trainBack: {
-        '1': 'Ara ves i fes-te obeir.'
+        '1': 'Au, doncs. Guia algú.'
       },
       bye: {
-        '1': 'Pots retirar-te.'
+        '1': 'Bon dia.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'El següent! Ah. Pots caminar. Fa goig, el canvi.',
+        '1': 'El següent! Ah, vas caminant. Fa un canvi molt agradable.',
         '2': 'Germà Fenn. Quaranta ferits a la muralla, i només un jo.'
       },
       saved: {
-        '1': 'Cap ferit nou en tres dies! No sé què fer amb les mans.'
+        '1': 'Fa tres dies que no arriben ferits nous. Gairebé no sé què fer amb mi mateix.'
       },
       again: {
-        '1': 'Tu un altre cop, i encara caminant. M’agrada.'
+        '1': 'Tu un altre cop, i pel teu propi peu. Bé.'
       },
       heal: {
-        '1': 'Estira’t. No, al catre net. Ja està. Tots els flascons plens. Au, vés.'
+        '1': 'Estira’t aquí, al llit net. Ja està. Flascons plens, a la teva.'
       },
       mana: {
-        '1': 'Un brebatge de manà! Sap a monedes. Però funciona.'
+        '1': 'Beuratge de manà. Sap a monedes velles, però funciona.'
       },
       potions: {
-        '1': 'En un cinturó més llarg hi caben més flascons. Els venc. Els flascons els omplo de franc.',
+        '1': 'Amb un cinturó més llarg, sí. Els venc. Omplir els flascons és gratis.',
         say: 'Puc portar més pocions?'
       },
       rumor: {
         archers: {
-          '1': 'Els arquers d’en Krag apunten a les cames. Si no t’aturis, fallen.'
+          '1': 'Els arquers d’en Krag apunten baix. Si no t’aturis, quasi sempre fallaran.'
         },
         north: {
-          '1': 'Cremades, congelacions i un home que jura que una estàtua el va mossegar. El nord no és amable.'
+          '1': 'Veig cremades, congelacions, i un home que jura que una estàtua l’ha mossegat.'
         }
       },
       healBack: {
-        '1': 'Au, vés. La pròxima vegada vine a xerrar, no a cosir-te.'
+        '1': 'Au, ves. La propera vegada, vine a xerrar en comptes de a cosir-te.'
       },
       bye: {
-        '1': 'Camina, que passarà! Això és consell mèdic.'
+        '1': 'Cuida’t. I menja alguna cosa.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Sense noms. Però ets el que va obrir la porta. Aquest el conec.',
-        '2': 'Digue’m el Perista. Tot això va caure d’un carro.'
+        '1': 'Aquí no hi ha noms. Però sé qui va obrir la porta. Tothom ho sap.',
+        '2': 'Pots dir-me el Perista. Tot el que hi ha aquí ve d’algun lloc.'
       },
       foe: {
-        '1': 'Avui al Sindicat no li caus bé. El teu or, sí.'
+        '1': 'Ara mateix el Sindicat no t’estima gaire. Però el teu or és benvingut.'
       },
       again: {
-        '1': 'Ah. El meu millor client. Ningú no t’ha seguit? Bé.'
+        '1': 'Un altre cop. Espero que ningú no t’hagi seguit.'
       },
       trade: {
-        '1': 'Ni noms ni preguntes. El Sindicat es queda la seva part, tu el gènere.'
+        '1': 'Ni tu preguntes ni jo responc. El Sindicat se’n queda la seva part, tu et quedes la mercaderia.'
       },
       who: {
-        '1': 'Abans del foc venia espelmes. Legalment. Era penós.'
+        '1': 'Abans de l’incendi venia espelmes. Feina honrada. No donava per viure.'
       },
       armor: {
-        '1': 'Els armers han marxat, amic. Cremats. Tu ho deus saber.',
+        '1': 'Els armers se n’han anat, amic. Tu ho saps millor que jo, el perquè.',
         say: 'Teniu alguna armadura?'
       },
       rumor: {
         citadel: {
-          '1': 'L’any passat va aparèixer una fortalesa a l’extrem nord. Ningú no la va bastir. Els seus murs brunzeixen.'
+          '1': 'L’any passat va aparèixer una fortalesa al nord llunyà. Ningú no la va bastir.'
         },
         crystals: {
-          '1': 'Algú compra tots els cristalls del buit del mercat. Nosaltres no. Això em preocupa.'
+          '1': 'Algú compra tots els cristalls del buit que troba. No som nosaltres. Això m’amoïna.'
         }
       },
       shopBack: {
         '1': 'Mai no hi has estat.'
       },
       bye: {
-        '1': 'Vigila els enderrocs.'
+        '1': 'Vigila on poses els peus. Les runes es mouen.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Una visita. Vigila els pots.',
-        '2': 'Doctor Sangrel. Els nous amos d’Oakhaven no pregunten què ensenyo. Refrescant.'
+        '1': 'Una visita. Si us plau, no toquis els pots.',
+        '2': 'Doctor Sangrel. Els nous amos d’Oakhaven no pregunten què ensenyo. És reposant.'
       },
       found: {
-        '1': 'M’has trobat. Pocs busquen un doctor en un lloc com aquest.',
-        '2': 'Doctor Sangrel. Els pobles cremen els de la meva mena, així que treballo on no n’hi ha.'
+        '1': 'M’has trobat. No gaires vénen a buscar un doctor en un lloc com aquest.',
+        '2': 'Doctor Sangrel. Els pobles cremen la gent com jo, així que treballo on no n’hi ha.'
       },
       friend: {
-        '1': 'El Sindicat respon per tu. La meva tarifa és més baixa per als seus amics. Les meves exigències, no.'
+        '1': 'El Sindicat parla per tu. Als seus amics, cobro menys. Les meves exigències no canvien.'
       },
       foe: {
-        '1': 'El Sindicat em pagaria per la teva sang. Prefereixo que la gastis en les meves lliçons.'
+        '1': 'El Sindicat pagaria bé per la teva sang. Prefereixo que la gastis aquí.'
       },
       again: {
-        '1': 'Estàs pàl·lid. Bé. Va bé per a la feina.'
+        '1': 'Tens mala cara. Bé. Va bé per a la feina.'
       },
       train: {
-        '1': 'Arromanga’t la màniga. Farà mal. Aquesta és la gràcia.'
+        '1': 'Arromanga’t la màniga. Farà mal. Això és precisament el que es busca.'
       },
       class: {
-        '1': 'Pagues el poder amb la teva salut. Després te la beus de nou de l’enemic.',
-        '2': 'L’Aguant és la teva bossa. La Intel·ligència decideix com la gastes.',
+        '1': 'Pagues el poder amb la teva pròpia salut, i després el recuperes dels teus enemics.',
+        '2': 'L’Aguant és el que tens per gastar. La Intel·ligència és com ho gastes.',
         say: 'Què és un Alquimista de Sang?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Una constitució notable. Pots aprendre quasi tot.'
         },
         able: {
-          '1': 'La teva sang és prou forta per a la pròxima lliçó.'
+          '1': 'Ets prou robust per a la lliçó següent.'
         },
         weak: {
-          '1': 'Et desmaiaries al primer tall. Més Aguant, si us plau.'
+          '1': 'Et desmaiaries al primer tall. Primer treballa l’Aguant, si us plau.'
         }
       },
       jars: {
-        '1': 'Voluntaris. Quasi tots.',
+        '1': 'Mostres. Donades de bon grat, la majoria.',
         say: 'Què hi ha als pots?'
       },
       trainBack: {
-        '1': 'Pren notes. Per la ciència.'
+        '1': 'Pren notes, sisplau. M’agradaria saber com va.'
       },
       bye: {
-        '1': 'Mantén-te sa. Si no, no em serveixes de res.'
+        '1': 'Mantén-te sa. Ho dic de debò.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Així que ets tu, el que va obrir la porta. Seu. T’has guanyat una cadira.',
-        '2': 'Em diuen Madama Ash. Oakhaven ara és meva. En part, teva.'
+        '1': 'Així que ets tu qui va obrir la porta. Seu. T’has guanyat una cadira.',
+        '2': 'Em diuen Madama Ash. Ara Oakhaven és nostra. En part gràcies a tu.'
       },
       throneOurs: {
-        '1': 'El tron de la Fortalesa del Terror. Nostre. Ets la millor inversió que he fet mai.'
+        '1': 'La Fortalesa del Terror, a les nostres mans. Vas valer cada moneda.'
       },
       throneLost: {
-        '1': 'Vas regalar el tron. A algú altre. Ho parlarem. Avui no.'
+        '1': 'Has donat el tron a un altre. En parlarem. Avui, no.'
       },
       foe: {
-        '1': 'Ens has estat creuant. Seu igualment. M’agrada mirar un problema abans de resoldre’l.'
+        '1': 'Has treballat contra nosaltres. Seu igualment. M’agrada saber amb qui tracto.'
       },
       again: {
-        '1': 'El meu traïdor preferit. Què pot fer el Sindicat per tu?'
+        '1': 'Un altre cop. Què pot fer el Sindicat per tu?'
       },
       cut: {
-        '1': 'Un terç d’una ruïna, estimat. Aquí tens la part d’aquesta temporada.',
-        '2': 'Creixerà. Una ruïna és molt rendible quan ets amo del seu únic mercat.',
-        say: 'Em vas prometre un terç d’Oakhaven.'
+        '1': 'I la tindràs. Una part d’unes runes, de moment. Aquí tens la d’aquesta temporada.',
+        '2': 'Creixerà. Unes runes paguen molt bé quan ets l’amo de l’únic mercat.',
+        say: 'Em van prometre una part d’Oakhaven.'
       },
       syndicate: {
-        '1': 'El que vol tothom. Nosaltres només no fem veure el contrari.',
-        '2': 'Segueix sent amic nostre, i el Xiuxiueig i el Doctor et cobren menys. La lleialtat té tarifa.',
-        say: 'Què vol el Sindicat?'
+        '1': 'El que vol tothom. Només que nosaltres no ho dissimulem.',
+        '2': 'Segueix sent amic, i el Xiuxiueig i el Doctor et cobraran menys.',
+        say: 'Què vol realment el Sindicat?'
       },
       order: {
-        '1': 'És clar. Vas cremar un dels seus pobles. Porta més pocions.',
-        say: 'L’Orde de Ferro em caça.'
+        '1': 'És clar que sí. Vas cremar una de les seves viles. Porta pocions de més.',
+        say: 'L’Orde de Ferro em persegueix.'
       },
       rumor: {
         core: {
-          '1': 'Els nans han trobat alguna cosa a les mines. Un nucli. El vull. Porta’ns-el i digues un preu.'
+          '1': 'Els nans han trobat alguna cosa a les mines. Un nucli. Porta’ns-el i posa preu.'
         },
         sold: {
-          '1': 'El nucli ha arribat sa i estalvi. Hauries de veure què li fa a un pany.'
+          '1': 'El nucli ha arribat bé. No t’imagines què fa a un pany.'
         },
         north: {
-          '1': 'Tot el que val la pena robar s’ha mogut al nord. Nosaltres també.'
+          '1': 'Tot el que val la pena s’ha mogut cap al nord. Nosaltres també.'
         }
       },
       bye: {
-        '1': 'No et facis el desconegut. Els desconeguts els segueixen.'
+        '1': 'No et facis estrany. Als estranys els vigilem.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Has vingut per les mines. Et sento la pols a sobre.',
-        '2': 'Dorn. Mestre de Forja d’Ironhold. Tinc un problema gran com una muntanya.'
+        '1': 'Has pujat per les mines. Et sento la pols.',
+        '2': 'Dorn. Mestre de Forja d’Ironhold. I tinc un problema gran com una muntanya.'
       },
       destroyed: {
-        '1': 'La llum s’ha apagat i els gòlems són ferralla. Els meus miners van cantar ahir. Per primer cop en un any.'
+        '1': 'La llum s’ha apagat i els gòlems són ferralla. Anit els meus miners van cantar. Per primera vegada en un any.'
       },
       studied: {
-        '1': 'Foc blau a les meves fargues i túniques a les meves sales. La feina és bona. M’hi acostumaré, a les túniques.'
+        '1': 'Foc blau a les meves fargues i erudits amb túnica a les meves sales. Almenys la feina és bona.'
       },
       sold: {
-        '1': 'L’has venut. Els gòlems encara caminen i les meves mines encara són una tomba. Fora de la meva llum.'
+        '1': 'L’has venut. Els gòlems encara caminen, i les meves mines encara són una tomba. Deixa’m en pau.'
       },
       ending: {
-        '1': 'Així que el tron és decidit. Bé. Ara el regne pot tornar a discutir pel ferro.'
+        '1': 'Així que el tron ja està decidit. Bé. Potser ara podrem tornar a cavar.'
       },
       again: {
-        '1': 'Parla. La farga no espera.'
+        '1': 'Què hi ha? La farga no espera.'
       },
       quest: {
-        '1': 'Cavàvem buscant ferro i vam topar amb un cor. Un nucli d’èter. Batega, allà baix a la foscor.',
+        '1': 'Cavàvem per ferro i vam trobar un cor. Un nucli d’èter. Se li sent bategar.',
         '2': 'I els gòlems?',
-        '3': 'Caminen al seu ritme. Tres poders m’han escrit per demanar-lo. Tots amables. No em fio de cap.',
-        '4': 'Hi arribaràs primer, al fons de les Mines d’Ironhold. Després a tu et toca decidir.',
-        say: 'Què ha passat a les mines?'
+        '3': 'Es mouen al seu ritme. Tres poders m’han escrit demanant-lo. No em fio de cap.',
+        '4': 'Hi arribaràs el primer, al fons de les Mines d’Ironhold. Què passi llavors, depèn de tu.',
+        say: 'Què va passar allà baix, a les mines?'
       },
       core: {
         say: 'Sobre el nucli…',
         destroy: {
-          '1': 'Vas trencar una meravella per salvar la meva gent. L’Orde va enviar armers per agrair-ho. Jo vaig enviar cervesa.'
+          '1': 'Vas trencar una meravella per salvar la meva gent. L’Orde va enviar armers. Jo vaig enviar cervesa.'
         },
         study: {
-          '1': 'Els enginyaires del Cercle són bojos, però les seves pistoles apunten recte. Bon tracte.'
+          '1': 'La gent del Cercle és estranya, però les seves pistoles disparen dret. Prou just.'
         },
         sell: {
-          '1': 'Or. Ho vas fer per or. Espero que et mantingui calent.'
+          '1': 'Ho vas fer per or. Espero que t’escalfi.'
         }
       },
       town: {
@@ -2062,138 +2062,138 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'A l’est dels Penyals la terra es torna blanca. La Tundra Glaçada. Gegants, i morts que no es queden a terra.'
+          '1': 'A l’est dels Penyals la terra es torna blanca. La Tundra Glaçada. Gegants, i pitjor.'
         },
         citadel: {
-          '1': 'Els meus exploradors van veure una fortalesa al nord que l’any passat no hi era. No m’agraden les muntanyes noves.'
+          '1': 'Els meus exploradors han vist una fortalesa al nord que l’any passat no hi era. No m’agrada.'
         },
         fortress: {
-          '1': 'La Fortalesa del Terror és on tot acaba. Cada camí del nord porta a la seva porta.'
+          '1': 'Tot s’acaba a la Fortalesa del Terror. Tots els camins del nord hi porten.'
         }
       },
       bye: {
-        '1': 'Colpeja bé.'
+        '1': 'Que vagi bé.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Fora les mans de l’exposició. Això talla per les dues bandes.',
-        '2': 'Hilda Mà de Martell. Forjat per nans, cada peça.'
+        '1': 'Compte amb l’exposició. Aquestes són esmolades pels dos costats.',
+        '2': 'Hilda Mà de Martell. Cada peça d’aquí l’han forjat mans de nan.'
       },
       dragon: {
-        '1': 'Has matat el drac? Amb una de les MEVES? No? Menteix-me. Digues que era una de les meves.'
+        '1': 'Has matat el drac? Espero que fos amb una de les meves fulles.'
       },
       again: {
         '1': 'Tornes per acer de debò?'
       },
       trade: {
-        '1': 'Forjat per nans. Si es trenca, has estat tu.'
+        '1': 'Forjat per nans. Si una d’aquestes es trenca, voldré saber com.'
       },
       who: {
-        '1': 'La meva mare forjava per a reis. Jo forjo per a qui entri. Els temps canvien.'
+        '1': 'La meva mare forjava per a reis. Jo forjo per a qui entri per la porta.'
       },
       rumor: {
         golems: {
-          '1': 'Els gòlems de les mines són fets del nostre propi ferro. És vergonyós, francament.'
+          '1': 'Aquells gòlems d’allà baix són fets del nostre propi ferro. Fa mal, t’ho dic.'
         },
         arm: {
-          '1': 'Una fulla fa mitja feina. La teva Força fa la resta. No culpis la fulla.'
+          '1': 'Una bona fulla fa la meitat de la feina. La resta la fa la teva Força.'
         }
       },
       shopBack: {
-        '1': 'Torna-la sense tall i sabré que l’has fet servir.'
+        '1': 'Si me la tornes romba, sabré que l’has fet servir bé.'
       },
       bye: {
-        '1': 'Pega fort.'
+        '1': 'Colpeja fort.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Compte! Aquesta és carregada. I aquella també. La majoria, de fet.',
-        '2': 'Enginyaire Voss. El Cercle m’ha enviat a veure què ens podia ensenyar el nucli. Tot, resulta.'
+        '1': 'Compte, aquesta és carregada. La majoria ho són, de fet.',
+        '2': 'Enginyaire Voss. El Cercle m’ha enviat a estudiar el nucli. Ens ha ensenyat tantes coses.'
       },
       again: {
-        '1': 'Oh, bé, un provador. Vull dir, un client.'
+        '1': 'Ah, bé. He fet uns quants canvis des que vas venir.'
       },
       trade: {
-        '1': 'L’estudi del nucli que ha fet el Cercle ho ha canviat tot. Aguanta això. No m’hi apuntis.'
+        '1': 'Tot això ve d’estudiar el nucli. Només no m’apuntis.'
       },
       core: {
-        '1': 'Aquell ferro pot pensar, una mica. Intento no pensar-hi.',
+        '1': 'Aquest metall pensa, una mica. Intento no capficar-me amb això.',
         say: 'Què t’ha ensenyat el nucli?'
       },
       rumor: {
         heat: {
-          '1': 'Les pistoles funcionen amb Perícia, i s’escalfen. Pregunta a l’Engranatger Pim per la calor abans de fondre’t la mà.'
+          '1': 'Les pistoles funcionen amb Perícia, i s’escalfen. Pregunta a en Pim per la calor abans de socarrimar-te una mà.'
         }
       },
       shopBack: {
-        '1': 'Informa de qualsevol explosió! Per a les notes.'
+        '1': 'Digues-me com et va. Vaig prenent notes.'
       },
       bye: {
-        '1': 'Compte amb el retrocés!'
+        '1': 'Compte amb el retrocés.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Armadures. Anells a la safata.'
+        '1': 'Garrun. Armadures als prestatges, anells a la safata.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Has tornat. Què et cal?'
       },
       trade: {
-        '1': 'Placa que desvia la maça d’un gegant. Anells per a la resta.'
+        '1': 'Aquesta planxa atura el garrot d’un gegant. Mira-la.'
       },
       quiet: {
-        '1': 'No.',
-        say: 'No parles gaire.'
+        '1': 'No hi ha gaire res que valgui la pena dir.',
+        say: 'No parles gaire, oi?'
       },
       rumor: {
         giants: {
-          '1': 'Gegants a la tundra. Maces com troncs. Compra la placa pesada.'
+          '1': 'Gegants a la tundra. Garrots com troncs. Jo agafaria la planxa pesada.'
         },
         demons: {
-          '1': 'Dimonis al nord. Foc i urpes. Compra la placa pesada.'
+          '1': 'Dimonis al nord. Foc i urpes. Jo agafaria la planxa pesada.'
         }
       },
       shopBack: {
-        '1': 'Bé.'
+        '1': 'Bona elecció.'
       },
       bye: {
-        '1': 'Sí.'
+        '1': 'Cuida’t.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nom i assumpte. No. Ja sé el teu nom. Vas destruir el nucli.',
-        '2': 'Intendent de l’Orde de Ferro. Les seves armeries t’estan obertes.'
+        '1': 'Ets tu qui va destruir el nucli. L’Orde ho recorda.',
+        '2': 'Sóc l’intendent de l’Orde aquí. Els nostres arsenals són oberts per a tu.'
       },
       throneOurs: {
-        '1': 'L’Orde té la Fortalesa del Terror gràcies a tu. Descansa. És una ordre.'
+        '1': 'L’Orde té la Fortalesa del Terror, gràcies a tu. Descansa. T’ho has guanyat.'
       },
       foe: {
-        '1': 'L’Orde et té en una llista. Les meves ordres són vendre’t igualment. No m’agraden.'
+        '1': 'L’Orde et té en una llista. Les meves ordres diuen que et vengui igualment. Les compliré.'
       },
       again: {
-        '1': 'Requisició?'
+        '1': 'Què et cal?'
       },
       trade: {
-        '1': 'L’Orde recorda qui va destruir el nucli. Tria el que necessitis.'
+        '1': 'Agafa el que et calgui. L’Orde cuida dels seus.'
       },
       order: {
-        '1': 'Res. És estrany. Gaudeix-ne.',
+        '1': 'Res, de moment. No passa sovint. Gaudeix-ho.',
         say: 'Què vol l’Orde de mi?'
       },
       rumor: {
         throne: {
-          '1': 'L’Orde voldrà el tron de la Fortalesa del Terror. Recordarà qui es va posar de la seva part.'
+          '1': 'L’Orde voldrà el tron de la Fortalesa del Terror. Recordarà qui va ajudar.'
         }
       },
       shopBack: {
-        '1': 'Signa aquí. Es broma. L’Orde no fa bromes. Pots retirar-te.'
+        '1': 'Cuida-ho. És propietat de l’Orde fins que hi hagis sagnat.'
       },
       bye: {
-        '1': 'Pots retirar-te.'
+        '1': 'Continua.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'Em diuen el Vell Peu de Pedra. Escolto el terra. De vegades respon.'
       },
       core: {
-        '1': 'El batec de la muntanya ha canviat. Has estat tu. Ho ha notat.'
+        '1': 'La muntanya se sent diferent des que hi vas baixar. Més calmada, o més buida.'
       },
       dragon: {
-        '1': 'Ahir un drac va volar sobre el cim i no ens va cremar. Obra teva, em diuen.'
+        '1': 'Ahir un drac va sobrevolar el pic i ens va deixar en pau. Obra teva, em diuen.'
       },
       again: {
-        '1': 'Tu un altre cop. Les pedres deien que vindries.'
+        '1': 'Ja hi ets. Pensava que tornaries.'
       },
       train: {
-        '1': 'Planta els peus. Ho notes? No? Començarem per aquí.'
+        '1': 'Planta els peus. Ho notes? No? Doncs per aquí comencem.'
       },
       class: {
-        '1': 'Alcem murs, cridem pues i trenquem el terra quan cal.',
-        '2': 'Força per moure la pedra, Intel·ligència per demanar-li-ho bé.',
-        say: 'Què és un Geomàntic?'
+        '1': 'Alcem murs, fem sortir punxes i trenquem el terra quan cal.',
+        '2': 'Força per moure la pedra. Intel·ligència per saber on vol anar.',
+        say: 'Què fa un Geomàntic?'
       },
       ready: {
         strong: {
-          '1': 'La pedra ja et coneix. Aprèn la resta.'
+          '1': 'La pedra ja et coneix. Aprèn la resta quan estiguis a punt.'
         },
         able: {
-          '1': 'Peses prou per a la pròxima lliçó. És un elogi.'
+          '1': 'Ja estàs prou ferm per a la lliçó següent.'
         },
         weak: {
-          '1': 'La pedra encara no t’escolta. Més Força.'
+          '1': 'Encara no. La pedra no es mourà per tu. Treballa la Força.'
         }
       },
       factions: {
-        '1': 'Cap. Ordes, sindicats, cercles. La muntanya els sobreviu a tots.',
+        '1': 'Cap. Els ordes i els gremis vénen i se’n van. La muntanya es queda.',
         say: 'Quina facció serveixes?'
       },
       trainBack: {
-        '1': 'Ves amb suavitat. Després, sense.'
+        '1': 'Pren-t’ho amb calma. El terra té paciència.'
       },
       bye: {
         '1': 'Camina suau.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'No toquis allò! Ni allò. En realitat, posa’t a l’estora. L’estora és segura.',
-        '2': 'Engranatger Pim! Pistoles, torretes, indicadors de calor. Sobretot indicadors de calor.'
+        '1': 'Ah, espera, no toquis això! Ni allò. Posa’t a l’estora, l’estora és segura.',
+        '2': 'Engranatger Pim. Construeixo pistoles, torretes, i un munt d’indicadors de calor.'
       },
       core: {
-        '1': 'Ens vas donar el nucli! Fa nou dies que no dormo. Mira’m les mans. No me les miris.'
+        '1': 'Has donat el nucli al Cercle! Des de llavors gairebé no dormo. Però de gust.'
       },
       oracle: {
-        '1': 'El Cercle està furiós per l’oracle. Jo només construeixo coses. Si us plau, no els diguis que t’he ensenyat.'
+        '1': 'El Cercle és furiós per l’oracle. Jo només construeixo coses. Prefereixo no ficar-m’hi.'
       },
       friend: {
-        '1': 'Un amic del Cercle! Lliçons més barates per a tu. He omplert el formulari jo mateix.'
+        '1': 'Ets amic del Cercle, així que les teves lliçons són més barates. He fet el paperam.'
       },
       foe: {
-        '1': 'El Cercle diu que no t’he d’ensenyar. El Cercle també diu que no es proven coets a dins.'
+        '1': 'El Cercle diu que no t’he d’ensenyar. Ho faré igualment. No els ho diguis.'
       },
       again: {
-        '1': 'Oh, bé, encara tens tots els dits.'
+        '1': 'Ai, que bé, encara tens tots els dits.'
       },
       train: {
-        '1': 'Molt bé! Primer la seguretat. Després la part sorollosa.'
+        '1': 'Bé. Primer la seguretat, després la part sorollosa.'
       },
       class: {
-        '1': 'Pistoles, torretes i un indicador de calor. Dispara, construeix i allibera abans que et bloquegi.',
-        '2': 'Tot va de Perícia. Una mica d’Intel·ligència per a les màquines grans.',
+        '1': 'Pistoles, torretes i un indicador de calor. Dispara, construeix i ventila abans que es bloquegi.',
+        '2': 'Sobretot és Perícia. Una mica d’Intel·ligència per a les màquines grans.',
         say: 'Què és un Tècnic d’Èter?'
       },
       ready: {
         strong: {
-          '1': 'Podries desmuntar una torreta amb els ulls tancats! Pren les màquines grans.'
+          '1': 'Ja saps com moure’t amb una torreta. Agafa les màquines grans.'
         },
         able: {
-          '1': 'Mans fermes! Estàs a punt per al pròxim giny.'
+          '1': 'Mans fermes. Estàs a punt per a la següent.'
         },
         weak: {
-          '1': 'Et tremolen les mans. A mi també, però per altres motius. Més Perícia.'
+          '1': 'Encara et tremola una mica la punteria. Posa uns punts a la Perícia.'
         }
       },
       heat: {
-        '1': 'Tot es bloqueja uns segons. Allibera aviat. Allibera sovint. Jo en tinc les cicatrius.',
+        '1': 'Tot es bloqueja uns segons. Ventila d’hora, ventila sovint. Fia’t de mi.',
         say: 'Què passa si m’escalfo massa?'
       },
       trainBack: {
-        '1': 'Recorda: allibera la calor! ALLIBERA. LA. CALOR.'
+        '1': 'I recorda ventilar la calor abans que et ventili ella a tu.'
       },
       bye: {
-        '1': 'No facis explotar res!'
+        '1': 'Vés amb compte allà fora!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Fora les botes. No vull la pols a la meva terra.',
-        '2': 'Mare Brynja. He posat dues vegades cada os trencat d’aquesta muntanya.'
+        '1': 'Les botes a la porta, si us plau. Acabo de fregar.',
+        '2': 'Mare Brynja. He posat la majoria dels ossos trencats d’aquesta muntanya.'
       },
       ending: {
-        '1': 'Vas anar a la Fortalesa del Terror i en vas tornar. Seu. Et vull mirar.'
+        '1': 'Vas anar a la Fortalesa del Terror i vas tornar. Seu. Deixa que et miri.'
       },
       again: {
-        '1': 'Encara viu. Em diuen que és obra meva.'
+        '1': 'Encara viu. Bé. Seu.'
       },
       heal: {
-        '1': 'Seu. Beu això. No facis aquesta cara. Els flascons són plens.'
+        '1': 'Beu això, i no facis aquesta cara. Els flascons són plens.'
       },
       mana: {
-        '1': 'Pren. Té un gust pudent. Beu-ho quan se t’acabi la màgia, no abans.'
+        '1': 'Pren. Té un gust horrible. Beu-ho quan se t’acabi la màgia, no abans.'
       },
       potions: {
-        '1': 'Compra’m un cinturó més llarg. Cinc flascons és tot el que un cos pot portar i encara córrer.',
+        '1': 'Et puc vendre un cinturó més llarg. Cinc flascons és tot el que pot dur algú i encara córrer.',
         say: 'Puc portar més pocions?'
       },
       rumor: {
         tundra: {
-          '1': 'La tundra se’t queda els dits. Segueix movent-te allà fora, i no dormis a la neu.'
+          '1': 'La tundra s’emporta dits de mans i de peus. No t’aturis, i no t’adormis a la neu.'
         },
         temple: {
-          '1': 'Hi ha un temple negat passada la tundra. Les nagues no fan presoners.'
+          '1': 'Hi ha un temple negat passada la tundra. Les nagues d’allà no fan presoners.'
         },
         rift: {
-          '1': 'Sigui el que sigui allò de l’Esquerda del Buit, no es pot cosir. Acaba-ho de pressa.'
+          '1': 'Sigui el que sigui allò de l’esquerda, no ho puc cosir. No deixis que t’arribi.'
         }
       },
       healBack: {
-        '1': 'Au, vés. I menja alguna cosa.'
+        '1': 'Au, ves. I menja alguna cosa, estàs massa prim.'
       },
       bye: {
         '1': 'Torna sencer.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Tu. Vas obrir la meva porta.',
-        '2': 'Ara ensenyo des del celler d’un nan, perquè he de menjar. No ho confonguis amb perdó.'
+        '1': 'Tu. Ets tu qui em va obrir la porta.',
+        '2': 'Ara ensenyo en un celler, perquè he de menjar. No ho prenguis per perdó.'
       },
       ending: {
-        '1': 'Un tron s’ha decidit, i Oakhaven encara és cendra. Torna’m a explicar com va valer la pena.'
+        '1': 'Així que el tron ja està decidit, i Oakhaven és encara cendra. Espero que valgués la pena.'
       },
       again: {
-        '1': 'El traïdor torna. La meva tarifa no ha baixat.'
+        '1': 'Has tornat. La tarifa no ha canviat.'
       },
       train: {
-        '1': 'T’ensenyaré a comandar. No et puc ensenyar a merèixer-ho.'
+        '1': 'T’ensenyaré a comandar. Si ho mereixes, ja és una altra qüestió.'
       },
       class: {
-        '1': 'Un que és seguit. Els guàrdies responen a la crida i lluiten a la teva paraula.',
-        '2': 'Va de Carisma. En tens. Aquesta és la tragèdia.',
+        '1': 'Algú a qui els altres segueixen. Els guàrdies vénen quan crides i lluiten a la teva paraula.',
+        '2': 'Funciona amb Carisma. En tens. Això és el que fa tan difícil perdonar.',
         say: 'Què és un Gran Sobirà?'
       },
       ready: {
         strong: {
-          '1': 'Tens presència per a tot. El regne n’és més pobre.'
+          '1': 'Tens la presència per a tot. Voldria que l’haguessis fet servir millor.'
         },
         able: {
-          '1': 'Estàs a punt per a la pròxima lliçó. No me n’alegro.'
+          '1': 'Estàs a punt per a la lliçó següent. No faré veure que me n’alegri.'
         },
         weak: {
-          '1': 'Ni el guàrdia d’un traïdor seguiria aquesta veu. Més Carisma.'
+          '1': 'Encara ningú no et seguiria. Treballa el Carisma.'
         }
       },
       oakhaven: {
         '1': 'Tres-cents anys. La meva família va bastir aquelles muralles.',
-        '2': 'No m’ho expliquis. No hi ha preu que ho expliqui.',
+        '2': 'No m’ho expliquis, si us plau. Res del que diguis ho arreglarà.',
         say: 'Sobre Oakhaven…'
       },
       trainBack: {
-        '1': 'Vés. Comanda algú altre.'
+        '1': 'Vés. Practica amb un altre.'
       },
       bye: {
-        '1': 'Deixa’m.'
+        '1': 'Deixa’m, si us plau.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'L’has matada. Ho vaig veure mil cops abans que passés, i encara fa mal.',
+        '1': 'L’has matada. Feia anys que ho veia venir, i encara fa mal.',
         '2': 'Sóc el Guardià de les Hores. T’ensenyaré. Ella em va dir que ho faria.'
       },
       hello: {
-        '1': 'Véns tard. O d’hora. Ja t’ho he dit, crec.',
-        '2': 'Sóc el Guardià de les Hores. Ensenyo a teixir el temps. Hem començat fa un moment.'
+        '1': 'Ja hi ets. Feia temps que t’esperava. O t’hauré esperat.',
+        '2': 'Sóc el Guardià de les Hores. Ensenyo a doblegar una mica el temps.'
       },
       freed: {
-        '1': 'És lliure. Per primer cop, no sé què diràs després. És meravellós.'
+        '1': 'És lliure. Per primera vegada no sé què passarà després. És meravellós.'
       },
       friend: {
-        '1': 'El Cercle et dirà amic. Ja ho ha fet? Doncs el descompte és ara.'
+        '1': 'El Cercle té bon concepte de tu, així que les lliçons costen menys. Ho van decidir la setmana passada.'
       },
       foe: {
-        '1': 'El Cercle et perdonarà, en un futur que he vist. Fins llavors, t’ensenyo en silenci.'
+        '1': 'El Cercle està enfadat amb tu ara. Passarà. Fins llavors, ho portarem en silenci.'
       },
       again: {
-        '1': 'Benvingut. Benvingut. De nou.'
+        '1': 'Benvingut de nou. Arribes just a temps.'
       },
       train: {
-        '1': 'Mira. Et mostraré el que t’he mostrat.'
+        '1': 'Mira bé. I torna a mirar, un moment abans.'
       },
       class: {
-        '1': 'Aturem un enemic en el temps, accelerem un amic i desfem un error.',
-        '2': 'Intel·ligència per veure el fil, Perícia per estirar-lo.',
+        '1': 'Aturem un enemic en el temps, fem córrer un amic, i desfem un error.',
+        '2': 'Intel·ligència per veure el fil. Perícia per estirar-lo.',
         say: 'Què és un Teixidor del Temps?'
       },
       ready: {
         strong: {
-          '1': 'Tens bé el fil. La resta és teva quan vulguis.'
+          '1': 'Tens bé el fil. Agafa la resta quan vulguis.'
         },
         able: {
-          '1': 'Estàs a punt. Ahir també ho estaves.'
+          '1': 'Estàs a punt. Ho sabia abans que preguntessis.'
         },
         weak: {
-          '1': 'El fil et llisca entre els dits. Més Intel·ligència. Més Perícia.'
+          '1': 'El fil et llisca. Més Intel·ligència, i més Perícia.'
         }
       },
       oracle: {
         say: 'Parla’m de l’oracle.',
         freed: {
-          '1': 'Va veure tots els finals, i cap era seu. Ara n’hi ha un.'
+          '1': 'Va veure tots els finals menys el seu. Ara ho podrà descobrir.'
         },
         slain: {
-          '1': 'No es va resistir. Això també ho havia vist. Si us plau, no m’ho tornis a preguntar.'
+          '1': 'No s’hi va resistir. Ja ho havia vist. No em tornis a preguntar, si us plau.'
         },
         waits: {
-          '1': 'Veu tots els finals. És un do terrible. Sigues amable amb ella, al final.'
+          '1': 'Veu tots els finals. És una càrrega pesada. Tracta-la bé.'
         }
       },
       trainBack: {
-        '1': 'Haurà valgut la pena.'
+        '1': 'Tindrà sentit més endavant. Normalment en té.'
       },
       bye: {
-        '1': 'Fins abans.'
+        '1': 'Fins que ens tornem a veure. O abans.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Espera! Espera. Rei es rendeix!',
-          '2': 'Gòblins només saquejar perquè gòblins tenir gana. Ser veritat!',
-          '3': 'Potser alt i Rei fer un tracte?'
+          '1': 'Atura’t. Si us plau. Em rendeixo.',
+          '2': 'El meu poble ataca perquè té gana. Aquesta és la veritat.',
+          '3': 'Fem un tracte, millor. La teva gent i la meva.'
         },
         slay: {
-          '1': 'El Rei cau, i les Coves es dispersen.',
-          '2': 'Sunford dorm més tranquil, i l’Orde de Ferro es fixa en tu.',
-          say: 'Res de tractes. El teu regnat acaba aquí.'
+          '1': 'El Rei Gòblin cau, i les Coves es buiden.',
+          '2': 'Sunford dorm més tranquil·la, i l’Orde de Ferro sent el teu nom.',
+          say: 'Cap tracte. Els vostres atacs s’acaben aquí.'
         },
         pact: {
-          '1': 'Comerç? Rei jurar! Rei ESTIMAR comerç!',
-          '2': 'Mercaders gòblins s’instal·len a la plaça de Sunford, amb gènere que cap ferrer d’allà sabria fer.',
-          say: 'Atura les ràtzies i comercia amb Sunford. Jura-ho.'
+          '1': 'Comerç. Sí. Ho juro, per la meva corona.',
+          '2': 'Mercaders gòblins s’instal·len a la plaça de Sunford i venen coses que cap ferrer d’allà no sabria fer.',
+          say: 'Atureu els atacs i comercieu amb Sunford. Jura-ho.'
         },
         ransom: {
-          '1': 'Tot? Rei odiar alt. Prendre-ho. Prendre-ho i marxar.',
-          '2': 'Marxes carregat d’or gòblin. Les ràtzies tornaran. El Sindicat ho aprova.',
-          say: 'Lliura’m el teu tresor i et quedes la corona.'
+          '1': 'Tot? ...Molt bé. Agafa-ho, i vés-te’n.',
+          '2': 'Te’n vas amb or gòblin. Els atacs tornaran, però el Sindicat ho aprova.',
+          say: 'Dóna’m el teu tresor i et podràs quedar la corona.'
         }
       },
       siege: {
         ask: {
-          '1': 'Prou. Lluites bé.',
-          '2': 'El Sindicat paga millor del que aquesta vila pagarà mai.',
+          '1': 'Prou. Lluites bé, això t’ho concedeixo.',
+          '2': 'El Sindicat paga molt millor del que aquella vila pagarà mai.',
           '3': 'Obre’ns la porta aquesta nit, i un terç d’Oakhaven és teu.'
         },
         defend: {
-          '1': 'Doncs el Sindicat et caçarà a tots els camins. Recorda que t’ho vaig oferir.',
-          '2': 'La porta resisteix. Oakhaven s’enriqueix al seu darrere, i els seus mestres armers recorden el teu nom.',
+          '1': 'Doncs el Sindicat et caçarà per tots els camins. Recorda que t’ho vaig oferir.',
+          '2': 'La porta aguanta. Oakhaven s’enriqueix al seu darrere, i els seus armers recorden el teu nom.',
           say: 'La porta es queda tancada. Pren el teu exèrcit i marxa.'
         },
         betray: {
-          '1': 'Assenyat. Diré a Madama Ash que et posi una cadira.',
-          '2': 'Oakhaven crema. A les ruïnes s’hi obre un mercat negre, i un alquimista ensenya arts prohibides.',
-          '3': 'Els armers han marxat, i l’Orde de Ferro et diu traïdor.',
-          say: 'Un terç de la vila. Aquesta nit, la porta s’obre.'
+          '1': 'Assenyat. Madama Ash estarà contenta d’assabentar-se’n.',
+          '2': 'Oakhaven crema. Entre les runes s’obre un mercat negre, i un alquimista ensenya en secret.',
+          '3': 'Els armers se n’han anat, i l’Orde de Ferro et diu traïdor.',
+          say: 'Una tercera part de la vila. D’acord. La porta s’obrirà aquesta nit.'
         }
       },
       core: {
         ask: {
           '1': 'El Colós és ferralla. Mai no vaig pensar que ho veuria.',
-          '2': 'I allà és. El nucli. Encara brunzeix. Calent al tacte.',
-          '3': 'Hi has arribat primer. Què se’n farà?'
+          '2': 'I allà hi ha el nucli. Encara brunzeix. És calent, si el toques.',
+          '3': 'Has arribat el primer. Així que… què se’n farà?'
         },
         destroy: {
           '1': 'La llum s’apaga, i els gòlems cauen allà on són.',
-          '2': 'L’Orde de Ferro envia els seus armers a Ironhold en senyal d’agraïment.',
-          say: 'Fes-te enrere. El trencaré.'
+          '2': 'En agraïment, l’Orde de Ferro envia els seus propis armers a Ironhold.',
+          say: 'Fes enrere. El trencaré.'
         },
         study: {
-          '1': 'Entens prou del nucli per lliurar-lo sense despertar-lo.',
-          '2': 'En una estació, les fargues d’Ironhold produeixen enginys d’èter que ningú no havia vist.',
-          say: 'El Cercle l’hauria d’estudiar. Jo el puc treure sense perill.'
+          '1': 'En saps prou per moure el nucli sense despertar-lo.',
+          '2': 'En una temporada, les fargues d’Ironhold fan enginys d’èter que ningú no havia vist mai.',
+          say: 'El Cercle l’hauria d’estudiar. Crec que el puc treure d’aquí sense perill.'
         },
         sell: {
           '1': 'Or. Per allò que va matar els meus miners. Pren-lo i marxa.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'He vist aquest moment deu mil vegades.',
-          '2': 'En la meitat m’alliberes. En l’altra meitat t’emportes el que guardo.',
-          '3': 'Tria. Deixa’m per fi no saber què ve després.'
+          '1': 'He vist aquest moment més vegades de les que puc comptar.',
+          '2': 'En la meitat, m’alliberes. En l’altra meitat, t’emportes el que custodio.',
+          '3': 'Tria. M’agradaria, només una vegada, no saber què ve després.'
         },
         free: {
-          '1': 'Oh. Això no ho havia vist. No ho havia vist gens.',
-          '2': 'L’oracle s’enlaira per l’aigua i desapareix. El seu guardià de les hores es queda per ensenyar.',
-          say: 'Quieta. Et trenco les cadenes.'
+          '1': 'Oh. Això no ho havia vist. De debò que no ho havia vist.',
+          '2': 'L’oracle s’alça per l’aigua i desapareix. La seva alumna es queda a ensenyar.',
+          say: 'Estigues quieta. Et trenco les cadenes.'
         },
         slay: {
           '1': 'Sí. Aquesta és l’altra meitat.',
-          '2': 'No es resisteix. El Rellotge de Sorra del Guardià del Temps és teu.',
-          '3': 'La seva última deixeble fuig del temple, i el Cercle no perdona.',
+          '2': 'No s’hi resisteix. El Rellotge de Sorra del Guardià del Temps és teu.',
+          '3': 'La seva última alumna fuig del temple, i el Cercle no et perdonarà.',
           say: 'He vingut pel rellotge de sorra.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Prou. Tens ullals, petit.',
-          '2': 'El dimoni de la fortalesa va encadenar els meus. El vull veure cremar.',
+          '1': 'Prou. Tens dents, petit.',
+          '2': 'El dimoni de la fortalesa va encadenar els meus. Vull veure’l cremar.',
           '3': 'Mata’m, o deixa que t’ajudi a fer-ho.'
         },
         slay: {
           '1': 'La muntanya tremola quan el drac cau. El seu tresor és teu.',
           '2': 'L’Orde de Ferro canta el matadracs.',
-          say: 'Res de tractes amb dracs.'
+          say: 'Jo no negocio amb dracs.'
         },
         pact: {
-          '1': 'Pocs ho haurien demanat i haurien viscut. Molt bé, petit. Caçarem junts.',
-          '2': 'Quan marxis contra la Fortalesa del Terror, un drac serà al cel damunt teu.',
-          say: 'Doncs vola amb mi contra l’Arxidimoni.'
+          '1': 'Pocs s’atrevirien a demanar-ho. Molt bé. Caçarem junts.',
+          '2': 'Quan marxis cap a la Fortalesa del Terror, un drac volarà damunt teu.',
+          say: 'Doncs lluita amb mi contra l’Arxidimoni.'
         }
       },
       throne: {
         ask: {
           '1': 'Així que s’acaba. No pensava que series tu.',
-          '2': 'El meu tron no es queda buit, petit heroi. Mana la fortalesa, l’esquerda i els exèrcits de totes dues.',
-          '3': 'Tres emissaris ja esperen a la meva porta. Tria qui hereta les meves cadenes.'
+          '2': 'El meu tron no es quedarà buit. Qui el prengui comanda la fortalesa i l’esquerda.',
+          '3': 'Tres enviats ja esperen a la meva porta. Tria qui vindrà després.'
         },
         order: {
           '1': 'L’Orde posa guarnició a la fortalesa i segella el que pot.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'El Sindicat s’hi instal·la abans de l’alba.',
-          '2': 'Ara tot està en venda, fins i tot la pau.',
+          '2': 'A partir d’ara tot té preu, fins i tot la pau.',
           say: 'El Sindicat de Cendra s’ho ha guanyat.'
         },
         circle: {
-          '1': 'El Cercle converteix la fortalesa en una escola sobre una esquerda.',
-          '2': 'En diuen recerca. Tots els altres en diuen qüestió de temps.',
+          '1': 'El Cercle converteix la fortalesa en una escola damunt l’esquerda.',
+          '2': 'Ho diuen recerca. Tots els altres aguanten la respiració.',
           say: 'Que el Cercle de l’Èter se’l quedi.'
         },
         shatter: {
-          '1': 'Trenques el tron amb les teves mans. Ningú no tornarà a regnar des d’aquí.',
+          '1': 'Trenques el tron amb les teves pròpies mans. Ningú no tornarà a governar des d’aquí.',
           '2': 'Els emissaris marxen sense dir res.',
-          say: 'No l’hereta ningú. El trenco.'
+          say: 'Ningú se’l queda. El trenco.'
         },
         claim: {
           '1': 'El tron és fred, i et va a mida.',
           '2': 'Tres faccions descobreixen que tenen un enemic comú.',
-          say: 'Hi seuré jo mateix.'
+          say: 'Me’l quedo jo.'
         }
       }
     }

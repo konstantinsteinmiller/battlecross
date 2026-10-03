@@ -127,8 +127,8 @@ export default {
       mouse: 'Seko takai līdz skolotājam un noklikšķini uz viņa, lai parunātos.'
     },
     teach: {
-      touch: 'Pieskaries „Iemāci mani”, lai redzētu, ko šis skolotājs māca.',
-      mouse: 'Noklikšķini uz „Iemāci mani”, lai redzētu, ko šis skolotājs māca.'
+      touch: 'Pieskaries “Vai iemācīsi mani?”, lai redzētu, ko šis treneris māca.',
+      mouse: 'Noklikšķini uz “Vai iemācīsi mani?”, lai redzētu, ko šis treneris māca.'
     },
     learn: {
       touch: 'Pieskaries prasmei, tad Apgūt.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Atpirkt',
     deal: 'Darīts!',
     say: {
-      buy: 'Lieliska izvēle. Parūpējies par to.',
-      sell: 'Atradīšu tam labas mājas.',
-      back: 'Pārdomāji? Lūdzu, tieši tāda, kāda bija.',
-      poor: 'Atnāc ar smagāku maku.'
+      buy: 'Laba izvēle. Rūpējies par to, un tā parūpēsies par tevi.',
+      sell: 'Labi. Kāds to gribēs.',
+      back: 'Pārdomāji? Nekas, lūdzu.',
+      poor: 'Tas ir mazliet vairāk, nekā tev ir, diemžēl.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Apsēdies. Atpūties. No šejienes tu aizej vesels, un visas kolbas ir pilnas. Ja gribi nēsāt līdzi vairāk — to es varu pārdot.',
+    talk: 'Apsēdies un mazliet atpūties. Tavas kolbas atkal ir pilnas. Ja vēlies, varu pārdot lielāku jostu.',
     note: 'Dziras, ko ņem līdzi katrā zonā: {n}.',
     buy: 'Vēl viena kolba · {n}',
     full: 'Pie jostas vairāk vietas nav.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Kalējs Brams',
-      talk: 'Vienkāršs tērauds, godīgas cenas. No goblina pasargās.'
+      talk: 'Parasts tērauds, godīgas cenas. Neasti.'
     },
     sunfordPeddler: {
       name: 'Tirgone Tillija',
-      talk: 'Gredzeni! Amuleti! Lietas, ko es atradu un noteikti nenozagu.'
+      talk: 'Gredzeni, amuleti, sīkumi. Tas varbūt pat nes laimi.'
     },
     trainerAegis: {
       name: 'Sers Aldriks'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Tirgotājs Griks',
-      talk: 'Karalis teikt tirgot, Griks tirgot. Spīdīgs pret spīdīgs. Labs spīdīgs.'
+      talk: 'Mana ģimene to izgatavoja. Labs darbs, godīga cena.'
     },
     captainHale: {
       name: 'Kapteinis Heils'
     },
     oakArmorer: {
       name: 'Bruņukalis Odo',
-      talk: 'Puse manu preču aizgāja uz mūriem. Ņem, kas palicis.'
+      talk: 'Puse preču aizgāja uz mūra. Ņem, kas palicis, ja der.'
     },
     oakMasterArmorer: {
       name: 'Meistars Odo',
-      talk: 'Šī pilsēta ir glābta, pateicoties tev. Tev es iznesīšu labās bruņas no aizmugures istabas.'
+      talk: 'Labās plātņu bruņas ir ārā. Tu esi pelnījis paskatīties.'
     },
     oakWeapons: {
       name: 'Senna Asmene',
-      talk: 'Asi, līdzsvaroti un pārdoti tam, kurš maksā. Šodien tas esi tu.'
+      talk: 'Asi, līdzsvaroti, godīgas cenas. Neaiztiec asmeņus.'
     },
     trainerShadow: {
       name: 'Čuksts'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Uzpircējs',
-      talk: 'Ne vārdu, ne jautājumu. Sindikāts paņem savu daļu, tu paņem preci.'
+      talk: 'Nekādu jautājumu nevienā virzienā. Sindikāts ņem savu daļu.'
     },
     trainerBlood: {
       name: 'Doktors Sangrels'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Āmurroka',
-      talk: 'Rūķu kalts. Ja salūzt, vaina ir tevī.'
+      talk: 'Rūķu kalts, katrs gabals. Ja kāds salūzt, gribu zināt, kā.'
     },
     ironAetherWorks: {
       name: 'Amatnieks Voss',
-      talk: 'Loka pētījumi par kodolu mainīja visu. Paturi šo. Nevērs to pret mani.'
+      talk: 'Viss šeit radies, pētot kodolu. Uzmanīgi, vairums ir uzlādēti.'
     },
     ironArmor: {
       name: 'Garruns Dzelzssānis',
-      talk: 'Bruņas, kas aptur milža vāli. Pārējiem — gredzenu bruņas.'
+      talk: 'Bruņas uz statīviem, gredzeni paplātē.'
     },
     ironOrderArmor: {
       name: 'Ordeņa intendants',
-      talk: 'Ordenis atceras, kurš iznīcināja kodolu. Tā ieroču noliktavas tev ir atvērtas.'
+      talk: 'Ņem, kas vajadzīgs. Ordenis gādā par savējiem.'
     },
     trainerGeo: {
       name: 'Vecais Akmenspēda'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Līdz vakaram līs, saka mans celis.',
-        '2': 'Tavs celis to teica arī pagājušajā nedēļā.',
-        '3': 'Un taču lija. Kaut kur.'
+        '1': 'Šovakar līs. Celis sāp visu dienu.',
+        '2': 'To pašu tavs celis teica arī pagājušajā nedēļā.',
+        '3': 'Un lija, vai ne? Tikai ne šeit.'
       },
       harvest: {
-        '1': 'Labākie mieži daudzos gados, šie.',
-        '2': 'To tu saki katru gadu.'
+        '1': 'Šogad mieži labi izdevušies.',
+        '2': 'Cerēsim, ka mēs tos paturēsim.'
       },
       goblins: {
         '1': 'Goblini paņēma trīs vistas no Dzirnavnieka saimniecības.',
-        '2': 'Tikai trīs? Kļūst slinki.',
-        '3': 'Vai paēduši.'
+        '2': 'Atkal? Tā jau otro reizi šomēnes.',
+        '3': 'Kādam būtu kaut kas jādara ar tām alām.'
       },
       kingGone: {
-        '1': 'Saka, ka Goblinu karalis ir pazudis uz visiem laikiem.',
-        '2': 'Kas tad zog manas rācenes?'
+        '1': 'Saka, ka Goblinu karalis ir miris.',
+        '2': 'Labi. Varbūt tagad izguļos veselu nakti.'
       },
       pact: {
-        '1': 'Šodien goblins man pārdeva karoti.',
-        '2': 'Vai tā bija tava karote?',
-        '3': 'Jā, bija. Bet cena laba.'
+        '1': 'Šorīt nopirku kausu no goblina.',
+        '2': 'Vai labs?',
+        '3': 'Labāks par manējo, godīgi sakot. Nevienam neteic.'
       },
       bram: {
-        '1': 'Brams atkal sit. Kopš rītausmas!',
-        '2': 'Vienmērīgs kā sirdspuksts, tas cilvēks.'
+        '1': 'Brams pie lakta stāv kopš pirms rītausmas.',
+        '2': 'Viņš tāds ir, kad uztraucas.'
       },
       pie: {
-        '1': 'Vai tas ir ābolu pīrāgs, ko jūtu?',
-        '2': 'Bija. Pagātnē.',
-        '3': 'Tu apēdi visu? Atkal?'
+        '1': 'Vai tā ir ābolu pīrāga smarža?',
+        '2': 'Bija. Bērni atrada pirmie.',
+        '3': 'Izcepšu citu. Šoreiz paslēp labāk.'
       },
       road: {
-        '1': 'Neviens vairs nebrauc pa līdzenuma ceļu.',
-        '2': 'Ne jau ar banditiem uz tā.'
+        '1': 'Nedēļu neviens nav gājis pa līdzenuma ceļu.',
+        '2': 'Ne ar banditiem uz tā. Nevaru viņus vainot.'
       },
       hero: {
-        '1': 'Kāds ir attīrījis līdzenuma ceļu!',
-        '2': 'Pēdējais laiks. Mans brālēns man parādā ratus.'
+        '1': 'Kāds ir attīrījis līdzenuma ceļu no banditiem.',
+        '2': 'Paldies dievam. Mana māsa atkal var atbraukt ciemos.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Divi sudraba par kāpostu. Divi!',
-        '2': 'Tas ir ļoti skaists kāposts.',
-        '3': 'Ne jau tik skaists.'
+        '2': 'Šajās dienās nekas pa vārtiem neienāk lēti.',
+        '3': 'Tad es audzēšu savu. Uz jumta, ja vajadzēs.'
       },
       watch: {
-        '1': 'Sardze ir dubultojusi vārtu sargus.',
+        '1': 'Pie vārtiem sardzi ir dubultojuši.',
         '2': 'Labi. Tāpēc guļu mierīgāk.'
       },
       caravan: {
         '1': 'Garšvielu karavāna atkal kavējas.',
         '2': 'Banditi?',
-        '3': 'Vai arī vezums atrada krogu.'
+        '3': 'Vai dubļi. Cerēsim, ka dubļi.'
       },
       siege: {
-        '1': 'Saka, ka pievārtē apmetusies armija.',
-        '2': 'Tad labāk piepildīsim pagrabu.'
+        '1': 'Aiz lauku mājām ir apmetusies armija.',
+        '2': 'Tad labāk piepildīsim pagrabu, kamēr varam.'
       },
       saved: {
-        '1': 'Vai redzēji, kā pārtrūka aplenkums? Lieliski!',
-        '2': 'Es to redzēju no gultas apakšas.',
-        '3': 'Tāpat skaitās.'
+        '1': 'Vai tu biji uz mūra, kad aplenkums tika pārrauts?',
+        '2': 'Es slēpos zem gultas, ja godīgi.',
+        '3': 'Tāpat kā puse pilsētas. Bet mēs joprojām esam šeit.'
       },
       fountain: {
         '1': 'Iemetu strūklakā monētu laimei.',
-        '2': 'Un es to izzvejoju. Paldies!'
+        '2': 'Ceru, ka vēlējies lētākus kāpostus.'
       },
       ash: {
-        '1': 'Viss smaržo pēc pelniem.',
-        '2': 'Labāk nekā nesmaržot nekā.'
+        '1': 'Viss joprojām smaržo pēc dūmiem.',
+        '2': 'Pāries. Viss galu galā pāriet.'
       },
       hide: {
-        '1': 'Vai dzirdēji zābakus ārā pagājušajā naktī?',
-        '2': 'Šš. Runā klusāk.',
-        '3': 'Piedod. Piedod.'
+        '1': 'Vai tu vakar naktī dzirdēji zābakus uz ielas?',
+        '2': 'Ne tik skaļi. Nezini, kas klausās.',
+        '3': 'Piedod. Es tikai... piedod.'
       },
       bread: {
-        '1': 'Atradu pusmaizi. Varam to sadalīt.',
+        '1': 'Atradu pusi maizes. Lūk, paņem mazliet.',
         '2': 'Tu esi laba dvēsele. Paldies.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Laba vara dzīsla ceturtajā līmenī.',
-        '2': 'Varš? Es gribu zeltu.',
-        '3': 'Tu drīzāk gribi nosnausties.'
+        '2': 'Varš. Cerēju uz sudrabu.',
+        '3': 'Varš samaksā īri. Sudrabs samaksā par sapņiem.'
       },
       forge: {
-        '1': 'Lielā kalve nav izdzisusi simts gadus.',
-        '2': 'Tāpat kā mana vecvectēva pīpe.'
+        '1': 'Lielā smēde nav atdzisusi simts gadus.',
+        '2': 'Mans vectēvs palīdzēja to iedegt, zini.'
       },
       beard: {
-        '1': 'Tu apgriezi bārdu!',
-        '2': 'Tā aizdegās pie lakta.',
-        '3': 'Tev tomēr piestāv.'
+        '1': 'Tu esi apgriezis bārdu.',
+        '2': 'Piegāju par tuvu laktam.',
+        '3': 'Ataugs. Īsāka tev jebkurā gadījumā piestāv labāk.'
       },
       core: {
-        '1': 'Dziļajās raktuvēs tagad kaut kas spīd.',
-        '2': 'Nekas labs tur lejā nespīd.'
+        '1': 'Kaut kas spīd lejā dziļajās šahtās.',
+        '2': 'Nekas labs tur lejā nespīd. Paliec augšā.'
       },
       order: {
-        '1': 'Ordeņa bruņukaļi strādā ātri.',
-        '2': 'Ātri, jā. Bet ne tik labi kā mēs.'
+        '1': 'Ordeņa bruņukaļi strādā ātri, to var atzīt.',
+        '2': 'Ātri, jā. Redzēsim, cik ilgi turēs.'
       },
       circle: {
-        '1': 'Loka magi dungo, kamēr strādā.',
-        '2': 'Labāk nekā mūsu dziedāšana, man liekas.'
+        '1': 'Loka ļaudis dungo, kamēr strādā.',
+        '2': 'Vismaz labāk nekā tava dziedāšana.'
       },
       cold: {
-        '1': 'Šorīt šeit augšā ir auksti.',
-        '2': 'Tad stāvi tuvāk kalvei.'
+        '1': 'Šorīt briesmīgi auksts.',
+        '2': 'Tad nāc un nostājies pie smēdes.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Tu ķer!',
-        '2': 'Negodīgi, es nebiju gatavs!'
+        '1': 'Ķeksis, tagad tu ķer!',
+        '2': 'Tas nav godīgi, es nebiju gatavs!'
       },
       dragon: {
-        '1': 'Kad izaugšu, jājšu uz pūķa.',
-        '2': 'Pūķi neļauj sev virsū jāt.',
-        '3': 'Jaukie ļauj!'
+        '1': 'Kad izaugšu liels, jāšu uz pūķa.',
+        '2': 'Pūķi nelaiž sevi jāt.',
+        '3': 'Jauks varbūt laistu.'
       },
       sword: {
-        '1': 'Skaties, īsta zobena nūja!',
-        '2': 'Tā ir tikai nūja.'
+        '1': 'Skaties, es atradu zobenu!',
+        '2': 'Tā ir nūja.'
       },
       frog: {
-        '1': 'Pie akas atradu vardi.',
+        '1': 'Pie akas ir varde.',
         '2': 'Vai varam to paturēt?',
-        '3': 'Man šķiet, viņš patur mūs.'
+        '3': 'Mamma teica, vairs nekādu varžu.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Pagaidām tas ir viss.',
-      trade: 'Parādi savas preces.',
-      train: 'Iemāci mani.',
-      heal: 'Salāpi mani.',
-      mana: 'Man vajag kaut ko manai.',
-      who: 'Kas tu esi?',
+      bye: 'Neaizkavēšu tevi.',
+      trade: 'Vai drīkstu paskatīties, kas tev ir?',
+      train: 'Vai iemācīsi mani?',
+      heal: 'Vai varētu mani salāpīt?',
+      mana: 'Vai tev ir kaut kas manai?',
+      who: 'Kas tu esi, ja drīkstu pajautāt?',
       rumor: 'Vai dzirdēji kaut ko jaunu?',
-      ready: 'Vai esmu gatavs vairākam?'
+      ready: 'Vai tu domā, ka esmu gatavs vairākam?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Jauna seja. Tu noturēji līdzenuma ceļu.',
-        '2': 'Es esmu Brams. Es kaļu tēraudu. Izskatās, ka tev tas vajadzīgs.'
+        '1': 'Tevi iepriekš neesmu redzējis. Vai tu esi tas, kas attīrīja ceļu?',
+        '2': 'Brams. Es pieskatu smēdi. Ja vajag asmeni, nāc pie manis.'
       },
       kingDead: {
-        '1': 'Dzirdēju, ka Goblinu karalis ir miris. Labi. Mazāk iespiedumu, ko iztaisnot karavānu riteņiem.'
+        '1': 'Dzirdēju, ka Goblinu karalis ir miris. Pēc viņa man nepietrūks.'
       },
       kingPact: {
-        '1': 'Goblini tirgojas laukumā. Nekad nedomāju, ka to redzēšu. Viņu dzelzs gan ir drazas.'
+        '1': 'Goblini tagad tirgojas laukumā. Nekad nebiju domājis, ka to redzēšu.'
       },
       kingRansom: {
-        '1': 'Saka, ka tu paņēmi karaļa zeltu un atstāji viņam kroni. Reidi atgriezīsies.'
+        '1': 'Tu ļāvi Goblinu karalim paturēt kroni. Viņš atgriezīsies, zini.'
       },
       ending: {
-        '1': 'Visa valstība runā par to troni. Un tu tāpat pērc pie manis. Hm.'
+        '1': 'Visa valstība runā par tevi. Vai galoda tev tomēr vajag?'
       },
       again: {
-        '1': 'Atkal šeit. Labi. Tērauds pats sevi nepārdod.'
+        '1': 'Atkal šeit. Kā varu palīdzēt?'
       },
       trade: {
-        '1': 'Vienkāršs tērauds, godīgas cenas. Skaties, cik gribi.'
+        '1': 'Parasts tērauds, godīgas cenas. Paskaties apkārt.'
       },
       who: {
-        '1': 'Brams. Trīsdesmit gadu pie šī lakta.',
-        '2': 'Apkaļu zirgus, labāju arklus un apbruņoju tādus muļķus kā tu. Tādā secībā.'
+        '1': 'Brams. Apmēram trīsdesmit gadu pie šī lakta.',
+        '2': 'Pakavi, arkli, reizēm zobens. Pēdējā laikā galvenokārt zobeni.'
       },
       gear: {
-        '1': 'Vairogu, ja gaidi sitienus. Lielāku zobenu, ja negaidi.',
-        '2': 'Spēks šūpo manu tēraudu. Liec punktus tur, pirms pērc smagu.',
-        say: 'Ko man vajadzētu nest līdzi?'
+        '1': 'Vairogs, ja gaidi, ka dabūsi sitienus. Lielākā daļa dabū.',
+        '2': 'Smagam tēraudam vajag stipru roku. Vispirms trenē Spēku.',
+        say: 'Ko man vajadzētu ņemt līdzi?'
       },
       rumor: {
         plains: {
-          '1': 'Goblini uz līdzenuma ceļa. Iztīri tos, pirms pērc ko smalku.'
+          '1': 'Banditi līdzenuma ceļā. Es sāktu tur, ja būtu tavā vietā.'
         },
         hollows: {
-          '1': 'Laupītāji lien ārā no Goblinu alām, aiz līdzenuma. Viņu karalis sēž pašā dibenā.'
+          '1': 'Goblini nāk no Alām, aiz līdzenuma. Viņu karalis ir tur lejā.'
         },
         woods: {
-          '1': 'Austrumos no līdzenuma sākas Čukstošais mežs. Koki tur staigā. Ņem cirvi.'
+          '1': 'Uz austrumiem no līdzenuma ir Čukstošais mežs. Ļaudis saka, ka koki kustas.'
         },
         siege: {
-          '1': 'Dūmi Oukheivenas pusē. Saka, ka kara vadonis apmeties pievārtē.'
+          '1': 'Pret Oukheivenu paceļas dūmi. Nomalē ir apmetusies armija.'
         },
         north: {
-          '1': 'Aironholdas tērauds atkal ir uz ceļiem. Ej uz ziemeļiem, ja gribi labāku par manējo.'
+          '1': 'Aironholdas tērauds atkal nāk pa ceļu. Labāks par manējo, godīgi sakot.'
         }
       },
       shopBack: {
-        '1': 'Nēsā veselībā. Vai vismaz nēsā.'
+        '1': 'Rūpējies par to, un tā parūpēsies par tevi.'
       },
       bye: {
-        '1': 'Uzmanies uz ceļa.'
+        '1': 'Pieskati sevi.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ak, pircējs! Vai sargs. Tu taču neesi sargs?',
-        '2': 'Es esmu Tillija. Gredzeni, amuleti, laimes lietas. Viss atrasts, nekad nenozagts.'
+        '1': 'Ak, sveiks! Vai pirksi, vai tikai skaties? Der abi.',
+        '2': 'Es esmu Tillija. Gredzeni, amuleti, sīkumi no visām malām.'
       },
       rival: {
-        '1': 'Vai esi redzējis Grika letiņu? Goblinu sīkumi! Esmu izputējusi. Nopērc ko. Apžēlojies.'
+        '1': 'Vai esi redzējis goblina letiņu? Viņa cenas ir zemākas par manējām. Tas nav godīgi.'
       },
       again: {
-        '1': 'Mans mīļākais pircējs! To saku visiem, bet tev domāju nopietni.'
+        '1': 'Te nu tu esi! Atliku dažas lietas, kas, manuprāt, tev patiks.'
       },
       trade: {
-        '1': 'Gredzeni! Amuleti! Lietas, ko atradu un noteikti nenozagu.'
+        '1': 'Paskaties. Tas nes laimi. Droši vien.'
       },
       who: {
-        '1': 'Staigāju pa ceļiem un lasu, ko ceļi atstāj.',
-        '2': 'Banditi bēgot nomet skaistākās lietas.'
+        '1': 'Staigāju pa ceļiem un pērku, no kā ļaudis grib tikt vaļā.',
+        '2': 'Un dažreiz atrodu lietas. Banditi bēgot daudz ko pamet.'
       },
       trinkets: {
-        '1': 'Nēsā divas uzreiz, pa vienai katrā rokā. Maza priekšrocība tāpat ir priekšrocība.',
-        say: 'Kam der rotas?'
+        '1': 'Vari nēsāt divas, vienu uz katras rokas. Tur ārā tas saskaitās.',
+        say: 'Kam īsti der rotas?'
       },
       stolen: {
-        '1': 'Šš! Ne tik skaļi. Labi. LABI.',
-        '2': 'Ņem šo gredzenu, un mēs nekad neesam runājuši. Tas ir jauks gredzens. Galvenokārt varš.',
-        say: 'Tu to visu esi nozagusi, vai ne?'
+        '1': 'Aha. Tev ir savs veids, kā pajautāt, vai ne?',
+        '2': 'Ņem šo gredzenu un nerunāsim par to, kur es to atradu.',
+        say: 'No kurienes viss šis īsti ir?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Uz dienvidiem no šejienes ir kolizejs ar sarūsējušiem vārtiem. Tie atvērtos, ja goblinu nelaime beigtos.'
+          '1': 'Uz dienvidiem no šejienes ir vecs kolizejs. Cieši aizslēgts, kamēr goblini plēsoņo.'
         },
         arenaOpen: {
-          '1': 'Kolizejs ir atvērts! Astoņi viļņi, saka. Es tirgoju veiksmi. Tev tā būs vajadzīga.'
+          '1': 'Kolizejs atkal ir vaļā. Astoņi viļņi, esmu dzirdējis. Ļaudis liek derības.'
         },
         east: {
-          '1': 'Oukheivenas tirgi maksā divtik par visu, kas spīd. Ej uz austrumiem, garām mežam.'
+          '1': 'Oukheivena labi maksā par visu, kas spīd. Tā ir austrumos, aiz meža.'
         }
       },
       shopBack: {
-        '1': 'Atnāc, kad būsi bagātāks!'
+        '1': 'Atnāc, kad maciņš būs smagāks!'
       },
       bye: {
-        '1': 'Sargi kabatas tur ārā! Ne jau pie manis, es domāju. Citur.'
+        '1': 'Laimīgu ceļu. Cieši tur monētas tur ārā.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Stāvi taisni. Tu stāvi Dzelzs ordeņa bruņinieka priekšā.',
-        '2': 'Sers Aldriks. Es mācu vairogu tiem, kas grib stāvēt citu priekšā.'
+        '1': 'Iztaisnojies. Tu runā ar Dzelzs ordeņa bruņinieku.',
+        '2': 'Sers Aldriks. Es mācu cilvēkus nostāties starp citiem un briesmām.'
       },
       saved: {
-        '1': 'Oukheivena stāv, jo tu stāvēji. Tā ir visa mana mācība.'
+        '1': 'Oukheivena joprojām stāv, un dzirdu, ka tu biji uz tās mūra. Labi darīts.'
       },
       fallen: {
-        '1': 'Tu atvēri Oukheivenas vārtus. Esmu apglabājis vīrus par mazāku. Saki, ko vēlies.'
+        '1': 'Tu atvēri Oukheivenas vārtus. Neizlikšos, ka esmu aizmirsis. Ko tu vēlies?'
       },
       dragon: {
-        '1': 'Pūķu slepkava manā pagalmā. Par to dziedās lielajā zālē.'
+        '1': 'Vai tu nogalināji pūķi virsotnē? Es to labprāt būtu redzējis.'
       },
       friend: {
-        '1': 'Ordenis par tevi runā labi. Tā draugiem manas stundas izmaksā mazāk.'
+        '1': 'Ordenis par tevi domā labi. Tā draugiem manas nodarbības maksā mazāk.'
       },
       foe: {
-        '1': 'Ordenis tevi sauc par ienaidnieku. Es tevi tāpat mācīšu. Godu atņemt viņu varā nav.'
+        '1': 'Ordenis tevi sauc par ienaidnieku. Es tevi tāpat mācīšu. Tā ir mana izvēle, nevis viņu.'
       },
       again: {
-        '1': 'Vairogu augšā. Kas vajadzīgs?'
+        '1': 'Atgriezies uz vēl vingrinājumiem?'
       },
       train: {
-        '1': 'Tad klausies. Es parādu vienu reizi.'
+        '1': 'Labi. Skaties uzmanīgi, es parādīšu tikai vienu reizi.'
       },
       class: {
-        '1': 'Staigājoša siena. Mēs uzņemam sitienu, lai citiem nebūtu jāuzņem.',
-        '2': 'Spēks rokai, Izturība visam pārējam. Gaisma dara, ko var.',
-        say: 'Kas ir Egīdas bruņinieks?'
+        '1': 'Mēs uzņemam sitienus, kas bija paredzēti citiem. Tas ir vienkārši, un tas ir grūti.',
+        '2': 'Tev vajag Spēku vairogam un Izturību, lai to noturētu.',
+        say: 'Ko īsti dara Egīdas bruņinieks?'
       },
       ready: {
         strong: {
-          '1': 'Tev ir roka vairumam no tā, ko es protu. Rūpējies par Izturību un ņem pārējo.'
+          '1': 'Tu esi pietiekami stiprs lielākajai daļai no tā, ko protu. Turpini ar Izturību.'
         },
         able: {
-          '1': 'Tu esi gatavs nākamajai stundai. Neļauj tam kāpt galvā.'
+          '1': 'Tu esi gatavs nākamajai nodarbībai. Neļauj tam kāpt galvā.'
         },
         weak: {
-          '1': 'Vēl nē. Tava roka ir vāja, un tu ātri nogurusti. Vairāk Spēka, vairāk Izturības.'
+          '1': 'Vēl ne. Tu nogurtu ātrāk par vairogu. Vairāk Spēka, vairāk Izturības.'
         }
       },
       order: {
-        '1': 'Mēs sargājam ceļus un likumu. Daži saka, ka par daudz abu.',
-        '2': 'Stāvi ar Ordeni, un tā bruņukaļi un skolotāji tevi atcerēsies.',
+        '1': 'Mēs sargājam ceļus drošus un likumu spēkā. Daži saka, pārāk stingri.',
+        '2': 'Stājies mums blakus, un mūsu bruņukaļi un skolotāji tevi atcerēsies.',
         say: 'Pastāsti par Dzelzs ordeni.'
       },
       trainBack: {
-        '1': 'Trenējies, līdz apniks. Tad trenējies vēl.'
+        '1': 'Vingrinies, līdz kļūst garlaicīgi. Tad turpini.'
       },
       bye: {
-        '1': 'Ej ar gaismu.'
+        '1': 'Ej uzmanīgi.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Ak! Skolnieks? Atkāpies mazliet. Vēl mazliet.',
-        '2': 'Embera Rena, piromante. Uzacis atkal izaug, parasti.'
+        '1': 'Ak, skolnieks? Brīnišķīgi. Varbūt nostājies mazliet tālāk.',
+        '2': 'Es esmu Embera Rena. Es mācu uguni. Lielākoties tā dara, ko lūdzu.'
       },
       core: {
-        '1': 'Tu atdevi serdi Lokam! Vai zini, cik daudz lietu mēs tagad varam aizdedzināt?'
+        '1': 'Tu atdevi kodolu Lokam! Nevaru sagaidīt, ko no tā iemācīsimies.'
       },
       friend: {
-        '1': 'Ētera lokam tu patīc! Tas nozīmē atlaidi. Un mazāk veidlapu.'
+        '1': 'Loks par tevi runā labi. Tas, starp citu, nozīmē atlaidi.'
       },
       foe: {
-        '1': 'Loks grib tevi pārvērst pelnos. Neveikli! Es tevi tāpat mācīšu. Uguns nav izvēlīga.'
+        '1': 'Loks nav apmierināts ar tevi. Es tevi tāpat mācīšu. Klusi.'
       },
       again: {
-        '1': 'Tu esi atpakaļ! Un nekas nedeg. To var salabot.'
+        '1': 'Tu esi atpakaļ! Gatavs kaut ko aizdedzināt?'
       },
       train: {
-        '1': 'Jā! Skaties cieši. Ne tik cieši.'
+        '1': 'Labi. Skaties uz manām rokām un tur piedurknes tālāk no manis.'
       },
       class: {
-        '1': 'Uguns atbild uz katru jautājumu. Vispirms sadedzini tos, tad uzspridzini tos, kas deg.',
-        '2': 'Viss balstās uz Intelektu. Un nepārtrauktu tērpu piegādi.',
-        say: 'Ko dara Piromants?'
+        '1': 'Galvenokārt aizdedzina lietas. Tad liek ugunij izplatīties, kur vēlies.',
+        '2': 'Viss nāk no Intelekta. Jo asāks prāts, jo karstāka liesma.',
+        say: 'Ko īsti dara piromants?'
       },
       ready: {
         strong: {
-          '1': 'Tu varētu izkausēt golemu! Ņem visu, kas man ir. Rūpējies par Meistarību grūtajiem.'
+          '1': 'Godīgi? Daļu no šī tu varētu mācīt pats. Ņem, ko gribi.'
         },
         able: {
-          '1': 'Tavs prāts ir pietiekami karsts nākamajai burvestībai. Aiziet!'
+          '1': 'Tu esi gatavs nākamajai burvestībai. Nāc, parādīšu.'
         },
         weak: {
-          '1': 'Hmm. Vēl nepietiek Intelekta. Uguns izmantotu tevi, nevis otrādi.'
+          '1': 'Vēl ne, diemžēl. Tev vajag vairāk Intelekta, citādi uguns pārņem varu.'
         }
       },
       circle: {
-        '1': 'Zinātnieki. Mēs pētām, no kā sastāv pasaule. Daļa no tā eksplodē.',
+        '1': 'Mācītie. Mēs pētām, no kā sastāv pasaule. Daļa no tā eksplodē.',
         say: 'Kas ir Ētera loks?'
       },
       trainBack: {
-        '1': 'Ej un kaut ko aizdedzini! Kaut ko, kas to ir pelnījis.'
+        '1': 'Ej vingrināties. Kaut kur, kur nekas neaizdegas, lūdzu.'
       },
       bye: {
-        '1': 'Paliec siltumā!'
+        '1': 'Pieskati sevi!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Tātad tu esi tas no ceļa. Nāc tuvāk, manas acis vairs nav tādas kā agrāk.',
-        '2': 'Es esmu Mara. Četrdesmit gadus esmu vedusi pilsētas grāmatu un sargājusi tās mieru.'
+        '1': 'Tātad tu esi tas no ceļa. Nāc šurp, ļauj tevi apskatīt.',
+        '2': 'Es esmu Mara. Es pieskatu šo pilsētiņu... nu, jau četrdesmit gadus.'
       },
       slain: {
-        '1': 'Alas ir klusas. Tu paveici ko grūtu, un Sanforda tāpēc guļ mierīgi.'
+        '1': 'Alas ir klusas. Tas bija smags darbs, bet tā dēļ mēs guļam.'
       },
       pact: {
-        '1': 'Goblini pārdod sīkumus manā laukumā. Tev ir sudraba mēle, bērns. Ceru, ka tā izturēs.'
+        '1': 'Goblini pārdod lietas manā laukumā. Tu viņus pierunāji, vai ne?'
       },
       ransom: {
-        '1': 'Tu paņēmi viņa zeltu un atstāji viņam kroni. Esmu pārāk veca, lai izliktos, ka neesmu vīlusies.'
+        '1': 'Tu paņēmi viņa zeltu un atstāji viņam kroni. Neizlikšos, ka neesmu vīlusies.'
       },
       saved: {
-        '1': 'No Oukheivenas atnāca ziņa. Vārti izturēja. Priecājos, ka tur bija viens no mums.'
+        '1': 'No Oukheivenas atnāca ziņas. Vārti noturējās. Priecājos, ka tu tur biji.'
       },
       fallen: {
-        '1': 'Oukheivena ir nodedzināta, un saka, ka tu turēji lāpu. Nesaki. Es labāk nezinātu.'
+        '1': 'Saka, Oukheivena nodegusi. Nevēlos dzirdēt, kā. Ne šodien.'
       },
       ending: {
-        '1': 'Saka, ka tu izlēmi, kas sēdēs Šausmu cietoksnī. No Sanfordas ceļa līdz tam. Iedomājies.'
+        '1': 'Saka, ka tu izlēmi Šausmu cietokšņa likteni. No mūsu mazā ceļa līdz tam.'
       },
       again: {
-        '1': 'Apsēdies mirkli. Ceļš pagaidīs.'
+        '1': 'Apsēdies uz brīdi. Ceļš būs turpat arī pēc tam.'
       },
       reward: {
-        '1': 'Tu noturēji ceļu, kad mūsu milicija nevarēja. Pilsēta sarīkoja vākšanu.',
-        '2': 'Tas nav daudz. Tā ir katra monēta, ko varējām atlicināt.',
-        say: 'Vai gribēji mani redzēt?'
+        '1': 'Tu noturēji ceļu atvērtu, kad mūsu milicija nespēja. Pilsētiņa mazliet saziedoja.',
+        '2': 'Tas nav daudz. Tas ir, ko spējām atlicināt.',
+        say: 'Kāds teica, ka tu gribēji mani satikt?'
       },
       quest: {
-        '1': 'Reidi nāk no Goblinu alām. Goblini ir kronējuši karali.',
-        '2': 'Un tu gribi, lai viņš ir miris.',
-        '3': 'Es gribu, lai reidi beidzas. Kā, to izlemsi tu, tajās alās dibenā.',
-        '4': 'Alas ir tūlīt aiz līdzenuma. Ej uzmanīgi.',
+        '1': 'Reidi nāk no Goblinu alām. Viņi ir sev kronējuši karali.',
+        '2': 'Un tu gribi viņu miruša?',
+        '3': 'Es gribu, lai reidi beidzas. Kā... to tu izlemsi tur lejā.',
+        '4': 'Alas ir tūlīt aiz līdzenuma. Esi uzmanīgs, lūdzu.',
         say: 'Kas satrauc Sanfordu?'
       },
       king: {
-        say: 'Par Goblinu karali…',
+        say: 'Par Goblinu karali...',
         slay: {
-          '1': 'Karalis ir miris, un manas karavānas nāk laikā. Nejautāšu, kā tas bija.'
+          '1': 'Viņa vairs nav, un karavānas atkal brauc. Nejautāšu, kā tas bija.'
         },
         pact: {
-          '1': 'Pakts! Mana māte būtu noģībusi. Tomēr tirdzniecība ir labāka par bēru.'
+          '1': 'Tirdzniecības līgums. Mana māte būtu noģībusi. Tomēr tirdzniecība ir labāka par bērēm.'
         },
         ransom: {
-          '1': 'Zelts tiek iztērēts ātri. Dusmas ne. Atceries to, kad reidi atgriezīsies.'
+          '1': 'Zelts ātri beidzas. Ļaunums ne. Atceries to, kad sāksies reidi.'
         }
       },
       town: {
-        '1': 'Galvenokārt zemnieki. Kalējs, dziedniece un divi skolotāji, kas mūs panes.',
-        '2': 'Atpūties šeit, iztērē punktus un ej ārā stiprāks. Tam ir mājas.',
+        '1': 'Galvenokārt zemnieki. Kalējs, dziedniece, divi skolotāji, kas mūs paciež.',
+        '2': 'Atpūties šeit starp ceļojumiem. Tāpēc ir mājas.',
         say: 'Pastāsti par Sanfordu.'
       },
       next: {
         say: 'Kur man doties tālāk?',
         plains: {
-          '1': 'Līdzenuma ceļš, pirms visa cita. Mēs nevaram ēst, ja karavānas netiek cauri.'
+          '1': 'Vispirms līdzenuma ceļš. Bez karavānām mums nav ko ēst.'
         },
         hollows: {
-          '1': 'Vispirms Goblinu alas. Nekas cits nav drošs, kamēr turpinās reidi.'
+          '1': 'Goblinu alas. Nekas cits nav drošs, kamēr reidi turpinās.'
         },
         woods: {
-          '1': 'Uz austrumiem, cauri Čukstošajam mežam. Ceļš uz Oukheivenu iet zem tiem kokiem.'
+          '1': 'Uz austrumiem, cauri Čukstošajam mežam. Tas ir ceļš uz Oukheivenu.'
         },
         oakhaven: {
-          '1': 'Oukheivena ir aplenkta. Ja pievārte kritīs, kritīs arī pilsēta.'
+          '1': 'Oukheivena ir aplenkta. Ja pievārte krīt, krīt arī pilsēta.'
         },
         north: {
-          '1': 'Uz ziemeļiem, bērns. Pelnu klintis, un aiz tām Aironholda. Briesmas aug, jo tālāk ej.'
+          '1': 'Uz ziemeļiem, domāju. Pelnu klintis, un aiz tām Aironholda. Būs tikai grūtāk.'
         }
       },
       bye: {
-        '1': 'Atnāc atpakaļ dzīvs. Tikai to es lūdzu no ikviena.'
+        '1': 'Atgriezies pie mums vesels. Tas ir viss, ko lūdzu.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Stāvi mierīgi. Nē, tev viss kārtībā. Sena ieraža.',
-        '2': 'Māsa Lūna. Es labāju, ko ceļš salauž.'
+        '1': 'Stāvi mierīgi uz brīdi. Nē, tev viss kārtībā. Ieradums, piedod.',
+        '2': 'Es esmu māsa Lūna. Es lāpu, ko ceļš salauž.'
       },
       again: {
-        '1': 'Vēl vesels? Esmu gandrīz vīlusies.'
+        '1': 'Joprojām vesels? Labi. Tāpat apsēdies.'
       },
       heal: {
-        '1': 'Apsēdies. Atpūties. Tu aiziesi vesels, ar visām kolbām pilnām.'
+        '1': 'Sēdi, atpūties. Piepildīšu tavas kolbas, pirms dodies prom.'
       },
       mana: {
-        '1': 'Zila kolba, rūgta garša. Iedzer, kad burvestības beidzas.'
+        '1': 'Šī ir rūgta. Dzer, kad beidzas burvestības.'
       },
       potions: {
-        '1': 'Katrā zonā ņem līdzi dažas kolbas. Dzer, pirms tā vajadzīga, nevis pēc tam.',
-        '2': 'Ja gribi nest vairāk, varu pārdot garāku jostu.',
+        '1': 'Tu uz katru cīņu ņem dažas kolbas. Dzer, pirms vajag, nevis pēc.',
+        '2': 'Ja gribi nest vairāk, varu pārdot lielāku jostu.',
         say: 'Kā darbojas dziras?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblini saindē savus lingu akmeņus. Ja kļūsti zaļš, nāc tieši atpakaļ.'
+          '1': 'Goblini savus lingu akmeņus kaut kam ieziež. Ja kļūst slikti, atnāc atpakaļ.'
         },
         spiders: {
-          '1': 'Zirnekļu kodumi no Meža. Trīs šonedēļ. Centies netikt sakosts.'
+          '1': 'Šonedēļ ārstēju trīs zirnekļu kodienus no Meža. Uzmanies tur.'
         },
         burns: {
-          '1': 'Karavīri nāk no ziemeļiem ar apdegumiem. Pelnu klintis, saka. Uguns, kas staigā.'
+          '1': 'Karavīri no ziemeļiem arvien nāk ar apdegumiem. Pelnu klintis, saka.'
         }
       },
       healBack: {
-        '1': 'Turi jostu pilnu un galvu nolaistu.'
+        '1': 'Tur jostu pilnu un galvu nolaistu.'
       },
       bye: {
-        '1': 'Centies neasiņot uz kaut ko svarīgu.'
+        '1': 'Pieskati sevi tur ārā.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Garais! Garais darīja paktu. Karalis saka esi jauks pret garo.',
-        '2': 'Griks jauks. Griks ir mirdzošais. Garajam ir zelts. Laba pāra.'
+        '1': 'Tu esi tas, kas noslēdza līgumu. Mans karalis saka, ka esi šeit gaidīts.',
+        '2': 'Es esmu Griks. Pārdodu, ko dara goblini. Labs darbs, godīga cena.'
       },
       again: {
-        '1': 'Garais nāk atpakaļ! Griks zināja. Mirdzošais sauc garo.'
+        '1': 'Draugs. Labi tevi atkal redzēt.'
       },
       trade: {
-        '1': 'Karalis saka tirgo, tāpēc Griks tirgo. Mirdzošais pret mirdzošo. Labs mirdzošais.'
+        '1': 'Skaties, lūdzu. Mana ģimene to izgatavoja.'
       },
       king: {
-        '1': 'Karalis resns un laimīgs. Vairs nav reidu. Reidi ir smags darbs.',
-        '2': 'Karalis saka garajam laba mēle. Ir augstākais goblinu uzslavējums. Gandrīz.',
+        '1': 'Viņš tagad labi ēd. Reidu vairs nav. Mana tauta ir mazāk izsalkusi.',
+        '2': 'Viņš bieži runā par tevi. Ar cieņu.',
         say: 'Kā klājas tavam karalim?'
       },
       town: {
-        '1': 'Cilvēki mazgājas par daudz. Bet pīrāgs! Griks nezināja par pīrāgu.',
+        '1': 'Ļaudis joprojām blenž. Bet maiznieks man dod pīrāgu. Man patīk pīrāgs.',
         say: 'Kā tev patīk Sanforda?'
       },
       rumor: {
         crags: {
-          '1': 'Grika brālēni rok uz ziemeļiem, melnā akmenī. Saka, ka tur uguns staigā. Griks paliek šeit.'
+          '1': 'Mani brālēni rok melno klinti ziemeļos. Saka, ka tur tagad staigā uguns.'
         },
         deep: {
-          '1': 'Dziļās vietas mostas, garais. Goblini jūt kājās.'
+          '1': 'Kaut kas mostas dziļajās vietās. Goblini to jūt zemē.'
         }
       },
       shopBack: {
-        '1': 'Labs tirgus! Garais nāk vēlreiz, jā?'
+        '1': 'Paldies. Nāc vēlreiz.'
       },
       bye: {
-        '1': 'Atā, garais! Nemirsti. Miruši neko nepērk.'
+        '1': 'Ej mierā, draugs.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Vēl viens zobens. Labi. Esmu pārstājis jautāt, no kurienes tie nāk.',
+        '1': 'Vēl viens zobens. Labi. Mums vajag katru.',
         '2': 'Kapteinis Heils. Es komandēju to, kas palicis no Oukheivenas sardzes.'
       },
       saved: {
-        '1': 'Vārti izturēja. Trīssimt gadu, un nu vēlreiz. Esmu tev parādā savu pilsētu.'
+        '1': 'Vārti noturējās. Trīs simti gadu un vēl viens. Esmu tev parādā.'
       },
       ending: {
-        '1': 'Tu izlēmi Šausmu cietokšņa troni. Manas sienas šķiet mazākas nekā agrāk.'
+        '1': 'Saka, ka tu izlēmi Šausmu cietoksni. Mani mūri salīdzinājumā šķiet mazi.'
       },
       again: {
-        '1': 'Sienas vēl stāv. Šodien.'
+        '1': 'Mūri joprojām stāv. Vismaz šodien.'
       },
       after: {
-        '1': 'Oukheivena atceras, draugs. Un es arī.'
+        '1': 'Labi tevi redzēt. Oukheivena nav aizmirsusi.'
       },
       quest: {
-        '1': 'Kara vadoņa armija mūs ir ielenkusi. Krags. Viņš necīnās par velti.',
+        '1': 'Slikti. Kara vadonis vārdā Krags mūs ir ielenkis, un viņš necīnās par velti.',
         '2': 'Kas viņam maksā?',
         '3': 'Pelnu sindikāts. Viņi grib savu pilsētu, un mūsējai ir sienas.',
-        '4': 'Satriec viņu Oukheivenas pievārtē. Tur tiks izlemts.',
-        say: 'Kāda ir situācija?'
+        '4': 'Salauz viņa nometni Oukheivenas pievārtē. Tur tas beigsies, tā vai citādi.',
+        say: 'Cik slikti?'
       },
       siege: {
-        '1': 'Viņi piedāvāja tev trešdaļu pilsētas. Zinu. Man piedāvāja ceturtdaļu.',
-        '2': 'Sindikāts tagad medī tevi uz katra ceļa. Sargi muguru tur ārā.',
-        say: 'Par aplenkumu…'
+        '1': 'Viņi tev piedāvāja trešdaļu pilsētas, vai ne? Man piedāvāja ceturtdaļu.',
+        '2': 'Sindikāts tagad dzīsies tev pakaļ. Uzmanies uz ceļiem.',
+        say: 'Par aplenkumu...'
       },
       town: {
-        '1': 'Tirdzniecības pilsēta. Viss, kas pārvietojas starp līdzenumu un kalniem, šeit maksā nodevu.',
-        '2': 'Tāpēc to grib visi. Tāpēc es to neatdošu.',
+        '1': 'Tirdzniecības pilsēta. Viss, kas iet starp līdzenumu un kalniem, šeit maksā nodevu.',
+        '2': 'Tāpēc visi to grib. Un tāpēc es to neatdodu.',
         say: 'Pastāsti par Oukheivenu.'
       },
       order: {
-        '1': 'Es kalpoju Oukheivenai. Ordenis un es lielāko daļu dienu esam vienisprātis. Tas nav tas pats.',
-        say: 'Vai tu kalpo Dzelzs ordenim?'
+        '1': 'Es atbildu Oukheivenai. Ordenis un es piekrītam lielāko daļu dienu. Ne katru.',
+        say: 'Vai tu atbildi Dzelzs ordenim?'
       },
       rumor: {
         crags: {
-          '1': 'Uz ziemeļiem no meža zeme ir melna un deg. Pelnu klintis. Kultisti baro uguni.'
+          '1': 'Uz ziemeļiem no meža zeme ir melna un deg. Pelnu klintis. Galvenokārt kultisti.'
         },
         mines: {
-          '1': 'Aironholda ir pārstājusi sūtīt tēraudu. Kaut kas nav kārtībā tās raktuvēs.'
+          '1': 'Aironholda ir pārstājusi sūtīt tēraudu. Kaut kas nav kārtībā viņu raktuvēs.'
         },
         north: {
-          '1': 'Tālie ziemeļi ir apklusuši. Pēc manas pieredzes klusums ir sliktāks.'
+          '1': 'Tālie ziemeļi ir apklusuši. Pēc manas pieredzes, tas nekad nav labi.'
         }
       },
       bye: {
-        '1': 'Tur zobenu brīvi.'
+        '1': 'Tur zobenu tuvu.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Ja gribi ķiveri, esi nokavējis. Tās visas ir uz mūra.',
-        '2': 'Odo. Bruņukalis. Noguris.'
+        '1': 'Ja meklē ķiveri, piedod. Tās visas ir uz mūra.',
+        '2': 'Odo. Es taisu bruņas. Pēdējā laikā maz gulēts.'
       },
       again: {
-        '1': 'Vēl šeit. Vēl trūkst krājumu.'
+        '1': 'Joprojām šeit. Joprojām trūkst gandrīz visa.'
       },
       trade: {
-        '1': 'Puse manu krājumu aizgāja uz mūriem. Ņem, kas palicis.'
+        '1': 'Puse preču aizgāja uz mūra. Ņem, kas palicis, ja der.'
       },
       who: {
-        '1': 'Divdesmit gadus esmu apbruņojis šo pilsētu. Nekad nedomāju redzēt visu uzvilktu vienlaikus.'
+        '1': 'Es šo pilsētu bruņoju divdesmit gadus. Nekad neesmu redzējis visu nēsājam reizē.'
       },
       armor: {
-        '1': 'Plātnes, ja stāvi uz vietas. Āda, ja nē. Tērpi, ja patīk mirt.',
-        say: 'Kādas bruņas man valkāt?'
+        '1': 'Plātnes, ja turi pozīciju. Āda, ja kustas. Tērpi, ja esi ātrs.',
+        say: 'Kādas bruņas man vajadzētu valkāt?'
       },
       rumor: {
         backRoom: {
-          '1': 'Ja aplenkums tiks pārrauts, atvēršu aizmugures istabu. Labās plātnes. Pārrauj to man, labi?'
+          '1': 'Ja aplenkums tiks pārrauts, atvēršu aizmugures istabu. Labās plātņu bruņas ir tur.'
         }
       },
       shopBack: {
-        '1': 'Izturēs. Droši vien.'
+        '1': 'Izturēs. Līdz šim ir izturējušas.'
       },
       bye: {
-        '1': 'Turi galvu nolaistu.'
+        '1': 'Tur galvu nolaistu tur ārā.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Tu! Nāc iekšā. Aizmugures istaba ir atvērta, un tā ir atvērta TEV.',
-        '2': 'Tagad mani sauc Meistars Odo. Bizness iet labi, kad pilsēta dzīvo.'
+        '1': 'Te nu tu esi! Nāc iekšā. Aizmugures istaba ir vaļā, un tā ir vaļā tev.',
+        '2': 'Tagad mani sauc par meistaru Odo. Smieklīgi, ko mazliet miera dara uzņēmējdarbībai.'
       },
       ending: {
-        '1': 'No maniem vārtiem līdz Šausmu cietoksnim. Visiem stāstu, ka es pielāgoju tavas bruņas.'
+        '1': 'No mūsu vārtiem līdz Šausmu cietoksnim. Visiem stāstu, ka es pielāgoju tavas bruņas.'
       },
       again: {
-        '1': 'Vārtu varonis. Ko šodien?'
+        '1': 'Labi tevi redzēt. Ko šodien?'
       },
       trade: {
-        '1': 'Tu izglābi šo pilsētu. Labās plātnes no aizmugures istabas ir tev.'
+        '1': 'Labās plātņu bruņas ir ārā. Tu esi vairāk nekā pelnījis paskatīties.'
       },
       town: {
-        '1': 'Bagāta. Skaļa. Pilna tirgotāju, kas sūdzas par nodevu.',
-        '2': 'Tas ir brīnišķīgi. Neesmu gulējis nedēļu.',
+        '1': 'Rosīga. Skaļa. Pilna tirgotāju, kas žēlojas par nodevu.',
+        '2': 'Tas ir brīnišķīgi. Nedēļām neesmu piedzīvojis mierīgu stundu.',
         say: 'Kā klājas pilsētai?'
       },
       rumor: {
         mines: {
-          '1': 'Mans tērauds nāk no Aironholdas, un Aironholda ir apklususi. Kādam jāapskata tās raktuves.'
+          '1': 'Mans tērauds nāk no Aironholdas, un viņi ir apklusuši. Kādam vajadzētu pārbaudīt viņu raktuves.'
         },
         tundra: {
-          '1': 'Labākā rūda, ko esmu redzējis, nāca no tundras. Vīri, kas to atveda, vairs neatgriezās.'
+          '1': 'Labākā rūda, ko jebkad esmu apstrādājis, nāca no tundras. Vīri, kas to atrada, neatgriezās.'
         }
       },
       shopBack: {
-        '1': 'Ja neder, nāc atpakaļ. Pielāgošu.'
+        '1': 'Ja neder, atnes atpakaļ. Es salabošu.'
       },
       bye: {
-        '1': 'Oukheivenas vārti tev vienmēr ir atvērti. Tikai tev.'
+        '1': 'Tu šeit vienmēr esi gaidīts.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Pērc vai skaties? Skatīties neko neizmaksā. Aiztikt izmaksā pirkstu.',
-        '2': 'Senna. Es pārdodu asmeņus. Nejautāju, kam tie.'
+        '1': 'Skaties vai pērc? Der abi. Tikai neaiztiec asmeņus.',
+        '2': 'Senna. Es pārdodu asmeņus. Ko tu ar tiem dari, ir tava darīšana.'
       },
       saved: {
-        '1': 'Aplenkums pārrauts. Žēl. Karš ir labs biznesam. Miers ir labs parādu piedziņai.'
+        '1': 'Tātad aplenkums pārraukts. Labi pilsētai. Karš gan manam biznesam bija labāks.'
       },
       again: {
         '1': 'Atnāci pēc kaut kā asāka?'
       },
       trade: {
-        '1': 'Ass, sabalansēts un pārdots tam, kas maksā. Šodien tas esi tu.'
+        '1': 'Asi, līdzsvaroti un godīgas cenas. Neasti.'
       },
       who: {
-        '1': 'Pārdevu zobenus abām pusēm trijos karos. Es joprojām esmu šeit. Viņi lielākoties nē.'
+        '1': 'Esmu pārdevusi abām pusēm trijos karos. Joprojām esmu šeit. Vairums no tiem nav.'
       },
       rumor: {
         krag: {
-          '1': 'Krāga vīriem ir labs tērauds. Sindikāta nauda. Atņem to, ja vari.'
+          '1': 'Kraga vīri nēsā labu tēraudu. Sindikāta nauda. Vērts paņemt, ja radīsies izdevība.'
         },
         which: {
-          '1': 'Ātri asmeņi grib Veiklību. Šaujamieroči un loki grib Meistarību. Zini, kurš esi, pirms maksā man.'
+          '1': 'Ātri asmeņi grib Veiklību. Loki un šaujamie grib Meistarību. Zini, kāds esi.'
         }
       },
       shopBack: {
-        '1': 'Asinis var nomazgāt. Rūsa nē. Ieeļļo.'
+        '1': 'Tur ieeļļotu. Rūsa sabojā labu asmeni ātrāk nekā kauls.'
       },
       bye: {
-        '1': 'Nemirsti man parādā.'
+        '1': 'Mēģini nenomirt, būdams man parādā.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Negriezies apkārt. Es jokoju. Pagriezies.',
-        '2': 'Mani sauc Čuksts. Es māku cilvēkus atnākt nepamanītiem.'
+        '1': 'Tu nedzirdēji, kā es piegāju tev aiz muguras. Lielākā daļa nedzird.',
+        '2': 'Mani sauc par Čukstu. Es mācu cilvēkus, kā palikt nepamanītiem.'
       },
       fallen: {
-        '1': 'Pilsēta tagad ir klusāka. Mazāk sargu. Man gandrīz patīk.'
+        '1': 'Pilsēta tagad ir klusāka. Mazāk sargu. Vieglāks darbs dažiem no mums.'
       },
       friend: {
-        '1': 'Sindikāts tevi uzskata par draugu. Draugi maksā mazāk. Draugi arī zina par daudz.'
+        '1': 'Sindikāts tevi uzskata par draugu. Draugi maksā mazāk. Atceries to.'
       },
       foe: {
-        '1': 'Sindikāts grib tevi mirušu. Man maksāja par mācīšanu, nevis slepkavošanu. Tev paveicās.'
+        '1': 'Sindikāts grib tevi miris. Man maksāja par mācīšanu, nevis par slepkavošanu. Tātad, nodarbības.'
       },
       again: {
-        '1': 'Tu esi skaļāks nekā pēdējoreiz. Strādāsim pie tā.'
+        '1': 'Tu joprojām esi pārāk skaļš. Strādāsim pie tā.'
       },
       train: {
         '1': 'Klusi tad. Skaties uz manām kājām, nevis rokām.'
       },
       class: {
-        '1': 'Nazis, kas jau ir tev aiz muguras. Iznāc no tumsas, sit un pazūdi.',
-        '2': 'Veiklība pāri visam. Meistarība, kad gribi, lai griezums skaitās.',
+        '1': 'Kāds, kas jau stāv tev aiz muguras. Iekšā, viens grieziens, un prom.',
+        '2': 'Veiklība ir svarīgākā. Meistarība, ja gribi, lai grieziens ir ar nozīmi.',
         say: 'Kas ir Ēnu asmens?'
       },
       ready: {
         strong: {
-          '1': 'Tu labi kusties. Ņem, ko protu. Atnes Meistarību dūmiem.'
+          '1': 'Tu tagad labi kustas. Ņem pārējo. Atnes mazliet Meistarības dūmiem.'
         },
         able: {
-          '1': 'Labi. Tavas rokas ir pietiekami ātras nākamajam solim.'
+          '1': 'Tavas rokas ir pietiekami ātras. Nākamais solis.'
         },
         weak: {
-          '1': 'Tu staigā kā ratiņi. Vairāk Veiklības. Tad runāsim.'
+          '1': 'Vēl ne. Tu esi smags uz kājām. Strādā pie Veiklības.'
         }
       },
       syndicate: {
-        '1': 'Cilvēki, kas pamanīja, ka likumi ir pārdodami. Es nenosodu. Es izrakstu rēķinu.',
+        '1': 'Ļaudis, kas pamanīja, ka likumam ir cena. Es nenosodu. Es vienkārši saņemu algu.',
         say: 'Kas ir Pelnu sindikāts?'
       },
       trainBack: {
-        '1': 'Tagad ej un dari to, kur neviens neredz.'
+        '1': 'Tagad vingrinies tur, kur neviens tevi neredz.'
       },
       bye: {
         '1': 'Tu mani nekad neredzēji.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Tu drīksti tuvoties. Ne tik tuvu.',
-        '2': 'Lords Kastelāns, no vecajām Oukheivenas asinīm. Es mācu pavēlēt.'
+        '1': 'Vari pienākt tuvāk. Lūk, tik tuvu pietiek.',
+        '2': 'Lords Kastelāns, no Oukheivenas senākās dzimtas. Es mācu vadību.'
       },
       saved: {
-        '1': 'Mana pilsēta stāv, un kopā ar to mana dzimtas vārds. Tev ir lorda pateicība. Tā ir daudz vērta.'
+        '1': 'Mana pilsēta stāv, un kopā ar to mana dzimtas vārds. Tu esi pelnījis manu pateicību. Patiesi.'
       },
       friend: {
-        '1': 'Ordeņa draugs. Samazināšu savu maksu. Nevienam nesaki.'
+        '1': 'Ordeņa draugs. Samazināšu maksu. Lūdzu, neizplati to.'
       },
       foe: {
-        '1': 'Ordenis ir izlicis tavu vārdu. Es tevi tāpat mācīšu. Monēta ir monēta, diemžēl.'
+        '1': 'Ordenim tavs vārds ir sarakstā. Es tevi tāpat mācīšu. Monēta ir monēta.'
       },
       again: {
-        '1': 'Ak. Mans daudzsološākais pavalstnieks.'
+        '1': 'Ak, tu atkal. Vai turpinām?'
       },
       train: {
-        '1': 'Ļoti labi. Vēro, kā dod pavēli.'
+        '1': 'Ļoti labi. Skaties, kā tiek dots pavēle un kā tā tiek izpildīta.'
       },
       class: {
-        '1': 'Kāpēc cīnīties vienam, kad citi to var izdarīt tevis vietā? Pieaicini sargus. Pavēli viņiem.',
-        '2': 'Tam vajag Harizmu. Vadīt, murminot, nevar.',
+        '1': 'Kāds, kas necīnās viens. Tu sauc sargus, un viņi cīnās tavā vietā.',
+        '2': 'Tam vajag Harizmu. Neviens neseko vadonim, ko nedzird.',
         say: 'Kas ir Lielais valdnieks?'
       },
       ready: {
         strong: {
-          '1': 'Tev ir klātbūtne. Ņem pārējās manas stundas un stāvi taisni.'
+          '1': 'Tev tagad ir īsta klātbūtne. Ņem pārējās manas nodarbības.'
         },
         able: {
-          '1': 'Tava balss nes tālu. Tu esi gatavs nākamajai stundai.'
+          '1': 'Tava balss skan. Tu esi gatavs nākamajai nodarbībai.'
         },
         weak: {
-          '1': 'Neviens tev nesekotu pat uz maiznīcu. Vairāk Harizmas.'
+          '1': 'Baidos, ka neviens tev vēl neseko. Strādā pie Harizmas.'
         }
       },
       family: {
-        '1': 'Mēs uzcēlām sienas, uz kurām stāv kapteinis Heils. Viņš aizmirst. Es atgādinu. Bieži.',
+        '1': 'Mēs uzcēlām mūrus, uz kuriem stāv kapteinis Heils. Viņš to aizmirst. Es atgādinu.',
         say: 'Pastāsti par savu dzimtu.'
       },
       trainBack: {
-        '1': 'Tagad ej un esi paklausīts.'
+        '1': 'Tad ej. Vadi kādu.'
       },
       bye: {
-        '1': 'Tu esi atlaists.'
+        '1': 'Lai laba diena.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Nākamais! Ak. Tu vari staigāt. Patīkama pārmaiņa.',
+        '1': 'Nākamais! Ak, tu staigā. Tā ir patīkama pārmaiņa.',
         '2': 'Brālis Fenns. Četrdesmit ievainoto uz mūra, un tikai viens es.'
       },
       saved: {
-        '1': 'Trīs dienas bez jauniem ievainotajiem! Nezinu, ko iesākt ar rokām.'
+        '1': 'Trīs dienas bez jauniem ievainotajiem. Gandrīz nezinu, ko ar sevi darīt.'
       },
       again: {
-        '1': 'Tu atkal, un joprojām staigā. Piekrītu.'
+        '1': 'Tu atkal, un uz savām kājām. Labi.'
       },
       heal: {
-        '1': 'Apgulies. Nē, uz tīrās guļvietas. Lūk. Visas kolbas pilnas. Ej.'
+        '1': 'Apgulies šeit, uz tīrās guļvietas. Tā. Kolbas piepildītas, ej.'
       },
       mana: {
-        '1': 'Manas dzira! Garšo pēc grašiem. Bet strādā.'
+        '1': 'Manas dzira. Garša kā vecām monētām, bet darbojas.'
       },
       potions: {
-        '1': 'Garāka josta satur vairāk kolbu. Tās es pārdodu. Kolbas piepildu bez maksas.',
+        '1': 'Ar garāku jostu, jā. Tās es pārdodu. Kolbu pildīšana ir bez maksas.',
         say: 'Vai varu nest vairāk dziru?'
       },
       rumor: {
         archers: {
-          '1': 'Krāga strēlnieki mērķē uz kājām. Kusties tur ārā, un viņi netrāpīs.'
+          '1': 'Kraga strēlnieki mērķē zemu. Kusties, un lielākoties šaus garām.'
         },
         north: {
-          '1': 'Apdegumi, apsaldējumi un viens vīrs, kas zvēr, ka viņu iekodusi statuja. Ziemeļi nav laipni.'
+          '1': 'Es redzu apdegumus, apsaldējumus un vienu vīru, kas zvēr, ka viņu iekodusi statuja.'
         }
       },
       healBack: {
-        '1': 'Ej nu. Nākamreiz nāc parunāties, nevis šūties.'
+        '1': 'Ej. Nākamreiz nāc parunāties, nevis šūšanai.'
       },
       bye: {
-        '1': 'Izstaigā to ārā! Tas ir ārsta padoms.'
+        '1': 'Pieskati sevi. Un apēd kaut ko.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Bez vārdiem. Bet tu esi tas, kas atvēra vārtus. To es pazīstu.',
-        '2': 'Sauc mani par Uzpircēju. Viss šeit nokrita no ratiem.'
+        '1': 'Šeit nav vārdu. Bet es zinu, kas atvēra vārtus. To zina visi.',
+        '2': 'Vari mani saukt par Uzpircēju. Viss šeit no kaut kurienes nācis.'
       },
       foe: {
-        '1': 'Sindikātam šodien tu nepatīc. Tavs zelts vēl patīk.'
+        '1': 'Sindikāts tevi pašlaik nemīl. Taču tavs zelts ir gaidīts.'
       },
       again: {
-        '1': 'Ak. Mans labākais pircējs. Neviens nesekoja? Labi.'
+        '1': 'Atkal šeit. Neviens tev nesekoja, ceru?'
       },
       trade: {
-        '1': 'Bez vārdiem, bez jautājumiem. Sindikāts ņem savu daļu, tu ņem preces.'
+        '1': 'Nekādu jautājumu nevienā virzienā. Sindikāts ņem savu daļu, tu preces.'
       },
       who: {
-        '1': 'Pirms ugunsgrēka pārdevu sveces. Legāli. Tas bija šausmīgi.'
+        '1': 'Pirms ugunsgrēka pārdevu sveces. Godīgs darbs. Tas nemaksāja.'
       },
       armor: {
-        '1': 'Bruņukaļu vairs nav, draugs. Izdeguši. Tev vajadzētu zināt.',
+        '1': 'Bruņukaļu vairs nav, draugs. Tu zini, kāpēc, labāk par mani.',
         say: 'Vai ir pārdodamas bruņas?'
       },
       rumor: {
         citadel: {
-          '1': 'Pērn tālajos ziemeļos parādījās cietoksnis. Neviens to nebūvēja. Tā sienas dūc.'
+          '1': 'Tālajos ziemeļos pērn parādījās cietoksnis. Neviens to nebūvēja.'
         },
         crystals: {
-          '1': 'Kāds uzpērk katru Tukšuma kristālu tirgū. Ne mēs. Tas man rada raizes.'
+          '1': 'Kāds uzpērk katru Tukšuma kristālu, ko atrod. Ne mēs. Tas mani uztrauc.'
         }
       },
       shopBack: {
         '1': 'Tu šeit nekad neesi bijis.'
       },
       bye: {
-        '1': 'Uzmanies no drupām.'
+        '1': 'Skaties, kur kāp. Gruveši kustas.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Apmeklētājs. Uzmanies no burkām.',
-        '2': 'Doktors Sangrels. Oukheivenas jaunie saimnieki nejautā, ko es mācu. Atsvaidzinoši.'
+        '1': 'Apmeklētājs. Lūdzu, neaiztiec burkas.',
+        '2': 'Doktors Sangrels. Oukheivenas jaunie īpašnieki nejautā, ko es mācu. Tas ir atpūtinoši.'
       },
       found: {
-        '1': 'Tu mani atradi. Maz kas meklē ārstu šādā vietā.',
-        '2': 'Doktors Sangrels. Pilsētas dedzina manējos, tāpēc strādāju tur, kur to nav.'
+        '1': 'Tu mani atradi. Nedaudzi meklē ārstu tādā vietā kā šī.',
+        '2': 'Doktors Sangrels. Pilsētas sadedzina tādus kā es, tāpēc strādāju tur, kur to nav.'
       },
       friend: {
-        '1': 'Sindikāts par tevi galvo. Mana maksa tā draugiem ir zemāka. Manas prasības ne.'
+        '1': 'Sindikāts par tevi runā. Tā draugiem ņemu mazāk. Mani standarti paliek tie paši.'
       },
       foe: {
-        '1': 'Sindikāts man maksātu par tavām asinīm. Es labāk, lai tu tās iztērē manām stundām.'
+        '1': 'Sindikāts par tavām asinīm labi maksātu. Es labāk redzu, ka tu tās iztērē šeit.'
       },
       again: {
-        '1': 'Tu esi bāls. Labi. Piestāv darbam.'
+        '1': 'Tu izskaties bāls. Labi. Tas piestāv darbam.'
       },
       train: {
-        '1': 'Uzrullē piedurkni. Tas sāpēs. Tā ir būtība.'
+        '1': 'Atrullē piedurkni. Sāpēs. Tā ir diezgan visa būtība.'
       },
       class: {
-        '1': 'Tu maksā par spēku ar savu veselību. Tad atpakaļ to izdzer no ienaidnieka.',
-        '2': 'Izturība ir tavs maks. Intelekts izlemj, cik labi to iztērē.',
+        '1': 'Tu maksā par spēku ar savu veselību, tad atgūsti to no ienaidniekiem.',
+        '2': 'Izturība ir tas, ko vari tērēt. Intelekts ir tas, cik labi tu to iztērē.',
         say: 'Kas ir Asins alķīmiķis?'
       },
       ready: {
@@ -1953,155 +1953,155 @@ export default {
           '1': 'Ievērojama miesasbūve. Vari apgūt gandrīz visu.'
         },
         able: {
-          '1': 'Tavas asinis ir pietiekami stipras nākamajai stundai.'
+          '1': 'Tu esi pietiekami stiprs nākamajai nodarbībai.'
         },
         weak: {
-          '1': 'Tu noģībtu no pirmā iegriezuma. Vairāk Izturības, lūdzu.'
+          '1': 'Tu noģībtu pie pirmā iegriezuma. Vispirms uzlabo Izturību, lūdzu.'
         }
       },
       jars: {
-        '1': 'Brīvprātīgie. Lielākoties.',
+        '1': 'Paraugi. Lielākoties brīvprātīgi dāvināti.',
         say: 'Kas ir burkās?'
       },
       trainBack: {
-        '1': 'Protams, veic piezīmes. Zinātnes labad.'
+        '1': 'Raksti piezīmes. Es labprāt dzirdētu, kā tev iet.'
       },
       bye: {
-        '1': 'Paliec vesels. Citādi man neesi noderīgs.'
+        '1': 'Paliec vesels. Es to nopietni.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Tātad. Tas, kas atvēra vārtus. Apsēdies. Tu esi pelnījis krēslu.',
-        '2': 'Mani sauc Madāma Eša. Oukheivena tagad ir mana. Daļēji arī tava.'
+        '1': 'Tātad tu atvēri vārtus. Apsēdies. Tu esi pelnījis krēslu.',
+        '2': 'Mani sauc Madāma Eša. Oukheivena tagad ir mūsu. Daļēji pateicoties tev.'
       },
       throneOurs: {
-        '1': 'Šausmu cietokšņa tronis. Mūsu. Tu esi mans labākais ieguldījums.'
+        '1': 'Šausmu cietoksnis, mūsu rokās. Tu biji vērts katras monētas.'
       },
       throneLost: {
-        '1': 'Tu atdevi troni. Kādam citam. Par to runāsim. Ne šodien.'
+        '1': 'Tu atdevi troni kādam citam. Par to parunāsim. Ne šodien.'
       },
       foe: {
-        '1': 'Tu esi mums stājies ceļā. Apsēdies tāpat. Man patīk apskatīt problēmu, pirms to atrisinu.'
+        '1': 'Tu esi strādājis pret mums. Tāpat apsēdies. Man patīk zināt, ar ko man darīšana.'
       },
       again: {
-        '1': 'Mans mīļākais nodevējs. Ko Sindikāts var darīt tavā labā?'
+        '1': 'Atkal šeit. Ko Sindikāts var darīt tavā labā?'
       },
       cut: {
-        '1': 'Trešdaļa drupu, dārgais. Lūk, šīs sezonas daļa.',
-        '2': 'Tā augs. Drupas ir ļoti ienesīgas, kad pieder vienīgais tirgus.',
-        say: 'Tu man apsolīji trešdaļu Oukheivenas.'
+        '1': 'Un tu to saņemsi. Daļu no drupām, pagaidām. Lūk, šīs sezonas.',
+        '2': 'Tā augs. Drupas maksā ļoti labi, kad tev pieder to vienīgais tirgus.',
+        say: 'Man bija solīta daļa no Oukheivenas.'
       },
       syndicate: {
-        '1': 'Ko grib visi. Mēs vienkārši neizliekamies citādi.',
-        '2': 'Paliec mūsu draugs, un Čuksts un Doktors prasīs mazāk. Lojalitātei ir cenrādis.',
-        say: 'Ko grib Sindikāts?'
+        '1': 'Ko grib visi. Mēs tikai neizliekamies citādi.',
+        '2': 'Paliec draudzīgs, un Čuksts un Doktors ņems mazāk.',
+        say: 'Ko Sindikāts patiesībā grib?'
       },
       order: {
-        '1': 'Protams. Tu nodedzināji vienu no tā pilsētām. Nes vairāk dziru.',
-        say: 'Dzelzs ordenis mani medī.'
+        '1': 'Protams, ka ir. Tu sadedzināji vienu no viņu pilsētām. Ņem līdzi papildu dzērienus.',
+        say: 'Dzelzs ordenis dzenas man pakaļ.'
       },
       rumor: {
         core: {
-          '1': 'Rūķi savās raktuvēs atrada kaut ko. Serdi. Es to gribu. Atnes to mums un nosauc summu.'
+          '1': 'Rūķi savās raktuvēs kaut ko atrada. Kodolu. Atnes to mums un nosauc savu cenu.'
         },
         sold: {
-          '1': 'Serde ieradās sveika. Tev vajadzētu redzēt, ko tā dara slēdzenei.'
+          '1': 'Kodols ieradās droši. Tu būtu pārsteigts, ko tas dara slēdzenei.'
         },
         north: {
-          '1': 'Viss, ko vērts zagt, pārcēlies uz ziemeļiem. Un mēs arī.'
+          '1': 'Viss, kas vērts, pārcēlies uz ziemeļiem. Mēs arī.'
         }
       },
       bye: {
-        '1': 'Neesi svešinieks. Svešiniekiem seko.'
+        '1': 'Neesi svešinieks. Mēs sekojam svešiniekiem.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Tu nāci cauri raktuvēm. Es jūtu putekļus uz tevis.',
-        '2': 'Dorns. Aironholdas kalves meistars. Man ir kalna lieluma problēma.'
+        '1': 'Tu nāci augšā cauri raktuvēm. Es jūtu putekļus uz tevis.',
+        '2': 'Dorns. Aironholdas kalves meistars. Un man ir kalna lieluma problēma.'
       },
       destroyed: {
-        '1': 'Gaisma ir nodzisusi, un golemi ir lūžņi. Mani kalnrači vakar dziedāja. Pirmo reizi gada laikā.'
+        '1': 'Gaisma ir dzisusi, un golemi ir lūžņi. Mani kalnrači vakar vakarā dziedāja. Pirmo reizi gada laikā.'
       },
       studied: {
-        '1': 'Zila uguns manās kalvēs un tērpi manās zālēs. Darbs ir labs. Pierodīšu pie tērpiem.'
+        '1': 'Zilas liesmas manās kalvēs un mantijās tērpti mācītie manās zālēs. Vismaz darbs ir labs.'
       },
       sold: {
-        '1': 'Tu to pārdevi. Golemi joprojām staigā, un manas raktuves joprojām ir kaps. Prom no manas gaismas.'
+        '1': 'Tu to pārdevi. Golemi joprojām staigā, un manas raktuves joprojām ir kaps. Liec mani mierā.'
       },
       ending: {
-        '1': 'Tātad tronis izlemts. Labi. Tagad valstība var atgriezties pie strīdiem par dzelzi.'
+        '1': 'Tātad tronis ir izlemts. Labi. Varbūt tagad varam atgriezties pie rakšanas.'
       },
       again: {
-        '1': 'Runā. Kalve negaida.'
+        '1': 'Kas ir? Kalve negaida.'
       },
       quest: {
-        '1': 'Mēs raktām dzelzi un trāpījām sirdij. Ētera serdei. Tā pukst tur lejā tumsā.',
+        '1': 'Mēs rakām dzelzi un atradām sirdi. Ētera kodolu. Var just, kā tā pukst.',
         '2': 'Un golemi?',
-        '3': 'Tie staigā tās ritmā. Trīs spēki man par to rakstījuši. Visi pieklājīgi. Es neuzticos nevienam.',
-        '4': 'Tu to sasniegsi pirmais, Aironholdas raktuvju dibenā. Tad izlemt būs tev.',
-        say: 'Kas notika raktuvēs?'
+        '3': 'Tie kustas tās ritmā. Trīs spēki ir rakstījuši, prasot to. Es neuzticos nevienam.',
+        '4': 'Tu to sasniegsi pirmais, Aironholdas raktuvju dibenā. Kas notiks tālāk, ir atkarīgs no tevis.',
+        say: 'Kas notika tur lejā, raktuvēs?'
       },
       core: {
-        say: 'Par serdi…',
+        say: 'Par kodolu...',
         destroy: {
-          '1': 'Tu sagrāvi brīnumu, lai izglābtu manus ļaudis. Ordenis pateicībā atsūtīja bruņukaļus. Es atsūtīju alu.'
+          '1': 'Tu sagrāvi brīnumu, lai glābtu manu tautu. Ordenis atsūtīja bruņukaļus. Es atsūtīju alu.'
         },
         study: {
-          '1': 'Loka darbarūķi ir traki, bet viņu ieroči šauj taisni. Godīgs darījums.'
+          '1': 'Loka ļaudis ir dīvaini, bet viņu ieroči šauj taisni. Godīgi.'
         },
         sell: {
-          '1': 'Zelts. Tu to izdarīji zelta dēļ. Ceru, ka tas tevi sasildīs.'
+          '1': 'Tu to izdarīji zelta dēļ. Ceru, ka tas tevi sasilda.'
         }
       },
       town: {
-        '1': 'Labākais tērauds valstībā, kad raktuves strādā.',
+        '1': 'Labākais tērauds valstībā, kad raktuves darbojas.',
         '2': 'Akmenspēda māca zemi, Pims māca mašīnas. Abi tev apmuļķos galvu.',
         say: 'Pastāsti par Aironholdu.'
       },
       rumor: {
         tundra: {
-          '1': 'Austrumos no Klintīm zeme kļūst balta. Sala tundra. Milži un miroņi, kas negul.'
+          '1': 'Uz austrumiem no Klintīm zeme kļūst balta. Sala tundra. Milži, un sliktāk.'
         },
         citadel: {
-          '1': 'Mani izlūki ziemeļos redzēja cietoksni, kura pērn tur nebija. Man nepatīk jauni kalni.'
+          '1': 'Mani izlūki ziemeļos redzēja cietoksni, kura pērn tur nebija. Man tas nepatīk.'
         },
         fortress: {
-          '1': 'Šausmu cietoksnis ir tur, kur tas beidzas. Katrs ceļš uz ziemeļiem ved pie tā vārtiem.'
+          '1': 'Viss beidzas Šausmu cietoksnī. Katrs ceļš uz ziemeļiem ved turp.'
         }
       },
       bye: {
-        '1': 'Sit precīzi.'
+        '1': 'Ej labi.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Rokas nost no izstādes. Tie ir asi abos galos.',
-        '2': 'Hilda Āmurroka. Rūķu kalts, katrs gabals.'
+        '1': 'Uzmanīgi ar izstādi. Tie ir asi abās pusēs.',
+        '2': 'Hilda Āmurroka. Katru gabalu šeit ir kalušas rūķu rokas.'
       },
       dragon: {
-        '1': 'Tu nogalināji pūķi? Ar vienu no MANIEM? Nē? Melo man. Saki, ka tas bija viens no maniem.'
+        '1': 'Tu nogalināji pūķi? Ceru, ka ar vienu no maniem asmeņiem.'
       },
       again: {
-        '1': 'Atnāci pēc īsta tērauda?'
+        '1': 'Atgriezies pēc īsta tērauda?'
       },
       trade: {
-        '1': 'Rūķu kalts. Ja salūzīs, tu būsi vainīgs.'
+        '1': 'Rūķu kalts. Ja kāds no šiem salūzt, gribu zināt, kā.'
       },
       who: {
-        '1': 'Mana māte kala ķēniņiem. Es kaļu ikvienam, kas ienāk. Laiki mainās.'
+        '1': 'Mana māte kala ķēniņiem. Es kalu ikvienam, kas ienāk pa durvīm.'
       },
       rumor: {
         golems: {
-          '1': 'Golemi raktuvēs ir veidoti no mūsu pašu dzelzs. Tas ir apkaunojoši, godīgi sakot.'
+          '1': 'Tie golemi lejā ir veidoti no mūsu pašu dzelzs. Tas dzeļ, es tev saku.'
         },
         arm: {
-          '1': 'Asmens paveic pusi darba. Tavs Spēks pārējo. Nevaino asmeni.'
+          '1': 'Labs asmens padara pusi darba. Tavam Spēkam jāizdara pārējais.'
         }
       },
       shopBack: {
-        '1': 'Atnes atpakaļ neasu, un es zināšu, ka lietoji.'
+        '1': 'Atnes to atpakaļ neasu, un es zināšu, ka tu to labi izmantoji.'
       },
       bye: {
         '1': 'Sit stipri.'
@@ -2109,132 +2109,132 @@ export default {
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Uzmanīgi! Tas ir uzlādēts. Un tas arī. Lielākā daļa, patiesībā.',
-        '2': 'Amatnieks Voss. Loks mani atsūtīja redzēt, ko serde var mums iemācīt. Visu, kā izrādās.'
+        '1': 'Uzmanīgi, tas ir uzlādēts. Vairums ir, patiesībā.',
+        '2': 'Amatnieks Voss. Loks mani atsūtīja pētīt kodolu. Tas mūs ir daudz iemācījis.'
       },
       again: {
-        '1': 'Ak, labi, testētājs. Tas ir, pircējs.'
+        '1': 'Ak, labi. Esmu izdarījis dažas izmaiņas kopš tavas pēdējās reizes.'
       },
       trade: {
-        '1': 'Loka serdes pētījumi mainīja visu. Pieturi šo. Nevērs uz mani.'
+        '1': 'Viss šeit radies, pētot kodolu. Tikai nevērs to pret mani.'
       },
       core: {
-        '1': 'Tā dzelzs spēj domāt, mazliet. Cenšos par to nedomāt.',
+        '1': 'Tas metāls mazliet prot domāt. Cenšos par to nedomāt.',
         say: 'Ko tev iemācīja serde?'
       },
       rumor: {
         heat: {
-          '1': 'Ieroči darbojas ar Meistarību un uzkarst. Pajautā Mehāniķim Pimam par karstumu, pirms izkausē roku.'
+          '1': 'Ieroči darbojas ar Meistarību un sakarst. Pajautā Pimam par karstumu, pirms apdedzini roku.'
         }
       },
       shopBack: {
-        '1': 'Ziņo par visiem sprādzieniem! Piezīmēm.'
+        '1': 'Pasaki, kā tas darbojas. Es veicu piezīmes.'
       },
       bye: {
-        '1': 'Uzmanies no atsitiena!'
+        '1': 'Uzmanies no atsitiena.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garruns. Bruņas. Gredzeni uz paplātes.'
+        '1': 'Garruns. Bruņas uz statīviem, gredzeni paplātē.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Atgriezies. Kas vajadzīgs?'
       },
       trade: {
-        '1': 'Plātnes, kas atvairīs milža runga. Gredzeni pārējiem.'
+        '1': 'Tā plāksne apturēs milža vāli. Paskaties.'
       },
       quiet: {
-        '1': 'Nē.',
-        say: 'Tu daudz nerunā.'
+        '1': 'Maz kas sakāms.',
+        say: 'Tu daudz nerunā, vai ne?'
       },
       rumor: {
         giants: {
-          '1': 'Milži tundrā. Rungas kā stumbri. Pērc smagās plātnes.'
+          '1': 'Milži tundrā. Vāles kā koku stumbri. Es ņemtu smago plāksni.'
         },
         demons: {
-          '1': 'Dēmoni ziemeļos. Uguns un nagi. Pērc smagās plātnes.'
+          '1': 'Dēmoni ziemeļos. Uguns un nagi. Es ņemtu smago plāksni.'
         }
       },
       shopBack: {
-        '1': 'Labi.'
+        '1': 'Laba izvēle.'
       },
       bye: {
-        '1': 'Jā.'
+        '1': 'Pieskati sevi.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Vārds un darīšanas. Nē. Es zinu tavu vārdu. Tu iznīcināji serdi.',
-        '2': 'Dzelzs ordeņa intendants. Tā ieroču noliktavas tev ir atvērtas.'
+        '1': 'Tu esi tas, kas iznīcināja kodolu. Ordenis to atceras.',
+        '2': 'Es šeit esmu Ordeņa intendants. Mūsu ieroču noliktavas tev ir atvērtas.'
       },
       throneOurs: {
-        '1': 'Ordenis tur Šausmu cietoksni ar tavu roku. Brīvi. Tā ir pavēle.'
+        '1': 'Ordenis tur Šausmu cietoksni, pateicoties tev. Brīvi. Tu to esi pelnījis.'
       },
       foe: {
-        '1': 'Ordenim tu esi sarakstā. Mana pavēle ir tāpat tev pārdot. Man tie nepatīk.'
+        '1': 'Ordenis tevi tur sarakstā. Mani rīkojumi saka pārdot tev tāpat. Es tos pildu.'
       },
       again: {
-        '1': 'Rekvizīcija?'
+        '1': 'Kas vajadzīgs?'
       },
       trade: {
-        '1': 'Ordenis atceras, kas iznīcināja serdi. Izvēlies, ko vajag.'
+        '1': 'Ņem, kas vajadzīgs. Ordenis gādā par savējiem.'
       },
       order: {
-        '1': 'Neko. Tas ir reti. Bauda to.',
+        '1': 'Nekas, pagaidām. Tas nenotiek bieži. Bauda.',
         say: 'Ko Ordenis grib no manis?'
       },
       rumor: {
         throne: {
-          '1': 'Ordenis gribēs troni Šausmu cietoksnī. Tas atcerēsies, kas stāvēja tam blakus.'
+          '1': 'Ordenis gribēs troni Šausmu cietoksnī. Tas atcerēsies, kas palīdzēja.'
         }
       },
       shopBack: {
-        '1': 'Parakstīties šeit. Es jokoju. Ordenis nejoko. Vari iet.'
+        '1': 'Rūpējies par to. Tā ir Ordeņa manta, līdz tu tajā esi asiņojis.'
       },
       bye: {
-        '1': 'Vari iet.'
+        '1': 'Turpini.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Lēnāk. Kalns nekur nedodas.',
+        '1': 'Palēnini. Kalns nekur neiet.',
         '2': 'Mani sauc Vecais Akmenspēda. Es klausos zemē. Dažreiz tā atbild.'
       },
       core: {
-        '1': 'Kalna sirdspuksts mainījās. Tas biji tu. Tas pamanīja.'
+        '1': 'Kalns jūtas citādi, kopš tu tur lejā biji. Mierīgāks vai tukšāks.'
       },
       dragon: {
-        '1': 'Vakar pāri virsotnei pārlidoja pūķis un mūs nesadedzināja. Tavs nopelns, dzirdu.'
+        '1': 'Vakar pūķis pārlidoja virsotni un atstāja mūs mierā. Tavs nopelns, man teica.'
       },
       again: {
-        '1': 'Tu atkal. Akmeņi teica, ka nāksi.'
+        '1': 'Te nu tu esi. Domāju, ka atgriezīsies.'
       },
       train: {
-        '1': 'Nostādi kājas stingri. Jūti? Nē? Sāksim ar to.'
+        '1': 'Iestādi kājas stingri. Vai jūti? Nē? No tā mēs sākam.'
       },
       class: {
-        '1': 'Mēs celām sienas, saucam dzeloņus un lauzam zemi, kad vajag.',
-        '2': 'Spēks, lai pakustinātu akmeni, Intelekts, lai to pieklājīgi lūgtu.',
-        say: 'Kas ir Ģeomants?'
+        '1': 'Mēs celām mūrus, izsaucam ērkšķus un plēšam zemi, kad vajag.',
+        '2': 'Spēks, lai pakustinātu akmeni. Intelekts, lai zinātu, kurp tas grib iet.',
+        say: 'Ko dara Ģeomants?'
       },
       ready: {
         strong: {
-          '1': 'Akmens tagad tevi pazīst. Apgūsti pārējo.'
+          '1': 'Akmens tevi tagad pazīst. Iemācies pārējo, kad esi gatavs.'
         },
         able: {
-          '1': 'Tu esi pietiekami smags nākamajai stundai. Tas ir kompliments.'
+          '1': 'Tu stāvi pietiekami stingri nākamajai nodarbībai.'
         },
         weak: {
-          '1': 'Akmens tevi vēl nedzird. Vairāk Spēka.'
+          '1': 'Vēl ne. Akmens nekustēsies tavā labā. Veido Spēku.'
         }
       },
       factions: {
-        '1': 'Nevienu. Ordeņi, sindikāti, loki. Kalns pārdzīvos tos visus.',
+        '1': 'Nevienai. Ordeņi un ģildes nāk un iet. Kalns paliek.',
         say: 'Kuru frakciju tu kalpo?'
       },
       trainBack: {
-        '1': 'Ej maigi. Tad ne maigi.'
+        '1': 'Nesteidzies. Zeme ir pacietīga.'
       },
       bye: {
         '1': 'Soļo klusi.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Neaiztiec to! Vai to. Patiesībā stāvi uz paklāja. Paklājs ir drošs.',
-        '2': 'Mehāniķis Pims! Ieroči, tornīši, karstuma mērītāji. Galvenokārt karstuma mērītāji.'
+        '1': 'Ak, pagaidi, neaiztiec to! Vai to. Stāvi uz paklāja, paklājs ir drošs.',
+        '2': 'Mehāniķis Pims. Es būvēju ieročus, tornīšus un daudz karstuma mērītāju.'
       },
       core: {
-        '1': 'Tu mums atdevi serdi! Neesmu gulējis deviņas dienas. Paskaties uz manām rokām. Neskaties uz manām rokām.'
+        '1': 'Tu atdevi kodolu Lokam! Kopš tā laika gandrīz neesmu gulējis. Labā nozīmē.'
       },
       oracle: {
-        '1': 'Loks ir nikns par orākulu. Es tikai būvēju lietas. Lūdzu, nesaki viņiem, ka tevi mācīju.'
+        '1': 'Loks ir dusmīgs par orākulu. Es tikai būvēju lietas. Es labāk neiejauktos.'
       },
       friend: {
-        '1': 'Loka draugs! Lētākas stundas tev. Veidlapu aizpildīju pats.'
+        '1': 'Tu esi Loka draugs, tāpēc tavas nodarbības ir lētākas. Es sakārtoju papīrus.'
       },
       foe: {
-        '1': 'Loks saka, ka man nav jāmāca tevi. Loks arī saka, lai raķetes netestē telpās.'
+        '1': 'Loks saka, ka man nevajadzētu tevi mācīt. Es tāpat mācīšu. Neteic viņiem.'
       },
       again: {
         '1': 'Ak, labi, tev vēl ir visi pirksti.'
       },
       train: {
-        '1': 'Labi! Vispirms drošība. Tad skaļā daļa.'
+        '1': 'Labi. Vispirms drošība, tad skaļā daļa.'
       },
       class: {
-        '1': 'Ieroči, tornīši un karstuma mērītājs. Šauj, būvē un izlaid karstumu, pirms tas tevi bloķē.',
-        '2': 'Viss balstās uz Meistarību. Mazliet Intelekta lielajām mašīnām.',
+        '1': 'Ieroči, tornīši un karstuma mērītājs. Šauj, būvē un izlaid tvaiku, pirms iesprūdi.',
+        '2': 'Galvenokārt Meistarība. Mazliet Intelekta lielākām mašīnām.',
         say: 'Kas ir Ētera tehniķis?'
       },
       ready: {
         strong: {
-          '1': 'Tu varētu izjaukt tornīti aizsietām acīm! Ņem lielās mašīnas.'
+          '1': 'Tu tagad pārzini tornīšus. Ņem lielās mašīnas.'
         },
         able: {
-          '1': 'Stabilas rokas! Tu esi gatavs nākamajai ierīcei.'
+          '1': 'Stabilas rokas. Tu esi gatavs nākamajai.'
         },
         weak: {
-          '1': 'Tavas rokas trīc. Manas arī, bet citu iemeslu dēļ. Vairāk Meistarības.'
+          '1': 'Tavs mērķis vēl mazliet trīc. Ieliec dažus punktus Meistarībā.'
         }
       },
       heat: {
-        '1': 'Viss uz dažām sekundēm nobloķējas. Izlaid agri. Izlaid bieži. Man ir rētas.',
+        '1': 'Viss iesprūst uz dažām sekundēm. Izlaid agri, izlaid bieži. Uzticies man.',
         say: 'Kas notiek, ja pārkarstu?'
       },
       trainBack: {
-        '1': 'Atceries: izlaid karstumu! IZLAID. KARSTUMU.'
+        '1': 'Un atceries izlaist karstumu, pirms tas izlaiž tevi.'
       },
       bye: {
-        '1': 'Neuzsprāgsti!'
+        '1': 'Esi uzmanīgs tur ārā!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Zābakus nost. Es negribu tavus putekļus uz sava grīdas.',
-        '2': 'Māte Brinja. Šajā kalnā esmu salikusi katru lauzto kaulu divreiz.'
+        '1': 'Zābakus nost pie durvīm, lūdzu. Es tikko izslaucīju.',
+        '2': 'Māte Brinja. Esmu savietojusi lielāko daļu šī kalna lauzto kaulu.'
       },
       ending: {
-        '1': 'Tu devies uz Šausmu cietoksni un atgriezies. Apsēdies. Gribu uz tevi paskatīties.'
+        '1': 'Tu aizgāji uz Šausmu cietoksni un atgriezies. Apsēdies. Ļauj tevi apskatīt.'
       },
       again: {
-        '1': 'Vēl dzīvs. Man saka, ka tas ir mans nopelns.'
+        '1': 'Joprojām dzīvs. Labi. Sēdi.'
       },
       heal: {
-        '1': 'Apsēdies. Izdzer šo. Neizspied to seju. Tavas kolbas ir pilnas.'
+        '1': 'Izdzer šo un neveido tādu grimasi. Tavas kolbas ir pilnas.'
       },
       mana: {
-        '1': 'Lūdzu. Garša pretīga. Dzer, kad beidzas maģija, nevis agrāk.'
+        '1': 'Lūk. Garša briesmīga. Dzer, kad beidzas maģija, ne agrāk.'
       },
       potions: {
-        '1': 'Pērc no manis garāku jostu. Piecas kolbas ir viss, ko ķermenis var nest un vēl skriet.',
+        '1': 'Varu pārdot garāku jostu. Piecas kolbas ir apmēram viss, ko kāds var nest un vēl skriet.',
         say: 'Vai varu nest vairāk dziru?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra paņem pirkstus. Kusties tur ārā un negulē sniegā.'
+          '1': 'Tundra paņem pirkstus un kājas pirkstus. Kusties un neaizmiedz sniegā.'
         },
         temple: {
-          '1': 'Aiz tundras ir nogrimis templis. Nāgas neņem gūstekņus.'
+          '1': 'Aiz tundras ir nogrimis templis. Nāgas tur gūstekņus neņem.'
         },
         rift: {
-          '1': 'Lai kas arī būtu tajā Tukšuma plaisā, to nevar sašūt. Beidz to ātri.'
+          '1': 'Lai kas tajā plaisā būtu, es to nevaru sašūt. Neļauj tam tevi sasniegt.'
         }
       },
       healBack: {
-        '1': 'Ej nu. Un apēd ko.'
+        '1': 'Ej. Un apēd kaut ko, tu esi pārāk tievs.'
       },
       bye: {
         '1': 'Atnāc atpakaļ vienā gabalā.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Tu. Tu atvēri manus vārtus.',
-        '2': 'Tagad mācu no rūķa pagraba, jo man jāēd. Nejauc to ar piedošanu.'
+        '1': 'Tu. Tu esi tas, kas atvēra manus vārtus.',
+        '2': 'Tagad mācu pagrabā, jo man jāēd. Nenem to par piedošanu.'
       },
       ending: {
-        '1': 'Tronis izlemts, un Oukheivena joprojām ir pelni. Pastāsti vēlreiz, kā tas bija vērts.'
+        '1': 'Tātad tronis izlemts, un Oukheivena joprojām ir pelni. Ceru, ka tas bija tā vērts.'
       },
       again: {
-        '1': 'Nodevējs atgriežas. Mana maksa nav kritusies.'
+        '1': 'Tu esi atpakaļ. Mana maksa nav mainījusies.'
       },
       train: {
-        '1': 'Es tevi iemācīšu pavēlēt. Es nevaru iemācīt to pelnīt.'
+        '1': 'Es iemācīšu tevi vadīt. Vai tu to esi pelnījis, ir cits jautājums.'
       },
       class: {
-        '1': 'Tas, kam seko. Sargi atsaucas uz saucienu un cīnās pēc tava vārda.',
-        '2': 'Tas darbojas ar Harizmu. Tev tās ir. Tā ir traģēdija.',
+        '1': 'Kāds, kam citi seko. Sargi nāk, kad sauc, un cīnās pēc tava vārda.',
+        '2': 'Tas darbojas ar Harizmu. Tev tās ir. Tāpēc ir grūti piedot.',
         say: 'Kas ir Lielais valdnieks?'
       },
       ready: {
         strong: {
-          '1': 'Tev ir klātbūtne visam. Valstība no tā kļūst nabagāka.'
+          '1': 'Tev ir klātbūtne visam. Es vēlētos, lai tu to būtu izmantojis labāk.'
         },
         able: {
-          '1': 'Tu esi gatavs nākamajai stundai. Man tas nesagādā prieku.'
+          '1': 'Tu esi gatavs nākamajai nodarbībai. Neizlikšos, ka priecājos.'
         },
         weak: {
-          '1': 'Pat nodevēja sargs nesekotu tai balsij. Vairāk Harizmas.'
+          '1': 'Neviens tev vēl neseko. Strādā pie Harizmas.'
         }
       },
       oakhaven: {
         '1': 'Trīssimt gadu. Mana dzimta uzcēla tās sienas.',
-        '2': 'Nepaskaidro. Nav tādas cenas, kas to izskaidrotu.',
-        say: 'Par Oukheivenu…'
+        '2': 'Lūdzu, neskaidro. Nekas, ko tu varētu teikt, to nelabos.',
+        say: 'Par Oukheivenu...'
       },
       trainBack: {
-        '1': 'Ej. Pavēli kādam citam.'
+        '1': 'Ej. Vingrinies uz kāda cita.'
       },
       bye: {
-        '1': 'Atstāj mani.'
+        '1': 'Liec mani mierā, lūdzu.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Tu viņu nogalināji. Es to redzēju tūkstoš reižu, pirms tas notika, un tomēr sāp.',
-        '2': 'Es esmu Stundu glabātājs. Es tevi mācīšu. Viņa teica, ka mācīšu.'
+        '1': 'Tu viņu nogalināji. Es to redzēju nākam gadiem, un tomēr sāp.',
+        '2': 'Es esmu Stundu glabātājs. Es tevi mācīšu. Viņa teica, ka es to darīšu.'
       },
       hello: {
-        '1': 'Tu kavē. Vai esi par agru. Šķiet, to jau teicu.',
-        '2': 'Es esmu Stundu glabātājs. Es mācu laika aušanu. Mēs sākām pirms mirkļa.'
+        '1': 'Te nu tu esi. Es tevi gaidu jau kādu laiku. Vai būšu gaidījis.',
+        '2': 'Es esmu Stundu glabātājs. Es mācu, kā mazliet saliekt laiku.'
       },
       freed: {
-        '1': 'Viņa ir brīva. Pirmoreiz nezinu, ko tu teiksi tālāk. Tas ir brīnišķīgi.'
+        '1': 'Viņa ir brīva. Pirmo reizi nevaru pateikt, kas notiks tālāk. Tas ir brīnišķīgi.'
       },
       friend: {
-        '1': 'Loks tevi sauks par savu draugu. Jau sauc? Tad atlaide ir tagad.'
+        '1': 'Loks par tevi domā labi, tāpēc nodarbības maksā mazāk. Viņi to izlēma pagājušajā nedēļā.'
       },
       foe: {
-        '1': 'Loks tev piedos nākotnē, ko esmu redzējis. Līdz tam es tevi mācu klusībā.'
+        '1': 'Loks tagad uz tevi dusmojas. Tas pāries. Līdz tam to turam klusi.'
       },
       again: {
-        '1': 'Laipni lūdzam atpakaļ. Laipni. Atpakaļ.'
+        '1': 'Laipni lūdzu atpakaļ. Tu nāc tieši laikā.'
       },
       train: {
-        '1': 'Skaties. Es parādīšu, ko parādīju.'
+        '1': 'Skaties uzmanīgi. Tad skaties vēlreiz, mirkli agrāk.'
       },
       class: {
-        '1': 'Mēs apturam ienaidnieku laikā, pasteidzinām draugu un ņemam atpakaļ kļūdu.',
-        '2': 'Intelekts, lai ieraudzītu pavedienu, Meistarība, lai to pavilktu.',
+        '1': 'Mēs noturam ienaidnieku nekustīgu laikā, paātrinām draugu un atgūstam kļūdu.',
+        '2': 'Intelekts, lai redzētu pavedienu. Meistarība, lai to pavilktu.',
         say: 'Kas ir Laika audējs?'
       },
       ready: {
         strong: {
-          '1': 'Tu labi tur pavedienu. Pārējais ir tavs, kad gribi.'
+          '1': 'Tu labi tur pavedienu. Ņem pārējo, kad vēlies.'
         },
         able: {
-          '1': 'Tu esi gatavs. Tu biji gatavs arī rīt.'
+          '1': 'Tu esi gatavs. Es to zināju, pirms tu pajautāji.'
         },
         weak: {
-          '1': 'Pavediens slīd tev starp pirkstiem. Vairāk Intelekta. Vairāk Meistarības.'
+          '1': 'Pavediens pastāvīgi izslīd. Vairāk Intelekta un vairāk Meistarības.'
         }
       },
       oracle: {
         say: 'Pastāsti par orākulu.',
         freed: {
-          '1': 'Viņa redzēja katru beigu, un neviena nebija viņas. Tagad viena ir.'
+          '1': 'Viņa redzēja katru beigu, izņemot savējo. Tagad viņa uzzinās.'
         },
         slain: {
-          '1': 'Viņa nestājās pretī. Arī to bija redzējusi. Lūdzu, nejautā man vairs.'
+          '1': 'Viņa necīnījās pretī. Viņa to jau bija redzējusi. Lūdzu, nejautā man vairs.'
         },
         waits: {
-          '1': 'Viņa redz katru beigu. Tā ir briesmīga dāvana. Esi laipns pret viņu, beigās.'
+          '1': 'Viņa redz katru beigu. Tas ir smags nesams. Esi laipns pret viņu.'
         }
       },
       trainBack: {
-        '1': 'Tas būs bijis tā vērts.'
+        '1': 'Vēlāk tas kļūs skaidrs. Parasti kļūst.'
       },
       bye: {
-        '1': 'Līdz agrāk.'
+        '1': 'Līdz mēs atkal tiekamies. Vai agrāk.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Pagaidi! Pagaidi. Karalis padodas!',
-          '2': 'Goblini reido tikai tāpēc, ka goblini izsalkuši. Ir patiesība!',
-          '3': 'Varbūt garais un karalis noslēdz darījumu?'
+          '1': 'Stāj. Lūdzu. Es padodos.',
+          '2': 'Mana tauta veic reidus, jo ir izsalkusi. Tā ir patiesība.',
+          '3': 'Slēgsim labāk vienošanos. Tava tauta un mana.'
         },
         slay: {
-          '1': 'Karalis krīt, un Alas izklīst.',
-          '2': 'Sanforda guļ mierīgāk, un Dzelzs ordenis tevi ievēro.',
-          say: 'Nekāda darījuma. Tava valdīšana beidzas šeit.'
+          '1': 'Goblinu karalis krīt, un Alas iztukšojas.',
+          '2': 'Sanforda guļ mierīgāk, un Dzelzs ordenis dzird tavu vārdu.',
+          say: 'Nekādu vienošanos. Tavi reidi beidzas šeit.'
         },
         pact: {
-          '1': 'Tirdzniecība? Karalis zvēr! Karalis PATĪK tirdzniecība!',
-          '2': 'Goblinu tirgotāji iekārtojas Sanfordas laukumā ar precēm, kādas tur neviens kalējs nevarētu izgatavot.',
-          say: 'Beidz reidus un tā vietā tirgojies ar Sanfordu. Zvēri.'
+          '1': 'Tirdzniecība. Jā. Es zvēru, uz savu kroni.',
+          '2': 'Goblinu tirgotāji ierīko letes Sanfordas laukumā, pārdodot lietas, ko tur neviens kalējs nevarētu izgatavot.',
+          say: 'Beidz reidus un tā vietā tirgojies ar Sanfordu. Apzvērē to.'
         },
         ransom: {
-          '1': 'Visu? Karalis ienīst garo. Ņem. Ņem un ej.',
-          '2': 'Tu aiziet smags no goblinu zelta. Reidi sāksies atkal. Sindikāts atbalsta.',
-          say: 'Atdod savu mantu, un paturi kroni.'
+          '1': 'Visu? ...Labi. Ņem un ej.',
+          '2': 'Tu aizej ar goblinu zeltu. Reidi sāksies atkal, bet Sindikāts apstiprina.',
+          say: 'Atdod man savu dārgumu, un vari paturēt kroni.'
         }
       },
       siege: {
         ask: {
-          '1': 'Pietiek. Tu labi cīnies.',
-          '2': 'Sindikāts maksā labāk nekā tā pilsēta jebkad maksās.',
+          '1': 'Pietiek. Tu cīnies labi, to es atzīstu.',
+          '2': 'Sindikāts maksā daudz labāk, nekā šī pilsēta jebkad maksās.',
           '3': 'Atver mums vārtus šonakt, un trešdaļa Oukheivenas ir tava.'
         },
         defend: {
-          '1': 'Tad Sindikāts medīs tevi uz katra ceļa. Atceries, ka es piedāvāju.',
-          '2': 'Vārti iztur. Oukheivena kļūst bagāta aiz tiem, un tās meistarbruņukaļi atceras tavu vārdu.',
+          '1': 'Tad Sindikāts tevi medīs uz katra ceļa. Atceries, ka es piedāvāju.',
+          '2': 'Vārti tur. Oukheivena aiz tiem kļūst bagāta, un tās bruņukaļi atceras tavu vārdu.',
           say: 'Vārti paliek slēgti. Ņem savu armiju un ej.'
         },
         betray: {
-          '1': 'Gudri. Pateikšu Madāmai Ešai, lai novietotu tev krēslu.',
-          '2': 'Oukheivena deg. Tās drupās atveras melnais tirgus, un alķīmiķis māca aizliegtas mākslas.',
-          '3': 'Bruņukaļu vairs nav, un Dzelzs ordenis sauc tevi par nodevēju.',
-          say: 'Trešdaļa pilsētas. Šonakt vārti atvērsies.'
+          '1': 'Saprātīgi. Madāma Eša priecāsies to dzirdēt.',
+          '2': 'Oukheivena deg. Drupās atveras melnais tirgus, un alķīmiķis slepeni māca.',
+          '3': 'Bruņukaļu vairs nav, un Dzelzs ordenis tevi sauc par nodevēju.',
+          say: 'Trešdaļa pilsētas. Labi. Vārti atvērsies šovakar.'
         }
       },
       core: {
         ask: {
-          '1': 'Kolosa ir lūžņi. Nekad nedomāju to redzēt.',
-          '2': 'Un tur tā guļ. Serde. Vēl dūc. Silta uz tausti.',
-          '3': 'Tu to sasniedzi pirmais. Kas ar to notiks?'
+          '1': 'Koloss ir lūžņi. Nekad nedomāju, ka to piedzīvošu.',
+          '2': 'Un te ir kodols. Joprojām dūc. Tas ir silts, ja pieskaries.',
+          '3': 'Tu atnāci pirmais. Tātad... kas ar to notiks?'
         },
         destroy: {
           '1': 'Gaisma nodziest, un golemi nokrīt, kur stāv.',
-          '2': 'Dzelzs ordenis pateicībā sūta savus bruņukaļus uz Aironholdu.',
-          say: 'Atkāpies. Es to sagrāvšu.'
+          '2': 'Pateicībā Dzelzs ordenis sūta savus bruņukaļus uz Aironholdu.',
+          say: 'Atkāpies. Es to sagraušu.'
         },
         study: {
-          '1': 'Tu saproti pietiekami daudz par serdi, lai to nodotu, nepamodinot.',
+          '1': 'Tu zini pietiekami, lai pārvietotu kodolu, to nepamodinot.',
           '2': 'Sezonas laikā Aironholdas kalves izgatavo ētera darbus, kādus neviens nav redzējis.',
-          say: 'Lokam tā jāpēta. Es varu to droši iznest.'
+          say: 'Loka vajadzētu to pētīt. Domāju, ka varu to droši iznest.'
         },
         sell: {
           '1': 'Zelts. Par to, kas nogalināja manus kalnračus. Ņem un ej.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Esmu redzējusi šo mirkli desmit tūkstoš reižu.',
-          '2': 'Pusē no tām tu mani atbrīvo. Pusē paņem, ko sargāju.',
-          '3': 'Izvēlies. Ļauj man beidzot nezināt, kas būs tālāk.'
+          '1': 'Es esmu redzējis šo brīdi vairāk reižu, nekā spēju saskaitīt.',
+          '2': 'Pusē no tām tu mani atbrīvo. Otrā pusē tu paņem, ko es sargāju.',
+          '3': 'Izvēlies. Es gribētu, vienu reizi, nezināt, kas sekos.'
         },
         free: {
-          '1': 'Ak. To neredzēju. To es nemaz neredzēju.',
-          '2': 'Orākuls paceļas cauri ūdenim un pazūd. Viņas stundu glabātājs paliek mācīt.',
+          '1': 'Ak. To es neredzēju. Tiešām neredzēju.',
+          '2': 'Orākuls paceļas cauri ūdenim un pazūd. Viņas skolniece paliek mācīt.',
           say: 'Stāvi mierīgi. Es lauzu tavas važas.'
         },
         slay: {
           '1': 'Jā. Šī ir otra puse.',
-          '2': 'Viņa nestājas pretī. Laika sarga smilšu pulkstenis ir tavs.',
-          '3': 'Viņas pēdējais skolnieks bēg no tempļa, un Loks nepiedod.',
+          '2': 'Viņa nepretojas. Laika glabātāja smilšu pulkstenis ir tavs.',
+          '3': 'Viņas pēdējā skolniece bēg no tempļa, un Loks tev nepiedos.',
           say: 'Es atnācu pēc smilšu pulksteņa.'
         }
       },
       dragon: {
         ask: {
           '1': 'Pietiek. Tev ir zobi, mazais.',
-          '2': 'Dēmons cietoksnī iekala manus radus važās. Es gribētu redzēt viņu degam.',
+          '2': 'Dēmons cietoksnī iekala manus radiniekus važās. Es gribu redzēt viņu degam.',
           '3': 'Nogalini mani vai ļauj man tev palīdzēt to izdarīt.'
         },
         slay: {
           '1': 'Kalns drebē, kad pūķis krīt. Tā manta ir tava.',
           '2': 'Dzelzs ordenis dzied par pūķu slepkavu.',
-          say: 'Nekādu darījumu ar pūķiem.'
+          say: 'Es ar pūķiem nesaderu.'
         },
         pact: {
-          '1': 'Maz kas to varēja pajautāt un izdzīvot. Ļoti labi, mazais. Medīsim kopā.',
-          '2': 'Kad tu dosies uz Šausmu cietoksni, pūķis būs debesīs virs tevis.',
-          say: 'Tad lido ar mani pret Ērkdēmonu.'
+          '1': 'Nedaudzi uzdrošinātos pajautāt. Ļoti labi. Mēs medījam kopā.',
+          '2': 'Kad tu soļosi uz Šausmu cietoksni, virs tevis lidos pūķis.',
+          say: 'Tad cīnies man blakus pret Arhidēmonu.'
         }
       },
       throne: {
         ask: {
           '1': 'Tātad. Tas beidzas. Nedomāju, ka tas būsi tu.',
-          '2': 'Mans tronis nepaliks tukšs, mazais varoni. Tas pavēl cietoksnim, plaisai un abu armijām.',
-          '3': 'Trīs sūtņi jau gaida pie manām durvīm. Izvēlies, kas mantos manas važas.'
+          '2': 'Mans tronis neatstās tukšs. Kas to ņems, tas komandēs cietoksni un plaisu.',
+          '3': 'Trīs sūtņi jau gaida pie manām durvīm. Izvēlies, kurš nāks nākamais.'
         },
         order: {
           '1': 'Ordenis izvieto garnizonu cietoksnī un aizzīmogo, ko var.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindikāts ievācas pirms rītausmas.',
-          '2': 'Tagad viss ir pārdodams, arī miers.',
+          '2': 'No šī brīža visam ir cena, pat mieram.',
           say: 'Pelnu sindikāts to ir pelnījis.'
         },
         circle: {
           '1': 'Loks pārvērš cietoksni par skolu virs plaisas.',
-          '2': 'Viņi to sauc par pētniecību. Visi pārējie – par laika jautājumu.',
+          '2': 'Viņi to sauc par pētniecību. Visi pārējie aiztur elpu.',
           say: 'Lai Ētera loks to dabū.'
         },
         shatter: {
-          '1': 'Tu sagrauj troni ar savām rokām. Neviens vairs nevaldīs no šejienes.',
+          '1': 'Tu sagrāvi troni ar savām rokām. Neviens vairs no šejienes nevaldīs.',
           '2': 'Sūtņi aiziet bez vārda.',
-          say: 'Neviens nemanto. Es to sagrauju.'
+          say: 'Neviens to nedabūs. Es to sagraušu.'
         },
         claim: {
           '1': 'Tronis ir auksts, un tas der.',
           '2': 'Trīs frakcijas atklāj, ka tām ir kopīgs ienaidnieks.',
-          say: 'Es pats uz tā apsēdīšos.'
+          say: 'Es to ņemšu pats.'
         }
       }
     }

@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Reaĉeti',
     deal: 'Interkonsentite!',
     say: {
-      buy: 'Bona elekto. Prizorgu ĝin.',
-      sell: 'Mi trovos por ĝi bonan hejmon.',
-      back: 'Ŝanĝis opinion? Jen, tia kia ĝi estis.',
-      poor: 'Revenu kun pli peza monujo.'
+      buy: 'Bona elekto. Zorgu pri ĝi kaj ĝi zorgos pri vi.',
+      sell: 'Bone. Iu ĝin volos.',
+      back: 'Ĉu vi ŝanĝis opinion? Neniu problemo, jen ĝi.',
+      poor: 'Bedaŭrinde, tio estas iom pli ol vi havas.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Sidiĝu. Ripozu. Vi foriros de ĉi tie sana, kun ĉiu flakono plena. Se vi volas porti pli da ili, tion mi povas vendi al vi.',
+    talk: 'Sidiĝu kaj ripozu iomete. Viaj flakonoj denove plenas. Se vi volas, mi povas vendi al vi pli grandan zonon.',
     note: 'Vi portas {n} pociojn en ĉiun zonon.',
     buy: 'Unu plia flakono · {n}',
     full: 'Via zono ne povas teni pli.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram la Forĝisto',
-      talk: 'Simpla ŝtalo, honestaj prezoj. Ĝi tenos koboldon for de vi.'
+      talk: 'Simpla ŝtalo, justaj prezoj. Ne hastu.'
     },
     sunfordPeddler: {
       name: 'Tilly la Kolportistino',
-      talk: 'Ringoj! Amuletoj! Aĵoj, kiujn mi trovis kaj tute certe ne ŝtelis.'
+      talk: 'Ringoj, amuletoj, diversaĵoj. Tiu ĉi eĉ eble portas bonŝancon.'
     },
     trainerAegis: {
       name: 'Kavaliro Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik la Komercisto',
-      talk: 'Reĝo diri komerci, do Grik komerci. Brilaĵo por brilaĵo. Bona brilaĵo.'
+      talk: 'Mia familio faris ĉi tiujn. Bona laboro, justa prezo.'
     },
     captainHale: {
       name: 'Kapitano Hale'
     },
     oakArmorer: {
       name: 'Odo la Kirasisto',
-      talk: 'Duono de mia stoko iris sur la murojn. Prenu tion, kio restas.'
+      talk: 'Duono de mia stoko iris al la muro. Prenu, kio restas, se ĝi taŭgas.'
     },
     oakMasterArmorer: {
       name: 'Majstro Odo',
-      talk: 'Vi savis ĉi tiun urbon. Por vi la bona platkiraso venas el la malantaŭa ĉambro.'
+      talk: 'La bona kiraso estas ekstere. Vi pli ol meritas rigardi ĝin.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Akraj, ekvilibraj, kaj vendataj al tiu, kiu pagas. Hodiaŭ tio estas vi.'
+      talk: 'Akra, ekvilibra, kaj je justa prezo. Ne tuŝu la tranĉantojn.'
     },
     trainerShadow: {
       name: 'La Flustro'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'La Ŝtelaĵvendisto',
-      talk: 'Neniuj nomoj, neniuj demandoj. La Sindikato prenas sian parton, vi prenas la varojn.'
+      talk: 'Nek vi demandas, nek mi respondas. La Sindikato prenas sian parton.'
     },
     trainerBlood: {
       name: 'Doktoro Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Martelmano',
-      talk: 'Forĝita de gnomoj. Se ĝi rompiĝos, kulpis vi.'
+      talk: 'Ĉio forĝita de nanoj, peco post peco. Se unu rompiĝas, mi volas scii kiel.'
     },
     ironAetherWorks: {
       name: 'Inventisto Voss',
-      talk: 'La studo de la Rondo pri la kerno ŝanĝis ĉion. Tenu ĉi tion. Ne direktu ĝin al mi.'
+      talk: 'Ĉio ĉi venis de la studado de la kerno. Atentu, plejparto estas ŝargitaj.'
     },
     ironArmor: {
       name: 'Garrun Ferflanko',
-      talk: 'Platkiraso, kiu deturnas la klabon de giganto. Ringoj por vi ceteraj.'
+      talk: 'Kirasoj sur la bretoj, ringoj en la pleto.'
     },
     ironOrderArmor: {
       name: 'Provizestro de la Ordeno',
-      talk: 'La Ordeno memoras, kiu detruis la kernon. Ĝiaj armilejoj estas malfermaj al vi.'
+      talk: 'Prenu, kion vi bezonas. La Ordeno zorgas pri siaj.'
     },
     trainerGeo: {
       name: 'Maljuna Ŝtonpiedo'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Ĉi-vespere pluvos, diras mia genuo.',
-        '2': 'Via genuo diris tion pasintsemajne.',
-        '3': 'Kaj pluvis, ĉu ne? Ie.'
+        '1': 'Ŝajne pluvos ĉi-nokte. Mia genuo doloras ekde la mateno.',
+        '2': 'Via genuo diris same ankaŭ la pasintan semajnon.',
+        '3': 'Kaj pluvis, ĉu ne? Nur ne ĉi tie.'
       },
       harvest: {
-        '1': 'La plej bona hordeo en jaroj, ĉi tiu.',
-        '2': 'Tion vi diras ĉiujare.'
+        '1': 'La hordeo bone kreskis ĉi-jare.',
+        '2': 'Ni esperu, ke oni lasos nin konservi ĝin.'
       },
       goblins: {
         '1': 'Koboldoj forportis tri kokinojn de la bieno de la Muelisto.',
-        '2': 'Nur tri? Ili pigriĝas.',
-        '3': 'Aŭ satiĝis.'
+        '2': 'Denove? Jam la dua fojo ĉi-monate.',
+        '3': 'Iu devus fari ion pri tiuj kavernoj.'
       },
       kingGone: {
-        '1': 'Oni diras, ke la Kobolda Reĝo foriris por ĉiam.',
-        '2': 'Kiu do ŝtelas miajn rapojn?'
+        '1': 'Oni diras, ke la Kobolda Reĝo mortis.',
+        '2': 'Bone. Eble mi finfine dormos tutan nokton.'
       },
       pact: {
-        '1': 'Koboldo vendis al mi hodiaŭ kuleron.',
-        '2': 'Ĉu ĝi estis via kulero?',
-        '3': 'Jes, ĝi estis. Bona prezo tamen.'
+        '1': 'Hodiaŭ matene mi aĉetis kuleron de kobolda vendisto.',
+        '2': 'Ĉu ĝi estas bona?',
+        '3': 'Pli bona ol mia, verdire. Ne diru tion al iu.'
       },
       bram: {
-        '1': 'Bram denove martelas. Ekde la tagiĝo!',
-        '2': 'Konstanta kiel korbato, tiu viro.'
+        '1': 'Bram staras ĉe la amboso ekde antaŭ la sunleviĝo.',
+        '2': 'Li fariĝas tia, kiam li maltrankvilas.'
       },
       pie: {
-        '1': 'Ĉu mi flaras pomtorton?',
-        '2': 'Jes, flaris. En la pasinteco.',
-        '3': 'Vi manĝis ĉion? Denove?'
+        '1': 'Ĉu tio estas pomtorto, kion mi flaras?',
+        '2': 'Estis. La infanoj trovis ĝin unue.',
+        '3': 'Mi bakos alian. Kaj ĉifoje mi kaŝos ĝin pli bone.'
       },
       road: {
-        '1': 'Neniu plu iras laŭ la ebenaĵa vojo.',
-        '2': 'Ne kun banditoj sur ĝi.'
+        '1': 'Jam semajnon neniu iris laŭ la ebenaĵa vojo.',
+        '2': 'Ne kun banditoj sur ĝi. Mi ne povas riproĉi ilin.'
       },
       hero: {
-        '1': 'Iu purigis la ebenaĵan vojon!',
-        '2': 'Jam tempo. Mia kuzo ŝuldas al mi ĉaron.'
+        '1': 'Iu forigis la banditojn de la ebenaĵa vojo.',
+        '2': 'Dankon al la ĉielo. Mia fratino povos viziti nin denove.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Du arĝentoj por brasiko. Du!',
-        '2': 'Ĝi estas tre bela brasiko.',
-        '3': 'Ne tiom bela.'
+        '2': 'Nuntempe nenio venas tra la pordego malmultekoste.',
+        '3': 'Do mi kreskigos mem. Sur la tegmento, se necese.'
       },
       watch: {
-        '1': 'La gardistaro duobligis la pordegogardistojn.',
-        '2': 'Bone. Mi pli bone dormas.'
+        '1': 'Ili duobligis la gardistaron ĉe la pordego.',
+        '2': 'Bone. Mi dormas iom pli trankvile pro tio.'
       },
       caravan: {
-        '1': 'La spican karavano denove malfruas.',
+        '1': 'La spica karavano denove malfruas.',
         '2': 'Banditoj?',
-        '3': 'Aŭ la veturigisto trovis drinkejon.'
+        '3': 'Aŭ koto. Ni esperu, ke ĝi estas koto.'
       },
       siege: {
-        '1': 'Oni diras, ke armeo tendumas en la ĉirkaŭaĵo.',
-        '2': 'Do ni plenigu la kelon.'
+        '1': 'Armeo tendumas preter la bienoj.',
+        '2': 'Tiam ni pli bone plenigu la kelon, dum ni povas.'
       },
       saved: {
-        '1': 'Ĉu vi vidis la sieĝon rompiĝi? Glora!',
-        '2': 'Mi vidis ĝin de sub mia lito.',
-        '3': 'Ankaŭ validas.'
+        '1': 'Ĉu vi estis sur la muro, kiam la sieĝo rompiĝis?',
+        '2': 'Mi kaŝis min sub mia lito, se mi estu honesta.',
+        '3': 'Same duono de la urbo. Tamen ni ankoraŭ estas ĉi tie.'
       },
       fountain: {
         '1': 'Mi ĵetis moneron en la fontanon por bonŝanco.',
-        '2': 'Kaj mi elpeskis ĝin. Dankon!'
+        '2': 'Mi esperas, ke vi deziris pli malmultekostajn brasikojn.'
       },
       ash: {
-        '1': 'Ĉio odoras je cindro.',
-        '2': 'Pli bone ol odori je nenio.'
+        '1': 'Ĉio ankoraŭ odoras je fumo.',
+        '2': 'Ĝi paliĝos. Ĉio paliĝas, fine.'
       },
       hide: {
-        '1': 'Ĉu vi aŭdis botojn ekstere hieraŭ nokte?',
-        '2': 'Silentu. Parolu pli mallaŭte.',
-        '3': 'Pardonon. Pardonon.'
+        '1': 'Ĉu vi aŭdis botojn en la strato hieraŭ nokte?',
+        '2': 'Ne tiel laŭte. Vi ne scias, kiu aŭskultas.',
+        '3': 'Pardonu. Mi nur... pardonu.'
       },
       bread: {
-        '1': 'Mi trovis duonan panon. Ni povas dividi ĝin.',
+        '1': 'Mi trovis duonan panon. Jen, prenu iom.',
         '2': 'Vi estas bona animo. Dankon.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Bona kupra tavolo sur la kvara nivelo.',
-        '2': 'Kupro? Mi volas oron.',
-        '3': 'Vi volas dormeton, pli ĝuste.'
+        '2': 'Kupro. Mi esperis arĝenton.',
+        '3': 'Kupro pagas la lupagon. Arĝento pagas la revojn.'
       },
       forge: {
-        '1': 'La granda forĝejo ne estingiĝis en cent jaroj.',
-        '2': 'La pipo de mia avo ankaŭ ne.'
+        '1': 'La granda forĝejo ne malvarmiĝis dum cent jaroj.',
+        '2': 'Mia avo helpis ekbruligi ĝin, vi scias.'
       },
       beard: {
-        '1': 'Vi tondis vian barbon!',
-        '2': 'Ĝi ekbrulis ĉe la amboso.',
-        '3': 'Tamen taŭgas al vi.'
+        '1': 'Vi tondis vian barbon.',
+        '2': 'Mi tro proksimiĝis al la amboso.',
+        '3': 'Ĝi rekreskos. Kaj pli mallonga ĝi taŭgas al vi, ĉiuokaze.'
       },
       core: {
-        '1': 'Nun io brilas en la profundaj minejoj.',
-        '2': 'Nenio bona brilas tie sube.'
+        '1': 'Io ekbrilas malsupre en la profundaj ŝaktoj.',
+        '2': 'Nenio bona brilas tie malsupre. Restu supre.'
       },
       order: {
-        '1': 'La kirasistoj de la Ordeno laboras rapide.',
-        '2': 'Rapide, jes. Sed ne tiel bone kiel ni.'
+        '1': 'La kirasistoj de la Ordeno laboras rapide, tion mi koncedas.',
+        '2': 'Rapide, jes. Ni vidos, kiom ĝi daŭros.'
       },
       circle: {
-        '1': 'La magiistoj de la Rondo zumas dum la laboro.',
-        '2': 'Pli bone ol nia kantado, mi supozas.'
+        '1': 'La homoj de la Rondo zumas dum ili laboras.',
+        '2': 'Almenaŭ tio estas pli bona ol via kantado.'
       },
       cold: {
-        '1': 'Malvarmas ĉi-supre ĉi-matene.',
-        '2': 'Staru pli proksime al la forĝejo, do.'
+        '1': 'Mordanta malvarmo ĉi-matene.',
+        '2': 'Venu stari apud la forĝejo, do.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Nun vi serĉas!',
-        '2': 'Ne juste, mi ne estis preta!'
+        '1': 'Kaptis! Nun vi kaptu!',
+        '2': 'Tio ne estas juste, mi ne estis preta!'
       },
       dragon: {
-        '1': 'Kiam mi plenkreskos, mi rajdos drakon.',
-        '2': 'Drakoj ne lasas sin rajdi.',
-        '3': 'Afablaj lasas!'
+        '1': 'Kiam mi estos granda, mi rajdos drakon.',
+        '2': 'Drakoj ne lasas homojn rajdi ilin.',
+        '3': 'Ŝatinda drako eble lasus.'
       },
       sword: {
-        '1': 'Rigardu, vera glavbastono!',
-        '2': 'Ĝi estas nur bastono.'
+        '1': 'Rigardu, mi trovis glavon!',
+        '2': 'Tio estas bastono.'
       },
       frog: {
-        '1': 'Mi trovis ranon apud la puto.',
+        '1': 'Estas rano apud la puto.',
         '2': 'Ĉu ni povas teni ĝin?',
-        '3': 'Ĝi eble tenas nin.'
+        '3': 'Panjo diris, ke ne plu ranoj.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Tio estas ĉio por nun.',
-      trade: 'Montru al mi viajn varojn.',
-      train: 'Instruu min.',
-      heal: 'Flikru min.',
-      mana: 'Mi bezonas ion por mia manao.',
-      who: 'Kiu vi estas?',
+      bye: 'Mi lasos vin labori.',
+      trade: 'Ĉu mi povas vidi, kion vi havas?',
+      train: 'Ĉu vi instruos min?',
+      heal: 'Ĉu vi povus flikri min?',
+      mana: 'Ĉu vi havas ion por manao?',
+      who: 'Kiu vi estas, se vi ne ĝenas, ke mi demandas?',
       rumor: 'Ĉu vi aŭdis ion lastatempe?',
-      ready: 'Ĉu mi pretas por pli?'
+      ready: 'Ĉu vi pensas, ke mi pretas por pli?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Nova vizaĝo. Vi estas tiu, kiu tenis la ebenaĵan vojon.',
-        '2': 'Mi estas Bram. Mi faras ŝtalon. Vi aspektas, ke vi bezonas iom.'
+        '1': 'Mi ne vidis vin antaŭe. Ĉu vi estas tiu, kiu purigis la vojon?',
+        '2': 'Bram. Mi prizorgas la forĝejon. Se vi bezonas klingon, venu al mi.'
       },
       kingDead: {
-        '1': 'Oni diras, ke la Kobolda Reĝo mortis. Bone. Malpli da bosoj en la radoj de karavanoj.'
+        '1': 'Mi aŭdis, ke la Kobolda Reĝo mortis. Mi ne diros, ke mi sopiros lin.'
       },
       kingPact: {
-        '1': 'Koboldoj komercas sur la placo. Mi neniam kredis vidi tion. Ilia fero tamen estas fuŝaĵo.'
+        '1': 'Koboldoj komercas en la placo nun. Mi neniam pensis, ke mi vidos tion.'
       },
       kingRansom: {
-        '1': 'Oni diras, ke vi prenis la oron de la Reĝo kaj lasis al li la kronon. La rabatakoj revenos.'
+        '1': 'Vi lasis la Kobolda Reĝon konservi sian kronon. Li revenos, vi scias.'
       },
       ending: {
-        '1': 'La tuta regno parolas pri tiu trono. Kaj vi ankoraŭ aĉetas ĉe mi. Hm.'
+        '1': 'La tuta regno parolas pri vi. Ĉu vi tamen bezonas akrigŝtonon?'
       },
       again: {
-        '1': 'Denove ĉi tie. Bone. Ŝtalo ne vendas sin mem.'
+        '1': 'Denove ĉi tie. Kion mi povas fari por vi?'
       },
       trade: {
-        '1': 'Simpla ŝtalo, honestaj prezoj. Rigardu kiom vi volas.'
+        '1': 'Simpla ŝtalo, justaj prezoj. Rigardu.'
       },
       who: {
-        '1': 'Bram. Tridek jarojn ĉe ĉi tiu amboso.',
-        '2': 'Mi ŝuas ĉevalojn, riparas plugilojn kaj armas malsaĝulojn kiel vi. Laŭ tiu ordo.'
+        '1': 'Bram. Tridek jarojn ĉe ĉi tiu amboso, ĉirkaŭ.',
+        '2': 'Ĉevalŝuojn, plugilojn, foje glavon. Lastatempe, plejparte glavojn.'
       },
       gear: {
-        '1': 'Ŝildon, se vi intencas esti frapata. Pli grandan glavon, se ne.',
-        '2': 'Forto svingas mian ŝtalon. Metu viajn punktojn tien, antaŭ ol aĉeti pezan.',
-        say: 'Kion mi portu tie ekstere?'
+        '1': 'Ŝildon, se vi planas ricevi batojn. Plej multaj ricevas.',
+        '2': 'Peza ŝtalo bezonas fortan brakon. Unue plibonigu vian Forton.',
+        say: 'Kion mi prenu kun mi tie ekstere?'
       },
       rumor: {
         plains: {
-          '1': 'Koboldoj sur la ebenaĵa vojo. Forpelu ilin, antaŭ ol aĉeti ion luksan.'
+          '1': 'Banditoj sur la ebenaĵa vojo. Mi komencus tie, se mi estus vi.'
         },
         hollows: {
-          '1': 'La rabistoj elrampas el la Koboldaj Kavernoj, preter la ebenaĵoj. Ilia reĝo sidas en la fundo.'
+          '1': 'La koboldoj venas el la Kavernoj, preter la ebenaĵoj. Ilia reĝo estas tie malsupre.'
         },
         woods: {
-          '1': 'Oriente de la ebenaĵoj komenciĝas la Flustranta Arbaro. La arboj marŝas tie. Kunportu hakilon.'
+          '1': 'Oriente de la ebenaĵoj estas la Flustranta Arbaro. Oni diras, ke la arboj moviĝas.'
         },
         siege: {
-          '1': 'Fumo super Oakhaven. Oni diras, ke militestro tendumas en la ĉirkaŭaĵo.'
+          '1': 'Estas fumo direkte al Oakhaven. Armeo tendumas ĉe ĝia ĉirkaŭaĵo.'
         },
         north: {
-          '1': 'Ŝtalo de Ironhold denove estas sur la vojo. Iru norden, se vi volas ion pli bonan ol mia.'
+          '1': 'Ŝtalo de Ironhold denove venas laŭ la vojo. Pli bona ol mia, se mi estu honesta.'
         }
       },
       shopBack: {
-        '1': 'Portu ĝin sane. Aŭ almenaŭ portu ĝin.'
+        '1': 'Zorgu pri ĝi kaj ĝi zorgos pri vi.'
       },
       bye: {
-        '1': 'Atentu la vojon.'
+        '1': 'Atentu vin.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, kliento! Aŭ gardisto. Vi ne estas gardisto, ĉu?',
-        '2': 'Mi estas Tilly. Ringoj, amuletoj, bonŝancaj aĵoj. Ĉio trovita, neniam ŝtelita.'
+        '1': 'Ho, saluton! Ĉu vi aĉetas, aŭ nur rigardas? Ambaŭ taŭgas.',
+        '2': 'Mi estas Tilly. Ringoj, amuletoj, diversaĵoj de ĉiuj lokoj.'
       },
       rival: {
-        '1': 'Ĉu vi vidis la budon de Grik? Koboldaj bagateloj! Mi estas ruinigita. Aĉetu ion. Kompatu min.'
+        '1': 'Ĉu vi vidis la budon de la kobolda vendisto? Liaj prezoj estas pli malaltaj ol miaj. Tio ne estas juste.'
       },
       again: {
-        '1': 'Mia plej ŝatata kliento! Mi diras tion al ĉiuj, sed pri vi mi serioze.'
+        '1': 'Jen vi! Mi flankenmetis kelkajn aĵojn, kiujn mi pensas, ke vi ŝatos.'
       },
       trade: {
-        '1': 'Ringoj! Amuletoj! Aĵoj, kiujn mi trovis kaj certe ne ŝtelis.'
+        '1': 'Rigardu. Tiu ĉi portas bonŝancon. Verŝajne.'
       },
       who: {
-        '1': 'Mi promenas laŭ la vojoj kaj kolektas tion, kion la vojoj postlasas.',
-        '2': 'Banditoj lasas la plej belajn aĵojn, kiam ili forkuras.'
+        '1': 'Mi iras laŭ la vojoj kaj aĉetas tion, kion homoj volas forigi.',
+        '2': 'Kaj foje mi trovas aĵojn. Banditoj lasas multon, kiam ili forkuras.'
       },
       trinkets: {
-        '1': 'Oni portas du samtempe, unu sur ĉiu mano. Eta avantaĝo tamen estas avantaĝo.',
-        say: 'Por kio utilas amuletoj?'
+        '1': 'Vi povas porti du, unu sur ĉiu mano. Tie ekstere, ĉio kunadiciĝas.',
+        say: 'Por kio utilas amuletoj, fakte?'
       },
       stolen: {
-        '1': 'Ŝŝ! Ne tiel laŭte. Bone. BONE.',
-        '2': 'Prenu ĉi tiun ringon kaj ni neniam parolis. Ĝi estas bela ringo. Plejparte kupro.',
-        say: 'Vi ŝtelis ĉion ĉi, ĉu ne?'
+        '1': 'Ha. Vi havas manieron demandi, ĉu ne?',
+        '2': 'Prenu ĉi tiun ringon kaj ni ne parolu pri tio, kie mi trovis ĝin.',
+        say: 'De kie venis ĉio ĉi, vere?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Sude de ĉi tie estas koloseo kun rustaj pordegoj. Ili malfermiĝus, se la koboldaj problemoj finiĝus.'
+          '1': 'Sude de ĉi tie estas malnova koloseo. Firme fermita, dum la koboldoj atakas.'
         },
         arenaOpen: {
-          '1': 'La Koloseo estas malferma! Ok ondoj, oni diras. Mi vendas bonŝancon. Vi volos bonŝancon.'
+          '1': 'La koloseo denove malfermiĝis. Ok ondoj, mi aŭdis. Oni vetas pri ĝi.'
         },
         east: {
-          '1': 'La bazaroj de Oakhaven pagas duoble por ĉio briliĝanta. Iru orienten, preter la arbaro.'
+          '1': 'Oakhaven bone pagas por io ajn brila. Ĝi estas oriente, preter la arbaro.'
         }
       },
       shopBack: {
-        '1': 'Revenu, kiam vi estos pli riĉa!'
+        '1': 'Revenu, kiam via monujo estos pli peza!'
       },
       bye: {
-        '1': 'Gardu viajn poŝojn tie ekstere! Ne apud mi, mi volas diri. Aliloke.'
+        '1': 'Bonan vojaĝon. Tenu viajn monerojn bone tie ekstere.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Staru rekte. Vi staras antaŭ kavaliro de la Fera Ordeno.',
-        '2': 'Kavaliro Aldric. Mi instruas la ŝildon al tiuj, kiuj volas stari antaŭ aliaj.'
+        '1': 'Stariĝu rekte. Vi parolas al kavaliro de la Fera Ordeno.',
+        '2': 'Kavaliro Aldric. Mi instruas stari inter aliaj kaj damaĝo.'
       },
       saved: {
-        '1': 'Oakhaven staras, ĉar vi staris. Tio estas ĉio, kion mi instruas.'
+        '1': 'Oakhaven ankoraŭ staras, kaj mi aŭdis, ke vi estis sur ĝia muro. Bone farite.'
       },
       fallen: {
-        '1': 'Vi malfermis la pordegon de Oakhaven. Mi enterigis homojn pro malpli. Diru vian aferon.'
+        '1': 'Vi malfermis la pordegon de Oakhaven. Mi ne ŝajnigos, ke mi forgesis. Kion vi volas?'
       },
       dragon: {
-        '1': 'Drakomortiganto en mia korto. Oni kantos pri tio en la granda halo.'
+        '1': 'Ĉu vi mortigis la drakon sur la pinto? Mi ŝatus vidi tion.'
       },
       friend: {
-        '1': 'La Ordeno bone parolas pri vi. Por ĝiaj amikoj miaj lecionoj kostas malpli.'
+        '1': 'La Ordeno pensas bone pri vi. Por ĝiaj amikoj, miaj lecionoj kostas malpli.'
       },
       foe: {
-        '1': 'La Ordeno nomas vin malamiko. Mi tamen instruos vin. Honoron ne ili rajtas nuligi.'
+        '1': 'La Ordeno nomas vin malamiko. Mi tamen instruos vin. Tio estas mia decido, ne ilia.'
       },
       again: {
-        '1': 'Ŝildo supre. Kion vi bezonas?'
+        '1': 'Ĉu vi revenis por pliaj ekzercoj?'
       },
       train: {
-        '1': 'Do atentu. Mi montras aferon nur unufoje.'
+        '1': 'Bone. Rigardu atente, mi montros nur unufoje.'
       },
       class: {
-        '1': 'Muro, kiu marŝas. Ni ricevas la baton, por ke nenio alia devu.',
-        '2': 'Forto por la brako, Eltenemo por la cetero. La lumo faras, kion ĝi povas.',
-        say: 'Kio estas Egida Kavaliro?'
+        '1': 'Ni ricevas la batojn destinitajn al aliaj. Tio estas simpla, kaj malfacila.',
+        '2': 'Vi bezonos Forton por la ŝildo kaj Eltenemon por teni ĝin.',
+        say: 'Kion fakte faras Egida Kavaliro?'
       },
       ready: {
         strong: {
-          '1': 'Vi havas brakon por preskaŭ ĉio, kion mi scias. Atentu vian Eltenemon kaj prenu la reston.'
+          '1': 'Vi estas sufiĉe forta por plejparto de tio, kion mi scias. Daŭrigu kun via Eltenemo.'
         },
         able: {
-          '1': 'Vi pretas por la sekva leciono. Ne lasu ĝin ŝveli vian kapon.'
+          '1': 'Vi pretas por la sekva leciono. Ne lasu ĝin iri al via kapo.'
         },
         weak: {
-          '1': 'Ankoraŭ ne. Via brako estas malforta kaj vi rapide laciĝas. Pli da Forto, pli da Eltenemo.'
+          '1': 'Ankoraŭ ne. Vi laciĝus antaŭ la ŝildo. Pli da Forto, pli da Eltenemo.'
         }
       },
       order: {
-        '1': 'Ni gardas la vojojn kaj la leĝon. Iuj diras, ke tro multe de ambaŭ.',
-        '2': 'Staru kun la Ordeno, kaj ĝiaj kirasistoj kaj instruistoj memoros vin.',
+        '1': 'Ni gardas la vojojn sekuraj kaj la leĝon en mano. Iuj diras, ke tro firme.',
+        '2': 'Staru kun ni, kaj niaj kirasistoj kaj instruistoj memoros vin.',
         say: 'Rakontu al mi pri la Fera Ordeno.'
       },
       trainBack: {
-        '1': 'Ekzercu ĝin ĝis ĝi enuigos vin. Poste ekzercu pli.'
+        '1': 'Ekzercu ĝis ĝi enuigas. Kaj poste daŭrigu.'
       },
       bye: {
-        '1': 'Iru kun la lumo.'
+        '1': 'Iru singarde.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Lernanto? Retiriĝu iomete. Iom pli.',
-        '2': 'Ember Wren, fajromagiistino. La brovoj regrandas, plejparte.'
+        '1': 'Ho, lernanto? Kiel bele. Eble staru iom pli malproksime.',
+        '2': 'Mi estas Ember Wren. Mi instruas fajron. Plejparte ĝi faras, kion mi petas.'
       },
       core: {
-        '1': 'Vi donis la kernon al la Rondo! Ĉu vi scias, kiom da aĵoj ni nun povas ekbruligi?'
+        '1': 'Vi donis la kernon al la Rondo! Mi ne povas atendi vidi, kion ni lernos el ĝi.'
       },
       friend: {
-        '1': 'La Rondo de Etero ŝatas vin! Tio signifas rabaton. Kaj malpli da formularoj por subskribi.'
+        '1': 'La Rondo parolas bone pri vi. Tio signifas rabaton, cetere.'
       },
       foe: {
-        '1': 'La Rondo volas, ke vi fariĝu cindro. Embarase! Mi tamen instruos vin. Fajro ne estas elektema.'
+        '1': 'La Rondo ne estas kontenta pri vi. Mi tamen instruos vin. Kviete.'
       },
       again: {
-        '1': 'Vi revenis! Kaj nenio brulas. Tion ni povas ripari.'
+        '1': 'Vi revenis! Ĉu preta ekbruligi ion?'
       },
       train: {
-        '1': 'Jes! Rigardu atente. Ne tiel atente.'
+        '1': 'Bone. Rigardu miajn manojn, kaj tenu viajn manikojn for de mi.'
       },
       class: {
-        '1': 'Fajro respondas ĉiun demandon. Bruligu ilin unue, poste eksplodigu tiujn, kiuj brulas.',
-        '2': 'Ĉio funkcias per Inteligento. Kaj konstanta provizo de talaroj.',
-        say: 'Kion faras Fajromagiisto?'
+        '1': 'Ekbruligi aĵojn, plejparte. Kaj poste igi la fajron disvastiĝi, kien vi volas.',
+        '2': 'Ĉio venas el Inteligento. Ju pli akra la menso, des pli varma la flamo.',
+        say: 'Kion fakte faras fajromagiisto?'
       },
       ready: {
         strong: {
-          '1': 'Vi povus fandi golemon! Prenu ĉion, kion mi havas. Atentu vian Majstrecon por la lertaj trukoj.'
+          '1': 'Sincere? Vi povus instrui parton de tio. Prenu, kion ajn vi volas.'
         },
         able: {
-          '1': 'Via menso estas sufiĉe varma por la sekva sorĉo. Ek!'
+          '1': 'Vi pretas por la sekva sorĉo. Venu, mi montros al vi.'
         },
         weak: {
-          '1': 'Hmm. Ankoraŭ ne sufiĉe da Inteligento. La fajro uzus vin, ne inverse.'
+          '1': 'Ankoraŭ ne, bedaŭrinde. Vi bezonas pli da Inteligento, aŭ la fajro transprenas.'
         }
       },
       circle: {
-        '1': 'Erudiciuloj. Ni studas, el kio konsistas la mondo. Iom el ĝi eksplodas.',
+        '1': 'Erudiciuloj. Ni studas, el kio la mondo konsistas. Parto de ĝi eksplodas.',
         say: 'Kiuj estas la Rondo de Etero?'
       },
       trainBack: {
-        '1': 'Iru ekbruligi ion! Ion, kio meritas ĝin.'
+        '1': 'Iru ekzerci. Ie, kie nenio ekbrulos, mi petas.'
       },
       bye: {
-        '1': 'Restu varma!'
+        '1': 'Zorgu pri vi mem!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Do vi estas tiu de la vojo. Venu pli proksimen, miaj okuloj ne plu estas tiaj, kiaj ili estis.',
-        '2': 'Mi estas Mara. Mi gardas la kontolibron kaj la pacon de ĉi tiu urbeto jam kvardek jarojn.'
+        '1': 'Do vi estas tiu de la vojo. Venu ĉi tien, lasu min rigardi vin.',
+        '2': 'Mi estas Mara. Mi prizorgas ĉi tiun urbon jam... ho, kvardek jarojn.'
       },
       slain: {
-        '1': 'La Kavernoj estas kvietaj. Vi faris malfacilan aferon, kaj Sunford dormas pro tio.'
+        '1': 'La Kavernoj silentas. Tio estis malfacila faro, sed ni dormas pro ĝi.'
       },
       pact: {
-        '1': 'Koboldoj vendas bagatelojn sur mia placo. Vi havas arĝentan langon, infano. Mi esperas, ke ĝi eltenos.'
+        '1': 'Koboldoj vendas aĵojn en mia placo. Vi persvadis ilin pri tio, ĉu ne?'
       },
       ransom: {
-        '1': 'Vi prenis lian oron kaj lasis al li lian kronon. Mi estas tro maljuna por ŝajnigi, ke mi ne seniluziiĝis.'
+        '1': 'Vi prenis lian oron kaj lasis al li la kronon. Mi ne ŝajnigos, ke mi ne estas seniluziigita.'
       },
       saved: {
-        '1': 'Venis novaĵo de Oakhaven. La pordego eltenis. Mi ĝojas, ke unu el niaj estis tie.'
+        '1': 'Venis novaĵo el Oakhaven. La pordego tenis. Mi ĝojas, ke vi estis tie.'
       },
       fallen: {
-        '1': 'Oakhaven brulis, kaj oni diras, ke vi tenis la torĉon. Ne diru al mi. Mi preferas ne scii.'
+        '1': 'Oni diras, ke Oakhaven brulis. Mi preferus ne aŭdi kiel. Ne hodiaŭ.'
       },
       ending: {
-        '1': 'Oni diras, ke vi decidis, kiu sidos en la Terura Fortikaĵo. De la vojo de Sunford ĝis tio. Imagu.'
+        '1': 'Oni diras, ke vi decidis la sorton de la Terura Fortikaĵo. De nia eta vojo ĝis tio.'
       },
       again: {
-        '1': 'Sidiĝu momenton. La vojo atendos.'
+        '1': 'Sidiĝu momenton. La vojo ankoraŭ estos tie.'
       },
       reward: {
-        '1': 'Vi tenis la vojon, kiam nia milico ne povis. La urbeto kolektis monon.',
-        '2': 'Ne multe. Ĉiu monero, kiun ni povis ŝpari.',
-        say: 'Ĉu vi volis vidi min?'
+        '1': 'Vi tenis la vojon, kiam nia milico ne povis. La urbo kolektis iom.',
+        '2': 'Ne multe. Ĝi estas, kion ni povis ŝpari.',
+        say: 'Iu diris, ke vi volis vidi min?'
       },
       quest: {
-        '1': 'La rabatakoj venas el la Koboldaj Kavernoj. La koboldoj kronis reĝon.',
-        '2': 'Kaj vi volas lin morta.',
-        '3': 'Mi volas, ke la rabatakoj finiĝu. Kiel, tion decidos vi, en la fundo de tiuj kavernoj.',
-        '4': 'La Kavernoj troviĝas tuj preter la ebenaĵoj. Iru singarde.',
+        '1': 'La atakoj venas el la Koboldaj Kavernoj. Ili kronis al si reĝon.',
+        '2': 'Kaj vi volas, ke li mortu?',
+        '3': 'Mi volas, ke la atakoj finiĝu. Kiel... tion vi decidos, tie malsupre.',
+        '4': 'La Kavernoj estas tuj preter la ebenaĵoj. Bonvolu, estu singarda.',
         say: 'Kio ĝenas Sunford?'
       },
       king: {
-        say: 'Pri la Kobolda Reĝo…',
+        say: 'Pri la Kobolda Reĝo...',
         slay: {
-          '1': 'Reĝo mortis kaj miaj karavanoj alvenas ĝustatempe. Mi ne demandos, kiel tio sentiĝis.'
+          '1': 'Li foriris, kaj la karavanoj denove iras. Mi ne demandos, kiel tio sentis.'
         },
         pact: {
-          '1': 'Pakto! Mia patrino svenus. Tamen komerco pli bonas ol funebroj.'
+          '1': 'Komerca pakto. Mia patrino svenus. Tamen, komerco superas entombigojn.'
         },
         ransom: {
-          '1': 'Oro rapide elspeziĝas. Rankoroj ne. Memoru tion, kiam la rabatakoj revenos.'
+          '1': 'Oro rapide elĉerpiĝas. Rankoroj ne. Memoru tion, kiam la atakoj komenciĝos.'
         }
       },
       town: {
-        '1': 'Plejparte farmistoj. Forĝisto, flegisto kaj du trejnistoj, kiuj eltenas nin.',
-        '2': 'Ripozu ĉi tie, elspezu viajn punktojn kaj eliru denove pli forta. Por tio servas hejmo.',
+        '1': 'Plejparte kamparanoj. Forĝisto, resanigisto, du instruistoj, kiuj toleras nin.',
+        '2': 'Ripozu ĉi tie inter vojaĝoj. Por tio servas hejmo.',
         say: 'Rakontu al mi pri Sunford.'
       },
       next: {
         say: 'Kien mi iru poste?',
         plains: {
-          '1': 'La ebenaĵan vojon, antaŭ ĉio alia. Ni ne povas manĝi, se la karavanoj ne pasas.'
+          '1': 'La ebenaĵa vojo, unue. Sen la karavanoj, ni ne manĝas.'
         },
         hollows: {
-          '1': 'Unue la Koboldajn Kavernojn. Nenio alia estas sekura, dum daŭras la rabatakoj.'
+          '1': 'La Koboldaj Kavernoj. Nenio alia estas sekura, dum la atakoj daŭras.'
         },
         woods: {
-          '1': 'Orienten, tra la Flustranta Arbaro. La vojo al Oakhaven pasas sub tiuj arboj.'
+          '1': 'Oriente, tra la Flustranta Arbaro. Tio estas la vojo al Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven estas sieĝata. Se ĝia ĉirkaŭaĵo falos, la urbo falos.'
+          '1': 'Oakhaven estas sieĝata. Se la ĉirkaŭaĵo falas, la urbo falas kun ĝi.'
         },
         north: {
-          '1': 'Norden, infano. La Cindrajn Rokegojn, kaj Ironhold preter ili. La danĝero kreskas, ju pli for vi iras.'
+          '1': 'Norden, mi pensas. La Cindraj Rokegoj, kaj Ironhold preter ili. Ĝi nur fariĝas pli malfacila.'
         }
       },
       bye: {
-        '1': 'Revenu viva. Tion mi petas de ĉiu.'
+        '1': 'Revenu al ni sendifekta. Tion mi nur petas.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Staru senmove. Ne, vi fartas bone. Kutimo.',
-        '2': 'Fratino Lune. Mi flikas tion, kion la vojo rompas.'
+        '1': 'Staru senmove momenton. Ne, vi fartas bone. Kutimo, pardonu.',
+        '2': 'Mi estas Fratino Lune. Mi flikas, kion la vojo rompas.'
       },
       again: {
-        '1': 'Ankoraŭ tuta? Mi preskaŭ seniluziiĝas.'
+        '1': 'Ankoraŭ sendifekta? Bone. Tamen sidiĝu.'
       },
       heal: {
-        '1': 'Sidiĝu. Ripozu. Vi foriras de ĉi tie tuta, kun ĉiu flakono plena.'
+        '1': 'Sidiĝu, ripozu iomete. Mi plenigos viajn flakonojn antaŭ ol vi foriros.'
       },
       mana: {
-        '1': 'Blua flakono, maldolĉa gusto. Trinku ĝin, kiam viaj sorĉoj elĉerpiĝas.'
+        '1': 'Ĉi tiu estas maldolĉa. Trinku ĝin, kiam viaj sorĉoj elĉerpiĝos.'
       },
       potions: {
-        '1': 'Vi portas kelkajn flakonojn en ĉiun zonon. Trinku antaŭ ol bezoni, ne poste.',
-        '2': 'Se vi volas porti pli, mi povas vendi al vi pli longan zonon.',
+        '1': 'Vi prenas kelkajn flakonojn en ĉiun batalon. Trinku antaŭ ol vi bezonas, ne poste.',
+        '2': 'Se vi volas porti pli, mi povas vendi al vi pli grandan zonon.',
         say: 'Kiel funkcias la pocioj?'
       },
       rumor: {
         goblins: {
-          '1': 'La koboldoj venenas siajn ŝtonojn por ŝnurĵetilo. Se vi verdiĝas, venu rekte reen.'
+          '1': 'La koboldoj kovras siajn ŝtonojn por ŝnurĵetilo per io. Se vi sentas naŭzon, revenu.'
         },
         spiders: {
-          '1': 'Araneaj mordoj el la Arbaro. Tri ĉi-semajne. Provu ne esti mordita.'
+          '1': 'Mi kuracis tri araneajn mordojn el la Arbaro ĉi-semajne. Atentu, kien vi paŝas.'
         },
         burns: {
-          '1': 'Soldatoj venas el la nordo kun brulvundoj. La Cindraj Rokegoj, oni diras. Fajro, kiu marŝas.'
+          '1': 'Soldatoj daŭre venas el la nordo kun brulvundoj. El la Cindraj Rokegoj, oni diras.'
         }
       },
       healBack: {
-        '1': 'Tenu la zonon plena kaj la kapon malalta.'
+        '1': 'Tenu vian zonon plena kaj vian kapon malalta.'
       },
       bye: {
-        '1': 'Provu ne sangi sur ion gravan.'
+        '1': 'Zorgu pri vi tie ekstere.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Altulo! Altulo fari pakton. Reĝo diri esti afabla al altulo.',
-        '2': 'Grik esti afabla. Grik havi brilaĵojn. Altulo havi oron. Esti bona paro.'
+        '1': 'Vi estas tiu, kiu faris la pakton. Mia reĝo diras, ke vi estas bonvena ĉi tie.',
+        '2': 'Mi estas Grik. Mi vendas, kion koboldoj faras. Bona laboro, justa prezo.'
       },
       again: {
-        '1': 'Altulo reveni! Grik scii. Brilaĵoj voki altulon.'
+        '1': 'Amiko. Estas bone vidi vin denove.'
       },
       trade: {
-        '1': 'Reĝo diri komerci, do Grik komerci. Brilaĵo por brilaĵo. Bona brilaĵo.'
+        '1': 'Rigardu, mi petas. Mia familio faris ĉi tiujn.'
       },
       king: {
-        '1': 'Reĝo esti dika kaj feliĉa. Ne plu rabi. Rabi esti peniga laboro.',
-        '2': 'Reĝo diri altulo havi bonan langon. Esti plej alta kobolda laŭdo. Preskaŭ.',
+        '1': 'Li nun manĝas bone. Neniuj plu atakoj. Mia popolo malpli malsatas.',
+        '2': 'Li ofte parolas pri vi. Kun respekto.',
         say: 'Kiel fartas via reĝo?'
       },
       town: {
-        '1': 'Homoj lavi sin tro. Sed tortoj! Grik ne scii pri tortoj.',
+        '1': 'Homoj ankoraŭ fiksrigardas. Sed la bakisto donas al mi torton. Mi ŝatas la torton.',
         say: 'Kiel vi ŝatas Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Kuzoj de Grik fosi norde, en nigra roko. Diri, ke tie fajro marŝi. Grik resti ĉi tie.'
+          '1': 'Miaj kuzoj fosas en la nigra roko norde. Ili diras, ke fajro nun marŝas tie.'
         },
         deep: {
-          '1': 'Profundaj lokoj vekiĝi, altulo. Koboldoj senti tion en piedoj.'
+          '1': 'Io vekiĝas en la profundaj lokoj. Koboldoj sentas tion en la grundo.'
         }
       },
       shopBack: {
-        '1': 'Bona komerco! Altulo reveni, jes?'
+        '1': 'Dankon. Revenu.'
       },
       bye: {
-        '1': 'Ĝis, altulo! Ne morti. Mortintoj aĉeti nenion.'
+        '1': 'Iru sekure, amiko.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Alia glavo. Bone. Mi ĉesis demandi, de kie ili venas.',
+        '1': 'Ankoraŭ unu glavo. Bone. Ni bezonas ĉiun, kiun ni povas ricevi.',
         '2': 'Kapitano Hale. Mi komandas tion, kio restas de la gardistaro de Oakhaven.'
       },
       saved: {
-        '1': 'La pordego eltenis. Tricent jaroj, kaj nun unu plu. Mi ŝuldas al vi mian urbon.'
+        '1': 'La pordego tenis. Tricent jaroj, kaj unu pli. Mi ŝuldas al vi tion.'
       },
       ending: {
-        '1': 'Vi decidis la tronon de la Terura Fortikaĵo. Miaj muroj nun ŝajnas pli malgrandaj.'
+        '1': 'Vi decidis pri la Terura Fortikaĵo, oni diras. Miaj muroj ŝajnas malgrandaj apud tio.'
       },
       again: {
-        '1': 'La muroj ankoraŭ staras. Por hodiaŭ.'
+        '1': 'La muroj ankoraŭ staras. Por hodiaŭ, almenaŭ.'
       },
       after: {
-        '1': 'Oakhaven memoras, amiko. Mi ankaŭ.'
+        '1': 'Bone vidi vin. Oakhaven ne forgesis.'
       },
       quest: {
-        '1': 'Armeo de militestro ĉirkaŭas nin. Krag. Li ne batalas senpage.',
+        '1': 'Malbone. Militestro nomata Krag ĉirkaŭis nin, kaj li ne batalas senpage.',
         '2': 'Kiu pagas lin?',
         '3': 'La Cindra Sindikato. Ili volas propran urbon, kaj nia havas murojn.',
-        '4': 'Rompu lin ĉe la Ĉirkaŭaĵo de Oakhaven. Tie ĉio decidiĝos.',
-        say: 'Kiel staras la situacio?'
+        '4': 'Detruu lian tendaron ĉe la Ĉirkaŭaĵo de Oakhaven. Tie ĉio finiĝas, tiel aŭ alie.',
+        say: 'Kiom malbone estas?'
       },
       siege: {
-        '1': 'Ili proponis al vi trionon de la urbo. Mi scias. Al mi ili proponis kvaronon.',
-        '2': 'La Sindikato nun ĉasas vin sur ĉiu vojo. Gardu vian dorson tie ekstere.',
-        say: 'Pri la sieĝo…'
+        '1': 'Ili proponis al vi trionon de la urbo, ĉu ne? Al mi ili proponis kvaronon.',
+        '2': 'La Sindikato nun serĉos vin. Gardu vian dorson sur la vojoj.',
+        say: 'Pri la sieĝo...'
       },
       town: {
-        '1': 'Komerca urbo. Ĉio, kio moviĝas inter la ebenaĵoj kaj la montoj, pagas paspagon ĉi tie.',
-        '2': 'Tial ĉiuj volas ĝin. Tial mi ne cedos ĝin.',
+        '1': 'Komerca urbo. Ĉio, kio iras inter la ebenaĵoj kaj la montoj, pagas vojpagon ĉi tie.',
+        '2': 'Tial ĉiu volas ĝin. Kaj tial mi ne cedos ĝin.',
         say: 'Rakontu al mi pri Oakhaven.'
       },
       order: {
-        '1': 'Mi servas Oakhaven. La Ordeno kaj mi konsentas, plejparte. Ne estas la sama afero.',
-        say: 'Ĉu vi servas la Feran Ordenon?'
+        '1': 'Mi respondas al Oakhaven. La Ordeno kaj mi konsentas plejparte. Ne ĉiutage.',
+        say: 'Ĉu vi respondas al la Fera Ordeno?'
       },
       rumor: {
         crags: {
-          '1': 'Norde de la arbaro la grundo estas nigra kaj brulanta. La Cindraj Rokegoj. Kultanoj nutras la fajrojn.'
+          '1': 'Norde de la arbaro la tero estas nigra kaj brulanta. La Cindraj Rokegoj. Kultistoj, plejparte.'
         },
         mines: {
-          '1': 'Ironhold ĉesis sendi ŝtalon. Io misas en ĝiaj minejoj.'
+          '1': 'Ironhold ĉesis sendi ŝtalon. Io malĝustas en iliaj minejoj.'
         },
         north: {
-          '1': 'La malproksima nordo eksilentis. Laŭ mia sperto, silento estas pli malbona.'
+          '1': 'La malproksima nordo silentiĝis. Laŭ mia sperto, tio neniam estas bona.'
         }
       },
       bye: {
-        '1': 'Tenu vian glavon preta.'
+        '1': 'Tenu vian glavon proksime.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Se vi volas kaskon, vi malfruas. Ili ĉiuj estas sur la muro.',
-        '2': 'Odo. Kirasisto. Laca.'
+        '1': 'Se vi serĉas kaskon, mi bedaŭras. Ili ĉiuj estas sur la muro.',
+        '2': 'Odo. Mi faras kirasojn. Mi ne multe dormis lastatempe.'
       },
       again: {
-        '1': 'Ankoraŭ ĉi tie. Ankoraŭ mankas stoko.'
+        '1': 'Ankoraŭ ĉi tie. Ankoraŭ mankas preskaŭ ĉio.'
       },
       trade: {
-        '1': 'Duono de mia stoko iris sur la murojn. Prenu tion, kio restas.'
+        '1': 'Duono de mia stoko iris al la muro. Prenu, kio restas, se ĝi taŭgas.'
       },
       who: {
-        '1': 'Dudek jarojn mi kirasas ĉi tiun urbon. Mi neniam pensis vidi ĝin tutan surmetita samtempe.'
+        '1': 'Mi kirasis ĉi tiun urbon dum dudek jaroj. Neniam mi vidis ĉion porti samtempe.'
       },
       armor: {
-        '1': 'Platon, se vi staras senmove. Felon, se ne. Robojn, se vi ĝuas morti.',
+        '1': 'Platkirason, se vi staras firme. Ledon, se vi daŭre moviĝas. Robojn, se vi estas rapida.',
         say: 'Kian kirason mi portu?'
       },
       rumor: {
         backRoom: {
-          '1': 'Se la sieĝo rompiĝos, mi malfermos la malantaŭan ĉambron. La bonan platkirason. Rompu ĝin por mi, ĉu?'
+          '1': 'Se la sieĝo rompiĝos, mi malfermos la malantaŭan ĉambron. La bona kiraso estas tie.'
         }
       },
       shopBack: {
-        '1': 'Ĝi eltenos. Verŝajne.'
+        '1': 'Ĝi tenos. Ĝis nun ĝi tenis.'
       },
       bye: {
-        '1': 'Tenu la kapon malalta.'
+        '1': 'Tenu vian kapon malalta tie ekstere.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Vi! Envenu. La malantaŭa ĉambro estas malfermita, kaj malfermita POR VI.',
-        '2': 'Majstro Odo, ili nomas min nun. La komerco prosperas, kiam urbo vivas.'
+        '1': 'Jen vi! Envenu. La malantaŭa ĉambro estas malferma, kaj malferma por vi.',
+        '2': 'Majstro Odo, oni nomas min nun. Mirinde, kion iom da paco faras por la komerco.'
       },
       ending: {
-        '1': 'De mia pordego ĝis la Terura Fortikaĵo. Mi diras al ĉiuj, ke mi ĝustigis vian kirason.'
+        '1': 'De nia pordego ĝis la Terura Fortikaĵo. Mi diras al ĉiuj, ke mi ekipis vin per kiraso.'
       },
       again: {
-        '1': 'La heroo de la pordego. Kio estos hodiaŭ?'
+        '1': 'Bone vidi vin. Kio estos hodiaŭ?'
       },
       trade: {
-        '1': 'Vi savis ĉi tiun urbon. La bona platkiraso eliras el la malantaŭa ĉambro por vi.'
+        '1': 'La bona kiraso estas ekstere. Vi pli ol meritas rigardi ĝin.'
       },
       town: {
-        '1': 'Riĉa. Brua. Plena de komercistoj, kiuj plendas pri la paspago.',
-        '2': 'Ĝi estas mirinda. Mi ne dormis dum semajno.',
+        '1': 'Okupata. Brua. Plena de komercistoj, kiuj grumblas pri la vojpago.',
+        '2': 'Ĝi estas mirinda. Mi ne havis trankvilan horon dum semajnoj.',
         say: 'Kiel fartas la urbo?'
       },
       rumor: {
         mines: {
-          '1': 'Mia ŝtalo venas el Ironhold, kaj Ironhold eksilentis. Iu devus rigardi ĝiajn minejojn.'
+          '1': 'Mia ŝtalo venas el Ironhold, kaj ili silentiĝis. Iu devus kontroli iliajn minejojn.'
         },
         tundra: {
-          '1': 'La plej bona erco, kiun mi iam vidis, venis el la tundro. La viroj, kiuj portis ĝin, neniam revenis.'
+          '1': 'La plej bona erco, kiun mi iam prilaboris, venis el la tundro. La viroj, kiuj trovis ĝin, ne revenis.'
         }
       },
       shopBack: {
-        '1': 'Se ĝi ne konvenas, revenu. Mi igos ĝin konveni.'
+        '1': 'Se ĝi ne bone sidas, alportu ĝin reen. Mi riparos ĝin.'
       },
       bye: {
-        '1': 'La pordego de Oakhaven ĉiam estas malfermita por vi. Nur por vi.'
+        '1': 'Vi ĉiam estas bonvena ĉi tie.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Aĉeti aŭ rigardi? Rigardi kostas nenion. Tuŝi kostas fingron.',
-        '2': 'Senna. Mi vendas akrajn randojn. Mi ne demandas, por kio ili servas.'
+        '1': 'Rigardas aŭ aĉetas? Ambaŭ taŭgas. Nur ne tuŝu la tranĉantojn.',
+        '2': 'Senna. Mi vendas klingojn. Kion vi faras per ili, estas via afero.'
       },
       saved: {
-        '1': 'La sieĝo rompiĝis. Domaĝe. Milito bonas por komerco. Paco bonas por kolekti ŝuldojn.'
+        '1': 'Do la sieĝo rompiĝis. Bone por la urbo. Milito estis pli bona por mia komerco, tamen.'
       },
       again: {
         '1': 'Ĉu revenis por io pli akra?'
       },
       trade: {
-        '1': 'Akra, ekvilibra, kaj vendata al tiu, kiu pagas. Hodiaŭ tio estas vi.'
+        '1': 'Akra, ekvilibra, kaj je justa prezo. Ne hastu.'
       },
       who: {
-        '1': 'Mi vendis glavojn al ambaŭ flankoj de tri militoj. Mi ankoraŭ estas ĉi tie. Ili plejparte ne.'
+        '1': 'Mi vendis al ambaŭ flankoj de tri militoj. Mi ankoraŭ estas ĉi tie. Plej multaj el ili ne.'
       },
       rumor: {
         krag: {
-          '1': 'La homoj de Krag portas bonan ŝtalon. Mono de la Sindikato. Prenu ĝin de ili, se vi povas.'
+          '1': 'La viroj de Krag portas bonan ŝtalon. Mono de la Sindikato. Indas preni ĝin, se vi ricevos la ŝancon.'
         },
         which: {
-          '1': 'Rapidaj klingoj volas Lertecon. Pafiloj kaj pafarkoj volas Majstrecon. Sciu, kiu vi estas, antaŭ ol pagi al mi.'
+          '1': 'Rapidaj klingoj volas Lertecon. Pafarkoj kaj pafiloj volas Majstrecon. Sciu, kia vi estas.'
         }
       },
       shopBack: {
-        '1': 'Sango forviŝiĝas. Rusto ne. Oleu ĝin.'
+        '1': 'Tenu ĝin oleita. Rusto ruinigas bonan tranĉanton pli rapide ol osto.'
       },
       bye: {
-        '1': 'Ne mortu ŝuldante al mi monon.'
+        '1': 'Provu ne morti ŝuldante al mi monon.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Ne returnu vin. Mi ŝercas. Returnu vin.',
-        '2': 'Ili nomas min la Flustro. Mi instruas alveni nerimarkite.'
+        '1': 'Vi ne aŭdis min veni malantaŭ vi. Plej multaj ne aŭdas.',
+        '2': 'Oni nomas min la Flustro. Mi instruas, kiel ne esti vidata.'
       },
       fallen: {
-        '1': 'La urbo nun estas pli silenta. Malpli da gardistoj. Mi iom ŝatas tion.'
+        '1': 'La urbo estas pli kvieta nun. Malpli da gardistoj. Pli facila laboro, por kelkaj el ni.'
       },
       friend: {
-        '1': 'La Sindikato rigardas vin amiko. Amikoj pagas malpli. Amikoj ankaŭ scias tro multe.'
+        '1': 'La Sindikato rigardas vin kiel amikon. Amikoj pagas malpli. Memoru tion.'
       },
       foe: {
-        '1': 'La Sindikato volas vin mortinta. Oni pagis min por instrui, ne por mortigi. Bonŝance por vi.'
+        '1': 'La Sindikato volas vin morta. Oni pagis min por instrui, ne por mortigi. Do, lecionoj.'
       },
       again: {
-        '1': 'Vi estas pli brua ol lastfoje. Ni laboros pri tio.'
+        '1': 'Vi ankoraŭ estas tro brua. Ni laboros pri tio.'
       },
       train: {
         '1': 'Do silente. Rigardu miajn piedojn, ne miajn manojn.'
       },
       class: {
-        '1': 'Tranĉilo, kiu jam estas malantaŭ vi. Paŝu el la mallumo, frapu kaj malaperu.',
-        '2': 'Lerto super ĉio. Majstreco, kiam vi volas, ke la tranĉo kalkulu.',
+        '1': 'Iu, kiu jam estas malantaŭ vi. Enen, unu tranĉo, kaj for.',
+        '2': 'Lerteco gravas plej. Majstreco, se vi volas, ke la tranĉo validu.',
         say: 'Kio estas Ombroklingo?'
       },
       ready: {
         strong: {
-          '1': 'Vi movas vin bone. Prenu, kion mi scias. Kunportu Majstrecon por la fumo.'
+          '1': 'Vi moviĝas bone nun. Prenu la reston. Alportu iom da Majstreco por la fumo.'
         },
         able: {
-          '1': 'Bone. Viaj manoj estas sufiĉe rapidaj por la sekva paŝo.'
+          '1': 'Viaj manoj estas sufiĉe rapidaj. Sekva paŝo.'
         },
         weak: {
-          '1': 'Vi marŝas kiel ĉaro. Pli da Lerto. Poste ni parolos.'
+          '1': 'Ankoraŭ ne. Viaj paŝoj estas pezaj. Plibonigu vian Lertecon.'
         }
       },
       syndicate: {
-        '1': 'Homoj, kiuj rimarkis, ke leĝoj estas vendeblaj. Mi ne juĝas. Mi fakturas.',
+        '1': 'Homoj, kiuj rimarkis, ke la leĝo havas prezon. Mi ne juĝas. Mi nur ricevas pagon.',
         say: 'Kiuj estas la Cindra Sindikato?'
       },
       trainBack: {
-        '1': 'Nun iru fari ĝin, kie neniu vidas.'
+        '1': 'Nun ekzercu, kie neniu povas vidi vin.'
       },
       bye: {
         '1': 'Vi neniam vidis min.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Vi rajtas alproksimiĝi. Ne tiom proksime.',
-        '2': 'Lordo Castellan, de la malnova sango de Oakhaven. Mi instruas komandon.'
+        '1': 'Vi povas proksimiĝi. Tio sufiĉas.',
+        '2': 'Lordo Castellan, de la plej malnova familio de Oakhaven. Mi instruas komandon.'
       },
       saved: {
-        '1': 'Mia urbo staras, kaj kun ĝi la nomo de mia familio. Vi havas la dankon de lordo. Ĝi valoras multe.'
+        '1': 'Mia urbo staras, kaj la nomo de mia familio kun ĝi. Vi havas mian dankon. Vere.'
       },
       friend: {
-        '1': 'Amiko de la Ordeno. Mi malaltigos mian kotizon. Ne mencu tion al iu ajn.'
+        '1': 'Amiko de la Ordeno. Mi malaltigos mian kotizon. Bonvolu ne disvastigi tion.'
       },
       foe: {
-        '1': 'La Ordeno afiŝis vian nomon. Mi tamen instruos vin. Mono estas mono, ve.'
+        '1': 'La Ordeno havas vian nomon en listo. Mi tamen instruos vin. Mono estas mono.'
       },
       again: {
-        '1': 'Ha. Mia plej promesplena subulo.'
+        '1': 'Ha, vi denove. Ĉu ni daŭrigu?'
       },
       train: {
-        '1': 'Tre bone. Observu, kiel oni donas ordonon.'
+        '1': 'Tre bone. Rigardu, kiel oni donas ordonon, kaj kiel oni obeas ĝin.'
       },
       class: {
-        '1': 'Kial batali sola, kiam aliaj povas fari tion por vi? Alvoku gardistojn. Komandu ilin.',
-        '2': 'Necesas Karismo. Oni ne gvidas murmurante.',
+        '1': 'Iu, kiu ne batalas sola. Vi vokas gardistojn, kaj ili batalas por vi.',
+        '2': 'Ĝi bezonas Karismon. Neniu sekvas gvidanton, kiun li ne povas aŭdi.',
         say: 'Kio estas Granda Suvereno?'
       },
       ready: {
         strong: {
-          '1': 'Vi havas ĉeeston. Prenu la reston de miaj lecionoj, kaj staru rekte.'
+          '1': 'Vi havas veran ĉeeston nun. Prenu la reston de miaj lecionoj.'
         },
         able: {
           '1': 'Via voĉo portas. Vi pretas por la sekva leciono.'
         },
         weak: {
-          '1': 'Neniu sekvus vin eĉ al bakejo. Pli da Karismo.'
+          '1': 'Mi timas, ke neniu ankoraŭ sekvus vin. Plibonigu vian Karismon.'
         }
       },
       family: {
-        '1': 'Ni konstruis la murojn, sur kiuj staras kapitano Hale. Li forgesas. Mi memorigas lin. Ofte.',
+        '1': 'Ni konstruis la murojn, sur kiuj staras Kapitano Hale. Li forgesas tion. Mi rememorigas lin.',
         say: 'Rakontu al mi pri via familio.'
       },
       trainBack: {
-        '1': 'Nun iru kaj estu obeata.'
+        '1': 'Iru do. Gvidu iun.'
       },
       bye: {
-        '1': 'Vi estas forsendita.'
+        '1': 'Bonan tagon al vi.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Sekva! Oh. Vi povas marŝi. Agrabla ŝanĝo.',
+        '1': 'Sekva! Ho, vi marŝas. Tio estas agrabla ŝanĝo.',
         '2': 'Frato Fenn. Kvardek vunditoj sur la muro, kaj nur unu mi.'
       },
       saved: {
-        '1': 'Neniu nova vundito en tri tagoj! Mi ne scias, kion fari per miaj manoj.'
+        '1': 'Neniuj novaj vunditoj dum tri tagoj. Mi apenaŭ scias, kion fari kun mi mem.'
       },
       again: {
-        '1': 'Vi denove, kaj ankoraŭ marŝanta. Mi aprobas.'
+        '1': 'Vi denove, kaj sur viaj propraj piedoj. Bone.'
       },
       heal: {
-        '1': 'Kuŝiĝu. Ne, sur la puran liton. Jen. Ĉiu flakono plena. Iru.'
+        '1': 'Kuŝiĝu ĉi tie, sur la pura lito. Jen. Flakonoj plenaj, iru.'
       },
       mana: {
-        '1': 'Manaa trinkaĵo! Gustas kiel moneroj. Sed funkcias.'
+        '1': 'Mana trinkaĵo. Gustas kiel malnovaj moneroj, sed ĝi funkcias.'
       },
       potions: {
-        '1': 'Pli longa zono tenas pli da flakonoj. Tiujn mi vendas. La flakonojn mi plenigas senpage.',
+        '1': 'Kun pli longa zono, jes. Mi vendas tiujn. Plenigi la flakonojn estas senpage.',
         say: 'Ĉu mi povas porti pli da pocioj?'
       },
       rumor: {
         archers: {
-          '1': 'La pafarkistoj de Krag celas la krurojn. Daŭre moviĝu tie ekstere kaj ili maltrafas.'
+          '1': 'La pafarkistoj de Krag celas malalte. Daŭre moviĝu kaj ili plejparte maltrafos.'
         },
         north: {
-          '1': 'Brulvundoj, frostmordoj kaj unu viro, kiu ĵuras, ke statuo mordis lin. La nordo ne estas afabla.'
+          '1': 'Mi vidas brulvundojn, frostvundojn, kaj unu viron, kiu ĵuras, ke statuo mordis lin.'
         }
       },
       healBack: {
-        '1': 'Iru. Venontfoje venu por babili, ne por kudro.'
+        '1': 'Iru nun. Venontfoje venu por babili anstataŭ por kudri.'
       },
       bye: {
-        '1': 'Marŝu ĝin for! Tio estas kuraca konsilo.'
+        '1': 'Zorgu pri vi. Kaj manĝu ion.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Neniuj nomoj. Vi tamen estas tiu, kiu malfermis la pordegon. Tiun mi konas.',
-        '2': 'Nomu min la Ŝtelaĵvendisto. Ĉio ĉi falis de ĉaro.'
+        '1': 'Neniuj nomoj ĉi tie. Sed mi scias, kiu malfermis la pordegon. Ĉiuj scias.',
+        '2': 'Vi povas nomi min la Ŝtelaĵvendisto. Ĉio ĉi tie venis de ie.'
       },
       foe: {
-        '1': 'La Sindikato hodiaŭ ne ŝatas vin. Vian oron ĝi ankoraŭ ŝatas.'
+        '1': 'La Sindikato ne ŝatas vin nun. Tamen via oro estas bonvena.'
       },
       again: {
-        '1': 'Ha. Mia plej bona kliento. Ĉu neniu sekvis vin? Bone.'
+        '1': 'Denove ĉi tie. Neniu sekvis vin, mi esperas?'
       },
       trade: {
-        '1': 'Neniuj nomoj, neniuj demandoj. La Sindikato prenas sian parton, vi prenas la varojn.'
+        '1': 'Neniuj demandoj ambaŭflanke. La Sindikato prenas sian parton, vi prenas la varojn.'
       },
       who: {
-        '1': 'Antaŭ la fajro mi vendis kandelojn. Legale. Estis terure.'
+        '1': 'Antaŭ la fajro mi vendis kandelojn. Honesta laboro. Ĝi ne pagis.'
       },
       armor: {
-        '1': 'La kirasistoj foriris, amiko. Elbruligitaj. Vi scius.',
+        '1': 'La kirasistoj foriris, amiko. Vi scias kial pli bone ol mi.',
         say: 'Ĉu vi vendas kirasojn?'
       },
       rumor: {
         citadel: {
-          '1': 'Pasintjare aperis fortikaĵo en la malproksima nordo. Neniu konstruis ĝin. Ĝiaj muroj zumas.'
+          '1': 'Fortikaĵo aperis en la malproksima nordo pasintjare. Neniu konstruis ĝin.'
         },
         crystals: {
-          '1': 'Iu aĉetas ĉiun malplenan kristalon en la merkato. Ne ni. Tio maltrankviligas min.'
+          '1': 'Iu aĉetas ĉiun malplenan kristalon, kiun ĝi povas trovi. Ne ni. Tio maltrankviligas min.'
         }
       },
       shopBack: {
         '1': 'Vi neniam estis ĉi tie.'
       },
       bye: {
-        '1': 'Atentu la ruinaĵojn.'
+        '1': 'Atentu viajn paŝojn. La ruboj ŝoviĝas.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Vizitanto. Atentu la vazojn.',
-        '2': 'Doktoro Sangrel. La novaj posedantoj de Oakhaven ne demandas, kion mi instruas. Refreŝige.'
+        '1': 'Vizitanto. Bonvolu ne tuŝi la ujojn.',
+        '2': 'Doktoro Sangrel. La novaj posedantoj de Oakhaven ne demandas, kion mi instruas. Ripoziga.'
       },
       found: {
-        '1': 'Vi trovis min. Malmultaj serĉas doktoron en tia loko.',
-        '2': 'Doktoro Sangrel. La urboj bruligas miajn similulojn, do mi laboras, kie ne estas urboj.'
+        '1': 'Vi trovis min. Ne multaj venas serĉi doktoron en tia loko.',
+        '2': 'Doktoro Sangrel. Urboj bruligas homojn kiel mi, do mi laboras kie ili ne estas.'
       },
       friend: {
-        '1': 'La Sindikato garantias por vi. Mia kotizo estas pli malalta por ĝiaj amikoj. Miaj postuloj ne.'
+        '1': 'La Sindikato parolas por vi. Mi pagigas ĝiajn amikojn malpli. Miaj normoj restas samaj.'
       },
       foe: {
-        '1': 'La Sindikato pagus al mi por via sango. Mi preferas, ke vi elspezu ĝin por miaj lecionoj.'
+        '1': 'La Sindikato pagus bone por via sango. Mi preferus, ke vi elspezu ĝin ĉi tie.'
       },
       again: {
-        '1': 'Vi estas pala. Bone. Tio taŭgas por la laboro.'
+        '1': 'Vi aspektas pala. Bone. Ĝi taŭgas por la laboro.'
       },
       train: {
-        '1': 'Suprenfaldu vian manikon. Doloros. Tio estas la senco.'
+        '1': 'Suprenfaldu vian manikon. Doloros. Tio estas ĝuste la celo.'
       },
       class: {
-        '1': 'Vi pagas por potenco per via propra sano. Poste vi trinkas ĝin reen el la malamiko.',
-        '2': 'Eltenemo estas via monujo. Inteligento decidas, kiel bone vi elspezas ĝin.',
+        '1': 'Vi pagas por potenco per via propra sano, kaj poste prenas ĝin reen de viaj malamikoj.',
+        '2': 'Eltenemo estas tio, kion vi havas por elspezi. Inteligento estas, kiel bone vi elspezas ĝin.',
         say: 'Kio estas Sangalkemiisto?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Rimarkinda konstitucio. Vi povas lerni preskaŭ ĉion.'
         },
         able: {
-          '1': 'Via sango estas sufiĉe forta por la sekva leciono.'
+          '1': 'Vi estas sufiĉe robusta por la sekva leciono.'
         },
         weak: {
-          '1': 'Vi svenus ĉe la unua tranĉo. Pli da Eltenemo, mi petas.'
+          '1': 'Vi svenus ĉe la unua tranĉo. Unue konstruu vian Eltenemon, mi petas.'
         }
       },
       jars: {
-        '1': 'Volontuloj. Plejparte.',
-        say: 'Kio estas en la vazoj?'
+        '1': 'Specimenoj. Libervole donitaj, plejparte.',
+        say: 'Kio estas en la ujoj?'
       },
       trainBack: {
-        '1': 'Notu. Pro la scienco.'
+        '1': 'Tenu notojn. Mi ŝatus aŭdi, kiel iras.'
       },
       bye: {
-        '1': 'Restu sana. Alie vi ne utilas al mi.'
+        '1': 'Restu sana. Mi diras tion serioze.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Do. Tiu, kiu malfermis la pordegon. Sidiĝu. Vi meritis seĝon.',
-        '2': 'Ili nomas min Sinjorino Ash. Oakhaven nun estas mia. Parte, via.'
+        '1': 'Do vi estas tiu, kiu malfermis la pordegon. Sidiĝu. Vi meritis seĝon.',
+        '2': 'Oni nomas min Sinjorino Ash. Oakhaven nun estas nia. Parte danke al vi.'
       },
       throneOurs: {
-        '1': 'La trono de la Terura Fortikaĵo. Nia. Vi estas la plej bona investo, kiun mi iam faris.'
+        '1': 'La Terura Fortikaĵo, en niaj manoj. Vi valoris ĉiun moneron.'
       },
       throneLost: {
-        '1': 'Vi fordonis la tronon. Al iu alia. Ni parolos pri tio. Ne hodiaŭ.'
+        '1': 'Vi donis la tronon al iu alia. Ni parolos pri tio. Ne hodiaŭ.'
       },
       foe: {
-        '1': 'Vi baras nian vojon. Sidiĝu tamen. Mi ŝatas rigardi problemon, antaŭ ol solvi ĝin.'
+        '1': 'Vi laboris kontraŭ ni. Tamen sidiĝu. Mi ŝatas scii, kun kiu mi traktas.'
       },
       again: {
-        '1': 'Mia plej ŝatata perfidulo. Kion la Sindikato povas fari por vi?'
+        '1': 'Denove ĉi tie. Kion la Sindikato povas fari por vi?'
       },
       cut: {
-        '1': 'Triono de ruino, kara. Jen la parto de ĉi tiu sezono.',
-        '2': 'Ĝi kreskos. Ruino estas tre enspeziga, kiam vi posedas ĝian solan merkaton.',
-        say: 'Vi promesis al mi trionon de Oakhaven.'
+        '1': 'Kaj vi havos ĝin. Parton de ruinoj, nuntempe. Jen la parto de ĉi tiu sezono.',
+        '2': 'Ĝi kreskos. Ruino pagas tre bone, kiam vi posedas ĝian solan merkaton.',
+        say: 'Oni promesis al mi parton de Oakhaven.'
       },
       syndicate: {
-        '1': 'Tion, kion volas ĉiuj. Ni simple ne ŝajnigas la kontraŭon.',
-        '2': 'Restu nia amiko, kaj la Flustro kaj la Doktoro pagigos vin malpli. Lojaleco havas prezliston.',
-        say: 'Kion volas la Sindikato?'
+        '1': 'Tion, kion ĉiuj volas. Ni nur ne ŝajnigas alie.',
+        '2': 'Restu amika, kaj la Flustro kaj la Doktoro pagigos vin malpli.',
+        say: 'Kion fakte volas la Sindikato?'
       },
       order: {
-        '1': 'Kompreneble. Vi forbruligis unu el ĝiaj urboj. Portu pli da pocioj.',
-        say: 'La Fera Ordeno ĉasas min.'
+        '1': 'Kompreneble. Vi bruligis unu el iliaj urboj. Portu pliajn pociojn.',
+        say: 'La Fera Ordeno persekutas min.'
       },
       rumor: {
         core: {
-          '1': 'La gnomoj trovis ion en siaj minejoj. Kernon. Mi volas ĝin. Alportu ĝin al ni kaj nomu sumon.'
+          '1': 'La nanoj trovis ion en siaj minejoj. Kernon. Alportu ĝin al ni kaj nomu vian prezon.'
         },
         sold: {
-          '1': 'La kerno alvenis sekure. Vi devus vidi, kion ĝi faras al seruro.'
+          '1': 'La kerno alvenis sekure. Vi miregus, kion ĝi faras al seruro.'
         },
         north: {
-          '1': 'Ĉio ŝtelinda translokiĝis norden. Ni ankaŭ.'
+          '1': 'Ĉio valora translokiĝis norden. Ni ankaŭ.'
         }
       },
       bye: {
-        '1': 'Ne estu fremdulo. Fremdulojn oni sekvas.'
+        '1': 'Ne fariĝu fremdulo. Ni gardas okulon sur fremduloj.'
       }
     },
     forgemaster: {
       hello: {
         '1': 'Vi venis tra la minejoj. Mi flaras la polvon sur vi.',
-        '2': 'Dorn. Forĝmajstro de Ironhold. Mi havas problemon grandan kiel monto.'
+        '2': 'Dorn. Forĝmajstro de Ironhold. Kaj mi havas problemon grandan kiel monto.'
       },
       destroyed: {
         '1': 'La lumo estingiĝis kaj la golemoj estas rubo. Miaj ministoj kantis hieraŭ nokte. Unuafoje en jaro.'
       },
       studied: {
-        '1': 'Blua fajro en miaj forĝejoj kaj talaroj en miaj haloj. La laboro estas bona. Mi kutimiĝos al la talarojn.'
+        '1': 'Blua fajro en miaj forĝejoj kaj robitaj erudiciuloj en miaj haloj. La laboro estas bona, almenaŭ.'
       },
       sold: {
-        '1': 'Vi vendis ĝin. La golemoj ankoraŭ marŝas kaj miaj minejoj ankoraŭ estas tombo. Foriru el mia lumo.'
+        '1': 'Vi vendis ĝin. La golemoj ankoraŭ marŝas, kaj miaj minejoj ankoraŭ estas tombo. Lasu min.'
       },
       ending: {
-        '1': 'Do la trono estas decidita. Bone. Nun la regno povas reiri al disputado pri fero.'
+        '1': 'Do la trono estas decidita. Bone. Eble nun ni povos reiri al fosado.'
       },
       again: {
-        '1': 'Parolu. La forĝejo ne atendas.'
+        '1': 'Kio estas? La forĝejo ne atendas.'
       },
       quest: {
-        '1': 'Ni fosis por fero kaj trafis koron. Etera kerno. Ĝi batas, tie sube en la mallumo.',
+        '1': 'Ni fosis por fero kaj trovis koron. Etera kerno. Vi povas senti ĝin bati.',
         '2': 'Kaj la golemoj?',
-        '3': 'Ili marŝas laŭ ĝia ritmo. Tri potencoj skribis al mi pri ĝi. Ĉiuj ĝentilaj. Mi fidas neniun.',
-        '4': 'Vi atingos ĝin unue, en la fundo de la Minejoj de Ironhold. Poste via estas la decido.',
-        say: 'Kio okazis en la minejoj?'
+        '3': 'Ili moviĝas laŭ ĝia ritmo. Tri potencoj skribis al mi petante ĝin. Mi fidas neniun el ili.',
+        '4': 'Vi atingos ĝin unue, ĉe la fundo de la Minejoj de Ironhold. Kio okazos tiam, dependas de vi.',
+        say: 'Kio okazis malsupre en la minejoj?'
       },
       core: {
-        say: 'Pri la kerno…',
+        say: 'Pri la kerno...',
         destroy: {
-          '1': 'Vi rompis miraklon por savi mian popolon. La Ordeno sendis kirasistojn pro dankemo. Mi sendis bieron.'
+          '1': 'Vi rompis miraklon por savi mian popolon. La Ordeno sendis kirasistojn. Mi sendis bieron.'
         },
         study: {
-          '1': 'La inventistoj de la Rondo estas frenezaj, sed iliaj pafiloj celas rekte. Justa interkonsento.'
+          '1': 'La homoj de la Rondo estas strangaj, sed iliaj pafiloj pafas rekte. Sufiĉe justa.'
         },
         sell: {
-          '1': 'Oro. Vi faris tion pro oro. Mi esperas, ke ĝi varmigos vin.'
+          '1': 'Vi faris ĝin pro oro. Mi esperas, ke ĝi varmigas vin.'
         }
       },
       town: {
@@ -2062,179 +2062,179 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'Oriente de la Rokegoj la tero blankiĝas. Frostmorda Tundro. Gigantoj, kaj mortintoj, kiuj ne restas kuŝantaj.'
+          '1': 'Oriente de la Rokegoj la tero fariĝas blanka. La Frostmorda Tundro. Gigantoj, kaj pli malbone.'
         },
         citadel: {
-          '1': 'Miaj skoltoj vidis fortikaĵon en la nordo, kiu ne estis tie pasintjare. Novaj montoj ne plaĉas al mi.'
+          '1': 'Miaj skoltoj vidis fortikaĵon en la nordo, kiu ne estis tie pasintjare. Mi ne ŝatas tion.'
         },
         fortress: {
-          '1': 'La Terura Fortikaĵo estas tie, kie ĉio ĉi finiĝas. Ĉiu vojo norden kondukas al ĝia pordego.'
+          '1': 'Ĉio finiĝas ĉe la Terura Fortikaĵo. Ĉiu vojo norden kondukas tien.'
         }
       },
       bye: {
-        '1': 'Frapu precize.'
+        '1': 'Iru bone.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'For la manojn de la ekspozicio. Tiuj estas akraj ambaŭflanke.',
-        '2': 'Hilda Martelmano. Gnome forĝita, ĉiu peco.'
+        '1': 'Atentu la ekspoziciaĵon. Tiuj estas akraj ambaŭflanke.',
+        '2': 'Hilda Martelmano. Ĉiu peco ĉi tie estis forĝita de nanaj manoj.'
       },
       dragon: {
-        '1': 'Vi mortigis la drakon? Per unu el MIAJ? Ne? Mensogu al mi. Diru, ke ĝi estis unu el miaj.'
+        '1': 'Ĉu vi mortigis la drakon? Mi esperas, ke ĝi estis per unu el miaj klingoj.'
       },
       again: {
-        '1': 'Ĉu revenis por vera ŝtalo?'
+        '1': 'Ĉu vi revenis por vera ŝtalo?'
       },
       trade: {
-        '1': 'Gnome forĝita. Se ĝi rompiĝos, kulpis vi.'
+        '1': 'Nanforĝita. Se unu el ĉi tiuj rompiĝas, mi volos scii kiel.'
       },
       who: {
-        '1': 'Mia patrino forĝis por reĝoj. Mi forĝas por ĉiu, kiu envenas. Tempoj ŝanĝiĝas.'
+        '1': 'Mia patrino forĝis por reĝoj. Mi forĝas por ĉiu, kiu envenas tra la pordo.'
       },
       rumor: {
         golems: {
-          '1': 'La golemoj en la minejoj estas faritaj el nia propra fero. Francamente, tio estas hontinda.'
+          '1': 'Tiuj golemoj malsupre estas faritaj el nia propra fero. Tio doloras, mi diras al vi.'
         },
         arm: {
-          '1': 'Klingo faras duonon de la laboro. Via Forto faras la reston. Ne kulpigu la klingon.'
+          '1': 'Bona klingo faras duonon de la laboro. Via Forto devas fari la reston.'
         }
       },
       shopBack: {
-        '1': 'Alportu ĝin reen malakre kaj mi scios, ke vi uzis ĝin.'
+        '1': 'Alportu ĝin reen malakra kaj mi scios, ke vi bone uzis ĝin.'
       },
       bye: {
-        '1': 'Frapu ilin forte.'
+        '1': 'Frapu forte.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Atentu! Tiu estas ŝargita. Ankaŭ tiu. Plejparte ĉiuj, vere.',
-        '2': 'Inventisto Voss. La Rondo sendis min vidi, kion la kerno povas instrui al ni. Ĉion, evidentiĝas.'
+        '1': 'Atentu, tiu estas ŝargita. Plejparto estas, fakte.',
+        '2': 'Inventisto Voss. La Rondo sendis min studi la kernon. Ĝi instruis al ni tiom multe.'
       },
       again: {
-        '1': 'Ho bone, provanto. Mi volas diri, kliento.'
+        '1': 'Ha, bone. Mi faris kelkajn ŝanĝojn ekde via lasta vizito.'
       },
       trade: {
-        '1': 'La studo de la Rondo pri la kerno ŝanĝis ĉion. Tenu ĉi tion. Ne direktu ĝin al mi.'
+        '1': 'Ĉio ĉi venis el la studado de la kerno. Nur ne direktu ĝin al mi.'
       },
       core: {
-        '1': 'Tiu fero povas pensi, iomete. Mi provas ne pripensi tion.',
+        '1': 'Tiu metalo povas pensi, iomete. Mi provas ne pripensi tion.',
         say: 'Kion la kerno instruis al vi?'
       },
       rumor: {
         heat: {
-          '1': 'Pafiloj funkcias per Majstreco, kaj ili varmiĝas. Demandu Dentradiston Pim pri varmo, antaŭ ol vi fandos vian manon.'
+          '1': 'Pafiloj funkcias per Majstreco, kaj ili varmiĝas. Demandu Pim pri varmo antaŭ ol vi bruligos manon.'
         }
       },
       shopBack: {
-        '1': 'Raportu ĉiun eksplodon! Por la notoj.'
+        '1': 'Sciigu min, kiel ĝi funkcias. Mi tenas notojn.'
       },
       bye: {
-        '1': 'Atentu la rekulon!'
+        '1': 'Atentu la repuŝon.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Kirasoj. Ringoj en la pleto.'
+        '1': 'Garrun. Kirasoj sur la bretoj, ringoj en la pleto.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Denove. Kion vi bezonas?'
       },
       trade: {
-        '1': 'Plato, kiu deturnas la klabon de giganto. Ringoj por la ceteraj.'
+        '1': 'Tiu platkiraso haltigos klabon de giganto. Rigardu.'
       },
       quiet: {
-        '1': 'Ne.',
-        say: 'Vi ne multe parolas.'
+        '1': 'Ne multe valoras diri.',
+        say: 'Vi ne multe parolas, ĉu?'
       },
       rumor: {
         giants: {
-          '1': 'Gigantoj en la tundro. Klaboj kiel trunkoj. Aĉetu la pezan platon.'
+          '1': 'Gigantoj en la tundro. Klaboj kiel trunkoj. Mi prenus la pezan platkirason.'
         },
         demons: {
-          '1': 'Demonoj norde. Fajro kaj ungegoj. Aĉetu la pezan platon.'
+          '1': 'Demonoj en la nordo. Fajro kaj ungegoj. Mi prenus la pezan platkirason.'
         }
       },
       shopBack: {
-        '1': 'Bone.'
+        '1': 'Bona elekto.'
       },
       bye: {
-        '1': 'Jes.'
+        '1': 'Zorgu pri vi.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Nomo kaj afero. Ne. Mi konas vian nomon. Vi detruis la kernon.',
-        '2': 'Provizestro de la Fera Ordeno. Ĝiaj armilejoj estas malfermitaj al vi.'
+        '1': 'Vi estas tiu, kiu detruis la kernon. La Ordeno memoras tion.',
+        '2': 'Mi estas la provizestro de la Ordeno ĉi tie. Niaj armilejoj estas malfermaj al vi.'
       },
       throneOurs: {
-        '1': 'La Ordeno tenas la Teruran Fortikaĵon per via mano. Ripozu. Tio estas ordono.'
+        '1': 'La Ordeno tenas la Teruran Fortikaĵon, danke al vi. Ripozu. Vi meritis ĝin.'
       },
       foe: {
-        '1': 'La Ordeno havas vin en listo. Miaj ordonoj estas vendi al vi malgraŭ tio. Ili ne plaĉas al mi.'
+        '1': 'La Ordeno havas vin en listo. Miaj ordonoj diras, ke mi tamen vendu al vi. Mi obeos ilin.'
       },
       again: {
-        '1': 'Rekvizicio?'
+        '1': 'Kion vi bezonas?'
       },
       trade: {
-        '1': 'La Ordeno memoras, kiu detruis la kernon. Elektu, kion vi bezonas.'
+        '1': 'Prenu, kion vi bezonas. La Ordeno zorgas pri siaj.'
       },
       order: {
-        '1': 'Nenion. Tio estas malofta. Ĝuu ĝin.',
+        '1': 'Nenion, nuntempe. Tio ne okazas ofte. Ĝuu ĝin.',
         say: 'Kion la Ordeno volas de mi?'
       },
       rumor: {
         throne: {
-          '1': 'La Ordeno volos la tronon en la Terura Fortikaĵo. Ĝi memoros, kiu staris kun ĝi.'
+          '1': 'La Ordeno volos la tronon en la Terura Fortikaĵo. Ĝi memoros, kiu helpis.'
         }
       },
       shopBack: {
-        '1': 'Subskribu ĉi tie. Mi ŝercas. La Ordeno ne ŝercas. Vi estas forsendita.'
+        '1': 'Zorgu pri ĝi. Ĝi estas propraĵo de la Ordeno ĝis vi sangis en ĝi.'
       },
       bye: {
-        '1': 'Vi estas forsendita.'
+        '1': 'Daŭrigu.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Malrapidiĝu. La monto ne iras ien.',
+        '1': 'Malrapidu. La monto ne iras ien.',
         '2': 'Ili nomas min Maljuna Ŝtonpiedo. Mi aŭskultas la grundon. Foje ĝi respondas.'
       },
       core: {
-        '1': 'La korbato de la monto ŝanĝiĝis. Tio estis vi. Ĝi rimarkis.'
+        '1': 'La monto sentas sin malsama ekde kiam vi iris malsupren. Pli trankvila, aŭ pli malplena.'
       },
       dragon: {
-        '1': 'Hieraŭ drako flugis super la pinto kaj ne bruligis nin. Via faro, mi aŭdas.'
+        '1': 'Drako flugis super la pinto hieraŭ kaj lasis nin trankvilaj. Via faro, oni diras al mi.'
       },
       again: {
-        '1': 'Vi denove. La ŝtonoj diris, ke vi venos.'
+        '1': 'Jen vi. Mi pensis, ke vi revenos.'
       },
       train: {
-        '1': 'Plantu viajn piedojn. Ĉu vi sentas tion? Ne? Ni komencos de tie.'
+        '1': 'Plantu viajn piedojn. Ĉu vi sentas tion? Ne? Tie ni komencas.'
       },
       class: {
-        '1': 'Ni levas murojn, alvokas pikilojn kaj rompas la grundon, kiam necesas.',
-        '2': 'Forto por movi la ŝtonon, Inteligento por peti ĝin afable.',
-        say: 'Kio estas Termagiisto?'
+        '1': 'Ni levas murojn, vokas pikojn, kaj rompas la grundon, kiam ni devas.',
+        '2': 'Forto por movi la ŝtonon. Inteligento por scii, kien ĝi volas iri.',
+        say: 'Kion faras Termagiisto?'
       },
       ready: {
         strong: {
-          '1': 'La ŝtono nun konas vin. Lernu la reston.'
+          '1': 'La ŝtono konas vin nun. Lernu la reston, kiam vi pretas.'
         },
         able: {
-          '1': 'Vi estas sufiĉe peza por la sekva leciono. Tio estas komplimento.'
+          '1': 'Vi estas sufiĉe firma por la sekva leciono.'
         },
         weak: {
-          '1': 'La ŝtono ankoraŭ ne aŭdas vin. Pli da Forto.'
+          '1': 'Ankoraŭ ne. La ŝtono ne moviĝos por vi. Konstruu vian Forton.'
         }
       },
       factions: {
-        '1': 'Neniun. Ordenoj, sindikatoj, rondoj. La monto postvivas ĉiujn.',
+        '1': 'Neniu el ili. Ordenoj kaj gildoj venas kaj iras. La monto restas.',
         say: 'Kiun frakcion vi servas?'
       },
       trainBack: {
-        '1': 'Iru milde. Poste ne milde.'
+        '1': 'Prenu vian tempon. La grundo estas pacienca.'
       },
       bye: {
         '1': 'Marŝu mallaŭte.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Ne tuŝu tion! Nek tion. Fakte, staru sur la tapiŝo. La tapiŝo estas sekura.',
-        '2': 'Dentradisto Pim! Pafiloj, pafturoj, varmomezuriloj. Plejparte varmomezuriloj.'
+        '1': 'Ha, atendu, ne tuŝu tion! Nek tion. Staru sur la tapiŝo, la tapiŝo estas sekura.',
+        '2': 'Dentradisto Pim. Mi konstruas pafilojn, kanonturojn, kaj multajn varmindikilojn.'
       },
       core: {
-        '1': 'Vi donis al ni la kernon! Mi ne dormis dum naŭ tagoj. Rigardu miajn manojn. Ne rigardu miajn manojn.'
+        '1': 'Vi donis la kernon al la Rondo! Mi apenaŭ dormis ekde tiam. Sed en bona senco.'
       },
       oracle: {
-        '1': 'La Rondo furiozas pro la orakolo. Mi nur konstruas aĵojn. Bonvolu ne diri al ili, ke mi instruis vin.'
+        '1': 'La Rondo koleras pri la orakolo. Mi nur konstruas aĵojn. Mi preferus ne impliki min.'
       },
       friend: {
-        '1': 'Amiko de la Rondo! Pli malmultekostaj lecionoj por vi. Mi mem plenigis la formularon.'
+        '1': 'Vi estas amiko de la Rondo, do viaj lecionoj estas pli malmultekostaj. Mi plenigis la paperojn.'
       },
       foe: {
-        '1': 'La Rondo diras, ke mi ne instruu vin. La Rondo ankaŭ diras, ke oni ne provu raketojn endome.'
+        '1': 'La Rondo diras, ke mi ne instruu vin. Mi tamen faros ĝin. Ne diru al ili.'
       },
       again: {
         '1': 'Ho bone, vi ankoraŭ havas ĉiujn fingrojn.'
       },
       train: {
-        '1': 'Bone! Unue sekureco. Poste la brua parto.'
+        '1': 'Bone. Sekureco unue, poste la brua parto.'
       },
       class: {
-        '1': 'Pafiloj, pafturoj kaj varmomezurilo. Pafu, konstruu kaj ellasu, antaŭ ol ĝi blokos vin.',
-        '2': 'Ĉio funkcias per Majstreco. Iom da Inteligento por la grandaj maŝinoj.',
+        '1': 'Pafiloj, kanonturoj, kaj varmindikilo. Pafu, konstruu, kaj aerumu antaŭ ol vi ŝlosiĝos.',
+        '2': 'Plejparte ĝi estas Majstreco. Iom da Inteligento por la pli grandaj maŝinoj.',
         say: 'Kio estas Eterteknikisto?'
       },
       ready: {
         strong: {
-          '1': 'Vi povus malmunti pafturon okulbendita! Prenu la grandajn maŝinojn.'
+          '1': 'Vi nun scias, kiel trakti kanonturon. Prenu la grandajn maŝinojn.'
         },
         able: {
-          '1': 'Firmaj manoj! Vi pretas por la sekva aparato.'
+          '1': 'Fidindaj manoj. Vi pretas por la sekva.'
         },
         weak: {
-          '1': 'Viaj manoj tremas. Miaj ankaŭ, sed pro aliaj kialoj. Pli da Majstreco.'
+          '1': 'Via celo ankoraŭ estas iom tremeta. Metu kelkajn punktojn en Majstrecon.'
         }
       },
       heat: {
-        '1': 'Ĉio blokiĝas dum kelkaj sekundoj. Ellasu frue. Ellasu ofte. Mi havas la cikatrojn.',
+        '1': 'Ĉio ŝlosiĝas dum kelkaj sekundoj. Aerumu frue, aerumu ofte. Fidu min pri tio.',
         say: 'Kio okazas, se mi trovarmiĝos?'
       },
       trainBack: {
-        '1': 'Memoru: ellasu la varmon! ELLASU. LA. VARMON.'
+        '1': 'Kaj memoru aerumi la varmon antaŭ ol ĝi aerumas vin.'
       },
       bye: {
-        '1': 'Ne eksplodu!'
+        '1': 'Estu singarda tie ekstere!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Botojn for. Mi ne toleros la polvon sur mia planko.',
-        '2': 'Patrino Brynja. Mi ordigis ĉiun rompitan oston en ĉi tiu monto dufoje.'
+        '1': 'Boteojn ĉe la pordo, mi petas. Mi ĵus balais.',
+        '2': 'Patrino Brynja. Mi ripozigis plej multajn rompitajn ostojn en ĉi tiu monto.'
       },
       ending: {
-        '1': 'Vi iris al la Terura Fortikaĵo kaj marŝis reen. Sidiĝu. Mi volas rigardi vin.'
+        '1': 'Vi iris al la Terura Fortikaĵo kaj revenis. Sidiĝu. Lasu min rigardi vin.'
       },
       again: {
-        '1': 'Ankoraŭ viva. Oni diras al mi, ke tio estas mia merito.'
+        '1': 'Ankoraŭ viva. Bone. Sidiĝu.'
       },
       heal: {
-        '1': 'Sidiĝu. Trinku ĉi tion. Ne faru tiun mienon. Viaj flakonoj estas plenaj.'
+        '1': 'Trinku ĉi tion, kaj ne faru tiun grimacon. Viaj flakonoj estas plenaj.'
       },
       mana: {
-        '1': 'Jen. Ĝi gustas malbone. Trinku ĝin, kiam via magio elĉerpiĝas, ne antaŭe.'
+        '1': 'Jen. Ĝi gustas terure. Trinku ĝin, kiam via magio elĉerpiĝos, ne antaŭe.'
       },
       potions: {
-        '1': 'Aĉetu de mi pli longan zonon. Kvin flakonoj estas ĉio, kion korpo povas porti kaj ankoraŭ kuri.',
+        '1': 'Mi povas vendi al vi pli longan zonon. Kvin flakonoj estas ĉio, kion iu povas porti kaj ankoraŭ kuri.',
         say: 'Ĉu mi povas porti pli da pocioj?'
       },
       rumor: {
         tundra: {
-          '1': 'La tundro prenas fingrojn. Daŭre moviĝu tie ekstere, kaj ne dormu en la neĝo.'
+          '1': 'La tundro prenas fingrojn kaj piedfingrojn. Daŭre moviĝu, kaj ne endormiĝu en la neĝo.'
         },
         temple: {
-          '1': 'Preter la tundro estas dronita templo. La nagaoj ne prenas kaptitojn.'
+          '1': 'Estas dronita templo preter la tundro. La nagaoj tie ne kaptas kaptitojn.'
         },
         rift: {
-          '1': 'Kio ajn estas en tiu Malplena Fendo, ĝi ne kudriĝas. Finu ĝin rapide.'
+          '1': 'Kio ajn estas en tiu fendo, mi ne povas kudri ĝin. Ne lasu ĝin atingi vin.'
         }
       },
       healBack: {
-        '1': 'Iru. Kaj manĝu ion.'
+        '1': 'Iru nun. Kaj manĝu ion, vi estas tro maldika.'
       },
       bye: {
         '1': 'Revenu tuta.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Vi. Vi malfermis mian pordegon.',
-        '2': 'Mi nun instruas el kelo de gnomo, ĉar mi devas manĝi. Ne konfuzu tion kun pardono.'
+        '1': 'Vi. Vi estas tiu, kiu malfermis mian pordegon.',
+        '2': 'Mi nun instruas en kelo, ĉar mi devas manĝi. Ne konfuzu tion kun pardono.'
       },
       ending: {
-        '1': 'Trono estis decidita, kaj Oakhaven ankoraŭ estas cindro. Diru denove, kiel tio valoris.'
+        '1': 'Do la trono estas decidita, kaj Oakhaven ankoraŭ estas cindro. Mi esperas, ke ĝi valoris la penon.'
       },
       again: {
-        '1': 'La perfidulo revenas. Mia kotizo ne malkreskis.'
+        '1': 'Vi revenis. Mia kotizo ne ŝanĝiĝis.'
       },
       train: {
-        '1': 'Mi instruos vin komandi. Mi ne povas instrui vin meriti tion.'
+        '1': 'Mi instruos vin komandi. Ĉu vi meritas ĝin, estas alia afero.'
       },
       class: {
-        '1': 'Unu, kiun oni sekvas. Gardistoj respondas al la voko kaj batalas laŭ via vorto.',
-        '2': 'Ĝi funkcias per Karismo. Vi havas iom. Tio estas la tragedio.',
+        '1': 'Iu, kiun aliaj sekvas. Gardistoj venas, kiam vi vokas, kaj batalas laŭ via vorto.',
+        '2': 'Ĝi funkcias per Karismo. Vi havas iom. Tio igas ĝin malfacile pardonebla.',
         say: 'Kio estas Granda Suvereno?'
       },
       ready: {
         strong: {
-          '1': 'Vi havas la ĉeeston por ĉio. La regno estas pli malriĉa pro tio.'
+          '1': 'Vi havas la ĉeeston por ĉio. Mi dezirus, ke vi uzis ĝin pli bone.'
         },
         able: {
-          '1': 'Vi pretas por la sekva leciono. Mi ne ĝojas pro tio.'
+          '1': 'Vi pretas por la sekva leciono. Mi ne ŝajnigos, ke mi ĝojas.'
         },
         weak: {
-          '1': 'Eĉ gardisto de perfidulo ne sekvus tiun voĉon. Pli da Karismo.'
+          '1': 'Neniu ankoraŭ sekvus vin. Plibonigu vian Karismon.'
         }
       },
       oakhaven: {
         '1': 'Tricent jaroj. Mia familio konstruis tiujn murojn.',
-        '2': 'Ne klarigu. Ne ekzistas prezo, kiu klarigas tion.',
-        say: 'Pri Oakhaven…'
+        '2': 'Bonvolu ne klarigi. Nenio, kion vi diros, ĝustigos ĝin.',
+        say: 'Pri Oakhaven...'
       },
       trainBack: {
-        '1': 'Iru. Komandu iun alian.'
+        '1': 'Iru. Ekzercu kun iu alia.'
       },
       bye: {
-        '1': 'Lasu min.'
+        '1': 'Lasu min, mi petas.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Vi mortigis ŝin. Mi vidis tion mil fojojn antaŭ ol ĝi okazis, kaj tamen doloras.',
-        '2': 'Mi estas la Gardanto de la Horoj. Mi instruos vin. Ŝi diris al mi, ke mi faros tion.'
+        '1': 'Vi mortigis ŝin. Mi vidis tion venantan jarojn, kaj ĝi ankoraŭ doloras.',
+        '2': 'Mi estas la Gardanto de la Horoj. Mi instruos vin. Ŝi diris al mi, ke mi faros.'
       },
       hello: {
-        '1': 'Vi malfruas. Aŭ frue. Mi jam diris tion al vi, mi pensas.',
-        '2': 'Mi estas la Gardanto de la Horoj. Mi instruas la teksadon de tempo. Ni komencis antaŭ momento.'
+        '1': 'Jen vi. Mi atendis vin delonge. Aŭ estos atendinta.',
+        '2': 'Mi estas la Gardanto de la Horoj. Mi instruas, kiel iomete fleksi la tempon.'
       },
       freed: {
-        '1': 'Ŝi estas libera. Unuafoje mi ne scias, kion vi diros poste. Estas mirinde.'
+        '1': 'Ŝi estas libera. Unuafoje mi ne povas diri, kio okazos poste. Mirinde.'
       },
       friend: {
-        '1': 'La Rondo nomos vin sia amiko. Jam nomis? Do la rabato estas nun.'
+        '1': 'La Rondo pensas bone pri vi, do la lecionoj kostas malpli. Ili decidis tion pasintsemajne.'
       },
       foe: {
-        '1': 'La Rondo pardonos vin, en estonteco, kiun mi vidis. Ĝis tiam mi instruas vin trankvile.'
+        '1': 'La Rondo nun koleras kontraŭ vi. Ĝi pasos. Ĝis tiam, ni tenos tion kviete.'
       },
       again: {
-        '1': 'Bonvenon reen. Bonvenon. Reen.'
+        '1': 'Bonvenon reen. Vi alvenas ĝustatempe.'
       },
       train: {
-        '1': 'Rigardu. Mi montros al vi tion, kion mi montris al vi.'
+        '1': 'Rigardu atente. Poste rigardu denove, momenton pli frue.'
       },
       class: {
-        '1': 'Ni haltigas malamikon en la tempo, rapidigas amikon kaj reprenas erarojn.',
-        '2': 'Inteligento por vidi la fadenon, Majstreco por tiri ĝin.',
+        '1': 'Ni tenas malamikon senmova en la tempo, rapidigas amikon, kaj reprenas eraron.',
+        '2': 'Inteligento por vidi la fadenon. Majstreco por tiri ĝin.',
         say: 'Kio estas Tempoteksanto?'
       },
       ready: {
         strong: {
-          '1': 'Vi tenas la fadenon bone. La cetero estas via, kiam vi volas.'
+          '1': 'Vi bone tenas la fadenon. Prenu la reston, kiam ajn vi volas.'
         },
         able: {
-          '1': 'Vi pretas. Vi pretis ankaŭ morgaŭ.'
+          '1': 'Vi pretas. Mi sciis antaŭ ol vi demandis.'
         },
         weak: {
-          '1': 'La fadeno glitas tra viaj fingroj. Pli da Inteligento. Pli da Majstreco.'
+          '1': 'La fadeno daŭre glitas. Pli da Inteligento, kaj pli da Majstreco.'
         }
       },
       oracle: {
         say: 'Rakontu al mi pri la orakolo.',
         freed: {
-          '1': 'Ŝi vidis ĉiun finon, kaj neniu estis ŝia. Nun unu estas.'
+          '1': 'Ŝi vidis ĉiun finon krom sian propran. Nun ŝi povos ekscii.'
         },
         slain: {
-          '1': 'Ŝi ne rezistis. Ankaŭ tion ŝi vidis. Bonvolu ne demandi min denove.'
+          '1': 'Ŝi ne batalis kontraŭ ĝi. Ŝi jam vidis ĝin. Bonvolu ne demandi min denove.'
         },
         waits: {
-          '1': 'Ŝi vidas ĉiun finon. Estas terura donaco. Estu afabla al ŝi, ĉe la fino.'
+          '1': 'Ŝi vidas ĉiun finon. Tio estas peza ŝarĝo. Estu afabla al ŝi.'
         }
       },
       trainBack: {
-        '1': 'Valoros la penon.'
+        '1': 'Ĝi havos sencon poste. Kutime ĝi havas.'
       },
       bye: {
-        '1': 'Ĝis antaŭe.'
+        '1': 'Ĝis ni renkontiĝos denove. Aŭ antaŭe.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Atendu! Atendu. Reĝo cedi!',
-          '2': 'Koboldoj nur rabi, ĉar koboldoj malsati. Esti vero!',
-          '3': 'Eble altulo kaj Reĝo fari interkonsenton?'
+          '1': 'Haltu. Mi petas. Mi cedas.',
+          '2': 'Mia popolo atakas, ĉar ĝi malsatas. Tio estas la vero.',
+          '3': 'Ni faru interkonsenton anstataŭe. Via speco kaj la mia.'
         },
         slay: {
-          '1': 'La Reĝo falas, kaj la Kavernoj disiĝas.',
-          '2': 'Sunford dormas pli trankvile, kaj la Fera Ordeno rimarkas vin.',
-          say: 'Neniu interkonsento. Via regado finiĝas ĉi tie.'
+          '1': 'La Kobolda Reĝo falas, kaj la Kavernoj malpleniĝas.',
+          '2': 'Sunford dormas pli trankvile, kaj la Fera Ordeno aŭdas vian nomon.',
+          say: 'Neniu interkonsento. Viaj atakoj finiĝas ĉi tie.'
         },
         pact: {
-          '1': 'Komerco? Reĝo ĵuri! Reĝo AMI komercon!',
-          '2': 'Koboldaj komercistoj ekloĝas sur la placo de Sunford, kun varoj, kiujn neniu tiea forĝisto povus fari.',
-          say: 'Haltigu la rabatakojn kaj komercu kun Sunford. Ĵuru ĝin.'
+          '1': 'Komerco. Jes. Mi ĵuras ĝin, per mia krono.',
+          '2': 'Koboldaj komercistoj starigas sin en la placo de Sunford, vendante aĵojn, kiujn neniu forĝisto tie povus fari.',
+          say: 'Ĉesigu la atakojn kaj komercu kun Sunford anstataŭe. Ĵuru ĝin.'
         },
         ransom: {
-          '1': 'Ĉion? Reĝo malami altulon. Preni. Preni kaj foriri.',
-          '2': 'Vi eliras ŝarĝita per kobolda oro. La rabatakoj rekomenciĝos. La Sindikato aprobas.',
-          say: 'Transdonu vian trezoron, kaj vi retenu vian kronon.'
+          '1': 'Ĉion? ...Bone. Prenu ĝin, kaj iru.',
+          '2': 'Vi foriras kun kobolda oro. La atakoj rekomenciĝos, sed la Sindikato aprobas.',
+          say: 'Donu al mi vian trezoron kaj vi povas konservi vian kronon.'
         }
       },
       siege: {
         ask: {
-          '1': 'Sufiĉe. Vi bone batalas.',
-          '2': 'La Sindikato pagas pli bone, ol tiu urbo iam pagos.',
+          '1': 'Sufiĉe. Vi bone batalas, mi koncedas tion.',
+          '2': 'La Sindikato pagas multe pli bone ol tiu urbo iam pagos.',
           '3': 'Malfermu al ni la pordegon ĉi-nokte, kaj triono de Oakhaven estos via.'
         },
         defend: {
           '1': 'Tiam la Sindikato ĉasos vin sur ĉiu vojo. Memoru, ke mi proponis.',
-          '2': 'La pordego eltenas. Oakhaven riĉiĝas malantaŭ ĝi, kaj ĝiaj majstraj kirasistoj memoras vian nomon.',
+          '2': 'La pordego tenas. Oakhaven riĉiĝas malantaŭ ĝi, kaj ĝiaj kirasistoj memoras vian nomon.',
           say: 'La pordego restas fermita. Prenu vian armeon kaj foriru.'
         },
         betray: {
-          '1': 'Saĝe. Mi diros al Sinjorino Ash, ke ŝi pretigu seĝon por vi.',
-          '2': 'Oakhaven brulas. En ĝiaj ruinoj malfermiĝas nigra merkato, kaj alkemiisto instruas malpermesitajn artojn.',
+          '1': 'Prudente. Sinjorino Ash ĝojos aŭdi tion.',
+          '2': 'Oakhaven brulas. En la ruinoj malfermiĝas nigra merkato, kaj alkemiisto instruas sekrete.',
           '3': 'La kirasistoj foriris, kaj la Fera Ordeno nomas vin perfidulo.',
-          say: 'Triono de la urbo. Ĉi-nokte la pordego malfermiĝas.'
+          say: 'Triono de la urbo. Bone. La pordego malfermiĝos ĉi-nokte.'
         }
       },
       core: {
         ask: {
-          '1': 'La Koloso estas rubo. Mi neniam pensis vidi tion.',
-          '2': 'Kaj jen ĝi kuŝas. La kerno. Ankoraŭ zumanta. Varma je tuŝo.',
-          '3': 'Vi atingis ĝin unue. Kio okazu al ĝi?'
+          '1': 'La Koloso estas rubo. Mi neniam pensis, ke mi vivos por vidi tion.',
+          '2': 'Kaj jen la kerno. Ankoraŭ zumas. Ĝi estas varma, se vi tuŝas ĝin.',
+          '3': 'Vi alvenis unue. Do... kio okazu al ĝi?'
         },
         destroy: {
           '1': 'La lumo estingiĝas, kaj la golemoj falas tie, kie ili staras.',
-          '2': 'La Fera Ordeno sendas siajn proprajn kirasistojn al Ironhold pro dankemo.',
-          say: 'Retiriĝu. Mi rompas ĝin.'
+          '2': 'Dankeme, la Fera Ordeno sendas siajn proprajn kirasistojn al Ironhold.',
+          say: 'Reiru. Mi rompos ĝin.'
         },
         study: {
-          '1': 'Vi komprenas la kernon sufiĉe por transdoni ĝin sen veki ĝin.',
-          '2': 'Post unu sezono la forĝejoj de Ironhold produktas eteraĵojn, kiajn neniu antaŭe vidis.',
-          say: 'La Rondo studu ĝin. Mi povas sekure elporti ĝin.'
+          '1': 'Vi scias sufiĉe por movi la kernon sen veki ĝin.',
+          '2': 'Ene de sezono, la forĝejoj de Ironhold faras eterajn aparatojn, kiujn neniu antaŭe vidis.',
+          say: 'La Rondo studu ĝin. Mi pensas, ke mi povas porti ĝin sekure.'
         },
         sell: {
           '1': 'Oro. Por la afero, kiu mortigis miajn ministojn. Prenu ĝin kaj foriru.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Mi vidis ĉi tiun momenton dek mil fojojn.',
-          '2': 'En duono vi liberigas min. En duono vi prenas tion, kion mi gardas.',
-          '3': 'Elektu. Lasu min finfine ne scii, kio venos poste.'
+          '1': 'Mi vidis ĉi tiun momenton pli ofte ol mi povas kalkuli.',
+          '2': 'En duono, vi liberigas min. En la alia duono, vi prenas tion, kion mi gardas.',
+          '3': 'Elektu. Mi ŝatus, nur unufoje, ne scii, kio venas poste.'
         },
         free: {
-          '1': 'Oh. Mi ne vidis tion. Mi tute ne vidis tion.',
-          '2': 'La orakolo leviĝas tra la akvo kaj malaperas. Ŝia gardanto de la horoj restas por instrui.',
+          '1': 'Ho. Tion mi ne vidis. Vere mi ne vidis tion.',
+          '2': 'La orakolo leviĝas tra la akvo kaj foriras. Ŝia lernantino restas por instrui.',
           say: 'Staru senmove. Mi rompas viajn ĉenojn.'
         },
         slay: {
           '1': 'Jes. Jen la alia duono.',
           '2': 'Ŝi ne rezistas. La Sablohorloĝo de la Tempogardanto estas via.',
-          '3': 'Ŝia lasta lernanto fuĝas el la templo, kaj la Rondo ne pardonas.',
+          '3': 'Ŝia lasta lernantino forkuras el la templo, kaj la Rondo ne pardonos vin.',
           say: 'Mi venis pro la sablohorloĝo.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Sufiĉe. Vi havas dentojn, etulo.',
-          '2': 'La demono en la fortikaĵo katenis mian parencaron. Mi volas vidi lin bruli.',
+          '1': 'Sufiĉe. Vi havas dentojn, malgranda.',
+          '2': 'La demono en la fortikaĵo ĉenis miajn parencojn. Mi volas vidi lin bruli.',
           '3': 'Mortigu min, aŭ lasu min helpi vin fari tion.'
         },
         slay: {
           '1': 'La monto tremas, kiam la drako falas. Ĝia trezoro estas via.',
           '2': 'La Fera Ordeno kantas pri la drakomortiganto.',
-          say: 'Neniuj kontraktoj kun drakoj.'
+          say: 'Mi ne marĉandas kun drakoj.'
         },
         pact: {
-          '1': 'Malmultaj povus peti tion kaj vivi. Tre bone, etulo. Ni ĉasos kune.',
-          '2': 'Kiam vi marŝos kontraŭ la Teruran Fortikaĵon, drako estos en la ĉielo super vi.',
-          say: 'Do flugu kun mi kontraŭ la Ĉefdemono.'
+          '1': 'Malmultaj kuraĝus peti. Tre bone. Ni ĉasu kune.',
+          '2': 'Kiam vi marŝos al la Terura Fortikaĵo, drako flugos super vi.',
+          say: 'Do batalu kun mi kontraŭ la Ĉefdemono.'
         }
       },
       throne: {
         ask: {
           '1': 'Do. Ĝi finiĝas. Mi ne pensis, ke ĝi estos vi.',
-          '2': 'Mia trono ne restas malplena, eta heroo. Ĝi komandas la fortikaĵon, la fendon kaj la armeojn de ambaŭ.',
-          '3': 'Tri senditoj jam atendas ĉe mia pordo. Elektu, kiu heredos miajn ĉenojn.'
+          '2': 'Mia trono ne restos malplena. Kiu ajn prenos ĝin, komandas la fortikaĵon kaj la fendon.',
+          '3': 'Tri senditoj jam atendas ĉe mia pordo. Elektu, kiu venos poste.'
         },
         order: {
           '1': 'La Ordeno garnizonas la fortikaĵon kaj sigelas, kion ĝi povas.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'La Sindikato enloĝiĝas antaŭ la tagiĝo.',
-          '2': 'Ĉio nun estas aĉetebla, eĉ la paco.',
+          '2': 'De nun ĉio havas prezon, eĉ la paco.',
           say: 'La Cindra Sindikato meritis ĝin.'
         },
         circle: {
-          '1': 'La Rondo faras el la fortikaĵo lernejon super fendo.',
-          '2': 'Ili nomas tion esplorado. Ĉiuj aliaj nomas ĝin demando de tempo.',
+          '1': 'La Rondo ŝanĝas la fortikaĵon en lernejon super la fendo.',
+          '2': 'Ili nomas tion esploro. Ĉiuj aliaj retenas la spiron.',
           say: 'La Rondo de Etero havu ĝin.'
         },
         shatter: {
-          '1': 'Vi rompas la tronon per viaj propraj manoj. Neniu plu regos de ĉi tie.',
+          '1': 'Vi rompas la tronon per viaj propraj manoj. Neniu denove regos de ĉi tie.',
           '2': 'La senditoj foriras sen unu vorto.',
-          say: 'Neniu heredas. Mi rompas ĝin.'
+          say: 'Neniu ricevas ĝin. Mi rompas ĝin.'
         },
         claim: {
           '1': 'La trono estas malvarma, kaj ĝi konvenas al vi.',
-          '2': 'Tri frakcioj trovas, ke ili havas komunan malamikon.',
-          say: 'Mi mem sidiĝos sur ĝin.'
+          '2': 'Tri frakcioj malkovras, ke ili havas komunan malamikon.',
+          say: 'Mi prenos ĝin mem.'
         }
       }
     }

@@ -127,8 +127,8 @@ export default {
       mouse: 'Følg sporet til læremesteren og klikk på dem for å snakke.'
     },
     teach: {
-      touch: 'Trykk på «Lær meg» for å se hva læremesteren underviser i.',
-      mouse: 'Klikk på «Lær meg» for å se hva læremesteren underviser i.'
+      touch: 'Trykk på «Vil du lære meg det?» for å se hva treneren underviser i.',
+      mouse: 'Klikk på «Vil du lære meg det?» for å se hva treneren underviser i.'
     },
     learn: {
       touch: 'Trykk på en evne, og trykk så på Lær.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Kjøp tilbake',
     deal: 'Avtale!',
     say: {
-      buy: 'Et fint valg. Ta godt vare på den.',
-      sell: 'Jeg skal finne et godt hjem til den.',
-      back: 'Ombestemt deg? Vær så god, akkurat som den var.',
-      poor: 'Kom igjen med en tyngre pung.'
+      buy: 'Godt valg. Ta vare på den, så tar den vare på deg.',
+      sell: 'Greit nok. Noen vil ha den.',
+      back: 'Ombestemt deg? Det går fint, vær så god.',
+      poor: 'Det er litt mer enn du har, dessverre.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Sitt. Hvil. Du går herfra hel, med hver flaske fylt. Vil du bære flere av dem, kan jeg selge deg det.',
+    talk: 'Sett deg og hvil litt. Flaskene dine er fulle igjen. Jeg kan selge deg et større belte, hvis du vil.',
     note: 'Du tar med {n} eliksirer inn i hvert område.',
     buy: 'Én flaske til · {n}',
     full: 'Beltet ditt rommer ikke mer.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Smeden Bram',
-      talk: 'Enkelt stål, ærlige priser. Det holder en goblin unna deg.'
+      talk: 'Ærlig stål, rimelige priser. Ta deg god tid.'
     },
     sunfordPeddler: {
       name: 'Kremmeren Tilly',
-      talk: 'Ringer! Amuletter! Ting jeg har funnet og helt sikkert ikke stjålet.'
+      talk: 'Ringer, amuletter, smått og stort. Den der gir kanskje til og med hell.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Handleren Grik',
-      talk: 'Konge si handle, så Grik handle. Blank for blank. Bra blank.'
+      talk: 'Familien min laget disse. Godt arbeid, rimelig pris.'
     },
     captainHale: {
       name: 'Kaptein Hale'
     },
     oakArmorer: {
       name: 'Rustningssmeden Odo',
-      talk: 'Halve lageret gikk med oppe på murene. Ta det som er igjen.'
+      talk: 'Halvparten av lageret gikk til muren. Ta det som er igjen, hvis det passer.'
     },
     oakMasterArmorer: {
       name: 'Mester Odo',
-      talk: 'Du reddet denne byen. Til deg henter jeg den gode plata fra bakrommet.'
+      talk: 'Den fine platen er framme. Du har mer enn fortjent et blikk.'
     },
     oakWeapons: {
       name: 'Senna Klinger',
-      talk: 'Skarpe, balanserte og solgt til den som betaler. I dag er det deg.'
+      talk: 'Skarpe, balanserte, rimelige. Ikke rør eggene.'
     },
     trainerShadow: {
       name: 'Hviskingen'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Heleren',
-      talk: 'Ingen navn, ingen spørsmål. Syndikatet tar sin del, du tar varene.'
+      talk: 'Ingen spørsmål, verken den ene eller andre veien. Syndikatet tar sin del.'
     },
     trainerBlood: {
       name: 'Doktor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhånd',
-      talk: 'Smidd av dverger. Ryker det, var det deg.'
+      talk: 'Dvergesmidd, hver eneste en. Går en i stykker, vil jeg vite hvordan.'
     },
     ironAetherWorks: {
       name: 'Mekkeren Voss',
-      talk: 'Sirkelens studier av kjernen endret alt. Hold denne. Ikke pek den mot meg.'
+      talk: 'Alt her kommer av at vi har studert kjernen. Forsiktig, de fleste er ladde.'
     },
     ironArmor: {
       name: 'Garrun Jernside',
-      talk: 'Plate som står imot klubba til en kjempe. Ringer til resten av dere.'
+      talk: 'Rustninger på stativene, ringer i brettet.'
     },
     ironOrderArmor: {
       name: 'Ordenens kvartermester',
-      talk: 'Ordenen husker hvem som ødela kjernen. Våpenkamrene står åpne for deg.'
+      talk: 'Ta det du trenger. Ordenen tar vare på sine egne.'
     },
     trainerGeo: {
       name: 'Gamle Steinfot'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Regn i kveld, sier kneet mitt.',
+        '1': 'Det blir regn i kveld. Kneet mitt har verket hele dagen.',
         '2': 'Det sa kneet ditt forrige uke også.',
-        '3': 'Og det regnet jo. Et sted.'
+        '3': 'Og det regnet, ikke sant? Bare ikke her.'
       },
       harvest: {
-        '1': 'Årets beste bygg, dette.',
-        '2': 'Det sier du hvert år.'
+        '1': 'Kornet har blitt fint i år.',
+        '2': 'La oss håpe vi får beholde det.'
       },
       goblins: {
         '1': 'Goblinene tok tre høner fra Møllergården.',
-        '2': 'Bare tre? De begynner å bli late.',
-        '3': 'Eller mette.'
+        '2': 'Igjen? Det er andre gang denne måneden.',
+        '3': 'Noen burde gjøre noe med de hulene.'
       },
       kingGone: {
-        '1': 'De sier at Goblinkongen er borte for godt.',
-        '2': 'Hvem er det da som stjeler kålrotene mine?'
+        '1': 'De sier at Goblinkongen er død.',
+        '2': 'Bra. Kanskje jeg får sove en hel natt nå.'
       },
       pact: {
-        '1': 'En goblin solgte meg en skje i dag.',
-        '2': 'Var det din skje?',
-        '3': 'Ja, det var det. God pris, da.'
+        '1': 'Jeg kjøpte en øse av en goblin i morges.',
+        '2': 'Var den bra?',
+        '3': 'Bedre enn min, ærlig talt. Ikke si det til noen.'
       },
       bram: {
-        '1': 'Bram hamrer igjen. Siden daggry!',
-        '2': 'Jevn som et hjerteslag, den mannen.'
+        '1': 'Bram har stått ved ambolten siden før soloppgang.',
+        '2': 'Slik blir han når han er bekymret.'
       },
       pie: {
-        '1': 'Er det eplepai jeg kjenner lukten av?',
-        '2': 'Det var det. Fortid.',
-        '3': 'Spiste du hele? Igjen?'
+        '1': 'Er det eplekake jeg kjenner lukten av?',
+        '2': 'Det var det. Barna fant den først.',
+        '3': 'Jeg baker en til. Gjem den bedre denne gangen.'
       },
       road: {
-        '1': 'Ingen tar slettevegen lenger.',
-        '2': 'Ikke med banditter på den, nei.'
+        '1': 'Ingen har gått sletteveien på en uke.',
+        '2': 'Ikke med banditter der. Det kan man ikke klandre dem for.'
       },
       hero: {
-        '1': 'Noen har ryddet slettevegen!',
-        '2': 'På tide. Fetteren min skylder meg en vogn.'
+        '1': 'Noen har ryddet banditter vekk fra sletteveien.',
+        '2': 'Gudskjelov. Nå kan søsteren min komme på besøk igjen.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'To sølv for et kålhode. To!',
-        '2': 'Det er et veldig vakkert kålhode.',
-        '3': 'Ikke så vakkert.'
+        '2': 'Ingenting kommer billig gjennom porten nå for tiden.',
+        '3': 'Da dyrker jeg mitt eget. På taket, hvis det må til.'
       },
       watch: {
-        '1': 'Vakten har doblet portvaktene.',
-        '2': 'Bra. Jeg sover bedre av det.'
+        '1': 'De har doblet vakten ved porten.',
+        '2': 'Bra. Jeg sover litt roligere av det.'
       },
       caravan: {
         '1': 'Krydderkaravanen er forsinket igjen.',
         '2': 'Banditter?',
-        '3': 'Eller så fant kusken en kro.'
+        '3': 'Eller gjørme. La oss håpe det er gjørme.'
       },
       siege: {
-        '1': 'De sier at en hær har leir i utkanten.',
-        '2': 'Da får vi fylle opp kjelleren.'
+        '1': 'Det ligger en hær og slår leir bortenfor gårdene.',
+        '2': 'Da får vi heller fylle kjelleren mens vi kan.'
       },
       saved: {
-        '1': 'Så du beleiringen brytes? Praktfullt!',
-        '2': 'Jeg så den nedenfra, under sengen.',
-        '3': 'Det teller likevel.'
+        '1': 'Sto du på muren da beleiringen brøt?',
+        '2': 'Jeg lå under senga, hvis jeg skal være ærlig.',
+        '3': 'Det gjorde halve byen. Vi er her i alle fall.'
       },
       fountain: {
         '1': 'Jeg kastet en mynt i fontenen for hell.',
-        '2': 'Og jeg fisket den opp. Takk!'
+        '2': 'Håper du ønsket deg billigere kål.'
       },
       ash: {
-        '1': 'Alt lukter aske.',
-        '2': 'Bedre enn å lukte ingenting.'
+        '1': 'Alt lukter fortsatt røyk.',
+        '2': 'Det går over. Det gjør alt til slutt.'
       },
       hide: {
-        '1': 'Hørte du støvler utenfor i natt?',
-        '2': 'Sh. Snakk lavt.',
-        '3': 'Unnskyld. Unnskyld.'
+        '1': 'Hørte du støvler i gata i natt?',
+        '2': 'Ikke så høyt. Man vet ikke hvem som hører på.',
+        '3': 'Beklager. Jeg bare... beklager.'
       },
       bread: {
-        '1': 'Jeg fant et halvt brød. Vi kan dele det.',
+        '1': 'Jeg fant et halvt brød. Her, ta litt.',
         '2': 'Du er en god sjel. Takk.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'God kobberåre på fjerde nivå.',
-        '2': 'Kobber? Jeg vil ha gull.',
-        '3': 'Du vil heller ta en lur.'
+        '2': 'Kobber. Jeg hadde håpet på sølv.',
+        '3': 'Kobber betaler husleia. Sølv betaler drømmer.'
       },
       forge: {
-        '1': 'Den store smia har ikke sluknet på hundre år.',
-        '2': 'Det har ikke bestefarens pipe heller.'
+        '1': 'Den store smia har ikke vært kald på hundre år.',
+        '2': 'Bestefaren min var med på å tenne den, vet du.'
       },
       beard: {
-        '1': 'Du har trimmet skjegget!',
-        '2': 'Det tok fyr ved ambolten.',
-        '3': 'Det kler deg, da.'
+        '1': 'Du har trimmet skjegget.',
+        '2': 'Kom for nær ambolten.',
+        '3': 'Det gror ut igjen. Du er jo finere med det kortere.'
       },
       core: {
-        '1': 'Noe gløder i de dype gruvene nå.',
-        '2': 'Ingenting godt gløder der nede.'
+        '1': 'Noe lyser der nede i de dype sjaktene.',
+        '2': 'Ingenting godt lyser der nede. Hold deg oppe.'
       },
       order: {
-        '1': 'Ordenens rustningssmeder jobber fort.',
-        '2': 'Fort, ja. Ikke like godt som oss.'
+        '1': 'Ordenens rustningssmeder jobber fort, det må man gi dem.',
+        '2': 'Fort, ja. Vi får se hvordan det holder.'
       },
       circle: {
-        '1': 'Sirkelens magikere nynner mens de jobber.',
-        '2': 'Bedre enn sangen vår, antar jeg.'
+        '1': 'Sirkelfolket nynner mens de jobber.',
+        '2': 'Bedre enn sangen din, i hvert fall.'
       },
       cold: {
-        '1': 'Kaldt her oppe i morges.',
-        '2': 'Stå nærmere smia da.'
+        '1': 'Bitende kaldt i morges.',
+        '2': 'Kom og still deg ved smia, da.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Du er den!',
-        '2': 'Urettferdig, jeg var ikke klar!'
+        '1': 'Napp, nå er det deg!',
+        '2': 'Det er ikke rettferdig, jeg var ikke klar!'
       },
       dragon: {
         '1': 'Når jeg blir stor, skal jeg ri på en drage.',
-        '2': 'Drager lar ingen ri på seg.',
-        '3': 'De snille gjør!'
+        '2': 'Drager lar ikke folk ri på seg.',
+        '3': 'En snill kanskje gjør det.'
       },
       sword: {
-        '1': 'Se, en ekte sverdkjepp!',
-        '2': 'Det er bare en kjepp.'
+        '1': 'Se, jeg fant et sverd!',
+        '2': 'Det er en pinne.'
       },
       frog: {
-        '1': 'Jeg fant en frosk ved brønnen.',
+        '1': 'Det sitter en frosk nede ved brønnen.',
         '2': 'Kan vi beholde den?',
-        '3': 'Det er nok han som beholder oss.'
+        '3': 'Mamma sa ikke flere frosker.'
       }
     },
     ui: {
@@ -1247,204 +1247,204 @@ export default {
       }
     },
     hero: {
-      bye: 'Det var alt for nå.',
-      trade: 'Vis meg varene dine.',
-      train: 'Lær meg.',
-      heal: 'Lapp meg sammen.',
-      mana: 'Jeg trenger noe til manaen min.',
-      who: 'Hvem er du?',
+      bye: 'Jeg lar deg holde på.',
+      trade: 'Kan jeg se hva du har?',
+      train: 'Vil du lære meg det?',
+      heal: 'Kan du lappe meg sammen?',
+      mana: 'Har du noe til mana?',
+      who: 'Hvem er du, hvis jeg får spørre?',
       rumor: 'Hørt noe nytt?',
-      ready: 'Er jeg klar for mer?'
+      ready: 'Tror du jeg er klar for mer?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Et nytt ansikt. Du er han som holdt slettevegen.',
-        '2': 'Jeg heter Bram. Jeg lager stål. Du ser ut som du trenger litt.'
+        '1': 'Har ikke sett deg før. Er du den som ryddet veien?',
+        '2': 'Bram. Jeg passer smia. Trenger du et blad, kom til meg.'
       },
       kingDead: {
-        '1': 'Goblinkongen er død, hører jeg. Bra. Færre bulker å banke ut av karavanehjul.'
+        '1': 'Jeg hørte at Goblinkongen er død. Jeg kommer ikke til å savne ham.'
       },
       kingPact: {
-        '1': 'Goblinene handler på torget. Aldri trodde jeg at jeg skulle se det. Jernet deres er søppel, da.'
+        '1': 'Goblins som handler på torget nå. Aldri trodde jeg at jeg skulle se det.'
       },
       kingRansom: {
-        '1': 'De sier du tok kongens gull og lot ham beholde kronen. Raidene kommer tilbake.'
+        '1': 'Du lot Goblinkongen beholde kronen. Han kommer tilbake, vet du.'
       },
       ending: {
-        '1': 'Hele riket snakker om den tronen. Og du kjøper fortsatt av meg. Hm.'
+        '1': 'Hele riket snakker om deg. Trenger du en kvesstein likevel?'
       },
       again: {
-        '1': 'Tilbake igjen. Bra. Stål selger seg ikke selv.'
+        '1': 'Tilbake igjen. Hva kan jeg gjøre for deg?'
       },
       trade: {
-        '1': 'Enkelt stål, ærlige priser. Se deg rundt.'
+        '1': 'Ærlig stål, rimelige priser. Se deg om.'
       },
       who: {
-        '1': 'Bram. Tretti år ved denne ambolten.',
-        '2': 'Jeg skoer hester, reparerer plogene og utruster tosker som deg. I den rekkefølgen.'
+        '1': 'Bram. Tretti år ved denne ambolten, omtrent.',
+        '2': 'Hestesko, ploger, et og annet sverd. I det siste mest sverd.'
       },
       gear: {
-        '1': 'Et skjold, hvis du regner med å bli truffet. Et større sverd, hvis ikke.',
-        '2': 'Styrke svinger stålet mitt. Legg poengene dine der før du kjøper tungt.',
-        say: 'Hva bør jeg ha med meg der ute?'
+        '1': 'Et skjold, hvis du regner med å bli truffet. Det blir de fleste.',
+        '2': 'Tungt stål krever en sterk arm. Tren opp Styrken først.',
+        say: 'Hva bør jeg ta med meg ut?'
       },
       rumor: {
         plains: {
-          '1': 'Goblinene på slettevegen. Rydd dem unna før du handler noe fint.'
+          '1': 'Banditter på sletteveien. Jeg ville begynt der, hvis jeg var deg.'
         },
         hollows: {
-          '1': 'Raiderne kryper opp fra Goblinhulene, bortenfor sletten. Kongen deres sitter nederst.'
+          '1': 'Goblinene kommer fra Hulene, bortenfor slettene. Kongen deres er der nede.'
         },
         woods: {
-          '1': 'Øst for sletten begynner Den hviskende skogen. Trærne går der. Ta med en øks.'
+          '1': 'Øst for slettene ligger Den hviskende skogen. Folk sier at trærne flytter på seg.'
         },
         siege: {
-          '1': 'Røyk over Oakhaven-kanten. En krigsherre har leir i utkanten, sies det.'
+          '1': 'Det er røyk mot Oakhaven. En hær ligger i utkanten.'
         },
         north: {
-          '1': 'Ironhold-stålet er på vegene igjen. Gå nordover hvis du vil ha bedre enn mitt.'
+          '1': 'Stål fra Ironhold kommer ned veien igjen. Bedre enn mitt, ærlig talt.'
         }
       },
       shopBack: {
-        '1': 'Bruk den med helsa i behold. Eller bruk den i det hele tatt.'
+        '1': 'Ta vare på den, så tar den vare på deg.'
       },
       bye: {
-        '1': 'Pass deg på vegen.'
+        '1': 'Pass på deg selv.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ooh, en kunde! Eller en vakt. Du er vel ikke en vakt?',
-        '2': 'Jeg heter Tilly. Ringer, amuletter, lykkesaker. Alt funnet, aldri stjålet.'
+        '1': 'Å, hei! Skal du kjøpe, eller bare se deg om? Begge deler går fint.',
+        '2': 'Jeg heter Tilly. Ringer, amuletter, smått og stort fra hele verden.'
       },
       rival: {
-        '1': 'Har du sett boden til Grik? Goblinpynt! Jeg er ruinert. Kjøp noe. Ha medlidenhet.'
+        '1': 'Har du sett bua til goblinen? Prisene hans er lavere enn mine. Det er urettferdig.'
       },
       again: {
-        '1': 'Favorittkunden min! Det sier jeg til alle, men med deg mener jeg det.'
+        '1': 'Der er du jo! Jeg la til side noen ting jeg tror du liker.'
       },
       trade: {
-        '1': 'Ringer! Amuletter! Ting jeg har funnet og absolutt ikke stjålet.'
+        '1': 'Se deg om. Den der gir hell. Sannsynligvis.'
       },
       who: {
-        '1': 'Jeg går langs vegene og plukker opp det vegene etterlater.',
-        '2': 'Banditter mister de fineste tingene når de løper.'
+        '1': 'Jeg går langs veiene og kjøper det folk vil bli kvitt.',
+        '2': 'Og noen ganger finner jeg ting. Banditter mister mye når de løper.'
       },
       trinkets: {
-        '1': 'Du kan bære to om gangen, en på hver hånd. En liten fordel er fortsatt en fordel.',
-        say: 'Hva er smykker gode til?'
+        '1': 'Du kan bære to, én på hver hånd. Det teller opp der ute.',
+        say: 'Hva er smykker egentlig gode for?'
       },
       stolen: {
-        '1': 'Sh! Ikke så høyt. Greit. GREIT.',
-        '2': 'Ta denne ringen, så har vi aldri snakket sammen. Det er en pen ring. Mest kobber.',
-        say: 'Du har stjålet alt dette, ikke sant?'
+        '1': 'Aha. Du har en måte å spørre på, du.',
+        '2': 'Ta denne ringen, så snakker vi ikke om hvor jeg fant den.',
+        say: 'Hvor kommer alt dette egentlig fra?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Sør for her ligger et colosseum med rustne porter. De åpner hvis goblinbråket tar slutt.'
+          '1': 'Det er et gammelt colosseum sør for her. Låst og stengt mens goblinene herjer.'
         },
         arenaOpen: {
-          '1': 'Colosseum er åpent! Åtte bølger, sies det. Jeg selger hell. Du kommer til å trenge hell.'
+          '1': 'Colosseum er åpent igjen. Åtte bølger, hører jeg. Folk vedder på det.'
         },
         east: {
-          '1': 'Markedene i Oakhaven betaler dobbelt for alt som glinser. Gå østover, forbi skogen.'
+          '1': 'Oakhaven betaler godt for alt som glitrer. Det ligger mot øst, forbi skogen.'
         }
       },
       shopBack: {
-        '1': 'Kom igjen når du er rikere!'
+        '1': 'Kom igjen når pungen er tyngre!'
       },
       bye: {
-        '1': 'Pass på lommene der ute! Ikke hos meg, mener jeg. Andre steder.'
+        '1': 'God tur. Hold godt på myntene der ute.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Stå rak. Du står foran en ridder av Jernordenen.',
-        '2': 'Ser Aldric. Jeg lærer bort skjoldet til dem som vil stå foran andre.'
+        '1': 'Rett i ryggen. Du snakker med en ridder av Jernordenen.',
+        '2': 'Ser Aldric. Jeg lærer folk å stille seg mellom andre og faren.'
       },
       saved: {
-        '1': 'Oakhaven står fordi du sto. Det er hele læren min.'
+        '1': 'Oakhaven står fortsatt, og jeg hører du sto på muren. Godt gjort.'
       },
       fallen: {
-        '1': 'Du åpnet porten til Oakhaven. Jeg har gravlagt menn for mindre. Si hva du vil.'
+        '1': 'Du åpnet porten til Oakhaven. Jeg later ikke som jeg har glemt det. Hva vil du?'
       },
       dragon: {
-        '1': 'En dragedreper på gården min. De kommer til å synge om det i den store hallen.'
+        '1': 'Drepte du dragen på toppen? Det skulle jeg gjerne ha sett.'
       },
       friend: {
-        '1': 'Ordenen taler vel om deg. For vennene dens koster leksjonene mine mindre.'
+        '1': 'Ordenen tenker godt om deg. For vennene dens koster timene mine mindre.'
       },
       foe: {
-        '1': 'Ordenen kaller deg en fiende. Jeg lærer deg likevel. Æren er ikke deres å ta tilbake.'
+        '1': 'Ordenen kaller deg en fiende. Jeg lærer deg det likevel. Det er mitt valg, ikke deres.'
       },
       again: {
-        '1': 'Skjold opp. Hva trenger du?'
+        '1': 'Tilbake for flere øvelser?'
       },
       train: {
-        '1': 'Følg godt med da. Jeg viser en ting én gang.'
+        '1': 'Bra. Følg godt med, jeg viser deg det bare én gang.'
       },
       class: {
-        '1': 'En mur som går. Vi tar slaget, så ingen andre må.',
-        '2': 'Styrke til armen, Utholdenhet til resten. Lyset gjør hva det kan.',
-        say: 'Hva er en Aegisridder?'
+        '1': 'Vi tar slagene som var ment for andre. Det er enkelt, og det er vanskelig.',
+        '2': 'Du trenger Styrke til skjoldet og Utholdenhet for å holde det oppe.',
+        say: 'Hva gjør en Aegisridder egentlig?'
       },
       ready: {
         strong: {
-          '1': 'Du har armen til det meste jeg kan. Pass på Utholdenheten og ta resten.'
+          '1': 'Du er sterk nok til det meste jeg kan. Fortsett med Utholdenheten.'
         },
         able: {
-          '1': 'Du er klar for neste leksjon. La det ikke stige deg til hodet.'
+          '1': 'Du er klar for neste time. Ikke la det stige deg til hodet.'
         },
         weak: {
-          '1': 'Ikke ennå. Armen din er svak og du blir fort sliten. Mer Styrke, mer Utholdenhet.'
+          '1': 'Ikke ennå. Du ville bli sliten før skjoldet. Mer Styrke, mer Utholdenhet.'
         }
       },
       order: {
-        '1': 'Vi vokter vegene og loven. Noen sier for mye av begge deler.',
-        '2': 'Stå med Ordenen, så husker rustningssmedene og lærerne dens deg.',
+        '1': 'Vi holder veiene trygge og loven i hevd. Noen sier for hardt.',
+        '2': 'Stå på vår side, så husker rustningssmedene og lærerne våre deg.',
         say: 'Fortell meg om Jernordenen.'
       },
       trainBack: {
-        '1': 'Øv til det kjeder deg. Øv så mer.'
+        '1': 'Øv til det blir kjedelig. Fortsett så.'
       },
       bye: {
-        '1': 'Gå med lyset.'
+        '1': 'Gå forsiktig.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Å! En elev? Gå litt tilbake. Litt til.',
-        '2': 'Ember Wren, pyromantiker. Øyenbrynene vokser ut igjen, stort sett.'
+        '1': 'Å, en elev? Deilig. Still deg kanskje litt lenger unna.',
+        '2': 'Jeg er Ember Wren. Jeg underviser i ild. For det meste gjør den som jeg sier.'
       },
       core: {
-        '1': 'Du ga kjernen til Sirkelen! Vet du hvor mange ting vi kan sette fyr på nå?'
+        '1': 'Du ga kjernen til Sirkelen! Jeg kan nesten ikke vente på å se hva vi lærer av den.'
       },
       friend: {
-        '1': 'Eterens sirkel liker deg! Det betyr rabatt. Og færre skjemaer.'
+        '1': 'Sirkelen snakker pent om deg. Det betyr forresten rabatt.'
       },
       foe: {
-        '1': 'Sirkelen vil ha deg til aske. Kleint! Jeg lærer deg likevel. Ild er ikke kresen.'
+        '1': 'Sirkelen er ikke fornøyd med deg. Jeg lærer deg det likevel. I det stille.'
       },
       again: {
-        '1': 'Du er tilbake! Og ingenting brenner. Det kan vi fikse.'
+        '1': 'Du er tilbake! Klar til å sette fyr på noe?'
       },
       train: {
-        '1': 'Ja! Følg godt med. Ikke så godt.'
+        '1': 'Greit. Se på hendene mine, og hold ermene unna meg.'
       },
       class: {
-        '1': 'Ild svarer på alle spørsmål. Brenn dem først, spreng så de som brenner.',
-        '2': 'Alt går på Intelligens. Og jevn tilgang på kapper.',
-        say: 'Hva gjør en Pyromantiker?'
+        '1': 'Mest sette fyr på ting. Så få ilden til å spre seg dit du vil.',
+        '2': 'Alt kommer fra Intelligens. Jo skarpere sinn, desto varmere flamme.',
+        say: 'Hva gjør en pyromantiker egentlig?'
       },
       ready: {
         strong: {
-          '1': 'Du kunne ha smeltet en golem! Ta alt jeg har. Pass på Teknikken til de vrange.'
+          '1': 'Ærlig talt? Du kunne undervist i noe av dette selv. Ta det du vil.'
         },
         able: {
-          '1': 'Sinnet ditt er varmt nok for neste trylleformel. Kom igjen!'
+          '1': 'Du er klar for neste trylleformel. Kom, jeg viser deg.'
         },
         weak: {
-          '1': 'Hmm. Ikke nok Intelligens ennå. Ilden ville ha brukt deg, ikke omvendt.'
+          '1': 'Ikke ennå, dessverre. Du trenger mer Intelligens, ellers tar ilden over.'
         }
       },
       circle: {
@@ -1452,352 +1452,352 @@ export default {
         say: 'Hvem er Eterens sirkel?'
       },
       trainBack: {
-        '1': 'Gå og sett fyr på noe! Noe som fortjener det.'
+        '1': 'Gå og øv. Et sted som ikke tar fyr, takk.'
       },
       bye: {
-        '1': 'Hold deg varm!'
+        '1': 'Pass på deg selv!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Så du er han fra vegen. Kom nærmere, øynene mine er ikke som før.',
-        '2': 'Jeg er Mara. Jeg har ført byens regnskap og bevart freden i førti år.'
+        '1': 'Så det er deg som kom fra veien. Kom hit, la meg se på deg.',
+        '2': 'Jeg heter Mara. Jeg har passet på denne byen i... ja, førti år nå.'
       },
       slain: {
-        '1': 'Hulene er stille. Du gjorde noe vanskelig, og Sunford sover på grunn av det.'
+        '1': 'Hulene er stille. Det var en vanskelig ting du gjorde, men vi sover på grunn av det.'
       },
       pact: {
-        '1': 'Goblinene selger pynt på torget mitt. Du har sølvtunge, barn. Jeg håper den holder.'
+        '1': 'Goblins som selger ting på torget mitt. Det var deg som snakket dem til det, ikke sant?'
       },
       ransom: {
-        '1': 'Du tok gullet hans og lot ham beholde kronen. Jeg er for gammel til å late som jeg ikke er skuffet.'
+        '1': 'Du tok gullet hans og lot ham beholde kronen. Jeg later ikke som jeg ikke er skuffet.'
       },
       saved: {
-        '1': 'Det kom bud fra Oakhaven. Porten holdt. Jeg er glad en av våre var der.'
+        '1': 'Det kom bud fra Oakhaven. Porten holdt. Jeg er glad du var der.'
       },
       fallen: {
-        '1': 'Oakhaven er brent, og de sier du holdt fakkelen. Ikke si det. Jeg vil helst ikke vite.'
+        '1': 'Oakhaven brant, sier de. Jeg vil helst ikke høre hvordan. Ikke i dag.'
       },
       ending: {
-        '1': 'De sier du avgjorde hvem som sitter i Redselsfestningen. Fra Sunfords veg til det. Tenk det.'
+        '1': 'De sier at du avgjorde Redselsfestningens skjebne. Fra den lille veien vår til det.'
       },
       again: {
-        '1': 'Sett deg litt. Vegen venter.'
+        '1': 'Sett deg et øyeblikk. Veien er der fortsatt etterpå.'
       },
       reward: {
-        '1': 'Du holdt vegen da militsen vår ikke klarte det. Byen samlet inn penger.',
-        '2': 'Det er ikke mye. Det er hver mynt vi kunne unnvære.',
-        say: 'Ville du treffe meg?'
+        '1': 'Du holdt veien åpen da militsen vår ikke klarte det. Byen har samlet litt sammen.',
+        '2': 'Det er ikke mye. Det er det vi kunne unnvære.',
+        say: 'Noen sa du ville se meg?'
       },
       quest: {
-        '1': 'Raidene kommer fra Goblinhulene. Goblinene har kronet en konge.',
-        '2': 'Og du vil ha ham død.',
-        '3': 'Jeg vil at raidene skal ta slutt. Hvordan er opp til deg, nederst i de hulene.',
-        '4': 'Hulene ligger like bortenfor sletten. Gå forsiktig.',
-        say: 'Hva bekymrer Sunford?'
+        '1': 'Raidene kommer fra Goblinhulene. De har kronet seg en konge.',
+        '2': 'Og du vil ha ham død?',
+        '3': 'Jeg vil at raidene skal stoppe. Hvordan... det må du avgjøre der nede.',
+        '4': 'Hulene ligger like bortenfor slettene. Vær forsiktig, vær så snill.',
+        say: 'Hva er det som bekymrer Sunford?'
       },
       king: {
-        say: 'Om Goblinkongen…',
+        say: 'Om Goblinkongen...',
         slay: {
-          '1': 'En konge er død og karavanene mine går i rute. Jeg spør ikke hvordan det føltes.'
+          '1': 'Han er borte, og karavanene går igjen. Jeg spør ikke hvordan det føltes.'
         },
         pact: {
-          '1': 'En pakt! Moren min ville ha besvimt. Likevel, handel er bedre enn begravelser.'
+          '1': 'En handelsavtale. Mora mi ville besvimt. Men handel slår begravelser.'
         },
         ransom: {
-          '1': 'Gull brukes fort. Nag gjør ikke det. Husk det når raidene kommer tilbake.'
+          '1': 'Gull tar fort slutt. Nag gjør ikke det. Husk det når raidene begynner.'
         }
       },
       town: {
-        '1': 'Stort sett bønder. En smed, en lege og to lærere som holder oss ut.',
-        '2': 'Hvil her, bruk poengene dine og gå ut sterkere. Det er det et hjem er til for.',
+        '1': 'Mest bønder. En smed, en lege, to lærere som holder ut med oss.',
+        '2': 'Hvil her mellom reisene. Det er det et hjem er til for.',
         say: 'Fortell meg om Sunford.'
       },
       next: {
         say: 'Hvor bør jeg dra neste gang?',
         plains: {
-          '1': 'Slettevegen, før alt annet. Vi kan ikke spise hvis karavanene ikke kommer fram.'
+          '1': 'Sletteveien først. Uten karavanene har vi ikke noe å spise.'
         },
         hollows: {
-          '1': 'Goblinhulene først. Ingenting annet er trygt mens raidene pågår.'
+          '1': 'Goblinhulene. Ingenting annet er trygt så lenge raidene pågår.'
         },
         woods: {
-          '1': 'Østover, gjennom Den hviskende skogen. Vegen til Oakhaven går under de trærne.'
+          '1': 'Mot øst, gjennom Den hviskende skogen. Det er veien til Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven er under beleiring. Faller utkanten, faller byen.'
+          '1': 'Oakhaven er beleiret. Faller utkanten, faller byen med den.'
         },
         north: {
-          '1': 'Nordover, barn. Askeklippene, og Ironhold bortenfor. Faren vokser jo lenger du går.'
+          '1': 'Mot nord, tror jeg. Askeklippene, og Ironhold bortenfor. Det blir bare vanskeligere.'
         }
       },
       bye: {
-        '1': 'Kom tilbake i live. Det er alt jeg ber om.'
+        '1': 'Kom tilbake til oss i ett stykke. Det er alt jeg ber om.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Hold deg i ro. Nei, du er hel. Gammel vane.',
-        '2': 'Søster Lune. Jeg reparerer det vegen slår i stykker.'
+        '1': 'Stå stille et øyeblikk. Nei, du er fin. Vane, beklager.',
+        '2': 'Jeg er Søster Lune. Jeg lapper sammen det veien knuser.'
       },
       again: {
-        '1': 'Fortsatt i ett stykke? Jeg er nesten skuffet.'
+        '1': 'Fortsatt i ett stykke? Bra. Sett deg likevel.'
       },
       heal: {
-        '1': 'Sett deg. Hvil. Du forlater stedet hel, med alle flaskene fylt.'
+        '1': 'Sitt, hvil litt. Jeg fyller flaskene dine før du går.'
       },
       mana: {
-        '1': 'Blå flaske, bitter smak. Nipp til den når trylleformlene går tomme.'
+        '1': 'Denne er bitter. Drikk den når trylleformlene dine går tomme.'
       },
       potions: {
-        '1': 'Du bærer noen flasker inn i hver sone. Drikk før du trenger en, ikke etterpå.',
-        '2': 'Vil du bære flere, kan jeg selge deg et lengre belte.',
+        '1': 'Du tar med noen flasker i hver kamp. Drikk før du trenger det, ikke etterpå.',
+        '2': 'Hvis du vil bære flere, kan jeg selge deg et større belte.',
         say: 'Hvordan virker eliksirene?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblinene forgifter slyngesteinene sine. Blir du grønn, kom rett tilbake.'
+          '1': 'Goblinene smører slyngesteinene sine med noe. Blir du uvel, kom tilbake.'
         },
         spiders: {
-          '1': 'Edderkoppbitt fra skogen. Tre denne uka. Prøv å unngå å bli bitt.'
+          '1': 'Jeg har behandlet tre edderkoppbitt fra Skogen denne uken. Pass deg der.'
         },
         burns: {
-          '1': 'Soldater kommer sørover med brannskader. Askeklippene, sies det. Ild som går.'
+          '1': 'Soldater kommer stadig ned fra nord med brannskader. Askeklippene, sier de.'
         }
       },
       healBack: {
         '1': 'Hold beltet fullt og hodet nede.'
       },
       bye: {
-        '1': 'Prøv å ikke blø på noe viktig.'
+        '1': 'Pass på deg selv der ute.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Høy! Høy lage pakt. Konge si vær snill mot høy.',
-        '2': 'Grik er snill. Grik har glitter. Høy har gull. Er godt par.'
+        '1': 'Du er den som sluttet avtalen. Kongen min sier at du er velkommen her.',
+        '2': 'Jeg er Grik. Jeg selger det goblins lager. Godt arbeid, rimelig pris.'
       },
       again: {
-        '1': 'Høy komme igjen! Grik visste. Glitter rope på høy.'
+        '1': 'Venn. Godt å se deg igjen.'
       },
       trade: {
-        '1': 'Konge si handle, så Grik handle. Glitter for glitter. Godt glitter.'
+        '1': 'Se gjerne. Familien min laget disse.'
       },
       king: {
-        '1': 'Konge er tjukk og glad. Ikke mer raiding. Raiding er hardt arbeid.',
-        '2': 'Konge si høy har god tunge. Er høyeste goblinros. Nesten.',
+        '1': 'Han spiser godt nå. Ingen flere raid. Folket mitt er mindre sultent.',
+        '2': 'Han snakker ofte om deg. Med respekt.',
         say: 'Hvordan har kongen din det?'
       },
       town: {
-        '1': 'Mennesker vaske for mye. Men pai! Grik ikke vite om pai.',
+        '1': 'Folk stirrer fortsatt. Men bakeren gir meg kake. Jeg liker kaken.',
         say: 'Hvordan liker du Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Griks fettere grave nordover, i svart stein. De si ild går der. Grik bli her.'
+          '1': 'Søskenbarna mine graver i den svarte steinen mot nord. De sier at ild går der nå.'
         },
         deep: {
-          '1': 'Dype steder våkne, høy. Goblin kjenne det i føttene.'
+          '1': 'Noe våkner i de dype stedene. Goblins kjenner det i bakken.'
         }
       },
       shopBack: {
-        '1': 'Godt bytte! Høy komme igjen, ja?'
+        '1': 'Takk. Kom igjen.'
       },
       bye: {
-        '1': 'Hade, høy! Ikke dø. Døde kjøpe ingenting.'
+        '1': 'Gå i fred, venn.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Enda et sverd. Bra. Jeg har sluttet å spørre hvor de kommer fra.',
-        '2': 'Kaptein Hale. Jeg kommanderer det som er igjen av vakten i Oakhaven.'
+        '1': 'Enda et sverd. Bra. Vi trenger hvert eneste ett.',
+        '2': 'Kaptein Hale. Jeg leder det som er igjen av Oakhavens vakt.'
       },
       saved: {
-        '1': 'Porten holdt. Trehundre år, og nå én gang til. Jeg skylder deg byen min.'
+        '1': 'Porten holdt. Tre hundre år, og ett til. Jeg står i gjeld til deg for det.'
       },
       ending: {
-        '1': 'Du avgjorde tronen i Redselsfestningen. Murene mine føles mindre enn før.'
+        '1': 'Du avgjorde Redselsfestningen, sier de. Murene mine føles små ved siden av det.'
       },
       again: {
-        '1': 'Murene står fortsatt. I dag.'
+        '1': 'Murene står fortsatt. I dag i alle fall.'
       },
       after: {
-        '1': 'Oakhaven husker, venn. Det gjør jeg også.'
+        '1': 'Godt å se deg. Oakhaven har ikke glemt.'
       },
       quest: {
-        '1': 'Hæren til en krigsherre har oss omringet. Krag. Han kjemper ikke gratis.',
+        '1': 'Ille. En krigsherre ved navn Krag har oss omringet, og han kjemper ikke gratis.',
         '2': 'Hvem betaler ham?',
         '3': 'Askesyndikatet. De vil ha en by for seg selv, og vår har murer.',
-        '4': 'Knus ham i Oakhavens utkant. Det er der det avgjøres.',
-        say: 'Hvordan ser situasjonen ut?'
+        '4': 'Knekk leiren hans i Oakhavens utkant. Det er der dette ender, på en eller annen måte.',
+        say: 'Hvor ille er det?'
       },
       siege: {
-        '1': 'De tilbød deg en tredjedel av byen. Jeg vet det. Meg tilbød de en fjerdedel.',
-        '2': 'Syndikatet jakter på deg nå, på hver veg. Pass ryggen der ute.',
-        say: 'Om beleiringen…'
+        '1': 'De tilbød deg en tredjedel av byen, ikke sant? Meg tilbød de en fjerdedel.',
+        '2': 'Syndikatet kommer etter deg nå. Pass deg på veiene.',
+        say: 'Om beleiringen...'
       },
       town: {
-        '1': 'En handelsby. Alt som beveger seg mellom sletten og fjellene betaler toll her.',
-        '2': 'Derfor vil alle ha den. Derfor gir jeg den aldri opp.',
+        '1': 'En handelsby. Alt som går mellom slettene og fjellene betaler toll her.',
+        '2': 'Derfor vil alle ha den. Og derfor gir jeg den ikke opp.',
         say: 'Fortell meg om Oakhaven.'
       },
       order: {
-        '1': 'Jeg tjener Oakhaven. Ordenen og jeg er enige de fleste dager. Det er ikke det samme.',
-        say: 'Tjener du Jernordenen?'
+        '1': 'Jeg svarer til Oakhaven. Ordenen og jeg er enige de fleste dager. Ikke alle.',
+        say: 'Svarer du til Jernordenen?'
       },
       rumor: {
         crags: {
-          '1': 'Nord for skogen er bakken svart og brennende. Askeklippene. Kultister mater ilden.'
+          '1': 'Nord for skogen er bakken svart og brennende. Askeklippene. Kultister, for det meste.'
         },
         mines: {
-          '1': 'Ironhold har sluttet å sende stål. Noe er galt i gruvene.'
+          '1': 'Ironhold har sluttet å sende stål. Noe er galt i gruvene deres.'
         },
         north: {
-          '1': 'Det ytterste nord har blitt stille. Etter min erfaring er stille verre.'
+          '1': 'Det ytterste nord har blitt stille. Etter min erfaring er det aldri bra.'
         }
       },
       bye: {
-        '1': 'Hold sverdet løst.'
+        '1': 'Hold sverdet nær.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Hvis du vil ha en hjelm, er du sent ute. De henger alle på muren.',
-        '2': 'Odo. Rustningssmed. Sliten.'
+        '1': 'Hvis du er ute etter en hjelm, må jeg skuffe deg. De er alle oppe på muren.',
+        '2': 'Odo. Jeg lager rustninger. Har ikke sovet mye i det siste.'
       },
       again: {
-        '1': 'Fortsatt her. Fortsatt lite på lager.'
+        '1': 'Fortsatt her. Fortsatt mangel på nesten alt.'
       },
       trade: {
-        '1': 'Halve lageret gikk opp på murene. Ta det som er igjen.'
+        '1': 'Halvparten av lageret gikk til muren. Ta det som er igjen, hvis det passer.'
       },
       who: {
-        '1': 'I tjue år har jeg utrustet denne byen. Jeg trodde aldri jeg skulle se alt båret på én gang.'
+        '1': 'Jeg har rustet denne byen i tjue år. Aldri sett alt båret på én gang.'
       },
       armor: {
-        '1': 'Plate hvis du står stille. Skinn hvis du ikke gjør det. Kapper hvis du liker å dø.',
-        say: 'Hvilken rustning bør jeg bære?'
+        '1': 'Plate, hvis du står støtt. Lær, hvis du holder deg i bevegelse. Kapper, hvis du er rask.',
+        say: 'Hva slags rustning bør jeg bruke?'
       },
       rumor: {
         backRoom: {
-          '1': 'Hvis beleiringen brytes, åpner jeg bakrommet. Den gode platen. Bryt den for meg, vil du?'
+          '1': 'Hvis beleiringen brytes, åpner jeg bakrommet. Den fine platen ligger der inne.'
         }
       },
       shopBack: {
-        '1': 'Den holder. Sannsynligvis.'
+        '1': 'Den holder. Den har holdt så langt.'
       },
       bye: {
-        '1': 'Hold hodet nede.'
+        '1': 'Hold hodet nede der ute.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Du! Kom inn. Bakrommet er åpent, og det er åpent for DEG.',
-        '2': 'Mester Odo kaller de meg nå. Forretningene går godt når en by lever.'
+        '1': 'Der er du jo! Kom inn. Bakrommet er åpent, og det er åpent for deg.',
+        '2': 'Mester Odo kaller de meg nå. Rart hva litt fred gjør for forretningen.'
       },
       ending: {
-        '1': 'Fra porten min til Redselsfestningen. Jeg forteller alle at jeg tilpasset rustningen din.'
+        '1': 'Fra porten vår til Redselsfestningen. Jeg forteller alle at jeg tilpasset rustningen din.'
       },
       again: {
-        '1': 'Portens helt. Hva blir det i dag?'
+        '1': 'Godt å se deg. Hva skal det være i dag?'
       },
       trade: {
-        '1': 'Du reddet denne byen. Den gode platen kommer ut av bakrommet for deg.'
+        '1': 'Den fine platen er framme. Du har mer enn fortjent et blikk.'
       },
       town: {
-        '1': 'Rik. Høylytt. Full av kjøpmenn som klager på tollen.',
-        '2': 'Det er fantastisk. Jeg har ikke sovet på en uke.',
+        '1': 'Travel. Høylytt. Full av kjøpmenn som klager over tollen.',
+        '2': 'Det er fantastisk. Jeg har ikke hatt en rolig time på uker.',
         say: 'Hvordan går det med byen?'
       },
       rumor: {
         mines: {
-          '1': 'Stålet mitt kommer fra Ironhold, og Ironhold har blitt stille. Noen burde se på gruvene.'
+          '1': 'Stålet mitt kommer fra Ironhold, og de har blitt stille. Noen burde sjekke gruvene deres.'
         },
         tundra: {
-          '1': 'Den beste malmen jeg noensinne har sett kom fra tundraen. Mennene som hentet den kom aldri tilbake.'
+          '1': 'Den beste malmen jeg noen gang har jobbet med, kom fra tundraen. Mennene som fant den, kom aldri tilbake.'
         }
       },
       shopBack: {
-        '1': 'Passer den ikke, kom tilbake. Jeg får den til å passe.'
+        '1': 'Sitter den ikke riktig, kom tilbake med den. Jeg fikser det.'
       },
       bye: {
-        '1': 'Porten til Oakhaven står alltid åpen for deg. Bare for deg.'
+        '1': 'Du er alltid velkommen her.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Kjøper eller ser du? Å se koster ingenting. Å ta på koster en finger.',
-        '2': 'Senna. Jeg selger skarpe saker. Jeg spør ikke hva de skal brukes til.'
+        '1': 'Ser du eller kjøper du? Begge deler går fint. Bare ikke rør eggene.',
+        '2': 'Senna. Jeg selger blader. Hva du gjør med dem, er din sak.'
       },
       saved: {
-        '1': 'Beleiringen brøt sammen. Synd. Krig er bra for forretningene. Fred er bra for å kreve inn gjeld.'
+        '1': 'Så beleiringen brøt. Bra for byen. Krig var nå bedre for forretningen min.'
       },
       again: {
         '1': 'Tilbake for noe skarpere?'
       },
       trade: {
-        '1': 'Skarpt, balansert og solgt til den som betaler. I dag er det deg.'
+        '1': 'Skarpe, balanserte og rimelige. Ta deg god tid.'
       },
       who: {
-        '1': 'Jeg solgte sverd til begge sider i tre kriger. Jeg er her fortsatt. De fleste av dem er ikke.'
+        '1': 'Jeg har solgt til begge sider i tre kriger. Jeg er her fortsatt. De fleste av dem er ikke.'
       },
       rumor: {
         krag: {
-          '1': 'Krags menn bærer godt stål. Syndikatets penger. Ta det fra dem hvis du kan.'
+          '1': 'Krags menn bærer godt stål. Syndikatets penger. Verdt å plukke opp hvis du får sjansen.'
         },
         which: {
-          '1': 'Raske klinger vil ha Smidighet. Børser og buer vil ha Teknikk. Vit hva du er før du betaler meg.'
+          '1': 'Raske blader vil ha Smidighet. Buer og våpen vil ha Teknikk. Vit hvilken du er.'
         }
       },
       shopBack: {
-        '1': 'Blod kan tørkes av. Rust kan ikke. Olje den.'
+        '1': 'Hold det oljet. Rust ødelegger en god egg fortere enn bein.'
       },
       bye: {
-        '1': 'Ikke dø med gjeld til meg.'
+        '1': 'Prøv å ikke dø mens du skylder meg penger.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Ikke snu deg. Jeg tuller. Snu deg.',
-        '2': 'De kaller meg Hviskingen. Jeg lærer folk å komme uten å bli lagt merke til.'
+        '1': 'Du hørte meg ikke komme opp bak deg. Det gjør de fleste ikke.',
+        '2': 'De kaller meg Hviskingen. Jeg lærer folk hvordan man ikke blir sett.'
       },
       fallen: {
-        '1': 'Byen er stillere nå. Færre vakter. Jeg liker det faktisk.'
+        '1': 'Byen er roligere nå. Færre vakter. Lettere arbeid, for noen av oss.'
       },
       friend: {
-        '1': 'Syndikatet regner deg som en venn. Venner betaler mindre. Venner vet også for mye.'
+        '1': 'Syndikatet regner deg som en venn. Venner betaler mindre. Husk det.'
       },
       foe: {
-        '1': 'Syndikatet vil ha deg død. Jeg ble betalt for å undervise, ikke drepe. Flaks for deg.'
+        '1': 'Syndikatet vil ha deg død. Jeg ble betalt for å undervise, ikke drepe. Så, timer.'
       },
       again: {
-        '1': 'Du er høylyttere enn sist. Vi jobber med det.'
+        '1': 'Du er fortsatt for høylytt. Vi jobber med det.'
       },
       train: {
         '1': 'Stille da. Se på føttene mine, ikke hendene.'
       },
       class: {
-        '1': 'En kniv som allerede er bak deg. Stig ut av mørket, slå til og forsvinn.',
-        '2': 'Smidighet fremfor alt. Teknikk når du vil at snittet skal telle.',
+        '1': 'Noen som allerede står bak deg. Inn, ett kutt, og borte.',
+        '2': 'Smidighet betyr mest. Teknikk, hvis kuttet skal telle.',
         say: 'Hva er en Skyggeklinge?'
       },
       ready: {
         strong: {
-          '1': 'Du beveger deg godt. Ta det jeg kan. Ta med Teknikk til røyken.'
+          '1': 'Du beveger deg bra nå. Ta resten. Ta med litt Teknikk til røyken.'
         },
         able: {
-          '1': 'Bra. Hendene dine er raske nok for neste steg.'
+          '1': 'Hendene dine er raske nok. Neste steg.'
         },
         weak: {
-          '1': 'Du går som en vogn. Mer Smidighet. Så snakker vi.'
+          '1': 'Ikke ennå. Du er tung på bena. Tren opp Smidigheten din.'
         }
       },
       syndicate: {
-        '1': 'Folk som oppdaget at lover er til salgs. Jeg dømmer ikke. Jeg sender regning.',
+        '1': 'Folk som oppdaget at loven har en pris. Jeg dømmer ikke. Jeg får bare betalt.',
         say: 'Hvem er Askesyndikatet?'
       },
       trainBack: {
-        '1': 'Gå nå og gjør det der ingen ser.'
+        '1': 'Øv nå der ingen kan se deg.'
       },
       bye: {
         '1': 'Du har aldri sett meg.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Du kan nærme deg. Ikke så nær.',
-        '2': 'Lord Castellan, av Oakhavens gamle blod. Jeg underviser i kommando.'
+        '1': 'Du kan komme nærmere. Der, så nær er nok.',
+        '2': 'Lord Castellan, av Oakhavens eldste slekt. Jeg underviser i kommando.'
       },
       saved: {
-        '1': 'Byen min står, og familiens navn med den. Du har en lords takknemlighet. Den er verdt mye.'
+        '1': 'Byen min står, og familienavnet mitt med den. Du har takken min. Oppriktig.'
       },
       friend: {
-        '1': 'En venn av Ordenen. Jeg setter ned avgiften. Ikke nevn det for noen.'
+        '1': 'En venn av Ordenen. Jeg setter ned prisen min. Ikke spre det videre.'
       },
       foe: {
-        '1': 'Ordenen har slått opp navnet ditt. Jeg lærer deg likevel. Mynt er mynt, dessverre.'
+        '1': 'Ordenen har navnet ditt på en liste. Jeg lærer deg det likevel. Mynt er mynt.'
       },
       again: {
-        '1': 'Ah. Mitt mest lovende emne.'
+        '1': 'Ah, deg igjen. Skal vi fortsette?'
       },
       train: {
-        '1': 'Vel. Se hvordan man gir en ordre.'
+        '1': 'Vel. Se hvordan en ordre gis, og hvordan den følges.'
       },
       class: {
-        '1': 'Hvorfor kjempe alene når andre kan gjøre det for deg? Tilkall vakter. Kommander dem.',
-        '2': 'Det krever Karisma. Man leder ikke ved å mumle.',
+        '1': 'Noen som ikke kjemper alene. Du kaller på vakter, og de kjemper for deg.',
+        '2': 'Det krever Karisma. Ingen følger en leder de ikke kan høre.',
         say: 'Hva er en Storsuveren?'
       },
       ready: {
         strong: {
-          '1': 'Du har utstråling. Ta resten av leksjonene mine, og stå rak.'
+          '1': 'Du har ekte utstråling nå. Ta resten av timene mine.'
         },
         able: {
-          '1': 'Stemmen din bærer. Du er klar for neste leksjon.'
+          '1': 'Stemmen din bærer. Du er klar for neste time.'
         },
         weak: {
-          '1': 'Ingen ville ha fulgt deg til et bakeri. Mer Karisma.'
+          '1': 'Jeg er redd ingen ville følge deg ennå. Tren opp Karismaen din.'
         }
       },
       family: {
-        '1': 'Vi bygde murene kaptein Hale står på. Han glemmer det. Jeg minner ham på det. Ofte.',
+        '1': 'Vi bygde murene Kaptein Hale står på. Det glemmer han. Jeg minner ham på det.',
         say: 'Fortell meg om familien din.'
       },
       trainBack: {
-        '1': 'Gå nå og bli adlydt.'
+        '1': 'Gå da. Led noen.'
       },
       bye: {
-        '1': 'Du kan gå.'
+        '1': 'God dag til deg.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Neste! Å. Du kan gå. For en forandring.',
+        '1': 'Neste! Å, du går. Det er en hyggelig forandring.',
         '2': 'Bror Fenn. Førti sårede på muren, og bare én av meg.'
       },
       saved: {
-        '1': 'Ingen nye sårede på tre dager! Jeg vet ikke hva jeg skal gjøre med hendene.'
+        '1': 'Ingen nye sårede på tre dager. Jeg vet knapt hva jeg skal gjøre av meg selv.'
       },
       again: {
-        '1': 'Deg igjen, og fortsatt på beina. Det liker jeg.'
+        '1': 'Deg igjen, og på egne ben. Bra.'
       },
       heal: {
-        '1': 'Legg deg. Nei, den rene køya. Sånn. Alle flaskene fylt. Av sted med deg.'
+        '1': 'Legg deg her, den rene køya. Sånn. Flaskene fylt, av gårde med deg.'
       },
       mana: {
-        '1': 'En manaeliksir! Smaker småmynt. Virker, da.'
+        '1': 'Manadrikk. Smaker gamle mynter, men den virker.'
       },
       potions: {
-        '1': 'Et lengre belte rommer flere flasker. Dem selger jeg. Flaskene fyller jeg gratis.',
+        '1': 'Med et lengre belte, ja. De selger jeg. Å fylle flaskene er gratis.',
         say: 'Kan jeg bære flere eliksirer?'
       },
       rumor: {
         archers: {
-          '1': 'Krags bueskyttere sikter på bena. Hold deg i bevegelse der ute, så bommer de.'
+          '1': 'Krags bueskyttere sikter lavt. Hold deg i bevegelse, så bommer de for det meste.'
         },
         north: {
-          '1': 'Brannskader, frostskader og en mann som sverger på at en statue bet ham. Nord er ikke snilt.'
+          '1': 'Jeg ser brannskader, frostskader og en mann som sverger på at en statue beit ham.'
         }
       },
       healBack: {
-        '1': 'Av sted. Neste gang kom for en prat, ikke for en søm.'
+        '1': 'Av gårde med deg. Neste gang, kom for en prat i stedet for sting.'
       },
       bye: {
-        '1': 'Gå det av deg! Det er legeråd.'
+        '1': 'Pass på deg selv. Og spis noe.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Ingen navn. Men du er han som åpnet porten. Han kjenner jeg.',
-        '2': 'Kall meg Heleren. Alt her falt av en vogn.'
+        '1': 'Ingen navn her. Men jeg vet hvem som åpnet porten. Det gjør alle.',
+        '2': 'Du kan kalle meg Heleren. Alt her kommer fra et sted.'
       },
       foe: {
-        '1': 'Syndikatet liker deg ikke i dag. Gullet ditt liker det fortsatt.'
+        '1': 'Syndikatet er ikke glad i deg akkurat nå. Gullet ditt er likevel velkomment.'
       },
       again: {
-        '1': 'Ah. Min beste kunde. Ingen fulgte etter deg? Bra.'
+        '1': 'Tilbake igjen. Ingen fulgte etter deg, håper jeg?'
       },
       trade: {
-        '1': 'Ingen navn, ingen spørsmål. Syndikatet tar sin del, du tar varene.'
+        '1': 'Ingen spørsmål, verken den ene eller andre veien. Syndikatet tar sin del, du tar varene.'
       },
       who: {
-        '1': 'Før brannen solgte jeg lys. Lovlig. Det var forferdelig.'
+        '1': 'Før brannen solgte jeg lys. Ærlig arbeid. Det lønte seg ikke.'
       },
       armor: {
-        '1': 'Rustningssmedene er borte, venn. Brent ut. Du burde vite det.',
+        '1': 'Rustningssmedene er borte, venn. Du vet bedre enn meg hvorfor.',
         say: 'Noen rustninger til salgs?'
       },
       rumor: {
         citadel: {
-          '1': 'En festning dukket opp i det ytterste nord i fjor. Ingen bygde den. Murene summer.'
+          '1': 'En festning dukket opp lengst i nord i fjor. Ingen bygde den.'
         },
         crystals: {
-          '1': 'Noen kjøper hver eneste tomhetskrystall på markedet. Ikke oss. Det bekymrer meg.'
+          '1': 'Noen kjøper opp hver eneste tomhetskrystall de finner. Ikke oss. Det bekymrer meg.'
         }
       },
       shopBack: {
         '1': 'Du har aldri vært her.'
       },
       bye: {
-        '1': 'Pass på ruinene.'
+        '1': 'Se deg for. Steinrøysa flytter på seg.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'En gjest. Pass på krukkene.',
-        '2': 'Doktor Sangrel. De nye eierne av Oakhaven spør ikke hva jeg underviser i. Forfriskende.'
+        '1': 'En gjest. Ikke rør glassene, takk.',
+        '2': 'Doktor Sangrel. De nye eierne av Oakhaven spør ikke hva jeg underviser i. Det er avslappende.'
       },
       found: {
-        '1': 'Du fant meg. Få leter etter en lege på et sted som dette.',
-        '2': 'Doktor Sangrel. Byene brenner min slags, så jeg jobber der det ikke finnes noen.'
+        '1': 'Du fant meg. Ikke mange leter etter en lege på et sted som dette.',
+        '2': 'Doktor Sangrel. Byer brenner folk som meg, så jeg jobber der det ikke finnes noen.'
       },
       friend: {
-        '1': 'Syndikatet går god for deg. Avgiften min er lavere for vennene dets. Kravene mine er det ikke.'
+        '1': 'Syndikatet står inne for deg. Jeg tar mindre av vennene dets. Kravene mine forblir de samme.'
       },
       foe: {
-        '1': 'Syndikatet ville ha betalt meg for blodet ditt. Jeg foretrekker at du bruker det på leksjonene mine.'
+        '1': 'Syndikatet ville betalt godt for blodet ditt. Jeg ser heller at du bruker det her.'
       },
       again: {
-        '1': 'Du er blek. Bra. Det passer til arbeidet.'
+        '1': 'Du ser blek ut. Bra. Det passer til arbeidet.'
       },
       train: {
-        '1': 'Brett opp ermet. Dette kommer til å gjøre vondt. Det er poenget.'
+        '1': 'Brett opp ermet. Det kommer til å gjøre vondt. Det er ganske poenget.'
       },
       class: {
-        '1': 'Du betaler for kraft med din egen helse. Så drikker du den tilbake fra fienden.',
-        '2': 'Utholdenhet er pungen din. Intelligens avgjør hvor godt du bruker den.',
+        '1': 'Du betaler for kraft med din egen helse, og tar den så tilbake fra fiendene dine.',
+        '2': 'Utholdenhet er det du har å bruke av. Intelligens er hvor godt du bruker det.',
         say: 'Hva er en Blodalkymist?'
       },
       ready: {
@@ -1953,155 +1953,155 @@ export default {
           '1': 'En bemerkelsesverdig konstitusjon. Du kan lære nesten alt.'
         },
         able: {
-          '1': 'Blodet ditt er sterkt nok for neste leksjon.'
+          '1': 'Du er robust nok for neste time.'
         },
         weak: {
-          '1': 'Du ville ha besvimt ved første snitt. Mer Utholdenhet, takk.'
+          '1': 'Du ville besvimt ved første kutt. Bygg opp Utholdenheten først, takk.'
         }
       },
       jars: {
-        '1': 'Frivillige. Stort sett.',
-        say: 'Hva er i krukkene?'
+        '1': 'Prøver. Frivillig gitt, for det meste.',
+        say: 'Hva er det i glassene?'
       },
       trainBack: {
-        '1': 'Før gjerne notater. For vitenskapens skyld.'
+        '1': 'Før gjerne notater. Jeg vil gjerne høre hvordan det går.'
       },
       bye: {
-        '1': 'Hold deg frisk. Ellers er du til ingen nytte for meg.'
+        '1': 'Hold deg frisk. Jeg mener det.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Så. Han som åpnet porten. Sett deg. Du har fortjent en stol.',
-        '2': 'De kaller meg Madam Ash. Oakhaven er min nå. Delvis din.'
+        '1': 'Så det er du som åpnet porten. Sett deg. Du har fortjent en stol.',
+        '2': 'De kaller meg Madam Ash. Oakhaven er vårt nå. Delvis takket være deg.'
       },
       throneOurs: {
-        '1': 'Tronen i Redselsfestningen. Vår. Du er den beste investeringen jeg noen gang har gjort.'
+        '1': 'Redselsfestningen, i våre hender. Du var hver mynt verdt.'
       },
       throneLost: {
-        '1': 'Du ga tronen bort. Til en annen. Det snakker vi om. Ikke i dag.'
+        '1': 'Du ga tronen til noen andre. Det snakker vi om. Ikke i dag.'
       },
       foe: {
-        '1': 'Du har kommet i veien for oss. Sett deg likevel. Jeg liker å se på et problem før jeg løser det.'
+        '1': 'Du har jobbet mot oss. Sett deg likevel. Jeg liker å vite hvem jeg har med å gjøre.'
       },
       again: {
-        '1': 'Min favorittforræder. Hva kan Syndikatet gjøre for deg?'
+        '1': 'Tilbake igjen. Hva kan Syndikatet gjøre for deg?'
       },
       cut: {
-        '1': 'En tredjedel av en ruin, kjære. Her er sesongens andel.',
-        '2': 'Den vil vokse. En ruin er svært lønnsom når du eier det eneste markedet.',
-        say: 'Du lovet meg en tredjedel av Oakhaven.'
+        '1': 'Og det får du. En del av en ruin, foreløpig. Her er sesongens.',
+        '2': 'Den vokser. En ruin betaler veldig godt når man eier det eneste markedet.',
+        say: 'Jeg ble lovet en del av Oakhaven.'
       },
       syndicate: {
         '1': 'Det alle vil ha. Vi later bare ikke som noe annet.',
-        '2': 'Forbli vår venn, så tar Hviskingen og Doktoren mindre av deg. Lojalitet har en prisliste.',
-        say: 'Hva vil Syndikatet?'
+        '2': 'Hold deg på god fot, så tar Hviskingen og Doktoren mindre av deg.',
+        say: 'Hva vil Syndikatet egentlig?'
       },
       order: {
-        '1': 'Selvfølgelig. Du brente ned en av byene dens. Ta med flere eliksirer.',
-        say: 'Jernordenen jakter på meg.'
+        '1': 'Selvfølgelig er de det. Du brant en av byene deres. Ta med ekstra drikker.',
+        say: 'Jernordenen er etter meg.'
       },
       rumor: {
         core: {
-          '1': 'Dvergene fant noe i gruvene sine. En kjerne. Jeg vil ha den. Bring den til oss og nevn et tall.'
+          '1': 'Dvergene fant noe i gruvene sine. En kjerne. Bring den til oss og nevn prisen din.'
         },
         sold: {
-          '1': 'Kjernen kom trygt fram. Du burde se hva den gjør med en lås.'
+          '1': 'Kjernen kom trygt fram. Du ville blitt overrasket over hva den gjør med en lås.'
         },
         north: {
-          '1': 'Alt som er verdt å stjele har flyttet nordover. Det har vi også.'
+          '1': 'Alt som er verdt å ha har flyttet nordover. Det har vi også.'
         }
       },
       bye: {
-        '1': 'Bli ikke en fremmed. Fremmede blir fulgt etter.'
+        '1': 'Ikke vær en fremmed. Vi holder øye med fremmede.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Du kom gjennom gruvene. Jeg kjenner støvet på deg.',
-        '2': 'Dorn. Smiemester i Ironhold. Jeg har et problem stort som et fjell.'
+        '1': 'Du kom opp gjennom gruvene. Jeg kjenner støvet på deg.',
+        '2': 'Dorn. Smiemester i Ironhold. Og jeg har et problem så stort som et fjell.'
       },
       destroyed: {
-        '1': 'Lyset er slukket og golemene er skrot. Gruvearbeiderne mine sang i går kveld. Første gang på et år.'
+        '1': 'Lyset er slukket, og golemene er skrap. Gruvearbeiderne mine sang i går kveld. Første gang på et år.'
       },
       studied: {
-        '1': 'Blå ild i smiene mine og kapper i hallene. Arbeidet er godt. Jeg venner meg til kappene.'
+        '1': 'Blå ild i smiene mine og lærde i kapper i hallene mine. Arbeidet er i det minste bra.'
       },
       sold: {
-        '1': 'Du solgte den. Golemene går fortsatt og gruvene mine er fortsatt en grav. Ut av lyset mitt.'
+        '1': 'Du solgte den. Golemene går fortsatt, og gruvene mine er fortsatt en grav. La meg være.'
       },
       ending: {
-        '1': 'Så tronen er avgjort. Bra. Nå kan riket gå tilbake til å krangle om jern.'
+        '1': 'Så tronen er avgjort. Bra. Kanskje vi kan komme tilbake til å grave nå.'
       },
       again: {
-        '1': 'Snakk. Smia venter ikke.'
+        '1': 'Hva er det? Smia venter ikke.'
       },
       quest: {
-        '1': 'Vi gravde etter jern og traff et hjerte. En eterkjerne. Den slår, der nede i mørket.',
+        '1': 'Vi gravde etter jern og fant et hjerte. En eterkjerne. Man kjenner at den slår.',
         '2': 'Og golemene?',
-        '3': 'De går i takt med den. Tre makter har skrevet til meg om den. Alle høflige. Jeg stoler ikke på noen.',
-        '4': 'Du når den først, nederst i Ironholds gruver. Så er det opp til deg å avgjøre.',
-        say: 'Hva skjedde i gruvene?'
+        '3': 'De beveger seg i takt med den. Tre makter har skrevet og bedt om den. Jeg stoler ikke på noen av dem.',
+        '4': 'Du når den først, nederst i Ironholds gruver. Hva som skjer så, er opp til deg.',
+        say: 'Hva skjedde der nede i gruvene?'
       },
       core: {
-        say: 'Om kjernen…',
+        say: 'Om kjernen...',
         destroy: {
-          '1': 'Du knuste et vidunder for å redde folket mitt. Ordenen sendte rustningssmeder som takk. Jeg sendte øl.'
+          '1': 'Du knuste et vidunder for å redde folket mitt. Ordenen sendte rustningssmeder. Jeg sendte øl.'
         },
         study: {
-          '1': 'Sirkelens oppfinnere er gale, men børsene deres skyter rett. En rimelig handel.'
+          '1': 'Sirkelens folk er rare, men våpnene deres skyter rett. Greit nok.'
         },
         sell: {
-          '1': 'Gull. Du gjorde det for gull. Jeg håper det holder deg varm.'
+          '1': 'Du gjorde det for gullet. Jeg håper det holder deg varm.'
         }
       },
       town: {
-        '1': 'Rikets beste stål, når gruvene går.',
+        '1': 'Rikets beste stål, når gruvene fungerer.',
         '2': 'Steinfot underviser i jord, Pim underviser i maskiner. Begge snakker ørene av deg.',
         say: 'Fortell meg om Ironhold.'
       },
       rumor: {
         tundra: {
-          '1': 'Øst for Klippene blir landet hvitt. Frostbitt-tundraen. Jotner, og døde som ikke blir liggende.'
+          '1': 'Øst for Klippene blir landet hvitt. Frostbitt-tundraen. Kjemper, og verre.'
         },
         citadel: {
-          '1': 'Speiderne mine så en festning i nord som ikke var der i fjor. Jeg liker ikke nye fjell.'
+          '1': 'Speiderne mine så en festning i nord som ikke var der i fjor. Det liker jeg ikke.'
         },
         fortress: {
-          '1': 'Redselsfestningen er der dette ender. Hver veg nordover fører til porten dens.'
+          '1': 'Alt ender ved Redselsfestningen. Hver vei nordover fører dit.'
         }
       },
       bye: {
-        '1': 'Slå trygt.'
+        '1': 'Farvel og god tur.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Fingrene fra utstillingen. De er skarpe i begge ender.',
-        '2': 'Hilda Hammerhånd. Dvergesmidd, hvert eneste stykke.'
+        '1': 'Forsiktig med utstillingen. De er skarpe på begge sider.',
+        '2': 'Hilda Hammerhånd. Hvert stykke her er smidd av dvergehender.'
       },
       dragon: {
-        '1': 'Du drepte dragen? Med en av MINE? Nei? Lyv for meg. Si at det var en av mine.'
+        '1': 'Drepte du dragen? Jeg håper det var med et av bladene mine.'
       },
       again: {
         '1': 'Tilbake for ekte stål?'
       },
       trade: {
-        '1': 'Dvergesmidd. Går det i stykker, var det deg.'
+        '1': 'Dvergesmidd. Går ett av disse i stykker, vil jeg vite hvordan.'
       },
       who: {
-        '1': 'Moren min smidde for konger. Jeg smir for alle som kommer inn. Tidene forandrer seg.'
+        '1': 'Mora mi smidde for konger. Jeg smir for alle som kommer inn døra.'
       },
       rumor: {
         golems: {
-          '1': 'Golemene i gruvene er laget av vårt eget jern. Det er ærlig talt pinlig.'
+          '1': 'Golemene der nede er laget av vårt eget jern. Det svir, kan jeg si deg.'
         },
         arm: {
-          '1': 'En klinge gjør halve jobben. Styrken din gjør resten. Ikke gi klingen skylden.'
+          '1': 'Et godt blad gjør halve jobben. Styrken din må gjøre resten.'
         }
       },
       shopBack: {
-        '1': 'Kom tilbake med den sløv, så vet jeg at du har brukt den.'
+        '1': 'Kom tilbake med det sløvt, så vet jeg at du har brukt det godt.'
       },
       bye: {
         '1': 'Slå hardt.'
@@ -2109,91 +2109,91 @@ export default {
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Forsiktig! Den der er ladd. Det er den der også. De fleste, faktisk.',
-        '2': 'Mekkeren Voss. Sirkelen sendte meg for å se hva kjernen kunne lære oss. Alt, viser det seg.'
+        '1': 'Forsiktig, den der er ladd. De fleste er det, faktisk.',
+        '2': 'Mekkeren Voss. Sirkelen sendte meg for å studere kjernen. Den har lært oss så mye.'
       },
       again: {
-        '1': 'Å fint, en tester. Jeg mener, en kunde.'
+        '1': 'Ah, bra. Jeg har gjort noen endringer siden du var her sist.'
       },
       trade: {
-        '1': 'Sirkelens studier av kjernen forandret alt. Hold denne. Ikke pek den på meg.'
+        '1': 'Alt her kommer av å studere kjernen. Bare ikke pek den mot meg.'
       },
       core: {
-        '1': 'Det jernet kan tenke, litt. Jeg prøver å ikke dvele ved det.',
+        '1': 'Det metallet kan tenke, litt. Jeg prøver å ikke dvele ved det.',
         say: 'Hva lærte kjernen deg?'
       },
       rumor: {
         heat: {
-          '1': 'Børser går på Teknikk, og de blir varme. Spør Tannhjulsmakeren Pim om varme før du smelter hånden din.'
+          '1': 'Våpen går på Teknikk, og de blir varme. Spør Pim om varme før du svir en hånd.'
         }
       },
       shopBack: {
-        '1': 'Meld fra om alle eksplosjoner! Til notatene.'
+        '1': 'Si fra hvordan den fungerer. Jeg fører notater.'
       },
       bye: {
-        '1': 'Pass på rekylen!'
+        '1': 'Pass på rekylen.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Rustning. Ringer i brettet.'
+        '1': 'Garrun. Rustninger på stativene, ringer i brettet.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Tilbake. Hva trenger du?'
       },
       trade: {
-        '1': 'Plate som stopper en jotuns kølle. Ringer til resten av dere.'
+        '1': 'Den platen stopper køllen til en kjempe. Ta en titt.'
       },
       quiet: {
-        '1': 'Nei.',
-        say: 'Du sier ikke mye.'
+        '1': 'Ikke mye som er verdt å si.',
+        say: 'Du sier ikke så mye, gjør du?'
       },
       rumor: {
         giants: {
-          '1': 'Jotner i tundraen. Køller som trestammer. Kjøp den tunge platen.'
+          '1': 'Kjemper i tundraen. Køller som trestammer. Jeg ville tatt den tunge platen.'
         },
         demons: {
-          '1': 'Demoner i nord. Ild og klør. Kjøp den tunge platen.'
+          '1': 'Demoner i nord. Ild og klør. Jeg ville tatt den tunge platen.'
         }
       },
       shopBack: {
-        '1': 'Bra.'
+        '1': 'Godt valg.'
       },
       bye: {
-        '1': 'Ja.'
+        '1': 'Pass på deg selv.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Navn og ærend. Nei. Jeg kjenner navnet ditt. Du ødela kjernen.',
-        '2': 'Kvartermester i Jernordenen. Rustkamrene dens står åpne for deg.'
+        '1': 'Du er den som ødela kjernen. Ordenen husker det.',
+        '2': 'Jeg er Ordenens kvartermester her. Våpenkamrene våre står åpne for deg.'
       },
       throneOurs: {
-        '1': 'Ordenen holder Redselsfestningen ved din hånd. Stå rolig. Det er en ordre.'
+        '1': 'Ordenen holder Redselsfestningen, takket være deg. Rør på deg. Du har fortjent det.'
       },
       foe: {
-        '1': 'Ordenen har deg på en liste. Ordren min er å selge til deg likevel. Jeg liker dem ikke.'
+        '1': 'Ordenen har deg på en liste. Ordren min sier at jeg skal selge til deg likevel. Jeg følger den.'
       },
       again: {
-        '1': 'Rekvisisjon?'
+        '1': 'Hva trenger du?'
       },
       trade: {
-        '1': 'Ordenen husker hvem som ødela kjernen. Velg hva du trenger.'
+        '1': 'Ta det du trenger. Ordenen tar vare på sine egne.'
       },
       order: {
-        '1': 'Ingenting. Det er sjeldent. Nyt det.',
+        '1': 'Ingenting, foreløpig. Det skjer ikke ofte. Nyt det.',
         say: 'Hva vil Ordenen ha av meg?'
       },
       rumor: {
         throne: {
-          '1': 'Ordenen vil ha tronen i Redselsfestningen. Den husker hvem som sto ved siden av den.'
+          '1': 'Ordenen vil ha tronen i Redselsfestningen. Den husker hvem som hjalp.'
         }
       },
       shopBack: {
-        '1': 'Skriv under her. Jeg tuller. Ordenen tuller ikke. Rør deg.'
+        '1': 'Pass på den. Den er Ordenens eiendom til du har blødd i den.'
       },
       bye: {
-        '1': 'Rør deg.'
+        '1': 'Fortsett.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'De kaller meg Gamle Steinfot. Jeg lytter til bakken. Noen ganger svarer den.'
       },
       core: {
-        '1': 'Hjerteslaget til fjellet endret seg. Det var deg. Det la merke til det.'
+        '1': 'Fjellet føles annerledes siden du var der nede. Roligere, eller tommere.'
       },
       dragon: {
-        '1': 'En drage fløy over toppen i går og brente oss ikke. Din fortjeneste, hører jeg.'
+        '1': 'En drage fløy over toppen i går og lot oss være. Din fortjeneste, har jeg hørt.'
       },
       again: {
-        '1': 'Deg igjen. Steinene sa du ville komme.'
+        '1': 'Der er du. Jeg trodde du ville komme tilbake.'
       },
       train: {
-        '1': 'Plant føttene. Kjenner du det? Nei? Da begynner vi der.'
+        '1': 'Plant føttene. Kjenner du det? Nei? Der begynner vi.'
       },
       class: {
-        '1': 'Vi reiser murer, kaller fram pigger og bryter bakken når det trengs.',
-        '2': 'Styrke til å flytte steinen, Intelligens til å be den pent.',
-        say: 'Hva er en Geomantiker?'
+        '1': 'Vi reiser murer, kaller fram pigger og sprenger bakken når vi må.',
+        '2': 'Styrke til å flytte steinen. Intelligens til å vite hvor den vil.',
+        say: 'Hva gjør en Geomantiker?'
       },
       ready: {
         strong: {
-          '1': 'Steinen kjenner deg nå. Lær resten.'
+          '1': 'Steinen kjenner deg nå. Lær resten når du er klar.'
         },
         able: {
-          '1': 'Du er tung nok for neste leksjon. Det er et kompliment.'
+          '1': 'Du står støtt nok for neste time.'
         },
         weak: {
-          '1': 'Steinen hører deg ikke ennå. Mer Styrke.'
+          '1': 'Ikke ennå. Steinen flytter seg ikke for deg. Bygg opp Styrken din.'
         }
       },
       factions: {
-        '1': 'Ingen. Ordener, syndikater, sirkler. Fjellet overlever dem alle.',
+        '1': 'Ingen av dem. Ordener og laug kommer og går. Fjellet består.',
         say: 'Hvilken fraksjon tjener du?'
       },
       trainBack: {
-        '1': 'Gå varsomt. Så ikke varsomt.'
+        '1': 'Ta det i ditt eget tempo. Bakken er tålmodig.'
       },
       bye: {
         '1': 'Gå lett.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Ikke rør den! Eller den. Faktisk, still deg på teppet. Teppet er trygt.',
-        '2': 'Tannhjulsmakeren Pim! Børser, tårn, varmemålere. Mest varmemålere.'
+        '1': 'Ah, vent, ikke rør den! Eller den. Still deg på teppet, teppet er trygt.',
+        '2': 'Tannhjulsmakeren Pim. Jeg bygger våpen, tårn og en masse varmemålere.'
       },
       core: {
-        '1': 'Du ga oss kjernen! Jeg har ikke sovet på ni dager. Se på hendene mine. Ikke se på hendene mine.'
+        '1': 'Du ga kjernen til Sirkelen! Jeg har knapt sovet siden. På en god måte.'
       },
       oracle: {
-        '1': 'Sirkelen er rasende på orakelet. Jeg bygger bare ting. Ikke si til dem at jeg lærte deg opp.'
+        '1': 'Sirkelen er sint på grunn av oraklet. Jeg bygger bare ting. Jeg vil helst ikke blandes inn.'
       },
       friend: {
-        '1': 'En venn av Sirkelen! Billigere leksjoner til deg. Jeg fylte ut skjemaet selv.'
+        '1': 'Du er en venn av Sirkelen, så timene dine er billigere. Jeg ordnet papirarbeidet.'
       },
       foe: {
-        '1': 'Sirkelen sier jeg ikke får lære deg opp. Sirkelen sier også at man ikke skal teste raketter innendørs.'
+        '1': 'Sirkelen sier jeg ikke skal undervise deg. Det gjør jeg likevel. Ikke si det til dem.'
       },
       again: {
-        '1': 'Å fint, du har alle fingrene dine.'
+        '1': 'Å bra, du har fortsatt alle fingrene.'
       },
       train: {
-        '1': 'Greit! Sikkerhet først. Så den høylytte delen.'
+        '1': 'Greit. Sikkerhet først, så den høylytte delen.'
       },
       class: {
-        '1': 'Børser, tårn og en varmemåler. Skyt, bygg og slipp ut varmen før den låser deg.',
-        '2': 'Alt går på Teknikk. Litt Intelligens til de store maskinene.',
+        '1': 'Våpen, tårn og en varmemåler. Skyt, bygg og luft ut før det låser seg.',
+        '2': 'Mest Teknikk. Litt Intelligens til de større maskinene.',
         say: 'Hva er en Etertekniker?'
       },
       ready: {
         strong: {
-          '1': 'Du kunne tatt fra hverandre et tårn i blinde! Ta de store maskinene.'
+          '1': 'Du kan tårnet ditt nå. Ta de store maskinene.'
         },
         able: {
-          '1': 'Rolige hender! Du er klar for neste dings.'
+          '1': 'Rolige hender. Du er klar for den neste.'
         },
         weak: {
-          '1': 'Hendene dine skjelver. Mine også, men av andre grunner. Mer Teknikk.'
+          '1': 'Siktet ditt er fortsatt litt skjelvende. Sett noen poeng i Teknikk.'
         }
       },
       heat: {
-        '1': 'Alt låser seg i noen sekunder. Slipp ut tidlig. Slipp ut ofte. Jeg har arr.',
+        '1': 'Alt låser seg i noen sekunder. Luft ut tidlig, luft ut ofte. Stol på meg.',
         say: 'Hva skjer hvis jeg overopphetes?'
       },
       trainBack: {
-        '1': 'Husk: slipp ut varmen! SLIPP. UT. VARMEN.'
+        '1': 'Og husk å lufte ut varmen før den lufter deg ut.'
       },
       bye: {
-        '1': 'Ikke spreng deg selv!'
+        '1': 'Vær forsiktig der ute!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Støvlene av. Jeg vil ikke ha støvet ditt på gulvet mitt.',
-        '2': 'Mor Brynja. Jeg har satt hver eneste brukne knokkel i dette fjellet to ganger.'
+        '1': 'Støvlene av ved døra, takk. Jeg har nettopp feid.',
+        '2': 'Mor Brynja. Jeg har satt de fleste knokkelbrudd i dette fjellet.'
       },
       ending: {
-        '1': 'Du dro til Redselsfestningen og gikk tilbake. Sett deg. Jeg vil se på deg.'
+        '1': 'Du dro til Redselsfestningen og kom tilbake. Sett deg. La meg se på deg.'
       },
       again: {
-        '1': 'Fortsatt i live. Det er visst min fortjeneste.'
+        '1': 'Fortsatt i live. Bra. Sitt.'
       },
       heal: {
-        '1': 'Sett deg. Drikk dette. Ikke gjør det ansiktet. Flaskene dine er fylt.'
+        '1': 'Drikk dette, og ikke lag den grimasen. Flaskene dine er fulle.'
       },
       mana: {
-        '1': 'Vær så god. Den smaker vemmelig. Drikk den når magien tar slutt, ikke før.'
+        '1': 'Her. Den smaker fryktelig. Drikk den når magien din tar slutt, ikke før.'
       },
       potions: {
-        '1': 'Kjøp et lengre belte av meg. Fem flasker er alt en kropp kan bære og fortsatt løpe.',
+        '1': 'Jeg kan selge deg et lengre belte. Fem flasker er omtrent alt noen kan bære og fortsatt løpe.',
         say: 'Kan jeg bære flere eliksirer?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundraen tar fingre. Hold deg i bevegelse der ute, og ikke sov i snøen.'
+          '1': 'Tundraen tar fingre og tær. Hold deg i bevegelse, og ikke sovne i snøen.'
         },
         temple: {
-          '1': 'Det finnes et sunket tempel bortenfor tundraen. Nagaene tar ingen fanger.'
+          '1': 'Det er et sunket tempel forbi tundraen. Nagaene der tar ikke fanger.'
         },
         rift: {
-          '1': 'Hva enn som er i den Tomhetsriften, kan det ikke sys. Gjør det raskt ferdig.'
+          '1': 'Hva enn som er i den riften, kan jeg ikke sy det sammen. La det ikke nå deg.'
         }
       },
       healBack: {
-        '1': 'Av sted med deg. Og spis noe.'
+        '1': 'Av gårde med deg. Og spis noe, du er for tynn.'
       },
       bye: {
         '1': 'Kom tilbake i ett stykke.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Du. Du åpnet porten min.',
-        '2': 'Jeg underviser fra kjelleren til en dverg nå, fordi jeg må spise. Ikke forveksle det med tilgivelse.'
+        '1': 'Deg. Du er den som åpnet porten min.',
+        '2': 'Jeg underviser i en kjeller nå, fordi jeg må spise. Ikke ta det for tilgivelse.'
       },
       ending: {
-        '1': 'En trone ble avgjort, og Oakhaven er fortsatt aske. Fortell meg igjen hvordan det var verdt det.'
+        '1': 'Så tronen er avgjort, og Oakhaven er fortsatt aske. Jeg håper det var verdt det.'
       },
       again: {
-        '1': 'Forræderen vender tilbake. Avgiften min har ikke gått ned.'
+        '1': 'Du er tilbake. Prisen min har ikke endret seg.'
       },
       train: {
-        '1': 'Jeg lærer deg å kommandere. Jeg kan ikke lære deg å fortjene det.'
+        '1': 'Jeg lærer deg å kommandere. Om du fortjener det, er en annen sak.'
       },
       class: {
-        '1': 'En som blir fulgt. Vakter svarer på kallet og kjemper på ditt ord.',
-        '2': 'Det går på Karisma. Du har noe. Det er tragedien.',
+        '1': 'Noen andre følger. Vakter kommer når du roper og kjemper på ditt ord.',
+        '2': 'Det går på Karisma. Du har noe. Det er det som gjør det vanskelig å tilgi.',
         say: 'Hva er en Storsuveren?'
       },
       ready: {
         strong: {
-          '1': 'Du har utstrålingen til alt. Riket er fattigere for det.'
+          '1': 'Du har utstrålingen til alt. Jeg skulle ønske du hadde brukt den bedre.'
         },
         able: {
-          '1': 'Du er klar for neste leksjon. Jeg har ingen glede av det.'
+          '1': 'Du er klar for neste time. Jeg later ikke som jeg er glad.'
         },
         weak: {
-          '1': 'Ikke engang en forræders vakt ville ha fulgt den stemmen. Mer Karisma.'
+          '1': 'Ingen ville fulgt deg ennå. Tren opp Karismaen din.'
         }
       },
       oakhaven: {
         '1': 'Trehundre år. Familien min bygde de murene.',
-        '2': 'Ikke forklar. Det finnes ingen pris som forklarer det.',
-        say: 'Om Oakhaven…'
+        '2': 'Ikke forklar. Ingenting du kan si gjør det godt igjen.',
+        say: 'Om Oakhaven...'
       },
       trainBack: {
-        '1': 'Gå. Kommander noen andre.'
+        '1': 'Gå. Øv på noen andre.'
       },
       bye: {
-        '1': 'La meg være.'
+        '1': 'La meg være, vær så snill.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Du drepte henne. Jeg så det tusen ganger før det skjedde, og det gjør fortsatt vondt.',
-        '2': 'Jeg er Timenes vokter. Jeg lærer deg opp. Hun sa at jeg ville.'
+        '1': 'Du drepte henne. Jeg så det komme i årevis, og det gjør fortsatt vondt.',
+        '2': 'Jeg er Timenes vokter. Jeg lærer deg det. Det sa hun jeg ville.'
       },
       hello: {
-        '1': 'Du er sen. Eller tidlig. Jeg har sagt dette før, tror jeg.',
-        '2': 'Jeg er Timenes vokter. Jeg underviser i tidens veving. Vi begynte for et øyeblikk siden.'
+        '1': 'Der er du. Jeg har ventet på deg en stund. Eller kommer til å ha gjort det.',
+        '2': 'Jeg er Timenes vokter. Jeg lærer hvordan man bøyer tiden, litt.'
       },
       freed: {
-        '1': 'Hun er fri. For første gang vet jeg ikke hva du skal si neste gang. Det er fantastisk.'
+        '1': 'Hun er fri. For en gangs skyld kan jeg ikke si hva som skjer nå. Det er fantastisk.'
       },
       friend: {
-        '1': 'Sirkelen vil kalle deg sin venn. Det har den allerede? Da er rabatten nå.'
+        '1': 'Sirkelen tenker godt om deg, så timene koster mindre. De bestemte det forrige uke.'
       },
       foe: {
-        '1': 'Sirkelen vil tilgi deg, i en framtid jeg har sett. Inntil da underviser jeg deg i det stille.'
+        '1': 'Sirkelen er sint på deg nå. Det går over. Til da holder vi dette stille.'
       },
       again: {
-        '1': 'Velkommen tilbake. Velkommen. Tilbake.'
+        '1': 'Velkommen tilbake. Du kommer akkurat i tide.'
       },
       train: {
-        '1': 'Se. Jeg viser deg det jeg viste deg.'
+        '1': 'Følg godt med. Se så igjen, et øyeblikk tidligere.'
       },
       class: {
-        '1': 'Vi stanser en fiende i tiden, haster en venn av gårde og tar en feil tilbake.',
-        '2': 'Intelligens for å se tråden, Teknikk for å dra i den.',
+        '1': 'Vi holder en fiende stille i tiden, haster på en venn og tar tilbake en feil.',
+        '2': 'Intelligens for å se tråden. Teknikk for å dra i den.',
         say: 'Hva er en Kronovever?'
       },
       ready: {
         strong: {
-          '1': 'Du holder godt i tråden. Resten er din når du vil.'
+          '1': 'Du holder godt i tråden. Ta resten når du vil.'
         },
         able: {
-          '1': 'Du er klar. Du var klar i morgen også.'
+          '1': 'Du er klar. Jeg kunne se det før du spurte.'
         },
         weak: {
-          '1': 'Tråden glir ut av fingrene dine. Mer Intelligens. Mer Teknikk.'
+          '1': 'Tråden glir stadig. Mer Intelligens, og mer Teknikk.'
         }
       },
       oracle: {
         say: 'Fortell meg om orakelet.',
         freed: {
-          '1': 'Hun så hver avslutning, og ingen av dem var hennes. Nå er det en.'
+          '1': 'Hun så alle slutter unntatt sin egen. Nå får hun finne den ut.'
         },
         slain: {
-          '1': 'Hun gjorde ikke motstand. Det hadde hun også sett. Ikke spør meg igjen.'
+          '1': 'Hun kjempet ikke imot. Hun hadde allerede sett det. Ikke spør meg igjen, vær så snill.'
         },
         waits: {
-          '1': 'Hun ser hver avslutning. Det er en fryktelig gave. Vær snill mot henne, til slutt.'
+          '1': 'Hun ser alle slutter. Det er tungt å bære. Vær snill mot henne.'
         }
       },
       trainBack: {
-        '1': 'Det vil ha vært verdt det.'
+        '1': 'Det gir mening senere. Det pleier det.'
       },
       bye: {
-        '1': 'Til før.'
+        '1': 'Til vi ses igjen. Eller før.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Vent! Vent. Konge gi opp!',
-          '2': 'Goblin raide bare fordi goblin sulten. Er sant!',
-          '3': 'Kanskje høy og konge lage avtale?'
+          '1': 'Stopp. Vær så snill. Jeg gir meg.',
+          '2': 'Folket mitt raider fordi de er sultne. Det er sannheten.',
+          '3': 'La oss inngå en avtale i stedet. Ditt folk og mitt.'
         },
         slay: {
-          '1': 'Kongen faller, og Hulene spres.',
-          '2': 'Sunford sover roligere, og Jernordenen legger merke til deg.',
-          say: 'Ingen avtale. Styret ditt ender her.'
+          '1': 'Goblinkongen faller, og Hulene tømmes.',
+          '2': 'Sunford sover roligere, og Jernordenen hører navnet ditt.',
+          say: 'Ingen avtaler. Raidene dine ender her.'
         },
         pact: {
-          '1': 'Handel? Konge sverge! Konge LIKE handel!',
-          '2': 'Goblinhandlere slår seg ned på torget i Sunford, med varer ingen smed der kunne laget.',
-          say: 'Stopp raidene og handle med Sunford i stedet. Sverg på det.'
+          '1': 'Handel. Ja. Det sverger jeg, på kronen min.',
+          '2': 'Goblinhandlere slår seg ned på torget i Sunford og selger ting ingen smed der kunne laget.',
+          say: 'Slutt med raidene og handle med Sunford i stedet. Sverg på det.'
         },
         ransom: {
-          '1': 'Alt? Konge hate høy. Ta det. Ta det og gå.',
-          '2': 'Du går tungt lastet med goblingull. Raidene starter igjen. Syndikatet liker det.',
-          say: 'Lever fra deg skatten, så beholder du kronen.'
+          '1': 'Alt sammen? ...Greit. Ta det, og gå.',
+          '2': 'Du drar med goblingull. Raidene begynner igjen, men Syndikatet godkjenner.',
+          say: 'Gi meg skatten din, så får du beholde kronen.'
         }
       },
       siege: {
         ask: {
-          '1': 'Nok. Du kjemper godt.',
-          '2': 'Syndikatet betaler bedre enn den byen noensinne vil.',
+          '1': 'Nok. Du kjemper bra, det skal du ha.',
+          '2': 'Syndikatet betaler langt bedre enn den byen noensinne vil.',
           '3': 'Åpne porten for oss i natt, så er en tredjedel av Oakhaven din.'
         },
         defend: {
-          '1': 'Da vil Syndikatet jakte på deg på hver veg. Husk at jeg tilbød.',
-          '2': 'Porten holder. Oakhaven blir rik bak den, og mesterrustningssmedene husker navnet ditt.',
+          '1': 'Da vil Syndikatet jage deg på hver vei. Husk at jeg tilbød.',
+          '2': 'Porten holder. Oakhaven blir rik bak den, og rustningssmedene dens husker navnet ditt.',
           say: 'Porten forblir stengt. Ta hæren din og gå.'
         },
         betray: {
-          '1': 'Klokt. Jeg ber Madam Ash sette fram en stol til deg.',
-          '2': 'Oakhaven brenner. I ruinene åpner et svartebørsmarked, og en alkymist underviser i forbudte kunster.',
+          '1': 'Fornuftig. Madam Ash blir glad for å høre det.',
+          '2': 'Oakhaven brenner. I ruinene åpner det en svartebørs, og en alkymist underviser i hemmelighet.',
           '3': 'Rustningssmedene er borte, og Jernordenen kaller deg forræder.',
-          say: 'En tredjedel av byen. I natt åpner porten.'
+          say: 'En tredjedel av byen. Greit. Porten åpnes i kveld.'
         }
       },
       core: {
         ask: {
-          '1': 'Kolossen er skrot. Jeg trodde aldri jeg skulle se det.',
-          '2': 'Og der ligger den. Kjernen. Fortsatt summende. Varm å ta på.',
-          '3': 'Du nådde den først. Hva skal det bli av den?'
+          '1': 'Kolossen er skrap. Jeg trodde aldri jeg skulle få se det.',
+          '2': 'Og der er kjernen. Den durer fortsatt. Den er varm hvis man rører ved den.',
+          '3': 'Du kom hit først. Så... hva skjer med den?'
         },
         destroy: {
           '1': 'Lyset slukkes, og golemene faller der de står.',
-          '2': 'Jernordenen sender sine egne rustningssmeder til Ironhold som takk.',
-          say: 'Stå tilbake. Jeg knuser den.'
+          '2': 'Som takk sender Jernordenen sine egne rustningssmeder til Ironhold.',
+          say: 'Gå unna. Jeg knuser den.'
         },
         study: {
-          '1': 'Du forstår nok av kjernen til å levere den fra deg uten å vekke den.',
-          '2': 'Innen en sesong lager Ironholds smier eterverk ingen har sett før.',
-          say: 'Sirkelen bør studere den. Jeg kan bære den trygt ut.'
+          '1': 'Du kan nok til å flytte kjernen uten å vekke den.',
+          '2': 'I løpet av en sesong lager smiene i Ironhold eterverk ingen har sett før.',
+          say: 'Sirkelen bør studere den. Jeg tror jeg kan bære den trygt ut.'
         },
         sell: {
           '1': 'Gull. For det som drepte gruvearbeiderne mine. Ta det og gå.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Jeg har sett dette øyeblikket ti tusen ganger.',
-          '2': 'I halvparten av dem befrir du meg. I halvparten tar du det jeg vokter.',
-          '3': 'Velg. La meg endelig ikke vite hva som kommer neste gang.'
+          '1': 'Jeg har sett dette øyeblikket flere ganger enn jeg kan telle.',
+          '2': 'I halvparten av dem setter du meg fri. I den andre halvparten tar du det jeg vokter.',
+          '3': 'Velg. Jeg vil gjerne, bare én gang, ikke vite hva som kommer.'
         },
         free: {
-          '1': 'Å. Det så jeg ikke. Det så jeg ikke i det hele tatt.',
-          '2': 'Orakelet stiger opp gjennom vannet og er borte. Hennes timenes vokter blir for å undervise.',
-          say: 'Hold deg i ro. Jeg bryter lenkene dine.'
+          '1': 'Å. Det så jeg ikke. Det så jeg virkelig ikke.',
+          '2': 'Oraklet stiger opp gjennom vannet og er borte. Eleven hennes blir igjen for å undervise.',
+          say: 'Hold deg stille. Jeg bryter lenkene dine.'
         },
         slay: {
           '1': 'Ja. Dette er den andre halvparten.',
-          '2': 'Hun gjør ikke motstand. Tidtakerens timeglass er ditt.',
-          '3': 'Hennes siste elev flykter fra tempelet, og Sirkelen tilgir ikke.',
+          '2': 'Hun gjør ikke motstand. Tidsvokterens timeglass er ditt.',
+          '3': 'Hennes siste elev flykter fra tempelet, og Sirkelen tilgir deg ikke.',
           say: 'Jeg kom for timeglasset.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Nok. Du har tenner, lille.',
-          '2': 'Demonen i festningen la min slekt i lenker. Jeg vil se ham brenne.',
+          '1': 'Nok. Du har tenner, lille venn.',
+          '2': 'Demonen i festningen la slektningene mine i lenker. Jeg vil se ham brenne.',
           '3': 'Drep meg, eller la meg hjelpe deg å gjøre det.'
         },
         slay: {
           '1': 'Fjellet skjelver mens dragen faller. Skatten dens er din.',
           '2': 'Jernordenen synger om dragedreperen.',
-          say: 'Ingen handel med drager.'
+          say: 'Jeg forhandler ikke med drager.'
         },
         pact: {
-          '1': 'Få kunne ha spurt om det og overlevd. Vel, lille. Vi jakter sammen.',
-          '2': 'Når du marsjerer mot Redselsfestningen, vil en drage være på himmelen over deg.',
-          say: 'Fly da med meg mot Erkedemonen.'
+          '1': 'Få ville våget å spørre. Vel. Vi jakter sammen.',
+          '2': 'Når du marsjerer mot Redselsfestningen, flyr en drage over deg.',
+          say: 'Så kjemp sammen med meg mot Ærkedemonen.'
         }
       },
       throne: {
         ask: {
-          '1': 'Så. Det tar slutt. Jeg trodde ikke det ville være deg.',
-          '2': 'Tronen min blir ikke stående tom, lille helt. Den kommanderer festningen, riften og begges hærer.',
-          '3': 'Tre sendebud venter allerede ved døra mi. Velg hvem som arver lenkene mine.'
+          '1': 'Så. Det er over. Jeg trodde ikke det ville være deg.',
+          '2': 'Tronen min blir ikke stående tom. Den som tar den, kommanderer festningen og riften.',
+          '3': 'Tre utsendinger venter allerede ved døra mi. Velg hvem som kommer neste.'
         },
         order: {
           '1': 'Ordenen garnisonerer festningen og forsegler det den kan.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Syndikatet flytter inn før daggry.',
-          '2': 'Alt er til salgs nå, også freden.',
+          '2': 'Fra nå av har alt en pris, selv freden.',
           say: 'Askesyndikatet har fortjent den.'
         },
         circle: {
-          '1': 'Sirkelen gjør festningen til en skole over en rift.',
-          '2': 'De kaller det forskning. Alle andre kaller det et spørsmål om tid.',
+          '1': 'Sirkelen gjør festningen til en skole over riften.',
+          '2': 'De kaller det forskning. Alle andre holder pusten.',
           say: 'La Eterens sirkel få den.'
         },
         shatter: {
-          '1': 'Du knuser tronen med egne hender. Ingen hersker herfra igjen.',
+          '1': 'Du knuser tronen med dine egne hender. Ingen vil herske herfra igjen.',
           '2': 'Sendebudene går uten et ord.',
-          say: 'Ingen arver. Jeg knuser den.'
+          say: 'Ingen får den. Jeg knuser den.'
         },
         claim: {
           '1': 'Tronen er kald, og den passer.',
           '2': 'Tre fraksjoner oppdager at de har en felles fiende.',
-          say: 'Jeg setter meg på den selv.'
+          say: 'Jeg tar den selv.'
         }
       }
     }

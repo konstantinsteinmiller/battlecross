@@ -127,8 +127,8 @@ export default {
       mouse: 'Izdan murabbiyga boring va gaplashish uchun uni cherting.'
     },
     teach: {
-      touch: 'Bu murabbiy nimani oʻrgatishini koʻrish uchun «Meni oʻrgat» tugmasiga bosing.',
-      mouse: 'Bu murabbiy nimani oʻrgatishini koʻrish uchun «Meni oʻrgat» tugmasini cherting.'
+      touch: 'Bu murabbiy nimani oʻrgatishini koʻrish uchun «Meni oʻrgatasanmi?» tugmasiga bosing.',
+      mouse: 'Bu murabbiy nimani oʻrgatishini koʻrish uchun «Meni oʻrgatasanmi?» tugmasini cherting.'
     },
     learn: {
       touch: 'Koʻnikmaga bosing, keyin Oʻrganish tugmasiga bosing.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Qaytarib olish',
     deal: 'Kelishdik!',
     say: {
-      buy: 'Yaxshi tanlov. Asrab ishlat.',
-      sell: 'Unga yaxshi uy topaman.',
-      back: 'Fikringdan qaytdingmi? Mana, avvalgidek.',
-      poor: 'Hamyoning ogʻirlashganda qayt.'
+      buy: 'Yaxshi tanlov. Unga yaxshi qara, u ham senga yaxshi qaraydi.',
+      sell: 'Mayli. Birov albatta oladi.',
+      back: 'Fikringni oʻzgartirdingmi? Hechqisi yoʻq, mana.',
+      poor: 'Afsuski, bu sendagidan sal koʻproq.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Oʻtir. Dam ol. Bu yerdan sogʻ-salomat, barcha kolbalaring toʻla chiqasan. Ulardan koʻproq olib yurmoqchi boʻlsang, buni senga sotishim mumkin.',
+    talk: 'Oʻtir, biroz dam ol. Kolbalaring yana toʻla. Xohlasang, senga kattaroq kamar sota olaman.',
     note: 'Har bir hududga {n} ta iksir olib kirasiz.',
     buy: 'Yana bir kolba · {n}',
     full: 'Kamaringizga boshqa sigʻmaydi.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Temirchi Bram',
-      talk: 'Oddiy poʻlat, halol narx. Goblinni sendan nari tutadi.'
+      talk: 'Oddiy poʻlat, adolatli narx. Shoshma.'
     },
     sunfordPeddler: {
       name: 'Attor Tilly',
-      talk: 'Uzuklar! Tumorlar! Men topib olgan va aslo oʻgʻirlamagan narsalar.'
+      talk: 'Uzuklar, tumorlar, mayda-chuyda. Mana bu hatto baxt keltirishi mumkin.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Savdogar Grik',
-      talk: 'Qirol dedi savdo qil, Grik savdo qiladi. Yaltiroqqa yaltiroq. Yaxshi yaltiroq.'
+      talk: 'Buni oilam yasagan. Yaxshi ish, adolatli narx.'
     },
     captainHale: {
       name: 'Kapitan Hale'
     },
     oakArmorer: {
       name: 'Zirhsoz Odo',
-      talk: 'Molimning yarmi devorlarga ketdi. Qolganini ol.'
+      talk: 'Tovarimning yarmi devorga ketdi. Qolganini ol, agar mos kelsa.'
     },
     oakMasterArmorer: {
       name: 'Usta Odo',
-      talk: 'Bu shaharni sen qutqarding. Yaxshi zirhlar orqa xonadan sen uchun chiqadi.'
+      talk: 'Yaxshi zirh tashqariga chiqdi. Koʻrishga toʻla munosibsan.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Oʻtkir, muvozanatli va kim pul toʻlasa, oʻshanga sotiladi. Bugun bu sensan.'
+      talk: 'Oʻtkir, muvozanatli, adolatli narxda. Tigʻlarga tegma.'
     },
     trainerShadow: {
       name: 'Shivir'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Olibsotar',
-      talk: 'Ism yoʻq, savol yoʻq. Sindikat oʻz ulushini oladi, sen esa molni.'
+      talk: 'Ikki tomondan ham savol yoʻq. Sindikat oʻz ulushini oladi.'
     },
     trainerBlood: {
       name: 'Doktor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhand',
-      talk: 'Gnomlar toblagan. Sinsa, ayb oʻzingda.'
+      talk: 'Hammasi mittilar qoʻlidan chiqqan. Biri sinsa, qanday singanini bilmoqchiman.'
     },
     ironAetherWorks: {
       name: 'Usta Voss',
-      talk: 'Doiraning yadroni oʻrganishi hamma narsani oʻzgartirdi. Mana buni ushla. Menga qaratma.'
+      talk: 'Bu yerdagi hamma narsa yadroni oʻrganishdan chiqqan. Ehtiyot boʻl, koʻpi toʻldirilgan.'
     },
     ironArmor: {
       name: 'Garrun Ironside',
-      talk: 'Devning toʻqmogʻini qaytaradigan zirh. Qolganlaringga esa uzuklar.'
+      talk: 'Zirhlar javonda, uzuklar patnisda.'
     },
     ironOrderArmor: {
       name: 'Orden taʼminotchisi',
-      talk: 'Orden yadroni kim yoʻq qilganini unutmaydi. Uning qurol omborlari sen uchun ochiq.'
+      talk: 'Kerakligini ol. Orden oʻz odamlariga gʻamxoʻrlik qiladi.'
     },
     trainerGeo: {
       name: 'Keksa Toshoyoq'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Bugun kechqurun yomgʻir yogʻadi, tizzam shunday deydi.',
-        '2': 'Tizzang oʻtgan hafta ham shunday degan edi.',
-        '3': 'Yogʻdi-ku, shunday emasmi? Qayerdadir.'
+        '1': 'Bugun kechqurun yomgʻir yogʻadi. Tizzam kun boʻyi sirqiradi.',
+        '2': 'Tizzang oʻtgan hafta ham shuni aytgan edi.',
+        '3': 'Yogʻdi-ku, shunday emasmi? Faqat bu yerda yoqmadi.'
       },
       harvest: {
-        '1': 'Yillar davomidagi eng yaxshi arpa bu.',
-        '2': 'Sen har yili shunday deysan.'
+        '1': 'Bu yil arpa yaxshi pishdi.',
+        '2': 'Qoʻlimizda qolsa edi.'
       },
       goblins: {
         '1': 'Goblinlar Miller fermasidan uchta tovuq olib ketibdi.',
-        '2': 'Faqat uchtami? Dangasa boʻlib qolishyapti.',
-        '3': 'Yoki toʻyishgan.'
+        '2': 'Yana-ya? Bu shu oyning ikkinchisi.',
+        '3': 'Kimdir oʻsha gʻorlar bilan nimadir qilishi kerak.'
       },
       kingGone: {
-        '1': 'Goblinlar qiroli butunlay ketibdi deyishadi.',
-        '2': 'Unda lagʻmonlarimni kim oʻgʻirlayapti?'
+        '1': 'Goblinlar qiroli oʻlibdi, deyishyapti.',
+        '2': 'Yaxshi. Endi tun boʻyi uxlarman.'
       },
       pact: {
-        '1': 'Bugun bir goblin menga qoshiq sotdi.',
-        '2': 'Oʻzingning qoshigʻing edimi?',
-        '3': 'Ha, oʻshanaqa. Ammo narxi yaxshi edi.'
+        '1': 'Bugun ertalab bir goblindan choʻmich oldim.',
+        '2': 'Yaxshimi?',
+        '3': 'Rostini aytsam, meniknidan yaxshi. Hech kimga aytma.'
       },
       bram: {
-        '1': 'Bram yana bolgʻa uryapti. Tongdan beri!',
-        '2': 'Yurak urishidek bir maromda, bu odam.'
+        '1': 'Bram tong otmasdan sandon boshida.',
+        '2': 'U xavotirlanganda doim shunday qiladi.'
       },
       pie: {
         '1': 'Bu olmali pirog hidimi?',
-        '2': 'Edi. Oʻtgan zamonda.',
-        '3': 'Hammasini yeb qoʻydingmi? Yana?'
+        '2': 'Edi. Bolalar birinchi topishdi.',
+        '3': 'Yana bittasini pishiraman. Bu safar yaxshiroq yashir.'
       },
       road: {
-        '1': 'Endi hech kim tekislik yoʻlidan yurmaydi.',
-        '2': 'Qaroqchilar boʻlsa yurmaydi ham.'
+        '1': 'Bir haftadan beri tekislik yoʻlidan hech kim yurmadi.',
+        '2': 'Yoʻlda bosqinchilar boʻlsa, yurishmaydi-da. Hech kimni ayblay olmayman.'
       },
       hero: {
-        '1': 'Kimdir tekislik yoʻlini tozalabdi!',
-        '2': 'Nihoyat. Amakivachcham menga bitta aravani qarzdor.'
+        '1': 'Kimdir tekislik yoʻlidagi bosqinchilarni tozalabdi.',
+        '2': 'Shukur. Opam yana kela oladi.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Bitta karam ikki kumush. Ikki!',
-        '2': 'Juda kelishgan karam.',
-        '3': 'Unchalik kelishgan emas.'
+        '2': 'Hozir darvozadan hech narsa arzonga oʻtmaydi.',
+        '3': 'Unda oʻzim ekaman. Kerak boʻlsa, tomda.'
       },
       watch: {
-        '1': 'Qorovullar darvoza posbonlarini ikki barobar oshiribdi.',
-        '2': 'Yaxshi. Shuning uchun tinchroq uxlayman.'
+        '1': 'Darvozadagi qoʻriqni ikki baravar oshirishibdi.',
+        '2': 'Yaxshi. Shu tufayli sal tinchroq uxlayman.'
       },
       caravan: {
         '1': 'Ziravorlar karvoni yana kechikdi.',
         '2': 'Qaroqchilarmi?',
-        '3': 'Yoki haydovchi choyxona topgandir.'
+        '3': 'Yoki loy. Loy boʻlsin deylik.'
       },
       siege: {
-        '1': 'Atrofda qoʻshin chodir tikibdi deyishadi.',
-        '2': 'Unda yerto‘lani toʻldirganimiz maʼqul.'
+        '1': 'Dalalarning narigi tomonida qoʻshin lager qurgan.',
+        '2': 'Unda qoʻlimizdan kelganda yertoʻlani toʻldiraylik.'
       },
       saved: {
-        '1': 'Qamal yorilganini koʻrdingmi? Ajoyib!',
-        '2': 'Men karavotim ostidan koʻrdim.',
-        '3': 'Baribir hisoblanadi.'
+        '1': 'Qamal buzilganda sen devorda eding?',
+        '2': 'Rostini aytsam, karavotim ostiga yashiringan edim.',
+        '3': 'Shaharning yarmi shunday edi. Baribir hali shu yerdamiz.'
       },
       fountain: {
         '1': 'Omad uchun favvoraga tanga tashladim.',
-        '2': 'Men esa uni olib oldim. Rahmat!'
+        '2': 'Umid qilaman, arzon karam tilagansan.'
       },
       ash: {
-        '1': 'Hamma narsadan kul hidi keladi.',
-        '2': 'Hech qanday hid boʻlmasligidan yaxshi.'
+        '1': 'Hamma narsa hali ham tutun hidi taratadi.',
+        '2': 'Oʻtib ketadi. Oxir-oqibat hamma narsa oʻtadi.'
       },
       hide: {
-        '1': 'Kecha kechasi tashqarida etik tovushini eshitdingmi?',
-        '2': 'Sss. Ovozingni pasaytir.',
-        '3': 'Kechir. Kechir.'
+        '1': 'Kecha kechasi koʻchada etik tovushini eshitdingmi?',
+        '2': 'Sekinroq. Kim tinglayotganini bilmaysan.',
+        '3': 'Kechir. Men shunchaki... kechir.'
       },
       bread: {
-        '1': 'Yarim non topdim. Baham koʻramiz.',
+        '1': 'Yarim non topdim. Mana, biroz ol.',
         '2': 'Sen yaxshi insonsan. Rahmat.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Toʻrtinchi qavatda yaxshi mis tomiri bor.',
-        '2': 'Mis-a? Men oltin istayman.',
-        '3': 'Sen koʻproq uyqu istaysan.'
+        '2': 'Mis. Men kumush umid qilgan edim.',
+        '3': 'Mis ijara haqini toʻlaydi. Kumush orzularni.'
       },
       forge: {
-        '1': 'Katta choʻgʻxona yuz yildan beri oʻchmagan.',
-        '2': 'Bobomning trubkasi ham oʻchmagan.'
+        '1': 'Katta choʻgʻxona yuz yildan beri sovimagan.',
+        '2': 'Bobom uni yoqishga yordam bergan, bilasanmi.'
       },
       beard: {
-        '1': 'Soqolingni qisqartibsan!',
-        '2': 'Sandon yonida alangalanib ketdi.',
-        '3': 'Lekin yarashibdi.'
+        '1': 'Soqolingni qisqartibsan.',
+        '2': 'Sandonga juda yaqin bordim.',
+        '3': 'Yana oʻsadi. Baribir qisqasi senga yarashadi.'
       },
       core: {
-        '1': 'Chuqur konlarda hozir nimadir yaltirayapti.',
-        '2': 'U yerda yaxshi hech narsa yaltiramaydi.'
+        '1': 'Chuqur shaxtalarda nimadir yaltirayapti.',
+        '2': 'U yerda hech qanday yaxshi narsa yaltiramaydi. Tepada qol.'
       },
       order: {
-        '1': 'Ordenning zirhsozlari tez ishlaydi.',
-        '2': 'Tez, ha. Biz kabi sifatli emas.'
+        '1': 'Ordenning zirhsozlari tez ishlaydi, tan olaman.',
+        '2': 'Tez, ha. Qancha chidashini koʻramiz.'
       },
       circle: {
-        '1': 'Doiraning sehrgarlari ishlayotib xirgoyi qiladi.',
-        '2': 'Bizning qoʻshigʻimizdan yaxshi, menimcha.'
+        '1': 'Doira odamlari ishlaganda ohangni xirgoyi qiladi.',
+        '2': 'Hech boʻlmasa sening kuylaganingdan yaxshi.'
       },
       cold: {
-        '1': 'Bugun ertalab bu yerda tepada sovuq.',
-        '2': 'Unda choʻgʻxonaga yaqinroq tur.'
+        '1': 'Bugun ertalab qattiq sovuq.',
+        '2': 'Unda kel, choʻgʻxona yonida tur.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Quvlaydigan sensan!',
-        '2': 'Adolatsiz, men tayyor emas edim!'
+        '1': 'Tutdim, endi sen quvasan!',
+        '2': 'Bu adolatsizlik, men tayyor emas edim!'
       },
       dragon: {
         '1': 'Katta boʻlganimda ajdarga minaman.',
-        '2': 'Ajdarlar mingizmaydi.',
-        '3': 'Yaxshilari mingizadi!'
+        '2': 'Ajdarlar hech kimga oʻzlariga mingizishmaydi.',
+        '3': 'Mehribon biri ehtimol mingizar.'
       },
       sword: {
-        '1': 'Qara, haqiqiy qilich tayoq!',
-        '2': 'Bu oddiy tayoq-ku.'
+        '1': 'Qara, qilich topdim!',
+        '2': 'Bu tayoq-ku.'
       },
       frog: {
-        '1': 'Quduq yonidan qurbaqa topdim.',
+        '1': 'Quduq yonida qurbaqa bor.',
         '2': 'Uni asrab olsak boʻladimi?',
-        '3': 'Menimcha, u bizni asrayapti.'
+        '3': 'Oyim endi qurbaqa kerak emas dedi.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Hozircha shu.',
-      trade: 'Mollaringni koʻrsat.',
-      train: 'Meni oʻrgat.',
-      heal: 'Jarohatlarimni bog‘lab ber.',
-      mana: 'Manam uchun nimadir kerak.',
-      who: 'Sen kimsan?',
+      bye: 'Sizni ishingiz bilan qoldiray.',
+      trade: 'Nimalaring borligini koʻrsam boʻladimi?',
+      train: 'Meni oʻrgatasanmi?',
+      heal: 'Jarohatlarimni bogʻlab bera olasanmi?',
+      mana: 'Mana uchun biror narsang bormi?',
+      who: 'Qarshi boʻlmasang, sen kimsan?',
       rumor: 'Yaqinda biror gap eshitdingmi?',
-      ready: 'Koʻproq oʻrganishga tayyormanmi?'
+      ready: 'Sencha, men koʻprogʻiga tayyormanmi?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Yangi yuz. Tekislik yoʻlini ushlab turgan sen ekansan.',
-        '2': 'Men Bramman. Poʻlat yasayman. Senga kerakdek koʻrinasan.'
+        '1': 'Seni avval koʻrmaganman. Yoʻlni tozalagan sen emasmisan?',
+        '2': 'Bram. Choʻgʻxona menda. Qilich kerak boʻlsa, menga kel.'
       },
       kingDead: {
-        '1': 'Goblinlar qiroli oʻlibdi, eshitdim. Yaxshi. Karvon gʻildiraklaridan toʻgʻrilaydigan egrilik kamayadi.'
+        '1': 'Goblinlar qiroli oʻlibdi, eshitdim. Uni sogʻinaman deya olmayman.'
       },
       kingPact: {
-        '1': 'Goblinlar maydonda savdo qilyapti. Koʻraman deb oʻylamagandim. Temirlari axlat, lekin.'
+        '1': 'Goblinlar endi maydonda savdo qilishyapti. Buni koʻraman deb oʻylamagandim.'
       },
       kingRansom: {
-        '1': 'Qirolning oltinini olib, tojini unga qoldiribsan deyishadi. Bosqinlar qaytadi.'
+        '1': 'Goblinlar qiroliga tojini qoldirding. U qaytadi, bilib qoʻy.'
       },
       ending: {
-        '1': 'Butun qirollik oʻsha taxt haqida gapiryapti. Sen esa hali ham mendan xarid qilasan. Hm.'
+        '1': 'Butun qirollik sen haqingda gapiryapti. Baribir qayroq tosh kerakmi?'
       },
       again: {
-        '1': 'Yana keldingmi. Yaxshi. Poʻlat oʻzi sotilmaydi.'
+        '1': 'Yana keldingmi. Nima qila olaman?'
       },
       trade: {
-        '1': 'Oddiy poʻlat, halol narx. Xohlaganingcha qara.'
+        '1': 'Oddiy poʻlat, adolatli narx. Bir qara.'
       },
       who: {
-        '1': 'Bram. Shu sandonda oʻttiz yil.',
-        '2': 'Otlarga taqa qoqaman, shudgor tuzataman, senga oʻxshagan jasurlarni qurollantiraman. Shu tartibda.'
+        '1': 'Bram. Shu sandon boshida oʻttiz yil boʻldi, taxminan.',
+        '2': 'Taqa, shudgor, goh-goh qilich. Oxirgi paytlarda asosan qilich.'
       },
       gear: {
-        '1': 'Zarba yeyishni niyat qilsang qalqon. Qilmasang kattaroq qilich.',
-        '2': 'Poʻlatimni Kuch silkitadi. Ogʻirini olishdan oldin ochkolaringni oʻshanga sol.',
-        say: 'U yerga nima olib borishim kerak?'
+        '1': 'Zarba yemoqchi boʻlsang, qalqon. Koʻpchilik yeydi.',
+        '2': 'Ogʻir poʻlatga kuchli qoʻl kerak. Avval Kuchingni oshir.',
+        say: 'Tashqariga nima olib chiqishim kerak?'
       },
       rumor: {
         plains: {
-          '1': 'Tekislik yoʻlida goblinlar bor. Hashamatli narsa olishdan oldin ularni haydab sol.'
+          '1': 'Tekislik yoʻlida bosqinchilar bor. Sening oʻrningda boʻlsam, shundan boshlardim.'
         },
         hollows: {
-          '1': 'Bosqinchilar tekislik ortidagi Goblin gʻorlaridan emaklab chiqadi. Qirollari eng tubida oʻtiribdi.'
+          '1': 'Goblinlar tekislikning narigi tomonidagi Gʻorlardan keladi. Qirollari ham pastda.'
         },
         woods: {
-          '1': 'Tekislikning sharqida Shivirlovchi oʻrmon boshlanadi. U yerda daraxtlar yuradi. Boltani ol.'
+          '1': 'Tekislikning sharqida Shivirlovchi oʻrmon bor. Daraxtlar joyini oʻzgartiradi, deyishadi.'
         },
         siege: {
-          '1': 'Oakhaven tomonda tutun bor. Bir sarkarda atrofga oʻrdu qurgan deyishadi.'
+          '1': 'Oakhaven tomonda tutun bor. Atrofida qoʻshin lager qurgan.'
         },
         north: {
-          '1': 'Ironhold poʻlati yana yoʻlda. Meningkidan yaxshisini istasang shimolga bor.'
+          '1': 'Ironhold poʻlati yana yoʻl bilan kelyapti. Meniknidan yaxshi, rostini aytsam.'
         }
       },
       shopBack: {
-        '1': 'Sogʻ-salomat kiy. Yoki shunchaki kiy.'
+        '1': 'Unga yaxshi qara, u ham senga yaxshi qaraydi.'
       },
       bye: {
-        '1': 'Yoʻlga ehtiyot boʻl.'
+        '1': 'Oʻzingga ehtiyot boʻl.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Oo, mijoz! Yoki qorovul. Qorovul emassan, shundaymi?',
-        '2': 'Men Tillyman. Uzuklar, tumorlar, omad keltiruvchi narsalar. Hammasi topilgan, hech biri oʻgʻirlanmagan.'
+        '1': 'Voy, salom! Sotib olasanmi yoki shunchaki qarayapsanmi? Ikkalasi ham mayli.',
+        '2': 'Men Tillyman. Hamma joydan uzuklar, tumorlar, mayda-chuyda.'
       },
       rival: {
-        '1': 'Grikning peshtaxtasini koʻrdingmi? Goblin taqinchoqlari! Men xarob boʻldim. Nimadir ol. Menga rahming kelsin.'
+        '1': 'Goblinning peshtaxtasini koʻrdingmi? Narxlari meniknidan past. Bu adolatsizlik.'
       },
       again: {
-        '1': 'Eng yaxshi koʻrgan mijozim! Buni hammaga aytaman, lekin senga chin dildan aytaman.'
+        '1': 'Mana, keldingku! Senga yoqadi deb oʻylagan bir necha narsani ajratib qoʻydim.'
       },
       trade: {
-        '1': 'Uzuklar! Tumorlar! Men topgan va aslo oʻgʻirlamagan narsalar!'
+        '1': 'Bir qara. Bu baxt keltiradi. Ehtimol.'
       },
       who: {
-        '1': 'Yoʻllarda yuraman va yoʻllar qoldirganini terib olaman.',
-        '2': 'Qaroqchilar qochayotganda eng chiroyli narsalarni tashlab ketadi.'
+        '1': 'Yoʻllarni aylanib, odamlar qutulmoqchi boʻlgan narsani sotib olaman.',
+        '2': 'Baʼzan nimadir topaman. Bosqinchilar qochganda koʻp narsa tashlab ketadi.'
       },
       trinkets: {
-        '1': 'Bir vaqtda ikkitasini taqasan, har qoʻlga bittadan. Kichik ustunlik ham ustunlik.',
-        say: 'Tumorlar nimaga yaraydi?'
+        '1': 'Ikkitasini taqish mumkin, har qoʻlga bittadan. Tashqarida mayda narsalarning hammasi qoʻshiladi.',
+        say: 'Tumorlar aslida nima uchun kerak?'
       },
       stolen: {
-        '1': 'Sss! Unchalik baland emas. Mayli. MAYLI.',
-        '2': 'Mana bu uzukni ol va biz hech gaplashmaganmiz. Chiroyli uzuk. Asosan mis.',
-        say: 'Bularning hammasini oʻgʻirlagansan, shundaymi?'
+        '1': 'Ah. Savol berishning oʻz usuling bor ekan-da, shundaymi?',
+        '2': 'Mana bu uzukni ol-u, uni qayerdan topganim haqida gapirmaylik.',
+        say: 'Bularning hammasi aslida qayerdan keldi?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Bu yerdan janubda darvozalari zanglab yopilib qolgan kolizey bor. Goblin muammosi tugasa ochiladi.'
+          '1': 'Bu yerdan janubda eski Kolizey bor. Goblinlar bosqin qilayotganda mahkam yopiq.'
         },
         arenaOpen: {
-          '1': 'Kolizey ochiq! Sakkiz toʻlqin deyishadi. Men omad sotaman. Senga omad kerak boʻladi.'
+          '1': 'Kolizey qayta ochildi. Sakkiz toʻlqin bor, deyishadi. Odamlar unga garov oʻynaydi.'
         },
         east: {
-          '1': 'Oakhaven bozorlari yaltiragan har qanday narsaga ikki baravar toʻlaydi. Sharqqa, oʻrmondan nariga bor.'
+          '1': 'Oakhaven yaltiroq narsaga yaxshi toʻlaydi. Sharqda, oʻrmondan narida.'
         }
       },
       shopBack: {
-        '1': 'Boyiganingda qayt!'
+        '1': 'Hamyoning ogʻirlashganda qayt!'
       },
       bye: {
-        '1': 'U yerda cho‘ntagingga ehtiyot boʻl! Mening yonimda emas, demoqchiman. Boshqa joyda.'
+        '1': 'Yoʻling bexatar boʻlsin. Tashqarida pulingni mahkam tut.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Tik tur. Sen Temir Ordenning ritsari qarshisidasan.',
-        '2': 'Ser Aldric. Boshqalarning oldida turmoqchi boʻlganlarga qalqonni oʻrgataman.'
+        '1': 'Tik tur. Sen Temir Ordenning ritsari bilan gaplashyapsan.',
+        '2': 'Ser Aldric. Odamlarga boshqalar bilan zarar orasida qanday turishni oʻrgataman.'
       },
       saved: {
-        '1': 'Oakhaven sen turganing uchun turibdi. Men oʻrgatadigan narsaning hammasi shu.'
+        '1': 'Oakhaven hali tik turibdi, devorida sen ham boʻlgansan, deb eshitdim. Barakalla.'
       },
       fallen: {
-        '1': 'Oakhavenning darvozasini sen ochding. Bundan kamiga odam koʻmganman. Ishingni ayt.'
+        '1': 'Oakhavenning darvozasini sen ochding. Unutdim deb aytmayman. Nima kerak?'
       },
       dragon: {
-        '1': 'Hovlimda ajdar oʻldiruvchi. Katta zalda bu haqda qoʻshiq aytishadi.'
+        '1': 'Choʻqqidagi ajdarni oʻldirdingmi? Koʻrishni istardim.'
       },
       friend: {
-        '1': 'Orden seni yaxshi aytadi. Doʻstlari uchun darslarim arzonroq.'
+        '1': 'Orden sen haqingda yaxshi oʻylaydi. Doʻstlari uchun darslarim arzonroq.'
       },
       foe: {
-        '1': 'Orden seni dushman deb eʼlon qildi. Baribir oʻrgataman. Sharafni qaytarib olish ularning qoʻlida emas.'
+        '1': 'Orden seni dushman deydi. Baribir oʻrgataman. Bu mening qarorim, ularniki emas.'
       },
       again: {
-        '1': 'Qalqon yuqorida. Nima kerak?'
+        '1': 'Yana mashqqa qaytdingmi?'
       },
       train: {
-        '1': 'Unda diqqat qil. Men bir narsani bir marta koʻrsataman.'
+        '1': 'Yaxshi. Diqqat bilan qara, bir marta koʻrsataman.'
       },
       class: {
-        '1': 'Yuradigan devor. Zarbani biz qabul qilamiz, boshqa hech kim qabul qilmasligi uchun.',
-        '2': 'Qoʻl uchun Kuch, qolgani uchun Chidamlilik. Nur qoʻlidan kelganini qiladi.',
-        say: 'Egida ritsari kim?'
+        '1': 'Boshqalarga moʻljallangan zarbalarni biz qabul qilamiz. Oddiy, lekin qiyin.',
+        '2': 'Qalqon uchun Kuch, uni ushlab turish uchun Chidamlilik kerak boʻladi.',
+        say: 'Egida ritsari aslida nima qiladi?'
       },
       ready: {
         strong: {
-          '1': 'Bilganlarimning koʻpiga qoʻling yetadi. Chidamliligingga eʼtibor ber va qolganini ol.'
+          '1': 'Bilganlarimning koʻpi uchun yetarlicha kuchlisan. Chidamliligingni rivojlantirishda davom et.'
         },
         able: {
-          '1': 'Keyingi darsga tayyorsan. Boshingni aylantirmasin.'
+          '1': 'Keyingi darsga tayyorsan. Boshingga chiqmasin.'
         },
         weak: {
-          '1': 'Hozircha yoʻq. Qoʻling zaif, tez charchaysan. Koʻproq Kuch, koʻproq Chidamlilik.'
+          '1': 'Hozircha yoʻq. Qalqondan oldin oʻzing charchaysan. Koʻproq Kuch, koʻproq Chidamlilik.'
         }
       },
       order: {
-        '1': 'Yoʻllar va qonunni qoʻriqlaymiz. Baʼzilar ikkalasini ham juda koʻp deydi.',
-        '2': 'Orden bilan birga tur, shunda zirhsozlari va ustozlari seni eslab qoladi.',
+        '1': 'Yoʻllarni xavfsiz, qonunni qoʻlda tutamiz. Baʼzilar juda qattiq deydi.',
+        '2': 'Biz bilan tur, zirhsozlarimiz va ustozlarimiz seni unutmaydi.',
         say: 'Menga Temir Orden haqida ayt.'
       },
       trainBack: {
-        '1': 'Zerikmaguningcha mashq qil. Keyin yana mashq qil.'
+        '1': 'Zerikkuncha mashq qil. Keyin davom et.'
       },
       bye: {
-        '1': 'Nur bilan bor.'
+        '1': 'Ehtiyot boʻlib yur.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Oh! Shogirdmi? Biroz orqaga chekin. Yana biroz.',
-        '2': 'Ember Wren, piromant. Qoshlar qayta oʻsadi, asosan.'
+        '1': 'Voy, shogirdmi? Ajoyib. Balki sal orqaroq tur.',
+        '2': 'Men Ember Wren. Olovni oʻrgataman. Koʻpincha aytganimni qiladi.'
       },
       core: {
-        '1': 'Yadroni Doiraga berding! Endi biz nechta narsani yondira olishimizni bilasanmi?'
+        '1': 'Yadroni Doiraga berdingmi! Undan nima oʻrganishimizni koʻrishga sabrsizlanyapman.'
       },
       friend: {
-        '1': 'Efir Doirasi seni yaxshi koʻradi! Bu chegirma degani. Imzolanadigan blanklar ham kam.'
+        '1': 'Doira seni koʻp maqtaydi. Bu chegirma degani, aytgancha.'
       },
       foe: {
-        '1': 'Doira seni kul qilmoqchi. Noqulay! Baribir oʻrgataman. Olov tanlamaydi.'
+        '1': 'Doira sendan rozi emas. Baribir oʻrgataman. Jimgina.'
       },
       again: {
-        '1': 'Qaytib keldingmi! Hech narsa yonmayapti. Buni tuzatsa boʻladi.'
+        '1': 'Qaytdingmi! Nimanidir yoqishga tayyormisan?'
       },
       train: {
-        '1': 'Ha! Diqqat bilan qara. Unchalik yaqindan emas.'
+        '1': 'Mayli. Qoʻllarimga qara, yenglaringni mendan uzoq tut.'
       },
       class: {
-        '1': 'Olov har savolga javob beradi. Avval ularni yondir, keyin yonayotganlarini portlat.',
-        '2': 'Hammasi Aql bilan ishlaydi. Va tinimsiz xalat zaxirasi bilan.',
-        say: 'Piromant nima qiladi?'
+        '1': 'Koʻpincha nimanidir yoqish. Keyin olovni xohlagan joyingga yoyish.',
+        '2': 'Hammasi Aqldan keladi. Fikr qanchalik oʻtkir boʻlsa, alanga shunchalik issiq.',
+        say: 'Piromant aynan nima qiladi?'
       },
       ready: {
         strong: {
-          '1': 'Golemni eritib yubora olasan! Menda borning hammasini ol. Qiyinlari uchun Mahoratingga eʼtibor ber.'
+          '1': 'Rostini aytaymi? Buning bir qismini oʻzing oʻrgata olasan. Xohlaganingni ol.'
         },
         able: {
-          '1': 'Aqling keyingi sehr uchun yetarlicha iliq. Qani!'
+          '1': 'Keyingi sehrga tayyorsan. Qani, koʻrsataman.'
         },
         weak: {
-          '1': 'Hmm. Aqling hali kam. Olov seni ishlatadi, sen uni emas.'
+          '1': 'Hozircha yoʻq, afsus. Koʻproq Aql kerak, aks holda olov seni egallaydi.'
         }
       },
       circle: {
-        '1': 'Olimlar. Dunyo nimadan yaralganini oʻrganamiz. Baʼzilari portlaydi.',
+        '1': 'Olimlar. Dunyo nimadan yaratilganini oʻrganamiz. Baʼzilari portlaydi.',
         say: 'Efir Doirasi kimlar?'
       },
       trainBack: {
-        '1': 'Bor-da, nimanidir yondir! Munosib narsani.'
+        '1': 'Bor, mashq qil. Alangalanmaydigan joyda, iltimos.'
       },
       bye: {
-        '1': 'Iliq boʻl!'
+        '1': 'Oʻzingga yaxshi qara!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Demak, yoʻldan kelgan sensan. Yaqinroq kel, koʻzlarim avvalgidek emas.',
-        '2': 'Men Maraman. Qirq yildan beri bu shaharning daftarini va tinchligini saqlayman.'
+        '1': 'Demak, yoʻldan kelgan sensan. Kel, senga bir qarayin.',
+        '2': 'Men Maraman. Bu shaharga... voy, qirq yildan beri qarayman.'
       },
       slain: {
-        '1': 'Gʻorlar sokin. Qiyin ish qilding, Sunford shuning uchun tinch uxlaydi.'
+        '1': 'Gʻorlar tinch. Qilganing qiyin ish edi, lekin shu tufayli uxlayapmiz.'
       },
       pact: {
-        '1': 'Maydonimda taqinchoq sotayotgan goblinlar. Tiling shirin ekan, bolam. Chidasin deb umid qilaman.'
+        '1': 'Mening maydonimda goblinlar mol sotyapti. Ularni bunga sen koʻndirding, shunday emasmi?'
       },
       ransom: {
-        '1': 'Oltinini olib, tojini unga qoldirding. Xafa boʻlmaganday koʻrinish uchun juda qarib qolganman.'
+        '1': 'Oltinini olib, tojini qoldirding. Xafa boʻlmadim deb aytmayman.'
       },
       saved: {
-        '1': 'Oakhavendan xabar keldi. Darvoza bardosh berdi. Bizdan biri u yerda boʻlganidan xursandman.'
+        '1': 'Oakhavendan xabar keldi. Darvoza bardosh berdi. Sening u yerda boʻlganingdan xursandman.'
       },
       fallen: {
-        '1': 'Oakhaven yonib ketdi, mash\'alni sen ushlaganmish deyishadi. Aytma. Bilgim kelmaydi.'
+        '1': 'Oakhaven yonibdi, deyishyapti. Qanday boʻlganini eshitishni istamayman. Bugun emas.'
       },
       ending: {
-        '1': 'Dahshat qoʻrgʻonida kim oʻtirishini sen hal qilibsan deyishadi. Sunford yoʻlidan bunga qadar. Tasavvur qil.'
+        '1': 'Dahshat qoʻrgʻonining taqdirini sen hal qilibsan, deyishadi. Bizning kichik yoʻlimizdan oʻsha yerga qadar.'
       },
       again: {
-        '1': 'Biroz oʻtir. Yoʻl kutadi.'
+        '1': 'Bir zum oʻtir. Yoʻl joyida turadi.'
       },
       reward: {
-        '1': 'Militsiyamiz uddalay olmaganda yoʻlni sen ushlading. Shahar pul yigʻdi.',
-        '2': 'Koʻp emas. Ajrata olgan har bir tangamiz shu.',
-        say: 'Meni koʻrmoqchi edingizmi?'
+        '1': 'Militsiyamiz uddalay olmaganda yoʻlni sen tutding. Shahar ozgina yigʻdi.',
+        '2': 'Koʻp emas. Ajrata olganimiz shu.',
+        say: 'Kimdir meni koʻrmoqchi ekansiz, dedi?'
       },
       quest: {
-        '1': 'Bosqinlar Goblin gʻorlaridan keladi. Goblinlar oʻzlariga qirol tojini kiygizishgan.',
-        '2': 'Va siz uning oʻlishini xohlaysiz.',
-        '3': 'Bosqinlar tugashini xohlayman. Qanday boʻlishini oʻsha gʻorlarning tubida oʻzing hal qilasan.',
-        '4': 'Gʻorlar tekislikning narigi tomonida. Ehtiyot boʻlib bor.',
+        '1': 'Bosqinlar Goblin gʻorlaridan keladi. Oʻzlariga qirol tayinlashibdi.',
+        '2': 'Siz uning oʻlishini xohlaysizmi?',
+        '3': 'Bosqinlar toʻxtashini istayman. Qanday... buni u yerda, pastda oʻzing hal qilasan.',
+        '4': 'Gʻorlar tekislikning narigi tomonida. Iltimos, ehtiyot boʻl.',
         say: 'Sunfordni nima bezovta qilyapti?'
       },
       king: {
-        say: 'Goblinlar qiroli haqida…',
+        say: 'Goblinlar qiroli haqida...',
         slay: {
-          '1': 'Bir qirol oʻldi, karvonlarim oʻz vaqtida keladi. Qanday his qilganingni soʻramayman.'
+          '1': 'U ketdi, karvonlar yana yuryapti. Qanday his qilganingni soʻramayman.'
         },
         pact: {
-          '1': 'Shartnoma! Onam hushidan ketardi. Baribir, savdo janozadan yaxshi.'
+          '1': 'Savdo bitimi. Onam hushidan ketardi. Baribir savdo janozadan yaxshi.'
         },
         ransom: {
-          '1': 'Oltin tez sarflanadi. Kek sarflanmaydi. Bosqinlar qaytganda buni eslab qol.'
+          '1': 'Oltin tez tugaydi. Kek tugamaydi. Bosqinlar boshlanganda buni eslab qoʻy.'
         }
       },
       town: {
-        '1': 'Asosan dehqonlar. Bitta temirchi, bitta shifokor va bizga chidaydigan ikki ustoz.',
-        '2': 'Shu yerda dam ol, ochkolaringni sarfla va kuchliroq boʻlib chiq. Uy shuning uchun kerak.',
+        '1': 'Asosan dehqonlar. Bitta temirchi, bitta tabib, bizga chidaydigan ikki ustoz.',
+        '2': 'Safarlar orasida shu yerda dam ol. Uy shu uchun bor.',
         say: 'Menga Sunford haqida ayting.'
       },
       next: {
         say: 'Keyin qayerga borishim kerak?',
         plains: {
-          '1': 'Hammasidan oldin tekislik yoʻli. Karvonlar oʻta olmasa, ovqat yeya olmaymiz.'
+          '1': 'Avval tekislik yoʻli. Karvonlarsiz biz ovqat yemaymiz.'
         },
         hollows: {
-          '1': 'Avval Goblin gʻorlari. Bosqinlar davom etar ekan, hech narsa xavfsiz emas.'
+          '1': 'Goblin gʻorlari. Bosqinlar davom etar ekan, boshqa hech narsa xavfsiz emas.'
         },
         woods: {
-          '1': 'Sharqqa, Shivirlovchi oʻrmon orqali. Oakhavenga boruvchi yoʻl oʻsha daraxtlar ostidan oʻtadi.'
+          '1': 'Sharqqa, Shivirlovchi oʻrmon orqali. Oakhavenga boradigan yoʻl shu.'
         },
         oakhaven: {
-          '1': 'Oakhaven qamalda. Atrofi qulasa, shahar qulaydi.'
+          '1': 'Oakhaven qamalda. Atrofi qulasa, shahar ham u bilan qulaydi.'
         },
         north: {
-          '1': 'Shimolga, bolam. Kul qoyalari, undan narida Ironhold. Qanchalik uzoqqa borsang, muammo shunchalik kattalashadi.'
+          '1': 'Shimol, menimcha. Kul qoyalari, ortida Ironhold. Bu tobora qiyinlashadi.'
         }
       },
       bye: {
-        '1': 'Tirik qayt. Men har kimdan faqat shuni soʻrayman.'
+        '1': 'Bizga sogʻ-salomat qayt. Soʻrayotganim shu xolos.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Qimirlama. Yoʻq, sen yaxshisan. Odat.',
-        '2': 'Rohiba Lune. Yoʻl sindirganni men tuzataman.'
+        '1': 'Bir zum qimirlama. Yoʻq, sen yaxshisan. Odat, kechir.',
+        '2': 'Men Rohiba Luneman. Yoʻl sindirgan hamma narsani yamayman.'
       },
       again: {
-        '1': 'Hali ham butunmisan? Xafa boʻlayozdim.'
+        '1': 'Hali butunmisan? Yaxshi. Baribir oʻtir.'
       },
       heal: {
-        '1': 'Oʻtir. Dam ol. Bu yerdan sogʻ chiqasan, barcha kolbalaring toʻla.'
+        '1': 'Oʻtir, biroz dam ol. Ketishingdan oldin kolbalaringni toʻldiraman.'
       },
       mana: {
-        '1': 'Koʻk kolba, achchiq ta’m. Sehrlaring tugaganda xo‘plab ol.'
+        '1': 'Bu achchiq. Sehrlaring tugaganda ich.'
       },
       potions: {
-        '1': 'Har bir hududga bir nechta kolba olib borasan. Kerak boʻlmasdan oldin ich, keyin emas.',
-        '2': 'Koʻproq olib yurmoqchi boʻlsang, senga uzunroq kamar sotishim mumkin.',
+        '1': 'Har bir jangga bir necha kolba olib borasan. Kerak boʻlmasdan oldin ich, keyin emas.',
+        '2': 'Koʻproq olib yurmoqchi boʻlsang, senga kattaroq kamar sota olaman.',
         say: 'Iksirlar qanday ishlaydi?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblinlar sopqon toshlariga zahar surtadi. Yashil tusga kirsang, toʻgʻri qaytib kel.'
+          '1': 'Goblinlar sopqon toshlarini nimadir bilan surtadi. Koʻnglingni aynisa, menga kel.'
         },
         spiders: {
-          '1': 'Oʻrmondan oʻrgimchak chaqishlari kelyapti. Shu haftada uchta. Chaqtirmaslikka harakat qil.'
+          '1': 'Shu hafta Oʻrmondan uchta oʻrgimchak chaqishini davoladim. U yerda oyogʻingga ehtiyot boʻl.'
         },
         burns: {
-          '1': 'Shimoldan kuygan askarlar tushyapti. Kul qoyalari deyishadi. Yuradigan olov.'
+          '1': 'Askarlar shimoldan kuyish bilan tushib turibdi. Kul qoyalaridan, deyishadi.'
         }
       },
       healBack: {
-        '1': 'Kamarni toʻla, boshingni past tut.'
+        '1': 'Kamaringni toʻla, boshingni past tut.'
       },
       bye: {
-        '1': 'Muhim narsaning ustiga qon tomizma.'
+        '1': 'Tashqarida oʻzingga qara.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Uzun! Uzun shartnoma qildi. Qirol dedi uzunga yaxshi boʻl.',
-        '2': 'Grik yaxshi. Grikda yaltiroqlar bor. Uzunda oltin bor. Yaxshi juft.'
+        '1': 'Bitimni tuzgan sensan. Qirolimiz bu yerda xush kelibsan, deydi.',
+        '2': 'Men Grik. Goblinlar yasaganini sotaman. Yaxshi ish, adolatli narx.'
       },
       again: {
-        '1': 'Uzun qaytdi! Grik bildi. Yaltiroqlar uzunni chaqiradi.'
+        '1': 'Doʻst. Seni yana koʻrganimdan xursandman.'
       },
       trade: {
-        '1': 'Qirol dedi savdo, Grik savdo qiladi. Yaltiroqqa yaltiroq. Yaxshi yaltiroq.'
+        '1': 'Qara, iltimos. Buni oilam yasagan.'
       },
       king: {
-        '1': 'Qirol semiz va xursand. Bosqin yoʻq. Bosqin ogʻir ish.',
-        '2': 'Qirol deydi uzunning tili yaxshi. Goblin uchun eng katta maqtov. Deyarli.',
+        '1': 'U endi yaxshi ovqatlanadi. Bosqin yoʻq. Xalqim kamroq och.',
+        '2': 'U sen haqingda tez-tez gapiradi. Hurmat bilan.',
         say: 'Qiroling qalay?'
       },
       town: {
-        '1': 'Odamlar juda koʻp yuvinadi. Lekin pirog! Grik pirogni bilmasdi.',
+        '1': 'Odamlar hali ham tikilib qaraydi. Lekin novvoy menga pirog beradi. Men pirogni yaxshi koʻraman.',
         say: 'Sunford yoqdimi?'
       },
       rumor: {
         crags: {
-          '1': 'Grikning amakivachchalari shimolda qora toshda qazadi. Deyishadi u yerda olov yuradi. Grik shu yerda qoladi.'
+          '1': 'Amakivachchalarim shimolda qora toshni qazishadi. Endi u yerda olov yuradi, deyishadi.'
         },
         deep: {
-          '1': 'Chuqur joylar uygʻonyapti, uzun. Goblinlar oyoqda his qiladi.'
+          '1': 'Chuqur joylarda nimadir uygʻonyapti. Goblinlar buni yerda his qiladi.'
         }
       },
       shopBack: {
-        '1': 'Yaxshi savdo! Uzun yana keladi, ha?'
+        '1': 'Rahmat. Yana kel.'
       },
       bye: {
-        '1': 'Xayr, uzun! Oʻlma. Oʻliklar hech narsa olmaydi.'
+        '1': 'Salomat boʻl, doʻst.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Yana bitta qilich. Yaxshi. Ular qayerdan kelishini soʻrashni toʻxtatdim.',
-        '2': 'Kapitan Hale. Oakhaven qorovullaridan qolganlarga qoʻmondonlik qilaman.'
+        '1': 'Yana bitta qilich. Yaxshi. Topgan har birimiz kerak.',
+        '2': 'Kapitan Hale. Oakhaven qoʻriqchilaridan qolganlarga qoʻmondonlik qilaman.'
       },
       saved: {
-        '1': 'Darvoza bardosh berdi. Uch yuz yil, endi yana bir marta. Shahrimni senga qarzdorman.'
+        '1': 'Darvoza bardosh berdi. Uch yuz yil, va yana bir yil. Buning uchun senga qarzdorman.'
       },
       ending: {
-        '1': 'Dahshat qoʻrgʻonining taxtini hal qilding. Devorlarim avvalgidan kichikroq koʻrinadi.'
+        '1': 'Dahshat qoʻrgʻoniga sen qaror qilibsan, deyishadi. Uning yonida devorlarim kichik koʻrinadi.'
       },
       again: {
-        '1': 'Devorlar hali turibdi. Bugunga.'
+        '1': 'Devorlar hali turibdi. Hech boʻlmasa bugunga.'
       },
       after: {
-        '1': 'Oakhaven eslaydi, doʻstim. Men ham.'
+        '1': 'Seni koʻrganimdan xursandman. Oakhaven unutgani yoʻq.'
       },
       quest: {
-        '1': 'Bir sarkardaning qoʻshini bizni qamal qildi. Krag. U tekinga jang qilmaydi.',
+        '1': 'Yomon. Krag ismli sarkarda bizni qamal qildi, u esa tekinga jang qilmaydi.',
         '2': 'Unga kim toʻlaydi?',
         '3': 'Kul Sindikati. Ular oʻzlariga shahar istaydi, bizning shaharning esa devorlari bor.',
-        '4': 'Uni Oakhaven atrofida sindir. Qaror oʻsha yerda boʻladi.',
-        say: 'Vaziyat qanday?'
+        '4': 'Uning lagerini Oakhaven atrofida tor-mor qil. Bu ish u yerda tugaydi, qanday boʻlmasin.',
+        say: 'Ahvol qanchalik yomon?'
       },
       siege: {
-        '1': 'Ular senga shaharning uchdan birini taklif qilishdi. Bilaman. Menga toʻrtdan birini taklif qilishdi.',
-        '2': 'Sindikat endi har yoʻlda seni ovlaydi. U yerda orqangga qarab yur.',
-        say: 'Qamal haqida…'
+        '1': 'Senga shaharning uchdan birini taklif qilishdi, shundaymi? Menga toʻrtdan birini taklif qilishdi.',
+        '2': 'Sindikat endi izingga tushadi. Yoʻllarda orqangni qoʻriqla.',
+        say: 'Qamal haqida...'
       },
       town: {
-        '1': 'Savdo shahri. Tekislik va togʻlar orasida harakatlanadigan hamma narsa bu yerda oʻtish haqi toʻlaydi.',
-        '2': 'Shuning uchun hamma uni istaydi. Shuning uchun men undan voz kechmayman.',
+        '1': 'Savdo shahri. Tekislik va togʻlar orasidan oʻtadigan hamma narsa bu yerda bojxona toʻlaydi.',
+        '2': 'Shuning uchun hamma uni xohlaydi. Shuning uchun men uni bermayman.',
         say: 'Menga Oakhaven haqida ayting.'
       },
       order: {
-        '1': 'Men Oakhavenga xizmat qilaman. Orden va men koʻp kunlar kelishamiz. Bu bir narsa emas.',
-        say: 'Temir Ordenga xizmat qilasizmi?'
+        '1': 'Men Oakhavenga javob beraman. Orden bilan koʻp kunlar kelishamiz. Har kuni emas.',
+        say: 'Siz Temir Ordenga boʻysunasizmi?'
       },
       rumor: {
         crags: {
-          '1': 'Oʻrmonning shimolida yer qora va yonib turibdi. Kul qoyalari. Mazhabchilar olovni oziqlantiradi.'
+          '1': 'Oʻrmonning shimolida yer qora va yonib turibdi. Kul qoyalari. Asosan sektachilar.'
         },
         mines: {
           '1': 'Ironhold poʻlat yuborishni toʻxtatdi. Konlarida nimadir notoʻgʻri.'
         },
         north: {
-          '1': 'Uzoq shimol jimib qoldi. Tajribamga koʻra, jimlik yomonroq.'
+          '1': 'Uzoq shimol jimib qoldi. Tajribamda bu hech qachon yaxshi emas.'
         }
       },
       bye: {
-        '1': 'Qilichingni boʻsh tut.'
+        '1': 'Qilichingni yaqin tut.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Dubulgʻa istasang, kechikding. Hammasi devorda.',
-        '2': 'Odo. Zirhsoz. Charchagan.'
+        '1': 'Zarbdor dubulgʻa qidirsang, kechir. Hammasi devorda.',
+        '2': 'Odo. Zirh yasayman. Oxirgi paytlarda koʻp uxlamadim.'
       },
       again: {
-        '1': 'Hali shu yerdaman. Zaxira hali ham kam.'
+        '1': 'Hali shu yerdaman. Hali deyarli hamma narsa yetishmaydi.'
       },
       trade: {
-        '1': 'Mollarimning yarmi devorlarga chiqdi. Qolganini ol.'
+        '1': 'Tovarimning yarmi devorga ketdi. Qolganini ol, agar mos kelsa.'
       },
       who: {
-        '1': 'Yigirma yil bu shaharni zirhladim. Hammasining bir vaqtda kiyilganini koʻraman deb oʻylamagandim.'
+        '1': 'Yigirma yildan beri bu shaharga zirh kiygizaman. Hammasining bir vaqtda kiyilganini hech koʻrmaganman.'
       },
       armor: {
-        '1': 'Joyingda tursang plastina. Turmasang teri. Oʻlishni yaxshi koʻrsang xalat.',
+        '1': 'Joyingda tursang, plastina. Harakatda boʻlsang, teri. Chaqqon boʻlsang, libos.',
         say: 'Qanday zirh kiyishim kerak?'
       },
       rumor: {
         backRoom: {
-          '1': 'Qamal yorilsa, orqa xonani ochaman. Yaxshi plastinalar. Men uchun yorib ber, boʻladimi?'
+          '1': 'Qamal buzilsa, orqa xonani ochaman. Yaxshi plastina oʻsha yerda.'
         }
       },
       shopBack: {
-        '1': 'Bardosh beradi. Ehtimol.'
+        '1': 'Bardosh beradi. Hozircha bardosh berdi.'
       },
       bye: {
-        '1': 'Boshingni past tut.'
+        '1': 'Tashqarida boshingni past tut.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Sen! Kir. Orqa xona ochiq, va SEN uchun ochiq.',
-        '2': 'Endi meni Usta Odo deyishadi. Shahar tirik boʻlsa, ish yaxshi ketadi.'
+        '1': 'Mana, keldingku! Kir. Orqa xona ochiq, senga ochiq.',
+        '2': 'Endi meni Usta Odo deyishadi. Ozgina tinchlik savdoga nima qilishi kulgili.'
       },
       ending: {
-        '1': 'Darvozamdan Dahshat qoʻrgʻonigacha. Hammaga zirhingni men kiydirganman deyman.'
+        '1': 'Bizning darvozamizdan Dahshat qoʻrgʻonigacha. Hammaga zirhingni men kiygizganimni aytaman.'
       },
       again: {
-        '1': 'Darvoza qahramoni. Bugun nima boʻladi?'
+        '1': 'Seni koʻrganimdan xursandman. Bugun nima kerak?'
       },
       trade: {
-        '1': 'Bu shaharni qutqarding. Yaxshi plastinalar senga orqa xonadan chiqadi.'
+        '1': 'Yaxshi plastina tashqariga chiqdi. Koʻrishga toʻla munosibsan.'
       },
       town: {
-        '1': 'Boy. Shovqinli. Oʻtish haqidan shikoyat qiluvchi savdogarlarga toʻla.',
-        '2': 'Ajoyib. Bir haftadan beri uxlamadim.',
-        say: 'Shahar qalay?'
+        '1': 'Gavjum. Shovqinli. Bojxonadan nolayotgan savdogarlarga toʻla.',
+        '2': 'Ajoyib. Haftalardan beri bir soat ham tinch boʻlmadim.',
+        say: 'Shahar qanday?'
       },
       rumor: {
         mines: {
-          '1': 'Poʻlatim Ironholddan keladi, Ironhold esa sukut saqlayapti. Kimdir konlariga qarashi kerak.'
+          '1': 'Poʻlatim Ironholdan keladi, ular esa jim boʻlib qoldi. Kimdir ularning konlarini tekshirishi kerak.'
         },
         tundra: {
-          '1': 'Koʻrgan eng yaxshi rudam tundradan keldi. Olib kelganlar hech qaytib bormadi.'
+          '1': 'Men ishlagan eng yaxshi ruda tundradan chiqdi. Uni topganlar qaytib kelmadi.'
         }
       },
       shopBack: {
-        '1': 'Mos kelmasa, qayt. Men uni mos qilaman.'
+        '1': 'Mos kelmasa, qaytarib keltir. Tuzataman.'
       },
       bye: {
-        '1': 'Oakhaven darvozasi senga doim ochiq. Faqat senga.'
+        '1': 'Bu yerda sen doim xush kelibsan.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Sotib olasanmi, qarayapsanmi? Qarash tekin. Tegish bitta barmoqqa tushadi.',
-        '2': 'Senna. Oʻtkir tigʻlar sotaman. Nima uchunligini soʻramayman.'
+        '1': 'Qarayapsanmi yoki sotib olasanmi? Ikkalasi ham mayli. Tigʻlarga tegma.',
+        '2': 'Senna. Tigʻlar sotaman. Ular bilan nima qilishing oʻz ishing.'
       },
       saved: {
-        '1': 'Qamal yorildi. Afsus. Urush savdo uchun yaxshi. Tinchlik qarz undirish uchun.'
+        '1': 'Demak, qamal buzildi. Shahar uchun yaxshi. Lekin urush savdoyimga yaxshiroq edi.'
       },
       again: {
         '1': 'Oʻtkirroq narsa uchun qaytdingmi?'
       },
       trade: {
-        '1': 'Oʻtkir, muvozanatli va toʻlaganga sotiladi. Bugun toʻlayotgan sensan.'
+        '1': 'Oʻtkir, muvozanatli, adolatli narxda. Shoshma.'
       },
       who: {
-        '1': 'Uch urushda ikkala tomonga ham qilich sotganman. Hali shu yerdaman. Ular asosan yoʻq.'
+        '1': 'Uch urushda ikki tomonga ham sotganman. Men hali shu yerdaman. Ularning koʻpi yoʻq.'
       },
       rumor: {
         krag: {
-          '1': 'Kragning odamlari yaxshi poʻlat tashiydi. Sindikat puli. Imkoning boʻlsa ulardan tort.'
+          '1': 'Kragning odamlari yaxshi poʻlat olib yuradi. Sindikat puli. Imkon boʻlsa, olishga arziydi.'
         },
         which: {
-          '1': 'Tez tigʻlar Chaqqonlik istaydi. Miltiqlar va oʻqyoylar Mahorat. Menga toʻlashdan oldin kim ekaningni bil.'
+          '1': 'Tez tigʻlarga Chaqqonlik kerak. Kamon va miltiqqa Mahorat. Qaysi ekaningni bil.'
         }
       },
       shopBack: {
-        '1': 'Qon artiladi. Zang artilmaydi. Moyla.'
+        '1': 'Moylab tut. Zang yaxshi tigʻni suyakdan tez buzadi.'
       },
       bye: {
-        '1': 'Menga qarzdor holda oʻlma.'
+        '1': 'Menga qarzdor holda oʻlmaslikka harakat qil.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Ortingga qarama. Hazillashdim. Qara.',
-        '2': 'Meni Shivir deyishadi. Odamlarga sezdirmay yetib kelishni oʻrgataman.'
+        '1': 'Orqangdan kelganimni eshitmading. Koʻpchilik eshitmaydi.',
+        '2': 'Meni Shivir deyishadi. Odamlarga koʻrinmaslikni oʻrgataman.'
       },
       fallen: {
-        '1': 'Shahar endi tinchroq. Qorovullar kam. Menga yoqadi.'
+        '1': 'Shahar endi tinchroq. Qoʻriqchilar kam. Baʼzilarimiz uchun yengilroq ish.'
       },
       friend: {
-        '1': 'Sindikat seni doʻst sanaydi. Doʻstlar kam toʻlaydi. Doʻstlar haddan ortiq ham biladi.'
+        '1': 'Sindikat seni doʻst hisoblaydi. Doʻstlar kam toʻlaydi. Buni esingda tut.'
       },
       foe: {
-        '1': 'Sindikat oʻlganingni istaydi. Menga oʻrgatish uchun toʻlandi, oʻldirish uchun emas. Omading bor.'
+        '1': 'Sindikat oʻlishingni xohlaydi. Menga oʻrgatish uchun toʻladilar, oʻldirish uchun emas. Shuning uchun, darslar.'
       },
       again: {
-        '1': 'Oʻtgan safargidan shovqinliroqsan. Bunga ishlaymiz.'
+        '1': 'Sen hali ham juda shovqinlisan. Shu ustida ishlaymiz.'
       },
       train: {
         '1': 'Unda jim. Qoʻlimga emas, oyogʻimga qara.'
       },
       class: {
-        '1': 'Allaqachon orqangda turgan pichoq. Qorongʻilikdan chiq, ur va gʻoyib boʻl.',
-        '2': 'Hammadan oldin Chaqqonlik. Kesik hisobga olinishini istaganingda Mahorat.',
+        '1': 'Allaqachon orqangda turgan odam. Kirish, bitta kesish, va yoʻq boʻlish.',
+        '2': 'Eng muhimi Chaqqonlik. Kesish hisobga olinsin desang, Mahorat.',
         say: 'Soya tigʻi kim?'
       },
       ready: {
         strong: {
-          '1': 'Yaxshi harakatlanasan. Bilganimni ol. Tutun uchun Mahorat olib kel.'
+          '1': 'Endi yaxshi harakat qilasan. Qolganini ol. Tutun uchun biroz Mahorat olib kel.'
         },
         able: {
-          '1': 'Yaxshi. Qoʻllaring keyingi qadam uchun yetarlicha chaqqon.'
+          '1': 'Qoʻllaring yetarlicha tez. Keyingi qadam.'
         },
         weak: {
-          '1': 'Aravadek yurasan. Koʻproq Chaqqonlik. Keyin gaplashamiz.'
+          '1': 'Hozircha yoʻq. Oyoqlaring ogʻir. Chaqqonligingni ustida ishla.'
         }
       },
       syndicate: {
-        '1': 'Qonunlar sotilishini payqagan odamlar. Men hukm qilmayman. Hisob yuboraman.',
+        '1': 'Qonunning ham narxi borligini payqagan odamlar. Men hukm qilmayman. Shunchaki haqimni olaman.',
         say: 'Kul Sindikati kimlar?'
       },
       trainBack: {
-        '1': 'Endi bor-da, buni hech kim koʻrmaydigan joyda qil.'
+        '1': 'Endi hech kim koʻra olmaydigan joyda mashq qil.'
       },
       bye: {
         '1': 'Sen meni hech koʻrmading.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Yaqinlashishing mumkin. Unchalik yaqin emas.',
-        '2': 'Lord Castellan, Oakhavenning qadimiy qonidan. Men qoʻmondonlik qilishni oʻrgataman.'
+        '1': 'Yaqinlashishing mumkin. Shu yetarli.',
+        '2': 'Lord Castellan, Oakhavenning eng qadimiy oilasidan. Boshqarishni oʻrgataman.'
       },
       saved: {
-        '1': 'Shahrim turibdi, oilamning nomi ham u bilan. Sen lordning minnatdorchiligini qozonding. U juda qimmatli.'
+        '1': 'Shahrim turibdi, oilamning nomi ham u bilan. Senga rahmat. Chin dildan.'
       },
       friend: {
-        '1': 'Ordenning doʻsti. Haqimni kamaytiraman. Hech kimga aytma.'
+        '1': 'Ordenning doʻsti. Haqimni tushiraman. Iltimos, buni tarqatmang.'
       },
       foe: {
-        '1': 'Orden ismingni eʼlon qildi. Baribir oʻrgataman. Pul pul, afsuski.'
+        '1': 'Orden ismingni roʻyxatga yozgan. Baribir oʻrgataman. Pul pul-da.'
       },
       again: {
-        '1': 'Ah. Eng umidli fuqarom.'
+        '1': 'A, yana sen. Davom etamizmi?'
       },
       train: {
-        '1': 'Mayli. Buyruq qanday berilishini kuzat.'
+        '1': 'Mayli. Buyruq qanday beriladi va qanday bajariladi, shuni qara.'
       },
       class: {
-        '1': 'Boshqalar sening oʻrningga jang qila olsa, nega yolgʻiz jang qilasan? Qoʻriqchilarni chaqir. Ularga buyruq ber.',
-        '2': 'Xarizma kerak. Mingʻirlab hech kim yetakchilik qila olmaydi.',
+        '1': 'Yolgʻiz jang qilmaydigan odam. Qoʻriqchilarni chaqirasan, ular sen uchun jang qiladi.',
+        '2': 'Xarizma kerak. Ovozini eshitmagan yetakchiga hech kim ergashmaydi.',
         say: 'Buyuk hukmdor kim?'
       },
       ready: {
         strong: {
-          '1': 'Salobating bor. Darslarimning qolganini ol va tik tur.'
+          '1': 'Endi sende haqiqiy salobat bor. Darslarimning qolganini ol.'
         },
         able: {
-          '1': 'Ovozing uzoqqa yetadi. Keyingi darsga tayyorsan.'
+          '1': 'Ovozing uzoqqa boradi. Keyingi darsga tayyorsan.'
         },
         weak: {
-          '1': 'Seni hech kim non doʻkonigacha ham kuzatmaydi. Koʻproq Xarizma.'
+          '1': 'Qoʻrqamanki, hali hech kim ortingdan ergashmaydi. Xarizmang ustida ishla.'
         }
       },
       family: {
-        '1': 'Kapitan Hale turgan devorlarni biz qurdik. U unutadi. Men eslataman. Tez-tez.',
+        '1': 'Kapitan Hale turgan devorlarni biz qurganmiz. U unutadi. Men eslataman.',
         say: 'Menga oilangiz haqida ayting.'
       },
       trainBack: {
-        '1': 'Endi bor-da, gapingni oʻtkaz.'
+        '1': 'Unda bor. Kimnidir boshqar.'
       },
       bye: {
-        '1': 'Ketishing mumkin.'
+        '1': 'Kuningiz xayrli boʻlsin.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Keyingisi! Oh. Yura olasan. Yoqimli oʻzgarish.',
-        '2': 'Birodar Fenn. Devorda qirq yarador, men esa yolgʻizman.'
+        '1': 'Keyingi! Voy, sen yurib kelding. Bu yaxshi oʻzgarish.',
+        '2': 'Birodar Fenn. Devorda qirqta yarador, men esa bittaman.'
       },
       saved: {
-        '1': 'Uch kundan beri yangi yarador yoʻq! Qoʻllarim bilan nima qilishni bilmayman.'
+        '1': 'Uch kundan beri yangi yarador yoʻq. Oʻzim bilan nima qilishni bilmay qoldim.'
       },
       again: {
-        '1': 'Yana sen, hali ham yuribsan. Maʼqullayman.'
+        '1': 'Yana sen, va oʻz oyogʻing bilan. Yaxshi.'
       },
       heal: {
-        '1': 'Yot. Yoʻq, toza karavotga. Mana. Barcha kolbalar toʻla. Ket.'
+        '1': 'Mana bu yerga yot, toza karavotga. Mana. Kolbalar toʻla, bora ber.'
       },
       mana: {
-        '1': 'Mana damlamasi! Tanga ta’mi bor. Lekin ishlaydi.'
+        '1': 'Mana sharbati. Mazasi eski tanga kabi, lekin ishlaydi.'
       },
       potions: {
-        '1': 'Uzunroq kamar koʻproq kolba sigʻdiradi. Kamarlarni sotaman. Kolbalarni tekin toʻldiraman.',
+        '1': 'Uzunroq kamar bilan, ha. Ularni men sotaman. Kolbalarni toʻldirish bepul.',
         say: 'Koʻproq iksir olib yura olamanmi?'
       },
       rumor: {
         archers: {
-          '1': 'Kragning oʻqchilari oyoqlarga mo‘ljallaydi. U yerda harakatda boʻl, adashadilar.'
+          '1': 'Kragning kamonchilari pastga moʻljallaydi. Harakatda boʻl, koʻpi xato qiladi.'
         },
         north: {
-          '1': 'Kuyishlar, sovuq urishlar va haykal tishlagan deb qasam ichgan bir erkak. Shimol mehribon emas.'
+          '1': 'Men kuyish, sovuq urishi va haykal tishladi deb qasam ichgan bir erkakni koʻryapman.'
         }
       },
       healBack: {
-        '1': 'Ket endi. Keyingi safar tikuv uchun emas, suhbat uchun kel.'
+        '1': 'Bora ber. Keyingi safar tikuv uchun emas, suhbat uchun kel.'
       },
       bye: {
-        '1': 'Yurib ogʻriqni chiqar! Bu tibbiy maslahat.'
+        '1': 'Oʻzingga qara. Va biror narsa ye.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Ism yoʻq. Lekin darvozani ochgan sensan. Uni bilaman.',
-        '2': 'Meni Olibsotar de. Bu yerdagi hamma narsa aravadan tushgan.'
+        '1': 'Bu yerda ism yoʻq. Lekin darvozani kim ochganini bilaman. Hamma biladi.',
+        '2': 'Meni Olibsotar deb chaqirishing mumkin. Bu yerdagi hamma narsa qayerdandir kelgan.'
       },
       foe: {
-        '1': 'Sindikat bugun seni yoqtirmaydi. Oltiningni esa hali ham yoqtiradi.'
+        '1': 'Sindikat hozir seni yoqtirmaydi. Lekin oltining har doim xush kelibsan.'
       },
       again: {
-        '1': 'Ah. Eng yaxshi mijozim. Orqangdan hech kim ergashmadimi? Yaxshi.'
+        '1': 'Yana keldingmi. Hech kim ortingdan ergashmadi deb umid qilaman?'
       },
       trade: {
-        '1': 'Ism yoʻq, savol yoʻq. Sindikat ulushini oladi, sen molni olasan.'
+        '1': 'Ikki tomondan ham savol yoʻq. Sindikat ulushini oladi, sen tovarni olasan.'
       },
       who: {
-        '1': 'Yongʻindan oldin sham sotardim. Qonuniy yoʻl bilan. Dahshatli edi.'
+        '1': 'Yongʻindan oldin sham sotardim. Halol ish. Foyda bermadi.'
       },
       armor: {
-        '1': 'Zirhsozlar ketdi, doʻstim. Yonib ketishdi. Sen bilasan.',
+        '1': 'Zirhsozlar ketdi, doʻst. Sababini mendan yaxshi bilasan.',
         say: 'Sotiladigan zirh bormi?'
       },
       rumor: {
         citadel: {
-          '1': 'Oʻtgan yili uzoq shimolda qalʼa paydo boʻldi. Uni hech kim qurmagan. Devorlari vizillaydi.'
+          '1': 'Oʻtgan yili uzoq shimolda bir qalʼa paydo boʻldi. Uni hech kim qurmagan.'
         },
         crystals: {
-          '1': 'Kimdir bozordagi har bir boʻshliq kristalini sotib olyapti. Biz emas. Bu meni tashvishga soladi.'
+          '1': 'Kimdir topa olgan har bir boʻshliq kristalini sotib olyapti. Biz emas. Bu meni tashvishga soladi.'
         }
       },
       shopBack: {
         '1': 'Sen bu yerda hech boʻlmagansan.'
       },
       bye: {
-        '1': 'Vayronalarga ehtiyot boʻl.'
+        '1': 'Oyogʻingga ehtiyot boʻl. Vayronalar siljiydi.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Mehmon. Bankalarga ehtiyot boʻl.',
-        '2': 'Doktor Sangrel. Oakhavenning yangi egalari nimani oʻrgatishimni soʻramaydi. Tetiklantiruvchi.'
+        '1': 'Mehmon. Iltimos, bankalarga tegmang.',
+        '2': 'Doktor Sangrel. Oakhavenning yangi egalari nima oʻrgatayotganimni soʻramaydi. Bu xotirjamlik beradi.'
       },
       found: {
         '1': 'Meni topding. Bunday joyda shifokor qidiradiganlar kam.',
-        '2': 'Doktor Sangrel. Shaharlar mendaylarni yondiradi, shuning uchun shahar yoʻq joyda ishlayman.'
+        '2': 'Doktor Sangrel. Shaharlar menga oʻxshaganlarni yoqadi, shuning uchun shahar yoʻq joyda ishlayman.'
       },
       friend: {
-        '1': 'Sindikat senga kafolat beradi. Doʻstlari uchun haqim past. Talablarim emas.'
+        '1': 'Sindikat sening nomingdan gapiradi. Doʻstlaridan kam olaman. Talablarim oʻsha-oʻsha.'
       },
       foe: {
-        '1': 'Sindikat qoning uchun menga toʻlardi. Uni darslarimga sarflaganing maʼqul.'
+        '1': 'Sindikat qoningga yaxshi toʻlardi. Uni shu yerda sarflashingni afzal koʻraman.'
       },
       again: {
-        '1': 'Rangingiz oqargan. Yaxshi. Ishga yarashadi.'
+        '1': 'Rangpar koʻrinasan. Yaxshi. Ishga yarashadi.'
       },
       train: {
-        '1': 'Yengingni shimar. Ogʻriydi. Maqsad ham shu.'
+        '1': 'Yengingni shimar. Ogʻriydi. Gap ham shunda.'
       },
       class: {
-        '1': 'Kuchning haqini oʻz sogʻligʻing bilan toʻlaysan. Keyin uni dushmandan qaytarib ichasan.',
-        '2': 'Chidamlilik hamyoning. Aql uni qanchalik yaxshi sarflashingni hal qiladi.',
+        '1': 'Kuchning haqini oʻz salomatliging bilan toʻlaysan, keyin uni dushmanlaringdan qaytarib olasan.',
+        '2': 'Chidamlilik sarflaydiganing. Aql esa qanchalik yaxshi sarflashing.',
         say: 'Qon alkimyogari kim?'
       },
       ready: {
@@ -1953,288 +1953,288 @@ export default {
           '1': 'Ajoyib tana. Deyarli hammasini oʻrgana olasan.'
         },
         able: {
-          '1': 'Qoning keyingi dars uchun yetarlicha kuchli.'
+          '1': 'Keyingi dars uchun yetarlicha mustahkamsan.'
         },
         weak: {
-          '1': 'Birinchi kesikda hushingdan ketasan. Koʻproq Chidamlilik, iltimos.'
+          '1': 'Birinchi kesishdayoq hushingdan ketasan. Avval Chidamliligingni oshir, iltimos.'
         }
       },
       jars: {
-        '1': 'Ixtiyoriylar. Asosan.',
+        '1': 'Namunalar. Koʻpi ixtiyoriy berilgan.',
         say: 'Bankalarda nima bor?'
       },
       trainBack: {
-        '1': 'Yozuvlar yuritishni unutma. Fan uchun.'
+        '1': 'Yozib bor. Qanday oʻtganini eshitgim keladi.'
       },
       bye: {
-        '1': 'Sogʻ boʻl. Aks holda menga foydang yoʻq.'
+        '1': 'Sogʻ boʻl. Jiddiy aytyapman.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Demak, darvozani ochgan sensan. Oʻtir. Kursiga munosib boʻlding.',
-        '2': 'Meni Madam Ash deyishadi. Oakhaven endi meniki. Qisman seniki ham.'
+        '1': 'Demak, darvozani ochgan sensan. Oʻtir. Stulni oʻz mehnating bilan topding.',
+        '2': 'Meni Madam Ash deyishadi. Oakhaven endi bizniki. Qisman sening sharofating bilan.'
       },
       throneOurs: {
-        '1': 'Dahshat qoʻrgʻonining taxti. Bizniki. Sen qilgan eng yaxshi sarmoyam boʻlding.'
+        '1': 'Dahshat qoʻrgʻoni bizning qoʻlimizda. Har bir tangaga arzidi.'
       },
       throneLost: {
-        '1': 'Taxtni boshqaga berib yubording. Bu haqda gaplashamiz. Bugun emas.'
+        '1': 'Taxtni boshqaga berding. Bu haqda gaplashamiz. Bugun emas.'
       },
       foe: {
-        '1': 'Sen bizga qarshi chiqib yurding. Baribir oʻtir. Muammoni hal qilishdan oldin unga qarashni yoqtiraman.'
+        '1': 'Sen bizga qarshi ishlading. Baribir oʻtir. Kim bilan ish koʻrayotganimni bilishni yoqtiraman.'
       },
       again: {
-        '1': 'Eng yaxshi koʻrgan xoinim. Sindikat sen uchun nima qila oladi?'
+        '1': 'Yana keldingmi. Sindikat sen uchun nima qila oladi?'
       },
       cut: {
-        '1': 'Xarobaning uchdan biri, azizim. Mana bu mavsumning ulushi.',
-        '2': 'Oʻsadi. Xaroba juda foydali, yagona bozoriga egalik qilsang.',
-        say: 'Siz menga Oakhavenning uchdan birini va’da qilgan edingiz.'
+        '1': 'Va olasan. Hozircha xarobaning ulushi. Mana, shu mavsumniki.',
+        '2': 'Oʻsadi. Yagona bozoriga ega boʻlsang, xaroba juda yaxshi daromad beradi.',
+        say: 'Menga Oakhavendan ulush vaʼda qilingan edi.'
       },
       syndicate: {
-        '1': 'Hamma istagan narsani. Biz shunchaki boshqacha koʻrinmaymiz.',
-        '2': 'Doʻstimiz boʻlib qol, shunda Shivir va Doktor sendan kam oladi. Sadoqatning ham narx roʻyxati bor.',
-        say: 'Sindikat nima istaydi?'
+        '1': 'Hamma xohlagan narsani. Biz shunchaki boshqacha koʻrinmaymiz.',
+        '2': 'Doʻst qol, Shivir va Doktor sendan kam oladi.',
+        say: 'Sindikat aslida nimani xohlaydi?'
       },
       order: {
-        '1': 'Albatta. Sen ularning bitta shahrini yondirding. Koʻproq iksir ol.',
-        say: 'Temir Orden meni ovlayapti.'
+        '1': 'Albatta. Sen ularning bir shaharini yoqding. Qoʻshimcha iksir olib yur.',
+        say: 'Temir Orden ortimdan tushdi.'
       },
       rumor: {
         core: {
-          '1': 'Mitti odamlar konlarida nimadir topishdi. Yadro. Men uni istayman. Bizga olib kel va raqam ayt.'
+          '1': 'Mittilar konlarida nimadir topishdi. Yadro. Bizga olib kel va narxini ayt.'
         },
         sold: {
-          '1': 'Yadro sogʻ-salomat yetib keldi. Uning qulfga nima qilishini koʻrishing kerak.'
+          '1': 'Yadro sogʻ-salomat yetib keldi. Uning qulfga nima qilishiga hayron qolasan.'
         },
         north: {
-          '1': 'Oʻgʻirlashga arziydigan hamma narsa shimolga koʻchdi. Biz ham.'
+          '1': 'Egalik qilishga arziydigan hamma narsa shimolga koʻchdi. Biz ham.'
         }
       },
       bye: {
-        '1': 'Begona boʻlma. Begonalar kuzatiladi.'
+        '1': 'Begona boʻlma. Begonalarga koʻz-quloq boʻlamiz.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Konlar orqali kelding. Ustingdagi changning hidini sezyapman.',
-        '2': 'Dorn. Ironholdning bosh temirchisi. Menda togʻdek muammo bor.'
+        '1': 'Konlar orqali keldingmi. Ustingdagi changning hidini sezyapman.',
+        '2': 'Dorn. Ironholdning bosh temirchisi. Va menda togʻdek muammo bor.'
       },
       destroyed: {
-        '1': 'Yorugʻlik oʻchdi, golemlar parcha-parcha. Konchilarim kecha kechasi qoʻshiq aytdi. Bir yilda birinchi marta.'
+        '1': 'Yorugʻlik oʻchdi, golemlar parcha-parcha. Konchilarim kecha qoʻshiq aytdi. Bir yilda birinchi marta.'
       },
       studied: {
-        '1': 'Choʻgʻxonalarimda koʻk olov, zallarimda xalatlar. Ish yaxshi. Xalatlarga oʻrganaman.'
+        '1': 'Choʻgʻxonalarimda koʻk olov, zallarimda xalatli olimlar. Hech boʻlmasa ish yaxshi.'
       },
       sold: {
-        '1': 'Sotib yubording. Golemlar hali yuribdi, konlarim hali ham qabr. Yorugʻimdan chiq.'
+        '1': 'Sotib yubording. Golemlar hali yuribdi, konlarim hali qabr. Meni tinch qoldir.'
       },
       ending: {
-        '1': 'Demak, taxt hal boʻldi. Yaxshi. Endi qirollik yana temir ustida bahslashishga qaytishi mumkin.'
+        '1': 'Demak, taxt hal boʻldi. Yaxshi. Endi balki qazishga qaytarmiz.'
       },
       again: {
-        '1': 'Gapir. Choʻgʻxona kutmaydi.'
+        '1': 'Nima gap? Choʻgʻxona kutmaydi.'
       },
       quest: {
-        '1': 'Temir uchun qazidik, yurakka duch keldik. Efir yadrosi. U pastda qorongʻilikda uradi.',
+        '1': 'Temir uchun qazidik, yurak topdik. Efir yadrosi. Uning urishini his qilish mumkin.',
         '2': 'Golemlar-chi?',
-        '3': 'Ular uning ritmida yuradi. Uch kuch uni soʻrab menga yozdi. Hammasi muloyim. Hech biriga ishonmayman.',
-        '4': 'Unga birinchi sen yetib borasan, Ironhold konlarining tubida. Keyin uning taqdiri sening qoʻlingda.',
+        '3': 'Ular uning ritmida yuradi. Uch kuch uni soʻrab xat yozdi. Hech biriga ishonmayman.',
+        '4': 'Unga avval sen yetasan, Ironhold konlarining tubida. Keyin nima boʻlishi senga bogʻliq.',
         say: 'Konlarda nima boʻldi?'
       },
       core: {
-        say: 'Yadro haqida…',
+        say: 'Yadro haqida...',
         destroy: {
-          '1': 'Xalqimni qutqarish uchun moʻjizani sindirding. Orden minnatdorchilik sifatida zirhsozlar yubordi. Men pivo yubordim.'
+          '1': 'Xalqimni qutqarish uchun bir moʻjizani sindirding. Orden zirhsozlar yubordi. Men pivo yubordim.'
         },
         study: {
-          '1': 'Doiraning ustalari telba, lekin miltiqlari toʻgʻri otadi. Adolatli savdo.'
+          '1': 'Doira odamlari gʻalati, lekin miltiqlari toʻgʻri otadi. Bas.'
         },
         sell: {
-          '1': 'Oltin. Buni oltin uchun qilding. Seni isitsin deb umid qilaman.'
+          '1': 'Buni oltin uchun qilding. Seni isitsin deb umid qilaman.'
         }
       },
       town: {
-        '1': 'Konlar ishlaganda qirollikning eng yaxshi poʻlati.',
+        '1': 'Qirollikdagi eng yaxshi poʻlat, konlar ishlaganda.',
         '2': 'Toshoyoq erni oʻrgatadi, Pim mashinalarni. Ikkalasi ham qulogʻingni yeydi.',
         say: 'Menga Ironhold haqida ayting.'
       },
       rumor: {
         tundra: {
-          '1': 'Qoyalarning sharqida yer oqaradi. Ayoz tundrasi. Devlar va yotmaydigan oʻliklar.'
+          '1': 'Qoyalarning sharqida yer oqaradi. Ayoz tundrasi. Gigantlar va bundan battarlari.'
         },
         citadel: {
-          '1': 'Josuslarim shimolda oʻtgan yili yoʻq boʻlgan qalʼani koʻrdi. Yangi togʻlarni yoqtirmayman.'
+          '1': 'Kuzatuvchilarim shimolda oʻtgan yili boʻlmagan qalʼani koʻrishdi. Menga yoqmayapti.'
         },
         fortress: {
-          '1': 'Dahshat qoʻrgʻoni hammasi tugaydigan joy. Shimolga boradigan har bir yoʻl uning darvozasiga olib boradi.'
+          '1': 'Hammasi Dahshat qoʻrgʻonida tugaydi. Shimolga boradigan har bir yoʻl oʻshanga olib boradi.'
         }
       },
       bye: {
-        '1': 'Aniq ur.'
+        '1': 'Salomat boʻl.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Vitrinadan qoʻlingni ol. Bular ikki tomondan ham oʻtkir.',
-        '2': 'Hilda Hammerhand. Mitti odamlar ishi, har bir buyum.'
+        '1': 'Vitrinaga ehtiyot boʻl. Bular ikki tomondan ham oʻtkir.',
+        '2': 'Hilda Hammerhand. Bu yerdagi har bir buyum mittilar qoʻlida yasalgan.'
       },
       dragon: {
-        '1': 'Ajdarni oʻldirdingmi? MENING bir qurolim bilanmi? Yoʻqmi? Menga yolgʻon ayt. Meniki edi de.'
+        '1': 'Ajdarni oʻldirdingmi? Umid qilaman, mening tigʻlarimdan biri bilan.'
       },
       again: {
         '1': 'Haqiqiy poʻlat uchun qaytdingmi?'
       },
       trade: {
-        '1': 'Mitti odamlar ishi. Sinsa, ayb sendan.'
+        '1': 'Mittilar yasagan. Bulardan biri sinsa, qanday singanini bilmoqchiman.'
       },
       who: {
-        '1': 'Onam qirollar uchun urgan. Men kirgan har kim uchun uraman. Zamon oʻzgaradi.'
+        '1': 'Onam shohlar uchun temir urgan. Men eshikdan kim kirsa, shu uchun uraman.'
       },
       rumor: {
         golems: {
-          '1': 'Konlardagi golemlar oʻz temirimizdan yasalgan. Rostini aytsam, uyat.'
+          '1': 'U yerdagi golemlar oʻz temirimizdan yasalgan. Ogʻritadi, rostini aytsam.'
         },
         arm: {
-          '1': 'Tigʻ ishning yarmini qiladi. Qolganini Kuching qiladi. Tigʻni ayblama.'
+          '1': 'Yaxshi tigʻ ishning yarmini qiladi. Qolganini sening Kuching qilishi kerak.'
         }
       },
       shopBack: {
-        '1': 'Oʻtmas qilib olib kelsang, ishlatganingni bilaman.'
+        '1': 'Oʻtmaslashgan holda qaytarsang, yaxshi ishlatganingni tushunaman.'
       },
       bye: {
-        '1': 'Qattiq ur ularni.'
+        '1': 'Qattiq ur.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Ehtiyot boʻl! U toʻldirilgan. Bu ham. Aslida koʻpchiligi.',
-        '2': 'Usta Voss. Doira meni yadro bizga nimani oʻrgata olishini koʻrish uchun yubordi. Hamma narsani, ekan.'
+        '1': 'Ehtiyot boʻl, u toʻldirilgan. Koʻpchiligi shunday, aslida.',
+        '2': 'Usta Voss. Doira meni yadroni oʻrganishga yubordi. U bizga juda koʻp narsa oʻrgatdi.'
       },
       again: {
-        '1': 'Oh yaxshi, sinovchi. Yaʼni, mijoz.'
+        '1': 'A, yaxshi. Sen ketganingdan beri bir necha oʻzgarish qildim.'
       },
       trade: {
-        '1': 'Doiraning yadroni oʻrganishi hamma narsani oʻzgartirdi. Buni ushla. Menga qaratma.'
+        '1': 'Bu yerdagi hamma narsa yadroni oʻrganishdan chiqqan. Faqat menga toʻgʻrilama.'
       },
       core: {
-        '1': 'U temir ozgina oʻylay oladi. Bunga eʼtibor bermaslikka harakat qilaman.',
+        '1': 'U metall biroz oʻylay oladi. Bu haqda koʻp oʻylamaslikka harakat qilaman.',
         say: 'Yadro sizga nimani oʻrgatdi?'
       },
       rumor: {
         heat: {
-          '1': 'Miltiqlar Mahorat bilan ishlaydi va qiziydi. Qoʻlingni eritishdan oldin Mexanik Pimdan issiqlik haqida soʻra.'
+          '1': 'Miltiqlar Mahorat bilan ishlaydi va qiziydi. Qoʻlingni kuydirishdan oldin Pimdan issiqlik haqida soʻra.'
         }
       },
       shopBack: {
-        '1': 'Har bir portlashni xabar qil! Yozuvlar uchun.'
+        '1': 'Qanday ishlaganini menga bildir. Yozib boryapman.'
       },
       bye: {
-        '1': 'Tepkidan ehtiyot boʻl!'
+        '1': 'Teskari zarbaga ehtiyot boʻl.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Zirh. Halqalar laganda.'
+        '1': 'Garrun. Zirhlar javonda, uzuklar patnisda.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Qaytding. Nima kerak?'
       },
       trade: {
-        '1': 'Devning tayogʻini qaytaradigan plastina. Qolganlaringiz uchun halqalar.'
+        '1': 'Bu plastina gigantning tayogʻini toʻxtatadi. Bir qara.'
       },
       quiet: {
-        '1': 'Yoʻq.',
-        say: 'Siz koʻp gapirmaysiz.'
+        '1': 'Aytishga arziydigan koʻp narsa yoʻq.',
+        say: 'Koʻp gapirmaysan, shundaymi?'
       },
       rumor: {
         giants: {
-          '1': 'Tundrada devlar. Daraxt tanasidek tayoqlar. Ogʻir plastina ol.'
+          '1': 'Tundrada gigantlar bor. Daraxt tanasidek tayoqlar. Men ogʻir plastinani olardim.'
         },
         demons: {
-          '1': 'Shimolda iblislar. Olov va changal. Ogʻir plastina ol.'
+          '1': 'Shimolda iblislar bor. Olov va tirnoq. Men ogʻir plastinani olardim.'
         }
       },
       shopBack: {
-        '1': 'Yaxshi.'
+        '1': 'Yaxshi tanlov.'
       },
       bye: {
-        '1': 'Ha.'
+        '1': 'Oʻzingga qara.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Ism va ish. Yoʻq. Ismingni bilaman. Yadroni sen yoʻq qilding.',
-        '2': 'Temir Ordenning taʼminotchisi. Uning qurol omborlari senga ochiq.'
+        '1': 'Yadroni yoʻq qilgan sensan. Orden buni eslaydi.',
+        '2': 'Men bu yerdagi Orden taʼminotchisiman. Qurol-yarogʻ omborlarimiz senga ochiq.'
       },
       throneOurs: {
-        '1': 'Orden Dahshat qoʻrgʻonini sening qoʻling bilan tutib turibdi. Erkin tur. Bu buyruq.'
+        '1': 'Sening sharofating bilan Orden Dahshat qoʻrgʻoniga ega. Dam ol. Buni oʻz mehnating bilan topding.'
       },
       foe: {
-        '1': 'Orden seni roʻyxatga kiritdi. Buyrugʻim baribir senga sotish. Yoqtirmayman.'
+        '1': 'Orden seni roʻyxatga olgan. Buyruqlarim baribir senga sotishni aytadi. Bajaraman.'
       },
       again: {
-        '1': 'Talabnoma?'
+        '1': 'Nima kerak?'
       },
       trade: {
-        '1': 'Orden yadroni kim yoʻq qilganini eslaydi. Kerakli narsani tanla.'
+        '1': 'Kerakligini ol. Orden oʻz odamlariga gʻamxoʻrlik qiladi.'
       },
       order: {
-        '1': 'Hech narsa. Bu kam uchraydi. Zavqlan.',
+        '1': 'Hozircha hech narsa. Bu tez-tez boʻlmaydi. Zavqlan.',
         say: 'Orden mendan nima istaydi?'
       },
       rumor: {
         throne: {
-          '1': 'Orden Dahshat qoʻrgʻonidagi taxtni istaydi. Kim u bilan birga turganini eslaydi.'
+          '1': 'Orden Dahshat qoʻrgʻonidagi taxtni xohlaydi. Kim yordam bergani esida qoladi.'
         }
       },
       shopBack: {
-        '1': 'Mana bu yerga imzo qoʻy. Hazillashdim. Orden hazillashmaydi. Tarqaling.'
+        '1': 'Yaxshi qara. Ichida qon toʻkmaguningcha u Ordenniki.'
       },
       bye: {
-        '1': 'Tarqaling.'
+        '1': 'Vazifangni davom ettir.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Sekin bo‘l. Togʻ hech qayoqqa ketmaydi.',
+        '1': 'Sekin. Togʻ hech qayoqqa ketmaydi.',
         '2': 'Meni Keksa Toshoyoq deyishadi. Erni tinglayman. Baʼzan u javob beradi.'
       },
       core: {
-        '1': 'Togʻning yurak urishi oʻzgardi. Bu sen eding. U sezdi.'
+        '1': 'Sen u yerga tushganingdan beri togʻ boshqacha his qilinadi. Tinchroq, yoki boʻshroq.'
       },
       dragon: {
-        '1': 'Kecha choʻqqi ustidan ajdar uchib oʻtdi va bizni yondirmadi. Sening ishing, eshitdim.'
+        '1': 'Kecha bir ajdar choʻqqi ustidan uchib oʻtdi va bizni tinch qoldirdi. Sening ishing, deyishadi.'
       },
       again: {
-        '1': 'Yana sen. Toshlar kelishingni aytgan edi.'
+        '1': 'Mana, keldingku. Qaytasan deb oʻylagandim.'
       },
       train: {
-        '1': 'Oyoqlaringni mahkam bos. Sezyapsanmi? Yoʻqmi? Oʻshandan boshlaymiz.'
+        '1': 'Oyoqlaringni tirab tur. His qildingmi? Yoʻqmi? Biz shu yerdan boshlaymiz.'
       },
       class: {
-        '1': 'Devorlar koʻtaramiz, tikanlarni chaqiramiz, kerak boʻlganda yerni yorib ochamiz.',
-        '2': 'Toshni siljitish uchun Kuch, undan muloyimlik bilan soʻrash uchun Aql.',
-        say: 'Geomant kim?'
+        '1': 'Devorlar koʻtaramiz, tikanlarni chaqiramiz, kerak boʻlsa yerni yaramiz.',
+        '2': 'Toshni qimirlatish uchun Kuch. Uning qayerga bormoqchi ekanini bilish uchun Aql.',
+        say: 'Geomant nima qiladi?'
       },
       ready: {
         strong: {
-          '1': 'Tosh seni endi taniydi. Qolganini oʻrgan.'
+          '1': 'Tosh endi seni taniydi. Qolganini tayyor boʻlganingda oʻrgan.'
         },
         able: {
-          '1': 'Keyingi dars uchun yetarlicha ogʻirsan. Bu maqtov.'
+          '1': 'Keyingi dars uchun yetarlicha barqarorsan.'
         },
         weak: {
-          '1': 'Tosh seni hali eshitmaydi. Koʻproq Kuch.'
+          '1': 'Hozircha yoʻq. Tosh sen uchun qimirlamaydi. Kuchingni oshir.'
         }
       },
       factions: {
-        '1': 'Hech biriga. Ordenlar, sindikatlar, doiralar. Togʻ ularning hammasidan uzoq yashaydi.',
+        '1': 'Hech biriga. Ordenlar va gildiyalar kelib-ketadi. Togʻ qoladi.',
         say: 'Qaysi guruhga xizmat qilasiz?'
       },
       trainBack: {
-        '1': 'Muloyimlik bilan bor. Keyin muloyimliksiz.'
+        '1': 'Shoshma. Yer sabrli.'
       },
       bye: {
         '1': 'Yengil qadam tashla.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Unga tegma! Bunga ham. Aslida gilamda tur. Gilam xavfsiz.',
-        '2': 'Mexanik Pim! Miltiqlar, minoralar, issiqlik oʻlchagichlar. Asosan issiqlik oʻlchagichlar.'
+        '1': 'Ah, toʻxta, unga tegma! Bunga ham. Gilam ustida tur, gilam xavfsiz.',
+        '2': 'Mexanik Pim. Miltiqlar, minoralar va juda koʻp issiqlik oʻlchagichlar yasayman.'
       },
       core: {
-        '1': 'Yadroni bizga berding! Toʻqqiz kundan beri uxlamadim. Qoʻllarimga qara. Qoʻllarimga qarama.'
+        '1': 'Yadroni Doiraga berdingmi! Shundan beri zoʻrgʻa uxladim. Yaxshi maʼnoda.'
       },
       oracle: {
-        '1': 'Doira bashoratchiga gʻazablangan. Men shunchaki narsalar yasayman. Iltimos, senga oʻrgatganimni ularga aytma.'
+        '1': 'Doira bashoratchi tufayli gʻazablangan. Men shunchaki narsalar yasayman. Aralashmaganni afzal koʻraman.'
       },
       friend: {
-        '1': 'Doiraning doʻsti! Senga arzonroq darslar. Blankni oʻzim toʻldirdim.'
+        '1': 'Sen Doiraning doʻstisan, shuning uchun darsing arzonroq. Hujjatini men hal qildim.'
       },
       foe: {
-        '1': 'Doira senga oʻrgatmasligim kerak deydi. Doira shuningdek uy ichida raketa sinamaslikni ham aytadi.'
+        '1': 'Doira menga senga oʻrgatmaslik kerak deydi. Baribir oʻrgataman. Ularga aytma.'
       },
       again: {
-        '1': 'Oh yaxshi, barmoqlaring joyida.'
+        '1': 'Oh yaxshi, barmoqlaring hali joyida.'
       },
       train: {
-        '1': 'Mayli! Avval xavfsizlik. Keyin shovqinli qism.'
+        '1': 'Mayli. Avval xavfsizlik, keyin shovqinli qism.'
       },
       class: {
-        '1': 'Miltiqlar, minoralar va issiqlik oʻlchagich. Ot, qur va seni qulflab qoʻymasidan oldin issiqlikni chiqar.',
-        '2': 'Hammasi Mahorat bilan ishlaydi. Katta mashinalar uchun ozgina Aql.',
+        '1': 'Miltiqlar, minoralar va issiqlik oʻlchagich. Ot, qur va qulflanmasdan oldin issiqlikni chiqar.',
+        '2': 'Asosan Mahorat. Katta mashinalar uchun biroz Aql.',
         say: 'Efir texnigi kim?'
       },
       ready: {
         strong: {
-          '1': 'Minorani koʻzingni yumib ajrata olasan! Katta mashinalarni ol.'
+          '1': 'Endi minora atrofida oʻzingni bilasan. Katta mashinalarni ol.'
         },
         able: {
-          '1': 'Mustahkam qoʻllar! Keyingi qurilmaga tayyorsan.'
+          '1': 'Barqaror qoʻllar. Keyingisiga tayyorsan.'
         },
         weak: {
-          '1': 'Qoʻllaring titrayapti. Meniki ham, lekin boshqa sabablarga koʻra. Koʻproq Mahorat.'
+          '1': 'Nishoning hali sal titraydi. Mahoratga bir necha ochko sol.'
         }
       },
       heat: {
-        '1': 'Hammasi bir necha soniyaga qulflanadi. Erta chiqar. Tez-tez chiqar. Menda chandiqlar bor.',
+        '1': 'Hammasi bir necha soniyaga qulflanadi. Erta chiqar, tez-tez chiqar. Menga ishon.',
         say: 'Haddan tashqari qizib ketsam nima boʻladi?'
       },
       trainBack: {
-        '1': 'Esingda tut: issiqlikni chiqar! CHIQAR. ISSIQLIKNI.'
+        '1': 'Va issiqlik seni chiqarmasdan oldin uni chiqarishni unutma.'
       },
       bye: {
-        '1': 'Portlama!'
+        '1': 'Tashqarida ehtiyot boʻl!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Etigingni yech. Polimda togʻ changi boʻlishini istamayman.',
-        '2': 'Brynja ona. Bu togʻdagi har bir singan suyakni ikki marta joyiga qoʻyganman.'
+        '1': 'Poyabzalni eshik oldida yech, iltimos. Hozirgina supurdim.',
+        '2': 'Brynja ona. Bu togʻdagi singan suyaklarning koʻpini men joyiga solganman.'
       },
       ending: {
-        '1': 'Dahshat qoʻrgʻoniga borib, yurib qaytding. Oʻtir. Senga qarashni istayman.'
+        '1': 'Dahshat qoʻrgʻoniga borib, qaytding. Oʻtir. Senga qarayin.'
       },
       again: {
-        '1': 'Hali tirik. Menga bu mening sharofatim deyishdi.'
+        '1': 'Hali tirikmisan. Yaxshi. Oʻtir.'
       },
       heal: {
-        '1': 'Oʻtir. Buni ich. Unday basharangni burishtirma. Kolbalaring toʻldi.'
+        '1': 'Buni ich, va u yuzni qilma. Kolbalaring toʻla.'
       },
       mana: {
-        '1': 'Mana. Ta’mi jirkanch. Sehring tugaganda ich, oldin emas.'
+        '1': 'Mana. Mazasi dahshatli. Sehring tugaganda ich, undan oldin emas.'
       },
       potions: {
-        '1': 'Mendan uzunroq kamar sotib ol. Besh kolba — tana koʻtarib yugura oladigan eng koʻpi.',
+        '1': 'Senga uzunroq kamar sota olaman. Besh kolba — hech kim koʻtarib yana yugura oladigan eng koʻpi.',
         say: 'Koʻproq iksir olib yura olamanmi?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra barmoqlarni oladi. U yerda harakatda boʻl va qorda uxlama.'
+          '1': 'Tundra barmoqlarni oladi. Harakatda boʻl, qorda uxlama.'
         },
         temple: {
-          '1': 'Tundraning narigi tomonida choʻkkan ibodatxona bor. Nagalar asir olmaydi.'
+          '1': 'Tundraning narigi tomonida choʻkkan ibodatxona bor. Undagi nagalar asir olmaydi.'
         },
         rift: {
-          '1': 'Boʻshliq yorigʻida nima boʻlsa, uni tikib boʻlmaydi. Tez tugat.'
+          '1': 'Oʻsha yorigʻda nima boʻlsa, uni tika olmayman. Senga yetib kelishiga yoʻl qoʻyma.'
         }
       },
       healBack: {
-        '1': 'Ket endi. Va nimadir ye.'
+        '1': 'Bora ber. Va biror narsa ye, juda ozgʻinsan.'
       },
       bye: {
         '1': 'Butun qayt.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Sen. Darvozamni sen ochding.',
-        '2': 'Endi mitti odamning yerto‘lasidan dars beraman, chunki ovqat yeyishim kerak. Buni kechirim deb oʻylama.'
+        '1': 'Sen. Darvozamni ochgan sensan.',
+        '2': 'Hozir yertoʻlada dars beraman, chunki ovqat yeyish kerak. Buni kechirim deb oʻylama.'
       },
       ending: {
-        '1': 'Taxt hal boʻldi, Oakhaven esa hali kul. Bunga arzishini yana tushuntirib ber.'
+        '1': 'Demak, taxt hal boʻldi, Oakhaven esa hali kul. Umid qilaman, bunga arzidi.'
       },
       again: {
-        '1': 'Xoin qaytdi. Haqim kamaygani yoʻq.'
+        '1': 'Qaytding. Haqim oʻzgarmagan.'
       },
       train: {
-        '1': 'Senga qoʻmondonlik qilishni oʻrgataman. Unga munosib boʻlishni oʻrgata olmayman.'
+        '1': 'Senga boshqarishni oʻrgataman. Bunga loyiqmisan yoʻqmi, bu boshqa masala.'
       },
       class: {
-        '1': 'Ortidan ergashiladigan kishi. Qoʻriqchilar chaqiruvga javob beradi va soʻzing bilan jang qiladi.',
-        '2': 'Xarizma bilan ishlaydi. Senda ozgina bor. Fojia ham shu.',
+        '1': 'Boshqalar ergashadigan odam. Chaqirganda qoʻriqchilar keladi va soʻzing bilan jang qiladi.',
+        '2': 'U Xarizma bilan ishlaydi. Sende bor. Kechirishni qiyinlashtiradigani ham shu.',
         say: 'Buyuk hukmdor kim?'
       },
       ready: {
         strong: {
-          '1': 'Hammasi uchun salobating bor. Qirollik buning uchun kambagʻalroq.'
+          '1': 'Hammasi uchun salobating bor. Koshki uni yaxshiroq ishlatganingda.'
         },
         able: {
-          '1': 'Keyingi darsga tayyorsan. Bundan zavq olmayman.'
+          '1': 'Keyingi darsga tayyorsan. Xursandman deb koʻrinmayman.'
         },
         weak: {
-          '1': 'Xoinning qoʻriqchisi ham bu ovozga ergashmaydi. Koʻproq Xarizma.'
+          '1': 'Hozircha hech kim ortingdan ergashmaydi. Xarizmang ustida ishla.'
         }
       },
       oakhaven: {
         '1': 'Uch yuz yil. Oilam oʻsha devorlarni qurgan.',
-        '2': 'Tushuntirma. Buni tushuntiradigan narx yoʻq.',
-        say: 'Oakhaven haqida…'
+        '2': 'Iltimos, tushuntirma. Aytadigan hech narsang buni toʻgʻrilamaydi.',
+        say: 'Oakhaven haqida...'
       },
       trainBack: {
-        '1': 'Ket. Boshqaga buyruq ber.'
+        '1': 'Bor. Boshqa birov ustida mashq qil.'
       },
       bye: {
-        '1': 'Meni tinch qoldir.'
+        '1': 'Meni yolgʻiz qoldir, iltimos.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Sen uni oʻldirding. Buni yuz bermasdan oldin ming marta koʻrganman, baribir ogʻritadi.',
-        '2': 'Men Soatlar posboniman. Senga oʻrgataman. U menga oʻrgatishimni aytgan edi.'
+        '1': 'Uni oʻldirding. Buning kelayotganini yillar davomida koʻrgan edim, baribir ogʻriydi.',
+        '2': 'Men Soatlar posboniman. Senga oʻrgataman. U menga oʻrgataman deb aytgan edi.'
       },
       hello: {
-        '1': 'Kechikding. Yoki erta kelding. Buni senga aytganman, shekilli.',
-        '2': 'Men Soatlar posboniman. Vaqtni toʻqishni oʻrgataman. Biz bir lahza oldin boshladik.'
+        '1': 'Mana, keldingku. Seni anchadan beri kutgandim. Yoki kutgan boʻlaman.',
+        '2': 'Men Soatlar posboniman. Vaqtni ozgina egishni oʻrgataman.'
       },
       freed: {
-        '1': 'U ozod. Birinchi marta sening keyingi gapingni bilmayman. Ajoyib.'
+        '1': 'U ozod. Birinchi marta keyin nima boʻlishini ayta olmayman. Ajoyib.'
       },
       friend: {
-        '1': 'Doira seni doʻsti deb ataydi. Allaqachon atadimi? Unda chegirma hozir.'
+        '1': 'Doira sen haqingda yaxshi oʻylaydi, shuning uchun darslar arzon. Ular buni oʻtgan hafta hal qilishdi.'
       },
       foe: {
-        '1': 'Doira seni koʻrgan kelajagimda kechiradi. Oʻshagacha senga jimgina oʻrgataman.'
+        '1': 'Doira hozir senga gʻazablangan. Oʻtadi. Shu paytgacha buni sir tutamiz.'
       },
       again: {
-        '1': 'Qaytganing bilan. Xush kelibsan. Qaytib.'
+        '1': 'Yana xush kelibsan. Aynan oʻz vaqtida keldingku.'
       },
       train: {
-        '1': 'Qara. Senga koʻrsatganimni koʻrsataman.'
+        '1': 'Diqqat bilan qara. Keyin yana qara, bir zum oldinroqdan.'
       },
       class: {
-        '1': 'Dushmanni vaqtda toʻxtatamiz, doʻstni shoshiramiz va xatoni qaytarib olamiz.',
-        '2': 'Ipni koʻrish uchun Aql, tortish uchun Mahorat.',
+        '1': 'Dushmanni vaqtda toʻxtatamiz, doʻstni tezlashtiramiz, xatoni qaytarib olamiz.',
+        '2': 'Ipni koʻrish uchun Aql. Uni tortish uchun Mahorat.',
         say: 'Vaqt toʻquvchisi kim?'
       },
       ready: {
         strong: {
-          '1': 'Ipni yaxshi tutasan. Qolgani xohlaganingda seniki.'
+          '1': 'Ipni yaxshi ushlaysan. Qolganini xohlagan paytda ol.'
         },
         able: {
-          '1': 'Tayyorsan. Ertaga ham tayyor eding.'
+          '1': 'Tayyorsan. Sen soʻramasdan oldin tushundim.'
         },
         weak: {
-          '1': 'Ip barmoqlaringdan sirgʻaladi. Koʻproq Aql. Koʻproq Mahorat.'
+          '1': 'Ip sirgʻalaveradi. Koʻproq Aql va koʻproq Mahorat.'
         }
       },
       oracle: {
         say: 'Menga bashoratchi haqida ayt.',
         freed: {
-          '1': 'U har bir oxirni koʻrdi, birortasi ham uniki emas edi. Endi bittasi bor.'
+          '1': 'U har bir oxirni koʻrdi, oʻzinikidan boshqa. Endi bilib oladi.'
         },
         slain: {
-          '1': 'U qarshilik qilmadi. Buni ham koʻrgan edi. Iltimos, yana soʻrama.'
+          '1': 'U qarshilik qilmadi. Buni allaqachon koʻrgan edi. Iltimos, yana soʻrama.'
         },
         waits: {
-          '1': 'U har bir oxirni koʻradi. Dahshatli sovgʻa. Oxirida unga mehribon boʻl.'
+          '1': 'U har bir oxirni koʻradi. Koʻtarishga ogʻir yuk. Unga mehribon boʻl.'
         }
       },
       trainBack: {
-        '1': 'Arziydigan boʻladi.'
+        '1': 'Keyin maʼnosi ochiladi. Odatda shunday boʻladi.'
       },
       bye: {
-        '1': 'Oldingacha.'
+        '1': 'Qayta uchrashguncha. Yoki undan oldin.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Toʻxta! Toʻxta. Qirol taslim!',
-          '2': 'Goblin bosqin qiladi, chunki goblin och. Rost!',
-          '3': 'Balki uzun va Qirol kelishuv qilar?'
+          '1': 'Toʻxta. Iltimos. Taslim boʻlaman.',
+          '2': 'Xalqim och boʻlgani uchun bosqin qiladi. Haqiqat shu.',
+          '3': 'Buning oʻrniga kelishuv tuzaylik. Sizning naslingiz va meniki.'
         },
         slay: {
-          '1': 'Qirol quladi, gʻorlar tarqab ketdi.',
-          '2': 'Sunford tinchroq uxlaydi, Temir Orden seni payqaydi.',
-          say: 'Kelishuv yoʻq. Hukmronliging shu yerda tugaydi.'
+          '1': 'Goblinlar qiroli yiqiladi, Gʻorlar boʻshab qoladi.',
+          '2': 'Sunford tinchroq uxlaydi, Temir Orden ismingni eshitadi.',
+          say: 'Kelishuv yoʻq. Bosqinlaringiz shu yerda tugaydi.'
         },
         pact: {
-          '1': 'Savdo? Qirol qasam ichadi! Qirol savdoni YAXSHI koʻradi!',
-          '2': 'Goblin savdogarlari Sunford maydonida, u yerdagi hech bir temirchi yasay olmaydigan mollar bilan joylashadi.',
-          say: 'Bosqinlarni toʻxtat va oʻrniga Sunford bilan savdo qil. Qasam ich.'
+          '1': 'Savdo. Ha. Tojimga qasam ichaman.',
+          '2': 'Goblin savdogarlari Sunford maydoniga joylashib, u yerdagi hech bir temirchi yasay olmaydigan narsalarni sotadi.',
+          say: 'Bosqinlarni toʻxtat, uning oʻrniga Sunford bilan savdo qil. Qasam ich.'
         },
         ransom: {
-          '1': 'Hammasinimi? Qirol uzunni yomon koʻradi. Ol. Ol va ket.',
-          '2': 'Goblin oltini bilan ogʻir boʻlib chiqasan. Bosqinlar yana boshlanadi. Sindikat maʼqullaydi.',
-          say: 'Xazinangni topshir, tojingni oʻzing saqla.'
+          '1': 'Hammasinimi? ...Mayli. Ol va ket.',
+          '2': 'Goblin oltini bilan ketasan. Bosqinlar yana boshlanadi, lekin Sindikat maʼqullaydi.',
+          say: 'Xazinangni ber, tojingni oʻzingda qoldirishing mumkin.'
         }
       },
       siege: {
         ask: {
-          '1': 'Yetar. Yaxshi jang qilasan.',
-          '2': 'Sindikat u shahar hech qachon toʻlaydiganidan yaxshi toʻlaydi.',
+          '1': 'Yetar. Yaxshi jang qilasan, tan olaman.',
+          '2': 'Sindikat u shahar hech qachon toʻlaydiganidan ancha koʻp toʻlaydi.',
           '3': 'Bugun kechasi biz uchun darvozani och, Oakhavenning uchdan biri seniki.'
         },
         defend: {
-          '1': 'Unda Sindikat seni har yoʻlda ovlaydi. Taklif qilganimni eslab qol.',
-          '2': 'Darvoza bardosh beradi. Oakhaven uning ortida gullab-yashnaydi, usta zirhsozlari ismingni eslab qoladi.',
+          '1': 'Unda Sindikat seni har bir yoʻlda ovlaydi. Taklif qilganimni esingda tut.',
+          '2': 'Darvoza bardosh beradi. Oakhaven uning ortida boyiydi, zirhsozlari ismingni eslaydi.',
           say: 'Darvoza yopiq qoladi. Qoʻshiningni ol va ket.'
         },
         betray: {
-          '1': 'Dono. Madam Ashga senga kursi tayyorlashni aytaman.',
-          '2': 'Oakhaven yonadi. Uning xarobalarida qora bozor ochiladi, alkimyogar taqiqlangan sanʼatlarni oʻrgatadi.',
+          '1': 'Aqlli. Madam Ash buni eshitganda xursand boʻladi.',
+          '2': 'Oakhaven yonadi. Xarobalar orasida qora bozor ochiladi, bir alkimyogar yashirincha dars beradi.',
           '3': 'Zirhsozlar ketdi, Temir Orden seni xoin deydi.',
-          say: 'Shaharning uchdan biri. Bugun kechasi darvoza ochiladi.'
+          say: 'Shaharning uchdan biri. Mayli. Darvoza bugun kechqurun ochiladi.'
         }
       },
       core: {
         ask: {
-          '1': 'Gigant parcha-parcha. Buni koʻraman deb oʻylamagandim.',
-          '2': 'Mana u yotibdi. Yadro. Hali ham vizillaydi. Tegsang iliq.',
-          '3': 'Unga birinchi sen yetding. Unga nima boʻladi?'
+          '1': 'Gigant parcha-parcha. Buni koʻrish uchun yashayman deb oʻylamagandim.',
+          '2': 'Mana yadro. Hali ham vizillaydi. Tegsang iliq.',
+          '3': 'Avval sen yetib kelding. Xoʻsh... unga nima boʻladi?'
         },
         destroy: {
           '1': 'Yorugʻlik oʻchadi, golemlar turgan joyida quladi.',
-          '2': 'Temir Orden minnatdorchilik sifatida oʻz zirhsozlarini Ironholdga yuboradi.',
-          say: 'Orqaga chekininglar. Men uni sindiryapman.'
+          '2': 'Minnatdorchilik sifatida Temir Orden oʻz zirhsozlarini Ironholdga yuboradi.',
+          say: 'Orqaga chekin. Men uni sindiraman.'
         },
         study: {
-          '1': 'Yadroni uygʻotmasdan topshirishga yetarlicha tushunasan.',
-          '2': 'Bir mavsumda Ironholdning choʻgʻxonalari hech kim koʻrmagan efir buyumlarini chiqaradi.',
-          say: 'Doira uni oʻrganishi kerak. Men uni xavfsiz olib chiqa olaman.'
+          '1': 'Yadroni uygʻotmasdan koʻchirishga yetarlicha bilasan.',
+          '2': 'Bir mavsum ichida Ironholdning choʻgʻxonalari hech kim koʻrmagan efir buyumlarini yasaydi.',
+          say: 'Doira uni oʻrganishi kerak. Menimcha, uni xavfsiz olib chiqa olaman.'
         },
         sell: {
           '1': 'Oltin. Konchilarimni oʻldirgan narsa uchun. Ol va ket.',
@@ -2495,19 +2495,19 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Bu lahzani oʻn ming marta koʻrganman.',
-          '2': 'Yarmida sen meni ozod qilasan. Yarmida men qoʻriqlaganni olasan.',
-          '3': 'Tanla. Nihoyat keyingisi nima ekanini bilmaydigan boʻlay.'
+          '1': 'Bu lahzani sanay oladiganimdan koʻp marta koʻrganman.',
+          '2': 'Yarmida meni ozod qilasan. Ikkinchi yarmida qoʻriqlaganimni olasan.',
+          '3': 'Tanla. Bir marta boʻlsa ham, keyin nima boʻlishini bilmasligim istayman.'
         },
         free: {
-          '1': 'Oh. Buni koʻrmagandim. Umuman koʻrmagandim.',
-          '2': 'Bashoratchi suv orqali koʻtarilib, yoʻq boʻladi. Uning soatlar posboni oʻrgatish uchun qoladi.',
-          say: 'Qimirlama. Zanjirlaringni uzayapman.'
+          '1': 'Oh. Buni koʻrmagandim. Haqiqatan koʻrmagandim.',
+          '2': 'Bashoratchi suvdan koʻtarilib, gʻoyib boʻladi. Shogirdi oʻrgatish uchun qoladi.',
+          say: 'Qimirlama. Zanjirlaringni sindiryapman.'
         },
         slay: {
           '1': 'Ha. Bu ikkinchi yarmi.',
           '2': 'U qarshilik qilmaydi. Vaqt posbonining qum soati seniki.',
-          '3': 'Uning oxirgi shogirdi ibodatxonadan qochadi, Doira kechirmaydi.',
+          '3': 'Uning oxirgi shogirdi ibodatxonadan qochadi, Doira seni kechirmaydi.',
           say: 'Men qum soati uchun keldim.'
         }
       },
@@ -2520,19 +2520,19 @@ export default {
         slay: {
           '1': 'Ajdar quladi, tog‘ larzaga keladi. Uning xazinasi seniki.',
           '2': 'Temir Orden ajdar oʻldiruvchiga qoʻshiq aytadi.',
-          say: 'Ajdarlar bilan savdolashuv yoʻq.'
+          say: 'Men ajdarlar bilan savdolashmayman.'
         },
         pact: {
-          '1': 'Buni soʻrab tirik qoladiganlar kam. Mayli, kichkina. Birga ovga chiqamiz.',
-          '2': 'Dahshat qoʻrgʻoniga yurish qilganingda, boshing ustida osmonda ajdar boʻladi.',
-          say: 'Unda Buyuk iblisga qarshi men bilan birga uch.'
+          '1': 'Soʻrashga kam odam jurʼat qilardi. Mayli. Birga ovga chiqamiz.',
+          '2': 'Dahshat qoʻrgʻoniga yurish qilganingda, tepangda bir ajdar uchadi.',
+          say: 'Unda Bosh iblisga qarshi men bilan jang qil.'
         }
       },
       throne: {
         ask: {
-          '1': 'Shunday. Tugadi. Bu sen boʻlasan deb oʻylamagandim.',
-          '2': 'Taxtim boʻsh qolmaydi, kichik qahramon. U qoʻrgʻonni, yorigʻni va ikkalasining qoʻshinlarini boshqaradi.',
-          '3': 'Uch elchi allaqachon eshigimda kutib turibdi. Zanjirlarimni kim meros olishini tanla.'
+          '1': 'Demak, tugaydi. Bu sen boʻlasan deb oʻylamagandim.',
+          '2': 'Taxtim boʻsh qolmaydi. Uni olgan odam qoʻrgʻon va yorigʻni boshqaradi.',
+          '3': 'Uch elchi allaqachon eshigim oldida kutyapti. Keyingisi kim boʻlishini tanla.'
         },
         order: {
           '1': 'Orden qoʻrgʻonda garnizon qurib, qoʻlidan kelganini muhrlaydi.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindikat tong otmasdan kiradi.',
-          '2': 'Hozir hamma narsa sotuvda, tinchlik ham.',
+          '2': 'Bundan buyon hamma narsaning narxi bor, hatto tinchlikniki ham.',
           say: 'Kul Sindikati bunga munosib boʻldi.'
         },
         circle: {
           '1': 'Doira qoʻrgʻonni yorigʻ ustidagi maktabga aylantiradi.',
-          '2': 'Ular buni tadqiqot deydi. Qolganlar buni vaqt masalasi deydi.',
+          '2': 'Buni tadqiqot deyishadi. Qolgan hamma nafasini ichiga yutadi.',
           say: 'Qoʻy, Efir Doirasi olsin.'
         },
         shatter: {
-          '1': 'Taxtni oʻz qoʻling bilan sindirasan. Bundan keyin bu yerdan hech kim hukmronlik qilmaydi.',
+          '1': 'Taxtni oʻz qoʻling bilan parchalaysan. Bundan buyon bu yerdan hech kim hukmronlik qilmaydi.',
           '2': 'Elchilar bir ogʻiz soʻzsiz ketadi.',
-          say: 'Hech kim meros olmaydi. Men uni sindiryapman.'
+          say: 'Hech kimga tegmaydi. Men uni sindiraman.'
         },
         claim: {
           '1': 'Taxt sovuq va senga yarashadi.',
-          '2': 'Uch guruh umumiy dushmani borligini tushunadi.',
-          say: 'Unga oʻzim oʻtiraman.'
+          '2': 'Uch guruh umumiy dushmani borligini bilib oladi.',
+          say: 'Uni oʻzim olaman.'
         }
       }
     }

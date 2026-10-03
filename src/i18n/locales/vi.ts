@@ -127,8 +127,8 @@ export default {
       mouse: 'Đi theo con đường đến chỗ người huấn luyện rồi nhấp vào họ để nói chuyện.'
     },
     teach: {
-      touch: 'Chạm “Dạy tôi” để xem người huấn luyện này dạy những gì.',
-      mouse: 'Nhấp “Dạy tôi” để xem người huấn luyện này dạy những gì.'
+      touch: 'Chạm vào “Dạy tôi” để xem vị sư phụ này dạy được những gì.',
+      mouse: 'Nhấp vào “Dạy tôi” để xem vị sư phụ này dạy được những gì.'
     },
     learn: {
       touch: 'Chạm vào một kỹ năng, rồi chạm “Học”.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Mua lại',
     deal: 'Chốt!',
     say: {
-      buy: 'Chọn khéo lắm. Giữ gìn nó nhé.',
-      sell: 'Tôi sẽ tìm cho nó một chủ nhân tốt.',
-      back: 'Đổi ý rồi à? Đây, y như cũ.',
-      poor: 'Quay lại khi nào túi tiền nặng hơn nhé.'
+      buy: 'Chọn khéo đấy. Giữ gìn nó, nó sẽ bảo vệ cậu.',
+      sell: 'Được thôi. Kiểu gì cũng có người cần.',
+      back: 'Đổi ý à? Không sao, của cậu đây.',
+      poor: 'Tiếc là cậu mang chưa đủ tiền rồi.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Ngồi đi. Nghỉ ngơi đi. Con sẽ rời khỏi đây lành lặn, với mọi bình thuốc đã đầy. Nếu muốn mang theo nhiều bình hơn, thứ đó ta có thể bán cho con.',
+    talk: 'Ngồi nghỉ một lát đi. Bình thuốc của cậu lại đầy rồi. Nếu muốn, tôi có thể bán cho cậu một chiếc thắt lưng lớn hơn.',
     note: 'Bạn mang {n} bình thuốc vào mỗi vùng.',
     buy: 'Thêm một bình · {n}',
     full: 'Thắt lưng của bạn đã chật kín.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Thợ rèn Bram',
-      talk: 'Thép trơn, giá phải chăng. Đủ để lũ goblin không dám lại gần.'
+      talk: 'Thép trơn, giá phải chăng. Cứ thong thả xem.'
     },
     sunfordPeddler: {
       name: 'Tilly bán rong',
-      talk: 'Nhẫn đây! Bùa đây! Toàn đồ tôi nhặt được chứ nhất định không phải ăn trộm.'
+      talk: 'Nhẫn, bùa, đủ thứ lặt vặt. Món này biết đâu lại thật sự may mắn đấy.'
     },
     trainerAegis: {
       name: 'Ngài Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Lái buôn Grik',
-      talk: 'Vua bảo buôn, nên Grik buôn. Đồ lấp lánh đổi đồ lấp lánh. Lấp lánh tốt.'
+      talk: 'Gia đình tôi làm những món này. Hàng tốt, giá công bằng.'
     },
     captainHale: {
       name: 'Đội trưởng Hale'
     },
     oakArmorer: {
       name: 'Thợ giáp Odo',
-      talk: 'Nửa số hàng của tôi đã đem lên tường thành. Còn gì thì cứ lấy.'
+      talk: 'Một nửa hàng của tôi đã lên tường thành rồi. Còn gì thì cứ lấy, nếu vừa người.'
     },
     oakMasterArmorer: {
       name: 'Bậc thầy Odo',
-      talk: 'Cậu đã cứu thị trấn này. Giáp tốt trong phòng sau được mang ra cho cậu.'
+      talk: 'Giáp tấm tốt đã được đem ra. Cậu hoàn toàn xứng đáng được xem.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Sắc bén, cân bằng, và bán cho bất cứ ai trả tiền. Hôm nay người đó là cậu.'
+      talk: 'Sắc, cân đối, giá hợp lý. Đừng sờ vào lưỡi.'
     },
     trainerShadow: {
       name: 'Lời Thì Thầm'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Kẻ Tiêu Hàng',
-      talk: 'Không tên tuổi, không câu hỏi. Băng lấy phần của Băng, cậu lấy hàng.'
+      talk: 'Hai bên đều không hỏi gì. Băng Tro Tàn lấy phần của nó, cậu lấy hàng.'
     },
     trainerBlood: {
       name: 'Bác sĩ Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Hammerhand',
-      talk: 'Người lùn rèn đấy. Nếu nó gãy thì là tại cậu.'
+      talk: 'Món nào cũng do người lùn rèn. Nếu có cái nào gãy, cho tôi biết nó gãy thế nào.'
     },
     ironAetherWorks: {
       name: 'Thợ máy Voss',
-      talk: 'Nghiên cứu của Vòng Tròn về lõi đã thay đổi tất cả. Cầm lấy cái này. Đừng chĩa nó vào tôi.'
+      talk: 'Mọi thứ ở đây đều sinh ra từ việc nghiên cứu lõi. Cẩn thận, hầu hết đều đã lên đạn.'
     },
     ironArmor: {
       name: 'Garrun Ironside',
-      talk: 'Giáp tấm gạt được cả chùy của người khổng lồ. Nhẫn thì cho những ai còn lại.'
+      talk: 'Giáp trên giá, nhẫn trong khay.'
     },
     ironOrderArmor: {
       name: 'Quản kho Thiết Hội',
-      talk: 'Thiết Hội nhớ ai đã phá hủy lõi. Kho vũ khí của Hội mở cửa cho cậu.'
+      talk: 'Cần gì cứ lấy. Thiết Hội chăm lo cho người của mình.'
     },
     trainerGeo: {
       name: 'Lão Chân Đá'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Tối nay có mưa, cái đầu gối tôi bảo thế.',
-        '2': 'Tuần trước đầu gối bà cũng bảo thế.',
-        '3': 'Thì mưa còn gì? Ở đâu đó.'
+        '1': 'Tối nay trời sẽ mưa. Cái đầu gối tôi đau suốt cả ngày.',
+        '2': 'Tuần trước đầu gối bà cũng nói y như thế.',
+        '3': 'Thế chẳng phải trời đã mưa còn gì? Chỉ là không mưa ở đây thôi.'
       },
       harvest: {
-        '1': 'Lúa mạch ngon nhất mấy năm nay đấy.',
-        '2': 'Năm nào ông cũng nói thế.'
+        '1': 'Năm nay lúa mạch lên tốt thật.',
+        '2': 'Mong là mình được giữ lại.'
       },
       goblins: {
         '1': 'Goblin tha mất ba con gà của trại Miller.',
-        '2': 'Chỉ ba thôi á? Chúng lười đi rồi.',
-        '3': 'Hay là chúng no rồi.'
+        '2': 'Lại nữa à? Tháng này là lần thứ hai rồi đấy.',
+        '3': 'Phải có ai đó làm gì với mấy cái hang ấy đi chứ.'
       },
       kingGone: {
-        '1': 'Nghe nói Vua Goblin đi mất hẳn rồi.',
-        '2': 'Thế ai đang ăn trộm củ cải của tôi?'
+        '1': 'Nghe nói Vua Goblin chết rồi.',
+        '2': 'Tốt. Có khi giờ tôi ngủ được trọn một đêm.'
       },
       pact: {
-        '1': 'Hôm nay có con goblin bán cho tôi cái thìa.',
-        '2': 'Có phải thìa của ông không?',
-        '3': 'Đúng vậy. Nhưng giá tốt lắm.'
+        '1': 'Sáng nay tôi mua một cái muôi của một con goblin.',
+        '2': 'Dùng được không?',
+        '3': 'Nói thật là tốt hơn cái của tôi. Đừng nói với ai nhé.'
       },
       bram: {
-        '1': 'Bram lại đập búa rồi. Từ tờ mờ sáng!',
-        '2': 'Đều như nhịp tim, ông ấy ấy.'
+        '1': 'Bram đứng bên đe từ trước khi mặt trời mọc rồi.',
+        '2': 'Anh ấy hay thế mỗi khi lo lắng.'
       },
       pie: {
         '1': 'Có phải mùi bánh táo không nhỉ?',
-        '2': 'Đã từng. Quá khứ rồi.',
-        '3': 'Ăn hết rồi á? Lại nữa à?'
+        '2': 'Lúc nãy thì phải. Lũ trẻ tìm ra trước rồi.',
+        '3': 'Tôi sẽ nướng cái khác. Lần này phải giấu kỹ hơn.'
       },
       road: {
-        '1': 'Giờ chẳng ai đi đường đồng bằng nữa.',
-        '2': 'Có thổ phỉ trên đó thì ai dám đi.'
+        '1': 'Đường đồng bằng một tuần nay chẳng ai đi.',
+        '2': 'Có bọn cướp trên đó thì trách ai được.'
       },
       hero: {
-        '1': 'Có người dọn sạch đường đồng bằng rồi!',
-        '2': 'Cũng đến lúc. Anh họ tôi còn nợ tôi cái xe kéo.'
+        '1': 'Có người dọn sạch bọn cướp trên đường đồng bằng rồi.',
+        '2': 'Ơn trời. Chị tôi lại đến thăm được rồi.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Hai đồng bạc một cây bắp cải. Hai đồng!',
-        '2': 'Là một cây bắp cải rất đẹp mà.',
-        '3': 'Cũng không đẹp đến thế.'
+        '2': 'Dạo này thứ gì qua cổng cũng đắt cả.',
+        '3': 'Vậy tôi tự trồng. Trên mái nhà cũng được.'
       },
       watch: {
-        '1': 'Đội tuần tra tăng gấp đôi lính gác cổng.',
-        '2': 'Tốt. Tôi nhờ thế mà ngủ ngon hơn.'
+        '1': 'Họ tăng gấp đôi lính gác cổng rồi.',
+        '2': 'Tốt. Tôi ngủ yên tâm hơn một chút.'
       },
       caravan: {
         '1': 'Đoàn buôn gia vị lại trễ rồi.',
         '2': 'Thổ phỉ à?',
-        '3': 'Hoặc tay đánh xe tìm được quán rượu.'
+        '3': 'Hoặc là bùn. Mong là bùn thôi.'
       },
       siege: {
-        '1': 'Nghe nói có một đạo quân đóng ở vùng ngoại ô.',
-        '2': 'Vậy tốt nhất ta nên tích thêm đồ xuống hầm.'
+        '1': 'Có một đội quân đóng trại ngoài trang trại kia kìa.',
+        '2': 'Vậy phải tranh thủ chất đầy hầm chứa ngay thôi.'
       },
       saved: {
-        '1': 'Thấy vòng vây vỡ chưa? Oai quá!',
-        '2': 'Tôi xem từ dưới gầm giường.',
-        '3': 'Vẫn tính là có xem.'
+        '1': 'Lúc vòng vây vỡ, cậu có ở trên tường không?',
+        '2': 'Nói thật là tôi trốn dưới gầm giường.',
+        '3': 'Nửa thị trấn cũng thế. Nhưng chúng ta vẫn còn ở đây mà.'
       },
       fountain: {
         '1': 'Tôi ném đồng xu vào đài phun nước để cầu may.',
-        '2': 'Còn tôi vớt nó lên rồi. Cảm ơn nha!'
+        '2': 'Mong là cậu ước cho bắp cải rẻ đi.'
       },
       ash: {
-        '1': 'Cái gì cũng có mùi tro.',
-        '2': 'Còn hơn là chẳng có mùi gì.'
+        '1': 'Mọi thứ vẫn còn mùi khói.',
+        '2': 'Rồi sẽ phai thôi. Rốt cuộc cái gì cũng vậy.'
       },
       hide: {
-        '1': 'Đêm qua có nghe tiếng ủng ngoài kia không?',
-        '2': 'Suỵt. Nói nhỏ thôi.',
-        '3': 'Xin lỗi. Xin lỗi.'
+        '1': 'Đêm qua cậu có nghe tiếng ủng ngoài phố không?',
+        '2': 'Nhỏ thôi. Cậu đâu biết ai đang nghe.',
+        '3': 'Xin lỗi. Tôi chỉ... xin lỗi.'
       },
       bread: {
-        '1': 'Tôi tìm được nửa ổ bánh mì. Mình chia nhau nhé.',
+        '1': 'Tôi tìm được nửa ổ bánh mì. Đây, chia cho cậu một ít.',
         '2': 'Bạn tốt bụng thật. Cảm ơn nhé.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Tầng bốn có mạch đồng tốt đấy.',
-        '2': 'Đồng á? Tôi muốn vàng cơ.',
-        '3': 'Ông cần giấc ngủ trưa thì đúng hơn.'
+        '2': 'Đồng. Tôi cứ mong là bạc.',
+        '3': 'Đồng trả được tiền thuê nhà. Bạc chỉ trả được giấc mơ.'
       },
       forge: {
-        '1': 'Lò rèn lớn chưa tắt lửa suốt một trăm năm.',
-        '2': 'Tẩu thuốc của ông tôi cũng vậy.'
+        '1': 'Lò rèn lớn một trăm năm nay chưa từng nguội.',
+        '2': 'Ông tôi còn giúp nhóm lửa cho nó đấy, cậu biết không.'
       },
       beard: {
-        '1': 'Ông tỉa râu rồi kìa!',
-        '2': 'Nó bén lửa ở cạnh đe.',
-        '3': 'Mà hợp với ông đấy.'
+        '1': 'Cậu tỉa râu rồi à.',
+        '2': 'Đứng gần cái đe quá.',
+        '3': 'Sẽ mọc lại thôi. Mà ngắn lại hợp với cậu hơn.'
       },
       core: {
-        '1': 'Giờ có thứ gì đó phát sáng trong mỏ sâu.',
-        '2': 'Dưới đó chẳng thứ gì phát sáng mà tốt cả.'
+        '1': 'Có thứ gì đó đang phát sáng dưới các hầm sâu.',
+        '2': 'Dưới đó chẳng có thứ gì phát sáng mà tốt cả. Ở trên này thôi.'
       },
       order: {
-        '1': 'Thợ giáp của Thiết Hội làm nhanh thật.',
-        '2': 'Nhanh thì nhanh. Nhưng không tốt bằng chúng ta.'
+        '1': 'Thợ giáp của Thiết Hội làm nhanh thật, tôi công nhận.',
+        '2': 'Nhanh thì có. Còn bền hay không thì để xem.'
       },
       circle: {
-        '1': 'Pháp sư của Vòng Tròn vừa làm vừa ngân nga.',
-        '2': 'Chắc còn hay hơn tiếng hát của ta.'
+        '1': 'Người của Vòng Tròn vừa làm vừa ngân nga.',
+        '2': 'Ít ra còn hơn tiếng hát của cậu.'
       },
       cold: {
-        '1': 'Sáng nay trên này lạnh thật.',
-        '2': 'Thế thì đứng gần lò rèn đi.'
+        '1': 'Sáng nay lạnh buốt.',
+        '2': 'Vậy lại đứng cạnh lò rèn đi.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Đến lượt cậu bắt rồi!',
-        '2': 'Không công bằng, tớ chưa sẵn sàng!'
+        '1': 'Bắt được rồi, đến lượt cậu làm quỷ!',
+        '2': 'Không công bằng, tớ chưa sẵn sàng mà!'
       },
       dragon: {
         '1': 'Lớn lên tớ sẽ cưỡi rồng.',
-        '2': 'Rồng không cho cưỡi đâu.',
-        '3': 'Rồng hiền thì cho!'
+        '2': 'Rồng không cho người cưỡi đâu.',
+        '3': 'Con rồng hiền thì có khi cho.'
       },
       sword: {
-        '1': 'Nhìn nè, gậy kiếm thật đó!',
-        '2': 'Chỉ là cái gậy thôi mà.'
+        '1': 'Nhìn nè, tớ tìm được một thanh kiếm!',
+        '2': 'Đó là cái que.'
       },
       frog: {
-        '1': 'Tớ tìm thấy một con ếch cạnh giếng.',
+        '1': 'Có con ếch ở cạnh giếng.',
         '2': 'Mình nuôi nó được không?',
-        '3': 'Tớ nghĩ nó đang nuôi tụi mình.'
+        '3': 'Mẹ bảo không được bắt ếch nữa.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Tạm thế đã.',
-      trade: 'Cho tôi xem hàng của bạn.',
+      bye: 'Vậy tôi không làm phiền nữa.',
+      trade: 'Cho tôi xem hàng của bạn được không?',
       train: 'Dạy tôi.',
-      heal: 'Chữa cho tôi với.',
-      mana: 'Tôi cần thứ gì đó cho mana.',
-      who: 'Bạn là ai?',
+      heal: 'Bạn chữa giúp tôi được không?',
+      mana: 'Bạn có gì cho mana không?',
+      who: 'Xin lỗi, bạn là ai vậy?',
       rumor: 'Dạo này có nghe tin gì không?',
-      ready: 'Tôi đã sẵn sàng học thêm chưa?'
+      ready: 'Bạn nghĩ tôi sẵn sàng học thêm chưa?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hừm. Mặt lạ. Cậu là người đã giữ được đường đồng bằng.',
-        '2': 'Tôi là Bram. Tôi rèn thép. Trông cậu có vẻ cần một ít.'
+        '1': 'Chưa thấy mặt cậu bao giờ. Cậu là người đã dọn sạch con đường à?',
+        '2': 'Bram. Tôi giữ lò rèn. Cần kiếm thì cứ đến tìm tôi.'
       },
       kingDead: {
-        '1': 'Nghe nói Vua Goblin chết rồi. Tốt. Đỡ phải đập phẳng mấy vết lõm trên bánh xe đoàn buôn.'
+        '1': 'Nghe nói Vua Goblin chết rồi. Tôi chẳng tiếc gì nó đâu.'
       },
       kingPact: {
-        '1': 'Goblin buôn bán ngoài quảng trường. Chưa từng nghĩ sẽ thấy. Mà sắt của chúng toàn đồ bỏ.'
+        '1': 'Giờ goblin buôn bán ngay giữa quảng trường. Chưa bao giờ nghĩ sẽ thấy cảnh này.'
       },
       kingRansom: {
-        '1': 'Nghe nói cậu lấy vàng của Vua mà chừa lại vương miện cho hắn. Những vụ cướp sẽ quay lại thôi.'
+        '1': 'Cậu để Vua Goblin giữ lại vương miện. Nó sẽ quay lại đấy, cậu biết mà.'
       },
       ending: {
-        '1': 'Cả vương quốc bàn tán về chiếc ngai đó. Vậy mà cậu vẫn mua đồ của tôi. Hừm.'
+        '1': 'Cả vương quốc đang bàn tán về cậu. Thế mà vẫn cần đá mài à?'
       },
       again: {
-        '1': 'Lại đến rồi. Tốt. Thép đâu có tự bán được.'
+        '1': 'Lại đến nữa. Cần gì?'
       },
       trade: {
-        '1': 'Thép trơn, giá thật thà. Xem thoải mái.'
+        '1': 'Thép trơn, giá phải chăng. Xem đi.'
       },
       who: {
-        '1': 'Bram. Ba mươi năm bên cái đe này.',
-        '2': 'Tôi đóng móng ngựa, sửa lưỡi cày, và trang bị cho mấy kẻ khờ như cậu. Theo thứ tự đó.'
+        '1': 'Bram. Ba mươi năm bên cái đe này, hơn kém chút ít.',
+        '2': 'Móng ngựa, lưỡi cày, thỉnh thoảng một thanh kiếm. Dạo này toàn kiếm.'
       },
       gear: {
-        '1': 'Định ăn đòn thì lấy khiên. Không định ăn đòn thì lấy kiếm to hơn.',
-        '2': 'Sức mạnh mới là thứ vung thép của tôi. Dồn điểm vào đó trước khi mua đồ nặng.',
+        '1': 'Một cái khiên, nếu cậu định bị đánh. Hầu hết mọi người đều thế.',
+        '2': 'Thép nặng cần cánh tay khỏe. Luyện Sức mạnh trước đã.',
         say: 'Ra ngoài kia tôi nên mang theo gì?'
       },
       rumor: {
         plains: {
-          '1': 'Goblin trên đường đồng bằng. Dọn sạch chúng trước khi sắm thứ gì cầu kỳ.'
+          '1': 'Có cướp trên đường đồng bằng. Tôi mà là cậu thì bắt đầu từ đó.'
         },
         hollows: {
-          '1': 'Bọn cướp bò ra từ Hang Goblin, bên kia đồng bằng. Vua của chúng ngồi dưới đáy.'
+          '1': 'Goblin đến từ Hang Goblin, qua khỏi đồng bằng. Vua của chúng ở dưới đó.'
         },
         woods: {
-          '1': 'Phía đông đồng bằng là Rừng Thì Thầm. Cây ở đó biết đi. Mang theo rìu.'
+          '1': 'Phía đông đồng bằng là Rừng Thì Thầm. Người ta bảo cây cối biết di chuyển.'
         },
         siege: {
-          '1': 'Có khói phía Oakhaven. Nghe nói một lãnh chúa đóng trại ở ngoại ô.'
+          '1': 'Có khói về phía Oakhaven. Một đội quân đang đóng trại ở vùng ngoại ô.'
         },
         north: {
-          '1': 'Thép Ironhold lại lên đường rồi. Muốn thứ tốt hơn của tôi thì đi về phía bắc.'
+          '1': 'Thép Ironhold lại theo đường xuống đây rồi. Nói thật là tốt hơn của tôi.'
         }
       },
       shopBack: {
-        '1': 'Mặc cho khỏe. Hoặc ít ra là có mà mặc.'
+        '1': 'Giữ gìn nó thì nó sẽ bảo vệ cậu.'
       },
       bye: {
-        '1': 'Coi chừng đường xá.'
+        '1': 'Đi cẩn thận nhé.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ôi, khách hàng! Hay là lính gác? Cậu không phải lính gác chứ?',
-        '2': 'Tôi là Tilly. Nhẫn, bùa, đồ may mắn. Toàn nhặt được, chưa từng ăn trộm.'
+        '1': 'Ồ, chào bạn! Bạn mua hay chỉ xem thôi? Cái nào cũng được nhé.',
+        '2': 'Mình là Tilly. Nhẫn, bùa, đủ thứ lặt vặt từ khắp nơi.'
       },
       rival: {
-        '1': 'Cậu thấy quầy của Grik chưa? Đồ lặt vặt của goblin! Tôi tiêu rồi. Mua gì đi. Thương tôi với.'
+        '1': 'Bạn thấy quầy của con goblin chưa? Giá của anh ta còn thấp hơn mình. Không công bằng chút nào.'
       },
       again: {
-        '1': 'Khách hàng yêu quý của tôi! Tôi nói thế với ai cũng được, nhưng với cậu là thật lòng.'
+        '1': 'Bạn đây rồi! Mình để dành vài món, mình nghĩ bạn sẽ thích.'
       },
       trade: {
-        '1': 'Nhẫn! Bùa! Đồ tôi nhặt được, chắc chắn không phải ăn trộm!'
+        '1': 'Xem đi nhé. Món này may mắn đấy. Chắc vậy.'
       },
       who: {
-        '1': 'Tôi đi dọc các con đường và nhặt những gì đường bỏ lại.',
-        '2': 'Thổ phỉ làm rơi toàn đồ đẹp nhất mỗi khi chạy trốn.'
+        '1': 'Mình đi khắp các con đường và mua những thứ người ta muốn bỏ đi.',
+        '2': 'Đôi khi mình còn nhặt được đồ nữa. Bọn cướp làm rơi nhiều lắm khi bỏ chạy.'
       },
       trinkets: {
-        '1': 'Đeo được hai món cùng lúc, mỗi tay một cái. Lợi thế nhỏ vẫn là lợi thế.',
-        say: 'Bùa dùng để làm gì?'
+        '1': 'Đeo được hai món, mỗi tay một món. Ngoài kia cái gì nhỏ nhỏ cộng lại cũng đáng giá.',
+        say: 'Trang sức thực ra dùng để làm gì?'
       },
       stolen: {
-        '1': 'Suỵt! Nhỏ tiếng thôi. Được rồi. ĐƯỢC RỒI.',
-        '2': 'Cầm chiếc nhẫn này và ta chưa từng nói chuyện. Nhẫn đẹp đấy. Phần lớn là đồng.',
-        say: 'Bạn trộm hết chỗ này đúng không?'
+        '1': 'À. Bạn khéo hỏi thật đấy.',
+        '2': 'Cầm chiếc nhẫn này đi, rồi đừng hỏi mình tìm ra nó ở đâu nữa.',
+        say: 'Mấy thứ này thật ra từ đâu ra vậy?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Phía nam đây có một đấu trường cổng rỉ sét đóng chặt. Nó sẽ mở nếu chuyện goblin xong xuôi.'
+          '1': 'Phía nam có một đấu trường cũ. Đóng kín mít trong lúc goblin cướp phá.'
         },
         arenaOpen: {
-          '1': 'Đấu Trường mở rồi! Nghe nói tám đợt. Tôi bán may mắn. Cậu sẽ cần đấy.'
+          '1': 'Đấu trường mở lại rồi. Nghe nói tám đợt. Người ta cá cược dữ lắm.'
         },
         east: {
-          '1': 'Chợ Oakhaven trả gấp đôi cho thứ gì lấp lánh. Đi về phía đông, qua khu rừng.'
+          '1': 'Oakhaven trả giá cao cho đồ lấp lánh. Ở phía đông, qua khu rừng.'
         }
       },
       shopBack: {
-        '1': 'Giàu hơn thì quay lại nhé!'
+        '1': 'Khi nào ví nặng hơn thì quay lại nhé!'
       },
       bye: {
-        '1': 'Coi chừng túi tiền ngoài kia! Ý tôi không phải gần tôi đâu. Chỗ khác thôi.'
+        '1': 'Đi bình an nhé. Ngoài kia nhớ giữ chặt tiền.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Đứng thẳng lên. Ngươi đang đứng trước một hiệp sĩ của Thiết Hội.',
-        '2': 'Ngài Aldric. Ta dạy cách dùng khiên cho những ai muốn đứng chắn trước người khác.'
+        '1': 'Đứng thẳng lên. Cậu đang nói chuyện với một hiệp sĩ của Thiết Hội.',
+        '2': 'Ngài Aldric. Ta dạy người ta đứng chắn giữa kẻ khác và hiểm nguy.'
       },
       saved: {
-        '1': 'Oakhaven còn đứng vì ngươi đã đứng. Đó là toàn bộ những gì ta dạy.'
+        '1': 'Oakhaven vẫn đứng vững, và ta nghe nói cậu đã ở trên tường thành. Làm tốt lắm.'
       },
       fallen: {
-        '1': 'Ngươi đã mở cổng Oakhaven. Ta từng chôn người vì chuyện nhẹ hơn thế. Nói việc của ngươi đi.'
+        '1': 'Cậu đã mở cổng Oakhaven. Ta sẽ không giả vờ quên. Cậu muốn gì?'
       },
       dragon: {
-        '1': 'Một kẻ diệt rồng trong sân luyện của ta. Người ta sẽ hát về chuyện này trong đại sảnh.'
+        '1': 'Cậu giết con rồng trên đỉnh núi sao? Ta rất muốn tận mắt thấy.'
       },
       friend: {
-        '1': 'Thiết Hội nói tốt về ngươi. Với bạn hữu, bài học của ta rẻ hơn.'
+        '1': 'Thiết Hội nghĩ tốt về cậu. Với bạn hữu, học phí của ta rẻ hơn.'
       },
       foe: {
-        '1': 'Thiết Hội gọi ngươi là kẻ thù. Ta vẫn dạy ngươi. Danh dự không phải thứ họ thu hồi được.'
+        '1': 'Thiết Hội gọi cậu là kẻ thù. Ta vẫn sẽ dạy cậu. Đó là quyết định của ta, không phải của họ.'
       },
       again: {
-        '1': 'Giương khiên lên. Ngươi cần gì?'
+        '1': 'Quay lại luyện tiếp à?'
       },
       train: {
-        '1': 'Vậy hãy chú ý. Ta chỉ làm mẫu một lần.'
+        '1': 'Tốt. Xem cho kỹ, ta chỉ làm mẫu một lần.'
       },
       class: {
-        '1': 'Một bức tường biết đi. Chúng ta hứng đòn để không ai khác phải hứng.',
-        '2': 'Sức mạnh cho cánh tay, Sức bền cho phần còn lại. Ánh sáng làm những gì nó có thể.',
-        say: 'Kỵ Sĩ Aegis là gì?'
+        '1': 'Chúng ta đỡ những đòn nhắm vào người khác. Đơn giản, mà cũng khó.',
+        '2': 'Cậu cần Sức mạnh để cầm khiên và Sức bền để giữ vững.',
+        say: 'Kỵ Sĩ Aegis thực sự làm gì?'
       },
       ready: {
         strong: {
-          '1': 'Ngươi có đủ sức tay cho phần lớn những gì ta biết. Lo Sức bền rồi học nốt phần còn lại.'
+          '1': 'Cậu đủ mạnh để học phần lớn những gì ta biết. Cứ tiếp tục luyện Sức bền.'
         },
         able: {
-          '1': 'Ngươi sẵn sàng cho bài tiếp theo. Đừng để nó làm ngươi kiêu.'
+          '1': 'Cậu sẵn sàng cho bài học tiếp theo rồi. Đừng để nó làm cậu kiêu.'
         },
         weak: {
-          '1': 'Chưa được. Tay ngươi yếu và mau mệt. Thêm Sức mạnh, thêm Sức bền.'
+          '1': 'Chưa được. Cậu sẽ mệt trước khi cái khiên mệt. Thêm Sức mạnh, thêm Sức bền.'
         }
       },
       order: {
-        '1': 'Chúng ta giữ đường và giữ luật. Có người bảo thế là quá tay cả hai.',
-        '2': 'Đứng cùng Thiết Hội, thợ giáp và người huấn luyện của Hội sẽ nhớ ngươi.',
+        '1': 'Chúng ta giữ đường sá an toàn và giữ gìn luật pháp. Có người bảo chúng ta quá khắt khe.',
+        '2': 'Đứng về phía chúng ta, thợ giáp và các thầy của chúng ta sẽ nhớ cậu.',
         say: 'Hãy kể cho tôi về Thiết Hội.'
       },
       trainBack: {
-        '1': 'Luyện đến khi chán. Rồi luyện nữa.'
+        '1': 'Luyện đến khi chán. Rồi cứ luyện tiếp.'
       },
       bye: {
-        '1': 'Hãy đi cùng ánh sáng.'
+        '1': 'Đi cẩn thận.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Ôi! Học trò à? Lùi lại một chút. Thêm chút nữa.',
-        '2': 'Ember Wren, hỏa pháp sư. Lông mày mọc lại được, hầu hết.'
+        '1': 'Ồ, học trò à? Tuyệt. Có lẽ đứng lùi ra một chút nhé.',
+        '2': 'Tôi là Ember Wren. Tôi dạy về lửa. Phần lớn thời gian nó nghe lời tôi.'
       },
       core: {
-        '1': 'Cậu đã đưa lõi cho Vòng Tròn! Cậu biết giờ bọn tôi đốt được bao nhiêu thứ không?'
+        '1': 'Cậu đã đưa lõi cho Vòng Tròn! Tôi nóng lòng muốn xem chúng ta học được gì từ nó.'
       },
       friend: {
-        '1': 'Vòng Tròn Aether quý cậu! Nghĩa là được giảm giá. Và đỡ phải ký giấy tờ.'
+        '1': 'Vòng Tròn nói tốt về cậu lắm. Nhân tiện, như vậy nghĩa là được giảm giá.'
       },
       foe: {
-        '1': 'Vòng Tròn muốn biến cậu thành tro. Khó xử ghê! Tôi vẫn dạy cậu. Lửa đâu có kén chọn.'
+        '1': 'Vòng Tròn không vui với cậu. Nhưng tôi vẫn sẽ dạy cậu. Lặng lẽ thôi.'
       },
       again: {
-        '1': 'Cậu về rồi! Mà chẳng có gì cháy. Sửa được mà.'
+        '1': 'Cậu quay lại rồi! Sẵn sàng đốt cháy thứ gì chưa?'
       },
       train: {
-        '1': 'Được! Xem kỹ nhé. Mà đừng gần quá.'
+        '1': 'Nào. Nhìn tay tôi, và giữ ống tay áo tránh xa tôi ra nhé.'
       },
       class: {
-        '1': 'Lửa trả lời mọi câu hỏi. Đốt chúng trước, rồi cho nổ cái đang cháy.',
-        '2': 'Tất cả chạy bằng Trí tuệ. Và nguồn áo choàng không bao giờ cạn.',
-        say: 'Hỏa Pháp Sư làm gì?'
+        '1': 'Chủ yếu là châm lửa. Rồi khiến lửa lan đến nơi cậu muốn.',
+        '2': 'Tất cả đều đến từ Trí tuệ. Đầu óc càng sắc, ngọn lửa càng nóng.',
+        say: 'Hỏa Pháp Sư thực ra làm gì?'
       },
       ready: {
         strong: {
-          '1': 'Cậu có thể nung chảy một golem! Lấy hết những gì tôi có. Lo Kỹ xảo cho mấy chiêu khó nhé.'
+          '1': 'Thật lòng nhé? Cậu có thể dạy lại một số thứ này rồi đấy. Thích gì cứ lấy.'
         },
         able: {
-          '1': 'Đầu cậu đủ nóng cho phép thuật tiếp theo rồi. Nào!'
+          '1': 'Cậu sẵn sàng cho phép thuật tiếp theo rồi. Nào, tôi chỉ cho.'
         },
         weak: {
-          '1': 'Ừm. Chưa đủ Trí tuệ. Lửa sẽ dùng cậu, chứ không phải cậu dùng lửa.'
+          '1': 'Tiếc là chưa được. Cậu cần thêm Trí tuệ, không thì lửa sẽ nuốt chửng cậu.'
         }
       },
       circle: {
-        '1': 'Các học giả. Chúng tôi nghiên cứu thế giới được làm từ gì. Một số thứ thì nổ.',
+        '1': 'Những học giả. Chúng tôi nghiên cứu thế giới được tạo nên từ gì. Một vài thứ sẽ phát nổ.',
         say: 'Vòng Tròn Aether là ai?'
       },
       trainBack: {
-        '1': 'Đi đốt cái gì đó đi! Thứ nào đáng bị đốt ấy.'
+        '1': 'Đi luyện tập đi. Chỗ nào không bắt lửa nhé, làm ơn.'
       },
       bye: {
-        '1': 'Giữ ấm nhé!'
+        '1': 'Giữ gìn sức khỏe nhé!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Vậy cậu là người từ con đường tới. Lại gần đây, mắt bà không còn như xưa.',
-        '2': 'Bà là Mara. Bà giữ sổ sách và sự bình yên của thị trấn này bốn mươi năm.'
+        '1': 'Ra cháu là người đến từ con đường. Lại đây, để bà nhìn cháu cho kỹ.',
+        '2': 'Bà là Mara. Bà trông nom thị trấn này... ôi, bốn mươi năm rồi.'
       },
       slain: {
-        '1': 'Hang động đã yên ắng. Cậu đã làm một việc khó, và Sunford ngủ được là nhờ nó.'
+        '1': 'Hang Goblin yên ắng rồi. Việc cháu làm không dễ, nhưng chúng ta ngủ được là nhờ nó.'
       },
       pact: {
-        '1': 'Goblin bán đồ lặt vặt ngoài quảng trường của bà. Cậu có cái miệng khéo đấy, con. Mong nó bền.'
+        '1': 'Goblin bán hàng ngay quảng trường của bà. Cháu là người thuyết phục chúng, phải không?'
       },
       ransom: {
-        '1': 'Cậu lấy vàng của hắn mà để lại vương miện. Bà già quá rồi, không giả vờ là không thất vọng được.'
+        '1': 'Cháu lấy vàng của hắn mà để lại vương miện cho hắn. Bà sẽ không giả vờ là mình không thất vọng.'
       },
       saved: {
-        '1': 'Có tin từ Oakhaven. Cổng thành đã trụ vững. Bà mừng vì người của ta có mặt ở đó.'
+        '1': 'Tin từ Oakhaven báo về. Cổng đã giữ vững. Bà mừng vì cháu đã ở đó.'
       },
       fallen: {
-        '1': 'Oakhaven bị đốt, và người ta bảo cậu cầm đuốc. Đừng nói với bà. Bà thà không biết.'
+        '1': 'Nghe nói Oakhaven cháy rồi. Bà không muốn nghe chuyện đã xảy ra thế nào. Hôm nay thì không.'
       },
       ending: {
-        '1': 'Người ta bảo cậu đã quyết định ai ngồi ở Pháo Đài Kinh Hoàng. Từ con đường Sunford đến đó. Tưởng tượng xem.'
+        '1': 'Họ bảo cháu đã quyết định số phận của Pháo Đài Kinh Hoàng. Từ con đường nhỏ của chúng ta mà đi đến tận đó.'
       },
       again: {
-        '1': 'Ngồi một lát đi. Con đường sẽ đợi.'
+        '1': 'Ngồi một lát đi. Con đường vẫn ở đó thôi.'
       },
       reward: {
-        '1': 'Cậu đã giữ con đường mà dân binh của ta không giữ nổi. Thị trấn quyên góp được chút ít.',
-        '2': 'Không nhiều. Là mọi đồng xu ta có thể dành ra.',
-        say: 'Bà muốn gặp cháu sao?'
+        '1': 'Cháu giữ được con đường khi dân quân của chúng ta bất lực. Thị trấn góp lại một chút.',
+        '2': 'Không nhiều đâu. Là những gì chúng ta có thể dành ra.',
+        say: 'Nghe nói bà muốn gặp cháu?'
       },
       quest: {
-        '1': 'Những vụ cướp đến từ Hang Goblin. Bọn goblin đã đội vương miện cho một tên vua.',
-        '2': 'Và bà muốn hắn chết.',
-        '3': 'Bà muốn các vụ cướp chấm dứt. Làm thế nào là việc cậu quyết, dưới đáy những hang động đó.',
-        '4': 'Hang nằm ngay bên kia đồng bằng. Đi cẩn thận nhé.',
-        say: 'Sunford đang gặp rắc rối gì vậy?'
+        '1': 'Những vụ cướp phá đến từ Hang Goblin. Chúng tự tôn một tên làm vua.',
+        '2': 'Và bà muốn hắn chết sao?',
+        '3': 'Bà muốn các cuộc cướp phá chấm dứt. Bằng cách nào... thì cháu tự quyết định ở dưới đó.',
+        '4': 'Hang nằm ngay sau đồng bằng. Làm ơn, cẩn thận nhé.',
+        say: 'Sunford đang gặp chuyện gì ạ?'
       },
       king: {
-        say: 'Về Vua Goblin…',
+        say: 'Về chuyện Vua Goblin...',
         slay: {
-          '1': 'Một tên vua chết và đoàn buôn của bà chạy đúng giờ. Bà sẽ không hỏi cậu thấy thế nào.'
+          '1': 'Hắn đi rồi, các đoàn buôn lại chạy. Bà sẽ không hỏi cháu cảm thấy thế nào.'
         },
         pact: {
-          '1': 'Một hiệp ước! Mẹ bà mà biết chắc ngất mất. Nhưng buôn bán vẫn hơn đám tang.'
+          '1': 'Một hiệp ước thương mại. Mẹ bà mà nghe chắc ngất mất. Nhưng buôn bán vẫn hơn đám tang.'
         },
         ransom: {
-          '1': 'Vàng tiêu nhanh. Hận thù thì không. Nhớ điều đó khi những vụ cướp quay lại.'
+          '1': 'Vàng hết rất nhanh. Hận thù thì không. Nhớ điều đó khi các cuộc cướp phá bắt đầu.'
         }
       },
       town: {
-        '1': 'Phần lớn là nông dân. Một thợ rèn, một thầy thuốc, và hai thầy giáo chịu đựng chúng ta.',
-        '2': 'Nghỉ ở đây, dùng điểm, rồi ra ngoài mạnh hơn. Nhà sinh ra là để vậy.',
+        '1': 'Phần lớn là nông dân. Một thợ rèn, một người chữa bệnh, và hai thầy giáo chịu đựng chúng ta.',
+        '2': 'Cứ nghỉ ở đây giữa các chuyến đi. Nhà sinh ra là để làm vậy mà.',
         say: 'Hãy kể cho cháu về Sunford.'
       },
       next: {
         say: 'Cháu nên đi đâu tiếp theo?',
         plains: {
-          '1': 'Con đường đồng bằng trước hết. Đoàn buôn không qua được thì ta chẳng có gì ăn.'
+          '1': 'Đường đồng bằng trước tiên. Không có đoàn buôn thì chúng ta không có cơm ăn.'
         },
         hollows: {
-          '1': 'Hang Goblin trước. Còn các vụ cướp thì chẳng đâu an toàn.'
+          '1': 'Hang Goblin. Chừng nào cướp phá còn tiếp diễn thì chẳng nơi nào khác an toàn.'
         },
         woods: {
-          '1': 'Phía đông, xuyên Rừng Thì Thầm. Đường đến Oakhaven chạy dưới những tán cây đó.'
+          '1': 'Về phía đông, xuyên qua Rừng Thì Thầm. Đó là đường đến Oakhaven.'
         },
         oakhaven: {
-          '1': 'Oakhaven đang bị vây. Nếu ngoại ô thất thủ thì thị trấn cũng thất thủ.'
+          '1': 'Oakhaven đang bị bao vây. Nếu vùng ngoại ô thất thủ thì cả thị trấn cũng mất theo.'
         },
         north: {
-          '1': 'Phía bắc, con à. Vách Đá Tro Tàn, rồi Ironhold phía sau. Càng đi xa, rắc rối càng lớn.'
+          '1': 'Bà nghĩ là phía bắc. Vách Đá Tro Tàn, rồi Ironhold ở phía sau. Càng đi càng khó.'
         }
       },
       bye: {
-        '1': 'Hãy trở về còn sống. Đó là điều duy nhất bà xin ở bất kỳ ai.'
+        '1': 'Hãy trở về lành lặn nhé. Bà chỉ xin có vậy.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Đứng yên. À không, con ổn. Thói quen thôi.',
-        '2': 'Xơ Lune. Ta chữa những gì con đường làm hỏng.'
+        '1': 'Đứng yên một chút. Không, cậu ổn. Thói quen thôi, xin lỗi.',
+        '2': 'Tôi là Xơ Lune. Con đường làm hỏng thứ gì, tôi vá lại thứ đó.'
       },
       again: {
-        '1': 'Vẫn còn nguyên vẹn à? Ta gần như thất vọng.'
+        '1': 'Vẫn còn nguyên vẹn chứ? Tốt. Nhưng cứ ngồi xuống đi.'
       },
       heal: {
-        '1': 'Ngồi xuống. Nghỉ đi. Con rời khỏi đây lành lặn, mọi bình thuốc đều đầy.'
+        '1': 'Ngồi nghỉ một lát đi. Tôi sẽ đổ đầy bình thuốc trước khi cậu đi.'
       },
       mana: {
-        '1': 'Bình xanh, vị đắng. Nhấp một ngụm khi phép thuật của con cạn.'
+        '1': 'Cái này đắng đấy. Uống khi phép thuật của cậu cạn kiệt.'
       },
       potions: {
-        '1': 'Con mang vài bình vào mỗi vùng. Uống trước khi cần, đừng đợi sau.',
-        '2': 'Nếu muốn mang nhiều hơn, ta có thể bán cho con một chiếc thắt lưng dài hơn.',
+        '1': 'Cậu mang vài bình thuốc vào mỗi trận. Uống trước khi cần, đừng đợi đến sau.',
+        '2': 'Nếu muốn mang nhiều hơn, tôi có thể bán cho cậu một chiếc thắt lưng lớn hơn.',
         say: 'Thuốc dùng thế nào?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblin tẩm độc vào đá ném. Nếu con chuyển xanh, về thẳng đây.'
+          '1': 'Goblin bôi thứ gì đó lên đá ném của chúng. Nếu thấy buồn nôn thì quay lại tìm tôi.'
         },
         spiders: {
-          '1': 'Nhện trong rừng cắn ba người tuần này. Cố đừng để bị cắn nhé.'
+          '1': 'Tuần này tôi chữa ba vết nhện cắn từ khu Rừng. Ở đó nhớ để ý bước chân.'
         },
         burns: {
-          '1': 'Binh lính từ phương bắc xuống với vết bỏng. Vách Đá Tro Tàn, người ta bảo. Lửa biết đi.'
+          '1': 'Lính từ phía bắc cứ xuống đây với vết bỏng. Nghe nói ở Vách Đá Tro Tàn.'
         }
       },
       healBack: {
-        '1': 'Giữ thắt lưng đầy và cúi đầu xuống.'
+        '1': 'Giữ thắt lưng luôn đầy và cúi đầu thấp xuống.'
       },
       bye: {
-        '1': 'Cố đừng chảy máu lên thứ gì quan trọng.'
+        '1': 'Ngoài kia nhớ giữ gìn bản thân.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Cao Kều! Cao Kều lập hiệp ước. Vua bảo tốt với Cao Kều.',
-        '2': 'Grik tốt. Grik có đồ lấp lánh. Cao Kều có vàng. Hợp nhau.'
+        '1': 'Ngài là người đã lập hiệp ước. Vua của chúng tôi nói ngài được chào đón ở đây.',
+        '2': 'Tôi là Grik. Tôi bán những thứ goblin làm ra. Hàng tốt, giá công bằng.'
       },
       again: {
-        '1': 'Cao Kều quay lại! Grik biết mà. Lấp lánh gọi Cao Kều.'
+        '1': 'Bạn hữu. Rất vui được gặp lại ngài.'
       },
       trade: {
-        '1': 'Vua bảo buôn, nên Grik buôn. Lấp lánh đổi lấp lánh. Lấp lánh tốt.'
+        '1': 'Xin mời xem. Gia đình tôi làm những món này.'
       },
       king: {
-        '1': 'Vua béo và vui. Hết cướp rồi. Cướp mệt lắm.',
-        '2': 'Vua bảo Cao Kều khéo ăn nói. Là lời khen cao nhất của goblin. Gần như vậy.',
+        '1': 'Giờ ngài ấy ăn uống đầy đủ. Không còn cướp phá. Dân của tôi bớt đói hơn.',
+        '2': 'Ngài ấy thường nhắc đến ngài. Với lòng kính trọng.',
         say: 'Vua của bạn thế nào?'
       },
       town: {
-        '1': 'Con người tắm nhiều quá. Nhưng có bánh nướng! Grik không biết có bánh nướng.',
+        '1': 'Người ta vẫn nhìn chằm chằm. Nhưng bà thợ làm bánh cho tôi bánh nướng. Tôi thích cái bánh đó.',
         say: 'Bạn thấy Sunford thế nào?'
       },
       rumor: {
         crags: {
-          '1': 'Anh em họ Grik đào ở phía bắc, trong đá đen. Nghe nói lửa biết đi. Grik ở lại đây.'
+          '1': 'Anh em họ của tôi đào trong đá đen ở phía bắc. Họ nói giờ có lửa đi lại ở đó.'
         },
         deep: {
-          '1': 'Nơi sâu đang thức dậy, Cao Kều. Goblin cảm thấy bằng chân.'
+          '1': 'Có thứ gì đó đang thức giấc ở nơi sâu thẳm. Goblin cảm nhận được qua mặt đất.'
         }
       },
       shopBack: {
-        '1': 'Buôn tốt! Cao Kều lại đến, nhỉ?'
+        '1': 'Cảm ơn ngài. Lần sau lại đến nhé.'
       },
       bye: {
-        '1': 'Tạm biệt, Cao Kều! Đừng chết. Người chết không mua gì.'
+        '1': 'Đi bình an, bạn hữu.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Lại thêm một thanh kiếm. Tốt. Tôi thôi hỏi chúng từ đâu ra rồi.',
-        '2': 'Đội trưởng Hale. Tôi chỉ huy phần còn lại của đội tuần tra Oakhaven.'
+        '1': 'Thêm một thanh kiếm. Tốt. Chúng tôi cần từng cây có thể có.',
+        '2': 'Đội trưởng Hale. Tôi chỉ huy những gì còn lại của đội gác Oakhaven.'
       },
       saved: {
-        '1': 'Cổng thành đã trụ vững. Ba trăm năm, và giờ thêm một lần nữa. Tôi nợ cậu thị trấn của tôi.'
+        '1': 'Cổng đã giữ vững. Ba trăm năm, thêm một năm nữa. Tôi nợ cậu chuyện đó.'
       },
       ending: {
-        '1': 'Cậu đã định đoạt ngai vàng của Pháo Đài Kinh Hoàng. Tường thành của tôi trông nhỏ đi so với trước.'
+        '1': 'Nghe nói cậu quyết định số phận Pháo Đài Kinh Hoàng. So với chuyện đó, tường thành của tôi trông bé tí.'
       },
       again: {
-        '1': 'Tường thành vẫn đứng. Hôm nay vẫn thế.'
+        '1': 'Tường thành vẫn đứng. Ít nhất là hôm nay.'
       },
       after: {
-        '1': 'Oakhaven nhớ, bạn hiền. Tôi cũng vậy.'
+        '1': 'Mừng gặp cậu. Oakhaven không quên đâu.'
       },
       quest: {
-        '1': 'Quân của một lãnh chúa đã vây chúng tôi. Krag. Hắn không đánh miễn phí.',
-        '2': 'Ai trả tiền cho hắn?',
+        '1': 'Tệ. Một tên lãnh chúa tên Krag đã bao vây chúng tôi, và hắn không đánh miễn phí.',
+        '2': 'Ai đang trả tiền cho hắn?',
         '3': 'Băng Tro Tàn. Chúng muốn một thị trấn riêng, và thị trấn của ta có tường thành.',
-        '4': 'Đánh bại hắn ở Ngoại Ô Oakhaven. Thắng bại sẽ định ở đó.',
-        say: 'Tình hình thế nào?'
+        '4': 'Phá trại của hắn ở Ngoại Ô Oakhaven. Mọi chuyện kết thúc ở đó, bằng cách này hay cách khác.',
+        say: 'Tệ đến mức nào?'
       },
       siege: {
-        '1': 'Chúng đề nghị cậu một phần ba thị trấn. Tôi biết. Chúng đề nghị tôi một phần tư.',
-        '2': 'Giờ Băng truy lùng cậu trên mọi nẻo đường. Coi chừng sau lưng ngoài kia.',
-        say: 'Về vụ bao vây…'
+        '1': 'Họ đã đề nghị cậu một phần ba thị trấn, đúng không? Họ đề nghị tôi một phần tư.',
+        '2': 'Giờ thì Băng Tro Tàn sẽ truy lùng cậu. Cẩn thận sau lưng trên đường.',
+        say: 'Về chuyện vòng vây...'
       },
       town: {
-        '1': 'Một thị trấn buôn bán. Mọi thứ đi qua giữa đồng bằng và núi đều nộp phí ở đây.',
-        '2': 'Vì thế ai cũng muốn nó. Vì thế tôi sẽ không từ bỏ.',
+        '1': 'Một thị trấn buôn bán. Mọi thứ qua lại giữa đồng bằng và núi đều phải nộp phí ở đây.',
+        '2': 'Đó là lý do ai cũng muốn nó. Và là lý do tôi không chịu bỏ.',
         say: 'Hãy kể cho tôi về Oakhaven.'
       },
       order: {
-        '1': 'Tôi phục vụ Oakhaven. Thiết Hội và tôi đồng ý với nhau hầu hết các ngày. Nhưng đó không phải một chuyện.',
-        say: 'Ông phục vụ Thiết Hội à?'
+        '1': 'Tôi chịu trách nhiệm với Oakhaven. Thiết Hội và tôi đồng ý phần lớn các ngày. Không phải mọi ngày.',
+        say: 'Ông có nghe lệnh Thiết Hội không?'
       },
       rumor: {
         crags: {
-          '1': 'Phía bắc rừng, mặt đất đen và cháy. Vách Đá Tro Tàn. Bọn tín đồ tiếp lửa.'
+          '1': 'Phía bắc khu rừng đất đen và cháy. Vách Đá Tro Tàn. Phần lớn là bọn tà giáo.'
         },
         mines: {
-          '1': 'Ironhold đã ngừng gửi thép. Có chuyện không ổn trong các mỏ.'
+          '1': 'Ironhold đã thôi gửi thép. Có chuyện gì đó không ổn trong mỏ của họ.'
         },
         north: {
-          '1': 'Cực bắc đã im ắng. Theo kinh nghiệm của tôi, im ắng còn tệ hơn.'
+          '1': 'Miền cực bắc đã im ắng. Theo kinh nghiệm của tôi, chẳng bao giờ là điềm tốt.'
         }
       },
       bye: {
-        '1': 'Giữ kiếm cho lỏng tay.'
+        '1': 'Giữ kiếm bên mình.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Muốn mũ sắt thì trễ rồi. Tất cả đang ở trên tường.',
-        '2': 'Odo. Thợ giáp. Mệt.'
+        '1': 'Nếu cậu tìm mũ giáp thì tiếc quá. Chúng đều lên tường thành hết rồi.',
+        '2': 'Odo. Tôi làm giáp. Dạo này ngủ không được mấy.'
       },
       again: {
-        '1': 'Vẫn ở đây. Vẫn thiếu hàng.'
+        '1': 'Vẫn ở đây. Vẫn thiếu gần như mọi thứ.'
       },
       trade: {
-        '1': 'Nửa số hàng đã lên tường. Lấy phần còn lại đi.'
+        '1': 'Một nửa hàng của tôi đã lên tường thành rồi. Còn gì thì cứ lấy, nếu vừa người.'
       },
       who: {
-        '1': 'Hai mươi năm tôi làm giáp cho thị trấn này. Chưa từng nghĩ thấy tất cả được mặc cùng lúc.'
+        '1': 'Tôi làm giáp cho thị trấn này hai mươi năm. Chưa từng thấy tất cả được mặc cùng một lúc.'
       },
       armor: {
-        '1': 'Giáp tấm nếu đứng yên. Da nếu không. Áo choàng nếu thích chết.',
-        say: 'Tôi nên mặc giáp loại nào?'
+        '1': 'Giáp tấm nếu cậu trụ vững. Da nếu cậu di chuyển liên tục. Áo choàng nếu cậu nhanh nhẹn.',
+        say: 'Tôi nên mặc loại giáp nào?'
       },
       rumor: {
         backRoom: {
-          '1': 'Nếu vòng vây vỡ, tôi mở phòng sau. Giáp tấm tốt đấy. Phá nó giúp tôi nhé?'
+          '1': 'Nếu vòng vây vỡ, tôi sẽ mở phòng sau. Giáp tấm tốt nằm trong đó.'
         }
       },
       shopBack: {
-        '1': 'Sẽ chịu được. Có lẽ.'
+        '1': 'Nó sẽ chịu được. Từ trước đến giờ vẫn chịu được.'
       },
       bye: {
-        '1': 'Cúi đầu xuống.'
+        '1': 'Ngoài kia cúi đầu xuống nhé.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Cậu đây rồi! Vào đi. Phòng sau đang mở, mở cho CẬU.',
-        '2': 'Giờ người ta gọi tôi là Bậc thầy Odo. Làm ăn tốt khi thị trấn còn sống.'
+        '1': 'Cậu đến rồi! Vào đi. Phòng sau đang mở, mở cho cậu đấy.',
+        '2': 'Giờ họ gọi tôi là Bậc thầy Odo. Hóa ra chút hòa bình làm ăn khấm khá lên nhiều.'
       },
       ending: {
-        '1': 'Từ cổng thành của tôi đến Pháo Đài Kinh Hoàng. Tôi nói với ai cũng bảo tôi đã may giáp cho cậu.'
+        '1': 'Từ cổng thành của chúng ta đến Pháo Đài Kinh Hoàng. Tôi nói với mọi người là tôi đã may giáp cho cậu.'
       },
       again: {
-        '1': 'Người hùng của cổng thành. Hôm nay cậu muốn gì?'
+        '1': 'Mừng gặp cậu. Hôm nay lấy gì?'
       },
       trade: {
-        '1': 'Cậu đã cứu thị trấn này. Giáp tấm tốt từ phòng sau được mang ra cho cậu.'
+        '1': 'Giáp tấm tốt đã được đem ra. Cậu xứng đáng được xem hơn ai hết.'
       },
       town: {
-        '1': 'Giàu. Ồn ào. Đầy thương nhân than phiền về phí qua cổng.',
-        '2': 'Tuyệt vời. Tôi chưa ngủ một tuần rồi.',
-        say: 'Thị trấn thế nào?'
+        '1': 'Nhộn nhịp. Ồn ào. Đầy thương nhân càu nhàu về phí qua đường.',
+        '2': 'Tuyệt vời. Mấy tuần rồi tôi không có lấy một giờ yên tĩnh.',
+        say: 'Thị trấn dạo này thế nào?'
       },
       rumor: {
         mines: {
-          '1': 'Thép của tôi đến từ Ironhold, mà Ironhold im bặt. Ai đó nên xem các mỏ của nó.'
+          '1': 'Thép của tôi đến từ Ironhold, và họ đã im bặt. Nên có người đi kiểm tra mỏ của họ.'
         },
         tundra: {
-          '1': 'Quặng tốt nhất tôi từng thấy đến từ lãnh nguyên. Những người mang nó chưa từng quay lại.'
+          '1': 'Quặng tốt nhất tôi từng rèn đến từ lãnh nguyên. Những người tìm ra nó không quay về.'
         }
       },
       shopBack: {
-        '1': 'Nếu không vừa, quay lại. Tôi sẽ sửa cho vừa.'
+        '1': 'Nếu mặc không vừa, mang lại đây. Tôi sửa cho.'
       },
       bye: {
-        '1': 'Cổng Oakhaven luôn mở cho cậu. Chỉ riêng cậu.'
+        '1': 'Lúc nào cũng được chào đón ở đây.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Mua hay xem? Xem không mất gì. Sờ thì mất một ngón tay.',
-        '2': 'Senna. Tôi bán lưỡi sắc. Tôi không hỏi chúng để làm gì.'
+        '1': 'Xem hay mua? Gì cũng được. Chỉ đừng sờ vào lưỡi.',
+        '2': 'Senna. Tôi bán kiếm. Cậu làm gì với chúng là việc của cậu.'
       },
       saved: {
-        '1': 'Vòng vây vỡ rồi. Tiếc thật. Chiến tranh tốt cho làm ăn. Hòa bình tốt cho đòi nợ.'
+        '1': 'Vậy là vòng vây vỡ rồi. Tốt cho thị trấn. Nhưng chiến tranh làm ăn khá hơn đấy.'
       },
       again: {
         '1': 'Quay lại tìm thứ sắc hơn à?'
       },
       trade: {
-        '1': 'Sắc, cân bằng, và bán cho ai trả tiền. Hôm nay là cậu.'
+        '1': 'Sắc, cân đối, giá hợp lý. Cứ thong thả xem.'
       },
       who: {
-        '1': 'Tôi bán kiếm cho cả hai phe của ba cuộc chiến. Tôi vẫn còn đây. Phần lớn họ thì không.'
+        '1': 'Tôi đã bán cho cả hai phe trong ba cuộc chiến. Tôi vẫn còn đây. Phần lớn bọn họ thì không.'
       },
       rumor: {
         krag: {
-          '1': 'Người của Krag mang thép tốt. Tiền của Băng. Cướp lại nếu cậu làm được.'
+          '1': 'Người của Krag mang thép tốt. Tiền của Băng Tro Tàn. Đáng nhặt nếu cậu có dịp.'
         },
         which: {
-          '1': 'Lưỡi nhanh cần Khéo léo. Súng và cung cần Kỹ xảo. Biết mình thuộc loại nào trước khi trả tiền tôi.'
+          '1': 'Kiếm nhanh cần Khéo léo. Cung và súng cần Kỹ xảo. Biết mình thuộc loại nào đi.'
         }
       },
       shopBack: {
-        '1': 'Máu lau được. Gỉ thì không. Tra dầu đi.'
+        '1': 'Nhớ bôi dầu. Gỉ làm hỏng một lưỡi tốt nhanh hơn cả xương.'
       },
       bye: {
-        '1': 'Đừng chết khi còn nợ tôi tiền.'
+        '1': 'Đừng chết khi còn nợ tôi tiền nhé.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Đừng quay lại. Đùa thôi. Quay lại đi.',
-        '2': 'Họ gọi ta là Lời Thì Thầm. Ta dạy người ta đến mà không ai để ý.'
+        '1': 'Cậu không nghe thấy tôi đi tới sau lưng. Hầu hết mọi người đều không.',
+        '2': 'Người ta gọi tôi là Lời Thì Thầm. Tôi dạy cách không bị nhìn thấy.'
       },
       fallen: {
-        '1': 'Thị trấn giờ yên hơn. Ít lính gác. Ta khá thích.'
+        '1': 'Thị trấn yên hơn rồi. Lính gác ít đi. Việc dễ hơn với vài người trong bọn tôi.'
       },
       friend: {
-        '1': 'Băng coi cậu là bạn. Bạn trả ít hơn. Bạn cũng biết quá nhiều.'
+        '1': 'Băng Tro Tàn coi cậu là bạn. Bạn trả ít hơn. Nhớ lấy.'
       },
       foe: {
-        '1': 'Băng muốn cậu chết. Ta được trả để dạy, không phải để giết. Cậu may đấy.'
+        '1': 'Băng Tro Tàn muốn cậu chết. Tôi được trả tiền để dạy, không phải để giết. Vậy nên, học thôi.'
       },
       again: {
-        '1': 'Cậu ồn hơn lần trước. Ta sẽ sửa.'
+        '1': 'Cậu vẫn còn quá ồn. Ta sẽ sửa chuyện đó.'
       },
       train: {
         '1': 'Vậy thì lặng lẽ. Nhìn chân ta, đừng nhìn tay.'
       },
       class: {
-        '1': 'Một con dao đã ở sau lưng cậu. Bước ra khỏi bóng tối, đâm, rồi biến mất.',
-        '2': 'Khéo léo trên hết. Kỹ xảo, khi cậu muốn nhát cắt có giá trị.',
+        '1': 'Kẻ đã đứng sau lưng cậu rồi. Vào, một nhát, rồi biến mất.',
+        '2': 'Khéo léo quan trọng nhất. Kỹ xảo nữa, nếu cậu muốn nhát cắt có hiệu quả.',
         say: 'Ảnh Kiếm là gì?'
       },
       ready: {
         strong: {
-          '1': 'Cậu di chuyển tốt. Lấy những gì ta biết. Mang Kỹ xảo cho khói.'
+          '1': 'Giờ cậu di chuyển tốt rồi. Lấy phần còn lại đi. Mang theo ít Kỹ xảo cho khói.'
         },
         able: {
-          '1': 'Tốt. Tay cậu đủ nhanh cho bước kế tiếp.'
+          '1': 'Tay cậu đủ nhanh rồi. Bước tiếp theo.'
         },
         weak: {
-          '1': 'Cậu đi như cái xe bò. Thêm Khéo léo. Rồi ta nói chuyện.'
+          '1': 'Chưa được. Chân cậu còn nặng. Luyện Khéo léo đi.'
         }
       },
       syndicate: {
-        '1': 'Những người nhận ra luật pháp có thể mua bán. Ta không phán xét. Ta lập hóa đơn.',
+        '1': 'Những người nhận ra pháp luật có giá. Tôi không phán xét. Tôi chỉ nhận tiền.',
         say: 'Băng Tro Tàn là ai?'
       },
       trainBack: {
-        '1': 'Giờ đi làm ở nơi không ai thấy.'
+        '1': 'Giờ đi luyện ở nơi không ai thấy.'
       },
       bye: {
         '1': 'Cậu chưa từng thấy ta.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Ngươi được phép lại gần. Không cần gần thế.',
-        '2': 'Lãnh chúa Castellan, dòng máu cổ xưa của Oakhaven. Ta dạy chỉ huy.'
+        '1': 'Cậu có thể lại gần. Thế là đủ gần rồi.',
+        '2': 'Lãnh chúa Castellan, thuộc dòng họ lâu đời nhất của Oakhaven. Ta dạy cách chỉ huy.'
       },
       saved: {
-        '1': 'Thị trấn của ta còn đứng, và tên gia tộc ta cũng vậy. Ngươi có lòng biết ơn của một lãnh chúa. Rất đáng giá.'
+        '1': 'Thị trấn của ta còn đó, và tên dòng họ ta cũng vậy. Ta cảm ơn cậu. Thật lòng.'
       },
       friend: {
-        '1': 'Một người bạn của Thiết Hội. Ta sẽ giảm học phí. Đừng nhắc với ai.'
+        '1': 'Bạn của Thiết Hội. Ta sẽ giảm phí. Xin đừng đồn ra ngoài.'
       },
       foe: {
-        '1': 'Thiết Hội đã treo tên ngươi. Ta vẫn dạy ngươi. Tiền là tiền, tiếc thay.'
+        '1': 'Thiết Hội có tên cậu trong danh sách. Ta vẫn sẽ dạy cậu. Tiền là tiền.'
       },
       again: {
-        '1': 'À. Học trò triển vọng nhất của ta.'
+        '1': 'À, lại là cậu. Ta tiếp tục nhé?'
       },
       train: {
-        '1': 'Rất tốt. Hãy quan sát cách ra lệnh.'
+        '1': 'Rất tốt. Hãy xem một mệnh lệnh được ban ra thế nào, và được tuân theo thế nào.'
       },
       class: {
-        '1': 'Sao phải chiến đấu một mình khi người khác làm thay được? Triệu hồi vệ binh. Ra lệnh cho họ.',
-        '2': 'Cần Mị lực. Không ai dẫn dắt bằng cách lầm bầm.',
+        '1': 'Người không chiến đấu một mình. Cậu gọi lính gác, và họ chiến đấu thay cậu.',
+        '2': 'Cần Mị lực. Không ai theo một người lãnh đạo mà họ không nghe thấy.',
         say: 'Đại Quân Vương là gì?'
       },
       ready: {
         strong: {
-          '1': 'Ngươi có phong thái. Học nốt các bài còn lại của ta, và nhớ đứng thẳng lên.'
+          '1': 'Giờ cậu có khí chất thực sự. Hãy học nốt các bài còn lại của ta.'
         },
         able: {
-          '1': 'Giọng ngươi vang xa. Ngươi sẵn sàng cho bài tiếp theo.'
+          '1': 'Giọng cậu vang xa rồi. Cậu sẵn sàng cho bài học tiếp theo.'
         },
         weak: {
-          '1': 'Chẳng ai theo ngươi đến tiệm bánh. Thêm Mị lực.'
+          '1': 'E rằng chưa ai theo cậu được. Hãy rèn Mị lực đi.'
         }
       },
       family: {
-        '1': 'Chúng ta xây bức tường mà Đội trưởng Hale đang đứng. Hắn quên. Ta nhắc. Thường xuyên.',
+        '1': 'Chúng ta xây bức tường mà Đội trưởng Hale đang đứng. Anh ta quên điều đó. Ta nhắc anh ta.',
         say: 'Hãy kể về gia tộc của ngài.'
       },
       trainBack: {
-        '1': 'Giờ đi và được vâng lời.'
+        '1': 'Đi đi. Hãy thử dẫn dắt ai đó.'
       },
       bye: {
-        '1': 'Lui ra.'
+        '1': 'Chúc cậu một ngày tốt lành.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Người kế tiếp! Ồ. Cậu đi được. Thế là đổi gió đấy.',
-        '2': 'Thầy Fenn. Bốn mươi người bị thương trên tường, mà chỉ có một mình tôi.'
+        '1': 'Người tiếp theo! Ồ, cậu tự đi bộ đến. Thay đổi dễ chịu đấy.',
+        '2': 'Thầy Fenn. Bốn mươi người bị thương trên tường thành, mà chỉ có một mình tôi.'
       },
       saved: {
-        '1': 'Ba ngày không có người bị thương mới! Tôi không biết để tay đâu.'
+        '1': 'Ba ngày rồi không có thương binh mới. Tôi hầu như không biết làm gì với bản thân.'
       },
       again: {
-        '1': 'Lại là cậu, mà vẫn đi được. Tôi tán thành.'
+        '1': 'Lại là cậu, và đi bằng hai chân của mình. Tốt.'
       },
       heal: {
-        '1': 'Nằm xuống. Không, giường sạch kia. Đó. Mọi bình đều đầy. Đi đi.'
+        '1': 'Nằm xuống đây, cái giường sạch ấy. Đấy. Bình thuốc đầy rồi, đi được rồi.'
       },
       mana: {
-        '1': 'Thuốc mana! Vị như tiền xu. Nhưng hiệu nghiệm.'
+        '1': 'Thuốc mana. Vị như đồng xu cũ, nhưng có tác dụng.'
       },
       potions: {
-        '1': 'Thắt lưng dài hơn chứa được nhiều bình hơn. Cái đó tôi bán. Bình thì tôi đổ đầy miễn phí.',
+        '1': 'Với một chiếc thắt lưng dài hơn thì được. Tôi có bán. Đổ đầy bình thì miễn phí.',
         say: 'Tôi mang thêm thuốc được không?'
       },
       rumor: {
         archers: {
-          '1': 'Cung thủ của Krag nhắm vào chân. Cứ di chuyển ngoài kia là chúng trượt.'
+          '1': 'Cung thủ của Krag nhắm thấp. Cứ di chuyển là phần lớn sẽ trượt.'
         },
         north: {
-          '1': 'Bỏng, tê cóng, và một người thề rằng bức tượng đã cắn ông ta. Phương bắc không tử tế.'
+          '1': 'Tôi thấy toàn bỏng, tê cóng, và một người thề rằng một bức tượng đã cắn mình.'
         }
       },
       healBack: {
         '1': 'Đi đi. Lần sau đến để trò chuyện, đừng đến để khâu vết thương.'
       },
       bye: {
-        '1': 'Đi bộ cho khỏi! Đó là lời khuyên y khoa.'
+        '1': 'Giữ gìn sức khỏe. Và ăn chút gì đi nhé.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Không tên tuổi. Nhưng cậu là người đã mở cổng. Cái đó tôi biết.',
-        '2': 'Cứ gọi tôi là Kẻ Tiêu Hàng. Mọi thứ ở đây đều rơi từ xe hàng.'
+        '1': 'Ở đây không có tên. Nhưng tôi biết ai đã mở cổng. Ai cũng biết.',
+        '2': 'Cứ gọi tôi là Kẻ Tiêu Hàng. Mọi thứ ở đây đều từ đâu đó mà ra.'
       },
       foe: {
-        '1': 'Hôm nay Băng không thích cậu. Vàng của cậu thì vẫn thích.'
+        '1': 'Băng Tro Tàn lúc này không ưa cậu. Nhưng vàng của cậu thì được chào đón.'
       },
       again: {
-        '1': 'À. Khách quý nhất của tôi. Không ai theo cậu chứ? Tốt.'
+        '1': 'Lại đến nữa. Hy vọng không ai bám theo cậu chứ?'
       },
       trade: {
-        '1': 'Không tên, không câu hỏi. Băng lấy phần của Băng, cậu lấy hàng.'
+        '1': 'Hai bên đều không hỏi gì. Băng Tro Tàn lấy phần của nó, cậu lấy hàng.'
       },
       who: {
-        '1': 'Trước vụ cháy tôi bán nến. Hợp pháp. Tệ hại.'
+        '1': 'Trước vụ cháy tôi bán nến. Việc lương thiện. Nhưng không có lời.'
       },
       armor: {
-        '1': 'Thợ giáp đi hết rồi, bạn hiền. Bị cháy rụi. Cậu biết mà.',
+        '1': 'Thợ giáp đi hết rồi, bạn ạ. Lý do thì cậu biết rõ hơn tôi.',
         say: 'Có bán giáp không?'
       },
       rumor: {
         citadel: {
-          '1': 'Năm ngoái một pháo đài xuất hiện ở cực bắc. Không ai xây nó. Tường nó rì rầm.'
+          '1': 'Năm ngoái một pháo đài xuất hiện ở cực bắc. Không ai xây nó cả.'
         },
         crystals: {
-          '1': 'Ai đó đang mua hết pha lê hư không trên thị trường. Không phải chúng tôi. Điều đó làm tôi lo.'
+          '1': 'Có người đang mua mọi viên pha lê hư không họ tìm được. Không phải bọn tôi. Điều đó làm tôi lo.'
         }
       },
       shopBack: {
         '1': 'Cậu chưa từng ở đây.'
       },
       bye: {
-        '1': 'Coi chừng đống đổ nát.'
+        '1': 'Cẩn thận bước chân. Đống đổ nát hay xê dịch.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Có khách. Xin chú ý mấy cái lọ.',
-        '2': 'Bác sĩ Sangrel. Chủ mới của Oakhaven không hỏi tôi dạy gì. Thật mới mẻ.'
+        '1': 'Có khách. Xin đừng chạm vào mấy cái lọ.',
+        '2': 'Bác sĩ Sangrel. Chủ mới của Oakhaven không hỏi tôi dạy gì. Thật yên tĩnh.'
       },
       found: {
-        '1': 'Cậu tìm ra tôi rồi. Ít ai tìm bác sĩ ở nơi thế này.',
-        '2': 'Bác sĩ Sangrel. Các thị trấn đốt đồng loại của tôi, nên tôi làm việc ở nơi không có thị trấn.'
+        '1': 'Cậu tìm ra tôi rồi. Không nhiều người đi tìm bác sĩ ở một nơi như thế này.',
+        '2': 'Bác sĩ Sangrel. Các thị trấn thiêu người như tôi, nên tôi làm việc ở nơi không có ai.'
       },
       friend: {
-        '1': 'Băng bảo lãnh cho cậu. Học phí của tôi thấp hơn cho bạn của Băng. Tiêu chuẩn thì không.'
+        '1': 'Băng Tro Tàn bênh vực cậu. Tôi tính bạn của họ rẻ hơn. Tiêu chuẩn của tôi vẫn như cũ.'
       },
       foe: {
-        '1': 'Băng sẽ trả tiền cho máu của cậu. Tôi thích cậu tiêu nó vào bài học của tôi hơn.'
+        '1': 'Băng Tro Tàn sẽ trả giá cao cho máu của cậu. Tôi muốn cậu tiêu nó ở đây hơn.'
       },
       again: {
-        '1': 'Cậu nhợt nhạt. Tốt. Hợp với công việc.'
+        '1': 'Trông cậu nhợt nhạt. Tốt. Hợp với công việc này.'
       },
       train: {
-        '1': 'Xắn tay áo lên. Sẽ đau. Đó chính là điểm mấu chốt.'
+        '1': 'Xắn tay áo lên. Sẽ đau đấy. Đó chính là mục đích.'
       },
       class: {
-        '1': 'Cậu trả giá cho sức mạnh bằng chính sức khỏe của mình. Rồi uống lại từ kẻ địch.',
-        '2': 'Sức bền là túi tiền của cậu. Trí tuệ quyết định cậu tiêu khéo đến đâu.',
+        '1': 'Cậu trả giá cho sức mạnh bằng chính sức khỏe của mình, rồi lấy lại từ kẻ thù.',
+        '2': 'Sức bền là thứ cậu có để tiêu. Trí tuệ là cậu tiêu khéo đến đâu.',
         say: 'Huyết Giả Kim là gì?'
       },
       ready: {
@@ -1953,288 +1953,288 @@ export default {
           '1': 'Thể trạng đáng nể. Cậu có thể học gần như tất cả.'
         },
         able: {
-          '1': 'Máu cậu đủ mạnh cho bài tiếp theo.'
+          '1': 'Cậu đủ cứng cáp cho bài học tiếp theo.'
         },
         weak: {
-          '1': 'Cậu sẽ ngất ngay vết cắt đầu tiên. Làm ơn tăng thêm Sức bền.'
+          '1': 'Cậu sẽ ngất ngay nhát cắt đầu tiên. Làm ơn rèn Sức bền trước đã.'
         }
       },
       jars: {
-        '1': 'Tình nguyện viên. Phần lớn.',
-        say: 'Trong lọ có gì?'
+        '1': 'Mẫu vật. Phần lớn là tự nguyện hiến tặng.',
+        say: 'Trong các lọ có gì vậy?'
       },
       trainBack: {
-        '1': 'Nhớ ghi chép. Vì khoa học.'
+        '1': 'Nhớ ghi chép nhé. Tôi muốn nghe kết quả thế nào.'
       },
       bye: {
-        '1': 'Giữ sức khỏe. Không thì cậu vô dụng với tôi.'
+        '1': 'Giữ gìn sức khỏe. Tôi nói thật đấy.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Vậy. Người đã mở cổng. Ngồi đi. Cậu xứng đáng có một chiếc ghế.',
-        '2': 'Họ gọi ta là Bà Ash. Oakhaven giờ là của ta. Một phần, của cậu.'
+        '1': 'Vậy cậu là người đã mở cổng. Ngồi đi. Cậu xứng đáng có một cái ghế.',
+        '2': 'Họ gọi tôi là Bà Ash. Oakhaven giờ là của chúng tôi. Một phần nhờ cậu.'
       },
       throneOurs: {
-        '1': 'Ngai vàng của Pháo Đài Kinh Hoàng. Của chúng ta. Cậu là khoản đầu tư tốt nhất của ta.'
+        '1': 'Pháo Đài Kinh Hoàng nằm trong tay chúng tôi. Cậu đáng từng đồng xu.'
       },
       throneLost: {
-        '1': 'Cậu đã trao ngai vàng đi. Cho người khác. Ta sẽ nói chuyện đó. Không phải hôm nay.'
+        '1': 'Cậu đã trao ngai vàng cho người khác. Chúng ta sẽ nói chuyện đó. Không phải hôm nay.'
       },
       foe: {
-        '1': 'Cậu cứ cản đường chúng ta. Ngồi xuống đi. Ta thích nhìn một vấn đề trước khi giải quyết nó.'
+        '1': 'Cậu đã làm việc chống lại chúng tôi. Vẫn ngồi xuống đi. Tôi thích biết mình đang làm việc với ai.'
       },
       again: {
-        '1': 'Kẻ phản bội cưng của ta. Băng giúp gì được cho cậu?'
+        '1': 'Lại đến nữa. Băng Tro Tàn có thể giúp gì cho cậu?'
       },
       cut: {
-        '1': 'Một phần ba đống đổ nát, cưng ạ. Đây là phần của mùa này.',
-        '2': 'Nó sẽ lớn lên. Đống đổ nát rất sinh lời khi cậu nắm cái chợ duy nhất của nó.',
-        say: 'Bà đã hứa cho tôi một phần ba Oakhaven.'
+        '1': 'Và cậu sẽ có. Một phần của đống đổ nát, hiện giờ. Đây là phần của mùa này.',
+        '2': 'Nó sẽ tăng lên. Một đống đổ nát sinh lời rất tốt khi cậu nắm chợ duy nhất của nó.',
+        say: 'Tôi được hứa một phần của Oakhaven.'
       },
       syndicate: {
-        '1': 'Cái mà ai cũng muốn. Chúng ta chỉ không giả vờ khác đi.',
-        '2': 'Cứ là bạn của chúng ta, thì Lời Thì Thầm và Bác sĩ sẽ tính cậu rẻ hơn. Lòng trung thành có bảng giá.',
-        say: 'Băng muốn gì?'
+        '1': 'Thứ mà ai cũng muốn. Chúng tôi chỉ không giả vờ khác đi.',
+        '2': 'Giữ thân thiện, thì Lời Thì Thầm và Bác sĩ sẽ tính cậu rẻ hơn.',
+        say: 'Băng Tro Tàn thật sự muốn gì?'
       },
       order: {
-        '1': 'Dĩ nhiên rồi. Cậu đã đốt một thị trấn của họ. Mang thêm thuốc đi.',
-        say: 'Thiết Hội đang săn tôi.'
+        '1': 'Dĩ nhiên rồi. Cậu đã đốt một thị trấn của họ. Mang thêm thuốc theo đi.',
+        say: 'Thiết Hội đang truy lùng tôi.'
       },
       rumor: {
         core: {
-          '1': 'Người lùn tìm thấy thứ gì đó trong mỏ. Một cái lõi. Ta muốn nó. Mang đến cho chúng ta và nêu giá.'
+          '1': 'Người lùn tìm thấy thứ gì đó trong mỏ. Một cái lõi. Mang đến cho chúng tôi và ra giá đi.'
         },
         sold: {
-          '1': 'Cái lõi đã đến an toàn. Cậu nên xem nó làm gì với ổ khóa.'
+          '1': 'Cái lõi đến nơi an toàn. Cậu sẽ ngạc nhiên về việc nó làm gì với một ổ khóa.'
         },
         north: {
-          '1': 'Mọi thứ đáng trộm đã dời lên phía bắc. Chúng ta cũng vậy.'
+          '1': 'Mọi thứ đáng giá đều đã chuyển về phía bắc. Chúng tôi cũng vậy.'
         }
       },
       bye: {
-        '1': 'Đừng làm người dưng. Người dưng bị bám đuôi.'
+        '1': 'Đừng làm người lạ. Chúng tôi để mắt đến người lạ.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Cậu đã đi qua các mỏ. Tôi ngửi thấy bụi trên người cậu.',
-        '2': 'Dorn. Thợ cả của Ironhold. Tôi có một vấn đề to bằng ngọn núi.'
+        '1': 'Cậu đi lên từ các mỏ. Tôi ngửi thấy bụi trên người cậu.',
+        '2': 'Dorn. Thợ cả của Ironhold. Và tôi có một vấn đề to bằng cả ngọn núi.'
       },
       destroyed: {
-        '1': 'Ánh sáng tắt và lũ golem thành sắt vụn. Thợ mỏ của tôi hát đêm qua. Lần đầu sau một năm.'
+        '1': 'Ánh sáng tắt rồi, golem thành đống sắt vụn. Thợ mỏ của tôi đã hát đêm qua. Lần đầu tiên sau một năm.'
       },
       studied: {
-        '1': 'Lửa xanh trong lò rèn và áo choàng trong đại sảnh. Công việc tốt. Tôi sẽ quen với áo choàng.'
+        '1': 'Lửa xanh trong lò của tôi và các học giả mặc áo choàng trong sảnh của tôi. Ít nhất công việc cũng tốt.'
       },
       sold: {
-        '1': 'Cậu đã bán nó. Golem vẫn đi và mỏ của tôi vẫn là nấm mồ. Cút khỏi ánh sáng của tôi.'
+        '1': 'Cậu đã bán nó. Golem vẫn đi lại, mỏ của tôi vẫn là nấm mồ. Để tôi yên.'
       },
       ending: {
-        '1': 'Vậy là ngai vàng đã định. Tốt. Giờ vương quốc có thể quay lại cãi nhau về sắt.'
+        '1': 'Vậy là ngai vàng đã ngã ngũ. Tốt. Có lẽ giờ chúng tôi quay lại đào mỏ được rồi.'
       },
       again: {
-        '1': 'Nói đi. Lò rèn không chờ.'
+        '1': 'Gì thế? Lò rèn không đợi đâu.'
       },
       quest: {
-        '1': 'Chúng tôi đào sắt và chạm phải một trái tim. Một lõi aether. Nó đập dưới kia trong bóng tối.',
+        '1': 'Chúng tôi đào sắt mà tìm thấy một trái tim. Lõi aether. Cậu cảm nhận được nó đập.',
         '2': 'Còn lũ golem?',
-        '3': 'Chúng bước theo nhịp của nó. Ba thế lực đã viết thư xin nó. Đều lịch sự. Tôi không tin ai.',
-        '4': 'Cậu sẽ tới đó trước, ở đáy Mỏ Ironhold. Rồi việc định đoạt là của cậu.',
-        say: 'Chuyện gì đã xảy ra trong các mỏ?'
+        '3': 'Chúng di chuyển theo nhịp của nó. Ba thế lực đã viết thư xin nó. Tôi không tin ai trong số họ.',
+        '4': 'Cậu sẽ đến đó trước, ở đáy Mỏ Ironhold. Chuyện xảy ra sau đó tùy cậu.',
+        say: 'Dưới mỏ đã xảy ra chuyện gì?'
       },
       core: {
-        say: 'Về cái lõi…',
+        say: 'Về cái lõi...',
         destroy: {
-          '1': 'Cậu phá một kỳ quan để cứu dân tôi. Thiết Hội gửi thợ giáp để tạ ơn. Tôi gửi bia.'
+          '1': 'Cậu đã phá hủy một kỳ quan để cứu người của tôi. Thiết Hội gửi thợ giáp đến. Tôi gửi bia.'
         },
         study: {
-          '1': 'Thợ máy của Vòng Tròn thì điên, nhưng súng của họ bắn thẳng. Một món hời công bằng.'
+          '1': 'Người của Vòng Tròn kỳ quặc, nhưng súng của họ bắn thẳng. Cũng công bằng.'
         },
         sell: {
-          '1': 'Vàng. Cậu làm vì vàng. Mong nó sưởi ấm cho cậu.'
+          '1': 'Cậu làm vì vàng. Hy vọng nó giữ ấm được cho cậu.'
         }
       },
       town: {
-        '1': 'Thép tốt nhất vương quốc, khi các mỏ còn chạy.',
+        '1': 'Thép tốt nhất vương quốc, khi các mỏ còn hoạt động.',
         '2': 'Chân Đá dạy đất, Pim dạy máy móc. Cả hai đều nói đến sưng tai.',
         say: 'Hãy kể cho tôi về Ironhold.'
       },
       rumor: {
         tundra: {
-          '1': 'Phía đông Vách Đá, đất hóa trắng. Lãnh Nguyên Băng Giá. Người khổng lồ, và kẻ chết không chịu nằm xuống.'
+          '1': 'Phía đông Vách Đá, đất chuyển sang màu trắng. Lãnh Nguyên Băng Giá. Có người khổng lồ, và tệ hơn.'
         },
         citadel: {
-          '1': 'Trinh sát của tôi thấy một pháo đài ở phía bắc mà năm ngoái chưa có. Tôi không thích núi mới.'
+          '1': 'Do thám của tôi thấy một pháo đài ở phía bắc mà năm ngoái chưa có. Tôi không thích điều đó.'
         },
         fortress: {
-          '1': 'Pháo Đài Kinh Hoàng là nơi mọi chuyện kết thúc. Mọi con đường lên bắc đều dẫn đến cổng của nó.'
+          '1': 'Mọi thứ kết thúc ở Pháo Đài Kinh Hoàng. Mọi con đường lên phía bắc đều dẫn đến đó.'
         }
       },
       bye: {
-        '1': 'Đập cho thẳng.'
+        '1': 'Đi cho khỏe.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Bỏ tay khỏi hàng trưng bày. Đầu nào cũng sắc.',
-        '2': 'Hilda Hammerhand. Món nào cũng do người lùn rèn.'
+        '1': 'Cẩn thận với hàng trưng bày. Chúng sắc cả hai lưỡi đấy.',
+        '2': 'Hilda Hammerhand. Mọi món ở đây đều do tay người lùn rèn.'
       },
       dragon: {
-        '1': 'Cậu giết con rồng? Bằng đồ của TÔI? Không à? Nói dối tôi đi. Bảo là đồ của tôi.'
+        '1': 'Cậu giết con rồng à? Tôi hy vọng là bằng một trong những lưỡi kiếm của tôi.'
       },
       again: {
-        '1': 'Quay lại vì thép thật à?'
+        '1': 'Quay lại mua thép tử tế à?'
       },
       trade: {
-        '1': 'Người lùn rèn. Nếu gãy, là tại cậu.'
+        '1': 'Do người lùn rèn. Nếu một cái gãy, tôi muốn biết nó gãy thế nào.'
       },
       who: {
-        '1': 'Mẹ tôi rèn cho các vị vua. Tôi rèn cho ai bước vào. Thời thế đổi thay.'
+        '1': 'Mẹ tôi rèn cho các vị vua. Tôi rèn cho bất cứ ai bước qua cửa.'
       },
       rumor: {
         golems: {
-          '1': 'Lũ golem trong mỏ làm từ chính sắt của chúng tôi. Nói thật là xấu hổ.'
+          '1': 'Mấy con golem dưới đó làm từ chính sắt của chúng tôi. Nói thật là xót lắm.'
         },
         arm: {
-          '1': 'Lưỡi kiếm làm nửa việc. Sức mạnh của cậu làm phần còn lại. Đừng trách lưỡi kiếm.'
+          '1': 'Một thanh kiếm tốt làm một nửa công việc. Phần còn lại phải nhờ Sức mạnh của cậu.'
         }
       },
       shopBack: {
-        '1': 'Mang về mà cùn là tôi biết cậu đã dùng.'
+        '1': 'Mang về khi đã cùn thì tôi biết cậu dùng nó xứng đáng.'
       },
       bye: {
-        '1': 'Đánh mạnh vào.'
+        '1': 'Chém mạnh vào.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Cẩn thận! Cái đó đã nạp đạn. Cái kia cũng vậy. Hầu hết đều thế.',
-        '2': 'Thợ máy Voss. Vòng Tròn cử tôi xem cái lõi dạy được gì. Hóa ra là mọi thứ.'
+        '1': 'Cẩn thận, cái đó đã lên đạn. Thật ra hầu hết đều vậy.',
+        '2': 'Thợ máy Voss. Vòng Tròn cử tôi đến nghiên cứu lõi. Nó đã dạy chúng tôi rất nhiều.'
       },
       again: {
-        '1': 'Ồ tốt, người thử nghiệm. Ý tôi là, khách hàng.'
+        '1': 'À, tốt. Từ lần cậu đến trước tôi đã chỉnh sửa vài thứ.'
       },
       trade: {
-        '1': 'Nghiên cứu cái lõi của Vòng Tròn đã thay đổi tất cả. Cầm cái này. Đừng chĩa vào tôi.'
+        '1': 'Mọi thứ ở đây đều sinh ra từ việc nghiên cứu lõi. Chỉ đừng chĩa nó vào tôi.'
       },
       core: {
-        '1': 'Cục sắt đó biết nghĩ, một chút. Tôi cố không nghĩ về nó.',
+        '1': 'Kim loại đó biết nghĩ một chút. Tôi cố không nghĩ về chuyện đó.',
         say: 'Cái lõi đã dạy bạn điều gì?'
       },
       rumor: {
         heat: {
-          '1': 'Súng chạy bằng Kỹ xảo, và chúng nóng lên. Hỏi Thợ bánh răng Pim về nhiệt trước khi cậu chảy tay.'
+          '1': 'Súng chạy bằng Kỹ xảo, và chúng nóng lên. Hỏi Pim về nhiệt trước khi cậu bỏng tay.'
         }
       },
       shopBack: {
-        '1': 'Có nổ thì báo cáo! Để ghi chép.'
+        '1': 'Cho tôi biết nó dùng thế nào. Tôi đang ghi chép.'
       },
       bye: {
-        '1': 'Coi chừng giật!'
+        '1': 'Coi chừng độ giật.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Giáp. Nhẫn trong khay.'
+        '1': 'Garrun. Giáp trên giá, nhẫn trong khay.'
       },
       again: {
-        '1': 'Hừm.'
+        '1': 'Quay lại. Cần gì?'
       },
       trade: {
-        '1': 'Giáp tấm gạt chùy khổng lồ. Nhẫn cho phần còn lại.'
+        '1': 'Bộ giáp tấm này đỡ được dùi cui của người khổng lồ. Xem đi.'
       },
       quiet: {
-        '1': 'Không.',
-        say: 'Ông không nói nhiều nhỉ.'
+        '1': 'Không có gì đáng nói.',
+        say: 'Ông không nói nhiều nhỉ?'
       },
       rumor: {
         giants: {
-          '1': 'Người khổng lồ ở lãnh nguyên. Chùy to như thân cây. Mua giáp nặng.'
+          '1': 'Người khổng lồ ở lãnh nguyên. Dùi cui như thân cây. Tôi sẽ chọn giáp tấm nặng.'
         },
         demons: {
-          '1': 'Quỷ ở phía bắc. Lửa và vuốt. Mua giáp nặng.'
+          '1': 'Quỷ ở phía bắc. Lửa và móng vuốt. Tôi sẽ chọn giáp tấm nặng.'
         }
       },
       shopBack: {
-        '1': 'Tốt.'
+        '1': 'Chọn tốt.'
       },
       bye: {
-        '1': 'Ừ.'
+        '1': 'Giữ gìn nhé.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Tên và việc. Không. Tôi biết tên cậu. Cậu đã phá hủy cái lõi.',
-        '2': 'Quản kho của Thiết Hội. Kho vũ khí của Hội mở cho cậu.'
+        '1': 'Cậu là người đã phá hủy lõi. Thiết Hội nhớ điều đó.',
+        '2': 'Tôi là quản kho của Thiết Hội ở đây. Kho vũ khí của chúng tôi mở cho cậu.'
       },
       throneOurs: {
-        '1': 'Thiết Hội giữ Pháo Đài Kinh Hoàng nhờ tay cậu. Nghỉ. Đó là mệnh lệnh.'
+        '1': 'Thiết Hội nắm Pháo Đài Kinh Hoàng là nhờ cậu. Nghỉ đi. Cậu xứng đáng.'
       },
       foe: {
-        '1': 'Thiết Hội có tên cậu trong danh sách. Lệnh của tôi là vẫn bán cho cậu. Tôi không thích lệnh đó.'
+        '1': 'Thiết Hội có cậu trong danh sách. Nhưng lệnh của tôi là vẫn bán cho cậu. Tôi sẽ tuân theo.'
       },
       again: {
-        '1': 'Yêu cầu cấp phát?'
+        '1': 'Cần gì?'
       },
       trade: {
-        '1': 'Thiết Hội nhớ ai đã phá hủy cái lõi. Chọn thứ cậu cần.'
+        '1': 'Cần gì cứ lấy. Thiết Hội chăm lo cho người của mình.'
       },
       order: {
-        '1': 'Không gì cả. Hiếm lắm. Tận hưởng đi.',
+        '1': 'Hiện giờ không có gì. Chuyện đó không hay xảy ra. Hãy tận hưởng.',
         say: 'Thiết Hội muốn gì ở tôi?'
       },
       rumor: {
         throne: {
-          '1': 'Thiết Hội sẽ muốn ngai vàng ở Pháo Đài Kinh Hoàng. Hội sẽ nhớ ai đã đứng cùng.'
+          '1': 'Thiết Hội sẽ muốn ngai vàng trong Pháo Đài Kinh Hoàng. Họ sẽ nhớ ai đã giúp.'
         }
       },
       shopBack: {
-        '1': 'Ký ở đây. Tôi đùa thôi. Thiết Hội không đùa. Giải tán.'
+        '1': 'Giữ gìn nó. Nó là tài sản của Thiết Hội cho đến khi cậu đổ máu trong đó.'
       },
       bye: {
-        '1': 'Giải tán.'
+        '1': 'Tiếp tục nhiệm vụ.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Chậm thôi. Ngọn núi đâu có đi đâu.',
+        '1': 'Chậm lại nào. Ngọn núi không đi đâu cả.',
         '2': 'Người ta gọi lão là Lão Chân Đá. Lão lắng nghe mặt đất. Đôi khi nó đáp lại.'
       },
       core: {
-        '1': 'Nhịp tim của ngọn núi đã đổi. Là cậu. Nó đã nhận ra.'
+        '1': 'Ngọn núi có cảm giác khác từ khi cậu xuống đó. Yên bình hơn, hoặc trống rỗng hơn.'
       },
       dragon: {
-        '1': 'Hôm qua một con rồng bay qua đỉnh mà không thiêu chúng ta. Nghe nói do cậu.'
+        '1': 'Hôm qua một con rồng bay qua đỉnh núi và để chúng ta yên. Nghe nói là nhờ cậu.'
       },
       again: {
-        '1': 'Lại là cậu. Đá đã bảo cậu sẽ đến.'
+        '1': 'Đây rồi. Ta đã nghĩ cậu sẽ quay lại.'
       },
       train: {
-        '1': 'Đặt chân cho vững. Cảm thấy không? Không à? Ta bắt đầu từ đó.'
+        '1': 'Đặt chân cho vững. Cảm nhận được không? Không à? Đó là nơi ta bắt đầu.'
       },
       class: {
-        '1': 'Chúng ta dựng tường, gọi gai đá, và xé đất khi cần.',
-        '2': 'Sức mạnh để dời đá, Trí tuệ để nhờ nó cho khéo.',
-        say: 'Địa Pháp Sư là gì?'
+        '1': 'Chúng ta dựng tường, gọi gai nhọn lên, và phá vỡ mặt đất khi cần.',
+        '2': 'Sức mạnh để dời đá. Trí tuệ để biết nó muốn đi về đâu.',
+        say: 'Địa Pháp Sư làm gì?'
       },
       ready: {
         strong: {
-          '1': 'Giờ đá đã biết cậu. Học nốt phần còn lại đi.'
+          '1': 'Đá giờ đã biết cậu. Phần còn lại học khi cậu sẵn sàng.'
         },
         able: {
-          '1': 'Cậu đủ nặng cho bài tiếp theo. Đó là lời khen.'
+          '1': 'Cậu đủ vững cho bài học tiếp theo.'
         },
         weak: {
-          '1': 'Đá chưa nghe thấy cậu. Thêm Sức mạnh.'
+          '1': 'Chưa được. Đá không dời vì cậu. Hãy rèn Sức mạnh.'
         }
       },
       factions: {
-        '1': 'Không phe nào. Hội, băng, vòng tròn. Ngọn núi tồn tại lâu hơn tất cả.',
+        '1': 'Không bên nào cả. Hội đoàn đến rồi đi. Ngọn núi thì ở lại.',
         say: 'Ông phục vụ phe nào?'
       },
       trainBack: {
-        '1': 'Đi nhẹ nhàng. Rồi đừng nhẹ nhàng.'
+        '1': 'Cứ từ từ. Mặt đất rất kiên nhẫn.'
       },
       bye: {
         '1': 'Bước khẽ thôi.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Đừng chạm vào đó! Hay đó! Thật ra, đứng lên tấm thảm. Tấm thảm an toàn.',
-        '2': 'Thợ bánh răng Pim! Súng, tháp pháo, đồng hồ đo nhiệt. Chủ yếu là đồng hồ đo nhiệt.'
+        '1': 'Ối, khoan, đừng chạm vào cái đó! Hay cái đó. Đứng trên tấm thảm đi, thảm an toàn.',
+        '2': 'Thợ bánh răng Pim. Tôi chế súng, tháp pháo, và rất nhiều đồng hồ đo nhiệt.'
       },
       core: {
-        '1': 'Cậu đã đưa lõi cho chúng tôi! Tôi chưa ngủ chín ngày rồi. Nhìn tay tôi này. Đừng nhìn tay tôi.'
+        '1': 'Cậu đã đưa lõi cho Vòng Tròn! Từ đó tôi hầu như không ngủ. Theo nghĩa tốt nhé.'
       },
       oracle: {
-        '1': 'Vòng Tròn đang giận dữ về nhà tiên tri. Tôi chỉ chế tạo đồ thôi. Làm ơn đừng nói tôi đã dạy cậu.'
+        '1': 'Vòng Tròn đang giận về nhà tiên tri. Tôi chỉ chế tạo đồ thôi. Tôi không muốn dính vào.'
       },
       friend: {
-        '1': 'Bạn của Vòng Tròn! Bài học rẻ hơn cho cậu. Tôi tự điền đơn rồi.'
+        '1': 'Cậu là bạn của Vòng Tròn nên học phí rẻ hơn. Tôi làm giấy tờ rồi.'
       },
       foe: {
-        '1': 'Vòng Tròn bảo tôi không được dạy cậu. Vòng Tròn cũng bảo đừng thử tên lửa trong nhà.'
+        '1': 'Vòng Tròn nói tôi không nên dạy cậu. Tôi vẫn sẽ dạy. Đừng nói với họ nhé.'
       },
       again: {
         '1': 'Ồ tốt, cậu vẫn còn đủ ngón tay.'
       },
       train: {
-        '1': 'Rồi! An toàn trước. Rồi đến phần ồn ào.'
+        '1': 'Nào. An toàn trước, rồi mới đến phần ồn ào.'
       },
       class: {
-        '1': 'Súng, tháp pháo và thanh nhiệt. Bắn, xây, và xả nhiệt trước khi nó khóa cậu.',
-        '2': 'Tất cả chạy bằng Kỹ xảo. Thêm chút Trí tuệ cho máy lớn.',
+        '1': 'Súng, tháp pháo, và đồng hồ đo nhiệt. Bắn, xây, và xả nhiệt trước khi bị kẹt cứng.',
+        '2': 'Chủ yếu là Kỹ xảo. Thêm chút Trí tuệ cho những cỗ máy lớn hơn.',
         say: 'Kỹ Sư Aether là gì?'
       },
       ready: {
         strong: {
-          '1': 'Cậu có thể tháo một tháp pháo nhắm mắt! Lấy mấy cỗ máy lớn đi.'
+          '1': 'Giờ cậu rành tháp pháo rồi. Lấy mấy cỗ máy lớn đi.'
         },
         able: {
-          '1': 'Tay vững! Cậu sẵn sàng cho món đồ tiếp theo.'
+          '1': 'Tay vững lắm. Cậu sẵn sàng cho cái tiếp theo.'
         },
         weak: {
-          '1': 'Tay cậu run. Tay tôi cũng vậy, nhưng vì lý do khác. Thêm Kỹ xảo.'
+          '1': 'Tay ngắm của cậu vẫn còn run. Dồn ít điểm vào Kỹ xảo đi.'
         }
       },
       heat: {
-        '1': 'Mọi thứ khóa vài giây. Xả sớm. Xả thường xuyên. Tôi có sẹo làm chứng.',
+        '1': 'Mọi thứ kẹt cứng vài giây. Xả sớm, xả thường xuyên. Tin tôi đi.',
         say: 'Chuyện gì xảy ra nếu tôi quá nhiệt?'
       },
       trainBack: {
-        '1': 'Nhớ nhé: xả nhiệt! XẢ. NHIỆT.'
+        '1': 'Và nhớ xả nhiệt trước khi nó xả cậu.'
       },
       bye: {
-        '1': 'Đừng nổ tung nhé!'
+        '1': 'Ngoài kia cẩn thận nhé!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Cởi ủng ra. Ta không để bụi của con dính sàn nhà ta.',
-        '2': 'Mẹ Brynja. Ta đã nắn mọi cái xương gãy trong ngọn núi này hai lần.'
+        '1': 'Cởi ủng ở cửa nhé. Tôi vừa mới quét xong.',
+        '2': 'Mẹ Brynja. Tôi đã nẹp hầu hết xương gãy trong ngọn núi này.'
       },
       ending: {
-        '1': 'Con đã đến Pháo Đài Kinh Hoàng và đi bộ về. Ngồi đi. Ta muốn nhìn con.'
+        '1': 'Cậu đã đến Pháo Đài Kinh Hoàng rồi quay về. Ngồi xuống. Để tôi xem cậu nào.'
       },
       again: {
-        '1': 'Vẫn còn sống. Người ta bảo đó là công của ta.'
+        '1': 'Vẫn còn sống. Tốt. Ngồi đi.'
       },
       heal: {
-        '1': 'Ngồi. Uống cái này. Đừng làm bộ mặt đó. Bình của con đã đầy.'
+        '1': 'Uống cái này đi, và đừng làm cái mặt đó. Bình thuốc của cậu đầy rồi.'
       },
       mana: {
-        '1': 'Đây. Vị khó chịu. Uống khi phép thuật cạn, đừng uống trước.'
+        '1': 'Đây. Vị kinh khủng. Uống khi phép thuật cạn, đừng uống trước.'
       },
       potions: {
-        '1': 'Mua thắt lưng dài hơn ở ta. Năm bình là tất cả những gì một cơ thể mang được mà vẫn chạy.',
+        '1': 'Tôi có thể bán cho cậu chiếc thắt lưng dài hơn. Năm bình là mức cao nhất ai cũng mang được mà vẫn chạy.',
         say: 'Tôi mang thêm thuốc được không?'
       },
       rumor: {
         tundra: {
-          '1': 'Lãnh nguyên lấy mất ngón tay. Cứ di chuyển ngoài kia, và đừng ngủ trong tuyết.'
+          '1': 'Lãnh nguyên lấy đi ngón tay ngón chân. Cứ di chuyển, và đừng ngủ gục trong tuyết.'
         },
         temple: {
-          '1': 'Có một ngôi đền chìm bên kia lãnh nguyên. Naga không bắt tù binh.'
+          '1': 'Có một ngôi đền chìm phía sau lãnh nguyên. Bọn naga ở đó không bắt tù binh.'
         },
         rift: {
-          '1': 'Thứ gì trong Khe Nứt Hư Không đó cũng không khâu lại được. Kết thúc nó nhanh.'
+          '1': 'Thứ gì ở trong khe nứt đó, tôi cũng không khâu nổi. Đừng để nó chạm tới cậu.'
         }
       },
       healBack: {
-        '1': 'Đi đi. Và ăn gì đó.'
+        '1': 'Đi đi. Và ăn chút gì đi, cậu gầy quá.'
       },
       bye: {
         '1': 'Về nguyên vẹn nhé.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Ngươi. Ngươi đã mở cổng của ta.',
-        '2': 'Giờ ta dạy từ hầm của người lùn, vì ta phải ăn. Đừng nhầm đó là sự tha thứ.'
+        '1': 'Cậu. Cậu là người đã mở cổng của ta.',
+        '2': 'Giờ ta dạy học dưới một cái hầm, vì ta phải ăn. Đừng nhầm đó là sự tha thứ.'
       },
       ending: {
-        '1': 'Một ngai vàng đã định, và Oakhaven vẫn là tro. Nói lại cho ta nghe nó đáng giá thế nào.'
+        '1': 'Vậy là ngai vàng đã định, còn Oakhaven vẫn là tro tàn. Hy vọng nó xứng đáng.'
       },
       again: {
-        '1': 'Kẻ phản bội trở lại. Học phí của ta không giảm.'
+        '1': 'Cậu quay lại. Học phí của ta không đổi.'
       },
       train: {
-        '1': 'Ta sẽ dạy ngươi chỉ huy. Ta không dạy được cách xứng đáng với điều đó.'
+        '1': 'Ta sẽ dạy cậu chỉ huy. Cậu có xứng đáng hay không là chuyện khác.'
       },
       class: {
-        '1': 'Người được theo sau. Vệ binh đáp lời gọi và chiến đấu theo lệnh ngươi.',
-        '2': 'Chạy bằng Mị lực. Ngươi có một ít. Đó mới là bi kịch.',
+        '1': 'Người mà kẻ khác theo. Lính gác đến khi cậu gọi và chiến đấu theo lời cậu.',
+        '2': 'Nó chạy bằng Mị lực. Cậu có một ít. Chính vì thế mới khó tha thứ.',
         say: 'Đại Quân Vương là gì?'
       },
       ready: {
         strong: {
-          '1': 'Ngươi có phong thái cho tất cả. Vương quốc nghèo đi vì điều đó.'
+          '1': 'Cậu có đủ khí chất cho tất cả. Ta ước gì cậu dùng nó tốt hơn.'
         },
         able: {
-          '1': 'Ngươi sẵn sàng cho bài tiếp theo. Ta không lấy làm vui.'
+          '1': 'Cậu sẵn sàng cho bài học tiếp theo. Ta sẽ không giả vờ vui mừng.'
         },
         weak: {
-          '1': 'Đến vệ binh của kẻ phản bội cũng không theo giọng đó. Thêm Mị lực.'
+          '1': 'Chưa ai theo cậu cả. Hãy rèn Mị lực.'
         }
       },
       oakhaven: {
         '1': 'Ba trăm năm. Gia tộc ta đã xây những bức tường đó.',
-        '2': 'Đừng giải thích. Không có cái giá nào giải thích được nó.',
-        say: 'Về Oakhaven…'
+        '2': 'Làm ơn đừng giải thích. Không điều gì cậu nói có thể làm nó đúng lại.',
+        say: 'Về chuyện Oakhaven...'
       },
       trainBack: {
-        '1': 'Đi. Chỉ huy người khác đi.'
+        '1': 'Đi đi. Hãy luyện tập trên người khác.'
       },
       bye: {
-        '1': 'Để ta yên.'
+        '1': 'Làm ơn để ta yên.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Cậu đã giết bà ấy. Tôi đã thấy nó cả nghìn lần trước khi nó xảy ra, vậy mà vẫn đau.',
-        '2': 'Tôi là Người Giữ Giờ. Tôi sẽ dạy cậu. Bà ấy bảo tôi rằng tôi sẽ dạy.'
+        '1': 'Cậu đã giết bà ấy. Tôi thấy trước điều đó nhiều năm rồi, vậy mà vẫn đau.',
+        '2': 'Tôi là Người Giữ Giờ. Tôi sẽ dạy cậu. Bà ấy đã nói với tôi rằng tôi sẽ làm vậy.'
       },
       hello: {
-        '1': 'Cậu đến muộn. Hoặc sớm. Tôi nghĩ tôi đã nói điều này rồi.',
-        '2': 'Tôi là Người Giữ Giờ. Tôi dạy nghệ thuật dệt thời gian. Chúng ta mới bắt đầu một khoảnh khắc trước.'
+        '1': 'Cậu đây rồi. Tôi đã đợi cậu từ lâu. Hoặc là sẽ đã đợi.',
+        '2': 'Tôi là Người Giữ Giờ. Tôi dạy cách bẻ cong thời gian một chút.'
       },
       freed: {
-        '1': 'Bà ấy tự do rồi. Lần đầu tiên, tôi không biết cậu sẽ nói gì tiếp theo. Tuyệt vời.'
+        '1': 'Bà ấy được tự do. Lần này tôi cũng không biết chuyện gì xảy ra tiếp theo. Thật tuyệt.'
       },
       friend: {
-        '1': 'Vòng Tròn sẽ gọi cậu là bạn. Họ đã gọi rồi? Vậy giảm giá là bây giờ.'
+        '1': 'Vòng Tròn nghĩ tốt về cậu nên học phí rẻ hơn. Họ đã quyết định từ tuần trước.'
       },
       foe: {
-        '1': 'Vòng Tròn sẽ tha thứ cho cậu, trong một tương lai tôi đã thấy. Cho đến khi đó, tôi dạy cậu lặng lẽ.'
+        '1': 'Vòng Tròn đang giận cậu. Rồi sẽ qua. Cho đến lúc đó, ta giữ kín chuyện này.'
       },
       again: {
-        '1': 'Chào mừng trở lại. Chào mừng. Trở lại.'
+        '1': 'Chào mừng quay lại. Cậu đến đúng lúc.'
       },
       train: {
-        '1': 'Xem này. Tôi sẽ cho cậu thấy điều tôi đã cho cậu thấy.'
+        '1': 'Xem kỹ. Rồi xem lại lần nữa, sớm hơn một chút.'
       },
       class: {
-        '1': 'Chúng ta dừng kẻ địch trong thời gian, thúc bạn bè đi nhanh, và lấy lại một sai lầm.',
-        '2': 'Trí tuệ để thấy sợi chỉ, Kỹ xảo để kéo nó.',
+        '1': 'Chúng ta giữ kẻ thù đứng yên trong thời gian, thúc bạn bè nhanh lên, và lấy lại một sai lầm.',
+        '2': 'Trí tuệ để nhìn thấy sợi chỉ. Kỹ xảo để kéo nó.',
         say: 'Người Dệt Thời Gian là gì?'
       },
       ready: {
         strong: {
-          '1': 'Cậu nắm sợi chỉ tốt. Phần còn lại là của cậu khi muốn.'
+          '1': 'Cậu nắm sợi chỉ tốt lắm. Lấy phần còn lại bất cứ lúc nào cậu muốn.'
         },
         able: {
-          '1': 'Cậu sẵn sàng. Ngày mai cậu cũng đã sẵn sàng.'
+          '1': 'Cậu sẵn sàng rồi. Tôi biết trước khi cậu hỏi.'
         },
         weak: {
-          '1': 'Sợi chỉ tuột khỏi ngón tay cậu. Thêm Trí tuệ. Thêm Kỹ xảo.'
+          '1': 'Sợi chỉ cứ tuột mãi. Thêm Trí tuệ, và thêm Kỹ xảo.'
         }
       },
       oracle: {
         say: 'Hãy kể cho tôi về nhà tiên tri.',
         freed: {
-          '1': 'Bà ấy thấy mọi kết cục, và không cái nào là của bà. Giờ đã có một.'
+          '1': 'Bà ấy thấy mọi kết cục trừ kết cục của chính mình. Giờ bà ấy sẽ được biết.'
         },
         slain: {
-          '1': 'Bà ấy không chống cự. Bà cũng đã thấy điều đó. Xin đừng hỏi tôi nữa.'
+          '1': 'Bà ấy không chống cự. Bà ấy đã thấy rồi. Làm ơn đừng hỏi tôi nữa.'
         },
         waits: {
-          '1': 'Bà ấy thấy mọi kết cục. Đó là món quà khủng khiếp. Hãy tử tế với bà, đến phút cuối.'
+          '1': 'Bà ấy thấy mọi kết cục. Đó là gánh nặng. Hãy tử tế với bà ấy.'
         }
       },
       trainBack: {
-        '1': 'Nó sẽ là xứng đáng.'
+        '1': 'Sau này cậu sẽ hiểu. Thường thì vậy.'
       },
       bye: {
-        '1': 'Hẹn gặp lại từ trước.'
+        '1': 'Hẹn gặp lại. Hoặc trước đó.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Khoan! Khoan. Vua đầu hàng!',
-          '2': 'Goblin chỉ cướp vì goblin đói. Thật đó!',
-          '3': 'Cao Kều và Vua làm một giao kèo nhé?'
+          '1': 'Dừng lại. Làm ơn. Ta đầu hàng.',
+          '2': 'Dân của ta cướp phá vì họ đói. Đó là sự thật.',
+          '3': 'Hãy thỏa thuận thay vì thế. Giống loài của các ngươi và của chúng ta.'
         },
         slay: {
-          '1': 'Vua ngã xuống, và Hang Goblin tan tác.',
-          '2': 'Sunford ngủ yên hơn, và Thiết Hội để mắt đến bạn.',
-          say: 'Không giao kèo. Triều đại của ngươi kết thúc ở đây.'
+          '1': 'Vua Goblin gục ngã, và Hang Goblin trống rỗng.',
+          '2': 'Sunford ngủ yên hơn, và Thiết Hội nghe thấy tên bạn.',
+          say: 'Không thỏa thuận. Các cuộc cướp phá của ngươi kết thúc ở đây.'
         },
         pact: {
-          '1': 'Buôn bán? Vua thề! Vua THÍCH buôn bán!',
-          '2': 'Thương nhân goblin dựng quầy ở quảng trường Sunford, với những món hàng không thợ rèn nào ở đó làm được.',
-          say: 'Dừng cướp bóc và buôn bán với Sunford. Thề đi.'
+          '1': 'Thương mại. Được. Ta thề trên vương miện của ta.',
+          '2': 'Thương nhân goblin dựng quầy ở quảng trường Sunford, bán những thứ không thợ rèn nào ở đó làm được.',
+          say: 'Ngừng cướp phá và buôn bán với Sunford thay vào đó. Thề đi.'
         },
         ransom: {
-          '1': 'Tất cả? Vua ghét Cao Kều. Lấy đi. Lấy rồi đi.',
-          '2': 'Bạn bước ra, nặng trĩu vàng goblin. Các vụ cướp sẽ lại bắt đầu. Băng hài lòng.',
-          say: 'Giao kho báu ra, ngươi giữ vương miện.'
+          '1': 'Tất cả sao? ...Được. Lấy đi và đi đi.',
+          '2': 'Bạn rời đi với vàng của goblin. Các cuộc cướp phá sẽ lại bắt đầu, nhưng Băng Tro Tàn hài lòng.',
+          say: 'Đưa kho báu của ngươi ra và ngươi được giữ vương miện.'
         }
       },
       siege: {
         ask: {
-          '1': 'Đủ rồi. Cậu đánh giỏi.',
-          '2': 'Băng trả hậu hơn thị trấn đó bao giờ trả được.',
+          '1': 'Đủ rồi. Cậu chiến đấu giỏi, ta công nhận.',
+          '2': 'Băng Tro Tàn trả hậu hơn thị trấn đó có thể trả nhiều.',
           '3': 'Mở cổng cho chúng ta tối nay, và một phần ba Oakhaven là của cậu.'
         },
         defend: {
-          '1': 'Vậy thì Băng sẽ săn cậu trên mọi nẻo đường. Nhớ rằng ta đã đề nghị.',
-          '2': 'Cổng trụ vững. Oakhaven giàu lên sau cánh cổng, và các bậc thầy thợ giáp nhớ tên bạn.',
+          '1': 'Vậy thì Băng Tro Tàn sẽ săn cậu trên mọi nẻo đường. Nhớ là ta đã đề nghị.',
+          '2': 'Cổng giữ vững. Oakhaven giàu lên sau cánh cổng, và thợ giáp nhớ tên bạn.',
           say: 'Cổng vẫn đóng. Mang quân của ngươi đi đi.'
         },
         betray: {
-          '1': 'Khôn ngoan. Ta sẽ bảo Bà Ash đặt một chiếc ghế cho cậu.',
-          '2': 'Oakhaven bốc cháy. Trong đống đổ nát, một chợ đen mở ra, và một nhà giả kim dạy những thuật cấm.',
+          '1': 'Khôn ngoan. Bà Ash sẽ vui khi nghe điều này.',
+          '2': 'Oakhaven bốc cháy. Trong đống đổ nát, một chợ đen mở ra, và một nhà giả kim dạy học trong bí mật.',
           '3': 'Thợ giáp bỏ đi, và Thiết Hội gọi bạn là kẻ phản bội.',
-          say: 'Một phần ba thị trấn. Tối nay, cổng sẽ mở.'
+          say: 'Một phần ba thị trấn. Được thôi. Đêm nay cổng sẽ mở.'
         }
       },
       core: {
         ask: {
-          '1': 'Gã Khổng Lồ giờ là sắt vụn. Tôi chưa từng nghĩ sẽ thấy cảnh này.',
-          '2': 'Và nó nằm đó. Cái lõi. Vẫn rì rầm. Chạm vào còn ấm.',
-          '3': 'Cậu đến được đó trước. Nó sẽ ra sao?'
+          '1': 'Gã Khổng Lồ Sắt thành sắt vụn rồi. Tôi chưa từng nghĩ mình sống để thấy.',
+          '2': 'Và cái lõi kia. Vẫn đang ngân. Chạm vào thấy ấm.',
+          '3': 'Cậu đến đây trước. Vậy... nó sẽ ra sao?'
         },
         destroy: {
           '1': 'Ánh sáng tắt, và lũ golem đổ gục ngay chỗ đứng.',
-          '2': 'Thiết Hội cử thợ giáp của mình đến Ironhold để tạ ơn.',
-          say: 'Lùi lại. Tôi sẽ phá nó.'
+          '2': 'Để cảm ơn, Thiết Hội cử thợ giáp của chính họ đến Ironhold.',
+          say: 'Lùi lại. Tôi sẽ đập vỡ nó.'
         },
         study: {
-          '1': 'Bạn hiểu cái lõi đủ để giao nó đi mà không đánh thức nó.',
-          '2': 'Chỉ trong một mùa, lò rèn Ironhold làm ra những món aether chưa ai từng thấy.',
-          say: 'Vòng Tròn nên nghiên cứu nó. Tôi mang nó ra an toàn được.'
+          '1': 'Cậu biết đủ để di chuyển cái lõi mà không đánh thức nó.',
+          '2': 'Chỉ trong một mùa, các lò rèn của Ironhold chế tạo những cỗ máy aether chưa ai từng thấy.',
+          say: 'Vòng Tròn nên nghiên cứu nó. Tôi nghĩ tôi có thể mang nó đi an toàn.'
         },
         sell: {
           '1': 'Vàng. Cho thứ đã giết thợ mỏ của tôi. Lấy đi rồi đi.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Ta đã thấy khoảnh khắc này mười nghìn lần.',
-          '2': 'Một nửa trong số đó ngươi giải thoát cho ta. Một nửa ngươi lấy đi thứ ta canh giữ.',
-          '3': 'Hãy chọn đi. Để ta cuối cùng cũng không biết điều gì sẽ đến.'
+          '1': 'Ta đã thấy khoảnh khắc này nhiều hơn số lần ta đếm nổi.',
+          '2': 'Trong một nửa số đó, ngươi giải thoát cho ta. Nửa còn lại, ngươi lấy thứ ta canh giữ.',
+          '3': 'Chọn đi. Ta muốn, chỉ một lần thôi, không biết điều gì đến sau.'
         },
         free: {
-          '1': 'Ôi. Ta không thấy điều này. Hoàn toàn không thấy.',
-          '2': 'Nhà tiên tri trồi lên qua làn nước rồi biến mất. Người Giữ Giờ của bà ở lại để dạy.',
-          say: 'Đứng yên. Tôi sẽ phá xiềng cho bà.'
+          '1': 'Ồ. Ta không thấy điều đó. Ta thật sự không thấy.',
+          '2': 'Nhà tiên tri trồi lên qua làn nước và biến mất. Học trò của bà ở lại để dạy.',
+          say: 'Đứng yên. Tôi đang phá xích của bà.'
         },
         slay: {
           '1': 'Phải. Đây là nửa còn lại.',
-          '2': 'Bà không chống cự. Đồng Hồ Cát của Người Giữ Giờ là của bạn.',
-          '3': 'Người học trò cuối cùng của bà chạy khỏi ngôi đền, và Vòng Tròn không tha thứ.',
+          '2': 'Bà không kháng cự. Đồng hồ cát của Người Giữ Giờ thuộc về bạn.',
+          '3': 'Học trò cuối cùng của bà trốn khỏi đền, và Vòng Tròn sẽ không tha thứ cho bạn.',
           say: 'Tôi đến vì chiếc đồng hồ cát.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Đủ rồi. Ngươi có nanh đấy, nhóc con.',
-          '2': 'Con quỷ trong pháo đài đã xiềng đồng loại ta. Ta muốn thấy hắn bốc cháy.',
+          '1': 'Đủ rồi. Ngươi có răng đấy, nhóc con.',
+          '2': 'Con quỷ trong pháo đài đã xích đồng loại của ta. Ta muốn thấy hắn cháy.',
           '3': 'Giết ta, hoặc để ta giúp ngươi làm điều đó.'
         },
         slay: {
           '1': 'Ngọn núi rung chuyển khi con rồng ngã xuống. Kho báu của nó là của bạn.',
           '2': 'Thiết Hội ca tụng người diệt rồng.',
-          say: 'Không mặc cả với rồng.'
+          say: 'Tôi không mặc cả với rồng.'
         },
         pact: {
-          '1': 'Ít ai hỏi thế mà sống sót. Được thôi, nhóc con. Ta cùng săn.',
-          '2': 'Khi bạn tiến đánh Pháo Đài Kinh Hoàng, một con rồng sẽ ở trên bầu trời phía trên bạn.',
-          say: 'Vậy hãy bay cùng tôi chống lại Ma Vương.'
+          '1': 'Ít kẻ dám xin. Được thôi. Chúng ta cùng săn.',
+          '2': 'Khi bạn hành quân đến Pháo Đài Kinh Hoàng, một con rồng sẽ bay trên đầu bạn.',
+          say: 'Vậy hãy chiến đấu cùng tôi chống lại Ma Vương.'
         }
       },
       throne: {
         ask: {
-          '1': 'Vậy là hết. Ta không nghĩ đó sẽ là ngươi.',
-          '2': 'Ngai của ta không để trống, anh hùng bé nhỏ. Nó chỉ huy pháo đài, khe nứt, và quân đội của cả hai.',
-          '3': 'Ba sứ giả đã chờ trước cửa ta. Chọn ai thừa kế xiềng xích của ta.'
+          '1': 'Vậy là xong. Ta không nghĩ sẽ là cậu.',
+          '2': 'Ngai vàng của ta sẽ không bỏ trống. Ai ngồi lên sẽ chỉ huy pháo đài và khe nứt.',
+          '3': 'Ba sứ giả đã chờ sẵn ở cửa ta. Hãy chọn ai vào tiếp theo.'
         },
         order: {
           '1': 'Thiết Hội đóng quân ở pháo đài và phong ấn những gì có thể.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Băng chuyển vào trước bình minh.',
-          '2': 'Giờ mọi thứ đều để bán, kể cả hòa bình.',
+          '2': 'Từ giờ mọi thứ đều có giá, kể cả hòa bình.',
           say: 'Băng Tro Tàn xứng đáng với nó.'
         },
         circle: {
           '1': 'Vòng Tròn biến pháo đài thành một ngôi trường trên khe nứt.',
-          '2': 'Họ gọi đó là nghiên cứu. Mọi người khác gọi là chuyện sớm muộn.',
+          '2': 'Họ gọi đó là nghiên cứu. Mọi người khác nín thở.',
           say: 'Để Vòng Tròn Aether có nó.'
         },
         shatter: {
-          '1': 'Bạn đập vỡ ngai bằng chính tay mình. Không ai cai trị từ đây nữa.',
+          '1': 'Bạn đập vỡ ngai vàng bằng chính đôi tay mình. Sẽ không ai cai trị từ đây nữa.',
           '2': 'Các sứ giả rời đi không nói một lời.',
-          say: 'Không ai thừa kế. Tôi sẽ phá nó.'
+          say: 'Không ai có nó. Tôi sẽ đập vỡ nó.'
         },
         claim: {
           '1': 'Chiếc ngai lạnh lẽo, và vừa vặn.',
-          '2': 'Ba phe nhận ra họ có một kẻ thù chung.',
-          say: 'Tôi sẽ tự ngồi lên nó.'
+          '2': 'Ba phe nhận ra họ có chung một kẻ thù.',
+          say: 'Tôi sẽ tự mình chiếm lấy.'
         }
       }
     }

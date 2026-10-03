@@ -127,8 +127,8 @@ export default {
       mouse: 'Jdi po stopě k učiteli a klikni na něj a promluvíš s ním.'
     },
     teach: {
-      touch: 'Klepni na „Nauč mě“ a uvidíš, čemu učitel učí.',
-      mouse: 'Klikni na „Nauč mě“ a uvidíš, čemu učitel učí.'
+      touch: 'Klepni na „Nauč mě?“ a uvidíš, čemu učitel učí.',
+      mouse: 'Klikni na „Nauč mě?“ a uvidíš, čemu učitel učí.'
     },
     learn: {
       touch: 'Klepni na dovednost a pak na „Naučit“.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Odkoupit',
     deal: 'Platí!',
     say: {
-      buy: 'Dobrá volba. Dej na to pozor.',
-      sell: 'Najdu tomu dobrý domov.',
-      back: 'Rozmyšleno? Tady, všechno jak bylo.',
-      poor: 'Přijď s těžší měšcem.'
+      buy: 'Dobrá volba. Starej se o to a ono se postará o tebe.',
+      sell: 'No dobře. Někdo to bude chtít.',
+      back: 'Rozmyslel ses? To nevadí, tady to máš.',
+      poor: 'Obávám se, že je to trochu víc, než máš.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Sedni si. Odpočiň si. Odejdeš odsud v plné síle a s každou lahvičkou plnou. Jestli jich chceš nosit víc, ty ti prodat můžu.',
+    talk: 'Posaď se a chvíli odpočívej. Tvoje lahvičky jsou zase plné. Můžu ti prodat větší opasek, jestli chceš.',
     note: 'Do každé zóny si neseš lektvary: {n}.',
     buy: 'Další lahvička · {n}',
     full: 'Na opasek se ti víc nevejde.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Kovář Bram',
-      talk: 'Obyčejná ocel, poctivé ceny. Goblina ti od těla udrží.'
+      talk: 'Obyčejná ocel, férové ceny. Nespěchej.'
     },
     sunfordPeddler: {
       name: 'Kramářka Tilly',
-      talk: 'Prsteny! Talismany! Věci, které jsem našla a rozhodně neukradla.'
+      talk: 'Prsteny, amulety, drobnosti všeho druhu. Tenhle by mohl být i šťastný.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Kupec Grik',
-      talk: 'Král říkat obchod, tak Grik obchodovat. Třpytka za třpytka. Dobrá třpytka.'
+      talk: 'Tohle udělala moje rodina. Dobrá práce, férová cena.'
     },
     captainHale: {
       name: 'Kapitán Hale'
     },
     oakArmorer: {
       name: 'Zbrojíř Odo',
-      talk: 'Půlka mého zboží skončila na hradbách. Vezmi si, co zbylo.'
+      talk: 'Půlka zásob šla na hradby. Vezmi si, co zbylo, jestli ti to padne.'
     },
     oakMasterArmorer: {
       name: 'Mistr Odo',
-      talk: 'Tohle město stojí díky tobě. Pro tebe vytáhnu ze zadní místnosti ty dobré pláty.'
+      talk: 'Ty nejlepší pláty jsou venku. Zasloužíš si je vidět.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Ostré, vyvážené a prodané tomu, kdo zaplatí. Dnes jsi to ty.'
+      talk: 'Ostré, vyvážené, férová cena. Na ostří nesahej.'
     },
     trainerShadow: {
       name: 'Šepot'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Překupník',
-      talk: 'Žádná jména, žádné otázky. Syndikát si vezme svůj díl, ty si vezmeš zboží.'
+      talk: 'Žádné otázky. Syndikát si bere svůj podíl.'
     },
     trainerBlood: {
       name: 'Doktor Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Kladivoruká',
-      talk: 'Trpasličí práce. Když se to zlomí, je to tvoje chyba.'
+      talk: 'Všechno kované trpaslíky. Když se něco zlomí, chci vědět jak.'
     },
     ironAetherWorks: {
       name: 'Kutil Voss',
-      talk: 'Když Kruh prozkoumal jádro, změnilo se všechno. Podrž tohle. Nemiř tím na mě.'
+      talk: 'Všechno tady vzniklo studiem jádra. Opatrně, většina je nabitá.'
     },
     ironArmor: {
       name: 'Garrun Železný bok',
-      talk: 'Pláty, které zastaví obří kyj. Pro vás ostatní mám prsteny.'
+      talk: 'Zbroj na stojanech, prsteny na tácu.'
     },
     ironOrderArmor: {
       name: 'Zbrojmistr Řádu',
-      talk: 'Řád si pamatuje, kdo zničil jádro. Jeho zbrojnice jsou ti otevřené.'
+      talk: 'Vezmi si, co potřebuješ. Řád se stará o své.'
     },
     trainerGeo: {
       name: 'Starý Kamenonoh'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Do večera bude pršet, říká mi koleno.',
-        '2': 'Tvoje koleno to říkalo i minulý týden.',
-        '3': 'A pršelo, ne? Někde.'
+        '1': 'Dnes v noci bude pršet. Koleno mě bolí celý den.',
+        '2': 'Tvoje koleno říkalo to samé i minulý týden.',
+        '3': 'A pršelo, ne? Jen ne tady.'
       },
       harvest: {
-        '1': 'Nejlepší ječmen za dlouhé roky!',
-        '2': 'To říkáš každý rok.'
+        '1': 'Letos se ječmen vydařil.',
+        '2': 'Kéž nám ho nechají.'
       },
       goblins: {
         '1': 'Goblini odnesli tři slepice z mlynářovy farmy.',
-        '2': 'Jen tři? Zlenivěli.',
-        '3': 'Nebo se přejedli.'
+        '2': 'Zase? To je podruhé za měsíc.',
+        '3': 'Někdo by už konečně měl něco udělat s těmi jeskyněmi.'
       },
       kingGone: {
-        '1': 'Prý je Král goblinů definitivně pryč.',
-        '2': 'Tak kdo mi krade tu řepu?'
+        '1': 'Prý je goblinský král mrtvý.',
+        '2': 'Dobře. Třeba se teď vyspím celou noc.'
       },
       pact: {
-        '1': 'Goblin mi dneska prodal lžíci.',
-        '2': 'Tvoji lžíci?',
-        '3': 'Moji, jo. Ale cena dobrá.'
+        '1': 'Dnes ráno jsem koupila od goblina naběračku.',
+        '2': 'Je dobrá?',
+        '3': 'Upřímně, lepší než ta moje. Nikomu to neříkej.'
       },
       bram: {
-        '1': 'Bram zase buší. Od úsvitu!',
-        '2': 'Rovnoměrně jako tep, ten chlap.'
+        '1': 'Bram stojí u kovadliny od úsvitu.',
+        '2': 'To dělá vždycky, když se bojí.'
       },
       pie: {
         '1': 'To voní jablečný koláč?',
-        '2': 'Voněl. V minulém čase.',
-        '3': 'Celý snědený? Zase?'
+        '2': 'Voněl. Děti ho našly první.',
+        '3': 'Upeču další. Tentokrát líp schovám.'
       },
       road: {
-        '1': 'Po cestě přes pláně už nikdo nejezdí.',
-        '2': 'S lapky na ní se není co divit.'
+        '1': 'Po pláňové cestě už týden nikdo nešel.',
+        '2': 'Ne s banditama. Nedivím se jim.'
       },
       hero: {
-        '1': 'Někdo vyčistil cestu přes pláně!',
-        '2': 'Už bylo načase. Bratranec mi dluží povoz.'
+        '1': 'Někdo vyčistil pláňovou cestu od banditů.',
+        '2': 'Díky bohu. Sestra zase může přijet.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Dva stříbrné za zelí! Dva!',
-        '2': 'Je to velmi pěkná hlávka.',
-        '3': 'Zas tak pěkná není.'
+        '2': 'Branou dnes nic levně neprojde.',
+        '3': 'Tak si to budu pěstovat sám. Klidně na střeše.'
       },
       watch: {
-        '1': 'Stráž zdvojnásobila hlídku u brány.',
-        '2': 'Dobře. Spím díky tomu klidněji.'
+        '1': 'U brány zdvojnásobili stráž.',
+        '2': 'Dobře. Spím díky tomu o něco klidněji.'
       },
       caravan: {
-        '1': 'Karavana s kořením má zase zpoždění.',
+        '1': 'Karavana s kořením se zase zpožďuje.',
         '2': 'Lapkové?',
-        '3': 'Nebo vozka našel hospodu.'
+        '3': 'Nebo bahno. Doufejme, že bahno.'
       },
       siege: {
-        '1': 'Prý se na předpolí utábořila celá armáda.',
-        '2': 'Tak bychom měli doplnit sklep.'
+        '1': 'Za farmami se utábořila celá armáda.',
+        '2': 'Tak raději naplňme sklep, dokud můžeme.'
       },
       saved: {
-        '1': 'Viděl jsi, jak obléhání padlo? Slavné!',
-        '2': 'Koukal jsem zpod postele.',
-        '3': 'Pořád se to počítá.'
+        '1': 'Byl jsi na hradbách, když se obléhání prolomilo?',
+        '2': 'Upřímně, schovával jsem se pod postelí.',
+        '3': 'Jako půlka města. A přesto tu pořád jsme.'
       },
       fountain: {
         '1': 'Hodil jsem do fontány minci pro štěstí.',
-        '2': 'A já ji vylovil. Díky!'
+        '2': 'Doufám, že sis přál levnější zelí.'
       },
       ash: {
-        '1': 'Všechno voní popelem.',
-        '2': 'Lepší než nevonět vůbec.'
+        '1': 'Všechno pořád voní kouřem.',
+        '2': 'Vyvětrá se to. Nakonec se všechno vyvětrá.'
       },
       hide: {
-        '1': 'Slyšel jsi včera v noci boty pod oknem?',
-        '2': 'Pšt. Ztiš hlas.',
-        '3': 'Promiň. Promiň.'
+        '1': 'Slyšel jsi včera v noci na ulici kroky?',
+        '2': 'Ticho. Nevíš, kdo poslouchá.',
+        '3': 'Promiň. Já jen... promiň.'
       },
       bread: {
-        '1': 'Našel jsem půl bochníku. Rozdělíme se.',
+        '1': 'Našla jsem půl bochníku. Na, vezmi si trochu.',
         '2': 'Jsi hodná duše. Děkuju.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Pěkná žíla mědi ve čtvrtém patře.',
-        '2': 'Měď? Já chci zlato.',
-        '3': 'Ty chceš spíš zdřímnout.'
+        '2': 'Měď. Doufal jsem ve stříbro.',
+        '3': 'Měď platí nájem. Stříbro platí sny.'
       },
       forge: {
-        '1': 'Velká výheň nezhasla už sto let.',
-        '2': 'Dědova dýmka taky ne.'
+        '1': 'Velká výheň nevychladla už sto let.',
+        '2': 'Můj děda ji pomáhal zapálit, víš.'
       },
       beard: {
-        '1': 'Ostříhal sis vousy!',
-        '2': 'Chytly u kovadliny.',
-        '3': 'Sluší ti to, fakt.'
+        '1': 'Zastřihl sis vous.',
+        '2': 'Dostal jsem se moc blízko ke kovadlině.',
+        '3': 'Dorostou. Navíc ti to takhle sluší.'
       },
       core: {
-        '1': 'V hlubokých dolech teď něco září.',
-        '2': 'Nic dobrého tam dole nezáří.'
+        '1': 'V hlubokých šachtách něco září.',
+        '2': 'Nic dobrého tam dole nezáří. Zůstaň nahoře.'
       },
       order: {
-        '1': 'Zbrojíři Řádu pracují rychle.',
-        '2': 'Rychle, jo. Ne tak dobře jako my.'
+        '1': 'Zbrojíři Řádu pracují rychle, to jim nechám.',
+        '2': 'Rychle, jo. Uvidíme, jak dlouho to vydrží.'
       },
       circle: {
-        '1': 'Mágové Kruhu při práci bzučí.',
-        '2': 'Lepší než naše zpívání, řekl bych.'
+        '1': 'Lidé z Kruhu si při práci pobrukují.',
+        '2': 'Aspoň lépe než ty zpíváš.'
       },
       cold: {
-        '1': 'Dneska ráno je tu zima.',
-        '2': 'Postav se blíž k výhni.'
+        '1': 'Dnes je pořádná zima.',
+        '2': 'Tak pojď, postav se k výhni.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Honíš ty!',
-        '2': 'To není fér, nebyl jsem připravený!'
+        '1': 'Honěná, ty honíš!',
+        '2': 'To je nefér, já nebyl připravený!'
       },
       dragon: {
         '1': 'Až budu velký, budu jezdit na drakovi.',
-        '2': 'Draci se nechají jezdit jen málokdy.',
-        '3': 'Hodní jo!'
+        '2': 'Draci se nenechají osedlat.',
+        '3': 'Hodný možná jo.'
       },
       sword: {
-        '1': 'Koukej, opravdový meč z klacku!',
-        '2': 'Je to jen klacek.'
+        '1': 'Koukej, našel jsem meč!',
+        '2': 'To je klacek.'
       },
       frog: {
-        '1': 'Našel jsem žábu u studny.',
+        '1': 'U studny je žába.',
         '2': 'Můžeme si ji nechat?',
-        '3': 'Spíš ona si nechala nás.'
+        '3': 'Máma řekla, že už žádné žáby.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Pro teď to je vše.',
-      trade: 'Ukaž mi své zboží.',
-      train: 'Nauč mě.',
-      heal: 'Zalátej mě.',
-      mana: 'Potřebuju něco na manu.',
-      who: 'Kdo jsi?',
+      bye: 'Nebudu tě zdržovat.',
+      trade: 'Můžu se podívat, co máš?',
+      train: 'Naučíš mě?',
+      heal: 'Zalátáš mě?',
+      mana: 'Máš něco na manu?',
+      who: 'Kdo jsi, jestli se smím zeptat?',
       rumor: 'Slyšel jsi něco nového?',
-      ready: 'Můžu se už učit víc?'
+      ready: 'Myslíš, že jsem připravený na víc?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Nová tvář. O tobě se říká, že držíš cestu přes pláně.',
-        '2': 'Jsem Bram. Dělám ocel. Tobě se asi hodí.'
+        '1': 'Dřív jsem tě neviděl. Ty jsi vyčistil cestu?',
+        '2': 'Bram. Mám kovárnu. Jestli potřebuješ čepel, přijď za mnou.'
       },
       kingDead: {
-        '1': 'Slyšel jsem, že Král goblinů je mrtvý. Dobře. Míň důlků k vyklepání z kol vozů.'
+        '1': 'Slyšel jsem, že je goblinský král mrtvý. Nebudu ho postrádat.'
       },
       kingPact: {
-        '1': 'Goblini obchodují na náměstí. Nečekal jsem, že se toho dožiju. Železo mají ale špatné.'
+        '1': 'Gobliní obchodují na náměstí. Nikdy bych nevěřil, že to uvidím.'
       },
       kingRansom: {
-        '1': 'Prý máš zlato Krále a koruna mu zůstala. Nájezdy se vrátí.'
+        '1': 'Nechal jsi goblinskému králi korunu. Ještě se vrátí, uvidíš.'
       },
       ending: {
-        '1': 'Celá říše mluví o tom trůnu. A ty přesto nakupuješ u mě. Hm.'
+        '1': 'Mluví o tobě celé království. Ale brousek pořád potřebuješ?'
       },
       again: {
-        '1': 'Zase tady. Dobře. Ocel se sama neprodá.'
+        '1': 'Zase ty. Co pro tebe můžu udělat?'
       },
       trade: {
-        '1': 'Obyčejná ocel, poctivé ceny. Dívej se, jak chceš.'
+        '1': 'Obyčejná ocel, férové ceny. Podívej se.'
       },
       who: {
-        '1': 'Bram. Třicet let u téhle kovadliny.',
-        '2': 'Kovu koně, spravuju pluhy a vyzbrojuju hlupáky jako ty. V tomhle pořadí.'
+        '1': 'Bram. Třicet let u tohohle kovadla, plus minus.',
+        '2': 'Podkovy, pluhy, občas meč. V poslední době hlavně meče.'
       },
       gear: {
-        '1': 'Štít, pokud chceš dostávat rány. Větší meč, pokud ne.',
-        '2': 'Mou ocel pohání Síla. Dej tam body, než koupíš něco těžkého.',
+        '1': 'Štít, jestli plánuješ dostávat rány. Většina lidí dostává.',
+        '2': 'Těžká ocel chce silnou paži. Začni Silou.',
         say: 'Co si mám vzít s sebou?'
       },
       rumor: {
         plains: {
-          '1': 'Na cestě přes pláně jsou goblini. Vyčisti ji, než začneš hledat něco luxusního.'
+          '1': 'Bandité na pláňové cestě. Na tvém místě bych začal u nich.'
         },
         hollows: {
-          '1': 'Nájezdníci lezou z Gobliních slují za pláněmi. Jejich král sedí na samém dně.'
+          '1': 'Gobliní přicházejí ze Slují, za pláněmi. Jejich král je tam dole.'
         },
         woods: {
-          '1': 'Východně od plání začíná Šeptající hvozd. Stromy tam chodí. Vezmi si sekeru.'
+          '1': 'Východně od plání je Šeptající hvozd. Lidé říkají, že se tam stromy hýbou.'
         },
         siege: {
-          '1': 'Kouř nad Oakhavenem. Prý se vojevůdce utábořil na předpolí.'
+          '1': 'Směrem k Oakhavenu je vidět kouř. Na předpolí je utábořená armáda.'
         },
         north: {
-          '1': 'Ocel z Ironholdu je zase na cestách. Jdi na sever, jestli chceš lepší než moje.'
+          '1': 'Ironholdská ocel zase míří po cestě. Lepší než moje, upřímně.'
         }
       },
       shopBack: {
-        '1': 'Nos to ve zdraví. Nebo aspoň nos.'
+        '1': 'Starej se o to a ono se postará o tebe.'
       },
       bye: {
-        '1': 'Dávej pozor na cestu.'
+        '1': 'Dávej na sebe pozor.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Óóó, zákazník! Nebo strážný. Ty nejsi strážný, že ne?',
-        '2': 'Já jsem Tilly. Prsteny, amulety, šťastné drobnosti. Všechno nalezené, nic ukradené.'
+        '1': 'Ahoj! Kupuješ, nebo se jen díváš? Obojí je v pořádku.',
+        '2': 'Jsem Tilly. Prsteny, amulety, drobnosti z celého světa.'
       },
       rival: {
-        '1': 'Viděl jsi Grikův stánek? Gobliní cetky! Jsem zničená. Kup něco. Měj se mnou soucit.'
+        '1': 'Viděl jsi goblinův stánek? Má nižší ceny než já. To není fér.'
       },
       again: {
-        '1': 'Můj oblíbený zákazník! Říkám to každému, ale u tebe to myslím vážně.'
+        '1': 'Tady jsi! Odložila jsem pár věcí, které se ti budou líbit.'
       },
       trade: {
-        '1': 'Prsteny! Amulety! Věci, které jsem našla a rozhodně neukradla!'
+        '1': 'Podívej. Tenhle je šťastný. Asi.'
       },
       who: {
-        '1': 'Chodím po cestách a sbírám, co cesty nechají.',
-        '2': 'Lapkové pouštějí ty nejhezčí věci, když utíkají.'
+        '1': 'Chodím po cestách a kupuju, čeho se lidé chtějí zbavit.',
+        '2': 'A někdy něco najdu. Bandité toho při útěku hodně ztratí.'
       },
       trinkets: {
-        '1': 'Nosíš dvě najednou, jednu na každou ruku. Malá výhoda je pořád výhoda.',
-        say: 'K čemu jsou cetky dobré?'
+        '1': 'Můžeš nosit dva, na každé ruce jeden. Tam venku se všechno sčítá.',
+        say: 'K čemu vlastně jsou ty cetky?'
       },
       stolen: {
-        '1': 'Pšt! Ne tak nahlas. Dobře. DOBŘE.',
-        '2': 'Vezmi si tenhle prsten a nikdy jsme spolu nemluvili. Hezký prsten. Skoro celý z mědi.',
-        say: 'Ty jsi to všechno ukradla, že?'
+        '1': 'Aha. Ty umíš ptát, co?',
+        '2': 'Vezmi si tenhle prsten a nebudeme se bavit o tom, kde jsem ho našla.',
+        say: 'Odkud to všechno doopravdy je?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Na jih odsud je koloseum se zrezivělými branami. Otevřou se, až skončí potíže s gobliny.'
+          '1': 'Jižně odtud je staré koloseum. Zamčené na petlici, dokud goblini přepadávají.'
         },
         arenaOpen: {
-          '1': 'Koloseum je otevřené! Osm vln, prý. Prodávám štěstí. To budeš potřebovat.'
+          '1': 'Koloseum je zase otevřené. Prý osm vln. Lidé na to sázejí.'
         },
         east: {
-          '1': 'Trhy v Oakhavenu platí dvojnásobek za všechno, co se leskne. Jdi na východ, za les.'
+          '1': 'Oakhaven dobře platí za všechno, co se leskne. Je na východě, za hvozdem.'
         }
       },
       shopBack: {
-        '1': 'Přijď, až zbohatneš!'
+        '1': 'Přijď, až bude tvůj měšec těžší!'
       },
       bye: {
-        '1': 'Hlídej si kapsy! Ne u mě, samozřejmě. Jinde.'
+        '1': 'Šťastnou cestu. Drž si peníze.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Stůj zpříma. Stojíš před rytířem Železného řádu.',
-        '2': 'Ser Aldric. Učím štítu ty, kdo chtějí stát před ostatními.'
+        '1': 'Stůj zpříma. Mluvíš s rytířem Železného řádu.',
+        '2': 'Ser Aldric. Učím stát mezi lidmi a neštěstím.'
       },
       saved: {
-        '1': 'Oakhaven stojí díky tobě. V tom je celé, čemu učím.'
+        '1': 'Oakhaven pořád stojí a prý jsi byl na jeho hradbách. Dobře.'
       },
       fallen: {
-        '1': 'Brána Oakhavenu se otevřela tvou rukou. Pochoval jsem lidi i za méně. Řekni, co chceš.'
+        '1': 'Otevřel jsi bránu Oakhavenu. Nebudu dělat, že jsem zapomněl. Co chceš?'
       },
       dragon: {
-        '1': 'Zabiják draků na mém nádvoří. Ve velké síni se o tom bude zpívat.'
+        '1': 'Zabil jsi draka na vrcholu? Rád bych to viděl.'
       },
       friend: {
-        '1': 'Řád o tobě mluví dobře. Pro jeho přátele jsou lekce levnější.'
+        '1': 'Řád o tobě smýšlí dobře. Přátelům jsou moje lekce levnější.'
       },
       foe: {
-        '1': 'Řád tě označil za nepřítele. Přesto tě naučím. Čest mi on neodebere.'
+        '1': 'Řád tě nazývá nepřítelem. Stejně tě budu učit. To je moje volba, ne jejich.'
       },
       again: {
-        '1': 'Štít nahoře. Co potřebuješ?'
+        '1': 'Zase na cvičení?'
       },
       train: {
-        '1': 'Pak dávej pozor. Ukážu to jednou.'
+        '1': 'Dobře. Dívej se pozorně, ukážu to jen jednou.'
       },
       class: {
-        '1': 'Zeď, která chodí. Přijímáme ránu, aby ji nemusel nikdo jiný.',
-        '2': 'Síla pro paži, Výdrž pro zbytek. Světlo dělá, co může.',
-        say: 'Kdo je Rytíř Égidy?'
+        '1': 'Bereme rány určené jiným. Je to jednoduché a těžké.',
+        '2': 'Budeš potřebovat Sílu na štít a Výdrž, abys ho udržel.',
+        say: 'Co vlastně dělá Rytíř Égidy?'
       },
       ready: {
         strong: {
-          '1': 'Na většinu toho, co umím, máš paži. Hlídej Výdrž a vezmi si zbytek.'
+          '1': 'Jsi dost silný na většinu toho, co umím. Pracuj dál na Výdrži.'
         },
         able: {
-          '1': 'Na další lekci to máš. Jen se nenafukuj.'
+          '1': 'Jsi připravený na další lekci. Jen ti to nestoupne do hlavy.'
         },
         weak: {
-          '1': 'Ještě ne. Paži máš slabou a rychle se unavíš. Víc Síly, víc Výdrže.'
+          '1': 'Ještě ne. Unavíš se dřív než štít. Víc Síly, víc Výdrže.'
         }
       },
       order: {
-        '1': 'Střežíme cesty a zákon. Někdo říká, že příliš horlivě.',
-        '2': 'Stůj s Řádem a jeho zbrojíři i učitelé si tě zapamatují.',
+        '1': 'Střežíme cesty a držíme zákon v rukou. Někteří říkají, že moc pevně.',
+        '2': 'Postav se k nám a naši zbrojíři a učitelé si tě budou pamatovat.',
         say: 'Pověz mi o Železném řádu.'
       },
       trainBack: {
-        '1': 'Cvič, dokud tě to nenudí. Pak ještě.'
+        '1': 'Cvič, dokud tě to nezačne nudit. Pak pokračuj.'
       },
       bye: {
-        '1': 'Jdi se světlem.'
+        '1': 'Jdi opatrně.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Óó! Žák? Odstup trochu. Ještě trochu.',
-        '2': 'Ember Wren, pyromant. Obočí dorůstá, většinou.'
+        '1': 'Ach, student? Skvělé. Možná ustup kousek dál.',
+        '2': 'Jsem Ember Wren. Učím oheň. Většinou poslouchá.'
       },
       core: {
-        '1': 'Jádro je teď u Kruhu, díky tobě! Víš, kolik věcí teď můžeme zapálit?'
+        '1': 'Dal jsi jádro Kruhu! Nemůžu se dočkat, co se z něj naučíme.'
       },
       friend: {
-        '1': 'Kruh éteru tě má rád! To znamená slevu. A míň formulářů k podpisu.'
+        '1': 'Kruh o tobě mluví vážně dobře. To mimochodem znamená slevu.'
       },
       foe: {
-        '1': 'Kruh z tebe chce mít popel. Trapné! Ale naučím tě stejně. Oheň nevybírá.'
+        '1': 'Kruh s tebou není spokojený. Stejně tě budu učit. Potichu.'
       },
       again: {
-        '1': 'Zase jsi tady! A nic nehoří. To napravíme.'
+        '1': 'Vrátil ses! Připravený něco zapálit?'
       },
       train: {
-        '1': 'Jo! Dívej se pozorně. Ne zas tak pozorně.'
+        '1': 'Tak. Dívej se na moje ruce a drž rukávy dál ode mě.'
       },
       class: {
-        '1': 'Oheň odpoví na každou otázku. Nejdřív zapal, pak vyhoď do vzduchu to, co hoří.',
-        '2': 'Všechno stojí na Inteligenci. A na stálé zásobě rób.',
-        say: 'Co dělá Pyromant?'
+        '1': 'Většinou věci zapalujeme. Pak oheň nasměrujeme, kam chceme.',
+        '2': 'Všechno stojí na Inteligenci. Čím bystřejší mysl, tím žhavější plamen.',
+        say: 'Co vlastně dělá pyromant?'
       },
       ready: {
         strong: {
-          '1': 'S tebou by se dal roztavit i golem! Vezmi si všechno, co mám. Na záludné kousky zvyš Zručnost.'
+          '1': 'Upřímně? Něco z toho bys mohl učit ty. Vezmi si, co chceš.'
         },
         able: {
-          '1': 'Hlava je dost rozpálená na další kouzlo. Pojď!'
+          '1': 'Jsi připravený na další kouzlo. Pojď, ukážu ti ho.'
         },
         weak: {
-          '1': 'Hm. Zatím málo Inteligence. Oheň by využil tebe, ne naopak.'
+          '1': 'Ještě ne, obávám se. Potřebuješ víc Inteligence, jinak oheň převezme vládu.'
         }
       },
       circle: {
-        '1': 'Učenci. Zkoumáme, z čeho je svět. Něco z toho exploduje.',
+        '1': 'Učenci. Studujeme, z čeho je svět. Něco z toho exploduje.',
         say: 'Kdo je Kruh éteru?'
       },
       trainBack: {
-        '1': 'Jdi a něco zapal! Něco, co si to zaslouží.'
+        '1': 'Jdi si to vyzkoušet. Někam, kde nic nechytí, prosím.'
       },
       bye: {
-        '1': 'Hezky se zahřívej!'
+        '1': 'Opatruj se!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Tak to jsi ty z cesty. Pojď blíž, oči už nejsou, co bývaly.',
-        '2': 'Já jsem Mara. Čtyřicet let vedu knihu tohoto města a střežím jeho klid.'
+        '1': 'Takže ty jsi ten od cesty. Pojď sem, ať se na tebe podívám.',
+        '2': 'Jsem Mara. Starám se o tohle město už... ach, čtyřicet let.'
       },
       slain: {
-        '1': 'Ve Slujích je ticho. Byl to těžký čin a Sunford spí díky tobě.'
+        '1': 'Ve Slujích je ticho. Byl to těžký čin, ale díky němu spíme.'
       },
       pact: {
-        '1': 'Goblini prodávají cetky na mém náměstí. Máš stříbrný jazyk, dítě. Doufám, že vydrží.'
+        '1': 'Gobliní prodávají na mém náměstí. To jsi je přemluvil ty, že?'
       },
       ransom: {
-        '1': 'Jeho zlato máš ty a koruna mu zůstala. Jsem příliš stará na to, abych předstírala, že nejsem zklamaná.'
+        '1': 'Vzal jsi jeho zlato a nechal mu korunu. Nebudu předstírat, že nejsem zklamaná.'
       },
       saved: {
-        '1': 'Z Oakhavenu přišla zpráva. Brána vydržela. Jsem ráda, že tam byl někdo z našich.'
+        '1': 'Přišla zpráva z Oakhavenu. Brána vydržela. Jsem ráda, že jsi tam byl.'
       },
       fallen: {
-        '1': 'Oakhaven je spálený a říkají, že pochodeň držela tvá ruka. Neříkej mi to. Raději nevím.'
+        '1': 'Prý Oakhaven shořel. Radši bych neslyšela jak. Dnes ne.'
       },
       ending: {
-        '1': 'Říkají, že záleželo na tobě, kdo usedne v Pevnosti děsu. Od cesty u Sunfordu k tomuhle. Představ si.'
+        '1': 'Říká se, že jsi rozhodl o osudu Pevnosti děsu. Od naší malé cesty až k tomuhle.'
       },
       again: {
-        '1': 'Posaď se na chvíli. Cesta počká.'
+        '1': 'Posaď se na chvíli. Cesta tam bude pořád.'
       },
       reward: {
-        '1': 'Cestu neudržela naše domobrana, ale ty. Město udělalo sbírku.',
-        '2': 'Není toho moc. Je to každá mince, kterou jsme mohli postrádat.',
-        say: 'Chtěla jsi mě vidět?'
+        '1': 'Udržel jsi cestu, když to naše domobrana nezvládla. Město trochu poskládalo.',
+        '2': 'Není to moc. Je to, co jsme mohli ušetřit.',
+        say: 'Prý jsi chtěl se mnou mluvit?'
       },
       quest: {
         '1': 'Nájezdy jdou z Gobliních slují. Goblini si korunovali krále.',
-        '2': 'A ty chceš jeho smrt.',
-        '3': 'Chci, aby nájezdy skončily. Jak, je na tobě, na dně těch jeskyní.',
-        '4': 'Sluje leží hned za pláněmi. Jdi opatrně.',
+        '2': 'A ty chceš jeho smrt?',
+        '3': 'Chci, aby nájezdy přestaly. Jak, to je na tobě, tam dole.',
+        '4': 'Sluje jsou hned za pláněmi. Prosím, buď opatrný.',
         say: 'Co trápí Sunford?'
       },
       king: {
-        say: 'O Králi goblinů…',
+        say: 'Ohledně goblinského krále...',
         slay: {
-          '1': 'Král je mrtvý a moje karavany jezdí včas. Nebudu se ptát, jaké to bylo.'
+          '1': 'Je pryč a karavany zase jezdí. Nebudu se ptát, jaké to bylo.'
         },
         pact: {
-          '1': 'Pakt! Moje matka by omdlela. Ale obchod je lepší než pohřby.'
+          '1': 'Obchodní dohoda. Moje matka by omdlela. Ale obchod je lepší než pohřby.'
         },
         ransom: {
-          '1': 'Zlato se utratí rychle. Křivdy ne. Pamatuj na to, až se nájezdy vrátí.'
+          '1': 'Zlato se rychle ztrácí. Křivdy ne. Pamatuj na to, až začnou nájezdy.'
         }
       },
       town: {
-        '1': 'Hlavně farmáři. Kovář, léčitelka a dva učitelé, kteří nás snášejí.',
-        '2': 'Odpočívej tady, utrácej body a vrať se silnější. K tomu je domov.',
+        '1': 'Hlavně farmáři. Kovář, léčitelka, dva učitelé, kteří nás snášejí.',
+        '2': 'Odpočívej tady mezi výpravami. Na to je domov.',
         say: 'Pověz mi o Sunfordu.'
       },
       next: {
         say: 'Kam mám jít dál?',
         plains: {
-          '1': 'Po cestě přes pláně, především. Nemáme co jíst, když karavany neprojedou.'
+          '1': 'Nejdřív pláňová cesta. Bez karavan nemáme co jíst.'
         },
         hollows: {
-          '1': 'Nejdřív do Gobliních slují. Nic není bezpečné, dokud nájezdy trvají.'
+          '1': 'Gobliní sluje. Dokud nájezdy trvají, nic není bezpečné.'
         },
         woods: {
-          '1': 'Na východ, Šeptajícím hvozdem. Cesta do Oakhavenu vede pod těmi stromy.'
+          '1': 'Na východ, přes Šeptající hvozd. To je cesta do Oakhavenu.'
         },
         oakhaven: {
-          '1': 'Oakhaven je v obležení. Padne-li předpolí, padne město.'
+          '1': 'Oakhaven je v obležení. Když padne předpolí, padne i město.'
         },
         north: {
-          '1': 'Na sever, dítě. Popelavé útesy a za nimi Ironhold. Čím dál, tím hůř.'
+          '1': 'Na sever, myslím. Popelavé útesy a za nimi Ironhold. Odtud už to bude jen těžší.'
         }
       },
       bye: {
-        '1': 'Vrať se zdravě. To je vše, o co žádám.'
+        '1': 'Vrať se k nám v jednom kuse. O nic víc nežádám.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Nehýbej se. Ne, nic ti není. Zvyk.',
-        '2': 'Sestra Lune. Spravuju, co cesta rozbije.'
+        '1': 'Chvíli stůj. Ne, jsi v pořádku. Zvyk, promiň.',
+        '2': 'Jsem sestra Lune. Zalepuju všechno, co cesta rozbije.'
       },
       again: {
-        '1': 'Pořád vcelku? Jsem skoro zklamaná.'
+        '1': 'Pořád v jednom kuse? Dobře. Stejně si sedni.'
       },
       heal: {
-        '1': 'Sedni si. Odpočiň. Odejdeš celý, se všemi lahvičkami plnými.'
+        '1': 'Sedni si, odpočiň si. Naplním ti lahvičky, než půjdeš.'
       },
       mana: {
-        '1': 'Modrá lahvička, hořká chuť. Napij se, až ti dojdou kouzla.'
+        '1': 'Tenhle je hořký. Pij ho, když ti dojdou kouzla.'
       },
       potions: {
-        '1': 'Do každé zóny bereš pár lahviček. Pij, než je budeš potřebovat, ne potom.',
-        '2': 'Chceš-li nosit víc, prodám ti delší pás.',
+        '1': 'Do každého boje bereš pár lahviček. Pij dřív, než je potřebuješ, ne potom.',
+        '2': 'Jestli chceš nosit víc, můžu ti prodat větší opasek.',
         say: 'Jak fungují lektvary?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblini otravují kameny do praku. Jestli zezelenáš, běž rovnou ke mně.'
+          '1': 'Gobliní natírají kameny do praku něčím. Jestli ti bude zle, vrať se.'
         },
         spiders: {
-          '1': 'Kousnutí od pavouků z Hvozdu. Tři za týden. Snaž se nenechat se kousnout.'
+          '1': 'Tenhle týden jsem ošetřila tři kousnutí pavouků z Hvozdu. Dávej pozor, kam šlapeš.'
         },
         burns: {
-          '1': 'Ze severu přicházejí vojáci s popáleninami. Popelavé útesy, říkají. Oheň, který chodí.'
+          '1': 'Ze severu stále přicházejí vojáci s popáleninami. Prý z Popelavých útesů.'
         }
       },
       healBack: {
-        '1': 'Měj pás plný a hlavu dole.'
+        '1': 'Měj opasek plný a hlavu skloněnou.'
       },
       bye: {
-        '1': 'Snaž se nekrvácet na nic důležitého.'
+        '1': 'Opatruj se tam venku.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Vysoký! Vysoký udělat pakt. Král říkat být milý k vysoký.',
-        '2': 'Grik milý. Grik mít třpytky. Vysoký mít zlato. Dobrá dvojice.'
+        '1': 'Ty jsi ten, kdo uzavřel dohodu. Můj král říká, že jsi tu vítaný.',
+        '2': 'Jsem Grik. Prodávám, co goblini vyrábějí. Dobrá práce, férová cena.'
       },
       again: {
-        '1': 'Vysoký se vrátit! Grik vědět. Třpytky volat vysoký.'
+        '1': 'Příteli. Rád tě zase vidím.'
       },
       trade: {
-        '1': 'Král říkat obchod, tak Grik obchodovat. Třpytka za třpytka. Dobrá třpytka.'
+        '1': 'Podívej se, prosím. Tohle udělala moje rodina.'
       },
       king: {
-        '1': 'Král tlustý a spokojený. Už žádné nájezdy. Nájezdy těžká práce.',
-        '2': 'Král říkat, vysoký mít dobrý jazyk. To nejvyšší gobliní pochvala. Skoro.',
+        '1': 'Teď dobře jí. Žádné nájezdy. Můj lid je méně hladový.',
+        '2': 'Mluví o tobě často. S úctou.',
         say: 'Jak se má tvůj král?'
       },
       town: {
-        '1': 'Lidé mýt se moc. Ale koláče! Grik nevědět o koláčích.',
+        '1': 'Lidé na mě pořád zírají. Ale pekař mi dává koláč. Mám rád koláč.',
         say: 'Jak se ti líbí Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Grikovi bratranci kopat na severu, v černé skále. Říkat, že tam oheň chodit. Grik zůstat tady.'
+          '1': 'Moji bratranci kopou v černé skále na severu. Říkají, že tam teď chodí oheň.'
         },
         deep: {
-          '1': 'Hluboká místa se probouzet, vysoký. Goblin cítit v nohou.'
+          '1': 'Něco se probouzí v hlubinách. Goblini to cítí v zemi.'
         }
       },
       shopBack: {
-        '1': 'Dobrý obchod! Vysoký přijít zase, jo?'
+        '1': 'Děkuju. Přijď zase.'
       },
       bye: {
-        '1': 'Ahoj, vysoký! Neumírat. Mrtvý nic nekupovat.'
+        '1': 'Šťastnou cestu, příteli.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Další meč. Dobře. Přestal jsem se ptát, odkud se berou.',
+        '1': 'Další meč. Dobře. Potřebujeme každý.',
         '2': 'Kapitán Hale. Velím tomu, co zbylo z oakhavenské hlídky.'
       },
       saved: {
-        '1': 'Brána vydržela. Tři sta let a teď ještě jednou. Dlužím ti své město.'
+        '1': 'Brána vydržela. Tři sta let a ještě jednou. Dlužím ti.'
       },
       ending: {
-        '1': 'O trůnu Pevnosti děsu rozhodla tvá ruka. Moje hradby mi připadají menší.'
+        '1': 'Říká se, že jsi rozhodl o Pevnosti děsu. Moje hradby se vedle toho zdají malé.'
       },
       again: {
-        '1': 'Hradby stojí. Pro dnešek.'
+        '1': 'Hradby pořád stojí. Alespoň dnes.'
       },
       after: {
-        '1': 'Oakhaven pamatuje, příteli. Já taky.'
+        '1': 'Rád tě vidím. Oakhaven nezapomněl.'
       },
       quest: {
-        '1': 'Vojsko vojevůdce nás obklíčilo. Krag. Neválčí zadarmo.',
+        '1': 'Špatné. Válečník jménem Krag nás obklíčil a zadarmo nebojuje.',
         '2': 'Kdo mu platí?',
         '3': 'Popelavý syndikát. Chtějí vlastní město a to naše má hradby.',
-        '4': 'Zlom ho na předpolí Oakhavenu. Tam se to rozhodne.',
-        say: 'Jaká je situace?'
+        '4': 'Rozbij jeho tábor na Předpolí Oakhavenu. Tam to skončí, tak či onak.',
+        say: 'Jak špatné to je?'
       },
       siege: {
-        '1': 'Nabídli ti třetinu města. Vím. Mně nabídli čtvrtinu.',
-        '2': 'Syndikát na tebe teď loví na každé cestě. Hlídej si záda.',
-        say: 'O obléhání…'
+        '1': 'Nabídli ti třetinu města, že? Mně čtvrtinu.',
+        '2': 'Syndikát teď půjde po tobě. Na cestách se ohlížej.',
+        say: 'Ohledně obléhání...'
       },
       town: {
-        '1': 'Obchodní město. Všechno, co se pohybuje mezi pláněmi a horami, tu platí clo.',
-        '2': 'Proto ho chtějí všichni. Proto ho nevydám.',
+        '1': 'Obchodní město. Všechno, co jde mezi pláněmi a horami, tu platí clo.',
+        '2': 'Proto ho všichni chtějí. A proto ho nevydám.',
         say: 'Pověz mi o Oakhavenu.'
       },
       order: {
-        '1': 'Sloužím Oakhavenu. S Řádem se shodneme většinu dní. To není totéž.',
-        say: 'Sloužíš Železnému řádu?'
+        '1': 'Odpovídám Oakhavenu. S Řádem se většinu dní shodneme. Ne každý den.',
+        say: 'Odpovídáš Železnému řádu?'
       },
       rumor: {
         crags: {
-          '1': 'Severně od lesa je země černá a hoří. Popelavé útesy. Kultisté krmí ohně.'
+          '1': 'Severně od hvozdu je země černá a hoří. Popelavé útesy. Hlavně kultisté.'
         },
         mines: {
-          '1': 'Ironhold přestal posílat ocel. V jeho dolech je něco špatně.'
+          '1': 'Ironhold přestal posílat ocel. Něco je v jejich dolech špatně.'
         },
         north: {
-          '1': 'Daleký sever ztichl. Podle mých zkušeností je ticho horší.'
+          '1': 'Daleký sever ztichl. Z mé zkušenosti to nikdy nevěští nic dobrého.'
         }
       },
       bye: {
-        '1': 'Měj meč uvolněný.'
+        '1': 'Měj meč blízko.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Jestli chceš přilbu, je pozdě. Všechny jsou na hradbách.',
-        '2': 'Odo. Zbrojíř. Unavený.'
+        '1': 'Jestli hledáš helmu, promiň. Všechny jsou na hradbách.',
+        '2': 'Odo. Dělám zbroj. V poslední době moc nespím.'
       },
       again: {
-        '1': 'Pořád tady. Pořád bez zásob.'
+        '1': 'Pořád tu. Pořád mi chybí skoro všechno.'
       },
       trade: {
-        '1': 'Půlka zásob šla na hradby. Vezmi, co zbylo.'
+        '1': 'Půlka zásob šla na hradby. Vezmi si, co zbylo, jestli ti to padne.'
       },
       who: {
-        '1': 'Dvacet let jsem zbrojil tohle město. Nikdy jsem nečekal, že ho uvidím celé v zbroji najednou.'
+        '1': 'Dvacet let jsem tohle město zbrojil. Nikdy jsem neviděl, že by se všechno nosilo najednou.'
       },
       armor: {
-        '1': 'Plát, když stojíš. Kůže, když ne. Hábit, když rád umíráš.',
+        '1': 'Plát, když stojíš pevně. Kůže, když se pohybuješ. Róba, když jsi rychlý.',
         say: 'Jakou zbroj mám nosit?'
       },
       rumor: {
         backRoom: {
-          '1': 'Až obležení padne, otevřu zadní místnost. Dobrý plát. Rozlom ho pro mě, ano?'
+          '1': 'Jestli se obléhání prolomí, otevřu zadní místnost. Jsou tam ty dobré pláty.'
         }
       },
       shopBack: {
-        '1': 'Vydrží. Asi.'
+        '1': 'Vydrží. Doteď vydržela.'
       },
       bye: {
-        '1': 'Hlavu dolů.'
+        '1': 'Drž hlavu při zemi.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Ty! Pojď dál. Zadní místnost je otevřená a otevřená pro TEBE.',
-        '2': 'Teď mi říkají Mistr Odo. Obchod jde, když město žije.'
+        '1': 'Tady jsi! Pojď dál. Zadní místnost je otevřená, a otevřená pro tebe.',
+        '2': 'Teď mi říkají mistr Odo. Legrační, co trocha míru dokáže s obchodem.'
       },
       ending: {
-        '1': 'Od mé brány k Pevnosti děsu. Všem říkám, že jsem ti ušil zbroj.'
+        '1': 'Od naší brány po Pevnost děsu. Všem říkám, že jsem ti ladil zbroj.'
       },
       again: {
-        '1': 'Hrdina brány. Co to dnes bude?'
+        '1': 'Rád tě vidím. Co to dnes bude?'
       },
       trade: {
-        '1': 'Město ti vděčí za život. Nejlepší plát jde pro tebe ze zadní místnosti.'
+        '1': 'Ty dobré pláty jsou venku. Zasloužíš si víc než jen pohled.'
       },
       town: {
-        '1': 'Bohaté. Hlučné. Plné obchodníků, kteří nadávají na clo.',
-        '2': 'Je to úžasné. Týden jsem nespal.',
-        say: 'Jak se má město?'
+        '1': 'Rušno. Hlučno. Plno obchodníků, kteří reptají na clo.',
+        '2': 'Je to nádherné. Už týdny jsem neměl jedinou klidnou hodinu.',
+        say: 'Jak se městu daří?'
       },
       rumor: {
         mines: {
-          '1': 'Moje ocel je z Ironholdu a Ironhold ztichl. Někdo by se měl podívat do jeho dolů.'
+          '1': 'Moje ocel je z Ironholdu a ti ztichli. Někdo by měl zkontrolovat jejich doly.'
         },
         tundra: {
-          '1': 'Nejlepší rudu jsem viděl z tundry. Muži, co ji přivezli, se už nevrátili.'
+          '1': 'Nejlepší ruda, s jakou jsem pracoval, přišla z tundry. Ti, co ji našli, se nevrátili.'
         }
       },
       shopBack: {
-        '1': 'Když nesedí, vrať se. Přizpůsobím.'
+        '1': 'Jestli ti nesedí, přines to zpátky. Spravím to.'
       },
       bye: {
-        '1': 'Brána Oakhavenu je ti vždycky otevřená. Jen tobě.'
+        '1': 'Jsi tu vždycky vítaný.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Kupuješ, nebo se díváš? Dívání nic nestojí. Sahání stojí prst.',
-        '2': 'Senna. Prodávám ostří. Neptám se, k čemu.'
+        '1': 'Díváš se, nebo kupuješ? Obojí je dobré. Jen na ostří nesahej.',
+        '2': 'Senna. Prodávám čepele. Co s nimi uděláš, je tvoje věc.'
       },
       saved: {
-        '1': 'Obléhání padlo. Škoda. Válka je dobrá pro obchod. Mír pro vymáhání dluhů.'
+        '1': 'Takže obléhání se prolomilo. Dobré pro město. I když válka byla pro můj obchod lepší.'
       },
       again: {
         '1': 'Pro něco ostřejšího?'
       },
       trade: {
-        '1': 'Ostré, vyvážené a prodané tomu, kdo platí. Dnes jsi to ty.'
+        '1': 'Ostré, vyvážené, férová cena. Nespěchej.'
       },
       who: {
-        '1': 'Prodávala jsem meče oběma stranám tří válek. Pořád jsem tady. Oni většinou ne.'
+        '1': 'Prodávala jsem oběma stranám tří válek. Pořád tu jsem. Většina z nich ne.'
       },
       rumor: {
         krag: {
-          '1': 'Kragovi lidé mají dobrou ocel. Peníze Syndikátu. Vezmi jim ji, jestli to dokážeš.'
+          '1': 'Kragovi muži mají dobrou ocel. Peníze Syndikátu. Stojí za to sebrat, bude-li příležitost.'
         },
         which: {
-          '1': 'Rychlé čepele chtějí Obratnost. Pušky a luky Zručnost. Věz, kdo jsi, než mi zaplatíš.'
+          '1': 'Rychlé čepele chtějí Obratnost. Luky a střelné zbraně chtějí Zručnost. Věz, který jsi.'
         }
       },
       shopBack: {
-        '1': 'Krev se smyje. Rez ne. Naolejuj to.'
+        '1': 'Udržuj to naolejované. Rez zničí dobré ostří rychleji než kost.'
       },
       bye: {
-        '1': 'Neumírej, dokud mi dlužíš.'
+        '1': 'Snaž se nezemřít, když mi dlužíš.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Neotáčej se. Žertuju. Otoč se.',
-        '2': 'Říkají mi Šepot. Učím lidi přicházet nepozorovaně.'
+        '1': 'Neslyšel jsi mě přijít zezadu. Většina neslyší.',
+        '2': 'Říkají mi Šepot. Učím, jak zůstat neviděn.'
       },
       fallen: {
-        '1': 'Ve městě je tišeji. Míň stráží. Docela se mi to líbí.'
+        '1': 'Ve městě je teď tišeji. Méně stráží. Pro některé z nás snazší práce.'
       },
       friend: {
-        '1': 'Syndikát tě počítá za přítele. Přátelé platí míň. Přátelé taky vědí moc.'
+        '1': 'Syndikát tě považuje za přítele. Přátelé platí méně. Pamatuj na to.'
       },
       foe: {
-        '1': 'Syndikát tě chce mrtvého. Platili mi za učení, ne za zabíjení. Máš štěstí.'
+        '1': 'Syndikát tě chce mrtvého. Platili mě za učení, ne za zabíjení. Tak lekce.'
       },
       again: {
-        '1': 'Děláš víc hluku než posledně. Zapracujeme na tom.'
+        '1': 'Pořád jsi příliš hlasitý. Zapracujeme na tom.'
       },
       train: {
         '1': 'Tak tiše. Dívej se na moje nohy, ne na ruce.'
       },
       class: {
-        '1': 'Nůž, který už je za zády. Vyjdi ze tmy, udeř a zmiz.',
-        '2': 'Hlavně Obratnost. A Zručnost, když má řez platit.',
+        '1': 'Někdo, kdo už stojí za tebou. Dovnitř, jeden řez a pryč.',
+        '2': 'Nejvíc záleží na Obratnosti. A na Zručnosti, jestli chceš, aby řez něco znamenal.',
         say: 'Kdo je Stínová čepel?'
       },
       ready: {
         strong: {
-          '1': 'Hýbeš se dobře. Vezmi si, co vím. Přines Zručnost na kouř.'
+          '1': 'Teď se hýbeš dobře. Vezmi si zbytek. Přines nějakou Zručnost na kouř.'
         },
         able: {
-          '1': 'Dobře. Ruce jsou dost rychlé na další krok.'
+          '1': 'Ruce máš dost rychlé. Další krok.'
         },
         weak: {
-          '1': 'Chodíš jako povoz. Víc Obratnosti. Pak si pohovoříme.'
+          '1': 'Ještě ne. Jsi těžký na nohou. Zapracuj na Obratnosti.'
         }
       },
       syndicate: {
-        '1': 'Lidé, kteří si všimli, že zákony jsou na prodej. Nesoudím. Fakturuju.',
+        '1': 'Lidé, kteří si všimli, že zákon má cenu. Nesoudím. Jen dostávám zaplaceno.',
         say: 'Kdo je Popelavý syndikát?'
       },
       trainBack: {
-        '1': 'A teď jdi a udělej to tam, kde nikdo nevidí.'
+        '1': 'A teď cvič tam, kde tě nikdo neuvidí.'
       },
       bye: {
         '1': 'Nikdy jsi mě neviděl.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Smíte přistoupit. Ne tak blízko.',
-        '2': 'Lord Castellan, ze staré krve Oakhavenu. Učím velet.'
+        '1': 'Můžeš přijít blíž. To stačí.',
+        '2': 'Lord Castellan z nejstaršího rodu Oakhavenu. Učím velet.'
       },
       saved: {
-        '1': 'Mé město stojí a s ním jméno mé rodiny. Máte vděk lorda. Má velkou cenu.'
+        '1': 'Moje město stojí a s ním i jméno mého rodu. Máš můj dík. Opravdový.'
       },
       friend: {
-        '1': 'Přítel Řádu. Snížím poplatek. Nikomu to nezmiňujte.'
+        '1': 'Přítel Řádu. Snížím poplatek. Prosím, nešiř to dál.'
       },
       foe: {
-        '1': 'Řád vyvěsil vaše jméno. I tak vás naučím. Mince je mince, bohužel.'
+        '1': 'Řád má tvé jméno na seznamu. Stejně tě naučím. Mince je mince.'
       },
       again: {
-        '1': 'Á. Můj nejnadějnější poddaný.'
+        '1': 'Á, zase ty. Pokračujeme?'
       },
       train: {
-        '1': 'Dobrá. Sledujte, jak se vydává rozkaz.'
+        '1': 'Dobře. Sleduj, jak se vydává rozkaz a jak se plní.'
       },
       class: {
-        '1': 'Proč bojovat sám, když to za vás mohou udělat jiní? Přivolejte stráže. Velte jim.',
-        '2': 'Je k tomu třeba Charisma. Nelze vést mumláním.',
+        '1': 'Někdo, kdo nebojuje sám. Zavoláš stráže a ty bojují za tebe.',
+        '2': 'Chce to Charisma. Za vůdcem, kterého není slyšet, nikdo nejde.',
         say: 'Kdo je Velký suverén?'
       },
       ready: {
         strong: {
-          '1': 'Máte vystupování. Vezměte si zbytek lekcí a držte se zpříma.'
+          '1': 'Teď máš opravdovou přítomnost. Vezmi si zbytek mých lekcí.'
         },
         able: {
-          '1': 'Váš hlas nese. Nastal čas na další lekci.'
+          '1': 'Tvůj hlas nese. Jsi připravený na další lekci.'
         },
         weak: {
-          '1': 'Nikdo by za vámi nešel ani do pekárny. Víc Charismatu.'
+          '1': 'Obávám se, že by za tebou zatím nikdo nešel. Zapracuj na Charismatu.'
         }
       },
       family: {
-        '1': 'Postavili jsme hradby, na kterých stojí kapitán Hale. Zapomíná. Já připomínám. Často.',
+        '1': 'Postavili jsme hradby, na kterých stojí kapitán Hale. On na to zapomíná. Já mu to připomínám.',
         say: 'Pověz mi o své rodině.'
       },
       trainBack: {
-        '1': 'A teď jděte a nechte se poslouchat.'
+        '1': 'Tak jdi. Veď někoho.'
       },
       bye: {
-        '1': 'Audience skončila.'
+        '1': 'Přeji hezký den.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Další! Ó. Ty chodíš sám. To je příjemná změna.',
-        '2': 'Bratr Fenn. Čtyřicet raněných na hradbě a jeden já.'
+        '1': 'Další! Ale ty jdeš po svých. To je příjemná změna.',
+        '2': 'Bratr Fenn. Čtyřicet raněných na hradbách a já jen jeden.'
       },
       saved: {
-        '1': 'Tři dny bez nových raněných! Nevím, co s rukama.'
+        '1': 'Tři dny žádní noví ranění. Skoro nevím, co se sebou.'
       },
       again: {
-        '1': 'Zase ty a pořád po svých. Schvaluju.'
+        '1': 'Zase ty, a po vlastních. Dobře.'
       },
       heal: {
-        '1': 'Lehni si. Ne, na čistou postel. Tak. Všechny lahvičky plné. Jdi.'
+        '1': 'Lehni si sem, na čisté lůžko. Tak. Lahvičky plné, jdi.'
       },
       mana: {
-        '1': 'Nápoj many! Chutná jako měďáky. Ale funguje.'
+        '1': 'Lektvar many. Chutná jako staré mince, ale funguje.'
       },
       potions: {
-        '1': 'Delší pás pojme víc lahviček. Ty prodávám. Lahvičky plním zadarmo.',
+        '1': 'S delším opaskem, ano. Ty prodávám. Plnění lahviček je zdarma.',
         say: 'Můžu nosit víc lektvarů?'
       },
       rumor: {
         archers: {
-          '1': 'Kragovi lučištníci míří na nohy. Pohybuj se a minou.'
+          '1': 'Kragovi lučištníci míří nízko. Hýbej se a většinou minou.'
         },
         north: {
-          '1': 'Popáleniny, omrzliny a jeden muž, co přísahá, že ho kousla socha. Sever není laskavý.'
+          '1': 'Vidím popáleniny, omrzliny a jednoho muže, který přísahá, že ho kousla socha.'
         }
       },
       healBack: {
-        '1': 'Jdi. Příště přijď na popovídání, ne na šití.'
+        '1': 'Jdi. Příště přijď na pokec, ne na šití.'
       },
       bye: {
-        '1': 'Rozchoď to! To je lékařská rada.'
+        '1': 'Opatruj se. A něco sněz.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Žádná jména. Ale tvou rukou se otevřela brána. To vím.',
-        '2': 'Říkej mi Překupník. Všechno tady spadlo z vozu.'
+        '1': 'Tady žádná jména. Ale vím, kdo otevřel bránu. Všichni to vědí.',
+        '2': 'Říkej mi Překupník. Všechno tady odněkud pochází.'
       },
       foe: {
-        '1': 'Syndikát tě dnes nemá rád. Tvé zlato pořád ano.'
+        '1': 'Syndikát tě teď moc nemusí. Tvoje zlato je ale vítané.'
       },
       again: {
-        '1': 'Á. Můj nejlepší zákazník. Nikdo tě nesledoval? Dobře.'
+        '1': 'Zase ty. Nikdo tě nesledoval, doufám?'
       },
       trade: {
-        '1': 'Žádná jména, žádné otázky. Syndikát bere svůj podíl, ty bereš zboží.'
+        '1': 'Žádné otázky. Syndikát si bere svůj podíl, ty bereš zboží.'
       },
       who: {
-        '1': 'Před požárem jsem prodával svíčky. Legálně. Bylo to hrozné.'
+        '1': 'Před požárem jsem prodával svíčky. Poctivá práce. Neuživila.'
       },
       armor: {
-        '1': 'Zbrojíři jsou pryč, příteli. Vypálení. Ty to víš.',
+        '1': 'Zbrojíři jsou pryč, příteli. Ty víš lépe než já proč.',
         say: 'Prodáváte nějakou zbroj?'
       },
       rumor: {
         citadel: {
-          '1': 'Loni se na dalekém severu objevila pevnost. Nikdo ji nepostavil. Její zdi hučí.'
+          '1': 'Loni se na dalekém severu objevila pevnost. Nikdo ji nepostavil.'
         },
         crystals: {
-          '1': 'Někdo skupuje všechny krystaly Prázdnoty na trhu. Ne my. To mě znepokojuje.'
+          '1': 'Někdo skupuje každý krystal Prázdnoty, který najde. Ne my. To mě děsí.'
         }
       },
       shopBack: {
         '1': 'Nikdy jsi tu nebyl.'
       },
       bye: {
-        '1': 'Pozor na suť.'
+        '1': 'Dávej pozor, kam šlapeš. Suť se posouvá.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Návštěva. Pozor na sklenice.',
-        '2': 'Doktor Sangrel. Noví páni Oakhavenu se neptají, čemu učím. Osvěžující.'
+        '1': 'Návštěva. Prosím nesahejte na sklenice.',
+        '2': 'Doktor Sangrel. Noví páni Oakhavenu se neptají, co učím. To je úleva.'
       },
       found: {
-        '1': 'Podařilo se ti mě najít. Málokdo hledá doktora na takovém místě.',
-        '2': 'Doktor Sangrel. Města pálí takové jako já, tak pracuju tam, kde žádná nejsou.'
+        '1': 'Našel jsi mě. Málokdo hledá doktora na takovém místě.',
+        '2': 'Doktor Sangrel. Města pálí lidi jako já, tak pracuju tam, kde žádná nejsou.'
       },
       friend: {
-        '1': 'Syndikát se za tebe zaručuje. Pro jeho přátele je poplatek nižší. Nároky ne.'
+        '1': 'Syndikát za tebe ručí. Jeho přátelům beru méně. Moje nároky zůstávají stejné.'
       },
       foe: {
-        '1': 'Syndikát by mi za tvou krev zaplatil. Radši ji utrať za mé lekce.'
+        '1': 'Syndikát by za tvoji krev dobře zaplatil. Raději bych, abys ji utratil tady.'
       },
       again: {
-        '1': 'Bledá pleť. Dobře. K práci se hodí.'
+        '1': 'Vypadáš bledě. Dobře. K práci se to hodí.'
       },
       train: {
-        '1': 'Vyhrň si rukáv. Bude to bolet. O to jde.'
+        '1': 'Vykasej rukáv. Bude to bolet. V tom je celý smysl.'
       },
       class: {
-        '1': 'Za sílu platíš vlastním zdravím. Pak si ho vypiješ zpátky z nepřítele.',
-        '2': 'Výdrž je tvůj měšec. Inteligence rozhoduje, jak moudře ho utratíš.',
+        '1': 'Za sílu platíš vlastním zdravím a pak si ho bereš zpět od nepřátel.',
+        '2': 'Výdrž je to, co můžeš utratit. Inteligence je to, jak dobře utrácíš.',
         say: 'Kdo je Krvavý alchymista?'
       },
       ready: {
@@ -1953,288 +1953,288 @@ export default {
           '1': 'Pozoruhodná konstituce. Můžeš se naučit téměř všechno.'
         },
         able: {
-          '1': 'Tvá krev je dost silná na další lekci.'
+          '1': 'Jsi dost pevný na další lekci.'
         },
         weak: {
-          '1': 'Omdlíš při prvním řezu. Víc Výdrže, prosím.'
+          '1': 'Omdlel bys při prvním řezu. Nejdřív si prosím vybuduj Výdrž.'
         }
       },
       jars: {
-        '1': 'Dobrovolníci. Většinou.',
-        say: 'Co je ve sklenicích?'
+        '1': 'Vzorky. Většinou dobrovolně darované.',
+        say: 'Co je v těch sklenicích?'
       },
       trainBack: {
-        '1': 'Piš si poznámky. Pro vědu.'
+        '1': 'Dělej si poznámky. Rád bych slyšel, jak to jde.'
       },
       bye: {
-        '1': 'Buď zdravý. Jinak mi k ničemu nejsi.'
+        '1': 'Buď zdravý. Myslím to vážně.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Tak. Ten, kdo otevřel bránu. Sedni si. Židli sis zasloužil.',
-        '2': 'Říkají mi Madam Ash. Oakhaven je teď můj. Zčásti tvůj.'
+        '1': 'Takže ty jsi otevřel bránu. Sedni si. Zasloužíš si židli.',
+        '2': 'Říkají mi Madam Ash. Oakhaven je teď náš. Zčásti díky tobě.'
       },
       throneOurs: {
-        '1': 'Trůn Pevnosti děsu. Náš. Jsi nejlepší investice mého života.'
+        '1': 'Pevnost děsu v našich rukou. Stál jsi za každou minci.'
       },
       throneLost: {
-        '1': 'Trůn připadl jiným a je to tvoje vina. Probereme to. Ne dnes.'
+        '1': 'Dal jsi trůn někomu jinému. O tom si promluvíme. Ne dnes.'
       },
       foe: {
-        '1': 'Pleteš nám cestu. Přesto si sedni. Ráda si problém prohlédnu, než ho vyřeším.'
+        '1': 'Pracoval jsi proti nám. Stejně si sedni. Ráda vím, s kým mám co do činění.'
       },
       again: {
-        '1': 'Můj nejmilejší zrádce. Co pro tebe může Syndikát udělat?'
+        '1': 'Zase ty. Co pro tebe může Syndikát udělat?'
       },
       cut: {
-        '1': 'Třetina trosek, miláčku. Tady je podíl za tuto sezónu.',
-        '2': 'Poroste. Trosky jsou velmi výnosné, když vlastníš jediný trh.',
-        say: 'Slíbila jsi mi třetinu Oakhavenu.'
+        '1': 'A budeš ho mít. Zatím podíl z trosek. Tady je za tuhle sezonu.',
+        '2': 'Poroste. Trosky vynášejí hodně, když ti patří jejich jediný trh.',
+        say: 'Slíbili mi podíl z Oakhavenu.'
       },
       syndicate: {
-        '1': 'Co všichni. Jen nic nepředstíráme.',
-        '2': 'Zůstaň naším přítelem a Šepot s Doktorem si řeknou míň. Věrnost má ceník.',
-        say: 'Co chce Syndikát?'
+        '1': 'To, co chtějí všichni. Jen to nepředstíráme.',
+        '2': 'Zůstaň přátelský a Šepot s Doktorem si od tebe vezmou méně.',
+        say: 'Co vlastně Syndikát chce?'
       },
       order: {
-        '1': 'Samozřejmě. Jedno z jeho měst kvůli tobě shořelo. Nos víc lektvarů.',
-        say: 'Železný řád mě pronásleduje.'
+        '1': 'Samozřejmě. Spálil jsi jedno z jejich měst. Nos víc lektvarů.',
+        say: 'Železný řád po mně jde.'
       },
       rumor: {
         core: {
-          '1': 'Trpaslíci našli v dolech něco. Jádro. Chci ho. Přines ho nám a řekni cenu.'
+          '1': 'Trpaslíci našli v dolech něco. Jádro. Přines nám ho a řekni si cenu.'
         },
         sold: {
-          '1': 'Jádro dorazilo v pořádku. Měl bys vidět, co dělá se zámkem.'
+          '1': 'Jádro dorazilo v pořádku. Divil bys se, co dělá se zámkem.'
         },
         north: {
-          '1': 'Všechno, co stojí za ukradení, se přesunulo na sever. My taky.'
+          '1': 'Všechno, co stojí za to, se přesunulo na sever. My taky.'
         }
       },
       bye: {
-        '1': 'Nebuď cizí. Cizí se sleduje.'
+        '1': 'Zastav se. Na cizince dáváme pozor.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'Cítím na tobě prach z dolů.',
-        '2': 'Dorn. Mistr kovář Ironholdu. Mám problém velký jako hora.'
+        '1': 'Přišel jsi přes doly. Cítím na tobě prach.',
+        '2': 'Dorn. Mistr kovář z Ironholdu. A mám problém velký jako hora.'
       },
       destroyed: {
-        '1': 'Světlo zhaslo a golemové jsou šrot. Moji horníci včera zpívali. Poprvé za rok.'
+        '1': 'Světlo zhaslo a golemové jsou šrot. Moji horníci včera zpívali. Poprvé po roce.'
       },
       studied: {
-        '1': 'Modrý oheň v mých výhních a hábity v mých sálech. Práce je dobrá. Na hábity si zvyknu.'
+        '1': 'Modrý oheň v mých výhních a učenci v hábitech v mých halách. Práce je aspoň dobrá.'
       },
       sold: {
-        '1': 'Prodáno. Golemové pořád chodí a moje doly jsou pořád hrob. Zmiz mi z očí.'
+        '1': 'Prodal jsi ho. Golemové pořád chodí a moje doly jsou pořád hrob. Nech mě být.'
       },
       ending: {
-        '1': 'Takže je trůn vyřešen. Dobře. Teď se říše vrátí k hádkám o železo.'
+        '1': 'Takže trůn je vyřešen. Dobře. Možná se teď můžeme vrátit ke kopání.'
       },
       again: {
-        '1': 'Mluv. Výheň nečeká.'
+        '1': 'Co je? Výheň nepočká.'
       },
       quest: {
-        '1': 'Kopali jsme železo a narazili na srdce. Éterové jádro. Tluče tam dole ve tmě.',
+        '1': 'Kopali jsme železo a našli srdce. Éterové jádro. Cítíš, jak tluče.',
         '2': 'A golemové?',
-        '3': 'Chodí v jeho rytmu. Tři mocnosti mi o něj psaly. Všechny zdvořile. Nevěřím žádné.',
-        '4': 'Dostaneš se k němu dřív než kdokoli jiný, na dně Ironholdských dolů. Pak je to na tobě.',
-        say: 'Co se stalo v dolech?'
+        '3': 'Pohybují se v jeho rytmu. Tři mocnosti psaly, že ho chtějí. Žádné nevěřím.',
+        '4': 'Dostaneš se k němu první, na dně Ironholdských dolů. Co bude potom, je na tobě.',
+        say: 'Co se stalo tam dole v dolech?'
       },
       core: {
-        say: 'O jádru…',
+        say: 'Ohledně jádra...',
         destroy: {
-          '1': 'Zázrak byl rozbit, aby se zachránil můj lid. Řád poslal zbrojíře jako poděkování. Já poslal pivo.'
+          '1': 'Rozbil jsi zázrak, abys zachránil můj lid. Řád poslal zbrojíře. Já poslal pivo.'
         },
         study: {
-          '1': 'Kutilové Kruhu jsou šílení, ale jejich pušky střílejí rovně. Férová dohoda.'
+          '1': 'Lidé z Kruhu jsou divní, ale jejich zbraně střílejí rovně. Budiž.'
         },
         sell: {
-          '1': 'Zlato. Všechno kvůli zlatu. Doufám, že tě zahřeje.'
+          '1': 'Udělal jsi to pro zlato. Doufám, že tě zahřeje.'
         }
       },
       town: {
-        '1': 'Nejlepší ocel v říši, když doly jedou.',
+        '1': 'Nejlepší ocel v království, když doly fungují.',
         '2': 'Kamenonoh učí zemi, Pim stroje. Oba ti ukecají uši.',
         say: 'Pověz mi o Ironholdu.'
       },
       rumor: {
         tundra: {
-          '1': 'Východně od Útesů zbělá země. Mrazivá tundra. Obři a mrtví, kteří neleží v klidu.'
+          '1': 'Východně od Útesů se země mění v bílou. Mrazivá tundra. Obři a horší věci.'
         },
         citadel: {
-          '1': 'Moji zvědové viděli na severu pevnost, která tam loni nebyla. Nemám rád nové hory.'
+          '1': 'Moji zvědové viděli na severu pevnost, která tam loni nebyla. To se mi nelíbí.'
         },
         fortress: {
-          '1': 'Pevnost děsu je místo, kde to skončí. Každá cesta na sever vede k její bráně.'
+          '1': 'Všechno končí v Pevnosti děsu. Každá cesta na sever tam vede.'
         }
       },
       bye: {
-        '1': 'Udeř přesně.'
+        '1': 'Jdi s bohem.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Ruce pryč od vitríny. Je to ostré na obou koncích.',
-        '2': 'Hilda Kladivoruká. Trpasličí práce, každý kus.'
+        '1': 'Opatrně s vitrínou. Jsou ostré z obou stran.',
+        '2': 'Hilda Kladivoruká. Každý kus tady byl vykován trpasličíma rukama.'
       },
       dragon: {
-        '1': 'Draka zabito? Mým ostřím? Ne? Zalži mi. Řekni, že mým.'
+        '1': 'Zabil jsi draka? Doufám, že jednou z mých čepelí.'
       },
       again: {
-        '1': 'Zase pro pořádnou ocel?'
+        '1': 'Pro pořádnou ocel?'
       },
       trade: {
-        '1': 'Trpasličí práce. Když se zlomí, byl jsi to ty.'
+        '1': 'Kované trpaslíky. Když se jedna zlomí, budu chtít vědět jak.'
       },
       who: {
-        '1': 'Moje matka kovala pro krále. Já kuju pro každého, kdo vejde. Časy se mění.'
+        '1': 'Moje matka kovala pro krále. Já kovám pro každého, kdo projde dveřmi.'
       },
       rumor: {
         golems: {
-          '1': 'Golemové v dolech jsou z našeho vlastního železa. Upřímně, je to trapné.'
+          '1': 'Ti golemové tam dole jsou z našeho vlastního železa. Bolí to, řeknu ti.'
         },
         arm: {
-          '1': 'Čepel dělá půlku práce. Zbytek tvoje Síla. Neobviňuj čepel.'
+          '1': 'Dobrá čepel odvede půlku práce. Zbytek musí udělat tvoje Síla.'
         }
       },
       shopBack: {
-        '1': 'Přineseš ji tupou a poznám, že se použila.'
+        '1': 'Přines ji tupou a budu vědět, že jsi ji dobře použil.'
       },
       bye: {
-        '1': 'Udeř silně.'
+        '1': 'Bij silně.'
       }
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Opatrně! Tenhle je nabitý. A tenhle taky. Vlastně většina.',
-        '2': 'Kutil Voss. Kruh mě poslal zjistit, čemu nás jádro naučí. Všemu, jak se ukázalo.'
+        '1': 'Opatrně, ta je nabitá. Většina je, upřímně.',
+        '2': 'Kutil Voss. Kruh mě poslal studovat jádro. Tolik nás naučilo.'
       },
       again: {
-        '1': 'Ó dobře, tester. Totiž zákazník.'
+        '1': 'A, dobře. Od tvé poslední návštěvy jsem pár věcí změnil.'
       },
       trade: {
-        '1': 'Studium jádra Kruhem změnilo všechno. Podrž to. Nemiř na mě.'
+        '1': 'Všechno tady vzniklo studiem jádra. Jen na mě nemiř.'
       },
       core: {
-        '1': 'To železo trochu myslí. Snažím se o tom nepřemýšlet.',
+        '1': 'Ten kov umí trochu myslet. Snažím se o tom nepřemýšlet.',
         say: 'Čemu tě jádro naučilo?'
       },
       rumor: {
         heat: {
-          '1': 'Pušky běží na Zručnost a hřejí se. Zeptej se mechanika Pima na teplo, než si roztavíš ruku.'
+          '1': 'Střelné zbraně jedou na Zručnost a hřejí se. Zeptej se Pima na horko, než si spálíš ruku.'
         }
       },
       shopBack: {
-        '1': 'Hlas každý výbuch! Do poznámek.'
+        '1': 'Dej mi vědět, jak se chová. Dělám si poznámky.'
       },
       bye: {
-        '1': 'Pozor na zpětný ráz!'
+        '1': 'Pozor na zpětný ráz.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Zbroj. Kroužky na tácu.'
+        '1': 'Garrun. Zbroj na stojanech, prsteny na tácu.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Zpátky. Co potřebuješ?'
       },
       trade: {
-        '1': 'Plát, co zastaví obří kyj. Kroužky pro zbytek.'
+        '1': 'Ten plát zastaví obrovu palici. Podívej se.'
       },
       quiet: {
-        '1': 'Ne.',
-        say: 'Moc nemluvíš.'
+        '1': 'Není moc o čem mluvit.',
+        say: 'Ty moc nemluvíš, co?'
       },
       rumor: {
         giants: {
-          '1': 'Obři v tundře. Kyje jako kmeny. Kup těžký plát.'
+          '1': 'Obři v tundře. Palice jako kmeny stromů. Vzal bych těžký plát.'
         },
         demons: {
-          '1': 'Démoni na severu. Oheň a drápy. Kup těžký plát.'
+          '1': 'Démoni na severu. Oheň a drápy. Vzal bych těžký plát.'
         }
       },
       shopBack: {
-        '1': 'Dobře.'
+        '1': 'Dobrá volba.'
       },
       bye: {
-        '1': 'Jo.'
+        '1': 'Opatruj se.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Jméno a záležitost. Ne. Tvé jméno znám. Jádro zničila tvá ruka.',
-        '2': 'Zbrojmistr Železného řádu. Jeho zbrojnice jsou ti otevřeny.'
+        '1': 'Ty jsi ten, kdo zničil jádro. Řád si to pamatuje.',
+        '2': 'Jsem tady zbrojmistr Řádu. Naše zbrojnice jsou ti otevřené.'
       },
       throneOurs: {
-        '1': 'Řád drží Pevnost děsu tvou rukou. Pohov. To je rozkaz.'
+        '1': 'Řád drží Pevnost děsu díky tobě. Pohov. Zasloužil sis to.'
       },
       foe: {
-        '1': 'Řád tě má na seznamu. Můj rozkaz je přesto ti prodávat. Nelíbí se mi to.'
+        '1': 'Řád tě má na seznamu. Rozkazy říkají, abych ti stejně prodával. Splním je.'
       },
       again: {
-        '1': 'Rekvizice?'
+        '1': 'Co potřebuješ?'
       },
       trade: {
-        '1': 'Řád pamatuje, kdo zničil jádro. Vyber si, co potřebuješ.'
+        '1': 'Vezmi si, co potřebuješ. Řád se stará o své.'
       },
       order: {
-        '1': 'Nic. To je vzácné. Užij si to.',
+        '1': 'Zatím nic. To se nestává často. Užij si to.',
         say: 'Co po mně Řád chce?'
       },
       rumor: {
         throne: {
-          '1': 'Řád bude chtít trůn v Pevnosti děsu. Zapamatuje si, kdo stál při něm.'
+          '1': 'Řád bude chtít trůn v Pevnosti děsu. Zapamatuje si, kdo pomohl.'
         }
       },
       shopBack: {
-        '1': 'Podepiš tady. Žertuju. Řád nežertuje. Rozchod.'
+        '1': 'Opatruj to. Je to majetek Řádu, dokud v tom nevykrvácíš.'
       },
       bye: {
-        '1': 'Rozchod.'
+        '1': 'Pokračuj.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Zpomal. Hora nikam neuteče.',
+        '1': 'Zvolna. Hora nikam neuteče.',
         '2': 'Říkají mi Starý Kamenonoh. Poslouchám zemi. Občas odpoví.'
       },
       core: {
-        '1': 'Tep hory se změnil. To jsi byl ty. Všimla si.'
+        '1': 'Hora je jiná, od té doby, co jsi tam sestoupil. Klidnější, nebo prázdnější.'
       },
       dragon: {
-        '1': 'Včera přeletěl nad vrcholem drak a nespálil nás. Tvoje práce, slyšel jsem.'
+        '1': 'Včera přeletěl nad vrcholem drak a nechal nás být. Prý tvoje zásluha.'
       },
       again: {
-        '1': 'Zase ty. Kameny říkaly, že přijdeš.'
+        '1': 'Tady jsi. Myslel jsem, že se vrátíš.'
       },
       train: {
         '1': 'Zapři nohy. Cítíš to? Ne? Od toho začneme.'
       },
       class: {
-        '1': 'Stavíme zdi, svoláváme trny a lámeme zem, když je třeba.',
-        '2': 'Síla, aby ses pohnul kamenem, Inteligence, aby ses ho slušně zeptal.',
-        say: 'Kdo je Geomant?'
+        '1': 'Zvedáme zdi, vyvoláváme hroty a lámeme zem, když musíme.',
+        '2': 'Síla, aby ses pohnul kamenem. Inteligence, abys věděl, kam chce jít.',
+        say: 'Co dělá geomant?'
       },
       ready: {
         strong: {
-          '1': 'Kámen tě teď zná. Uč se zbytek.'
+          '1': 'Kámen tě teď zná. Zbytek se naučíš, až budeš připravený.'
         },
         able: {
-          '1': 'Jsi dost těžký na další lekci. To je kompliment.'
+          '1': 'Jsi dost pevný na další lekci.'
         },
         weak: {
-          '1': 'Kámen tě zatím neslyší. Víc Síly.'
+          '1': 'Ještě ne. Kámen se pro tebe nepohne. Posil Sílu.'
         }
       },
       factions: {
-        '1': 'Žádné. Řády, syndikáty, kruhy. Hora přežije všechny.',
+        '1': 'Žádnému z nich. Řády a cechy přicházejí a odcházejí. Hora zůstává.',
         say: 'Které frakci sloužíš?'
       },
       trainBack: {
-        '1': 'Jdi jemně. A pak ne jemně.'
+        '1': 'Neuspěchej to. Země je trpělivá.'
       },
       bye: {
         '1': 'Našlapuj tiše.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Na tohle nesahej! Ani na tohle. Vlastně se postav na kobereček. Kobereček je bezpečný.',
-        '2': 'Mechanik Pim! Pušky, věže, měřiče tepla. Hlavně měřiče tepla.'
+        '1': 'Ach, počkej, na to nesahej! Ani na tamto. Stoupni si na koberec, ten je bezpečný.',
+        '2': 'Mechanik Pim. Stavím pistole, věže a spoustu teploměrů.'
       },
       core: {
-        '1': 'Jádro máme díky tobě! Nespím devět dní. Podívej se na moje ruce. Nedívej se na moje ruce.'
+        '1': 'Dal jsi jádro Kruhu! Od té doby skoro nespím. V dobrém smyslu.'
       },
       oracle: {
-        '1': 'Kruh zuří kvůli věštkyni. Já jen stavím věci. Prosím, neříkej jim, že tě učím.'
+        '1': 'Kruh je naštvaný kvůli věštkyni. Já jen stavím věci. Radši se do toho nepletu.'
       },
       friend: {
-        '1': 'Přítel Kruhu! Lekce pro tebe levněji. Formulář jsem vyplnil sám.'
+        '1': 'Jsi přítel Kruhu, takže lekce jsou levnější. Vyřídil jsem papíry.'
       },
       foe: {
-        '1': 'Kruh říká, že tě nesmím učit. Kruh říká i to, že se nemají zkoušet rakety uvnitř.'
+        '1': 'Kruh říká, že bych tě neměl učit. Stejně budu. Neříkej jim to.'
       },
       again: {
-        '1': 'Ó dobře, máš všechny prsty.'
+        '1': 'Ach dobře, pořád máš všechny prsty.'
       },
       train: {
-        '1': 'Tak! Nejdřív bezpečnost. Pak hlasitá část.'
+        '1': 'Tak. Nejdřív bezpečnost, potom ta hlasitá část.'
       },
       class: {
-        '1': 'Pušky, věže a měřič tepla. Střílej, stav a vypouštěj, než tě zablokuje.',
-        '2': 'Všechno běží na Zručnost. Trocha Inteligence pro velké stroje.',
+        '1': 'Pistole, věže a teploměr. Střílej, stav a odpouštěj, než se zasekneš.',
+        '2': 'Hlavně Zručnost. Trochu Inteligence na větší stroje.',
         say: 'Kdo je Étertechnik?'
       },
       ready: {
         strong: {
-          '1': 'Rozebereš věž poslepu! Vezmi si velké stroje.'
+          '1': 'Ve věžích už se vyznáš. Vezmi si velké stroje.'
         },
         able: {
-          '1': 'Pevné ruce! Čas na další udělátko.'
+          '1': 'Pevné ruce. Jsi připravený na další.'
         },
         weak: {
-          '1': 'Třesou se ti ruce. Mně taky, ale z jiných důvodů. Víc Zručnosti.'
+          '1': 'Mířidla ti ještě trochu poskakují. Dej body do Zručnosti.'
         }
       },
       heat: {
-        '1': 'Všechno se na pár sekund zablokuje. Vypouštěj brzy. Vypouštěj často. Mám jizvy.',
+        '1': 'Všechno se na pár vteřin zasekne. Odpouštěj brzy, odpouštěj často. Věř mi.',
         say: 'Co se stane, když se přehřeju?'
       },
       trainBack: {
-        '1': 'Pamatuj: vypouštěj teplo! VYPOUŠTĚJ. TEPLO. HNED.'
+        '1': 'A nezapomeň odpustit horko dřív, než odpustí ono tebe.'
       },
       bye: {
-        '1': 'Nevybuchni!'
+        '1': 'Buď tam venku opatrný!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Boty dolů. Můj prach na podlaze nestrpím.',
-        '2': 'Matka Brynja. Každou zlomenou kost v téhle hoře jsem srovnala dvakrát.'
+        '1': 'Boty u dveří, prosím. Právě jsem zametla.',
+        '2': 'Matka Brynja. Narovnala jsem většinu zlomených kostí v téhle hoře.'
       },
       ending: {
-        '1': 'Do Pevnosti děsu a zpátky. Sedni si. Chci se na tebe podívat.'
+        '1': 'Šel jsi do Pevnosti děsu a vrátil ses. Sedni si. Nech mě se na tebe podívat.'
       },
       again: {
-        '1': 'Pořád naživu. Prý je to moje zásluha.'
+        '1': 'Pořád naživu. Dobře. Sedni si.'
       },
       heal: {
-        '1': 'Sedni. Vypij tohle. Nedělej takový obličej. Lahvičky jsou plné.'
+        '1': 'Vypij to a nedělej ten obličej. Lahvičky jsou plné.'
       },
       mana: {
-        '1': 'Na. Chutná to příšerně. Pij, až dojde magie, ne dřív.'
+        '1': 'Na. Chutná to příšerně. Pij to, až ti dojde magie, ne dřív.'
       },
       potions: {
-        '1': 'Kup si u mě delší pás. Pět lahviček je vše, co tělo unese a ještě běží.',
+        '1': 'Můžu ti prodat delší opasek. Pět lahviček je asi tak nejvíc, co unese člověk, který ještě běží.',
         say: 'Můžu nosit víc lektvarů?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra bere prsty. Pohybuj se a nespi ve sněhu.'
+          '1': 'Tundra bere prsty na rukou i na nohou. Hýbej se a neusínej ve sněhu.'
         },
         temple: {
-          '1': 'Za tundrou je potopený chrám. Nágové neberou zajatce.'
+          '1': 'Za tundrou je potopený chrám. Nágy tam zajatce neberou.'
         },
         rift: {
-          '1': 'Cokoli je v té Trhlině Prázdnoty, nedá se to zašít. Skonči to rychle.'
+          '1': 'Ať je v té trhlině cokoli, nezašiju to. Nenech to k sobě.'
         }
       },
       healBack: {
-        '1': 'Jdi. A něco sněz.'
+        '1': 'Jdi. A něco sněz, jsi moc hubený.'
       },
       bye: {
         '1': 'Vrať se vcelku.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Ty. Mou bránu otevřela tvá ruka.',
-        '2': 'Učím teď v trpasličím sklepě, protože musím jíst. Nepleť si to s odpuštěním.'
+        '1': 'Ty. Ty jsi ten, kdo otevřel mou bránu.',
+        '2': 'Učím teď ve sklepě, protože musím jíst. Nepleť si to s odpuštěním.'
       },
       ending: {
-        '1': 'Trůn je vyřešen a Oakhaven je pořád popel. Řekni mi znovu, jak to stálo za to.'
+        '1': 'Takže trůn je rozhodnut a Oakhaven je pořád popel. Doufám, že to stálo za to.'
       },
       again: {
-        '1': 'Zrádce se vrací. Můj poplatek neklesl.'
+        '1': 'Vrátil ses. Můj poplatek se nezměnil.'
       },
       train: {
-        '1': 'Naučím tě velet. Nenaučím tě si to zasloužit.'
+        '1': 'Naučím tě velet. Jestli si to zasloužíš, je jiná věc.'
       },
       class: {
-        '1': 'Ten, za kým se jde. Stráže odpovídají na zavolání a bojují na slovo.',
-        '2': 'Běží to na Charisma. Trochu ho máš. V tom je ta tragédie.',
+        '1': 'Někdo, za kým jdou ostatní. Stráže přijdou na zavolání a bojují na tvé slovo.',
+        '2': 'Stojí to na Charismatu. Nějaké máš. To je právě to, co je těžké odpustit.',
         say: 'Kdo je Velký suverén?'
       },
       ready: {
         strong: {
-          '1': 'Máš vystupování na všechno. Říše je tím chudší.'
+          '1': 'Máš přítomnost na všechno z toho. Škoda, že jsi ji nepoužil lépe.'
         },
         able: {
-          '1': 'Na další lekci to máš. Nedělá mi to radost.'
+          '1': 'Jsi připravený na další lekci. Nebudu předstírat, že jsem rád.'
         },
         weak: {
-          '1': 'Za takovým hlasem by nešla ani stráž zrádce. Víc Charismatu.'
+          '1': 'Zatím by za tebou nikdo nešel. Zapracuj na Charismatu.'
         }
       },
       oakhaven: {
         '1': 'Tři sta let. Moje rodina postavila ty hradby.',
-        '2': 'Nevysvětluj. Neexistuje cena, která by to vysvětlila.',
-        say: 'O Oakhavenu…'
+        '2': 'Prosím, nevysvětluj. Nic, co řekneš, to nenapraví.',
+        say: 'Ohledně Oakhavenu...'
       },
       trainBack: {
-        '1': 'Jdi. Veleň někomu jinému.'
+        '1': 'Jdi. Cvič na někom jiném.'
       },
       bye: {
-        '1': 'Nech mě.'
+        '1': 'Nech mě, prosím.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Zemřela tvou rukou. Viděl jsem to tisíckrát, než se to stalo, a pořád to bolí.',
-        '2': 'Jsem Strážce hodin. Naučím tě. Řekla, že to tak bude.'
+        '1': 'Zabil jsi ji. Viděl jsem to přicházet roky a stejně to bolí.',
+        '2': 'Jsem Strážce hodin. Naučím tě. Řekla mi, že to udělám.'
       },
       hello: {
-        '1': 'Jsi mimo čas. Brzy, nebo pozdě. Myslím, že jsem to už říkal.',
-        '2': 'Jsem Strážce hodin. Učím tkát čas. Začali jsme před chvílí.'
+        '1': 'Tady jsi. Čekám na tebe dlouho. Nebo budu čekat.',
+        '2': 'Jsem Strážce hodin. Učím trochu ohýbat čas.'
       },
       freed: {
-        '1': 'Je volná. Poprvé nevím, co řekneš dál. Je to nádherné.'
+        '1': 'Je volná. Poprvé nevím, co bude dál. Je to nádherné.'
       },
       friend: {
-        '1': 'Kruh tě nazve přítelem. Už nazval? Pak je sleva teď.'
+        '1': 'Kruh o tobě smýšlí dobře, takže lekce jsou levnější. Rozhodli to minulý týden.'
       },
       foe: {
-        '1': 'Kruh ti odpustí, v budoucnosti, kterou jsem viděl. Do té doby tě učím potichu.'
+        '1': 'Kruh je na tebe teď naštvaný. Přejde to. Do té doby to necháme v tichosti.'
       },
       again: {
-        '1': 'Vítej zpátky. Vítej. Zpátky.'
+        '1': 'Vítej zpátky. Jsi právě včas.'
       },
       train: {
-        '1': 'Dívej se. Ukážu ti, co jsem ti ukázal.'
+        '1': 'Dívej se pozorně. Pak se podívej znovu, o chvíli dřív.'
       },
       class: {
-        '1': 'Zastavujeme nepřítele v čase, popoháníme přítele a bereme zpět chybu.',
-        '2': 'Inteligence, aby ses podíval na nit, Zručnost, aby ses za ni zatáhl.',
+        '1': 'Držíme nepřítele v čase, urychlujeme přítele a bereme zpět chybu.',
+        '2': 'Inteligence, abys viděl nit. Zručnost, abys za ni zatáhl.',
         say: 'Kdo je Tkadlec času?'
       },
       ready: {
         strong: {
-          '1': 'Nit držíš dobře. Zbytek je tvůj, kdykoli budeš chtít.'
+          '1': 'Nit držíš dobře. Vezmi si zbytek, kdy chceš.'
         },
         able: {
-          '1': 'Je čas. Byl čas i zítra.'
+          '1': 'Jsi připravený. Poznal jsem to dřív, než ses zeptal.'
         },
         weak: {
-          '1': 'Nit ti klouže mezi prsty. Víc Inteligence. Víc Zručnosti.'
+          '1': 'Nit mi pořád klouže. Víc Inteligence a víc Zručnosti.'
         }
       },
       oracle: {
         say: 'Pověz mi o věštkyni.',
         freed: {
-          '1': 'Viděla každý konec a žádný nebyl její. Teď jeden je.'
+          '1': 'Viděla každý konec kromě svého. Teď se to dozví.'
         },
         slain: {
-          '1': 'Nebránila se. I to viděla. Prosím, neptej se znovu.'
+          '1': 'Nebránila se. Už to viděla. Prosím, neptej se mě znovu.'
         },
         waits: {
-          '1': 'Vidí každý konec. Je to hrozný dar. Chovej se k ní laskavě, na konci.'
+          '1': 'Vidí každý konec. To je těžké břemeno. Buď na ni hodný.'
         }
       },
       trainBack: {
-        '1': 'Bude to stát za to.'
+        '1': 'Později to dá smysl. Obvykle dá.'
       },
       bye: {
-        '1': 'Do předtím.'
+        '1': 'Na shledanou. Nebo dřív.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Čekat! Čekat. Král se vzdávat!',
-          '2': 'Goblini přepadat, protože goblini hladoví. Pravda!',
-          '3': 'Možná vysoký a Král udělat dohodu?'
+          '1': 'Stůj. Prosím. Vzdávám se.',
+          '2': 'Můj lid přepadává, protože je hladový. To je pravda.',
+          '3': 'Raději uzavřeme dohodu. Tvůj lid a můj.'
         },
         slay: {
-          '1': 'Král padá a Sluje se rozprchnou.',
-          '2': 'Sunford spí klidněji a Železný řád si tě všimne.',
-          say: 'Žádná dohoda. Tvoje vláda tady končí.'
+          '1': 'Goblinský král padá a Sluje se vyprazdňují.',
+          '2': 'Sunford spí klidněji a Železný řád slyší tvé jméno.',
+          say: 'Žádné dohody. Tvým nájezdům je konec.'
         },
         pact: {
-          '1': 'Obchod? Král přísahat! Král MILOVAT obchod!',
-          '2': 'Gobliní obchodníci se usadí na náměstí v Sunfordu se zbožím, jaké žádný tamní kovář nevyrobí.',
-          say: 'Přestaň s nájezdy a obchoduj se Sunfordem. Přísahej.'
+          '1': 'Obchod. Ano. Přísahám, na svou korunu.',
+          '2': 'Gobliní obchodníci se usadili na náměstí v Sunfordu a prodávají věci, které by tamní kovář nevyrobil.',
+          say: 'Přestaň přepadat a obchoduj se Sunfordem. Přísahej.'
         },
         ransom: {
-          '1': 'Všechno? Král nenávidět vysoký. Vzít. Vzít a jít.',
-          '2': 'Odcházíš s kapsami plnými gobliního zlata. Nájezdy začnou znovu. Syndikát souhlasí.',
-          say: 'Vydej svůj poklad a koruna ti zůstane.'
+          '1': 'Všechno? ...Dobře. Vezmi si to a jdi.',
+          '2': 'Odcházíš s goblinským zlatem. Nájezdy začnou znovu, ale Syndikát to schvaluje.',
+          say: 'Dej mi svůj poklad a korunu si můžeš nechat.'
         }
       },
       siege: {
         ask: {
-          '1': 'Dost. Bojuješ dobře.',
-          '2': 'Syndikát platí lépe, než kdy zaplatí to město.',
+          '1': 'Dost. Bojuješ dobře, to ti nechám.',
+          '2': 'Syndikát platí mnohem líp, než kdy zaplatí to město.',
           '3': 'Otevři nám dnes v noci bránu a třetina Oakhavenu je tvoje.'
         },
         defend: {
-          '1': 'Pak bude Syndikát lovit na každé cestě. Pamatuj, že jsem nabízel.',
-          '2': 'Brána drží. Za ní Oakhaven bohatne a jeho mistři zbrojíři pamatují tvé jméno.',
+          '1': 'Pak po tobě bude Syndikát jít na každé cestě. Pamatuj, že jsem nabízel.',
+          '2': 'Brána stojí. Oakhaven za ní bohatne a zbrojíři si pamatují tvé jméno.',
           say: 'Brána zůstane zavřená. Vezmi armádu a jdi.'
         },
         betray: {
-          '1': 'Moudře. Řeknu Madam Ash, aby ti připravila židli.',
-          '2': 'Oakhaven hoří. V jeho troskách se otevírá černý trh a alchymista učí zakázaná umění.',
+          '1': 'Rozumné. Madam Ash bude ráda, až to uslyší.',
+          '2': 'Oakhaven hoří. V troskách se otevírá černý trh a alchymista tajně učí.',
           '3': 'Zbrojíři jsou pryč a Železný řád tě nazývá zrádcem.',
-          say: 'Třetina města. Dnes v noci se brána otevře.'
+          say: 'Třetina města. Dobře. Brána se otevře dnes v noci.'
         }
       },
       core: {
         ask: {
-          '1': 'Kolos je šrot. Nečekal jsem, že to uvidím.',
-          '2': 'A tamhle leží. Jádro. Pořád hučí. Teplé na dotek.',
-          '3': 'U něj nikdo není před tebou. Co se s ním stane?'
+          '1': 'Kolos je šrot. Nikdy jsem nevěřil, že se toho dožiju.',
+          '2': 'A tamhle je jádro. Pořád hučí. Je teplé, když se ho dotkneš.',
+          '3': 'Dostal ses sem první. Takže... co se s ním stane?'
         },
         destroy: {
           '1': 'Světlo zhasne a golemové padnou, kde stojí.',
-          '2': 'Železný řád jako poděkování pošle do Ironholdu vlastní zbrojíře.',
-          say: 'Ustup. Rozbíjím to.'
+          '2': 'Na poděkování pošle Železný řád své zbrojíře do Ironholdu.',
+          say: 'Ustup. Rozbiju to.'
         },
         study: {
-          '1': 'Jádru rozumíš dost na to, abys ho předal, aniž bys ho probudil.',
-          '2': 'Během sezóny začnou ironholdské výhně chrlit éterové stroje, jaké nikdo neviděl.',
-          say: 'Kruh by ho měl studovat. Můžu ho bezpečně vynést.'
+          '1': 'Víš dost na to, abys jádro odnesl a nevzbudil ho.',
+          '2': 'Za sezónu vyrábějí kovárny Ironholdu éterové vynálezy, jaké nikdo neviděl.',
+          say: 'Kruh by to měl studovat. Myslím, že ho dokážu bezpečně odnést.'
         },
         sell: {
           '1': 'Zlato. Za to, co zabilo mé horníky. Vezmi a jdi.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Tuhle chvíli jsem viděla desettisíckrát.',
-          '2': 'V polovině mě osvobodíš. V polovině vezmeš, co střežím.',
-          '3': 'Vyber si. Dovol mi konečně nevědět, co přijde.'
+          '1': 'Viděla jsem tenhle okamžik víckrát, než dokážu spočítat.',
+          '2': 'V polovině z nich mě osvobodíš. Ve druhé polovině vezmeš, co střežím.',
+          '3': 'Vyber si. Chtěla bych aspoň jednou nevědět, co přijde.'
         },
         free: {
-          '1': 'Ach. To jsem neviděla. Vůbec jsem to neviděla.',
-          '2': 'Věštkyně stoupá vodou a mizí. Její strážce hodin zůstává učit.',
-          say: 'Nehýbej se. Rozbíjím tvé řetězy.'
+          '1': 'Ach. To jsem neviděla. Opravdu jsem to neviděla.',
+          '2': 'Věštkyně vystupuje skrz vodu a mizí. Její žák zůstává učit.',
+          say: 'Stůj. Rozbíjím tvé řetězy.'
         },
         slay: {
           '1': 'Ano. Tohle je ta druhá polovina.',
-          '2': 'Nebrání se. Přesýpací hodiny Strážce času jsou tvoje.',
-          '3': 'Její poslední žák prchá z chrámu a Kruh neodpouští.',
+          '2': 'Nebrání se. Přesýpací hodiny Strážce času jsou tvé.',
+          '3': 'Její poslední žák prchá z chrámu a Kruh ti nikdy neodpustí.',
           say: 'Chci ty přesýpací hodiny.'
         }
       },
       dragon: {
         ask: {
           '1': 'Dost. Máš zuby, drobečku.',
-          '2': 'Démon v pevnosti spoutal můj rod. Chci ho vidět hořet.',
+          '2': 'Démon v pevnosti spoutal mé příbuzné. Chci ho vidět hořet.',
           '3': 'Zabij mě, nebo mi dovol ti v tom pomoct.'
         },
         slay: {
           '1': 'Hora se třese, když drak padá. Jeho poklad je tvůj.',
           '2': 'Železný řád zpívá o zabijákovi draka.',
-          say: 'S draky se neobchoduje.'
+          say: 'S draky se nesmlouvám.'
         },
         pact: {
-          '1': 'Málokdo by si to mohl říct a zůstat naživu. Dobrá, drobečku. Lovíme spolu.',
-          '2': 'Až vyrazíš na Pevnost děsu, bude nad tebou na nebi drak.',
-          say: 'Tak leť se mnou proti Arcidémonovi.'
+          '1': 'Málokdo by se odvážil požádat. Dobrá. Lovíme spolu.',
+          '2': 'Až vyrazíš na Pevnost děsu, poletí nad tebou drak.',
+          say: 'Tak bojuj se mnou proti Arcidémonovi.'
         }
       },
       throne: {
         ask: {
-          '1': 'Tak. Je konec. Nemyslel jsem, že budeš zrovna ty.',
-          '2': 'Můj trůn nezůstává prázdný, hrdino. Velí pevnosti, trhlině a armádám obou.',
-          '3': 'Tři vyslanci už čekají u mých dveří. Vyber, kdo zdědí mé řetězy.'
+          '1': 'Tak. Je konec. Nečekal jsem, že to budeš ty.',
+          '2': 'Můj trůn nezůstane prázdný. Kdo ho získá, velí pevnosti i trhlině.',
+          '3': 'Tři vyslanci už čekají u mých dveří. Vyber, kdo přijde další.'
         },
         order: {
           '1': 'Řád obsadí pevnost posádkou a zapečetí, co může.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Syndikát se nastěhuje před úsvitem.',
-          '2': 'Teď je všechno na prodej, i mír.',
+          '2': 'Od teď má všechno cenu, i mír.',
           say: 'Popelavý syndikát si to zasloužil.'
         },
         circle: {
-          '1': 'Kruh promění pevnost ve školu nad trhlinou.',
-          '2': 'Říkají tomu výzkum. Všichni ostatní tomu říkají otázka času.',
+          '1': 'Kruh mění pevnost ve školu nad trhlinou.',
+          '2': 'Říkají tomu výzkum. Všichni ostatní zadržují dech.',
           say: 'Nechť ho získá Kruh éteru.'
         },
         shatter: {
-          '1': 'Trůn lámeš vlastníma rukama. Odsud už nikdo vládnout nebude.',
+          '1': 'Ničíš trůn vlastníma rukama. Odsud už nikdo nebude vládnout.',
           '2': 'Vyslanci odcházejí beze slova.',
-          say: 'Nikdo nezdědí. Rozbíjím ho.'
+          say: 'Nikdo ho nedostane. Rozbíjím ho.'
         },
         claim: {
           '1': 'Trůn je studený a padne.',
-          '2': 'Tři frakce zjistí, že mají společného nepřítele.',
-          say: 'Posadím se na něj sám.'
+          '2': 'Tři frakce zjišťují, že mají společného nepřítele.',
+          say: 'Vezmu si ho sám.'
         }
       }
     }

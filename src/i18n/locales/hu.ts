@@ -127,8 +127,8 @@ export default {
       mouse: 'Kövesd a nyomvonalat a tanítóhoz, és kattints rá a beszélgetéshez.'
     },
     teach: {
-      touch: 'Koppints a „Taníts meg” gombra, hogy lásd, mit tanít ez a tanító.',
-      mouse: 'Kattints a „Taníts meg” gombra, hogy lásd, mit tanít ez a tanító.'
+      touch: 'Koppints a „Megtanítasz?” gombra, hogy lásd, mit tanít ez az oktató.',
+      mouse: 'Kattints a „Megtanítasz?” gombra, hogy lásd, mit tanít ez az oktató.'
     },
     learn: {
       touch: 'Koppints egy képességre, majd a Megtanul gombra.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Visszavétel',
     deal: 'Áll az alku!',
     say: {
-      buy: 'Szép választás. Vigyázz rá.',
-      sell: 'Jó otthont találok neki.',
-      back: 'Meggondoltad magad? Tessék, pont olyan, mint volt.',
-      poor: 'Gyere vissza egy nehezebb erszénnyel.'
+      buy: 'Jó választás. Vigyázz rá, és ő is vigyázni fog rád.',
+      sell: 'Rendben. Valaki majd megveszi.',
+      back: 'Meggondoltad magad? Semmi baj, tessék.',
+      poor: 'Sajnos ez egy kicsit több, mint amennyid van.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Ülj le. Pihenj. Innen épen távozol, minden fiolád tele lesz. Ha többet szeretnél hordani belőlük, azt el tudom adni neked.',
+    talk: 'Ülj le, pihenj egy kicsit. A fiolád újra tele van. Ha szeretnéd, eladok egy nagyobb övet.',
     note: 'Minden zónába ennyi italt viszel: {n}.',
     buy: 'Még egy fiola · {n}',
     full: 'Az öveden nem fér el több.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Bram, a kovács',
-      talk: 'Egyszerű acél, tisztes ár. Távol tartja tőled a goblint.'
+      talk: 'Egyszerű acél, tisztességes árak. Nézz körül nyugodtan.'
     },
     sunfordPeddler: {
       name: 'Tilly, a házaló',
-      talk: 'Gyűrűk! Talizmánok! Holmik, amiket találtam, és egészen biztosan nem loptam.'
+      talk: 'Gyűrűk, talizmánok, apróságok. Az talán még szerencsét is hoz.'
     },
     trainerAegis: {
       name: 'Ser Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Grik, a kereskedő',
-      talk: 'Király mond kereskedni, hát Grik kereskedni. Csillogó csillogóért. Jó csillogó.'
+      talk: 'A családom készítette ezeket. Jó munka, tisztességes ár.'
     },
     captainHale: {
       name: 'Hale kapitány'
     },
     oakArmorer: {
       name: 'Odo, a páncélkovács',
-      talk: 'A készletem fele felment a falakra. Vidd, ami maradt.'
+      talk: 'A készlet fele a falra került. Vidd, ami maradt, ha jó rád.'
     },
     oakMasterArmorer: {
       name: 'Odo mester',
-      talk: 'Megmentetted ezt a várost. Neked előkerül a jó vért a hátsó szobából.'
+      talk: 'A jó lemezpáncél kint van. Megérdemelsz egy pillantást.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Éles, kiegyensúlyozott, és azé, aki fizet. Ma ez te vagy.'
+      talk: 'Élesek, kiegyensúlyozottak, tisztességes áron. Az élekhez ne nyúlj.'
     },
     trainerShadow: {
       name: 'A Suttogó'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Az Orgazda',
-      talk: 'Nincsenek nevek, nincsenek kérdések. A Szindikátus leveszi a részét, te viszed az árut.'
+      talk: 'Egyik oldalról sem kérdezünk semmit. A Szindikátus megkapja a részét.'
     },
     trainerBlood: {
       name: 'Sangrel doktor'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Kalapácskezű Hilda',
-      talk: 'Törp kovácsolta. Ha eltörik, te voltál a hibás.'
+      talk: 'Törpe kovácsolás, mind. Ha valamelyik eltörik, tudni akarom, hogyan.'
     },
     ironAetherWorks: {
       name: 'Voss, az ezermester',
-      talk: 'Amióta a Kör tanulmányozta a magot, minden megváltozott. Fogd ezt. Ne rám célozz vele.'
+      talk: 'Itt minden a mag tanulmányozásából született. Óvatosan, a legtöbb meg van töltve.'
     },
     ironArmor: {
       name: 'Vasoldalú Garrun',
-      talk: 'Vért, amely megállítja az óriás bunkóját. A többieknek gyűrűk.'
+      talk: 'Páncélok az állványon, gyűrűk a tálcán.'
     },
     ironOrderArmor: {
       name: 'A Rend szállásmestere',
-      talk: 'A Rend emlékszik, ki pusztította el a magot. A fegyvertárai nyitva állnak előtted.'
+      talk: 'Vidd, amire szükséged van. A Rend gondoskodik a magáéról.'
     },
     trainerGeo: {
       name: 'Öreg Kőláb'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Estére eső lesz, mondja a térdem.',
+        '1': 'Ma este esni fog. Egész nap fáj a térdem.',
         '2': 'A múlt héten is ezt mondta a térded.',
-        '3': 'És esett is, nem? Valahol.'
+        '3': 'És esett is, nem? Csak nem itt.'
       },
       harvest: {
-        '1': 'Évek legjobb árpája ez.',
-        '2': 'Ezt minden évben mondod.'
+        '1': 'Jól sikerült az árpa idén.',
+        '2': 'Reméljük, megtarthatjuk.'
       },
       goblins: {
         '1': 'A goblinok elvittek három tyúkot a Molnár-tanyáról.',
-        '2': 'Csak hármat? Lustulnak.',
-        '3': 'Vagy jóllaktak.'
+        '2': 'Már megint? Ez a második eset ebben a hónapban.',
+        '3': 'Valakinek tennie kellene valamit azokkal a barlangokkal.'
       },
       kingGone: {
-        '1': 'Azt mondják, a Goblinkirály végleg eltűnt.',
-        '2': 'Akkor ki lopja a fehérrépáimat?'
+        '1': 'Azt mondják, meghalt a Goblinkirály.',
+        '2': 'Jó. Talán most végigalszom egy éjszakát.'
       },
       pact: {
-        '1': 'Egy goblin ma eladott nekem egy kanalat.',
-        '2': 'A te kanalad volt?',
-        '3': 'Igen, az. Jó áron, igaz.'
+        '1': 'Ma reggel vettem egy merőkanalat egy goblintól.',
+        '2': 'Jó volt?',
+        '3': 'Jobb, mint az enyém, őszintén. Ne mondd el senkinek.'
       },
       bram: {
-        '1': 'Bram megint kalapál. Hajnal óta!',
-        '2': 'Egyenletes, mint a szívverés, az az ember.'
+        '1': 'Bram napkelte előtt óta az üllő mellett áll.',
+        '2': 'Ilyen, ha aggódik.'
       },
       pie: {
         '1': 'Almás pite illatát érzem?',
-        '2': 'Az volt. Múlt idő.',
-        '3': 'Az egészet megetted? Már megint?'
+        '2': 'Az volt. A gyerekek előbb megtalálták.',
+        '3': 'Sütök másikat. Ezúttal rejtsd el jobban.'
       },
       road: {
-        '1': 'Már senki sem megy a síksági úton.',
-        '2': 'Banditákkal nem is.'
+        '1': 'Egy hete senki sem járt a síksági úton.',
+        '2': 'Banditákkal nem. Nem hibáztatom őket.'
       },
       hero: {
-        '1': 'Valaki megtisztította a síksági utat!',
-        '2': 'Ideje volt. Az unokatestvérem tartozik egy szekérrel.'
+        '1': 'Valaki megtisztította a banditáktól a síksági utat.',
+        '2': 'Hála az égnek. A húgom újra meglátogathat.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Két ezüst egy fej káposztáért. Kettő!',
-        '2': 'Nagyon szép fej káposzta.',
-        '3': 'Annyira nem szép.'
+        '2': 'Manapság semmi sem jut be olcsón a kapun.',
+        '3': 'Akkor termesztem a magamét. A tetőn, ha kell.'
       },
       watch: {
-        '1': 'Az őrség megduplázta a kapuőröket.',
-        '2': 'Jó. Jobban alszom tőle.'
+        '1': 'Megduplázták az őrséget a kapunál.',
+        '2': 'Jó. Tőle nyugodtabban alszom.'
       },
       caravan: {
         '1': 'A fűszerkaraván megint késik.',
         '2': 'Banditák?',
-        '3': 'Vagy a kocsis talált egy kocsmát.'
+        '3': 'Vagy sár. Reméljük, hogy sár.'
       },
       siege: {
-        '1': 'Azt mondják, egy sereg táborozik a határban.',
-        '2': 'Akkor jobb, ha megtöltjük a pincét.'
+        '1': 'A tanyákon túl egy sereg táborozik.',
+        '2': 'Akkor jobb, ha megtöltjük a pincét, amíg lehet.'
       },
       saved: {
-        '1': 'Láttad, ahogy megtört az ostrom? Pompás volt!',
-        '2': 'Az ágy alól néztem.',
-        '3': 'Az is számít.'
+        '1': 'A falon voltál, amikor áttörték az ostromot?',
+        '2': 'Én az ágy alatt bujkáltam, ha őszinte akarok lenni.',
+        '3': 'Meg a város fele. Mégis itt vagyunk.'
       },
       fountain: {
         '1': 'Szerencséért egy érmét dobtam a kútba.',
-        '2': 'Én meg kihalásztam. Kösz!'
+        '2': 'Remélem, olcsóbb káposztát kívántál.'
       },
       ash: {
-        '1': 'Minden hamuszagú.',
-        '2': 'Jobb, mint ha semmilyen szaga se lenne.'
+        '1': 'Még mindig mindenből füstszag árad.',
+        '2': 'Elmúlik. Minden elmúlik végül.'
       },
       hide: {
-        '1': 'Hallottál csizmákat odakint tegnap éjjel?',
-        '2': 'Pszt. Halkabban.',
-        '3': 'Bocs. Bocs.'
+        '1': 'Hallottál csizmákat az utcán az éjjel?',
+        '2': 'Ne olyan hangosan. Nem tudni, ki hallgatózik.',
+        '3': 'Bocsánat. Csak... bocsánat.'
       },
       bread: {
-        '1': 'Találtam egy fél kenyeret. Megoszthatjuk.',
+        '1': 'Találtam fél cipót. Tessék, végy belőle.',
         '2': 'Jó lélek vagy. Köszönöm.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Szép rézér van a negyedik szinten.',
-        '2': 'Réz? Én aranyat akarok.',
-        '3': 'Te inkább egy szunyókálást akarsz.'
+        '2': 'Réz. Ezüstben reménykedtem.',
+        '3': 'A réz kifizeti a lakbért. Az ezüst az álmokat.'
       },
       forge: {
-        '1': 'A nagy kovácsműhely száz éve nem aludt ki.',
-        '2': 'A nagyapám pipája sem.'
+        '1': 'A nagy kohó száz éve nem hűlt ki.',
+        '2': 'A nagyapám segített meggyújtani, tudod.'
       },
       beard: {
-        '1': 'Megnyírtad a szakállad!',
-        '2': 'Lángra kapott az üllőnél.',
-        '3': 'Jól áll, mindenesetre.'
+        '1': 'Megnyírtad a szakállad.',
+        '2': 'Túl közel kerültem az üllőhöz.',
+        '3': 'Visszanő. Rövidebben amúgy is jobban áll.'
       },
       core: {
-        '1': 'Valami világít most a mély bányákban.',
-        '2': 'Semmi jó nem világít odalent.'
+        '1': 'Valami világít lent a mély aknákban.',
+        '2': 'Semmi jó nem világít odalent. Maradj fent.'
       },
       order: {
-        '1': 'A Rend páncélkovácsai gyorsan dolgoznak.',
-        '2': 'Gyorsan, az igaz. De nem olyan jól, mint mi.'
+        '1': 'A Rend páncélkovácsai gyorsan dolgoznak, ezt el kell ismerni.',
+        '2': 'Gyorsan, az igaz. Meglátjuk, mennyire tart.'
       },
       circle: {
-        '1': 'A Kör mágusai dúdolnak munka közben.',
-        '2': 'Jobb, mint a mi énekünk, gondolom.'
+        '1': 'A Kör népe dúdol munka közben.',
+        '2': 'Legalább jobb, mint a te éneked.'
       },
       cold: {
-        '1': 'Hideg van idefent ma reggel.',
-        '2': 'Állj közelebb a kohóhoz akkor.'
+        '1': 'Csípős hideg van ma reggel.',
+        '2': 'Akkor gyere, állj a kohó mellé.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Te vagy a fogó!',
-        '2': 'Ez nem fair, nem voltam kész!'
+        '1': 'Fogócska, te vagy a fogó!',
+        '2': 'Ez nem igazságos, nem álltam készen!'
       },
       dragon: {
         '1': 'Ha nagy leszek, sárkányon fogok lovagolni.',
-        '2': 'A sárkányok nem hagyják, hogy lovagolj rajtuk.',
-        '3': 'A kedvesek hagyják!'
+        '2': 'A sárkányok nem engedik, hogy lovagoljanak rajtuk.',
+        '3': 'Egy kedves talán igen.'
       },
       sword: {
-        '1': 'Nézd, egy igazi kardbot!',
-        '2': 'Ez csak egy bot.'
+        '1': 'Nézd, találtam egy kardot!',
+        '2': 'Az egy bot.'
       },
       frog: {
-        '1': 'Találtam egy békát a kútnál.',
+        '1': 'Van egy béka a kútnál.',
         '2': 'Megtarthatjuk?',
-        '3': 'Szerintem ő tart meg minket.'
+        '3': 'Anya azt mondta, több béka nem lehet.'
       }
     },
     ui: {
@@ -1247,204 +1247,204 @@ export default {
       }
     },
     hero: {
-      bye: 'Egyelőre ennyi.',
-      trade: 'Mutasd az árudat.',
-      train: 'Taníts meg.',
-      heal: 'Foltozz össze.',
-      mana: 'Kell valami a manámhoz.',
-      who: 'Ki vagy te?',
+      bye: 'Nem zavarlak tovább.',
+      trade: 'Megnézhetem, mid van?',
+      train: 'Megtanítasz?',
+      heal: 'Összefoltoznál?',
+      mana: 'Van valamid a manára?',
+      who: 'Ki vagy te, ha szabad kérdeznem?',
       rumor: 'Hallottál valamit mostanában?',
-      ready: 'Készen állok többre?'
+      ready: 'Szerinted készen állok többre?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Új arc. Te vagy az, aki megtartotta a síksági utat.',
-        '2': 'Bram vagyok. Acélt készítek. Úgy nézel ki, szükséged lenne rá.'
+        '1': 'Még nem láttalak. Te vagy az, aki megtisztította az utat?',
+        '2': 'Bram. Én viszem a kovácsműhelyt. Ha pengére van szükséged, hozzám gyere.'
       },
       kingDead: {
-        '1': 'Hallom, meghalt a Goblinkirály. Jó. Kevesebb horpadást kell kikalapálni a karavánkerekekből.'
+        '1': 'Úgy hallom, meghalt a Goblinkirály. Nem fogom hiányolni.'
       },
       kingPact: {
-        '1': 'Goblinok kereskednek a téren. Sosem hittem volna. A vasuk viszont szemét.'
+        '1': 'Goblinok kereskednek a téren. Soha nem hittem volna, hogy ezt látom.'
       },
       kingRansom: {
-        '1': 'Azt mondják, elvetted a király aranyát, és hagytad neki a koronát. A rajtaütések visszatérnek.'
+        '1': 'Megtartattad a Goblinkirállyal a koronáját. Vissza fog jönni, tudod.'
       },
       ending: {
-        '1': 'Az egész birodalom arról a trónról beszél. És te még mindig nálam vásárolsz. Hm.'
+        '1': 'Az egész birodalom rólad beszél. Fenőkő azért kell még?'
       },
       again: {
-        '1': 'Megint itt vagy. Jó. Az acél nem adja el magát.'
+        '1': 'Megint itt vagy. Miben segíthetek?'
       },
       trade: {
-        '1': 'Egyszerű acél, tisztes ár. Nézelődj nyugodtan.'
+        '1': 'Egyszerű acél, tisztességes árak. Nézz körül.'
       },
       who: {
-        '1': 'Bram. Harminc éve állok ennél az üllőnél.',
-        '2': 'Lovakat patkolok, ekéket javítok, és felfegyverzem a hozzád hasonló bolondokat. Ebben a sorrendben.'
+        '1': 'Bram. Harminc éve állok ennél az üllőnél, nagyjából.',
+        '2': 'Patkók, ekék, néha egy kard. Mostanában főleg kardok.'
       },
       gear: {
-        '1': 'Pajzsot, ha számítasz rá, hogy eltalálnak. Nagyobb kardot, ha nem.',
-        '2': 'Az Erő lendíti az acélomat. Oda tedd a pontjaidat, mielőtt nehezet veszel.',
+        '1': 'Pajzs, ha arra számítasz, hogy eltalálnak. A legtöbben erre számítanak.',
+        '2': 'A nehéz acélhoz erős kar kell. Először az Erődet fejleszd.',
         say: 'Mit vigyek magammal odakint?'
       },
       rumor: {
         plains: {
-          '1': 'Goblinok a síksági úton. Tisztítsd meg, mielőtt valami díszeset vennél.'
+          '1': 'Banditák a síksági úton. Én ott kezdeném a helyedben.'
         },
         hollows: {
-          '1': 'A fosztogatók a Goblinüregekből másznak elő, a síkságon túlról. A királyuk a legalján ül.'
+          '1': 'A goblinok az Üregekből jönnek, a síkságon túlról. A királyuk odalent van.'
         },
         woods: {
-          '1': 'A síkságtól keletre kezdődik a Suttogó-erdő. A fák ott járnak. Vigyél fejszét.'
+          '1': 'A síkságtól keletre van a Suttogó-erdő. Azt mondják, a fák mozognak.'
         },
         siege: {
-          '1': 'Füst Oakhaven felől. Egy hadúr táborozik a határban, azt mondják.'
+          '1': 'Füst van Oakhaven felől. Egy sereg táborozik a határán.'
         },
         north: {
-          '1': 'Az ironholdi acél újra úton van. Menj északra, ha jobbat akarsz az enyémnél.'
+          '1': 'Újra jön az ironholdi acél az úton. Jobb, mint az enyém, őszintén.'
         }
       },
       shopBack: {
-        '1': 'Viseld egészséggel. Vagy viseld egyáltalán.'
+        '1': 'Vigyázz rá, és ő is vigyázni fog rád.'
       },
       bye: {
-        '1': 'Vigyázz az úton.'
+        '1': 'Vigyázz magadra.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Ó, vevő! Vagy őr. Ugye nem vagy őr?',
-        '2': 'Tilly vagyok. Gyűrűk, talizmánok, szerencsehozók. Mind talált, soha nem lopott.'
+        '1': 'Ó, szia! Vásárolsz, vagy csak nézelődsz? Mindkettő jó.',
+        '2': 'Tilly vagyok. Gyűrűk, talizmánok, apróságok mindenhonnan.'
       },
       rival: {
-        '1': 'Láttad Grik standját? Goblin csecsebecsék! Tönkrementem. Vegyél valamit. Sajnálj.'
+        '1': 'Láttad a goblin standját? Az ő árai alacsonyabbak az enyémnél. Ez nem tisztességes.'
       },
       again: {
-        '1': 'A kedvenc vevőm! Ezt mindenkinek mondom, de veled komolyan gondolom.'
+        '1': 'Itt vagy! Félretettem pár dolgot, amit szerintem szeretni fogsz.'
       },
       trade: {
-        '1': 'Gyűrűk! Talizmánok! Holmik, amiket találtam, és egészen biztosan nem loptam.'
+        '1': 'Nézz körül. Az ott szerencsét hoz. Valószínűleg.'
       },
       who: {
-        '1': 'Az utakat járom, és felszedem, amit az utak hátrahagynak.',
-        '2': 'A banditák a legszebb dolgokat ejtik el, amikor futnak.'
+        '1': 'Az utakat járom, és megveszem, amitől az emberek meg akarnak szabadulni.',
+        '2': 'És néha találok dolgokat. A banditák sokat elejtenek, amikor futnak.'
       },
       trinkets: {
-        '1': 'Kettőt viselhetsz egyszerre, egyet-egyet minden kezeden. Egy kis előny is előny.',
-        say: 'Mire jók az ékszerek?'
+        '1': 'Kettőt viselhetsz, egyet-egyet mindkét kezeden. Odakint összeadódik.',
+        say: 'Mire jók valójában a csecsebecsék?'
       },
       stolen: {
-        '1': 'Pszt! Ne olyan hangosan. Jól van. JÓL VAN.',
-        '2': 'Vedd el ezt a gyűrűt, és soha nem beszéltünk. Szép gyűrű. Többnyire réz.',
-        say: 'Ezt mind ellopted, ugye?'
+        '1': 'Á. Van egy sajátos módod a kérdezésre, mi?',
+        '2': 'Vidd ezt a gyűrűt, és ne beszéljünk arról, hol találtam.',
+        say: 'Ez az egész valójában honnan származik?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Innen délre van egy kolosszeum, amelynek a kapui berozsdásodtak. Kinyílnának, ha vége lenne a goblinbajnak.'
+          '1': 'Egy régi kolosszeum van innen délre. Szorosan zárva, amíg a goblinok fosztogatnak.'
         },
         arenaOpen: {
-          '1': 'A Kolosszeum nyitva van! Nyolc hullám, azt mondják. Én szerencsét árulok. Szükséged lesz rá.'
+          '1': 'A kolosszeum újra nyitva. Nyolc hullám, úgy hallom. Az emberek fogadnak rá.'
         },
         east: {
-          '1': 'Oakhaven piacai duplán fizetnek minden csillogóért. Menj keletre, az erdőn túl.'
+          '1': 'Oakhaven jól fizet mindenért, ami csillog. Keletre van, az erdőn túl.'
         }
       },
       shopBack: {
-        '1': 'Gyere vissza, ha gazdagabb vagy!'
+        '1': 'Gyere vissza, ha nehezebb lesz a pénzeszsákod!'
       },
       bye: {
-        '1': 'Vigyázz a zsebeidre odakint! Nem nálam, úgy értem. Máshol.'
+        '1': 'Jó utat. Tartsd szorosan az érméidet odakint.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Állj egyenesen. A Vasrend egyik lovagja előtt állsz.',
-        '2': 'Ser Aldric. A pajzs tudományát azoknak tanítom, akik mások előtt akarnak állni.'
+        '1': 'Állj egyenesen. A Vasrend egyik lovagjával beszélsz.',
+        '2': 'Ser Aldric. Arra tanítok embereket, hogy mások és a veszély közé álljanak.'
       },
       saved: {
-        '1': 'Oakhaven áll, mert te álltál. Ez az egész tanításom.'
+        '1': 'Oakhaven még áll, és hallom, te a falán voltál. Szép munka.'
       },
       fallen: {
-        '1': 'Kinyitottad Oakhaven kapuját. Kevesebbért is temettem el embereket. Mondd, mit akarsz.'
+        '1': 'Kinyitottad Oakhaven kapuját. Nem teszek úgy, mintha elfelejtettem volna. Mit akarsz?'
       },
       dragon: {
-        '1': 'Egy sárkányölő az udvaromon. Dalolni fognak róla a nagy teremben.'
+        '1': 'Megölted a sárkányt a csúcson? Szívesen láttam volna.'
       },
       friend: {
-        '1': 'A Rend jót mond rólad. Barátainak kevesebbe kerülnek a leckéim.'
+        '1': 'A Rend jót gondol rólad. A barátainak olcsóbbak az óráim.'
       },
       foe: {
-        '1': 'A Rend ellenségnek nevez. Én mégis tanítalak. A becsületet nem ők vehetik el.'
+        '1': 'A Rend ellenségnek nevez. Én mégis tanítalak. Ez az én döntésem, nem az övéké.'
       },
       again: {
-        '1': 'Pajzsot fel. Mire van szükséged?'
+        '1': 'Visszajöttél még gyakorolni?'
       },
       train: {
-        '1': 'Akkor figyelj. Egy dolgot egyszer mutatok meg.'
+        '1': 'Jó. Figyelj jól, csak egyszer mutatom meg.'
       },
       class: {
-        '1': 'Egy járó fal. Mi fogjuk fel az ütést, hogy másnak ne kelljen.',
-        '2': 'Erő a karnak, Állóképesség a többinek. A fény azt teszi, amit tud.',
-        say: 'Mi az az Égisz-lovag?'
+        '1': 'Mi kapjuk a másoknak szánt ütéseket. Egyszerű, és nehéz.',
+        '2': 'Erő kell a pajzshoz és Állóképesség, hogy tartsd.',
+        say: 'Mit csinál valójában egy Égisz-lovag?'
       },
       ready: {
         strong: {
-          '1': 'Van karod a tudásom nagy részéhez. Vigyázz az Állóképességedre, és vedd el a többit.'
+          '1': 'Elég erős vagy a legtöbbhöz, amit tudok. Folytasd az Állóképességgel.'
         },
         able: {
-          '1': 'Készen állsz a következő leckére. Ne szálljon a fejedbe.'
+          '1': 'Készen állsz a következő órára. Ne szállj el magadtól.'
         },
         weak: {
-          '1': 'Még nem. A karod gyenge, és gyorsan elfáradsz. Több Erő, több Állóképesség.'
+          '1': 'Még nem. Előbb elfáradnál, mint a pajzs. Több Erő, több Állóképesség.'
         }
       },
       order: {
-        '1': 'Az utakat és a törvényt őrizzük. Van, aki szerint mindkettőből túl sokat.',
-        '2': 'Állj a Rend mellé, és a páncélkovácsai és tanítói emlékezni fognak rád.',
+        '1': 'Biztonságban tartjuk az utakat és érvényben a törvényt. Egyesek szerint túl szigorúan.',
+        '2': 'Állj mellénk, és a páncélkovácsaink meg a tanáraink emlékezni fognak rád.',
         say: 'Mesélj a Vasrendről.'
       },
       trainBack: {
-        '1': 'Gyakorold, amíg el nem unod. Aztán gyakorolj még.'
+        '1': 'Gyakorolj, amíg unalmassá nem válik. Aztán folytasd.'
       },
       bye: {
-        '1': 'Menj a fénnyel.'
+        '1': 'Menj óvatosan.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'Ó! Tanítvány? Állj kicsit hátrébb. Még egy kicsit.',
-        '2': 'Ember Wren, piromanta. A szemöldök visszanő, többnyire.'
+        '1': 'Ó, egy tanítvány? Remek. Talán állj kicsit hátrébb.',
+        '2': 'Ember Wren vagyok. Tüzet tanítok. Legtöbbször azt teszi, amit kérek.'
       },
       core: {
-        '1': 'Odaadtad a magot a Körnek! Tudod, mennyi mindent gyújthatunk fel most?'
+        '1': 'Odaadtad a magot a Körnek! Alig várom, mit tanulunk belőle.'
       },
       friend: {
-        '1': 'Az Éterkör kedvel téged! Ez kedvezményt jelent. És kevesebb űrlapot.'
+        '1': 'A Kör jót mond rólad. Ez egyébként kedvezményt jelent.'
       },
       foe: {
-        '1': 'A Kör hamuvá akar változtatni. Kínos! Én mégis tanítalak. A tűz nem válogat.'
+        '1': 'A Kör nem elégedett veled. Én mégis tanítalak. Csendben.'
       },
       again: {
-        '1': 'Visszajöttél! És semmi sem ég. Ezen segíthetünk.'
+        '1': 'Visszajöttél! Készen állsz felgyújtani valamit?'
       },
       train: {
-        '1': 'Igen! Figyelj jól. Nem annyira jól.'
+        '1': 'Rendben. Nézd a kezem, és tartsd távol az ujjaid tőlem.'
       },
       class: {
-        '1': 'A tűz minden kérdésre felel. Égesd meg őket, aztán robbantsd fel azokat, amelyek égnek.',
-        '2': 'Az egész Intelligencián múlik. Meg a talárok folyamatos utánpótlásán.',
-        say: 'Mit csinál egy Piromanta?'
+        '1': 'Főleg felgyújtani dolgokat. Aztán odaterelni a tüzet, ahová akarod.',
+        '2': 'Az egész az Intelligenciából jön. Minél élesebb az elme, annál forróbb a láng.',
+        say: 'Mit csinál valójában egy piromanta?'
       },
       ready: {
         strong: {
-          '1': 'Megolvaszthatnál egy gólemet! Vegyél el mindent, amim van. Figyelj a Jártasságodra a nehezebbeknél.'
+          '1': 'Őszintén? Ennek egy részét te is taníthatnád. Vidd, amit akarsz.'
         },
         able: {
-          '1': 'Az elméd elég meleg a következő varázslathoz. Gyerünk!'
+          '1': 'Készen állsz a következő varázslatra. Gyere, megmutatom.'
         },
         weak: {
-          '1': 'Hmm. Még nincs elég Intelligenciád. A tűz használna téged, nem fordítva.'
+          '1': 'Még nem, sajnos. Több Intelligencia kell, különben a tűz átveszi az irányítást.'
         }
       },
       circle: {
@@ -1452,352 +1452,352 @@ export default {
         say: 'Kik az Éterkör?'
       },
       trainBack: {
-        '1': 'Menj, és gyújts fel valamit! Valamit, ami megérdemli.'
+        '1': 'Menj gyakorolni. Valahol, ahol nem gyullad meg semmi, kérlek.'
       },
       bye: {
-        '1': 'Maradj melegben!'
+        '1': 'Vigyázz magadra!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Szóval te vagy az az útról. Gyere közelebb, a szemem már nem a régi.',
-        '2': 'Mara vagyok. Negyven éve vezetem a város könyvét és őrzöm a békéjét.'
+        '1': 'Szóval te vagy az, aki az útról jött. Gyere ide, hadd nézzelek meg.',
+        '2': 'Mara vagyok. Vigyázok erre a városra... hát, negyven éve már.'
       },
       slain: {
-        '1': 'Az Üregek csendesek. Nehéz dolgot tettél, és Sunford ezért alszik nyugodtan.'
+        '1': 'Az Üregek csendesek. Nehéz dolgot tettél, de ennek köszönhetően alszunk.'
       },
       pact: {
-        '1': 'Goblinok árulnak csecsebecséket a téren. Ezüstnyelved van, gyermek. Remélem, kitart.'
+        '1': 'Goblinok árulnak a terecskémen. Te beszélted rá őket, ugye?'
       },
       ransom: {
-        '1': 'Elvetted az aranyát, és hagytad neki a koronát. Túl öreg vagyok ahhoz, hogy tagadjam a csalódásomat.'
+        '1': 'Elvetted az aranyát, és meghagytad neki a koronát. Nem fogom tagadni, hogy csalódtam.'
       },
       saved: {
-        '1': 'Hír jött Oakhavenből. A kapu kitartott. Örülök, hogy egy közülünk ott volt.'
+        '1': 'Hír jött Oakhavenből. A kapu kitartott. Örülök, hogy ott voltál.'
       },
       fallen: {
-        '1': 'Oakhaven leégett, és azt mondják, te tartottad a fáklyát. Ne mondd el. Inkább nem tudom.'
+        '1': 'Oakhaven leégett, mondják. Nem akarom hallani, hogyan. Ma nem.'
       },
       ending: {
-        '1': 'Azt mondják, te döntöttél arról, ki ül a Rettegés erődjében. Sunford útjától idáig. Képzeld el.'
+        '1': 'Azt mondják, te döntöttél a Rettegés erődjének sorsáról. A mi kis utunktól odáig.'
       },
       again: {
-        '1': 'Ülj le egy percre. Az út megvár.'
+        '1': 'Ülj le egy percre. Az út utána is ott lesz.'
       },
       reward: {
-        '1': 'Megtartottad az utat, amikor a milíciánk nem tudta. A város gyűjtést rendezett.',
-        '2': 'Nem sok. Minden pénzérme, amit nélkülözni tudtunk.',
-        say: 'Látni akartál?'
+        '1': 'Nyitva tartottad az utat, amikor a milíciánk nem tudta. A város összeadott valamit.',
+        '2': 'Nem sok. Ennyit tudtunk nélkülözni.',
+        say: 'Valaki azt mondta, látni akartál?'
       },
       quest: {
-        '1': 'A rajtaütések a Goblinüregekből jönnek. A goblinok királyt koronáztak.',
-        '2': 'És te azt akarod, hogy meghaljon.',
-        '3': 'Azt akarom, hogy a rajtaütések véget érjenek. Hogyan, az rád tartozik, a barlangok mélyén.',
-        '4': 'Az Üregek közvetlenül a síkságon túl vannak. Légy óvatos.',
+        '1': 'A rajtaütések a Goblinüregekből jönnek. Királyt koronáztak maguknak.',
+        '2': 'És azt akarod, hogy meghaljon?',
+        '3': 'Azt akarom, hogy a rajtaütések véget érjenek. Hogyan... azt te döntöd el odalent.',
+        '4': 'Az Üregek közvetlenül a síkságon túl vannak. Légy óvatos, kérlek.',
         say: 'Mi aggasztja Sunfordot?'
       },
       king: {
-        say: 'A Goblinkirályról…',
+        say: 'A Goblinkirályról...',
         slay: {
-          '1': 'Egy király halott, és a karavánjaim pontosan érkeznek. Nem kérdezem, milyen érzés volt.'
+          '1': 'Elment, és a karavánok újra járnak. Nem kérdezem, milyen érzés volt.'
         },
         pact: {
-          '1': 'Egy egyezség! Anyám elájult volna. Mégis, a kereskedelem jobb a temetésnél.'
+          '1': 'Kereskedelmi egyezmény. Anyám elájult volna. Mégis, a kereskedelem jobb a temetésnél.'
         },
         ransom: {
-          '1': 'Az arany gyorsan elfogy. A harag nem. Emlékezz erre, amikor a rajtaütések visszatérnek.'
+          '1': 'Az arany gyorsan elfogy. A harag nem. Ne felejtsd el, ha újra kezdődnek a rajtaütések.'
         }
       },
       town: {
-        '1': 'Többnyire földművesek. Egy kovács, egy gyógyító és két tanító, akik elviselnek minket.',
-        '2': 'Pihenj itt, költsd el a pontjaid, és menj vissza erősebben. Ez az otthon célja.',
+        '1': 'Főleg földművesek. Egy kovács, egy gyógyító, két tanár, akik elviselnek minket.',
+        '2': 'Pihenj itt az utak között. Erre való az otthon.',
         say: 'Mesélj Sunfordról.'
       },
       next: {
         say: 'Hová menjek legközelebb?',
         plains: {
-          '1': 'A síksági út, mindenek előtt. Nem tudunk enni, ha a karavánok nem jutnak át.'
+          '1': 'Először a síksági út. A karavánok nélkül nincs mit ennünk.'
         },
         hollows: {
-          '1': 'Először a Goblinüregek. Semmi más nem biztonságos, amíg a rajtaütések tartanak.'
+          '1': 'A Goblinüregek. Semmi más nem biztonságos, amíg a rajtaütések tartanak.'
         },
         woods: {
-          '1': 'Keletre, a Suttogó-erdőn át. Az Oakhavenbe vezető út azok alatt a fák alatt fut.'
+          '1': 'Keletre, a Suttogó-erdőn át. Az az Oakhavenbe vezető út.'
         },
         oakhaven: {
-          '1': 'Oakhavent ostromolják. Ha a határ elesik, a város is.'
+          '1': 'Oakhavent ostromolják. Ha a határ elesik, a város is vele.'
         },
         north: {
-          '1': 'Északra, gyermek. A Hamuszirtek, és mögöttük Ironhold. A veszély nő, minél tovább mész.'
+          '1': 'Északra, azt hiszem. A Hamuszirtek, azon túl Ironhold. Csak nehezebb lesz.'
         }
       },
       bye: {
-        '1': 'Gyere vissza élve. Ennyit kérek bárkitől.'
+        '1': 'Egy darabban gyere vissza hozzánk. Csak ennyit kérek.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Ne mozdulj. Nem, jól vagy. Megszokás.',
-        '2': 'Lune nővér. Összefoltozom, amit az út összetör.'
+        '1': 'Maradj egy pillanatra nyugton. Nem, jól vagy. Megszokás, bocsáss meg.',
+        '2': 'Lune nővér vagyok. Összefoltozom, amit az út összetör.'
       },
       again: {
-        '1': 'Még egyben vagy? Majdnem csalódott vagyok.'
+        '1': 'Még egyben vagy? Jó. Azért ülj le.'
       },
       heal: {
-        '1': 'Ülj. Pihenj. Épen távozol, minden fiolád tele lesz.'
+        '1': 'Ülj le, pihenj egy kicsit. Megtöltöm a fiolákat, mielőtt indulsz.'
       },
       mana: {
-        '1': 'Kék fiola, keserű íz. Kortyolj bele, ha kifogynak a varázslataid.'
+        '1': 'Ez keserű. Idd meg, ha kifogynak a varázslataid.'
       },
       potions: {
-        '1': 'Néhány fiolát viszel minden zónába. Előtte idd meg, mielőtt szükséged lenne rá, ne utána.',
-        '2': 'Ha többet akarsz vinni, eladhatok neked egy hosszabb övet.',
+        '1': 'Minden harcba viszel pár fiolát. Igyál, mielőtt szükséged van rá, ne utána.',
+        '2': 'Ha többet akarsz vinni, eladok egy nagyobb övet.',
         say: 'Hogyan működnek az italok?'
       },
       rumor: {
         goblins: {
-          '1': 'A goblinok megmérgezik a parittyaköveiket. Ha zöldre váltasz, gyere egyenesen vissza.'
+          '1': 'A goblinok valamivel bekenik a parittyaköveiket. Ha rosszul vagy, gyere vissza.'
         },
         spiders: {
-          '1': 'Pókcsípések az erdőből. Három ezen a héten. Próbáld elkerülni a csípést.'
+          '1': 'Három pókcsípést kezeltem ezen a héten az Erdőből. Vigyázz ott.'
         },
         burns: {
-          '1': 'Katonák jönnek északról égési sebekkel. A Hamuszirtek, azt mondják. Tűz, ami jár.'
+          '1': 'Katonák jönnek le északról égési sérülésekkel. A Hamuszirtekről, azt mondják.'
         }
       },
       healBack: {
-        '1': 'Tartsd tele az övet, és lehajtott fejjel járj.'
+        '1': 'Tartsd tele az öved, és hajtsd le a fejed.'
       },
       bye: {
-        '1': 'Próbálj nem vérezni semmi fontosra.'
+        '1': 'Vigyázz magadra odakint.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Magas! Magas csinálta egyezség. Király mondta, legyen kedves magassal.',
-        '2': 'Grik kedves. Griknek van csillogó. Magasnak van arany. Jó pár.'
+        '1': 'Te vagy az, aki az egyezményt kötötte. A királyom szerint szívesen látunk.',
+        '2': 'Grik vagyok. Azt árulom, amit a goblinok készítenek. Jó munka, tisztességes ár.'
       },
       again: {
-        '1': 'Magas visszajön! Grik tudta. Csillogó hívja magast.'
+        '1': 'Barát. Jó újra látni téged.'
       },
       trade: {
-        '1': 'Király mondja kereskedj, Grik kereskedik. Csillogó csillogóért. Jó csillogó.'
+        '1': 'Nézd csak. A családom készítette ezeket.'
       },
       king: {
-        '1': 'Király kövér és boldog. Nincs több rablás. Rablás nehéz munka.',
-        '2': 'Király mondja magasnak jó nyelve van. Legnagyobb goblin dicséret. Majdnem.',
+        '1': 'Most jól eszik. Nincs több rajtaütés. A népem kevésbé éhes.',
+        '2': 'Gyakran beszél rólad. Tisztelettel.',
         say: 'Hogy van a királyod?'
       },
       town: {
-        '1': 'Emberek túl sokat mosakszik. De pite! Grik nem tudott pitéről.',
+        '1': 'Az emberek még bámulnak. De a pék pitét ad nekem. Szeretem a pitét.',
         say: 'Hogy tetszik Sunford?'
       },
       rumor: {
         crags: {
-          '1': 'Grik unokatestvérei északra ásnak, fekete kőben. Mondják, tűz jár ott. Grik itt marad.'
+          '1': 'Az unokatestvéreim a fekete sziklát ássák északon. Azt mondják, most tűz jár ott.'
         },
         deep: {
-          '1': 'Mély helyek ébrednek, magas. Goblin érzi lábban.'
+          '1': 'Valami ébredezik a mély helyeken. A goblinok érzik a földben.'
         }
       },
       shopBack: {
-        '1': 'Jó üzlet! Magas visszajön, igen?'
+        '1': 'Köszönöm. Gyere máskor is.'
       },
       bye: {
-        '1': 'Szia, magas! Ne halj meg. Halott semmit nem vesz.'
+        '1': 'Menj békével, barát.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Még egy kard. Jó. Már nem kérdezem, honnan jönnek.',
-        '2': 'Hale kapitány. Azt vezénylem, ami Oakhaven őrségéből maradt.'
+        '1': 'Még egy kard. Jó. Minden egyikre szükségünk van.',
+        '2': 'Hale kapitány. Én parancsnokolok annak, ami Oakhaven őrségéből megmaradt.'
       },
       saved: {
-        '1': 'A kapu kitartott. Háromszáz év, és most még egyszer. Neked köszönhetem a városomat.'
+        '1': 'A kapu kitartott. Háromszáz év, és még egy. Tartozom neked ezért.'
       },
       ending: {
-        '1': 'Te döntöttél a Rettegés erődjének trónjáról. A falaim kisebbnek tűnnek, mint korábban.'
+        '1': 'A Rettegés erődjéről te döntöttél, mondják. A falaim kicsinek tűnnek mellette.'
       },
       again: {
-        '1': 'A falak még állnak. Ma.'
+        '1': 'A falak még állnak. Mára legalábbis.'
       },
       after: {
-        '1': 'Oakhaven emlékszik, barátom. Én is.'
+        '1': 'Jó látni. Oakhaven nem felejtett.'
       },
       quest: {
-        '1': 'Egy hadúr serege körülzár minket. Krag. Nem ingyen harcol.',
+        '1': 'Rossz. Egy Krag nevű hadúr bekerített minket, és ő nem ingyen harcol.',
         '2': 'Ki fizeti?',
         '3': 'A Hamuszindikátus. Saját várost akarnak, és a miénknek vannak falai.',
-        '4': 'Törd le Oakhaven határában. Ott fog eldőlni.',
-        say: 'Mi a helyzet?'
+        '4': 'Törd szét a táborát Oakhaven határán. Ott ér véget ez, így vagy úgy.',
+        say: 'Mennyire rossz?'
       },
       siege: {
-        '1': 'A város harmadát ajánlották neked. Tudom. Nekem a negyedét.',
-        '2': 'A Szindikátus most vadászik rád minden úton. Vigyázz a hátadra odakint.',
-        say: 'Az ostromról…'
+        '1': 'A város harmadát ajánlották neked, ugye? Nekem a negyedét.',
+        '2': 'A Szindikátus most utánad fog jönni. Vigyázz a hátadra az utakon.',
+        say: 'Az ostromról...'
       },
       town: {
-        '1': 'Kereskedőváros. Minden, ami a síkság és a hegyek között mozog, vámot fizet itt.',
-        '2': 'Ezért akarja mindenki. Ezért nem adom fel.',
+        '1': 'Kereskedőváros. Minden, ami a síkság és a hegyek között jár, vámot fizet itt.',
+        '2': 'Ezért akarja mindenki. És ezért nem adom fel.',
         say: 'Mesélj Oakhavenről.'
       },
       order: {
-        '1': 'Oakhavent szolgálom. A Rend és én legtöbbször egyetértünk. Ez nem ugyanaz.',
-        say: 'A Vasrendet szolgálod?'
+        '1': 'Oakhavennek felelek. A Rend és én a legtöbb napon egyetértünk. Nem mindegyiken.',
+        say: 'A Vasrendnek felelsz?'
       },
       rumor: {
         crags: {
-          '1': 'Az erdőtől északra fekete és ég a föld. A Hamuszirtek. Kultisták táplálják a tüzet.'
+          '1': 'Az erdőtől északra fekete és égő a föld. A Hamuszirtek. Főleg szektások.'
         },
         mines: {
-          '1': 'Ironhold nem küld többé acélt. Valami baj van a bányáiban.'
+          '1': 'Ironhold nem küld többé acélt. Valami baj van a bányáikban.'
         },
         north: {
-          '1': 'A távoli észak elcsendesedett. Tapasztalatom szerint a csend rosszabb.'
+          '1': 'A távoli észak elcsendesedett. Tapasztalatom szerint ez sosem jó.'
         }
       },
       bye: {
-        '1': 'Tartsd lazán a kardod.'
+        '1': 'Tartsd közel a kardod.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Ha sisakot akarsz, elkéstél. Mind a falon van.',
-        '2': 'Odo. Páncélkovács. Fáradt.'
+        '1': 'Ha sisakot keresel, sajnálom. Mind a falon van.',
+        '2': 'Odo. Páncélokat készítek. Nemigen aludtam mostanában.'
       },
       again: {
-        '1': 'Még mindig itt. Még mindig kevés az áru.'
+        '1': 'Még mindig itt. Még mindig hiányzik majdnem minden.'
       },
       trade: {
-        '1': 'A készletem fele felment a falakra. Vidd, ami maradt.'
+        '1': 'A készlet fele a falra került. Vidd, ami maradt, ha jó rád.'
       },
       who: {
-        '1': 'Húsz éve páncélozom ezt a várost. Sosem hittem volna, hogy az egészet egyszerre viselik.'
+        '1': 'Húsz éve páncélozom ezt a várost. Soha nem láttam egyszerre mindent viselni.'
       },
       armor: {
-        '1': 'Lemez, ha egy helyben állsz. Bőr, ha nem. Talár, ha szeretsz meghalni.',
+        '1': 'Lemez, ha helytállsz. Bőr, ha mozogsz. Köntös, ha gyors vagy.',
         say: 'Milyen páncélt viseljek?'
       },
       rumor: {
         backRoom: {
-          '1': 'Ha megtörik az ostrom, kinyitom a hátsó szobát. A jó lemezt. Törd meg nekem, jó?'
+          '1': 'Ha az ostrom megtörik, kinyitom a hátsó szobát. A jó lemezpáncél odabent van.'
         }
       },
       shopBack: {
-        '1': 'Kitart. Valószínűleg.'
+        '1': 'Kitart. Eddig is kitartott.'
       },
       bye: {
-        '1': 'Hajtsd le a fejed.'
+        '1': 'Hajtsd le a fejed odakint.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Te! Gyere be. A hátsó szoba nyitva, és TENEKED nyitva.',
-        '2': 'Odo mesternek hívnak most. Jól megy az üzlet, ha él a város.'
+        '1': 'Itt vagy! Gyere be. A hátsó szoba nyitva van, és neked van nyitva.',
+        '2': 'Odo mesternek hívnak most. Vicces, mit tesz egy kis béke az üzlettel.'
       },
       ending: {
-        '1': 'A kapumtól a Rettegés erődjéig. Mindenkinek mondom, hogy én szabtam a páncélodat.'
+        '1': 'A kapunktól a Rettegés erődjéig. Mindenkinek mondom, hogy én igazítottam a páncélodat.'
       },
       again: {
-        '1': 'A kapu hőse. Mi lesz ma?'
+        '1': 'Jó látni. Mi lesz ma?'
       },
       trade: {
-        '1': 'Megmentetted a várost. A jó lemez a hátsó szobából neked jön elő.'
+        '1': 'A jó lemezpáncél kint van. Többszörösen megérdemelsz egy pillantást.'
       },
       town: {
-        '1': 'Gazdag. Hangos. Tele kereskedőkkel, akik a vám miatt panaszkodnak.',
-        '2': 'Csodálatos. Egy hete nem aludtam.',
-        say: 'Hogy van a város?'
+        '1': 'Nyüzsgő. Hangos. Tele kereskedőkkel, akik a vámon panaszkodnak.',
+        '2': 'Csodálatos. Hetek óta nem volt egy nyugodt órám.',
+        say: 'Hogy megy a városnak?'
       },
       rumor: {
         mines: {
-          '1': 'Az acélom Ironholdból jön, és Ironhold elnémult. Valakinek meg kellene néznie a bányáit.'
+          '1': 'Az acélom Ironholdból jön, és elcsendesedtek. Valakinek meg kellene nézni a bányáikat.'
         },
         tundra: {
-          '1': 'A legjobb érc, amit valaha láttam, a tundráról jött. Akik hozták, sosem tértek vissza.'
+          '1': 'A legjobb érc, amit valaha megmunkáltam, a tundráról jött. Akik megtalálták, nem tértek vissza.'
         }
       },
       shopBack: {
-        '1': 'Ha nem jó, gyere vissza. Jóvá teszem.'
+        '1': 'Ha nem ül jól, hozd vissza. Megjavítom.'
       },
       bye: {
-        '1': 'Oakhaven kapuja mindig nyitva áll előtted. Csak előtted.'
+        '1': 'Mindig szívesen látunk itt.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Vásárolsz vagy nézelődsz? A nézelődés ingyen van. Az érintés egy ujjba kerül.',
-        '2': 'Senna. Éleket árulok. Nem kérdezem, mire kellenek.'
+        '1': 'Nézelődsz vagy vásárolsz? Mindkettő jó. Csak az élekhez ne nyúlj.',
+        '2': 'Senna. Pengéket árulok. Hogy mit kezdesz velük, a te dolgod.'
       },
       saved: {
-        '1': 'Az ostrom megtört. Kár. A háború jó az üzletnek. A béke jó az adósságbehajtásnak.'
+        '1': 'Szóval megtört az ostrom. Jó a városnak. A háború azért jobb volt az üzletemnek.'
       },
       again: {
         '1': 'Valami élesebbért jöttél vissza?'
       },
       trade: {
-        '1': 'Éles, kiegyensúlyozott, és annak adom el, aki fizet. Ma te vagy az.'
+        '1': 'Élesek, kiegyensúlyozottak és tisztességes áron. Nyugodtan nézz körül.'
       },
       who: {
-        '1': 'Három háborúban adtam el kardot mindkét félnek. Én még itt vagyok. Ők többnyire nem.'
+        '1': 'Három háború mindkét oldalának eladtam. Még mindig itt vagyok. A legtöbbjük nem.'
       },
       rumor: {
         krag: {
-          '1': 'Krag emberei jó acélt hordanak. Szindikátusi pénz. Vedd el tőlük, ha tudod.'
+          '1': 'Krag emberei jó acélt viselnek. Szindikátusi pénz. Megéri felvenni, ha alkalmad nyílik.'
         },
         which: {
-          '1': 'A gyors pengék Ügyességet kérnek. A fegyverek és az íjak Jártasságot. Tudd, melyik vagy, mielőtt fizetsz nekem.'
+          '1': 'A gyors pengék Ügyességet kérnek. Az íjak és puskák Jártasságot. Tudd, melyik vagy.'
         }
       },
       shopBack: {
-        '1': 'A vér lemosható. A rozsda nem. Olajozd.'
+        '1': 'Tartsd olajozva. A rozsda gyorsabban rontja el a jó élt, mint a csont.'
       },
       bye: {
-        '1': 'Ne halj meg tartozva nekem.'
+        '1': 'Próbálj úgy nem meghalni, hogy tartozol nekem.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Ne fordulj meg. Csak vicceltem. Fordulj meg.',
-        '2': 'A Suttogónak hívnak. Megtanítok észrevétlenül érkezni.'
+        '1': 'Nem hallottad, hogy mögéd lépek. A legtöbben nem hallják.',
+        '2': 'A Suttogónak hívnak. Arra tanítok, hogyan ne lássanak meg.'
       },
       fallen: {
-        '1': 'A város most csendesebb. Kevesebb őr. Egész megkedveltem.'
+        '1': 'A város most csendesebb. Kevesebb őr. Könnyebb munka, néhányunknak.'
       },
       friend: {
-        '1': 'A Szindikátus barátnak tart. A barátok kevesebbet fizetnek. A barátok túl sokat is tudnak.'
+        '1': 'A Szindikátus barátnak tart. A barátok kevesebbet fizetnek. Ezt jegyezd meg.'
       },
       foe: {
-        '1': 'A Szindikátus holtan akar látni. Engem tanításért fizettek, nem gyilkolásért. Szerencséd van.'
+        '1': 'A Szindikátus a halálodat akarja. Engem tanításért fizettek, nem gyilkolásért. Szóval, órák.'
       },
       again: {
-        '1': 'Hangosabb vagy, mint legutóbb. Dolgozunk rajta.'
+        '1': 'Még mindig túl hangos vagy. Dolgozunk rajta.'
       },
       train: {
         '1': 'Halkan hát. A lábamat nézd, ne a kezemet.'
       },
       class: {
-        '1': 'Egy kés, ami már mögötted van. Lépj ki a sötétből, csapj le, és tűnj el.',
-        '2': 'Mindenekelőtt Ügyesség. Jártasság, ha azt akarod, hogy a vágás számítson.',
+        '1': 'Valaki, aki már mögötted áll. Be, egy vágás, és el.',
+        '2': 'Az Ügyesség számít a legtöbbet. A Jártasság, ha azt akarod, hogy a vágás számítson.',
         say: 'Mi az az Árnypenge?'
       },
       ready: {
         strong: {
-          '1': 'Jól mozogsz. Vedd, amit tudok. Hozz Jártasságot a füsthöz.'
+          '1': 'Most már jól mozogsz. Vidd a többit. Hozz egy kis Jártasságot a füsthöz.'
         },
         able: {
-          '1': 'Jó. A kezed elég gyors a következő lépéshez.'
+          '1': 'A kezeid elég gyorsak. Következő lépés.'
         },
         weak: {
-          '1': 'Úgy jársz, mint egy szekér. Több Ügyesség. Aztán beszélünk.'
+          '1': 'Még nem. Nehéz a lábad. Fejleszd az Ügyességed.'
         }
       },
       syndicate: {
-        '1': 'Emberek, akik észrevették, hogy a törvények eladók. Nem ítélkezem. Számlázok.',
+        '1': 'Emberek, akik észrevették, hogy a törvénynek ára van. Nem ítélkezem. Csak megfizetnek.',
         say: 'Kik a Hamuszindikátus?'
       },
       trainBack: {
-        '1': 'Most menj, és tedd meg ott, ahol senki nem látja.'
+        '1': 'Most gyakorolj ott, ahol senki sem lát.'
       },
       bye: {
         '1': 'Sosem láttál engem.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Közeledhetsz. Nem ennyire.',
-        '2': 'Lord Castellan, Oakhaven régi vérvonalából. A parancsolást tanítom.'
+        '1': 'Jöhetsz közelebb. Ott, így elég közel.',
+        '2': 'Lord Castellan, Oakhaven legrégebbi családjából. A parancsnoklást tanítom.'
       },
       saved: {
-        '1': 'A városom áll, és vele a családom neve. Egy lord háláját élvezed. Sokat ér.'
+        '1': 'A városom áll, és a családom neve vele. Köszönettel tartozom. Őszintén.'
       },
       friend: {
-        '1': 'A Rend barátja. Csökkentem a díjam. Ne említsd senkinek.'
+        '1': 'A Rend barátja. Csökkentem a díjam. Kérlek, ne terjeszd.'
       },
       foe: {
-        '1': 'A Rend kifüggesztette a neved. Én mégis tanítalak. A pénz pénz, sajnos.'
+        '1': 'A Rend listáján szerepel a neved. Én mégis tanítalak. Az érme az érme.'
       },
       again: {
-        '1': 'Á. A legígéretesebb alattvalóm.'
+        '1': 'Á, megint te. Folytassuk?'
       },
       train: {
-        '1': 'Rendben. Figyeld meg, hogyan adnak parancsot.'
+        '1': 'Rendben. Nézd, hogyan adnak parancsot, és hogyan követik.'
       },
       class: {
-        '1': 'Miért harcolnál egyedül, ha mások megtehetik helyetted? Idézz őröket. Parancsolj nekik.',
-        '2': 'Karizma kell hozzá. Motyogással nem lehet vezetni.',
+        '1': 'Valaki, aki nem egyedül harcol. Őröket hívsz, és ők harcolnak érted.',
+        '2': 'Karizma kell hozzá. Senki sem követ olyan vezetőt, akit nem hall.',
         say: 'Mi az a Nagyuralkodó?'
       },
       ready: {
         strong: {
-          '1': 'Van jelenléted. Vedd a többi leckémet is, és állj egyenesen.'
+          '1': 'Most már igazi jelenléted van. Vidd az óráim többi részét.'
         },
         able: {
-          '1': 'A hangod messzire hallatszik. Készen állsz a következő leckére.'
+          '1': 'Hallatszik a hangod. Készen állsz a következő órára.'
         },
         weak: {
-          '1': 'Senki sem követne a pékségig sem. Több Karizma.'
+          '1': 'Attól tartok, még senki sem követne. Fejleszd a Karizmád.'
         }
       },
       family: {
-        '1': 'Mi építettük a falakat, amelyeken Hale kapitány áll. Ő elfelejti. Én emlékeztetem. Gyakran.',
+        '1': 'Mi építettük a falakat, amelyeken Hale kapitány áll. Ezt elfelejti. Én emlékeztetem.',
         say: 'Mesélj a családodról.'
       },
       trainBack: {
-        '1': 'Most menj, és engedelmeskedjenek neked.'
+        '1': 'Menj hát. Vezess valakit.'
       },
       bye: {
-        '1': 'Elbocsátalak.'
+        '1': 'Jó napot neked.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Következő! Ó. Te tudsz járni. Kellemes változatosság.',
-        '2': 'Fenn testvér. Negyven sebesült a falon, és egyetlen én.'
+        '1': 'Következő! Ó, te sétálsz. Ez kellemes változás.',
+        '2': 'Fenn testvér. Negyven sebesült a falon, és csak egy én.'
       },
       saved: {
-        '1': 'Három napja nincs új sebesült! Nem tudom, mit kezdjek a kezeimmel.'
+        '1': 'Három napja nincs új sebesült. Alig tudom, mihez kezdjek magammal.'
       },
       again: {
-        '1': 'Már megint te, és még mindig jársz. Helyeslem.'
+        '1': 'Megint te, és a saját lábadon. Jó.'
       },
       heal: {
-        '1': 'Feküdj le. Nem, a tiszta priccsre. Úgy. Minden fiola tele. Mehetsz.'
+        '1': 'Feküdj ide, a tiszta priccsre. Úgy. A fiolák megtöltve, mehetsz.'
       },
       mana: {
-        '1': 'Manaital! Fémpénz íze van. De működik.'
+        '1': 'Manaital. Régi pénzérmék íze van, de működik.'
       },
       potions: {
-        '1': 'Egy hosszabb öv több fiolát bír. Azokat eladom. A fiolákat ingyen töltöm.',
+        '1': 'Hosszabb övvel, igen. Azokat árulom. A fiolák töltése ingyenes.',
         say: 'Vihetek több italt?'
       },
       rumor: {
         archers: {
-          '1': 'Krag íjászai a lábra céloznak. Mozogj odakint, és mellé lőnek.'
+          '1': 'Krag íjászai alacsonyra céloznak. Maradj mozgásban, és többnyire mellé lőnek.'
         },
         north: {
-          '1': 'Égések, fagyás, és egy férfi, aki esküszik, hogy egy szobor megharapta. Az észak nem kegyes.'
+          '1': 'Égési sérüléseket, fagyást és egy embert látok, aki esküszik, hogy egy szobor megharapta.'
         }
       },
       healBack: {
-        '1': 'Menj csak. Legközelebb beszélgetni gyere, ne varrásra.'
+        '1': 'Mehetsz. Legközelebb beszélgetni gyere, ne varrni.'
       },
       bye: {
-        '1': 'Járd ki! Ez orvosi tanács.'
+        '1': 'Vigyázz magadra. És egyél valamit.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Nincsenek nevek. De te vagy az, aki kinyitotta a kaput. Téged ismerlek.',
-        '2': 'Hívj az Orgazdának. Itt minden lepottyant egy szekérről.'
+        '1': 'Itt nincsenek nevek. De tudom, ki nyitotta ki a kaput. Mindenki tudja.',
+        '2': 'Hívhatsz az Orgazdának. Itt minden valahonnan jött.'
       },
       foe: {
-        '1': 'A Szindikátus ma nem kedvel téged. Az aranyadat még mindig.'
+        '1': 'A Szindikátus most nem kedvel. Az aranyad viszont szívesen látott.'
       },
       again: {
-        '1': 'Á. A legjobb vevőm. Senki sem követett? Jó.'
+        '1': 'Megint itt. Remélem, senki sem követett?'
       },
       trade: {
-        '1': 'Nincsenek nevek, nincsenek kérdések. A Szindikátus elveszi a részét, te az árut.'
+        '1': 'Egyik oldalról sem kérdezünk semmit. A Szindikátus megkapja a részét, te az árut.'
       },
       who: {
-        '1': 'A tűz előtt gyertyát árultam. Törvényesen. Szörnyű volt.'
+        '1': 'A tűz előtt gyertyát árultam. Tisztességes munka. Nem fizetett.'
       },
       armor: {
-        '1': 'A páncélkovácsok eltűntek, barátom. Leégtek. Neked tudnod kell.',
+        '1': 'A páncélkovácsok elmentek, barátom. Te jobban tudod, miért.',
         say: 'Van eladó páncél?'
       },
       rumor: {
         citadel: {
-          '1': 'Tavaly egy erőd bukkant fel a távoli északon. Senki sem építette. A falai zümmögnek.'
+          '1': 'A távoli északon tavaly felbukkant egy erőd. Senki sem építette.'
         },
         crystals: {
-          '1': 'Valaki felvásárol minden ürességkristályt a piacon. Nem mi. Ez aggaszt.'
+          '1': 'Valaki felvásárol minden Üresség-kristályt, amit talál. Nem mi. Ez aggaszt.'
         }
       },
       shopBack: {
         '1': 'Sosem jártál itt.'
       },
       bye: {
-        '1': 'Vigyázz a romokra.'
+        '1': 'Nézd, hová lépsz. A törmelék elmozdul.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Látogató. Vigyázz a bödönökre.',
-        '2': 'Sangrel doktor. Oakhaven új gazdái nem kérdezik, mit tanítok. Üdítő.'
+        '1': 'Látogató. Kérlek, ne nyúlj a befőttesüvegekhez.',
+        '2': 'Sangrel doktor. Oakhaven új urai nem kérdezik, mit tanítok. Ez pihentető.'
       },
       found: {
         '1': 'Megtaláltál. Kevesen keresnek orvost egy ilyen helyen.',
-        '2': 'Sangrel doktor. A városok elégetik a fajtámat, ezért ott dolgozom, ahol nincsenek.'
+        '2': 'Sangrel doktor. A városok elégetik az olyanokat, mint én, ezért ott dolgozom, ahol nincsenek.'
       },
       friend: {
-        '1': 'A Szindikátus kezeskedik érted. A díjam alacsonyabb a barátainak. Az igényeim nem.'
+        '1': 'A Szindikátus kiáll melletted. A barátainak kevesebbet számolok. A mércém ugyanaz marad.'
       },
       foe: {
-        '1': 'A Szindikátus fizetne a véredért. Én jobban szeretem, ha a leckéimre költöd.'
+        '1': 'A Szindikátus jól fizetne a véredért. Én inkább látom, hogy itt költöd el.'
       },
       again: {
-        '1': 'Sápadt vagy. Jó. Illik a munkához.'
+        '1': 'Sápadtnak látszol. Jó. Illik a munkához.'
       },
       train: {
-        '1': 'Told fel az ujjad. Ez fájni fog. Ez a lényeg.'
+        '1': 'Told fel az ingujjad. Fájni fog. Nagyjából ez a lényeg.'
       },
       class: {
-        '1': 'Az erőért a saját egészségeddel fizetsz. Aztán visszaiszod az ellenségből.',
-        '2': 'Az Állóképesség az erszényed. Az Intelligencia dönti el, mennyire jól költöd el.',
+        '1': 'A saját egészségeddel fizetsz az erőért, aztán visszaveszed az ellenségeidtől.',
+        '2': 'Az Állóképesség az, amit költhetsz. Az Intelligencia az, mennyire jól költöd.',
         say: 'Mi az a Véralkimista?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Figyelemre méltó alkat. Szinte mindent megtanulhatsz.'
         },
         able: {
-          '1': 'A véred elég erős a következő leckéhez.'
+          '1': 'Elég szívós vagy a következő órához.'
         },
         weak: {
-          '1': 'Az első vágásnál elájulnál. Több Állóképességet, kérlek.'
+          '1': 'Elájulnál az első vágásnál. Előbb építsd az Állóképességed, kérlek.'
         }
       },
       jars: {
-        '1': 'Önkéntesek. Többnyire.',
-        say: 'Mi van a bödönökben?'
+        '1': 'Minták. Önként adottak, többnyire.',
+        say: 'Mi van az üvegekben?'
       },
       trainBack: {
-        '1': 'Jegyzetelj. A tudomány kedvéért.'
+        '1': 'Írj csak jegyzeteket. Szívesen hallanám, hogy megy.'
       },
       bye: {
-        '1': 'Maradj egészséges. Különben nem vagy hasznomra.'
+        '1': 'Maradj egészséges. Komolyan mondom.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Szóval. Az, aki kinyitotta a kaput. Ülj le. Kiérdemeltél egy széket.',
-        '2': 'Madam Ashnek hívnak. Oakhaven most az enyém. Részben a tiéd.'
+        '1': 'Szóval te nyitottad ki a kaput. Ülj le. Megérdemeltél egy széket.',
+        '2': 'Madam Ashnek hívnak. Oakhaven most a miénk. Részben neked köszönhetően.'
       },
       throneOurs: {
-        '1': 'A Rettegés erődjének trónja. A miénk. Te vagy a legjobb befektetésem.'
+        '1': 'A Rettegés erődje, a mi kezünkben. Minden érmét megértél.'
       },
       throneLost: {
-        '1': 'Odaadtad a trónt. Másnak. Erről még beszélünk. Ma nem.'
+        '1': 'A trónt valaki másnak adtad. Erről beszélni fogunk. Ma nem.'
       },
       foe: {
-        '1': 'Keresztbe tettél nekünk. Ülj le mégis. Szeretem megnézni a problémát, mielőtt megoldom.'
+        '1': 'Ellenünk dolgoztál. Ülj le mégis. Szeretem tudni, kivel van dolgom.'
       },
       again: {
-        '1': 'A kedvenc árulóm. Mit tehet érted a Szindikátus?'
+        '1': 'Megint itt. Mit tehet érted a Szindikátus?'
       },
       cut: {
-        '1': 'Egy rom harmada, drágám. Itt a szezon részesedése.',
-        '2': 'Nőni fog. Egy rom nagyon jövedelmező, ha egyedüli piacát birtokolod.',
-        say: 'Megígérted nekem Oakhaven harmadát.'
+        '1': 'És meg is kapod. Egy rom része, egyelőre. Itt az idei szezoné.',
+        '2': 'Nőni fog. Egy rom nagyon jól fizet, ha az ember birtokolja az egyetlen piacát.',
+        say: 'Részt ígértek nekem Oakhavenből.'
       },
       syndicate: {
-        '1': 'Amit mindenki akar. Mi csak nem tettetünk mást.',
-        '2': 'Maradj a barátunk, és a Suttogó meg a Doktor kevesebbet kér tőled. A hűségnek ára van.',
-        say: 'Mit akar a Szindikátus?'
+        '1': 'Amit mindenki. Mi csak nem teszünk úgy, mintha másképp lenne.',
+        '2': 'Maradj barátságos, és a Suttogó meg a Doktor kevesebbet számol.',
+        say: 'Mit akar valójában a Szindikátus?'
       },
       order: {
-        '1': 'Természetesen. Felégetted az egyik városát. Vigyél több italt.',
-        say: 'A Vasrend vadászik rám.'
+        '1': 'Természetesen. Felégetted az egyik városukat. Vigyél extra italokat.',
+        say: 'A Vasrend utánam jön.'
       },
       rumor: {
         core: {
-          '1': 'A törpék találtak valamit a bányáikban. Egy magot. Kell nekem. Hozd el hozzánk, és mondj egy számot.'
+          '1': 'A törpék találtak valamit a bányáikban. Egy magot. Hozd el nekünk, és nevezd meg az árad.'
         },
         sold: {
-          '1': 'A mag épségben megérkezett. Látnod kellene, mit tesz egy zárral.'
+          '1': 'A mag épségben megérkezett. Meglepődnél, mit tesz egy zárral.'
         },
         north: {
-          '1': 'Minden, ami érdemes lopásra, északra költözött. Mi is.'
+          '1': 'Minden, ami érdemes, északra költözött. Mi is.'
         }
       },
       bye: {
-        '1': 'Ne légy idegen. Az idegeneket követik.'
+        '1': 'Ne légy idegen. Az idegenekre figyelünk.'
       }
     },
     forgemaster: {
       hello: {
-        '1': 'A bányákon át jöttél. Érzem rajtad a port.',
-        '2': 'Dorn. Ironhold kovácsmestere. Egy hegynyi gondom van.'
+        '1': 'A bányákon át jöttél fel. Érzem rajtad a port.',
+        '2': 'Dorn. Ironhold kovácsmestere. És egy hegynyi gondom van.'
       },
       destroyed: {
-        '1': 'A fény kialudt, a gólemek hulladékok. A bányászaim énekeltek tegnap éjjel. Egy éve először.'
+        '1': 'A fény kialudt, a gólemek roncsok. A bányászaim tegnap este énekeltek. Egy év óta először.'
       },
       studied: {
-        '1': 'Kék tűz a kohóimban, talárok a csarnokaimban. A munka jó. Hozzászokom a talárokhoz.'
+        '1': 'Kék tűz a kohóimban és köpenyes tudósok a termeimben. A munka legalább jó.'
       },
       sold: {
-        '1': 'Eladtad. A gólemek még járnak, a bányáim még mindig egy sírgödör. Takarodj a fényem elől.'
+        '1': 'Eladtad. A gólemek még járnak, és a bányáim még mindig sírhelyek. Hagyj békén.'
       },
       ending: {
-        '1': 'Szóval a trón eldőlt. Jó. Most a birodalom visszatérhet a vasról való vitatkozáshoz.'
+        '1': 'Szóval a trón eldőlt. Jó. Talán most visszatérhetünk az ásáshoz.'
       },
       again: {
-        '1': 'Beszélj. A kohó nem vár.'
+        '1': 'Mi az? A kohó nem vár.'
       },
       quest: {
-        '1': 'Vasért ástunk, és szívre találtunk. Éteres magra. Dobog odalent a sötétben.',
+        '1': 'Vasat ástunk, és szívet találtunk. Egy étermagot. Érezni, ahogy dobog.',
         '2': 'És a gólemek?',
-        '3': 'Az ő ritmusára járnak. Három hatalom írt nekem érte. Mind udvarias. Egyikben sem bízom.',
-        '4': 'Te érsz oda elsőként, az Ironholdi bányák mélyén. Akkor te döntesz.',
-        say: 'Mi történt a bányákban?'
+        '3': 'Az ő ritmusában mozognak. Három hatalom írt, hogy elkérje. Egyikben sem bízom.',
+        '4': 'Te érsz oda elsőként, az Ironholdi bányák legalján. Hogy mi lesz utána, rajtad múlik.',
+        say: 'Mi történt odalent a bányákban?'
       },
       core: {
-        say: 'A magról…',
+        say: 'A magról...',
         destroy: {
-          '1': 'Összetörtél egy csodát a népem megmentéséért. A Rend páncélkovácsokat küldött hálából. Én sört küldtem.'
+          '1': 'Összetörtél egy csodát, hogy megments a népem. A Rend páncélkovácsokat küldött. Én sört.'
         },
         study: {
-          '1': 'A Kör bütykölői őrültek, de a fegyvereik egyenesen lőnek. Tisztességes alku.'
+          '1': 'A Kör népe fura, de a fegyvereik egyenesen lőnek. Rendben van.'
         },
         sell: {
-          '1': 'Arany. Aranyért tetted. Remélem, melegen tart.'
+          '1': 'Az aranyért tetted. Remélem, melegen tart.'
         }
       },
       town: {
@@ -2062,46 +2062,46 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'A Szirtektől keletre a föld fehérré válik. Fagymarta tundra. Óriások, és halottak, akik nem maradnak lent.'
+          '1': 'A Szirtektől keletre a föld fehérré válik. A Fagymarta tundra. Óriások, és rosszabbak.'
         },
         citadel: {
-          '1': 'A felderítőim láttak északon egy erődöt, ami tavaly még nem volt ott. Nem szeretem az új hegyeket.'
+          '1': 'A felderítőim egy erődöt láttak északon, ami tavaly nem volt ott. Ez nem tetszik.'
         },
         fortress: {
-          '1': 'A Rettegés erődje az, ahol ez véget ér. Minden északi út a kapujához vezet.'
+          '1': 'Minden a Rettegés erődjénél ér véget. Minden északi út oda vezet.'
         }
       },
       bye: {
-        '1': 'Üss pontosan.'
+        '1': 'Jó utat.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Kezeket le a kirakatról. Mindkét végükön élesek.',
-        '2': 'Kalapácskezű Hilda. Törpe kovácsolás, minden darab.'
+        '1': 'Óvatosan a kiállított darabokkal. Mindkét élükön élesek.',
+        '2': 'Kalapácskezű Hilda. Minden darabot törpekezek kovácsoltak.'
       },
       dragon: {
-        '1': 'Megölted a sárkányt? Az ENYÉMEK egyikével? Nem? Hazudj nekem. Mondd, hogy az enyém volt.'
+        '1': 'Megölted a sárkányt? Remélem, az egyik pengémmel.'
       },
       again: {
-        '1': 'Igazi acélért jöttél vissza?'
+        '1': 'Visszajöttél igazi acélért?'
       },
       trade: {
-        '1': 'Törpe kovácsolás. Ha eltörik, te voltál.'
+        '1': 'Törpe kovácsolás. Ha az egyik eltörik, tudni akarom, hogyan.'
       },
       who: {
-        '1': 'Anyám királyoknak kovácsolt. Én bárkinek, aki belép. Változnak az idők.'
+        '1': 'Anyám királyoknak kovácsolt. Én bárkinek, aki belép az ajtón.'
       },
       rumor: {
         golems: {
-          '1': 'A bányák gólemei a saját vasunkból vannak. Őszintén szólva kínos.'
+          '1': 'Azok a gólemek odalent a saját vasunkból vannak. Csíp, mondhatom.'
         },
         arm: {
-          '1': 'A penge a munka felét végzi. A te Erőd a többit. Ne a pengét hibáztasd.'
+          '1': 'Egy jó penge a munka felét elvégzi. Az Erődnek kell a többit.'
         }
       },
       shopBack: {
-        '1': 'Ha tompán hozod vissza, tudni fogom, hogy használtad.'
+        '1': 'Ha életlenül hozod vissza, tudom, hogy jól használtad.'
       },
       bye: {
         '1': 'Üss keményen.'
@@ -2109,91 +2109,91 @@ export default {
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Óvatosan! Az ott meg van töltve. Az is. A legtöbb, igazából.',
-        '2': 'Voss, az ezermester. A Kör küldött, hogy lássam, mit taníthat a mag. Mindent, ahogy kiderült.'
+        '1': 'Óvatosan, az meg van töltve. A legtöbb az, valójában.',
+        '2': 'Voss, az ezermester. A Kör küldött, hogy tanulmányozzam a magot. Annyit tanított nekünk.'
       },
       again: {
-        '1': 'Ó, jó, egy tesztelő. Úgy értem, egy vevő.'
+        '1': 'Á, jó. Néhány dolgot átalakítottam, mióta itt voltál.'
       },
       trade: {
-        '1': 'A Kör magtanulmányai mindent megváltoztattak. Tartsd ezt. Ne rám irányítsd.'
+        '1': 'Itt minden a mag tanulmányozásából született. Csak ne rám irányítsd.'
       },
       core: {
-        '1': 'Az a vas tud gondolkodni, egy kicsit. Igyekszem nem ezen merengeni.',
+        '1': 'Az a fém gondolkodik, egy kicsit. Igyekszem nem elmélkedni rajta.',
         say: 'Mit tanított neked a mag?'
       },
       rumor: {
         heat: {
-          '1': 'A fegyverek Jártasságon működnek, és felforrósodnak. Kérdezd Pimet, a gépészt a hőről, mielőtt megolvad a kezed.'
+          '1': 'A fegyverek Jártasságon járnak, és felforrósodnak. Kérdezd meg Pimet a hőről, mielőtt megégeted a kezed.'
         }
       },
       shopBack: {
-        '1': 'Jelents minden robbanást! A jegyzetekhez.'
+        '1': 'Szólj, hogyan működik. Jegyzetelek.'
       },
       bye: {
-        '1': 'Vigyázz a hátrarúgásra!'
+        '1': 'Vigyázz a hátrarúgásra.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Páncél. Gyűrűk a tálcán.'
+        '1': 'Garrun. Páncélok az állványon, gyűrűk a tálcán.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Visszajöttél. Mire van szükséged?'
       },
       trade: {
-        '1': 'Lemez, ami kivédi egy óriás buzogányát. Gyűrűk a többieknek.'
+        '1': 'Az a lemez kivédi egy óriás buzogányát. Nézd meg.'
       },
       quiet: {
-        '1': 'Nem.',
-        say: 'Nem beszélsz sokat.'
+        '1': 'Nincs sok mondanivaló.',
+        say: 'Nem beszélsz sokat, igaz?'
       },
       rumor: {
         giants: {
-          '1': 'Óriások a tundrán. Fatörzs méretű buzogányok. Vedd a nehéz lemezt.'
+          '1': 'Óriások a tundrán. Buzogányaik, mint a fatörzsek. Én a nehéz lemezt vinném.'
         },
         demons: {
-          '1': 'Démonok északon. Tűz és karmok. Vedd a nehéz lemezt.'
+          '1': 'Démonok északon. Tűz és karmok. Én a nehéz lemezt vinném.'
         }
       },
       shopBack: {
-        '1': 'Jó.'
+        '1': 'Jó választás.'
       },
       bye: {
-        '1': 'Igen.'
+        '1': 'Vigyázz magadra.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Név és ügy. Nem. Tudom a neved. Te semmisítetted meg a magot.',
-        '2': 'A Vasrend szállásmestere. A fegyvertárai nyitva állnak előtted.'
+        '1': 'Te vagy az, aki elpusztította a magot. A Rend emlékszik rá.',
+        '2': 'A Rend szállásmestere vagyok itt. A fegyvertáraink nyitva állnak előtted.'
       },
       throneOurs: {
-        '1': 'A Rend a te kezed által tartja a Rettegés erődjét. Pihenj. Ez parancs.'
+        '1': 'A Rend birtokolja a Rettegés erődjét, neked köszönhetően. Pihenj. Megérdemelted.'
       },
       foe: {
-        '1': 'A Rend listán tart. A parancsom, hogy eladjak neked mindenképp. Nem szeretem őket.'
+        '1': 'A Rend listáján vagy. A parancsom szerint mégis eladok neked. Követem.'
       },
       again: {
-        '1': 'Igénylés?'
+        '1': 'Mire van szükséged?'
       },
       trade: {
-        '1': 'A Rend emlékszik, ki semmisítette meg a magot. Válaszd ki, amire szükséged van.'
+        '1': 'Vidd, amire szükséged van. A Rend gondoskodik a magáéról.'
       },
       order: {
-        '1': 'Semmit. Ez ritka. Élvezd.',
+        '1': 'Semmi, egyelőre. Ez nem gyakori. Élvezd.',
         say: 'Mit akar tőlem a Rend?'
       },
       rumor: {
         throne: {
-          '1': 'A Rend a Rettegés erődjének trónját akarja. Emlékezni fog, ki állt mellette.'
+          '1': 'A Rend meg akarja kapni a trónt a Rettegés erődjében. Emlékezni fog, ki segített.'
         }
       },
       shopBack: {
-        '1': 'Írd alá itt. Viccelek. A Rend nem viccel. Elmehetsz.'
+        '1': 'Vigyázz rá. A Rend tulajdona, amíg nem vérzel benne.'
       },
       bye: {
-        '1': 'Elmehetsz.'
+        '1': 'Rendben, mehetsz.'
       }
     },
     trainerGeo: {
@@ -2202,39 +2202,39 @@ export default {
         '2': 'Öreg Kőlábnak hívnak. Hallgatom a földet. Néha válaszol.'
       },
       core: {
-        '1': 'A hegy szívverése megváltozott. Te voltál. Észrevette.'
+        '1': 'A hegy másnak érződik, mióta lent jártál. Nyugodtabbnak, vagy üresebbnek.'
       },
       dragon: {
-        '1': 'Egy sárkány átrepült a csúcs felett tegnap, és nem égetett fel minket. A te műved, hallom.'
+        '1': 'Tegnap egy sárkány átrepült a csúcs felett, és békén hagyott minket. A te műved, úgy hallom.'
       },
       again: {
-        '1': 'Már megint te. A kövek mondták, hogy jössz.'
+        '1': 'Itt vagy. Gondoltam, hogy visszajössz.'
       },
       train: {
-        '1': 'Szilárdan állj. Érzed? Nem? Akkor onnan kezdjük.'
+        '1': 'Szilárdan állj. Érzed? Nem? Itt kezdjük.'
       },
       class: {
-        '1': 'Falakat emelünk, tüskéket idézünk, és megtörjük a földet, ha kell.',
-        '2': 'Erő a kő megmozdításához, Intelligencia, hogy szépen megkérjük.',
-        say: 'Mi az a Geomanta?'
+        '1': 'Falakat emelünk, tüskéket idézünk, és szétvetjük a földet, ha kell.',
+        '2': 'Erő, hogy megmozdítsd a követ. Intelligencia, hogy tudd, merre akar menni.',
+        say: 'Mit csinál egy Geomanta?'
       },
       ready: {
         strong: {
-          '1': 'A kő most már ismer. Tanuld meg a többit.'
+          '1': 'A kő most már ismer. Told, amikor készen állsz.'
         },
         able: {
-          '1': 'Elég nehéz vagy a következő leckéhez. Ez dicséret.'
+          '1': 'Elég szilárdan állsz a következő órához.'
         },
         weak: {
-          '1': 'A kő még nem hall téged. Több Erő.'
+          '1': 'Még nem. A kő nem mozdul neked. Építsd az Erődet.'
         }
       },
       factions: {
-        '1': 'Egyiket sem. Rendek, szindikátusok, körök. A hegy mindet túléli.',
+        '1': 'Egyiké sem. A rendek és céhek jönnek-mennek. A hegy marad.',
         say: 'Melyik frakciót szolgálod?'
       },
       trainBack: {
-        '1': 'Menj gyengéden. Aztán ne gyengéden.'
+        '1': 'Ne siesd el. A föld türelmes.'
       },
       bye: {
         '1': 'Járj puhán.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Ne érj hozzá! Vagy ahhoz. Valójában állj a szőnyegre. A szőnyeg biztonságos.',
-        '2': 'Pim, a gépész! Fegyverek, tornyok, hőmérők. Főleg hőmérők.'
+        '1': 'Á, várj, ne nyúlj hozzá! Vagy ahhoz. Állj a szőnyegre, a szőnyeg biztonságos.',
+        '2': 'Pim, a gépész. Fegyvereket, lövegtornyokat és rengeteg hőmérőt építek.'
       },
       core: {
-        '1': 'Odaadtad nekünk a magot! Kilenc napja nem aludtam. Nézd a kezeimet. Ne nézd a kezeimet.'
+        '1': 'Odaadtad a magot a Körnek! Azóta alig aludtam. Jó értelemben.'
       },
       oracle: {
-        '1': 'A Kör dühös a jósda miatt. Én csak építek dolgokat. Kérlek, ne mondd el nekik, hogy tanítottalak.'
+        '1': 'A Kör dühös a jósda miatt. Én csak építek dolgokat. Nem szeretnék belekeveredni.'
       },
       friend: {
-        '1': 'A Kör barátja! Olcsóbb leckék neked. Az űrlapot magam töltöttem ki.'
+        '1': 'A Kör barátja vagy, így olcsóbbak az óráid. Én intéztem a papírmunkát.'
       },
       foe: {
-        '1': 'A Kör szerint nem taníthatlak. A Kör azt is mondja, hogy rakétát nem tesztelünk zárt térben.'
+        '1': 'A Kör szerint nem szabad tanítanom téged. Én mégis fogom. Ne mondd el nekik.'
       },
       again: {
-        '1': 'Ó, jó, még megvan minden ujjad.'
+        '1': 'Ó, jó, még megvan az összes ujjad.'
       },
       train: {
-        '1': 'Rendben! Először a biztonság. Aztán a hangos rész.'
+        '1': 'Rendben. Először a biztonság, aztán a hangos rész.'
       },
       class: {
-        '1': 'Fegyverek, tornyok és egy hőmérő. Lősz, építesz, és kiengeded a hőt, mielőtt kizár.',
-        '2': 'Az egész Jártasságon múlik. Egy kis Intelligencia a nagy gépekhez.',
+        '1': 'Fegyverek, lövegtornyok és egy hőmérő. Lőj, építs, és engedj le gőzt, mielőtt lefagysz.',
+        '2': 'Főleg Jártasság. Egy kis Intelligencia a nagyobb gépekhez.',
         say: 'Mi az az Étertechnikus?'
       },
       ready: {
         strong: {
-          '1': 'Vakon is szétszedhetnél egy tornyot! Vedd a nagy gépeket.'
+          '1': 'Most már ismered a tornyokat. Vidd a nagy gépeket.'
         },
         able: {
-          '1': 'Stabil kéz! Készen állsz a következő szerkentyűre.'
+          '1': 'Biztos kéz. Készen állsz a következőre.'
         },
         weak: {
-          '1': 'Remeg a kezed. Az enyém is, de más okból. Több Jártasság.'
+          '1': 'A célzásod még remeg egy kicsit. Tegyél pár pontot a Jártasságba.'
         }
       },
       heat: {
-        '1': 'Néhány másodpercre minden lezár. Engedd ki korán. Engedd ki gyakran. Nekem sebhelyeim vannak.',
+        '1': 'Minden lefagy pár másodpercre. Engedj le korán, engedj le gyakran. Bízz bennem.',
         say: 'Mi történik, ha túlmelegszem?'
       },
       trainBack: {
-        '1': 'Ne feledd: engedd ki a hőt! ENGEDD. KI. A HŐT.'
+        '1': 'És ne felejtsd el leengedni a hőt, mielőtt az enged le téged.'
       },
       bye: {
-        '1': 'Ne robbanj fel!'
+        '1': 'Légy óvatos odakint!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Csizmát le. Nem akarom a porodat a padlómon.',
-        '2': 'Brynja anya. Ebben a hegyben minden eltört csontot kétszer helyeztem vissza.'
+        '1': 'A csizmát az ajtónál, kérlek. Épp most söpörtem fel.',
+        '2': 'Brynja anya. Ebben a hegyben a legtöbb törött csontot én állítottam helyre.'
       },
       ending: {
-        '1': 'Elmentél a Rettegés erődjébe, és visszajöttél. Ülj le. Meg akarlak nézni.'
+        '1': 'Elmentél a Rettegés erődjébe, és visszajöttél. Ülj le. Hadd nézzelek meg.'
       },
       again: {
-        '1': 'Még élsz. Állítólag ez az én érdemem.'
+        '1': 'Még élsz. Jó. Ülj.'
       },
       heal: {
-        '1': 'Ülj. Idd meg ezt. Ne húzd el a szád. A fiolád tele van.'
+        '1': 'Idd meg ezt, és ne húzd el a szád. A fiolák tele vannak.'
       },
       mana: {
-        '1': 'Tessék. Förtelmes az íze. Akkor idd meg, ha elfogy a varázserőd, nem előbb.'
+        '1': 'Tessék. Borzalmas íze van. Akkor idd, amikor elfogy a varázserőd, nem előtte.'
       },
       potions: {
-        '1': 'Végy tőlem egy hosszabb övet. Öt fiola az, amit egy test elbír, és még fut.',
+        '1': 'Eladok neked egy hosszabb övet. Öt fiola nagyjából az, amit bárki elbír, és még futni tud.',
         say: 'Vihetek több italt?'
       },
       rumor: {
         tundra: {
-          '1': 'A tundra ujjakat visz. Mozogj odakint, és ne aludj a hóban.'
+          '1': 'A tundra elviszi az ujjakat és a lábujjakat. Maradj mozgásban, és ne aludj el a hóban.'
         },
         temple: {
-          '1': 'A tundrán túl van egy elsüllyedt templom. A nágák nem ejtenek foglyokat.'
+          '1': 'Van egy elsüllyedt templom a tundrán túl. A nagák ott nem ejtenek foglyot.'
         },
         rift: {
-          '1': 'Ami abban az Üresség hasadékában van, azt nem lehet összevarrni. Végezz vele gyorsan.'
+          '1': 'Bármi is van abban a hasadékban, nem tudom összevarrni. Ne hagyd, hogy elérjen.'
         }
       },
       healBack: {
-        '1': 'Menj csak. És egyél valamit.'
+        '1': 'Mehetsz. És egyél valamit, túl sovány vagy.'
       },
       bye: {
         '1': 'Gyere vissza egy darabban.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Te. Te nyitottad ki a kapumat.',
-        '2': 'Most egy törpe pincéjéből tanítok, mert ennem kell. Ne tévesszd össze a megbocsátással.'
+        '1': 'Te. Te vagy az, aki kinyitotta a kapumat.',
+        '2': 'Egy pincében tanítok most, mert enni kell. Ne vedd bocsánatnak.'
       },
       ending: {
-        '1': 'Egy trón eldőlt, és Oakhaven még mindig hamu. Mondd el újra, miért volt érdemes.'
+        '1': 'Szóval a trón eldőlt, és Oakhaven még mindig hamu. Remélem, megérte.'
       },
       again: {
-        '1': 'Az áruló visszatér. A díjam nem csökkent.'
+        '1': 'Visszajöttél. A díjam nem változott.'
       },
       train: {
-        '1': 'Megtanítalak parancsolni. Azt nem tudom megtanítani, hogyan érdemeld meg.'
+        '1': 'Megtanítalak parancsolni. Hogy megérdemled-e, az más kérdés.'
       },
       class: {
-        '1': 'Akit követnek. Az őrök hívásra jönnek, és a szavadra harcolnak.',
-        '2': 'Karizmán működik. Van belőle egy kevés. Ez a tragédia.',
+        '1': 'Valaki, akit mások követnek. Az őrök jönnek, ha hívod, és a szavadra harcolnak.',
+        '2': 'Karizmán megy. Neked van belőle. Ettől nehéz megbocsátani.',
         say: 'Mi az a Nagyuralkodó?'
       },
       ready: {
         strong: {
-          '1': 'Van jelenléted az egészhez. A birodalom szegényebb ettől.'
+          '1': 'Mindenhez megvan a jelenléted. Bárcsak jobban használtad volna.'
         },
         able: {
-          '1': 'Készen állsz a következő leckére. Nem lelem benne örömöm.'
+          '1': 'Készen állsz a következő órára. Nem teszek úgy, mintha örülnék.'
         },
         weak: {
-          '1': 'Még egy áruló őre sem követné ezt a hangot. Több Karizma.'
+          '1': 'Még senki sem követne. Fejleszd a Karizmád.'
         }
       },
       oakhaven: {
         '1': 'Háromszáz év. A családom építette azokat a falakat.',
-        '2': 'Ne magyarázz. Nincs olyan ár, ami megmagyarázná.',
-        say: 'Oakhavenről…'
+        '2': 'Kérlek, ne magyarázkodj. Semmi, amit mondhatnál, nem tenné jóvá.',
+        say: 'Oakhavenről...'
       },
       trainBack: {
-        '1': 'Menj. Parancsolj valaki másnak.'
+        '1': 'Menj. Gyakorolj valaki máson.'
       },
       bye: {
-        '1': 'Hagyj magamra.'
+        '1': 'Hagyj békén, kérlek.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Megölted őt. Ezerszer láttam, mielőtt megtörtént, és még mindig fáj.',
-        '2': 'Az Órák Őrzője vagyok. Megtanítalak. Azt mondta, hogy fogok.'
+        '1': 'Megölted. Évek óta láttam jönni, és mégis fáj.',
+        '2': 'Az Órák Őrzője vagyok. Megtanítalak. Azt mondta, hogy meg fogom.'
       },
       hello: {
-        '1': 'Késtél. Vagy korán jöttél. Ezt már mondtam, azt hiszem.',
-        '2': 'Az Órák Őrzője vagyok. Az idő szövését tanítom. Épp az imént kezdtük.'
+        '1': 'Itt vagy. Már egy ideje várlak. Vagy várni fogtalak.',
+        '2': 'Az Órák Őrzője vagyok. Azt tanítom, hogyan hajlítsd az időt, egy kicsit.'
       },
       freed: {
-        '1': 'Szabad. Először nem tudom, mit fogsz mondani legközelebb. Csodálatos.'
+        '1': 'Szabad. Most először nem tudom, mi történik ezután. Csodálatos.'
       },
       friend: {
-        '1': 'A Kör a barátjának fog hívni. Már megtette? Akkor a kedvezmény most van.'
+        '1': 'A Kör jót gondol rólad, így olcsóbbak az órák. A múlt héten döntötték el.'
       },
       foe: {
-        '1': 'A Kör megbocsát neked egy jövőben, amit láttam. Addig csendben tanítalak.'
+        '1': 'A Kör most haragszik rád. Elmúlik. Addig csendben tartjuk.'
       },
       again: {
-        '1': 'Üdv újra. Üdv. Újra.'
+        '1': 'Üdv újra. Pontosan időben jössz.'
       },
       train: {
-        '1': 'Nézd. Megmutatom, amit megmutattam neked.'
+        '1': 'Figyelj jól. Aztán figyelj újra, egy pillanattal korábban.'
       },
       class: {
-        '1': 'Megállítunk egy ellenséget az időben, siettetünk egy barátot, és visszavonunk egy hibát.',
-        '2': 'Intelligencia a szál meglátásához, Jártasság a meghúzásához.',
+        '1': 'Egy ellenséget mozdulatlanul tartunk az időben, egy barátot sietünk, és egy hibát visszavonunk.',
+        '2': 'Intelligencia, hogy lásd a szálat. Jártasság, hogy meghúzd.',
         say: 'Mi az az Időszövő?'
       },
       ready: {
         strong: {
-          '1': 'Jól tartod a szálat. A többi a tiéd, amikor akarod.'
+          '1': 'Jól fogod a szálat. Vidd a többit, amikor akarod.'
         },
         able: {
-          '1': 'Készen állsz. Holnap is készen álltál.'
+          '1': 'Készen állsz. Láttam, mielőtt megkérdezted.'
         },
         weak: {
-          '1': 'A szál kicsúszik az ujjaid közül. Több Intelligencia. Több Jártasság.'
+          '1': 'A szál folyton kicsúszik. Több Intelligencia, és több Jártasság.'
         }
       },
       oracle: {
         say: 'Mesélj a jósdáról.',
         freed: {
-          '1': 'Minden végkifejletet látott, és egyik sem volt az övé. Most van egy.'
+          '1': 'Minden véget látott, a sajátján kívül. Most megtudhatja.'
         },
         slain: {
-          '1': 'Nem állt ellen. Azt is látta. Kérlek, ne kérdezz többé.'
+          '1': 'Nem állt ellen. Már látta. Kérlek, ne kérdezd újra.'
         },
         waits: {
-          '1': 'Minden végkifejletet lát. Szörnyű ajándék. Légy kedves vele, a végén.'
+          '1': 'Minden véget lát. Nehéz teher. Légy kedves vele.'
         }
       },
       trainBack: {
-        '1': 'Megérte majd.'
+        '1': 'Később értelmet nyer. Általában így van.'
       },
       bye: {
-        '1': 'Egészen korábbig.'
+        '1': 'Amíg újra nem találkozunk. Vagy előtte.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Várj! Várj. Király megadja magát!',
-          '2': 'Goblin csak rabol, mert goblin éhes. Igaz!',
-          '3': 'Talán magas és király köt alku?'
+          '1': 'Állj. Kérlek. Megadom magam.',
+          '2': 'A népem azért fosztogat, mert éhes. Ez az igazság.',
+          '3': 'Kössünk inkább egyezséget. A te fajtád és az enyém.'
         },
         slay: {
-          '1': 'A Király elesik, és az Üregek szétszóródnak.',
-          '2': 'Sunford nyugodtabban alszik, és a Vasrend felfigyel rád.',
-          say: 'Nincs alku. Az uralmad itt véget ér.'
+          '1': 'A Goblinkirály elesik, és az Üregek kiürülnek.',
+          '2': 'Sunford nyugodtabban alszik, és a Vasrend hall a nevedről.',
+          say: 'Nincs egyezség. A rajtaütéseid itt véget érnek.'
         },
         pact: {
-          '1': 'Kereskedés? Király esküszik! Király SZERET kereskedés!',
-          '2': 'Goblin kereskedők telepednek le Sunford terén, olyan árukkal, amilyet ott egy kovács sem tudna készíteni.',
-          say: 'Hagyd abba a rajtaütéseket, és kereskedj inkább Sunforddal. Esküdj meg rá.'
+          '1': 'Kereskedelem. Igen. Esküszöm, a koronámra.',
+          '2': 'Goblinkereskedők állítanak fel standot Sunford terén, olyasmit árulva, amit ott egy kovács sem tudna elkészíteni.',
+          say: 'Hagyd abba a rajtaütéseket, és inkább kereskedj Sunforddal. Esküdj meg rá.'
         },
         ransom: {
-          '1': 'Mindet? Király utálja magast. Vidd. Vidd és menj.',
-          '2': 'Goblinaranytól nehezen távozol. A rajtaütések újrakezdődnek. A Szindikátus helyesli.',
-          say: 'Add át a kincsedet, és megtarthatod a koronád.'
+          '1': 'Az egészet? ...Rendben. Vidd, és menj.',
+          '2': 'Goblinaranyal távozol. A rajtaütések újra kezdődnek, de a Szindikátus jóváhagyja.',
+          say: 'Add ide a kincsed, és megtarthatod a koronád.'
         }
       },
       siege: {
         ask: {
-          '1': 'Elég. Jól harcolsz.',
-          '2': 'A Szindikátus jobban fizet, mint az a város valaha.',
+          '1': 'Elég. Jól harcolsz, ezt elismerem.',
+          '2': 'A Szindikátus sokkal jobban fizet, mint az a város valaha.',
           '3': 'Nyisd ki nekünk a kaput ma éjjel, és Oakhaven harmada a tiéd.'
         },
         defend: {
-          '1': 'Akkor a Szindikátus minden úton vadászni fog rád. Emlékezz, hogy felajánlottam.',
-          '2': 'A kapu kitart. Oakhaven meggazdagodik mögötte, és a mesterpáncélkovácsai emlékeznek a nevedre.',
+          '1': 'Akkor a Szindikátus minden úton vadászni fog rád. Emlékezz, hogy ajánlottam.',
+          '2': 'A kapu kitart. Oakhaven meggazdagszik mögötte, és a páncélkovácsai emlékeznek a nevedre.',
           say: 'A kapu zárva marad. Vidd a seregedet, és menj.'
         },
         betray: {
-          '1': 'Bölcs. Megkérem Madam Asht, hogy készítsen neked egy széket.',
-          '2': 'Oakhaven ég. A romok közt feketepiac nyílik, és egy alkimista tiltott művészeteket tanít.',
-          '3': 'A páncélkovácsok eltűntek, és a Vasrend árulónak nevez.',
-          say: 'A város harmada. Ma éjjel kinyílik a kapu.'
+          '1': 'Értelmes. Madam Ash örülni fog, ha meghallja.',
+          '2': 'Oakhaven ég. A romok között feketepiac nyílik, és egy alkimista titokban tanít.',
+          '3': 'A páncélkovácsok elmentek, és a Vasrend árulónak nevez.',
+          say: 'A város harmada. Rendben. A kapu ma este kinyílik.'
         }
       },
       core: {
         ask: {
-          '1': 'A Kolosszus roncs. Sosem hittem volna, hogy ezt látom.',
-          '2': 'És ott fekszik. A mag. Még zümmög. Meleg tapintású.',
-          '3': 'Te értél oda elsőként. Mi legyen vele?'
+          '1': 'A Kolosszus roncs. Sosem hittem volna, hogy megérem.',
+          '2': 'És ott a mag. Még mindig zúg. Meleg, ha megérinted.',
+          '3': 'Te értél ide elsőként. Szóval... mi legyen vele?'
         },
         destroy: {
           '1': 'A fény kialszik, és a gólemek ott esnek össze, ahol állnak.',
-          '2': 'A Vasrend saját páncélkovácsait küldi Ironholdba hálából.',
-          say: 'Hátrébb. Összetöröm.'
+          '2': 'Hálából a Vasrend saját páncélkovácsait küldi Ironholdba.',
+          say: 'Állj hátrébb. Összetöröm.'
         },
         study: {
-          '1': 'Eleget értesz a magból ahhoz, hogy felébresztés nélkül átadd.',
-          '2': 'Egy évszakon belül Ironhold kohói olyan éterműveket gyártanak, amilyet még senki sem látott.',
-          say: 'A Körnek kell tanulmányoznia. Biztonságosan kivihetem.'
+          '1': 'Eleget tudsz ahhoz, hogy felébresztés nélkül elmozdítsd a magot.',
+          '2': 'Egy szezonon belül Ironhold kohói olyan éterműveket készítenek, amilyet még senki sem látott.',
+          say: 'A Körnek kellene tanulmányoznia. Azt hiszem, biztonságosan kihordhatom.'
         },
         sell: {
           '1': 'Arany. Azért, ami megölte a bányászaimat. Vidd és menj.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Ezt a pillanatot tízezerszer láttam.',
-          '2': 'Felében felszabadítasz. Felében elveszed, amit őrzök.',
-          '3': 'Válassz. Hadd ne tudjam végre, mi jön ezután.'
+          '1': 'Ezt a pillanatot többször láttam, mint ahányszor megszámolhatnám.',
+          '2': 'A felében kiszabadítasz. A másik felében elveszed, amit őrzök.',
+          '3': 'Válassz. Szeretném, ha egyszer nem tudnám, mi jön.'
         },
         free: {
-          '1': 'Ó. Ezt nem láttam. Ezt egyáltalán nem láttam.',
-          '2': 'A jósda felemelkedik a vízen át, és eltűnik. Az órák őrzője marad tanítani.',
-          say: 'Ne mozdulj. Széttöröm a láncaidat.'
+          '1': 'Ó. Ezt nem láttam. Ezt tényleg nem láttam.',
+          '2': 'A jósnő felemelkedik a vízen át, és eltűnik. A tanítványa marad tanítani.',
+          say: 'Maradj nyugton. Széttöröm a láncaidat.'
         },
         slay: {
           '1': 'Igen. Ez a másik fele.',
-          '2': 'Nem áll ellen. Az Időőr Homokórája a tiéd.',
-          '3': 'Az utolsó tanítványa elmenekül a templomból, és a Kör nem bocsát meg.',
+          '2': 'Nem áll ellen. Az Időőr homokórája a tiéd.',
+          '3': 'Utolsó tanítványa elmenekül a templomból, és a Kör nem bocsát meg neked.',
           say: 'A homokóráért jöttem.'
         }
       },
       dragon: {
         ask: {
-          '1': 'Elég. Vannak fogaid, kicsi.',
-          '2': 'A démon az erődben láncra verte a rokonaimat. Látni akarom, ahogy ég.',
+          '1': 'Elég. Van fogad, kicsi.',
+          '2': 'Az erőd démona láncra verte a rokonaimat. Látni akarom, ahogy ég.',
           '3': 'Ölj meg, vagy engedd, hogy segítsek megtenni.'
         },
         slay: {
           '1': 'A hegy megremeg, ahogy a sárkány elesik. A kincse a tiéd.',
           '2': 'A Vasrend a sárkányölőről énekel.',
-          say: 'Nem alkuszom sárkányokkal.'
+          say: 'Sárkányokkal nem alkudozom.'
         },
         pact: {
-          '1': 'Kevesen kérdezhették volna ezt és élhettek volna. Rendben, kicsi. Együtt vadászunk.',
-          '2': 'Amikor a Rettegés erődje ellen vonulsz, egy sárkány lesz az égen fölötted.',
-          say: 'Akkor repülj velem az Ősdémon ellen.'
+          '1': 'Kevesen mernének kérni. Nagyon jó. Együtt vadászunk.',
+          '2': 'Amikor a Rettegés erődjére vonulsz, egy sárkány repül feletted.',
+          say: 'Akkor harcolj velem az Ősdémon ellen.'
         }
       },
       throne: {
         ask: {
-          '1': 'Szóval. Vége. Nem hittem, hogy te leszel az.',
-          '2': 'A trónom nem marad üresen, kis hős. Parancsol az erődnek, a hasadéknak és mindkettő seregeinek.',
-          '3': 'Három követ már az ajtómnál vár. Válaszd ki, ki örökli a láncaimat.'
+          '1': 'Hát. Vége. Nem hittem, hogy te leszel az.',
+          '2': 'A trónom nem marad üresen. Aki elfoglalja, az parancsol az erődnek és a hasadéknak.',
+          '3': 'Három követ már az ajtómnál vár. Válaszd ki, ki jöjjön következőnek.'
         },
         order: {
           '1': 'A Rend helyőrséget állít az erődben, és lepecsétel, amit tud.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'A Szindikátus virradat előtt beköltözik.',
-          '2': 'Minden eladó most, a béke is.',
+          '2': 'Mostantól mindennek ára van, még a békének is.',
           say: 'A Hamuszindikátus kiérdemelte.'
         },
         circle: {
-          '1': 'A Kör az erődöt iskolává alakítja egy hasadék fölött.',
-          '2': 'Ők kutatásnak hívják. Mindenki más az idő kérdésének.',
+          '1': 'A Kör az erődből iskolát csinál a hasadék fölött.',
+          '2': 'Kutatásnak hívják. Mindenki más visszatartja a lélegzetét.',
           say: 'Legyen az Éterkörnek.'
         },
         shatter: {
-          '1': 'Saját kezeddel töröd össze a trónt. Innen többé senki sem uralkodik.',
+          '1': 'Puszta kézzel összetöröd a trónt. Innen többé senki sem fog uralkodni.',
           '2': 'A követek szó nélkül távoznak.',
-          say: 'Senki sem örököl. Összetöröm.'
+          say: 'Senki sem kapja meg. Összetöröm.'
         },
         claim: {
           '1': 'A trón hideg, és pont jó rád.',
           '2': 'Három frakció rájön, hogy közös ellenségük van.',
-          say: 'Magam ülök rá.'
+          say: 'Magam veszem el.'
         }
       }
     }

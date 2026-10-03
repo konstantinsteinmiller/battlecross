@@ -127,8 +127,8 @@ export default {
       mouse: 'Sek taku iki mokytojo ir spustelėk jį, kad pasikalbėtum.'
     },
     teach: {
-      touch: 'Palieski „Išmokyk mane“, kad pamatytum, ko šis mokytojas moko.',
-      mouse: 'Spustelėk „Išmokyk mane“, kad pamatytum, ko šis mokytojas moko.'
+      touch: 'Palieskite „Ar išmokysi mane?“, kad pamatytumėte, ko moko šis treneris.',
+      mouse: 'Spustelėkite „Ar išmokysi mane?“, kad pamatytumėte, ko moko šis treneris.'
     },
     learn: {
       touch: 'Palieski gebėjimą, tada Išmokti.',
@@ -888,10 +888,10 @@ export default {
     buyBackOne: 'Išpirkti',
     deal: 'Sutarta!',
     say: {
-      buy: 'Puikus pasirinkimas. Prižiūrėk jį.',
-      sell: 'Rasiu jam gerus namus.',
-      back: 'Apsigalvojai? Imk, tokį, koks buvo.',
-      poor: 'Sugrįžk su sunkesne pinigine.'
+      buy: 'Geras pasirinkimas. Prižiūrėk ją, ir ji prižiūrės tave.',
+      sell: 'Gerai. Kam nors ji prireiks.',
+      back: 'Apsigalvojai? Nieko tokio, štai.',
+      poor: 'Tai kiek daugiau, nei turi, deja.'
     }
   },
   trainer: {
@@ -907,7 +907,7 @@ export default {
     }
   },
   healer: {
-    talk: 'Sėskis. Pailsėk. Iš čia išeisi su visomis jėgomis ir pilnomis kolbomis. Jei nori jų nešiotis daugiau, tai galiu tau parduoti.',
+    talk: 'Prisėsk ir šiek tiek pailsėk. Tavo kolbos vėl pilnos. Jei nori, galiu parduoti didesnį diržą.',
     note: 'Į kiekvieną zoną nešiesi eliksyrų: {n}.',
     buy: 'Dar viena kolba · {n}',
     full: 'Ant tavo diržo daugiau netelpa.',
@@ -927,11 +927,11 @@ export default {
   npc: {
     sunfordSmith: {
       name: 'Kalvis Bram',
-      talk: 'Paprastas plienas, sąžiningos kainos. Gobliną nuo tavęs atbaidys.'
+      talk: 'Paprastas plienas, sąžininga kaina. Nesiskubink.'
     },
     sunfordPeddler: {
       name: 'Prekeivė Tilly',
-      talk: 'Žiedai! Talismanai! Daiktai, kuriuos radau ir tikrai nepavogiau.'
+      talk: 'Žiedai, amuletai, visokie niekučiai. Tas gal net sėkmę atneša.'
     },
     trainerAegis: {
       name: 'Seras Aldric'
@@ -947,22 +947,22 @@ export default {
     },
     goblinTrader: {
       name: 'Prekeivis Grik',
-      talk: 'Karalius sakyti prekiauti, tai Grik prekiauti. Blizgutis už blizgutis. Geras blizgutis.'
+      talk: 'Tai padarė mano šeima. Geras darbas, sąžininga kaina.'
     },
     captainHale: {
       name: 'Kapitonas Hale'
     },
     oakArmorer: {
       name: 'Šarvakalys Odo',
-      talk: 'Pusė mano prekių iškeliavo ant sienų. Imk, kas liko.'
+      talk: 'Pusė atsargų iškeliavo ant sienos. Imk, kas liko, jei tinka.'
     },
     oakMasterArmorer: {
       name: 'Meistras Odo',
-      talk: 'Šis miestas stovi tavo dėka. Tau iš užpakalinio kambario ištrauksiu geruosius šarvus.'
+      talk: 'Geras plokščių šarvas išneštas. Esi pelnęs pažiūrėti.'
     },
     oakWeapons: {
       name: 'Senna Blades',
-      talk: 'Aštrūs, subalansuoti ir parduodami tam, kas moka. Šiandien tai tu.'
+      talk: 'Aštrūs, subalansuoti, sąžininga kaina. Nelieskite ašmenų.'
     },
     trainerShadow: {
       name: 'Šnabždesys'
@@ -975,7 +975,7 @@ export default {
     },
     blackMarket: {
       name: 'Supirkėjas',
-      talk: 'Jokių vardų, jokių klausimų. Sindikatas pasiima savo dalį, tu pasiimi prekes.'
+      talk: 'Jokių klausimų jokia kryptimi. Sindikatas pasiima savo dalį.'
     },
     trainerBlood: {
       name: 'Daktaras Sangrel'
@@ -988,19 +988,19 @@ export default {
     },
     ironWeapons: {
       name: 'Hilda Kūjarankė',
-      talk: 'Nykštukų kalta. Jei sulūš, kaltė bus tavo.'
+      talk: 'Nykštukų kalti, kiekvienas gabalas. Jei vienas lūš, noriu žinoti kaip.'
     },
     ironAetherWorks: {
       name: 'Meistrautojas Voss',
-      talk: 'Rato atlikti šerdies tyrimai pakeitė viską. Palaikyk šitą. Netaikyk į mane.'
+      talk: 'Viskas čia gimė tiriant šerdį. Atsargiai, dauguma užtaisyti.'
     },
     ironArmor: {
       name: 'Garrun Geležinis Šonas',
-      talk: 'Šarvai, kurie atlaiko milžino vėzdą. Visiems kitiems turiu žiedų.'
+      talk: 'Šarvai ant stovų, žiedai dėkle.'
     },
     ironOrderArmor: {
       name: 'Ordino intendantas',
-      talk: 'Ordinas prisimena, kas sunaikino šerdį. Jo ginklinės tau atviros.'
+      talk: 'Imk, ko reikia. Ordinas rūpinasi savaisiais.'
     },
     trainerGeo: {
       name: 'Senasis Akmenpėdis'
@@ -1095,138 +1095,138 @@ export default {
   dlg: {
     smalltalkSunford: {
       weather: {
-        '1': 'Iki vakaro lis, sako mano kelis.',
-        '2': 'Tavo kelis tą patį sakė ir praėjusią savaitę.',
-        '3': 'Ir juk lijo. Kažkur.'
+        '1': 'Vakare lis. Kelis man sopa visą dieną.',
+        '2': 'Tą patį tavo kelis sakė ir praėjusią savaitę.',
+        '3': 'Ir lijo, ar ne? Tik ne čia.'
       },
       harvest: {
-        '1': 'Geriausi miežiai per daugelį metų, šitie.',
-        '2': 'Tu tai sakai kasmet.'
+        '1': 'Šiemet miežiai gerai užderėjo.',
+        '2': 'Tikėkimės, kad jų nepraradome.'
       },
       goblins: {
         '1': 'Goblinai paėmė tris vištas iš Malūnininko ūkio.',
-        '2': 'Tik tris? Tingi darosi.',
-        '3': 'Arba sotūs.'
+        '2': 'Vėl? Tai jau antras kartas šį mėnesį.',
+        '3': 'Kas nors turėtų ką nors padaryti dėl tų olų.'
       },
       kingGone: {
-        '1': 'Sako, Goblinų karalius dingo visam laikui.',
-        '2': 'Tai kas tada vagia mano ropes?'
+        '1': 'Sako, Goblinų karalius negyvas.',
+        '2': 'Gerai. Gal dabar išmiegosiu visą naktį.'
       },
       pact: {
-        '1': 'Šiandien goblinas pardavė man šaukštą.',
-        '2': 'Ar tai buvo tavo šaukštas?',
-        '3': 'Taip, buvo. Bet kaina gera.'
+        '1': 'Šįryt nusipirkau samtį iš goblino.',
+        '2': 'Geras?',
+        '3': 'Geresnis nei mano, tiesą sakant. Niekam nesakyk.'
       },
       bram: {
-        '1': 'Bramas vėl kala. Nuo aušros!',
-        '2': 'Lygus kaip širdies plakimas, tas žmogus.'
+        '1': 'Bramas prie priekalo stovi nuo prieš aušrą.',
+        '2': 'Toks jis būna, kai nerimauja.'
       },
       pie: {
-        '1': 'Ar tai obuolių pyragas kvepia?',
-        '2': 'Kvepėjo. Būtuoju laiku.',
-        '3': 'Suvalgei visą? Vėl?'
+        '1': 'Ar čia obuolių pyrago kvapas?',
+        '2': 'Buvo. Vaikai rado pirmi.',
+        '3': 'Iškepsiu kitą. Šįkart paslėpk geriau.'
       },
       road: {
-        '1': 'Niekas nebevažiuoja lygumų keliu.',
-        '2': 'Su banditais jame – ne.'
+        '1': 'Savaitę niekas nėjo lygumų keliu.',
+        '2': 'Ne su banditais ant jo. Nekaltinu.'
       },
       hero: {
-        '1': 'Kažkas išvalė lygumų kelią!',
-        '2': 'Pats laikas. Pusbrolis man skolingas vežimą.'
+        '1': 'Kažkas išvalė lygumų kelią nuo banditų.',
+        '2': 'Ačiū dievams. Sesuo vėl galės mane aplankyti.'
       }
     },
     smalltalkOakhaven: {
       prices: {
         '1': 'Du sidabrai už kopūstą. Du!',
-        '2': 'Tai labai gražus kopūstas.',
-        '3': 'Nelabai jau gražus.'
+        '2': 'Šiais laikais niekas pro vartus neatkeliauja pigiai.',
+        '3': 'Tada augsiu savo. Ant stogo, jei reikės.'
       },
       watch: {
-        '1': 'Sargyba padvigubino vartų sargus.',
-        '2': 'Gerai. Dėl to geriau miegu.'
+        '1': 'Prie vartų dvigubai padidino sargybą.',
+        '2': 'Gerai. Dėl to miegu ramiau.'
       },
       caravan: {
         '1': 'Prieskonių karavanas vėl vėluoja.',
         '2': 'Banditai?',
-        '3': 'Arba vežėjas rado smuklę.'
+        '3': 'Arba purvas. Tikėkimės, kad purvas.'
       },
       siege: {
-        '1': 'Sako, prieigose stovi kariuomenė.',
-        '2': 'Tada geriau pripildykime rūsį.'
+        '1': 'Už ūkių stovyklą įrengusi kariuomenė.',
+        '2': 'Tada geriau pripildykime rūsį, kol galime.'
       },
       saved: {
-        '1': 'Ar matei, kaip pralaužė apgultį? Puiku!',
-        '2': 'Mačiau iš po lovos.',
-        '3': 'Vis tiek skaitosi.'
+        '1': 'Ar buvai ant sienos, kai apgultis buvo palaužta?',
+        '2': 'Aš slėpiausi po lova, jei sąžiningai.',
+        '3': 'Kaip ir pusė miesto. Bet vis dar esame čia.'
       },
       fountain: {
         '1': 'Įmečiau monetą į fontaną sėkmei.',
-        '2': 'O aš ją ištraukiau. Ačiū!'
+        '2': 'Tikiuosi, norėjai pigesnių kopūstų.'
       },
       ash: {
-        '1': 'Viskas kvepia pelenais.',
-        '2': 'Geriau nei visai nekvepėti.'
+        '1': 'Viskas vis dar kvepia dūmais.',
+        '2': 'Praeis. Viskas galiausiai praeina.'
       },
       hide: {
-        '1': 'Ar girdėjai batus lauke praėjusią naktį?',
-        '2': 'Ššš. Kalbėk tyliau.',
-        '3': 'Atleisk. Atleisk.'
+        '1': 'Ar girdėjai batus gatvėje praėjusią naktį?',
+        '2': 'Ne taip garsiai. Nežinai, kas klauso.',
+        '3': 'Atsiprašau. Aš tiesiog... atsiprašau.'
       },
       bread: {
-        '1': 'Radau pusę duonos kepaliuko. Galime pasidalyti.',
+        '1': 'Radau pusę duonos. Štai, paimk šiek tiek.',
         '2': 'Tu gera siela. Ačiū.'
       }
     },
     smalltalkIronhold: {
       ore: {
         '1': 'Gera vario gysla ketvirtame lygyje.',
-        '2': 'Varis? Aš noriu aukso.',
-        '3': 'Tu veikiau nori numigti.'
+        '2': 'Varis. Tikėjausi sidabro.',
+        '3': 'Varis sumoka nuomą. Sidabras sumoka už svajones.'
       },
       forge: {
-        '1': 'Didžioji kalvė neužgeso šimtą metų.',
-        '2': 'Kaip ir mano senelio pypkė.'
+        '1': 'Didžioji kalvė neataušo šimtą metų.',
+        '2': 'Mano senelis padėjo ją uždegti, žinai.'
       },
       beard: {
-        '1': 'Apkirpai barzdą!',
-        '2': 'Ji užsidegė prie priekalo.',
-        '3': 'Bet tau tinka.'
+        '1': 'Apkirpai barzdą.',
+        '2': 'Per arti priėjau prie priekalo.',
+        '3': 'Atauga. Trumpesnė tau vis tiek labiau tinka.'
       },
       core: {
-        '1': 'Giliose kasyklose dabar kažkas švyti.',
-        '2': 'Nieko gero ten apačioje nešvyti.'
+        '1': 'Kažkas švyti apačioje, giliose šachtose.',
+        '2': 'Nieko gero ten apačioje nešviečia. Likite viršuje.'
       },
       order: {
-        '1': 'Ordino šarvakaliai dirba greitai.',
-        '2': 'Greitai, taip. Bet ne taip gerai kaip mes.'
+        '1': 'Ordino šarvakaliai dirba greitai, to nepaneigsi.',
+        '2': 'Greitai, taip. Pamatysim, kaip ilgai laikys.'
       },
       circle: {
-        '1': 'Rato magai dirbdami niūniuoja.',
-        '2': 'Geriau nei mūsų dainavimas, manau.'
+        '1': 'Rato žmonės dirbdami niūniuoja.',
+        '2': 'Bent jau geriau nei tavo dainavimas.'
       },
       cold: {
-        '1': 'Šį rytą čia viršuje šalta.',
-        '2': 'Tada stovėk arčiau kalvės.'
+        '1': 'Šįryt spigina šaltis.',
+        '2': 'Tada ateik ir pastovėk prie kalvės.'
       }
     },
     smalltalkKids: {
       tag: {
-        '1': 'Tu gaudai!',
+        '1': 'Gaudynės, dabar tu gaudai!',
         '2': 'Nesąžininga, aš nebuvau pasiruošęs!'
       },
       dragon: {
-        '1': 'Užaugęs joju ant slibino.',
-        '2': 'Slibinai neleidžia ant savęs joti.',
-        '3': 'Malonūs leidžia!'
+        '1': 'Kai užaugsiu, joju drakonu.',
+        '2': 'Drakonai neleidžia ant savęs joti.',
+        '3': 'Malonus gal ir leistų.'
       },
       sword: {
-        '1': 'Žiūrėk, tikra kardo lazda!',
-        '2': 'Tai tik lazda.'
+        '1': 'Žiūrėk, radau kardą!',
+        '2': 'Tai lazda.'
       },
       frog: {
-        '1': 'Radau varlę prie šulinio.',
+        '1': 'Prie šulinio yra varlė.',
         '2': 'Ar galime ją pasilikti?',
-        '3': 'Manau, jis pasilieka mus.'
+        '3': 'Mama sakė, daugiau jokių varlių.'
       }
     },
     ui: {
@@ -1247,557 +1247,557 @@ export default {
       }
     },
     hero: {
-      bye: 'Kol kas tiek.',
-      trade: 'Parodyk savo prekes.',
-      train: 'Išmokyk mane.',
-      heal: 'Sutaisyk mane.',
-      mana: 'Man reikia ko nors manai.',
-      who: 'Kas tu toks?',
+      bye: 'Neberiu tau galvos.',
+      trade: 'Ar galiu pažiūrėti, ką turi?',
+      train: 'Ar išmokysi mane?',
+      heal: 'Ar galėtum mane sutvarkyti?',
+      mana: 'Ar turi ko nors manai?',
+      who: 'Kas tu esi, jei galiu paklausti?',
       rumor: 'Ar ką nors girdėjai?',
-      ready: 'Ar esu pasiruošęs daugiau?'
+      ready: 'Ar manai, kad esu pasiruošęs daugiau?'
     },
     sunfordSmith: {
       hello: {
-        '1': 'Hm. Naujas veidas. Tu išlaikei lygumų kelią.',
-        '2': 'Aš Bramas. Aš gaminu plieną. Atrodo, tau jo reikia.'
+        '1': 'Anksčiau tavęs nemačiau. Ar tu tas, kuris išvalė kelią?',
+        '2': 'Bramas. Aš prižiūriu kalvę. Jei reikia ašmenų, ateik pas mane.'
       },
       kingDead: {
-        '1': 'Girdėjau, Goblinų karalius negyvas. Gerai. Mažiau įlenkimų reikės ištiesinti iš karavanų ratų.'
+        '1': 'Girdėjau, Goblinų karalius negyvas. Dėl jo nesiilgėsiu.'
       },
       kingPact: {
-        '1': 'Goblinai prekiauja aikštėje. Niekada nemaniau to pamatysiąs. Jų geležis, beje, šlamštas.'
+        '1': 'Goblinai dabar prekiauja aikštėje. Niekada nemaniau to pamatysiąs.'
       },
       kingRansom: {
-        '1': 'Sako, paėmei karaliaus auksą ir palikai jam karūną. Antpuoliai sugrįš.'
+        '1': 'Leidai Goblinų karaliui pasilikti karūną. Jis sugrįš, žinai.'
       },
       ending: {
-        '1': 'Visa karalystė kalba apie tą sostą. O tu vis tiek perki pas mane. Hm.'
+        '1': 'Visa karalystė kalba apie tave. Galąstuvo vis tiek reikia?'
       },
       again: {
-        '1': 'Vėl čia. Gerai. Plienas pats savęs neparduoda.'
+        '1': 'Vėl čia. Kuo galiu padėti?'
       },
       trade: {
-        '1': 'Paprastas plienas, sąžiningos kainos. Žiūrėk, kiek nori.'
+        '1': 'Paprastas plienas, sąžininga kaina. Apsidairyk.'
       },
       who: {
-        '1': 'Bramas. Trisdešimt metų prie šio priekalo.',
-        '2': 'Kaustau arklius, taisau arklus ir ginkluoju tokius kvailius kaip tu. Tokia tvarka.'
+        '1': 'Bramas. Apie trisdešimt metų prie šio priekalo.',
+        '2': 'Pasagos, arklai, kartais kardas. Pastaruoju metu daugiausia kardai.'
       },
       gear: {
-        '1': 'Skydą, jei tikiesi gauti smūgių. Didesnį kardą, jei ne.',
-        '2': 'Jėga švaistosi mano plienas. Dėk taškus ten, prieš perkant sunkų daiktą.',
-        say: 'Ką turėčiau nešiotis ten?'
+        '1': 'Skydas, jei tikiesi gauti smūgių. Dauguma gauna.',
+        '2': 'Sunkiam plienui reikia stiprios rankos. Pirmiausia lavink Jėgą.',
+        say: 'Ką turėčiau pasiimti su savimi?'
       },
       rumor: {
         plains: {
-          '1': 'Goblinai lygumų kelyje. Išvalyk juos, prieš pirkdamas ką nors puošnaus.'
+          '1': 'Banditai lygumų kelyje. Aš pradėčiau nuo ten, tavo vietoje.'
         },
         hollows: {
-          '1': 'Plėšikai išlenda iš Goblinų urvų, anapus lygumų. Jų karalius sėdi pačiame dugne.'
+          '1': 'Goblinai atkeliauja iš Urvų, anapus lygumų. Jų karalius ten apačioje.'
         },
         woods: {
-          '1': 'Į rytus nuo lygumų prasideda Šnabždantis miškas. Ten medžiai vaikšto. Imk kirvį.'
+          '1': 'Į rytus nuo lygumų yra Šnabždantis miškas. Žmonės sako, kad medžiai juda.'
         },
         siege: {
-          '1': 'Dūmai Oakhaveno pusėje. Sako, karo vadas įsikūręs prieigose.'
+          '1': 'Link Oakhaveno kyla dūmai. Pakraštyje stovyklauja kariuomenė.'
         },
         north: {
-          '1': 'Ironholdo plienas vėl keliauja keliais. Eik į šiaurę, jei nori geresnio už mano.'
+          '1': 'Ironholdo plienas vėl atkeliauja keliu. Geresnis už mano, tiesą sakant.'
         }
       },
       shopBack: {
-        '1': 'Nešiok sveikas. Arba bent nešiok.'
+        '1': 'Prižiūrėk ją, ir ji prižiūrės tave.'
       },
       bye: {
-        '1': 'Saugokis kelyje.'
+        '1': 'Saugok save.'
       }
     },
     sunfordPeddler: {
       hello: {
-        '1': 'Oi, pirkėjas! Arba sargas. Tu juk ne sargas?',
-        '2': 'Aš Tilly. Žiedai, talismanai, laimės daiktai. Visi rasti, niekada nepavogti.'
+        '1': 'O, labas! Pirksi ar tik žiūri? Tinka abu.',
+        '2': 'Aš Tilly. Žiedai, amuletai, niekučiai iš viso pasaulio.'
       },
       rival: {
-        '1': 'Matei Griko prekystalį? Goblinų niekučiai! Aš žlugau. Nupirk ką nors. Pasigailėk.'
+        '1': 'Ar matei goblino prekystalį? Jo kainos žemesnės nei mano. Tai nesąžininga.'
       },
       again: {
-        '1': 'Mano mėgstamiausias pirkėjas! Tai sakau visiems, bet tau – rimtai.'
+        '1': 'Štai ir tu! Atidėjau kelis daiktus, kurie tau, manau, patiks.'
       },
       trade: {
-        '1': 'Žiedai! Talismanai! Daiktai, kuriuos radau ir tikrai nepavogiau.'
+        '1': 'Apsidairyk. Tas atneša sėkmę. Tikriausiai.'
       },
       who: {
-        '1': 'Vaikštau keliais ir renku, ką keliai palieka.',
-        '2': 'Banditai bėgdami numeta gražiausius daiktus.'
+        '1': 'Vaikštau keliais ir superku tai, ko žmonės nori atsikratyti.',
+        '2': 'O kartais randu daiktų. Banditai bėgdami daug ko pameta.'
       },
       trinkets: {
-        '1': 'Nešioji du vienu metu, po vieną ant rankos. Maža nauda vis tiek nauda.',
-        say: 'Kam tinka papuošalai?'
+        '1': 'Gali nešioti du, po vieną ant kiekvienos rankos. Ten lauke viskas sumuojasi.',
+        say: 'Kam tie niekučiai iš tikrųjų tinka?'
       },
       stolen: {
-        '1': 'Ššš! Ne taip garsiai. Gerai. GERAI.',
-        '2': 'Imk šį žiedą, ir mes niekada nekalbėjome. Gražus žiedas. Daugiausia varis.',
-        say: 'Tu visa tai pavogei, tiesa?'
+        '1': 'Aha. Tu turi savitą klausimo būdą, ar ne?',
+        '2': 'Imk šį žiedą ir nekalbėkime, kur jį radau.',
+        say: 'Iš kur visa tai iš tikrųjų?'
       },
       rumor: {
         arenaShut: {
-          '1': 'Į pietus nuo čia stovi koliziejus su surūdijusiais vartais. Jie atsivertų, jei goblinų vargai baigtųsi.'
+          '1': 'Į pietus nuo čia yra senas koliziejus. Užrakintas, kol goblinai plėšikauja.'
         },
         arenaOpen: {
-          '1': 'Koliziejus atidarytas! Aštuonios bangos, sako. Aš prekiauju sėkme. Tau jos prireiks.'
+          '1': 'Koliziejus vėl atidarytas. Aštuonios bangos, girdėjau. Žmonės lažinasi.'
         },
         east: {
-          '1': 'Oakhaveno turgūs moka dvigubai už viską, kas blizga. Eik į rytus, už miško.'
+          '1': 'Oakhavenas gerai moka už viską, kas žiba. Jis rytuose, už miško.'
         }
       },
       shopBack: {
-        '1': 'Sugrįžk, kai būsi turtingesnis!'
+        '1': 'Sugrįžk, kai kapšelis bus sunkesnis!'
       },
       bye: {
-        '1': 'Saugok kišenes ten! Ne šalia manęs, aišku. Kitur.'
+        '1': 'Gero kelio. Tvirtai laikyk monetas ten lauke.'
       }
     },
     trainerAegis: {
       hello: {
-        '1': 'Stovėk tiesiai. Stovi prieš Geležinio ordino riterį.',
-        '2': 'Seras Aldric. Skydo meno mokau tuos, kurie nori stovėti prieš kitus.'
+        '1': 'Atsitiesk. Kalbi su Geležinio ordino riteriu.',
+        '2': 'Seras Aldric. Mokau žmones atsistoti tarp kitų ir pavojaus.'
       },
       saved: {
-        '1': 'Oakhaven stovi, nes tu stovėjai. Tai visas mano mokymas.'
+        '1': 'Oakhavenas vis dar stovi, ir girdžiu, tu buvai ant jo sienos. Gerai padirbėta.'
       },
       fallen: {
-        '1': 'Atidarei Oakhaveno vartus. Esu laidojęs vyrus dėl mažesnių dalykų. Sakyk, ko nori.'
+        '1': 'Atidarei Oakhaveno vartus. Nesistengiu apsimesti, kad pamiršau. Ko nori?'
       },
       dragon: {
-        '1': 'Slibinų žudikas mano kieme. Apie tai dainuos didžiojoje menėje.'
+        '1': 'Nužudei drakoną ant viršūnės? Mielai būčiau tai matęs.'
       },
       friend: {
-        '1': 'Ordinas apie tave kalba gražiai. Jo draugams mano pamokos kainuoja mažiau.'
+        '1': 'Ordinas apie tave gerai galvoja. Jo draugams mano pamokos kainuoja mažiau.'
       },
       foe: {
-        '1': 'Ordinas vadina tave priešu. Aš vis tiek mokysiu. Garbės jie atimti negali.'
+        '1': 'Ordinas tave vadina priešu. Vis tiek mokysiu. Tai mano pasirinkimas, ne jų.'
       },
       again: {
-        '1': 'Skydas aukštyn. Ko reikia?'
+        '1': 'Sugrįžai daugiau pratybų?'
       },
       train: {
-        '1': 'Tada klausyk. Aš parodau vieną kartą.'
+        '1': 'Gerai. Žiūrėk atidžiai, rodysiu tik kartą.'
       },
       class: {
-        '1': 'Vaikščiojanti siena. Mes priimame smūgį, kad kitiems nereikėtų.',
-        '2': 'Jėga rankai, Ištvermė visam kitam. Šviesa daro, ką gali.',
-        say: 'Kas yra Egidos riteris?'
+        '1': 'Mes priimame smūgius, skirtus kitiems. Tai paprasta, ir tai sunku.',
+        '2': 'Reikia Jėgos skydui ir Ištvermės jį išlaikyti.',
+        say: 'Ką iš tikrųjų veikia Egidos riteris?'
       },
       ready: {
         strong: {
-          '1': 'Turi ranką daugumai to, ką moku. Pasirūpink Ištverme ir imk likusį.'
+          '1': 'Esi pakankamai stiprus daugumai to, ką moku. Tęsk su Ištverme.'
         },
         able: {
-          '1': 'Esi pasiruošęs kitai pamokai. Tik nesipūsk.'
+          '1': 'Esi pasiruošęs kitai pamokai. Tik nesukvaišk.'
         },
         weak: {
-          '1': 'Dar ne. Tavo ranka silpna ir greitai pavargsti. Daugiau Jėgos, daugiau Ištvermės.'
+          '1': 'Dar ne. Pavargtum anksčiau nei skydas. Daugiau Jėgos, daugiau Ištvermės.'
         }
       },
       order: {
-        '1': 'Sergime kelius ir įstatymą. Kai kas sako, per daug abiejų.',
-        '2': 'Stok su Ordinu, ir jo šarvakaliai bei mokytojai tave prisimins.',
+        '1': 'Saugome kelius ir laikome įstatymą. Kai kas sako, per griežtai.',
+        '2': 'Stok su mumis, ir mūsų šarvakaliai bei mokytojai tave atsimins.',
         say: 'Papasakok apie Geležinį ordiną.'
       },
       trainBack: {
-        '1': 'Treniruokis, kol nusibos. Tada treniruokis dar.'
+        '1': 'Treniruokis, kol pabos. Tada tęsk.'
       },
       bye: {
-        '1': 'Eik su šviesa.'
+        '1': 'Eik atsargiai.'
       }
     },
     trainerPyro: {
       hello: {
-        '1': 'O! Mokinys? Atsitrauk šiek tiek. Dar truputį.',
-        '2': 'Ember Wren, piromantė. Antakiai užauga, dažniausiai.'
+        '1': 'O, mokinys? Puiku. Gal atsitrauk kiek toliau.',
+        '2': 'Aš Ember Wren. Mokau ugnies. Dažniausiai ji daro, ko prašau.'
       },
       core: {
-        '1': 'Atidavei šerdį Ratui! Žinai, kiek daiktų dabar galime padegti?'
+        '1': 'Atidavei šerdį Ratui! Nekantrauju pamatyti, ko iš jos išmoksime.'
       },
       friend: {
-        '1': 'Eterio ratas tave mėgsta! Tai reiškia nuolaidą. Ir mažiau formų.'
+        '1': 'Ratas apie tave kalba gerai. Beje, tai reiškia nuolaidą.'
       },
       foe: {
-        '1': 'Ratas nori paversti tave pelenais. Nepatogu! Aš vis tiek mokysiu. Ugnis nėra išrankė.'
+        '1': 'Ratas tavimi nepatenkintas. Vis tiek mokysiu. Tyliai.'
       },
       again: {
-        '1': 'Sugrįžai! Ir niekas nedega. Tai galime ištaisyti.'
+        '1': 'Sugrįžai! Pasiruošęs ką nors padegti?'
       },
       train: {
-        '1': 'Taip! Žiūrėk atidžiai. Ne taip atidžiai.'
+        '1': 'Gerai. Žiūrėk į mano rankas ir laikyk rankoves toliau nuo manęs.'
       },
       class: {
-        '1': 'Ugnis atsako į kiekvieną klausimą. Pirma sudegink juos, paskui susprogdink tuos, kurie dega.',
-        '2': 'Viskas remiasi Intelektu. Ir pastoviu rūbų tiekimu.',
-        say: 'Ką veikia Piromantas?'
+        '1': 'Daugiausia degina daiktus. Tada priverčia ugnį plisti ten, kur nori.',
+        '2': 'Viskas kyla iš Intelekto. Kuo aštresnis protas, tuo karštesnė liepsna.',
+        say: 'Ką iš tikrųjų veikia piromantas?'
       },
       ready: {
         strong: {
-          '1': 'Galėtum ištirpdyti golemą! Imk viską, ką turiu. Pasirūpink Meistryste sudėtingiems.'
+          '1': 'Sąžiningai? Dalį to galėtum mokyti pats. Imk, ką nori.'
         },
         able: {
-          '1': 'Tavo protas pakankamai įkaitęs kitam burtui. Eime!'
+          '1': 'Esi pasiruošęs kitam burtui. Eime, parodysiu.'
         },
         weak: {
-          '1': 'Hmm. Dar nepakanka Intelekto. Ugnis naudotųsi tavimi, o ne atvirkščiai.'
+          '1': 'Dar ne, deja. Tau reikia daugiau Intelekto, kitaip ugnis perima valdžią.'
         }
       },
       circle: {
-        '1': 'Mokslininkai. Tyrinėjame, iš ko sudarytas pasaulis. Kai kas sprogsta.',
+        '1': 'Mokslininkai. Tyrinėjame, iš ko sudarytas pasaulis. Dalis jo sprogsta.',
         say: 'Kas yra Eterio ratas?'
       },
       trainBack: {
-        '1': 'Eik ir kai ką padegk! Tai, kas to nusipelnė.'
+        '1': 'Eik pasitreniruoti. Kur nors, kur niekas neužsiliepsnos, prašau.'
       },
       bye: {
-        '1': 'Laikykis šilumos!'
+        '1': 'Saugok save!'
       }
     },
     elderMara: {
       hello: {
-        '1': 'Taigi tu atėjai iš kelio. Prieik arčiau, mano akys jau ne tokios, kaip buvo.',
-        '2': 'Aš Mara. Keturiasdešimt metų vedu šio miesto knygą ir saugau jo ramybę.'
+        '1': 'Taigi tu tas, kuris iš kelio. Ateik čia, leisk į tave pažiūrėti.',
+        '2': 'Aš Mara. Prižiūriu šį miestelį... na, jau keturiasdešimt metų.'
       },
       slain: {
-        '1': 'Urvai tylūs. Padarei sunkų darbą, ir Sunfordas dėl to miega.'
+        '1': 'Urvai tylūs. Tai buvo sunkus darbas, bet dėl jo mes miegame.'
       },
       pact: {
-        '1': 'Goblinai parduoda niekučius mano aikštėje. Turi sidabrinį liežuvį, vaike. Tikiuosi, jis išlaikys.'
+        '1': 'Goblinai parduoda daiktus mano aikštėje. Tu juos įkalbėjai, ar ne?'
       },
       ransom: {
-        '1': 'Paėmei jo auksą ir palikai jam karūną. Esu per sena apsimesti, kad nenusivyliau.'
+        '1': 'Paėmei jo auksą ir palikai jam karūną. Nesimeluosiu, kad nenusivyliau.'
       },
       saved: {
-        '1': 'Iš Oakhaveno atėjo žinia. Vartai atlaikė. Džiaugiuosi, kad ten buvo vienas iš mūsų.'
+        '1': 'Iš Oakhaveno atėjo žinia. Vartai atlaikė. Džiaugiuosi, kad ten buvai.'
       },
       fallen: {
-        '1': 'Oakhaven sudegintas, ir sako, tu laikei deglą. Nesakyk. Mieliau nežinočiau.'
+        '1': 'Sako, Oakhavenas sudegė. Nenoriu girdėti kaip. Ne šiandien.'
       },
       ending: {
-        '1': 'Sako, tu nusprendei, kas sėdės Siaubo tvirtovėje. Nuo Sunfordo kelio iki to. Įsivaizduok.'
+        '1': 'Sako, tu nulėmei Siaubo tvirtovės likimą. Nuo mūsų mažo kelio iki to.'
       },
       again: {
-        '1': 'Prisėsk valandėlę. Kelias palauks.'
+        '1': 'Prisėsk akimirkai. Kelias lauks ir paskui.'
       },
       reward: {
-        '1': 'Išlaikei kelią, kai mūsų milicija negalėjo. Miestas surinko aukų.',
-        '2': 'Nedaug. Tai kiekviena moneta, kurią galėjome sutaupyti.',
-        say: 'Norėjai mane matyti?'
+        '1': 'Išlaikei kelią atvirą, kai mūsų milicija nepajėgė. Miestelis šiek tiek sudėjo.',
+        '2': 'Nedaug. Tiek, kiek galėjome atriekti.',
+        say: 'Kažkas sakė, kad norėjai mane pamatyti?'
       },
       quest: {
-        '1': 'Antpuoliai ateina iš Goblinų urvų. Goblinai karūnavo karalių.',
-        '2': 'O tu nori jo mirties.',
-        '3': 'Noriu, kad antpuoliai baigtųsi. Kaip, spręsi tu, tų urvų dugne.',
-        '4': 'Urvai čia pat už lygumų. Eik atsargiai.',
-        say: 'Kas kelia nerimą Sunfordui?'
+        '1': 'Antpuoliai ateina iš Goblinų urvų. Jie karūnavo sau karalių.',
+        '2': 'O tu nori jo mirties?',
+        '3': 'Noriu, kad antpuoliai liautųsi. Kaip... tai tu nuspręsi ten apačioje.',
+        '4': 'Urvai už lygumų. Būk atsargus, prašau.',
+        say: 'Kas kamuoja Sunfordą?'
       },
       king: {
-        say: 'Apie Goblinų karalių…',
+        say: 'Apie Goblinų karalių...',
         slay: {
-          '1': 'Karalius negyvas, ir mano karavanai atvyksta laiku. Neklausiu, kaip tai jautėsi.'
+          '1': 'Jo nebėra, ir karavanai vėl važiuoja. Neklausiu, kaip jautiesi.'
         },
         pact: {
-          '1': 'Sutartis! Mano motina būtų apalpusi. Vis dėlto prekyba geriau nei laidotuvės.'
+          '1': 'Prekybos sutartis. Mano mama būtų apalpusi. Vis tiek prekyba geriau nei laidotuvės.'
         },
         ransom: {
-          '1': 'Auksas išleidžiamas greitai. Pyktis – ne. Prisimink tai, kai antpuoliai sugrįš.'
+          '1': 'Auksas greitai baigiasi. Pyktis – ne. Atsimink tai, kai prasidės antpuoliai.'
         }
       },
       town: {
-        '1': 'Daugiausia ūkininkai. Kalvis, gydytoja ir du mokytojai, kurie mus kenčia.',
-        '2': 'Pailsėk čia, išleisk taškus ir išeik stipresnis. Tam ir skirti namai.',
+        '1': 'Daugiausia ūkininkai. Kalvis, gydytoja, du mokytojai, kurie mus kenčia.',
+        '2': 'Pailsėk čia tarp kelionių. Tam ir skirti namai.',
         say: 'Papasakok apie Sunfordą.'
       },
       next: {
         say: 'Kur man eiti toliau?',
         plains: {
-          '1': 'Lygumų keliu, pirmiausia. Negalime valgyti, jei karavanai neprasiveržia.'
+          '1': 'Pirmiausia lygumų kelias. Be karavanų neturime ko valgyti.'
         },
         hollows: {
-          '1': 'Pirmiausia Goblinų urvai. Nieko kito nesaugu, kol tęsiasi antpuoliai.'
+          '1': 'Goblinų urvai. Nieko kito nėra saugu, kol tęsiasi antpuoliai.'
         },
         woods: {
-          '1': 'Į rytus, per Šnabždantį mišką. Kelias į Oakhaveną eina po tais medžiais.'
+          '1': 'Į rytus, per Šnabždantį mišką. Tai kelias į Oakhaveną.'
         },
         oakhaven: {
-          '1': 'Oakhaven apgultas. Jei prieigos kris, kris ir miestas.'
+          '1': 'Oakhavenas apgultas. Jei prieigos kris, kris ir miestas.'
         },
         north: {
-          '1': 'Į šiaurę, vaike. Pelenų uolos, o už jų Ironhold. Pavojus auga, kuo toliau eini.'
+          '1': 'Į šiaurę, manau. Pelenų uolos, o už jų Ironholdas. Bus tik sunkiau.'
         }
       },
       bye: {
-        '1': 'Sugrįžk gyvas. Tik to prašau iš kiekvieno.'
+        '1': 'Grįžk pas mus sveikas. Tik to ir prašau.'
       }
     },
     sunfordHealer: {
       hello: {
-        '1': 'Nejudėk. Ne, tau viskas gerai. Senas įprotis.',
-        '2': 'Sesuo Lune. Taisau tai, ką sulaužo kelias.'
+        '1': 'Akimirką nejudėk. Ne, tau gerai. Įprotis, atsiprašau.',
+        '2': 'Aš sesuo Lune. Lopau, ką kelias sulaužo.'
       },
       again: {
-        '1': 'Vis dar sveikas? Beveik nusivyliau.'
+        '1': 'Vis dar sveikas? Gerai. Vis tiek prisėsk.'
       },
       heal: {
-        '1': 'Sėskis. Ilsėkis. Išeisi sveikas, su visomis pripildytomis kolbomis.'
+        '1': 'Sėskis, pailsėk. Pripildysiu tavo kolbas, kol neišėjai.'
       },
       mana: {
-        '1': 'Mėlyna kolba, kartus skonis. Gurkštelk, kai baigsis burtai.'
+        '1': 'Šitas karčiai. Gerk, kai baigsis burtai.'
       },
       potions: {
-        '1': 'Į kiekvieną zoną pasiimi kelias kolbas. Gerk, kol dar jos nereikia, o ne po to.',
-        '2': 'Jei nori nešti daugiau, galiu parduoti ilgesnį diržą.',
+        '1': 'Į kiekvieną kovą pasiimi kelias kolbas. Gerk, kol dar nereikia, ne po to.',
+        '2': 'Jei nori nešti daugiau, galiu parduoti didesnį diržą.',
         say: 'Kaip veikia eliksyrai?'
       },
       rumor: {
         goblins: {
-          '1': 'Goblinai užnuodija savo svaidyklės akmenis. Jei pažaliuosi, grįžk tiesiai čia.'
+          '1': 'Goblinai ką nors tepa ant savo svaidyklės akmenų. Jei bloga, sugrįžk.'
         },
         spiders: {
-          '1': 'Voro įkandimai iš Miško. Trys šią savaitę. Stenkis neįsikąsti.'
+          '1': 'Šią savaitę gydžiau tris voro įkandimus iš Miško. Būk ten atsargus.'
         },
         burns: {
-          '1': 'Kareiviai iš šiaurės ateina su nudegimais. Pelenų uolos, sako. Ugnis, kuri vaikšto.'
+          '1': 'Kareiviai vis ateina iš šiaurės su nudegimais. Pelenų uolos, sako.'
         }
       },
       healBack: {
         '1': 'Laikyk diržą pilną, o galvą nuleistą.'
       },
       bye: {
-        '1': 'Stenkis nekraujuoti ant nieko svarbaus.'
+        '1': 'Saugok save ten lauke.'
       }
     },
     goblinTrader: {
       hello: {
-        '1': 'Aukštas! Aukštas padarė sutartį. Karalius sako būk malonus aukštam.',
-        '2': 'Grik malonus. Grik turi blizgučių. Aukštas turi aukso. Gera pora.'
+        '1': 'Tu tas, kuris sudarė sutartį. Mano karalius sako, kad esi čia laukiamas.',
+        '2': 'Aš Grik. Parduodu, ką gamina goblinai. Geras darbas, sąžininga kaina.'
       },
       again: {
-        '1': 'Aukštas grįžta! Grik žinojo. Blizgučiai šaukia aukštą.'
+        '1': 'Drauge. Gera tave vėl matyti.'
       },
       trade: {
-        '1': 'Karalius sako prekiauk, Grik prekiauja. Blizgutis už blizgutį. Geras blizgutis.'
+        '1': 'Žiūrėk, prašau. Mano šeima tai padarė.'
       },
       king: {
-        '1': 'Karalius storas ir laimingas. Nebeplėšti. Plėšti sunkus darbas.',
-        '2': 'Karalius sako aukštas turi gerą liežuvį. Aukščiausias goblinų pagyrimas. Beveik.',
+        '1': 'Dabar jis gerai valgo. Daugiau antpuolių nėra. Mano tauta mažiau alkana.',
+        '2': 'Jis dažnai apie tave kalba. Su pagarba.',
         say: 'Kaip tavo karalius?'
       },
       town: {
-        '1': 'Žmonės per daug prausiasi. Bet pyragas! Grik nežinojo apie pyragą.',
+        '1': 'Žmonės vis dar spokso. Bet kepėjas duoda man pyrago. Man patinka pyragas.',
         say: 'Kaip tau Sunfordas?'
       },
       rumor: {
         crags: {
-          '1': 'Griko pusbroliai kasa į šiaurę, juodame akmenyje. Sako, ten ugnis vaikšto. Grik lieka čia.'
+          '1': 'Mano pusbroliai kasa juodą uolą šiaurėje. Sako, ten dabar vaikšto ugnis.'
         },
         deep: {
-          '1': 'Gilios vietos bunda, aukštas. Goblinai jaučia kojomis.'
+          '1': 'Kažkas bunda gelmėse. Goblinai tai jaučia žemėje.'
         }
       },
       shopBack: {
-        '1': 'Gera prekyba! Aukštas ateis vėl, taip?'
+        '1': 'Ačiū. Ateik dar.'
       },
       bye: {
-        '1': 'Iki, aukštas! Nemirk. Mirę nieko neperka.'
+        '1': 'Eik saugiai, drauge.'
       }
     },
     captainHale: {
       hello: {
-        '1': 'Dar vienas kardas. Gerai. Nustojau klausti, iš kur jie atsiranda.',
+        '1': 'Dar vienas kardas. Gerai. Mums reikia kiekvieno.',
         '2': 'Kapitonas Hale. Vadovauju tam, kas liko iš Oakhaveno sargybos.'
       },
       saved: {
-        '1': 'Vartai atlaikė. Trys šimtai metų, o dabar dar kartą. Esu skolingas tau savo miestą.'
+        '1': 'Vartai atlaikė. Trys šimtai metų ir dar vieni. Esu tau skolingas.'
       },
       ending: {
-        '1': 'Išsprendei Siaubo tvirtovės sostą. Mano sienos atrodo mažesnės nei anksčiau.'
+        '1': 'Sako, tu nulėmei Siaubo tvirtovę. Mano sienos prieš tai atrodo mažos.'
       },
       again: {
-        '1': 'Sienos vis dar stovi. Šiandien.'
+        '1': 'Sienos vis dar stovi. Bent šiandien.'
       },
       after: {
-        '1': 'Oakhaven prisimena, drauge. Ir aš.'
+        '1': 'Gera tave matyti. Oakhavenas nepamiršo.'
       },
       quest: {
-        '1': 'Karo vado kariuomenė mus apsupo. Kragas. Jis nekovoja veltui.',
+        '1': 'Blogai. Karo vadas vardu Kragas mus apsupo, ir jis nekaujasi veltui.',
         '2': 'Kas jam moka?',
         '3': 'Pelenų sindikatas. Jie nori savo miesto, o mūsiškis turi sienas.',
-        '4': 'Sutriuškink jį Oakhaveno prieigose. Ten viskas išsispręs.',
-        say: 'Kokia padėtis?'
+        '4': 'Sunaikink jo stovyklą Oakhaveno prieigose. Ten tai baigsis, vienaip ar kitaip.',
+        say: 'Kaip blogai?'
       },
       siege: {
-        '1': 'Jie pasiūlė tau trečdalį miesto. Žinau. Man pasiūlė ketvirtadalį.',
-        '2': 'Sindikatas dabar medžioja tave visais keliais. Saugok nugarą.',
-        say: 'Apie apgultį…'
+        '1': 'Jie pasiūlė tau trečdalį miesto, ar ne? Man pasiūlė ketvirtadalį.',
+        '2': 'Sindikatas dabar sekios paskui tave. Saugokis keliuose.',
+        say: 'Apie apgultį...'
       },
       town: {
-        '1': 'Prekybos miestas. Viskas, kas juda tarp lygumų ir kalnų, čia moka muitą.',
-        '2': 'Todėl visi jo nori. Todėl aš jo neatiduosiu.',
+        '1': 'Prekybos miestas. Viskas, kas keliauja tarp lygumų ir kalnų, čia moka muitą.',
+        '2': 'Todėl visi jo nori. Ir todėl aš jo neatiduosiu.',
         say: 'Papasakok apie Oakhaveną.'
       },
       order: {
-        '1': 'Tarnauju Oakhavenui. Ordinas ir aš daugumą dienų sutariame. Tai ne tas pats.',
-        say: 'Ar tarnauji Geležiniam ordinui?'
+        '1': 'Atsakau Oakhavenui. Ordinas ir aš sutariame daugumą dienų. Ne kiekvieną.',
+        say: 'Ar atsakai Geležiniam ordinui?'
       },
       rumor: {
         crags: {
-          '1': 'Į šiaurę nuo miško žemė juoda ir dega. Pelenų uolos. Kultistai maitina ugnį.'
+          '1': 'Į šiaurę nuo miško žemė juoda ir dega. Pelenų uolos. Daugiausia kultistai.'
         },
         mines: {
-          '1': 'Ironholdas nustojo siųsti plieną. Kažkas negerai jo kasyklose.'
+          '1': 'Ironholdas nustojo siųsti plieną. Kažkas negerai jų kasyklose.'
         },
         north: {
-          '1': 'Tolimoji šiaurė nutilo. Mano patirtimi, tyla yra blogiau.'
+          '1': 'Tolimoji šiaurė nutilo. Mano patirtimi, tai niekada nėra gerai.'
         }
       },
       bye: {
-        '1': 'Laikyk kardą laisvai.'
+        '1': 'Laikyk kardą arti.'
       }
     },
     oakArmorer: {
       hello: {
-        '1': 'Jei nori šalmo, pavėlavai. Jie visi ant sienos.',
-        '2': 'Odo. Šarvakalys. Pavargęs.'
+        '1': 'Jei ieškai šalmo, atsiprašau. Jie visi ant sienos.',
+        '2': 'Odo. Kaliu šarvus. Pastaruoju metu mažai miegojau.'
       },
       again: {
-        '1': 'Vis dar čia. Vis dar trūksta atsargų.'
+        '1': 'Vis dar čia. Vis dar trūksta beveik visko.'
       },
       trade: {
-        '1': 'Pusė mano atsargų iškeliavo ant sienų. Imk, kas liko.'
+        '1': 'Pusė atsargų iškeliavo ant sienos. Imk, kas liko, jei tinka.'
       },
       who: {
-        '1': 'Dvidešimt metų ginkluoju šį miestą. Niekada nemaniau pamatysiąs viską vilkima vienu metu.'
+        '1': 'Šarvuoju šį miestą dvidešimt metų. Niekada nemačiau visko nešiojamo vienu metu.'
       },
       armor: {
-        '1': 'Plokštė, jei stovi vietoje. Oda, jei ne. Chalatai, jei mėgsti mirti.',
-        say: 'Kokius šarvus man vilkėti?'
+        '1': 'Plokštės, jei laikaisi vietoje. Oda, jei juda. Rūbai, jei esi greitas.',
+        say: 'Kokius šarvus turėčiau dėvėti?'
       },
       rumor: {
         backRoom: {
-          '1': 'Jei apgultis bus pralaužta, atidarysiu galinį kambarį. Gerąją plokštę. Pralauk ją man, gerai?'
+          '1': 'Jei apgultis bus palaužta, atidarysiu galinį kambarį. Geras plokščių šarvas ten.'
         }
       },
       shopBack: {
-        '1': 'Atlaikys. Tikriausiai.'
+        '1': 'Atlaikys. Iki šiol atlaikė.'
       },
       bye: {
-        '1': 'Laikyk galvą nuleistą.'
+        '1': 'Laikyk galvą nuleistą ten lauke.'
       }
     },
     oakMasterArmorer: {
       hello: {
-        '1': 'Tu! Užeik. Galinis kambarys atidarytas, ir atidarytas TAU.',
-        '2': 'Dabar mane vadina Meistru Odo. Verslas klesti, kai miestas gyvas.'
+        '1': 'Štai ir tu! Užeik. Galinis kambarys atidarytas, ir jis atidarytas tau.',
+        '2': 'Dabar mane vadina meistru Odo. Juokinga, ką šiek tiek taikos padaro verslui.'
       },
       ending: {
-        '1': 'Nuo mano vartų iki Siaubo tvirtovės. Visiems sakau, kad aš derinau tavo šarvus.'
+        '1': 'Nuo mūsų vartų iki Siaubo tvirtovės. Visiems sakau, kad aš derinau tavo šarvus.'
       },
       again: {
-        '1': 'Vartų didvyris. Ko šiandien?'
+        '1': 'Gera tave matyti. Ko šiandien?'
       },
       trade: {
-        '1': 'Išgelbėjai šį miestą. Gerasis plokštės komplektas iš galinio kambario – tau.'
+        '1': 'Geras plokščių šarvas išneštas. Esi daugiau nei nusipelnęs pažiūrėti.'
       },
       town: {
-        '1': 'Turtingas. Triukšmingas. Pilnas pirklių, skundžiančių muitą.',
-        '2': 'Nuostabu. Nemiegojau savaitę.',
-        say: 'Kaip miestas?'
+        '1': 'Judrus. Triukšmingas. Pilnas pirklių, skundžiančių muitu.',
+        '2': 'Nuostabu. Savaitėmis neturėjau ramios valandos.',
+        say: 'Kaip miestui sekasi?'
       },
       rumor: {
         mines: {
-          '1': 'Mano plienas ateina iš Ironholdo, o Ironholdas nutilo. Kas nors turėtų pažiūrėti jo kasyklas.'
+          '1': 'Mano plienas iš Ironholdo, o jie nutilo. Kas nors turėtų patikrinti jų kasyklas.'
         },
         tundra: {
-          '1': 'Geriausia rūda, kokią mačiau, atkeliavo iš tundros. Vyrai, kurie ją atvežė, daugiau negrįžo.'
+          '1': 'Geriausia rūda, kurią kada dirbau, buvo iš tundros. Vyrai, ją radę, negrįžo.'
         }
       },
       shopBack: {
-        '1': 'Jei netinka, grįžk. Priderinsiu.'
+        '1': 'Jei netinka, atnešk atgal. Pataisysiu.'
       },
       bye: {
-        '1': 'Oakhaveno vartai tau visada atviri. Tik tau.'
+        '1': 'Čia visada laukiamas.'
       }
     },
     oakWeapons: {
       hello: {
-        '1': 'Perki ar žiūri? Žiūrėti nieko nekainuoja. Liesti kainuoja pirštą.',
-        '2': 'Senna. Parduodu ašmenis. Neklausiu, kam jie.'
+        '1': 'Žiūri ar perki? Tinka abu. Tik nelieskite ašmenų.',
+        '2': 'Senna. Parduodu ašmenis. Ką su jais darai, tavo reikalas.'
       },
       saved: {
-        '1': 'Apgultis pralaužta. Gaila. Karas geras verslui. Taika gera skoloms išieškoti.'
+        '1': 'Taigi apgultis palaužta. Gerai miestui. Karas, tiesa, buvo geresnis mano verslui.'
       },
       again: {
         '1': 'Sugrįžai ko nors aštresnio?'
       },
       trade: {
-        '1': 'Aštru, subalansuota ir parduodama tam, kas moka. Šiandien tai tu.'
+        '1': 'Aštrūs, subalansuoti ir sąžininga kaina. Nesiskubink.'
       },
       who: {
-        '1': 'Pardavinėjau kardus abiem pusėms trijuose karuose. Aš vis dar čia. Jie dažniausiai – ne.'
+        '1': 'Pardaviau abiem pusėms trijuose karuose. Vis dar čia. Dauguma jų ne.'
       },
       rumor: {
         krag: {
-          '1': 'Krago vyrai nešioja gerą plieną. Sindikato pinigai. Atimk iš jų, jei gali.'
+          '1': 'Krago vyrai nešioja gerą plieną. Sindikato pinigai. Verta paimti, jei pasitaikys proga.'
         },
         which: {
-          '1': 'Greiti ašmenys nori Vikrumo. Šaunamieji ginklai ir lankai nori Meistrystės. Žinok, kuris esi, prieš mokėdamas man.'
+          '1': 'Greiti ašmenys nori Vikrumo. Lankai ir šaunamieji ginklai nori Meistrystės. Žinok, koks esi.'
         }
       },
       shopBack: {
-        '1': 'Kraujas nusivalo. Rūdys – ne. Patepk alyva.'
+        '1': 'Tepk aliejumi. Rūdys sugadina gerą ašmenį greičiau nei kaulas.'
       },
       bye: {
-        '1': 'Nemirk man skolingas.'
+        '1': 'Pasistenk nemirti man skolingas.'
       }
     },
     trainerShadow: {
       hello: {
-        '1': 'Neatsisuk. Juokauju. Atsisuk.',
-        '2': 'Mane vadina Šnabždesiu. Mokau žmones atvykti nepastebėtus.'
+        '1': 'Negirdėjai, kaip priėjau iš už nugaros. Dauguma negirdi.',
+        '2': 'Mane vadina Šnabždesiu. Mokau žmones, kaip likti nepastebėtiems.'
       },
       fallen: {
-        '1': 'Miestas dabar tylesnis. Mažiau sargybinių. Man gana patinka.'
+        '1': 'Miestas dabar tylesnis. Mažiau sargybinių. Lengvesnis darbas kai kuriems iš mūsų.'
       },
       friend: {
-        '1': 'Sindikatas laiko tave draugu. Draugai moka mažiau. Draugai ir per daug žino.'
+        '1': 'Sindikatas laiko tave draugu. Draugai moka mažiau. Atsimink tai.'
       },
       foe: {
-        '1': 'Sindikatas nori tavo mirties. Man mokėjo už mokymą, ne už žudymą. Tau pasisekė.'
+        '1': 'Sindikatas nori tavo mirties. Man mokėjo už mokymą, ne už žudymą. Taigi, pamokos.'
       },
       again: {
-        '1': 'Esi triukšmingesnis nei pernai. Dirbsime su tuo.'
+        '1': 'Vis dar per garsus. Dirbsime prie to.'
       },
       train: {
         '1': 'Tyliai tada. Žiūrėk į mano kojas, ne rankas.'
       },
       class: {
-        '1': 'Peilis, kuris jau už tavo nugaros. Išeik iš tamsos, smogk ir dink.',
-        '2': 'Vikrumas visų pirma. Meistrystė, kai nori, kad pjūvis svertų.',
+        '1': 'Kažkas, kas jau stovi už tavo nugaros. Vidun, vienas pjūvis ir dingęs.',
+        '2': 'Vikrumas svarbiausias. Meistrystė, jei nori, kad pjūvis skaičiuotųsi.',
         say: 'Kas yra Šešėlių ašmenys?'
       },
       ready: {
         strong: {
-          '1': 'Gerai judies. Imk, ką moku. Atsinešk Meistrystės dūmams.'
+          '1': 'Dabar gerai juduji. Imk likusį. Atsineški Meistrystės dūmams.'
         },
         able: {
-          '1': 'Gerai. Tavo rankos pakankamai greitos kitam žingsniui.'
+          '1': 'Tavo rankos pakankamai greitos. Kitas žingsnis.'
         },
         weak: {
-          '1': 'Vaikštai kaip vežimas. Daugiau Vikrumo. Tada pakalbėsime.'
+          '1': 'Dar ne. Esi sunkus ant kojų. Lavink Vikrumą.'
         }
       },
       syndicate: {
-        '1': 'Žmonės, pastebėję, kad įstatymai parduodami. Neteisiu. Išrašau sąskaitą.',
+        '1': 'Žmonės, pastebėję, kad įstatymas turi kainą. Aš neteisiu. Tiesiog gaunu atlygį.',
         say: 'Kas yra Pelenų sindikatas?'
       },
       trainBack: {
-        '1': 'Dabar eik ir padaryk tai ten, kur niekas nemato.'
+        '1': 'Dabar treniruokis ten, kur niekas nemato.'
       },
       bye: {
         '1': 'Tu manęs niekada nematei.'
@@ -1805,147 +1805,147 @@ export default {
     },
     trainerSovereign: {
       hello: {
-        '1': 'Gali prieiti. Ne taip arti.',
-        '2': 'Lordas Castellan, senojo Oakhaveno kraujo. Aš mokau vadovauti.'
+        '1': 'Gali prieiti arčiau. Štai, tiek arti pakanka.',
+        '2': 'Lordas Castellan, seniausios Oakhaveno giminės. Mokau vadovauti.'
       },
       saved: {
-        '1': 'Mano miestas stovi, o kartu ir mano šeimos vardas. Turi lordo dėkingumą. Jis daug vertas.'
+        '1': 'Mano miestas stovi, o kartu ir mano giminės vardas. Turi mano padėką. Nuoširdžiai.'
       },
       friend: {
-        '1': 'Ordino draugas. Sumažinsiu savo mokestį. Niekam nesakyk.'
+        '1': 'Ordino draugas. Sumažinsiu mokestį. Prašau, neskleisk to.'
       },
       foe: {
-        '1': 'Ordinas paskelbė tavo vardą. Vis tiek mokysiu. Moneta yra moneta, deja.'
+        '1': 'Ordinas turi tavo vardą sąraše. Vis tiek mokysiu. Moneta yra moneta.'
       },
       again: {
-        '1': 'A. Mano daugiausiai žadantis pavaldinys.'
+        '1': 'Ak, vėl tu. Tęsiame?'
       },
       train: {
-        '1': 'Gerai. Stebėk, kaip duodamas įsakymas.'
+        '1': 'Labai gerai. Žiūrėk, kaip duodamas įsakymas ir kaip jis vykdomas.'
       },
       class: {
-        '1': 'Kam kovoti vienam, kai kiti gali tai padaryti už tave? Pašauk sargybinius. Įsakyk jiems.',
-        '2': 'Tam reikia Charizmos. Vadovauti murmant neįmanoma.',
+        '1': 'Kažkas, kas nekaujasi vienas. Šauki sargybinius, ir jie kaunasi už tave.',
+        '2': 'Reikia Charizmos. Niekas neseka lyderio, kurio negirdi.',
         say: 'Kas yra Didysis valdovas?'
       },
       ready: {
         strong: {
-          '1': 'Turi įspūdį. Imk likusias mano pamokas ir stovėk tiesiai.'
+          '1': 'Dabar turi tikrą buvimą. Imk likusias mano pamokas.'
         },
         able: {
           '1': 'Tavo balsas girdimas. Esi pasiruošęs kitai pamokai.'
         },
         weak: {
-          '1': 'Niekas neįeitų paskui tave net į kepyklą. Daugiau Charizmos.'
+          '1': 'Bijau, kad dar niekas tavęs neseks. Lavink Charizmą.'
         }
       },
       family: {
-        '1': 'Mes pastatėme sienas, ant kurių stovi kapitonas Hale. Jis pamiršta. Aš primenu. Dažnai.',
+        '1': 'Mes pastatėme sienas, ant kurių stovi kapitonas Hale. Jis tai pamiršta. Aš primenu.',
         say: 'Papasakok apie savo šeimą.'
       },
       trainBack: {
-        '1': 'Dabar eik ir būk išklausytas.'
+        '1': 'Tada eik. Vadovauk kam nors.'
       },
       bye: {
-        '1': 'Gali eiti.'
+        '1': 'Geros dienos.'
       }
     },
     oakHealer: {
       hello: {
-        '1': 'Kitas! O. Gali vaikščioti. Malonus pokytis.',
-        '2': 'Brolis Fenn. Keturiasdešimt sužeistųjų ant sienos, ir tik vienas aš.'
+        '1': 'Kitas! O, tu vaikštai. Malonus pokytis.',
+        '2': 'Brolis Fenn. Keturiasdešimt sužeistųjų ant sienos ir tik vienas aš.'
       },
       saved: {
-        '1': 'Trys dienos be naujų sužeistųjų! Nežinau, ką veikti su rankomis.'
+        '1': 'Trys dienos be naujų sužeistųjų. Vos žinau, ką su savimi daryti.'
       },
       again: {
-        '1': 'Vėl tu, ir vis dar vaikštai. Pritariu.'
+        '1': 'Vėl tu, ir savo kojomis. Gerai.'
       },
       heal: {
-        '1': 'Atsigulk. Ne, ant švaraus gulto. Štai. Visos kolbos pripildytos. Eik.'
+        '1': 'Atsigulk čia, ant švaraus gulto. Štai. Kolbos pripildytos, eik.'
       },
       mana: {
-        '1': 'Manos gėrimas! Skonis kaip centų. Bet veikia.'
+        '1': 'Manos gėrimas. Skonis kaip senų monetų, bet veikia.'
       },
       potions: {
-        '1': 'Ilgesnis diržas talpina daugiau kolbų. Jas parduodu. Kolbas pripildau nemokamai.',
+        '1': 'Su ilgesniu diržu, taip. Tuos parduodu. Kolbų pildymas nemokamas.',
         say: 'Ar galiu nešti daugiau eliksyrų?'
       },
       rumor: {
         archers: {
-          '1': 'Krago lankininkai taikosi į kojas. Judėk ten, ir jie nepataikys.'
+          '1': 'Krago lankininkai taikosi žemai. Judėk, ir dažniausiai nepataikys.'
         },
         north: {
-          '1': 'Nudegimai, nušalimai ir vienas vyras, prisiekiantis, kad jį įkando statula. Šiaurė nėra maloni.'
+          '1': 'Matau nudegimų, nušalimų ir vieną vyrą, kuris prisiekia, kad jį įkando statula.'
         }
       },
       healBack: {
-        '1': 'Eik jau. Kitą kartą ateik pasikalbėti, ne susiūti.'
+        '1': 'Eik. Kitąkart ateik pasikalbėti, o ne siuvimui.'
       },
       bye: {
-        '1': 'Išvaikščiok! Tai gydytojo patarimas.'
+        '1': 'Saugok save. Ir ką nors suvalgyk.'
       }
     },
     blackMarket: {
       hello: {
-        '1': 'Jokių vardų. Bet tu atidarei vartus. Tave pažįstu.',
-        '2': 'Vadink mane Supirkėju. Viskas čia nukrito nuo vežimo.'
+        '1': 'Čia jokių vardų. Bet žinau, kas atidarė vartus. Visi žino.',
+        '2': 'Gali vadinti mane Supirkėju. Viskas čia iš kažkur atkeliavo.'
       },
       foe: {
-        '1': 'Sindikatas šiandien tavęs nemėgsta. Tavo auksą vis dar mėgsta.'
+        '1': 'Sindikatas dabar tavęs nemėgsta. Tačiau tavo auksas laukiamas.'
       },
       again: {
-        '1': 'A. Mano geriausias pirkėjas. Niekas nesekė? Gerai.'
+        '1': 'Vėl čia. Niekas tavęs nesekė, tikiuosi?'
       },
       trade: {
-        '1': 'Jokių vardų, jokių klausimų. Sindikatas pasiima savo dalį, tu – prekes.'
+        '1': 'Jokių klausimų jokia kryptimi. Sindikatas pasiima savo dalį, tu gauni prekes.'
       },
       who: {
-        '1': 'Prieš gaisrą pardavinėjau žvakes. Legaliai. Tai buvo siaubinga.'
+        '1': 'Prieš gaisrą pardavinėjau žvakes. Sąžiningas darbas. Neatsipirko.'
       },
       armor: {
-        '1': 'Šarvakalių nebėra, drauge. Sudegė. Turėtum žinoti.',
+        '1': 'Šarvakalių nebėra, drauge. Tu žinai kodėl geriau nei aš.',
         say: 'Ar parduodate šarvų?'
       },
       rumor: {
         citadel: {
-          '1': 'Pernai tolimoje šiaurėje atsirado tvirtovė. Niekas jos nestatė. Jos sienos dūzgia.'
+          '1': 'Tolimojoje šiaurėje pernai atsirado tvirtovė. Niekas jos nestatė.'
         },
         crystals: {
-          '1': 'Kažkas superka kiekvieną Tuštumos kristalą rinkoje. Ne mes. Tai kelia nerimą.'
+          '1': 'Kažkas superka kiekvieną Tuštumos kristalą, kurį randa. Ne mes. Tai man neramu.'
         }
       },
       shopBack: {
         '1': 'Tu čia niekada nebuvai.'
       },
       bye: {
-        '1': 'Saugokis griuvėsių.'
+        '1': 'Žiūrėk, kur žengi. Griuvėsiai slenka.'
       }
     },
     trainerBlood: {
       hello: {
-        '1': 'Lankytojas. Saugokis stiklainių.',
-        '2': 'Daktaras Sangrel. Nauji Oakhaveno šeimininkai neklausia, ko mokau. Gaivu.'
+        '1': 'Lankytojas. Prašau, nelieskite stiklainių.',
+        '2': 'Daktaras Sangrel. Nauji Oakhaveno šeimininkai neklausia, ko mokau. Tai ramina.'
       },
       found: {
-        '1': 'Radai mane. Mažai kas ieško gydytojo tokioje vietoje.',
-        '2': 'Daktaras Sangrel. Miestai degina mano rūšį, todėl dirbu ten, kur jų nėra.'
+        '1': 'Radai mane. Nedaug kas ieško gydytojo tokioje vietoje.',
+        '2': 'Daktaras Sangrel. Miestai degina tokius kaip aš, todėl dirbu ten, kur jų nėra.'
       },
       friend: {
-        '1': 'Sindikatas už tave laiduoja. Mano mokestis jo draugams mažesnis. Mano reikalavimai – ne.'
+        '1': 'Sindikatas už tave kalba. Jo draugams imu mažiau. Mano standartai lieka tie patys.'
       },
       foe: {
-        '1': 'Sindikatas man mokėtų už tavo kraują. Mieliau, kad išleistum jį mano pamokoms.'
+        '1': 'Sindikatas gerai mokėtų už tavo kraują. Verčiau matyčiau, kad išleistum jį čia.'
       },
       again: {
-        '1': 'Esi išbalęs. Gerai. Tinka darbui.'
+        '1': 'Atrodai išblyškęs. Gerai. Tinka darbui.'
       },
       train: {
-        '1': 'Atsiraitok rankovę. Skaudės. Tame ir esmė.'
+        '1': 'Atsisuk rankovę. Skaudės. Tai gana esmė.'
       },
       class: {
-        '1': 'Už jėgą moki savo sveikata. Tada ją atgal išgeri iš priešo.',
-        '2': 'Ištvermė yra tavo piniginė. Intelektas nulemia, kaip gerai ją išleidi.',
+        '1': 'Už jėgą moki savo sveikata, tada atsiimi ją iš priešų.',
+        '2': 'Ištvermė yra tai, ką gali išleisti. Intelektas – kaip gerai išleidi.',
         say: 'Kas yra Kraujo alchemikas?'
       },
       ready: {
@@ -1953,106 +1953,106 @@ export default {
           '1': 'Nepaprasta sudėtis. Gali išmokti beveik viską.'
         },
         able: {
-          '1': 'Tavo kraujas pakankamai stiprus kitai pamokai.'
+          '1': 'Esi pakankamai tvirtas kitai pamokai.'
         },
         weak: {
-          '1': 'Apalptum nuo pirmo įpjovimo. Daugiau Ištvermės, prašau.'
+          '1': 'Apalptum nuo pirmo įpjovimo. Pirmiausia sustiprink Ištvermę, prašau.'
         }
       },
       jars: {
-        '1': 'Savanoriai. Dažniausiai.',
-        say: 'Kas tuose stiklainiuose?'
+        '1': 'Mėginiai. Dažniausiai savanoriškai duoti.',
+        say: 'Kas yra stiklainiuose?'
       },
       trainBack: {
-        '1': 'Žinoma, rašyk užrašus. Mokslo labui.'
+        '1': 'Rašyk pastabas. Norėčiau išgirsti, kaip sekasi.'
       },
       bye: {
-        '1': 'Likk sveikas. Kitaip man nenaudingi.'
+        '1': 'Būk sveikas. Aš rimtai.'
       }
     },
     syndicateBoss: {
       hello: {
-        '1': 'Taigi. Tu atidarei vartus. Sėskis. Užsitarnavai kėdę.',
-        '2': 'Mane vadina Madam Ash. Oakhaven dabar mano. Iš dalies ir tavo.'
+        '1': 'Taigi tu atidarei vartus. Sėskis. Esi pelnęs kėdę.',
+        '2': 'Mane vadina Madam Ash. Oakhavenas dabar mūsų. Iš dalies ačiū tau.'
       },
       throneOurs: {
-        '1': 'Siaubo tvirtovės sostas. Mūsų. Tu geriausia mano investicija.'
+        '1': 'Siaubo tvirtovė mūsų rankose. Buvai vertas kiekvienos monetos.'
       },
       throneLost: {
-        '1': 'Atidavei sostą. Kitam. Apie tai pakalbėsime. Ne šiandien.'
+        '1': 'Atidavei sostą kitam. Apie tai pakalbėsime. Ne šiandien.'
       },
       foe: {
-        '1': 'Stojai mums skersai kelio. Vis tiek sėskis. Man patinka apžiūrėti problemą, prieš ją išsprendžiant.'
+        '1': 'Dirbai prieš mus. Vis tiek sėskis. Mėgstu žinoti, su kuo turiu reikalų.'
       },
       again: {
-        '1': 'Mano mėgstamiausias išdavikas. Ką Sindikatas gali padaryti dėl tavęs?'
+        '1': 'Vėl čia. Ką Sindikatas gali padaryti dėl tavęs?'
       },
       cut: {
-        '1': 'Trečdalis griuvėsių, brangusis. Štai šio sezono dalis.',
-        '2': 'Ji augs. Griuvėsiai labai pelningi, kai valdai vienintelę jų rinką.',
-        say: 'Pažadėjai man trečdalį Oakhaveno.'
+        '1': 'Ir gausi. Dalį griuvėsių, kol kas. Štai šio sezono.',
+        '2': 'Ji augs. Griuvėsiai labai gerai moka, kai valdai vienintelę jų rinką.',
+        say: 'Man buvo pažadėta Oakhaveno dalis.'
       },
       syndicate: {
-        '1': 'Ko nori visi. Mes tik neapsimetinėjame kitaip.',
-        '2': 'Likk mūsų draugas, ir Šnabždesys su Daktaru ims iš tavęs mažiau. Ištikimybė turi kainoraštį.',
-        say: 'Ko nori Sindikatas?'
+        '1': 'To, ko nori visi. Mes tik neapsimetame kitaip.',
+        '2': 'Būk draugiškas, ir Šnabždesys su Daktaru imsis mažiau.',
+        say: 'Ko iš tikrųjų nori Sindikatas?'
       },
       order: {
-        '1': 'Žinoma. Sudeginai vieną jo miestą. Nešiokis daugiau eliksyrų.',
-        say: 'Geležinis ordinas mane medžioja.'
+        '1': 'Žinoma, kad ieško. Sudeginai vieną jų miestų. Pasiimk papildomų gėrimų.',
+        say: 'Geležinis ordinas man ieško.'
       },
       rumor: {
         core: {
-          '1': 'Nykštukai savo kasyklose rado kažką. Šerdį. Aš jos noriu. Atnešk ją mums ir pasakyk sumą.'
+          '1': 'Nykštukai savo kasyklose rado kažką. Šerdį. Atnešk ją mums ir įvardink kainą.'
         },
         sold: {
-          '1': 'Šerdis atvyko sveika. Turėtum pamatyti, ką ji daro spynai.'
+          '1': 'Šerdis atkeliavo saugiai. Nustebtum, ką ji daro spynai.'
         },
         north: {
-          '1': 'Viskas, ką verta vogti, persikėlė į šiaurę. Ir mes.'
+          '1': 'Viskas, kas verta turėti, persikėlė į šiaurę. Ir mes.'
         }
       },
       bye: {
-        '1': 'Nebūk svetimas. Svetimus seka.'
+        '1': 'Nebūk svetimas. Mes stebime svetimus.'
       }
     },
     forgemaster: {
       hello: {
         '1': 'Atėjai per kasyklas. Užuodžiu dulkes ant tavęs.',
-        '2': 'Dorn. Ironholdo kalvės meistras. Turiu kalno dydžio problemą.'
+        '2': 'Dorn. Ironholdo kalvės meistras. Ir turiu kalno dydžio bėdą.'
       },
       destroyed: {
-        '1': 'Šviesa užgeso, o golemai laužas. Mano kalnakasiai vakar dainavo. Pirmą kartą per metus.'
+        '1': 'Šviesa užgeso, o golemai laužas. Mano kalnakasiai vakar vakare dainavo. Pirmą kartą per metus.'
       },
       studied: {
-        '1': 'Mėlyna ugnis mano kalvėse ir chalatai salėse. Darbas geras. Priprasiu prie chalatų.'
+        '1': 'Mėlyna ugnis mano kalvėse ir apsiaustais vilkintys mokslininkai mano menėse. Bent jau darbas geras.'
       },
       sold: {
-        '1': 'Pardavei ją. Golemai vis dar vaikšto, o mano kasyklos vis dar kapas. Pasitrauk iš mano šviesos.'
+        '1': 'Pardavei. Golemai vis dar vaikšto, o mano kasyklos vis dar kapas. Palik mane ramybėje.'
       },
       ending: {
-        '1': 'Taigi sostas išspręstas. Gerai. Dabar karalystė gali grįžti prie ginčų dėl geležies.'
+        '1': 'Taigi sostas išspręstas. Gerai. Gal dabar galėsime grįžti prie kasimo.'
       },
       again: {
-        '1': 'Kalbėk. Kalvė nelaukia.'
+        '1': 'Kas yra? Kalvė nelaukia.'
       },
       quest: {
-        '1': 'Kasėme geležies ir pataikėme į širdį. Eterio šerdį. Ji plaka ten apačioje, tamsoje.',
+        '1': 'Kasėme geležį ir radome širdį. Eterio šerdį. Jauti, kaip ji plaka.',
         '2': 'O golemai?',
-        '3': 'Jie vaikšto jos ritmu. Trys jėgos man rašė dėl jos. Visos mandagios. Netikiu nė viena.',
-        '4': 'Pirmas ją pasieksi, Ironholdo kasyklų dugne. Tada spręsti tau.',
-        say: 'Kas nutiko kasyklose?'
+        '3': 'Jie juda jos ritmu. Trys galios rašė prašydamos jos. Nepasitikiu nė viena.',
+        '4': 'Pasieksi ją pirmas, Ironholdo kasyklų dugne. Kas bus paskui, priklauso nuo tavęs.',
+        say: 'Kas nutiko ten apačioje, kasyklose?'
       },
       core: {
-        say: 'Apie šerdį…',
+        say: 'Apie šerdį...',
         destroy: {
-          '1': 'Sudaužei stebuklą, kad išgelbėtum mano žmones. Ordinas padėkai atsiuntė šarvakalių. Aš atsiunčiau alaus.'
+          '1': 'Sudaužei stebuklą, kad išgelbėtum mano tautą. Ordinas atsiuntė šarvakalių. Aš atsiunčiau alaus.'
         },
         study: {
-          '1': 'Rato meistrautojai beprotiški, bet jų ginklai šauna tiesiai. Sąžininga sutartis.'
+          '1': 'Rato žmonės keisti, bet jų ginklai šauna tiesiai. Sąžininga.'
         },
         sell: {
-          '1': 'Auksas. Padarei tai dėl aukso. Tikiuosi, jis tave sušildys.'
+          '1': 'Tai padarei dėl aukso. Tikiuosi, jis tave sušildys.'
         }
       },
       town: {
@@ -2062,46 +2062,46 @@ export default {
       },
       rumor: {
         tundra: {
-          '1': 'Į rytus nuo Uolų žemė pabąla. Speigo tundra. Milžinai ir mirusieji, kurie neguli.'
+          '1': 'Į rytus nuo Uolų žemė pabąla. Speigo tundra. Milžinai, ir dar blogiau.'
         },
         citadel: {
-          '1': 'Mano žvalgai šiaurėje matė tvirtovę, kurios pernai ten nebuvo. Nemėgstu naujų kalnų.'
+          '1': 'Mano žvalgai šiaurėje matė tvirtovę, kurios pernai nebuvo. Man tai nepatinka.'
         },
         fortress: {
-          '1': 'Siaubo tvirtovė – ten viskas baigiasi. Kiekvienas kelias į šiaurę veda prie jos vartų.'
+          '1': 'Viskas baigiasi Siaubo tvirtovėje. Kiekvienas kelias į šiaurę ten veda.'
         }
       },
       bye: {
-        '1': 'Smok tiksliai.'
+        '1': 'Gero kelio.'
       }
     },
     ironWeapons: {
       hello: {
-        '1': 'Rankas nuo ekspozicijos. Jie aštrūs abiem galais.',
-        '2': 'Hilda Kūjarankė. Nykštukų kalta, kiekvienas gabalas.'
+        '1': 'Atsargiai su ekspozicija. Jie aštrūs iš abiejų pusių.',
+        '2': 'Hilda Kūjarankė. Kiekvieną gabalą čia nukalė nykštukų rankos.'
       },
       dragon: {
-        '1': 'Nužudei slibiną? Vienu iš MANO? Ne? Meluok man. Pasakyk, kad vienu iš mano.'
+        '1': 'Nužudei drakoną? Tikiuosi, vienu iš mano ašmenų.'
       },
       again: {
         '1': 'Sugrįžai tikro plieno?'
       },
       trade: {
-        '1': 'Nykštukų kalta. Jei lūš, tai dėl tavęs.'
+        '1': 'Nykštukų kalti. Jei vienas lūš, noriu žinoti kaip.'
       },
       who: {
-        '1': 'Mano motina kalė karaliams. Aš kaliu kiekvienam, kas užeina. Laikai keičiasi.'
+        '1': 'Mano motina kalė karaliams. Aš kalu kiekvienam, kas įeina pro duris.'
       },
       rumor: {
         golems: {
-          '1': 'Kasyklų golemai pagaminti iš mūsų pačių geležies. Tai, tiesą sakant, gėdinga.'
+          '1': 'Tie golemai apačioje padaryti iš mūsų pačių geležies. Dyla, sakau tau.'
         },
         arm: {
-          '1': 'Ašmenys padaro pusę darbo. Tavo Jėga – likusią. Nekaltink ašmenų.'
+          '1': 'Geras ašmuo padaro pusę darbo. Tavo Jėga turi padaryti likusį.'
         }
       },
       shopBack: {
-        '1': 'Atnešk atgal atšipusį, ir žinosiu, kad naudojai.'
+        '1': 'Atnešk atgal atšipusį, ir žinosiu, kad gerai naudojai.'
       },
       bye: {
         '1': 'Smok stipriai.'
@@ -2109,132 +2109,132 @@ export default {
     },
     ironAetherWorks: {
       hello: {
-        '1': 'Atsargiai! Tas užtaisytas. Ir anas. Dauguma, tiesą sakant.',
-        '2': 'Meistrautojas Voss. Ratas atsiuntė mane pažiūrėti, ko šerdis gali mus išmokyti. Viso, pasirodo.'
+        '1': 'Atsargiai, tas užtaisytas. Dauguma tokie, tiesą sakant.',
+        '2': 'Meistrautojas Voss. Ratas atsiuntė mane tirti šerdies. Ji mus tiek daug išmokė.'
       },
       again: {
-        '1': 'O, gerai, bandytojas. Tai yra, pirkėjas.'
+        '1': 'Ak, gerai. Pakeičiau keletą dalykų nuo tada, kai buvai čia.'
       },
       trade: {
-        '1': 'Rato šerdies tyrimai viską pakeitė. Palaikyk šitą. Nenukreipk į mane.'
+        '1': 'Viskas čia gimė tiriant šerdį. Tik nenukreipk jos į mane.'
       },
       core: {
-        '1': 'Ta geležis gali mąstyti, truputį. Stengiuosi apie tai negalvoti.',
+        '1': 'Tas metalas gali mąstyti, šiek tiek. Stengiuosi apie tai negalvoti.',
         say: 'Ko tave išmokė šerdis?'
       },
       rumor: {
         heat: {
-          '1': 'Ginklai veikia Meistryste ir įkaista. Paklausk Mechaniko Pim apie karštį, kol neištirpdei rankos.'
+          '1': 'Ginklai veikia Meistryste ir įkaista. Paklausk Pimo apie karštį, kol nenusideginai rankos.'
         }
       },
       shopBack: {
-        '1': 'Pranešk apie visus sprogimus! Užrašams.'
+        '1': 'Pasakyk, kaip veikia. Užsirašinėju.'
       },
       bye: {
-        '1': 'Saugokis atatrankos!'
+        '1': 'Saugokis atatrankos.'
       }
     },
     ironArmor: {
       hello: {
-        '1': 'Garrun. Šarvai. Žiedai padėkle.'
+        '1': 'Garrun. Šarvai ant stovų, žiedai dėkle.'
       },
       again: {
-        '1': 'Hm.'
+        '1': 'Sugrįžai. Ko reikia?'
       },
       trade: {
-        '1': 'Plokštė, atmušanti milžino vėzdą. Žiedai likusiems.'
+        '1': 'Ta plokštė sustabdys milžino vėzdą. Pažiūrėk.'
       },
       quiet: {
-        '1': 'Ne.',
-        say: 'Tu nedaug kalbi.'
+        '1': 'Nedaug ką verta sakyti.',
+        say: 'Nelabai šneki, ar ne?'
       },
       rumor: {
         giants: {
-          '1': 'Milžinai tundroje. Vėzdai kaip kamienai. Pirk sunkią plokštę.'
+          '1': 'Milžinai tundroje. Vėzdai kaip medžių kamienai. Aš imčiau sunkiąją plokštę.'
         },
         demons: {
-          '1': 'Demonai šiaurėje. Ugnis ir nagai. Pirk sunkią plokštę.'
+          '1': 'Demonai šiaurėje. Ugnis ir nagai. Aš imčiau sunkiąją plokštę.'
         }
       },
       shopBack: {
-        '1': 'Gerai.'
+        '1': 'Geras pasirinkimas.'
       },
       bye: {
-        '1': 'Taip.'
+        '1': 'Saugokis.'
       }
     },
     ironOrderArmor: {
       hello: {
-        '1': 'Vardas ir reikalas. Ne. Žinau tavo vardą. Sunaikinai šerdį.',
-        '2': 'Geležinio ordino intendantas. Jo ginklų sandėliai tau atviri.'
+        '1': 'Tu tas, kuris sunaikino šerdį. Ordinas tai atsimena.',
+        '2': 'Aš čia Ordino intendantas. Mūsų ginklinės tau atviros.'
       },
       throneOurs: {
-        '1': 'Ordinas laiko Siaubo tvirtovę tavo ranka. Laisvai. Tai įsakymas.'
+        '1': 'Ordinas valdo Siaubo tvirtovę, ačiū tau. Laisvai. Tai užsitarnavai.'
       },
       foe: {
-        '1': 'Ordinas turi tave sąraše. Mano įsakymas – vis tiek tau parduoti. Jie man nepatinka.'
+        '1': 'Ordinas turi tave sąraše. Mano įsakymai sako vis tiek tau parduoti. Vykdau.'
       },
       again: {
-        '1': 'Rekvizicija?'
+        '1': 'Ko reikia?'
       },
       trade: {
-        '1': 'Ordinas prisimena, kas sunaikino šerdį. Rinkis, ko reikia.'
+        '1': 'Imk, ko reikia. Ordinas rūpinasi savaisiais.'
       },
       order: {
-        '1': 'Nieko. Tai reta. Mėgaukis.',
+        '1': 'Nieko, kol kas. Taip nutinka nedažnai. Mėgaukis.',
         say: 'Ko Ordinas nori iš manęs?'
       },
       rumor: {
         throne: {
-          '1': 'Ordinas norės sosto Siaubo tvirtovėje. Jis prisimins, kas stovėjo šalia.'
+          '1': 'Ordinas norės sosto Siaubo tvirtovėje. Atsimins, kas padėjo.'
         }
       },
       shopBack: {
-        '1': 'Pasirašyk čia. Juokauju. Ordinas nejuokauja. Gali eiti.'
+        '1': 'Prižiūrėk. Tai Ordino nuosavybė, kol nepraliesi joje kraujo.'
       },
       bye: {
-        '1': 'Gali eiti.'
+        '1': 'Tęsk.'
       }
     },
     trainerGeo: {
       hello: {
-        '1': 'Lėčiau. Kalnas niekur nedingsta.',
+        '1': 'Sulėtink. Kalnas niekur nesitraukia.',
         '2': 'Mane vadina Senuoju Akmenpėdžiu. Klausausi žemės. Kartais ji atsako.'
       },
       core: {
-        '1': 'Kalno širdies plakimas pasikeitė. Tai buvai tu. Jis pastebėjo.'
+        '1': 'Kalnas jaučiasi kitaip, nuo tada, kai ten nusileidai. Ramesnis, arba tuštesnis.'
       },
       dragon: {
-        '1': 'Vakar virš viršūnės praskrido slibinas ir mūsų nesudegino. Tavo nuopelnas, girdžiu.'
+        '1': 'Vakar drakonas praskrido virš viršūnės ir paliko mus ramybėje. Tavo darbas, girdėjau.'
       },
       again: {
-        '1': 'Vėl tu. Akmenys sakė, kad ateisi.'
+        '1': 'Štai ir tu. Maniau, sugrįši.'
       },
       train: {
-        '1': 'Tvirtai pastatyk kojas. Jauti? Ne? Pradėsime nuo to.'
+        '1': 'Tvirtai atsistok. Jauti? Ne? Nuo to pradedame.'
       },
       class: {
-        '1': 'Statome sienas, šaukiame dyglius ir skaldome žemę, kai reikia.',
-        '2': 'Jėga akmeniui pajudinti, Intelektas, kad paprašytum mandagiai.',
-        say: 'Kas yra Geomantas?'
+        '1': 'Statome sienas, šaukiame spyglius ir skaldome žemę, kai reikia.',
+        '2': 'Jėga akmeniui pajudinti. Intelektas žinoti, kur jis nori eiti.',
+        say: 'Ką veikia Geomantas?'
       },
       ready: {
         strong: {
-          '1': 'Akmuo dabar tave pažįsta. Išmok likusį.'
+          '1': 'Akmuo dabar tave pažįsta. Išmok likusį, kai būsi pasiruošęs.'
         },
         able: {
-          '1': 'Esi pakankamai sunkus kitai pamokai. Tai komplimentas.'
+          '1': 'Stovi pakankamai tvirtai kitai pamokai.'
         },
         weak: {
-          '1': 'Akmuo tavęs dar negirdi. Daugiau Jėgos.'
+          '1': 'Dar ne. Akmuo nejuda dėl tavęs. Stiprink Jėgą.'
         }
       },
       factions: {
-        '1': 'Jokiai. Ordinai, sindikatai, ratai. Kalnas juos visus pergyvens.',
+        '1': 'Nė vienos. Ordinai ir gildijos ateina ir išeina. Kalnas lieka.',
         say: 'Kuriai frakcijai tarnauji?'
       },
       trainBack: {
-        '1': 'Eik švelniai. Paskui nešvelniai.'
+        '1': 'Neskubėk. Žemė kantri.'
       },
       bye: {
         '1': 'Eik tyliai.'
@@ -2242,88 +2242,88 @@ export default {
     },
     trainerAether: {
       hello: {
-        '1': 'Nelieski to! Arba to. Iš tikrųjų, stovėk ant kilimo. Kilimas saugus.',
-        '2': 'Mechanikas Pim! Ginklai, bokšteliai, karščio matuokliai. Daugiausia karščio matuokliai.'
+        '1': 'Ak, palauk, nelieski to! Ar ano. Stovėk ant kilimo, kilimas saugus.',
+        '2': 'Mechanikas Pim. Statau ginklus, bokštelius ir daugybę karščio matuoklių.'
       },
       core: {
-        '1': 'Atidavei mums šerdį! Nemiegojau devynias dienas. Pažiūrėk į mano rankas. Nežiūrėk į mano rankas.'
+        '1': 'Atidavei šerdį Ratui! Nuo tada vos miegojau. Gera prasme.'
       },
       oracle: {
-        '1': 'Ratas įsiutęs dėl orakulo. Aš tik konstruoju daiktus. Prašau, nesakyk jiems, kad tave mokiau.'
+        '1': 'Ratas pyksta dėl orakulės. Aš tik statau daiktus. Verčiau neįsivelti.'
       },
       friend: {
-        '1': 'Rato draugas! Pigesnės pamokos tau. Formą užpildžiau pats.'
+        '1': 'Esi Rato draugas, tad tavo pamokos pigesnės. Sutvarkiau popierius.'
       },
       foe: {
-        '1': 'Ratas sako, kad man negalima tavęs mokyti. Ratas taip pat sako nebandyti raketų patalpose.'
+        '1': 'Ratas sako, kad neturėčiau tavęs mokyti. Vis tiek mokysiu. Jiems nesakyk.'
       },
       again: {
-        '1': 'O, gerai, vis dar turi visus pirštus.'
+        '1': 'O gerai, vis dar turi visus pirštus.'
       },
       train: {
-        '1': 'Gerai! Pirma saugumas. Paskui garsioji dalis.'
+        '1': 'Gerai. Pirmiausia saugumas, paskui garsioji dalis.'
       },
       class: {
-        '1': 'Ginklai, bokšteliai ir karščio matuoklis. Šauk, statyk ir paleisk karštį, kol neužrakino.',
-        '2': 'Viskas remiasi Meistryste. Šiek tiek Intelekto dideliems įrenginiams.',
+        '1': 'Ginklai, bokšteliai ir karščio matuoklis. Šaudyk, statyk ir paleisk garus, kol neužstrigai.',
+        '2': 'Daugiausia Meistrystė. Šiek tiek Intelekto didesnėms mašinoms.',
         say: 'Kas yra Eterio technikas?'
       },
       ready: {
         strong: {
-          '1': 'Galėtum išardyti bokštelį užrištomis akimis! Imk didelius įrenginius.'
+          '1': 'Dabar išmanai bokštelius. Imk dideles mašinas.'
         },
         able: {
-          '1': 'Tvirtos rankos! Esi pasiruošęs kitam įtaisui.'
+          '1': 'Tvirtos rankos. Esi pasiruošęs kitai.'
         },
         weak: {
-          '1': 'Tavo rankos dreba. Mano irgi, bet dėl kitų priežasčių. Daugiau Meistrystės.'
+          '1': 'Tavo taikymas dar kiek dreba. Įdėk keletą taškų į Meistrystę.'
         }
       },
       heat: {
-        '1': 'Viskas užsiblokuoja kelioms sekundėms. Paleisk anksti. Paleisk dažnai. Turiu randų.',
+        '1': 'Viskas užstringa kelioms sekundėms. Paleisk anksti, paleisk dažnai. Pasitikėk manimi.',
         say: 'Kas nutinka, jei perkaisiu?'
       },
       trainBack: {
-        '1': 'Atsimink: paleisk karštį! PALEISK. KARŠTĮ.'
+        '1': 'Ir nepamiršk paleisti karščio, kol jis nepaleido tavęs.'
       },
       bye: {
-        '1': 'Nesprogk!'
+        '1': 'Būk atsargus ten lauke!'
       }
     },
     ironHealer: {
       hello: {
-        '1': 'Batus nuauk. Nenoriu tavo dulkių ant savo grindų.',
-        '2': 'Motina Brynja. Šiame kalne kiekvieną nulūžusį kaulą sustačiau du kartus.'
+        '1': 'Batus prie durų, prašau. Ką tik šluosčiau.',
+        '2': 'Motina Brynja. Sutvarkiau daugumą šio kalno lūžusių kaulų.'
       },
       ending: {
-        '1': 'Nuėjai į Siaubo tvirtovę ir sugrįžai. Sėskis. Noriu į tave pažiūrėti.'
+        '1': 'Nuėjai į Siaubo tvirtovę ir grįžai. Sėskis. Leisk į tave pažiūrėti.'
       },
       again: {
-        '1': 'Vis dar gyvas. Man sako, kad tai mano nuopelnas.'
+        '1': 'Vis dar gyvas. Gerai. Sėsk.'
       },
       heal: {
-        '1': 'Sėskis. Išgerk. Nesuraukink veido. Tavo kolbos pripildytos.'
+        '1': 'Gerk ir nesiraukyk. Tavo kolbos pilnos.'
       },
       mana: {
-        '1': 'Imk. Skonis šlykštus. Gerk, kai pritrūksta magijos, ne anksčiau.'
+        '1': 'Štai. Skonis baisus. Gerk, kai pritrūks magijos, ne anksčiau.'
       },
       potions: {
-        '1': 'Nusipirk iš manęs ilgesnį diržą. Penkios kolbos – tiek kūnas gali nešti ir vis dar bėgti.',
+        '1': 'Galiu parduoti ilgesnį diržą. Penkios kolbos – maždaug tiek, kiek kas gali nešti ir vis dar bėgti.',
         say: 'Ar galiu nešti daugiau eliksyrų?'
       },
       rumor: {
         tundra: {
-          '1': 'Tundra atima pirštus. Judėk ten ir nemiegok sniege.'
+          '1': 'Tundra pasiima pirštus ir kojų pirštus. Judėk ir neužmik sniege.'
         },
         temple: {
-          '1': 'Anapus tundros stovi nuskendusi šventykla. Nagos nepaima belaisvių.'
+          '1': 'Už tundros yra nuskendusi šventykla. Nagos ten belaisvių neima.'
         },
         rift: {
-          '1': 'Kas bebūtų tame Tuštumos plyšyje, to nesusiuvi. Greitai baik.'
+          '1': 'Kas bebūtų tame plyšyje, aš to neprisiūsiu. Neleisk, kad tave pasiektų.'
         }
       },
       healBack: {
-        '1': 'Eik jau. Ir ką nors suvalgyk.'
+        '1': 'Eik. Ir ką nors suvalgyk, esi per liesas.'
       },
       bye: {
         '1': 'Sugrįžk vienu gabalu.'
@@ -2331,161 +2331,161 @@ export default {
     },
     exiledSovereign: {
       hello: {
-        '1': 'Tu. Tu atidarei mano vartus.',
-        '2': 'Dabar mokau iš nykštuko rūsio, nes turiu valgyti. Nepainiok to su atleidimu.'
+        '1': 'Tu. Tu tas, kuris atidarė mano vartus.',
+        '2': 'Dabar mokau rūsyje, nes turiu valgyti. Nesivaizduok, kad tai atleidimas.'
       },
       ending: {
-        '1': 'Sostas išspręstas, o Oakhaven vis dar pelenai. Pasakyk dar kartą, kaip tai buvo verta.'
+        '1': 'Taigi sostas išspręstas, o Oakhavenas vis dar pelenai. Tikiuosi, buvo verta.'
       },
       again: {
-        '1': 'Išdavikas grįžta. Mano mokestis nesumažėjo.'
+        '1': 'Sugrįžai. Mano mokestis nepasikeitė.'
       },
       train: {
-        '1': 'Išmokysiu tave vadovauti. Neišmokysiu nusipelnyti.'
+        '1': 'Išmokysiu tave vadovauti. Ar to nusipelnei, kitas klausimas.'
       },
       class: {
-        '1': 'Tas, kuriuo seka. Sargybiniai atsiliepia į šauksmą ir kovoja pagal tavo žodį.',
-        '2': 'Tai veikia Charizma. Jos turi. Tai ir yra tragedija.',
+        '1': 'Kažkas, ką kiti seka. Sargybiniai ateina, kai šauki, ir kaunasi pagal tavo žodį.',
+        '2': 'Tai veikia Charizma. Tu jos turi. Todėl sunku atleisti.',
         say: 'Kas yra Didysis valdovas?'
       },
       ready: {
         strong: {
-          '1': 'Turi įspūdį visam tam. Karalystė dėl to skurdesnė.'
+          '1': 'Turi buvimą viskam. Norėčiau, kad būtum jį panaudojęs geriau.'
         },
         able: {
-          '1': 'Esi pasiruošęs kitai pamokai. Man tai nedžiugina.'
+          '1': 'Esi pasiruošęs kitai pamokai. Nesistengiu apsimesti, kad džiaugiuosi.'
         },
         weak: {
-          '1': 'Net išdaviko sargybinis neįeitų paskui tokį balsą. Daugiau Charizmos.'
+          '1': 'Dar niekas tavęs neseks. Lavink Charizmą.'
         }
       },
       oakhaven: {
         '1': 'Trys šimtai metų. Mano šeima pastatė tas sienas.',
-        '2': 'Nesiaiškink. Nėra kainos, kuri tai paaiškintų.',
-        say: 'Apie Oakhaveną…'
+        '2': 'Prašau, nesiaiškink. Nieko, ką galėtum pasakyti, nepataisys.',
+        say: 'Apie Oakhaveną...'
       },
       trainBack: {
-        '1': 'Eik. Įsakinėk kam nors kitam.'
+        '1': 'Eik. Treniruokis ant kito.'
       },
       bye: {
-        '1': 'Palik mane.'
+        '1': 'Palik mane, prašau.'
       }
     },
     trainerChrono: {
       fled: {
-        '1': 'Nužudei ją. Mačiau tai tūkstantį kartų, kol dar neįvyko, ir vis tiek skauda.',
-        '2': 'Aš Valandų sergėtojas. Išmokysiu tave. Ji sakė, kad išmokysiu.'
+        '1': 'Nužudei ją. Mačiau tai ateinant metų metus, ir vis tiek skauda.',
+        '2': 'Aš Valandų sergėtojas. Mokysiu tave. Ji sakė, kad mokysiu.'
       },
       hello: {
-        '1': 'Vėluoji. Arba anksti. Man regis, tai jau sakiau.',
-        '2': 'Aš Valandų sergėtojas. Mokau laiko audimo. Pradėjome prieš akimirką.'
+        '1': 'Štai ir tu. Laukiau tavęs jau kurį laiką. Arba būsiu laukęs.',
+        '2': 'Aš Valandų sergėtojas. Mokau, kaip šiek tiek lenkti laiką.'
       },
       freed: {
-        '1': 'Ji laisva. Pirmą kartą nežinau, ką pasakysi toliau. Nuostabu.'
+        '1': 'Ji laisva. Pirmą kartą negaliu pasakyti, kas bus toliau. Nuostabu.'
       },
       friend: {
-        '1': 'Ratas vadins tave savo draugu. Jau vadina? Tada nuolaida dabar.'
+        '1': 'Ratas apie tave gerai galvoja, tad pamokos kainuoja mažiau. Jie tai nusprendė praėjusią savaitę.'
       },
       foe: {
-        '1': 'Ratas tau atleis ateityje, kurią mačiau. Iki tol mokysiu tave tyliai.'
+        '1': 'Ratas dabar ant tavęs pyksta. Praeis. Iki tol laikome tai tyliai.'
       },
       again: {
-        '1': 'Sveikas sugrįžęs. Sveikas. Sugrįžęs.'
+        '1': 'Sveikas sugrįžęs. Atėjai kaip tik laiku.'
       },
       train: {
-        '1': 'Žiūrėk. Parodysiu tau tai, ką parodžiau.'
+        '1': 'Žiūrėk atidžiai. Tada žiūrėk dar kartą, akimirka anksčiau.'
       },
       class: {
-        '1': 'Sustabdome priešą laike, paskubiname draugą ir atsiimame klaidą.',
-        '2': 'Intelektas, kad pamatytum siją, Meistrystė, kad ją patrauktum.',
+        '1': 'Laikome priešą sustingusį laike, paskubiname draugą ir atsiimame klaidą.',
+        '2': 'Intelektas, kad pamatytum siūlą. Meistrystė, kad patrauktum.',
         say: 'Kas yra Laiko audėjas?'
       },
       ready: {
         strong: {
-          '1': 'Gerai laikai siją. Likusi dalis tavo, kai panorėsi.'
+          '1': 'Gerai laikai siūlą. Imk likusį, kai panorėsi.'
         },
         able: {
-          '1': 'Esi pasiruošęs. Rytoj irgi buvai pasiruošęs.'
+          '1': 'Esi pasiruošęs. Žinojau, dar kol nepaklausei.'
         },
         weak: {
-          '1': 'Sija slysta tau pro pirštus. Daugiau Intelekto. Daugiau Meistrystės.'
+          '1': 'Siūlas vis slysta. Daugiau Intelekto ir daugiau Meistrystės.'
         }
       },
       oracle: {
         say: 'Papasakok apie orakulą.',
         freed: {
-          '1': 'Ji matė kiekvieną pabaigą, ir nė viena nebuvo jos. Dabar viena yra.'
+          '1': 'Ji matė kiekvieną pabaigą, išskyrus savąją. Dabar sužinos.'
         },
         slain: {
-          '1': 'Ji nesipriešino. Ir tai buvo mačiusi. Prašau, daugiau manęs neklausk.'
+          '1': 'Ji nesipriešino. Jau buvo mačiusi. Prašau, daugiau manęs neklausk.'
         },
         waits: {
-          '1': 'Ji mato kiekvieną pabaigą. Tai baisi dovana. Būk jai malonus, pabaigoje.'
+          '1': 'Ji mato kiekvieną pabaigą. Tai sunki našta. Būk jai geras.'
         }
       },
       trainBack: {
-        '1': 'Bus buvę verta.'
+        '1': 'Vėliau suprasi. Paprastai suprantama.'
       },
       bye: {
-        '1': 'Iki anksčiau.'
+        '1': 'Kol vėl susitiksime. Arba anksčiau.'
       }
     },
     quest: {
       goblinKing: {
         ask: {
-          '1': 'Palauk! Palauk. Karalius pasiduoda!',
-          '2': 'Goblinai plėšia tik todėl, kad goblinai alkani. Tiesa!',
-          '3': 'Gal aukštas ir karalius susitaria?'
+          '1': 'Sustok. Prašau. Pasiduodu.',
+          '2': 'Mano tauta plėšikauja, nes alkana. Tai tiesa.',
+          '3': 'Verčiau sudarykime susitarimą. Tavo giminė ir mano.'
         },
         slay: {
-          '1': 'Karalius krenta, ir Urvai išsisklaido.',
-          '2': 'Sunfordas miega ramiau, o Geležinis ordinas atkreipia į tave dėmesį.',
-          say: 'Jokios sutarties. Tavo valdymas čia baigiasi.'
+          '1': 'Goblinų karalius krinta, ir Urvai ištuštėja.',
+          '2': 'Sunfordas miega ramiau, o Geležinis ordinas išgirsta tavo vardą.',
+          say: 'Jokių susitarimų. Tavo antpuoliai baigiasi čia.'
         },
         pact: {
-          '1': 'Prekyba? Karalius prisiekia! Karalius MĖGSTA prekybą!',
-          '2': 'Goblinų pirkliai įsikuria Sunfordo aikštėje su prekėmis, kokių ten joks kalvis negalėtų pagaminti.',
-          say: 'Nustok antpuolius ir verčiau prekiauk su Sunfordu. Prisiek.'
+          '1': 'Prekyba. Taip. Prisiekiu savo karūna.',
+          '2': 'Goblinų pirkliai įsikuria Sunfordo aikštėje ir parduoda daiktus, kurių ten joks kalvis negalėtų pagaminti.',
+          say: 'Nutrauk antpuolius ir prekiauk su Sunfordu. Prisiek.'
         },
         ransom: {
-          '1': 'Visą? Karalius nekenčia aukšto. Imk. Imk ir eik.',
-          '2': 'Išeini sunkus nuo goblinų aukso. Antpuoliai prasidės vėl. Sindikatas pritaria.',
-          say: 'Atiduok savo lobį, ir pasilik karūną.'
+          '1': 'Viską? ...Gerai. Imk ir eik.',
+          '2': 'Išeini su goblinų auksu. Antpuoliai vėl prasidės, bet Sindikatas pritaria.',
+          say: 'Atiduok man savo lobį ir pasilik karūną.'
         }
       },
       siege: {
         ask: {
-          '1': 'Gana. Gerai kovoji.',
-          '2': 'Sindikatas moka geriau nei tas miestas kada nors mokės.',
+          '1': 'Gana. Gerai kovoji, to nepaneigsiu.',
+          '2': 'Sindikatas moka kur kas geriau nei tas miestas kada nors mokės.',
           '3': 'Atidaryk mums vartus šįvakar, ir trečdalis Oakhaveno tavo.'
         },
         defend: {
-          '1': 'Tada Sindikatas medžios tave visais keliais. Prisimink, kad aš siūliau.',
-          '2': 'Vartai atlaiko. Oakhaven praturtėja už jų, o jo meistrai šarvakaliai prisimena tavo vardą.',
+          '1': 'Tada Sindikatas medžios tave kiekviename kelyje. Atsimink, kad pasiūliau.',
+          '2': 'Vartai laikosi. Oakhavenas už jų turtėja, o jo šarvakaliai atsimena tavo vardą.',
           say: 'Vartai lieka uždaryti. Imk savo kariuomenę ir eik.'
         },
         betray: {
-          '1': 'Išmintinga. Pasakysiu Madam Ash pastatyti tau kėdę.',
-          '2': 'Oakhaven dega. Jo griuvėsiuose atsidaro juodoji rinka, o alchemikas moko draudžiamų menų.',
-          '3': 'Šarvakalių nebėra, ir Geležinis ordinas vadina tave išdaviku.',
-          say: 'Trečdalis miesto. Šįvakar vartai atsivers.'
+          '1': 'Protinga. Madam Ash bus patenkinta išgirdusi.',
+          '2': 'Oakhavenas dega. Griuvėsiuose atsidaro juodoji rinka, o alchemikas slapta moko.',
+          '3': 'Šarvakalių nebėra, o Geležinis ordinas vadina tave išdaviku.',
+          say: 'Trečdalis miesto. Gerai. Vartai atsivers šį vakarą.'
         }
       },
       core: {
         ask: {
-          '1': 'Kolosas laužas. Niekada nemaniau to pamatysiąs.',
-          '2': 'Ir štai ji guli. Šerdis. Vis dar dūzgia. Šilta liesti.',
-          '3': 'Pasiekei ją pirmas. Kas su ja bus?'
+          '1': 'Kolosas laužas. Niekada nemaniau to sulauksiąs.',
+          '2': 'O štai šerdis. Vis dar ūžia. Šilta, jei paliesi.',
+          '3': 'Atėjai pirmas. Taigi... kas su ja bus?'
         },
         destroy: {
           '1': 'Šviesa užgęsta, o golemai griūva ten, kur stovi.',
-          '2': 'Geležinis ordinas atsiunčia savo šarvakalius į Ironholdą padėkai.',
-          say: 'Atsitrauk. Aš ją sudaužau.'
+          '2': 'Padėkodamas Geležinis ordinas siunčia savo šarvakalius į Ironholdą.',
+          say: 'Atsitrauk. Sudaužysiu ją.'
         },
         study: {
-          '1': 'Pakankamai supranti šerdį, kad ją atiduotum jos nepažadinęs.',
-          '2': 'Per sezoną Ironholdo kalvės išleidžia eterio gaminius, kokių niekas nematė.',
-          say: 'Ratas turėtų ją ištirti. Galiu saugiai ją išnešti.'
+          '1': 'Žinai pakankamai, kad perkeltum šerdį jos nepažadinęs.',
+          '2': 'Per sezoną Ironholdo kalvės gamina eterio darbus, kokių niekas nematė.',
+          say: 'Ratas turėtų ją tirti. Manau, galiu saugiai ją išnešti.'
         },
         sell: {
           '1': 'Auksas. Už tai, kas nužudė mano kalnakasius. Imk ir eik.',
@@ -2495,44 +2495,44 @@ export default {
       },
       oracle: {
         ask: {
-          '1': 'Šią akimirką mačiau dešimt tūkstančių kartų.',
-          '2': 'Pusėje jų išlaisvini mane. Pusėje pasiimi tai, ką saugau.',
-          '3': 'Rinkis. Leisk man pagaliau nežinoti, kas bus toliau.'
+          '1': 'Šią akimirką mačiau daugiau kartų, nei galiu suskaičiuoti.',
+          '2': 'Pusėje jų išlaisvini mane. Kitoje pusėje pasiimi tai, ką saugau.',
+          '3': 'Rinkis. Norėčiau bent kartą nežinoti, kas bus toliau.'
         },
         free: {
-          '1': 'O. To nemačiau. To visai nemačiau.',
-          '2': 'Orakulas kyla per vandenį ir dingsta. Jos valandų sergėtojas lieka mokyti.',
-          say: 'Nejudėk. Aš kertu tavo grandines.'
+          '1': 'O. To nemačiau. Tikrai to nemačiau.',
+          '2': 'Orakulė pakyla per vandenį ir dingsta. Jos mokinė lieka mokyti.',
+          say: 'Nejudėk. Laužau tavo grandines.'
         },
         slay: {
           '1': 'Taip. Tai kita pusė.',
           '2': 'Ji nesipriešina. Laiko sergėtojo smėlio laikrodis tavo.',
-          '3': 'Jos paskutinis mokinys bėga iš šventyklos, ir Ratas neatleidžia.',
+          '3': 'Jos paskutinė mokinė bėga iš šventyklos, o Ratas tau neatleis.',
           say: 'Aš atėjau dėl smėlio laikrodžio.'
         }
       },
       dragon: {
         ask: {
           '1': 'Gana. Turi dantų, mažyli.',
-          '2': 'Demonas tvirtovėje supančiojo mano giminę. Norėčiau matyti jį degantį.',
+          '2': 'Demonas tvirtovėje užkalė mano giminę grandinėmis. Noriu matyti jį degantį.',
           '3': 'Nužudyk mane arba leisk man padėti tau tai padaryti.'
         },
         slay: {
           '1': 'Kalnas dreba, kai slibinas krenta. Jo lobis tavo.',
           '2': 'Geležinis ordinas dainuoja apie slibinų žudiką.',
-          say: 'Jokių derybų su slibinais.'
+          say: 'Aš nesiderėju su drakonais.'
         },
         pact: {
-          '1': 'Nedaugelis galėjo to paklausti ir išgyventi. Gerai, mažyli. Medžiosime kartu.',
-          '2': 'Kai žygiuosi į Siaubo tvirtovę, slibinas bus danguje virš tavęs.',
-          say: 'Tada skrisk su manimi prieš Arcidemoną.'
+          '1': 'Nedaugelis išdrįstų paprašyti. Labai gerai. Medžiojame kartu.',
+          '2': 'Kai žygiuosi į Siaubo tvirtovę, virš tavęs skris drakonas.',
+          say: 'Tada kovok kartu su manimi prieš Arkidemoną.'
         }
       },
       throne: {
         ask: {
-          '1': 'Taigi. Viskas baigiasi. Nemaniau, kad tai būsi tu.',
-          '2': 'Mano sostas neliks tuščias, mažasis didvyri. Jis valdo tvirtovę, plyšį ir abiejų armijas.',
-          '3': 'Trys pasiuntiniai jau laukia prie mano durų. Rinkis, kas paveldės mano grandines.'
+          '1': 'Taigi. Viskas baigta. Nemaniau, kad tai būsi tu.',
+          '2': 'Mano sostas nelaikys tuščias. Kas jį paims, valdys tvirtovę ir plyšį.',
+          '3': 'Trys pasiuntiniai jau laukia prie mano durų. Pasirink, kuris ateis toliau.'
         },
         order: {
           '1': 'Ordinas įgula tvirtovę ir užantspauduoja, ką gali.',
@@ -2541,23 +2541,23 @@ export default {
         },
         syndicate: {
           '1': 'Sindikatas įsikelia prieš aušrą.',
-          '2': 'Dabar viskas parduodama, net ir taika.',
+          '2': 'Nuo šiol viskas turi kainą, net taika.',
           say: 'Pelenų sindikatas to nusipelnė.'
         },
         circle: {
           '1': 'Ratas paverčia tvirtovę mokykla virš plyšio.',
-          '2': 'Jie tai vadina tyrimais. Visi kiti – laiko klausimu.',
+          '2': 'Jie tai vadina tyrimais. Visi kiti sulaiko kvapą.',
           say: 'Tegul Eterio ratas jį gauna.'
         },
         shatter: {
-          '1': 'Sudaužai sostą savo rankomis. Niekas iš čia daugiau nevaldys.',
+          '1': 'Sudaužai sostą savo rankomis. Niekas daugiau iš čia nevaldys.',
           '2': 'Pasiuntiniai išeina be žodžio.',
-          say: 'Niekas nepaveldi. Aš jį sudaužau.'
+          say: 'Niekas jo negaus. Aš jį sudaužau.'
         },
         claim: {
           '1': 'Sostas šaltas, ir tau tinka.',
-          '2': 'Trys frakcijos suvokia, kad turi bendrą priešą.',
-          say: 'Pats ant jo atsisėsiu.'
+          '2': 'Trys frakcijos suvokia turinčios bendrą priešą.',
+          say: 'Pasiimsiu jį pats.'
         }
       }
     }
