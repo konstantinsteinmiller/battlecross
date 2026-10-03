@@ -10,6 +10,8 @@ import { dummyBeat, dummyOf } from './coach/dummy'
 import { isVeteran, revealed } from './coach/reveal'
 import { onboard, type FeatureId } from './coach/state'
 import { canLearnFrom } from './coach/goal'
+import { heroChoice } from './heroChoice'
+import { nudgeWorld, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
 
 /**
@@ -223,7 +225,11 @@ class Coach {
     const h = sim.hero
     const u = h.unit
     for (const k in hintGeo) hintGeo[k as LessonId].on = false
-    if (!u.alive || sim.ended) { this.setFight(false); this.publish([]); return }
+    // The hero is being chosen over the opening scene: no glyph, no clock.
+    if (heroChoice.open) { this.idleT = 0; nudgeWorld.has = false; this.publish([]); return }
+    if (!u.alive || sim.ended) { this.setFight(false); nudgeWorld.has = false; nudgeWorld.chest = false; this.publish([]); return }
+    // Where the next objective stands, for the nudges (`coach/world.ts`).
+    senseWorld(host, onboard.goal?.id ?? '')
 
     // A chest opened, however it was found: the chest lesson is learned.
     if (this.chestSim !== sim) { this.chestSim = sim; this.chestN = h.chests }
@@ -250,7 +256,8 @@ class Coach {
     this.noTargetT = foe && !hasTarget ? this.noTargetT + dt : 0
     // Stuck: standing with nothing to fight for a long while, or facing an
     // enemy without ever locking it.
-    if (this.idleT > 16 && this.learned('move') && host.setup.kind !== 'town') { this.recalled.add('move'); this.idleT = 0 }
+    // (A returning player standing about gets the nudges instead: `coach/nudge.ts`.)
+    if (this.idleT > 16 && this.learned('move') && host.setup.kind !== 'town' && !isVeteran()) { this.recalled.add('move'); this.idleT = 0 }
     if (this.noTargetT > 7 && this.learned('target')) { this.recalled.add('target'); this.noTargetT = 0 }
 
     const want: LessonId[] = []

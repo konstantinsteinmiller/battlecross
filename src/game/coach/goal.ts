@@ -51,6 +51,8 @@ export interface ZoneGoalState {
   boss: string
   /** A boss is up and fighting (its plate shows): it is the goal now. */
   bossAwake?: boolean
+  /** A branch's boss is up and fighting (its plate shows): its kind. */
+  sideBoss?: string
   ended: '' | 'victory' | 'defeat'
   /** The opening dummy still stands, and the pack still sleeps. */
   dummy: boolean
@@ -109,6 +111,8 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }
     if (z.encounter) return { id: 'fight', n: z.done, of: z.total }
+    // A branch's boss, met off the road: beating it is the goal while it fights.
+    if (z.sideBoss) return { id: 'boss', foe: z.sideBoss }
     if (z.boss && (z.bossAwake || (z.total > 0 && z.done >= z.total - 1))) return { id: 'boss', foe: z.boss }
     return { id: 'clear', place: z.node, n: z.done, of: z.total }
   }

@@ -95,6 +95,8 @@ describe('the next goal through the first hour', () => {
     expect(g.bossOf(['banditChief', 'bandit'])).toBe('')
     expect(g.nextGoal(inZone({ ...hollows, done: 1 }))).toEqual({ id: 'clear', place: 'hollows', n: 1, of: 3 })
     expect(g.nextGoal(inZone({ ...hollows, done: 2 }))).toEqual({ id: 'boss', foe: 'goblinKing' })
+    // A branch's boss met off the road: beating him is the goal while he fights, not the King.
+    expect(g.nextGoal(inZone({ ...hollows, done: 1, sideBoss: 'banditChief' }))).toEqual({ id: 'boss', foe: 'banditChief' })
     // Run straight into the King: he is the goal while he fights.
     expect(g.nextGoal(inZone({ ...hollows, done: 0, bossAwake: true }))).toEqual({ id: 'boss', foe: 'goblinKing' })
     p.clearNode('hollows')

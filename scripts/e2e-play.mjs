@@ -270,7 +270,10 @@ const playDesktop = async () => {
   const hurt = await game(page, (id) => { const u = window.__game.zone().sim.live(id); return u ? u.hp / u.s.maxHp : 0 }, foe.id)
   check('the hero walks up and auto-attacks it', hurt < 1, `enemy at ${(hurt * 100).toFixed(0)} %`)
 
-  // The skill key.
+  // The skill key. (The pack is made sturdy first: a goblin at a third of its
+  // health falls to the auto-attack before the key is pressed, and a skill
+  // with no target left is refused.)
+  await game(page, () => { for (const e of window.__game.zone().sim.units) if (e.alive && e.team === 1) { e.s.maxHp *= 40; e.hp = e.s.maxHp } })
   const before = await game(page, () => ({ mana: window.__game.zone().sim.hero.unit.mana, cd: window.__game.zone().sim.hero.cd[0] }))
   const foe2 = await nearestFoe(page)
   const fp2 = await project(page, foe2.x, foe2.h * 0.5, foe2.z)

@@ -29,6 +29,8 @@
       //- Done: a green tick pops where the lesson was.
       span.lessons__done(v-if="popping" ref="doneEl" :key="onboard.doneN" aria-hidden="true")
         GameIcon(name="check")
+    //- The nudges toward the next goal (roadmap #69), on every screen.
+    NudgeLayer
 </template>
 
 <script setup lang="ts">
@@ -65,6 +67,7 @@ import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import NudgeLayer from '@/components/hud/NudgeLayer.vue'
 import { ICON_ART } from '@/game/assets/overrides'
 import { MARKS } from '@/components/icons/marks'
 

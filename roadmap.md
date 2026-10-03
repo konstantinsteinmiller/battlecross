@@ -88,7 +88,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #67 ✅ I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
  Also turn the market stands in the town towards where they are accessable.
 - [x] #68 ✅ arrange furniture and staircasses  well in the houses of the town
-- [ ] #69 The targeted playerbase is 10-15 years old and they get bored running around without directions or goals, lets add attention bounces and other effective, yet not aggressive player guidance mechanisms to keep the player on the adventure track.
+- [x] #69 ✅ The targeted playerbase is 10-15 years old and they get bored running around without directions or goals, lets add attention bounces and other effective, yet not aggressive player guidance mechanisms to keep the player on the adventure track.
 - [x] #70 ✅ currently each zone has a single path and a single boss, lets add more branching paths and more bosses per zone to make the game more interesting and replayable.
   Also cave levels could have a second floor leading downwards with a stone staircase for example.
   Overall there should be more variety, so level exploration is fun and the rewards in terms of loot chests are worth it.

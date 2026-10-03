@@ -5,6 +5,7 @@
       :key="p.id"
       :ref="(el) => setEl(el, p.id)"
       :class="[`pin--${p.kind}`, { 'is-near': hud.interactKey === p.id }]"
+      :data-npc="p.id"
     )
       //- In reach: the marker becomes the prompt.
       button.pin__talk(v-if="hud.interactKey === p.id" type="button" @click="ask")

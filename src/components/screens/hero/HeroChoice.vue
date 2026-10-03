@@ -27,7 +27,7 @@
         )
           span.hero-choice__rays(aria-hidden="true")
           span.hero-choice__face
-            Portrait(:look="heroPortraitId(outfit, g)" :ring="g === 'f' ? '#ff9fbf' : 'var(--bc-blue-hi)'")
+            Portrait(:look="heroPortraitId(outfit, g)" :ring="g === 'f' ? 'var(--bc-pink-hi)' : 'var(--bc-blue-hi)'")
           span.hero-choice__plinth(aria-hidden="true")
 </template>
 
@@ -146,7 +146,7 @@ const choose = (g: HeroGender): void => {
   stage.value = 'picked'
   sfx('uiChoice')
   const card = cards[HERO_GENDERS.indexOf(g)]
-  burst(card?.querySelector('.hero-choice__face'), g === 'f' ? '#ff9fbf' : 'var(--bc-blue-hi)', true)
+  burst(card?.querySelector('.hero-choice__face'), g === 'f' ? 'var(--bc-pink-hi)' : 'var(--bc-blue-hi)', true)
   pickHero(g)
   try { currentZone()?.restyleHero() } catch (e) { console.warn('[hero-choice] the hero could not be rebuilt', e) }
   // The pop plays, then the overlay leaves and the fight begins.
@@ -282,8 +282,8 @@ onUnmounted(() => {
   margin: -75% 0 0 -75%
   border-radius: 50%
   background: repeating-conic-gradient(from 0deg, rgba(255, 236, 170, 0.2) 0deg 9deg, rgba(255, 236, 170, 0) 9deg 30deg)
-  mask-image: radial-gradient(closest-side, #000 35%, transparent 100%)
-  -webkit-mask-image: radial-gradient(closest-side, #000 35%, transparent 100%)
+  mask-image: radial-gradient(closest-side, black 35%, transparent 100%)
+  -webkit-mask-image: radial-gradient(closest-side, black 35%, transparent 100%)
   animation: rays 18s linear infinite
   pointer-events: none
   opacity: 0.8

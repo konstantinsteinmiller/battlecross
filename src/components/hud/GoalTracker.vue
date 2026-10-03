@@ -13,6 +13,9 @@
       //- A goal reached: a tick flashes over the icon as the next one comes in.
       span.goal__tick(v-if="flashing" :key="`t${onboard.goalDoneN}`")
         GameIcon(name="check")
+    //- A goal reached: a little burst of sparkles off the chip (roadmap #69).
+    span.goal__burst(v-if="flashing" :key="`b${onboard.goalDoneN}`" aria-hidden="true")
+      i(v-for="n in 8" :key="n" :style="{ '--k': n }")
     span.goal__text(:key="`g${who}`") {{ text }}
     span.goal__count(v-if="count" :key="`c${count}`") {{ count }}
 </template>
@@ -51,7 +54,9 @@ const ICON: Record<GoalId, GameIconName> = {
 const goal = computed(() => onboard.goal)
 /** Which goal it is (its progress aside): a new one pops in, a count only bumps. */
 const who = computed(() => (goal.value ? `${goal.value.id}|${goal.value.place ?? ''}|${goal.value.foe ?? ''}` : ''))
-const visible = computed(() => !flow.talk && !flow.modal && !flow.loading && !isAdShowing.value)
+// After a win the Leave button (with its chest count) is the goal on screen
+// itself: the chip steps aside rather than stand beside it.
+const visible = computed(() => !flow.talk && !flow.modal && !flow.loading && !isAdShowing.value && goal.value?.id !== 'exit')
 
 const text = computed(() => {
   const g = goal.value
@@ -72,6 +77,9 @@ const count = computed(() => {
 const flashing = ref(false)
 let timer = 0
 watch(() => onboard.goalDoneN, () => {
+  // The reward: a soft chime, once per goal (never on a loop), only when the
+  // chip itself is on screen to say what was done.
+  if (visible.value && goal.value) sfx('uiPoint', 0, 0.55)
   flashing.value = true
   window.clearTimeout(timer)
   timer = window.setTimeout(() => { flashing.value = false }, 900)
@@ -167,6 +175,33 @@ const show = (): void => {
     height: 70%
 .goal.is-done
   animation: goal-glow 900ms ease-out
+// Eight sparkles thrown off the icon, gold and white.
+.goal__burst
+  position: absolute
+  left: 1.2em
+  top: 50%
+  width: 0
+  height: 0
+  pointer-events: none
+  i
+    position: absolute
+    left: -0.2rem
+    top: -0.2rem
+    width: 0.4rem
+    height: 0.4rem
+    border-radius: 50%
+    background: var(--bc-gold-hi)
+    box-shadow: 0 0 0.3rem var(--bc-gold-hi)
+    animation: goal-spark 700ms ease-out both
+    &:nth-child(even)
+      background: var(--bc-text)
+@keyframes goal-spark
+  0%
+    transform: rotate(calc(var(--k) * 45deg)) translateX(0) scale(1)
+    opacity: 1
+  100%
+    transform: rotate(calc(var(--k) * 45deg)) translateX(2.2rem) scale(0.2)
+    opacity: 0
 @keyframes goal-pop
   0%
     transform: scale(0.2)
@@ -208,4 +243,6 @@ const show = (): void => {
 @media (prefers-reduced-motion: reduce)
   .goal__icon, .goal__text, .goal__count, .goal__tick, .goal.is-done
     animation: none
+  .goal__burst
+    display: none
 </style>

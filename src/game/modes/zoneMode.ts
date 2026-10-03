@@ -31,6 +31,8 @@ import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
+import { prefetchLikely, prefetchNow } from '../assets/preload'
+import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
 import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
@@ -412,6 +414,8 @@ export class ZoneMode implements GameMode {
     this.entered = true
     // The town's code, fetched while the player is busy here (see `townLoader.ts`).
     if (!this.town) setTimeout(() => { void loadTownView() }, 2500)
+    // The art of what can be reached from here, on a slow drip (`assets/preload.ts`).
+    prefetchLikely(this.setup.zone ?? this.setup.town ?? 'arena')
     hud.phase = this.setup.kind === 'town' ? 'town' : 'play'
     this.syncHud(true)
   }
@@ -715,6 +719,8 @@ export class ZoneMode implements GameMode {
           sfx('potion')
           break
         case 'victory':
+          // The map opens next: its art decoded before it does.
+          prefetchNow(UI_ART.get('map'))
           this.chestOpen = 0.001
           if (this.chest) this.chest.root.visible = true
           pushHud({ t: 'flash', color: '#ffffff', strength: 0.35 })

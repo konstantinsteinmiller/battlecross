@@ -29,5 +29,8 @@ export const onboard = shallowReactive({
   /** Grows each time the goal changes, and each time one is DONE (the
    *  tracker pops, and flashes a tick). */
   goalN: 0,
-  goalDoneN: 0
+  goalDoneN: 0,
+  /** The nudge up now (`coach/nudge.ts`): what, on which element (`sel`)
+   *  or toward which map place (`place`), drawn as a hop or a glow. */
+  nudge: null as { id: string; kind: 'bounce' | 'edge' | 'crumbs' | 'peek' | 'mapWay'; sel: string; place: string; style: 'bounce' | 'glow' } | null
 })
