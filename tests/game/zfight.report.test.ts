@@ -142,7 +142,7 @@ it('whole towns and zones', async () => {
       applyPlan(sim, plan)
       populateZone(sim, plan, z, [])
       const lp = new LevelProps(sim, new Vfx(scene), terrain.theme)
-      lp.build(plan, scene)
+      await lp.build(plan, scene)
       report(out, `zone ${z}#${seed}`, trisOfScene(scene, [], 300))
     }
   }

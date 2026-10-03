@@ -506,6 +506,14 @@ export default defineConfig(({ mode, command }) => {
           // The scene lazy-loads the recorder seam (`?preview=1`, dev only). Same
           // obfuscator-vs-dynamic-import constraint.
           /views[\\/]GameScene\.vue/,
+          // The boot's lazy chunks (PERF-LEDGER.md, 2026-10-03 boot entry): the
+          // town's view, the full screens and the menu host that opens them.
+          // Each holds the dynamic imports and nothing else worth hiding; the
+          // stringArray rewrite would inline the chunks back or break the
+          // specifiers. No `$` anchor on the .vue one (SFC virtual paths).
+          /game[\\/]gfx[\\/]townLoader\.ts$/,
+          /components[\\/]screens[\\/]chunks\.ts$/,
+          /components[\\/]modals[\\/]GameModals\.vue/,
           // useMawCampaign lazy-loads the heavy `useStageBuilder`
           // chunk via `await import('@/use/useStageBuilder')` so all
           // 20 stage builds stay off the boot critical path. The

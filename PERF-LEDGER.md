@@ -310,3 +310,70 @@ ground's fragments) should carry over; the triangle cuts matter less there;
 the draw-call and main-thread cuts (CPU) everywhere. Not measured: the ground
 shader's derivative terms (`fwidth`, contours) per fragment, the outline
 hulls, DOM layer costs under GPU raster, and a thermal run.
+
+## 2026-10-03: the boot after the playtest pass (loader first, again)
+
+The production boot had grown: `boot:adopted` 3.1 → 4.9 s and a 1.7 s task at
+4× CPU on the coordinator's run; boot chunk 869 → 1 252 kB, scene chunk 196 →
+356 kB.
+
+### Method
+
+Production builds (obfuscated, as shipped) of the morning (`779df68`, a
+worktree), HEAD and the fix, each served by its own `vite preview`; headless
+Chrome, phone portrait, 4× CPU; boot marks, every long task, console errors and
+external requests; the three builds interleaved, three runs each. To say what
+fills a task: a timeline trace with the V8 sampler of an unminified,
+unobfuscated twin build, samples cut by task. This session's machine was
+slower than the coordinator's (the morning build adopts at 3.8–4.6 s here, not
+3.1 s), so compare within the table.
+
+### What filled the boot (HEAD, 4× CPU)
+
+| Task | Cause |
+| --- | --- |
+| ~1.0 s inside the build | the warm-up: the whole place drawn in ONE render (every buffer uploaded, every program's uniforms read back) |
+| ~1.5 s right after `built` | the warm-up's tail, the music switching songs (a second song, a second convolution reverb) and the HUD mounting, chained through promise continuations into one task |
+| ~0.7 s on the first live frame | programs compiled on that frame: the zone's haze was only set at the first resize (every program rebuilt with fog), and the precompile kept ONE representative per material type, so every custom shader after the first (rings, bars, previews, water) waited for its first frame |
+| ~0.5 s during the loader | the scene's mount started the DEFAULT music track; the boot then switched to the place's track |
+| ~0.2 s | the level props built in one piece; the hero's rig built in the same slice as the enemies' list |
+
+### Fixes kept
+
+| Fix | Effect |
+| --- | --- |
+| The haze is set when the terrain is built; a resize updates it in place (`zoneMode.ts`, `terrain.ts`) | no recompile of every program on the first frame |
+| The precompile tells custom shaders apart (`boot.ts`, minimal edit) | measured in the dev build: programs created after the warm-up 1 → 0 |
+| The warm-up draws a few meshes per render, sliced, into ONE pixel (scissor + viewport); then compiles the see-through variant of every fading material (kept as copies for the visit, so three does not free the opaque program); then reads every program's uniforms, one a slice | the 1.0 s task gone; no first-frame compile |
+| The level props build in slices (`LevelProps.build` is async); the hero's rig is a prewarm job of its own | no build task over ~0.4 s |
+| Yields at the end of the warm-up and after `built`; the first number formatter built during the loader (`boot.ts`) | the HUD mount is its own task (~0.4 s), not chained to the music and the warm-up |
+| The music starts after the first frame, in the place's own track, AudioContext and song in two tasks (`GameScene.vue`, minimal edit) | one song set up instead of two; it was the loader's longest task. On a phone the context waits for the first tap anyway |
+| Lazy chunks, fetched in the background after the first frame: the town's view (`gfx/townLoader.ts`), the world map, the hero's book (with its doll), the trade, trainer and healer screens (`components/screens/chunks.ts`, `GameModals.vue`); obfuscator excludes for the three loader modules (`vite.config.ts`) | boot chunk 1 254 → 1 177 kB, scene chunk 356 → 190 kB (morning 196); new chunks townView 84, WorldMap 66, HeroBook 32, trade screens 23 kB |
+
+Boot, 4× CPU, phone, medians of three interleaved runs:
+
+| Build | Loader | `boot:adopted` | Longest task | Errors / external requests |
+| --- | --- | --- | --- | --- |
+| morning (`779df68`) | 726 ms | 4 619 ms | 1 230 ms | 0 / none |
+| HEAD before | 805 ms | 5 491 ms | 1 573 ms (+ a 0.7 s first frame) | 0 / none |
+| after | 736 ms | 5 075 ms | 425 ms | 0 / none |
+
+The lazy chunks load in the obfuscated build (200, no console error); e2e 94 / 94.
+
+### Not reached, and why
+
+- `boot:adopted` is 0.4 s behind the morning on this machine (≈ 3.4 s on the
+  coordinator's): the build itself has more to do. The hero's rig alone
+  (26–33 bones, gear parts) is a ~0.3 s job at 4× CPU, the relief and the
+  level features add to the plan, and slicing costs its yields. Next: build
+  rig templates in slices (`RigBuilder.build` merges every part in one go).
+- The boot chunk is 1 177 kB, not ~900: three.js is ~650 kB of it, and the
+  growth is game code the first fight needs (rigs and clips, level props,
+  relief, zone features). What could still leave needs edits in the sim and
+  the flow: the town's simulation (`sim/town.ts`, `sim/townLife.ts`, ~35 kB
+  minified, imported by `zoneGen`, `director` and `step`) and the dialogue
+  (`data/dialogs`, `dialog/*`, `talk.ts`, ~25 kB, imported by `flow.ts`).
+- The music's first song still costs ~0.35 s at 4× on its own task (a
+  convolution reverb's impulse computed and handed to a `ConvolverNode`, the
+  piano's wave tables): `audio/voices.ts` could build those in slices ahead
+  of time.

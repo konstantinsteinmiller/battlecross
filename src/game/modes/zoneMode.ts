@@ -1,9 +1,9 @@
-import { AmbientLight, Frustum, Matrix4, Scene, Sphere, type Group, type Mesh, type Object3D } from 'three'
+import { AmbientLight, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
 import type { GameMode } from '../engine/app'
 import { FollowCam, CAM_FOV, CAM_PITCH } from '../engine/camera'
 import { consumeEdges, type Input } from '../engine/input'
 import { getRenderer } from '../engine/renderer'
-import { createSlicer, type Slice } from '../engine/slicer'
+import { createSlicer, yieldToBrowser, type Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { sfx } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
@@ -28,7 +28,8 @@ import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
 import { LevelProps } from '../gfx/levelProps'
-import { TownView } from '../gfx/townView'
+import type { TownView } from '../gfx/townView'
+import { loadTownView } from '../gfx/townLoader'
 import { StillCull } from '../gfx/cull'
 import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
@@ -119,6 +120,8 @@ const barRank = (u: Unit): BarRank =>
 const ground = { x: 0, z: 0 }
 const screen = { x: 0, y: 0 }
 const frustum = new Frustum()
+const _size = new Vector2()
+const _px = new Uint8Array(4)
 const viewProj = new Matrix4()
 const bound = new Sphere()
 
@@ -138,6 +141,8 @@ export class ZoneMode implements GameMode {
   private walls = new WallRocks()
   /** The still world (scenery tiles, ground, props, houses), culled by its boxes. */
   private still = new StillCull()
+  /** See-through copies of materials, held so their programs stay compiled (`warmUp`). */
+  private variants: Material[] = []
   /** The height of this place's ground. */
   private field: HeightField | null = null
   /** Chests, plates, doors, bridges and the water (`gfx/levelProps.ts`). */
@@ -220,6 +225,10 @@ export class ZoneMode implements GameMode {
     m.field = { w: plan.w, h: plan.h, height: plan.height }
     setGround(m.field)
     m.terrain = await buildTerrain(plan, setup.theme, m.scene, slice)
+    // The haze now, not at the first resize: every program is compiled with
+    // it, so the first live frame does not recompile them all (a 0.6 s task
+    // at 4× CPU, measured).
+    setZoneFog(m.scene, m.terrain.theme, m.cam.dist)
     onProgress(0.5)
 
     // Every rig template this visit can need, one per slice: the pack's kinds,
@@ -232,7 +241,8 @@ export class ZoneMode implements GameMode {
     if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
     if (setup.kind === 'arena') for (const id of ['goblin', 'goblinSlinger', 'wolf', 'bandit', 'banditChief']) kinds.add(id)
     const jobs = prewarmKinds(kinds)
-    prewarmLook(heroLook(profile.inv.equipped))
+    // The hero is a job of its own too (his rig is the richest: ~0.1 s at 4× CPU).
+    jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped)))
     for (let i = 0; i < jobs.length; i++) {
       jobs[i]!()
       onProgress(0.5 + ((i + 1) / jobs.length) * 0.35)
@@ -246,9 +256,12 @@ export class ZoneMode implements GameMode {
     // A zone's chests (the finale's too) are level props; the colosseum keeps its prize chest.
     if (setup.kind === 'zone') {
       m.props = new LevelProps(sim, m.vfx, m.terrain.theme, n => m.cam.addTrauma(n))
-      m.props.build(plan, m.scene)
+      await m.props.build(plan, m.scene, slice)
     }
-    if (setup.kind === 'town' && plan.town) m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
+    if (setup.kind === 'town' && plan.town) {
+      const { TownView } = await loadTownView()
+      m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
+    }
     if (setup.kind === 'arena' && plan.chest) {
       m.chest = buildChest()
       m.chest.root.position.set(plan.chest.x, 0, plan.chest.z)
@@ -293,14 +306,88 @@ export class ZoneMode implements GameMode {
     const r = getRenderer()
     this.cam.update(0)
     updateCelFrame(this.camera, this.cam.refDepth)
-    r.clear()
-    r.render(this.scene, this.camera)
+    // A few meshes per draw, sliced: the first draw of a mesh uploads its
+    // buffers and the first draw of a program reads back its uniforms, and the
+    // whole place in one render was a single task of ~0.8 s at 4× CPU. What is
+    // hidden now stays hidden (and is uploaded when it first shows, as before).
+    // Drawn into ONE pixel: the uploads are the point, not the picture, and a
+    // backlog of full-screen warm-up frames would stall the first real one.
+    const own = createSlicer(12)
+    const size = r.getSize(_size)
+    r.setScissorTest(true)
+    r.setScissor(0, 0, 1, 1)
+    r.setViewport(0, 0, 1, 1)
+    const all: Object3D[] = []
+    this.scene.traverse((o) => { if ((o as Mesh).isMesh || (o as Points).isPoints || (o as Line).isLine) all.push(o) })
+    const shown = all.map(o => o.visible)
+    for (const o of all) o.visible = false
+    try {
+      let i = 0
+      while (i < all.length) {
+        let verts = 0
+        const from = i
+        while (i < all.length && (i === from || (i - from < 8 && verts < 20000))) {
+          const o = all[i]!
+          o.visible = shown[i]!
+          verts += ((o as Mesh).geometry?.attributes.position?.count ?? 0) * Math.max(1, (o as InstancedMesh).count ?? 1)
+          i++
+        }
+        r.clear()
+        r.render(this.scene, this.camera)
+        for (let k = from; k < i; k++) all[k]!.visible = false
+        onProgress((i / all.length) * 0.9)
+        await own()
+        await slice()
+      }
+    } finally {
+      for (let k = 0; k < all.length; k++) all[k]!.visible = shown[k]!
+      r.setScissorTest(false)
+      r.setViewport(0, 0, size.x, size.y)
+    }
+    // A body fading in or out (a spawn, a death, stealth, a house's cut-away
+    // front) is drawn see-through, and three gives a see-through material its
+    // own program: compiled here, one kind of mesh at a time, not on the first
+    // frame that fades someone (~0.15 s at 4× CPU, measured on the boot).
+    const kinds = new Set<string>()
+    for (const o of all) {
+      const m = (o as Mesh).material as ShaderMaterial | undefined
+      if (!m || Array.isArray(m) || m.transparent || !m.uniforms?.uOpacity) continue
+      const key = ((o as SkinnedMesh).isSkinnedMesh ? 's' : (o as InstancedMesh).isInstancedMesh ? 'i' : 'm') + m.vertexShader.length + ':' + m.fragmentShader.length + Object.keys(m.defines ?? {}).join()
+      if (kinds.has(key)) continue
+      kinds.add(key)
+      // A see-through copy, kept for the visit: three frees a program once no
+      // material uses it, and flipping the live material would free (and
+      // later rebuild) its opaque program instead.
+      const see = m.clone()
+      see.transparent = true
+      this.variants.push(see)
+      ;(o as Mesh).material = see
+      try {
+        for (const c of r.compile(o, this.camera, this.scene)) (r.properties.get(c) as { currentProgram?: { getUniforms(): unknown } }).currentProgram?.getUniforms()
+      } finally {
+        ;(o as Mesh).material = m
+      }
+      await own()
+    }
+    // Programs compiled for things hidden until their moment (a chest's glow, a
+    // ring) read their uniforms back here, one a slice, not on the frame that
+    // first shows them; the read also waits for the GPU to finish the above.
+    const gl = r.getContext()
+    for (const p of r.info.programs ?? []) {
+      p.getUniforms()
+      await own()
+    }
+    gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, _px)
     onProgress(1)
     await slice()
+    // What follows (the scene taking over, the HUD mounting) is a task of its own.
+    await yieldToBrowser()
   }
 
   enter(): void {
     this.entered = true
+    // The town's code, fetched while the player is busy here (see `townLoader.ts`).
+    if (!this.town) setTimeout(() => { void loadTownView() }, 2500)
     hud.phase = this.setup.kind === 'town' ? 'town' : 'play'
     this.syncHud(true)
   }
@@ -1026,6 +1113,7 @@ export class ZoneMode implements GameMode {
     this.town?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
+    for (const v of this.variants) v.dispose()
     clearGround(this.field)
     this.scene.clear()
   }

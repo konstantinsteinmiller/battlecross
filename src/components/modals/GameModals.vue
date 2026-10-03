@@ -15,11 +15,15 @@
  *  book and the trade table are full screens (`components/screens`); talking
  *  to someone and a quest's decision are not windows at all (see
  *  `components/dialog/DialogLayer.vue`). */
+import { defineAsyncComponent } from 'vue'
 import { flow } from '@/game/flow'
-import HeroBook from '@/components/screens/hero/HeroBook.vue'
-import TradeScreen from '@/components/screens/trade/TradeScreen.vue'
-import TeachScreen from '@/components/screens/trade/TeachScreen.vue'
-import HealerScreen from '@/components/screens/trade/HealerScreen.vue'
+import { SCREEN_CHUNKS } from '@/components/screens/chunks'
+// The full screens are chunks of their own, off the boot path (the scene
+// fetches them once the first frame is up, see `screens/chunks.ts`).
+const HeroBook = defineAsyncComponent(SCREEN_CHUNKS.heroBook)
+const TradeScreen = defineAsyncComponent(SCREEN_CHUNKS.trade)
+const TeachScreen = defineAsyncComponent(SCREEN_CHUNKS.teach)
+const HealerScreen = defineAsyncComponent(SCREEN_CHUNKS.healer)
 import ResultsModal from './ResultsModal.vue'
 import PauseModal from './PauseModal.vue'
 import HelpModal from './HelpModal.vue'

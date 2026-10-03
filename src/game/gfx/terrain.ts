@@ -1178,7 +1178,14 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
  * haze begins just past the playfield and only the land beyond fades into it.
  */
 export const setZoneFog = (scene: Scene, theme: Theme, camDist: number): void => {
-  scene.fog = new Fog(new Color(theme.sky), camDist * 1.2, camDist * 2.05)
+  // Updated in place: a new Fog object makes three re-derive every material's
+  // program on the next frame.
+  const fog = scene.fog as Fog | null
+  if (fog && (fog as Fog).isFog) {
+    fog.color.set(theme.sky)
+    fog.near = camDist * 1.2
+    fog.far = camDist * 2.05
+  } else scene.fog = new Fog(new Color(theme.sky), camDist * 1.2, camDist * 2.05)
 }
 
 // ─── Temporary walls (Earth Barrier, rubble) ─────────────────────────────────

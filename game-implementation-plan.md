@@ -216,7 +216,7 @@ changes only.
   - [x] Unit suite 1,465 passed; type-check clean; e2e 94/94 (play, touch, five layouts); hydration 23/23.
   - [x] Balance (D31) holds on every zone (bot, seed 77), with helmets / gloves / boots in the reference build.
   - [x] Frame time back below the morning baseline (court 58 → 42 ms, Sunford 36 → 20 ms p50 at 4× on the phone profile; PERF-LEDGER.md).
-  - [ ] Boot: the obfuscated build boots clean with no external requests, but `boot:adopted` went from 3.1 s to 4.9 s at 4× and the boot chunk from 869 to 1,252 kB — being fixed.
+  - [x] Boot: no task over ~0.4 s any more (was 1.7 s), shaders all precompiled, screens, town view and map lazy (boot chunk 1,252 → 1,173 kB, GameScene 356 → 189 kB). Still ~0.4 s behind the morning in total build time at 4× (more to build: rigs, relief, level props); next steps in PERF-LEDGER.md.
 
 ### Status log (playtest pass)
 

@@ -20,6 +20,7 @@ import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
 import { markStill, splitByTile } from './cull'
+import type { Slice } from '../engine/slicer'
 
 /** Side of a tile of the merged props and the water, metres. */
 const PROP_TILE = 30
@@ -272,14 +273,18 @@ export class LevelProps {
 
   // ─── Building ──────────────────────────────────────────────────────────────
 
-  build(plan: ZonePlan, scene: Scene): void {
+  /** Build every prop, yielding through `slice` between pieces (the loader's
+   *  bar keeps moving: in one piece this was a ~0.2 s task at 4× CPU). */
+  async build(plan: ZonePlan, scene: Scene, slice: Slice = () => {}): Promise<void> {
     this.plan = plan
     this.scene = scene
     const lit: BufferGeometry[] = []
     const glow: BufferGeometry[] = []
     if (plan.liquid) {
       this.buildWater(plan, plan.liquid)
+      await slice()
       this.dressWater(plan, plan.liquid, lit, glow)
+      await slice()
     }
     // Each piece is built on flat ground at 0 and set down on the ground's height where it stands.
     const lift = (y: number, fn: () => void): void => {
@@ -292,6 +297,7 @@ export class LevelProps {
     for (const cr of plan.crossings) {
       if (cr.kind === 'bridge') lift(groundAt(cr.x, cr.z), () => this.buildBridge(plan, cr.i0, cr.i1, cr.j0, cr.j1, lit))
       else this.buildFord(plan, cr.cells, lit)
+      await slice()
     }
     // A cave's mouth stands on the lower of its two feet, so neither floats.
     for (const cv of plan.caves) {
@@ -299,9 +305,11 @@ export class LevelProps {
       const px = Math.cos(m.a) * 1.55
       const pz = -Math.sin(m.a) * 1.55
       lift(Math.min(groundAt(m.x + px, m.z + pz), groundAt(m.x - px, m.z - pz), groundAt(m.x, m.z)), () => this.buildMouth(m.x, m.z, m.a, lit, glow))
+      await slice()
     }
     for (const s of plan.signs) lift(groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
     if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
+    await slice()
     // Merged, then cut into tiles that are culled by their boxes: the whole
     // zone's bridges, banks and mouths in one mesh would be drawn whole.
     if (lit.length) {
@@ -324,9 +332,12 @@ export class LevelProps {
       }
     }
     for (const g of [...lit, ...glow]) g.dispose()
+    await slice()
     this.buildPlates(plan)
     this.buildDoors(plan)
+    await slice()
     this.buildChests()
+    await slice()
     scene.add(this.root)
     if (plan.dummy) {
       this.dummy = new DummyProp(this.sim, this.vfx)

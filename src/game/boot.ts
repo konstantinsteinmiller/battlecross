@@ -9,6 +9,7 @@ import { initProfile } from './state/profile'
 import { hud } from './state/hud'
 import { bindInput, createBootMode, setPrecompile } from './flow'
 import { installSynth, loadSfxOverrides } from './audio/synth'
+import { fmt } from '@/utils/format'
 
 /**
  * ─── Boot priming ────────────────────────────────────────────────────────────
@@ -55,7 +56,14 @@ const precompile = async (mode: GameMode, onProgress: (f01: number) => void = ()
       // One representative per (material program, kind of object): a skinned
       // mesh and an instanced mesh need different programs of the same material.
       const kind = (o as { isSkinnedMesh?: boolean }).isSkinnedMesh ? 's' : (o as { isInstancedMesh?: boolean }).isInstancedMesh ? 'i' : 'm'
-      const key = kind + (Array.isArray(mat) ? mat : [mat]).map(m => m.type + (m.transparent ? 't' : '') + Object.keys(m.defines ?? {}).join()).join()
+      // A custom shader is its own program: two ShaderMaterials with different
+      // shaders must not share a representative (the rings, bars, previews and
+      // water were compiled on the frame that first showed them).
+      const shader = (m: Material): string => {
+        const s = m as Material & { vertexShader?: string; fragmentShader?: string }
+        return s.vertexShader ? `${s.vertexShader.length}:${s.fragmentShader?.length ?? 0}` : ''
+      }
+      const key = kind + (Array.isArray(mat) ? mat : [mat]).map(m => m.type + shader(m) + (m.transparent ? 't' : '') + Object.keys(m.defines ?? {}).join()).join()
       if (seen.has(key)) return
       seen.add(key)
       reps.push(o)
@@ -114,6 +122,10 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     loadSfxOverrides()
     onProgress(0.03)
     await yieldToBrowser()
+    // The first number formatter costs ~0.15 s at 4× CPU (ICU data); the HUD
+    // would otherwise build it inside the task that mounts it.
+    fmt(0)
+    await yieldToBrowser()
     getRenderer()
     onProgress(0.07)
     await loadTextureOverrides()
@@ -123,6 +135,7 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     performance.mark('boot:build-start')
     const mode = await createBootMode((p) => onProgress(0.1 + p * 0.9))
     performance.mark('boot:built')
+    await yieldToBrowser()
     onProgress(1)
     prepared = mode
     performance.mark('boot:primed')

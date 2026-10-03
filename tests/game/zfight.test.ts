@@ -169,7 +169,7 @@ describe('z-fighting: every static model', () => {
         const sim = new Sim({ seed, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
         applyPlan(sim, plan)
         populateZone(sim, plan, z, [])
-        new LevelProps(sim, new Vfx(scene), terrain.theme).build(plan, scene)
+        await new LevelProps(sim, new Vfx(scene), terrain.theme).build(plan, scene)
         const f = fights(trisOfScene(scene, [], 300))
         if (f.length) bad.push(`${z}#${seed}: ${f.join(' | ')}`)
       }

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 import { app } from '@/game/engine/app'
 import { attachInput, consumeEdges } from '@/game/engine/input'
 import { loadKeyboardLayout } from '@/game/engine/keyLabels'
@@ -28,17 +28,22 @@ import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from 
 import { isAnyModalOpen } from '@/use/useModalState'
 import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
+import { getAudioContext } from '@/use/useAssets'
+import { afterPaint, yieldToBrowser } from '@/game/engine/slicer'
 import { toggleGameMute } from '@/use/useGameMute'
 import { registerGameCheats } from '@/game/cheats'
 import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
-import WorldMap from '@/components/screens/WorldMap.vue'
+import { SCREEN_CHUNKS, preloadScreens } from '@/components/screens/chunks'
 import GameModals from '@/components/modals/GameModals.vue'
 import DialogLayer from '@/components/dialog/DialogLayer.vue'
 import TravelVeil from '@/components/hud/TravelVeil.vue'
 import LessonLayer from '@/components/onboarding/LessonLayer.vue'
 import { recallHere } from '@/game/coach/onboarding'
 import OptionsModal from '@/components/organisms/OptionsModal.vue'
+
+// The world map is a chunk of its own (see `components/screens/chunks.ts`).
+const WorldMap = defineAsyncComponent(SCREEN_CHUNKS.worldMap)
 
 /**
  * The one game view. Hosts the canvas, the gesture surface and whichever UI
@@ -90,9 +95,6 @@ onMounted(async () => {
   detachInput = attachInput(surface.value, input)
   void loadKeyboardLayout()
   app.setSuspended(isGamePaused.value)
-  // Music intent from the first frame; the context itself unlocks on the
-  // first gesture (autoplay policy), and the gates keep it silent under ads.
-  startGameMusic()
   window.addEventListener('keydown', onKey)
   if (import.meta.env.DEV) {
     // Probe hooks for browser checks. Folds away in production.
@@ -104,6 +106,17 @@ onMounted(async () => {
   // while the loader is still priming (see `adoptBootMode`).
   app.setMode(await adoptBootMode())
   app.setWanted(flow.screen !== 'map')
+  // Music once the first frame is up, in the place's own track (started
+  // during the loader it played the default one, then built a second song for
+  // the place: two reverbs and a ~0.5 s task at 4× CPU). The audio context and
+  // the song are two tasks. It still unlocks on the first gesture (autoplay
+  // policy), and the gates keep it silent under ads.
+  await afterPaint()
+  getAudioContext()
+  await yieldToBrowser()
+  startGameMusic()
+  // The screens' chunks, in the background (see `screens/chunks.ts`).
+  setTimeout(preloadScreens, 1500)
 })
 
 watch(isGamePaused, (p) => {
