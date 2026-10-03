@@ -80,6 +80,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #58 ✅ **Water.** Rivers with crossings and small ponds to walk around.
 - [x] #59 ✅ **Tunnels and caves** that hide loot or optional enemies.
 - [x] #60 ✅ **More ideas for levels** written up in `level-ideas.md`.
+- [ ] #62 House interiors in the sunford city and everywhere need higher quality furniture and the houses need to look like houses people live in or for Inns, like they visit them, with props that tell an environmental story.
+- [x] #63 ✅ The dialogs feel a bit mechanical and not how normal people would talk. Please improve that, make the people talk in a more human way, not so weirdly "try-hard comical", they can be funny, but not this cased sentences.
+- [ ] #64
 
 ### World map
 
