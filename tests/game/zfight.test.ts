@@ -42,7 +42,7 @@ describe('z-fighting: every static model', () => {
                 // The door where the town puts it: the middle cell, or the one left of it.
                 const h = { kind, i0: 0, j0: 0, cw, cd: inside ? 5 : 4, doorI: Math.floor(cw / 2) - (s % 2), inside, owner: '', owners: [], sign: kind === 'tavern' ? 'tavern' : 'smith', cls: 'pyro', storeys, setback: false, seed: 1000 + s * 77, yard: null, row: 0 } as never
                 const o = buildHouse(k, h, { style, ruined, low: false, x: s * 30, y: 0, z: 0, job: jobs[s % jobs.length], cls: 'pyro' })
-                for (const [nm, kit] of [['base', k], ['cut', o.cut], ['room', o.room]] as const) {
+                for (const [nm, kit] of [['base', k], ['cut', o.cut], ['room', o.room], ['clutter', o.clutter]] as const) {
                   if (kit) for (const [ln, m] of [['hull', kit.hull], ['detail', kit.detail], ['glow', kit.glow]] as const) trisOfMesher(m, `${nm}.${ln}`, tris)
                 }
               }
@@ -56,16 +56,53 @@ describe('z-fighting: every static model', () => {
     expect(bad).toEqual([])
   }, 300_000)
 
+  it('every room story: home, taproom, healer, shop, a school of each class; whole and ruined, either hand', async () => {
+    const { buildHouse } = await import('@/game/gfx/houses')
+    const { newKit } = await import('@/game/gfx/archKit')
+    const { CLASS_IDS } = await import('@/game/data/skills')
+    // [label, kind, cw, cd, job, cls]
+    const rooms: Array<[string, 'cottage' | 'townhouse' | 'tavern' | 'hall' | 'chapel', number, number, string | undefined, string | undefined]> = [
+      ['home', 'cottage', 4, 4, undefined, undefined], ['home (town house)', 'townhouse', 5, 4, undefined, undefined],
+      ['taproom', 'tavern', 7, 5, undefined, undefined], ['taproom (shallow)', 'tavern', 7, 4, undefined, undefined],
+      ['healer', 'chapel', 5, 5, 'healer', undefined], ['shop', 'townhouse', 5, 4, 'merchant', undefined],
+      ...CLASS_IDS.map(cls => [`school ${cls}`, 'hall', 7, 5, undefined, cls] as [string, 'hall', number, number, undefined, string])
+    ]
+    const bad: string[] = []
+    for (const [label, kind, cw, cd, job, cls] of rooms) {
+      for (const style of ['rural', 'mercantile', 'mountain'] as const) {
+        for (const ruined of [false, true]) {
+          const tris: Tri[] = []
+          for (let s = 0; s < 2; s++) {
+            const k = newKit()
+            // The door where the town puts it (the middle cell, or one left of it in an
+            // even house): the second house is a cell narrower, the work wall on its other side.
+            const w = s ? cw - 1 : cw
+            const h = { kind, i0: s, j0: 0, cw: w, cd, doorI: s + Math.floor(w / 2) - (w % 2 === 0 ? 1 : 0), inside: true, owner: '', owners: [], sign: '', cls, storeys: 1, setback: false, seed: 300 + s * 31, yard: null, row: 0 } as never
+            const o = buildHouse(k, h, { style, ruined, low: false, x: s * 30, y: 0, z: 0, job: job as never, cls: cls as never })
+            for (const [nm, kit] of [['base', k], ['cut', o.cut], ['room', o.room], ['clutter', o.clutter]] as const) {
+              if (kit) for (const [ln, m] of [['hull', kit.hull], ['detail', kit.detail], ['glow', kit.glow]] as const) trisOfMesher(m, `${nm}.${ln}`, tris)
+            }
+          }
+          const f = fights(tris)
+          if (f.length) bad.push(`${label} ${style}${ruined ? ' ruined' : ''}: ${f.join(' | ')}`)
+        }
+      }
+    }
+    expect(bad).toEqual([])
+  }, 300_000)
+
   it('every town prop', async () => {
     const { newKit } = await import('@/game/gfx/archKit')
     const { buildProp } = await import('@/game/gfx/townProps')
-    const kinds = ['well', 'fountain', 'stall', 'board', 'bench', 'table', 'barrel', 'crates', 'cart', 'hay', 'lamp', 'tree', 'dummy', 'stone', 'rack', 'anvil', 'trough', 'woodpile', 'laundry', 'garden', 'campfire', 'brazier', 'rubble', 'signpost', 'bush', 'planter', 'barrels', 'gate'] as const
+    const kinds = ['well', 'fountain', 'stall', 'board', 'bench', 'table', 'barrel', 'crates', 'cart', 'hay', 'lamp', 'tree', 'dummy', 'stone', 'rack', 'anvil', 'trough', 'woodpile', 'laundry', 'garden', 'campfire', 'brazier', 'rubble', 'signpost', 'bush', 'planter', 'barrels', 'gate', 'armorStand', 'ore', 'chalk', 'spill'] as const
     const bad: string[] = []
     for (const style of ['rural', 'mercantile', 'mountain'] as const) {
       for (const ruined of [false, true]) {
         for (const kind of kinds) {
           const k = newKit()
+          // Both variants: w 3 / v 5, and w 1 / v 4 (a taproom's table with a pack, the broken cart).
           buildProp(k, { kind, x: 0, z: 0, rot: 0.3, w: 3, v: 5, cells: [] }, { style, ruined, low: false, gy: () => 0 })
+          buildProp(k, { kind, x: 9, z: 0, rot: 0.3, w: 1, v: 4, cells: [] }, { style, ruined, low: false, gy: () => 0 })
           const tris: Tri[] = []
           for (const [ln, m] of [['hull', k.hull], ['detail', k.detail], ['glow', k.glow]] as const) trisOfMesher(m, `${kind}.${ln}`, tris)
           const f = fights(tris)
@@ -96,8 +133,8 @@ describe('z-fighting: every static model', () => {
       const v = await TownView.build(plan, sim, scene, slice, {} as never)
       // Every room open, as the hero sees it from inside; the animals at their
       // homes (the first frame puts them there).
-      const tv = v as unknown as { cuts: Array<{ room: { visible: boolean } | null }>; animals: Array<{ obj: Object3D; x: number; z: number }> }
-      for (const c of tv.cuts) if (c.room) c.room.visible = true
+      const tv = v as unknown as { cuts: Array<{ room: { visible: boolean } | null; clutter: { visible: boolean } | null }>; animals: Array<{ obj: Object3D; x: number; z: number }> }
+      for (const c of tv.cuts) { if (c.room) c.room.visible = true; if (c.clutter) c.clutter.visible = true }
       for (const a of tv.animals) a.obj.position.set(a.x, groundAt(a.x, a.z), a.z)
       const f = fights(trisOfScene(scene, [], 300))
       if (f.length) bad.push(`${name}: ${f.join(' | ')}`)

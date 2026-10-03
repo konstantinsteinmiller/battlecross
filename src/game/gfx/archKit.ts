@@ -149,6 +149,51 @@ export class Mesher {
     return this.box(x - w / 2, y - h / 2, z - d / 2, x + w / 2, y + h / 2, z + d / 2, c, skip, foot)
   }
 
+  /**
+   * A box with its top and upright edges bevelled by `b` (furniture: a chunky,
+   * hand-made look instead of a crate's hard corners). The bottom is left
+   * open; the bevels take `edge` (a shade lighter than the top by default, so
+   * the edge catches the light in the cel shading).
+   */
+  rbox(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, b: number, c: Col | { top?: Col; side?: Col; edge?: Col }): this {
+    const one = typeof c === 'string' || c instanceof Color
+    const top = one ? c : (c.top ?? c.side ?? '#ffffff')
+    const side = one ? c : (c.side ?? c.top ?? '#ffffff')
+    const edge = one ? shade(c, 1.1) : (c.edge ?? shade(top, 1.1))
+    b = Math.max(0.001, Math.min(b, (x1 - x0) / 2 - 0.001, (z1 - z0) / 2 - 0.001, (y1 - y0) - 0.001))
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, cz = (z0 + z1) / 2
+    // Every face turned away from the box's centre (a convex shape).
+    const out = (p: number[][], col: Col): void => {
+      const [a, q, r2] = [p[0]!, p[1]!, p[p.length - 1]!]
+      const nx = (q[1]! - a[1]!) * (r2[2]! - a[2]!) - (q[2]! - a[2]!) * (r2[1]! - a[1]!)
+      const ny = (q[2]! - a[2]!) * (r2[0]! - a[0]!) - (q[0]! - a[0]!) * (r2[2]! - a[2]!)
+      const nz = (q[0]! - a[0]!) * (r2[1]! - a[1]!) - (q[1]! - a[1]!) * (r2[0]! - a[0]!)
+      let gx = 0, gy = 0, gz = 0
+      for (const v of p) { gx += v[0]! / p.length; gy += v[1]! / p.length; gz += v[2]! / p.length }
+      const pts = nx * (gx - cx) + ny * (gy - cy) + nz * (gz - cz) < 0 ? [...p].reverse() : p
+      const v = pts.flat() as number[]
+      if (pts.length === 4) this.quad(v[0]!, v[1]!, v[2]!, v[3]!, v[4]!, v[5]!, v[6]!, v[7]!, v[8]!, v[9]!, v[10]!, v[11]!, col)
+      else this.tri(v[0]!, v[1]!, v[2]!, v[3]!, v[4]!, v[5]!, v[6]!, v[7]!, v[8]!, col)
+    }
+    const ya = y1 - b
+    out([[x0 + b, y1, z0 + b], [x1 - b, y1, z0 + b], [x1 - b, y1, z1 - b], [x0 + b, y1, z1 - b]], top)
+    out([[x0 + b, y0, z1], [x1 - b, y0, z1], [x1 - b, ya, z1], [x0 + b, ya, z1]], side)
+    out([[x0 + b, y0, z0], [x1 - b, y0, z0], [x1 - b, ya, z0], [x0 + b, ya, z0]], side)
+    out([[x1, y0, z0 + b], [x1, y0, z1 - b], [x1, ya, z1 - b], [x1, ya, z0 + b]], side)
+    out([[x0, y0, z0 + b], [x0, y0, z1 - b], [x0, ya, z1 - b], [x0, ya, z0 + b]], side)
+    out([[x0 + b, ya, z1], [x1 - b, ya, z1], [x1 - b, y1, z1 - b], [x0 + b, y1, z1 - b]], edge)
+    out([[x0 + b, ya, z0], [x1 - b, ya, z0], [x1 - b, y1, z0 + b], [x0 + b, y1, z0 + b]], edge)
+    out([[x1, ya, z0 + b], [x1, ya, z1 - b], [x1 - b, y1, z1 - b], [x1 - b, y1, z0 + b]], edge)
+    out([[x0, ya, z0 + b], [x0, ya, z1 - b], [x0 + b, y1, z1 - b], [x0 + b, y1, z0 + b]], edge)
+    for (const [sx, sz] of [[x1, z1], [x1, z0], [x0, z1], [x0, z0]] as const) {
+      const dx = sx === x1 ? 1 : -1
+      const dz = sz === z1 ? 1 : -1
+      out([[sx - dx * b, y0, sz], [sx, y0, sz - dz * b], [sx, ya, sz - dz * b], [sx - dx * b, ya, sz]], side)
+      out([[sx - dx * b, ya, sz], [sx, ya, sz - dz * b], [sx - dx * b, y1, sz - dz * b]], edge)
+    }
+    return this
+  }
+
   /** A beam from point A to point B with a square section `s` (timber, rails, posts). */
   beam(ax: number, ay: number, az: number, bx: number, by: number, bz: number, s: number, c: Col, t = s): this {
     _a.set(bx - ax, by - ay, bz - az)

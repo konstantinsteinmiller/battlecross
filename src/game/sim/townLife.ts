@@ -36,7 +36,7 @@ import type { Sim } from './world'
 export type TownPose =
   | 'stand' | 'look' | 'sit' | 'sitDrink' | 'sitEat' | 'sitSmoke' | 'lean' | 'leanSmoke' | 'hammer' | 'stir' | 'sweep' | 'read'
   | 'count' | 'sharpen' | 'forms' | 'cast' | 'talk' | 'listen' | 'wave' | 'spar' | 'warm' | 'huddle' | 'drink' | 'eat' | 'smoke'
-  | 'tinker' | 'pray' | 'hoe' | 'hang' | 'play' | 'inspect' | 'sing'
+  | 'tinker' | 'pray' | 'hoe' | 'hang' | 'play' | 'inspect' | 'sing' | 'polish' | 'doze'
 
 /** What is in a person's hand (a small mesh on the hand's bone). */
 export type HandProp = '' | 'mug' | 'bread' | 'pipe' | 'book' | 'broom' | 'hoe' | 'ladle' | 'stone' | 'cloth' | 'wrench'
@@ -81,12 +81,13 @@ const DAYS: Readonly<Record<TownJob, ActDef[]>> = {
   villager: [A('wander', 3, 'look', [2, 5]), A('chat', 3, 'talk', [7, 10]), A('spot', 2, 'sitDrink', [7, 11], 'seat', 'mug'), A('spot', 2, 'look', [4, 7], 'look'), A('spot', 2, 'hang', [7, 11], 'work'), A('treat', 1, 'sweep', [7, 10], undefined, 'broom')],
   farmer: [A('spot', 5, 'hoe', [9, 14], 'work', 'hoe'), A('wander', 1, 'stand', [2, 4]), A('treat', 1, 'drink', [4, 6], undefined, 'mug'), A('spot', 1, 'sitEat', [6, 9], 'seat', 'bread'), A('chat', 1, 'talk', [6, 9])],
   child: [A('play', 7, 'play', [1.5, 3]), A('chat', 1, 'talk', [4, 6]), A('wander', 1, 'look', [1.5, 3])],
-  drinker: [A('spot', 6, 'sitDrink', [10, 16], 'seat', 'mug'), A('chat', 2, 'talk', [6, 9]), A('spot', 1, 'sitEat', [7, 10], 'seat', 'bread'), A('wander', 1, 'stand', [2, 4])],
+  // (Now and then one nods off over his mug.)
+  drinker: [A('spot', 6, 'sitDrink', [10, 16], 'seat', 'mug'), A('chat', 2, 'talk', [6, 9]), A('spot', 1, 'sitEat', [7, 10], 'seat', 'bread'), A('spot', 1, 'doze', [14, 22], 'seat', 'mug'), A('wander', 1, 'stand', [2, 4])],
   survivor: [A('spot', 5, 'warm', [9, 14], 'fire'), A('spot', 3, 'huddle', [8, 12], 'seat'), A('wander', 1, 'look', [2, 3])],
   thug: [A('spot', 5, 'leanSmoke', [9, 15], 'lean', 'pipe'), A('spot', 2, 'lean', [6, 10], 'lean'), A('wander', 1, 'look', [2, 4])],
   miner: [A('spot', 3, 'sitDrink', [8, 12], 'seat', 'mug'), A('chat', 3, 'talk', [6, 9]), A('wander', 2, 'stand', [2, 4]), A('treat', 1, 'eat', [5, 7], undefined, 'bread')],
   // The taproom: the keeper keeps to the bar (wipes it, counts, pours himself one), the bard sings.
-  keeper: [A('station', 5, 'count', [8, 13]), A('station', 3, 'hang', [5, 8], undefined, 'cloth'), A('station', 1, 'drink', [4, 6], undefined, 'mug'), A('chat', 1, 'talk', [5, 8])],
+  keeper: [A('station', 4, 'polish', [8, 13], undefined, 'mug'), A('station', 3, 'count', [8, 13]), A('station', 1, 'drink', [4, 6], undefined, 'mug'), A('chat', 1, 'talk', [5, 8])],
   bard: [A('station', 7, 'sing', [12, 18]), A('treat', 1, 'drink', [4, 6], undefined, 'mug'), A('wander', 1, 'stand', [2, 3])]
 }
 
@@ -747,6 +748,7 @@ const doStep = (life: Life, p: TownLifePerson, dt: number): void => {
   const was0 = p.t
   p.t += dt
   if (p.pose === 'sing' && Math.floor(p.t / 1.7) !== Math.floor(was0 / 1.7)) { p.emote = 'note'; p.emoteT = 0 }
+  if (p.pose === 'doze' && Math.floor(p.t / 3.2) !== Math.floor(was0 / 3.2)) { p.emote = 'zzz'; p.emoteT = 0 }
   if (p.act === 'chat' && p.partner && p.visit) {
     const q = p.partner
     // Talking to somebody who is busy at a seat or a wall: they answer now and then.

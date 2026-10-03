@@ -6,6 +6,7 @@ import { CELL } from '../sim/grid'
 import type { TownHouse } from '../sim/town'
 import { Mesher, cage, lc, newKit, seeded, shade, under, type Col, type Kit } from './archKit'
 import { rock, stripUv } from './kit'
+import { cat, furnishRoom, hang, type RoomCtx, type RoomStory } from './interiors'
 
 /**
  * ─── Houses (roadmap #41) ────────────────────────────────────────────────────
@@ -100,6 +101,8 @@ export interface HouseOut {
   cut: Kit | null
   /** Its room's furniture (drawn only while the room can be seen). */
   room: Kit | null
+  /** The room's small things (drawn only while its front is lifted; none on a weak device). */
+  clutter: Kit | null
   /** Chimney tops (world), for their smoke. */
   chimneys: Array<[number, number, number]>
   /** Warm lights (world) by the door: lanterns. */
@@ -125,7 +128,7 @@ const onFace = (k: Kit, W: number, D: number, f: Face, y: number, fn: (len: numb
 // ─── Pieces ──────────────────────────────────────────────────────────────────
 
 /** A window on a face (centre x, sill y): frame, cross, sill, panes, shutters. */
-const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, lit: boolean, o: { shutters?: boolean; box?: boolean; boarded?: boolean; round?: boolean; stone?: boolean } = {}): void => {
+const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, lit: boolean, o: { shutters?: boolean; box?: boolean; boarded?: boolean; round?: boolean; stone?: boolean; cat?: boolean } = {}): void => {
   const fr = o.stone ? '#6f6c72' : p.timber
   // The pane: warm light from within, or dark glass.
   if (lit && !o.boarded) k.glow.quad(x - w / 2, y, 0.02, x + w / 2, y, 0.02, x + w / 2, y + h, 0.02, x - w / 2, y + h, 0.02, '#ffd27a')
@@ -158,7 +161,12 @@ const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, li
     d.box(x - w / 2 - t - sw + 0.04, y + h * 0.48, 0.08, x - w / 2 - t - 0.06, y + h * 0.52, 0.1, shade(sc, 0.7), 'bn')
     d.box(x + w / 2 + t + 0.06, y + h * 0.48, 0.08, x + w / 2 + t + sw - 0.04, y + h * 0.52, 0.1, shade(sc, 0.7), 'bn')
   }
-  if (o.box) {
+  if (o.cat) {
+    // A cat asleep on the sill in the sun.
+    d.push(x, y - t + 0.01, 0.09, 0)
+    cat(d, '#f0a050')
+    d.pop()
+  } else if (o.box) {
     // A flower box under it, in bloom.
     d.box(x - w / 2 - 0.05, y - 0.32, 0.04, x + w / 2 + 0.05, y - 0.13, 0.3, { front: '#8a5a34', side: '#6a4428', top: '#5a3a24' }, 'bn')
     d.box(x - w / 2, y - 0.14, 0.06, x + w / 2, y - 0.08, 0.28, '#4f9a44', 'bn')
@@ -650,7 +658,13 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
   const outer = newKit()
   const front = enterable ? cut : base
   const roomKit = enterable ? newKit() : null
-  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, chimneys: [], lamps: [], forge: null, top: 0 }
+  // The small things that tell the room's story: only while its front is lifted, never on a weak device.
+  const clutterKit = enterable && !c.low ? newKit() : null
+  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: clutterKit, chimneys: [], lamps: [], forge: null, top: 0 }
+  /** The windows in the side walls, for the room's curtains. */
+  const sideWins: RoomCtx['wins'] = []
+  /** This house's cat has found its window (else it sleeps on the step). */
+  let catSat = false
   const twoStorey = h.storeys === 2 && !(c.ruined && r() < 0.4)
   const F = h.kind === 'hall' || h.kind === 'chapel' ? 2.6 : h.kind === 'tavern' ? 2.45 : 2.3
   const U = twoStorey ? (h.kind === 'hall' ? 2.0 : 1.8) : 0
@@ -665,7 +679,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
 
   under(base, c.x, c.y, c.z, 0, () => {
     under(outer, c.x, c.y, c.z, 0, () => {
-      if (enterable) under(cut, c.x, c.y, c.z, 0, () => under(roomKit!, c.x, c.y, c.z, 0, () => body()))
+      if (enterable) under(cut, c.x, c.y, c.z, 0, () => under(roomKit!, c.x, c.y, c.z, 0, () => (clutterKit ? under(clutterKit, c.x, c.y, c.z, 0, () => body()) : body())))
       else body()
     })
   })
@@ -754,7 +768,12 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
         for (const x of xs) {
           const on = lit()
           const sh = !stone && !c.low && r() < 0.65
-          windowOn(k, x, wy, ww, wh, p, on, { shutters: sh, box: !upper && f === 's' && !c.ruined && !c.low && c.style !== 'mountain' ? r() < 0.75 : !upper && f !== 'n' && !c.ruined && !c.low && r() < 0.25, boarded: c.ruined && r() < 0.7, stone })
+          // One house in four has a cat asleep in its first front window.
+          const puss = !upper && f === 's' && !c.ruined && !c.low && h.seed % 4 === 1 && x === xs[0]
+          if (puss) catSat = true
+          windowOn(k, x, wy, ww, wh, p, on, { shutters: sh, box: !upper && f === 's' && !c.ruined && !c.low && c.style !== 'mountain' ? r() < 0.75 : !upper && f !== 'n' && !c.ruined && !c.low && r() < 0.25, boarded: c.ruined && r() < 0.7, stone, cat: puss })
+          // (A side wall's face runs along z: its x is −z on the east wall, +z on the west.)
+          if (!upper && (f === 'e' || f === 'w')) sideWins.push({ side: f === 'e' ? 1 : -1, z: f === 'e' ? -x : x })
           gaps.push([x - windowReach(ww, sh), x + windowReach(ww, sh)])
           holes.push([x - ww / 2 - 0.14, x + ww / 2 + 0.14, wy - 0.4, wy + wh + 0.08])
         }
@@ -774,6 +793,12 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
         // Two steps up to the door, out in front of the plinth and each a real step below the next.
         outer.hull.box(ox - openW / 2 - 0.15, 0, fz + 0.05, ox + openW / 2 + 0.15, BASE_H * 0.4, fz + 0.36, { top: shade(p.base, 1.15), side: p.base }, 'b')
         outer.hull.box(ox - openW / 2 - 0.08, 0, fz + 0.05, ox + openW / 2 + 0.08, BASE_H * 0.8, fz + 0.2, { top: shade(p.base, 1.2), side: shade(p.base, 1.05) }, 'b')
+        // No window for the cat: it sleeps on the sunny step instead.
+        if (h.seed % 4 === 1 && !catSat && !c.ruined && !c.low) {
+          outer.detail.push(ox + openW / 2 - 0.05, BASE_H * 0.4, fz + 0.28, 0.4)
+          cat(outer.detail, '#f0a050')
+          outer.detail.pop()
+        }
       } else {
         // A worn flagstone at the threshold, flush with the ground.
         outer.detail.box(ox - openW / 2 - 0.12, 0, fz + 0.01, ox + openW / 2 + 0.12, ROOM_Y, fz + 0.38, { top: shade(p.base, 1.15), side: p.base }, 'b')
@@ -864,7 +889,8 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
           const d = cut.detail
           const tc = c.ruined ? '#2e2622' : p.timber
           d.beam(0, Y, 0.02, 0, Y + rise - 0.1, 0.02, 0.13, tc, 0.05)
-          d.beam(-span * 0.32, Y + rise * 0.32, 0.025, span * 0.32, Y + rise * 0.32, 0.025, 0.12, tc, 0.05)
+          // (A chapel's gable has its rose window where the tie beam would cross it.)
+          if (h.kind !== 'chapel') d.beam(-span * 0.32, Y + rise * 0.32, 0.025, span * 0.32, Y + rise * 0.32, 0.025, 0.12, tc, 0.05)
           if (h.cls && (h.kind === 'hall')) banner(cut, 0, Y + rise * 0.24, h.cls, Math.min(1.25, rise * 0.75))
           else if (h.kind === 'chapel') {
             // A round window.
@@ -902,7 +928,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       }
     })
     // ── The room inside ──
-    if (roomKit) room(roomKit, h, W, D, doorX, c, p, r)
+    if (roomKit) room(roomKit, clutterKit, h, W, D, doorX, F, sideWins, c, p, r)
     // A ruin: rubble at its feet.
     if (c.ruined) {
       for (let i = 0; i < 4; i++) {
@@ -996,13 +1022,31 @@ const forgeMouth = (B: Kit, front: Kit, W: number, D: number, ow: number, oh: nu
   B.glow.box(hx - 0.33, BASE_H + 0.7, zb + 0.12, hx + 0.33, BASE_H + 0.76, zb + 0.62, '#ff8a2a', 'b')
   for (let i = 0; i < 5; i++) B.glow.ball(hx - 0.25 + i * 0.12, BASE_H + 0.78, zb + 0.25 + (i % 2) * 0.2, 0.07, i % 2 ? '#ffd24a' : '#ff6a1a', 4, 3)
   B.hull.prism([[hx - 0.5, oh - 0.05], [hx + 0.5, oh - 0.05], [hx + 0.2, oh - 0.65], [hx - 0.2, oh - 0.65]].reverse() as Array<[number, number]>, zb, zb + 0.7, '#5a5258')
-  // Bellows and a rack of tongs and hammers on the back wall.
-  const bx = ow * 0.22
+  // Bellows beside the hearth, and a rack of tongs and hammers on the back wall over them.
+  const bx = hx + 0.75
   B.detail.box(bx - 0.25, BASE_H + 0.3, zb + 0.15, bx + 0.25, BASE_H + 0.5, zb + 0.6, { top: '#8a5a3a', side: '#6a4428' }, 'b')
   B.detail.beam(bx - 0.3, BASE_H + 1.2, zb + 0.05, bx + 0.3, BASE_H + 1.2, zb + 0.05, 0.06, '#4a3a30', 0.06)
   for (let i = 0; i < 4; i++) B.detail.beam(bx - 0.22 + i * 0.15, BASE_H + 1.18, zb + 0.08, bx - 0.22 + i * 0.15, BASE_H + 0.7, zb + 0.1, 0.04, '#55585f', 0.03)
-  // Sacks of coal.
-  B.detail.ball(ow / 2 - 0.3, BASE_H + 0.2, z - 0.35, 0.22, '#3a3434', 6, 4, 0.9)
+  // Sacks of coal in the front corner by the fire.
+  B.detail.ball(-ow / 2 + 0.3, BASE_H + 0.2, z - 0.35, 0.22, '#3a3434', 6, 4, 0.9)
+  // The smith lives at the back of his forge: soot up the wall over the fire, his
+  // cot along the side wall with a blanket on it, his apron on a hook over it,
+  // the lunch pail by the cot's foot.
+  under(B, hx, BASE_H + 0.75, zb + 0.012, 0, () => {
+    for (let i = 0; i < 3; i++) B.detail.tri(-0.5 + i * 0.35, 0, 0, -0.2 + i * 0.35, 0, 0, -0.35 + i * 0.35, oh - BASE_H - 1.0 - (i % 2) * 0.3, 0, '#1e1a1c')
+  })
+  if (depth >= 1.0 && ow >= 2.2) {
+    const cx = ow / 2 - 0.34
+    const cl = Math.min(depth - 0.12, 1.25)
+    B.hull.rbox(cx - 0.27, BASE_H + 0.22, zb + 0.05, cx + 0.27, BASE_H + 0.3, zb + 0.05 + cl, 0.015, { top: '#8a5a34', side: '#6a4428' })
+    for (const ex of [-0.22, 0.22]) for (const ez of [0.1, cl - 0.05]) B.detail.cyl(cx + ex, BASE_H + 0.04, zb + ez, 0.025, 0.025, 0.18, 5, '#5a3a24')
+    B.detail.rbox(cx - 0.24, BASE_H + 0.3, zb + 0.08, cx + 0.24, BASE_H + 0.36, zb + cl, 0.02, { top: '#d8cdb8', side: '#c0b49e' })
+    B.detail.rbox(cx - 0.25, BASE_H + 0.36, zb + 0.4, cx + 0.25, BASE_H + 0.42, zb + cl - 0.05, 0.02, { top: '#6a5a8a', side: '#5a4a7a' })
+    B.detail.ball(cx + 0.27 + 0.02, BASE_H + 1.62, z - 0.45, 0.025, '#4a4a54', 4, 2)
+    hang(B.detail, ow / 2 - 0.04, z - 0.6, ow / 2 - 0.04, z - 0.3, BASE_H + 1.6, BASE_H + 0.75, '#7a5034', { pleats: 1, depth: 0.012, seed: 4 })
+    B.detail.cyl(cx - 0.05, BASE_H + 0.04, z - 0.18, 0.1, 0.11, 0.16, 8, '#8a8f9a', '#6a6a74')
+    B.detail.beam(cx - 0.15, BASE_H + 0.22, z - 0.18, cx + 0.05, BASE_H + 0.22, z - 0.18, 0.015, '#5a5a64')
+  }
   void c
   void r
   return [c.x + hx, c.y + BASE_H + 0.9, c.z + zb + 0.4]
@@ -1011,7 +1055,7 @@ const forgeMouth = (B: Kit, front: Kit, W: number, D: number, ow: number, oh: nu
 // ─── Rooms ───────────────────────────────────────────────────────────────────
 
 /** The inside of a house that is walked into: a floor, a rug, the trade's furniture. */
-const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: HouseCtx, p: Pal, r: () => number): void => {
+const room = (B: Kit, L: Kit | null, h: TownHouse, W: number, D: number, doorX: number, top: number, wins: RoomCtx['wins'], c: HouseCtx, p: Pal, r: () => number): void => {
   const d = B.detail
   const x0 = -W / 2 + T
   const x1 = W / 2 - T
@@ -1026,224 +1070,33 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
     // (A ruin's floor is scorched dark.)
     d.quad(a, fy, z1, b, fy, z1, b, fy, z0, a, fy, z0, shade(p.floor, (i % 2 ? 0.92 : 1.02 + (r() - 0.5) * 0.06) * (c.ruined ? 0.55 : 1)))
   }
-  // A rug from the door in.
-  const rugC = c.job === 'noble' ? '#a82a3a' : c.job === 'healer' ? '#5aa86a' : c.job === 'rogue' ? '#3a3458' : c.job === 'scholar' ? '#c9482a' : c.job === 'tinker' ? '#2a6a7a' : '#8a4a6a'
-  // A runner from the door into the room, with a border.
-  const rw = Math.min(0.75, W * 0.16)
-  const rz0 = z0 + Math.max(0.6, (z1 - z0) * 0.35)
-  d.box(doorX - rw, fy, rz0, doorX + rw, fy + 0.025, z1 - 0.1, { top: rugC }, 'b')
-  d.box(doorX - rw + 0.1, fy + 0.025, rz0 + 0.1, doorX + rw - 0.1, fy + 0.04, z1 - 0.2, { top: shade(rugC, 1.25) }, 'b')
-  d.box(doorX - 0.1, fy + 0.04, rz0 + 0.3, doorX + 0.1, fy + 0.055, z1 - 0.4, { top: shade(rugC, 0.8) }, 'b')
-  // Skirting and a beam along the inside of the walls.
+  // Skirting and a beam along the inside of the back wall.
   d.box(x0, fy, z0, x1, fy + 0.12, z0 + 0.03, '#6a4a34', 'b')
-  d.box(x0, 1.9, z0, x1, 2.02, z0 + 0.06, p.timber, 'b')
-  // The work place: by the west or the east wall (the same side the plan put them).
+  d.box(x0, 2.08, z0, x1, 2.2, z0 + 0.06, p.timber, 'b')
+  // The work place is by the west or the east wall (the same side the plan put it).
   const west = h.doorI >= h.i0 + h.cw / 2
-  const wx = west ? x0 : x1
-  const s = west ? 1 : -1
   const wz = (h.j0 + h.cd - 1.5) * CELL - (h.j0 * CELL + (h.cd * CELL) / 2)
-  if (h.kind === 'tavern') { taproom(B, wx, s, wz, x0, x1, z0, fy, west, c, r); return }
-  furnish(B, c.job ?? 'villager', wx, s, wz, fy, c, r)
-  // Along the back wall: shelves of the trade, and a hearth or a bench.
-  shelves(B, x0 + (west ? 1.6 : 0.4), z0, fy, Math.min(1.5, (x1 - x0) * 0.4), c.job ?? 'villager', r)
-  const hx = west ? x1 - 0.7 : x0 + 0.7
-  if (c.job === 'noble') throne(B, (x0 + x1) / 2, z0, fy)
-  else hearth(B, hx, z0, fy, !c.ruined)
-  // A chair in the back corner (the plan's seat).
-  const cx = west ? x1 - 0.5 : x0 + 0.5
-  chair(d, cx - (west ? 0.1 : -0.1), fy, z0 + 0.95, west ? -2.4 : 2.4)
-  // A candle or two.
-  if (!c.ruined) for (const s2 of [-1, 1]) {
-    d.cyl(s2 * W * 0.28, fy + 1.0, z0 + 0.05, 0.03, 0.03, 0.12, 5, '#3a3034')
-    B.glow.ball(s2 * W * 0.28, fy + 1.2, z0 + 0.08, 0.05, '#ffd27a', 4, 3)
+  // What the room is: a taproom, a healer's, a shop, a school, or somebody's home.
+  // (A school's class from its master's trade when the house was somebody else's first:
+  // the Blood Alchemist in the healer's chapel of a fallen Oakhaven.)
+  const cls = (c.job && JOB_CLASS[c.job]) || c.cls
+  const story: RoomStory = h.kind === 'tavern' ? 'inn' : c.job === 'healer' ? 'healer' : c.job === 'merchant' ? 'shop' : cls ? 'school' : 'home'
+  // A runner from the door in (a home has its own rugs; a taproom its tables; a throne room its carpet).
+  if (story === 'healer' || story === 'shop' || (story === 'school' && cls !== 'sovereign')) {
+    const rugC = c.ruined ? '#4a3a3a' : c.job === 'healer' ? '#5aa86a' : cls === 'shadow' ? '#3a3458' : cls === 'aether' ? '#2a6a7a' : '#8a4a6a'
+    under(B, doorX, fy, (z0 + z1) / 2 + 0.6, 0, () => rugFlat(B.detail, Math.min(1.3, W * 0.28), (z1 - z0) * 0.5, rugC))
   }
+  furnishRoom({ B, L, x0, x1, z0, z1, fy, top, doorX, west, wz, story, job: c.job, cls, ruined: c.ruined, style: c.style, wins, vary: h.i0 + h.j0 * 7, r })
 }
 
-/**
- * A tavern's taproom (the plan puts its tables and stools, `sim/town.ts`):
- * the bar the keeper stands behind, kegs and bottles at his back, the hearth
- * the bard sings by. A fallen town's is sooty, its fire out, its shelves bare.
- */
-const taproom = (B: Kit, wx: number, s: number, wz: number, x0: number, x1: number, z0: number, fy: number, west: boolean, c: HouseCtx, r: () => number): void => {
-  const d = B.detail
-  const g = B.glow
-  const wood = c.ruined ? '#4a3a30' : '#8a5a34'
-  const dark = c.ruined ? '#33282a' : '#6a4428'
-  // The bar, across the keeper's place (he stands between it and the wall).
-  const bx0 = wx + s * 1.32
-  const bx1 = wx + s * 1.74
-  const a = Math.min(bx0, bx1)
-  const b = Math.max(bx0, bx1)
-  d.box(a, fy, wz - 0.8, b, fy + 0.95, wz + 0.55, { top: wood, front: dark, side: dark, east: dark, west: dark }, 'b')
-  d.box(a - 0.05, fy + 0.95, wz - 0.85, b + 0.05, fy + 1.02, wz + 0.6, { top: shade(wood, 1.2), side: wood }, 'b')
-  // Mugs on the bar, and a keg with its tap at the end of it.
-  if (!c.ruined) for (const zz of [-0.45, -0.05, 0.3]) {
-    d.cyl((a + b) / 2 + (r() - 0.5) * 0.12, fy + 1.02, wz + zz, 0.06, 0.065, 0.14, 6, '#e8a648', '#fff4d8')
-  }
-  d.push((a + b) / 2, fy + 1.02, wz - 0.62, 0, 1)
-  d.cyl(0, 0, 0, 0.17, 0.17, 0.32, 8, '#a06a3a', '#7a4e2c')
-  d.pop()
-  // Kegs against the wall behind the keeper, and bottles on a shelf over them.
-  for (const [zz, k] of [[-1.2, 0], [-0.75, 1]] as const) {
-    const kx = wx + s * 0.33
-    d.cyl(kx, fy, wz + zz, 0.25, 0.27, 0.62, 8, k ? '#8a5a34' : '#9a6a3a', '#6a4428')
-  }
-  d.box(wx, fy + 1.45, wz - 1.4, wx + s * 0.28, fy + 1.5, wz + 0.4, { top: wood, side: dark }, 'b')
-  if (!c.ruined) {
-    const cols = ['#4aa86a', '#c9482a', '#e8c060', '#5a7ad6']
-    for (let i = 0; i < 6; i++) {
-      const bz = wz - 1.3 + i * 0.27
-      d.cyl(wx + s * 0.14, fy + 1.5, bz, 0.045, 0.05, 0.2, 5, cols[i % cols.length]!, '#2a2228')
-    }
-  }
-  // The hearth on the back wall, across from the bar; a lantern over the tables.
-  const hx = west ? x1 - 0.9 : x0 + 0.9
-  hearth(B, hx, z0, fy, !c.ruined)
-  if (!c.ruined) g.ball((x0 + x1) / 2, fy + 2.1, z0 + 1.6, 0.09, '#ffd27a', 5, 3)
-  // Soot up the back wall of a fallen town's taproom.
-  if (c.ruined) {
-    for (let i = 0; i < 4; i++) {
-      const sx = x0 + 0.4 + r() * (x1 - x0 - 0.8)
-      const w2 = 0.3 + r() * 0.5
-      d.quad(sx - w2, fy + 0.5, z0 + 0.02, sx + w2, fy + 0.5, z0 + 0.02, sx + w2 * 0.4, fy + 1.9, z0 + 0.02, sx - w2 * 0.4, fy + 1.9, z0 + 0.02, '#1e1a1c')
-    }
-  }
-}
+/** The class taught by a master of each trade (when the house does not say it). */
+const JOB_CLASS: Partial<Record<TownJob, ClassId>> = { alchemist: 'blood', rogue: 'shadow', noble: 'sovereign', tinker: 'aether', geo: 'geo', knight: 'aegis' }
 
-const chair = (d: Mesher, x: number, y: number, z: number, rot: number): void => {
-  d.push(x, y, z, rot)
-  d.box(-0.22, 0.2, -0.2, 0.22, 0.26, 0.2, { top: '#a06a3a', side: '#7a4e2c' }, 'b')
-  for (const [a, b] of [[-0.18, -0.16], [0.18, -0.16], [-0.18, 0.16], [0.18, 0.16]] as const) d.box(a - 0.03, 0, b - 0.03, a + 0.03, 0.2, b + 0.03, '#6a4428', 'b')
-  d.box(-0.22, 0.26, -0.22, 0.22, 0.75, -0.16, { front: '#a06a3a', side: '#7a4e2c', top: '#8a5a34' }, 'b')
-  d.pop()
-}
-
-/** The trade's own furniture at the work place, against wall `wx`, facing the room by `s`. */
-const furnish = (B: Kit, job: TownJob, wx: number, s: number, wz: number, fy: number, c: HouseCtx, r: () => number): void => {
-  const d = B.detail
-  const g = B.glow
-  const fx = wx + s * 0.3
-  switch (job) {
-    case 'scholar': {
-      // A lectern with a tome, and a brazier of fire beside it.
-      d.box(fx - 0.18, fy, wz - 0.18, fx + 0.18, fy + 0.85, wz + 0.18, { top: '#6a4428', side: '#7a4e2c' }, 'b')
-      d.push(fx, fy + 0.95, wz, s > 0 ? -Math.PI / 2 : Math.PI / 2)
-      d.box(-0.3, -0.06, -0.22, 0.3, 0.02, 0.22, { top: '#5a3a24', side: '#5a3a24' }, 'b')
-      d.box(-0.26, 0.02, -0.18, -0.01, 0.06, 0.18, '#f4ead2', 'b')
-      d.box(0.01, 0.02, -0.18, 0.26, 0.06, 0.18, '#f4ead2', 'b')
-      d.pop()
-      g.ball(fx + s * 0.1, fy + 1.04, wz, 0.04, '#ff9a3a', 4, 3)
-      const bz = wz - 0.85
-      d.cyl(fx, fy, bz, 0.12, 0.2, 0.6, 6, '#4a4044')
-      d.cyl(fx, fy + 0.6, bz, 0.26, 0.3, 0.12, 8, '#5a5054')
-      g.ball(fx, fy + 0.8, bz, 0.2, '#ff7a2a', 6, 4, 1.3)
-      g.ball(fx, fy + 0.95, bz, 0.12, '#ffd24a', 5, 3, 1.4)
-      break
-    }
-    case 'healer':
-    case 'alchemist': {
-      // A bench with a bubbling pot and bottles.
-      d.box(wx, fy + 0.72, wz - 0.55, wx + s * 0.62, fy + 0.8, wz + 0.55, { top: '#8a5a34', side: '#6a4428' }, 'b')
-      for (const zz of [-0.48, 0.48]) d.box(wx + s * 0.04, fy, wz + zz - 0.04, wx + s * 0.58, fy + 0.72, wz + zz + 0.04, '#6a4428', 'b')
-      d.cyl(fx, fy + 0.8, wz, 0.2, 0.24, 0.26, 8, '#3a3438')
-      g.cyl(fx, fy + 1.05, wz, 0.19, 0.19, 0.02, 8, job === 'healer' ? '#7dff8a' : '#ff4a6a', job === 'healer' ? '#7dff8a' : '#ff4a6a')
-      const cols = job === 'healer' ? ['#7dff8a', '#5fd8ff', '#ffd84a'] : ['#ff4a6a', '#b06aff', '#ffd84a']
-      for (let i = 0; i < 4; i++) {
-        const z = wz - 0.42 + i * 0.13 + (i > 1 ? 0.5 : 0)
-        g.ball(fx + s * 0.05, fy + 0.9, z, 0.06, cols[i % 3]!, 5, 3)
-        d.cyl(fx + s * 0.05, fy + 0.95, z, 0.018, 0.018, 0.06, 4, '#e8f0f4')
-      }
-      break
-    }
-    case 'merchant':
-    case 'smith': {
-      // A counter, and a rack of blades behind it.
-      d.box(wx, fy, wz - 0.6, wx + s * 0.55, fy + 0.85, wz + 0.6, { top: '#8a5a34', front: '#7a4e2c', side: '#6a4428' }, 'b')
-      d.box(wx, fy + 0.85, wz - 0.65, wx + s * 0.6, fy + 0.9, wz + 0.65, '#a06a3a', 'b')
-      for (let i = 0; i < 4; i++) {
-        const z = wz - 0.45 + i * 0.3
-        d.beam(wx + s * 0.04, fy + 1.0, z, wx + s * 0.04, fy + 1.75, z, 0.04, '#d8dde8', 0.015)
-        d.box(wx + s * 0.02, fy + 1.0, z - 0.08, wx + s * 0.07, fy + 1.04, z + 0.08, '#d8b04a', 'b')
-      }
-      d.ball(wx + s * 0.35, fy + 0.98, wz + 0.3, 0.07, '#ffd24a', 5, 3)
-      break
-    }
-    case 'rogue': {
-      // A target board on the wall, daggers in it; a crate table with a map.
-      // (A disc turned on its edge: its axis across the room, out of the wall.)
-      d.pushMatrix(new Matrix4().makeRotationZ(-s * Math.PI / 2).setPosition(wx + s * 0.03, fy + 1.3, wz))
-      d.cyl(0, 0, 0, 0.42, 0.42, 0.06, 10, '#c8a070', '#e8c890')
-      d.pop()
-      for (const [a, b] of [[0.1, 0.05], [-0.12, -0.1], [0.02, -0.2]] as const) d.beam(wx + s * 0.1, fy + 1.3 + b, wz + a, wx + s * 0.3, fy + 1.3 + b, wz + a, 0.03, '#d8dde8', 0.03)
-      d.box(fx - 0.3 + s * 0.3, fy, wz + 0.6, fx + 0.3 + s * 0.3, fy + 0.55, wz + 1.1, { top: '#8a6a44', side: '#6a4a2c' }, 'b')
-      d.box(fx - 0.25 + s * 0.3, fy + 0.55, wz + 0.65, fx + 0.25 + s * 0.3, fy + 0.56, wz + 1.0, '#f0e0b0', 'b')
-      break
-    }
-    case 'tinker': {
-      d.box(wx, fy + 0.75, wz - 0.6, wx + s * 0.6, fy + 0.82, wz + 0.6, { top: '#6a6a74', side: '#4a4a54' }, 'b')
-      for (const zz of [-0.52, 0.52]) d.box(wx + s * 0.05, fy, wz + zz - 0.04, wx + s * 0.55, fy + 0.75, wz + zz + 0.04, '#4a4a54', 'b')
-      for (let i = 0; i < 3; i++) d.cyl(fx, fy + 0.82, wz - 0.3 + i * 0.3, 0.1, 0.1, 0.05, 8, '#c9a24a', '#d8b04a')
-      g.cyl(fx + s * 0.05, fy + 0.82, wz + 0.45, 0.07, 0.07, 0.2, 6, '#4ff0c8', '#4ff0c8')
-      d.beam(wx + s * 0.02, fy + 1.1, wz - 0.6, wx + s * 0.02, fy + 1.1, wz + 0.6, 0.08, '#8a8f9a', 0.08)
-      break
-    }
-    case 'noble': {
-      // A writing desk with a candle and a scroll.
-      d.box(wx + s * 0.05, fy + 0.7, wz - 0.5, wx + s * 0.6, fy + 0.78, wz + 0.5, { top: '#6a3a2a', side: '#4a2a1c' }, 'b')
-      d.box(wx + s * 0.1, fy, wz - 0.45, wx + s * 0.55, fy + 0.7, wz + 0.45, '#5a3424', 'b')
-      d.box(wx + s * 0.25, fy + 0.78, wz - 0.2, wx + s * 0.45, fy + 0.8, wz + 0.15, '#f0e0b0', 'b')
-      g.ball(wx + s * 0.4, fy + 0.95, wz + 0.35, 0.04, '#ffd27a', 4, 3)
-      break
-    }
-    default: {
-      d.box(fx - 0.35, fy + 0.7, wz - 0.4, fx + 0.35, fy + 0.78, wz + 0.4, { top: '#8a5a34', side: '#6a4428' }, 'b')
-      d.box(fx - 0.3, fy, wz - 0.35, fx + 0.3, fy + 0.7, wz + 0.35, '#6a4428', 'b')
-    }
-  }
-  void c
-  void r
-}
-
-/** Shelves on the back wall, stocked by trade. */
-const shelves = (B: Kit, x: number, z0: number, fy: number, w: number, job: TownJob, r: () => number): void => {
-  const d = B.detail
-  d.box(x, fy, z0, x + w, fy + 1.7, z0 + 0.35, { front: '#5a3a24', side: '#6a4428', top: '#7a4e2c' }, 'b')
-  const cols = job === 'scholar' || job === 'noble' ? ['#c9482a', '#3f6fd6', '#5aa84a', '#d8b04a', '#7a3fa0'] : job === 'healer' || job === 'alchemist' ? ['#7dff8a', '#5fd8ff', '#ff6a8a', '#ffd84a'] : ['#8a8f9a', '#a06a3a', '#d8b04a', '#5a5a64']
-  for (let row = 0; row < 3; row++) {
-    const y = fy + 0.2 + row * 0.5
-    d.box(x + 0.04, y - 0.04, z0 + 0.32, x + w - 0.04, y, z0 + 0.36, '#7a4e2c', 'b')
-    let xx = x + 0.08
-    while (xx < x + w - 0.14) {
-      const bw = 0.06 + r() * 0.07
-      const bh = 0.2 + r() * 0.16
-      const col = cols[Math.floor(r() * cols.length)]!
-      if (job === 'healer' || job === 'alchemist') B.glow.ball(xx + 0.05, y + 0.08, z0 + 0.2, 0.06, col, 4, 3)
-      else d.box(xx, y, z0 + 0.08, xx + bw, y + bh, z0 + 0.3, { front: col, side: shade(col, 0.8), top: shade(col, 1.1) }, 'b')
-      xx += bw + 0.03 + (job === 'healer' || job === 'alchemist' ? 0.08 : 0)
-    }
-  }
-}
-
-const hearth = (B: Kit, x: number, z0: number, fy: number, burning: boolean): void => {
-  B.hull.box(x - 0.55, fy, z0, x + 0.55, fy + 1.25, z0 + 0.5, { front: '#9a8a84', side: '#8a7a74', top: '#7a6a64' }, 'b')
-  B.detail.box(x - 0.35, fy, z0 + 0.48, x + 0.35, fy + 0.6, z0 + 0.51, '#2a2026', 'b')
-  B.detail.box(x - 0.65, fy + 1.25, z0, x + 0.65, fy + 1.37, z0 + 0.6, '#6a4428', 'b')
-  if (burning) {
-    B.glow.ball(x, fy + 0.18, z0 + 0.4, 0.2, '#ff7a2a', 5, 4, 1.2)
-    B.glow.ball(x, fy + 0.28, z0 + 0.42, 0.11, '#ffd24a', 4, 3, 1.4)
-  }
-  B.detail.beam(x - 0.25, fy + 0.06, z0 + 0.45, x + 0.25, fy + 0.08, z0 + 0.4, 0.09, '#5a3a24', 0.09)
-}
-
-const throne = (B: Kit, x: number, z0: number, fy: number): void => {
-  const d = B.detail
-  d.box(x - 0.45, fy, z0 + 0.1, x + 0.45, fy + 0.12, z0 + 1.0, { top: '#a82a3a', side: '#7a1c28' }, 'b')
-  d.box(x - 0.35, fy + 0.12, z0 + 0.2, x + 0.35, fy + 0.42, z0 + 0.8, { top: '#a82a3a', front: '#d8b04a', side: '#b8903a' }, 'b')
-  d.box(x - 0.38, fy + 0.12, z0 + 0.12, x + 0.38, fy + 1.55, z0 + 0.26, { front: '#a82a3a', side: '#d8b04a', top: '#d8b04a' }, 'b')
-  for (const s of [-1, 1]) {
-    d.box(x + s * 0.38 - 0.06, fy + 0.12, z0 + 0.15, x + s * 0.38 + 0.06, fy + 0.72, z0 + 0.82, '#d8b04a', 'b')
-    d.ball(x + s * 0.38, fy + 1.6, z0 + 0.2, 0.08, '#ffd84a', 5, 3)
-  }
+/** A plain woven rug: a border, a field, a stripe (a runner from the door). */
+const rugFlat = (m: Mesher, w: number, l: number, col: string): void => {
+  m.box(-w / 2, 0, -l / 2, w / 2, 0.018, l / 2, { top: col, side: shade(col, 0.8) }, 'b')
+  m.box(-w / 2 + 0.1, 0.018, -l / 2 + 0.1, w / 2 - 0.1, 0.028, l / 2 - 0.1, { top: shade(col, 1.25) }, 'b')
+  m.box(-0.08, 0.028, -l / 2 + 0.3, 0.08, 0.038, l / 2 - 0.3, { top: shade(col, 0.8) }, 'b')
 }
 
 /** A tiny tri count of a whole town's houses (perf notes). */

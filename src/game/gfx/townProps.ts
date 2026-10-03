@@ -4,6 +4,7 @@ import { CELL } from '../sim/grid'
 import { TC_FENCE, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, TC_YARD, type TownPlan, type TownProp } from '../sim/town'
 import { Mesher, cage, lc, seeded, shade, under, type Kit } from './archKit'
 import { rock } from './kit'
+import { armourStand, laundryBasket, pack } from './interiors'
 
 /**
  * ─── What stands in a town's streets (roadmap #41) ──────────────────────────
@@ -186,6 +187,12 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         }
         d.ball(0.05, 0.56, 0.2, 0.08, '#d8a050', 5, 3, 0.7)
       }
+      // In a taproom: somebody's pack set down by his stool (on the room's floor, 5 cm up).
+      if (p.w === 1 && !c.low) {
+        d.push(-0.6 + (p.v % 2) * 1.2, 0.05, 0.42, 0.4 + (p.v % 3) * 0.5)
+        pack(d, ruined ? '#5a4a3a' : ['#7a6a3a', '#5a6a8a', '#8a4a3a'][p.v % 3]!)
+        d.pop()
+      }
       break
     }
     case 'barrel':
@@ -196,12 +203,26 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       h.box(-0.9, 0.5, -0.55, 0.9, 0.62, 0.55, { top: '#b07e48', side: WOOD_D }, 'b')
       for (const s of [-1, 1]) h.box(-0.9, 0.62, s * 0.55 - 0.05, 0.9, 0.9, s * 0.55 + 0.05, { front: WOOD, side: WOOD_D, top: WOOD }, 'b')
       h.box(0.85, 0.62, -0.55, 0.95, 0.9, 0.55, WOOD, 'b')
+      const broken = p.v % 2 === 0 && !c.low
       for (const s of [-1, 1]) {
+        if (broken && s > 0) continue
         h.push(-0.1, 0.42, s * 0.68, 0)
         h.pushMatrix(ALONG_Z)
         h.cyl(0, -0.05, 0, 0.42, 0.42, 0.1, 10, '#7a5030', '#a07040')
         h.pop()
         h.pop()
+      }
+      if (broken) {
+        // The wheel off and leaning on the cart; the axle on a block; the wheelwright's tools on the ground.
+        h.pushMatrix(new Matrix4().makeRotationX(Math.PI / 2 - 0.35).setPosition(0.55, 0.42, 1.0))
+        h.cyl(0, -0.05, 0, 0.42, 0.42, 0.1, 10, '#7a5030', '#a07040')
+        h.pop()
+        d.rbox(-0.25, 0, 0.42, 0.05, 0.36, 0.72, 0.02, '#6a4428')
+        d.beam(-0.6, 0.02, 1.2, -0.25, 0.02, 1.35, 0.05, '#a07848', 0.04)
+        d.rbox(-0.29, 0.0, 1.31, -0.19, 0.06, 1.42, 0.01, '#5a5a64')
+        d.beam(0.0, 0.02, 1.5, 0.3, 0.02, 1.45, 0.035, '#8a8f9a', 0.035)
+        d.rbox(0.36, 0.0, 1.35, 0.9, 0.05, 1.55, 0.01, '#b07e48')
+        d.cyl(-0.85, 0, 1.15, 0.12, 0.14, 0.2, 8, '#8a8f9a', '#4a4a54')
       }
       for (const s of [-1, 1]) d.beam(-0.9, 0.55, s * 0.4, -1.9, 0.05, s * 0.3, 0.08, WOOD_D, 0.08)
       if (!ruined) d.ball(0, 0.95, 0, 0.75, '#e2b850', 7, 4, 0.45)
@@ -310,8 +331,10 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       for (const s of [-1, 1]) h.box(s * w / 2 - 0.05, 0, -0.05, s * w / 2 + 0.05, 1.75, 0.05, WOOD_D, 'b')
       d.beam(-w / 2, 1.7, 0, w / 2, 1.62, 0, 0.02, '#e8e0c8', 0.02)
       const cl = ['#ffffff', '#7fb0e8', '#ff9a8a', '#ffe07a', '#a8e09a']
-      for (let i = 0; i < 4; i++) {
-        const x = -w / 2 + 0.35 + i * ((w - 0.7) / 3)
+      // (As many cloths as the line holds without one over the next.)
+      const nc = Math.max(1, Math.min(4, Math.floor((w - 0.3) / 0.62)))
+      for (let i = 0; i < nc; i++) {
+        const x = nc === 1 ? 0 : -w / 2 + 0.35 + i * ((w - 0.7) / (nc - 1))
         const cw = 0.3 + r() * 0.2
         const ch = 0.45 + r() * 0.3
         const col = cl[(i + p.v) % cl.length]!
@@ -319,7 +342,9 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         d.quad(x - cw / 2, 1.66 - ch, 0.025, x + cw / 2, 1.66 - ch, 0.025, x + cw / 2, 1.66, 0.025, x - cw / 2, 1.66, 0.025, col)
         d.quad(x + cw / 2, 1.66 - ch, -0.025, x - cw / 2, 1.66 - ch, -0.025, x - cw / 2, 1.66, -0.025, x + cw / 2, 1.66, -0.025, shade(col, 0.85))
       }
-      d.cyl(w / 2 - 0.35, 0, 0.3, 0.25, 0.3, 0.25, 8, '#c8a070', '#f4ece0')
+      d.push(w / 2 - 0.35, 0, 0.42)
+      laundryBasket(d)
+      d.pop()
       break
     }
     case 'garden': {
@@ -437,6 +462,63 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       // A garland of flowers along the beam.
       if (c.style !== 'mountain') for (let i = 0; i < 9; i++) d.ball(-w + (i / 8) * 2 * w, 3.0 - Math.sin((i / 8) * Math.PI) * 0.25, 0.2, 0.09, ['#ff6a8a', '#ffd84a', '#ffffff'][i % 3]!, 5, 3)
       else for (const s of [-1, 1]) g.box(s * w - 0.12, 3.45, -0.12, s * w + 0.12, 3.7, 0.12, '#ff9a3a', 'b')
+      break
+    }
+    case 'armorStand': {
+      // The Aegis Knight's armour on its stand by the fence, the polishing cloth over it.
+      armourStand(k, c.low ? null : k, '#c0c8d4', true)
+      break
+    }
+    case 'ore': {
+      // The Geomancer's samples: a bench of rocks and crystals, a pick leaning on it.
+      h.rbox(-0.6, 0.6, -0.25, 0.6, 0.68, 0.25, 0.02, { top: '#a07848', side: WOOD_D })
+      for (const sx of [-1, 1]) d.rbox(sx * 0.5 - 0.05, 0, -0.2, sx * 0.5 + 0.05, 0.6, 0.2, 0.01, WOOD_D)
+      const cols = ['#b06aff', '#5fd8ff', '#c9a24a', '#7dd84a', '#8a8f9a']
+      for (let i = 0; i < 5; i++) {
+        const x = -0.48 + i * 0.24
+        if (i % 2) d.cyl(x, 0.68, 0.0, 0.07, 0, 0.2, 5, cols[i]!)
+        else d.ball(x, 0.75, 0.0, 0.08, cols[i]!, 5, 3, 0.8)
+      }
+      d.beam(0.65, 0.0, 0.1, 0.55, 0.75, 0.15, 0.05, '#7a5030')
+      d.beam(0.5, 0.72, 0.15, 0.7, 0.8, 0.15, 0.06, '#8a8f9a', 0.03)
+      break
+    }
+    case 'chalk': {
+      // A child's chalk drawing on the stones: a sun, a house, a hopscotch, in colours (5 cm up: over the paving).
+      // Each colour a real step over the last where their strokes cross.
+      const lift: Record<string, number> = { '#f4f0e8': 0.05, '#ffd04a': 0.062, '#6ab0ff': 0.074, '#ff6a5a': 0.086 }
+      const line = (ax: number, az: number, bx: number, bz: number, col: string): void => {
+        const y0 = lift[col] ?? 0.05
+        const dx = bx - ax, dz = bz - az
+        const l = Math.hypot(dx, dz) || 1
+        const nx = (-dz / l) * 0.025, nz = (dx / l) * 0.025
+        d.quad(ax - nx, y0, az - nz, ax + nx, y0, az + nz, bx + nx, y0, bz + nz, bx - nx, y0, bz - nz, col)
+      }
+      for (let i = 0; i < 4; i++) {
+        const z = -0.6 + i * 0.32
+        for (const [ax, az, bx, bz] of [[-0.15, z, 0.15, z], [0.15, z, 0.15, z + 0.3], [-0.15, z, -0.15, z + 0.3]] as const) line(ax, az, bx, bz, '#f4f0e8')
+      }
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2
+        line(0.5 + Math.sin(a) * 0.1, -0.4 + Math.cos(a) * 0.1, 0.5 + Math.sin(a) * 0.22, -0.4 + Math.cos(a) * 0.22, '#ffd04a')
+      }
+      for (const [ax, az, bx, bz] of [[0.35, 0.2, 0.65, 0.2], [0.65, 0.2, 0.65, 0.45], [0.65, 0.45, 0.35, 0.45], [0.35, 0.45, 0.35, 0.2], [0.33, 0.2, 0.5, 0.05], [0.5, 0.05, 0.67, 0.2]] as const) line(ax, az, bx, bz, ax === 0.33 || ax === 0.5 ? '#ff6a5a' : '#6ab0ff')
+      // The chalk left on the ground.
+      d.box(0.2, 0, 0.6, 0.27, 0.07, 0.63, '#ff9ad0', 'b')
+      break
+    }
+    case 'spill': {
+      // A crate of apples on its side, spilled across the stones.
+      h.push(0, 0.27, 0, 0, 1)
+      h.pushMatrix(new Matrix4().makeRotationZ(Math.PI / 2 - 0.12))
+      h.rbox(-0.27, -0.27, -0.27, 0.27, 0.27, 0.27, 0.03, { top: '#c8965a', side: '#b07e48' })
+      h.pop()
+      h.pop()
+      for (let i = 0; i < 9; i++) {
+        const a = 0.2 + i * 0.5
+        const rr = 0.4 + (i % 3) * 0.16
+        d.ball(Math.cos(a) * rr + 0.25, 0.065, Math.sin(a) * rr * 0.6, 0.065, i % 3 ? '#d83a3a' : '#7dc84a', 6, 3)
+      }
       break
     }
     case 'bush': {

@@ -129,7 +129,7 @@ export type TownPropKind =
   | 'well' | 'fountain' | 'stall' | 'board' | 'bench' | 'table' | 'barrel' | 'crates' | 'cart' | 'hay' | 'lamp' | 'tree'
   | 'dummy' | 'stone' | 'rack' | 'anvil' | 'trough' | 'grindstone' | 'woodpile' | 'laundry' | 'garden' | 'fence'
   | 'campfire' | 'brazier' | 'rubble' | 'signpost' | 'bush' | 'flowers' | 'sacks' | 'cauldron' | 'pumpkins' | 'gate'
-  | 'planter' | 'barrels'
+  | 'planter' | 'barrels' | 'armorStand' | 'ore' | 'chalk' | 'spill'
 
 export interface TownProp {
   kind: TownPropKind
@@ -366,6 +366,8 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   // ── Placing them: along each row, at their anchors, never overlapping ──
   interface Lot { home: Home | null; i0: number; cw: number; yw: number; yardLeft: boolean; row: number }
   const lots: Lot[] = []
+  // How many family homes are left to make walkable (see below).
+  let familyLeft = 2
   for (let row = 0; row < 3; row++) {
     for (const [s0, s1] of SEGMENTS[row]!) {
       const mine = homes.filter(h => h.row === row && h.ai >= s0 - 3 && h.ai <= s1 + 3).sort((a, b) => a.ai - b.ai)
@@ -409,7 +411,11 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
           let cw = Math.min(room, w0 + Math.floor(rng() * (w1 - w0 + 1)))
           // A sliver left over is taken in, now and then (else it stays an alley).
           if (room - cw > 0 && room - cw < 3 && rng() < 0.4) cw = Math.min(w1 + 1, room)
-          placed.push({ home: { kind: kindA, ai: i + (cw >> 1), aj: FRONT[row]!, row, owners: [], yard: false, inside: false, sign: '' }, i0: i, cw, yw: 0, yardLeft: false, row })
+          // The first two homes in the deep rows are walked into: a family lives there
+          // (four cells each way: a room needs them; a few, for each one's front is drawn apart).
+          const family = row < 2 && familyLeft > 0 && room >= 4
+          if (family) { cw = Math.max(4, cw); familyLeft-- }
+          placed.push({ home: { kind: kindA, ai: i + (cw >> 1), aj: FRONT[row]!, row, owners: [], yard: false, inside: family, sign: '' }, i0: i, cw, yw: 0, yardLeft: false, row })
           i += cw
           // Gaps between houses: alleys, gardens, a way through to the next street.
           if (g1 - i + 1 >= 4 && rng() < 0.6) i += rng() < 0.3 ? 2 : 1
@@ -431,7 +437,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
     const setback = h.owners.length === 0 && h.kind === 'cottage' && row < 2 && rng() < 0.4
     const maxD = DEPTH[row]!
     // (A taproom needs a room four cells deep: in the shallow south row it reaches a cell into the street behind.)
-    const cd = h.kind === 'tavern' && h.inside ? Math.max(4, maxD) : Math.min(maxD, h.kind === 'cottage' ? 3 + (row === 0 ? 1 : 0) : h.kind === 'townhouse' || h.kind === 'workshop' ? Math.min(4, maxD) : maxD)
+    const cd = (h.kind === 'tavern' || h.kind === 'cottage') && h.inside ? Math.max(4, maxD) : Math.min(maxD, h.kind === 'cottage' ? 3 + (row === 0 ? 1 : 0) : h.kind === 'townhouse' || h.kind === 'workshop' ? Math.min(4, maxD) : maxD)
     const hi0 = l.yardLeft ? l.i0 + l.yw : l.i0
     const fj = setback ? front - 1 : front
     const j0 = fj - cd + 1
@@ -603,6 +609,14 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
     taken.add(K(i + 1, j + 1))
   }
   for (const [i, j] of [[SQ.i0 + 1, SQ.j0 + 3], [SQ.i1 - 1, SQ.j0 + 3]] as const) if (free(i, j)) addProp('planter', C(i), C(j), 0, [K(i, j)])
+  {
+    const ci = SQ.i0 + 2
+    const cj = WELL_J - 2
+    if (free(ci, cj) && !T.ruined) { addProp('chalk', C(ci), C(cj), rng() * 6.28, []); taken.add(K(ci, cj)) }
+    const si = SQ.i0 + 3
+    const sj = WELL_J + 2
+    if (free(si, sj)) addProp('spill', C(si), C(sj), rng() * 6.28, [K(si, sj)])
+  }
   for (const [i, j] of [[SQ.i0, WELL_J + 2], [SQ.i1, WELL_J + 2]] as const) if (free(i, j)) addProp('barrels', C(i), C(j), rng() * 6.28, [K(i, j)])
   // Trees in the square's corners (a ruined town has stumps).
   for (const [i, j] of [[SQ.i0 + 1, SQ.j1 - 1], [SQ.i1 - 1, SQ.j1 - 1]] as const) {
@@ -654,8 +668,10 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
         addSpot({ kind: 'dummy', x: C(pi) + (farLeft ? -0.2 : 0.2), z: C(dj), facing: farLeft ? -Math.PI / 2 : Math.PI / 2, ax: C(pi), az: C(dj), room: -1, owner: '', prop: d })
         taken.add(K(pi, dj))
       }
-      // A weapon rack against the back fence.
+      // A weapon rack against the back fence; in a corner, what the class keeps
+      // (the Aegis Knight's armour on its stand, the Geomancer's ore samples).
       addProp('rack', C(Math.round((y.i0 + y.i1) / 2)), y.j0 * CELL + CELL * 0.9, 0, [])
+      if (h.cls === 'aegis' || h.cls === 'geo') addProp(h.cls === 'aegis' ? 'armorStand' : 'ore', C(farLeft ? y.i1 - 1 : y.i0 + 1), y.j0 * CELL + CELL * 0.85, 0, [])
       // Sparring marks: two cells apart across the middle of the yard.
       const mj = y.j0 + 2
       const m0 = farLeft ? y.i0 + 3 : y.i1 - 4
@@ -815,7 +831,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
           continue
         }
         cell[K(ti, tj)] = TC_FLOOR
-        const t = addProp('table', C(ti), C(tj), 0, [K(ti, tj)])
+        // (`w` 1: a taproom's table, a traveller's pack by it.)
+        const t = addProp('table', C(ti), C(tj), 0, [K(ti, tj)], 1)
         tables.push(K(ti, tj))
         for (const e of [-1, 1]) {
           inn.seats.push(addSpot({ kind: 'seat', x: C(ti) + e * 0.66, z: C(tj), facing: e < 0 ? Math.PI / 2 : -Math.PI / 2, ax: C(ti + e), az: C(tj), room: hi, owner: '', prop: t }))

@@ -377,3 +377,55 @@ The lazy chunks load in the obfuscated build (200, no console error); e2e 94 / 9
   convolution reverb's impulse computed and handed to a `ConvolverNode`, the
   piano's wave tables): `audio/voices.ts` could build those in slices ahead
   of time.
+
+## 2026-10-03: interiors and the towns' small stories (roadmap #62)
+
+Every room now tells what it is (`gfx/interiors.ts` new, `houses.ts`,
+`townProps.ts`, `townView.ts`, `sim/town.ts`): a furniture kit (bevelled
+boxes, turned legs, drawers with knobs, cloth folded in its vertex colours),
+a story per room (a family's home, the taproom, the healer's, a shop, a school
+for each class, the fallen town's broken versions), one or two family homes
+per town walked into, and street scenes (wash day, a broken cart, chalk on the
+square, spilled apples, a cat asleep in a window or on a step).
+
+How it stays cheap:
+
+| Choice | Effect |
+| --- | --- |
+| Each room in two merged kits: its furniture (lit + outline + glow, as before) and its CLUTTER (lit + glow, no outline) | the clutter is drawn only while the front is lifted; never built on `low` |
+| A room behind a closed front is drawn only from its doorstep (4 m across, 1 m in to 5 m out; was 7 × 9 m round the door) | fewer rooms drawn while walking the streets (the family homes added rooms) |
+| Family homes: the first two ambient homes of the deep rows (4 × 4 cells) | each one's front and roof are their own 3 draws (they fade); no more than two a town |
+| Street scenes are props in the town's quarter kits, the cat in the house's own kit | no new draws |
+
+Method: frozen frames (`scripts/perf-still.mjs`), the shipping tree before
+the change (`git archive HEAD`, own `vite` on 5409) against the change (5408),
+the same seven camera spots per town (the start, the packs, six townsfolk),
+phone portrait 390 × 780.
+
+| Scene | Draw calls before → after (7 spots) | Triangles before → after |
+| --- | --- | --- |
+| Sunford low | start 40 → 38; 37–74 → 38–76 | start 45.7 k → 45.7 k; 37.8–72.3 k → 33.8–73.1 k |
+| Sunford full | start 53 → 57; 50–108 → 50–112 | 57.5–110.1 k → 53.3–115.4 k |
+| Oakhaven low | start 44 → 44; 44–66 → 44–69 | 47.1–70.7 k → 45.6–73.4 k |
+| Oakhaven full | 57–74 → 57–80 | 71.0–101.3 k → 69.6–104.0 k |
+| Ironhold low | start 37 → 37; 37–52 → 37–60 | 44.0–59.7 k → 44.0–60.5 k |
+| Ironhold full | 47–59 → 47–67 | 60.6–87.7 k → 60.7–88.3 k |
+
+The largest rises are where the hero stands in a room with its front lifted
+(Ironhold spot 5: +8 calls, +5 k triangles: the room and its clutter) and where
+two family homes are in view (Oakhaven spots 1 and 4: +6, their fronts). On
+`low` Sunford stays at the perf pass's ~43 at the start (38).
+
+A room's size, for the record (`tests/game/interiors.test.ts` keeps it under
+budget): furniture < 16 k triangles, clutter < 9 k.
+
+Frame time: NOT measured. The probe runs (`?perfprobe=1`, 4× CPU, phone,
+6 s + 24 s, both builds interleaved, three rounds) ran at 3–4 game frames a
+second on a machine at 66–80 % load from other sessions (34–40 Chrome
+processes), two of six recorded no frames; the numbers (63–81 ms p50 for both
+builds alike) say nothing. To redo on a quiet machine: the same three rounds,
+Sunford `low` and `full`, the start spot and a spot in the taproom.
+
+Not done: a camp by a road in the zones (scenery props there are scattered by
+the hundred: a camp would need a placement of its own); the smith's cot and
+apron are in his forge but barely read through the dark mouth from the street.

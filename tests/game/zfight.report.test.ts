@@ -30,7 +30,7 @@ if (process.env.DUMP) {
     return '?'
   }
   const proto = Mesher.prototype as unknown as Record<string, (...a: unknown[]) => unknown>
-  for (const name of ['quad', 'tri', 'box', 'cbox', 'beam', 'prism', 'cyl', 'disc', 'ball', 'geo']) {
+  for (const name of ['quad', 'tri', 'box', 'cbox', 'rbox', 'beam', 'prism', 'cyl', 'disc', 'ball', 'geo']) {
     const orig = proto[name]!
     proto[name] = function (this: Mesher, ...a: unknown[]) {
       const own = !this.tag
@@ -92,12 +92,14 @@ it('houses and props', async () => {
       }
     }
   }
-  const pk = ['well', 'fountain', 'stall', 'board', 'bench', 'table', 'barrel', 'crates', 'cart', 'hay', 'lamp', 'tree', 'dummy', 'stone', 'rack', 'anvil', 'trough', 'woodpile', 'laundry', 'garden', 'campfire', 'brazier', 'rubble', 'signpost', 'bush', 'planter', 'barrels', 'gate'] as const
+  const pk = ['well', 'fountain', 'stall', 'board', 'bench', 'table', 'barrel', 'crates', 'cart', 'hay', 'lamp', 'tree', 'dummy', 'stone', 'rack', 'anvil', 'trough', 'woodpile', 'laundry', 'garden', 'campfire', 'brazier', 'rubble', 'signpost', 'bush', 'planter', 'barrels', 'gate', 'armorStand', 'ore', 'chalk', 'spill'] as const
   for (const style of ['rural', 'mercantile', 'mountain'] as const) {
     for (const ruined of [false, true]) {
       for (const kind of pk) {
         const k = newKit()
-        buildProp(k, { kind, x: 0, z: 0, rot: 0.3, w: 3, v: 5, cells: [] }, { style, ruined, low: false, gy: () => 0 })
+        // Both variants: w 3 / v 5, and w 1 / v 4 (a taproom's table with a pack, the broken cart).
+          buildProp(k, { kind, x: 0, z: 0, rot: 0.3, w: 3, v: 5, cells: [] }, { style, ruined, low: false, gy: () => 0 })
+          buildProp(k, { kind, x: 9, z: 0, rot: 0.3, w: 1, v: 4, cells: [] }, { style, ruined, low: false, gy: () => 0 })
         const tris: Tri[] = []
         for (const [ln, m] of [['hull', k.hull], ['detail', k.detail], ['glow', k.glow]] as const) trisOfMesher(m, `${kind}.${ln}:`, tris)
         report(out, `prop ${style} ${kind}${ruined ? ' ruined' : ''}`, tris)
@@ -106,6 +108,40 @@ it('houses and props', async () => {
   }
   writeFileSync(DUMP, out.join('\n'))
   writeFileSync(DUMP + '.summary.txt', summary())
+  if (FOC.length) writeFileSync(DUMP + '.focus.txt', FOC.join('\n'))
+}, 300_000)
+
+it('rooms', async () => {
+  const out: string[] = []
+  ALL.clear()
+  EX.clear()
+  const { buildHouse } = await import('@/game/gfx/houses')
+  const { newKit } = await import('@/game/gfx/archKit')
+  const { CLASS_IDS } = await import('@/game/data/skills')
+  const rooms: Array<[string, string, number, number, string | undefined, string | undefined]> = [
+    ['home', 'cottage', 4, 4, undefined, undefined], ['home townhouse', 'townhouse', 5, 4, undefined, undefined],
+    ['taproom', 'tavern', 7, 5, undefined, undefined], ['taproom shallow', 'tavern', 7, 4, undefined, undefined],
+    ['healer', 'chapel', 5, 5, 'healer', undefined], ['shop', 'townhouse', 5, 4, 'merchant', undefined],
+    ...CLASS_IDS.map(cls => [`school ${cls}`, 'hall', 7, 5, undefined, cls] as [string, string, number, number, undefined, string])
+  ]
+  for (const [label, kind, cw, cd, job, cls] of rooms) {
+    for (const style of ['rural', 'mercantile', 'mountain'] as const) {
+      for (const ruined of [false, true]) {
+        const tris: Tri[] = []
+        for (let s = 0; s < 2; s++) {
+          const k = newKit()
+          const w = s ? cw - 1 : cw
+          const h = { kind, i0: s, j0: 0, cw: w, cd, doorI: s + Math.floor(w / 2) - (w % 2 === 0 ? 1 : 0), inside: true, owner: '', owners: [], sign: '', cls, storeys: 1, setback: false, seed: 300 + s * 31, yard: null, row: 0 } as never
+          const o = buildHouse(k, h, { style, ruined, low: false, x: s * 30, y: 0, z: 0, job: job as never, cls: cls as never })
+          for (const [nm, kit] of [['base', k], ['cut', o.cut], ['room', o.room], ['clutter', o.clutter]] as const) {
+            if (kit) for (const [ln, m] of [['hull', kit.hull], ['detail', kit.detail], ['glow', kit.glow]] as const) trisOfMesher(m, `${nm}.${ln}:`, tris)
+          }
+        }
+        report(out, `${label} ${style}${ruined ? ' ruined' : ''}`, tris)
+      }
+    }
+  }
+  writeFileSync(DUMP + '.rooms.txt', summary())
   if (FOC.length) writeFileSync(DUMP + '.focus.txt', FOC.join('\n'))
 }, 300_000)
 
@@ -129,7 +165,7 @@ it('whole towns and zones', async () => {
     const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'town', zone: t })
     const v = await TownView.build(plan, sim, scene, slice, {} as never)
     // Every room open, as the hero would see it from inside.
-    for (const c of (v as unknown as { cuts: Array<{ room: { visible: boolean } | null }> }).cuts) if (c.room) c.room.visible = true
+    for (const c of (v as unknown as { cuts: Array<{ room: { visible: boolean } | null; clutter: { visible: boolean } | null }> }).cuts) { if (c.room) c.room.visible = true; if (c.clutter) c.clutter.visible = true }
     report(out, `town ${t}${f.length ? ' fallen' : ''}`, trisOfScene(scene, [], 300))
   }
   for (const z of ['plains', 'hollows', 'woods', 'crags', 'mines', 'temple', 'fortress'] as const) {
