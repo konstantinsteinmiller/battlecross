@@ -106,3 +106,6 @@ __screenshots__/
 /vo-src/jobs/
 /vo-src/gen/
 /vo-src/compare/
+
+# z-fight audit dumps (DUMP=zf.txt pnpm vitest run tests/game/zfight.report.test.ts)
+/zf.txt*
