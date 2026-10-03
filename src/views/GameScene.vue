@@ -38,15 +38,16 @@ import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
 import { SCREEN_CHUNKS, preloadScreens } from '@/components/screens/chunks'
 import GameModals from '@/components/modals/GameModals.vue'
-import DialogLayer from '@/components/dialog/DialogLayer.vue'
 import TravelVeil from '@/components/hud/TravelVeil.vue'
 import LessonLayer from '@/components/onboarding/LessonLayer.vue'
 import HeroChoice from '@/components/screens/hero/HeroChoice.vue'
 import { recallHere } from '@/game/coach/onboarding'
-import OptionsModal from '@/components/organisms/OptionsModal.vue'
 
 // The world map is a chunk of its own (see `components/screens/chunks.ts`).
 const WorldMap = defineAsyncComponent(SCREEN_CHUNKS.worldMap)
+// Likewise a conversation's layer and the options window (fetched with the screens).
+const DialogLayer = defineAsyncComponent(SCREEN_CHUNKS.dialog)
+const OptionsModal = defineAsyncComponent(SCREEN_CHUNKS.options)
 
 /**
  * The one game view. Hosts the canvas, the gesture surface and whichever UI

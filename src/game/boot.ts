@@ -10,6 +10,7 @@ import { hud } from './state/hud'
 import { bindInput, createBootMode, setPrecompile } from './flow'
 import { installSynth, loadSfxOverrides } from './audio/synth'
 import { fmt } from '@/utils/format'
+import { awaitCritical } from './assets/preload'
 
 /**
  * ─── Boot priming ────────────────────────────────────────────────────────────
@@ -130,10 +131,17 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     onProgress(0.07)
     await loadTextureOverrides()
     bakeTextures()
+    // The first scene's painted images (HUD glyphs, portrait, skills) load and
+    // decode while the place builds: the network is idle then. After the
+    // ground's texture, which the build needs and which they would queue behind
+    // (`assets/preload.ts`).
+    const art = awaitCritical()
     onProgress(0.1)
     await yieldToBrowser()
     performance.mark('boot:build-start')
     const mode = await createBootMode((p) => onProgress(0.1 + p * 0.9))
+    // The HUD mounts behind the splash; the splash leaves once its art is in.
+    await art
     performance.mark('boot:built')
     await yieldToBrowser()
     onProgress(1)

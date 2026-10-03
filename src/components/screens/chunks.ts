@@ -13,7 +13,11 @@ export const SCREEN_CHUNKS = {
   heroBook: () => import('./hero/HeroBook.vue'),
   trade: () => import('./trade/TradeScreen.vue'),
   teach: () => import('./trade/TeachScreen.vue'),
-  healer: () => import('./trade/HealerScreen.vue')
+  healer: () => import('./trade/HealerScreen.vue'),
+  // Not screens, but not on the first frame either: a conversation's layer
+  // (towns and decisions) and the options window.
+  dialog: () => import('../dialog/DialogLayer.vue'),
+  options: () => import('../organisms/OptionsModal.vue')
 }
 
 /** Fetch every screen's chunk (each import is cached: a no-op once loaded). */

@@ -471,3 +471,81 @@ runs (noise on a busy machine). Building the zone, as staged, takes the same
 time in both arms: 0.5 to 1.7 s per staging. Read: up to 8 more draw calls
 on `low` where a way's mouth is in view; on `full` it goes either way,
 because the scenery is laid out differently. Kept.
+
+## 2026-10-03: loading by progress, no pop-ins (roadmap #36)
+
+The ask: load only what the first scene needs before the loader clears, the
+rest after the scene is playing, in the order the player is likely to need
+it, and no pop-ins.
+
+### Method
+
+Obfuscated production builds, each on its own `vite preview`; headless
+Chrome, phone portrait, 4× CPU, AND a phone's network (CDP: 90 ms round trip,
+9 Mbit/s down; on localhost every file arrives at once and no pop-in can be
+seen). Three saves: FRESH (the plains, the hero choice), TOWN (saved in
+Sunford, level 6), DEEP (saved in Ironhold, level 24, ten places cleared).
+Per boot: the marks, first contentful paint, requests and bytes finished
+before `boot:adopted`, long tasks, and pop-ins: every `<img>` / CSS
+background on screen 4 s after the scene was shown whose file finished
+AFTER `boot:adopted`. Before and after interleaved, three rounds.
+(`scratchpad/perf/bootscn.mjs`.)
+
+### What was found
+
+- The boot already fetched almost nothing it did not need: before the scene,
+  5 images (the splash's logo and mascot, a loader glyph, the ground's
+  texture) and the JS of the boot and the scene. Locales, the town's view,
+  the screens, the map art and the backdrops were already lazy (the earlier
+  boot entry). The boot is CPU-bound (the build: 3–5 s at 4×), not
+  network-bound: 0.8 MB before the scene, ~0.8 s at 9 Mbit/s, overlapped.
+- The pop-ins: the HUD's painted glyphs, the coin, the hero's portrait and
+  his skill icons were requested only when the HUD mounted, i.e. as the
+  scene was shown. On the phone network they arrived 30–110 ms later:
+  7 (fresh), 10 (town), 9 (deep) images popping in, every boot.
+- A painted icon / item / skill / portrait / backdrop is otherwise first
+  requested when its window opens (the bag, the trade table, a conversation's
+  portrait): the same pop-in, later.
+
+### Kept
+
+| Change | Effect |
+| --- | --- |
+| `game/assets/preload.ts`: the CRITICAL images of the boot's place (the HUD's glyphs, the menu's once revealed, the pins' in a town, the coin, the hero's portrait as dressed, his slotted skills, the hero choice's portrait on a new save) are fetched and DECODED while the place builds, started after the ground texture (which the build needs and which 47 requests had queued behind: +0.7 s in a first try), and the splash does not clear before they are (capped 2.5 s) | pop-ins 7 / 10 / 9 → 0 / 0 / 0; boot time unchanged (below) |
+| The critical set is the measured one (what the HUD requested as it mounted, per scenario), not every `ui-*` glyph: 47 → 14–20 requests | the first try (all glyphs) cost +0.3–0.7 s on HTTP/1.1; the measured set costs nothing measurable |
+| The LIKELY images, fetched and decoded on a two-lane drip from 2 s after the scene is playing, in the order of where the player goes next: in a town its people's portraits, the trade backdrop, the map, then the glyphs and the book; in a zone the glyphs first (a status on his frame), the bag and the book, the map last (and at once when the zone is won). Other towns' people, wares not owned and unlearned skills are left to the moment they show | the windows open on decoded art; the drip is network + off-thread decode, no long task |
+| The conversation layer and the options window are lazy chunks too, fetched with the screens after the first frame (`components/screens/chunks.ts`) | scene chunk 230 → 200 kB |
+| App icons (`public/icons`, the favicon is fetched twice at boot) and the three logo files were not compressed: compressed, backups in `public-backup/` (outside `public/`) | 354 → 167 kB; favicon 21 → 11 kB |
+
+Boot, phone network + 4× CPU, medians of three interleaved rounds:
+
+| Save | | Loader | FCP | `boot:adopted` | Requests / kB before | Longest task | Pop-ins |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| fresh | before | 1 263 | 808 | 5 193 | 21 / 782 | 363 | 7 |
+| fresh | after | 1 313 | 832 | 5 205 | 33 / 806 | 328 | 0 |
+| town | before | 1 287 | 864 | 7 286 | 22 / 836 | 454 | 10 |
+| town | after | 1 283 | 816 | 6 998 | 42 / 869 | 399 | 0 |
+| deep | before | 1 242 | 796 | 6 101 | 22 / 836 | 489 | 9 |
+| deep | after | 1 252 | 804 | 6 192 | 43 / 876 | 589 | 0 |
+
+The spread between rounds is ±1 s (a shared machine); no arm is consistently
+faster. Read: the pop-ins are gone at no cost to the boot. The boot is not
+faster, because nothing heavy was left on its network path: what remains is
+the build (CPU) and the JS (boot 1 221 kB, three.js ~650 kB of it).
+
+### Considered, not done
+
+- Smaller icon files (`srcset`, a 96 px variant): items and skills are 192 px
+  for a ~56–64 px slot; on a 2–3× phone that is the right size, and the
+  files are 4–5 kB. Not worth a second set of files.
+- Splitting more of the boot chunk: since the last boot entry it grew 61 kB
+  (rendered), all of it code the first fight runs (zone features, enemies,
+  loot beams, routes). What could move (the town's simulation, the dialogue
+  data) needs edits in the sim and the flow.
+
+### What only a real phone can tell
+
+The CDN's protocol (HTTP/2 lets the critical images go in parallel; the
+preview server here is HTTP/1.1, six at a time), a real radio's latency
+spikes, how long a phone keeps decoded images of `Image` objects nobody draws
+(the warm set holds them), and the cost of the drip on a radio that sleeps.
