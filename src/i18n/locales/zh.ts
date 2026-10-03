@@ -2839,5 +2839,13 @@ export default {
     watch: '观看视频',
     take: '重新站起',
     decline: '不用了'
+  },
+  purse: {
+    offer: '钱袋三倍:+{n}'
+  },
+  shelf: {
+    title: '稀有商品',
+    restock: '新商品',
+    tomorrow: '明天有新商品'
   }
 }

@@ -3,8 +3,9 @@ import { getState, setStates } from '@/use/useGameState'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
   LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY, STATS_KEY,
-  TUTORIAL_KEY, VERSION_KEY
+  TUTORIAL_KEY, VERSION_KEY, META_KEY
 } from '@/keys'
+import { SHELF_REFRESHES, dayKey, stockShelf, type Stock } from '../rareShelf'
 import { ATTRS, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
@@ -116,6 +117,25 @@ export interface StatsSave {
   xpEarned: number
 }
 
+/** The rare shelves (roadmap #19): stocked for one day at a time. */
+export interface ShelfSave {
+  /** The day (`dayKey`) the shelves below were stocked for. */
+  day: string
+  /** Merchant id → the pieces on their rare shelf today (bought ones stay
+   *  listed and show as owned). */
+  wares: Record<string, string[]>
+  /** Merchant id → times re-stocked today (seeds the next stock). */
+  rolls: Record<string, number>
+  /** Rewarded re-stocks used today, over all merchants. */
+  used: number
+}
+
+/** Day-to-day state on top of progress (`bc_meta`). A save from before any
+ *  of it loads the defaults. */
+export interface MetaSave {
+  shelf: ShelfSave
+}
+
 export interface Profile {
   level: number
   gold: number
@@ -130,6 +150,7 @@ export interface Profile {
   stats: StatsSave
   /** One-time flags (true) and the control coach's per-glyph success counts. */
   tips: Record<string, true | number>
+  meta: MetaSave
 }
 
 /** A place's own spot on the map sheet (fractions): where the hero stands at it. */
@@ -167,7 +188,8 @@ const defaults = (): Profile => ({
   quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
-  tips: {}
+  tips: {},
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 } }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -276,6 +298,15 @@ export const loadProfile = (): void => {
 
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
+
+  const meta = obj(stored(META_KEY), d.meta)
+  const shelf = obj(meta.shelf, d.meta.shelf)
+  const wares: Record<string, string[]> = {}
+  for (const [n, ids] of Object.entries(obj(shelf.wares, {}) as Record<string, unknown>)) wares[n] = strs(ids).filter(id => ITEM_BY_ID[id])
+  const rolls: Record<string, number> = {}
+  for (const [n, r] of Object.entries(obj(shelf.rolls, {}) as Record<string, unknown>)) rolls[n] = Math.max(0, Math.round(num(r, 0)))
+  meta.shelf = { day: typeof shelf.day === 'string' ? shelf.day : '', wares, rolls, used: Math.max(0, Math.round(num(shelf.used, 0))) }
+  profile.meta = meta
 }
 
 /**
@@ -302,7 +333,8 @@ export const saveProfile = (): void => {
     [QUESTS_KEY]: plain(profile.quests),
     [WORLD_KEY]: plain(profile.world),
     [STATS_KEY]: plain(profile.stats),
-    [TUTORIAL_KEY]: plain(profile.tips)
+    [TUTORIAL_KEY]: plain(profile.tips),
+    [META_KEY]: plain(profile.meta)
   })
 }
 
@@ -526,6 +558,39 @@ export const markSeen = (id: string): void => {
 export const buyCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   return it ? Math.max(1, Math.round(itemPriceOf(it) * (1 - shopDiscount(totalAttrs().cha)))) : 0
+}
+
+// ─── The rare shelf (roadmap #19) ────────────────────────────────────────────
+
+/** A new day empties every shelf; they are stocked again when first looked at. */
+const shelfDay = (): ShelfSave => {
+  const day = dayKey()
+  if (profile.meta.shelf.day !== day) profile.meta.shelf = { day, wares: {}, rolls: {}, used: 0 }
+  return profile.meta.shelf
+}
+
+/** A merchant's rare shelf today (stocked on first look, then kept). */
+export const rareShelf = (npcId: string, stock: Stock): string[] => {
+  const s = shelfDay()
+  if (!s.wares[npcId]) {
+    s.wares[npcId] = stockShelf(npcId, stock, new Set(profile.inv.items), s.day, s.rolls[npcId] ?? 0)
+    saveProfile()
+  }
+  return s.wares[npcId]!
+}
+
+/** Rewarded re-stocks left today. */
+export const shelfRefreshesLeft = (): number => Math.max(0, SHELF_REFRESHES - shelfDay().used)
+
+/** Re-stock a merchant's rare shelf (after the video). False when none is left today. */
+export const restockShelf = (npcId: string, stock: Stock): boolean => {
+  const s = shelfDay()
+  if (s.used >= SHELF_REFRESHES) return false
+  s.used++
+  s.rolls[npcId] = (s.rolls[npcId] ?? 0) + 1
+  s.wares[npcId] = stockShelf(npcId, stock, new Set(profile.inv.items), s.day, s.rolls[npcId]!)
+  saveProfile()
+  return true
 }
 
 export const buyItem = (id: string): boolean => {

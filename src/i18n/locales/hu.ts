@@ -2839,5 +2839,13 @@ export default {
     watch: 'Videó megnézése',
     take: 'Talpra állok',
     decline: 'Nem, kösz'
+  },
+  purse: {
+    offer: 'Háromszoros erszény: +{n}'
+  },
+  shelf: {
+    title: 'Ritka áruk',
+    restock: 'Új áruk',
+    tomorrow: 'Új áruk holnap'
   }
 }

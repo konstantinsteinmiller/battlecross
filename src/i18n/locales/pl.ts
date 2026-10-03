@@ -2921,5 +2921,13 @@ export default {
     watch: 'Obejrzyj film',
     take: 'Wstań',
     decline: 'Nie, dzięki'
+  },
+  purse: {
+    offer: 'Potrój trzos: +{n}'
+  },
+  shelf: {
+    title: 'Rzadkie towary',
+    restock: 'Nowe towary',
+    tomorrow: 'Nowe towary jutro'
   }
 }

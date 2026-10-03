@@ -13,7 +13,7 @@ vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => { ads.shown++; ads.order.push('ad') } }))
 vi.mock('@/use/useAdGate', () => {
   return {
-    canShowInterstitial: () => ads.can, markInterstitialShown: () => {},
+    canShowInterstitial: () => ads.can, markInterstitialShown: () => {}, isRewardGated: true,
     canOfferReward: { get value() { return ads.reward } }, claimReward: async (g: () => void) => { ads.order.push('rewarded'); if (ads.rewardOk) g(); return ads.rewardOk }
   }
 })
@@ -363,5 +363,45 @@ describe('Second wind (#18)', () => {
     f.declineSecondWind()
     expect(f.flow.modal).toBe('')
     expect(ads.order).not.toContain('rewarded')
+  })
+})
+
+describe('Triple the purse (#19)', () => {
+  beforeEach(() => { p.profile.stats.runs = 3 })
+
+  it('a won visit with gold: the video, then the purse ×3 in total, saved, once', async () => {
+    await f.bankVisit('victory', 'woods', tally({ gold: 50 }))
+    const before = p.profile.gold
+    expect(f.purseOffered(f.flow.results)).toBe(true)
+    expect(await f.triplePurse()).toBe(true)
+    expect(p.profile.gold).toBe(before + 100)
+    expect(f.flow.results!.tripled).toBe(true)
+    expect(f.purseOffered(f.flow.results)).toBe(false)
+    expect(await f.triplePurse()).toBe(false)
+    expect(p.profile.gold).toBe(before + 100)
+  })
+
+  it('a video that did not finish pays nothing', async () => {
+    await f.bankVisit('victory', 'woods', tally({ gold: 50 }))
+    const before = p.profile.gold
+    ads.rewardOk = false
+    expect(await f.triplePurse()).toBe(false)
+    expect(p.profile.gold).toBe(before)
+    expect(f.purseOffered(f.flow.results)).toBe(true)
+  })
+
+  it('not after the opening fight, a defeat, a retreat, an empty purse, or without a video', async () => {
+    p.profile.stats.runs = 0
+    await f.bankVisit('victory', 'plains', tally())
+    expect(f.purseOffered(f.flow.results)).toBe(false)
+    await f.bankVisit('defeat', 'woods', tally())
+    expect(f.purseOffered(f.flow.results)).toBe(false)
+    await f.bankVisit('retreat', 'woods', tally())
+    expect(f.purseOffered(f.flow.results)).toBe(false)
+    await f.bankVisit('victory', 'woods', tally({ gold: 0 }))
+    expect(f.purseOffered(f.flow.results)).toBe(false)
+    await f.bankVisit('victory', 'woods', tally())
+    ads.reward = false
+    expect(f.purseOffered(f.flow.results)).toBe(false)
   })
 })

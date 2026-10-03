@@ -41,6 +41,10 @@ export const STATS_KEY = 'bc_stats'
 /** `Record<string, true | number>` — one-time flags and the control coach's
  *  per-glyph success counts. */
 export const TUTORIAL_KEY = 'bc_tutorial'
+/** `MetaSave` — the day-to-day layer on top of progress: merchants' rare
+ *  shelves, the rested pool, build presets, faction contracts, the
+ *  colosseum's weekly best. */
+export const META_KEY = 'bc_meta'
 /** Save shape version (number), for migrations of the structured fields. */
 export const VERSION_KEY = 'bc_version'
 

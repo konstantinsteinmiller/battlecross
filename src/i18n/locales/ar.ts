@@ -3098,5 +3098,13 @@ export default {
     watch: 'شاهد فيديو',
     take: 'انهض مجددًا',
     decline: 'لا، شكرًا'
+  },
+  purse: {
+    offer: 'ضاعف الغنيمة ×3: +{n}'
+  },
+  shelf: {
+    title: 'بضائع نادرة',
+    restock: 'بضائع جديدة',
+    tomorrow: 'بضائع جديدة غدًا'
   }
 }

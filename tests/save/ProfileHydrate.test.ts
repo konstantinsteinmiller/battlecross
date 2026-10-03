@@ -222,7 +222,7 @@ describe('a checkpoint', () => {
     expect(keys.filter(k => k.startsWith('bc_'))).toEqual([])
     expect(keys).toContain(STATE_KEY)
     const blob = JSON.parse(localStorage.getItem(STATE_KEY)!) as Record<string, unknown>
-    for (const k of ['bc_version', 'bc_level', 'bc_gold', 'bc_story', 'bc_quests_done', 'bc_hero', 'bc_inventory', 'bc_quests', 'bc_world', 'bc_stats', 'bc_tutorial']) {
+    for (const k of ['bc_version', 'bc_level', 'bc_gold', 'bc_story', 'bc_quests_done', 'bc_hero', 'bc_inventory', 'bc_quests', 'bc_world', 'bc_stats', 'bc_tutorial', 'bc_meta']) {
       expect(blob, k).toHaveProperty(k)
     }
     expect(blob.bc_gold).toBe(77)

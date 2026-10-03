@@ -2847,5 +2847,13 @@ export default {
     watch: 'Bekijk een video',
     take: 'Sta weer op',
     decline: 'Nee, bedankt'
+  },
+  purse: {
+    offer: 'Verdrievoudig de buit: +{n}'
+  },
+  shelf: {
+    title: 'Zeldzame waren',
+    restock: 'Nieuwe waren',
+    tomorrow: 'Morgen nieuwe waren'
   }
 }

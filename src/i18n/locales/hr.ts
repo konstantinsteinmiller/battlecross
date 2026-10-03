@@ -2930,5 +2930,13 @@ export default {
     watch: 'Pogledaj video',
     take: 'Ustani ponovo',
     decline: 'Ne, hvala'
+  },
+  purse: {
+    offer: 'Utrostruči kesu: +{n}'
+  },
+  shelf: {
+    title: 'Rijetka roba',
+    restock: 'Nova roba',
+    tomorrow: 'Nova roba sutra'
   }
 }

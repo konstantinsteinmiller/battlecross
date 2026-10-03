@@ -2873,5 +2873,13 @@ export default {
     watch: 'Vezi un videoclip',
     take: 'Ridică-te',
     decline: 'Nu, mulțumesc'
+  },
+  purse: {
+    offer: 'Triplează punga: +{n}'
+  },
+  shelf: {
+    title: 'Mărfuri rare',
+    restock: 'Mărfuri noi',
+    tomorrow: 'Mărfuri noi mâine'
   }
 }

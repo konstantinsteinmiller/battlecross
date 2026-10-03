@@ -2839,5 +2839,13 @@ export default {
     watch: 'Xem video',
     take: 'Đứng dậy',
     decline: 'Không, cảm ơn'
+  },
+  purse: {
+    offer: 'Nhân ba túi tiền: +{n}'
+  },
+  shelf: {
+    title: 'Hàng hiếm',
+    restock: 'Hàng mới',
+    tomorrow: 'Mai có hàng mới'
   }
 }

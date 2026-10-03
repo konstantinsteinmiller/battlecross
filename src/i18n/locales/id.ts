@@ -2839,5 +2839,13 @@ export default {
     watch: 'Tonton video',
     take: 'Bangkit lagi',
     decline: 'Tidak, terima kasih'
+  },
+  purse: {
+    offer: 'Gandakan kantong 3x: +{n}'
+  },
+  shelf: {
+    title: 'Barang langka',
+    restock: 'Barang baru',
+    tomorrow: 'Barang baru besok'
   }
 }

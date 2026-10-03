@@ -2914,5 +2914,13 @@ export default {
     watch: 'वीडियो देखो',
     take: 'फिर उठो',
     decline: 'नहीं, धन्यवाद'
+  },
+  purse: {
+    offer: 'थैली तीन गुना: +{n}'
+  },
+  shelf: {
+    title: 'दुर्लभ सामान',
+    restock: 'नया सामान',
+    tomorrow: 'नया सामान कल'
   }
 }

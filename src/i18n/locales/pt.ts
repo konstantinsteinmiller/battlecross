@@ -2876,5 +2876,13 @@ export default {
     watch: 'Assistir a um vídeo',
     take: 'Levantar',
     decline: 'Não, obrigado'
+  },
+  purse: {
+    offer: 'Triplique a bolsa: +{n}'
+  },
+  shelf: {
+    title: 'Itens raros',
+    restock: 'Itens novos',
+    tomorrow: 'Itens novos amanhã'
   }
 }

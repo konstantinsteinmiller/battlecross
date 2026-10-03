@@ -21,7 +21,7 @@ import { flushSaveNow } from '@/use/useSaveStatus'
 import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
 import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
-import { canOfferReward, canShowInterstitial, claimReward, markInterstitialShown } from '@/use/useAdGate'
+import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
@@ -88,6 +88,9 @@ export interface ResultsData {
   encounter?: boolean
   /** The hero's very first visit (the opening fight): no ad follows it (#20). */
   opening?: boolean
+  /** The purse was tripled by a rewarded video (#19): `gold` stays what the
+   *  run earned, twice that again went into the wallet. */
+  tripled?: boolean
 }
 
 export const flow = reactive({
@@ -405,6 +408,35 @@ const waitForAdGate = async (): Promise<void> => {
 
 /** Share of the purse dropped on a defeat. */
 export const DEFEAT_GOLD_LOSS = 0.1
+
+// ─── Triple the purse (roadmap #19) ──────────────────────────────────────────
+
+/** Is "Triple the purse" on offer on this result? A won visit that earned
+ *  gold, not the opening fight, once (D59). */
+export const purseOffered = (r: ResultsData | null): boolean =>
+  !!r && r.outcome === 'victory' && r.gold > 0 && !r.opening && !r.tripled && canOfferReward.value
+
+let purseBusy = false
+/**
+ * The video, then the purse ×3 in total: the gold the run earned is already
+ * banked, twice that again goes in — granted and saved before the coins fly.
+ */
+export const triplePurse = async (): Promise<boolean> => {
+  const r = flow.results
+  if (purseBusy || !r || !purseOffered(r)) return false
+  purseBusy = true
+  try {
+    return await claimReward(() => {
+      profile.gold += r.gold * 2
+      r.tripled = true
+      saveProfile()
+      void flushSaveNow()
+    })
+  } finally {
+    purseBusy = false
+    if (isRewardGated) resumeMusicAfterAd()
+  }
+}
 
 // ─── Second wind (roadmap #18) ───────────────────────────────────────────────
 

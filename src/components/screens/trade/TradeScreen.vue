@@ -12,6 +12,35 @@
       section.trade__side.trade__shelf(data-drop="goods" :class="dropClass('goods')")
         h3.trade__cap {{ t('shop.goods') }}
         div.trade__scroll
+          //- The rare shelf (#19): a tier above, stocked for today.
+          div.trade__rare(v-if="rare.length" data-rare)
+            div.trade__rare-head
+              span.trade__rare-cap {{ t('shelf.title') }}
+              FButton(
+                v-if="canRestock"
+                :label="t('shelf.restock')"
+                type="warning"
+                size="sm"
+                icon="video"
+                :is-disabled="adInFlight"
+                @click="restock"
+              )
+              span.trade__rare-note(v-else) {{ t('shelf.tomorrow') }}
+            div.trade__grid
+              ItemCell.ware.is-rare(
+                v-for="it in rare"
+                :key="it.id"
+                :id="it.id"
+                :class="{ 'is-owned': owns(it.id) }"
+                :selected="isSel('goods', it.id)"
+                :dim="owns(it.id)"
+                :locked="!owns(it.id) && profile.level < it.level"
+                v-on="owns(it.id) ? {} : drag.handle({ id: it.id, from: 'goods' })"
+                @click="pick('goods', it.id)"
+              )
+                template(#tag)
+                  span.trade__owned(v-if="owns(it.id)") {{ t('shop.owned') }}
+                  PriceTag(v-else :n="buyCost(it.id)" :bad="profile.gold < buyCost(it.id)")
           p.trade__empty(v-if="stock.length === 0") {{ t('shop.empty') }}
           div.trade__grid
             ItemCell.ware(
@@ -120,8 +149,11 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ITEMS, ITEM_BY_ID, priceOf, sellValue, type ItemDef } from '@/game/data/items'
 import {
-  buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, owns, profile, saveProfile, sellItem, unequip
+  buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, owns, profile, rareShelf, restockShelf, saveProfile,
+  sellItem, shelfRefreshesLeft, unequip
 } from '@/game/state/profile'
+import { adInFlight, canOfferReward, claimReward, isRewardGated } from '@/use/useAdGate'
+import { resumeMusicAfterAd } from '@/use/useSound'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
@@ -159,6 +191,20 @@ const stock = computed<ItemDef[]>(() => {
   const slots = s.slots as readonly string[]
   return ITEMS.filter(i => i.tier < 6 && slots.includes(i.slot) && s.tiers.includes(i.tier)).sort((a, b) => a.tier - b.tier || a.level - b.level)
 })
+/** Today's rare shelf: stocked once, kept in the save. */
+const rareIds = ref<string[]>(npc.value?.stock ? rareShelf(npc.value.id, npc.value.stock) : [])
+const rare = computed<ItemDef[]>(() => rareIds.value.map(id => ITEM_BY_ID[id]).filter((i): i is ItemDef => !!i))
+/** A re-stock is a rewarded video: none on a build without them (D60). */
+const canRestock = computed(() => isRewardGated && canOfferReward.value && shelfRefreshesLeft() > 0)
+const restock = async (): Promise<void> => {
+  const n = npc.value
+  if (!n?.stock) return
+  const ok = await claimReward(() => {
+    if (restockShelf(n.id, n.stock!)) rareIds.value = [...profile.meta.shelf.wares[n.id]!]
+  })
+  resumeMusicAfterAd()
+  if (ok) { sfx('chest'); stamp('gold') }
+}
 const bag = computed<ItemDef[]>(() => profile.inv.items.map(id => ITEM_BY_ID[id]).filter((i): i is ItemDef => !!i).sort(bySlot))
 
 // ── The piece on the table ───────────────────────────────────────────────────
@@ -283,4 +329,29 @@ const dropClass = (zone: 'goods' | 'bag'): Record<string, boolean> => {
 @use '@/assets/css/cel'
 @use '@/components/game/screen'
 @use './trade'
+
+.trade__rare
+  display: flex
+  flex-direction: column
+  gap: 0.4rem
+  margin-bottom: 0.7rem
+  padding: 0.4rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-md)
+  background: color-mix(in srgb, var(--bc-gold) 26%, transparent)
+.trade__rare-head
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+  gap: 0.3rem
+.trade__rare-cap
+  +cel.label
+  color: var(--bc-on-accent)
+  font-size: clamp(0.76rem, 3vmin, 0.95rem)
+.trade__rare-note
+  color: var(--bc-text-soft)
+  font-size: clamp(0.62rem, 2.5vmin, 0.78rem)
+.ware.is-rare
+  filter: drop-shadow(0 0 0.3rem color-mix(in srgb, var(--bc-gold) 70%, transparent))
 </style>

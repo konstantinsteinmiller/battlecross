@@ -2839,5 +2839,13 @@ export default {
     watch: 'Spekti videon',
     take: 'Releviĝi',
     decline: 'Ne, dankon'
+  },
+  purse: {
+    offer: 'Triobligu la monujon: +{n}'
+  },
+  shelf: {
+    title: 'Maloftaj varoj',
+    restock: 'Novaj varoj',
+    tomorrow: 'Novaj varoj morgaŭ'
   }
 }

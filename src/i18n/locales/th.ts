@@ -2839,5 +2839,13 @@ export default {
     watch: 'ดูวิดีโอ',
     take: 'ลุกขึ้นอีกครั้ง',
     decline: 'ไม่เป็นไร'
+  },
+  purse: {
+    offer: 'ถุงเงินเพิ่ม 3 เท่า: +{n}'
+  },
+  shelf: {
+    title: 'ของหายาก',
+    restock: 'ของใหม่',
+    tomorrow: 'ของใหม่พรุ่งนี้'
   }
 }

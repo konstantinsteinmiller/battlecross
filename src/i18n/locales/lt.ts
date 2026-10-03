@@ -2885,5 +2885,13 @@ export default {
     watch: 'Žiūrėti vaizdo įrašą',
     take: 'Atsistoti',
     decline: 'Ne, ačiū'
+  },
+  purse: {
+    offer: 'Patrigubink krepšelį: +{n}'
+  },
+  shelf: {
+    title: 'Reti daiktai',
+    restock: 'Nauji daiktai',
+    tomorrow: 'Nauji daiktai rytoj'
   }
 }

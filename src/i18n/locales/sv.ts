@@ -2839,5 +2839,13 @@ export default {
     watch: 'Se en video',
     take: 'Res dig igen',
     decline: 'Nej tack'
+  },
+  purse: {
+    offer: 'Tredubbla börsen: +{n}'
+  },
+  shelf: {
+    title: 'Sällsynta varor',
+    restock: 'Nya varor',
+    tomorrow: 'Nya varor i morgon'
   }
 }

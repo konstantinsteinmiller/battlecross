@@ -2839,5 +2839,13 @@ export default {
     watch: '영상 보기',
     take: '다시 일어나기',
     decline: '괜찮아요'
+  },
+  purse: {
+    offer: '지갑 3배: +{n}'
+  },
+  shelf: {
+    title: '희귀 상품',
+    restock: '새 상품',
+    tomorrow: '내일 새 상품'
   }
 }

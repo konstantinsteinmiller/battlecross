@@ -11,7 +11,7 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
 vi.mock('@/use/usePortalLeaderboard', () => ({ joinPortalBoard: async () => {}, reportPortalBest: async () => {} }))
 vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => {} }))
-vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInterstitialShown: () => {} }))
+vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInterstitialShown: () => {}, canOfferReward: { value: false }, isRewardGated: false, adInFlight: { value: false }, claimReward: async () => false }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))
 vi.mock('@/game/engine/app', () => ({ app: { mode: null, setMode() {}, setWanted() {}, setSuspended() {}, renderOnce() {} } }))
 vi.mock('@/utils/pokiPlugin', () => ({ pokiMeasure: () => {} }))

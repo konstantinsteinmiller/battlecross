@@ -1683,5 +1683,13 @@ export default {
     'watch': 'Watch a video',
     'take': 'Get back up',
     'decline': 'No thanks'
+  },
+  'purse': {
+    'offer': 'Triple the purse: +{n}'
+  },
+  'shelf': {
+    'title': 'Rare wares',
+    'restock': 'New wares',
+    'tomorrow': 'New wares tomorrow'
   }
 }

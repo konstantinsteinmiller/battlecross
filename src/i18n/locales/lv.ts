@@ -2899,5 +2899,13 @@ export default {
     watch: 'Skatīties video',
     take: 'Piecelties',
     decline: 'Nē, paldies'
+  },
+  purse: {
+    offer: 'Trīskāršo maciņu: +{n}'
+  },
+  shelf: {
+    title: 'Reta prece',
+    restock: 'Jauna prece',
+    tomorrow: 'Jauna prece rīt'
   }
 }

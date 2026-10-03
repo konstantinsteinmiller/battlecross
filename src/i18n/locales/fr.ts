@@ -2874,5 +2874,13 @@ export default {
     watch: 'Regarder une vidéo',
     take: 'Se relever',
     decline: 'Non merci'
+  },
+  purse: {
+    offer: 'Triple la bourse : +{n}'
+  },
+  shelf: {
+    title: 'Marchandises rares',
+    restock: 'Nouveau stock',
+    tomorrow: 'Nouveau stock demain'
   }
 }

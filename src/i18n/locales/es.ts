@@ -2870,5 +2870,13 @@ export default {
     watch: 'Ver un vídeo',
     take: 'Levantarte',
     decline: 'No, gracias'
+  },
+  purse: {
+    offer: 'Triplica la bolsa: +{n}'
+  },
+  shelf: {
+    title: 'Mercancía rara',
+    restock: 'Género nuevo',
+    tomorrow: 'Género nuevo mañana'
   }
 }

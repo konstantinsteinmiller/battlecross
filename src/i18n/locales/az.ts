@@ -2839,5 +2839,13 @@ export default {
     watch: 'Video izlə',
     take: 'Yenidən qalx',
     decline: 'Xeyr, sağ ol'
+  },
+  purse: {
+    offer: 'Kisəni üçqat artır: +{n}'
+  },
+  shelf: {
+    title: 'Nadir mallar',
+    restock: 'Yeni mallar',
+    tomorrow: 'Yeni mallar sabah'
   }
 }

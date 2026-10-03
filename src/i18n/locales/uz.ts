@@ -2839,5 +2839,13 @@ export default {
     watch: 'Video ko‘rish',
     take: 'Qayta turish',
     decline: 'Yo‘q, rahmat'
+  },
+  purse: {
+    offer: 'Hamyonni uch baravar qil: +{n}'
+  },
+  shelf: {
+    title: 'Noyob tovarlar',
+    restock: 'Yangi tovarlar',
+    tomorrow: 'Yangi tovarlar ertaga'
   }
 }

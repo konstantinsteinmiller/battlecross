@@ -2855,5 +2855,13 @@ export default {
     watch: 'Video ansehen',
     take: 'Wieder aufstehen',
     decline: 'Nein danke'
+  },
+  purse: {
+    offer: 'Beutel verdreifachen: +{n}'
+  },
+  shelf: {
+    title: 'Seltene Waren',
+    restock: 'Neue Waren',
+    tomorrow: 'Neue Waren morgen'
   }
 }

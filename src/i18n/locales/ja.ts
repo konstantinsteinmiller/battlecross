@@ -2839,5 +2839,13 @@ export default {
     watch: '動画を見る',
     take: '立ち上がる',
     decline: 'いいえ'
+  },
+  purse: {
+    offer: '財布を3倍に: +{n}'
+  },
+  shelf: {
+    title: 'レア商品',
+    restock: '新商品',
+    tomorrow: '明日、新商品'
   }
 }

@@ -2839,5 +2839,13 @@ export default {
     watch: 'Katso video',
     take: 'Nouse takaisin',
     decline: 'Ei kiitos'
+  },
+  purse: {
+    offer: 'Kolminkertaista kukkaro: +{n}'
+  },
+  shelf: {
+    title: 'Harvinaisia tavaroita',
+    restock: 'Uusia tavaroita',
+    tomorrow: 'Uusia tavaroita huomenna'
   }
 }

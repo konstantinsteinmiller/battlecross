@@ -2839,5 +2839,13 @@ export default {
     watch: 'Video izle',
     take: 'Ayağa kalk',
     decline: 'Hayır, teşekkürler'
+  },
+  purse: {
+    offer: 'Keseyi üçle: +{n}'
+  },
+  shelf: {
+    title: 'Nadir mallar',
+    restock: 'Yeni mallar',
+    tomorrow: 'Yeni mallar yarın'
   }
 }

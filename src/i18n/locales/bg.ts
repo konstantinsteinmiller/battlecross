@@ -2899,5 +2899,13 @@ export default {
     watch: 'Гледай видео',
     take: 'Стани отново',
     decline: 'Не, благодаря'
+  },
+  purse: {
+    offer: 'Утрои кесията: +{n}'
+  },
+  shelf: {
+    title: 'Редки стоки',
+    restock: 'Нови стоки',
+    tomorrow: 'Нови стоки утре'
   }
 }

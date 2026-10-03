@@ -2924,5 +2924,13 @@ export default {
     watch: 'Podívat se na video',
     take: 'Vstát',
     decline: 'Ne, díky'
+  },
+  purse: {
+    offer: 'Ztrojnásob měšec: +{n}'
+  },
+  shelf: {
+    title: 'Vzácné zboží',
+    restock: 'Nové zboží',
+    tomorrow: 'Nové zboží zítra'
   }
 }

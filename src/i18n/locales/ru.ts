@@ -2923,5 +2923,13 @@ export default {
     watch: 'Смотреть видео',
     take: 'Встать',
     decline: 'Нет, спасибо'
+  },
+  purse: {
+    offer: 'Утрой кошелёк: +{n}'
+  },
+  shelf: {
+    title: 'Редкие товары',
+    restock: 'Новые товары',
+    tomorrow: 'Новые товары завтра'
   }
 }

@@ -2892,5 +2892,13 @@ export default {
     watch: 'Guarda un video',
     take: 'Rialzati',
     decline: 'No, grazie'
+  },
+  purse: {
+    offer: 'Triplica il borsellino: +{n}'
+  },
+  shelf: {
+    title: 'Merci rare',
+    restock: 'Nuove merci',
+    tomorrow: 'Nuove merci domani'
   }
 }

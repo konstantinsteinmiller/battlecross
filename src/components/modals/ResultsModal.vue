@@ -13,9 +13,10 @@
           dd.xp +{{ fmt(r.xp) }}
         div
           dt {{ t('results.gold') }}
-          dd.gold
+          dd.gold(:class="{ 'is-tripled': r.tripled }")
             IconCoin.results__coin
-            | +{{ fmt(r.gold) }}
+            | +{{ fmt(r.tripled ? r.gold * 3 : r.gold) }}
+            span.results__x3(v-if="r.tripled") ×3
         div(v-if="r.goldLost > 0")
           dt {{ t('results.lost') }}
           dd.lost
@@ -40,6 +41,16 @@
         div
           dt {{ t('results.time') }}
           dd {{ clock(r.seconds) }}
+      //- Triple the purse (#19): one rewarded video, the gold ×3 in total.
+      FButton.results__purse(
+        v-if="purseOffered(r)"
+        :label="t('purse.offer', { n: fmt(r.gold * 2) })"
+        type="warning"
+        size="md"
+        :icon="isRewardGated ? 'video' : 'coin'"
+        :is-disabled="adInFlight"
+        @click="takePurse"
+      )
       //- Where this hero stands among everyone's: nothing at all on a build
       //- without a board, or before a placing can be stated as a number.
       RankBadge.results__rank(:score="lifetimeXp()")
@@ -70,8 +81,8 @@
       p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
       p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
     template(#footer)
-      FButton(v-if="r && r.outcome !== 'victory'" :label="t('results.retry')" type="secondary" size="md" icon="replay" @click="retryVisit")
-      FButton(:label="t('ui.continue')" type="success" size="md" icon="skip-forward" attention @click="leaveResults")
+      FButton(v-if="r && r.outcome !== 'victory'" :label="t('results.retry')" type="secondary" size="md" icon="replay" :is-disabled="adInFlight" @click="retryVisit")
+      FButton(:label="t('ui.continue')" type="success" size="md" icon="skip-forward" attention :is-disabled="adInFlight" @click="leaveResults")
 </template>
 
 <script setup lang="ts">
@@ -84,7 +95,8 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
-import { flow, leaveResults, retryVisit } from '@/game/flow'
+import { flow, leaveResults, purseOffered, retryVisit, triplePurse } from '@/game/flow'
+import { adInFlight, isRewardGated } from '@/use/useAdGate'
 import { clock, fmt } from '@/utils/format'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
@@ -104,6 +116,7 @@ const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' 
 const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
 /** Put a find on straight from the result: the same rule as the bag. */
 const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
+const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('coin'); sfx('uiBuy') } }
 </script>
 
 <style scoped lang="sass">
@@ -182,6 +195,18 @@ const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
   background: var(--bc-gold)
   color: var(--bc-ink)
   font-size: 0.6em
+.gold.is-tripled
+  animation: purse-pop 600ms var(--bc-ease-bounce)
+.results__x3
+  margin-inline-start: 0.2em
+  padding: 0 0.35em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-gold)
+  color: var(--bc-ink)
+  font-size: 0.7em
+.results__purse
+  margin-block: 0.1rem
 .results__coin
   width: 1em
   height: 1em
@@ -276,6 +301,13 @@ const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
   to
     transform: scale(1)
     opacity: 1
+@keyframes purse-pop
+  0%
+    transform: scale(1)
+  40%
+    transform: scale(1.35)
+  100%
+    transform: scale(1)
 @keyframes loot-in
   from
     transform: translateX(-1.2rem)
@@ -284,6 +316,6 @@ const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
     transform: none
     opacity: 1
 @media (prefers-reduced-motion: reduce)
-  .results__levelup, .loot
+  .results__levelup, .loot, .gold.is-tripled
     animation: none
 </style>

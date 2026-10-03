@@ -2872,5 +2872,13 @@ export default {
     watch: 'Mira un vídeo',
     take: 'Aixeca’t',
     decline: 'No, gràcies'
+  },
+  purse: {
+    offer: 'Triplica la bossa: +{n}'
+  },
+  shelf: {
+    title: 'Gèneres rars',
+    restock: 'Gèneres nous',
+    tomorrow: 'Gèneres nous demà'
   }
 }
