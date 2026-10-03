@@ -45,9 +45,10 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
-  type ArtScenery, type ArtSet, type Fit, type SheetCell
+  CELL, COVERS, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
+  type ArtCover, type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
+import { CG_BANNER, COVER_SIZES, coverPlateSvg, cropBox } from '@/game/art/coverScenes'
 import { PORTRAIT_ART, UI_ART } from '@/game/assets/overrides'
 import { MAP } from '@/game/data/zones'
 import { groundDetail } from '@/game/gfx/textures'
@@ -88,8 +89,9 @@ const wanted = (stem: string, ids: string[]): boolean => !only.size || only.has(
 
 const sets: ArtSet[] = [...SETS, ...SINGLES].filter(s => wanted(s.stem, s.cells.flatMap(c => (c ? [c.id] : []))))
 const scenery: ArtScenery[] = SCENERY.filter(a => wanted(a.stem, [a.plate]))
+const covers: ArtCover[] = COVERS.filter(a => wanted(a.stem, [a.scene.id]))
 const drawn: SheetCell[] = sets.flatMap(s => s.cells.flatMap(c => (c ? [c] : [])))
-const total = SETS.length + SINGLES.length + SCENERY.length
+const total = SETS.length + SINGLES.length + SCENERY.length + COVERS.length
 
 interface View { stem: string; title: string; width: number; height: number; note: string; clean: string; key: string }
 const views = ref<View[]>([])
@@ -345,11 +347,68 @@ const bakeGround = (a: ArtScenery): View => {
   return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque, tileable, greyscale: shown 2 × 2', clean: clean.toDataURL('image/png'), key: '' }
 }
 
+/** A shipped painting, loaded for drawing into a plate. */
+const bitmap = async (rel: string): Promise<HTMLImageElement> => {
+  const img = new Image()
+  img.src = `${import.meta.env.BASE_URL}${rel}`
+  await img.decode()
+  return img
+}
+
+/**
+ * A store cover's layout (`coverScenes.ts`): the scene as flat notation with
+ * each named figure's PAINTED bust in its head circle, so the painter keeps
+ * who is who. The key marks what no cover may put anything important under:
+ * CrazyGames' corner badges, the logo's place, and the window every
+ * deliverable aspect is cut through.
+ */
+const bakeCover = async (a: ArtCover): Promise<View> => {
+  const { width: W, height: H } = a
+  const s = a.scene
+  const [clean, g] = canvas(W, H)
+  g.drawImage(await svgImage(coverPlateSvg(s, W, H)), 0, 0, W, H)
+  for (const fig of s.figures) {
+    if (!fig.portrait) continue
+    const [hx, hy, hr] = [fig.head[0] * W, fig.head[1] * H, fig.head[2] * H]
+    g.save()
+    g.beginPath()
+    g.arc(hx, hy, hr, 0, Math.PI * 2)
+    g.clip()
+    // A bust: the face sits in the upper middle of its square.
+    g.drawImage(await bitmap(`images/portraits/${fig.portrait}.webp`), hx - hr * 1.25, hy - hr * 1.05, hr * 2.5, hr * 2.5)
+    g.restore()
+  }
+  const [key, k] = canvas(W, H)
+  k.drawImage(clean, 0, 0)
+  const zone = (b: { x: number; y: number; w: number; h: number }, fill: string, label: string): void => {
+    k.fillStyle = fill
+    k.fillRect(b.x * W, b.y * H, b.w * W, b.h * H)
+    caption(k, label, b.x * W + 8, b.y * H + 30, b.w * W - 16)
+  }
+  zone(CG_BANNER, 'rgba(255, 60, 60, 0.45)', 'CrazyGames badges cover this')
+  zone(s.logo, 'rgba(15, 12, 25, 0.5)', 'logo (with-logo covers)')
+  k.lineWidth = 3
+  k.setLineDash([12, 10])
+  k.strokeStyle = '#ffe14a'
+  k.strokeRect(s.focal.x * W, s.focal.y * H, s.focal.w * W, s.focal.h * H)
+  caption(k, 'focal: every crop keeps this', s.focal.x * W + 8, (s.focal.y + s.focal.h) * H - 8, s.focal.w * W - 16)
+  k.strokeStyle = '#ffffff'
+  const aspects = [...new Set(COVER_SIZES.filter(z => z.family === s.family && Math.abs(z.w / z.h - W / H) > 0.02).map(z => `${z.w}x${z.h}`))]
+  aspects.forEach((name, i) => {
+    const [w, h] = name.split('x').map(Number) as [number, number]
+    const c = cropBox(W, H, w / h, s.focal)
+    k.strokeRect(c.left + 4 + i * 4, c.top + 4 + i * 4, c.width - 8 - i * 8, c.height - 8 - i * 8)
+    caption(k, name, c.left + 12 + i * 4, H - 16 - i * 26, 120)
+  })
+  return { stem: a.stem, title: a.title, width: W, height: H, note: 'opaque cover master; the key marks the badge corner, the logo, the focal box and the crops', clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
+}
+
 onMounted(async () => {
   try {
     await nextTick()
     for (const s of sets) views.value.push(await bakeSet(s))
     for (const a of scenery) views.value.push(a.plate === 'map' ? await bakeMap(a) : a.plate === 'screen' ? await bakeScreen(a) : bakeGround(a))
+    for (const a of covers) views.value.push(await bakeCover(a))
     status.value = ''
     ready.value = true
   } catch (e) {

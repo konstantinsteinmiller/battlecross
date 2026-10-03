@@ -31,7 +31,7 @@ import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
 import { EMBLEM_BODY } from '@/game/art/brandRefs'
 import { HERO_OUTFITS, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
-  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
+  ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
@@ -48,7 +48,7 @@ const blanksOf = (stem: string): number => cellsOf(stem).filter(c => !c).length
 
 /** Fits as the bench would measure them: one per panel, three decimals. */
 const fakeFits = (): Fits => Object.fromEntries([...manifestTargets().keys()]
-  .filter(t => !SCENERY.some(a => a.target === t))
+  .filter(t => !SCENERY.some(a => a.target === t) && !COVERS.some(a => a.target === t))
   .map((t, i) => [t, { h: 0.5 + (i % 7) * 0.031, w: 0.4 + (i % 5) * 0.043, bottom: 0.82, cx: 0.5 }]))
 
 describe('the manifest covers the game', () => {
@@ -192,14 +192,17 @@ describe('the manifest covers the game', () => {
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
-    expect(targets.size).toBe(seen.size)
+    // The store covers are the one target outside the override folders: their
+    // preview copies climb out of public/ so that no build ships them.
+    for (const a of COVERS) expect(a.target).toBe(`../store-art/covers/masters/${a.stem}.webp`)
+    expect(targets.size).toBe(seen.size + COVERS.length)
   })
 
   it('no stem is a prefix of another, so a file name can only mean one sheet', () => {
     const stems = allStems()
     expect(new Set(stems).size).toBe(stems.length)
     for (const a of stems) for (const b of stems) if (a !== b) expect(b.startsWith(a), `${a} is a prefix of ${b}`).toBe(false)
-    for (const s of stems) expect(s).toMatch(/^(sheet|single|bg)-[a-z0-9]+(-[a-z0-9]+)*$/)
+    for (const s of stems) expect(s).toMatch(/^(sheet|single|bg|cover)-[a-z0-9]+(-[a-z0-9]+)*$/)
   })
 
   it('every sheet has a shape the image model offers: 4:3, 1:1 or 16:9, and nothing else', () => {
@@ -207,19 +210,21 @@ describe('the manifest covers the game', () => {
     // a return of another shape re-composes the grid. 3:2 is not offered.
     const shapes = [
       ...[...SETS, ...SINGLES].map(s => ({ stem: s.stem, ...sheetSize(s) })),
-      ...SCENERY.map(a => ({ stem: a.stem, width: a.width, height: a.height }))
+      ...SCENERY.map(a => ({ stem: a.stem, width: a.width, height: a.height })),
+      ...COVERS.map(a => ({ stem: a.stem, width: a.width, height: a.height }))
     ]
     expect(shapes).toHaveLength(allStems().length)
     const index = sheetIndex()
     for (const { stem, width, height } of shapes) {
-      // Exactly 4:3 or 1:1. 16:9 is the model's own plate (1376 x 768), within 1 %.
-      const ok = width * 3 === height * 4 || width === height || Math.abs(width / height / (16 / 9) - 1) < 0.01
+      // Exactly 4:3 or 1:1. 16:9 is the model's own plate (1376 x 768), within 1 %,
+      // and so is 9:16 (768 x 1376, the tall covers).
+      const ok = width * 3 === height * 4 || width === height || Math.abs(width / height / (16 / 9) - 1) < 0.01 || Math.abs(height / width / (16 / 9) - 1) < 0.01
       expect(ok, `${stem} is ${width}x${height} (${(width / height).toFixed(3)}:1)`).toBe(true)
       // What the slicer and the desk read says the same.
       const entry = index.sheets.find(s => s.id === stem) ?? index.scenery.find(a => a.id === stem)
       expect([entry!.width, entry!.height], stem).toEqual([width, height])
       // And so does the prompt, in its last line.
-      expect(promptBlocks().find(b => b.stem === stem)!.text.split('\n').at(-1), stem).toMatch(/\((4:3|1:1|16:9)[,)]/)
+      expect(promptBlocks().find(b => b.stem === stem)!.text.split('\n').at(-1), stem).toMatch(/\((4:3|1:1|16:9|9:16)[,)]/)
     }
   })
 
@@ -483,7 +488,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot') expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -528,10 +533,10 @@ describe('the prompt documents', () => {
   it.each([['without fits', undefined], ['with measured fits', fakeFits()]])('parity %s: every block parses back to its builder\'s text, byte for byte', (_name, fits) => {
     const docs = promptDocs(fits as Fits | undefined)
     const blocks = promptBlocks(fits as Fits | undefined)
-    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-ICONS.md', 'PROMPTS-ITEMS.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
+    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-COVERS.md', 'PROMPTS-ICONS.md', 'PROMPTS-ITEMS.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
     const jobs = Object.entries(docs).flatMap(([name, text]) => parsePromptDoc(text, name))
     expect(jobs).toHaveLength(blocks.length)
-    expect(blocks).toHaveLength(SETS.length + SINGLES.length + SCENERY.length)
+    expect(blocks).toHaveLength(SETS.length + SINGLES.length + SCENERY.length + COVERS.length)
     for (const b of blocks) {
       const job = jobs.find(j => j.refName === `${b.stem}.png`)
       expect(job, b.stem).toBeTruthy()
@@ -540,7 +545,7 @@ describe('the prompt documents', () => {
       expect(job!.prompt, b.stem).toBe(b.text.slice(cut + 1).replace(/^\n+/, ''))
       expect(job!.doc).toBe(b.doc)
       expect(job!.title).toBe(b.title)
-      expect(job!.target, b.stem).toMatch(/^images\//)
+      expect(job!.target, b.stem).toMatch(/^(images\/|\.\.\/store-art\/covers\/masters\/)/)
       // What the desk attaches BEFORE the layout reference: exactly the manifest's list.
       expect(job!.styleRefs, b.stem).toEqual([...(b.styleRefs ?? [])])
       // The heading never leaks into what is sent.
@@ -567,7 +572,7 @@ describe('the prompt documents', () => {
             mine++
             // The last parenthesis ties the block to its reference image (a
             // backdrop's file name may carry a dash: `images/ui/bg-trade.webp`).
-            expect(line, name).toMatch(/\((?:sheet|single|bg)-[a-z0-9-]+\.png → images\/[A-Za-z0-9/.-]+\)$/)
+            expect(line, name).toMatch(/\((?:(?:sheet|single|bg)-[a-z0-9-]+\.png → images\/|cover-[a-z0-9-]+\.png → \.\.\/store-art\/covers\/masters\/)[A-Za-z0-9/.-]+\)$/)
             continue
           }
           const m = /^(`{3,})text$/.exec(line)
@@ -594,7 +599,7 @@ describe('the prompt documents', () => {
       headings += mine
     }
     // One block per reference.
-    expect(headings).toBe(SETS.length + SINGLES.length + SCENERY.length)
+    expect(headings).toBe(SETS.length + SINGLES.length + SCENERY.length + COVERS.length)
   })
 
   it('what is exported in art-sheets/ is current with the manifest', () => {
@@ -873,4 +878,98 @@ describe('the slicer keys out a drawn panel grid without touching the palette', 
       expect(Math.abs(got.w - (c.fit.w / 0.8) * 256), `${c.id} width ${got.w}`).toBeLessThanOrEqual(8)
     }
   }, 180_000)
+})
+
+// ─── Store covers (roadmap #1): four scenarios, every deliverable ───────────
+describe('the store covers', () => {
+  const textOf = (stem: string): string => promptBlocks().find(b => b.stem === stem)!.text
+  it('are four opaque 16:9 masters with their cast attached, in their own prompt document', () => {
+    expect(COVERS.filter(a => a.scene.family === '16x9').map(a => a.stem)).toEqual(['cover-clash', 'cover-skills', 'cover-loot', 'cover-dragon'])
+    const index = sheetIndex()
+    for (const a of COVERS) {
+      expect([a.width, a.height]).toEqual(a.scene.family === '16x9' ? [1376, 768] : a.scene.family === '1x1' ? [1024, 1024] : [768, 1376])
+      expect(index.scenery.find(x => x.id === a.stem)).toMatchObject({ bg: 'opaque', tileable: false, target: a.target })
+      expect(a.doc).toBe('PROMPTS-COVERS.md')
+      // The hero always, from his painted portrait and the painted mascot.
+      expect(a.styleRefs).toContain('public/images/portraits/hero-tunic.webp')
+      expect(a.styleRefs).toContain('public/images/logo/mascot.webp')
+      for (const ref of a.styleRefs) expect(existsSync(join(ROOT, ref)), ref).toBe(true)
+      for (const fig of a.scene.figures) if (fig.portrait) expect(existsSync(join(ROOT, 'public/images/portraits', `${fig.portrait}.webp`)), fig.portrait).toBe(true)
+    }
+  })
+
+  it('the winners are painted again for square and tall, from their own finished 16:9', () => {
+    const re = COVERS.filter(a => a.scene.family !== '16x9')
+    expect(re.map(a => a.stem)).toEqual(['cover-sq-loot', 'cover-tall-loot', 'cover-sq-clash', 'cover-tall-clash'])
+    for (const a of re) {
+      const base = COVERS.find(b => b.scene.family === '16x9' && b.scene.id === a.scene.id)!
+      // The finished 16:9 goes first; the cast after it, as on the 16:9.
+      expect(a.styleRefs).toEqual([`art-sheets/painted/${base.stem}.jpg`, ...base.styleRefs])
+      expect(a.scene.figures.map(fig => fig.portrait)).toEqual(base.scene.figures.map(fig => fig.portrait))
+      expect(promptBlocks().find(b => b.stem === a.stem)!.text).toContain('THE FIRST ATTACHED IMAGE IS THE FINISHED 16:9 COVER OF THIS SAME MOMENT')
+    }
+  })
+
+  it('the prompt keeps its own ground, forbids text and names the badge corner and the logo place', () => {
+    for (const a of COVERS) {
+      const text = textOf(a.stem)
+      expect(text).not.toContain(BACKGROUND)
+      expect(text).not.toContain('#FF00FF')
+      expect(text).toMatch(/NO TEXT OF ANY KIND/)
+      expect(text).toContain('THE TOP-LEFT CORNER IS COVERED')
+      expect(text).toMatch(/THE (LOWER LEFT|BOTTOM BAND), from .* is where the game's logo is laid on later/)
+      expect(text).toContain('HAS its own ground')
+      expect(text.split('\n').at(-1)).toMatch(/^OUTPUT: .*(16:9|1:1|9:16)/)
+    }
+  })
+
+  it('every named face is clear of the badge corner and the logo, and the hero is on the right', async () => {
+    const { CG_BANNER } = await import('../../src/game/art/coverScenes')
+    for (const a of COVERS) {
+      const W = a.width / a.height
+      const hits = (b: { x: number; y: number; w: number; h: number }, x: number, y: number, r: number): boolean =>
+        x + r / W > b.x && x - r / W < b.x + b.w && y + r > b.y && y - r < b.y + b.h
+      const s = a.scene
+      expect(hits(CG_BANNER, s.logo.x + s.logo.w / 2, s.logo.y + s.logo.h / 2, 0), `${a.stem}: the logo is under the badges`).toBe(false)
+      expect(s.logo.y, a.stem).toBeGreaterThan(0.5)
+      for (const fig of s.figures.filter(x => x.portrait)) {
+        const [x, y, r] = fig.head
+        expect(hits(CG_BANNER, x, y, r), `${a.stem}: ${fig.portrait} under the badges`).toBe(false)
+        expect(hits(s.logo, x, y, r), `${a.stem}: ${fig.portrait} under the logo`).toBe(false)
+      }
+      const hero = s.figures.find(x => x.portrait === 'hero-tunic')!
+      if (s.family === '16x9') expect(hero.head[0], a.stem).toBeGreaterThan(0.5)
+      // A big face: a third of the frame's SHORT side across.
+      expect((hero.head[2] * 2 * a.height) / Math.min(a.width, a.height), a.stem).toBeGreaterThanOrEqual(0.33)
+    }
+  })
+
+  it('lists every deliverable exactly as roadmap #1 asks', async () => {
+    const { coverFiles } = await import('../../src/game/art/coverScenes')
+    expect(coverFiles().sort()).toEqual([
+      'cover_800x800.jpg', 'cover_800x800.webp', 'cover-logo_800x800.jpg', 'cover-logo_800x800.webp',
+      'cover_1920x1080.jpg', 'cover_1920x1080.webp', 'cover-logo_1920x1080.jpg', 'cover-logo_1920x1080.webp',
+      'cover_1080x1920.jpg', 'cover-logo_1080x1920.jpg',
+      'cover_800x1200.webp', 'cover-logo_800x1200.webp',
+      'cover-logo_1360x850.jpg', 'cover-logo_800x450.webp', 'cover-logo_400x225.jpg',
+      'cover-logo_512x512.jpg', 'cover-logo_628x628.jpg', 'cover-logo_512x384.jpg', 'cover-logo_512x340.jpg'
+    ].sort())
+  })
+
+  it('every crop is the largest window of its aspect and keeps the focal box when it fits', async () => {
+    const { COVER_SIZES, COVER_SCENES, cropBox } = await import('../../src/game/art/coverScenes')
+    for (const sc of COVER_SCENES) {
+      for (const z of COVER_SIZES.filter(x => x.family === '16x9')) {
+        const c = cropBox(1376, 768, z.w / z.h, sc.focal)
+        expect(c.height, `${sc.id} ${z.w}x${z.h}`).toBe(768)
+        expect(c.left).toBeGreaterThanOrEqual(0)
+        expect(c.left + c.width).toBeLessThanOrEqual(1376)
+        expect(Math.abs(c.width / c.height - z.w / z.h) / (z.w / z.h)).toBeLessThan(0.01)
+        if (sc.focal.w * 1376 <= c.width) {
+          expect(c.left, `${sc.id} ${z.w}x${z.h}`).toBeLessThanOrEqual(sc.focal.x * 1376 + 1)
+          expect(c.left + c.width).toBeGreaterThanOrEqual((sc.focal.x + sc.focal.w) * 1376 - 1)
+        }
+      }
+    }
+  })
 })

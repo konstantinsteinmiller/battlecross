@@ -186,7 +186,7 @@ const assetOverridesPlugin = (): Plugin => {
 // file is written to a temp name and renamed over the real one, so the slicer
 // or the desk never reads half a file.
 const ART_SHEETS_DIR = fileURLToPath(new URL('./art-sheets', import.meta.url))
-const ART_PNG_NAME = /^(?:sheet|single|bg)-[a-z0-9]+(?:-[a-z0-9]+)*\.png$/
+const ART_PNG_NAME = /^(?:sheet|single|bg|cover)-[a-z0-9]+(?:-[a-z0-9]+)*\.png$/
 const ART_DOC_NAME = /^PROMPTS-[A-Z]+\.md$/
 const artSheetsExportPlugin = (): Plugin => ({
   name: 'art-sheets-export',

@@ -228,6 +228,24 @@
       "rev": "693976c610ff",
       "painting": "0a38b4b95487",
       "at": "2026-10-03T15:00:54.446Z"
+    },
+    "cover-sq-loot.jpg": {
+      "sheet": "cover-sq-loot",
+      "rev": "2d8de79770a6",
+      "painting": "bbe431017a1b",
+      "at": "2026-10-03T15:10:55.905Z"
+    },
+    "cover-tall-loot.jpg": {
+      "sheet": "cover-tall-loot",
+      "rev": "97e0e4ef74e2",
+      "painting": "ab4040cd61c3",
+      "at": "2026-10-03T15:14:37.957Z"
+    },
+    "cover-sq-clash.jpg": {
+      "sheet": "cover-sq-clash",
+      "rev": "648eb5132704",
+      "painting": "34b94873629f",
+      "at": "2026-10-03T15:17:26.433Z"
     }
   }
 }

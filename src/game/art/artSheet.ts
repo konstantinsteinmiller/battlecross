@@ -2,6 +2,7 @@ import { ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
+import { CG_BANNER, COVER_RECOMPOSED, COVER_SCENES, FAMILY_SIZE, VOID_DRAGON, type CoverScene } from './coverScenes'
 import { CLASS_EMBLEM_BLURBS, MARK_ICONS, SLOT_BLURBS, SLOT_GLYPH, STATUS_BLURBS, UI_ICONS } from './iconBlurbs'
 import { GLYPHS } from '../../components/art/glyphs'
 import { statusTint } from '../../components/art/tints'
@@ -600,19 +601,53 @@ export const SCENERY: readonly ArtScenery[] = [
   }
 ]
 
+/**
+ * The store covers (roadmap #1, `coverScenes.ts`): opaque full-bleed masters
+ * like a backdrop, but nothing in the game loads them. The slicer writes its
+ * preview copy to `store-art/covers/masters/` (outside `public/`, so no build
+ * ships it); `store-art/covers.mjs` cuts the deliverables from the painting.
+ */
+export interface ArtCover {
+  stem: string
+  title: string
+  doc: 'PROMPTS-COVERS.md'
+  width: number
+  height: number
+  /** Relative to `public/`, like every target: it climbs out to `store-art/`. */
+  target: string
+  maxEdge: number
+  scene: CoverScene
+  styleRefs: readonly string[]
+}
+
+/** Where a cover master's preview copy lands, relative to `public/`. */
+export const coverTarget = (stem: string): string => `../store-art/covers/masters/${stem}.webp`
+
+/** The four scenarios (16:9), then the square and tall recompositions of the winners. */
+export const COVERS: readonly ArtCover[] = [...COVER_SCENES, ...COVER_RECOMPOSED].map(scene => ({
+  stem: scene.stem,
+  title: scene.title,
+  doc: 'PROMPTS-COVERS.md' as const,
+  ...FAMILY_SIZE[scene.family],
+  target: coverTarget(scene.stem),
+  maxEdge: Math.max(FAMILY_SIZE[scene.family].width, FAMILY_SIZE[scene.family].height),
+  scene,
+  styleRefs: scene.refs
+}))
+
 /** A panel's height, px: `CELL` unless the set says otherwise. */
 export const panelHeight = (s: ArtSet): number => s.panelH ?? CELL
 
 export const sheetSize = (s: ArtSet): { width: number; height: number } => ({ width: s.cols * CELL, height: s.rows * panelHeight(s) })
 
 /** Every stem a painted file may be filed under. */
-export const allStems = (): string[] => [...SETS, ...SINGLES, ...SCENERY].map(s => s.stem)
+export const allStems = (): string[] => [...SETS, ...SINGLES, ...SCENERY, ...COVERS].map(s => s.stem)
 
 /** Every target the manifest writes, with the stem that owns it. */
 export const manifestTargets = (): Map<string, string> => {
   const out = new Map<string, string>()
   for (const s of [...SETS, ...SINGLES]) for (const c of s.cells) if (c) out.set(c.target, s.stem)
-  for (const a of SCENERY) out.set(a.target, a.stem)
+  for (const a of [...SCENERY, ...COVERS]) out.set(a.target, a.stem)
   return out
 }
 
@@ -679,9 +714,15 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
         }]
       : []))
   })),
-  scenery: SCENERY.map(a => ({
-    id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: a.tileable, bg: a.bg
-  }))
+  scenery: [
+    ...SCENERY.map(a => ({
+      id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: a.tileable, bg: a.bg
+    })),
+    // A cover is an opaque picture to the slicer, exactly like a backdrop.
+    ...COVERS.map(a => ({
+      id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: false, bg: 'opaque' as const
+    }))
+  ]
 })
 
 /** The fits an exported index carries, or `undefined` when it has none. */
@@ -786,6 +827,7 @@ const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a)
 /** `4:3`, `3:2`, `1:1`, and `16:9` for the map's near-16:9 plate. */
 const ratio = (w: number, h: number): string => {
   if (Math.abs(w / h - 16 / 9) < 0.02) return '16:9'
+  if (Math.abs(h / w - 16 / 9) < 0.02) return '9:16'
   const g = gcd(w, h)
   return `${w / g}:${h / g}`
 }
@@ -1265,6 +1307,69 @@ const groundPrompt = (a: ArtScenery): string => [
   'OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.'
 ].join('\n')
 
+const pc = (v: number): string => `${Math.round(v * 100)}%`
+
+/**
+ * A store cover: the one prompt in the project that keeps its own ground (it
+ * IS the floor, the light and the shadow out to its edges) and the one built
+ * to sell. Every clause is a property a 250 px tile keeps for a fifth of a
+ * second in a grid of forty games (`store-art/README.md` has the evidence).
+ */
+const coverPrompt = (a: ArtCover): string => {
+  const s = a.scene
+  const named = s.figures.filter(fig => fig.portrait)
+  const dragon = s.id === 'dragon' ? [`· ${VOID_DRAGON}. It fills the middle and top of the picture behind him: the purple shapes in the reference are its head, body and wings.`] : []
+  return [
+    heading(a.title, a.stem, a.target),
+    '',
+    'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED COVER IMAGE FOR A GAME STORE PAGE: A SINGLE DRAMATIC MOMENT, PAINTED EDGE TO EDGE, WITH NO TEXT OF ANY KIND.',
+    `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}).`,
+    '',
+    'WHAT IT IS NOT: no title, no logo, no lettering, no numbers, no speech bubbles, no buttons, no health bars, no interface, no border, no frame, no watermark. The game\'s name is added later, by the store and by us; painted text would collide with it.',
+    '',
+    `THE HOOK: ${s.hook}`,
+    `WHERE: ${s.where}.`,
+    `THE MOMENT: ${s.moment}.`,
+    '',
+    'WHO IS IN IT — exactly these, nobody else:',
+    ...s.figures.map(fig => `· ${fig.says}.`),
+    ...dragon,
+    '',
+    'READ THE ATTACHED IMAGES:',
+    ...(s.from ? [`· THE FIRST ATTACHED IMAGE IS THE FINISHED 16:9 COVER OF THIS SAME MOMENT. Paint it again for a ${shapeWord(a.width, a.height)} frame: the same characters, the same moment, the same expressions, light and colours, rearranged to fill this shape as the layout shows. Not a crop of it, not stretched, not a wider view with empty space: every figure is as big in the frame as the layout has it.`] : []),
+    `· The finished paintings attached first show what the characters look like and what "painted" means in this game: ${named.map(fig => fig.portrait).join(', ')}${s.refs.some(r => r.includes('mascot')) ? ', and the full-figure hero (the mascot) for his body, clothes and proportions' : ''}. Keep their faces, colours and costumes exactly; give them the pose and expression written above, not the one in the portrait.`,
+    '· The LAST image is the layout: a flat stand-in for this cover. Take from it WHERE each figure, effect and prop is and HOW BIG; the round heads with painted faces are where those faces go. Take nothing else from it — it is stiff, evenly lit and has no atmosphere, and fixing that is the job.',
+    '',
+    'WHAT MAKES IT GET CLICKED — each one is a check, not a mood:',
+    '· One subject, enormous: the hero and the action fill at least half the frame. Faces are BIG and the expression reads from across a room.',
+    '· The moment is mid-action, full of motion: a body leaning into it, speed lines, things flying outward.',
+    `· Maximum contrast where the eye lands: ${s.contrast}. Those two colours meet there and nowhere else.`,
+    '· Everything points at the hero\'s face and the action: bodies lean toward it, light falls on it, debris flies away from it.',
+    '· Three planes of depth: something large and cropped by the frame in front, the subject crisp in the middle, a simpler, softer background behind.',
+    '· A quiet edge and a bright centre: the background is simpler, darker and less saturated toward the corners.',
+    `· THE TOP-LEFT CORNER IS COVERED by the store's own badges, from the left edge to ${pc(CG_BANNER.w)} across and ${pc(CG_BANNER.h)} down: nothing important there, only sky, foliage or background.`,
+    `· ${s.logo.x < 0.1 ? 'THE LOWER LEFT' : 'THE BOTTOM BAND'}, from ${pc(s.logo.x)} to ${pc(s.logo.x + s.logo.w)} across and from ${pc(s.logo.y)} down to the bottom, is where the game's logo is laid on later: keep it simple and fairly dark (ground, shadow, a tumbling extra at most), no faces there.`,
+    '· Nothing important in the outer twentieth on any side: stores crop.',
+    '',
+    'COLOUR — bright, saturated and warm on the subject; cooler and calmer behind. The characters\' own colours exactly as in their paintings.',
+    '',
+    'THE VIEW — a dynamic, slightly low camera close to the action, as on a game box: the figures large, three-quarter views, real depth in the scene. (This picture is not seen from straight above like the game.)',
+    '',
+    STYLE_BACKDROP.split('\n').filter(l => !l.startsWith('· The attached reference is a flat stand-in') && !l.startsWith('AVOID:') && !l.startsWith('· Light and energy')).join('\n'),
+    '· Light and energy are bold painted shapes: a white-hot core, the colour, a darker edge. A soft glow around a light source and a little atmosphere in the distance are allowed in this picture, never over the faces.',
+    '· This picture HAS its own ground, light and shadows, out to all four edges: cast shadows under the figures, rim light, atmosphere and depth. It is a finished illustration, not a cut-out on a background.',
+    'AVOID: realism, pixel art, thin technical line, muddy or grey colour, a busy background that competes with the subject, small faces, any text.',
+    '',
+    'BEFORE YOU CALL IT FINISHED, check:',
+    '· There is not one letter, number or logo anywhere in the picture.',
+    `· Shrink it to 250 pixels wide: the hero's face and what is happening still read in a glance.`,
+    '· The top-left corner and the lower left hold nothing important.',
+    '· Everybody in it is one of the characters listed above, in their own colours.',
+    '',
+    `OUTPUT: one image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}, ${shapeWord(a.width, a.height)}). If your tool has an aspect-ratio control, set it to ${ratio(a.width, a.height)}. PNG. No labels, captions, numbers or watermarks.`
+  ].join('\n')
+}
+
 export interface PromptBlock {
   doc: string
   stem: string
@@ -1281,7 +1386,8 @@ const setPrompt = (s: ArtSet, fits?: Fits): string =>
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
   ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: s.kind === 'logo' ? brandPrompt(s, fits) : singlePrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
-  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) }))
+  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) })),
+  ...COVERS.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: coverPrompt(a), styleRefs: a.styleRefs }))
 ]
 
 /** A fence longer than any run of backticks in the body, so a prompt can never close its own block. */
@@ -1309,7 +1415,8 @@ const DOC_TITLES: Readonly<Record<string, string>> = {
   'PROMPTS-SKILLS.md': 'Skill icons',
   'PROMPTS-PORTRAITS.md': 'Portraits',
   'PROMPTS-UI.md': 'UI and textures',
-  'PROMPTS-ICONS.md': 'UI icons, statuses, class emblems and marks'
+  'PROMPTS-ICONS.md': 'UI icons, statuses, class emblems and marks',
+  'PROMPTS-COVERS.md': 'Store covers'
 }
 
 const docIntro = (name: string): string[] => [

@@ -4302,6 +4302,94 @@
       "maxEdge": 256,
       "tileable": true,
       "bg": "opaque"
+    },
+    {
+      "id": "cover-clash",
+      "file": "cover-clash.png",
+      "title": "Cover: the hero smashes the Goblin King",
+      "width": 1376,
+      "height": 768,
+      "target": "../store-art/covers/masters/cover-clash.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-skills",
+      "file": "cover-skills.png",
+      "title": "Cover: fire in one hand, lightning in the other",
+      "width": 1376,
+      "height": 768,
+      "target": "../store-art/covers/masters/cover-skills.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-loot",
+      "file": "cover-loot.png",
+      "title": "Cover: a legendary sword erupts from a chest",
+      "width": 1376,
+      "height": 768,
+      "target": "../store-art/covers/masters/cover-loot.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-dragon",
+      "file": "cover-dragon.png",
+      "title": "Cover: the void dragon looms behind the hero",
+      "width": 1376,
+      "height": 768,
+      "target": "../store-art/covers/masters/cover-dragon.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-sq-loot",
+      "file": "cover-sq-loot.png",
+      "title": "Cover: a legendary sword erupts from a chest (square)",
+      "width": 1024,
+      "height": 1024,
+      "target": "../store-art/covers/masters/cover-sq-loot.webp",
+      "maxEdge": 1024,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-tall-loot",
+      "file": "cover-tall-loot.png",
+      "title": "Cover: a legendary sword erupts from a chest (tall)",
+      "width": 768,
+      "height": 1376,
+      "target": "../store-art/covers/masters/cover-tall-loot.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-sq-clash",
+      "file": "cover-sq-clash.png",
+      "title": "Cover: the hero smashes the Goblin King (square)",
+      "width": 1024,
+      "height": 1024,
+      "target": "../store-art/covers/masters/cover-sq-clash.webp",
+      "maxEdge": 1024,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
+      "id": "cover-tall-clash",
+      "file": "cover-tall-clash.png",
+      "title": "Cover: the hero smashes the Goblin King (tall)",
+      "width": 768,
+      "height": 1376,
+      "target": "../store-art/covers/masters/cover-tall-clash.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
     }
   ]
 }

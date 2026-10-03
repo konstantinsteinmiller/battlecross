@@ -1,4 +1,4 @@
-- [ ] #1 The game needs better ULTRA-HIGH-CTR(20%+) cover images painted with
+- [x] #1 ✅ The game needs better ULTRA-HIGH-CTR(20%+) cover images painted with
   Gemini for all the platforms (800x800, 1920x1080, 1080x1920(only jpg), 800x1200(only webp), 1360x850(only with logo, only jpg), 800x450(only with logo, only webp), 400x225(only with logo, only jpg),
   512x512(only with logo, only jpg), 628x628(only with logo, only jpg), 512x384(only with logo, only jpg), 512x340(only with logo, only jpg) in jpg, and webp, once without a logo, once with a logo somewhere that is not in the top left corner as CG banners are placed in top left corner up to the middle of the image horizontally).
   Create 4 different new cover image scenarios (like the current non-painted ones), paint them once in Gemini and compare them with the old cover images(not painted) for the CTR value. Go with the best results that would potentially and based on web-search evidence yield the best CTR results on web game platforms and Steam.
@@ -85,6 +85,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #64 ✅ Create a Brawlstars like bg-tile for the FLogoProgress background with whitish outline assets (not so densely packed) that scroll to the bottom right very slowly while the Mascot/logo and the loading bar shows.
 - [x] #65 ✅ Design a fitting logo (save as painted image to /public/images/logo) and favicon, also update the mascot on FLogoProgress to make it look professional, the logo and mascot need to be in the games art style and very appealing.
 - [x] #66 ✅ GameMonetize readiness: make the game ready for a GameMonetize release using the new-web-game-playbook
+- [ ] #67 I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
+ Also turn the market stands in the town towards where they are accessable.
+- [ ] #68 arrange furniture and staircasses  well in the houses of the town
 
 ### World map
 

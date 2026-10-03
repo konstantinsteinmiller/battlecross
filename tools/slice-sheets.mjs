@@ -847,11 +847,16 @@ const main = async () => {
   const inputs = (files.length ? files : [PAINTED]).flatMap(collect)
   if (!inputs.length) { console.error('nothing to slice'); process.exit(1) }
 
-  /** Guard against a target that would escape the output root. */
+  /** Guard against a target that would escape the output root. The one
+   *  exception is the store covers' preview copies (`ArtCover` in the
+   *  manifest), which climb out of `public/` so that no build ships them. */
+  const COVER_OUT = resolve(ROOT, 'store-art', 'covers', 'masters')
   const safeTarget = (target) => {
     const full = resolve(OUT_ROOT, target)
     const rel = relative(OUT_ROOT, full)
-    return rel && !rel.startsWith('..') && !rel.startsWith(sep) ? full : null
+    if (rel && !rel.startsWith('..') && !rel.startsWith(sep)) return full
+    const cover = relative(COVER_OUT, full)
+    return cover && !cover.startsWith('..') && !cover.startsWith(sep) && !cover.includes(sep) ? full : null
   }
 
   // ─── The receipt: what each painting was cut against ──────────────────────
