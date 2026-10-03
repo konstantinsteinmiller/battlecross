@@ -57,6 +57,44 @@ let idleAt = 0
 
 const FRAME = 1 / 30
 
+/**
+ * Proof that he is really on screen. Some GPU / driver pairs give a second
+ * WebGL context that draws nothing and raises no error (an empty plinth on
+ * the owner's machine). Right after a frame — in the same task, so the
+ * drawing buffer is still there — the canvas is read back; if a few frames in
+ * a row came out empty, the drawn portrait takes over.
+ */
+let checks = 0
+let blanks = 0
+const MAX_CHECKS = 6
+const isBlank = (): boolean => {
+  if (!renderer) return true
+  const gl = renderer.getContext()
+  const w = gl.drawingBufferWidth
+  const h = gl.drawingBufferHeight
+  if (w < 2 || h < 2) return true
+  // A cross through the middle, where he stands, is plenty: 2 lines of pixels.
+  const row = new Uint8Array(w * 4)
+  const col = new Uint8Array(h * 4)
+  gl.readPixels(0, Math.floor(h * 0.45), w, 1, gl.RGBA, gl.UNSIGNED_BYTE, row)
+  gl.readPixels(Math.floor(w / 2), 0, 1, h, gl.RGBA, gl.UNSIGNED_BYTE, col)
+  for (let i = 3; i < row.length; i += 4) if (row[i]! > 8) return false
+  for (let i = 3; i < col.length; i += 4) if (col[i]! > 8) return false
+  return true
+}
+const verify = (): boolean => {
+  if (checks >= MAX_CHECKS) return true
+  checks++
+  if (!isBlank()) { checks = MAX_CHECKS; return true }
+  if (++blanks >= 3) {
+    if (import.meta.env.DEV) console.debug('[turntable] the 3D figure drew nothing: showing the portrait instead')
+    stop()
+    emit('fail')
+    return false
+  }
+  return true
+}
+
 const build = (): void => {
   if (!scene) return
   if (view) { scene.remove(view.rig.root); view.rig.material.dispose() }
@@ -93,6 +131,7 @@ const draw = (): void => {
   camera.updateMatrixWorld()
   updateCelFrame(camera, dist)
   renderer.render(scene, camera)
+  verify()
 }
 
 const tick = (now: number): void => {

@@ -2,8 +2,12 @@
   div.coach-layer(aria-live="polite")
     svg.coach-layer__lines(aria-hidden="true")
       line(v-for="h in hud.hints" v-show="isDrag(h.id) && h.id !== 'talk'" :key="h.id" :ref="(el) => setLine(el, h.id)" :class="['trail', `trail--${h.id}`]")
-      //- The way to a trainer, along the streets (`hintPath`).
-      path.trail.trail--talk(v-show="hud.hints.some(h => h.id === 'talk')" ref="wayEl")
+      //- The way to a trainer, along the streets (`hintPath`): arrows that
+      //- flow toward them, so it reads as "go this way", not as a line.
+      g.way(v-show="hud.hints.some(h => h.id === 'talk')" ref="wayEl")
+        g.way__arrow(v-for="n in WAY_ARROWS" :key="n")
+          path.way__ink(d="M-5 -7 L3 0 L-5 7")
+          path.way__gold(d="M-5 -7 L3 0 L-5 7")
     div.coach(
       v-for="h in hud.hints"
       :key="h.id"
@@ -15,6 +19,10 @@
       span.coach__ring(v-if="isButton(h.id)" aria-hidden="true")
       //- A townsperson to talk to: a beacon over the head, a ring at the feet.
       span.coach__beacon(v-if="h.id === 'talk'" :ref="(el) => setBeacon(el)" aria-hidden="true")
+      //- Off screen: their face at the edge, an arrow pointing the way.
+      span.coach__edge(v-if="h.id === 'talk'" :ref="(el) => setEdge(el)" aria-hidden="true")
+        Portrait.coach__face(v-if="hintTalk.look" :look="hintTalk.look")
+        span.coach__point
       span.coach__spot(v-if="h.id === 'chest' || h.id === 'talk'" aria-hidden="true")
       span.coach__hand(:key="`${h.id}:${h.flash}`" :class="{ ok: h.flash > 0 }")
         InputGlyph.coach__glyph(v-bind="glyph(h.id)")
@@ -50,7 +58,8 @@
 import { onMounted, onUnmounted, ref, type ComponentPublicInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
-import { hintGeo, hintPath, type LessonId } from '@/game/coach'
+import { hintGeo, hintPath, hintTalk, type LessonId } from '@/game/coach'
+import Portrait from '@/components/art/Portrait.vue'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 
@@ -81,6 +90,8 @@ const setLine = (el: RefEl, id: string): void => {
   else delete lines[id as LessonId]
 }
 const setBeacon = (el: RefEl): void => { beacon = el as HTMLElement | null }
+let edgeBadge: HTMLElement | null = null
+const setEdge = (el: RefEl): void => { edgeBadge = el as HTMLElement | null }
 
 const rectOf = (sel: string): DOMRect | null => document.querySelector(sel)?.getBoundingClientRect() ?? null
 const BUTTON: Partial<Record<LessonId, string>> = { potion: '[data-potion]', mana: '[data-mana-potion]' }
@@ -110,18 +121,52 @@ const clampIn = (x: number, y: number, m: number): [number, number] => {
 /** The glyph's size in px, as `--g` sizes it. */
 const glyphPx = (): number => Math.max(51.2, Math.min(80, Math.min(innerWidth, innerHeight) * 0.15))
 
-const wayEl = ref<SVGPathElement | null>(null)
-/** The walked way when there is one, else the straight line; it ends at the
- *  (edge-clamped) point the glyph sits on. */
+const WAY_ARROWS = 28
+const WAY_GAP = 34
+const wayEl = ref<SVGGElement | null>(null)
+const wayX: number[] = []
+const wayY: number[] = []
+/**
+ * The walked way (else the straight line) as arrows every `WAY_GAP` px that
+ * drift toward the goal. It starts a little ahead of the hero and stops short
+ * of the glyph at the end, so neither is covered.
+ */
 const setWay = (x: number, y: number, g: { x0: number; y0: number }): void => {
-  const el = wayEl.value
-  if (!el) return
+  const root = wayEl.value
+  if (!root) return
   const pts = hintPath.pts
-  let d = `M${g.x0.toFixed(1)} ${g.y0.toFixed(1)}`
-  // Inner corners only: the last way point is replaced by the glyph's point.
-  for (let i = 1; i < hintPath.n - 1; i++) d += ` L${pts[i * 2]!.toFixed(1)} ${pts[i * 2 + 1]!.toFixed(1)}`
-  d += ` L${x.toFixed(1)} ${y.toFixed(1)}`
-  el.setAttribute('d', d)
+  wayX.length = 0
+  wayY.length = 0
+  wayX.push(g.x0); wayY.push(g.y0)
+  for (let i = 1; i < hintPath.n - 1; i++) { wayX.push(pts[i * 2]!); wayY.push(pts[i * 2 + 1]!) }
+  wayX.push(x); wayY.push(y)
+  let total = 0
+  for (let i = 1; i < wayX.length; i++) total += Math.hypot(wayX[i]! - wayX[i - 1]!, wayY[i]! - wayY[i - 1]!)
+  const start = 28
+  const stop = total - glyphPx() * 0.45
+  const phase = (clock * 46) % WAY_GAP
+  const arrows = root.children
+  let seg = 1
+  let segStart = 0
+  let segLen = wayX.length > 1 ? Math.hypot(wayX[1]! - wayX[0]!, wayY[1]! - wayY[0]!) : 0
+  for (let k = 0; k < arrows.length; k++) {
+    const a = arrows[k] as SVGGElement
+    const at = start + phase + k * WAY_GAP
+    if (at > stop || wayX.length < 2) { a.setAttribute('opacity', '0'); continue }
+    while (seg < wayX.length - 1 && at > segStart + segLen) {
+      segStart += segLen
+      seg++
+      segLen = Math.hypot(wayX[seg]! - wayX[seg - 1]!, wayY[seg]! - wayY[seg - 1]!)
+    }
+    const u = segLen > 0 ? (at - segStart) / segLen : 0
+    const ax = wayX[seg - 1]! + (wayX[seg]! - wayX[seg - 1]!) * u
+    const ay = wayY[seg - 1]! + (wayY[seg]! - wayY[seg - 1]!) * u
+    const deg = (Math.atan2(wayY[seg]! - wayY[seg - 1]!, wayX[seg]! - wayX[seg - 1]!) * 180) / Math.PI
+    // Fade in at the start and out toward the end.
+    const fade = Math.min(1, (at - start) / 40, (stop - at) / 60)
+    a.setAttribute('opacity', Math.max(0, fade).toFixed(2))
+    a.setAttribute('transform', `translate(${ax.toFixed(1)} ${ay.toFixed(1)}) rotate(${deg.toFixed(1)})`)
+  }
 }
 const setLineXY = (ln: SVGLineElement | undefined, x0: number, y0: number, x1: number, y1: number): void => {
   if (!ln) return
@@ -179,6 +224,7 @@ onMounted(() => {
           const seen = x === g.x1 && y === g.y1
           beacon.style.opacity = seen ? '1' : '0'
           el.classList.toggle('is-off', !seen)
+          if (edgeBadge) edgeBadge.style.setProperty('--point', `${Math.atan2(g.y1 - y, g.x1 - x).toFixed(3)}rad`)
           beacon.style.transform = `translate(${(g.x2 - x).toFixed(1)}px, ${(g.y2 - y).toFixed(1)}px)`
         }
       } else {
@@ -214,6 +260,18 @@ onUnmounted(() => removeTicker?.())
   opacity: 0.9
   filter: drop-shadow(0 2px 0 #0f1a30)
 // The way to a trainer: footprints of light that walk toward them.
+.way__ink
+  fill: none
+  stroke: #0f1a30
+  stroke-width: 7
+  stroke-linecap: round
+  stroke-linejoin: round
+.way__gold
+  fill: none
+  stroke: #ffd84a
+  stroke-width: 3.5
+  stroke-linecap: round
+  stroke-linejoin: round
 .trail--talk
   fill: none
   stroke-linejoin: round
@@ -292,6 +350,42 @@ onUnmounted(() => removeTicker?.())
   animation: coach-spot 1.2s ease-in-out infinite
 .is-off .coach__spot
   display: none
+// Off screen: no hand pointing at nothing; their face and an arrow instead.
+.coach__edge
+  display: none
+.coach--talk.is-off
+  .coach__hand, .coach__pips
+    display: none
+  .coach__edge
+    display: block
+    position: absolute
+    left: calc(var(--g) * -0.5)
+    top: calc(var(--g) * -0.5)
+    width: var(--g)
+    height: var(--g)
+.coach__face
+  position: absolute
+  inset: 0
+  border-radius: 50%
+  box-shadow: 0 0 0 3px #ffd84a, 0 0 0 6px #0f1a30
+  animation: coach-spot 1.2s ease-in-out infinite
+// The pointer orbits the badge toward where they are.
+.coach__point
+  position: absolute
+  left: 50%
+  top: 50%
+  width: 0
+  height: 0
+  transform: rotate(var(--point, 0rad)) translateX(calc(var(--g) * 0.62))
+  &::before
+    content: ''
+    position: absolute
+    left: -0.55rem
+    top: -0.7rem
+    border-left: 1.1rem solid #ffd84a
+    border-top: 0.7rem solid transparent
+    border-bottom: 0.7rem solid transparent
+    filter: drop-shadow(0 0 0 #0f1a30) drop-shadow(1px 0 0 #0f1a30) drop-shadow(-1px 0 0 #0f1a30)
 // Over a trainer's head: a bobbing gold beacon with a pulse round it.
 .coach__beacon
   position: absolute

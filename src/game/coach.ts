@@ -1,3 +1,4 @@
+import { shallowReactive } from 'vue'
 import { SKILL_BY_ID } from './data/skills'
 import { TOWNS } from './data/zones'
 import { hud, hudLive } from './state/hud'
@@ -116,6 +117,8 @@ const geo = (slot = -1): HintGeo => ({ x0: 0, y0: 0, x1: 0, y1: 0, x2: 0, y2: 0,
  * Rewritten every frame from a path found a few times a second.
  */
 export const hintPath = { n: 0, pts: new Float32Array(96) }
+/** Whom the way leads to (a look id), for the badge at the screen edge. Reactive. */
+export const hintTalk = shallowReactive({ look: '' })
 const wayWorld: number[] = []
 const wayScratch: number[] = []
 const wayOpen: [number, number] = [0, 0]
@@ -302,6 +305,7 @@ class Coach {
         host.project(t.x, t.h * 0.5, t.z, p1)
         host.project(t.x, t.h + 0.75, t.z, p2)
         Object.assign(hintGeo.talk, { x0: p0.x, y0: p0.y, x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, on: true })
+        if (hintTalk.look !== t.kind) hintTalk.look = t.kind
         // The walked way: found again a few times a second (the hero and the
         // trainer both move), projected every frame.
         wayAge += dt
