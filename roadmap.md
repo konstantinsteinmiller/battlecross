@@ -6,7 +6,7 @@
 - [ ] #35 Let's start on using the voice-over pipeline to create VOs for each NPC. 
   DON'T START WITHOUT MY WON INITIATED REQUEST TO START IT. 
 
-- [ ] #36 let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
+- [x] #36 ✅ let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
   That should make the game startup faster and happier players (should not create asset pop-ins)
   DON'T START WITHOUT MY WON INITIATED REQUEST TO START IT.
 

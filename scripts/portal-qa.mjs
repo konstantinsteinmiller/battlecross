@@ -562,6 +562,18 @@ const boot = async (query = '') => {
   check('splash cleared — the loader finished', gone)
 }
 
+/** A brand-new save asks boy or girl first and holds the world still until
+ *  one is picked (roadmap #71): pick the boy, so the frame checks see a
+ *  running game. A save that has picked is never asked. */
+const pickHero = async () => {
+  const asked = await waitFor('!!document.querySelector(".hero-choice .hero-choice__card")', 4000, 200)
+  if (!asked) return
+  await sleep(900)
+  await ev(`document.querySelector('.hero-choice [data-hero="m"]').click()`)
+  check('hero choice answered (boy)', await waitFor('!document.querySelector(".hero-choice")', 6000, 200))
+  await sleep(300)
+}
+
 /** Wait until no stubbed ad is open (and none is about to). */
 const waitAdClosed = async () => {
   await sleep(600)
@@ -619,6 +631,7 @@ try {
     }
     const musicBackA = await waitFor('window.__qa.musicLive()', 6000, 250)
     check('music plays once the ad closes', musicBackA)
+    await pickHero()
     check('exactly ONE first-load ad (one armed path)', (await ev('window.__qa.audits.length')) === 1,
       `ads=${await ev('JSON.stringify(window.__qa.ads)')}`)
 
@@ -675,6 +688,7 @@ try {
     await boot()
     await sleep(2000)
     for (let i = 0; i < 160 && await ev('!!window.__qa.adOpen'); i++) await sleep(500)
+    await pickHero()
     // Mute, on the flow QA runs: already muted at boot, then unmute.
     if (await ev("typeof window.__qa.portalMute === 'function'")) {
       await sleep(2500)
