@@ -265,9 +265,27 @@ const playDesktop = async () => {
   await page.waitForFunction(() => window.__game.flow.screen === 'town' && !window.__game.flow.loading && window.__game.zone(), null, { timeout: 60000 })
   await page.waitForTimeout(800)
   check('clicking Sunford and Enter travels to the town', true)
+  // Townspeople work in rooms, at forges and in yards now (roadmap #41, #42): the hero is put
+  // on the open street cell nearest to a few steps south of whoever he walks up to.
+  await game(page, () => {
+    window.nearOpen = (z, x, zz) => {
+      const g = z.sim.grid
+      const ci = Math.floor(x / 1.5)
+      const cj = Math.floor(zz / 1.5)
+      for (let r = 0; r < 8; r++) for (let dj = -r; dj <= r; dj++) for (let di = -r; di <= r; di++) {
+        if (Math.max(Math.abs(di), Math.abs(dj)) !== r) continue
+        const i = ci + di
+        const j = cj + dj
+        if (i < 0 || j < 0 || i >= g.w || j >= g.h || g.solid[j * g.w + i]) continue
+        if (z.plan.town && z.plan.town.room[j * g.w + i] >= 0) continue
+        return [(i + 0.5) * 1.5, (j + 0.5) * 1.5]
+      }
+      return [x, zz]
+    }
+  })
 
   // Walk up to the smith by clicking him.
-  const smith = await game(page, () => { const z = window.__game.zone(); const n = z.sim.units.find(u => u.npc === 'sunfordSmith'); const u = z.sim.hero.unit; u.x = n.x + 0.5; u.z = n.z + 5; return { x: n.x, z: n.z, h: n.h } })
+  const smith = await game(page, (id) => { const z = window.__game.zone(); const n = z.sim.units.find(u => u.npc === id); const u = z.sim.hero.unit; const p = nearOpen(z, n.x + 0.5, n.z + 3.5); u.x = u.px = p[0]; u.z = u.pz = p[1]; return { x: n.x, z: n.z, h: n.h } }, 'sunfordSmith')
   await page.waitForTimeout(500)
   const sp = await project(page, smith.x, smith.h * 0.5, smith.z)
   await page.mouse.click(sp.x, sp.y)
@@ -341,7 +359,7 @@ const playDesktop = async () => {
   await page.waitForTimeout(400)
 
   // The trainer: learn Fireball, and find it slotted.
-  const tr = await game(page, () => { const z = window.__game.zone(); const n = z.sim.units.find(u => u.npc === 'trainerPyro'); const u = z.sim.hero.unit; u.x = n.x + 0.5; u.z = n.z + 5; return { x: n.x, z: n.z, h: n.h } })
+  const tr = await game(page, (id) => { const z = window.__game.zone(); const n = z.sim.units.find(u => u.npc === id); const u = z.sim.hero.unit; const p = nearOpen(z, n.x + 0.5, n.z + 3.5); u.x = u.px = p[0]; u.z = u.pz = p[1]; return { x: n.x, z: n.z, h: n.h } }, 'trainerPyro')
   await page.waitForTimeout(500)
   const tp = await project(page, tr.x, tr.h * 0.5, tr.z)
   await page.mouse.click(tp.x, tp.y)

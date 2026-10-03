@@ -1,12 +1,6 @@
 {
   "note": "written by tools/slice-sheets.mjs — the reference revision each painting was cut against",
   "files": {
-    "sheet-items-weapons.jpg": {
-      "sheet": "sheet-items-weapons",
-      "rev": "aaa238ad3ac4",
-      "painting": "3142b7d26cbb",
-      "at": "2026-10-02T22:07:26.369Z"
-    },
     "sheet-skills-pyro.jpg": {
       "sheet": "sheet-skills-pyro",
       "rev": "bf7f6895ed98",
@@ -48,6 +42,24 @@
       "rev": "ff0d9031f4f1",
       "painting": "e4a31515a244",
       "at": "2026-10-02T22:07:34.600Z"
+    },
+    "sheet-items-weapons.jpg": {
+      "sheet": "sheet-items-weapons",
+      "rev": "3d2c36de40a5",
+      "painting": "5eb60d8225c8",
+      "at": "2026-10-03T00:10:50.247Z"
+    },
+    "sheet-items-arms.jpg": {
+      "sheet": "sheet-items-arms",
+      "rev": "f2a5792a725d",
+      "painting": "834e6c77fcb0",
+      "at": "2026-10-03T00:13:41.997Z"
+    },
+    "sheet-items-armor.jpg": {
+      "sheet": "sheet-items-armor",
+      "rev": "dcfec1447f6e",
+      "painting": "7530b7b1b4b8",
+      "at": "2026-10-03T00:16:45.721Z"
     }
   }
 }

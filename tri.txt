@@ -1,13 +1,8 @@
-hall false base 162 4764 36 cut -
-tavern false base 162 5316 50 cut -
-hall true base 70 1876 88 cut 102/3966
-cottage false base 462 1108 8 cut -
-cottage false base 462 1130 8 cut -
-workshop false base 154 2088 112 cut -
-chapel true base 70 1602 88 cut 100/3060
-cottage false base 462 1104 18 cut -
-cottage false base 462 1004 14 cut -
-cottage false base 150 1218 4 cut -
-cottage false base 462 974 2 cut -
-cottage false base 462 1212 18 cut -
-cottage false base 462 1006 6 cut -
+full sunford: houses 23704 (+cut 5878) props+fences 19892 paving 4860 = 54334 lit, 8806 in outline hulls, drawn ≈ 63140
+full oakhaven: houses 25516 (+cut 9490) props+fences 15635 paving 5202 = 55843 lit, 7038 in outline hulls, drawn ≈ 62881
+full ironhold: houses 25650 (+cut 3700) props+fences 16378 paving 3632 = 49360 lit, 8270 in outline hulls, drawn ≈ 57630
+full oakhaven(fallen): houses 20764 (+cut 5996) props+fences 13409 paving 2856 = 43025 lit, 10644 in outline hulls, drawn ≈ 53669
+low  sunford: houses 19320 (+cut 4350) props+fences 13800 paving 4132 = 41602 lit, 8508 in outline hulls, drawn ≈ 50110
+low  oakhaven: houses 20748 (+cut 7012) props+fences 12723 paving 4384 = 44867 lit, 6720 in outline hulls, drawn ≈ 51587
+low  ironhold: houses 23986 (+cut 3676) props+fences 13364 paving 3078 = 44104 lit, 7836 in outline hulls, drawn ≈ 51940
+low  oakhaven(fallen): houses 19382 (+cut 5238) props+fences 12369 paving 2856 = 39845 lit, 10150 in outline hulls, drawn ≈ 49995

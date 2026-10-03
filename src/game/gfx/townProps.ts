@@ -291,7 +291,7 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
     }
     case 'woodpile': {
       // Logs stacked under a lean-to.
-      for (let row = 0; row < 3; row++) {
+      for (let row = 0; row < (c.low ? 2 : 3); row++) {
         for (let i = 0; i < 4 - row; i++) {
           d.push(-0.45 + i * 0.3 + row * 0.15, 0.13 + row * 0.24, 0, 0)
           d.pushMatrix(ALONG_Z)
@@ -327,11 +327,12 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         const x = -w / 2 + (i + 0.5) * (w / rows)
         d.box(x - 0.16, 0, -0.55, x + 0.16, 0.1, 0.55, { top: '#6a4a30', side: '#5a3e28' }, 'b')
         if (ruined) continue
-        for (let j = 0; j < 3; j++) {
-          const z = -0.38 + j * 0.38
+        if (c.low) continue
+        for (let j = 0; j < 2; j++) {
+          const z = -0.22 + j * 0.44
           const veg = (i + j + p.v) % 5
-          if (veg === 0) d.ball(x, 0.2, z, 0.14, '#ff9a2a', 6, 4, 0.8)
-          else d.ball(x, 0.17, z, 0.12 + (veg % 2) * 0.03, veg % 2 ? '#5aa84a' : '#7fc65a', 5, 3, 0.75)
+          if (veg === 0) d.ball(x, 0.2, z, 0.15, '#ff9a2a', 5, 3, 0.8)
+          else d.ball(x, 0.17, z, 0.13 + (veg % 2) * 0.03, veg % 2 ? '#5aa84a' : '#7fc65a', 4, 3, 0.75)
         }
       }
       break
@@ -437,8 +438,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
     }
     case 'bush': {
       const leaf = c.style === 'mountain' ? '#3f7a4a' : ruined ? '#5a6a3a' : '#58b04a'
-      h.ball(0, 0.32, 0, 0.42, leaf, 7, 5, 0.85)
-      h.ball(0.28, 0.42, 0.1, 0.28, shade(leaf, 1.2), 6, 4)
+      h.ball(0, 0.32, 0, 0.42, leaf, 6, 4, 0.85)
+      if (!c.low) h.ball(0.28, 0.42, 0.1, 0.28, shade(leaf, 1.2), 5, 3)
       break
     }
     default:
@@ -518,7 +519,7 @@ const fence = (k: Kit, ax: number, az: number, bx: number, bz: number, c: PropCt
     for (let i = 1; i < n; i++) {
       const t = i / n
       d.push(ax + (bx - ax) * t, ya + (yb - ya) * t, az + (bz - az) * t, ang + Math.PI / 2)
-      d.prism([[-0.045, 0.05], [0.045, 0.05], [0.045, 0.66], [0, 0.76], [-0.045, 0.66]], -0.02, 0.02, col, dark)
+      d.box(-0.045, 0.05, -0.02, 0.045, 0.68, 0.02, { front: col, back: col, side: dark, top: dark }, 'b')
       d.pop()
     }
   }

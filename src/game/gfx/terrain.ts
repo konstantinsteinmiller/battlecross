@@ -1,6 +1,6 @@
 import {
   BufferGeometry, Color, DynamicDrawUsage, Float32BufferAttribute, Group, InstancedMesh, Matrix4, Mesh, Object3D,
-  Quaternion, Vector3, Fog, type Scene
+  Quaternion, ShaderMaterial, UniformsLib, UniformsUtils, Vector3, Fog, type Scene, type Texture
 } from 'three'
 import type { LiquidId, ThemeId } from '../data/zones'
 import { CELL } from '../sim/grid'
@@ -319,6 +319,109 @@ const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
   arena: [{ build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
 }
 
+// ── The ground's own material ────────────────────────────────────────────────
+//
+// The cel material's ramp and mood (it shares their uniforms, so a cave's dark
+// reaches it), plus what makes the lie of the land READ from a high camera:
+//   • two tones by slope: ground turned to the sun is a step lighter, ground
+//     turned away a step darker, with a crisp edge between (not a gradient);
+//   • contours: a thin darker line every half metre of height, only where the
+//     ground actually slopes, like the hachures on a painted map.
+// Both fade out on water beds, cliff rock, the road and cave floors (`aRelief`).
+
+/** Height between two contour lines (metres). */
+const CONTOUR = 0.5
+/** The world light the cel ramp uses (`cel.ts`), for the slope tones. */
+const SUN = new Vector3(0.4, 0.82, 0.42).normalize()
+
+const GROUND_VERT = /* glsl */`
+#include <common>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+attribute float aRelief;
+varying vec3 vN;
+varying vec3 vViewN;
+varying vec3 vW;
+varying vec2 vUv2;
+varying float vRelief;
+void main() {
+  #include <color_vertex>
+  vN = normal;
+  vViewN = normalize(normalMatrix * normal);
+  vUv2 = uv;
+  vRelief = aRelief;
+  vec4 wp = modelMatrix * vec4(position, 1.0);
+  vW = wp.xyz;
+  vec4 mvPosition = viewMatrix * wp;
+  gl_Position = projectionMatrix * mvPosition;
+  #include <fog_vertex>
+}
+`
+
+const GROUND_FRAG = /* glsl */`
+#include <common>
+#include <color_pars_fragment>
+#include <fog_pars_fragment>
+uniform vec3 uLightDir;
+uniform vec3 uShadowTint;
+uniform vec3 uAmbient;
+uniform float uLight;
+uniform float uThreshold;
+uniform sampler2D uMap;
+uniform vec3 uSun;
+uniform float uContour;
+varying vec3 vN;
+varying vec3 vViewN;
+varying vec3 vW;
+varying vec2 vUv2;
+varying float vRelief;
+void main() {
+  vec3 base = vColor.rgb * texture2D(uMap, vUv2).rgb;
+  float ndl = dot(normalize(vViewN), uLightDir) * 0.5 + 0.5;
+  float lit = smoothstep(uThreshold - 0.012, uThreshold + 0.012, ndl);
+  vec3 col = mix(base * uShadowTint, min(base * uLight, vec3(1.0)), lit);
+  vec3 n = normalize(vN);
+  float slope = length(n.xz) / max(n.y, 0.2);
+  // Two tones by the way the ground faces: toward the sun, or away from it.
+  float face = dot(n.xz, uSun.xz) / max(length(uSun.xz), 1e-4) / max(n.y, 0.2);
+  float aaF = fwidth(face) + 0.004;
+  float toSun = smoothstep(0.07 - aaF, 0.07 + aaF, face);
+  float away = 1.0 - smoothstep(-0.07 - aaF, -0.07 + aaF, face);
+  col *= 1.0 + vRelief * (0.17 * toSun - 0.2 * away);
+  // Contours where the ground slopes.
+  float hy = vW.y / uContour;
+  float fw = fwidth(hy);
+  float d = min(fract(hy), 1.0 - fract(hy));
+  float line = 1.0 - smoothstep(fw * 0.7, fw * 1.7, d);
+  line *= smoothstep(0.035, 0.09, slope) * step(fw, 0.45);
+  col *= 1.0 - 0.3 * line * vRelief;
+  gl_FragColor = vec4(col * uAmbient, 1.0);
+  #include <colorspace_fragment>
+  #include <fog_fragment>
+}
+`
+
+let groundMat: ShaderMaterial | null = null
+let groundMatMap: Texture | null = null
+/** The ground's material (one per detail map, shared by every zone). */
+const groundMaterial = (map: Texture): ShaderMaterial => {
+  if (groundMat && groundMatMap === map) return groundMat
+  // The cel material's shared light and mood, by reference.
+  const ref = celVCMap(map).uniforms
+  const m = new ShaderMaterial({
+    uniforms: UniformsUtils.merge([UniformsLib.fog, { uMap: { value: map }, uSun: { value: SUN.clone() }, uContour: { value: CONTOUR } }]),
+    vertexShader: GROUND_VERT,
+    fragmentShader: GROUND_FRAG,
+    vertexColors: true,
+    fog: true
+  })
+  for (const k of ['uLightDir', 'uShadowTint', 'uAmbient', 'uLight', 'uThreshold'] as const) m.uniforms[k] = ref[k]!
+  m.uniforms.uMap!.value = map
+  groundMat = m
+  groundMatMap = map
+  return m
+}
+
 /** A ledge's stone, per theme: its dark and light tone, and whether it is
  *  dressed (cut blocks and built steps) or wild (crags and a worn ramp). */
 const CLIFF: Readonly<Record<ThemeId, { a: string; b: string; dressed: boolean }>> = {
@@ -548,6 +651,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   const pos: number[] = []
   const col: number[] = []
   const uv: number[] = []
+  const relief: number[] = []
   const nor: number[] = []
   const idx: number[] = []
   const vmap = new Int32Array(gw * gh).fill(-1)
@@ -567,7 +671,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   }
   const rockLook = CLIFF[themeId]
   // The relief's tones: sunlit, shaded, and the light top of a crest.
-  const cSun = new Color(theme.ground[0]).lerp(new Color('#fff6c8'), 0.38)
+  const cSun = new Color(theme.ground[0]).lerp(new Color('#fff6c8'), 0.42)
   const cShade = new Color(theme.ground[1]).lerp(new Color(theme.rim), 0.55).lerp(new Color(theme.shadow), 0.12)
   const cCrest = new Color(theme.ground[0]).lerp(new Color('#ffffff'), 0.22)
   let meanH = 0
@@ -652,12 +756,17 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     // Cel relief, in two tones rather than a gradient: a slope turned to the
     // sun takes the light tone, one turned away the shade tone; a crest is
     // lighter grass and a hollow lies in its own shade.
-    const sun = -(gx * 0.69 + gz * 0.72)
-    if (sun > 0.13) c.lerp(cSun, sun > 0.32 ? 0.42 : 0.26)
-    else if (sun < -0.13) c.lerp(cShade, sun < -0.32 ? 0.4 : 0.24)
     const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * gy
-    if (lap < -0.06) c.lerp(cCrest, lap < -0.16 ? 0.38 : 0.22)
-    else if (lap > 0.06) c.lerp(cShade, lap > 0.16 ? 0.34 : 0.18)
+    if (lap < -0.05) c.lerp(cCrest, lap < -0.14 ? 0.5 : 0.3)
+    else if (lap > 0.05) c.lerp(cShade, lap > 0.14 ? 0.48 : 0.28)
+    // Where the ground shader may draw its relief tones and contours (open
+    // ground: not water, a cliff's rock, the worn road or a cave's floor).
+    let open = 1
+    if (anyWet) open -= shareAt(wet, gi, gj) * 2
+    if (anyCliff) open -= shareAt(cliffMask, gi, gj) * 2
+    if (t > 0) open -= t * 0.7
+    if (cv > 0) open -= cv
+    relief.push(Math.max(0, Math.min(1, open)))
     _nrm.set(-gx, 1, -gz).normalize()
     // Higher ground a touch lighter, lower a touch darker: a terrace reads as a level.
     c.multiplyScalar(1 + Math.max(-0.12, Math.min(0.12, (gy - meanH) * 0.06)))
@@ -729,9 +838,10 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   ground.setAttribute('normal', new Float32BufferAttribute(nor, 3))
   ground.setAttribute('color', new Float32BufferAttribute(col, 3))
   ground.setAttribute('uv', new Float32BufferAttribute(uv, 2))
+  ground.setAttribute('aRelief', new Float32BufferAttribute(relief, 1))
   ground.setIndex(idx)
   owned.push(ground)
-  const groundMesh = new Mesh(ground, celVCMap(groundDetail()))
+  const groundMesh = new Mesh(ground, groundMaterial(groundDetail()))
   groundMesh.renderOrder = -2
   root.add(groundMesh)
   await slice()

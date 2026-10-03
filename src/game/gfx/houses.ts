@@ -37,6 +37,8 @@ export const WALL_IN = 0.4
 /** Wall thickness. */
 const T = 0.22
 const BASE_H = 0.4
+/** A room's floor: a finger above the ground the people in it stand on. */
+const ROOM_Y = 0.03
 
 interface Pal {
   wall: string
@@ -128,16 +130,16 @@ const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, li
   else k.detail.quad(x - w / 2, y, 0.02, x + w / 2, y, 0.02, x + w / 2, y + h, 0.02, x - w / 2, y + h, 0.02, o.boarded ? '#2a2228' : '#4a5a74')
   const t = 0.07
   const d = k.detail
-  d.box(x - w / 2 - t, y - t, 0, x + w / 2 + t, y, 0.07, fr, 'b')
-  d.box(x - w / 2 - t, y + h, 0, x + w / 2 + t, y + h + t, 0.07, fr, 'b')
-  d.box(x - w / 2 - t, y, 0, x - w / 2, y + h, 0.07, fr, 'b')
-  d.box(x + w / 2, y, 0, x + w / 2 + t, y + h, 0.07, fr, 'b')
+  d.box(x - w / 2 - t, y - t, 0, x + w / 2 + t, y, 0.07, fr, 'bn')
+  d.box(x - w / 2 - t, y + h, 0, x + w / 2 + t, y + h + t, 0.07, fr, 'bn')
+  d.box(x - w / 2 - t, y, 0, x - w / 2, y + h, 0.07, fr, 'bn')
+  d.box(x + w / 2, y, 0, x + w / 2 + t, y + h, 0.07, fr, 'bn')
   if (!o.boarded) {
-    d.box(x - 0.025, y, 0.01, x + 0.025, y + h, 0.05, fr, 'b')
-    d.box(x - w / 2, y + h * 0.55 - 0.025, 0.01, x + w / 2, y + h * 0.55 + 0.025, 0.05, fr, 'b')
+    d.box(x - 0.025, y, 0.01, x + 0.025, y + h, 0.05, fr, 'bn')
+    d.box(x - w / 2, y + h * 0.55 - 0.025, 0.01, x + w / 2, y + h * 0.55 + 0.025, 0.05, fr, 'bn')
   }
   // The sill sticks out.
-  d.box(x - w / 2 - 0.12, y - t - 0.05, 0, x + w / 2 + 0.12, y - t + 0.01, 0.16, shade(fr, 1.15), 'b')
+  d.box(x - w / 2 - 0.12, y - t - 0.05, 0, x + w / 2 + 0.12, y - t + 0.01, 0.16, shade(fr, 1.15), 'bn')
   if (o.boarded) {
     // Planks nailed across.
     d.beam(x - w / 2 - 0.08, y + h * 0.2, 0.09, x + w / 2 + 0.08, y + h * 0.75, 0.09, 0.12, '#8a7258', 0.04)
@@ -148,20 +150,20 @@ const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, li
     // Shutters swung open against the wall.
     const sw = w * 0.52
     const sc = p.shutter
-    d.box(x - w / 2 - t - sw, y, 0.02, x - w / 2 - t - 0.02, y + h, 0.08, { front: sc, side: shade(sc, 0.8), top: shade(sc, 1.1) }, 'b')
-    d.box(x + w / 2 + t + 0.02, y, 0.02, x + w / 2 + t + sw, y + h, 0.08, { front: sc, side: shade(sc, 0.8), top: shade(sc, 1.1) }, 'b')
-    d.box(x - w / 2 - t - sw + 0.04, y + h * 0.48, 0.08, x - w / 2 - t - 0.06, y + h * 0.52, 0.1, shade(sc, 0.7), 'b')
-    d.box(x + w / 2 + t + 0.06, y + h * 0.48, 0.08, x + w / 2 + t + sw - 0.04, y + h * 0.52, 0.1, shade(sc, 0.7), 'b')
+    d.box(x - w / 2 - t - sw, y, 0.02, x - w / 2 - t - 0.02, y + h, 0.08, { front: sc, side: shade(sc, 0.8), top: shade(sc, 1.1) }, 'bn')
+    d.box(x + w / 2 + t + 0.02, y, 0.02, x + w / 2 + t + sw, y + h, 0.08, { front: sc, side: shade(sc, 0.8), top: shade(sc, 1.1) }, 'bn')
+    d.box(x - w / 2 - t - sw + 0.04, y + h * 0.48, 0.08, x - w / 2 - t - 0.06, y + h * 0.52, 0.1, shade(sc, 0.7), 'bn')
+    d.box(x + w / 2 + t + 0.06, y + h * 0.48, 0.08, x + w / 2 + t + sw - 0.04, y + h * 0.52, 0.1, shade(sc, 0.7), 'bn')
   }
   if (o.box) {
     // A flower box under it, in bloom.
-    d.box(x - w / 2 - 0.05, y - 0.32, 0.04, x + w / 2 + 0.05, y - 0.13, 0.3, { front: '#8a5a34', side: '#6a4428', top: '#5a3a24' }, 'b')
-    d.box(x - w / 2, y - 0.14, 0.06, x + w / 2, y - 0.08, 0.28, '#4f9a44', 'b')
+    d.box(x - w / 2 - 0.05, y - 0.32, 0.04, x + w / 2 + 0.05, y - 0.13, 0.3, { front: '#8a5a34', side: '#6a4428', top: '#5a3a24' }, 'bn')
+    d.box(x - w / 2, y - 0.14, 0.06, x + w / 2, y - 0.08, 0.28, '#4f9a44', 'bn')
     const cols = ['#ff6a8a', '#ffd84a', '#ff8a4a', '#c08aff', '#ffffff']
-    const n = Math.max(3, Math.round(w / 0.16))
+    const n = Math.max(3, Math.round(w / 0.2))
     for (let i = 0; i < n; i++) {
-      const fx = x - w / 2 + 0.06 + (i / (n - 1)) * (w - 0.12)
-      d.ball(fx, y - 0.04 + (i % 2) * 0.05, 0.18 + (i % 3) * 0.03, 0.065, cols[(((i * 7 + Math.round(x * 13)) % cols.length) + cols.length) % cols.length]!, 5, 3)
+      const fx = x - w / 2 + 0.07 + (i / (n - 1)) * (w - 0.14)
+      d.ball(fx, y - 0.04 + (i % 2) * 0.05, 0.18 + (i % 3) * 0.03, 0.075, cols[(((i * 7 + Math.round(x * 13)) % cols.length) + cols.length) % cols.length]!, 4, 2)
     }
   }
 }
@@ -172,9 +174,9 @@ const doorOn = (k: Kit, x: number, w: number, h: number, p: Pal, o: { open?: boo
   const fr = o.stone ? '#77727a' : shade(p.timber, 0.95)
   const t = 0.11
   // Frame: posts and a lintel proud of the wall.
-  d.box(x - w / 2 - t, 0, 0, x - w / 2, h + t, 0.09, fr, 'b')
-  d.box(x + w / 2, 0, 0, x + w / 2 + t, h + t, 0.09, fr, 'b')
-  d.box(x - w / 2 - t - 0.06, h, 0, x + w / 2 + t + 0.06, h + t + 0.05, 0.12, shade(fr, 1.1), 'b')
+  d.box(x - w / 2 - t, 0, 0, x - w / 2, h + t, 0.09, fr, 'bn')
+  d.box(x + w / 2, 0, 0, x + w / 2 + t, h + t, 0.09, fr, 'bn')
+  d.box(x - w / 2 - t - 0.06, h, 0, x + w / 2 + t + 0.06, h + t + 0.05, 0.12, shade(fr, 1.1), 'bn')
   if (o.open) return
   if (o.boarded) {
     d.quad(x - w / 2, 0.02, 0.01, x + w / 2, 0.02, 0.01, x + w / 2, h, 0.01, x - w / 2, h, 0.01, '#1e1a20')
@@ -188,12 +190,12 @@ const doorOn = (k: Kit, x: number, w: number, h: number, p: Pal, o: { open?: boo
     const x0 = x - w / 2 + (i / n) * w
     const x1 = x - w / 2 + ((i + 1) / n) * w
     const c = shade(dc, i % 2 ? 0.92 : 1.04)
-    d.box(x0 + 0.008, 0, 0.0, x1 - 0.008, h, 0.04, { front: c, side: shade(dc, 0.8), top: shade(dc, 1.1) }, 'b')
+    d.box(x0 + 0.008, 0, 0.0, x1 - 0.008, h, 0.04, { front: c, side: shade(dc, 0.8), top: shade(dc, 1.1) }, 'bn')
   }
   // Iron bands and a ring.
-  for (const yy of [0.32, h - 0.38]) d.box(x - w / 2 + 0.03, yy, 0.04, x + w / 2 - 0.03, yy + 0.06, 0.06, '#3a3438', 'b')
+  for (const yy of [0.32, h - 0.38]) d.box(x - w / 2 + 0.03, yy, 0.04, x + w / 2 - 0.03, yy + 0.06, 0.06, '#3a3438', 'bn')
   d.ball(x + (o.double ? 0.08 : w / 2 - 0.16), h * 0.5, 0.07, 0.045, '#d8b04a', 5, 3)
-  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.06, shade(dc, 0.7), 'b')
+  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.06, shade(dc, 0.7), 'bn')
   if (o.transom) k.glow.quad(x - w / 2 + 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.12, 0.11, x - w / 2 + 0.06, h + 0.12, 0.11, '#ffd27a')
 }
 
@@ -204,22 +206,22 @@ const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Arra
   const s = 0.13
   const free = (x: number): boolean => gaps.every(([a, b]) => x < a - 0.1 || x > b + 0.1)
   // Corner posts and rails.
-  d.box(-len / 2, y0, 0, -len / 2 + s, y1, 0.05, c, 'b')
-  d.box(len / 2 - s, y0, 0, len / 2, y1, 0.05, c, 'b')
-  d.box(-len / 2, y1 - s, 0, len / 2, y1, 0.06, shade(c, 1.08), 'b')
-  d.box(-len / 2, y0, 0, len / 2, y0 + s * 0.8, 0.05, c, 'b')
+  d.box(-len / 2, y0, 0, -len / 2 + s, y1, 0.05, c, 'bn')
+  d.box(len / 2 - s, y0, 0, len / 2, y1, 0.05, c, 'bn')
+  d.box(-len / 2, y1 - s, 0, len / 2, y1, 0.06, shade(c, 1.08), 'bn')
+  d.box(-len / 2, y0, 0, len / 2, y0 + s * 0.8, 0.05, c, 'bn')
   // Posts on either side of every window and door, and between where there is room.
   const posts: number[] = []
   for (const [a, b] of gaps) { posts.push(a - 0.18, b + 0.18) }
   for (let x = -len / 2 + 0.9; x < len / 2 - 0.6; x += 1.1) if (free(x) && posts.every(q => Math.abs(q - x) > 0.5)) posts.push(x)
-  for (const x of posts) if (x > -len / 2 + 0.2 && x < len / 2 - 0.2) d.box(x - s / 2, y0, 0, x + s / 2, y1, 0.045, c, 'b')
+  for (const x of posts) if (x > -len / 2 + 0.2 && x < len / 2 - 0.2) d.box(x - s / 2, y0, 0, x + s / 2, y1, 0.045, c, 'bn')
   // Braces in the panels with no openings.
   posts.sort((a, b) => a - b)
   const all = [-len / 2 + s, ...posts, len / 2 - s]
   for (let i = 0; i < all.length - 1; i++) {
     const a = all[i]!
     const b = all[i + 1]!
-    if (b - a < 0.5 || !free((a + b) / 2) || r() < 0.45) continue
+    if (b - a < 0.5 || !free((a + b) / 2) || r() < (ruined ? 0.7 : 0.45)) continue
     if (r() < 0.5) d.beam(a + 0.05, y0 + 0.1, 0.02, b - 0.05, y1 - 0.15, 0.02, 0.1, c, 0.05)
     else {
       d.beam(a + 0.05, y1 - 0.15, 0.02, b - 0.05, y0 + 0.1, 0.02, 0.1, c, 0.05)
@@ -241,7 +243,7 @@ const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: 
     let x = -len / 2
     for (let b = 0; b < n; b++) {
       const w = b === n - 1 ? len / 2 - x : (len / n) * (0.75 + r() * 0.5)
-      d.box(x + 0.02, yy + 0.025, 0, x + w - 0.02, yy + rh - 0.025, 0.035 + r() * 0.015, { front: shade(stone, (0.92 + r() * 0.14) * (i % 2 ? 1 : 0.95)), side: c, top: shade(stone, 1.1) }, 'b')
+      d.box(x + 0.02, yy + 0.025, 0, x + w - 0.02, yy + rh - 0.025, 0.035 + r() * 0.015, { front: shade(stone, (0.92 + r() * 0.14) * (i % 2 ? 1 : 0.95)), side: c, top: shade(stone, 1.1) }, 'bn')
       x += w
     }
   }
@@ -249,7 +251,7 @@ const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: 
   for (let i = 0; i < rows; i++) {
     const yy = y0 + i * rh
     const w = i % 2 ? 0.34 : 0.22
-    for (const s of [-1, 1]) d.box(s < 0 ? -len / 2 - 0.02 : len / 2 - w + 0.02, yy + 0.02, 0, s < 0 ? -len / 2 + w - 0.02 : len / 2 + 0.02, yy + rh - 0.02, 0.06, shade(stone, 1.12), 'b')
+    for (const s of [-1, 1]) d.box(s < 0 ? -len / 2 - 0.02 : len / 2 - w + 0.02, yy + 0.02, 0, s < 0 ? -len / 2 + w - 0.02 : len / 2 + 0.02, yy + rh - 0.02, 0.06, shade(stone, 1.12), 'bn')
   }
 }
 
@@ -633,22 +635,35 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     const wallC = stone ? p.wall : p.wall
     const fl = c.ruined ? brokenTop : (v: number): number => v
     // ── The base course: a plinth of stone all round ──
-    outer.hull.box(-W / 2 - 0.05, 0, -D / 2 - 0.05, W / 2 + 0.05, BASE_H, D / 2 + 0.05, { top: shade(p.base, 1.1), side: p.base, front: p.base }, 'b', shade(p.base, 0.8))
+    const pc = { top: shade(p.base, 1.1), side: p.base, front: p.base }
+    if (!enterable) outer.hull.box(-W / 2 - 0.05, 0, -D / 2 - 0.05, W / 2 + 0.05, BASE_H, D / 2 + 0.05, pc, 'b', shade(p.base, 0.8))
+    else {
+      // A room is at ground level: the plinth is a skirt round the outside of its walls.
+      const sk = 0.07
+      outer.hull.box(-W / 2 - sk, 0, -D / 2 - sk, -W / 2 + 0.02, BASE_H, D / 2 + sk, pc, 'b', shade(p.base, 0.8))
+      outer.hull.box(W / 2 - 0.02, 0, -D / 2 - sk, W / 2 + sk, BASE_H, D / 2 + sk, pc, 'b', shade(p.base, 0.8))
+      outer.hull.box(-W / 2 + 0.02, 0, -D / 2 - sk, W / 2 - 0.02, BASE_H, -D / 2 + 0.02, pc, 'b', shade(p.base, 0.8))
+      const dl = doorX - doorW / 2 - 0.12
+      const dr = doorX + doorW / 2 + 0.12
+      outer.hull.box(-W / 2 + 0.02, 0, D / 2 - 0.02, dl, BASE_H, D / 2 + sk, pc, 'b', shade(p.base, 0.8))
+      outer.hull.box(dr, 0, D / 2 - 0.02, W / 2 - 0.02, BASE_H, D / 2 + sk, pc, 'b', shade(p.base, 0.8))
+    }
     // ── Ground-storey walls: west, east, north stay; the front goes with the cut ──
     const inner = enterable ? p.inner : wallC
     const westTop = fl(F)
     const eastTop = fl(F)
     const northTop = fl(F)
-    B.hull.box(-W / 2, BASE_H - 0.01, -D / 2, -W / 2 + T, westTop, D / 2, { west: wallC, east: inner, top: p.timber, front: wallC, back: wallC }, 'b')
-    B.hull.box(W / 2 - T, BASE_H - 0.01, -D / 2, W / 2, eastTop, D / 2, { east: wallC, west: inner, top: p.timber, front: wallC, back: wallC }, 'b')
-    B.hull.box(-W / 2 + T, BASE_H - 0.01, -D / 2, W / 2 - T, northTop, -D / 2 + T, { back: wallC, front: inner, top: p.timber }, 'b')
+    const wy = enterable ? 0 : BASE_H - 0.01
+    B.hull.box(-W / 2, wy, -D / 2, -W / 2 + T, westTop, D / 2, { west: wallC, east: inner, top: p.timber, front: wallC, back: wallC }, 'b')
+    B.hull.box(W / 2 - T, wy, -D / 2, W / 2, eastTop, D / 2, { east: wallC, west: inner, top: p.timber, front: wallC, back: wallC }, 'b')
+    B.hull.box(-W / 2 + T, wy, -D / 2, W / 2 - T, northTop, -D / 2 + T, { back: wallC, front: inner, top: p.timber }, 'b')
     // ── The front wall, around the door (and the forge's mouth) ──
     const fz = D / 2
     const openW = workshop ? Math.min(W - 1.2, 2.6) : doorW
     const openH = workshop ? 1.9 : doorH
     const ox = workshop ? 0 : doorX
     const fTop = c.ruined ? fl(F) : F
-    const F0 = BASE_H - 0.01
+    const F0 = wy
     const fc = { front: wallC, back: inner, top: p.timber, side: wallC }
     front.hull.box(-W / 2 + T, F0, fz - T, ox - openW / 2, fTop, fz, fc, 'b')
     front.hull.box(ox + openW / 2, F0, fz - T, W / 2 - T, fTop, fz, fc, 'b')
@@ -689,12 +704,17 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     facade(B, 'w', westTop, D, [], BASE_H, false)
     // The door, and a step up to it.
     if (!workshop) {
-      onFace(front, W, D, 's', BASE_H - 0.01, () => doorOn(front, ox, openW, openH - BASE_H, p, { open: enterable, double: h.kind === 'hall' || h.kind === 'chapel', stone, boarded: c.ruined && !enterable && r() < 0.6, transom: !c.ruined && (h.kind === 'tavern' || h.kind === 'hall') }))
-      outer.hull.box(ox - openW / 2 - 0.15, 0, fz, ox + openW / 2 + 0.15, BASE_H * 0.5, fz + 0.32, { top: shade(p.base, 1.15), side: p.base }, 'b')
-      outer.hull.box(ox - openW / 2 - 0.08, 0, fz, ox + openW / 2 + 0.08, BASE_H, fz + 0.16, { top: shade(p.base, 1.2), side: shade(p.base, 1.05) }, 'b')
+      onFace(front, W, D, 's', wy, () => doorOn(front, ox, openW, openH - wy, p, { open: enterable, double: h.kind === 'hall' || h.kind === 'chapel', stone, boarded: c.ruined && !enterable && r() < 0.6, transom: !c.ruined && (h.kind === 'tavern' || h.kind === 'hall') }))
+      if (!enterable) {
+        outer.hull.box(ox - openW / 2 - 0.15, 0, fz, ox + openW / 2 + 0.15, BASE_H * 0.5, fz + 0.32, { top: shade(p.base, 1.15), side: p.base }, 'b')
+        outer.hull.box(ox - openW / 2 - 0.08, 0, fz, ox + openW / 2 + 0.08, BASE_H, fz + 0.16, { top: shade(p.base, 1.2), side: shade(p.base, 1.05) }, 'b')
+      } else {
+        // A worn flagstone at the threshold, flush with the ground.
+        outer.detail.box(ox - openW / 2 - 0.12, 0, fz - 0.02, ox + openW / 2 + 0.12, 0.035, fz + 0.36, { top: shade(p.base, 1.15), side: p.base }, 'b')
+      }
       if (enterable) {
         // The threshold carries the floor out into the doorway.
-        B.detail.box(ox - openW / 2, BASE_H - 0.02, fz - T - 0.02, ox + openW / 2, BASE_H + 0.0, fz + 0.01, p.floor, 'b')
+        B.detail.box(ox - openW / 2, 0, fz - T - 0.02, ox + openW / 2, ROOM_Y, fz + 0.01, p.floor, 'b')
       }
     } else {
       out.forge = forgeMouth(B, front, W, D, openW, openH, p, c, r)
@@ -706,7 +726,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       const ud = D + jut * 2
       const Y1 = F + U
       // The floor joists show under the jetty.
-      if (jut > 0) for (let x = -uw / 2 + 0.2; x < uw / 2; x += 0.42) cut.detail.box(x - 0.06, F - 0.1, D / 2 - 0.2, x + 0.06, F, ud / 2 + 0.03, p.timber, '')
+      if (jut > 0 && !c.low) for (let x = -uw / 2 + 0.2; x < uw / 2; x += 0.42) cut.detail.box(x - 0.06, F - 0.1, D / 2 - 0.2, x + 0.06, F, ud / 2 + 0.03, p.timber, '')
       const uc = { front: p.upper, back: p.upper, east: p.upper, west: p.upper, top: p.timber }
       cut.hull.box(-uw / 2, F, -ud / 2, uw / 2, Y1, ud / 2, uc, 'b')
       // Windows and framing on the upper faces.
@@ -731,7 +751,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     out.top = Y
     // ── The roof ──
     const roofKind: Roof = pickRoof(h, c.style, r)
-    const rows = c.low ? 4 : 7
+    const rows = c.low ? 4 : 6
     const pitch = c.style === 'mountain' ? 0.95 : c.style === 'mercantile' ? 0.8 : 0.72
     if (roofKind === 'thatch') {
       const rise = Math.min(W, D) * 0.5 * pitch + 0.6
@@ -919,7 +939,7 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   const x1 = W / 2 - T
   const z0 = -D / 2 + T
   const z1 = D / 2 - T
-  const fy = BASE_H
+  const fy = ROOM_Y
   // Floorboards, a shade apart.
   const n = Math.max(4, Math.round((x1 - x0) / 0.3))
   for (let i = 0; i < n; i++) {

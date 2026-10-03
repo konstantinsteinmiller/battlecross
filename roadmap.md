@@ -75,7 +75,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #56 **Simple puzzles.** Pressure plates stepped on in the right order
   open a hidden passage to a chest that could not be seen before; solvable by
   a ten-year-old.
-- [ ] #57 **Elevation.** Hills, ledges and ramps, so a level is not one flat
+- [x] #57 ✅ **Elevation.** Hills, ledges and ramps, so a level is not one flat
   floor.
 - [ ] #58 **Water.** Rivers with crossings and small ponds to walk around.
 - [ ] #59 **Tunnels and caves** that hide loot or optional enemies.

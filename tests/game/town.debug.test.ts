@@ -2,36 +2,39 @@ import { it } from 'vitest'
 import { writeFileSync } from 'node:fs'
 import { generateTown } from '@/game/sim/zoneGen'
 import { TOWNS, type TownId } from '@/game/data/zones'
-import { Sim } from '@/game/sim/world'
-import { applyPlan, populateTown } from '@/game/sim/director'
-import { createHero } from '@/game/sim/hero'
-import { stepSim } from '@/game/sim/step'
-import { townLife } from '@/game/sim/townLife'
-import { referenceBuild } from '@/game/sim/bot'
+import { buildHouse } from '@/game/gfx/houses'
+import { buildFences, buildPaving, buildProp } from '@/game/gfx/townProps'
+import { Mesher, newKit, type Kit } from '@/game/gfx/archKit'
+import { CELL } from '@/game/sim/grid'
 
-it('dump', () => {
+const tris = (k: Kit): [number, number] => [(k.hull.idx.length + k.detail.idx.length + k.glow.idx.length) / 3, k.hull.idx.length / 3]
+
+it('triangles per town', () => {
   const out: string[] = []
-  for (const [t, f] of [['sunford', []], ['oakhaven', []], ['ironhold', []], ['oakhaven', ['oakhavenFallen']]] as Array<[TownId, string[]]>) {
-    const plan = generateTown(TOWNS[t], new Set(f), 7)
-    const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'town', zone: t })
-    applyPlan(sim, plan)
-    createHero(sim, { build: referenceBuild({ cls: 'aegis', level: 1 }).build, skills: [], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 0 })
-    populateTown(sim, plan, {})
-    const life = townLife(sim)!
-    const tally = new Map<string, Map<string, number>>()
-    for (let s = 0; s < 240 * 30; s++) {
-      stepSim(sim, plan, 1 / 30)
-      sim.events.length = 0
-      if (s % 30) continue
-      for (const p of life.people) {
-        const m = tally.get(p.def.id) ?? new Map()
-        const k = `${p.act}:${p.phase === 3 ? p.pose : 'ph' + p.phase}`
-        m.set(k, (m.get(k) ?? 0) + 1)
-        tally.set(p.def.id, m)
+  for (const low of [false, true]) {
+    for (const [t, f] of [['sunford', []], ['oakhaven', []], ['ironhold', []], ['oakhaven', ['oakhavenFallen']]] as Array<[TownId, string[]]>) {
+      const plan = generateTown(TOWNS[t], new Set(f), 7)
+      const tp = plan.town!
+      const houses = newKit()
+      let cut = 0
+      let cutHull = 0
+      for (const h of tp.houses) {
+        const o = buildHouse(houses, h, { style: tp.style, ruined: tp.ruined, low, x: (h.i0 + h.cw / 2) * CELL, y: 0, z: (h.j0 + h.cd / 2) * CELL })
+        if (o.cut) { const [a, b] = tris(o.cut); cut += a; cutHull += b }
       }
+      const props = newKit()
+      const ctx = { style: tp.style, ruined: tp.ruined, low, gy: () => 0 }
+      for (const p of tp.props) buildProp(props, p, ctx)
+      buildFences(props, tp, plan.w, plan.h, ctx)
+      const pave = new Mesher()
+      buildPaving(pave, plan, tp, ctx, plan.seed)
+      const [h, hh] = tris(houses)
+      const [p, ph] = tris(props)
+      const pv = pave.idx.length / 3
+      const lit = h + p + pv + cut
+      const hull = hh + ph + cutHull
+      out.push(`${low ? 'low ' : 'full'} ${t}${f.length ? '(fallen)' : ''}: houses ${h} (+cut ${cut}) props+fences ${p} paving ${pv} = ${lit} lit, ${hull} in outline hulls, drawn ≈ ${lit + hull}`)
     }
-    out.push(`== ${t} ${f}`)
-    for (const [id, m] of tally) out.push(`${id}: ` + [...m].sort((a, b) => b[1] - a[1]).map(([k, n]) => `${k}=${n}`).join(' '))
   }
-  writeFileSync(process.env.DUMP ?? 'dbg.txt', out.join('\n'))
+  writeFileSync(process.env.DUMP ?? 'tri.txt', out.join('\n'))
 })

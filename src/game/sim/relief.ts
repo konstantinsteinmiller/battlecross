@@ -151,7 +151,14 @@ export const buildRelief = (c: ReliefCtx): Float32Array => {
           const dz = cj - (p.j + 0.5)
           // A raised dais keeps its whole floor and its foot level.
           const wide = k === n && c.dais
-          calmK = Math.min(calmK, smooth(p.r * (wide ? 1.05 : 0.38), p.r * (wide ? 1.6 : 0.92), Math.sqrt(dx * dx + dz * dz)))
+          calmK = Math.min(calmK, smooth(p.r * (wide ? 1.05 : 0.26), p.r * (wide ? 1.6 : 0.68), Math.sqrt(dx * dx + dz * dz)))
+        }
+        // A ledge reads best on quiet ground: no swell across its edge.
+        for (const l of c.ledges) {
+          const dx = ci - l.x / CELL
+          const dz = cj - l.z / CELL
+          if (dx * dx + dz * dz > (l.r / CELL * 1.5) ** 2) continue
+          calmK = Math.min(calmK, smooth(1.5, 5, Math.abs(dx * l.ux + dz * l.uz - l.d0 / CELL)))
         }
         for (const [pi, pj] of pads) {
           const dx = ci - pi
@@ -162,7 +169,7 @@ export const buildRelief = (c: ReliefCtx): Float32Array => {
         const x = ci * CELL
         const z = cj * CELL
         const v = (valueNoise(x * 0.06, z * 0.06, ns2) * 2 - 1) * 0.7 + (valueNoise(x * 0.13, z * 0.13, ns2 + 5) * 2 - 1) * 0.3
-        H[cj * W1 + ci]! += swell * calmK * v * 1.6
+        H[cj * W1 + ci]! += swell * calmK * v * 2
       }
     }
   }
