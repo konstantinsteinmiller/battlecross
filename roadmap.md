@@ -20,22 +20,22 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #37 ✅ **The map never ends in a cut.** No hard edge of ground against a
   flat sky: the land continues past the playable area (scenery ring, distance
   haze, a horizon) in every zone and town.
-- [ ] #38 **Attack choreography.** Every character's attacks are staged:
+- [x] #38 ✅ **Attack choreography.** Every character's attacks are staged:
   anticipation, a fast strike, follow-through, recovery; per weapon family
   (sword, axe, dagger, staff, gun, shield) and per enemy kind.
-- [ ] #39 **Swing trails and impact effects on every attack.** Each melee
+- [x] #39 ✅ **Swing trails and impact effects on every attack.** Each melee
   swing leaves a weapon trail; every hit (melee, projectile, spell) has an
   impact effect sized to the blow, so an attack is always visible.
-- [ ] #40 **Better human models.** Heroes, townsfolk and human enemies stop
+- [x] #40 ✅ **Better human models.** Heroes, townsfolk and human enemies stop
   reading as dolls: proportions, hands, faces, hair, layered clothing.
 - [x] #41 ✅ **Town houses redesigned.** Believable, appealing buildings (timber
   frame, stone base, roofs with overhang, chimneys, windows, doors, signs).
 - [x] #42 ✅ **Town life.** Trainers and townsfolk have a place and a small
   routine (wander a small area, eat, drink, smoke, spar, small-talk); some
   trainers are inside houses instead of standing in a row.
-- [ ] #43 **Ground attack previews redrawn.** Cleaner shapes, a readable fill
+- [x] #43 ✅ **Ground attack previews redrawn.** Cleaner shapes, a readable fill
   that shows when the blow lands, clear edges, friend and foe told apart.
-- [ ] #44 **Health bars with 25 / 50 / 75 % marks and frames.** Over-head bars
+- [x] #44 ✅ **Health bars with 25 / 50 / 75 % marks and frames.** Over-head bars
   get frames with ornaments by rank (minion, elite, champion, boss); the
   hero's health, mana and experience bars get the same treatment (no
   ornaments on the experience bar).
@@ -62,23 +62,23 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 
 ### Sound
 
-- [ ] #53 **New soundtrack.** Slow, adventurous, harmonious action-RPG music:
+- [x] #53 ✅ **New soundtrack.** Slow, adventurous, harmonious action-RPG music:
   violins and piano, occasional bongos and drums.
 
 ### Levels
 
-- [ ] #54 **Loot chests.** Openable chests with a fixed loot table per zone
+- [x] #54 ✅ **Loot chests.** Openable chests with a fixed loot table per zone
   level (items, equipment, health and mana potions, gold).
-- [ ] #55 **Optional corners.** Side areas off the main road: a lone enemy
+- [x] #55 ✅ **Optional corners.** Side areas off the main road: a lone enemy
   guarding something, or an optional enemy well above the zone's level for a
   hero whose build can take it.
-- [ ] #56 **Simple puzzles.** Pressure plates stepped on in the right order
+- [x] #56 ✅ **Simple puzzles.** Pressure plates stepped on in the right order
   open a hidden passage to a chest that could not be seen before; solvable by
   a ten-year-old.
 - [x] #57 ✅ **Elevation.** Hills, ledges and ramps, so a level is not one flat
   floor.
-- [ ] #58 **Water.** Rivers with crossings and small ponds to walk around.
-- [ ] #59 **Tunnels and caves** that hide loot or optional enemies.
+- [x] #58 ✅ **Water.** Rivers with crossings and small ponds to walk around.
+- [x] #59 ✅ **Tunnels and caves** that hide loot or optional enemies.
 - [x] #60 ✅ **More ideas for levels** written up in `level-ideas.md`.
 
 ### World map

@@ -202,14 +202,28 @@ changes only.
 ### Phases
 
 - [x] **12. Map edge** (#37).
-- [ ] **13. Wave 1** (parallel, disjoint files):
+- [x] **13. Wave 1** (parallel, disjoint files):
   - 13a UI foundation: tokens, F-components, shared bar, hero bars, battle skill buttons (#45, #44 HUD half, #50).
   - 13b Combat look: skeleton, human models, attack choreography, trails, impacts, telegraphs, world health bars (#38, #39, #40, #43, #44 world half).
   - 13c Levels I: chests and loot tables (health and mana potions for the belt), optional corners, puzzles, water, caves (#54, #55, #56, #58, #59).
   - 13d Dialogue system (#46).
   - 13e Soundtrack (#53).
-- [ ] **14. Wave 2**: town houses and town life (#41, #42); the three new equipment slots with their items (helmets, gloves, boots: data, save migration, rules, drop sources, shop stock); trade, equipment and skills screens, painter targets (#47, #48, #49, #51); elevation (#57).
-- [ ] **Painting round** (runs beside the waves): the 18 existing reference sheets first, the new UI targets when wave 2 has added them.
-- [ ] **15. Wave 3**: paced introductions (#52).
+- [x] **14. Wave 2**: town houses and town life (#41, #42); the three new equipment slots with their items (helmets, gloves, boots: data, save migration, rules, drop sources, shop stock); trade, equipment and skills screens, painter targets (#47, #48, #49, #51); elevation (#57).
+- [x] **Painting round** (runs beside the waves): the 18 existing reference sheets first, the new UI targets when wave 2 has added them.
+- [x] **15. Wave 3**: paced introductions (#52).
 - [ ] **16. Gate**: translations for all locales, balance re-check (D31), e2e and hydration scripts updated and green, perf check on the throttled phone profile, production build boot.
+  - [x] Translations: 687 new strings × 38 languages, gated (keys, placeholders, characters) and merged; parity 83/83.
+  - [x] Unit suite 1,465 passed; type-check clean; e2e 94/94 (play, touch, five layouts); hydration 23/23.
+  - [x] Balance (D31) holds on every zone (bot, seed 77), with helmets / gloves / boots in the reference build.
+  - [x] Frame time back below the morning baseline (court 58 → 42 ms, Sunford 36 → 20 ms p50 at 4× on the phone profile; PERF-LEDGER.md).
+  - [ ] Boot: the obfuscated build boots clean with no external requests, but `boot:adopted` went from 3.1 s to 4.9 s at 4× and the boot chunk from 869 to 1,252 kB — being fixed.
+
+### Status log (playtest pass)
+
+- Phase 12 (`779df68`): the map edge.
+- Wave 1: interface tokens and F components (`f213166`), levels I (`6ee554e`), soundtrack (`99ca115`), dialogue (`d7d1c0f`), world map (`0a48654`), combat look (`f8e971e`).
+- Wave 2: equipment slots and 18 items (`4d39e15`), elevation (`66f8b9d`, `f5a1fa3`), screens (`9396c1f`), towns (`c441c7b`, `4d7c975`: z-fighting audit to zero, taprooms, small talk), Leave button (`9e004e0`, `b010344`).
+- Wave 3: introductions (`e1804ed`).
+- Painting: day 1 (`ea6f812`), day 2 (`a308154`), hero portrait (`8330e7e`); 135 targets painted except the button and bar frames (deferred, #51).
+- Gate: translations (`5e8f194`), performance (`541813a`), trail and repaint fixes (`75e95c3`).
 
