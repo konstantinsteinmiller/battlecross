@@ -71,6 +71,8 @@ export const buildTargets = (index) => [
     cols: s.cols,
     rows: s.rows,
     maxEdge: s.maxEdge,
+    // Written at maxEdge whatever the default says (the logo and its icons).
+    exact: !!s.exact,
     // How much of a panel a sliced file keeps, centred (1: all of it).
     crop: s.crop ?? 1,
     // What a return is registered by: its middle, or its bottom edge.
@@ -821,7 +823,7 @@ const main = async () => {
   const DEFAULT_EDGE = 256
   const SIZE = num('--size', DEFAULT_EDGE)
   const SIZE_FORCED = opts['--size'] != null
-  const edgeCap = (sheet) => (SIZE_FORCED ? SIZE : Math.min(DEFAULT_EDGE, sheet.maxEdge ?? DEFAULT_EDGE))
+  const edgeCap = (sheet) => (SIZE_FORCED ? SIZE : sheet.exact ? sheet.maxEdge : Math.min(DEFAULT_EDGE, sheet.maxEdge ?? DEFAULT_EDGE))
 
   if (!existsSync(INDEX)) {
     console.error(`No ${relative(ROOT, INDEX)}. Export the reference sheets first: pnpm art:export`)

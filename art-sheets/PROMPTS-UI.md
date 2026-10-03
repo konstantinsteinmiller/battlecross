@@ -68,6 +68,126 @@ BEFORE YOU CALL IT FINISHED, check:
 OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
 ```
 
+## Logo: the badge (swords behind a shield)  (single-logo-emblem.png → images/logo/emblem.webp)
+
+```text
+WHAT COMES BACK IS ONE BADGE ON A FLAT MAGENTA GROUND.
+One square image holding one subject, at the size and in the spot the attached layout reference shows it.
+
+WHAT IT IS: a heraldic badge: a blue heater shield with a gold inner rim and a white four-pointed star in its middle, in front of two steel swords crossed behind it, their gold crossguards and pommels showing at the lower corners and their blades rising past the shield's top corners. NOTHING else: no ground, no shadow, no scenery, no frame or card behind it.
+
+NO LETTERS — not one letter, word, number or rune anywhere on it, not even the game's name: the title is set beside it by the game. A badge with lettering on it is the wrong answer.
+
+APPEAL — this is the face of the game on its splash, on store pages and on a phone's home screen. Make it the most polished thing in the set: crisp, confident, bright and immediately likeable.
+
+PAINTED VOLUME — this is what the sheet is judged on.
+· Every shape is a chunky, solid, three-dimensional thing lit from the upper left: a LIT side and a SHADOW side that meet along a hard edge (two-tone cel shading), a thin rim light on the shadow side, and a few crisp white highlights.
+· Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
+· A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
+· A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
+· The accent colour stays the dominant colour of every panel.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the image, not against a guess.
+· In the reference the subject takes about 84% of the image's width and 76% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
+· It must still read as a small square at 32 pixels (it becomes the game's app icon and favicon): a bold silhouette and two or three big areas of colour.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, check:
+· There is exactly one badge, and it does not reach the edge of the image.
+· There is not one letter, word or number anywhere in the image.
+· Every pixel that is not the subject is flat, vivid #FF00FF.
+
+OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
+```
+
+## Logo: the mascot (the hero)  (single-logo-mascot.png → images/logo/mascot.webp)
+
+Attach, in this order: `public/images/portraits/hero-tunic.webp`, `public/images/portraits/hero-leather.webp`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS ONE CHARACTER, FULL FIGURE, ON A FLAT MAGENTA GROUND.
+One square image holding one subject, at the size and in the spot the attached layout reference shows it.
+
+ATTACHED IMAGES — there are 3.
+· The first 2 are painted portraits of THIS SAME HERO from the game. Copy his face from them exactly: the same face shape, the same eyes and brows, the same short tousled brown hair, the same skin, the same age. He must be recognisably the same person.
+· The LAST image is the LAYOUT reference: his pose, his size and his place. Wherever this text says "the reference", it means that last image. Its flat shapes are notation; take only the pose from it.
+
+WHAT IT IS: the hero of the game, full figure, as a lovable squat chibi adventurer: short tousled brown hair, a big friendly confident grin, a blue tunic with a brown belt, brown boots and a red cape; one hand raises a steel sword with a gold crossguard high, the other waves at the viewer. NOTHING else: no ground, no shadow, no scenery, no frame or card behind it.
+
+THE POSE — dynamic and friendly, the game's mascot on its loading screen: a little lean, weight on one leg, sword up, a wave, a grin that invites the player in. Facing the viewer (a slight three-quarter turn of the body is fine, the face looks at us).
+
+APPEAL — this is the face of the game on its splash, on store pages and on a phone's home screen. Make it the most polished thing in the set: crisp, confident, bright and immediately likeable.
+
+PAINTED VOLUME — this is what the sheet is judged on.
+· Every shape is a chunky, solid, three-dimensional thing lit from the upper left: a LIT side and a SHADOW side that meet along a hard edge (two-tone cel shading), a thin rim light on the shadow side, and a few crisp white highlights.
+· Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
+· A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
+· A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
+· The accent colour stays the dominant colour of every panel.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the image, not against a guess.
+· In the reference the subject takes about 70% of the image's width and 84% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
+· It must still read as a small square at 32 pixels: a bold silhouette and two or three big areas of colour.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, check:
+· There is exactly one character, and it does not reach the edge of the image.
+· His face is the face in the attached portraits.
+· Every pixel that is not the subject is flat, vivid #FF00FF.
+
+OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
+```
+
 ## UI: the world map terrain  (bg-ui-map.png → images/ui/map.webp)
 
 ```text

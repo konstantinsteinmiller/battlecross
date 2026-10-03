@@ -4175,6 +4175,76 @@
           }
         }
       ]
+    },
+    {
+      "id": "single-logo-emblem",
+      "kind": "single",
+      "title": "Logo: the badge (swords behind a shield)",
+      "files": {
+        "clean": "single-logo-emblem.png",
+        "key": "single-logo-emblem-key.png"
+      },
+      "width": 256,
+      "height": 256,
+      "cols": 1,
+      "rows": 1,
+      "maxEdge": 512,
+      "exact": true,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "emblem",
+          "label": "Logo emblem",
+          "variant": "logo",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/logo/emblem.webp",
+          "fit": {
+            "h": 0.758,
+            "w": 0.844,
+            "bottom": 0.879,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "single-logo-mascot",
+      "kind": "single",
+      "title": "Logo: the mascot (the hero)",
+      "files": {
+        "clean": "single-logo-mascot.png",
+        "key": "single-logo-mascot-key.png"
+      },
+      "width": 256,
+      "height": 256,
+      "cols": 1,
+      "rows": 1,
+      "maxEdge": 512,
+      "exact": true,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "mascot",
+          "label": "Mascot",
+          "variant": "logo",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/logo/mascot.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.695,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
     }
   ],
   "scenery": [

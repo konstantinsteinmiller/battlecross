@@ -28,6 +28,7 @@ import { GLYPHS } from '@/components/art/glyphs'
 import { isGameIconName } from '@/components/icons/iconNames'
 import { MARKS } from '@/components/icons/marks'
 import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
+import { EMBLEM_BODY } from '@/game/art/brandRefs'
 import { HERO_OUTFITS, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
@@ -163,7 +164,7 @@ describe('the manifest covers the game', () => {
 
   it('every target is a file the build would load: an override folder, the exact id, no duplicates', () => {
     const config = readFileSync(join(ROOT, 'vite.config.ts'), 'utf-8')
-    const folders = ['items', 'skills', 'portraits', 'ui', 'textures', 'icons']
+    const folders = ['items', 'skills', 'portraits', 'ui', 'textures', 'icons', 'logo']
     // The folders `assetOverridesPlugin` scans; a target anywhere else is never listed.
     for (const f of folders) expect(config, f).toContain(`'public/images/${f}'`)
     const seen = new Set<string>()
@@ -186,7 +187,8 @@ describe('the manifest covers the game', () => {
     // Items, skills, portraits, the coin; the map, the ground and the three
     // screen backdrops; and every other icon (`ICON_SETS`).
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
-    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3 + icons)
+    // ... and the logo's badge and mascot.
+    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3 + icons + 2)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -245,7 +247,10 @@ describe('the manifest covers the game', () => {
       }
       // Icons are drawn small (24 to 64 px): emblems and slots 128, the rest 96.
       const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
-      expect(s.maxEdge, s.id).toBe(icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
+      // The logo's two are written at 512 whatever the default (`exact`).
+      const brand = s.id.startsWith('single-logo-') ? 512 : null
+      expect(s.maxEdge, s.id).toBe(brand ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
+      expect(!!s.exact, s.id).toBe(brand !== null)
     }
   })
 
@@ -334,6 +339,35 @@ describe('every other icon in the game is a painter target', () => {
   })
 })
 
+describe('the brand: the logo badge and the loader\'s mascot (#65)', () => {
+  it('the badge is the lockup\'s own, and its prompt forbids letters (the title stays code-drawn)', () => {
+    // Cut from the generated lockup, so a regenerated logo cannot leave the
+    // painter a stale badge.
+    expect(readFileSync(join(ROOT, 'store-art/brand/logo-lockup.svg'), 'utf-8')).toContain(EMBLEM_BODY)
+    const text = promptBlocks().find(b => b.stem === 'single-logo-emblem')!.text
+    expect(text).toMatch(/NO LETTERS — not one letter/)
+    expect(text).toMatch(/There is not one letter, word or number anywhere in the image/)
+    expect(text).not.toMatch(/BATTLECROSS|Battlecross/)
+  })
+
+  it('the mascot is the hero: the painted portraits ride along as identity references', () => {
+    const block = promptBlocks().find(b => b.stem === 'single-logo-mascot')!
+    expect(block.styleRefs).toEqual(['public/images/portraits/hero-tunic.webp', 'public/images/portraits/hero-leather.webp'])
+    for (const f of block.styleRefs!) expect(existsSync(join(ROOT, f)), f).toBe(true)
+    expect(block.text).toMatch(/Copy his face from them exactly/)
+    expect(block.text).toMatch(/The LAST image is the LAYOUT reference/)
+  })
+
+  it('both are written at 512 into public/images/logo, a folder the build lists', () => {
+    for (const stem of ['single-logo-emblem', 'single-logo-mascot']) {
+      const s = SINGLES.find(x => x.stem === stem)!
+      expect([s.maxEdge, s.exact, s.anchor], stem).toEqual([512, true, 'centre'])
+      expect(s.cells[0]!.target, stem).toMatch(/^images\/logo\/(emblem|mascot)\.webp$/)
+    }
+    expect(readFileSync(join(ROOT, 'vite.config.ts'), 'utf-8')).toContain("logo: { dir: 'public/images/logo'")
+  })
+})
+
 describe('what a prompt says', () => {
   const blocks = promptBlocks()
   const textOf = (stem: string): string => blocks.find(b => b.stem === stem)!.text
@@ -384,6 +418,8 @@ describe('what a prompt says', () => {
       expect(text, s.stem).toContain(GLOW)
       // Effects, and the icon sheets (signs and symbols have no material of their own to shade).
       const effect = s.kind === 'skills' || s.kind === 'icons'
+      // The logo's badge and mascot carry the volume block but not the effects' notation clauses (their own test).
+      if (s.kind === 'logo') { expect(text, s.stem).toContain(FINISH); continue }
       for (const clause of [NOTATION, FINISH, SEE_THROUGH]) expect(text.includes(clause), `${s.stem}: ${clause.slice(0, 24)}`).toBe(effect)
       // Icons are seen at 40 px, and say so; a bust is shown larger.
       // (The icon sheets carry the 24 px version of it instead: their own test.)
@@ -447,7 +483,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {

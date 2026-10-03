@@ -40,5 +40,7 @@ export const UI_ART = byName(overrides.ui, 'images/ui')
  *  `class-<class id>`, `slot-<item slot>`, `mark-<mark id>`. A missing one
  *  keeps its vector glyph. */
 export const ICON_ART = byName(overrides.icons, 'images/icons')
+/** The painted logo badge (`emblem`) and mascot (`mascot`), shown by the loader. */
+export const LOGO_ART = byName(overrides.logo, 'images/logo')
 /** Recorded dialogue lines, keyed `<lang>/<line id>` (`audio/speech.ts`). */
 export const VOICE_FILES = byName(overrides.voice ?? [], 'audio/voice')

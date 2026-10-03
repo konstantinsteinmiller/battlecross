@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 /**
- * Renders every raster app icon from the one source, public/icons/icon.svg.
+ * Renders every raster app icon from the one source, public/icons/icon.svg —
+ * with the PAINTED badge in it when the art pipeline has delivered one
+ * (public/images/logo/emblem.webp, roadmap #65): the same tile, the painted
+ * badge where the code-drawn one was. Without that file the vector badge (and
+ * its bold small-size mark) is the icon, as before.
  *
  *   node scripts/render-icons.mjs
  *
@@ -10,6 +14,8 @@
  *   public/icons/icon-maskable-512.png         full bleed, badge inside the
  *                                              safe zone (the inner 80% circle)
  *   public/favicon.ico                         16 + 32 + 48, PNG-compressed entries
+ *   public/images/logo/logo_512x512.png,       the store / portal logo sizes: the
+ *     logo_192x192.png, logo_256x256.webp      rounded tile, as icon-192/512
  *
  * Rendered by Chrome, not by an SVG library: icon.svg swaps to a bold
  * small-size mark through a media query evaluated against the image's own
@@ -18,14 +24,33 @@
  * for the SVG favicon. Chrome comes from CHROME_PATH (default: the Windows
  * install path, as the other scripts here).
  */
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright-core'
 import sharp from 'sharp'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const CHROME = process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-const svg = readFileSync(`${root}public/icons/icon.svg`, 'utf8')
+const vector = readFileSync(`${root}public/icons/icon.svg`, 'utf8')
+const EMBLEM = `${root}public/images/logo/emblem.webp`
+/**
+ * The icon with the painted badge in place of the code-drawn one: the .d group
+ * becomes the painting (centred, 84 % of the tile, clear of the rounded
+ * corners), and the small-size swap goes, because the painting is the mark at
+ * every size. Only ever rendered here; nothing ships this SVG.
+ */
+const painted = (src) => {
+  const href = `data:image/webp;base64,${readFileSync(src).toString('base64')}`
+  const d = /<g class="d"[\s\S]*?<\/g><\/g>/.exec(vector)
+  const sm = /\s*<g class="s"[\s\S]*?<\/g><\/g>/.exec(vector)
+  if (!d || !sm) throw new Error('icon.svg: the badge groups were not found')
+  return vector
+    .replace(d[0], `<g class="d"><image href="${href}" x="41" y="41" width="430" height="430"/></g>`)
+    .replace(sm[0], '')
+    .replace(/<style>[^<]*<\/style>/, '')
+}
+const svg = existsSync(EMBLEM) ? painted(EMBLEM) : vector
+console.log(existsSync(EMBLEM) ? 'source: icon.svg with the painted badge (public/images/logo/emblem.webp)' : 'source: icon.svg (no painted badge yet)')
 const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
 
 /** Content scale of the maskable render: the badge's furthest point (the
@@ -56,7 +81,9 @@ const fullBleed = async (size, scale) => {
   return page.screenshot({ clip: { x: 0, y: 0, width: size, height: size } })
 }
 
-const png = (buf) => sharp(buf).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer()
+// Quantised to a palette (with dither): a painted 512 tile is ~260 KB as
+// truecolour PNG and ~70 KB like this, with no visible difference.
+const png = (buf) => sharp(buf).png({ compressionLevel: 9, adaptiveFiltering: true, palette: true, quality: 92, effort: 10 }).toBuffer()
 
 /** An .ico whose entries are PNG streams (Vista+ and every browser read these). */
 const ico = (entries) => {
@@ -87,6 +114,10 @@ out['public/icons/icon-maskable-512.png'] = await png(await fullBleed(512, MASKA
 const fav = []
 for (const size of [16, 32, 48]) fav.push({ size, data: await png(await asImage(size)) })
 out['public/favicon.ico'] = ico(fav)
+// The store and portal logo sizes: the same rounded tile.
+out['public/images/logo/logo_512x512.png'] = await png(await asImage(512))
+out['public/images/logo/logo_192x192.png'] = await png(await asImage(192))
+out['public/images/logo/logo_256x256.webp'] = await sharp(await asImage(256)).webp({ quality: 90, alphaQuality: 100 }).toBuffer()
 
 await browser.close()
 for (const [rel, buf] of Object.entries(out)) {

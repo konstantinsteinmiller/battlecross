@@ -9,7 +9,9 @@ import { describe, expect, it } from 'vitest'
 // public/icons/icon.svg is the app icon (two swords crossed behind a shield;
 // written by store-art/brand/logo-final.mjs). scripts/render-icons.mjs renders every PNG and favicon.ico from it,
 // in Chrome, because the SVG switches to a bold small-size mark through a
-// media query that only a browser evaluates. These pin the contracts that
+// media query that only a browser evaluates. Once the painted badge exists
+// (public/images/logo/emblem.webp, #65) the renders put it in the vector
+// badge's place, so the page and manifest announce only the rasters. These pin the contracts that
 // script and the page rely on, so a hand-edited PNG or a dropped favicon
 // layer shows up here rather than on a portal's store page.
 
@@ -80,6 +82,13 @@ describe('the rendered icons', () => {
     expect(sizes).toEqual([16, 32, 48])
     const html = read('index.html').toString('utf8')
     expect(html).toContain('<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">')
+  })
+
+  it('announces no SVG icon once the badge is painted (a browser would prefer it)', () => {
+    if (!existsSync(resolve(root, 'public/images/logo/emblem.webp'))) return
+    const html = read('index.html').toString('utf8')
+    expect(html).not.toMatch(/<link rel="icon"[^>]*svg/)
+    expect(manifest.icons.every((i) => i.type === 'image/png')).toBe(true)
   })
 
   it('every manifest icon exists at the size it declares', () => {

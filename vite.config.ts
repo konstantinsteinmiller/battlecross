@@ -112,7 +112,9 @@ const OVERRIDE_DIRS = {
   portraits: { dir: 'public/images/portraits', exts: IMAGE_EXTS },
   ui: { dir: 'public/images/ui', exts: IMAGE_EXTS },
   // Painted UI icons, status icons, class emblems and marks (`ICON_ART`).
-  icons: { dir: 'public/images/icons', exts: IMAGE_EXTS }
+  icons: { dir: 'public/images/icons', exts: IMAGE_EXTS },
+  // The painted logo badge and mascot (`LOGO_ART`): the splash shows them when present.
+  logo: { dir: 'public/images/logo', exts: IMAGE_EXTS }
 } as const
 // Spoken dialogue lines: one sub-folder per language, a file per line id
 // (`dlg.sunfordSmith.hello.1.ogg`). Listed as `<lang>/<file>`.
@@ -131,7 +133,7 @@ const scanVoice = (): string[] => {
   return out.sort()
 }
 const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], icons: [] as string[], voice: scanVoice() }
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], icons: [] as string[], logo: [] as string[], voice: scanVoice() }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue
@@ -145,10 +147,16 @@ const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]>
 const assetOverridesPlugin = (): Plugin => {
   const ID = 'virtual:asset-overrides'
   const RESOLVED = '\0' + ID
+  let base = '/'
   return {
     name: 'asset-overrides',
     resolveId: (id) => (id === ID ? RESOLVED : null),
     load: (id) => (id === RESOLVED ? `export default ${JSON.stringify(scanOverrides())}` : null),
+    // The painted logo badge and mascot, written into the static splash when
+    // they exist (`src/game/art/splashArt.ts`), under the build's base like
+    // LOGO_ART's URLs.
+    configResolved: (c) => { base = c.base },
+    transformIndexHtml: { order: 'pre', handler: (html) => injectSplashArt(html, scanOverrides().logo, base) },
     configureServer(server) {
       const dirs = [...Object.values(OVERRIDE_DIRS).map(d => d.dir), VOICE_DIR].map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
       server.watcher.add(dirs)
@@ -365,6 +373,7 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import { buildCsp } from './src/platforms/csp'
+import { injectSplashArt } from './src/game/art/splashArt'
 import { buildPlaygamaBridgeConfig, playgamaLeaderboardEnv } from './src/platforms/playgama/bridgeConfig'
 import { PLAYGAMA_BRIDGE_CHUNK, PLAYGAMA_OUT_DIR } from './src/platforms/playgama/release'
 import { devToolAliases, resolvePlatformPolicy } from './src/platforms/policy'

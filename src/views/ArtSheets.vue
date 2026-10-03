@@ -18,6 +18,7 @@
         //- manifest paints it in.
         span.stage__tinted(v-else-if="c.draw === 'ui'" :style="{ color: c.tint }")
           GameIcon(:name="uiName(c)" drawn)
+        span.stage__tinted(v-else-if="c.draw === 'svg'" v-html="BRAND_REFS[c.glyph || ''] || ''")
         svg(v-else-if="c.draw === 'mark'" :viewBox="markOf(c).viewBox" :fill="c.tint")
           path(:d="markOf(c).d")
         Portrait(v-else-if="c.draw === 'portrait'" :look="c.id")
@@ -59,6 +60,7 @@ import IconCoin from '@/components/icons/IconCoin.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { isGameIconName, type GameIconName } from '@/components/icons/iconNames'
 import { MARKS, type Mark } from '@/components/icons/marks'
+import { BRAND_REFS } from '@/game/art/brandRefs'
 
 import { BACKDROP_SAFE, backdropSvg } from '@/components/game/backdrops'
 

@@ -1,6 +1,7 @@
 import { ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
+import { BRAND_REFS } from './brandRefs'
 import { CLASS_EMBLEM_BLURBS, MARK_ICONS, SLOT_BLURBS, SLOT_GLYPH, STATUS_BLURBS, UI_ICONS } from './iconBlurbs'
 import { GLYPHS } from '../../components/art/glyphs'
 import { statusTint } from '../../components/art/tints'
@@ -65,7 +66,7 @@ export const ICON_FILL_ROUND = 0.9
 
 // ─── What the renderer can load ──────────────────────────────────────────────
 
-export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures' | 'icons'
+export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures' | 'icons' | 'logo'
 
 /** Town and quest speakers, as the brief sets them out. */
 const TOWN_LOOKS = ['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'captain', 'fence', 'dwarf', 'tinker'] as const
@@ -83,7 +84,9 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   textures: ['ground'],
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
   // cells are built after this table.
-  get icons() { return ICON_CELLS.map(c => c.id) }
+  get icons() { return ICON_CELLS.map(c => c.id) },
+  // The painted badge and the loader's mascot (roadmap #65).
+  logo: ['emblem', 'mascot']
 }
 
 /** Where a painted file goes, relative to `public/`. The name is the id. */
@@ -279,7 +282,7 @@ const CLASS_HUE: Readonly<Record<ClassId, string>> = {
 /** What the bench draws into a panel. `glyph`: an `ArtIcon` glyph (status,
  *  class emblem, empty-slot marker); `ui`: a `GameIcon`; `mark`: one of
  *  `components/icons/marks.ts`. */
-export type DrawKind = 'item' | 'skill' | 'portrait' | 'coin' | 'glyph' | 'ui' | 'mark'
+export type DrawKind = 'item' | 'skill' | 'portrait' | 'coin' | 'glyph' | 'ui' | 'mark' | 'svg'
 
 export interface SheetCell {
   id: string
@@ -326,6 +329,12 @@ export interface ArtSet {
   crop: number
   /** What a return is registered by: its middle, or its bottom edge. */
   anchor: 'centre' | 'feet'
+  /**
+   * Written at `maxEdge` whatever the slicer's 256 px default says: a file read
+   * at a fixed size outside the game's HUD (the logo on the splash and the
+   * store art, the app icons cut from it).
+   */
+  exact?: boolean
   /** Row by row; `null` is a panel left blank (flat magenta). */
   cells: ReadonlyArray<SheetCell | null>
   /** One accent for the whole sheet (a class's skills). */
@@ -527,6 +536,19 @@ export const SINGLES: readonly ArtSet[] = [
   {
     stem: 'single-ui-coin', title: 'UI: the gold coin', kind: 'ui', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 64, crop: 1, anchor: 'centre',
     cells: [{ id: 'coin', draw: 'coin', label: 'Coin', blurb: COIN_BLURB, target: artTarget('ui', 'coin') }]
+  },
+  // ── The brand (roadmap #65): the logo's badge and the loader's mascot ──
+  // Written at 512 (`exact`): the splash shows them large, the store art and
+  // the app icons are cut from them. The title letters stay code-drawn.
+  {
+    stem: 'single-logo-emblem', title: 'Logo: the badge (swords behind a shield)', kind: 'logo', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 512, exact: true, crop: 1, anchor: 'centre',
+    cells: [{ id: 'emblem', draw: 'svg', glyph: 'emblem', label: 'Logo emblem', target: artTarget('logo', 'emblem'), tint: '#3f7fd6', tintName: 'blue', blurb: 'a heraldic badge: a blue heater shield with a gold inner rim and a white four-pointed star in its middle, in front of two steel swords crossed behind it, their gold crossguards and pommels showing at the lower corners and their blades rising past the shield\'s top corners' }]
+  },
+  {
+    stem: 'single-logo-mascot', title: 'Logo: the mascot (the hero)', kind: 'logo', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 512, exact: true, crop: 1, anchor: 'centre',
+    // Who he is: the painted portraits of the same hero.
+    styleRefs: ['public/images/portraits/hero-tunic.webp', 'public/images/portraits/hero-leather.webp'],
+    cells: [{ id: 'mascot', draw: 'svg', glyph: 'mascot', label: 'Mascot', target: artTarget('logo', 'mascot'), tint: '#3f7fd6', tintName: 'blue', blurb: 'the hero of the game, full figure, as a lovable squat chibi adventurer: short tousled brown hair, a big friendly confident grin, a blue tunic with a brown belt, brown boots and a red cape; one hand raises a steel sword with a gold crossguard high, the other waves at the viewer' }]
   }
 ]
 
@@ -625,6 +647,7 @@ export interface IndexSheet {
   maxEdge: number
   crop: number
   anchor: 'centre' | 'feet'
+  exact?: true
   cells: IndexCell[]
 }
 export interface IndexScenery { id: string; file: string; title: string; width: number; height: number; target: string; maxEdge: number; tileable: boolean; bg: 'opaque' }
@@ -643,6 +666,7 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
     cols: s.cols,
     rows: s.rows,
     maxEdge: s.maxEdge,
+    ...(s.exact ? { exact: true } : {}),
     crop: s.crop,
     anchor: s.anchor,
     cells: s.cells.flatMap((c, i) => (c
@@ -1043,6 +1067,58 @@ const portraitPrompt = (s: ArtSet, fits?: Fits): string => {
   ].join('\n')
 }
 
+/**
+ * The logo badge and the mascot: shown large (the splash, the store art, the
+ * app icons), so the brief is about appeal and finish rather than 24 px. The
+ * badge carries NO letters; the mascot is the same hero as the portraits.
+ */
+const brandPrompt = (s: ArtSet, fits?: Fits): string => {
+  const c = s.cells[0]
+  if (!c) throw new Error(`artSheet: ${s.stem} has no panel`)
+  const e = extent(s, fits)
+  const mascot = c.id === 'mascot'
+  return [
+    heading(s.title, s.stem, c.target),
+    '',
+    mascot ? 'WHAT COMES BACK IS ONE CHARACTER, FULL FIGURE, ON A FLAT MAGENTA GROUND.' : 'WHAT COMES BACK IS ONE BADGE ON A FLAT MAGENTA GROUND.',
+    'One square image holding one subject, at the size and in the spot the attached layout reference shows it.',
+    ...(mascot
+      ? [
+          '',
+          `ATTACHED IMAGES — there are ${(s.styleRefs?.length ?? 0) + 1}.`,
+          `· The first ${s.styleRefs?.length ?? 0} are painted portraits of THIS SAME HERO from the game. Copy his face from them exactly: the same face shape, the same eyes and brows, the same short tousled brown hair, the same skin, the same age. He must be recognisably the same person.`,
+          '· The LAST image is the LAYOUT reference: his pose, his size and his place. Wherever this text says "the reference", it means that last image. Its flat shapes are notation; take only the pose from it.'
+        ]
+      : []),
+    '',
+    `WHAT IT IS: ${c.blurb}. NOTHING else: no ground, no shadow, no scenery, no frame or card behind it.`,
+    ...(mascot
+      ? ['', 'THE POSE — dynamic and friendly, the game\'s mascot on its loading screen: a little lean, weight on one leg, sword up, a wave, a grin that invites the player in. Facing the viewer (a slight three-quarter turn of the body is fine, the face looks at us).']
+      : ['', 'NO LETTERS — not one letter, word, number or rune anywhere on it, not even the game\'s name: the title is set beside it by the game. A badge with lettering on it is the wrong answer.']),
+    '',
+    'APPEAL — this is the face of the game on its splash, on store pages and on a phone\'s home screen. Make it the most polished thing in the set: crisp, confident, bright and immediately likeable.',
+    '',
+    FINISH,
+    '',
+    STYLE_PART,
+    '',
+    'SIZE AND PLACE — measure against the image, not against a guess.',
+    `· In the reference the subject takes about ${pct(e.w)}% of the image's width and ${pct(e.h)}% of its height, centred, with a clear magenta margin on all four sides. Keep it there.`,
+    `· It must still read as a small square at 32 pixels${mascot ? '' : ' (it becomes the game\'s app icon and favicon)'}: a bold silhouette and two or three big areas of colour.`,
+    '',
+    BACKGROUND,
+    '',
+    GLOW,
+    '',
+    'BEFORE YOU CALL IT FINISHED, check:',
+    `· There is exactly one ${mascot ? 'character' : 'badge'}, and it does not reach the edge of the image.`,
+    ...(mascot ? ['· His face is the face in the attached portraits.'] : ['· There is not one letter, word or number anywhere in the image.']),
+    '· Every pixel that is not the subject is flat, vivid #FF00FF.',
+    '',
+    'OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.'
+  ].join('\n')
+}
+
 const singlePrompt = (s: ArtSet, fits?: Fits): string => {
   const c = s.cells[0]
   if (!c) throw new Error(`artSheet: ${s.stem} has no panel`)
@@ -1204,7 +1280,7 @@ const setPrompt = (s: ArtSet, fits?: Fits): string =>
 /** One block per reference, in document order. `text` is `# heading`, a blank line, the prompt. */
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
   ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
-  ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: singlePrompt(s, fits) })),
+  ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: s.kind === 'logo' ? brandPrompt(s, fits) : singlePrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) }))
 ]
 
