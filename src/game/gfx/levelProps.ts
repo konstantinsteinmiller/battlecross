@@ -13,12 +13,16 @@ import type { ChestState, Sim } from '../sim/world'
 import type { ZonePlan } from '../sim/zoneGen'
 import { K_BRIDGE, K_FORD, K_WATER } from '../sim/zoneFeatures'
 import { pushHud } from '../state/hud'
-import { celVC, glowVC, outlineMat, setCelMood } from './cel'
+import { celVC, celVCInst, glowVC, outlineMat, setCelMood } from './cel'
 import { cap, dome, merge, paint, paintBy, rbox, rcone, rcyl, rock, sph, torus, xform } from './kit'
 import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
+import { markStill, splitByTile } from './cull'
+
+/** Side of a tile of the merged props and the water, metres. */
+const PROP_TILE = 30
 
 /**
  * ─── What stands in a zone beside its scenery (roadmap #54–#59) ──────────────
@@ -298,18 +302,26 @@ export class LevelProps {
     }
     for (const s of plan.signs) lift(groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
     if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
+    // Merged, then cut into tiles that are culled by their boxes: the whole
+    // zone's bridges, banks and mouths in one mesh would be drawn whole.
     if (lit.length) {
-      const g = merge(lit)
-      this.owned.push(g)
-      this.root.add(new Mesh(g, celVC()))
-      const o = new Mesh(g, outlineMat())
-      o.renderOrder = -1
-      this.root.add(o)
+      const all = merge(lit)
+      this.owned.push(all)
+      for (const g of splitByTile(all, PROP_TILE)) {
+        if (g !== all) this.owned.push(g)
+        this.root.add(markStill(new Mesh(g, celVC())))
+        const o = markStill(new Mesh(g, outlineMat()))
+        o.renderOrder = -1
+        this.root.add(o)
+      }
     }
     if (glow.length) {
-      const g = merge(glow)
-      this.owned.push(g)
-      this.root.add(new Mesh(g, glowVC()))
+      const all = merge(glow)
+      this.owned.push(all)
+      for (const g of splitByTile(all, PROP_TILE)) {
+        if (g !== all) this.owned.push(g)
+        this.root.add(markStill(new Mesh(g, glowVC())))
+      }
     }
     for (const g of [...lit, ...glow]) g.dispose()
     this.buildPlates(plan)
@@ -403,9 +415,12 @@ export class LevelProps {
     mat.userData.flow = look.flow
     this.water = mat
     this.mats.push(mat)
-    const mesh = new Mesh(geo, mat)
-    mesh.renderOrder = -1
-    this.root.add(mesh)
+    for (const g of splitByTile(geo, PROP_TILE)) {
+      if (g !== geo) this.owned.push(g)
+      const mesh = markStill(new Mesh(g, mat))
+      mesh.renderOrder = -1
+      this.root.add(mesh)
+    }
   }
 
   /** Reeds, lily pads and stones (or floes, embers, crystals): what grows at a bank. */
@@ -675,8 +690,8 @@ export class LevelProps {
         const delay = Math.min(1.1, Math.hypot(x - d.x, z - d.z) * 0.085)
         rocks.push({ x: x + (rng() - 0.5) * 0.3, z: z + (rng() - 0.5) * 0.3, rot: rng() * Math.PI * 2, s: 0.95 + rng() * 0.3, delay, dust: false })
       }
-      const mesh = new InstancedMesh(geo, celVC(), rocks.length)
-      const line = new InstancedMesh(geo, outlineMat(), rocks.length)
+      const mesh = new InstancedMesh(geo, celVCInst(), rocks.length)
+      const line = new InstancedMesh(geo, outlineMat(undefined, undefined, true), rocks.length)
       line.renderOrder = -1
       const view: DoorView = { id: d.id, mesh, line, rocks, t: -1, wait: -1 }
       this.placeRocks(view, 0)

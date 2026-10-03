@@ -159,3 +159,154 @@ or the hero at its door); smoke is alpha puffs from one instanced draw (none
 on a weak device), bubbles one instanced draw; a weak device keeps only the
 `lite` folk, paves the square only, and drops pickets, braces, jetty joists,
 vegetables and half the shingle rows. Not measured on a real phone GPU.
+
+## 2026-10-03: the playtest pass, measured and bisected (perf gate)
+
+Several workers saw the phone profile slow down during the day and none could
+place it. This entry finds where it went, fixes what it found, and names the
+rest.
+
+### Method
+
+- Same rig as above: headless Chrome (SwiftShader), phone portrait 390 × 780,
+  touch, 4× CPU throttle, `?scenery=low` and `full`. Own dev servers, one per
+  checkpoint (a `git worktree` each, no HMR, no file watcher, own dep cache).
+- Scenes: (a) the Frost Jarl's court (the staged fight above), (b) Sunford's
+  square with its folk, (c) a plains fight by the river and a ledge (pack 1),
+  (d) the world map open, (e) the hero's book on the bag page.
+- Deterministic counts first, of one frame of the live mode: draw calls,
+  triangles, program switches, texture binds and uploads, buffer bytes (every
+  GL call wrapped in the page), and overdraw: every material keeps its vertex
+  stage, depth and order but writes 1/255 additively; the frame is read back,
+  so "layers" = fragments passing the depth test per screen pixel (also per
+  object). Then the unthrottled cost of one `render()` and of the raster it
+  queues (a 1-pixel read waits for it).
+- Frozen-frame A/B for every render change (`scripts/perf-still.mjs`): both
+  builds build the same place, hold the world, pin `Math.random`, put the
+  camera on the same spots (start, every pack, six townsfolk) and compare
+  calls, triangles and pixels. A change that draws less and changes no pixel
+  is proven by that alone.
+- Time: the probe (`?perfprobe=1`), 6 s warm-up, 24 s recorded, three arms
+  interleaved (A B C, C B A, A B C), three rounds, GL counting off; CPU
+  profiles and timeline traces at 4× (self time by function, main-thread time
+  per game frame by kind) to attribute it.
+
+### Bisect: what each checkpoint cost (one live frame, `low`)
+
+| Checkpoint | Court calls / tris | Plains calls / tris | Sunford calls / tris | What it brought to the frame |
+| --- | --- | --- | --- | --- |
+| `779df68` (morning) | 82 / 134 k | 78 / 134 k | 51 / 75 k | the far land sheet (D36) is already here |
+| `f213166` interface | 88 / 135 k | 76 / 133 k | 51 / 75 k | — |
+| `6ee554e` levels | 85 / 129 k | 73 / 130 k | 51 / 75 k | water, bridges, caves (one zone-wide mesh each) |
+| `d7d1c0f` dialogue | 83 / 129 k | 80 / 137 k | 50 / 65 k | pins, bubbles (DOM) |
+| `f8e971e` combat look | 80 / 129 k | 80 / 137 k | 50 / 65 k | rigs, trails, bars: no visible change in counts |
+| `66f8b9d` elevation (+ the town kit) | 84 / 130 k | 85 / 153 k | 55 / 91 k | ledges; the building kit landed in this checkpoint |
+| `f5a1fa3` relief | 89 / 139 k | 90 / 157 k | 61 / 90 k | relief tells (crest stones, hollow tufts) |
+| `c441c7b` towns (+ onboarding) | 93 / 139 k | 93 / 157 k | 60 / 88 k | town life; `LessonLayer`, the coach's new ticker |
+| `4d7c975` HEAD | 89 / 137 k | 89 / 155 k | 70 / 89 k | taprooms, overheard talk |
+
+The GPU side of a fight barely moved all day (court +9 % calls, +2 %
+triangles); the plains and the town grew (+14 % / +16 % and +37 % / +19 %).
+Most of the time went elsewhere. CPU profiles at 4×, morning vs HEAD, court:
+
+| Main-thread cost found (4× CPU) | Introduced | Cost |
+| --- | --- | --- |
+| `CoachLayer` HUD ticker reads `innerWidth` every frame even with nothing to show: a forced style + layout | `c441c7b` / `e1804ed` | 30 ms per s |
+| `getAnimations()` once per damage number (`FloatLayer`) and bar blink (`FBar`): a forced style recalc each | before the morning | 28 ms per s |
+| `LessonLayer` idle: six breathing rings, a glow and an SVG tapping finger animate forever at opacity 0 | `c441c7b` | Sunford 21.5 → 27.3 game frames/s with it hidden |
+| The scene-graph walk: ~400 static scenery tiles recomposed every frame, plus the bones of off-screen rigs | grew with every content wave | 31 ms per s (`updateMatrixWorld` self) |
+| three re-derives a program each time the draw order alternates between an instanced and a plain mesh of one shared material | before the morning; more tiles, more often | ~15 ms per s (`getParameters`, `getProgram`) |
+
+And the raster (deterministic): 2.55 layers of fragments for one layer of
+picture. The far land sheet (renderOrder −3, drawn first) lay a hand's breadth
+under the detailed ground and was shaded under every pixel of it: one full
+screen of fragments, present since the morning.
+
+### Fixes kept
+
+Each proven by its own measurement. Frozen frames pixel-identical (0 px
+differ) in tundra, plains, crags and Sunford, phone `low` and `full`, desktop
+1100 × 650.
+
+| Fix | Proof |
+| --- | --- |
+| The far land sheet leaves out its quads under the detailed ground, keeping a cell's margin round the edge (`gfx/terrain.ts`) | overdraw 2.55 → 1.56 layers; raster 38.0 → 31.6 ms (court low, unthrottled). In-session: hiding the sheet saved 8 of 47 ms, drawing it after the ground only 2 (SwiftShader barely early-z's) |
+| Rigs culled by the camera frustum (a sphere round each unit with room for a weapon, a cape, a knock-up), not only by the reach circle, and not posed when out (`modes/zoneMode.ts`) | frozen frames: −3 to −18 calls, −5 to −18 k tris (Sunford −18 calls) |
+| The still world culled by its world BOX instead of three's sphere (a flat 15 m tile's sphere reaches 10 m up and down): scenery tiles; the ground in 30 m and the land sheet in 60 m tiles (shared vertices, own index: no seams); level props and water in 30 m tiles; the town's quarters, its fences and cobbles (`gfx/cull.ts` new, `terrain.ts`, `levelProps.ts`, `townView.ts`) | in-session box vs sphere, court: −12 calls, −21 k tris, frame 38.1 → 34.2 ms. Frozen frames with the two above: court spots 64–90 → 50–78 calls, 117–141 k → 72–107 k tris; Sunford 61–91 → 39–74 calls, 90–103 k → 38–72 k tris |
+| Still meshes and hidden rigs skip the per-frame matrix walk (`matrixAutoUpdate` / `matrixWorldAutoUpdate` off) | `updateMatrixWorld` self 30.7 → 16.6 ms per s (4× profile, court) |
+| Instanced scenery and props get material objects of their own (`celVCInst`, `glowVCInst`, `outlineMat(…, true)`): the same shader and program, no re-derivation when the draw order alternates (`gfx/cel.ts`) | `getParameters` 10.6 → < 5 ms per s; pixels identical |
+| `CoachLayer` ticker returns when no hint is up (one line, `components/hud/CoachLayer.vue`) | its 30 ms per s of self time gone from the profile |
+| Damage numbers, screen pulses and bar blinks cancel their own last animation instead of asking `getAnimations()` (`FloatLayer.vue`, `FBar.vue`) | `getAnimations` 28 ms per s → gone |
+| `LessonLayer` with nothing to show: `visibility: hidden` once its fades are done, every loop paused; a done-tick still pops (`components/onboarding/LessonLayer.vue`) | Sunford trace: 21.5 → 24.5 game frames/s at 4×; style + layerize + pre-paint 11.2 → 9.3 ms per frame |
+
+Per frame after all of it (one live frame, same scenes, before → after):
+
+| Scene | Calls | Triangles | Overdraw (layers) | Raster wait, unthrottled |
+| --- | --- | --- | --- | --- |
+| court low | 91 → 76 | 139 k → 89 k | 2.55 → 1.53 | 40.7 → 29.1 ms |
+| court full | 102 → 81 | 189 k → 112 k | 2.54 → 1.50 | 48.8 → 32.4 ms |
+| plains low | 88 → 59 | 157 k → 91 k | 2.54 → 1.58 | 43.2 → 26.1 ms |
+| plains full | 106 → 67 | 221 k → 119 k | 2.54 → 1.58 | 55.2 → 32.9 ms |
+| Sunford low | 70 → 43 | 91 k → 45 k | 2.62 → 1.76 | 37.1 → 21.4 ms |
+| Sunford full | 91 → 56 | 139 k → 72 k | 2.95 → 2.06 | 43.5 → 29.2 ms |
+
+Texture uploads per frame (the bone textures of the rigs drawn): 18 → 14 in
+the court, 16 → 6 in Sunford.
+
+### Frame work, phone 4×, three rounds interleaved (median of the rounds' p50)
+
+| Scene | HEAD before | After | Morning (`779df68`) |
+| --- | --- | --- | --- |
+| court low | 58.0 ms (p95 110) | **42.3 ms** (p95 70) | 50.8 ms (p95 101) |
+| court full | 57.9 ms (p95 110) | **43.0 ms** (p95 73) | 44.4 ms (p95 81) |
+| plains low | 43.4 ms (p95 79) | **26.1 ms** (p95 43) | 32.7 ms (p95 55) |
+| Sunford low | 35.7 ms (p95 53) | **19.7 ms** (p95 28) | 23.6 ms (p95 37) |
+| Sunford full | 42.1 ms (p95 64) | **24.9 ms** (p95 36) | 23.6 ms (p95 35) |
+
+The court on `low` is below the morning's 46 ms; in every round of every scene
+the fixed build was ahead of HEAD. Draws in a fight on `low`: 59–76.
+
+### Not fixed here (other owners' files), measured
+
+Frames per second in the town still trail the morning (recorded frames,
+Sunford low: 516 vs 616) though the game loop's own work is lower: the rest
+is DOM.
+
+- `dialog/NpcPins.vue`: the pins' infinite bob and "new" animations cost
+  ~4–5 game frames/s in Sunford at 4× (24.2 → 27.8 with them stopped, 29.0
+  with the pins hidden): every frame re-layerizes the page
+  (`PaintArtifactCompositor::Update` 4.3 → 2.6 ms per frame). To try: bob the
+  pin in its own transform from the ticker (written every frame anyway), or
+  step it on threes like the map's parts.
+- `onboarding/LessonLayer.vue` while a lesson IS up: the tapping finger is an
+  SVG animated inside an element with `filter: drop-shadow`, so the filter
+  repaints every frame. Over the world map (84 composited layers) that is
+  ~440 ms per second of layerization at 4×; the map alone (lesson hidden)
+  leaves the main thread 25 % idle. To try: the shadow drawn inside the SVG,
+  or the hand animated as one transform.
+- The map and the book themselves are fine: both are unmounted when not shown
+  (`v-if`); the map's moving parts already step on threes and are composited;
+  the book's 3D doll is off on `low` and costs ~5.5 ms per 30-fps doll frame
+  at 4× on `full`, the page holding 60 fps.
+
+### Tried, not kept
+
+- Drawing the land sheet after the ground (early-z): 46.9 → 45.0 ms, inside
+  the noise; the cut above replaced it.
+- 15 m tiles for the ground, the sheet and the props: more draws (tundra
+  spot 0: 64 → 91), measured while each tile's box was still the whole
+  sheet's (three's `computeBoundingBox` ignores the index; fixed in
+  `gfx/cull.ts`); not re-measured at 15 m after the fix. 30 / 60 m kept for
+  fewer draws.
+- Splitting every town quarter into tiles: a house across a seam became two
+  draws; only the town-wide kits (fences, cobbles) are split.
+
+### What only a real phone GPU can tell
+
+SwiftShader rasterises in software, so its frame is roughly proportional to
+triangles and fragments; a phone's tiler is far cheaper per vertex and pays
+for fragments and bandwidth instead. The overdraw cut (one screen of the
+ground's fragments) should carry over; the triangle cuts matter less there;
+the draw-call and main-thread cuts (CPU) everywhere. Not measured: the ground
+shader's derivative terms (`fwidth`, contours) per fragment, the outline
+hulls, DOM layer costs under GPU raster, and a thermal run.

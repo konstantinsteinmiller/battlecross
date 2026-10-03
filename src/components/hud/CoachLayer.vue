@@ -120,6 +120,8 @@ let removeTicker: (() => void) | null = null
 onMounted(() => {
   removeTicker = addHudTicker((dt) => {
     clock += dt
+    // Nothing up: no layout read (`innerWidth` forces one, every frame).
+    if (!hud.hints.length) return
     const edge = Math.min(innerWidth, innerHeight) * 0.09
     for (const h of hud.hints) {
       const id = h.id as LessonId

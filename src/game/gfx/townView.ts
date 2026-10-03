@@ -18,6 +18,7 @@ import { Bubbles, Puffs } from './townFx'
 import { buildFences, buildPaving, buildProp, type PropCtx } from './townProps'
 import type { Particles } from './particles'
 import type { HandProp } from '../sim/townLife'
+import { markStill, splitByTile } from './cull'
 
 /**
  * ─── A town in the view (roadmap #41, #42) ───────────────────────────────────
@@ -141,7 +142,7 @@ export class TownView {
     // Fences go into the kit of where they stand; one pass per quarter keeps them together.
     const fences = newKit()
     buildFences(fences, t, plan.w, plan.h, ctx)
-    v.addKit(fences, true, 'fences')
+    v.addKit(fences, true, 'fences', true)
     await slice()
     for (const k of kits) v.addKit(k, true)
     await slice()
@@ -149,12 +150,15 @@ export class TownView {
     const paving = new Mesher()
     buildPaving(paving, plan, t, ctx, plan.seed)
     if (!paving.empty) {
-      const g = paving.build()
-      v.owned.push(g)
-      const m = new Mesh(g, celVC())
-      m.renderOrder = -1
-      m.name = 'paving'
-      v.root.add(m)
+      const all = paving.build()
+      v.owned.push(all)
+      for (const g of splitByTile(all, CHUNK)) {
+        if (g !== all) v.owned.push(g)
+        const m = markStill(new Mesh(g, celVC()))
+        m.renderOrder = -1
+        m.name = 'paving'
+        v.root.add(m)
+      }
     }
     // ── A few animals ──
     if (!v.low && !t.ruined) v.addAnimals()
@@ -163,29 +167,23 @@ export class TownView {
     return v
   }
 
-  private addKit(k: Kit, outline: boolean, name = 'town'): void {
+  /** A kit's lit, outline and glow meshes, culled by their boxes; `split`
+   *  cuts a kit that spans the whole town (the fences) into quarters first. */
+  private addKit(k: Kit, outline: boolean, name = 'town', split = false): void {
+    const add = (all: BufferGeometry, mat: Material, label: string, order = 0): void => {
+      this.owned.push(all)
+      for (const g of split ? splitByTile(all, CHUNK) : [all]) {
+        if (g !== all) this.owned.push(g)
+        const m = markStill(new Mesh(g, mat))
+        m.name = label
+        m.renderOrder = order
+        this.root.add(m)
+      }
+    }
     const lit = new Mesher().append(k.hull).append(k.detail)
-    if (!lit.empty) {
-      const g = lit.build()
-      this.owned.push(g)
-      const m = new Mesh(g, celVC())
-      m.name = name
-      this.root.add(m)
-    }
-    if (outline && !k.hull.empty) {
-      const og = k.hull.welded()
-      this.owned.push(og)
-      const o = new Mesh(og, outlineMat())
-      o.renderOrder = -1
-      this.root.add(o)
-    }
-    if (!k.glow.empty) {
-      const gg = k.glow.build()
-      this.owned.push(gg)
-      const m = new Mesh(gg, glowVC())
-      m.name = name + ':glow'
-      this.root.add(m)
-    }
+    if (!lit.empty) add(lit.build(), celVC(), name)
+    if (outline && !k.hull.empty) add(k.hull.welded(), outlineMat(), '', -1)
+    if (!k.glow.empty) add(k.glow.build(), glowVC(), name + ':glow')
   }
 
   /** A house's front, upper storey and roof: their own materials, so they can fade. */

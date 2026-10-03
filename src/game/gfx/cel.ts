@@ -181,6 +181,15 @@ let vcShared: CelMaterial | null = null
 /** Shared vertex-coloured cel material (terrain, props: nothing that flashes). */
 export const celVC = (): CelMaterial => (vcShared ??= makeCel())
 
+// One material object per variant three compiles: a material drawn by both
+// plain and instanced meshes makes three re-derive its program (parameters and
+// cache key) every time the draw order alternates between the two — dozens of
+// times a frame in a zone (`PERF-LEDGER.md`). The instanced scenery and
+// props get their own (same shader, same program).
+let vcInstShared: CelMaterial | null = null
+/** `celVC` for instanced meshes. */
+export const celVCInst = (): CelMaterial => (vcInstShared ??= makeCel())
+
 const flatCache = new Map<string, CelMaterial>()
 /** Shared (cached) cel material of one flat colour. */
 export const cel = (hex: string): CelMaterial => {
@@ -212,6 +221,9 @@ export const rigGlow = (): MeshBasicMaterial =>
 
 let glowShared: MeshBasicMaterial | null = null
 export const glowVC = (): MeshBasicMaterial => (glowShared ??= rigGlow())
+let glowInstShared: MeshBasicMaterial | null = null
+/** `glowVC` for instanced meshes (see `celVCInst`). */
+export const glowVCInst = (): MeshBasicMaterial => (glowInstShared ??= rigGlow())
 
 const basicCache = new Map<string, MeshBasicMaterial>()
 export const glow = (hex: string): MeshBasicMaterial => {
@@ -291,9 +303,10 @@ void main() {
 `
 
 const outlineCache = new Map<string, ShaderMaterial>()
-/** Outline material of a given nominal thickness. Cached per thickness. */
-export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COLOR): ShaderMaterial => {
-  const key = `${thickness.toFixed(4)}|${color.getHexString()}`
+/** Outline material of a given nominal thickness. Cached per thickness (and
+ *  per use: `instanced` for instanced meshes, see `celVCInst`). */
+export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COLOR, instanced = false): ShaderMaterial => {
+  const key = `${thickness.toFixed(4)}|${color.getHexString()}${instanced ? '|i' : ''}`
   const hit = outlineCache.get(key)
   if (hit) return hit
   const m = new ShaderMaterial({

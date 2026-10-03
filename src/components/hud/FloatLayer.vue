@@ -42,6 +42,9 @@ const timers = new Set<ReturnType<typeof setTimeout>>()
 
 const POOL = 40
 const pool: HTMLElement[] = []
+/** Each element's running animation: cancelled by hand, since `getAnimations()`
+ *  forces a style recalc on every call (one per damage number). */
+const running = new WeakMap<HTMLElement, Animation>()
 let next = 0
 const p = { x: 0, y: 0 }
 const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -63,18 +66,18 @@ const spawn = (x: number, y: number, z: number, text: string, kind: TextKind): v
   const dx = (Math.random() - 0.5) * 46
   const rise = kind === 'crit' ? 78 : kind === 'status' ? 46 : 60
   const t0 = `translate(-50%, -50%)`
-  el.getAnimations().forEach(a => a.cancel())
+  running.get(el)?.cancel()
   if (reduced) {
-    el.animate([{ opacity: 1, transform: `${t0} translate(0, -${rise * 0.4}px) scale(${s})` }, { opacity: 0, transform: `${t0} translate(0, -${rise * 0.4}px) scale(${s})` }], { duration: 700, fill: 'both' })
+    running.set(el, el.animate([{ opacity: 1, transform: `${t0} translate(0, -${rise * 0.4}px) scale(${s})` }, { opacity: 0, transform: `${t0} translate(0, -${rise * 0.4}px) scale(${s})` }], { duration: 700, fill: 'both' }))
     return
   }
-  el.animate([
+  running.set(el, el.animate([
     { opacity: 0, transform: `${t0} scale(${s * 0.4})`, offset: 0 },
     { opacity: 1, transform: `${t0} translate(${dx * 0.15}px, -${rise * 0.18}px) scale(${s * 1.42})`, offset: 0.13 },
     { opacity: 1, transform: `${t0} translate(${dx * 0.35}px, -${rise * 0.36}px) scale(${s})`, offset: 0.3 },
     { opacity: 1, transform: `${t0} translate(${dx * 0.8}px, -${rise * 0.86}px) scale(${s})`, offset: 0.74 },
     { opacity: 0, transform: `${t0} translate(${dx}px, -${rise}px) scale(${s * 0.86})`, offset: 1 }
-  ], { duration: kind === 'crit' ? 1050 : 820, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'both' })
+  ], { duration: kind === 'crit' ? 1050 : 820, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'both' }))
 }
 
 /** A toast's parameters may themselves be message keys ("item.x.name"). */
@@ -90,8 +93,8 @@ const resolve = (params?: Record<string, string | number>): Record<string, strin
 const pulse = (el: HTMLElement | null, strength: number, ms: number, color?: string): void => {
   if (!el) return
   if (color) el.style.background = color
-  el.getAnimations().forEach(a => a.cancel())
-  el.animate([{ opacity: Math.min(0.85, strength) }, { opacity: 0 }], { duration: ms, easing: 'ease-out', fill: 'both' })
+  running.get(el)?.cancel()
+  running.set(el, el.animate([{ opacity: Math.min(0.85, strength) }, { opacity: 0 }], { duration: ms, easing: 'ease-out', fill: 'both' }))
 }
 
 let removeTicker: (() => void) | null = null

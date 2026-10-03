@@ -80,14 +80,16 @@ const frameArt = computed(() => props.art ?? (props.frame === 'xp' ? '' : UI_ART
 /** True while the last change was a gain: the ghost then follows at once. */
 const rising = ref(true)
 const flash = ref<HTMLElement | null>(null)
+/** The blink running now (cancelled by hand: `getAnimations()` forces a style recalc). */
+let blink: Animation | null = null
 watch(v01, (now, was) => {
   rising.value = now >= was
   // A real loss (not a regen flicker) blinks the well.
   if (was - now > 0.02) {
     const el = flash.value
     if (el && typeof el.animate === 'function') {
-      el.getAnimations().forEach(a => a.cancel())
-      el.animate([{ opacity: 0.85 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'both' })
+      blink?.cancel()
+      blink = el.animate([{ opacity: 0.85 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'both' })
     }
   }
 }, { flush: 'sync' })

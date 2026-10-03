@@ -10,9 +10,10 @@ import { K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_RAMP, K_WATER, riverRow
 import { groundAt } from './ground'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
-import { celVC, celVCMap, glowVC, outlineMat, setCelMood } from './cel'
+import { celVC, celVCInst, celVCMap, glowVC, glowVCInst, outlineMat, setCelMood } from './cel'
 import { cap, dome, ell, merge, paint, rbox, rcone, rcyl, rock, sph, xform } from './kit'
 import { groundDetail } from './textures'
+import { markStill, splitByTile } from './cull'
 
 /**
  * ─── The ground and what stands on it ────────────────────────────────────────
@@ -523,8 +524,8 @@ const instanced = (shape: PropShape, places: Place[], outline: boolean, root: Gr
     const geo = merge(geos)
     owned.push(geo)
     for (const list of tiles.values()) {
-      const mesh = new InstancedMesh(geo, lit ? celVC() : glowVC(), list.length)
-      const line = lit && outline ? new InstancedMesh(geo, outlineMat(), list.length) : null
+      const mesh = markStill(new InstancedMesh(geo, lit ? celVCInst() : glowVCInst(), list.length))
+      const line = lit && outline ? markStill(new InstancedMesh(geo, outlineMat(undefined, undefined, true), list.length)) : null
       for (let i = 0; i < list.length; i++) {
         const [x, z, rot, sc, y] = list[i]!
         _q.setFromAxisAngle(_up, rot)
@@ -860,9 +861,14 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   ground.setAttribute('aRelief', new Float32BufferAttribute(relief, 1))
   ground.setIndex(idx)
   owned.push(ground)
-  const groundMesh = new Mesh(ground, groundMaterial(groundDetail()))
-  groundMesh.renderOrder = -2
-  root.add(groundMesh)
+  // In tiles, each culled by its box: a zone-wide mesh is drawn whole however
+  // little of it is on screen.
+  for (const g of splitByTile(ground, TILE * 2)) {
+    if (g !== ground) owned.push(g)
+    const groundMesh = markStill(new Mesh(g, groundMaterial(groundDetail())))
+    groundMesh.renderOrder = -2
+    root.add(groundMesh)
+  }
   await slice()
 
   // ── The land beyond: the world does not stop where the walking does ──
@@ -904,9 +910,20 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
         fnor[k * 3 + 1] = 1
       }
     }
+    // Under the detailed ground the sheet is never seen, yet drawn first it
+    // was shaded under every pixel of it: a whole screen of fragments twice.
+    // Those quads are left out, all but a cell's margin round the ground's
+    // edge, where the sheet still closes the step down to it.
+    const covered = (ci: number, cj: number): boolean =>
+      ci >= 0 && cj >= 0 && ci < w && cj < h && near[cj * w + ci]! <= 3 && !built[cj * w + ci]
     const fidx: number[] = []
     for (let j = 0; j < fh - 1; j++) {
       for (let i = 0; i < fw - 1; i++) {
+        const ci = i - LAND
+        const cj = j - LAND
+        let hidden = true
+        for (let dj = -1; dj <= 1 && hidden; dj++) for (let di = -1; di <= 1; di++) if (!covered(ci + di, cj + dj)) { hidden = false; break }
+        if (hidden) continue
         const a = j * fw + i
         fidx.push(a, a + fw, a + 1, a + 1, a + fw, a + fw + 1)
       }
@@ -918,9 +935,12 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     far.setAttribute('uv', new Float32BufferAttribute(fuv, 2))
     far.setIndex(fidx)
     owned.push(far)
-    const farMesh = new Mesh(far, celVCMap(groundDetail()))
-    farMesh.renderOrder = -3
-    root.add(farMesh)
+    for (const g of splitByTile(far, TILE * 4)) {
+      if (g !== far) owned.push(g)
+      const farMesh = markStill(new Mesh(g, celVCMap(groundDetail())))
+      farMesh.renderOrder = -3
+      root.add(farMesh)
+    }
     await slice()
   }
 

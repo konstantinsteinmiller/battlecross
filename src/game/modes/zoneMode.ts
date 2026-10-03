@@ -1,4 +1,4 @@
-import { AmbientLight, Scene, type Group, type Mesh, type Object3D } from 'three'
+import { AmbientLight, Frustum, Matrix4, Scene, Sphere, type Group, type Mesh, type Object3D } from 'three'
 import type { GameMode } from '../engine/app'
 import { FollowCam, CAM_FOV, CAM_PITCH } from '../engine/camera'
 import { consumeEdges, type Input } from '../engine/input'
@@ -29,6 +29,7 @@ import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '.
 import { Vfx } from '../gfx/vfx'
 import { LevelProps } from '../gfx/levelProps'
 import { TownView } from '../gfx/townView'
+import { StillCull } from '../gfx/cull'
 import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
 import { POTION_CD, useManaPotion } from '../sim/hero'
@@ -117,6 +118,9 @@ const barRank = (u: Unit): BarRank =>
 
 const ground = { x: 0, z: 0 }
 const screen = { x: 0, y: 0 }
+const frustum = new Frustum()
+const viewProj = new Matrix4()
+const bound = new Sphere()
 
 export class ZoneMode implements GameMode {
   readonly scene = new Scene()
@@ -132,6 +136,8 @@ export class ZoneMode implements GameMode {
   private markers!: Markers
   private bars!: HealthBars
   private walls = new WallRocks()
+  /** The still world (scenery tiles, ground, props, houses), culled by its boxes. */
+  private still = new StillCull()
   /** The height of this place's ground. */
   private field: HeightField | null = null
   /** Chests, plates, doors, bridges and the water (`gfx/levelProps.ts`). */
@@ -253,6 +259,7 @@ export class ZoneMode implements GameMode {
       m.addView(u)
       if ((u.id & 3) === 3) await slice()
     }
+    m.still.collect(m.scene)
     onProgress(0.95)
     m.cam.snap()
     m.cam.follow(plan.start.x, plan.start.z, 0, 0, 0.016, groundAt(plan.start.x, plan.start.z))
@@ -665,9 +672,14 @@ export class ZoneMode implements GameMode {
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
 
-    // Things far outside the view are not posed or drawn.
+    // Things far outside the view are not posed or drawn: past the camera's
+    // reach, or wholly outside the picture (a rig is not culled by three: its
+    // bounds would be its rest pose's).
     const reach = this.cam.dist * this.cam.zoom * 0.62 + 7
     const reach2 = reach * reach
+    viewProj.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse)
+    frustum.setFromProjectionMatrix(viewProj)
+    this.still.update(frustum)
     this.bars.begin(dt)
     this.town?.begin()
     for (const [id, w] of this.views) {
@@ -677,8 +689,17 @@ export class ZoneMode implements GameMode {
       const z = u.pz + (u.z - u.pz) * a
       const dx = x - this.cam.target.x
       const dz = z - this.cam.target.z
-      const seen = dx * dx + dz * dz < reach2
+      let seen = dx * dx + dz * dz < reach2
+      if (seen) {
+        // Room for a raised weapon, a cape, a knock-up and a big swing's trail.
+        const s = Math.max(1, w.v.scale)
+        bound.radius = (u.h + u.r) * s + 1.2 + Math.max(0, w.v.float)
+        bound.center.set(x, groundAt(x, z) + u.h * s * 0.5, z)
+        seen = frustum.intersectsSphere(bound)
+      }
       w.v.rig.root.visible = seen
+      // Its ~30 bones are not walked by the scene's matrix update either.
+      w.v.rig.root.matrixWorldAutoUpdate = seen
       w.shadow.visible = seen && u.alive
       if (!seen) continue
       // A townsperson's loop, held prop and bubble are set before the pose is made.

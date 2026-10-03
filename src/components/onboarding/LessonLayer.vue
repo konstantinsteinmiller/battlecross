@@ -1,6 +1,6 @@
 <template lang="pug">
   Teleport(to="body")
-    div.lessons(:class="`lessons--${hud.device}`" aria-live="polite")
+    div.lessons(:class="[`lessons--${hud.device}`, { 'is-idle': idle }]" aria-live="polite")
       svg.lessons__lines(aria-hidden="true")
         path.lessons__trail(ref="trailEl")
       span.lessons__glow(ref="glowEl" aria-hidden="true")
@@ -78,6 +78,12 @@ const mirror = ref(false)
 const popping = ref(false)
 
 const handEl = ref<HTMLElement | null>(null)
+/** Nothing to show: the layer is hidden and its loops paused, so six
+ *  breathing rings and a tapping finger at opacity 0 cost no frame. */
+const idle = ref(false)
+const setIdle = (on: boolean): void => {
+  if (idle.value !== on) idle.value = on
+}
 const glowEl = ref<HTMLElement | null>(null)
 const trailEl = ref<SVGPathElement | null>(null)
 const doneEl = shallowRef<HTMLElement | null>(null)
@@ -152,11 +158,13 @@ const placeHand = (x: number, y: number): void => {
   // mouse; at the right edge the two swap sides.
   flip.value = hud.device === 'touch' && y + g * 1.05 > innerHeight - 6
   mirror.value = hud.device === 'mouse' && x + g * 1.25 > innerWidth - 6
+  setIdle(false)
   h.style.opacity = '1'
   h.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
   lastPoint = { x, y }
 }
 const hide = (): void => {
+  setIdle(true)
   if (handEl.value) handEl.value.style.opacity = '0'
   if (glowEl.value) glowEl.value.style.opacity = '0'
   if (trailEl.value) trailEl.value.style.opacity = '0'
@@ -293,6 +301,16 @@ onUnmounted(() => {
   overflow: hidden
   user-select: none
   -webkit-user-select: none
+// Idle: hidden once the fades are done, every loop paused (a loop at opacity
+// 0 still restyles and repaints its part of the screen each frame). The tick
+// of a lesson just done still pops.
+.lessons.is-idle
+  visibility: hidden
+  transition: visibility 0s linear 0.3s
+  *:not(.lessons__done, .lessons__done *)
+    animation-play-state: paused !important
+  .lessons__done
+    visibility: visible
 .lessons__lines
   position: absolute
   inset: 0
