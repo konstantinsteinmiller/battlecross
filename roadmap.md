@@ -84,7 +84,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #63 ✅ The dialogs feel a bit mechanical and not how normal people would talk. Please improve that, make the people talk in a more human way, not so weirdly "try-hard comical", they can be funny, but not this cased sentences.
 - [x] #64 ✅ Create a Brawlstars like bg-tile for the FLogoProgress background with whitish outline assets (not so densely packed) that scroll to the bottom right very slowly while the Mascot/logo and the loading bar shows.
 - [x] #65 ✅ Design a fitting logo (save as painted image to /public/images/logo) and favicon, also update the mascot on FLogoProgress to make it look professional, the logo and mascot need to be in the games art style and very appealing.
-- [ ] #66 GameMonetize readiness: make the game ready for a GameMonetize release using the new-web-game-playbook
+- [x] #66 ✅ GameMonetize readiness: make the game ready for a GameMonetize release using the new-web-game-playbook
 
 ### World map
 
@@ -110,12 +110,12 @@ There is no reason yet to come back tomorrow other than "continue".
 
 ## A. First session (D1 starts in minute one)
 
-- [ ] #2 **A goal on screen from the first second.** A one-line quest tracker
+- [x] #2 ✅ **A goal on screen from the first second.** A one-line quest tracker
   under the zone name ("Clear the road to Sunford 0/3", then "Learn a second
   skill", "Beat the Goblin King"). It reuses `hud.groupsDone` and the quest
   data. *Metric: share of new players who reach the first town and the first
   trainer.*
-- [ ] #3 **A guided first town visit.** After the first win the map opens on
+- [x] #3 ✅ **A guided first town visit.** After the first win the map opens on
   Sunford with the node pulsing; in town, a wordless pointer walks the player
   to the trainer, then to the hero sheet (3 points waiting). The lesson
   framework (`game/coach.ts`) already retires by use. *Metric: share of

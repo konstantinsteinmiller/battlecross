@@ -124,7 +124,9 @@ export type HudEvent =
   | { t: 'num'; x: number; y: number; z: number; amount: number; kind: TextKind }
   /** A word over a unit (an i18n key: "Stunned", "Dodge", "Blocked"). */
   | { t: 'word'; x: number; y: number; z: number; key: string; kind: TextKind }
-  | { t: 'toast'; key: string; params?: Record<string, string | number>; icon?: string }
+  /** `icon`: an item id (its icon, its tier-coloured name, the "better" arrow);
+   *  `at`: where it dropped — its icon flies from there to the bag. */
+  | { t: 'toast'; key: string; params?: Record<string, string | number>; icon?: string; at?: { x: number; y: number; z: number } }
   | { t: 'flash'; color: string; strength: number }
   | { t: 'hurt'; strength: number }
 

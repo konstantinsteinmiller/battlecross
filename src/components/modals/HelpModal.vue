@@ -64,7 +64,8 @@ const groups = computed(() => {
       { id: 'slot', glyph: drag, icon: 'book', tone: 'gold' },
       { id: 'buy', glyph: tap, icon: 'coin', tone: 'gold' },
       { id: 'equip', glyph: drag, icon: 'armor' },
-      { id: 'attr', glyph: tap, icon: 'plus', tone: 'red' }
+      { id: 'attr', glyph: tap, icon: 'plus', tone: 'red' },
+      { id: 'exit', glyph: tap, icon: 'map' }
     ],
     map: [{ id: 'travel', glyph: tap, icon: 'map', tone: 'gold' }]
   }

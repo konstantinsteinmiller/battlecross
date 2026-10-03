@@ -6,6 +6,8 @@
         GameIcon.plate__skull(name="skull")
         span.plate__label {{ t(hud.bossKey) }}
       FBar.plate__bar(:value="hud.bossHp01" tone="boss" frame="boss" :label="t(hud.bossKey)")
+    //- The next goal: under the boss's bar while it lives, else under the name.
+    GoalTracker(v-if="hud.bossKey")
     template(v-else)
       div.zone(v-if="flow.screen === 'zone'")
         span.zone__name {{ t(`node.${hud.zoneKey}.name`) }}
@@ -15,6 +17,7 @@
         span.zone__wave(v-else) {{ t('hud.wave', { n: Math.max(1, hud.wave), total: ARENA_WAVES }) }}
       div.zone(v-else)
         span.zone__name {{ t(`node.${hud.zoneKey}.name`) }}
+      GoalTracker
       div.plate(v-if="hud.targetKey" :class="{ 'plate--elite': hud.targetElite }")
         span.plate__name
           span.plate__label {{ t(hud.targetKey) }} · {{ t('hud.level', { n: hud.targetLevel }) }}
@@ -31,6 +34,7 @@ import { flow } from '@/game/flow'
 import { ARENA_WAVES } from '@/game/data/zones'
 import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import GoalTracker from './GoalTracker.vue'
 
 const { t } = useI18n()
 </script>

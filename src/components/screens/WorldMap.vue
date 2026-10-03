@@ -12,7 +12,10 @@
           span.wmap__gold(@pointerdown="registerQaAdTap()")
             IconCoin.wmap__coin
             | {{ fmt(profile.gold) }}
-      h1.wmap__title {{ t('map.title') }}
+      //- The title, and under it the next goal (roadmap #2).
+      div.wmap__head
+        h1.wmap__title {{ t('map.title') }}
+        GoalTracker.wmap__goal
       HudMenu(@options="emit('options')")
     //- The table the sheet lies on. The sheet is always drawn whole, at one
     //- scale: where the screen is too small for it, the table scrolls.
@@ -168,6 +171,7 @@ import { ROADS, nodeAt, roadKey, routeBetween, routeLine } from './map/roads'
 import { mapBridgesSvg, mapPlateUrl } from './map/terrain'
 import { cloudCover, landmarkSvg } from './map/landmarks'
 import { MAP_REGIONS, SKY_CLOUDS, birdsSvg, decorSvg, frameSvg, skyCloudSvg, tearClip } from './map/life'
+import GoalTracker from '@/components/hud/GoalTracker.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
@@ -576,7 +580,16 @@ onBeforeUnmount(() => {
 .wmap__coin
   width: 1em
   height: 1em
+.wmap__head
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 0.2rem
+  min-width: 0
+.wmap__goal
+  max-width: 100%
 .wmap__title
+  max-width: 100%
   margin: 0
   text-align: center
   font-size: clamp(0.95rem, 4.4vmin, 1.7rem)

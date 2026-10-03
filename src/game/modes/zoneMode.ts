@@ -9,7 +9,7 @@ import { sfx } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SKILL_BY_ID } from '../data/skills'
 import { TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
-import type { ZoneId } from '../data/items'
+import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { leaveVisit } from '../sim/director'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
@@ -27,6 +27,7 @@ import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rig
 import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
+import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
@@ -155,6 +156,10 @@ export class ZoneMode implements GameMode {
   private time = 0
   /** Real seconds of hit-stop left. */
   private stop = 0
+  /** The level-up slow-motion: seconds into it (`SLOW_MO` = off), and how long
+   *  a boss's own beat (its entrance, a phase) still holds the stage. */
+  private slowT = SLOW_MO
+  private beat = 0
   private hudT = 0
   private dragT = 0
   private endFired = false
@@ -643,9 +648,12 @@ export class ZoneMode implements GameMode {
             sfx('coin', this.pan(e.x))
           }
           if (e.item) {
-            pushHud({ t: 'toast', key: 'toast.item', params: { item: 'item.' + e.item + '.name' }, icon: e.item })
-            this.vfx.levelUp(e.x, e.z)
-            sfx('loot')
+            // A find is an event: a beam in its tier's colour, a fanfare by tier,
+            // and its icon flying from the drop to the bag (`FloatLayer`).
+            const tier = ITEM_BY_ID[e.item]?.tier ?? 1
+            pushHud({ t: 'toast', key: 'toast.item', params: { item: 'item.' + e.item + '.name' }, icon: e.item, at: { x: e.x, y: 0.9, z: e.z } })
+            this.vfx.lootBeam(e.x, e.z, tier)
+            sfx(tier >= 6 ? 'lootLegend' : tier >= 4 ? 'lootEpic' : tier >= 3 ? 'lootRare' : 'loot', this.pan(e.x))
           }
           break
         case 'xp':
@@ -655,9 +663,12 @@ export class ZoneMode implements GameMode {
           pushHud({ t: 'toast', key: 'toast.levelUp', params: { level: e.level } })
           pushHud({ t: 'flash', color: '#ffe9a8', strength: 0.5 })
           sfx('levelUp')
+          // A second of slow motion — unless a boss has the stage, or the visit is over.
+          if (this.beat <= 0 && !this.talkOn && !sim.ended) this.slowT = 0
           break
         case 'awake':
           sfx(e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss' ? 'bossIntro' : 'alert')
+          if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') { this.beat = 2; this.slowT = SLOW_MO }
           if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') pushHud({ t: 'toast', key: 'toast.boss', params: { boss: 'enemy.' + e.boss } })
           break
         case 'groupDone':
@@ -671,6 +682,8 @@ export class ZoneMode implements GameMode {
           if (u) { this.vfx.slam(u.x, u.z, 5, ENEMY_BY_ID[u.kind]?.color ?? '#ff5a5a'); const w = this.views.get(u.id); if (w) squash(w.v, 0.3) }
           this.cam.addTrauma(TRAUMA_HEAVY)
           sfx('roar')
+          this.beat = 1.5
+          this.slowT = SLOW_MO
           break
         }
         case 'overheat':
@@ -723,7 +736,9 @@ export class ZoneMode implements GameMode {
     if (this.stop > 0) {
       this.stop -= dt
       simDt = dt * HIT_STOP_SCALE
-    }
+    } else if (this.slowT < SLOW_MO) simDt = dt * slowMoScale(this.slowT)
+    if (this.slowT < SLOW_MO) this.slowT += dt
+    if (this.beat > 0) this.beat -= dt
     stepSim(this.sim, this.plan, simDt)
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
@@ -745,7 +760,7 @@ export class ZoneMode implements GameMode {
     const sim = this.sim
     const hero = sim.hero.unit
     // Effects slow with the hit-stop (so the frozen frame reads) but never stop.
-    const fxDt = this.stop > 0 ? dt * 0.2 : dt
+    const fxDt = this.stop > 0 ? dt * 0.2 : dt * slowMoScale(this.slowT)
     this.time += fxDt
     const a = this.stop > 0 ? 1 : alpha
 

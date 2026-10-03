@@ -9,6 +9,8 @@ import type { Unit } from './sim/types'
 import { dummyBeat, dummyOf } from './coach/dummy'
 import { isVeteran, revealed } from './coach/reveal'
 import { onboard, type FeatureId } from './coach/state'
+import { canLearnFrom } from './coach/goal'
+import type { ClassId } from './data/skills'
 
 /**
  * ─── The wordless coach ──────────────────────────────────────────────────────
@@ -71,7 +73,8 @@ export const FEATURES: readonly LessonDef<FeatureId>[] = [
   { id: 'equip', need: 1, urgency: 0 },
   { id: 'attr', need: 1, urgency: 0 },
   { id: 'travel', need: 1, urgency: 0 },
-  { id: 'buy', need: 1, urgency: 0 }
+  { id: 'buy', need: 1, urgency: 0 },
+  { id: 'exit', need: 1, urgency: 0 }
 ]
 
 /** Every lesson id, controls and features (the sentences behind them all). */
@@ -87,7 +90,7 @@ const FEATURE_IDS = new Set<string>(FEATURES.map(l => l.id))
 /** Which lessons the "?" button brings back, by where the player is. */
 export const RECALL: Record<'fight' | 'town' | 'map', readonly AnyId[]> = {
   fight: ['move', 'target', 'skill', 'aim', 'potion', 'mana', 'chest'],
-  town: ['move', 'talk', 'teach', 'learn', 'slot', 'buy', 'equip', 'attr'],
+  town: ['move', 'talk', 'teach', 'learn', 'slot', 'buy', 'equip', 'attr', 'exit'],
   map: ['travel', 'equip', 'attr']
 }
 
@@ -142,9 +145,10 @@ const p1 = { x: 0, y: 0 }
 const p2 = { x: 0, y: 0 }
 const p3 = { x: 0, y: 0 }
 
-/** The townspeople who teach (the "talk" lesson leads to the nearest). */
-const TRAINERS = new Set<string>()
-for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TRAINERS.add(n.id)
+/** The townspeople who teach, and what (the "talk" lesson leads to the
+ *  nearest who can teach the hero something now). */
+const TRAINERS = new Map<string, ClassId | undefined>()
+for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TRAINERS.set(n.id, n.cls)
 
 class Coach {
   private flashes: Record<string, number> = {}
@@ -369,16 +373,21 @@ class Coach {
     return best
   }
 
-  /** The nearest trainer in this town. */
+  /** The nearest trainer in this town who can teach the hero something now
+   *  (a trainer with nothing for him is no lesson), else the nearest at all. */
   private nearTrainer(sim: Sim, u: Unit): Unit | null {
     let best: Unit | null = null
     let bd = 1e9
+    let any: Unit | null = null
+    let ad = 1e9
     for (const n of sim.units) {
       if (n.rank !== 'npc' || !n.npc || !TRAINERS.has(n.npc)) continue
       const d = Math.hypot(n.x - u.x, n.z - u.z)
-      if (d < bd) { bd = d; best = n }
+      if (d < ad) { ad = d; any = n }
+      const cls = TRAINERS.get(n.npc)
+      if (cls && d < bd && canLearnFrom(cls)) { bd = d; best = n }
     }
-    return best
+    return best ?? any
   }
 
   private setFight(on: boolean): void {

@@ -70,6 +70,19 @@ export class Pacer {
     this.settledFrom = now
   }
 
+  /**
+   * The player asked for this one (tapped the goal tracker): it goes ahead of
+   * anything else the place could teach, at once (no settle). It still has to
+   * be wanted here; `step` drops it otherwise.
+   */
+  prefer(id: FeatureId, now = Infinity): void {
+    this.lesson = id
+    this.introduced.add(id)
+    this.wasShown = false
+    this.settledFrom = Math.min(this.settledFrom, now - SETTLE)
+    this.lastReveal = Math.min(this.lastReveal, now - REVEAL_GAP)
+  }
+
   /** The feature was used: its lesson is over. */
   retire(id: FeatureId): void {
     this.retired.add(id)

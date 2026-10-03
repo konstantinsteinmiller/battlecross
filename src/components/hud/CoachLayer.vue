@@ -109,12 +109,25 @@ const dragPhase = (): number => {
 /** A point kept inside the screen, so a glyph aimed at something out of view
  *  stands at the edge it lies beyond — inside the corners' HUD, never on the
  *  hero's frame at the top or the buttons at the bottom. */
+/** The band an off-screen glyph may stand in: below the top corners' HUD
+ *  (the hero frame, the place's name and goal, the menu) and above the
+ *  bottom ones (the stick, the buttons). Measured once a frame. */
+const band = { top: 0, bottom: 0 }
+const measureBand = (): void => {
+  const half = glyphPx() * 0.62
+  const top = document.querySelector('.hud__top')?.getBoundingClientRect().bottom ?? innerHeight * 0.2
+  const br = Math.min(document.querySelector('.hud__br')?.getBoundingClientRect().top ?? innerHeight * 0.75, document.querySelector('.hud__bl')?.getBoundingClientRect().top ?? innerHeight * 0.75)
+  band.top = Math.max(innerHeight * 0.24, top + half)
+  band.bottom = Math.min(innerHeight * 0.7, br - half)
+  // A short screen leaves no band: the middle of the screen, then.
+  if (band.bottom < band.top) band.top = band.bottom = innerHeight * 0.5
+}
 const clampIn = (x: number, y: number, m: number): [number, number] => {
   const inside = x >= m && x <= innerWidth - m && y >= m && y <= innerHeight - m
   if (inside) return [x, y]
   return [
     Math.max(m, Math.min(innerWidth - m, x)),
-    Math.max(innerHeight * 0.24, Math.min(innerHeight * 0.7, y))
+    Math.max(band.top, Math.min(band.bottom, y))
   ]
 }
 
@@ -183,6 +196,7 @@ onMounted(() => {
     // Nothing up: no layout read (`innerWidth` forces one, every frame).
     if (!hud.hints.length) return
     const edge = Math.min(innerWidth, innerHeight) * 0.09
+    measureBand()
     for (const h of hud.hints) {
       const id = h.id as LessonId
       const el = els[id]

@@ -195,7 +195,7 @@ const draw = (step: Step | null): void => {
     const el = pick(step.at, step.last)
     const r = el?.getBoundingClientRect() ?? null
     if (!el || !r || !onScreen(r)) { if (el) bringIntoView(el); hide(); return }
-    if (r.top < 0 || r.bottom > innerHeight) bringIntoView(el)
+    if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) bringIntoView(el)
     // Every match breathes (the six "+"), the first is tapped.
     if (step.rings) {
       const all = Array.from(document.querySelectorAll<HTMLElement>(step.rings)).slice(0, RING_POOL)

@@ -1,4 +1,5 @@
 import { shallowReactive } from 'vue'
+import type { Goal } from './goal'
 
 /**
  * ─── What the onboarding shows right now (shared, reactive) ──────────────────
@@ -10,7 +11,7 @@ import { shallowReactive } from 'vue'
 
 /** The game's features, each taught once, the first time it matters
  *  (roadmap #52). `talk` is drawn in the world; the rest over the screens. */
-export type FeatureId = 'talk' | 'teach' | 'learn' | 'slot' | 'equip' | 'attr' | 'travel' | 'buy'
+export type FeatureId = 'talk' | 'teach' | 'learn' | 'slot' | 'equip' | 'attr' | 'travel' | 'buy' | 'exit'
 
 export const onboard = shallowReactive({
   /** The feature being taught ('' none). */
@@ -22,5 +23,11 @@ export const onboard = shallowReactive({
   done: '' as FeatureId | '',
   doneN: 0,
   /** An awake enemy is near the hero (the coach writes it): no reveal then. */
-  fight: false
+  fight: false,
+  /** The next goal (`coach/goal.ts`), for the tracker; null: none to show. */
+  goal: null as Goal | null,
+  /** Grows each time the goal changes, and each time one is DONE (the
+   *  tracker pops, and flashes a tick). */
+  goalN: 0,
+  goalDoneN: 0
 })

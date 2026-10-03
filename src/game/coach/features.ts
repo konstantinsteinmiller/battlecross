@@ -1,4 +1,5 @@
 import { EQUIP_SLOTS, ITEM_BY_ID, type EquipSlot } from '../data/items'
+import { isUpgrade } from '../data/upgrade'
 import { SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '../data/skills'
 import { MAP, NODE_BY_ID, TOWNS, type NodeId, type TownId } from '../data/zones'
 import { buyCost, canEquip, equippedIn, isNodeOpen, learnBlock, profile, totalAttrs } from '../state/profile'
@@ -42,6 +43,10 @@ export interface FeatureCtx {
   /** The town the hero is in ('' elsewhere). */
   node: string
   family: 'touch' | 'mouse'
+  /** The next goal's id (`coach/goal.ts`): the way to a trainer is shown
+   *  while the goal is a trainer, the way out once the town's goals are done.
+   *  Absent: judged by the town alone. */
+  goal?: string
   dom: {
     has(sel: string): boolean
     attr(sel: string, name: string): string | null
@@ -50,7 +55,7 @@ export interface FeatureCtx {
 }
 
 /** Base order: the first wins when two could start. */
-export const FEATURE_ORDER: readonly FeatureId[] = ['teach', 'learn', 'buy', 'travel', 'talk', 'slot', 'equip', 'attr']
+export const FEATURE_ORDER: readonly FeatureId[] = ['teach', 'learn', 'buy', 'travel', 'talk', 'slot', 'attr', 'equip', 'exit']
 
 const BOOK = new Set(['character', 'skills', 'inventory'])
 type Panel = 'character' | 'skills' | 'inventory'
@@ -93,7 +98,8 @@ export const equipCandidate = (prefer: string | null = null): { id: string; slot
       // Both worn: the weaker one makes way.
       slot = better(inv.equipped.trinket1!, inv.equipped.trinket2) ? 'trinket2' : 'trinket1'
     } else slot = it.slot as EquipSlot
-    if (EQUIP_SLOTS.includes(slot) && better(id, inv.equipped[slot])) return { id, slot }
+    // The same "better" rule as the arrows on the toast, the bag and the sockets.
+    if (EQUIP_SLOTS.includes(slot) && isUpgrade(id, inv.equipped, totalAttrs())) return { id, slot }
   }
   return null
 }
@@ -142,7 +148,12 @@ export const stepOf = (id: FeatureId, c: FeatureCtx): Step | null => {
   const touch = c.family === 'touch'
   switch (id) {
     case 'talk':
-      return c.screen === 'town' && !c.modal && !c.talk && townHasTrainer(c.node) ? { kind: 'world', here: true } : null
+      if (c.screen !== 'town' || c.modal || c.talk) return null
+      return (c.goal === undefined ? townHasTrainer(c.node) : c.goal === 'trainer') ? { kind: 'world', here: true } : null
+    case 'exit':
+      // The town's goals are done: the way out is the map button.
+      if (c.screen !== 'town' || c.modal || c.talk || c.goal !== 'leave' || !revealed('map')) return null
+      return { kind: 'tap', at: '[data-coach="menu-map"]', here: true }
     case 'teach':
       return c.talk === 'npc' && c.npcRole === 'trainer' && c.talkPhase === 'choices' && !c.modal && c.dom.has('[data-choice="train"]')
         ? { kind: 'tap', at: '[data-choice="train"]', here: true }

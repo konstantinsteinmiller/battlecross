@@ -184,6 +184,9 @@ const playDesktop = async () => {
   let s = await game(page, () => ({ screen: window.__game.flow.screen, node: window.__game.flow.node, level: window.__game.profile.level, hints: window.__game.hud.hints.map(h => h.id) }))
   check('a new player boots straight into the opening fight (no menu)', s.screen === 'zone' && s.node === 'plains' && s.level === 1, `${s.screen}/${s.node}`)
   check('the first control lesson is on screen', s.hints.includes('move'), s.hints.join(','))
+  // Roadmap #2: one short goal on screen from the first second.
+  const goal0 = await page.waitForSelector('.top-status .goal', { timeout: 8000 }).then(el => el.textContent(), () => '')
+  check("a goal is on screen from the first second (under the place's name)", /dummy/i.test(goal0 ?? ''), goal0)
   await shot(page, 'play-1-boot')
 
   // The opening beat (roadmap #52): a straw training dummy by the road, the
@@ -519,8 +522,8 @@ const VIEWPORTS = [
   { name: 'laptop 1366×768', w: 1366, h: 768, touch: false },
   { name: 'desktop 1920×1080', w: 1920, h: 1080, touch: false }
 ]
-const HUD = [['hero frame', '.hero-frame'], ['corner menu', '.hud-menu'], ['zone status', '.top-status .zone'], ['skill bar', '.skill-bar'], ['stick', '.stick__base']]
-const TOWN = [['hero frame', '.hero-frame'], ['corner menu', '.hud-menu'], ['menu buttons', '.hud__br .menu-buttons'], ['stick', '.stick__base']]
+const HUD = [['hero frame', '.hero-frame'], ['corner menu', '.hud-menu'], ['zone status', '.top-status .zone'], ['goal', '.top-status .goal'], ['skill bar', '.skill-bar'], ['stick', '.stick__base']]
+const TOWN = [['hero frame', '.hero-frame'], ['corner menu', '.hud-menu'], ['goal', '.top-status .goal'], ['menu buttons', '.hud__br .menu-buttons'], ['stick', '.stick__base']]
 const MAPUI = [['top bar', '.wmap__top'], ['sheet', '.wmap__sheet'], ['bottom bar', '.wmap__bottom']]
 
 const layout = async () => {
