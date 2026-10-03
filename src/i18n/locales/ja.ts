@@ -1,289 +1,590 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
-  'gameName': 'Battlecross',
-  'cancel': 'キャンセル',
-  'close': '閉じる',
-  'ok': '了解',
-  'continue': '続ける',
-  'onlyAvailableOn': 'このゲームは以下でのみプレイできます：',
-
-  'ui': {
-    'next': '次へ',
-    'replay': 'もう一度',
-    'back': '戻る',
-    'play': 'プレイ',
-    'pause': '一時停止',
-    'menu': 'メニュー',
-    'home': 'ホーム',
-    'info': '情報',
-    'help': '操作方法',
-    'ok': 'わかった',
-    'continue': '続ける'
+  gameName: 'Battlecross',
+  cancel: 'キャンセル',
+  close: '閉じる',
+  ok: '了解',
+  continue: '続ける',
+  onlyAvailableOn: 'このゲームは以下でのみプレイできます：',
+  ui: {
+    next: '次へ',
+    replay: 'もう一度',
+    back: '戻る',
+    play: 'プレイ',
+    pause: '一時停止',
+    menu: 'メニュー',
+    home: 'ホーム',
+    info: '情報',
+    help: '操作方法',
+    ok: 'わかった',
+    continue: '続ける'
   },
-
-  'hud': {
-    'level': 'Lv.{n}',
-    'health': '体力 {n}/{max}',
-    'mana': 'マナ {n}/{max}',
-    'heat': 'ヒート',
-    'xp': '経験値',
-    'gold': '{n} ゴールド',
-    'potion': '回復ポーション（残り{n}個）',
-    'groups': '敵グループ {n}/{total} 撃破',
-    'wave': 'ウェーブ {n} / {total}'
+  hud: {
+    level: 'Lv.{n}',
+    health: '体力 {n}/{max}',
+    mana: 'マナ {n}/{max}',
+    heat: 'ヒート',
+    xp: '経験値',
+    gold: '{n} ゴールド',
+    potion: '回復ポーション（残り{n}個）',
+    manaPotion: 'マナポーション（残り{n}個）',
+    groups: '敵グループ {n}/{total} 撃破',
+    wave: 'ウェーブ {n} / {total}'
   },
-  'menu': {
-    'map': 'ワールドマップ',
-    'character': 'ヒーロー',
-    'skills': 'スキル',
-    'inventory': 'バッグ'
+  menu: {
+    map: 'ワールドマップ',
+    character: 'ヒーロー',
+    skills: 'スキル',
+    inventory: 'バッグ'
   },
-
-  'combat': {
-    'dodge': '回避',
-    'block': 'ブロック',
-    'immune': '無効'
+  combat: {
+    dodge: '回避',
+    block: 'ブロック',
+    immune: '無効'
   },
-  'level': {
-    'open': '開ける',
-    'guarded': '守られている',
-    'locked': 'ロック中',
-    'potion': 'ポーション +1',
-    'manaPotion': 'マナポーション +1',
-    'leave': '立ち去る',
-    'chestsLeft': 'まだ閉じた宝箱が{n}個ある'
+  level: {
+    open: '開ける',
+    guarded: '守られている',
+    locked: 'ロック中',
+    potion: 'ポーション +1',
+    manaPotion: 'マナポーション +1',
+    leave: '立ち去る',
+    chestsLeft: 'まだ閉じた宝箱が{n}個ある'
   },
-  'status': {
-    'stun': 'スタン',
-    'knockup': '打ち上げ',
-    'knockdown': 'ダウン',
-    'stasis': 'ステイシス',
-    'petrify': '石化',
-    'frozen': '凍結',
-    'fear': '恐怖',
-    'slow': '鈍足',
-    'confuse': '混乱',
-    'taunt': '挑発',
-    'armorShred': 'アーマー破壊',
-    'weaken': '弱体',
-    'vulnerable': '脆弱',
-    'burn': '燃焼',
-    'poison': '毒',
-    'bleed': '出血',
-    'delayed': '遅延ダメージ',
-    'haste': 'ヘイスト',
-    'attackSpeed': '攻撃速度アップ',
-    'damageUp': '攻撃力アップ',
-    'defenseUp': '防御力アップ',
-    'regen': '再生',
-    'lifestealUp': 'ライフスティール',
-    'invulnerable': '無敵',
-    'unkillable': '不死',
-    'stealth': '潜伏',
-    'reflect': '反射',
-    'envenom': '毒の刃',
-    'exosuit': 'エクソスーツ',
-    'focus': '集中',
-    'accelerate': '加速',
-    'overheat': 'オーバーヒート',
-    'enrage': '激怒',
-    'ambush': '奇襲'
+  status: {
+    stun: 'スタン',
+    knockup: '打ち上げ',
+    knockdown: 'ダウン',
+    stasis: 'ステイシス',
+    petrify: '石化',
+    frozen: '凍結',
+    fear: '恐怖',
+    slow: '鈍足',
+    confuse: '混乱',
+    taunt: '挑発',
+    armorShred: 'アーマー破壊',
+    weaken: '弱体',
+    vulnerable: '脆弱',
+    burn: '燃焼',
+    poison: '毒',
+    bleed: '出血',
+    delayed: '遅延ダメージ',
+    haste: 'ヘイスト',
+    attackSpeed: '攻撃速度アップ',
+    damageUp: '攻撃力アップ',
+    defenseUp: '防御力アップ',
+    regen: '再生',
+    lifestealUp: 'ライフスティール',
+    invulnerable: '無敵',
+    unkillable: '不死',
+    stealth: '潜伏',
+    reflect: '反射',
+    envenom: '毒の刃',
+    exosuit: 'エクソスーツ',
+    focus: '集中',
+    accelerate: '加速',
+    overheat: 'オーバーヒート',
+    enrage: '激怒',
+    ambush: '奇襲'
   },
-  'toast': {
-    'item': '入手：{item}',
-    'levelUp': 'レベル{level}！ 能力ポイント+3',
-    'boss': '{boss}が現れた',
-    'wave': 'ウェーブ {n}'
+  toast: {
+    item: '入手：{item}',
+    levelUp: 'レベル{level}！ 能力ポイント+3',
+    boss: '{boss}が現れた',
+    wave: 'ウェーブ {n}'
   },
-
-  'coach': {
-    'move': {
-      'touch': '地面をタップするとそこへ歩きます。スティックでも動けます。',
-      'mouse': '地面をクリックするとそこへ歩きます。移動キーでも動けます。'
+  coach: {
+    move: {
+      touch: '地面をタップするとそこへ歩きます。スティックでも動けます。',
+      mouse: '地面をクリックするとそこへ歩きます。移動キーでも動けます。'
     },
-    'target': {
-      'touch': '敵をタップするか、ヒーローから敵へドラッグして攻撃します。',
-      'mouse': '敵をクリックして攻撃します。'
+    target: {
+      touch: '敵をタップするか、ヒーローから敵へドラッグして攻撃します。',
+      mouse: '敵をクリックして攻撃します。'
     },
-    'skill': {
-      'touch': 'スキルをタップするとターゲットに使います。',
-      'mouse': 'スキルキーを押すとターゲットに使います。'
+    skill: {
+      touch: 'スキルをタップするとターゲットに使います。',
+      mouse: 'スキルキーを押すとターゲットに使います。'
     },
-    'aim': {
-      'touch': 'スキルをフィールドへドラッグして狙い、指を離して発動します。',
-      'mouse': 'スキルをフィールドへドラッグして狙い、ボタンを離して発動します。'
+    aim: {
+      touch: 'スキルをフィールドへドラッグして狙い、指を離して発動します。',
+      mouse: 'スキルをフィールドへドラッグして狙い、ボタンを離して発動します。'
     },
-    'potion': {
-      'touch': 'ポーションをタップして回復します。',
-      'mouse': 'ポーションキーを押して回復します。'
+    potion: {
+      touch: 'ポーションをタップして回復します。',
+      mouse: 'ポーションキーを押して回復します。'
+    },
+    mana: {
+      touch: '青いフラスコをタップしてマナを回復しよう。',
+      mouse: 'マナポーションのキーを押してマナを回復しよう。'
+    },
+    chest: {
+      touch: '宝箱をタップして開けよう。',
+      mouse: '宝箱をクリックして開けよう。'
+    },
+    talk: {
+      touch: '道しるべをたどって師範のところへ行き、タップして話しかけよう。',
+      mouse: '道しるべをたどって師範のところへ行き、クリックして話しかけよう。'
+    },
+    teach: {
+      touch: '「教えてください」をタップして、この師範が教えてくれることを見よう。',
+      mouse: '「教えてください」をクリックして、この師範が教えてくれることを見よう。'
+    },
+    learn: {
+      touch: 'スキルをタップして、「習得」をタップしよう。',
+      mouse: 'スキルをクリックして、「習得」をクリックしよう。'
+    },
+    slot: {
+      touch: '新しいスキルをタップして、スロットをタップすると戦いに持っていける。',
+      mouse: '新しいスキルをスロットへドラッグすると戦いに持っていける。'
+    },
+    equip: {
+      touch: '新しい装備をタップして緑と赤の数字を見比べ、スロットをタップして身につけよう。',
+      mouse: '新しい装備をスロットへドラッグして身につけよう。緑の数字は上がり、赤は下がる。'
+    },
+    attr: {
+      touch: '＋をタップして能力ポイントを使おう。',
+      mouse: '＋をクリックして能力ポイントを使おう。'
+    },
+    travel: {
+      touch: 'マップで次の場所をタップして、ボタンをタップすると向かえる。',
+      mouse: 'マップで次の場所をクリックして、ボタンをクリックすると向かえる。'
+    },
+    buy: {
+      touch: '品物をタップして値段を見て、「買う」をタップしよう。',
+      mouse: '品物をクリックして値段を見て、「買う」をクリックしよう。'
     }
   },
-
-  'node': {
-    'sunford': { 'name': 'サンフォード', 'desc': '平原のはずれにある農村。わが家と鍛冶屋、そして二人の師範がいる。' },
-    'plains': { 'name': 'サンフォード平原', 'desc': 'ゴブリンに狼、山賊が、街道をゆく隊商を狙っている。' },
-    'hollows': { 'name': 'ゴブリンの洞穴', 'desc': '丘の下に広がる洞窟。いちばん奥でゴブリンキングが待っている。' },
-    'arena': { 'name': 'コロシアム', 'desc': '全8ウェーブ、進むほど手ごわい。最後まで立っていた者に金と栄光を。' },
-    'woods': { 'name': 'ささやきの森', 'desc': '歩きまわる古木と、そのあいだに巣を張るクモたち。' },
-    'outskirts': { 'name': 'オークヘイヴン郊外', 'desc': 'オークヘイヴンの外で農場が燃えている。戦将の軍勢が門に迫る。' },
-    'oakhaven': { 'name': 'オークヘイヴン', 'desc': '城壁に囲まれた交易の町。その行く末はあなた次第。' },
-    'crags': { 'name': '灰の岩山', 'desc': '黒い岩と燃えさかる炎。教団員たちが火をくべている。' },
-    'mines': { 'name': 'アイアンホールド鉱山', 'desc': 'ドワーフは深く掘りすぎて、光る何かを目覚めさせた。' },
-    'ironhold': { 'name': 'アイアンホールド', 'desc': '山の鍛冶の町。王国一の鋼はここで打たれる。' },
-    'tundra': { 'name': '凍傷のツンドラ', 'desc': '巨人が歩き、死者が眠らない白い荒野。' },
-    'temple': { 'name': '沈んだ神殿', 'desc': '水に沈んだナーガの広間と、すべての結末を見通す神託の巫女。' },
-    'citadel': { 'name': '虚無の城塞', 'desc': '去年はなかったはずの要塞。壁が低くうなっている。' },
-    'peak': { 'name': '竜の峰', 'desc': '山頂をワイバーンが舞う。そこには、はるかに大きな何かが眠っている。' },
-    'fortress': { 'name': '恐怖の要塞', 'desc': 'アークデーモンの居城。どの勢力も欲しがる玉座がある。' },
-    'rift': { 'name': '虚無の裂け目', 'desc': '悪魔たちがやって来た傷口。その向こうで虚無の王が待つ。' }
+  node: {
+    sunford: {
+      name: 'サンフォード',
+      desc: '平原のはずれにある農村。わが家と鍛冶屋、そして二人の師範がいる。'
+    },
+    plains: {
+      name: 'サンフォード平原',
+      desc: 'ゴブリンに狼、山賊が、街道をゆく隊商を狙っている。'
+    },
+    hollows: {
+      name: 'ゴブリンの洞穴',
+      desc: '丘の下に広がる洞窟。いちばん奥でゴブリンキングが待っている。'
+    },
+    arena: {
+      name: 'コロシアム',
+      desc: '全8ウェーブ、進むほど手ごわい。最後まで立っていた者に金と栄光を。'
+    },
+    woods: {
+      name: 'ささやきの森',
+      desc: '歩きまわる古木と、そのあいだに巣を張るクモたち。'
+    },
+    outskirts: {
+      name: 'オークヘイヴン郊外',
+      desc: 'オークヘイヴンの外で農場が燃えている。戦将の軍勢が門に迫る。'
+    },
+    oakhaven: {
+      name: 'オークヘイヴン',
+      desc: '城壁に囲まれた交易の町。その行く末はあなた次第。'
+    },
+    crags: {
+      name: '灰の岩山',
+      desc: '黒い岩と燃えさかる炎。教団員たちが火をくべている。'
+    },
+    mines: {
+      name: 'アイアンホールド鉱山',
+      desc: 'ドワーフは深く掘りすぎて、光る何かを目覚めさせた。'
+    },
+    ironhold: {
+      name: 'アイアンホールド',
+      desc: '山の鍛冶の町。王国一の鋼はここで打たれる。'
+    },
+    tundra: {
+      name: '凍傷のツンドラ',
+      desc: '巨人が歩き、死者が眠らない白い荒野。'
+    },
+    temple: {
+      name: '沈んだ神殿',
+      desc: '水に沈んだナーガの広間と、すべての結末を見通す神託の巫女。'
+    },
+    citadel: {
+      name: '虚無の城塞',
+      desc: '去年はなかったはずの要塞。壁が低くうなっている。'
+    },
+    peak: {
+      name: '竜の峰',
+      desc: '山頂をワイバーンが舞う。そこには、はるかに大きな何かが眠っている。'
+    },
+    fortress: {
+      name: '恐怖の要塞',
+      desc: 'アークデーモンの居城。どの勢力も欲しがる玉座がある。'
+    },
+    rift: {
+      name: '虚無の裂け目',
+      desc: '悪魔たちがやって来た傷口。その向こうで虚無の王が待つ。'
+    }
   },
-  'map': {
-    'title': '王国',
-    'town': '町',
-    'levels': 'Lv.{min}–{max}',
-    'arenaBest': '最高：ウェーブ{n}',
-    'travel': '出発',
-    'again': '再挑戦',
-    'enter': '入る',
-    'fight': '戦う',
-    'back': '町へ戻る',
-    'locked': '隣のゾーンをクリアすると道が開く。',
-    'lockedArena': 'ゴブリンキングの件が片づくと門が開く。',
-    'lockedRift': '恐怖の要塞の玉座の行方が決まると開く。',
-    'danger': {
+  map: {
+    title: '王国',
+    town: '町',
+    levels: 'Lv.{min}–{max}',
+    arenaBest: '最高：ウェーブ{n}',
+    travel: '出発',
+    again: '再挑戦',
+    enter: '入る',
+    fight: '戦う',
+    back: '町へ戻る',
+    locked: '隣のゾーンをクリアすると道が開く。',
+    lockedArena: 'ゴブリンキングの件が片づくと門が開く。',
+    lockedRift: '恐怖の要塞の玉座の行方が決まると開く。',
+    danger: {
       '1': 'あなたのレベルより少し上。',
       '2': '今のレベルでは危険。',
       '3': 'あなたのレベルよりはるかに上。'
     },
-    'questOpen': '{quest}：ここで決断が待っている。',
-    'questDone': '{quest}：{choice}',
-    'trainer': '隠れた師範：{cls}'
+    questOpen: '{quest}：ここで決断が待っている。',
+    questDone: '{quest}：{choice}',
+    trainer: '隠れた師範：{cls}',
+    new: '新',
+    skip: 'タップでスキップ',
+    compass: {
+      n: '北',
+      e: '東',
+      s: '南',
+      w: '西'
+    },
+    region: {
+      vale: '日だまりの谷',
+      hills: 'ゴブリンの丘',
+      peaks: '鉄の峰',
+      ash: '灰の大地',
+      frost: '霜の辺境',
+      fields: '黄金の野',
+      mere: 'ナーガの沼',
+      reach: '虚無の果て',
+      dread: '恐怖の地',
+      sea: 'サファイアの海',
+      bay: '商人の湾'
+    }
   },
-  'travel': {
-    'to': '移動中：',
-    'loading': '読み込み中'
+  travel: {
+    to: '移動中：',
+    loading: '読み込み中'
   },
-
-  'attr': {
-    'str': { 'name': '筋力', 'short': '筋力', 'desc': '近接攻撃力、ブロック率、重装備。' },
-    'dex': { 'name': '器用さ', 'short': '器用', 'desc': 'クリティカル、攻撃速度と移動速度。' },
-    'int': { 'name': '知力', 'short': '知力', 'desc': '魔法攻撃力、マナ、属性耐性。' },
-    'end': { 'name': '耐久力', 'short': '耐久', 'desc': '体力、自然回復、アーマー、スタン耐性。' },
-    'skl': { 'name': '技量', 'short': '技量', 'desc': 'クリティカルダメージ、クールダウン、遠距離武器。' },
-    'cha': { 'name': '魅力', 'short': '魅力', 'desc': 'ミニオン、店の値段、報酬、会話の選択肢。' }
+  attr: {
+    str: {
+      name: '筋力',
+      short: '筋力',
+      desc: '近接攻撃力、ブロック率、重装備。'
+    },
+    dex: {
+      name: '器用さ',
+      short: '器用',
+      desc: 'クリティカル、攻撃速度と移動速度。'
+    },
+    int: {
+      name: '知力',
+      short: '知力',
+      desc: '魔法攻撃力、マナ、属性耐性。'
+    },
+    end: {
+      name: '耐久力',
+      short: '耐久',
+      desc: '体力、自然回復、アーマー、スタン耐性。'
+    },
+    skl: {
+      name: '技量',
+      short: '技量',
+      desc: 'クリティカルダメージ、クールダウン、遠距離武器。'
+    },
+    cha: {
+      name: '魅力',
+      short: '魅力',
+      desc: 'ミニオン、店の値段、報酬、会話の選択肢。'
+    }
   },
-  'stat': {
-    'health': '体力',
-    'mana': 'マナ',
-    'armor': 'アーマー',
-    'resist': '耐性',
-    'crit': 'クリティカル率',
-    'critDamage': 'クリティカルDMG',
-    'attackSpeed': '攻撃速度',
-    'moveSpeed': '移動速度',
-    'cdr': 'クールダウン短縮',
-    'block': 'ブロック',
-    'dodge': '回避',
-    'hpRegen': '体力 / 秒'
+  stat: {
+    damage: 'ダメージ',
+    health: '体力',
+    mana: 'マナ',
+    armor: 'アーマー',
+    resist: '耐性',
+    crit: 'クリティカル率',
+    critDamage: 'クリティカルDMG',
+    attackSpeed: '攻撃速度',
+    moveSpeed: '移動速度',
+    cdr: 'クールダウン短縮',
+    block: 'ブロック',
+    dodge: '回避',
+    hpRegen: '体力 / 秒'
   },
-  'sheet': {
-    'points': '残り{n}ポイント',
-    'raise': '{attr}を上げる',
-    'maxLevel': '最高レベルに到達'
+  sheet: {
+    points: '残り{n}ポイント',
+    raise: '{attr}を上げる',
+    maxLevel: '最高レベルに到達',
+    next: '次のポイント：'
   },
-
-  'skills': {
-    'active': 'アクティブスキル',
-    'passive': 'パッシブスキル',
-    'known': '習得済み',
-    'none': 'まだ何も覚えていない。町で師範を探そう。',
-    'emptySlot': '空きスロット{n}',
-    'equip': 'セット',
-    'remove': '外す',
-    'unmet': '必要条件を満たさなくなった。'
+  skills: {
+    active: 'アクティブスキル',
+    passive: 'パッシブスキル',
+    known: '習得済み',
+    none: 'まだ何も覚えていない。町で師範を探そう。',
+    emptySlot: '空きスロット{n}',
+    equip: 'セット',
+    remove: '外す',
+    unmet: '必要条件を満たさなくなった。',
+    how: 'スキルをタップして、スロットをタップ（またはドラッグ）。スロットから外へドラッグすると外せる。',
+    howSlot: '次はスロットをタップしてセットしよう。',
+    classCount: '{cls}：{total}個中{n}個習得',
+    hint: {
+      met: '{place}の{name}から習得できる。',
+      unmet: '{place}の師範がこれを教えてくれる。'
+    }
   },
-  'class': {
-    'aegis': { 'name': 'イージスナイト', 'desc': '盾と聖なる鋼。仲間の代わりに攻撃を受け止める。' },
-    'shadow': { 'name': 'シャドウブレード', 'desc': '闇から現れ、背後から斬り、また消える。' },
-    'pyro': { 'name': 'パイロマンサー', 'desc': '炎がすべての答え。燃やして、それから爆発させる。' },
-    'sovereign': { 'name': 'グランドソブリン', 'desc': 'ひとりで戦う必要はない。衛兵を呼び出して指揮しよう。' },
-    'chrono': { 'name': 'クロノウィーバー', 'desc': '敵の時を止め、味方を加速し、失敗を巻き戻す。' },
-    'blood': { 'name': 'ブラッドアルケミスト', 'desc': '体力を払って力を得て、敵から吸い戻す。' },
-    'aether': { 'name': 'エーテルテック', 'desc': '銃とタレットとヒートゲージ。使えなくなる前に排熱を。' },
-    'geo': { 'name': 'ジオマンサー', 'desc': '壁とトゲを生み出し、大地そのものを割る。' }
+  class: {
+    aegis: {
+      name: 'イージスナイト',
+      desc: '盾と聖なる鋼。仲間の代わりに攻撃を受け止める。'
+    },
+    shadow: {
+      name: 'シャドウブレード',
+      desc: '闇から現れ、背後から斬り、また消える。'
+    },
+    pyro: {
+      name: 'パイロマンサー',
+      desc: '炎がすべての答え。燃やして、それから爆発させる。'
+    },
+    sovereign: {
+      name: 'グランドソブリン',
+      desc: 'ひとりで戦う必要はない。衛兵を呼び出して指揮しよう。'
+    },
+    chrono: {
+      name: 'クロノウィーバー',
+      desc: '敵の時を止め、味方を加速し、失敗を巻き戻す。'
+    },
+    blood: {
+      name: 'ブラッドアルケミスト',
+      desc: '体力を払って力を得て、敵から吸い戻す。'
+    },
+    aether: {
+      name: 'エーテルテック',
+      desc: '銃とタレットとヒートゲージ。使えなくなる前に排熱を。'
+    },
+    geo: {
+      name: 'ジオマンサー',
+      desc: '壁とトゲを生み出し、大地そのものを割る。'
+    }
   },
-  'skill': {
-    'kind': { 'active': 'アクティブ', 'passive': 'パッシブ' },
-    'cooldown': 'クールダウン{n}秒',
-    'mana': 'マナ{n}',
-    'hpCost': '体力{n}%',
-    'heat': 'ヒート+{n}',
-    'aimed': 'ドラッグで狙う',
-
-    'shieldSlam': { 'name': 'シールドスラム', 'desc': '盾を叩きつけ、筋力の{dmg}%のダメージを与えて{stun}秒スタンさせる。' },
-    'aegisAura': { 'name': 'イージスオーラ', 'desc': 'アーマー+{armor}%。受ける物理ダメージが{reduce}%減る。' },
-    'radiantStrike': { 'name': 'ラディアントストライク', 'desc': '筋力の{dmg}%のダメージを与える聖なる一撃。与えたダメージの{heal}%ぶん回復する。' },
-    'fortitude': { 'name': '不屈', 'desc': '体力の{hit}%を超える一撃を受けると、体力の{shield}%ぶんのシールドを{dur}秒得る。{icd}秒に1回。' },
-    'tauntingCry': { 'name': '挑発の雄叫び', 'desc': '{radius} m以内の敵が{dur}秒あなたを狙う。そのあいだ防御力+{def}%。' },
-    'holyBastion': { 'name': '聖なる砦', 'desc': '{dur}秒無敵になる。攻撃してきた敵にダメージの{reflect}%を跳ね返す。' },
-
-    'shadowstep': { 'name': 'シャドウステップ', 'desc': 'ターゲットの背後に現れ、器用さの{dmg}%のダメージで背中を刺す。' },
-    'lethality': { 'name': '必殺', 'desc': 'クリティカル率+{crit}%、クリティカルダメージ+{critDmg}%。' },
-    'venomousBlade': { 'name': '猛毒の刃', 'desc': '{dur}秒間、攻撃が毒を与える。{over}秒かけて器用さの{poison}%、最大{stacks}回重なる。' },
-    'evasion': { 'name': '見切り', 'desc': '回避率+{dodge}%。回避すると{dur}秒間ヘイスト{haste}%。' },
-    'smokeBomb': { 'name': '煙玉', 'desc': '{dur}秒姿を消す。潜伏からの次の攻撃はダメージ+{bonus}%。' },
-    'danceOfBlades': { 'name': '刃の舞', 'desc': '{radius} m以内の敵のあいだを駆け抜け、{hits}回斬って合計で器用さの{dmg}%のダメージ。舞っているあいだは攻撃を受けない。' },
-
-    'fireball': { 'name': 'ファイアボール', 'desc': '火の玉が弾けて知力の{dmg}%のダメージ。さらに{burnDur}秒かけて{burn}%の燃焼ダメージ。' },
-    'cauterize': { 'name': '焼灼', 'desc': '燃焼中の敵から受けるダメージが{reduce}%減る。' },
-    'flamePillar': { 'name': 'フレイムピラー', 'desc': '狙った場所に火柱が噴き上がる。{dur}秒かけて知力の{dmg}%のダメージ。巻き込まれた敵は打ち上げられる。' },
-    'pyromaniac': { 'name': '炎狂い', 'desc': '魔法がクリティカルすると、炎スキルのクールダウンが{cut}秒縮む。' },
-    'combustion': { 'name': '爆燃', 'desc': '{radius} m以内の燃焼をすべて起爆。残りダメージの{pct}%が爆発として一気に入る。' },
-    'cataclysm': { 'name': 'カタクリズム', 'desc': '{dur}秒かけて隕石を{meteors}個呼ぶ。1個ごとに知力の{dmg}%のダメージ。' },
-
-    'royalGuard': { 'name': 'ロイヤルガード', 'desc': 'そばで戦う衛兵を呼び出す。魅力の{dmg}%のダメージで攻撃。同時に{max}体まで。' },
-    'inspiringPresence': { 'name': '鼓舞する威光', 'desc': 'ミニオンの攻撃速度が{speed}%上がり、体力が{hp}%増える。' },
-    'commandFocus': { 'name': '集中攻撃命令', 'desc': 'ミニオン全員がターゲットへ突撃。{dur}秒間、移動速度+{move}%、攻撃速度+{atk}%。' },
-    'sovereignsTribute': { 'name': '君主への貢ぎ物', 'desc': '受けるダメージの{share}%をミニオンが肩代わりする。' },
-    'bannerOfVictory': { 'name': '勝利の旗', 'desc': '{dur}秒間、旗を立てる。近くの味方はダメージ+{dmg}%、毎秒体力を{regen}%回復。' },
-    'armyOfTheRealm': { 'name': '王国の軍勢', 'desc': '弓兵{archers}人、衛兵{guards}人、戦闘魔道士1人を{dur}秒間呼び出す。' },
-
-    'temporalStasis': { 'name': 'テンポラルステイシス', 'desc': 'ターゲットの時を{dur}秒止める。行動できず、ダメージも受けない。' },
-    'hasteField': { 'name': 'ヘイストフィールド', 'desc': '{dur}秒間、自分と近くの味方の移動速度が{move}%、攻撃速度が{speed}%上がる。' },
-    'timeDistort': { 'name': '時のゆがみ', 'desc': '受けるダメージの{share}%が遅れて、{over}秒かけて入る。' },
-    'paradoxShift': { 'name': 'パラドックスシフト', 'desc': 'ターゲットと位置を入れ替える。知力の{dmg}%のダメージを与え、周りの敵を{confuse}秒混乱させる。' },
-    'entropy': { 'name': 'エントロピー', 'desc': 'スキルを使うたびにクールダウンが{cdr}%短くなる。最大{stacks}回重なる。' },
-    'chronoRewind': { 'name': 'クロノリワインド', 'desc': '{back}秒前にいた場所へ、その時の体力とマナで戻る。' },
-
-    'sanguineFlask': { 'name': '鮮血のフラスコ', 'desc': '自分の血のフラスコを投げる。範囲に耐久力の{dmg}%のダメージ、{shredDur}秒間アーマーを{shred}%破壊。' },
-    'bloodTransmutation': { 'name': '血の変成', 'desc': '受けた物理ダメージの{share}%がマナとして戻る。' },
-    'essenceHarvest': { 'name': '精気の収穫', 'desc': '{radius} m以内のすべての敵から吸い取り、知力の{dmg}%のダメージ。その{heal}%ぶん回復する。' },
-    'hemophilia': { 'name': '血の渇き', 'desc': 'ライフドレインが{drain}%強くなる。出血中の敵に当てると体力を{heal}%回復。' },
-    'mutagenicRage': { 'name': '変異の怒り', 'desc': '{dur}秒間：攻撃速度+{speed}%、ライフスティール+{steal}%、移動速度+{move}%。' },
-    'philosophersCrucible': { 'name': '賢者のるつぼ', 'desc': '{dur}秒間、煮えたぎる血の池を作る。中の敵に知力の{dmg}%のダメージ。自分が立っていると回復する。' },
-
-    'aetherPistol': { 'name': 'エーテルピストル', 'desc': '技量の{dmg}%のダメージの早撃ち。ヒートが{heat}たまる。' },
-    'deployTurret': { 'name': 'タレット設置', 'desc': '技量の{dmg}%のダメージで撃つタレットを{dur}秒間置く。同時に{max}台まで。' },
-    'ventHeat': { 'name': '排熱', 'desc': 'ヒートをすべて扇状に放出。技量の最大{dmg}%のダメージ。ヒートが多いほど強い。' },
-    'thermalOverload': { 'name': 'サーマルオーバーロード', 'desc': 'オーバーヒート中は射撃のクリティカルダメージ+{crit}%。ただしスキルは{lock}秒使えなくなる。' },
-    'orbitalBeam': { 'name': 'オービタルビーム', 'desc': '空からのビームが狙った場所を焼く。{dur}秒かけて技量の{dmg}%のダメージ。' },
-    'exoSuit': { 'name': 'エクソスーツ', 'desc': '{dur}秒間：アーマー+{armor}%。攻撃がロケットになり、範囲に技量の{rocket}%のダメージ。' },
-
-    'stoneSpike': { 'name': 'ストーンスパイク', 'desc': 'ターゲットの足元から岩のトゲが突き出す。筋力の{dmg}%のダメージ、{dur}秒間{slow}%鈍足。' },
-    'earthBarrier': { 'name': 'アースバリア', 'desc': '{dur}秒間、岩の壁を立てる。歩いても撃っても通れない。' },
-    'seismicShock': { 'name': 'サイズミックショック', 'desc': '地面を叩く。{radius} m以内に筋力の{dmg}%のダメージ、敵を{down}秒ダウンさせる。' },
-    'earthenSkin': { 'name': '大地の肌', 'desc': '筋力の{armor}%ぶんのアーマーを得る。受けるスタンが{cut}%短くなる。' },
-    'petrify': { 'name': '石化', 'desc': 'ターゲットを{dur}秒石に変える。石が砕けるとき、受けるダメージが{vuln}%増える。' },
-    'tectonicRupture': { 'name': 'テクトニックラプチャー', 'desc': '大地を引き裂く。近くのすべてに筋力の{dmg}%のダメージ。がれきが{dur}秒間鈍足にする。' }
+  skill: {
+    kind: {
+      active: 'アクティブ',
+      passive: 'パッシブ'
+    },
+    cooldown: 'クールダウン{n}秒',
+    mana: 'マナ{n}',
+    hpCost: '体力{n}%',
+    heat: 'ヒート+{n}',
+    aimed: 'ドラッグで狙う',
+    shieldSlam: {
+      name: 'シールドスラム',
+      desc: '盾を叩きつけ、筋力の{dmg}%のダメージを与えて{stun}秒スタンさせる。'
+    },
+    aegisAura: {
+      name: 'イージスオーラ',
+      desc: 'アーマー+{armor}%。受ける物理ダメージが{reduce}%減る。'
+    },
+    radiantStrike: {
+      name: 'ラディアントストライク',
+      desc: '筋力の{dmg}%のダメージを与える聖なる一撃。与えたダメージの{heal}%ぶん回復する。'
+    },
+    fortitude: {
+      name: '不屈',
+      desc: '体力の{hit}%を超える一撃を受けると、体力の{shield}%ぶんのシールドを{dur}秒得る。{icd}秒に1回。'
+    },
+    tauntingCry: {
+      name: '挑発の雄叫び',
+      desc: '{radius} m以内の敵が{dur}秒あなたを狙う。そのあいだ防御力+{def}%。'
+    },
+    holyBastion: {
+      name: '聖なる砦',
+      desc: '{dur}秒無敵になる。攻撃してきた敵にダメージの{reflect}%を跳ね返す。'
+    },
+    shadowstep: {
+      name: 'シャドウステップ',
+      desc: 'ターゲットの背後に現れ、器用さの{dmg}%のダメージで背中を刺す。'
+    },
+    lethality: {
+      name: '必殺',
+      desc: 'クリティカル率+{crit}%、クリティカルダメージ+{critDmg}%。'
+    },
+    venomousBlade: {
+      name: '猛毒の刃',
+      desc: '{dur}秒間、攻撃が毒を与える。{over}秒かけて器用さの{poison}%、最大{stacks}回重なる。'
+    },
+    evasion: {
+      name: '見切り',
+      desc: '回避率+{dodge}%。回避すると{dur}秒間ヘイスト{haste}%。'
+    },
+    smokeBomb: {
+      name: '煙玉',
+      desc: '{dur}秒姿を消す。潜伏からの次の攻撃はダメージ+{bonus}%。'
+    },
+    danceOfBlades: {
+      name: '刃の舞',
+      desc: '{radius} m以内の敵のあいだを駆け抜け、{hits}回斬って合計で器用さの{dmg}%のダメージ。舞っているあいだは攻撃を受けない。'
+    },
+    fireball: {
+      name: 'ファイアボール',
+      desc: '火の玉が弾けて知力の{dmg}%のダメージ。さらに{burnDur}秒かけて{burn}%の燃焼ダメージ。'
+    },
+    cauterize: {
+      name: '焼灼',
+      desc: '燃焼中の敵から受けるダメージが{reduce}%減る。'
+    },
+    flamePillar: {
+      name: 'フレイムピラー',
+      desc: '狙った場所に火柱が噴き上がる。{dur}秒かけて知力の{dmg}%のダメージ。巻き込まれた敵は打ち上げられる。'
+    },
+    pyromaniac: {
+      name: '炎狂い',
+      desc: '魔法がクリティカルすると、炎スキルのクールダウンが{cut}秒縮む。'
+    },
+    combustion: {
+      name: '爆燃',
+      desc: '{radius} m以内の燃焼をすべて起爆。残りダメージの{pct}%が爆発として一気に入る。'
+    },
+    cataclysm: {
+      name: 'カタクリズム',
+      desc: '{dur}秒かけて隕石を{meteors}個呼ぶ。1個ごとに知力の{dmg}%のダメージ。'
+    },
+    royalGuard: {
+      name: 'ロイヤルガード',
+      desc: 'そばで戦う衛兵を呼び出す。魅力の{dmg}%のダメージで攻撃。同時に{max}体まで。'
+    },
+    inspiringPresence: {
+      name: '鼓舞する威光',
+      desc: 'ミニオンの攻撃速度が{speed}%上がり、体力が{hp}%増える。'
+    },
+    commandFocus: {
+      name: '集中攻撃命令',
+      desc: 'ミニオン全員がターゲットへ突撃。{dur}秒間、移動速度+{move}%、攻撃速度+{atk}%。'
+    },
+    sovereignsTribute: {
+      name: '君主への貢ぎ物',
+      desc: '受けるダメージの{share}%をミニオンが肩代わりする。'
+    },
+    bannerOfVictory: {
+      name: '勝利の旗',
+      desc: '{dur}秒間、旗を立てる。近くの味方はダメージ+{dmg}%、毎秒体力を{regen}%回復。'
+    },
+    armyOfTheRealm: {
+      name: '王国の軍勢',
+      desc: '弓兵{archers}人、衛兵{guards}人、戦闘魔道士1人を{dur}秒間呼び出す。'
+    },
+    temporalStasis: {
+      name: 'テンポラルステイシス',
+      desc: 'ターゲットの時を{dur}秒止める。行動できず、ダメージも受けない。'
+    },
+    hasteField: {
+      name: 'ヘイストフィールド',
+      desc: '{dur}秒間、自分と近くの味方の移動速度が{move}%、攻撃速度が{speed}%上がる。'
+    },
+    timeDistort: {
+      name: '時のゆがみ',
+      desc: '受けるダメージの{share}%が遅れて、{over}秒かけて入る。'
+    },
+    paradoxShift: {
+      name: 'パラドックスシフト',
+      desc: 'ターゲットと位置を入れ替える。知力の{dmg}%のダメージを与え、周りの敵を{confuse}秒混乱させる。'
+    },
+    entropy: {
+      name: 'エントロピー',
+      desc: 'スキルを使うたびにクールダウンが{cdr}%短くなる。最大{stacks}回重なる。'
+    },
+    chronoRewind: {
+      name: 'クロノリワインド',
+      desc: '{back}秒前にいた場所へ、その時の体力とマナで戻る。'
+    },
+    sanguineFlask: {
+      name: '鮮血のフラスコ',
+      desc: '自分の血のフラスコを投げる。範囲に耐久力の{dmg}%のダメージ、{shredDur}秒間アーマーを{shred}%破壊。'
+    },
+    bloodTransmutation: {
+      name: '血の変成',
+      desc: '受けた物理ダメージの{share}%がマナとして戻る。'
+    },
+    essenceHarvest: {
+      name: '精気の収穫',
+      desc: '{radius} m以内のすべての敵から吸い取り、知力の{dmg}%のダメージ。その{heal}%ぶん回復する。'
+    },
+    hemophilia: {
+      name: '血の渇き',
+      desc: 'ライフドレインが{drain}%強くなる。出血中の敵に当てると体力を{heal}%回復。'
+    },
+    mutagenicRage: {
+      name: '変異の怒り',
+      desc: '{dur}秒間：攻撃速度+{speed}%、ライフスティール+{steal}%、移動速度+{move}%。'
+    },
+    philosophersCrucible: {
+      name: '賢者のるつぼ',
+      desc: '{dur}秒間、煮えたぎる血の池を作る。中の敵に知力の{dmg}%のダメージ。自分が立っていると回復する。'
+    },
+    aetherPistol: {
+      name: 'エーテルピストル',
+      desc: '技量の{dmg}%のダメージの早撃ち。ヒートが{heat}たまる。'
+    },
+    deployTurret: {
+      name: 'タレット設置',
+      desc: '技量の{dmg}%のダメージで撃つタレットを{dur}秒間置く。同時に{max}台まで。'
+    },
+    ventHeat: {
+      name: '排熱',
+      desc: 'ヒートをすべて扇状に放出。技量の最大{dmg}%のダメージ。ヒートが多いほど強い。'
+    },
+    thermalOverload: {
+      name: 'サーマルオーバーロード',
+      desc: 'オーバーヒート中は射撃のクリティカルダメージ+{crit}%。ただしスキルは{lock}秒使えなくなる。'
+    },
+    orbitalBeam: {
+      name: 'オービタルビーム',
+      desc: '空からのビームが狙った場所を焼く。{dur}秒かけて技量の{dmg}%のダメージ。'
+    },
+    exoSuit: {
+      name: 'エクソスーツ',
+      desc: '{dur}秒間：アーマー+{armor}%。攻撃がロケットになり、範囲に技量の{rocket}%のダメージ。'
+    },
+    stoneSpike: {
+      name: 'ストーンスパイク',
+      desc: 'ターゲットの足元から岩のトゲが突き出す。筋力の{dmg}%のダメージ、{dur}秒間{slow}%鈍足。'
+    },
+    earthBarrier: {
+      name: 'アースバリア',
+      desc: '{dur}秒間、岩の壁を立てる。歩いても撃っても通れない。'
+    },
+    seismicShock: {
+      name: 'サイズミックショック',
+      desc: '地面を叩く。{radius} m以内に筋力の{dmg}%のダメージ、敵を{down}秒ダウンさせる。'
+    },
+    earthenSkin: {
+      name: '大地の肌',
+      desc: '筋力の{armor}%ぶんのアーマーを得る。受けるスタンが{cut}%短くなる。'
+    },
+    petrify: {
+      name: '石化',
+      desc: 'ターゲットを{dur}秒石に変える。石が砕けるとき、受けるダメージが{vuln}%増える。'
+    },
+    tectonicRupture: {
+      name: 'テクトニックラプチャー',
+      desc: '大地を引き裂く。近くのすべてに筋力の{dmg}%のダメージ。がれきが{dur}秒間鈍足にする。'
+    }
   },
-
-  'slot': {
-    'main': '利き手',
-    'off': '逆の手',
-    'body': '鎧',
-    'trinket': '装飾品'
+  slot: {
+    main: '利き手',
+    off: '逆の手',
+    head: '頭',
+    body: '鎧',
+    hands: '手',
+    feet: '足',
+    trinket: '装飾品'
   },
-  'tier': {
+  tier: {
     '1': 'ティア1',
     '2': 'ティア2',
     '3': 'ティア3',
@@ -291,421 +592,2171 @@ export default {
     '5': 'ティア5',
     '6': 'レジェンド'
   },
-  'weapon': {
-    'melee': '近接 · {attr}で強化',
-    'ranged': '遠距離 · {attr}で強化',
-    'magic': '魔法 · {attr}で強化'
+  weapon: {
+    melee: '近接 · {attr}で強化',
+    ranged: '遠距離 · {attr}で強化',
+    magic: '魔法 · {attr}で強化'
   },
-  'source': {
-    'mob': '{zone}のモンスターが落とす。',
-    'chest': '{zone}の宝箱で見つかる。',
-    'boss': '{zone}のボスが落とす。',
-    'secret': '{zone}の隠し宝箱に眠っている。'
+  source: {
+    mob: '{zone}のモンスターが落とす。',
+    chest: '{zone}の宝箱で見つかる。',
+    boss: '{zone}のボスが落とす。',
+    secret: '{zone}の隠し宝箱に眠っている。'
   },
-  'mod': {
-    'str': '筋力+{n}',
-    'dex': '器用さ+{n}',
-    'int': '知力+{n}',
-    'end': '耐久力+{n}',
-    'skl': '技量+{n}',
-    'cha': '魅力+{n}',
-    'allAttrs': 'すべての能力+{n}',
-    'strOrDex': '筋力か器用さの高いほうに+{n}',
-    'armor': 'アーマー{n}',
-    'armorPct': 'アーマー+{n}%',
-    'armorFromStr': '筋力によるアーマー：+{n}%',
-    'block': 'ブロック率+{n}%',
-    'dodge': '回避率+{n}%',
-    'damageReduction': 'ダメージ軽減+{n}%',
-    'physReduction': '受ける物理ダメージ-{n}%',
-    'maxHp': '最大体力+{n}',
-    'maxHpPct': '最大体力+{n}%',
-    'maxMana': '最大マナ+{n}',
-    'hpRegen': '毎秒体力+{n}',
-    'stunDurationCut': '受けるスタンが{n}%短くなる',
-    'damagePct': '与えるダメージ+{n}%',
-    'critChance': 'クリティカル率+{n}%',
-    'critDamage': 'クリティカルダメージ+{n}%',
-    'spellCrit': '魔法クリティカル率+{n}%',
-    'attackSpeed': '攻撃速度+{n}%',
-    'moveSpeed': '移動速度+{n}%',
-    'cdr': 'クールダウンが{n}%短くなる',
-    'manaDiscount': '魔法のマナ消費-{n}%',
-    'lifesteal': 'すべてのダメージでライフスティール+{n}%',
-    'physLifesteal': '物理攻撃でライフスティール+{n}%',
-    'lifeDrainPct': 'ライフドレインが{n}%強くなる',
-    'bossDamage': 'ボスへのダメージ+{n}%',
-    'backstab': '背後攻撃ダメージ+{n}%',
-    'minionDamage': 'ミニオンのダメージ+{n}%',
-    'minionAttackSpeed': 'ミニオンの攻撃が{n}%速くなる',
-    'minionHp': 'ミニオンの体力+{n}%',
-    'burnOnHit': '攻撃が{n}ダメージの燃焼を与える',
-    'freezeOnHit': '攻撃が{n}%の確率で凍結させる',
-    'pierce': '弾がさらに{n}体の敵を貫通する',
-    'critCooldown': 'クリティカルで全クールダウンが{n}秒縮む',
-    'extraBlastEvery': '{n}発ごとにエネルギー弾を追加',
-    'reflectOnBlock': 'ブロックすると{n}ダメージを反射',
-    'fatalSave': '致命的なダメージを受ける代わりに{n}秒無敵になる（120秒に1回）',
-    'knockbackImmune': 'ノックバック無効',
-    'heatBuildCut': 'ヒートのたまりが{n}%遅くなる',
-    'heatDissipation': 'ヒートが{n}%速く冷める',
-    'flaskDamage': '鮮血のフラスコのダメージ+{n}%',
-    'igniteBonus': '炎の魔法の燃焼が{n}%強くなる',
-    'stealthy': '静かに動く：敵に気づかれる距離が{n}%縮む',
-    'fortitude': '大きな一撃を受けると体力{n}%のシールド',
-    'evasionHaste': '回避するとヘイスト{n}%',
-    'cauterize': '燃焼中の敵から受けるダメージ-{n}%',
-    'pyromaniac': '魔法クリティカルで炎のクールダウンが{n}秒縮む',
-    'tribute': 'ミニオンがあなたのダメージの{n}%を受ける',
-    'timeDistort': '受けるダメージの{n}%が遅れて入る',
-    'entropy': 'スキルを使うとクールダウンが{n}%縮む',
-    'bloodToMana': '受けた物理ダメージの{n}%がマナで戻る',
-    'bleedHeal': '出血中の敵に当てると体力{n}%回復',
-    'overheatCrit': 'オーバーヒート中クリティカルダメージ+{n}%'
+  mod: {
+    str: '筋力+{n}',
+    dex: '器用さ+{n}',
+    int: '知力+{n}',
+    end: '耐久力+{n}',
+    skl: '技量+{n}',
+    cha: '魅力+{n}',
+    allAttrs: 'すべての能力+{n}',
+    strOrDex: '筋力か器用さの高いほうに+{n}',
+    armor: 'アーマー{n}',
+    armorPct: 'アーマー+{n}%',
+    armorFromStr: '筋力によるアーマー：+{n}%',
+    block: 'ブロック率+{n}%',
+    dodge: '回避率+{n}%',
+    damageReduction: 'ダメージ軽減+{n}%',
+    physReduction: '受ける物理ダメージ-{n}%',
+    maxHp: '最大体力+{n}',
+    maxHpPct: '最大体力+{n}%',
+    maxMana: '最大マナ+{n}',
+    hpRegen: '毎秒体力+{n}',
+    stunDurationCut: '受けるスタンが{n}%短くなる',
+    damagePct: '与えるダメージ+{n}%',
+    critChance: 'クリティカル率+{n}%',
+    critDamage: 'クリティカルダメージ+{n}%',
+    spellCrit: '魔法クリティカル率+{n}%',
+    attackSpeed: '攻撃速度+{n}%',
+    moveSpeed: '移動速度+{n}%',
+    cdr: 'クールダウンが{n}%短くなる',
+    manaDiscount: '魔法のマナ消費-{n}%',
+    lifesteal: 'すべてのダメージでライフスティール+{n}%',
+    physLifesteal: '物理攻撃でライフスティール+{n}%',
+    lifeDrainPct: 'ライフドレインが{n}%強くなる',
+    bossDamage: 'ボスへのダメージ+{n}%',
+    backstab: '背後攻撃ダメージ+{n}%',
+    minionDamage: 'ミニオンのダメージ+{n}%',
+    minionAttackSpeed: 'ミニオンの攻撃が{n}%速くなる',
+    minionHp: 'ミニオンの体力+{n}%',
+    burnOnHit: '攻撃が{n}ダメージの燃焼を与える',
+    freezeOnHit: '攻撃が{n}%の確率で凍結させる',
+    pierce: '弾がさらに{n}体の敵を貫通する',
+    critCooldown: 'クリティカルで全クールダウンが{n}秒縮む',
+    extraBlastEvery: '{n}発ごとにエネルギー弾を追加',
+    reflectOnBlock: 'ブロックすると{n}ダメージを反射',
+    fatalSave: '致命的なダメージを受ける代わりに{n}秒無敵になる（120秒に1回）',
+    knockbackImmune: 'ノックバック無効',
+    heatBuildCut: 'ヒートのたまりが{n}%遅くなる',
+    heatDissipation: 'ヒートが{n}%速く冷める',
+    flaskDamage: '鮮血のフラスコのダメージ+{n}%',
+    igniteBonus: '炎の魔法の燃焼が{n}%強くなる',
+    stealthy: '静かに動く：敵に気づかれる距離が{n}%縮む',
+    fortitude: '大きな一撃を受けると体力{n}%のシールド',
+    evasionHaste: '回避するとヘイスト{n}%',
+    cauterize: '燃焼中の敵から受けるダメージ-{n}%',
+    pyromaniac: '魔法クリティカルで炎のクールダウンが{n}秒縮む',
+    tribute: 'ミニオンがあなたのダメージの{n}%を受ける',
+    timeDistort: '受けるダメージの{n}%が遅れて入る',
+    entropy: 'スキルを使うとクールダウンが{n}%縮む',
+    bloodToMana: '受けた物理ダメージの{n}%がマナで戻る',
+    bleedHeal: '出血中の敵に当てると体力{n}%回復',
+    overheatCrit: 'オーバーヒート中クリティカルダメージ+{n}%'
   },
-  'item': {
-    'rustedShortsword': { 'name': '錆びたショートソード' },
-    'apprenticeStaff': { 'name': '見習いの杖' },
-    'scoutsHandgun': { 'name': '斥候のハンドガン' },
-    'ironBroadsword': { 'name': '鉄のブロードソード' },
-    'vipinsStiletto': { 'name': 'ヴィピンのスティレット' },
-    'aetherCarbine': { 'name': 'エーテルカービン' },
-    'ashenGreatsword': { 'name': '灰の大剣' },
-    'archmageWand': { 'name': '大魔道士のワンド' },
-    'chronoBlade': { 'name': 'クロノブレード' },
-    'bloodForgedAxe': { 'name': '血鍛えの斧' },
-    'voidCannon': { 'name': 'ヴォイドキャノン' },
-    'dragonSmasher': { 'name': 'ドラゴンスマッシャー' },
-    'bladeOfTheUnbound': { 'name': '縛られざる者の剣' },
-    'aetheriumDestroyer': { 'name': 'エーテリウムデストロイヤー' },
-    'woodenBuckler': { 'name': '木のバックラー' },
-    'tomeOfNovices': { 'name': '初心者の魔道書' },
-    'ironShield': { 'name': '鉄の盾' },
-    'syringeOfTheAdept': { 'name': '達人の注射器' },
-    'aethericBattery': { 'name': 'エーテルバッテリー' },
-    'aegisTowerShield': { 'name': 'イージスの大盾' },
-    'orbOfEternalFlame': { 'name': '永遠の炎のオーブ' },
-    'shieldOfTheFallen': { 'name': '斃れし者の盾' },
-    'paddedTunic': { 'name': '綿入りのチュニック' },
-    'leatherDoublet': { 'name': '革のダブレット' },
-    'chainmailVest': { 'name': 'チェインメイルベスト' },
-    'scholarsRobe': { 'name': '学者のローブ' },
-    'reinforcedPlate': { 'name': '強化プレート' },
-    'assassinsGarb': { 'name': '暗殺者の装束' },
-    'chronoWeaverCloak': { 'name': 'クロノウィーバーの外套' },
-    'bloodSoakedPlate': { 'name': '血染めのプレート' },
-    'exoArmorChassis': { 'name': 'エクソアーマーシャーシ' },
-    'dragonscaleHauberk': { 'name': '竜鱗のホーバーク' },
-    'vestmentsOfSovereign': { 'name': '君主の礼服' },
-    'armorOfTheTitan': { 'name': 'タイタンの鎧' },
-    'copperBand': { 'name': '銅の指輪' },
-    'ringOfMending': { 'name': '癒しの指輪' },
-    'bandOfSwiftness': { 'name': '俊足の指輪' },
-    'castersEmblem': { 'name': '術者の紋章' },
-    'infiltratorsCharm': { 'name': '潜入者のお守り' },
-    'timekeepersHourglass': { 'name': '時守の砂時計' },
-    'ringOfTheVampyre': { 'name': '吸血鬼の指輪' },
-    'sovereignsSignet': { 'name': '君主の印章指輪' },
-    'heartOfTheMountain': { 'name': '山の心臓' },
-    'ringOfAbsolutePower': { 'name': '絶対なる力の指輪' }
-  },
-  'bag': {
-    'equip': '装備',
-    'unequip': '外す',
-    'tooLow': 'レベル{n}が必要。'
-  },
-  'shop': {
-    'buy': '買う',
-    'sell': '売る',
-    'owned': '所持',
-    'empty': '今日は棚に何もない。'
-  },
-  'trainer': {
-    'learn': '習得',
-    'known': '習得済み',
-    'friend': '{faction}は友を大切にする：20%引き。',
-    'block': {
-      'level': 'レベルが足りない。',
-      'attrs': '能力値が足りない。',
-      'gold': 'ゴールドが足りない。'
+  item: {
+    rustedShortsword: {
+      name: '錆びたショートソード'
+    },
+    apprenticeStaff: {
+      name: '見習いの杖'
+    },
+    scoutsHandgun: {
+      name: '斥候のハンドガン'
+    },
+    ironBroadsword: {
+      name: '鉄のブロードソード'
+    },
+    vipinsStiletto: {
+      name: 'ヴィピンのスティレット'
+    },
+    aetherCarbine: {
+      name: 'エーテルカービン'
+    },
+    ashenGreatsword: {
+      name: '灰の大剣'
+    },
+    archmageWand: {
+      name: '大魔道士のワンド'
+    },
+    chronoBlade: {
+      name: 'クロノブレード'
+    },
+    bloodForgedAxe: {
+      name: '血鍛えの斧'
+    },
+    voidCannon: {
+      name: 'ヴォイドキャノン'
+    },
+    dragonSmasher: {
+      name: 'ドラゴンスマッシャー'
+    },
+    bladeOfTheUnbound: {
+      name: '縛られざる者の剣'
+    },
+    aetheriumDestroyer: {
+      name: 'エーテリウムデストロイヤー'
+    },
+    woodenBuckler: {
+      name: '木のバックラー'
+    },
+    tomeOfNovices: {
+      name: '初心者の魔道書'
+    },
+    ironShield: {
+      name: '鉄の盾'
+    },
+    syringeOfTheAdept: {
+      name: '達人の注射器'
+    },
+    aethericBattery: {
+      name: 'エーテルバッテリー'
+    },
+    aegisTowerShield: {
+      name: 'イージスの大盾'
+    },
+    orbOfEternalFlame: {
+      name: '永遠の炎のオーブ'
+    },
+    shieldOfTheFallen: {
+      name: '斃れし者の盾'
+    },
+    paddedTunic: {
+      name: '綿入りのチュニック'
+    },
+    leatherDoublet: {
+      name: '革のダブレット'
+    },
+    chainmailVest: {
+      name: 'チェインメイルベスト'
+    },
+    scholarsRobe: {
+      name: '学者のローブ'
+    },
+    reinforcedPlate: {
+      name: '強化プレート'
+    },
+    assassinsGarb: {
+      name: '暗殺者の装束'
+    },
+    chronoWeaverCloak: {
+      name: 'クロノウィーバーの外套'
+    },
+    bloodSoakedPlate: {
+      name: '血染めのプレート'
+    },
+    exoArmorChassis: {
+      name: 'エクソアーマーシャーシ'
+    },
+    dragonscaleHauberk: {
+      name: '竜鱗のホーバーク'
+    },
+    vestmentsOfSovereign: {
+      name: '君主の礼服'
+    },
+    armorOfTheTitan: {
+      name: 'タイタンの鎧'
+    },
+    quiltedCap: {
+      name: 'キルトの帽子'
+    },
+    stalkersHood: {
+      name: '追跡者のフード'
+    },
+    ironcladHelm: {
+      name: '鉄張りの兜'
+    },
+    seersCirclet: {
+      name: '予見者の額冠'
+    },
+    wyrmguardGreathelm: {
+      name: 'ワームガードの大兜'
+    },
+    hatOfTheStarweaver: {
+      name: '星織りの帽子'
+    },
+    hideGloves: {
+      name: 'なめし革の手袋'
+    },
+    ironGauntlets: {
+      name: '鉄のガントレット'
+    },
+    emberweaveGloves: {
+      name: '残り火織りの手袋'
+    },
+    duelistsGrips: {
+      name: '決闘者の籠手'
+    },
+    voidforgedGauntlets: {
+      name: '虚無鍛えのガントレット'
+    },
+    gripsOfTheTempest: {
+      name: '嵐の籠手'
+    },
+    trailBoots: {
+      name: '旅路のブーツ'
+    },
+    pathfindersBoots: {
+      name: '道を拓く者のブーツ'
+    },
+    forgeplateGreaves: {
+      name: '鍛造板金の脛当て'
+    },
+    mistwalkerBoots: {
+      name: '霧渡りのブーツ'
+    },
+    stormstrideGreaves: {
+      name: '嵐駆けの脛当て'
+    },
+    treadsOfTheHorizon: {
+      name: '地平線の足跡'
+    },
+    copperBand: {
+      name: '銅の指輪'
+    },
+    ringOfMending: {
+      name: '癒しの指輪'
+    },
+    bandOfSwiftness: {
+      name: '俊足の指輪'
+    },
+    castersEmblem: {
+      name: '術者の紋章'
+    },
+    infiltratorsCharm: {
+      name: '潜入者のお守り'
+    },
+    timekeepersHourglass: {
+      name: '時守の砂時計'
+    },
+    ringOfTheVampyre: {
+      name: '吸血鬼の指輪'
+    },
+    sovereignsSignet: {
+      name: '君主の印章指輪'
+    },
+    heartOfTheMountain: {
+      name: '山の心臓'
+    },
+    ringOfAbsolutePower: {
+      name: '絶対なる力の指輪'
     }
   },
-  'healer': {
-    'talk': 'お座りなさい。休みなさい。ここを出るときは傷ひとつなく、フラスコも満タンです。もっと持ち歩きたいなら、お売りしますよ。',
-    'note': 'どのゾーンにもポーションを{n}個持っていける。',
-    'buy': 'フラスコを追加 · {n}',
-    'full': 'ベルトはもういっぱいです。'
+  bag: {
+    equip: '装備',
+    unequip: '外す',
+    tooLow: 'レベル{n}が必要。',
+    worn: '身につけている。売るには外そう。',
+    versus: '{item}と比較',
+    hint: 'アイテムをタップして確認。もう一度タップするか、スロットへドラッグで装備。',
+    empty: 'この種類のものはバッグにない。',
+    slotEmpty: '{slot}：なし',
+    slotHolds: '{slot}：{item}',
+    filter: {
+      all: 'すべて',
+      weapons: '武器',
+      armor: '防具',
+      trinkets: '装飾品'
+    },
+    sort: {
+      slot: '種類',
+      tier: 'ティア',
+      level: 'レベル'
+    },
+    sortBy: '並び順：{by}'
   },
-  'talk': {
-    'goal': '{zone}で決着がつく。'
-  },
-  'faction': {
-    'order': '鉄の騎士団',
-    'syndicate': '灰のシンジケート',
-    'circle': 'エーテル結社'
-  },
-
-  'npc': {
-    'sunfordSmith': { 'name': '鍛冶屋のブラム', 'talk': '飾り気のない鋼を、まっとうな値段で。ゴブリンくらいは追い払えるさ。' },
-    'sunfordPeddler': { 'name': '行商人のティリー', 'talk': '指輪！お守り！拾っただけで、ぜったい盗んでない品だよ。' },
-    'trainerAegis': { 'name': 'サー・アルドリック' },
-    'trainerPyro': { 'name': 'エンバー・レン' },
-    'elderMara': { 'name': 'マーラ長老', 'talk': '今日は街道を守ってくれたね。平原がこんなに静かなのは一年ぶりだよ。' },
-    'sunfordHealer': { 'name': 'シスター・ルーン' },
-    'goblinTrader': { 'name': '商人のグリク', 'talk': '王さま、とりひきしろ言う。だからグリク、とりひきする。ピカピカとピカピカ、こうかん。いいピカピカ。' },
-    'captainHale': { 'name': 'ヘイル隊長', 'talk': 'オークヘイヴンは三百年守られてきた。それを失った隊長になるつもりはない。' },
-    'oakArmorer': { 'name': '防具屋のオド', 'talk': '在庫の半分は城壁の上に持っていかれた。残りを持っていけ。' },
-    'oakMasterArmorer': { 'name': 'オド親方', 'talk': 'あんたはこの町を救った。奥の部屋のいい鎧を出してこよう。' },
-    'oakWeapons': { 'name': '刃物屋のセナ', 'talk': '鋭くて、バランスがよくて、払ってくれる人に売る。今日はあなたね。' },
-    'trainerShadow': { 'name': '「ささやき」' },
-    'trainerSovereign': { 'name': 'カステラン卿' },
-    'oakHealer': { 'name': 'ブラザー・フェン' },
-    'blackMarket': { 'name': '故買屋', 'talk': '名前は聞かない、質問もしない。シンジケートが取り分を取り、あんたは品物を取る。' },
-    'trainerBlood': { 'name': 'サングレル博士' },
-    'syndicateBoss': { 'name': 'マダム・アッシュ', 'talk': 'オークヘイヴンが私たちのものになったのは、あなたのおかげ。シンジケートは友を忘れない。借りもね。' },
-    'forgemaster': { 'name': '鍛冶頭ドルン', 'talk': '鉄を掘っていたら、心臓を掘り当てた。暗い底で脈打っていて、ゴーレムはその鼓動に合わせて歩くんだ。' },
-    'ironWeapons': { 'name': '鉄槌のヒルダ', 'talk': 'ドワーフが鍛えた品だ。壊れたなら、あんたのせいさ。' },
-    'ironAetherWorks': { 'name': '細工師ヴォス', 'talk': '結社がコアを研究して、すべてが変わった。これを持って。こっちに向けないで。' },
-    'ironArmor': { 'name': '鉄腹のガルン', 'talk': '巨人の棍棒もはじく板金鎧だ。ほかの連中には指輪もある。' },
-    'ironOrderArmor': { 'name': '騎士団の補給係', 'talk': '騎士団は、誰がコアを壊したかを覚えている。武具庫はあなたに開かれている。' },
-    'trainerGeo': { 'name': '石足じいさん' },
-    'trainerAether': { 'name': '歯車技師ピム' },
-    'ironHealer': { 'name': 'マザー・ブリュンヤ' },
-    'exiledSovereign': { 'name': '追放されたカステラン卿' },
-    'trainerChrono': { 'name': '時の番人' }
-  },
-
-  'quest': {
-    'final': 'この選択はやり直せない。',
-    'needsRep': '{faction}の評判 {n}',
-    'gold': '+{n} ゴールド',
-    'goblinKing': {
-      'title': 'ゴブリンキング',
-      'intro': '襲撃は洞穴からやって来る。ゴブリンたちがそこで王を立てたんだ。やり方は任せるから、終わらせておくれ。',
-      'ask': 'まって！まって。王さま、こうさん！ゴブリン、はらぺこだから おそうだけ。のっぽと王さま、とりひきする？',
-      'slay': { 'label': '王の支配を終わらせる。', 'result': '王は倒れ、洞穴のゴブリンは散り散りになった。サンフォードは安心して眠り、鉄の騎士団があなたに目をとめる。' },
-      'pact': { 'label': 'サンフォードとの交易協定を持ちかける。', 'result': '剣にできないことを、巧みな言葉がやってのけた。ゴブリンの商人がサンフォードの広場に店を出し、町の鍛冶屋には作れない品を並べる。' },
-      'ransom': { 'label': '財宝をもらい、王冠は残してやる。', 'result': 'ゴブリンの金でずっしり重い袋を抱えて外へ出る。襲撃はまた始まるが、それはサンフォードの問題だ。シンジケートは満足している。' }
-    },
-    'siege': {
-      'title': 'オークヘイヴン包囲戦',
-      'intro': '戦将の軍勢がオークヘイヴンを取り囲んでいる。その軍に金を出したのは灰のシンジケートだ。郊外で包囲を破れ。',
-      'ask': 'いい腕だ。シンジケートは、あの町よりずっと気前がいい。今夜、門を開けてくれ。そうすればオークヘイヴンの三分の一はお前のものだ。',
-      'defend': { 'label': 'オークヘイヴンを守る。', 'result': '門は持ちこたえた。オークヘイヴンは壁の内側で豊かになり、腕利きの防具職人たちはあなたの名を忘れない。灰のシンジケートは今や、あらゆる道であなたを狙う。' },
-      'betray': { 'label': 'シンジケートのために門を開ける。', 'result': 'オークヘイヴンは燃えた。廃墟には闇市が開き、禁じられた術を教える錬金術師が現れる。防具職人たちは去り、鉄の騎士団はあなたを裏切り者と呼ぶ。' }
-    },
-    'core': {
-      'title': 'アイアンホールドの心臓',
-      'intro': 'エーテルコアが鉱山のゴーレムを動かしている。三つの勢力がそれを欲しがり、どこも私に手紙をよこした。最初にたどり着くのは君だ。',
-      'ask': 'コロッサスは鉄くずになり、目の前でコアがむき出しのままうなっている。触れると温かい。これをどうする？',
-      'destroy': { 'label': 'コアを砕く。', 'result': '光が消え、ゴーレムはその場に崩れ落ちた。鉄の騎士団は感謝のしるしに、自分たちの防具職人をアイアンホールドへ送る。' },
-      'study': { 'label': '結社に渡して研究させる。', 'result': '安全に引き渡せるくらいには、あなたもコアを理解している。ひと季節のうちに、アイアンホールドの炉は誰も見たことのないエーテル細工を生み出す。' },
-      'sell': { 'label': 'シンジケートに売る。', 'result': '大金が動いた。コアはあるべきでない場所で光り続け、鉱山に静けさが戻ることは二度とない。' }
-    },
-    'oracle': {
-      'title': '沈んだ神託の巫女',
-      'ask': 'この瞬間を一万回見ました。その半分であなたは私を解き放ち、半分では私の守るものを奪う。選びなさい。そしてようやく、この先を知らない私にしてください。',
-      'free': { 'label': '鎖を断ち切る。', 'result': '巫女は水の中を昇り、姿を消した。エーテル結社はあなたをよく言うだろう。彼女の時の番人は残り、教えを授ける。' },
-      'slay': { 'label': '彼女が守る砂時計を奪う。', 'result': '彼女は抗わない。時守の砂時計はあなたのものだ。最後の弟子は神殿から逃げ出し、結社はあなたを許さない。' }
-    },
-    'dragon': {
-      'title': '虚無の竜',
-      'ask': 'もうよい。牙を持っているな、小さき者よ。要塞の悪魔は我が同族を鎖につないだ。奴が燃えるのを見たい。我を殺すか、それとも我に手伝わせるか。',
-      'slay': { 'label': '竜を討つ。', 'result': '竜が倒れ、山が震える。鉄の騎士団は竜殺しを歌にし、竜の財宝はあなたのものになる。' },
-      'pact': { 'label': 'アークデーモンを倒す盟約を結ぶ。', 'result': '竜を説き伏せられる者はそういない。あなたが恐怖の要塞へ進むとき、竜は頭上の空にいる。' }
-    },
-    'throne': {
-      'title': '空の玉座',
-      'ask': 'アークデーモンは死に、玉座は空いている。そこに座る者が、要塞とその下の裂け目、そして両方の軍勢を従える。扉の前で三人の使者が待っている。',
-      'order': { 'label': '玉座を鉄の騎士団に渡す。', 'result': '騎士団は要塞に兵を置き、封じられるものは封じる。王国は安全になる。そして、何をすべきか指図されるようになる。' },
-      'syndicate': { 'label': '玉座を灰のシンジケートに渡す。', 'result': 'シンジケートは夜明け前に入りこむ。今では何もかもが売り物だ。平和さえも。' },
-      'circle': { 'label': '玉座をエーテル結社に渡す。', 'result': '結社は要塞を、裂け目の上の学校に変える。彼らはそれを研究と呼ぶ。ほかの誰もが、時間の問題だと言う。' },
-      'shatter': { 'label': '玉座を砕く。', 'result': 'あなたは自分の手で玉座を壊す。ここから支配する者はもう現れない。使者たちは何も言わずに去る。' },
-      'claim': { 'label': '自分で座る。', 'result': '冷たい。そして、ぴったりだ。三つの勢力は、共通の敵ができたことに気づく。' }
+  shop: {
+    buy: '買う',
+    sell: '売る',
+    owned: '所持',
+    empty: '今日は棚に何もない。',
+    goods: '売り物',
+    price: '値段',
+    value: '買取額',
+    hint: '棚かバッグの品をタップするか、ドラッグでテーブルに置こう。',
+    buyBack: '本日売却分',
+    buyBackOne: '買い戻す',
+    deal: '成立！',
+    say: {
+      buy: 'いい選択だ。大事にしなよ。',
+      sell: 'いい持ち主を見つけてやるよ。',
+      back: '気が変わったかい？ほら、そのままだよ。',
+      poor: 'もっと重い財布で出直しておいで。'
     }
   },
-
-  'enemy': {
-    'goblin': 'ゴブリン',
-    'goblinSlinger': 'ゴブリン投石兵',
-    'bandit': '山賊',
-    'banditArcher': '山賊の弓兵',
-    'wolf': '狼',
-    'banditChief': '山賊の頭',
-    'goblinKing': 'ゴブリンキング',
-    'treant': 'トレント',
-    'spider': '大グモ',
-    'broodSpider': '子グモ',
-    'outlawCaptain': '無法者の隊長',
-    'elderTreant': 'エルダートレント',
-    'warlord': '戦将クラッグ',
-    'fireElemental': 'ファイアエレメンタル',
-    'ironGolem': 'アイアンゴーレム',
-    'cultist': '教団員',
-    'emberLord': '残り火の王',
-    'ironColossus': 'アイアンコロッサス',
-    'frostGiant': 'フロストジャイアント',
-    'naga': 'ナーガ',
-    'skeleton': 'スケルトン',
-    'necromancer': 'ネクロマンサー',
-    'frostJarl': '霜の族長',
-    'nagaOracle': '沈んだ神託の巫女',
-    'voidStalker': 'ヴォイドストーカー',
-    'wyvern': 'ワイバーン',
-    'highDemon': 'ハイデーモン',
-    'voidWarden': '虚無の番人',
-    'voidDragon': '虚無の竜',
-    'doomKnight': 'ドゥームナイト',
-    'imp': 'インプ',
-    'archDemon': 'アークデーモン',
-    'voidling': 'ヴォイドリング',
-    'voidLord': '虚無の王',
-    'orderGuard': '騎士団の審問官',
-    'syndicateBlade': 'シンジケートの刺客'
-  },
-
-  'results': {
-    'victory': '勝利！',
-    'defeat': '敗北',
-    'retreat': '撤退',
-    'firstClear': '初クリア！',
-    'waves': '生き残ったウェーブ：{n}',
-    'levelUp': 'レベル{n}！',
-    'points': '能力ポイント+{n}',
-    'xp': '経験値',
-    'gold': 'ゴールド',
-    'lost': '失った分',
-    'kills': '撃破数',
-    'chests': '宝箱',
-    'time': 'タイム',
-    'unlocked': 'マップに追加：{places}',
-    'retry': 'もう一度',
-    'tip': '経験値と戦利品はそのまま残る。ポイントを振り、師範を訪ねて、強くなって戻ってこよう。'
-  },
-  'pause': {
-    'title': 'ポーズ中',
-    'resume': '再開',
-    'controls': '操作方法',
-    'retreat': 'マップへ撤退',
-    'retreatNote': 'ここまでに得たものは残るが、ゾーンはクリアにならない。'
-  },
-  'ending': {
-    'level': 'レベル',
-    'more': '要塞の下で虚無の裂け目が開いた。コロシアムは今も挑戦者を待っている。',
-    'order': { 'title': '鉄の平和', 'text': '恐怖の要塞に鉄の騎士団の旗がひるがえる。街道は安全で、掟は山ほどあり、門の上にはあなたの名が刻まれている。' },
-    'syndicate': { 'title': '灰の取引', 'text': 'シンジケートは要塞の影から王国を治める。もう禁じられたものは何もない。ただ、高くつくだけだ。' },
-    'circle': { 'title': 'エーテルの時代', 'text': '結社は捕らえた虚無の炎で要塞を照らす。門からは驚異があふれ出し、その代償を問う者はいない。' },
-    'free': { 'title': '王はいらない', 'text': '玉座は砕け、要塞は空っぽだ。長い時代のなかで初めて、王国はそこに暮らす人々のものになった。' },
-    'unbound': { 'title': '縛られざる者', 'text': 'あなたは玉座を手にした。騎士団、シンジケート、結社が手を組んで攻めてくる。来るなら来い。' },
-    'note': {
-      'goblinPact': 'ゴブリンの商人は今もサンフォードの広場で値切り合っている。',
-      'goblinSlain': '洞穴は空っぽになり、隊商は時間どおりに走る。',
-      'goblinRansom': 'ゴブリンキングはまた金持ちになり、また襲撃を始めた。',
-      'oakhavenSaved': 'オークヘイヴンの城壁は高くなり、市場はにぎわいを増した。',
-      'oakhavenFallen': 'オークヘイヴンの通りには雑草が生えている。闇市は大繁盛だ。',
-      'coreOrder': 'アイアンホールドの鉱山は静かになり、ドワーフはまた掘りはじめた。',
-      'coreCircle': 'アイアンホールドの炉は青く輝き、その銃は王国一だ。',
-      'coreSold': 'どこかで、コアは今もうなっている。ゴーレムは今も歩いている。',
-      'oracleFreed': '穏やかな日には、漁師たちがはるか沖に巫女の姿を見る。',
-      'oracleSlain': '沈んだ神殿は静まり返っている。この先を知る者はもういない。',
-      'dragonPact': '要塞の屋根に竜が巣を作った。竜が応える名はただひとつ。',
-      'dragonSlain': '騎士団の大広間に竜の頭骨が飾られている。'
+  trainer: {
+    learn: '習得',
+    known: '習得済み',
+    friend: '{faction}は友を大切にする：20%引き。',
+    fee: '料金',
+    hint: 'レッスンを選ぼう。縁が緑なら今すぐ習得できる。',
+    block: {
+      level: 'レベルが足りない。',
+      attrs: '能力値が足りない。',
+      gold: 'ゴールドが足りない。'
     }
   },
-
-  'options': {
-    'gameplay': 'ゲームプレイ',
-    'title': '設定',
-    'general': '一般',
-    'audio': 'オーディオ',
-    'language': '言語',
-    'difficulty': '難易度',
-    'soundEffects': '効果音',
-    'music': '音楽',
-    'mute': 'ミュート',
-    'musicTrack': '楽曲',
-    'musicTracks': {
-      'cozy': '穏やか',
-      'trance': '冒険'
-    },
-    'haptics': 'バイブレーション',
-    'on': 'オン',
-    'off': 'オフ',
-    'close': '閉じる',
-    'keyboard': {
-      'auto': 'キーボード配列を自動検出',
-      'layout': 'キーボード配列',
-      'detected': '検出: {layout}',
-      'bindings': 'キー割り当て',
-      'press': 'キーを押してください…（Escでキャンセル）',
-      'reset': 'キーをリセット'
-    },
-    'actions': {
-      'up': '上へ移動',
-      'down': '下へ移動',
-      'left': '左へ移動',
-      'right': '右へ移動',
-      'skill1': 'スキル1',
-      'skill2': 'スキル2',
-      'skill3': 'スキル3',
-      'skill4': 'スキル4',
-      'skill5': 'スキル5',
-      'skill6': 'スキル6',
-      'potion': 'ポーションを飲む',
-      'manaPotion': 'マナポーションを飲む',
-      'leave': '勝利したエリアを去る',
-      'interact': '話す',
-      'target': '次のターゲット',
-      'map': 'ワールドマップ',
-      'character': 'ヒーロー',
-      'inventory': 'バッグ',
-      'skills': 'スキル'
-    },
-    'difficulties': {
-      'easy': 'イージー',
-      'medium': 'ノーマル',
-      'hard': 'ハード'
-    },
-    'difficultyHints': {
-      'easy': '敵の攻撃が弱く、倒れやすい。',
-      'medium': '想定どおりの手ごたえ。',
-      'hard': '敵がタフになり、攻撃も痛い。'
+  healer: {
+    talk: 'お座りなさい。休みなさい。ここを出るときは傷ひとつなく、フラスコも満タンです。もっと持ち歩きたいなら、お売りしますよ。',
+    note: 'どのゾーンにもポーションを{n}個持っていける。',
+    buy: 'フラスコを追加 · {n}',
+    full: 'ベルトはもういっぱいです。',
+    belt: 'ポーションベルト',
+    mana: {
+      title: 'マナポーション',
+      note: '在庫：{n}/{max}個。次に来るときも持ち越せる。',
+      buy: 'マナポーション1個 · {n}',
+      full: 'もう持てません。'
     }
   },
-  'adsBlocked': {
-    'title': '広告を表示できませんでした',
-    'body': '動画を表示しようとしましたが、ブラウザの何かが広告をブロックしています。',
-    'allowPrefix': '次のサイトで広告を許可してください：',
-    'allowSuffix': '（またはこのゲームのみ広告ブロッカーを一時停止）してから再試行してください。',
-    'gotIt': 'わかりました'
+  faction: {
+    order: '鉄の騎士団',
+    syndicate: '灰のシンジケート',
+    circle: 'エーテル結社'
   },
-  'saveStatus': {
-    'restoredTitle': 'クラウドセーブを復元しました',
-    'restoredBody': '復元ボーナス +{n} ゴールド',
-    'tap': 'タップ',
-    'pausedTitle': 'クラウド同期を一時停止中',
-    'pausedBody': 'オフラインでプレイ中です。進行状況はここに保存されます。',
-    'retry': '再試行',
-    'dismiss': '閉じる'
+  npc: {
+    sunfordSmith: {
+      name: '鍛冶屋のブラム',
+      talk: '飾り気のない鋼を、まっとうな値段で。ゴブリンくらいは追い払えるさ。'
+    },
+    sunfordPeddler: {
+      name: '行商人のティリー',
+      talk: '指輪！お守り！拾っただけで、ぜったい盗んでない品だよ。'
+    },
+    trainerAegis: {
+      name: 'サー・アルドリック'
+    },
+    trainerPyro: {
+      name: 'エンバー・レン'
+    },
+    elderMara: {
+      name: 'マーラ長老'
+    },
+    sunfordHealer: {
+      name: 'シスター・ルーン'
+    },
+    goblinTrader: {
+      name: '商人のグリク',
+      talk: '王さま、とりひきしろ言う。だからグリク、とりひきする。ピカピカとピカピカ、こうかん。いいピカピカ。'
+    },
+    captainHale: {
+      name: 'ヘイル隊長'
+    },
+    oakArmorer: {
+      name: '防具屋のオド',
+      talk: '在庫の半分は城壁の上に持っていかれた。残りを持っていけ。'
+    },
+    oakMasterArmorer: {
+      name: 'オド親方',
+      talk: 'あんたはこの町を救った。奥の部屋のいい鎧を出してこよう。'
+    },
+    oakWeapons: {
+      name: '刃物屋のセナ',
+      talk: '鋭くて、バランスがよくて、払ってくれる人に売る。今日はあなたね。'
+    },
+    trainerShadow: {
+      name: '「ささやき」'
+    },
+    trainerSovereign: {
+      name: 'カステラン卿'
+    },
+    oakHealer: {
+      name: 'ブラザー・フェン'
+    },
+    blackMarket: {
+      name: '故買屋',
+      talk: '名前は聞かない、質問もしない。シンジケートが取り分を取り、あんたは品物を取る。'
+    },
+    trainerBlood: {
+      name: 'サングレル博士'
+    },
+    syndicateBoss: {
+      name: 'マダム・アッシュ'
+    },
+    forgemaster: {
+      name: '鍛冶頭ドルン'
+    },
+    ironWeapons: {
+      name: '鉄槌のヒルダ',
+      talk: 'ドワーフが鍛えた品だ。壊れたなら、あんたのせいさ。'
+    },
+    ironAetherWorks: {
+      name: '細工師ヴォス',
+      talk: '結社がコアを研究して、すべてが変わった。これを持って。こっちに向けないで。'
+    },
+    ironArmor: {
+      name: '鉄腹のガルン',
+      talk: '巨人の棍棒もはじく板金鎧だ。ほかの連中には指輪もある。'
+    },
+    ironOrderArmor: {
+      name: '騎士団の補給係',
+      talk: '騎士団は、誰がコアを壊したかを覚えている。武具庫はあなたに開かれている。'
+    },
+    trainerGeo: {
+      name: '石足じいさん'
+    },
+    trainerAether: {
+      name: '歯車技師ピム'
+    },
+    ironHealer: {
+      name: 'マザー・ブリュンヤ'
+    },
+    exiledSovereign: {
+      name: '追放されたカステラン卿'
+    },
+    trainerChrono: {
+      name: '時の番人'
+    }
   },
-  'loading': {
-    'tooLong': '読み込みが長すぎますか？ 広告ブロッカーを無効にして再読み込みしてください。'
+  quest: {
+    final: 'この選択はやり直せない。',
+    needsRep: '{faction}の評判 {n}',
+    gold: '+{n} ゴールド',
+    goblinKing: {
+      title: 'ゴブリンキング',
+      slay: {
+        label: '王の支配を終わらせる。'
+      },
+      pact: {
+        label: 'サンフォードとの交易協定を持ちかける。'
+      },
+      ransom: {
+        label: '財宝をもらい、王冠は残してやる。'
+      }
+    },
+    siege: {
+      title: 'オークヘイヴン包囲戦',
+      defend: {
+        label: 'オークヘイヴンを守る。'
+      },
+      betray: {
+        label: 'シンジケートのために門を開ける。'
+      }
+    },
+    core: {
+      title: 'アイアンホールドの心臓',
+      destroy: {
+        label: 'コアを砕く。'
+      },
+      study: {
+        label: '結社に渡して研究させる。'
+      },
+      sell: {
+        label: 'シンジケートに売る。'
+      }
+    },
+    oracle: {
+      title: '沈んだ神託の巫女',
+      free: {
+        label: '鎖を断ち切る。'
+      },
+      slay: {
+        label: '彼女が守る砂時計を奪う。'
+      }
+    },
+    dragon: {
+      title: '虚無の竜',
+      slay: {
+        label: '竜を討つ。'
+      },
+      pact: {
+        label: 'アークデーモンを倒す盟約を結ぶ。'
+      }
+    },
+    throne: {
+      title: '空の玉座',
+      order: {
+        label: '玉座を鉄の騎士団に渡す。'
+      },
+      syndicate: {
+        label: '玉座を灰のシンジケートに渡す。'
+      },
+      circle: {
+        label: '玉座をエーテル結社に渡す。'
+      },
+      shatter: {
+        label: '玉座を砕く。'
+      },
+      claim: {
+        label: '自分で座る。'
+      }
+    }
   },
-  'license': {
-    'denied': 'アクセスが拒否されました：ライセンスをご購入ください。'
+  dlg: {
+    smalltalkSunford: {
+      weather: {
+        '1': '今夜は雨だな。膝がそう言ってる。',
+        '2': '先週も言ってたぞ、その膝。',
+        '3': 'で、降っただろ？どこかでな。'
+      },
+      harvest: {
+        '1': 'ここ数年で一番のいい大麦だ。',
+        '2': '毎年そう言ってるじゃない。'
+      },
+      goblins: {
+        '1': 'ミラー農場の鶏が三羽、ゴブリンにさらわれたよ。',
+        '2': 'たった三羽？怠け者になったな。',
+        '3': 'それか、おなかいっぱいか。'
+      },
+      kingGone: {
+        '1': 'ゴブリンキングはもういないらしいよ。',
+        '2': 'じゃあ、うちのカブを盗んでるのは誰だい？'
+      },
+      pact: {
+        '1': '今日、ゴブリンにスプーンを売りつけられたよ。',
+        '2': 'それ、あんたのスプーンかい？',
+        '3': 'そうなんだ。でも、いい値段だった。'
+      },
+      bram: {
+        '1': 'ブラムがまた叩いてる。夜明けからずっとだ！',
+        '2': '心臓みたいに一定だな、あの男は。'
+      },
+      pie: {
+        '1': 'アップルパイの匂いがしないか？',
+        '2': 'したよ。過去形でね。',
+        '3': '全部食べたのか？また？'
+      },
+      road: {
+        '1': '平原の街道は、もう誰も通らないな。',
+        '2': '山賊がいるんじゃ、通れないよ。'
+      },
+      hero: {
+        '1': '誰かが平原の街道を片づけたぞ！',
+        '2': 'やっとか。いとこが荷車を返す約束なんだ。'
+      }
+    },
+    smalltalkOakhaven: {
+      prices: {
+        '1': 'キャベツ一個が銀貨二枚。二枚だよ！',
+        '2': 'とても立派なキャベツだもの。',
+        '3': 'そこまで立派じゃないよ。'
+      },
+      watch: {
+        '1': '衛兵隊が門番を倍にしたってさ。',
+        '2': 'いいことだ。おかげでよく眠れる。'
+      },
+      caravan: {
+        '1': '香辛料の隊商、また遅れてるな。',
+        '2': '山賊かい？',
+        '3': 'それか、御者が酒場を見つけたか。'
+      },
+      siege: {
+        '1': '郊外に軍隊が陣取ってるそうだよ。',
+        '2': 'なら、地下室に蓄えを増やさないと。'
+      },
+      saved: {
+        '1': '包囲が破れるところ、見たか？すごかった！',
+        '2': '私はベッドの下から見てたよ。',
+        '3': 'それでも見たことになる。'
+      },
+      fountain: {
+        '1': '幸運を願って噴水にコインを投げたの。',
+        '2': 'ぼくが拾ったよ。ありがとう！'
+      },
+      ash: {
+        '1': '何もかも灰の匂いがするね。',
+        '2': '何の匂いもしないよりましさ。'
+      },
+      hide: {
+        '1': '昨夜、外で足音がしなかった？',
+        '2': 'しっ。声を落として。',
+        '3': 'ごめん。ごめんね。'
+      },
+      bread: {
+        '1': 'パンが半分見つかったの。分けましょう。',
+        '2': 'あんたはいい人だね。ありがとう。'
+      }
+    },
+    smalltalkIronhold: {
+      ore: {
+        '1': '四層目に銅のいい鉱脈があるぞ。',
+        '2': '銅？おれは金がいい。',
+        '3': 'お前に要るのは昼寝だろ。'
+      },
+      forge: {
+        '1': '大炉は百年、火が消えたことがない。',
+        '2': 'じいちゃんのパイプもだ。'
+      },
+      beard: {
+        '1': 'ひげを切ったな！',
+        '2': '金床のそばで火がついてな。',
+        '3': '似合ってるぞ。'
+      },
+      core: {
+        '1': '深い坑道で、何かが光ってるらしい。',
+        '2': 'あそこで光るもんにろくなものはない。'
+      },
+      order: {
+        '1': '騎士団の防具職人は仕事が早いな。',
+        '2': '早いだけだ。おれたちほどの出来じゃない。'
+      },
+      circle: {
+        '1': '結社の魔道士は、働きながら鼻歌を歌うんだ。',
+        '2': 'おれたちの歌よりはましだろうよ。'
+      },
+      cold: {
+        '1': '今朝はここも冷えるな。',
+        '2': 'なら、炉のそばに寄れ。'
+      }
+    },
+    smalltalkKids: {
+      tag: {
+        '1': '鬼だよ！',
+        '2': 'ずるい、まだ準備してなかった！'
+      },
+      dragon: {
+        '1': '大きくなったらドラゴンに乗るんだ。',
+        '2': 'ドラゴンは乗せてくれないよ。',
+        '3': 'やさしい子なら乗せてくれるもん！'
+      },
+      sword: {
+        '1': '見て、本物の剣の棒だよ！',
+        '2': 'ただの棒じゃん。'
+      },
+      frog: {
+        '1': '井戸のそばでカエルを見つけたよ。',
+        '2': '飼ってもいい？',
+        '3': '飼われてるのは、ぼくたちの方かも。'
+      }
+    },
+    ui: {
+      overheard: '町の人',
+      hero: 'あなた',
+      leave: '会話を終える',
+      topics: '話すこと',
+      gotGold: '{n}ゴールドを受け取った',
+      gotItem: '入手：{item}',
+      hint: 'マップに印をつけた：{zone}',
+      needs: {
+        attr: '{attr}{n}が必要',
+        level: 'レベル{n}が必要',
+        rep: '{faction}の評判{n}が必要',
+        gold: '{n}ゴールドが必要',
+        full: 'これ以上持てない',
+        other: 'まだ早い'
+      }
+    },
+    hero: {
+      bye: '今はこれで十分だ。',
+      trade: '品物を見せてくれ。',
+      train: '教えてくれ。',
+      heal: '手当てを頼む。',
+      mana: 'マナを回復するものがほしい。',
+      who: 'あなたは誰？',
+      rumor: '最近、何か聞いた？',
+      ready: '次へ進む準備はできてる？'
+    },
+    sunfordSmith: {
+      hello: {
+        '1': 'む。見ない顔だな。平原の街道を守った奴か。',
+        '2': '俺はブラム。鋼を打ってる。あんた、鋼が要りそうだな。'
+      },
+      kingDead: {
+        '1': 'ゴブリンキングが死んだそうだな。結構。隊商の車輪の凹みを直す手間が減る。'
+      },
+      kingPact: {
+        '1': '広場でゴブリンが商売とはな。思いもしなかった。まあ、奴らの鉄はくずだが。'
+      },
+      kingRansom: {
+        '1': '王の金を取って王冠は残したそうだな。襲撃がまた来るぞ。'
+      },
+      ending: {
+        '1': '国中があの玉座の話ばかりだ。それでもうちで買うんだな。ふむ。'
+      },
+      again: {
+        '1': 'また来たか。いい。鋼はひとりでは売れん。'
+      },
+      trade: {
+        '1': '飾り気のない鋼を、まっとうな値で。好きなだけ見ていけ。'
+      },
+      who: {
+        '1': 'ブラムだ。この金床の前に三十年。',
+        '2': '馬の蹄鉄、鋤の修理、そしてあんたみたいな馬鹿への武器。この順だ。'
+      },
+      gear: {
+        '1': '殴られる気なら盾。殴られたくないなら、でかい剣だ。',
+        '2': '俺の鋼を振るのは筋力だ。重い物を買う前に、ポイントをそこへ振れ。',
+        say: '何を持っていけばいい？'
+      },
+      rumor: {
+        plains: {
+          '1': '平原の街道にゴブリンだ。洒落た物を買う前に片づけろ。'
+        },
+        hollows: {
+          '1': '襲撃者はゴブリンの洞穴から這い出てくる。平原の先だ。王は一番奥にいる。'
+        },
+        woods: {
+          '1': '平原の東にささやきの森が始まる。木が歩く森だ。斧を持っていけ。'
+        },
+        siege: {
+          '1': 'オークヘイヴンの方角に煙だ。郊外に戦将が陣を張ってるらしい。'
+        },
+        north: {
+          '1': 'アイアンホールドの鋼がまた街道に出回ってる。俺のよりいいのが欲しけりゃ、北へ行け。'
+        }
+      },
+      shopBack: {
+        '1': '達者で使え。いや、使えるだけでもいい。'
+      },
+      bye: {
+        '1': '道中、気をつけろ。'
+      }
+    },
+    sunfordPeddler: {
+      hello: {
+        '1': 'わあ、お客さん！それとも衛兵？衛兵じゃないよね？',
+        '2': 'あたしはティリー。指輪、お守り、幸運の品。ぜんぶ拾い物、盗んでないよ。'
+      },
+      rival: {
+        '1': 'グリクの屋台見た？ゴブリンの小物だって！あたし、もうおしまい。何か買って。かわいそうでしょ。'
+      },
+      again: {
+        '1': 'いちばんのお得意さん！みんなに言ってるけど、あなたには本気だよ。'
+      },
+      trade: {
+        '1': '指輪！お守り！拾った物、盗んだ物じゃないよ、絶対。'
+      },
+      who: {
+        '1': '街道を歩いて、街道が落としていった物を拾うの。',
+        '2': '山賊って、逃げるときにいちばんいい物を落とすんだよね。'
+      },
+      trinkets: {
+        '1': '両手に一つずつ、二つまで着けられるよ。ちょっとの差でも、差は差。',
+        say: '装飾品って何の役に立つの？'
+      },
+      stolen: {
+        '1': 'しーっ！声が大きい。わかった。わかったってば。',
+        '2': 'この指輪をあげるから、話はなかったことに。いい指輪だよ。ほとんど銅だけど。',
+        say: 'これ全部、盗んだんでしょ？'
+      },
+      rumor: {
+        arenaShut: {
+          '1': 'ここの南にコロシアムがあるの。門は錆びて閉まったまま。ゴブリン騒ぎが終われば開くんだって。'
+        },
+        arenaOpen: {
+          '1': 'コロシアムが開いたよ！全八ウェーブだって。あたしは幸運を売ってる。あなたには要るよ。'
+        },
+        east: {
+          '1': 'オークヘイヴンの市場は、ぴかぴかなら何でも倍で買うよ。森の先、東へどうぞ。'
+        }
+      },
+      shopBack: {
+        '1': 'お金持ちになったらまた来てね！'
+      },
+      bye: {
+        '1': 'ポケットに気をつけてね！あたしの近くじゃなくて、よそでだよ。'
+      }
+    },
+    trainerAegis: {
+      hello: {
+        '1': '背筋を伸ばせ。鉄の騎士団の騎士の前だぞ。',
+        '2': 'サー・アルドリックだ。人の前に立つ者に、盾を教えている。'
+      },
+      saved: {
+        '1': 'オークヘイヴンが立っているのは、君が立ったからだ。私が教えるのはそれがすべてだ。'
+      },
+      fallen: {
+        '1': '君はオークヘイヴンの門を開けた。それより軽い罪で、私は人を葬った。用件を言え。'
+      },
+      dragon: {
+        '1': 'ドラゴンスレイヤーが私の訓練場に。大広間で歌われるだろう。'
+      },
+      friend: {
+        '1': '騎士団は君をよく言っている。友には授業料を安くしよう。'
+      },
+      foe: {
+        '1': '騎士団は君を敵とした。それでも教えよう。名誉は奴らが取り消せるものではない。'
+      },
+      again: {
+        '1': '盾を構えろ。何が要る？'
+      },
+      train: {
+        '1': 'では集中しろ。一度しか見せない。'
+      },
+      class: {
+        '1': '歩く壁だ。ほかの誰も傷つかぬよう、一撃を引き受ける。',
+        '2': '腕には筋力、あとは耐久力。光は、できる限りを尽くす。',
+        say: 'イージスナイトとは？'
+      },
+      ready: {
+        strong: {
+          '1': '私の技の大半を振るえる腕だ。耐久力に気をつけて、残りも学べ。'
+        },
+        able: {
+          '1': '次の授業へ進める。いい気になるなよ。'
+        },
+        weak: {
+          '1': 'まだだ。腕は弱く、すぐ疲れる。筋力と耐久力を上げてこい。'
+        }
+      },
+      order: {
+        '1': '我らは街道と法を守る。両方やりすぎだと言う者もいるがな。',
+        '2': '騎士団と共に立てば、その防具職人も師範も君を忘れない。',
+        say: '鉄の騎士団について教えて。'
+      },
+      trainBack: {
+        '1': '飽きるまで練習しろ。それから、もっと練習しろ。'
+      },
+      bye: {
+        '1': '光と共にあれ。'
+      }
+    },
+    trainerPyro: {
+      hello: {
+        '1': 'わっ！生徒？ちょっと下がって。もうちょっと。',
+        '2': 'パイロマンサーのエンバー・レンよ。眉毛は、たいてい生えてくるわ。'
+      },
+      core: {
+        '1': 'コアを結社に渡したのね！これで燃やせるものがどれだけ増えたか、わかる？'
+      },
+      friend: {
+        '1': 'エーテル結社に気に入られてるのね！割引よ。書く書類も減るわ。'
+      },
+      foe: {
+        '1': '結社はあなたを灰にしたいって。気まずい！でも教えるわ。火は選り好みしないもの。'
+      },
+      again: {
+        '1': '戻ったのね！しかも何も燃えてない。直しましょ。'
+      },
+      train: {
+        '1': 'いいわよ！よく見て。そんなに近くじゃなくて。'
+      },
+      class: {
+        '1': '火はどんな問いにも答えるの。まず燃やして、燃えてるものを吹き飛ばす。',
+        '2': '全部、知力しだい。それと、ローブの安定した供給ね。',
+        say: 'パイロマンサーって何をするの？'
+      },
+      ready: {
+        strong: {
+          '1': 'ゴーレムも溶かせるわよ！私の技を全部あげる。難しいのは技量に気をつけて。'
+        },
+        able: {
+          '1': '頭が十分あったまったわ。次の呪文へ、行くわよ！'
+        },
+        weak: {
+          '1': 'うーん。まだ知力が足りないわ。火があなたを使っちゃう、逆じゃなくてね。'
+        }
+      },
+      circle: {
+        '1': '学者よ。世界が何でできてるかを研究してるの。ときどき爆発するけど。',
+        say: 'エーテル結社って誰？'
+      },
+      trainBack: {
+        '1': 'さあ、何か燃やしてきて！燃やされて当然のものをね。'
+      },
+      bye: {
+        '1': 'あったかくしてね！'
+      }
+    },
+    elderMara: {
+      hello: {
+        '1': 'おまえさんが街道から来た人かい。近くへおいで、目がもう昔のようじゃなくてね。',
+        '2': 'マーラだよ。四十年、この町の帳簿と平和を預かってきたのさ。'
+      },
+      slain: {
+        '1': '洞穴は静かだよ。つらいことをしてくれたね。サンフォードが眠れるのはそのおかげだよ。'
+      },
+      pact: {
+        '1': '広場でゴブリンが小物を売ってるよ。口が上手だね、おまえさん。続くといいけれど。'
+      },
+      ransom: {
+        '1': 'あの王の金を取って、王冠は残したんだね。がっかりしていないふりをするには、年を取りすぎたよ。'
+      },
+      saved: {
+        '1': 'オークヘイヴンから知らせが来たよ。門は持ちこたえた。うちの者がそこにいてくれてうれしいね。'
+      },
+      fallen: {
+        '1': 'オークヘイヴンが焼けて、おまえさんが火をつけたと聞いたよ。言わなくていい。知りたくないからね。'
+      },
+      ending: {
+        '1': '恐怖の要塞に誰が座るか、おまえさんが決めたそうだね。サンフォードの街道から、そこまで。驚いたよ。'
+      },
+      again: {
+        '1': 'ちょっと座っておいき。道は待ってくれるよ。'
+      },
+      reward: {
+        '1': 'うちの民兵にはできなかった街道を、おまえさんは守ってくれた。町で寄付を集めたよ。',
+        '2': '多くはないよ。出せるだけの全部さ。',
+        say: '私に会いたいと聞いたけど？'
+      },
+      quest: {
+        '1': '襲撃はゴブリンの洞穴から来るんだよ。ゴブリンたちが王を立てたのさ。',
+        '2': 'つまり、王を倒してほしいと。',
+        '3': '襲撃が終わってほしいだけさ。どうやるかは、あの洞穴の底で、おまえさんが決めておくれ。',
+        '4': '洞穴は平原のすぐ向こうだよ。気をつけて行くんだよ。',
+        say: 'サンフォードは何に困っているの？'
+      },
+      king: {
+        say: 'ゴブリンキングのことだけど…',
+        slay: {
+          '1': '王が死んで、隊商も時間どおりだよ。どんな気分だったかは聞かないでおくね。'
+        },
+        pact: {
+          '1': '協定だって！うちの母が見たら卒倒したよ。でも、葬式より商売のほうがいいね。'
+        },
+        ransom: {
+          '1': '金はすぐ使えてしまうけど、恨みは消えないよ。襲撃が戻ったら、思い出しておくれ。'
+        }
+      },
+      town: {
+        '1': 'ほとんど農家だよ。鍛冶屋と治療師、それと私たちに付き合ってくれる先生が二人。',
+        '2': 'ここで休んで、ポイントを使って、強くなってまた出ておいき。家ってのは、そのためにあるんだよ。',
+        say: 'サンフォードについて教えて。'
+      },
+      next: {
+        say: '次はどこへ行けばいい？',
+        plains: {
+          '1': 'まず平原の街道だよ。隊商が通れなければ、私たちは食べていけないからね。'
+        },
+        hollows: {
+          '1': 'まずゴブリンの洞穴だよ。襲撃が続くうちは、ほかは安全じゃないからね。'
+        },
+        woods: {
+          '1': '東の、ささやきの森を抜けるんだよ。オークヘイヴンへの道は、あの木々の下を通っているよ。'
+        },
+        oakhaven: {
+          '1': 'オークヘイヴンは包囲されているよ。郊外が落ちれば、町も落ちるからね。'
+        },
+        north: {
+          '1': '北だよ。灰の岩山、その先がアイアンホールド。進むほど、事は大きくなるよ。'
+        }
+      },
+      bye: {
+        '1': '生きて帰っておいで。私が誰にでも願うのは、それだけだよ。'
+      }
+    },
+    sunfordHealer: {
+      hello: {
+        '1': '動かないで。ううん、大丈夫ね。くせなの。',
+        '2': 'シスター・ルーンよ。道が壊したものを直しているの。'
+      },
+      again: {
+        '1': 'まだ五体満足？ちょっと残念だわ。'
+      },
+      heal: {
+        '1': '座って。休んで。ここを出るときは傷ひとつなく、フラスコも全部満タンよ。'
+      },
+      mana: {
+        '1': '青いフラスコ、苦い味よ。呪文が尽きたときにひと口どうぞ。'
+      },
+      potions: {
+        '1': 'どのゾーンにもフラスコを数個持っていけるわ。必要になってからじゃなく、なる前に飲むのよ。',
+        '2': 'もっと持ちたいなら、長いベルトを売ってあげる。',
+        say: 'ポーションはどう使うの？'
+      },
+      rumor: {
+        goblins: {
+          '1': 'ゴブリンは投石に毒を塗るの。緑色になったら、すぐ戻ってきてね。'
+        },
+        spiders: {
+          '1': '森のクモの咬み傷、今週は三件よ。咬まれないようにね。'
+        },
+        burns: {
+          '1': '北から兵隊がやけどで降りてくるの。灰の岩山ですって。歩く炎だとか。'
+        }
+      },
+      healBack: {
+        '1': 'ベルトは満タンに、頭は低くね。'
+      },
+      bye: {
+        '1': '大事な物に血をつけないでね。'
+      }
+    },
+    goblinTrader: {
+      hello: {
+        '1': 'のっぽ！のっぽ、協定むすんだ。王さま、のっぽにやさしくしろ言う。',
+        '2': 'グリク、やさしい。グリク、ピカピカある。のっぽ、おかねある。いい相性。'
+      },
+      again: {
+        '1': 'のっぽ、もどった！グリク、わかってた。ピカピカ、のっぽをよぶ。'
+      },
+      trade: {
+        '1': '王さま、とりひき言う。だからグリク、とりひき。ピカピカとピカピカ。いいピカピカ。'
+      },
+      king: {
+        '1': '王さま、ふとって、しあわせ。もうおそわない。おそうの、たいへん。',
+        '2': '王さま言う、のっぽ、いい舌。ゴブリンのいちばんのほめ言葉。ほとんど。',
+        say: '王さまは元気？'
+      },
+      town: {
+        '1': 'にんげん、洗いすぎ。でもパイ！グリク、パイ知らなかった。',
+        say: 'サンフォードは気に入った？'
+      },
+      rumor: {
+        crags: {
+          '1': 'グリクのいとこ、北の黒い岩を掘る。火が歩くって。グリクはここにいる。'
+        },
+        deep: {
+          '1': '深いところ、目をさます、のっぽ。ゴブリン、足でわかる。'
+        }
+      },
+      shopBack: {
+        '1': 'いいとりひき！のっぽ、また来る、うん？'
+      },
+      bye: {
+        '1': 'ばいばい、のっぽ！死ぬな。死んだやつ、なにも買わない。'
+      }
+    },
+    captainHale: {
+      hello: {
+        '1': 'また剣が一本か。結構。どこから来るのか、もう聞かないことにした。',
+        '2': 'ヘイル隊長だ。オークヘイヴンの衛兵隊の残りを預かっている。'
+      },
+      saved: {
+        '1': '門は持ちこたえた。三百年、そしてまた一度。町を救われた恩は忘れん。'
+      },
+      ending: {
+        '1': '恐怖の要塞の玉座は決まったか。うちの城壁が、前より小さく見える。'
+      },
+      again: {
+        '1': '城壁はまだ立っている。今日のところはな。'
+      },
+      after: {
+        '1': 'オークヘイヴンは覚えているぞ、友よ。俺もだ。'
+      },
+      quest: {
+        '1': '戦将の軍に囲まれている。クラッグだ。奴はただでは戦わん。',
+        '2': '誰が金を出しているの？',
+        '3': '灰のシンジケートだ。自分たちの町が欲しい。うちには城壁がある。',
+        '4': 'オークヘイヴン郊外で奴を叩け。勝負はそこで決まる。',
+        say: '状況はどうなってる？'
+      },
+      siege: {
+        '1': '町の三分の一を持ちかけられただろう。知っている。俺には四分の一だった。',
+        '2': 'シンジケートは今、どの道でも君を狙う。背後に気をつけろ。',
+        say: '包囲の件だけど…'
+      },
+      town: {
+        '1': '交易の町だ。平原と山のあいだを動く物はすべて、ここで通行料を払う。',
+        '2': 'だから皆が欲しがる。だから俺は手放さん。',
+        say: 'オークヘイヴンについて教えて。'
+      },
+      order: {
+        '1': '俺が仕えるのはオークヘイヴンだ。騎士団とはたいてい意見が合うが、同じ話ではない。',
+        say: 'あなたは鉄の騎士団に仕えてるの？'
+      },
+      rumor: {
+        crags: {
+          '1': '森の北は黒く燃える大地だ。灰の岩山。教団員が火をくべている。'
+        },
+        mines: {
+          '1': 'アイアンホールドから鋼が届かなくなった。鉱山で何かがおかしい。'
+        },
+        north: {
+          '1': '極北が静かになった。経験上、静けさのほうが悪い。'
+        }
+      },
+      bye: {
+        '1': '剣はすぐ抜けるようにしておけ。'
+      }
+    },
+    oakArmorer: {
+      hello: {
+        '1': '兜が欲しいなら遅かったな。全部、城壁の上だ。',
+        '2': 'オド。防具屋。疲れてる。'
+      },
+      again: {
+        '1': 'まだいる。まだ在庫不足だ。'
+      },
+      trade: {
+        '1': '在庫の半分は城壁に上がった。残りを持っていけ。'
+      },
+      who: {
+        '1': '二十年この町に防具を作ってきた。全部が一度に着られるのを見るとは思わなかった。'
+      },
+      armor: {
+        '1': 'じっとしてるなら板金。動くなら革。死にたいならローブだ。',
+        say: 'どの防具を着ればいい？'
+      },
+      rumor: {
+        backRoom: {
+          '1': '包囲が破れたら、奥の部屋を開ける。いい板金だ。破ってくれないか。'
+        }
+      },
+      shopBack: {
+        '1': 'もつさ。たぶん。'
+      },
+      bye: {
+        '1': '頭は低くな。'
+      }
+    },
+    oakMasterArmorer: {
+      hello: {
+        '1': 'おお！入れ入れ。奥の部屋は開いてる。あんたのために開けたんだ。',
+        '2': '今じゃ親方のオドと呼ばれてる。町が生きてりゃ、商売も上々だ。'
+      },
+      ending: {
+        '1': '俺の門から恐怖の要塞まで。あんたの鎧は俺が仕立てたと、誰にでも話してる。'
+      },
+      again: {
+        '1': '門の英雄か。今日は何にする？'
+      },
+      trade: {
+        '1': 'あんたは町を救った。奥の部屋のいい板金を、あんたのために出すよ。'
+      },
+      town: {
+        '1': '豊かで、うるさくて、通行料に文句を言う商人でいっぱいだ。',
+        '2': '最高だよ。一週間寝てないがな。',
+        say: '町はどう？'
+      },
+      rumor: {
+        mines: {
+          '1': '俺の鋼はアイアンホールド産だが、あそこは沈黙してる。誰か鉱山を見てきてくれ。'
+        },
+        tundra: {
+          '1': '見た中で最高の鉱石はツンドラ産だった。持ってきた連中は、二度と戻らなかった。'
+        }
+      },
+      shopBack: {
+        '1': '合わなかったら戻ってこい。合わせてやる。'
+      },
+      bye: {
+        '1': 'オークヘイヴンの門は、あんたにはいつも開いてる。あんたにだけな。'
+      }
+    },
+    oakWeapons: {
+      hello: {
+        '1': '買う？見る？見るのはただ。触ると指一本。',
+        '2': 'セナよ。刃物を売ってる。何に使うかは聞かない。'
+      },
+      saved: {
+        '1': '包囲が破れたのね。残念。戦は商売にいいの。平和は借金の取り立てにいいけど。'
+      },
+      again: {
+        '1': 'もっと鋭いのをお探し？'
+      },
+      trade: {
+        '1': '鋭くて、バランスがよくて、払う人に売る。今日はあなた。'
+      },
+      who: {
+        '1': '三つの戦で両陣営に剣を売ったわ。私はまだここにいる。ほとんどの人はいないけど。'
+      },
+      rumor: {
+        krag: {
+          '1': 'クラッグの手下はいい鋼を持ってる。シンジケートの金ね。取れるなら奪うといいわ。'
+        },
+        which: {
+          '1': '速い刃には器用さ。銃と弓には技量。私に払う前に、自分がどっちか知っておいて。'
+        }
+      },
+      shopBack: {
+        '1': '血は拭えば落ちる。錆は落ちない。油を差してね。'
+      },
+      bye: {
+        '1': '私に借りを残して死なないでね。'
+      }
+    },
+    trainerShadow: {
+      hello: {
+        '1': '振り返らないで。冗談よ。振り返って。',
+        '2': '「ささやき」と呼ばれてる。気づかれずに現れる方法を教えるの。'
+      },
+      fallen: {
+        '1': '町は静かになったわ。衛兵も減った。けっこう気に入ってる。'
+      },
+      friend: {
+        '1': 'シンジケートはあなたを友と数えてる。友は安くなる。友は知りすぎもする。'
+      },
+      foe: {
+        '1': 'シンジケートはあなたの首を欲しがってる。私は教えるために雇われたの、殺すためじゃない。運がいいわね。'
+      },
+      again: {
+        '1': '前より音が大きいわよ。直していきましょう。'
+      },
+      train: {
+        '1': 'では静かに。手じゃなくて、足を見て。'
+      },
+      class: {
+        '1': 'もう背後にいるナイフ。闇から出て、斬って、消える。',
+        '2': '何よりも器用さ。斬撃を決めたいなら技量も。',
+        say: 'シャドウブレードって何？'
+      },
+      ready: {
+        strong: {
+          '1': 'いい動きね。私の技を持っていって。煙には技量を忘れずに。'
+        },
+        able: {
+          '1': 'いいわ。次の一歩に十分な速さの手よ。'
+        },
+        weak: {
+          '1': '荷車みたいな歩き方ね。もっと器用さを。話はそれから。'
+        }
+      },
+      syndicate: {
+        '1': '法が売り物だと気づいた人たち。私は裁かない。請求書を出すだけ。',
+        say: '灰のシンジケートって誰？'
+      },
+      trainBack: {
+        '1': 'さあ、誰にも見られない場所でやってみて。'
+      },
+      bye: {
+        '1': '私に会ってないわよね。'
+      }
+    },
+    trainerSovereign: {
+      hello: {
+        '1': '近づいてよい。そこまで近くなくてよい。',
+        '2': 'オークヘイヴンの旧き血筋、カステラン卿だ。指揮を教えている。'
+      },
+      saved: {
+        '1': '我が町は立ち、我が家名も立った。領主の感謝を受けよ。大いに価値あるものだ。'
+      },
+      friend: {
+        '1': '騎士団の友か。料金を下げよう。誰にも言うでないぞ。'
+      },
+      foe: {
+        '1': '騎士団が君の名を掲げた。それでも教えよう。金は金だ、あいにくな。'
+      },
+      again: {
+        '1': 'ああ。最も見込みある我が弟子か。'
+      },
+      train: {
+        '1': 'よろしい。命令とはどう下すものか、見ておれ。'
+      },
+      class: {
+        '1': 'なぜ一人で戦う？他の者にやらせればよい。衛兵を呼び、指揮するのだ。',
+        '2': '魅力が要る。ぼそぼそ喋って人は率いられぬ。',
+        say: 'グランドソブリンとは？'
+      },
+      ready: {
+        strong: {
+          '1': '風格がある。残りの授業も受けよ。背筋は伸ばすのだぞ。'
+        },
+        able: {
+          '1': '声が通る。次の授業へ進める。'
+        },
+        weak: {
+          '1': 'パン屋にさえ誰もついて来ぬぞ。もっと魅力を。'
+        }
+      },
+      family: {
+        '1': 'ヘイル隊長が立つ城壁は、我らが築いた。彼は忘れる。私が思い出させる。何度でも。',
+        say: 'あなたの家について教えて。'
+      },
+      trainBack: {
+        '1': 'さあ、従わされてまいれ。'
+      },
+      bye: {
+        '1': '下がってよい。'
+      }
+    },
+    oakHealer: {
+      hello: {
+        '1': '次！おや。歩けるのか。珍しいな。',
+        '2': 'ブラザー・フェンだ。城壁に負傷者四十人、治療師は私ひとり。'
+      },
+      saved: {
+        '1': '三日も新しい負傷者がいない！手のやり場に困るよ。'
+      },
+      again: {
+        '1': 'また来たね、しかも歩いてる。感心だ。'
+      },
+      heal: {
+        '1': '横になって。いや、きれいな寝台のほう。そう。フラスコは全部満タン。行っておいで。'
+      },
+      mana: {
+        '1': 'マナの薬か！小銭の味がする。でも効くよ。'
+      },
+      potions: {
+        '1': '長いベルトならフラスコがもっと入る。それは売るよ。フラスコの補充はただだ。',
+        say: 'ポーションをもっと持てる？'
+      },
+      rumor: {
+        archers: {
+          '1': 'クラッグの弓兵は脚を狙う。動き続ければ外れるよ。'
+        },
+        north: {
+          '1': 'やけど、凍傷、それに像に咬まれたと言い張る男がひとり。北は優しくないね。'
+        }
+      },
+      healBack: {
+        '1': 'さあ行って。次は縫いに来るんじゃなく、おしゃべりに来なさい。'
+      },
+      bye: {
+        '1': '歩いて治しなさい！これは医者の助言だよ。'
+      }
+    },
+    blackMarket: {
+      hello: {
+        '1': '名前はなし。だが、あの門を開けた人だな。それは知ってる。',
+        '2': '故買屋と呼んでくれ。ここの品は全部、荷車から落ちたもんだ。'
+      },
+      foe: {
+        '1': '今日のシンジケートは、あんたが気に入らない。あんたの金は、まだ気に入ってるがね。'
+      },
+      again: {
+        '1': 'ああ。最高のお客さんだ。誰もつけてこなかったか？よし。'
+      },
+      trade: {
+        '1': '名前なし、質問なし。シンジケートが取り分を取り、あんたは品を取る。'
+      },
+      who: {
+        '1': '火事の前はろうそく屋だった。合法のな。ひどいもんだった。'
+      },
+      armor: {
+        '1': '防具職人はもういないよ、友よ。焼け出された。あんたなら知ってるだろ。',
+        say: '防具は売ってる？'
+      },
+      rumor: {
+        citadel: {
+          '1': '去年、極北に要塞が現れた。誰も建てていない。壁がうなってる。'
+        },
+        crystals: {
+          '1': '誰かが市場の虚無のクリスタルを全部買い占めてる。うちじゃない。それが気がかりだ。'
+        }
+      },
+      shopBack: {
+        '1': 'あんたはここに来てない。'
+      },
+      bye: {
+        '1': 'がれきに気をつけな。'
+      }
+    },
+    trainerBlood: {
+      hello: {
+        '1': 'お客様ですか。瓶にはご注意を。',
+        '2': 'サングレル博士です。オークヘイヴンの新しい主は、私の教えを詮索しない。実にいい。'
+      },
+      found: {
+        '1': '見つけましたね。こんな場所で医者を探す人は少ない。',
+        '2': 'サングレル博士です。町は私の同類を焼く。だから誰もいない場所で働いています。'
+      },
+      friend: {
+        '1': 'シンジケートがあなたを保証している。友には授業料を下げます。基準は下げませんが。'
+      },
+      foe: {
+        '1': 'シンジケートは、あなたの血に金を払うでしょう。私は、あなたが授業に使うほうがいい。'
+      },
+      again: {
+        '1': '顔色が悪いですね。結構。仕事に合っています。'
+      },
+      train: {
+        '1': '袖をまくって。痛みますよ。それが肝心です。'
+      },
+      class: {
+        '1': '力の代価は、自分の体力で払います。そして敵から飲み戻す。',
+        '2': '耐久力が財布。知力が、使い方のうまさを決めます。',
+        say: 'ブラッドアルケミストとは？'
+      },
+      ready: {
+        strong: {
+          '1': '素晴らしい体質です。ほぼ全部を学べますよ。'
+        },
+        able: {
+          '1': '血が十分強い。次の授業へ進めます。'
+        },
+        weak: {
+          '1': '最初の切り傷で気絶しますね。耐久力をもっとお願いします。'
+        }
+      },
+      jars: {
+        '1': 'ボランティアです。たいてい。',
+        say: '瓶の中身は？'
+      },
+      trainBack: {
+        '1': 'メモを取っておいてくださいね。科学のために。'
+      },
+      bye: {
+        '1': '健康でいてください。さもないと私の役に立ちません。'
+      }
+    },
+    syndicateBoss: {
+      hello: {
+        '1': 'あら。門を開けた人ね。座って。椅子を得る資格はあるわ。',
+        '2': 'マダム・アッシュと呼ばれてるわ。オークヘイヴンは今や私のもの。一部は、あなたのもの。'
+      },
+      throneOurs: {
+        '1': '恐怖の要塞の玉座。私たちのもの。あなたは、私の最高の投資よ。'
+      },
+      throneLost: {
+        '1': '玉座を手放したわね。ほかの誰かに。そのことは話しましょう。今日ではなく。'
+      },
+      foe: {
+        '1': '私たちの邪魔をしてきたわね。それでも座って。問題は、解決する前に眺めたいの。'
+      },
+      again: {
+        '1': '私のお気に入りの裏切り者。シンジケートに何ができて？'
+      },
+      cut: {
+        '1': '廃墟の三分の一よ、あなた。これが今季の分け前。',
+        '2': '増えるわ。廃墟は、唯一の市場を持っていれば、とても儲かるの。',
+        say: 'オークヘイヴンの三分の一をくれる約束だったよね。'
+      },
+      syndicate: {
+        '1': '誰もが欲しがるもの。私たちは、そうでないふりをしないだけ。',
+        '2': '友でいれば、「ささやき」も博士も安くなるわ。忠誠にも価格表があるの。',
+        say: 'シンジケートは何が欲しいの？'
+      },
+      order: {
+        '1': '当然よ。あの町をひとつ焼いたのだもの。ポーションを多めに持つことね。',
+        say: '鉄の騎士団に追われてるんだ。'
+      },
+      rumor: {
+        core: {
+          '1': 'ドワーフが鉱山で何かを見つけたわ。コアよ。欲しいの。持ってきて、値段を言いなさい。'
+        },
+        sold: {
+          '1': 'コアは無事に届いたわ。鍵にどう効くか、見せたいくらい。'
+        },
+        north: {
+          '1': '盗む価値のあるものは、全部北へ移ったわ。私たちもよ。'
+        }
+      },
+      bye: {
+        '1': '他人行儀はなしよ。他人は、つけられるから。'
+      }
+    },
+    forgemaster: {
+      hello: {
+        '1': '鉱山を抜けてきたな。粉の匂いがする。',
+        '2': 'ドルンだ。アイアンホールドの鍛冶頭。山ほどの問題を抱えてる。'
+      },
+      destroyed: {
+        '1': '光は消え、ゴーレムはくずになった。昨夜、坑夫たちが歌ったよ。一年ぶりだ。'
+      },
+      studied: {
+        '1': '炉には青い炎、広間にはローブ。仕事はいい。ローブにも慣れるさ。'
+      },
+      sold: {
+        '1': '売ったのか。ゴーレムはまだ歩き、鉱山は墓場のままだ。俺の前から消えろ。'
+      },
+      ending: {
+        '1': '玉座は決まったか。よし。これで王国は、また鉄の言い争いに戻れる。'
+      },
+      again: {
+        '1': '話せ。炉は待ってくれん。'
+      },
+      quest: {
+        '1': '鉄を掘って、心臓に当たった。エーテルコアだ。暗い底で脈打ってる。',
+        '2': 'それで、ゴーレムは？',
+        '3': 'その鼓動に合わせて歩く。三つの勢力が欲しいと手紙をよこした。どこも丁寧だが、誰も信用せん。',
+        '4': '最初に着くのは君だ、アイアンホールド鉱山の底でな。そのあとは、君が決めろ。',
+        say: '鉱山で何があったの？'
+      },
+      core: {
+        say: 'コアのことだけど…',
+        destroy: {
+          '1': '民を救うため、驚異を壊してくれたな。騎士団は礼に防具職人を送った。俺はエールを送った。'
+        },
+        study: {
+          '1': '結社の細工師は狂ってるが、銃はまっすぐ飛ぶ。いい取引だ。'
+        },
+        sell: {
+          '1': '金か。金のためにやったのか。それで温まるといいがな。'
+        }
+      },
+      town: {
+        '1': '鉱山が動いてりゃ、王国一の鋼だ。',
+        '2': '石足は大地、ピムは機械を教える。どっちも長話だぞ。',
+        say: 'アイアンホールドについて教えて。'
+      },
+      rumor: {
+        tundra: {
+          '1': '岩山の東は白い大地、凍傷のツンドラだ。巨人と、倒れても起きる死者がいる。'
+        },
+        citadel: {
+          '1': '斥候が北に要塞を見た。去年はなかった。新しい山は好かん。'
+        },
+        fortress: {
+          '1': '恐怖の要塞で、すべてが終わる。北へ向かう道は全部、あの門に通じてる。'
+        }
+      },
+      bye: {
+        '1': 'まっすぐ打て。'
+      }
+    },
+    ironWeapons: {
+      hello: {
+        '1': '展示品に触るな。両端とも鋭いぞ。',
+        '2': 'ヒルダ・ハンマーハンドだ。どれもドワーフ鍛えさ。'
+      },
+      dragon: {
+        '1': '竜を倒した？私の品で？違う？嘘でもいいから、私のだと言ってくれ。'
+      },
+      again: {
+        '1': '本物の鋼が欲しくなったか？'
+      },
+      trade: {
+        '1': 'ドワーフ鍛えだ。壊れたなら、あんたのせいさ。'
+      },
+      who: {
+        '1': '母は王のために鍛えた。私は入ってきた誰にでも鍛える。時代は変わる。'
+      },
+      rumor: {
+        golems: {
+          '1': '鉱山のゴーレムは、うちの鉄でできてる。正直、恥ずかしいよ。'
+        },
+        arm: {
+          '1': '刃は仕事の半分。残りは筋力だ。刃のせいにするな。'
+        }
+      },
+      shopBack: {
+        '1': 'なまくらで返してきたら、使ったのが分かるぞ。'
+      },
+      bye: {
+        '1': '思いきり叩け。'
+      }
+    },
+    ironAetherWorks: {
+      hello: {
+        '1': '気をつけて！それは装填済み。それもです。ほとんど全部ですが。',
+        '2': '細工師のヴォスです。結社に、コアから何を学べるか見てこいと言われて。結論、全部でした。'
+      },
+      again: {
+        '1': 'ああよかった、試験役が。いえ、お客さんが。'
+      },
+      trade: {
+        '1': '結社のコア研究で、すべてが変わりました。これを持って。こっちには向けないで。'
+      },
+      core: {
+        '1': 'あの鉄、少し考えるんです。あまり考えないようにしてます。',
+        say: 'コアから何を学んだの？'
+      },
+      rumor: {
+        heat: {
+          '1': '銃は技量で動いて、熱くなります。手を溶かす前に、歯車技師ピムに熱のことを聞いて。'
+        }
+      },
+      shopBack: {
+        '1': '爆発したら報告を！記録用に。'
+      },
+      bye: {
+        '1': '反動に注意して！'
+      }
+    },
+    ironArmor: {
+      hello: {
+        '1': 'ガルン。防具。指輪は皿の上。'
+      },
+      again: {
+        '1': 'ふむ。'
+      },
+      trade: {
+        '1': '巨人の棍棒をはじく板金。ほかの連中には指輪。'
+      },
+      quiet: {
+        '1': 'ない。',
+        say: 'あまり喋らないんだね。'
+      },
+      rumor: {
+        giants: {
+          '1': 'ツンドラに巨人。幹みたいな棍棒。重い板金を買え。'
+        },
+        demons: {
+          '1': '北に悪魔。炎と爪。重い板金を買え。'
+        }
+      },
+      shopBack: {
+        '1': 'よし。'
+      },
+      bye: {
+        '1': 'おう。'
+      }
+    },
+    ironOrderArmor: {
+      hello: {
+        '1': '名前と用件。いや、名前は知っている。コアを壊した者だ。',
+        '2': '鉄の騎士団の補給係だ。武具庫は、君に開かれている。'
+      },
+      throneOurs: {
+        '1': '騎士団は君の手で恐怖の要塞を得た。楽にしろ。これは命令だ。'
+      },
+      foe: {
+        '1': '騎士団は君を名簿に載せている。それでも売れというのが私の命令だ。気に入らんが。'
+      },
+      again: {
+        '1': '請求か？'
+      },
+      trade: {
+        '1': '騎士団は、誰がコアを壊したかを覚えている。必要な物を選べ。'
+      },
+      order: {
+        '1': '何も。珍しいことだ。味わえ。',
+        say: '騎士団は私に何を求めてるの？'
+      },
+      rumor: {
+        throne: {
+          '1': '騎士団は恐怖の要塞の玉座を求めるだろう。共に立った者を、騎士団は覚えている。'
+        }
+      },
+      shopBack: {
+        '1': 'ここに署名を。冗談だ。騎士団は冗談を言わない。解散。'
+      },
+      bye: {
+        '1': '解散。'
+      }
+    },
+    trainerGeo: {
+      hello: {
+        '1': 'ゆっくりじゃ。山はどこへも行かんよ。',
+        '2': '石足じいさんと呼ばれとる。地面の声を聞くんじゃ。ときどき、答えてくれる。'
+      },
+      core: {
+        '1': '山の鼓動が変わった。おまえさんのせいじゃ。山は気づいたぞ。'
+      },
+      dragon: {
+        '1': '昨日、竜が峰を越えたが、わしらを焼かなんだ。おまえさんの仕業と聞いたよ。'
+      },
+      again: {
+        '1': 'また来たか。石が来ると言っておったよ。'
+      },
+      train: {
+        '1': '足を踏みしめなされ。感じるか？いや？そこから始めよう。'
+      },
+      class: {
+        '1': '壁を立て、トゲを呼び、必要なときは大地を割る。',
+        '2': '石を動かす筋力と、頼み込む知力じゃ。',
+        say: 'ジオマンサーとは？'
+      },
+      ready: {
+        strong: {
+          '1': '石はもうおまえさんを知っておる。残りも学びなされ。'
+        },
+        able: {
+          '1': '次の授業に足りるだけ重くなったな。ほめ言葉じゃよ。'
+        },
+        weak: {
+          '1': '石にはまだ聞こえておらん。もっと筋力を。'
+        }
+      },
+      factions: {
+        '1': 'どれにも。騎士団、シンジケート、結社。山は、どれよりも長く残る。',
+        say: 'どの勢力に仕えてるの？'
+      },
+      trainBack: {
+        '1': 'そっとやりなされ。それから、そっとでなく。'
+      },
+      bye: {
+        '1': 'そっと歩きなされ。'
+      }
+    },
+    trainerAether: {
+      hello: {
+        '1': 'それ触らないで！それも！というか、ラグの上に立って。ラグは安全。',
+        '2': '歯車技師ピム！銃、タレット、熱量計。ほぼ熱量計。'
+      },
+      core: {
+        '1': 'コアをくれたのね！九日寝てないの。私の手を見て。やっぱり見ないで。'
+      },
+      oracle: {
+        '1': '結社は巫女の件で激怒してる。私は作るだけ。私が教えたって言わないでね。'
+      },
+      friend: {
+        '1': '結社の友ね！授業料は安くしとく。書類は私が自分で書いたの。'
+      },
+      foe: {
+        '1': '結社は、あなたに教えるなって。結社は、室内でロケットを試すなとも言うけど。'
+      },
+      again: {
+        '1': 'よかった、指が全部ある。'
+      },
+      train: {
+        '1': 'よし！まず安全第一。それから、うるさい部分。'
+      },
+      class: {
+        '1': '銃、タレット、熱量計。撃って、作って、ロックされる前に排熱する。',
+        '2': '全部、技量で動く。大きい機械には、知力も少し。',
+        say: 'エーテルテックって何？'
+      },
+      ready: {
+        strong: {
+          '1': 'タレットなら目隠しで分解できるわ！大きい機械もどうぞ。'
+        },
+        able: {
+          '1': '安定した手ね！次のガジェットへ進めるわ。'
+        },
+        weak: {
+          '1': '手が震えてる。私もだけど、理由は別。技量をもっと。'
+        }
+      },
+      heat: {
+        '1': '数秒、全部ロックされるの。早めに排熱。こまめに排熱。傷あとがあるのよ。',
+        say: 'オーバーヒートするとどうなるの？'
+      },
+      trainBack: {
+        '1': '覚えて：排熱！排・熱・よ！'
+      },
+      bye: {
+        '1': '爆発しないでね！'
+      }
+    },
+    ironHealer: {
+      hello: {
+        '1': 'ブーツを脱いで。私の床に粉を落とさせないよ。',
+        '2': 'マザー・ブリュンヤだ。この山の折れた骨は、全部二度ずつ継いだよ。'
+      },
+      ending: {
+        '1': '恐怖の要塞へ行って、歩いて帰ってきたんだね。座りなさい。顔をよく見たい。'
+      },
+      again: {
+        '1': 'まだ生きてる。私のおかげだそうだよ。'
+      },
+      heal: {
+        '1': '座って。これを飲む。そんな顔しない。フラスコは満タンにしたよ。'
+      },
+      mana: {
+        '1': 'ほら。ひどい味だ。魔力が尽きたら飲みな、その前じゃなく。'
+      },
+      potions: {
+        '1': '長いベルトを私から買いな。体で運んで走れるのは、フラスコ五本までだ。',
+        say: 'ポーションをもっと持てる？'
+      },
+      rumor: {
+        tundra: {
+          '1': 'ツンドラは指を持っていく。動き続けな。雪の中で寝るんじゃないよ。'
+        },
+        temple: {
+          '1': 'ツンドラの先に沈んだ神殿がある。ナーガは捕虜を取らないよ。'
+        },
+        rift: {
+          '1': 'あの虚無の裂け目の中身は、縫えやしない。さっさと終わらせな。'
+        }
+      },
+      healBack: {
+        '1': '行っといで。それと、何か食べな。'
+      },
+      bye: {
+        '1': '無事に戻っておいで。'
+      }
+    },
+    exiledSovereign: {
+      hello: {
+        '1': 'おまえか。私の門を開けたのは。',
+        '2': '今はドワーフの地下室で教えている。食わねばならんのでな。許しだと思うなよ。'
+      },
+      ending: {
+        '1': '玉座は決まり、オークヘイヴンは灰のままだ。それだけの価値があったと、もう一度聞かせてくれ。'
+      },
+      again: {
+        '1': '裏切り者が戻ったか。授業料は下がっておらんぞ。'
+      },
+      train: {
+        '1': '指揮は教えてやる。それに値する者になる方法は、教えられん。'
+      },
+      class: {
+        '1': '人に従われる者だ。衛兵は呼べば応え、おまえの言葉で戦う。',
+        '2': '魅力で動く。おまえにはある。それが悲劇だ。',
+        say: 'グランドソブリンとは？'
+      },
+      ready: {
+        strong: {
+          '1': 'すべてを扱う風格がある。そのぶん、王国は貧しくなったがな。'
+        },
+        able: {
+          '1': '次の授業に進める。喜んではおらんがな。'
+        },
+        weak: {
+          '1': '裏切り者の衛兵でも、その声にはついて来ん。もっと魅力を。'
+        }
+      },
+      oakhaven: {
+        '1': '三百年。我が家があの城壁を築いた。',
+        '2': '説明するな。どんな代価でも説明にはならん。',
+        say: 'オークヘイヴンのことだけど…'
+      },
+      trainBack: {
+        '1': '行け。ほかの者に命令しろ。'
+      },
+      bye: {
+        '1': '放っておいてくれ。'
+      }
+    },
+    trainerChrono: {
+      fled: {
+        '1': '彼女を倒したのですね。起こる前に千回見たのに、それでも胸が痛みます。',
+        '2': '私は時の番人。あなたに教えます。彼女が、そうなると言いました。'
+      },
+      hello: {
+        '1': '遅いですね。いえ、早いのかも。これはもう話したと思います。',
+        '2': '私は時の番人。時を織る術を教えます。始まったのは、ついさっきです。'
+      },
+      freed: {
+        '1': '彼女は自由です。初めて、あなたが次に何を言うか分かりません。すばらしい。'
+      },
+      friend: {
+        '1': '結社はあなたを友と呼ぶでしょう。もう呼んでいる？では、割引は今です。'
+      },
+      foe: {
+        '1': '結社は、私の見た未来であなたを許します。それまでは、静かに教えましょう。'
+      },
+      again: {
+        '1': 'おかえりなさい。おかえり。なさい。'
+      },
+      train: {
+        '1': '見て。私が見せたものを、見せます。'
+      },
+      class: {
+        '1': '敵を時の中で止め、味方を急がせ、過ちを取り戻す。',
+        '2': '糸を見る知力、それを引く技量。',
+        say: 'クロノウィーバーとは？'
+      },
+      ready: {
+        strong: {
+          '1': '糸をよく握っています。残りは、望めばあなたのものです。'
+        },
+        able: {
+          '1': '準備はできています。明日も、できていました。'
+        },
+        weak: {
+          '1': '糸が指から滑っています。もっと知力を。もっと技量を。'
+        }
+      },
+      oracle: {
+        say: '巫女について教えて。',
+        freed: {
+          '1': '彼女はすべての結末を見て、どれも彼女のものではなかった。今は、ひとつあります。'
+        },
+        slain: {
+          '1': '彼女は抗いませんでした。それも見ていたのです。もう聞かないでください。'
+        },
+        waits: {
+          '1': '彼女はすべての結末を見ます。恐ろしい贈り物です。最後には、優しくしてあげて。'
+        }
+      },
+      trainBack: {
+        '1': 'それは、価値があったことになります。'
+      },
+      bye: {
+        '1': 'また、さきほど。'
+      }
+    },
+    quest: {
+      goblinKing: {
+        ask: {
+          '1': 'まって！まって。王さま、こうさん！',
+          '2': 'ゴブリン、はらぺこだから おそうだけ。ほんとう！',
+          '3': 'のっぽと王さま、とりひきする？'
+        },
+        slay: {
+          '1': '王は倒れ、洞穴のゴブリンは散り散りになる。',
+          '2': 'サンフォードは安心して眠り、鉄の騎士団があなたに目をとめる。',
+          say: '取引はなしだ。おまえの支配はここまでだ。'
+        },
+        pact: {
+          '1': 'とりひき？王さま誓う！王さま、とりひき好き！',
+          '2': 'ゴブリンの商人がサンフォードの広場に店を出し、町の鍛冶屋には作れない品を並べる。',
+          say: '襲撃をやめて、サンフォードと取引しろ。誓え。'
+        },
+        ransom: {
+          '1': 'ぜんぶ？王さま、のっぽきらい。持ってけ。持って、行け。',
+          '2': 'ゴブリンの金でずっしり重い袋を抱えて外へ出る。襲撃はまた始まる。シンジケートは満足だ。',
+          say: '財宝を渡せ。そうすれば王冠は残してやる。'
+        }
+      },
+      siege: {
+        ask: {
+          '1': 'もういい。いい腕だ。',
+          '2': 'シンジケートは、あの町よりずっと気前がいい。',
+          '3': '今夜、門を開けてくれ。オークヘイヴンの三分の一はお前のものだ。'
+        },
+        defend: {
+          '1': 'ならばシンジケートは、あらゆる道でお前を狙う。申し出たことは忘れるな。',
+          '2': '門は持ちこたえる。オークヘイヴンは壁の内側で豊かになり、腕利きの防具職人たちはあなたの名を忘れない。',
+          say: '門は閉じたままだ。軍を連れて立ち去れ。'
+        },
+        betray: {
+          '1': '賢いな。マダム・アッシュに、お前の椅子を用意させよう。',
+          '2': 'オークヘイヴンは燃える。廃墟には闇市が開き、錬金術師が禁じられた術を教える。',
+          '3': '防具職人たちは去り、鉄の騎士団はあなたを裏切り者と呼ぶ。',
+          say: '町の三分の一。今夜、門は開く。'
+        }
+      },
+      core: {
+        ask: {
+          '1': 'コロッサスはくずになった。この目で見るとは思わなかった。',
+          '2': 'そして、あそこに転がっている。コアだ。まだうなっている。触れると温かい。',
+          '3': '最初にたどり着いたのは君だ。これをどうする？'
+        },
+        destroy: {
+          '1': '光は消え、ゴーレムはその場に崩れ落ちる。',
+          '2': '鉄の騎士団は感謝のしるしに、自分たちの防具職人をアイアンホールドへ送る。',
+          say: '下がって。これを砕く。'
+        },
+        study: {
+          '1': 'あなたはコアを、目覚めさせずに引き渡せるくらいには理解している。',
+          '2': 'ひと季節のうちに、アイアンホールドの炉は誰も見たことのないエーテル細工を生み出す。',
+          say: '結社に研究させるべきだ。安全に運び出せる。'
+        },
+        sell: {
+          '1': '金か。坑夫たちを殺したあれに。持って行け。',
+          '2': '大金が動く。コアは光り続け、鉱山に静けさは二度と戻らない。',
+          say: 'シンジケートの条件が一番よかった。'
+        }
+      },
+      oracle: {
+        ask: {
+          '1': 'この瞬間を、一万回見ました。',
+          '2': '半分では、あなたは私を解き放つ。半分では、私が守るものを奪う。',
+          '3': '選びなさい。ようやく、この先を知らない私にしてください。'
+        },
+        free: {
+          '1': 'まあ。見えなかった。まったく見えなかった。',
+          '2': '巫女は水の中を昇り、姿を消す。彼女の時の番人は残り、教えを授ける。',
+          say: 'じっとして。鎖を断ち切る。'
+        },
+        slay: {
+          '1': 'ええ。これがもう半分。',
+          '2': '彼女は抗わない。時守の砂時計はあなたのものだ。',
+          '3': '最後の弟子は神殿から逃げ出し、結社はあなたを許さない。',
+          say: '砂時計をもらいに来た。'
+        }
+      },
+      dragon: {
+        ask: {
+          '1': 'もうよい。牙を持っているな、小さき者よ。',
+          '2': '要塞の悪魔は我が同族を鎖につないだ。奴が燃えるのを見たい。',
+          '3': '我を殺すか、それとも我に手伝わせるか。'
+        },
+        slay: {
+          '1': '竜が倒れ、山が震える。竜の財宝はあなたのものだ。',
+          '2': '鉄の騎士団は竜殺しを歌にする。',
+          say: '竜と取引はしない。'
+        },
+        pact: {
+          '1': 'そう頼んで生きていた者はほとんどおらぬ。よかろう、小さき者よ。共に狩ろう。',
+          '2': 'あなたが恐怖の要塞へ進むとき、竜は頭上の空にいる。',
+          say: 'なら、一緒に飛んでアークデーモンを倒そう。'
+        }
+      },
+      throne: {
+        ask: {
+          '1': 'そうか。終わるのか。お前だとは思わなかった。',
+          '2': '我が玉座は空のままではおらぬ、小さな英雄よ。要塞も裂け目も、両方の軍勢も従える。',
+          '3': 'すでに三人の使者が扉の前で待つ。我が鎖を継ぐ者を選べ。'
+        },
+        order: {
+          '1': '騎士団は要塞に兵を置き、封じられるものは封じる。',
+          '2': '王国は安全になる。そして、何をすべきか指図されるようになる。',
+          say: '鉄の騎士団が守る。'
+        },
+        syndicate: {
+          '1': 'シンジケートは夜明け前に入りこむ。',
+          '2': '今では何もかもが売り物だ。平和さえも。',
+          say: '灰のシンジケートにふさわしい。'
+        },
+        circle: {
+          '1': '結社は要塞を、裂け目の上の学校に変える。',
+          '2': '彼らはそれを研究と呼ぶ。ほかの誰もが、時間の問題だと言う。',
+          say: 'エーテル結社に任せよう。'
+        },
+        shatter: {
+          '1': 'あなたは自分の手で玉座を壊す。ここから支配する者はもう現れない。',
+          '2': '使者たちは何も言わずに去る。',
+          say: '誰も継がない。これを砕く。'
+        },
+        claim: {
+          '1': '玉座は冷たい。そして、ぴったりだ。',
+          '2': '三つの勢力は、共通の敵ができたことに気づく。',
+          say: '自分で座る。'
+        }
+      }
+    }
   },
-  'leaderboard': {
-    'title': 'ランキング',
-    'rank': '#',
-    'player': 'プレイヤー',
-    'score': '経験値',
-    'flair': 'レベル',
-    'empty': 'まだ誰もランキングにいません。一番乗りしよう！',
-    'failed': 'ランキングに接続できません。',
-    'loading': '読み込み中…',
-    'you': 'あなた',
-    'yourRank': '{total} 人中 #{n} 位',
-    'of': '/ {n}人中',
-    'tabGlobal': '世界'
+  enemy: {
+    trainingDummy: '訓練用のかかし',
+    goblin: 'ゴブリン',
+    goblinSlinger: 'ゴブリン投石兵',
+    bandit: '山賊',
+    banditArcher: '山賊の弓兵',
+    wolf: '狼',
+    banditChief: '山賊の頭',
+    goblinKing: 'ゴブリンキング',
+    treant: 'トレント',
+    spider: '大グモ',
+    broodSpider: '子グモ',
+    outlawCaptain: '無法者の隊長',
+    elderTreant: 'エルダートレント',
+    warlord: '戦将クラッグ',
+    fireElemental: 'ファイアエレメンタル',
+    ironGolem: 'アイアンゴーレム',
+    cultist: '教団員',
+    emberLord: '残り火の王',
+    ironColossus: 'アイアンコロッサス',
+    frostGiant: 'フロストジャイアント',
+    naga: 'ナーガ',
+    skeleton: 'スケルトン',
+    necromancer: 'ネクロマンサー',
+    frostJarl: '霜の族長',
+    nagaOracle: '沈んだ神託の巫女',
+    voidStalker: 'ヴォイドストーカー',
+    wyvern: 'ワイバーン',
+    highDemon: 'ハイデーモン',
+    voidWarden: '虚無の番人',
+    voidDragon: '虚無の竜',
+    doomKnight: 'ドゥームナイト',
+    imp: 'インプ',
+    archDemon: 'アークデーモン',
+    voidling: 'ヴォイドリング',
+    voidLord: '虚無の王',
+    orderGuard: '騎士団の審問官',
+    syndicateBlade: 'シンジケートの刺客'
+  },
+  results: {
+    victory: '勝利！',
+    defeat: '敗北',
+    retreat: '撤退',
+    firstClear: '初クリア！',
+    waves: '生き残ったウェーブ：{n}',
+    levelUp: 'レベル{n}！',
+    points: '能力ポイント+{n}',
+    xp: '経験値',
+    gold: 'ゴールド',
+    lost: '失った分',
+    kills: '撃破数',
+    chests: '宝箱',
+    time: 'タイム',
+    unlocked: 'マップに追加：{places}',
+    retry: 'もう一度',
+    tip: '経験値と戦利品はそのまま残る。ポイントを振り、師範を訪ねて、強くなって戻ってこよう。'
+  },
+  pause: {
+    title: 'ポーズ中',
+    resume: '再開',
+    controls: '操作方法',
+    retreat: 'マップへ撤退',
+    retreatNote: 'ここまでに得たものは残るが、ゾーンはクリアにならない。'
+  },
+  ending: {
+    level: 'レベル',
+    more: '要塞の下で虚無の裂け目が開いた。コロシアムは今も挑戦者を待っている。',
+    order: {
+      title: '鉄の平和',
+      text: '恐怖の要塞に鉄の騎士団の旗がひるがえる。街道は安全で、掟は山ほどあり、門の上にはあなたの名が刻まれている。'
+    },
+    syndicate: {
+      title: '灰の取引',
+      text: 'シンジケートは要塞の影から王国を治める。もう禁じられたものは何もない。ただ、高くつくだけだ。'
+    },
+    circle: {
+      title: 'エーテルの時代',
+      text: '結社は捕らえた虚無の炎で要塞を照らす。門からは驚異があふれ出し、その代償を問う者はいない。'
+    },
+    free: {
+      title: '王はいらない',
+      text: '玉座は砕け、要塞は空っぽだ。長い時代のなかで初めて、王国はそこに暮らす人々のものになった。'
+    },
+    unbound: {
+      title: '縛られざる者',
+      text: 'あなたは玉座を手にした。騎士団、シンジケート、結社が手を組んで攻めてくる。来るなら来い。'
+    },
+    note: {
+      goblinPact: 'ゴブリンの商人は今もサンフォードの広場で値切り合っている。',
+      goblinSlain: '洞穴は空っぽになり、隊商は時間どおりに走る。',
+      goblinRansom: 'ゴブリンキングはまた金持ちになり、また襲撃を始めた。',
+      oakhavenSaved: 'オークヘイヴンの城壁は高くなり、市場はにぎわいを増した。',
+      oakhavenFallen: 'オークヘイヴンの通りには雑草が生えている。闇市は大繁盛だ。',
+      coreOrder: 'アイアンホールドの鉱山は静かになり、ドワーフはまた掘りはじめた。',
+      coreCircle: 'アイアンホールドの炉は青く輝き、その銃は王国一だ。',
+      coreSold: 'どこかで、コアは今もうなっている。ゴーレムは今も歩いている。',
+      oracleFreed: '穏やかな日には、漁師たちがはるか沖に巫女の姿を見る。',
+      oracleSlain: '沈んだ神殿は静まり返っている。この先を知る者はもういない。',
+      dragonPact: '要塞の屋根に竜が巣を作った。竜が応える名はただひとつ。',
+      dragonSlain: '騎士団の大広間に竜の頭骨が飾られている。'
+    }
+  },
+  options: {
+    gameplay: 'ゲームプレイ',
+    title: '設定',
+    general: '一般',
+    audio: 'オーディオ',
+    language: '言語',
+    difficulty: '難易度',
+    soundEffects: '効果音',
+    music: '音楽',
+    mute: 'ミュート',
+    musicTrack: '楽曲',
+    musicTracks: {
+      cozy: '穏やか',
+      trance: '冒険'
+    },
+    haptics: 'バイブレーション',
+    on: 'オン',
+    off: 'オフ',
+    close: '閉じる',
+    keyboard: {
+      auto: 'キーボード配列を自動検出',
+      layout: 'キーボード配列',
+      detected: '検出: {layout}',
+      bindings: 'キー割り当て',
+      press: 'キーを押してください…（Escでキャンセル）',
+      reset: 'キーをリセット'
+    },
+    actions: {
+      up: '上へ移動',
+      down: '下へ移動',
+      left: '左へ移動',
+      right: '右へ移動',
+      skill1: 'スキル1',
+      skill2: 'スキル2',
+      skill3: 'スキル3',
+      skill4: 'スキル4',
+      skill5: 'スキル5',
+      skill6: 'スキル6',
+      potion: 'ポーションを飲む',
+      manaPotion: 'マナポーションを飲む',
+      leave: '勝利したエリアを去る',
+      interact: '話す',
+      target: '次のターゲット',
+      map: 'ワールドマップ',
+      character: 'ヒーロー',
+      inventory: 'バッグ',
+      skills: 'スキル'
+    },
+    difficulties: {
+      easy: 'イージー',
+      medium: 'ノーマル',
+      hard: 'ハード'
+    },
+    difficultyHints: {
+      easy: '敵の攻撃が弱く、倒れやすい。',
+      medium: '想定どおりの手ごたえ。',
+      hard: '敵がタフになり、攻撃も痛い。'
+    }
+  },
+  adsBlocked: {
+    title: '広告を表示できませんでした',
+    body: '動画を表示しようとしましたが、ブラウザの何かが広告をブロックしています。',
+    allowPrefix: '次のサイトで広告を許可してください：',
+    allowSuffix: '（またはこのゲームのみ広告ブロッカーを一時停止）してから再試行してください。',
+    gotIt: 'わかりました'
+  },
+  saveStatus: {
+    restoredTitle: 'クラウドセーブを復元しました',
+    restoredBody: '復元ボーナス +{n} ゴールド',
+    tap: 'タップ',
+    pausedTitle: 'クラウド同期を一時停止中',
+    pausedBody: 'オフラインでプレイ中です。進行状況はここに保存されます。',
+    retry: '再試行',
+    dismiss: '閉じる'
+  },
+  loading: {
+    tooLong: '読み込みが長すぎますか？ 広告ブロッカーを無効にして再読み込みしてください。'
+  },
+  license: {
+    denied: 'アクセスが拒否されました：ライセンスをご購入ください。'
+  },
+  leaderboard: {
+    title: 'ランキング',
+    rank: '#',
+    player: 'プレイヤー',
+    score: '経験値',
+    flair: 'レベル',
+    empty: 'まだ誰もランキングにいません。一番乗りしよう！',
+    failed: 'ランキングに接続できません。',
+    loading: '読み込み中…',
+    you: 'あなた',
+    yourRank: '{total} 人中 #{n} 位',
+    of: '/ {n}人中',
+    tabGlobal: '世界'
   }
 }
