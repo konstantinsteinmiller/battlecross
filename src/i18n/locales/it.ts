@@ -2884,5 +2884,13 @@ export default {
     yourRank: 'Sei #{n} su {total}',
     of: 'su {n} giocatori',
     tabGlobal: 'Globale'
+  },
+  wind: {
+    title: 'Secondo fiato',
+    text: 'Sei a terra. Ti rialzi con il {n}% della salute e finisci il combattimento?',
+    once: 'Una volta per visita.',
+    watch: 'Guarda un video',
+    take: 'Rialzati',
+    decline: 'No, grazie'
   }
 }

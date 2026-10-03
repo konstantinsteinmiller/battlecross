@@ -2867,5 +2867,13 @@ export default {
     yourRank: 'Es o #{n} de {total}',
     of: 'de {n} xogadores',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Segundo alento',
+    text: 'Caíches. Levántaste co {n}% da túa saúde e rematas o combate?',
+    once: 'Unha vez por visita.',
+    watch: 'Ver un vídeo',
+    take: 'Levantarte',
+    decline: 'Non, grazas'
   }
 }

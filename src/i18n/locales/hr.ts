@@ -2921,5 +2921,14 @@ export default {
     yourRank: 'Ti si #{n} od {total}',
     of: 'od {n} igrača',
     tabGlobal: 'Svjetska'
+  },
+  wind: {
+    title: 'Drugi dah',
+    text: 'Pao si. Ustaješ li s {n}% zdravlja i završavaš borbu?',
+    text__f: 'Pala si. Ustaješ li s {n}% zdravlja i završavaš borbu?',
+    once: 'Jednom po posjetu.',
+    watch: 'Pogledaj video',
+    take: 'Ustani ponovo',
+    decline: 'Ne, hvala'
   }
 }

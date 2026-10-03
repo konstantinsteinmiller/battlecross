@@ -2831,5 +2831,13 @@ export default {
     yourRank: '{total} oyunçu arasında #{n} yerdəsən',
     of: '/ {n} oyunçu',
     tabGlobal: 'Dünya'
+  },
+  wind: {
+    title: 'İkinci nəfəs',
+    text: 'Yıxıldın. Canının {n}%-i ilə ayağa qalxıb döyüşü bitirmək istəyirsən?',
+    once: 'Hər ziyarətdə bir dəfə.',
+    watch: 'Video izlə',
+    take: 'Yenidən qalx',
+    decline: 'Xeyr, sağ ol'
   }
 }

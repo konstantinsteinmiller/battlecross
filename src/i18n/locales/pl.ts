@@ -2912,5 +2912,14 @@ export default {
     yourRank: 'Jesteś #{n} z {total}',
     of: 'z {n} graczy',
     tabGlobal: 'Światowy'
+  },
+  wind: {
+    title: 'Drugi oddech',
+    text: 'Upadłeś. Wstajesz z {n}% zdrowia i kończysz walkę?',
+    text__f: 'Upadłaś. Wstajesz z {n}% zdrowia i kończysz walkę?',
+    once: 'Raz na wizytę.',
+    watch: 'Obejrzyj film',
+    take: 'Wstań',
+    decline: 'Nie, dzięki'
   }
 }

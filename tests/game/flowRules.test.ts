@@ -7,11 +7,16 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
  * Portal calls are stubbed: this is the game's own bookkeeping.
  */
 
-const ads = vi.hoisted(() => ({ shown: 0, can: true, order: [] as string[] }))
+const ads = vi.hoisted(() => ({ shown: 0, can: true, order: [] as string[], reward: true, rewardOk: true }))
 vi.mock('@/use/usePortalLeaderboard', () => ({ joinPortalBoard: async () => {}, reportPortalBest: async () => {} }))
 vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => { ads.shown++; ads.order.push('ad') } }))
-vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => ads.can, markInterstitialShown: () => {} }))
+vi.mock('@/use/useAdGate', () => {
+  return {
+    canShowInterstitial: () => ads.can, markInterstitialShown: () => {},
+    canOfferReward: { get value() { return ads.reward } }, claimReward: async (g: () => void) => { ads.order.push('rewarded'); if (ads.rewardOk) g(); return ads.rewardOk }
+  }
+})
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))
 const funnel = vi.hoisted(() => ({ events: [] as string[] }))
 // No GPU in the test: the loop is a stand-in (travel would start the renderer).
@@ -30,6 +35,8 @@ beforeEach(async () => {
   drainAndResetModules()
   ads.shown = 0
   ads.can = true
+  ads.reward = true
+  ads.rewardOk = true
   ads.order.length = 0
   funnel.events.length = 0
   await holdGameState()
@@ -326,5 +333,35 @@ describe('the control coach', () => {
     expect(coach.count('move')).toBe(0)
     for (let i = 0; i < 15; i++) coach.progress('move', 0.02)
     expect(coach.count('move')).toBe(1)
+  })
+})
+
+describe('Second wind (#18)', () => {
+  it('is offered only after the opening fight, never in the colosseum, and only with a video ready', () => {
+    expect(f.secondWindAllowed('zone')).toBe(false)
+    p.profile.stats.runs = 2
+    expect(f.secondWindAllowed('zone')).toBe(true)
+    expect(f.secondWindAllowed('arena')).toBe(false)
+    expect(f.secondWindAllowed('town')).toBe(false)
+    ads.reward = false
+    expect(f.secondWindAllowed('zone')).toBe(false)
+  })
+
+  it('a finished video closes the offer; one that did not finish leaves it up', async () => {
+    f.flow.modal = 'secondWind'
+    ads.rewardOk = false
+    expect(await f.takeSecondWind()).toBe(false)
+    expect(f.flow.modal).toBe('secondWind')
+    ads.rewardOk = true
+    expect(await f.takeSecondWind()).toBe(true)
+    expect(f.flow.modal).toBe('')
+    expect(ads.order.filter(o => o === 'rewarded').length).toBe(2)
+  })
+
+  it('No thanks closes the offer without a video', () => {
+    f.flow.modal = 'secondWind'
+    f.declineSecondWind()
+    expect(f.flow.modal).toBe('')
+    expect(ads.order).not.toContain('rewarded')
   })
 })

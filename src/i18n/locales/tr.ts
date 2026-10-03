@@ -2831,5 +2831,13 @@ export default {
     yourRank: '{total} oyuncu içinde #{n}. sıradasın',
     of: '/ {n} oyuncu',
     tabGlobal: 'Dünya'
+  },
+  wind: {
+    title: 'İkinci nefes',
+    text: 'Yere düştün. Canının %{n} kadarıyla ayağa kalkıp dövüşü bitirmek ister misin?',
+    once: 'Ziyaret başına bir kez.',
+    watch: 'Video izle',
+    take: 'Ayağa kalk',
+    decline: 'Hayır, teşekkürler'
   }
 }

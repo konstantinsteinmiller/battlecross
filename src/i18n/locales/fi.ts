@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Olet #{n}/{total}',
     of: '/ {n} pelaajaa',
     tabGlobal: 'Maailma'
+  },
+  wind: {
+    title: 'Toinen tuuli',
+    text: 'Kaaduit. Nouset ylös {n} %:lla terveydestäsi ja viet taistelun loppuun?',
+    once: 'Kerran per käynti.',
+    watch: 'Katso video',
+    take: 'Nouse takaisin',
+    decline: 'Ei kiitos'
   }
 }

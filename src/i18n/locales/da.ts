@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Du er #{n} af {total}',
     of: 'af {n} spillere',
     tabGlobal: 'Verden'
+  },
+  wind: {
+    title: 'Anden luft',
+    text: 'Du faldt. Rejs dig med {n}% af dit helbred og afslut kampen?',
+    once: 'Én gang pr. besøg.',
+    watch: 'Se en video',
+    take: 'Rejs dig igen',
+    decline: 'Nej tak'
   }
 }

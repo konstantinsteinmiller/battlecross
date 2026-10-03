@@ -2868,5 +2868,13 @@ export default {
     yourRank: 'Você é #{n} de {total}',
     of: 'de {n} jogadores',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Segundo fôlego',
+    text: 'Você caiu. Quer se levantar com {n}% da sua saúde e terminar a luta?',
+    once: 'Uma vez por visita.',
+    watch: 'Assistir a um vídeo',
+    take: 'Levantar',
+    decline: 'Não, obrigado'
   }
 }

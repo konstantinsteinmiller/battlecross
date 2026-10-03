@@ -28,7 +28,8 @@ const loadGate = async (opts: GateOpts = {}) => {
   for (const [k, v] of Object.entries(opts.env ?? {})) vi.stubEnv(k, v)
   vi.doMock('@/use/useUser', () => ({
     isCrazyWeb: opts.crazy ?? false,
-    isWaveDash: opts.wavedash ?? false
+    isWaveDash: opts.wavedash ?? false,
+    isPoki: opts.provider === 'poki'
   }))
   vi.doMock('@/use/useMatch', () => ({ isCrazyGamesFullRelease: opts.fullRelease ?? false }))
   const showRewardedAd = vi.fn(async () => true)
@@ -77,6 +78,22 @@ describe('reward gating', () => {
       expect(gate.showRewardedAd, `${provider} skipped the video`).toHaveBeenCalledTimes(1)
       expect(grant).toHaveBeenCalledTimes(1)
     }
+  })
+
+  it('a finished rewarded video counts as an ad break (D54), except on Poki', async () => {
+    for (const provider of ['playgama', 'gamemonetize', 'poki']) {
+      const gate = await loadGate({ provider })
+      gate.__resetInterstitialClock()
+      expect(gate.canShowInterstitial()).toBe(true)
+      await gate.claimReward(() => {})
+      expect(gate.canShowInterstitial(), provider).toBe(provider === 'poki')
+    }
+    // An unfinished video is no break.
+    const gate = await loadGate({ provider: 'playgama' })
+    gate.showRewardedAd.mockResolvedValueOnce(false)
+    gate.__resetInterstitialClock()
+    await gate.claimReward(() => {})
+    expect(gate.canShowInterstitial()).toBe(true)
   })
 
   it('offers nothing at all on a CrazyGames build that is not the full release', async () => {

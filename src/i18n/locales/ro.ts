@@ -2865,5 +2865,13 @@ export default {
     yourRank: 'Ești pe locul #{n} din {total}',
     of: 'din {n} jucători',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'A doua suflare',
+    text: 'Ai căzut. Te ridici cu {n}% din sănătate și termini lupta?',
+    once: 'O dată pe vizită.',
+    watch: 'Vezi un videoclip',
+    take: 'Ridică-te',
+    decline: 'Nu, mulțumesc'
   }
 }

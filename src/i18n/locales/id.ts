@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Kamu peringkat #{n} dari {total}',
     of: 'dari {n} pemain',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Napas kedua',
+    text: 'Kamu jatuh. Bangkit dengan {n}% kesehatanmu dan selesaikan pertarungan?',
+    once: 'Sekali per kunjungan.',
+    watch: 'Tonton video',
+    take: 'Bangkit lagi',
+    decline: 'Tidak, terima kasih'
   }
 }

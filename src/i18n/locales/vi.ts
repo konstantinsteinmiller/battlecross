@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Bạn hạng #{n} trên {total}',
     of: 'trên {n} người chơi',
     tabGlobal: 'Toàn cầu'
+  },
+  wind: {
+    title: 'Hơi thở thứ hai',
+    text: 'Bạn đã ngã xuống. Đứng dậy với {n}% máu và kết thúc trận đấu nhé?',
+    once: 'Mỗi lượt vào chơi một lần.',
+    watch: 'Xem video',
+    take: 'Đứng dậy',
+    decline: 'Không, cảm ơn'
   }
 }

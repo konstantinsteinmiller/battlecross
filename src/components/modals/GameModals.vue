@@ -4,6 +4,7 @@
   TeachScreen(v-else-if="flow.modal === 'trainer'")
   HealerScreen(v-else-if="flow.modal === 'healer'")
   ResultsModal(v-else-if="flow.modal === 'results'")
+  SecondWindModal(v-else-if="flow.modal === 'secondWind'")
   PauseModal(v-else-if="flow.modal === 'pause'" @options="emit('options')")
   HelpModal(v-else-if="flow.modal === 'help'")
   EndingModal(v-else-if="flow.modal === 'ending'")
@@ -25,6 +26,7 @@ const TradeScreen = defineAsyncComponent(SCREEN_CHUNKS.trade)
 const TeachScreen = defineAsyncComponent(SCREEN_CHUNKS.teach)
 const HealerScreen = defineAsyncComponent(SCREEN_CHUNKS.healer)
 import ResultsModal from './ResultsModal.vue'
+import SecondWindModal from './SecondWindModal.vue'
 import PauseModal from './PauseModal.vue'
 import HelpModal from './HelpModal.vue'
 import EndingModal from './EndingModal.vue'

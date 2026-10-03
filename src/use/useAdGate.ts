@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import { isCrazyWeb, isWaveDash } from '@/use/useUser'
+import { isCrazyWeb, isPoki, isWaveDash } from '@/use/useUser'
 import { isCrazyGamesFullRelease } from '@/use/useMatch'
 import { adProviderName, isRewardedReady, showRewardedAd } from '@/use/useAds'
 
@@ -162,7 +162,12 @@ export const claimReward = async (grant: () => void): Promise<boolean> => {
   recordRewardRequest()
   try {
     const ok = await showRewardedAd()
-    if (ok) grant()
+    if (ok) {
+      grant()
+      // A finished video IS an ad break (D54): the next interstitial waits a
+      // full gap from here. Not on Poki, whose SDK paces its own breaks.
+      if (!isPoki) markInterstitialShown()
+    }
     return ok
   } finally {
     adInFlight.value = false

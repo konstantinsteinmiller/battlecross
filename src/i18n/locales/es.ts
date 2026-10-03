@@ -2862,5 +2862,13 @@ export default {
     yourRank: 'Eres #{n} de {total}',
     of: 'de {n} jugadores',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Segundo aliento',
+    text: 'Caíste. ¿Te levantas con el {n}% de tu salud y terminas el combate?',
+    once: 'Una vez por visita.',
+    watch: 'Ver un vídeo',
+    take: 'Levantarte',
+    decline: 'No, gracias'
   }
 }

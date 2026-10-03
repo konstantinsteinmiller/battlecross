@@ -21,7 +21,7 @@ import { flushSaveNow } from '@/use/useSaveStatus'
 import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
 import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
-import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
+import { canOfferReward, canShowInterstitial, claimReward, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
@@ -48,7 +48,7 @@ import { mapSpot, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -216,6 +216,7 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
   const setup = encounter ? encounterSetup(encounter) : setupFor(node)
   const mode = await ZoneMode.create(setup, input!, {
     onEnd: (outcome) => { void finishVisit(outcome) },
+    askSecondWind: offerSecondWind,
     onInteract: (npcId) => talkTo(npcId),
     onPause: () => { if (!flow.modal && !flow.talk && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
     onPanel: openPanel
@@ -404,6 +405,56 @@ const waitForAdGate = async (): Promise<void> => {
 
 /** Share of the purse dropped on a defeat. */
 export const DEFEAT_GOLD_LOSS = 0.1
+
+// ─── Second wind (roadmap #18) ───────────────────────────────────────────────
+
+/**
+ * May the fallen hero be offered Second wind? A rewarded video must be ready
+ * (or the build has no ads at all, and it is free); never after the opening
+ * fight (the first visit ever), never in the colosseum (it would skew the
+ * best-wave board), never in a recorded clip.
+ */
+export const secondWindAllowed = (mode: 'zone' | 'arena' | 'town'): boolean =>
+  !PREVIEW_ON && mode === 'zone' && profile.stats.runs > 0 && canOfferReward.value
+
+/** The scene asks when the hero falls: true holds the defeat on the offer. */
+const offerSecondWind = (): boolean => {
+  const z = app.mode instanceof ZoneMode ? app.mode : null
+  if (!z || flow.modal || !secondWindAllowed(z.sim.mode)) return false
+  flow.modal = 'secondWind'
+  return true
+}
+
+let windBusy = false
+/**
+ * Take Second wind: the video, then up again. A video that did not finish
+ * grants nothing and leaves the offer up (its button goes when no other video
+ * is ready, leaving "No thanks"). The music the ad stopped comes back either way.
+ */
+export const takeSecondWind = async (): Promise<boolean> => {
+  if (windBusy || flow.modal !== 'secondWind') return false
+  windBusy = true
+  let ok = false
+  try {
+    ok = await claimReward(() => {})
+  } finally {
+    windBusy = false
+    resumeMusicAfterAd()
+  }
+  if (!ok) return false
+  flow.modal = ''
+  const z = app.mode instanceof ZoneMode ? app.mode : null
+  z?.secondWind(true)
+  return true
+}
+
+/** No thanks: the defeat goes on to its result screen. */
+export const declineSecondWind = (): void => {
+  if (windBusy || flow.modal !== 'secondWind') return
+  flow.modal = ''
+  const z = app.mode instanceof ZoneMode ? app.mode : null
+  z?.secondWind(false)
+}
 
 /**
  * A visit is decided. Everything the run earned is banked (XP and loot are

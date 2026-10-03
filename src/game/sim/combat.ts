@@ -392,6 +392,35 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   return dealt
 }
 
+/** Seconds a hero brought back by Second wind cannot be hurt. */
+export const REVIVE_GUARD = 2
+/** Share of full health a revived hero gets up with. */
+export const REVIVE_HP = 0.5
+
+/**
+ * Second wind (roadmap #18): the fallen hero gets up — half health, mana as it
+ * was, two seconds no blow can land, and a shove that clears the ring around
+ * him so the same pack cannot finish him in the same instant. Only undoes a
+ * defeat; anything else is left alone.
+ */
+export const reviveHero = (sim: Sim): boolean => {
+  const u = sim.hero.unit
+  if (sim.ended !== 'defeat' || u.alive) return false
+  sim.ended = ''
+  sim.endedT = 0
+  u.alive = true
+  u.hp = Math.max(1, Math.round(u.s.maxHp * REVIVE_HP))
+  u.deadT = 0
+  u.anim = 'idle'
+  u.animT = 0
+  u.flinch = 0
+  sim.hero.order = { kind: 'none', targetId: 0, x: u.x, z: u.z }
+  applyStatus(sim, u, 'invulnerable', REVIVE_GUARD, 1, u)
+  for (const t of sim.inCircle(1, u.x, u.z, 4.5, [])) knockback(t, u.x, u.z, 7)
+  sim.emit({ t: 'fx', id: 'fatalSave', x: u.x, z: u.z, unit: u.id, color: '#ffd84a' })
+  return true
+}
+
 /** A unit dies: rewards, death effects, and the body left to fade. */
 export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
   if (!u.alive) return

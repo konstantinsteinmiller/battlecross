@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Sim } from '@/game/sim/world'
 import { createHero, castSkill, usePotion, orderAttack, slotState, POTION_HEAL } from '@/game/sim/hero'
 import { spawnEnemy } from '@/game/sim/spawn'
-import { applyStatus, dealDamage, isControlled, heal, stepStatuses } from '@/game/sim/combat'
+import { applyStatus, dealDamage, isControlled, heal, stepStatuses, reviveHero, REVIVE_HP, REVIVE_GUARD } from '@/game/sim/combat'
 import { armorMitigation, heroStats, enemyHp, enemyDmg, shopDiscount, type HeroBuild } from '@/game/sim/stats'
 import { stepSim } from '@/game/sim/step'
 import { referenceBuild, setupRun, runZone, botThink } from '@/game/sim/bot'
@@ -149,6 +149,38 @@ describe('damage', () => {
     applyStatus(sim, hero, 'invulnerable', 5, 1, hero)
     expect(dealDamage(sim, e, hero, 500, { type: 'physical', canCrit: false })).toBe(0)
     expect(hero.hp).toBe(hero.s.maxHp)
+  })
+
+  it('Second wind (#18): the fallen hero gets up at half health, guarded, with the ring around him cleared', () => {
+    const sim = field()
+    const e = foe(sim, 'goblin', 1.2, 0)
+    const ex = e.x
+    const mana = sim.hero.unit.mana
+    dealDamage(sim, e, sim.hero.unit, 1e6, { type: 'true', canCrit: false })
+    run(sim, 0.5)
+    expect(sim.ended).toBe('defeat')
+    expect(reviveHero(sim)).toBe(true)
+    const u = sim.hero.unit
+    expect(sim.ended).toBe('')
+    expect(sim.endedT).toBe(0)
+    expect(u.alive).toBe(true)
+    expect(u.hp).toBe(Math.round(u.s.maxHp * REVIVE_HP))
+    expect(u.mana).toBe(mana)
+    // The same pack cannot finish him in the same instant.
+    expect(dealDamage(sim, e, u, 500, { type: 'physical', canCrit: false })).toBe(0)
+    run(sim, 0.3)
+    expect(Math.abs(e.x - u.x)).toBeGreaterThan(Math.abs(ex - u.x))
+    // The guard runs out: blows land again, and a second fall is a defeat.
+    run(sim, REVIVE_GUARD)
+    dealDamage(sim, e, u, 1e6, { type: 'true', canCrit: false })
+    run(sim, 0.2)
+    expect(sim.ended).toBe('defeat')
+  })
+
+  it('Second wind undoes only a defeat', () => {
+    const sim = field()
+    expect(reviveHero(sim)).toBe(false)
+    expect(sim.hero.unit.alive).toBe(true)
   })
 
   it('the hero falling ends the visit in defeat', () => {

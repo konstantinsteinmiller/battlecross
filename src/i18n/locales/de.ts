@@ -2847,5 +2847,13 @@ export default {
     yourRank: 'Du bist #{n} von {total}',
     of: 'von {n} Spielern',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Zweiter Atem',
+    text: 'Du bist gefallen. Steh mit {n}% deiner Gesundheit wieder auf und beende den Kampf?',
+    once: 'Einmal pro Besuch.',
+    watch: 'Video ansehen',
+    take: 'Wieder aufstehen',
+    decline: 'Nein danke'
   }
 }

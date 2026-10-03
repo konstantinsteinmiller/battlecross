@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Helyezésed: #{n} / {total}',
     of: '/ {n} játékos',
     tabGlobal: 'Globális'
+  },
+  wind: {
+    title: 'Második szél',
+    text: 'Elestél. Felállsz az életerőd {n}%-ával, és befejezed a harcot?',
+    once: 'Látogatásonként egyszer.',
+    watch: 'Videó megnézése',
+    take: 'Talpra állok',
+    decline: 'Nem, kösz'
   }
 }

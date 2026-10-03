@@ -2831,5 +2831,13 @@ export default {
     yourRank: '{total} 人中 #{n} 位',
     of: '/ {n}人中',
     tabGlobal: '世界'
+  },
+  wind: {
+    title: 'セカンドウィンド',
+    text: '倒れてしまった。体力{n}%で立ち上がって、戦いを続ける？',
+    once: '1回の訪問につき1回だけ。',
+    watch: '動画を見る',
+    take: '立ち上がる',
+    decline: 'いいえ'
   }
 }

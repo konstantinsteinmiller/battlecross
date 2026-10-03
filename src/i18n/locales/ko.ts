@@ -2831,5 +2831,13 @@ export default {
     yourRank: '{total}명 중 {n}위',
     of: '/ {n}명 중',
     tabGlobal: '전 세계'
+  },
+  wind: {
+    title: '두 번째 숨',
+    text: '쓰러졌어요. 체력 {n}%로 다시 일어나 전투를 끝낼까요?',
+    once: '방문당 한 번만.',
+    watch: '영상 보기',
+    take: '다시 일어나기',
+    decline: '괜찮아요'
   }
 }

@@ -2831,5 +2831,13 @@ export default {
     yourRank: '{total} oʻyinchidan #{n} oʻrindasiz',
     of: '/ {n} oʻyinchi',
     tabGlobal: 'Jahon'
+  },
+  wind: {
+    title: 'Ikkinchi nafas',
+    text: 'Sen yiqilding. Sog‘lig‘ingning {n}% bilan turib, jangni tugatasanmi?',
+    once: 'Har kirishda bir marta.',
+    watch: 'Video ko‘rish',
+    take: 'Qayta turish',
+    decline: 'Yo‘q, rahmat'
   }
 }

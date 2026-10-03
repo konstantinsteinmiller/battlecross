@@ -14,6 +14,7 @@ import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/
 import { leaveVisit } from '../sim/director'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
+import { reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim, findStatus } from '../sim/world'
 import type { SimEvent, Unit } from '../sim/types'
@@ -86,6 +87,9 @@ export interface ZoneSetup {
 export interface ZoneCallbacks {
   /** The visit is decided (after its closing beat). */
   onEnd(outcome: 'victory' | 'defeat'): void
+  /** The hero fell: may Second wind be offered (#18)? True holds the defeat
+   *  beat until `secondWind` answers. Absent: never offered. */
+  askSecondWind?(): boolean
   /** The hero walked up to a townsperson. */
   onInteract(npcId: string): void
   onPause(): void
@@ -100,6 +104,8 @@ const TRAUMA_LIGHT = 0.2
 const TRAUMA_HEAVY = 0.6
 /** Seconds the world plays on after the outcome, before the result screen. */
 const END_BEAT = { victory: 2.1, defeat: 1.8 }
+/** Seconds after the fall that Second wind is offered: the fall reads first. */
+const WIND_AT = 1
 
 interface View {
   v: RigView
@@ -168,6 +174,10 @@ export class ZoneMode implements GameMode {
   private hudT = 0
   private dragT = 0
   private endFired = false
+  /** Second wind was asked for this visit (once, taken or not). */
+  private windAsked = false
+  /** The defeat waits on the player's answer to Second wind. */
+  private windHeld = false
   private stepSfx = 0
   /** The enemy the pointer is over (the drag line snaps to it). */
   private hoverId = 0
@@ -772,10 +782,23 @@ export class ZoneMode implements GameMode {
     if (first) consumeEdges(this.input)
 
     const sim = this.sim
-    if (sim.ended && !this.endFired && sim.endedT >= END_BEAT[sim.ended] && (sim.ended !== 'victory' || sim.endReady)) {
+    if (sim.ended === 'defeat' && !this.windAsked && sim.endedT >= WIND_AT) {
+      this.windAsked = true
+      this.windHeld = !!this.cb.askSecondWind?.()
+    }
+    if (sim.ended && !this.endFired && !this.windHeld && sim.endedT >= END_BEAT[sim.ended] && (sim.ended !== 'victory' || sim.endReady)) {
       this.endFired = true
       hud.phase = sim.ended === 'victory' ? 'won' : 'dead'
       this.cb.onEnd(sim.ended)
+    }
+  }
+
+  /** The answer to Second wind: up again, or the defeat goes on to its result. */
+  secondWind(take: boolean): void {
+    this.windHeld = false
+    if (take && reviveHero(this.sim)) {
+      hud.phase = 'play'
+      this.cam.addTrauma(TRAUMA_LIGHT)
     }
   }
 

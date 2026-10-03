@@ -2831,5 +2831,13 @@ export default {
     yourRank: '你在 {total} 人中排第 {n} 名',
     of: '/ 共 {n} 名玩家',
     tabGlobal: '全球'
+  },
+  wind: {
+    title: '重新振作',
+    text: '你倒下了。要以 {n}% 的生命值站起來，把這場戰鬥打完嗎？',
+    once: '每次造訪限一次。',
+    watch: '觀看影片',
+    take: '重新站起',
+    decline: '不用了'
   }
 }

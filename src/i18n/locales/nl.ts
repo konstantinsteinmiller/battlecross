@@ -2839,5 +2839,13 @@ export default {
     yourRank: 'Jij bent #{n} van {total}',
     of: 'van {n} spelers',
     tabGlobal: 'Wereldwijd'
+  },
+  wind: {
+    title: 'Tweede adem',
+    text: 'Je bent gevallen. Sta op met {n}% van je gezondheid en maak het gevecht af?',
+    once: 'Eén keer per bezoek.',
+    watch: 'Bekijk een video',
+    take: 'Sta weer op',
+    decline: 'Nee, bedankt'
   }
 }

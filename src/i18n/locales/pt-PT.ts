@@ -2866,5 +2866,13 @@ export default {
     yourRank: 'Estás em #{n} de {total}',
     of: 'de {n} jogadores',
     tabGlobal: 'Mundial'
+  },
+  wind: {
+    title: 'Segundo fôlego',
+    text: 'Caíste. Levantas-te com {n}% da tua saúde e acabas o combate?',
+    once: 'Uma vez por visita.',
+    watch: 'Ver um vídeo',
+    take: 'Levantar-me',
+    decline: 'Não, obrigado'
   }
 }

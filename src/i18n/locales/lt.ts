@@ -2877,5 +2877,13 @@ export default {
     yourRank: 'Tu esi #{n} iš {total}',
     of: 'iš {n} žaidėjų',
     tabGlobal: 'Pasaulis'
+  },
+  wind: {
+    title: 'Antras kvėpavimas',
+    text: 'Griuvai. Atsistoji su {n}% sveikatos ir baigi kovą?',
+    once: 'Vieną kartą per apsilankymą.',
+    watch: 'Žiūrėti vaizdo įrašą',
+    take: 'Atsistoti',
+    decline: 'Ne, ačiū'
   }
 }

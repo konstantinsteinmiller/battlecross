@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Du är #{n} av {total}',
     of: 'av {n} spelare',
     tabGlobal: 'Världen'
+  },
+  wind: {
+    title: 'Andra andningen',
+    text: 'Du föll. Res dig med {n} % av din hälsa och avsluta striden?',
+    once: 'En gång per besök.',
+    watch: 'Se en video',
+    take: 'Res dig igen',
+    decline: 'Nej tack'
   }
 }

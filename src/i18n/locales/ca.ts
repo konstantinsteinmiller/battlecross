@@ -2864,5 +2864,13 @@ export default {
     yourRank: 'Ets el #{n} de {total}',
     of: 'de {n} jugadors',
     tabGlobal: 'Global'
+  },
+  wind: {
+    title: 'Segon alè',
+    text: 'Has caigut. Vols aixecar-te amb el {n}% de la salut i acabar el combat?',
+    once: 'Una vegada per visita.',
+    watch: 'Mira un vídeo',
+    take: 'Aixeca’t',
+    decline: 'No, gràcies'
   }
 }

@@ -2866,5 +2866,13 @@ export default {
     yourRank: 'Tu es #{n} sur {total}',
     of: 'sur {n} joueurs',
     tabGlobal: 'Mondial'
+  },
+  wind: {
+    title: 'Second souffle',
+    text: 'Tu es à terre. Te relever avec {n} % de ta santé et finir le combat ?',
+    once: 'Une fois par visite.',
+    watch: 'Regarder une vidéo',
+    take: 'Se relever',
+    decline: 'Non merci'
   }
 }

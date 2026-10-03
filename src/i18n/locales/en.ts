@@ -1675,5 +1675,13 @@ export default {
     'yourRank': 'You are #{n} of {total}',
     'of': 'of {n} players',
     'tabGlobal': 'Global'
+  },
+  'wind': {
+    'title': 'Second wind',
+    'text': 'You fell. Get back up with {n}% of your health and finish the fight?',
+    'once': 'Once per visit.',
+    'watch': 'Watch a video',
+    'take': 'Get back up',
+    'decline': 'No thanks'
   }
 }

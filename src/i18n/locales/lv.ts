@@ -2891,5 +2891,13 @@ export default {
     yourRank: 'Tu esi #{n} no {total}',
     of: 'no {n} spēlētājiem',
     tabGlobal: 'Pasaulē'
+  },
+  wind: {
+    title: 'Otrā elpa',
+    text: 'Tu nokriti. Piecelties ar {n}% veselības un pabeigt cīņu?',
+    once: 'Vienu reizi katrā apmeklējumā.',
+    watch: 'Skatīties video',
+    take: 'Piecelties',
+    decline: 'Nē, paldies'
   }
 }

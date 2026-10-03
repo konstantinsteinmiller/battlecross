@@ -2915,5 +2915,14 @@ export default {
     yourRank: 'Jsi #{n} z {total}',
     of: 'z {n} hráčů',
     tabGlobal: 'Celosvětový'
+  },
+  wind: {
+    title: 'Druhý dech',
+    text: 'Upadl jsi. Vstaneš s {n} % zdraví a dobojuješ souboj?',
+    text__f: 'Upadla jsi. Vstaneš s {n} % zdraví a dobojuješ souboj?',
+    once: 'Jednou za návštěvu.',
+    watch: 'Podívat se na video',
+    take: 'Vstát',
+    decline: 'Ne, díky'
   }
 }

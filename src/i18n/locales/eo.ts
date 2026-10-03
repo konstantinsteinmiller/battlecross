@@ -2831,5 +2831,13 @@ export default {
     yourRank: 'Vi estas #{n} el {total}',
     of: 'el {n} ludantoj',
     tabGlobal: 'Tutmonde'
+  },
+  wind: {
+    title: 'Dua spiro',
+    text: 'Vi falis. Ĉu releviĝi kun {n}% de via sano kaj fini la batalon?',
+    once: 'Unufoje po vizito.',
+    watch: 'Spekti videon',
+    take: 'Releviĝi',
+    decline: 'Ne, dankon'
   }
 }
