@@ -2,7 +2,7 @@
 
 /** Drop-in asset files present at build time (see `assetOverridesPlugin` in
  *  vite.config.ts): file names inside public/audio/sfx, public/audio/music and
- *  public/images/{textures,items,skills,portraits,ui}; `voice` lists
+ *  public/images/{textures,items,skills,portraits,ui,icons}; `voice` lists
  *  `<lang>/<file>` under public/audio/voice. */
 declare module 'virtual:asset-overrides' {
   const overrides: {
@@ -13,6 +13,7 @@ declare module 'virtual:asset-overrides' {
     skills: string[]
     portraits: string[]
     ui: string[]
+    icons: string[]
     voice: string[]
   }
   export default overrides

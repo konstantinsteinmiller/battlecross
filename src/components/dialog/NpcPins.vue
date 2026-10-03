@@ -15,8 +15,10 @@
           span.pin__label {{ t('options.actions.interact') }}
           KeyCap.pin__key(v-if="hud.device === 'mouse'" :code="interactCode")
       span.pin__badge(v-else aria-hidden="true")
-        svg.pin__mark(v-if="p.kind === 'quest'" viewBox="0 0 24 24")
-          path(d="M9.6 3h4.800l-0.800 11h-3.200zM12 16.400a2.300 2.300 0 1 1 0 4.600a2.300 2.300 0 0 1 0-4.600z" fill="currentColor")
+        template(v-if="p.kind === 'quest'")
+          img.pin__mark(v-if="ICON_ART.get('mark-quest')" :src="ICON_ART.get('mark-quest')" alt="" draggable="false")
+          svg.pin__mark(v-else :viewBox="MARKS.quest.viewBox")
+            path(:d="MARKS.quest.d" fill="currentColor")
         GameIcon(v-else :name="p.icon")
         i.pin__new(v-if="p.news")
 </template>
@@ -42,6 +44,8 @@ import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import type { ZoneMode } from '@/game/modes/zoneMode'
 import type { GameIconName } from '@/components/icons/iconNames'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
+import { MARKS } from '@/components/icons/marks'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 
 const { t } = useI18n()

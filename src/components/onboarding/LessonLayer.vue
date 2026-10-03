@@ -19,8 +19,9 @@
         span.lessons__finger(v-if="hud.device === 'touch'" aria-hidden="true")
           InputGlyph(kind="finger" mode="tap")
         template(v-else)
-          svg.lessons__cursor(viewBox="0 0 40 52" aria-hidden="true" focusable="false")
-            path(d="M4 3 L4 40 L13.5 31.5 L20 47 L27 44 L20.5 29 L33 28.5 Z")
+          img.lessons__cursor(v-if="ICON_ART.get('mark-cursor')" :src="ICON_ART.get('mark-cursor')" alt="" aria-hidden="true" draggable="false")
+          svg.lessons__cursor(v-else :viewBox="MARKS.cursor.viewBox" aria-hidden="true" focusable="false")
+            path(:d="MARKS.cursor.d")
           span.lessons__mouse(aria-hidden="true")
             InputGlyph(kind="mouse" button="left" :click="shape.kind !== 'drag'" :hold="shape.kind === 'drag'")
         span.lessons__pip(aria-hidden="true")
@@ -64,6 +65,8 @@ import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
+import { MARKS } from '@/components/icons/marks'
 
 const { t } = useI18n()
 

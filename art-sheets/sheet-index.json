@@ -2517,6 +2517,1632 @@
       ]
     },
     {
+      "id": "sheet-icons-classes",
+      "kind": "set",
+      "title": "Icons: class emblems",
+      "files": {
+        "clean": "sheet-icons-classes.png",
+        "key": "sheet-icons-classes-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 128,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "class-aegis",
+          "label": "Class-aegis",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-aegis.webp",
+          "round": true,
+          "fit": {
+            "h": 0.699,
+            "w": 0.766,
+            "bottom": 0.852,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "class-shadow",
+          "label": "Class-shadow",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-shadow.webp",
+          "round": true,
+          "fit": {
+            "h": 0.719,
+            "w": 0.84,
+            "bottom": 0.859,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "class-pyro",
+          "label": "Class-pyro",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-pyro.webp",
+          "round": true,
+          "fit": {
+            "h": 0.781,
+            "w": 0.66,
+            "bottom": 0.891,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "class-sovereign",
+          "label": "Class-sovereign",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-sovereign.webp",
+          "round": true,
+          "fit": {
+            "h": 0.719,
+            "w": 0.57,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "class-chrono",
+          "label": "Class-chrono",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-chrono.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "class-blood",
+          "label": "Class-blood",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-blood.webp",
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "class-aether",
+          "label": "Class-aether",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-aether.webp",
+          "round": true,
+          "fit": {
+            "h": 0.672,
+            "w": 0.719,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "class-geo",
+          "label": "Class-geo",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-geo.webp",
+          "round": true,
+          "fit": {
+            "h": 0.648,
+            "w": 0.648,
+            "bottom": 0.824,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-status-1",
+      "kind": "set",
+      "title": "Icons: status effects (1 of 3)",
+      "files": {
+        "clean": "sheet-icons-status-1.png",
+        "key": "sheet-icons-status-1-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "status-stun",
+          "label": "Status-stun",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-stun.webp",
+          "round": true,
+          "fit": {
+            "h": 0.762,
+            "w": 0.797,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-knockup",
+          "label": "Status-knockup",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-knockup.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.625,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-knockdown",
+          "label": "Status-knockdown",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-knockdown.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.625,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-stasis",
+          "label": "Status-stasis",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-stasis.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-petrify",
+          "label": "Status-petrify",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-petrify.webp",
+          "round": true,
+          "fit": {
+            "h": 0.664,
+            "w": 0.727,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-frozen",
+          "label": "Status-frozen",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-frozen.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.734,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-fear",
+          "label": "Status-fear",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-fear.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.742,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-slow",
+          "label": "Status-slow",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-slow.webp",
+          "round": true,
+          "fit": {
+            "h": 0.602,
+            "w": 0.695,
+            "bottom": 0.801,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-confuse",
+          "label": "Status-confuse",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-confuse.webp",
+          "round": true,
+          "fit": {
+            "h": 0.695,
+            "w": 0.836,
+            "bottom": 0.848,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-taunt",
+          "label": "Status-taunt",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-taunt.webp",
+          "round": true,
+          "fit": {
+            "h": 0.758,
+            "w": 0.836,
+            "bottom": 0.879,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-armorShred",
+          "label": "Status-armor Shred",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-armorShred.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-weaken",
+          "label": "Status-weaken",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-weaken.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-status-2",
+      "kind": "set",
+      "title": "Icons: status effects (2 of 3)",
+      "files": {
+        "clean": "sheet-icons-status-2.png",
+        "key": "sheet-icons-status-2-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "status-vulnerable",
+          "label": "Status-vulnerable",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-vulnerable.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-burn",
+          "label": "Status-burn",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-burn.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.609,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-poison",
+          "label": "Status-poison",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-poison.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.609,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-bleed",
+          "label": "Status-bleed",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-bleed.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.609,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-delayed",
+          "label": "Status-delayed",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-delayed.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-haste",
+          "label": "Status-haste",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-haste.webp",
+          "round": true,
+          "fit": {
+            "h": 0.43,
+            "w": 0.813,
+            "bottom": 0.715,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-attackSpeed",
+          "label": "Status-attack Speed",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-attackSpeed.webp",
+          "round": true,
+          "fit": {
+            "h": 0.539,
+            "w": 0.75,
+            "bottom": 0.77,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-damageUp",
+          "label": "Status-damage Up",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-damageUp.webp",
+          "round": true,
+          "fit": {
+            "h": 0.688,
+            "w": 0.664,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-defenseUp",
+          "label": "Status-defense Up",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-defenseUp.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-regen",
+          "label": "Status-regen",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-regen.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-lifestealUp",
+          "label": "Status-lifesteal Up",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-lifestealUp.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-invulnerable",
+          "label": "Status-invulnerable",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-invulnerable.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-status-3",
+      "kind": "set",
+      "title": "Icons: status effects (3 of 3)",
+      "files": {
+        "clean": "sheet-icons-status-3.png",
+        "key": "sheet-icons-status-3-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "status-unkillable",
+          "label": "Status-unkillable",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-unkillable.webp",
+          "round": true,
+          "fit": {
+            "h": 0.656,
+            "w": 0.656,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-stealth",
+          "label": "Status-stealth",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-stealth.webp",
+          "round": true,
+          "fit": {
+            "h": 0.656,
+            "w": 0.742,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-reflect",
+          "label": "Status-reflect",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-reflect.webp",
+          "round": true,
+          "fit": {
+            "h": 0.719,
+            "w": 0.578,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-envenom",
+          "label": "Status-envenom",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-envenom.webp",
+          "round": true,
+          "fit": {
+            "h": 0.668,
+            "w": 0.773,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-exosuit",
+          "label": "Status-exosuit",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-exosuit.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-focus",
+          "label": "Status-focus",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-focus.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-accelerate",
+          "label": "Status-accelerate",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-accelerate.webp",
+          "round": true,
+          "fit": {
+            "h": 0.734,
+            "w": 0.699,
+            "bottom": 0.867,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "status-overheat",
+          "label": "Status-overheat",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-overheat.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.438,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-enrage",
+          "label": "Status-enrage",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-enrage.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "status-ambush",
+          "label": "Status-ambush",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-ambush.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.742,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-ui-1",
+      "kind": "set",
+      "title": "Icons: HUD and menu buttons",
+      "files": {
+        "clean": "sheet-icons-ui-1.png",
+        "key": "sheet-icons-ui-1-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "ui-pause",
+          "label": "Ui-pause",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-pause.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-settings",
+          "label": "Ui-settings",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-settings.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-help",
+          "label": "Ui-help",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-help.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.844,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-map",
+          "label": "Ui-map",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-map.webp",
+          "fit": {
+            "h": 0.672,
+            "w": 0.836,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-hero",
+          "label": "Ui-hero",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-hero.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-book",
+          "label": "Ui-book",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-book.webp",
+          "fit": {
+            "h": 0.609,
+            "w": 0.836,
+            "bottom": 0.805,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-bag",
+          "label": "Ui-bag",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-bag.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.711,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-close",
+          "label": "Ui-close",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-close.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-check",
+          "label": "Ui-check",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-check.webp",
+          "fit": {
+            "h": 0.758,
+            "w": 0.84,
+            "bottom": 0.879,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "ui-lock",
+          "label": "Ui-lock",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-lock.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.742,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-plus",
+          "label": "Ui-plus",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-plus.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-chest",
+          "label": "Ui-chest",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-chest.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.844,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-ui-2",
+      "kind": "set",
+      "title": "Icons: screen buttons",
+      "files": {
+        "clean": "sheet-icons-ui-2.png",
+        "key": "sheet-icons-ui-2-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "ui-sound",
+          "label": "Ui-sound",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-sound.webp",
+          "fit": {
+            "h": 0.555,
+            "w": 0.836,
+            "bottom": 0.777,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-sound-off",
+          "label": "Ui-sound-off",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-sound-off.webp",
+          "fit": {
+            "h": 0.492,
+            "w": 0.84,
+            "bottom": 0.746,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "ui-play",
+          "label": "Ui-play",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-play.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.734,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-replay",
+          "label": "Ui-replay",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-replay.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.789,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-skip-forward",
+          "label": "Ui-skip-forward",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-skip-forward.webp",
+          "fit": {
+            "h": 0.727,
+            "w": 0.844,
+            "bottom": 0.863,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-forward",
+          "label": "Ui-forward",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-forward.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.836,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-back",
+          "label": "Ui-back",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-back.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.836,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-home",
+          "label": "Ui-home",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-home.webp",
+          "fit": {
+            "h": 0.813,
+            "w": 0.844,
+            "bottom": 0.906,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-sword",
+          "label": "Ui-sword",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-sword.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.84,
+            "bottom": 0.918,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "ui-flask",
+          "label": "Ui-flask",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-flask.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.727,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-chat",
+          "label": "Ui-chat",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-chat.webp",
+          "fit": {
+            "h": 0.738,
+            "w": 0.836,
+            "bottom": 0.867,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-skull",
+          "label": "Ui-skull",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-skull.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.586,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-ui-3",
+      "kind": "set",
+      "title": "Icons: badges, pins and help",
+      "files": {
+        "clean": "sheet-icons-ui-3.png",
+        "key": "sheet-icons-ui-3-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "ui-anvil",
+          "label": "Ui-anvil",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-anvil.webp",
+          "fit": {
+            "h": 0.785,
+            "w": 0.84,
+            "bottom": 0.895,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "ui-gem",
+          "label": "Ui-gem",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-gem.webp",
+          "fit": {
+            "h": 0.777,
+            "w": 0.836,
+            "bottom": 0.891,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-gift",
+          "label": "Ui-gift",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-gift.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.82,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-info",
+          "label": "Ui-info",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-info.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.844,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-shield",
+          "label": "Ui-shield",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-shield.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-star",
+          "label": "Ui-star",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-star.webp",
+          "fit": {
+            "h": 0.805,
+            "w": 0.844,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-coin",
+          "label": "Ui-coin",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-coin.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.844,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-trophy",
+          "label": "Ui-trophy",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-trophy.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-leaderboard",
+          "label": "Ui-leaderboard",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-leaderboard.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.844,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-boots",
+          "label": "Ui-boots",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-boots.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.797,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-bolt",
+          "label": "Ui-bolt",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-bolt.webp",
+          "fit": {
+            "h": 0.832,
+            "w": 0.586,
+            "bottom": 0.914,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ui-range",
+          "label": "Ui-range",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-range.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-misc",
+      "kind": "set",
+      "title": "Icons: equipment slots and marks",
+      "files": {
+        "clean": "sheet-icons-misc.png",
+        "key": "sheet-icons-misc-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 128,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "ui-armor",
+          "label": "Ui-armor",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/ui-armor.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.805,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-main",
+          "label": "Slot-main",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-main.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "slot-off",
+          "label": "Slot-off",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-off.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-head",
+          "label": "Slot-head",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-head.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-body",
+          "label": "Slot-body",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-body.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-hands",
+          "label": "Slot-hands",
+          "variant": "icons",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-hands.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-feet",
+          "label": "Slot-feet",
+          "variant": "icons",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-feet.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "slot-trinket",
+          "label": "Slot-trinket",
+          "variant": "icons",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/slot-trinket.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mark-potion-health",
+          "label": "Mark-potion-health",
+          "variant": "icons",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/mark-potion-health.webp",
+          "fit": {
+            "h": 0.789,
+            "w": 0.844,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mark-potion-mana",
+          "label": "Mark-potion-mana",
+          "variant": "icons",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/mark-potion-mana.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.594,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mark-quest",
+          "label": "Mark-quest",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/mark-quest.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.227,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mark-cursor",
+          "label": "Mark-cursor",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/mark-cursor.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.551,
+            "bottom": 0.918,
+            "cx": 0.498
+          }
+        }
+      ]
+    },
+    {
       "id": "single-ui-coin",
       "kind": "single",
       "title": "UI: the gold coin",

@@ -45,8 +45,9 @@
       FSocket.slot__socket(shape="round" tint="var(--bc-red)" cork art="skill-frame-potion")
         span.slot__face.flask
           span.flask__liquid(:style="{ transform: `translateY(${healthLevel}%)` }")
-          svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
-            path(d="M24 39C11 30 8 23.500 8 18a8 8 0 0 1 16-2.500A8 8 0 0 1 40 18c0 5.500-3 12-16 21z")
+          img.flask__mark(v-if="ICON_ART.get('mark-potion-health')" :src="ICON_ART.get('mark-potion-health')" alt="" aria-hidden="true" draggable="false")
+          svg.flask__mark(v-else :viewBox="MARKS['potion-health'].viewBox" aria-hidden="true" focusable="false")
+            path(:d="MARKS['potion-health'].d")
         template(#over)
           span.slot__shine(aria-hidden="true")
           span.slot__cd(ref="potionCd")
@@ -68,8 +69,9 @@
         FSocket.slot__socket(shape="round" tint="var(--bc-blue)" metal="steel" cork art="skill-frame-potion")
           span.slot__face.flask
             span.flask__liquid(:style="{ transform: `translateY(${manaLevel}%)` }")
-            svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
-              path(d="M24 7c6 9.500 12 15 12 22a12 12 0 0 1-24 0c0-7 6-12.500 12-22z")
+            img.flask__mark(v-if="ICON_ART.get('mark-potion-mana')" :src="ICON_ART.get('mark-potion-mana')" alt="" aria-hidden="true" draggable="false")
+            svg.flask__mark(v-else :viewBox="MARKS['potion-mana'].viewBox" aria-hidden="true" focusable="false")
+              path(:d="MARKS['potion-mana'].d")
           template(#over)
             span.slot__shine(aria-hidden="true")
             span.slot__cd(ref="manaCd")
@@ -107,6 +109,8 @@ import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import { sceneQuality } from '@/game/engine/quality'
 import FSocket from '@/components/atoms/FSocket.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
+import { MARKS } from '@/components/icons/marks'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import { glowing, revealed } from '@/game/coach/reveal'

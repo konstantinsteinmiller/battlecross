@@ -1,6 +1,9 @@
 import { ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
+import { CLASS_EMBLEM_BLURBS, MARK_ICONS, SLOT_BLURBS, SLOT_GLYPH, STATUS_BLURBS, UI_ICONS } from './iconBlurbs'
+import { GLYPHS } from '../../components/art/glyphs'
+import { statusTint } from '../../components/art/tints'
 
 /**
  * ─── The art manifest ────────────────────────────────────────────────────────
@@ -62,7 +65,7 @@ export const ICON_FILL_ROUND = 0.9
 
 // ─── What the renderer can load ──────────────────────────────────────────────
 
-export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures'
+export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures' | 'icons'
 
 /** Town and quest speakers, as the brief sets them out. */
 const TOWN_LOOKS = ['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'captain', 'fence', 'dwarf', 'tinker'] as const
@@ -77,7 +80,10 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS],
   ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
-  textures: ['ground']
+  textures: ['ground'],
+  // Defined below with their sheets (`ICON_CELLS`); a getter, because the
+  // cells are built after this table.
+  get icons() { return ICON_CELLS.map(c => c.id) }
 }
 
 /** Where a painted file goes, relative to `public/`. The name is the id. */
@@ -270,7 +276,10 @@ const CLASS_HUE: Readonly<Record<ClassId, string>> = {
 // ─── The sheets ──────────────────────────────────────────────────────────────
 
 /** What the bench draws into a panel. */
-export type DrawKind = 'item' | 'skill' | 'portrait' | 'coin'
+/** What the bench draws into a panel. `glyph`: an `ArtIcon` glyph (status,
+ *  class emblem, empty-slot marker); `ui`: a `GameIcon`; `mark`: one of
+ *  `components/icons/marks.ts`. */
+export type DrawKind = 'item' | 'skill' | 'portrait' | 'coin' | 'glyph' | 'ui' | 'mark'
 
 export interface SheetCell {
   id: string
@@ -421,6 +430,71 @@ const portraitSet = (stem: string, title: string, looks: readonly string[], cols
   cells: grid(looks.map(portraitCell), cols, rows)
 })
 
+// ─── Every other icon the player sees ───────────────────────────────────────
+//
+// The UI glyphs, the status effects, the class emblems, the empty-slot markers
+// of the equipment doll and the few marks drawn outside the icon set. Next to
+// painted items and skills the vectors read as another game, so they go
+// through the same round trip. All of them are `public/images/icons/
+// <family>-<id>.webp` (`ICON_ART`); a missing file keeps the vector. Most are
+// drawn small, so their prompt asks for 24 px, not 40.
+
+/** A hue name for a status colour, for the prompt. */
+const hueName = (hex: string): string => {
+  const n = Number.parseInt(hex.slice(1), 16)
+  const r = (n >> 16) & 255
+  const g = (n >> 8) & 255
+  const b = n & 255
+  const mx = Math.max(r, g, b)
+  const mn = Math.min(r, g, b)
+  if (mx - mn < 30) return 'grey'
+  const h = mx === r ? ((g - b) / (mx - mn) + 6) % 6 * 60 : mx === g ? ((b - r) / (mx - mn) + 2) * 60 : ((r - g) / (mx - mn) + 4) * 60
+  if (h < 15 || h >= 345) return 'red'
+  if (h < 40) return 'orange'
+  if (h < 65) return 'gold'
+  if (h < 160) return 'green'
+  if (h < 190) return 'teal'
+  if (h < 215) return 'sky blue'
+  if (h < 245) return 'blue'
+  if (h < 290) return 'violet'
+  return 'pink'
+}
+
+const iconCell = (id: string, draw: DrawKind, ref: string, blurb: string, tint: string, tintName: string, round = false): SheetCell => ({
+  id, draw, label: labelOf(id), blurb, target: artTarget('icons', id), glyph: ref, tint, tintName, ...(round ? { round } : {})
+})
+
+const STATUS_IDS = Object.keys(GLYPHS).filter(k => k.startsWith('status.')).map(k => k.slice(7))
+const statusCells = STATUS_IDS.map(id => {
+  const blurb = STATUS_BLURBS[id]
+  if (!blurb) throw new Error(`artSheet: no blurb for status "${id}"`)
+  return iconCell(`status-${id}`, 'glyph', `status.${id}`, blurb, statusTint(id), hueName(statusTint(id)), true)
+})
+const classCells = CLASS_IDS.map(cls => iconCell(`class-${cls}`, 'glyph', `skill.${skillsOf(cls)[0]!.id}`, CLASS_EMBLEM_BLURBS[cls], CLASSES[cls].color, CLASS_HUE[cls], true))
+const uiCells = UI_ICONS.map(i => iconCell(`ui-${i.ref}`, 'ui', i.ref, i.blurb, i.tint, i.tintName))
+const slotCells = Object.entries(SLOT_BLURBS).map(([slot, blurb]) => iconCell(`slot-${slot}`, 'glyph', SLOT_GLYPH[slot] ?? 'unknown', blurb, '#b8b2c8', 'pale stone grey'))
+const markCells = MARK_ICONS.map(m => iconCell(`mark-${m.ref}`, 'mark', m.ref, m.blurb, m.tint, m.tintName))
+
+const iconSet = (stem: string, title: string, cells: SheetCell[], cols: number, rows: number, maxEdge: number): ArtSet => ({
+  stem, title, kind: 'icons', doc: 'PROMPTS-ICONS.md', cols, rows, maxEdge, crop: 1, anchor: 'centre',
+  // The painted weapons show what "painted" means, as they do for the skills.
+  styleRefs: SKILL_FINISH_REFS,
+  cells: grid(cells, cols, rows)
+})
+
+/** The icon sheets, in the order to paint them: what stands out most first. */
+export const ICON_SETS: readonly ArtSet[] = [
+  iconSet('sheet-icons-classes', 'Icons: class emblems', classCells, 3, 3, 128),
+  iconSet('sheet-icons-status-1', 'Icons: status effects (1 of 3)', statusCells.slice(0, 12), 4, 3, 96),
+  iconSet('sheet-icons-status-2', 'Icons: status effects (2 of 3)', statusCells.slice(12, 24), 4, 3, 96),
+  iconSet('sheet-icons-status-3', 'Icons: status effects (3 of 3)', statusCells.slice(24), 4, 3, 96),
+  iconSet('sheet-icons-ui-1', 'Icons: HUD and menu buttons', uiCells.slice(0, 12), 4, 3, 96),
+  iconSet('sheet-icons-ui-2', 'Icons: screen buttons', uiCells.slice(12, 24), 4, 3, 96),
+  iconSet('sheet-icons-ui-3', 'Icons: badges, pins and help', uiCells.slice(24, 36), 4, 3, 96),
+  iconSet('sheet-icons-misc', 'Icons: equipment slots and marks', [...uiCells.slice(36), ...slotCells, ...markCells], 4, 3, 128)
+]
+const ICON_CELLS: readonly SheetCell[] = ICON_SETS.flatMap(s => s.cells.flatMap(c => (c ? [c] : [])))
+
 export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-weapons', 'Item icons: weapons', main.slice(0, 12)),
   itemSet('sheet-items-arms', 'Item icons: top weapons and off-hands', [...main.slice(12), ...off]),
@@ -444,7 +518,8 @@ export const SETS: readonly ArtSet[] = [
       '· ONLY THE CLOTHES CHANGE between the panels, as each panel\'s line says. No helmet, no hat, no hood: the face and hair always show.',
       '· Four different people side by side is the wrong answer however well each is painted. Hold panel 1 against panel 4: if the face is not obviously the same person, it is not usable.'
     ].join('\n')
-  }
+  },
+  ...ICON_SETS
 ]
 
 /** One object per file. The same shape as a set, with one panel. */
@@ -676,6 +751,11 @@ export const READABLE = [
   '· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.',
   '· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.'
 ].join('\n')
+/** The same clause, for icons drawn as small as 24 px (badges, pins, status chips). */
+export const READABLE_SMALL = READABLE
+  .replace('READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide', 'READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide')
+  .replace('disappears at that size.', 'disappears at that size. At 24 pixels a shape has room for one idea: keep only the silhouette and its one or two biggest colour areas.')
+
 export const SEE_THROUGH = 'NOTHING IS EVER SEE-THROUGH. Every piece that is present is painted at full, solid colour; light is painted as solid shapes (hard-edged rays, solid rim bands), never as a soft bloom around a shape and never half-transparent or ghostly.'
 
 const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a)
@@ -707,11 +787,12 @@ const extent = (s: ArtSet, fits?: Fits): { w: number; h: number } => {
 const heading = (title: string, stem: string, target: string): string => `# ${title}  (${stem}.png → ${target})`
 
 /** What every panel of a set is, by position. Names never appear: a name is a noun, and a noun gets painted. */
-const panelList = (s: ArtSet, withTint: boolean): string[] =>
+/** `tint`: say each panel's accent (items), or its main colour (icons, which have no colour of their own). */
+const panelList = (s: ArtSet, withTint: boolean | 'main'): string[] =>
   s.cells.map((c, i) => {
     const at = `Panel ${i + 1} (row ${Math.floor(i / s.cols) + 1}, column ${(i % s.cols) + 1})`
     if (!c) return `${at}: BLANK — flat magenta and nothing else.`
-    const tint = withTint && c.tint ? ` Accent, where the reference shows one: ${c.tintName} (about ${c.tint}).` : ''
+    const tint = !withTint || !c.tint ? '' : withTint === 'main' ? ` Main colour: ${c.tintName} (about ${c.tint}).` : ` Accent, where the reference shows one: ${c.tintName} (about ${c.tint}).`
     // No "frame", no "round": the first passives came back with the frame PAINTED,
     // a dark ring or disc around the drawing. Say where the paint may go, and
     // name the ring as the thing not to draw.
@@ -812,6 +893,58 @@ const itemPrompt = (s: ArtSet, fits?: Fits): string => {
     ...checks(s, [
       '· Each panel holds exactly one object and nothing else.',
       '· Every object would still be recognised 40 pixels wide.'
+    ]),
+    '',
+    output(width, height)
+  ].join('\n')
+}
+
+/**
+ * The icon sheets: the items' brief (it came back with real volume) plus the
+ * skills' painted-volume block, the 24 px readability clause, and one fixed
+ * colour per panel, since a UI glyph has none of its own.
+ */
+const iconPrompt = (s: ArtSet, fits?: Fits): string => {
+  const { width, height } = sheetSize(s)
+  return [
+    heading(s.title, s.stem, 'images/icons/'),
+    '',
+    ...comesBack(s, 'object'),
+    ...attached(s),
+    '',
+    'EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR SIGN — NOT A FLAT SYMBOL, AND NOT A SCENE.',
+    '· Paint ONLY what the reference shows in that panel. No hand, no character, no ground, no shadow, no sparkle cloud, no scenery.',
+    '· The game puts each one on its own button, badge or frame. Nothing here sits on a tile, badge, ring, disc or button of its own.',
+    '· Where a panel is a SIGN rather than a thing (an arrow, a tick, a cross, a plus, a question mark, a triangle), paint it as a thick, solid, enamelled token shape with the same volume, outline and glint as everything else — never as a flat letter from a font.',
+    '',
+    'WHAT EACH PANEL IS:',
+    ...panelList(s, 'main'),
+    '',
+    'COLOUR — each panel\'s line names its main colour, and the reference shows it. Keep it: the game shows these on coloured buttons and dark frames, and the colour is how a player finds the right one. Take the HUE, not the flatness.',
+    '',
+    'THE VIEW — flat and front-on, the way the reference shows it, at the same tilt. No three-quarter view, no perspective, no foreshortening.',
+    '',
+    `ONE HAND — all ${s.cells.filter(c => c).length} are painted by the same artist in the same sitting: the same line weight, the same two-step shading, the same light from the upper left. A sheet where one panel has volume and the next is flat is not one set.`,
+    '',
+    FINISH,
+    '',
+    STYLE_PART,
+    NOTATION,
+    '',
+    READABLE_SMALL,
+    '',
+    ...sizeClause(s, fits),
+    '',
+    BACKGROUND,
+    '',
+    GLOW,
+    '',
+    SEE_THROUGH,
+    '',
+    ...checks(s, [
+      '· Each panel holds exactly one thing and nothing else, and no ring, disc, button or badge sits around or behind it.',
+      '· Every shape has a lit side and a shadow side: not one of them is a single flat colour.',
+      '· Every panel would still be recognised 24 pixels wide.'
     ]),
     '',
     output(width, height)
@@ -1066,7 +1199,7 @@ export interface PromptBlock {
 }
 
 const setPrompt = (s: ArtSet, fits?: Fits): string =>
-  s.kind === 'items' ? itemPrompt(s, fits) : s.kind === 'skills' ? skillPrompt(s, fits) : portraitPrompt(s, fits)
+  s.kind === 'items' ? itemPrompt(s, fits) : s.kind === 'skills' ? skillPrompt(s, fits) : s.kind === 'icons' ? iconPrompt(s, fits) : portraitPrompt(s, fits)
 
 /** One block per reference, in document order. `text` is `# heading`, a blank line, the prompt. */
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
@@ -1099,7 +1232,8 @@ const DOC_TITLES: Readonly<Record<string, string>> = {
   'PROMPTS-ITEMS.md': 'Item icons',
   'PROMPTS-SKILLS.md': 'Skill icons',
   'PROMPTS-PORTRAITS.md': 'Portraits',
-  'PROMPTS-UI.md': 'UI and textures'
+  'PROMPTS-UI.md': 'UI and textures',
+  'PROMPTS-ICONS.md': 'UI icons, statuses, class emblems and marks'
 }
 
 const docIntro = (name: string): string[] => [

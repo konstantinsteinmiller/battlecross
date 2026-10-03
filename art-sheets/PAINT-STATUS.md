@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**17 sliced · 1 need a repaint · 0 painted, unreceipted · 6 outstanding**
+**24 sliced · 0 need a repaint · 0 painted, unreceipted · 8 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -24,14 +24,22 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `f6c6e1ae01f5`) | sliced 2026-10-03 |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
-| ! | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | REPAINT — the old one is parked in `painted/stale/` |
-| · | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | not painted yet |
+| ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-03 |
+| ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
+| · | **Icons: class emblems** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | not painted yet |
+| · | **Icons: status effects (1 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | not painted yet |
+| · | **Icons: status effects (2 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | not painted yet |
+| · | **Icons: status effects (3 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `96c14f307c6a`) | not painted yet |
+| · | **Icons: HUD and menu buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-1.png` (rev `742792342418`) | not painted yet |
+| · | **Icons: screen buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-2.png` (rev `3e4281f52940`) | not painted yet |
+| · | **Icons: badges, pins and help** | `PROMPTS-ICONS.md` | `sheet-icons-ui-3.png` (rev `85181b617148`) | not painted yet |
+| · | **Icons: equipment slots and marks** | `PROMPTS-ICONS.md` | `sheet-icons-misc.png` (rev `66898855e876`) | not painted yet |
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-03 |
-| · | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | not painted yet |
-| · | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | not painted yet |
-| · | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | not painted yet |
-| · | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | not painted yet |
-| · | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | not painted yet |
+| ✓ | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | sliced 2026-10-03 |
+| ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-03 |
+| ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-03 |
+| ✓ | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | sliced 2026-10-03 |
+| ✓ | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | sliced 2026-10-03 |
 
 ## What the marks mean
 

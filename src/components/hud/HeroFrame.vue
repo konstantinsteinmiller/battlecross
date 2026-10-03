@@ -40,7 +40,7 @@
           span {{ fmt(hud.gold) }}
         span.statuses
           span.statuses__icon(v-for="s in statuses" :key="s")
-            ArtIcon(:glyph="`status.${s}`" :tint="statusTint(s)" frame="round")
+            ArtIcon(:glyph="`status.${s}`" :tint="statusTint(s)" :src="ICON_ART.get(`status-${s}`)" frame="round")
 </template>
 
 <script setup lang="ts">
@@ -56,6 +56,7 @@ import { hud } from '@/game/state/hud'
 import FBar from '@/components/atoms/FBar.vue'
 import Portrait from '@/components/art/Portrait.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import { statusTint } from '@/components/art/tints'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'

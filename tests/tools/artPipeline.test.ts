@@ -24,9 +24,13 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { ITEMS } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
+import { GLYPHS } from '@/components/art/glyphs'
+import { isGameIconName } from '@/components/icons/iconNames'
+import { MARKS } from '@/components/icons/marks'
+import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
 import { HERO_OUTFITS, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
-  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, NOTATION, READABLE, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
+  ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
@@ -159,7 +163,7 @@ describe('the manifest covers the game', () => {
 
   it('every target is a file the build would load: an override folder, the exact id, no duplicates', () => {
     const config = readFileSync(join(ROOT, 'vite.config.ts'), 'utf-8')
-    const folders = ['items', 'skills', 'portraits', 'ui', 'textures']
+    const folders = ['items', 'skills', 'portraits', 'ui', 'textures', 'icons']
     // The folders `assetOverridesPlugin` scans; a target anywhere else is never listed.
     for (const f of folders) expect(config, f).toContain(`'public/images/${f}'`)
     const seen = new Set<string>()
@@ -167,6 +171,8 @@ describe('the manifest covers the game', () => {
       for (const c of s.cells) {
         if (!c) continue
         expect(c.target, c.id).toMatch(new RegExp(`^images/(${folders.join('|')})/${c.id}\\.webp$`))
+        // An icon's file name says what it replaces: `<family>-<id>`.
+        if (c.target.startsWith('images/icons/')) expect(c.id, c.target).toMatch(/^(ui|status|class|slot|mark)-[A-Za-z0-9-]+$/)
         expect(seen.has(c.target), `duplicate target ${c.target}`).toBe(false)
         seen.add(c.target)
       }
@@ -177,8 +183,10 @@ describe('the manifest covers the game', () => {
       expect(seen.has(a.target), `duplicate target ${a.target}`).toBe(false)
       seen.add(a.target)
     }
-    // Items, skills, portraits, the coin; the map, the ground and the three screen backdrops.
-    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3)
+    // Items, skills, portraits, the coin; the map, the ground and the three
+    // screen backdrops; and every other icon (`ICON_SETS`).
+    const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
+    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3 + icons)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -235,7 +243,9 @@ describe('the manifest covers the game', () => {
         expect(c.x + c.w).toBeLessThanOrEqual(s.width)
         expect(c.y + c.h).toBeLessThanOrEqual(s.height)
       }
-      expect(s.maxEdge).toBe(s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192)
+      // Icons are drawn small (24 to 64 px): emblems and slots 128, the rest 96.
+      const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
+      expect(s.maxEdge, s.id).toBe(icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
     }
   })
 
@@ -250,6 +260,77 @@ describe('the manifest covers the game', () => {
       for (const c of s.cells) expect(typeof c.target).toBe('string')
     }
     for (const a of index.scenery) expect(a.file).toBe(`${a.id}.png`)
+  })
+})
+
+describe('every other icon in the game is a painter target', () => {
+  const ids = ICON_SETS.flatMap(s => s.cells.flatMap(c => (c ? [c.id] : [])))
+
+  it('every status effect, every class emblem, every empty slot and every mark has a panel', () => {
+    for (const k of Object.keys(GLYPHS).filter(g => g.startsWith('status.'))) expect(ids, k).toContain(`status-${k.slice(7)}`)
+    for (const cls of CLASS_IDS) expect(ids, cls).toContain(`class-${cls}`)
+    for (const slot of ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']) {
+      expect(ids, slot).toContain(`slot-${slot}`)
+      // The reference is the glyph the doll draws today.
+      expect(GLYPHS[SLOT_GLYPH[slot]!], slot).toBeTruthy()
+    }
+    for (const m of Object.keys(MARKS)) expect(ids, m).toContain(`mark-${m}`)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('every UI glyph the player sees is painted, except the carets whose colour is their state', () => {
+    for (const i of UI_ICONS) expect(isGameIconName(i.ref), i.ref).toBe(true)
+    for (const v of VECTOR_ONLY) {
+      expect(isGameIconName(v), v).toBe(true)
+      expect(ids, v).not.toContain(`ui-${v}`)
+    }
+    // The glyphs drawn on the HUD and in the menus, by name (see the components).
+    for (const n of ['pause', 'settings', 'help', 'map', 'hero', 'book', 'bag', 'close', 'check', 'lock', 'plus', 'chest', 'sound', 'sound-off', 'play', 'replay', 'skip-forward', 'forward', 'back', 'home', 'sword', 'flask', 'chat', 'skull', 'anvil', 'gem', 'gift', 'info', 'shield', 'star', 'coin', 'trophy', 'leaderboard', 'boots', 'bolt', 'range', 'armor']) {
+      expect(ids, n).toContain(`ui-${n}`)
+    }
+  })
+
+  it('the sheets are 4:3 or 1:1, at most 12 panels, round-framed ones fitted in the circle, painted in a fixed colour each', () => {
+    for (const s of ICON_SETS) {
+      const { width, height } = sheetSize(s)
+      expect(width * 3 === height * 4 || width === height, s.stem).toBe(true)
+      expect(s.cols * s.rows, s.stem).toBeLessThanOrEqual(12)
+      expect(s.styleRefs, s.stem).toEqual(SKILL_FINISH_REFS)
+      for (const c of s.cells) {
+        if (!c) continue
+        expect(c.tint, c.id).toMatch(/^#[0-9a-f]{6}$/)
+        // Status chips and class discs are round in the game.
+        expect(!!c.round, c.id).toBe(c.id.startsWith('status-') || c.id.startsWith('class-'))
+      }
+    }
+    // Class emblems first: the owner's screenshot.
+    expect(ICON_SETS[0]!.stem).toBe('sheet-icons-classes')
+  })
+
+  it('an icon prompt asks for painted volume, 24 px readability and a main colour per panel', () => {
+    for (const s of ICON_SETS) {
+      const text = promptBlocks().find(b => b.stem === s.stem)!.text
+      expect(text, s.stem).toContain(FINISH)
+      expect(text, s.stem).toContain(READABLE_SMALL)
+      expect(text, s.stem).toContain('READABLE AT 24 PIXELS')
+      expect(text, s.stem).toMatch(/never as a flat letter from a font/)
+      expect(text, s.stem).toMatch(/Main colour: /)
+      expect(text, s.stem).not.toMatch(/\bemblem\b|\bICONS?\b/)
+    }
+  })
+
+  it('each component reads its painted icon, and keeps the vector otherwise', () => {
+    const src = (p: string): string => readFileSync(join(ROOT, 'src', p), 'utf-8')
+    // The one icon component: `ui-<name>`, unless a bench asks for the drawing.
+    expect(src('components/icons/GameIcon.vue')).toMatch(/props\.drawn \? '' : ICON_ART\.get\(`ui-\$\{props\.name\}`\)/)
+    expect(src('components/hud/HeroFrame.vue')).toMatch(/ICON_ART\.get\(`status-\$\{s\}`\)/)
+    expect(src('components/screens/hero/SkillsPage.vue')).toMatch(/ICON_ART\.get\(`class-\$\{c\}`\)/)
+    expect(src('components/screens/hero/EquipmentPage.vue')).toMatch(/ICON_ART\.get\(`slot-\$\{slotOf\(s\)\}`\)/)
+    for (const [file, marks] of [['components/hud/SkillBar.vue', ['potion-health', 'potion-mana']], ['components/screens/trade/HealerScreen.vue', ['potion-health', 'potion-mana']], ['components/dialog/NpcPins.vue', ['quest']], ['components/onboarding/LessonLayer.vue', ['cursor']]] as const) {
+      for (const m of marks) expect(src(file), `${file}: ${m}`).toContain(`ICON_ART.get('mark-${m}')`)
+    }
+    // The empty-slot glyphs the manifest draws are the ones the doll draws.
+    expect(src('components/screens/hero/EquipmentPage.vue')).toContain("const GHOST: Record<ItemSlot, string> = { main: 'sword', off: 'shield', head: 'helm', body: 'plate', hands: 'gloves', feet: 'boots', trinket: 'ring' }")
   })
 })
 
@@ -301,10 +382,12 @@ describe('what a prompt says', () => {
       expect(text, s.stem).toContain(STYLE_PART)
       expect(text, s.stem).toContain(BACKGROUND)
       expect(text, s.stem).toContain(GLOW)
-      const effect = s.kind === 'skills'
+      // Effects, and the icon sheets (signs and symbols have no material of their own to shade).
+      const effect = s.kind === 'skills' || s.kind === 'icons'
       for (const clause of [NOTATION, FINISH, SEE_THROUGH]) expect(text.includes(clause), `${s.stem}: ${clause.slice(0, 24)}`).toBe(effect)
       // Icons are seen at 40 px, and say so; a bust is shown larger.
-      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits')
+      // (The icon sheets carry the 24 px version of it instead: their own test.)
+      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits' && s.kind !== 'icons')
       // Shape first, and repeated last.
       expect(text.split('\n')[2], s.stem).toMatch(/^WHAT COMES BACK IS /)
       expect(text.split('\n').at(-1), s.stem).toMatch(/^OUTPUT: /)
@@ -363,7 +446,8 @@ describe('what a prompt says', () => {
     expect(SKILL_FINISH_REFS).toHaveLength(3)
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    // (The icon sheets borrow the same finish references; see their own test.)
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -408,7 +492,7 @@ describe('the prompt documents', () => {
   it.each([['without fits', undefined], ['with measured fits', fakeFits()]])('parity %s: every block parses back to its builder\'s text, byte for byte', (_name, fits) => {
     const docs = promptDocs(fits as Fits | undefined)
     const blocks = promptBlocks(fits as Fits | undefined)
-    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-ITEMS.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
+    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-ICONS.md', 'PROMPTS-ITEMS.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
     const jobs = Object.entries(docs).flatMap(([name, text]) => parsePromptDoc(text, name))
     expect(jobs).toHaveLength(blocks.length)
     expect(blocks).toHaveLength(SETS.length + SINGLES.length + SCENERY.length)
@@ -524,8 +608,9 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Six sheets are 1024x768 and nine are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(6)
+    // Thirteen sheets are 1024x768 (six of items, seven of icons) and nine
+    // are 768x576: shape says nothing.
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(13)
     expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(9)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed

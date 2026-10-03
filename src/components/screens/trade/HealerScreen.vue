@@ -21,8 +21,9 @@
             )
               FSocket(shape="round" tint="var(--bc-red)" cork :empty="n > profile.inv.potions")
                 span.flask__fill.flask__fill--hp(v-if="n <= profile.inv.potions")
-                  svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
-                    path(d="M24 39C11 30 8 23.500 8 18a8 8 0 0 1 16-2.500A8 8 0 0 1 40 18c0 5.500-3 12-16 21z")
+                  img.flask__mark(v-if="ICON_ART.get('mark-potion-health')" :src="ICON_ART.get('mark-potion-health')" alt="" aria-hidden="true" draggable="false")
+                  svg.flask__mark(v-else :viewBox="MARKS['potion-health'].viewBox" aria-hidden="true" focusable="false")
+                    path(:d="MARKS['potion-health'].d")
                 span.flask__ghost(v-else)
                   GameIcon(:name="n === profile.inv.potions + 1 ? 'plus' : 'lock'")
           p.heal__note {{ t('healer.note', { n: profile.inv.potions }) }}
@@ -44,8 +45,9 @@
             )
               FSocket(shape="round" metal="steel" tint="var(--bc-blue)" cork :empty="n > profile.inv.manaPotions")
                 span.flask__fill.flask__fill--mp(v-if="n <= profile.inv.manaPotions")
-                  svg.flask__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
-                    path(d="M24 7c6 9.500 12 15 12 22a12 12 0 0 1-24 0c0-7 6-12.500 12-22z")
+                  img.flask__mark(v-if="ICON_ART.get('mark-potion-mana')" :src="ICON_ART.get('mark-potion-mana')" alt="" aria-hidden="true" draggable="false")
+                  svg.flask__mark(v-else :viewBox="MARKS['potion-mana'].viewBox" aria-hidden="true" focusable="false")
+                    path(:d="MARKS['potion-mana'].d")
           p.heal__note {{ t('healer.mana.note', { n: profile.inv.manaPotions, max: profile.inv.potions }) }}
           div.heal__actions
             template(v-if="manaPotionRoom() > 0")
@@ -73,6 +75,8 @@ import { fmt } from '@/utils/format'
 import FButton from '@/components/atoms/FButton.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
+import { MARKS } from '@/components/icons/marks'
 import DealStamp from '@/components/game/DealStamp.vue'
 import { burst, shake, thunk } from '@/components/game/fx'
 import TradeFrame from './TradeFrame.vue'

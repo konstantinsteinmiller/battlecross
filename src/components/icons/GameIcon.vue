@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { ICON_PATHS } from './iconPaths'
 import type { GameIconName } from './iconNames'
+import { ICON_ART } from '@/game/assets/overrides'
 
 /**
  * ─── The one icon component ─────────────────────────────────────────────────
@@ -29,14 +30,26 @@ import type { GameIconName } from './iconNames'
  *
  * The SVG fills its box, so the *caller* owns sizing — set a width/height on
  * the parent and the glyph follows. Colour comes from `currentColor`.
+ *
+ * A painted file `public/images/icons/ui-<name>.webp` takes the glyph's place
+ * (the art pipeline paints them in their final colours, so they do not follow
+ * `currentColor`). The carets that DO follow their control's colour are not
+ * painted on purpose (`down`, `up`, `right`) and stay vector.
  */
-const props = defineProps<{ name: GameIconName }>()
+const props = withDefaults(defineProps<{
+  name: GameIconName
+  /** Dev benches: the vector glyph even when a painted file exists. */
+  drawn?: boolean
+}>(), { drawn: false })
+const art = computed(() => (props.drawn ? '' : ICON_ART.get(`ui-${props.name}`) ?? ''))
 
 const d = computed(() => (ICON_PATHS[props.name] ?? ICON_PATHS.help).join(''))
 </script>
 
 <template lang="pug">
+  img.game-icon.game-icon--art(v-if="art" :src="art" alt="" draggable="false")
   svg.game-icon(
+    v-else
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
@@ -54,4 +67,8 @@ const d = computed(() => (ICON_PATHS[props.name] ?? ICON_PATHS.help).join(''))
   // The glyph is decoration painted on top of a button; never let it swallow
   // the press that was aimed at the button underneath it.
   pointer-events: none
+.game-icon--art
+  object-fit: contain
+  user-select: none
+  -webkit-user-drag: none
 </style>

@@ -15,6 +15,7 @@ import overrides from 'virtual:asset-overrides'
  *   public/images/skills/<skill id>.webp    → that skill's icon
  *   public/images/portraits/<look>.webp     → that speaker's portrait
  *   public/images/ui/<name>.webp            → map parchment, logo and the like
+ *   public/images/icons/<family>-<id>.webp  → a UI glyph, status, class emblem, slot or mark
  *   public/audio/voice/<lang>/<line id>.ogg → that dialogue line, spoken
  *
  * The list is taken at BUILD time (`assetOverridesPlugin` in vite.config.ts),
@@ -35,5 +36,9 @@ export const ITEM_ART = byName(overrides.items, 'images/items')
 export const SKILL_ART = byName(overrides.skills, 'images/skills')
 export const PORTRAIT_ART = byName(overrides.portraits, 'images/portraits')
 export const UI_ART = byName(overrides.ui, 'images/ui')
+/** Painted icons, by `<family>-<id>`: `ui-<GameIcon name>`, `status-<id>`,
+ *  `class-<class id>`, `slot-<item slot>`, `mark-<mark id>`. A missing one
+ *  keeps its vector glyph. */
+export const ICON_ART = byName(overrides.icons, 'images/icons')
 /** Recorded dialogue lines, keyed `<lang>/<line id>` (`audio/speech.ts`). */
 export const VOICE_FILES = byName(overrides.voice ?? [], 'audio/voice')

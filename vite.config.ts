@@ -95,7 +95,7 @@ const readSnapshotFile = (file: string): LeaderboardSnapshotFile | null => {
 //   public/audio/sfx/<sfx name>.ogg|mp3|m4a|wav
 //   public/audio/music/<track id>.ogg|mp3|m4a
 //   public/images/textures/ground.webp|png|jpg
-//   public/images/items|skills|portraits|ui/<name>.webp|png|jpg
+//   public/images/items|skills|portraits|ui|icons/<name>.webp|png|jpg
 //   public/audio/voice/<lang>/<dialogue line id>.ogg|mp3|m4a   (one folder per language)
 //
 // The folders are listed HERE, at build time, into `virtual:asset-overrides`,
@@ -110,7 +110,9 @@ const OVERRIDE_DIRS = {
   items: { dir: 'public/images/items', exts: IMAGE_EXTS },
   skills: { dir: 'public/images/skills', exts: IMAGE_EXTS },
   portraits: { dir: 'public/images/portraits', exts: IMAGE_EXTS },
-  ui: { dir: 'public/images/ui', exts: IMAGE_EXTS }
+  ui: { dir: 'public/images/ui', exts: IMAGE_EXTS },
+  // Painted UI icons, status icons, class emblems and marks (`ICON_ART`).
+  icons: { dir: 'public/images/icons', exts: IMAGE_EXTS }
 } as const
 // Spoken dialogue lines: one sub-folder per language, a file per line id
 // (`dlg.sunfordSmith.hello.1.ogg`). Listed as `<lang>/<file>`.
@@ -129,7 +131,7 @@ const scanVoice = (): string[] => {
   return out.sort()
 }
 const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], voice: scanVoice() }
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], icons: [] as string[], voice: scanVoice() }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue

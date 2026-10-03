@@ -38,7 +38,7 @@
             span.doll__face(v-if="worn[s]")
               ItemIcon(:id="worn[s]")
             span.doll__ghost(v-else)
-              ArtIcon(:glyph="GHOST[slotOf(s)]" tint="var(--bc-stone-hi)" frame="none")
+              ArtIcon(:glyph="GHOST[slotOf(s)]" tint="var(--bc-stone-hi)" :src="ICON_ART.get(`slot-${slotOf(s)}`)" frame="none")
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
       //- The numbers the gear adds up to. A selection shows what it would
       //- change before anything is put on.
@@ -122,6 +122,7 @@ import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns
 import { sfx } from '@/game/audio/sfx'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import ItemCell from '@/components/game/ItemCell.vue'

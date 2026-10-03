@@ -53,7 +53,7 @@
             @click="pickClass(c)"
           )
             span.emblem__disc
-              ArtIcon(:glyph="`skill.${skillsOf(c)[0].id}`" :tint="CLASSES[c].color" frame="none")
+              ArtIcon(:glyph="`skill.${skillsOf(c)[0].id}`" :tint="CLASSES[c].color" :src="ICON_ART.get(`class-${c}`)" frame="none")
             span.emblem__pips(aria-hidden="true")
               span.emblem__pip(v-for="s in skillsOf(c)" :key="s.id" :class="{ on: knows(s.id) }")
         header.codex__head
@@ -124,6 +124,7 @@ import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
+import { ICON_ART } from '@/game/assets/overrides'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import SkillCard from '@/components/game/SkillCard.vue'

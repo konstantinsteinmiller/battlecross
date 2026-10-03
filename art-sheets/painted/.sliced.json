@@ -144,6 +144,54 @@
       "rev": "75c7036e6e95",
       "painting": "591b2ef94a29",
       "at": "2026-10-03T01:22:15.634Z"
+    },
+    "sheet-icons-classes.jpg": {
+      "sheet": "sheet-icons-classes",
+      "rev": "5b8dd08575e3",
+      "painting": "2d28a68f013b",
+      "at": "2026-10-03T10:29:37.217Z"
+    },
+    "sheet-icons-status-1.jpg": {
+      "sheet": "sheet-icons-status-1",
+      "rev": "3b679b490b8f",
+      "painting": "41cf1cb74be2",
+      "at": "2026-10-03T10:32:32.368Z"
+    },
+    "sheet-icons-status-2.jpg": {
+      "sheet": "sheet-icons-status-2",
+      "rev": "6a52868c9374",
+      "painting": "be3b80ba8688",
+      "at": "2026-10-03T10:35:42.556Z"
+    },
+    "sheet-icons-status-3.jpg": {
+      "sheet": "sheet-icons-status-3",
+      "rev": "96c14f307c6a",
+      "painting": "13017331a529",
+      "at": "2026-10-03T10:38:21.215Z"
+    },
+    "sheet-icons-ui-1.jpg": {
+      "sheet": "sheet-icons-ui-1",
+      "rev": "742792342418",
+      "painting": "b93015ac16a7",
+      "at": "2026-10-03T10:41:11.211Z"
+    },
+    "sheet-icons-ui-2.jpg": {
+      "sheet": "sheet-icons-ui-2",
+      "rev": "3e4281f52940",
+      "painting": "2e367bf322a3",
+      "at": "2026-10-03T10:43:46.612Z"
+    },
+    "sheet-icons-ui-3.jpg": {
+      "sheet": "sheet-icons-ui-3",
+      "rev": "85181b617148",
+      "painting": "0e9a4fcf2269",
+      "at": "2026-10-03T10:46:51.807Z"
+    },
+    "sheet-icons-misc.jpg": {
+      "sheet": "sheet-icons-misc",
+      "rev": "66898855e876",
+      "painting": "5d414d1226bf",
+      "at": "2026-10-03T10:50:03.950Z"
     }
   }
 }

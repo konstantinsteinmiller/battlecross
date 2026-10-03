@@ -13,7 +13,13 @@
     //- painted file: see `held` in the script.
     div.stage(ref="stage" aria-hidden="true")
       span.stage__cell(v-for="c in drawn" :key="c.target" :data-target="c.target")
-        ArtIcon(v-if="c.draw === 'item' || c.draw === 'skill'" :glyph="c.glyph || 'unknown'" :tint="c.tint" frame="none")
+        ArtIcon(v-if="c.draw === 'item' || c.draw === 'skill' || c.draw === 'glyph'" :glyph="c.glyph || 'unknown'" :tint="c.tint" frame="none")
+        //- A UI glyph or a mark is one colour (`currentColor`): the colour the
+        //- manifest paints it in.
+        span.stage__tinted(v-else-if="c.draw === 'ui'" :style="{ color: c.tint }")
+          GameIcon(:name="uiName(c)" drawn)
+        svg(v-else-if="c.draw === 'mark'" :viewBox="markOf(c).viewBox" :fill="c.tint")
+          path(:d="markOf(c).d")
         Portrait(v-else-if="c.draw === 'portrait'" :look="c.id")
         IconCoin(v-else)
     section.sheet(v-for="v in views" :key="v.stem")
@@ -50,7 +56,15 @@ import { landmarkSvg } from '@/components/screens/map/landmarks'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import Portrait from '@/components/art/Portrait.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
+import GameIcon from '@/components/icons/GameIcon.vue'
+import { isGameIconName, type GameIconName } from '@/components/icons/iconNames'
+import { MARKS, type Mark } from '@/components/icons/marks'
+
 import { BACKDROP_SAFE, backdropSvg } from '@/components/game/backdrops'
+
+/** The UI glyph or mark a panel draws (the manifest names it in `glyph`). */
+const uiName = (c: SheetCell): GameIconName => (isGameIconName(c.glyph) ? c.glyph : 'help')
+const markOf = (c: SheetCell): Mark => MARKS[c.glyph as keyof typeof MARKS] ?? MARKS.quest
 
 // THE REFERENCE MUST NEVER BE THE SHIPPED PAINTING OF ITSELF. `Portrait` and
 // `IconCoin` show a painted file when one exists, so an export after the first
@@ -427,6 +441,10 @@ const exportAll = async (): Promise<void> => {
     display: block
     width: 100%
     height: 100%
+.stage__tinted
+  display: block
+  width: 100%
+  height: 100%
 .sheet__pair
   display: flex
   flex-wrap: wrap
