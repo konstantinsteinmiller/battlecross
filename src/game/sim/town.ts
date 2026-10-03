@@ -740,15 +740,26 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
       z = C(c[1])
       taken.add(K(c[0], c[1]))
       if (job === 'merchant' || job === 'fence') {
-        // A stall south of them: they stand behind it, facing the customers.
-        const si = c[0]
-        const sj = c[1] + 1
-        const cells = [K(si, sj)]
-        if (free(si + 1, sj)) cells.push(K(si + 1, sj))
-        if (free(si, sj)) {
-          const st = addProp(job === 'fence' ? 'crates' : 'stall', C(si) + (cells.length > 1 ? CELL / 2 : 0), C(sj), 0, cells, cells.length * CELL)
-          station = addSpot({ kind: 'work', x: x + (cells.length > 1 ? 0 : 0), z: z + 0.15, facing: 0, ax: x, az: z, room: -1, owner: n.id, prop: st })
-          if (free(si, sj + 1)) addSpot({ kind: 'look', x: C(si), z: C(sj + 1) - 0.15, facing: Math.PI, ax: C(si), az: C(sj + 1), room: -1, owner: '', prop: st })
+        // A stall beside them, its open front to where customers can stand (a
+        // street, the square, the grass: south first), they behind it facing them.
+        const open = (i: number, j: number): boolean => walk(at(i, j)) && at(i, j) !== TC_FLOOR && at(i, j) !== TC_DOOR && !taken.has(K(i, j)) && !doorstep(i, j)
+        const side = ([[0, 1], [1, 0], [-1, 0], [0, -1]] as const).find(([dx, dz]) => free(c[0] + dx, c[1] + dz) && open(c[0] + 2 * dx, c[1] + 2 * dz))
+        if (side) {
+          const [dx, dz] = side
+          const si = c[0] + dx
+          const sj = c[1] + dz
+          // A second cell along its counter (across the way it faces), if free.
+          const pi = Math.abs(dz)
+          const pj = Math.abs(dx)
+          const cells = [K(si, sj)]
+          if (free(si + pi, sj + pj) && open(si + pi + dx, sj + pj + dz)) cells.push(K(si + pi, sj + pj))
+          const two = cells.length > 1
+          const yaw = yawTo(dx, dz)
+          const st = addProp(job === 'fence' ? 'crates' : 'stall', C(si) + (two ? (pi * CELL) / 2 : 0), C(sj) + (two ? (pj * CELL) / 2 : 0), yaw, cells, cells.length * CELL)
+          station = addSpot({ kind: 'work', x: x + dx * 0.15, z: z + dz * 0.15, facing: yaw, ax: x, az: z, room: -1, owner: n.id, prop: st })
+          const ci = c[0] + 2 * dx
+          const cj = c[1] + 2 * dz
+          addSpot({ kind: 'look', x: C(ci) - dx * 0.15, z: C(cj) - dz * 0.15, facing: yawTo(-dx, -dz), ax: C(ci), az: C(cj), room: -1, owner: '', prop: st })
         } else station = addSpot({ kind: 'work', x, z, facing: 0, ax: x, az: z, room: -1, owner: n.id, prop: -1 })
       } else if (job === 'boss') {
         // By a fire in the ruined square.

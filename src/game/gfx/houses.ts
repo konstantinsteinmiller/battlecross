@@ -3,10 +3,11 @@ import type { ClassId } from '../data/skills'
 import { CLASSES } from '../data/skills'
 import type { TownJob, TownStyle } from '../data/zones'
 import { CELL } from '../sim/grid'
-import type { TownHouse } from '../sim/town'
+import type { TownHouse, TownPlan } from '../sim/town'
 import { Mesher, cage, lc, newKit, seeded, shade, under, type Col, type Kit } from './archKit'
 import { rock, stripUv } from './kit'
 import { cat, furnishRoom, hang, type RoomCtx, type RoomStory } from './interiors'
+import type { RoomLayout } from './roomLayout'
 
 /**
  * ─── Houses (roadmap #41) ────────────────────────────────────────────────────
@@ -94,6 +95,8 @@ export interface HouseCtx {
   job?: TownJob
   /** A school's class (its banner). */
   cls?: ClassId
+  /** What the plan stood in its room (world coordinates): a taproom's tables and the stools round them. */
+  inRoom?: { tables: Array<{ x: number; z: number }>; stools: Array<{ x: number; z: number }> }
 }
 
 export interface HouseOut {
@@ -103,6 +106,8 @@ export interface HouseOut {
   room: Kit | null
   /** The room's small things (drawn only while its front is lifted; none on a weak device). */
   clutter: Kit | null
+  /** How the room was arranged (the layout test reads it). */
+  layout: RoomLayout | null
   /** Chimney tops (world), for their smoke. */
   chimneys: Array<[number, number, number]>
   /** Warm lights (world) by the door: lanterns. */
@@ -660,7 +665,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
   const roomKit = enterable ? newKit() : null
   // The small things that tell the room's story: only while its front is lifted, never on a weak device.
   const clutterKit = enterable && !c.low ? newKit() : null
-  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: clutterKit, chimneys: [], lamps: [], forge: null, top: 0 }
+  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: clutterKit, layout: null, chimneys: [], lamps: [], forge: null, top: 0 }
   /** The windows in the side walls, for the room's curtains. */
   const sideWins: RoomCtx['wins'] = []
   /** This house's cat has found its window (else it sleeps on the step). */
@@ -902,12 +907,22 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     // A bell cote on a chapel; a dormer on a long roof.
     if (h.kind === 'chapel' && !c.ruined) belfry(cut, D, out.top, p, stone)
     if (roofKind === 'gable' && W > 4.2 && !c.low && r() < 0.6) dormer(cut, (r() - 0.5) * (W - 2.4), D, Y, D * 0.5 * pitch, p, lit())
+    // ── The room inside (before the chimneys: its hearth's chimney goes up over it) ──
+    let hearth: { x: number; z: number; wall: string } | null = null
+    if (roomKit) {
+      const fit = room(roomKit, clutterKit, h, W, D, doorX, F, sideWins, twoStorey, c, p, r)
+      out.layout = fit.layout
+      hearth = fit.hearth
+    }
     // ── Chimneys ──
     if (!c.ruined || r() < 0.4) {
       const n = h.kind === 'tavern' || workshop || h.kind === 'hall' ? 2 : 1
       for (let i = 0; i < n; i++) {
-        const cx = (i === 0 ? -1 : 1) * (W / 2 - 0.55) * (0.6 + r() * 0.4)
-        const cz = -D * 0.18
+        // The first stands over the room's hearth (on the back wall), if it has one.
+        // (In the wall the hearth stands against, right over it.)
+        const over = i === 0 && hearth !== null
+        const cx = over ? (hearth!.wall === 'west' ? -W / 2 + T + 0.3 : hearth!.wall === 'east' ? W / 2 - T - 0.3 : hearth!.x) : (i === 0 ? -1 : 1) * (W / 2 - 0.55) * (0.6 + r() * 0.4)
+        const cz = over ? (hearth!.wall === 'back' ? -D / 2 + T + 0.3 : hearth!.z) : -D * 0.18
         const top = chimney(cut, cx, cz, Y - 0.5, out.top + 0.5 + (workshop ? 0.4 : 0), stone ? '#8a8690' : '#a8786a')
         if (!c.ruined) out.chimneys.push([c.x + top[0], c.y + top[1], c.z + top[2]])
       }
@@ -928,7 +943,6 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       }
     })
     // ── The room inside ──
-    if (roomKit) room(roomKit, clutterKit, h, W, D, doorX, F, sideWins, c, p, r)
     // A ruin: rubble at its feet.
     if (c.ruined) {
       for (let i = 0; i < 4; i++) {
@@ -1055,7 +1069,7 @@ const forgeMouth = (B: Kit, front: Kit, W: number, D: number, ow: number, oh: nu
 // ─── Rooms ───────────────────────────────────────────────────────────────────
 
 /** The inside of a house that is walked into: a floor, a rug, the trade's furniture. */
-const room = (B: Kit, L: Kit | null, h: TownHouse, W: number, D: number, doorX: number, top: number, wins: RoomCtx['wins'], c: HouseCtx, p: Pal, r: () => number): void => {
+const room = (B: Kit, L: Kit | null, h: TownHouse, W: number, D: number, doorX: number, top: number, wins: RoomCtx['wins'], upper: boolean, c: HouseCtx, p: Pal, r: () => number): { layout: RoomLayout; hearth: { x: number; z: number; wall: string } | null } => {
   const d = B.detail
   const x0 = -W / 2 + T
   const x1 = W / 2 - T
@@ -1086,7 +1100,21 @@ const room = (B: Kit, L: Kit | null, h: TownHouse, W: number, D: number, doorX: 
     const rugC = c.ruined ? '#4a3a3a' : c.job === 'healer' ? '#5aa86a' : cls === 'shadow' ? '#3a3458' : cls === 'aether' ? '#2a6a7a' : '#8a4a6a'
     under(B, doorX, fy, (z0 + z1) / 2 + 0.6, 0, () => rugFlat(B.detail, Math.min(1.3, W * 0.28), (z1 - z0) * 0.5, rugC))
   }
-  furnishRoom({ B, L, x0, x1, z0, z1, fy, top, doorX, west, wz, story, job: c.job, cls, ruined: c.ruined, style: c.style, wins, vary: h.i0 + h.j0 * 7, r })
+  // The people's places, as the plan made them (`sim/town.ts`), in the room's own coordinates.
+  const ox = (h.i0 + h.cw / 2) * CELL
+  const oz = (h.j0 + h.cd / 2) * CELL
+  const C = (i: number): number => (i + 0.5) * CELL
+  const fj = h.j0 + h.cd - 1
+  const wi = west ? h.i0 + 1 : h.i0 + h.cw - 2
+  const peopled = story !== 'home'
+  const work = peopled ? { x: C(wi) + (west ? -0.55 : 0.55) - ox, z: wz } : null
+  const si = west ? h.i0 + h.cw - 2 : h.i0 + 1
+  const seat = peopled && story !== 'inn' && h.j0 + 1 < fj ? { x: C(si) + (west ? 0.35 : -0.35) - ox, z: C(h.j0 + 1) - 0.35 - oz, ry: west ? -2.4 : 2.4 } : null
+  const hi2 = west ? h.i0 + h.cw - 2 : h.i0 + 1
+  const bard = story === 'inn' ? { x: C(hi2) - ox, z: C(h.j0 + 1) - 0.2 - oz } : null
+  const tables = (c.inRoom?.tables ?? []).map(t => ({ x: t.x - c.x, z: t.z - c.z }))
+  const stools = (c.inRoom?.stools ?? []).map(t => ({ x: t.x - c.x, z: t.z - c.z }))
+  return furnishRoom({ B, L, x0, x1, z0, z1, fy, top, doorX, west, wz, story, job: c.job, cls, ruined: c.ruined, style: c.style, wins, vary: h.i0 + h.j0 * 7, work, seat, bard, tables, stools, upper, r })
 }
 
 /** The class taught by a master of each trade (when the house does not say it). */
@@ -1101,3 +1129,9 @@ const rugFlat = (m: Mesher, w: number, l: number, col: string): void => {
 
 /** A tiny tri count of a whole town's houses (perf notes). */
 export const _meshInfo = (k: Kit): number => (k.hull.idx.length + k.detail.idx.length + k.glow.idx.length) / 3
+
+/** What the plan stood in house `hi`'s room: its tables (a taproom's) and the stools round them. */
+export const roomPropsOf = (t: TownPlan, hi: number): NonNullable<HouseCtx['inRoom']> => ({
+  tables: t.props.filter(p => p.kind === 'table' && p.cells.length > 0 && p.cells.every(k => t.room[k] === hi)).map(p => ({ x: p.x, z: p.z })),
+  stools: t.spots.filter(s => s.room === hi && s.kind === 'seat' && s.prop >= 0).map(s => ({ x: s.x, z: s.z }))
+})

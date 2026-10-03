@@ -10,7 +10,7 @@ import type { Unit } from '../sim/types'
 import { Mesher, newKit, type Kit } from './archKit'
 import { celVC, glowVC, outlineMat, rigOutline, rigToon, setCelOpacity, setOutlineOpacity, type CelMaterial } from './cel'
 import { groundAt } from './ground'
-import { buildHouse, type HouseOut } from './houses'
+import { buildHouse, roomPropsOf, type HouseOut } from './houses'
 import { holdProp } from './rigs/handProps'
 import { loopBeat, townLoop, type LoopClip } from './rigs/townClips'
 import type { RigView } from './rigs'
@@ -129,7 +129,7 @@ export class TownView {
       const x = (h.i0 + h.cw / 2) * CELL
       const z = (h.j0 + h.cd / 2) * CELL
       const owner = t.people.find(p => p.npc && p.npc === h.owner)
-      const out: HouseOut = buildHouse(kitAt(x, z), h, { style: t.style, ruined: t.ruined, low: v.low, x, y: groundAt(x, z), z, job: owner?.job ?? (h.owners.length ? undefined : undefined), cls: h.cls })
+      const out: HouseOut = buildHouse(kitAt(x, z), h, { style: t.style, ruined: t.ruined, low: v.low, x, y: groundAt(x, z), z, job: owner?.job ?? (h.owners.length ? undefined : undefined), cls: h.cls, inRoom: h.inside ? roomPropsOf(t, hi) : undefined })
       v.chimneys.push(...out.chimneys)
       if (out.forge) v.forges.push(out.forge)
       if (out.cut) v.addCut(hi, out.cut, out.room, out.clutter, (h.doorI + 0.5) * CELL, (h.j0 + h.cd) * CELL)

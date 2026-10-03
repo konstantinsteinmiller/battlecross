@@ -293,6 +293,40 @@ describe('town life', () => {
   })
 })
 
+describe('props face where they are reached (roadmap #67)', () => {
+  it('every stall, notice board and bench opens towards ground one can walk to; a vendor stands behind his stall', () => {
+    const bad: string[] = []
+    for (const town of TOWN_IDS) {
+      for (const seed of SEEDS) {
+        const flags = flagSets[seed % flagSets.length]!
+        const plan = generateTown(TOWNS[town], new Set(flags), seed)
+        const t = plan.town!
+        const g = gridOf(plan)
+        for (const [pi, p] of t.props.entries()) {
+          if (p.kind !== 'stall' && p.kind !== 'crates' && p.kind !== 'board' && p.kind !== 'bench') continue
+          // Its front looks along (sin rot, cos rot).
+          const fx = Math.round(Math.sin(p.rot))
+          const fz = Math.round(Math.cos(p.rot))
+          for (const k of p.cells) {
+            const i = (k % plan.w) + fx
+            const j = Math.floor(k / plan.w) + fz
+            const x = (i + 0.5) * CELL
+            const z = (j + 0.5) * CELL
+            if (isSolidAt(g, x, z)) bad.push(`${town}#${seed}: the ${p.kind} at ${p.x},${p.z} faces a wall or a prop`)
+            else if (!reach(g, plan, x, z)) bad.push(`${town}#${seed}: the ${p.kind} at ${p.x},${p.z} faces ground nobody can reach`)
+          }
+          // Whoever keeps it stands behind it.
+          for (const s of t.spots) {
+            if (s.prop !== pi || s.kind !== 'work') continue
+            if ((s.x - p.x) * fx + (s.z - p.z) * fz >= 0) bad.push(`${town}#${seed}: the keeper of the ${p.kind} at ${p.x},${p.z} stands before it, not behind`)
+          }
+        }
+      }
+    }
+    expect(bad).toEqual([])
+  })
+})
+
 describe('taprooms', () => {
   it('Sunford and Oakhaven: a tavern walked into, the keeper at the bar, tables with stools, patrons and a bard', () => {
     for (const [town, flags, patrons] of [['sunford', [], 3], ['oakhaven', [], 3], ['oakhaven', ['oakhavenFallen'], 2]] as const) {

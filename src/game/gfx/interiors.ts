@@ -4,6 +4,7 @@ import { CLASSES } from '../data/skills'
 import type { TownJob, TownStyle } from '../data/zones'
 import { shade, under, type Col, type Kit, type Mesher } from './archKit'
 import { barrel } from './townProps'
+import { RoomLayout, overlaps, type Rect, type Spot, type Wall } from './roomLayout'
 
 /**
  * ─── Interiors: furniture, and the story a room tells (roadmap #62) ──────────
@@ -58,6 +59,15 @@ export interface RoomCtx {
   wins: Array<{ side: -1 | 1; z: number }>
   /** Which of the variations of its kind this room is (two homes in a town are never alike). */
   vary: number
+  /** The people's places the plan made (room coordinates): the worker's, a seat, the bard's. */
+  work: { x: number; z: number } | null
+  seat: { x: number; z: number; ry: number } | null
+  bard: { x: number; z: number } | null
+  /** A taproom's tables and the stools round them (the plan's props). */
+  tables: Array<{ x: number; z: number }>
+  stools: Array<{ x: number; z: number }>
+  /** There is a floor above: a staircase goes up to it. */
+  upper: boolean
   r: () => number
 }
 
@@ -185,7 +195,7 @@ const chair = (k: Kit, wood: Col): void => {
 
 /** A chair knocked over, lying on its side (a ruin, a hurried leaving). */
 const chairDown = (k: Kit, wood: Col): void => {
-  const m = new Matrix4().makeRotationZ(Math.PI / 2).setPosition(0.24, 0, 0)
+  const m = new Matrix4().makeRotationZ(Math.PI / 2).setPosition(0.5, 0.225, 0)
   for (const x of [k.hull, k.detail, k.glow]) x.pushMatrix(m)
   chair(k, wood)
   for (const x of [k.hull, k.detail, k.glow]) x.pop()
@@ -906,7 +916,8 @@ const target = (k: Kit, L: Kit | null): void => {
 
 /** Put `fn` down turned by `ry` at (x, y, z), for every kit given (furniture and clutter together). */
 const place = (kits: Array<Kit | null>, x: number, y: number, z: number, ry: number, fn: () => void): void => {
-  const ks = kits.filter((k): k is Kit => !!k)
+  // (Each kit once: a kit pushed twice would move its piece twice as far.)
+  const ks = [...new Set(kits.filter((k): k is Kit => !!k))]
   for (const k of ks) for (const m of [k.hull, k.detail, k.glow]) m.push(x, y, z, ry)
   fn()
   for (const k of ks) for (const m of [k.hull, k.detail, k.glow]) m.pop()
@@ -917,255 +928,521 @@ const QUILTS: Array<[Col, Col, Col]> = [
 ]
 const CURTAINS = ['#c9483a', '#3f6fd6', '#5aa84a', '#d8962a', '#8a4a6a']
 
-/** Furnish a room, and leave in it the story of who lives (or lodges, or learns) there. */
-export const furnishRoom = (c: RoomCtx): void => {
-  const { B, L, x0, x1, z0, z1, fy, r, ruined } = c
+/** A rectangle round a point. */
+const around = (x: number, z: number, hw: number, hd = hw): Rect => ({ x0: x - hw, z0: z - hd, x1: x + hw, z1: z + hd })
+
+/** What the room needs from its arranging: the kits, the layout, where things went. */
+interface Fit {
+  c: RoomCtx
+  lay: RoomLayout
+  /** From the work wall into the room (+1 when the work wall is the west one). */
+  s: number
+  /** The work wall, the far wall. */
+  work: Wall
+  far: Wall
+  top: number
+  lit: boolean
+  tint: (col: Col) => Col
+  /** The windows in the side walls (kept clear of anything tall; nothing hung over them). */
+  winRects: Rect[]
+  /** Where the hearth went (its chimney goes over it). */
+  hearth: { x: number; z: number; wall: Wall } | null
+}
+
+/** Draw a piece where the layout put it, and record it. */
+const put2 = (f: Fit, kits: Array<Kit | null>, label: string, s: Spot | null, y1: number, draw: () => void, o: { y0?: number; flat?: boolean; wall?: Wall } = {}): Spot | null => {
+  if (!s) return null
+  f.lay.add(label, s, y1, o)
+  // (Both kits move with the piece: what stands on it may be clutter.)
+  place([f.c.B, f.c.L, ...kits], s.x, f.c.fy, s.z, s.ry, draw)
+  return s
+}
+
+/** Hang something on a wall where the layout finds room for it. */
+const hangOn = (f: Fit, kit: Kit | null, label: string, wall: Wall, len: number, y0: number, y1: number, prefer: number, draw: () => void): void => {
+  if (!kit) return
+  const s = f.lay.hang(wall, len, y0, y1, prefer, f.winRects)
+  if (!s) return
+  f.lay.addHang(label, s, wall, y0, y1)
+  // A hung thing is authored on the wall (z = 0 its back), at its own height,
+  // and stands 12 mm off it (never in the wall's face).
+  place([f.c.B, f.c.L], s.x, f.c.fy + y0, s.z, s.ry, () => {
+    for (const k of [f.c.B, f.c.L]) if (k) for (const m of [k.hull, k.detail, k.glow]) m.push(0, 0, 0.012)
+    draw()
+    for (const k of [f.c.B, f.c.L]) if (k) for (const m of [k.hull, k.detail, k.glow]) m.pop()
+  })
+}
+
+/**
+ * A staircase up to the floor above: against a wall, a run of equal steps
+ * (rise and tread the same all the way), a railing on its open side, and
+ * where it arrives the edge of the floor above round the stairwell (the floor
+ * itself is lifted away with the front). The way to its foot is kept clear.
+ */
+const staircase = (f: Fit): void => {
+  const { lay } = f
+  const top = f.top
+  const n = Math.max(8, Math.round(top / 0.24))
+  const rise = top / n
+  const run = 0.25
+  const width = 0.8
+  const len = n * run
+  // Try the back wall first (rising from either end), then the side walls, last the front.
+  const tries: Array<[Wall, 1 | -1]> = [['back', 1], ['back', -1], [f.far, -1], [f.work, -1], [f.far, 1], [f.work, 1], ['front', 1], ['front', -1]]
+  for (const [wall, dir] of tries) {
+    for (const pref of [dir > 0 ? 0 : 1, 0.5, dir > 0 ? 1 : 0]) {
+      const s = lay.onWall(wall, len, width + 0.05, top, pref, { path: false })
+      if (!s) continue
+      const sr = s.rect
+      const along = wall === 'back' || wall === 'front'
+      // The low end of the run, and the floor before its first step (on the room side).
+      const lo = along ? (dir > 0 ? sr.x0 : sr.x1) : (dir > 0 ? sr.z0 : sr.z1)
+      const into = wall === 'back' || wall === 'west' ? 1 : -1
+      const face = wall === 'back' ? sr.z1 : wall === 'front' ? sr.z0 : wall === 'west' ? sr.x1 : sr.x0
+      const a = Math.min(lo, lo + dir * 0.75)
+      const b = Math.max(lo, lo + dir * 0.75)
+      const fr: Rect = along
+        ? { x0: a, x1: b, z0: Math.min(face, face + into * FOOT), z1: Math.max(face, face + into * FOOT) }
+        : { z0: a, z1: b, x0: Math.min(face, face + into * FOOT), x1: Math.max(face, face + into * FOOT) }
+      if (!lay.free(fr, 2, { path: false })) continue
+      const fx = (fr.x0 + fr.x1) / 2
+      const fz = (fr.z0 + fr.z1) / 2
+      lay.target('the stair', fx, fz)
+      lay.zone('the foot of the stair', fr)
+      if (lay.unreached([sr]).some(t => t === 'the stair') || !lay.free(sr, top)) {
+        lay.targets.pop()
+        lay.zones.pop()
+        continue
+      }
+      lay.fixed('the stair', sr, top, { wall })
+      drawStair(f, sr, wall, dir, n, rise, run)
+      return
+    }
+  }
+}
+
+/** The floor kept clear before a stair's first step (to step on to it). */
+const FOOT = 0.7
+
+/** The stair itself in its rectangle: steps, a stringer, posts and a rail, the stairwell's edge at the top. */
+const drawStair = (f: Fit, sr: Rect, wall: Wall, dir: 1 | -1, n: number, rise: number, run: number): void => {
+  const { c } = f
+  const B = c.B
+  const fy = c.fy
+  const wood = ash('#8a5a34', c.ruined)
+  const dark = ash('#6a4428', c.ruined)
+  const along = wall === 'back' || wall === 'front'
+  // The open side (towards the room) and the wall side, across the run.
+  const openAt = wall === 'back' ? sr.z1 : wall === 'west' ? sr.x1 : wall === 'east' ? sr.x0 : sr.z0
+  const inward = wall === 'back' || wall === 'west' ? 1 : -1
+  for (let i = 0; i < n; i++) {
+    const a = (dir > 0 ? (along ? sr.x0 : sr.z0) : (along ? sr.x1 : sr.z1)) + dir * i * run
+    const b = a + dir * run
+    const lo = Math.min(a, b)
+    const hi = Math.max(a, b)
+    const y = fy + rise * (i + 1)
+    if (along) B.hull.box(lo, fy, sr.z0, hi, y, sr.z1 - 0.06, { top: shade(wood, 1.15), side: wood, front: shade(wood, 0.92) }, 'b')
+    else B.hull.box(sr.x0 + (inward < 0 ? 0.06 : 0), fy, lo, sr.x1 - (inward > 0 ? 0.06 : 0), y, hi, { top: shade(wood, 1.15), side: wood, front: shade(wood, 0.92) }, 'b')
+  }
+  // Posts on the open side every other step, and the hand rail along their tops.
+  const p = (i: number): [number, number] => {
+    const a = (dir > 0 ? (along ? sr.x0 : sr.z0) : (along ? sr.x1 : sr.z1)) + dir * (i + 0.5) * run
+    const q = openAt - inward * 0.04
+    return along ? [a, q] : [q, a]
+  }
+  for (let i = 0; i < n; i += 2) {
+    const [x, z] = p(i)
+    B.detail.beam(x, fy + rise * (i + 1), z, x, fy + rise * (i + 1) + 0.8, z, 0.045, dark)
+  }
+  const [ax, az] = p(0)
+  const [bx, bz] = p(n - 1)
+  B.detail.beam(ax, fy + rise + 0.8, az, bx, fy + rise * n + 0.8 - 0.25, bz, 0.06, shade(wood, 1.2))
+  // The newel at the foot, a ball on it.
+  B.detail.cyl(ax, fy, az, 0.06, 0.06, rise + 0.95, 6, dark)
+  B.detail.ball(ax, fy + rise + 1.0, az, 0.07, shade(wood, 1.2), 6, 4)
+  // Where it arrives: the edge of the floor above round the stairwell (a joist across the room side).
+  const y = fy + f.top - 0.14
+  const [cx, cz] = p(Math.floor(n * 0.55))
+  const [dx, dz] = p(n - 1)
+  B.detail.box(Math.min(cx, dx) - (along ? 0 : 0.05), y, Math.min(cz, dz) - (along ? 0.05 : 0), Math.max(cx, dx) + (along ? 0 : 0.05), y + 0.12, Math.max(cz, dz) + (along ? 0.05 : 0), dark, '')
+}
+
+/** Furnish a room, and leave in it the story of who lives (or lodges, or learns) there. Returns its layout and its hearth. */
+export const furnishRoom = (c: RoomCtx): { layout: RoomLayout; hearth: { x: number; z: number; wall: Wall } | null } => {
+  const { L, x0, x1, z0, z1, fy, r, ruined } = c
+  const lay = new RoomLayout({ x0, z0, x1, z1 }, { x: c.doorX, z: z1 })
   const s = c.west ? 1 : -1
-  const wx = c.west ? x0 : x1
-  const fx = c.west ? x1 : x0
-  const faceIn = c.west ? WEST : EAST
-  const faceOut = c.west ? EAST : WEST
-  const top = c.top - fy
-  const lit = !ruined
-  const tint = (col: Col): Col => ash(col, ruined)
-  // Windows: curtains (in a ruin, now and then boarded up instead).
+  const f: Fit = {
+    c, lay, s, work: c.west ? 'west' : 'east', far: c.west ? 'east' : 'west', top: c.top - fy, lit: !ruined, tint: (col: Col): Col => ash(col, ruined),
+    winRects: c.wins.map(w => (w.side < 0 ? { x0, z0: w.z - 0.48, x1: x0 + 0.6, z1: w.z + 0.48 } : { x0: x1 - 0.6, z0: w.z - 0.48, x1, z1: w.z + 0.48 })),
+    hearth: null
+  }
+  // Kept clear: the doorway and the way in; before each window, anything above the sill.
+  lay.zone('the doorway', { x0: c.doorX - 0.6, z0: z1 - 1.2, x1: c.doorX + 0.6, z1 })
+  for (const w of f.winRects) lay.zone('a window', w, 0.95)
+  // Everybody's place (from the plan): kept clear, and reached from the door.
+  if (c.work) {
+    lay.zone('the work place', around(c.work.x, c.work.z, 0.18))
+    lay.target('the work place', c.work.x, c.work.z)
+  }
+  if (c.seat) lay.target('the seat', c.seat.x + Math.sin(c.seat.ry) * 0.5, c.seat.z + Math.cos(c.seat.ry) * 0.5)
+  if (c.bard) {
+    lay.zone('the bard\'s place', around(c.bard.x, c.bard.z, 0.2))
+    lay.target('the bard\'s place', c.bard.x, c.bard.z)
+  }
+  // The plan's tables (a taproom's): where they stand, and the stools round them.
+  for (const t of c.tables) lay.fixed('a table', around(t.x, t.z, 0.42), 0.8)
+  for (const t of c.stools) {
+    lay.zone('a stool', around(t.x, t.z, 0.2))
+    lay.target('a stool', t.x, t.z)
+  }
+  // Windows: curtains (a ruin's now and then boarded up). Not on the work wall of a room with fixtures there.
   const cur = CURTAINS[Math.floor(r() * CURTAINS.length)]!
   if (L) for (const [i, w] of c.wins.entries()) {
     const wallX = w.side < 0 ? x0 : x1
-    if (c.story !== 'home' && wallX === wx) continue
+    if (c.story !== 'home' && (w.side < 0) === c.west) continue
     if (ruined && i % 2 === 0) boarded(L.detail, wallX, w.side, w.z)
     else curtains(L.detail, wallX, w.side, w.z, c.story === 'school' && c.cls === 'shadow' ? '#2a2440' : cur, i + 1, ruined)
   }
-  // A ruin's floor: scorched here and there; something knocked over.
-  if (ruined && L) {
-    // (Each blot a real step above the last: they may overlap.)
-    for (let i = 0; i < 3; i++) scorch(L.detail, x0 + (x1 - x0) * (i + 0.5) / 3, z0 + 1.0 + r() * (z1 - z0 - 2.0), 0.3 + r() * 0.2, fy + 0.008, r)
-    place([L], (x0 + x1) / 2 + (r() - 0.5), fy, z0 + 0.012, BACK, () => sootUp(L.detail, 2.2, 1.9, r))
+  // The seat the plan put in the back corner: a chair under whoever sits there.
+  if (c.seat) {
+    const wood = f.tint(OAK)
+    lay.fixed('the seat\'s chair', around(c.seat.x, c.seat.z, 0.26), 1.05)
+    place([c.B], c.seat.x, fy, c.seat.z, c.seat.ry, () => chair(c.B, wood))
   }
+  // Up to the floor above (a home finds room for its hearth and its bed first).
+  if (c.upper && c.story !== 'home') staircase(f)
   switch (c.story) {
-    case 'home': home(c, s, wx, fx, faceIn, faceOut, top, lit, tint); break
-    case 'inn': inn(c, s, wx, fx, faceIn, faceOut, top, lit, tint); break
-    case 'healer': healer(c, s, wx, fx, faceIn, faceOut, top, lit, tint); break
-    case 'shop': shop(c, s, wx, fx, faceIn, faceOut, top, lit, tint); break
-    case 'school': school(c, s, wx, fx, faceIn, faceOut, top, lit, tint); break
+    case 'home': home(f); break
+    case 'inn': inn(f); break
+    case 'healer': healer(f); break
+    case 'shop': shop(f); break
+    case 'school': school(f); break
+  }
+  // A ruin's floor: scorched here and there; soot up the back wall.
+  if (ruined && L) {
+    for (let i = 0; i < 3; i++) {
+      const sx = x0 + (x1 - x0) * (i + 0.5) / 3
+      const sz = z0 + 1.0 + r() * (z1 - z0 - 2.0)
+      // (Not on a rug: they lie on the boards.)
+      if (lay.pieces.some(p => p.flat && overlaps(p.rect, around(sx, sz, 0.6)))) continue
+      scorch(L.detail, sx, sz, 0.3 + r() * 0.2, fy + 0.008, r)
+    }
+    hangOn(f, L, 'soot', 'back', 2.2, 0.0, 1.9, 0.5, () => sootUp(L.detail, 2.2, 1.9, r))
   }
   // A lantern hanging from the beams over the middle of the room.
-  if (lit) {
+  if (f.lit) {
     const lx = (x0 + x1) / 2
     const lz = z0 + (z1 - z0) * 0.45
-    B.detail.beam(lx, fy + top - 0.02, lz, lx, fy + top - 0.35, lz, 0.015, IRON, 0.015)
-    B.detail.rbox(lx - 0.1, fy + top - 0.42, lz - 0.1, lx + 0.1, fy + top - 0.35, lz + 0.1, 0.02, IRON)
-    B.glow.ball(lx, fy + top - 0.52, lz, 0.09, '#ffd27a', 6, 4)
+    c.B.detail.beam(lx, fy + f.top - 0.02, lz, lx, fy + f.top - 0.35, lz, 0.015, IRON, 0.015)
+    c.B.detail.rbox(lx - 0.1, fy + f.top - 0.42, lz - 0.1, lx + 0.1, fy + f.top - 0.35, lz + 0.1, 0.02, IRON)
+    c.B.glow.ball(lx, fy + f.top - 0.52, lz, 0.09, '#ffd27a', 6, 4)
   }
-  void z1
+  return { layout: lay, hearth: f.hearth }
 }
 
-type Lay = (c: RoomCtx, s: number, wx: number, fx: number, faceIn: number, faceOut: number, top: number, lit: boolean, tint: (col: Col) => Col) => void
+/** The cooking hearth (or the taproom's fire) on an outer wall, the back one first: the chimney goes up over it. */
+const hearthOn = (f: Fit, prefer: number): Spot | null => {
+  const { c } = f
+  const tries: Array<[Wall, number]> = [['back', prefer], [f.far, 0.3], [f.work, 0.3]]
+  for (const [wall, pref] of tries) {
+    const s = f.lay.onWall(wall, 1.62, 0.68, f.top, pref, { back: 0.44 })
+    if (!s) continue
+    f.hearth = { x: s.x, z: s.z, wall }
+    put2(f, [c.B, c.L], 'the hearth', s, f.top, () => hearthKitchen(c.B, c.L, f.top, { lit: f.lit, stone: c.style === 'mountain' ? '#8a8690' : STONE, pot: true }))
+    return s
+  }
+  // A small room: an iron stove instead, its pipe up through the ceiling (against the front wall at last).
+  for (const [wall, pref] of [...tries, ['front', 0.15] as [Wall, number], ['front', 0.85] as [Wall, number]]) {
+    const s = f.lay.onWall(wall, 0.8, 0.66, f.top, pref)
+    if (!s) continue
+    f.hearth = { x: s.x, z: s.z, wall }
+    put2(f, [c.B, c.L], 'the hearth', s, f.top, () => stove(c.B, c.L, f.top, f.lit))
+    return s
+  }
+  return null
+}
+
+/** An iron stove on legs: a fire door, a kettle and a pot on top, its pipe up to the ceiling. */
+const stove = (k: Kit, L: Kit | null, top: number, lit: boolean): void => {
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) k.detail.cyl(sx * 0.27, 0, sz * 0.2, 0.03, 0.04, 0.14, 5, IRON)
+  k.hull.rbox(-0.34, 0.14, -0.28, 0.34, 0.82, 0.28, 0.04, { top: '#3a3a44', side: '#2e2e36' })
+  k.detail.rbox(-0.16, 0.3, 0.28, 0.16, 0.56, 0.3, 0.01, '#4a4a54')
+  if (lit) k.glow.box(-0.12, 0.33, 0.3, 0.12, 0.42, 0.312, '#ff8a2a', 'b')
+  k.detail.cyl(-0.05, 0.82, -0.12, 0.08, 0.08, top - 0.84, 8, '#3a3a44')
+  if (!L) return
+  L.detail.ball(0.16, 0.82 + 0.1, 0.08, 0.1, '#5a5a64', 7, 4, 0.85)
+  L.detail.beam(0.24, 0.94, 0.08, 0.33, 1.0, 0.08, 0.022, '#5a5a64')
+  L.detail.cyl(-0.17, 0.82, 0.12, 0.1, 0.1, 0.12, 8, '#2e2a30', '#c9a070')
+}
+
+/** Where the floor before a piece (on its front side) is, `d` deep. */
+const before = (s: Spot, d: number): Rect => {
+  const r = s.rect
+  // The front looks along (sin ry, cos ry).
+  const fx = Math.round(Math.sin(s.ry))
+  const fz = Math.round(Math.cos(s.ry))
+  if (fz > 0) return { x0: r.x0, x1: r.x1, z0: r.z1, z1: r.z1 + d }
+  if (fz < 0) return { x0: r.x0, x1: r.x1, z0: r.z0 - d, z1: r.z0 }
+  if (fx > 0) return { z0: r.z0, z1: r.z1, x0: r.x1, x1: r.x1 + d }
+  return { z0: r.z0, z1: r.z1, x0: r.x0 - d, x1: r.x0 }
+}
+
+/** A table with chairs tucked round it, one pulled out (`pulled`), a rug centred under it; what is on it is `set`. */
+const dining = (f: Fit, w: number, d: number, px: number, pz: number, round: boolean, wood: Col, rugCols: [Col, Col, Col] | null, set: (L: Kit) => void, o: { pulled?: boolean; scarf?: boolean; clear?: number; wall?: Wall } = {}): Spot | null => {
+  const { c } = f
+  // The table and its chairs: two along the back side, one at each end.
+  const gw = w + 0.84
+  const gd = d + 0.7
+  let s = f.lay.centre(gw, gd, 1.05, px, pz, { clear: o.clear ?? 0.55 })
+  if (!s && o.wall) {
+    // Pushed against a wall (a small room): its back side to the wall, chairs round the rest.
+    const w2 = f.lay.onWall(o.wall, gw, d + 0.42, 1.05, 0.5)
+    if (!w2) return null
+    s = w2
+    f.lay.add('a table with its chairs', w2, 1.05)
+    place([f.c.B, f.c.L], w2.x, f.c.fy, w2.z, w2.ry, () => {
+      place([f.c.B, f.c.L], 0, 0, -0.21, 0, () => {
+        if (round) {
+          f.c.B.hull.cyl(0, 0.68, 0, w / 2, w / 2, 0.06, 12, shade(wood, 0.9), shade(wood, 1.15))
+          f.c.B.detail.cyl(0, 0, 0, 0.08, 0.1, 0.68, 7, shade(wood, 0.8))
+          f.c.B.detail.cyl(0, 0, 0, 0.3, 0.32, 0.06, 9, shade(wood, 0.75), shade(wood, 0.85))
+        } else table(f.c.B, w, d, 0.74, wood)
+        place([f.c.B, f.c.L], -w / 2 - 0.12, 0, 0, Math.PI / 2, () => chair(f.c.B, wood))
+        place([f.c.B, f.c.L], w / 2 + 0.12, 0, 0, -Math.PI / 2, () => chair(f.c.B, wood))
+        if (o.pulled) place([f.c.B, f.c.L], 0.15, 0, d / 2 + 0.3, Math.PI - 0.5, () => {
+          chair(f.c.B, wood)
+          if (f.c.L && o.scarf && !f.c.ruined) scarf(f.c.L.detail, '#3f8ac8')
+        })
+        if (f.c.L) set(f.c.L)
+      })
+    })
+    f.lay.target('the table', (before(w2, 0.6).x0 + before(w2, 0.6).x1) / 2, (before(w2, 0.6).z0 + before(w2, 0.6).z1) / 2)
+    return w2
+  }
+  if (!s) return null
+  // (The group is drawn with the table's middle 0.2 m in front of the rect's.)
+  const tx = s.x
+  const tz = s.z + 0.2
+  f.lay.add('a table with its chairs', s, 1.05)
+  if (rugCols) {
+    const rr = { x0: tx - gw / 2 - 0.15, z0: tz - gd / 2 - 0.25, x1: tx + gw / 2 + 0.15, z1: tz + gd / 2 - 0.05 }
+    f.lay.fixed('the rug under the table', rr, 0.04, { flat: true })
+    place([c.B], tx, c.fy, (rr.z0 + rr.z1) / 2, 0, () => rug(c.B.detail, rr.x1 - rr.x0, rr.z1 - rr.z0, rugCols))
+  }
+  place([c.B, c.L], tx, c.fy, tz, 0, () => {
+    if (round) {
+      c.B.hull.cyl(0, 0.68, 0, w / 2, w / 2, 0.06, 12, shade(wood, 0.9), shade(wood, 1.15))
+      c.B.detail.cyl(0, 0, 0, 0.08, 0.1, 0.68, 7, shade(wood, 0.8))
+      c.B.detail.cyl(0, 0, 0, 0.3, 0.32, 0.06, 9, shade(wood, 0.75), shade(wood, 0.85))
+    } else table(c.B, w, d, 0.74, wood)
+    // Tucked in: their seats under the table's edge.
+    place([c.B, c.L], -w * 0.22, 0, -d / 2 - 0.12, 0, () => chair(c.B, wood))
+    place([c.B, c.L], w * 0.22, 0, -d / 2 - 0.12, 0, () => {
+      chair(c.B, wood)
+      if (c.L && o.scarf && !c.ruined) scarf(c.L.detail, '#3f8ac8')
+    })
+    place([c.B], -w / 2 - 0.12, 0, 0, Math.PI / 2, () => (c.ruined ? chairDown(c.B, wood) : chair(c.B, wood)))
+    // Pulled out and turned: somebody got up (or is about to sit down).
+    if (o.pulled) place([c.B], w / 2 + 0.25, 0, 0.12, -Math.PI / 2 + 0.5, () => chair(c.B, wood))
+    else place([c.B], w / 2 + 0.12, 0, 0, -Math.PI / 2, () => chair(c.B, wood))
+    if (c.L) set(c.L)
+  })
+  return s
+}
 
 /** A family's home: lived in, a meal on the table, the children's things about. */
-const home: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit, tint) => {
-  const { B, L, x0, x1, z0, z1, fy, r, ruined } = c
+const home = (f: Fit): void => {
+  const { c, lay } = f
+  const { B, L, x0, x1, z0, z1, r, ruined } = c
   const v = c.vary
-  const quilt = QUILTS[v % QUILTS.length]!.map(q => tint(q))
-  const wood = tint(OAK)
-  // The bed along the quiet wall, its head to the back; a cradle (or the dog's bed) at its foot.
+  const quilt = QUILTS[v % QUILTS.length]!.map(q => f.tint(q))
+  const wood = f.tint(OAK)
+  const bedSide: Wall = v % 2 ? f.far : f.work
+  const otherSide: Wall = bedSide === f.far ? f.work : f.far
+  // The stair to the floor above (a town house's) goes first: it needs the longest wall.
+  if (c.upper) staircase(f)
+  // The bed in a back corner, its head to the back wall and a long side to the side wall
+  // (else its head to a side wall): the other long side free to get in.
   const bw = 1.15
   const bl = 1.95
-  place([B, L], wx + s * (bw / 2 + 0.07), fy, z0 + bl / 2 + 0.1, BACK, () => bed(B, bw, bl, quilt, { messy: ruined || r() < 0.4, seed: 2, ruined }))
-  const baby = v % 2 === 0
-  if (baby) place([B], wx + s * 0.5, fy, z0 + bl + 0.55, BACK, () => cradle(B, quilt.slice(1)))
-  // The cooking hearth on the back wall, on the far side, a round rug before it.
-  const hx = fx - s * 0.95
-  place([B, L], hx, fy, z0 + 0.42, BACK, () => hearthKitchen(B, L, top, { lit, stone: c.style === 'mountain' ? '#8a8690' : STONE, pot: true }))
-  place([B], hx, fy, z0 + 1.3, BACK, () => rugRound(B.detail, 0.6, [tint('#a8543a'), tint('#d8a050')]))
-  // A dresser of plates between the bed and the hearth, if there is the room.
-  const a = wx + s * (bw + 0.2)
-  const b = hx - s * 0.88
-  const room = (b - a) * s
-  if (room > 0.75 && v % 3 === 1) place([B], (a + b) / 2, fy, z0 + 0.3, BACK, () => wardrobe(B, Math.min(1.1, room - 0.1), tint(WOOD)))
-  else if (room > 0.75) place([B, L], (a + b) / 2, fy, z0 + 0.27, BACK, () => dresser(B, L, Math.min(1.2, room - 0.1), wood, 'kitchen', r, ruined))
-  // The washstand on the far wall, the laundry basket by it, the pantry in the front corner.
-  place([B, L], fx - s * 0.3, fy, z0 + 1.65, faceOut, () => washstand(B, L))
-  place([B, L], fx - s * 0.55, fy, z1 - 0.62, faceOut, () => pantry(B, L, r))
-  // A chest of drawers on the bed's wall, in front of the bed, a plant on it.
-  const dz = z0 + bl + (baby ? 1.25 : 0.65)
-  if (dz < z1 - 0.6) place([B, L], wx + s * 0.25, fy, dz, faceIn, () => {
+  const b = lay.onWall('back', bw + 0.06, bl + 0.16, 1.1, bedSide === 'west' ? 0 : 1) ?? lay.onWall(bedSide, bw + 0.06, bl + 0.16, 1.1, 0.15) ?? lay.onWall(otherSide, bw + 0.06, bl + 0.16, 1.1, 0.15)
+  if (b) {
+    put2(f, [B, L], 'the bed', b, 1.1, () => bed(B, bw, bl, quilt, { messy: ruined || v % 3 === 2, seed: 2, ruined }))
+    // Its open side must be reached: the long side away from the nearest wall.
+    const r2 = b.rect
+    const alongZ = Math.abs(Math.cos(b.ry)) > 0.5
+    if (alongZ) {
+      const open = (r2.x0 - x0) < (x1 - r2.x1) ? r2.x1 + 0.35 : r2.x0 - 0.35
+      lay.target('the side of the bed', open, (r2.z0 + r2.z1) / 2)
+    } else {
+      const open = (r2.z0 - z0) < (z1 - r2.z1) ? r2.z1 + 0.35 : r2.z0 - 0.35
+      lay.target('the side of the bed', (r2.x0 + r2.x1) / 2, open)
+    }
+  }
+  // The hearth on an outer wall, towards the far side of the bed (after the bed: it may be a stove in a small room).
+  const h = hearthOn(f, bedSide === 'west' ? 0.82 : 0.18)
+  // The table, set for supper, in the middle of the room (pushed against a wall in a small one).
+  const setTable = (K: Kit): void => {
+    if (!ruined) {
+      for (const [x, z] of [[-0.24, -0.2], [0.26, -0.2], [-0.42, 0.08], [0.42, 0.1]] as const) {
+        K.detail.cyl(x, 0.74, z, 0.1, 0.1, 0.015, 10, '#e8e4dc', '#f6f2ea')
+        K.detail.cyl(x, 0.755, z, 0.045, 0.06, 0.035, 8, '#c98a5a', '#e8c070')
+      }
+      K.detail.ball(0.0, 0.8, 0.12, 0.1, '#d89a4a', 7, 4, 0.6)
+      K.detail.cyl(0.05, 0.74, -0.12, 0.06, 0.07, 0.18, 8, '#c9d8e8', '#8ab8d8')
+      candle(K, -0.05, 0.74, 0.0, true)
+    } else {
+      K.detail.pushMatrix(new Matrix4().makeRotationZ(1.9).setPosition(0.2, 0.83, 0.1))
+      K.detail.cyl(0, -0.03, 0, 0.06, 0.08, 0.06, 8, '#8a6a4a', '#5a4a3a')
+      K.detail.pop()
+    }
+  }
+  const rugT: [Col, Col, Col] = [f.tint('#a8543a'), f.tint('#d8a050'), f.tint('#5a7aa0')]
+  const mid: [number, number] = [(x0 + x1) / 2, z0 + (z1 - z0) * 0.58]
+  if (!dining(f, v % 2 ? 1.2 : 1.15, v % 2 ? 1.2 : 0.72, mid[0], mid[1], v % 2 === 1, wood, rugT, setTable, { pulled: true, scarf: true })) {
+    dining(f, 1.0, 0.7, mid[0], mid[1], false, wood, null, setTable, { pulled: true, scarf: true, clear: 0.4, wall: otherSide }) ??
+      dining(f, 1.0, 0.7, mid[0], mid[1], false, wood, null, setTable, { pulled: true, scarf: true, clear: 0.4, wall: bedSide }) ??
+      dining(f, 0.8, 0.8, mid[0], mid[1], true, wood, null, setTable, { clear: 0.28, wall: 'front' })
+  }
+  // A round rug before the hearth.
+  if (h) {
+    const fr = before(h, 1.2)
+    const cx = (fr.x0 + fr.x1) / 2
+    const cz = (fr.z0 + fr.z1) / 2
+    const rr = around(cx, cz, 0.6)
+    lay.fixed('the rug before the hearth', rr, 0.04, { flat: true })
+    place([B], cx, c.fy, cz, 0, () => rugRound(B.detail, 0.6, [f.tint('#a8543a'), f.tint('#d8a050')]))
+  }
+  // A dresser of plates against a wall (a wardrobe in some homes), the washstand, a chest of drawers.
+  const ward = v % 3 === 1
+  const dw = ward ? 1.1 : 1.2
+  put2(f, [B, L], ward ? 'the wardrobe' : 'the dresser', lay.onWall('back', dw, 0.62, 1.97, 0.5) ?? lay.onWall(otherSide, dw, 0.62, 1.97, 0.5) ?? lay.onWall(bedSide, dw, 0.62, 1.97, 0.6), 1.97, () => (ward ? wardrobe(B, 1.05, f.tint(WOOD)) : dresser(B, L, 1.15, wood, 'kitchen', r, ruined)))
+  put2(f, [B, L], 'the washstand', lay.onWall(f.far, 0.66, 0.5, 0.95, 0.42) ?? lay.onWall(f.work, 0.66, 0.5, 0.95, 0.42), 0.95, () => washstand(B, L))
+  put2(f, [B, L], 'the chest of drawers', lay.onWall(bedSide, 0.96, 0.58, 1.25, 0.82) ?? lay.onWall(otherSide, 0.96, 0.58, 1.25, 0.82), 1.25, () => {
     drawers(B, 0.9, wood)
     if (L) { L.detail.push(0.25, 0.9, 0.0); plant(L, 0.8, false, ruined); L.detail.pop() }
   })
-  // The table, set for supper: a chair at each end and two at the back, one pulled out.
-  const tx = (x0 + x1) / 2 + s * 0.35
-  const tz = z0 + bl + 0.45
-  place([B, L], tx, fy, tz, BACK, () => {
-    if (v % 2 === 1) {
-      // A round table on a turned pedestal.
-      B.hull.cyl(0, 0.68, 0, 0.6, 0.6, 0.06, 12, shade(wood, 0.9), shade(wood, 1.15))
-      B.detail.cyl(0, 0, 0, 0.08, 0.1, 0.68, 7, shade(wood, 0.8))
-      B.detail.cyl(0, 0, 0, 0.3, 0.32, 0.06, 9, shade(wood, 0.75), shade(wood, 0.85))
-    } else table(B, 1.15, 0.72, 0.74, wood)
-    place([B], -0.24, 0, -0.62, BACK, () => chair(B, wood))
-    place([B, L], 0.3, 0, -0.62, BACK, () => {
-      chair(B, wood)
-      if (L && !ruined) scarf(L.detail, '#3f8ac8')
-    })
-    place([B], -0.82, 0, 0, WEST, () => (ruined ? chairDown(B, wood) : chair(B, wood)))
-    // Pulled out, turned: somebody got up in a hurry (or just went to the door).
-    place([B], 0.95, 0, 0.18, EAST + 0.55, () => chair(B, wood))
-    if (!L) return
-    if (!ruined) {
-      for (const [x, z] of [[-0.24, -0.2], [0.3, -0.2], [-0.42, 0.08], [0.42, 0.1]] as const) {
-        L.detail.cyl(x, 0.74, z, 0.1, 0.1, 0.015, 10, '#e8e4dc', '#f6f2ea')
-        L.detail.cyl(x, 0.755, z, 0.045, 0.06, 0.035, 8, '#c98a5a', '#e8c070')
-      }
-      // The loaf, the jug, the candle; a spoon left on the cloth.
-      L.detail.ball(0.0, 0.8, 0.12, 0.1, '#d89a4a', 7, 4, 0.6)
-      L.detail.cyl(0.05, 0.74, -0.12, 0.06, 0.07, 0.18, 8, '#c9d8e8', '#8ab8d8')
-      candle(L, -0.05, 0.74, 0.0, true)
-      L.detail.beam(0.15, 0.755, 0.22, 0.28, 0.755, 0.26, 0.025, '#c0c8d4', 0.008)
-    } else {
-      // A bowl knocked over, nothing else.
-      L.detail.pushMatrix(new Matrix4().makeRotationZ(1.9).setPosition(0.2, 0.83, 0.1))
-      L.detail.cyl(0, -0.03, 0, 0.06, 0.08, 0.06, 8, '#8a6a4a', '#5a4a3a')
-      L.detail.pop()
-    }
-  })
+  // At the bed's foot: a cradle (a family with a baby), else the dog's bed by the fire.
+  const baby = v % 2 === 0
+  if (baby && b) {
+    const fb = before(b, 0.6)
+    put2(f, [B], 'the cradle', lay.centre(0.84, 0.46, 0.55, (fb.x0 + fb.x1) / 2, (fb.z0 + fb.z1) / 2, { clear: 0.22 }), 0.55, () => cradle(B, quilt.slice(1)))
+  } else if (L && h) {
+    const fr = before(h, 1.0)
+    put2(f, [L], 'the dog\'s bed', lay.centre(0.8, 0.62, 0.25, (fr.x0 + fr.x1) / 2 + 0.5, (fr.z0 + fr.z1) / 2, { clear: 0.22 }), 0.25, () => dogBed(L.detail, f.tint('#a86a3a')))
+  }
+  // The pantry in a front corner, the laundry basket.
+  put2(f, [B, L], 'the pantry', lay.onWall(f.far, 1.0, 0.95, 0.85, 0.9) ?? lay.onWall(f.work, 1.0, 0.95, 0.85, 0.9), 0.85, () => pantry(B, L, r))
+  if (L) put2(f, [L], 'the laundry basket', lay.onWall(f.far, 0.66, 0.66, 0.55, 0.62) ?? lay.onWall('front', 0.66, 0.66, 0.55, 0.2), 0.55, () => laundryBasket(L.detail))
   if (!L) return
-  // The children's drawings on the wall over the bed, a toy on the floor.
-  place([L], wx + s * 0.02, fy + 1.3, z0 + 1.35, faceIn, () => drawings(L.detail, r))
-  place([L], (x0 + x1) / 2 - s * 0.2, fy, z1 - 1.0, BACK + 0.6 * s, () => toyHorse(L.detail, ruined ? '#8a7a6a' : '#e8c060'))
-  // The dog's bed by the warm hearth (if there is no baby).
-  if (!baby) place([L], hx + s * 0.2, fy, z0 + 1.45, BACK, () => dogBed(L.detail, tint('#a86a3a')))
-  // Muddy boots by the door; the washing waiting by the stand.
-  place([L], c.doorX - s * 0.85, fy, z1 - 0.32, BACK, () => boots(L.detail))
-  place([L], fx - s * 0.45, fy, z0 + 2.45, BACK, () => laundryBasket(L.detail))
-  // Antlers over the bed's head.
-  place([L], wx + s * 0.62, fy + 1.55, z0 + 0.01, BACK, () => antlers(L.detail))
+  // A toy left on the floor; muddy boots by the door (along the front wall).
+  put2(f, [L], 'a toy', lay.centre(0.55, 0.3, 0.5, (x0 + x1) / 2 - f.s * 0.4, z1 - 1.3, { clear: 0.25 }), 0.5, () => toyHorse(L.detail, ruined ? '#8a7a6a' : '#e8c060'))
+  put2(f, [L], 'the boots', lay.onWall('front', 0.5, 0.42, 0.3, (c.doorX - f.s * 0.95 - x0) / (x1 - x0)), 0.3, () => boots(L.detail))
+  // On the walls: the children's drawings near the bed, antlers high on the back wall.
+  hangOn(f, L, 'the children\'s drawings', bedSide, 0.9, 1.25, 1.55, 0.3, () => { L.detail.push(-0.32, 0.1, 0.012); drawings(L.detail, r); L.detail.pop() })
+  hangOn(f, L, 'the antlers', 'back', 0.9, 2.02, 2.42, bedSide === 'west' ? 0.15 : 0.85, () => { L.detail.push(0, 0.2, 0.012); antlers(L.detail); L.detail.pop() })
 }
 
 /** A taproom: the bar, the kegs and bottles, the stair to the guests' rooms, the notice board, the bard's corner. */
-const inn: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
-  const { B, L, x0, x1, z0, fy, r, ruined, wz } = c
-  const d = B.detail
+const inn = (f: Fit): void => {
+  const { c, lay } = f
+  const { B, L, fy, r, ruined, wz } = c
+  const s = f.s
+  const wx = c.west ? c.x0 : c.x1
   const wood = ash('#8a5a34', ruined)
   const dark = ash('#6a4428', ruined)
-  // The bar, across the keeper's place (he stands between it and the wall).
+  // The bar, across the keeper's place (he stands between it and the wall), its front to the room.
   const ba = Math.min(wx + s * 1.32, wx + s * 1.74)
   const bb = Math.max(wx + s * 1.32, wx + s * 1.74)
+  lay.fixed('the bar', { x0: ba - 0.05, z0: wz - 0.85, x1: bb + 0.05, z1: wz + 0.6 }, 1.36)
   B.hull.rbox(ba, fy, wz - 0.8, bb, fy + 0.95, wz + 0.55, 0.03, { top: wood, side: dark })
   B.hull.rbox(ba - 0.05, fy + 0.95, wz - 0.85, bb + 0.05, fy + 1.02, wz + 0.6, 0.02, { top: shade(wood, 1.2), side: wood })
-  for (let i = 0; i < 3; i++) d.rbox(s > 0 ? bb : ba - 0.02, fy + 0.15, wz - 0.65 + i * 0.42, s > 0 ? bb + 0.02 : ba, fy + 0.8, wz - 0.32 + i * 0.42, 0.006, shade(dark, 1.15))
-  // A keg with its tap on the end of the bar; mugs left on it.
+  for (let i = 0; i < 3; i++) B.detail.rbox(s > 0 ? bb : ba - 0.02, fy + 0.15, wz - 0.65 + i * 0.42, s > 0 ? bb + 0.02 : ba, fy + 0.8, wz - 0.32 + i * 0.42, 0.006, shade(dark, 1.15))
   place([B], (ba + bb) / 2, fy + 1.02, wz - 0.62, 0, () => {
     B.detail.cyl(0, 0, 0, 0.17, 0.17, 0.32, 8, '#a06a3a', '#7a4e2c')
     B.detail.beam(0, 0.16, 0.17, 0, 0.12, 0.27, 0.03, BRASS)
   })
   if (L && !ruined) for (const zz of [-0.25, 0.05, 0.35]) L.detail.cyl((ba + bb) / 2 + (r() - 0.5) * 0.12, fy + 1.02, wz + zz, 0.06, 0.065, 0.14, 6, '#e8a648', '#fff4d8')
-  // Kegs against the wall behind the keeper, bottles on a shelf over them, keys on their hooks.
-  for (const [zz, k] of [[-1.2, 0], [-0.75, 1]] as const) d.cyl(wx + s * 0.33, fy, wz + zz, 0.25, 0.27, 0.62, 8, k ? '#8a5a34' : '#9a6a3a', '#6a4428')
-  B.hull.rbox(Math.min(wx, wx + s * 0.28), fy + 1.45, wz - 1.4, Math.max(wx, wx + s * 0.28), fy + 1.5, wz + 0.4, 0.01, { top: wood, side: dark })
-  if (L && !ruined) {
-    const cols = ['#4aa86a', '#c9482a', '#e8c060', '#5a7ad6']
-    for (let i = 0; i < 6; i++) L.detail.cyl(wx + s * 0.14, fy + 1.5, wz - 1.3 + i * 0.27, 0.045, 0.05, 0.2, 5, cols[i % cols.length]!, '#2a2228')
-    place([L], wx + s * 0.02, fy + 1.15, wz + 0.15, faceIn, () => {
-      L.detail.rbox(-0.25, 0, 0, 0.25, 0.14, 0.03, 0.008, wood)
-      for (let i = 0; i < 4; i++) {
-        L.detail.ball(-0.18 + i * 0.12, 0.07, 0.04, 0.015, BRASS, 4, 2)
-        L.detail.beam(-0.18 + i * 0.12, 0.06, 0.05, -0.18 + i * 0.12, -0.06, 0.05, 0.02, BRASS, 0.008)
-      }
-    })
+  // Kegs against the wall behind the keeper, bottles on a shelf over them, the keys to the rooms on their board.
+  const kz0 = wz - 1.48
+  if (lay.free({ x0: Math.min(wx, wx + s * 0.62), z0: kz0, x1: Math.max(wx, wx + s * 0.62), z1: wz - 0.45 }, 0.65, { path: false })) {
+    lay.fixed('the kegs', { x0: Math.min(wx, wx + s * 0.62), z0: kz0, x1: Math.max(wx, wx + s * 0.62), z1: wz - 0.45 }, 0.65)
+    for (const [zz, k] of [[-1.2, 0], [-0.75, 1]] as const) B.detail.cyl(wx + s * 0.33, fy, wz + zz, 0.25, 0.27, 0.62, 8, k ? '#8a5a34' : '#9a6a3a', '#6a4428')
   }
-  // The stair to the guests' rooms, up the back wall from the bar's side: steps,
-  // a banister, a pack left on a step on the way up.
-  const steps = 9
-  const run = 0.26
-  const rise = (top - 0.3) / steps
-  for (let i = 0; i < steps; i++) {
-    const xa = wx + s * (0.12 + i * run)
-    const xb = xa + s * run
-    B.hull.box(Math.min(xa, xb), fy, z0 + 0.01, Math.max(xa, xb), fy + rise * (i + 1), z0 + 0.78, { top: shade(wood, 1.15), side: wood, front: shade(wood, 0.92) }, 'b')
-  }
-  const xe = wx + s * (0.12 + steps * run)
-  for (let i = 1; i <= steps; i += 2) {
-    const x = wx + s * (0.12 + i * run - run / 2)
-    d.beam(x, fy + rise * i, z0 + 0.74, x, fy + rise * i + 0.75, z0 + 0.74, 0.04, dark)
-  }
-  d.beam(wx + s * 0.12, fy + rise + 0.75, z0 + 0.74, xe, fy + top - 0.3 + 0.75, z0 + 0.74, 0.06, shade(wood, 1.2))
-  if (L) place([L], wx + s * (0.12 + 4.5 * run), fy + rise * 5, z0 + 0.38, BACK, () => pack(L.detail, ash('#7a6a3a', ruined)))
-  // The fireplace with its pot on the back wall's far end, the bard by it with his lute and his hat.
-  const hx = fx - s * 0.95
-  place([B, L], hx, fy, z0 + 0.42, BACK, () => hearthKitchen(B, L, top, { lit, stone: STONE, pot: true }))
-  if (L && !ruined) {
-    place([L], fx - s * 0.2, fy, z0 + 1.0, faceOut + s * 0.25, () => {
-      L.detail.pushMatrix(new Matrix4().makeRotationX(-0.25))
+  hangOn(f, B, 'the bottle shelf', f.work, 1.8, 1.4, 1.75, (wz - 0.5 - c.z0) / (c.z1 - c.z0), () => {
+    B.hull.rbox(-0.9, 0.05, 0, 0.9, 0.1, 0.28, 0.01, { top: wood, side: dark })
+    if (L && !ruined) for (let i = 0; i < 6; i++) L.detail.cyl(-0.68 + i * 0.27, 0.1, 0.14, 0.045, 0.05, 0.2, 5, ['#4aa86a', '#c9482a', '#e8c060', '#5a7ad6'][i % 4]!, '#2a2228')
+  })
+  hangOn(f, L, 'the keys', f.work, 0.55, 1.1, 1.3, (wz + 0.15 - c.z0) / (c.z1 - c.z0), () => {
+    L!.detail.rbox(-0.25, 0, 0, 0.25, 0.14, 0.03, 0.008, wood)
+    for (let i = 0; i < 4; i++) {
+      L!.detail.ball(-0.18 + i * 0.12, 0.07, 0.04, 0.015, BRASS, 4, 2)
+      L!.detail.beam(-0.18 + i * 0.12, 0.06, 0.05, -0.18 + i * 0.12, -0.06, 0.05, 0.02, BRASS, 0.008)
+    }
+  })
+  // The fireplace with its pot, on the back wall towards the bard.
+  hearthOn(f, c.bard ? Math.min(1, Math.max(0, (c.bard.x - c.x0) / (c.x1 - c.x0))) : (s > 0 ? 0.85 : 0.15))
+  // The bard's corner: his lute leaning on the wall, his hat out for coins.
+  if (L && !ruined && c.bard) {
+    put2(f, [L], 'the hat', lay.centre(0.5, 0.5, 0.14, c.bard.x, c.bard.z + 0.62, { clear: 0.22 }), 0.14, () => hatCoins(L.detail, L.glow))
+    put2(f, [L], 'the lute', lay.onWall(f.far, 0.4, 0.36, 0.95, (c.bard.z - c.z0) / (c.z1 - c.z0)), 0.95, () => {
+      L.detail.pushMatrix(new Matrix4().makeRotationX(-0.25).setPosition(0, 0, 0.06))
       lute(L.detail)
       L.detail.pop()
     })
-    place([L], hx - s * 0.1, fy, z0 + 1.95, BACK, () => hatCoins(L.detail, L.glow))
   }
-  // The notice board with its postings, and the dart board, on the far wall.
-  if (L) {
-    place([L], fx - s * 0.015, fy + 1.15, wz - 0.9, faceOut, () => noticeBoard(L.detail, r))
-    place([L], fx - s * 0.015, fy + 1.45, wz + 0.5, faceOut, () => dartBoard(L.detail))
-  }
-  void x0
-  void x1
-  void faceIn
+  // The notice board with its postings and the dart board, on the walls where there is room.
+  hangOn(f, L, 'the notice board', f.far, 0.95, 1.15, 1.8, 0.4, () => noticeBoard(L!.detail, r))
+  hangOn(f, L, 'the dart board', f.far, 0.6, 1.2, 1.75, 0.75, () => { L!.detail.push(0, 0.28, 0); dartBoard(L!.detail); L!.detail.pop() })
 }
 
 /** A healer's: cots with folded blankets, herbs drying from the beams, the mortar and her shelves of jars. */
-const healer: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
-  const { B, L, x0, x1, z0, z1, fy, r, ruined, wz } = c
+const healer = (f: Fit): void => {
+  const { c, lay } = f
+  const { B, L, x0, x1, z0, fy, r, ruined, wz } = c
   const wood = ash(OAK, ruined)
-  // Her worktable at the work wall: a pot on the boil, bottles, the mortar.
-  place([B, L], wx + s * 0.32, fy, wz, faceIn, () => {
+  const wx = c.west ? x0 : x1
+  // Her worktable at the work wall, before her place: a pot on the boil, bottles, the mortar.
+  const ws = lay.spotOn(f.work, wz, 1.24, 0.6, 0.3)
+  lay.add('her worktable', ws, 0.82)
+  place([B, L], ws.x, fy, ws.z, ws.ry, () => {
     table(B, 1.2, 0.55, 0.8, wood)
     B.detail.cyl(-0.25, 0.8, -0.02, 0.17, 0.2, 0.22, 9, '#3a3438')
-    if (lit) B.glow.cyl(-0.25, 1.02, -0.02, 0.16, 0.16, 0.02, 9, '#7dff8a', '#7dff8a')
+    if (f.lit) B.glow.cyl(-0.25, 1.02, -0.02, 0.16, 0.16, 0.02, 9, '#7dff8a', '#7dff8a')
     if (!L) return
     place([L], 0.25, 0.8, 0.05, 0, () => mortar(L.detail))
     for (let i = 0; i < 3; i++) L.detail.cyl(0.05 + i * 0.12, 0.8, -0.15, 0.04, 0.035, 0.14, 6, ['#7dff8a', '#5fd8ff', '#ffd84a'][i]!, '#a06a3a')
   })
-  // Two cots along the far wall, heads to it.
-  const cl = 1.75
-  for (const [i, zz] of [z0 + 1.0, z0 + 2.25].entries()) {
-    if (zz > z1 - 0.6) continue
-    place([B], fx - s * (cl / 2 + 0.08), fy, zz, faceOut, () => cot(B, 0.8, cl, tint2(i ? '#5aa86a' : '#c9b48a', ruined)))
-  }
-  // Shelves of jars on the back wall, a washstand by her table.
-  place([B, L], (x0 + x1) / 2 + s * 0.3, fy, z0 + 0.27, BACK, () => dresser(B, L, 1.2, wood, 'jars', r, ruined))
-  place([B, L], wx + s * 0.3, fy, z0 + 0.6, faceIn, () => washstand(B, L))
-  // Herbs drying under the ceiling, candles on the dresser.
-  if (L) {
-    place([L], (x0 + x1) / 2, fy + top - 0.15, z0 + 1.3, BACK, () => herbs(L.detail, Math.min(3.2, x1 - x0 - 1), r))
-    for (const dx of [-0.4, 0.4]) candle(L, (x0 + x1) / 2 + s * 0.3 + dx, fy + 1.97, z0 + 0.15, lit)
-  }
-  void faceOut
+  void wx
+  // Cots along the far wall, heads to it, the folded blankets at their feet.
+  for (const [i, pref] of [0.2, 0.5].entries()) put2(f, [B], 'a cot', lay.onWall(f.far, 0.86, 1.82, 0.55, pref), 0.55, () => cot(B, 0.8, 1.75, ash(i ? '#5aa86a' : '#c9b48a', ruined)))
+  // Shelves of jars on the back wall; the washstand by her table; candles on the shelves.
+  const d = lay.onWall('back', 1.2, 0.6, 1.97, 0.5)
+  put2(f, [B, L], 'the shelves of jars', d, 1.97, () => {
+    dresser(B, L, 1.2, wood, 'jars', r, ruined)
+    if (L) for (const dx of [-0.4, 0.4]) candle(L, dx, 1.97, -0.12, f.lit)
+  })
+  put2(f, [B, L], 'the washstand', lay.onWall(f.work, 0.66, 0.5, 0.95, 0.15), 0.95, () => washstand(B, L))
+  // Herbs drying under the ceiling (over everything, out of the way).
+  if (L) place([L], (x0 + x1) / 2, fy + f.top - 0.15, z0 + 1.3, 0, () => herbs(L.detail, Math.min(3.2, x1 - x0 - 1), r))
 }
 
-const tint2 = (c: Col, ruined: boolean): Col => ash(c, ruined)
-
 /** A shop: the counter (a cash box, the ledger, the cat asleep on it), wares on the walls and on a table. */
-const shop: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
-  const { B, L, x0, x1, z0, fy, r, ruined, wz } = c
+const shop = (f: Fit): void => {
+  const { c, lay } = f
+  const { B, L, x0, x1, fy, r, ruined, wz } = c
+  const s = f.s
+  const wx = c.west ? x0 : x1
   const wood = ash(WOOD, ruined)
-  // A rack of blades on the wall behind the merchant.
-  place([B, L], wx + s * 0.02, fy, wz, faceIn, () => {
-    B.detail.rbox(-0.7, 1.0, 0, 0.7, 1.08, 0.08, 0.01, wood)
-    B.detail.rbox(-0.7, 1.7, 0, 0.7, 1.78, 0.08, 0.01, wood)
-    for (let i = 0; i < 5; i++) {
-      const x = -0.56 + i * 0.28
-      B.detail.beam(x, 1.08, 0.04, x, 1.95, 0.04, 0.05, '#d8dde8', 0.015)
-      B.detail.rbox(x - 0.08, 1.08, 0.02, x + 0.08, 1.12, 0.07, 0.008, BRASS)
-    }
-  })
-  // The counter between him and the room.
+  // The counter between the merchant and the room, its front to the room the customers come in by.
   const ca = Math.min(wx + s * 1.3, wx + s * 1.72)
   const cb = Math.max(wx + s * 1.3, wx + s * 1.72)
+  lay.fixed('the counter', { x0: ca - 0.04, z0: wz - 0.8, x1: cb + 0.04, z1: wz + 0.65 }, 1.2)
   B.hull.rbox(ca, fy, wz - 0.75, cb, fy + 0.92, wz + 0.6, 0.03, { top: shade(wood, 1.1), side: wood })
   B.hull.rbox(ca - 0.04, fy + 0.92, wz - 0.8, cb + 0.04, fy + 0.98, wz + 0.65, 0.015, { top: shade(wood, 1.25), side: wood })
   if (L) {
     const cx = (ca + cb) / 2
-    // The cash box (lid open, coins in it), the ledger open beside it, the cat asleep at the end.
     L.detail.rbox(cx - 0.13, fy + 0.98, wz - 0.55, cx + 0.13, fy + 1.1, wz - 0.32, 0.015, { top: '#5a3a24', side: '#4a2e1c' })
     if (!ruined) for (const [dx, dz] of [[-0.05, -0.47], [0.04, -0.42], [0.0, -0.38]] as const) L.glow.cyl(cx + dx, fy + 1.1, wz + dz, 0.025, 0.025, 0.012, 6, '#ffd24a', '#ffe680')
     L.detail.box(cx - 0.17, fy + 0.98, wz - 0.18, cx + 0.17, fy + 1.0, wz + 0.1, '#5a3a24', 'b')
@@ -1173,10 +1450,19 @@ const shop: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
     for (let i = 0; i < 4; i++) L.detail.box(cx - 0.14, fy + 1.02, wz - 0.12 + i * 0.05, cx - 0.04, fy + 1.034, wz - 0.11 + i * 0.05, '#6a5a5a', 'b')
     if (!ruined) place([L], cx, fy + 0.98, wz + 0.4, s > 0 ? EAST : WEST, () => cat(L.detail, '#f0a050'))
   }
-  // Shields on the far wall, an armour stand in the back corner, a display table of helms and daggers.
-  if (L) for (let i = 0; i < 3; i++) place([L], fx - s * 0.015, fy + 1.4 + (i % 2) * 0.15, z0 + 1.2 + i * 0.75, faceOut, () => wallShield(L.detail, ['#3f6fd6', '#c9483a', '#5aa84a'][i]!, 0.26))
-  place([B, L], fx - s * 0.45, fy, z0 + 0.5, faceOut, () => armourStand(B, L, ash('#8a8f9a', ruined), false))
-  place([B, L], (x0 + x1) / 2 + s * 0.6, fy, z0 + 0.55, BACK, () => {
+  // A rack of blades on the wall behind him.
+  hangOn(f, B, 'the rack of blades', f.work, 1.45, 1.0, 1.98, (wz - c.z0) / (c.z1 - c.z0), () => {
+    B.detail.rbox(-0.7, 0.0, 0, 0.7, 0.08, 0.08, 0.01, wood)
+    B.detail.rbox(-0.7, 0.7, 0, 0.7, 0.78, 0.08, 0.01, wood)
+    for (let i = 0; i < 5; i++) {
+      const x = -0.56 + i * 0.28
+      B.detail.beam(x, 0.08, 0.04, x, 0.95, 0.04, 0.05, '#d8dde8', 0.015)
+      B.detail.rbox(x - 0.08, 0.08, 0.02, x + 0.08, 0.12, 0.07, 0.008, BRASS)
+    }
+  })
+  // The armour stand in a back corner, a display table of helms and daggers against the back wall, a barrel of spears.
+  put2(f, [B, L], 'the armour stand', lay.onWall('back', 0.66, 0.6, 1.65, s > 0 ? 1 : 0), 1.65, () => armourStand(B, L, ash('#8a8f9a', ruined), false))
+  put2(f, [B, L], 'the display table', lay.onWall('back', 1.24, 0.64, 0.95, 0.5), 0.95, () => {
     table(B, 1.2, 0.6, 0.78, wood)
     if (!L) return
     for (const x of [-0.35, 0.05]) {
@@ -1185,115 +1471,118 @@ const shop: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
     }
     for (let i = 0; i < 3; i++) L.detail.beam(0.28 + i * 0.08, 0.795, -0.18, 0.28 + i * 0.08, 0.795, 0.12, 0.04, '#d8dde8', 0.015)
   })
-  // A barrel of spears and swords by the door.
-  place([B], wx + s * 2.3, fy, z0 + 0.4, BACK, () => {
+  put2(f, [B], 'the barrel of spears', lay.onWall(f.far, 0.56, 0.56, 1.5, 0.15), 1.5, () => {
     barrel(B.hull, 0, 0, 0, 0.8)
     for (const [dx, dz, h] of [[-0.06, 0.02, 1.3], [0.07, -0.04, 1.1], [0.0, 0.08, 1.45]] as const) B.detail.beam(dx, 0.4, dz, dx * 1.6, h, dz * 1.6, 0.035, '#d8dde8', 0.012)
   })
-  void top
-  void lit
+  // Shields on the far wall.
+  for (let i = 0; i < 3; i++) hangOn(f, L, 'a shield', f.far, 0.6, 1.1, 1.72, 0.3 + i * 0.22, () => { L!.detail.push(0, 0.31, 0); wallShield(L!.detail, ['#3f6fd6', '#c9483a', '#5aa84a'][i]!, 0.26); L!.detail.pop() })
   void r
 }
 
 /** A school: the master's place of work, and the story of the class taught there. */
-const school: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
+const school = (f: Fit): void => {
+  const { c, lay } = f
   const { B, L, x0, x1, z0, z1, fy, r, ruined, wz } = c
   const cls = c.cls ?? 'pyro'
   const col = ash(CLASSES[cls].color, ruined)
   const wood = ash(WOOD, ruined)
   const mid = (x0 + x1) / 2
+  const s = f.s
+  // The master's fixture at the work wall, before his place.
+  const fix = (len: number, depth: number, y1: number, label: string, draw: () => void): void => {
+    const sp = lay.spotOn(f.work, wz, len, depth, depth / 2)
+    lay.add(label, sp, y1)
+    place([B, L], sp.x, fy, sp.z, sp.ry, draw)
+  }
   // Books on the back wall, whatever is taught here.
   const shelfMix = cls === 'geo' ? 'rocks' : cls === 'blood' ? 'potions' : 'books'
-  place([B, L], wx + s * 1.2, fy, z0 + 0.27, BACK, () => dresser(B, L, 1.2, wood, shelfMix, r, ruined))
+  put2(f, [B, L], 'the bookcase', lay.onWall('back', 1.24, 0.62, 1.97, s > 0 ? 0.25 : 0.75), 1.97, () => {
+    dresser(B, L, 1.2, wood, shelfMix, r, ruined)
+    if (L) for (const dx of [-0.4, 0.4]) candle(L, dx, 1.97, -0.12, f.lit)
+  })
   switch (cls) {
     case 'pyro': {
-      // A lectern and a brazier at her place; scorch marks all over the floor
-      // and up the wall, and a bucket of water ready.
-      place([B, L], wx + s * 0.35, fy, wz, faceIn, () => {
+      // A lectern at her place; a brazier beside it with a bucket of water ready; scorch marks everywhere.
+      fix(0.62, 0.48, 0.95, 'the lectern', () => {
         B.hull.rbox(-0.18, 0, -0.18, 0.18, 0.85, 0.18, 0.02, wood)
         B.detail.rbox(-0.3, 0.85, -0.22, 0.3, 0.92, 0.22, 0.015, shade(wood, 1.15))
         if (L) L.detail.rbox(-0.25, 0.92, -0.16, 0.25, 0.97, 0.16, 0.01, { top: '#f4ead2', side: '#c9483a' })
       })
-      place([B], wx + s * 0.4, fy, wz - 0.95, BACK, () => brazier(B, lit))
-      if (L) {
-        place([L], wx + s * 0.85, fy, wz - 0.95, BACK, () => fireBucket(L.detail))
-        for (let i = 0; i < 4; i++) scorch(L.detail, mid + (i - 1.5) * 1.2, z0 + 1.4 + (i % 2) * 1.0, 0.25 + r() * 0.2, fy + 0.05, r)
-        place([L], mid + s * 0.4, fy + 0.3, z0 + 0.012, BACK, () => sootUp(L.detail, 1.2, 1.4, r))
-      }
+      put2(f, [B], 'the brazier', lay.onWall(f.work, 0.62, 0.62, 1.05, (wz - 1.0 - z0) / (z1 - z0)), 1.05, () => brazier(B, f.lit))
+      if (L) put2(f, [L], 'the fire bucket', lay.onWall(f.work, 0.38, 0.38, 0.45, (wz - 1.6 - z0) / (z1 - z0)), 0.45, () => fireBucket(L.detail))
+      put2(f, [B, L], 'the practice post', lay.onWall(f.far, 0.7, 0.5, 1.5, 0.25), 1.5, () => {
+        B.hull.cyl(0, 0, 0, 0.12, 0.1, 1.2, 7, '#5a3a24', '#2a2220')
+        B.detail.rbox(-0.32, 0.98, -0.06, 0.32, 1.12, 0.06, 0.02, '#3a2a24')
+        B.detail.cyl(0, 1.2, 0, 0.13, 0.13, 0.3, 7, '#2a2220', '#1e1a1c')
+      })
+      if (L) for (let i = 0; i < 4; i++) scorch(L.detail, mid + (i - 1.5) * 1.2, z0 + 1.4 + (i % 2) * 1.0, 0.25 + r() * 0.2, fy + 0.05, r)
+      hangOn(f, L, 'soot', 'back', 1.2, 0.3, 1.7, 0.5, () => sootUp(L!.detail, 1.2, 1.4, r))
       break
     }
     case 'shadow': {
-      // The target on the wall, knives in it; a bookcase on the back wall swung
-      // out on its hinge, a dark doorway behind it.
-      place([B, L], wx + s * 0.02, fy + 1.3, wz, faceIn, () => target(B, L))
-      const hx = mid + s * 0.6
-      B.detail.box(Math.min(hx, hx + s * 0.9), fy, z0, Math.max(hx, hx + s * 0.9), fy + 1.85, z0 + 0.05, '#121018', 'b')
-      place([B, L], hx, fy, z0 + 0.06, BACK - s * 0.65, () => {
-        B.detail.push(s * 0.45, 0, 0.27)
-        L?.detail.push(s * 0.45, 0, 0.27)
-        L?.glow.push(s * 0.45, 0, 0.27)
-        B.hull.push(s * 0.45, 0, 0.27)
-        dresser(B, L, 0.9, wood, 'books', r, ruined)
-        B.hull.pop()
-        L?.glow.pop()
-        L?.detail.pop()
-        B.detail.pop()
-      })
-      if (L) place([L], mid - s * 0.5, fy, wz - 0.3, BACK, () => {
+      // The target on the wall at his place, knives in it; a bookcase on the back wall swung open on a dark doorway.
+      hangOn(f, B, 'the target', f.work, 0.9, 0.85, 1.75, (wz - z0) / (z1 - z0), () => { B.detail.push(0, 0.45, 0.0); target(B, L); B.detail.pop() })
+      const hs = lay.onWall('back', 1.9, 1.0, 1.97, s > 0 ? 0.7 : 0.3)
+      if (hs) {
+        lay.add('the hidden door', hs, 1.97)
+        const hx = hs.x - s * 0.45
+        B.detail.box(Math.min(hx, hx + s * 0.9), fy, z0, Math.max(hx, hx + s * 0.9), fy + 1.85, z0 + 0.05, '#121018', 'b')
+        place([B, L], hx, fy, z0 + 0.06, -s * 0.65, () => {
+          for (const k of [B, L]) if (k) for (const m of [k.hull, k.detail, k.glow]) m.push(s * 0.45, 0, 0.27)
+          dresser(B, L, 0.9, wood, 'books', r, ruined)
+          for (const k of [B, L]) if (k) for (const m of [k.hull, k.detail, k.glow]) m.pop()
+        })
+      }
+      if (L) put2(f, [L], 'the knives on a crate', lay.onWall(f.far, 0.74, 0.54, 0.6, 0.5), 0.6, () => {
         L.detail.rbox(-0.35, 0, -0.25, 0.35, 0.55, 0.25, 0.02, wood)
         for (let i = 0; i < 4; i++) L.detail.beam(-0.2 + i * 0.12, 0.565, -0.12, -0.2 + i * 0.12 + 0.05, 0.565, 0.12, 0.035, '#d8dde8', 0.01)
       })
-      if (L) hang(L.detail, fx - s * 0.08, z0 + 1.6, fx - s * 0.08, z0 + 1.2, fy + 1.7, fy + 0.7, '#2a2440', { pleats: 2, depth: 0.03, seed: 7 })
+      hangOn(f, L, 'a cloak on its peg', f.far, 0.5, 0.7, 1.75, 0.8, () => hang(L!.detail, -0.2, 0.03, 0.2, 0.03, 1.0, 0.0, '#2a2440', { pleats: 2, depth: 0.03, seed: 7 }))
       break
     }
     case 'sovereign': {
-      // The throne at the back, its cushion worn pale; banners on the walls; a
-      // long carpet from the door to it; a desk with a quill at his place.
-      place([B, L], mid, fy, z0 + 0.38, BACK, () => throne(B, L, ash('#6a3a2a', ruined), col))
-      place([B], mid, fy, (z0 + 0.8 + z1) / 2, BACK, () => rug(B.detail, 1.3, z1 - z0 - 1.0, [ash('#8a1a2a', ruined), ash('#a82a3a', ruined), ash(BRASS, ruined)]))
-      place([B, L], wx + s * 0.35, fy, wz, faceIn, () => desk(B, L, wood, lit))
-      if (L) for (const zz of [z0 + 1.4, z0 + 2.8]) {
-        if (zz > z1 - 0.8) continue
-        place([L], x0 + 0.01, fy + 2.0, zz, WEST, () => banner(L.detail, col, BRASS, 1.2, 1))
-        place([L], x1 - 0.01, fy + 2.0, zz, EAST, () => banner(L.detail, col, BRASS, 1.2, 2))
-      }
-      if (L) for (const dx of [-0.85, 0.85]) {
-        place([L], mid + dx, fy, z0 + 0.5, BACK, () => {
-          L.detail.cyl(0, 0, 0, 0.12, 0.05, 1.2, 6, BRASS, shade(BRASS, 1.1))
-          for (const ox of [-0.12, 0, 0.12]) candle(L, ox, 1.2, 0, lit, 0.1)
+      // The throne at the back, its cushion worn pale; a carpet from the door to it; banners; his desk.
+      const t = lay.onWall('back', 1.1, 0.72, 2.05, 0.5)
+      put2(f, [B, L], 'the throne', t, 2.05, () => throne(B, L, ash('#6a3a2a', ruined), col))
+      if (t) {
+        const rr = { x0: t.x - 0.65, z0: t.rect.z1 + 0.1, x1: t.x + 0.65, z1: z1 - 0.15 }
+        lay.fixed('the carpet', rr, 0.04, { flat: true })
+        place([B], t.x, fy, (rr.z0 + rr.z1) / 2, 0, () => rug(B.detail, 1.3, rr.z1 - rr.z0, [ash('#8a1a2a', ruined), ash('#a82a3a', ruined), ash(BRASS, ruined)]))
+        for (const dx of [-0.85, 0.85]) put2(f, [L], 'a candelabra', L && lay.free(around(t.x + dx, t.z + 0.05, 0.14), 1.45) ? { x: t.x + dx, z: t.z + 0.05, ry: 0, rect: around(t.x + dx, t.z + 0.05, 0.14) } : null, 1.45, () => {
+          L!.detail.cyl(0, 0, 0, 0.12, 0.05, 1.2, 6, BRASS, shade(BRASS, 1.1))
+          for (const ox of [-0.12, 0, 0.12]) candle(L!, ox, 1.2, 0, f.lit, 0.1)
         })
       }
+      fix(1.12, 0.62, 0.8, 'his desk', () => desk(B, L, wood, f.lit))
+      for (const w of ['west', 'east'] as const) for (const pref of [0.3, 0.65]) hangOn(f, L, 'a banner', w, 0.7, 0.62, 2.1, pref, () => { L!.detail.push(0, 1.48, 0); banner(L!.detail, col, BRASS, 1.2, 1); L!.detail.pop() })
       break
     }
     case 'chrono': {
-      // Clocks on every wall, each telling a different time; a tall clock in
-      // the corner; hourglasses on the desk.
-      place([B, L], wx + s * 0.35, fy, wz, faceIn, () => {
-        desk(B, L, wood, lit)
+      // Clocks on the back wall, each telling a different time; a tall clock in the corner; hourglasses on his desk.
+      fix(1.12, 0.62, 0.8, 'his desk', () => {
+        desk(B, L, wood, f.lit)
         if (L) for (const [x, sc] of [[0.02, 1], [0.42, 0.7]] as const) { L.detail.push(x, 0.78, x > 0.3 ? -0.15 : 0.2); hourglass(L.detail, sc); L.detail.pop() }
       })
-      place([B], fx - s * 0.3, fy, z0 + 0.3, BACK, () => tallClock(B, r()))
-      if (L) for (let i = 0; i < 4; i++) place([L], mid - 1.0 + i * 0.6, fy + 1.4 + (i % 2) * 0.35, z0 + 0.012, BACK, () => wallClock(L.detail, r(), 0.14 + (i % 3) * 0.04))
+      put2(f, [B], 'the tall clock', lay.onWall('back', 0.56, 0.46, 2.05, s > 0 ? 1 : 0), 2.05, () => tallClock(B, r()))
+      for (let i = 0; i < 4; i++) hangOn(f, L, 'a clock', 'back', 0.42, 1.35 + (i % 2) * 0.35, 1.75 + (i % 2) * 0.35, 0.2 + i * 0.2, () => { L!.detail.push(0, 0.2, 0.012); wallClock(L!.detail, r(), 0.14 + (i % 3) * 0.04); L!.detail.pop() })
       break
     }
     case 'blood': {
-      // A cauldron bubbling in the middle of the back, her bench of vials, a
-      // stained cloth over it.
-      place([B], mid + s * 0.4, fy, z0 + 1.2, BACK, () => cauldron(B, '#ff2a4a', lit))
-      place([B, L], wx + s * 0.32, fy, wz, faceIn, () => {
+      // A cauldron bubbling in the room, her bench of vials at her place, a stained cloth over it.
+      put2(f, [B], 'the cauldron', lay.centre(0.9, 0.9, 0.9, mid + s * 0.4, z0 + 1.5, { clear: 0.45 }), 0.9, () => cauldron(B, '#ff2a4a', f.lit))
+      fix(1.24, 0.6, 0.82, 'her bench', () => {
         table(B, 1.2, 0.55, 0.8, wood)
         if (!L) return
         drape(L.detail, -0.55, -0.24, 0.1, 0.24, 0.8, ['#8a1a2a', '#a82a3a'], { n: 3, lift: 0.02, drop: 0.15, sides: 's', out: 0.03 })
-        for (let i = 0; i < 4; i++) {
-          if (lit) L.glow.cyl(0.22 + (i % 2) * 0.12, 0.8, -0.12 + Math.floor(i / 2) * 0.18, 0.035, 0.03, 0.14, 6, i % 2 ? '#ff2a4a' : '#b06aff', '#ffd0d8')
-        }
+        if (f.lit) for (let i = 0; i < 4; i++) L.glow.cyl(0.22 + (i % 2) * 0.12, 0.8, -0.12 + Math.floor(i / 2) * 0.18, 0.035, 0.03, 0.14, 6, i % 2 ? '#ff2a4a' : '#b06aff', '#ffd0d8')
       })
       break
     }
     case 'aether': {
-      // A contraption half built in the middle of the room, tools about it; his workbench.
-      place([B, L], mid + s * 0.2, fy, z0 + 1.35, BACK, () => contraption(B, L, lit))
-      place([B, L], wx + s * 0.32, fy, wz, faceIn, () => {
+      // A contraption half built in the room, tools about it; his workbench at his place.
+      put2(f, [B, L], 'the contraption', lay.centre(1.1, 1.3, 1.4, mid + s * 0.2, z0 + 1.4, { clear: 0.45 }), 1.4, () => contraption(B, L, f.lit))
+      fix(1.24, 0.6, 0.84, 'his workbench', () => {
         table(B, 1.2, 0.55, 0.82, ash('#6a6a74', ruined))
         if (!L) return
         for (let i = 0; i < 3; i++) L.detail.cyl(-0.3 + i * 0.25, 0.82, 0.0, 0.09, 0.09, 0.04, 8, '#c9a24a', '#d8b04a')
@@ -1302,53 +1591,39 @@ const school: Lay = (c, s, wx, fx, faceIn, faceOut, top, lit) => {
       break
     }
     case 'geo': {
-      // Rock samples on the shelves (set above), a geode split open on a table, a pile of ore.
-      place([B, L], mid + s * 0.5, fy, z0 + 1.4, BACK, () => {
+      // Rock samples on the shelves, a geode split open on a table against the wall, a pile of ore in the corner; his desk.
+      put2(f, [B], 'the geode table', lay.onWall('back', 1.04, 0.74, 1.3, 0.5), 1.3, () => {
         table(B, 1.0, 0.7, 0.72, wood)
-        place([B], 0, 0.72, 0, 0, () => geode(B, lit))
+        place([B], 0, 0.72, 0, 0, () => geode(B, f.lit))
       })
-      // (A pile of ore, each lump clear of the next.)
-      if (L) for (let i = 0; i < 5; i++) L.detail.ball(fx - s * (0.32 + (i % 2) * 0.32), fy + 0.1 + Math.floor(i / 4) * 0.12, z0 + 0.4 + (i % 3) * 0.3, 0.13 - (i % 3) * 0.015, ['#6a645e', '#8a8f9a', '#a8946a'][i % 3]!, 5, 3, 0.8)
-      place([B, L], wx + s * 0.3, fy, wz, faceIn, () => desk(B, L, wood, lit))
+      if (L) put2(f, [L], 'the ore', lay.onWall(f.far, 0.9, 0.7, 0.4, 0.15), 0.4, () => {
+        for (let i = 0; i < 5; i++) L.detail.ball(-0.3 + (i % 3) * 0.3, 0.1 + Math.floor(i / 3) * 0.12, -0.12 + (i % 2) * 0.24, 0.13 - (i % 3) * 0.015, ['#6a645e', '#8a8f9a', '#a8946a'][i % 3]!, 5, 3, 0.8)
+      })
+      fix(1.12, 0.62, 0.8, 'his desk', () => desk(B, L, wood, f.lit))
       break
     }
     case 'aegis': {
-      // The armour on its stand, the polishing cloth over it; a weapon rack, a shield on the wall.
-      place([B, L], mid + s * 0.4, fy, z0 + 0.6, BACK, () => armourStand(B, L, ash('#c0c8d4', ruined), true))
-      if (L) place([L], fx - s * 0.015, fy + 1.4, z0 + 1.6, faceOut, () => wallShield(L.detail, col, 0.32))
-      place([B, L], wx + s * 0.3, fy, wz, faceIn, () => bench(B, 1.2, wood, ash('#3f6fd6', ruined), 1))
+      // The armour on its stand, the polishing cloth over it; a shield on the wall; a bench at his place.
+      put2(f, [B, L], 'the armour stand', lay.onWall('back', 0.66, 0.6, 1.65, 0.5), 1.65, () => armourStand(B, L, ash('#c0c8d4', ruined), true))
+      hangOn(f, L, 'a shield', f.far, 0.7, 1.1, 1.75, 0.35, () => { L!.detail.push(0, 0.32, 0); wallShield(L!.detail, col, 0.32); L!.detail.pop() })
+      fix(1.24, 0.44, 0.55, 'his bench', () => bench(B, 1.2, wood, ash('#3f6fd6', ruined), 1))
       break
     }
   }
-  // A study table with chairs, books open on it, a candle (where the class's centrepiece leaves the room).
-  if (cls === 'pyro' || cls === 'shadow' || cls === 'chrono' || cls === 'aegis') {
-    place([B, L], mid - s * 0.6, fy, z0 + 2.0, BACK, () => {
-      table(B, 1.6, 0.75, 0.74, wood)
-      for (const dx of [-0.45, 0.45]) place([B], dx, 0, -0.62, BACK, () => chair(B, wood))
-      place([B], 0.5, 0, 0.66, Math.PI + 0.3, () => chair(B, wood))
-      if (!L) return
-      for (const [x, z, a, col] of [[-0.45, -0.12, 0.2, '#c9483a'], [0.2, 0.05, -0.3, '#3f6fd6']] as const) {
-        L.detail.push(x, 0.74, z, a)
-        L.detail.rbox(-0.2, 0, -0.14, 0.2, 0.03, 0.14, 0.008, col)
-        L.detail.box(-0.18, 0.03, -0.12, -0.005, 0.045, 0.12, '#f4ead2', 'b')
-        L.detail.box(0.005, 0.03, -0.12, 0.18, 0.045, 0.12, '#f4ead2', 'b')
-        L.detail.pop()
+  // A study table with chairs round it, books open on it (where the class's centrepiece leaves the room).
+  if (cls === 'pyro' || cls === 'shadow' || cls === 'chrono' || cls === 'aegis' || cls === 'geo' || cls === 'sovereign') {
+    dining(f, 1.5, 0.72, mid - s * 0.4, z0 + (z1 - z0) * 0.55, false, wood, null, (K) => {
+      for (const [x, z, a, colB] of [[-0.42, -0.12, 0.2, '#c9483a'], [0.2, 0.05, -0.3, '#3f6fd6']] as const) {
+        K.detail.push(x, 0.74, z, a)
+        K.detail.rbox(-0.2, 0, -0.14, 0.2, 0.03, 0.14, 0.008, colB)
+        K.detail.box(-0.18, 0.03, -0.12, -0.005, 0.045, 0.12, '#f4ead2', 'b')
+        K.detail.box(0.005, 0.03, -0.12, 0.18, 0.045, 0.12, '#f4ead2', 'b')
+        K.detail.pop()
       }
-      for (let i = 0; i < 3; i++) L.detail.rbox(0.55 - 0.02 * i, 0.74 + i * 0.06, -0.2, 0.75 - 0.02 * i, 0.8 + i * 0.06, 0.05, 0.008, ['#5aa84a', '#d8b04a', '#7a3fa0'][i]!)
-      candle(L, -0.1, 0.74, 0.22, lit)
+      for (let i = 0; i < 3; i++) K.detail.rbox(0.48 - 0.02 * i, 0.74 + i * 0.06, -0.2, 0.68 - 0.02 * i, 0.8 + i * 0.06, 0.05, 0.008, ['#5aa84a', '#d8b04a', '#7a3fa0'][i]!)
+      candle(K, -0.1, 0.74, 0.22, f.lit)
     })
   }
-  if (cls === 'pyro') {
-    // A practice post, charred black from the top down.
-    place([B, L], fx - s * 0.7, fy, z0 + 0.9, BACK, () => {
-      B.hull.cyl(0, 0, 0, 0.12, 0.1, 1.2, 7, '#5a3a24', '#2a2220')
-      B.detail.rbox(-0.32, 0.98, -0.06, 0.32, 1.12, 0.06, 0.02, '#3a2a24')
-      B.detail.cyl(0, 1.2, 0, 0.13, 0.13, 0.3, 7, '#2a2220', '#1e1a1c')
-      if (L) L.detail.ball(0, 0.04, 0.25, 0.09, '#6a6466', 5, 3, 0.4)
-    })
-  }
-  // A plant in the corner by the window, and candles on the shelves.
-  if (L) place([L], fx - s * 0.35, fy, z1 - 0.5, BACK, () => plant(L, 1.1, cls !== 'blood', ruined))
-  if (L) for (const dx of [-0.4, 0.4]) candle(L, wx + s * 1.2 + dx, fy + 1.97, z0 + 0.15, lit)
-  void top
+  // A plant in a front corner.
+  if (L) put2(f, [L], 'a plant', lay.onWall(f.far, 0.46, 0.46, 0.75, 0.92), 0.75, () => plant(L, 1.1, cls !== 'blood', ruined))
 }

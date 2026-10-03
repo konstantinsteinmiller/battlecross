@@ -429,3 +429,20 @@ Sunford `low` and `full`, the start spot and a spot in the taproom.
 Not done: a camp by a road in the zones (scenery props there are scattered by
 the hundred: a camp would need a placement of its own); the smith's cot and
 apron are in his forge but barely read through the dark mouth from the street.
+
+## 2026-10-03: rooms arranged by a layout (roadmap #68), stalls turned to their customers (#67)
+
+The rooms' furniture is now placed by a small layout (`gfx/roomLayout.ts`):
+against walls and in corners, clear of doorways, windows (above the sill), the
+people's places and the stair's foot, with the way from the door to each kept
+open. Same kits as before (furniture merged per room, clutter merged and drawn
+only while the front is lifted), so the frame is unchanged:
+
+| Scene (`low`, frozen frames, HEAD → this) | Draw calls | Triangles |
+| --- | --- | --- |
+| Sunford, 7 spots | 38–76 → 38–76 (every spot equal) | 33.8–73.1 k → 34.0–73.1 k |
+| Oakhaven, 7 spots | 44–69 → 44–69 (every spot equal) | 45.6–73.4 k → 45.6–72.6 k |
+
+The layout runs when a town is built (a 10 cm walking grid per room, cached
+between pieces): `tests/game/roomLayout.test.ts` arranges every room of the
+three towns twice over in ~0.5 s.

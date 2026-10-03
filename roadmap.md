@@ -87,7 +87,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #66 ✅ GameMonetize readiness: make the game ready for a GameMonetize release using the new-web-game-playbook
 - [ ] #67 I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
  Also turn the market stands in the town towards where they are accessable.
-- [ ] #68 arrange furniture and staircasses  well in the houses of the town
+- [x] #68 ✅ arrange furniture and staircasses  well in the houses of the town
 
 ### World map
 
