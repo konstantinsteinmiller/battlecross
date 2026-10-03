@@ -2435,6 +2435,88 @@
       ]
     },
     {
+      "id": "sheet-portraits-hero",
+      "kind": "set",
+      "title": "Portraits: the hero, per outfit",
+      "files": {
+        "clean": "sheet-portraits-hero.png",
+        "key": "sheet-portraits-hero-key.png"
+      },
+      "width": 512,
+      "height": 512,
+      "cols": 2,
+      "rows": 2,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "hero-tunic",
+          "label": "Hero-tunic",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-tunic.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hero-leather",
+          "label": "Hero-leather",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-leather.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hero-robe",
+          "label": "Hero-robe",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-robe.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hero-plate",
+          "label": "Hero-plate",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/hero-plate.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "single-ui-coin",
       "kind": "single",
       "title": "UI: the gold coin",
