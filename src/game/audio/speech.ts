@@ -35,7 +35,9 @@ const load = (url: string): Promise<AudioBuffer | null> => {
     : fetch(url)
       .then(r => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then(buf => new Offline(1, 1, 44100).decodeAudioData(buf))
-      .catch((e) => { console.warn(`[voice] "${url}" could not be loaded — the line stays text-paced`, e); return null })
+      // Silence, never an error (owner's rule): a recording that cannot be
+      // loaded leaves the line text-paced. Dev builds note it for the author.
+      .catch((e) => { if (import.meta.env.DEV) console.debug(`[voice] "${url}" could not be loaded — the line stays text-paced`, e); return null })
   buffers.set(url, p)
   return p
 }
