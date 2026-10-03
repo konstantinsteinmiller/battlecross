@@ -20,11 +20,15 @@ vi.mock('vue-i18n', () => ({ useI18n: () => ({ t: (k: string, p?: Record<string,
 import SkillBar from '@/components/hud/SkillBar.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import { hud, type SkillSlotView } from '@/game/state/hud'
+import { profile } from '@/game/state/profile'
 
 const slot = (id: string, over: Partial<SkillSlotView> = {}): SkillSlotView => ({ id, ready: true, noMana: false, locked: false, active: false, ...over })
 const SIX = ['shieldSlam', 'fireball', 'flamePillar', 'royalGuard', 'stoneSpike', 'aetherPistol']
 
 beforeEach(() => {
+  // A player whose mana flask has arrived (a new player's comes with the
+  // first mana potion: see the reveal case below).
+  profile.tips = { onboard: 1, 'reveal:mana': 2 }
   hud.device = 'touch'
   hud.skills = SIX.map(id => slot(id))
   hud.potions = 3
@@ -101,6 +105,26 @@ describe('SkillBar', () => {
     const w = mount(SkillBar)
     expect(w.findAll('.slot__cd')).toHaveLength(8)
     expect(w.findAll('.slot__num')).toHaveLength(8)
+  })
+})
+
+describe('SkillBar: the mana flask arrives when it first matters (roadmap #52)', () => {
+  it('a new player has no mana flask until the first mana potion; it pops in glowing, and stops glowing once drunk', async () => {
+    profile.tips = { onboard: 1 }
+    const w = mount(SkillBar)
+    expect(w.find('[data-mana-potion]').exists()).toBe(false)
+    expect(w.findAll('.slot')).toHaveLength(7)
+    profile.tips['reveal:mana'] = 1
+    await nextTick()
+    expect(w.find('[data-mana-potion]').classes()).toContain('is-glow')
+    profile.tips['reveal:mana'] = 2
+    await nextTick()
+    expect(w.find('[data-mana-potion]').classes()).not.toContain('is-glow')
+  })
+
+  it('a returning player has it from the start', () => {
+    profile.tips = { onboard: 2 }
+    expect(mount(SkillBar).find('[data-mana-potion]').exists()).toBe(true)
   })
 })
 

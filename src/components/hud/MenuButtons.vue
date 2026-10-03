@@ -87,7 +87,7 @@ const open = (panel: 'map' | 'character' | 'skills' | 'inventory'): void => {
     position: absolute
     inset: -0.2rem
     border-radius: 50%
-    border: 4px solid #ffe066
+    border: 4px solid var(--bc-gold-hi)
     animation: reveal-ring 620ms ease-out both
     pointer-events: none
 .reveal-leave-active

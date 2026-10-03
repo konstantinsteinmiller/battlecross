@@ -68,7 +68,12 @@ never as gore or self-harm. Portals rate this game for 13 and under.
 
 Shown round, in dialogues, shops, trainers and the hero frame.
 
-- The hero: `hero` (one portrait; the code-drawn one follows the gear worn).
+- The hero: one portrait per outfit family, the same face in all four:
+  `hero-tunic` (no body armour), `hero-leather`, `hero-robe`, `hero-plate`.
+  The game shows the one for the body piece he wears (its kind decides the
+  family, exactly as it dresses his 3D rig: `src/game/art/heroPortrait.ts`).
+  No helmet or hat on any of them; a missing file keeps the code-drawn bust,
+  which also shows his headgear. Sheet: `art-sheets/sheet-portraits-hero.png`.
 - Quest speakers: `goblinKing` `warlord` `dwarf` `oracle` `dragon` `archDemon`
 - Townsfolk: `smith` `peddler` `elder` `healer` `goblinTrader` `fence` `tinker`
   `captain`

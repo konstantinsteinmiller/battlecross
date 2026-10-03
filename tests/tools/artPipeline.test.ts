@@ -23,6 +23,8 @@ import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { ITEMS } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
+import { heroLook } from '@/game/gfx/rigs/looks'
+import { HERO_OUTFITS, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, FINISH, GLOW, ICON_FILL, NOTATION, READABLE, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
@@ -83,14 +85,59 @@ describe('the manifest covers the game', () => {
     expect([...ART_CATALOGUE.skills].sort()).toEqual(SKILLS.map(s => s.id).sort())
   })
 
-  it('every speaker portrait has a panel, and the hero and the void lord have none', () => {
+  it('every speaker portrait has a panel, the hero has one per outfit family, and the void lord has none', () => {
     expect(idsOf('sheet-portraits-town')).toEqual(['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'captain', 'fence', 'dwarf', 'tinker'])
     expect(idsOf('sheet-portraits-trainers')).toEqual(['trainerAegis', 'trainerShadow', 'trainerPyro', 'trainerSovereign', 'trainerChrono', 'trainerBlood', 'trainerAether', 'trainerGeo'])
     expect(idsOf('sheet-portraits-speakers')).toEqual(['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon'])
-    expect([blanksOf('sheet-portraits-town'), blanksOf('sheet-portraits-trainers'), blanksOf('sheet-portraits-speakers')]).toEqual([0, 1, 1])
-    // Decisions: the hero's portrait follows the gear worn; voidLord never speaks.
+    // The hero: four paintings of the same face, one per outfit family, on a
+    // 2 x 2 sheet. Never a single `hero` file: the vector bust follows every
+    // piece he wears, a painting can only follow his outfit.
+    expect(idsOf('sheet-portraits-hero')).toEqual(['hero-tunic', 'hero-leather', 'hero-robe', 'hero-plate'])
+    expect([blanksOf('sheet-portraits-town'), blanksOf('sheet-portraits-trainers'), blanksOf('sheet-portraits-speakers'), blanksOf('sheet-portraits-hero')]).toEqual([0, 1, 1, 0])
+    for (const o of HERO_OUTFITS) expect(targets.has(`images/portraits/hero-${o}.webp`), o).toBe(true)
+    // voidLord never speaks.
     for (const id of ['hero', 'voidLord']) expect(targets.has(`images/portraits/${id}.webp`), id).toBe(false)
-    expect(ART_CATALOGUE.portraits).toHaveLength(22)
+    expect(ART_CATALOGUE.portraits).toHaveLength(26)
+  })
+
+  it('the hero sheet is one character four times: the prompt says so before the style, and only the clothes change', () => {
+    const hero = SETS.find(s => s.stem === 'sheet-portraits-hero')!
+    expect(sheetSize(hero)).toEqual({ width: 512, height: 512 })
+    expect([hero.anchor, hero.crop]).toEqual(['feet', 0.8])
+    const text = promptBlocks().find(b => b.stem === 'sheet-portraits-hero')!.text
+    expect(text).toContain('ONE CHARACTER — all 4 panels are the SAME young hero')
+    expect(text).toContain('#7a4a2a')
+    expect(text).toContain('#f2c8a0')
+    expect(text).toContain('ONLY THE CLOTHES CHANGE')
+    expect(text.indexOf('ONE CHARACTER')).toBeLessThan(text.indexOf(STYLE_PART))
+    // The other portrait sheets are many people, and say nothing of the kind.
+    for (const s of SETS) if (s.kind === 'portraits' && s !== hero) expect(promptBlocks().find(b => b.stem === s.stem)!.text, s.stem).not.toContain('ONE CHARACTER')
+  })
+
+  it('the hero\'s outfit family comes from his worn body piece, the same way his rig is dressed', () => {
+    expect(heroOutfitOf(undefined)).toBe('tunic')
+    expect(heroOutfitOf('leather')).toBe('leather')
+    expect(heroOutfitOf('robe')).toBe('robe')
+    expect(heroOutfitOf('plate')).toBe('plate')
+    expect(heroOutfitOf('sword')).toBe('tunic')
+    const bare = { main: null, off: null, head: null, body: null, hands: null, feet: null, trinket1: null, trinket2: null }
+    expect(heroOutfit(bare)).toBe('tunic')
+    for (const it of ITEMS.filter(i => i.slot === 'body')) {
+      const worn = { ...bare, body: it.id }
+      // The painting shown and the rig on screen can never disagree.
+      expect(heroOutfit(worn), it.id).toBe(heroLook(worn).outfit)
+    }
+    expect(heroPortraitId('plate')).toBe('hero-plate')
+    expect(HERO_OUTFITS.map(o => heroOutfitOfId(heroPortraitId(o)))).toEqual([...HERO_OUTFITS])
+    expect(heroOutfitOfId('hero')).toBeNull()
+    expect(heroOutfitOfId('hero-cape')).toBeNull()
+    // Each family's reference bust wears that family's body piece, and no helmet.
+    for (const o of HERO_OUTFITS) {
+      const eq = heroSampleEquipped(o)
+      expect(heroOutfit(eq), o).toBe(o)
+      expect(eq.head, o).toBeNull()
+      expect(heroLook(eq).head, o).toBe('short')
+    }
   })
 
   it('the coin, the map, the three screen backdrops and the ground are there, at their sizes', () => {
@@ -131,7 +178,7 @@ describe('the manifest covers the game', () => {
       seen.add(a.target)
     }
     // Items, skills, portraits, the coin; the map, the ground and the three screen backdrops.
-    expect(seen.size).toBe(62 + 48 + 22 + 1 + 2 + 3)
+    expect(seen.size).toBe(62 + 48 + 22 + 4 + 1 + 2 + 3)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())

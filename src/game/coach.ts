@@ -113,6 +113,9 @@ export const hintGeo: Record<LessonId, HintGeo> = {
   move: geo(), target: geo(), skill: geo(0), aim: geo(0), potion: geo(), mana: geo(), chest: geo(), talk: geo()
 }
 
+/** Metres from the training dummy at which the walk lesson hands over to the hit. */
+const DUMMY_NEAR = 4.4
+
 const key = (id: string, family: string): string => `hint:${id}:${family}`
 const p0 = { x: 0, y: 0 }
 const p1 = { x: 0, y: 0 }
@@ -213,7 +216,9 @@ class Coach {
     // The opening beat: the dummy stands for an enemy while it is up.
     const dummy = dummyBeat(sim) === 'on' ? dummyOf(sim) : null
     const dummyD = dummy ? Math.hypot(dummy.x - u.x, dummy.z - u.z) : 99
-    const aimAt = foe ?? (dummy && dummyD < 7.5 ? dummy : undefined)
+    // First the walk up to it, then — once there — the hit: one at a time.
+    const atDummy = !!dummy && dummyD < DUMMY_NEAR
+    const aimAt = foe ?? (atDummy ? dummy! : undefined)
     const moving = Math.hypot(u.vx, u.vz) > 0.4
     this.idleT = moving || foe ? 0 : this.idleT + dt
     const hasTarget = h.order.kind === 'attack' && !!sim.live(h.order.targetId)
@@ -282,7 +287,7 @@ class Coach {
         want.push('talk')
       }
     }
-    if (!this.learned('move') && !foe && host.setup.kind !== 'town' && !(dummy && dummyD < 3.2)) {
+    if (!this.learned('move') && !foe && host.setup.kind !== 'town' && !(atDummy && !this.learned('target'))) {
       // A spot ahead of him: toward the dummy while it stands, else toward
       // the next pack.
       const g = sim.groups.find(q => !q.cleared)

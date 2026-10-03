@@ -78,6 +78,24 @@
       "rev": "31ab3a6fd666",
       "painting": "b3cb2754e757",
       "at": "2026-10-03T00:41:34.733Z"
+    },
+    "sheet-skills-blood.jpg": {
+      "sheet": "sheet-skills-blood",
+      "rev": "e804ce33c01a",
+      "painting": "718d07d4683f",
+      "at": "2026-10-03T00:44:15.637Z"
+    },
+    "sheet-skills-aether.jpg": {
+      "sheet": "sheet-skills-aether",
+      "rev": "bc36381ba573",
+      "painting": "38293acb247b",
+      "at": "2026-10-03T00:47:07.631Z"
+    },
+    "sheet-skills-geo.jpg": {
+      "sheet": "sheet-skills-geo",
+      "rev": "f6c6e1ae01f5",
+      "painting": "dd2059c41b0f",
+      "at": "2026-10-03T00:50:08.366Z"
     }
   }
 }

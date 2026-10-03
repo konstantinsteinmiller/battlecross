@@ -1,5 +1,6 @@
 import { ITEM_BY_ID, TIER_COLOR, type EquipSlot } from '../../data/items'
 import type { GearKind, HeadGear, Held, Look, OffHand } from './humanoid'
+import { heroOutfitOf } from '../../art/heroPortrait'
 
 /**
  * Who looks like what. Every two-legged thing in the game is one `Look` on the
@@ -120,7 +121,8 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>): Look => {
   const feet = ITEM_BY_ID[worn.feet ?? '']
   const headKind: string = head?.kind ?? ''
   const headGear = HEAD_OF[headKind]
-  const outfit: Look['outfit'] = body?.kind === 'plate' ? 'plate' : body?.kind === 'robe' ? 'robe' : body?.kind === 'leather' ? 'leather' : 'tunic'
+  // One mapping for the rig and the painted portrait (`art/heroPortrait.ts`).
+  const outfit: Look['outfit'] = heroOutfitOf(body?.kind)
   const tops: Record<string, string> = { plate: '#c9d3e4', robe: '#4a5fd6', leather: '#8a5f3a', tunic: '#3f7fd6' }
   const mainTier = main?.tier ?? 1
   return L({

@@ -100,6 +100,9 @@ const clampIn = (x: number, y: number, m: number): [number, number] => [
   Math.max(m, Math.min(innerHeight - m, y))
 ]
 
+/** The glyph's size in px, as `--g` sizes it. */
+const glyphPx = (): number => Math.max(51.2, Math.min(80, Math.min(innerWidth, innerHeight) * 0.15))
+
 const setLineXY = (ln: SVGLineElement | undefined, x0: number, y0: number, x1: number, y1: number): void => {
   if (!ln) return
   ln.setAttribute('x1', x0.toFixed(1))
@@ -155,6 +158,9 @@ onMounted(() => {
       } else {
         ;[x, y] = clampIn(x, y, edge)
       }
+      // No room under the point (a drag starting on the bar): the hand
+      // reaches down onto it from above instead of hanging off the screen.
+      if (!isButton(id)) el.classList.toggle('is-flip', y + glyphPx() * 0.95 > innerHeight - 6)
       el.style.opacity = show ? '1' : '0'
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
       if (size) el.style.setProperty('--ring', `${size.toFixed(0)}px`)

@@ -66,10 +66,11 @@ import { computed } from 'vue'
 import { LOOKS, heroLook } from '@/game/gfx/rigs/looks'
 import type { Look } from '@/game/gfx/rigs/humanoid'
 import { PORTRAIT_ART } from '@/game/assets/overrides'
+import { heroOutfit, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import { profile } from '@/game/state/profile'
 
 const props = withDefaults(defineProps<{
-  /** A look id, or `hero`. */
+  /** A look id, `hero` (as he is dressed now), or `hero-<outfit>` (the art bench). */
   look: string
   ring?: string
   /** Dev benches: the vector bust even when a painted file exists. */
@@ -86,9 +87,17 @@ const CREATURES: Record<string, Partial<Look>> = {
 
 const l = computed<Look>(() => {
   if (props.look === 'hero') return heroLook(profile.inv.equipped)
+  // `hero-<outfit>`: the hero in one outfit family, bare-headed — the
+  // reference bust the painted portrait of that family is made from.
+  const family = heroOutfitOfId(props.look)
+  if (family) return heroLook(heroSampleEquipped(family))
   return LOOKS[props.look] ?? { ...base, ...(CREATURES[props.look] ?? {}) }
 })
-const src = computed(() => (props.drawn ? '' : PORTRAIT_ART.get(props.look) ?? ''))
+// The hero's painted portrait follows his outfit family (one painting each,
+// `hero-tunic` … `hero-plate`); the vector bust follows every piece he wears
+// and stays the fallback. The painting shows no headgear.
+const artId = computed(() => (props.look === 'hero' ? heroPortraitId(heroOutfit(profile.inv.equipped)) : props.look))
+const src = computed(() => (props.drawn ? '' : PORTRAIT_ART.get(artId.value) ?? ''))
 const hairCap = computed(() => ['short', 'long', 'bun', 'spiky', 'crown', 'horns', 'goggles'].includes(l.value.head))
 const metal = computed(() => l.value.metal ?? '#c9d3e4')
 const eye = computed(() => l.value.eyeGlow ?? '#241a2e')

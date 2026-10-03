@@ -126,8 +126,8 @@ export interface ZonePlan {
 const W = 40
 
 /**
- * The training dummy's spot: in the opening clearing, a little up the road
- * and off to one side of it, on open ground, clear of the tutorial chest and
+ * The training dummy's spot: in the opening clearing, off to one side of the
+ * road a few steps from the hero's spawn, on open ground, clear of the tutorial chest and
  * far enough from the first pack that hitting it never wakes them.
  */
 const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: number }>, chests: ReadonlyArray<{ x: number; z: number }>, pack: { x: number; z: number }): { x: number; z: number } | undefined => {
@@ -138,8 +138,11 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
   const aj = (n.j - s.j) / l
   let best: { x: number; z: number } | undefined
   let bestD = -1
-  for (const along of [1.4, 0.6, 0]) {
-    for (const side of [2.6, -2.6, 2, -2]) {
+  // Off to the side of the road rather than up it: a few steps' walk from
+  // the hero's spawn (the walk is the first lesson), and away from the pack.
+  // The farther side from the chest wins, so the two are separate stops.
+  for (const off of [3.4, 2.8, 2.2]) {
+    for (const [side, along] of [[off, 0.8], [-off, 0.8], [off, 0], [-off, 0], [off, 1.6], [-off, 1.6]] as const) {
       const i = Math.round(s.i + ai * along - aj * side)
       const j = Math.round(s.j + aj * along + ai * side)
       if (i < 3 || j < 3 || i >= W - 3 || j >= h - 3) continue
@@ -148,7 +151,7 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
       if (!open) continue
       const x = (i + 0.5) * CELL
       const z = (j + 0.5) * CELL
-      if (Math.hypot(pack.x - x, pack.z - z) < 13.5) continue
+      if (Math.hypot(pack.x - x, pack.z - z) < 14) continue
       let near = 1e9
       for (const c of chests) near = Math.min(near, Math.hypot(c.x - x, c.z - z))
       if (near < 2.6) continue

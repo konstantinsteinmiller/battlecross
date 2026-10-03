@@ -1,5 +1,6 @@
 import { ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
+import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 
 /**
  * ─── The art manifest ────────────────────────────────────────────────────────
@@ -22,8 +23,10 @@ import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
  *
  * Every sheet is 4:3, 1:1 or 16:9: the shapes the image model offers.
  *
- * Not in here, by decision: the hero's portrait (code-drawn, it follows the
- * gear worn), `voidLord` (not a speaker), the status icons (vector only).
+ * Not in here, by decision: `voidLord` (not a speaker), the status icons
+ * (vector only). The hero is in, as four paintings of the same face, one per
+ * outfit family (`art/heroPortrait.ts`); the code-drawn bust, which follows
+ * every piece he wears, stays the fallback.
  */
 
 /** One panel of a sheet, in px. */
@@ -65,12 +68,14 @@ export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures'
 const TOWN_LOOKS = ['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'captain', 'fence', 'dwarf', 'tinker'] as const
 const TRAINER_LOOKS = ['trainerAegis', 'trainerShadow', 'trainerPyro', 'trainerSovereign', 'trainerChrono', 'trainerBlood', 'trainerAether', 'trainerGeo'] as const
 const SPEAKER_LOOKS = ['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon'] as const
+/** The hero, once per outfit family: `hero-tunic` … `hero-plate`. */
+const HERO_LOOKS: readonly string[] = HERO_OUTFITS.map(heroPortraitId)
 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: ITEMS.map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS],
   ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
   textures: ['ground']
 }
@@ -240,7 +245,13 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   warlord: 'a warlord whose whole head is inside a closed steel great helm with a T-shaped slit, no face showing, in dark red armour with a red cape at the shoulders',
   oracle: 'a sea-green-skinned seer with small pointed ears, teal hair, a gold crown set with one red jewel, solid pale-gold eyes with no pupils and a teal robe',
   dragon: 'a violet-skinned horned figure with two curved ivory horns, small pointed ears, dark violet hair, solid yellow eyes with no pupils and a dark violet collar with a yellow line',
-  archDemon: 'a crimson-skinned horned figure with two curved ivory horns, near-black hair, solid pale-yellow eyes with no pupils, dark armour with an amber collar line and a dark red cape at the shoulders'
+  archDemon: 'a crimson-skinned horned figure with two curved ivory horns, near-black hair, solid pale-yellow eyes with no pupils, dark armour with an amber collar line and a dark red cape at the shoulders',
+  // The hero: the face, hair and skin are the sheet's ONE CHARACTER clause;
+  // a blurb says only what he wears.
+  'hero-tunic': 'the hero in his starting clothes: a plain blue cloth tunic with a gold collar line and a red cape at the shoulders',
+  'hero-leather': 'the hero in a fitted brown leather jerkin with a pale collar line and a red cape at the shoulders',
+  'hero-robe': 'the hero in a royal-blue cloth robe with a green collar line and a red cape at the shoulders',
+  'hero-plate': 'the hero in polished steel plate armour with rounded shoulder plates, a green collar line and a red cape at the shoulders'
 }
 
 const COIN_BLURB = 'a thick round gold coin seen flat from the front: an orange-gold rim, a lighter raised centre disc stamped with one five-pointed star, and one short curved highlight at the upper left'
@@ -317,6 +328,8 @@ export interface ArtSet {
    * the heading, which is how the Art Desk learns to attach them.
    */
   styleRefs?: readonly string[]
+  /** Every panel is the same person (the hero's outfits): the consistency clause. */
+  oneCharacter?: string
 }
 
 export interface ArtScenery {
@@ -418,7 +431,20 @@ export const SETS: readonly ArtSet[] = [
   ...CLASS_IDS.map(skillSet),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
-  portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2)
+  portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2),
+  {
+    ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
+    // Four paintings of ONE face, shown as the same player all game: a face
+    // that drifts between them is the one failure this sheet can have.
+    oneCharacter: [
+      'ONE CHARACTER — all 4 panels are the SAME young hero, the player\'s own character, painted four times. That is the whole point of this sheet.',
+      '· The same face in every panel: the same head shape, the same eyes, the same small smile, the same proportions, the same age. A likeable, determined chibi adventurer, young but not a child.',
+      '· The same hair in every panel: short, tousled, warm brown (about #7a4a2a), the same cut and the same parting.',
+      '· The same skin in every panel: fair and warm (about #f2c8a0).',
+      '· ONLY THE CLOTHES CHANGE between the panels, as each panel\'s line says. No helmet, no hat, no hood: the face and hair always show.',
+      '· Four different people side by side is the wrong answer however well each is painted. Hold panel 1 against panel 4: if the face is not obviously the same person, it is not usable.'
+    ].join('\n')
+  }
 ]
 
 /** One object per file. The same shape as a set, with one panel. */
@@ -863,6 +889,9 @@ const portraitPrompt = (s: ArtSet, fits?: Fits): string => {
     '',
     `ONE HAND — all ${s.cells.filter(c => c).length} busts are the same kind of character drawn by the same artist: the same head size, the same eye shape, the same line weight, the same light from the upper left.`,
     '',
+    // Before the style, for the same reason the background rule is near the
+    // top: it decides whether the sheet is usable at all.
+    ...(s.oneCharacter ? [s.oneCharacter, ''] : []),
     STYLE_PART,
     '',
     ...sizeClause(s, fits),
