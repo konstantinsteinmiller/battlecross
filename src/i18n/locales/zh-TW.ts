@@ -2854,5 +2854,25 @@ export default {
     hm: '{h}小時{m}分鐘',
     m: '{m}分鐘',
     h: '{h}小時'
+  },
+  preset: {
+    title: '配置',
+    name: '配置 {n}',
+    rename: '配置 {n} 的名稱',
+    save: '儲存',
+    load: '使用',
+    saved: '已儲存 {name}。',
+    loaded: '已啟用 {name}。',
+    skipped: '被略過：{list}'
+  },
+  respec: {
+    title: '忘掉你的修練',
+    note: '拿回你花掉的全部 {n} 屬性點，再重新分配。',
+    none: '你還沒有可以拿回的點數。',
+    free: '忘掉（免費）',
+    buy: '忘掉（{n} 金幣）',
+    confirm: '確定嗎？再點一次',
+    bench: '這些技能會放回架上：{list}',
+    done: '好了。點數又是你的了，可以重新分配。'
   }
 }

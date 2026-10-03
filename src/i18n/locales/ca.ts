@@ -2888,5 +2888,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Configuracions',
+    name: 'Configuració {n}',
+    rename: 'Nom de la configuració {n}',
+    save: 'Desa',
+    load: 'Usa',
+    saved: '{name} desada.',
+    loaded: '{name} activada.',
+    skipped: 'Deixat fora: {list}'
+  },
+  respec: {
+    title: 'Oblida el teu entrenament',
+    note: 'Recupera els {n} punts d’atribut que has gastat i torna a gastar-los.',
+    none: 'Encara no tens punts per recuperar.',
+    free: 'Oblida (gratis)',
+    buy: 'Oblida ({n} d’or)',
+    confirm: 'Segur? Torna a tocar',
+    bench: 'Aquestes habilitats tornen al prestatge: {list}',
+    done: 'Ja està. Els teus punts són teus per gastar-los de nou.'
   }
 }

@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} giờ {m} phút',
     m: '{m} phút',
     h: '{h} giờ'
+  },
+  preset: {
+    title: 'Bộ build',
+    name: 'Build {n}',
+    rename: 'Tên build {n}',
+    save: 'Lưu',
+    load: 'Dùng',
+    saved: 'Đã lưu {name}.',
+    loaded: 'Đang dùng {name}.',
+    skipped: 'Bỏ sót: {list}'
+  },
+  respec: {
+    title: 'Quên việc luyện tập',
+    note: 'Nhận lại cả {n} điểm thuộc tính đã dùng và dùng lại từ đầu.',
+    none: 'Con chưa có điểm nào để lấy lại.',
+    free: 'Quên (miễn phí)',
+    buy: 'Quên ({n} vàng)',
+    confirm: 'Chắc chứ? Chạm lần nữa',
+    bench: 'Các kỹ năng này quay lại giá: {list}',
+    done: 'Xong rồi. Điểm lại là của con, dùng lại nhé.'
   }
 }

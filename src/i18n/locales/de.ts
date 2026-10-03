@@ -2870,5 +2870,25 @@ export default {
     hm: '{h} Std. {m} Min.',
     m: '{m} Min.',
     h: '{h} Std.'
+  },
+  preset: {
+    title: 'Builds',
+    name: 'Build {n}',
+    rename: 'Name von Build {n}',
+    save: 'Speichern',
+    load: 'Nutzen',
+    saved: '{name} gespeichert.',
+    loaded: '{name} ist aktiv.',
+    skipped: 'Weggelassen: {list}'
+  },
+  respec: {
+    title: 'Vergiss dein Training',
+    note: 'Hol dir alle {n} ausgegebenen Attributspunkte zurück und vergib sie neu.',
+    none: 'Du hast noch keine Punkte zurückzuholen.',
+    free: 'Vergessen (gratis)',
+    buy: 'Vergessen ({n} Gold)',
+    confirm: 'Sicher? Nochmal tippen',
+    bench: 'Diese Fähigkeiten kommen zurück ins Regal: {list}',
+    done: 'So. Deine Punkte gehören wieder dir, vergib sie neu.'
   }
 }

@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} soat {m} daq',
     m: '{m} daq',
     h: '{h} soat'
+  },
+  preset: {
+    title: 'Toʻplamlar',
+    name: '{n}-toʻplam',
+    rename: '{n}-toʻplam nomi',
+    save: 'Saqlash',
+    load: 'Qoʻllash',
+    saved: '{name} saqlandi.',
+    loaded: '{name} yoqildi.',
+    skipped: 'Qolib ketdi: {list}'
+  },
+  respec: {
+    title: 'Mashqingni unut',
+    note: 'Sarflagan {n} xususiyat ochkosining hammasini qaytarib ol va qaytadan sarfla.',
+    none: 'Qaytarib oladigan ochkong hali yoʻq.',
+    free: 'Unutish (tekin)',
+    buy: 'Unutish ({n} oltin)',
+    confirm: 'Aminmisan? Yana bos',
+    bench: 'Bu koʻnikmalar javonga qaytadi: {list}',
+    done: 'Mana. Ochkolaring yana oʻzingniki, qayta sarfla.'
   }
 }

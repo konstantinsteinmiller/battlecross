@@ -2854,5 +2854,25 @@ export default {
     hm: '{h}시간 {m}분',
     m: '{m}분',
     h: '{h}시간'
+  },
+  preset: {
+    title: '빌드',
+    name: '빌드 {n}',
+    rename: '빌드 {n} 이름',
+    save: '저장',
+    load: '사용',
+    saved: '{name} 저장 완료.',
+    loaded: '{name} 적용 중.',
+    skipped: '제외됨: {list}'
+  },
+  respec: {
+    title: '수련 잊기',
+    note: '쓴 능력치 포인트 {n}개를 모두 돌려받고 다시 쓸 수 있어요.',
+    none: '아직 돌려받을 포인트가 없어요.',
+    free: '잊기 (무료)',
+    buy: '잊기 ({n} 골드)',
+    confirm: '정말? 한 번 더 탭',
+    bench: '이 스킬들은 선반으로 돌아가요: {list}',
+    done: '자, 됐다. 포인트는 다시 네 것이니 마음껏 쓰렴.'
   }
 }

@@ -2862,5 +2862,25 @@ export default {
     hm: '{h} u {m} min',
     m: '{m} min',
     h: '{h} u'
+  },
+  preset: {
+    title: 'Builds',
+    name: 'Build {n}',
+    rename: 'Naam van build {n}',
+    save: 'Opslaan',
+    load: 'Gebruik',
+    saved: '{name} opgeslagen.',
+    loaded: '{name} is actief.',
+    skipped: 'Weggelaten: {list}'
+  },
+  respec: {
+    title: 'Vergeet je training',
+    note: 'Krijg alle {n} attribuutpunten terug die je hebt uitgegeven en geef ze opnieuw uit.',
+    none: 'Je hebt nog geen punten om terug te nemen.',
+    free: 'Vergeet (gratis)',
+    buy: 'Vergeet ({n} goud)',
+    confirm: 'Zeker? Tik nog eens',
+    bench: 'Deze vaardigheden gaan terug op de plank: {list}',
+    done: 'Zo. Je punten zijn weer van jou om uit te geven.'
   }
 }

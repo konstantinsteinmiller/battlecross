@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} ó {m} p',
     m: '{m} p',
     h: '{h} ó'
+  },
+  preset: {
+    title: 'Összeállítások',
+    name: '{n}. összeállítás',
+    rename: 'A(z) {n}. összeállítás neve',
+    save: 'Mentés',
+    load: 'Használ',
+    saved: '{name} elmentve.',
+    loaded: '{name} bekapcsolva.',
+    skipped: 'Kimaradt: {list}'
+  },
+  respec: {
+    title: 'Felejtsd el a képzésed',
+    note: 'Kapd vissza mind a(z) {n} elköltött tulajdonságpontot, és költsd el újra.',
+    none: 'Még nincs visszavehető pontod.',
+    free: 'Felejtés (ingyen)',
+    buy: 'Felejtés ({n} arany)',
+    confirm: 'Biztos? Koppints újra',
+    bench: 'Ezek a képességek visszakerülnek a polcra: {list}',
+    done: 'Kész. A pontjaid újra a tieid, költsd el őket.'
   }
 }

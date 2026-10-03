@@ -2908,5 +2908,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Build',
+    name: 'Build {n}',
+    rename: 'Nome della build {n}',
+    save: 'Salva',
+    load: 'Usa',
+    saved: '{name} salvata.',
+    loaded: '{name} è attiva.',
+    skipped: 'Lasciato fuori: {list}'
+  },
+  respec: {
+    title: 'Dimentica il tuo addestramento',
+    note: 'Riprendi tutti i {n} punti attributo che hai speso e spendili di nuovo.',
+    none: 'Non hai ancora punti da riprendere.',
+    free: 'Dimentica (gratis)',
+    buy: 'Dimentica ({n} oro)',
+    confirm: 'Sicuro? Tocca ancora',
+    bench: 'Queste abilità tornano sullo scaffale: {list}',
+    done: 'Ecco. I tuoi punti sono di nuovo tuoi da spendere.'
   }
 }

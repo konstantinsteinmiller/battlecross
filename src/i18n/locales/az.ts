@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} saat {m} dəq',
     m: '{m} dəq',
     h: '{h} saat'
+  },
+  preset: {
+    title: 'Quruluşlar',
+    name: 'Quruluş {n}',
+    rename: '{n}-ci quruluşun adı',
+    save: 'Yadda saxla',
+    load: 'İstifadə et',
+    saved: '{name} yadda saxlanıldı.',
+    loaded: '{name} aktivdir.',
+    skipped: 'Kənarda qaldı: {list}'
+  },
+  respec: {
+    title: 'Təliminizi unudun',
+    note: 'Xərclədiyin bütün {n} atribut xalını geri al və yenidən xərclə.',
+    none: 'Hələ geri alacağın xal yoxdur.',
+    free: 'Unut (pulsuz)',
+    buy: 'Unut ({n} qızıl)',
+    confirm: 'Əminsən? Yenidən toxun',
+    bench: 'Bu bacarıqlar rəfə qayıdır: {list}',
+    done: 'Hə, hazırdır. Xalların yenə sənindir, xərclə.'
   }
 }

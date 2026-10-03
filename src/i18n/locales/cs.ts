@@ -2940,5 +2940,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Sestavy',
+    name: 'Sestava {n}',
+    rename: 'Název sestavy {n}',
+    save: 'Uložit',
+    load: 'Použít',
+    saved: '{name} uloženo.',
+    loaded: '{name} je zapnuto.',
+    skipped: 'Vynecháno: {list}'
+  },
+  respec: {
+    title: 'Zapomeň svůj výcvik',
+    note: 'Získej zpět všechny body atributů ({n}), které jsi utratil, a utrať je znovu.',
+    none: 'Zatím nemáš žádné body k vrácení.',
+    free: 'Zapomenout (zdarma)',
+    buy: 'Zapomenout ({n} zl.)',
+    confirm: 'Jistě? Klepni znovu',
+    bench: 'Tyto dovednosti se vrátí na polici: {list}',
+    done: 'Hotovo. Tvé body jsou zase tvoje, utrať je.'
   }
 }

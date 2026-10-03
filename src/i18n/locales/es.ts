@@ -2886,5 +2886,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Builds',
+    name: 'Build {n}',
+    rename: 'Nombre de la build {n}',
+    save: 'Guardar',
+    load: 'Usar',
+    saved: '{name} guardada.',
+    loaded: '{name} activada.',
+    skipped: 'Se quedó fuera: {list}'
+  },
+  respec: {
+    title: 'Olvida tu entrenamiento',
+    note: 'Recupera los {n} puntos de atributo que gastaste y vuelve a gastarlos.',
+    none: 'Aún no tienes puntos que recuperar.',
+    free: 'Olvidar (gratis)',
+    buy: 'Olvidar ({n} de oro)',
+    confirm: '¿Seguro? Toca otra vez',
+    bench: 'Estas habilidades vuelven al estante: {list}',
+    done: 'Listo. Tus puntos vuelven a ser tuyos para gastarlos.'
   }
 }

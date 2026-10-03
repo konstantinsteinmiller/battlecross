@@ -305,7 +305,7 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 - [x] **17.2 Second wind** (#18).
 - [x] **17.3 Triple the purse, rare shelf** (#19).
 - [x] **17.4 Rested bonus** (#9).
-- [ ] **17.5 Presets and respec** (#14).
+- [x] **17.5 Presets and respec** (#14).
 - [ ] **17.6 Faction contracts and reputation** (#15).
 - [ ] **17.7 Colosseum ladder** (#10).
 - [ ] **17.8 Void theme** (#16).

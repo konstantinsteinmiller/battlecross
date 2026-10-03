@@ -2937,5 +2937,25 @@ export default {
     hm: '{h} godz. {m} min',
     m: '{m} min',
     h: '{h} godz.'
+  },
+  preset: {
+    title: 'Zestawy',
+    name: 'Zestaw {n}',
+    rename: 'Nazwa zestawu {n}',
+    save: 'Zapisz',
+    load: 'Użyj',
+    saved: 'Zapisano: {name}.',
+    loaded: 'Włączono: {name}.',
+    skipped: 'Pominięto: {list}'
+  },
+  respec: {
+    title: 'Zapomnij o treningu',
+    note: 'Odzyskaj wszystkie wydane punkty atrybutów ({n}) i wydaj je od nowa.',
+    none: 'Nie masz jeszcze punktów do odzyskania.',
+    free: 'Zapomnij (za darmo)',
+    buy: 'Zapomnij ({n} szt. złota)',
+    confirm: 'Pewien? Dotknij jeszcze raz',
+    bench: 'Te umiejętności wracają na półkę: {list}',
+    done: 'Proszę. Twoje punkty znów są twoje, możesz je wydać.'
   }
 }

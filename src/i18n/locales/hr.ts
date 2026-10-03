@@ -2946,5 +2946,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Buildovi',
+    name: 'Build {n}',
+    rename: 'Naziv builda {n}',
+    save: 'Spremi',
+    load: 'Koristi',
+    saved: '{name} je spremljen.',
+    loaded: '{name} je uključen.',
+    skipped: 'Izostavljeno: {list}'
+  },
+  respec: {
+    title: 'Zaboravi svoj trening',
+    note: 'Vrati svih {n} bodova atributa koje si potrošio i potroši ih ponovno.',
+    none: 'Još nemaš bodova za vraćanje.',
+    free: 'Zaboravi (besplatno)',
+    buy: 'Zaboravi ({n} zlata)',
+    confirm: 'Sigurno? Dodirni opet',
+    bench: 'Ove vještine se vraćaju na policu: {list}',
+    done: 'Eto. Tvoji bodovi opet su tvoji za trošenje.'
   }
 }

@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} t {m} min',
     m: '{m} min',
     h: '{h} t'
+  },
+  preset: {
+    title: 'Kokoonpanot',
+    name: 'Kokoonpano {n}',
+    rename: 'Kokoonpanon {n} nimi',
+    save: 'Tallenna',
+    load: 'Käytä',
+    saved: '{name} tallennettu.',
+    loaded: '{name} on käytössä.',
+    skipped: 'Jätettiin pois: {list}'
+  },
+  respec: {
+    title: 'Unohda koulutuksesi',
+    note: 'Saat takaisin kaikki {n} käyttämääsi ominaisuuspistettä ja voit käyttää ne uudelleen.',
+    none: 'Sinulla ei ole vielä pisteitä palautettavaksi.',
+    free: 'Unohda (ilmaiseksi)',
+    buy: 'Unohda ({n} kultaa)',
+    confirm: 'Varmasti? Napauta uudelleen',
+    bench: 'Nämä kyvyt palaavat hyllylle: {list}',
+    done: 'Noin. Pisteesi ovat taas sinun käytettävissäsi.'
   }
 }

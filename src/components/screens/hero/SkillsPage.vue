@@ -35,6 +35,7 @@
             span.slot__face(v-if="id")
               SkillIcon(:id="id" :dim="!usable(id)")
       p.skills__how {{ armed ? t('skills.howSlot') : t('skills.how') }}
+      PresetBar
 
     div.skills__rest
       //- ── The codex: eight classes, six skills each ─────────────────────────
@@ -122,6 +123,7 @@ import { CLASSES, CLASS_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } f
 import { knows, profile, setSlot, totalAttrs } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
+import PresetBar from './PresetBar.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import { ICON_ART } from '@/game/assets/overrides'

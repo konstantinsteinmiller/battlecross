@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Uppsättningar',
+    name: 'Uppsättning {n}',
+    rename: 'Namn på uppsättning {n}',
+    save: 'Spara',
+    load: 'Använd',
+    saved: '{name} sparad.',
+    loaded: '{name} är vald.',
+    skipped: 'Utelämnat: {list}'
+  },
+  respec: {
+    title: 'Glöm din träning',
+    note: 'Få tillbaka alla {n} attributpoäng du har använt och använd dem på nytt.',
+    none: 'Du har inga poäng att få tillbaka ännu.',
+    free: 'Glöm (gratis)',
+    buy: 'Glöm ({n} guld)',
+    confirm: 'Säker? Tryck igen',
+    bench: 'De här färdigheterna går tillbaka på hyllan: {list}',
+    done: 'Så där. Dina poäng är dina att använda igen.'
   }
 }

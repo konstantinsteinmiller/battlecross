@@ -2890,5 +2890,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Builds',
+    name: 'Build {n}',
+    rename: 'Nom du build {n}',
+    save: 'Sauver',
+    load: 'Utiliser',
+    saved: '{name} enregistré.',
+    loaded: '{name} est actif.',
+    skipped: 'Laissé de côté : {list}'
+  },
+  respec: {
+    title: 'Oublie ton entraînement',
+    note: 'Récupère les {n} points d’attribut que tu as dépensés et dépense-les à nouveau.',
+    none: 'Tu n’as pas encore de points à récupérer.',
+    free: 'Oublier (gratuit)',
+    buy: 'Oublier ({n} pièces d’or)',
+    confirm: 'Sûr ? Touche encore',
+    bench: 'Ces compétences retournent sur l’étagère : {list}',
+    done: 'Voilà. Tes points sont de nouveau à toi.'
   }
 }

@@ -7,7 +7,7 @@ import {
 } from '@/keys'
 import { SHELF_REFRESHES, dayKey, stockShelf, type Stock } from '../rareShelf'
 import { RESTED_CAP, accrueRested } from '../rested'
-import { ATTRS, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
+import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
@@ -133,8 +133,21 @@ export interface ShelfSave {
 
 /** Day-to-day state on top of progress (`bc_meta`). A save from before any
  *  of it loads the defaults. */
+/** A saved build (roadmap #14): the loadout and the gear, by slot. */
+export interface PresetSave {
+  /** The player's name for it ('' = the default "Build n"). */
+  name: string
+  active: string[]
+  passive: string[]
+  equipped: Record<EquipSlot, string | null>
+}
+
 export interface MetaSave {
   shelf: ShelfSave
+  /** Two build presets (null: not saved yet). */
+  presets: (PresetSave | null)[]
+  /** Times the healer's respec was bought (the first is free). */
+  respecs: number
   /** When the save was last written (ms since 1970): the start of an absence. */
   lastSeen: number
   /** Seconds of double kill XP waiting (roadmap #9). */
@@ -198,7 +211,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, lastSeen: 0, rested: 0 }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -315,6 +328,20 @@ export const loadProfile = (): void => {
   const rolls: Record<string, number> = {}
   for (const [n, r] of Object.entries(obj(shelf.rolls, {}) as Record<string, unknown>)) rolls[n] = Math.max(0, Math.round(num(r, 0)))
   meta.shelf = { day: typeof shelf.day === 'string' ? shelf.day : '', wares, rolls, used: Math.max(0, Math.round(num(shelf.used, 0))) }
+  // Presets (#14): kept as saved; what no longer exists is dropped on load.
+  const presets: (PresetSave | null)[] = []
+  for (let i = 0; i < PRESETS; i++) {
+    const v = Array.isArray(meta.presets) ? (meta.presets[i] as unknown) : null
+    if (!v || typeof v !== 'object') { presets.push(null); continue }
+    const o = v as Partial<PresetSave>
+    const ids = (a: unknown, n: number): string[] => { const out = strs(a).slice(0, n).map(id => (SKILL_BY_ID[id] ? id : '')); while (out.length < n) out.push(''); return out }
+    const eq = noGear()
+    const src = obj(o.equipped, {} as Record<string, unknown>)
+    for (const s of EQUIP_SLOTS) { const id = src[s]; if (typeof id === 'string' && ITEM_BY_ID[id]) eq[s] = id }
+    presets.push({ name: typeof o.name === 'string' ? o.name.slice(0, PRESET_NAME_MAX) : '', active: ids(o.active, ACTIVE_SLOTS), passive: ids(o.passive, PASSIVE_SLOTS), equipped: eq })
+  }
+  meta.presets = presets
+  meta.respecs = Math.max(0, Math.round(num(meta.respecs, 0)))
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
   // two numbers again and comes to the same pool.
@@ -578,6 +605,95 @@ export const markSeen = (id: string): void => {
 export const buyCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   return it ? Math.max(1, Math.round(itemPriceOf(it) * (1 - shopDiscount(totalAttrs().cha)))) : 0
+}
+
+// ─── Build presets (roadmap #14) ─────────────────────────────────────────────
+
+export const PRESETS = 2
+export const PRESET_NAME_MAX = 16
+
+/** Save the loadout and the gear as they are now into preset `i` (its name is kept). */
+export const savePreset = (i: number): boolean => {
+  if (i < 0 || i >= PRESETS) return false
+  profile.meta.presets[i] = {
+    name: profile.meta.presets[i]?.name ?? '',
+    active: [...profile.hero.active],
+    passive: [...profile.hero.passive],
+    equipped: { ...profile.inv.equipped }
+  }
+  saveProfile()
+  return true
+}
+
+export const renamePreset = (i: number, name: string): void => {
+  const p = profile.meta.presets[i]
+  if (!p) return
+  p.name = name.replace(/\s+/g, ' ').trim().slice(0, PRESET_NAME_MAX)
+  saveProfile()
+}
+
+/**
+ * Put preset `i` on: the gear first (what the hero no longer owns, or cannot
+ * wear yet, is left out and its slot keeps what it had), then the skills (one
+ * no longer known, or whose requirement the new gear does not meet, leaves its
+ * slot empty). Returns what was left out, as item and skill ids.
+ */
+export const loadPreset = (i: number): string[] | null => {
+  const p = profile.meta.presets[i]
+  if (!p) return null
+  const skipped: string[] = []
+  for (const s of EQUIP_SLOTS) {
+    const id = p.equipped[s]
+    if (!id) { profile.inv.equipped[s] = null; continue }
+    if (owns(id) && canEquip(id)) profile.inv.equipped[s] = id
+    else skipped.push(id)
+  }
+  if (profile.inv.equipped.trinket2 && profile.inv.equipped.trinket2 === profile.inv.equipped.trinket1) profile.inv.equipped.trinket2 = null
+  const attrs = totalAttrs()
+  const fit = (ids: string[]): string[] => ids.map(id => {
+    if (!id) return ''
+    const s = SKILL_BY_ID[id]
+    if (s && knows(id) && meetsSkill(s, profile.level, attrs)) return id
+    skipped.push(id)
+    return ''
+  })
+  profile.hero.active = fit(p.active)
+  profile.hero.passive = fit(p.passive)
+  saveProfile()
+  return skipped
+}
+
+// ─── Respec at the healer (roadmap #14) ─────────────────────────────────────
+
+export const RESPEC_BASE = 50
+export const RESPEC_PER_LEVEL = 25
+
+/** What forgetting the training costs: the first time is free. */
+export const respecCost = (): number => (profile.meta.respecs === 0 ? 0 : RESPEC_BASE + RESPEC_PER_LEVEL * profile.level)
+
+/** Attribute points a respec gives back. */
+export const respecRefund = (): number => ATTRS.reduce((n, a) => n + Math.max(0, profile.hero.attrs[a] - ATTR_START), 0)
+
+/** Slotted skills whose requirement a respec would break (they go to the bench). */
+export const respecBenched = (): string[] => {
+  const attrs = sumBuild(heroBuild(startAttrs())).attrs
+  return [...profile.hero.active, ...profile.hero.passive].filter(id => id && SKILL_BY_ID[id] && !meetsSkill(SKILL_BY_ID[id]!, profile.level, attrs))
+}
+
+/** Forget the training: every spent point back to spend again, for `respecCost`. */
+export const respec = (): boolean => {
+  const refund = respecRefund()
+  const cost = respecCost()
+  if (refund <= 0 || profile.gold < cost) return false
+  const bench = new Set(respecBenched())
+  profile.gold -= cost
+  profile.hero.points += refund
+  for (const a of ATTRS) profile.hero.attrs[a] = Math.min(profile.hero.attrs[a], ATTR_START)
+  profile.hero.active = profile.hero.active.map(id => (bench.has(id) ? '' : id))
+  profile.hero.passive = profile.hero.passive.map(id => (bench.has(id) ? '' : id))
+  profile.meta.respecs++
+  saveProfile()
+  return true
 }
 
 // ─── The rare shelf (roadmap #19) ────────────────────────────────────────────

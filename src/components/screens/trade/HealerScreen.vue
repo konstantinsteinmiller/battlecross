@@ -53,6 +53,20 @@
             template(v-if="manaPotionRoom() > 0")
               FButton.heal__buy-mana(:label="t('healer.mana.buy', { n: fmt(manaPotionCost()) })" type="primary" size="md" :is-disabled="profile.gold < manaPotionCost()" @click="buyMana")
             p.heal__full(v-else) {{ t('healer.mana.full') }}
+      //- ── Forget your training (roadmap #14): every spent point back ───────
+      section.heal__stall.heal__respec(data-respec)
+        h3.trade__cap {{ t('respec.title') }}
+        div.heal__body
+          p.heal__note {{ refund > 0 ? t('respec.note', { n: refund }) : t('respec.none') }}
+          p.heal__note.heal__bench(v-if="armed && benched.length") {{ t('respec.bench', { list: benched.map(id => t(`skill.${id}.name`)).join(', ') }) }}
+          div.heal__actions(v-if="refund > 0")
+            FButton.heal__forget(
+              :label="armed ? t('respec.confirm') : cost === 0 ? t('respec.free') : t('respec.buy', { n: fmt(cost) })"
+              :type="armed ? 'danger' : 'warning'"
+              size="md"
+              :is-disabled="profile.gold < cost"
+              @click="forget"
+            )
       DealStamp(:n="stamps" :text="t('shop.deal')" :tone="stampTone")
 </template>
 
@@ -68,7 +82,9 @@
  */
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { POTION_MAX, buyManaPotion, buyPotionSlot, manaPotionCost, manaPotionRoom, potionUpgradeCost, profile } from '@/game/state/profile'
+import {
+  POTION_MAX, buyManaPotion, buyPotionSlot, manaPotionCost, manaPotionRoom, potionUpgradeCost, profile, respec, respecBenched, respecCost, respecRefund
+} from '@/game/state/profile'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
@@ -107,6 +123,23 @@ const buySlot = (): void => {
   landed(`hp${profile.inv.potions}`, 'var(--bc-red)')
 }
 
+// ── Respec: one tap arms it (and names what goes to the bench), a second does it.
+const refund = computed(() => respecRefund())
+const cost = computed(() => respecCost())
+const benched = computed(() => respecBenched())
+const armed = ref(false)
+const forget = (): void => {
+  if (!armed.value) { armed.value = true; sfx('uiClick'); return }
+  armed.value = false
+  const paid = cost.value
+  if (!respec()) { sfx('denied'); shake(document.querySelector('.heal__forget')); return }
+  sfx('uiLearn')
+  if (paid > 0) { sfx('coin'); void frame.value?.pay(paid) }
+  frame.value?.say(t('respec.done'))
+  stampTone.value = 'green'
+  stamps.value++
+}
+
 const buyMana = (): void => {
   const cost = manaPotionCost()
   if (!buyManaPotion()) { sfx('denied'); shake(document.querySelector('.heal__buy-mana')); return }
@@ -131,7 +164,8 @@ const buyMana = (): void => {
   min-height: 0
   display: grid
   grid-template-columns: repeat(2, minmax(0, 1fr))
-  align-content: center
+  grid-auto-rows: max-content
+  align-content: safe center
   gap: var(--gap)
   width: 100%
   max-width: 62rem
@@ -200,6 +234,19 @@ const buyMana = (): void => {
   text-shadow: var(--bc-text-outline-thin)
 .heal__actions
   justify-content: center
+.heal__respec
+  grid-column: 1 / -1
+  +screen.plate('leather')
+.heal__bench
+  color: var(--bc-text-bad, var(--bc-text-soft))
+
+// A phone on its side: the respec is one line, title, note and button.
+@media (min-aspect-ratio: 1/1) and (max-height: 30rem)
+  .heal__respec .heal__body
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
+    padding-block: 0.4rem
 
 @media (max-aspect-ratio: 1/1)
   .heal

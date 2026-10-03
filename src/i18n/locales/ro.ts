@@ -2889,5 +2889,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Build-uri',
+    name: 'Build {n}',
+    rename: 'Numele build-ului {n}',
+    save: 'Salvează',
+    load: 'Folosește',
+    saved: '{name} salvat.',
+    loaded: '{name} este activ.',
+    skipped: 'Lăsate pe dinafară: {list}'
+  },
+  respec: {
+    title: 'Uită-ți antrenamentul',
+    note: 'Primește înapoi toate cele {n} puncte de atribut pe care le-ai cheltuit și cheltuiește-le din nou.',
+    none: 'Încă nu ai puncte de luat înapoi.',
+    free: 'Uită (gratis)',
+    buy: 'Uită ({n} aur)',
+    confirm: 'Sigur? Atinge din nou',
+    bench: 'Aceste abilități se întorc pe raft: {list}',
+    done: 'Gata. Punctele sunt iar ale tale, cheltuiește-le.'
   }
 }

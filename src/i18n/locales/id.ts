@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} j {m} mnt',
     m: '{m} mnt',
     h: '{h} j'
+  },
+  preset: {
+    title: 'Build',
+    name: 'Build {n}',
+    rename: 'Nama build {n}',
+    save: 'Simpan',
+    load: 'Pakai',
+    saved: '{name} disimpan.',
+    loaded: '{name} aktif.',
+    skipped: 'Tertinggal: {list}'
+  },
+  respec: {
+    title: 'Lupakan latihanmu',
+    note: 'Dapatkan kembali semua {n} poin atribut yang kamu pakai, lalu pakai lagi.',
+    none: 'Kamu belum punya poin untuk diambil kembali.',
+    free: 'Lupakan (gratis)',
+    buy: 'Lupakan ({n} emas)',
+    confirm: 'Yakin? Ketuk lagi',
+    bench: 'Skill ini kembali ke rak: {list}',
+    done: 'Nah. Poinmu bisa kamu pakai lagi.'
   }
 }

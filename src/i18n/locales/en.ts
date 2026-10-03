@@ -1698,5 +1698,25 @@ export default {
     'hm': '{h} h {m} min',
     'h': '{h} h',
     'm': '{m} min'
+  },
+  'preset': {
+    'title': 'Builds',
+    'name': 'Build {n}',
+    'rename': 'Name of build {n}',
+    'save': 'Save',
+    'load': 'Use',
+    'saved': '{name} saved.',
+    'loaded': '{name} is on.',
+    'skipped': 'Left out: {list}'
+  },
+  'respec': {
+    'title': 'Forget your training',
+    'note': 'Get back all {n} attribute points you spent, and spend them again.',
+    'none': 'You have no points to take back yet.',
+    'free': 'Forget (free)',
+    'buy': 'Forget ({n} gold)',
+    'confirm': 'Sure? Tap again',
+    'bench': 'These skills go back on the shelf: {list}',
+    'done': 'There. Your points are yours to spend again.'
   }
 }

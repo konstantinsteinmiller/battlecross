@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} sa {m} dk',
     m: '{m} dk',
     h: '{h} sa'
+  },
+  preset: {
+    title: 'Kurulumlar',
+    name: 'Kurulum {n}',
+    rename: '{n}. kurulumun adı',
+    save: 'Kaydet',
+    load: 'Kullan',
+    saved: '{name} kaydedildi.',
+    loaded: '{name} etkin.',
+    skipped: 'Dışarıda kaldı: {list}'
+  },
+  respec: {
+    title: 'Eğitimini unut',
+    note: 'Harcadığın {n} nitelik puanının hepsini geri al ve yeniden harca.',
+    none: 'Henüz geri alacak puanın yok.',
+    free: 'Unut (bedava)',
+    buy: 'Unut ({n} altın)',
+    confirm: 'Emin misin? Tekrar dokun',
+    bench: 'Bu yetenekler rafa geri döner: {list}',
+    done: 'İşte. Puanların yine senin, yeniden harcayabilirsin.'
   }
 }

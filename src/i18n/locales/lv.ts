@@ -2915,5 +2915,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Komplekti',
+    name: '{n}. komplekts',
+    rename: '{n}. komplekta nosaukums',
+    save: 'Saglabāt',
+    load: 'Lietot',
+    saved: '{name} saglabāts.',
+    loaded: '{name} ir ieslēgts.',
+    skipped: 'Izlaists: {list}'
+  },
+  respec: {
+    title: 'Aizmirsti treniņu',
+    note: 'Atgūsti visus {n} iztērētos īpašību punktus un iztērē tos no jauna.',
+    none: 'Tev vēl nav punktu, ko atgūt.',
+    free: 'Aizmirst (par velti)',
+    buy: 'Aizmirst ({n} zelta)',
+    confirm: 'Droši? Pieskaries vēlreiz',
+    bench: 'Šīs prasmes atgriežas plauktā: {list}',
+    done: 'Lūk. Tavi punkti atkal ir tavi, tērē tos.'
   }
 }

@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} h {m} min',
     m: '{m} min',
     h: '{h} h'
+  },
+  preset: {
+    title: 'Muntoj',
+    name: 'Munto {n}',
+    rename: 'Nomo de munto {n}',
+    save: 'Konservi',
+    load: 'Uzi',
+    saved: '{name} konservita.',
+    loaded: '{name} estas ŝaltita.',
+    skipped: 'Forlasita: {list}'
+  },
+  respec: {
+    title: 'Forgesu vian trejnadon',
+    note: 'Rericevu ĉiujn {n} atributajn poentojn, kiujn vi elspezis, kaj elspezu ilin denove.',
+    none: 'Vi ankoraŭ ne havas poentojn por repreni.',
+    free: 'Forgesi (senpage)',
+    buy: 'Forgesi ({n} da oro)',
+    confirm: 'Certe? Tuŝu denove',
+    bench: 'Ĉi tiuj kapabloj reiras sur la breton: {list}',
+    done: 'Jen. Viaj poentoj denove estas viaj por elspezi.'
   }
 }

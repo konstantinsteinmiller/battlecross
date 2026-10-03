@@ -2901,5 +2901,25 @@ export default {
     hm: '{h} val. {m} min.',
     m: '{m} min.',
     h: '{h} val.'
+  },
+  preset: {
+    title: 'Rinkiniai',
+    name: '{n}-asis rinkinys',
+    rename: '{n}-ojo rinkinio pavadinimas',
+    save: 'Išsaugoti',
+    load: 'Naudoti',
+    saved: '{name} išsaugotas.',
+    loaded: '{name} įjungtas.',
+    skipped: 'Praleista: {list}'
+  },
+  respec: {
+    title: 'Pamiršk savo treniruotę',
+    note: 'Susigrąžink visus {n} išleistus savybių taškus ir išleisk juos iš naujo.',
+    none: 'Dar neturi taškų, ką susigrąžinti.',
+    free: 'Pamiršti (nemokamai)',
+    buy: 'Pamiršti ({n} aukso)',
+    confirm: 'Tikrai? Palieski dar kartą',
+    bench: 'Šie įgūdžiai grįžta į lentyną: {list}',
+    done: 'Štai. Tavo taškai vėl tavo, leisk juos iš naujo.'
   }
 }

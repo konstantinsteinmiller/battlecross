@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} t {m} min',
     m: '{m} min',
     h: '{h} t'
+  },
+  preset: {
+    title: 'Opsætninger',
+    name: 'Opsætning {n}',
+    rename: 'Navn på opsætning {n}',
+    save: 'Gem',
+    load: 'Brug',
+    saved: '{name} er gemt.',
+    loaded: '{name} er valgt.',
+    skipped: 'Udeladt: {list}'
+  },
+  respec: {
+    title: 'Glem din træning',
+    note: 'Få alle {n} attributpoint, du har brugt, tilbage, og brug dem igen.',
+    none: 'Du har endnu ingen point at få tilbage.',
+    free: 'Glem (gratis)',
+    buy: 'Glem ({n} guld)',
+    confirm: 'Sikker? Tryk igen',
+    bench: 'Disse evner går tilbage på hylden: {list}',
+    done: 'Sådan. Dine point er dine at bruge igen.'
   }
 }

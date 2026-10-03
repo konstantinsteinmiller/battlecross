@@ -2854,5 +2854,25 @@ export default {
     hm: '{h} t {m} min',
     m: '{m} min',
     h: '{h} t'
+  },
+  preset: {
+    title: 'Oppsett',
+    name: 'Oppsett {n}',
+    rename: 'Navn på oppsett {n}',
+    save: 'Lagre',
+    load: 'Bruk',
+    saved: '{name} er lagret.',
+    loaded: '{name} er valgt.',
+    skipped: 'Utelatt: {list}'
+  },
+  respec: {
+    title: 'Glem treningen din',
+    note: 'Få tilbake alle {n} attributtpoengene du brukte, og bruk dem på nytt.',
+    none: 'Du har ingen poeng å få tilbake ennå.',
+    free: 'Glem (gratis)',
+    buy: 'Glem ({n} gull)',
+    confirm: 'Sikker? Trykk igjen',
+    bench: 'Disse ferdighetene går tilbake på hyllen: {list}',
+    done: 'Sånn. Poengene dine er dine å bruke igjen.'
   }
 }
