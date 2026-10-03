@@ -96,6 +96,48 @@
       "rev": "f6c6e1ae01f5",
       "painting": "dd2059c41b0f",
       "at": "2026-10-03T00:50:08.366Z"
+    },
+    "single-ui-coin.jpg": {
+      "sheet": "single-ui-coin",
+      "rev": "f360573d2c98",
+      "painting": "b913ac4dc806",
+      "at": "2026-10-03T00:53:03.701Z"
+    },
+    "sheet-portraits-speakers.jpg": {
+      "sheet": "sheet-portraits-speakers",
+      "rev": "58641c102acc",
+      "painting": "b3df8402ce60",
+      "at": "2026-10-03T00:55:54.506Z"
+    },
+    "bg-ground.jpg": {
+      "sheet": "bg-ground",
+      "rev": "cdfbedea9f01",
+      "painting": "531c093a1f64",
+      "at": "2026-10-03T00:58:32.508Z"
+    },
+    "bg-ui-map.jpg": {
+      "sheet": "bg-ui-map",
+      "rev": "876728296704",
+      "painting": "2781cb579534",
+      "at": "2026-10-03T01:01:32.457Z"
+    },
+    "bg-ui-trade.jpg": {
+      "sheet": "bg-ui-trade",
+      "rev": "748f6cfd871f",
+      "painting": "33aae8d1e3cd",
+      "at": "2026-10-03T01:07:14.223Z"
+    },
+    "bg-ui-inventory.jpg": {
+      "sheet": "bg-ui-inventory",
+      "rev": "f58e29283d5b",
+      "painting": "b9a91db4e471",
+      "at": "2026-10-03T01:09:54.719Z"
+    },
+    "bg-ui-skills.jpg": {
+      "sheet": "bg-ui-skills",
+      "rev": "c1d39c64381c",
+      "painting": "ff3bb2dfe2db",
+      "at": "2026-10-03T01:12:30.282Z"
     }
   }
 }
