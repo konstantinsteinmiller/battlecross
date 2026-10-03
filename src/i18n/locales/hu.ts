@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Biztos? Koppints újra',
     bench: 'Ezek a képességek visszakerülnek a polcra: {list}',
     done: 'Kész. A pontjaid újra a tieid, költsd el őket.'
+  },
+  contract: {
+    title: 'Megbízástábla',
+    lead: 'Minden frakció naponta egy megbízást tesz ki. Játék közben számítanak; bármelyik városban leadhatod őket.',
+    slay: 'Győzd le: {enemy} — {place}',
+    clear: 'Nyerj egy látogatást: {place}',
+    chests: 'Nyiss ki ládákat bárhol',
+    rep: '+1 megbecsülés',
+    handIn: 'Leadás',
+    handed: 'Mára kész',
+    thanks: '{name} köszöni a segítséged.'
+  },
+  rep: {
+    title: 'Megbecsülés',
+    meter: '{name}: megbecsülés {n}',
+    giftAt: 'Ajándék +{n} esetén',
+    giftClaim: 'Ajándék átvétele',
+    giftTaken: 'Ajándék átvéve',
+    giftGot: 'Ajándék neked: 300 arany és {item}.',
+    giftGold: 'Ajándék neked: 300 arany.',
+    blessAt: 'Áldás +{n} esetén',
+    bless: {
+      order: 'Megáldva: +5% életerő',
+      syndicate: 'Megáldva: +10% arany a legyőzöttekből',
+      circle: 'Megáldva: +10% mana-regeneráció'
+    }
   }
 }

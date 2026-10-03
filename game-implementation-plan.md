@@ -289,7 +289,7 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 | D63 | Rested display | One-time map banner on return, a chip while it lasts, "2× XP" on the fight's XP bar | roadmap #9 |
 | D64 | Presets | Two named presets of skills and gear; load skips what is no longer owned or allowed and says so | roadmap #14 |
 | D65 | Respec | At the healer: every spent attribute point back; first free, then 50 + 25 × level gold; skills whose requirement fails go to the bench | **Answered by the owner 2026-10-04** |
-| D66 | Contracts | A board in every town: one contract per faction a day (kills of a kind, a clear, chests), counted automatically, handed in for gold and +1 reputation | roadmap #15 |
+| D66 | Contracts | A contract board in every town, opened from a town HUD button (unlocked with the second zone cleared): one contract per faction a day (kills of a kind in a zone, a win in a zone, chests anywhere), counted at the end of every visit, handed in for gold and +1 standing. Built as a window instead of a prop in the square: no new town geometry | roadmap #15; built |
 | D67 | Reputation track | Three −5…5 bars with marks at +3 and +5, on the hero sheet and the board | roadmap #15 |
 | D68 | Reputation rewards | +3: 300 gold and a tier-matched item once; +5 while held: Order +5 % health, Syndicate +10 % gold, Circle +10 % mana regeneration | **Answered by the owner 2026-10-04** |
 | D69 | Colosseum ladder | Endless waves; wave 8 keeps its prize chest; gold every 5 waves after; +1 enemy level per 2 waves past 8, an elite every 3rd; Leave between waves; no gold lost on defeat | roadmap #10 |
@@ -306,10 +306,10 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 - [x] **17.3 Triple the purse, rare shelf** (#19).
 - [x] **17.4 Rested bonus** (#9).
 - [x] **17.5 Presets and respec** (#14).
-- [ ] **17.6 Faction contracts and reputation** (#15).
+- [x] **17.6 Faction contracts and reputation** (#15).
 - [ ] **17.7 Colosseum ladder** (#10).
 - [ ] **17.8 Void theme** (#16).
 
 ### Deferred
 
-(none yet)
+- **A physical contract board in each town square** (#15): the board is a window reached from a town HUD button; a prop the hero walks up to needs a new town geometry piece (with its coplanar check) and a placement in every town layout.

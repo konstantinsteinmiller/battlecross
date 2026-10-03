@@ -2906,5 +2906,34 @@ export default {
     confirm: '¿Seguro? Toca otra vez',
     bench: 'Estas habilidades vuelven al estante: {list}',
     done: 'Listo. Tus puntos vuelven a ser tuyos para gastarlos.'
+  },
+  contract: {
+    title: 'Tablón de encargos',
+    lead: 'Cada facción publica un trabajo al día. Cuentan mientras juegas; entrégalos en cualquier pueblo.',
+    slay: 'Derrota a: {enemy} — {place}',
+    clear: 'Gana una visita a {place}',
+    chests: 'Abre cofres en cualquier lugar',
+    rep: '+1 reputación',
+    handIn: 'Entregar',
+    handed: 'Hecho por hoy',
+    thanks: '{name} te da las gracias.'
+  },
+  rep: {
+    title: 'Reputación',
+    meter: '{name}: reputación {n}',
+    giftAt: 'Regalo en +{n}',
+    giftClaim: 'Recoger regalo',
+    giftTaken: 'Regalo recogido',
+    giftGot: 'Un regalo para ti: 300 de oro y {item}.',
+    giftGold: 'Un regalo para ti: 300 de oro.',
+    blessAt: 'Bendición en +{n}',
+    bless: {
+      order: 'Bendecido: +5 % de vida',
+      syndicate: 'Bendecido: +10 % de oro por bajas',
+      circle: 'Bendecido: +10 % de regeneración de maná',
+      order__f: 'Bendecida: +5 % de vida',
+      syndicate__f: 'Bendecida: +10 % de oro por bajas',
+      circle__f: 'Bendecida: +10 % de regeneración de maná'
+    }
   }
 }

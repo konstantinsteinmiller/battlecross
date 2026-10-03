@@ -2912,5 +2912,34 @@ export default {
     confirm: 'Tem certeza? Toque de novo',
     bench: 'Estas habilidades voltam para a prateleira: {list}',
     done: 'Pronto. Seus pontos são seus de novo para gastar.'
+  },
+  contract: {
+    title: 'Quadro de contratos',
+    lead: 'Cada facção posta um trabalho por dia. Eles contam enquanto você joga; entregue em qualquer cidade.',
+    slay: 'Derrote: {enemy} — {place}',
+    clear: 'Vença uma visita a {place}',
+    chests: 'Abra baús em qualquer lugar',
+    rep: '+1 reputação',
+    handIn: 'Entregar',
+    handed: 'Feito por hoje',
+    thanks: '{name} agradece a você.'
+  },
+  rep: {
+    title: 'Reputação',
+    meter: '{name}: reputação {n}',
+    giftAt: 'Presente em +{n}',
+    giftClaim: 'Pegar presente',
+    giftTaken: 'Presente pego',
+    giftGot: 'Um presente para você: 300 de ouro e {item}.',
+    giftGold: 'Um presente para você: 300 de ouro.',
+    blessAt: 'Bênção em +{n}',
+    bless: {
+      order: 'Abençoado: +5% de vida',
+      syndicate: 'Abençoado: +10% de ouro dos abates',
+      circle: 'Abençoado: +10% de regeneração de mana',
+      order__f: 'Abençoada: +5% de vida',
+      syndicate__f: 'Abençoada: +10% de ouro dos abates',
+      circle__f: 'Abençoada: +10% de regeneração de mana'
+    }
   }
 }

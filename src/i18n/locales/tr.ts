@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Emin misin? Tekrar dokun',
     bench: 'Bu yetenekler rafa geri döner: {list}',
     done: 'İşte. Puanların yine senin, yeniden harcayabilirsin.'
+  },
+  contract: {
+    title: 'Görev panosu',
+    lead: 'Her grup günde bir iş asar. Oynadıkça sayılır; istediğin şehirde teslim et.',
+    slay: 'Yen: {enemy} — {place}',
+    clear: '{place} ziyaretini kazan',
+    chests: 'Her yerde sandık aç',
+    rep: '+1 itibar',
+    handIn: 'Teslim et',
+    handed: 'Bugünlük tamam',
+    thanks: '{name} sana teşekkür ediyor.'
+  },
+  rep: {
+    title: 'İtibar',
+    meter: '{name}: itibar {n}',
+    giftAt: '+{n} itibarda hediye',
+    giftClaim: 'Hediyeyi al',
+    giftTaken: 'Hediye alındı',
+    giftGot: 'Sana bir hediye: 300 altın ve {item}.',
+    giftGold: 'Sana bir hediye: 300 altın.',
+    blessAt: '+{n} itibarda kutsama',
+    bless: {
+      order: 'Kutsanmış: +%5 can',
+      syndicate: 'Kutsanmış: +%10 öldürmelerden altın',
+      circle: 'Kutsanmış: +%10 mana yenilenmesi'
+    }
   }
 }

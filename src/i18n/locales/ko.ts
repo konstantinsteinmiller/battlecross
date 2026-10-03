@@ -2874,5 +2874,31 @@ export default {
     confirm: '정말? 한 번 더 탭',
     bench: '이 스킬들은 선반으로 돌아가요: {list}',
     done: '자, 됐다. 포인트는 다시 네 것이니 마음껏 쓰렴.'
+  },
+  contract: {
+    title: '의뢰 게시판',
+    lead: '각 세력이 하루에 의뢰를 하나씩 올립니다. 플레이하는 동안 쌓이며, 아무 마을에서나 제출하세요.',
+    slay: '처치: {enemy} — {place}',
+    clear: '{place} 방문에서 승리',
+    chests: '어디서든 상자 열기',
+    rep: '평판 +1',
+    handIn: '제출',
+    handed: '오늘은 끝',
+    thanks: '{name}: 고마워요!'
+  },
+  rep: {
+    title: '평판',
+    meter: '{name} 평판 {n}',
+    giftAt: '평판 +{n}에 선물',
+    giftClaim: '선물 받기',
+    giftTaken: '선물 받음',
+    giftGot: '선물: 300 골드와 {item}.',
+    giftGold: '선물: 300 골드.',
+    blessAt: '평판 +{n}에 축복',
+    bless: {
+      order: '축복: 체력 +5%',
+      syndicate: '축복: 처치 시 골드 +10%',
+      circle: '축복: 마나 회복 +10%'
+    }
   }
 }

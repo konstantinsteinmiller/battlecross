@@ -2909,5 +2909,34 @@ export default {
     confirm: 'Sigur? Atinge din nou',
     bench: 'Aceste abilități se întorc pe raft: {list}',
     done: 'Gata. Punctele sunt iar ale tale, cheltuiește-le.'
+  },
+  contract: {
+    title: 'Panoul de contracte',
+    lead: 'Fiecare facțiune afișează o treabă pe zi. Se numără cât joci; predă-le în orice oraș.',
+    slay: 'Învinge: {enemy} — {place}',
+    clear: 'Câștigă o vizită în {place}',
+    chests: 'Deschide cufere oriunde',
+    rep: '+1 reputație',
+    handIn: 'Predă',
+    handed: 'Gata pe azi',
+    thanks: '{name} îți mulțumește.'
+  },
+  rep: {
+    title: 'Reputație',
+    meter: '{name}: reputație {n}',
+    giftAt: 'Cadou la +{n}',
+    giftClaim: 'Ia cadoul',
+    giftTaken: 'Cadou luat',
+    giftGot: 'Un cadou pentru tine: 300 aur și {item}.',
+    giftGold: 'Un cadou pentru tine: 300 aur.',
+    blessAt: 'Binecuvântare la +{n}',
+    bless: {
+      order: 'Binecuvântat: +5% viață',
+      syndicate: 'Binecuvântat: +10% aur din eliminări',
+      circle: 'Binecuvântat: +10% regenerare de mană',
+      order__f: 'Binecuvântată: +5% viață',
+      syndicate__f: 'Binecuvântată: +10% aur din eliminări',
+      circle__f: 'Binecuvântată: +10% regenerare de mană'
+    }
   }
 }

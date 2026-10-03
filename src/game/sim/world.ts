@@ -89,6 +89,8 @@ export interface HeroState {
   xpInto: number
   /** Seconds of double kill XP left (roadmap #9): drains with fight time. */
   rested: number
+  /** Kills by enemy kind (the faction contracts count them, roadmap #15). */
+  killKinds: Record<string, number>
 }
 
 /** One encounter: a pack of enemies that wakes together. */

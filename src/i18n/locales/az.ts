@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Əminsən? Yenidən toxun',
     bench: 'Bu bacarıqlar rəfə qayıdır: {list}',
     done: 'Hə, hazırdır. Xalların yenə sənindir, xərclə.'
+  },
+  contract: {
+    title: 'Sifariş lövhəsi',
+    lead: 'Hər qrup gündə bir iş yazır. Oynadıqca hesablanır; istənilən şəhərdə təhvil ver.',
+    slay: 'Məğlub et: {enemy} — {place}',
+    clear: '{place} ziyarətində qalib gəl',
+    chests: 'İstənilən yerdə sandıqları aç',
+    rep: '+1 nüfuz',
+    handIn: 'Təhvil ver',
+    handed: 'Bu gün üçün hazırdır',
+    thanks: '{name} sənə təşəkkür edir.'
+  },
+  rep: {
+    title: 'Nüfuz',
+    meter: '{name}: nüfuz {n}',
+    giftAt: '+{n} nüfuzda hədiyyə',
+    giftClaim: 'Hədiyyəni götür',
+    giftTaken: 'Hədiyyə götürüldü',
+    giftGot: 'Sənə hədiyyə: 300 qızıl və {item}.',
+    giftGold: 'Sənə hədiyyə: 300 qızıl.',
+    blessAt: '+{n} nüfuzda xeyir-dua',
+    bless: {
+      order: 'Xeyir-dua: +5% can',
+      syndicate: 'Xeyir-dua: +10% öldürmələrdən qızıl',
+      circle: 'Xeyir-dua: +10% mana bərpası'
+    }
   }
 }

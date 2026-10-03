@@ -1718,5 +1718,31 @@ export default {
     'confirm': 'Sure? Tap again',
     'bench': 'These skills go back on the shelf: {list}',
     'done': 'There. Your points are yours to spend again.'
+  },
+  'contract': {
+    'title': 'Contract board',
+    'lead': 'Each faction posts one job a day. They count as you play; hand them in at any town.',
+    'slay': 'Defeat {enemy} in {place}',
+    'clear': 'Win a visit to {place}',
+    'chests': 'Open chests anywhere',
+    'rep': '+1 standing',
+    'handIn': 'Hand in',
+    'handed': 'Done for today',
+    'thanks': '{name} thanks you.'
+  },
+  'rep': {
+    'title': 'Standing',
+    'meter': '{name}: standing {n}',
+    'giftAt': 'Gift at +{n}',
+    'giftClaim': 'Collect gift',
+    'giftTaken': 'Gift collected',
+    'giftGot': 'A gift for you: 300 gold and {item}.',
+    'giftGold': 'A gift for you: 300 gold.',
+    'blessAt': 'Blessing at +{n}',
+    'bless': {
+      'order': 'Blessed: +5% health',
+      'syndicate': 'Blessed: +10% gold from kills',
+      'circle': 'Blessed: +10% mana regeneration'
+    }
   }
 }

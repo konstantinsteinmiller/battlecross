@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Chắc chứ? Chạm lần nữa',
     bench: 'Các kỹ năng này quay lại giá: {list}',
     done: 'Xong rồi. Điểm lại là của con, dùng lại nhé.'
+  },
+  contract: {
+    title: 'Bảng nhiệm vụ',
+    lead: 'Mỗi phe đăng một việc mỗi ngày. Việc được tính khi bạn chơi; nộp ở bất kỳ thị trấn nào.',
+    slay: 'Hạ gục: {enemy} — {place}',
+    clear: 'Thắng một chuyến đến {place}',
+    chests: 'Mở rương ở bất cứ đâu',
+    rep: '+1 uy tín',
+    handIn: 'Nộp',
+    handed: 'Xong cho hôm nay',
+    thanks: '{name} cảm ơn bạn.'
+  },
+  rep: {
+    title: 'Uy tín',
+    meter: '{name}: uy tín {n}',
+    giftAt: 'Quà ở mức +{n}',
+    giftClaim: 'Nhận quà',
+    giftTaken: 'Đã nhận quà',
+    giftGot: 'Quà cho bạn: 300 vàng và {item}.',
+    giftGold: 'Quà cho bạn: 300 vàng.',
+    blessAt: 'Phước lành ở mức +{n}',
+    bless: {
+      order: 'Được ban phước: +5% máu',
+      syndicate: 'Được ban phước: +10% vàng khi hạ địch',
+      circle: 'Được ban phước: +10% hồi mana'
+    }
   }
 }

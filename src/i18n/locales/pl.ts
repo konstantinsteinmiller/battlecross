@@ -2957,5 +2957,34 @@ export default {
     confirm: 'Pewien? Dotknij jeszcze raz',
     bench: 'Te umiejętności wracają na półkę: {list}',
     done: 'Proszę. Twoje punkty znów są twoje, możesz je wydać.'
+  },
+  contract: {
+    title: 'Tablica zleceń',
+    lead: 'Każda frakcja wywiesza jedno zlecenie dziennie. Liczą się podczas gry; oddaj je w dowolnym mieście.',
+    slay: 'Pokonaj: {enemy} — {place}',
+    clear: 'Wygraj wizytę: {place}',
+    chests: 'Otwieraj skrzynie gdziekolwiek',
+    rep: '+1 reputacja',
+    handIn: 'Oddaj',
+    handed: 'Na dziś gotowe',
+    thanks: '{name} ci dziękuje.'
+  },
+  rep: {
+    title: 'Reputacja',
+    meter: '{name}: reputacja {n}',
+    giftAt: 'Prezent przy +{n}',
+    giftClaim: 'Odbierz prezent',
+    giftTaken: 'Prezent odebrany',
+    giftGot: 'Prezent dla ciebie: 300 szt. złota i {item}.',
+    giftGold: 'Prezent dla ciebie: 300 szt. złota.',
+    blessAt: 'Błogosławieństwo przy +{n}',
+    bless: {
+      order: 'Błogosławiony: +5% zdrowia',
+      syndicate: 'Błogosławiony: +10% złota z zabójstw',
+      circle: 'Błogosławiony: +10% regeneracji many',
+      order__f: 'Błogosławiona: +5% zdrowia',
+      syndicate__f: 'Błogosławiona: +10% złota z zabójstw',
+      circle__f: 'Błogosławiona: +10% regeneracji many'
+    }
   }
 }

@@ -2966,5 +2966,34 @@ export default {
     confirm: 'Sigurno? Dodirni opet',
     bench: 'Ove vještine se vraćaju na policu: {list}',
     done: 'Eto. Tvoji bodovi opet su tvoji za trošenje.'
+  },
+  contract: {
+    title: 'Ploča zadataka',
+    lead: 'Svaka frakcija objavi jedan posao dnevno. Računaju se dok igraš; predaj ih u bilo kojem gradu.',
+    slay: 'Pobijedi: {enemy} — {place}',
+    clear: 'Pobijedi u posjetu: {place}',
+    chests: 'Otvaraj škrinje bilo gdje',
+    rep: '+1 ugled',
+    handIn: 'Predaj',
+    handed: 'Gotovo za danas',
+    thanks: '{name} ti zahvaljuje.'
+  },
+  rep: {
+    title: 'Ugled',
+    meter: '{name}: ugled {n}',
+    giftAt: 'Dar na +{n}',
+    giftClaim: 'Uzmi dar',
+    giftTaken: 'Dar uzet',
+    giftGot: 'Dar za tebe: 300 zlata i {item}.',
+    giftGold: 'Dar za tebe: 300 zlata.',
+    blessAt: 'Blagoslov na +{n}',
+    bless: {
+      order: 'Blagoslovljen: +5% zdravlja',
+      syndicate: 'Blagoslovljen: +10% zlata od ubojstava',
+      circle: 'Blagoslovljen: +10% regeneracije mane',
+      order__f: 'Blagoslovljena: +5% zdravlja',
+      syndicate__f: 'Blagoslovljena: +10% zlata od ubojstava',
+      circle__f: 'Blagoslovljena: +10% regeneracije mane'
+    }
   }
 }

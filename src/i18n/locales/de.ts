@@ -2890,5 +2890,31 @@ export default {
     confirm: 'Sicher? Nochmal tippen',
     bench: 'Diese Fähigkeiten kommen zurück ins Regal: {list}',
     done: 'So. Deine Punkte gehören wieder dir, vergib sie neu.'
+  },
+  contract: {
+    title: 'Auftragstafel',
+    lead: 'Jede Fraktion hängt pro Tag einen Auftrag aus. Sie zählen beim Spielen; gib sie in jeder Stadt ab.',
+    slay: 'Besiege: {enemy} — {place}',
+    clear: 'Gewinne einen Besuch: {place}',
+    chests: 'Öffne Truhen überall',
+    rep: '+1 Ansehen',
+    handIn: 'Abgeben',
+    handed: 'Für heute erledigt',
+    thanks: '{name} dankt dir.'
+  },
+  rep: {
+    title: 'Ansehen',
+    meter: '{name}: Ansehen {n}',
+    giftAt: 'Geschenk bei +{n}',
+    giftClaim: 'Geschenk holen',
+    giftTaken: 'Geschenk geholt',
+    giftGot: 'Ein Geschenk für dich: 300 Gold und {item}.',
+    giftGold: 'Ein Geschenk für dich: 300 Gold.',
+    blessAt: 'Segen bei +{n}',
+    bless: {
+      order: 'Gesegnet: +5 % Leben',
+      syndicate: 'Gesegnet: +10 % Gold durch Kills',
+      circle: 'Gesegnet: +10 % Manaregeneration'
+    }
   }
 }

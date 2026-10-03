@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Sikker? Tryk igen',
     bench: 'Disse evner går tilbage på hylden: {list}',
     done: 'Sådan. Dine point er dine at bruge igen.'
+  },
+  contract: {
+    title: 'Opgavetavle',
+    lead: 'Hver fraktion slår én opgave op om dagen. De tæller, mens du spiller; aflever dem i en hvilken som helst by.',
+    slay: 'Besejr: {enemy} — {place}',
+    clear: 'Vind et besøg i {place}',
+    chests: 'Åbn kister overalt',
+    rep: '+1 anseelse',
+    handIn: 'Aflever',
+    handed: 'Klaret for i dag',
+    thanks: '{name} takker dig.'
+  },
+  rep: {
+    title: 'Anseelse',
+    meter: '{name}: anseelse {n}',
+    giftAt: 'Gave ved +{n}',
+    giftClaim: 'Hent gave',
+    giftTaken: 'Gave hentet',
+    giftGot: 'En gave til dig: 300 guld og {item}.',
+    giftGold: 'En gave til dig: 300 guld.',
+    blessAt: 'Velsignelse ved +{n}',
+    bless: {
+      order: 'Velsignet: +5 % liv',
+      syndicate: 'Velsignet: +10 % guld fra drab',
+      circle: 'Velsignet: +10 % manaregeneration'
+    }
   }
 }

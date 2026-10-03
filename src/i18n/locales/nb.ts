@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Sikker? Trykk igjen',
     bench: 'Disse ferdighetene går tilbake på hyllen: {list}',
     done: 'Sånn. Poengene dine er dine å bruke igjen.'
+  },
+  contract: {
+    title: 'Oppdragstavle',
+    lead: 'Hver fraksjon henger opp ett oppdrag om dagen. De teller mens du spiller; lever dem i hvilken som helst by.',
+    slay: 'Beseir: {enemy} — {place}',
+    clear: 'Vinn et besøk i {place}',
+    chests: 'Åpne kister hvor som helst',
+    rep: '+1 anseelse',
+    handIn: 'Lever',
+    handed: 'Ferdig for i dag',
+    thanks: '{name} takker deg.'
+  },
+  rep: {
+    title: 'Anseelse',
+    meter: '{name}: anseelse {n}',
+    giftAt: 'Gave ved +{n}',
+    giftClaim: 'Hent gave',
+    giftTaken: 'Gave hentet',
+    giftGot: 'En gave til deg: 300 gull og {item}.',
+    giftGold: 'En gave til deg: 300 gull.',
+    blessAt: 'Velsignelse ved +{n}',
+    bless: {
+      order: 'Velsignet: +5 % liv',
+      syndicate: 'Velsignet: +10 % gull fra drap',
+      circle: 'Velsignet: +10 % manaregenerering'
+    }
   }
 }

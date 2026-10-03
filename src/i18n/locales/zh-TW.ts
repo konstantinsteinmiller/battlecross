@@ -2874,5 +2874,31 @@ export default {
     confirm: '確定嗎？再點一次',
     bench: '這些技能會放回架上：{list}',
     done: '好了。點數又是你的了，可以重新分配。'
+  },
+  contract: {
+    title: '委託公告板',
+    lead: '每個勢力每天會張貼一項委託。遊玩時就會累計；可在任何城鎮繳交。',
+    slay: '擊敗：{enemy}（{place}）',
+    clear: '在{place}的探訪中獲勝',
+    chests: '在任何地方開寶箱',
+    rep: '聲望 +1',
+    handIn: '繳交',
+    handed: '今日已完成',
+    thanks: '{name}向你道謝。'
+  },
+  rep: {
+    title: '聲望',
+    meter: '{name}聲望：{n}',
+    giftAt: '聲望 +{n} 時的禮物',
+    giftClaim: '領取禮物',
+    giftTaken: '已領取禮物',
+    giftGot: '送你的禮物：300 金幣和{item}。',
+    giftGold: '送你的禮物：300 金幣。',
+    blessAt: '聲望 +{n} 時的祝福',
+    bless: {
+      order: '祝福：生命 +5%',
+      syndicate: '祝福：擊殺獲得的金幣 +10%',
+      circle: '祝福：魔力回復 +10%'
+    }
   }
 }

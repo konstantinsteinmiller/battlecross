@@ -2960,5 +2960,34 @@ export default {
     confirm: 'Jistě? Klepni znovu',
     bench: 'Tyto dovednosti se vrátí na polici: {list}',
     done: 'Hotovo. Tvé body jsou zase tvoje, utrať je.'
+  },
+  contract: {
+    title: 'Nástěnka zakázek',
+    lead: 'Každá frakce vyvěsí denně jednu zakázku. Počítají se při hraní; odevzdej je v libovolném městě.',
+    slay: 'Poraz: {enemy} — {place}',
+    clear: 'Vyhraj návštěvu: {place}',
+    chests: 'Otevírej truhly kdekoli',
+    rep: '+1 pověst',
+    handIn: 'Odevzdat',
+    handed: 'Splněno na dnes',
+    thanks: '{name} ti děkuje.'
+  },
+  rep: {
+    title: 'Pověst',
+    meter: '{name}: pověst {n}',
+    giftAt: 'Dar při +{n}',
+    giftClaim: 'Vzít dar',
+    giftTaken: 'Dar vzat',
+    giftGot: 'Dárek pro tebe: 300 zl. a {item}.',
+    giftGold: 'Dárek pro tebe: 300 zl.',
+    blessAt: 'Požehnání při +{n}',
+    bless: {
+      order: 'Požehnaný: +5 % zdraví',
+      syndicate: 'Požehnaný: +10 % zlata za zabití',
+      circle: 'Požehnaný: +10 % regenerace many',
+      order__f: 'Požehnaná: +5 % zdraví',
+      syndicate__f: 'Požehnaná: +10 % zlata za zabití',
+      circle__f: 'Požehnaná: +10 % regenerace many'
+    }
   }
 }

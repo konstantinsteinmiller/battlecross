@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Yakin? Ketuk lagi',
     bench: 'Skill ini kembali ke rak: {list}',
     done: 'Nah. Poinmu bisa kamu pakai lagi.'
+  },
+  contract: {
+    title: 'Papan kontrak',
+    lead: 'Setiap faksi memasang satu pekerjaan sehari. Dihitung saat kamu bermain; serahkan di kota mana pun.',
+    slay: 'Kalahkan: {enemy} — {place}',
+    clear: 'Menangkan satu kunjungan ke {place}',
+    chests: 'Buka peti di mana saja',
+    rep: '+1 reputasi',
+    handIn: 'Serahkan',
+    handed: 'Selesai untuk hari ini',
+    thanks: '{name} berterima kasih padamu.'
+  },
+  rep: {
+    title: 'Reputasi',
+    meter: '{name}: reputasi {n}',
+    giftAt: 'Hadiah di +{n}',
+    giftClaim: 'Ambil hadiah',
+    giftTaken: 'Hadiah diambil',
+    giftGot: 'Hadiah untukmu: 300 emas dan {item}.',
+    giftGold: 'Hadiah untukmu: 300 emas.',
+    blessAt: 'Berkat di +{n}',
+    bless: {
+      order: 'Diberkati: +5% nyawa',
+      syndicate: 'Diberkati: +10% emas dari kill',
+      circle: 'Diberkati: +10% regenerasi mana'
+    }
   }
 }

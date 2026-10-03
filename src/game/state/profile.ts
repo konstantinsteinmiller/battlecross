@@ -7,12 +7,16 @@ import {
 } from '@/keys'
 import { SHELF_REFRESHES, dayKey, stockShelf, type Stock } from '../rareShelf'
 import { RESTED_CAP, accrueRested } from '../rested'
+import {
+  CONTRACT_REP, GIFT_GOLD, REP_BLESSING, REP_GIFT, contractGold, countDeeds, giftItem, postContracts, type Contract, type VisitDeeds
+} from '../contracts'
+import type { ZoneId } from '../data/items'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
-import { MAP, NODE_BY_ID, nodeOpen, type NodeId } from '../data/zones'
+import { MAP, NODE_BY_ID, ZONES, nodeOpen, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
 import type { UnitStats } from '../sim/types'
 import { heroGenderOf, type HeroGender } from '../art/heroPortrait'
@@ -142,8 +146,17 @@ export interface PresetSave {
   equipped: Record<EquipSlot, string | null>
 }
 
+/** The faction contracts on the boards (roadmap #15): posted for one day. */
+export interface ContractsSave {
+  day: string
+  list: Contract[]
+}
+
 export interface MetaSave {
   shelf: ShelfSave
+  contracts: ContractsSave
+  /** Factions whose +3 gift was collected. */
+  repGifts: FactionId[]
   /** Two build presets (null: not saved yet). */
   presets: (PresetSave | null)[]
   /** Times the healer's respec was bought (the first is free). */
@@ -211,7 +224,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -342,6 +355,14 @@ export const loadProfile = (): void => {
   }
   meta.presets = presets
   meta.respecs = Math.max(0, Math.round(num(meta.respecs, 0)))
+  // Contracts (#15): a day's list as posted; anything malformed is dropped
+  // and the board posts afresh.
+  const cs = obj(meta.contracts, d.meta.contracts)
+  const list = Array.isArray(cs.list) ? cs.list.filter((c): c is Contract =>
+    !!c && typeof c === 'object' && FACTIONS.includes((c as Contract).faction) && ['slay', 'clear', 'chests'].includes((c as Contract).kind) &&
+    Number.isFinite((c as Contract).n) && Number.isFinite((c as Contract).have)) : []
+  meta.contracts = list.length === FACTIONS.length && typeof cs.day === 'string' ? { day: cs.day, list } : { day: '', list: [] }
+  meta.repGifts = strs(meta.repGifts).filter((f): f is FactionId => FACTIONS.includes(f as FactionId))
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
   // two numbers again and comes to the same pool.
@@ -434,7 +455,8 @@ export const heroBuild = (attrs: AttrBlock = profile.hero.attrs): HeroBuild => (
   level: profile.level,
   attrs,
   equipped: profile.inv.equipped,
-  passives: profile.hero.passive.filter(Boolean)
+  passives: profile.hero.passive.filter(Boolean),
+  blessings: blessings()
 })
 
 export const computeStats = (attrs: AttrBlock = profile.hero.attrs): UnitStats => heroStats(heroBuild(attrs))
@@ -606,6 +628,58 @@ export const buyCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   return it ? Math.max(1, Math.round(itemPriceOf(it) * (1 - shopDiscount(totalAttrs().cha)))) : 0
 }
+
+// ─── Faction contracts and standing (roadmap #15) ────────────────────────────
+
+/** The zones the hero can reach now, the easiest first. */
+const reachableZones = (): ZoneId[] =>
+  MAP.filter(n => n.kind === 'zone' && isNodeOpen(n.id)).map(n => n.id as ZoneId).sort((a, b) => ZONES[a].min - ZONES[b].min)
+
+/** Today's contracts (posted on the first look of the day). */
+export const contractsToday = (): Contract[] => {
+  const day = dayKey()
+  if (profile.meta.contracts.day !== day || profile.meta.contracts.list.length === 0) {
+    profile.meta.contracts = { day, list: postContracts(day, reachableZones()) }
+    saveProfile()
+  }
+  return profile.meta.contracts.list
+}
+
+/** Count a visit into today's contracts (the visit's own save follows). */
+export const countContracts = (d: VisitDeeds): Contract[] => countDeeds(contractsToday(), d)
+
+/** Contracts ready to hand in. */
+export const contractsReady = (): number => profile.meta.contracts.list.filter(c => !c.done && c.have >= c.n).length
+
+/** Hand a finished contract in: its gold, and a point of the faction's standing. */
+export const handInContract = (i: number): boolean => {
+  const c = contractsToday()[i]
+  if (!c || c.done || c.have < c.n) return false
+  c.done = true
+  profile.gold += contractGold(profile.level)
+  profile.quests.rep[c.faction] = Math.min(REP_MAX, profile.quests.rep[c.faction] + CONTRACT_REP)
+  saveProfile()
+  return true
+}
+
+/** Is the faction's +3 gift waiting? */
+export const giftReady = (f: FactionId): boolean => profile.quests.rep[f] >= REP_GIFT && !profile.meta.repGifts.includes(f)
+
+/** Collect the faction's gift: gold, and a piece of its gear at the hero's
+ *  merchants' tier. Returns the item id ('' when there was none to give). */
+export const claimGift = (f: FactionId): string | null => {
+  if (!giftReady(f)) return null
+  const tier = Math.max(1, Math.min(5, Math.ceil(profile.level / 6)))
+  const it = giftItem(f, tier, new Set(profile.inv.items))
+  profile.gold += GIFT_GOLD
+  if (it) gainItem(it.id)
+  profile.meta.repGifts.push(f)
+  saveProfile()
+  return it?.id ?? ''
+}
+
+/** The factions whose +5 blessing the hero holds now. */
+export const blessings = (): FactionId[] => FACTIONS.filter(f => profile.quests.rep[f] >= REP_BLESSING)
 
 // ─── Build presets (roadmap #14) ─────────────────────────────────────────────
 

@@ -2874,5 +2874,31 @@ export default {
     confirm: '确定吗？再点一次',
     bench: '这些技能会放回架上：{list}',
     done: '好了。点数又是你的了，可以重新分配。'
+  },
+  contract: {
+    title: '委托公告板',
+    lead: '每个势力每天会张贴一项委托。游玩时就会累计；可在任何城镇提交。',
+    slay: '击败：{enemy}（{place}）',
+    clear: '在{place}的探访中获胜',
+    chests: '在任何地方开宝箱',
+    rep: '声望 +1',
+    handIn: '提交',
+    handed: '今日已完成',
+    thanks: '{name}向你道谢。'
+  },
+  rep: {
+    title: '声望',
+    meter: '{name}声望：{n}',
+    giftAt: '声望 +{n} 时的礼物',
+    giftClaim: '领取礼物',
+    giftTaken: '已领取礼物',
+    giftGot: '送你的礼物：300 金币和{item}。',
+    giftGold: '送你的礼物：300 金币。',
+    blessAt: '声望 +{n} 时的祝福',
+    bless: {
+      order: '祝福：生命 +5%',
+      syndicate: '祝福：击杀获得的金币 +10%',
+      circle: '祝福：法力回复 +10%'
+    }
   }
 }

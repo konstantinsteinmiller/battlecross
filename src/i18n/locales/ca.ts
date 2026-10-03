@@ -2908,5 +2908,34 @@ export default {
     confirm: 'Segur? Torna a tocar',
     bench: 'Aquestes habilitats tornen al prestatge: {list}',
     done: 'Ja està. Els teus punts són teus per gastar-los de nou.'
+  },
+  contract: {
+    title: 'Tauler de contractes',
+    lead: 'Cada facció publica una feina al dia. Compten mentre jugues; lliura-les a qualsevol poble.',
+    slay: 'Derrota: {enemy} — {place}',
+    clear: 'Guanya una visita a {place}',
+    chests: 'Obre cofres a qualsevol lloc',
+    rep: '+1 reputació',
+    handIn: 'Lliura',
+    handed: 'Fet per avui',
+    thanks: '{name} et dona les gràcies.'
+  },
+  rep: {
+    title: 'Reputació',
+    meter: '{name}: reputació {n}',
+    giftAt: 'Regal a +{n}',
+    giftClaim: 'Recull el regal',
+    giftTaken: 'Regal recollit',
+    giftGot: 'Un regal per a tu: 300 d’or i {item}.',
+    giftGold: 'Un regal per a tu: 300 d’or.',
+    blessAt: 'Benedicció a +{n}',
+    bless: {
+      order: 'Beneït: +5% de salut',
+      syndicate: 'Beneït: +10% d’or de les baixes',
+      circle: 'Beneït: +10% de regeneració de manà',
+      order__f: 'Beneïda: +5% de salut',
+      syndicate__f: 'Beneïda: +10% d’or de les baixes',
+      circle__f: 'Beneïda: +10% de regeneració de manà'
+    }
   }
 }

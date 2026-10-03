@@ -2874,5 +2874,31 @@ export default {
     confirm: '本当に？もう一度タップ',
     bench: 'これらのスキルは棚に戻ります：{list}',
     done: 'さあ、できたよ。ポイントはまた好きに使えるよ。'
+  },
+  contract: {
+    title: '依頼ボード',
+    lead: '各勢力が1日に1つ依頼を出します。プレイ中にカウントされ、どの町でも提出できます。',
+    slay: '倒す：{enemy}（{place}）',
+    clear: '{place}の探索に勝利する',
+    chests: 'どこでも宝箱を開ける',
+    rep: '評判+1',
+    handIn: '提出',
+    handed: '本日分は完了',
+    thanks: '{name}が感謝しています。'
+  },
+  rep: {
+    title: '評判',
+    meter: '{name}の評判：{n}',
+    giftAt: '評判+{n}で贈り物',
+    giftClaim: '贈り物を受け取る',
+    giftTaken: '贈り物を受け取った',
+    giftGot: '贈り物：300ゴールドと{item}。',
+    giftGold: '贈り物：300ゴールド。',
+    blessAt: '評判+{n}で祝福',
+    bless: {
+      order: '祝福：体力+5%',
+      syndicate: '祝福：倒した敵からのゴールド+10%',
+      circle: '祝福：マナ回復+10%'
+    }
   }
 }

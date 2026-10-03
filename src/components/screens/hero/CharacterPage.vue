@@ -56,6 +56,10 @@
             @click="raise(a)"
           )
             GameIcon(name="plus")
+        //- Standing with the factions (#15), under the attributes.
+        li.attrs__rep
+          h4.sheet__rep-cap {{ t('rep.title') }}
+          RepTrack
 
       //- ── What it all adds up to ────────────────────────────────────────────
       section.sheet__stats
@@ -82,6 +86,7 @@ import Portrait from '@/components/art/Portrait.vue'
 import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import StatList from '@/components/game/StatList.vue'
+import RepTrack from '@/components/game/RepTrack.vue'
 import { statRows, statsWithAttrs, type StatRow } from '@/components/game/heroSheet'
 import { burst, shake } from '@/components/game/fx'
 
@@ -337,6 +342,15 @@ const raise = (a: Attr): void => {
   padding: clamp(0.4rem, 1.8vmin, 0.8rem)
   +screen.plate('slate')
   +screen.scroller
+.attrs__rep
+  margin-top: auto
+  padding-top: 0.5rem
+  border-top: var(--bc-ol-thin) dashed rgba(var(--bc-ink-rgb), 0.4)
+.sheet__rep-cap
+  margin: 0 0 0.35rem
+  +cel.label
+  font-size: clamp(0.72rem, 2.9vmin, 0.92rem)
+  text-align: center
 
 // ── Portrait: he is a strip across the top; the rest scrolls ─────────────────
 @media (max-aspect-ratio: 1/1)

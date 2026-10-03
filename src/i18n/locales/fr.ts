@@ -2910,5 +2910,34 @@ export default {
     confirm: 'Sûr ? Touche encore',
     bench: 'Ces compétences retournent sur l’étagère : {list}',
     done: 'Voilà. Tes points sont de nouveau à toi.'
+  },
+  contract: {
+    title: 'Tableau des contrats',
+    lead: 'Chaque faction affiche un contrat par jour. Ils comptent pendant que tu joues ; rends-les dans n’importe quelle ville.',
+    slay: 'Vaincs : {enemy} — {place}',
+    clear: 'Gagne une visite à {place}',
+    chests: 'Ouvre des coffres n’importe où',
+    rep: '+1 réputation',
+    handIn: 'Rendre',
+    handed: 'Fait pour aujourd’hui',
+    thanks: '{name} te remercie.'
+  },
+  rep: {
+    title: 'Réputation',
+    meter: '{name} : réputation {n}',
+    giftAt: 'Cadeau à +{n}',
+    giftClaim: 'Prendre le cadeau',
+    giftTaken: 'Cadeau pris',
+    giftGot: 'Un cadeau pour toi : 300 pièces d’or et {item}.',
+    giftGold: 'Un cadeau pour toi : 300 pièces d’or.',
+    blessAt: 'Bénédiction à +{n}',
+    bless: {
+      order: 'Béni : +5 % de santé',
+      syndicate: 'Béni : +10 % d’or sur les victimes',
+      circle: 'Béni : +10 % de régénération de mana',
+      order__f: 'Bénie : +5 % de santé',
+      syndicate__f: 'Bénie : +10 % d’or sur les victimes',
+      circle__f: 'Bénie : +10 % de régénération de mana'
+    }
   }
 }

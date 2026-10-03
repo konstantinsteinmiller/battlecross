@@ -2935,5 +2935,34 @@ export default {
     confirm: 'Droši? Pieskaries vēlreiz',
     bench: 'Šīs prasmes atgriežas plauktā: {list}',
     done: 'Lūk. Tavi punkti atkal ir tavi, tērē tos.'
+  },
+  contract: {
+    title: 'Uzdevumu dēlis',
+    lead: 'Katra frakcija dienā izliek vienu darbu. Tie skaitās spēlējot; nodod jebkurā pilsētā.',
+    slay: 'Uzvari: {enemy} — {place}',
+    clear: 'Uzvari apmeklējumā: {place}',
+    chests: 'Atver lādes jebkur',
+    rep: '+1 reputācija',
+    handIn: 'Nodot',
+    handed: 'Šodien paveikts',
+    thanks: '{name} tev pateicas.'
+  },
+  rep: {
+    title: 'Reputācija',
+    meter: '{name}: reputācija {n}',
+    giftAt: 'Dāvana pie +{n}',
+    giftClaim: 'Paņemt dāvanu',
+    giftTaken: 'Dāvana paņemta',
+    giftGot: 'Dāvana tev: 300 zelta un {item}.',
+    giftGold: 'Dāvana tev: 300 zelta.',
+    blessAt: 'Svētība pie +{n}',
+    bless: {
+      order: 'Svētīts: +5% veselības',
+      syndicate: 'Svētīts: +10% zelta par uzvarētiem',
+      circle: 'Svētīts: +10% manas atjaunošanās',
+      order__f: 'Svētīta: +5% veselības',
+      syndicate__f: 'Svētīta: +10% zelta par uzvarētiem',
+      circle__f: 'Svētīta: +10% manas atjaunošanās'
+    }
   }
 }

@@ -2911,5 +2911,34 @@ export default {
     confirm: 'Seguro? Toca outra vez',
     bench: 'Estas habilidades volven ao andel: {list}',
     done: 'Xa está. Os teus puntos volven ser teus para gastalos.'
+  },
+  contract: {
+    title: 'Taboleiro de encargos',
+    lead: 'Cada facción publica un traballo ao día. Contan mentres xogas; entrégaos en calquera vila.',
+    slay: 'Derrota a: {enemy} — {place}',
+    clear: 'Gaña unha visita a {place}',
+    chests: 'Abre cofres onde sexa',
+    rep: '+1 reputación',
+    handIn: 'Entregar',
+    handed: 'Feito por hoxe',
+    thanks: '{name} dáche as grazas.'
+  },
+  rep: {
+    title: 'Reputación',
+    meter: '{name}: reputación {n}',
+    giftAt: 'Agasallo en +{n}',
+    giftClaim: 'Coller agasallo',
+    giftTaken: 'Agasallo collido',
+    giftGot: 'Un agasallo para ti: 300 de ouro e {item}.',
+    giftGold: 'Un agasallo para ti: 300 de ouro.',
+    blessAt: 'Bendición en +{n}',
+    bless: {
+      order: 'Bendicido: +5 % de saúde',
+      syndicate: 'Bendicido: +10 % de ouro polas baixas',
+      circle: 'Bendicido: +10 % de rexeneración de maná',
+      order__f: 'Bendicida: +5 % de saúde',
+      syndicate__f: 'Bendicida: +10 % de ouro polas baixas',
+      circle__f: 'Bendicida: +10 % de rexeneración de maná'
+    }
   }
 }

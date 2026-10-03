@@ -3,6 +3,7 @@ import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
 import { killGold, killXp, addXp } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
 import { RESTED_XP } from '../rested'
+import { BLESSING } from '../contracts'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
 import { atPeace, findStatus, hasStatus, statusV, type Sim } from './world'
@@ -459,8 +460,11 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     const mul = RANK_REWARD[u.rank] * def.reward * (u.champion ? CHAMPION_REWARD : 1)
     const cha = h.unit.s.power.cha
     const xp = killXp(u.level, mul, h.level) * (h.rested > 0 ? RESTED_XP : 1)
-    const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * (0.8 + sim.rng() * 0.4))
+    // The Ashen Syndicate's blessing (+5 standing, #15): more gold from every kill.
+    const blessing = h.build.blessings?.includes('syndicate') ? 1 + BLESSING.syndicate.goldPct : 1
+    const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * blessing * (0.8 + sim.rng() * 0.4))
     h.kills++
+    h.killKinds[u.kind] = (h.killKinds[u.kind] ?? 0) + 1
     grantXp(sim, xp)
     h.gold += gold
     let item = ''

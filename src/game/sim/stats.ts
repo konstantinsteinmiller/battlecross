@@ -3,6 +3,8 @@ import { addMods, type Mods } from '../data/mods'
 import { ITEM_BY_ID, UNARMED, isPlate, type EquipSlot } from '../data/items'
 import { SKILL_BY_ID } from '../data/skills'
 import type { DamageType, UnitStats } from './types'
+import type { FactionId } from '../data/quests'
+import { BLESSING } from '../contracts'
 
 /**
  * ─── Derived stats ───────────────────────────────────────────────────────────
@@ -21,6 +23,8 @@ export interface HeroBuild {
   equipped: Record<EquipSlot, string | null>
   /** Equipped passive skill ids. */
   passives: readonly string[]
+  /** Factions whose +5 blessing the hero holds (roadmap #15). */
+  blessings?: readonly FactionId[]
 }
 
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v))
@@ -67,14 +71,16 @@ export const heroStats = (b: HeroBuild): UnitStats => {
     attrs.end * E.end.armorPerPoint + m('armor') + attrs.str * m('armorFromStr')
   const armor = armorBase * (1 + m('armorPct'))
 
-  const maxHp = (100 + attrs.end * E.end.hpPerPoint + b.level * 32 + m('maxHp')) * (1 + m('maxHpPct'))
+  const blessed = (f: FactionId): boolean => !!b.blessings?.includes(f)
+  const maxHp = (100 + attrs.end * E.end.hpPerPoint + b.level * 32 + m('maxHp')) * (1 + m('maxHpPct')) *
+    (blessed('order') ? 1 + BLESSING.order.maxHpPct : 1)
   const maxMana = 30 + attrs.int * E.int.manaPerPoint + m('maxMana')
 
   return {
     maxHp: Math.round(maxHp),
     maxMana: Math.round(maxMana),
     hpRegen: attrs.end * E.end.hpRegenPerPoint + m('hpRegen'),
-    manaRegen: 1.5 + attrs.int * E.int.manaRegenPerPoint,
+    manaRegen: (1.5 + attrs.int * E.int.manaRegenPerPoint) * (blessed('circle') ? 1 + BLESSING.circle.manaRegenPct : 1),
     armor,
     resist: clamp(attrs.int * E.int.resistPerPoint, 0, CAPS.resist),
     block: clamp(attrs.str * E.str.blockPerPoint + m('block'), 0, CAPS.block),

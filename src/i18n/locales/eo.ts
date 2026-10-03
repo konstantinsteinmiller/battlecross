@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Certe? Tuŝu denove',
     bench: 'Ĉi tiuj kapabloj reiras sur la breton: {list}',
     done: 'Jen. Viaj poentoj denove estas viaj por elspezi.'
+  },
+  contract: {
+    title: 'Kontrakta tabulo',
+    lead: 'Ĉiu frakcio afiŝas unu taskon tage. Ili kalkuliĝas dum vi ludas; transdonu ilin en ajna urbo.',
+    slay: 'Venku: {enemy} — {place}',
+    clear: 'Venku viziton en {place}',
+    chests: 'Malfermu keston ie ajn',
+    rep: '+1 reputacio',
+    handIn: 'Transdoni',
+    handed: 'Farite por hodiaŭ',
+    thanks: '{name} dankas vin.'
+  },
+  rep: {
+    title: 'Reputacio',
+    meter: '{name}: reputacio {n}',
+    giftAt: 'Donaco ĉe +{n}',
+    giftClaim: 'Preni donacon',
+    giftTaken: 'Donaco prenita',
+    giftGot: 'Donaco por vi: 300 da oro kaj {item}.',
+    giftGold: 'Donaco por vi: 300 da oro.',
+    blessAt: 'Beno ĉe +{n}',
+    bless: {
+      order: 'Benita: +5% sano',
+      syndicate: 'Benita: +10% da oro de mortigoj',
+      circle: 'Benita: +10% manao-regenero'
+    }
   }
 }

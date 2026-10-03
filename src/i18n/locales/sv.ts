@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Säker? Tryck igen',
     bench: 'De här färdigheterna går tillbaka på hyllan: {list}',
     done: 'Så där. Dina poäng är dina att använda igen.'
+  },
+  contract: {
+    title: 'Uppdragstavla',
+    lead: 'Varje fraktion sätter upp ett uppdrag om dagen. De räknas medan du spelar; lämna in dem i vilken stad som helst.',
+    slay: 'Besegra: {enemy} — {place}',
+    clear: 'Vinn ett besök i {place}',
+    chests: 'Öppna kistor var som helst',
+    rep: '+1 anseende',
+    handIn: 'Lämna in',
+    handed: 'Klart för i dag',
+    thanks: '{name} tackar dig.'
+  },
+  rep: {
+    title: 'Anseende',
+    meter: '{name}: anseende {n}',
+    giftAt: 'Gåva vid +{n}',
+    giftClaim: 'Hämta gåva',
+    giftTaken: 'Gåva hämtad',
+    giftGot: 'En gåva till dig: 300 guld och {item}.',
+    giftGold: 'En gåva till dig: 300 guld.',
+    blessAt: 'Välsignelse vid +{n}',
+    bless: {
+      order: 'Välsignad: +5 % hälsa',
+      syndicate: 'Välsignad: +10 % guld från nedgjorda fiender',
+      circle: 'Välsignad: +10 % manaregenerering'
+    }
   }
 }

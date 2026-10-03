@@ -2882,5 +2882,31 @@ export default {
     confirm: 'Zeker? Tik nog eens',
     bench: 'Deze vaardigheden gaan terug op de plank: {list}',
     done: 'Zo. Je punten zijn weer van jou om uit te geven.'
+  },
+  contract: {
+    title: 'Opdrachtenbord',
+    lead: 'Elke factie hangt één klus per dag op. Ze tellen mee terwijl je speelt; lever ze in bij elke stad.',
+    slay: 'Versla: {enemy} — {place}',
+    clear: 'Win een bezoek aan {place}',
+    chests: 'Open overal kisten',
+    rep: '+1 aanzien',
+    handIn: 'Inleveren',
+    handed: 'Klaar voor vandaag',
+    thanks: '{name} bedankt je.'
+  },
+  rep: {
+    title: 'Aanzien',
+    meter: '{name}: aanzien {n}',
+    giftAt: 'Cadeau bij +{n}',
+    giftClaim: 'Cadeau ophalen',
+    giftTaken: 'Cadeau opgehaald',
+    giftGot: 'Een cadeau voor jou: 300 goud en {item}.',
+    giftGold: 'Een cadeau voor jou: 300 goud.',
+    blessAt: 'Zegen bij +{n}',
+    bless: {
+      order: 'Gezegend: +5% leven',
+      syndicate: 'Gezegend: +10% goud van kills',
+      circle: 'Gezegend: +10% manaregeneratie'
+    }
   }
 }

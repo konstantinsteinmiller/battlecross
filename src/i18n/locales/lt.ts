@@ -2921,5 +2921,34 @@ export default {
     confirm: 'Tikrai? Palieski dar kartą',
     bench: 'Šie įgūdžiai grįžta į lentyną: {list}',
     done: 'Štai. Tavo taškai vėl tavo, leisk juos iš naujo.'
+  },
+  contract: {
+    title: 'Užsakymų lenta',
+    lead: 'Kiekviena frakcija per dieną paskelbia vieną darbą. Jie skaičiuojasi žaidžiant; atiduok bet kuriame mieste.',
+    slay: 'Nugalėk: {enemy} — {place}',
+    clear: 'Laimėk apsilankymą: {place}',
+    chests: 'Atidaryk skrynias bet kur',
+    rep: '+1 reputacija',
+    handIn: 'Atiduoti',
+    handed: 'Šiandien padaryta',
+    thanks: '{name} tau dėkoja.'
+  },
+  rep: {
+    title: 'Reputacija',
+    meter: '{name}: reputacija {n}',
+    giftAt: 'Dovana ties +{n}',
+    giftClaim: 'Pasiimti dovaną',
+    giftTaken: 'Dovana pasiimta',
+    giftGot: 'Dovana tau: 300 aukso ir {item}.',
+    giftGold: 'Dovana tau: 300 aukso.',
+    blessAt: 'Palaiminimas ties +{n}',
+    bless: {
+      order: 'Palaimintas: +5 % gyvybės',
+      syndicate: 'Palaimintas: +10 % aukso už nukovimus',
+      circle: 'Palaimintas: +10 % manos atsistatymas',
+      order__f: 'Palaiminta: +5 % gyvybės',
+      syndicate__f: 'Palaiminta: +10 % aukso už nukovimus',
+      circle__f: 'Palaiminta: +10 % manos atsistatymas'
+    }
   }
 }

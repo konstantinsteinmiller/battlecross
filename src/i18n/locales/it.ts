@@ -2928,5 +2928,34 @@ export default {
     confirm: 'Sicuro? Tocca ancora',
     bench: 'Queste abilità tornano sullo scaffale: {list}',
     done: 'Ecco. I tuoi punti sono di nuovo tuoi da spendere.'
+  },
+  contract: {
+    title: 'Bacheca dei contratti',
+    lead: 'Ogni fazione pubblica un lavoro al giorno. Contano mentre giochi; consegnali in qualsiasi città.',
+    slay: 'Sconfiggi: {enemy} — {place}',
+    clear: 'Vinci una visita a {place}',
+    chests: 'Apri forzieri ovunque',
+    rep: '+1 reputazione',
+    handIn: 'Consegna',
+    handed: 'Fatto per oggi',
+    thanks: '{name} ti ringrazia.'
+  },
+  rep: {
+    title: 'Reputazione',
+    meter: '{name}: reputazione {n}',
+    giftAt: 'Regalo a +{n}',
+    giftClaim: 'Ritira regalo',
+    giftTaken: 'Regalo ritirato',
+    giftGot: 'Un regalo per te: 300 oro e {item}.',
+    giftGold: 'Un regalo per te: 300 oro.',
+    blessAt: 'Benedizione a +{n}',
+    bless: {
+      order: 'Benedetto: +5% salute',
+      syndicate: 'Benedetto: +10% oro dalle uccisioni',
+      circle: 'Benedetto: +10% rigenerazione mana',
+      order__f: 'Benedetta: +5% salute',
+      syndicate__f: 'Benedetta: +10% oro dalle uccisioni',
+      circle__f: 'Benedetta: +10% rigenerazione mana'
+    }
   }
 }

@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Aminmisan? Yana bos',
     bench: 'Bu koʻnikmalar javonga qaytadi: {list}',
     done: 'Mana. Ochkolaring yana oʻzingniki, qayta sarfla.'
+  },
+  contract: {
+    title: 'Buyurtmalar taxtasi',
+    lead: 'Har bir guruh kuniga bitta ish qo‘yadi. O‘ynaganingda hisoblanadi; istalgan shaharda topshir.',
+    slay: 'Mag‘lub et: {enemy} — {place}',
+    clear: '{place} ga borib g‘alaba qozon',
+    chests: 'Istalgan joyda sandiqlarni och',
+    rep: '+1 obro‘',
+    handIn: 'Topshirish',
+    handed: 'Bugungisi bajarildi',
+    thanks: '{name} senga rahmat aytadi.'
+  },
+  rep: {
+    title: 'Obro‘',
+    meter: '{name}: obro‘ {n}',
+    giftAt: '+{n} da sovg‘a',
+    giftClaim: 'Sovg‘ani olish',
+    giftTaken: 'Sovg‘a olindi',
+    giftGot: 'Senga sovg‘a: 300 oltin va {item}.',
+    giftGold: 'Senga sovg‘a: 300 oltin.',
+    blessAt: '+{n} da duo',
+    bless: {
+      order: 'Duo: +5% jon',
+      syndicate: 'Duo: +10% yengilgan dushmandan oltin',
+      circle: 'Duo: +10% mana tiklanishi'
+    }
   }
 }

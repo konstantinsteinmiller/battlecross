@@ -83,7 +83,8 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     minionMul: minionMul(s.power.cha, s.mods),
     level: o.build.level,
     xpInto: o.xpInto,
-    rested: Math.max(0, o.rested ?? 0)
+    rested: Math.max(0, o.rested ?? 0),
+    killKinds: {}
   }
   sim.hero = h
   return h

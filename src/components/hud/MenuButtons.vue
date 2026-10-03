@@ -18,6 +18,12 @@
         FHudButton(tone="blue" icon="bag" :aria-label="t('menu.inventory')" @click="open('inventory')")
           template(v-if="profile.inv.fresh.length > 0" #badge)
             FHudBadge(tone="green") {{ profile.inv.fresh.length }}
+    //- The contract board (#15): in town, once the road beyond the first zone is open.
+    Transition(name="reveal")
+      span.menu-buttons__item(v-if="map && contractsOpen" data-coach="menu-contracts")
+        FHudButton(tone="gold" icon="star" :attention="ready > 0" :aria-label="t('contract.title')" @click="openContracts")
+          template(v-if="ready > 0" #badge)
+            FHudBadge(tone="green") {{ ready }}
     LeaderboardButton(v-if="board")
 </template>
 
@@ -38,7 +44,8 @@ import FHudButton from '@/components/atoms/FHudButton.vue'
 import FHudBadge from '@/components/atoms/FHudBadge.vue'
 import LeaderboardButton from '@/components/game/LeaderboardButton.vue'
 import { flow, openMap } from '@/game/flow'
-import { profile } from '@/game/state/profile'
+import { contractsReady, profile } from '@/game/state/profile'
+import { computed } from 'vue'
 import { glowing, revealed } from '@/game/coach/reveal'
 
 withDefaults(defineProps<{
@@ -48,6 +55,11 @@ withDefaults(defineProps<{
   board?: boolean
 }>(), { map: false, board: false })
 const { t } = useI18n()
+
+/** Contracts come with the second zone cleared: the first town visit stays about the trainer. */
+const contractsOpen = computed(() => profile.world.cleared.filter(n => n !== 'sunford').length >= 2)
+const ready = computed(() => { void profile.meta.contracts.list.map(c => c.have); return contractsReady() })
+const openContracts = (): void => { if (!flow.loading && !flow.modal && !flow.talk) flow.modal = 'contracts' }
 
 const open = (panel: 'map' | 'character' | 'skills' | 'inventory'): void => {
   if (flow.loading) return

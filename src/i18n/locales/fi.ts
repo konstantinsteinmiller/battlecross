@@ -2874,5 +2874,31 @@ export default {
     confirm: 'Varmasti? Napauta uudelleen',
     bench: 'Nämä kyvyt palaavat hyllylle: {list}',
     done: 'Noin. Pisteesi ovat taas sinun käytettävissäsi.'
+  },
+  contract: {
+    title: 'Toimeksiantotaulu',
+    lead: 'Jokainen ryhmä ilmoittaa yhden tehtävän päivässä. Ne kertyvät pelatessa; luovuta ne missä tahansa kaupungissa.',
+    slay: 'Voita: {enemy} — {place}',
+    clear: 'Voita vierailu: {place}',
+    chests: 'Avaa arkkuja missä tahansa',
+    rep: '+1 maine',
+    handIn: 'Luovuta',
+    handed: 'Tältä päivältä tehty',
+    thanks: '{name} kiittää sinua.'
+  },
+  rep: {
+    title: 'Maine',
+    meter: '{name}: maine {n}',
+    giftAt: 'Lahja tasolla +{n}',
+    giftClaim: 'Ota lahja',
+    giftTaken: 'Lahja otettu',
+    giftGot: 'Lahja sinulle: 300 kultaa ja {item}.',
+    giftGold: 'Lahja sinulle: 300 kultaa.',
+    blessAt: 'Siunaus tasolla +{n}',
+    bless: {
+      order: 'Siunattu: +5 % terveys',
+      syndicate: 'Siunattu: +10 % kultaa tapoista',
+      circle: 'Siunattu: +10 % manan palautuminen'
+    }
   }
 }
