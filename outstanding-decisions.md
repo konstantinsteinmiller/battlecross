@@ -21,6 +21,11 @@ Last updated: 2026-10-03.
 | 9 | **Music.** One code-composed soundtrack. Commission or generate authored tracks (`sound-todo.md` lists the drop-in names)? | Code-composed | Listen first; authored tracks before the first big portal submission if it falls short |
 | 29 | **GameMonetize leaderboard.** The build makes no request to our Cloudflare Worker (GameMonetize re-distributes the archive to many partner sites): it ships the baked board like Poki (rank chip, no top-100 list, no names). Live board instead? | Baked | Keep baked |
 | 30 | **GameMonetize ad order.** The midgame interstitial runs on Continue / Retry after the result screen has closed, never over it. Move it in front of the result screen on this portal? | After, on Continue | Keep; the result jingle and loot reveal are not cut |
+| 31 | **Voice for the girl hero.** About 75 hero lines would need a second, female take. Record them, or let the girl use the boy's lines? | The boy's lines | Record them once the voice cast is final |
+| 32 | **A line the girl has no take for** plays the boy's recording. Silence instead? | The boy's recording | Keep until #31 is done |
+| 33 | **German and Dutch choice screen.** "Dein Held" / "Jouw held" stay masculine before the player has chosen. "Deine Heldin oder dein Held"? | Masculine | Keep; it is the neutral generic there |
+| 34 | **Slavic small talk.** Feminine variants cover what is said to and about the hero; idle town chatter that never addresses the hero was left out. | Left out | Keep |
+| 35 | **Nudges (#69).** In town, should the gate and the road out hop too when the player stands about? The bag hops only when it holds an upgrade; should it also hop when it is nearly full? | Neither | Add the gate; leave the bag as is |
 
 ## Defaults taken in the playtest pass, overrule any
 
