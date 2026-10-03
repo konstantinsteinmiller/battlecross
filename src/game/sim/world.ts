@@ -195,10 +195,14 @@ export interface DoorState {
 
 export interface WaveState {
   n: number
+  /** Waves fought to the last enemy (the colosseum's score, roadmap #10). */
+  cleared: number
   /** Seconds until the next wave spawns (after the last one is dead). */
   rest: number
   alive: number
 }
+
+import type { ArenaMod } from '../arenaWeek'
 
 export interface SimOptions {
   seed: number
@@ -250,7 +254,9 @@ export class Sim {
   leaving = false
   leaveAt = 0
   leaveOpened = false
-  wave: WaveState = { n: 0, rest: 0, alive: 0 }
+  wave: WaveState = { n: 0, cleared: 0, rest: 0, alive: 0 }
+  /** The colosseum's weekly modifier (roadmap #10; '' everywhere else). */
+  arenaMod: ArenaMod | '' = ''
   /** Where waves spawn (arena) and where the zone's exit / chest stands. */
   spawnPoints: Array<[number, number]> = []
   ended: '' | 'victory' | 'defeat' = ''

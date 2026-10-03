@@ -14,7 +14,9 @@
         span.zone__level {{ t('hud.level', { n: hud.zoneLevel }) }}
         span.zone__pips(v-if="hud.zoneKey !== 'arena'" role="img" :aria-label="t('hud.groups', { n: hud.groupsDone, total: hud.groupsTotal })")
           i(v-for="n in hud.groupsTotal" :key="n" :class="{ on: n <= hud.groupsDone }")
-        span.zone__wave(v-else) {{ t('hud.wave', { n: Math.max(1, hud.wave), total: ARENA_WAVES }) }}
+        span.zone__wave(v-else) {{ hud.wave > ARENA_WAVES ? t('toast.wave', { n: hud.wave }) : t('hud.wave', { n: Math.max(1, hud.wave), total: ARENA_WAVES }) }}
+        //- The colosseum's week (#10): its modifier, always on show.
+        span.zone__mod(v-if="hud.zoneKey === 'arena' && hud.arenaMod" data-arena-mod) {{ t(`ladder.mod.${hud.arenaMod}`) }}
       div.zone(v-else)
         span.zone__name {{ t(`node.${hud.zoneKey}.name`) }}
       GoalTracker
@@ -129,4 +131,12 @@ const { t } = useI18n()
   width: 1em
   height: 1em
   filter: drop-shadow(0 1px 0 var(--bc-ink)) drop-shadow(1px 0 0 var(--bc-ink)) drop-shadow(-1px 0 0 var(--bc-ink)) drop-shadow(0 -1px 0 var(--bc-ink))
+.zone__mod
+  padding: 0 0.4em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-red)
+  color: var(--bc-text)
+  font-size: 0.8em
+  font-weight: 900
 </style>

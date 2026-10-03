@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'Het Colosseum',
-      desc: 'Acht golven, elk zwaarder dan de vorige. Goud en roem voor wie blijft staan.'
+      desc: 'Golf na golf, elk zwaarder dan de vorige. Hoe ver kom jij? Elke maandag een nieuw klassement.'
     },
     woods: {
       name: 'Fluisterwoud',
@@ -2907,6 +2907,30 @@ export default {
       order: 'Gezegend: +5% leven',
       syndicate: 'Gezegend: +10% goud van kills',
       circle: 'Gezegend: +10% manaregeneratie'
+    }
+  },
+  ladder: {
+    tab: 'Colosseum',
+    wave: 'Golf',
+    week: 'Deze week: {mod}',
+    weekBest: 'Beste van deze week: golf {n}',
+    yourBest: 'Jouw beste van deze week: golf {n}',
+    none: 'Nog geen klim deze week.',
+    mod: {
+      fire: 'Alles vuur',
+      nopotions: 'Geen drankjes',
+      glass: 'Glas',
+      swarm: 'Zwerm',
+      elites: 'Eliteparade',
+      haste: 'Haast'
+    },
+    modDesc: {
+      fire: 'elke vijandelijke klap is vuur',
+      nopotions: 'geen drankjes',
+      glass: 'iedereen slaat 50% harder',
+      swarm: 'meer vijanden, met elk minder gezondheid',
+      elites: 'een kampioen in elke golf',
+      haste: 'vijanden bewegen en slaan sneller'
     }
   }
 }

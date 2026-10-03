@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Koliziejus',
-      desc: 'Aštuonios bangos, kiekviena sunkesnė už ankstesnę. Auksas ir šlovė tam, kas liks stovėti.'
+      desc: 'Banga po bangos, kiekviena sunkesnė už ankstesnę. Kiek aukštai gali užkopti? Nauja lentelė kiekvieną pirmadienį.'
     },
     woods: {
       name: 'Šnabždantis miškas',
@@ -2949,6 +2949,30 @@ export default {
       order__f: 'Palaiminta: +5 % gyvybės',
       syndicate__f: 'Palaiminta: +10 % aukso už nukovimus',
       circle__f: 'Palaiminta: +10 % manos atsistatymas'
+    }
+  },
+  ladder: {
+    tab: 'Koliziejus',
+    wave: 'Banga',
+    week: 'Šią savaitę: {mod}',
+    weekBest: 'Geriausias šią savaitę: {n} banga',
+    yourBest: 'Tavo geriausias šią savaitę: {n} banga',
+    none: 'Šią savaitę dar nekopta.',
+    mod: {
+      fire: 'Viskas ugnis',
+      nopotions: 'Be eliksyrų',
+      glass: 'Stiklas',
+      swarm: 'Spiečius',
+      elites: 'Elito paradas',
+      haste: 'Skubėjimas'
+    },
+    modDesc: {
+      fire: 'kiekvienas priešo smūgis – ugnis',
+      nopotions: 'jokių eliksyrų',
+      glass: 'visi smogia 50 % stipriau',
+      swarm: 'daugiau priešų, bet kiekvienas turi mažiau sveikatos',
+      elites: 'čempionas kiekvienoje bangoje',
+      haste: 'priešai juda ir smogia greičiau'
     }
   }
 }

@@ -1,6 +1,7 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
 import { getState, setState } from '@/use/useGameState'
-import { POSTED_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
+import { LADDER_POSTED_KEY, POSTED_NAME_KEY, SUBMITTED_SCORE_KEY } from '@/keys'
+import { weekKey } from '@/game/arenaWeek'
 import { resolveIdentity, type PlayerIdentity } from '@/use/usePlayerIdentity'
 import { boardSnapshot, rankFromDist } from '@/use/leaderboardSnapshot'
 
@@ -426,6 +427,69 @@ export const submitScore = async (score: number, flair: number): Promise<boolean
   } finally {
     pending.value = false
   }
+}
+
+// ─── The colosseum's weekly ladder (roadmap #10) ─────────────────────────────
+
+export interface LadderEntry { rank: number; name: string; wave: number; flair: number }
+export interface Ladder { week: string; total: number; entries: LadderEntry[] }
+
+/** This week's ladder as the server last sent it (null: not read, or no live board). */
+export const ladder = ref<Ladder | null>(null)
+export const ladderPending = ref(false)
+export const ladderFailed = ref(false)
+/** The player's place on this week's ladder, from their last accepted post. */
+export const ladderRank = ref(0)
+
+/** Read this week's ladder (live builds only; reopening the window is the retry). */
+export const ensureLadder = async (): Promise<boolean> => {
+  if (!LIVE || ladderPending.value) return false
+  ladderPending.value = true
+  try {
+    const res = await withTimeout(`${ENDPOINT}/ladder`)
+    if (!res.ok) { ladderFailed.value = true; return false }
+    const data = await res.json() as Partial<Ladder>
+    if (!data || !Array.isArray(data.entries) || typeof data.week !== 'string') { ladderFailed.value = true; return false }
+    ladder.value = {
+      week: data.week,
+      total: Math.max(0, Number(data.total) || 0),
+      entries: data.entries.filter((e): e is LadderEntry => !!e && typeof e.name === 'string' && Number.isFinite(e.wave))
+    }
+    ladderFailed.value = false
+    return true
+  } catch {
+    ladderFailed.value = true
+    return false
+  } finally {
+    ladderPending.value = false
+  }
+}
+
+/**
+ * A climb ended with a new best for the week: post it, once. Like `reportRun`,
+ * only a record is a write, and the record is remembered only after the server
+ * took it, so a failed post is retried by the next climb.
+ */
+export const reportLadder = async (wave: number, flair: number): Promise<void> => {
+  if (!LIVE) return
+  try {
+    const w = Math.max(0, Math.trunc(Number(wave) || 0))
+    const lvl = Math.max(1, Math.trunc(Number(flair) || 1))
+    if (w < 1) return
+    const week = weekKey()
+    const posted = getState<{ week?: string; wave?: number } | null>(LADDER_POSTED_KEY, null)
+    if (posted && posted.week === week && (posted.wave ?? 0) >= w) return
+    const { id, name } = await identity()
+    const body: Record<string, unknown> = { id, name, week, wave: w, flair: lvl }
+    if (SECRET.length > 0) body.sig = await sign(`ladder:${id}:${week}:${w}:${lvl}`)
+    const res = await withTimeout(`${ENDPOINT}/ladder`, {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body)
+    })
+    if (!res.ok) return
+    const data = await res.json() as { best?: number; rank?: number }
+    ladderRank.value = Number(data.rank) || 0
+    setState(LADDER_POSTED_KEY, { week, wave: Number(data.best) || w })
+  } catch { /* the next climb retries */ }
 }
 
 /**

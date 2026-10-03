@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Kolizey',
-      desc: 'Sakkiz toʻlqin, har biri oldingisidan qiyin. Oyoqda qolganga oltin va shon-shuhrat.'
+      desc: 'Toʻlqin ketidan toʻlqin, har biri oldingisidan qiyin. Qanchalik baland chiqa olasan? Har dushanba yangi jadval.'
     },
     woods: {
       name: 'Shivirlovchi oʻrmon',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Duo: +5% jon',
       syndicate: 'Duo: +10% yengilgan dushmandan oltin',
       circle: 'Duo: +10% mana tiklanishi'
+    }
+  },
+  ladder: {
+    tab: 'Kolizey',
+    wave: 'Toʻlqin',
+    week: 'Shu hafta: {mod}',
+    weekBest: 'Haftaning eng yaxshisi: {n}-toʻlqin',
+    yourBest: 'Shu haftadagi eng yaxshing: {n}-toʻlqin',
+    none: 'Bu hafta hali koʻtarilish yoʻq.',
+    mod: {
+      fire: 'Hammasi olov',
+      nopotions: 'Eliksirsiz',
+      glass: 'Shisha',
+      swarm: 'Poda',
+      elites: 'Elita paradi',
+      haste: 'Shoshilinch'
+    },
+    modDesc: {
+      fire: 'dushmanning har zarbasi olovdir',
+      nopotions: 'eliksir yoʻq',
+      glass: 'hamma 50% kuchliroq uradi',
+      swarm: 'dushman koʻproq, har birida jon kamroq',
+      elites: 'har toʻlqinda bitta chempion',
+      haste: 'dushmanlar tezroq harakatlanadi va uradi'
     }
   }
 }

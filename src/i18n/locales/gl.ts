@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'O Coliseo',
-      desc: 'Oito vagas, cada unha máis dura ca a anterior. Ouro e gloria para quen quede en pé.'
+      desc: 'Vaga tras vaga, cada unha máis dura ca a anterior. Ata onde podes chegar? Unha clasificación nova cada luns.'
     },
     woods: {
       name: 'Bosque dos Murmurios',
@@ -2939,6 +2939,30 @@ export default {
       order__f: 'Bendicida: +5 % de saúde',
       syndicate__f: 'Bendicida: +10 % de ouro polas baixas',
       circle__f: 'Bendicida: +10 % de rexeneración de maná'
+    }
+  },
+  ladder: {
+    tab: 'Coliseo',
+    wave: 'Vaga',
+    week: 'Esta semana: {mod}',
+    weekBest: 'Mellor desta semana: vaga {n}',
+    yourBest: 'O teu mellor desta semana: vaga {n}',
+    none: 'Aínda non hai ascenso esta semana.',
+    mod: {
+      fire: 'Todo lume',
+      nopotions: 'Sen poucións',
+      glass: 'Vidro',
+      swarm: 'Enxame',
+      elites: 'Desfile de elite',
+      haste: 'Présa'
+    },
+    modDesc: {
+      fire: 'cada golpe inimigo é de lume',
+      nopotions: 'sen poucións',
+      glass: 'todos pegan un 50 % máis forte',
+      swarm: 'máis inimigos, con menos vida cada un',
+      elites: 'un campión en cada vaga',
+      haste: 'os inimigos móvense e golpean máis rápido'
     }
   }
 }

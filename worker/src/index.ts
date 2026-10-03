@@ -147,6 +147,28 @@ const withCors = (
   return out
 }
 
+// ─── The colosseum's weekly ladder (roadmap #10) ─────────────────────────────
+
+/** ISO-8601 week in UTC ("2026-W40"): byte-for-byte the game's `weekKey`
+ *  (`src/game/arenaWeek.ts`), so a score is filed under the week both agree on. */
+export const weekKey = (d = new Date()): string => {
+  const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()))
+  const day = t.getUTCDay() || 7
+  t.setUTCDate(t.getUTCDate() + 4 - day)
+  const y = t.getUTCFullYear()
+  const w = Math.ceil(((t.getTime() - Date.UTC(y, 0, 1)) / 86_400_000 + 1) / 7)
+  return `${y}-W${String(w).padStart(2, '0')}`
+}
+
+/** The week a post may be filed under: this one, or the one that just ended
+ *  (a climb that finished across Monday midnight UTC still counts). */
+const ladderWeekOk = (week: unknown, now = Date.now()): week is string =>
+  typeof week === 'string' && (week === weekKey(new Date(now)) || week === weekKey(new Date(now - 6 * 3_600_000)))
+
+/** Rows the ladder publishes, and the most waves a climb is believed to reach. */
+const LADDER_TOP = 50
+const LADDER_MAX_WAVE = 1000
+
 const hmac = async (secret: string, message: string): Promise<string> => {
   const key = await crypto.subtle.importKey(
     'raw', new TextEncoder().encode(secret),
@@ -473,6 +495,81 @@ export default {
      }
     }
 
+    // ── GET /ladder: this week's best waves ──
+    if (request.method === 'GET' && url.pathname === '/ladder') {
+      const week = weekKey()
+      const cache = caches.default
+      const cacheKey = new Request(new URL(`/ladder/${week}`, url.origin).toString(), { method: 'GET' })
+      const hit = await cache.match(cacheKey)
+      if (hit) return withCors(hit, cors)
+      try {
+        const rows = await env.DB
+          .prepare('SELECT name, wave, flair FROM ladder WHERE week = ? ORDER BY wave DESC, updated_at ASC LIMIT ?')
+          .bind(week, LADDER_TOP)
+          .all<{ name: string; wave: number; flair: number }>()
+        const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM ladder WHERE week = ?').bind(week).first<{ n: number }>()
+        let rank = 0
+        let prev = -1
+        const entries = (rows.results ?? []).map((r, i) => {
+          if (r.wave !== prev) { rank = i + 1; prev = r.wave }
+          return { rank, name: r.name, wave: r.wave, flair: r.flair }
+        })
+        const fresh = json({ week, total: Number(count?.n) || entries.length, entries }, 200, { 'cache-control': `public, max-age=${EDGE_TTL}` })
+        await cache.put(cacheKey, fresh.clone())
+        return withCors(fresh, cors)
+      } catch {
+        return json({ error: 'unavailable' }, 503, cors)
+      }
+    }
+
+    // ── POST /ladder: a climb's best wave this week ──
+    if (request.method === 'POST' && url.pathname === '/ladder') {
+     try {
+      let body: Record<string, unknown>
+      try {
+        body = (await request.json()) as Record<string, unknown>
+      } catch {
+        return json({ error: 'bad json' }, 400, cors)
+      }
+      const id = body.id
+      const week = body.week
+      const wave = Number(body.wave)
+      const flair = Number(body.flair)
+      const name = cleanName(body.name)
+      if (!validId(id)) return json({ error: 'bad id' }, 400, cors)
+      if (!ladderWeekOk(week)) return json({ error: 'wrong week' }, 422, cors)
+      if (!Number.isInteger(wave) || wave < 1 || wave > LADDER_MAX_WAVE || !Number.isInteger(flair) || flair < 1 || flair > 1000) {
+        return json({ error: 'implausible' }, 422, cors)
+      }
+      if (env.SCORE_SECRET) {
+        const expected = await hmac(env.SCORE_SECRET, `ladder:${id}:${week}:${wave}:${flair}`)
+        if (typeof body.sig !== 'string' || !safeEqual(body.sig, expected)) return json({ error: 'bad signature' }, 401, cors)
+      }
+      const now = Date.now()
+      const existing = await env.DB
+        .prepare('SELECT name, wave, updated_at FROM ladder WHERE week = ? AND id = ?')
+        .bind(week, id)
+        .first<{ name: string; wave: number; updated_at: number }>()
+      if (existing && now - existing.updated_at < WRITE_COOLDOWN_MS) return json({ error: 'too fast' }, 429, cors)
+      let best = existing?.wave ?? 0
+      if (!existing) {
+        await env.DB.prepare('INSERT INTO ladder (week, id, name, wave, flair, updated_at) VALUES (?, ?, ?, ?, ?, ?)')
+          .bind(week, id, name, wave, flair, now).run()
+        best = wave
+      } else if (wave > existing.wave) {
+        await env.DB.prepare('UPDATE ladder SET name = ?, wave = ?, flair = ?, updated_at = ? WHERE week = ? AND id = ?')
+          .bind(name, wave, flair, now, week, id).run()
+        best = wave
+      } else if (existing.name !== name) {
+        await env.DB.prepare('UPDATE ladder SET name = ? WHERE week = ? AND id = ?').bind(name, week, id).run()
+      }
+      const above = await env.DB.prepare('SELECT COUNT(*) AS n FROM ladder WHERE week = ? AND wave > ?').bind(week, best).first<{ n: number }>()
+      const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM ladder WHERE week = ?').bind(week).first<{ n: number }>()
+      return json({ week, best, rank: (Number(above?.n) || 0) + 1, total: Number(count?.n) || 1 }, 200, cors)
+     } catch {
+      return json({ error: 'unavailable' }, 503, cors)
+     }
+    }
 
     return json({ error: 'not found' }, 404, cors)
   }

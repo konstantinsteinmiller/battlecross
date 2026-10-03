@@ -40,6 +40,8 @@ export const hud = shallowReactive({
   overheated: false,
   level: 1,
   xp01: 0,
+  /** The colosseum's weekly modifier ('' elsewhere, roadmap #10). */
+  arenaMod: '' as string,
   /** Kills pay double XP now (the rested pool, roadmap #9). */
   rested: false,
   gold: 0,

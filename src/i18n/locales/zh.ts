@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: '斗技场',
-      desc: '八波敌人，一波比一波难。站到最后的人赢得金币和荣耀。'
+      desc: '一波接一波，一波比一波强。你能爬到多高？每周一更新新排行榜。'
     },
     woods: {
       name: '低语森林',
@@ -2899,6 +2899,30 @@ export default {
       order: '祝福：生命 +5%',
       syndicate: '祝福：击杀获得的金币 +10%',
       circle: '祝福：法力回复 +10%'
+    }
+  },
+  ladder: {
+    tab: '斗技场',
+    wave: '波',
+    week: '本周：{mod}',
+    weekBest: '本周最佳：第 {n} 波',
+    yourBest: '你的本周最佳：第 {n} 波',
+    none: '本周还没有挑战记录。',
+    mod: {
+      fire: '全是火焰',
+      nopotions: '禁用药水',
+      glass: '玻璃',
+      swarm: '蜂拥',
+      elites: '精英游行',
+      haste: '加速'
+    },
+    modDesc: {
+      fire: '敌人的每次攻击都是火焰',
+      nopotions: '没有药水',
+      glass: '所有人的攻击力提高 50%',
+      swarm: '敌人更多，但各自的生命更少',
+      elites: '每一波都有一位冠军',
+      haste: '敌人移动和攻击都更快'
     }
   }
 }

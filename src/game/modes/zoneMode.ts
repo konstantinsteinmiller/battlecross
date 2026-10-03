@@ -8,10 +8,11 @@ import { sceneQuality } from '../engine/quality'
 import { sfx } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SKILL_BY_ID } from '../data/skills'
-import { TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
+import { ARENA_WAVES, TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
-import { leaveVisit } from '../sim/director'
+import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
+import type { ArenaMod } from '../arenaWeek'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
@@ -81,6 +82,8 @@ export interface ZoneSetup {
   dragonAlly?: boolean
   /** A random encounter met on the world map: its packs (`generateEncounter`). */
   encounter?: string[][]
+  /** The colosseum's weekly modifier (roadmap #10). */
+  arenaMod?: ArenaMod
   flags: ReadonlySet<string>
 }
 
@@ -226,12 +229,14 @@ export class ZoneMode implements GameMode {
           })
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
+    if (setup.arenaMod) sim.arenaMod = setup.arenaMod
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
-      potions: setup.kind === 'town' ? 0 : profile.inv.potions,
+      // A "No potions" week in the colosseum (#10) carries none in.
+      potions: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? 0 : profile.inv.potions,
       // Mana potions are a carried stock: as many slots as the health belt has.
-      manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions,
+      manaPotions: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions,
       rested: setup.kind === 'town' ? 0 : profile.meta.rested
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
@@ -268,7 +273,7 @@ export class ZoneMode implements GameMode {
     const skills = sim.hero.skills
     if (skills.includes('royalGuard') || skills.includes('armyOfTheRealm')) { kinds.add('guard'); kinds.add('archer'); kinds.add('mage') }
     if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
-    if (setup.kind === 'arena') for (const id of ['goblin', 'goblinSlinger', 'wolf', 'bandit', 'banditChief']) kinds.add(id)
+    if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
     // The hero is a job of its own too (his rig is the richest: ~0.1 s at 4× CPU).
     jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped, profile.hero.gender)))
@@ -513,7 +518,7 @@ export class ZoneMode implements GameMode {
     if (i.potionQueued && usePotion(sim)) coach.use('potion')
     if (i.manaPotionQueued && useManaPotion(sim)) { coach.use('mana'); markRevealUsed('mana') }
     if (i.targetQueued) cycleTarget(sim)
-    if (i.leaveQueued && leaveVisit(sim)) sfx('uiOpen')
+    if (i.leaveQueued && (leaveVisit(sim) || leaveLadder(sim))) sfx('uiOpen')
     if (i.interactQueued) {
       const u = h.unit
       let best: Unit | undefined
@@ -1045,6 +1050,7 @@ export class ZoneMode implements GameMode {
     hud.groupsDone = sim.groupsDone
     hud.groupsTotal = sim.groups.length
     hud.wave = sim.wave.n
+    hud.arenaMod = sim.arenaMod
     hud.zoneKey = this.setup.zone ?? this.setup.town ?? 'arena'
     hud.zoneLevel = sim.level
     // The townsperson within reach.
@@ -1063,7 +1069,9 @@ export class ZoneMode implements GameMode {
     hud.interactChest = ((!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && nearChest(sim)?.tier) || ''
     // After the finale falls: the Leave button, whether the finale's chest is
     // open yet, and how many chests the place still holds.
-    hud.canLeave = this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving
+    hud.canLeave = (this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving) ||
+      // The ladder (#10): between waves, from the eighth on.
+      (this.setup.kind === 'arena' && !sim.ended && sim.wave.alive === 0 && sim.wave.cleared >= ARENA_WAVES)
     let left = 0
     let finaleOpen = false
     for (const c of sim.chests) {

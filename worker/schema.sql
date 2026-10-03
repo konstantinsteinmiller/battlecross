@@ -25,3 +25,18 @@ CREATE TABLE IF NOT EXISTS board_cache (
   json       TEXT NOT NULL,
   updated_at INTEGER NOT NULL
 );
+
+-- The colosseum's weekly ladder (roadmap #10): one row per player per ISO week
+-- (UTC, "2026-W40"), the best wave they cleared that week. A new week is a
+-- fresh board; old weeks stay as history and are never read.
+CREATE TABLE IF NOT EXISTS ladder (
+  week       TEXT NOT NULL,
+  id         TEXT NOT NULL,
+  name       TEXT NOT NULL,
+  wave       INTEGER NOT NULL,
+  -- The hero level, shown beside the wave.
+  flair      INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY (week, id)
+);
+CREATE INDEX IF NOT EXISTS idx_ladder_rank ON ladder (week, wave DESC, updated_at ASC);

@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'Koloseum',
-      desc: 'Osiem fal, każda trudniejsza od poprzedniej. Złoto i chwała dla tego, kto ustoi na nogach.'
+      desc: 'Fala za falą, każda trudniejsza od poprzedniej. Jak wysoko się wespniesz? Nowa tablica co poniedziałek.'
     },
     woods: {
       name: 'Szepczący Las',
@@ -2985,6 +2985,30 @@ export default {
       order__f: 'Błogosławiona: +5% zdrowia',
       syndicate__f: 'Błogosławiona: +10% złota z zabójstw',
       circle__f: 'Błogosławiona: +10% regeneracji many'
+    }
+  },
+  ladder: {
+    tab: 'Koloseum',
+    wave: 'Fala',
+    week: 'W tym tygodniu: {mod}',
+    weekBest: 'Najlepszy wynik tygodnia: fala {n}',
+    yourBest: 'Twój najlepszy wynik w tym tygodniu: fala {n}',
+    none: 'W tym tygodniu jeszcze bez wspinaczki.',
+    mod: {
+      fire: 'Wszystko w ogniu',
+      nopotions: 'Bez mikstur',
+      glass: 'Szkło',
+      swarm: 'Rój',
+      elites: 'Parada elit',
+      haste: 'Pośpiech'
+    },
+    modDesc: {
+      fire: 'każdy cios wroga to ogień',
+      nopotions: 'żadnych mikstur',
+      glass: 'wszyscy biją o 50% mocniej',
+      swarm: 'więcej wrogów, każdy z mniejszym zdrowiem',
+      elites: 'mistrz w każdej fali',
+      haste: 'wrogowie poruszają się i biją szybciej'
     }
   }
 }

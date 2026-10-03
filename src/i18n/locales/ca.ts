@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'El Colosseu',
-      desc: 'Vuit onades, cadascuna més dura que l’anterior. Or i glòria per a qui quedi dret.'
+      desc: 'Onada rere onada, cadascuna més dura que l’anterior. Fins on pots arribar? Una classificació nova cada dilluns.'
     },
     woods: {
       name: 'Bosc dels Murmuris',
@@ -2936,6 +2936,30 @@ export default {
       order__f: 'Beneïda: +5% de salut',
       syndicate__f: 'Beneïda: +10% d’or de les baixes',
       circle__f: 'Beneïda: +10% de regeneració de manà'
+    }
+  },
+  ladder: {
+    tab: 'Colosseu',
+    wave: 'Onada',
+    week: 'Aquesta setmana: {mod}',
+    weekBest: 'Millor d’aquesta setmana: onada {n}',
+    yourBest: 'El teu millor d’aquesta setmana: onada {n}',
+    none: 'Encara no hi ha cap pujada aquesta setmana.',
+    mod: {
+      fire: 'Tot foc',
+      nopotions: 'Sense pocions',
+      glass: 'Vidre',
+      swarm: 'Eixam',
+      elites: 'Desfilada d’elit',
+      haste: 'Pressa'
+    },
+    modDesc: {
+      fire: 'cada cop enemic és de foc',
+      nopotions: 'sense pocions',
+      glass: 'tothom pega un 50% més fort',
+      swarm: 'més enemics, amb menys salut cadascun',
+      elites: 'un campió a cada onada',
+      haste: 'els enemics es mouen i ataquen més de pressa'
     }
   }
 }

@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Koloseum',
-      desc: 'Delapan gelombang, makin lama makin sulit. Emas dan kejayaan bagi siapa pun yang masih berdiri.'
+      desc: 'Gelombang demi gelombang, makin lama makin sulit. Sejauh mana kamu bisa naik? Papan baru setiap Senin.'
     },
     woods: {
       name: 'Hutan Berbisik',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Diberkati: +5% nyawa',
       syndicate: 'Diberkati: +10% emas dari kill',
       circle: 'Diberkati: +10% regenerasi mana'
+    }
+  },
+  ladder: {
+    tab: 'Koloseum',
+    wave: 'Gelombang',
+    week: 'Minggu ini: {mod}',
+    weekBest: 'Terbaik minggu ini: gelombang {n}',
+    yourBest: 'Terbaikmu minggu ini: gelombang {n}',
+    none: 'Belum ada pendakian minggu ini.',
+    mod: {
+      fire: 'Serba api',
+      nopotions: 'Tanpa ramuan',
+      glass: 'Kaca',
+      swarm: 'Kawanan',
+      elites: 'Parade elit',
+      haste: 'Tergesa'
+    },
+    modDesc: {
+      fire: 'setiap pukulan musuh adalah api',
+      nopotions: 'tanpa ramuan',
+      glass: 'semua memukul 50% lebih keras',
+      swarm: 'lebih banyak musuh, nyawa masing-masing lebih sedikit',
+      elites: 'satu juara di setiap gelombang',
+      haste: 'musuh bergerak dan menyerang lebih cepat'
     }
   }
 }

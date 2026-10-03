@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'O Coliseu',
-      desc: 'Oito vagas, cada uma mais dura do que a anterior. Ouro e glória para quem ficar de pé.'
+      desc: 'Vaga após vaga, cada uma mais dura do que a anterior. Até onde consegues subir? Uma nova tabela todas as segundas-feiras.'
     },
     woods: {
       name: 'Bosque Sussurrante',
@@ -2938,6 +2938,30 @@ export default {
       order__f: 'Abençoada: +5% de vida',
       syndicate__f: 'Abençoada: +10% de ouro das baixas',
       circle__f: 'Abençoada: +10% de regeneração de mana'
+    }
+  },
+  ladder: {
+    tab: 'Coliseu',
+    wave: 'Vaga',
+    week: 'Esta semana: {mod}',
+    weekBest: 'Melhor da semana: vaga {n}',
+    yourBest: 'O teu melhor esta semana: vaga {n}',
+    none: 'Ainda sem subida esta semana.',
+    mod: {
+      fire: 'Tudo fogo',
+      nopotions: 'Sem poções',
+      glass: 'Vidro',
+      swarm: 'Enxame',
+      elites: 'Desfile de elite',
+      haste: 'Pressa'
+    },
+    modDesc: {
+      fire: 'cada golpe inimigo é de fogo',
+      nopotions: 'sem poções',
+      glass: 'todos batem 50% mais forte',
+      swarm: 'mais inimigos, com menos vida cada um',
+      elites: 'um campeão em cada vaga',
+      haste: 'os inimigos movem-se e batem mais depressa'
     }
   }
 }

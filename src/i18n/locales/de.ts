@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'Das Kolosseum',
-      desc: 'Acht Wellen, jede härter als die letzte. Gold und Ruhm für alle, die am Ende noch stehen.'
+      desc: 'Welle um Welle, jede härter als die letzte. Wie weit schaffst du es? Jeden Montag eine neue Rangliste.'
     },
     woods: {
       name: 'Flüsterwald',
@@ -2915,6 +2915,30 @@ export default {
       order: 'Gesegnet: +5 % Leben',
       syndicate: 'Gesegnet: +10 % Gold durch Kills',
       circle: 'Gesegnet: +10 % Manaregeneration'
+    }
+  },
+  ladder: {
+    tab: 'Kolosseum',
+    wave: 'Welle',
+    week: 'Diese Woche: {mod}',
+    weekBest: 'Bestwert diese Woche: Welle {n}',
+    yourBest: 'Dein Bestwert diese Woche: Welle {n}',
+    none: 'Diese Woche noch kein Aufstieg.',
+    mod: {
+      fire: 'Alles Feuer',
+      nopotions: 'Keine Tränke',
+      glass: 'Glas',
+      swarm: 'Schwarm',
+      elites: 'Elite-Parade',
+      haste: 'Hast'
+    },
+    modDesc: {
+      fire: 'jeder Treffer der Gegner ist Feuer',
+      nopotions: 'keine Tränke',
+      glass: 'alle schlagen 50 % härter zu',
+      swarm: 'mehr Gegner, jeder mit weniger Leben',
+      elites: 'ein Champion in jeder Welle',
+      haste: 'Gegner bewegen sich und schlagen schneller'
     }
   }
 }

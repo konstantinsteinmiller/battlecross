@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'O Coliseu',
-      desc: 'Oito ondas, cada uma mais difícil que a anterior. Ouro e glória para quem ficar de pé.'
+      desc: 'Onda após onda, cada uma mais difícil que a anterior. Até onde você consegue subir? Um novo ranking toda segunda-feira.'
     },
     woods: {
       name: 'Bosque Sussurrante',
@@ -2940,6 +2940,30 @@ export default {
       order__f: 'Abençoada: +5% de vida',
       syndicate__f: 'Abençoada: +10% de ouro dos abates',
       circle__f: 'Abençoada: +10% de regeneração de mana'
+    }
+  },
+  ladder: {
+    tab: 'Coliseu',
+    wave: 'Onda',
+    week: 'Esta semana: {mod}',
+    weekBest: 'Melhor da semana: onda {n}',
+    yourBest: 'Seu melhor desta semana: onda {n}',
+    none: 'Ainda sem subida esta semana.',
+    mod: {
+      fire: 'Tudo fogo',
+      nopotions: 'Sem poções',
+      glass: 'Vidro',
+      swarm: 'Enxame',
+      elites: 'Desfile de elite',
+      haste: 'Pressa'
+    },
+    modDesc: {
+      fire: 'cada golpe inimigo é de fogo',
+      nopotions: 'sem poções',
+      glass: 'todo mundo bate 50% mais forte',
+      swarm: 'mais inimigos, com menos vida cada um',
+      elites: 'um campeão em cada onda',
+      haste: 'os inimigos se movem e batem mais rápido'
     }
   }
 }

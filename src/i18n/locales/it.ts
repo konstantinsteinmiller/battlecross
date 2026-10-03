@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'Il Colosseo',
-      desc: 'Otto ondate, ognuna più dura della precedente. Oro e gloria a chi resta in piedi.'
+      desc: 'Ondata dopo ondata, ognuna più dura della precedente. Fin dove riesci ad arrivare? Una nuova classifica ogni lunedì.'
     },
     woods: {
       name: 'Bosco Sussurrante',
@@ -2956,6 +2956,30 @@ export default {
       order__f: 'Benedetta: +5% salute',
       syndicate__f: 'Benedetta: +10% oro dalle uccisioni',
       circle__f: 'Benedetta: +10% rigenerazione mana'
+    }
+  },
+  ladder: {
+    tab: 'Colosseo',
+    wave: 'Ondata',
+    week: 'Questa settimana: {mod}',
+    weekBest: 'Migliore della settimana: ondata {n}',
+    yourBest: 'Il tuo migliore questa settimana: ondata {n}',
+    none: 'Nessuna scalata questa settimana.',
+    mod: {
+      fire: 'Tutto fuoco',
+      nopotions: 'Niente pozioni',
+      glass: 'Vetro',
+      swarm: 'Sciame',
+      elites: 'Parata d’élite',
+      haste: 'Fretta'
+    },
+    modDesc: {
+      fire: 'ogni colpo nemico è di fuoco',
+      nopotions: 'niente pozioni',
+      glass: 'tutti colpiscono il 50% più forte',
+      swarm: 'più nemici, con meno salute ciascuno',
+      elites: 'un campione in ogni ondata',
+      haste: 'i nemici si muovono e colpiscono più in fretta'
     }
   }
 }

@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: '競技場',
-      desc: '共八波敵人，一波比一波強。撐到最後的人能拿走金幣與榮耀。'
+      desc: '一波接一波，一波比一波強。你能爬到多高？每週一更新新排行榜。'
     },
     woods: {
       name: '低語森林',
@@ -2899,6 +2899,30 @@ export default {
       order: '祝福：生命 +5%',
       syndicate: '祝福：擊殺獲得的金幣 +10%',
       circle: '祝福：魔力回復 +10%'
+    }
+  },
+  ladder: {
+    tab: '競技場',
+    wave: '波',
+    week: '本週：{mod}',
+    weekBest: '本週最佳：第 {n} 波',
+    yourBest: '你的本週最佳：第 {n} 波',
+    none: '本週還沒有挑戰紀錄。',
+    mod: {
+      fire: '全是火焰',
+      nopotions: '禁用藥水',
+      glass: '玻璃',
+      swarm: '蜂擁',
+      elites: '菁英遊行',
+      haste: '加速'
+    },
+    modDesc: {
+      fire: '敵人的每次攻擊都是火焰',
+      nopotions: '沒有藥水',
+      glass: '所有人的攻擊力提高 50%',
+      swarm: '敵人更多，但各自的生命更少',
+      elites: '每一波都有一位冠軍',
+      haste: '敵人移動和攻擊都更快'
     }
   }
 }

@@ -13,7 +13,7 @@ vi.mock('vue-i18n', () => ({ useI18n: () => ({ t: (k: string, p?: Record<string,
 vi.mock('@/game/engine/app', () => ({ app: { mode: null, setMode() {}, setWanted() {}, setSuspended() {}, renderOnce() {} } }))
 vi.mock('@/game/engine/quality', () => ({ sceneQuality: () => 'low' }))
 vi.mock('@/use/usePortalLeaderboard', () => ({ joinPortalBoard: async () => {}, reportPortalBest: async () => {} }))
-vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
+vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {}, reportLadder: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => {} }))
 vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInterstitialShown: () => {}, canOfferReward: { value: false }, isRewardGated: false, adInFlight: { value: false }, claimReward: async () => false }))
 vi.mock('@/utils/pokiPlugin', () => ({ pokiMeasure: () => {} }))

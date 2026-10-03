@@ -193,7 +193,7 @@ export default {
     },
     arena: {
       name: 'Koloseum',
-      desc: 'Osam valova, svaki teži od prethodnog. Zlato i slava onome tko ostane na nogama.'
+      desc: 'Val za valom, svaki teži od prethodnog. Koliko visoko možeš? Nova ljestvica svakog ponedjeljka.'
     },
     woods: {
       name: 'Šaptava šuma',
@@ -2994,6 +2994,30 @@ export default {
       order__f: 'Blagoslovljena: +5% zdravlja',
       syndicate__f: 'Blagoslovljena: +10% zlata od ubojstava',
       circle__f: 'Blagoslovljena: +10% regeneracije mane'
+    }
+  },
+  ladder: {
+    tab: 'Koloseum',
+    wave: 'Val',
+    week: 'Ovaj tjedan: {mod}',
+    weekBest: 'Najbolje ovaj tjedan: val {n}',
+    yourBest: 'Tvoj najbolji ovaj tjedan: val {n}',
+    none: 'Ovaj tjedan još nema uspona.',
+    mod: {
+      fire: 'Sve u vatri',
+      nopotions: 'Bez napitaka',
+      glass: 'Staklo',
+      swarm: 'Roj',
+      elites: 'Parada elite',
+      haste: 'Žurba'
+    },
+    modDesc: {
+      fire: 'svaki neprijateljski udarac je vatra',
+      nopotions: 'nema napitaka',
+      glass: 'svi udaraju 50% jače',
+      swarm: 'više neprijatelja, svaki s manje zdravlja',
+      elites: 'prvak u svakom valu',
+      haste: 'neprijatelji se kreću i udaraju brže'
     }
   }
 }

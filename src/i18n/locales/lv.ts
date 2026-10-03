@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Kolizejs',
-      desc: 'Astoņi viļņi, katrs grūtāks par iepriekšējo. Zelts un slava tam, kurš paliek kājās.'
+      desc: 'Vilnis pēc viļņa, katrs grūtāks par iepriekšējo. Cik augstu vari uzkāpt? Katru pirmdienu jauna tabula.'
     },
     woods: {
       name: 'Čukstošais mežs',
@@ -2963,6 +2963,30 @@ export default {
       order__f: 'Svētīta: +5% veselības',
       syndicate__f: 'Svētīta: +10% zelta par uzvarētiem',
       circle__f: 'Svētīta: +10% manas atjaunošanās'
+    }
+  },
+  ladder: {
+    tab: 'Kolizejs',
+    wave: 'Vilnis',
+    week: 'Šonedēļ: {mod}',
+    weekBest: 'Nedēļas labākais: {n}. vilnis',
+    yourBest: 'Tavs labākais šonedēļ: {n}. vilnis',
+    none: 'Šonedēļ vēl nav uzkāpts.',
+    mod: {
+      fire: 'Viss uguns',
+      nopotions: 'Bez dziru',
+      glass: 'Stikls',
+      swarm: 'Bars',
+      elites: 'Elites parāde',
+      haste: 'Steiga'
+    },
+    modDesc: {
+      fire: 'katrs ienaidnieka sitiens ir uguns',
+      nopotions: 'nav dziru',
+      glass: 'visi sit par 50 % spēcīgāk',
+      swarm: 'vairāk ienaidnieku, katram mazāk veselības',
+      elites: 'čempions katrā vilnī',
+      haste: 'ienaidnieki kustas un sit ātrāk'
     }
   }
 }

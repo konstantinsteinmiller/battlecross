@@ -6,9 +6,11 @@ import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import { playerDisplayName } from '@/use/usePlayerIdentity'
 import {
-  ensureBoard, leaderboard, leaderboardFailed,
+  ensureBoard, ensureLadder, ladder, ladderFailed, ladderPending, leaderboard, leaderboardFailed, leaderboardListEnabled,
   leaderboardPending, playerTotal, rankFor, rankTotalFor
 } from '@/use/useLeaderboard'
+import { arenaModOf } from '@/game/arenaWeek'
+import { arenaWeekBest } from '@/game/state/profile'
 import { formatCount } from '@/utils/localeNumber'
 import {
   ensurePortalBoard, portalBoardLabel, portalBoardLoaded, portalBoardPending,
@@ -111,15 +113,20 @@ const showEmpty = computed(() =>
  * renders them in place of the title ribbon). A shell without tabs needs its
  * own two-button row with `role="tablist"` / `role="tab"` / `aria-selected`.
  */
-const activeTab = ref<'global' | 'portal'>('global')
+const activeTab = ref<'global' | 'portal' | 'ladder'>('global')
 
-const tabs = computed(() => portalBoardVisible.value && portalBoardLabel.value
-  ? [
-    { label: t('leaderboard.tabGlobal'), value: 'global' },
-    // A brand name, deliberately untranslated.
-    { label: portalBoardLabel.value, value: 'portal' }
-  ]
-  : [])
+/** The colosseum's weekly ladder (#10) is always a tab: live builds list the
+ *  week's best waves, the others show the player's own. */
+const tabs = computed(() => [
+  { label: t('leaderboard.tabGlobal'), value: 'global' },
+  { label: t('ladder.tab'), value: 'ladder' },
+  // A brand name, deliberately untranslated.
+  ...(portalBoardVisible.value && portalBoardLabel.value ? [{ label: portalBoardLabel.value, value: 'portal' }] : [])
+])
+const showLadder = computed(() => activeTab.value === 'ladder')
+const ladderMod = arenaModOf()
+const ladderEntries = computed(() => ladder.value?.entries ?? [])
+const weekBest = computed(() => arenaWeekBest())
 
 const showPortal = computed(() => portalBoardVisible.value && activeTab.value === 'portal')
 const showPortalLoading = computed(() => portalBoardPending.value && portalEntries.value.length === 0)
@@ -133,6 +140,7 @@ const showPortalEmpty = computed(() =>
 watch(model, (open) => {
   if (!open) return
   void ensureBoard()
+  void ensureLadder()
   // Same rules for the portal's board; a no-op on every build without one.
   void ensurePortalBoard()
   void playerDisplayName().then((name) => { ownName.value = name })
@@ -170,6 +178,31 @@ watch(model, (open) => {
             span.board-row__name-text {{ entry.name || t('leaderboard.player') }}
             span.board-row__you(v-if="entry.isYou") {{ t('leaderboard.you') }}
           span.board-row__score {{ entry.score }}
+
+    //- The colosseum's week (#10): this week's best waves, and the player's own.
+    div.board(v-else-if="showLadder" data-ladder)
+      p.board__week {{ t('ladder.week', { mod: t(`ladder.mod.${ladderMod}`) }) }}
+      template(v-if="leaderboardListEnabled")
+        div.board__head.is-portal
+          span.board__col.is-rank {{ t('leaderboard.rank') }}
+          span.board__col.is-name {{ t('leaderboard.player') }}
+          span.board__col.is-score {{ t('ladder.wave') }}
+        div.board__state(v-if="ladderPending && !ladderEntries.length") {{ t('leaderboard.loading') }}
+        div.board__state.is-failed(v-else-if="ladderFailed && !ladderEntries.length") {{ t('leaderboard.failed') }}
+        div.board__state(v-else-if="!ladderEntries.length") {{ t('leaderboard.empty') }}
+        div.board__list(v-else)
+          div.board-row.is-portal(
+            v-for="(entry, i) in ladderEntries"
+            :key="`ladder-${entry.rank}-${i}`"
+            :class="{ 'is-you': isYou(entry.name) }"
+          )
+            span.board-row__rank {{ fmt(entry.rank) }}
+            span.board-row__name
+              span.board-row__name-text {{ entry.name }}
+              span.board-row__you(v-if="isYou(entry.name)") {{ t('leaderboard.you') }}
+            span.board-row__score {{ entry.wave }}
+      div.board__footer
+        span.board__footer-rank {{ weekBest > 0 ? t('ladder.yourBest', { n: weekBest }) : t('ladder.none') }}
 
     div.board(v-else)
       div.board__head
@@ -233,6 +266,11 @@ $cols: clamp(1.6rem, 8vw, 2.4rem) minmax(0, 1fr) clamp(2rem, 9vw, 3rem) clamp(2.
 // The portal's board has no flair column, so the name takes that width.
 $cols-portal: clamp(1.6rem, 8vw, 2.4rem) minmax(0, 1fr) clamp(2rem, 9vw, 3rem)
 
+.board__week
+  margin: 0
+  text-align: center
+  font-weight: 800
+  font-size: clamp(0.72rem, 3vmin, 0.92rem)
 .board
   display: flex
   flex-direction: column

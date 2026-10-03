@@ -11,6 +11,7 @@ import {
   CONTRACT_REP, GIFT_GOLD, REP_BLESSING, REP_GIFT, contractGold, countDeeds, giftItem, postContracts, type Contract, type VisitDeeds
 } from '../contracts'
 import type { ZoneId } from '../data/items'
+import { weekKey } from '../arenaWeek'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
@@ -152,8 +153,16 @@ export interface ContractsSave {
   list: Contract[]
 }
 
+/** The colosseum's week (roadmap #10). */
+export interface ArenaWeekSave {
+  /** The ISO week the best below belongs to. */
+  week: string
+  best: number
+}
+
 export interface MetaSave {
   shelf: ShelfSave
+  arena: ArenaWeekSave
   contracts: ContractsSave
   /** Factions whose +3 gift was collected. */
   repGifts: FactionId[]
@@ -224,7 +233,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -355,6 +364,8 @@ export const loadProfile = (): void => {
   }
   meta.presets = presets
   meta.respecs = Math.max(0, Math.round(num(meta.respecs, 0)))
+  const aw = obj(meta.arena, d.meta.arena)
+  meta.arena = { week: typeof aw.week === 'string' ? aw.week : '', best: Math.max(0, Math.round(num(aw.best, 0))) }
   // Contracts (#15): a day's list as posted; anything malformed is dropped
   // and the board posts afresh.
   const cs = obj(meta.contracts, d.meta.contracts)
@@ -627,6 +638,22 @@ export const markSeen = (id: string): void => {
 export const buyCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   return it ? Math.max(1, Math.round(itemPriceOf(it) * (1 - shopDiscount(totalAttrs().cha)))) : 0
+}
+
+// ─── The colosseum's ladder (roadmap #10) ────────────────────────────────────
+
+/** This week's best wave (0 when the week has none yet). */
+export const arenaWeekBest = (): number => (profile.meta.arena.week === weekKey() ? profile.meta.arena.best : 0)
+
+/** Fold a climb into the bests. Returns the all-time best before it, whether
+ *  it beat it, and this week's best after it (and whether that moved). */
+export const recordArenaWaves = (waves: number): { best: number; isNew: boolean; week: number; weekBest: number; isNewWeek: boolean } => {
+  const before = profile.world.arenaBest
+  profile.world.arenaBest = Math.max(before, waves)
+  const wk = weekKey()
+  const weekBefore = arenaWeekBest()
+  profile.meta.arena = { week: wk, best: Math.max(weekBefore, waves) }
+  return { best: before, isNew: waves > before, week: profile.meta.arena.best, weekBest: profile.meta.arena.best, isNewWeek: waves > weekBefore }
 }
 
 // ─── Faction contracts and standing (roadmap #15) ────────────────────────────

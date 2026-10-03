@@ -21,7 +21,7 @@ vi.mock('@/use/usePortalLeaderboard', () => ({
   joinPortalBoard: async (best: number) => { h.join.push(best) },
   reportPortalBest: async (best: number) => { h.best.push(best) }
 }))
-vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
+vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {}, reportLadder: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => {} }))
 vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInterstitialShown: () => {}, canOfferReward: { value: false }, isRewardGated: false, adInFlight: { value: false }, claimReward: async () => false }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))

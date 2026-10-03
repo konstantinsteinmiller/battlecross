@@ -9,7 +9,7 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
 
 const ads = vi.hoisted(() => ({ shown: 0, can: true, order: [] as string[], reward: true, rewardOk: true }))
 vi.mock('@/use/usePortalLeaderboard', () => ({ joinPortalBoard: async () => {}, reportPortalBest: async () => {} }))
-vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {} }))
+vi.mock('@/use/useLeaderboard', () => ({ reportRun: async () => {}, reportLadder: async () => {} }))
 vi.mock('@/use/useAds', () => ({ showMidgameAd: async () => { ads.shown++; ads.order.push('ad') } }))
 vi.mock('@/use/useAdGate', () => {
   return {

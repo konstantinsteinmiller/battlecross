@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'El Coliseo',
-      desc: 'Ocho oleadas, cada una más dura que la anterior. Oro y gloria para quien siga en pie.'
+      desc: 'Oleada tras oleada, cada una más dura que la anterior. ¿Hasta dónde puedes llegar? Un ranking nuevo cada lunes.'
     },
     woods: {
       name: 'Bosque Susurrante',
@@ -2934,6 +2934,30 @@ export default {
       order__f: 'Bendecida: +5 % de vida',
       syndicate__f: 'Bendecida: +10 % de oro por bajas',
       circle__f: 'Bendecida: +10 % de regeneración de maná'
+    }
+  },
+  ladder: {
+    tab: 'Coliseo',
+    wave: 'Oleada',
+    week: 'Esta semana: {mod}',
+    weekBest: 'Mejor de esta semana: oleada {n}',
+    yourBest: 'Tu mejor de esta semana: oleada {n}',
+    none: 'Aún no hay ascenso esta semana.',
+    mod: {
+      fire: 'Todo fuego',
+      nopotions: 'Sin pociones',
+      glass: 'Cristal',
+      swarm: 'Enjambre',
+      elites: 'Desfile de élite',
+      haste: 'Prisa'
+    },
+    modDesc: {
+      fire: 'cada golpe enemigo es de fuego',
+      nopotions: 'sin pociones',
+      glass: 'todos pegan un 50 % más fuerte',
+      swarm: 'más enemigos, con menos salud cada uno',
+      elites: 'un campeón en cada oleada',
+      haste: 'los enemigos se mueven y golpean más rápido'
     }
   }
 }

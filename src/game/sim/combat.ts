@@ -4,6 +4,7 @@ import { killGold, killXp, addXp } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
 import { RESTED_XP } from '../rested'
 import { BLESSING } from '../contracts'
+import { GLASS_DAMAGE } from '../arenaWeek'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
 import { atPeace, findStatus, hasStatus, statusV, type Sim } from './world'
@@ -204,6 +205,10 @@ export { wakeGroup }
  */
 export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, o: HitOpts): number => {
   if (!tgt.alive || base <= 0) return 0
+  // The colosseum's week (#10): Glass makes every blow harder; All fire turns
+  // every enemy blow to fire.
+  if (sim.arenaMod === 'glass') base *= GLASS_DAMAGE
+  else if (sim.arenaMod === 'fire' && src && src.team === 1 && o.type !== 'fire') o = { ...o, type: 'fire' }
   // A won zone: the main chain's leftovers neither hurt nor are hurt; a side
   // pack is still a fight (`atPeace`). Nothing else harms the hero then.
   if (sim.ended === 'victory' && sim.mode === 'zone') {

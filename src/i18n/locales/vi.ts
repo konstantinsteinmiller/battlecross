@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Đấu Trường',
-      desc: 'Tám đợt, đợt sau khó hơn đợt trước. Vàng và vinh quang cho ai còn đứng vững.'
+      desc: 'Hết đợt này đến đợt khác, đợt sau khó hơn đợt trước. Bạn leo được bao xa? Bảng mới mỗi thứ Hai.'
     },
     woods: {
       name: 'Rừng Thì Thầm',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Được ban phước: +5% máu',
       syndicate: 'Được ban phước: +10% vàng khi hạ địch',
       circle: 'Được ban phước: +10% hồi mana'
+    }
+  },
+  ladder: {
+    tab: 'Đấu Trường',
+    wave: 'Đợt',
+    week: 'Tuần này: {mod}',
+    weekBest: 'Tốt nhất tuần này: đợt {n}',
+    yourBest: 'Kỷ lục của bạn tuần này: đợt {n}',
+    none: 'Tuần này chưa có lượt leo nào.',
+    mod: {
+      fire: 'Toàn lửa',
+      nopotions: 'Không bình thuốc',
+      glass: 'Thủy tinh',
+      swarm: 'Bầy đàn',
+      elites: 'Diễu hành tinh anh',
+      haste: 'Gấp gáp'
+    },
+    modDesc: {
+      fire: 'mọi đòn của kẻ địch đều là lửa',
+      nopotions: 'không có bình thuốc',
+      glass: 'ai cũng đánh mạnh hơn 50%',
+      swarm: 'nhiều kẻ địch hơn, mỗi con ít máu hơn',
+      elites: 'một nhà vô địch trong mỗi đợt',
+      haste: 'kẻ địch di chuyển và đánh nhanh hơn'
     }
   }
 }

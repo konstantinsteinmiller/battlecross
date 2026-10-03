@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Kolizey',
-      desc: 'Səkkiz dalğa, hər biri əvvəlkindən çətin. Ayaq üstə qalana qızıl və şöhrət.'
+      desc: 'Dalğa ardınca dalğa, hər biri əvvəlkindən çətin. Nə qədər qalxa bilərsən? Hər bazar ertəsi yeni lövhə.'
     },
     woods: {
       name: 'Pıçıldayan Meşə',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Xeyir-dua: +5% can',
       syndicate: 'Xeyir-dua: +10% öldürmələrdən qızıl',
       circle: 'Xeyir-dua: +10% mana bərpası'
+    }
+  },
+  ladder: {
+    tab: 'Kolizey',
+    wave: 'Dalğa',
+    week: 'Bu həftə: {mod}',
+    weekBest: 'Bu həftənin ən yaxşısı: dalğa {n}',
+    yourBest: 'Bu həftəki ən yaxşın: dalğa {n}',
+    none: 'Bu həftə hələ qalxış yoxdur.',
+    mod: {
+      fire: 'Hər şey od',
+      nopotions: 'İksirsiz',
+      glass: 'Şüşə',
+      swarm: 'Sürü',
+      elites: 'Elit paradı',
+      haste: 'Sürət'
+    },
+    modDesc: {
+      fire: 'düşmənin hər zərbəsi oddur',
+      nopotions: 'iksir yoxdur',
+      glass: 'hamı 50% daha güclü vurur',
+      swarm: 'daha çox düşmən, hərəsində az can',
+      elites: 'hər dalğada bir çempion',
+      haste: 'düşmənlər daha sürətli hərəkət edir və vurur'
     }
   }
 }

@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'A Kolosszeum',
-      desc: 'Nyolc hullám, mind nehezebb az előzőnél. Arany és dicsőség annak, aki állva marad.'
+      desc: 'Hullám hullám után, mind nehezebb az előzőnél. Meddig jutsz el? Minden hétfőn új ranglista.'
     },
     woods: {
       name: 'Suttogó-erdő',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Megáldva: +5% életerő',
       syndicate: 'Megáldva: +10% arany a legyőzöttekből',
       circle: 'Megáldva: +10% mana-regeneráció'
+    }
+  },
+  ladder: {
+    tab: 'Kolosszeum',
+    wave: 'Hullám',
+    week: 'Ezen a héten: {mod}',
+    weekBest: 'A hét legjobbja: {n}. hullám',
+    yourBest: 'A te legjobbad a héten: {n}. hullám',
+    none: 'Ezen a héten még nincs mászás.',
+    mod: {
+      fire: 'Csupa tűz',
+      nopotions: 'Nincs bájital',
+      glass: 'Üveg',
+      swarm: 'Raj',
+      elites: 'Elit felvonulás',
+      haste: 'Sietség'
+    },
+    modDesc: {
+      fire: 'minden ellenséges ütés tüzes',
+      nopotions: 'nincs bájital',
+      glass: 'mindenki 50%-kal erősebben üt',
+      swarm: 'több ellenség, egyenként kevesebb élettel',
+      elites: 'bajnok minden hullámban',
+      haste: 'az ellenségek gyorsabban mozognak és ütnek'
     }
   }
 }

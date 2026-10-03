@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: '콜로세움',
-      desc: '여덟 번의 웨이브, 갈수록 더 거세진다. 끝까지 서 있는 자에게 골드와 영광을.'
+      desc: '웨이브가 이어질수록 더 거세진다. 어디까지 올라갈 수 있을까? 매주 월요일 새 순위표.'
     },
     woods: {
       name: '속삭이는 숲',
@@ -2899,6 +2899,30 @@ export default {
       order: '축복: 체력 +5%',
       syndicate: '축복: 처치 시 골드 +10%',
       circle: '축복: 마나 회복 +10%'
+    }
+  },
+  ladder: {
+    tab: '콜로세움',
+    wave: '웨이브',
+    week: '이번 주: {mod}',
+    weekBest: '이번 주 최고 기록: 웨이브 {n}',
+    yourBest: '나의 이번 주 최고 기록: 웨이브 {n}',
+    none: '이번 주에는 아직 도전 기록이 없어요.',
+    mod: {
+      fire: '전부 불꽃',
+      nopotions: '포션 금지',
+      glass: '유리',
+      swarm: '떼거리',
+      elites: '엘리트 행진',
+      haste: '질주'
+    },
+    modDesc: {
+      fire: '적의 모든 공격이 불꽃',
+      nopotions: '포션 없음',
+      glass: '모두가 50% 더 세게 때림',
+      swarm: '적은 더 많이, 체력은 더 적게',
+      elites: '웨이브마다 챔피언 등장',
+      haste: '적이 더 빠르게 움직이고 공격함'
     }
   }
 }

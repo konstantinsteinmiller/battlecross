@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'La Koloseo',
-      desc: 'Ok ondoj, ĉiu pli malfacila ol la antaŭa. Oro kaj gloro por tiu, kiu restos staranta.'
+      desc: 'Ondo post ondo, ĉiu pli malfacila ol la antaŭa. Kiom alte vi povas grimpi? Nova listo ĉiun lundon.'
     },
     woods: {
       name: 'Flustranta Arbaro',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Benita: +5% sano',
       syndicate: 'Benita: +10% da oro de mortigoj',
       circle: 'Benita: +10% manao-regenero'
+    }
+  },
+  ladder: {
+    tab: 'Koloseo',
+    wave: 'Ondo',
+    week: 'Ĉi-semajne: {mod}',
+    weekBest: 'Plej bona ĉi-semajne: ondo {n}',
+    yourBest: 'Via plej bona ĉi-semajne: ondo {n}',
+    none: 'Ankoraŭ neniu grimpo ĉi-semajne.',
+    mod: {
+      fire: 'Ĉio fajro',
+      nopotions: 'Sen trinkaĵoj',
+      glass: 'Vitro',
+      swarm: 'Svarmo',
+      elites: 'Elita parado',
+      haste: 'Hasto'
+    },
+    modDesc: {
+      fire: 'ĉiu bato de malamiko estas fajro',
+      nopotions: 'neniuj trinkaĵoj',
+      glass: 'ĉiuj batas 50% pli forte',
+      swarm: 'pli da malamikoj, ĉiu kun malpli da sano',
+      elites: 'ĉampiono en ĉiu ondo',
+      haste: 'malamikoj moviĝas kaj batas pli rapide'
     }
   }
 }

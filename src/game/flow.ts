@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { countContracts, markChestsOpened, recordMastery, setManaPotions } from './state/profile'
+import { countContracts, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -25,7 +25,8 @@ import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markIn
 import { breakAllowed } from '@/game/adPacing'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
-import { reportRun } from '@/use/useLeaderboard'
+import { reportLadder, reportRun } from '@/use/useLeaderboard'
+import { arenaModOf } from './arenaWeek'
 import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
@@ -88,6 +89,10 @@ export interface ResultsData {
   encounter?: boolean
   /** The hero's very first visit (the opening fight): no ad follows it (#20). */
   opening?: boolean
+  /** The colosseum (#10): the best wave before this climb is folded in, whether this climb beat it, and this week's best. */
+  arenaBest?: number
+  arenaNewBest?: boolean
+  arenaWeek?: number
   /** The purse was tripled by a rewarded video (#19): `gold` stays what the
    *  run earned, twice that again went into the wallet. */
   tripled?: boolean
@@ -149,7 +154,7 @@ const setupFor = (node: NodeId): ZoneSetup => {
     return { kind: 'town', town, theme: townTheme(town), seed: hashSeed(node, 7), level: profile.level, difficulty: 1, flags }
   }
   if (def.kind === 'arena') {
-    return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags }
+    return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags, arenaMod: arenaModOf() }
   }
   const zone = ZONES[node as ZoneId]
   const hostile = hostileFaction()
@@ -178,7 +183,7 @@ export interface VisitTally {
   kills: number
   items: readonly string[]
   seconds: number
-  /** Arena: the wave reached. */
+  /** Arena: the waves fought to their last enemy. */
   waves: number
   /** Chests opened of the chests the visit held. */
   chests?: { opened: number; total: number }
@@ -505,7 +510,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   if (!mode || !node) return
   const h = mode.sim.hero
   await bankVisit(outcome, node, {
-    xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.n,
+    xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
     special: mode.sim.specialOpened, manaPotions: h.manaPotions, rested: h.rested, killKinds: h.killKinds,
     ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
@@ -546,21 +551,26 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
     const before = new Set(Object.keys(NODE_BY_ID).filter(n => isNodeOpen(n as NodeId)))
     firstClear = clearNode(node)
     profile.questsDone++
-    if (node === 'arena') profile.world.arenaBest = Math.max(profile.world.arenaBest, h.waves)
     // A finale that carries a quest brings its decision (once).
     const q = questOfNode(node)
     if (q && !profile.quests.done[q.id]) flow.quest = q.id
     for (const n of Object.keys(NODE_BY_ID)) if (!before.has(n) && isNodeOpen(n as NodeId)) unlocked.push(n as NodeId)
   } else if (outcome === 'defeat') {
     profile.stats.deaths++
-    goldLost = Math.floor(profile.gold * DEFEAT_GOLD_LOSS)
-    profile.gold -= goldLost
+    // The colosseum is a ladder: falling is how a climb ends, not a loss (#10).
+    if (node !== 'arena') {
+      goldLost = Math.floor(profile.gold * DEFEAT_GOLD_LOSS)
+      profile.gold -= goldLost
+    }
   }
+  // The colosseum's best, however the climb ended (#10): all-time and this week.
+  const arenaNew = node === 'arena' && !encounter ? recordArenaWaves(h.waves) : null
   saveProfile()
   void flushSaveNow()
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
-    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {}), ...(opening ? { opening: true } : {})
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {}), ...(opening ? { opening: true } : {}),
+    ...(arenaNew ? { arenaBest: arenaNew.best, arenaNewBest: arenaNew.isNew, arenaWeek: arenaNew.week } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
@@ -571,6 +581,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // The leaderboard, AFTER the result screen is up and never awaited: it is a
   // decoration on a game that works without it.
   void reportRun(lifetimeXp(), profile.level, { force: true })
+  if (arenaNew?.isNewWeek) void reportLadder(arenaNew.weekBest, profile.level)
   void reportPortalBest(lifetimeXp())
 }
 

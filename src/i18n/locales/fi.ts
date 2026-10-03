@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Kolosseum',
-      desc: 'Kahdeksan aaltoa, jokainen edellistä kovempi. Kultaa ja kunniaa sille, joka jää pystyyn.'
+      desc: 'Aalto aallon perään, jokainen edellistä kovempi. Kuinka pitkälle pääset? Uusi lista joka maanantai.'
     },
     woods: {
       name: 'Kuiskaava metsä',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Siunattu: +5 % terveys',
       syndicate: 'Siunattu: +10 % kultaa tapoista',
       circle: 'Siunattu: +10 % manan palautuminen'
+    }
+  },
+  ladder: {
+    tab: 'Kolosseum',
+    wave: 'Aalto',
+    week: 'Tällä viikolla: {mod}',
+    weekBest: 'Viikon paras: aalto {n}',
+    yourBest: 'Oma parhaasi tällä viikolla: aalto {n}',
+    none: 'Ei vielä nousua tällä viikolla.',
+    mod: {
+      fire: 'Pelkkää tulta',
+      nopotions: 'Ei juomia',
+      glass: 'Lasi',
+      swarm: 'Parvi',
+      elites: 'Eliittiparaati',
+      haste: 'Kiire'
+    },
+    modDesc: {
+      fire: 'jokainen vihollisen isku on tulta',
+      nopotions: 'ei juomia',
+      glass: 'kaikki iskevät 50 % kovempaa',
+      swarm: 'enemmän vihollisia, joilla kullakin on vähemmän elämää',
+      elites: 'mestari joka aallossa',
+      haste: 'viholliset liikkuvat ja iskevät nopeammin'
     }
   }
 }

@@ -307,7 +307,7 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 - [x] **17.4 Rested bonus** (#9).
 - [x] **17.5 Presets and respec** (#14).
 - [x] **17.6 Faction contracts and reputation** (#15).
-- [ ] **17.7 Colosseum ladder** (#10).
+- [x] **17.7 Colosseum ladder** (#10). Worker deployed (version 2a09c5d1), `ladder` table created on the live database.
 - [ ] **17.8 Void theme** (#16).
 
 ### Deferred

@@ -193,7 +193,7 @@ export default {
     },
     arena: {
       name: 'Koloseum',
-      desc: 'Osm vln, každá těžší než ta předchozí. Zlato a sláva tomu, kdo zůstane stát.'
+      desc: 'Vlna za vlnou, každá těžší než ta předchozí. Jak daleko to dotáhneš? Nový žebříček každé pondělí.'
     },
     woods: {
       name: 'Šeptající hvozd',
@@ -2988,6 +2988,30 @@ export default {
       order__f: 'Požehnaná: +5 % zdraví',
       syndicate__f: 'Požehnaná: +10 % zlata za zabití',
       circle__f: 'Požehnaná: +10 % regenerace many'
+    }
+  },
+  ladder: {
+    tab: 'Koloseum',
+    wave: 'Vlna',
+    week: 'Tento týden: {mod}',
+    weekBest: 'Nejlepší tento týden: vlna {n}',
+    yourBest: 'Tvůj rekord tento týden: vlna {n}',
+    none: 'Tento týden zatím žádný výstup.',
+    mod: {
+      fire: 'Samý oheň',
+      nopotions: 'Bez lektvarů',
+      glass: 'Sklo',
+      swarm: 'Roj',
+      elites: 'Přehlídka elit',
+      haste: 'Spěch'
+    },
+    modDesc: {
+      fire: 'každý úder nepřítele je ohnivý',
+      nopotions: 'žádné lektvary',
+      glass: 'všichni zasazují o 50 % silnější rány',
+      swarm: 'víc nepřátel, každý s menším zdravím',
+      elites: 'šampion v každé vlně',
+      haste: 'nepřátelé se hýbou a útočí rychleji'
     }
   }
 }

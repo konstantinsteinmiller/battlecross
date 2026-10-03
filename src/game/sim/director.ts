@@ -7,6 +7,7 @@ import { plainStats } from './stats'
 import { spawnTownPeople } from './townLife'
 import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
+import { HASTE, SWARM_COUNT, SWARM_HP } from '../arenaWeek'
 
 /**
  * ─── The encounter director ──────────────────────────────────────────────────
@@ -26,6 +27,22 @@ const ARENA_POOLS: Array<{ upTo: number; kinds: string[]; elite: string }> = [
   { upTo: 25, kinds: ['voidStalker', 'highDemon', 'wyvern', 'cultist'], elite: 'voidWarden' },
   { upTo: 99, kinds: ['highDemon', 'imp', 'voidStalker', 'voidling'], elite: 'doomKnight' }
 ]
+
+/** Every kind a colosseum at this level can send (the scene prewarms them). */
+export const arenaKinds = (level: number): string[] => {
+  const pool = ARENA_POOLS.find(p => level <= p.upTo) ?? ARENA_POOLS[ARENA_POOLS.length - 1]!
+  return [...pool.kinds, pool.elite]
+}
+
+/** The ladder (roadmap #10, D69): past the eighth wave, the gold every so many waves, and the most a wave sends. */
+export const LADDER_GOLD_EVERY = 5
+export const WAVE_CAP = 14
+/** Past wave 8: one enemy level more every this many waves, and an elite every this many. */
+const LEVEL_EVERY = 2
+const ELITE_EVERY = 3
+
+/** The colosseum's purse at a milestone (wave 8 pays the full prize, every fifth after it gold). */
+const ladderPurse = (sim: Sim, full: boolean): number => Math.round((20 + sim.level * 14) * (full ? 2.5 : 1))
 
 export const applyPlan = (sim: Sim, plan: ZonePlan): void => {
   fillGrid(sim.grid, plan)
@@ -84,22 +101,30 @@ const spawnWave = (sim: Sim): void => {
   const w = sim.wave
   w.n++
   const pool = ARENA_POOLS.find(p => sim.level <= p.upTo) ?? ARENA_POOLS[ARENA_POOLS.length - 1]!
-  const count = 2 + Math.ceil(w.n * 0.8)
+  const mod = sim.arenaMod
+  // Past the eighth wave the ladder climbs by level, not by numbers.
+  const past = Math.max(0, w.n - ARENA_WAVES)
+  const lvl = Math.floor(past / LEVEL_EVERY)
+  const count = Math.round(Math.min(WAVE_CAP, 2 + Math.ceil(w.n * 0.8)) * (mod === 'swarm' ? SWARM_COUNT : 1))
   const gates = sim.spawnPoints
+  const tune = (u: ReturnType<typeof spawnEnemy>): void => {
+    if (!u) return
+    u.awake = true
+    u.targetId = sim.hero.unit.id
+    if (mod === 'swarm') { u.s.maxHp = Math.max(1, Math.round(u.s.maxHp * SWARM_HP)); u.hp = u.s.maxHp }
+    if (mod === 'haste') { u.s.moveSpeed *= HASTE; u.s.attackSpeed *= HASTE }
+  }
   for (let i = 0; i < count; i++) {
     const g = gates[(i + w.n) % Math.max(1, gates.length)] ?? [sim.hero.unit.x + 8, sim.hero.unit.z]
     const kind = pool.kinds[Math.floor(sim.rng() * pool.kinds.length)]!
-    const u = spawnEnemy(sim, kind, g[0] + (sim.rng() - 0.5) * 2, g[1] + (sim.rng() - 0.5) * 2, 0)
-    if (u) { u.awake = true; u.targetId = sim.hero.unit.id }
+    tune(spawnEnemy(sim, kind, g[0] + (sim.rng() - 0.5) * 2, g[1] + (sim.rng() - 0.5) * 2, 0, null, lvl))
   }
-  // Every fourth wave brings a champion; the last brings two.
-  if (w.n % 4 === 0) {
-    const n = w.n >= ARENA_WAVES ? 2 : 1
-    for (let i = 0; i < n; i++) {
-      const g = gates[(i * 3) % Math.max(1, gates.length)] ?? [sim.hero.unit.x, sim.hero.unit.z - 8]
-      const u = spawnEnemy(sim, pool.elite, g[0], g[1], 0)
-      if (u) { u.awake = true; u.targetId = sim.hero.unit.id }
-    }
+  // Champions: every fourth wave up to the eighth (two on it), every third
+  // after it; every wave in an Elite parade week.
+  const elites = mod === 'elites' ? 1 : w.n <= ARENA_WAVES ? (w.n % 4 === 0 ? (w.n === ARENA_WAVES ? 2 : 1) : 0) : (past % ELITE_EVERY === 0 ? 1 : 0)
+  for (let i = 0; i < elites; i++) {
+    const g = gates[(i * 3) % Math.max(1, gates.length)] ?? [sim.hero.unit.x, sim.hero.unit.z - 8]
+    tune(spawnEnemy(sim, pool.elite, g[0], g[1], 0, null, lvl))
   }
   sim.emit({ t: 'wave', n: w.n })
 }
@@ -134,6 +159,46 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
   h.gold += bonus
   sim.emit({ t: 'loot', x: chest.x, z: chest.z, gold: bonus, item: '' })
   sim.emit({ t: 'victory' })
+}
+
+/** Seconds between ladder waves from the eighth on (the Leave button's moment). */
+export const LADDER_REST = 5
+
+/** Wave 8: the colosseum's old prize — a piece not owned yet and the full purse. */
+const ladderPrize = (sim: Sim, plan: ZonePlan | null): void => {
+  const h = sim.hero
+  const at = plan?.chest ?? { x: h.unit.x, z: h.unit.z }
+  const fresh = sim.dropTable.chest.concat(sim.dropTable.mob).filter(id => !sim.owned.has(id) && !h.items.includes(id))
+  if (fresh.length) {
+    const id = fresh[Math.floor(sim.rng() * fresh.length)]!
+    h.items.push(id)
+    sim.emit({ t: 'loot', x: at.x, z: at.z, gold: 0, item: id })
+  }
+  const gold = ladderPurse(sim, true)
+  h.gold += gold
+  sim.emit({ t: 'loot', x: at.x, z: at.z, gold, item: '' })
+  sim.emit({ t: 'fx', id: 'chest', x: at.x, z: at.z, unit: 0, color: '#ffd84a' })
+}
+
+/** Every fifth wave past the eighth: a purse. */
+const ladderGold = (sim: Sim, plan: ZonePlan | null): void => {
+  const h = sim.hero
+  const at = plan?.chest ?? { x: h.unit.x, z: h.unit.z }
+  const gold = ladderPurse(sim, false)
+  h.gold += gold
+  sim.emit({ t: 'loot', x: at.x, z: at.z, gold, item: '' })
+}
+
+/**
+ * The hero leaves the ladder between waves (the Leave button, from the eighth
+ * wave on): the visit is won, with what the waves paid.
+ */
+export const leaveLadder = (sim: Sim): boolean => {
+  if (sim.mode !== 'arena' || sim.ended || sim.wave.alive > 0 || sim.wave.cleared < ARENA_WAVES) return false
+  sim.ended = 'victory'
+  sim.endReady = true
+  sim.emit({ t: 'victory' })
+  return true
 }
 
 /** After the win: the visit closes a beat after the hero chose to leave (a
@@ -186,10 +251,18 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
     for (const u of sim.units) if (u.alive && u.team === 1) alive++
     sim.wave.alive = alive
     if (alive === 0) {
-      if (sim.wave.n >= ARENA_WAVES) { win(sim, plan); return }
-      sim.wave.rest -= dt
-      if (sim.wave.rest <= 0) {
-        sim.wave.rest = 2.4
+      const w = sim.wave
+      // A wave fought to its last enemy: the ladder's score, and its purses.
+      if (w.cleared < w.n) {
+        w.cleared = w.n
+        if (w.n === ARENA_WAVES) ladderPrize(sim, plan)
+        else if (w.n > ARENA_WAVES && (w.n - ARENA_WAVES) % LADDER_GOLD_EVERY === 0) ladderGold(sim, plan)
+        // From the eighth on, a breather long enough to choose: Leave, or on.
+        if (w.n >= ARENA_WAVES) w.rest = LADDER_REST
+      }
+      w.rest -= dt
+      if (w.rest <= 0) {
+        w.rest = 2.4
         spawnWave(sim)
       }
     }

@@ -70,6 +70,8 @@ export const SUBMITTED_SCORE_KEY = 'bc_submitted_score'
 /** The best score the PORTAL's own board accepted. Its own key: the two boards
  *  fail independently. */
 export const PORTAL_POSTED_SCORE_KEY = 'bc_portal_posted_score'
+/** The colosseum ladder's last ACCEPTED post: `{ week, wave }` (roadmap #10). */
+export const LADDER_POSTED_KEY = 'bc_ladder_posted'
 /** Whether this player already has a row on the portal's board. */
 export const PORTAL_JOINED_KEY = 'bc_portal_joined'
 

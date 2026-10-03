@@ -203,7 +203,7 @@ export default {
     'sunford': { 'name': 'Sunford', 'desc': 'A farming town at the edge of the plains. Home, a smith, and two trainers.' },
     'plains': { 'name': 'Sunford Plains', 'desc': 'Goblins, wolves and bandits pick at the caravans on the open road.' },
     'hollows': { 'name': 'Goblin Hollows', 'desc': 'The caves under the hills. The Goblin King holds court at the bottom.' },
-    'arena': { 'name': 'The Colosseum', 'desc': 'Eight waves, each harder than the last. Gold and glory for whoever is left standing.' },
+    'arena': { 'name': 'The Colosseum', 'desc': 'Wave after wave, each harder than the last. How far can you climb? A new board every Monday.' },
     'woods': { 'name': 'Whispering Woods', 'desc': 'Old trees that walk, and spiders that spin between them.' },
     'outskirts': { 'name': 'Oakhaven Outskirts', 'desc': 'The burning farms outside Oakhaven. A warlord\'s army is at the gate.' },
     'oakhaven': { 'name': 'Oakhaven', 'desc': 'A walled trade town. What it becomes is up to you.' },
@@ -1743,6 +1743,30 @@ export default {
       'order': 'Blessed: +5% health',
       'syndicate': 'Blessed: +10% gold from kills',
       'circle': 'Blessed: +10% mana regeneration'
+    }
+  },
+  'ladder': {
+    'tab': 'Colosseum',
+    'wave': 'Wave',
+    'week': 'This week: {mod}',
+    'weekBest': 'Best this week: wave {n}',
+    'yourBest': 'Your best this week: wave {n}',
+    'none': 'No climb this week yet.',
+    'mod': {
+      'fire': 'All fire',
+      'nopotions': 'No potions',
+      'glass': 'Glass',
+      'swarm': 'Swarm',
+      'elites': 'Elite parade',
+      'haste': 'Haste'
+    },
+    'modDesc': {
+      'fire': 'every enemy blow is fire',
+      'nopotions': 'no potions',
+      'glass': 'everyone hits 50% harder',
+      'swarm': 'more enemies, less health each',
+      'elites': 'a champion in every wave',
+      'haste': 'enemies move and strike faster'
     }
   }
 }

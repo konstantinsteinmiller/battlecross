@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Colosseum',
-      desc: 'Åtta vågor, var och en svårare än den förra. Guld och ära åt den som står kvar.'
+      desc: 'Våg efter våg, var och en svårare än den förra. Hur långt kan du klättra? En ny topplista varje måndag.'
     },
     woods: {
       name: 'Viskande skogen',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Välsignad: +5 % hälsa',
       syndicate: 'Välsignad: +10 % guld från nedgjorda fiender',
       circle: 'Välsignad: +10 % manaregenerering'
+    }
+  },
+  ladder: {
+    tab: 'Colosseum',
+    wave: 'Våg',
+    week: 'Den här veckan: {mod}',
+    weekBest: 'Veckans bästa: våg {n}',
+    yourBest: 'Ditt bästa den här veckan: våg {n}',
+    none: 'Ingen klättring den här veckan ännu.',
+    mod: {
+      fire: 'Allt eld',
+      nopotions: 'Inga drycker',
+      glass: 'Glas',
+      swarm: 'Svärm',
+      elites: 'Eliteparad',
+      haste: 'Hast'
+    },
+    modDesc: {
+      fire: 'varje fiendeslag är eld',
+      nopotions: 'inga drycker',
+      glass: 'alla slår 50 % hårdare',
+      swarm: 'fler fiender, med mindre hälsa var',
+      elites: 'en mästare i varje våg',
+      haste: 'fiender rör sig och slår snabbare'
     }
   }
 }

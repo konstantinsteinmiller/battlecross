@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Colosseumul',
-      desc: 'Opt valuri, fiecare mai greu decât cel dinainte. Aur și glorie pentru cine rămâne în picioare.'
+      desc: 'Val după val, fiecare mai greu decât cel dinainte. Cât de sus poți urca? Un clasament nou în fiecare luni.'
     },
     woods: {
       name: 'Pădurea Șoaptelor',
@@ -2937,6 +2937,30 @@ export default {
       order__f: 'Binecuvântată: +5% viață',
       syndicate__f: 'Binecuvântată: +10% aur din eliminări',
       circle__f: 'Binecuvântată: +10% regenerare de mană'
+    }
+  },
+  ladder: {
+    tab: 'Colosseum',
+    wave: 'Val',
+    week: 'Săptămâna aceasta: {mod}',
+    weekBest: 'Cel mai bun al săptămânii: valul {n}',
+    yourBest: 'Cel mai bun al tău din săptămâna aceasta: valul {n}',
+    none: 'Încă nicio urcare săptămâna aceasta.',
+    mod: {
+      fire: 'Totul în foc',
+      nopotions: 'Fără poțiuni',
+      glass: 'Sticlă',
+      swarm: 'Roi',
+      elites: 'Paradă de elită',
+      haste: 'Grabă'
+    },
+    modDesc: {
+      fire: 'fiecare lovitură a inamicilor e de foc',
+      nopotions: 'fără poțiuni',
+      glass: 'toți lovesc cu 50% mai tare',
+      swarm: 'mai mulți inamici, fiecare cu mai puțină viață',
+      elites: 'un campion în fiecare val',
+      haste: 'inamicii se mișcă și lovesc mai repede'
     }
   }
 }

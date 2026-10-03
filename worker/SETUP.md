@@ -288,3 +288,16 @@ bottom rung of the offline ladder. **Commit the JSON** — that is what makes an
 offline build reproducible.
 
 Set `LEADERBOARD_SNAPSHOT_URL` to point the refresh at a staging Worker.
+
+## The colosseum's weekly ladder (`/ladder`)
+
+Added for roadmap #10 (2026-10-04). A second table, `ladder`, keyed by
+`(week, id)`: one row per player per ISO week (UTC, `2026-W40`), the best wave
+cleared that week. `schema.sql` creates it with `IF NOT EXISTS`, so re-running
+`npm run db:init` on the live database is safe (done on 2026-10-04).
+
+- `GET /ladder` — this week's top 50 (`{ week, total, entries: [{ rank, name, wave, flair }] }`), edge-cached for a minute.
+- `POST /ladder` — `{ id, name, week, wave, flair, sig? }`. `week` must be this week or the one that ended in the last six hours; `wave` 1–1000. With `SCORE_SECRET` set, `sig` is the HMAC of `ladder:${id}:${week}:${wave}:${flair}`. Only a higher wave is written.
+
+The game posts only on a new weekly best, and only on builds with a live
+endpoint; the baked builds show the player's own best in the Colosseum tab.

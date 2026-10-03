@@ -137,6 +137,9 @@
           h2.card__name {{ t(`node.${sel.id}.name`) }}
           span.card__meta(v-if="sel.zone") {{ t('map.levels', { min: sel.zone.min, max: sel.zone.max }) }}
           span.card__meta(v-else-if="sel.kind === 'arena'") {{ t('map.arenaBest', { n: profile.world.arenaBest }) }}
+          //- The ladder's week (#10): its modifier and this week's best.
+          span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
+          span.card__meta(v-if="sel.kind === 'arena' && arenaWeekBest() > 0") {{ t('ladder.weekBest', { n: arenaWeekBest() }) }}
           span.card__meta(v-else) {{ t('map.town') }}
         p.card__desc {{ t(`node.${sel.id}.desc`) }}
         p.card__warn(v-if="sel.open && sel.danger > 0")
@@ -181,7 +184,7 @@ import { MAP, NODE_BY_ID, ZONES, dangerOf, nodeOpen, type NodeId } from '@/game/
 import { itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
-import { profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
+import { arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
@@ -207,9 +210,12 @@ import { GH, GW, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from 
 import { mapClock } from './map/session'
 import GoalTracker from '@/components/hud/GoalTracker.vue'
 import RestedNote from '@/components/hud/RestedNote.vue'
+import { arenaModOf } from '@/game/arenaWeek'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
+/** The colosseum's modifier this week (#10). */
+const arenaMod = arenaModOf()
 
 /** The terrain drawing, decoded once for every visit to the map. */
 let plateLoad: Promise<HTMLImageElement> | null = null

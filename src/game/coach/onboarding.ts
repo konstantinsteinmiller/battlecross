@@ -69,7 +69,8 @@ export const liveGoalCtx = (): GoalCtx => {
           ended: z.sim.ended || '',
           dummy: dummyBeat(z.sim) === 'on',
           wave: hud.wave,
-          waves: ARENA_WAVES
+          // The ladder (#10): eight waves to start with, then the hero's own best to beat.
+          waves: Math.max(ARENA_WAVES, profile.world.arenaBest + 1, hud.wave)
         }
       : null
   }

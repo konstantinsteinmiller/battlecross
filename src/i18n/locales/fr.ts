@@ -191,7 +191,7 @@ export default {
     },
     arena: {
       name: 'Le Colisée',
-      desc: 'Huit vagues, chacune plus dure que la précédente. Or et gloire pour qui reste debout.'
+      desc: 'Vague après vague, chacune plus dure que la précédente. Jusqu’où peux-tu monter ? Un nouveau classement chaque lundi.'
     },
     woods: {
       name: 'Bois Murmurants',
@@ -2938,6 +2938,30 @@ export default {
       order__f: 'Bénie : +5 % de santé',
       syndicate__f: 'Bénie : +10 % d’or sur les victimes',
       circle__f: 'Bénie : +10 % de régénération de mana'
+    }
+  },
+  ladder: {
+    tab: 'Colisée',
+    wave: 'Vague',
+    week: 'Cette semaine : {mod}',
+    weekBest: 'Meilleur score de la semaine : vague {n}',
+    yourBest: 'Ton meilleur score cette semaine : vague {n}',
+    none: 'Pas encore d’ascension cette semaine.',
+    mod: {
+      fire: 'Tout en feu',
+      nopotions: 'Sans potions',
+      glass: 'Verre',
+      swarm: 'Essaim',
+      elites: 'Défilé d’élites',
+      haste: 'Hâte'
+    },
+    modDesc: {
+      fire: 'chaque coup ennemi est de feu',
+      nopotions: 'pas de potions',
+      glass: 'tout le monde frappe 50 % plus fort',
+      swarm: 'plus d’ennemis, avec moins de santé chacun',
+      elites: 'un champion à chaque vague',
+      haste: 'les ennemis bougent et frappent plus vite'
     }
   }
 }

@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Kolezyum',
-      desc: 'Sekiz dalga, her biri öncekinden zor. Ayakta kalana altın ve şan.'
+      desc: 'Dalga ardına dalga, her biri öncekinden zor. Ne kadar yükselebilirsin? Her pazartesi yeni liste.'
     },
     woods: {
       name: 'Fısıldayan Orman',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Kutsanmış: +%5 can',
       syndicate: 'Kutsanmış: +%10 öldürmelerden altın',
       circle: 'Kutsanmış: +%10 mana yenilenmesi'
+    }
+  },
+  ladder: {
+    tab: 'Kolezyum',
+    wave: 'Dalga',
+    week: 'Bu hafta: {mod}',
+    weekBest: 'Haftanın en iyisi: dalga {n}',
+    yourBest: 'Bu haftaki en iyin: dalga {n}',
+    none: 'Bu hafta henüz tırmanış yok.',
+    mod: {
+      fire: 'Her yer ateş',
+      nopotions: 'İksirsiz',
+      glass: 'Cam',
+      swarm: 'Sürü',
+      elites: 'Elit geçidi',
+      haste: 'Acele'
+    },
+    modDesc: {
+      fire: 'düşmanın her darbesi ateş',
+      nopotions: 'iksir yok',
+      glass: 'herkes %50 daha sert vurur',
+      swarm: 'daha çok düşman, her birinde daha az can',
+      elites: 'her dalgada bir şampiyon',
+      haste: 'düşmanlar daha hızlı hareket eder ve vurur'
     }
   }
 }

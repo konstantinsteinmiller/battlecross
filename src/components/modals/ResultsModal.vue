@@ -3,7 +3,10 @@
     div.results(v-if="r" :class="`results--${r.outcome}`")
       p.results__place {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
       p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
-      p.results__first(v-if="r.node === 'arena'") {{ t('results.waves', { n: r.waves }) }}
+      p.results__first(v-if="r.node === 'arena'" data-ladder-result)
+        | {{ t('results.waves', { n: r.waves }) }}
+        span.results__best(v-if="r.arenaNewBest") {{ t('results.newBest') }}
+      p.results__place(v-if="r.node === 'arena' && r.arenaWeek") {{ t('ladder.weekBest', { n: r.arenaWeek }) }}
       div.results__levelup(v-if="r.levelAfter > r.levelBefore")
         span.results__level {{ t('results.levelUp', { n: r.levelAfter }) }}
         span.results__points {{ t('results.points', { n: (r.levelAfter - r.levelBefore) * POINTS_PER_LEVEL }) }}

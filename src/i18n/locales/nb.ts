@@ -190,7 +190,7 @@ export default {
     },
     arena: {
       name: 'Colosseum',
-      desc: 'Åtte bølger, hver hardere enn den forrige. Gull og ære til den som står igjen.'
+      desc: 'Bølge etter bølge, hver hardere enn den forrige. Hvor langt kan du komme? Ny rangliste hver mandag.'
     },
     woods: {
       name: 'Den hviskende skogen',
@@ -2899,6 +2899,30 @@ export default {
       order: 'Velsignet: +5 % liv',
       syndicate: 'Velsignet: +10 % gull fra drap',
       circle: 'Velsignet: +10 % manaregenerering'
+    }
+  },
+  ladder: {
+    tab: 'Colosseum',
+    wave: 'Bølge',
+    week: 'Denne uka: {mod}',
+    weekBest: 'Beste denne uka: bølge {n}',
+    yourBest: 'Din beste denne uka: bølge {n}',
+    none: 'Ingen oppstigning denne uka ennå.',
+    mod: {
+      fire: 'Alt ild',
+      nopotions: 'Ingen eliksirer',
+      glass: 'Glass',
+      swarm: 'Sverm',
+      elites: 'Eliteparade',
+      haste: 'Hast'
+    },
+    modDesc: {
+      fire: 'hvert fiendeslag er ild',
+      nopotions: 'ingen eliksirer',
+      glass: 'alle slår 50 % hardere',
+      swarm: 'flere fiender, med mindre liv hver',
+      elites: 'en mester i hver bølge',
+      haste: 'fiender beveger seg og slår raskere'
     }
   }
 }
