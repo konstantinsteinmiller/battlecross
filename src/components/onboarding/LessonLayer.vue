@@ -393,7 +393,6 @@ onUnmounted(() => {
   top: calc(var(--g) * -0.12)
   width: var(--g)
   height: var(--g)
-  filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
   :deep(.glyph)
     width: 100%
     height: 100%
@@ -409,7 +408,6 @@ onUnmounted(() => {
   width: calc(var(--g) * 0.5)
   height: calc(var(--g) * 0.65)
   overflow: visible
-  filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
   path
     fill: #f4f7ff
     stroke: #141a33
@@ -421,7 +419,6 @@ onUnmounted(() => {
   top: calc(var(--g) * 0.42)
   width: calc(var(--g) * 0.95)
   height: calc(var(--g) * 0.76)
-  filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
   :deep(.glyph)
     width: 100%
     height: 100%

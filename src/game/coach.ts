@@ -3,6 +3,7 @@ import { TOWNS } from './data/zones'
 import { hud, hudLive } from './state/hud'
 import { profile, saveProfile } from './state/profile'
 import type { Sim } from './sim/world'
+import { findPath, nearestOpen, smoothPath } from './sim/grid'
 import type { Unit } from './sim/types'
 import { dummyBeat, dummyOf } from './coach/dummy'
 import { isVeteran, revealed } from './coach/reveal'
@@ -109,6 +110,18 @@ export interface CoachHost {
  *  y2` a second mark (a townsperson's head), `slot` the button it rings. */
 export interface HintGeo { x0: number; y0: number; x1: number; y1: number; x2: number; y2: number; slot: number; on: boolean }
 const geo = (slot = -1): HintGeo => ({ x0: 0, y0: 0, x1: 0, y1: 0, x2: 0, y2: 0, slot, on: false })
+/**
+ * The way to a trainer as the hero would WALK it (round houses, through
+ * doors), in surface px: `n` points in `pts` (x, y pairs), hero first.
+ * Rewritten every frame from a path found a few times a second.
+ */
+export const hintPath = { n: 0, pts: new Float32Array(96) }
+const wayWorld: number[] = []
+const wayScratch: number[] = []
+const wayOpen: [number, number] = [0, 0]
+let wayAge = 1e9
+let wayTo = -1
+
 export const hintGeo: Record<LessonId, HintGeo> = {
   move: geo(), target: geo(), skill: geo(0), aim: geo(0), potion: geo(), mana: geo(), chest: geo(), talk: geo()
 }
@@ -124,6 +137,7 @@ const key = (id: string, family: string): string => `hint:${id}:${family}`
 const p0 = { x: 0, y: 0 }
 const p1 = { x: 0, y: 0 }
 const p2 = { x: 0, y: 0 }
+const p3 = { x: 0, y: 0 }
 
 /** The townspeople who teach (the "talk" lesson leads to the nearest). */
 const TRAINERS = new Set<string>()
@@ -288,6 +302,25 @@ class Coach {
         host.project(t.x, t.h * 0.5, t.z, p1)
         host.project(t.x, t.h + 0.75, t.z, p2)
         Object.assign(hintGeo.talk, { x0: p0.x, y0: p0.y, x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, on: true })
+        // The walked way: found again a few times a second (the hero and the
+        // trainer both move), projected every frame.
+        wayAge += dt
+        if (wayAge > 0.4 || wayTo !== t.id) {
+          wayAge = 0
+          wayTo = t.id
+          wayWorld.length = 0
+          if (nearestOpen(sim.grid, t.x, t.z + 0.9, wayOpen) && findPath(sim.grid, u.x, u.z, wayOpen[0], wayOpen[1], wayScratch) > 0) {
+            wayScratch.length = smoothPath(sim.grid, u.x, u.z, wayScratch)
+            for (const v of wayScratch) wayWorld.push(v)
+          }
+        }
+        const pts = hintPath.pts
+        let n = 0
+        pts[n * 2] = p0.x; pts[n * 2 + 1] = p0.y; n++
+        for (let i = 0; i + 1 < wayWorld.length && n < pts.length / 2 - 1; i += 2) {
+          if (host.project(wayWorld[i]!, 0.02, wayWorld[i + 1]!, p3)) { pts[n * 2] = p3.x; pts[n * 2 + 1] = p3.y; n++ }
+        }
+        hintPath.n = wayWorld.length ? n : 0
         want.push('talk')
       }
     }

@@ -147,7 +147,9 @@ const ask = (): void => { input.interactQueued = true }
   background: linear-gradient(180deg, var(--c-hi) 0, var(--c-hi) 46%, var(--c) 46%, var(--c) 86%, var(--c-lo) 86%)
   box-shadow: 0 3px 0 rgba(var(--bc-ink-rgb), 0.5)
   color: var(--bc-white)
-  filter: drop-shadow(0 1px 0 var(--bc-ink))
+  // The bob runs on the compositor: its own layer, no filter to re-rasterise
+  // (the box-shadow already draws the drop).
+  will-change: transform
   animation: pin-bob 1.6s ease-in-out infinite alternate
 .pin--quest .pin__badge
   color: var(--bc-ink)
@@ -166,6 +168,7 @@ const ask = (): void => { input.interactQueued = true }
   border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: 50%
   background: var(--bc-red)
+  will-change: transform, opacity
   animation: pin-new 0.9s ease-in-out infinite alternate
 .pin__talk
   position: absolute

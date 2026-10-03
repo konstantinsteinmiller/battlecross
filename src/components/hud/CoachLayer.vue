@@ -1,7 +1,9 @@
 <template lang="pug">
   div.coach-layer(aria-live="polite")
     svg.coach-layer__lines(aria-hidden="true")
-      line(v-for="h in hud.hints" v-show="isDrag(h.id)" :key="h.id" :ref="(el) => setLine(el, h.id)" :class="['trail', `trail--${h.id}`]")
+      line(v-for="h in hud.hints" v-show="isDrag(h.id) && h.id !== 'talk'" :key="h.id" :ref="(el) => setLine(el, h.id)" :class="['trail', `trail--${h.id}`]")
+      //- The way to a trainer, along the streets (`hintPath`).
+      path.trail.trail--talk(v-show="hud.hints.some(h => h.id === 'talk')" ref="wayEl")
     div.coach(
       v-for="h in hud.hints"
       :key="h.id"
@@ -45,10 +47,10 @@
  * the HUD ticker as transforms; the reactive part is only which glyphs are up
  * and their pips.
  */
-import { onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
+import { onMounted, onUnmounted, ref, type ComponentPublicInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
-import { hintGeo, type LessonId } from '@/game/coach'
+import { hintGeo, hintPath, type LessonId } from '@/game/coach'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import InputGlyph from '@/components/glyphs/InputGlyph.vue'
 
@@ -108,6 +110,19 @@ const clampIn = (x: number, y: number, m: number): [number, number] => {
 /** The glyph's size in px, as `--g` sizes it. */
 const glyphPx = (): number => Math.max(51.2, Math.min(80, Math.min(innerWidth, innerHeight) * 0.15))
 
+const wayEl = ref<SVGPathElement | null>(null)
+/** The walked way when there is one, else the straight line; it ends at the
+ *  (edge-clamped) point the glyph sits on. */
+const setWay = (x: number, y: number, g: { x0: number; y0: number }): void => {
+  const el = wayEl.value
+  if (!el) return
+  const pts = hintPath.pts
+  let d = `M${g.x0.toFixed(1)} ${g.y0.toFixed(1)}`
+  // Inner corners only: the last way point is replaced by the glyph's point.
+  for (let i = 1; i < hintPath.n - 1; i++) d += ` L${pts[i * 2]!.toFixed(1)} ${pts[i * 2 + 1]!.toFixed(1)}`
+  d += ` L${x.toFixed(1)} ${y.toFixed(1)}`
+  el.setAttribute('d', d)
+}
 const setLineXY = (ln: SVGLineElement | undefined, x0: number, y0: number, x1: number, y1: number): void => {
   if (!ln) return
   ln.setAttribute('x1', x0.toFixed(1))
@@ -157,7 +172,7 @@ onMounted(() => {
       } else if (id === 'talk') {
         // The way there, drawn whole; the finger waits on the trainer.
         ;[x, y] = clampIn(g.x1, g.y1, edge)
-        setLineXY(lines.talk, g.x0, g.y0, x, y)
+        setWay(x, y, g)
         if (beacon) {
           // Over their head while they are in view; off screen, the glyph at
           // the edge says the way alone.
@@ -200,6 +215,8 @@ onUnmounted(() => removeTicker?.())
   filter: drop-shadow(0 2px 0 #0f1a30)
 // The way to a trainer: footprints of light that walk toward them.
 .trail--talk
+  fill: none
+  stroke-linejoin: round
   stroke: #ffe066
   stroke-width: 6
   stroke-dasharray: 3 14
