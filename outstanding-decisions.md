@@ -5,7 +5,7 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-02.
+Last updated: 2026-10-03.
 
 ## Needs an answer
 
@@ -20,6 +20,8 @@ Last updated: 2026-10-02.
 | 7 | **Rewarded ads.** The code is dormant, not deleted. Bring rewarded placements back for roadmap #18 / #19? | Off | Decide with the first retention numbers |
 | 8 | **Weak builds.** A Chrono-Weaver-only hero and a late-game Aegis-only hero clear fewer zones than the other classes. Buff them, or accept (the game is about mixing classes)? | Accepted | Small buff to Chrono-Weaver's damage |
 | 9 | **Music.** One code-composed soundtrack. Commission or generate authored tracks (`sound-todo.md` lists the drop-in names)? | Code-composed | Authored tracks before the first portal submission |
+| 29 | **GameMonetize leaderboard.** GameMonetize re-distributes the archive to many partner sites, so the build makes no request to our Cloudflare Worker: it ships the baked, modelled board like Poki (rank chip on the result screen, no top-100 list, no names). Live board on GameMonetize instead? | Baked | Keep baked; revisit if GameMonetize traffic is worth a second Worker quota |
+| 30 | **GameMonetize ad order.** The midgame interstitial runs on Continue / Retry, after the result screen has CLOSED (D19), not before the result screen opens. GameMonetize asks only for the first-load ad and pacing; the ad never covers the result screen either way. Move it in front of the result screen on this portal? | After, on Continue | Keep; the result jingle and loot reveal are not cut |
 
 ## Playtest pass (roadmap #37 to #60): defaults taken, overrule any
 
@@ -45,4 +47,6 @@ The ones most worth a look before much is built on them:
 | --- | --- | --- |
 | A | Create this game in each portal and put its id in the matching env / config file: Poki (P4D), Playgama, Wavedash, GameMonetize, GameDistribution, Glitch | Every id is blank on purpose; the predecessor's were removed. `pnpm deploy:poki` refuses to run without one |
 | B | Run the painting round (`art-sheets/README.md`) | No painted art exists yet; the game ships its vector and low-poly placeholders until then |
+| A2 | **GameMonetize:** create Battlecross on gamemonetize.com (Games → add a game), copy its game id into `.env.gamemonetize.local` (`VITE_GAME_ID=`), then `pnpm build:gamemonetize` and upload `dist/Battlecross-gamemonetize.zip` with the listing copy from `description.md` (README, "GameMonetize release") | The id is blank on purpose; `pnpm build:gamemonetize` refuses to pack a zip without it, because without it the SDK never loads and the build shows no ads at all |
+| A3 | **GameMonetize thumbnails:** the upload form asks for cover images (its own sizes) | No cover images exist for this game yet |
 | C | Say "go" for the remaining release checks: the hydration proof against the built bundle and the Playgama storage path, and CrazyGames / Playgama / Poki arms for `scripts/portal-qa.mjs` | Deferred work, listed in the plan |

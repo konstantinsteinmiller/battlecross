@@ -410,6 +410,18 @@ export default defineConfig(({ mode, command }) => {
     )
   }
 
+  // GameMonetize: the SDK serves nothing without this game's id from the GM
+  // dashboard, and its plugin switches itself off when the id is blank — a
+  // build that boots, plays, and never shows the moderation-mandated
+  // first-load ad. Loud here; `build:gamemonetize` then REFUSES to pack it
+  // (`scripts/gamemonetize-release.mjs`).
+  if (command === 'build' && env.VITE_APP_GAME_MONETIZE === 'true' && !(env.VITE_GAME_ID ?? '').trim()) {
+    console.warn(
+      '\n[gamemonetize] VITE_GAME_ID is EMPTY — this build shows no ads at all. '
+      + 'Create the game on gamemonetize.com and paste its id into .env.gamemonetize.local.\n'
+    )
+  }
+
   // Only obfuscate during a real production build — never during dev,
   // where the obfuscator rewrites dynamic import strings into lookups
   // Vite can no longer transform, breaking module specifiers at runtime.
@@ -767,6 +779,35 @@ export default defineConfig(({ mode, command }) => {
     })
   }
 
+  // ─── GameMonetize: no developer notes in the archive ────────────────────
+  // index.html and `public/js/storage-shim.js` ship as written, comments and
+  // all — and those comments explain the Playgama Bridge, YouTube Playables'
+  // `ytgame` runtime and the other portals' SDK tags. GameMonetize reviews the
+  // archive by hand and its release gate (`scripts/gamemonetize-release.mjs`)
+  // refuses another portal's SDK name anywhere in it, so the GM build drops
+  // the comments from both. Runs last, after the strips and the CSP injection
+  // above have used the comment markers they anchor on.
+  const isGameMonetizeBuild = env.VITE_APP_GAME_MONETIZE === 'true'
+  if (isGameMonetizeBuild) {
+    plugins.push({
+      name: 'gamemonetize-strip-comments',
+      apply: 'build',
+      transformIndexHtml: {
+        order: 'post',
+        handler: (html: string) => html.replace(/<!--[\s\S]*?-->\s*/g, '')
+      },
+      writeBundle(options) {
+        const shim = resolve(options.dir ?? 'dist', 'js/storage-shim.js')
+        if (!existsSync(shim)) return
+        const src = readFileSync(shim, 'utf-8')
+        // Block comments, then whole-line `//` comments. The shim holds no
+        // string or regex containing either sequence (it is ES5, written by
+        // hand), so this cannot cut code.
+        writeFileSync(shim, src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '').replace(/\n{2,}/g, '\n'))
+      }
+    } as Plugin)
+  }
+
   // ─── GamePix single-file bundle ─────────────────────────────────────────
   // The GamePix build CDN serves the root `index.html` (200) but intermittently
   // 403s the hashed `assets/*.js` / `assets/*.css` chunks — the 403 body is XML,
@@ -937,7 +978,12 @@ export default defineConfig(({ mode, command }) => {
           '@/utils/gamepixPlugin': fileURLToPath(new URL('./src/utils/gamepixPlugin.stub.ts', import.meta.url))
         }),
         ...(env.VITE_APP_GAME_MONETIZE === 'true' ? {} : {
-          '@/use/ads/GameMonetizeProvider': fileURLToPath(new URL('./src/use/ads/GameMonetizeProvider.stub.ts', import.meta.url))
+          '@/use/ads/GameMonetizeProvider': fileURLToPath(new URL('./src/use/ads/GameMonetizeProvider.stub.ts', import.meta.url)),
+          // The provider stub closes the static path only; `main.ts` still
+          // `await import('@/utils/gameMonetizePlugin')`s it behind an env `if`
+          // that the obfuscator can keep from folding. Same stub-swap as
+          // yandexPlugin below, so no other archive names the GM SDK.
+          '@/utils/gameMonetizePlugin': fileURLToPath(new URL('./src/utils/gameMonetizePlugin.stub.ts', import.meta.url))
         }),
         ...(env.VITE_APP_YANDEX === 'true' ? {} : {
           // YandexProvider statically imports `@/utils/yandexPlugin`, which
@@ -963,7 +1009,11 @@ export default defineConfig(({ mode, command }) => {
         // precisely what a reviewer greps for. A guard inside the probe was
         // measured and did NOT keep the literals out (stringArray hoists before
         // the env fold), so the whole module is aliased away instead.
-        ...(env.VITE_APP_PLAYGAMA === 'true' ? {
+        // GameMonetize too: it has no event API, its SDK runs Google's ad
+        // stack in our own window (a `gtag` found there is GameMonetize's, not
+        // a pipe we were given), and its archive must not name other portals'
+        // SDK globals either.
+        ...(env.VITE_APP_PLAYGAMA === 'true' || env.VITE_APP_GAME_MONETIZE === 'true' ? {
           '@/use/analyticsSink': fileURLToPath(new URL('./src/use/analyticsSink.stub.ts', import.meta.url))
         } : {}),
         ...(env.VITE_APP_POKI === 'true' ? {} : {

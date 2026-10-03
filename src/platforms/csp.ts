@@ -35,10 +35,9 @@ const BASE_HOSTS: ReadonlyArray<string> = [
   'https://gamepix.com',
   'https://*.gamepix.com',
   'https://integration.gamepix.com',
-  'https://gamemonetize.com',
-  'https://*.gamemonetize.com',
-  'https://api.gamemonetize.com',
-  'https://html5.gamemonetize.com',
+  // (No GameMonetize hosts here: they are `GAMEMONETIZE_HOSTS` below and ship
+  // only in that build. In this shared list they named GameMonetize in every
+  // other portal's index.html.)
   // Yandex Games — telemetry / ads beacon through *.yandex.ru / .com / .net,
   // and the iframe wrapper itself is on yandex.com/games (yandex.ru/games /
   // .com.tr for regional TLDs). The SDK is loaded via the RELATIVE `/sdk.js`
@@ -152,6 +151,25 @@ const YANDEX_PARTNER_HOSTS: ReadonlyArray<string> = [
   'https://*.yandexadexchange.net'
 ]
 
+/** GameMonetize's own origins: the SDK script (`api.gamemonetize.com/sdk.js`),
+ *  the hosted game page (`html5.gamemonetize.co[m]`) and the portal itself.
+ *  The SDK's Google-IMA ad chain is covered by the ad-waterfall `https:`
+ *  openings below, so its partner CDNs need no list of their own.
+ *
+ *  This is the WHOLE host list on a GameMonetize build, like Yandex's minimal
+ *  list: the shared `BASE_HOSTS` name every other portal (CrazyGames, Playgama,
+ *  Poki's neighbours, Yandex…) plus storage services this game never calls,
+ *  and a reviewer grepping the archive finds them in the CSP meta tag and
+ *  nowhere else. */
+const GAMEMONETIZE_HOSTS: ReadonlyArray<string> = [
+  'https://gamemonetize.com',
+  'https://*.gamemonetize.com',
+  'https://api.gamemonetize.com',
+  'https://html5.gamemonetize.com',
+  'https://gamemonetize.co',
+  'https://*.gamemonetize.co'
+]
+
 const CONNECT_BASE_EXTRA: ReadonlyArray<string> = [
   'https://*.sentry.io',
   'wss://*.wavedash.com',
@@ -224,7 +242,9 @@ export const buildCsp = (env: Record<string, string>): string => {
       'https://an.yandex.ru',
       ...YANDEX_PARTNER_HOSTS
     ]
-    : [
+    : isGameMonetize
+      ? [...GAMEMONETIZE_HOSTS]
+      : [
       ...BASE_HOSTS,
       ...(isGameDistribution ? GD_PARTNER_HOSTS : []),
       ...(isCrazyWeb ? CG_PARTNER_HOSTS : [])
@@ -251,7 +271,9 @@ export const buildCsp = (env: Record<string, string>): string => {
       // URL it finds, so omit the extras entirely on Yandex builds (the
       // open `https:` / `wss:` added below for ad-waterfall builds still
       // covers what's actually needed at runtime).
-      ...(isYandex ? [] : CONNECT_BASE_EXTRA),
+      // GameMonetize likewise: none of those services is called by this game,
+      // and the names would ship in the one tag a reviewer reads first.
+      ...(isYandex || isGameMonetize ? [] : CONNECT_BASE_EXTRA),
       // The leaderboard worker. Omitted on Yandex for the same reason the rest
       // of CONNECT_BASE_EXTRA is: their moderator greps the bundle — the CSP
       // meta tag included — for third-party storage endpoints and rejects the

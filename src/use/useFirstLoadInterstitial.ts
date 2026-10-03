@@ -10,6 +10,11 @@
 //     `useAds`. Avoids pausing the game just to hit a no-fill, and gives
 //     a slow SDK init room to finish.
 //
+// …and it holds while the forced-dark-mode notice is up: an ad over a "turn
+// off dark mode" card reads as a scam. Held, not consumed — the blocking flag
+// is part of the fire condition and is watched, so the ad fires the moment the
+// notice clears (forced-dark-mode-guard, "Portal rules").
+//
 // Fires once per session. Other platform builds never call `arm()` so the
 // module is inert (and the watcher is never installed).
 //
@@ -52,6 +57,7 @@ import { watch } from 'vue'
 import { isInterstitialReady, showMidgameAd } from '@/use/useAds'
 import { markInterstitialShown } from '@/use/useAdGate'
 import { resumeMusicAfterAd } from '@/use/useSound'
+import { isForcedDarkBlocking } from '@/use/useForcedDarkModeGuard'
 
 let armed = false
 let splashGone = false
@@ -60,7 +66,12 @@ let fired = false
 const tryFire = (): void => {
   if (!armed || !splashGone || fired) return
   if (!isInterstitialReady.value) return
+  if (isForcedDarkBlocking.value) return
   fired = true
+  // A User Timing mark, like the boot marks: `scripts/portal-qa.mjs` reads it
+  // on the BUILT bundle to prove the ad was requested before the first fight
+  // moved (production has no `window.__game` to ask).
+  try { performance.mark('ad:first-load') } catch { /* no User Timing */ }
   // Start the shared interstitial clock. This placement does not ASK
   // `canShowInterstitial()` — it is the portal-required first-load ad and runs
   // unconditionally — but it is still an interstitial, so the next one owes the
@@ -88,7 +99,7 @@ const tryFire = (): void => {
 export const armFirstLoadInterstitial = (): void => {
   if (armed) return
   armed = true
-  watch(isInterstitialReady, () => tryFire(), { immediate: true })
+  watch([isInterstitialReady, isForcedDarkBlocking], () => tryFire(), { immediate: true })
 }
 
 /** Mark the splash as gone. Triggers the fire if the SDK is already

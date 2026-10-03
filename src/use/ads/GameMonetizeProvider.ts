@@ -13,10 +13,10 @@
 // the first-play ad never fires on a fast click. A static import references the
 // real refs from module-eval time, so the computeds track them correctly.
 //
-// Safe for the `2mdn.net` ad-block-probe URL inside `gameMonetizePlugin`: on
-// non-GameMonetize builds this whole file is aliased to `GameMonetizeProvider.stub`
-// (see `vite.config.ts` resolve.alias), so the real module — and its static
-// import of the plugin — is only ever bundled on the GameMonetize build.
+// Safe for the SDK URL inside `gameMonetizePlugin`: on non-GameMonetize builds
+// this whole file — and the plugin itself — is aliased to a stub (see
+// `vite.config.ts` resolve.alias), so the real module is only ever bundled on
+// the GameMonetize build.
 
 import { computed } from 'vue'
 import {

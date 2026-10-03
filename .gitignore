@@ -20,6 +20,8 @@ dist-purity-cg
 # `pnpm build:playgama` — the Playgama / YouTube Playables release (its own
 # folder, never `dist/`: see src/platforms/playgama/release.ts)
 /dist-playgama/
+# `pnpm gamemonetize:audit`: the unobfuscated twin of the GameMonetize build
+/dist-gamemonetize-clear/
 
 node_modules
 .DS_Store

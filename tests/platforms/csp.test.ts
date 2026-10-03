@@ -207,6 +207,28 @@ describe('buildCsp', () => {
       const frameSrc = csp.match(/frame-src ([^;]+)/)![1]!
       expect(frameSrc.split(/\s+/)).toContain('https:')
     })
+
+    // The CSP meta tag is the one string in index.html that lists hosts, and a
+    // GameMonetize reviewer reads it first. It used to inherit the shared list:
+    // every other portal, plus storage services the game never calls.
+    it('names GameMonetize and nobody else', () => {
+      const csp = buildCsp(env())
+      for (const other of ['crazygames', 'playgama', 'gamepix', 'gamedistribution', 'yandex', 'wavedash', 'itch.io', 'glitch.fun', 'jsonbin', 'clarity', 'peerjs', 'pantry', 'sentry']) {
+        expect(csp, other).not.toContain(other)
+      }
+    })
+
+    it('carries the leaderboard origin only when the env gives one (the release empties it)', () => {
+      expect(buildCsp({ ...env(), VITE_LEADERBOARD_URL: '' })).not.toContain('workers.dev')
+    })
+  })
+
+  // The other half of the same move: GameMonetize's hosts are not in the list
+  // every other portal's index.html inherits.
+  it('no other build names GameMonetize', () => {
+    for (const e of [baseEnv(), { VITE_APP_CRAZY_WEB: 'true' }, { VITE_APP_GAMEPIX: 'true' }, { VITE_APP_GAME_DISTRIBUTION: 'true' }, { VITE_APP_YANDEX: 'true' }]) {
+      expect(buildCsp(e)).not.toContain('gamemonetize')
+    }
   })
 
   describe('Yandex build (VITE_APP_YANDEX=true)', () => {

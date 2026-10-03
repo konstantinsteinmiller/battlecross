@@ -22,7 +22,9 @@ vi.mock('@/use/useMatch', () => {
 })
 vi.mock('@/use/useGamePause', () => {
   const { ref } = require('vue')
-  return { isAdShowing: ref(false), pauseGame: vi.fn(), resumeGame: vi.fn() }
+  // The plugin publishes the ad layer on `isPortalAdOpen`; App.vue's watcher,
+  // not the plugin, turns it into the pause (gameMonetizeBuild.test.ts).
+  return { isPortalAdOpen: ref(false) }
 })
 vi.mock('@/utils/save/GameMonetizeStrategy', () => ({
   GameMonetizeStrategy: class {}

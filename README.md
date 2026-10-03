@@ -124,6 +124,58 @@ URL), so test sessions put no rows on the players' board.
   `dist-playgama/` behind release gates; `pnpm playgama:audit`.
 - **Logo and icons:** `pnpm icons` (generated from
   `store-art/brand/logo-final.mjs`).
+- **GameMonetize:** see the section below.
+
+## GameMonetize release
+
+GameMonetize is an ad network: one HTML5 archive, its SDK
+(`api.gamemonetize.com/sdk.js`, loaded lazily by `src/utils/gameMonetizePlugin.ts`),
+interstitials only, no cloud save, no mute or language signal.
+
+1. **Once:** create Battlecross on gamemonetize.com and paste its game id into
+   `.env.gamemonetize.local` (`VITE_GAME_ID=`). Until then the build refuses to
+   pack: with no id the SDK never loads, the game shows no ads, and
+   GameMonetize rejects that ("Ads should be shown the first time after the
+   game loads").
+2. **Build:** `pnpm build:gamemonetize`. It builds `dist/` (obfuscated, no
+   source maps, relative paths), runs the release gate
+   (`scripts/gamemonetize-release.mjs`: the game id, this platform's SDK in the
+   bundle, no other portal's SDK or service, no child-directed ad flag, no
+   leaderboard request, a CSP that names GameMonetize only, size), and only
+   then writes **`dist/Battlecross-gamemonetize.zip`** with `index.html` at its
+   root. That zip is the upload.
+3. **Audit the readable twin:** `pnpm gamemonetize:audit` builds the same
+   bundle unobfuscated into `dist-gamemonetize-clear/` and runs the gate on it
+   (on the obfuscated bundle a missing string proves little).
+4. **QA the built bundle:** `pnpm qa:gamemonetize` (`scripts/portal-qa.mjs`).
+   It serves `dist/` as `local.gamemonetize.com`, answers the real SDK request
+   with a stub that reports ready after 1.2 s, and checks: the first-load
+   interstitial fires once, after the loader and before any input, with the
+   world frozen and every sound stopped (also past the 6 s cap), and the music
+   back afterwards; the same with the SDK delayed to 9 s over a running fight
+   (music playing before the ad as the control); the SDK's pause / resume
+   outside an ad; tab away and back; the pause menu; retreat → result screen
+   → Continue → the midgame ad, with the result screen closed before the ad;
+   no external request but the SDK; zero console errors. To QA before the
+   real id exists: `VITE_GAME_ID=qa-placeholder npx vite build --mode gamemonetize --base=./`
+   (never upload that build).
+
+How ads run on this build: the first-load interstitial when the loader
+clears (`useFirstLoadInterstitial`, held while the forced-dark-mode notice is
+up), then one interstitial on Continue / Retry behind a closed result screen,
+at most every 121 s (`useAdGate`; GameMonetize has no ad-free start, its
+first-load ad starts the gap). No rewarded placements. The leaderboard is the
+baked board (no request to our Worker from GameMonetize's partner sites).
+
+Listing copy (from [`description.md`](./description.md)):
+
+- **Title:** Battlecross
+- **Short description:** Fight goblins, demons and dragons in a cute action
+  RPG. Mix skills from 8 classes into your own hero and make choices that
+  reshape the realm.
+- **Description, How to play, Controls, Tags:** the matching sections of
+  `description.md`. Category: Action / RPG. Mobile: yes (portrait and
+  landscape).
 
 ## Docs
 

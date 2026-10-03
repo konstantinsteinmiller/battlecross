@@ -173,7 +173,28 @@ export default {
     'buy': {
       'touch': 'Tap an item to see its price, then tap Buy.',
       'mouse': 'Click an item to see its price, then click Buy.'
+    },
+    'exit': {
+      'touch': 'Tap the map button to leave town for your next adventure.',
+      'mouse': 'Click the map button to leave town for your next adventure.'
     }
+  },
+
+  // ─── The goal tracker (one short goal under the place's name) ─────────────
+  'goal': {
+    'dummy': 'Knock down the training dummy',
+    'clear': 'Clear {place}',
+    'boss': 'Beat {foe}',
+    'exit': 'Take your loot and leave',
+    'wave': 'Survive the waves',
+    'trainer': 'Talk to a trainer',
+    'learn': 'Learn a skill',
+    'points': 'Spend your points',
+    'leave': 'Leave for {place}',
+    'travel': 'Travel to {place}',
+    'decide': 'Make your choice',
+    'explore': 'Explore the realm',
+    'show': 'Show me the way: {goal}'
   },
 
   // ─── The world ────────────────────────────────────────────────────────────
@@ -1459,6 +1480,8 @@ export default {
     'chests': 'Chests',
     'time': 'Time',
     'unlocked': 'New on the map: {places}',
+    'equipped': 'Equipped',
+    'better': 'Better than what you wear',
     'retry': 'Try again',
     'tip': 'You keep the experience and the loot. Spend your points, visit a trainer, and come back stronger.'
   },
@@ -1560,6 +1583,25 @@ export default {
     'allowPrefix': 'Please allow ads on',
     'allowSuffix': '(or pause your ad-blocker for this game) and try again.',
     'gotIt': 'Got it'
+  },
+  // ─── Forced dark mode notice ──────────────────────────────────────────────
+  // Shown while a dark-mode extension or the browser's forced dark mode repaints
+  // the page. `{flagUrl}` is a browser-internal URL (chrome://flags/…): never
+  // translate it. Product and setting names ("Dark Reader", "Auto Dark Mode for
+  // Web Contents") stay in English, which is how the player's browser shows them.
+  'forcedDark': {
+    'title': 'Please turn off dark mode for this game',
+    'body': 'Your browser or an extension is recolouring this page. The game has its own colours and doesn\'t work with dark-mode overrides.',
+    'waiting': 'The game continues automatically as soon as it\'s off.',
+    'continueAnyway': 'Continue at own risk',
+    'hint': {
+      'darkReader': 'Dark Reader: click its icon and switch it off for this site.',
+      'extension': 'Open your dark-mode extension and turn it off for this site.',
+      'chromiumFlag': 'Open {flagUrl} and set "Auto Dark Mode for Web Contents" to Default, or turn off "dark theme for sites" in your browser\'s theme settings.',
+      'samsung': 'Samsung Internet: open the menu and turn off Dark mode, or turn on Labs → "Use website dark theme".',
+      'forcedColors': 'Windows: turn off Contrast themes in Settings → Accessibility → Contrast themes.',
+      'firefoxColors': 'Firefox: Settings → Colors → set "Override the colors specified by the page" to Never.'
+    }
   },
   'saveStatus': {
     'restoredTitle': 'Cloud save restored',

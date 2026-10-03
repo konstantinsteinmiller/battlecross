@@ -1,5 +1,8 @@
 // ─── analyticsSink no-op stub (Playgama / YouTube Playables build only) ─────
 //
+// (And the GameMonetize build: no event API there, and a `gtag` in the window
+// would be the one GameMonetize's own ad stack brought along.)
+//
 // Replaces `@/use/analyticsSink` on the Playgama build via `resolve.alias` in
 // `vite.config.ts`. Note the inverted polarity versus the other stubs in this
 // codebase: those swap OUT on the platform that does not own the SDK, this one

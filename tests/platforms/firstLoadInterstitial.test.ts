@@ -18,15 +18,17 @@ const showMidgameAd = vi.fn(() => Promise.resolve())
 const markInterstitialShown = vi.fn()
 const resumeMusicAfterAd = vi.fn()
 
-const load = async (ready = true) => {
+const load = async (ready = true, darkBlocking = false) => {
   vi.resetModules()
   const { ref } = await import('vue')
   const readyRef = ref(ready)
+  const blockingRef = ref(darkBlocking)
   vi.doMock('@/use/useAds', () => ({ isInterstitialReady: readyRef, showMidgameAd }))
   vi.doMock('@/use/useAdGate', () => ({ markInterstitialShown }))
   vi.doMock('@/use/useSound', () => ({ resumeMusicAfterAd }))
+  vi.doMock('@/use/useForcedDarkModeGuard', () => ({ isForcedDarkBlocking: blockingRef }))
   const mod = await import('@/use/useFirstLoadInterstitial')
-  return { mod, readyRef }
+  return { mod, readyRef, blockingRef }
 }
 
 /** Let the `.catch().finally()` chain on the ad promise settle. */
@@ -42,6 +44,7 @@ afterEach(() => {
   vi.doUnmock('@/use/useAds')
   vi.doUnmock('@/use/useAdGate')
   vi.doUnmock('@/use/useSound')
+  vi.doUnmock('@/use/useForcedDarkModeGuard')
 })
 
 describe('useFirstLoadInterstitial', () => {
@@ -92,6 +95,24 @@ describe('useFirstLoadInterstitial', () => {
     mod.notifySplashGone()
     await settle()
     expect(resumeMusicAfterAd).toHaveBeenCalledTimes(1)
+  })
+
+  // An ad over a "please turn off dark mode" notice reads as a scam
+  // (forced-dark-mode-guard, "Portal rules"). The placement is HELD, not
+  // consumed: GameMonetize still requires its first-load ad, so it must fire
+  // the moment the notice clears.
+  it('holds under the forced-dark notice and fires once it clears', async () => {
+    const { mod, blockingRef } = await load(true, true)
+    mod.armFirstLoadInterstitial()
+    mod.notifySplashGone()
+    await settle()
+    expect(showMidgameAd).not.toHaveBeenCalled()
+    expect(markInterstitialShown).not.toHaveBeenCalled()
+
+    blockingRef.value = false   // the player switched the overrider off
+    await settle()
+    expect(showMidgameAd).toHaveBeenCalledTimes(1)
+    expect(markInterstitialShown).toHaveBeenCalledTimes(1)
   })
 
   it('does not restart music when no ad was ever shown', async () => {

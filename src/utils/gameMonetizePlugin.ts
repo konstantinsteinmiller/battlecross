@@ -22,10 +22,12 @@
 //      timeout). The single `SDK_OPTIONS.onEvent` callback is fanned out to a
 //      listener bus so multiple concerns can subscribe.
 //
-//   2. Pause/resume bridging — `SDK_GAME_PAUSE` → `pauseGame()` + mute via
-//      `isAdShowing`; `SDK_GAME_START` → `resumeGame()`. `pauseGame`/`resumeGame`
-//      are idempotent (see useGamePause), so unbalanced SDK callbacks can't
-//      latch the game paused.
+//   2. Pause/resume bridging — the plugin does NOT drive the pause gate. It
+//      PUBLISHES `isPortalAdOpen` (useGamePause) on `SDK_GAME_PAUSE` /
+//      `SDK_GAME_START`, and ONE watcher in the app shell (App.vue) turns that
+//      into a frozen loop + suspended audio. Every show wrapper that ends on a
+//      TIMER (no-fill, hard cap) lowers the ref itself, or the game would stay
+//      paused behind an ad that is gone.
 //
 //   3. `showRewardedAdGM()` / `showMidgameAdGM()` — Promise-based wrappers.
 //      Rewarded resolves `true` ONLY when the ad played to the end (the IMA
@@ -62,7 +64,7 @@
 import { ref } from 'vue'
 import { isGameMonetize } from '@/use/useUser'
 import { isDebug } from '@/use/useMatch'
-import { isAdShowing, pauseGame, resumeGame } from '@/use/useGamePause'
+import { isPortalAdOpen } from '@/use/useGamePause'
 import { GameMonetizeStrategy } from '@/utils/save/GameMonetizeStrategy'
 import type { SaveStrategy } from '@/utils/save/types'
 
@@ -209,28 +211,21 @@ export const gameMonetizePlugin = (): Promise<void> => {
 
     // `SDK_OPTIONS` MUST be on `window` before the SDK script executes — the
     // script reads it synchronously. `onEvent` fans every SDK event out to the
-    // listener bus. `tagForChildDirectedTreatment` mirrors the GameDistribution
-    // child-directed hint; harmless if this SDK build ignores it.
+    // listener bus. No child-directed ad flag: those are for the Tauri /
+    // app-store builds only (owner decision 2026-10-02), never a web portal.
     window.SDK_OPTIONS = {
       gameId,
-      tagForChildDirectedTreatment: true,
       onEvent: (event: any) => {
         if (event && typeof event.name === 'string') dispatchEvent(event.name, event)
       }
     }
 
-    // Page-lifetime pause/resume bridge. The SDK brackets every ad with
-    // SDK_GAME_PAUSE (mute + freeze) / SDK_GAME_START (resume). `isAdShowing`
-    // drives the synchronous audio/sim freeze (see useGamePause); pauseGame/
-    // resumeGame are idempotent so duplicate callbacks can't latch.
-    onSdkEvent(EVT_GAME_PAUSE, () => {
-      isAdShowing.value = true
-      pauseGame()
-    })
-    onSdkEvent(EVT_GAME_START, () => {
-      isAdShowing.value = false
-      resumeGame()
-    })
+    // Page-lifetime pause/resume bridge. The SDK brackets every ad (and, in its
+    // iframe test env, its consent wall) with SDK_GAME_PAUSE / SDK_GAME_START.
+    // Published as a ref, not applied here: App.vue's one watcher turns it into
+    // the platform pause, which freezes the loop and suspends the audio.
+    onSdkEvent(EVT_GAME_PAUSE, () => { isPortalAdOpen.value = true })
+    onSdkEvent(EVT_GAME_START, () => { isPortalAdOpen.value = false })
 
     // Page-lifetime frequency-cap guard. GameMonetize enforces a GLOBAL min-gap
     // between ads — request one too soon and the SDK rejects it ("The
@@ -274,21 +269,13 @@ export const gameMonetizePlugin = (): Promise<void> => {
       })
     }
 
-    // Proactive ad-block probe. The event listeners above only catch blockers
-    // that make the SDK *say* "ADBLOCKER" (e.g. when the IMA loader itself is
-    // blocked at boot). Brave Shields is sneakier: the SDK reaches SDK_READY,
-    // then the ad's video resources (s0.2mdn.net, the in-iframe ima3.js) are
-    // blocked with ERR_BLOCKED_BY_CLIENT and the ad just times out via
-    // AD_SAFETY_TIMER — no SDK event carries an "adblocker" string. We can't
-    // observe that network error as an SDK event, so we reproduce it: probe the
-    // same ad-tech endpoints directly. If they're unreachable, flag ads as
-    // blocked so a failed rewarded tap surfaces the AdsBlockedModal. Non-blocking.
-    void probeAdBlocked().then((blocked) => {
-      if (blocked && !isGmAdsBlocked.value) {
-        console.info('[gamemonetize] ad-blocker detected via network probe')
-        isGmAdsBlocked.value = true
-      }
-    })
+    // (No proactive network probe. It fetched two Google ad-tech URLs at boot to
+    // catch Brave Shields, which blocks the ad's video without any SDK event
+    // saying so. Its only consumer is the AdsBlockedModal on a failed REWARDED
+    // tap, and this game ships no rewarded placement; meanwhile it put two
+    // requests the game makes itself — and, behind any blocker, two red
+    // ERR_BLOCKED_BY_CLIENT lines — into every reviewer's console. The SDK's
+    // own ADBLOCKER events above still set the flag.)
 
     await new Promise<void>((resolve) => {
       let settled = false
@@ -404,6 +391,9 @@ export const showRewardedAdGM = (onImpression?: () => void): Promise<boolean> =>
       unsubStart()
       clearTimeout(noFillTimer)
       clearTimeout(hardTimer)
+      // Ended on a timer with the ad layer still reported open: lower it here,
+      // or the app shell keeps the game paused behind an ad that is gone.
+      if (adStarted) isPortalAdOpen.value = false
       if (isDebug.value) {
         console.info(
           `[gamemonetize] rewarded finish → granted=${granted} (adStarted=${adStarted}, completed=${completed})`
@@ -473,6 +463,8 @@ export const showMidgameAdGM = (onImpression?: () => void): Promise<void> => {
       unsubStart()
       clearTimeout(noFillTimer)
       clearTimeout(hardTimer)
+      // See `showRewardedAdGM`: a cycle that ends on the hard cap lowers the ref.
+      if (adStarted) isPortalAdOpen.value = false
       // An interstitial that actually played trips the SAME global frequency-cap
       // cooldown a rewarded ad does — the SDK's cap is shared across ad types,
       // so a midgame interstitial must hide the watch-ad buttons too (the bug
@@ -652,44 +644,6 @@ const invokeShow = (s: any, type: 'rewarded' | 'interstitial', onError: () => vo
     console.warn(`[gamemonetize] show ${type} threw`, e)
     onError()
   }
-}
-
-// Ad-tech endpoints that ad-blockers (Brave Shields, uBlock, AdGuard) block
-// with ERR_BLOCKED_BY_CLIENT but are otherwise reachable. `adsbygoogle.js` is the
-// canonical adblock-test URL; `2mdn` is the instream-video resource Brave was
-// observed blocking. CSP already allows https: connect on GameMonetize builds, so
-// a rejection here means a client-side blocker, not our own policy.
-const AD_BLOCK_BAIT_URLS: ReadonlyArray<string> = [
-  'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-  'https://s0.2mdn.net/instream/video/client.js'
-]
-
-/**
- * Detect a client-side ad-blocker by trying to reach known ad-tech endpoints.
- * A blocked request rejects (ERR_BLOCKED_BY_CLIENT → TypeError); a reachable one
- * resolves with an opaque (no-cors) response even on 404. A no-cors GET does NOT
- * execute the fetched script, so this has no side effects. Returns true only
- * when EVERY bait was actively blocked — a slow-network timeout counts as
- * 'unknown' (not blocked) so a flaky connection can't false-positive the modal.
- */
-const probeAdBlocked = async (): Promise<boolean> => {
-  if (typeof fetch !== 'function') return false
-  const check = async (url: string): Promise<'ok' | 'blocked' | 'unknown'> => {
-    const ctrl = new AbortController()
-    const timer = setTimeout(() => ctrl.abort(), 4000)
-    try {
-      await fetch(`${url}?_=${Date.now()}`, {
-        method: 'GET', mode: 'no-cors', cache: 'no-store', signal: ctrl.signal
-      })
-      return 'ok'
-    } catch (e) {
-      return (e as { name?: string })?.name === 'AbortError' ? 'unknown' : 'blocked'
-    } finally {
-      clearTimeout(timer)
-    }
-  }
-  const results = await Promise.all(AD_BLOCK_BAIT_URLS.map(check))
-  return results.every((r) => r === 'blocked')
 }
 
 /** Recognise the SDK's frequency-cap rejection. When a show is requested too

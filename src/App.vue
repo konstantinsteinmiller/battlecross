@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { mobileCheck } from '@/utils/function'
 import { useMusic } from '@/use/useSound'
-import { useExtensionGuard } from '@/use/useExtensionGuard'
 import { windowWidth, windowHeight } from '@/use/useUser'
 import { isDebug } from '@/use/useMatch'
 import useAssets from '@/use/useAssets'
@@ -14,6 +13,8 @@ import SaveStatusBanner from '@/components/atoms/SaveStatusBanner.vue'
 import AdsBlockedModal from '@/components/atoms/AdsBlockedModal.vue'
 import VConsoleHideButton from '@/components/atoms/VConsoleHideButton.vue'
 import GlLostVeil from '@/components/atoms/GlLostVeil.vue'
+import ForcedDarkModeModal from '@/components/organisms/ForcedDarkModeModal.vue'
+import { isPortalAdOpen, pauseGame, resumeGame } from '@/use/useGamePause'
 import { useCrazyMuteSync } from '@/use/useCrazyMuteSync'
 import useCheats, { installDebugUnlock } from '@/use/useCheats'
 import { orientation } from '@/use/useUser'
@@ -22,7 +23,6 @@ import { installBrowserGuard } from '@/use/useBrowserGuard'
 
 const { t } = useI18n()
 const { initMusic, pauseMusic, continueMusic } = useMusic()
-useExtensionGuard()
 const { resourceCache } = useAssets()
 useCrazyMuteSync()
 // Attach the "cmarc" debug-unlock key listener at app boot (App.vue is eager),
@@ -37,6 +37,17 @@ installDebugUnlock()
 useCheats()
 
 initMusic()
+
+// THE watcher between a portal's ad layer and the game. A portal plugin
+// (GameMonetize's SDK_GAME_PAUSE … SDK_GAME_START) only PUBLISHES
+// `isPortalAdOpen`; this one place turns it into the platform pause, which
+// freezes the loop and suspends every sound (`useGamePauseAudio`). Sync, so the
+// audio stops inside the SDK's own callback, before the ad paints. Edges only
+// (not `immediate`): a resume at mount would release a pause another portal's
+// SDK set during boot. An ad layer already open before mount is caught by the
+// line after it. On every build whose plugin never raises the ref it is idle.
+watch(isPortalAdOpen, (open) => { if (open) pauseGame(); else resumeGame() }, { flush: 'sync' })
+if (isPortalAdOpen.value) pauseGame()
 
 const portraitQuery = window.matchMedia('(orientation: portrait)')
 const onOrientationChange = (event: any) => {
@@ -156,6 +167,7 @@ const VConsoleHide = import.meta.env.VITE_APP_NATIVE === 'true' || import.meta.e
     SaveStatusBanner
     AdsBlockedModal
     GlLostVeil
+    ForcedDarkModeModal
     component(v-if="VConsoleHide" :is="VConsoleHide")
     RouterView
 

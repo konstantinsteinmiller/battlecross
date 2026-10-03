@@ -154,7 +154,7 @@ shallow mirror at ≤ 15 Hz and paints per-frame things with direct DOM writes.
 - **Leaderboard**: live on its own Worker and database (`worker/SETUP.md`); the dev server never posts.
 - **Portal ids are blank on purpose** (Poki P4D id, Playgama application id, Wavedash, GameMonetize, GameDistribution, Glitch): each needs this game's own entry in that portal first. `pnpm deploy:poki` refuses to run without one.
 - **Hydration proof is the CrazyGames arm on the dev server.** Not done: the same script against the BUILT bundle (`--dist`), and a Playgama (`bridge.storage`) arm — the `persistToRaw` builds are covered by unit tests only.
-- **Built-bundle portal QA** (`scripts/portal-qa.mjs`) still only knows GamePix / GameMonetize and words its checks for the predecessor; CrazyGames, Playgama and Poki arms are roadmap work before those submissions.
+- **Built-bundle portal QA** (`scripts/portal-qa.mjs`): the GameMonetize arm is Battlecross's own (47 checks, section 7); the GamePix arm is still the predecessor's; CrazyGames, Playgama and Poki arms are roadmap work before those submissions.
 - **Rewarded-ad code is dormant, not deleted** (`useAdGate` reward half, `useRewardedThrottle`, `AdsBlockedModal`): the brief excluded rewarded buttons; the roadmap (#18, #19) may want them back.
 - **Late cloud save during the opening fight**: the profile in memory becomes the cloud's at once (proved), but the scene stays the opening fight until it ends; the result then lands on the real save.
 - **Predecessor wording in comments** of the kept platform layer (ads, save merge, Poki plugin, vite config excludes): harmless, cleaned where touched.
@@ -189,7 +189,8 @@ changes only.
 | D38 | Trade | A two-sided trade table: the merchant's goods on one side, the hero's bag on the other, the item in question in the middle with a comparison against what is worn, the price, and the two purses. Items sold in this visit can be bought back at the price paid. Item rules unchanged (unique items, 25 % sell-back, Charisma discount) | Gothic / Skyrim barter |
 | D39 | Equipment | A paper-doll of the hero with EIGHT slots around it — main hand, off hand, head, body, hands, feet, two trinkets — fed from a bag grid: drag onto a slot or tap twice; the worn item is compared with the selected one. Helmets, gloves and boots are new items across the tiers, visible on the hero model | **Answered by the owner 2026-10-02** ("do also helmet, boots, gloves equipment slots"); Battleheart Legacy |
 | D40 | Skills screen | The six active and three passive slots as the loadout, the learned skills grouped by class, drag or tap to slot | Battleheart Legacy |
-(m, a) => `| D41 | UI style |${a}| **Answered by the owner 2026-10-02** ("parchment panels yes, do it"); \`game-and-feel-reference.jpg\`, GDD §2 |\n`| D42 | Bars | One shared bar: 25 / 50 / 75 % ticks, frames by rank. World bars: minion plain, elite winged, champion crested, boss crowned. Hero: health and mana framed, experience ticked without ornaments | owner's note |
+| D41 | UI style | One token layer (CSS variables). Chunky ink outlines, flat two-tone cel fills with a hard highlight band instead of soft gradients, saturated candy colours, warm parchment panels with coloured ribbons, bouncy presses | **Answered by the owner 2026-10-02** ("parchment panels yes, do it"); `game-and-feel-reference.jpg`, GDD §2 |
+| D42 | Bars | One shared bar: 25 / 50 / 75 % ticks, frames by rank. World bars: minion plain, elite winged, champion crested, boss crowned. Hero: health and mana framed, experience ticked without ornaments | owner's note |
 | D43 | Attacks | The sim's timings do not change (balance). Choreography is view-side: anticipation inside the existing wind-up, a fast strike on the sim's hit time, follow-through and recovery; an elbow and a weapon bone are added; every melee swing leaves a ribbon trail from the weapon tip, every hit an impact sized by the blow; damage-over-time ticks get a small tick effect and no hit-stop | owner's note |
 | D44 | Levels | New per-cell kinds (water, plate, door) beside `solid`; chests are interactables with a per-zone loot table; optional packs do not count for the win and are skipped by the reference bot; water blocks walking but not sight or shots; elevation comes last (it touches every y = 0 in the view) | world map (ground truth) |
 | D45 | Painted art | The new screens ship with code-drawn art in the new style and are painter targets in the art manifest. The owner has signed in to the image model, so the orchestrator runs the painting round through the Art Desk queue (40 a day): one pilot per kind of drawable, reviewed against the drawn version, then the rest | **Answered by the owner 2026-10-02** ("I already signed in to Gemini"); art pipeline |
@@ -227,3 +228,38 @@ changes only.
 - Painting: day 1 (`ea6f812`), day 2 (`a308154`), hero portrait (`8330e7e`); 135 targets painted except the button and bar frames (deferred, #51).
 - Gate: translations (`5e8f194`), performance (`541813a`), trail and repaint fixes (`75e95c3`).
 
+## 7. GameMonetize release (roadmap #66)
+
+The playbook's GameMonetize audit (Phase 5, 6, 2's forced-dark bullet, 7),
+run on the built bundle. Re-run it before every upload: `pnpm build:gamemonetize`
+(gates + zip), `pnpm gamemonetize:audit` (unobfuscated twin),
+`pnpm qa:gamemonetize` (47 browser checks). README, "GameMonetize release".
+
+- [x] **Step 0, the build exists and is this platform's:** flag in `useUser`,
+  in the exactly-one-platform assertion and the reward gate; both resolvers;
+  descriptor only (no re-exports); `buildCsp` names GameMonetize and nobody
+  else on this build and GameMonetize on no other build; plugin and provider
+  stub-aliased on every other build; `.env.gamemonetize.local` sets every other
+  flag false. Proven on the built bundle: the SDK request, `SDK_OPTIONS` with a
+  game id, `GameMonetizeStrategy` chunk.
+- [x] **Ads:** first-load interstitial by the two-signal watcher (loader gone
+  AND interstitial ready), seeded clock, music restart on `.finally()`, one
+  armed path, grace 0; midgame ad on Continue / Retry behind a closed result
+  screen (D19; owner question 30); both ad waits capped (6 s never opened, 60 s
+  never finished, the plugin's own 3 s no-fill and 45 s cap); music hard-stop,
+  one-shot kill and the suspend gate around every ad; the plugin only publishes
+  `isPortalAdOpen`, App.vue's one watcher pauses. No rewarded placement is
+  reachable; the old ad-block network probe is gone.
+- [x] **Platform signals:** GameMonetize has pause / resume (its ad layer, also
+  its consent wall) and no mute or language API; pause stops the loop and the
+  sound, resume brings both back. Nothing is written to player settings.
+- [x] **Forced dark mode** (shared by every build): `darkreader-lock` beside
+  the `dark only` scheme, the detector, `ForcedDarkModeModal` (an app-side hold;
+  the first-load ad stays armed under it), the old extension guard deleted.
+  `forcedDark.*` keys English-only for now.
+- [x] **Package:** `index.html` at the zip root, relative paths, no source maps,
+  obfuscated (public re-distribution), no developer comments in `index.html` or
+  the storage shim, 7.2 MB / 3.7 MB zipped; no other portal's SDK or service, no
+  child-directed flag, no Worker URL (baked leaderboard, owner question 29).
+- [ ] **Owner:** create the game on GameMonetize, paste its id, upload
+  (`outstanding-decisions.md` A2, A3).

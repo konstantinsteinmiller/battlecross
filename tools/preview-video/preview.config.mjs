@@ -146,6 +146,9 @@ export default {
   },
 
   urlParams: {
+    // No forced-dark-mode notice in a recording (the capture browser is clean,
+    // but a take must never depend on the guard's verdict).
+    darkguard: 'off',
     // The scripting handle (`window.__preview`), on EVERY recording URL — a
     // `--no-clean` take is driven the same way a clean one is. It also holds
     // the result screen back, so a clip can run past a boss's fall.

@@ -77,6 +77,14 @@ export const acquireAppPause = (): (() => void) => {
   }
 }
 
+/** True while a portal SDK reports ITS ad layer open (GameMonetize's
+ *  `SDK_GAME_PAUSE` … `SDK_GAME_START`). Published by the portal plugin and
+ *  read by exactly ONE watcher, in App.vue, which turns it into the platform
+ *  pause — the plugin never drives the gate itself. Kept apart from
+ *  `isAdShowing`, which `useAds` raises and lowers around its own requests:
+ *  two writers on one ref would let either side release the other's pause. */
+export const isPortalAdOpen = ref(false)
+
 /** Setter for platform-side pause (SDK pause callback). Idempotent. */
 export const pauseGame = (): void => {
   if (!isPlatformPaused.value) isPlatformPaused.value = true

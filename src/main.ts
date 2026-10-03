@@ -26,6 +26,7 @@ import { installSaveStatus } from '@/use/useSaveStatus'
 import { bootstrapVConsoleFromUrl } from '@/use/useVConsole'
 import { installPerfProbe } from '@/use/usePerfProbe'
 import { activeVariants } from '@/use/perfVariants'
+import { startForcedDarkModeGuard } from '@/use/useForcedDarkModeGuard'
 
 // Build-config self-check moved inline below — the previous top-level
 // `looksLikeCrazyGamesPortal` helper baked `crazygames.com` /
@@ -36,6 +37,20 @@ import { activeVariants } from '@/use/perfVariants'
 // builds while keeping the diagnostic alive on every other build.
 
 const bootstrap = async () => {
+  // Forced dark mode (Dark Reader, Chromium "Auto Dark Mode for Web Contents",
+  // forced colours) repaints the DOM HUD and leaves the canvas alone. The
+  // opt-outs in index.html neutralise most of it; the guard detects the rest
+  // and `ForcedDarkModeModal` (App.vue) holds the game behind a notice until it
+  // is off. Started first: loading itself is never gated. Re-checks on the
+  // game's own resume edge as well as on focus (never Page Visibility, which
+  // YouTube Playables forbids). `?darkguard=off` (dev only) is the capture seam
+  // for the preview-video recorder.
+  startForcedDarkModeGuard({
+    disabled: import.meta.env.DEV && new URLSearchParams(window.location.search).get('darkguard') === 'off',
+    subscribeRecheck: (recheck) => onPauseChange((paused) => { if (!paused) recheck() }),
+    onDetected: (r) => console.info(`[forced-dark-guard] ${r.kind} (${r.confidence}, ${r.browser})`)
+  })
+
   // Wire the universal pause gate → audio mute before anything can show an
   // ad. One subscriber, every build: rewarded / interstitial ads, tab-hide,
   // platform SDK pause, and app modals all suspend music + SFX through this
@@ -93,7 +108,13 @@ const bootstrap = async () => {
   // host, flag or build script named anywhere in the game's own code, and this
   // diagnostic names all three. A Playgama archive can never be served by
   // CrazyGames anyway: it is uploaded to developer.playgama.com.
-  if (import.meta.env.VITE_APP_YANDEX !== 'true' && import.meta.env.VITE_APP_PLAYGAMA !== 'true') {
+  //
+  // Not on GameMonetize either: GM re-distributes its archive to partner
+  // sites, CrazyGames' sister sites among the likely ones, and a GM build
+  // shouting "BUILD MISCONFIGURED … CrazyGames" in a partner's console — or
+  // naming crazygames.com to a reviewer grepping the archive — is a finding,
+  // not a diagnostic.
+  if (import.meta.env.VITE_APP_YANDEX !== 'true' && import.meta.env.VITE_APP_PLAYGAMA !== 'true' && import.meta.env.VITE_APP_GAME_MONETIZE !== 'true') {
     const looksLikeCrazyGamesPortal = (): boolean => {
       try {
         const ref = document.referrer
@@ -142,7 +163,11 @@ const bootstrap = async () => {
     // from `FLogoProgress.vue` once the splash screen resolves.
     cg.startLoading()
     cgLocale = cg.crazyLocale.value
-  } else if (isWaveDash) {
+  } else if (import.meta.env.VITE_APP_WAVEDASH === 'true') {
+    // The env literal, not the imported `isWaveDash`: `useUser.ts` is
+    // obfuscated, so its constant does not always fold here, and the
+    // `WavedashJS` global then rode along into other portals' bundles (found
+    // in the obfuscated GameMonetize archive; its twin was clean).
     try {
       const sdk = await (window as any).WavedashJS
       if (sdk) await sdk.init({ debug: isDebug.value })
@@ -590,8 +615,9 @@ const bootstrap = async () => {
   // ready.
   void initAds().catch((e) => console.warn('[ads] init failed', e))
 
-  // Signal to Wavedash that the game is fully loaded and ready
-  if (isWaveDash) {
+  // Signal to Wavedash that the game is fully loaded and ready (env literal:
+  // see the init arm above)
+  if (import.meta.env.VITE_APP_WAVEDASH === 'true') {
     try {
       const sdk = await (window as any).WavedashJS
       if (sdk) {
