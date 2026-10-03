@@ -117,6 +117,9 @@ describe('the end of a visit', () => {
 })
 
 describe('Continue on the result screen', () => {
+  // The first visit ever is the opening fight, which no ad follows (#20).
+  beforeEach(() => { p.profile.stats.runs = 3 })
+
   it('closes the result FIRST, then plays the interstitial, then moves on', async () => {
     await f.bankVisit('victory', 'plains', tally())
     const { watch } = await import('vue')
@@ -142,6 +145,31 @@ describe('Continue on the result screen', () => {
     expect(ads.shown).toBe(1)
   })
 
+  it('no ad after the opening fight, after a defeat, or before a decision (#20)', async () => {
+    p.profile.stats.runs = 0
+    await f.bankVisit('victory', 'plains', tally())
+    expect(f.flow.results!.opening).toBe(true)
+    await f.leaveResults()
+    expect(ads.shown).toBe(0)
+
+    await f.bankVisit('defeat', 'woods', tally())
+    expect(f.flow.results!.opening).toBeUndefined()
+    await f.leaveResults()
+    expect(ads.shown).toBe(0)
+
+    await f.bankVisit('victory', 'hollows', tally())
+    await f.leaveResults()
+    expect(f.flow.talk).toBe('decision')
+    expect(ads.shown).toBe(0)
+    p.decideQuest('goblinKing', 'slay')
+    f.afterVisit()
+
+    // A plain win after all that takes the ad (nothing was owed, nothing is doubled).
+    await f.bankVisit('victory', 'woods', tally())
+    await f.leaveResults()
+    expect(ads.shown).toBe(1)
+  })
+
   it('goes to the decision when the finale brought one, and to the ending after the throne', async () => {
     await f.bankVisit('victory', 'hollows', tally())
     await f.leaveResults()
@@ -164,11 +192,12 @@ describe('Continue on the result screen', () => {
 
 describe('Retry on the result screen', () => {
   const fake = { setup: { theme: 'plains' } } as never
+  beforeEach(() => { p.profile.stats.runs = 3 })
 
-  it('closes the result, plays the paced interstitial, then re-enters the same zone', async () => {
+  it('after a retreat: closes the result, plays the paced interstitial, then re-enters the same zone', async () => {
     f.setNodeBuilder(async () => fake)
     await f.travel('plains')
-    await f.bankVisit('defeat', 'plains', tally())
+    await f.bankVisit('retreat', 'plains', tally())
     const { watch } = await import('vue')
     const stop = watch(() => f.flow.modal, (m) => ads.order.push(`modal:${m || 'none'}`), { flush: 'sync' })
     await f.retryVisit()
@@ -181,17 +210,27 @@ describe('Retry on the result screen', () => {
     f.setNodeBuilder(null)
   })
 
-  it('plays no ad inside the pacing window, and a double tap asks for one', async () => {
+  it('after a defeat: no ad, straight back in (#20)', async () => {
     f.setNodeBuilder(async () => fake)
-    ads.can = false
     await f.travel('plains')
     await f.bankVisit('defeat', 'plains', tally())
     await f.retryVisit()
     expect(ads.shown).toBe(0)
     expect(f.flow.screen).toBe('zone')
+    f.setNodeBuilder(null)
+  })
+
+  it('plays no ad inside the pacing window, and a double tap asks for one', async () => {
+    f.setNodeBuilder(async () => fake)
+    ads.can = false
+    await f.travel('plains')
+    await f.bankVisit('retreat', 'plains', tally())
+    await f.retryVisit()
+    expect(ads.shown).toBe(0)
+    expect(f.flow.screen).toBe('zone')
 
     ads.can = true
-    await f.bankVisit('defeat', 'plains', tally())
+    await f.bankVisit('retreat', 'plains', tally())
     await Promise.all([f.retryVisit(), f.retryVisit()])
     expect(ads.shown).toBe(1)
     f.setNodeBuilder(null)

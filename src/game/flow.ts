@@ -22,6 +22,7 @@ import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSoun
 import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
 import { canShowInterstitial, markInterstitialShown } from '@/use/useAdGate'
+import { breakAllowed } from '@/game/adPacing'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
 import { reportRun } from '@/use/useLeaderboard'
@@ -85,6 +86,8 @@ export interface ResultsData {
   mastery?: Mastery & { pct: number; bestBefore: number }
   /** A random encounter met on the map (`node` is its region's zone). */
   encounter?: boolean
+  /** The hero's very first visit (the opening fight): no ad follows it (#20). */
+  opening?: boolean
 }
 
 export const flow = reactive({
@@ -429,6 +432,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   const encounter = !!flow.encounter
   measureEnd(encounter ? ENCOUNTER_LEVEL : node, outcome === 'victory')
   const levelBefore = profile.level
+  // Read before the run counter moves: the first visit ever is the opening fight.
+  const opening = profile.stats.runs === 0
   const items: ResultItem[] = []
   grantXp(h.xp)
   profile.gold += h.gold
@@ -465,7 +470,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   void flushSaveNow()
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
-    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {})
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {}), ...(opening ? { opening: true } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
@@ -493,21 +498,25 @@ let leaving = false
  */
 export const leaveResults = async (): Promise<void> => {
   if (leaving) return
-  await adBreak()
+  const decisionNext = !!flow.quest && !profile.quests.done[flow.quest]
+  await adBreak(decisionNext)
   if (flow.quest && startDecision(flow.quest)) return
   afterVisit()
 }
 
 /**
  * The paced break behind a closed result screen, shared by Continue and
- * Retry. Never throws: whatever the ad does, the player moves on.
+ * Retry. Never throws: whatever the ad does, the player moves on. The clock
+ * says whether an ad may run; the content rules (`adPacing`, #20) say whether
+ * this moment may take one.
  */
-const adBreak = async (): Promise<void> => {
+const adBreak = async (decisionNext = false): Promise<void> => {
   leaving = true
+  const r = flow.results
   flow.modal = ''
   let adShown = false
   try {
-    if (canShowInterstitial()) {
+    if (r && breakAllowed({ outcome: r.outcome, opening: r.opening, decisionNext }) && canShowInterstitial()) {
       markInterstitialShown()
       adShown = true
       await showMidgameAd()

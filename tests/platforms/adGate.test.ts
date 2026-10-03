@@ -189,13 +189,13 @@ describe('interstitial pacing', () => {
   // A first-timer's first "Continue" comes about half a minute in (the opening
   // fight). It must not be answered with an ad.
   it.each([
-    ['the default build', {}, 180_000],
-    ['CrazyGames', { VITE_APP_CRAZY_WEB: 'true' }, 180_000],
-    ['Poki', { VITE_APP_POKI: 'true' }, 180_000],
-    ['Playgama / YouTube Playables', { VITE_APP_PLAYGAMA: 'true' }, 180_000],
-    ['GamePix', { VITE_APP_GAMEPIX: 'true' }, 180_000],
-    ['Yandex (its own 60 s rule)', { VITE_APP_YANDEX: 'true' }, 61_000],
-    ['GameMonetize (the mandated first-load ad starts the gap instead)', { VITE_APP_GAME_MONETIZE: 'true' }, 0]
+    ['the default build', {}, 240_000],
+    ['CrazyGames', { VITE_APP_CRAZY_WEB: 'true' }, 240_000],
+    ['Poki', { VITE_APP_POKI: 'true' }, 240_000],
+    ['Playgama / YouTube Playables', { VITE_APP_PLAYGAMA: 'true' }, 240_000],
+    ['GamePix', { VITE_APP_GAMEPIX: 'true' }, 240_000],
+    ['Yandex (above its own 60 s rule)', { VITE_APP_YANDEX: 'true' }, 240_000],
+    ['GameMonetize (the first-load ad is its own path)', { VITE_APP_GAME_MONETIZE: 'true' }, 240_000]
   ] as const)('%s keeps the start of a session ad-free for its own time', async (_name, env, grace) => {
     vi.useFakeTimers()
     const gate = await loadGate({ env })

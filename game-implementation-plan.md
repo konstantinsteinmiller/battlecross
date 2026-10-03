@@ -263,3 +263,53 @@ run on the built bundle. Re-run it before every upload: `pnpm build:gamemonetize
   child-directed flag, no Worker URL (baked leaderboard, owner question 29).
 - [ ] **Owner:** create the game on GameMonetize, paste its id, upload
   (`outstanding-decisions.md` A2, A3).
+
+## 8. Retention and ads backlog (roadmap #9, #10, #14, #15, #16, #18, #19, #20)
+
+Sequential worker: one writer, phases in dependency order, one commit per
+phase (full suite, type-check, real-browser probe, translations for all 38
+locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
+
+### Decisions
+
+| ID | Topic | Decision | Source |
+| --- | --- | --- | --- |
+| D51 | Ad grace | 240 s ad-free start for the midgame ad on every build; 121 s gap kept; GameMonetize's first-load ad untouched | owner (#20) |
+| D52 | Ad content rules | No break after the opening fight, after a defeat, or before a decision (`game/adPacing.ts`); a skipped break is not owed | owner (#20) |
+| D53 | Ad order | Interstitial stays after the result screen, on Continue / Retry | owner question 30 |
+| D54 | Rewarded = ad break | A completed rewarded video restarts the interstitial clock (not on Poki) | playbook B6 |
+| D55 | Rewarded on | Rewarded placements live where `canOfferReward` allows; no button at all elsewhere | **Answered by the owner 2026-10-04** (asked for #18 / #19; question 7) |
+| D56 | Second wind | On defeat, before the result screen: one revive per visit, half health, 2 s invulnerable, a knock-back pulse | roadmap #18 |
+| D57 | Second wind scope | Not in the opening fight, not in the colosseum | **Answered by the owner 2026-10-04** |
+| D58 | Ad brackets | gameplayStop under the offer, the mute guarantee, music restart on `.finally()` | playbook |
+| D59 | Triple the purse | Victory with gold: 3× in total, granted and saved before the coins fly; not after the opening fight, a defeat or a retreat | roadmap #19; playbook B5 |
+| D60 | Rare shelf | Three items one tier above a merchant's stock (no legendaries, nothing owned), seeded by town and day; a rewarded refresh up to 3 a day; no refresh button without ads | roadmap #19; playbook C1 |
+| D61 | Rested pool | 10 min of double XP per hour away (absences under 30 min count nothing), capped at 120 min; fight time drains it; kill XP doubled | **Answered by the owner 2026-10-04** |
+| D62 | Last seen | Written with every save; merged on the later time; negative absences count zero | playbook save rules |
+| D63 | Rested display | One-time map banner on return, a chip while it lasts, "2× XP" on the fight's XP bar | roadmap #9 |
+| D64 | Presets | Two named presets of skills and gear; load skips what is no longer owned or allowed and says so | roadmap #14 |
+| D65 | Respec | At the healer: every spent attribute point back; first free, then 50 + 25 × level gold; skills whose requirement fails go to the bench | **Answered by the owner 2026-10-04** |
+| D66 | Contracts | A board in every town: one contract per faction a day (kills of a kind, a clear, chests), counted automatically, handed in for gold and +1 reputation | roadmap #15 |
+| D67 | Reputation track | Three −5…5 bars with marks at +3 and +5, on the hero sheet and the board | roadmap #15 |
+| D68 | Reputation rewards | +3: 300 gold and a tier-matched item once; +5 while held: Order +5 % health, Syndicate +10 % gold, Circle +10 % mana regeneration | **Answered by the owner 2026-10-04** |
+| D69 | Colosseum ladder | Endless waves; wave 8 keeps its prize chest; gold every 5 waves after; +1 enemy level per 2 waves past 8, an elite every 3rd; Leave between waves; no gold lost on defeat | roadmap #10 |
+| D70 | Best wave | Waves cleared, recorded on defeat and leave too; all-time and this week; "New best" chip | ground truth |
+| D71 | Weekly modifier | By UTC week: All fire, No potions, Glass, Swarm, Elite parade, Haste | roadmap #10 |
+| D72 | Wave board | Weekly best-wave board on the Worker's new `board` key; Colosseum tab; baked builds show the personal best | **Answered by the owner 2026-10-04** ("you do the deployment") |
+| D73 | Music | A new void theme (void and rift); a test for drop-in files | ground truth; D46 |
+| D74 | Old music styles | The `trance` / `cozy` file mapping stays (a saved setting); noted in `sound-todo.md` | saves |
+
+### Phases
+
+- [x] **17.1 Interstitial pacing** (#20).
+- [ ] **17.2 Second wind** (#18).
+- [ ] **17.3 Triple the purse, rare shelf** (#19).
+- [ ] **17.4 Rested bonus** (#9).
+- [ ] **17.5 Presets and respec** (#14).
+- [ ] **17.6 Faction contracts and reputation** (#15).
+- [ ] **17.7 Colosseum ladder** (#10).
+- [ ] **17.8 Void theme** (#16).
+
+### Deferred
+
+(none yet)

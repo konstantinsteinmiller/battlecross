@@ -5,7 +5,7 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-03.
+Last updated: 2026-10-04.
 
 ## Needs an answer
 
@@ -16,7 +16,6 @@ Last updated: 2026-10-03.
 | 3 | **A test row on the predecessor's live leaderboard** ("Servo773490", score 328), written by an early dev run of this repo. Delete it from the old game's database? | Left in place | Delete it |
 | 4 | **`VITE_GEMINI_API_KEY` in the local `.env`.** Nothing in this repo reads it and it does not reach the bundle. Remove it? | Left in place | Remove it, or rename it without the `VITE_` prefix |
 | 5 | **The repository carries the predecessor's git history.** Keep it, or restart the history at the Battlecross baseline? | Kept | Keep unless the repo goes public |
-| 7 | **Rewarded ads.** The code is dormant, not deleted. Bring rewarded placements back for roadmap #18 / #19? | Off | Decide with the first retention numbers |
 | 8 | **Weak builds.** A Chrono-Weaver-only hero and a late-game Aegis-only hero clear fewer zones than the other classes. Buff them, or accept (the game is about mixing classes)? | Accepted | Small buff to Chrono-Weaver's damage |
 | 9 | **Music.** One code-composed soundtrack. Commission or generate authored tracks (`sound-todo.md` lists the drop-in names)? | Code-composed | Listen first; authored tracks before the first big portal submission if it falls short |
 | 29 | **GameMonetize leaderboard.** The build makes no request to our Cloudflare Worker (GameMonetize re-distributes the archive to many partner sites): it ships the baked board like Poki (rank chip, no top-100 list, no names). Live board instead? | Baked | Keep baked |

@@ -230,26 +230,21 @@ const INTERSTITIAL_MIN_GAP_MS = 121_000
  * only a one-minute rule the very first "Continue" a first-timer ever presses
  * could be answered with an ad. So:
  *
- *   • the default (CrazyGames, Poki, Playgama / YouTube Playables, itch,
- *     GamePix, GameDistribution and everything else): THREE ad-free minutes.
- *     That covers the opening fight, the first town visit and most of the
- *     Goblin Hollows — the stretch in which the game is learned. Poki's own
- *     playtime gates and CrazyGames' reviewers both read an early interstitial
- *     as a mark against a game;
- *   • Yandex: its own rule, none in the first 60 s (61 s for clock skew);
- *   • GameMonetize: no grace of ours — its moderation requires an ad on first
- *     load (`useFirstLoadInterstitial`), and that ad starts the two-minute gap
- *     below, which is the grace there.
+ * FOUR ad-free minutes on every build (owner, roadmap #20): the opening
+ * fight, the first town visit, the Goblin Hollows and its boss — the stretch
+ * in which the game is learned. It is longer than every portal's own floor
+ * (Yandex 60 s; Poki's playtime gates and CrazyGames' reviewers read an early
+ * interstitial as a mark against a game), so one number serves them all.
  *
- * Static env literals, so each build carries exactly one number.
+ * Only the midgame ad. GameMonetize's moderation-mandated first-load ad
+ * (`useFirstLoadInterstitial`) is its own path and is untouched — shipping
+ * there depends on it; it starts the two-minute gap, and the midgame ad still
+ * waits out these four minutes.
  *
- * Only the midgame ad. The moderation-mandated first-load ad is its own path
- * and is untouched — shipping on those portals depends on it.
+ * WHICH moments may take an ad at all (not after the opening fight, a defeat,
+ * or before a decision) is `game/adPacing.ts`.
  */
-export const EARLY_ADS_GRACE_MS: number =
-  import.meta.env.VITE_APP_GAME_MONETIZE === 'true' ? 0
-    : import.meta.env.VITE_APP_YANDEX === 'true' ? 61_000
-      : 180_000
+export const EARLY_ADS_GRACE_MS = 240_000
 
 /** Kept under its old name for the callers and specs that read it. */
 export const INTERSTITIAL_AFTER_LOAD_MS = EARLY_ADS_GRACE_MS
