@@ -165,8 +165,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       // Facing +z: a seat plank on legs, a back rail behind.
       h.box(-0.65, 0.2, -0.2, 0.65, 0.28, 0.2, { top: '#b07e48', side: WOOD_D, front: WOOD }, 'b')
       for (const s of [-1, 1]) d.box(s * 0.55 - 0.06, 0, -0.18, s * 0.55 + 0.06, 0.2, 0.18, WOOD_D, 'b')
-      for (const s of [-1, 1]) d.box(s * 0.55 - 0.05, 0.28, -0.22, s * 0.55 + 0.05, 0.75, -0.14, WOOD_D, 'b')
-      h.box(-0.68, 0.5, -0.24, 0.68, 0.72, -0.14, { front: '#b07e48', side: WOOD_D, top: WOOD }, 'b')
+      for (const s of [-1, 1]) d.box(s * 0.55 - 0.05, 0.28, -0.23, s * 0.55 + 0.05, 0.75, -0.16, WOOD_D, 'b')
+      h.box(-0.68, 0.5, -0.27, 0.68, 0.72, -0.18, { front: '#b07e48', side: WOOD_D, top: WOOD }, 'b')
       break
     }
     case 'table': {
@@ -212,14 +212,14 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         h.push(x, y + 0.42, z, rot)
         h.pushMatrix(ALONG_Z)
         h.cyl(0, -0.42, 0, 0.42, 0.42, 0.84, 10, hc, shade(hc, 1.12), true)
-        h.cyl(0, 0.42, 0, 0.42, 0.42, 0.001, 10, hc, shade(hc, 1.12))
+        h.disc(0, -0.42, 0, 0.42, 10, shade(hc, 1.05), true)
         h.pop()
         h.pop()
         d.push(x, y + 0.42, z, rot)
         d.pushMatrix(ALONG_Z)
         for (const yy of [-0.2, 0.2]) d.cyl(0, yy, 0, 0.435, 0.435, 0.05, 10, shade(hc, 0.72))
         // The spiral on its face.
-        d.cyl(0, 0.425, 0, 0.22, 0.22, 0.01, 8, shade(hc, 0.85), shade(hc, 0.85))
+        d.cyl(0, 0.42, 0, 0.22, 0.22, 0.03, 8, shade(hc, 0.85), shade(hc, 0.85))
         d.pop()
         d.pop()
       }
@@ -253,8 +253,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       break
     case 'rack': {
       for (const s of [-1, 1]) h.box(s * 0.7 - 0.05, 0, -0.05, s * 0.7 + 0.05, 1.2, 0.05, WOOD_D, 'b')
-      d.beam(-0.75, 1.05, 0.05, 0.75, 1.05, 0.05, 0.07, WOOD, 0.07)
-      d.beam(-0.75, 0.35, 0.05, 0.75, 0.35, 0.05, 0.07, WOOD, 0.07)
+      d.beam(-0.7, 1.05, 0.05, 0.7, 1.05, 0.05, 0.07, WOOD, 0.07)
+      d.beam(-0.7, 0.35, 0.05, 0.7, 0.35, 0.05, 0.07, WOOD, 0.07)
       for (let i = 0; i < 5; i++) {
         const x = -0.5 + i * 0.25
         const kind = i % 3
@@ -313,8 +313,9 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         const cw = 0.3 + r() * 0.2
         const ch = 0.45 + r() * 0.3
         const col = cl[(i + p.v) % cl.length]!
-        d.quad(x - cw / 2, 1.66 - ch, 0.01, x + cw / 2, 1.66 - ch, 0.01, x + cw / 2, 1.66, 0.01, x - cw / 2, 1.66, 0.01, col)
-        d.quad(x + cw / 2, 1.66 - ch, -0.01, x - cw / 2, 1.66 - ch, -0.01, x - cw / 2, 1.66, -0.01, x + cw / 2, 1.66, -0.01, shade(col, 0.85))
+        const cz = (i % 2) * 0.04
+        d.quad(x - cw / 2, 1.66 - ch, cz + 0.01, x + cw / 2, 1.66 - ch, cz + 0.01, x + cw / 2, 1.66, cz + 0.01, x - cw / 2, 1.66, cz + 0.01, col)
+        d.quad(x + cw / 2, 1.66 - ch, cz - 0.01, x - cw / 2, 1.66 - ch, cz - 0.01, x - cw / 2, 1.66, cz - 0.01, x + cw / 2, 1.66, cz - 0.01, shade(col, 0.85))
       }
       d.cyl(w / 2 - 0.35, 0, 0.3, 0.25, 0.3, 0.25, 8, '#c8a070', '#f4ece0')
       break

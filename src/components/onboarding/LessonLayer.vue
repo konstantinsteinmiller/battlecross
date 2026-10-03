@@ -258,9 +258,12 @@ watch(() => onboard.doneN, () => {
 let raf = 0
 let last = 0
 let uninstall: (() => void) | null = null
-const frame = (now: number): void => {
+const frame = (): void => {
   raf = requestAnimationFrame(frame)
-  const dt = last ? Math.min(0.1, (now - last) / 1000) : 0
+  // Wall-clock time: a frame's own stamp can run slow where frames are
+  // throttled, and the pacing is about the player's seconds.
+  const now = performance.now()
+  const dt = last ? Math.min(1, (now - last) / 1000) : 0
   last = now
   clock += dt
   tickOnboarding(dt)

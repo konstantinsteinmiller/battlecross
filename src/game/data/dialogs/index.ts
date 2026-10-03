@@ -3,6 +3,7 @@ import { SUNFORD_TALK } from './sunford'
 import { OAKHAVEN_TALK } from './oakhaven'
 import { IRONHOLD_TALK } from './ironhold'
 import { DECISION_TALK } from './decisions'
+import { SMALLTALK } from './smalltalk'
 
 /**
  * ─── Every conversation in the game ──────────────────────────────────────────
@@ -14,6 +15,11 @@ import { DECISION_TALK } from './decisions'
 export const CONVERSATIONS: readonly ConversationDef[] = [
   ...SUNFORD_TALK, ...OAKHAVEN_TALK, ...IRONHOLD_TALK, ...DECISION_TALK
 ]
+
+/** Every line the game speaks: the conversations, and the small talk the hero
+ *  overhears in the towns (not talked through, only heard). The voice manifest
+ *  and the i18n checks read this. */
+export const SPOKEN: readonly ConversationDef[] = [...CONVERSATIONS, ...SMALLTALK]
 
 export const CONVERSATION_BY_ID: Readonly<Record<string, ConversationDef>> =
   Object.fromEntries(CONVERSATIONS.map(c => [c.id, c]))

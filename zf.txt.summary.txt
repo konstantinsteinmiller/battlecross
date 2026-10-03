@@ -1,0 +1,268 @@
+ 18374  base.detail:framing@houses.ts:213 vs base.detail:framing@houses.ts:219
+          e.g. [base.detail:framing@houses.ts:213] (0.87, 2.30, 2.64) vs [base.detail:framing@houses.ts:219] (1.51, 2.30, 2.63) n(0.00,1.00,0.00) gap 0.0 mm
+ 10721  base.detail:masonry@houses.ts:248 vs base.detail:masonry@houses.ts:256
+          e.g. [base.detail:masonry@houses.ts:248] (-1.37, 0.76, 2.63) vs [base.detail:masonry@houses.ts:256] (-2.47, 0.76, 2.64) n(0.00,1.00,0.00) gap 5.0 mm
+  6558  cut.detail:framing@houses.ts:213 vs cut.detail:framing@houses.ts:219
+          e.g. [cut.detail:framing@houses.ts:213] (0.87, 2.30, 3.39) vs [cut.detail:framing@houses.ts:219] (1.51, 2.30, 3.38) n(0.00,1.00,0.00) gap 0.0 mm
+  6078  base.detail:framing@houses.ts:214 vs base.detail:framing@houses.ts:219
+          e.g. [base.detail:framing@houses.ts:219] (1.51, 1.03, 2.65) vs [base.detail:framing@houses.ts:214] (0.87, 0.43, 2.65) n(0.00,0.00,1.00) gap 5.0 mm
+  5160  cut.detail:framing@houses.ts:214 vs cut.detail:framing@houses.ts:219
+          e.g. [cut.detail:framing@houses.ts:219] (1.51, 1.03, 3.40) vs [cut.detail:framing@houses.ts:214] (0.87, 0.43, 3.40) n(0.00,0.00,1.00) gap 5.0 mm
+  3226  cut.detail:masonry@houses.ts:248 vs cut.detail:masonry@houses.ts:256
+          e.g. [cut.detail:masonry@houses.ts:248] (-1.37, 0.76, 3.38) vs [cut.detail:masonry@houses.ts:256] (-2.47, 0.76, 3.39) n(0.00,1.00,0.00) gap 5.0 mm
+  3148  base.detail:windowOn@houses.ts:140 vs base.detail:windowOn@houses.ts:141
+          e.g. [base.detail:windowOn@houses.ts:140] (-1.73, 1.18, 2.65) vs [base.detail:windowOn@houses.ts:141] (-1.63, 1.33, 2.65) n(0.00,0.00,1.00) gap 0.0 mm
+  3000  base.detail:framing@houses.ts:211 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:211] (-2.51, 2.30, 2.63) vs [base.detail:framing@houses.ts:213] (-0.87, 2.30, 2.62) n(0.00,1.00,0.00) gap 0.0 mm
+  2784  base.detail:body@houses.ts:732 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:213] (0.87, 2.30, 2.64) vs [base.detail:body@houses.ts:732] (-2.54, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+  2680  cut.detail:windowOn@houses.ts:140 vs cut.detail:windowOn@houses.ts:141
+          e.g. [cut.detail:windowOn@houses.ts:140] (-1.73, 1.18, 3.40) vs [cut.detail:windowOn@houses.ts:141] (-1.63, 1.33, 3.40) n(0.00,0.00,1.00) gap 0.0 mm
+  2445  base.detail:framing@houses.ts:212 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:212] (2.56, 2.30, 2.63) vs [base.detail:framing@houses.ts:213] (0.87, 2.30, 2.64) n(0.00,1.00,0.00) gap 0.0 mm
+  2232  cut.detail:body@houses.ts:732 vs cut.detail:framing@houses.ts:213
+          e.g. [cut.detail:framing@houses.ts:213] (0.87, 2.30, 3.39) vs [cut.detail:body@houses.ts:732] (-2.54, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+  1620  base.detail:body@houses.ts:720 vs room.detail:room@houses.ts:951
+          e.g. [base.detail:body@houses.ts:720] (2.10, 0.03, 3.19) vs [room.detail:room@houses.ts:951] (1.98, 0.03, 1.04) n(0.00,1.00,0.00) gap 0.0 mm
+  1530  base.detail:framing@houses.ts:212 vs base.detail:framing@houses.ts:214
+          e.g. [base.detail:framing@houses.ts:212] (-2.62, 1.03, 2.60) vs [base.detail:framing@houses.ts:214] (-2.62, 0.43, 2.60) n(0.00,0.00,1.00) gap 0.0 mm
+  1260  base.detail:body@houses.ts:732 vs base.hull:body@houses.ts:671
+          e.g. [base.hull:body@houses.ts:671] (0.40, 2.30, 2.53) vs [base.detail:body@houses.ts:732] (-2.12, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+  1259  base.detail:doorOn@houses.ts:195 vs base.detail:masonry@houses.ts:248
+          e.g. [base.detail:masonry@houses.ts:248] (62.16, 0.92, 2.64) vs [base.detail:doorOn@houses.ts:195] (61.99, 0.83, 2.64) n(0.00,0.00,1.00) gap 4.4 mm
+  1144  base.detail:masonry@houses.ts:256 vs base.detail:masonry@houses.ts:256
+          e.g. [base.detail:masonry@houses.ts:256] (-2.55, 0.76, 2.62) vs [base.detail:masonry@houses.ts:256] (-2.64, 0.76, 2.55) n(0.00,1.00,0.00) gap 0.0 mm
+  1122  base.detail:framing@houses.ts:211 vs base.detail:framing@houses.ts:214
+          e.g. [base.detail:framing@houses.ts:211] (2.63, 1.03, 2.60) vs [base.detail:framing@houses.ts:214] (2.63, 0.43, 2.60) n(0.00,0.00,1.00) gap 0.0 mm
+  1122  cut.detail:body@houses.ts:732 vs cut.hull:body@houses.ts:671
+          e.g. [cut.hull:body@houses.ts:671] (0.40, 2.30, 3.28) vs [cut.detail:body@houses.ts:732] (-2.12, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+   780  cut.detail:framing@houses.ts:212 vs cut.detail:framing@houses.ts:214
+          e.g. [cut.detail:framing@houses.ts:212] (2.56, 1.03, 3.40) vs [cut.detail:framing@houses.ts:214] (0.87, 0.43, 3.40) n(0.00,0.00,1.00) gap 0.0 mm
+   750  base.detail:body@houses.ts:732 vs base.hull:body@houses.ts:672
+          e.g. [base.hull:body@houses.ts:672] (2.99, 2.30, 2.53) vs [base.detail:body@houses.ts:732] (1.42, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+   740  cut.detail:framing@houses.ts:211 vs cut.detail:framing@houses.ts:213
+          e.g. [cut.detail:framing@houses.ts:211] (-2.51, 2.30, 3.38) vs [cut.detail:framing@houses.ts:213] (-0.87, 2.30, 3.37) n(0.00,1.00,0.00) gap 0.0 mm
+   723  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:140
+          e.g. [base.detail:masonry@houses.ts:248] (1.52, 1.68, 2.65) vs [base.detail:windowOn@houses.ts:140] (0.01, 1.18, 2.65) n(0.00,0.00,1.00) gap 4.5 mm
+   721  base.detail:lantern@houses.ts:565 vs base.detail:lantern@houses.ts:565
+          e.g. [base.detail:lantern@houses.ts:565] (3.12, 1.52, 3.00) vs [base.detail:lantern@houses.ts:565] (3.01, 1.60, 3.00) n(0.00,0.00,1.00) gap 0.0 mm
+   720  room.detail:room@houses.ts:958 vs room.detail:room@houses.ts:959
+          e.g. [room.detail:room@houses.ts:958] (2.50, 0.05, 1.71) vs [room.detail:room@houses.ts:959] (2.47, 0.06, 1.67) n(0.00,1.00,0.00) gap 5.0 mm
+   720  room.detail:room@houses.ts:959 vs room.detail:room@houses.ts:960
+          e.g. [room.detail:room@houses.ts:959] (2.47, 0.06, 1.67) vs [room.detail:room@houses.ts:960] (2.28, 0.06, 1.61) n(0.00,1.00,0.00) gap 5.0 mm
+   720  base.detail:rose@houses.ts:873 vs base.detail:rose@houses.ts:873
+          e.g. [base.detail:rose@houses.ts:873] (0.39, 4.10, 2.68) vs [base.detail:rose@houses.ts:873] (0.26, 4.31, 2.68) n(0.00,0.00,1.00) gap 0.0 mm
+   720  cut.detail:rose@houses.ts:873 vs cut.detail:rose@houses.ts:873
+          e.g. [cut.detail:rose@houses.ts:873] (0.39, 4.10, 3.43) vs [cut.detail:rose@houses.ts:873] (0.26, 4.31, 3.43) n(0.00,0.00,1.00) gap 0.0 mm
+   652  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:140
+          e.g. [cut.detail:masonry@houses.ts:248] (1.52, 1.68, 3.40) vs [cut.detail:windowOn@houses.ts:140] (0.01, 1.18, 3.40) n(0.00,0.00,1.00) gap 4.5 mm
+   640  cut.detail:framing@houses.ts:212 vs cut.detail:framing@houses.ts:213
+          e.g. [cut.detail:framing@houses.ts:212] (2.56, 2.30, 3.38) vs [cut.detail:framing@houses.ts:213] (0.87, 2.30, 3.39) n(0.00,1.00,0.00) gap 0.0 mm
+   608  base.detail:masonry@houses.ts:256 vs cut.detail:masonry@houses.ts:256
+          e.g. [base.detail:masonry@houses.ts:256] (2.62, 0.76, 3.30) vs [cut.detail:masonry@houses.ts:256] (2.55, 0.76, 3.39) n(0.00,1.00,0.00) gap 0.0 mm
+   600  cut.detail:body@houses.ts:732 vs cut.hull:body@houses.ts:672
+          e.g. [cut.hull:body@houses.ts:672] (2.99, 2.30, 3.28) vs [cut.detail:body@houses.ts:732] (1.42, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+   553  cut.detail:lantern@houses.ts:565 vs cut.detail:lantern@houses.ts:565
+          e.g. [cut.detail:lantern@houses.ts:565] (3.12, 1.52, 3.75) vs [cut.detail:lantern@houses.ts:565] (3.01, 1.60, 3.75) n(0.00,0.00,1.00) gap 0.0 mm
+   440  cut.detail:framing@houses.ts:211 vs cut.detail:framing@houses.ts:214
+          e.g. [cut.detail:framing@houses.ts:211] (-2.51, 1.03, 3.40) vs [cut.detail:framing@houses.ts:214] (-0.87, 0.47, 3.40) n(0.00,0.00,1.00) gap 0.0 mm
+   432  base.detail:body@houses.ts:732 vs base.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:673] (2.40, 2.30, 2.53) vs [base.detail:body@houses.ts:732] (2.08, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+   432  base.detail:rose@houses.ts:873 vs base.detail:rose@houses.ts:876
+          e.g. [base.detail:rose@houses.ts:876] (-0.01, 4.44, 2.66) vs [base.detail:rose@houses.ts:873] (-0.04, 4.44, 2.65) n(0.00,1.00,0.00) gap 4.4 mm
+   432  cut.detail:rose@houses.ts:873 vs cut.detail:rose@houses.ts:876
+          e.g. [cut.detail:rose@houses.ts:876] (-0.01, 4.44, 3.41) vs [cut.detail:rose@houses.ts:873] (-0.04, 4.44, 3.40) n(0.00,1.00,0.00) gap 4.4 mm
+   384  base.detail:doorOn@houses.ts:198 vs base.detail:doorOn@houses.ts:200
+          e.g. [base.detail:doorOn@houses.ts:198] (0.93, 0.73, 2.66) vs [base.detail:doorOn@houses.ts:200] (0.76, 0.89, 2.66) n(0.00,0.00,1.00) gap 0.0 mm
+   376  base.detail:houses.ts:792 vs base.detail:houses.ts:793
+          e.g. [base.detail:houses.ts:792] (59.99, 3.25, 2.69) vs [base.detail:houses.ts:793] (60.87, 3.24, 2.69) n(0.00,0.00,1.00) gap 0.0 mm
+   376  cut.detail:houses.ts:792 vs cut.detail:houses.ts:793
+          e.g. [cut.detail:houses.ts:792] (29.99, 3.25, 3.44) vs [cut.detail:houses.ts:793] (30.87, 3.24, 3.44) n(0.00,0.00,1.00) gap 0.0 mm
+   360  base.hull:body@houses.ts:642 vs base.hull:body@houses.ts:713
+          e.g. [base.hull:body@houses.ts:642] (0.88, 0.40, 0.88) vs [base.hull:body@houses.ts:713] (2.43, 0.40, 2.71) n(0.00,1.00,0.00) gap 0.0 mm
+   360  base.detail:body@houses.ts:732 vs base.detail:framing@houses.ts:219
+          e.g. [base.detail:framing@houses.ts:219] (-0.55, 2.30, 2.63) vs [base.detail:body@houses.ts:732] (-0.48, 2.30, 2.53) n(0.00,1.00,0.00) gap 0.0 mm
+   360  base.detail:body@houses.ts:716 vs base.detail:body@houses.ts:720
+          e.g. [base.detail:body@houses.ts:720] (2.40, 0.03, 3.28) vs [base.detail:body@houses.ts:716] (2.06, 0.04, 3.46) n(0.00,1.00,0.00) gap 5.0 mm
+   352  cut.detail:masonry@houses.ts:256 vs cut.detail:masonry@houses.ts:256
+          e.g. [cut.detail:masonry@houses.ts:256] (-2.55, 2.73, 3.37) vs [cut.detail:masonry@houses.ts:256] (-2.64, 2.73, 3.30) n(0.00,1.00,0.00) gap 0.0 mm
+   294  cut.detail:body@houses.ts:732 vs cut.hull:body@houses.ts:673
+          e.g. [cut.hull:body@houses.ts:673] (2.40, 2.30, 3.28) vs [cut.detail:body@houses.ts:732] (2.08, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+   288  cut.detail:body@houses.ts:732 vs cut.detail:framing@houses.ts:219
+          e.g. [cut.detail:framing@houses.ts:219] (-0.55, 2.30, 3.38) vs [cut.detail:body@houses.ts:732] (-0.48, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+   288  base.detail:rose@houses.ts:873 vs base.detail:rose@houses.ts:875
+          e.g. [base.detail:rose@houses.ts:875] (0.14, 4.01, 2.67) vs [base.detail:rose@houses.ts:873] (0.39, 4.10, 2.68) n(0.00,0.00,1.00) gap 5.0 mm
+   288  cut.detail:rose@houses.ts:873 vs cut.detail:rose@houses.ts:875
+          e.g. [cut.detail:rose@houses.ts:875] (0.14, 4.01, 3.42) vs [cut.detail:rose@houses.ts:873] (0.39, 4.10, 3.43) n(0.00,0.00,1.00) gap 5.0 mm
+   220  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:141
+          e.g. [base.detail:masonry@houses.ts:248] (0.50, 1.30, 2.65) vs [base.detail:windowOn@houses.ts:141] (0.10, 1.33, 2.65) n(0.00,0.00,1.00) gap 3.9 mm
+   202  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:141
+          e.g. [cut.detail:masonry@houses.ts:248] (0.50, 1.30, 3.40) vs [cut.detail:windowOn@houses.ts:141] (0.10, 1.33, 3.40) n(0.00,0.00,1.00) gap 3.9 mm
+   192  base.detail:gableRoof@houses.ts:327 vs base.detail:gableRoof@houses.ts:327
+          e.g. [base.detail:gableRoof@houses.ts:327] (58.51, 4.17, -2.85) vs [base.detail:gableRoof@houses.ts:327] (63.00, 3.09, -2.85) n(-0.00,-0.00,1.00) gap 0.0 mm
+   192  base.detail:gableRoof@houses.ts:327 vs base.detail:gableRoof@houses.ts:331
+          e.g. [base.detail:gableRoof@houses.ts:327] (58.51, 4.17, 2.95) vs [base.detail:gableRoof@houses.ts:331] (60.03, 5.29, 2.95) n(-0.00,-0.00,1.00) gap 0.0 mm
+   192  cut.detail:gableRoof@houses.ts:327 vs cut.detail:gableRoof@houses.ts:327
+          e.g. [cut.detail:gableRoof@houses.ts:327] (58.51, 4.17, -3.60) vs [cut.detail:gableRoof@houses.ts:327] (63.00, 3.09, -3.60) n(-0.00,-0.00,1.00) gap 0.0 mm
+   192  cut.detail:gableRoof@houses.ts:327 vs cut.detail:gableRoof@houses.ts:331
+          e.g. [cut.detail:gableRoof@houses.ts:327] (58.51, 4.17, 3.70) vs [cut.detail:gableRoof@houses.ts:331] (60.03, 5.29, 3.70) n(-0.00,-0.00,1.00) gap 0.0 mm
+   180  hay.hull:bale@townProps.ts:214 vs hay.hull:bale@townProps.ts:215
+          e.g. [hay.hull:bale@townProps.ts:214] (0.20, 0.17, 0.38) vs [hay.hull:bale@townProps.ts:215] (0.20, 0.17, 0.38) n(0.30,0.00,0.96) gap 1.0 mm
+   176  base.detail:framing@houses.ts:229 vs base.detail:framing@houses.ts:230
+          e.g. [base.detail:framing@houses.ts:229] (-0.79, 1.05, 2.67) vs [base.detail:framing@houses.ts:230] (-0.96, 1.05, 2.67) n(0.00,0.00,1.00) gap 5.0 mm
+   160  base.hull:body@houses.ts:661 vs base.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:661] (2.53, 2.30, 0.87) vs [base.hull:body@houses.ts:673] (2.40, 2.30, 2.53) n(0.00,1.00,0.00) gap 0.0 mm
+   160  base.hull:body@houses.ts:661 vs cut.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:661] (2.53, 2.30, 1.12) vs [cut.hull:body@houses.ts:673] (2.40, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+   152  cut.detail:framing@houses.ts:229 vs cut.detail:framing@houses.ts:230
+          e.g. [cut.detail:framing@houses.ts:229] (-0.79, 1.05, 3.42) vs [cut.detail:framing@houses.ts:230] (-0.96, 1.05, 3.42) n(0.00,0.00,1.00) gap 5.0 mm
+   150  base.detail:body@houses.ts:732 vs base.detail:framing@houses.ts:212
+          e.g. [base.detail:framing@houses.ts:212] (2.56, 2.30, 2.63) vs [base.detail:body@houses.ts:732] (2.50, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+   144  base.detail:body@houses.ts:732 vs base.detail:framing@houses.ts:211
+          e.g. [base.detail:framing@houses.ts:211] (-2.51, 2.30, 2.63) vs [base.detail:body@houses.ts:732] (-2.54, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+   144  base.detail:banner@houses.ts:554 vs base.detail:houses.ts:792
+          e.g. [base.detail:banner@houses.ts:554] (0.00, 2.54, 2.68) vs [base.detail:houses.ts:792] (-0.01, 3.55, 2.69) n(0.00,0.00,1.00) gap 5.0 mm
+   144  cut.detail:banner@houses.ts:554 vs cut.detail:houses.ts:792
+          e.g. [cut.detail:banner@houses.ts:554] (0.00, 2.54, 3.43) vs [cut.detail:houses.ts:792] (-0.01, 3.55, 3.44) n(0.00,0.00,1.00) gap 5.0 mm
+   144  base.detail:rose@houses.ts:875 vs base.detail:rose@houses.ts:876
+          e.g. [base.detail:rose@houses.ts:875] (0.14, 4.01, 2.67) vs [base.detail:rose@houses.ts:876] (-0.01, 3.88, 2.67) n(0.00,0.00,1.00) gap 0.0 mm
+   144  cut.detail:rose@houses.ts:875 vs cut.detail:rose@houses.ts:876
+          e.g. [cut.detail:rose@houses.ts:875] (0.14, 4.01, 3.42) vs [cut.detail:rose@houses.ts:876] (-0.01, 3.88, 3.42) n(0.00,0.00,1.00) gap 0.0 mm
+   140  base.detail:body@houses.ts:676 vs base.hull:body@houses.ts:672
+          e.g. [base.hull:body@houses.ts:672] (2.60, 1.03, 2.38) vs [base.detail:body@houses.ts:676] (2.40, 0.83, 2.38) n(0.00,0.00,1.00) gap 0.0 mm
+   120  cut.detail:body@houses.ts:732 vs cut.detail:framing@houses.ts:211
+          e.g. [cut.detail:framing@houses.ts:211] (-2.51, 2.30, 3.38) vs [cut.detail:body@houses.ts:732] (-2.54, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+   108  base.detail:body@houses.ts:732 vs base.hull:body@houses.ts:660
+          e.g. [base.hull:body@houses.ts:660] (-2.45, 2.30, 0.87) vs [base.detail:body@houses.ts:732] (-2.54, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+   106  base.detail:framing@houses.ts:213 vs base.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:673] (2.40, 2.30, 2.53) vs [base.detail:framing@houses.ts:213] (2.64, 2.30, -0.87) n(0.00,1.00,0.00) gap 0.0 mm
+   106  base.detail:framing@houses.ts:213 vs cut.hull:body@houses.ts:673
+          e.g. [base.detail:framing@houses.ts:213] (2.64, 2.30, -1.12) vs [cut.hull:body@houses.ts:673] (2.40, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+   102  base.detail:body@houses.ts:732 vs base.hull:body@houses.ts:661
+          e.g. [base.hull:body@houses.ts:661] (2.53, 2.30, 0.87) vs [base.detail:body@houses.ts:732] (2.50, 2.30, 2.66) n(0.00,1.00,0.00) gap 0.0 mm
+    90  base.hull:body@houses.ts:660 vs cut.detail:body@houses.ts:732
+          e.g. [base.hull:body@houses.ts:660] (-2.45, 2.30, 1.12) vs [cut.detail:body@houses.ts:732] (-2.54, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+    84  base.hull:body@houses.ts:661 vs cut.detail:body@houses.ts:732
+          e.g. [base.hull:body@houses.ts:661] (2.53, 2.30, 1.12) vs [cut.detail:body@houses.ts:732] (2.50, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+    82  base.detail:framing@houses.ts:211 vs base.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:673] (2.40, 2.30, 2.53) vs [base.detail:framing@houses.ts:211] (2.63, 2.30, 2.51) n(0.00,1.00,0.00) gap 0.0 mm
+    82  base.detail:framing@houses.ts:211 vs cut.hull:body@houses.ts:673
+          e.g. [base.detail:framing@houses.ts:211] (2.63, 2.30, 3.26) vs [cut.hull:body@houses.ts:673] (2.40, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+    72  base.detail:forgeMouth@houses.ts:910 vs base.hull:body@houses.ts:642
+          e.g. [base.hull:body@houses.ts:642] (1.38, 0.40, 0.88) vs [base.detail:forgeMouth@houses.ts:910] (0.43, 0.40, 2.17) n(0.00,1.00,0.00) gap 0.0 mm
+    72  lamp.detail:draw@townProps.ts:235 vs lamp.detail:draw@townProps.ts:235
+          e.g. [lamp.detail:draw@townProps.ts:235] (0.26, 1.79, 0.03) vs [lamp.detail:draw@townProps.ts:235] (0.38, 1.71, -0.00) n(0.30,0.00,0.96) gap 0.0 mm
+    68  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:137
+          e.g. [base.detail:windowOn@houses.ts:137] (57.35, 1.65, -2.07) vs [base.detail:framing@houses.ts:213] (57.36, 1.66, 0.87) n(0.00,1.00,0.00) gap 5.9 mm
+    68  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:138
+          e.g. [base.detail:windowOn@houses.ts:138] (57.35, 1.65, -1.38) vs [base.detail:framing@houses.ts:213] (57.36, 1.66, 0.87) n(0.00,1.00,0.00) gap 5.9 mm
+    66  cut.detail:body@houses.ts:732 vs cut.detail:framing@houses.ts:212
+          e.g. [cut.detail:framing@houses.ts:212] (2.56, 2.30, 3.38) vs [cut.detail:body@houses.ts:732] (2.50, 2.30, 3.41) n(0.00,1.00,0.00) gap 0.0 mm
+    66  base.detail:body@houses.ts:676 vs base.hull:body@houses.ts:673
+          e.g. [base.hull:body@houses.ts:673] (2.10, 1.65, 2.38) vs [base.detail:body@houses.ts:676] (2.10, 1.28, 2.38) n(0.00,0.00,1.00) gap 0.0 mm
+    60  base.detail:framing@houses.ts:212 vs cut.detail:body@houses.ts:732
+          e.g. [base.detail:framing@houses.ts:212] (-2.63, 2.30, 3.31) vs [cut.detail:body@houses.ts:732] (-2.58, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+    60  base.detail:framing@houses.ts:213 vs cut.detail:body@houses.ts:732
+          e.g. [base.detail:framing@houses.ts:213] (-2.64, 2.30, 1.12) vs [cut.detail:body@houses.ts:732] (-2.58, 2.30, 3.28) n(0.00,1.00,0.00) gap 0.0 mm
+    60  laundry.detail:draw@townProps.ts:309 vs laundry.detail:draw@townProps.ts:316
+          e.g. [laundry.detail:draw@townProps.ts:309] (-0.45, 1.68, 0.15) vs [laundry.detail:draw@townProps.ts:316] (1.10, 1.35, -0.33) n(0.30,-0.00,0.96) gap 0.0 mm
+    53  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:138
+          e.g. [base.detail:masonry@houses.ts:248] (57.38, 0.92, 0.38) vs [base.detail:windowOn@houses.ts:138] (57.38, 1.18, 0.38) n(0.00,0.00,1.00) gap 4.1 mm
+    50  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:137
+          e.g. [base.detail:masonry@houses.ts:248] (-4.12, 2.91, -0.28) vs [base.detail:windowOn@houses.ts:137] (-4.12, 3.11, -0.27) n(0.00,0.00,1.00) gap 4.6 mm
+    48  bench.detail:draw@townProps.ts:168 vs bench.hull:draw@townProps.ts:169
+          e.g. [bench.detail:draw@townProps.ts:168] (-0.55, 0.44, 0.02) vs [bench.hull:draw@townProps.ts:169] (0.18, 0.57, -0.20) n(0.30,0.00,0.96) gap 0.0 mm
+    46  base.detail:doorOn@houses.ts:198 vs base.detail:masonry@houses.ts:256
+          e.g. [base.detail:masonry@houses.ts:256] (2.55, 0.53, 2.66) vs [base.detail:doorOn@houses.ts:198] (2.39, 0.73, 2.66) n(0.00,0.00,1.00) gap 0.0 mm
+    42  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:137
+          e.g. [cut.detail:masonry@houses.ts:248] (34.13, 3.36, -0.49) vs [cut.detail:windowOn@houses.ts:137] (34.15, 3.11, -0.49) n(0.00,0.00,1.00) gap 0.7 mm
+    36  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:138
+          e.g. [cut.detail:masonry@houses.ts:248] (28.66, 1.65, 3.38) vs [cut.detail:windowOn@houses.ts:138] (27.08, 1.65, 3.40) n(0.00,1.00,0.00) gap 4.1 mm
+    32  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:140
+          e.g. [base.detail:windowOn@houses.ts:140] (57.36, 1.65, -1.72) vs [base.detail:framing@houses.ts:213] (57.38, 1.66, -0.87) n(0.00,1.00,0.00) gap 5.9 mm
+    30  cart.hull:draw@townProps.ts:195 vs cart.hull:draw@townProps.ts:196
+          e.g. [cart.hull:draw@townProps.ts:195] (0.13, 0.90, -0.60) vs [cart.hull:draw@townProps.ts:196] (0.79, 0.90, -0.44) n(0.00,1.00,0.00) gap 0.0 mm
+    29  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:136
+          e.g. [base.detail:windowOn@houses.ts:136] (4.15, 1.72, 1.61) vs [base.detail:masonry@houses.ts:248] (4.13, 1.72, 1.43) n(0.00,1.00,0.00) gap 0.8 mm
+    27  base.detail:emblem@houses.ts:437 vs base.hull:gableRoof@houses.ts:315
+          e.g. [base.detail:emblem@houses.ts:437] (1.30, 1.78, 3.02) vs [base.hull:gableRoof@houses.ts:315] (0.97, 1.87, 3.02) n(0.00,0.00,1.00) gap 5.0 mm
+    24  base.detail:framing@houses.ts:219 vs cut.hull:body@houses.ts:673
+          e.g. [base.detail:framing@houses.ts:219] (2.63, 2.30, 3.06) vs [cut.hull:body@houses.ts:673] (2.10, 2.30, 3.20) n(0.00,1.00,0.00) gap 0.0 mm
+    24  base.detail:houses.ts:792 vs base.hull:belfry@houses.ts:883
+          e.g. [base.hull:belfry@houses.ts:883] (0.13, 5.54, 2.68) vs [base.detail:houses.ts:792] (-0.01, 3.55, 2.69) n(0.00,0.00,1.00) gap 5.0 mm
+    24  cut.detail:houses.ts:792 vs cut.hull:belfry@houses.ts:883
+          e.g. [cut.hull:belfry@houses.ts:883] (0.13, 5.54, 3.43) vs [cut.detail:houses.ts:792] (-0.01, 3.55, 3.44) n(0.00,0.00,1.00) gap 5.0 mm
+    24  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:162
+          e.g. [base.detail:masonry@houses.ts:248] (-4.13, 0.82, 1.93) vs [base.detail:windowOn@houses.ts:162] (-4.31, 0.82, 1.85) n(0.00,1.00,0.00) gap 5.0 mm
+    24  rack.detail:draw@townProps.ts:256 vs rack.hull:draw@townProps.ts:255
+          e.g. [rack.detail:draw@townProps.ts:256] (-0.70, 1.04, 0.28) vs [rack.hull:draw@townProps.ts:255] (-0.71, 0.40, 0.24) n(-0.96,0.00,0.30) gap 0.0 mm
+    22  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:155
+          e.g. [base.detail:windowOn@houses.ts:155] (57.34, 1.65, -2.23) vs [base.detail:framing@houses.ts:213] (57.36, 1.66, 0.87) n(0.00,1.00,0.00) gap 5.9 mm
+    21  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:156
+          e.g. [base.detail:windowOn@houses.ts:156] (57.34, 1.65, -1.13) vs [base.detail:framing@houses.ts:213] (57.36, 1.66, 0.87) n(0.00,1.00,0.00) gap 5.9 mm
+    21  cut.detail:emblem@houses.ts:437 vs cut.hull:gableRoof@houses.ts:315
+          e.g. [cut.detail:emblem@houses.ts:437] (1.30, 1.78, 3.77) vs [cut.hull:gableRoof@houses.ts:315] (0.97, 1.87, 3.77) n(0.00,0.00,1.00) gap 5.0 mm
+    20  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:135
+          e.g. [base.detail:masonry@houses.ts:248] (57.38, 0.92, 0.38) vs [base.detail:windowOn@houses.ts:135] (57.38, 0.90, 0.38) n(0.00,0.00,1.00) gap 4.1 mm
+    18  base.detail:framing@houses.ts:219 vs base.detail:windowOn@houses.ts:155
+          e.g. [base.detail:windowOn@houses.ts:155] (57.34, 1.65, -2.23) vs [base.detail:framing@houses.ts:219] (57.37, 1.66, -2.28) n(0.00,1.00,0.00) gap 5.9 mm
+    18  base.detail:framing@houses.ts:219 vs base.detail:windowOn@houses.ts:156
+          e.g. [base.detail:windowOn@houses.ts:156] (57.34, 1.65, -1.13) vs [base.detail:framing@houses.ts:219] (57.37, 1.66, -1.14) n(0.00,1.00,0.00) gap 5.9 mm
+    14  base.detail:lantern@houses.ts:565 vs base.hull:gableRoof@houses.ts:315
+          e.g. [base.hull:gableRoof@houses.ts:315] (1.47, 1.81, 3.02) vs [base.detail:lantern@houses.ts:565] (1.63, 1.74, 3.02) n(0.00,0.00,1.00) gap 0.0 mm
+    14  base.detail:masonry@houses.ts:248 vs base.detail:windowOn@houses.ts:144
+          e.g. [base.detail:windowOn@houses.ts:144] (-4.15, 0.85, -1.30) vs [base.detail:masonry@houses.ts:248] (-4.12, 0.92, -1.30) n(0.00,0.00,1.00) gap 2.8 mm
+    12  base.detail:emblem@houses.ts:440 vs base.hull:gableRoof@houses.ts:315
+          e.g. [base.detail:emblem@houses.ts:440] (1.43, 1.80, 3.02) vs [base.hull:gableRoof@houses.ts:315] (0.97, 1.87, 3.02) n(0.00,0.00,1.00) gap 5.0 mm
+    12  cut.detail:lantern@houses.ts:565 vs cut.hull:gableRoof@houses.ts:315
+          e.g. [cut.hull:gableRoof@houses.ts:315] (1.47, 1.81, 3.77) vs [cut.detail:lantern@houses.ts:565] (1.63, 1.74, 3.77) n(0.00,0.00,1.00) gap 0.0 mm
+    12  rack.detail:draw@townProps.ts:257 vs rack.hull:draw@townProps.ts:255
+          e.g. [rack.detail:draw@townProps.ts:257] (-0.70, 0.34, 0.28) vs [rack.hull:draw@townProps.ts:255] (-0.71, 0.40, 0.24) n(-0.96,0.00,0.30) gap 0.0 mm
+     9  cut.detail:emblem@houses.ts:440 vs cut.hull:gableRoof@houses.ts:315
+          e.g. [cut.detail:emblem@houses.ts:440] (1.43, 1.80, 3.77) vs [cut.hull:gableRoof@houses.ts:315] (0.97, 1.87, 3.77) n(0.00,0.00,1.00) gap 5.0 mm
+     8  base.detail:doorOn@houses.ts:198 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:213] (0.87, 1.41, 2.66) vs [base.detail:doorOn@houses.ts:198] (2.39, 1.36, 2.66) n(0.00,0.00,1.00) gap 0.0 mm
+     8  base.detail:doorOn@houses.ts:200 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:213] (1.37, 1.60, 2.66) vs [base.detail:doorOn@houses.ts:200] (0.76, 0.89, 2.66) n(0.00,0.00,1.00) gap 0.0 mm
+     8  base.detail:forgeMouth@houses.ts:916 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:forgeMouth@houses.ts:916] (-1.26, 1.95, 2.67) vs [base.detail:framing@houses.ts:213] (1.37, 1.96, 2.64) n(0.00,1.00,0.00) gap 5.5 mm
+     8  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:136
+          e.g. [cut.detail:masonry@houses.ts:248] (34.13, 3.36, -0.49) vs [cut.detail:windowOn@houses.ts:136] (34.15, 3.54, -0.49) n(0.00,0.00,1.00) gap 0.7 mm
+     8  cut.detail:masonry@houses.ts:248 vs cut.detail:windowOn@houses.ts:162
+          e.g. [cut.detail:masonry@houses.ts:248] (63.06, 0.82, 3.38) vs [cut.detail:windowOn@houses.ts:162] (63.40, 0.82, 3.56) n(0.00,1.00,0.00) gap 5.0 mm
+     8  base.detail:doorOn@houses.ts:179 vs base.detail:masonry@houses.ts:248
+          e.g. [base.detail:doorOn@houses.ts:179] (60.14, 2.01, 2.66) vs [base.detail:masonry@houses.ts:248] (62.52, 2.01, 2.63) n(0.00,1.00,0.00) gap 4.3 mm
+     8  base.detail:doorOn@houses.ts:180 vs base.detail:masonry@houses.ts:248
+          e.g. [base.detail:doorOn@houses.ts:180] (61.40, 2.01, 2.66) vs [base.detail:masonry@houses.ts:248] (62.52, 2.01, 2.63) n(0.00,1.00,0.00) gap 4.3 mm
+     8  cut.detail:doorOn@houses.ts:179 vs cut.detail:masonry@houses.ts:248
+          e.g. [cut.detail:doorOn@houses.ts:179] (60.14, 2.01, 3.41) vs [cut.detail:masonry@houses.ts:248] (62.52, 2.01, 3.38) n(0.00,1.00,0.00) gap 4.3 mm
+     8  cut.detail:doorOn@houses.ts:180 vs cut.detail:masonry@houses.ts:248
+          e.g. [cut.detail:doorOn@houses.ts:180] (61.40, 2.01, 3.41) vs [cut.detail:masonry@houses.ts:248] (62.52, 2.01, 3.38) n(0.00,1.00,0.00) gap 4.3 mm
+     7  base.detail:doorOn@houses.ts:181 vs base.detail:framing@houses.ts:213
+          e.g. [base.detail:framing@houses.ts:213] (60.87, 1.88, 2.64) vs [base.detail:doorOn@houses.ts:181] (62.46, 1.88, 2.68) n(0.00,1.00,0.00) gap 2.8 mm
+     7  cut.detail:doorOn@houses.ts:181 vs cut.detail:framing@houses.ts:213
+          e.g. [cut.detail:framing@houses.ts:213] (60.87, 1.88, 3.39) vs [cut.detail:doorOn@houses.ts:181] (62.46, 1.88, 3.43) n(0.00,1.00,0.00) gap 2.8 mm
+     6  base.detail:framing@houses.ts:213 vs base.detail:windowOn@houses.ts:141
+          e.g. [base.detail:windowOn@houses.ts:141] (-3.18, 1.36, 2.64) vs [base.detail:framing@houses.ts:213] (-1.37, 1.36, 2.62) n(0.00,1.00,0.00) gap 0.6 mm
+     6  base.detail:forgeMouth@houses.ts:917 vs base.detail:masonry@houses.ts:248
+          e.g. [base.detail:forgeMouth@houses.ts:917] (60.52, 2.14, 2.69) vs [base.detail:masonry@houses.ts:248] (59.83, 2.14, 2.63) n(0.00,1.00,0.00) gap 1.5 mm
+     5  base.detail:lantern@houses.ts:566 vs base.hull:hipRoof@houses.ts:366
+          e.g. [base.hull:hipRoof@houses.ts:366] (1.50, 2.04, 3.00) vs [base.detail:lantern@houses.ts:566] (1.71, 1.96, 3.00) n(0.00,0.00,1.00) gap 0.0 mm
+     5  base.detail:forgeMouth@houses.ts:916 vs base.hull:body@houses.ts:673
+          e.g. [base.detail:forgeMouth@houses.ts:916] (-1.26, 1.95, 2.67) vs [base.hull:body@houses.ts:673] (0.43, 1.96, 2.53) n(0.00,1.00,0.00) gap 5.5 mm
+     4  base.detail:doorOn@houses.ts:181 vs base.detail:framing@houses.ts:212
+          e.g. [base.detail:framing@houses.ts:212] (62.56, 1.88, 2.63) vs [base.detail:doorOn@houses.ts:181] (62.46, 1.88, 2.68) n(0.00,1.00,0.00) gap 2.8 mm
+     4  cut.detail:doorOn@houses.ts:181 vs cut.detail:framing@houses.ts:212
+          e.g. [cut.detail:framing@houses.ts:212] (62.56, 1.88, 3.38) vs [cut.detail:doorOn@houses.ts:181] (62.46, 1.88, 3.43) n(0.00,1.00,0.00) gap 2.8 mm
+     4  base.detail:forgeMouth@houses.ts:916 vs base.hull:body@houses.ts:672
+          e.g. [base.detail:forgeMouth@houses.ts:916] (1.34, 1.95, 2.67) vs [base.hull:body@houses.ts:672] (3.02, 1.96, 2.53) n(0.00,1.00,0.00) gap 5.5 mm
+     3  cut.detail:lantern@houses.ts:566 vs cut.hull:hipRoof@houses.ts:366
+          e.g. [cut.hull:hipRoof@houses.ts:366] (1.50, 2.04, 3.75) vs [cut.detail:lantern@houses.ts:566] (1.71, 1.96, 3.75) n(0.00,0.00,1.00) gap 0.0 mm
+     2  cut.detail:framing@houses.ts:213 vs cut.detail:windowOn@houses.ts:141
+          e.g. [cut.detail:windowOn@houses.ts:141] (-3.18, 1.36, 3.39) vs [cut.detail:framing@houses.ts:213] (-1.37, 1.36, 3.37) n(0.00,1.00,0.00) gap 0.6 mm
+     2  base.detail:banner@houses.ts:554 vs base.detail:framing@houses.ts:230
+          e.g. [base.detail:framing@houses.ts:230] (29.55, 1.80, 2.67) vs [base.detail:banner@houses.ts:554] (29.77, 2.61, 2.68) n(0.00,0.00,1.00) gap 5.0 mm
+     2  cut.detail:banner@houses.ts:554 vs cut.detail:framing@houses.ts:230
+          e.g. [cut.detail:framing@houses.ts:230] (29.55, 1.80, 3.42) vs [cut.detail:banner@houses.ts:554] (29.77, 2.61, 3.43) n(0.00,0.00,1.00) gap 5.0 mm
+     1  base.detail:forgeMouth@houses.ts:916 vs base.hull:body@houses.ts:671
+          e.g. [base.detail:forgeMouth@houses.ts:916] (-1.34, 1.95, 2.63) vs [base.hull:body@houses.ts:671] (-2.16, 1.96, 2.53) n(0.00,1.00,0.00) gap 5.5 mm

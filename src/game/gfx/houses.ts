@@ -38,7 +38,7 @@ export const WALL_IN = 0.4
 const T = 0.22
 const BASE_H = 0.4
 /** A room's floor: a finger above the ground the people in it stand on. */
-const ROOM_Y = 0.03
+const ROOM_Y = 0.05
 
 interface Pal {
   wall: string
@@ -132,13 +132,14 @@ const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, li
   else k.detail.quad(x - w / 2, y, 0.02, x + w / 2, y, 0.02, x + w / 2, y + h, 0.02, x - w / 2, y + h, 0.02, o.boarded ? '#2a2228' : '#4a5a74')
   const t = 0.07
   const d = k.detail
-  d.box(x - w / 2 - t, y - t, 0, x + w / 2 + t, y, 0.07, fr, 'bn')
-  d.box(x - w / 2 - t, y + h, 0, x + w / 2 + t, y + h + t, 0.07, fr, 'bn')
-  d.box(x - w / 2 - t, y, 0, x - w / 2, y + h, 0.07, fr, 'bn')
-  d.box(x + w / 2, y, 0, x + w / 2 + t, y + h, 0.07, fr, 'bn')
+  // The frame stands 10 cm proud, in front of the framing's rails and posts.
+  d.box(x - w / 2 - t, y - t, 0, x + w / 2 + t, y, 0.1, fr, 'bn')
+  d.box(x - w / 2 - t, y + h, 0, x + w / 2 + t, y + h + t, 0.1, fr, 'bn')
+  d.box(x - w / 2 - t, y, 0, x - w / 2, y + h, 0.1, fr, 'bn')
+  d.box(x + w / 2, y, 0, x + w / 2 + t, y + h, 0.1, fr, 'bn')
   if (!o.boarded) {
     d.box(x - 0.025, y, 0.01, x + 0.025, y + h, 0.05, fr, 'bn')
-    d.box(x - w / 2, y + h * 0.55 - 0.025, 0.01, x + w / 2, y + h * 0.55 + 0.025, 0.05, fr, 'bn')
+    d.box(x - w / 2, y + h * 0.55 - 0.025, 0.01, x + w / 2, y + h * 0.55 + 0.025, 0.06, fr, 'bn')
   }
   // The sill sticks out.
   d.box(x - w / 2 - 0.12, y - t - 0.05, 0, x + w / 2 + 0.12, y - t + 0.01, 0.16, shade(fr, 1.15), 'bn')
@@ -170,6 +171,9 @@ const windowOn = (k: Kit, x: number, y: number, w: number, h: number, p: Pal, li
   }
 }
 
+/** Half the width a window takes on the wall, shutters and sill included. */
+const windowReach = (w: number, shutters: boolean): number => (shutters ? w / 2 + 0.09 + w * 0.52 : w / 2 + 0.12)
+
 /** A door on a face at x: frame, planks, hinges, a step. `open`: a doorway into a room. */
 const doorOn = (k: Kit, x: number, w: number, h: number, p: Pal, o: { open?: boolean; double?: boolean; stone?: boolean; boarded?: boolean; transom?: boolean } = {}): void => {
   const d = k.detail
@@ -197,26 +201,36 @@ const doorOn = (k: Kit, x: number, w: number, h: number, p: Pal, o: { open?: boo
   // Iron bands and a ring.
   for (const yy of [0.32, h - 0.38]) d.box(x - w / 2 + 0.03, yy, 0.04, x + w / 2 - 0.03, yy + 0.06, 0.06, '#3a3438', 'bn')
   d.ball(x + (o.double ? 0.08 : w / 2 - 0.16), h * 0.5, 0.07, 0.045, '#d8b04a', 5, 3)
-  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.06, shade(dc, 0.7), 'bn')
+  if (o.double) d.box(x - 0.015, 0, 0.04, x + 0.015, h, 0.075, shade(dc, 0.7), 'bn')
   if (o.transom) k.glow.quad(x - w / 2 + 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.04, 0.11, x + w / 2 - 0.06, h + 0.12, 0.11, x - w / 2 + 0.06, h + 0.12, 0.11, '#ffd27a')
 }
 
 /** Timber framing on a face between y0 and y1: posts beside openings, rails, a brace or two. */
-const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Array<[number, number]>, r: () => number, ruined: boolean): void => {
+const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Array<[number, number]>, r: () => number, ruined: boolean, doors: Array<[number, number]> = []): void => {
   const d = k.detail
   const c = ruined ? '#2e2622' : p.timber
   const s = 0.13
   const free = (x: number): boolean => gaps.every(([a, b]) => x < a - 0.1 || x > b + 0.1)
+  // Each layer stands out from the wall by its own depth (braces 3 and 4.5 cm,
+  // posts 6, rails 7.5) and the posts stand between the rails, so no two faces
+  // of the frame ever lie in one plane.
+  const pY0 = y0 + s * 0.8
+  const pY1 = y1 - s
   // Corner posts and rails.
-  d.box(-len / 2, y0, 0, -len / 2 + s, y1, 0.05, c, 'bn')
-  d.box(len / 2 - s, y0, 0, len / 2, y1, 0.05, c, 'bn')
-  d.box(-len / 2, y1 - s, 0, len / 2, y1, 0.06, shade(c, 1.08), 'bn')
-  d.box(-len / 2, y0, 0, len / 2, y0 + s * 0.8, 0.05, c, 'bn')
+  d.box(-len / 2, pY0, 0, -len / 2 + s, pY1, 0.06, c, 'bn')
+  d.box(len / 2 - s, pY0, 0, len / 2, pY1, 0.06, c, 'bn')
+  d.box(-len / 2, y1 - s, 0, len / 2, y1, 0.075, shade(c, 1.08), 'bn')
+  let rx = -len / 2
+  for (const [a, b] of [...doors].sort((p, q) => p[0] - q[0])) {
+    if (a > rx) d.box(rx, y0, 0, a, y0 + s * 0.8, 0.075, c, 'bn')
+    rx = Math.max(rx, b)
+  }
+  if (rx < len / 2) d.box(rx, y0, 0, len / 2, y0 + s * 0.8, 0.075, c, 'bn')
   // Posts on either side of every window and door, and between where there is room.
   const posts: number[] = []
   for (const [a, b] of gaps) { posts.push(a - 0.18, b + 0.18) }
   for (let x = -len / 2 + 0.9; x < len / 2 - 0.6; x += 1.1) if (free(x) && posts.every(q => Math.abs(q - x) > 0.5)) posts.push(x)
-  for (const x of posts) if (x > -len / 2 + 0.2 && x < len / 2 - 0.2) d.box(x - s / 2, y0, 0, x + s / 2, y1, 0.045, c, 'bn')
+  for (const x of posts) if (x > -len / 2 + 0.2 && x < len / 2 - 0.2) d.box(x - s / 2, pY0, 0, x + s / 2, pY1, 0.06, c, 'bn')
   // Braces in the panels with no openings.
   posts.sort((a, b) => a - b)
   const all = [-len / 2 + s, ...posts, len / 2 - s]
@@ -224,16 +238,18 @@ const framing = (k: Kit, len: number, y0: number, y1: number, p: Pal, gaps: Arra
     const a = all[i]!
     const b = all[i + 1]!
     if (b - a < 0.5 || !free((a + b) / 2) || r() < (ruined ? 0.7 : 0.45)) continue
-    if (r() < 0.5) d.beam(a + 0.05, y0 + 0.1, 0.02, b - 0.05, y1 - 0.15, 0.02, 0.1, c, 0.05)
+    if (r() < 0.5) d.beam(a + 0.05, y0 + 0.1, 0.005, b - 0.05, y1 - 0.15, 0.005, 0.1, c, 0.05)
     else {
-      d.beam(a + 0.05, y1 - 0.15, 0.02, b - 0.05, y0 + 0.1, 0.02, 0.1, c, 0.05)
-      if (r() < 0.4) d.beam(a + 0.05, y0 + 0.1, 0.025, b - 0.05, y1 - 0.15, 0.025, 0.1, c, 0.05)
+      d.beam(a + 0.05, y1 - 0.15, 0.005, b - 0.05, y0 + 0.1, 0.005, 0.1, c, 0.05)
+      if (r() < 0.4) d.beam(a + 0.05, y0 + 0.1, 0.02, b - 0.05, y1 - 0.15, 0.02, 0.1, c, 0.05)
     }
   }
 }
 
 /** Stone courses over a face (Ironhold): rows a shade apart, corner quoins. */
-const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: () => number): void => {
+/** `holes`: the windows and doors on the face (x0, x1, y0, y1): the courses
+ *  stop around them, so their panes and frames are never under a stone. */
+const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: () => number, wrap: boolean, holes: Array<[number, number, number, number]>): void => {
   const d = k.detail
   const rows = Math.max(2, Math.round((y1 - y0) / 0.42))
   const rh = (y1 - y0) / rows
@@ -242,10 +258,23 @@ const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: 
     const c = shade(stone, 0.9 + (i % 2) * 0.1 + (r() - 0.5) * 0.05)
     // A course in two or three blocks, set off a little from one another.
     const n = 2 + Math.floor(r() * 2)
-    let x = -len / 2
+    const qw = i % 2 ? 0.34 : 0.22
+    const e0 = -len / 2 + qw
+    const e1 = len / 2 - qw
+    let x = e0
     for (let b = 0; b < n; b++) {
-      const w = b === n - 1 ? len / 2 - x : (len / n) * (0.75 + r() * 0.5)
-      d.box(x + 0.02, yy + 0.025, 0, x + w - 0.02, yy + rh - 0.025, 0.035 + r() * 0.015, { front: shade(stone, (0.92 + r() * 0.14) * (i % 2 ? 1 : 0.95)), side: c, top: shade(stone, 1.1) }, 'bn')
+      const w = b === n - 1 ? e1 - x : ((e1 - e0) / n) * (0.75 + r() * 0.5)
+      const depth = 0.03 + r() * 0.012
+      const look = { front: shade(stone, (0.92 + r() * 0.14) * (i % 2 ? 1 : 0.95)), side: c, top: shade(stone, 1.1) }
+      // A block is cut back around a window or a door (their frames stand in front).
+      let a = x + 0.02
+      const z = x + w - 0.02
+      for (const [g0, g1, h0, h1] of [...holes].sort((p, q) => p[0] - q[0])) {
+        if (g1 <= a || g0 >= z || yy + rh - 0.025 <= h0 || yy + 0.025 >= h1) continue
+        if (g0 - a > 0.08) d.box(a, yy + 0.025, 0, g0, yy + rh - 0.025, depth, look, 'bn')
+        a = Math.max(a, g1)
+      }
+      if (z - a > 0.08) d.box(a, yy + 0.025, 0, z, yy + rh - 0.025, depth, look, 'bn')
       x += w
     }
   }
@@ -253,7 +282,8 @@ const masonry = (k: Kit, len: number, y0: number, y1: number, stone: string, r: 
   for (let i = 0; i < rows; i++) {
     const yy = y0 + i * rh
     const w = i % 2 ? 0.34 : 0.22
-    for (const s of [-1, 1]) d.box(s < 0 ? -len / 2 - 0.02 : len / 2 - w + 0.02, yy + 0.02, 0, s < 0 ? -len / 2 + w - 0.02 : len / 2 + 0.02, yy + rh - 0.02, 0.06, shade(stone, 1.12), 'bn')
+    const o = wrap ? 0.06 : 0
+    for (const s of [-1, 1]) d.box(s < 0 ? -len / 2 - o : len / 2 - w, yy + 0.02, 0, s < 0 ? -len / 2 + w : len / 2 + o, yy + rh - 0.02, 0.06, shade(stone, 1.12), 'bn')
   }
 }
 
@@ -638,6 +668,20 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     const wallC = stone ? p.wall : p.wall
     const fl = c.ruined ? brokenTop : (v: number): number => v
     // ── The base course: a plinth of stone all round ──
+    // The house's own pad: the terrain draws no ground under a building
+    // (`terrain.ts builtCells`), so this packed-earth apron is the ground
+    // there, from the walls out to the edge of its cells, with a skirt down
+    // its sides in case the street beside it lies a little lower.
+    {
+      const ax = W / 2 + WALL_IN
+      const az = D / 2 + WALL_IN
+      const ap = c.ruined ? '#6e665c' : stone ? '#8e8a90' : c.style === 'mercantile' ? '#b4aa98' : '#ad9a78'
+      outer.detail.quad(-ax, 0, az, ax, 0, az, ax, 0, -az, -ax, 0, -az, ap)
+      const sk = shade(ap, 0.8)
+      outer.detail.quad(-ax, -0.3, az, ax, -0.3, az, ax, 0, az, -ax, 0, az, sk)
+      outer.detail.quad(ax, -0.3, az, ax, -0.3, -az, ax, 0, -az, ax, 0, az, sk)
+      outer.detail.quad(-ax, -0.3, -az, -ax, -0.3, az, -ax, 0, az, -ax, 0, -az, sk)
+    }
     const pc = { top: shade(p.base, 1.1), side: p.base, front: p.base }
     if (!enterable) outer.hull.box(-W / 2 - 0.05, 0, -D / 2 - 0.05, W / 2 + 0.05, BASE_H, D / 2 + 0.05, pc, 'b', shade(p.base, 0.8))
     else {
@@ -673,7 +717,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     front.hull.box(ox - openW / 2, openH, fz - T, ox + openW / 2, fTop, fz, fc, 'b')
     if (!enterable && !workshop) {
       // A closed house's doorway is dark behind its door.
-      B.detail.quad(ox - openW / 2, F0, fz - T, ox + openW / 2, F0, fz - T, ox + openW / 2, openH, fz - T, ox - openW / 2, openH, fz - T, '#2a2026')
+      B.detail.quad(ox - openW / 2, F0, fz - T - 0.03, ox + openW / 2, F0, fz - T - 0.03, ox + openW / 2, openH, fz - T - 0.03, ox - openW / 2, openH, fz - T - 0.03, '#2a2026')
     }
     // ── What is on the faces ──
     const winY = 0.95
@@ -691,13 +735,17 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
         if (avoid.some(([a, b]) => x + ww / 2 + 0.35 > a && x - ww / 2 - 0.35 < b)) continue
         xs.push(x)
       }
+      const holes: Array<[number, number, number, number]> = avoid.map(([a, b]) => [a - 0.06, b + 0.06, 0, openH + 0.2])
       onFace(k, W, D, f, 0, () => {
         for (const x of xs) {
-          windowOn(k, x, wy, ww, wh, p, lit(), { shutters: !stone && !c.low && r() < 0.65, box: !upper && f === 's' && !c.ruined && !c.low && c.style !== 'mountain' ? r() < 0.75 : !upper && f !== 'n' && !c.ruined && !c.low && r() < 0.25, boarded: c.ruined && r() < 0.7, stone })
-          gaps.push([x - ww / 2 - 0.08, x + ww / 2 + 0.08])
+          const on = lit()
+          const sh = !stone && !c.low && r() < 0.65
+          windowOn(k, x, wy, ww, wh, p, on, { shutters: sh, box: !upper && f === 's' && !c.ruined && !c.low && c.style !== 'mountain' ? r() < 0.75 : !upper && f !== 'n' && !c.ruined && !c.low && r() < 0.25, boarded: c.ruined && r() < 0.7, stone })
+          gaps.push([x - windowReach(ww, sh), x + windowReach(ww, sh)])
+          holes.push([x - ww / 2 - 0.14, x + ww / 2 + 0.14, wy - 0.4, wy + wh + 0.08])
         }
-        if (stone) masonry(k, len, y0, top, wallC, r)
-        else framing(k, len, y0, top, p, gaps, r, c.ruined)
+        if (stone) masonry(k, len, y0, top, wallC, r, f === 's' || f === 'n', holes)
+        else framing(k, len, y0, top, p, gaps, r, c.ruined, avoid)
       })
       return gaps
     }
@@ -709,15 +757,16 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     if (!workshop) {
       onFace(front, W, D, 's', wy, () => doorOn(front, ox, openW, openH - wy, p, { open: enterable, double: h.kind === 'hall' || h.kind === 'chapel', stone, boarded: c.ruined && !enterable && r() < 0.6, transom: !c.ruined && (h.kind === 'tavern' || h.kind === 'hall') }))
       if (!enterable) {
-        outer.hull.box(ox - openW / 2 - 0.15, 0, fz, ox + openW / 2 + 0.15, BASE_H * 0.5, fz + 0.32, { top: shade(p.base, 1.15), side: p.base }, 'b')
-        outer.hull.box(ox - openW / 2 - 0.08, 0, fz, ox + openW / 2 + 0.08, BASE_H, fz + 0.16, { top: shade(p.base, 1.2), side: shade(p.base, 1.05) }, 'b')
+        // Two steps up to the door, out in front of the plinth and each a real step below the next.
+        outer.hull.box(ox - openW / 2 - 0.15, 0, fz + 0.05, ox + openW / 2 + 0.15, BASE_H * 0.4, fz + 0.36, { top: shade(p.base, 1.15), side: p.base }, 'b')
+        outer.hull.box(ox - openW / 2 - 0.08, 0, fz + 0.05, ox + openW / 2 + 0.08, BASE_H * 0.8, fz + 0.2, { top: shade(p.base, 1.2), side: shade(p.base, 1.05) }, 'b')
       } else {
         // A worn flagstone at the threshold, flush with the ground.
-        outer.detail.box(ox - openW / 2 - 0.12, 0, fz - 0.02, ox + openW / 2 + 0.12, 0.035, fz + 0.36, { top: shade(p.base, 1.15), side: p.base }, 'b')
+        outer.detail.box(ox - openW / 2 - 0.12, 0, fz + 0.01, ox + openW / 2 + 0.12, ROOM_Y, fz + 0.38, { top: shade(p.base, 1.15), side: p.base }, 'b')
       }
       if (enterable) {
         // The threshold carries the floor out into the doorway.
-        B.detail.box(ox - openW / 2, 0, fz - T - 0.02, ox + openW / 2, ROOM_Y, fz + 0.01, p.floor, 'b')
+        B.detail.box(ox - openW / 2, 0, fz - T, ox + openW / 2, ROOM_Y, fz + 0.01, p.floor, 'b')
       }
     } else {
       out.forge = forgeMouth(B, front, W, D, openW, openH, p, c, r)
@@ -729,20 +778,25 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       const ud = D + jut * 2
       const Y1 = F + U
       // The floor joists show under the jetty.
-      if (jut > 0 && !c.low) for (let x = -uw / 2 + 0.2; x < uw / 2; x += 0.42) cut.detail.box(x - 0.06, F - 0.1, D / 2 - 0.2, x + 0.06, F, ud / 2 + 0.03, p.timber, '')
+      // (They start at the wall face and stop short of the storey floor: no face shared with the wall top.)
+      if (jut > 0 && !c.low) for (let x = -uw / 2 + 0.2; x < uw / 2; x += 0.42) cut.detail.box(x - 0.06, F - 0.13, D / 2, x + 0.06, F - 0.03, ud / 2 + 0.03, p.timber, '')
       const uc = { front: p.upper, back: p.upper, east: p.upper, west: p.upper, top: p.timber }
       cut.hull.box(-uw / 2, F, -ud / 2, uw / 2, Y1, ud / 2, uc, 'b')
       // Windows and framing on the upper faces.
       const uf = (f: Face, len: number): void => {
         const n = Math.max(1, Math.floor((len - 0.5) / 1.35))
         const gaps: Array<[number, number]> = []
+        const holes: Array<[number, number, number, number]> = []
         onFace(cut, uw, ud, f, 0, () => {
           for (let i = 0; i < n; i++) {
             const x = -len / 2 + ((i + 0.5) / n) * len
-            windowOn(cut, x, F + 0.6, 0.55, 0.62, p, lit(), { shutters: !stone && !c.low && r() < 0.5, box: f === 's' && !c.low && !c.ruined && c.style !== 'mountain' && r() < 0.5, boarded: c.ruined && r() < 0.6, stone })
-            gaps.push([x - 0.36, x + 0.36])
+            const on = lit()
+            const sh = !stone && !c.low && r() < 0.5
+            windowOn(cut, x, F + 0.6, 0.55, 0.62, p, on, { shutters: sh, box: f === 's' && !c.low && !c.ruined && c.style !== 'mountain' && r() < 0.5, boarded: c.ruined && r() < 0.6, stone })
+            gaps.push([x - windowReach(0.55, sh), x + windowReach(0.55, sh)])
+            holes.push([x - 0.42, x + 0.42, F + 0.2, F + 1.3])
           }
-          if (stone) masonry(cut, len, F, Y1, p.upper, r)
+          if (stone) masonry(cut, len, F, Y1, p.upper, r, f === 's' || f === 'n', holes)
           else framing(cut, len, F, Y1, p, gaps, r, c.ruined)
         })
       }
@@ -907,7 +961,7 @@ const forgeMouth = (B: Kit, front: Kit, W: number, D: number, ow: number, oh: nu
   const depth = Math.min(D - 0.6, 1.3)
   const zb = z - depth
   // The recess: floor, back wall, sides, ceiling.
-  B.detail.box(-ow / 2, BASE_H - 0.02, zb, ow / 2, BASE_H, z, '#5a4a40', 'b')
+  B.detail.box(-ow / 2, BASE_H, zb, ow / 2, BASE_H + 0.04, z, '#5a4a40', 'b')
   B.detail.quad(-ow / 2, BASE_H, zb, ow / 2, BASE_H, zb, ow / 2, oh, zb, -ow / 2, oh, zb, '#3a2e2c')
   B.detail.quad(-ow / 2, BASE_H, z, -ow / 2, BASE_H, zb, -ow / 2, oh, zb, -ow / 2, oh, z, '#4a3a34')
   B.detail.quad(ow / 2, BASE_H, zb, ow / 2, BASE_H, z, ow / 2, oh, z, ow / 2, oh, zb, '#4a3a34')
@@ -955,9 +1009,9 @@ const room = (B: Kit, h: TownHouse, W: number, D: number, doorX: number, c: Hous
   // A runner from the door into the room, with a border.
   const rw = Math.min(0.75, W * 0.16)
   const rz0 = z0 + Math.max(0.6, (z1 - z0) * 0.35)
-  d.box(doorX - rw, fy, rz0, doorX + rw, fy + 0.02, z1 - 0.1, { top: rugC }, 'b')
-  d.box(doorX - rw + 0.1, fy + 0.02, rz0 + 0.1, doorX + rw - 0.1, fy + 0.025, z1 - 0.2, { top: shade(rugC, 1.25) }, 'b')
-  d.box(doorX - 0.1, fy + 0.025, rz0 + 0.3, doorX + 0.1, fy + 0.03, z1 - 0.4, { top: shade(rugC, 0.8) }, 'b')
+  d.box(doorX - rw, fy, rz0, doorX + rw, fy + 0.025, z1 - 0.1, { top: rugC }, 'b')
+  d.box(doorX - rw + 0.1, fy + 0.025, rz0 + 0.1, doorX + rw - 0.1, fy + 0.04, z1 - 0.2, { top: shade(rugC, 1.25) }, 'b')
+  d.box(doorX - 0.1, fy + 0.04, rz0 + 0.3, doorX + 0.1, fy + 0.055, z1 - 0.4, { top: shade(rugC, 0.8) }, 'b')
   // Skirting and a beam along the inside of the walls.
   d.box(x0, fy, z0, x1, fy + 0.12, z0 + 0.03, '#6a4a34', 'b')
   d.box(x0, 1.9, z0, x1, 2.02, z0 + 0.06, p.timber, 'b')

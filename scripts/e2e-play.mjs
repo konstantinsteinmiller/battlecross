@@ -186,6 +186,21 @@ const playDesktop = async () => {
   check('the first control lesson is on screen', s.hints.includes('move'), s.hints.join(','))
   await shot(page, 'play-1-boot')
 
+  // The opening beat (roadmap #52): a straw training dummy by the road, the
+  // first pack asleep and out of reach. Clicking it walks up and knocks it
+  // apart for a few coins; the pack sleeps on.
+  const dummy = await game(page, () => { const z = window.__game.zone(); const d = z.sim.units.find(u => u.kind === 'trainingDummy'); return d ? { x: d.x, z: d.z, h: d.h } : null })
+  check('a new player\'s first visit opens on a training dummy, the goblins asleep', !!dummy && !(await game(page, () => window.__game.zone().sim.groups[0].awake)), JSON.stringify(dummy))
+  if (dummy) {
+    const gold0 = await game(page, () => window.__game.zone().sim.hero.gold)
+    const dp = await project(page, dummy.x, dummy.h * 0.5, dummy.z)
+    await page.mouse.click(dp.x, dp.y)
+    await page.waitForFunction(() => window.__game.profile.tips.dummy === true, null, { timeout: 15000 }).catch(() => {})
+    const after = await game(page, () => ({ done: window.__game.profile.tips.dummy === true, gold: window.__game.zone().sim.hero.gold, awake: window.__game.zone().sim.groups[0].awake }))
+    check('clicking the dummy knocks it apart for a few coins, and the pack does not wake', after.done && after.gold > gold0 && !after.awake, JSON.stringify(after))
+    await shot(page, 'play-1-dummy')
+  }
+
   // Click the ground: the hero walks there.
   const p0 = await heroPos(page)
   const ground = await project(page, p0.x + 1.5, 0, p0.z - 4)
@@ -333,7 +348,10 @@ const playDesktop = async () => {
   check('Escape ends the conversation (and does not open the pause menu)', left.talk === '' && left.modal === '', JSON.stringify(left))
   await page.waitForTimeout(500)
 
-  // The bag: equip it.
+  // The bag: equip it. A new player's bag button arrives once there is
+  // something in the bag to look at (roadmap #52: progressive reveal).
+  const bagUp = await page.waitForSelector('.menu-buttons button[aria-label="Bag"]', { timeout: 10000 }).then(() => true, () => false)
+  check('the bag button has arrived on the town HUD (there is something new in the bag)', bagUp)
   await page.locator('.menu-buttons button[aria-label="Bag"]').click()
   await page.waitForFunction(() => window.__game.flow.modal === 'inventory', null, { timeout: 5000 })
   await page.locator(`.bag__grid .cell[aria-label]`).last().waitFor()
@@ -514,6 +532,8 @@ const layout = async () => {
     await game(page, () => {
       const g = window.__game; const h = g.zone().sim.hero
       h.skills = ['shieldSlam', 'fireball', 'flamePillar', 'royalGuard', 'stoneSpike', 'aetherPistol']
+      // The mana flask too (a new player's arrives with the first mana potion).
+      g.profile.tips['reveal:mana'] = 2
     })
     await nearFirstPack(page, 4.5)
     await page.waitForTimeout(1200)
@@ -527,8 +547,10 @@ const layout = async () => {
     check(`${v.name}: the skill buttons do not overlap each other`, !slotOverlap)
     await shot(page, `layout-${v.w}x${v.h}-fight`)
 
-    // Results, then the map.
+    // Results, then the map. A won zone ends when the player presses Leave.
     await winZone(page)
+    await page.waitForSelector('[data-coach="leave"]', { timeout: 15000 })
+    await page.locator('[data-coach="leave"]').click({ force: true })
     await page.waitForFunction(() => window.__game.flow.modal === 'results', null, { timeout: 20000 })
     await page.waitForTimeout(600)
     const modal = await page.evaluate(() => {

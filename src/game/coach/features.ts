@@ -76,10 +76,13 @@ const better = (a: string, b: string | null): boolean => {
 }
 
 /** The first piece in the bag that fills an empty slot or beats what is worn
- *  there (new finds first), and the socket it goes in. */
-export const equipCandidate = (): { id: string; slot: EquipSlot } | null => {
+ *  there (new finds first), and the socket it goes in. `prefer`: the piece in
+ *  hand, if it is one — looking at a find marks it seen, and the lesson must
+ *  not jump to another one under the player's finger. */
+export const equipCandidate = (prefer: string | null = null): { id: string; slot: EquipSlot } | null => {
   const inv = profile.inv
   const ids = [...inv.fresh, ...inv.items.filter(id => !inv.fresh.includes(id))]
+  if (prefer && ids.includes(prefer)) ids.unshift(prefer)
   for (const id of ids) {
     const it = ITEM_BY_ID[id]
     if (!it || equippedIn(id) || !canEquip(id)) continue
@@ -168,12 +171,13 @@ export const stepOf = (id: FeatureId, c: FeatureCtx): Step | null => {
         : { kind: 'tap', at: node, here: true }
     }
     case 'equip': {
-      const k = equipCandidate()
+      const sel = c.modal === 'inventory' ? c.dom.attr('.equip', 'data-sel') : null
+      const k = equipCandidate(sel)
       if (!k) return null
       if (c.modal !== 'inventory') return toPanel('inventory', c)
       const cell = `.bag__grid [data-item="${k.id}"]`
       const sock = `.doll__socket[data-slot="${k.slot}"]`
-      const held = c.dom.attr('.equip', 'data-sel') === k.id
+      const held = sel === k.id
       if (!touch) return { kind: 'drag', from: cell, to: sock, ghost: { item: k.id }, glow: held ? '[data-coach="equip-stats"]' : undefined, here: true }
       return held
         ? { kind: 'tap', at: sock, glow: '[data-coach="equip-stats"]', here: true }

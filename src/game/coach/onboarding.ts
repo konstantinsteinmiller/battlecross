@@ -157,6 +157,11 @@ export const installOnboarding = (): (() => void) => {
   }
 }
 
+// DEV: the probe scripts read the pacing through the app's own instance.
+if (import.meta.env.DEV && typeof window !== 'undefined') {
+  (window as unknown as Record<string, unknown>).__onboard = { pacer, onboard, currentStep, liveCtx, recallHere, blocked, clock: () => clock }
+}
+
 /** Test seam. */
 export const resetOnboarding = (): void => {
   pacer.reset()

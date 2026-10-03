@@ -93,12 +93,17 @@ const dragPhase = (): number => {
   return 1
 }
 
-/** A point kept inside the screen (a margin of `m` px), so a glyph aimed at
- *  something out of view stands at the edge it lies beyond. */
-const clampIn = (x: number, y: number, m: number): [number, number] => [
-  Math.max(m, Math.min(innerWidth - m, x)),
-  Math.max(m, Math.min(innerHeight - m, y))
-]
+/** A point kept inside the screen, so a glyph aimed at something out of view
+ *  stands at the edge it lies beyond — inside the corners' HUD, never on the
+ *  hero's frame at the top or the buttons at the bottom. */
+const clampIn = (x: number, y: number, m: number): [number, number] => {
+  const inside = x >= m && x <= innerWidth - m && y >= m && y <= innerHeight - m
+  if (inside) return [x, y]
+  return [
+    Math.max(m, Math.min(innerWidth - m, x)),
+    Math.max(innerHeight * 0.24, Math.min(innerHeight * 0.7, y))
+  ]
+}
 
 /** The glyph's size in px, as `--g` sizes it. */
 const glyphPx = (): number => Math.max(51.2, Math.min(80, Math.min(innerWidth, innerHeight) * 0.15))
@@ -152,15 +157,21 @@ onMounted(() => {
         ;[x, y] = clampIn(g.x1, g.y1, edge)
         setLineXY(lines.talk, g.x0, g.y0, x, y)
         if (beacon) {
-          const [bx, by] = clampIn(g.x2, g.y2, edge)
-          beacon.style.transform = `translate(${(bx - x).toFixed(1)}px, ${(by - y).toFixed(1)}px)`
+          // Over their head while they are in view; off screen, the glyph at
+          // the edge says the way alone.
+          const seen = x === g.x1 && y === g.y1
+          beacon.style.opacity = seen ? '1' : '0'
+          el.classList.toggle('is-off', !seen)
+          beacon.style.transform = `translate(${(g.x2 - x).toFixed(1)}px, ${(g.y2 - y).toFixed(1)}px)`
         }
       } else {
         ;[x, y] = clampIn(x, y, edge)
       }
       // No room under the point (a drag starting on the bar): the hand
       // reaches down onto it from above instead of hanging off the screen.
-      if (!isButton(id)) el.classList.toggle('is-flip', y + glyphPx() * 0.95 > innerHeight - 6)
+      // An aim starts on the bar itself, so its finger reaches down the whole
+      // way (it never turns over halfway along the drag).
+      if (!isButton(id)) el.classList.toggle('is-flip', (id === 'aim' && hud.device === 'touch') || y + glyphPx() * 0.95 > innerHeight - 6)
       el.style.opacity = show ? '1' : '0'
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
       if (size) el.style.setProperty('--ring', `${size.toFixed(0)}px`)
@@ -221,11 +232,16 @@ onUnmounted(() => removeTicker?.())
   top: calc(var(--ring, 60px) * -0.32 - var(--g) * 1.02)
   transform: rotate(180deg)
   transform-origin: 50% 50%
-.is-down .coach__glyph
+.is-down .coach__glyph, .is-flip .coach__glyph
   transform: scaleX(-1)
+.is-flip .coach__hand
+  top: calc(var(--g) * -0.88)
+  transform: rotate(180deg)
+.is-flip .coach__pips
+  top: calc(var(--g) * -1.1)
 .coach__hand.ok
   animation: coach-ok 420ms ease-out
-.is-down .coach__hand.ok
+.is-down .coach__hand.ok, .is-flip .coach__hand.ok
   animation: coach-ok-down 420ms ease-out
 .coach__glyph
   width: 100%
@@ -255,6 +271,8 @@ onUnmounted(() => removeTicker?.())
   border: 4px solid #ffd84a
   box-shadow: 0 0 0 2px #0f1a30, inset 0 0 0 2px #0f1a30
   animation: coach-spot 1.2s ease-in-out infinite
+.is-off .coach__spot
+  display: none
 // Over a trainer's head: a bobbing gold beacon with a pulse round it.
 .coach__beacon
   position: absolute

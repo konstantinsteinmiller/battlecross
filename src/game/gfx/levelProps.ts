@@ -168,12 +168,16 @@ const symbolGeo = (n: number, r: number): BufferGeometry => {
   if (n === 0) return new RingGeometry(r * 0.55, r, 28)
   if (n === 1) { const g = new CircleGeometry(r * 1.12, 3); g.rotateZ(Math.PI / 2); return g }
   if (n === 2) { const g = new CircleGeometry(r * 1.12, 4); g.rotateZ(Math.PI / 4); return g }
+  // A cross of three pieces that do not overlap (two crossing planes would
+  // fight in the depth buffer where they meet).
   const a = new PlaneGeometry(r * 2, r * 0.56)
-  const b = new PlaneGeometry(r * 0.56, r * 2)
-  const g = merge([a, b])
+  const b = new PlaneGeometry(r * 0.56, r * 0.72).translate(0, r * 0.64, 0)
+  const c = new PlaneGeometry(r * 0.56, r * 0.72).translate(0, -r * 0.64, 0)
+  const g = merge([a, b, c])
   g.rotateZ(Math.PI / 4)
   a.dispose()
   b.dispose()
+  c.dispose()
   return g
 }
 

@@ -16,6 +16,18 @@ export interface Tri {
   nx: number; ny: number; nz: number
   d: number
   tag: string
+  /** How it is drawn (material and flat colour), when it is one colour all
+   *  over: two coplanar faces drawn exactly alike make the same pixels, so
+   *  their overlap cannot flicker and is not a fight. */
+  look?: string
+}
+
+/** A triangle's look from its three vertex colours (none when they differ). */
+const lookOf = (mat: string, col: ArrayLike<number> | null, i0: number, i1: number, i2: number): string | undefined => {
+  if (!col) return mat
+  const k = (i: number): string => `${Math.round(col[i * 3]! * 255)},${Math.round(col[i * 3 + 1]! * 255)},${Math.round(col[i * 3 + 2]! * 255)}`
+  const a = k(i0)
+  return a === k(i1) && a === k(i2) ? `${mat}|${a}` : undefined
 }
 
 export interface Fight {
@@ -30,9 +42,12 @@ const _b = new Vector3()
 const _c = new Vector3()
 
 /** The triangles of a geometry, through a matrix, tagged. */
-export const trisOf = (g: BufferGeometry, m: Matrix4 | null, tag: string, out: Tri[] = []): Tri[] => {
+export const trisOf = (g: BufferGeometry, m: Matrix4 | null, tag: string, out: Tri[] = [], mat?: string): Tri[] => {
   const p = g.attributes.position
   if (!p) return out
+  const colAttr = g.attributes.color
+  const col = mat && colAttr ? (colAttr.array as ArrayLike<number>) : null
+  const stride = colAttr ? colAttr.itemSize : 3
   const ix = g.index
   const n = ix ? ix.count : p.count
   for (let k = 0; k + 2 < n; k += 3) {
@@ -52,7 +67,29 @@ export const trisOf = (g: BufferGeometry, m: Matrix4 | null, tag: string, out: T
     // Slivers and degenerate triangles cannot fight visibly.
     if (l < 2e-5) continue
     nx /= l; ny /= l; nz /= l
-    out.push({ ax: _a.x, ay: _a.y, az: _a.z, bx: _b.x, by: _b.y, bz: _b.z, cx: _c.x, cy: _c.y, cz: _c.z, nx, ny, nz, d: nx * _a.x + ny * _a.y + nz * _a.z, tag })
+    const look = !mat ? undefined : !colAttr ? mat : stride === 3 ? lookOf(mat, col, i0, i1, i2) : undefined
+    out.push({ ax: _a.x, ay: _a.y, az: _a.z, bx: _b.x, by: _b.y, bz: _b.z, cx: _c.x, cy: _c.y, cz: _c.z, nx, ny, nz, d: nx * _a.x + ny * _a.y + nz * _a.z, tag, look })
+  }
+  return out
+}
+
+/** The triangles of a building mesher, each tagged with the builder that made it (`Mesher.trace`). */
+export const trisOfMesher = (m: { pos: number[]; idx: number[]; col: number[]; labels: string[] }, prefix: string, out: Tri[] = [], mat = prefix.includes('glow') ? 'glow' : 'cel'): Tri[] => {
+  const P = m.pos
+  for (let k = 0; k + 2 < m.idx.length; k += 3) {
+    const i0 = m.idx[k]!, i1 = m.idx[k + 1]!, i2 = m.idx[k + 2]!
+    const ax = P[i0 * 3]!, ay = P[i0 * 3 + 1]!, az = P[i0 * 3 + 2]!
+    const bx = P[i1 * 3]!, by = P[i1 * 3 + 1]!, bz = P[i1 * 3 + 2]!
+    const cx = P[i2 * 3]!, cy = P[i2 * 3 + 1]!, cz = P[i2 * 3 + 2]!
+    const ux = bx - ax, uy = by - ay, uz = bz - az
+    const vx = cx - ax, vy = cy - ay, vz = cz - az
+    let nx = uy * vz - uz * vy
+    let ny = uz * vx - ux * vz
+    let nz = ux * vy - uy * vx
+    const l = Math.hypot(nx, ny, nz)
+    if (l < 2e-5) continue
+    nx /= l; ny /= l; nz /= l
+    out.push({ ax, ay, az, bx, by, bz, cx, cy, cz, nx, ny, nz, d: nx * ax + ny * ay + nz * az, tag: `${prefix}${m.labels[i0] ?? '?'}`, look: lookOf(mat, m.col, i0, i1, i2) })
   }
   return out
 }
@@ -70,7 +107,7 @@ export const trisOfScene = (root: Object3D, out: Tri[] = [], maxInstances = 4000
     const mat = mesh.material as Material
     if (Array.isArray(mat)) return
     if (mat.side === BackSide || mat.transparent || mat.depthTest === false) return
-    const tag = o.name || o.parent?.name || mesh.geometry.uuid.slice(0, 6)
+    const tag = o.name || o.parent?.name || `mesh${mesh.geometry.attributes.position?.count ?? 0}v`
     if ((o as InstancedMesh).isInstancedMesh) {
       const im = o as InstancedMesh
       const n = Math.min(im.count, maxInstances)
@@ -78,11 +115,12 @@ export const trisOfScene = (root: Object3D, out: Tri[] = [], maxInstances = 4000
       for (let i = 0; i < n; i++) {
         im.getMatrixAt(i, inst)
         m.multiplyMatrices(im.matrixWorld, inst)
-        trisOf(im.geometry, m, `${tag}#${i}`, out)
+        const ic = im.instanceColor ? Array.from(im.instanceColor.array.slice(i * 3, i * 3 + 3), v => Math.round(v * 255)).join(',') : ''
+        trisOf(im.geometry, m, `${tag}#${i}`, out, `${mat.uuid}${ic}`)
       }
       return
     }
-    trisOf(mesh.geometry, mesh.matrixWorld, tag, out)
+    trisOf(mesh.geometry, mesh.matrixWorld, tag, out, mat.uuid)
   })
   return out
 }
@@ -117,6 +155,8 @@ const separated = (P: number[][], Q: number[][], eps: number): boolean => {
 export const findFights = (tris: Tri[], tol = 0.006, eps = 0.004, limit = 200): Fight[] => {
   const buckets = new Map<string, Tri[]>()
   for (const t of tris) {
+    // The camera never turns and always looks down at 52°: a face turned from it is never seen.
+    if (t.ny * 0.788 + t.nz * 0.616 <= 0.02) continue
     const key = `${Math.round(t.nx * 40)},${Math.round(t.ny * 40)},${Math.round(t.nz * 40)}`
     const b = buckets.get(key)
     if (b) b.push(t)
@@ -133,9 +173,10 @@ export const findFights = (tris: Tri[], tol = 0.006, eps = 0.004, limit = 200): 
         const b = list[j]!
         if (b.d - a.d > tol) break
         if (a.nx * b.nx + a.ny * b.ny + a.nz * b.nz < 0.9995) continue
-        if (Math.max(b.ax, b.bx, b.cx) < amin[0]! + eps || Math.min(b.ax, b.bx, b.cx) > amax[0]! - eps) continue
-        if (Math.max(b.ay, b.by, b.cy) < amin[1]! + eps || Math.min(b.ay, b.by, b.cy) > amax[1]! - eps) continue
-        if (Math.max(b.az, b.bz, b.cz) < amin[2]! + eps || Math.min(b.az, b.bz, b.cz) > amax[2]! - eps) continue
+        if (a.look !== undefined && a.look === b.look) continue
+        if (Math.max(b.ax, b.bx, b.cx) < amin[0]! - tol || Math.min(b.ax, b.bx, b.cx) > amax[0]! + tol) continue
+        if (Math.max(b.ay, b.by, b.cy) < amin[1]! - tol || Math.min(b.ay, b.by, b.cy) > amax[1]! + tol) continue
+        if (Math.max(b.az, b.bz, b.cz) < amin[2]! - tol || Math.min(b.az, b.bz, b.cz) > amax[2]! + tol) continue
         // B's corners must lie on A's plane.
         const da = Math.abs(a.nx * b.ax + a.ny * b.ay + a.nz * b.az - a.d)
         const db = Math.abs(a.nx * b.bx + a.ny * b.by + a.nz * b.bz - a.d)

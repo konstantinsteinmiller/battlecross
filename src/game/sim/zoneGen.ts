@@ -138,13 +138,12 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
   const aj = (n.j - s.j) / l
   let best: { x: number; z: number } | undefined
   let bestD = -1
-  // A few steps' walk from the hero's spawn (the walk is the first lesson):
-  // beside him and a little toward the camera: in view on a phone held
-  // upright as on a wide screen, and the farthest it can be from the pack.
-  // The farther side from the chest wins, so the two are separate stops.
-  // (An upright phone shows little more than two metres either side of him,
-  // so it stands mostly below him on the screen, barely to the side.)
-  for (const [off, along] of [[0.6, -2.7], [1.1, -2.5], [1.6, -2.1], [2.1, -1.5], [2.7, -0.6]] as const) {
+  // A few steps' walk from the hero's spawn (the walk is the first lesson),
+  // a little up the road and to one side: in view both on an upright phone
+  // (which shows barely two metres either side of him) and on a wide screen
+  // (whose bottom edge is the skill bar). The farther side from the chest
+  // wins, so the two are separate stops.
+  for (const [off, along] of [[1.4, 1.8], [1.9, 1.2], [1.1, 2.1], [2.2, 0.6], [2.3, -0.3], [1.7, -1.7]] as const) {
     for (const side of [off, -off]) {
       const i = Math.round(s.i + ai * along - aj * side)
       const j = Math.round(s.j + aj * along + ai * side)
@@ -154,6 +153,8 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
       if (!open) continue
       const x = (i + 0.5) * CELL
       const z = (j + 0.5) * CELL
+      // Far enough that walking up to it is a step of its own.
+      if (Math.hypot((s.i + 0.5) * CELL - x, (s.j + 0.5) * CELL - z) < 3.3) continue
       if (Math.hypot(pack.x - x, pack.z - z) < 14) continue
       let near = 1e9
       for (const c of chests) near = Math.min(near, Math.hypot(c.x - x, c.z - z))

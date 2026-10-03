@@ -108,6 +108,11 @@ describe('pacing: nothing stacks', () => {
     // And never a reveal over a lesson on screen, nor under a blocker.
     expect(pc.step({ now: 9, want: ['equip'], blocked: false, reveals: ['skills'] }).reveal).toBe('')
     expect(new Pacer().step({ now: 9, want: [], blocked: true, reveals: ['skills'] }).reveal).toBe('')
+    // Nor on a screen that has only just come up (the veil is still fading).
+    const fresh = new Pacer()
+    fresh.breathe(20)
+    expect(fresh.step({ now: 20.3, want: [], blocked: false, reveals: ['map'] }).reveal).toBe('')
+    expect(fresh.step({ now: 20 + SETTLE + 0.01, want: [], blocked: false, reveals: ['map'] }).reveal).toBe('map')
   })
 
   it('a lesson the place no longer asks for steps aside, and nothing ever times out', () => {
@@ -291,5 +296,53 @@ describe('progressive reveal, kept in the save', () => {
     p.profile.stats.runs = 30
     expect(r.isVeteran()).toBe(true)
     expect(r.revealed('skills')).toBe(true)
+  })
+})
+
+// ─── The opening beat, as the coach paces it ─────────────────────────────────
+
+describe('the dummy beat: the walk, then the hit, then the road', () => {
+  const beat = async () => {
+    const { Sim } = await import('@/game/sim/world')
+    const { createHero } = await import('@/game/sim/hero')
+    const { applyPlan, populateZone } = await import('@/game/sim/director')
+    const { generateZone } = await import('@/game/sim/zoneGen')
+    const { ZONES } = await import('@/game/data/zones')
+    const { noGear } = await import('@/game/data/items')
+    const { startAttrs } = await import('@/game/data/attributes')
+    const { spawnDummy, dummyOf } = await import('@/game/coach/dummy')
+    const { hud } = await import('@/game/state/hud')
+    const plan = generateZone(ZONES.plains, 7, { tutorial: true })
+    const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'zone', zone: 'plains' })
+    applyPlan(sim, plan)
+    createHero(sim, { build: { level: 1, attrs: startAttrs(), equipped: noGear(), passives: [] }, skills: [], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3 })
+    populateZone(sim, plan, 'plains', [])
+    spawnDummy(sim, plan)
+    const host = { sim, setup: { kind: 'zone' as const }, project: (x: number, _y: number, z: number, o: { x: number; y: number }) => { o.x = x * 10; o.y = z * 10; return true } }
+    const ids = (): string[] => { c.coach.step(host, 1 / 30); return hud.hints.map(h => h.id) }
+    return { sim, dummy: dummyOf(sim)!, ids }
+  }
+
+  it('far from the dummy: only the walk; beside it: only the hit — one lesson at a time', async () => {
+    const { sim, dummy, ids } = await beat()
+    expect(ids()).toEqual(['move'])
+    // The walk points at the dummy, not up the road at the pack.
+    const { hintGeo } = c
+    const u = sim.hero.unit
+    expect(Math.hypot(hintGeo.move.x1 / 10 - dummy.x, hintGeo.move.y1 / 10 - dummy.z)).toBeLessThan(Math.hypot(u.x - dummy.x, u.z - dummy.z))
+    u.x = dummy.x + 1.6
+    u.z = dummy.z
+    expect(ids()).toEqual(['target'])
+  })
+
+  it('a lesson done leaves the screen at once (even when nothing else is up)', async () => {
+    const { sim, dummy, ids } = await beat()
+    const u = sim.hero.unit
+    u.x = dummy.x + 1.6
+    u.z = dummy.z
+    expect(ids()).toEqual(['target'])
+    for (let i = 0; i < 3; i++) c.coach.use('target')
+    c.coach.use('move'); c.coach.use('move'); c.coach.use('move')
+    expect(ids()).toEqual([])
   })
 })

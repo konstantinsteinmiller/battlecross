@@ -95,7 +95,8 @@ export class Pacer {
       }
     }
     let reveal: RevealId | '' = ''
-    if (!inp.blocked && inp.reveals.length && inp.now - this.lastReveal >= REVEAL_GAP && !this.wasShown) {
+    // A button pops in on a settled screen (not under the fading veil).
+    if (!inp.blocked && inp.reveals.length && inp.now - this.lastReveal >= REVEAL_GAP && !this.wasShown && inp.now - this.settledFrom >= SETTLE) {
       reveal = inp.reveals[0]!
       this.lastReveal = inp.now
     }

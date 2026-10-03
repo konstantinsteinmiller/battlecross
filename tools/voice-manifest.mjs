@@ -24,7 +24,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import en from '@/i18n/locales/en'
-import { CONVERSATIONS } from '@/game/data/dialogs/index'
+import { SPOKEN } from '@/game/data/dialogs/index'
 import { dialogLines } from '@/game/dialog/manifest'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -37,7 +37,7 @@ const text = (key) => {
   return typeof cur === 'string' ? cur : ''
 }
 
-const lines = dialogLines(CONVERSATIONS, text).map(l => ({
+const lines = dialogLines(SPOKEN, text).map(l => ({
   id: l.id,
   speaker: l.speaker,
   // Who it is, in words (the person ADDRESSED, for a line of the hero's).

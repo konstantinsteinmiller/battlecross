@@ -18,7 +18,8 @@ import { DUMMY_KIND, dummyBeat, dummyOf, dummyPurse, spawnDummy, stepDummy } fro
  * pays its token purse exactly once.
  */
 
-const SEEDS = [1, 2, 3, 5, 7, 11, 42, 77, 1234, 99991]
+// Forty layouts: every one must have a spot for it.
+const SEEDS = [...Array.from({ length: 38 }, (_, k) => k + 1), 1234, 99991]
 
 const visit = (seed = 7): { sim: Sim; plan: ZonePlan } => {
   const plan = generateZone(ZONES.plains, seed, { tutorial: true })
@@ -44,7 +45,7 @@ describe('the training dummy: where it stands', () => {
       const d = plan.dummy!
       const start = plan.clearings[0]!
       expect(Math.hypot(d.x - start.x, d.z - start.z), `#${seed} in the clearing`).toBeLessThan(start.r + CELL)
-      expect(Math.hypot(d.x - start.x, d.z - start.z), `#${seed} not on the hero`).toBeGreaterThan(2.5)
+      expect(Math.hypot(d.x - start.x, d.z - start.z), `#${seed} not on the hero`).toBeGreaterThan(3.2)
       const i = Math.floor(d.x / CELL)
       const j = Math.floor(d.z / CELL)
       expect(plan.solid[j * plan.w + i], `#${seed} open`).toBe(0)

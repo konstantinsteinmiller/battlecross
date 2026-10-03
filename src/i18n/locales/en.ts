@@ -673,7 +673,47 @@ export default {
   // Keep each speaker's voice: Bram is gruff, Tilly chatters, Grik is a goblin
   // ("tall one"), the Keeper of Hours muddles his tenses on purpose.
   'dlg': {
+    // Overheard small talk (`data/dialogs/smalltalk.ts`): two townsfolk chatting.
+    // Short, cosy, wordplay welcome; never more than a line of breath each.
+    'smalltalkSunford': {
+      'weather': { '1': 'Rain by tonight, my knee says.', '2': 'Your knee said that last week.', '3': 'And it rained, didn\'t it? Somewhere.' },
+      'harvest': { '1': 'Best barley in years, this.', '2': 'You say that every year.' },
+      'goblins': { '1': 'Goblins took three hens off the Miller farm.', '2': 'Only three? They\'re getting lazy.', '3': 'Or full.' },
+      'kingGone': { '1': 'They say the Goblin King is gone for good.', '2': 'Then who\'s been stealing my turnips?' },
+      'pact': { '1': 'A goblin sold me a spoon today.', '2': 'Was it your spoon?', '3': 'It was, yes. Good price, though.' },
+      'bram': { '1': 'Bram\'s hammering again. Since dawn!', '2': 'Steady as a heartbeat, that man.' },
+      'pie': { '1': 'Is that apple pie I smell?', '2': 'It was. Past tense.', '3': 'You ate it all? Again?' },
+      'road': { '1': 'Nobody takes the plains road anymore.', '2': 'Not with bandits on it, they don\'t.' },
+      'hero': { '1': 'Somebody cleared the plains road!', '2': 'About time. My cousin owes me a cart.' }
+    },
+    'smalltalkOakhaven': {
+      'prices': { '1': 'Two silver for a cabbage. Two!', '2': 'It\'s a very handsome cabbage.', '3': 'Not that handsome.' },
+      'watch': { '1': 'The watch doubled the gate guard.', '2': 'Good. I sleep better for it.' },
+      'caravan': { '1': 'The spice caravan is late again.', '2': 'Bandits?', '3': 'Or the driver found a tavern.' },
+      'siege': { '1': 'They say an army camps in the outskirts.', '2': 'Then we\'d better stock the cellar.' },
+      'saved': { '1': 'Did you see the siege break? Glorious!', '2': 'I saw it from under my bed.', '3': 'Still counts.' },
+      'fountain': { '1': 'I threw a coin in the fountain for luck.', '2': 'And I fished it out. Thanks!' },
+      'ash': { '1': 'Everything smells of ash.', '2': 'Better than smelling of nothing.' },
+      'hide': { '1': 'Did you hear boots outside last night?', '2': 'Hush. Keep your voice down.', '3': 'Sorry. Sorry.' },
+      'bread': { '1': 'I found half a loaf. We can share it.', '2': 'You\'re a good soul. Thank you.' }
+    },
+    'smalltalkIronhold': {
+      'ore': { '1': 'Good seam of copper on the fourth level.', '2': 'Copper? I want gold.', '3': 'You want a nap, more like.' },
+      'forge': { '1': 'The great forge hasn\'t gone out in a hundred years.', '2': 'Neither has my grandad\'s pipe.' },
+      'beard': { '1': 'You trimmed your beard!', '2': 'It caught fire at the anvil.', '3': 'Suits you, though.' },
+      'core': { '1': 'Something glows in the deep mines now.', '2': 'Nothing good glows down there.' },
+      'order': { '1': 'The Order\'s armourers work fast.', '2': 'Fast, aye. Not as well as us.' },
+      'circle': { '1': 'The Circle\'s mages hum while they work.', '2': 'Better than our singing, I suppose.' },
+      'cold': { '1': 'Cold up here this morning.', '2': 'Stand nearer the forge, then.' }
+    },
+    'smalltalkKids': {
+      'tag': { '1': 'You\'re it!', '2': 'Not fair, I wasn\'t ready!' },
+      'dragon': { '1': 'When I grow up I\'ll ride a dragon.', '2': 'Dragons don\'t let you ride them.', '3': 'Nice ones do!' },
+      'sword': { '1': 'Look, a real sword stick!', '2': 'It\'s just a stick.' },
+      'frog': { '1': 'I found a frog by the well.', '2': 'Can we keep it?', '3': 'He\'s keeping us, I think.' }
+    },
     'ui': {
+      'overheard': 'Townsfolk',
       'hero': 'You',
       'leave': 'End the conversation',
       'topics': 'What to say',

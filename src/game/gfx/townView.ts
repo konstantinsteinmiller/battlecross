@@ -141,7 +141,7 @@ export class TownView {
     // Fences go into the kit of where they stand; one pass per quarter keeps them together.
     const fences = newKit()
     buildFences(fences, t, plan.w, plan.h, ctx)
-    v.addKit(fences, true)
+    v.addKit(fences, true, 'fences')
     await slice()
     for (const k of kits) v.addKit(k, true)
     await slice()
@@ -153,6 +153,7 @@ export class TownView {
       v.owned.push(g)
       const m = new Mesh(g, celVC())
       m.renderOrder = -1
+      m.name = 'paving'
       v.root.add(m)
     }
     // ── A few animals ──
@@ -162,12 +163,14 @@ export class TownView {
     return v
   }
 
-  private addKit(k: Kit, outline: boolean): void {
+  private addKit(k: Kit, outline: boolean, name = 'town'): void {
     const lit = new Mesher().append(k.hull).append(k.detail)
     if (!lit.empty) {
       const g = lit.build()
       this.owned.push(g)
-      this.root.add(new Mesh(g, celVC()))
+      const m = new Mesh(g, celVC())
+      m.name = name
+      this.root.add(m)
     }
     if (outline && !k.hull.empty) {
       const og = k.hull.welded()
@@ -179,13 +182,16 @@ export class TownView {
     if (!k.glow.empty) {
       const gg = k.glow.build()
       this.owned.push(gg)
-      this.root.add(new Mesh(gg, glowVC()))
+      const m = new Mesh(gg, glowVC())
+      m.name = name + ':glow'
+      this.root.add(m)
     }
   }
 
   /** A house's front, upper storey and roof: their own materials, so they can fade. */
   private addCut(house: number, k: Kit, roomKit: Kit | null, dx: number, dz: number): void {
     const group = new Group()
+    group.name = 'cut'
     const mat = rigToon()
     const line = rigOutline()
     const glow = new MeshBasicMaterial({ vertexColors: true, toneMapped: false })
@@ -198,6 +204,7 @@ export class TownView {
     let room: Group | null = null
     if (roomKit && (!roomKit.hull.empty || !roomKit.detail.empty)) {
       room = new Group()
+      room.name = 'room'
       const lit = new Mesher().append(roomKit.hull).append(roomKit.detail)
       if (!lit.empty) { const g = lit.build(); this.owned.push(g); room.add(new Mesh(g, celVC())) }
       if (!roomKit.hull.empty) { const g = roomKit.hull.welded(); this.owned.push(g); const o = new Mesh(g, outlineMat()); o.renderOrder = -1; room.add(o) }

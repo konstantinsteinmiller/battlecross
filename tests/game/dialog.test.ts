@@ -8,7 +8,7 @@ import { dialogLines, linesOf, voicePath } from '@/game/dialog/manifest'
 import { graphemes, isDense, revealed, speakSeconds, typeSeconds } from '@/game/dialog/pacing'
 import { DialogRunner, END_CHOICE, END_LINE, hasNews } from '@/game/dialog/runner'
 import type { Cond, ConversationDef, DialogHost, DialogWorld, Offer, TalkWindow } from '@/game/dialog/types'
-import { CONVERSATIONS, conversationOf, decisionOf } from '@/game/data/dialogs'
+import { CONVERSATIONS, SPOKEN, conversationOf, decisionOf } from '@/game/data/dialogs'
 import { MANA_OFFER } from '@/game/data/dialogs/shared'
 import { QUESTS, QUEST_BY_ID, choiceOpen } from '@/game/data/quests'
 import { MAP, TOWNS } from '@/game/data/zones'
@@ -382,7 +382,8 @@ const worldFor = (conv: string, ...conds: Array<Cond | undefined>): DialogWorld 
 }
 
 describe('every conversation in the game', () => {
-  const all = CONVERSATIONS.flatMap(c => linesOf(c).map(l => ({ c, l })))
+  // Every line spoken, small talk included.
+  const all = SPOKEN.flatMap(c => linesOf(c).map(l => ({ c, l })))
 
   it('everyone has one: each townsperson, each hidden trainer, each quest', () => {
     for (const town of Object.values(TOWNS)) for (const n of town.npcs) expect(conversationOf(n.id), n.id).toBeTruthy()
@@ -595,10 +596,10 @@ describe('every conversation in the game', () => {
 })
 
 describe('the voice manifest', () => {
-  const manifest = dialogLines(CONVERSATIONS, id => String(text(id) ?? ''))
+  const manifest = dialogLines(SPOKEN, id => String(text(id) ?? ''))
 
   it('lists every line once, with its speaker, its English text and where its recording goes', () => {
-    const ids = new Set(CONVERSATIONS.flatMap(c => linesOf(c).map(l => l.id)))
+    const ids = new Set(SPOKEN.flatMap(c => linesOf(c).map(l => l.id)))
     ids.add(END_LINE.id)
     expect(manifest.length).toBe(ids.size)
     expect(new Set(manifest.map(m => m.id)).size).toBe(manifest.length)

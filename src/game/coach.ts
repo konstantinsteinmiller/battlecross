@@ -113,8 +113,12 @@ export const hintGeo: Record<LessonId, HintGeo> = {
   move: geo(), target: geo(), skill: geo(0), aim: geo(0), potion: geo(), mana: geo(), chest: geo(), talk: geo()
 }
 
+/** A signature no list of glyphs has: the next step republishes, even an
+ *  empty list (a lesson just retired must leave the screen). */
+const STALE = '\u0000'
+
 /** Metres from the training dummy at which the walk lesson hands over to the hit. */
-const DUMMY_NEAR = 4.4
+const DUMMY_NEAR = 2.7
 
 const key = (id: string, family: string): string => `hint:${id}:${family}`
 const p0 = { x: 0, y: 0 }
@@ -131,7 +135,7 @@ class Coach {
   private recalled = new Set<string>()
   private idleT = 0
   private noTargetT = 0
-  private sig = ''
+  private sig = STALE
   private part: Record<string, number> = {}
   /** The chests the hero had opened at the last step (a new one is a use). */
   private chestSim: Sim | null = null
@@ -159,10 +163,10 @@ class Coach {
     const k = key(id, this.family())
     const n = this.count(id)
     this.flashes[id] = (this.flashes[id] ?? 0) + 1
-    if (this.recalled.delete(id)) { this.sig = ''; return }
+    if (this.recalled.delete(id)) { this.sig = STALE; return }
     if (n >= (NEED[id] ?? 1)) return
     profile.tips[k] = n + 1
-    this.sig = ''
+    this.sig = STALE
     if (n + 1 >= (NEED[id] ?? 1)) saveProfile()
   }
 
@@ -178,13 +182,13 @@ class Coach {
   /** The pause menu: every control lesson once more. */
   recallAll(): void {
     for (const l of LESSONS) this.recalled.add(l.id)
-    this.sig = ''
+    this.sig = STALE
   }
 
   /** The "?" button: the lessons of the place the player is in, once more. */
   recall(ids: readonly AnyId[]): void {
     for (const id of ids) this.recalled.add(id)
-    this.sig = ''
+    this.sig = STALE
   }
 
   /** Brought back and not used since. */
@@ -296,8 +300,8 @@ class Coach {
       let tz = u.z - 4.5
       if (to) {
         const d = Math.hypot(to.x - u.x, to.z - u.z) || 1
-        // Short of the dummy itself: the glyph never sits on it.
-        const reach = dummy ? Math.max(0, Math.min(4.5, d - 1.6)) : Math.min(4.5, d)
+        // Well short of the dummy: a tap there walks, it does not strike.
+        const reach = dummy ? Math.max(0.8, Math.min(4.5, d - 2)) : Math.min(4.5, d)
         tx = u.x + ((to.x - u.x) / d) * reach
         tz = u.z + ((to.z - u.z) / d) * reach
       }
@@ -358,7 +362,7 @@ class Coach {
     this.recalled.clear()
     this.idleT = 0
     this.noTargetT = 0
-    this.sig = ''
+    this.sig = STALE
     this.part = {}
     this.chestSim = null
     this.chestN = 0

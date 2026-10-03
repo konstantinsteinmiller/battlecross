@@ -55,12 +55,12 @@ const leave = (): void => { input.leaveQueued = true }
   top: calc(env(safe-area-inset-top, 0px) + clamp(4.6rem, 12vh, 6.4rem))
   bottom: auto
 .leave__btn
-  filter: drop-shadow(0 0.25rem 0 rgba(15, 26, 48, 0.35))
+  filter: drop-shadow(0 0.25rem 0 rgba(var(--bc-ink-rgb), 0.35))
 .leave.is-ready .leave__btn
   animation: leave-pulse 1.4s ease-in-out infinite
 .leave__key
   font-size: clamp(0.8rem, 2.4vmin, 1.05rem)
-  color: #141a33
+  color: var(--bc-ink)
 .leave__left
   position: relative
   display: inline-flex
@@ -70,20 +70,20 @@ const leave = (): void => { input.leaveQueued = true }
   height: clamp(2.3rem, 9vmin, 2.9rem)
   padding: 0.35rem
   box-sizing: border-box
-  border: 2px solid #0f1a30
+  border: 2px solid var(--bc-ink)
   border-radius: 50%
-  background: linear-gradient(180deg, #ffe066 0, #ffcd00 50%, #f7a000 100%)
-  color: #0f1a30
+  background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold) 50%, var(--bc-gold-lo) 100%)
+  color: var(--bc-ink)
 .leave__count
   position: absolute
   right: -0.35rem
   bottom: -0.3rem
   min-width: 1.2rem
   padding: 0 0.25rem
-  border: 2px solid #0f1a30
+  border: 2px solid var(--bc-ink)
   border-radius: 999px
-  background: #ffffff
-  color: #0f1a30
+  background: var(--bc-white)
+  color: var(--bc-ink)
   font-family: var(--font-ui)
   font-size: clamp(0.72rem, 2.4vmin, 0.9rem)
   line-height: 1.15

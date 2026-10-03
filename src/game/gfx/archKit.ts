@@ -41,6 +41,11 @@ const _b = new Vector3()
 const _d = new Vector3()
 
 export class Mesher {
+  /** Tests: record which builder made each vertex (`labels`), for the z-fight audit. Off in the game. */
+  static trace = false
+  labels: string[] = []
+  /** Tests: the label the vertices being made now carry (set once per primitive). */
+  tag = ''
   pos: number[] = []
   nor: number[] = []
   col: number[] = []
@@ -79,6 +84,7 @@ export class Mesher {
   }
 
   private vert(x: number, y: number, z: number, nx: number, ny: number, nz: number, c: Color): number {
+    if (Mesher.trace) this.labels.push(this.tag || caller())
     _v.set(x, y, z).applyMatrix4(this.m)
     _n.set(nx, ny, nz).applyMatrix3(this.nm).normalize()
     this.pos.push(_v.x, _v.y, _v.z)
@@ -204,6 +210,17 @@ export class Mesher {
     return this
   }
 
+  /** A flat disc at height y (`down`: facing down, the open bottom end of a cylinder). */
+  disc(x: number, y: number, z: number, r: number, segs: number, c: Col, down = false): this {
+    for (let s = 0; s < segs; s++) {
+      const a0 = (s / segs) * Math.PI * 2
+      const a1 = ((s + 1) / segs) * Math.PI * 2
+      if (down) this.tri(x, y, z, x + Math.sin(a1) * r, y, z + Math.cos(a1) * r, x + Math.sin(a0) * r, y, z + Math.cos(a0) * r, c)
+      else this.tri(x, y, z, x + Math.sin(a0) * r, y, z + Math.cos(a0) * r, x + Math.sin(a1) * r, y, z + Math.cos(a1) * r, c)
+    }
+    return this
+  }
+
   /** A low-poly ball (bushes, lamps, flowers, fruit), smooth normals. */
   ball(x: number, y: number, z: number, r: number, c: Col, ws = 6, hs = 4, sy = 1): this {
     const k = typeof c === 'string' ? lc(c) : c
@@ -235,6 +252,7 @@ export class Mesher {
     const base = this.pos.length / 3
     // (A loop, not a spread: a town's worth of numbers overflows an argument list.)
     for (let i = 0; i < o.pos.length; i++) { this.pos.push(o.pos[i]!); this.nor.push(o.nor[i]!); this.col.push(o.col[i]!) }
+    if (Mesher.trace) this.labels.push(...o.labels)
     for (const i of o.idx) this.idx.push(i + base)
     return this
   }
@@ -299,6 +317,19 @@ export class Mesher {
   }
 }
 
+/** The first builder outside this file on the stack (`Mesher.trace`). */
+const caller = (): string => {
+  const lines = (new Error().stack ?? '').split('\n')
+  for (const l of lines) {
+    if (!l.includes(' at ') || l.includes('archKit')) continue
+    const m = /at (\S+) .*?([A-Za-z]+\.ts):(\d+)/.exec(l)
+    if (m) return `${m[1]}@${m[2]}:${m[3]}`
+    const n = /([A-Za-z]+\.ts):(\d+)/.exec(l)
+    if (n) return `${n[1]}:${n[2]}`
+  }
+  return '?'
+}
+
 /** The three layers a building is drawn in: forms with an outline, details without, and what glows. */
 export interface Kit {
   hull: Mesher
@@ -323,9 +354,10 @@ export const under = (k: Kit, x: number, y: number, z: number, ry: number, fn: (
 export const cage = (k: Kit, x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, metal: Col, light: Col): void => {
   const t = 0.028
   const d = k.detail
-  d.box(x0, y0, z0, x1, y0 + 0.04, z1, metal, '')
+  // The plates stand proud of the posts, so no face of one lies in a face of the other.
+  d.box(x0 - 0.012, y0, z0 - 0.012, x1 + 0.012, y0 + 0.04, z1 + 0.012, metal, '')
   d.box(x0 - 0.02, y1 - 0.04, z0 - 0.02, x1 + 0.02, y1, z1 + 0.02, metal, '')
-  for (const [x, z] of [[x0, z0], [x1 - t, z0], [x0, z1 - t], [x1 - t, z1 - t]] as const) d.box(x, y0, z, x + t, y1, z + t, metal, 'tb')
+  for (const [x, z] of [[x0, z0], [x1 - t, z0], [x0, z1 - t], [x1 - t, z1 - t]] as const) d.box(x, y0 + 0.04, z, x + t, y1 - 0.04, z + t, metal, 'tb')
   k.glow.box(x0 + 0.015, y0 + 0.04, z0 + 0.015, x1 - 0.015, y1 - 0.04, z1 - 0.015, light, 'b')
 }
 

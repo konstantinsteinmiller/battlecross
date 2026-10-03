@@ -559,6 +559,19 @@ const pickShape = (shapes: PropShape[], r: number): number => {
 }
 
 
+/** The cells a building stands on (1), exactly its footprint: the ground is not drawn there. */
+export const builtCells = (plan: Pick<ZonePlan, 'w' | 'h' | 'buildings'>): Uint8Array => {
+  const out = new Uint8Array(plan.w * plan.h)
+  for (const b of plan.buildings) {
+    const i0 = Math.round((b.x - b.w / 2) / CELL)
+    const i1 = Math.round((b.x + b.w / 2) / CELL) - 1
+    const j0 = Math.round((b.z - b.d / 2) / CELL)
+    const j1 = Math.round((b.z + b.d / 2) / CELL) - 1
+    for (let j = Math.max(0, j0); j <= Math.min(plan.h - 1, j1); j++) for (let i = Math.max(0, i0); i <= Math.min(plan.w - 1, i1); i++) out[j * plan.w + i] = 1
+  }
+  return out
+}
+
 /**
  * Build a zone's scenery from its plan. Time-sliced (`slice`) so the loader
  * keeps painting while a large zone is assembled.
@@ -816,9 +829,12 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     nor.push(_nrm.x, _nrm.y, _nrm.z)
     return vmap[key]!
   }
+  // No ground under a building: its own pad (`gfx/houses.ts`) is the floor
+  // there, so the street can never show through a room or a forge.
+  const built = builtCells(plan)
   for (let j = 0; j < h; j++) {
     for (let i = 0; i < w; i++) {
-      if (near[j * w + i]! > 3) continue
+      if (near[j * w + i]! > 3 || built[j * w + i]) continue
       for (let sj = 0; sj < SUB; sj++) {
         for (let si = 0; si < SUB; si++) {
           const gi = i * SUB + si
