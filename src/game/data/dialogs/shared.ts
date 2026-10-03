@@ -19,15 +19,15 @@ export const HERO = {
   ready: 'dlg.hero.ready'
 } as const
 
-/** "Show me your goods." → the answer, then the shop. */
+/** "Can I see what you've got?" → the answer, then the shop. */
 export const trade = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'trade', say: HERO.trade, once: false, icon: 'trade', fx: [{ t: 'open', window: 'shop' }], ...over })
 
-/** "Teach me." → the answer, then the trainer's lessons. */
+/** "Will you teach me?" → the answer, then the trainer's lessons. */
 export const train = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'train', say: HERO.train, once: false, icon: 'train', fx: [{ t: 'open', window: 'trainer' }], ...over })
 
-/** "Patch me up." → the answer, then the healer (and the potion belt). */
+/** "Could you patch me up?" → the answer, then the healer (and the potion belt). */
 export const heal = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'heal', say: HERO.heal, once: false, icon: 'heal', fx: [{ t: 'open', window: 'healer' }], ...over })
 

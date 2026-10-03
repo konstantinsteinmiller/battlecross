@@ -147,8 +147,8 @@ export default {
       'mouse': 'Follow the trail to the trainer and click them to talk.'
     },
     'teach': {
-      'touch': 'Tap "Teach me" to see what this trainer teaches.',
-      'mouse': 'Click "Teach me" to see what this trainer teaches.'
+      'touch': 'Tap "Will you teach me?" to see what this trainer teaches.',
+      'mouse': 'Click "Will you teach me?" to see what this trainer teaches.'
     },
     'learn': {
       'touch': 'Tap a skill, then tap Learn.',
@@ -551,10 +551,10 @@ export default {
     'buyBackOne': 'Buy back',
     'deal': 'Deal!',
     'say': {
-      'buy': 'A fine choice. Look after it.',
-      'sell': 'I will find it a good home.',
-      'back': 'Changed your mind? Here, as it was.',
-      'poor': 'Come back with a heavier purse.'
+      'buy': 'Good choice. Look after it and it\'ll look after you.',
+      'sell': 'Fair enough. Someone will want it.',
+      'back': 'Changed your mind? That\'s fine, here it is.',
+      'poor': 'That\'s a bit more than you\'ve got, I\'m afraid.'
     }
   },
   'trainer': {
@@ -570,7 +570,7 @@ export default {
     }
   },
   'healer': {
-    'talk': 'Sit. Rest. You leave here whole, with every flask filled. If you want to carry more of them, that I can sell you.',
+    'talk': 'Sit and rest a while. Your flasks are full again. I can sell you a bigger belt, if you like.',
     'note': 'You carry {n} potions into every zone.',
     'buy': 'One more flask · {n}',
     'full': 'Your belt holds all it can.',
@@ -590,28 +590,28 @@ export default {
 
   // ─── Townsfolk ────────────────────────────────────────────────────────────
   'npc': {
-    'sunfordSmith': { 'name': 'Bram the Smith', 'talk': 'Plain steel, honest prices. It will keep a goblin off you.' },
-    'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings! Charms! Things I found and definitely did not steal.' },
+    'sunfordSmith': { 'name': 'Bram the Smith', 'talk': 'Plain steel, fair prices. Take your time.' },
+    'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings, charms, bits and pieces. That one might even be lucky.' },
     'trainerAegis': { 'name': 'Ser Aldric' },
     'trainerPyro': { 'name': 'Ember Wren' },
     'elderMara': { 'name': 'Elder Mara' },
     'sunfordHealer': { 'name': 'Sister Lune' },
-    'goblinTrader': { 'name': 'Grik the Trader', 'talk': 'King say trade, so Grik trade. Shiny for shiny. Good shiny.' },
+    'goblinTrader': { 'name': 'Grik the Trader', 'talk': 'My family made these. Good work, fair price.' },
     'captainHale': { 'name': 'Captain Hale' },
-    'oakArmorer': { 'name': 'Odo the Armorer', 'talk': 'Half my stock went up on the walls. Take what is left.' },
-    'oakMasterArmorer': { 'name': 'Master Odo', 'talk': 'You saved this town. The good plate comes out of the back room for you.' },
-    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Sharp, balanced, and sold to whoever pays. Today that is you.' },
+    'oakArmorer': { 'name': 'Odo the Armorer', 'talk': 'Half my stock went to the wall. Take what\'s left, if it fits.' },
+    'oakMasterArmorer': { 'name': 'Master Odo', 'talk': 'The good plate\'s out. You\'ve more than earned a look.' },
+    'oakWeapons': { 'name': 'Senna Blades', 'talk': 'Sharp, balanced, fairly priced. Don\'t touch the edges.' },
     'trainerShadow': { 'name': 'The Whisper' },
     'trainerSovereign': { 'name': 'Lord Castellan' },
     'oakHealer': { 'name': 'Brother Fenn' },
-    'blackMarket': { 'name': 'The Fence', 'talk': 'No names, no questions. The Syndicate takes its cut, you take the goods.' },
+    'blackMarket': { 'name': 'The Fence', 'talk': 'No questions either way. The Syndicate takes its cut.' },
     'trainerBlood': { 'name': 'Doctor Sangrel' },
     'syndicateBoss': { 'name': 'Madam Ash' },
     'forgemaster': { 'name': 'Forgemaster Dorn' },
-    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Dwarf-forged. If it breaks, it was you.' },
-    'ironAetherWorks': { 'name': 'Tinker Voss', 'talk': 'The Circle\'s study of the core changed everything. Hold this. Do not point it at me.' },
-    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Plate that turns a giant\'s club. Rings for the rest of you.' },
-    'ironOrderArmor': { 'name': 'Order Quartermaster', 'talk': 'The Order remembers who destroyed the core. Its armories are open to you.' },
+    'ironWeapons': { 'name': 'Hilda Hammerhand', 'talk': 'Dwarf-forged, every piece. If one breaks, I want to know how.' },
+    'ironAetherWorks': { 'name': 'Tinker Voss', 'talk': 'Everything here came out of studying the core. Careful, most are loaded.' },
+    'ironArmor': { 'name': 'Garrun Ironside', 'talk': 'Armour on the racks, rings in the tray.' },
+    'ironOrderArmor': { 'name': 'Order Quartermaster', 'talk': 'Take what you need. The Order looks after its own.' },
     'trainerGeo': { 'name': 'Old Stonefoot' },
     'trainerAether': { 'name': 'Gearwright Pim' },
     'ironHealer': { 'name': 'Mother Brynja' },
@@ -670,47 +670,50 @@ export default {
   // sentence or two, said by one person: never glue lines together, and never
   // reuse a key for another text. `say` is what the hero says (it is also the
   // label of the choice); numbered lines are the exchange that follows.
-  // Keep each speaker's voice: Bram is gruff, Tilly chatters, Grik is a goblin
-  // ("tall one"), the Keeper of Hours muddles his tenses on purpose.
+  // People talk like people: contractions, short replies, answering what was
+  // said. Humour comes from character, at most a light touch per conversation,
+  // never shouted capitals or catchphrases. Each keeps a believable voice: Bram
+  // terse and kind, Tilly chatty, Grik plain Common spoken with dignity, the
+  // Keeper of Hours only slightly out of step with time.
   'dlg': {
     // Overheard small talk (`data/dialogs/smalltalk.ts`): two townsfolk chatting.
-    // Short, cosy, wordplay welcome; never more than a line of breath each.
+    // Ordinary talk about weather, prices, family, a sore back: a breath each.
     'smalltalkSunford': {
-      'weather': { '1': 'Rain by tonight, my knee says.', '2': 'Your knee said that last week.', '3': 'And it rained, didn\'t it? Somewhere.' },
-      'harvest': { '1': 'Best barley in years, this.', '2': 'You say that every year.' },
-      'goblins': { '1': 'Goblins took three hens off the Miller farm.', '2': 'Only three? They\'re getting lazy.', '3': 'Or full.' },
-      'kingGone': { '1': 'They say the Goblin King is gone for good.', '2': 'Then who\'s been stealing my turnips?' },
-      'pact': { '1': 'A goblin sold me a spoon today.', '2': 'Was it your spoon?', '3': 'It was, yes. Good price, though.' },
-      'bram': { '1': 'Bram\'s hammering again. Since dawn!', '2': 'Steady as a heartbeat, that man.' },
-      'pie': { '1': 'Is that apple pie I smell?', '2': 'It was. Past tense.', '3': 'You ate it all? Again?' },
-      'road': { '1': 'Nobody takes the plains road anymore.', '2': 'Not with bandits on it, they don\'t.' },
-      'hero': { '1': 'Somebody cleared the plains road!', '2': 'About time. My cousin owes me a cart.' }
+      'weather': { '1': 'Rain tonight. My knee\'s been aching all day.', '2': 'Your knee said that last week too.', '3': 'And it rained, didn\'t it? Just not here.' },
+      'harvest': { '1': 'The barley\'s come up well this year.', '2': 'Let\'s hope we get to keep it.' },
+      'goblins': { '1': 'Goblins took three hens off the Miller farm.', '2': 'Again? That\'s the second time this month.', '3': 'Somebody ought to do something about those caves.' },
+      'kingGone': { '1': 'They say the Goblin King\'s dead.', '2': 'Good. Maybe I\'ll sleep through a whole night now.' },
+      'pact': { '1': 'I bought a ladle off a goblin this morning.', '2': 'Any good?', '3': 'Better than mine, honestly. Don\'t tell anyone.' },
+      'bram': { '1': 'Bram\'s been at the anvil since before sunrise.', '2': 'He gets like that when he\'s worried.' },
+      'pie': { '1': 'Is that apple pie I can smell?', '2': 'It was. The children found it first.', '3': 'I\'ll bake another. Hide it better this time.' },
+      'road': { '1': 'Nobody\'s taken the plains road in a week.', '2': 'Not with bandits on it. Can\'t blame them.' },
+      'hero': { '1': 'Somebody cleared the bandits off the plains road.', '2': 'Thank goodness. My sister can visit again.' }
     },
     'smalltalkOakhaven': {
-      'prices': { '1': 'Two silver for a cabbage. Two!', '2': 'It\'s a very handsome cabbage.', '3': 'Not that handsome.' },
-      'watch': { '1': 'The watch doubled the gate guard.', '2': 'Good. I sleep better for it.' },
-      'caravan': { '1': 'The spice caravan is late again.', '2': 'Bandits?', '3': 'Or the driver found a tavern.' },
-      'siege': { '1': 'They say an army camps in the outskirts.', '2': 'Then we\'d better stock the cellar.' },
-      'saved': { '1': 'Did you see the siege break? Glorious!', '2': 'I saw it from under my bed.', '3': 'Still counts.' },
-      'fountain': { '1': 'I threw a coin in the fountain for luck.', '2': 'And I fished it out. Thanks!' },
-      'ash': { '1': 'Everything smells of ash.', '2': 'Better than smelling of nothing.' },
-      'hide': { '1': 'Did you hear boots outside last night?', '2': 'Hush. Keep your voice down.', '3': 'Sorry. Sorry.' },
-      'bread': { '1': 'I found half a loaf. We can share it.', '2': 'You\'re a good soul. Thank you.' }
+      'prices': { '1': 'Two silver for a cabbage. Two!', '2': 'Nothing gets through the gate cheap these days.', '3': 'I\'ll grow my own, then. On the roof, if I must.' },
+      'watch': { '1': 'They\'ve doubled the guard on the gate.', '2': 'Good. I sleep a bit easier for it.' },
+      'caravan': { '1': 'The spice caravan\'s late again.', '2': 'Bandits?', '3': 'Or mud. Let\'s hope it\'s mud.' },
+      'siege': { '1': 'There\'s an army camped out past the farms.', '2': 'Then we\'d better fill the cellar while we can.' },
+      'saved': { '1': 'Were you on the wall when the siege broke?', '2': 'I was hiding under my bed, if I\'m honest.', '3': 'So was half the town. We\'re still here, though.' },
+      'fountain': { '1': 'I threw a coin in the fountain for luck.', '2': 'Hope you wished for cheaper cabbages.' },
+      'ash': { '1': 'Everything still smells of smoke.', '2': 'It\'ll fade. Everything does, in the end.' },
+      'hide': { '1': 'Did you hear boots in the street last night?', '2': 'Not so loud. You don\'t know who\'s listening.', '3': 'Sorry. I just... sorry.' },
+      'bread': { '1': 'I found half a loaf. Here, take some.', '2': 'You\'re a good soul. Thank you.' }
     },
     'smalltalkIronhold': {
-      'ore': { '1': 'Good seam of copper on the fourth level.', '2': 'Copper? I want gold.', '3': 'You want a nap, more like.' },
-      'forge': { '1': 'The great forge hasn\'t gone out in a hundred years.', '2': 'Neither has my grandad\'s pipe.' },
-      'beard': { '1': 'You trimmed your beard!', '2': 'It caught fire at the anvil.', '3': 'Suits you, though.' },
-      'core': { '1': 'Something glows in the deep mines now.', '2': 'Nothing good glows down there.' },
-      'order': { '1': 'The Order\'s armourers work fast.', '2': 'Fast, aye. Not as well as us.' },
-      'circle': { '1': 'The Circle\'s mages hum while they work.', '2': 'Better than our singing, I suppose.' },
-      'cold': { '1': 'Cold up here this morning.', '2': 'Stand nearer the forge, then.' }
+      'ore': { '1': 'Good seam of copper on the fourth level.', '2': 'Copper. I was hoping for silver.', '3': 'Copper pays the rent. Silver pays for dreams.' },
+      'forge': { '1': 'The great forge hasn\'t gone cold in a hundred years.', '2': 'My grandfather helped light it, you know.' },
+      'beard': { '1': 'You\'ve trimmed your beard.', '2': 'Got too close to the anvil.', '3': 'It\'ll grow back. Suits you shorter, anyway.' },
+      'core': { '1': 'Something\'s glowing down in the deep shafts.', '2': 'Nothing good glows down there. Stay up top.' },
+      'order': { '1': 'The Order\'s armourers work fast, I\'ll give them that.', '2': 'Fast, aye. We\'ll see how it holds up.' },
+      'circle': { '1': 'The Circle folk hum while they work.', '2': 'Better than your singing, at least.' },
+      'cold': { '1': 'Bitter cold this morning.', '2': 'Come and stand by the forge, then.' }
     },
     'smalltalkKids': {
-      'tag': { '1': 'You\'re it!', '2': 'Not fair, I wasn\'t ready!' },
-      'dragon': { '1': 'When I grow up I\'ll ride a dragon.', '2': 'Dragons don\'t let you ride them.', '3': 'Nice ones do!' },
-      'sword': { '1': 'Look, a real sword stick!', '2': 'It\'s just a stick.' },
-      'frog': { '1': 'I found a frog by the well.', '2': 'Can we keep it?', '3': 'He\'s keeping us, I think.' }
+      'tag': { '1': 'Tag, you\'re it!', '2': 'That\'s not fair, I wasn\'t ready!' },
+      'dragon': { '1': 'When I\'m big I\'m going to ride a dragon.', '2': 'Dragons don\'t let people ride them.', '3': 'A nice one might.' },
+      'sword': { '1': 'Look, I found a sword!', '2': 'That\'s a stick.' },
+      'frog': { '1': 'There\'s a frog down by the well.', '2': 'Can we keep it?', '3': 'Mum said no more frogs.' }
     },
     'ui': {
       'overheard': 'Townsfolk',
@@ -732,559 +735,559 @@ export default {
 
     // The hero's stock lines, shared by every conversation.
     'hero': {
-      'bye': 'That is all for now.',
-      'trade': 'Show me your goods.',
-      'train': 'Teach me.',
-      'heal': 'Patch me up.',
-      'mana': 'I need something for my mana.',
-      'who': 'Who are you?',
+      'bye': 'I\'ll let you get on.',
+      'trade': 'Can I see what you\'ve got?',
+      'train': 'Will you teach me?',
+      'heal': 'Could you patch me up?',
+      'mana': 'Do you have anything for mana?',
+      'who': 'Who are you, if you don\'t mind me asking?',
       'rumor': 'Heard anything lately?',
-      'ready': 'Am I ready for more?'
+      'ready': 'Do you think I\'m ready for more?'
     },
 
     // ── Sunford ──
     'sunfordSmith': {
-      'hello': { '1': 'Hm. New face. You are the one who held the plains road.', '2': 'I am Bram. I make steel. You look like you need some.' },
-      'kingDead': { '1': 'Heard the Goblin King is dead. Good. Fewer dents to hammer out of caravan wheels.' },
-      'kingPact': { '1': 'Goblins trading in the square. Never thought I would see it. Their iron is rubbish, mind.' },
-      'kingRansom': { '1': 'They say you took the King\'s gold and left him his crown. The raids will be back.' },
-      'ending': { '1': 'The whole realm talks about that throne. And you still buy from me. Hm.' },
-      'again': { '1': 'Back again. Good. Steel does not sell itself.' },
-      'trade': { '1': 'Plain steel, honest prices. Look all you like.' },
-      'who': { '1': 'Bram. Thirty years at this anvil.', '2': 'I shoe horses, mend ploughs, and arm fools like you. In that order.' },
+      'hello': { '1': 'Haven\'t seen you before. You\'re the one who cleared the road?', '2': 'Bram. I keep the forge. If you need a blade, come to me.' },
+      'kingDead': { '1': 'Heard the Goblin King\'s dead. Can\'t say I\'ll miss him.' },
+      'kingPact': { '1': 'Goblins trading in the square now. Never thought I\'d see it.' },
+      'kingRansom': { '1': 'You let the Goblin King keep his crown. He\'ll be back, you know.' },
+      'ending': { '1': 'Whole realm\'s talking about you. Still need a whetstone, though?' },
+      'again': { '1': 'Back again. What can I do for you?' },
+      'trade': { '1': 'Plain steel, fair prices. Have a look.' },
+      'who': { '1': 'Bram. Thirty years at this anvil, give or take.', '2': 'Horseshoes, ploughs, the odd sword. Lately, mostly swords.' },
       'gear': {
-        'say': 'What should I carry out there?',
-        '1': 'A shield, if you mean to be hit. A bigger sword, if you do not.',
-        '2': 'Strength swings my steel. Put your points there before you buy heavy.'
+        'say': 'What should I take with me out there?',
+        '1': 'A shield, if you plan on getting hit. Most people do.',
+        '2': 'Heavy steel needs a strong arm. Work on your Strength first.'
       },
       'rumor': {
-        'plains': { '1': 'Goblins on the plains road. Clear them out before you shop for anything fancy.' },
-        'hollows': { '1': 'The raiders crawl out of the Goblin Hollows, past the plains. Their king sits at the bottom.' },
-        'woods': { '1': 'East of the plains the Whispering Woods begin. The trees walk there. Bring an axe.' },
-        'siege': { '1': 'Smoke over Oakhaven way. A warlord has his camp on the outskirts, they say.' },
-        'north': { '1': 'Ironhold steel is on the road again. Go north if you want better than mine.' }
+        'plains': { '1': 'Bandits on the plains road. I\'d start there, if I were you.' },
+        'hollows': { '1': 'The goblins come from the Hollows, past the plains. Their king\'s down there.' },
+        'woods': { '1': 'East of the plains are the Whispering Woods. Folk say the trees move.' },
+        'siege': { '1': 'There\'s smoke toward Oakhaven. An army\'s camped on the outskirts.' },
+        'north': { '1': 'Ironhold steel\'s coming down the road again. Better than mine, if I\'m honest.' }
       },
-      'shopBack': { '1': 'Wear it in good health. Or at all.' },
-      'bye': { '1': 'Mind the road.' }
+      'shopBack': { '1': 'Look after it and it\'ll look after you.' },
+      'bye': { '1': 'Mind how you go.' }
     },
     'sunfordPeddler': {
-      'hello': { '1': 'Ooh, a customer! Or a guard. You are not a guard, are you?', '2': 'I am Tilly. Rings, charms, lucky things. All found, never stolen.' },
-      'rival': { '1': 'Have you seen Grik\'s stall? Goblin trinkets! I am ruined. Buy something. Pity me.' },
-      'again': { '1': 'My favourite customer! I say that to everyone, but with you I mean it.' },
-      'trade': { '1': 'Rings! Charms! Things I found and definitely did not steal.' },
-      'who': { '1': 'I walk the roads and pick up what the roads leave behind.', '2': 'Bandits drop the nicest things when they run.' },
-      'trinkets': { 'say': 'What are trinkets good for?', '1': 'You wear two at a time, one on each hand. A small edge is still an edge.' },
+      'hello': { '1': 'Oh, hello! Are you buying, or just looking? Both are fine.', '2': 'I\'m Tilly. Rings, charms, bits and pieces from all over.' },
+      'rival': { '1': 'Have you seen the goblin\'s stall? His prices are lower than mine. It\'s not fair.' },
+      'again': { '1': 'There you are! I put a few things aside I think you\'ll like.' },
+      'trade': { '1': 'Have a look. That one\'s lucky. Probably.' },
+      'who': { '1': 'I walk the roads and buy what people want to get rid of.', '2': 'And sometimes I find things. Bandits drop a lot when they run.' },
+      'trinkets': { 'say': 'What are trinkets actually good for?', '1': 'You can wear two, one on each hand. It all adds up out there.' },
       'stolen': {
-        'say': 'You stole all of this, didn\'t you?',
-        '1': 'Shh! Not so loud. Fine. FINE.',
-        '2': 'Take this ring and we never spoke. It is a nice ring. Mostly copper.'
+        'say': 'Where did all this come from, really?',
+        '1': 'Ah. You\'ve got a way of asking, haven\'t you?',
+        '2': 'Take this ring and let\'s not talk about where I found it.'
       },
       'rumor': {
-        'arenaShut': { '1': 'There is a colosseum south of here with its gates rusted shut. They would open if the goblin trouble ended.' },
-        'arenaOpen': { '1': 'The Colosseum is open! Eight waves, they say. I sell luck. You will want luck.' },
-        'east': { '1': 'Oakhaven\'s markets pay double for anything shiny. Go east, past the woods.' }
+        'arenaShut': { '1': 'There\'s an old colosseum south of here. Shut tight while the goblins raid.' },
+        'arenaOpen': { '1': 'The colosseum\'s open again. Eight waves, I hear. People bet on it.' },
+        'east': { '1': 'Oakhaven pays well for anything shiny. It\'s east, past the woods.' }
       },
-      'shopBack': { '1': 'Come back when you are richer!' },
-      'bye': { '1': 'Mind your pockets out there! Not near me, I mean. Elsewhere.' }
+      'shopBack': { '1': 'Come back when your purse is heavier!' },
+      'bye': { '1': 'Safe travels. Hold on to your coin out there.' }
     },
     'trainerAegis': {
-      'hello': { '1': 'Stand straight. You face a knight of the Iron Order.', '2': 'Ser Aldric. I teach the shield to those who would stand in front of others.' },
-      'saved': { '1': 'Oakhaven stands because you stood. That is the whole of what I teach.' },
-      'fallen': { '1': 'You opened Oakhaven\'s gate. I have buried men for less. State your business.' },
-      'dragon': { '1': 'A dragonslayer in my yard. They will sing of it in the great hall.' },
-      'friend': { '1': 'The Order speaks well of you. For its friends, my lessons cost less.' },
-      'foe': { '1': 'The Order names you an enemy. I will teach you still. Honour is not theirs to revoke.' },
-      'again': { '1': 'Shield up. What do you need?' },
-      'train': { '1': 'Then pay attention. I show a thing once.' },
+      'hello': { '1': 'Stand up straight. You\'re speaking to a knight of the Iron Order.', '2': 'Ser Aldric. I teach people to stand between others and harm.' },
+      'saved': { '1': 'Oakhaven still stands, and I hear you were on its wall. Well done.' },
+      'fallen': { '1': 'You opened Oakhaven\'s gate. I won\'t pretend I\'ve forgotten. What do you want?' },
+      'dragon': { '1': 'You killed the dragon on the peak? I\'d have liked to see that.' },
+      'friend': { '1': 'The Order thinks well of you. For its friends, my lessons cost less.' },
+      'foe': { '1': 'The Order calls you an enemy. I\'ll still teach you. That\'s my choice, not theirs.' },
+      'again': { '1': 'Back for more drills?' },
+      'train': { '1': 'Good. Watch closely, I\'ll only show you once.' },
       'class': {
-        'say': 'What is an Aegis Knight?',
-        '1': 'A wall that walks. We take the blow so that nothing else must.',
-        '2': 'Strength for the arm, Endurance for the rest. The light does what it can.'
+        'say': 'What does an Aegis Knight actually do?',
+        '1': 'We take the blows meant for others. It\'s simple, and it\'s hard.',
+        '2': 'You\'ll need Strength for the shield and Endurance to keep it up.'
       },
       'ready': {
-        'strong': { '1': 'You have the arm for most of what I know. Mind your Endurance and take the rest.' },
-        'able': { '1': 'You are ready for the next lesson. Do not let it go to your head.' },
-        'weak': { '1': 'Not yet. Your arm is weak and you tire fast. More Strength, more Endurance.' }
+        'strong': { '1': 'You\'re strong enough for most of what I know. Keep at your Endurance.' },
+        'able': { '1': 'You\'re ready for the next lesson. Don\'t let it go to your head.' },
+        'weak': { '1': 'Not yet. You\'d tire before the shield did. More Strength, more Endurance.' }
       },
       'order': {
         'say': 'Tell me about the Iron Order.',
-        '1': 'We keep the roads and the law. Some say too much of both.',
-        '2': 'Stand with the Order, and its armourers and its teachers remember you.'
+        '1': 'We keep the roads safe and the law in hand. Some say too firmly.',
+        '2': 'Stand with us, and our armourers and teachers will remember you.'
       },
-      'trainBack': { '1': 'Practise it until it bores you. Then practise more.' },
-      'bye': { '1': 'Go with the light.' }
+      'trainBack': { '1': 'Practise until it\'s boring. Then keep going.' },
+      'bye': { '1': 'Go carefully.' }
     },
     'trainerPyro': {
-      'hello': { '1': 'Oh! A student? Stand back a little. A little more.', '2': 'Ember Wren, pyromancer. The eyebrows grow back, mostly.' },
-      'core': { '1': 'You gave the core to the Circle! Do you know how many things we can set on fire now?' },
-      'friend': { '1': 'The Circle of Aether likes you! That means a discount. And fewer forms to sign.' },
-      'foe': { '1': 'The Circle wants you turned to ash. Awkward! I will still teach you. Fire is not picky.' },
-      'again': { '1': 'You are back! And nothing is burning. We can fix that.' },
-      'train': { '1': 'Yes! Watch closely. Not that closely.' },
+      'hello': { '1': 'Oh, a student? Lovely. Maybe stand back a little.', '2': 'I\'m Ember Wren. I teach fire. Mostly it does what I ask.' },
+      'core': { '1': 'You gave the core to the Circle! I can\'t wait to see what we learn from it.' },
+      'friend': { '1': 'The Circle speaks highly of you. That means a discount, by the way.' },
+      'foe': { '1': 'The Circle isn\'t happy with you. I\'ll still teach you, though. Quietly.' },
+      'again': { '1': 'You\'re back! Ready to light something?' },
+      'train': { '1': 'Right. Watch my hands, and keep your sleeves away from me.' },
       'class': {
-        'say': 'What does a Pyromancer do?',
-        '1': 'Fire answers every question. Burn them first, then blow up the ones that are burning.',
-        '2': 'It all runs on Intelligence. And a steady supply of robes.'
+        'say': 'What does a pyromancer do, exactly?',
+        '1': 'Set things alight, mostly. Then make the fire spread where you want it.',
+        '2': 'It all comes from Intelligence. The sharper the mind, the hotter the flame.'
       },
       'ready': {
-        'strong': { '1': 'You could melt a golem! Take everything I have. Mind your Skill for the tricky ones.' },
-        'able': { '1': 'Your mind is warm enough for the next spell. Come on!' },
-        'weak': { '1': 'Hmm. Not enough Intelligence yet. The fire would use you, not the other way round.' }
+        'strong': { '1': 'Honestly? You could teach some of this. Take whatever you like.' },
+        'able': { '1': 'You\'re ready for the next spell. Come on, I\'ll show you.' },
+        'weak': { '1': 'Not yet, I\'m afraid. You need more Intelligence, or the fire takes over.' }
       },
-      'circle': { 'say': 'Who are the Circle of Aether?', '1': 'Scholars. We study what the world is made of. Some of it explodes.' },
-      'trainBack': { '1': 'Go and set something on fire! Something that deserves it.' },
-      'bye': { '1': 'Stay warm!' }
+      'circle': { 'say': 'Who are the Circle of Aether?', '1': 'Scholars. We study what the world\'s made of. Some of it explodes.' },
+      'trainBack': { '1': 'Go and practise. Somewhere that won\'t catch, please.' },
+      'bye': { '1': 'Take care of yourself!' }
     },
     'elderMara': {
-      'hello': { '1': 'So you are the one from the road. Come closer, my eyes are not what they were.', '2': 'I am Mara. I have kept this town\'s ledger and its peace for forty years.' },
-      'slain': { '1': 'The Hollows are quiet. You did a hard thing, and Sunford sleeps because of it.' },
-      'pact': { '1': 'Goblins selling trinkets in my square. You have a silver tongue, child. I hope it holds.' },
-      'ransom': { '1': 'You took his gold and left him his crown. I am too old to pretend I am not disappointed.' },
-      'saved': { '1': 'Word came from Oakhaven. The gate held. I am glad one of ours was there.' },
-      'fallen': { '1': 'Oakhaven is burned, and they say you held the torch. Do not tell me. I would rather not know.' },
-      'ending': { '1': 'They say you decided who sits in the Dread Fortress. From Sunford\'s road to that. Imagine.' },
-      'again': { '1': 'Sit a moment. The road will wait.' },
+      'hello': { '1': 'So you\'re the one from the road. Come here, let me look at you.', '2': 'I\'m Mara. I\'ve looked after this town for... oh, forty years now.' },
+      'slain': { '1': 'The Hollows are quiet. It was a hard thing you did, but we sleep because of it.' },
+      'pact': { '1': 'Goblins selling things in my square. You talked them into that, didn\'t you?' },
+      'ransom': { '1': 'You took his gold and left him his crown. I won\'t pretend I\'m not disappointed.' },
+      'saved': { '1': 'Word came from Oakhaven. The gate held. I\'m glad you were there.' },
+      'fallen': { '1': 'Oakhaven burned, they say. I\'d rather not hear how. Not today.' },
+      'ending': { '1': 'They say you decided the fate of the Dread Fortress. From our little road to that.' },
+      'again': { '1': 'Sit for a moment. The road will still be there.' },
       'reward': {
-        'say': 'You wanted to see me?',
-        '1': 'You held the road when our militia could not. The town took up a collection.',
-        '2': 'It is not much. It is every coin we could spare.'
+        'say': 'Someone said you wanted to see me?',
+        '1': 'You held the road when our militia couldn\'t. The town put a little together.',
+        '2': 'It isn\'t much. It\'s what we could spare.'
       },
       'quest': {
-        'say': 'What is troubling Sunford?',
-        '1': 'The raids come from the Goblin Hollows. The goblins have crowned a king.',
-        '2': 'And you want him dead.',
-        '3': 'I want the raids to end. How is for you to decide, at the bottom of those caves.',
-        '4': 'The Hollows lie just beyond the plains. Go carefully.'
+        'say': 'What\'s troubling Sunford?',
+        '1': 'The raids come from the Goblin Hollows. They\'ve crowned themselves a king.',
+        '2': 'And you want him dead?',
+        '3': 'I want the raids to stop. How... well, that\'s for you to decide, down there.',
+        '4': 'The Hollows are just past the plains. Please, be careful.'
       },
       'king': {
-        'say': 'About the Goblin King…',
-        'slay': { '1': 'A king is dead and my caravans run on time. I will not ask how it felt.' },
-        'pact': { '1': 'A pact! My mother would have fainted. Still, trade is better than funerals.' },
-        'ransom': { '1': 'Gold spends fast. Grudges do not. Remember that when the raids return.' }
+        'say': 'About the Goblin King...',
+        'slay': { '1': 'He\'s gone, and the caravans run again. I won\'t ask how it felt.' },
+        'pact': { '1': 'A trade pact. My mother would have fainted. Still, trade beats funerals.' },
+        'ransom': { '1': 'Gold runs out quickly. Grudges don\'t. Remember that when the raids start.' }
       },
       'town': {
         'say': 'Tell me about Sunford.',
-        '1': 'Farmers, mostly. A smith, a healer, and two teachers who put up with us.',
-        '2': 'Rest here, spend your points, and go back out stronger. That is what a home is for.'
+        '1': 'Farmers, mostly. A smith, a healer, two teachers who put up with us.',
+        '2': 'Rest here between journeys. That\'s what home is for.'
       },
       'next': {
         'say': 'Where should I go next?',
-        'plains': { '1': 'The plains road, before anything else. We cannot eat if the caravans cannot pass.' },
-        'hollows': { '1': 'The Goblin Hollows first. Nothing else is safe while the raids go on.' },
-        'woods': { '1': 'East, through the Whispering Woods. The road to Oakhaven runs under those trees.' },
-        'oakhaven': { '1': 'Oakhaven is under siege. If its outskirts fall, the town falls.' },
-        'north': { '1': 'North, child. The Ashen Crags, and Ironhold beyond. The trouble grows the further you go.' }
+        'plains': { '1': 'The plains road, first. Without the caravans, we don\'t eat.' },
+        'hollows': { '1': 'The Goblin Hollows. Nothing else is safe while the raids go on.' },
+        'woods': { '1': 'East, through the Whispering Woods. That\'s the road to Oakhaven.' },
+        'oakhaven': { '1': 'Oakhaven is under siege. If the outskirts fall, the town goes with them.' },
+        'north': { '1': 'North, I think. The Ashen Crags, and Ironhold beyond. It only gets harder.' }
       },
-      'bye': { '1': 'Come back alive. That is all I ask of anyone.' }
+      'bye': { '1': 'Come back to us in one piece. That\'s all I ask.' }
     },
     'sunfordHealer': {
-      'hello': { '1': 'Hold still. No, you are fine. Force of habit.', '2': 'Sister Lune. I mend what the road breaks.' },
-      'again': { '1': 'Still in one piece? I am almost disappointed.' },
-      'heal': { '1': 'Sit. Rest. You leave here whole, with every flask filled.' },
-      'mana': { '1': 'Blue flask, bitter taste. Sip it when your spells run dry.' },
+      'hello': { '1': 'Hold still a moment. No, you\'re fine. Habit, sorry.', '2': 'I\'m Sister Lune. I patch up whatever the road breaks.' },
+      'again': { '1': 'Still in one piece? Good. Sit down anyway.' },
+      'heal': { '1': 'Sit, rest a while. I\'ll fill your flasks before you go.' },
+      'mana': { '1': 'This one\'s bitter. Drink it when your spells run dry.' },
       'potions': {
         'say': 'How do the potions work?',
-        '1': 'You carry a few flasks into every zone. Drink before you need one, not after.',
-        '2': 'If you want to carry more, I can sell you a longer belt.'
+        '1': 'You take a few flasks into every fight. Drink before you need to, not after.',
+        '2': 'If you want to carry more, I can sell you a bigger belt.'
       },
       'rumor': {
-        'goblins': { '1': 'The goblins poison their sling stones. If you turn green, come straight back.' },
-        'spiders': { '1': 'Spider bites from the Woods. Three this week. Do try not to get bitten.' },
-        'burns': { '1': 'Soldiers come down from the north with burns. The Ashen Crags, they say. Fire that walks.' }
+        'goblins': { '1': 'The goblins coat their sling stones in something. If you feel sick, come back.' },
+        'spiders': { '1': 'I\'ve treated three spider bites from the Woods this week. Watch your step there.' },
+        'burns': { '1': 'Soldiers keep coming down from the north with burns. The Ashen Crags, they say.' }
       },
-      'healBack': { '1': 'Keep the belt full and your head down.' },
-      'bye': { '1': 'Try not to bleed on anything important.' }
+      'healBack': { '1': 'Keep your belt full and your head down.' },
+      'bye': { '1': 'Look after yourself out there.' }
     },
     'goblinTrader': {
-      'hello': { '1': 'Tall one! Tall one made the pact. King say be nice to tall one.', '2': 'Grik is nice. Grik has shinies. Tall one has gold. Is good match.' },
-      'again': { '1': 'Tall one comes back! Grik knew. Shinies call to tall one.' },
-      'trade': { '1': 'King say trade, so Grik trade. Shiny for shiny. Good shiny.' },
+      'hello': { '1': 'You are the one who made the pact. My king says you are welcome here.', '2': 'I am Grik. I sell what goblins make. Good work, fair price.' },
+      'again': { '1': 'Friend. Good to see you again.' },
+      'trade': { '1': 'Look, please. My family made these.' },
       'king': {
         'say': 'How is your king?',
-        '1': 'King is fat and happy. No more raiding. Raiding is hard work.',
-        '2': 'King says tall one has good tongue. Is highest goblin praise. Almost.'
+        '1': 'He eats well now. No more raids. My people are less hungry.',
+        '2': 'He speaks of you often. With respect.'
       },
-      'town': { 'say': 'How do you like Sunford?', '1': 'Humans wash too much. But pies! Grik did not know about pies.' },
+      'town': { 'say': 'How do you like Sunford?', '1': 'People still stare. But the baker gives me pie. I like the pie.' },
       'rumor': {
-        'crags': { '1': 'Grik\'s cousins dig north, in black rock. They say fire walks there. Grik stays here.' },
-        'deep': { '1': 'Deep places are waking up, tall one. Goblins feel it in the feet.' }
+        'crags': { '1': 'My cousins dig in the black rock to the north. They say fire walks there now.' },
+        'deep': { '1': 'Something is waking in the deep places. Goblins feel it in the ground.' }
       },
-      'shopBack': { '1': 'Good trade! Tall one comes again, yes?' },
-      'bye': { '1': 'Bye, tall one! Do not die. Dead ones buy nothing.' }
+      'shopBack': { '1': 'Thank you. Come again.' },
+      'bye': { '1': 'Go safely, friend.' }
     },
 
     // ── Oakhaven ──
     'captainHale': {
-      'hello': { '1': 'Another sword. Good. I stopped asking where they come from.', '2': 'Captain Hale. I command what is left of Oakhaven\'s watch.' },
-      'saved': { '1': 'The gate held. Three hundred years, and now one more. I owe you my town.' },
-      'ending': { '1': 'You settled the throne of the Dread Fortress. My walls feel smaller than they did.' },
-      'again': { '1': 'The walls still stand. For today.' },
-      'after': { '1': 'Oakhaven remembers, friend. So do I.' },
+      'hello': { '1': 'Another sword. Good. We need every one we can get.', '2': 'Captain Hale. I command what\'s left of Oakhaven\'s watch.' },
+      'saved': { '1': 'The gate held. Three hundred years, and one more. I owe you for that.' },
+      'ending': { '1': 'You decided the Dread Fortress, they say. My walls feel small next to that.' },
+      'again': { '1': 'Walls are still standing. For today, anyway.' },
+      'after': { '1': 'Good to see you. Oakhaven hasn\'t forgotten.' },
       'quest': {
-        'say': 'What is the situation?',
-        '1': 'A warlord\'s army has us surrounded. Krag. He does not fight for free.',
-        '2': 'Who pays him?',
+        'say': 'How bad is it?',
+        '1': 'Bad. A warlord called Krag has us surrounded, and he doesn\'t fight for free.',
+        '2': 'Who\'s paying him?',
         '3': 'The Ashen Syndicate. They want a town of their own, and ours has walls.',
-        '4': 'Break him at the Oakhaven Outskirts. That is where it will be decided.'
+        '4': 'Break his camp on the Oakhaven Outskirts. That\'s where this ends, one way or another.'
       },
       'siege': {
-        'say': 'About the siege…',
-        '1': 'They offered you a third of the town. I know. They offered me a quarter.',
-        '2': 'The Syndicate hunts you now, on every road. Watch your back out there.'
+        'say': 'About the siege...',
+        '1': 'They offered you a third of the town, didn\'t they? They offered me a quarter.',
+        '2': 'The Syndicate will be after you now. Watch your back on the roads.'
       },
       'town': {
         'say': 'Tell me about Oakhaven.',
-        '1': 'A trade town. Everything that moves between the plains and the mountains pays a toll here.',
-        '2': 'That is why everyone wants it. That is why I will not give it up.'
+        '1': 'A trade town. Anything going between the plains and the mountains pays a toll here.',
+        '2': 'That\'s why everyone wants it. And why I won\'t give it up.'
       },
-      'order': { 'say': 'Do you serve the Iron Order?', '1': 'I serve Oakhaven. The Order and I agree, most days. It is not the same thing.' },
+      'order': { 'say': 'Do you answer to the Iron Order?', '1': 'I answer to Oakhaven. The Order and I agree most days. Not every day.' },
       'rumor': {
-        'crags': { '1': 'North of the woods the ground is black and burning. The Ashen Crags. Cultists feed the fires.' },
-        'mines': { '1': 'Ironhold has stopped sending steel. Something is wrong in its mines.' },
-        'north': { '1': 'The far north has gone quiet. In my experience, quiet is worse.' }
+        'crags': { '1': 'North of the woods the ground\'s black and burning. The Ashen Crags. Cultists, mostly.' },
+        'mines': { '1': 'Ironhold\'s stopped sending steel. Something\'s wrong in their mines.' },
+        'north': { '1': 'The far north\'s gone quiet. In my experience, that\'s never good.' }
       },
-      'bye': { '1': 'Keep your sword loose.' }
+      'bye': { '1': 'Keep your sword close.' }
     },
     'oakArmorer': {
-      'hello': { '1': 'If you want a helmet, you are late. They are all on the wall.', '2': 'Odo. Armourer. Tired.' },
-      'again': { '1': 'Still here. Still short of stock.' },
-      'trade': { '1': 'Half my stock went up on the walls. Take what is left.' },
-      'who': { '1': 'Twenty years I have armoured this town. I never thought to see all of it worn at once.' },
-      'armor': { 'say': 'What armour should I wear?', '1': 'Plate if you stand still. Leather if you do not. Robes if you enjoy dying.' },
-      'rumor': { 'backRoom': { '1': 'If the siege breaks, I open the back room. The good plate. Break it for me, will you?' } },
-      'shopBack': { '1': 'It will hold. Probably.' },
-      'bye': { '1': 'Keep your head down.' }
+      'hello': { '1': 'If you\'re after a helmet, I\'m sorry. They\'re all up on the wall.', '2': 'Odo. I make armour. Haven\'t slept much lately.' },
+      'again': { '1': 'Still here. Still short of nearly everything.' },
+      'trade': { '1': 'Half my stock went to the wall. Take what\'s left, if it fits.' },
+      'who': { '1': 'I\'ve armoured this town for twenty years. Never seen all of it worn at once.' },
+      'armor': { 'say': 'What sort of armour should I wear?', '1': 'Plate, if you stand your ground. Leather, if you keep moving. Robes, if you\'re quick.' },
+      'rumor': { 'backRoom': { '1': 'If the siege breaks, I\'ll open the back room. The good plate\'s in there.' } },
+      'shopBack': { '1': 'It\'ll hold. It\'s held so far.' },
+      'bye': { '1': 'Keep your head down out there.' }
     },
     'oakMasterArmorer': {
-      'hello': { '1': 'You! Get in here. The back room is open, and it is open for YOU.', '2': 'Master Odo, they call me now. Business is good when a town is alive.' },
-      'ending': { '1': 'From my gate to the Dread Fortress. I tell everyone I fitted your armour.' },
-      'again': { '1': 'The hero of the gate. What will it be today?' },
-      'trade': { '1': 'You saved this town. The good plate comes out of the back room for you.' },
+      'hello': { '1': 'There you are! Come in. The back room\'s open, and it\'s open for you.', '2': 'Master Odo, they call me now. Funny what a little peace does for business.' },
+      'ending': { '1': 'From our gate to the Dread Fortress. I tell everyone I fitted your armour.' },
+      'again': { '1': 'Good to see you. What\'ll it be today?' },
+      'trade': { '1': 'The good plate\'s out. You\'ve more than earned a look at it.' },
       'town': {
-        'say': 'How is the town?',
-        '1': 'Rich. Loud. Full of merchants who complain about the toll.',
-        '2': 'It is wonderful. I have not slept in a week.'
+        'say': 'How\'s the town doing?',
+        '1': 'Busy. Loud. Full of merchants grumbling about the toll.',
+        '2': 'It\'s wonderful. I haven\'t had a quiet hour in weeks.'
       },
       'rumor': {
-        'mines': { '1': 'My steel comes from Ironhold, and Ironhold has gone silent. Someone should look at its mines.' },
-        'tundra': { '1': 'The best ore I ever saw came out of the tundra. The men who brought it never went back.' }
+        'mines': { '1': 'My steel comes from Ironhold, and they\'ve gone quiet. Someone should check their mines.' },
+        'tundra': { '1': 'Best ore I ever worked came out of the tundra. The men who found it didn\'t go back.' }
       },
-      'shopBack': { '1': 'If it does not fit, come back. I will make it fit.' },
-      'bye': { '1': 'Oakhaven\'s gate is always open to you. Just to you.' }
+      'shopBack': { '1': 'If it doesn\'t sit right, bring it back. I\'ll fix it.' },
+      'bye': { '1': 'You\'re always welcome here.' }
     },
     'oakWeapons': {
-      'hello': { '1': 'Buying or looking? Looking costs nothing. Touching costs a finger.', '2': 'Senna. I sell edges. I do not ask what they are for.' },
-      'saved': { '1': 'The siege broke. Shame. War is good for business. Peace is good for collecting debts.' },
+      'hello': { '1': 'Looking or buying? Either\'s fine. Just don\'t touch the edges.', '2': 'Senna. I sell blades. What you do with them is your business.' },
+      'saved': { '1': 'So the siege broke. Good for the town. War was better for my trade, mind.' },
       'again': { '1': 'Back for something sharper?' },
-      'trade': { '1': 'Sharp, balanced, and sold to whoever pays. Today that is you.' },
-      'who': { '1': 'I sold swords to both sides of three wars. I am still here. They mostly are not.' },
+      'trade': { '1': 'Sharp, balanced, and fairly priced. Take your time.' },
+      'who': { '1': 'I\'ve sold to both sides of three wars. I\'m still here. Most of them aren\'t.' },
       'rumor': {
-        'krag': { '1': 'Krag\'s men carry good steel. Syndicate money. Take it off them if you can.' },
-        'which': { '1': 'Fast blades want Dexterity. Guns and bows want Skill. Know which you are before you pay me.' }
+        'krag': { '1': 'Krag\'s men carry good steel. Syndicate money. Worth picking up, if you get the chance.' },
+        'which': { '1': 'Quick blades want Dexterity. Bows and guns want Skill. Know which you are.' }
       },
-      'shopBack': { '1': 'Blood wipes off. Rust does not. Oil it.' },
-      'bye': { '1': 'Do not die owing me money.' }
+      'shopBack': { '1': 'Keep it oiled. Rust ruins a good edge faster than bone.' },
+      'bye': { '1': 'Try not to die owing me money.' }
     },
     'trainerShadow': {
-      'hello': { '1': 'Do not turn around. I am joking. Turn around.', '2': 'They call me the Whisper. I teach people to arrive unnoticed.' },
-      'fallen': { '1': 'The town is quieter now. Fewer guards. I rather like it.' },
-      'friend': { '1': 'The Syndicate counts you a friend. Friends pay less. Friends also know too much.' },
-      'foe': { '1': 'The Syndicate wants you dead. I was paid to teach, not to kill. Lucky you.' },
-      'again': { '1': 'You are louder than last time. We will work on it.' },
+      'hello': { '1': 'You didn\'t hear me come up behind you. Most people don\'t.', '2': 'They call me the Whisper. I teach people how not to be seen.' },
+      'fallen': { '1': 'Town\'s quieter now. Fewer guards. Easier work, for some of us.' },
+      'friend': { '1': 'The Syndicate counts you as a friend. Friends pay less. Remember that.' },
+      'foe': { '1': 'The Syndicate wants you dead. I was paid to teach, not to kill. So, lessons.' },
+      'again': { '1': 'You\'re still too loud. We\'ll work on it.' },
       'train': { '1': 'Quietly, then. Watch my feet, not my hands.' },
       'class': {
         'say': 'What is a Shadowblade?',
-        '1': 'A knife that is already behind you. Step out of the dark, strike, and be gone.',
-        '2': 'Dexterity above all. Skill, when you want the cut to count.'
+        '1': 'Someone who\'s already behind you. In, one cut, and gone.',
+        '2': 'Dexterity matters most. Skill, if you want the cut to count.'
       },
       'ready': {
-        'strong': { '1': 'You move well. Take what I know. Bring Skill for the smoke.' },
-        'able': { '1': 'Good. Your hands are quick enough for the next step.' },
-        'weak': { '1': 'You walk like a cart. More Dexterity. Then we talk.' }
+        'strong': { '1': 'You move well now. Take the rest. Bring some Skill for the smoke.' },
+        'able': { '1': 'Your hands are quick enough. Next step.' },
+        'weak': { '1': 'Not yet. You\'re heavy on your feet. Work on your Dexterity.' }
       },
-      'syndicate': { 'say': 'Who are the Ashen Syndicate?', '1': 'People who noticed that laws are for sale. I do not judge. I invoice.' },
-      'trainBack': { '1': 'Now go and do it where nobody sees.' },
+      'syndicate': { 'say': 'Who are the Ashen Syndicate?', '1': 'People who noticed the law has a price. I don\'t judge. I just get paid.' },
+      'trainBack': { '1': 'Now practise where nobody can see you.' },
       'bye': { '1': 'You never saw me.' }
     },
     'trainerSovereign': {
-      'hello': { '1': 'You may approach. Not that close.', '2': 'Lord Castellan, of the old blood of Oakhaven. I teach command.' },
-      'saved': { '1': 'My town stands, and my family\'s name with it. You have a lord\'s gratitude. It is worth a great deal.' },
-      'friend': { '1': 'A friend of the Order. I shall reduce my fee. Do not mention it to anyone.' },
-      'foe': { '1': 'The Order has posted your name. I shall teach you anyway. Coin is coin, alas.' },
-      'again': { '1': 'Ah. My most promising subject.' },
-      'train': { '1': 'Very well. Observe how one gives an order.' },
+      'hello': { '1': 'You may come closer. That\'s close enough.', '2': 'Lord Castellan, of Oakhaven\'s oldest family. I teach command.' },
+      'saved': { '1': 'My town stands, and my family\'s name with it. You have my thanks. Truly.' },
+      'friend': { '1': 'A friend of the Order. I\'ll lower my fee. Please don\'t spread that around.' },
+      'foe': { '1': 'The Order has your name on a list. I\'ll teach you anyway. Coin is coin.' },
+      'again': { '1': 'Ah, you again. Shall we continue?' },
+      'train': { '1': 'Very well. Watch how an order is given, and how it\'s followed.' },
       'class': {
         'say': 'What is a Grand Sovereign?',
-        '1': 'Why fight alone when others can do it for you? Summon guards. Command them.',
-        '2': 'It takes Charisma. One cannot lead by mumbling.'
+        '1': 'Someone who doesn\'t fight alone. You call guards, and they fight for you.',
+        '2': 'It takes Charisma. Nobody follows a leader they can\'t hear.'
       },
       'ready': {
-        'strong': { '1': 'You have presence. Take the rest of my lessons, and do stand up straight.' },
-        'able': { '1': 'Your voice carries. You are ready for the next lesson.' },
-        'weak': { '1': 'Nobody would follow you to a bakery. More Charisma.' }
+        'strong': { '1': 'You have real presence now. Take the rest of my lessons.' },
+        'able': { '1': 'Your voice carries. You\'re ready for the next lesson.' },
+        'weak': { '1': 'I\'m afraid no one would follow you yet. Work on your Charisma.' }
       },
-      'family': { 'say': 'Tell me about your family.', '1': 'We built the walls Captain Hale stands on. He forgets. I remind him. Often.' },
-      'trainBack': { '1': 'Now go and be obeyed.' },
-      'bye': { '1': 'You are dismissed.' }
+      'family': { 'say': 'Tell me about your family.', '1': 'We built the walls Captain Hale stands on. He forgets that. I remind him.' },
+      'trainBack': { '1': 'Go on, then. Lead someone.' },
+      'bye': { '1': 'Good day to you.' }
     },
     'oakHealer': {
-      'hello': { '1': 'Next! Oh. You can walk. That makes a nice change.', '2': 'Brother Fenn. Forty wounded on the wall, and one of me.' },
-      'saved': { '1': 'No new wounded in three days! I do not know what to do with my hands.' },
-      'again': { '1': 'You again, and still walking. I approve.' },
-      'heal': { '1': 'Lie down. No, the clean cot. There. Every flask filled. Off you go.' },
-      'mana': { '1': 'A mana draught! Tastes of pennies. Works, though.' },
-      'potions': { 'say': 'Can I carry more potions?', '1': 'A longer belt holds more flasks. I sell those. The flasks I fill for free.' },
+      'hello': { '1': 'Next! Oh, you\'re walking. That makes a nice change.', '2': 'Brother Fenn. Forty wounded on the wall, and only one of me.' },
+      'saved': { '1': 'No new wounded in three days. I barely know what to do with myself.' },
+      'again': { '1': 'You again, and on your own two feet. Good.' },
+      'heal': { '1': 'Lie down here, the clean cot. There. Flasks filled, off you go.' },
+      'mana': { '1': 'Mana draught. Tastes like old coins, but it works.' },
+      'potions': { 'say': 'Can I carry more potions?', '1': 'With a longer belt, yes. I sell those. Filling the flasks is free.' },
       'rumor': {
-        'archers': { '1': 'Krag\'s archers aim for the legs. Keep moving out there and they miss.' },
-        'north': { '1': 'Burns, frostbite, and one man who swears a statue bit him. The north is not kind.' }
+        'archers': { '1': 'Krag\'s archers aim low. Keep moving and they\'ll mostly miss.' },
+        'north': { '1': 'I\'m seeing burns, frostbite, and one man who swears a statue bit him.' }
       },
-      'healBack': { '1': 'Go on. Next time come for a chat, not a stitch.' },
-      'bye': { '1': 'Walk it off! That is medical advice.' }
+      'healBack': { '1': 'Off you go. Next time, come for a chat instead of stitches.' },
+      'bye': { '1': 'Take care. And eat something.' }
     },
     'blackMarket': {
-      'hello': { '1': 'No names. You are the one who opened the gate, though. That one I know.', '2': 'Call me the Fence. Everything here fell off a cart.' },
-      'foe': { '1': 'The Syndicate does not like you today. Your gold, it still likes.' },
-      'again': { '1': 'Ah. My best customer. Nobody followed you? Good.' },
-      'trade': { '1': 'No names, no questions. The Syndicate takes its cut, you take the goods.' },
-      'who': { '1': 'Before the fire I sold candles. Legally. It was dreadful.' },
-      'armor': { 'say': 'Any armour for sale?', '1': 'The armourers are gone, friend. Burned out. You would know.' },
+      'hello': { '1': 'No names here. But I know who opened the gate. Everyone does.', '2': 'You can call me the Fence. Everything here came from somewhere.' },
+      'foe': { '1': 'The Syndicate isn\'t fond of you right now. Your gold, though, is welcome.' },
+      'again': { '1': 'Back again. Nobody followed you, I hope?' },
+      'trade': { '1': 'No questions either way. The Syndicate takes its cut, you take the goods.' },
+      'who': { '1': 'Before the fire I sold candles. Honest work. It didn\'t pay.' },
+      'armor': { 'say': 'Any armour for sale?', '1': 'The armourers are gone, friend. You\'d know why better than me.' },
       'rumor': {
-        'citadel': { '1': 'A fortress appeared in the far north last year. Nobody built it. Its walls hum.' },
-        'crystals': { '1': 'Somebody is buying every void crystal on the market. Not us. That worries me.' }
+        'citadel': { '1': 'A fortress turned up in the far north last year. Nobody built it.' },
+        'crystals': { '1': 'Someone\'s buying every void crystal they can find. Not us. That worries me.' }
       },
       'shopBack': { '1': 'You were never here.' },
-      'bye': { '1': 'Mind the rubble.' }
+      'bye': { '1': 'Watch your step. The rubble shifts.' }
     },
     'trainerBlood': {
-      'hello': { '1': 'A visitor. Do mind the jars.', '2': 'Doctor Sangrel. Oakhaven\'s new owners do not ask what I teach. Refreshing.' },
-      'found': { '1': 'You found me. Few look for a doctor in a place like this.', '2': 'Doctor Sangrel. The towns burn my kind, so I work where there are none.' },
-      'friend': { '1': 'The Syndicate vouches for you. My fee is lower for its friends. My standards are not.' },
-      'foe': { '1': 'The Syndicate would pay me for your blood. I prefer you spend it on my lessons.' },
-      'again': { '1': 'You are pale. Good. It suits the work.' },
-      'train': { '1': 'Roll up your sleeve. This will hurt. That is the point.' },
+      'hello': { '1': 'A visitor. Please don\'t touch the jars.', '2': 'Doctor Sangrel. Oakhaven\'s new owners don\'t ask what I teach. It\'s restful.' },
+      'found': { '1': 'You found me. Not many come looking for a doctor in a place like this.', '2': 'Doctor Sangrel. Towns burn people like me, so I work where there aren\'t any.' },
+      'friend': { '1': 'The Syndicate speaks for you. I charge its friends less. My standards stay the same.' },
+      'foe': { '1': 'The Syndicate would pay well for your blood. I\'d rather you spent it here.' },
+      'again': { '1': 'You look pale. Good. It suits the work.' },
+      'train': { '1': 'Roll up your sleeve. It will hurt. That\'s rather the point.' },
       'class': {
         'say': 'What is a Blood Alchemist?',
-        '1': 'You pay for power in your own health. Then you drink it back from the enemy.',
-        '2': 'Endurance is your purse. Intelligence decides how well you spend it.'
+        '1': 'You pay for power with your own health, then take it back from your enemies.',
+        '2': 'Endurance is what you have to spend. Intelligence is how well you spend it.'
       },
       'ready': {
         'strong': { '1': 'A remarkable constitution. You may learn nearly all of it.' },
-        'able': { '1': 'Your blood is strong enough for the next lesson.' },
-        'weak': { '1': 'You would faint at the first cut. More Endurance, please.' }
+        'able': { '1': 'You\'re sturdy enough for the next lesson.' },
+        'weak': { '1': 'You\'d faint at the first cut. Build your Endurance first, please.' }
       },
-      'jars': { 'say': 'What is in the jars?', '1': 'Volunteers. Mostly.' },
-      'trainBack': { '1': 'Do keep notes. For science.' },
-      'bye': { '1': 'Stay healthy. You are no use to me otherwise.' }
+      'jars': { 'say': 'What\'s in the jars?', '1': 'Samples. Freely given, for the most part.' },
+      'trainBack': { '1': 'Do keep notes. I\'d like to hear how it goes.' },
+      'bye': { '1': 'Stay healthy. I mean that.' }
     },
     'syndicateBoss': {
-      'hello': { '1': 'So. The one who opened the gate. Sit. You have earned a chair.', '2': 'They call me Madam Ash. Oakhaven is mine now. In part, yours.' },
-      'throneOurs': { '1': 'The throne of the Dread Fortress. Ours. You are the best investment I ever made.' },
-      'throneLost': { '1': 'You gave the throne away. To someone else. We will speak of that. Not today.' },
-      'foe': { '1': 'You have been crossing us. Sit anyway. I like to look at a problem before I solve it.' },
-      'again': { '1': 'My favourite traitor. What can the Syndicate do for you?' },
+      'hello': { '1': 'So you\'re the one who opened the gate. Sit down. You\'ve earned a chair.', '2': 'They call me Madam Ash. Oakhaven is ours now. Partly thanks to you.' },
+      'throneOurs': { '1': 'The Dread Fortress, in our hands. You were worth every coin.' },
+      'throneLost': { '1': 'You gave the throne to someone else. We\'ll talk about that. Not today.' },
+      'foe': { '1': 'You\'ve been working against us. Sit anyway. I like to know who I\'m dealing with.' },
+      'again': { '1': 'Back again. What can the Syndicate do for you?' },
       'cut': {
-        'say': 'You promised me a third of Oakhaven.',
-        '1': 'A third of a ruin, darling. Here is this season\'s share.',
-        '2': 'It will grow. A ruin is very profitable when you own its only market.'
+        'say': 'I was promised a share of Oakhaven.',
+        '1': 'And you\'ll have it. A share of a ruin, for now. Here\'s this season\'s.',
+        '2': 'It\'ll grow. A ruin pays very well when you own its only market.'
       },
       'syndicate': {
-        'say': 'What does the Syndicate want?',
-        '1': 'What everyone wants. We simply do not pretend otherwise.',
-        '2': 'Stay our friend, and the Whisper and the Doctor charge you less. Loyalty has a price list.'
+        'say': 'What does the Syndicate actually want?',
+        '1': 'What everyone wants. We just don\'t pretend otherwise.',
+        '2': 'Stay friendly, and the Whisper and the Doctor will charge you less.'
       },
-      'order': { 'say': 'The Iron Order is hunting me.', '1': 'Of course it is. You burned one of its towns. Carry more potions.' },
+      'order': { 'say': 'The Iron Order is after me.', '1': 'Of course they are. You burned one of their towns. Carry extra potions.' },
       'rumor': {
-        'core': { '1': 'The dwarves found something in their mines. A core. I want it. Bring it to us and name a number.' },
-        'sold': { '1': 'The core arrived safely. You should see what it does to a lock.' },
-        'north': { '1': 'Everything worth stealing has moved north. So have we.' }
+        'core': { '1': 'The dwarves found something in their mines. A core. Bring it to us and name your price.' },
+        'sold': { '1': 'The core arrived safely. You\'d be amazed what it does to a lock.' },
+        'north': { '1': 'Everything worth having has moved north. So have we.' }
       },
-      'bye': { '1': 'Do not be a stranger. Strangers get followed.' }
+      'bye': { '1': 'Don\'t be a stranger. We keep an eye on strangers.' }
     },
 
     // ── Ironhold ──
     'forgemaster': {
-      'hello': { '1': 'You came through the mines. I can smell the dust on you.', '2': 'Dorn. Forgemaster of Ironhold. I have a problem the size of a mountain.' },
-      'destroyed': { '1': 'The light is out and the golems are scrap. My miners sang last night. First time in a year.' },
-      'studied': { '1': 'Blue fire in my forges and robes in my halls. The work is good. I will get used to the robes.' },
-      'sold': { '1': 'You sold it. The golems still walk and my mines are still a grave. Get out of my light.' },
-      'ending': { '1': 'So the throne is settled. Good. Now the realm can go back to arguing about iron.' },
-      'again': { '1': 'Speak. The forge does not wait.' },
+      'hello': { '1': 'You came up through the mines. I can smell the dust on you.', '2': 'Dorn. Forgemaster of Ironhold. And I\'ve got a problem the size of a mountain.' },
+      'destroyed': { '1': 'The light\'s out and the golems are scrap. My miners sang last night. First time in a year.' },
+      'studied': { '1': 'Blue fire in my forges and robed scholars in my halls. The work is good, at least.' },
+      'sold': { '1': 'You sold it. The golems still walk, and my mines are still a grave. Leave me be.' },
+      'ending': { '1': 'So the throne\'s settled. Good. Maybe now we can get back to digging.' },
+      'again': { '1': 'What is it? The forge won\'t wait.' },
       'quest': {
-        'say': 'What happened in the mines?',
-        '1': 'We dug for iron and struck a heart. An aether core. It beats, down there in the dark.',
+        'say': 'What happened down in the mines?',
+        '1': 'We dug for iron and found a heart. An aether core. You can feel it beating.',
         '2': 'And the golems?',
-        '3': 'They walk to its rhythm. Three powers have written to me for it. All polite. I trust none.',
-        '4': 'You will reach it first, at the bottom of the Ironhold Mines. Then it is yours to settle.'
+        '3': 'They move to its rhythm. Three powers have written asking for it. I trust none of them.',
+        '4': 'You\'ll reach it first, at the bottom of the Ironhold Mines. What happens then is up to you.'
       },
       'core': {
-        'say': 'About the core…',
-        'destroy': { '1': 'You broke a wonder to save my people. The Order sent armourers in thanks. I sent ale.' },
-        'study': { '1': 'The Circle\'s tinkers are mad, but their guns shoot straight. A fair bargain.' },
-        'sell': { '1': 'Gold. You did it for gold. I hope it keeps you warm.' }
+        'say': 'About the core...',
+        'destroy': { '1': 'You broke a wonder to save my people. The Order sent armourers. I sent ale.' },
+        'study': { '1': 'The Circle\'s people are odd, but their guns shoot straight. Fair enough.' },
+        'sell': { '1': 'You did it for gold. I hope it keeps you warm.' }
       },
       'town': {
         'say': 'Tell me about Ironhold.',
-        '1': 'The best steel in the realm, when the mines run.',
+        '1': 'The best steel in the realm, when the mines are working.',
         '2': 'Stonefoot teaches earth, Pim teaches machines. Both will talk your ear off.'
       },
       'rumor': {
-        'tundra': { '1': 'East of the Crags the land goes white. Frostbite Tundra. Giants, and dead that do not stay down.' },
-        'citadel': { '1': 'My scouts saw a fortress in the north that was not there last year. I do not like new mountains.' },
-        'fortress': { '1': 'The Dread Fortress is where this ends. Every road north leads to its gate.' }
+        'tundra': { '1': 'East of the Crags the land turns white. Frostbite Tundra. Giants, and worse.' },
+        'citadel': { '1': 'My scouts saw a fortress up north that wasn\'t there last year. I don\'t like that.' },
+        'fortress': { '1': 'It all ends at the Dread Fortress. Every road north leads there.' }
       },
-      'bye': { '1': 'Strike true.' }
+      'bye': { '1': 'Go well.' }
     },
     'ironWeapons': {
-      'hello': { '1': 'Hands off the display. Those are sharp at both ends.', '2': 'Hilda Hammerhand. Dwarf-forged, every piece.' },
-      'dragon': { '1': 'You killed the dragon? With one of MINE? No? Lie to me. Say it was one of mine.' },
-      'again': { '1': 'Back for real steel?' },
-      'trade': { '1': 'Dwarf-forged. If it breaks, it was you.' },
-      'who': { '1': 'My mother forged for kings. I forge for whoever walks in. Times change.' },
+      'hello': { '1': 'Careful with the display. Those are sharp on both edges.', '2': 'Hilda Hammerhand. Every piece here was forged by dwarven hands.' },
+      'dragon': { '1': 'You killed the dragon? I hope it was with one of my blades.' },
+      'again': { '1': 'Back for proper steel?' },
+      'trade': { '1': 'Dwarf-forged. If one of these breaks, I\'ll want to know how.' },
+      'who': { '1': 'My mother forged for kings. I forge for whoever comes through the door.' },
       'rumor': {
-        'golems': { '1': 'The golems in the mines are made of our own iron. It is embarrassing, frankly.' },
-        'arm': { '1': 'A blade does half the work. Your Strength does the rest. Do not blame the blade.' }
+        'golems': { '1': 'Those golems down there are made of our own iron. It stings, I\'ll tell you.' },
+        'arm': { '1': 'A good blade does half the work. Your Strength has to do the rest.' }
       },
-      'shopBack': { '1': 'Bring it back dull and I will know you used it.' },
-      'bye': { '1': 'Hit them hard.' }
+      'shopBack': { '1': 'Bring it back blunt and I\'ll know you\'ve used it well.' },
+      'bye': { '1': 'Strike hard.' }
     },
     'ironAetherWorks': {
-      'hello': { '1': 'Careful! That one is loaded. So is that one. Most of them, really.', '2': 'Tinker Voss. The Circle sent me to see what the core could teach us. Everything, it turns out.' },
-      'again': { '1': 'Oh good, a tester. I mean, a customer.' },
-      'trade': { '1': 'The Circle\'s study of the core changed everything. Hold this. Do not point it at me.' },
-      'core': { 'say': 'What did the core teach you?', '1': 'That iron can think, a little. I try not to dwell on it.' },
-      'rumor': { 'heat': { '1': 'Guns run on Skill, and they run hot. Ask Gearwright Pim about heat before you melt your hand.' } },
-      'shopBack': { '1': 'Report any explosions! For the notes.' },
-      'bye': { '1': 'Mind the recoil!' }
+      'hello': { '1': 'Careful, that one\'s loaded. Most of them are, actually.', '2': 'Tinker Voss. The Circle sent me to study the core. It\'s taught us so much.' },
+      'again': { '1': 'Ah, good. I\'ve made a few changes since you were here.' },
+      'trade': { '1': 'Everything here came out of studying the core. Just don\'t point it at me.' },
+      'core': { 'say': 'What did the core teach you?', '1': 'That metal can think, a little. I try not to dwell on that.' },
+      'rumor': { 'heat': { '1': 'Guns run on Skill, and they run hot. Ask Pim about heat before you burn a hand.' } },
+      'shopBack': { '1': 'Let me know how it handles. I\'m keeping notes.' },
+      'bye': { '1': 'Mind the recoil.' }
     },
     'ironArmor': {
-      'hello': { '1': 'Garrun. Armour. Rings in the tray.' },
-      'again': { '1': 'Hm.' },
-      'trade': { '1': 'Plate that turns a giant\'s club. Rings for the rest of you.' },
-      'quiet': { 'say': 'You do not talk much.', '1': 'No.' },
+      'hello': { '1': 'Garrun. Armour on the racks, rings in the tray.' },
+      'again': { '1': 'Back. What do you need?' },
+      'trade': { '1': 'That plate will turn a giant\'s club. Have a look.' },
+      'quiet': { 'say': 'You don\'t say much, do you?', '1': 'Not much worth saying.' },
       'rumor': {
-        'giants': { '1': 'Giants in the tundra. Clubs like tree trunks. Buy the heavy plate.' },
-        'demons': { '1': 'Demons up north. Fire and claws. Buy the heavy plate.' }
+        'giants': { '1': 'Giants in the tundra. Clubs like tree trunks. I\'d take the heavy plate.' },
+        'demons': { '1': 'Demons up north. Fire and claws. I\'d take the heavy plate.' }
       },
-      'shopBack': { '1': 'Good.' },
-      'bye': { '1': 'Aye.' }
+      'shopBack': { '1': 'Good choice.' },
+      'bye': { '1': 'Take care.' }
     },
     'ironOrderArmor': {
-      'hello': { '1': 'Name and business. No. I know your name. You destroyed the core.', '2': 'Quartermaster of the Iron Order. Its armouries are open to you.' },
-      'throneOurs': { '1': 'The Order holds the Dread Fortress by your hand. Stand easy. That is an order.' },
-      'foe': { '1': 'The Order has you on a list. My orders are to sell to you regardless. I do not like them.' },
-      'again': { '1': 'Requisition?' },
-      'trade': { '1': 'The Order remembers who destroyed the core. Choose what you need.' },
-      'order': { 'say': 'What does the Order want from me?', '1': 'Nothing. That is rare. Enjoy it.' },
-      'rumor': { 'throne': { '1': 'The Order will want the throne in the Dread Fortress. It will remember who stood with it.' } },
-      'shopBack': { '1': 'Sign here. I am joking. The Order does not joke. Dismissed.' },
-      'bye': { '1': 'Dismissed.' }
+      'hello': { '1': 'You\'re the one who destroyed the core. The Order remembers that.', '2': 'I\'m the Order\'s quartermaster here. Our armouries are open to you.' },
+      'throneOurs': { '1': 'The Order holds the Dread Fortress, thanks to you. At ease. You\'ve earned it.' },
+      'foe': { '1': 'The Order has you on a list. My orders say to sell to you anyway. I\'ll follow them.' },
+      'again': { '1': 'What do you need?' },
+      'trade': { '1': 'Take what you need. The Order looks after its own.' },
+      'order': { 'say': 'What does the Order want from me?', '1': 'Nothing, for now. That doesn\'t happen often. Enjoy it.' },
+      'rumor': { 'throne': { '1': 'The Order will want the throne in the Dread Fortress. It\'ll remember who helped.' } },
+      'shopBack': { '1': 'Look after it. It\'s Order property until you\'ve bled in it.' },
+      'bye': { '1': 'Carry on.' }
     },
     'trainerGeo': {
-      'hello': { '1': 'Slow down. The mountain is not going anywhere.', '2': 'They call me Old Stonefoot. I listen to the ground. Sometimes it answers.' },
-      'core': { '1': 'The mountain\'s heartbeat changed. That was you. It noticed.' },
-      'dragon': { '1': 'A dragon flew over the peak yesterday and did not burn us. Your doing, I hear.' },
-      'again': { '1': 'You again. The stones said you would come.' },
-      'train': { '1': 'Plant your feet. Feel that? No? We will start there.' },
+      'hello': { '1': 'Slow down. The mountain isn\'t going anywhere.', '2': 'They call me Old Stonefoot. I listen to the ground. Sometimes it answers.' },
+      'core': { '1': 'The mountain feels different since you went down there. Calmer, or emptier.' },
+      'dragon': { '1': 'A dragon flew over the peak yesterday and left us alone. Your doing, I\'m told.' },
+      'again': { '1': 'There you are. I thought you\'d be back.' },
+      'train': { '1': 'Plant your feet. Feel that? No? That\'s where we start.' },
       'class': {
-        'say': 'What is a Geomancer?',
-        '1': 'We raise walls, call spikes, and break the ground when it is needed.',
-        '2': 'Strength to move the stone, Intelligence to ask it nicely.'
+        'say': 'What does a Geomancer do?',
+        '1': 'We raise walls, call up spikes, and break the ground when we have to.',
+        '2': 'Strength to move the stone. Intelligence to know where it wants to go.'
       },
       'ready': {
-        'strong': { '1': 'The stone knows you now. Learn the rest.' },
-        'able': { '1': 'You are heavy enough for the next lesson. That is a compliment.' },
-        'weak': { '1': 'The stone does not hear you yet. More Strength.' }
+        'strong': { '1': 'The stone knows you now. Learn the rest when you\'re ready.' },
+        'able': { '1': 'You\'re steady enough for the next lesson.' },
+        'weak': { '1': 'Not yet. The stone won\'t move for you. Build your Strength.' }
       },
-      'factions': { 'say': 'Which faction do you serve?', '1': 'None. Orders, syndicates, circles. The mountain outlasts all of them.' },
-      'trainBack': { '1': 'Go gently. Then not gently.' },
+      'factions': { 'say': 'Which faction do you serve?', '1': 'None of them. Orders and guilds come and go. The mountain stays.' },
+      'trainBack': { '1': 'Take your time with it. The ground\'s patient.' },
       'bye': { '1': 'Walk softly.' }
     },
     'trainerAether': {
-      'hello': { '1': 'Do not touch that! Or that. Actually, stand on the rug. The rug is safe.', '2': 'Gearwright Pim! Guns, turrets, heat gauges. Mostly heat gauges.' },
-      'core': { '1': 'You gave us the core! I have not slept in nine days. Look at my hands. Do not look at my hands.' },
-      'oracle': { '1': 'The Circle is furious about the oracle. I just build things. Please do not tell them I taught you.' },
-      'friend': { '1': 'A friend of the Circle! Cheaper lessons for you. I filled in the form myself.' },
-      'foe': { '1': 'The Circle says I must not teach you. The Circle also says not to test rockets indoors.' },
-      'again': { '1': 'Oh good, you still have all your fingers.' },
-      'train': { '1': 'Right! Safety first. Then the loud part.' },
+      'hello': { '1': 'Ah, wait, don\'t touch that! Or that. Stand on the rug, the rug\'s safe.', '2': 'Gearwright Pim. I build guns, turrets, and a lot of heat gauges.' },
+      'core': { '1': 'You gave the core to the Circle! I\'ve hardly slept since. In a good way.' },
+      'oracle': { '1': 'The Circle\'s angry about the oracle. I just build things. I\'d rather not get involved.' },
+      'friend': { '1': 'You\'re a friend of the Circle, so your lessons are cheaper. I did the paperwork.' },
+      'foe': { '1': 'The Circle says I shouldn\'t teach you. I\'m going to anyway. Don\'t tell them.' },
+      'again': { '1': 'Oh good, you\'ve still got all your fingers.' },
+      'train': { '1': 'Right. Safety first, then the loud part.' },
       'class': {
         'say': 'What is an Aether-Tech?',
-        '1': 'Guns, turrets and a heat gauge. Shoot, build, and vent before it locks you out.',
-        '2': 'It all runs on Skill. A bit of Intelligence for the big machines.'
+        '1': 'Guns, turrets, and a heat gauge. Shoot, build, and vent before you lock up.',
+        '2': 'Mostly it\'s Skill. A bit of Intelligence for the bigger machines.'
       },
       'ready': {
-        'strong': { '1': 'You could strip a turret blind! Take the big machines.' },
-        'able': { '1': 'Steady hands! You are ready for the next gadget.' },
-        'weak': { '1': 'Your hands shake. Mine too, but for other reasons. More Skill.' }
+        'strong': { '1': 'You know your way around a turret now. Take the big machines.' },
+        'able': { '1': 'Steady hands. You\'re ready for the next one.' },
+        'weak': { '1': 'Your aim\'s a bit shaky still. Put some points into Skill.' }
       },
-      'heat': { 'say': 'What happens if I overheat?', '1': 'Everything locks for a few seconds. Vent early. Vent often. I have the scars.' },
-      'trainBack': { '1': 'Remember: vent the heat! VENT. THE. HEAT.' },
-      'bye': { '1': 'Do not blow up!' }
+      'heat': { 'say': 'What happens if I overheat?', '1': 'Everything locks up for a few seconds. Vent early, vent often. Trust me on that.' },
+      'trainBack': { '1': 'And remember to vent the heat before it vents you.' },
+      'bye': { '1': 'Be careful out there!' }
     },
     'ironHealer': {
-      'hello': { '1': 'Boots off. I will not have mine dust on my floor.', '2': 'Mother Brynja. I have set every broken bone in this mountain twice.' },
-      'ending': { '1': 'You went to the Dread Fortress and walked back. Sit. I want to look at you.' },
-      'again': { '1': 'Still alive. I am told that is my doing.' },
-      'heal': { '1': 'Sit. Drink this. Do not make that face. Your flasks are filled.' },
-      'mana': { '1': 'Here. It tastes foul. Drink it when your magic runs out, not before.' },
-      'potions': { 'say': 'Can I carry more potions?', '1': 'Buy a longer belt from me. Five flasks is all a body can carry and still run.' },
+      'hello': { '1': 'Boots off at the door, please. I\'ve only just swept.', '2': 'Mother Brynja. I\'ve set most of the broken bones in this mountain.' },
+      'ending': { '1': 'You went to the Dread Fortress and came back. Sit down. Let me look at you.' },
+      'again': { '1': 'Still alive. Good. Sit.' },
+      'heal': { '1': 'Drink this, and don\'t make that face. Your flasks are full.' },
+      'mana': { '1': 'Here. It tastes awful. Drink it when your magic runs out, not before.' },
+      'potions': { 'say': 'Can I carry more potions?', '1': 'I can sell you a longer belt. Five flasks is about all anyone can carry and still run.' },
       'rumor': {
-        'tundra': { '1': 'The tundra takes fingers. Keep moving out there, and do not sleep in the snow.' },
-        'temple': { '1': 'There is a drowned temple past the tundra. The naga do not take prisoners.' },
-        'rift': { '1': 'Whatever is in that Void Rift, it cannot be stitched. Finish it quickly.' }
+        'tundra': { '1': 'The tundra takes fingers and toes. Keep moving, and don\'t fall asleep in the snow.' },
+        'temple': { '1': 'There\'s a drowned temple past the tundra. The naga there don\'t take prisoners.' },
+        'rift': { '1': 'Whatever\'s in that rift, I can\'t stitch it. Don\'t let it reach you.' }
       },
-      'healBack': { '1': 'Off with you. And eat something.' },
+      'healBack': { '1': 'Off you go. And eat something, you\'re too thin.' },
       'bye': { '1': 'Come back in one piece.' }
     },
     'exiledSovereign': {
-      'hello': { '1': 'You. You opened my gate.', '2': 'I teach from a dwarf\'s cellar now, because I must eat. Do not mistake it for forgiveness.' },
-      'ending': { '1': 'A throne was decided, and Oakhaven is still ash. Tell me again how it was worth it.' },
-      'again': { '1': 'The traitor returns. My fee has not gone down.' },
-      'train': { '1': 'I will teach you to command. I cannot teach you to deserve it.' },
+      'hello': { '1': 'You. You\'re the one who opened my gate.', '2': 'I teach in a cellar now, because I have to eat. Don\'t take it for forgiveness.' },
+      'ending': { '1': 'So the throne\'s decided, and Oakhaven is still ashes. I hope it was worth it.' },
+      'again': { '1': 'You\'re back. My fee hasn\'t changed.' },
+      'train': { '1': 'I\'ll teach you to command. Whether you deserve it is another matter.' },
       'class': {
         'say': 'What is a Grand Sovereign?',
-        '1': 'One who is followed. Guards answer the call and fight at your word.',
-        '2': 'It runs on Charisma. You have some. That is the tragedy.'
+        '1': 'Someone others follow. Guards come when you call and fight at your word.',
+        '2': 'It runs on Charisma. You have some. That\'s what makes it hard to forgive.'
       },
       'ready': {
-        'strong': { '1': 'You have the presence for all of it. The realm is poorer for that.' },
-        'able': { '1': 'You are ready for the next lesson. I take no pleasure in it.' },
-        'weak': { '1': 'Not even a traitor\'s guard would follow that voice. More Charisma.' }
+        'strong': { '1': 'You have the presence for all of it. I wish you\'d used it better.' },
+        'able': { '1': 'You\'re ready for the next lesson. I won\'t pretend I\'m glad.' },
+        'weak': { '1': 'No one would follow you yet. Work on your Charisma.' }
       },
       'oakhaven': {
-        'say': 'About Oakhaven…',
+        'say': 'About Oakhaven...',
         '1': 'Three hundred years. My family built those walls.',
-        '2': 'Do not explain. There is no price that explains it.'
+        '2': 'Please don\'t explain. Nothing you could say would make it right.'
       },
-      'trainBack': { '1': 'Go. Command someone else.' },
-      'bye': { '1': 'Leave me.' }
+      'trainBack': { '1': 'Go. Practise on someone else.' },
+      'bye': { '1': 'Leave me, please.' }
     },
     'trainerChrono': {
-      'fled': { '1': 'You killed her. I saw it a thousand times before it happened, and still it hurts.', '2': 'I am the Keeper of Hours. I will teach you. She told me I would.' },
-      'hello': { '1': 'You are late. Or early. I told you this already, I think.', '2': 'I am the Keeper of Hours. I teach the weaving of time. We began a moment ago.' },
-      'freed': { '1': 'She is free. For the first time, I do not know what you will say next. It is wonderful.' },
-      'friend': { '1': 'The Circle will name you its friend. It already has? Then the discount is now.' },
-      'foe': { '1': 'The Circle will forgive you, in a future I have seen. Until then, I teach you quietly.' },
-      'again': { '1': 'Welcome back. Welcome. Back.' },
-      'train': { '1': 'Watch. I will show you what I showed you.' },
+      'fled': { '1': 'You killed her. I saw it coming for years, and it still hurts.', '2': 'I\'m the Keeper of Hours. I\'ll teach you. She told me I would.' },
+      'hello': { '1': 'There you are. I\'ve been expecting you for a while. Or will have been.', '2': 'I\'m the Keeper of Hours. I teach how to bend time, a little.' },
+      'freed': { '1': 'She\'s free. For once I can\'t tell what happens next. It\'s wonderful.' },
+      'friend': { '1': 'The Circle thinks well of you, so the lessons cost less. They decided that last week.' },
+      'foe': { '1': 'The Circle\'s angry with you now. It passes. Until then, we\'ll keep this quiet.' },
+      'again': { '1': 'Welcome back. You\'re right on time.' },
+      'train': { '1': 'Watch closely. Then watch again, a moment earlier.' },
       'class': {
         'say': 'What is a Chrono-Weaver?',
-        '1': 'We stop a foe in time, hurry a friend along, and take back a mistake.',
-        '2': 'Intelligence to see the thread, Skill to pull it.'
+        '1': 'We hold a foe still in time, hurry a friend along, and take back a mistake.',
+        '2': 'Intelligence to see the thread. Skill to pull it.'
       },
       'ready': {
-        'strong': { '1': 'You hold the thread well. The rest is yours when you want it.' },
-        'able': { '1': 'You are ready. You were ready tomorrow as well.' },
-        'weak': { '1': 'The thread slips through your fingers. More Intelligence. More Skill.' }
+        'strong': { '1': 'You hold the thread well. Take the rest whenever you like.' },
+        'able': { '1': 'You\'re ready. I could tell before you asked.' },
+        'weak': { '1': 'The thread keeps slipping. More Intelligence, and more Skill.' }
       },
       'oracle': {
         'say': 'Tell me about the oracle.',
-        'freed': { '1': 'She saw every ending, and none of them was hers. Now one is.' },
-        'slain': { '1': 'She did not resist. She had seen that too. Please do not ask me again.' },
-        'waits': { '1': 'She sees every ending. It is a terrible gift. Be kind to her, at the end.' }
+        'freed': { '1': 'She saw every ending except her own. Now she gets to find out.' },
+        'slain': { '1': 'She didn\'t fight it. She\'d seen it already. Please don\'t ask me again.' },
+        'waits': { '1': 'She sees every ending. It\'s a heavy thing to carry. Be kind to her.' }
       },
-      'trainBack': { '1': 'It will have been worth it.' },
-      'bye': { '1': 'Until before.' }
+      'trainBack': { '1': 'It\'ll make sense later. It usually does.' },
+      'bye': { '1': 'Until we meet again. Or before.' }
     },
 
     // ── The six decisions ──
@@ -1292,48 +1295,48 @@ export default {
     // answer (the choice); the numbered lines after it tell what follows.
     'quest': {
       'goblinKing': {
-        'ask': { '1': 'Wait! Wait. King yields!', '2': 'Goblins only raid because goblins are hungry. Is true!', '3': 'Maybe tall one and King make a deal?' },
+        'ask': { '1': 'Stop. Please. I yield.', '2': 'My people raid because they are hungry. That is the truth.', '3': 'Let us make a deal instead. Your kind and mine.' },
         'slay': {
-          'say': 'No deal. Your reign ends here.',
-          '1': 'The King falls, and the Hollows scatter.',
-          '2': 'Sunford sleeps easier, and the Iron Order takes note of you.'
+          'say': 'No deals. Your raids end here.',
+          '1': 'The Goblin King falls, and the Hollows empty.',
+          '2': 'Sunford sleeps easier, and the Iron Order hears your name.'
         },
         'pact': {
-          'say': 'Stop the raids and trade with Sunford instead. Swear it.',
-          '1': 'Trade? King swears! King LIKES trade!',
-          '2': 'Goblin traders set up in Sunford\'s square, with wares no smith there could make.'
+          'say': 'Stop the raids and trade with Sunford instead. Swear to it.',
+          '1': 'Trade. Yes. I swear it, on my crown.',
+          '2': 'Goblin traders set up in Sunford\'s square, selling things no smith there could make.'
         },
         'ransom': {
-          'say': 'Hand over your treasure, and you keep your crown.',
-          '1': 'All of it? King hates tall one. Take it. Take it and go.',
-          '2': 'You walk out heavy with goblin gold. The raids will start again. The Syndicate approves.'
+          'say': 'Give me your treasure and you can keep your crown.',
+          '1': 'All of it? ...Fine. Take it, and go.',
+          '2': 'You leave with goblin gold. The raids will start again, but the Syndicate approves.'
         }
       },
       'siege': {
-        'ask': { '1': 'Enough. You fight well.', '2': 'The Syndicate pays better than that town ever will.', '3': 'Open the gate for us tonight, and a third of Oakhaven is yours.' },
+        'ask': { '1': 'Enough. You fight well, I\'ll give you that.', '2': 'The Syndicate pays far better than that town ever will.', '3': 'Open the gate for us tonight, and a third of Oakhaven is yours.' },
         'defend': {
           'say': 'The gate stays shut. Take your army and go.',
-          '1': 'Then the Syndicate will hunt you on every road. Remember that I offered.',
-          '2': 'The gate holds. Oakhaven grows rich behind it, and its master armourers remember your name.'
+          '1': 'Then the Syndicate will hunt you on every road. Remember I offered.',
+          '2': 'The gate holds. Oakhaven grows rich behind it, and its armourers remember your name.'
         },
         'betray': {
-          'say': 'A third of the town. Tonight, the gate opens.',
-          '1': 'Wise. I will tell Madam Ash to set a chair for you.',
-          '2': 'Oakhaven burns. In its ruins a black market opens, and an alchemist teaches forbidden arts.',
-          '3': 'The armourers are gone, and the Iron Order calls you traitor.'
+          'say': 'A third of the town. All right. The gate opens tonight.',
+          '1': 'Sensible. Madam Ash will be pleased to hear it.',
+          '2': 'Oakhaven burns. In the ruins, a black market opens, and an alchemist teaches in secret.',
+          '3': 'The armourers are gone, and the Iron Order calls you a traitor.'
         }
       },
       'core': {
-        'ask': { '1': 'The Colossus is scrap. I never thought I would see it.', '2': 'And there it lies. The core. Still humming. Warm to the touch.', '3': 'You reached it first. What becomes of it?' },
+        'ask': { '1': 'The Colossus is scrap. I never thought I\'d live to see it.', '2': 'And there\'s the core. Still humming. It\'s warm, if you touch it.', '3': 'You got here first. So... what happens to it?' },
         'destroy': {
-          'say': 'Stand back. I am breaking it.',
+          'say': 'Stand back. I\'m going to break it.',
           '1': 'The light goes out, and the golems drop where they stand.',
-          '2': 'The Iron Order sends its own armourers to Ironhold in thanks.'
+          '2': 'In thanks, the Iron Order sends its own armourers to Ironhold.'
         },
         'study': {
-          'say': 'The Circle should study it. I can carry it out safely.',
-          '1': 'You understand enough of the core to hand it over without waking it.',
-          '2': 'Within a season, Ironhold\'s forges turn out aether-works no one has seen before.'
+          'say': 'The Circle should study it. I think I can carry it out safely.',
+          '1': 'You know enough to move the core without waking it.',
+          '2': 'Within a season, Ironhold\'s forges are making aether-works no one has seen before.'
         },
         'sell': {
           'say': 'The Syndicate made the best offer.',
@@ -1342,34 +1345,34 @@ export default {
         }
       },
       'oracle': {
-        'ask': { '1': 'I have seen this moment ten thousand times.', '2': 'In half of them you free me. In half you take what I guard.', '3': 'Choose. Let me finally not know what comes next.' },
+        'ask': { '1': 'I\'ve seen this moment more times than I can count.', '2': 'In half of them, you set me free. In the other half, you take what I guard.', '3': 'Choose. I\'d like, just once, not to know what comes next.' },
         'free': {
-          'say': 'Hold still. I am breaking your chains.',
-          '1': 'Oh. I did not see that. I did not see that at all.',
-          '2': 'The oracle rises through the water and is gone. Her keeper of hours stays to teach.'
+          'say': 'Hold still. I\'m breaking your chains.',
+          '1': 'Oh. I didn\'t see that. I really didn\'t see that.',
+          '2': 'The oracle rises through the water and is gone. Her pupil stays behind to teach.'
         },
         'slay': {
           'say': 'I came for the hourglass.',
           '1': 'Yes. This is the other half.',
-          '2': 'She does not resist. The Timekeeper\'s Hourglass is yours.',
-          '3': 'Her last pupil flees the temple, and the Circle does not forgive.'
+          '2': 'She doesn\'t resist. The Timekeeper\'s Hourglass is yours.',
+          '3': 'Her last pupil flees the temple, and the Circle won\'t forgive you.'
         }
       },
       'dragon': {
-        'ask': { '1': 'Enough. You have teeth, small one.', '2': 'The demon in the fortress chained my kin. I would see him burn.', '3': 'Kill me, or let me help you do it.' },
+        'ask': { '1': 'Enough. You have teeth, little one.', '2': 'The demon in the fortress chained my kin. I want to see him burn.', '3': 'Kill me, or let me help you do it.' },
         'slay': {
-          'say': 'No bargains with dragons.',
+          'say': 'I don\'t bargain with dragons.',
           '1': 'The mountain shakes as the dragon falls. Its hoard is yours.',
           '2': 'The Iron Order sings of the dragonslayer.'
         },
         'pact': {
-          'say': 'Then fly with me against the Arch-Demon.',
-          '1': 'Few could have asked that and lived. Very well, small one. We hunt together.',
-          '2': 'When you march on the Dread Fortress, a dragon will be in the sky above you.'
+          'say': 'Then fight with me against the Arch-Demon.',
+          '1': 'Few would dare ask. Very well. We hunt together.',
+          '2': 'When you march on the Dread Fortress, a dragon will fly above you.'
         }
       },
       'throne': {
-        'ask': { '1': 'So. It ends. I did not think it would be you.', '2': 'My throne does not stay empty, little hero. It commands the fortress, the rift, and the armies of both.', '3': 'Three envoys already wait at my door. Choose who inherits my chains.' },
+        'ask': { '1': 'So. It ends. I didn\'t think it would be you.', '2': 'My throne won\'t stay empty. Whoever takes it commands the fortress and the rift.', '3': 'Three envoys are already waiting at my door. Choose who comes next.' },
         'order': {
           'say': 'The Iron Order will hold it.',
           '1': 'The Order garrisons the fortress and seals what it can.',
@@ -1378,22 +1381,22 @@ export default {
         'syndicate': {
           'say': 'The Ashen Syndicate has earned it.',
           '1': 'The Syndicate moves in before dawn.',
-          '2': 'Everything is for sale now, including the peace.'
+          '2': 'From now on everything has a price, even the peace.'
         },
         'circle': {
           'say': 'Let the Circle of Aether have it.',
-          '1': 'The Circle turns the fortress into a school above a rift.',
-          '2': 'They call it research. Everyone else calls it a matter of time.'
+          '1': 'The Circle turns the fortress into a school above the rift.',
+          '2': 'They call it research. Everyone else holds their breath.'
         },
         'shatter': {
-          'say': 'Nobody inherits. I am breaking it.',
-          '1': 'You break the throne with your own hands. No one rules from here again.',
+          'say': 'No one gets it. I\'m breaking it.',
+          '1': 'You break the throne with your own hands. No one will rule from here again.',
           '2': 'The envoys leave without a word.'
         },
         'claim': {
-          'say': 'I will sit on it myself.',
+          'say': 'I\'ll take it myself.',
           '1': 'The throne is cold, and it fits.',
-          '2': 'Three factions find they have a common enemy.'
+          '2': 'Three factions discover they have a common enemy.'
         }
       }
     }

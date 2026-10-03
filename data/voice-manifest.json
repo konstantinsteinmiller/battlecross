@@ -49,7 +49,7 @@
       "who": "The hero",
       "scene": "hero",
       "emotion": "neutral",
-      "text": "That is all for now.",
+      "text": "I'll let you get on.",
       "file": "public/audio/voice/en/dlg.hero.bye.ogg"
     },
     {
@@ -59,7 +59,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Hm. New face. You are the one who held the plains road.",
+      "text": "Haven't seen you before. You're the one who cleared the road?",
       "file": "public/audio/voice/en/dlg.sunfordSmith.hello.1.ogg"
     },
     {
@@ -69,7 +69,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "I am Bram. I make steel. You look like you need some.",
+      "text": "Bram. I keep the forge. If you need a blade, come to me.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.hello.2.ogg"
     },
     {
@@ -79,7 +79,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Heard the Goblin King is dead. Good. Fewer dents to hammer out of caravan wheels.",
+      "text": "Heard the Goblin King's dead. Can't say I'll miss him.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.kingDead.1.ogg"
     },
     {
@@ -89,7 +89,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Goblins trading in the square. Never thought I would see it. Their iron is rubbish, mind.",
+      "text": "Goblins trading in the square now. Never thought I'd see it.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.kingPact.1.ogg"
     },
     {
@@ -99,7 +99,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "They say you took the King's gold and left him his crown. The raids will be back.",
+      "text": "You let the Goblin King keep his crown. He'll be back, you know.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.kingRansom.1.ogg"
     },
     {
@@ -109,7 +109,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "The whole realm talks about that throne. And you still buy from me. Hm.",
+      "text": "Whole realm's talking about you. Still need a whetstone, though?",
       "file": "public/audio/voice/en/dlg.sunfordSmith.ending.1.ogg"
     },
     {
@@ -119,7 +119,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Back again. Good. Steel does not sell itself.",
+      "text": "Back again. What can I do for you?",
       "file": "public/audio/voice/en/dlg.sunfordSmith.again.1.ogg"
     },
     {
@@ -129,7 +129,7 @@
       "scene": "hero",
       "to": "Bram the Smith",
       "emotion": "neutral",
-      "text": "Show me your goods.",
+      "text": "Can I see what you've got?",
       "file": "public/audio/voice/en/dlg.hero.trade.ogg"
     },
     {
@@ -139,7 +139,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Plain steel, honest prices. Look all you like.",
+      "text": "Plain steel, fair prices. Have a look.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.trade.1.ogg"
     },
     {
@@ -149,7 +149,7 @@
       "scene": "hero",
       "to": "Bram the Smith",
       "emotion": "neutral",
-      "text": "Who are you?",
+      "text": "Who are you, if you don't mind me asking?",
       "file": "public/audio/voice/en/dlg.hero.who.ogg"
     },
     {
@@ -159,7 +159,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Bram. Thirty years at this anvil.",
+      "text": "Bram. Thirty years at this anvil, give or take.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.who.1.ogg"
     },
     {
@@ -169,7 +169,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "I shoe horses, mend ploughs, and arm fools like you. In that order.",
+      "text": "Horseshoes, ploughs, the odd sword. Lately, mostly swords.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.who.2.ogg"
     },
     {
@@ -179,7 +179,7 @@
       "scene": "sunfordSmith",
       "to": "Bram the Smith",
       "emotion": "neutral",
-      "text": "What should I carry out there?",
+      "text": "What should I take with me out there?",
       "file": "public/audio/voice/en/dlg.sunfordSmith.gear.say.ogg"
     },
     {
@@ -189,7 +189,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "A shield, if you mean to be hit. A bigger sword, if you do not.",
+      "text": "A shield, if you plan on getting hit. Most people do.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.gear.1.ogg"
     },
     {
@@ -199,7 +199,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Strength swings my steel. Put your points there before you buy heavy.",
+      "text": "Heavy steel needs a strong arm. Work on your Strength first.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.gear.2.ogg"
     },
     {
@@ -219,7 +219,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Goblins on the plains road. Clear them out before you shop for anything fancy.",
+      "text": "Bandits on the plains road. I'd start there, if I were you.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.rumor.plains.1.ogg"
     },
     {
@@ -229,7 +229,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "The raiders crawl out of the Goblin Hollows, past the plains. Their king sits at the bottom.",
+      "text": "The goblins come from the Hollows, past the plains. Their king's down there.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.rumor.hollows.1.ogg"
     },
     {
@@ -239,7 +239,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "East of the plains the Whispering Woods begin. The trees walk there. Bring an axe.",
+      "text": "East of the plains are the Whispering Woods. Folk say the trees move.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.rumor.woods.1.ogg"
     },
     {
@@ -249,7 +249,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Smoke over Oakhaven way. A warlord has his camp on the outskirts, they say.",
+      "text": "There's smoke toward Oakhaven. An army's camped on the outskirts.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.rumor.siege.1.ogg"
     },
     {
@@ -259,7 +259,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Ironhold steel is on the road again. Go north if you want better than mine.",
+      "text": "Ironhold steel's coming down the road again. Better than mine, if I'm honest.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.rumor.north.1.ogg"
     },
     {
@@ -269,7 +269,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Wear it in good health. Or at all.",
+      "text": "Look after it and it'll look after you.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.shopBack.1.ogg"
     },
     {
@@ -279,7 +279,7 @@
       "look": "smith",
       "scene": "sunfordSmith",
       "emotion": "gruff",
-      "text": "Mind the road.",
+      "text": "Mind how you go.",
       "file": "public/audio/voice/en/dlg.sunfordSmith.bye.1.ogg"
     },
     {
@@ -289,7 +289,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Ooh, a customer! Or a guard. You are not a guard, are you?",
+      "text": "Oh, hello! Are you buying, or just looking? Both are fine.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.hello.1.ogg"
     },
     {
@@ -299,7 +299,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "I am Tilly. Rings, charms, lucky things. All found, never stolen.",
+      "text": "I'm Tilly. Rings, charms, bits and pieces from all over.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.hello.2.ogg"
     },
     {
@@ -309,7 +309,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "afraid",
-      "text": "Have you seen Grik's stall? Goblin trinkets! I am ruined. Buy something. Pity me.",
+      "text": "Have you seen the goblin's stall? His prices are lower than mine. It's not fair.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.rival.1.ogg"
     },
     {
@@ -319,7 +319,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "My favourite customer! I say that to everyone, but with you I mean it.",
+      "text": "There you are! I put a few things aside I think you'll like.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.again.1.ogg"
     },
     {
@@ -329,7 +329,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Rings! Charms! Things I found and definitely did not steal.",
+      "text": "Have a look. That one's lucky. Probably.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.trade.1.ogg"
     },
     {
@@ -339,7 +339,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "I walk the roads and pick up what the roads leave behind.",
+      "text": "I walk the roads and buy what people want to get rid of.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.who.1.ogg"
     },
     {
@@ -349,7 +349,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Bandits drop the nicest things when they run.",
+      "text": "And sometimes I find things. Bandits drop a lot when they run.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.who.2.ogg"
     },
     {
@@ -359,7 +359,7 @@
       "scene": "sunfordPeddler",
       "to": "Tilly the Peddler",
       "emotion": "neutral",
-      "text": "What are trinkets good for?",
+      "text": "What are trinkets actually good for?",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.trinkets.say.ogg"
     },
     {
@@ -369,7 +369,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "You wear two at a time, one on each hand. A small edge is still an edge.",
+      "text": "You can wear two, one on each hand. It all adds up out there.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.trinkets.1.ogg"
     },
     {
@@ -379,7 +379,7 @@
       "scene": "sunfordPeddler",
       "to": "Tilly the Peddler",
       "emotion": "neutral",
-      "text": "You stole all of this, didn't you?",
+      "text": "Where did all this come from, really?",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.stolen.say.ogg"
     },
     {
@@ -389,7 +389,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "afraid",
-      "text": "Shh! Not so loud. Fine. FINE.",
+      "text": "Ah. You've got a way of asking, haven't you?",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.stolen.1.ogg"
     },
     {
@@ -399,7 +399,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "afraid",
-      "text": "Take this ring and we never spoke. It is a nice ring. Mostly copper.",
+      "text": "Take this ring and let's not talk about where I found it.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.stolen.2.ogg"
     },
     {
@@ -409,7 +409,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "There is a colosseum south of here with its gates rusted shut. They would open if the goblin trouble ended.",
+      "text": "There's an old colosseum south of here. Shut tight while the goblins raid.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.rumor.arenaShut.1.ogg"
     },
     {
@@ -419,7 +419,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "excited",
-      "text": "The Colosseum is open! Eight waves, they say. I sell luck. You will want luck.",
+      "text": "The colosseum's open again. Eight waves, I hear. People bet on it.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.rumor.arenaOpen.1.ogg"
     },
     {
@@ -429,7 +429,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Oakhaven's markets pay double for anything shiny. Go east, past the woods.",
+      "text": "Oakhaven pays well for anything shiny. It's east, past the woods.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.rumor.east.1.ogg"
     },
     {
@@ -439,7 +439,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Come back when you are richer!",
+      "text": "Come back when your purse is heavier!",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.shopBack.1.ogg"
     },
     {
@@ -449,7 +449,7 @@
       "look": "peddler",
       "scene": "sunfordPeddler",
       "emotion": "amused",
-      "text": "Mind your pockets out there! Not near me, I mean. Elsewhere.",
+      "text": "Safe travels. Hold on to your coin out there.",
       "file": "public/audio/voice/en/dlg.sunfordPeddler.bye.1.ogg"
     },
     {
@@ -458,7 +458,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "proud",
-      "text": "Stand straight. You face a knight of the Iron Order.",
+      "text": "Stand up straight. You're speaking to a knight of the Iron Order.",
       "file": "public/audio/voice/en/dlg.trainerAegis.hello.1.ogg"
     },
     {
@@ -467,7 +467,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "proud",
-      "text": "Ser Aldric. I teach the shield to those who would stand in front of others.",
+      "text": "Ser Aldric. I teach people to stand between others and harm.",
       "file": "public/audio/voice/en/dlg.trainerAegis.hello.2.ogg"
     },
     {
@@ -476,7 +476,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "proud",
-      "text": "Oakhaven stands because you stood. That is the whole of what I teach.",
+      "text": "Oakhaven still stands, and I hear you were on its wall. Well done.",
       "file": "public/audio/voice/en/dlg.trainerAegis.saved.1.ogg"
     },
     {
@@ -485,7 +485,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "angry",
-      "text": "You opened Oakhaven's gate. I have buried men for less. State your business.",
+      "text": "You opened Oakhaven's gate. I won't pretend I've forgotten. What do you want?",
       "file": "public/audio/voice/en/dlg.trainerAegis.fallen.1.ogg"
     },
     {
@@ -494,7 +494,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "proud",
-      "text": "A dragonslayer in my yard. They will sing of it in the great hall.",
+      "text": "You killed the dragon on the peak? I'd have liked to see that.",
       "file": "public/audio/voice/en/dlg.trainerAegis.dragon.1.ogg"
     },
     {
@@ -503,7 +503,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "warm",
-      "text": "The Order speaks well of you. For its friends, my lessons cost less.",
+      "text": "The Order thinks well of you. For its friends, my lessons cost less.",
       "file": "public/audio/voice/en/dlg.trainerAegis.friend.1.ogg"
     },
     {
@@ -512,7 +512,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "cold",
-      "text": "The Order names you an enemy. I will teach you still. Honour is not theirs to revoke.",
+      "text": "The Order calls you an enemy. I'll still teach you. That's my choice, not theirs.",
       "file": "public/audio/voice/en/dlg.trainerAegis.foe.1.ogg"
     },
     {
@@ -521,7 +521,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Shield up. What do you need?",
+      "text": "Back for more drills?",
       "file": "public/audio/voice/en/dlg.trainerAegis.again.1.ogg"
     },
     {
@@ -531,7 +531,7 @@
       "scene": "hero",
       "to": "Ser Aldric",
       "emotion": "neutral",
-      "text": "Teach me.",
+      "text": "Will you teach me?",
       "file": "public/audio/voice/en/dlg.hero.train.ogg"
     },
     {
@@ -540,7 +540,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Then pay attention. I show a thing once.",
+      "text": "Good. Watch closely, I'll only show you once.",
       "file": "public/audio/voice/en/dlg.trainerAegis.train.1.ogg"
     },
     {
@@ -550,7 +550,7 @@
       "scene": "trainerAegis",
       "to": "Ser Aldric",
       "emotion": "neutral",
-      "text": "What is an Aegis Knight?",
+      "text": "What does an Aegis Knight actually do?",
       "file": "public/audio/voice/en/dlg.trainerAegis.class.say.ogg"
     },
     {
@@ -559,7 +559,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "A wall that walks. We take the blow so that nothing else must.",
+      "text": "We take the blows meant for others. It's simple, and it's hard.",
       "file": "public/audio/voice/en/dlg.trainerAegis.class.1.ogg"
     },
     {
@@ -568,7 +568,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Strength for the arm, Endurance for the rest. The light does what it can.",
+      "text": "You'll need Strength for the shield and Endurance to keep it up.",
       "file": "public/audio/voice/en/dlg.trainerAegis.class.2.ogg"
     },
     {
@@ -578,7 +578,7 @@
       "scene": "hero",
       "to": "Ser Aldric",
       "emotion": "neutral",
-      "text": "Am I ready for more?",
+      "text": "Do you think I'm ready for more?",
       "file": "public/audio/voice/en/dlg.hero.ready.ogg"
     },
     {
@@ -587,7 +587,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "You have the arm for most of what I know. Mind your Endurance and take the rest.",
+      "text": "You're strong enough for most of what I know. Keep at your Endurance.",
       "file": "public/audio/voice/en/dlg.trainerAegis.ready.strong.1.ogg"
     },
     {
@@ -596,7 +596,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "You are ready for the next lesson. Do not let it go to your head.",
+      "text": "You're ready for the next lesson. Don't let it go to your head.",
       "file": "public/audio/voice/en/dlg.trainerAegis.ready.able.1.ogg"
     },
     {
@@ -605,7 +605,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Not yet. Your arm is weak and you tire fast. More Strength, more Endurance.",
+      "text": "Not yet. You'd tire before the shield did. More Strength, more Endurance.",
       "file": "public/audio/voice/en/dlg.trainerAegis.ready.weak.1.ogg"
     },
     {
@@ -624,7 +624,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "We keep the roads and the law. Some say too much of both.",
+      "text": "We keep the roads safe and the law in hand. Some say too firmly.",
       "file": "public/audio/voice/en/dlg.trainerAegis.order.1.ogg"
     },
     {
@@ -633,7 +633,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Stand with the Order, and its armourers and its teachers remember you.",
+      "text": "Stand with us, and our armourers and teachers will remember you.",
       "file": "public/audio/voice/en/dlg.trainerAegis.order.2.ogg"
     },
     {
@@ -642,7 +642,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Practise it until it bores you. Then practise more.",
+      "text": "Practise until it's boring. Then keep going.",
       "file": "public/audio/voice/en/dlg.trainerAegis.trainBack.1.ogg"
     },
     {
@@ -651,7 +651,7 @@
       "who": "Ser Aldric",
       "scene": "trainerAegis",
       "emotion": "grave",
-      "text": "Go with the light.",
+      "text": "Go carefully.",
       "file": "public/audio/voice/en/dlg.trainerAegis.bye.1.ogg"
     },
     {
@@ -660,7 +660,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Oh! A student? Stand back a little. A little more.",
+      "text": "Oh, a student? Lovely. Maybe stand back a little.",
       "file": "public/audio/voice/en/dlg.trainerPyro.hello.1.ogg"
     },
     {
@@ -669,7 +669,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Ember Wren, pyromancer. The eyebrows grow back, mostly.",
+      "text": "I'm Ember Wren. I teach fire. Mostly it does what I ask.",
       "file": "public/audio/voice/en/dlg.trainerPyro.hello.2.ogg"
     },
     {
@@ -678,7 +678,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "You gave the core to the Circle! Do you know how many things we can set on fire now?",
+      "text": "You gave the core to the Circle! I can't wait to see what we learn from it.",
       "file": "public/audio/voice/en/dlg.trainerPyro.core.1.ogg"
     },
     {
@@ -687,7 +687,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "warm",
-      "text": "The Circle of Aether likes you! That means a discount. And fewer forms to sign.",
+      "text": "The Circle speaks highly of you. That means a discount, by the way.",
       "file": "public/audio/voice/en/dlg.trainerPyro.friend.1.ogg"
     },
     {
@@ -696,7 +696,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "cold",
-      "text": "The Circle wants you turned to ash. Awkward! I will still teach you. Fire is not picky.",
+      "text": "The Circle isn't happy with you. I'll still teach you, though. Quietly.",
       "file": "public/audio/voice/en/dlg.trainerPyro.foe.1.ogg"
     },
     {
@@ -705,7 +705,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "You are back! And nothing is burning. We can fix that.",
+      "text": "You're back! Ready to light something?",
       "file": "public/audio/voice/en/dlg.trainerPyro.again.1.ogg"
     },
     {
@@ -714,7 +714,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Yes! Watch closely. Not that closely.",
+      "text": "Right. Watch my hands, and keep your sleeves away from me.",
       "file": "public/audio/voice/en/dlg.trainerPyro.train.1.ogg"
     },
     {
@@ -724,7 +724,7 @@
       "scene": "trainerPyro",
       "to": "Ember Wren",
       "emotion": "neutral",
-      "text": "What does a Pyromancer do?",
+      "text": "What does a pyromancer do, exactly?",
       "file": "public/audio/voice/en/dlg.trainerPyro.class.say.ogg"
     },
     {
@@ -733,7 +733,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Fire answers every question. Burn them first, then blow up the ones that are burning.",
+      "text": "Set things alight, mostly. Then make the fire spread where you want it.",
       "file": "public/audio/voice/en/dlg.trainerPyro.class.1.ogg"
     },
     {
@@ -742,7 +742,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "It all runs on Intelligence. And a steady supply of robes.",
+      "text": "It all comes from Intelligence. The sharper the mind, the hotter the flame.",
       "file": "public/audio/voice/en/dlg.trainerPyro.class.2.ogg"
     },
     {
@@ -751,7 +751,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "You could melt a golem! Take everything I have. Mind your Skill for the tricky ones.",
+      "text": "Honestly? You could teach some of this. Take whatever you like.",
       "file": "public/audio/voice/en/dlg.trainerPyro.ready.strong.1.ogg"
     },
     {
@@ -760,7 +760,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Your mind is warm enough for the next spell. Come on!",
+      "text": "You're ready for the next spell. Come on, I'll show you.",
       "file": "public/audio/voice/en/dlg.trainerPyro.ready.able.1.ogg"
     },
     {
@@ -769,7 +769,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Hmm. Not enough Intelligence yet. The fire would use you, not the other way round.",
+      "text": "Not yet, I'm afraid. You need more Intelligence, or the fire takes over.",
       "file": "public/audio/voice/en/dlg.trainerPyro.ready.weak.1.ogg"
     },
     {
@@ -788,7 +788,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Scholars. We study what the world is made of. Some of it explodes.",
+      "text": "Scholars. We study what the world's made of. Some of it explodes.",
       "file": "public/audio/voice/en/dlg.trainerPyro.circle.1.ogg"
     },
     {
@@ -797,7 +797,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Go and set something on fire! Something that deserves it.",
+      "text": "Go and practise. Somewhere that won't catch, please.",
       "file": "public/audio/voice/en/dlg.trainerPyro.trainBack.1.ogg"
     },
     {
@@ -806,7 +806,7 @@
       "who": "Ember Wren",
       "scene": "trainerPyro",
       "emotion": "excited",
-      "text": "Stay warm!",
+      "text": "Take care of yourself!",
       "file": "public/audio/voice/en/dlg.trainerPyro.bye.1.ogg"
     },
     {
@@ -816,7 +816,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "So you are the one from the road. Come closer, my eyes are not what they were.",
+      "text": "So you're the one from the road. Come here, let me look at you.",
       "file": "public/audio/voice/en/dlg.elderMara.hello.1.ogg"
     },
     {
@@ -826,7 +826,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "I am Mara. I have kept this town's ledger and its peace for forty years.",
+      "text": "I'm Mara. I've looked after this town for... oh, forty years now.",
       "file": "public/audio/voice/en/dlg.elderMara.hello.2.ogg"
     },
     {
@@ -836,7 +836,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "The Hollows are quiet. You did a hard thing, and Sunford sleeps because of it.",
+      "text": "The Hollows are quiet. It was a hard thing you did, but we sleep because of it.",
       "file": "public/audio/voice/en/dlg.elderMara.slain.1.ogg"
     },
     {
@@ -846,7 +846,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "amused",
-      "text": "Goblins selling trinkets in my square. You have a silver tongue, child. I hope it holds.",
+      "text": "Goblins selling things in my square. You talked them into that, didn't you?",
       "file": "public/audio/voice/en/dlg.elderMara.pact.1.ogg"
     },
     {
@@ -856,7 +856,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "sad",
-      "text": "You took his gold and left him his crown. I am too old to pretend I am not disappointed.",
+      "text": "You took his gold and left him his crown. I won't pretend I'm not disappointed.",
       "file": "public/audio/voice/en/dlg.elderMara.ransom.1.ogg"
     },
     {
@@ -866,7 +866,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Word came from Oakhaven. The gate held. I am glad one of ours was there.",
+      "text": "Word came from Oakhaven. The gate held. I'm glad you were there.",
       "file": "public/audio/voice/en/dlg.elderMara.saved.1.ogg"
     },
     {
@@ -876,7 +876,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "sad",
-      "text": "Oakhaven is burned, and they say you held the torch. Do not tell me. I would rather not know.",
+      "text": "Oakhaven burned, they say. I'd rather not hear how. Not today.",
       "file": "public/audio/voice/en/dlg.elderMara.fallen.1.ogg"
     },
     {
@@ -886,7 +886,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "proud",
-      "text": "They say you decided who sits in the Dread Fortress. From Sunford's road to that. Imagine.",
+      "text": "They say you decided the fate of the Dread Fortress. From our little road to that.",
       "file": "public/audio/voice/en/dlg.elderMara.ending.1.ogg"
     },
     {
@@ -896,7 +896,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Sit a moment. The road will wait.",
+      "text": "Sit for a moment. The road will still be there.",
       "file": "public/audio/voice/en/dlg.elderMara.again.1.ogg"
     },
     {
@@ -906,7 +906,7 @@
       "scene": "elderMara",
       "to": "Elder Mara",
       "emotion": "neutral",
-      "text": "You wanted to see me?",
+      "text": "Someone said you wanted to see me?",
       "file": "public/audio/voice/en/dlg.elderMara.reward.say.ogg"
     },
     {
@@ -916,7 +916,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "You held the road when our militia could not. The town took up a collection.",
+      "text": "You held the road when our militia couldn't. The town put a little together.",
       "file": "public/audio/voice/en/dlg.elderMara.reward.1.ogg"
     },
     {
@@ -926,7 +926,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "It is not much. It is every coin we could spare.",
+      "text": "It isn't much. It's what we could spare.",
       "file": "public/audio/voice/en/dlg.elderMara.reward.2.ogg"
     },
     {
@@ -936,7 +936,7 @@
       "scene": "elderMara",
       "to": "Elder Mara",
       "emotion": "neutral",
-      "text": "What is troubling Sunford?",
+      "text": "What's troubling Sunford?",
       "file": "public/audio/voice/en/dlg.elderMara.quest.say.ogg"
     },
     {
@@ -946,7 +946,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "grave",
-      "text": "The raids come from the Goblin Hollows. The goblins have crowned a king.",
+      "text": "The raids come from the Goblin Hollows. They've crowned themselves a king.",
       "file": "public/audio/voice/en/dlg.elderMara.quest.1.ogg"
     },
     {
@@ -956,7 +956,7 @@
       "scene": "elderMara",
       "to": "Elder Mara",
       "emotion": "neutral",
-      "text": "And you want him dead.",
+      "text": "And you want him dead?",
       "file": "public/audio/voice/en/dlg.elderMara.quest.2.ogg"
     },
     {
@@ -966,7 +966,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "grave",
-      "text": "I want the raids to end. How is for you to decide, at the bottom of those caves.",
+      "text": "I want the raids to stop. How... well, that's for you to decide, down there.",
       "file": "public/audio/voice/en/dlg.elderMara.quest.3.ogg"
     },
     {
@@ -976,7 +976,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "grave",
-      "text": "The Hollows lie just beyond the plains. Go carefully.",
+      "text": "The Hollows are just past the plains. Please, be careful.",
       "file": "public/audio/voice/en/dlg.elderMara.quest.4.ogg"
     },
     {
@@ -986,7 +986,7 @@
       "scene": "elderMara",
       "to": "Elder Mara",
       "emotion": "neutral",
-      "text": "About the Goblin King…",
+      "text": "About the Goblin King...",
       "file": "public/audio/voice/en/dlg.elderMara.king.say.ogg"
     },
     {
@@ -996,7 +996,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "grave",
-      "text": "A king is dead and my caravans run on time. I will not ask how it felt.",
+      "text": "He's gone, and the caravans run again. I won't ask how it felt.",
       "file": "public/audio/voice/en/dlg.elderMara.king.slay.1.ogg"
     },
     {
@@ -1006,7 +1006,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "amused",
-      "text": "A pact! My mother would have fainted. Still, trade is better than funerals.",
+      "text": "A trade pact. My mother would have fainted. Still, trade beats funerals.",
       "file": "public/audio/voice/en/dlg.elderMara.king.pact.1.ogg"
     },
     {
@@ -1016,7 +1016,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "weary",
-      "text": "Gold spends fast. Grudges do not. Remember that when the raids return.",
+      "text": "Gold runs out quickly. Grudges don't. Remember that when the raids start.",
       "file": "public/audio/voice/en/dlg.elderMara.king.ransom.1.ogg"
     },
     {
@@ -1036,7 +1036,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Farmers, mostly. A smith, a healer, and two teachers who put up with us.",
+      "text": "Farmers, mostly. A smith, a healer, two teachers who put up with us.",
       "file": "public/audio/voice/en/dlg.elderMara.town.1.ogg"
     },
     {
@@ -1046,7 +1046,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Rest here, spend your points, and go back out stronger. That is what a home is for.",
+      "text": "Rest here between journeys. That's what home is for.",
       "file": "public/audio/voice/en/dlg.elderMara.town.2.ogg"
     },
     {
@@ -1066,7 +1066,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "The plains road, before anything else. We cannot eat if the caravans cannot pass.",
+      "text": "The plains road, first. Without the caravans, we don't eat.",
       "file": "public/audio/voice/en/dlg.elderMara.next.plains.1.ogg"
     },
     {
@@ -1076,7 +1076,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "The Goblin Hollows first. Nothing else is safe while the raids go on.",
+      "text": "The Goblin Hollows. Nothing else is safe while the raids go on.",
       "file": "public/audio/voice/en/dlg.elderMara.next.hollows.1.ogg"
     },
     {
@@ -1086,7 +1086,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "East, through the Whispering Woods. The road to Oakhaven runs under those trees.",
+      "text": "East, through the Whispering Woods. That's the road to Oakhaven.",
       "file": "public/audio/voice/en/dlg.elderMara.next.woods.1.ogg"
     },
     {
@@ -1096,7 +1096,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Oakhaven is under siege. If its outskirts fall, the town falls.",
+      "text": "Oakhaven is under siege. If the outskirts fall, the town goes with them.",
       "file": "public/audio/voice/en/dlg.elderMara.next.oakhaven.1.ogg"
     },
     {
@@ -1106,7 +1106,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "North, child. The Ashen Crags, and Ironhold beyond. The trouble grows the further you go.",
+      "text": "North, I think. The Ashen Crags, and Ironhold beyond. It only gets harder.",
       "file": "public/audio/voice/en/dlg.elderMara.next.north.1.ogg"
     },
     {
@@ -1116,7 +1116,7 @@
       "look": "elder",
       "scene": "elderMara",
       "emotion": "warm",
-      "text": "Come back alive. That is all I ask of anyone.",
+      "text": "Come back to us in one piece. That's all I ask.",
       "file": "public/audio/voice/en/dlg.elderMara.bye.1.ogg"
     },
     {
@@ -1126,7 +1126,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Hold still. No, you are fine. Force of habit.",
+      "text": "Hold still a moment. No, you're fine. Habit, sorry.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.hello.1.ogg"
     },
     {
@@ -1136,7 +1136,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Sister Lune. I mend what the road breaks.",
+      "text": "I'm Sister Lune. I patch up whatever the road breaks.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.hello.2.ogg"
     },
     {
@@ -1146,7 +1146,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "amused",
-      "text": "Still in one piece? I am almost disappointed.",
+      "text": "Still in one piece? Good. Sit down anyway.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.again.1.ogg"
     },
     {
@@ -1156,7 +1156,7 @@
       "scene": "hero",
       "to": "Sister Lune",
       "emotion": "neutral",
-      "text": "Patch me up.",
+      "text": "Could you patch me up?",
       "file": "public/audio/voice/en/dlg.hero.heal.ogg"
     },
     {
@@ -1166,7 +1166,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Sit. Rest. You leave here whole, with every flask filled.",
+      "text": "Sit, rest a while. I'll fill your flasks before you go.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.heal.1.ogg"
     },
     {
@@ -1176,7 +1176,7 @@
       "scene": "hero",
       "to": "Sister Lune",
       "emotion": "neutral",
-      "text": "I need something for my mana.",
+      "text": "Do you have anything for mana?",
       "file": "public/audio/voice/en/dlg.hero.mana.ogg"
     },
     {
@@ -1186,7 +1186,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Blue flask, bitter taste. Sip it when your spells run dry.",
+      "text": "This one's bitter. Drink it when your spells run dry.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.mana.1.ogg"
     },
     {
@@ -1206,7 +1206,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "You carry a few flasks into every zone. Drink before you need one, not after.",
+      "text": "You take a few flasks into every fight. Drink before you need to, not after.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.potions.1.ogg"
     },
     {
@@ -1216,7 +1216,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "If you want to carry more, I can sell you a longer belt.",
+      "text": "If you want to carry more, I can sell you a bigger belt.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.potions.2.ogg"
     },
     {
@@ -1226,7 +1226,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "The goblins poison their sling stones. If you turn green, come straight back.",
+      "text": "The goblins coat their sling stones in something. If you feel sick, come back.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.rumor.goblins.1.ogg"
     },
     {
@@ -1236,7 +1236,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Spider bites from the Woods. Three this week. Do try not to get bitten.",
+      "text": "I've treated three spider bites from the Woods this week. Watch your step there.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.rumor.spiders.1.ogg"
     },
     {
@@ -1246,7 +1246,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Soldiers come down from the north with burns. The Ashen Crags, they say. Fire that walks.",
+      "text": "Soldiers keep coming down from the north with burns. The Ashen Crags, they say.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.rumor.burns.1.ogg"
     },
     {
@@ -1256,7 +1256,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "warm",
-      "text": "Keep the belt full and your head down.",
+      "text": "Keep your belt full and your head down.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.healBack.1.ogg"
     },
     {
@@ -1266,7 +1266,7 @@
       "look": "healer",
       "scene": "sunfordHealer",
       "emotion": "amused",
-      "text": "Try not to bleed on anything important.",
+      "text": "Look after yourself out there.",
       "file": "public/audio/voice/en/dlg.sunfordHealer.bye.1.ogg"
     },
     {
@@ -1275,7 +1275,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "Tall one! Tall one made the pact. King say be nice to tall one.",
+      "text": "You are the one who made the pact. My king says you are welcome here.",
       "file": "public/audio/voice/en/dlg.goblinTrader.hello.1.ogg"
     },
     {
@@ -1284,7 +1284,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "Grik is nice. Grik has shinies. Tall one has gold. Is good match.",
+      "text": "I am Grik. I sell what goblins make. Good work, fair price.",
       "file": "public/audio/voice/en/dlg.goblinTrader.hello.2.ogg"
     },
     {
@@ -1293,7 +1293,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "Tall one comes back! Grik knew. Shinies call to tall one.",
+      "text": "Friend. Good to see you again.",
       "file": "public/audio/voice/en/dlg.goblinTrader.again.1.ogg"
     },
     {
@@ -1302,7 +1302,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "King say trade, so Grik trade. Shiny for shiny. Good shiny.",
+      "text": "Look, please. My family made these.",
       "file": "public/audio/voice/en/dlg.goblinTrader.trade.1.ogg"
     },
     {
@@ -1321,7 +1321,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "King is fat and happy. No more raiding. Raiding is hard work.",
+      "text": "He eats well now. No more raids. My people are less hungry.",
       "file": "public/audio/voice/en/dlg.goblinTrader.king.1.ogg"
     },
     {
@@ -1330,7 +1330,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "King says tall one has good tongue. Is highest goblin praise. Almost.",
+      "text": "He speaks of you often. With respect.",
       "file": "public/audio/voice/en/dlg.goblinTrader.king.2.ogg"
     },
     {
@@ -1349,7 +1349,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "amused",
-      "text": "Humans wash too much. But pies! Grik did not know about pies.",
+      "text": "People still stare. But the baker gives me pie. I like the pie.",
       "file": "public/audio/voice/en/dlg.goblinTrader.town.1.ogg"
     },
     {
@@ -1358,7 +1358,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "afraid",
-      "text": "Grik's cousins dig north, in black rock. They say fire walks there. Grik stays here.",
+      "text": "My cousins dig in the black rock to the north. They say fire walks there now.",
       "file": "public/audio/voice/en/dlg.goblinTrader.rumor.crags.1.ogg"
     },
     {
@@ -1367,7 +1367,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "grave",
-      "text": "Deep places are waking up, tall one. Goblins feel it in the feet.",
+      "text": "Something is waking in the deep places. Goblins feel it in the ground.",
       "file": "public/audio/voice/en/dlg.goblinTrader.rumor.deep.1.ogg"
     },
     {
@@ -1376,7 +1376,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "Good trade! Tall one comes again, yes?",
+      "text": "Thank you. Come again.",
       "file": "public/audio/voice/en/dlg.goblinTrader.shopBack.1.ogg"
     },
     {
@@ -1385,7 +1385,7 @@
       "who": "Grik the Trader",
       "scene": "goblinTrader",
       "emotion": "excited",
-      "text": "Bye, tall one! Do not die. Dead ones buy nothing.",
+      "text": "Go safely, friend.",
       "file": "public/audio/voice/en/dlg.goblinTrader.bye.1.ogg"
     },
     {
@@ -1395,7 +1395,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "Another sword. Good. I stopped asking where they come from.",
+      "text": "Another sword. Good. We need every one we can get.",
       "file": "public/audio/voice/en/dlg.captainHale.hello.1.ogg"
     },
     {
@@ -1405,7 +1405,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "Captain Hale. I command what is left of Oakhaven's watch.",
+      "text": "Captain Hale. I command what's left of Oakhaven's watch.",
       "file": "public/audio/voice/en/dlg.captainHale.hello.2.ogg"
     },
     {
@@ -1415,7 +1415,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "proud",
-      "text": "The gate held. Three hundred years, and now one more. I owe you my town.",
+      "text": "The gate held. Three hundred years, and one more. I owe you for that.",
       "file": "public/audio/voice/en/dlg.captainHale.saved.1.ogg"
     },
     {
@@ -1425,7 +1425,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "grave",
-      "text": "You settled the throne of the Dread Fortress. My walls feel smaller than they did.",
+      "text": "You decided the Dread Fortress, they say. My walls feel small next to that.",
       "file": "public/audio/voice/en/dlg.captainHale.ending.1.ogg"
     },
     {
@@ -1435,7 +1435,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "The walls still stand. For today.",
+      "text": "Walls are still standing. For today, anyway.",
       "file": "public/audio/voice/en/dlg.captainHale.again.1.ogg"
     },
     {
@@ -1445,7 +1445,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "warm",
-      "text": "Oakhaven remembers, friend. So do I.",
+      "text": "Good to see you. Oakhaven hasn't forgotten.",
       "file": "public/audio/voice/en/dlg.captainHale.after.1.ogg"
     },
     {
@@ -1455,7 +1455,7 @@
       "scene": "captainHale",
       "to": "Captain Hale",
       "emotion": "neutral",
-      "text": "What is the situation?",
+      "text": "How bad is it?",
       "file": "public/audio/voice/en/dlg.captainHale.quest.say.ogg"
     },
     {
@@ -1465,7 +1465,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "grave",
-      "text": "A warlord's army has us surrounded. Krag. He does not fight for free.",
+      "text": "Bad. A warlord called Krag has us surrounded, and he doesn't fight for free.",
       "file": "public/audio/voice/en/dlg.captainHale.quest.1.ogg"
     },
     {
@@ -1475,7 +1475,7 @@
       "scene": "captainHale",
       "to": "Captain Hale",
       "emotion": "neutral",
-      "text": "Who pays him?",
+      "text": "Who's paying him?",
       "file": "public/audio/voice/en/dlg.captainHale.quest.2.ogg"
     },
     {
@@ -1495,7 +1495,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "grave",
-      "text": "Break him at the Oakhaven Outskirts. That is where it will be decided.",
+      "text": "Break his camp on the Oakhaven Outskirts. That's where this ends, one way or another.",
       "file": "public/audio/voice/en/dlg.captainHale.quest.4.ogg"
     },
     {
@@ -1505,7 +1505,7 @@
       "scene": "captainHale",
       "to": "Captain Hale",
       "emotion": "neutral",
-      "text": "About the siege…",
+      "text": "About the siege...",
       "file": "public/audio/voice/en/dlg.captainHale.siege.say.ogg"
     },
     {
@@ -1515,7 +1515,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "They offered you a third of the town. I know. They offered me a quarter.",
+      "text": "They offered you a third of the town, didn't they? They offered me a quarter.",
       "file": "public/audio/voice/en/dlg.captainHale.siege.1.ogg"
     },
     {
@@ -1525,7 +1525,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "The Syndicate hunts you now, on every road. Watch your back out there.",
+      "text": "The Syndicate will be after you now. Watch your back on the roads.",
       "file": "public/audio/voice/en/dlg.captainHale.siege.2.ogg"
     },
     {
@@ -1545,7 +1545,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "A trade town. Everything that moves between the plains and the mountains pays a toll here.",
+      "text": "A trade town. Anything going between the plains and the mountains pays a toll here.",
       "file": "public/audio/voice/en/dlg.captainHale.town.1.ogg"
     },
     {
@@ -1555,7 +1555,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "That is why everyone wants it. That is why I will not give it up.",
+      "text": "That's why everyone wants it. And why I won't give it up.",
       "file": "public/audio/voice/en/dlg.captainHale.town.2.ogg"
     },
     {
@@ -1565,7 +1565,7 @@
       "scene": "captainHale",
       "to": "Captain Hale",
       "emotion": "neutral",
-      "text": "Do you serve the Iron Order?",
+      "text": "Do you answer to the Iron Order?",
       "file": "public/audio/voice/en/dlg.captainHale.order.say.ogg"
     },
     {
@@ -1575,7 +1575,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "I serve Oakhaven. The Order and I agree, most days. It is not the same thing.",
+      "text": "I answer to Oakhaven. The Order and I agree most days. Not every day.",
       "file": "public/audio/voice/en/dlg.captainHale.order.1.ogg"
     },
     {
@@ -1585,7 +1585,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "North of the woods the ground is black and burning. The Ashen Crags. Cultists feed the fires.",
+      "text": "North of the woods the ground's black and burning. The Ashen Crags. Cultists, mostly.",
       "file": "public/audio/voice/en/dlg.captainHale.rumor.crags.1.ogg"
     },
     {
@@ -1595,7 +1595,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "Ironhold has stopped sending steel. Something is wrong in its mines.",
+      "text": "Ironhold's stopped sending steel. Something's wrong in their mines.",
       "file": "public/audio/voice/en/dlg.captainHale.rumor.mines.1.ogg"
     },
     {
@@ -1605,7 +1605,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "grave",
-      "text": "The far north has gone quiet. In my experience, quiet is worse.",
+      "text": "The far north's gone quiet. In my experience, that's never good.",
       "file": "public/audio/voice/en/dlg.captainHale.rumor.north.1.ogg"
     },
     {
@@ -1615,7 +1615,7 @@
       "look": "captain",
       "scene": "captainHale",
       "emotion": "weary",
-      "text": "Keep your sword loose.",
+      "text": "Keep your sword close.",
       "file": "public/audio/voice/en/dlg.captainHale.bye.1.ogg"
     },
     {
@@ -1625,7 +1625,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "If you want a helmet, you are late. They are all on the wall.",
+      "text": "If you're after a helmet, I'm sorry. They're all up on the wall.",
       "file": "public/audio/voice/en/dlg.oakArmorer.hello.1.ogg"
     },
     {
@@ -1635,7 +1635,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Odo. Armourer. Tired.",
+      "text": "Odo. I make armour. Haven't slept much lately.",
       "file": "public/audio/voice/en/dlg.oakArmorer.hello.2.ogg"
     },
     {
@@ -1645,7 +1645,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Still here. Still short of stock.",
+      "text": "Still here. Still short of nearly everything.",
       "file": "public/audio/voice/en/dlg.oakArmorer.again.1.ogg"
     },
     {
@@ -1655,7 +1655,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Half my stock went up on the walls. Take what is left.",
+      "text": "Half my stock went to the wall. Take what's left, if it fits.",
       "file": "public/audio/voice/en/dlg.oakArmorer.trade.1.ogg"
     },
     {
@@ -1665,7 +1665,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Twenty years I have armoured this town. I never thought to see all of it worn at once.",
+      "text": "I've armoured this town for twenty years. Never seen all of it worn at once.",
       "file": "public/audio/voice/en/dlg.oakArmorer.who.1.ogg"
     },
     {
@@ -1675,7 +1675,7 @@
       "scene": "oakArmorer",
       "to": "Odo the Armorer",
       "emotion": "neutral",
-      "text": "What armour should I wear?",
+      "text": "What sort of armour should I wear?",
       "file": "public/audio/voice/en/dlg.oakArmorer.armor.say.ogg"
     },
     {
@@ -1685,7 +1685,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Plate if you stand still. Leather if you do not. Robes if you enjoy dying.",
+      "text": "Plate, if you stand your ground. Leather, if you keep moving. Robes, if you're quick.",
       "file": "public/audio/voice/en/dlg.oakArmorer.armor.1.ogg"
     },
     {
@@ -1695,7 +1695,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "If the siege breaks, I open the back room. The good plate. Break it for me, will you?",
+      "text": "If the siege breaks, I'll open the back room. The good plate's in there.",
       "file": "public/audio/voice/en/dlg.oakArmorer.rumor.backRoom.1.ogg"
     },
     {
@@ -1705,7 +1705,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "It will hold. Probably.",
+      "text": "It'll hold. It's held so far.",
       "file": "public/audio/voice/en/dlg.oakArmorer.shopBack.1.ogg"
     },
     {
@@ -1715,7 +1715,7 @@
       "look": "smith",
       "scene": "oakArmorer",
       "emotion": "weary",
-      "text": "Keep your head down.",
+      "text": "Keep your head down out there.",
       "file": "public/audio/voice/en/dlg.oakArmorer.bye.1.ogg"
     },
     {
@@ -1725,7 +1725,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "excited",
-      "text": "You! Get in here. The back room is open, and it is open for YOU.",
+      "text": "There you are! Come in. The back room's open, and it's open for you.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.hello.1.ogg"
     },
     {
@@ -1735,7 +1735,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "excited",
-      "text": "Master Odo, they call me now. Business is good when a town is alive.",
+      "text": "Master Odo, they call me now. Funny what a little peace does for business.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.hello.2.ogg"
     },
     {
@@ -1745,7 +1745,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "proud",
-      "text": "From my gate to the Dread Fortress. I tell everyone I fitted your armour.",
+      "text": "From our gate to the Dread Fortress. I tell everyone I fitted your armour.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.ending.1.ogg"
     },
     {
@@ -1755,7 +1755,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "The hero of the gate. What will it be today?",
+      "text": "Good to see you. What'll it be today?",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.again.1.ogg"
     },
     {
@@ -1765,7 +1765,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "You saved this town. The good plate comes out of the back room for you.",
+      "text": "The good plate's out. You've more than earned a look at it.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.trade.1.ogg"
     },
     {
@@ -1775,7 +1775,7 @@
       "scene": "oakMasterArmorer",
       "to": "Master Odo",
       "emotion": "neutral",
-      "text": "How is the town?",
+      "text": "How's the town doing?",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.town.say.ogg"
     },
     {
@@ -1785,7 +1785,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "amused",
-      "text": "Rich. Loud. Full of merchants who complain about the toll.",
+      "text": "Busy. Loud. Full of merchants grumbling about the toll.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.town.1.ogg"
     },
     {
@@ -1795,7 +1795,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "amused",
-      "text": "It is wonderful. I have not slept in a week.",
+      "text": "It's wonderful. I haven't had a quiet hour in weeks.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.town.2.ogg"
     },
     {
@@ -1805,7 +1805,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "My steel comes from Ironhold, and Ironhold has gone silent. Someone should look at its mines.",
+      "text": "My steel comes from Ironhold, and they've gone quiet. Someone should check their mines.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.rumor.mines.1.ogg"
     },
     {
@@ -1815,7 +1815,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "The best ore I ever saw came out of the tundra. The men who brought it never went back.",
+      "text": "Best ore I ever worked came out of the tundra. The men who found it didn't go back.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.rumor.tundra.1.ogg"
     },
     {
@@ -1825,7 +1825,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "If it does not fit, come back. I will make it fit.",
+      "text": "If it doesn't sit right, bring it back. I'll fix it.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.shopBack.1.ogg"
     },
     {
@@ -1835,7 +1835,7 @@
       "look": "smith",
       "scene": "oakMasterArmorer",
       "emotion": "warm",
-      "text": "Oakhaven's gate is always open to you. Just to you.",
+      "text": "You're always welcome here.",
       "file": "public/audio/voice/en/dlg.oakMasterArmorer.bye.1.ogg"
     },
     {
@@ -1845,7 +1845,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Buying or looking? Looking costs nothing. Touching costs a finger.",
+      "text": "Looking or buying? Either's fine. Just don't touch the edges.",
       "file": "public/audio/voice/en/dlg.oakWeapons.hello.1.ogg"
     },
     {
@@ -1855,7 +1855,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Senna. I sell edges. I do not ask what they are for.",
+      "text": "Senna. I sell blades. What you do with them is your business.",
       "file": "public/audio/voice/en/dlg.oakWeapons.hello.2.ogg"
     },
     {
@@ -1865,7 +1865,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "sly",
-      "text": "The siege broke. Shame. War is good for business. Peace is good for collecting debts.",
+      "text": "So the siege broke. Good for the town. War was better for my trade, mind.",
       "file": "public/audio/voice/en/dlg.oakWeapons.saved.1.ogg"
     },
     {
@@ -1885,7 +1885,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Sharp, balanced, and sold to whoever pays. Today that is you.",
+      "text": "Sharp, balanced, and fairly priced. Take your time.",
       "file": "public/audio/voice/en/dlg.oakWeapons.trade.1.ogg"
     },
     {
@@ -1895,7 +1895,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "I sold swords to both sides of three wars. I am still here. They mostly are not.",
+      "text": "I've sold to both sides of three wars. I'm still here. Most of them aren't.",
       "file": "public/audio/voice/en/dlg.oakWeapons.who.1.ogg"
     },
     {
@@ -1905,7 +1905,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "sly",
-      "text": "Krag's men carry good steel. Syndicate money. Take it off them if you can.",
+      "text": "Krag's men carry good steel. Syndicate money. Worth picking up, if you get the chance.",
       "file": "public/audio/voice/en/dlg.oakWeapons.rumor.krag.1.ogg"
     },
     {
@@ -1915,7 +1915,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Fast blades want Dexterity. Guns and bows want Skill. Know which you are before you pay me.",
+      "text": "Quick blades want Dexterity. Bows and guns want Skill. Know which you are.",
       "file": "public/audio/voice/en/dlg.oakWeapons.rumor.which.1.ogg"
     },
     {
@@ -1925,7 +1925,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Blood wipes off. Rust does not. Oil it.",
+      "text": "Keep it oiled. Rust ruins a good edge faster than bone.",
       "file": "public/audio/voice/en/dlg.oakWeapons.shopBack.1.ogg"
     },
     {
@@ -1935,7 +1935,7 @@
       "look": "peddler",
       "scene": "oakWeapons",
       "emotion": "cold",
-      "text": "Do not die owing me money.",
+      "text": "Try not to die owing me money.",
       "file": "public/audio/voice/en/dlg.oakWeapons.bye.1.ogg"
     },
     {
@@ -1944,7 +1944,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "Do not turn around. I am joking. Turn around.",
+      "text": "You didn't hear me come up behind you. Most people don't.",
       "file": "public/audio/voice/en/dlg.trainerShadow.hello.1.ogg"
     },
     {
@@ -1953,7 +1953,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "They call me the Whisper. I teach people to arrive unnoticed.",
+      "text": "They call me the Whisper. I teach people how not to be seen.",
       "file": "public/audio/voice/en/dlg.trainerShadow.hello.2.ogg"
     },
     {
@@ -1962,7 +1962,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "The town is quieter now. Fewer guards. I rather like it.",
+      "text": "Town's quieter now. Fewer guards. Easier work, for some of us.",
       "file": "public/audio/voice/en/dlg.trainerShadow.fallen.1.ogg"
     },
     {
@@ -1971,7 +1971,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "warm",
-      "text": "The Syndicate counts you a friend. Friends pay less. Friends also know too much.",
+      "text": "The Syndicate counts you as a friend. Friends pay less. Remember that.",
       "file": "public/audio/voice/en/dlg.trainerShadow.friend.1.ogg"
     },
     {
@@ -1980,7 +1980,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "cold",
-      "text": "The Syndicate wants you dead. I was paid to teach, not to kill. Lucky you.",
+      "text": "The Syndicate wants you dead. I was paid to teach, not to kill. So, lessons.",
       "file": "public/audio/voice/en/dlg.trainerShadow.foe.1.ogg"
     },
     {
@@ -1989,7 +1989,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "You are louder than last time. We will work on it.",
+      "text": "You're still too loud. We'll work on it.",
       "file": "public/audio/voice/en/dlg.trainerShadow.again.1.ogg"
     },
     {
@@ -2017,7 +2017,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "A knife that is already behind you. Step out of the dark, strike, and be gone.",
+      "text": "Someone who's already behind you. In, one cut, and gone.",
       "file": "public/audio/voice/en/dlg.trainerShadow.class.1.ogg"
     },
     {
@@ -2026,7 +2026,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "Dexterity above all. Skill, when you want the cut to count.",
+      "text": "Dexterity matters most. Skill, if you want the cut to count.",
       "file": "public/audio/voice/en/dlg.trainerShadow.class.2.ogg"
     },
     {
@@ -2035,7 +2035,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "You move well. Take what I know. Bring Skill for the smoke.",
+      "text": "You move well now. Take the rest. Bring some Skill for the smoke.",
       "file": "public/audio/voice/en/dlg.trainerShadow.ready.strong.1.ogg"
     },
     {
@@ -2044,7 +2044,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "Good. Your hands are quick enough for the next step.",
+      "text": "Your hands are quick enough. Next step.",
       "file": "public/audio/voice/en/dlg.trainerShadow.ready.able.1.ogg"
     },
     {
@@ -2053,7 +2053,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "You walk like a cart. More Dexterity. Then we talk.",
+      "text": "Not yet. You're heavy on your feet. Work on your Dexterity.",
       "file": "public/audio/voice/en/dlg.trainerShadow.ready.weak.1.ogg"
     },
     {
@@ -2072,7 +2072,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "sly",
-      "text": "People who noticed that laws are for sale. I do not judge. I invoice.",
+      "text": "People who noticed the law has a price. I don't judge. I just get paid.",
       "file": "public/audio/voice/en/dlg.trainerShadow.syndicate.1.ogg"
     },
     {
@@ -2081,7 +2081,7 @@
       "who": "The Whisper",
       "scene": "trainerShadow",
       "emotion": "whisper",
-      "text": "Now go and do it where nobody sees.",
+      "text": "Now practise where nobody can see you.",
       "file": "public/audio/voice/en/dlg.trainerShadow.trainBack.1.ogg"
     },
     {
@@ -2099,7 +2099,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "You may approach. Not that close.",
+      "text": "You may come closer. That's close enough.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.hello.1.ogg"
     },
     {
@@ -2108,7 +2108,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Lord Castellan, of the old blood of Oakhaven. I teach command.",
+      "text": "Lord Castellan, of Oakhaven's oldest family. I teach command.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.hello.2.ogg"
     },
     {
@@ -2117,7 +2117,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "warm",
-      "text": "My town stands, and my family's name with it. You have a lord's gratitude. It is worth a great deal.",
+      "text": "My town stands, and my family's name with it. You have my thanks. Truly.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.saved.1.ogg"
     },
     {
@@ -2126,7 +2126,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "warm",
-      "text": "A friend of the Order. I shall reduce my fee. Do not mention it to anyone.",
+      "text": "A friend of the Order. I'll lower my fee. Please don't spread that around.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.friend.1.ogg"
     },
     {
@@ -2135,7 +2135,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "cold",
-      "text": "The Order has posted your name. I shall teach you anyway. Coin is coin, alas.",
+      "text": "The Order has your name on a list. I'll teach you anyway. Coin is coin.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.foe.1.ogg"
     },
     {
@@ -2144,7 +2144,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Ah. My most promising subject.",
+      "text": "Ah, you again. Shall we continue?",
       "file": "public/audio/voice/en/dlg.trainerSovereign.again.1.ogg"
     },
     {
@@ -2153,7 +2153,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Very well. Observe how one gives an order.",
+      "text": "Very well. Watch how an order is given, and how it's followed.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.train.1.ogg"
     },
     {
@@ -2172,7 +2172,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Why fight alone when others can do it for you? Summon guards. Command them.",
+      "text": "Someone who doesn't fight alone. You call guards, and they fight for you.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.class.1.ogg"
     },
     {
@@ -2181,7 +2181,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "It takes Charisma. One cannot lead by mumbling.",
+      "text": "It takes Charisma. Nobody follows a leader they can't hear.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.class.2.ogg"
     },
     {
@@ -2190,7 +2190,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "You have presence. Take the rest of my lessons, and do stand up straight.",
+      "text": "You have real presence now. Take the rest of my lessons.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.ready.strong.1.ogg"
     },
     {
@@ -2199,7 +2199,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Your voice carries. You are ready for the next lesson.",
+      "text": "Your voice carries. You're ready for the next lesson.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.ready.able.1.ogg"
     },
     {
@@ -2208,7 +2208,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Nobody would follow you to a bakery. More Charisma.",
+      "text": "I'm afraid no one would follow you yet. Work on your Charisma.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.ready.weak.1.ogg"
     },
     {
@@ -2227,7 +2227,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "We built the walls Captain Hale stands on. He forgets. I remind him. Often.",
+      "text": "We built the walls Captain Hale stands on. He forgets that. I remind him.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.family.1.ogg"
     },
     {
@@ -2236,7 +2236,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "Now go and be obeyed.",
+      "text": "Go on, then. Lead someone.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.trainBack.1.ogg"
     },
     {
@@ -2245,7 +2245,7 @@
       "who": "Lord Castellan",
       "scene": "trainerSovereign",
       "emotion": "proud",
-      "text": "You are dismissed.",
+      "text": "Good day to you.",
       "file": "public/audio/voice/en/dlg.trainerSovereign.bye.1.ogg"
     },
     {
@@ -2255,7 +2255,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Next! Oh. You can walk. That makes a nice change.",
+      "text": "Next! Oh, you're walking. That makes a nice change.",
       "file": "public/audio/voice/en/dlg.oakHealer.hello.1.ogg"
     },
     {
@@ -2265,7 +2265,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Brother Fenn. Forty wounded on the wall, and one of me.",
+      "text": "Brother Fenn. Forty wounded on the wall, and only one of me.",
       "file": "public/audio/voice/en/dlg.oakHealer.hello.2.ogg"
     },
     {
@@ -2275,7 +2275,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "No new wounded in three days! I do not know what to do with my hands.",
+      "text": "No new wounded in three days. I barely know what to do with myself.",
       "file": "public/audio/voice/en/dlg.oakHealer.saved.1.ogg"
     },
     {
@@ -2285,7 +2285,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "You again, and still walking. I approve.",
+      "text": "You again, and on your own two feet. Good.",
       "file": "public/audio/voice/en/dlg.oakHealer.again.1.ogg"
     },
     {
@@ -2295,7 +2295,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Lie down. No, the clean cot. There. Every flask filled. Off you go.",
+      "text": "Lie down here, the clean cot. There. Flasks filled, off you go.",
       "file": "public/audio/voice/en/dlg.oakHealer.heal.1.ogg"
     },
     {
@@ -2305,7 +2305,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "A mana draught! Tastes of pennies. Works, though.",
+      "text": "Mana draught. Tastes like old coins, but it works.",
       "file": "public/audio/voice/en/dlg.oakHealer.mana.1.ogg"
     },
     {
@@ -2325,7 +2325,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "A longer belt holds more flasks. I sell those. The flasks I fill for free.",
+      "text": "With a longer belt, yes. I sell those. Filling the flasks is free.",
       "file": "public/audio/voice/en/dlg.oakHealer.potions.1.ogg"
     },
     {
@@ -2335,7 +2335,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Krag's archers aim for the legs. Keep moving out there and they miss.",
+      "text": "Krag's archers aim low. Keep moving and they'll mostly miss.",
       "file": "public/audio/voice/en/dlg.oakHealer.rumor.archers.1.ogg"
     },
     {
@@ -2345,7 +2345,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Burns, frostbite, and one man who swears a statue bit him. The north is not kind.",
+      "text": "I'm seeing burns, frostbite, and one man who swears a statue bit him.",
       "file": "public/audio/voice/en/dlg.oakHealer.rumor.north.1.ogg"
     },
     {
@@ -2355,7 +2355,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Go on. Next time come for a chat, not a stitch.",
+      "text": "Off you go. Next time, come for a chat instead of stitches.",
       "file": "public/audio/voice/en/dlg.oakHealer.healBack.1.ogg"
     },
     {
@@ -2365,7 +2365,7 @@
       "look": "healer",
       "scene": "oakHealer",
       "emotion": "amused",
-      "text": "Walk it off! That is medical advice.",
+      "text": "Take care. And eat something.",
       "file": "public/audio/voice/en/dlg.oakHealer.bye.1.ogg"
     },
     {
@@ -2375,7 +2375,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "No names. You are the one who opened the gate, though. That one I know.",
+      "text": "No names here. But I know who opened the gate. Everyone does.",
       "file": "public/audio/voice/en/dlg.blackMarket.hello.1.ogg"
     },
     {
@@ -2385,7 +2385,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "Call me the Fence. Everything here fell off a cart.",
+      "text": "You can call me the Fence. Everything here came from somewhere.",
       "file": "public/audio/voice/en/dlg.blackMarket.hello.2.ogg"
     },
     {
@@ -2395,7 +2395,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "cold",
-      "text": "The Syndicate does not like you today. Your gold, it still likes.",
+      "text": "The Syndicate isn't fond of you right now. Your gold, though, is welcome.",
       "file": "public/audio/voice/en/dlg.blackMarket.foe.1.ogg"
     },
     {
@@ -2405,7 +2405,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "Ah. My best customer. Nobody followed you? Good.",
+      "text": "Back again. Nobody followed you, I hope?",
       "file": "public/audio/voice/en/dlg.blackMarket.again.1.ogg"
     },
     {
@@ -2415,7 +2415,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "No names, no questions. The Syndicate takes its cut, you take the goods.",
+      "text": "No questions either way. The Syndicate takes its cut, you take the goods.",
       "file": "public/audio/voice/en/dlg.blackMarket.trade.1.ogg"
     },
     {
@@ -2425,7 +2425,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "amused",
-      "text": "Before the fire I sold candles. Legally. It was dreadful.",
+      "text": "Before the fire I sold candles. Honest work. It didn't pay.",
       "file": "public/audio/voice/en/dlg.blackMarket.who.1.ogg"
     },
     {
@@ -2445,7 +2445,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "The armourers are gone, friend. Burned out. You would know.",
+      "text": "The armourers are gone, friend. You'd know why better than me.",
       "file": "public/audio/voice/en/dlg.blackMarket.armor.1.ogg"
     },
     {
@@ -2455,7 +2455,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "grave",
-      "text": "A fortress appeared in the far north last year. Nobody built it. Its walls hum.",
+      "text": "A fortress turned up in the far north last year. Nobody built it.",
       "file": "public/audio/voice/en/dlg.blackMarket.rumor.citadel.1.ogg"
     },
     {
@@ -2465,7 +2465,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "grave",
-      "text": "Somebody is buying every void crystal on the market. Not us. That worries me.",
+      "text": "Someone's buying every void crystal they can find. Not us. That worries me.",
       "file": "public/audio/voice/en/dlg.blackMarket.rumor.crystals.1.ogg"
     },
     {
@@ -2485,7 +2485,7 @@
       "look": "fence",
       "scene": "blackMarket",
       "emotion": "sly",
-      "text": "Mind the rubble.",
+      "text": "Watch your step. The rubble shifts.",
       "file": "public/audio/voice/en/dlg.blackMarket.bye.1.ogg"
     },
     {
@@ -2494,7 +2494,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "A visitor. Do mind the jars.",
+      "text": "A visitor. Please don't touch the jars.",
       "file": "public/audio/voice/en/dlg.trainerBlood.hello.1.ogg"
     },
     {
@@ -2503,7 +2503,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Doctor Sangrel. Oakhaven's new owners do not ask what I teach. Refreshing.",
+      "text": "Doctor Sangrel. Oakhaven's new owners don't ask what I teach. It's restful.",
       "file": "public/audio/voice/en/dlg.trainerBlood.hello.2.ogg"
     },
     {
@@ -2512,7 +2512,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "You found me. Few look for a doctor in a place like this.",
+      "text": "You found me. Not many come looking for a doctor in a place like this.",
       "file": "public/audio/voice/en/dlg.trainerBlood.found.1.ogg"
     },
     {
@@ -2521,7 +2521,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Doctor Sangrel. The towns burn my kind, so I work where there are none.",
+      "text": "Doctor Sangrel. Towns burn people like me, so I work where there aren't any.",
       "file": "public/audio/voice/en/dlg.trainerBlood.found.2.ogg"
     },
     {
@@ -2530,7 +2530,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "warm",
-      "text": "The Syndicate vouches for you. My fee is lower for its friends. My standards are not.",
+      "text": "The Syndicate speaks for you. I charge its friends less. My standards stay the same.",
       "file": "public/audio/voice/en/dlg.trainerBlood.friend.1.ogg"
     },
     {
@@ -2539,7 +2539,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "The Syndicate would pay me for your blood. I prefer you spend it on my lessons.",
+      "text": "The Syndicate would pay well for your blood. I'd rather you spent it here.",
       "file": "public/audio/voice/en/dlg.trainerBlood.foe.1.ogg"
     },
     {
@@ -2548,7 +2548,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "You are pale. Good. It suits the work.",
+      "text": "You look pale. Good. It suits the work.",
       "file": "public/audio/voice/en/dlg.trainerBlood.again.1.ogg"
     },
     {
@@ -2557,7 +2557,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Roll up your sleeve. This will hurt. That is the point.",
+      "text": "Roll up your sleeve. It will hurt. That's rather the point.",
       "file": "public/audio/voice/en/dlg.trainerBlood.train.1.ogg"
     },
     {
@@ -2576,7 +2576,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "You pay for power in your own health. Then you drink it back from the enemy.",
+      "text": "You pay for power with your own health, then take it back from your enemies.",
       "file": "public/audio/voice/en/dlg.trainerBlood.class.1.ogg"
     },
     {
@@ -2585,7 +2585,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Endurance is your purse. Intelligence decides how well you spend it.",
+      "text": "Endurance is what you have to spend. Intelligence is how well you spend it.",
       "file": "public/audio/voice/en/dlg.trainerBlood.class.2.ogg"
     },
     {
@@ -2603,7 +2603,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Your blood is strong enough for the next lesson.",
+      "text": "You're sturdy enough for the next lesson.",
       "file": "public/audio/voice/en/dlg.trainerBlood.ready.able.1.ogg"
     },
     {
@@ -2612,7 +2612,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "You would faint at the first cut. More Endurance, please.",
+      "text": "You'd faint at the first cut. Build your Endurance first, please.",
       "file": "public/audio/voice/en/dlg.trainerBlood.ready.weak.1.ogg"
     },
     {
@@ -2622,7 +2622,7 @@
       "scene": "trainerBlood",
       "to": "Doctor Sangrel",
       "emotion": "neutral",
-      "text": "What is in the jars?",
+      "text": "What's in the jars?",
       "file": "public/audio/voice/en/dlg.trainerBlood.jars.say.ogg"
     },
     {
@@ -2631,7 +2631,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "amused",
-      "text": "Volunteers. Mostly.",
+      "text": "Samples. Freely given, for the most part.",
       "file": "public/audio/voice/en/dlg.trainerBlood.jars.1.ogg"
     },
     {
@@ -2640,7 +2640,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Do keep notes. For science.",
+      "text": "Do keep notes. I'd like to hear how it goes.",
       "file": "public/audio/voice/en/dlg.trainerBlood.trainBack.1.ogg"
     },
     {
@@ -2649,7 +2649,7 @@
       "who": "Doctor Sangrel",
       "scene": "trainerBlood",
       "emotion": "cold",
-      "text": "Stay healthy. You are no use to me otherwise.",
+      "text": "Stay healthy. I mean that.",
       "file": "public/audio/voice/en/dlg.trainerBlood.bye.1.ogg"
     },
     {
@@ -2659,7 +2659,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "So. The one who opened the gate. Sit. You have earned a chair.",
+      "text": "So you're the one who opened the gate. Sit down. You've earned a chair.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.hello.1.ogg"
     },
     {
@@ -2669,7 +2669,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "They call me Madam Ash. Oakhaven is mine now. In part, yours.",
+      "text": "They call me Madam Ash. Oakhaven is ours now. Partly thanks to you.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.hello.2.ogg"
     },
     {
@@ -2679,7 +2679,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "proud",
-      "text": "The throne of the Dread Fortress. Ours. You are the best investment I ever made.",
+      "text": "The Dread Fortress, in our hands. You were worth every coin.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.throneOurs.1.ogg"
     },
     {
@@ -2689,7 +2689,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "cold",
-      "text": "You gave the throne away. To someone else. We will speak of that. Not today.",
+      "text": "You gave the throne to someone else. We'll talk about that. Not today.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.throneLost.1.ogg"
     },
     {
@@ -2699,7 +2699,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "cold",
-      "text": "You have been crossing us. Sit anyway. I like to look at a problem before I solve it.",
+      "text": "You've been working against us. Sit anyway. I like to know who I'm dealing with.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.foe.1.ogg"
     },
     {
@@ -2709,7 +2709,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "My favourite traitor. What can the Syndicate do for you?",
+      "text": "Back again. What can the Syndicate do for you?",
       "file": "public/audio/voice/en/dlg.syndicateBoss.again.1.ogg"
     },
     {
@@ -2719,7 +2719,7 @@
       "scene": "syndicateBoss",
       "to": "Madam Ash",
       "emotion": "neutral",
-      "text": "You promised me a third of Oakhaven.",
+      "text": "I was promised a share of Oakhaven.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.cut.say.ogg"
     },
     {
@@ -2729,7 +2729,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "A third of a ruin, darling. Here is this season's share.",
+      "text": "And you'll have it. A share of a ruin, for now. Here's this season's.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.cut.1.ogg"
     },
     {
@@ -2739,7 +2739,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "It will grow. A ruin is very profitable when you own its only market.",
+      "text": "It'll grow. A ruin pays very well when you own its only market.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.cut.2.ogg"
     },
     {
@@ -2749,7 +2749,7 @@
       "scene": "syndicateBoss",
       "to": "Madam Ash",
       "emotion": "neutral",
-      "text": "What does the Syndicate want?",
+      "text": "What does the Syndicate actually want?",
       "file": "public/audio/voice/en/dlg.syndicateBoss.syndicate.say.ogg"
     },
     {
@@ -2759,7 +2759,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "What everyone wants. We simply do not pretend otherwise.",
+      "text": "What everyone wants. We just don't pretend otherwise.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.syndicate.1.ogg"
     },
     {
@@ -2769,7 +2769,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "Stay our friend, and the Whisper and the Doctor charge you less. Loyalty has a price list.",
+      "text": "Stay friendly, and the Whisper and the Doctor will charge you less.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.syndicate.2.ogg"
     },
     {
@@ -2779,7 +2779,7 @@
       "scene": "syndicateBoss",
       "to": "Madam Ash",
       "emotion": "neutral",
-      "text": "The Iron Order is hunting me.",
+      "text": "The Iron Order is after me.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.order.say.ogg"
     },
     {
@@ -2789,7 +2789,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "amused",
-      "text": "Of course it is. You burned one of its towns. Carry more potions.",
+      "text": "Of course they are. You burned one of their towns. Carry extra potions.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.order.1.ogg"
     },
     {
@@ -2799,7 +2799,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "The dwarves found something in their mines. A core. I want it. Bring it to us and name a number.",
+      "text": "The dwarves found something in their mines. A core. Bring it to us and name your price.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.rumor.core.1.ogg"
     },
     {
@@ -2809,7 +2809,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "amused",
-      "text": "The core arrived safely. You should see what it does to a lock.",
+      "text": "The core arrived safely. You'd be amazed what it does to a lock.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.rumor.sold.1.ogg"
     },
     {
@@ -2819,7 +2819,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "Everything worth stealing has moved north. So have we.",
+      "text": "Everything worth having has moved north. So have we.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.rumor.north.1.ogg"
     },
     {
@@ -2829,7 +2829,7 @@
       "look": "fence",
       "scene": "syndicateBoss",
       "emotion": "sly",
-      "text": "Do not be a stranger. Strangers get followed.",
+      "text": "Don't be a stranger. We keep an eye on strangers.",
       "file": "public/audio/voice/en/dlg.syndicateBoss.bye.1.ogg"
     },
     {
@@ -2839,7 +2839,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "You came through the mines. I can smell the dust on you.",
+      "text": "You came up through the mines. I can smell the dust on you.",
       "file": "public/audio/voice/en/dlg.forgemaster.hello.1.ogg"
     },
     {
@@ -2849,7 +2849,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "Dorn. Forgemaster of Ironhold. I have a problem the size of a mountain.",
+      "text": "Dorn. Forgemaster of Ironhold. And I've got a problem the size of a mountain.",
       "file": "public/audio/voice/en/dlg.forgemaster.hello.2.ogg"
     },
     {
@@ -2859,7 +2859,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "warm",
-      "text": "The light is out and the golems are scrap. My miners sang last night. First time in a year.",
+      "text": "The light's out and the golems are scrap. My miners sang last night. First time in a year.",
       "file": "public/audio/voice/en/dlg.forgemaster.destroyed.1.ogg"
     },
     {
@@ -2869,7 +2869,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "Blue fire in my forges and robes in my halls. The work is good. I will get used to the robes.",
+      "text": "Blue fire in my forges and robed scholars in my halls. The work is good, at least.",
       "file": "public/audio/voice/en/dlg.forgemaster.studied.1.ogg"
     },
     {
@@ -2879,7 +2879,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "angry",
-      "text": "You sold it. The golems still walk and my mines are still a grave. Get out of my light.",
+      "text": "You sold it. The golems still walk, and my mines are still a grave. Leave me be.",
       "file": "public/audio/voice/en/dlg.forgemaster.sold.1.ogg"
     },
     {
@@ -2889,7 +2889,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "So the throne is settled. Good. Now the realm can go back to arguing about iron.",
+      "text": "So the throne's settled. Good. Maybe now we can get back to digging.",
       "file": "public/audio/voice/en/dlg.forgemaster.ending.1.ogg"
     },
     {
@@ -2899,7 +2899,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "Speak. The forge does not wait.",
+      "text": "What is it? The forge won't wait.",
       "file": "public/audio/voice/en/dlg.forgemaster.again.1.ogg"
     },
     {
@@ -2909,7 +2909,7 @@
       "scene": "forgemaster",
       "to": "Forgemaster Dorn",
       "emotion": "neutral",
-      "text": "What happened in the mines?",
+      "text": "What happened down in the mines?",
       "file": "public/audio/voice/en/dlg.forgemaster.quest.say.ogg"
     },
     {
@@ -2919,7 +2919,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "We dug for iron and struck a heart. An aether core. It beats, down there in the dark.",
+      "text": "We dug for iron and found a heart. An aether core. You can feel it beating.",
       "file": "public/audio/voice/en/dlg.forgemaster.quest.1.ogg"
     },
     {
@@ -2939,7 +2939,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "They walk to its rhythm. Three powers have written to me for it. All polite. I trust none.",
+      "text": "They move to its rhythm. Three powers have written asking for it. I trust none of them.",
       "file": "public/audio/voice/en/dlg.forgemaster.quest.3.ogg"
     },
     {
@@ -2949,7 +2949,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "You will reach it first, at the bottom of the Ironhold Mines. Then it is yours to settle.",
+      "text": "You'll reach it first, at the bottom of the Ironhold Mines. What happens then is up to you.",
       "file": "public/audio/voice/en/dlg.forgemaster.quest.4.ogg"
     },
     {
@@ -2959,7 +2959,7 @@
       "scene": "forgemaster",
       "to": "Forgemaster Dorn",
       "emotion": "neutral",
-      "text": "About the core…",
+      "text": "About the core...",
       "file": "public/audio/voice/en/dlg.forgemaster.core.say.ogg"
     },
     {
@@ -2969,7 +2969,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "warm",
-      "text": "You broke a wonder to save my people. The Order sent armourers in thanks. I sent ale.",
+      "text": "You broke a wonder to save my people. The Order sent armourers. I sent ale.",
       "file": "public/audio/voice/en/dlg.forgemaster.core.destroy.1.ogg"
     },
     {
@@ -2979,7 +2979,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "The Circle's tinkers are mad, but their guns shoot straight. A fair bargain.",
+      "text": "The Circle's people are odd, but their guns shoot straight. Fair enough.",
       "file": "public/audio/voice/en/dlg.forgemaster.core.study.1.ogg"
     },
     {
@@ -2989,7 +2989,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "angry",
-      "text": "Gold. You did it for gold. I hope it keeps you warm.",
+      "text": "You did it for gold. I hope it keeps you warm.",
       "file": "public/audio/voice/en/dlg.forgemaster.core.sell.1.ogg"
     },
     {
@@ -3009,7 +3009,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "The best steel in the realm, when the mines run.",
+      "text": "The best steel in the realm, when the mines are working.",
       "file": "public/audio/voice/en/dlg.forgemaster.town.1.ogg"
     },
     {
@@ -3029,7 +3029,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "East of the Crags the land goes white. Frostbite Tundra. Giants, and dead that do not stay down.",
+      "text": "East of the Crags the land turns white. Frostbite Tundra. Giants, and worse.",
       "file": "public/audio/voice/en/dlg.forgemaster.rumor.tundra.1.ogg"
     },
     {
@@ -3039,7 +3039,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "My scouts saw a fortress in the north that was not there last year. I do not like new mountains.",
+      "text": "My scouts saw a fortress up north that wasn't there last year. I don't like that.",
       "file": "public/audio/voice/en/dlg.forgemaster.rumor.citadel.1.ogg"
     },
     {
@@ -3049,7 +3049,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "grave",
-      "text": "The Dread Fortress is where this ends. Every road north leads to its gate.",
+      "text": "It all ends at the Dread Fortress. Every road north leads there.",
       "file": "public/audio/voice/en/dlg.forgemaster.rumor.fortress.1.ogg"
     },
     {
@@ -3059,7 +3059,7 @@
       "look": "dwarf",
       "scene": "forgemaster",
       "emotion": "gruff",
-      "text": "Strike true.",
+      "text": "Go well.",
       "file": "public/audio/voice/en/dlg.forgemaster.bye.1.ogg"
     },
     {
@@ -3069,7 +3069,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Hands off the display. Those are sharp at both ends.",
+      "text": "Careful with the display. Those are sharp on both edges.",
       "file": "public/audio/voice/en/dlg.ironWeapons.hello.1.ogg"
     },
     {
@@ -3079,7 +3079,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Hilda Hammerhand. Dwarf-forged, every piece.",
+      "text": "Hilda Hammerhand. Every piece here was forged by dwarven hands.",
       "file": "public/audio/voice/en/dlg.ironWeapons.hello.2.ogg"
     },
     {
@@ -3089,7 +3089,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "excited",
-      "text": "You killed the dragon? With one of MINE? No? Lie to me. Say it was one of mine.",
+      "text": "You killed the dragon? I hope it was with one of my blades.",
       "file": "public/audio/voice/en/dlg.ironWeapons.dragon.1.ogg"
     },
     {
@@ -3099,7 +3099,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Back for real steel?",
+      "text": "Back for proper steel?",
       "file": "public/audio/voice/en/dlg.ironWeapons.again.1.ogg"
     },
     {
@@ -3109,7 +3109,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Dwarf-forged. If it breaks, it was you.",
+      "text": "Dwarf-forged. If one of these breaks, I'll want to know how.",
       "file": "public/audio/voice/en/dlg.ironWeapons.trade.1.ogg"
     },
     {
@@ -3119,7 +3119,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "My mother forged for kings. I forge for whoever walks in. Times change.",
+      "text": "My mother forged for kings. I forge for whoever comes through the door.",
       "file": "public/audio/voice/en/dlg.ironWeapons.who.1.ogg"
     },
     {
@@ -3129,7 +3129,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "gruff",
-      "text": "The golems in the mines are made of our own iron. It is embarrassing, frankly.",
+      "text": "Those golems down there are made of our own iron. It stings, I'll tell you.",
       "file": "public/audio/voice/en/dlg.ironWeapons.rumor.golems.1.ogg"
     },
     {
@@ -3139,7 +3139,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "A blade does half the work. Your Strength does the rest. Do not blame the blade.",
+      "text": "A good blade does half the work. Your Strength has to do the rest.",
       "file": "public/audio/voice/en/dlg.ironWeapons.rumor.arm.1.ogg"
     },
     {
@@ -3149,7 +3149,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Bring it back dull and I will know you used it.",
+      "text": "Bring it back blunt and I'll know you've used it well.",
       "file": "public/audio/voice/en/dlg.ironWeapons.shopBack.1.ogg"
     },
     {
@@ -3159,7 +3159,7 @@
       "look": "dwarf",
       "scene": "ironWeapons",
       "emotion": "proud",
-      "text": "Hit them hard.",
+      "text": "Strike hard.",
       "file": "public/audio/voice/en/dlg.ironWeapons.bye.1.ogg"
     },
     {
@@ -3169,7 +3169,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Careful! That one is loaded. So is that one. Most of them, really.",
+      "text": "Careful, that one's loaded. Most of them are, actually.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.hello.1.ogg"
     },
     {
@@ -3179,7 +3179,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Tinker Voss. The Circle sent me to see what the core could teach us. Everything, it turns out.",
+      "text": "Tinker Voss. The Circle sent me to study the core. It's taught us so much.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.hello.2.ogg"
     },
     {
@@ -3189,7 +3189,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Oh good, a tester. I mean, a customer.",
+      "text": "Ah, good. I've made a few changes since you were here.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.again.1.ogg"
     },
     {
@@ -3199,7 +3199,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "The Circle's study of the core changed everything. Hold this. Do not point it at me.",
+      "text": "Everything here came out of studying the core. Just don't point it at me.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.trade.1.ogg"
     },
     {
@@ -3219,7 +3219,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "grave",
-      "text": "That iron can think, a little. I try not to dwell on it.",
+      "text": "That metal can think, a little. I try not to dwell on that.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.core.1.ogg"
     },
     {
@@ -3229,7 +3229,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Guns run on Skill, and they run hot. Ask Gearwright Pim about heat before you melt your hand.",
+      "text": "Guns run on Skill, and they run hot. Ask Pim about heat before you burn a hand.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.rumor.heat.1.ogg"
     },
     {
@@ -3239,7 +3239,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Report any explosions! For the notes.",
+      "text": "Let me know how it handles. I'm keeping notes.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.shopBack.1.ogg"
     },
     {
@@ -3249,7 +3249,7 @@
       "look": "tinker",
       "scene": "ironAetherWorks",
       "emotion": "excited",
-      "text": "Mind the recoil!",
+      "text": "Mind the recoil.",
       "file": "public/audio/voice/en/dlg.ironAetherWorks.bye.1.ogg"
     },
     {
@@ -3259,7 +3259,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Garrun. Armour. Rings in the tray.",
+      "text": "Garrun. Armour on the racks, rings in the tray.",
       "file": "public/audio/voice/en/dlg.ironArmor.hello.1.ogg"
     },
     {
@@ -3269,7 +3269,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Hm.",
+      "text": "Back. What do you need?",
       "file": "public/audio/voice/en/dlg.ironArmor.again.1.ogg"
     },
     {
@@ -3279,7 +3279,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Plate that turns a giant's club. Rings for the rest of you.",
+      "text": "That plate will turn a giant's club. Have a look.",
       "file": "public/audio/voice/en/dlg.ironArmor.trade.1.ogg"
     },
     {
@@ -3289,7 +3289,7 @@
       "scene": "ironArmor",
       "to": "Garrun Ironside",
       "emotion": "neutral",
-      "text": "You do not talk much.",
+      "text": "You don't say much, do you?",
       "file": "public/audio/voice/en/dlg.ironArmor.quiet.say.ogg"
     },
     {
@@ -3299,7 +3299,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "No.",
+      "text": "Not much worth saying.",
       "file": "public/audio/voice/en/dlg.ironArmor.quiet.1.ogg"
     },
     {
@@ -3309,7 +3309,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Giants in the tundra. Clubs like tree trunks. Buy the heavy plate.",
+      "text": "Giants in the tundra. Clubs like tree trunks. I'd take the heavy plate.",
       "file": "public/audio/voice/en/dlg.ironArmor.rumor.giants.1.ogg"
     },
     {
@@ -3319,7 +3319,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Demons up north. Fire and claws. Buy the heavy plate.",
+      "text": "Demons up north. Fire and claws. I'd take the heavy plate.",
       "file": "public/audio/voice/en/dlg.ironArmor.rumor.demons.1.ogg"
     },
     {
@@ -3329,7 +3329,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Good.",
+      "text": "Good choice.",
       "file": "public/audio/voice/en/dlg.ironArmor.shopBack.1.ogg"
     },
     {
@@ -3339,7 +3339,7 @@
       "look": "smith",
       "scene": "ironArmor",
       "emotion": "gruff",
-      "text": "Aye.",
+      "text": "Take care.",
       "file": "public/audio/voice/en/dlg.ironArmor.bye.1.ogg"
     },
     {
@@ -3349,7 +3349,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Name and business. No. I know your name. You destroyed the core.",
+      "text": "You're the one who destroyed the core. The Order remembers that.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.hello.1.ogg"
     },
     {
@@ -3359,7 +3359,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Quartermaster of the Iron Order. Its armouries are open to you.",
+      "text": "I'm the Order's quartermaster here. Our armouries are open to you.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.hello.2.ogg"
     },
     {
@@ -3369,7 +3369,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "proud",
-      "text": "The Order holds the Dread Fortress by your hand. Stand easy. That is an order.",
+      "text": "The Order holds the Dread Fortress, thanks to you. At ease. You've earned it.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.throneOurs.1.ogg"
     },
     {
@@ -3379,7 +3379,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "The Order has you on a list. My orders are to sell to you regardless. I do not like them.",
+      "text": "The Order has you on a list. My orders say to sell to you anyway. I'll follow them.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.foe.1.ogg"
     },
     {
@@ -3389,7 +3389,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Requisition?",
+      "text": "What do you need?",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.again.1.ogg"
     },
     {
@@ -3399,7 +3399,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "The Order remembers who destroyed the core. Choose what you need.",
+      "text": "Take what you need. The Order looks after its own.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.trade.1.ogg"
     },
     {
@@ -3419,7 +3419,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Nothing. That is rare. Enjoy it.",
+      "text": "Nothing, for now. That doesn't happen often. Enjoy it.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.order.1.ogg"
     },
     {
@@ -3429,7 +3429,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "The Order will want the throne in the Dread Fortress. It will remember who stood with it.",
+      "text": "The Order will want the throne in the Dread Fortress. It'll remember who helped.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.rumor.throne.1.ogg"
     },
     {
@@ -3439,7 +3439,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Sign here. I am joking. The Order does not joke. Dismissed.",
+      "text": "Look after it. It's Order property until you've bled in it.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.shopBack.1.ogg"
     },
     {
@@ -3449,7 +3449,7 @@
       "look": "smith",
       "scene": "ironOrderArmor",
       "emotion": "cold",
-      "text": "Dismissed.",
+      "text": "Carry on.",
       "file": "public/audio/voice/en/dlg.ironOrderArmor.bye.1.ogg"
     },
     {
@@ -3458,7 +3458,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "Slow down. The mountain is not going anywhere.",
+      "text": "Slow down. The mountain isn't going anywhere.",
       "file": "public/audio/voice/en/dlg.trainerGeo.hello.1.ogg"
     },
     {
@@ -3476,7 +3476,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "grave",
-      "text": "The mountain's heartbeat changed. That was you. It noticed.",
+      "text": "The mountain feels different since you went down there. Calmer, or emptier.",
       "file": "public/audio/voice/en/dlg.trainerGeo.core.1.ogg"
     },
     {
@@ -3485,7 +3485,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "A dragon flew over the peak yesterday and did not burn us. Your doing, I hear.",
+      "text": "A dragon flew over the peak yesterday and left us alone. Your doing, I'm told.",
       "file": "public/audio/voice/en/dlg.trainerGeo.dragon.1.ogg"
     },
     {
@@ -3494,7 +3494,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "You again. The stones said you would come.",
+      "text": "There you are. I thought you'd be back.",
       "file": "public/audio/voice/en/dlg.trainerGeo.again.1.ogg"
     },
     {
@@ -3503,7 +3503,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "Plant your feet. Feel that? No? We will start there.",
+      "text": "Plant your feet. Feel that? No? That's where we start.",
       "file": "public/audio/voice/en/dlg.trainerGeo.train.1.ogg"
     },
     {
@@ -3513,7 +3513,7 @@
       "scene": "trainerGeo",
       "to": "Old Stonefoot",
       "emotion": "neutral",
-      "text": "What is a Geomancer?",
+      "text": "What does a Geomancer do?",
       "file": "public/audio/voice/en/dlg.trainerGeo.class.say.ogg"
     },
     {
@@ -3522,7 +3522,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "We raise walls, call spikes, and break the ground when it is needed.",
+      "text": "We raise walls, call up spikes, and break the ground when we have to.",
       "file": "public/audio/voice/en/dlg.trainerGeo.class.1.ogg"
     },
     {
@@ -3531,7 +3531,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "Strength to move the stone, Intelligence to ask it nicely.",
+      "text": "Strength to move the stone. Intelligence to know where it wants to go.",
       "file": "public/audio/voice/en/dlg.trainerGeo.class.2.ogg"
     },
     {
@@ -3540,7 +3540,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "The stone knows you now. Learn the rest.",
+      "text": "The stone knows you now. Learn the rest when you're ready.",
       "file": "public/audio/voice/en/dlg.trainerGeo.ready.strong.1.ogg"
     },
     {
@@ -3549,7 +3549,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "You are heavy enough for the next lesson. That is a compliment.",
+      "text": "You're steady enough for the next lesson.",
       "file": "public/audio/voice/en/dlg.trainerGeo.ready.able.1.ogg"
     },
     {
@@ -3558,7 +3558,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "The stone does not hear you yet. More Strength.",
+      "text": "Not yet. The stone won't move for you. Build your Strength.",
       "file": "public/audio/voice/en/dlg.trainerGeo.ready.weak.1.ogg"
     },
     {
@@ -3577,7 +3577,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "None. Orders, syndicates, circles. The mountain outlasts all of them.",
+      "text": "None of them. Orders and guilds come and go. The mountain stays.",
       "file": "public/audio/voice/en/dlg.trainerGeo.factions.1.ogg"
     },
     {
@@ -3586,7 +3586,7 @@
       "who": "Old Stonefoot",
       "scene": "trainerGeo",
       "emotion": "weary",
-      "text": "Go gently. Then not gently.",
+      "text": "Take your time with it. The ground's patient.",
       "file": "public/audio/voice/en/dlg.trainerGeo.trainBack.1.ogg"
     },
     {
@@ -3604,7 +3604,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Do not touch that! Or that. Actually, stand on the rug. The rug is safe.",
+      "text": "Ah, wait, don't touch that! Or that. Stand on the rug, the rug's safe.",
       "file": "public/audio/voice/en/dlg.trainerAether.hello.1.ogg"
     },
     {
@@ -3613,7 +3613,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Gearwright Pim! Guns, turrets, heat gauges. Mostly heat gauges.",
+      "text": "Gearwright Pim. I build guns, turrets, and a lot of heat gauges.",
       "file": "public/audio/voice/en/dlg.trainerAether.hello.2.ogg"
     },
     {
@@ -3622,7 +3622,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "You gave us the core! I have not slept in nine days. Look at my hands. Do not look at my hands.",
+      "text": "You gave the core to the Circle! I've hardly slept since. In a good way.",
       "file": "public/audio/voice/en/dlg.trainerAether.core.1.ogg"
     },
     {
@@ -3631,7 +3631,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "afraid",
-      "text": "The Circle is furious about the oracle. I just build things. Please do not tell them I taught you.",
+      "text": "The Circle's angry about the oracle. I just build things. I'd rather not get involved.",
       "file": "public/audio/voice/en/dlg.trainerAether.oracle.1.ogg"
     },
     {
@@ -3640,7 +3640,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "warm",
-      "text": "A friend of the Circle! Cheaper lessons for you. I filled in the form myself.",
+      "text": "You're a friend of the Circle, so your lessons are cheaper. I did the paperwork.",
       "file": "public/audio/voice/en/dlg.trainerAether.friend.1.ogg"
     },
     {
@@ -3649,7 +3649,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "cold",
-      "text": "The Circle says I must not teach you. The Circle also says not to test rockets indoors.",
+      "text": "The Circle says I shouldn't teach you. I'm going to anyway. Don't tell them.",
       "file": "public/audio/voice/en/dlg.trainerAether.foe.1.ogg"
     },
     {
@@ -3658,7 +3658,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Oh good, you still have all your fingers.",
+      "text": "Oh good, you've still got all your fingers.",
       "file": "public/audio/voice/en/dlg.trainerAether.again.1.ogg"
     },
     {
@@ -3667,7 +3667,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Right! Safety first. Then the loud part.",
+      "text": "Right. Safety first, then the loud part.",
       "file": "public/audio/voice/en/dlg.trainerAether.train.1.ogg"
     },
     {
@@ -3686,7 +3686,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Guns, turrets and a heat gauge. Shoot, build, and vent before it locks you out.",
+      "text": "Guns, turrets, and a heat gauge. Shoot, build, and vent before you lock up.",
       "file": "public/audio/voice/en/dlg.trainerAether.class.1.ogg"
     },
     {
@@ -3695,7 +3695,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "It all runs on Skill. A bit of Intelligence for the big machines.",
+      "text": "Mostly it's Skill. A bit of Intelligence for the bigger machines.",
       "file": "public/audio/voice/en/dlg.trainerAether.class.2.ogg"
     },
     {
@@ -3704,7 +3704,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "You could strip a turret blind! Take the big machines.",
+      "text": "You know your way around a turret now. Take the big machines.",
       "file": "public/audio/voice/en/dlg.trainerAether.ready.strong.1.ogg"
     },
     {
@@ -3713,7 +3713,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Steady hands! You are ready for the next gadget.",
+      "text": "Steady hands. You're ready for the next one.",
       "file": "public/audio/voice/en/dlg.trainerAether.ready.able.1.ogg"
     },
     {
@@ -3722,7 +3722,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Your hands shake. Mine too, but for other reasons. More Skill.",
+      "text": "Your aim's a bit shaky still. Put some points into Skill.",
       "file": "public/audio/voice/en/dlg.trainerAether.ready.weak.1.ogg"
     },
     {
@@ -3741,7 +3741,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Everything locks for a few seconds. Vent early. Vent often. I have the scars.",
+      "text": "Everything locks up for a few seconds. Vent early, vent often. Trust me on that.",
       "file": "public/audio/voice/en/dlg.trainerAether.heat.1.ogg"
     },
     {
@@ -3750,7 +3750,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Remember: vent the heat! VENT. THE. HEAT.",
+      "text": "And remember to vent the heat before it vents you.",
       "file": "public/audio/voice/en/dlg.trainerAether.trainBack.1.ogg"
     },
     {
@@ -3759,7 +3759,7 @@
       "who": "Gearwright Pim",
       "scene": "trainerAether",
       "emotion": "excited",
-      "text": "Do not blow up!",
+      "text": "Be careful out there!",
       "file": "public/audio/voice/en/dlg.trainerAether.bye.1.ogg"
     },
     {
@@ -3769,7 +3769,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Boots off. I will not have mine dust on my floor.",
+      "text": "Boots off at the door, please. I've only just swept.",
       "file": "public/audio/voice/en/dlg.ironHealer.hello.1.ogg"
     },
     {
@@ -3779,7 +3779,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Mother Brynja. I have set every broken bone in this mountain twice.",
+      "text": "Mother Brynja. I've set most of the broken bones in this mountain.",
       "file": "public/audio/voice/en/dlg.ironHealer.hello.2.ogg"
     },
     {
@@ -3789,7 +3789,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "warm",
-      "text": "You went to the Dread Fortress and walked back. Sit. I want to look at you.",
+      "text": "You went to the Dread Fortress and came back. Sit down. Let me look at you.",
       "file": "public/audio/voice/en/dlg.ironHealer.ending.1.ogg"
     },
     {
@@ -3799,7 +3799,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Still alive. I am told that is my doing.",
+      "text": "Still alive. Good. Sit.",
       "file": "public/audio/voice/en/dlg.ironHealer.again.1.ogg"
     },
     {
@@ -3809,7 +3809,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Sit. Drink this. Do not make that face. Your flasks are filled.",
+      "text": "Drink this, and don't make that face. Your flasks are full.",
       "file": "public/audio/voice/en/dlg.ironHealer.heal.1.ogg"
     },
     {
@@ -3819,7 +3819,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Here. It tastes foul. Drink it when your magic runs out, not before.",
+      "text": "Here. It tastes awful. Drink it when your magic runs out, not before.",
       "file": "public/audio/voice/en/dlg.ironHealer.mana.1.ogg"
     },
     {
@@ -3839,7 +3839,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Buy a longer belt from me. Five flasks is all a body can carry and still run.",
+      "text": "I can sell you a longer belt. Five flasks is about all anyone can carry and still run.",
       "file": "public/audio/voice/en/dlg.ironHealer.potions.1.ogg"
     },
     {
@@ -3849,7 +3849,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "The tundra takes fingers. Keep moving out there, and do not sleep in the snow.",
+      "text": "The tundra takes fingers and toes. Keep moving, and don't fall asleep in the snow.",
       "file": "public/audio/voice/en/dlg.ironHealer.rumor.tundra.1.ogg"
     },
     {
@@ -3859,7 +3859,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "There is a drowned temple past the tundra. The naga do not take prisoners.",
+      "text": "There's a drowned temple past the tundra. The naga there don't take prisoners.",
       "file": "public/audio/voice/en/dlg.ironHealer.rumor.temple.1.ogg"
     },
     {
@@ -3869,7 +3869,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "grave",
-      "text": "Whatever is in that Void Rift, it cannot be stitched. Finish it quickly.",
+      "text": "Whatever's in that rift, I can't stitch it. Don't let it reach you.",
       "file": "public/audio/voice/en/dlg.ironHealer.rumor.rift.1.ogg"
     },
     {
@@ -3879,7 +3879,7 @@
       "look": "healer",
       "scene": "ironHealer",
       "emotion": "gruff",
-      "text": "Off with you. And eat something.",
+      "text": "Off you go. And eat something, you're too thin.",
       "file": "public/audio/voice/en/dlg.ironHealer.healBack.1.ogg"
     },
     {
@@ -3898,7 +3898,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "angry",
-      "text": "You. You opened my gate.",
+      "text": "You. You're the one who opened my gate.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.hello.1.ogg"
     },
     {
@@ -3907,7 +3907,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "angry",
-      "text": "I teach from a dwarf's cellar now, because I must eat. Do not mistake it for forgiveness.",
+      "text": "I teach in a cellar now, because I have to eat. Don't take it for forgiveness.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.hello.2.ogg"
     },
     {
@@ -3916,7 +3916,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "angry",
-      "text": "A throne was decided, and Oakhaven is still ash. Tell me again how it was worth it.",
+      "text": "So the throne's decided, and Oakhaven is still ashes. I hope it was worth it.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.ending.1.ogg"
     },
     {
@@ -3925,7 +3925,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "The traitor returns. My fee has not gone down.",
+      "text": "You're back. My fee hasn't changed.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.again.1.ogg"
     },
     {
@@ -3934,7 +3934,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "I will teach you to command. I cannot teach you to deserve it.",
+      "text": "I'll teach you to command. Whether you deserve it is another matter.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.train.1.ogg"
     },
     {
@@ -3953,7 +3953,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "One who is followed. Guards answer the call and fight at your word.",
+      "text": "Someone others follow. Guards come when you call and fight at your word.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.class.1.ogg"
     },
     {
@@ -3962,7 +3962,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "It runs on Charisma. You have some. That is the tragedy.",
+      "text": "It runs on Charisma. You have some. That's what makes it hard to forgive.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.class.2.ogg"
     },
     {
@@ -3971,7 +3971,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "You have the presence for all of it. The realm is poorer for that.",
+      "text": "You have the presence for all of it. I wish you'd used it better.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.ready.strong.1.ogg"
     },
     {
@@ -3980,7 +3980,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "You are ready for the next lesson. I take no pleasure in it.",
+      "text": "You're ready for the next lesson. I won't pretend I'm glad.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.ready.able.1.ogg"
     },
     {
@@ -3989,7 +3989,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "Not even a traitor's guard would follow that voice. More Charisma.",
+      "text": "No one would follow you yet. Work on your Charisma.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.ready.weak.1.ogg"
     },
     {
@@ -3999,7 +3999,7 @@
       "scene": "exiledSovereign",
       "to": "Lord Castellan, in exile",
       "emotion": "neutral",
-      "text": "About Oakhaven…",
+      "text": "About Oakhaven...",
       "file": "public/audio/voice/en/dlg.exiledSovereign.oakhaven.say.ogg"
     },
     {
@@ -4017,7 +4017,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "sad",
-      "text": "Do not explain. There is no price that explains it.",
+      "text": "Please don't explain. Nothing you could say would make it right.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.oakhaven.2.ogg"
     },
     {
@@ -4026,7 +4026,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "Go. Command someone else.",
+      "text": "Go. Practise on someone else.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.trainBack.1.ogg"
     },
     {
@@ -4035,7 +4035,7 @@
       "who": "Lord Castellan, in exile",
       "scene": "exiledSovereign",
       "emotion": "cold",
-      "text": "Leave me.",
+      "text": "Leave me, please.",
       "file": "public/audio/voice/en/dlg.exiledSovereign.bye.1.ogg"
     },
     {
@@ -4044,7 +4044,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "sad",
-      "text": "You killed her. I saw it a thousand times before it happened, and still it hurts.",
+      "text": "You killed her. I saw it coming for years, and it still hurts.",
       "file": "public/audio/voice/en/dlg.trainerChrono.fled.1.ogg"
     },
     {
@@ -4053,7 +4053,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "sad",
-      "text": "I am the Keeper of Hours. I will teach you. She told me I would.",
+      "text": "I'm the Keeper of Hours. I'll teach you. She told me I would.",
       "file": "public/audio/voice/en/dlg.trainerChrono.fled.2.ogg"
     },
     {
@@ -4062,7 +4062,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "You are late. Or early. I told you this already, I think.",
+      "text": "There you are. I've been expecting you for a while. Or will have been.",
       "file": "public/audio/voice/en/dlg.trainerChrono.hello.1.ogg"
     },
     {
@@ -4071,7 +4071,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "I am the Keeper of Hours. I teach the weaving of time. We began a moment ago.",
+      "text": "I'm the Keeper of Hours. I teach how to bend time, a little.",
       "file": "public/audio/voice/en/dlg.trainerChrono.hello.2.ogg"
     },
     {
@@ -4080,7 +4080,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "warm",
-      "text": "She is free. For the first time, I do not know what you will say next. It is wonderful.",
+      "text": "She's free. For once I can't tell what happens next. It's wonderful.",
       "file": "public/audio/voice/en/dlg.trainerChrono.freed.1.ogg"
     },
     {
@@ -4089,7 +4089,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "warm",
-      "text": "The Circle will name you its friend. It already has? Then the discount is now.",
+      "text": "The Circle thinks well of you, so the lessons cost less. They decided that last week.",
       "file": "public/audio/voice/en/dlg.trainerChrono.friend.1.ogg"
     },
     {
@@ -4098,7 +4098,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "cold",
-      "text": "The Circle will forgive you, in a future I have seen. Until then, I teach you quietly.",
+      "text": "The Circle's angry with you now. It passes. Until then, we'll keep this quiet.",
       "file": "public/audio/voice/en/dlg.trainerChrono.foe.1.ogg"
     },
     {
@@ -4107,7 +4107,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "Welcome back. Welcome. Back.",
+      "text": "Welcome back. You're right on time.",
       "file": "public/audio/voice/en/dlg.trainerChrono.again.1.ogg"
     },
     {
@@ -4116,7 +4116,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "Watch. I will show you what I showed you.",
+      "text": "Watch closely. Then watch again, a moment earlier.",
       "file": "public/audio/voice/en/dlg.trainerChrono.train.1.ogg"
     },
     {
@@ -4135,7 +4135,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "We stop a foe in time, hurry a friend along, and take back a mistake.",
+      "text": "We hold a foe still in time, hurry a friend along, and take back a mistake.",
       "file": "public/audio/voice/en/dlg.trainerChrono.class.1.ogg"
     },
     {
@@ -4144,7 +4144,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "Intelligence to see the thread, Skill to pull it.",
+      "text": "Intelligence to see the thread. Skill to pull it.",
       "file": "public/audio/voice/en/dlg.trainerChrono.class.2.ogg"
     },
     {
@@ -4153,7 +4153,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "You hold the thread well. The rest is yours when you want it.",
+      "text": "You hold the thread well. Take the rest whenever you like.",
       "file": "public/audio/voice/en/dlg.trainerChrono.ready.strong.1.ogg"
     },
     {
@@ -4162,7 +4162,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "You are ready. You were ready tomorrow as well.",
+      "text": "You're ready. I could tell before you asked.",
       "file": "public/audio/voice/en/dlg.trainerChrono.ready.able.1.ogg"
     },
     {
@@ -4171,7 +4171,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "The thread slips through your fingers. More Intelligence. More Skill.",
+      "text": "The thread keeps slipping. More Intelligence, and more Skill.",
       "file": "public/audio/voice/en/dlg.trainerChrono.ready.weak.1.ogg"
     },
     {
@@ -4190,7 +4190,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "warm",
-      "text": "She saw every ending, and none of them was hers. Now one is.",
+      "text": "She saw every ending except her own. Now she gets to find out.",
       "file": "public/audio/voice/en/dlg.trainerChrono.oracle.freed.1.ogg"
     },
     {
@@ -4199,7 +4199,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "sad",
-      "text": "She did not resist. She had seen that too. Please do not ask me again.",
+      "text": "She didn't fight it. She'd seen it already. Please don't ask me again.",
       "file": "public/audio/voice/en/dlg.trainerChrono.oracle.slain.1.ogg"
     },
     {
@@ -4208,7 +4208,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "She sees every ending. It is a terrible gift. Be kind to her, at the end.",
+      "text": "She sees every ending. It's a heavy thing to carry. Be kind to her.",
       "file": "public/audio/voice/en/dlg.trainerChrono.oracle.waits.1.ogg"
     },
     {
@@ -4217,7 +4217,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "It will have been worth it.",
+      "text": "It'll make sense later. It usually does.",
       "file": "public/audio/voice/en/dlg.trainerChrono.trainBack.1.ogg"
     },
     {
@@ -4226,7 +4226,7 @@
       "who": "The Keeper of Hours",
       "scene": "trainerChrono",
       "emotion": "grave",
-      "text": "Until before.",
+      "text": "Until we meet again. Or before.",
       "file": "public/audio/voice/en/dlg.trainerChrono.bye.1.ogg"
     },
     {
@@ -4235,7 +4235,7 @@
       "who": "The Goblin King",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Wait! Wait. King yields!",
+      "text": "Stop. Please. I yield.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ask.1.ogg"
     },
     {
@@ -4244,7 +4244,7 @@
       "who": "The Goblin King",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Goblins only raid because goblins are hungry. Is true!",
+      "text": "My people raid because they are hungry. That is the truth.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ask.2.ogg"
     },
     {
@@ -4253,7 +4253,7 @@
       "who": "The Goblin King",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Maybe tall one and King make a deal?",
+      "text": "Let us make a deal instead. Your kind and mine.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ask.3.ogg"
     },
     {
@@ -4263,7 +4263,7 @@
       "scene": "quest.goblinKing",
       "to": "The Goblin King",
       "emotion": "neutral",
-      "text": "No deal. Your reign ends here.",
+      "text": "No deals. Your raids end here.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.slay.say.ogg"
     },
     {
@@ -4272,7 +4272,7 @@
       "who": "The storyteller",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "The King falls, and the Hollows scatter.",
+      "text": "The Goblin King falls, and the Hollows empty.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.slay.1.ogg"
     },
     {
@@ -4281,7 +4281,7 @@
       "who": "The storyteller",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Sunford sleeps easier, and the Iron Order takes note of you.",
+      "text": "Sunford sleeps easier, and the Iron Order hears your name.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.slay.2.ogg"
     },
     {
@@ -4291,7 +4291,7 @@
       "scene": "quest.goblinKing",
       "to": "The Goblin King",
       "emotion": "neutral",
-      "text": "Stop the raids and trade with Sunford instead. Swear it.",
+      "text": "Stop the raids and trade with Sunford instead. Swear to it.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.pact.say.ogg"
     },
     {
@@ -4300,7 +4300,7 @@
       "who": "The Goblin King",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Trade? King swears! King LIKES trade!",
+      "text": "Trade. Yes. I swear it, on my crown.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.pact.1.ogg"
     },
     {
@@ -4309,7 +4309,7 @@
       "who": "The storyteller",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "Goblin traders set up in Sunford's square, with wares no smith there could make.",
+      "text": "Goblin traders set up in Sunford's square, selling things no smith there could make.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.pact.2.ogg"
     },
     {
@@ -4319,7 +4319,7 @@
       "scene": "quest.goblinKing",
       "to": "The Goblin King",
       "emotion": "neutral",
-      "text": "Hand over your treasure, and you keep your crown.",
+      "text": "Give me your treasure and you can keep your crown.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ransom.say.ogg"
     },
     {
@@ -4328,7 +4328,7 @@
       "who": "The Goblin King",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "All of it? King hates tall one. Take it. Take it and go.",
+      "text": "All of it? ...Fine. Take it, and go.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ransom.1.ogg"
     },
     {
@@ -4337,7 +4337,7 @@
       "who": "The storyteller",
       "scene": "quest.goblinKing",
       "emotion": "afraid",
-      "text": "You walk out heavy with goblin gold. The raids will start again. The Syndicate approves.",
+      "text": "You leave with goblin gold. The raids will start again, but the Syndicate approves.",
       "file": "public/audio/voice/en/dlg.quest.goblinKing.ransom.2.ogg"
     },
     {
@@ -4346,7 +4346,7 @@
       "who": "Warlord Krag",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "Enough. You fight well.",
+      "text": "Enough. You fight well, I'll give you that.",
       "file": "public/audio/voice/en/dlg.quest.siege.ask.1.ogg"
     },
     {
@@ -4355,7 +4355,7 @@
       "who": "Warlord Krag",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "The Syndicate pays better than that town ever will.",
+      "text": "The Syndicate pays far better than that town ever will.",
       "file": "public/audio/voice/en/dlg.quest.siege.ask.2.ogg"
     },
     {
@@ -4383,7 +4383,7 @@
       "who": "Warlord Krag",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "Then the Syndicate will hunt you on every road. Remember that I offered.",
+      "text": "Then the Syndicate will hunt you on every road. Remember I offered.",
       "file": "public/audio/voice/en/dlg.quest.siege.defend.1.ogg"
     },
     {
@@ -4392,7 +4392,7 @@
       "who": "The storyteller",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "The gate holds. Oakhaven grows rich behind it, and its master armourers remember your name.",
+      "text": "The gate holds. Oakhaven grows rich behind it, and its armourers remember your name.",
       "file": "public/audio/voice/en/dlg.quest.siege.defend.2.ogg"
     },
     {
@@ -4402,7 +4402,7 @@
       "scene": "quest.siege",
       "to": "Warlord Krag",
       "emotion": "neutral",
-      "text": "A third of the town. Tonight, the gate opens.",
+      "text": "A third of the town. All right. The gate opens tonight.",
       "file": "public/audio/voice/en/dlg.quest.siege.betray.say.ogg"
     },
     {
@@ -4411,7 +4411,7 @@
       "who": "Warlord Krag",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "Wise. I will tell Madam Ash to set a chair for you.",
+      "text": "Sensible. Madam Ash will be pleased to hear it.",
       "file": "public/audio/voice/en/dlg.quest.siege.betray.1.ogg"
     },
     {
@@ -4420,7 +4420,7 @@
       "who": "The storyteller",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "Oakhaven burns. In its ruins a black market opens, and an alchemist teaches forbidden arts.",
+      "text": "Oakhaven burns. In the ruins, a black market opens, and an alchemist teaches in secret.",
       "file": "public/audio/voice/en/dlg.quest.siege.betray.2.ogg"
     },
     {
@@ -4429,7 +4429,7 @@
       "who": "The storyteller",
       "scene": "quest.siege",
       "emotion": "cold",
-      "text": "The armourers are gone, and the Iron Order calls you traitor.",
+      "text": "The armourers are gone, and the Iron Order calls you a traitor.",
       "file": "public/audio/voice/en/dlg.quest.siege.betray.3.ogg"
     },
     {
@@ -4439,7 +4439,7 @@
       "look": "dwarf",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "The Colossus is scrap. I never thought I would see it.",
+      "text": "The Colossus is scrap. I never thought I'd live to see it.",
       "file": "public/audio/voice/en/dlg.quest.core.ask.1.ogg"
     },
     {
@@ -4449,7 +4449,7 @@
       "look": "dwarf",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "And there it lies. The core. Still humming. Warm to the touch.",
+      "text": "And there's the core. Still humming. It's warm, if you touch it.",
       "file": "public/audio/voice/en/dlg.quest.core.ask.2.ogg"
     },
     {
@@ -4459,7 +4459,7 @@
       "look": "dwarf",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "You reached it first. What becomes of it?",
+      "text": "You got here first. So... what happens to it?",
       "file": "public/audio/voice/en/dlg.quest.core.ask.3.ogg"
     },
     {
@@ -4469,7 +4469,7 @@
       "scene": "quest.core",
       "to": "Forgemaster Dorn",
       "emotion": "neutral",
-      "text": "Stand back. I am breaking it.",
+      "text": "Stand back. I'm going to break it.",
       "file": "public/audio/voice/en/dlg.quest.core.destroy.say.ogg"
     },
     {
@@ -4487,7 +4487,7 @@
       "who": "The storyteller",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "The Iron Order sends its own armourers to Ironhold in thanks.",
+      "text": "In thanks, the Iron Order sends its own armourers to Ironhold.",
       "file": "public/audio/voice/en/dlg.quest.core.destroy.2.ogg"
     },
     {
@@ -4497,7 +4497,7 @@
       "scene": "quest.core",
       "to": "Forgemaster Dorn",
       "emotion": "neutral",
-      "text": "The Circle should study it. I can carry it out safely.",
+      "text": "The Circle should study it. I think I can carry it out safely.",
       "file": "public/audio/voice/en/dlg.quest.core.study.say.ogg"
     },
     {
@@ -4506,7 +4506,7 @@
       "who": "The storyteller",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "You understand enough of the core to hand it over without waking it.",
+      "text": "You know enough to move the core without waking it.",
       "file": "public/audio/voice/en/dlg.quest.core.study.1.ogg"
     },
     {
@@ -4515,7 +4515,7 @@
       "who": "The storyteller",
       "scene": "quest.core",
       "emotion": "grave",
-      "text": "Within a season, Ironhold's forges turn out aether-works no one has seen before.",
+      "text": "Within a season, Ironhold's forges are making aether-works no one has seen before.",
       "file": "public/audio/voice/en/dlg.quest.core.study.2.ogg"
     },
     {
@@ -4553,7 +4553,7 @@
       "who": "The Drowned Oracle",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "I have seen this moment ten thousand times.",
+      "text": "I've seen this moment more times than I can count.",
       "file": "public/audio/voice/en/dlg.quest.oracle.ask.1.ogg"
     },
     {
@@ -4562,7 +4562,7 @@
       "who": "The Drowned Oracle",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "In half of them you free me. In half you take what I guard.",
+      "text": "In half of them, you set me free. In the other half, you take what I guard.",
       "file": "public/audio/voice/en/dlg.quest.oracle.ask.2.ogg"
     },
     {
@@ -4571,7 +4571,7 @@
       "who": "The Drowned Oracle",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "Choose. Let me finally not know what comes next.",
+      "text": "Choose. I'd like, just once, not to know what comes next.",
       "file": "public/audio/voice/en/dlg.quest.oracle.ask.3.ogg"
     },
     {
@@ -4581,7 +4581,7 @@
       "scene": "quest.oracle",
       "to": "The Drowned Oracle",
       "emotion": "neutral",
-      "text": "Hold still. I am breaking your chains.",
+      "text": "Hold still. I'm breaking your chains.",
       "file": "public/audio/voice/en/dlg.quest.oracle.free.say.ogg"
     },
     {
@@ -4590,7 +4590,7 @@
       "who": "The Drowned Oracle",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "Oh. I did not see that. I did not see that at all.",
+      "text": "Oh. I didn't see that. I really didn't see that.",
       "file": "public/audio/voice/en/dlg.quest.oracle.free.1.ogg"
     },
     {
@@ -4599,7 +4599,7 @@
       "who": "The storyteller",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "The oracle rises through the water and is gone. Her keeper of hours stays to teach.",
+      "text": "The oracle rises through the water and is gone. Her pupil stays behind to teach.",
       "file": "public/audio/voice/en/dlg.quest.oracle.free.2.ogg"
     },
     {
@@ -4627,7 +4627,7 @@
       "who": "The storyteller",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "She does not resist. The Timekeeper's Hourglass is yours.",
+      "text": "She doesn't resist. The Timekeeper's Hourglass is yours.",
       "file": "public/audio/voice/en/dlg.quest.oracle.slay.2.ogg"
     },
     {
@@ -4636,7 +4636,7 @@
       "who": "The storyteller",
       "scene": "quest.oracle",
       "emotion": "weary",
-      "text": "Her last pupil flees the temple, and the Circle does not forgive.",
+      "text": "Her last pupil flees the temple, and the Circle won't forgive you.",
       "file": "public/audio/voice/en/dlg.quest.oracle.slay.3.ogg"
     },
     {
@@ -4645,7 +4645,7 @@
       "who": "The Void Dragon",
       "scene": "quest.dragon",
       "emotion": "proud",
-      "text": "Enough. You have teeth, small one.",
+      "text": "Enough. You have teeth, little one.",
       "file": "public/audio/voice/en/dlg.quest.dragon.ask.1.ogg"
     },
     {
@@ -4654,7 +4654,7 @@
       "who": "The Void Dragon",
       "scene": "quest.dragon",
       "emotion": "proud",
-      "text": "The demon in the fortress chained my kin. I would see him burn.",
+      "text": "The demon in the fortress chained my kin. I want to see him burn.",
       "file": "public/audio/voice/en/dlg.quest.dragon.ask.2.ogg"
     },
     {
@@ -4673,7 +4673,7 @@
       "scene": "quest.dragon",
       "to": "The Void Dragon",
       "emotion": "neutral",
-      "text": "No bargains with dragons.",
+      "text": "I don't bargain with dragons.",
       "file": "public/audio/voice/en/dlg.quest.dragon.slay.say.ogg"
     },
     {
@@ -4701,7 +4701,7 @@
       "scene": "quest.dragon",
       "to": "The Void Dragon",
       "emotion": "neutral",
-      "text": "Then fly with me against the Arch-Demon.",
+      "text": "Then fight with me against the Arch-Demon.",
       "file": "public/audio/voice/en/dlg.quest.dragon.pact.say.ogg"
     },
     {
@@ -4710,7 +4710,7 @@
       "who": "The Void Dragon",
       "scene": "quest.dragon",
       "emotion": "proud",
-      "text": "Few could have asked that and lived. Very well, small one. We hunt together.",
+      "text": "Few would dare ask. Very well. We hunt together.",
       "file": "public/audio/voice/en/dlg.quest.dragon.pact.1.ogg"
     },
     {
@@ -4719,7 +4719,7 @@
       "who": "The storyteller",
       "scene": "quest.dragon",
       "emotion": "proud",
-      "text": "When you march on the Dread Fortress, a dragon will be in the sky above you.",
+      "text": "When you march on the Dread Fortress, a dragon will fly above you.",
       "file": "public/audio/voice/en/dlg.quest.dragon.pact.2.ogg"
     },
     {
@@ -4728,7 +4728,7 @@
       "who": "The Arch-Demon",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "So. It ends. I did not think it would be you.",
+      "text": "So. It ends. I didn't think it would be you.",
       "file": "public/audio/voice/en/dlg.quest.throne.ask.1.ogg"
     },
     {
@@ -4737,7 +4737,7 @@
       "who": "The Arch-Demon",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "My throne does not stay empty, little hero. It commands the fortress, the rift, and the armies of both.",
+      "text": "My throne won't stay empty. Whoever takes it commands the fortress and the rift.",
       "file": "public/audio/voice/en/dlg.quest.throne.ask.2.ogg"
     },
     {
@@ -4746,7 +4746,7 @@
       "who": "The Arch-Demon",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "Three envoys already wait at my door. Choose who inherits my chains.",
+      "text": "Three envoys are already waiting at my door. Choose who comes next.",
       "file": "public/audio/voice/en/dlg.quest.throne.ask.3.ogg"
     },
     {
@@ -4802,7 +4802,7 @@
       "who": "The storyteller",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "Everything is for sale now, including the peace.",
+      "text": "From now on everything has a price, even the peace.",
       "file": "public/audio/voice/en/dlg.quest.throne.syndicate.2.ogg"
     },
     {
@@ -4821,7 +4821,7 @@
       "who": "The storyteller",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "The Circle turns the fortress into a school above a rift.",
+      "text": "The Circle turns the fortress into a school above the rift.",
       "file": "public/audio/voice/en/dlg.quest.throne.circle.1.ogg"
     },
     {
@@ -4830,7 +4830,7 @@
       "who": "The storyteller",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "They call it research. Everyone else calls it a matter of time.",
+      "text": "They call it research. Everyone else holds their breath.",
       "file": "public/audio/voice/en/dlg.quest.throne.circle.2.ogg"
     },
     {
@@ -4840,7 +4840,7 @@
       "scene": "quest.throne",
       "to": "The Arch-Demon",
       "emotion": "neutral",
-      "text": "Nobody inherits. I am breaking it.",
+      "text": "No one gets it. I'm breaking it.",
       "file": "public/audio/voice/en/dlg.quest.throne.shatter.say.ogg"
     },
     {
@@ -4849,7 +4849,7 @@
       "who": "The storyteller",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "You break the throne with your own hands. No one rules from here again.",
+      "text": "You break the throne with your own hands. No one will rule from here again.",
       "file": "public/audio/voice/en/dlg.quest.throne.shatter.1.ogg"
     },
     {
@@ -4868,7 +4868,7 @@
       "scene": "quest.throne",
       "to": "The Arch-Demon",
       "emotion": "neutral",
-      "text": "I will sit on it myself.",
+      "text": "I'll take it myself.",
       "file": "public/audio/voice/en/dlg.quest.throne.claim.say.ogg"
     },
     {
@@ -4886,7 +4886,7 @@
       "who": "The storyteller",
       "scene": "quest.throne",
       "emotion": "cold",
-      "text": "Three factions find they have a common enemy.",
+      "text": "Three factions discover they have a common enemy.",
       "file": "public/audio/voice/en/dlg.quest.throne.claim.2.ogg"
     },
     {
@@ -4896,7 +4896,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Rain by tonight, my knee says.",
+      "text": "Rain tonight. My knee's been aching all day.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.weather.1.ogg"
     },
     {
@@ -4905,7 +4905,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Your knee said that last week.",
+      "text": "Your knee said that last week too.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.weather.2.ogg"
     },
     {
@@ -4915,7 +4915,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "And it rained, didn't it? Somewhere.",
+      "text": "And it rained, didn't it? Just not here.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.weather.3.ogg"
     },
     {
@@ -4925,7 +4925,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Best barley in years, this.",
+      "text": "The barley's come up well this year.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.harvest.1.ogg"
     },
     {
@@ -4934,7 +4934,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "You say that every year.",
+      "text": "Let's hope we get to keep it.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.harvest.2.ogg"
     },
     {
@@ -4953,7 +4953,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Only three? They're getting lazy.",
+      "text": "Again? That's the second time this month.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.goblins.2.ogg"
     },
     {
@@ -4963,7 +4963,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Or full.",
+      "text": "Somebody ought to do something about those caves.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.goblins.3.ogg"
     },
     {
@@ -4973,7 +4973,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "They say the Goblin King is gone for good.",
+      "text": "They say the Goblin King's dead.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.kingGone.1.ogg"
     },
     {
@@ -4982,7 +4982,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Then who's been stealing my turnips?",
+      "text": "Good. Maybe I'll sleep through a whole night now.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.kingGone.2.ogg"
     },
     {
@@ -4992,7 +4992,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "A goblin sold me a spoon today.",
+      "text": "I bought a ladle off a goblin this morning.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pact.1.ogg"
     },
     {
@@ -5001,7 +5001,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Was it your spoon?",
+      "text": "Any good?",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pact.2.ogg"
     },
     {
@@ -5011,7 +5011,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "It was, yes. Good price, though.",
+      "text": "Better than mine, honestly. Don't tell anyone.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pact.3.ogg"
     },
     {
@@ -5021,7 +5021,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Bram's hammering again. Since dawn!",
+      "text": "Bram's been at the anvil since before sunrise.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.bram.1.ogg"
     },
     {
@@ -5030,7 +5030,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Steady as a heartbeat, that man.",
+      "text": "He gets like that when he's worried.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.bram.2.ogg"
     },
     {
@@ -5040,7 +5040,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Is that apple pie I smell?",
+      "text": "Is that apple pie I can smell?",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pie.1.ogg"
     },
     {
@@ -5049,7 +5049,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "It was. Past tense.",
+      "text": "It was. The children found it first.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pie.2.ogg"
     },
     {
@@ -5059,7 +5059,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "You ate it all? Again?",
+      "text": "I'll bake another. Hide it better this time.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.pie.3.ogg"
     },
     {
@@ -5069,7 +5069,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Nobody takes the plains road anymore.",
+      "text": "Nobody's taken the plains road in a week.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.road.1.ogg"
     },
     {
@@ -5078,7 +5078,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Not with bandits on it, they don't.",
+      "text": "Not with bandits on it. Can't blame them.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.road.2.ogg"
     },
     {
@@ -5088,7 +5088,7 @@
       "look": "villager",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "Somebody cleared the plains road!",
+      "text": "Somebody cleared the bandits off the plains road.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.hero.1.ogg"
     },
     {
@@ -5097,7 +5097,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkSunford",
       "emotion": "neutral",
-      "text": "About time. My cousin owes me a cart.",
+      "text": "Thank goodness. My sister can visit again.",
       "file": "public/audio/voice/en/dlg.smalltalkSunford.hero.2.ogg"
     },
     {
@@ -5116,7 +5116,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "It's a very handsome cabbage.",
+      "text": "Nothing gets through the gate cheap these days.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.prices.2.ogg"
     },
     {
@@ -5126,7 +5126,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Not that handsome.",
+      "text": "I'll grow my own, then. On the roof, if I must.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.prices.3.ogg"
     },
     {
@@ -5136,7 +5136,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "The watch doubled the gate guard.",
+      "text": "They've doubled the guard on the gate.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.watch.1.ogg"
     },
     {
@@ -5145,7 +5145,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Good. I sleep better for it.",
+      "text": "Good. I sleep a bit easier for it.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.watch.2.ogg"
     },
     {
@@ -5155,7 +5155,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "The spice caravan is late again.",
+      "text": "The spice caravan's late again.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.caravan.1.ogg"
     },
     {
@@ -5174,7 +5174,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Or the driver found a tavern.",
+      "text": "Or mud. Let's hope it's mud.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.caravan.3.ogg"
     },
     {
@@ -5184,7 +5184,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "They say an army camps in the outskirts.",
+      "text": "There's an army camped out past the farms.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.siege.1.ogg"
     },
     {
@@ -5193,7 +5193,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Then we'd better stock the cellar.",
+      "text": "Then we'd better fill the cellar while we can.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.siege.2.ogg"
     },
     {
@@ -5203,7 +5203,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Did you see the siege break? Glorious!",
+      "text": "Were you on the wall when the siege broke?",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.saved.1.ogg"
     },
     {
@@ -5212,7 +5212,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "I saw it from under my bed.",
+      "text": "I was hiding under my bed, if I'm honest.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.saved.2.ogg"
     },
     {
@@ -5222,7 +5222,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Still counts.",
+      "text": "So was half the town. We're still here, though.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.saved.3.ogg"
     },
     {
@@ -5241,7 +5241,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "And I fished it out. Thanks!",
+      "text": "Hope you wished for cheaper cabbages.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.fountain.2.ogg"
     },
     {
@@ -5251,7 +5251,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Everything smells of ash.",
+      "text": "Everything still smells of smoke.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.ash.1.ogg"
     },
     {
@@ -5260,7 +5260,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Better than smelling of nothing.",
+      "text": "It'll fade. Everything does, in the end.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.ash.2.ogg"
     },
     {
@@ -5270,7 +5270,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Did you hear boots outside last night?",
+      "text": "Did you hear boots in the street last night?",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.hide.1.ogg"
     },
     {
@@ -5279,7 +5279,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Hush. Keep your voice down.",
+      "text": "Not so loud. You don't know who's listening.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.hide.2.ogg"
     },
     {
@@ -5289,7 +5289,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "Sorry. Sorry.",
+      "text": "Sorry. I just... sorry.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.hide.3.ogg"
     },
     {
@@ -5299,7 +5299,7 @@
       "look": "merchantF",
       "scene": "smalltalkOakhaven",
       "emotion": "neutral",
-      "text": "I found half a loaf. We can share it.",
+      "text": "I found half a loaf. Here, take some.",
       "file": "public/audio/voice/en/dlg.smalltalkOakhaven.bread.1.ogg"
     },
     {
@@ -5327,7 +5327,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Copper? I want gold.",
+      "text": "Copper. I was hoping for silver.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.ore.2.ogg"
     },
     {
@@ -5337,7 +5337,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "You want a nap, more like.",
+      "text": "Copper pays the rent. Silver pays for dreams.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.ore.3.ogg"
     },
     {
@@ -5347,7 +5347,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "The great forge hasn't gone out in a hundred years.",
+      "text": "The great forge hasn't gone cold in a hundred years.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.forge.1.ogg"
     },
     {
@@ -5356,7 +5356,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Neither has my grandad's pipe.",
+      "text": "My grandfather helped light it, you know.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.forge.2.ogg"
     },
     {
@@ -5366,7 +5366,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "You trimmed your beard!",
+      "text": "You've trimmed your beard.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.beard.1.ogg"
     },
     {
@@ -5375,7 +5375,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "It caught fire at the anvil.",
+      "text": "Got too close to the anvil.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.beard.2.ogg"
     },
     {
@@ -5385,7 +5385,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Suits you, though.",
+      "text": "It'll grow back. Suits you shorter, anyway.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.beard.3.ogg"
     },
     {
@@ -5395,7 +5395,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Something glows in the deep mines now.",
+      "text": "Something's glowing down in the deep shafts.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.core.1.ogg"
     },
     {
@@ -5404,7 +5404,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Nothing good glows down there.",
+      "text": "Nothing good glows down there. Stay up top.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.core.2.ogg"
     },
     {
@@ -5414,7 +5414,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "The Order's armourers work fast.",
+      "text": "The Order's armourers work fast, I'll give them that.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.order.1.ogg"
     },
     {
@@ -5423,7 +5423,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Fast, aye. Not as well as us.",
+      "text": "Fast, aye. We'll see how it holds up.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.order.2.ogg"
     },
     {
@@ -5433,7 +5433,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "The Circle's mages hum while they work.",
+      "text": "The Circle folk hum while they work.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.circle.1.ogg"
     },
     {
@@ -5442,7 +5442,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Better than our singing, I suppose.",
+      "text": "Better than your singing, at least.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.circle.2.ogg"
     },
     {
@@ -5452,7 +5452,7 @@
       "look": "miner",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Cold up here this morning.",
+      "text": "Bitter cold this morning.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.cold.1.ogg"
     },
     {
@@ -5461,7 +5461,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkIronhold",
       "emotion": "neutral",
-      "text": "Stand nearer the forge, then.",
+      "text": "Come and stand by the forge, then.",
       "file": "public/audio/voice/en/dlg.smalltalkIronhold.cold.2.ogg"
     },
     {
@@ -5471,7 +5471,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "You're it!",
+      "text": "Tag, you're it!",
       "file": "public/audio/voice/en/dlg.smalltalkKids.tag.1.ogg"
     },
     {
@@ -5480,7 +5480,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "Not fair, I wasn't ready!",
+      "text": "That's not fair, I wasn't ready!",
       "file": "public/audio/voice/en/dlg.smalltalkKids.tag.2.ogg"
     },
     {
@@ -5490,7 +5490,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "When I grow up I'll ride a dragon.",
+      "text": "When I'm big I'm going to ride a dragon.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.dragon.1.ogg"
     },
     {
@@ -5499,7 +5499,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "Dragons don't let you ride them.",
+      "text": "Dragons don't let people ride them.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.dragon.2.ogg"
     },
     {
@@ -5509,7 +5509,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "Nice ones do!",
+      "text": "A nice one might.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.dragon.3.ogg"
     },
     {
@@ -5519,7 +5519,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "Look, a real sword stick!",
+      "text": "Look, I found a sword!",
       "file": "public/audio/voice/en/dlg.smalltalkKids.sword.1.ogg"
     },
     {
@@ -5528,7 +5528,7 @@
       "who": "Townsfolk",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "It's just a stick.",
+      "text": "That's a stick.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.sword.2.ogg"
     },
     {
@@ -5538,7 +5538,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "I found a frog by the well.",
+      "text": "There's a frog down by the well.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.frog.1.ogg"
     },
     {
@@ -5557,7 +5557,7 @@
       "look": "child",
       "scene": "smalltalkKids",
       "emotion": "neutral",
-      "text": "He's keeping us, I think.",
+      "text": "Mum said no more frogs.",
       "file": "public/audio/voice/en/dlg.smalltalkKids.frog.3.ogg"
     }
   ]

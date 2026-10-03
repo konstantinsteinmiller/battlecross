@@ -8,7 +8,7 @@ import { describe, expect, it, vi } from 'vitest'
  */
 vi.mock('virtual:asset-overrides', () => ({
   default: {
-    sfx: [], music: [], textures: [], items: [], skills: [], portraits: [], ui: [],
+    sfx: [], music: [], textures: [], items: [], skills: [], portraits: [], ui: [], icons: [],
     voice: ['de/dlg.hero.trade.ogg', 'en/dlg.hero.bye.ogg', 'en/dlg.hero.trade.ogg', 'en/dlg.sunfordSmith.hello.1.mp3']
   }
 }))
