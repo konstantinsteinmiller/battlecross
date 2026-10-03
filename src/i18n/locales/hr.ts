@@ -96,10 +96,13 @@ export default {
   coach: {
     move: {
       touch: 'Dodirni tlo da junak ode onamo ili koristi palicu.',
-      mouse: 'Klikni na tlo da junak ode onamo ili upravljaj tipkama za kretanje.'
+      touch__f: 'Dodirni tlo da junakinja ode onamo ili koristi palicu.',
+      mouse: 'Klikni na tlo da junak ode onamo ili upravljaj tipkama za kretanje.',
+      mouse__f: 'Klikni na tlo da junakinja ode onamo ili upravljaj tipkama za kretanje.'
     },
     target: {
       touch: 'Dodirni neprijatelja ili povuci od junaka do njega da ga napadneš.',
+      touch__f: 'Dodirni neprijatelja ili povuci od junakinje do njega da ga napadneš.',
       mouse: 'Klikni na neprijatelja da ga napadneš.'
     },
     skill: {
@@ -354,6 +357,12 @@ export default {
     raise: 'Povećaj: {attr}',
     maxLevel: 'Dosegnuta najviša razina',
     next: 'Sljedeći bod:'
+  },
+  heroChoice: {
+    title: 'Odaberi junaka',
+    boy: 'Igraj kao dječak',
+    girl: 'Igraj kao djevojčica',
+    switch: 'Tvoj junak'
   },
   skills: {
     active: 'Aktivne vještine',
@@ -891,6 +900,7 @@ export default {
     unequip: 'Skini',
     tooLow: 'Potrebna razina {n}.',
     worn: 'Nosiš ovo. Skini da bi prodao.',
+    worn__f: 'Nosiš ovo. Skini da bi prodala.',
     versus: 'U usporedbi s: {item}',
     hint: 'Dodirni predmet da ga pogledaš. Dodirni ponovno ili povuci na mjesto da ga obučeš.',
     empty: 'U torbi nema ničeg takvog.',
@@ -925,6 +935,7 @@ export default {
       buy: 'Dobar izbor. Čuvaj to, pa će i ono čuvati tebe.',
       sell: 'Dobro. Netko će to htjeti.',
       back: 'Predomislio si se? Nema problema, evo, uzmi.',
+      back__f: 'Predomislila si se? Nema problema, evo, uzmi.',
       poor: 'Bojim se da je to malo više nego što imaš.'
     }
   },
@@ -1292,11 +1303,13 @@ export default {
       mana: 'Imaš li nešto za manu?',
       who: 'Tko si ti, ako smijem pitati?',
       rumor: 'Čuo si nešto u zadnje vrijeme?',
-      ready: 'Misliš li da sam spreman za više?'
+      ready: 'Misliš li da sam spreman za više?',
+      ready__f: 'Misliš li da sam spremna za više?'
     },
     sunfordSmith: {
       hello: {
         '1': 'Nisam te prije vidio. Jesi li ti očistio cestu?',
+        '1__f': 'Nisam te prije vidio. Jesi li ti očistila cestu?',
         '2': 'Bram. Vodim kovačnicu. Ako ti treba oštrica, dođi k meni.'
       },
       kingDead: {
@@ -1306,7 +1319,8 @@ export default {
         '1': 'Goblini trguju na trgu. Nikad nisam mislio da ću to vidjeti.'
       },
       kingRansom: {
-        '1': 'Ostavio si Kralju goblina krunu. Vratit će se, vidjet ćeš.'
+        '1': 'Ostavio si Kralju goblina krunu. Vratit će se, vidjet ćeš.',
+        '1__f': 'Ostavila si Kralju goblina krunu. Vratit će se, vidjet ćeš.'
       },
       ending: {
         '1': 'Cijelo kraljevstvo priča o tebi. Ali treba li ti još brus?'
@@ -1356,7 +1370,8 @@ export default {
         '2': 'Ja sam Tilly. Prstenje, amajlije, sitnice iz cijelog svijeta.'
       },
       rival: {
-        '1': 'Jesi li vidio goblinov štand? Cijene su mu niže od mojih. To nije fer.'
+        '1': 'Jesi li vidio goblinov štand? Cijene su mu niže od mojih. To nije fer.',
+        '1__f': 'Jesi li vidjela goblinov štand? Cijene su mu niže od mojih. To nije fer.'
       },
       again: {
         '1': 'Evo te! Odvojila sam nekoliko stvari za koje mislim da će ti se svidjeti.'
@@ -1401,13 +1416,16 @@ export default {
         '2': 'Ser Aldric. Učim kako stati između ljudi i zla.'
       },
       saved: {
-        '1': 'Oakhaven još stoji, a čuo sam da si bio na njegovu zidu. Odlično.'
+        '1': 'Oakhaven još stoji, a čuo sam da si bio na njegovu zidu. Odlično.',
+        '1__f': 'Oakhaven još stoji, a čuo sam da si bila na njegovu zidu. Odlično.'
       },
       fallen: {
-        '1': 'Otvorio si vrata Oakhavena. Ne pravim se da sam zaboravio. Što želiš?'
+        '1': 'Otvorio si vrata Oakhavena. Ne pravim se da sam zaboravio. Što želiš?',
+        '1__f': 'Otvorila si vrata Oakhavena. Ne pravim se da sam zaboravio. Što želiš?'
       },
       dragon: {
-        '1': 'Ubio si zmaja na vrhu? Volio bih to vidjeti.'
+        '1': 'Ubio si zmaja na vrhu? Volio bih to vidjeti.',
+        '1__f': 'Ubila si zmaja na vrhu? Volio bih to vidjeti.'
       },
       friend: {
         '1': 'Red dobro misli o tebi. Prijateljima su moje lekcije jeftinije.'
@@ -1428,10 +1446,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Dovoljno si jak za većinu onoga što znam. Nastavi s Izdržljivošću.'
+          '1': 'Dovoljno si jak za većinu onoga što znam. Nastavi s Izdržljivošću.',
+          '1__f': 'Dovoljno si jaka za većinu onoga što znam. Nastavi s Izdržljivošću.'
         },
         able: {
-          '1': 'Spreman si za sljedeću lekciju. Samo da ti ne ode u glavu.'
+          '1': 'Spreman si za sljedeću lekciju. Samo da ti ne ode u glavu.',
+          '1__f': 'Spremna si za sljedeću lekciju. Samo da ti ne ode u glavu.'
         },
         weak: {
           '1': 'Još ne. Umorit ćeš se prije štita. Više Snage, više Izdržljivosti.'
@@ -1452,10 +1472,12 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Oh, učenik? Divno. Možda se malo odmakni.',
+        '1__f': 'Oh, učenica? Divno. Možda se malo odmakni.',
         '2': 'Ja sam Ember Wren. Učim vatru. Većinom sluša.'
       },
       core: {
-        '1': 'Dao si jezgru Krugu! Jedva čekam vidjeti što ćemo iz nje naučiti.'
+        '1': 'Dao si jezgru Krugu! Jedva čekam vidjeti što ćemo iz nje naučiti.',
+        '1__f': 'Dala si jezgru Krugu! Jedva čekam vidjeti što ćemo iz nje naučiti.'
       },
       friend: {
         '1': 'Krug dobro govori o tebi. To usput znači popust.'
@@ -1464,7 +1486,8 @@ export default {
         '1': 'Krug nije zadovoljan tobom. Ipak ću te učiti. Tiho.'
       },
       again: {
-        '1': 'Vratio si se! Spreman nešto zapaliti?'
+        '1': 'Vratio si se! Spreman nešto zapaliti?',
+        '1__f': 'Vratila si se! Spremna nešto zapaliti?'
       },
       train: {
         '1': 'Dobro. Gledaj moje ruke i drži rukave podalje od mene.'
@@ -1476,10 +1499,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Iskreno? Mogao bi neke od ovoga i sam učiti. Uzmi što želiš.'
+          '1': 'Iskreno? Mogao bi neke od ovoga i sam učiti. Uzmi što želiš.',
+          '1__f': 'Iskreno? Mogla bi neke od ovoga i sama učiti. Uzmi što želiš.'
         },
         able: {
-          '1': 'Spreman si za sljedeću čaroliju. Dođi, pokazat ću ti.'
+          '1': 'Spreman si za sljedeću čaroliju. Dođi, pokazat ću ti.',
+          '1__f': 'Spremna si za sljedeću čaroliju. Dođi, pokazat ću ti.'
         },
         weak: {
           '1': 'Još ne, bojim se. Treba ti više Inteligencije ili će vatra preuzeti.'
@@ -1499,31 +1524,38 @@ export default {
     elderMara: {
       hello: {
         '1': 'Dakle ti si taj s ceste. Dođi, da te pogledam.',
+        '1__f': 'Dakle ti si ta s ceste. Dođi, da te pogledam.',
         '2': 'Ja sam Mara. Brinem se za ovaj grad već... ah, četrdeset godina.'
       },
       slain: {
-        '1': 'U Jamama je tiho. Bilo je teško što si učinio, ali zbog toga spavamo.'
+        '1': 'U Jamama je tiho. Bilo je teško što si učinio, ali zbog toga spavamo.',
+        '1__f': 'U Jamama je tiho. Bilo je teško što si učinila, ali zbog toga spavamo.'
       },
       pact: {
-        '1': 'Goblini prodaju na mom trgu. Ti si ih nagovorio, zar ne?'
+        '1': 'Goblini prodaju na mom trgu. Ti si ih nagovorio, zar ne?',
+        '1__f': 'Goblini prodaju na mom trgu. Ti si ih nagovorila, zar ne?'
       },
       ransom: {
-        '1': 'Uzeo si njegovo zlato i ostavio mu krunu. Neću se praviti da nisam razočarana.'
+        '1': 'Uzeo si njegovo zlato i ostavio mu krunu. Neću se praviti da nisam razočarana.',
+        '1__f': 'Uzela si njegovo zlato i ostavila mu krunu. Neću se praviti da nisam razočarana.'
       },
       saved: {
-        '1': 'Stigla je vijest iz Oakhavena. Vrata su izdržala. Drago mi je da si bio tamo.'
+        '1': 'Stigla je vijest iz Oakhavena. Vrata su izdržala. Drago mi je da si bio tamo.',
+        '1__f': 'Stigla je vijest iz Oakhavena. Vrata su izdržala. Drago mi je da si bila tamo.'
       },
       fallen: {
         '1': 'Kažu da je Oakhaven izgorio. Radije ne bih čula kako. Ne danas.'
       },
       ending: {
-        '1': 'Kažu da si odlučio o sudbini Tvrđave užasa. Od naše male ceste do toga.'
+        '1': 'Kažu da si odlučio o sudbini Tvrđave užasa. Od naše male ceste do toga.',
+        '1__f': 'Kažu da si odlučila o sudbini Tvrđave užasa. Od naše male ceste do toga.'
       },
       again: {
         '1': 'Sjedni na trenutak. Cesta će još biti tu.'
       },
       reward: {
         '1': 'Držao si cestu kad naša milicija nije mogla. Grad je malo skupio.',
+        '1__f': 'Držala si cestu kad naša milicija nije mogla. Grad je malo skupio.',
         '2': 'Nije puno. To je što smo mogli uštedjeti.',
         say: 'Netko je rekao da me želiš vidjeti?'
       },
@@ -1532,6 +1564,7 @@ export default {
         '2': 'I želiš njegovu smrt?',
         '3': 'Želim da prepadi prestanu. Kako, to je na tebi, tamo dolje.',
         '4': 'Jame su odmah iza ravnica. Molim te, budi oprezan.',
+        '4__f': 'Jame su odmah iza ravnica. Molim te, budi oprezna.',
         say: 'Što muči Sunford?'
       },
       king: {
@@ -1570,7 +1603,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Vrati nam se čitav. To je sve što tražim.'
+        '1': 'Vrati nam se čitav. To je sve što tražim.',
+        '1__f': 'Vrati nam se čitava. To je sve što tražim.'
       }
     },
     sunfordHealer: {
@@ -1579,7 +1613,8 @@ export default {
         '2': 'Ja sam sestra Lune. Krpam sve što cesta slomi.'
       },
       again: {
-        '1': 'Još čitav? Dobro. Svejedno sjedni.'
+        '1': 'Još čitav? Dobro. Svejedno sjedni.',
+        '1__f': 'Još čitava? Dobro. Svejedno sjedni.'
       },
       heal: {
         '1': 'Sjedni, odmori se. Napunit ću ti bočice prije nego odeš.'
@@ -1613,10 +1648,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Ti si taj koji je sklopio sporazum. Moj kralj kaže da si ovdje dobrodošao.',
+        '1__f': 'Ti si ta koja je sklopila sporazum. Moj kralj kaže da si ovdje dobrodošla.',
         '2': 'Ja sam Grik. Prodajem što goblini prave. Dobar posao, poštena cijena.'
       },
       again: {
-        '1': 'Prijatelju. Drago mi je što te opet vidim.'
+        '1': 'Prijatelju. Drago mi je što te opet vidim.',
+        '1__f': 'Prijateljice. Drago mi je što te opet vidim.'
       },
       trade: {
         '1': 'Pogledaj, molim te. Ovo je napravila moja obitelj.'
@@ -1642,7 +1679,8 @@ export default {
         '1': 'Hvala. Dođi opet.'
       },
       bye: {
-        '1': 'Sretan put, prijatelju.'
+        '1': 'Sretan put, prijatelju.',
+        '1__f': 'Sretan put, prijateljice.'
       }
     },
     captainHale: {
@@ -1654,7 +1692,8 @@ export default {
         '1': 'Vrata su izdržala. Tristo godina, i još jednom. Dužan sam ti.'
       },
       ending: {
-        '1': 'Kažu da si odlučio o Tvrđavi užasa. Moji zidovi uz to djeluju maleni.'
+        '1': 'Kažu da si odlučio o Tvrđavi užasa. Moji zidovi uz to djeluju maleni.',
+        '1__f': 'Kažu da si odlučila o Tvrđavi užasa. Moji zidovi uz to djeluju maleni.'
       },
       again: {
         '1': 'Zidovi još stoje. Barem danas.'
@@ -1714,6 +1753,7 @@ export default {
       },
       armor: {
         '1': 'Ploče, ako držiš poziciju. Koža, ako se kreteš. Haljina, ako si brz.',
+        '1__f': 'Ploče, ako držiš poziciju. Koža, ako se kreteš. Haljina, ako si brza.',
         say: 'Kakav oklop da nosim?'
       },
       rumor: {
@@ -1740,7 +1780,8 @@ export default {
         '1': 'Drago mi je što te vidim. Što će biti danas?'
       },
       trade: {
-        '1': 'Dobri oklopi su izvan. Zaslužio si više od pogleda.'
+        '1': 'Dobri oklopi su izvan. Zaslužio si više od pogleda.',
+        '1__f': 'Dobri oklopi su izvan. Zaslužila si više od pogleda.'
       },
       town: {
         '1': 'Užurbano. Bučno. Pun trgovaca koji gunđaju zbog pristojbe.',
@@ -1759,7 +1800,8 @@ export default {
         '1': 'Ako ne sjedi kako treba, donesi natrag. Popravit ću.'
       },
       bye: {
-        '1': 'Uvijek si ovdje dobrodošao.'
+        '1': 'Uvijek si ovdje dobrodošao.',
+        '1__f': 'Uvijek si ovdje dobrodošla.'
       }
     },
     oakWeapons: {
@@ -1784,32 +1826,38 @@ export default {
           '1': 'Kragovi ljudi nose dobar čelik. Novac Sindikata. Vrijedi pokupiti ako se pruži prilika.'
         },
         which: {
-          '1': 'Brze oštrice traže Spretnost. Lukovi i puške traže Umijeće. Znaj koji si.'
+          '1': 'Brze oštrice traže Spretnost. Lukovi i puške traže Umijeće. Znaj koji si.',
+          '1__f': 'Brze oštrice traže Spretnost. Lukovi i puške traže Umijeće. Znaj koja si.'
         }
       },
       shopBack: {
         '1': 'Drži ih nauljene. Hrđa pokvari dobru oštricu brže od kosti.'
       },
       bye: {
-        '1': 'Pokušaj ne umrijeti dužan mi.'
+        '1': 'Pokušaj ne umrijeti dužan mi.',
+        '1__f': 'Pokušaj ne umrijeti dužna mi.'
       }
     },
     trainerShadow: {
       hello: {
         '1': 'Nisi čuo kako sam došao iza tebe. Većina ne čuje.',
+        '1__f': 'Nisi čula kako sam došao iza tebe. Većina ne čuje.',
         '2': 'Zovu me Šapat. Učim kako ostati neviđen.'
       },
       fallen: {
         '1': 'Grad je sada tiši. Manje straže. Za neke od nas lakši posao.'
       },
       friend: {
-        '1': 'Sindikat te smatra prijateljem. Prijatelji plaćaju manje. Zapamti to.'
+        '1': 'Sindikat te smatra prijateljem. Prijatelji plaćaju manje. Zapamti to.',
+        '1__f': 'Sindikat te smatra prijateljicom. Prijatelji plaćaju manje. Zapamti to.'
       },
       foe: {
-        '1': 'Sindikat te želi mrtvog. Plaćen sam da učim, ne da ubijam. Dakle, lekcije.'
+        '1': 'Sindikat te želi mrtvog. Plaćen sam da učim, ne da ubijam. Dakle, lekcije.',
+        '1__f': 'Sindikat te želi mrtvu. Plaćen sam da učim, ne da ubijam. Dakle, lekcije.'
       },
       again: {
-        '1': 'Još si preglasan. Poradit ćemo na tome.'
+        '1': 'Još si preglasan. Poradit ćemo na tome.',
+        '1__f': 'Još si preglasna. Poradit ćemo na tome.'
       },
       train: {
         '1': 'Onda tiho. Gledaj moje noge, ne ruke.'
@@ -1827,7 +1875,8 @@ export default {
           '1': 'Ruke su ti dovoljno brze. Sljedeći korak.'
         },
         weak: {
-          '1': 'Još ne. Težak si na nogama. Poradi na Spretnosti.'
+          '1': 'Još ne. Težak si na nogama. Poradi na Spretnosti.',
+          '1__f': 'Još ne. Teška si na nogama. Poradi na Spretnosti.'
         }
       },
       syndicate: {
@@ -1850,7 +1899,8 @@ export default {
         '1': 'Moj grad stoji, a s njim i ime moje obitelji. Imaš moju zahvalnost. Iskrenu.'
       },
       friend: {
-        '1': 'Prijatelj Reda. Smanjit ću naknadu. Molim te, ne šapući o tome.'
+        '1': 'Prijatelj Reda. Smanjit ću naknadu. Molim te, ne šapući o tome.',
+        '1__f': 'Prijateljica Reda. Smanjit ću naknadu. Molim te, ne šapući o tome.'
       },
       foe: {
         '1': 'Red ima tvoje ime na popisu. Svejedno ću te naučiti. Novac je novac.'
@@ -1871,7 +1921,8 @@ export default {
           '1': 'Sada imaš pravu prisutnost. Uzmi ostatak mojih lekcija.'
         },
         able: {
-          '1': 'Tvoj glas se čuje. Spreman si za sljedeću lekciju.'
+          '1': 'Tvoj glas se čuje. Spreman si za sljedeću lekciju.',
+          '1__f': 'Tvoj glas se čuje. Spremna si za sljedeću lekciju.'
         },
         weak: {
           '1': 'Bojim se da te još nitko ne bi slijedio. Poradi na Karizmi.'
@@ -1891,6 +1942,7 @@ export default {
     oakHealer: {
       hello: {
         '1': 'Sljedeći! Oh, hodaš sam. To je ugodna promjena.',
+        '1__f': 'Sljedeći! Oh, hodaš sama. To je ugodna promjena.',
         '2': 'Brat Fenn. Četrdeset ranjenih na zidu, a ja sam sam.'
       },
       saved: {
@@ -1943,6 +1995,7 @@ export default {
       },
       armor: {
         '1': 'Oklopara više nema, prijatelju. Ti bolje znaš zašto.',
+        '1__f': 'Oklopara više nema, prijateljice. Ti bolje znaš zašto.',
         say: 'Prodajete li kakav oklop?'
       },
       rumor: {
@@ -1963,10 +2016,12 @@ export default {
     trainerBlood: {
       hello: {
         '1': 'Gost. Molim ne diraj staklenke.',
+        '1__f': 'Gošća. Molim ne diraj staklenke.',
         '2': 'Doktor Sangrel. Novi vlasnici Oakhavena ne pitaju što učim. To je odmor.'
       },
       found: {
         '1': 'Pronašao si me. Malo tko traži liječnika na ovakvom mjestu.',
+        '1__f': 'Pronašla si me. Malo tko traži liječnika na ovakvom mjestu.',
         '2': 'Doktor Sangrel. Gradovi spaljuju ljude poput mene, pa radim gdje ih nema.'
       },
       friend: {
@@ -1991,10 +2046,12 @@ export default {
           '1': 'Izvanredna konstitucija. Možeš naučiti gotovo sve.'
         },
         able: {
-          '1': 'Dovoljno si čvrst za sljedeću lekciju.'
+          '1': 'Dovoljno si čvrst za sljedeću lekciju.',
+          '1__f': 'Dovoljno si čvrsta za sljedeću lekciju.'
         },
         weak: {
-          '1': 'Pao bi u nesvijest pri prvom rezu. Prvo izgradi Izdržljivost, molim te.'
+          '1': 'Pao bi u nesvijest pri prvom rezu. Prvo izgradi Izdržljivost, molim te.',
+          '1__f': 'Pala bi u nesvijest pri prvom rezu. Prvo izgradi Izdržljivost, molim te.'
         }
       },
       jars: {
@@ -2005,22 +2062,27 @@ export default {
         '1': 'Vodi bilješke. Volio bih čuti kako ide.'
       },
       bye: {
-        '1': 'Budi zdrav. Mislim to ozbiljno.'
+        '1': 'Budi zdrav. Mislim to ozbiljno.',
+        '1__f': 'Budi zdrava. Mislim to ozbiljno.'
       }
     },
     syndicateBoss: {
       hello: {
         '1': 'Dakle ti si otvorio vrata. Sjedni. Zaslužio si stolicu.',
+        '1__f': 'Dakle ti si otvorila vrata. Sjedni. Zaslužila si stolicu.',
         '2': 'Zovu me Madam Ash. Oakhaven je sada naš. Dijelom zahvaljujući tebi.'
       },
       throneOurs: {
-        '1': 'Tvrđava užasa u našim rukama. Vrijedio si svakog novčića.'
+        '1': 'Tvrđava užasa u našim rukama. Vrijedio si svakog novčića.',
+        '1__f': 'Tvrđava užasa u našim rukama. Vrijedila si svakog novčića.'
       },
       throneLost: {
-        '1': 'Dao si prijestolje nekom drugom. Razgovarat ćemo o tome. Ne danas.'
+        '1': 'Dao si prijestolje nekom drugom. Razgovarat ćemo o tome. Ne danas.',
+        '1__f': 'Dala si prijestolje nekom drugom. Razgovarat ćemo o tome. Ne danas.'
       },
       foe: {
-        '1': 'Radio si protiv nas. Svejedno sjedni. Volim znati s kim imam posla.'
+        '1': 'Radio si protiv nas. Svejedno sjedni. Volim znati s kim imam posla.',
+        '1__f': 'Radila si protiv nas. Svejedno sjedni. Volim znati s kim imam posla.'
       },
       again: {
         '1': 'Opet ti. Što Sindikat može učiniti za tebe?'
@@ -2037,6 +2099,7 @@ export default {
       },
       order: {
         '1': 'Naravno. Spalio si jedan od njihovih gradova. Nosi dodatne napitke.',
+        '1__f': 'Naravno. Spalila si jedan od njihovih gradova. Nosi dodatne napitke.',
         say: 'Željezni red je za mnom.'
       },
       rumor: {
@@ -2044,7 +2107,8 @@ export default {
           '1': 'Patuljci su našli nešto u rudnicima. Jezgru. Donesi nam je i reci svoju cijenu.'
         },
         sold: {
-          '1': 'Jezgra je stigla sigurno. Iznenadio bi se što radi bravi.'
+          '1': 'Jezgra je stigla sigurno. Iznenadio bi se što radi bravi.',
+          '1__f': 'Jezgra je stigla sigurno. Iznenadila bi se što radi bravi.'
         },
         north: {
           '1': 'Sve vrijedno preselilo se na sjever. I mi.'
@@ -2057,6 +2121,7 @@ export default {
     forgemaster: {
       hello: {
         '1': 'Došao si kroz rudnike. Osjećam prašinu na tebi.',
+        '1__f': 'Došla si kroz rudnike. Osjećam prašinu na tebi.',
         '2': 'Dorn. Majstor kovačnice Ironholda. I imam problem veličine planine.'
       },
       destroyed: {
@@ -2066,7 +2131,8 @@ export default {
         '1': 'Plava vatra u mojim kovačnicama i učenjaci u haljama u mojim dvoranama. Posao je barem dobar.'
       },
       sold: {
-        '1': 'Prodao si je. Golemi još hodaju, a moji rudnici su još grob. Ostavi me.'
+        '1': 'Prodao si je. Golemi još hodaju, a moji rudnici su još grob. Ostavi me.',
+        '1__f': 'Prodala si je. Golemi još hodaju, a moji rudnici su još grob. Ostavi me.'
       },
       ending: {
         '1': 'Dakle prijestolje je riješeno. Dobro. Možda se sada možemo vratiti kopanju.'
@@ -2079,18 +2145,21 @@ export default {
         '2': 'A golemi?',
         '3': 'Kreću se u njegovu ritmu. Tri sile pisale su tražeći je. Ne vjerujem nijednoj.',
         '4': 'Do nje ćeš doći prvi, na dnu Rudnika Ironholda. Što će biti poslije, ovisi o tebi.',
+        '4__f': 'Do nje ćeš doći prva, na dnu Rudnika Ironholda. Što će biti poslije, ovisi o tebi.',
         say: 'Što se dogodilo dolje u rudnicima?'
       },
       core: {
         say: 'O jezgri...',
         destroy: {
-          '1': 'Slomio si čudo da spasiš moj narod. Red je poslao oklopare. Ja sam poslao pivo.'
+          '1': 'Slomio si čudo da spasiš moj narod. Red je poslao oklopare. Ja sam poslao pivo.',
+          '1__f': 'Slomila si čudo da spasiš moj narod. Red je poslao oklopare. Ja sam poslao pivo.'
         },
         study: {
           '1': 'Ljudi iz Kruga su čudni, ali njihove puške pucaju ravno. Neka im bude.'
         },
         sell: {
-          '1': 'Učinio si to za zlato. Nadam se da će te ugrijati.'
+          '1': 'Učinio si to za zlato. Nadam se da će te ugrijati.',
+          '1__f': 'Učinila si to za zlato. Nadam se da će te ugrijati.'
         }
       },
       town: {
@@ -2119,7 +2188,8 @@ export default {
         '2': 'Hilda Čekićoruka. Svaki komad ovdje iskovan je patuljačkim rukama.'
       },
       dragon: {
-        '1': 'Ubio si zmaja? Nadam se jednom od mojih oštrica.'
+        '1': 'Ubio si zmaja? Nadam se jednom od mojih oštrica.',
+        '1__f': 'Ubila si zmaja? Nadam se jednom od mojih oštrica.'
       },
       again: {
         '1': 'Po pravi čelik?'
@@ -2139,7 +2209,8 @@ export default {
         }
       },
       shopBack: {
-        '1': 'Donesi je tupu i znat ću da si je dobro koristio.'
+        '1': 'Donesi je tupu i znat ću da si je dobro koristio.',
+        '1__f': 'Donesi je tupu i znat ću da si je dobro koristila.'
       },
       bye: {
         '1': 'Udaraj snažno.'
@@ -2151,7 +2222,8 @@ export default {
         '2': 'Izumitelj Voss. Krug me poslao proučavati jezgru. Toliko nas je naučila.'
       },
       again: {
-        '1': 'A, dobro. Promijenio sam nekoliko stvari otkad si bio ovdje.'
+        '1': 'A, dobro. Promijenio sam nekoliko stvari otkad si bio ovdje.',
+        '1__f': 'A, dobro. Promijenio sam nekoliko stvari otkad si bila ovdje.'
       },
       trade: {
         '1': 'Sve ovdje nastalo je proučavanjem jezgre. Samo ne ciljaj u mene.'
@@ -2177,7 +2249,8 @@ export default {
         '1': 'Garrun. Oklopi na stalcima, prstenje na tacni.'
       },
       again: {
-        '1': 'Vratio si se. Što trebaš?'
+        '1': 'Vratio si se. Što trebaš?',
+        '1__f': 'Vratila si se. Što trebaš?'
       },
       trade: {
         '1': 'Ta ploča zaustavit će divovsku toljagu. Pogledaj.'
@@ -2204,10 +2277,12 @@ export default {
     ironOrderArmor: {
       hello: {
         '1': 'Ti si taj koji je uništio jezgru. Red to pamti.',
+        '1__f': 'Ti si ta koja je uništila jezgru. Red to pamti.',
         '2': 'Ovdje sam intendant Reda. Naša oružarnica otvorena je za tebe.'
       },
       throneOurs: {
-        '1': 'Red drži Tvrđavu užasa zahvaljujući tebi. Voljno. Zaslužio si.'
+        '1': 'Red drži Tvrđavu užasa zahvaljujući tebi. Voljno. Zaslužio si.',
+        '1__f': 'Red drži Tvrđavu užasa zahvaljujući tebi. Voljno. Zaslužila si.'
       },
       foe: {
         '1': 'Red te ima na popisu. Zapovijedi kažu da ti svejedno prodajem. Slijedit ću ih.'
@@ -2240,7 +2315,8 @@ export default {
         '2': 'Zovu me Stari Kamenonogi. Slušam zemlju. Ponekad odgovori.'
       },
       core: {
-        '1': 'Planina je drukčija otkad si sišao dolje. Mirnija ili praznija.'
+        '1': 'Planina je drukčija otkad si sišao dolje. Mirnija ili praznija.',
+        '1__f': 'Planina je drukčija otkad si sišla dolje. Mirnija ili praznija.'
       },
       dragon: {
         '1': 'Jučer je zmaj preletio vrh i ostavio nas na miru. Kažu, tvoja zasluga.'
@@ -2258,10 +2334,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Kamen te sada poznaje. Ostalo ćeš naučiti kad budeš spreman.'
+          '1': 'Kamen te sada poznaje. Ostalo ćeš naučiti kad budeš spreman.',
+          '1__f': 'Kamen te sada poznaje. Ostalo ćeš naučiti kad budeš spremna.'
         },
         able: {
-          '1': 'Dovoljno si stabilan za sljedeću lekciju.'
+          '1': 'Dovoljno si stabilan za sljedeću lekciju.',
+          '1__f': 'Dovoljno si stabilna za sljedeću lekciju.'
         },
         weak: {
           '1': 'Još ne. Kamen se neće pomaknuti za tebe. Izgradi Snagu.'
@@ -2284,13 +2362,15 @@ export default {
         '2': 'Mehaničar Pim. Gradim puške, kupole i mnogo mjerača topline.'
       },
       core: {
-        '1': 'Dao si jezgru Krugu! Od tada jedva spavam. U dobrom smislu.'
+        '1': 'Dao si jezgru Krugu! Od tada jedva spavam. U dobrom smislu.',
+        '1__f': 'Dala si jezgru Krugu! Od tada jedva spavam. U dobrom smislu.'
       },
       oracle: {
         '1': 'Krug je ljut zbog proročice. Ja samo gradim stvari. Radije se ne miješam.'
       },
       friend: {
-        '1': 'Prijatelj si Kruga, pa su lekcije jeftinije. Sredio sam papire.'
+        '1': 'Prijatelj si Kruga, pa su lekcije jeftinije. Sredio sam papire.',
+        '1__f': 'Prijateljica si Kruga, pa su lekcije jeftinije. Sredio sam papire.'
       },
       foe: {
         '1': 'Krug kaže da te ne bih smio učiti. Svejedno hoću. Nemoj im reći.'
@@ -2311,7 +2391,8 @@ export default {
           '1': 'Sada se snalaziš s kupolom. Uzmi velike strojeve.'
         },
         able: {
-          '1': 'Čvrste ruke. Spreman si za sljedeći.'
+          '1': 'Čvrste ruke. Spreman si za sljedeći.',
+          '1__f': 'Čvrste ruke. Spremna si za sljedeći.'
         },
         weak: {
           '1': 'Nišan ti se još malo trese. Ulaži bodove u Umijeće.'
@@ -2325,7 +2406,8 @@ export default {
         '1': 'I ne zaboravi ispustiti toplinu prije nego ona ispusti tebe.'
       },
       bye: {
-        '1': 'Budi oprezan tamo vani!'
+        '1': 'Budi oprezan tamo vani!',
+        '1__f': 'Budi oprezna tamo vani!'
       }
     },
     ironHealer: {
@@ -2334,10 +2416,12 @@ export default {
         '2': 'Majka Brynja. Namjestila sam većinu slomljenih kostiju u ovoj planini.'
       },
       ending: {
-        '1': 'Otišao si u Tvrđavu užasa i vratio se. Sjedni. Daj da te pogledam.'
+        '1': 'Otišao si u Tvrđavu užasa i vratio se. Sjedni. Daj da te pogledam.',
+        '1__f': 'Otišla si u Tvrđavu užasa i vratila se. Sjedni. Daj da te pogledam.'
       },
       again: {
-        '1': 'Još živ. Dobro. Sjedni.'
+        '1': 'Još živ. Dobro. Sjedni.',
+        '1__f': 'Još živa. Dobro. Sjedni.'
       },
       heal: {
         '1': 'Popij ovo i ne pravi takvo lice. Bočice su pune.'
@@ -2361,7 +2445,8 @@ export default {
         }
       },
       healBack: {
-        '1': 'Idi. I pojedi nešto, pretanak si.'
+        '1': 'Idi. I pojedi nešto, pretanak si.',
+        '1__f': 'Idi. I pojedi nešto, pretanka si.'
       },
       bye: {
         '1': 'Vrati se u jednom komadu.'
@@ -2370,13 +2455,15 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Ti. Ti si taj koji je otvorio moja vrata.',
+        '1__f': 'Ti. Ti si ta koja je otvorila moja vrata.',
         '2': 'Sada učim u podrumu, jer moram jesti. Nemoj to shvatiti kao oprost.'
       },
       ending: {
         '1': 'Dakle prijestolje je odlučeno, a Oakhaven je još pepeo. Nadam se da je vrijedilo.'
       },
       again: {
-        '1': 'Vratio si se. Moja naknada nije se promijenila.'
+        '1': 'Vratio si se. Moja naknada nije se promijenila.',
+        '1__f': 'Vratila si se. Moja naknada nije se promijenila.'
       },
       train: {
         '1': 'Naučit ću te zapovijedati. Zaslužuješ li to, druga je stvar.'
@@ -2388,10 +2475,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Imaš prisutnost za sve to. Šteta što je nisi bolje iskoristio.'
+          '1': 'Imaš prisutnost za sve to. Šteta što je nisi bolje iskoristio.',
+          '1__f': 'Imaš prisutnost za sve to. Šteta što je nisi bolje iskoristila.'
         },
         able: {
-          '1': 'Spreman si za sljedeću lekciju. Ne pretvaram se da mi je drago.'
+          '1': 'Spreman si za sljedeću lekciju. Ne pretvaram se da mi je drago.',
+          '1__f': 'Spremna si za sljedeću lekciju. Ne pretvaram se da mi je drago.'
         },
         weak: {
           '1': 'Još te nitko ne bi slijedio. Poradi na Karizmi.'
@@ -2412,6 +2501,7 @@ export default {
     trainerChrono: {
       fled: {
         '1': 'Ubio si je. Godinama sam to vidio kako dolazi, a ipak boli.',
+        '1__f': 'Ubila si je. Godinama sam to vidio kako dolazi, a ipak boli.',
         '2': 'Ja sam Čuvar sati. Naučit ću te. Rekla mi je da hoću.'
       },
       hello: {
@@ -2428,7 +2518,8 @@ export default {
         '1': 'Krug je sada ljut na tebe. Proći će. Do tada ćemo to držati tiho.'
       },
       again: {
-        '1': 'Dobro došao natrag. Točno na vrijeme.'
+        '1': 'Dobro došao natrag. Točno na vrijeme.',
+        '1__f': 'Dobro došla natrag. Točno na vrijeme.'
       },
       train: {
         '1': 'Gledaj pažljivo. Onda gledaj opet, trenutak ranije.'
@@ -2443,7 +2534,8 @@ export default {
           '1': 'Dobro držiš nit. Uzmi ostalo kad god želiš.'
         },
         able: {
-          '1': 'Spreman si. Znao sam prije nego što si pitao.'
+          '1': 'Spreman si. Znao sam prije nego što si pitao.',
+          '1__f': 'Spremna si. Znao sam prije nego što si pitala.'
         },
         weak: {
           '1': 'Nit stalno izmiče. Više Inteligencije i više Umijeća.'
@@ -2458,7 +2550,8 @@ export default {
           '1': 'Nije se opirala. Već je to vidjela. Molim te, ne pitaj me opet.'
         },
         waits: {
-          '1': 'Vidi svaki kraj. To je težak teret. Budi dobar prema njoj.'
+          '1': 'Vidi svaki kraj. To je težak teret. Budi dobar prema njoj.',
+          '1__f': 'Vidi svaki kraj. To je težak teret. Budi dobra prema njoj.'
         }
       },
       trainBack: {
@@ -2513,7 +2606,8 @@ export default {
         ask: {
           '1': 'Kolos je otpad. Nikad nisam mislio da ću doživjeti.',
           '2': 'I eno jezgre. Još zuji. Topla je ako je dotakneš.',
-          '3': 'Došao si prvi. Pa... što će biti s njom?'
+          '3': 'Došao si prvi. Pa... što će biti s njom?',
+          '3__f': 'Došla si prva. Pa... što će biti s njom?'
         },
         destroy: {
           '1': 'Svjetlo se gasi, a golemi padaju gdje stoje.',
@@ -2552,6 +2646,7 @@ export default {
       dragon: {
         ask: {
           '1': 'Dosta. Imaš zube, mali.',
+          '1__f': 'Dosta. Imaš zube, mala.',
           '2': 'Demon u tvrđavi okovao je moje rođake. Želim ga vidjeti kako gori.',
           '3': 'Ubij me ili mi dopusti da ti pomognem u tome.'
         },
@@ -2595,7 +2690,8 @@ export default {
         claim: {
           '1': 'Prijestolje je hladno i pristaje.',
           '2': 'Tri frakcije otkrivaju da imaju zajedničkog neprijatelja.',
-          say: 'Uzet ću ga sam.'
+          say: 'Uzet ću ga sam.',
+          say__f: 'Uzet ću ga sama.'
         }
       }
     }

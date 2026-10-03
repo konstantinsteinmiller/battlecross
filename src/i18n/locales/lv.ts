@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Sasniegts augstākais līmenis',
     next: 'Nākamais punkts:'
   },
+  heroChoice: {
+    title: 'Izvēlies varoni',
+    boy: 'Spēlēt ar zēnu',
+    girl: 'Spēlēt ar meiteni',
+    switch: 'Tavs varonis'
+  },
   skills: {
     active: 'Aktīvās prasmes',
     passive: 'Pasīvās prasmes',
@@ -1292,11 +1298,13 @@ export default {
       mana: 'Vai tev ir kaut kas manai?',
       who: 'Kas tu esi, ja drīkstu pajautāt?',
       rumor: 'Vai dzirdēji kaut ko jaunu?',
-      ready: 'Vai tu domā, ka esmu gatavs vairākam?'
+      ready: 'Vai tu domā, ka esmu gatavs vairākam?',
+      ready__f: 'Vai tu domā, ka esmu gatava vairākam?'
     },
     sunfordSmith: {
       hello: {
         '1': 'Tevi iepriekš neesmu redzējis. Vai tu esi tas, kas attīrīja ceļu?',
+        '1__f': 'Tevi iepriekš neesmu redzējis. Vai tu esi tā, kas attīrīja ceļu?',
         '2': 'Brams. Es pieskatu smēdi. Ja vajag asmeni, nāc pie manis.'
       },
       kingDead: {
@@ -1353,10 +1361,12 @@ export default {
     sunfordPeddler: {
       hello: {
         '1': 'Ak, sveiks! Vai pirksi, vai tikai skaties? Der abi.',
+        '1__f': 'Ak, sveika! Vai pirksi, vai tikai skaties? Der abi.',
         '2': 'Es esmu Tillija. Gredzeni, amuleti, sīkumi no visām malām.'
       },
       rival: {
-        '1': 'Vai esi redzējis goblina letiņu? Viņa cenas ir zemākas par manējām. Tas nav godīgi.'
+        '1': 'Vai esi redzējis goblina letiņu? Viņa cenas ir zemākas par manējām. Tas nav godīgi.',
+        '1__f': 'Vai esi redzējusi goblina letiņu? Viņa cenas ir zemākas par manējām. Tas nav godīgi.'
       },
       again: {
         '1': 'Te nu tu esi! Atliku dažas lietas, kas, manuprāt, tev patiks.'
@@ -1416,7 +1426,8 @@ export default {
         '1': 'Ordenis tevi sauc par ienaidnieku. Es tevi tāpat mācīšu. Tā ir mana izvēle, nevis viņu.'
       },
       again: {
-        '1': 'Atgriezies uz vēl vingrinājumiem?'
+        '1': 'Atgriezies uz vēl vingrinājumiem?',
+        '1__f': 'Atgriezusies uz vēl vingrinājumiem?'
       },
       train: {
         '1': 'Labi. Skaties uzmanīgi, es parādīšu tikai vienu reizi.'
@@ -1428,10 +1439,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Tu esi pietiekami stiprs lielākajai daļai no tā, ko protu. Turpini ar Izturību.'
+          '1': 'Tu esi pietiekami stiprs lielākajai daļai no tā, ko protu. Turpini ar Izturību.',
+          '1__f': 'Tu esi pietiekami stipra lielākajai daļai no tā, ko protu. Turpini ar Izturību.'
         },
         able: {
-          '1': 'Tu esi gatavs nākamajai nodarbībai. Neļauj tam kāpt galvā.'
+          '1': 'Tu esi gatavs nākamajai nodarbībai. Neļauj tam kāpt galvā.',
+          '1__f': 'Tu esi gatava nākamajai nodarbībai. Neļauj tam kāpt galvā.'
         },
         weak: {
           '1': 'Vēl ne. Tu nogurtu ātrāk par vairogu. Vairāk Spēka, vairāk Izturības.'
@@ -1452,6 +1465,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Ak, skolnieks? Brīnišķīgi. Varbūt nostājies mazliet tālāk.',
+        '1__f': 'Ak, skolniece? Brīnišķīgi. Varbūt nostājies mazliet tālāk.',
         '2': 'Es esmu Embera Rena. Es mācu uguni. Lielākoties tā dara, ko lūdzu.'
       },
       core: {
@@ -1464,7 +1478,8 @@ export default {
         '1': 'Loks nav apmierināts ar tevi. Es tevi tāpat mācīšu. Klusi.'
       },
       again: {
-        '1': 'Tu esi atpakaļ! Gatavs kaut ko aizdedzināt?'
+        '1': 'Tu esi atpakaļ! Gatavs kaut ko aizdedzināt?',
+        '1__f': 'Tu esi atpakaļ! Gatava kaut ko aizdedzināt?'
       },
       train: {
         '1': 'Labi. Skaties uz manām rokām un tur piedurknes tālāk no manis.'
@@ -1476,10 +1491,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Godīgi? Daļu no šī tu varētu mācīt pats. Ņem, ko gribi.'
+          '1': 'Godīgi? Daļu no šī tu varētu mācīt pats. Ņem, ko gribi.',
+          '1__f': 'Godīgi? Daļu no šī tu varētu mācīt pati. Ņem, ko gribi.'
         },
         able: {
-          '1': 'Tu esi gatavs nākamajai burvestībai. Nāc, parādīšu.'
+          '1': 'Tu esi gatavs nākamajai burvestībai. Nāc, parādīšu.',
+          '1__f': 'Tu esi gatava nākamajai burvestībai. Nāc, parādīšu.'
         },
         weak: {
           '1': 'Vēl ne, diemžēl. Tev vajag vairāk Intelekta, citādi uguns pārņem varu.'
@@ -1499,6 +1516,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Tātad tu esi tas no ceļa. Nāc šurp, ļauj tevi apskatīt.',
+        '1__f': 'Tātad tu esi tā no ceļa. Nāc šurp, ļauj tevi apskatīt.',
         '2': 'Es esmu Mara. Es pieskatu šo pilsētiņu... nu, jau četrdesmit gadus.'
       },
       slain: {
@@ -1532,6 +1550,7 @@ export default {
         '2': 'Un tu gribi viņu miruša?',
         '3': 'Es gribu, lai reidi beidzas. Kā... to tu izlemsi tur lejā.',
         '4': 'Alas ir tūlīt aiz līdzenuma. Esi uzmanīgs, lūdzu.',
+        '4__f': 'Alas ir tūlīt aiz līdzenuma. Esi uzmanīga, lūdzu.',
         say: 'Kas satrauc Sanfordu?'
       },
       king: {
@@ -1570,7 +1589,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Atgriezies pie mums vesels. Tas ir viss, ko lūdzu.'
+        '1': 'Atgriezies pie mums vesels. Tas ir viss, ko lūdzu.',
+        '1__f': 'Atgriezies pie mums vesela. Tas ir viss, ko lūdzu.'
       }
     },
     sunfordHealer: {
@@ -1579,7 +1599,8 @@ export default {
         '2': 'Es esmu māsa Lūna. Es lāpu, ko ceļš salauž.'
       },
       again: {
-        '1': 'Joprojām vesels? Labi. Tāpat apsēdies.'
+        '1': 'Joprojām vesels? Labi. Tāpat apsēdies.',
+        '1__f': 'Joprojām vesela? Labi. Tāpat apsēdies.'
       },
       heal: {
         '1': 'Sēdi, atpūties. Piepildīšu tavas kolbas, pirms dodies prom.'
@@ -1613,10 +1634,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Tu esi tas, kas noslēdza līgumu. Mans karalis saka, ka esi šeit gaidīts.',
+        '1__f': 'Tu esi tā, kas noslēdza līgumu. Mans karalis saka, ka esi šeit gaidīta.',
         '2': 'Es esmu Griks. Pārdodu, ko dara goblini. Labs darbs, godīga cena.'
       },
       again: {
-        '1': 'Draugs. Labi tevi atkal redzēt.'
+        '1': 'Draugs. Labi tevi atkal redzēt.',
+        '1__f': 'Draudzene. Labi tevi atkal redzēt.'
       },
       trade: {
         '1': 'Skaties, lūdzu. Mana ģimene to izgatavoja.'
@@ -1642,7 +1665,8 @@ export default {
         '1': 'Paldies. Nāc vēlreiz.'
       },
       bye: {
-        '1': 'Ej mierā, draugs.'
+        '1': 'Ej mierā, draugs.',
+        '1__f': 'Ej mierā, draudzene.'
       }
     },
     captainHale: {
@@ -1714,6 +1738,7 @@ export default {
       },
       armor: {
         '1': 'Plātnes, ja turi pozīciju. Āda, ja kustas. Tērpi, ja esi ātrs.',
+        '1__f': 'Plātnes, ja turi pozīciju. Āda, ja kustas. Tērpi, ja esi ātra.',
         say: 'Kādas bruņas man vajadzētu valkāt?'
       },
       rumor: {
@@ -1740,7 +1765,8 @@ export default {
         '1': 'Labi tevi redzēt. Ko šodien?'
       },
       trade: {
-        '1': 'Labās plātņu bruņas ir ārā. Tu esi vairāk nekā pelnījis paskatīties.'
+        '1': 'Labās plātņu bruņas ir ārā. Tu esi vairāk nekā pelnījis paskatīties.',
+        '1__f': 'Labās plātņu bruņas ir ārā. Tu esi vairāk nekā pelnījusi paskatīties.'
       },
       town: {
         '1': 'Rosīga. Skaļa. Pilna tirgotāju, kas žēlojas par nodevu.',
@@ -1759,7 +1785,8 @@ export default {
         '1': 'Ja neder, atnes atpakaļ. Es salabošu.'
       },
       bye: {
-        '1': 'Tu šeit vienmēr esi gaidīts.'
+        '1': 'Tu šeit vienmēr esi gaidīts.',
+        '1__f': 'Tu šeit vienmēr esi gaidīta.'
       }
     },
     oakWeapons: {
@@ -1784,7 +1811,8 @@ export default {
           '1': 'Kraga vīri nēsā labu tēraudu. Sindikāta nauda. Vērts paņemt, ja radīsies izdevība.'
         },
         which: {
-          '1': 'Ātri asmeņi grib Veiklību. Loki un šaujamie grib Meistarību. Zini, kāds esi.'
+          '1': 'Ātri asmeņi grib Veiklību. Loki un šaujamie grib Meistarību. Zini, kāds esi.',
+          '1__f': 'Ātri asmeņi grib Veiklību. Loki un šaujamie grib Meistarību. Zini, kāda esi.'
         }
       },
       shopBack: {
@@ -1803,13 +1831,16 @@ export default {
         '1': 'Pilsēta tagad ir klusāka. Mazāk sargu. Vieglāks darbs dažiem no mums.'
       },
       friend: {
-        '1': 'Sindikāts tevi uzskata par draugu. Draugi maksā mazāk. Atceries to.'
+        '1': 'Sindikāts tevi uzskata par draugu. Draugi maksā mazāk. Atceries to.',
+        '1__f': 'Sindikāts tevi uzskata par draudzeni. Draugi maksā mazāk. Atceries to.'
       },
       foe: {
-        '1': 'Sindikāts grib tevi miris. Man maksāja par mācīšanu, nevis par slepkavošanu. Tātad, nodarbības.'
+        '1': 'Sindikāts grib tevi miris. Man maksāja par mācīšanu, nevis par slepkavošanu. Tātad, nodarbības.',
+        '1__f': 'Sindikāts grib tevi mirušu. Man maksāja par mācīšanu, nevis par slepkavošanu. Tātad, nodarbības.'
       },
       again: {
-        '1': 'Tu joprojām esi pārāk skaļš. Strādāsim pie tā.'
+        '1': 'Tu joprojām esi pārāk skaļš. Strādāsim pie tā.',
+        '1__f': 'Tu joprojām esi pārāk skaļa. Strādāsim pie tā.'
       },
       train: {
         '1': 'Klusi tad. Skaties uz manām kājām, nevis rokām.'
@@ -1827,7 +1858,8 @@ export default {
           '1': 'Tavas rokas ir pietiekami ātras. Nākamais solis.'
         },
         weak: {
-          '1': 'Vēl ne. Tu esi smags uz kājām. Strādā pie Veiklības.'
+          '1': 'Vēl ne. Tu esi smags uz kājām. Strādā pie Veiklības.',
+          '1__f': 'Vēl ne. Tu esi smaga uz kājām. Strādā pie Veiklības.'
         }
       },
       syndicate: {
@@ -1847,10 +1879,12 @@ export default {
         '2': 'Lords Kastelāns, no Oukheivenas senākās dzimtas. Es mācu vadību.'
       },
       saved: {
-        '1': 'Mana pilsēta stāv, un kopā ar to mana dzimtas vārds. Tu esi pelnījis manu pateicību. Patiesi.'
+        '1': 'Mana pilsēta stāv, un kopā ar to mana dzimtas vārds. Tu esi pelnījis manu pateicību. Patiesi.',
+        '1__f': 'Mana pilsēta stāv, un kopā ar to mana dzimtas vārds. Tu esi pelnījusi manu pateicību. Patiesi.'
       },
       friend: {
-        '1': 'Ordeņa draugs. Samazināšu maksu. Lūdzu, neizplati to.'
+        '1': 'Ordeņa draugs. Samazināšu maksu. Lūdzu, neizplati to.',
+        '1__f': 'Ordeņa draudzene. Samazināšu maksu. Lūdzu, neizplati to.'
       },
       foe: {
         '1': 'Ordenim tavs vārds ir sarakstā. Es tevi tāpat mācīšu. Monēta ir monēta.'
@@ -1871,7 +1905,8 @@ export default {
           '1': 'Tev tagad ir īsta klātbūtne. Ņem pārējās manas nodarbības.'
         },
         able: {
-          '1': 'Tava balss skan. Tu esi gatavs nākamajai nodarbībai.'
+          '1': 'Tava balss skan. Tu esi gatavs nākamajai nodarbībai.',
+          '1__f': 'Tava balss skan. Tu esi gatava nākamajai nodarbībai.'
         },
         weak: {
           '1': 'Baidos, ka neviens tev vēl neseko. Strādā pie Harizmas.'
@@ -1943,6 +1978,7 @@ export default {
       },
       armor: {
         '1': 'Bruņukaļu vairs nav, draugs. Tu zini, kāpēc, labāk par mani.',
+        '1__f': 'Bruņukaļu vairs nav, draudzene. Tu zini, kāpēc, labāk par mani.',
         say: 'Vai ir pārdodamas bruņas?'
       },
       rumor: {
@@ -1954,7 +1990,8 @@ export default {
         }
       },
       shopBack: {
-        '1': 'Tu šeit nekad neesi bijis.'
+        '1': 'Tu šeit nekad neesi bijis.',
+        '1__f': 'Tu šeit nekad neesi bijusi.'
       },
       bye: {
         '1': 'Skaties, kur kāp. Gruveši kustas.'
@@ -1976,7 +2013,8 @@ export default {
         '1': 'Sindikāts par tavām asinīm labi maksātu. Es labāk redzu, ka tu tās iztērē šeit.'
       },
       again: {
-        '1': 'Tu izskaties bāls. Labi. Tas piestāv darbam.'
+        '1': 'Tu izskaties bāls. Labi. Tas piestāv darbam.',
+        '1__f': 'Tu izskaties bāla. Labi. Tas piestāv darbam.'
       },
       train: {
         '1': 'Atrullē piedurkni. Sāpēs. Tā ir diezgan visa būtība.'
@@ -1991,7 +2029,8 @@ export default {
           '1': 'Ievērojama miesasbūve. Vari apgūt gandrīz visu.'
         },
         able: {
-          '1': 'Tu esi pietiekami stiprs nākamajai nodarbībai.'
+          '1': 'Tu esi pietiekami stiprs nākamajai nodarbībai.',
+          '1__f': 'Tu esi pietiekami stipra nākamajai nodarbībai.'
         },
         weak: {
           '1': 'Tu noģībtu pie pirmā iegriezuma. Vispirms uzlabo Izturību, lūdzu.'
@@ -2005,22 +2044,26 @@ export default {
         '1': 'Raksti piezīmes. Es labprāt dzirdētu, kā tev iet.'
       },
       bye: {
-        '1': 'Paliec vesels. Es to nopietni.'
+        '1': 'Paliec vesels. Es to nopietni.',
+        '1__f': 'Paliec vesela. Es to nopietni.'
       }
     },
     syndicateBoss: {
       hello: {
         '1': 'Tātad tu atvēri vārtus. Apsēdies. Tu esi pelnījis krēslu.',
+        '1__f': 'Tātad tu atvēri vārtus. Apsēdies. Tu esi pelnījusi krēslu.',
         '2': 'Mani sauc Madāma Eša. Oukheivena tagad ir mūsu. Daļēji pateicoties tev.'
       },
       throneOurs: {
-        '1': 'Šausmu cietoksnis, mūsu rokās. Tu biji vērts katras monētas.'
+        '1': 'Šausmu cietoksnis, mūsu rokās. Tu biji vērts katras monētas.',
+        '1__f': 'Šausmu cietoksnis, mūsu rokās. Tu biji verta katras monētas.'
       },
       throneLost: {
         '1': 'Tu atdevi troni kādam citam. Par to parunāsim. Ne šodien.'
       },
       foe: {
-        '1': 'Tu esi strādājis pret mums. Tāpat apsēdies. Man patīk zināt, ar ko man darīšana.'
+        '1': 'Tu esi strādājis pret mums. Tāpat apsēdies. Man patīk zināt, ar ko man darīšana.',
+        '1__f': 'Tu esi strādājusi pret mums. Tāpat apsēdies. Man patīk zināt, ar ko man darīšana.'
       },
       again: {
         '1': 'Atkal šeit. Ko Sindikāts var darīt tavā labā?'
@@ -2033,6 +2076,7 @@ export default {
       syndicate: {
         '1': 'Ko grib visi. Mēs tikai neizliekamies citādi.',
         '2': 'Paliec draudzīgs, un Čuksts un Doktors ņems mazāk.',
+        '2__f': 'Paliec draudzīga, un Čuksts un Doktors ņems mazāk.',
         say: 'Ko Sindikāts patiesībā grib?'
       },
       order: {
@@ -2051,7 +2095,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Neesi svešinieks. Mēs sekojam svešiniekiem.'
+        '1': 'Neesi svešinieks. Mēs sekojam svešiniekiem.',
+        '1__f': 'Neesi svešiniece. Mēs sekojam svešiniekiem.'
       }
     },
     forgemaster: {
@@ -2079,6 +2124,7 @@ export default {
         '2': 'Un golemi?',
         '3': 'Tie kustas tās ritmā. Trīs spēki ir rakstījuši, prasot to. Es neuzticos nevienam.',
         '4': 'Tu to sasniegsi pirmais, Aironholdas raktuvju dibenā. Kas notiks tālāk, ir atkarīgs no tevis.',
+        '4__f': 'Tu to sasniegsi pirmā, Aironholdas raktuvju dibenā. Kas notiks tālāk, ir atkarīgs no tevis.',
         say: 'Kas notika tur lejā, raktuvēs?'
       },
       core: {
@@ -2122,7 +2168,8 @@ export default {
         '1': 'Tu nogalināji pūķi? Ceru, ka ar vienu no maniem asmeņiem.'
       },
       again: {
-        '1': 'Atgriezies pēc īsta tērauda?'
+        '1': 'Atgriezies pēc īsta tērauda?',
+        '1__f': 'Atgriezusies pēc īsta tērauda?'
       },
       trade: {
         '1': 'Rūķu kalts. Ja kāds no šiem salūzt, gribu zināt, kā.'
@@ -2177,7 +2224,8 @@ export default {
         '1': 'Garruns. Bruņas uz statīviem, gredzeni paplātē.'
       },
       again: {
-        '1': 'Atgriezies. Kas vajadzīgs?'
+        '1': 'Atgriezies. Kas vajadzīgs?',
+        '1__f': 'Atgriezusies. Kas vajadzīgs?'
       },
       trade: {
         '1': 'Tā plāksne apturēs milža vāli. Paskaties.'
@@ -2204,6 +2252,7 @@ export default {
     ironOrderArmor: {
       hello: {
         '1': 'Tu esi tas, kas iznīcināja kodolu. Ordenis to atceras.',
+        '1__f': 'Tu esi tā, kas iznīcināja kodolu. Ordenis to atceras.',
         '2': 'Es šeit esmu Ordeņa intendants. Mūsu ieroču noliktavas tev ir atvērtas.'
       },
       throneOurs: {
@@ -2258,7 +2307,8 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Akmens tevi tagad pazīst. Iemācies pārējo, kad esi gatavs.'
+          '1': 'Akmens tevi tagad pazīst. Iemācies pārējo, kad esi gatavs.',
+          '1__f': 'Akmens tevi tagad pazīst. Iemācies pārējo, kad esi gatava.'
         },
         able: {
           '1': 'Tu stāvi pietiekami stingri nākamajai nodarbībai.'
@@ -2290,7 +2340,8 @@ export default {
         '1': 'Loks ir dusmīgs par orākulu. Es tikai būvēju lietas. Es labāk neiejauktos.'
       },
       friend: {
-        '1': 'Tu esi Loka draugs, tāpēc tavas nodarbības ir lētākas. Es sakārtoju papīrus.'
+        '1': 'Tu esi Loka draugs, tāpēc tavas nodarbības ir lētākas. Es sakārtoju papīrus.',
+        '1__f': 'Tu esi Loka draudzene, tāpēc tavas nodarbības ir lētākas. Es sakārtoju papīrus.'
       },
       foe: {
         '1': 'Loks saka, ka man nevajadzētu tevi mācīt. Es tāpat mācīšu. Neteic viņiem.'
@@ -2311,7 +2362,8 @@ export default {
           '1': 'Tu tagad pārzini tornīšus. Ņem lielās mašīnas.'
         },
         able: {
-          '1': 'Stabilas rokas. Tu esi gatavs nākamajai.'
+          '1': 'Stabilas rokas. Tu esi gatavs nākamajai.',
+          '1__f': 'Stabilas rokas. Tu esi gatava nākamajai.'
         },
         weak: {
           '1': 'Tavs mērķis vēl mazliet trīc. Ieliec dažus punktus Meistarībā.'
@@ -2325,7 +2377,8 @@ export default {
         '1': 'Un atceries izlaist karstumu, pirms tas izlaiž tevi.'
       },
       bye: {
-        '1': 'Esi uzmanīgs tur ārā!'
+        '1': 'Esi uzmanīgs tur ārā!',
+        '1__f': 'Esi uzmanīga tur ārā!'
       }
     },
     ironHealer: {
@@ -2334,10 +2387,12 @@ export default {
         '2': 'Māte Brinja. Esmu savietojusi lielāko daļu šī kalna lauzto kaulu.'
       },
       ending: {
-        '1': 'Tu aizgāji uz Šausmu cietoksni un atgriezies. Apsēdies. Ļauj tevi apskatīt.'
+        '1': 'Tu aizgāji uz Šausmu cietoksni un atgriezies. Apsēdies. Ļauj tevi apskatīt.',
+        '1__f': 'Tu aizgāji uz Šausmu cietoksni un atgriezies. Apsēdies. Ļauj tevi apskatīt.'
       },
       again: {
-        '1': 'Joprojām dzīvs. Labi. Sēdi.'
+        '1': 'Joprojām dzīvs. Labi. Sēdi.',
+        '1__f': 'Joprojām dzīva. Labi. Sēdi.'
       },
       heal: {
         '1': 'Izdzer šo un neveido tādu grimasi. Tavas kolbas ir pilnas.'
@@ -2361,7 +2416,8 @@ export default {
         }
       },
       healBack: {
-        '1': 'Ej. Un apēd kaut ko, tu esi pārāk tievs.'
+        '1': 'Ej. Un apēd kaut ko, tu esi pārāk tievs.',
+        '1__f': 'Ej. Un apēd kaut ko, tu esi pārāk tieva.'
       },
       bye: {
         '1': 'Atnāc atpakaļ vienā gabalā.'
@@ -2370,6 +2426,7 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Tu. Tu esi tas, kas atvēra manus vārtus.',
+        '1__f': 'Tu. Tu esi tā, kas atvēra manus vārtus.',
         '2': 'Tagad mācu pagrabā, jo man jāēd. Nenem to par piedošanu.'
       },
       ending: {
@@ -2379,7 +2436,8 @@ export default {
         '1': 'Tu esi atpakaļ. Mana maksa nav mainījusies.'
       },
       train: {
-        '1': 'Es iemācīšu tevi vadīt. Vai tu to esi pelnījis, ir cits jautājums.'
+        '1': 'Es iemācīšu tevi vadīt. Vai tu to esi pelnījis, ir cits jautājums.',
+        '1__f': 'Es iemācīšu tevi vadīt. Vai tu to esi pelnījusi, ir cits jautājums.'
       },
       class: {
         '1': 'Kāds, kam citi seko. Sargi nāk, kad sauc, un cīnās pēc tava vārda.',
@@ -2388,10 +2446,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Tev ir klātbūtne visam. Es vēlētos, lai tu to būtu izmantojis labāk.'
+          '1': 'Tev ir klātbūtne visam. Es vēlētos, lai tu to būtu izmantojis labāk.',
+          '1__f': 'Tev ir klātbūtne visam. Es vēlētos, lai tu to būtu izmantojusi labāk.'
         },
         able: {
-          '1': 'Tu esi gatavs nākamajai nodarbībai. Neizlikšos, ka priecājos.'
+          '1': 'Tu esi gatavs nākamajai nodarbībai. Neizlikšos, ka priecājos.',
+          '1__f': 'Tu esi gatava nākamajai nodarbībai. Neizlikšos, ka priecājos.'
         },
         weak: {
           '1': 'Neviens tev vēl neseko. Strādā pie Harizmas.'
@@ -2443,7 +2503,8 @@ export default {
           '1': 'Tu labi tur pavedienu. Ņem pārējo, kad vēlies.'
         },
         able: {
-          '1': 'Tu esi gatavs. Es to zināju, pirms tu pajautāji.'
+          '1': 'Tu esi gatavs. Es to zināju, pirms tu pajautāji.',
+          '1__f': 'Tu esi gatava. Es to zināju, pirms tu pajautāji.'
         },
         weak: {
           '1': 'Pavediens pastāvīgi izslīd. Vairāk Intelekta un vairāk Meistarības.'
@@ -2458,7 +2519,8 @@ export default {
           '1': 'Viņa necīnījās pretī. Viņa to jau bija redzējusi. Lūdzu, nejautā man vairs.'
         },
         waits: {
-          '1': 'Viņa redz katru beigu. Tas ir smags nesams. Esi laipns pret viņu.'
+          '1': 'Viņa redz katru beigu. Tas ir smags nesams. Esi laipns pret viņu.',
+          '1__f': 'Viņa redz katru beigu. Tas ir smags nesams. Esi laipna pret viņu.'
         }
       },
       trainBack: {
@@ -2513,7 +2575,8 @@ export default {
         ask: {
           '1': 'Koloss ir lūžņi. Nekad nedomāju, ka to piedzīvošu.',
           '2': 'Un te ir kodols. Joprojām dūc. Tas ir silts, ja pieskaries.',
-          '3': 'Tu atnāci pirmais. Tātad... kas ar to notiks?'
+          '3': 'Tu atnāci pirmais. Tātad... kas ar to notiks?',
+          '3__f': 'Tu atnāci pirmā. Tātad... kas ar to notiks?'
         },
         destroy: {
           '1': 'Gaisma nodziest, un golemi nokrīt, kur stāv.',
@@ -2552,6 +2615,7 @@ export default {
       dragon: {
         ask: {
           '1': 'Pietiek. Tev ir zobi, mazais.',
+          '1__f': 'Pietiek. Tev ir zobi, mazā.',
           '2': 'Dēmons cietoksnī iekala manus radiniekus važās. Es gribu redzēt viņu degam.',
           '3': 'Nogalini mani vai ļauj man tev palīdzēt to izdarīt.'
         },
@@ -2595,7 +2659,8 @@ export default {
         claim: {
           '1': 'Tronis ir auksts, un tas der.',
           '2': 'Trīs frakcijas atklāj, ka tām ir kopīgs ienaidnieks.',
-          say: 'Es to ņemšu pats.'
+          say: 'Es to ņemšu pats.',
+          say__f: 'Es to ņemšu pati.'
         }
       }
     }
@@ -2670,7 +2735,8 @@ export default {
     equipped: 'Aprīkots',
     better: 'Labāks par to, ko nēsā',
     retry: 'Mēģināt vēlreiz',
-    tip: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāks.'
+    tip: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāks.',
+    tip__f: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāka.'
   },
   pause: {
     title: 'Pauze',

@@ -100,6 +100,7 @@ export default {
     },
     target: {
       touch: 'Tippe einen Gegner an oder ziehe von deinem Helden auf ihn, um anzugreifen.',
+      touch__f: 'Tippe einen Gegner an oder ziehe von deiner Heldin auf ihn, um anzugreifen.',
       mouse: 'Klicke einen Gegner an, um ihn anzugreifen.'
     },
     skill: {
@@ -354,6 +355,12 @@ export default {
     raise: '{attr} erhöhen',
     maxLevel: 'Höchstes Level erreicht',
     next: 'Nächster Punkt:'
+  },
+  heroChoice: {
+    title: 'Wähle deinen Helden',
+    boy: 'Als Junge spielen',
+    girl: 'Als Mädchen spielen',
+    switch: 'Dein Held'
   },
   skills: {
     active: 'Aktive Fähigkeiten',
@@ -1413,7 +1420,8 @@ export default {
         '1': 'Der Orden hält viel von dir. Für seine Freunde sind meine Lektionen billiger.'
       },
       foe: {
-        '1': 'Der Orden nennt dich einen Feind. Ich unterrichte dich trotzdem. Das ist meine Entscheidung, nicht seine.'
+        '1': 'Der Orden nennt dich einen Feind. Ich unterrichte dich trotzdem. Das ist meine Entscheidung, nicht seine.',
+        '1__f': 'Der Orden nennt dich eine Feindin. Ich unterrichte dich trotzdem. Das ist meine Entscheidung, nicht seine.'
       },
       again: {
         '1': 'Zurück für mehr Übungen?'
@@ -1452,6 +1460,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Oh, ein Schüler? Wunderbar. Tritt vielleicht ein Stück zurück.',
+        '1__f': 'Oh, eine Schülerin? Wunderbar. Tritt vielleicht ein Stück zurück.',
         '2': 'Ich bin Ember Wren. Ich lehre Feuer. Meistens tut es, was ich sage.'
       },
       core: {
@@ -1499,6 +1508,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Du bist also der von der Straße. Komm her, lass dich ansehen.',
+        '1__f': 'Du bist also die von der Straße. Komm her, lass dich ansehen.',
         '2': 'Ich bin Mara. Ich sorge für diese Stadt seit... oh, vierzig Jahren.'
       },
       slain: {
@@ -1613,10 +1623,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Du bist der, der den Pakt gemacht hat. Mein König sagt, du bist hier willkommen.',
+        '1__f': 'Du bist die, die den Pakt gemacht hat. Mein König sagt, du bist hier willkommen.',
         '2': 'Ich bin Grik. Ich verkaufe, was Goblins machen. Gute Arbeit, fairer Preis.'
       },
       again: {
-        '1': 'Freund. Schön, dich wiederzusehen.'
+        '1': 'Freund. Schön, dich wiederzusehen.',
+        '1__f': 'Freundin. Schön, dich wiederzusehen.'
       },
       trade: {
         '1': 'Schau, bitte. Meine Familie hat das gemacht.'
@@ -1642,7 +1654,8 @@ export default {
         '1': 'Danke. Komm wieder.'
       },
       bye: {
-        '1': 'Geh sicher, Freund.'
+        '1': 'Geh sicher, Freund.',
+        '1__f': 'Geh sicher, Freundin.'
       }
     },
     captainHale: {
@@ -1803,7 +1816,8 @@ export default {
         '1': 'Die Stadt ist jetzt ruhiger. Weniger Wachen. Leichtere Arbeit, für manche von uns.'
       },
       friend: {
-        '1': 'Das Syndikat hält dich für einen Freund. Freunde zahlen weniger. Merk dir das.'
+        '1': 'Das Syndikat hält dich für einen Freund. Freunde zahlen weniger. Merk dir das.',
+        '1__f': 'Das Syndikat hält dich für eine Freundin. Freunde zahlen weniger. Merk dir das.'
       },
       foe: {
         '1': 'Das Syndikat will dich tot sehen. Ich wurde fürs Lehren bezahlt, nicht fürs Töten. Also, Unterricht.'
@@ -1850,7 +1864,8 @@ export default {
         '1': 'Meine Stadt steht, und der Name meiner Familie mit ihr. Du hast meinen Dank. Wirklich.'
       },
       friend: {
-        '1': 'Ein Freund des Ordens. Ich senke mein Honorar. Bitte erzähl das nicht herum.'
+        '1': 'Ein Freund des Ordens. Ich senke mein Honorar. Bitte erzähl das nicht herum.',
+        '1__f': 'Eine Freundin des Ordens. Ich senke mein Honorar. Bitte erzähl das nicht herum.'
       },
       foe: {
         '1': 'Der Orden führt deinen Namen auf einer Liste. Ich unterrichte dich trotzdem. Geld ist Geld.'
@@ -1943,6 +1958,7 @@ export default {
       },
       armor: {
         '1': 'Die Rüstungsschmiede sind weg, Freund. Du weißt besser als ich, warum.',
+        '1__f': 'Die Rüstungsschmiede sind weg, Freundin. Du weißt besser als ich, warum.',
         say: 'Gibt es Rüstungen zu kaufen?'
       },
       rumor: {
@@ -1963,6 +1979,7 @@ export default {
     trainerBlood: {
       hello: {
         '1': 'Ein Besucher. Bitte fass die Gläser nicht an.',
+        '1__f': 'Eine Besucherin. Bitte fass die Gläser nicht an.',
         '2': 'Doktor Sangrel. Oakhavens neue Herren fragen nicht, was ich lehre. Das ist erholsam.'
       },
       found: {
@@ -2011,6 +2028,7 @@ export default {
     syndicateBoss: {
       hello: {
         '1': 'Du bist also der, der das Tor geöffnet hat. Setz dich. Einen Stuhl hast du dir verdient.',
+        '1__f': 'Du bist also die, die das Tor geöffnet hat. Setz dich. Einen Stuhl hast du dir verdient.',
         '2': 'Man nennt mich Madame Ash. Oakhaven gehört jetzt uns. Zum Teil dank dir.'
       },
       throneOurs: {
@@ -2079,6 +2097,7 @@ export default {
         '2': 'Und die Golems?',
         '3': 'Sie bewegen sich in seinem Rhythmus. Drei Mächte haben geschrieben und wollen ihn. Keiner traue ich.',
         '4': 'Du erreichst ihn als Erster, ganz unten in den Minen von Ironhold. Was dann geschieht, liegt bei dir.',
+        '4__f': 'Du erreichst ihn als Erste, ganz unten in den Minen von Ironhold. Was dann geschieht, liegt bei dir.',
         say: 'Was ist unten in den Minen passiert?'
       },
       core: {
@@ -2290,7 +2309,8 @@ export default {
         '1': 'Der Zirkel tobt wegen des Orakels. Ich baue nur Sachen. Ich möchte mich da lieber nicht einmischen.'
       },
       friend: {
-        '1': 'Du bist ein Freund des Zirkels, deshalb ist dein Unterricht billiger. Den Papierkram habe ich erledigt.'
+        '1': 'Du bist ein Freund des Zirkels, deshalb ist dein Unterricht billiger. Den Papierkram habe ich erledigt.',
+        '1__f': 'Du bist eine Freundin des Zirkels, deshalb ist dein Unterricht billiger. Den Papierkram habe ich erledigt.'
       },
       foe: {
         '1': 'Der Zirkel sagt, ich soll dich nicht unterrichten. Ich tue es trotzdem. Sag es ihnen nicht.'
@@ -2506,6 +2526,7 @@ export default {
           '1': 'Vernünftig. Madame Ash wird sich freuen, das zu hören.',
           '2': 'Oakhaven brennt. In den Ruinen öffnet ein schwarzer Markt, und ein Alchemist unterrichtet im Geheimen.',
           '3': 'Die Rüstungsschmiede sind fort, und der Eiserne Orden nennt dich einen Verräter.',
+          '3__f': 'Die Rüstungsschmiede sind fort, und der Eiserne Orden nennt dich eine Verräterin.',
           say: 'Ein Drittel der Stadt. Na gut. Das Tor öffnet sich heute Nacht.'
         }
       },
@@ -2558,6 +2579,7 @@ export default {
         slay: {
           '1': 'Der Berg bebt, als der Drache fällt. Sein Hort gehört dir.',
           '2': 'Der Eiserne Orden besingt den Drachentöter.',
+          '2__f': 'Der Eiserne Orden besingt die Drachentöterin.',
           say: 'Ich verhandle nicht mit Drachen.'
         },
         pact: {

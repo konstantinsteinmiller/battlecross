@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Pasiektas aukščiausias lygis',
     next: 'Kitas taškas:'
   },
+  heroChoice: {
+    title: 'Pasirink herojų',
+    boy: 'Žaisti berniuku',
+    girl: 'Žaisti mergaite',
+    switch: 'Tavo herojus'
+  },
   skills: {
     active: 'Aktyvūs įgūdžiai',
     passive: 'Pasyvūs įgūdžiai',
@@ -1292,11 +1298,13 @@ export default {
       mana: 'Ar turi ko nors manai?',
       who: 'Kas tu esi, jei galiu paklausti?',
       rumor: 'Ar ką nors girdėjai?',
-      ready: 'Ar manai, kad esu pasiruošęs daugiau?'
+      ready: 'Ar manai, kad esu pasiruošęs daugiau?',
+      ready__f: 'Ar manai, kad esu pasiruošusi daugiau?'
     },
     sunfordSmith: {
       hello: {
         '1': 'Anksčiau tavęs nemačiau. Ar tu tas, kuris išvalė kelią?',
+        '1__f': 'Anksčiau tavęs nemačiau. Ar tu ta, kuri išvalė kelią?',
         '2': 'Bramas. Aš prižiūriu kalvę. Jei reikia ašmenų, ateik pas mane.'
       },
       kingDead: {
@@ -1428,10 +1436,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Esi pakankamai stiprus daugumai to, ką moku. Tęsk su Ištverme.'
+          '1': 'Esi pakankamai stiprus daugumai to, ką moku. Tęsk su Ištverme.',
+          '1__f': 'Esi pakankamai stipri daugumai to, ką moku. Tęsk su Ištverme.'
         },
         able: {
-          '1': 'Esi pasiruošęs kitai pamokai. Tik nesukvaišk.'
+          '1': 'Esi pasiruošęs kitai pamokai. Tik nesukvaišk.',
+          '1__f': 'Esi pasiruošusi kitai pamokai. Tik nesukvaišk.'
         },
         weak: {
           '1': 'Dar ne. Pavargtum anksčiau nei skydas. Daugiau Jėgos, daugiau Ištvermės.'
@@ -1452,6 +1462,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'O, mokinys? Puiku. Gal atsitrauk kiek toliau.',
+        '1__f': 'O, mokinė? Puiku. Gal atsitrauk kiek toliau.',
         '2': 'Aš Ember Wren. Mokau ugnies. Dažniausiai ji daro, ko prašau.'
       },
       core: {
@@ -1464,7 +1475,8 @@ export default {
         '1': 'Ratas tavimi nepatenkintas. Vis tiek mokysiu. Tyliai.'
       },
       again: {
-        '1': 'Sugrįžai! Pasiruošęs ką nors padegti?'
+        '1': 'Sugrįžai! Pasiruošęs ką nors padegti?',
+        '1__f': 'Sugrįžai! Pasiruošusi ką nors padegti?'
       },
       train: {
         '1': 'Gerai. Žiūrėk į mano rankas ir laikyk rankoves toliau nuo manęs.'
@@ -1476,10 +1488,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Sąžiningai? Dalį to galėtum mokyti pats. Imk, ką nori.'
+          '1': 'Sąžiningai? Dalį to galėtum mokyti pats. Imk, ką nori.',
+          '1__f': 'Sąžiningai? Dalį to galėtum mokyti pati. Imk, ką nori.'
         },
         able: {
-          '1': 'Esi pasiruošęs kitam burtui. Eime, parodysiu.'
+          '1': 'Esi pasiruošęs kitam burtui. Eime, parodysiu.',
+          '1__f': 'Esi pasiruošusi kitam burtui. Eime, parodysiu.'
         },
         weak: {
           '1': 'Dar ne, deja. Tau reikia daugiau Intelekto, kitaip ugnis perima valdžią.'
@@ -1499,6 +1513,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Taigi tu tas, kuris iš kelio. Ateik čia, leisk į tave pažiūrėti.',
+        '1__f': 'Taigi tu ta, kuri iš kelio. Ateik čia, leisk į tave pažiūrėti.',
         '2': 'Aš Mara. Prižiūriu šį miestelį... na, jau keturiasdešimt metų.'
       },
       slain: {
@@ -1532,6 +1547,7 @@ export default {
         '2': 'O tu nori jo mirties?',
         '3': 'Noriu, kad antpuoliai liautųsi. Kaip... tai tu nuspręsi ten apačioje.',
         '4': 'Urvai už lygumų. Būk atsargus, prašau.',
+        '4__f': 'Urvai už lygumų. Būk atsargi, prašau.',
         say: 'Kas kamuoja Sunfordą?'
       },
       king: {
@@ -1570,7 +1586,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Grįžk pas mus sveikas. Tik to ir prašau.'
+        '1': 'Grįžk pas mus sveikas. Tik to ir prašau.',
+        '1__f': 'Grįžk pas mus sveika. Tik to ir prašau.'
       }
     },
     sunfordHealer: {
@@ -1579,7 +1596,8 @@ export default {
         '2': 'Aš sesuo Lune. Lopau, ką kelias sulaužo.'
       },
       again: {
-        '1': 'Vis dar sveikas? Gerai. Vis tiek prisėsk.'
+        '1': 'Vis dar sveikas? Gerai. Vis tiek prisėsk.',
+        '1__f': 'Vis dar sveika? Gerai. Vis tiek prisėsk.'
       },
       heal: {
         '1': 'Sėskis, pailsėk. Pripildysiu tavo kolbas, kol neišėjai.'
@@ -1597,7 +1615,8 @@ export default {
           '1': 'Goblinai ką nors tepa ant savo svaidyklės akmenų. Jei bloga, sugrįžk.'
         },
         spiders: {
-          '1': 'Šią savaitę gydžiau tris voro įkandimus iš Miško. Būk ten atsargus.'
+          '1': 'Šią savaitę gydžiau tris voro įkandimus iš Miško. Būk ten atsargus.',
+          '1__f': 'Šią savaitę gydžiau tris voro įkandimus iš Miško. Būk ten atsargi.'
         },
         burns: {
           '1': 'Kareiviai vis ateina iš šiaurės su nudegimais. Pelenų uolos, sako.'
@@ -1613,6 +1632,7 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Tu tas, kuris sudarė sutartį. Mano karalius sako, kad esi čia laukiamas.',
+        '1__f': 'Tu ta, kuri sudarė sutartį. Mano karalius sako, kad esi čia laukiama.',
         '2': 'Aš Grik. Parduodu, ką gamina goblinai. Geras darbas, sąžininga kaina.'
       },
       again: {
@@ -1714,6 +1734,7 @@ export default {
       },
       armor: {
         '1': 'Plokštės, jei laikaisi vietoje. Oda, jei juda. Rūbai, jei esi greitas.',
+        '1__f': 'Plokštės, jei laikaisi vietoje. Oda, jei juda. Rūbai, jei esi greita.',
         say: 'Kokius šarvus turėčiau dėvėti?'
       },
       rumor: {
@@ -1759,7 +1780,8 @@ export default {
         '1': 'Jei netinka, atnešk atgal. Pataisysiu.'
       },
       bye: {
-        '1': 'Čia visada laukiamas.'
+        '1': 'Čia visada laukiamas.',
+        '1__f': 'Čia visada laukiama.'
       }
     },
     oakWeapons: {
@@ -1784,7 +1806,8 @@ export default {
           '1': 'Krago vyrai nešioja gerą plieną. Sindikato pinigai. Verta paimti, jei pasitaikys proga.'
         },
         which: {
-          '1': 'Greiti ašmenys nori Vikrumo. Lankai ir šaunamieji ginklai nori Meistrystės. Žinok, koks esi.'
+          '1': 'Greiti ašmenys nori Vikrumo. Lankai ir šaunamieji ginklai nori Meistrystės. Žinok, koks esi.',
+          '1__f': 'Greiti ašmenys nori Vikrumo. Lankai ir šaunamieji ginklai nori Meistrystės. Žinok, kokia esi.'
         }
       },
       shopBack: {
@@ -1803,13 +1826,15 @@ export default {
         '1': 'Miestas dabar tylesnis. Mažiau sargybinių. Lengvesnis darbas kai kuriems iš mūsų.'
       },
       friend: {
-        '1': 'Sindikatas laiko tave draugu. Draugai moka mažiau. Atsimink tai.'
+        '1': 'Sindikatas laiko tave draugu. Draugai moka mažiau. Atsimink tai.',
+        '1__f': 'Sindikatas laiko tave drauge. Draugai moka mažiau. Atsimink tai.'
       },
       foe: {
         '1': 'Sindikatas nori tavo mirties. Man mokėjo už mokymą, ne už žudymą. Taigi, pamokos.'
       },
       again: {
-        '1': 'Vis dar per garsus. Dirbsime prie to.'
+        '1': 'Vis dar per garsus. Dirbsime prie to.',
+        '1__f': 'Vis dar per garsi. Dirbsime prie to.'
       },
       train: {
         '1': 'Tyliai tada. Žiūrėk į mano kojas, ne rankas.'
@@ -1827,7 +1852,8 @@ export default {
           '1': 'Tavo rankos pakankamai greitos. Kitas žingsnis.'
         },
         weak: {
-          '1': 'Dar ne. Esi sunkus ant kojų. Lavink Vikrumą.'
+          '1': 'Dar ne. Esi sunkus ant kojų. Lavink Vikrumą.',
+          '1__f': 'Dar ne. Esi sunki ant kojų. Lavink Vikrumą.'
         }
       },
       syndicate: {
@@ -1850,7 +1876,8 @@ export default {
         '1': 'Mano miestas stovi, o kartu ir mano giminės vardas. Turi mano padėką. Nuoširdžiai.'
       },
       friend: {
-        '1': 'Ordino draugas. Sumažinsiu mokestį. Prašau, neskleisk to.'
+        '1': 'Ordino draugas. Sumažinsiu mokestį. Prašau, neskleisk to.',
+        '1__f': 'Ordino draugė. Sumažinsiu mokestį. Prašau, neskleisk to.'
       },
       foe: {
         '1': 'Ordinas turi tavo vardą sąraše. Vis tiek mokysiu. Moneta yra moneta.'
@@ -1871,7 +1898,8 @@ export default {
           '1': 'Dabar turi tikrą buvimą. Imk likusias mano pamokas.'
         },
         able: {
-          '1': 'Tavo balsas girdimas. Esi pasiruošęs kitai pamokai.'
+          '1': 'Tavo balsas girdimas. Esi pasiruošęs kitai pamokai.',
+          '1__f': 'Tavo balsas girdimas. Esi pasiruošusi kitai pamokai.'
         },
         weak: {
           '1': 'Bijau, kad dar niekas tavęs neseks. Lavink Charizmą.'
@@ -1976,7 +2004,8 @@ export default {
         '1': 'Sindikatas gerai mokėtų už tavo kraują. Verčiau matyčiau, kad išleistum jį čia.'
       },
       again: {
-        '1': 'Atrodai išblyškęs. Gerai. Tinka darbui.'
+        '1': 'Atrodai išblyškęs. Gerai. Tinka darbui.',
+        '1__f': 'Atrodai išblyškusi. Gerai. Tinka darbui.'
       },
       train: {
         '1': 'Atsisuk rankovę. Skaudės. Tai gana esmė.'
@@ -1991,7 +2020,8 @@ export default {
           '1': 'Nepaprasta sudėtis. Gali išmokti beveik viską.'
         },
         able: {
-          '1': 'Esi pakankamai tvirtas kitai pamokai.'
+          '1': 'Esi pakankamai tvirtas kitai pamokai.',
+          '1__f': 'Esi pakankamai tvirta kitai pamokai.'
         },
         weak: {
           '1': 'Apalptum nuo pirmo įpjovimo. Pirmiausia sustiprink Ištvermę, prašau.'
@@ -2005,16 +2035,19 @@ export default {
         '1': 'Rašyk pastabas. Norėčiau išgirsti, kaip sekasi.'
       },
       bye: {
-        '1': 'Būk sveikas. Aš rimtai.'
+        '1': 'Būk sveikas. Aš rimtai.',
+        '1__f': 'Būk sveika. Aš rimtai.'
       }
     },
     syndicateBoss: {
       hello: {
         '1': 'Taigi tu atidarei vartus. Sėskis. Esi pelnęs kėdę.',
+        '1__f': 'Taigi tu atidarei vartus. Sėskis. Esi pelniusi kėdę.',
         '2': 'Mane vadina Madam Ash. Oakhavenas dabar mūsų. Iš dalies ačiū tau.'
       },
       throneOurs: {
-        '1': 'Siaubo tvirtovė mūsų rankose. Buvai vertas kiekvienos monetos.'
+        '1': 'Siaubo tvirtovė mūsų rankose. Buvai vertas kiekvienos monetos.',
+        '1__f': 'Siaubo tvirtovė mūsų rankose. Buvai verta kiekvienos monetos.'
       },
       throneLost: {
         '1': 'Atidavei sostą kitam. Apie tai pakalbėsime. Ne šiandien.'
@@ -2033,6 +2066,7 @@ export default {
       syndicate: {
         '1': 'To, ko nori visi. Mes tik neapsimetame kitaip.',
         '2': 'Būk draugiškas, ir Šnabždesys su Daktaru imsis mažiau.',
+        '2__f': 'Būk draugiška, ir Šnabždesys su Daktaru imsis mažiau.',
         say: 'Ko iš tikrųjų nori Sindikatas?'
       },
       order: {
@@ -2051,7 +2085,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Nebūk svetimas. Mes stebime svetimus.'
+        '1': 'Nebūk svetimas. Mes stebime svetimus.',
+        '1__f': 'Nebūk svetima. Mes stebime svetimus.'
       }
     },
     forgemaster: {
@@ -2079,6 +2114,7 @@ export default {
         '2': 'O golemai?',
         '3': 'Jie juda jos ritmu. Trys galios rašė prašydamos jos. Nepasitikiu nė viena.',
         '4': 'Pasieksi ją pirmas, Ironholdo kasyklų dugne. Kas bus paskui, priklauso nuo tavęs.',
+        '4__f': 'Pasieksi ją pirma, Ironholdo kasyklų dugne. Kas bus paskui, priklauso nuo tavęs.',
         say: 'Kas nutiko ten apačioje, kasyklose?'
       },
       core: {
@@ -2204,6 +2240,7 @@ export default {
     ironOrderArmor: {
       hello: {
         '1': 'Tu tas, kuris sunaikino šerdį. Ordinas tai atsimena.',
+        '1__f': 'Tu ta, kuri sunaikino šerdį. Ordinas tai atsimena.',
         '2': 'Aš čia Ordino intendantas. Mūsų ginklinės tau atviros.'
       },
       throneOurs: {
@@ -2258,7 +2295,8 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Akmuo dabar tave pažįsta. Išmok likusį, kai būsi pasiruošęs.'
+          '1': 'Akmuo dabar tave pažįsta. Išmok likusį, kai būsi pasiruošęs.',
+          '1__f': 'Akmuo dabar tave pažįsta. Išmok likusį, kai būsi pasiruošusi.'
         },
         able: {
           '1': 'Stovi pakankamai tvirtai kitai pamokai.'
@@ -2290,7 +2328,8 @@ export default {
         '1': 'Ratas pyksta dėl orakulės. Aš tik statau daiktus. Verčiau neįsivelti.'
       },
       friend: {
-        '1': 'Esi Rato draugas, tad tavo pamokos pigesnės. Sutvarkiau popierius.'
+        '1': 'Esi Rato draugas, tad tavo pamokos pigesnės. Sutvarkiau popierius.',
+        '1__f': 'Esi Rato draugė, tad tavo pamokos pigesnės. Sutvarkiau popierius.'
       },
       foe: {
         '1': 'Ratas sako, kad neturėčiau tavęs mokyti. Vis tiek mokysiu. Jiems nesakyk.'
@@ -2311,7 +2350,8 @@ export default {
           '1': 'Dabar išmanai bokštelius. Imk dideles mašinas.'
         },
         able: {
-          '1': 'Tvirtos rankos. Esi pasiruošęs kitai.'
+          '1': 'Tvirtos rankos. Esi pasiruošęs kitai.',
+          '1__f': 'Tvirtos rankos. Esi pasiruošusi kitai.'
         },
         weak: {
           '1': 'Tavo taikymas dar kiek dreba. Įdėk keletą taškų į Meistrystę.'
@@ -2325,7 +2365,8 @@ export default {
         '1': 'Ir nepamiršk paleisti karščio, kol jis nepaleido tavęs.'
       },
       bye: {
-        '1': 'Būk atsargus ten lauke!'
+        '1': 'Būk atsargus ten lauke!',
+        '1__f': 'Būk atsargi ten lauke!'
       }
     },
     ironHealer: {
@@ -2337,7 +2378,8 @@ export default {
         '1': 'Nuėjai į Siaubo tvirtovę ir grįžai. Sėskis. Leisk į tave pažiūrėti.'
       },
       again: {
-        '1': 'Vis dar gyvas. Gerai. Sėsk.'
+        '1': 'Vis dar gyvas. Gerai. Sėsk.',
+        '1__f': 'Vis dar gyva. Gerai. Sėsk.'
       },
       heal: {
         '1': 'Gerk ir nesiraukyk. Tavo kolbos pilnos.'
@@ -2361,7 +2403,8 @@ export default {
         }
       },
       healBack: {
-        '1': 'Eik. Ir ką nors suvalgyk, esi per liesas.'
+        '1': 'Eik. Ir ką nors suvalgyk, esi per liesas.',
+        '1__f': 'Eik. Ir ką nors suvalgyk, esi per liesa.'
       },
       bye: {
         '1': 'Sugrįžk vienu gabalu.'
@@ -2370,6 +2413,7 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Tu. Tu tas, kuris atidarė mano vartus.',
+        '1__f': 'Tu. Tu ta, kuri atidarė mano vartus.',
         '2': 'Dabar mokau rūsyje, nes turiu valgyti. Nesivaizduok, kad tai atleidimas.'
       },
       ending: {
@@ -2388,10 +2432,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Turi buvimą viskam. Norėčiau, kad būtum jį panaudojęs geriau.'
+          '1': 'Turi buvimą viskam. Norėčiau, kad būtum jį panaudojęs geriau.',
+          '1__f': 'Turi buvimą viskam. Norėčiau, kad būtum jį panaudojusi geriau.'
         },
         able: {
-          '1': 'Esi pasiruošęs kitai pamokai. Nesistengiu apsimesti, kad džiaugiuosi.'
+          '1': 'Esi pasiruošęs kitai pamokai. Nesistengiu apsimesti, kad džiaugiuosi.',
+          '1__f': 'Esi pasiruošusi kitai pamokai. Nesistengiu apsimesti, kad džiaugiuosi.'
         },
         weak: {
           '1': 'Dar niekas tavęs neseks. Lavink Charizmą.'
@@ -2428,7 +2474,8 @@ export default {
         '1': 'Ratas dabar ant tavęs pyksta. Praeis. Iki tol laikome tai tyliai.'
       },
       again: {
-        '1': 'Sveikas sugrįžęs. Atėjai kaip tik laiku.'
+        '1': 'Sveikas sugrįžęs. Atėjai kaip tik laiku.',
+        '1__f': 'Sveika sugrįžusi. Atėjai kaip tik laiku.'
       },
       train: {
         '1': 'Žiūrėk atidžiai. Tada žiūrėk dar kartą, akimirka anksčiau.'
@@ -2443,7 +2490,8 @@ export default {
           '1': 'Gerai laikai siūlą. Imk likusį, kai panorėsi.'
         },
         able: {
-          '1': 'Esi pasiruošęs. Žinojau, dar kol nepaklausei.'
+          '1': 'Esi pasiruošęs. Žinojau, dar kol nepaklausei.',
+          '1__f': 'Esi pasiruošusi. Žinojau, dar kol nepaklausei.'
         },
         weak: {
           '1': 'Siūlas vis slysta. Daugiau Intelekto ir daugiau Meistrystės.'
@@ -2458,7 +2506,8 @@ export default {
           '1': 'Ji nesipriešino. Jau buvo mačiusi. Prašau, daugiau manęs neklausk.'
         },
         waits: {
-          '1': 'Ji mato kiekvieną pabaigą. Tai sunki našta. Būk jai geras.'
+          '1': 'Ji mato kiekvieną pabaigą. Tai sunki našta. Būk jai geras.',
+          '1__f': 'Ji mato kiekvieną pabaigą. Tai sunki našta. Būk jai gera.'
         }
       },
       trainBack: {
@@ -2513,7 +2562,8 @@ export default {
         ask: {
           '1': 'Kolosas laužas. Niekada nemaniau to sulauksiąs.',
           '2': 'O štai šerdis. Vis dar ūžia. Šilta, jei paliesi.',
-          '3': 'Atėjai pirmas. Taigi... kas su ja bus?'
+          '3': 'Atėjai pirmas. Taigi... kas su ja bus?',
+          '3__f': 'Atėjai pirma. Taigi... kas su ja bus?'
         },
         destroy: {
           '1': 'Šviesa užgęsta, o golemai griūva ten, kur stovi.',
@@ -2552,6 +2602,7 @@ export default {
       dragon: {
         ask: {
           '1': 'Gana. Turi dantų, mažyli.',
+          '1__f': 'Gana. Turi dantų, mažyle.',
           '2': 'Demonas tvirtovėje užkalė mano giminę grandinėmis. Noriu matyti jį degantį.',
           '3': 'Nužudyk mane arba leisk man padėti tau tai padaryti.'
         },
@@ -2595,7 +2646,8 @@ export default {
         claim: {
           '1': 'Sostas šaltas, ir tau tinka.',
           '2': 'Trys frakcijos suvokia turinčios bendrą priešą.',
-          say: 'Pasiimsiu jį pats.'
+          say: 'Pasiimsiu jį pats.',
+          say__f: 'Pasiimsiu jį pati.'
         }
       }
     }

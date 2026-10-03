@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Korkein taso saavutettu',
     next: 'Seuraava piste:'
   },
+  heroChoice: {
+    title: 'Valitse sankarisi',
+    boy: 'Pelaa poikana',
+    girl: 'Pelaa tyttönä',
+    switch: 'Sankarisi'
+  },
   skills: {
     active: 'Aktiiviset kyvyt',
     passive: 'Passiiviset kyvyt',

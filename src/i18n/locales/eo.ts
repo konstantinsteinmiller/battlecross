@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Plej alta nivelo atingita',
     next: 'Sekva punkto:'
   },
+  heroChoice: {
+    title: 'Elektu vian heroon',
+    boy: 'Ludi kiel la knabo',
+    girl: 'Ludi kiel la knabino',
+    switch: 'Via heroo'
+  },
   skills: {
     active: 'Aktivaj kapabloj',
     passive: 'Pasivaj kapabloj',

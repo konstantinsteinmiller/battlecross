@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Eng yuqori darajaga yetildi',
     next: 'Keyingi ochko:'
   },
+  heroChoice: {
+    title: 'Qahramoningni tanla',
+    boy: 'O\'g\'il bola bo\'lib o\'yna',
+    girl: 'Qiz bola bo\'lib o\'yna',
+    switch: 'Qahramoning'
+  },
   skills: {
     active: 'Faol koʻnikmalar',
     passive: 'Passiv koʻnikmalar',

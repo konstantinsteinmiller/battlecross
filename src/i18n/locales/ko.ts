@@ -355,6 +355,12 @@ export default {
     maxLevel: '최고 레벨 달성',
     next: '다음 포인트:'
   },
+  heroChoice: {
+    title: '영웅을 골라요',
+    boy: '소년으로 플레이',
+    girl: '소녀로 플레이',
+    switch: '내 영웅'
+  },
   skills: {
     active: '액티브 스킬',
     passive: '패시브 스킬',

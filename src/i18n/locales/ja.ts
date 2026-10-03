@@ -355,6 +355,12 @@ export default {
     maxLevel: '最高レベルに到達',
     next: '次のポイント：'
   },
+  heroChoice: {
+    title: 'ヒーローをえらぼう',
+    boy: '男の子であそぶ',
+    girl: '女の子であそぶ',
+    switch: 'きみのヒーロー'
+  },
   skills: {
     active: 'アクティブスキル',
     passive: 'パッシブスキル',

@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Elérted a legmagasabb szintet',
     next: 'Következő pont:'
   },
+  heroChoice: {
+    title: 'Válaszd ki a hősödet',
+    boy: 'Játssz a fiúval',
+    girl: 'Játssz a lánnyal',
+    switch: 'A hősöd'
+  },
   skills: {
     active: 'Aktív képességek',
     passive: 'Passzív képességek',

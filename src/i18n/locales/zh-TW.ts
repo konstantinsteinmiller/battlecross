@@ -355,6 +355,12 @@ export default {
     maxLevel: '已達最高等級',
     next: '下一點：'
   },
+  heroChoice: {
+    title: '選擇你的英雄',
+    boy: '扮演男孩',
+    girl: '扮演女孩',
+    switch: '你的英雄'
+  },
   skills: {
     active: '主動技能',
     passive: '被動技能',

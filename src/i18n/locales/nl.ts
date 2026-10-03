@@ -100,6 +100,7 @@ export default {
     },
     target: {
       touch: 'Tik op een vijand, of sleep van je held ernaartoe, om aan te vallen.',
+      touch__f: 'Tik op een vijand, of sleep van je heldin ernaartoe, om aan te vallen.',
       mouse: 'Klik op een vijand om aan te vallen.'
     },
     skill: {
@@ -354,6 +355,12 @@ export default {
     raise: '{attr} verhogen',
     maxLevel: 'Hoogste level bereikt',
     next: 'Volgend punt:'
+  },
+  heroChoice: {
+    title: 'Kies je held',
+    boy: 'Speel als de jongen',
+    girl: 'Speel als het meisje',
+    switch: 'Jouw held'
   },
   skills: {
     active: 'Actieve vaardigheden',
@@ -1413,7 +1420,8 @@ export default {
         '1': 'De Orde denkt goed over je. Voor haar vrienden zijn mijn lessen goedkoper.'
       },
       foe: {
-        '1': 'De Orde noemt je een vijand. Ik leer het je toch. Dat is mijn keuze, niet de hare.'
+        '1': 'De Orde noemt je een vijand. Ik leer het je toch. Dat is mijn keuze, niet de hare.',
+        '1__f': 'De Orde noemt je een vijandin. Ik leer het je toch. Dat is mijn keuze, niet de hare.'
       },
       again: {
         '1': 'Terug voor meer oefeningen?'
@@ -1616,7 +1624,8 @@ export default {
         '2': 'Ik ben Grik. Ik verkoop wat goblins maken. Goed werk, eerlijke prijs.'
       },
       again: {
-        '1': 'Vriend. Fijn je weer te zien.'
+        '1': 'Vriend. Fijn je weer te zien.',
+        '1__f': 'Vriendin. Fijn je weer te zien.'
       },
       trade: {
         '1': 'Kijk, alsjeblieft. Mijn familie heeft dit gemaakt.'
@@ -1642,7 +1651,8 @@ export default {
         '1': 'Dank je. Kom nog eens terug.'
       },
       bye: {
-        '1': 'Ga veilig, vriend.'
+        '1': 'Ga veilig, vriend.',
+        '1__f': 'Ga veilig, vriendin.'
       }
     },
     captainHale: {
@@ -1850,7 +1860,8 @@ export default {
         '1': 'Mijn stad staat, en de naam van mijn familie met haar. Je hebt mijn dank. Echt waar.'
       },
       friend: {
-        '1': 'Een vriend van de Orde. Ik verlaag mijn honorarium. Vertel dat alsjeblieft niet rond.'
+        '1': 'Een vriend van de Orde. Ik verlaag mijn honorarium. Vertel dat alsjeblieft niet rond.',
+        '1__f': 'Een vriendin van de Orde. Ik verlaag mijn honorarium. Vertel dat alsjeblieft niet rond.'
       },
       foe: {
         '1': 'De Orde heeft je naam op een lijst staan. Ik leer het je toch. Munt is munt.'
@@ -1943,6 +1954,7 @@ export default {
       },
       armor: {
         '1': 'De wapensmeden zijn weg, vriend. Jij weet beter dan ik waarom.',
+        '1__f': 'De wapensmeden zijn weg, vriendin. Jij weet beter dan ik waarom.',
         say: 'Zijn er pantsers te koop?'
       },
       rumor: {
@@ -2290,7 +2302,8 @@ export default {
         '1': 'De Kring is woedend over het orakel. Ik bouw alleen dingen. Ik bemoei me er liever niet mee.'
       },
       friend: {
-        '1': 'Je bent een vriend van de Kring, dus je lessen zijn goedkoper. Ik heb het papierwerk gedaan.'
+        '1': 'Je bent een vriend van de Kring, dus je lessen zijn goedkoper. Ik heb het papierwerk gedaan.',
+        '1__f': 'Je bent een vriendin van de Kring, dus je lessen zijn goedkoper. Ik heb het papierwerk gedaan.'
       },
       foe: {
         '1': 'De Kring zegt dat ik je niet mag lesgeven. Ik doe het toch. Vertel het ze niet.'
@@ -2506,6 +2519,7 @@ export default {
           '1': 'Verstandig. Madam Ash zal blij zijn dat te horen.',
           '2': 'Oakhaven brandt. In de ruïnes opent een zwarte markt, en een alchemist geeft in het geheim les.',
           '3': 'De wapensmeden zijn weg, en de IJzeren Orde noemt je een verrader.',
+          '3__f': 'De wapensmeden zijn weg, en de IJzeren Orde noemt je een verraadster.',
           say: 'Een derde van de stad. Goed dan. De poort gaat vannacht open.'
         }
       },

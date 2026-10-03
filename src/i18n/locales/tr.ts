@@ -355,6 +355,12 @@ export default {
     maxLevel: 'En yüksek seviyeye ulaşıldı',
     next: 'Sıradaki puan:'
   },
+  heroChoice: {
+    title: 'Kahramanını seç',
+    boy: 'Erkek çocuk olarak oyna',
+    girl: 'Kız çocuk olarak oyna',
+    switch: 'Kahramanın'
+  },
   skills: {
     active: 'Aktif yetenekler',
     passive: 'Pasif yetenekler',

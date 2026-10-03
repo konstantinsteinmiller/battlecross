@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Nivelul maxim atins',
     next: 'Următorul punct:'
   },
+  heroChoice: {
+    title: 'Alege-ți eroul',
+    boy: 'Joacă cu băiatul',
+    girl: 'Joacă cu fata',
+    switch: 'Eroul tău'
+  },
   skills: {
     active: 'Abilități active',
     passive: 'Abilități pasive',
@@ -1297,6 +1303,7 @@ export default {
     sunfordSmith: {
       hello: {
         '1': 'Nu te-am mai văzut. Tu ești cel care a curățat drumul?',
+        '1__f': 'Nu te-am mai văzut. Tu ești cea care a curățat drumul?',
         '2': 'Bram. Eu țin forja. Dacă ai nevoie de o lamă, vino la mine.'
       },
       kingDead: {
@@ -1428,7 +1435,8 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Ești destul de puternic pentru aproape tot ce știu. Continuă cu Anduranța.'
+          '1': 'Ești destul de puternic pentru aproape tot ce știu. Continuă cu Anduranța.',
+          '1__f': 'Ești destul de puternică pentru aproape tot ce știu. Continuă cu Anduranța.'
         },
         able: {
           '1': 'Ești gata pentru lecția următoare. Să nu-ți suie la cap.'
@@ -1452,6 +1460,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Oh, un elev? Minunat. Poate te dai un pic mai înapoi.',
+        '1__f': 'Oh, o elevă? Minunat. Poate te dai un pic mai înapoi.',
         '2': 'Sunt Ember Wren. Predau focul. De obicei face ce-i cer.'
       },
       core: {
@@ -1499,6 +1508,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Deci tu ești cel de pe drum. Vino aici, lasă-mă să te privesc.',
+        '1__f': 'Deci tu ești cea de pe drum. Vino aici, lasă-mă să te privesc.',
         '2': 'Sunt Mara. Am avut grijă de orașul ăsta de... ei bine, patruzeci de ani.'
       },
       slain: {
@@ -1532,6 +1542,7 @@ export default {
         '2': 'Și vrei să moară?',
         '3': 'Vreau să se oprească raidurile. Cum... asta o decizi tu, acolo jos.',
         '4': 'Văgăunile sunt chiar dincolo de câmpie. Fii atent, te rog.',
+        '4__f': 'Văgăunile sunt chiar dincolo de câmpie. Fii atentă, te rog.',
         say: 'Ce necaz are Sunford?'
       },
       king: {
@@ -1570,16 +1581,19 @@ export default {
         }
       },
       bye: {
-        '1': 'Întoarce-te la noi întreg. Doar atât cer.'
+        '1': 'Întoarce-te la noi întreg. Doar atât cer.',
+        '1__f': 'Întoarce-te la noi întreagă. Doar atât cer.'
       }
     },
     sunfordHealer: {
       hello: {
         '1': 'Stai nemișcat o clipă. Nu, ești bine. Obicei, scuze.',
+        '1__f': 'Stai nemișcată o clipă. Nu, ești bine. Obicei, scuze.',
         '2': 'Sunt Sora Lune. Cârpesc ce sparge drumul.'
       },
       again: {
-        '1': 'Încă întreg? Bine. Stai jos oricum.'
+        '1': 'Încă întreg? Bine. Stai jos oricum.',
+        '1__f': 'Încă întreagă? Bine. Stai jos oricum.'
       },
       heal: {
         '1': 'Stai, odihnește-te puțin. Îți umplu flacoanele înainte să pleci.'
@@ -1613,10 +1627,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Tu ești cel care a făcut pactul. Regele meu spune că ești binevenit aici.',
+        '1__f': 'Tu ești cea care a făcut pactul. Regele meu spune că ești binevenită aici.',
         '2': 'Sunt Grik. Vând ce fac goblinii. Muncă bună, preț cinstit.'
       },
       again: {
-        '1': 'Prietene. E bine să te văd iar.'
+        '1': 'Prietene. E bine să te văd iar.',
+        '1__f': 'Prietenă. E bine să te văd iar.'
       },
       trade: {
         '1': 'Uită-te, te rog. Familia mea le-a făcut.'
@@ -1642,7 +1658,8 @@ export default {
         '1': 'Mulțumesc. Vino iar.'
       },
       bye: {
-        '1': 'Mergi în pace, prietene.'
+        '1': 'Mergi în pace, prietene.',
+        '1__f': 'Mergi în pace, prietenă.'
       }
     },
     captainHale: {
@@ -1759,7 +1776,8 @@ export default {
         '1': 'Dacă nu se potrivește bine, adu-o înapoi. O repar.'
       },
       bye: {
-        '1': 'Ești mereu binevenit aici.'
+        '1': 'Ești mereu binevenit aici.',
+        '1__f': 'Ești mereu binevenită aici.'
       }
     },
     oakWeapons: {
@@ -1803,10 +1821,12 @@ export default {
         '1': 'Orașul e mai liniștit acum. Mai puțini paznici. Muncă mai ușoară, pentru unii dintre noi.'
       },
       friend: {
-        '1': 'Sindicatul te socotește prieten. Prietenii plătesc mai puțin. Ține minte.'
+        '1': 'Sindicatul te socotește prieten. Prietenii plătesc mai puțin. Ține minte.',
+        '1__f': 'Sindicatul te socotește prietenă. Prietenii plătesc mai puțin. Ține minte.'
       },
       foe: {
-        '1': 'Sindicatul te vrea mort. Eu am fost plătit să predau, nu să ucid. Deci, lecții.'
+        '1': 'Sindicatul te vrea mort. Eu am fost plătit să predau, nu să ucid. Deci, lecții.',
+        '1__f': 'Sindicatul te vrea moartă. Eu am fost plătit să predau, nu să ucid. Deci, lecții.'
       },
       again: {
         '1': 'Încă faci prea mult zgomot. Lucrăm la asta.'
@@ -1827,7 +1847,8 @@ export default {
           '1': 'Mâinile tale sunt destul de rapide. Pasul următor.'
         },
         weak: {
-          '1': 'Nu încă. Ești greu în picioare. Lucrează la Dexteritate.'
+          '1': 'Nu încă. Ești greu în picioare. Lucrează la Dexteritate.',
+          '1__f': 'Nu încă. Ești greoaie în picioare. Lucrează la Dexteritate.'
         }
       },
       syndicate: {
@@ -1850,7 +1871,8 @@ export default {
         '1': 'Orașul meu stă în picioare, și numele familiei mele odată cu el. Ai recunoștința mea. Sincer.'
       },
       friend: {
-        '1': 'Un prieten al Ordinului. Îmi scad taxa. Te rog, nu o da mai departe.'
+        '1': 'Un prieten al Ordinului. Îmi scad taxa. Te rog, nu o da mai departe.',
+        '1__f': 'O prietenă a Ordinului. Îmi scad taxa. Te rog, nu o da mai departe.'
       },
       foe: {
         '1': 'Ordinul are numele tău pe o listă. Te învăț oricum. Moneda e monedă.'
@@ -1943,6 +1965,7 @@ export default {
       },
       armor: {
         '1': 'Armurierii au plecat, prietene. Tu știi mai bine decât mine de ce.',
+        '1__f': 'Armurierii au plecat, prietenă. Tu știi mai bine decât mine de ce.',
         say: 'Ai armuri de vânzare?'
       },
       rumor: {
@@ -1976,7 +1999,8 @@ export default {
         '1': 'Sindicatul ar plăti bine pentru sângele tău. Prefer să-l cheltuiești aici.'
       },
       again: {
-        '1': 'Arăți palid. Bine. Se potrivește muncii.'
+        '1': 'Arăți palid. Bine. Se potrivește muncii.',
+        '1__f': 'Arăți palidă. Bine. Se potrivește muncii.'
       },
       train: {
         '1': 'Suflecă-ți mâneca. O să doară. Cam asta e ideea.'
@@ -1991,7 +2015,8 @@ export default {
           '1': 'O constituție remarcabilă. Poți învăța aproape tot.'
         },
         able: {
-          '1': 'Ești destul de rezistent pentru lecția următoare.'
+          '1': 'Ești destul de rezistent pentru lecția următoare.',
+          '1__f': 'Ești destul de rezistentă pentru lecția următoare.'
         },
         weak: {
           '1': 'Ai leșina la prima tăietură. Întâi construiește-ți Anduranța, te rog.'
@@ -2005,7 +2030,8 @@ export default {
         '1': 'Ține totuși notițe. Aș vrea să aud cum merge.'
       },
       bye: {
-        '1': 'Rămâi sănătos. Vorbesc serios.'
+        '1': 'Rămâi sănătos. Vorbesc serios.',
+        '1__f': 'Rămâi sănătoasă. Vorbesc serios.'
       }
     },
     syndicateBoss: {
@@ -2033,6 +2059,7 @@ export default {
       syndicate: {
         '1': 'Ce vrea toată lumea. Doar că noi nu ne prefacem altfel.',
         '2': 'Rămâi prietenos, și Șoapta și Doctorul vor lua mai puțin de la tine.',
+        '2__f': 'Rămâi prietenoasă, și Șoapta și Doctorul vor lua mai puțin de la tine.',
         say: 'Ce vrea, de fapt, Sindicatul?'
       },
       order: {
@@ -2051,7 +2078,8 @@ export default {
         }
       },
       bye: {
-        '1': 'Nu fi străin. Ne uităm după străini.'
+        '1': 'Nu fi străin. Ne uităm după străini.',
+        '1__f': 'Nu fi străină. Ne uităm după străini.'
       }
     },
     forgemaster: {
@@ -2079,6 +2107,7 @@ export default {
         '2': 'Și golemii?',
         '3': 'Se mișcă în ritmul lui. Trei puteri au scris cerându-l. Nu am încredere în niciuna.',
         '4': 'Vei ajunge primul la el, în fundul Minelor Ironhold. Ce se întâmplă apoi depinde de tine.',
+        '4__f': 'Vei ajunge prima la el, în fundul Minelor Ironhold. Ce se întâmplă apoi depinde de tine.',
         say: 'Ce s-a întâmplat în adâncul minelor?'
       },
       core: {
@@ -2204,6 +2233,7 @@ export default {
     ironOrderArmor: {
       hello: {
         '1': 'Tu ești cel care a distrus nucleul. Ordinul ține minte asta.',
+        '1__f': 'Tu ești cea care a distrus nucleul. Ordinul ține minte asta.',
         '2': 'Sunt intendentul Ordinului aici. Armureriile noastre îți sunt deschise.'
       },
       throneOurs: {
@@ -2261,7 +2291,8 @@ export default {
           '1': 'Piatra te cunoaște acum. Învață restul când ești gata.'
         },
         able: {
-          '1': 'Ești destul de stabil pentru lecția următoare.'
+          '1': 'Ești destul de stabil pentru lecția următoare.',
+          '1__f': 'Ești destul de stabilă pentru lecția următoare.'
         },
         weak: {
           '1': 'Nu încă. Piatra nu se mișcă pentru tine. Construiește-ți Forța.'
@@ -2290,7 +2321,8 @@ export default {
         '1': 'Cercul e supărat din cauza oracolului. Eu doar construiesc lucruri. Prefer să nu mă amestec.'
       },
       friend: {
-        '1': 'Ești prieten al Cercului, deci lecțiile tale sunt mai ieftine. Am făcut eu actele.'
+        '1': 'Ești prieten al Cercului, deci lecțiile tale sunt mai ieftine. Am făcut eu actele.',
+        '1__f': 'Ești prietenă a Cercului, deci lecțiile tale sunt mai ieftine. Am făcut eu actele.'
       },
       foe: {
         '1': 'Cercul zice că nu ar trebui să te învăț. O voi face oricum. Nu le spune.'
@@ -2325,7 +2357,8 @@ export default {
         '1': 'Și nu uita să eliberezi căldura înainte să te elibereze ea pe tine.'
       },
       bye: {
-        '1': 'Fii atent acolo afară!'
+        '1': 'Fii atent acolo afară!',
+        '1__f': 'Fii atentă acolo afară!'
       }
     },
     ironHealer: {
@@ -2361,7 +2394,8 @@ export default {
         }
       },
       healBack: {
-        '1': 'Du-te. Și mănâncă ceva, ești prea slab.'
+        '1': 'Du-te. Și mănâncă ceva, ești prea slab.',
+        '1__f': 'Du-te. Și mănâncă ceva, ești prea slabă.'
       },
       bye: {
         '1': 'Întoarce-te într-o bucată.'
@@ -2370,6 +2404,7 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Tu. Tu ești cel care mi-a deschis poarta.',
+        '1__f': 'Tu. Tu ești cea care mi-a deschis poarta.',
         '2': 'Predau într-o pivniță acum, pentru că trebuie să mănânc. Nu confunda asta cu iertarea.'
       },
       ending: {
@@ -2458,7 +2493,8 @@ export default {
           '1': 'Nu s-a opus. Văzuse deja. Te rog, nu mă mai întreba.'
         },
         waits: {
-          '1': 'Vede fiecare sfârșit. E o povară grea. Fii bun cu ea.'
+          '1': 'Vede fiecare sfârșit. E o povară grea. Fii bun cu ea.',
+          '1__f': 'Vede fiecare sfârșit. E o povară grea. Fii bună cu ea.'
         }
       },
       trainBack: {
@@ -2506,6 +2542,7 @@ export default {
           '1': 'Înțelept. Madam Ash va fi bucuroasă să audă.',
           '2': 'Oakhaven arde. În ruine se deschide o piață neagră, și un alchimist predă în secret.',
           '3': 'Armurierii au plecat, iar Ordinul de Fier te numește trădător.',
+          '3__f': 'Armurierii au plecat, iar Ordinul de Fier te numește trădătoare.',
           say: 'O treime din oraș. Bine. Poarta se deschide în seara asta.'
         }
       },
@@ -2513,7 +2550,8 @@ export default {
         ask: {
           '1': 'Colosul e fier vechi. N-am crezut că voi trăi să văd asta.',
           '2': 'Și iată nucleul. Încă bâzâie. E cald, dacă îl atingi.',
-          '3': 'Ai ajuns primul aici. Deci... ce se întâmplă cu el?'
+          '3': 'Ai ajuns primul aici. Deci... ce se întâmplă cu el?',
+          '3__f': 'Ai ajuns prima aici. Deci... ce se întâmplă cu el?'
         },
         destroy: {
           '1': 'Lumina se stinge, iar golemii cad unde stau.',
@@ -2552,6 +2590,7 @@ export default {
       dragon: {
         ask: {
           '1': 'Destul. Ai dinți, mic prieten.',
+          '1__f': 'Destul. Ai dinți, mică prietenă.',
           '2': 'Demonul din fortăreață mi-a înlănțuit neamul. Vreau să-l văd arzând.',
           '3': 'Ucide-mă, sau lasă-mă să te ajut s-o faci.'
         },
@@ -2595,7 +2634,8 @@ export default {
         claim: {
           '1': 'Tronul e rece, și ți se potrivește.',
           '2': 'Trei facțiuni descoperă că au un dușman comun.',
-          say: 'Îl iau eu însumi.'
+          say: 'Îl iau eu însumi.',
+          say__f: 'Îl iau eu însămi.'
         }
       }
     }

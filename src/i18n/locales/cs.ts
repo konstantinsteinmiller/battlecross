@@ -96,10 +96,13 @@ export default {
   coach: {
     move: {
       touch: 'Klepni na zem a hrdina tam dojde, nebo použij páčku.',
-      mouse: 'Klikni na zem a hrdina tam dojde, nebo ho řiď klávesami pohybu.'
+      touch__f: 'Klepni na zem a hrdinka tam dojde, nebo použij páčku.',
+      mouse: 'Klikni na zem a hrdina tam dojde, nebo ho řiď klávesami pohybu.',
+      mouse__f: 'Klikni na zem a hrdinka tam dojde, nebo ji řiď klávesami pohybu.'
     },
     target: {
       touch: 'Klepni na nepřítele, nebo táhni od hrdiny na něj, a zaútočíš.',
+      touch__f: 'Klepni na nepřítele, nebo táhni od hrdinky na něj, a zaútočíš.',
       mouse: 'Klikni na nepřítele a zaútočíš na něj.'
     },
     skill: {
@@ -354,6 +357,12 @@ export default {
     raise: 'Zvýšit: {attr}',
     maxLevel: 'Dosažena nejvyšší úroveň',
     next: 'Další bod:'
+  },
+  heroChoice: {
+    title: 'Vyber si hrdinu',
+    boy: 'Hrát za kluka',
+    girl: 'Hrát za holku',
+    switch: 'Tvůj hrdina'
   },
   skills: {
     active: 'Aktivní dovednosti',
@@ -925,6 +934,7 @@ export default {
       buy: 'Dobrá volba. Starej se o to a ono se postará o tebe.',
       sell: 'No dobře. Někdo to bude chtít.',
       back: 'Rozmyslel ses? To nevadí, tady to máš.',
+      back__f: 'Rozmyslela ses? To nevadí, tady to máš.',
       poor: 'Obávám se, že je to trochu víc, než máš.'
     }
   },
@@ -1292,11 +1302,13 @@ export default {
       mana: 'Máš něco na manu?',
       who: 'Kdo jsi, jestli se smím zeptat?',
       rumor: 'Slyšel jsi něco nového?',
-      ready: 'Myslíš, že jsem připravený na víc?'
+      ready: 'Myslíš, že jsem připravený na víc?',
+      ready__f: 'Myslíš, že jsem připravená na víc?'
     },
     sunfordSmith: {
       hello: {
         '1': 'Dřív jsem tě neviděl. Ty jsi vyčistil cestu?',
+        '1__f': 'Dřív jsem tě neviděl. Ty jsi vyčistila cestu?',
         '2': 'Bram. Mám kovárnu. Jestli potřebuješ čepel, přijď za mnou.'
       },
       kingDead: {
@@ -1306,7 +1318,8 @@ export default {
         '1': 'Gobliní obchodují na náměstí. Nikdy bych nevěřil, že to uvidím.'
       },
       kingRansom: {
-        '1': 'Nechal jsi goblinskému králi korunu. Ještě se vrátí, uvidíš.'
+        '1': 'Nechal jsi goblinskému králi korunu. Ještě se vrátí, uvidíš.',
+        '1__f': 'Nechala jsi goblinskému králi korunu. Ještě se vrátí, uvidíš.'
       },
       ending: {
         '1': 'Mluví o tobě celé království. Ale brousek pořád potřebuješ?'
@@ -1356,7 +1369,8 @@ export default {
         '2': 'Jsem Tilly. Prsteny, amulety, drobnosti z celého světa.'
       },
       rival: {
-        '1': 'Viděl jsi goblinův stánek? Má nižší ceny než já. To není fér.'
+        '1': 'Viděl jsi goblinův stánek? Má nižší ceny než já. To není fér.',
+        '1__f': 'Viděla jsi goblinův stánek? Má nižší ceny než já. To není fér.'
       },
       again: {
         '1': 'Tady jsi! Odložila jsem pár věcí, které se ti budou líbit.'
@@ -1401,13 +1415,16 @@ export default {
         '2': 'Ser Aldric. Učím stát mezi lidmi a neštěstím.'
       },
       saved: {
-        '1': 'Oakhaven pořád stojí a prý jsi byl na jeho hradbách. Dobře.'
+        '1': 'Oakhaven pořád stojí a prý jsi byl na jeho hradbách. Dobře.',
+        '1__f': 'Oakhaven pořád stojí a prý jsi byla na jeho hradbách. Dobře.'
       },
       fallen: {
-        '1': 'Otevřel jsi bránu Oakhavenu. Nebudu dělat, že jsem zapomněl. Co chceš?'
+        '1': 'Otevřel jsi bránu Oakhavenu. Nebudu dělat, že jsem zapomněl. Co chceš?',
+        '1__f': 'Otevřela jsi bránu Oakhavenu. Nebudu dělat, že jsem zapomněl. Co chceš?'
       },
       dragon: {
-        '1': 'Zabil jsi draka na vrcholu? Rád bych to viděl.'
+        '1': 'Zabil jsi draka na vrcholu? Rád bych to viděl.',
+        '1__f': 'Zabila jsi draka na vrcholu? Rád bych to viděl.'
       },
       friend: {
         '1': 'Řád o tobě smýšlí dobře. Přátelům jsou moje lekce levnější.'
@@ -1424,14 +1441,17 @@ export default {
       class: {
         '1': 'Bereme rány určené jiným. Je to jednoduché a těžké.',
         '2': 'Budeš potřebovat Sílu na štít a Výdrž, abys ho udržel.',
+        '2__f': 'Budeš potřebovat Sílu na štít a Výdrž, abys ho udržela.',
         say: 'Co vlastně dělá Rytíř Égidy?'
       },
       ready: {
         strong: {
-          '1': 'Jsi dost silný na většinu toho, co umím. Pracuj dál na Výdrži.'
+          '1': 'Jsi dost silný na většinu toho, co umím. Pracuj dál na Výdrži.',
+          '1__f': 'Jsi dost silná na většinu toho, co umím. Pracuj dál na Výdrži.'
         },
         able: {
-          '1': 'Jsi připravený na další lekci. Jen ti to nestoupne do hlavy.'
+          '1': 'Jsi připravený na další lekci. Jen ti to nestoupne do hlavy.',
+          '1__f': 'Jsi připravená na další lekci. Jen ti to nestoupne do hlavy.'
         },
         weak: {
           '1': 'Ještě ne. Unavíš se dřív než štít. Víc Síly, víc Výdrže.'
@@ -1452,10 +1472,12 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Ach, student? Skvělé. Možná ustup kousek dál.',
+        '1__f': 'Ach, studentka? Skvělé. Možná ustup kousek dál.',
         '2': 'Jsem Ember Wren. Učím oheň. Většinou poslouchá.'
       },
       core: {
-        '1': 'Dal jsi jádro Kruhu! Nemůžu se dočkat, co se z něj naučíme.'
+        '1': 'Dal jsi jádro Kruhu! Nemůžu se dočkat, co se z něj naučíme.',
+        '1__f': 'Dala jsi jádro Kruhu! Nemůžu se dočkat, co se z něj naučíme.'
       },
       friend: {
         '1': 'Kruh o tobě mluví vážně dobře. To mimochodem znamená slevu.'
@@ -1464,7 +1486,8 @@ export default {
         '1': 'Kruh s tebou není spokojený. Stejně tě budu učit. Potichu.'
       },
       again: {
-        '1': 'Vrátil ses! Připravený něco zapálit?'
+        '1': 'Vrátil ses! Připravený něco zapálit?',
+        '1__f': 'Vrátila ses! Připravená něco zapálit?'
       },
       train: {
         '1': 'Tak. Dívej se na moje ruce a drž rukávy dál ode mě.'
@@ -1476,10 +1499,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Upřímně? Něco z toho bys mohl učit ty. Vezmi si, co chceš.'
+          '1': 'Upřímně? Něco z toho bys mohl učit ty. Vezmi si, co chceš.',
+          '1__f': 'Upřímně? Něco z toho bys mohla učit ty. Vezmi si, co chceš.'
         },
         able: {
-          '1': 'Jsi připravený na další kouzlo. Pojď, ukážu ti ho.'
+          '1': 'Jsi připravený na další kouzlo. Pojď, ukážu ti ho.',
+          '1__f': 'Jsi připravená na další kouzlo. Pojď, ukážu ti ho.'
         },
         weak: {
           '1': 'Ještě ne, obávám se. Potřebuješ víc Inteligence, jinak oheň převezme vládu.'
@@ -1499,31 +1524,37 @@ export default {
     elderMara: {
       hello: {
         '1': 'Takže ty jsi ten od cesty. Pojď sem, ať se na tebe podívám.',
+        '1__f': 'Takže ty jsi ta od cesty. Pojď sem, ať se na tebe podívám.',
         '2': 'Jsem Mara. Starám se o tohle město už... ach, čtyřicet let.'
       },
       slain: {
         '1': 'Ve Slujích je ticho. Byl to těžký čin, ale díky němu spíme.'
       },
       pact: {
-        '1': 'Gobliní prodávají na mém náměstí. To jsi je přemluvil ty, že?'
+        '1': 'Gobliní prodávají na mém náměstí. To jsi je přemluvil ty, že?',
+        '1__f': 'Gobliní prodávají na mém náměstí. To jsi je přemluvila ty, že?'
       },
       ransom: {
-        '1': 'Vzal jsi jeho zlato a nechal mu korunu. Nebudu předstírat, že nejsem zklamaná.'
+        '1': 'Vzal jsi jeho zlato a nechal mu korunu. Nebudu předstírat, že nejsem zklamaná.',
+        '1__f': 'Vzala jsi jeho zlato a nechala mu korunu. Nebudu předstírat, že nejsem zklamaná.'
       },
       saved: {
-        '1': 'Přišla zpráva z Oakhavenu. Brána vydržela. Jsem ráda, že jsi tam byl.'
+        '1': 'Přišla zpráva z Oakhavenu. Brána vydržela. Jsem ráda, že jsi tam byl.',
+        '1__f': 'Přišla zpráva z Oakhavenu. Brána vydržela. Jsem ráda, že jsi tam byla.'
       },
       fallen: {
         '1': 'Prý Oakhaven shořel. Radši bych neslyšela jak. Dnes ne.'
       },
       ending: {
-        '1': 'Říká se, že jsi rozhodl o osudu Pevnosti děsu. Od naší malé cesty až k tomuhle.'
+        '1': 'Říká se, že jsi rozhodl o osudu Pevnosti děsu. Od naší malé cesty až k tomuhle.',
+        '1__f': 'Říká se, že jsi rozhodla o osudu Pevnosti děsu. Od naší malé cesty až k tomuhle.'
       },
       again: {
         '1': 'Posaď se na chvíli. Cesta tam bude pořád.'
       },
       reward: {
         '1': 'Udržel jsi cestu, když to naše domobrana nezvládla. Město trochu poskládalo.',
+        '1__f': 'Udržela jsi cestu, když to naše domobrana nezvládla. Město trochu poskládalo.',
         '2': 'Není to moc. Je to, co jsme mohli ušetřit.',
         say: 'Prý jsi chtěl se mnou mluvit?'
       },
@@ -1532,6 +1563,7 @@ export default {
         '2': 'A ty chceš jeho smrt?',
         '3': 'Chci, aby nájezdy přestaly. Jak, to je na tobě, tam dole.',
         '4': 'Sluje jsou hned za pláněmi. Prosím, buď opatrný.',
+        '4__f': 'Sluje jsou hned za pláněmi. Prosím, buď opatrná.',
         say: 'Co trápí Sunford?'
       },
       king: {
@@ -1613,10 +1645,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Ty jsi ten, kdo uzavřel dohodu. Můj král říká, že jsi tu vítaný.',
+        '1__f': 'Ty jsi ta, která uzavřela dohodu. Můj král říká, že jsi tu vítaná.',
         '2': 'Jsem Grik. Prodávám, co goblini vyrábějí. Dobrá práce, férová cena.'
       },
       again: {
-        '1': 'Příteli. Rád tě zase vidím.'
+        '1': 'Příteli. Rád tě zase vidím.',
+        '1__f': 'Přítelkyně. Rád tě zase vidím.'
       },
       trade: {
         '1': 'Podívej se, prosím. Tohle udělala moje rodina.'
@@ -1642,7 +1676,8 @@ export default {
         '1': 'Děkuju. Přijď zase.'
       },
       bye: {
-        '1': 'Šťastnou cestu, příteli.'
+        '1': 'Šťastnou cestu, příteli.',
+        '1__f': 'Šťastnou cestu, přítelkyně.'
       }
     },
     captainHale: {
@@ -1654,7 +1689,8 @@ export default {
         '1': 'Brána vydržela. Tři sta let a ještě jednou. Dlužím ti.'
       },
       ending: {
-        '1': 'Říká se, že jsi rozhodl o Pevnosti děsu. Moje hradby se vedle toho zdají malé.'
+        '1': 'Říká se, že jsi rozhodl o Pevnosti děsu. Moje hradby se vedle toho zdají malé.',
+        '1__f': 'Říká se, že jsi rozhodla o Pevnosti děsu. Moje hradby se vedle toho zdají malé.'
       },
       again: {
         '1': 'Hradby pořád stojí. Alespoň dnes.'
@@ -1714,6 +1750,7 @@ export default {
       },
       armor: {
         '1': 'Plát, když stojíš pevně. Kůže, když se pohybuješ. Róba, když jsi rychlý.',
+        '1__f': 'Plát, když stojíš pevně. Kůže, když se pohybuješ. Róba, když jsi rychlá.',
         say: 'Jakou zbroj mám nosit?'
       },
       rumor: {
@@ -1759,7 +1796,8 @@ export default {
         '1': 'Jestli ti nesedí, přines to zpátky. Spravím to.'
       },
       bye: {
-        '1': 'Jsi tu vždycky vítaný.'
+        '1': 'Jsi tu vždycky vítaný.',
+        '1__f': 'Jsi tu vždycky vítaná.'
       }
     },
     oakWeapons: {
@@ -1784,7 +1822,8 @@ export default {
           '1': 'Kragovi muži mají dobrou ocel. Peníze Syndikátu. Stojí za to sebrat, bude-li příležitost.'
         },
         which: {
-          '1': 'Rychlé čepele chtějí Obratnost. Luky a střelné zbraně chtějí Zručnost. Věz, který jsi.'
+          '1': 'Rychlé čepele chtějí Obratnost. Luky a střelné zbraně chtějí Zručnost. Věz, který jsi.',
+          '1__f': 'Rychlé čepele chtějí Obratnost. Luky a střelné zbraně chtějí Zručnost. Věz, která jsi.'
         }
       },
       shopBack: {
@@ -1797,19 +1836,23 @@ export default {
     trainerShadow: {
       hello: {
         '1': 'Neslyšel jsi mě přijít zezadu. Většina neslyší.',
+        '1__f': 'Neslyšela jsi mě přijít zezadu. Většina neslyší.',
         '2': 'Říkají mi Šepot. Učím, jak zůstat neviděn.'
       },
       fallen: {
         '1': 'Ve městě je teď tišeji. Méně stráží. Pro některé z nás snazší práce.'
       },
       friend: {
-        '1': 'Syndikát tě považuje za přítele. Přátelé platí méně. Pamatuj na to.'
+        '1': 'Syndikát tě považuje za přítele. Přátelé platí méně. Pamatuj na to.',
+        '1__f': 'Syndikát tě považuje za přítelkyni. Přátelé platí méně. Pamatuj na to.'
       },
       foe: {
-        '1': 'Syndikát tě chce mrtvého. Platili mě za učení, ne za zabíjení. Tak lekce.'
+        '1': 'Syndikát tě chce mrtvého. Platili mě za učení, ne za zabíjení. Tak lekce.',
+        '1__f': 'Syndikát tě chce mrtvou. Platili mě za učení, ne za zabíjení. Tak lekce.'
       },
       again: {
-        '1': 'Pořád jsi příliš hlasitý. Zapracujeme na tom.'
+        '1': 'Pořád jsi příliš hlasitý. Zapracujeme na tom.',
+        '1__f': 'Pořád jsi příliš hlasitá. Zapracujeme na tom.'
       },
       train: {
         '1': 'Tak tiše. Dívej se na moje nohy, ne na ruce.'
@@ -1827,7 +1870,8 @@ export default {
           '1': 'Ruce máš dost rychlé. Další krok.'
         },
         weak: {
-          '1': 'Ještě ne. Jsi těžký na nohou. Zapracuj na Obratnosti.'
+          '1': 'Ještě ne. Jsi těžký na nohou. Zapracuj na Obratnosti.',
+          '1__f': 'Ještě ne. Jsi těžká na nohou. Zapracuj na Obratnosti.'
         }
       },
       syndicate: {
@@ -1838,7 +1882,8 @@ export default {
         '1': 'A teď cvič tam, kde tě nikdo neuvidí.'
       },
       bye: {
-        '1': 'Nikdy jsi mě neviděl.'
+        '1': 'Nikdy jsi mě neviděl.',
+        '1__f': 'Nikdy jsi mě neviděla.'
       }
     },
     trainerSovereign: {
@@ -1850,7 +1895,8 @@ export default {
         '1': 'Moje město stojí a s ním i jméno mého rodu. Máš můj dík. Opravdový.'
       },
       friend: {
-        '1': 'Přítel Řádu. Snížím poplatek. Prosím, nešiř to dál.'
+        '1': 'Přítel Řádu. Snížím poplatek. Prosím, nešiř to dál.',
+        '1__f': 'Přítelkyně Řádu. Snížím poplatek. Prosím, nešiř to dál.'
       },
       foe: {
         '1': 'Řád má tvé jméno na seznamu. Stejně tě naučím. Mince je mince.'
@@ -1871,7 +1917,8 @@ export default {
           '1': 'Teď máš opravdovou přítomnost. Vezmi si zbytek mých lekcí.'
         },
         able: {
-          '1': 'Tvůj hlas nese. Jsi připravený na další lekci.'
+          '1': 'Tvůj hlas nese. Jsi připravený na další lekci.',
+          '1__f': 'Tvůj hlas nese. Jsi připravená na další lekci.'
         },
         weak: {
           '1': 'Obávám se, že by za tebou zatím nikdo nešel. Zapracuj na Charismatu.'
@@ -1943,6 +1990,7 @@ export default {
       },
       armor: {
         '1': 'Zbrojíři jsou pryč, příteli. Ty víš lépe než já proč.',
+        '1__f': 'Zbrojíři jsou pryč, přítelkyně. Ty víš lépe než já proč.',
         say: 'Prodáváte nějakou zbroj?'
       },
       rumor: {
@@ -1954,7 +2002,8 @@ export default {
         }
       },
       shopBack: {
-        '1': 'Nikdy jsi tu nebyl.'
+        '1': 'Nikdy jsi tu nebyl.',
+        '1__f': 'Nikdy jsi tu nebyla.'
       },
       bye: {
         '1': 'Dávej pozor, kam šlapeš. Suť se posouvá.'
@@ -1967,13 +2016,15 @@ export default {
       },
       found: {
         '1': 'Našel jsi mě. Málokdo hledá doktora na takovém místě.',
+        '1__f': 'Našla jsi mě. Málokdo hledá doktora na takovém místě.',
         '2': 'Doktor Sangrel. Města pálí lidi jako já, tak pracuju tam, kde žádná nejsou.'
       },
       friend: {
         '1': 'Syndikát za tebe ručí. Jeho přátelům beru méně. Moje nároky zůstávají stejné.'
       },
       foe: {
-        '1': 'Syndikát by za tvoji krev dobře zaplatil. Raději bych, abys ji utratil tady.'
+        '1': 'Syndikát by za tvoji krev dobře zaplatil. Raději bych, abys ji utratil tady.',
+        '1__f': 'Syndikát by za tvoji krev dobře zaplatil. Raději bych, abys ji utratila tady.'
       },
       again: {
         '1': 'Vypadáš bledě. Dobře. K práci se to hodí.'
@@ -1991,10 +2042,12 @@ export default {
           '1': 'Pozoruhodná konstituce. Můžeš se naučit téměř všechno.'
         },
         able: {
-          '1': 'Jsi dost pevný na další lekci.'
+          '1': 'Jsi dost pevný na další lekci.',
+          '1__f': 'Jsi dost pevná na další lekci.'
         },
         weak: {
-          '1': 'Omdlel bys při prvním řezu. Nejdřív si prosím vybuduj Výdrž.'
+          '1': 'Omdlel bys při prvním řezu. Nejdřív si prosím vybuduj Výdrž.',
+          '1__f': 'Omdlela bys při prvním řezu. Nejdřív si prosím vybuduj Výdrž.'
         }
       },
       jars: {
@@ -2005,22 +2058,27 @@ export default {
         '1': 'Dělej si poznámky. Rád bych slyšel, jak to jde.'
       },
       bye: {
-        '1': 'Buď zdravý. Myslím to vážně.'
+        '1': 'Buď zdravý. Myslím to vážně.',
+        '1__f': 'Buď zdravá. Myslím to vážně.'
       }
     },
     syndicateBoss: {
       hello: {
         '1': 'Takže ty jsi otevřel bránu. Sedni si. Zasloužíš si židli.',
+        '1__f': 'Takže ty jsi otevřela bránu. Sedni si. Zasloužíš si židli.',
         '2': 'Říkají mi Madam Ash. Oakhaven je teď náš. Zčásti díky tobě.'
       },
       throneOurs: {
-        '1': 'Pevnost děsu v našich rukou. Stál jsi za každou minci.'
+        '1': 'Pevnost děsu v našich rukou. Stál jsi za každou minci.',
+        '1__f': 'Pevnost děsu v našich rukou. Stála jsi za každou minci.'
       },
       throneLost: {
-        '1': 'Dal jsi trůn někomu jinému. O tom si promluvíme. Ne dnes.'
+        '1': 'Dal jsi trůn někomu jinému. O tom si promluvíme. Ne dnes.',
+        '1__f': 'Dala jsi trůn někomu jinému. O tom si promluvíme. Ne dnes.'
       },
       foe: {
-        '1': 'Pracoval jsi proti nám. Stejně si sedni. Ráda vím, s kým mám co do činění.'
+        '1': 'Pracoval jsi proti nám. Stejně si sedni. Ráda vím, s kým mám co do činění.',
+        '1__f': 'Pracovala jsi proti nám. Stejně si sedni. Ráda vím, s kým mám co do činění.'
       },
       again: {
         '1': 'Zase ty. Co pro tebe může Syndikát udělat?'
@@ -2033,10 +2091,12 @@ export default {
       syndicate: {
         '1': 'To, co chtějí všichni. Jen to nepředstíráme.',
         '2': 'Zůstaň přátelský a Šepot s Doktorem si od tebe vezmou méně.',
+        '2__f': 'Zůstaň přátelská a Šepot s Doktorem si od tebe vezmou méně.',
         say: 'Co vlastně Syndikát chce?'
       },
       order: {
         '1': 'Samozřejmě. Spálil jsi jedno z jejich měst. Nos víc lektvarů.',
+        '1__f': 'Samozřejmě. Spálila jsi jedno z jejich měst. Nos víc lektvarů.',
         say: 'Železný řád po mně jde.'
       },
       rumor: {
@@ -2044,7 +2104,8 @@ export default {
           '1': 'Trpaslíci našli v dolech něco. Jádro. Přines nám ho a řekni si cenu.'
         },
         sold: {
-          '1': 'Jádro dorazilo v pořádku. Divil bys se, co dělá se zámkem.'
+          '1': 'Jádro dorazilo v pořádku. Divil bys se, co dělá se zámkem.',
+          '1__f': 'Jádro dorazilo v pořádku. Divila by ses, co dělá se zámkem.'
         },
         north: {
           '1': 'Všechno, co stojí za to, se přesunulo na sever. My taky.'
@@ -2057,6 +2118,7 @@ export default {
     forgemaster: {
       hello: {
         '1': 'Přišel jsi přes doly. Cítím na tobě prach.',
+        '1__f': 'Přišla jsi přes doly. Cítím na tobě prach.',
         '2': 'Dorn. Mistr kovář z Ironholdu. A mám problém velký jako hora.'
       },
       destroyed: {
@@ -2066,7 +2128,8 @@ export default {
         '1': 'Modrý oheň v mých výhních a učenci v hábitech v mých halách. Práce je aspoň dobrá.'
       },
       sold: {
-        '1': 'Prodal jsi ho. Golemové pořád chodí a moje doly jsou pořád hrob. Nech mě být.'
+        '1': 'Prodal jsi ho. Golemové pořád chodí a moje doly jsou pořád hrob. Nech mě být.',
+        '1__f': 'Prodala jsi ho. Golemové pořád chodí a moje doly jsou pořád hrob. Nech mě být.'
       },
       ending: {
         '1': 'Takže trůn je vyřešen. Dobře. Možná se teď můžeme vrátit ke kopání.'
@@ -2084,13 +2147,15 @@ export default {
       core: {
         say: 'Ohledně jádra...',
         destroy: {
-          '1': 'Rozbil jsi zázrak, abys zachránil můj lid. Řád poslal zbrojíře. Já poslal pivo.'
+          '1': 'Rozbil jsi zázrak, abys zachránil můj lid. Řád poslal zbrojíře. Já poslal pivo.',
+          '1__f': 'Rozbila jsi zázrak, abys zachránila můj lid. Řád poslal zbrojíře. Já poslal pivo.'
         },
         study: {
           '1': 'Lidé z Kruhu jsou divní, ale jejich zbraně střílejí rovně. Budiž.'
         },
         sell: {
-          '1': 'Udělal jsi to pro zlato. Doufám, že tě zahřeje.'
+          '1': 'Udělal jsi to pro zlato. Doufám, že tě zahřeje.',
+          '1__f': 'Udělala jsi to pro zlato. Doufám, že tě zahřeje.'
         }
       },
       town: {
@@ -2119,7 +2184,8 @@ export default {
         '2': 'Hilda Kladivoruká. Každý kus tady byl vykován trpasličíma rukama.'
       },
       dragon: {
-        '1': 'Zabil jsi draka? Doufám, že jednou z mých čepelí.'
+        '1': 'Zabil jsi draka? Doufám, že jednou z mých čepelí.',
+        '1__f': 'Zabila jsi draka? Doufám, že jednou z mých čepelí.'
       },
       again: {
         '1': 'Pro pořádnou ocel?'
@@ -2139,7 +2205,8 @@ export default {
         }
       },
       shopBack: {
-        '1': 'Přines ji tupou a budu vědět, že jsi ji dobře použil.'
+        '1': 'Přines ji tupou a budu vědět, že jsi ji dobře použil.',
+        '1__f': 'Přines ji tupou a budu vědět, že jsi ji dobře použila.'
       },
       bye: {
         '1': 'Bij silně.'
@@ -2204,10 +2271,12 @@ export default {
     ironOrderArmor: {
       hello: {
         '1': 'Ty jsi ten, kdo zničil jádro. Řád si to pamatuje.',
+        '1__f': 'Ty jsi ta, která zničila jádro. Řád si to pamatuje.',
         '2': 'Jsem tady zbrojmistr Řádu. Naše zbrojnice jsou ti otevřené.'
       },
       throneOurs: {
-        '1': 'Řád drží Pevnost děsu díky tobě. Pohov. Zasloužil sis to.'
+        '1': 'Řád drží Pevnost děsu díky tobě. Pohov. Zasloužil sis to.',
+        '1__f': 'Řád drží Pevnost děsu díky tobě. Pohov. Zasloužila sis to.'
       },
       foe: {
         '1': 'Řád tě má na seznamu. Rozkazy říkají, abych ti stejně prodával. Splním je.'
@@ -2240,7 +2309,8 @@ export default {
         '2': 'Říkají mi Starý Kamenonoh. Poslouchám zemi. Občas odpoví.'
       },
       core: {
-        '1': 'Hora je jiná, od té doby, co jsi tam sestoupil. Klidnější, nebo prázdnější.'
+        '1': 'Hora je jiná, od té doby, co jsi tam sestoupil. Klidnější, nebo prázdnější.',
+        '1__f': 'Hora je jiná, od té doby, co jsi tam sestoupila. Klidnější, nebo prázdnější.'
       },
       dragon: {
         '1': 'Včera přeletěl nad vrcholem drak a nechal nás být. Prý tvoje zásluha.'
@@ -2254,14 +2324,17 @@ export default {
       class: {
         '1': 'Zvedáme zdi, vyvoláváme hroty a lámeme zem, když musíme.',
         '2': 'Síla, aby ses pohnul kamenem. Inteligence, abys věděl, kam chce jít.',
+        '2__f': 'Síla, aby ses pohnula kamenem. Inteligence, abys věděla, kam chce jít.',
         say: 'Co dělá geomant?'
       },
       ready: {
         strong: {
-          '1': 'Kámen tě teď zná. Zbytek se naučíš, až budeš připravený.'
+          '1': 'Kámen tě teď zná. Zbytek se naučíš, až budeš připravený.',
+          '1__f': 'Kámen tě teď zná. Zbytek se naučíš, až budeš připravená.'
         },
         able: {
-          '1': 'Jsi dost pevný na další lekci.'
+          '1': 'Jsi dost pevný na další lekci.',
+          '1__f': 'Jsi dost pevná na další lekci.'
         },
         weak: {
           '1': 'Ještě ne. Kámen se pro tebe nepohne. Posil Sílu.'
@@ -2284,13 +2357,15 @@ export default {
         '2': 'Mechanik Pim. Stavím pistole, věže a spoustu teploměrů.'
       },
       core: {
-        '1': 'Dal jsi jádro Kruhu! Od té doby skoro nespím. V dobrém smyslu.'
+        '1': 'Dal jsi jádro Kruhu! Od té doby skoro nespím. V dobrém smyslu.',
+        '1__f': 'Dala jsi jádro Kruhu! Od té doby skoro nespím. V dobrém smyslu.'
       },
       oracle: {
         '1': 'Kruh je naštvaný kvůli věštkyni. Já jen stavím věci. Radši se do toho nepletu.'
       },
       friend: {
-        '1': 'Jsi přítel Kruhu, takže lekce jsou levnější. Vyřídil jsem papíry.'
+        '1': 'Jsi přítel Kruhu, takže lekce jsou levnější. Vyřídil jsem papíry.',
+        '1__f': 'Jsi přítelkyně Kruhu, takže lekce jsou levnější. Vyřídil jsem papíry.'
       },
       foe: {
         '1': 'Kruh říká, že bych tě neměl učit. Stejně budu. Neříkej jim to.'
@@ -2311,7 +2386,8 @@ export default {
           '1': 'Ve věžích už se vyznáš. Vezmi si velké stroje.'
         },
         able: {
-          '1': 'Pevné ruce. Jsi připravený na další.'
+          '1': 'Pevné ruce. Jsi připravený na další.',
+          '1__f': 'Pevné ruce. Jsi připravená na další.'
         },
         weak: {
           '1': 'Mířidla ti ještě trochu poskakují. Dej body do Zručnosti.'
@@ -2325,7 +2401,8 @@ export default {
         '1': 'A nezapomeň odpustit horko dřív, než odpustí ono tebe.'
       },
       bye: {
-        '1': 'Buď tam venku opatrný!'
+        '1': 'Buď tam venku opatrný!',
+        '1__f': 'Buď tam venku opatrná!'
       }
     },
     ironHealer: {
@@ -2334,7 +2411,8 @@ export default {
         '2': 'Matka Brynja. Narovnala jsem většinu zlomených kostí v téhle hoře.'
       },
       ending: {
-        '1': 'Šel jsi do Pevnosti děsu a vrátil ses. Sedni si. Nech mě se na tebe podívat.'
+        '1': 'Šel jsi do Pevnosti děsu a vrátil ses. Sedni si. Nech mě se na tebe podívat.',
+        '1__f': 'Šla jsi do Pevnosti děsu a vrátila ses. Sedni si. Nech mě se na tebe podívat.'
       },
       again: {
         '1': 'Pořád naživu. Dobře. Sedni si.'
@@ -2361,7 +2439,8 @@ export default {
         }
       },
       healBack: {
-        '1': 'Jdi. A něco sněz, jsi moc hubený.'
+        '1': 'Jdi. A něco sněz, jsi moc hubený.',
+        '1__f': 'Jdi. A něco sněz, jsi moc hubená.'
       },
       bye: {
         '1': 'Vrať se vcelku.'
@@ -2370,13 +2449,15 @@ export default {
     exiledSovereign: {
       hello: {
         '1': 'Ty. Ty jsi ten, kdo otevřel mou bránu.',
+        '1__f': 'Ty. Ty jsi ta, která otevřela mou bránu.',
         '2': 'Učím teď ve sklepě, protože musím jíst. Nepleť si to s odpuštěním.'
       },
       ending: {
         '1': 'Takže trůn je rozhodnut a Oakhaven je pořád popel. Doufám, že to stálo za to.'
       },
       again: {
-        '1': 'Vrátil ses. Můj poplatek se nezměnil.'
+        '1': 'Vrátil ses. Můj poplatek se nezměnil.',
+        '1__f': 'Vrátila ses. Můj poplatek se nezměnil.'
       },
       train: {
         '1': 'Naučím tě velet. Jestli si to zasloužíš, je jiná věc.'
@@ -2388,10 +2469,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Máš přítomnost na všechno z toho. Škoda, že jsi ji nepoužil lépe.'
+          '1': 'Máš přítomnost na všechno z toho. Škoda, že jsi ji nepoužil lépe.',
+          '1__f': 'Máš přítomnost na všechno z toho. Škoda, že jsi ji nepoužila lépe.'
         },
         able: {
-          '1': 'Jsi připravený na další lekci. Nebudu předstírat, že jsem rád.'
+          '1': 'Jsi připravený na další lekci. Nebudu předstírat, že jsem rád.',
+          '1__f': 'Jsi připravená na další lekci. Nebudu předstírat, že jsem rád.'
         },
         weak: {
           '1': 'Zatím by za tebou nikdo nešel. Zapracuj na Charismatu.'
@@ -2412,6 +2495,7 @@ export default {
     trainerChrono: {
       fled: {
         '1': 'Zabil jsi ji. Viděl jsem to přicházet roky a stejně to bolí.',
+        '1__f': 'Zabila jsi ji. Viděl jsem to přicházet roky a stejně to bolí.',
         '2': 'Jsem Strážce hodin. Naučím tě. Řekla mi, že to udělám.'
       },
       hello: {
@@ -2436,6 +2520,7 @@ export default {
       class: {
         '1': 'Držíme nepřítele v čase, urychlujeme přítele a bereme zpět chybu.',
         '2': 'Inteligence, abys viděl nit. Zručnost, abys za ni zatáhl.',
+        '2__f': 'Inteligence, abys viděla nit. Zručnost, abys za ni zatáhla.',
         say: 'Kdo je Tkadlec času?'
       },
       ready: {
@@ -2443,7 +2528,8 @@ export default {
           '1': 'Nit držíš dobře. Vezmi si zbytek, kdy chceš.'
         },
         able: {
-          '1': 'Jsi připravený. Poznal jsem to dřív, než ses zeptal.'
+          '1': 'Jsi připravený. Poznal jsem to dřív, než ses zeptal.',
+          '1__f': 'Jsi připravená. Poznal jsem to dřív, než ses zeptala.'
         },
         weak: {
           '1': 'Nit mi pořád klouže. Víc Inteligence a víc Zručnosti.'
@@ -2458,7 +2544,8 @@ export default {
           '1': 'Nebránila se. Už to viděla. Prosím, neptej se mě znovu.'
         },
         waits: {
-          '1': 'Vidí každý konec. To je těžké břemeno. Buď na ni hodný.'
+          '1': 'Vidí každý konec. To je těžké břemeno. Buď na ni hodný.',
+          '1__f': 'Vidí každý konec. To je těžké břemeno. Buď na ni hodná.'
         }
       },
       trainBack: {
@@ -2513,7 +2600,8 @@ export default {
         ask: {
           '1': 'Kolos je šrot. Nikdy jsem nevěřil, že se toho dožiju.',
           '2': 'A tamhle je jádro. Pořád hučí. Je teplé, když se ho dotkneš.',
-          '3': 'Dostal ses sem první. Takže... co se s ním stane?'
+          '3': 'Dostal ses sem první. Takže... co se s ním stane?',
+          '3__f': 'Dostala ses sem první. Takže... co se s ním stane?'
         },
         destroy: {
           '1': 'Světlo zhasne a golemové padnou, kde stojí.',
@@ -2522,6 +2610,7 @@ export default {
         },
         study: {
           '1': 'Víš dost na to, abys jádro odnesl a nevzbudil ho.',
+          '1__f': 'Víš dost na to, abys jádro odnesla a nevzbudila ho.',
           '2': 'Za sezónu vyrábějí kovárny Ironholdu éterové vynálezy, jaké nikdo neviděl.',
           say: 'Kruh by to měl studovat. Myslím, že ho dokážu bezpečně odnést.'
         },
@@ -2595,7 +2684,8 @@ export default {
         claim: {
           '1': 'Trůn je studený a padne.',
           '2': 'Tři frakce zjišťují, že mají společného nepřítele.',
-          say: 'Vezmu si ho sám.'
+          say: 'Vezmu si ho sám.',
+          say__f: 'Vezmu si ho sama.'
         }
       }
     }

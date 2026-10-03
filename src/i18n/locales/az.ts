@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Ən yüksək səviyyəyə çatdın',
     next: 'Növbəti xal:'
   },
+  heroChoice: {
+    title: 'Qəhrəmanını seç',
+    boy: 'Oğlan kimi oyna',
+    girl: 'Qız kimi oyna',
+    switch: 'Qəhrəmanın'
+  },
   skills: {
     active: 'Aktiv bacarıqlar',
     passive: 'Passiv bacarıqlar',

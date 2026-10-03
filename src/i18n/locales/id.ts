@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Level tertinggi tercapai',
     next: 'Poin berikutnya:'
   },
+  heroChoice: {
+    title: 'Pilih pahlawanmu',
+    boy: 'Main sebagai anak laki-laki',
+    girl: 'Main sebagai anak perempuan',
+    switch: 'Pahlawanmu'
+  },
   skills: {
     active: 'Skill aktif',
     passive: 'Skill pasif',

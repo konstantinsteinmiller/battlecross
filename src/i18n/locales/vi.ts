@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Đã đạt cấp cao nhất',
     next: 'Điểm kế tiếp:'
   },
+  heroChoice: {
+    title: 'Chọn anh hùng của bạn',
+    boy: 'Chơi bé trai',
+    girl: 'Chơi bé gái',
+    switch: 'Anh hùng của bạn'
+  },
   skills: {
     active: 'Kỹ năng chủ động',
     passive: 'Kỹ năng bị động',

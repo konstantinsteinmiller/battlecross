@@ -355,6 +355,12 @@ export default {
     maxLevel: 'Højeste niveau nået',
     next: 'Næste point:'
   },
+  heroChoice: {
+    title: 'Vælg din helt',
+    boy: 'Spil som drengen',
+    girl: 'Spil som pigen',
+    switch: 'Din helt'
+  },
   skills: {
     active: 'Aktive evner',
     passive: 'Passive evner',

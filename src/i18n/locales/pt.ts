@@ -100,6 +100,7 @@ export default {
     },
     target: {
       touch: 'Toque em um inimigo, ou arraste do seu herói até ele, para atacá-lo.',
+      touch__f: 'Toque em um inimigo, ou arraste da sua heroína até ele, para atacá-lo.',
       mouse: 'Clique em um inimigo para atacá-lo.'
     },
     skill: {
@@ -354,6 +355,12 @@ export default {
     raise: 'Aumentar {attr}',
     maxLevel: 'Nível máximo alcançado',
     next: 'Próximo ponto:'
+  },
+  heroChoice: {
+    title: 'Escolha seu herói',
+    boy: 'Jogar com o menino',
+    girl: 'Jogar com a menina',
+    switch: 'Seu herói'
   },
   skills: {
     active: 'Habilidades ativas',
@@ -1292,7 +1299,8 @@ export default {
       mana: 'Você tem algo para mana?',
       who: 'Quem é você, se não se importa que eu pergunte?',
       rumor: 'Ouviu algo ultimamente?',
-      ready: 'Acha que estou pronto para mais?'
+      ready: 'Acha que estou pronto para mais?',
+      ready__f: 'Acha que estou pronta para mais?'
     },
     sunfordSmith: {
       hello: {
@@ -1413,7 +1421,8 @@ export default {
         '1': 'A Ordem tem boa opinião de você. Para os amigos dela, minhas lições custam menos.'
       },
       foe: {
-        '1': 'A Ordem chama você de inimigo. Eu ensino mesmo assim. A escolha é minha, não dela.'
+        '1': 'A Ordem chama você de inimigo. Eu ensino mesmo assim. A escolha é minha, não dela.',
+        '1__f': 'A Ordem chama você de inimiga. Eu ensino mesmo assim. A escolha é minha, não dela.'
       },
       again: {
         '1': 'Voltou para mais treino?'
@@ -1431,7 +1440,8 @@ export default {
           '1': 'Você é forte o bastante para quase tudo que sei. Continue com o Vigor.'
         },
         able: {
-          '1': 'Está pronto para a próxima lição. Não suba à cabeça.'
+          '1': 'Está pronto para a próxima lição. Não suba à cabeça.',
+          '1__f': 'Está pronta para a próxima lição. Não suba à cabeça.'
         },
         weak: {
           '1': 'Ainda não. Você cansaria antes do escudo. Mais Força, mais Vigor.'
@@ -1452,6 +1462,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Ah, um aluno? Maravilha. Talvez dê um passo para trás.',
+        '1__f': 'Ah, uma aluna? Maravilha. Talvez dê um passo para trás.',
         '2': 'Sou a Ember Wren. Ensino fogo. Quase sempre ele faz o que eu peço.'
       },
       core: {
@@ -1464,7 +1475,8 @@ export default {
         '1': 'O Círculo não está contente com você. Eu ensino mesmo assim. Em silêncio.'
       },
       again: {
-        '1': 'Voltou! Pronto para acender alguma coisa?'
+        '1': 'Voltou! Pronto para acender alguma coisa?',
+        '1__f': 'Voltou! Pronta para acender alguma coisa?'
       },
       train: {
         '1': 'Certo. Olhe minhas mãos e mantenha as mangas longe de mim.'
@@ -1479,7 +1491,8 @@ export default {
           '1': 'Sinceramente? Você poderia ensinar parte disso. Pegue o que quiser.'
         },
         able: {
-          '1': 'Está pronto para o próximo feitiço. Venha, eu mostro.'
+          '1': 'Está pronto para o próximo feitiço. Venha, eu mostro.',
+          '1__f': 'Está pronta para o próximo feitiço. Venha, eu mostro.'
         },
         weak: {
           '1': 'Ainda não, receio. Falta Inteligência, ou o fogo assume o controle.'
@@ -1499,6 +1512,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Então é você o da estrada. Venha cá, deixe eu olhar.',
+        '1__f': 'Então é você a da estrada. Venha cá, deixe eu olhar.',
         '2': 'Sou a Mara. Cuido desta cidade há... ah, uns quarenta anos.'
       },
       slain: {
@@ -1570,16 +1584,19 @@ export default {
         }
       },
       bye: {
-        '1': 'Volte para nós inteiro. É só o que peço.'
+        '1': 'Volte para nós inteiro. É só o que peço.',
+        '1__f': 'Volte para nós inteira. É só o que peço.'
       }
     },
     sunfordHealer: {
       hello: {
         '1': 'Fique parado um instante. Não, você está bem. Hábito, desculpe.',
+        '1__f': 'Fique parada um instante. Não, você está bem. Hábito, desculpe.',
         '2': 'Sou a Irmã Lune. Remendo tudo que a estrada quebra.'
       },
       again: {
-        '1': 'Ainda inteiro? Ótimo. Sente-se mesmo assim.'
+        '1': 'Ainda inteiro? Ótimo. Sente-se mesmo assim.',
+        '1__f': 'Ainda inteira? Ótimo. Sente-se mesmo assim.'
       },
       heal: {
         '1': 'Sente-se, descanse um pouco. Encho seus frascos antes de você ir.'
@@ -1613,10 +1630,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Você é o que fez o pacto. Meu rei diz que você é bem-vindo aqui.',
+        '1__f': 'Você é a que fez o pacto. Meu rei diz que você é bem-vinda aqui.',
         '2': 'Sou Grik. Vendo o que goblins fazem. Bom trabalho, preço justo.'
       },
       again: {
-        '1': 'Amigo. Bom ver você de novo.'
+        '1': 'Amigo. Bom ver você de novo.',
+        '1__f': 'Amiga. Bom ver você de novo.'
       },
       trade: {
         '1': 'Olhe, por favor. Minha família fez isto.'
@@ -1642,7 +1661,8 @@ export default {
         '1': 'Obrigado. Volte sempre.'
       },
       bye: {
-        '1': 'Vá em segurança, amigo.'
+        '1': 'Vá em segurança, amigo.',
+        '1__f': 'Vá em segurança, amiga.'
       }
     },
     captainHale: {
@@ -1714,6 +1734,7 @@ export default {
       },
       armor: {
         '1': 'Placas, se você aguenta firme. Couro, se se mexe. Mantos, se é rápido.',
+        '1__f': 'Placas, se você aguenta firme. Couro, se se mexe. Mantos, se é rápida.',
         say: 'Que armadura devo usar?'
       },
       rumor: {
@@ -1759,7 +1780,8 @@ export default {
         '1': 'Se não ficar bom, traga de volta. Eu ajeito.'
       },
       bye: {
-        '1': 'Você é sempre bem-vindo aqui.'
+        '1': 'Você é sempre bem-vindo aqui.',
+        '1__f': 'Você é sempre bem-vinda aqui.'
       }
     },
     oakWeapons: {
@@ -1803,10 +1825,12 @@ export default {
         '1': 'A cidade está mais quieta agora. Menos guardas. Trabalho mais fácil, para alguns de nós.'
       },
       friend: {
-        '1': 'O Sindicato conta você como amigo. Amigos pagam menos. Lembre disso.'
+        '1': 'O Sindicato conta você como amigo. Amigos pagam menos. Lembre disso.',
+        '1__f': 'O Sindicato conta você como amiga. Amigos pagam menos. Lembre disso.'
       },
       foe: {
-        '1': 'O Sindicato quer você morto. Me pagaram para ensinar, não para matar. Então, lições.'
+        '1': 'O Sindicato quer você morto. Me pagaram para ensinar, não para matar. Então, lições.',
+        '1__f': 'O Sindicato quer você morta. Me pagaram para ensinar, não para matar. Então, lições.'
       },
       again: {
         '1': 'Você ainda faz barulho demais. Vamos trabalhar nisso.'
@@ -1850,7 +1874,8 @@ export default {
         '1': 'Minha cidade está de pé, e com ela o nome da minha família. Você tem minha gratidão. De verdade.'
       },
       friend: {
-        '1': 'Um amigo da Ordem. Vou reduzir meu preço. Por favor, não espalhe isso.'
+        '1': 'Um amigo da Ordem. Vou reduzir meu preço. Por favor, não espalhe isso.',
+        '1__f': 'Uma amiga da Ordem. Vou reduzir meu preço. Por favor, não espalhe isso.'
       },
       foe: {
         '1': 'A Ordem tem seu nome numa lista. Ensino mesmo assim. Moeda é moeda.'
@@ -1871,10 +1896,12 @@ export default {
           '1': 'Você tem presença de verdade agora. Leve o resto das minhas lições.'
         },
         able: {
-          '1': 'Sua voz alcança longe. Está pronto para a próxima lição.'
+          '1': 'Sua voz alcança longe. Está pronto para a próxima lição.',
+          '1__f': 'Sua voz alcança longe. Está pronta para a próxima lição.'
         },
         weak: {
-          '1': 'Receio que ninguém ainda o seguiria. Trabalhe o Carisma.'
+          '1': 'Receio que ninguém ainda o seguiria. Trabalhe o Carisma.',
+          '1__f': 'Receio que ninguém ainda a seguiria. Trabalhe o Carisma.'
         }
       },
       family: {
@@ -1943,6 +1970,7 @@ export default {
       },
       armor: {
         '1': 'Os armeiros se foram, amigo. Você sabe melhor que eu por quê.',
+        '1__f': 'Os armeiros se foram, amiga. Você sabe melhor que eu por quê.',
         say: 'Tem armaduras à venda?'
       },
       rumor: {
@@ -1976,7 +2004,8 @@ export default {
         '1': 'O Sindicato pagaria bem pelo seu sangue. Prefiro que você o gaste aqui.'
       },
       again: {
-        '1': 'Você está pálido. Ótimo. Combina com o trabalho.'
+        '1': 'Você está pálido. Ótimo. Combina com o trabalho.',
+        '1__f': 'Você está pálida. Ótimo. Combina com o trabalho.'
       },
       train: {
         '1': 'Arregace a manga. Vai doer. É meio que esse o objetivo.'
@@ -2044,14 +2073,16 @@ export default {
           '1': 'Os anões acharam algo nas minas. Um núcleo. Traga para nós e diga seu preço.'
         },
         sold: {
-          '1': 'O núcleo chegou em segurança. Você ficaria surpreso com o que ele faz com uma fechadura.'
+          '1': 'O núcleo chegou em segurança. Você ficaria surpreso com o que ele faz com uma fechadura.',
+          '1__f': 'O núcleo chegou em segurança. Você ficaria surpresa com o que ele faz com uma fechadura.'
         },
         north: {
           '1': 'Tudo que vale a pena foi para o norte. Nós também.'
         }
       },
       bye: {
-        '1': 'Não seja um estranho. Estranhos a gente vigia.'
+        '1': 'Não seja um estranho. Estranhos a gente vigia.',
+        '1__f': 'Não seja uma estranha. Estranhos a gente vigia.'
       }
     },
     forgemaster: {
@@ -2258,7 +2289,8 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'A pedra já conhece você. Aprenda o resto quando estiver pronto.'
+          '1': 'A pedra já conhece você. Aprenda o resto quando estiver pronto.',
+          '1__f': 'A pedra já conhece você. Aprenda o resto quando estiver pronta.'
         },
         able: {
           '1': 'Você está firme o bastante para a próxima lição.'
@@ -2290,7 +2322,8 @@ export default {
         '1': 'O Círculo está furioso por causa do oráculo. Eu só construo coisas. Prefiro não me meter.'
       },
       friend: {
-        '1': 'Você é amigo do Círculo, então suas lições saem mais baratas. Eu cuidei da papelada.'
+        '1': 'Você é amigo do Círculo, então suas lições saem mais baratas. Eu cuidei da papelada.',
+        '1__f': 'Você é amiga do Círculo, então suas lições saem mais baratas. Eu cuidei da papelada.'
       },
       foe: {
         '1': 'O Círculo diz que eu não devia ensinar você. Vou ensinar mesmo assim. Não conte a eles.'
@@ -2311,7 +2344,8 @@ export default {
           '1': 'Você já manda bem com uma torre. Leve as máquinas grandes.'
         },
         able: {
-          '1': 'Mãos firmes. Está pronto para a próxima.'
+          '1': 'Mãos firmes. Está pronto para a próxima.',
+          '1__f': 'Mãos firmes. Está pronta para a próxima.'
         },
         weak: {
           '1': 'Sua mira ainda está meio trêmula. Ponha uns pontos em Técnica.'
@@ -2337,7 +2371,8 @@ export default {
         '1': 'Você foi à Fortaleza do Pavor e voltou. Sente-se. Deixe eu olhar você.'
       },
       again: {
-        '1': 'Ainda vivo. Ótimo. Sente.'
+        '1': 'Ainda vivo. Ótimo. Sente.',
+        '1__f': 'Ainda viva. Ótimo. Sente.'
       },
       heal: {
         '1': 'Beba isto, e não faça essa cara. Seus frascos estão cheios.'
@@ -2361,10 +2396,12 @@ export default {
         }
       },
       healBack: {
-        '1': 'Pode ir. E coma alguma coisa, você está magro demais.'
+        '1': 'Pode ir. E coma alguma coisa, você está magro demais.',
+        '1__f': 'Pode ir. E coma alguma coisa, você está magra demais.'
       },
       bye: {
-        '1': 'Volte inteiro.'
+        '1': 'Volte inteiro.',
+        '1__f': 'Volte inteira.'
       }
     },
     exiledSovereign: {
@@ -2391,7 +2428,8 @@ export default {
           '1': 'Você tem presença para tudo isso. Queria que a tivesse usado melhor.'
         },
         able: {
-          '1': 'Está pronto para a próxima lição. Não vou fingir que estou contente.'
+          '1': 'Está pronto para a próxima lição. Não vou fingir que estou contente.',
+          '1__f': 'Está pronta para a próxima lição. Não vou fingir que estou contente.'
         },
         weak: {
           '1': 'Ninguém ainda seguiria você. Trabalhe o Carisma.'
@@ -2428,7 +2466,8 @@ export default {
         '1': 'O Círculo está com raiva de você agora. Passa. Até lá, vamos manter isso quieto.'
       },
       again: {
-        '1': 'Bem-vindo de volta. Você chegou na hora certa.'
+        '1': 'Bem-vindo de volta. Você chegou na hora certa.',
+        '1__f': 'Bem-vinda de volta. Você chegou na hora certa.'
       },
       train: {
         '1': 'Observe bem. Depois observe de novo, um instante antes.'
@@ -2443,7 +2482,8 @@ export default {
           '1': 'Você segura bem o fio. Leve o resto quando quiser.'
         },
         able: {
-          '1': 'Está pronto. Percebi antes de você perguntar.'
+          '1': 'Está pronto. Percebi antes de você perguntar.',
+          '1__f': 'Está pronta. Percebi antes de você perguntar.'
         },
         weak: {
           '1': 'O fio não para de escorregar. Mais Inteligência, e mais Técnica.'
@@ -2504,8 +2544,10 @@ export default {
         },
         betray: {
           '1': 'Sensato. A Madame Ash vai gostar de saber.',
+          '1__f': 'Sensata. A Madame Ash vai gostar de saber.',
           '2': 'Oakhaven queima. Nas ruínas abre um mercado negro, e um alquimista ensina em segredo.',
           '3': 'Os armeiros se foram, e a Ordem de Ferro chama você de traidor.',
+          '3__f': 'Os armeiros se foram, e a Ordem de Ferro chama você de traidora.',
           say: 'Um terço da cidade. Tudo bem. O portão abre esta noite.'
         }
       },
@@ -2595,7 +2637,8 @@ export default {
         claim: {
           '1': 'O trono está frio, e serve em você.',
           '2': 'Três facções descobrem que têm um inimigo em comum.',
-          say: 'Eu mesmo fico com ele.'
+          say: 'Eu mesmo fico com ele.',
+          say__f: 'Eu mesma fico com ele.'
         }
       }
     }

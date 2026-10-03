@@ -100,6 +100,7 @@ export default {
     },
     target: {
       touch: 'Toca un enemic, o arrossega des de l’heroi fins a ell, per atacar-lo.',
+      touch__f: 'Toca un enemic, o arrossega des de l’heroïna fins a ell, per atacar-lo.',
       mouse: 'Fes clic en un enemic per atacar-lo.'
     },
     skill: {
@@ -354,6 +355,12 @@ export default {
     raise: 'Puja: {attr}',
     maxLevel: 'Nivell màxim assolit',
     next: 'Pròxim punt:'
+  },
+  heroChoice: {
+    title: 'Tria el teu heroi',
+    boy: 'Juga amb el noi',
+    girl: 'Juga amb la noia',
+    switch: 'El teu heroi'
   },
   skills: {
     active: 'Habilitats actives',
@@ -1398,6 +1405,7 @@ export default {
     trainerAegis: {
       hello: {
         '1': 'Posa’t dret. Parles amb un cavaller de l’Orde de Ferro.',
+        '1__f': 'Posa’t dreta. Parles amb un cavaller de l’Orde de Ferro.',
         '2': 'Ser Aldric. Ensenyo a plantar-se entre els altres i el mal.'
       },
       saved: {
@@ -1413,7 +1421,8 @@ export default {
         '1': 'L’Orde té bon concepte de tu. Als seus amics, les meves lliçons els costen menys.'
       },
       foe: {
-        '1': 'L’Orde et considera un enemic. T’ensenyaré igualment. Ho decideixo jo, no ells.'
+        '1': 'L’Orde et considera un enemic. T’ensenyaré igualment. Ho decideixo jo, no ells.',
+        '1__f': 'L’Orde et considera una enemiga. T’ensenyaré igualment. Ho decideixo jo, no ells.'
       },
       again: {
         '1': 'Tornes per més exercicis?'
@@ -1452,6 +1461,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Oh, un alumne? Que bé. Potser et pots fer una mica enrere.',
+        '1__f': 'Oh, una alumna? Que bé. Potser et pots fer una mica enrere.',
         '2': 'Sóc l’Ember Wren. Ensenyo foc. Quasi sempre fa el que li demano.'
       },
       core: {
@@ -1464,7 +1474,8 @@ export default {
         '1': 'El Cercle no està content amb tu. Però t’ensenyaré igualment. Sense fer soroll.'
       },
       again: {
-        '1': 'Has tornat! Preparat per encendre alguna cosa?'
+        '1': 'Has tornat! Preparat per encendre alguna cosa?',
+        '1__f': 'Has tornat! Preparada per encendre alguna cosa?'
       },
       train: {
         '1': 'Bé. Mira’m les mans, i allunya’m les mànigues.'
@@ -1499,6 +1510,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Així que ets el del camí. Vine, deixa que et miri.',
+        '1__f': 'Així que ets la del camí. Vine, deixa que et miri.',
         '2': 'Sóc la Mara. Fa… uf, quaranta anys que cuido aquest poble.'
       },
       slain: {
@@ -1570,16 +1582,19 @@ export default {
         }
       },
       bye: {
-        '1': 'Torna sencer. Només et demano això.'
+        '1': 'Torna sencer. Només et demano això.',
+        '1__f': 'Torna sencera. Només et demano això.'
       }
     },
     sunfordHealer: {
       hello: {
         '1': 'Estigues quiet un moment. No, estàs bé. Costum, perdona.',
+        '1__f': 'Estigues quieta un moment. No, estàs bé. Costum, perdona.',
         '2': 'Sóc la Germana Lune. Adobo el que el camí trenca.'
       },
       again: {
-        '1': 'Encara sencer? Bé. Seu igualment.'
+        '1': 'Encara sencer? Bé. Seu igualment.',
+        '1__f': 'Encara sencera? Bé. Seu igualment.'
       },
       heal: {
         '1': 'Seu i descansa una estona. T’ompliré els flascons abans que marxis.'
@@ -1613,10 +1628,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Ets tu qui ha fet el pacte. El meu rei diu que aquí ets benvingut.',
+        '1__f': 'Ets tu qui ha fet el pacte. El meu rei diu que aquí ets benvinguda.',
         '2': 'Sóc el Grik. Venc el que fan els gòblins. Bona feina, preu just.'
       },
       again: {
-        '1': 'Amic. M’alegro de tornar-te a veure.'
+        '1': 'Amic. M’alegro de tornar-te a veure.',
+        '1__f': 'Amiga. M’alegro de tornar-te a veure.'
       },
       trade: {
         '1': 'Mira, si et plau. Ho ha fet la meva família.'
@@ -1642,7 +1659,8 @@ export default {
         '1': 'Gràcies. Torna quan vulguis.'
       },
       bye: {
-        '1': 'Vés amb bé, amic.'
+        '1': 'Vés amb bé, amic.',
+        '1__f': 'Vés amb bé, amiga.'
       }
     },
     captainHale: {
@@ -1714,6 +1732,7 @@ export default {
       },
       armor: {
         '1': 'Planxa, si t’hi plantes. Cuir, si et mous. Túniques, si ets ràpid.',
+        '1__f': 'Planxa, si t’hi plantes. Cuir, si et mous. Túniques, si ets ràpida.',
         say: 'Quin tipus d’armadura hauria de dur?'
       },
       rumor: {
@@ -1759,7 +1778,8 @@ export default {
         '1': 'Si no et va bé, torna’l. T’ho arreglo.'
       },
       bye: {
-        '1': 'Aquí sempre ets benvingut.'
+        '1': 'Aquí sempre ets benvingut.',
+        '1__f': 'Aquí sempre ets benvinguda.'
       }
     },
     oakWeapons: {
@@ -1784,7 +1804,8 @@ export default {
           '1': 'Els homes d’en Krag porten bon acer. Diners del Sindicat. Val la pena agafar-lo, si pots.'
         },
         which: {
-          '1': 'Les fulles ràpides volen Destresa. Els arcs i les pistoles, Perícia. Sàpigues quin ets.'
+          '1': 'Les fulles ràpides volen Destresa. Els arcs i les pistoles, Perícia. Sàpigues quin ets.',
+          '1__f': 'Les fulles ràpides volen Destresa. Els arcs i les pistoles, Perícia. Sàpigues quina ets.'
         }
       },
       shopBack: {
@@ -1803,10 +1824,12 @@ export default {
         '1': 'La vila és més tranquil·la ara. Menys guàrdies. Feina més fàcil, per a alguns de nosaltres.'
       },
       friend: {
-        '1': 'El Sindicat et té per amic. Els amics paguen menys. Recorda-ho.'
+        '1': 'El Sindicat et té per amic. Els amics paguen menys. Recorda-ho.',
+        '1__f': 'El Sindicat et té per amiga. Els amics paguen menys. Recorda-ho.'
       },
       foe: {
-        '1': 'El Sindicat et vol mort. A mi em van pagar per ensenyar, no per matar. Així que, lliçons.'
+        '1': 'El Sindicat et vol mort. A mi em van pagar per ensenyar, no per matar. Així que, lliçons.',
+        '1__f': 'El Sindicat et vol morta. A mi em van pagar per ensenyar, no per matar. Així que, lliçons.'
       },
       again: {
         '1': 'Encara fas massa soroll. Hi treballarem.'
@@ -1850,7 +1873,8 @@ export default {
         '1': 'La meva vila és dreta, i el nom de la meva família amb ella. Gràcies. De debò.'
       },
       friend: {
-        '1': 'Un amic de l’Orde. Et baixaré la tarifa. No ho expliquis, si us plau.'
+        '1': 'Un amic de l’Orde. Et baixaré la tarifa. No ho expliquis, si us plau.',
+        '1__f': 'Una amiga de l’Orde. Et baixaré la tarifa. No ho expliquis, si us plau.'
       },
       foe: {
         '1': 'L’Orde té el teu nom en una llista. T’ensenyaré igualment. Els diners són diners.'
@@ -1943,6 +1967,7 @@ export default {
       },
       armor: {
         '1': 'Els armers se n’han anat, amic. Tu ho saps millor que jo, el perquè.',
+        '1__f': 'Els armers se n’han anat, amiga. Tu ho saps millor que jo, el perquè.',
         say: 'Teniu alguna armadura?'
       },
       rumor: {
@@ -1991,7 +2016,8 @@ export default {
           '1': 'Una constitució notable. Pots aprendre quasi tot.'
         },
         able: {
-          '1': 'Ets prou robust per a la lliçó següent.'
+          '1': 'Ets prou robust per a la lliçó següent.',
+          '1__f': 'Ets prou robusta per a la lliçó següent.'
         },
         weak: {
           '1': 'Et desmaiaries al primer tall. Primer treballa l’Aguant, si us plau.'
@@ -2051,7 +2077,8 @@ export default {
         }
       },
       bye: {
-        '1': 'No et facis estrany. Als estranys els vigilem.'
+        '1': 'No et facis estrany. Als estranys els vigilem.',
+        '1__f': 'No et facis estranya. Als estranys els vigilem.'
       }
     },
     forgemaster: {
@@ -2079,6 +2106,7 @@ export default {
         '2': 'I els gòlems?',
         '3': 'Es mouen al seu ritme. Tres poders m’han escrit demanant-lo. No em fio de cap.',
         '4': 'Hi arribaràs el primer, al fons de les Mines d’Ironhold. Què passi llavors, depèn de tu.',
+        '4__f': 'Hi arribaràs la primera, al fons de les Mines d’Ironhold. Què passi llavors, depèn de tu.',
         say: 'Què va passar allà baix, a les mines?'
       },
       core: {
@@ -2261,7 +2289,8 @@ export default {
           '1': 'La pedra ja et coneix. Aprèn la resta quan estiguis a punt.'
         },
         able: {
-          '1': 'Ja estàs prou ferm per a la lliçó següent.'
+          '1': 'Ja estàs prou ferm per a la lliçó següent.',
+          '1__f': 'Ja estàs prou ferma per a la lliçó següent.'
         },
         weak: {
           '1': 'Encara no. La pedra no es mourà per tu. Treballa la Força.'
@@ -2290,7 +2319,8 @@ export default {
         '1': 'El Cercle és furiós per l’oracle. Jo només construeixo coses. Prefereixo no ficar-m’hi.'
       },
       friend: {
-        '1': 'Ets amic del Cercle, així que les teves lliçons són més barates. He fet el paperam.'
+        '1': 'Ets amic del Cercle, així que les teves lliçons són més barates. He fet el paperam.',
+        '1__f': 'Ets amiga del Cercle, així que les teves lliçons són més barates. He fet el paperam.'
       },
       foe: {
         '1': 'El Cercle diu que no t’he d’ensenyar. Ho faré igualment. No els ho diguis.'
@@ -2337,7 +2367,8 @@ export default {
         '1': 'Vas anar a la Fortalesa del Terror i vas tornar. Seu. Deixa que et miri.'
       },
       again: {
-        '1': 'Encara viu. Bé. Seu.'
+        '1': 'Encara viu. Bé. Seu.',
+        '1__f': 'Encara viva. Bé. Seu.'
       },
       heal: {
         '1': 'Beu això, i no facis aquesta cara. Els flascons són plens.'
@@ -2361,10 +2392,12 @@ export default {
         }
       },
       healBack: {
-        '1': 'Au, ves. I menja alguna cosa, estàs massa prim.'
+        '1': 'Au, ves. I menja alguna cosa, estàs massa prim.',
+        '1__f': 'Au, ves. I menja alguna cosa, estàs massa prima.'
       },
       bye: {
-        '1': 'Torna sencer.'
+        '1': 'Torna sencer.',
+        '1__f': 'Torna sencera.'
       }
     },
     exiledSovereign: {
@@ -2428,7 +2461,8 @@ export default {
         '1': 'El Cercle està enfadat amb tu ara. Passarà. Fins llavors, ho portarem en silenci.'
       },
       again: {
-        '1': 'Benvingut de nou. Arribes just a temps.'
+        '1': 'Benvingut de nou. Arribes just a temps.',
+        '1__f': 'Benvinguda de nou. Arribes just a temps.'
       },
       train: {
         '1': 'Mira bé. I torna a mirar, un moment abans.'
@@ -2504,8 +2538,10 @@ export default {
         },
         betray: {
           '1': 'Assenyat. Madama Ash estarà contenta d’assabentar-se’n.',
+          '1__f': 'Assenyada. Madama Ash estarà contenta d’assabentar-se’n.',
           '2': 'Oakhaven crema. Entre les runes s’obre un mercat negre, i un alquimista ensenya en secret.',
           '3': 'Els armers se n’han anat, i l’Orde de Ferro et diu traïdor.',
+          '3__f': 'Els armers se n’han anat, i l’Orde de Ferro et diu traïdora.',
           say: 'Una tercera part de la vila. D’acord. La porta s’obrirà aquesta nit.'
         }
       },
@@ -2513,7 +2549,8 @@ export default {
         ask: {
           '1': 'El Colós és ferralla. Mai no vaig pensar que ho veuria.',
           '2': 'I allà hi ha el nucli. Encara brunzeix. És calent, si el toques.',
-          '3': 'Has arribat el primer. Així que… què se’n farà?'
+          '3': 'Has arribat el primer. Així que… què se’n farà?',
+          '3__f': 'Has arribat la primera. Així que… què se’n farà?'
         },
         destroy: {
           '1': 'La llum s’apaga, i els gòlems cauen allà on són.',
@@ -2552,6 +2589,7 @@ export default {
       dragon: {
         ask: {
           '1': 'Prou. Tens dents, petit.',
+          '1__f': 'Prou. Tens dents, petita.',
           '2': 'El dimoni de la fortalesa va encadenar els meus. Vull veure’l cremar.',
           '3': 'Mata’m, o deixa que t’ajudi a fer-ho.'
         },
@@ -2670,7 +2708,8 @@ export default {
     equipped: 'Equipat',
     better: 'Millor que el que portes',
     retry: 'Torna-ho a provar',
-    tip: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més fort.'
+    tip: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més fort.',
+    tip__f: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més forta.'
   },
   pause: {
     title: 'Pausa',

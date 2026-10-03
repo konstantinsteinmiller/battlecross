@@ -100,6 +100,7 @@ export default {
     },
     target: {
       touch: 'Touche un ennemi, ou glisse de ton héros jusqu’à lui, pour l’attaquer.',
+      touch__f: 'Touche un ennemi, ou glisse de ton héroïne jusqu’à lui, pour l’attaquer.',
       mouse: 'Clique sur un ennemi pour l’attaquer.'
     },
     skill: {
@@ -354,6 +355,12 @@ export default {
     raise: 'Augmenter : {attr}',
     maxLevel: 'Niveau maximum atteint',
     next: 'Prochain point :'
+  },
+  heroChoice: {
+    title: 'Choisis ton héros',
+    boy: 'Jouer le garçon',
+    girl: 'Jouer la fille',
+    switch: 'Ton héros'
   },
   skills: {
     active: 'Compétences actives',
@@ -1297,6 +1304,7 @@ export default {
     sunfordSmith: {
       hello: {
         '1': 'Je ne t’ai jamais vu. C’est toi qui as dégagé la route ?',
+        '1__f': 'Je ne t’ai jamais vue. C’est toi qui as dégagé la route ?',
         '2': 'Bram. C’est moi qui tiens la forge. Si tu as besoin d’une lame, viens me voir.'
       },
       kingDead: {
@@ -1398,6 +1406,7 @@ export default {
     trainerAegis: {
       hello: {
         '1': 'Tiens-toi droit. Tu parles à un chevalier de l’Ordre de Fer.',
+        '1__f': 'Tiens-toi droite. Tu parles à un chevalier de l’Ordre de Fer.',
         '2': 'Ser Aldric. J’apprends aux gens à se placer entre les autres et le danger.'
       },
       saved: {
@@ -1428,10 +1437,12 @@ export default {
       },
       ready: {
         strong: {
-          '1': 'Tu es assez fort pour presque tout ce que je sais. Continue sur ton Endurance.'
+          '1': 'Tu es assez fort pour presque tout ce que je sais. Continue sur ton Endurance.',
+          '1__f': 'Tu es assez forte pour presque tout ce que je sais. Continue sur ton Endurance.'
         },
         able: {
-          '1': 'Tu es prêt pour la leçon suivante. Ne t’en vante pas.'
+          '1': 'Tu es prêt pour la leçon suivante. Ne t’en vante pas.',
+          '1__f': 'Tu es prête pour la leçon suivante. Ne t’en vante pas.'
         },
         weak: {
           '1': 'Pas encore. Tu te fatiguerais avant le bouclier. Plus de Force, plus d’Endurance.'
@@ -1452,6 +1463,7 @@ export default {
     trainerPyro: {
       hello: {
         '1': 'Oh, un élève ? Merveilleux. Recule un peu, peut-être.',
+        '1__f': 'Oh, une élève ? Merveilleux. Recule un peu, peut-être.',
         '2': 'Je suis Ember Wren. J’enseigne le feu. La plupart du temps, il m’obéit.'
       },
       core: {
@@ -1464,7 +1476,8 @@ export default {
         '1': 'Le Cercle n’est pas content de toi. Je t’enseignerai quand même. Discrètement.'
       },
       again: {
-        '1': 'Te revoilà ! Prêt à allumer quelque chose ?'
+        '1': 'Te revoilà ! Prêt à allumer quelque chose ?',
+        '1__f': 'Te revoilà ! Prête à allumer quelque chose ?'
       },
       train: {
         '1': 'Bon. Regarde mes mains, et garde tes manches loin de moi.'
@@ -1479,7 +1492,8 @@ export default {
           '1': 'Franchement ? Tu pourrais enseigner une partie de tout ça. Prends ce que tu veux.'
         },
         able: {
-          '1': 'Tu es prêt pour le prochain sort. Viens, je te le montre.'
+          '1': 'Tu es prêt pour le prochain sort. Viens, je te le montre.',
+          '1__f': 'Tu es prête pour le prochain sort. Viens, je te le montre.'
         },
         weak: {
           '1': 'Pas encore, je le crains. Il te faut plus d’Intelligence, sinon le feu prend le dessus.'
@@ -1499,6 +1513,7 @@ export default {
     elderMara: {
       hello: {
         '1': 'Alors c’est toi, celui de la route. Viens ici, que je te regarde.',
+        '1__f': 'Alors c’est toi, celle de la route. Viens ici, que je te regarde.',
         '2': 'Je suis Mara. Je veille sur cette ville depuis... oh, quarante ans déjà.'
       },
       slain: {
@@ -1532,6 +1547,7 @@ export default {
         '2': 'Et tu veux qu’il meure ?',
         '3': 'Je veux que les raids cessent. Comment... c’est à toi d’en décider, là-bas.',
         '4': 'Les Cavernes sont juste après les plaines. S’il te plaît, sois prudent.',
+        '4__f': 'Les Cavernes sont juste après les plaines. S’il te plaît, sois prudente.',
         say: 'Qu’est-ce qui inquiète Sunford ?'
       },
       king: {
@@ -1613,10 +1629,12 @@ export default {
     goblinTrader: {
       hello: {
         '1': 'Tu es celui qui a fait le pacte. Mon roi dit que tu es le bienvenu ici.',
+        '1__f': 'Tu es celle qui a fait le pacte. Mon roi dit que tu es la bienvenue ici.',
         '2': 'Je suis Grik. Je vends ce que les gobelins fabriquent. Bon travail, prix juste.'
       },
       again: {
-        '1': 'Ami. Content de te revoir.'
+        '1': 'Ami. Content de te revoir.',
+        '1__f': 'Amie. Content de te revoir.'
       },
       trade: {
         '1': 'Regarde, s’il te plaît. Ma famille a fait ça.'
@@ -1642,7 +1660,8 @@ export default {
         '1': 'Merci. Reviens.'
       },
       bye: {
-        '1': 'Va en sécurité, ami.'
+        '1': 'Va en sécurité, ami.',
+        '1__f': 'Va en sécurité, amie.'
       }
     },
     captainHale: {
@@ -1759,7 +1778,8 @@ export default {
         '1': 'Si ça ne te va pas, rapporte-le. Je l’arrangerai.'
       },
       bye: {
-        '1': 'Tu es toujours le bienvenu ici.'
+        '1': 'Tu es toujours le bienvenu ici.',
+        '1__f': 'Tu es toujours la bienvenue ici.'
       }
     },
     oakWeapons: {
@@ -1809,7 +1829,8 @@ export default {
         '1': 'Le Syndicat te veut mort. On m’a payé pour enseigner, pas pour tuer. Donc, leçons.'
       },
       again: {
-        '1': 'Tu es encore trop bruyant. On va y travailler.'
+        '1': 'Tu es encore trop bruyant. On va y travailler.',
+        '1__f': 'Tu es encore trop bruyante. On va y travailler.'
       },
       train: {
         '1': 'En silence, alors. Regarde mes pieds, pas mes mains.'
@@ -1827,7 +1848,8 @@ export default {
           '1': 'Tes mains sont assez rapides. Étape suivante.'
         },
         weak: {
-          '1': 'Pas encore. Tu es lourd sur tes pieds. Travaille ta Dextérité.'
+          '1': 'Pas encore. Tu es lourd sur tes pieds. Travaille ta Dextérité.',
+          '1__f': 'Pas encore. Tu es lourde sur tes pieds. Travaille ta Dextérité.'
         }
       },
       syndicate: {
@@ -1850,7 +1872,8 @@ export default {
         '1': 'Ma ville tient, et le nom de ma famille avec elle. Tu as ma gratitude. Sincèrement.'
       },
       friend: {
-        '1': 'Un ami de l’Ordre. Je baisserai mes honoraires. Ne le répète pas, je te prie.'
+        '1': 'Un ami de l’Ordre. Je baisserai mes honoraires. Ne le répète pas, je te prie.',
+        '1__f': 'Une amie de l’Ordre. Je baisserai mes honoraires. Ne le répète pas, je te prie.'
       },
       foe: {
         '1': 'L’Ordre a ton nom sur une liste. Je t’enseignerai quand même. Un sou est un sou.'
@@ -1871,7 +1894,8 @@ export default {
           '1': 'Tu as une vraie présence, maintenant. Prends le reste de mes leçons.'
         },
         able: {
-          '1': 'Ta voix porte. Tu es prêt pour la leçon suivante.'
+          '1': 'Ta voix porte. Tu es prêt pour la leçon suivante.',
+          '1__f': 'Ta voix porte. Tu es prête pour la leçon suivante.'
         },
         weak: {
           '1': 'Je crains que personne ne te suive encore. Travaille ton Charisme.'
@@ -1933,7 +1957,8 @@ export default {
         '1': 'Le Syndicat ne t’aime pas beaucoup en ce moment. Ton or, en revanche, est le bienvenu.'
       },
       again: {
-        '1': 'Te revoilà. Personne ne t’a suivi, j’espère ?'
+        '1': 'Te revoilà. Personne ne t’a suivi, j’espère ?',
+        '1__f': 'Te revoilà. Personne ne t’a suivie, j’espère ?'
       },
       trade: {
         '1': 'Pas de questions, dans les deux sens. Le Syndicat prend sa part, tu prends la marchandise.'
@@ -1943,6 +1968,7 @@ export default {
       },
       armor: {
         '1': 'Les armuriers sont partis, ami. Tu sais mieux que moi pourquoi.',
+        '1__f': 'Les armuriers sont partis, amie. Tu sais mieux que moi pourquoi.',
         say: 'Des armures à vendre ?'
       },
       rumor: {
@@ -1954,7 +1980,8 @@ export default {
         }
       },
       shopBack: {
-        '1': 'Tu n’es jamais venu ici.'
+        '1': 'Tu n’es jamais venu ici.',
+        '1__f': 'Tu n’es jamais venue ici.'
       },
       bye: {
         '1': 'Fais attention où tu mets les pieds. Les gravats bougent.'
@@ -2044,19 +2071,22 @@ export default {
           '1': 'Les nains ont trouvé quelque chose dans leurs mines. Un noyau. Apporte-le-nous et fixe ton prix.'
         },
         sold: {
-          '1': 'Le noyau est bien arrivé. Tu serais surpris de ce qu’il fait à une serrure.'
+          '1': 'Le noyau est bien arrivé. Tu serais surpris de ce qu’il fait à une serrure.',
+          '1__f': 'Le noyau est bien arrivé. Tu serais surprise de ce qu’il fait à une serrure.'
         },
         north: {
           '1': 'Tout ce qui vaut quelque chose est parti vers le nord. Nous aussi.'
         }
       },
       bye: {
-        '1': 'Ne reste pas un étranger. Les étrangers, on les surveille.'
+        '1': 'Ne reste pas un étranger. Les étrangers, on les surveille.',
+        '1__f': 'Ne reste pas une étrangère. Les étrangers, on les surveille.'
       }
     },
     forgemaster: {
       hello: {
         '1': 'Tu es passé par les mines. Je sens la poussière sur toi.',
+        '1__f': 'Tu es passée par les mines. Je sens la poussière sur toi.',
         '2': 'Dorn. Maître-forgeron d’Ironhold. Et j’ai un problème grand comme une montagne.'
       },
       destroyed: {
@@ -2079,6 +2109,7 @@ export default {
         '2': 'Et les golems ?',
         '3': 'Ils bougent à son rythme. Trois puissances ont écrit pour le réclamer. Je n’ai confiance en aucune.',
         '4': 'Tu l’atteindras le premier, au fond des Mines d’Ironhold. Ce qui se passera ensuite dépend de toi.',
+        '4__f': 'Tu l’atteindras la première, au fond des Mines d’Ironhold. Ce qui se passera ensuite dépend de toi.',
         say: 'Que s’est-il passé dans les mines ?'
       },
       core: {
@@ -2240,7 +2271,8 @@ export default {
         '2': 'On m’appelle Vieux Pied-de-Pierre. J’écoute le sol. Parfois, il répond.'
       },
       core: {
-        '1': 'La montagne est différente depuis que tu es descendu là-bas. Plus calme, ou plus vide.'
+        '1': 'La montagne est différente depuis que tu es descendu là-bas. Plus calme, ou plus vide.',
+        '1__f': 'La montagne est différente depuis que tu es descendue là-bas. Plus calme, ou plus vide.'
       },
       dragon: {
         '1': 'Un dragon a survolé le pic hier et nous a laissés en paix. C’est ton œuvre, paraît-il.'
@@ -2290,7 +2322,8 @@ export default {
         '1': 'Le Cercle est furieux à cause de l’oracle. Moi, je construis des trucs. Je préfère ne pas m’en mêler.'
       },
       friend: {
-        '1': 'Tu es un ami du Cercle, donc tes leçons sont moins chères. J’ai fait la paperasse.'
+        '1': 'Tu es un ami du Cercle, donc tes leçons sont moins chères. J’ai fait la paperasse.',
+        '1__f': 'Tu es une amie du Cercle, donc tes leçons sont moins chères. J’ai fait la paperasse.'
       },
       foe: {
         '1': 'Le Cercle dit que je ne devrais pas t’enseigner. Je le ferai quand même. Ne leur dis pas.'
@@ -2311,7 +2344,8 @@ export default {
           '1': 'Tu te débrouilles avec une tourelle, maintenant. Prends les grosses machines.'
         },
         able: {
-          '1': 'Des mains sûres. Tu es prêt pour la suivante.'
+          '1': 'Des mains sûres. Tu es prêt pour la suivante.',
+          '1__f': 'Des mains sûres. Tu es prête pour la suivante.'
         },
         weak: {
           '1': 'Ta visée est encore un peu tremblante. Mets des points en Technique.'
@@ -2334,7 +2368,8 @@ export default {
         '2': 'Mère Brynja. J’ai remis la plupart des os cassés de cette montagne.'
       },
       ending: {
-        '1': 'Tu es allé à la Forteresse de l’Effroi et tu en es revenu. Assieds-toi. Laisse-moi te regarder.'
+        '1': 'Tu es allé à la Forteresse de l’Effroi et tu en es revenu. Assieds-toi. Laisse-moi te regarder.',
+        '1__f': 'Tu es allée à la Forteresse de l’Effroi et tu en es revenue. Assieds-toi. Laisse-moi te regarder.'
       },
       again: {
         '1': 'Toujours en vie. Bien. Assieds-toi.'
@@ -2391,7 +2426,8 @@ export default {
           '1': 'Tu as la présence pour tout ça. J’aurais voulu que tu l’emploies mieux.'
         },
         able: {
-          '1': 'Tu es prêt pour la leçon suivante. Je ne ferai pas semblant d’en être content.'
+          '1': 'Tu es prêt pour la leçon suivante. Je ne ferai pas semblant d’en être content.',
+          '1__f': 'Tu es prête pour la leçon suivante. Je ne ferai pas semblant d’en être content.'
         },
         weak: {
           '1': 'Personne ne te suivrait encore. Travaille ton Charisme.'
@@ -2443,7 +2479,8 @@ export default {
           '1': 'Tu tiens bien le fil. Prends le reste quand tu veux.'
         },
         able: {
-          '1': 'Tu es prêt. Je le savais avant que tu demandes.'
+          '1': 'Tu es prêt. Je le savais avant que tu demandes.',
+          '1__f': 'Tu es prête. Je le savais avant que tu demandes.'
         },
         weak: {
           '1': 'Le fil n’arrête pas de glisser. Plus d’Intelligence, et plus de Technique.'
@@ -2458,7 +2495,8 @@ export default {
           '1': 'Elle ne s’est pas défendue. Elle l’avait déjà vu. Ne me le redemande pas, je te prie.'
         },
         waits: {
-          '1': 'Elle voit toutes les fins. C’est lourd à porter. Sois gentil avec elle.'
+          '1': 'Elle voit toutes les fins. C’est lourd à porter. Sois gentil avec elle.',
+          '1__f': 'Elle voit toutes les fins. C’est lourd à porter. Sois gentille avec elle.'
         }
       },
       trainBack: {
@@ -2513,7 +2551,8 @@ export default {
         ask: {
           '1': 'Le Colosse n’est plus que ferraille. Je n’aurais jamais cru vivre pour le voir.',
           '2': 'Et voilà le noyau. Il ronronne encore. Il est chaud, si on le touche.',
-          '3': 'Tu es arrivé le premier. Alors... qu’en fait-on ?'
+          '3': 'Tu es arrivé le premier. Alors... qu’en fait-on ?',
+          '3__f': 'Tu es arrivée la première. Alors... qu’en fait-on ?'
         },
         destroy: {
           '1': 'La lumière s’éteint, et les golems tombent là où ils se tiennent.',
@@ -2546,7 +2585,8 @@ export default {
           '1': 'Oui. C’est l’autre moitié.',
           '2': 'Elle ne résiste pas. Le Sablier du Gardien du temps est à toi.',
           '3': 'Son dernier élève fuit le temple, et le Cercle ne te pardonnera pas.',
-          say: 'Je suis venu pour le sablier.'
+          say: 'Je suis venu pour le sablier.',
+          say__f: 'Je suis venue pour le sablier.'
         }
       },
       dragon: {
@@ -2670,7 +2710,8 @@ export default {
     equipped: 'Équipé',
     better: 'Mieux que ta tenue',
     retry: 'Réessayer',
-    tip: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus fort.'
+    tip: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus fort.',
+    tip__f: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus forte.'
   },
   pause: {
     title: 'Pause',
