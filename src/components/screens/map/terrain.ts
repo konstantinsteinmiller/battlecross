@@ -439,6 +439,20 @@ const seaDetails = (): string =>
   `<g transform="translate(46 708) scale(0.8)">${shape('M-24 0Q-20 14 0 14Q18 14 26-4L10-2L4-10L-8-3z', C.wood, 2.800)}${line('M-2-4L6-30', INK, 3.400)}${shape('M6-30L22-20L8-16z', '#f4ecd8', 2.200)}${line('M-16 6H14', C.woodLo, 2.400)}</g>` +
   use('r1', [1300, 872], 1.1) + use('r1', [1262, 878], 0.8, true) + use('r1', [34, 726], 0.9) + use('r1', [62, 722], 0.7, true)
 
+/**
+ * The shapes the plate is drawn from, for what is NOT drawing: the walk mask
+ * (`walk.ts`) reads the same coast, regions, lake, rivers and rift, so the
+ * hero is stopped exactly where the picture shows water or a mountain wall.
+ */
+export const TERRAIN_SHAPES = {
+  land: LAND_POLY as readonly Pt[],
+  isles: ISLES as ReadonlyArray<readonly Pt[]>,
+  regions: REGION_POLY as Readonly<Record<string, readonly Pt[]>>,
+  lake: LAKE_POLY as readonly Pt[],
+  rift: RIFT as readonly Pt[],
+  rivers: RIVERS.map((r, i) => ({ line: RIVER_LINES[i]! as readonly Pt[], w: r.w, lava: r.fill === C.lava }))
+} as const
+
 let cached = ''
 
 /** The terrain plate: a standalone SVG document, 1600 × 900. */

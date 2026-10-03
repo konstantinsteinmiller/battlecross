@@ -14,7 +14,7 @@ import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/
 import { leaveVisit } from '../sim/director'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
-import { generateArena, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
+import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim, findStatus } from '../sim/world'
 import type { SimEvent, Unit } from '../sim/types'
 import { updateCelFrame } from '../gfx/cel'
@@ -75,6 +75,8 @@ export interface ZoneSetup {
   ambush?: string | null
   extra?: number
   dragonAlly?: boolean
+  /** A random encounter met on the world map: its packs (`generateEncounter`). */
+  encounter?: string[][]
   flags: ReadonlySet<string>
 }
 
@@ -202,7 +204,9 @@ export class ZoneMode implements GameMode {
       ? generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
       : setup.kind === 'arena'
         ? generateArena(setup.seed)
-        : generateZone(ZONES[setup.zone!], setup.seed, { tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra })
+        : setup.encounter
+          ? generateEncounter(setup.encounter, setup.seed)
+          : generateZone(ZONES[setup.zone!], setup.seed, { tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra })
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
     applyPlan(sim, plan)
@@ -213,6 +217,8 @@ export class ZoneMode implements GameMode {
       manaPotions: setup.kind === 'town' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
+    // An encounter pays in gold and experience, never in the zone's gear.
+    if (setup.encounter) { sim.dropTable.mob = []; sim.dropTable.chest = []; sim.dropTable.boss = [] }
     // The first visit's training dummy, until it has been dealt with once.
     if (setup.kind === 'zone' && setup.tutorial && !profile.tips.dummy) spawnDummy(sim, plan)
     // A weak device leaves out most of the folk; every visit is a different day.

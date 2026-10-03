@@ -1,7 +1,7 @@
 <template lang="pug">
   FModal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false" surface="parchment" :tone="tone")
     div.results(v-if="r" :class="`results--${r.outcome}`")
-      p.results__place {{ t(`node.${r.node}.name`) }}
+      p.results__place {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
       p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
       p.results__first(v-if="r.node === 'arena'") {{ t('results.waves', { n: r.waves }) }}
       div.results__levelup(v-if="r.levelAfter > r.levelBefore")

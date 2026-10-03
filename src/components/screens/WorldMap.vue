@@ -1,6 +1,6 @@
 <template lang="pug">
   div.wmap(
-    :class="{ 'is-paused': isGamePaused, 'is-walking': !!walking, 'wmap--low': low, 'wmap--tiny': scale < 0.47 }"
+    :class="{ 'is-paused': isGamePaused, 'is-rushing': rushing, 'is-moving': moving, 'is-alarm': alarm, 'wmap--low': low, 'wmap--tiny': scale < 0.47 }"
     @pointerdown.capture="skipWalk"
   )
     div.wmap__top
@@ -32,12 +32,12 @@
           //- Everything on the sheet, inside its margin: a plain rectangle, so the
           //- torn edge costs nothing while things move.
           div.wmap__clip
-            div.wmap__map(@click.self="selected = ''")
+            div.wmap__map(ref="mapEl" @click.self="walkToPoint")
               img.wmap__plate(v-if="painted" :src="painted" alt="" draggable="false")
               canvas.wmap__plate(v-else ref="plateEl")
               //- The travelled roads, over the worn beds the plate carries.
               svg.wmap__layer.wmap__roads(:viewBox="VIEW" aria-hidden="true" focusable="false")
-                g(v-for="r in roads" :key="r.key" :class="{ 'road--lit': r.lit !== 0, 'road--back': r.lit < 0 }")
+                g(v-for="r in roads" :key="r.key")
                   template(v-if="r.open")
                     path.road__case(:d="r.d")
                     path.road__way(:d="r.d")
@@ -51,6 +51,14 @@
                 :style="{ left: `${r.x / 16}%`, top: `${r.y / 9}%`, '--rot': `${r.rot}deg` }"
                 aria-hidden="true"
               ) {{ t(`map.region.${r.id}`) }}
+              //- The fog over the land of places not open yet: he cannot walk into it.
+              canvas.wmap__fog(ref="fogEl" aria-hidden="true")
+              //- Where he was sent, and the way he takes.
+              svg.wmap__layer.wmap__trail(v-if="trail" :viewBox="VIEW" aria-hidden="true" focusable="false")
+                path(:d="trail")
+              span.wmap__dest(v-if="dest" aria-hidden="true" :style="{ left: `${dest[0] / 16}%`, top: `${dest[1] / 9}%` }")
+              span.wmap__foot(v-for="i in FEET" :key="'f' + i" ref="feetEls" aria-hidden="true")
+              span.wmap__dust(v-for="i in DUSTS" :key="'d' + i" ref="dustEls" aria-hidden="true")
               button.node(
                 v-for="n in nodes"
                 :key="n.id"
@@ -81,11 +89,17 @@
                   //- A town and the colosseum say what they are; a zone is the default.
                   GameIcon.node__kind(v-if="n.kind !== 'zone'" :name="n.kind === 'town' ? 'home' : 'trophy'")
                   | {{ t(`node.${n.id}.name`) }}
-              //- The hero: stands by the place they are at, and walks the road.
+              //- What was met instead of a fight: a chest at his feet, a merchant beside him.
+              div.wmap__find(v-if="find" aria-hidden="true" :class="[`wmap__find--${find.kind}`, { 'is-open': find.open }]" :style="{ '--hx': find.x, '--hy': find.y }")
+                GameIcon(v-if="find.kind === 'chest'" name="chest")
+                Portrait(v-else look="peddler")
+                span.wmap__gain(v-for="(g, k) in gains" :key="g.id" :style="{ '--k': k }") {{ g.text }}
+              //- The hero: walks wherever he is steered, faces the way he goes.
               div.wmap__hero(ref="heroEl" aria-hidden="true")
                 span.wmap__hero-shadow
                 span.wmap__hero-body
                   Portrait(look="hero")
+                span.wmap__alert(v-if="alarm") !
               //- The sky: each cloud and each flight of birds is moved as its own layer.
               div.wmap__layer.wmap__sky(aria-hidden="true")
                 span.sky-cloud(
@@ -104,11 +118,18 @@
       FButton(v-if="canReturn" :label="t('map.back')" type="secondary" size="sm" icon="back" icon-position="left" @click="closeMap")
       MenuButtons(board)
     Transition(name="hint")
-      span.wmap__skip(v-if="walking") {{ t('map.skip') }}
+      span.wmap__skip(v-if="rushing") {{ t('map.skip') }}
+    Transition(name="hint")
+      span.wmap__skip.wmap__hint(v-if="hint && !rushing && !showCard") {{ t(touch ? 'map.walkTouch' : 'map.walkMouse') }}
+    //- Steering on a touch screen: a stick in the corner of the sheet.
+    div.mstick(v-if="touch" aria-hidden="true" :class="{ 'is-on': stick.on }" @pointerdown.prevent="stickDown")
+      span.mstick__knob(:style="{ transform: `translate(${stick.x * 72}%, ${stick.y * 72}%)` }")
+    //- The beat before an encounter.
+    span.wmap__flash(v-if="alarm" aria-hidden="true")
     //- The picked place.
     Transition(name="card")
       //- Docked away from the picked place, so it never covers it.
-      div.card(v-if="sel" :key="sel.id" :class="{ 'card--top': !side && cardTop, 'card--side': side, 'card--left': side && sel.x > 50 }")
+      div.card(v-if="showCard && sel" :key="sel.id" :class="{ 'card--top': !side && cardTop, 'card--side': side, 'card--left': side && sel.x > 50 }")
         button.card__close(type="button" :aria-label="t('close')" @click="selected = ''")
           GameIcon(name="close")
         div.card__head
@@ -143,16 +164,26 @@
  * the painted `images/ui/map.webp` in its place), the roads, a landmark per
  * place and what lives round them. The places are real buttons laid over it.
  * A place not reached yet lies under cloud, which parts the first time its
- * road opens; picking a place lights the way to it, and Travel walks the hero
- * down that road before the veil comes up.
+ * road opens.
+ *
+ * The hero walks the sheet freely (roadmap #67, after Battleheart Legacy):
+ * steered with WASD / the arrows or the stick, or sent to a spot with a click
+ * or a tap; a tap on a place walks him there. The ground he may walk is the
+ * walk mask (`map/walk.ts`): no sea, no mountain wall, no fog over a place
+ * not open yet; roads are quicker. Reaching a place opens its card. Off the
+ * roads (and now and then on them) something may jump out
+ * (`data/encounters.ts`): a fight in the region, a chest, a merchant.
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { MAP, NODE_BY_ID, ZONES, dangerOf, nodeOpen, type NodeId } from '@/game/data/zones'
 import { itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
-import { profile, flagSet, saveProfile } from '@/game/state/profile'
-import { closeMap, flow, hiddenTrainer, travel, visitHiddenTrainer } from '@/game/flow'
+import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
+import { profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
+import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
+import { hud } from '@/game/state/hud'
+import { input } from '@/game/boot'
 import { UI_ART } from '@/game/assets/overrides'
 import { sceneQuality } from '@/game/engine/quality'
 import { sfx } from '@/game/audio/sfx'
@@ -166,11 +197,13 @@ import Portrait from '@/components/art/Portrait.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import HudMenu from '@/components/hud/HudMenu.vue'
 import MenuButtons from '@/components/hud/MenuButtons.vue'
-import { MAP_H, MAP_W, lengths, pointAlong, type Pt } from './map/geo'
-import { ROADS, nodeAt, roadKey, routeBetween, routeLine } from './map/roads'
+import { MAP_H, MAP_W, type Pt } from './map/geo'
+import { ROADS, nodeAt } from './map/roads'
 import { mapBridgesSvg, mapPlateUrl } from './map/terrain'
 import { cloudCover, landmarkSvg } from './map/landmarks'
 import { MAP_REGIONS, SKY_CLOUDS, birdsSvg, decorSvg, frameSvg, skyCloudSvg, tearClip } from './map/life'
+import { GH, GW, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from './map/walk'
+import { mapClock } from './map/session'
 import GoalTracker from '@/components/hud/GoalTracker.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
@@ -202,6 +235,8 @@ const CLOUDS_NEAR = cloudCover(false)
 const CLOUDS_FAR = cloudCover(true)
 
 const selected = ref<NodeId | ''>('')
+/** The picked place's card is up (a place is picked first, its card shows when he gets there). */
+const cardOpen = ref(false)
 const cleared = computed(() => new Set(profile.world.cleared))
 const flags = computed(() => flagSet())
 const isOpen = (id: NodeId): boolean => nodeOpen(id, cleared.value, flags.value)
@@ -257,6 +292,9 @@ interface NodeView {
   zone?: (typeof ZONES)[ZoneId]
 }
 
+/** The place the hero stands at ('' out in the wilds). */
+const hereNode = ref<NodeId | ''>('')
+
 const nodes = computed<NodeView[]>(() => MAP.map((n) => {
   const zone = n.kind === 'zone' ? ZONES[n.id as ZoneId] : undefined
   const open = isOpen(n.id)
@@ -271,7 +309,7 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     y: n.at[1] * 100,
     open,
     cleared: done,
-    here: profile.world.at === n.id,
+    here: hereNode.value === n.id,
     danger: zone ? dangerOf(zone, profile.level) : 0,
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
@@ -300,25 +338,38 @@ const questLine = computed(() => {
 /** Back into the town the hero is standing in. */
 const canReturn = computed(() => NODE_BY_ID[flow.node]?.kind === 'town')
 
-// ── The roads ────────────────────────────────────────────────────────────────
-/** The place the hero is walking to, while they walk. */
-const walking = ref<NodeId | ''>('')
-/** The way from where the hero stands to the picked place (or the one being walked). */
-const route = computed<NodeId[]>(() => {
-  const to = walking.value || (sel.value?.open ? sel.value.id : '')
-  if (!to || to === profile.world.at) return []
-  return routeBetween(profile.world.at, to, isOpen)
-})
-const roads = computed(() => {
-  // +1: the route runs the way the road was drawn; -1: against it.
-  const lit = new Map<string, number>()
-  route.value.slice(1).forEach((id, i) => {
-    const from = route.value[i]!
-    const key = roadKey(from, id)
-    lit.set(key, ROADS.find(r => r.key === key)?.a === from ? 1 : -1)
-  })
-  return ROADS.map(r => ({ key: r.key, d: r.d, open: isOpen(r.a) && isOpen(r.b), lit: lit.get(r.key) ?? 0 }))
-})
+const roads = computed(() => ROADS.map(r => ({ key: r.key, d: r.d, open: isOpen(r.a) && isOpen(r.b) })))
+
+// ── The ground he may walk, and the fog over the rest ────────────────────────
+const mask = computed(() => walkMask(isOpen))
+const fogEl = ref<HTMLCanvasElement | null>(null)
+/** Cells drawn per fog pixel block: the canvas is scaled up smooth (soft edges for free). */
+const FOG_PX = 4
+const drawFog = (): void => {
+  const c = fogEl.value
+  if (!c) return
+  const cells = fogCells(isOpen)
+  c.width = GW * FOG_PX
+  c.height = GH * FOG_PX
+  const g = c.getContext('2d')
+  if (!g) return
+  g.clearRect(0, 0, c.width, c.height)
+  // A cloud bank: a blue-grey lip under a white top, both made of round puffs.
+  for (const [dy, fill] of [[0.55, '#b9c8e6'], [0, '#f6f9ff']] as const) {
+    g.fillStyle = fill
+    g.beginPath()
+    for (let k = 0; k < cells.length; k++) {
+      if (!cells[k]) continue
+      const x = ((k % GW) + 0.5) * FOG_PX
+      const y = (Math.floor(k / GW) + 0.5 + dy) * FOG_PX
+      // Each puff a little different, by its cell: no grid shows.
+      const r = FOG_PX * (0.95 + ((k * 2654435761) >>> 28) / 40)
+      g.moveTo(x + r, y)
+      g.arc(x, y, r, 0, Math.PI * 2)
+    }
+    g.fill()
+  }
+}
 
 // ── The drawn terrain ────────────────────────────────────────────────────────
 // The plate is a large vector drawing. Left as an image it is drawn again,
@@ -345,6 +396,7 @@ const bakePlate = async (): Promise<void> => {
 
 // ── The sheet on the table ───────────────────────────────────────────────────
 const sheet = ref<HTMLElement | null>(null)
+const mapEl = ref<HTMLElement | null>(null)
 const heroEl = ref<HTMLElement | null>(null)
 /** Screen px per sheet unit. */
 const scale = ref(0.5)
@@ -373,6 +425,20 @@ const centreOn = (p: Pt, fy = 0.5, smooth = false): void => {
   const el = sheet.value
   if (!el) return
   el.scrollTo({ left: p[0] * scale.value - el.clientWidth / 2, top: p[1] * scale.value - el.clientHeight * fy, behavior: smooth && !calm ? 'smooth' : 'auto' })
+}
+
+/** Keep the walking hero in the middle part of the table (cheap: two scroll writes). */
+const follow = (p: Pt): void => {
+  const el = sheet.value
+  if (!el || !pannable.value) return
+  const x = p[0] * scale.value - el.scrollLeft
+  const y = p[1] * scale.value - el.scrollTop
+  const bx = el.clientWidth * 0.3
+  const by = el.clientHeight * 0.3
+  if (x < bx) el.scrollLeft -= bx - x
+  else if (x > el.clientWidth - bx) el.scrollLeft += x - (el.clientWidth - bx)
+  if (y < by) el.scrollTop -= by - y
+  else if (y > el.clientHeight - by) el.scrollTop += y - (el.clientHeight - by)
 }
 
 // Dragging the sheet with a mouse (a finger scrolls it natively).
@@ -418,77 +484,373 @@ const dragClick = (e: MouseEvent): void => {
 /** Where the hero stands at a place: in front of it, a step to the left. */
 const REST: Pt = [-42, 14]
 const restAt = (id: NodeId): Pt => { const p = nodeAt(id); return [p[0] + REST[0], p[1] + REST[1]] }
-const placeHero = (p: Pt): void => {
+/** Sheet units a second, off the roads and on them. */
+const SPEED_LAND = 150
+const SPEED_ROAD = 235
+/** On the way to a place the player chose to enter: brisk. */
+const RUSH = 1.8
+/** He is at a place within this of its spot. */
+const ARRIVE = 62
+/** Nothing jumps out this close to a place. */
+const SAFE = 110
+
+/** His spot on the sheet (sheet units), kept here and written to the save when he stops. */
+const hero = { x: 0, y: 0, facing: 1 }
+const moving = ref(false)
+/** On the way to the place picked for travel (Travel walks him there first). */
+const rushing = ref(false)
+/** The spot he was sent to (a click, a tap), shown as a mark. */
+const dest = ref<Pt | null>(null)
+/** The way there, drawn as a trail. */
+const trail = ref('')
+let path: Pt[] | null = null
+let pathI = 0
+let onArrive: (() => void) | null = null
+/** A place picked from afar: its card opens when he gets there. */
+let pending: NodeId | '' = ''
+
+const placeHero = (): void => {
   const el = heroEl.value
   if (!el) return
-  el.style.setProperty('--hx', String(Math.round(p[0] * 10) / 10))
-  el.style.setProperty('--hy', String(Math.round(p[1] * 10) / 10))
+  el.style.setProperty('--hx', String(Math.round(hero.x * 10) / 10))
+  el.style.setProperty('--hy', String(Math.round(hero.y * 10) / 10))
+  el.style.setProperty('--face', String(hero.facing))
+}
+const keepPos = (): void => { setMapPos(hero.x / MAP_W, hero.y / MAP_H) }
+
+const clearPath = (): void => {
+  path = null
+  pathI = 0
+  onArrive = null
+  dest.value = null
+  trail.value = ''
 }
 
-let walkFrame = 0
-let walkDone: (() => void) | null = null
+/** Send him along the ground to a spot. False: there is no way there. */
+const sendTo = (to: Pt, then: (() => void) | null = null): boolean => {
+  const target = nearestWalkable(mask.value, to)
+  if (!target) return false
+  const way = findPath(mask.value, [hero.x, hero.y], target)
+  if (!way) return false
+  path = way
+  pathI = 1
+  onArrive = then
+  dest.value = target
+  trail.value = 'M' + way.map(p => `${Math.round(p[0])} ${Math.round(p[1])}`).join('L')
+  return true
+}
 
-/** Walk the hero down the roads to a place. Resolves on arrival, or at once when skipped. */
-const walkTo = (to: NodeId): Promise<void> => new Promise((resolve) => {
-  const way = routeBetween(profile.world.at, to, isOpen)
-  if (calm || way.length < 2) { resolve(); return }
-  const line = routeLine(way)
-  const cum = lengths(line)
-  const ms = Math.max(900, Math.min(2600, 420 + (cum[cum.length - 1] ?? 0) * 2.4))
-  const t0 = performance.now()
-  walking.value = to
-  sfx('mapMove')
-  const finish = (): void => {
-    cancelAnimationFrame(walkFrame)
-    walkDone = null
-    placeHero(restAt(to))
-    resolve()
-  }
-  walkDone = finish
-  const step = (now: number): void => {
-    const k = Math.min(1, (now - t0) / ms)
-    // Ease out of the first place and into the last.
-    const e = k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2
-    const p = pointAlong(line, cum, e)
-    // Off the road at both ends: the hero stands beside a place, not on it.
-    const off = Math.max(0, 1 - Math.min(e, 1 - e) * 7)
-    const at: Pt = [p[0] + REST[0] * off, p[1] + REST[1] * off]
-    placeHero(at)
-    if (pannable.value) centreOn(at, cardless)
-    if (k >= 1) finish()
-    else walkFrame = requestAnimationFrame(step)
-  }
-  walkFrame = requestAnimationFrame(step)
-})
-/** A tap or a key during the walk: there at once. */
-const skipWalk = (): void => { walkDone?.() }
+// ── Footprints and dust ──────────────────────────────────────────────────────
+const FEET = 12
+const DUSTS = 6
+const feetEls = ref<HTMLElement[]>([])
+const dustEls = ref<HTMLElement[]>([])
+let footI = 0
+let dustI = 0
+let footSide = 1
+let sinceFoot = 0
+let sinceDust = 99
+const mark = (el: HTMLElement | undefined, x: number, y: number, rot: number, frames: Keyframe[], ms: number): void => {
+  if (!el || calm) return
+  el.style.setProperty('--fx', String(Math.round(x)))
+  el.style.setProperty('--fy', String(Math.round(y)))
+  el.style.setProperty('--fr', `${Math.round(rot)}deg`)
+  el.getAnimations().forEach(a => a.cancel())
+  el.animate(frames, { duration: ms, easing: 'ease-out', fill: 'forwards' })
+}
+const footprint = (dx: number, dy: number): void => {
+  const l = Math.hypot(dx, dy) || 1
+  footSide = -footSide
+  const ox = (-dy / l) * 4 * footSide
+  const oy = (dx / l) * 4 * footSide
+  mark(feetEls.value[footI++ % FEET], hero.x + ox, hero.y + oy, (Math.atan2(dy, dx) * 180) / Math.PI + 90,
+    [{ opacity: 0.75 }, { opacity: 0.75, offset: 0.4 }, { opacity: 0 }], low ? 900 : 1800)
+}
+const dust = (): void => {
+  if (low) return
+  mark(dustEls.value[dustI++ % DUSTS], hero.x - hero.facing * 8, hero.y - 2, 0,
+    [{ opacity: 0.8, transform: 'translate(calc(var(--u) * var(--fx)), calc(var(--u) * var(--fy))) scale(0.4)' },
+      { opacity: 0, transform: 'translate(calc(var(--u) * var(--fx)), calc(var(--u) * (var(--fy) - 10))) scale(1.6)' }], 700)
+}
 
-// ── Picking and going ────────────────────────────────────────────────────────
-/** How far down the table a place is brought with no card open. */
-const cardless = 0.56
+// ── Steering by touch: a stick in the corner ─────────────────────────────────
+const touch = computed(() => hud.device === 'touch')
+const stick = reactive({ on: false, x: 0, y: 0, id: -1, cx: 0, cy: 0 })
+const STICK_R = 44
+const stickMove = (e: PointerEvent): void => {
+  if (!stick.on || e.pointerId !== stick.id) return
+  let dx = e.clientX - stick.cx
+  let dy = e.clientY - stick.cy
+  const l = Math.hypot(dx, dy)
+  if (l > STICK_R) { dx = (dx / l) * STICK_R; dy = (dy / l) * STICK_R }
+  stick.x = dx / STICK_R
+  stick.y = dy / STICK_R
+}
+const stickUp = (e: PointerEvent): void => {
+  if (e.pointerId !== stick.id) return
+  stick.on = false
+  stick.x = 0
+  stick.y = 0
+  stick.id = -1
+}
+const stickDown = (e: PointerEvent): void => {
+  const el = e.currentTarget as HTMLElement
+  const r = el.getBoundingClientRect()
+  stick.on = true
+  stick.id = e.pointerId
+  stick.cx = r.left + r.width / 2
+  stick.cy = r.top + r.height / 2
+  el.setPointerCapture?.(e.pointerId)
+  stickMove(e)
+}
+
+// ── Encounters ───────────────────────────────────────────────────────────────
+/** When something jumps out; one clock for the whole session (a fight and back
+ *  does not reset it). */
+const clock = mapClock()
+/** The beat before an encounter: the "!" over his head. */
+const alarm = ref(false)
+/** What was found instead of a fight: a chest at his feet, or a merchant beside him. */
+const find = ref<{ kind: 'chest' | 'merchant'; x: number; y: number; open: boolean } | null>(null)
+/** The floating "+gold" / "+XP" over a found chest. */
+const gains = ref<Array<{ id: number; text: string }>>([])
+let gainId = 0
+
+const encounterSeed = (): number => (Math.imul(Math.round(hero.x), 73856093) ^ Math.imul(Math.round(hero.y), 19349663) ^ Math.imul(profile.stats.runs + 1, 83492791) ^ Math.round(clock.since * 1000)) >>> 0
+
+const encounter = (): void => {
+  const spec: EncounterSpec = rollEncounter(regionOf(mask.value.owner(hero.x, hero.y)), profile.level, encounterSeed())
+  clearPath()
+  selected.value = ''
+  cardOpen.value = false
+  pending = ''
+  keepPos()
+  saveProfile()
+  alarm.value = true
+  sfx('alert')
+  later(calm ? 250 : 950, () => {
+    alarm.value = false
+    if (spec.kind === 'fight' || spec.kind === 'elite') { void startEncounter(spec); return }
+    if (spec.kind === 'chest') {
+      find.value = { kind: 'chest', x: hero.x + 26 * hero.facing, y: hero.y + 4, open: false }
+      later(450, () => {
+        if (!find.value) return
+        find.value.open = true
+        const r = openFoundChest(spec)
+        sfx('chest')
+        gains.value = [{ id: ++gainId, text: t('encounter.gold', { n: r.gold }) }, { id: ++gainId, text: t('encounter.xp', { n: r.xp }) }]
+        later(1900, () => { find.value = null; gains.value = [] })
+      })
+      return
+    }
+    find.value = { kind: 'merchant', x: hero.x + 34 * hero.facing, y: hero.y, open: false }
+    later(500, () => meetMerchant(spec))
+  })
+}
+// The merchant goes on his way when his wares are closed.
+watch(() => flow.modal, (m, was) => { if (was === 'shop' && !m && find.value?.kind === 'merchant') find.value = null })
+
+// ── The walk, frame by frame ─────────────────────────────────────────────────
+const hint = ref(false)
+let frameId = 0
+let lastT = 0
+let stillFor = 0
+
+const nearestPlace = (x: number, y: number): { id: NodeId; d: number } => {
+  let best: NodeId = 'plains'
+  let bd = Infinity
+  for (const n of MAP) {
+    const p = nodeAt(n.id)
+    const d = Math.hypot(p[0] - x, p[1] - y)
+    if (d < bd) { bd = d; best = n.id }
+  }
+  return { id: best, d: bd }
+}
+
+/** He came to a place (or left one): its card, the grace after leaving.
+ *  `silent`: where he stands when the map opens (no card pops up). */
+const notePlace = (silent = false): void => {
+  const near = nearestPlace(hero.x, hero.y)
+  const at: NodeId | '' = near.d < ARRIVE && isOpen(near.id) ? near.id : ''
+  if (at === hereNode.value) return
+  const was = hereNode.value
+  hereNode.value = at
+  if (was) {
+    // Out of a place: a breath before the wilds answer.
+    clock.calm()
+    if (selected.value === was && !rushing.value) { cardOpen.value = false; selected.value = '' }
+  }
+  // Coming up to a place opens its card, unless he is on his way somewhere else.
+  // (Not a place he is only passing on his way to a spot he was sent to.)
+  if (at && !silent && !rushing.value && (pending ? pending === at : !path)) {
+    keepPos()
+    selected.value = at
+    cardOpen.value = true
+    pending = ''
+    sfx('mapMove')
+  }
+}
+
+const blocked = (): boolean => isGamePaused.value || !!flow.modal || !!flow.talk || flow.loading || alarm.value || !!find.value
+
+/** DEV: what the walk is doing, for browser checks (folds out of a build). */
+const debug = import.meta.env.DEV ? { frames: 0, blocked: false, hero, path: (): Pt[] | null => path, mask: () => mask.value } : null
+if (debug && typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__wmap = debug
+
+const tick = (now: number): void => {
+  frameId = requestAnimationFrame(tick)
+  if (debug) { debug.frames++; debug.blocked = blocked() }
+  const dt = Math.min(0.05, lastT ? (now - lastT) / 1000 : 0)
+  lastT = now
+  if (blocked()) { if (moving.value) moving.value = false; return }
+  let vx = 0
+  let vy = 0
+  const keys = input.keysMoving
+  if (keys || (stick.on && Math.hypot(stick.x, stick.y) > 0.18)) {
+    // Steering takes over from any errand.
+    if (path) { clearPath(); pending = '' }
+    vx = keys ? input.moveX : stick.x
+    vy = keys ? -input.moveY : stick.y
+  } else if (path) {
+    const p = path[pathI]!
+    const dx = p[0] - hero.x
+    const dy = p[1] - hero.y
+    const d = Math.hypot(dx, dy)
+    if (d < 3) {
+      if (++pathI >= path.length) {
+        const done = onArrive
+        clearPath()
+        done?.()
+      }
+    } else { vx = dx / d; vy = dy / d }
+  }
+  const l = Math.hypot(vx, vy)
+  let movedNow = false
+  if (l > 0.01) {
+    const k = Math.min(1, l)
+    const ux = vx / l
+    const uy = vy / l
+    const onRoad = mask.value.road(hero.x, hero.y)
+    const speed = (onRoad ? SPEED_ROAD : SPEED_LAND) * (rushing.value ? RUSH : 1) * k * dt
+    // A step on the way never overshoots its turn.
+    const cap = path ? Math.hypot(path[pathI]![0] - hero.x, path[pathI]![1] - hero.y) : Infinity
+    const s = Math.min(speed, cap)
+    const next = stepWalk(mask.value, [hero.x, hero.y], ux * s, uy * s)
+    const moved = Math.hypot(next[0] - hero.x, next[1] - hero.y)
+    if (moved > 0.01) {
+      movedNow = true
+      if (Math.abs(ux) > 0.2) hero.facing = ux < 0 ? -1 : 1
+      hero.x = next[0]
+      hero.y = next[1]
+      sinceFoot += moved
+      sinceDust += moved
+      if (sinceFoot > 17) { sinceFoot = 0; footprint(ux, uy) }
+      if (!onRoad && sinceDust > 46) { sinceDust = 0; dust() }
+      placeHero()
+      follow(next)
+      if (!profile.tips.mapWalked) markTip('mapWalked')
+      hint.value = false
+    } else if (path) {
+      // Stuck against something the straight line did not see: give up the errand.
+      clearPath()
+    }
+  }
+  if (movedNow !== moving.value) {
+    if (movedNow) sinceDust = 99
+    moving.value = movedNow
+  }
+  if (movedNow) {
+    stillFor = 0
+    notePlace()
+  } else if ((stillFor += dt) > 0.6 && stillFor - dt <= 0.6) {
+    // He stopped: the save learns where.
+    keepPos()
+    saveProfile()
+  }
+  // Something jumps out? Not near a place, not on the way to one he chose to
+  // enter, and not before the first town has been reached.
+  const near = nearestPlace(hero.x, hero.y)
+  const allowed = encountersAllowed(profile.world.cleared) && !rushing.value && near.d > SAFE
+  if (clock.step(dt, movedNow, mask.value.road(hero.x, hero.y), allowed)) encounter()
+}
+
+// ── Picking, walking, going ──────────────────────────────────────────────────
 /** The card docks at the far end of the sheet from the picked place. */
 const cardTop = computed(() => (sel.value ? sel.value.y > 52 : false))
+const showCard = computed(() => !!sel.value && cardOpen.value)
+/** How far down the table a place is brought with no card open. */
+const cardless = 0.56
 
 const pick = (id: NodeId): void => {
-  if (walking.value) return
+  if (rushing.value || alarm.value) return
   sfx('mapMove')
-  selected.value = selected.value === id ? '' : id
-  // Bring it clear of the card.
-  if (selected.value && pannable.value) centreOn(nodeAt(id), side.value ? 0.56 : (NODE_BY_ID[id]?.at[1] ?? 0) * 100 > 52 ? 0.74 : 0.3, true)
+  // The same place again: its card closes (or, on the way there, nothing).
+  if (selected.value === id) {
+    if (cardOpen.value) { selected.value = ''; cardOpen.value = false }
+    return
+  }
+  selected.value = id
+  const p = nodeAt(id)
+  const there = Math.hypot(p[0] - hero.x, p[1] - hero.y) < ARRIVE
+  // A place not open shows why at once; an open one is walked to.
+  if (!isOpen(id) || there || !sendTo(restAt(id), () => { keepPos(); if (selected.value === id) { cardOpen.value = true; pending = '' } })) {
+    cardOpen.value = true
+    pending = ''
+  } else {
+    cardOpen.value = false
+    pending = id
+  }
+  if (cardOpen.value && pannable.value) centreOn(p, side.value ? 0.56 : (NODE_BY_ID[id]?.at[1] ?? 0) * 100 > 52 ? 0.74 : 0.3, true)
 }
-const go = async (id: NodeId): Promise<void> => {
-  if (walking.value || flow.loading) return
+
+/** A click or a tap on open ground: walk there. */
+const walkToPoint = (e: MouseEvent): void => {
+  if (rushing.value || alarm.value || find.value) return
+  const el = mapEl.value
+  if (!el) return
+  const r = el.getBoundingClientRect()
+  const to: Pt = [((e.clientX - r.left) / r.width) * MAP_W, ((e.clientY - r.top) / r.height) * MAP_H]
   selected.value = ''
-  await walkTo(id)
+  cardOpen.value = false
+  pending = ''
+  if (!sendTo(to)) { sfx('denied'); return }
+  sfx('mapMove')
+}
+
+/** A tap during the walk to a place being entered: there at once. */
+let skipRush: (() => void) | null = null
+const skipWalk = (): void => { if (rushing.value) skipRush?.() }
+
+/** Travel: to the place's door first (brisk, and a tap skips it), then the veil. */
+const go = async (id: NodeId): Promise<void> => {
+  if (rushing.value || flow.loading) return
+  cardOpen.value = false
+  const p = nodeAt(id)
+  if (Math.hypot(p[0] - hero.x, p[1] - hero.y) >= ARRIVE && !calm) {
+    const arrived = await new Promise<boolean>((resolve) => {
+      rushing.value = true
+      if (!sendTo(restAt(id), () => resolve(true))) resolve(false)
+      skipRush = () => {
+        const r = restAt(id)
+        hero.x = r[0]
+        hero.y = r[1]
+        placeHero()
+        clearPath()
+        resolve(true)
+      }
+    })
+    rushing.value = false
+    skipRush = null
+    if (!arrived) { cardOpen.value = true; return }
+  }
+  selected.value = ''
+  keepPos()
   await travel(id)
-  // Still on the map: the journey did not happen. The hero is where they were.
-  walking.value = ''
-  placeHero(restAt(profile.world.at))
 }
 
 const onKey = (e: KeyboardEvent): void => {
-  if (walking.value) { skipWalk(); return }
-  if (e.code === 'Escape' && selected.value) selected.value = ''
+  if (rushing.value) { skipWalk(); return }
+  if (e.code === 'Escape' && selected.value) { selected.value = ''; cardOpen.value = false }
 }
 /**
  * Tab walks the focus from place to place here. In a fight it is the "next
@@ -497,34 +859,56 @@ const onKey = (e: KeyboardEvent): void => {
  */
 const onTab = (e: KeyboardEvent): void => { if (e.code === 'Tab') e.stopPropagation() }
 
+// The land opens as places open: the fog is drawn again after the cloud lifts.
+watch(() => [...cleared.value].join() + [...flags.value].join(), () => { later(calm ? 0 : 1800, drawFog) })
+
 let observer: ResizeObserver | null = null
 onMounted(async () => {
   fit()
-  placeHero(restAt(profile.world.at))
+  // Where he was walking, or, back from a place, a step in front of it.
+  const pos = profile.world.pos
+  let start: Pt = [pos[0] * MAP_W, pos[1] * MAP_H]
+  const near = nearestPlace(start[0], start[1])
+  if (near.d < 2) start = restAt(near.id)
+  if (!mask.value.ok(start[0], start[1])) start = nearestWalkable(mask.value, start, 20) ?? restAt(profile.world.at)
+  hero.x = start[0]
+  hero.y = start[1]
+  placeHero()
+  notePlace(true)
+  // Back on the map from a visit: a breath before anything jumps out.
+  clock.calm()
   if (!painted) void bakePlate().catch(() => {})
+  drawFog()
+  hint.value = !profile.tips.mapWalked
   await nextTick()
-  centreOn(nodeAt(profile.world.at), cardless)
+  centreOn(start, cardless)
   if (sheet.value && typeof ResizeObserver !== 'undefined') {
     observer = new ResizeObserver(() => {
       fit()
       if (!painted) void bakePlate().catch(() => {})
-      void nextTick(() => centreOn(nodeAt(walking.value || selected.value || profile.world.at), cardless))
+      void nextTick(() => centreOn(selected.value ? nodeAt(selected.value) : [hero.x, hero.y], cardless))
     })
     observer.observe(sheet.value)
   }
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onTab, true)
+  window.addEventListener('pointermove', stickMove)
+  window.addEventListener('pointerup', stickUp)
+  window.addEventListener('pointercancel', stickUp)
+  frameId = requestAnimationFrame(tick)
   unveil()
 })
-watch(() => profile.world.at, (id) => { if (!walking.value) placeHero(restAt(id)) })
 onBeforeUnmount(() => {
+  keepPos()
   observer?.disconnect()
   plateJob++
   for (const id of timers) window.clearTimeout(id)
-  cancelAnimationFrame(walkFrame)
-  walkDone = null
+  cancelAnimationFrame(frameId)
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('keydown', onTab, true)
+  window.removeEventListener('pointermove', stickMove)
+  window.removeEventListener('pointerup', stickUp)
+  window.removeEventListener('pointercancel', stickUp)
   dragEnd()
 })
 </script>
@@ -684,19 +1068,6 @@ onBeforeUnmount(() => {
   stroke: var(--m-step)
   stroke-width: 3
   stroke-dasharray: 0.1 11
-.road--lit
-  .road__case
-    stroke-width: 17
-  .road__way
-    stroke: var(--bc-gold, #ffc526)
-    stroke-width: 11
-  .road__step
-    stroke: var(--bc-white, #fff)
-    stroke-width: 4
-    stroke-dasharray: 9 13
-    animation: road-march 0.9s steps(6) infinite
-.road--back .road__step
-  animation-direction: reverse
 
 // ── The lettering of the country ─────────────────────────────────────────────
 .region
@@ -743,7 +1114,7 @@ onBeforeUnmount(() => {
     transform: scale(1.04, 0.92)
   &:focus
     outline: none
-.is-walking .node
+.is-rushing .node
   pointer-events: none
 .node__ring, .node__art, .node__clouds
   position: absolute
@@ -840,7 +1211,8 @@ onBeforeUnmount(() => {
   box-shadow: 0 2px 0 var(--m-ink)
   color: var(--bc-white, #fff)
   pointer-events: none
-  svg
+  // The painted icon (an img) or the vector one.
+  svg, img
     display: block
     width: 62%
     height: 62%
@@ -878,7 +1250,7 @@ onBeforeUnmount(() => {
   box-shadow: 0 2px 0 var(--m-ink)
   color: var(--bc-white, #fff)
   pointer-events: none
-  svg
+  svg, img
     width: max(0.56rem, calc(var(--s) * 0.15))
     height: max(0.56rem, calc(var(--s) * 0.15))
 // A burst over a place that has just opened.
@@ -947,7 +1319,7 @@ onBeforeUnmount(() => {
 
 // ── The hero ─────────────────────────────────────────────────────────────────
 .wmap__hero
-  --h: max(1.7rem, calc(var(--u) * 52))
+  --h: max(2rem, calc(var(--u) * 62))
   --hx: 0
   --hy: 0
   position: absolute
@@ -973,11 +1345,170 @@ onBeforeUnmount(() => {
   bottom: 0
   width: var(--h)
   animation: hero-hop 1.5s ease-in-out infinite
-.is-walking
+  // He faces the way he walks (`--face`: 1 right, -1 left); the body's own
+  // hop and walk are transforms of their own.
+  :deep(.portrait)
+    transform: scaleX(var(--face, 1))
+    transition: transform 140ms ease-out
+.is-moving
   .wmap__hero-body
-    animation: hero-walk 0.34s ease-in-out infinite alternate
+    animation: hero-walk 0.3s ease-in-out infinite alternate
   .wmap__hero-shadow
     animation: none
+// The "!" over his head: something jumps out.
+.wmap__alert
+  position: absolute
+  --a: max(1.5rem, calc(var(--h) * 0.6))
+  left: calc(var(--a) * -0.5)
+  bottom: calc(var(--h) * 1.06)
+  width: var(--a)
+  height: calc(var(--a) * 1.25)
+  display: flex
+  align-items: center
+  justify-content: center
+  border: var(--bc-ol, 3px) solid var(--m-ink)
+  border-radius: var(--bc-r-md, 0.8rem)
+  background: var(--bc-red, #ff5a4f)
+  box-shadow: 0 3px 0 var(--m-ink)
+  color: var(--bc-white, #fff)
+  font-size: calc(var(--a) * 0.9)
+  font-weight: 900
+  line-height: 1
+  text-shadow: var(--bc-text-outline-thin, 0 2px 0 #1b1626)
+  animation: alert-pop 0.42s var(--bc-ease-bounce, cubic-bezier(0.34, 1.7, 0.5, 1)) both
+.is-alarm
+  .wmap__hero-body
+    animation: hero-startle 0.5s ease-out both
+  .wmap__map
+    animation: map-jolt 0.36s ease-out 0.1s both
+// The beat: the edges of the screen flush red, once.
+.wmap__flash
+  position: absolute
+  inset: 0
+  z-index: 7
+  pointer-events: none
+  background: radial-gradient(ellipse at 50% 50%, transparent 46%, rgba(214, 44, 56, 0.5) 100%)
+  animation: flash-beat 0.95s ease-out both
+
+// Footprints and dust, laid where he walked (`mark` in the script).
+.wmap__foot, .wmap__dust
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 3
+  opacity: 0
+  pointer-events: none
+.wmap__foot
+  width: calc(var(--u) * 5)
+  height: calc(var(--u) * 8)
+  margin: calc(var(--u) * -4) 0 0 calc(var(--u) * -2.5)
+  border-radius: 50% 50% 45% 45%
+  background: rgba(92, 58, 34, 0.55)
+  transform: translate(calc(var(--u) * var(--fx)), calc(var(--u) * var(--fy))) rotate(var(--fr))
+.wmap__dust
+  width: calc(var(--u) * 16)
+  height: calc(var(--u) * 11)
+  margin: calc(var(--u) * -9) 0 0 calc(var(--u) * -8)
+  border: 2px solid rgba(var(--bc-ink-rgb, 27, 22, 38), 0.35)
+  border-radius: 50%
+  background: #f3e2bd
+  transform: translate(calc(var(--u) * var(--fx)), calc(var(--u) * var(--fy)))
+
+// The fog over places not open yet: a low cloud bank, scaled up soft.
+.wmap__fog
+  position: absolute
+  inset: 0
+  width: 100%
+  height: 100%
+  opacity: 0.74
+  pointer-events: none
+  transition: opacity 600ms ease-out
+
+// Where he is going, and the way.
+.wmap__trail path
+  fill: none
+  stroke: var(--bc-gold-hi, #ffe978)
+  stroke-width: 5
+  stroke-linecap: round
+  stroke-linejoin: round
+  stroke-dasharray: 2 13
+  filter: drop-shadow(0 1.5px 0 rgba(42, 28, 48, 0.75))
+.wmap__dest
+  position: absolute
+  z-index: 3
+  width: calc(var(--u) * 26)
+  height: calc(var(--u) * 12)
+  margin: calc(var(--u) * -6) 0 0 calc(var(--u) * -13)
+  border: max(2px, calc(var(--u) * 3)) solid var(--bc-gold, #ffc526)
+  border-radius: 50%
+  box-shadow: 0 0 0 1px var(--m-ink), inset 0 0 0 1px var(--m-ink)
+  pointer-events: none
+  animation: dest-pulse 0.9s ease-in-out infinite alternate
+
+// What was found: a chest that springs open, a merchant who steps up.
+.wmap__find
+  --h: max(1.7rem, calc(var(--u) * 46))
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 4
+  width: 0
+  height: 0
+  transform: translate(calc(var(--u) * var(--hx)), calc(var(--u) * var(--hy)))
+  pointer-events: none
+  > svg, > img.game-icon, > .portrait
+    position: absolute
+    max-width: none
+    left: calc(var(--h) * -0.5)
+    bottom: 0
+    width: var(--h)
+    height: var(--h)
+    animation: find-pop 0.5s var(--bc-ease-bounce, cubic-bezier(0.34, 1.7, 0.5, 1)) both
+  > svg, > img
+    color: var(--bc-gold, #ffc526)
+    filter: drop-shadow(0 2px 0 var(--m-ink)) drop-shadow(1px 0 0 var(--m-ink)) drop-shadow(-1px 0 0 var(--m-ink))
+.wmap__find--chest.is-open > svg, .wmap__find--chest.is-open > img
+  animation: chest-burst 0.5s var(--bc-ease-bounce, cubic-bezier(0.34, 1.7, 0.5, 1)) both
+.wmap__gain
+  position: absolute
+  left: 50%
+  bottom: calc(var(--h) * (1.1 + var(--k) * 0.55))
+  transform: translateX(-50%)
+  width: max-content
+  color: var(--bc-text-gold, #ffe36a)
+  font-size: max(0.8rem, calc(var(--u) * 22))
+  text-shadow: var(--bc-text-outline, 0 2px 0 #1b1626)
+  animation: gain-rise 1.8s ease-out both
+  animation-delay: calc(var(--k) * 0.15s)
+
+// The stick (touch screens): steer with the thumb in the sheet's corner.
+.mstick
+  position: absolute
+  left: calc(env(safe-area-inset-left, 0px) + var(--pad) * 2)
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad) * 3 + clamp(2.9rem, 13vmin, 4rem))
+  z-index: 6
+  width: clamp(5.2rem, 22vmin, 7rem)
+  aspect-ratio: 1
+  border: var(--bc-ol, 3px) solid rgba(var(--bc-ink-rgb, 27, 22, 38), 0.7)
+  border-radius: 50%
+  background: radial-gradient(circle, rgba(255, 248, 227, 0.4) 0 55%, rgba(255, 248, 227, 0.22) 56% 100%)
+  touch-action: none
+  &.is-on
+    background: radial-gradient(circle, rgba(255, 248, 227, 0.55) 0 55%, rgba(255, 248, 227, 0.32) 56% 100%)
+.mstick__knob
+  position: absolute
+  left: 28%
+  top: 28%
+  width: 44%
+  height: 44%
+  border: var(--bc-ol, 3px) solid var(--m-ink)
+  border-radius: 50%
+  background: linear-gradient(180deg, var(--bc-paper-hi, #fff8e3) 0 46%, var(--bc-paper, #f8e9c4) 46% 86%, var(--bc-paper-lo, #ecd3a0) 86%)
+  box-shadow: 0 3px 0 var(--m-ink)
+  pointer-events: none
+.wmap__hint
+  max-width: min(86%, 26rem)
+  text-align: center
 .wmap__skip
   position: absolute
   left: 50%
@@ -1193,11 +1724,6 @@ onBeforeUnmount(() => {
   opacity: 0
 
 // ── Motion ───────────────────────────────────────────────────────────────────
-@keyframes road-march
-  from
-    stroke-dashoffset: 22
-  to
-    stroke-dashoffset: 0
 @keyframes node-bob
   0%, 100%
     transform: translateY(0)
@@ -1286,6 +1812,67 @@ onBeforeUnmount(() => {
     transform: translateY(0) rotate(-5deg)
   to
     transform: translateY(-12%) rotate(5deg)
+@keyframes hero-startle
+  0%
+    transform: translateY(0) scale(1)
+  30%
+    transform: translateY(-34%) scale(0.92, 1.1)
+  60%
+    transform: translateY(0) scale(1.12, 0.88)
+  100%
+    transform: translateY(0) scale(1)
+@keyframes alert-pop
+  from
+    opacity: 0
+    transform: translateY(30%) scale(0.3)
+  to
+    opacity: 1
+    transform: translateY(0) scale(1)
+@keyframes map-jolt
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(-0.4%, 0.3%)
+  50%
+    transform: translate(0.35%, -0.25%)
+  75%
+    transform: translate(-0.2%, 0.15%)
+@keyframes flash-beat
+  0%
+    opacity: 0
+  20%
+    opacity: 1
+  100%
+    opacity: 0
+@keyframes dest-pulse
+  from
+    transform: scale(0.85)
+  to
+    transform: scale(1.1)
+@keyframes find-pop
+  from
+    opacity: 0
+    transform: translateY(40%) scale(0.2)
+  to
+    opacity: 1
+    transform: translateY(0) scale(1)
+@keyframes chest-burst
+  0%
+    transform: scale(1)
+  40%
+    transform: scale(1.35, 0.8)
+  100%
+    transform: scale(1)
+    filter: drop-shadow(0 0 0.6rem rgba(255, 233, 120, 0.95))
+@keyframes gain-rise
+  0%
+    opacity: 0
+    translate: 0 40%
+  15%
+    opacity: 1
+  100%
+    opacity: 0
+    translate: 0 -120%
 @keyframes lf-spin
   to
     transform: rotate(360deg)

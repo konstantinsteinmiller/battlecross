@@ -85,7 +85,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #64 ✅ Create a Brawlstars like bg-tile for the FLogoProgress background with whitish outline assets (not so densely packed) that scroll to the bottom right very slowly while the Mascot/logo and the loading bar shows.
 - [x] #65 ✅ Design a fitting logo (save as painted image to /public/images/logo) and favicon, also update the mascot on FLogoProgress to make it look professional, the logo and mascot need to be in the games art style and very appealing.
 - [x] #66 ✅ GameMonetize readiness: make the game ready for a GameMonetize release using the new-web-game-playbook
-- [ ] #67 I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
+- [x] #67 ✅ I want the player to move freely on the map like in Battleheart Legacy, moving on the map can lead to occasional random encounters. 
  Also turn the market stands in the town towards where they are accessable.
 - [x] #68 ✅ arrange furniture and staircasses  well in the houses of the town
 

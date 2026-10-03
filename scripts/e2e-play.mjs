@@ -282,9 +282,23 @@ const playDesktop = async () => {
     st.plains.cleared && !st.hollows.locked && !st.woods.locked && st.crags.locked && st.fortress.locked)
   await shot(page, 'play-4-map')
 
-  // Travel to the town by clicking its node and the card's button.
+  // The hero walks the map freely (roadmap #67): the D key steers him.
+  // (A software-rendered page rasterises the freshly opened sheet for a second
+  // or two before its frames flow: wait for the map's own walk loop.)
+  await page.waitForFunction(() => (window.__wmap?.frames ?? 0) > 30, null, { timeout: 20000 }).catch(() => {})
+  const pos0 = await game(page, () => [...window.__game.profile.world.pos])
+  const hx0 = await page.evaluate(() => Number(document.querySelector('.wmap__hero')?.style.getPropertyValue('--hx')))
+  await page.keyboard.down('KeyD')
+  await page.waitForTimeout(500)
+  await page.keyboard.up('KeyD')
+  await page.waitForTimeout(800)
+  const hx1 = await page.evaluate(() => Number(document.querySelector('.wmap__hero')?.style.getPropertyValue('--hx')))
+  check('on the map the hero walks where he is steered (WASD)', hx1 > hx0 + 20, `x ${hx0} → ${hx1}`)
+  // Travel to the town: clicking its node walks him there, its card opens on arrival, then Enter.
   await page.locator('[data-node="sunford"]').click()
-  await page.waitForTimeout(300)
+  await page.waitForSelector('.card__actions button', { timeout: 15000 })
+  const walked = await game(page, () => [...window.__game.profile.world.pos])
+  check('clicking a place walks the hero up to it, and its card opens there', Math.hypot(walked[0] - 0.125, walked[1] - 0.735) < Math.hypot(pos0[0] - 0.125, pos0[1] - 0.735), `${pos0} → ${walked}`)
   await page.locator('.card__actions button').last().click({ force: true })
   await page.waitForFunction(() => window.__game.flow.screen === 'town' && !window.__game.flow.loading && window.__game.zone(), null, { timeout: 60000 })
   await page.waitForTimeout(800)

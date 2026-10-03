@@ -2,8 +2,8 @@
   Transition(name="veil")
     div.veil(v-if="flow.loading" role="status" :aria-label="t('travel.loading')")
       div.veil__card
-        span.veil__kicker {{ t('travel.to') }}
-        span.veil__name {{ flow.loadingNode ? t(`node.${flow.loadingNode}.name`) : '' }}
+        span.veil__kicker {{ flow.encounter ? t('encounter.kicker') : t('travel.to') }}
+        span.veil__name {{ flow.encounter ? t(`encounter.title.${flow.encounter.kind}`) : flow.loadingNode ? t(`node.${flow.loadingNode}.name`) : '' }}
         FBar.veil__bar(:value="Math.max(0.04, flow.loadProgress)" tone="gold" frame="champion" :ticks="false")
 </template>
 

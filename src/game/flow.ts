@@ -29,6 +29,8 @@ import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
 import { classifyOnboarding } from './coach/reveal'
+import { chestReward, merchantTiers, type EncounterSpec } from './data/encounters'
+import { mapSpot, setMapPos } from './state/profile'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -77,6 +79,8 @@ export interface ResultsData {
   waves: number
   /** Chests opened of the chests the visit held (absent: a place without any). */
   chests?: { opened: number; total: number }
+  /** A random encounter met on the map (`node` is its region's zone). */
+  encounter?: boolean
 }
 
 export const flow = reactive({
@@ -98,7 +102,10 @@ export const flow = reactive({
   /** The quest waiting for its decision. */
   quest: '' as string,
   /** After the throne: the ending screen has been shown this session. */
-  endingShown: false
+  endingShown: false,
+  /** The random encounter being fought (roadmap #67), from the veil until the
+   *  hero is back on the map. */
+  encounter: null as EncounterSpec | null
 })
 
 
@@ -188,10 +195,16 @@ const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void =>
 export interface BuiltPlace extends GameMode {
   setup: { theme: ThemeId }
 }
-type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void) => Promise<BuiltPlace>
+type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec) => Promise<BuiltPlace>
 
-const buildZone = async (node: NodeId, onProgress: (p01: number) => void): Promise<ZoneMode> => {
-  const setup = setupFor(node)
+/** A random encounter's fight: the region's ground and enemies, at its level. */
+const encounterSetup = (e: EncounterSpec): ZoneSetup => ({
+  kind: 'zone', zone: e.zone, theme: ZONES[e.zone].theme, seed: e.seed, level: e.level, difficulty: difficultyFactor(),
+  encounter: e.packs.map(p => [...p]), flags: flagSet()
+})
+
+const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec): Promise<ZoneMode> => {
+  const setup = encounter ? encounterSetup(encounter) : setupFor(node)
   const mode = await ZoneMode.create(setup, input!, {
     onEnd: (outcome) => { void finishVisit(outcome) },
     onInteract: (npcId) => talkTo(npcId),
@@ -217,14 +230,16 @@ export const setNodeBuilder = (fn: NodeBuilder | null): void => { buildNode = fn
  * A `start` is always closed by exactly one `complete` or `fail`, so the
  * open one is remembered here. A no-op on every other portal (stub alias).
  */
-let measuring: NodeId | '' = ''
-const measureStart = (node: NodeId): void => {
+let measuring = ''
+/** An encounter's "level" in the funnel: one name for all of them. */
+const ENCOUNTER_LEVEL = 'encounter'
+const measureStart = (node: string): void => {
   if (NODE_BY_ID[node]?.kind === 'town') return
   if (measuring) pokiMeasure('level', measuring, 'fail')
   measuring = node
   pokiMeasure('level', node, 'start')
 }
-const measureEnd = (node: NodeId, won: boolean): void => {
+const measureEnd = (node: string, won: boolean): void => {
   if (measuring !== node) return
   measuring = ''
   pokiMeasure('level', node, won ? 'complete' : 'fail')
@@ -236,7 +251,10 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
   flow.modal = ''
   flow.results = null
   flow.screen = def.kind === 'town' ? 'town' : 'zone'
+  flow.encounter = null
   profile.world.at = node
+  // Back on the map, the hero stands at the place he entered.
+  setMapPos(...mapSpot(node))
   if (def.kind === 'town') {
     // A town is "cleared" by walking into it: its roads open.
     if (clearNode(node)) saveProfile()
@@ -291,6 +309,57 @@ export const travel = async (node: NodeId): Promise<void> => {
   } finally {
     flow.loading = false
   }
+}
+
+/**
+ * A random encounter met on the map (roadmap #67): a fight is built behind the
+ * same veil as any journey, in the region's look, and fought like a zone. The
+ * hero's place and his spot on the map stay as they are: win, retreat or
+ * fall, he is back where he was walking.
+ */
+export const startEncounter = async (e: EncounterSpec): Promise<void> => {
+  if (flow.loading || e.kind === 'chest' || e.kind === 'merchant' || !e.packs.length) return
+  flow.loading = true
+  flow.loadProgress = 0
+  flow.loadingNode = ''
+  flow.encounter = e
+  saveProfile()
+  try {
+    await afterPaint()
+    app.setWanted(false)
+    const mode = await buildNode(e.zone, (p) => { flow.loadProgress = p }, e)
+    flow.node = e.zone
+    flow.modal = ''
+    flow.results = null
+    flow.screen = 'zone'
+    setMusicTrack(trackForTheme(mode.setup.theme))
+    startGameMusic()
+    app.setMode(mode)
+    app.setWanted(true)
+    measureStart(ENCOUNTER_LEVEL)
+  } catch (err) {
+    console.error('[flow] encounter failed', err)
+    flow.encounter = null
+    app.setWanted(true)
+  } finally {
+    flow.loading = false
+  }
+}
+
+/** A chest found in the grass: opened on the spot, on the map. Returns what it held. */
+export const openFoundChest = (e: EncounterSpec): { gold: number; xp: number } => {
+  const r = chestReward(e.level)
+  profile.gold += r.gold
+  grantXp(r.xp)
+  saveProfile()
+  return r
+}
+
+/** A wandering merchant met on the road: his wares, over the map. */
+export const meetMerchant = (e: EncounterSpec): void => {
+  if (flow.modal || flow.talk || flow.loading) return
+  flow.npc = { id: 'wanderer', role: 'shop', look: 'peddler', at: [0, 0], stock: { slots: ['main', 'off', 'body', 'trinket'], tiers: merchantTiers(e.level) } }
+  flow.modal = 'shop'
 }
 
 /** The world map, over whatever scene is up. */
@@ -348,7 +417,10 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
 
 /** Bank a decided visit: rewards, unlocks, the save, the result screen. */
 export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node: NodeId, h: VisitTally): Promise<void> => {
-  measureEnd(node, outcome === 'victory')
+  // An encounter is a fight on the road: it pays, it may cost, but it clears
+  // no place and brings no decision.
+  const encounter = !!flow.encounter
+  measureEnd(encounter ? ENCOUNTER_LEVEL : node, outcome === 'victory')
   const levelBefore = profile.level
   const items: ResultItem[] = []
   grantXp(h.xp)
@@ -367,7 +439,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   let goldLost = 0
   let firstClear = false
   const unlocked: NodeId[] = []
-  if (outcome === 'victory') {
+  if (outcome === 'victory' && !encounter) {
     const before = new Set(Object.keys(NODE_BY_ID).filter(n => isNodeOpen(n as NodeId)))
     firstClear = clearNode(node)
     profile.questsDone++
@@ -385,7 +457,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   void flushSaveNow()
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
-    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests
+    seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(encounter ? { encounter: true } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
@@ -446,6 +518,8 @@ const adBreak = async (): Promise<void> => {
 /** Past the results (and the decision): the ending once, else the map. */
 export const afterVisit = (): void => {
   flow.quest = ''
+  // Back from an encounter: on the map, where he was walking.
+  flow.encounter = null
   if (hasFlag('throneDone') && !flow.endingShown && !profile.tips.endingSeen) {
     flow.endingShown = true
     flow.modal = 'ending'
@@ -472,9 +546,12 @@ export const retreatVisit = async (): Promise<void> => {
 export const retryVisit = async (): Promise<void> => {
   const node = flow.node
   if (!node || leaving) return
+  const encounter = flow.encounter
   await adBreak()
   flow.results = null
-  await travel(node)
+  // An encounter is met again as it was.
+  if (encounter) await startEncounter(encounter)
+  else await travel(node)
 }
 
 // ─── Towns ───────────────────────────────────────────────────────────────────

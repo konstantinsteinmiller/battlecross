@@ -70,8 +70,11 @@ export interface WorldSave {
   cleared: string[]
   /** World-state flags written by quest choices. */
   flags: string[]
-  /** Where the hero stands on the map. */
+  /** The last place the hero entered (a zone, a town, the colosseum). */
   at: NodeId
+  /** Where the hero's token stands on the world map, as fractions of the sheet
+   *  (like `MAP[].at`): he walks it freely (roadmap #67). */
+  pos: [number, number]
   /** Visits per zone (seeds the next layout). */
   visits: Record<string, number>
   /** The colosseum's best: waves survived. */
@@ -110,6 +113,12 @@ export interface Profile {
   tips: Record<string, true | number>
 }
 
+/** A place's own spot on the map sheet (fractions): where the hero stands at it. */
+export const mapSpot = (id: NodeId): [number, number] => {
+  const at = NODE_BY_ID[id]?.at ?? [0.265, 0.625]
+  return [at[0], at[1]]
+}
+
 const emptySlots = (n: number): string[] => new Array<string>(n).fill('')
 
 const defaultHero = (): HeroSave => {
@@ -137,7 +146,7 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
-  world: { cleared: [], flags: [], at: 'plains', visits: {}, arenaBest: 0, chests: [], said: [] },
+  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], said: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {}
 })
@@ -217,7 +226,8 @@ export const loadProfile = (): void => {
   quests.rep = rep
   profile.quests = quests
 
-  const world = obj(stored(WORLD_KEY), d.world)
+  const storedWorld = stored(WORLD_KEY)
+  const world = obj(storedWorld, d.world)
   world.cleared = [...new Set(strs(world.cleared).filter(id => NODE_BY_ID[id]))]
   world.flags = [...new Set(strs(world.flags))]
   world.visits = obj(world.visits, {})
@@ -227,6 +237,9 @@ export const loadProfile = (): void => {
   // A save from before the conversations has no memory: everyone is met anew.
   world.said = [...new Set(strs(world.said))]
   if (!NODE_BY_ID[world.at]) world.at = 'plains'
+  // A save from before the hero walked the map freely: he stands at his place.
+  // (Read off what was stored: the defaults would stand him at the plains.)
+  world.pos = validPos((storedWorld as { pos?: unknown } | null)?.pos) ?? mapSpot(world.at)
   profile.world = world
 
   profile.stats = obj(stored(STATS_KEY), d.stats)
@@ -549,6 +562,15 @@ export const markChestsOpened = (keys: readonly string[]): void => {
 
 export const flagSet = (): Set<string> => new Set(profile.world.flags)
 export const hasFlag = (f: string): boolean => profile.world.flags.includes(f)
+
+/** A stored map position, if it is one (two numbers on the sheet). */
+const validPos = (v: unknown): [number, number] | null =>
+  Array.isArray(v) && v.length === 2 && v.every(n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 1) ? [v[0] as number, v[1] as number] : null
+/** Where the hero's token stands on the map (fractions of the sheet). Kept in
+ *  memory as he walks; written with the next save. */
+export const setMapPos = (x: number, y: number): void => {
+  profile.world.pos = [Math.round(Math.max(0, Math.min(1, x)) * 10000) / 10000, Math.round(Math.max(0, Math.min(1, y)) * 10000) / 10000]
+}
 
 export const isNodeOpen = (id: NodeId): boolean => nodeOpen(id, new Set(profile.world.cleared), flagSet())
 export const openNodes = (): NodeId[] => MAP.filter(n => isNodeOpen(n.id)).map(n => n.id)

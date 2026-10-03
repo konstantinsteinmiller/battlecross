@@ -252,7 +252,21 @@ export default {
       'dread': 'The Dreadlands',
       'sea': 'The Sapphire Sea',
       'bay': 'Merchant\'s Bay'
-    }
+    },
+    'walkTouch': 'Tap the map to walk there, or steer with the stick',
+    'walkMouse': 'Click the map to walk there, or steer with WASD'
+  },
+  'encounter': {
+    'kicker': 'On the road',
+    'title': {
+      'fight': 'Ambush!',
+      'elite': 'A champion bars the way!',
+      'chest': 'A chest in the grass!',
+      'merchant': 'A wandering merchant'
+    },
+    'result': 'On the road near {place}',
+    'gold': '+{n} gold',
+    'xp': '+{n} XP'
   },
   'travel': {
     'to': 'Travelling to',
@@ -611,6 +625,8 @@ export default {
 
   // ─── Townsfolk ────────────────────────────────────────────────────────────
   'npc': {
+    // Met on the world map's roads (a random encounter), not in a town.
+    'wanderer': { 'name': 'Pip the Wanderer', 'talk': 'Long road, light purse? I carry a little of everything.' },
     'sunfordSmith': { 'name': 'Bram the Smith', 'talk': 'Plain steel, fair prices. Take your time.' },
     'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings, charms, bits and pieces. That one might even be lucky.' },
     'trainerAegis': { 'name': 'Ser Aldric' },

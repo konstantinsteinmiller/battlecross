@@ -410,6 +410,74 @@ export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: num
   }
 }
 
+/**
+ * A random encounter on the world map (roadmap #67): a short stretch of the
+ * region's own ground — a clearing to land in, then one clearing per pack up
+ * the trail, the last of them the "finale" whose fall wins the fight. No
+ * chests, no puzzles, no water: a quick fight, over in a minute. Seeded like
+ * every other plan. `packs`: the enemies of each pack, the nearest first.
+ */
+export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed: number): ZonePlan => {
+  const rng = mulberry32(seed)
+  const w = 32
+  const n = Math.max(1, packs.length)
+  const step = 10
+  const h = 15 + n * step
+  const solid = new Uint8Array(w * h).fill(1)
+  const trail = new Uint8Array(w * h)
+  const cs: Array<{ i: number; j: number; r: number }> = []
+  let ci = w / 2 + Math.round((rng() - 0.5) * 4)
+  let cj = h - 7
+  cs.push({ i: ci, j: cj, r: 4.2 })
+  for (let k = 1; k <= n; k++) {
+    const r = k === n ? 5.8 : 4.8
+    cj -= step + Math.round(rng())
+    ci = Math.max(Math.ceil(r) + 3, Math.min(w - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 10)))
+    cs.push({ i: ci, j: cj, r })
+  }
+  for (let k = 0; k < cs.length; k++) {
+    const c = cs[k]!
+    carveDisc(solid, w, h, c.i, c.j, c.r, rng)
+    if (k > 0) carveLine(solid, trail, w, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, 1.8)
+  }
+  // A boulder or two to fight round, off the trail.
+  for (let k = 1; k < cs.length; k++) {
+    const c = cs[k]!
+    for (let q = 0; q < 2; q++) {
+      const a = rng() * Math.PI * 2
+      const i = Math.round(c.i + Math.cos(a) * c.r * 0.65)
+      const j = Math.round(c.j + Math.sin(a) * c.r * 0.65)
+      if (i < 3 || j < 3 || i >= w - 3 || j >= h - 3) continue
+      let nearTrail = false
+      for (let dj = -2; dj <= 2 && !nearTrail; dj++) for (let di = -2; di <= 2; di++) if (trail[(j + dj) * w + i + di]) { nearTrail = true; break }
+      if (!nearTrail) solid[j * w + i] = 1
+    }
+  }
+  const clearings: Clearing[] = cs.map((c, k) => ({
+    x: (c.i + 0.5) * CELL, z: (c.j + 0.5) * CELL, r: c.r * CELL, role: k === 0 ? 'start' : k === n ? 'finale' : 'pack'
+  }))
+  const plans: PackPlan[] = []
+  for (let k = 1; k <= n; k++) {
+    const c = clearings[k]!
+    const kinds = [...(packs[k - 1] ?? [])]
+    plans.push({ x: c.x, z: c.z, r: c.r, kinds, finale: k === n, boss: '' })
+  }
+  return {
+    seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
+    side: new Uint8Array(w * h),
+    height: new Float32Array((w + 1) * (h + 1)),
+    ...noFeatures(),
+    clearings,
+    start: { x: clearings[0]!.x, z: clearings[0]!.z },
+    packs: plans,
+    chest: null,
+    secret: null,
+    buildings: [],
+    npcs: [],
+    gates: []
+  }
+}
+
 /** The colosseum: one ring, gates all round it. */
 export const generateArena = (seed: number): ZonePlan => {
   const rng = mulberry32(seed)
