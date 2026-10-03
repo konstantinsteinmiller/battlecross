@@ -192,6 +192,18 @@
       "rev": "66898855e876",
       "painting": "5d414d1226bf",
       "at": "2026-10-03T10:50:03.950Z"
+    },
+    "single-logo-emblem.jpg": {
+      "sheet": "single-logo-emblem",
+      "rev": "36585e1bbec8",
+      "painting": "1d801db8097d",
+      "at": "2026-10-03T11:59:11.546Z"
+    },
+    "single-logo-mascot.jpg": {
+      "sheet": "single-logo-mascot",
+      "rev": "4924603fb50a",
+      "painting": "7c08a9376bc4",
+      "at": "2026-10-03T12:02:07.804Z"
     }
   }
 }
