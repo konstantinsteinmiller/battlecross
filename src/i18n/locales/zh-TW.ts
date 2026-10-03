@@ -172,6 +172,7 @@ export default {
     travel: '前往{place}',
     decide: '做出你的選擇',
     explore: '探索王國',
+    fight: '贏下這場戰鬥',
     show: '幫我指路：{goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: '恐懼之地',
       sea: '藍寶石海',
       bay: '商人海灣'
-    }
+    },
+    walkTouch: '點擊地圖走過去，或用搖桿操控',
+    walkMouse: '點擊地圖走過去，或用 WASD 操控'
+  },
+  encounter: {
+    kicker: '途中',
+    title: {
+      fight: '伏擊！',
+      elite: '一位冠軍擋住了去路！',
+      chest: '草叢裡有個寶箱！',
+      merchant: '流浪商人'
+    },
+    result: '在{place}附近的路上',
+    gold: '+{n} 金幣',
+    xp: '+{n} 經驗'
   },
   travel: {
     to: '正在前往',
@@ -944,6 +959,10 @@ export default {
     circle: '乙太議會'
   },
   npc: {
+    wanderer: {
+      name: '流浪者 Pip',
+      talk: '路途遙遠，錢包卻很輕？我這裡什麼都有一點。'
+    },
     sunfordSmith: {
       name: '鐵匠布拉姆',
       talk: '實在的鋼，公道的價。慢慢挑。'

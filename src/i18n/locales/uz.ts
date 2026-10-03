@@ -172,6 +172,7 @@ export default {
     travel: 'Safar: {place}',
     decide: 'Tanlovingizni qiling',
     explore: 'Oʻlkani kashf eting',
+    fight: 'Jangda gʻalaba qozoning',
     show: 'Yoʻlni koʻrsating: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Dahshat yurti',
       sea: 'Safir dengizi',
       bay: 'Savdogarlar qoʻltigʻi'
-    }
+    },
+    walkTouch: 'Borish uchun xaritaga bosing yoki joystik bilan boshqaring',
+    walkMouse: 'Borish uchun xaritani bosing yoki WASD bilan boshqaring'
+  },
+  encounter: {
+    kicker: 'Yoʻlda',
+    title: {
+      fight: 'Pistirma!',
+      elite: 'Yoʻlni chempion toʻsib turibdi!',
+      chest: 'Oʻt orasida sandiq!',
+      merchant: 'Sayyor savdogar'
+    },
+    result: '{place} yaqinida, yoʻlda',
+    gold: '+{n} oltin',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Manzil:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Efir Doirasi'
   },
   npc: {
+    wanderer: {
+      name: 'Sayyor Pip',
+      talk: 'Yoʻl uzoq, hamyon yengilmi? Menda hamma narsadan ozgina bor.'
+    },
     sunfordSmith: {
       name: 'Temirchi Bram',
       talk: 'Oddiy poʻlat, adolatli narx. Shoshma.'

@@ -172,6 +172,7 @@ export default {
     travel: 'Vojaĝu al {place}',
     decide: 'Faru vian elekton',
     explore: 'Esploru la regnon',
+    fight: 'Venku la batalon',
     show: 'Montru al mi la vojon: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'La Teruraj Landoj',
       sea: 'La Safira Maro',
       bay: 'Golfo de la Komercistoj'
-    }
+    },
+    walkTouch: 'Tuŝu la mapon por marŝi tien, aŭ stiru per la bastono',
+    walkMouse: 'Alklaku la mapon por marŝi tien, aŭ stiru per WASD'
+  },
+  encounter: {
+    kicker: 'Survoje',
+    title: {
+      fight: 'Embusko!',
+      elite: 'Ĉampiono baras la vojon!',
+      chest: 'Kesto en la herbo!',
+      merchant: 'Vaganta komercisto'
+    },
+    result: 'Survoje proksime de {place}',
+    gold: '+{n} da oro',
+    xp: '+{n} SP'
   },
   travel: {
     to: 'Vojaĝo al',
@@ -944,6 +959,10 @@ export default {
     circle: 'La Rondo de Etero'
   },
   npc: {
+    wanderer: {
+      name: 'Pip la Vaganto',
+      talk: 'Longa vojo, malpeza monujo? Mi portas iom de ĉio.'
+    },
     sunfordSmith: {
       name: 'Bram la Forĝisto',
       talk: 'Simpla ŝtalo, justaj prezoj. Ne hastu.'

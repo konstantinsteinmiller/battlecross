@@ -172,6 +172,7 @@ export default {
     travel: '이동: {place}',
     decide: '선택하기',
     explore: '왕국 탐험하기',
+    fight: '전투에서 승리하기',
     show: '길 알려줘: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: '공포의 땅',
       sea: '사파이어 바다',
       bay: '상인의 만'
-    }
+    },
+    walkTouch: '지도를 탭해서 걸어가거나 스틱으로 조종하세요',
+    walkMouse: '지도를 클릭해서 걸어가거나 WASD로 조종하세요'
+  },
+  encounter: {
+    kicker: '길 위에서',
+    title: {
+      fight: '매복!',
+      elite: '챔피언이 길을 막았다!',
+      chest: '풀숲 속 상자!',
+      merchant: '떠돌이 상인'
+    },
+    result: '{place} 근처의 길 위',
+    gold: '+{n} 골드',
+    xp: '+{n} 경험치'
   },
   travel: {
     to: '이동 중:',
@@ -944,6 +959,10 @@ export default {
     circle: '에테르 결사'
   },
   npc: {
+    wanderer: {
+      name: '떠돌이 Pip',
+      talk: '갈 길은 먼데 지갑은 가볍죠? 조금씩 다 갖고 있어요.'
+    },
     sunfordSmith: {
       name: '대장장이 브람',
       talk: '꾸밈없는 강철, 정직한 값이야. 천천히 봐.'

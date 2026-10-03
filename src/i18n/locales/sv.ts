@@ -172,6 +172,7 @@ export default {
     travel: 'Res till {place}',
     decide: 'Gör ditt val',
     explore: 'Utforska riket',
+    fight: 'Vinn striden',
     show: 'Visa mig vägen: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Fasalanden',
       sea: 'Safirhavet',
       bay: 'Handlarnas vik'
-    }
+    },
+    walkTouch: 'Tryck på kartan för att gå dit, eller styr med spaken',
+    walkMouse: 'Klicka på kartan för att gå dit, eller styr med WASD'
+  },
+  encounter: {
+    kicker: 'På vägen',
+    title: {
+      fight: 'Bakhåll!',
+      elite: 'En mästare spärrar vägen!',
+      chest: 'En kista i gräset!',
+      merchant: 'En kringresande handlare'
+    },
+    result: 'På vägen nära {place}',
+    gold: '+{n} guld',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Reser till',
@@ -944,6 +959,10 @@ export default {
     circle: 'Eterns cirkel'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Vandraren',
+      talk: 'Lång väg och lätt börs? Jag har lite av varje.'
+    },
     sunfordSmith: {
       name: 'Smeden Bram',
       talk: 'Ärligt stål, schyssta priser. Ta det lugnt.'

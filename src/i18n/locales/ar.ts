@@ -172,6 +172,7 @@ export default {
     travel: 'سافر إلى {place}',
     decide: 'اتخذ قرارك',
     explore: 'استكشف المملكة',
+    fight: 'اربح المعركة',
     show: 'دلّني على الطريق: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'أراضي الرعب',
       sea: 'البحر الياقوتي',
       bay: 'خليج التجّار'
-    }
+    },
+    walkTouch: 'المس الخريطة للمشي إلى هناك، أو تحكّم بعصا التحكم',
+    walkMouse: 'انقر على الخريطة للمشي إلى هناك، أو تحكّم بـ WASD'
+  },
+  encounter: {
+    kicker: 'على الطريق',
+    title: {
+      fight: 'كمين!',
+      elite: 'بطل يسدّ الطريق!',
+      chest: 'صندوق في العشب!',
+      merchant: 'تاجر متجوّل'
+    },
+    result: 'على الطريق قرب {place}',
+    gold: '+{n} ذهب',
+    xp: '+{n} خبرة'
   },
   travel: {
     to: 'السفر إلى',
@@ -944,6 +959,10 @@ export default {
     circle: 'حلقة الأثير'
   },
   npc: {
+    wanderer: {
+      name: 'Pip الجوّال',
+      talk: 'طريق طويل وجيب خفيف؟ أحمل بعض كل شيء.'
+    },
     sunfordSmith: {
       name: 'برام الحدّاد',
       talk: 'فولاذ بسيط وأسعار عادلة. خذ وقتك.'

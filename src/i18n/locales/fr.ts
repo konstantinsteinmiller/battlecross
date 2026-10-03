@@ -172,6 +172,7 @@ export default {
     travel: 'Va à {place}',
     decide: 'Fais ton choix',
     explore: 'Explore le royaume',
+    fight: 'Gagne le combat',
     show: 'Montre-moi le chemin : {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Les Terres de l’Effroi',
       sea: 'La Mer de Saphir',
       bay: 'Baie des Marchands'
-    }
+    },
+    walkTouch: 'Touche la carte pour y aller, ou dirige avec le joystick',
+    walkMouse: 'Clique sur la carte pour y aller, ou dirige avec WASD'
+  },
+  encounter: {
+    kicker: 'Sur la route',
+    title: {
+      fight: 'Embuscade !',
+      elite: 'Un champion barre la route !',
+      chest: 'Un coffre dans l’herbe !',
+      merchant: 'Un marchand ambulant'
+    },
+    result: 'Sur la route près de {place}',
+    gold: '+{n} pièces d’or',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'En route vers',
@@ -944,6 +959,10 @@ export default {
     circle: 'Le Cercle de l’Éther'
   },
   npc: {
+    wanderer: {
+      name: 'Pip le Vagabond',
+      talk: 'Longue route, bourse légère ? J’ai un peu de tout.'
+    },
     sunfordSmith: {
       name: 'Bram le Forgeron',
       talk: 'De l’acier simple, des prix honnêtes. Prends ton temps.'

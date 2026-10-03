@@ -172,6 +172,7 @@ export default {
     travel: 'Səyahət et: {place}',
     decide: 'Seçimini et',
     explore: 'Diyarı kəşf et',
+    fight: 'Döyüşü qazan',
     show: 'Yolu göstər: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Dəhşət Diyarı',
       sea: 'Sapfir Dənizi',
       bay: 'Taciri Körfəzi'
-    }
+    },
+    walkTouch: 'Getmək üçün xəritəyə toxun və ya coystikla idarə et',
+    walkMouse: 'Getmək üçün xəritəyə klik et və ya WASD ilə idarə et'
+  },
+  encounter: {
+    kicker: 'Yolda',
+    title: {
+      fight: 'Pusqu!',
+      elite: 'Yolu bir çempion kəsib!',
+      chest: 'Otun içində sandıq!',
+      merchant: 'Səyyar tacir'
+    },
+    result: '{place} yaxınlığında, yolda',
+    gold: '+{n} qızıl',
+    xp: '+{n} TX'
   },
   travel: {
     to: 'Səfər:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Efir Dairəsi'
   },
   npc: {
+    wanderer: {
+      name: 'Səyyah Pip',
+      talk: 'Yol uzun, kisə yüngül? Məndə hər şeydən azca var.'
+    },
     sunfordSmith: {
       name: 'Dəmirçi Bram',
       talk: 'Sadə polad, ədalətli qiymət. Tələsmə.'

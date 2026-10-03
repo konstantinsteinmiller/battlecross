@@ -172,6 +172,7 @@ export default {
     travel: 'Reis naar {place}',
     decide: 'Maak je keuze',
     explore: 'Verken het rijk',
+    fight: 'Win het gevecht',
     show: 'Wijs me de weg: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'De Gruwellanden',
       sea: 'De Saffierzee',
       bay: 'Handelaarsbaai'
-    }
+    },
+    walkTouch: 'Tik op de kaart om erheen te lopen, of stuur met de stick',
+    walkMouse: 'Klik op de kaart om erheen te lopen, of stuur met WASD'
+  },
+  encounter: {
+    kicker: 'Onderweg',
+    title: {
+      fight: 'Hinderlaag!',
+      elite: 'Een kampioen verspert de weg!',
+      chest: 'Een kist in het gras!',
+      merchant: 'Een rondtrekkende koopman'
+    },
+    result: 'Onderweg bij {place}',
+    gold: '+{n} goud',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Op reis naar',
@@ -944,6 +959,10 @@ export default {
     circle: 'De Kring van Ether'
   },
   npc: {
+    wanderer: {
+      name: 'Pip de Zwerver',
+      talk: 'Lange weg, lichte buidel? Ik heb van alles een beetje bij me.'
+    },
     sunfordSmith: {
       name: 'Bram de Smid',
       talk: 'Gewoon staal, eerlijke prijzen. Neem de tijd.'

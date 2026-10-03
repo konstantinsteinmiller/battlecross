@@ -172,6 +172,7 @@ export default {
     travel: 'Ceļojums: {place}',
     decide: 'Izdari savu izvēli',
     explore: 'Izpēti valstību',
+    fight: 'Uzvari cīņu',
     show: 'Parādi ceļu: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Šausmu zemes',
       sea: 'Safīra jūra',
       bay: 'Tirgotāju līcis'
-    }
+    },
+    walkTouch: 'Pieskaries kartei, lai tur aizietu, vai vadi ar nūju',
+    walkMouse: 'Noklikšķini uz kartes, lai tur aizietu, vai vadi ar WASD'
+  },
+  encounter: {
+    kicker: 'Uz ceļa',
+    title: {
+      fight: 'Slazds!',
+      elite: 'Ceļu aizšķērso čempions!',
+      chest: 'Lāde zālē!',
+      merchant: 'Ceļojošs tirgotājs'
+    },
+    result: 'Uz ceļa pie: {place}',
+    gold: '+{n} zelta',
+    xp: '+{n} pieredze'
   },
   travel: {
     to: 'Galamērķis',
@@ -944,6 +959,10 @@ export default {
     circle: 'Ētera loks'
   },
   npc: {
+    wanderer: {
+      name: 'Klejotājs Pip',
+      talk: 'Garš ceļš, viegls maks? Man ir mazliet no visa kā.'
+    },
     sunfordSmith: {
       name: 'Kalējs Brams',
       talk: 'Parasts tērauds, godīgas cenas. Neasti.'

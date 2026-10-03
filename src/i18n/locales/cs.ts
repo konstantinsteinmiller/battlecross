@@ -172,6 +172,7 @@ export default {
     travel: 'Cestuj do: {place}',
     decide: 'Vyber si',
     explore: 'Prozkoumej říši',
+    fight: 'Vyhraj souboj',
     show: 'Ukaž mi cestu: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Země děsu',
       sea: 'Safírové moře',
       bay: 'Kupecká zátoka'
-    }
+    },
+    walkTouch: 'Klepni na mapu a dojdi tam, nebo řiď pákou',
+    walkMouse: 'Klikni na mapu a dojdi tam, nebo řiď pomocí WASD'
+  },
+  encounter: {
+    kicker: 'Na cestě',
+    title: {
+      fight: 'Přepadení!',
+      elite: 'Cestu zahradil šampion!',
+      chest: 'Truhla v trávě!',
+      merchant: 'Potulný obchodník'
+    },
+    result: 'Na cestě u místa {place}',
+    gold: '+{n} zl.',
+    xp: '+{n} ZK'
   },
   travel: {
     to: 'Cíl cesty:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Kruh éteru'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Tulák',
+      talk: 'Dlouhá cesta a lehký měšec? Nosím od všeho trochu.'
+    },
     sunfordSmith: {
       name: 'Kovář Bram',
       talk: 'Obyčejná ocel, férové ceny. Nespěchej.'

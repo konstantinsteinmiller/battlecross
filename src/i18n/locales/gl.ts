@@ -172,6 +172,7 @@ export default {
     travel: 'Viaxa a {place}',
     decide: 'Toma a túa decisión',
     explore: 'Explora o reino',
+    fight: 'Gaña o combate',
     show: 'Móstrame o camiño: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'As Terras do Terror',
       sea: 'O Mar de Zafiro',
       bay: 'Baía dos Mercadores'
-    }
+    },
+    walkTouch: 'Toca o mapa para camiñar ata alí, ou guía co joystick',
+    walkMouse: 'Fai clic no mapa para camiñar ata alí, ou guía con WASD'
+  },
+  encounter: {
+    kicker: 'Polo camiño',
+    title: {
+      fight: 'Emboscada!',
+      elite: 'Un campión corta o paso!',
+      chest: 'Un cofre na herba!',
+      merchant: 'Un mercador ambulante'
+    },
+    result: 'Polo camiño, preto de {place}',
+    gold: '+{n} de ouro',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Viaxando a',
@@ -944,6 +959,10 @@ export default {
     circle: 'O Círculo do Éter'
   },
   npc: {
+    wanderer: {
+      name: 'Pip o Vagabundo',
+      talk: 'Camiño longo e bolsa lixeira? Levo un pouco de todo.'
+    },
     sunfordSmith: {
       name: 'Bram o Ferreiro',
       talk: 'Aceiro sinxelo, prezos xustos. Sen présa.'

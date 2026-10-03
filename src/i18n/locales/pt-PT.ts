@@ -172,6 +172,7 @@ export default {
     travel: 'Viaja até {place}',
     decide: 'Faz a tua escolha',
     explore: 'Explora o reino',
+    fight: 'Vence o combate',
     show: 'Mostra-me o caminho: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'As Terras do Pavor',
       sea: 'O Mar de Safira',
       bay: 'Baía dos Mercadores'
-    }
+    },
+    walkTouch: 'Toca no mapa para caminhares até lá, ou guia com o manípulo',
+    walkMouse: 'Clica no mapa para caminhares até lá, ou guia com WASD'
+  },
+  encounter: {
+    kicker: 'Na estrada',
+    title: {
+      fight: 'Emboscada!',
+      elite: 'Um campeão corta o caminho!',
+      chest: 'Um baú na erva!',
+      merchant: 'Um mercador ambulante'
+    },
+    result: 'Na estrada, perto de {place}',
+    gold: '+{n} de ouro',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'A viajar para',
@@ -944,6 +959,10 @@ export default {
     circle: 'O Círculo do Éter'
   },
   npc: {
+    wanderer: {
+      name: 'Pip, o Andarilho',
+      talk: 'Estrada longa e bolsa leve? Trago um pouco de tudo.'
+    },
     sunfordSmith: {
       name: 'Bram, o Ferreiro',
       talk: 'Aço simples, preços justos. Leva o teu tempo.'

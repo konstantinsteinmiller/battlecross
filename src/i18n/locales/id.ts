@@ -172,6 +172,7 @@ export default {
     travel: 'Pergi ke {place}',
     decide: 'Buat pilihanmu',
     explore: 'Jelajahi negeri',
+    fight: 'Menangkan pertarungan',
     show: 'Tunjukkan jalan: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Tanah Kengerian',
       sea: 'Laut Safir',
       bay: 'Teluk Pedagang'
-    }
+    },
+    walkTouch: 'Ketuk peta untuk berjalan ke sana, atau kemudikan dengan stik',
+    walkMouse: 'Klik peta untuk berjalan ke sana, atau kemudikan dengan WASD'
+  },
+  encounter: {
+    kicker: 'Di jalan',
+    title: {
+      fight: 'Penyergapan!',
+      elite: 'Seorang juara menghadang jalan!',
+      chest: 'Peti di tengah rumput!',
+      merchant: 'Pedagang keliling'
+    },
+    result: 'Di jalan dekat {place}',
+    gold: '+{n} emas',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Menuju',
@@ -944,6 +959,10 @@ export default {
     circle: 'Lingkaran Aether'
   },
   npc: {
+    wanderer: {
+      name: 'Pip si Pengembara',
+      talk: 'Jalan jauh, kantong ringan? Aku bawa sedikit dari segalanya.'
+    },
     sunfordSmith: {
       name: 'Bram si Pandai Besi',
       talk: 'Baja polos, harga wajar. Silakan lihat-lihat.'

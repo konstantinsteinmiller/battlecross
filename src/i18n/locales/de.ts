@@ -172,6 +172,7 @@ export default {
     travel: 'Reise nach {place}',
     decide: 'Triff deine Wahl',
     explore: 'Erkunde die Welt',
+    fight: 'Gewinne den Kampf',
     show: 'Zeig mir den Weg: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Die Schreckenslande',
       sea: 'Das Saphirmeer',
       bay: 'Händlerbucht'
-    }
+    },
+    walkTouch: 'Tippe auf die Karte, um hinzulaufen, oder steuere mit dem Stick',
+    walkMouse: 'Klicke auf die Karte, um hinzulaufen, oder steuere mit WASD'
+  },
+  encounter: {
+    kicker: 'Unterwegs',
+    title: {
+      fight: 'Hinterhalt!',
+      elite: 'Ein Champion versperrt den Weg!',
+      chest: 'Eine Truhe im Gras!',
+      merchant: 'Ein fahrender Händler'
+    },
+    result: 'Unterwegs nahe {place}',
+    gold: '+{n} Gold',
+    xp: '+{n} EP'
   },
   travel: {
     to: 'Reise nach',
@@ -944,6 +959,10 @@ export default {
     circle: 'Der Zirkel des Äthers'
   },
   npc: {
+    wanderer: {
+      name: 'Pip der Wanderer',
+      talk: 'Langer Weg, leerer Beutel? Ich habe von allem ein bisschen dabei.'
+    },
     sunfordSmith: {
       name: 'Bram der Schmied',
       talk: 'Schlichter Stahl, ehrliche Preise. Lass dir Zeit.'

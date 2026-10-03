@@ -172,6 +172,7 @@ export default {
     travel: 'Putuj u: {place}',
     decide: 'Odaberi',
     explore: 'Istraži kraljevstvo',
+    fight: 'Pobijedi u borbi',
     show: 'Pokaži mi put: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Zemlje užasa',
       sea: 'Safirno more',
       bay: 'Trgovački zaljev'
-    }
+    },
+    walkTouch: 'Dodirni kartu da hodaš do tamo ili upravljaj palicom',
+    walkMouse: 'Klikni kartu da hodaš do tamo ili upravljaj sa WASD'
+  },
+  encounter: {
+    kicker: 'Na putu',
+    title: {
+      fight: 'Zasjeda!',
+      elite: 'Prvak zatvara put!',
+      chest: 'Škrinja u travi!',
+      merchant: 'Putujući trgovac'
+    },
+    result: 'Na putu kraj mjesta {place}',
+    gold: '+{n} zlata',
+    xp: '+{n} ISK'
   },
   travel: {
     to: 'Odredište:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Krug etera'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Lutalica',
+      talk: 'Dug put i lagan novčanik? Nosim po malo svega.'
+    },
     sunfordSmith: {
       name: 'Kovač Bram',
       talk: 'Običan čelik, poštene cijene. Ne žuri.'

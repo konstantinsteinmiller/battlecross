@@ -172,6 +172,7 @@ export default {
     travel: 'Viaja a {place}',
     decide: 'Toma tu decisión',
     explore: 'Explora el reino',
+    fight: 'Gana el combate',
     show: 'Muéstrame el camino: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Las Tierras del Terror',
       sea: 'El Mar Zafiro',
       bay: 'Bahía del Mercader'
-    }
+    },
+    walkTouch: 'Toca el mapa para caminar hasta allí, o guía con el joystick',
+    walkMouse: 'Haz clic en el mapa para caminar hasta allí, o guía con WASD'
+  },
+  encounter: {
+    kicker: 'En el camino',
+    title: {
+      fight: '¡Emboscada!',
+      elite: '¡Un campeón corta el paso!',
+      chest: '¡Un cofre en la hierba!',
+      merchant: 'Un mercader ambulante'
+    },
+    result: 'En el camino, cerca de {place}',
+    gold: '+{n} de oro',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Viajando a',
@@ -944,6 +959,10 @@ export default {
     circle: 'El Círculo del Éter'
   },
   npc: {
+    wanderer: {
+      name: 'Pip el Vagabundo',
+      talk: '¿Camino largo y bolsa ligera? Llevo un poco de todo.'
+    },
     sunfordSmith: {
       name: 'Bram el Herrero',
       talk: 'Acero sencillo, precios justos. Tómate tu tiempo.'

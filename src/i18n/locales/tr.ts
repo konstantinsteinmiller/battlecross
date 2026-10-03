@@ -172,6 +172,7 @@ export default {
     travel: 'Seyahat et: {place}',
     decide: 'Seçimini yap',
     explore: 'Diyarı keşfet',
+    fight: 'Dövüşü kazan',
     show: 'Yolu göster: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Dehşet Diyarı',
       sea: 'Safir Denizi',
       bay: 'Tüccar Körfezi'
-    }
+    },
+    walkTouch: 'Oraya yürümek için haritaya dokun ya da çubukla yönlendir',
+    walkMouse: 'Oraya yürümek için haritaya tıkla ya da WASD ile yönlendir'
+  },
+  encounter: {
+    kicker: 'Yolda',
+    title: {
+      fight: 'Pusu!',
+      elite: 'Bir şampiyon yolu kesiyor!',
+      chest: 'Çimlerde bir sandık!',
+      merchant: 'Gezgin bir tüccar'
+    },
+    result: '{place} yakınında, yolda',
+    gold: '+{n} altın',
+    xp: '+{n} TP'
   },
   travel: {
     to: 'Yolculuk:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Eter Çemberi'
   },
   npc: {
+    wanderer: {
+      name: 'Gezgin Pip',
+      talk: 'Yol uzun, kese hafif mi? Her şeyden biraz taşıyorum.'
+    },
     sunfordSmith: {
       name: 'Demirci Bram',
       talk: 'Sade çelik, adil fiyat. Acele etme.'

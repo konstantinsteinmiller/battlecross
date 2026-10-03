@@ -172,6 +172,7 @@ export default {
     travel: 'Matkusta kohteeseen {place}',
     decide: 'Tee valintasi',
     explore: 'Tutki valtakuntaa',
+    fight: 'Voita taistelu',
     show: 'Näytä tie: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Kauhumaat',
       sea: 'Safiirimeri',
       bay: 'Kauppiaanlahti'
-    }
+    },
+    walkTouch: 'Napauta karttaa kävelläksesi sinne tai ohjaa tikulla',
+    walkMouse: 'Klikkaa karttaa kävelläksesi sinne tai ohjaa WASD:llä'
+  },
+  encounter: {
+    kicker: 'Tiellä',
+    title: {
+      fight: 'Väijytys!',
+      elite: 'Mestari tukkii tien!',
+      chest: 'Arkku ruohikossa!',
+      merchant: 'Kiertelevä kauppias'
+    },
+    result: 'Tiellä lähellä: {place}',
+    gold: '+{n} kultaa',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Matkalla kohteeseen',
@@ -944,6 +959,10 @@ export default {
     circle: 'Eetterin piiri'
   },
   npc: {
+    wanderer: {
+      name: 'Vaeltaja-Pip',
+      talk: 'Pitkä tie, kevyt kukkaro? Mukana on vähän kaikkea.'
+    },
     sunfordSmith: {
       name: 'Seppä Bram',
       talk: 'Rehellistä terästä, reilut hinnat. Ota aikaa.'

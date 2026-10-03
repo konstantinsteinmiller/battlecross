@@ -172,6 +172,7 @@ export default {
     travel: 'Reis til {place}',
     decide: 'Ta ditt valg',
     explore: 'Utforsk riket',
+    fight: 'Vinn kampen',
     show: 'Vis meg veien: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Redselslandet',
       sea: 'Safirhavet',
       bay: 'Kjøpmannsbukta'
-    }
+    },
+    walkTouch: 'Trykk på kartet for å gå dit, eller styr med spaken',
+    walkMouse: 'Klikk på kartet for å gå dit, eller styr med WASD'
+  },
+  encounter: {
+    kicker: 'På veien',
+    title: {
+      fight: 'Bakhold!',
+      elite: 'En mester sperrer veien!',
+      chest: 'En kiste i gresset!',
+      merchant: 'En omreisende kjøpmann'
+    },
+    result: 'På veien nær {place}',
+    gold: '+{n} gull',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Reiser til',
@@ -944,6 +959,10 @@ export default {
     circle: 'Eterens sirkel'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Vandreren',
+      talk: 'Lang vei og lett pung? Jeg har litt av hvert.'
+    },
     sunfordSmith: {
       name: 'Smeden Bram',
       talk: 'Ærlig stål, rimelige priser. Ta deg god tid.'

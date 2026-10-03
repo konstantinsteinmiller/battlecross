@@ -172,6 +172,7 @@ export default {
     travel: 'Utazz ide: {place}',
     decide: 'Hozd meg a döntésed',
     explore: 'Fedezd fel a birodalmat',
+    fight: 'Nyerd meg a harcot',
     show: 'Mutasd az utat: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'A Rettegésföldek',
       sea: 'A Zafírtenger',
       bay: 'A Kereskedők öble'
-    }
+    },
+    walkTouch: 'Koppints a térképre, hogy odasétálj, vagy irányíts a karral',
+    walkMouse: 'Kattints a térképre, hogy odasétálj, vagy irányíts WASD-vel'
+  },
+  encounter: {
+    kicker: 'Úton',
+    title: {
+      fight: 'Rajtaütés!',
+      elite: 'Egy bajnok állja az utat!',
+      chest: 'Egy láda a fűben!',
+      merchant: 'Vándor kereskedő'
+    },
+    result: 'Úton, {place} közelében',
+    gold: '+{n} arany',
+    xp: '+{n} TP'
   },
   travel: {
     to: 'Úti cél:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Az Éterkör'
   },
   npc: {
+    wanderer: {
+      name: 'Pip, a Vándor',
+      talk: 'Hosszú út, könnyű erszény? Egy kicsit mindenből van nálam.'
+    },
     sunfordSmith: {
       name: 'Bram, a kovács',
       talk: 'Egyszerű acél, tisztességes árak. Nézz körül nyugodtan.'

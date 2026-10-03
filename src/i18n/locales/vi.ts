@@ -172,6 +172,7 @@ export default {
     travel: 'Đi đến {place}',
     decide: 'Đưa ra lựa chọn',
     explore: 'Khám phá vương quốc',
+    fight: 'Thắng trận chiến',
     show: 'Chỉ đường: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Vùng Đất Kinh Hoàng',
       sea: 'Biển Ngọc Bích',
       bay: 'Vịnh Thương Nhân'
-    }
+    },
+    walkTouch: 'Chạm vào bản đồ để đi tới đó, hoặc điều khiển bằng cần xoay',
+    walkMouse: 'Nhấp vào bản đồ để đi tới đó, hoặc điều khiển bằng WASD'
+  },
+  encounter: {
+    kicker: 'Trên đường',
+    title: {
+      fight: 'Phục kích!',
+      elite: 'Một nhà vô địch chắn đường!',
+      chest: 'Một chiếc rương trong bãi cỏ!',
+      merchant: 'Một thương nhân lang thang'
+    },
+    result: 'Trên đường gần {place}',
+    gold: '+{n} vàng',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Đang đi tới',
@@ -944,6 +959,10 @@ export default {
     circle: 'Vòng Tròn Aether'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Lữ Khách',
+      talk: 'Đường xa mà ví nhẹ tênh? Món gì tôi cũng mang theo một ít.'
+    },
     sunfordSmith: {
       name: 'Thợ rèn Bram',
       talk: 'Thép trơn, giá phải chăng. Cứ thong thả xem.'

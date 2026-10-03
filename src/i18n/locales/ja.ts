@@ -172,6 +172,7 @@ export default {
     travel: '{place}へ向かおう',
     decide: '決断しよう',
     explore: '王国を探索しよう',
+    fight: '戦いに勝とう',
     show: '道を教えて：{goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: '恐怖の地',
       sea: 'サファイアの海',
       bay: '商人の湾'
-    }
+    },
+    walkTouch: 'マップをタップしてそこへ歩こう。スティックでも操作できるよ',
+    walkMouse: 'マップをクリックしてそこへ歩こう。WASDでも操作できるよ'
+  },
+  encounter: {
+    kicker: '道中',
+    title: {
+      fight: '待ち伏せ！',
+      elite: 'チャンピオンが行く手を阻む！',
+      chest: '草むらに宝箱！',
+      merchant: '旅の商人'
+    },
+    result: '{place}の近くの道中',
+    gold: '+{n} ゴールド',
+    xp: '+{n} 経験値'
   },
   travel: {
     to: '移動中：',
@@ -944,6 +959,10 @@ export default {
     circle: 'エーテル結社'
   },
   npc: {
+    wanderer: {
+      name: '旅人のPip',
+      talk: '長旅で財布が軽いのかい？ 何でも少しずつ持ってるよ。'
+    },
     sunfordSmith: {
       name: '鍛冶屋のブラム',
       talk: '飾りのない鋼を、まっとうな値段でな。ゆっくり見てくれ。'

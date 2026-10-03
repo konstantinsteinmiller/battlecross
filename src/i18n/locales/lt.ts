@@ -172,6 +172,7 @@ export default {
     travel: 'Keliauk: {place}',
     decide: 'Apsispręsk',
     explore: 'Tyrinėk karalystę',
+    fight: 'Laimėk kovą',
     show: 'Parodyk kelią: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Siaubo žemės',
       sea: 'Safyrų jūra',
       bay: 'Pirklių įlanka'
-    }
+    },
+    walkTouch: 'Palieski žemėlapį, kad nueitum, arba valdyk lazdele',
+    walkMouse: 'Spustelėk žemėlapį, kad nueitum, arba valdyk WASD'
+  },
+  encounter: {
+    kicker: 'Kelyje',
+    title: {
+      fight: 'Pasala!',
+      elite: 'Kelią užstoja čempionas!',
+      chest: 'Skrynia žolėje!',
+      merchant: 'Keliaujantis pirklys'
+    },
+    result: 'Kelyje prie: {place}',
+    gold: '+{n} aukso',
+    xp: '+{n} PT'
   },
   travel: {
     to: 'Kelionės tikslas:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Eterio ratas'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Keliautojas',
+      talk: 'Ilgas kelias, lengvas kapšas? Turiu po truputį visko.'
+    },
     sunfordSmith: {
       name: 'Kalvis Bram',
       talk: 'Paprastas plienas, sąžininga kaina. Nesiskubink.'

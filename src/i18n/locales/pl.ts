@@ -172,6 +172,7 @@ export default {
     travel: 'Udaj się do: {place}',
     decide: 'Dokonaj wyboru',
     explore: 'Zwiedzaj królestwo',
+    fight: 'Wygraj walkę',
     show: 'Pokaż mi drogę: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Ziemie Grozy',
       sea: 'Szafirowe Morze',
       bay: 'Zatoka Kupców'
-    }
+    },
+    walkTouch: 'Dotknij mapy, by tam dojść, albo steruj gałką',
+    walkMouse: 'Kliknij mapę, by tam dojść, albo steruj klawiszami WASD'
+  },
+  encounter: {
+    kicker: 'W drodze',
+    title: {
+      fight: 'Zasadzka!',
+      elite: 'Mistrz zagradza drogę!',
+      chest: 'Skrzynia w trawie!',
+      merchant: 'Wędrowny kupiec'
+    },
+    result: 'W drodze, niedaleko: {place}',
+    gold: '+{n} szt. złota',
+    xp: '+{n} PD'
   },
   travel: {
     to: 'Cel podróży:',
@@ -944,6 +959,10 @@ export default {
     circle: 'Krąg Eteru'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Wędrowiec',
+      talk: 'Długa droga, lekka sakiewka? Mam trochę wszystkiego.'
+    },
     sunfordSmith: {
       name: 'Kowal Bram',
       talk: 'Zwykła stal, uczciwe ceny. Nie spiesz się.'

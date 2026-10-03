@@ -172,6 +172,7 @@ export default {
     travel: 'Viaggia verso {place}',
     decide: 'Fai la tua scelta',
     explore: 'Esplora il regno',
+    fight: 'Vinci lo scontro',
     show: 'Mostrami la strada: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Le Terre del Terrore',
       sea: 'Il Mare di Zaffiro',
       bay: 'Baia dei Mercanti'
-    }
+    },
+    walkTouch: 'Tocca la mappa per andare lì, oppure guida con lo stick',
+    walkMouse: 'Clicca sulla mappa per andare lì, oppure guida con WASD'
+  },
+  encounter: {
+    kicker: 'Sulla strada',
+    title: {
+      fight: 'Imboscata!',
+      elite: 'Un campione sbarra la strada!',
+      chest: 'Uno scrigno nell’erba!',
+      merchant: 'Un mercante ambulante'
+    },
+    result: 'Sulla strada, vicino a {place}',
+    gold: '+{n} oro',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'In viaggio verso',
@@ -944,6 +959,10 @@ export default {
     circle: 'Il Circolo dell’Etere'
   },
   npc: {
+    wanderer: {
+      name: 'Pip il Vagabondo',
+      talk: 'Strada lunga e borsa leggera? Ho un po’ di tutto.'
+    },
     sunfordSmith: {
       name: 'Bram il Fabbro',
       talk: 'Acciaio semplice, prezzi onesti. Prenditi il tuo tempo.'

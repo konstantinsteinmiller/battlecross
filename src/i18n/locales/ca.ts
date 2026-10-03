@@ -172,6 +172,7 @@ export default {
     travel: 'Viatja a {place}',
     decide: 'Pren la teva decisió',
     explore: 'Explora el regne',
+    fight: 'Guanya el combat',
     show: 'Mostra’m el camí: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Les Terres del Terror',
       sea: 'El Mar de Safir',
       bay: 'Badia dels Mercaders'
-    }
+    },
+    walkTouch: 'Toca el mapa per caminar-hi, o guia amb la palanca',
+    walkMouse: 'Fes clic al mapa per caminar-hi, o guia amb WASD'
+  },
+  encounter: {
+    kicker: 'Pel camí',
+    title: {
+      fight: 'Emboscada!',
+      elite: 'Un campió barra el pas!',
+      chest: 'Un cofre entre l’herba!',
+      merchant: 'Un mercader ambulant'
+    },
+    result: 'Pel camí, a prop de {place}',
+    gold: '+{n} d’or',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Viatjant cap a',
@@ -944,6 +959,10 @@ export default {
     circle: 'El Cercle de l’Èter'
   },
   npc: {
+    wanderer: {
+      name: 'Pip el Vagabund',
+      talk: 'Camí llarg i bossa lleugera? Duc una mica de tot.'
+    },
     sunfordSmith: {
       name: 'Bram el Ferrer',
       talk: 'Acer net, preus justos. Sense pressa.'

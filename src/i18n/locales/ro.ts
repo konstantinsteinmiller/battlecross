@@ -172,6 +172,7 @@ export default {
     travel: 'Călătorește la {place}',
     decide: 'Ia-ți decizia',
     explore: 'Explorează regatul',
+    fight: 'Câștigă lupta',
     show: 'Arată-mi drumul: {goal}'
   },
   node: {
@@ -281,7 +282,21 @@ export default {
       dread: 'Ținuturile Groazei',
       sea: 'Marea de Safir',
       bay: 'Golful Negustorilor'
-    }
+    },
+    walkTouch: 'Atinge harta ca să mergi acolo, sau condu cu joystick-ul',
+    walkMouse: 'Dă clic pe hartă ca să mergi acolo, sau condu cu WASD'
+  },
+  encounter: {
+    kicker: 'Pe drum',
+    title: {
+      fight: 'Ambuscadă!',
+      elite: 'Un campion blochează drumul!',
+      chest: 'Un cufăr în iarbă!',
+      merchant: 'Un negustor ambulant'
+    },
+    result: 'Pe drum, lângă {place}',
+    gold: '+{n} aur',
+    xp: '+{n} XP'
   },
   travel: {
     to: 'Călătorești spre',
@@ -944,6 +959,10 @@ export default {
     circle: 'Cercul Eterului'
   },
   npc: {
+    wanderer: {
+      name: 'Pip Hoinarul',
+      talk: 'Drum lung și pungă ușoară? Am câte puțin din toate.'
+    },
     sunfordSmith: {
       name: 'Bram Fierarul',
       talk: 'Oțel simplu, prețuri cinstite. Nu te grăbi.'
