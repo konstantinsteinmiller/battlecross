@@ -194,6 +194,7 @@ export default {
     'travel': 'Travel to {place}',
     'decide': 'Make your choice',
     'explore': 'Explore the realm',
+    'fight': 'Win the fight',
     'show': 'Show me the way: {goal}'
   },
 

@@ -59,6 +59,7 @@ export const liveGoalCtx = (): GoalCtx => {
           total: hud.groupsTotal,
           boss: bossOf(z.plan.packs.find(p => p.finale)?.kinds),
           bossAwake: !!hud.bossKey,
+          encounter: !!flow.encounter,
           ended: z.sim.ended || '',
           dummy: dummyBeat(z.sim) === 'on',
           wave: hud.wave,

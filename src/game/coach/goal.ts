@@ -26,7 +26,7 @@ import type { FeatureId } from './state'
  */
 
 export type GoalId =
-  | 'dummy' | 'clear' | 'boss' | 'exit' | 'wave'
+  | 'dummy' | 'clear' | 'boss' | 'exit' | 'wave' | 'fight'
   | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore'
 
 export interface Goal {
@@ -54,6 +54,8 @@ export interface ZoneGoalState {
   ended: '' | 'victory' | 'defeat'
   /** The opening dummy still stands, and the pack still sleeps. */
   dummy: boolean
+  /** A random encounter met on the map: no place to clear, just this fight. */
+  encounter?: boolean
   wave: number
   waves: number
 }
@@ -106,6 +108,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
     if (z.ended) return null
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }
+    if (z.encounter) return { id: 'fight', n: z.done, of: z.total }
     if (z.boss && (z.bossAwake || (z.total > 0 && z.done >= z.total - 1))) return { id: 'boss', foe: z.boss }
     return { id: 'clear', place: z.node, n: z.done, of: z.total }
   }

@@ -44,7 +44,7 @@ import type { GameIconName } from '@/components/icons/iconNames'
 const { t } = useI18n()
 
 const ICON: Record<GoalId, GameIconName> = {
-  dummy: 'sword', clear: 'sword', boss: 'skull', exit: 'forward', wave: 'trophy',
+  dummy: 'sword', clear: 'sword', boss: 'skull', exit: 'forward', wave: 'trophy', fight: 'sword',
   trainer: 'chat', learn: 'book', points: 'plus', leave: 'map', travel: 'map', decide: 'chat', explore: 'map'
 }
 
