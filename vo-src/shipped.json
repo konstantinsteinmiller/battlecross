@@ -1,0 +1,32 @@
+{
+  "en/dlg.elderMara.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "40c9e0831f"
+  },
+  "en/dlg.elderMara.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "6e607b98ff"
+  },
+  "en/dlg.hero.trade": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "9f1507732f"
+  },
+  "en/dlg.hero.trade__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "9f1507732f"
+  },
+  "en/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "4bff882a75"
+  },
+  "en/dlg.hero.who__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-04",
+    "hash": "4bff882a75"
+  }
+}
