@@ -340,7 +340,8 @@ ONE HAND — all 4 busts are the same kind of character drawn by the same artist
 
 ONE CHARACTER — all 4 panels are the SAME young girl hero, the player's own character, painted four times. That is the whole point of this sheet.
 · The same face in every panel: the same head shape, the same big eyes with dark lashes flicking out at the outer corners, the same fine arched brows, the same small smile and rosy cheeks, the same proportions, the same age. A likeable, determined chibi adventurer girl, young but not a child.
-· The same hair in every panel: warm auburn (about #9a4526), a soft side-swept fringe, one lock framing each cheek, and a high ponytail at the back of the head tied with a red ribbon bow (about #e0505e); the ponytail shows beside the head.
+· The same hair in every panel: warm auburn (about #9a4526), a soft side-swept fringe, one lock framing each cheek, and a high ponytail at the back of the head tied with a red ribbon bow (about #e0505e); the ponytail shows beside the head ON THE VIEWER’S LEFT and the fringe sweeps from the viewer’s right, exactly as in the layout reference.
+· She FACES THE VIEWER’S RIGHT: a slight three-quarter turn of the head and shoulders toward the right edge of the panel, the same way in all four panels (the game mirrors the portrait when she walks left). Never toward the left.
 · The same skin in every panel: fair and warm (about #f2c8a0). Green eyes (about #3fa66a).
 · ONLY THE CLOTHES CHANGE between the panels, as each panel's line says. No helmet, no hat, no hood: the face and hair always show.
 · Four different people side by side is the wrong answer however well each is painted. Hold panel 1 against panel 4: if the face is not obviously the same person, it is not usable.
