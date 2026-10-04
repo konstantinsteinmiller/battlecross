@@ -299,6 +299,7 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 | D73 | Music | A new void theme (void and rift); a test for drop-in files | ground truth; D46 |
 | D75 | Opening fight | Tuned to the most naive play (click, let the hero swing, never a skill or potion, never pull): it wins with 1–5 health (3/212 now). Packs after the first hold 5 enemies, enemy damage ×2.22, and the first level-up waits for the result screen (no refill mid-fight). Skill 1 leaves 83/212, potions alone 99/212. Only the first visit; replays are the zone as tabled (`OPENING`, `tests/game/openingBalance.test.ts`) | **Owner 2026-10-04** |
 | D76 | Experience | A ring round the hero's portrait instead of the strip under the mana bar; the level in a gold sunburst crest on the rim; the ring glints while rested | **Owner 2026-10-04** |
+| D77 | Voice-over | Every English line voiced with Chatterbox (714 files: 38 voices, the girl hero her own takes of the hero's lines); the storyteller's lines and the ending are read by the player's own voice (boy or girl). One list of lines (data/voice-manifest.json) with a text fingerprint per line: a changed text is voiced again; tests/voice/voiceStale.test.ts. Answers outstanding questions 31 and 32 | **Owner 2026-10-04** (roadmap #73) |
 | D74 | Old music styles | The `trance` / `cozy` file mapping stays (a saved setting); noted in `sound-todo.md` | saves |
 
 ### Phases

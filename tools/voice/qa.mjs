@@ -54,7 +54,14 @@ export const budgetFor = (text, max) => Math.max(max ?? 0, words(text).length / 
 /** Whisper's spellings a TTS read cannot help: the cast's names, and homophones it picks the other way. */
 // ADAPT from real failures only, each with a test (tests/voice/voicePost.test.ts).
 const NAMES = [
-  [/^weights$/, 'waits']]
+  [/^weights$/, 'waits'],
+  // British spellings Whisper writes the American way, and a word it hears as its homophone.
+  [/^draft$/, 'draught'],
+  [/^plows$/, 'ploughs'],
+  [/^planes$/, 'plains']]
+/** The same, for what spans an apostrophe (words split there): applied to the whole read first. */
+const HEARD = [
+  [/\bplane's\b/gi, 'plains']]
 const named = (w) => NAMES.reduce((x, [re, to]) => (re.test(x) ? to : x), w)
 
 /** German as it sounds, for comparing: a final d/b/g is spoken t/p/k and a doubled consonant is one
@@ -87,7 +94,8 @@ export const judge = (take, max) => {
   const reasons = []
   // What Whisper heard, as the model was told to say it: numbers as words, the names as written.
   const lang = take.lang ?? 'en'
-  let heard = take.heard == null ? null : words(normalize(take.heard, lang).text).map(named).map(w => sounded(w, lang)).join(' ')
+  const read = take.heard == null ? null : HEARD.reduce((s, [re, to]) => s.replace(re, to), take.heard)
+  let heard = read == null ? null : words(normalize(read, lang).text).map(named).map(w => sounded(w, lang)).join(' ')
   let text = words(take.text).map(w => sounded(w, lang)).join(' ')
   // A line cut off mid-word on purpose ("something's in the—"): its last word is whatever was left of it.
   if (heard != null && /[—-]\s*$/.test(text)) {

@@ -20,7 +20,12 @@ import { normalize } from './normalize.mjs'
  * id, `en/<id>`): the model reads `say`, QA still checks the take against the
  * real text. Add from real failures only.
  */
-const SAY = {}
+const SAY = {
+  // The model said "Lately, mostly swords" twice; short phrases keep it to one.
+  'en/dlg.sunfordSmith.who.2': 'Horseshoes. Ploughs. The odd sword. Lately... mostly swords.',
+  // The model dropped the last sentence; a pause before it keeps it in.
+  'en/dlg.goblinTrader.town.1': 'People still stare. But the baker gives me pie... I like the pie.'
+}
 
 /** Lines that are a sound more than words (a gasp, a laugh): QA only fails added speech. */
 const LOOSE = new Set([])

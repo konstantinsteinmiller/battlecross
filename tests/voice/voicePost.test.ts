@@ -82,6 +82,10 @@ describe('automatic QA', () => {
     expect(judge({ ...good, text: 'Two silver for a cabbage. Two!', heard: '2 silver for a cabbage, 2!' }, 3).ok).toBe(true)
     expect(judge({ ...good, text: 'Goblins took three hens off the Miller farm.', heard: 'The goblins took three hens off the Miller farm.' }, 3).ok).toBe(true)
     expect(judge({ ...good, text: 'Hilda Hammerhand.', heard: 'Hilda Hammer Hand.' }, 3).ok).toBe(true)
+    // British spellings and homophones Whisper writes its own way.
+    expect(judge({ ...good, text: 'Mana draught. Tastes like old coins, but it works.', heard: 'Mana draft. Tastes like old coins, but it works.' }, 4).ok).toBe(true)
+    expect(judge({ ...good, text: 'Nobody\'s taken the plains road in a week.', heard: 'Nobody\'s taken the plane\'s road in a week.' }, 4).ok).toBe(true)
+    expect(judge({ ...good, text: 'Horseshoes, ploughs, the odd sword.', heard: 'Horseshoes, plows, the odd sword.' }, 4).ok).toBe(true)
     // Short lines (≤ 3 words) may lose one word to Whisper.
     expect(judge({ ...good, text: 'Any good?', heard: 'Any could?' }, 3).ok).toBe(true)
     expect(judge({ ...good, seconds: 4.2 }, 3)).toMatchObject({ ok: true, warnings: [expect.stringMatching(/long/)] })
