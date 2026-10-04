@@ -297,6 +297,8 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 | D71 | Weekly modifier | By UTC week: All fire, No potions, Glass, Swarm, Elite parade, Haste | roadmap #10 |
 | D72 | Wave board | Weekly best-wave board on the Worker's new `board` key; Colosseum tab; baked builds show the personal best | **Answered by the owner 2026-10-04** ("you do the deployment") |
 | D73 | Music | A new void theme (void and rift); a test for drop-in files | ground truth; D46 |
+| D75 | Opening fight | Tuned to the most naive play (click, let the hero swing, never a skill or potion, never pull): it wins with 1–5 health (3/212 now). Packs after the first hold 5 enemies, enemy damage ×2.22, and the first level-up waits for the result screen (no refill mid-fight). Skill 1 leaves 83/212, potions alone 99/212. Only the first visit; replays are the zone as tabled (`OPENING`, `tests/game/openingBalance.test.ts`) | **Owner 2026-10-04** |
+| D76 | Experience | A ring round the hero's portrait instead of the strip under the mana bar; the level in a gold sunburst crest on the rim; the ring glints while rested | **Owner 2026-10-04** |
 | D74 | Old music styles | The `trance` / `cozy` file mapping stays (a saved setting); noted in `sound-todo.md` | saves |
 
 ### Phases

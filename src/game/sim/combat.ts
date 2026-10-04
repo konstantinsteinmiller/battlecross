@@ -1,6 +1,6 @@
 import { SKILL_BY_ID } from '../data/skills'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
-import { killGold, killXp, addXp } from '../data/progression'
+import { killGold, killXp, addXp, xpToNext } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
 import { RESTED_XP } from '../rested'
 import { BLESSING } from '../contracts'
@@ -504,6 +504,12 @@ export const grantXp = (sim: Sim, amount: number): void => {
   const h = sim.hero
   if (!h || amount <= 0) return
   h.xp += amount
+  // The opening fight banks its level-up for the result screen (`holdLevelUp`).
+  if (sim.holdLevelUp) {
+    h.xpInto = Math.min(h.xpInto + amount, Math.max(0, xpToNext(h.level) - 1))
+    sim.emit({ t: 'xp', amount })
+    return
+  }
   const r = addXp(h.level, h.xpInto, amount)
   h.xpInto = r.xp
   sim.emit({ t: 'xp', amount })

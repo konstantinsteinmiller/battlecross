@@ -8,7 +8,7 @@ import { sceneQuality } from '../engine/quality'
 import { sfx } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SKILL_BY_ID } from '../data/skills'
-import { ARENA_WAVES, TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
+import { ARENA_WAVES, OPENING, TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
@@ -223,13 +223,15 @@ export class ZoneMode implements GameMode {
         : setup.encounter
           ? generateEncounter(setup.encounter, setup.seed)
           : generateZone(ZONES[setup.zone!], setup.seed, {
-            tutorial: setup.tutorial, ambush: setup.ambush, extra: setup.extra,
+            tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
             ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
           })
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
     if (setup.arenaMod) sim.arenaMod = setup.arenaMod
+    // The opening fight's own tuning (`OPENING`): harder blows, the level-up on the result screen.
+    if (setup.kind === 'zone' && setup.tutorial) { sim.enemyDmgMul = OPENING.dmg; sim.holdLevelUp = true }
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,

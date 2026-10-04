@@ -255,6 +255,11 @@ export class Sim {
   leaveAt = 0
   leaveOpened = false
   wave: WaveState = { n: 0, cleared: 0, rest: 0, alive: 0 }
+  /** Enemy damage multiplier on top of the difficulty (the opening fight, `OPENING.dmg`). */
+  enemyDmgMul = 1
+  /** XP is earned but the level-up waits for the result screen (the opening
+   *  fight: a refill there would undo its tuning). */
+  holdLevelUp = false
   /** The colosseum's weekly modifier (roadmap #10; '' everywhere else). */
   arenaMod: ArenaMod | '' = ''
   /** Where waves spawn (arena) and where the zone's exit / chest stands. */

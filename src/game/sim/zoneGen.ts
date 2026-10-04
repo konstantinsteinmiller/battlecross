@@ -241,6 +241,8 @@ const weighted = (rng: Rng, kinds: ZoneDef['kinds']): string => {
 export interface ZoneGenOpts {
   /** The very first visit: a soft opening pack close to the start. */
   tutorial?: boolean
+  /** The opening fight's pack size after its first pack (`OPENING.pack`). */
+  openingPack?: number
   /** A hostile faction's ambush pack (unit kind). */
   ambush?: string | null
   /** Extra enemies per pack (a quest left the zone infested). */
@@ -343,7 +345,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       // Two plain goblins: something to learn the controls on.
       kinds.push(def.kinds[0]!.kind, def.kinds[0]!.kind)
       size = 0
-    }
+    } else if (o.tutorial && o.openingPack) size = o.openingPack
     let elites = 0
     for (let q = 0; q < size; q++) {
       let kind = weighted(rng, def.kinds)

@@ -23,7 +23,7 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     h: def.h,
     s: plainStats({
       hp: enemyHp(level) * def.hp * sim.difficulty,
-      dmg: enemyDmg(level) * def.dmg * sim.difficulty,
+      dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul,
       armor: def.armor * level,
       resist: def.resist,
       speed: def.speed,
