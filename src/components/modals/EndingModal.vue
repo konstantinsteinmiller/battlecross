@@ -25,7 +25,7 @@
 /** The ending the hero's choices added up to (GDD §3.2): which power holds
  *  the throne, and a line for each thing done on the way there. The world
  *  stays open afterwards — the Rift, the colosseum, the gear left to find. */
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EPILOGUE_FLAGS, endingOf } from '@/game/data/quests'
 import { flagSet, markTip, profile } from '@/game/state/profile'
@@ -34,11 +34,28 @@ import { clock, fmt } from '@/utils/format'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import Portrait from '@/components/art/Portrait.vue'
+import { speakLine, stopSpeech } from '@/game/audio/speech'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const flags = computed(() => flagSet())
 const kind = computed(() => endingOf(flags.value) || 'free')
 const notes = computed(() => EPILOGUE_FLAGS.filter(f => flags.value.has(f)))
+
+/**
+ * The hero (or the girl hero) reads the ending out (roadmap #73): what became
+ * of the throne, then each thing done on the way, then what is left to do.
+ * A line with no recording is skipped; closing the window stops the voice.
+ */
+let reading = true
+onMounted(async () => {
+  const ids = [`ending.${kind.value}.text`, ...notes.value.map(f => `ending.note.${f}`), 'ending.more']
+  for (const id of ids) {
+    if (!reading) return
+    const sec = await speakLine(id, locale.value)
+    if (sec > 0) await new Promise(r => setTimeout(r, (sec + 0.35) * 1000))
+  }
+})
+onUnmounted(() => { reading = false; stopSpeech() })
 
 const done = (): void => {
   markTip('endingSeen')

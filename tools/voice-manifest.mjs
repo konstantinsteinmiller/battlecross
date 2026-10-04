@@ -21,6 +21,7 @@
  * it cannot drift from what the game speaks; a test holds the file to it.
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import en from '@/i18n/locales/en'
@@ -45,13 +46,17 @@ const lines = dialogLines(SPOKEN, text).map(l => ({
   id: l.id,
   speaker: l.speaker,
   // Who it is, in words (the person ADDRESSED, for a line of the hero's).
-  who: l.speaker === 'hero' ? 'The hero' : l.speaker === 'heroine' ? 'The girl hero' : l.speaker === 'narrator' ? 'The storyteller' : text(l.name),
+  who: l.narrated ? (l.speaker === 'heroine' ? 'The girl hero, telling the story' : 'The hero, telling the story') : l.speaker === 'hero' ? 'The hero' : l.speaker === 'heroine' ? 'The girl hero' : text(l.name),
+  ...(l.narrated ? { narrated: true } : {}),
   ...(l.look && l.look !== l.speaker ? { look: l.look } : {}),
   scene: l.scene,
   ...(heroic(l.speaker) && l.name ? { to: text(l.name) } : {}),
   emotion: l.emotion,
   ...(l.gesture ? { gesture: l.gesture } : {}),
   text: l.text,
+  // The text's fingerprint: a recording made from other words is stale and
+  // is voiced again (`pnpm voice:gen`; tests/voice/voiceStale.test.ts).
+  textHash: createHash('sha1').update(l.text.trim().replace(/\s+/g, ' ')).digest('hex').slice(0, 10),
   file: l.file,
   ...(l.variantOf ? { variantOf: l.variantOf } : {})
 }))

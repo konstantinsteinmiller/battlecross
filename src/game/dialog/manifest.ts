@@ -1,4 +1,5 @@
 import { END_LINE } from './runner'
+import { EPILOGUE_FLAGS } from '../data/quests'
 import type { BlockDef, ConversationDef, Emotion, Gesture, LineDef } from './types'
 
 /**
@@ -33,7 +34,23 @@ export interface ManifestLine {
   file: string
   /** A feminine take (`<id>__f`, roadmap #71): the line it is a take of. */
   variantOf?: string
+  /** Told, not said to someone: the player's own voice narrates it (roadmap #73). */
+  narrated?: true
 }
+
+/**
+ * What the player's own voice reads out (roadmap #73): the story told between
+ * the conversations — a quest's outcome, which was the storyteller's — and the
+ * ending, which is the closest thing the game has to a letter. Read by the
+ * hero, or by the girl hero in her own takes, so a player hears it rather than
+ * reads it.
+ */
+export const ENDINGS = ['order', 'syndicate', 'circle', 'free', 'unbound'] as const
+export const narrationIds = (): string[] => [
+  ...ENDINGS.map(k => `ending.${k}.text`),
+  ...EPILOGUE_FLAGS.map(f => `ending.note.${f}`),
+  'ending.more'
+]
 
 /** The suffix of a feminine take; the same as the i18n variant's (`i18n/gendered.ts`). */
 export const FEMININE_TAKE = '__f'
@@ -70,10 +87,14 @@ export const dialogLines = (
   const out = new Map<string, ManifestLine>()
   const add = (l: LineDef, c: ConversationDef | null): void => {
     if (out.has(l.id)) return
-    const speaker = c ? voiceOf(c, l) : l.by
+    const voice = c ? voiceOf(c, l) : l.by
+    // The storyteller is the player's own voice now (#73).
+    const narrated = voice === 'narrator'
+    const speaker = narrated ? 'hero' : voice
     out.set(l.id, {
       id: l.id,
       speaker,
+      ...(narrated ? { narrated: true as const } : {}),
       look: l.by === 'npc' && c ? c.look : l.by === 'narrator' ? '' : l.by,
       scene: !c || l.id.startsWith('dlg.hero.') ? 'hero' : c.id,
       name: c ? c.name : '',
@@ -85,6 +106,10 @@ export const dialogLines = (
   }
   add(END_LINE, null)
   for (const c of convs) for (const l of linesOf(c)) add(l, c)
+  // The ending, read in the player's voice.
+  for (const id of narrationIds()) {
+    if (!out.has(id)) out.set(id, { id, speaker: 'hero', narrated: true, look: '', scene: 'ending', name: '', emotion: 'neutral', text: text(id), file: `public/${voicePath(lang, id)}` })
+  }
   const lines = [...out.values()]
   return [...lines, ...feminineTakes(lines, text, lang)]
 }

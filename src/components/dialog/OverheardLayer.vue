@@ -27,8 +27,9 @@ import { revealed } from '@/game/dialog/pacing'
 import { Overhearing, type HeardLine } from '@/game/overheard'
 import { townChats, townSay } from '@/game/sim/townLife'
 import SpeechBubble from './SpeechBubble.vue'
+import { speakLine } from '@/game/audio/speech'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const heard = new Overhearing()
 const line = shallowRef<HeardLine | null>(null)
 const bubble = ref<InstanceType<typeof SpeechBubble> | null>(null)
@@ -57,7 +58,12 @@ onMounted(() => {
       say: (unit, seconds) => townSay(zone.sim, unit, seconds),
       text: key => t(key)
     })
-    if (now?.key !== line.value?.key || now?.unit !== line.value?.unit) line.value = now
+    if (now?.key !== line.value?.key || now?.unit !== line.value?.unit) {
+      line.value = now
+      // Its recording, if it has one (roadmap #73). Small talk is heard only
+      // while nobody talks to the hero (`quiet`), so it never cuts a line off.
+      if (now && !flow.talk && !flow.modal) void speakLine(now.key, locale.value)
+    }
     if (!now) return
     const b = bubble.value
     const el = b?.$el as HTMLElement | undefined

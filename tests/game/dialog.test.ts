@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 import en from '@/i18n/locales/en'
 import { conversation, decision, choiceNeeds } from '@/game/dialog/build'
 import { lockReasons, meets } from '@/game/dialog/conditions'
-import { dialogLines, feminineTakes, linesOf, voicePath } from '@/game/dialog/manifest'
+import { dialogLines, feminineTakes, linesOf, narrationIds, voicePath } from '@/game/dialog/manifest'
 import { graphemes, isDense, revealed, speakSeconds, typeSeconds } from '@/game/dialog/pacing'
 import { DialogRunner, END_CHOICE, END_LINE, hasNews } from '@/game/dialog/runner'
 import type { Cond, ConversationDef, DialogHost, DialogWorld, Offer, TalkWindow } from '@/game/dialog/types'
@@ -601,6 +601,8 @@ describe('the voice manifest', () => {
   it('lists every line once, with its speaker, its English text and where its recording goes', () => {
     const ids = new Set(SPOKEN.flatMap(c => linesOf(c).map(l => l.id)))
     ids.add(END_LINE.id)
+    // The ending, read in the player's voice (roadmap #73).
+    for (const id of narrationIds()) ids.add(id)
     // The girl hero's takes (roadmap #71) are entries of their own, below.
     const lines = manifest.filter(m => !m.variantOf)
     expect(lines.length).toBe(ids.size)
@@ -632,7 +634,11 @@ describe('the voice manifest', () => {
     expect(by('dlg.quest.core.ask.1').speaker).toBe('forgemaster')
     expect(by('dlg.elderMara.quest.2')).toMatchObject({ speaker: 'hero', scene: 'elderMara' })
     expect(by('dlg.quest.goblinKing.ask.1')).toMatchObject({ speaker: 'goblinKing', scene: 'quest.goblinKing' })
-    expect(by('dlg.quest.goblinKing.slay.1')).toMatchObject({ speaker: 'narrator' })
+    // The storyteller is the player's own voice (roadmap #73): the hero, and the girl hero in her takes.
+    expect(by('dlg.quest.goblinKing.slay.1')).toMatchObject({ speaker: 'hero', narrated: true })
+    expect(by('dlg.quest.goblinKing.slay.1__f')).toMatchObject({ speaker: 'heroine', narrated: true })
+    expect(by('ending.free.text')).toMatchObject({ speaker: 'hero', narrated: true, scene: 'ending' })
+    expect(by('ending.free.text__f')).toMatchObject({ speaker: 'heroine' })
     expect(by('dlg.quest.goblinKing.slay.say')).toMatchObject({ speaker: 'hero' })
   })
 
