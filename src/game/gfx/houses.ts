@@ -732,19 +732,29 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     const eastTop = fl(F)
     const northTop = fl(F)
     const wy = enterable ? 0 : BASE_H - 0.01
-    B.hull.box(-W / 2, wy, -D / 2, -W / 2 + T, westTop, D / 2, { west: wallC, east: inner, top: p.timber, front: wallC, back: wallC }, 'b')
-    B.hull.box(W / 2 - T, wy, -D / 2, W / 2, eastTop, D / 2, { east: wallC, west: inner, top: p.timber, front: wallC, back: wallC }, 'b')
-    B.hull.box(-W / 2 + T, wy, -D / 2, W / 2 - T, northTop, -D / 2 + T, { back: wallC, front: inner, top: p.timber }, 'b')
-    // ── The front wall, around the door (and the forge's mouth) ──
+    // ── The front wall's opening (the door, or the forge's mouth) ──
     const fz = D / 2
     const openW = workshop ? Math.min(W - 1.2, 2.6) : doorW
     const openH = workshop ? 1.9 : doorH
     const ox = workshop ? 0 : doorX
     const fTop = c.ruined ? fl(F) : F
     const F0 = wy
+    // Every wall piece that meets the lintel's side is cut at the lintel's
+    // foot, so two faces in one plane share their whole edge, corner for
+    // corner. Where one piece's edge ran past a corner of its neighbour (a
+    // T-junction) the rasterizer left a one-pixel crack, and the dark outline
+    // behind showed through as a dashed seam on every house (owner, 2026-10-04).
+    const cuts = (top: number): number[] => (openH > F0 + 0.01 && openH < top - 0.01 ? [F0, openH, top] : [F0, top])
+    const stack = (k: Mesher, x0: number, z0: number, x1: number, top: number, z1: number, col: Parameters<Mesher['box']>[6]): void => {
+      const ys = cuts(top)
+      for (let i = 0; i < ys.length - 1; i++) k.box(x0, ys[i]!, z0, x1, ys[i + 1]!, z1, col, 'b')
+    }
+    stack(B.hull, -W / 2, -D / 2, -W / 2 + T, westTop, D / 2, { west: wallC, east: inner, top: p.timber, front: wallC, back: wallC })
+    stack(B.hull, W / 2 - T, -D / 2, W / 2, eastTop, D / 2, { east: wallC, west: inner, top: p.timber, front: wallC, back: wallC })
+    B.hull.box(-W / 2 + T, wy, -D / 2, W / 2 - T, northTop, -D / 2 + T, { back: wallC, front: inner, top: p.timber }, 'b')
     const fc = { front: wallC, back: inner, top: p.timber, side: wallC }
-    front.hull.box(-W / 2 + T, F0, fz - T, ox - openW / 2, fTop, fz, fc, 'b')
-    front.hull.box(ox + openW / 2, F0, fz - T, W / 2 - T, fTop, fz, fc, 'b')
+    stack(front.hull, -W / 2 + T, fz - T, ox - openW / 2, fTop, fz, fc)
+    stack(front.hull, ox + openW / 2, fz - T, W / 2 - T, fTop, fz, fc)
     front.hull.box(ox - openW / 2, openH, fz - T, ox + openW / 2, fTop, fz, fc, 'b')
     if (!enterable && !workshop) {
       // A closed house's doorway is dark behind its door.

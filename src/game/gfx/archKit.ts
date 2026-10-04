@@ -51,6 +51,9 @@ export class Mesher {
   col: number[] = []
   idx: number[] = []
   private stack: Matrix4[] = []
+  /** Every box made, as its local extent and the inverse of its frame, with a
+   *  world bound for a quick reject: what `welded` tests buried faces against. */
+  private solids: Array<{ inv: Matrix4; lo: [number, number, number]; hi: [number, number, number]; wlo: Vector3; whi: Vector3 }> = []
   private m = new Matrix4()
   private nm = new Matrix3()
 
@@ -134,6 +137,7 @@ export class Mesher {
       return (c as Record<string, Col | undefined>)[k] ?? c.side ?? c.top ?? '#ff00ff'
     }
     const g = (top: Col): Col | [Col, Col, Col, Col] => (foot ? [foot, foot, top, top] : top)
+    this.solid(x0, y0, z0, x1, y1, z1)
     if (!skip.includes('t')) this.quad(x0, y1, z1, x1, y1, z1, x1, y1, z0, x0, y1, z0, f('top'))
     if (!skip.includes('b')) this.quad(x0, y0, z0, x1, y0, z0, x1, y0, z1, x0, y0, z1, f('bottom'))
     // South (+Z), north (−Z), east (+X), west (−X).
@@ -142,6 +146,29 @@ export class Mesher {
     if (!skip.includes('e')) this.quad(x1, y0, z1, x1, y0, z0, x1, y1, z0, x1, y1, z1, g(f('east')))
     if (!skip.includes('w')) this.quad(x0, y0, z0, x0, y0, z1, x0, y1, z1, x0, y1, z0, g(f('west')))
     return this
+  }
+
+  /** Remember a box's volume (for `welded`). */
+  private solid(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number): void {
+    const wlo = new Vector3(Infinity, Infinity, Infinity)
+    const whi = new Vector3(-Infinity, -Infinity, -Infinity)
+    for (let k = 0; k < 8; k++) {
+      _v.set(k & 1 ? x1 : x0, k & 2 ? y1 : y0, k & 4 ? z1 : z0).applyMatrix4(this.m)
+      wlo.min(_v)
+      whi.max(_v)
+    }
+    this.solids.push({ inv: this.m.clone().invert(), lo: [Math.min(x0, x1), Math.min(y0, y1), Math.min(z0, z1)], hi: [Math.max(x0, x1), Math.max(y0, y1), Math.max(z0, z1)], wlo, whi })
+  }
+
+  /** Is this world point inside one of the boxes (not on its skin)? */
+  private insideSolid(p: Vector3): boolean {
+    const e = 1e-4
+    for (const s of this.solids) {
+      if (p.x <= s.wlo.x || p.y <= s.wlo.y || p.z <= s.wlo.z || p.x >= s.whi.x || p.y >= s.whi.y || p.z >= s.whi.z) continue
+      _a.copy(p).applyMatrix4(s.inv)
+      if (_a.x > s.lo[0] + e && _a.x < s.hi[0] - e && _a.y > s.lo[1] + e && _a.y < s.hi[1] - e && _a.z > s.lo[2] + e && _a.z < s.hi[2] - e) return true
+    }
+    return false
   }
 
   /** A box by centre and size. */
@@ -334,21 +361,42 @@ export class Mesher {
     return g
   }
 
-  /** The same positions with WELDED normals: the outline hull's geometry. */
+  /**
+   * The same positions with WELDED normals: the outline hull's geometry.
+   *
+   * A face that lies against another box of this mesh (the end of a wall piece
+   * buried in the corner wall, the joint over a door) is left out of it. Kept,
+   * its welded normals pointed sideways, the outline pushed it out through the
+   * plaster, and its back showed as a thin flickering strip on the wall —
+   * the "seams" on every house (owner, 2026-10-04).
+   */
   welded(): BufferGeometry {
     const sum = new Map<string, [number, number, number]>()
     const keys: string[] = []
     const P = this.pos
     const Nn = this.nor
+    const idx: number[] = []
+    const used = new Uint8Array(P.length / 3)
+    for (let t = 0; t < this.idx.length; t += 3) {
+      const a = this.idx[t]!, b = this.idx[t + 1]!, c = this.idx[t + 2]!
+      // A point just outside the face, along its normal: inside another box means buried.
+      _v.set((P[a * 3]! + P[b * 3]! + P[c * 3]!) / 3, (P[a * 3 + 1]! + P[b * 3 + 1]! + P[c * 3 + 1]!) / 3, (P[a * 3 + 2]! + P[b * 3 + 2]! + P[c * 3 + 2]!) / 3)
+      _v.addScaledVector(_n.set(Nn[a * 3]!, Nn[a * 3 + 1]!, Nn[a * 3 + 2]!), 0.01)
+      if (this.insideSolid(_v)) continue
+      idx.push(a, b, c)
+      used[a] = used[b] = used[c] = 1
+    }
     for (let i = 0; i < P.length; i += 3) {
       const key = `${Math.round(P[i]! * 200)},${Math.round(P[i + 1]! * 200)},${Math.round(P[i + 2]! * 200)}`
       keys.push(key)
+      // A buried face's normals are not the shell's.
+      if (!used[i / 3]) continue
       const s = sum.get(key)
       if (s) { s[0] += Nn[i]!; s[1] += Nn[i + 1]!; s[2] += Nn[i + 2]! } else sum.set(key, [Nn[i]!, Nn[i + 1]!, Nn[i + 2]!])
     }
     const nor = new Float32Array(P.length)
     for (let v = 0; v < keys.length; v++) {
-      const s = sum.get(keys[v]!)!
+      const s = sum.get(keys[v]!) ?? [0, 1, 0]
       const l = Math.hypot(s[0], s[1], s[2]) || 1
       nor[v * 3] = s[0] / l
       nor[v * 3 + 1] = s[1] / l
@@ -357,7 +405,7 @@ export class Mesher {
     const g = new BufferGeometry()
     g.setAttribute('position', new Float32BufferAttribute(this.pos, 3))
     g.setAttribute('normal', new Float32BufferAttribute(nor, 3))
-    g.setIndex(new Uint32BufferAttribute(this.idx, 1))
+    g.setIndex(new Uint32BufferAttribute(idx, 1))
     if (Mesher.trace) g.userData.labels = this.labels.slice()
     g.computeBoundingSphere()
     return g
