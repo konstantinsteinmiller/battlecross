@@ -20,9 +20,10 @@ export type { Ev, Inst, Out } from './voices'
  *   meadow    Sunford Fields     D major       4/4   plains, farmland
  *   wildwood  Whispering Canopy  E dorian      6/8   forest, the ruined town
  *   deep      Hollow Echoes      C aeolian     4/4   cave, mine
- *   ember     Cinder Road        D phrygian    4/4   ash, the rift
+ *   ember     Cinder Road        D phrygian    4/4   ash
  *   frost     Snowbound          B aeolian     3/4   snow, the peak
- *   sanctum   The Silent Nave    G dorian      4/4   temple, the void
+ *   sanctum   The Silent Nave    G dorian      4/4   temple
+ *   unmade    The Unmade         F aeolian     4/4   the void citadel, the rift
  *   bastion   Iron Banner        A aeolian     4/4   fortress, arena
  *   journey   The Long Road      G mixolydian  4/4   the travelling piece: any zone, between passes of its theme
  *   boss      Trial of Blades    D aeolian     4/4   a boss is awake
@@ -35,7 +36,7 @@ export type { Ev, Inst, Out } from './voices'
  */
 
 /** What the game asks for: an area's theme, or the boss fight. */
-export type TrackId = 'town' | 'meadow' | 'wildwood' | 'deep' | 'ember' | 'frost' | 'sanctum' | 'bastion' | 'boss'
+export type TrackId = 'town' | 'meadow' | 'wildwood' | 'deep' | 'ember' | 'frost' | 'sanctum' | 'unmade' | 'bastion' | 'boss'
 /** Everything that can sound: the tracks, the travelling piece, the two jingles. */
 export type SongId = TrackId | 'journey' | 'victory' | 'defeat'
 export type SongKind = 'area' | 'travel' | 'boss' | 'jingle'
@@ -575,6 +576,56 @@ const sanctum = (): Song => {
   })
 }
 
+// ─── "The Unmade" — the void citadel and the rift. F aeolian, 4/4, 60 BPM ───
+// A 8 · B 8 = 16 bars, 64 s (roadmap #16).
+// The edge of the world, where things come apart. The opening is nearly
+// empty: a celesta turning over the chord high up, the piano's low octaves,
+// a plucked bass, and the piano picking out a tune that falls more than it
+// climbs. The strings come in halfway, very soft. In the second half the
+// violin sings high over a wordless choir on the chord's fifth, and a far-off
+// drum sounds twice. Minor all the way, no raised leading tone: it never
+// quite comes home.
+
+const unmade = (): Song => {
+  const S = new Score(16, 16, 61)
+  const harm = 'Fm Db Bbm Cm Fm Ab Db Cm  Db Eb Fm Fm Bbm Db Cm Fm'.split(/\s+/)
+  // Three-note string chords, voiced to move by step (no parallel fifths).
+  const pad: Record<string, string> = {
+    Fm: 'F3 Ab3 C4', Db: 'F3 Ab3 Db4', Bbm: 'F3 Bb3 Db4', Cm: 'G3 C4 Eb4', Ab: 'Eb3 Ab3 C4', Eb: 'G3 Bb3 Eb4'
+  }
+  const root: Record<string, string> = { Fm: 'F2', Db: 'Db3', Bbm: 'Bb2', Cm: 'C3', Ab: 'Ab2', Eb: 'Eb3' }
+  const bell: Record<string, string> = {
+    Fm: 'F5 Ab5 C6', Db: 'F5 Ab5 Db6', Bbm: 'F5 Bb5 Db6', Cm: 'G5 C6 Eb6', Ab: 'Eb5 Ab5 C6', Eb: 'G5 Bb5 Eb6'
+  }
+  // The choir holds one note, the chord's fifth, high and hollow.
+  const fifth: Record<string, string> = { Fm: 'C5', Db: 'Ab4', Bbm: 'F4', Cm: 'G4', Ab: 'Eb4', Eb: 'Bb4' }
+
+  S.tune(0, 'piano', 'C5/8 Ab4/4 F4/4 | F4/8 Ab4/8 | Bb4/8 Db5/8 | C5/8 Eb5/4 C5/4 | C5/8 Ab4/4 F4/4 | Eb4/8 Ab4/8 | F4/8 Ab4/4 Db5/4 | C5/16', [0.5, 0.58])
+  S.tune(8, 'violin', 'F5/8 ~Ab5/8 | G5/8 ~Bb5/4 G5/4 | Ab5/8 ~F5/8 | F5/4 Ab5/4 C6/8 | Bb5/8 ~Db6/4 Bb5/4 | Ab5/8 ~F5/8 | G5/8 ~Eb5/4 ~G5/4 | ~F5/16', [0.55, 0.7])
+
+  for (let bar = 0; bar < 16; bar++) {
+    const h = harm[bar]!
+    const sec = bar >> 3
+    S.add(bar, 0, 'pizz', note(root[h]!), 4, 0.6)
+    // The piano's low octave, a long breath on the downbeat; one note under the choir.
+    const r = root[h]!
+    const up = r.replace(/\d/, d => String(Number(d) + 1))
+    if (sec === 0) S.chord(bar, 0, 'piano', `${r} ${up}`, 8, 0.34)
+    else S.add(bar, 0, 'piano', note(up), 12, 0.32)
+    if (sec === 0) S.arp(bar, 2, 'celesta', bell[h]!, [0, 1, 2, 1, 2, 1, 0], 2, 3, 0.3)
+    if (bar >= 4) S.chord(bar, 0, 'strings', pad[h]!, 16, sec === 0 ? 0.4 : 0.55)
+    if (sec === 1) S.chord(bar, 0, 'choir', fifth[h]!, 16, 0.38)
+  }
+  // The far-off drum: twice, under the violin.
+  S.perc(8, 'taiko', 'X...............', 0.55, 31)
+  S.perc(12, 'taiko', 'X...............', 0.55, 31)
+  return finish(S, {
+    id: 'unmade', title: 'The Unmade', kind: 'area', bpm: 60, gain: 0.95, key: ['F', AEOLIAN, 'F minor'],
+    reverb: { seconds: 3, decay: 1.5 },
+    chans: { celesta: { pan: 0.3, send: 0.75 }, choir: { send: 0.75 }, violin: { pan: -0.18, send: 0.6 }, taiko: { send: 0.7 } }
+  })
+}
+
 // ─── "Iron Banner" — fortress and arena. A aeolian, 4/4, 88 BPM ─────────────
 // A 8 · B 8 · A' 8 = 24 bars, 65.5 s.
 // A march. The violin's tune is all dotted rhythm (long–short–LONG) over a
@@ -813,7 +864,7 @@ const defeat = (): Song => {
 
 // ─── Registry ───────────────────────────────────────────────────────────────
 
-const COMPOSE: Record<SongId, () => Song> = { town, meadow, wildwood, deep, ember, frost, sanctum, bastion, journey, boss, victory, defeat }
+const COMPOSE: Record<SongId, () => Song> = { town, meadow, wildwood, deep, ember, frost, sanctum, unmade, bastion, journey, boss, victory, defeat }
 
 /** Every song there is, in the order the table at the top lists them. */
 export const SONG_IDS = Object.keys(COMPOSE) as SongId[]

@@ -2,7 +2,7 @@ import type { ThemeId } from '../data/zones'
 import type { TrackId } from './songs'
 
 /**
- * Which piece of the score (`songs.ts`) a zone's look plays. Eight area themes
+ * Which piece of the score (`songs.ts`) a zone's look plays. Nine area themes
  * cover the fifteen looks: places that feel alike share one.
  */
 const THEME_TRACK: Record<ThemeId, TrackId> = {
@@ -14,11 +14,11 @@ const THEME_TRACK: Record<ThemeId, TrackId> = {
   cave: 'deep',
   mine: 'deep',
   ash: 'ember',
-  rift: 'ember',
+  rift: 'unmade',
   snow: 'frost',
   peak: 'frost',
   temple: 'sanctum',
-  void: 'sanctum',
+  void: 'unmade',
   fortress: 'bastion',
   arena: 'bastion'
 }

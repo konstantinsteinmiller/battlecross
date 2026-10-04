@@ -56,13 +56,19 @@ the composed one does.
 | `meadow` | Sunford Fields | D major, 4/4, 80 | plains, farmland |
 | `wildwood` | Whispering Canopy | E dorian, 6/8, 84 | forest, the ruined town |
 | `deep` | Hollow Echoes | C minor, 4/4, 60 | cave, mine |
-| `ember` | Cinder Road | D phrygian, 4/4, 76 | ash crags, the rift |
+| `ember` | Cinder Road | D phrygian, 4/4, 76 | ash crags |
 | `frost` | Snowbound | B minor, 3/4, 66 | tundra, the peak |
-| `sanctum` | The Silent Nave | G dorian, 4/4, 63 | temple, the void citadel |
+| `sanctum` | The Silent Nave | G dorian, 4/4, 63 | temple |
+| `unmade` | The Unmade | F minor, 4/4, 60 | the void citadel, the rift |
 | `bastion` | Iron Banner | A minor, 4/4, 88 | fortress, arena |
 | `journey` | The Long Road | G mixolydian, 4/4, 72 | the travelling piece: any zone, after its theme has played |
 | `boss` | Trial of Blades | D minor, 4/4, 112 | a boss is awake (loops without its intro) |
 | `victory`, `defeat` | | D major / D minor | the result jingles, played once |
+
+The music style option still offers the predecessor's two file styles under
+the values `trance` and `cozy` (`useUser.ts`, `useSound.ts`): a saved setting,
+so they stay; with no `trance.ogg` or `cozy.ogg` in `public/audio/` they fall
+back to this score.
 
 A recorded replacement should keep the piece's length and character: a loop
 of about a minute, slow (60 to 92 beats a minute for the areas), strings and
