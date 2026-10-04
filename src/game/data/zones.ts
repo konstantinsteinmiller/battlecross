@@ -519,6 +519,28 @@ export const nodeOpen = (id: NodeId, cleared: ReadonlySet<string>, flags: Readon
   return n.links.some(l => cleared.has(l))
 }
 
+/**
+ * May the hero walk to and enter a place at all (roadmap #72)? Only the story
+ * locks hold (the colosseum opens with the Goblin King, the rift after the
+ * throne): a place beyond the cleared road is under fog until walked into,
+ * and too strong for a young hero, but it is his to try.
+ */
+export const nodeReachable = (id: NodeId, flags: ReadonlySet<string>): boolean => {
+  const n = NODE_BY_ID[id]
+  return !!n && (!n.needs || n.needs.every(f => flags.has(f)))
+}
+
+/**
+ * How a zone's levels sit against the hero's (the map badge, roadmap #72):
+ * below him, his match, a little above, well above (7+), or deadly (10+).
+ */
+export type LevelTier = 'low' | 'match' | 'above' | 'high' | 'deadly'
+export const levelTier = (zone: ZoneDef, heroLevel: number): LevelTier => {
+  if (heroLevel > zone.max) return 'low'
+  const gap = zone.min - heroLevel
+  return gap <= 0 ? 'match' : gap < 7 ? 'above' : gap < 10 ? 'high' : 'deadly'
+}
+
 /** Danger skulls: how far above the hero a zone's enemies start. */
 export const dangerOf = (zone: ZoneDef, heroLevel: number): 0 | 1 | 2 | 3 => {
   const gap = zone.min - heroLevel

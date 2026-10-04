@@ -17,8 +17,10 @@
       g(v-if="l.head === 'horns'" fill="#efe6cf")
         path(d="M14 13C9 11 6 6 7 2c3 3 7 4 11 6z")
         path(d="M34 13c5-2 8-7 7-11-3 3-7 4-11 6z")
-      //- a ponytail swings out behind the head, tied with a ribbon
-      g(v-if="ponytail")
+      //- a ponytail swings out behind the head, tied with a ribbon. On the
+      //- viewer's LEFT, with the fringe swept from the right: she looks to the
+      //- right like every portrait the map flips by heading (#72).
+      g(v-if="ponytail" transform="matrix(-1 0 0 1 48 0)")
         path(d="M31 10c7-3 13 2 13 9 0 6-3 11-7 14 1-6 0-11-4-15z" :fill="l.hair")
         path(d="M34.500 12.500c3 0 6 2 7 5" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.200" stroke-linecap="round")
         circle(cx="32.500" cy="10.500" r="2.400" :fill="ribbon")
@@ -29,7 +31,7 @@
       path(v-if="hairCap" d="M10.5 22a13.5 13.5 0 0 1 27 0c-2-5-5-7-8-8-2 3-8 5-13 4-3 0-5 2-6 4z" :fill="l.hair")
       path(v-if="l.head === 'long'" d="M11 20c-2 8-1 14 1 18l4-3c-2-5-2-10-1-15zM37 20c2 8 1 14-1 18l-4-3c2-5 2-10 1-15z" :fill="l.hair")
       //- the ponytail's side locks and swept fringe
-      path(v-if="l.head === 'ponytail'" d="M11 20c-1.500 5-1 9 .500 12l2.500-1.500c-1-3.500-1-7-.500-10.500zM37 20c1.500 5 1 9-.500 12l-2.500-1.500c1-3.500 1-7 .500-10.500zM12 17c3-5 9-7 15-5-4 1-8 4-10 9z" :fill="l.hair")
+      path(v-if="l.head === 'ponytail'" transform="matrix(-1 0 0 1 48 0)" d="M11 20c-1.500 5-1 9 .500 12l2.500-1.500c-1-3.500-1-7-.500-10.500zM37 20c1.500 5 1 9-.500 12l-2.500-1.500c1-3.500 1-7 .500-10.500zM12 17c3-5 9-7 15-5-4 1-8 4-10 9z" :fill="l.hair")
       circle(v-if="l.head === 'bun'" cx="24" cy="7" r="5" :fill="l.hair")
       path(v-if="l.head === 'spiky'" d="M12 14l1-8 5 5 3-8 4 7 5-6 1 8 5-3-2 9z" :fill="l.hair")
       path(v-if="l.head === 'hood'" d="M7 33C4 15 13 4 24 4s20 11 17 29l-5-3c2-10-3-16-12-16s-14 6-12 16z" :fill="l.hair")

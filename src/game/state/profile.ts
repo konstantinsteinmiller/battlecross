@@ -17,7 +17,7 @@ import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
-import { MAP, NODE_BY_ID, ZONES, nodeOpen, type NodeId } from '../data/zones'
+import { MAP, NODE_BY_ID, ZONES, nodeOpen, nodeReachable, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
 import type { UnitStats } from '../sim/types'
 import { heroGenderOf, type HeroGender } from '../art/heroPortrait'
@@ -952,6 +952,8 @@ export const setMapPos = (x: number, y: number): void => {
 }
 
 export const isNodeOpen = (id: NodeId): boolean => nodeOpen(id, new Set(profile.world.cleared), flagSet())
+/** May the hero go there at all (only the story locks hold, roadmap #72)? */
+export const isNodeReachable = (id: NodeId): boolean => nodeReachable(id, flagSet())
 export const openNodes = (): NodeId[] => MAP.filter(n => isNodeOpen(n.id)).map(n => n.id)
 
 /** Mark a node cleared (a zone won, a town entered). Returns whether it was the first time. */

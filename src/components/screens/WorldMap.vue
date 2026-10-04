@@ -6,7 +6,8 @@
     div.wmap__top
       div.wmap__hero-chip
         span.wmap__face
-          Portrait(look="hero")
+          //- No rim on the map: a ring round the hero reads as the fight's experience ring (#72).
+          Portrait(look="hero" ring="transparent")
         span.wmap__who
           span.wmap__level {{ t('hud.level', { n: profile.level }) }}
           span.wmap__gold(@pointerdown="registerQaAdTap()")
@@ -74,7 +75,7 @@
                   ellipse(cx="50" cy="81" rx="45" ry="19")
                 svg.node__art(viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
                 svg.node__clouds(v-if="n.clouds" viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.clouds")
-                span.node__lock(v-if="!n.open" aria-hidden="true")
+                span.node__lock(v-if="!n.enterable" aria-hidden="true")
                   GameIcon(name="lock")
                 span.node__badge.node__badge--done(v-if="n.cleared && n.kind !== 'town'" aria-hidden="true")
                   GameIcon(name="check")
@@ -82,14 +83,16 @@
                   GameIcon(name="chat")
                 span.node__badge.node__badge--trainer(v-if="n.trainer" aria-hidden="true")
                   GameIcon(name="book")
-                span.node__skulls(v-if="n.open && n.danger > 0" aria-hidden="true")
-                  GameIcon(v-for="k in n.danger" :key="k" name="skull")
                 span.node__spark(v-if="n.fresh" aria-hidden="true")
                 span.node__label
                   span.node__new(v-if="n.isNew") {{ t('map.new') }}
                   //- A town and the colosseum say what they are; a zone is the default.
                   GameIcon.node__kind(v-if="n.kind !== 'zone'" :name="n.kind === 'town' ? 'home' : 'trophy'")
                   | {{ t(`node.${n.id}.name`) }}
+                  //- The zone's levels in the badge's corner, coloured against the hero's (#72).
+                  span.node__lvl(v-if="n.zone" :class="`is-${n.tier}`" data-lvl)
+                    | {{ t('map.levels', { min: n.zone.min, max: n.zone.max }) }}
+                    GameIcon.node__lvl-skull(v-if="n.tier === 'deadly'" name="skull")
               //- What was met instead of a fight: a chest at his feet, a merchant beside him.
               div.wmap__find(v-if="find" aria-hidden="true" :class="[`wmap__find--${find.kind}`, { 'is-open': find.open }]" :style="{ '--hx': find.x, '--hy': find.y }")
                 GameIcon(v-if="find.kind === 'chest'" name="chest")
@@ -99,7 +102,7 @@
               div.wmap__hero(ref="heroEl" aria-hidden="true")
                 span.wmap__hero-shadow
                 span.wmap__hero-body
-                  Portrait(look="hero")
+                  Portrait(look="hero" ring="transparent")
                 span.wmap__alert(v-if="alarm") !
               //- The sky: each cloud and each flight of birds is moved as its own layer.
               div.wmap__layer.wmap__sky(aria-hidden="true")
@@ -140,9 +143,9 @@
           //- The ladder's week (#10): its modifier and this week's best.
           span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
           span.card__meta(v-if="sel.kind === 'arena' && arenaWeekBest() > 0") {{ t('ladder.weekBest', { n: arenaWeekBest() }) }}
-          span.card__meta(v-else) {{ t('map.town') }}
+          span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
         p.card__desc {{ t(`node.${sel.id}.desc`) }}
-        p.card__warn(v-if="sel.open && sel.danger > 0")
+        p.card__warn(v-if="sel.enterable && sel.danger > 0")
           GameIcon.card__skull(v-for="k in sel.danger" :key="k" name="skull")
           | {{ t(`map.danger.${sel.danger}`) }}
         div.card__drops(v-if="drops.length")
@@ -151,7 +154,7 @@
         p.card__quest(v-if="questLine") {{ questLine }}
         div.card__actions
           FButton(v-if="trainer" :label="t('map.trainer', { cls: t(`class.${trainer.cls}.name`) })" type="secondary" size="sm" icon="book" @click="visitHiddenTrainer(sel.id)")
-          FButton(v-if="sel.open" :label="t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel')" type="success" size="md" :icon="sel.kind === 'town' ? 'home' : 'sword'" attention @click="go(sel.id)")
+          FButton(v-if="sel.enterable" :label="t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel')" type="success" size="md" :icon="sel.kind === 'town' ? 'home' : 'sword'" attention @click="go(sel.id)")
           p.card__locked(v-else)
             GameIcon.card__lock(name="lock")
             | {{ t(sel.id === 'arena' ? 'map.lockedArena' : sel.id === 'rift' ? 'map.lockedRift' : 'map.locked') }}
@@ -180,7 +183,7 @@
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { MAP, NODE_BY_ID, ZONES, dangerOf, nodeOpen, type NodeId } from '@/game/data/zones'
+import { MAP, NODE_BY_ID, ZONES, dangerOf, levelTier, nodeOpen, nodeReachable, type LevelTier, type NodeId } from '@/game/data/zones'
 import { itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
@@ -248,6 +251,10 @@ const cardOpen = ref(false)
 const cleared = computed(() => new Set(profile.world.cleared))
 const flags = computed(() => flagSet())
 const isOpen = (id: NodeId): boolean => nodeOpen(id, cleared.value, flags.value)
+/** No story lock: the hero may walk there and go in (#72). */
+const isReachable = (id: NodeId): boolean => nodeReachable(id, flags.value)
+/** Walked into, or open: no fog, no cloud. */
+const isSeen = (id: NodeId): boolean => isOpen(id) || !!profile.tips[`mapSeen.${id}`]
 
 // ── Cloud cover ──────────────────────────────────────────────────────────────
 // A place the player has seen open keeps no cloud. Remembered among the save's
@@ -287,6 +294,10 @@ interface NodeView {
   cleared: boolean
   here: boolean
   danger: number
+  /** Reachable and seen: the card offers to go in (#72). */
+  enterable: boolean
+  /** The zone's levels against the hero's (the badge's colour). */
+  tier: LevelTier | ''
   /** A major decision still waits at the end of this zone. */
   decision: boolean
   /** A hidden trainer is found here. */
@@ -319,13 +330,15 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     cleared: done,
     here: hereNode.value === n.id,
     danger: zone ? dangerOf(zone, profile.level) : 0,
+    enterable: isReachable(n.id) && isSeen(n.id),
+    tier: zone ? levelTier(zone, profile.level) : '',
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
     isNew: open && !done && !state && !(profile.world.visits[n.id] ?? 0) && (n.kind !== 'arena' || profile.world.arenaBest === 0),
     fresh: fresh.has(n.id),
     veil: state,
-    art: landmarkSvg(n.id, { locked: !open, ruined: n.id === 'oakhaven' && flags.value.has('oakhavenFallen') }),
-    clouds: !open ? (near ? CLOUDS_NEAR : CLOUDS_FAR) : state ? CLOUDS_NEAR : '',
+    art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: n.id === 'oakhaven' && flags.value.has('oakhavenFallen') }),
+    clouds: !isSeen(n.id) ? (near ? CLOUDS_NEAR : CLOUDS_FAR) : state ? CLOUDS_NEAR : '',
     zone
   }
 }))
@@ -349,14 +362,15 @@ const canReturn = computed(() => NODE_BY_ID[flow.node]?.kind === 'town')
 const roads = computed(() => ROADS.map(r => ({ key: r.key, d: r.d, open: isOpen(r.a) && isOpen(r.b) })))
 
 // ── The ground he may walk, and the fog over the rest ────────────────────────
-const mask = computed(() => walkMask(isOpen))
+// The hero walks anywhere without a story lock; the fog lifts where he has been (#72).
+const mask = computed(() => walkMask(isReachable))
 const fogEl = ref<HTMLCanvasElement | null>(null)
 /** Cells drawn per fog pixel block: the canvas is scaled up smooth (soft edges for free). */
 const FOG_PX = 4
 const drawFog = (): void => {
   const c = fogEl.value
   if (!c) return
-  const cells = fogCells(isOpen)
+  const cells = fogCells(isSeen)
   c.width = GW * FOG_PX
   c.height = GH * FOG_PX
   const g = c.getContext('2d')
@@ -757,6 +771,9 @@ const tick = (now: number): void => {
       placeHero()
       follow(next)
       if (!profile.tips.mapWalked) markTip('mapWalked')
+      // Into a place's land under fog: it is seen now, its fog and cloud lift (#72).
+      const own = mask.value.owner(hero.x, hero.y)
+      if (!profile.tips[`mapSeen.${own}`] && !isOpen(own)) { profile.tips[`mapSeen.${own}`] = true; saveProfile(); drawFog() }
       hint.value = false
     } else if (path) {
       // Stuck against something the straight line did not see: give up the errand.
@@ -800,8 +817,8 @@ const pick = (id: NodeId): void => {
   selected.value = id
   const p = nodeAt(id)
   const there = Math.hypot(p[0] - hero.x, p[1] - hero.y) < ARRIVE
-  // A place not open shows why at once; an open one is walked to.
-  if (!isOpen(id) || there || !sendTo(restAt(id), () => { keepPos(); if (selected.value === id) { cardOpen.value = true; pending = '' } })) {
+  // A place behind a story lock shows why at once; any other is walked to.
+  if (!isReachable(id) || there || !sendTo(restAt(id), () => { keepPos(); if (selected.value === id) { cardOpen.value = true; pending = '' } })) {
     cardOpen.value = true
     pending = ''
   } else {
@@ -1246,6 +1263,39 @@ onBeforeUnmount(() => {
   right: -4%
   +cel.tone('blue')
   +cel.fill(48%, 88%)
+.node__lvl
+  position: absolute
+  // On the badge's top-right corner, standing above the name (never over it).
+  bottom: calc(100% - 0.35em)
+  right: -0.7em
+  display: inline-flex
+  align-items: center
+  gap: 0.15em
+  padding: 0.05em 0.4em
+  border: var(--bc-ol-thin, 2px) solid var(--m-ink)
+  border-radius: var(--bc-r-pill, 999px)
+  box-shadow: 0 2px 0 var(--m-ink)
+  font-size: 0.72em
+  line-height: 1.15
+  white-space: nowrap
+  color: var(--m-ink)
+  pointer-events: none
+  &.is-low
+    background: #b8f0a0
+  &.is-match
+    background: #54c84a
+  &.is-above
+    background: #e07a1c
+    color: #fff4e0
+  &.is-high
+    background: #e0352b
+    color: #fff
+  &.is-deadly
+    background: #5a0d14
+    color: #ffd0c8
+.node__lvl-skull
+  width: 1.25em
+  height: 1.25em
 .node__skulls
   position: absolute
   left: 0

@@ -12,7 +12,7 @@ import { conversationOf, decisionOf } from './data/dialogs'
 import type { ConversationDef } from './dialog/types'
 import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from './talk'
 import {
-  clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, lifetimeXp, profile, saveProfile
+  clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
 import { countContracts, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
@@ -313,7 +313,8 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
  * shaders included.
  */
 export const travel = async (node: NodeId): Promise<void> => {
-  if (flow.loading || !NODE_BY_ID[node] || !isNodeOpen(node)) return
+  // Any place without a story lock: too strong is the player's own risk (#72).
+  if (flow.loading || !NODE_BY_ID[node] || !isNodeReachable(node)) return
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = node
