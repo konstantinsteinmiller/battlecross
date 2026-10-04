@@ -1,10 +1,33 @@
 <template lang="pug">
   div.hero-frame
-    //- The portrait medallion, the level on its rim.
-    div.hero-frame__face
-      span.hero-frame__ring(aria-hidden="true")
+    //- The portrait medallion: experience fills the ring round it, the level
+    //- sits in a gold crest on its rim.
+    div.hero-frame__face(:class="{ 'is-rested': hud.rested }")
+      svg.xpring(
+        viewBox="0 0 100 100"
+        role="meter"
+        :aria-label="t('hud.xp')"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        :aria-valuenow="Math.round(xp01 * 100)"
+        data-xp-ring
+      )
+        //- The groove: an ink rim, a dark channel.
+        circle.xpring__rim(cx="50" cy="50" r="44.5")
+        circle.xpring__groove(cx="50" cy="50" r="44.5")
+        //- The fill from twelve o'clock, clockwise; a lighter band on its outer half (cel).
+        circle.xpring__fill(cx="50" cy="50" r="44.5" pathLength="100" :stroke-dasharray="dash")
+        circle.xpring__band(cx="50" cy="50" r="47" pathLength="100" :stroke-dasharray="dash")
+        //- A quarter, a half, three quarters.
+        line.xpring__tick(v-for="a in TICKS" :key="a" x1="50" y1="0.5" x2="50" y2="11" :transform="`rotate(${a} 50 50)`")
       Portrait.hero-frame__portrait(look="hero" ring="var(--bc-brass-hi)")
-      span.hero-frame__level(:key="hud.level" :class="{ 'is-pop': popped }") {{ hud.level }}
+      span.hero-frame__level(:key="hud.level" :class="{ 'is-pop': popped }" data-level)
+        svg.crest(viewBox="-50 -50 100 100" aria-hidden="true")
+          polygon.crest__burst(:points="BURST")
+          circle.crest__coin(r="31")
+          circle.crest__shine(r="31")
+          circle.crest__inner(r="25")
+        span.crest__n {{ hud.level }}
       //- Points won in this fight and not yet spent: a chip parked on the
       //- medallion until they are (the town's sheet button has its own).
       Transition(name="chip")
@@ -34,8 +57,6 @@
         frame="plain"
         :label="t('hud.heat')"
       )
-      //- Experience: a ticked rule, no ornaments (D42).
-      FBar.hero-frame__xp(:value="hud.xp01" tone="xp" frame="xp" :label="t('hud.xp')")
       div.hero-frame__row
         //- Twenty taps here inside thirty seconds request an interstitial (the
         //- portals' QA back door: see `useQaAdTrigger`). Silent on purpose.
@@ -78,6 +99,17 @@ const shield01 = computed(() => Math.max(0, Math.min(1, hud.shield / Math.max(1,
 const mana01 = computed(() => Math.max(0, Math.min(1, hud.mana / Math.max(1, hud.maxMana))))
 const statuses = computed(() => hud.statuses.slice(0, 6))
 
+/** Experience as the ring round the portrait (the dash of a 100-long circle). */
+const xp01 = computed(() => Math.max(0, Math.min(1, hud.xp01)))
+const dash = computed(() => `${(xp01.value * 100).toFixed(2)} 100`)
+const TICKS = [90, 180, 270]
+/** The level crest's sunburst: twelve rays round a coin. */
+const BURST = Array.from({ length: 24 }, (_, i) => {
+  const a = (i / 24) * Math.PI * 2 - Math.PI / 2
+  const r = i % 2 === 0 ? 48 : 38
+  return `${(Math.cos(a) * r).toFixed(1)},${(Math.sin(a) * r).toFixed(1)}`
+}).join(' ')
+
 /** In a fight the levels gained are banked at its end: the points to spend
  *  are the banked ones plus three for every level the fight has added. */
 const pending = computed(() => flow.screen !== 'zone' ? 0 : profile.hero.points + Math.max(0, hud.level - profile.level) * POINTS_PER_LEVEL)
@@ -113,37 +145,91 @@ onUnmounted(() => clearTimeout(popTimer))
 
 // ── The medallion ────────────────────────────────────────────────────────────
 .hero-frame__face
+  --face: clamp(2.9rem, 13vmin, 4.6rem)
   position: relative
-  width: clamp(2.6rem, 12vmin, 4.2rem)
+  width: var(--face)
   flex: 0 0 auto
-  // The brass ring stands out round the portrait.
-  padding: clamp(3px, 0.9vmin, 5px)
-.hero-frame__ring
+  // Room for the experience ring round the portrait (a percentage would be the row's width).
+  padding: calc(var(--face) * 0.1)
+
+// ── The experience ring ──────────────────────────────────────────────────────
+.xpring
   position: absolute
   inset: 0
-  border: var(--bc-ol-thin) solid var(--bc-ink)
-  border-radius: 50%
-  background: linear-gradient(180deg, var(--bc-brass-hi) 0, var(--bc-brass-hi) 42%, var(--bc-brass-lo) 42%, var(--bc-brass-lo) 100%)
-  box-shadow: 0 var(--bc-press-sm) 0 var(--bc-ink)
+  width: 100%
+  height: 100%
+  overflow: visible
+  filter: drop-shadow(0 2px 0 var(--bc-ink))
+  circle
+    fill: none
+.xpring__rim
+  stroke: var(--bc-ink)
+  stroke-width: 13
+.xpring__groove
+  stroke: var(--bc-purple-deep)
+  stroke-width: 8
+.xpring__fill, .xpring__band
+  transform: rotate(-90deg)
+  transform-origin: 50% 50%
+  transition: stroke-dasharray 420ms var(--bc-ease-bounce)
+.xpring__fill
+  stroke: var(--bc-purple)
+  stroke-width: 8
+.xpring__band
+  stroke: var(--bc-purple-hi)
+  stroke-width: 3
+.xpring__tick
+  stroke: var(--bc-ink)
+  stroke-width: 2.5
+  stroke-linecap: round
+// Rested (#9): the ring glints while kills pay double.
+.hero-frame__face.is-rested .xpring__band
+  animation: xp-glint 1.6s ease-in-out infinite
 .hero-frame__portrait
   position: relative
-// The level: a gold stud on the rim.
+// The level: a gold sunburst crest on the rim, a violet coin, the number in gold.
 .hero-frame__level
-  +cel.tone('gold')
   position: absolute
-  right: -10%
-  bottom: -10%
-  min-width: 1.75em
-  padding: 0.14em 0.3em
-  border-radius: var(--bc-r-pill)
-  border: var(--bc-ol-thin) solid var(--bc-ink)
-  +cel.fill(46%, 100%)
-  box-shadow: 0 2px 0 var(--bc-ink)
-  +cel.label
+  right: -16%
+  bottom: -16%
+  z-index: 1
+  display: grid
+  place-items: center
+  width: 2.5em
+  height: 2.5em
   font-size: clamp(0.66rem, 2.7vmin, 0.94rem)
-  line-height: 1.1
-  text-align: center
+.crest
+  position: absolute
+  inset: 0
+  width: 100%
+  height: 100%
+  overflow: visible
+  filter: drop-shadow(0 2px 0 var(--bc-ink))
+.crest__burst
+  fill: var(--bc-gold)
+  stroke: var(--bc-ink)
+  stroke-width: 5
+  stroke-linejoin: round
+.crest__coin
+  fill: var(--bc-gold-lo)
+  stroke: var(--bc-ink)
+  stroke-width: 4
+// The hard highlight band across the coin's upper half (cel).
+.crest__shine
+  fill: var(--bc-gold-hi)
+  clip-path: inset(0 0 52% 0)
+.crest__inner
+  fill: var(--bc-purple-deep)
+  stroke: var(--bc-gold-hi)
+  stroke-width: 3.5
+.crest__n
+  position: relative
+  +cel.label
+  color: var(--bc-gold-hi)
+  font-size: 1.05em
+  line-height: 1
   text-shadow: var(--bc-text-outline-thin)
+  font-variant-numeric: tabular-nums
 
 // A level gained: the stud swells, flares gold and settles; a ring of light leaves it.
 .hero-frame__level.is-pop
@@ -247,6 +333,11 @@ onUnmounted(() => clearTimeout(popTimer))
   100%
     transform: scale(1)
     filter: none
+@keyframes xp-glint
+  0%, 100%
+    stroke: var(--bc-purple-hi)
+  50%
+    stroke: var(--bc-white)
 @keyframes level-ring
   from
     transform: scale(0.8)
@@ -265,6 +356,6 @@ onUnmounted(() => clearTimeout(popTimer))
   to
     opacity: 0.55
 @media (prefers-reduced-motion: reduce)
-  .hero-frame__heat.is-over, .hero-frame__level.is-pop, .hero-frame__level.is-pop::after, .chip-enter-active
+  .hero-frame__heat.is-over, .hero-frame__level.is-pop, .hero-frame__level.is-pop::after, .chip-enter-active, .hero-frame__face.is-rested .xpring__band
     animation: none
 </style>
