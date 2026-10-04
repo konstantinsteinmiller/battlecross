@@ -102,7 +102,16 @@ const drawGround = (g: CanvasRenderingContext2D): void => {
   }
 }
 
-export const groundDetail = (): Texture => (groundTex ??= make(256, 256, drawGround))
+/** The ground's detail map. Laid flat with v along +z, which is DOWN the screen
+ *  (the camera looks toward -z): unflipped, the image's top row is the far side,
+ *  so its tufts stand up instead of hanging (owner, 2026-10-04). */
+export const groundDetail = (): Texture => {
+  if (!groundTex) {
+    groundTex = make(256, 256, drawGround)
+    groundTex.flipY = false
+  }
+  return groundTex
+}
 
 /** Soft radial glow (particles, pickups, flashes). White, additive. */
 export const glowTexture = (): Texture => {

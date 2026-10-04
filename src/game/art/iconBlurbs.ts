@@ -33,7 +33,7 @@ export const UI_ICONS: readonly IconDef[] = [
   { ref: 'hero', tint: '#4a7fd6', tintName: 'blue', blurb: 'a small head-and-shoulders bust of a young adventurer: round head with short brown hair and a blue tunic' },
   { ref: 'book', tint: '#c9483a', tintName: 'red', blurb: 'an open book seen from the front: two cream pages spread wide over a red leather cover' },
   { ref: 'bag', tint: '#8a5f3a', tintName: 'brown', blurb: 'a sturdy brown leather satchel with a rounded flap, a gold buckle and a short carrying handle on top' },
-  { ref: 'close', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick cross made of two rounded cream-white bars' },
+  { ref: 'close', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick diagonal X (a saltire, like the letter X, NOT an upright plus) made of two rounded cream-white bars crossing at 45 degrees' },
   { ref: 'check', tint: '#5fd068', tintName: 'bright green', blurb: 'a thick, bright green tick mark with rounded ends' },
   { ref: 'lock', tint: '#ffd24a', tintName: 'gold', blurb: 'a gold padlock with a rounded steel shackle and a dark keyhole' },
   { ref: 'plus', tint: '#5fd068', tintName: 'bright green', blurb: 'a thick plus sign with rounded ends, bright green' },

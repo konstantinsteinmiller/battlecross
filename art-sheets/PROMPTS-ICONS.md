@@ -452,7 +452,7 @@ Panel 4 (row 1, column 4): a folded parchment map seen from the front, three pan
 Panel 5 (row 2, column 1): a small head-and-shoulders bust of a young adventurer: round head with short brown hair and a blue tunic. Main colour: blue (about #4a7fd6).
 Panel 6 (row 2, column 2): an open book seen from the front: two cream pages spread wide over a red leather cover. Main colour: red (about #c9483a).
 Panel 7 (row 2, column 3): a sturdy brown leather satchel with a rounded flap, a gold buckle and a short carrying handle on top. Main colour: brown (about #8a5f3a).
-Panel 8 (row 2, column 4): a thick cross made of two rounded cream-white bars. Main colour: cream white (about #f4ecd8).
+Panel 8 (row 2, column 4): a thick diagonal X (a saltire, like the letter X, NOT an upright plus) made of two rounded cream-white bars crossing at 45 degrees. Main colour: cream white (about #f4ecd8).
 Panel 9 (row 3, column 1): a thick, bright green tick mark with rounded ends. Main colour: bright green (about #5fd068).
 Panel 10 (row 3, column 2): a gold padlock with a rounded steel shackle and a dark keyhole. Main colour: gold (about #ffd24a).
 Panel 11 (row 3, column 3): a thick plus sign with rounded ends, bright green. Main colour: bright green (about #5fd068).

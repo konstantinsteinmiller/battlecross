@@ -30,9 +30,11 @@
                   span.lesson__reqs
                     span(:class="{ bad: profile.level < s.level }") {{ t('hud.level', { n: s.level }) }}
                     span(v-for="r in reqsOf(s.id)" :key="r.attr" :class="{ bad: r.have < r.need }") {{ t(`attr.${r.attr}.short`) }} {{ r.need }}
+                //- Learned: a small tick, the word under it (long words never leave the card).
                 span.lesson__price(v-if="knows(s.id)")
-                  GameIcon(name="check")
-                  | {{ t('trainer.known') }}
+                  span.lesson__tick
+                    GameIcon(name="check")
+                  span.lesson__known {{ t('trainer.known') }}
                 PriceTag.lesson__fee(v-else :n="skillCost(s.id)" :base="baseOf(s.id)" :bad="profile.gold < skillCost(s.id)" plain)
 
       //- ── The lesson on the table ────────────────────────────────────────────
@@ -291,14 +293,27 @@ const learn = (): void => {
     color: var(--bc-on-bad)
 .lesson__price
   display: inline-flex
+  flex-direction: column
   align-items: center
-  gap: 0.25em
+  gap: 0.1em
+  min-width: 0
+  max-width: 100%
   color: var(--bc-on-good)
-  font-size: clamp(0.66rem, 2.7vmin, 0.86rem)
-  white-space: nowrap
-  :deep(svg)
-    width: 1em
-    height: 1em
+  font-size: clamp(0.62rem, 2.5vmin, 0.8rem)
+  line-height: 1.1
+  text-align: center
+// The tick is a painted image or a glyph: one box sizes both.
+.lesson__tick
+  display: block
+  width: 1.6em
+  height: 1.6em
+  :deep(svg), :deep(img)
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: contain
+.lesson__known
+  overflow-wrap: anywhere
 .lesson__fee
   color: var(--bc-on-accent)
   font-size: clamp(0.72rem, 2.9vmin, 0.92rem)

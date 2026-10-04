@@ -327,14 +327,11 @@ const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
 //
 // The cel material's ramp and mood (it shares their uniforms, so a cave's dark
 // reaches it), plus what makes the lie of the land READ from a high camera:
-//   • two tones by slope: ground turned to the sun is a step lighter, ground
-//     turned away a step darker, with a crisp edge between (not a gradient);
-//   • contours: a thin darker line every half metre of height, only where the
-//     ground actually slopes, like the hachures on a painted map.
-// Both fade out on water beds, cliff rock, the road and cave floors (`aRelief`).
-
-/** Height between two contour lines (metres). */
-const CONTOUR = 0.5
+//   • two tones by slope: ground turned to the sun is lighter, ground turned
+//     away darker, eased in over a range of slopes. (A crisp edge here drew
+//     straight light/dark bands along the triangle edges of the height grid;
+//     contour lines drew thin dark polygons across the grass: owner, 2026-10-04.)
+// It fades out on water beds, cliff rock, the road and cave floors (`aRelief`).
 /** The world light the cel ramp uses (`cel.ts`), for the slope tones. */
 const SUN = new Vector3(0.4, 0.82, 0.42).normalize()
 
@@ -373,7 +370,6 @@ uniform float uLight;
 uniform float uThreshold;
 uniform sampler2D uMap;
 uniform vec3 uSun;
-uniform float uContour;
 varying vec3 vN;
 varying vec3 vViewN;
 varying vec3 vW;
@@ -388,17 +384,9 @@ void main() {
   float slope = length(n.xz) / max(n.y, 0.2);
   // Two tones by the way the ground faces: toward the sun, or away from it.
   float face = dot(n.xz, uSun.xz) / max(length(uSun.xz), 1e-4) / max(n.y, 0.2);
-  float aaF = fwidth(face) + 0.004;
-  float toSun = smoothstep(0.07 - aaF, 0.07 + aaF, face);
-  float away = 1.0 - smoothstep(-0.07 - aaF, -0.07 + aaF, face);
-  col *= 1.0 + vRelief * (0.17 * toSun - 0.2 * away);
-  // Contours where the ground slopes.
-  float hy = vW.y / uContour;
-  float fw = fwidth(hy);
-  float d = min(fract(hy), 1.0 - fract(hy));
-  float line = 1.0 - smoothstep(fw * 0.7, fw * 1.7, d);
-  line *= smoothstep(0.035, 0.09, slope) * step(fw, 0.45);
-  col *= 1.0 - 0.3 * line * vRelief;
+  float toSun = smoothstep(0.02, 0.3, face);
+  float away = 1.0 - smoothstep(-0.3, -0.02, face);
+  col *= 1.0 + vRelief * (0.12 * toSun - 0.14 * away) * smoothstep(0.0, 0.06, slope);
   gl_FragColor = vec4(col * uAmbient, 1.0);
   #include <colorspace_fragment>
   #include <fog_fragment>
@@ -413,7 +401,7 @@ const groundMaterial = (map: Texture): ShaderMaterial => {
   // The cel material's shared light and mood, by reference.
   const ref = celVCMap(map).uniforms
   const m = new ShaderMaterial({
-    uniforms: UniformsUtils.merge([UniformsLib.fog, { uMap: { value: map }, uSun: { value: SUN.clone() }, uContour: { value: CONTOUR } }]),
+    uniforms: UniformsUtils.merge([UniformsLib.fog, { uMap: { value: map }, uSun: { value: SUN.clone() } }]),
     vertexShader: GROUND_VERT,
     fragmentShader: GROUND_FRAG,
     vertexColors: true,
@@ -717,10 +705,19 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     return n ? t / n : 0
   }
   const cellNear = (gi: number, gj: number): number => {
-    // The vertex's cell (clamped), for the rim falloff.
-    const i = Math.min(w - 1, Math.floor(gi / SUB))
-    const j = Math.min(h - 1, Math.floor(gj / SUB))
-    return near[j * w + i]!
+    // For the rim falloff: the distance averaged over the cells touching this
+    // vertex, so the fade has no steps (one cell's value drew hard bands).
+    let t = 0
+    let n = 0
+    for (let dj = -1; dj <= 0; dj++) {
+      for (let di = -1; di <= 0; di++) {
+        const i = Math.min(w - 1, Math.max(0, Math.floor((gi + di) / SUB)))
+        const j = Math.min(h - 1, Math.max(0, Math.floor((gj + dj) / SUB)))
+        t += near[j * w + i]!
+        n++
+      }
+    }
+    return t / n
   }
   const trailAt = (gi: number, gj: number): number => {
     // Soft trail: average over the cells touching this vertex.
@@ -756,7 +753,8 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     if (d > 0) {
       const ci = Math.min(w - 1, Math.floor(gi / SUB))
       const cj = Math.min(h - 1, Math.floor(gj / SUB))
-      c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, Math.min(1, d / 2.5))
+      const k = Math.min(1, d / 3)
+      c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, k * k * (3 - 2 * k))
     }
     // A cliff is banded stone; a ramp is worn like a trail.
     if (anyCliff) {
