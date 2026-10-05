@@ -4,7 +4,7 @@ import { buildPlace, enterPlace, flow } from './flow'
 import { addHudTicker } from './state/hud'
 import { profile, setSaveSandbox } from './state/profile'
 import { botThink, referenceBuild } from './sim/bot'
-import { usePotion } from './sim/hero'
+import { orderMove, usePotion } from './sim/hero'
 import { ENEMY_BY_ID } from './data/enemies'
 import { ITEMS } from './data/items'
 import { SKILLS, type ClassId } from './data/skills'
@@ -64,6 +64,12 @@ export interface PreviewApi {
   bot(on: boolean): void
   /** Drink a potion now. */
   potion(): boolean
+  /**
+   * A walk (a town, a road): the hero is put at the first point (world metres)
+   * and walks on through the rest, one after the other. The reference player
+   * is switched off for it.
+   */
+  walk(points: Array<[number, number]>): void
   /** Every sound the game asked for since `installPreview`, on the page clock (the trailer's sound track). */
   sfxLog(): Array<{ name: string; pan: number; gain: number; t: number }>
   state(): PreviewState
@@ -81,11 +87,22 @@ export const installPreview = (): void => {
   const shots: Array<{ node: NodeId; mode: Awaited<ReturnType<typeof buildPlace>> }> = []
   let botOn = false
   let nextThink = 0
+  /** The rest of a scripted walk (`walk`), next point first. */
+  let route: Array<[number, number]> = []
 
   // The reference player decides on SIMULATION time, so a take plays the same
   // at 30 and at 60 frames a second.
   addHudTicker(() => {
     const z = zone()
+    if (z && route.length) {
+      // On to the next point when this one is reached (or nearly: a person in the way).
+      const u = z.sim.hero.unit
+      const [x, zz] = route[0]!
+      if (Math.hypot(u.x - x, u.z - zz) < 1.2) {
+        route.shift()
+        if (route.length) orderMove(z.sim, route[0]![0], route[0]![1])
+      }
+    }
     if (!botOn || !z) return
     if (z.sim.time >= nextThink) {
       nextThink = z.sim.time + 0.2
@@ -164,9 +181,24 @@ export const installPreview = (): void => {
     bot(on) {
       botOn = on
       nextThink = 0
+      if (on) route = []
     },
 
     potion: () => { const z = zone(); return z ? usePotion(z.sim) : false },
+
+    walk(points) {
+      const z = zone()
+      if (!z || !points.length) return
+      botOn = false
+      const u = z.sim.hero.unit
+      const [x0, z0] = points[0]!
+      u.x = u.px = x0
+      u.z = u.pz = z0
+      u.hasGoal = false
+      z.cam.snap()
+      route = points.slice(1)
+      if (route.length) orderMove(z.sim, route[0]![0], route[0]![1])
+    },
     sfxLog: () => sounds,
 
     state() {

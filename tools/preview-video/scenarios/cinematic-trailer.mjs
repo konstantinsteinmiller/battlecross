@@ -1,19 +1,21 @@
 /**
  * THE CINEMATIC TRAILER (roadmap #X1) — `pnpm cinematic-trailer`.
  *
- * About 72 s at 1920x1080, cut on the beat of the game's own boss theme
+ * About 82 s at 1920x1080, cut on the beat of the game's own boss theme
  * ("Trial of Blades", 112 BPM: a beat is 0.536 s, every cut lands on one).
  * Three acts, the hero a different class in nearly every shot, so the range
  * of the game shows:
  *
- *   ACT 1, the call      the Goblin King, the Elder Treant, the siege of
+ *   ACT 1, the call      the hero walks out of Sunford down its main road;
+ *                        the Goblin King, the Elder Treant, the siege of
  *                        Oakhaven
  *   ACT 2, the montage   one bar per place: the Ashen Crags, the Iron
  *                        Colossus, the Frost Jarl, the Naga Oracle, the
  *                        colosseum's waves, the Void Warden — then a boss
  *                        falls and the loot beams go up
- *   ACT 3, the climax    the Void Dragon, the Arch-Demon falls, the chest,
- *                        and the Void Lord waiting in the rift
+ *   ACT 3, the climax    back in Sunford, round the well in the square,
+ *                        then the Void Dragon, the Arch-Demon falls, the
+ *                        chest, and the Void Lord waiting in the rift
  *
  * Every fight is the game's own: the place is built as the game builds it, the
  * fight is STAGED (the hero put a few metres short of the pack, health bars set
@@ -47,10 +49,13 @@ const bossDown = () => {
  * The shot list. `beats`: the shot's length on the music's grid. `hold`: the
  * boss's fall is the shot's moment (wait for it, then a beat on the poster
  * frame). `preroll`: ms played off camera after the cut (the colosseum's
- * first waves walk in). Built LAST first, so the hero each place is built with
- * is the hero who fights in it.
+ * first waves walk in). `walk`: no fight, the hero walks this route (town
+ * cells, `sim/town.ts`: the square is columns 14–24, rows 9–20, the fountain
+ * at row 14, the main road runs down column 19 to the green and the gate). Built LAST
+ * first, so the hero each place is built with is the hero who fights in it.
  */
 export const SHOTS = [
+  { id: 'sunford', node: 'sunford', hero: { level: 30, cls: 'aegis' }, walk: [[17, 11], [17, 19], [19, 22], [19, 33]], beats: 8 },
   { id: 'hollows', node: 'hollows', hero: { level: 5, cls: 'aegis' }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.95, bossHp: 0.055, foeHp: 0.2 }, beats: 12 },
   { id: 'woods', node: 'woods', hero: { level: 8, cls: 'shadow' }, stage: { pack: 'finale', gap: 3.2, heroHp: 0.9, bossHp: 0.35, foeHp: 0.4 }, beats: 8 },
   { id: 'outskirts', node: 'outskirts', hero: { level: 10, cls: 'sovereign' }, stage: { pack: 'finale', gap: 2.4, heroHp: 0.9, bossHp: 0.06, foeHp: 0.12 }, beats: 10 },
@@ -61,6 +66,7 @@ export const SHOTS = [
   { id: 'arena', node: 'arena', hero: { level: 15, cls: 'sovereign' }, preroll: 4200, beats: 6 },
   { id: 'citadel', node: 'citadel', hero: { level: 23, cls: 'blood' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 14 },
+  { id: 'square', node: 'sunford', hero: { level: 25, cls: 'sovereign' }, walk: [[16, 18], [16, 11], [22, 11], [22, 18], [16, 18]], beats: 8 },
   { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.11 }, beats: 22 },
   { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 4.0, heroHp: 0.75, bossHp: 0.16, foeHp: 0.2 }, beats: 32, hold: true },
   { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 14 }
@@ -68,6 +74,14 @@ export const SHOTS = [
 
 /** The trailer's length: every shot's beats, on the grid. */
 export const TRAILER_MS = Math.round(SHOTS.reduce((n, s) => n + s.beats, 0) * BEAT)
+
+/** A town cell's centre in world metres (`sim/grid.ts`: CELL = 1.5). */
+const cellAt = ([i, j]) => [(i + 0.5) * 1.5, (j + 0.5) * 1.5]
+
+/** Put the hero on a shot's walk, or hand him back to the reference player. */
+const direct = (ctx, s) => s.walk
+  ? ctx.evaluate((pts) => /** @type {any} */ (window).__preview.walk(pts), s.walk.map(cellAt))
+  : ctx.evaluate(() => /** @type {any} */ (window).__preview.bot(true))
 
 /** Play the page clock off camera (the recorder's clock is armed in record()). */
 const preroll = (ctx, ms) => ctx.evaluate(async (ms) => {
@@ -90,7 +104,8 @@ export default {
       ctx.built[s.id] = await build(ctx, s.node)
     }
     const first = SHOTS[0]
-    await cutTo(ctx, ctx.built[first.id], first.stage)
+    await cutTo(ctx, ctx.built[first.id], first.stage ?? {})
+    if (first.walk) await direct(ctx, first)
     await settleOpening(ctx)
     await logState(ctx, 'opening frame')
   },
@@ -126,6 +141,8 @@ export default {
         await cutTo(ctx, ctx.built[s.id], s.stage ?? {})
         if (s.preroll) await preroll(ctx, s.preroll)
       }
+      // A walk, or a fight for the reference player (the first shot's walk starts again from its first point).
+      await direct(ctx, s)
       ctx.beat(s.id)
       // The first shot rolls from frame 0 (its opening was settled before the clock was armed).
       const page0 = await pageNow()
