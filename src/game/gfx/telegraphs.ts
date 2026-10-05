@@ -178,6 +178,9 @@ interface Tele {
   caster: Unit | null
   action: Action | null
   wind: number
+  /** The unit it tracks, and how long (seconds) until it locks in place. */
+  follow: Unit | null
+  lock: number
 }
 
 const upload = (at: InstancedBufferAttribute, n: number): void => {
@@ -254,10 +257,10 @@ export class Telegraphs {
    * frame's: a hit-stop slows the sim and the effects by different amounts,
    * and the fill must still arrive exactly when the blow does.
    */
-  add(t: Telegraph, caster: Unit | null, now: number): void {
+  add(t: Telegraph, caster: Unit | null, now: number, follow: Unit | null = null): void {
     let e = this.list.find(q => !q.live)
     if (!e) {
-      e = { live: false, shape: 0, x: 0, z: 0, a: 0, r: 1, w: 0, flags: 0, t0: 0, t: 0, dur: 1, landed: -1, cancelled: -1, caster: null, action: null, wind: 0 }
+      e = { live: false, shape: 0, x: 0, z: 0, a: 0, r: 1, w: 0, flags: 0, t0: 0, t: 0, dur: 1, landed: -1, cancelled: -1, caster: null, action: null, wind: 0, follow: null, lock: 0 }
       this.list.push(e)
     }
     e.live = true
@@ -276,6 +279,8 @@ export class Telegraphs {
     e.caster = caster
     e.action = caster ? caster.action : null
     e.wind = t.wind ?? 0
+    e.follow = follow
+    e.lock = t.lock ?? 0
   }
 
   /** `dt` is the frame's effect time (pulses, fades); `now` the sim's clock (the fill). */
@@ -306,6 +311,8 @@ export class Telegraphs {
           if (e.t >= e.dur) e.landed = 0
         }
       }
+      // A shadow that tracks its target until it locks (a dive's warning).
+      if (e.follow && e.t < e.lock && e.follow.alive) { e.x = e.follow.x; e.z = e.follow.z }
       const prog = Math.min(1, e.t / e.dur)
       const flash = e.landed >= 0 ? 1 - e.landed / FLASH : 0
       const alpha = e.cancelled >= 0 ? 1 - e.cancelled / FADE : Math.min(1, e.t / 0.08 + 0.25) * (e.landed >= 0 ? 0.35 + 0.65 * flash : 1)

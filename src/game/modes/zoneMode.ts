@@ -686,7 +686,7 @@ export class ZoneMode implements GameMode {
           if (e.id.startsWith('burst:') || e.id === 'slam' || e.id === 'quake' || e.id === 'blast') this.cam.addTrauma(TRAUMA_HEAVY * (e.id === 'quake' ? 1 : 0.55))
           break
         case 'tele':
-          this.vfx.telegraph(e.tele, sim.get(e.tele.src ?? 0) ?? null, sim.time)
+          this.vfx.telegraph(e.tele, sim.get(e.tele.src ?? 0) ?? null, sim.time, e.tele.follow ? sim.get(e.tele.follow) ?? null : null)
           break
         case 'death': {
           const def = ENEMY_BY_ID[e.kind]

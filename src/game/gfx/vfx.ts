@@ -411,8 +411,8 @@ export class Vfx {
 
   /** Raise a ground preview. `caster` is the unit winding the attack up, if any:
    *  the preview is withdrawn when it dies or loses the action. */
-  telegraph(t: Telegraph, caster: Unit | null, simTime: number): void {
-    this.teles.add(t, caster, simTime)
+  telegraph(t: Telegraph, caster: Unit | null, simTime: number, follow: Unit | null = null): void {
+    this.teles.add(t, caster, simTime, follow)
   }
 
   // ─── Compound effects ──────────────────────────────────────────────────────

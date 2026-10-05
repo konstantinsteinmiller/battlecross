@@ -1,7 +1,7 @@
 import { ENEMY_BY_ID } from '../../data/enemies'
 import { isSolidAt } from '../grid'
 import { applyStatus, dealDamage, removeStatus } from '../combat'
-import { face, setGoal, stop, walk } from '../actors'
+import { cellIndex, face, setGoal, stop, walk } from '../actors'
 import { hasStatus, newAction, type Sim } from '../world'
 import type { Action, BossState, Team, Telegraph, Unit } from '../types'
 
@@ -24,7 +24,7 @@ import type { Action, BossState, Team, Telegraph, Unit } from '../types'
 export const SCRIPTED = -2
 
 export const newBossState = (script: string): BossState => ({
-  script, phase: 1, mode: '', modeT: 0, sub: '', goalX: 0, goalZ: 0, dx: 0, dz: 1, speed: 0, left: 0, alt: 0, carry: 0, next: 0, n: 0, marks: []
+  script, phase: 1, mode: '', modeT: 0, sub: '', goalX: 0, goalZ: 0, dx: 0, dz: 1, speed: 0, left: 0, alt: 0, carry: 0, next: 0, n: 0, marks: [], cd: {}
 })
 
 export const other = (u: Unit): Team => (u.team === 0 ? 1 : 0)
@@ -98,6 +98,8 @@ export interface ChargeOpts {
   daze: number
   /** Carries whoever it hits (a gore); else knocks them aside and runs on (a dash). */
   carry: boolean
+  /** What ramming the wall at (x, z) does: seconds dazed (0: it just stops). Overrides `daze`. */
+  wallDaze?: (sim: Sim, x: number, z: number) => number
 }
 
 const charges = new WeakMap<BossState, ChargeOpts>()
@@ -208,7 +210,8 @@ const ram = (sim: Sim, u: Unit, o: ChargeOpts, carried: Unit | undefined): void 
     u.aiT = 1.2
     return
   }
-  if (o.daze > 0) daze(sim, u, o.daze)
+  const d = o.wallDaze ? o.wallDaze(sim, u.x + b.dx * (u.r + 0.4), u.z + b.dz * (u.r + 0.4)) : o.daze
+  if (d > 0) daze(sim, u, d)
   else u.aiT = 0.6
 }
 
@@ -241,6 +244,19 @@ export const despawn = (sim: Sim, u: Unit): void => {
   u.action = null
   u.deadT = 99
   sim.emit({ t: 'fx', id: 'gone', x: u.x, z: u.z, unit: u.id })
+}
+
+/** Break the temporary wall (an ice spike) standing on the cell at (x, z), if any: its fx, or ''. */
+export const shatterWallAt = (sim: Sim, x: number, z: number): string => {
+  const k = cellIndex(sim, x, z)
+  if (k < 0) return ''
+  for (const w of sim.walls) {
+    if (!w.cells.includes(k)) continue
+    // It goes on the next step (`stepWalls`), and everyone may walk there again.
+    w.dur = Math.min(w.dur, w.t)
+    return w.fx
+  }
+  return ''
 }
 
 /** Is it holding still as a mistake (the window to punish)? */

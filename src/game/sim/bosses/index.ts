@@ -4,6 +4,8 @@ import type { Action, Unit } from '../types'
 import { SCRIPTED, runCharge, stepCharge, stepExit } from './kit'
 import { TUSKER_SCRIPTS } from './tusker'
 import { SKYFIRE_SCRIPTS } from './skyfire'
+import { HELLGATE_SCRIPTS } from './hellgate'
+import { SHATTERLAKE_SCRIPTS } from './shatterlake'
 
 /**
  * ─── Scripted bosses (#74) ───────────────────────────────────────────────────
@@ -20,6 +22,12 @@ import { SKYFIRE_SCRIPTS } from './skyfire'
  *   skyfire      the Void Dragon (Dragonspine Peak): a sweeping breath; at 60 %
  *                it takes off for strafing runs that leave fire, then crashes
  *                down dazed; enraged at 30 %, a second flight at 15 %
+ *   hellgate     the Arch-Demon (Dread Fortress): a sword wave, hellfire
+ *                pillars, a dive whose shadow hunts and locks (the blade
+ *                sticks); at 55 % a ring of fire closes in; three dives at 25 %
+ *   shatterlake  the Frost Jarl (Frostpeak Tundra): hammerfall raises ice
+ *                spikes, a shoulder charge that shatters on them (dazed); at
+ *                half the ice breaks and a glacier grinds across, one gap in it
  */
 
 export interface BossScript {
@@ -31,13 +39,17 @@ export interface BossScript {
   think(sim: Sim, u: Unit, tgt: Unit, dt: number): boolean
   /** A scripted move lands (a charge's wind-up is the kit's). */
   land?(sim: Sim, u: Unit, act: Action): void
+  /** Every step, whatever it is doing: what runs on by itself (a ring of fire, a glacier). */
+  tick?(sim: Sim, u: Unit, dt: number): void
   /** In the air: the script flies it (true while it holds the turn). */
   air?(sim: Sim, u: Unit, dt: number, tgt: Unit | null): boolean
 }
 
 export const BOSS_SCRIPTS: Record<string, BossScript> = {
   ...TUSKER_SCRIPTS,
-  ...SKYFIRE_SCRIPTS
+  ...SKYFIRE_SCRIPTS,
+  ...HELLGATE_SCRIPTS,
+  ...SHATTERLAKE_SCRIPTS
 }
 
 export { SCRIPTED }
@@ -53,6 +65,8 @@ export const stepBoss = (sim: Sim, u: Unit, dt: number, tgt: Unit | null): boole
   if (!s) return false
   b.modeT += dt
   if (b.next > 0) b.next -= dt
+  for (const k in b.cd) if (b.cd[k]! > 0) b.cd[k]! -= dt
+  if (b.mode !== 'gone') s.tick?.(sim, u, dt)
   switch (b.mode) {
     case 'gone':
       return true

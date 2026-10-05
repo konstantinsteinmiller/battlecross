@@ -43,6 +43,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
 
   // ── Tier 6 ──
   // The old bosses as mini-bosses (#74, D85): their kits, in colours and shapes of their own.
+  // The Frost Thane: a hooded raider in bronze and black ice, an axe, no crown.
+  frostThane: L({ skin: '#6f9ec2', top: '#1f2f44', bottom: '#18222f', head: 'horns', hair: '#c9d8e8', outfit: 'leather', held: 'axe', off: 'shield', pauldrons: true, trim: '#c98a4a', bulk: 1.12, beard: '#c9d8e8', cape: '#2a4a6a', metal: '#7fb8e0', eyeGlow: '#bfe6ff' }),
+  // The Pit Lord: charred black and ember, an axe, a tail, no wings.
+  pitLord: L({ skin: '#4a2028', top: '#1a0c10', bottom: '#120808', head: 'horns', hair: '#120808', outfit: 'bare', held: 'axe', trim: '#ff7a2a', bulk: 1.18, eyeGlow: '#ff9a3a', tail: '#3a1418', metal: '#ff9a3a', glow: '#ff6a2a' }),
   goblinTyrant: L({ skin: '#6f8f3a', top: '#3e3a48', bottom: '#2a2632', head: 'horns', hair: '#d8d0c0', ears: 'goblin', outfit: 'plate', held: 'hammer', trim: '#9a4ad0', bulk: 1.1, cape: '#4a1a6a', pauldrons: true, eye: '#ff6a3a', metal: '#8a8fa0' }),
   // The branch bosses (#74): each a look of its own, not a regular foe scaled up.
   goblinWarchief: L({ skin: '#4fa03a', top: '#5a3a24', bottom: '#3a2a1c', head: 'horns', hair: '#e8dcc0', ears: 'goblin', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#c9a24a', bulk: 1.22, cape: '#8a2a1c', eye: '#ffd24a', metal: '#c9d3e4' }),

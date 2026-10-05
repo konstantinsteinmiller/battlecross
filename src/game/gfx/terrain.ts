@@ -1194,9 +1194,17 @@ export class WallRocks {
   private pool: Array<{ mesh: Mesh; line: Mesh; cell: number; t: number; state: 0 | 1 | 2 }> = []
   private geo: BufferGeometry | null = null
   private rubble: BufferGeometry | null = null
+  private ice: BufferGeometry | null = null
 
   private shapes(): void {
     if (this.geo) return
+    // The Frost Jarl's ice spike: a cluster of crystals, pale at their tips.
+    this.ice = merge([
+      P(rcone(0.42, 0.04, 2.3, 0.03, 6), '#9fd4ff', [0, 1.15, 0]),
+      P(rcone(0.28, 0.03, 1.5, 0.03, 6), '#cfeaff', [0.38, 0.7, 0.1], [0, 0, -0.35]),
+      P(rcone(0.26, 0.03, 1.3, 0.03, 6), '#7fc0f0', [-0.34, 0.6, -0.12], [0.2, 0, 0.4]),
+      P(rcone(0.22, 0.03, 1.0, 0.03, 6), '#e8f6ff', [0.05, 0.48, 0.38], [0.45, 0, 0])
+    ])
     this.geo = merge([P(rcone(0.78, 0.36, 1.9, 0.08, 7), '#b08a5a', [0, 0.95, 0]), P(rock(0.5, 5), '#c79a5a', [0.2, 1.9, 0.1]), P(rock(0.45, 8), '#9a744a', [-0.4, 0.3, 0.3])])
     this.rubble = merge([P(rock(0.7, 3), '#8a7a6a', [0, 0.4, 0]), P(rock(0.5, 12), '#a8988a', [0.4, 0.7, -0.2]), P(rock(0.4, 19), '#6a5c50', [-0.4, 0.3, 0.3])])
   }
@@ -1216,7 +1224,7 @@ export class WallRocks {
         }
         const i = cell % gridW
         const j = (cell - i) / gridW
-        r.mesh.geometry = r.line.geometry = fx === 'rubble' ? this.rubble! : this.geo!
+        r.mesh.geometry = r.line.geometry = fx === 'rubble' ? this.rubble! : fx === 'ice' ? this.ice! : this.geo!
         r.mesh.position.set((i + 0.5) * CELL, groundAt((i + 0.5) * CELL, (j + 0.5) * CELL), (j + 0.5) * CELL)
         r.mesh.rotation.y = (cell * 2.39996) % (Math.PI * 2)
         r.cell = cell
@@ -1253,6 +1261,7 @@ export class WallRocks {
   dispose(): void {
     this.geo?.dispose()
     this.rubble?.dispose()
+    this.ice?.dispose()
   }
 }
 

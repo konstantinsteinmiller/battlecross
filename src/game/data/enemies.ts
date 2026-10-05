@@ -341,13 +341,23 @@ export const ENEMIES: readonly EnemyDef[] = [
   D({
     id: 'frostJarl', rank: 'boss', rig: 'humanoid', look: 'frostJarl', scale: 2.15, r: 1.15, h: 3.2,
     hp: 12, dmg: 1.35, armor: 4, resist: 0.3, speed: 2.9, style: 'melee', type: 'physical', range: 3.6, interval: 1.7, windup: 0.5, heavy: true,
-    aggro: 16, reward: 1, color: '#6fc8ff', phase2: 0.5,
+    aggro: 16, reward: 1, color: '#6fc8ff', script: 'shatterlake',
     abilities: [
-      { kind: 'cone', cd: 7, first: 3, range: 6.5, windup: 0.9, recover: 0.5, dmg: 1.5, r: 7.5, w: 36, type: 'frost', fx: 'breath', status: { id: 'slow', dur: 3, v: 0.55 } },
-      { kind: 'leap', cd: 10, first: 6, range: 12, min: 4, windup: 0.9, recover: 0.7, dmg: 2, r: 4.4, status: { id: 'knockdown', dur: 0.9, v: 1 } },
-      { kind: 'barrage', cd: 9, first: 4, range: 14, windup: 0.8, recover: 0.5, dmg: 1.3, r: 2.3, count: 6, type: 'frost', fx: 'icicle', status: { id: 'slow', dur: 2, v: 0.4 } },
-      { kind: 'slam', cd: 14, first: 1, range: 20, windup: 1.3, recover: 0.7, dmg: 1.8, r: 8, type: 'frost', status: { id: 'frozen', dur: 1.2, v: 1 }, phase: 2 },
-      { kind: 'summon', cd: 24, first: 10, range: 20, windup: 0.9, recover: 0.5, spawn: 'frostGiant', count: 1, phase: 2 }
+      // The frost breath, close in (the script has the hammer, the charge, the glacier).
+      { kind: 'cone', cd: 8, first: 4, range: 6, windup: 0.9, recover: 0.5, dmg: 1.4, r: 7, w: 34, type: 'frost', fx: 'breath', status: { id: 'slow', dur: 3, v: 0.5 } }
+    ]
+  }),
+  // The old Frost Jarl's fight, kept (#74, D85): a thane mid-way through a later zone, an elite.
+  D({
+    id: 'frostThane', rank: 'elite', rig: 'humanoid', look: 'frostThane', scale: 1.4, r: 0.75, h: 2.1,
+    hp: 3.6, dmg: 1.05, armor: 2.6, resist: 0.25, speed: 2.9, style: 'melee', type: 'physical', range: 2.8, interval: 1.7, windup: 0.5, heavy: true,
+    aggro: 12, reward: 1.2, color: '#4fa8d8',
+    abilities: [
+      { kind: 'cone', cd: 8, first: 3, range: 5.5, windup: 0.9, recover: 0.5, dmg: 1.3, r: 6, w: 34, type: 'frost', fx: 'breath', status: { id: 'slow', dur: 2.5, v: 0.5 } },
+      { kind: 'leap', cd: 11, first: 6, range: 10, min: 4, windup: 0.9, recover: 0.7, dmg: 1.6, r: 3.4, status: { id: 'knockdown', dur: 0.7, v: 1 } },
+      { kind: 'barrage', cd: 10, first: 4, range: 12, windup: 0.8, recover: 0.5, dmg: 1.1, r: 2, count: 4, type: 'frost', fx: 'icicle', status: { id: 'slow', dur: 2, v: 0.4 } },
+      { kind: 'slam', cd: 16, first: 6, range: 8, windup: 1.2, recover: 0.7, dmg: 1.4, r: 5, type: 'frost', status: { id: 'frozen', dur: 0.9, v: 1 }, below: 0.5 },
+      { kind: 'summon', cd: 28, first: 10, range: 20, windup: 0.9, recover: 0.5, spawn: 'frostGiant', count: 1, below: 0.5 }
     ]
   }),
   D({
@@ -442,15 +452,25 @@ export const ENEMIES: readonly EnemyDef[] = [
   D({
     id: 'archDemon', rank: 'boss', rig: 'humanoid', look: 'archDemon', scale: 2.3, r: 1.3, h: 3.5,
     hp: 13, dmg: 1.35, armor: 6, resist: 0.45, speed: 3.2, style: 'melee', type: 'physical', range: 4, interval: 1.6, windup: 0.48, heavy: true,
-    aggro: 18, reward: 1, color: '#ff2a3f', phase2: 0.55,
+    aggro: 18, reward: 1, color: '#ff2a3f', script: 'hellgate',
     abilities: [
-      { kind: 'cone', cd: 6, first: 2.5, range: 5, windup: 0.8, recover: 0.5, dmg: 1.8, r: 5.6, w: 62, pose: 1 },
-      { kind: 'slam', cd: 9, first: 5, range: 4.6, windup: 1, recover: 0.6, dmg: 1.9, r: 6.2, type: 'fire', status: { id: 'burn', dur: 4, v: 0.22, type: 'fire' } },
-      { kind: 'line', cd: 10, first: 7, range: 16, windup: 1, recover: 0.6, dmg: 2, r: 16, w: 1.4, type: 'fire', fx: 'beam' },
-      { kind: 'leap', cd: 12, first: 9, range: 14, min: 5, windup: 0.9, recover: 0.7, dmg: 2.1, r: 5, status: { id: 'knockdown', dur: 0.9, v: 1 } },
-      { kind: 'barrage', cd: 8, first: 3, range: 16, windup: 0.8, recover: 0.5, dmg: 1.5, r: 2.6, count: 8, type: 'fire', fx: 'meteor', phase: 2 },
-      { kind: 'summon', cd: 20, first: 4, range: 20, windup: 0.9, recover: 0.5, spawn: 'imp', count: 4, phase: 2 },
-      { kind: 'enrage', cd: 45, first: 0, range: 20, windup: 0.8, recover: 0.3, phase: 2 }
+      // The cleave, close in (the script has the wave, the pillars, the dive, the gate).
+      { kind: 'cone', cd: 6, first: 2.5, range: 5, windup: 0.8, recover: 0.5, dmg: 1.8, r: 5.6, w: 62, pose: 1 }
+    ]
+  }),
+  // The old Arch-Demon's fight, kept (#74, D85): a pit lord mid-way through a later zone, an elite.
+  D({
+    id: 'pitLord', rank: 'elite', rig: 'humanoid', look: 'pitLord', scale: 1.45, r: 0.8, h: 2.2,
+    hp: 3.8, dmg: 1.1, armor: 3.5, resist: 0.35, speed: 3.1, style: 'melee', type: 'physical', range: 2.9, interval: 1.6, windup: 0.48, heavy: true,
+    aggro: 12, reward: 1.2, color: '#e0582a',
+    abilities: [
+      { kind: 'cone', cd: 7, first: 2.5, range: 4.2, windup: 0.8, recover: 0.5, dmg: 1.5, r: 4.6, w: 60, pose: 1 },
+      { kind: 'slam', cd: 10, first: 5, range: 4, windup: 1, recover: 0.6, dmg: 1.5, r: 4.6, type: 'fire', status: { id: 'burn', dur: 3, v: 0.18, type: 'fire' } },
+      { kind: 'line', cd: 11, first: 7, range: 13, windup: 1, recover: 0.6, dmg: 1.6, r: 13, w: 1.2, type: 'fire', fx: 'beam' },
+      { kind: 'leap', cd: 13, first: 9, range: 11, min: 5, windup: 0.9, recover: 0.7, dmg: 1.6, r: 3.6, status: { id: 'knockdown', dur: 0.7, v: 1 } },
+      { kind: 'barrage', cd: 10, first: 4, range: 13, windup: 0.8, recover: 0.5, dmg: 1.1, r: 2.2, count: 4, type: 'fire', fx: 'meteor', below: 0.5 },
+      { kind: 'summon', cd: 24, first: 6, range: 20, windup: 0.9, recover: 0.5, spawn: 'imp', count: 2, below: 0.5 },
+      { kind: 'enrage', cd: 45, first: 0, range: 20, windup: 0.8, recover: 0.3, below: 0.4 }
     ]
   }),
   D({

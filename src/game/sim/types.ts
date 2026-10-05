@@ -252,6 +252,8 @@ export interface BossState {
   n: number
   /** One-off marks (a phase's spectacle happened, a horn was blown). */
   marks: string[]
+  /** The script's own move timers, seconds left (counted down each step). */
+  cd: Record<string, number>
 }
 
 // ─── Projectiles and ground fields ───────────────────────────────────────────
