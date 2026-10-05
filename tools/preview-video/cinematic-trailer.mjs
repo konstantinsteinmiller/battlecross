@@ -13,7 +13,7 @@
  *      The game's score is a live WebAudio sequencer the frame recorder cannot hear.
  *   3. MIX: the hero's own recordings (public/audio/voice/en/<line>.ogg) at
  *      their cues, the music ducked under each line, a fade in and out.
- *   4. WRITE preview-videos/chaos-machine-cinematic-trailer.mp4 — H.264 4:2:0
+ *   4. WRITE preview-videos/battlecross-cinematic-trailer.mp4 — H.264 4:2:0
  *      at 1920x1080, AAC stereo.
  *
  * Any other flag goes to the recorder, so a quick draft is
@@ -28,7 +28,7 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..')
 const OUT_DIR = join(ROOT, 'preview-videos')
-const FINAL = join(OUT_DIR, 'chaos-machine-cinematic-trailer.mp4')
+const FINAL = join(OUT_DIR, 'battlecross-cinematic-trailer.mp4')
 const CUES = join(OUT_DIR, 'cinematic-cues.json')
 const ffmpeg = createRequire(join(ROOT, 'package.json'))('ffmpeg-static')
 
