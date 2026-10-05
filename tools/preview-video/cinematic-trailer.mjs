@@ -34,8 +34,8 @@ const SOUNDS = join(OUT_DIR, 'cinematic-sfx.json')
 const ffmpeg = createRequire(join(ROOT, 'package.json'))('ffmpeg-static')
 
 /** The fights against the music (the music is the bed, the hits sit on top). */
-const MUSIC_GAIN = 0.5
-const FIGHTS_GAIN = 1.9
+const MUSIC_GAIN = 0.62
+const FIGHTS_GAIN = 0.75
 
 const argv = process.argv.slice(2)
 const skipRecord = argv.includes('--skip-record')
