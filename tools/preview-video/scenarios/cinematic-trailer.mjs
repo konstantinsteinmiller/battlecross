@@ -147,6 +147,14 @@ export default {
       // The first shot rolls from frame 0 (its opening was settled before the clock was armed).
       const page0 = await pageNow()
       const clip0 = t.spent()
+      // What a trailer cut rides on (the mix voices these, `tools/sfx-render/sweeteners.js`):
+      // air pulled into the cut, a cinematic hit on it; a riser into the dragon, a sub drop for the last word.
+      if (i > 0) {
+        const last = i === SHOTS.length - 1
+        events.push({ name: 'trailerWhoosh', ms: Math.max(0, Math.round(clip0 - 380)), pan: 0, gain: 0.8, shot: s.id })
+        events.push({ name: last ? 'trailerSub' : 'trailerHit', ms: Math.round(clip0), pan: 0, gain: s.walk ? 0.5 : 0.9, shot: s.id })
+      }
+      if (SHOTS[i + 1]?.id === 'peak') events.push({ name: 'trailerRiser', ms: Math.round(clip0 + s.beats * BEAT - 3100), pan: 0, gain: 0.4, shot: s.id })
       end += s.beats * BEAT
       if (s.hold) {
         const fell = await t.untilState(end - 2500, bossDown, `${s.id}: the boss falls`)

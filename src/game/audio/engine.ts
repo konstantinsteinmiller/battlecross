@@ -40,9 +40,9 @@ export const MUSIC_BASE = 0.2
 export const VOICE_BASE = 0.6
 /** How far the music drops under a voice line or a sting. */
 export const DUCK_DB = 7
-/** The SFX bus's top end (Hz): the fizz of the pulse-wave blips is gone, the
- *  bite stays. */
-export const SFX_TOP_HZ = 9500
+/** The SFX bus's top end (Hz): only the harshest fizz is gone; the cracks and the
+ *  air of the fight sounds stay (#74). */
+export const SFX_TOP_HZ = 14000
 
 /** False until audio may start (see `audioUnlocked`). */
 export const audioAllowed = audioUnlocked

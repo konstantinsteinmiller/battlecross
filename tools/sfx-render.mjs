@@ -6,8 +6,11 @@
 // take per sound and pitch variant — then laid at the times the recording
 // logged them (`events.json`: { durationMs, events: [{ name, ms, pan, gain }] }),
 // with the live player's own rules: a minimum gap per sound, at most so many
-// sounds in a quarter second, a little pitch and level variety. Writes a
-// 44.1 kHz stereo WAV the trailer mix lays under the music.
+// sounds in a quarter second, a little pitch and level variety (three takes of
+// each sound, a few percent apart in pitch, picked at random). Events named
+// `trailer…` are the trailer's own (`sfx-render/sweeteners.js`: a cinematic
+// hit on a cut, a whoosh into it, a riser, a last sub drop). Writes a 44.1 kHz
+// stereo WAV the trailer mix lays under the music.
 import { spawn } from 'node:child_process'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -74,14 +77,23 @@ const evaluate = async (expression) => {
   return r.result?.result?.value
 }
 await evaluate(bundle)
-await evaluate(`window.renderSfx = async (name) => {
-  const ctx = new OfflineAudioContext(1, Math.ceil(${SR} * 2.6), ${SR})
-  const bus = ctx.createGain()
-  bus.connect(ctx.destination)
-  window.__off = { ctx, sfx: bus, music: bus, voice: bus }
-  if (!Synth.recipeFor(name, 0, 1)) return null
+await evaluate(readFileSync(join(ROOT, 'tools/sfx-render/sweeteners.js'), 'utf8'))
+await evaluate(`window.renderSfx = async (name, tune) => {
+  const sweet = name.startsWith('trailer')
+  const ctx = new OfflineAudioContext(2, Math.ceil(${SR} * (sweet ? window.trailerSweeteners.length[name] ?? 3 : 3.6)), ${SR})
+  if (sweet) window.trailerSweeteners.render(name, ctx)
+  else {
+    const bus = ctx.createGain()
+    bus.connect(ctx.destination)
+    window.__off = { ctx, sfx: bus, music: bus, voice: bus }
+    if (!Synth.recipeFor(name, 0, 1, tune)) return null
+  }
   const buf = await ctx.startRendering()
-  const d = buf.getChannelData(0)
+  // Mono for the layout (it pans each placement itself): the two channels summed.
+  const l = buf.getChannelData(0)
+  const r = buf.getChannelData(1)
+  const d = new Float32Array(l.length)
+  for (let i = 0; i < l.length; i++) d[i] = (l[i] + r[i]) * 0.5
   let end = d.length
   while (end > 0 && Math.abs(d[end - 1]) < 1e-4) end--
   const pcm = new Int16Array(end)
@@ -92,14 +104,19 @@ await evaluate(`window.renderSfx = async (name) => {
   return btoa(bin)
 }; true`)
 
-// 3. One take per sound used (rendered once; a recipe's own randomness varies little).
+// 3. Three takes per sound used (a few percent apart in pitch, each with its own noise): no two hits alike.
 const names = [...new Set(events.map(e => e.name))]
 const takes = new Map()
 for (const n of names) {
-  const b64 = await evaluate(`renderSfx(${JSON.stringify(n)})`)
-  if (!b64) { console.warn(`  no recipe for ${n}`); continue }
-  const buf = Buffer.from(b64, 'base64')
-  takes.set(n, new Int16Array(buf.buffer, buf.byteOffset, buf.length / 2))
+  const set = []
+  for (const tune of n.startsWith('trailer') ? [1] : [0.94, 1, 1.06]) {
+    const b64 = await evaluate(`renderSfx(${JSON.stringify(n)}, ${tune})`)
+    if (!b64) break
+    const buf = Buffer.from(b64, 'base64')
+    set.push(new Int16Array(buf.buffer, buf.byteOffset, buf.length / 2))
+  }
+  if (!set.length) { console.warn(`  no recipe for ${n}`); continue }
+  takes.set(n, set)
 }
 
 // 4. Lay them out with the live player's rules (synth.ts: GAP 0.02 s, CAP 22 per 0.25 s).
@@ -110,13 +127,15 @@ const last = new Map()
 const recent = []
 let laid = 0
 for (const e of [...events].sort((a, b) => a.ms - b.ms)) {
-  const take = takes.get(e.name)
-  if (!take) continue
+  const set = takes.get(e.name)
+  if (!set) continue
+  const take = set[Math.floor(Math.random() * set.length)]
   const t = e.ms / 1000
-  if (t - (last.get(e.name) ?? -1) < 0.04) continue
+  const sweet = e.name.startsWith('trailer')
+  if (!sweet && t - (last.get(e.name) ?? -1) < 0.04) continue
   while (recent.length && t - recent[0] > 0.25) recent.shift()
-  if (recent.length >= 22) continue
-  recent.push(t)
+  if (!sweet && recent.length >= 22) continue
+  if (!sweet) recent.push(t)
   last.set(e.name, t)
   const pan = Math.max(-1, Math.min(1, e.pan ?? 0))
   const g = Math.max(0.05, Math.min(1.4, e.gain ?? 1)) * (0.9 + Math.random() * 0.2)

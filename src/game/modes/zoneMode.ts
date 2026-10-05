@@ -5,7 +5,7 @@ import { consumeEdges, type Input } from '../engine/input'
 import { getRenderer } from '../engine/renderer'
 import { createSlicer, yieldToBrowser, type Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
-import { sfx } from '../audio/sfx'
+import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SKILL_BY_ID } from '../data/skills'
 import { ARENA_WAVES, OPENING, TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
@@ -18,7 +18,7 @@ import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim } from '../sim/world'
-import type { SimEvent, Unit } from '../sim/types'
+import type { DamageType, SimEvent, Unit } from '../sim/types'
 import { updateCelFrame } from '../gfx/cel'
 import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
@@ -105,6 +105,8 @@ const HIT_STOP_HEAVY = 0.08
 const HIT_STOP_BOSS = 0.25
 const TRAUMA_LIGHT = 0.2
 const TRAUMA_HEAVY = 0.6
+/** The element a blow of a damage type carries, layered under its hit (#74). */
+const HIT_ELEMENT: Partial<Record<DamageType, SfxName>> = { fire: 'fire', frost: 'ice', shadow: 'shadow', holy: 'holy', poison: 'poison', acid: 'poison', blood: 'blood', beam: 'beam' }
 /** Seconds the world plays on after the outcome, before the result screen. */
 const END_BEAT = { victory: 2.1, defeat: 1.8 }
 /** Seconds after the fall that Second wind is offered: the fall reads first. */
@@ -617,7 +619,11 @@ export class ZoneMode implements GameMode {
               this.hitStop(HIT_STOP_LIGHT)
               this.cam.addTrauma(TRAUMA_LIGHT)
             }
-            sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : 'hit', this.pan(e.x))
+            // It sounds like what landed: an edge, a weight or a point, and the element it carried.
+            const blow = e.type === 'pierce' ? 'pierce' : blowOf(by)
+            sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : blow === 'blunt' ? 'hitBlunt' : blow === 'pierce' ? 'hitPierce' : 'hit', this.pan(e.x))
+            const elem = HIT_ELEMENT[e.type]
+            if (elem) sfx(elem, this.pan(e.x), 0.45)
           }
           break
         }
