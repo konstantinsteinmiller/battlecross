@@ -53,7 +53,7 @@ export interface StripOpts {
 export interface Bench {
   grid(ids?: string[]): void
   /** Enemies (and minions) by id, at their own scale, as a fight builds them: creatures too. */
-  enemies(ids: string[], o?: { cols?: number; yaw?: number; attack?: boolean; view?: number }): void
+  enemies(ids: string[], o?: { cols?: number; yaw?: number; attack?: boolean | string; view?: number; walk?: number; hitAt?: number; end?: number }): void
   strip(o: StripOpts): void
   gear(): void
   live(o: StripOpts | null): void
@@ -277,7 +277,8 @@ export const mountBench = (host: HTMLElement): Bench => {
 
     enemies(ids, o = {}) {
       clear()
-      liveOpts = o.attack ? { look: '', action: 'attack', hitAt: 0.45, end: 1 } : null
+      // An action looped (true: the basic attack; else its id: 'cone', 'slam' …), or walking in place at `walk` m/s.
+      liveOpts = o.attack ? { look: '', action: o.attack === true ? 'attack' : o.attack, hitAt: o.hitAt ?? 0.45, end: o.end ?? 1 } : null
       const cols = Math.min(ids.length, o.cols ?? 6)
       const sizeOf = (id: string): number => ENEMY_BY_ID[id]?.scale ?? MINIONS[id]?.scale ?? 1
       const cell = Math.max(...ids.map(sizeOf)) * 2.1
@@ -293,6 +294,7 @@ export const mountBench = (host: HTMLElement): Bench => {
         u.x = u.px = x
         u.z = u.pz = z
         u.facing = o.yaw ?? 0.45
+        if (o.walk) { u.anim = 'walk'; u.vx = Math.sin(u.facing) * o.walk; u.vz = Math.cos(u.facing) * o.walk }
         const v = makeRigView(u)
         v.yaw = o.yaw ?? 0.45
         const shadow = makeBlobShadow(0.45 * sizeOf(id))

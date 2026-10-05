@@ -616,11 +616,15 @@ export const buildDragon = (variant: DragonVariant): Rig => {
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
   b.bone('body', 'root', [0, 0.78, 0])
+  // A chain wherever it bends (#74): a neck of two, a tail of three, legs of
+  // shoulder or thigh, shin and foot, so it moves as an animal, not a figure.
   b.bone('neck', 'body', [0, 0.24, 0.5])
-  b.bone('head', 'neck', [0, 0.36, 0.3])
+  b.bone('neck2', 'neck', [0, 0.16, 0.13])
+  b.bone('head', 'neck2', [0, 0.2, 0.17])
   b.bone('jaw', 'head', [0, -0.04, 0.1])
   b.bone('tail1', 'body', [0, 0, -0.56])
-  b.bone('tail2', 'tail1', [0, 0, -0.56])
+  b.bone('tail2', 'tail1', [0, 0, -0.52])
+  b.bone('tail3', 'tail2', [0, 0, -0.46])
   const hide = (g: BufferGeometry): BufferGeometry => coat(g, P.belly, P.hide, P.top)
   // ── Wings: big, membrane dark with a lit leading edge, veins of light ──
   b.mirror((s, t) => {
@@ -652,24 +656,34 @@ export const buildDragon = (variant: DragonVariant): Rig => {
   }
   // ── Four legs: heavy shoulders and thighs, digitigrade hind legs, claws ──
   for (const [n, x, z] of [['legFL', -0.32, 0.36], ['legFR', 0.32, 0.36], ['legBL', -0.34, -0.34], ['legBR', 0.34, -0.34]] as const) {
-    b.bone(n, 'body', [x, -0.2, z])
     const s = x < 0 ? -1 : 1
-    if (n[3] === 'F') {
+    const front = n[3] === 'F'
+    const shin = 'shin' + n.slice(3)
+    const foot = 'foot' + n.slice(3)
+    b.bone(n, 'body', [x, -0.2, z])
+    if (front) {
+      // Shoulder, forearm from the elbow, a foot that stays flat on the ground.
+      b.bone(shin, n, [0, -0.2, 0.02])
+      b.bone(foot, shin, [0, -0.32, 0.03])
       b.painted(n, hide(ell(0.15, 0.24, 0.17, 9, 6)), { p: [s * 0.02, -0.04, 0] })
-      b.painted(n, shade(limb(0.1, 0.08, 0.3, 8, 2), P.hide, 0.7, 1.05), { p: [0, -0.22, 0.04], r: [0.15, 0, 0] })
+      b.painted(shin, shade(limb(0.1, 0.08, 0.32, 8, 2), P.hide, 0.7, 1.05), {})
     } else {
+      // Thigh, then a shin running back to the hock and a long foot forward from it (digitigrade).
+      b.bone(shin, n, [0, -0.2, -0.05])
+      b.bone(foot, shin, [0, -0.33, 0.06])
       b.painted(n, hide(ell(0.2, 0.28, 0.25, 9, 6)), { p: [s * 0.02, -0.02, 0] })
-      b.painted(n, shade(limb(0.1, 0.08, 0.24, 8, 2), P.hide, 0.7, 1.05), { p: [0, -0.2, -0.04], r: [-0.55, 0, 0] })
-      b.painted(n, shade(limb(0.075, 0.065, 0.2, 7, 2), P.hide, 0.65, 1), { p: [0, -0.39, -0.17], r: [0.5, 0, 0] })
+      b.painted(shin, shade(limb(0.1, 0.08, 0.24, 8, 2), P.hide, 0.7, 1.05), { r: [-0.55, 0, 0] })
+      b.painted(shin, shade(limb(0.075, 0.065, 0.2, 7, 2), P.hide, 0.65, 1), { p: [0, -0.2, -0.125], r: [0.5, 0, 0] })
     }
-    b.painted(n, shade(ell(0.15, 0.07, 0.2, 8, 5), P.hide, 0.5, 0.85), { p: [0, -0.52, 0.07] })
-    for (let k = -1; k <= 1; k++) b.painted(n, gradY(spike(0.034, 0.14, 4), P.hornBase, P.horn), { p: [k * 0.075, -0.54, 0.25], r: [1.65, k * 0.25, 0], outline: false })
+    b.painted(foot, shade(ell(0.15, 0.07, 0.2, 8, 5), P.hide, 0.5, 0.85), { p: [0, 0.01, 0.06] })
+    for (let k = -1; k <= 1; k++) b.painted(foot, gradY(spike(0.034, 0.14, 4), P.hornBase, P.horn), { p: [k * 0.075, -0.01, 0.24], r: [1.65, k * 0.25, 0], outline: false })
   }
   // ── The neck: three segments in an S, pale plates under, spines over ──
   b.painted('neck', hide(ell(0.22, 0.22, 0.25, 10, 8)), { p: [0, 0.04, 0.02], r: [0.7, 0, 0] })
-  b.painted('neck', hide(ell(0.19, 0.19, 0.22, 10, 8)), { p: [0, 0.18, 0.14], r: [0.9, 0, 0] })
-  b.painted('neck', hide(ell(0.17, 0.17, 0.2, 10, 8)), { p: [0, 0.3, 0.24], r: [0.6, 0, 0] })
-  for (let k = 0; k < 3; k++) b.painted('neck', gradY(spike(0.06, 0.24 - k * 0.03, 5), P.skin, P.glow), { p: [0, 0.22 + k * 0.1, -0.08 + k * 0.12], r: [-0.85, 0, 0] })
+  b.painted('neck2', hide(ell(0.19, 0.19, 0.22, 10, 8)), { p: [0, 0.02, 0.01], r: [0.9, 0, 0] })
+  b.painted('neck2', hide(ell(0.17, 0.17, 0.2, 10, 8)), { p: [0, 0.14, 0.11], r: [0.6, 0, 0] })
+  b.painted('neck', gradY(spike(0.06, 0.24, 5), P.skin, P.glow), { p: [0, 0.22, -0.08], r: [-0.85, 0, 0] })
+  for (let k = 1; k < 3; k++) b.painted('neck2', gradY(spike(0.06, 0.24 - k * 0.03, 5), P.skin, P.glow), { p: [0, 0.16 + (k - 1) * 0.1, -0.09 + (k - 1) * 0.12], r: [-0.85, 0, 0] })
   // ── The head: a wedge of a skull, a long snout, brow ridges, horns that sweep back ──
   b.painted('head', hide(ell(0.26, 0.22, 0.3, 12, 9)), { p: [0, 0.1, 0] })
   b.painted('head', hide(ell(0.18, 0.13, 0.34, 12, 8)), { p: [0, 0.05, 0.34] })
@@ -692,14 +706,14 @@ export const buildDragon = (variant: DragonVariant): Rig => {
   b.part('jaw', ell(0.12, 0.025, 0.28, 8, 4), P.mouth, { p: [0, -0.005, 0.28], outline: false })
   b.mirror((s) => { for (let k = 0; k < 3; k++) b.part('jaw', spike(0.016, 0.06, 4), BONE_WHITE, { p: [s * (0.1 - k * 0.012), 0.01, 0.2 + k * 0.12], outline: false }) })
   // ── The tail: long, plated under, spined, a blade of a spade at its end ──
-  b.painted('tail1', shade(rcone(0.3, 0.17, 0.64, 0.02, 10), P.hide, 0.62, 1.05), { p: [0, 0, -0.28], r: [-Math.PI / 2, 0, 0] })
-  b.painted('tail2', shade(rcone(0.18, 0.02, 0.84, 0.015, 9), P.hide, 0.62, 1.05), { p: [0, 0, -0.38], r: [-Math.PI / 2, 0, 0] })
-  for (let k = 0; k < 5; k++) {
-    const bone = k < 2 ? 'tail1' : 'tail2'
-    const z = k < 2 ? -0.12 - k * 0.3 : -0.1 - (k - 2) * 0.24
-    b.painted(bone, gradY(spike(0.065 - k * 0.008, 0.24 - k * 0.025, 5), P.skin, P.glow), { p: [0, (k < 2 ? 0.27 : 0.16) - (k % 2) * 0.03, z], r: [-0.6, 0, 0] })
+  // Three segments, each a little into the next so a bend never opens a gap.
+  b.painted('tail1', shade(rcone(0.3, 0.19, 0.62, 0.02, 10), P.hide, 0.62, 1.05), { p: [0, 0, -0.26], r: [-Math.PI / 2, 0, 0] })
+  b.painted('tail2', shade(rcone(0.19, 0.11, 0.58, 0.015, 9), P.hide, 0.62, 1.05), { p: [0, 0, -0.24], r: [-Math.PI / 2, 0, 0] })
+  b.painted('tail3', shade(rcone(0.11, 0.02, 0.6, 0.012, 8), P.hide, 0.62, 1.05), { p: [0, 0, -0.26], r: [-Math.PI / 2, 0, 0] })
+  for (const [bone, y, z, k] of [['tail1', 0.27, -0.14, 0], ['tail1', 0.22, -0.42, 1], ['tail2', 0.17, -0.12, 2], ['tail2', 0.13, -0.36, 3], ['tail3', 0.09, -0.14, 4]] as const) {
+    b.painted(bone, gradY(spike(0.065 - k * 0.008, 0.24 - k * 0.025, 5), P.skin, P.glow), { p: [0, y, z], r: [-0.6, 0, 0] })
   }
-  b.painted('tail2', gradY(plate([[0, 0.1], [0.24, -0.08], [0.06, -0.2], [0, -0.42], [-0.06, -0.2], [-0.24, -0.08]], 0.035), P.skin, P.skinEdge), { p: [0, 0.04, -0.76] })
+  b.painted('tail3', gradY(plate([[0, 0.1], [0.24, -0.08], [0.06, -0.2], [0, -0.42], [-0.06, -0.2], [-0.24, -0.08]], 0.035), P.skin, P.skinEdge), { p: [0, 0.03, -0.56] })
   return b.build({ height: 2.4 })
 }
 

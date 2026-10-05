@@ -619,6 +619,237 @@ const beast = (v: RigView, u: Unit, time: number, speed: number): void => {
   v.hopFrom = b.on ? Math.min(1, b.hit) : 0
 }
 
+// ─── The dragon (#74) ───────────────────────────────────────────────────────
+//
+// Its own performance, not the wolf's: a body of chains (a neck of two, a tail
+// of three, legs of shoulder or thigh, shin and foot) driven the way an animal
+// moves, every channel eased by a spring so nothing snaps:
+//
+//   walk     a four-beat gait (hind, fore, hind, fore): a leg lifts, folds at
+//            the knee and swings through, the foot stays flat; the body dips
+//            on each footfall and rolls over the planted shoulder; the head is
+//            held steady against it; a wave runs down the tail, and the tail
+//            swings out wide on a turn
+//   idle     it breathes (the chest rises, the neck lifts, the jaw parts on
+//            the breath out), looks about slowly, the wings settle
+//   bite     the neck draws back in an S with the jaw wide, then strikes
+//            through, snaps shut, and the body follows the head
+//   breath   it rears and draws breath (wings lift, chest swells), thrusts
+//            the head down at the ground and sweeps it across the cone
+//   stomp    it rears onto its hind legs, forelegs up and folded, wings flung
+//            wide, then comes down with its whole weight, forelegs planted,
+//            wings beating down, and the body rocks back up as it settles
+//   charge   head low, horns first, wings folded tight, a fast gallop
+//   roar     (meteors, a summons, rage) up on its haunches, wings spread,
+//            head thrown back, jaw wide, the whole body shaking with it
+
+interface DragonState { last: number; turn: number; ch: Record<string, number> }
+const dragonStates = new WeakMap<RigView, DragonState>()
+
+/** Ease channel `k` of `st` toward `to` at `rate` per second (a critically damped feel). */
+const ease = (st: DragonState, k: string, to: number, rate: number, dt: number): number => {
+  const cur = st.ch[k] ?? to
+  const v = cur + (to - cur) * (1 - Math.exp(-rate * dt))
+  st.ch[k] = v
+  return v
+}
+
+/** The four legs: name suffix, front?, and where in the gait cycle (0..1) each lifts. */
+const DRAGON_LEGS = [['BL', false, 0], ['FL', true, 0.25], ['BR', false, 0.5], ['FR', true, 0.75]] as const
+
+const dragon = (v: RigView, u: Unit, time: number, speed: number): void => {
+  const r = v.rig
+  let st = dragonStates.get(v)
+  if (!st) { st = { last: time, turn: 0, ch: {} }; dragonStates.set(v, st) }
+  const dt = clamp(time - st.last, 0, 0.1)
+  st.last = time
+  const walking = u.anim === 'walk' && speed > 0.3
+  const a = u.action
+  const kind = a ? a.id : ''
+  const b = beatsOf(u, 0.16)
+  const breathing = b.on && kind === 'cone'
+  const stomp = b.on && (kind === 'slam' || kind === 'smash' || kind === 'leap')
+  const roar = b.on && (kind === 'enrage' || kind === 'summon' || kind === 'heal' || kind === 'barrage')
+  const charge = b.on && kind === 'charge'
+  const bite = b.on && !breathing && !stomp && !roar && !charge
+  const amp = ease(st, 'amp', walking || charge ? Math.min(1.25, speed / 3) : 0, 6, dt)
+  const ph = v.phase * 0.5
+  const cyc = ph / TAU
+  // A turn swings the tail out the other way, and the neck leads into it.
+  st.turn += (v.yawRate - st.turn) * (1 - Math.exp(-4 * dt))
+
+  // ── The breath, and a slow look about ──
+  const br = Math.sin(time * 1.9 + v.phase)
+  const lookY = Math.sin(time * 0.37 + v.phase * 3) * 0.28 + Math.sin(time * 0.91) * 0.08
+
+  // ── Targets: rest, then the gait, then the action on top ──
+  let bodyX = 0
+  let bodyY = br * 0.012
+  let bodyZ = 0
+  let bodyRoll = 0
+  let neckX = -br * 0.03
+  let neck2X = 0
+  let neckY = lookY * 0.45
+  let headX = br * 0.02
+  let headY = lookY * 0.55
+  let headZ = 0
+  let jaw = 0.04 + Math.max(0, -br) * 0.07
+  let wingUp = Math.sin(time * 0.8 + v.phase) * 0.04
+  let wingBack = 0
+  let wingFlap = 0
+  let tailX = -0.06
+  let tailLift = 0
+  let frontHip = 0
+  let frontKnee = 0
+  let hindHip = 0
+  let hindKnee = 0
+  let rootZ = 0
+  let shake = 0
+
+  // The gait: the body dips on every footfall (four a cycle) and rolls over the planted shoulder.
+  bodyY += -0.035 * amp * (0.5 + 0.5 * Math.cos(cyc * TAU * 4))
+  bodyRoll += 0.045 * amp * Math.sin(cyc * TAU * 2)
+  bodyX += 0.02 * amp * Math.sin(cyc * TAU * 4 + 0.6)
+  // The head held steady against it: the neck takes the sway out.
+  neckY += -0.08 * amp * Math.sin(cyc * TAU * 2)
+  headY += 0.06 * amp * Math.sin(cyc * TAU * 2)
+  wingBack += 0.3 * amp
+  wingUp += 0.05 * amp * Math.sin(cyc * TAU * 4)
+
+  if (b.on) {
+    if (bite) {
+      // Draw back in an S, jaw wide; strike through; the body follows the head.
+      neckX += beat(b, -0.42, 0.42)
+      neck2X += beat(b, -0.3, 0.32)
+      headX += beat(b, 0.38, -0.12)
+      jaw = beat(b, 0.75, 0.02) + 0.04
+      bodyX += beat(b, -0.08, 0.12)
+      rootZ = beat(b, -0.14, 0.42)
+      frontHip += beat(b, 0.1, -0.3)
+      hindHip += beat(b, -0.15, 0.3)
+      wingUp += beat(b, 0.15, -0.05)
+      tailLift += beat(b, -0.15, 0.2)
+    } else if (breathing) {
+      // Rear and draw breath, then thrust the head down at the ground and sweep it across.
+      const sweep = b.hit > 0 ? Math.sin((a ? a.t - a.hitAt : 0) * 3.2) * 0.38 * (1 - b.out) : 0
+      bodyX += beat(b, -0.2, 0.1)
+      bodyY += beat(b, 0.07, 0)
+      neckX += beat(b, -0.5, 0.3)
+      neck2X += beat(b, -0.35, 0.25)
+      headX += beat(b, -0.3, 0.22)
+      neckY += sweep * 0.55
+      headY += sweep * 0.45
+      jaw = beat(b, 0.12, 0.85) + 0.04
+      wingUp += beat(b, 0.45, 0.2)
+      wingBack += beat(b, -0.25, 0)
+      frontHip += beat(b, -0.15, -0.05)
+      shake += 0.6 * b.hit * (1 - b.out)
+    } else if (stomp) {
+      // Up onto the hind legs, forelegs folded high, wings flung wide... then the whole weight down.
+      bodyX += beat(b, -0.5, 0.14)
+      bodyY += beat(b, 0.3, -0.1)
+      frontHip += beat(b, -0.85, -0.22)
+      frontKnee += beat(b, 1.15, 0.05)
+      hindHip += beat(b, 0.35, -0.05)
+      hindKnee += beat(b, -0.3, 0.12)
+      neckX += beat(b, -0.35, 0.4)
+      neck2X += beat(b, -0.2, 0.2)
+      headX += beat(b, -0.25, 0.25)
+      jaw = beat(b, 0.45, 0.65) + 0.04
+      wingUp += beat(b, 0.8, -0.45)
+      wingBack += beat(b, -0.4, 0.1)
+      wingFlap += beat(b, 0.3, -0.5)
+      tailX += beat(b, 0.3, -0.15)
+      tailLift += beat(b, -0.35, 0.25)
+    } else if (charge) {
+      // Head low, horns first, wings folded tight.
+      neckX += beat(b, 0.15, 0.45)
+      neck2X += beat(b, 0.1, 0.25)
+      headX += beat(b, 0.3, 0.2)
+      bodyX += beat(b, 0.12, 0.08)
+      wingBack += beat(b, 0.5, 0.6)
+      wingUp += beat(b, -0.2, -0.25)
+      tailLift += beat(b, 0.1, 0.2)
+      jaw = beat(b, 0.3, 0.45) + 0.04
+      rootZ = beat(b, -0.1, 0.3)
+    } else if (roar) {
+      // Up on its haunches, wings spread, head thrown back, jaw wide, shaking with it.
+      bodyX += beat(b, -0.32, -0.22)
+      bodyY += beat(b, 0.16, 0.1)
+      frontHip += beat(b, -0.4, -0.25)
+      frontKnee += beat(b, 0.6, 0.35)
+      neckX += beat(b, -0.45, -0.55)
+      neck2X += beat(b, -0.25, -0.3)
+      headX += beat(b, -0.2, -0.45)
+      jaw = beat(b, 0.35, 0.95) + 0.04
+      wingUp += beat(b, 0.7, 0.85)
+      wingBack += beat(b, -0.3, -0.35)
+      wingFlap += Math.sin(time * 14) * 0.08 * b.hit
+      tailLift += beat(b, -0.2, -0.3)
+      shake += 1.2 * b.hit * (1 - b.out)
+    }
+  }
+  if (u.flinch > 0) { headX -= 0.3 * u.flinch; neckX -= 0.2 * u.flinch; jaw += 0.25 * u.flinch }
+  if (v.dazed > 0.01) { headZ += Math.sin(time * 4.2 + v.phase) * 0.3 * v.dazed; neckX += 0.25 * v.dazed }
+  const sh = shake > 0 ? Math.sin(time * 47) * 0.015 * shake : 0
+
+  // ── Ease every channel: a body this size never snaps ──
+  const fast = b.on ? 18 : 7
+  const E = (k: string, to: number, rate = fast): number => ease(st!, k, to, rate, dt)
+  const bx = E('bodyX', bodyX)
+  const by = E('bodyY', bodyY)
+  const bz = E('bodyZ', bodyZ)
+  pose(r, 'body', bx + sh, 0, E('roll', bodyRoll, 8) + sh * 0.6)
+  nudge(r, 'body', 0, by, bz)
+  // The neck and head lag the body a little: the head arrives last.
+  pose(r, 'neck', E('neckX', neckX - bx * 0.4), E('neckY', neckY + st.turn * 0.06, 6), 0)
+  pose(r, 'neck2', E('neck2X', neck2X, fast * 0.8), E('neck2Y', neckY * 0.6, 5), 0)
+  pose(r, 'head', E('headX', headX - bx * 0.3, fast * 0.7), E('headY', headY, 4), E('headZ', headZ, 6))
+  pose(r, 'jaw', E('jaw', jaw, b.on ? 26 : 8), 0, 0)
+  // Wings: spread or folded, a beat when it lands, a breath of their own.
+  const wu = E('wingUp', wingUp, b.on ? 10 : 4)
+  const wb = E('wingBack', wingBack, 5)
+  const wf = E('wingFlap', wingFlap, 14)
+  pose(r, 'wingL', 0, -wb, -(wu + wf))
+  pose(r, 'wingR', 0, wb, wu + wf)
+  // The tail: a wave down its length that follows the gait, swung out by a turn, lifted by the action.
+  const swing = -st.turn * 0.12
+  for (let k = 1; k <= 3; k++) {
+    const lag = k * 0.65
+    const wave = Math.sin(cyc * TAU * 2 - lag) * (0.12 + 0.06 * k) * amp + Math.sin(time * 1.3 - lag + v.phase) * 0.07 * k * (1 - amp)
+    pose(r, 'tail' + k, E('tailX' + k, (tailX + tailLift) * (k === 1 ? 1 : 0.5), 6 - k), E('tailY' + k, wave + swing * k, 7 - k), 0)
+  }
+  // Legs: each lifts and swings through on its beat, the knee folding as it lifts, the foot kept flat.
+  for (const [leg, front, at] of DRAGON_LEGS) {
+    let c = (cyc + at) % 1
+    if (c < 0) c += 1
+    const swingK = c < 0.32 ? c / 0.32 : -1
+    const lift = swingK >= 0 ? Math.sin(swingK * Math.PI) : 0
+    const A = 0.36 * amp
+    // Swing: from back to front. Stance: the planted foot travels back under the body.
+    const hip = swingK >= 0 ? A * (1 - 2 * (swingK * swingK * (3 - 2 * swingK))) : -A + 2 * A * ((c - 0.32) / 0.68)
+    const knee = lift * 0.95 * amp
+    const h = E('hip' + leg, hip + (front ? frontHip : hindHip), 16)
+    const kn = E('knee' + leg, knee + (front ? frontKnee : hindKnee), 16)
+    pose(r, 'leg' + leg, h, 0, 0)
+    pose(r, 'shin' + leg, kn, 0, 0)
+    // The foot stays level with the ground, curling a little as it leaves it.
+    pose(r, 'foot' + leg, -(h + kn) * 0.9 + lift * 0.35 * amp, 0, 0)
+  }
+
+  v.rootZ = rootZ
+  v.hopY = 0
+  v.leapK = 0
+  v.pitch = 0
+  v.roll = 0
+  v.trail = bite && b.hit > 0 && b.out < 0.25 ? 1 - b.out * 4 : 0
+  v.trailOff = 0
+  v.trailHeavy = true
+  // The stomp lands: the whole body squashes into the ground.
+  if (b.on && b.hit >= 1 && v.hopFrom < 1 && stomp) squash(v, 0.16)
+  v.hopFrom = b.on ? Math.min(1, b.hit) : 0
+}
+
 const spider = (v: RigView, u: Unit, time: number, speed: number): void => {
   const r = v.rig
   const amp = u.anim === 'walk' && speed > 0.3 ? 1 : 0.12
@@ -715,8 +946,10 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
     switch (v.family) {
       case 'beast':
       case 'wyvern':
-      case 'dragon':
         beast(v, u, time, speed)
+        break
+      case 'dragon':
+        dragon(v, u, time, speed)
         break
       case 'spider':
         spider(v, u, time, speed)
