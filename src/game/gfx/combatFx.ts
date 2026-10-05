@@ -5,6 +5,7 @@ import type { Unit } from '../sim/types'
 import type { RigView } from './rigs'
 import { TYPE_COLOR, type Blow, type Vfx } from './vfx'
 import { groundAt } from './ground'
+import { trailStyleOf } from './trails'
 
 /**
  * ─── What a unit's own motion leaves in the air ──────────────────────────────
@@ -61,7 +62,7 @@ export const trackUnit = (vfx: Vfx, v: RigView, u: Unit): void => {
     vfx.trails.feed(key, v, false, v.trail, trailColor(v, u), v.trailHeavy)
     v.trailWas = v.trail > 0.02
     // The fast part of a swing throws a spark off the edge.
-    if (v.trail > 0.5 && tipOf(v, false, _p)) vfx.edge(_p.x, _p.y - groundAt(_p.x, _p.z), _p.z, trailColor(v, u), v.trailHeavy)
+    if (v.trail > 0.5 && tipOf(v, false, _p)) vfx.edge(_p.x, _p.y - groundAt(_p.x, _p.z), _p.z, trailColor(v, u), v.trailHeavy, trailStyleOf(v).spark)
   }
   if (v.trailOff > 0.02 || v.trailOffWas) {
     vfx.trails.feed(key + 1, v, true, v.trailOff, trailColor(v, u), v.trailHeavy)

@@ -597,11 +597,29 @@ export class Vfx {
     } else if (o.heavy) sp.emit({ x, y, z, color: col, size: 0.4 * k, sizeEnd: 1.5 * k, life: 0.16, shape: SHAPE.ring })
   }
 
-  /** A blade cutting the air: now and then a spark off its edge (fed by the swing, `combatFx.ts`). */
-  edge(x: number, y: number, z: number, color: string, heavy: boolean): void {
-    if (Math.random() > (heavy ? 0.55 : 0.3) * (this.low ? 0.5 : 1)) return
+  /**
+   * A weapon cutting the air: now and then something off its edge (fed by
+   * the swing, `combatFx.ts`): a blade's sparks, a club's dust, a scythe's
+   * wisps of dark, a staff's motes.
+   */
+  edge(x: number, y: number, z: number, color: string, heavy: boolean, kind: 'blade' | 'blunt' | 'dark' | 'magic' | 'none' = 'blade'): void {
+    if (kind === 'none' || Math.random() > (heavy ? 0.55 : 0.3) * (this.low ? 0.5 : 1)) return
     const a = Math.random() * Math.PI * 2
-    this.sprites.emit({ x, y, z, vx: Math.cos(a) * 2.5, vy: 1 + Math.random() * 2, vz: Math.sin(a) * 2.5, color: Math.random() < 0.5 ? '#ffffff' : color, size: 0.24, sizeEnd: 0.04, aspect: 0.35, align: true, life: 0.22, gravity: 6, shape: SHAPE.streak })
+    const sp = this.sprites
+    switch (kind) {
+      case 'blunt':
+        sp.emit({ x, y, z, vx: Math.cos(a) * 0.8, vy: 0.4, vz: Math.sin(a) * 0.8, color: '#d8cbb4', size: 0.3, sizeEnd: 0.7, life: 0.35, drag: 2, shape: SHAPE.puff, add: 0, hold: 0.1 })
+        break
+      case 'dark':
+        sp.emit({ x, y, z, vx: Math.cos(a) * 0.6, vy: 0.6, vz: Math.sin(a) * 0.6, color: '#1c0f33', size: 0.35, sizeEnd: 0.7, life: 0.4, drag: 2, shape: SHAPE.puff, add: 0, hold: 0.1 })
+        sp.emit({ x, y, z, vx: Math.cos(a) * 1.5, vy: 1, vz: Math.sin(a) * 1.5, color, size: 0.16, sizeEnd: 0.03, life: 0.4, shape: SHAPE.dot })
+        break
+      case 'magic':
+        sp.emit({ x, y, z, vx: Math.cos(a) * 1.4, vy: 0.8 + Math.random(), vz: Math.sin(a) * 1.4, color: Math.random() < 0.5 ? '#ffffff' : color, size: 0.2, sizeEnd: 0.03, life: 0.45, drag: 1.5, shape: SHAPE.dot })
+        break
+      default:
+        sp.emit({ x, y, z, vx: Math.cos(a) * 2.5, vy: 1 + Math.random() * 2, vz: Math.sin(a) * 2.5, color: Math.random() < 0.5 ? '#ffffff' : color, size: 0.24, sizeEnd: 0.04, aspect: 0.35, align: true, life: 0.22, gravity: 6, shape: SHAPE.streak })
+    }
   }
 
   /** A shot leaves a barrel (or a string): a star at the muzzle and a tongue the way it points. */
