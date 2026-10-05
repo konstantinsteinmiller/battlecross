@@ -1,8 +1,10 @@
 /**
  * THE CINEMATIC TRAILER (roadmap #X1) — `pnpm cinematic-trailer`.
  *
- * About 82 s at 1920x1080, cut on the beat of the game's own boss theme
- * ("Trial of Blades", 112 BPM: a beat is 0.536 s, every cut lands on one).
+ * About 86 s at 1920x1080, cut on the bars of its own score, "The Last Light"
+ * (`tools/score-render/score.mjs`: 112 BPM, a beat is 0.536 s; every shot is
+ * whole bars, so each cut lands on a downbeat and each section of the music on
+ * its act). The score is also the game's boss-fight music.
  * Three acts, the hero a different class in nearly every shot, so the range
  * of the game shows:
  *
@@ -58,18 +60,18 @@ export const SHOTS = [
   { id: 'sunford', node: 'sunford', hero: { level: 30, cls: 'aegis' }, walk: [[17, 11], [17, 19], [19, 22], [19, 33]], beats: 8 },
   { id: 'hollows', node: 'hollows', hero: { level: 5, cls: 'aegis' }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.95, bossHp: 0.055, foeHp: 0.2 }, beats: 12 },
   { id: 'woods', node: 'woods', hero: { level: 8, cls: 'shadow' }, stage: { pack: 'finale', gap: 3.2, heroHp: 0.9, bossHp: 0.35, foeHp: 0.4 }, beats: 8 },
-  { id: 'outskirts', node: 'outskirts', hero: { level: 10, cls: 'sovereign' }, stage: { pack: 'finale', gap: 2.4, heroHp: 0.9, bossHp: 0.06, foeHp: 0.12 }, beats: 10 },
+  { id: 'outskirts', node: 'outskirts', hero: { level: 10, cls: 'sovereign' }, stage: { pack: 'finale', gap: 2.4, heroHp: 0.9, bossHp: 0.06, foeHp: 0.12 }, beats: 12 },
   { id: 'crags', node: 'crags', hero: { level: 13, cls: 'pyro' }, stage: { pack: 1, gap: 3.0, heroHp: 0.9, foeHp: 0.7 }, beats: 4 },
   { id: 'mines', node: 'mines', hero: { level: 15, cls: 'aether' }, stage: { pack: 'finale', gap: 4.2, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   { id: 'tundra', node: 'tundra', hero: { level: 19, cls: 'geo' }, stage: { pack: 'finale', gap: 3.8, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   { id: 'temple', node: 'temple', hero: { level: 20, cls: 'chrono' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
-  { id: 'arena', node: 'arena', hero: { level: 15, cls: 'sovereign' }, preroll: 4200, beats: 6 },
+  { id: 'arena', node: 'arena', hero: { level: 15, cls: 'sovereign' }, preroll: 4200, beats: 8 },
   { id: 'citadel', node: 'citadel', hero: { level: 23, cls: 'blood' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
-  { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 14 },
+  { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 12 },
   { id: 'square', node: 'sunford', hero: { level: 25, cls: 'sovereign' }, walk: [[16, 18], [16, 11], [22, 11], [22, 18], [16, 18]], beats: 8 },
-  { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.11 }, beats: 22 },
+  { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.11 }, beats: 24 },
   { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 4.0, heroHp: 0.75, bossHp: 0.16, foeHp: 0.2 }, beats: 32, hold: true },
-  { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 14 }
+  { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 16 }
 ]
 
 /** The trailer's length: every shot's beats, on the grid. */

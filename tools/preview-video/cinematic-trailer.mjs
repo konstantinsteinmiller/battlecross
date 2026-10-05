@@ -8,9 +8,9 @@
  *      (the shot list is `scenarios/cinematic-trailer.mjs`; the clean feed, so
  *      no bubbles, no HUD). It logs every sound the fights ask for to
  *      preview-videos/cinematic-sfx.json, on the clip's clock.
- *   2. RENDER the music: the game's own boss theme ("Trial of Blades", the cuts
- *      sit on its beat), offline, to the trailer's length (`tools/music-render.mjs`).
- *      The game's score is a live WebAudio sequencer the frame recorder cannot hear.
+ *   2. RENDER the music: "The Last Light" (`tools/score-render.mjs trailer`),
+ *      the trailer's own score with sampled piano, strings, guitar and
+ *      percussion, its sections on the trailer's acts and every cut on a bar.
  *   3. RENDER the fights' sounds: the game's own synth recipes, offline, laid
  *      at the logged times (`tools/sfx-render.mjs`). No voice-over.
  *   4. MIX: the music under the fights, a fade in and out, levelled to -15 LUFS.
@@ -34,7 +34,7 @@ const SOUNDS = join(OUT_DIR, 'cinematic-sfx.json')
 const ffmpeg = createRequire(join(ROOT, 'package.json'))('ffmpeg-static')
 
 /** The fights against the music (the music is the bed, the hits sit on top). */
-const MUSIC_GAIN = 0.62
+const MUSIC_GAIN = 0.5
 const FIGHTS_GAIN = 0.75
 
 const argv = process.argv.slice(2)
@@ -67,8 +67,8 @@ console.log(`picture: ${picture}\nsounds: ${events.length} logged`)
 // 2. The music, a little longer than the picture (the fade-out is the mix's).
 const audioDir = join(OUT_DIR, 'cinematic-audio')
 mkdirSync(audioDir, { recursive: true })
-run(process.execPath, ['--import', './tools/ts-resolve.mjs', join(ROOT, 'tools/music-render.mjs'), '--out', audioDir, '--seconds', String(Math.ceil(seconds + 2)), 'boss'], 'rendering the boss theme')
-const music = join(audioDir, 'boss.mp3')
+const music = join(audioDir, 'score.wav')
+run(process.execPath, [join(ROOT, 'tools/score-render.mjs'), 'trailer', music], 'rendering the score')
 
 // 3. The fights, voiced from the game's own synth.
 const fights = join(audioDir, 'fights.wav')

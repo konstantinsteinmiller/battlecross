@@ -112,3 +112,4 @@ __screenshots__/
 # z-fight audit dumps (DUMP=zf.txt pnpm vitest run tests/game/zfight.report.test.ts)
 /zf.txt*
 /store-art/covers-backup/
+/tools/score-render/.samples/

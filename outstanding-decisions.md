@@ -5,7 +5,7 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-04.
+Last updated: 2026-10-05.
 
 ## Needs an answer
 
@@ -23,6 +23,8 @@ Last updated: 2026-10-04.
 | 33 | **German and Dutch choice screen.** "Dein Held" / "Jouw held" stay masculine before the player has chosen. "Deine Heldin oder dein Held"? | Masculine | Keep; it is the neutral generic there |
 | 34 | **Slavic small talk.** Feminine variants cover what is said to and about the hero; idle town chatter that never addresses the hero was left out. | Left out | Keep |
 | 35 | **Nudges (#69).** In town, should the gate and the road out hop too when the player stands about? The bag hops only when it holds an upgrade; should it also hop when it is nearly full? | Neither | Add the gate; leave the bag as is |
+| 36 | **Soundfont credit in the game.** The boss music ("The Last Light") is rendered with FluidR3_GM samples (CC BY 3.0): the credit is in `CREDITS.md`. Also show it in the game (a settings or about line) or on the portal pages? | `CREDITS.md` only | Add one line to each portal's description; an in-game line if a credits screen ever exists |
+| 37 | **Where "The Last Light" plays.** It replaces the synthesized boss theme in every boss fight (a 45 s loop of its driving sections). Keep it there, or use it elsewhere (the finale only, a zone)? | Every boss fight | Keep |
 
 ## Defaults taken in the playtest pass, overrule any
 
