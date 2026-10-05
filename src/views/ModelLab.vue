@@ -5,13 +5,14 @@
     h1 Art bench
     p.lab__note Vector placeholders and any file dropped into public/images. Dev only; nothing here is translated.
     div.lab__bar
-      button(type="button" :class="{ 'is-on': !ab && !rigs }" @click="ab = false; rigs = false") Gallery
-      button(type="button" :class="{ 'is-on': ab && !rigs }" @click="ab = true; rigs = false") Painted vs drawn
-      button(type="button" :class="{ 'is-on': rigs }" @click="rigs = true") Rigs
-      label.lab__tog(v-if="ab && !rigs")
+      button(type="button" :class="{ 'is-on': !ab && !rigs && !fx }" @click="ab = false; rigs = false; fx = false") Gallery
+      button(type="button" :class="{ 'is-on': ab && !rigs && !fx }" @click="ab = true; rigs = false; fx = false") Painted vs drawn
+      button(type="button" :class="{ 'is-on': rigs }" @click="fx = false; rigs = true") Rigs
+      button(type="button" :class="{ 'is-on': fx }" @click="rigs = false; fx = true") Effects
+      label.lab__tog(v-if="ab && !rigs && !fx")
         input(type="checkbox" v-model="paintedOnly")
         |  painted only ({{ paintedCount }} of {{ abTotal }})
-    template(v-if="!ab && !rigs")
+    template(v-if="!ab && !rigs && !fx")
       section(v-for="g in groups" :key="g.title")
         h2 {{ g.title }} ({{ g.cells.length }})
         div.lab__grid
@@ -26,7 +27,7 @@
     //- as the game draws it with the file (left of each pair) and without it
     //- (right), at the sizes the HUD uses. A painted part is only ever wrong
     //- RELATIVE to the drawing it stands in for.
-    template(v-else-if="!rigs")
+    template(v-else-if="!rigs && !fx")
       p.lab__note Left of each pair: what the game shows (the painted file when one exists). Right: the drawing it replaces. At 40, 56 and 72 px, the sizes the HUD draws them at.
       section(v-for="g in abGroups" :key="g.title")
         h2 {{ g.title }} ({{ g.cells.length }})
@@ -57,11 +58,25 @@
         button(type="button" @click="showStrip") Strip
         button(type="button" @click="showLive") Live
       div.lab__stage(ref="stage")
+    //- The effects bench: the game's own Vfx under the game's camera angle
+    //- (`game/gfx/fxBench.ts`, also `window.__fxbench`).
+    template(v-if="fx")
+      p.lab__note The game's effects on a bare ground, at the game's camera angle. An effect must read on grass, snow and at night.
+      div.lab__bar
+        button(type="button" @click="fxBench?.shots()") Projectiles
+        button(type="button" @click="fxBench?.impacts()") Impacts
+        button(type="button" @click="fxBench?.death(1)") Death
+        button(type="button" @click="fxBench?.death(2.2)") Boss death
+        button(type="button" @click="fxBench?.ground('grass')") Grass
+        button(type="button" @click="fxBench?.ground('snow')") Snow
+        button(type="button" @click="fxBench?.ground('night')") Night
+      div.lab__stage(ref="fxStage")
 </template>
 
 <script setup lang="ts">
 import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch, type PropType } from 'vue'
 import { mountBench, type Bench, type StripOpts } from '@/game/gfx/rigs/bench'
+import { mountFxBench, type FxBench } from '@/game/gfx/fxBench'
 import type { Held } from '@/game/gfx/rigs/humanoid'
 import { ITEMS } from '@/game/data/items'
 import { SKILLS } from '@/game/data/skills'
@@ -145,6 +160,18 @@ watch(rigs, async (on) => {
   if (stage.value && !bench) bench = mountBench(stage.value)
 }, { immediate: true, flush: 'post' })
 onBeforeUnmount(() => { bench?.dispose(); bench = null })
+
+// ─── Effects ─────────────────────────────────────────────────────────────────
+
+const fx = ref(new URLSearchParams(window.location.search).has('fx'))
+const fxStage = ref<HTMLElement | null>(null)
+let fxBench: FxBench | null = null
+watch(fx, async (on) => {
+  if (!on) { fxBench?.dispose(); fxBench = null; return }
+  await nextTick()
+  if (fxStage.value && !fxBench) fxBench = mountFxBench(fxStage.value)
+}, { immediate: true, flush: 'post' })
+onBeforeUnmount(() => { fxBench?.dispose(); fxBench = null })
 
 const ab = ref(false)
 const paintedOnly = ref(false)

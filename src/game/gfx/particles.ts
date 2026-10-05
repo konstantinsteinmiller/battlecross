@@ -257,7 +257,7 @@ export class Particles {
 // alpha (0: dust, dark shadow-stuff) to additive (1: light).
 
 export const SHAPE = {
-  streak: 0, star: 1, slash: 2, ring: 3, needle: 4, shard: 5, bolt: 6, bubble: 7, cross: 8, puff: 9, claw: 10, dot: 11
+  streak: 0, star: 1, slash: 2, ring: 3, needle: 4, shard: 5, bolt: 6, bubble: 7, cross: 8, puff: 9, claw: 10, dot: 11, band: 12
 } as const
 export type Shape = (typeof SHAPE)[keyof typeof SHAPE]
 
@@ -300,7 +300,7 @@ void main() {
   float core = 0.0;
   if (shape < 0.5) {
     // Streak: a lens along x, brightest at the head.
-    float w = 0.9 * (1.0 - p.x * p.x);
+    float w = max(0.9 * (1.0 - p.x * p.x), 1e-3);
     a = smoothstep(w, w * 0.25, abs(p.y)) * step(abs(p.x), 1.0);
     core = smoothstep(w * 0.45, 0.0, abs(p.y)) * smoothstep(-0.6, 0.8, p.x);
   } else if (shape < 1.5) {
@@ -310,7 +310,7 @@ void main() {
     core = smoothstep(0.7, 0.45, d);
   } else if (shape < 2.5) {
     // The cut a blade leaves: a thin hard-edged lens.
-    float w = 0.2 * (1.0 - p.x * p.x);
+    float w = max(0.2 * (1.0 - p.x * p.x), 1e-3);
     a = smoothstep(w, w * 0.8, abs(p.y)) * step(abs(p.x), 1.0);
     core = smoothstep(w * 0.5, w * 0.3, abs(p.y));
   } else if (shape < 3.5) {
@@ -355,11 +355,16 @@ void main() {
     float o = length(p - vec2(0.0, 0.42));
     a = smoothstep(1.0, 0.94, r) * smoothstep(0.86, 0.94, o) * step(p.y, 0.3);
     core = a * smoothstep(0.98, 0.9, o);
-  } else {
+  } else if (shape < 11.5) {
     // Dot: a soft glow.
     a = smoothstep(1.0, 0.0, r);
     a *= a;
     core = smoothstep(0.45, 0.0, r);
+  } else {
+    // Band: a soft-edged bar that does not taper, so a chain of them laid end
+    // to end along a flight is one smooth ribbon (no beads where they meet).
+    a = smoothstep(1.0, 0.45, abs(p.y)) * smoothstep(1.0, 0.55, abs(p.x));
+    core = smoothstep(0.4, 0.0, abs(p.y)) * smoothstep(1.0, 0.6, abs(p.x));
   }
   a = clamp(a, 0.0, 1.0) * vColor.a;
   vec3 col = mix(vColor.rgb, vec3(1.0), clamp(core, 0.0, 1.0) * vMisc.y);
@@ -508,6 +513,37 @@ export class Sprites {
     this.spin[i] = s.spin ?? 0
     this.stretch[i] = s.stretch ?? 0
     this.hold[i] = s.hold ?? 0.25
+  }
+
+  // ─── A pool redrawn from scratch each frame ───
+  // What lives exactly as long as a frame (the head of a projectile in flight):
+  // `begin`, a `stamp` per sprite, `end`. Such a pool is never `update`d.
+
+  begin(): void { this.n = 0 }
+
+  /** One sprite for this frame only, at full strength times `alpha`. */
+  stamp(s: SpriteSpec, alpha = 1): void {
+    if (this.n >= this.cap) return
+    this.emit(s)
+    const i4 = (this.n - 1) * 4
+    if (s.align) {
+      const vx = s.vx ?? 0
+      const vy = s.vy ?? 0
+      const vz = s.vz ?? 0
+      this.pos[i4 + 3] = s.size + Math.sqrt(vx * vx + vy * vy + vz * vz) * (s.stretch ?? 0)
+    }
+    this.col[i4 + 3] = alpha
+  }
+
+  end(): void {
+    this.geo.instanceCount = this.n
+    this.mesh.visible = this.n > 0
+    if (this.n === 0) return
+    for (const a of this.attrs) {
+      a.clearUpdateRanges()
+      a.addUpdateRange(0, this.n * 4)
+      a.needsUpdate = true
+    }
   }
 
   update(dt: number): void {

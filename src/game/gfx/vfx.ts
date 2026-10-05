@@ -4,9 +4,9 @@ import {
 } from 'three'
 import type { DamageType, Projectile, SimEvent, Telegraph, Unit } from '../sim/types'
 import { sceneQuality } from '../engine/quality'
-import { Particles, SHAPE, Sprites } from './particles'
+import { Particles, SHAPE, Sprites, type Shape } from './particles'
 import { Telegraphs } from './telegraphs'
-import { glowTexture, ringTexture } from './textures'
+import { fieldTexture, glowTexture, pillarTexture, ringTexture, softDisc } from './textures'
 import { Trails } from './trails'
 import { groundAt } from './ground'
 import { LootBeams } from './lootBeam'
@@ -60,6 +60,8 @@ export interface ImpactOpts {
   /** The target's radius, metres (a bigger body takes a bigger mark). */
   size: number
   toHero: boolean
+  /** Draw it in this colour instead of the damage type's own. */
+  color?: string
 }
 
 interface Pooled {
@@ -80,35 +82,83 @@ const basic = (additive: boolean, map = false): MeshBasicMaterial => new MeshBas
 
 interface Ring extends Pooled { r0: number; r1: number }
 interface Arc extends Pooled { r: number; half: number; breath: boolean }
-interface Disc extends Pooled { r: number; kind: 'field' | 'flash' | 'tele'; fill: Mesh | null; pulse: number }
-interface Beam extends Pooled { w: number }
-interface Orb extends Pooled { x0: number; y0: number; z0: number; x1: number; y1: number; z1: number; trail: string; size: number; arc: number }
+interface Disc extends Pooled { r: number; kind: 'field' | 'flash' | 'tele'; fill: Mesh | null; pulse: number; fx: string }
+interface Beam extends Pooled { w: number; seed: number }
+interface Orb extends Pooled { x0: number; y0: number; z0: number; x1: number; y1: number; z1: number; trail: string; size: number; arc: number; kind: string; px: number; py: number; pz: number }
 
-/** How a projectile looks: core colour, size, and what it leaves behind. */
-const SHOTS: Record<string, { color: string; size: number; trail: string; spark: string }> = {
-  fireball: { color: '#ffb02a', size: 0.5, trail: '#ff6a1a', spark: '#ffd27a' },
-  aether: { color: '#7ff4ff', size: 0.26, trail: '#4ff0c8', spark: '#e8ffff' },
-  bolt: { color: '#b8a8ff', size: 0.3, trail: '#8a6aff', spark: '#e8e0ff' },
-  bullet: { color: '#fff0c0', size: 0.2, trail: '#ffd27a', spark: '#ffffff' },
-  arrow: { color: '#f4e8d0', size: 0.2, trail: '#c9b28a', spark: '#ffffff' },
-  rock: { color: '#b8b0a4', size: 0.28, trail: '#8a8278', spark: '#e8e2d8' },
-  ember: { color: '#ff8a2a', size: 0.36, trail: '#ff5a1a', spark: '#ffd27a' },
-  shadow: { color: '#b06aff', size: 0.34, trail: '#6a2ad0', spark: '#e0b8ff' },
-  web: { color: '#f0f0ff', size: 0.3, trail: '#c8c8e8', spark: '#ffffff' },
-  water: { color: '#7fe8ff', size: 0.3, trail: '#3fc7e0', spark: '#e8ffff' },
-  holy: { color: '#fff2a8', size: 0.32, trail: '#ffd84a', spark: '#ffffff' },
-  rocket: { color: '#ffb04a', size: 0.36, trail: '#ff6a2a', spark: '#ffe0a8' },
-  blast: { color: '#7ff4ff', size: 0.5, trail: '#4fd8ff', spark: '#ffffff' },
-  bomb: { color: '#3a3440', size: 0.42, trail: '#ff8a3a', spark: '#ffd27a' },
-  venom: { color: '#8dff5a', size: 0.4, trail: '#5fbf3a', spark: '#d8ffb8' },
-  meteor: { color: '#ff7a1a', size: 0.9, trail: '#ff4a0a', spark: '#ffd27a' },
-  icicle: { color: '#bfe6ff', size: 0.5, trail: '#7fc8ff', spark: '#ffffff' },
-  geyser: { color: '#7fe8ff', size: 0.5, trail: '#3fc7e0', spark: '#ffffff' },
-  curse: { color: '#b06aff', size: 0.5, trail: '#6a2ad0', spark: '#e0b8ff' },
-  roots: { color: '#7a5a3a', size: 0.4, trail: '#5fae4a', spark: '#c8ff9a' },
-  flask: { color: '#ff4a6a', size: 0.3, trail: '#c8283a', spark: '#ffb8c8' }
+/**
+ * What a projectile is made of, built in layers the way a hand-made effect is:
+ *
+ *   energy  light: a soft halo, a body stretched along its flight with a
+ *           white-hot head, a hot core, and for some a shape turning in it
+ *   point   a thing with a tip (an arrow, a bullet, an icicle, a rocket): a
+ *           needle along its flight and a glint on the point
+ *   matter  a solid lump (a rock, a bomb, a flask): the mesh itself, opaque
+ *           and tumbling, with a faint halo so it reads on dark ground
+ *
+ * Every one draws a RIBBON behind it (a short streak laid each frame along its
+ * way and fading over a few frames: a continuous, tapering trail) and a WAKE
+ * of its element (embers, smoke, frost, wisps of shadow, drops). It lands as
+ * its element (`hit`) through the same `impact` as a blow.
+ */
+type Body = 'energy' | 'point' | 'matter'
+type Wake = 'fire' | 'smoke' | 'frost' | 'shadow' | 'holy' | 'venom' | 'water' | 'arcane' | 'dust' | 'leaf' | 'blood' | 'air'
+interface ShotLook {
+  color: string
+  size: number
+  trail: string
+  spark: string
+  body: Body
+  wake: Wake[]
+  hit: DamageType
+  blow?: Blow
+  /** A shape that turns inside an energy body. */
+  spin?: Shape
 }
-const shotOf = (fx: string) => SHOTS[fx] ?? SHOTS.bolt!
+const SHOTS: Record<string, ShotLook> = {
+  fireball: { color: '#ffb02a', size: 0.5, trail: '#ff6a1a', spark: '#ffd27a', body: 'energy', wake: ['fire', 'smoke'], hit: 'fire' },
+  aether: { color: '#7ff4ff', size: 0.26, trail: '#4ff0c8', spark: '#e8ffff', body: 'energy', wake: ['arcane'], hit: 'beam', spin: SHAPE.ring },
+  bolt: { color: '#b8a8ff', size: 0.3, trail: '#8a6aff', spark: '#e8e0ff', body: 'energy', wake: ['arcane'], hit: 'beam', spin: SHAPE.star },
+  bullet: { color: '#fff0c0', size: 0.2, trail: '#ffd27a', spark: '#ffffff', body: 'point', wake: ['air'], hit: 'pierce', blow: 'pierce' },
+  arrow: { color: '#f4e8d0', size: 0.2, trail: '#e8dcc0', spark: '#ffffff', body: 'point', wake: ['air'], hit: 'pierce', blow: 'pierce' },
+  rock: { color: '#b8b0a4', size: 0.28, trail: '#8a8278', spark: '#e8e2d8', body: 'matter', wake: ['dust'], hit: 'physical', blow: 'blunt' },
+  ember: { color: '#ff8a2a', size: 0.36, trail: '#ff5a1a', spark: '#ffd27a', body: 'energy', wake: ['fire'], hit: 'fire' },
+  shadow: { color: '#b06aff', size: 0.34, trail: '#6a2ad0', spark: '#e0b8ff', body: 'energy', wake: ['shadow'], hit: 'shadow', spin: SHAPE.claw },
+  web: { color: '#f0f0ff', size: 0.3, trail: '#c8c8e8', spark: '#ffffff', body: 'matter', wake: ['air'], hit: 'poison' },
+  water: { color: '#7fe8ff', size: 0.3, trail: '#3fc7e0', spark: '#e8ffff', body: 'energy', wake: ['water'], hit: 'poison', spin: SHAPE.bubble },
+  holy: { color: '#fff2a8', size: 0.32, trail: '#ffd84a', spark: '#ffffff', body: 'energy', wake: ['holy'], hit: 'holy', spin: SHAPE.cross },
+  rocket: { color: '#ffb04a', size: 0.36, trail: '#ff6a2a', spark: '#ffe0a8', body: 'point', wake: ['fire', 'smoke'], hit: 'fire' },
+  blast: { color: '#7ff4ff', size: 0.5, trail: '#4fd8ff', spark: '#ffffff', body: 'energy', wake: ['arcane'], hit: 'beam', spin: SHAPE.ring },
+  bomb: { color: '#3a3440', size: 0.42, trail: '#ff8a3a', spark: '#ffd27a', body: 'matter', wake: ['smoke', 'fire'], hit: 'fire', blow: 'blunt' },
+  venom: { color: '#8dff5a', size: 0.4, trail: '#5fbf3a', spark: '#d8ffb8', body: 'energy', wake: ['venom'], hit: 'poison', spin: SHAPE.bubble },
+  meteor: { color: '#ff7a1a', size: 0.9, trail: '#ff4a0a', spark: '#ffd27a', body: 'energy', wake: ['fire', 'smoke'], hit: 'fire' },
+  icicle: { color: '#bfe6ff', size: 0.5, trail: '#7fc8ff', spark: '#ffffff', body: 'point', wake: ['frost'], hit: 'frost', blow: 'pierce' },
+  geyser: { color: '#7fe8ff', size: 0.5, trail: '#3fc7e0', spark: '#ffffff', body: 'energy', wake: ['water'], hit: 'frost', spin: SHAPE.bubble },
+  curse: { color: '#b06aff', size: 0.5, trail: '#6a2ad0', spark: '#e0b8ff', body: 'energy', wake: ['shadow'], hit: 'shadow', spin: SHAPE.claw },
+  roots: { color: '#7a5a3a', size: 0.4, trail: '#5fae4a', spark: '#c8ff9a', body: 'matter', wake: ['leaf'], hit: 'physical', blow: 'blunt' },
+  flask: { color: '#ff4a6a', size: 0.3, trail: '#c8283a', spark: '#ffb8c8', body: 'matter', wake: ['blood'], hit: 'blood' }
+}
+/** Every kind of projectile the effects know (the effects bench shoots them all). */
+export const SHOT_KINDS = Object.keys(SHOTS)
+const shotOf = (fx: string): ShotLook => SHOTS[fx] ?? SHOTS.bolt!
+const _ink = new Color()
+const inks = new Map<string, string>()
+/** A colour's ink: the deep tone drawn UNDER a light (plain alpha), so on snow
+ *  or a pale floor, where added light is only more white, the colour still shows. */
+const inkOf = (c: string): string => {
+  let k = inks.get(c)
+  if (!k) {
+    _ink.set(c)
+    const hsl = { h: 0, s: 0, l: 0 }
+    _ink.getHSL(hsl)
+    k = '#' + _ink.setHSL(hsl.h, Math.min(1, hsl.s * 1.1 + 0.15), Math.min(0.42, hsl.l * 0.55)).getHexString()
+    inks.set(c, k)
+  }
+  return k
+}
+/** A thing in flight with no kind of its own (a mote a prop throws): light in its colours. */
+const moteLook = (color: string, trail: string, size: number): ShotLook =>
+  ({ color, size, trail, spark: '#ffffff', body: 'energy', wake: ['arcane'], hit: 'beam' })
 
 export class Vfx {
   readonly root = new Group()
@@ -117,6 +167,8 @@ export class Vfx {
   readonly trails: Trails
   readonly teles: Telegraphs
   readonly loot: LootBeams
+  /** The heads of everything in flight, redrawn from scratch each frame. */
+  readonly heads: Sprites
   /** Full impacts still allowed this frame (the rest are a flash). */
   private impactsLeft = 0
   private rings: Ring[] = []
@@ -133,17 +185,28 @@ export class Vfx {
   private pillarGeo = new CylinderGeometry(1, 1, 1, 16, 1, true)
   private arcGeos = new Map<number, BufferGeometry>()
   private low = sceneQuality() === 'low'
+  /** Beats of an effect that come a moment after its first (smoke after the fire). */
+  private queue: Array<{ at: number; fn: () => void }> = []
+  /** `syncProjectiles` ran this frame (it opens the heads; else `update` does). */
+  private synced = false
   private time = 0
 
   constructor(scene: Scene) {
     this.particles = new Particles(this.low ? 700 : 1500)
-    this.sprites = new Sprites(this.low ? 180 : 380)
-    this.root.add(this.particles.points, this.sprites.mesh)
+    this.sprites = new Sprites(this.low ? 320 : 760)
+    this.heads = new Sprites(this.low ? 96 : 192)
+    this.heads.mesh.renderOrder = 9
+    this.root.add(this.particles.points, this.sprites.mesh, this.heads.mesh)
     scene.add(this.root)
     this.trails = new Trails(scene, this.low)
     this.teles = new Telegraphs(scene)
     this.loot = new LootBeams(this.particles, this.sprites, this.low)
     this.root.add(this.loot.root)
+  }
+
+  /** Run `fn` `delay` seconds from now, on the effects' own clock. */
+  private later(delay: number, fn: () => void): void {
+    this.queue.push({ at: this.time + delay, fn })
   }
 
   /** Fewer particles on a weak device; the SHAPES of the effects stay. */
@@ -238,15 +301,20 @@ export class Vfx {
     p.mesh.visible = true
   }
 
+  /**
+   * A flat mark on the ground. Every one is drawn through a soft map (a flash
+   * a soft glow, a field a rim-lit disc, a scar a soft stain), never a hard
+   * edged disc; none writes depth, so it is a decal, never a face of its own.
+   */
   disc(x: number, z: number, r: number, color: string, dur: number, kind: Disc['kind'] = 'flash', additive = true): Disc {
     let p = this.discs.find(q => !q.active && (q.mat.blending === AdditiveBlending) === additive)
     if (!p) {
-      const mat = basic(additive)
+      const mat = basic(additive, true)
       const mesh = new Mesh(this.discGeo, mat)
       mesh.rotation.x = -Math.PI / 2
       mesh.renderOrder = 2
       this.root.add(mesh)
-      p = { mesh, mat, t: 0, dur, active: false, r, kind, fill: null, pulse: 0 }
+      p = { mesh, mat, t: 0, dur, active: false, r, kind, fill: null, pulse: 0, fx: '' }
       this.discs.push(p)
     }
     p.active = true
@@ -254,6 +322,8 @@ export class Vfx {
     p.dur = dur
     p.r = r
     p.kind = kind
+    p.fx = ''
+    p.mat.map = kind === 'field' ? fieldTexture() : additive ? glowTexture() : softDisc()
     p.mat.color.set(color)
     this.lay(p.mesh, x, z, r, 0.04)
     p.mesh.scale.setScalar(r)
@@ -268,7 +338,7 @@ export class Vfx {
       const mesh = new Mesh(this.planeGeo, mat)
       mesh.renderOrder = 6
       this.root.add(mesh)
-      p = { mesh, mat, t: 0, dur, active: false, w }
+      p = { mesh, mat, t: 0, dur, active: false, w, seed: Math.random() * 100 }
       this.beams.push(p)
     }
     const dx = x1 - x0
@@ -286,30 +356,46 @@ export class Vfx {
     p.mesh.visible = true
   }
 
-  /** A glowing ball that travels (a lobbed flask, a meteor from the sky). */
-  orb(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, size: number, color: string, trail: string, dur: number, arc = 0): void {
+  /**
+   * Something that travels from A to B on its own clock (a lobbed flask, a
+   * meteor from the sky, a mote a prop throws), drawn like a projectile of
+   * `kind` (`SHOTS`); without one, as a mote of light in its colours.
+   */
+  orb(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, size: number, color: string, trail: string, dur: number, arc = 0, kind = ''): void {
     let p = this.orbs.find(q => !q.active)
     if (!p) {
-      const mat = basic(true)
+      const mat = basic(false)
       const mesh = new Mesh(this.orbGeo, mat)
       mesh.renderOrder = 6
       this.root.add(mesh)
-      p = { mesh, mat, t: 0, dur, active: false, x0, y0, z0, x1, y1, z1, trail, size, arc }
+      p = { mesh, mat, t: 0, dur, active: false, x0, y0, z0, x1, y1, z1, trail, size, arc, kind, px: x0, py: y0, pz: z0 }
       this.orbs.push(p)
     }
-    Object.assign(p, { active: true, t: 0, dur, x0, y0, z0, x1, y1, z1, trail, size, arc })
+    Object.assign(p, { active: true, t: 0, dur, x0, y0, z0, x1, y1, z1, trail, size, arc, kind, px: x0, py: y0, pz: z0 })
     p.mat.color.set(color)
     p.mat.opacity = 1
     p.mesh.scale.setScalar(size)
     p.mesh.position.set(x0, y0 + groundAt(x0, z0), z0)
-    p.mesh.visible = true
+    // Only a lump of matter is a mesh; light is drawn by its head (`flight`).
+    p.mesh.visible = !!kind && shotOf(kind).body === 'matter'
   }
 
   /** A column of light standing on the ground for `dur` seconds. */
   pillar(x: number, z: number, r: number, h: number, color: string, dur: number): void {
+    // It strikes: a flash where it lands, light streaming up, a ring at its foot.
+    this.particles.flash(x, 0.6, z, '#ffffff', r * 2, 0.12)
+    this.sprites.emit({ x, y: 0.15, z, color, size: r * 0.6, sizeEnd: r * 2.4, life: 0.3, shape: SHAPE.ring })
+    for (let k = 0; k < this.n(Math.round(8 + r * 4)); k++) {
+      const a = Math.random() * Math.PI * 2
+      const d = Math.sqrt(Math.random()) * r * 0.7
+      this.sprites.emit({ x: x + Math.cos(a) * d, y: 0.2 + Math.random() * h * 0.3, z: z + Math.sin(a) * d, vy: h * (0.9 + Math.random() * 0.8), color: Math.random() < 0.4 ? '#ffffff' : color, size: 0.5 + Math.random() * 0.4, sizeEnd: 0.1, aspect: 0.16, align: true, stretch: 0.02, life: 0.35 + Math.random() * 0.25, drag: 1, shape: SHAPE.streak })
+    }
+    this.sprites.emit({ x, y: h, z, color: '#ffffff', size: r * 1.6, sizeEnd: r * 0.4, life: 0.25, shape: SHAPE.star, hold: 0.2 })
     const d = this.disc(x, z, r, color, dur, 'field')
     if (!d.fill) {
-      d.fill = new Mesh(this.pillarGeo, basic(true))
+      const m = basic(true)
+      m.map = pillarTexture()
+      d.fill = new Mesh(this.pillarGeo, m)
       d.fill.renderOrder = 5
       this.root.add(d.fill)
     }
@@ -386,9 +472,9 @@ export class Vfx {
     const ps = this.particles
     const sp = this.sprites
     // A plain blow is drawn warm, not white: white is nothing at all on snow.
-    const col = o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : o.type === 'physical' || o.type === 'true' ? '#ffe9a0' : TYPE_COLOR[o.type]
+    const col = o.color ?? (o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : o.type === 'physical' || o.type === 'true' ? '#ffe9a0' : TYPE_COLOR[o.type])
     if (o.dot) { this.tick(o, col); return }
-    const k = (o.crit ? 1.5 : o.heavy ? 1.22 : 1) * Math.min(1.5, Math.max(0.85, 0.7 + o.size * 0.55))
+    const k = 1.25 * (o.crit ? 1.5 : o.heavy ? 1.22 : 1) * Math.min(1.5, Math.max(0.85, 0.7 + o.size * 0.55))
     if (this.impactsLeft <= 0) { ps.flash(o.x, o.y, o.z, col, 1.1 * k, 0.1); return }
     this.impactsLeft--
     const { x, y, z, dx, dz } = o
@@ -398,6 +484,16 @@ export class Vfx {
     const rnd = (): number => Math.random() - 0.5
     ps.flash(x, y, z, '#ffffff', 0.45 * k, 0.06)
     ps.flash(x, y, z, col, 0.8 * k, 0.11)
+    // The pop: one hard white frame of a star the moment it lands (the "impact frame").
+    sp.emit({ x, y, z, color: '#ffffff', size: 1.15 * k, sizeEnd: 0.4 * k, rot: Math.random() * 0.8, life: 0.07, shape: SHAPE.star, hold: 0.5 })
+    // Heavy blows and blunt ones throw speed lines out of the point of contact.
+    if (o.heavy || o.crit || o.blow === 'blunt') {
+      const nl = this.n(o.crit ? 8 : 6)
+      for (let i = 0; i < nl; i++) {
+        const a = (i / nl) * Math.PI * 2 + Math.random() * 0.4
+        sp.emit({ x, y, z, vx: Math.cos(a) * 14 * k, vy: Math.sin(a) * 9 * k, vz: Math.sin(a) * 4, color: '#ffffff', size: 0.9 * k, sizeEnd: 0.2, aspect: 0.06, align: true, life: 0.1, drag: 6, shape: SHAPE.streak, hold: 0.3 })
+      }
+    }
 
     switch (o.type) {
       case 'physical':
@@ -407,12 +503,16 @@ export class Vfx {
         if (blow === 'slash') {
           // The cut: a hard-edged mark across the blow, and sparks thrown off it.
           const tilt = rnd() * 1.4
-          sp.emit({ x, y, z, dx: px, dy: tilt, dz: pz, color: col, size: 1.05 * k, sizeEnd: 1.4 * k, aspect: 0.5, life: 0.18, shape: SHAPE.slash, hold: 0.45, add: 0.6 })
+          // Ink under the light: the cut reads on snow and sand too.
+          sp.emit({ x, y, z, dx: px, dy: tilt, dz: pz, color: inkOf(col), size: 1.45 * k, sizeEnd: 1.75 * k, aspect: 0.7, life: 0.16, shape: SHAPE.slash, hold: 0.45, add: 0 })
+          sp.emit({ x, y, z, dx: px, dy: tilt, dz: pz, color: col, size: 1.4 * k, sizeEnd: 1.75 * k, aspect: 0.55, life: 0.18, shape: SHAPE.slash, hold: 0.45, add: 0.6 })
+          if (o.heavy) sp.emit({ x, y, z, dx: px, dy: -tilt * 0.5 + 0.6, dz: pz, color: '#ffffff', size: 1.1 * k, sizeEnd: 1.4 * k, aspect: 0.4, life: 0.14, shape: SHAPE.slash, hold: 0.45 })
           if (o.crit) sp.emit({ x, y, z, dx: px, dy: -tilt - 0.8, dz: pz, color: '#ffd700', size: 1.15 * k, sizeEnd: 1.5 * k, aspect: 0.5, life: 0.2, shape: SHAPE.slash, hold: 0.45 })
           this.spray(o, this.n(o.heavy ? 9 : 6), 8 * k, col, 0.8)
         } else if (blow === 'blunt') {
           // A star where it landed, a ring of dust kicked off the ground.
-          sp.emit({ x, y, z, color: col, size: 0.95 * k, sizeEnd: 1.45 * k, rot: Math.random() * 1.6, life: 0.15, shape: SHAPE.star, hold: 0.4, add: 0.6 })
+          sp.emit({ x, y, z, color: inkOf(col), size: 1.25 * k, sizeEnd: 1.6 * k, rot: 0.3, life: 0.12, shape: SHAPE.star, hold: 0.4, add: 0 })
+          sp.emit({ x, y, z, color: col, size: 1.15 * k, sizeEnd: 1.6 * k, rot: 0.3, life: 0.15, shape: SHAPE.star, hold: 0.4, add: 0.6 })
           sp.emit({ x, y: 0.12, z, dx: 1, dy: 0, dz: 0, color: '#f0e4cc', size: 0.6 * k, sizeEnd: 2.0 * k, aspect: 0.5, life: 0.28, shape: SHAPE.ring, add: 0.3 })
           for (let i = 0; i < this.n(5); i++) {
             const a = Math.random() * Math.PI * 2
@@ -421,7 +521,7 @@ export class Vfx {
           this.spray(o, this.n(4), 6 * k, col, 1.2, 0.24)
         } else {
           // The point: a needle straight through, and little else.
-          sp.emit({ x, y, z, dx: dx || 1, dy: 0, dz, color: col, size: 1.4 * k, sizeEnd: 1.9 * k, life: 0.12, shape: SHAPE.needle, hold: 0.5, add: 0.6 })
+          sp.emit({ x, y, z, dx: dx || 1, dy: 0, dz, color: col, size: 2 * k, sizeEnd: 2.5 * k, life: 0.12, shape: SHAPE.needle, hold: 0.5, add: 0.6 })
           sp.emit({ x, y, z, color: '#ffffff', size: 0.25 * k, sizeEnd: 0.7 * k, life: 0.15, shape: SHAPE.ring })
           this.spray(o, this.n(4), 11 * k, col, 0.25, 0.4, 1)
         }
@@ -492,9 +592,9 @@ export class Vfx {
     if (o.crit) {
       // Gold on top of whatever it was.
       sp.emit({ x, y, z, color: '#ffd700', size: 1.2 * k, sizeEnd: 1.8 * k, rot: 0.4, life: 0.18, shape: SHAPE.star, hold: 0.4 })
-      sp.emit({ x, y, z, color: '#ffd700', size: 0.5 * k, sizeEnd: 1.9 * k, life: 0.24, shape: SHAPE.ring })
+      sp.emit({ x, y, z, color: '#ffd700', size: 0.5 * k, sizeEnd: 1.9 * k, life: 0.16, shape: SHAPE.ring })
       this.spray(o, this.n(7), 10, '#ffd700', 1.1, 0.3, 3.4)
-    } else if (o.heavy) sp.emit({ x, y, z, color: col, size: 0.4 * k, sizeEnd: 1.5 * k, life: 0.22, shape: SHAPE.ring })
+    } else if (o.heavy) sp.emit({ x, y, z, color: col, size: 0.4 * k, sizeEnd: 1.5 * k, life: 0.16, shape: SHAPE.ring })
   }
 
   /** A shot leaves a barrel (or a string): a star at the muzzle and a tongue the way it points. */
@@ -551,64 +651,189 @@ export class Vfx {
     }
   }
 
+  /**
+   * An explosion of `fx` (a fireball landing, a bomb, a meteor, a burst of
+   * venom), built the way a hand-made one is, in beats:
+   *
+   *   flash    one white frame, the size of the blast
+   *   body     hot puffs of the element that swell and cool
+   *   shock    a ring racing out over the ground and one in the air
+   *   debris   sparks thrown high that fall; for fire, smoke that lingers
+   *   element  embers, shards of ice, bubbles, claws of shadow, rays, forks
+   *   scar     a dark mark on the ground that fades over a few seconds
+   */
   burst(x: number, z: number, r: number, fx: string, color?: string): void {
     const s = shotOf(fx)
     const c = color || s.color
     const ps = this.particles
-    this.disc(x, z, r, c, 0.32, 'flash')
-    this.ring(x, z, r * 0.25, r * 1.15, c, 0.4)
-    ps.flash(x, 0.7, z, '#ffffff', r * 1.3, 0.12)
-    ps.flash(x, 0.8, z, c, r * 2.2, 0.26)
-    const n = this.n(Math.round(14 + r * 6))
-    for (let k = 0; k < n; k++) {
+    const sp = this.sprites
+    const el = s.hit
+    const rnd = (): number => Math.random() - 0.5
+    // ── flash ──
+    ps.flash(x, 0.8, z, '#ffffff', r * 1.5, 0.1)
+    sp.emit({ x, y: 0.9, z, color: '#ffffff', size: r * 1.2, sizeEnd: r * 2, life: 0.09, shape: SHAPE.dot, hold: 0.3 })
+    ps.flash(x, 0.8, z, c, r * 2.4, 0.26)
+    // ── body ──
+    const nb = this.n(Math.round(5 + r * 2))
+    for (let i = 0; i < nb; i++) {
       const a = Math.random() * Math.PI * 2
-      const sp = (0.5 + Math.random()) * r * 2.4
-      ps.emit({
-        x, y: 0.3, z, vx: Math.cos(a) * sp, vy: 2 + Math.random() * 5, vz: Math.sin(a) * sp,
-        color: Math.random() < 0.35 ? s.spark : s.trail, size: 0.22 + Math.random() * 0.3, sizeEnd: 0.03, life: 0.35 + Math.random() * 0.4, gravity: 9, drag: 1.5
+      const d = Math.random() * r * 0.35
+      sp.emit({
+        x: x + Math.cos(a) * d, y: 0.5 + Math.random() * 0.7, z: z + Math.sin(a) * d,
+        vx: Math.cos(a) * r * (1 + Math.random()), vy: 1 + Math.random() * 2.2, vz: Math.sin(a) * r * (1 + Math.random()),
+        color: i % 3 === 0 ? s.spark : i % 3 === 1 ? c : s.trail, size: r * 0.55, sizeEnd: r * 1.3, life: 0.26 + Math.random() * 0.16,
+        drag: 4, shape: SHAPE.puff, add: 1, hold: 0.15
       })
     }
+    // ── shock ──
+    this.disc(x, z, r, c, 0.3, 'flash')
+    this.ring(x, z, r * 0.2, r * 1.3, c, 0.36)
+    this.ring(x, z, r * 0.1, r * 0.9, '#ffffff', 0.22)
+    sp.emit({ x, y: 0.8, z, color: s.spark, size: r * 0.4, sizeEnd: r * 2.6, life: 0.26, shape: SHAPE.ring })
+    // ── debris ──
+    const n = this.n(Math.round(10 + r * 5))
+    for (let k = 0; k < n; k++) {
+      const a = Math.random() * Math.PI * 2
+      const v = (0.5 + Math.random()) * r * 2.6
+      sp.emit({
+        x, y: 0.4, z, vx: Math.cos(a) * v, vy: 3 + Math.random() * 6, vz: Math.sin(a) * v,
+        color: Math.random() < 0.4 ? s.spark : s.trail, size: 0.3 + Math.random() * 0.25, sizeEnd: 0.05, aspect: 0.3, align: true, stretch: 0.025,
+        life: 0.45 + Math.random() * 0.35, gravity: 11, drag: 1.2, shape: SHAPE.streak
+      })
+    }
+    if (el === 'fire' || s.wake.includes('smoke')) this.later(0.12, () => {
+      for (let k = 0; k < this.n(Math.round(4 + r * 2)); k++) {
+        const a = Math.random() * Math.PI * 2
+        const d = Math.random() * r * 0.6
+        sp.emit({ x: x + Math.cos(a) * d, y: 0.8 + Math.random() * 0.5, z: z + Math.sin(a) * d, vx: Math.cos(a) * 0.8, vy: 0.9 + Math.random() * 0.8, vz: Math.sin(a) * 0.8, color: '#5a524c', size: r * 0.7, sizeEnd: r * 1.6, life: 0.9 + Math.random() * 0.6, drag: 1.4, shape: SHAPE.puff, add: 0, hold: 0.15 })
+      }
+    })
+    // ── element ──
+    switch (el) {
+      case 'fire':
+        for (let k = 0; k < this.n(10); k++) sp.emit({ x: x + rnd() * r, y: 0.3, z: z + rnd() * r, vx: rnd() * 2, vy: 2.5 + Math.random() * 3.5, vz: rnd() * 2, color: Math.random() < 0.5 ? '#ffd27a' : '#ff8a2a', size: 0.22, sizeEnd: 0.05, aspect: 0.4, align: true, life: 0.7 + Math.random() * 0.5, drag: 0.8, shape: SHAPE.streak })
+        break
+      case 'frost':
+        for (let k = 0; k < this.n(10); k++) {
+          const a = (k / 10) * Math.PI * 2
+          sp.emit({ x, y: 0.6, z, vx: Math.cos(a) * r * 3, vy: 1 + Math.random() * 2, vz: Math.sin(a) * r * 3, color: k % 2 ? '#ffffff' : c, size: 0.5, sizeEnd: 0.12, rot: Math.random() * 3, spin: 6, life: 0.5, drag: 3, shape: SHAPE.shard, hold: 0.3 })
+        }
+        break
+      case 'poison':
+      case 'acid':
+        for (let k = 0; k < this.n(12); k++) sp.emit({ x: x + rnd() * r * 1.4, y: 0.2 + Math.random() * 0.4, z: z + rnd() * r * 1.4, vy: 0.8 + Math.random() * 1.6, color: c, size: 0.18 + Math.random() * 0.24, sizeEnd: 0.4, life: 0.6 + Math.random() * 0.4, shape: SHAPE.bubble, add: 0.6 })
+        for (let k = 0; k < this.n(4); k++) sp.emit({ x: x + rnd() * r, y: 0.4, z: z + rnd() * r, vy: 0.4, color: inkOf(c), size: r * 0.6, sizeEnd: r * 1.3, life: 1, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        break
+      case 'shadow':
+        // It swallows the light, then claws out of it.
+        sp.emit({ x, y: 0.9, z, color: '#14081f', size: r * 2, sizeEnd: r * 0.5, life: 0.3, shape: SHAPE.puff, add: 0, hold: 0.3 })
+        for (let k = 0; k < 4; k++) sp.emit({ x: x + rnd() * r * 0.5, y: 0.9 + rnd() * 0.4, z: z + rnd() * r * 0.5, color: c, size: r * 0.9, sizeEnd: r * 1.3, rot: (k / 4) * Math.PI * 2, spin: 3, life: 0.24, shape: SHAPE.claw, hold: 0.4 })
+        break
+      case 'holy':
+        sp.emit({ x, y: 1.1, z, color: '#fff2a8', size: r * 1.3, sizeEnd: r * 1.8, life: 0.3, shape: SHAPE.cross, hold: 0.4 })
+        for (let k = 0; k < this.n(8); k++) sp.emit({ x: x + rnd() * r, y: 0.2, z: z + rnd() * r, vy: 5 + Math.random() * 3, color: '#ffffff', size: 0.7, sizeEnd: 0.1, aspect: 0.14, align: true, life: 0.4, shape: SHAPE.streak })
+        break
+      case 'beam':
+      case 'temporal':
+        for (let k = 0; k < this.n(6); k++) sp.emit({ x, y: 0.9, z, color: k % 2 ? '#ffffff' : c, size: r * 1.1, sizeEnd: r * 1.4, aspect: 0.5, rot: (k / 6) * Math.PI * 2 + Math.random() * 0.5, life: 0.12 + Math.random() * 0.06, shape: SHAPE.bolt, hold: 0.5 })
+        break
+      case 'blood':
+        for (let k = 0; k < this.n(10); k++) sp.emit({ x, y: 0.6, z, vx: rnd() * 6, vy: 2 + Math.random() * 3, vz: rnd() * 6, color: c, size: 0.26, sizeEnd: 0.1, aspect: 0.4, align: true, life: 0.5, gravity: 12, shape: SHAPE.streak, add: 0.3 })
+        break
+      default:
+        break
+    }
+    // ── scar ── where something burned or pooled (a decal: no depth write)
+    if (el === 'fire' || el === 'poison' || el === 'acid') this.disc(x, z, r * 0.9, el === 'fire' ? '#1a120c' : inkOf(c), 3, 'flash', false)
   }
 
-  /** Dust and rock kicked up by something heavy landing. */
+  /** Dust and rock kicked up by something heavy landing: rings, a cloud, stones, cracks. */
   slam(x: number, z: number, r: number, color: string): void {
     const ps = this.particles
+    const sp = this.sprites
     this.ring(x, z, r * 0.2, r, color, 0.38)
     this.ring(x, z, r * 0.1, r * 0.7, '#ffffff', 0.26)
     this.disc(x, z, r, color, 0.25, 'flash')
-    const n = this.n(Math.round(10 + r * 5))
+    ps.flash(x, 0.4, z, '#ffffff', r * 0.9, 0.08)
+    // The cloud, rolling out from the edge of the blow.
+    const nd = this.n(Math.round(8 + r * 3))
+    for (let k = 0; k < nd; k++) {
+      const a = (k / nd) * Math.PI * 2 + Math.random() * 0.4
+      const d = r * (0.3 + Math.random() * 0.3)
+      sp.emit({ x: x + Math.cos(a) * d, y: 0.25, z: z + Math.sin(a) * d, vx: Math.cos(a) * r * 2.2, vy: 0.5 + Math.random() * 0.7, vz: Math.sin(a) * r * 2.2, color: Math.random() < 0.5 ? '#d8cbb4' : '#b8a890', size: 0.6 + r * 0.2, sizeEnd: 1.4 + r * 0.4, life: 0.55 + Math.random() * 0.35, drag: 3.2, shape: SHAPE.puff, add: 0, hold: 0.1 })
+    }
+    // Stones thrown up that fall back.
+    for (let k = 0; k < this.n(Math.round(5 + r * 2)); k++) {
+      const a = Math.random() * Math.PI * 2
+      const v = r * (1 + Math.random() * 1.4)
+      sp.emit({ x, y: 0.2, z, vx: Math.cos(a) * v, vy: 4 + Math.random() * 4, vz: Math.sin(a) * v, color: '#6a5a48', size: 0.2 + Math.random() * 0.2, sizeEnd: 0.16, rot: Math.random() * 3, spin: 8, life: 0.7, gravity: 16, shape: SHAPE.shard, add: 0, hold: 0.7 })
+    }
+    // Cracks running out over the ground.
+    for (let k = 0; k < this.n(6); k++) {
+      const a = (k / 6) * Math.PI * 2 + Math.random() * 0.5
+      sp.emit({ x: x + Math.cos(a) * r * 0.45, y: 0.06, z: z + Math.sin(a) * r * 0.45, dx: Math.cos(a), dy: 0, dz: Math.sin(a), color: '#4a3a2a', size: r * 0.95, sizeEnd: r, aspect: 0.5, life: 1, shape: SHAPE.bolt, add: 0, hold: 0.4 })
+    }
+    // A few sparks of its colour.
+    const n = this.n(Math.round(6 + r * 2))
     for (let k = 0; k < n; k++) {
       const a = (k / n) * Math.PI * 2
-      const sp = r * (1.6 + Math.random())
-      ps.emit({ x: x + Math.cos(a) * 0.4, y: 0.15, z: z + Math.sin(a) * 0.4, vx: Math.cos(a) * sp, vy: 1.5 + Math.random() * 3, vz: Math.sin(a) * sp, color: Math.random() < 0.5 ? '#d8c8b0' : color, size: 0.3 + Math.random() * 0.3, sizeEnd: 0.05, life: 0.4 + Math.random() * 0.3, gravity: 7, drag: 2.2 })
+      const v = r * (1.6 + Math.random())
+      ps.emit({ x: x + Math.cos(a) * 0.4, y: 0.15, z: z + Math.sin(a) * 0.4, vx: Math.cos(a) * v, vy: 1.5 + Math.random() * 3, vz: Math.sin(a) * v, color, size: 0.3 + Math.random() * 0.2, sizeEnd: 0.05, life: 0.4 + Math.random() * 0.3, gravity: 7, drag: 2.2 })
     }
   }
 
-  /** A poof where something appeared or vanished. */
+
+  /** A poof where something appeared or vanished: a flash, a ring, a curl of smoke, motes. */
   poof(x: number, z: number, color: string, scale = 1): void {
     const ps = this.particles
+    const sp = this.sprites
     ps.flash(x, 0.8, z, color, 1.8 * scale, 0.2)
+    sp.emit({ x, y: 0.9, z, color: '#ffffff', size: 0.8 * scale, sizeEnd: 0.2, life: 0.16, shape: SHAPE.star, hold: 0.3 })
+    sp.emit({ x, y: 0.8, z, color, size: 0.4 * scale, sizeEnd: 2.2 * scale, life: 0.3, shape: SHAPE.ring })
+    for (let k = 0; k < this.n(7); k++) {
+      const a = (k / 7) * Math.PI * 2
+      sp.emit({ x: x + Math.cos(a) * 0.3, y: 0.3 + Math.random() * 0.8, z: z + Math.sin(a) * 0.3, vx: Math.cos(a) * 1.6 * scale, vy: 0.6, vz: Math.sin(a) * 1.6 * scale, color: k % 2 ? inkOf(color) : '#8a8090', size: 0.5 * scale, sizeEnd: 1.1 * scale, life: 0.5 + Math.random() * 0.2, drag: 3, shape: SHAPE.puff, add: 0, hold: 0.15 })
+    }
     ps.riseRing(x, 0.1, z, color, 0.6 * scale, this.n(12))
     ps.sparks(x, 0.9, z, color, this.n(10), 4 * scale, 0.2)
   }
 
-  /** The burst of a death: bigger for bigger things. */
+  /**
+   * The burst of a death: the body's light goes out of it. A flash, a ring of
+   * dust, the soul rising as a streak; a boss goes with a column of light, a
+   * shockwave that crosses the field and embers that hang in the air.
+   */
   death(x: number, z: number, h: number, color: string, big: number): void {
     const ps = this.particles
+    const sp = this.sprites
     ps.flash(x, h * 0.5, z, '#ffffff', 1.6 * big, 0.16)
     ps.flash(x, h * 0.5, z, color, 2.6 * big, 0.3)
     ps.sparks(x, h * 0.5, z, color, this.n(Math.round(14 * big)), 6.5 * big, 0.22 * big)
     this.ring(x, z, 0.3, 1.8 * big, color, 0.4)
+    // Dust where it falls.
+    for (let k = 0; k < this.n(6); k++) {
+      const a = (k / 6) * Math.PI * 2
+      sp.emit({ x: x + Math.cos(a) * 0.4, y: 0.2, z: z + Math.sin(a) * 0.4, vx: Math.cos(a) * 1.8 * big, vy: 0.4, vz: Math.sin(a) * 1.8 * big, color: '#cbbca4', size: 0.5 * big, sizeEnd: 1.2 * big, life: 0.6, drag: 3, shape: SHAPE.puff, add: 0, hold: 0.1 })
+    }
+    // The soul: a streak of its colour rising out of it, and motes after.
+    sp.emit({ x, y: h * 0.6, z, vy: 5, color, size: 1.1 * big, sizeEnd: 0.2, aspect: 0.25, align: true, life: 0.55, drag: 0.5, shape: SHAPE.streak, hold: 0.2 })
+    for (let k = 0; k < this.n(6); k++) sp.emit({ x: x + (Math.random() - 0.5) * 0.6, y: h * 0.5, z: z + (Math.random() - 0.5) * 0.6, vy: 2 + Math.random() * 2.5, color: Math.random() < 0.5 ? '#ffffff' : color, size: 0.18, sizeEnd: 0.04, life: 0.8 + Math.random() * 0.4, shape: SHAPE.dot })
     if (big > 1.5) {
       this.ring(x, z, 0.5, 4 * big, '#ffffff', 0.7)
+      this.ring(x, z, 0.5, 7 * big, color, 1.1)
       this.pillar(x, z, 1.2 * big, 9, color, 0.6)
+      sp.emit({ x, y: h * 0.6, z, color: '#ffffff', size: 2.4 * big, sizeEnd: 0.4, rot: 0.4, life: 0.4, shape: SHAPE.star, hold: 0.2 })
       for (let k = 0; k < this.n(40); k++) {
         const a = Math.random() * Math.PI * 2
-        const sp = 3 + Math.random() * 9
-        ps.emit({ x, y: h * 0.4, z, vx: Math.cos(a) * sp, vy: 4 + Math.random() * 9, vz: Math.sin(a) * sp, color: Math.random() < 0.4 ? '#ffffff' : color, size: 0.4 + Math.random() * 0.4, sizeEnd: 0.04, life: 0.7 + Math.random() * 0.6, gravity: 10, drag: 0.8 })
+        const sp2 = 3 + Math.random() * 9
+        ps.emit({ x, y: h * 0.4, z, vx: Math.cos(a) * sp2, vy: 4 + Math.random() * 9, vz: Math.sin(a) * sp2, color: Math.random() < 0.4 ? '#ffffff' : color, size: 0.4 + Math.random() * 0.4, sizeEnd: 0.04, life: 0.7 + Math.random() * 0.6, gravity: 10, drag: 0.8 })
       }
+      // Embers that hang in the air after it.
+      for (let k = 0; k < this.n(18); k++) sp.emit({ x: x + (Math.random() - 0.5) * 4 * big, y: 0.3 + Math.random() * 2, z: z + (Math.random() - 0.5) * 4 * big, vx: (Math.random() - 0.5) * 0.6, vy: 0.5 + Math.random() * 0.8, vz: (Math.random() - 0.5) * 0.6, color: Math.random() < 0.5 ? '#ffd27a' : color, size: 0.16, sizeEnd: 0.04, life: 1.6 + Math.random() * 1.2, shape: SHAPE.dot, hold: 0.4 })
+      this.disc(x, z, 1.4 * big, inkOf(color), 3, 'flash', false)
     }
   }
+
 
   /** Gold and loot sparkle rising out of a kill. */
   coins(x: number, z: number, n: number): void {
@@ -652,20 +877,15 @@ export class Vfx {
     const c = e.color ?? '#ffffff'
     const ps = this.particles
     if (id.startsWith('burst:')) { this.burst(e.x, e.z, e.r ?? 2, id.slice(6), e.color); return }
-    if (id.startsWith('impact:')) {
-      const s = shotOf(id.slice(7))
-      ps.flash(e.x, 0.9, e.z, s.color, 0.9, 0.12)
-      ps.sparks(e.x, 0.9, e.z, s.spark, this.n(6), 5, 0.14)
-      return
-    }
+    if (id.startsWith('impact:')) { this.shotHit(id.slice(7), e.x, 0.9, e.z, e.color); return }
     if (id.startsWith('fall:')) {
       const s = shotOf(id.slice(5))
-      this.orb(e.x + 3, 15, e.z - 2, e.x, 0.4, e.z, s.size, s.color, s.trail, e.dur ?? 0.9)
+      this.orb(e.x + 3, 15, e.z - 2, e.x, 0.4, e.z, s.size, s.color, s.trail, e.dur ?? 0.9, 0, id.slice(5))
       return
     }
     if (id.startsWith('lob:')) {
       const s = shotOf(id.slice(4))
-      this.orb(e.x, 1.2, e.z, e.x2 ?? e.x, 0.3, e.z2 ?? e.z, s.size, s.color, s.trail, e.dur ?? 0.4, 3)
+      this.orb(e.x, 1.2, e.z, e.x2 ?? e.x, 0.3, e.z2 ?? e.z, s.size, s.color, s.trail, e.dur ?? 0.4, 3, id.slice(4))
       return
     }
     if (id.startsWith('field:')) { this.field(id.slice(6), e.x, e.z, e.r ?? 2, e.dur ?? 3, c); return }
@@ -675,28 +895,73 @@ export class Vfx {
       case 'quake':
         this.slam(e.x, e.z, e.r ?? 3, c)
         break
-      case 'rupture':
-        this.ring(e.x, e.z, 1, e.r ?? 12, c, 0.8)
-        this.disc(e.x, e.z, e.r ?? 12, c, 0.3, 'flash')
+      case 'rupture': {
+        // The ground gives: a wide ring, a cloud, stones and cracks (a slam the size of the field).
+        const R = e.r ?? 12
+        this.ring(e.x, e.z, 1, R, c, 0.8)
+        this.disc(e.x, e.z, R, c, 0.3, 'flash')
+        this.slam(e.x, e.z, Math.min(5, R * 0.4), c)
         break
+      }
+
       case 'cleave':
         this.arc(e.x, e.z, e.a ?? 0, e.r ?? 2.4, e.dur ?? 0.9, c, 0.2)
         break
       case 'breath': {
+        // A cone of the element: tongues that race out and swell, smoke at the end.
         const half = e.dur ?? 0.5
-        this.arc(e.x, e.z, e.a ?? 0, e.r ?? 6, half, c, 0.45, true)
+        const R = e.r ?? 6
+        this.arc(e.x, e.z, e.a ?? 0, R, half, c, 0.45, true)
         const a = e.a ?? 0
-        for (let k = 0; k < this.n(26); k++) {
+        const sp = this.sprites
+        const wave = (): void => {
+        for (let k = 0; k < this.n(12); k++) {
           const off = a + (Math.random() - 0.5) * half * 2
-          const sp = (e.r ?? 6) * (1.4 + Math.random() * 1.2)
-          ps.emit({ x: e.x, y: 0.9, z: e.z, vx: Math.sin(off) * sp, vy: 0.5 + Math.random() * 1.5, vz: Math.cos(off) * sp, color: Math.random() < 0.4 ? '#ffffff' : c, size: 0.5 + Math.random() * 0.5, sizeEnd: 1.1, life: 0.4 + Math.random() * 0.25, drag: 1.4 })
+          const v = R * (1.6 + Math.random() * 1.1)
+          // Hot at the mouth, the element's colour as it swells, its ink at the far end.
+          sp.emit({ x: e.x + Math.sin(off) * 0.4, y: 0.9, z: e.z + Math.cos(off) * 0.4, vx: Math.sin(off) * v, vy: Math.random() * 1.2, vz: Math.cos(off) * v, color: k % 6 === 0 ? '#fff4d8' : c, size: 0.8, sizeEnd: 1.5 + R * 0.25, life: 0.38 + Math.random() * 0.22, drag: 2.2, shape: SHAPE.puff, add: 1, hold: 0.25 })
         }
+        for (let k = 0; k < this.n(14); k++) {
+          const off = a + (Math.random() - 0.5) * half * 2
+          const v = R * (2 + Math.random() * 1.4)
+          sp.emit({ x: e.x, y: 0.9, z: e.z, vx: Math.sin(off) * v, vy: 0.5 + Math.random(), vz: Math.cos(off) * v, color: Math.random() < 0.5 ? '#ffffff' : c, size: 0.6, sizeEnd: 0.1, aspect: 0.25, align: true, stretch: 0.02, life: 0.3 + Math.random() * 0.15, drag: 2.5, shape: SHAPE.streak })
+        }
+        for (let k = 0; k < this.n(3); k++) {
+          const off = a + (Math.random() - 0.5) * half * 2
+          const d = R * (0.6 + Math.random() * 0.4)
+          sp.emit({ x: e.x + Math.sin(off) * d, y: 0.6, z: e.z + Math.cos(off) * d, vy: 0.8, color: inkOf(c), size: 0.8, sizeEnd: 1.8, life: 0.8, drag: 1.5, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        }
+        }
+        wave()
+        this.later(0.08, wave)
+        this.later(0.16, wave)
         break
       }
-      case 'beam':
-        this.beam(e.x, e.z, e.x2 ?? e.x, e.z2 ?? e.z, (e.r ?? 1) * 1.2, c, 0.4)
-        this.beam(e.x, e.z, e.x2 ?? e.x, e.z2 ?? e.z, (e.r ?? 1) * 0.5, '#ffffff', 0.3)
+      case 'beam': {
+        // A glow, a white core, sparks along its length and a flare at each end.
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const w = e.r ?? 1
+        this.beam(e.x, e.z, x2, z2, w * 1.2, c, 0.4)
+        this.beam(e.x, e.z, x2, z2, w * 0.5, '#ffffff', 0.3)
+        const sp = this.sprites
+        const len = Math.hypot(x2 - e.x, z2 - e.z) || 0.01
+        const mx = (e.x + x2) / 2
+        const mz = (e.z + z2) / 2
+        const ux = (x2 - e.x) / len
+        const uz = (z2 - e.z) / len
+        sp.emit({ x: mx, y: 0.9, z: mz, dx: ux, dy: 0, dz: uz, color: c, size: len, aspect: Math.min(1, w * 1.1 / len), life: 0.38, shape: SHAPE.band, hold: 0.35 })
+        sp.emit({ x: mx, y: 0.9, z: mz, dx: ux, dy: 0, dz: uz, color: '#ffffff', size: len, aspect: Math.min(1, w * 0.35 / len), life: 0.3, shape: SHAPE.band, hold: 0.4 })
+        for (let k = 0; k < this.n(12); k++) {
+          const t = Math.random()
+          sp.emit({ x: e.x + (x2 - e.x) * t, y: 0.9, z: e.z + (z2 - e.z) * t, vx: (Math.random() - 0.5) * 3, vy: 1 + Math.random() * 2, vz: (Math.random() - 0.5) * 3, color: Math.random() < 0.5 ? '#ffffff' : c, size: 0.2, sizeEnd: 0.04, life: 0.35, drag: 2, shape: SHAPE.dot })
+        }
+        sp.emit({ x: e.x, y: 0.9, z: e.z, color: '#ffffff', size: w * 1.4, sizeEnd: w * 0.6, rot: Math.random(), life: 0.2, shape: SHAPE.star, hold: 0.4 })
+        sp.emit({ x: x2, y: 0.9, z: z2, color: c, size: w * 0.5, sizeEnd: w * 2.4, life: 0.3, shape: SHAPE.ring })
+        this.particles.flash(x2, 0.9, z2, c, w * 2.2, 0.2)
         break
+      }
+
       case 'dash':
         this.beam(e.x, e.z, e.x2 ?? e.x, e.z2 ?? e.z, 0.45, c, 0.28, 0.6)
         this.wind(e.x, e.z, e.x2 ?? e.x, e.z2 ?? e.z, c)
@@ -715,17 +980,29 @@ export class Vfx {
         this.poof(e.x, e.z, c)
         break
       case 'smoke':
-        for (let k = 0; k < this.n(28); k++) {
+        // A cloud that billows out and hangs: plain smoke, not light.
+        for (let k = 0; k < this.n(20); k++) {
           const a = Math.random() * Math.PI * 2
           const d = Math.random() * (e.r ?? 3)
-          ps.emit({ x: e.x + Math.cos(a) * d, y: 0.3 + Math.random(), z: e.z + Math.sin(a) * d, vx: Math.cos(a) * 1.5, vy: 0.8 + Math.random(), vz: Math.sin(a) * 1.5, color: c, size: 1.2 + Math.random(), sizeEnd: 2.4, life: 0.8 + Math.random() * 0.6, drag: 1.6 })
+          this.sprites.emit({ x: e.x + Math.cos(a) * d * 0.5, y: 0.3 + Math.random(), z: e.z + Math.sin(a) * d * 0.5, vx: Math.cos(a) * d * 1.4, vy: 0.5 + Math.random() * 0.6, vz: Math.sin(a) * d * 1.4, color: k % 3 ? '#5a5466' : c, size: 1 + Math.random() * 0.6, sizeEnd: 2.4 + Math.random(), life: 1.1 + Math.random() * 0.7, drag: 2.4, shape: SHAPE.puff, add: 0, hold: 0.35 })
+        }
+        this.particles.flash(e.x, 0.6, e.z, '#ffffff', 2, 0.1)
+        break
+
+      case 'roar':
+      case 'harvest': {
+        // Waves of it: three rings one after the other, and the air shaken.
+        const R = e.r ?? 6
+        this.ring(e.x, e.z, 0.5, R, c, 0.55)
+        this.ring(e.x, e.z, 0.2, R * 0.7, '#ffffff', 0.4)
+        this.ring(e.x, e.z, 0.3, R * 0.45, c, 0.3)
+        for (let k = 0; k < this.n(10); k++) {
+          const a = (k / 10) * Math.PI * 2
+          this.sprites.emit({ x: e.x + Math.cos(a) * 0.8, y: 1, z: e.z + Math.sin(a) * 0.8, vx: Math.cos(a) * R * 1.6, vz: Math.sin(a) * R * 1.6, color: '#ffffff', size: 0.8, sizeEnd: 0.2, aspect: 0.1, align: true, life: 0.3, drag: 2, shape: SHAPE.streak })
         }
         break
-      case 'roar':
-      case 'harvest':
-        this.ring(e.x, e.z, 0.5, e.r ?? 6, c, 0.55)
-        this.ring(e.x, e.z, 0.2, (e.r ?? 6) * 0.7, '#ffffff', 0.4)
-        break
+      }
+
       case 'blast':
         this.burst(e.x, e.z, e.r ?? 2.4, 'ember', c)
         break
@@ -738,10 +1015,18 @@ export class Vfx {
         this.pillar(e.x, e.z, 0.5, 2.6, c, 0.35)
         this.slam(e.x, e.z, 1.4, c)
         break
-      case 'heal':
+      case 'heal': {
+        // Light gathers and rises: a ring on the ground, crosses and motes going up.
         ps.riseRing(e.x, 0.1, e.z, c, 0.7, this.n(16))
         ps.flash(e.x, h * 0.6, e.z, c, 1.8, 0.3)
+        this.ring(e.x, e.z, 1.4, 0.4, c, 0.4)
+        for (let k = 0; k < this.n(6); k++) {
+          const a = (k / 6) * Math.PI * 2
+          this.sprites.emit({ x: e.x + Math.cos(a) * 0.55, y: 0.3 + Math.random() * 0.5, z: e.z + Math.sin(a) * 0.55, vy: 1.6 + Math.random(), color: k % 2 ? '#ffffff' : c, size: 0.36, sizeEnd: 0.1, life: 0.7, shape: SHAPE.cross, hold: 0.4 })
+        }
         break
+      }
+
       case 'manaPotion':
         // The blue twin of a health potion's glow: a ring opens at the chest and
         // bubbles rise (the level props add the ring of motes on the ground).
@@ -753,7 +1038,10 @@ export class Vfx {
       case 'shield':
       case 'fatalSave':
       case 'mark':
+        // A ring that closes round the body, a shell of light, motes rising.
         this.ring(e.x, e.z, 0.3, 1.8, c, 0.5)
+        this.sprites.emit({ x: e.x, y: h * 0.6, z: e.z, color: c, size: 2.4, sizeEnd: 1.2, life: 0.3, shape: SHAPE.ring, hold: 0.2 })
+        this.sprites.emit({ x: e.x, y: h * 0.6, z: e.z, color: '#ffffff', size: 1, sizeEnd: 0.3, rot: 0.78, life: 0.2, shape: SHAPE.star, hold: 0.3 })
         ps.riseRing(e.x, 0.1, e.z, c, 0.7, this.n(12))
         break
       case 'bastion':
@@ -763,8 +1051,10 @@ export class Vfx {
       case 'petrify':
         this.pillar(e.x, e.z, 0.9, 3.2, c, 0.5)
         this.ring(e.x, e.z, 0.3, 2.6, c, 0.6)
+        this.ring(e.x, e.z, 2.6, 0.6, '#ffffff', 0.35)
         ps.riseRing(e.x, 0.1, e.z, c, 0.9, this.n(18))
         break
+
       case 'chest':
         this.levelUp(e.x, e.z)
         break
@@ -773,57 +1063,229 @@ export class Vfx {
     }
   }
 
-  /** A lingering ground field's standing visual. */
+  /** A lingering ground field's standing visual (its life is in `fieldLife`). */
   field(fx: string, x: number, z: number, r: number, dur: number, color: string): void {
-    const d = this.disc(x, z, r, color, dur, 'field')
     this.ring(x, z, r * 0.5, r, color, 0.4)
     if (fx === 'pillar' || fx === 'orbital') this.pillar(x, z, r, fx === 'orbital' ? 16 : 5, color, dur)
-    void d
+    const d = this.disc(x, z, r, color, dur, 'field')
+    d.fx = fx
   }
 
   // ─── Per frame ─────────────────────────────────────────────────────────────
 
-  /** Mirror the sim's projectiles: one small glowing mesh each, with a trail. */
+  /**
+   * Mirror the sim's projectiles. Light is drawn as layered sprites (`flight`);
+   * only a lump of matter keeps a mesh. Call once a frame, BEFORE `update`.
+   */
   syncProjectiles(list: Projectile[], alpha: number, dt: number): void {
+    this.heads.begin()
+    this.synced = true
     for (const [p, m] of this.shots) {
       if (p.active) continue
       m.visible = false
       this.shotPool.push(m)
       this.shots.delete(p)
     }
+    // Lead by the part of a step the render is ahead of the sim.
+    const lead = alpha * (1 / 60)
     for (let i = 0; i < list.length; i++) {
       const p = list[i]!
       if (!p.active) continue
-      let m = this.shots.get(p)
       const s = shotOf(p.fx)
-      if (!m) {
-        m = this.shotPool.pop()
-        if (!m) {
-          m = new Mesh(this.orbGeo, basic(true))
-          m.renderOrder = 6
-          this.root.add(m)
-        }
-        m.visible = true
-        ;(m.material as MeshBasicMaterial).color.set(p.color || s.color)
-        m.scale.setScalar(s.size * (p.aoe > 0 ? 1.15 : 1))
-        this.shots.set(p, m)
+      const size = s.size * (p.aoe > 0 ? 1.15 : 1)
+      const x = p.x + p.vx * lead
+      const z = p.z + p.vz * lead
+      // A lob climbs and falls: its flight has a vertical part (`sim/actors.ts`).
+      let vy = 0
+      if (p.lob > 0) {
+        const k = Math.min(1, p.lobT / p.lob)
+        vy = Math.cos(k * Math.PI) * Math.PI * (2.2 + p.lob * 2.4) / p.lob
       }
-      // Lead the mesh by the part of a step the render is ahead of the sim.
-      const lead = alpha * (1 / 60)
-      // A shot's height is over the ground under it: it climbs a hill with the hill.
-      m.position.set(p.x + p.vx * lead, p.y + groundAt(p.x, p.z), p.z + p.vz * lead)
-      if (Math.random() < dt * (this.low ? 30 : 70)) {
-        this.particles.emit({
-          x: m.position.x, y: p.y, z: m.position.z, vx: (Math.random() - 0.5) * 0.8, vy: 0.4 + Math.random() * 0.6, vz: (Math.random() - 0.5) * 0.8,
-          color: s.trail, size: s.size * 1.3, sizeEnd: 0.04, life: 0.22 + Math.random() * 0.14
-        })
+      if (s.body === 'matter') {
+        let m = this.shots.get(p)
+        if (!m) {
+          m = this.shotPool.pop()
+          if (!m) {
+            m = new Mesh(this.orbGeo, basic(false))
+            m.renderOrder = 6
+            this.root.add(m)
+          }
+          m.visible = true
+          ;(m.material as MeshBasicMaterial).color.set(p.color || s.color)
+          m.scale.setScalar(size)
+          this.shots.set(p, m)
+        }
+        // A shot's height is over the ground under it: it climbs a hill with the hill.
+        m.position.set(x, p.y + groundAt(x, z), z)
+        m.rotation.x += dt * 9
+        m.rotation.z += dt * 5
+      }
+      this.flight(s, x, p.y, z, p.vx, vy, p.vz, size, p.color || s.color, dt)
+    }
+  }
+
+  /**
+   * One frame of something in flight at (x, y, z) going (vx, vy, vz): its head
+   * (stamped for this frame only), the ribbon it leaves and its wake.
+   */
+  private flight(s: ShotLook, x: number, y: number, z: number, vx: number, vy: number, vz: number, size: number, color: string, dt: number): void {
+    const hd = this.heads
+    const sp = this.sprites
+    const speed = Math.hypot(vx, vy, vz) || 1
+    const ux = vx / speed
+    const uy = vy / speed
+    const uz = vz / speed
+    const t = this.time
+    // ── The head ──
+    if (s.body === 'energy') {
+      const flick = 0.9 + 0.1 * Math.sin(t * 47 + x * 3)
+      const len = size * 3.2 + speed * 0.04
+      const bx = x - ux * size * 0.5
+      const by = y - uy * size * 0.5
+      const bz = z - uz * size * 0.5
+      hd.stamp({ x, y, z, color, size: size * 3.6 * flick, life: 1, shape: SHAPE.dot }, 0.5)
+      // Ink first (drawn under), then the light over it.
+      hd.stamp({ x: bx, y: by, z: bz, dx: ux, dy: uy, dz: uz, color: inkOf(color), size: len * 1.08, aspect: 0.7, life: 1, shape: SHAPE.streak, add: 0 }, 0.7)
+      hd.stamp({ x: bx, y: by, z: bz, dx: ux, dy: uy, dz: uz, color, size: len, aspect: 0.62, life: 1, shape: SHAPE.streak, add: 0.55 })
+      if (s.spin !== undefined) hd.stamp({ x, y, z, color: s.spark, size: size * 2.3, rot: t * (s.spin === SHAPE.claw ? 9 : 4), life: 1, shape: s.spin, add: s.spin === SHAPE.bubble ? 0.6 : 1 }, 0.85)
+      hd.stamp({ x, y, z, color: '#ffffff', size: size * 1.15 * flick, life: 1, shape: SHAPE.dot })
+    } else if (s.body === 'point') {
+      // The shaft along the flight, the point a glint.
+      hd.stamp({ x: x - ux * 0.35, y: y - uy * 0.35, z: z - uz * 0.35, dx: ux, dy: uy, dz: uz, color, size: Math.max(0.9, size * 4.2), aspect: 0.75, life: 1, shape: SHAPE.needle, add: 0.55 })
+      hd.stamp({ x, y, z, color: s.spark, size: size * 1.6, life: 1, shape: SHAPE.star, rot: t * 6 }, 0.9)
+      if (s.wake.includes('fire')) {
+        // A rocket's exhaust: a flame out of its tail.
+        hd.stamp({ x: x - ux * 0.6, y: y - uy * 0.6, z: z - uz * 0.6, dx: -ux, dy: -uy, dz: -uz, color: s.trail, size: 1.1 * (0.85 + Math.random() * 0.3), aspect: 0.45, life: 1, shape: SHAPE.streak })
+      }
+    } else {
+      // Matter: its mesh, and a faint halo of its trail so it reads on dark ground.
+      hd.stamp({ x, y, z, color: s.trail, size: size * 2.8, life: 1, shape: SHAPE.dot }, 0.35)
+      if (s.wake.includes('fire')) hd.stamp({ x, y: y + size * 0.9, z, color: '#ffd27a', size: 0.5 * (0.7 + Math.random() * 0.6), rot: Math.random() * 3, life: 1, shape: SHAPE.star })
+    }
+    // ── The ribbon: a short streak along the way it went, fading over a few frames ──
+    const seg = speed * dt * 2.2 + 0.2
+    const width = s.body === 'point' ? 0.1 : size * 1.2
+    const plain = s.body === 'point' && !s.wake.includes('fire')
+    sp.emit({
+      x: x - ux * seg * 0.5, y: y - uy * seg * 0.5, z: z - uz * seg * 0.5, dx: ux, dy: uy, dz: uz,
+      color: plain ? '#ffffff' : s.trail, size: seg, sizeEnd: seg,
+      aspect: Math.min(1, width / seg), life: plain ? 0.12 : 0.2, hold: 0, shape: SHAPE.band, add: plain ? 0.7 : 0.6
+    })
+    // ── The wake ──
+    const r = this.low ? 0.5 : 1
+    const chance = (perSecond: number): boolean => Math.random() < dt * perSecond * r
+    const jx = (): number => (Math.random() - 0.5) * size
+    for (const w of s.wake) {
+      switch (w) {
+        case 'fire':
+          if (chance(45)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: -ux * 2 + (Math.random() - 0.5) * 1.5, vy: 1.4 + Math.random() * 2, vz: -uz * 2 + (Math.random() - 0.5) * 1.5, color: Math.random() < 0.5 ? s.spark : s.trail, size: 0.32 * (0.6 + size), sizeEnd: 0.06, aspect: 0.4, align: true, stretch: 0.03, life: 0.28 + Math.random() * 0.2, drag: 2, shape: SHAPE.streak })
+          if (chance(40)) this.particles.emit({ x, y, z, vx: (Math.random() - 0.5) * 0.8, vy: 0.5 + Math.random() * 0.6, vz: (Math.random() - 0.5) * 0.8, color: s.trail, size: size * 1.7, sizeEnd: 0.05, life: 0.22 + Math.random() * 0.12 })
+          break
+        case 'smoke':
+          if (chance(16)) sp.emit({ x: x - ux * size, y, z: z - uz * size, vx: (Math.random() - 0.5) * 0.6, vy: 0.5 + Math.random() * 0.5, vz: (Math.random() - 0.5) * 0.6, color: '#4a4440', size: size * 1.1 + 0.2, sizeEnd: size * 2.6 + 0.5, life: 0.55 + Math.random() * 0.3, drag: 1.2, shape: SHAPE.puff, add: 0, hold: 0.1 })
+          break
+        case 'frost':
+          if (chance(28)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: (Math.random() - 0.5) * 1.2, vy: -0.4 - Math.random(), vz: (Math.random() - 0.5) * 1.2, color: Math.random() < 0.5 ? '#ffffff' : s.trail, size: 0.2 + Math.random() * 0.16, sizeEnd: 0.04, rot: Math.random() * 3, spin: 4, life: 0.4, shape: SHAPE.shard, hold: 0.3 })
+          break
+        case 'shadow':
+          if (chance(26)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: (Math.random() - 0.5) * 0.8, vy: 0.3 + Math.random() * 0.6, vz: (Math.random() - 0.5) * 0.8, color: '#1c0f33', size: size * 1.4, sizeEnd: size * 2.2, life: 0.4, drag: 1.5, shape: SHAPE.puff, add: 0, hold: 0.1 })
+          if (chance(24)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: (Math.random() - 0.5) * 2, vy: 0.8 + Math.random(), vz: (Math.random() - 0.5) * 2, color: s.spark, size: 0.16, sizeEnd: 0.03, life: 0.4, shape: SHAPE.dot })
+          break
+        case 'holy':
+          if (chance(18)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vy: 0.6 + Math.random() * 0.6, color: Math.random() < 0.5 ? '#ffffff' : s.trail, size: 0.3, sizeEnd: 0.05, life: 0.42, shape: SHAPE.cross, hold: 0.3 })
+          break
+        case 'venom':
+          if (chance(22)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: (Math.random() - 0.5) * 0.8, vy: 0.2, vz: (Math.random() - 0.5) * 0.8, color: s.color, size: 0.14 + Math.random() * 0.14, sizeEnd: 0.08, life: 0.5, gravity: 5, shape: SHAPE.bubble, add: 0.6 })
+          break
+        case 'water':
+          if (chance(30)) sp.emit({ x: x + jx(), y: y + jx(), z: z + jx(), vx: -ux * 1.5 + (Math.random() - 0.5) * 1.5, vy: 0.6 + Math.random(), vz: -uz * 1.5 + (Math.random() - 0.5) * 1.5, color: Math.random() < 0.5 ? '#ffffff' : s.color, size: 0.16, sizeEnd: 0.05, aspect: 0.5, align: true, life: 0.4, gravity: 9, shape: SHAPE.streak, add: 0.7 })
+          break
+        case 'arcane':
+          if (chance(30)) {
+            const a = t * 9 + Math.random() * 6.28
+            sp.emit({ x: x + Math.cos(a) * size * 0.8, y: y + Math.sin(a) * size * 0.8, z, vx: Math.cos(a) * 1.4, vy: Math.sin(a) * 1.4, vz: (Math.random() - 0.5), color: Math.random() < 0.4 ? '#ffffff' : s.spark, size: 0.16, sizeEnd: 0.03, life: 0.35, drag: 2, shape: SHAPE.dot })
+          }
+          if (chance(5)) sp.emit({ x, y, z, color: s.color, size: size * 2.2, sizeEnd: size * 2.6, rot: Math.random() * 6, life: 0.08, shape: SHAPE.bolt, hold: 0.4 })
+          break
+        case 'dust':
+          if (chance(10)) sp.emit({ x, y, z, vx: (Math.random() - 0.5) * 0.4, vy: 0.2, vz: (Math.random() - 0.5) * 0.4, color: '#c8bca8', size: 0.25, sizeEnd: 0.6, life: 0.4, shape: SHAPE.puff, add: 0 })
+          break
+        case 'leaf':
+          if (chance(14)) sp.emit({ x: x + jx(), y, z: z + jx(), vx: (Math.random() - 0.5) * 1.6, vy: 0.6, vz: (Math.random() - 0.5) * 1.6, color: Math.random() < 0.5 ? s.trail : s.spark, size: 0.2, sizeEnd: 0.14, aspect: 0.5, rot: Math.random() * 6, spin: 6, life: 0.6, gravity: 3, drag: 1.5, shape: SHAPE.slash, add: 0.3 })
+          break
+        case 'blood':
+          if (chance(20)) sp.emit({ x, y, z, vx: (Math.random() - 0.5), vy: 0.5, vz: (Math.random() - 0.5), color: s.color, size: 0.16, sizeEnd: 0.08, aspect: 0.45, align: true, life: 0.45, gravity: 10, shape: SHAPE.streak, add: 0.35 })
+          break
+        case 'air':
+          break
       }
     }
   }
 
+  /** A projectile of `kind` lands at (x, y, z): as its element, with a ring of light. */
+  shotHit(kind: string, x: number, y: number, z: number, color?: string): void {
+    const s = shotOf(kind)
+    const col = color || s.color
+    this.impact({ x, y, z, dx: 0, dz: 0, type: s.hit, blow: s.blow ?? 'slash', heavy: s.size >= 0.45, crit: false, dot: false, size: 0.4 + s.size, toHero: false, color: s.hit === 'physical' || s.hit === 'pierce' ? undefined : col })
+    this.sprites.emit({ x, y, z, color: s.spark, size: s.size * 1.2, sizeEnd: s.size * 4.5, life: 0.22, shape: SHAPE.ring })
+  }
+
+  /** What a standing field does each frame, by its kind. */
+  private fieldLife(p: Disc, dt: number): void {
+    const x = p.mesh.position.x
+    const z = p.mesh.position.z
+    const r = p.r
+    const area = Math.min(3, 0.5 + r * 0.4)
+    const rate = (this.low ? 0.5 : 1) * area
+    const chance = (perSecond: number): boolean => Math.random() < dt * perSecond * rate
+    const at = (): [number, number] => { const a = Math.random() * Math.PI * 2; const d = Math.sqrt(Math.random()) * r; return [x + Math.cos(a) * d, z + Math.sin(a) * d] }
+    const col = '#' + p.mat.color.getHexString()
+    const sp = this.sprites
+    // The edge breathes out now and then.
+    if (chance(0.9)) this.ring(x, z, r * 0.85, r * 1.02, col, 0.7, 0.05)
+    switch (p.fx) {
+      case 'burning':
+      case 'pillar':
+      case 'ember':
+        if (chance(26)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 0.1, z: fz, vx: (Math.random() - 0.5) * 0.6, vy: 1.8 + Math.random() * 2, vz: (Math.random() - 0.5) * 0.6, color: Math.random() < 0.5 ? '#ffd27a' : '#ff6a1a', size: 0.55 + Math.random() * 0.3, sizeEnd: 0.1, aspect: 0.45, align: true, stretch: 0.03, life: 0.4 + Math.random() * 0.2, drag: 1.5, shape: SHAPE.streak }) }
+        if (chance(5)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 0.5, z: fz, vy: 0.8, color: '#3a3430', size: 0.6, sizeEnd: 1.5, life: 1, shape: SHAPE.puff, add: 0, hold: 0.2 }) }
+        break
+      case 'venom':
+      case 'poison':
+        if (chance(14)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 0.1, z: fz, vy: 0.5 + Math.random() * 0.6, color: col, size: 0.16 + Math.random() * 0.2, sizeEnd: 0.36, life: 0.7, shape: SHAPE.bubble, add: 0.6 }) }
+        if (chance(4)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 0.3, z: fz, vy: 0.3, color: inkOf(col), size: 0.9, sizeEnd: 1.8, life: 1.4, shape: SHAPE.puff, add: 0, hold: 0.3 }) }
+        break
+      case 'haste': {
+        // Wind circling the ground.
+        if (chance(10)) {
+          const a = Math.random() * Math.PI * 2
+          const d = r * (0.4 + Math.random() * 0.5)
+          sp.emit({ x: x + Math.cos(a) * d, y: 0.3 + Math.random() * 0.8, z: z + Math.sin(a) * d, vx: -Math.sin(a) * 5, vz: Math.cos(a) * 5, color: Math.random() < 0.5 ? '#ffffff' : col, size: 1, sizeEnd: 0.3, aspect: 0.06, align: true, life: 0.3, drag: 1, shape: SHAPE.streak })
+        }
+        break
+      }
+      case 'banner':
+        if (chance(10)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 0.1, z: fz, vy: 1.4 + Math.random(), color: Math.random() < 0.5 ? '#ffffff' : col, size: 0.24, sizeEnd: 0.06, life: 0.9, shape: SHAPE.cross, hold: 0.3 }) }
+        break
+      case 'orbital':
+        if (chance(16)) { const [fx, fz] = at(); sp.emit({ x: fx, y: 7, z: fz, vy: -16, color: Math.random() < 0.5 ? '#ffffff' : col, size: 1.2, sizeEnd: 0.4, aspect: 0.1, align: true, life: 0.4, shape: SHAPE.streak }) }
+        break
+      default:
+        if (chance(12)) { const [fx, fz] = at(); this.particles.emit({ x: fx, y: 0.1, z: fz, vy: 1.5 + Math.random() * 2, color: col, size: 0.24, sizeEnd: 0.04, life: 0.7 }) }
+    }
+  }
   /** `simTime` is the sim's own clock: ground previews fill by it (see `telegraphs.ts`). */
   update(dt: number, simTime = 0): void {
     this.time += dt
+    if (!this.synced) this.heads.begin()
+    if (this.queue.length) {
+      const due = this.queue.filter(q => q.at <= this.time)
+      if (due.length) {
+        this.queue = this.queue.filter(q => q.at > this.time)
+        for (const q of due) q.fn()
+      }
+    }
+    this.synced = false
     for (const p of this.rings) {
       if (!p.active) continue
       p.t += dt
@@ -840,7 +1302,8 @@ export class Vfx {
       if (k >= 1) { p.active = false; p.mesh.visible = false; continue }
       const e = 1 - (1 - k) * (1 - k)
       p.mesh.scale.setScalar(p.r * (p.breath ? 0.3 + 0.7 * e : 0.7 + 0.3 * e))
-      p.mat.opacity = (1 - k) * (p.breath ? 0.75 : 0.95)
+      // A breath's cone is only the shape under the flames: faint.
+      p.mat.opacity = (1 - k) * (p.breath ? 0.3 : 0.95)
     }
     for (const p of this.discs) {
       if (!p.active) continue
@@ -853,20 +1316,16 @@ export class Vfx {
         p.pulse = 0
         continue
       }
-      if (p.kind === 'flash') p.mat.opacity = (1 - k) * 0.55
+      if (p.kind === 'flash') p.mat.opacity = (1 - k) * (p.mat.blending === AdditiveBlending ? 0.7 : 0.5)
       else {
         // A standing field breathes, and fades in and out at its ends.
         const edge = Math.min(1, p.t / 0.25, (p.dur - p.t) / 0.4)
-        p.mat.opacity = (0.2 + 0.08 * Math.sin(this.time * 6)) * Math.max(0, edge)
+        p.mat.opacity = (0.4 + 0.1 * Math.sin(this.time * 6)) * Math.max(0, edge)
         if (p.fill && p.pulse > 0) {
-          ;(p.fill.material as MeshBasicMaterial).opacity = (0.3 + 0.12 * Math.sin(this.time * 14)) * Math.max(0, edge)
-          p.fill.rotation.y += dt * 2
+          ;(p.fill.material as MeshBasicMaterial).opacity = (0.55 + 0.15 * Math.sin(this.time * 14)) * Math.max(0, edge)
+          p.fill.rotation.y += dt * 2.5
         }
-        if (Math.random() < dt * (this.low ? 5 : 12)) {
-          const a = Math.random() * Math.PI * 2
-          const d = Math.sqrt(Math.random()) * p.r
-          this.particles.emit({ x: p.mesh.position.x + Math.cos(a) * d, y: 0.1, z: p.mesh.position.z + Math.sin(a) * d, vy: 1.5 + Math.random() * 2, color: '#' + p.mat.color.getHexString(), size: 0.24, sizeEnd: 0.04, life: 0.7 })
-        }
+        this.fieldLife(p, dt)
       }
     }
     for (const p of this.beams) {
@@ -875,7 +1334,8 @@ export class Vfx {
       const k = p.t / p.dur
       if (k >= 1) { p.active = false; p.mesh.visible = false; continue }
       p.mat.opacity = 1 - k
-      p.mesh.scale.y = p.w * 2 * (1 - k * 0.6)
+      // A beam is never steady: its width shivers.
+      p.mesh.scale.y = p.w * 2 * (1 - k * 0.6) * (0.82 + 0.18 * Math.sin(this.time * 71 + p.seed) * Math.sin(this.time * 23 + p.seed))
     }
     for (const p of this.orbs) {
       if (!p.active) continue
@@ -885,7 +1345,14 @@ export class Vfx {
       const z = p.z0 + (p.z1 - p.z0) * k
       const y = p.y0 + (p.y1 - p.y0) * k + Math.sin(k * Math.PI) * p.arc
       p.mesh.position.set(x, y + groundAt(x, z), z)
-      this.particles.emit({ x, y, z, vx: (Math.random() - 0.5), vy: Math.random(), vz: (Math.random() - 0.5), color: p.trail, size: p.size * 1.6, sizeEnd: 0.05, life: 0.3 })
+      p.mesh.rotation.x += dt * 7
+      const hex = '#' + p.mat.color.getHexString()
+      const look = p.kind ? shotOf(p.kind) : moteLook(hex, p.trail, p.size)
+      const inv = 1 / Math.max(1e-4, dt)
+      this.flight(look, x, y, z, (x - p.px) * inv, (y - p.py) * inv, (z - p.pz) * inv, p.size, hex, dt)
+      p.px = x
+      p.py = y
+      p.pz = z
       if (k >= 1) { p.active = false; p.mesh.visible = false }
     }
     this.particles.update(dt)
@@ -893,6 +1360,7 @@ export class Vfx {
     this.trails.update(dt)
     this.teles.update(dt, simTime)
     this.loot.update(dt)
+    this.heads.end()
     this.impactsLeft = this.low ? 3 : 6
   }
 
@@ -905,10 +1373,12 @@ export class Vfx {
       for (const p of list) { p.active = false; p.mesh.visible = false }
     }
     for (const d of this.discs) if (d.fill) d.fill.visible = false
+    this.queue = []
     for (const [, m] of this.shots) { m.visible = false; this.shotPool.push(m) }
     this.shots.clear()
     this.particles.clear()
     this.sprites.clear()
+    this.heads.clear()
     this.trails.clear()
     this.teles.clear()
     this.loot.clear()
@@ -923,6 +1393,7 @@ export class Vfx {
     for (const g of this.arcGeos.values()) g.dispose()
     this.particles.dispose()
     this.sprites.dispose()
+    this.heads.dispose()
     this.trails.dispose()
     this.teles.dispose()
     this.loot.dispose()

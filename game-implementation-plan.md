@@ -316,3 +316,39 @@ locales). Decision report: https://claude.ai/artifact/KwGdajXrbhE93gZ1MacZTx
 ### Deferred
 
 - **A physical contract board in each town square** (#15): the board is a window reached from a town HUD button; a prop the hero walks up to needs a new town geometry piece (with its coplanar check) and a placement in every town layout.
+
+## 9. Effects and enemy models for the cinematic trailer (roadmap #74)
+
+The trailer (#X1) showed the effects and the enemy models were not good enough
+for it. Quality over speed, in steps, each judged on the effects bench
+(`/#/models?fx`, `window.__fxbench`) or the rig bench and in a draft of the
+trailer, then committed; the trailer is re-run at the end.
+
+Ground truth (map agents, 2026-10-05): every projectile was a glowing sphere
+with one puff trail; bursts, fields, beams and pillars were flat discs, rings
+and planes; deaths a flash and sparks. Enemies are procedural rigs: humanoids
+already got the hero's upgrade (#40), creatures (`rigs/creatures.ts`) did not
+(flat colours, no gradients, single-bone limbs); seven branch bosses are a
+regular enemy scaled up; no boss looks different from its kin but for size.
+
+### Phases
+
+- [x] **18.1 Projectiles, area effects, impacts.** Projectiles in layers (halo,
+  inked body with a white-hot head, core, a turning shape; needles for points;
+  tumbling matter) with a smooth ribbon and an element wake; bursts in beats
+  (flash, body, shock, debris, delayed smoke, element, soft scar); slams with
+  dust, stones and cracks; beams as camera-facing shafts; pillars that fade
+  upward; rim-lit standing fields with per-kind life; breath in waves; heals,
+  buffs, roars, summons and deaths rebuilt; every blow opens on an impact
+  frame, slashes and stars carry an ink under the light so they read on snow.
+  The effects bench. A test: every projectile the game fires has a look.
+- [ ] **18.2 Swings, casts, states on bodies.** Trails per weapon, the cast's
+  gathering, burning / frozen / poisoned / stunned shown on the body.
+- [ ] **18.3 Creatures.** Wolf family, spider, treant, golem, elemental, naga,
+  wyvern, dragon rebuilt to the hero's standard (gradients, jointed limbs,
+  detail tiers), on the rig bench by enemy id; triangle budgets in the test.
+- [ ] **18.4 Faces of the enemy.** Monsters lose the doll face (no blush, a
+  menacing brow and eyes); every branch boss a look of its own.
+- [ ] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
+  an aura on the ground, size of silhouette.
+- [ ] **18.6 The trailer again** (`pnpm cinematic-trailer`).

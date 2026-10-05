@@ -20,6 +20,8 @@ let glowTex: Texture | null = null
 let ringTex: Texture | null = null
 let softTex: Texture | null = null
 let glyphTex: Texture | null = null
+let fieldTex: Texture | null = null
+let pillarTex: Texture | null = null
 
 const make = (w: number, h: number, draw: (g: CanvasRenderingContext2D) => void): Texture => {
   const c = document.createElement('canvas')
@@ -161,6 +163,49 @@ export const ringTexture = (): Texture => {
   return ringTex
 }
 
+/** A standing field on the ground: a faint fill and a bright rim, soft at the very edge. */
+export const fieldTexture = (): Texture => {
+  if (fieldTex) return fieldTex
+  fieldTex = make(128, 128, (g) => {
+    const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64)
+    grad.addColorStop(0, 'rgba(255,255,255,0.22)')
+    grad.addColorStop(0.62, 'rgba(255,255,255,0.3)')
+    grad.addColorStop(0.84, 'rgba(255,255,255,0.75)')
+    grad.addColorStop(0.92, 'rgba(255,255,255,1)')
+    grad.addColorStop(1, 'rgba(255,255,255,0)')
+    g.fillStyle = grad
+    g.fillRect(0, 0, 128, 128)
+  })
+  fieldTex.wrapS = fieldTex.wrapT = ClampToEdgeWrapping
+  return fieldTex
+}
+
+/** A column of light round a cylinder: strongest at its foot, gone at its top, with brighter streaks up it. */
+export const pillarTexture = (): Texture => {
+  if (pillarTex) return pillarTex
+  pillarTex = make(64, 128, (g) => {
+    // Canvas top is the column's top (the texture is flipped onto the cylinder).
+    const grad = g.createLinearGradient(0, 0, 0, 128)
+    grad.addColorStop(0, 'rgba(255,255,255,0)')
+    grad.addColorStop(0.55, 'rgba(255,255,255,0.35)')
+    grad.addColorStop(1, 'rgba(255,255,255,1)')
+    g.fillStyle = grad
+    g.fillRect(0, 0, 64, 128)
+    g.globalCompositeOperation = 'lighter'
+    for (let i = 0; i < 7; i++) {
+      const x = 4 + i * 9 + (i % 2) * 3
+      const s = g.createLinearGradient(0, 0, 0, 128)
+      s.addColorStop(0, 'rgba(255,255,255,0)')
+      s.addColorStop(1, 'rgba(255,255,255,0.35)')
+      g.fillStyle = s
+      g.fillRect(x, 0, 2 + (i % 3), 128)
+    }
+  })
+  pillarTex.wrapS = RepeatWrapping
+  pillarTex.wrapT = ClampToEdgeWrapping
+  return pillarTex
+}
+
 /**
  * The health bars' badge glyphs: the ten digits and a skull, white on nothing,
  * in a 4 × 4 grid (cells 0–9 the digits, 10 the skull). The bar shader reads
@@ -207,5 +252,7 @@ export const bakeTextures = (): void => {
   glowTexture()
   softDisc()
   ringTexture()
+  fieldTexture()
+  pillarTexture()
   barGlyphs()
 }
