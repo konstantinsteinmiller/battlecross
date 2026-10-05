@@ -351,4 +351,4 @@ regular enemy scaled up; no boss looks different from its kin but for size.
   menacing brow and eyes); every branch boss a look of its own.
 - [x] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
   an aura on the ground, size of silhouette.
-- [ ] **18.6 The trailer again** (`pnpm cinematic-trailer`).
+- [x] **18.6 The trailer again** (`pnpm cinematic-trailer`).

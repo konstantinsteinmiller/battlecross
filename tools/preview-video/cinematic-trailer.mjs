@@ -100,10 +100,12 @@ const truePeak = (file) => {
   const m = /Peak:\s+(-?[\d.]+) dBFS/.exec(r.stderr.split('Summary:').pop() ?? '')
   return m ? Number(m[1]) : null
 }
-const peak = truePeak(FINAL)
-if (peak !== null && peak > -1) {
+// The encode that trims can ring again, so measure after each pass (a few at most).
+for (let pass = 0; pass < 3; pass++) {
+  const peak = truePeak(FINAL)
+  if (peak === null || peak <= -1) break
   const tmp = FINAL.replace(/\.mp4$/, '.tmp.mp4')
-  run(ffmpeg, ['-y', '-loglevel', 'error', '-i', FINAL, '-map', '0:v', '-map', '0:a', '-c:v', 'copy', '-af', `volume=${(-1 - peak - 0.2).toFixed(2)}dB`, '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', tmp], `trimming a ${peak.toFixed(1)} dBTP peak`)
+  run(ffmpeg, ['-y', '-loglevel', 'error', '-i', FINAL, '-map', '0:v', '-map', '0:a', '-c:v', 'copy', '-af', `volume=${(-1 - peak - 0.6).toFixed(2)}dB`, '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', tmp], `trimming a ${peak.toFixed(1)} dBTP peak`)
   renameSync(tmp, FINAL)
 }
 console.log(`true peak: ${truePeak(FINAL)?.toFixed(1)} dBTP`)
