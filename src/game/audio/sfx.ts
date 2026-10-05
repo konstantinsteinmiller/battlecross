@@ -37,6 +37,11 @@ let player: Player | null = null
 
 export const setSfxPlayer = (p: Player | null): void => { player = p }
 
+/** DEV: a listener on every sound the game asks for (the trailer recorder logs them). */
+let tap: Player | null = null
+export const setSfxTap = (t: Player | null): void => { tap = import.meta.env.DEV ? t : null }
+
 export const sfx = (name: SfxName, pan = 0, gain = 1, muffle = 0): void => {
+  if (import.meta.env.DEV) tap?.(name, pan, gain, muffle)
   player?.(name, Math.max(-1, Math.min(1, pan)), gain, Math.max(0, Math.min(1, muffle)))
 }

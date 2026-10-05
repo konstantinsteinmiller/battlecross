@@ -524,6 +524,18 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
   }
 }
 
+/**
+ * Voice one sound straight into whatever graph `audio()` hands out, without the
+ * live player's gates (gap, cap, mute): the trailer's offline sound render
+ * (`tools/sfx-render.mjs`) plays the game's own recipes into an offline context.
+ */
+export const recipeFor = (name: SfxName, pan = 0, gain = 1): boolean => {
+  const r = RECIPES[name]
+  if (!r) return false
+  r(pan, Math.max(0.05, Math.min(1.4, gain * (TRIM[name] ?? 1))))
+  return true
+}
+
 export const installSynth = (): void => {
   setSfxPlayer(play)
 }

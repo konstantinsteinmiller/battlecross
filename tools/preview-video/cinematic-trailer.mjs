@@ -6,14 +6,15 @@
  *
  *   1. RECORD the picture: `record.mjs --formats cinematic --scenarios success`
  *      (the shot list is `scenarios/cinematic-trailer.mjs`; the clean feed, so
- *      no bubbles, no HUD). It writes the voice cues to
- *      preview-videos/cinematic-cues.json.
+ *      no bubbles, no HUD). It logs every sound the fights ask for to
+ *      preview-videos/cinematic-sfx.json, on the clip's clock.
  *   2. RENDER the music: the game's own boss theme ("Trial of Blades", the cuts
  *      sit on its beat), offline, to the trailer's length (`tools/music-render.mjs`).
  *      The game's score is a live WebAudio sequencer the frame recorder cannot hear.
- *   3. MIX: the hero's own recordings (public/audio/voice/en/<line>.ogg) at
- *      their cues, the music ducked under each line, a fade in and out.
- *   4. WRITE preview-videos/battlecross-cinematic-trailer.mp4 — H.264 4:2:0
+ *   3. RENDER the fights' sounds: the game's own synth recipes, offline, laid
+ *      at the logged times (`tools/sfx-render.mjs`). No voice-over.
+ *   4. MIX: the music under the fights, a fade in and out, levelled to -15 LUFS.
+ *   5. WRITE preview-videos/battlecross-cinematic-trailer.mp4 — H.264 4:2:0
  *      at 1920x1080, AAC stereo.
  *
  * Any other flag goes to the recorder, so a quick draft is
@@ -21,7 +22,7 @@
  * and `--skip-record` re-mixes the last recording (after a sound change).
  */
 import { spawnSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, statSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -29,8 +30,12 @@ import { fileURLToPath } from 'node:url'
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..')
 const OUT_DIR = join(ROOT, 'preview-videos')
 const FINAL = join(OUT_DIR, 'battlecross-cinematic-trailer.mp4')
-const CUES = join(OUT_DIR, 'cinematic-cues.json')
+const SOUNDS = join(OUT_DIR, 'cinematic-sfx.json')
 const ffmpeg = createRequire(join(ROOT, 'package.json'))('ffmpeg-static')
+
+/** The fights against the music (the music is the bed, the hits sit on top). */
+const MUSIC_GAIN = 0.5
+const FIGHTS_GAIN = 1.9
 
 const argv = process.argv.slice(2)
 const skipRecord = argv.includes('--skip-record')
@@ -54,41 +59,52 @@ const picture = (() => {
   return found.sort((a, b) => rank(b) - rank(a) || statSync(b).mtimeMs - statSync(a).mtimeMs)[0]
 })()
 if (!picture) { console.error('no recording of the trailer found under preview-videos/'); process.exit(1) }
-if (!existsSync(CUES)) { console.error(`no voice cues at ${CUES}: record first`); process.exit(1) }
-const { durationMs, cues } = JSON.parse(readFileSync(CUES, 'utf8'))
+if (!existsSync(SOUNDS)) { console.error(`no sound log at ${SOUNDS}: record first`); process.exit(1) }
+const { durationMs, events } = JSON.parse(readFileSync(SOUNDS, 'utf8'))
 const seconds = durationMs / 1000
-console.log(`picture: ${picture}\ncues: ${cues.map(c => `${c.id}@${(c.ms / 1000).toFixed(2)}s`).join(', ')}`)
+console.log(`picture: ${picture}\nsounds: ${events.length} logged`)
 
 // 2. The music, a little longer than the picture (the fade-out is the mix's).
-const musicDir = join(OUT_DIR, 'cinematic-audio')
-mkdirSync(musicDir, { recursive: true })
-run(process.execPath, ['--import', './tools/ts-resolve.mjs', join(ROOT, 'tools/music-render.mjs'), '--out', musicDir, '--seconds', String(Math.ceil(seconds + 2)), 'boss'], 'rendering the boss theme')
-const music = join(musicDir, 'boss.mp3')
+const audioDir = join(OUT_DIR, 'cinematic-audio')
+mkdirSync(audioDir, { recursive: true })
+run(process.execPath, ['--import', './tools/ts-resolve.mjs', join(ROOT, 'tools/music-render.mjs'), '--out', audioDir, '--seconds', String(Math.ceil(seconds + 2)), 'boss'], 'rendering the boss theme')
+const music = join(audioDir, 'boss.mp3')
 
-// 3 + 4. The mix: every line at its cue, the music ducked under the voice.
-const voices = cues.map(c => ({ ...c, file: join(ROOT, 'public/audio/voice/en', `${c.id}.ogg`) })).filter(c => {
-  if (existsSync(c.file)) return true
-  console.warn(`  no recording for ${c.id}: left out`)
-  return false
-})
-const inputs = ['-i', picture, '-i', music, ...voices.flatMap(v => ['-i', v.file])]
+// 3. The fights, voiced from the game's own synth.
+const fights = join(audioDir, 'fights.wav')
+run(process.execPath, [join(ROOT, 'tools/sfx-render.mjs'), SOUNDS, fights], 'rendering the fights')
+
+// 4 + 5. The mix.
 const fadeOut = Math.max(0, seconds - 2.5).toFixed(2)
-const parts = [
-  `[1:a]atrim=0:${seconds.toFixed(3)},asetpts=PTS-STARTPTS,volume=0.75,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=2.5[mus]`
-]
-voices.forEach((v, i) => parts.push(`[${i + 2}:a]aresample=44100,aformat=channel_layouts=stereo,volume=2.2,adelay=${v.ms}|${v.ms}[v${i}]`))
-if (voices.length) {
-  parts.push(`${voices.map((_, i) => `[v${i}]`).join('')}amix=inputs=${voices.length}:normalize=0,asplit=2[vo][key]`)
-  parts.push('[mus][key]sidechaincompress=threshold=0.04:ratio=6:attack=15:release=350[duck]')
-  parts.push('[duck][vo]amix=inputs=2:normalize=0,alimiter=limit=0.95[aout]')
-} else parts.push('[mus]alimiter=limit=0.95[aout]')
-
+const graph = [
+  `[1:a]atrim=0:${seconds.toFixed(3)},asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=stereo,volume=${MUSIC_GAIN}[mus]`,
+  // The fights' bus a little compressed: a crit on an explosion would otherwise
+  // be squared off by the limiter, and AAC rings past the ceiling on that.
+  `[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=${FIGHTS_GAIN},acompressor=threshold=0.2:ratio=3:attack=3:release=90[fx]`,
+  `[mus][fx]amix=inputs=2:normalize=0:duration=first,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=2.5,loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,lowpass=f=16000,alimiter=limit=0.89:attack=2:level=false[aout]`
+].join(';')
 run(ffmpeg, [
-  '-y', '-loglevel', 'error', ...inputs,
-  '-filter_complex', parts.join(';'),
+  '-y', '-loglevel', 'error', '-i', picture, '-i', music, '-i', fights,
+  '-filter_complex', graph,
   '-map', '0:v', '-map', '[aout]',
   '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p', '-profile:v', 'high',
   '-c:a', 'aac', '-b:a', '192k', '-ar', '44100',
   '-t', seconds.toFixed(3), '-movflags', '+faststart', FINAL
 ], 'mixing the trailer')
+
+// 6. The encoder's last word: AAC can still ring past the ceiling on a hard
+// transient. Measure the file's true peak and, over -1 dBTP, take the excess
+// off the sound (the picture is copied, not encoded again).
+const truePeak = (file) => {
+  const r = spawnSync(ffmpeg, ['-hide_banner', '-i', file, '-af', 'ebur128=peak=true', '-f', 'null', '-'], { encoding: 'utf8', windowsHide: true })
+  const m = /Peak:\s+(-?[\d.]+) dBFS/.exec(r.stderr.split('Summary:').pop() ?? '')
+  return m ? Number(m[1]) : null
+}
+const peak = truePeak(FINAL)
+if (peak !== null && peak > -1) {
+  const tmp = FINAL.replace(/\.mp4$/, '.tmp.mp4')
+  run(ffmpeg, ['-y', '-loglevel', 'error', '-i', FINAL, '-map', '0:v', '-map', '0:a', '-c:v', 'copy', '-af', `volume=${(-1 - peak - 0.2).toFixed(2)}dB`, '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', tmp], `trimming a ${peak.toFixed(1)} dBTP peak`)
+  renameSync(tmp, FINAL)
+}
+console.log(`true peak: ${truePeak(FINAL)?.toFixed(1)} dBTP`)
 console.log(`\n✓ ${FINAL} (${(statSync(FINAL).size / 1e6).toFixed(1)} MB, ${seconds.toFixed(1)} s)`)

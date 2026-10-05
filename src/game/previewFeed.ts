@@ -10,6 +10,7 @@ import { ITEMS } from './data/items'
 import { SKILLS, type ClassId } from './data/skills'
 import { MAP, type NodeId } from './data/zones'
 import { acquireAppPause } from '@/use/useGamePause'
+import { setSfxTap } from './audio/sfx'
 import { PREVIEW_FEED, PREVIEW_ON, type Feed } from './previewFlags'
 
 /**
@@ -63,6 +64,8 @@ export interface PreviewApi {
   bot(on: boolean): void
   /** Drink a potion now. */
   potion(): boolean
+  /** Every sound the game asked for since `installPreview`, on the page clock (the trailer's sound track). */
+  sfxLog(): Array<{ name: string; pan: number; gain: number; t: number }>
   state(): PreviewState
 }
 
@@ -72,6 +75,9 @@ const zone = (): ZoneMode | null => (app.mode instanceof ZoneMode ? app.mode : n
 export const installPreview = (): void => {
   if (!import.meta.env.DEV) return
   let release: (() => void) | null = null
+  // The trailer's sound track: what the game WOULD play, with when (`tools/sfx-render.mjs` voices it).
+  const sounds: Array<{ name: string; pan: number; gain: number; t: number }> = []
+  setSfxTap((name, pan, gain) => { if (!name.startsWith('ui') && name !== 'mapMove') sounds.push({ name, pan, gain, t: performance.now() }) })
   const shots: Array<{ node: NodeId; mode: Awaited<ReturnType<typeof buildPlace>> }> = []
   let botOn = false
   let nextThink = 0
@@ -161,6 +167,7 @@ export const installPreview = (): void => {
     },
 
     potion: () => { const z = zone(); return z ? usePotion(z.sim) : false },
+    sfxLog: () => sounds,
 
     state() {
       const z = zone()
